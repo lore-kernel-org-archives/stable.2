@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700147;
-	b=3k/xa5QsE+fFUQSxuTRv3gWA9Ka1O0RkZ5pwOqo73hkyoFisq3XGO6gT9p943E0mFhxj
-	 xLblNDZC50k0v+WeO4s40oTpBkDnFrtpBbETXHgG4pjoXHWn36YnNX5CQt76SQiiSc6+5
-	 8Cbgh4tFVpJtxLGJHHKaPnqsORow5BtVKItZJw58kJcp6DwXA69UOE1X3q8xXtJnfT02E
-	 a4aH3wkS12c6/ylqfrd2Z5Wg8kkEk+22ciCnUZWI+yWlE0fsRxQQTfbO6vhce7fwu5HpM
-	 68Srblnk60lbVh5Uoz0T5ByzyUMDdQSoCtalg7+WhHU74p0mhiapUJQvmXSDMuCKVJw==
+	t=1793700162;
+	b=pKCjlfQGB8Z+rIakMnOw6yvnSWJValiZRwREAFiOwRI6pqiHpiGYU020kwKnrMeK7Y5p
+	 laOyLYBsGmKLhIiegSwRrqkYVG07L0iEjI2oBtJfF9jH/76jVvt3VTItlRrnQwUGPUO9N
+	 R0yepJfki58QnSYjxIAKUsG3b+fOu7ftmSFSIpbpgTD6qNe6/ipyZkq8kaBREH9CgYKgm
+	 V2YrlZE1PV9JLV9mqB8r/DPhcNgW30mY+fgI4bGiDAD+xQa1S5jOHr2fw37daHb7Tlic5
+	 Sx33kpQ6ndi+3X3rlshkDHZS0RUMr2Uhdbd6naPUbSLiYadIZnoWW2Y0nshMP64VogQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700147;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700162;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=U+jRsIe3hbOIuakB/IIaObwcL01BzDM7iQo/IOE9Kdo=;
-	b=pjvjkQhccLOO96EYJqyDEvob/tQlVmuQXBRE7POKQRNAdP9QWcbiLf09ycAE+bzXGfMq
-	 /uakS2mJT3g9rGmlNCBqylOkyy91amjtcc0FTO8CuueSf0E5TjHnmwZuvHrxffRlzJsKJ
-	 7Ib4XZLOFWwgOuQ0bX8kwYWFsrm4eHiMln7agvs5BG/5Dy2ttIsKWjIzpbE7N0/MgMmEZ
-	 q6JEdN5z9OXdlnbQoHD0lzquQ3IpAS7/irhYRsagR0gh22Q0rYNzLnNOpU+sOeOWHoU1Q
-	 xyB1KvA9PRf5mikiQ5AjEKOAt3iGs4jKIjX18R8oTnoX53Z6AHNvKbAx7D/LBJFZ9Kw==
+	bh=x+uOsE01FYLCNNNOL1PikYz4xGMxpppHc1xkTCV4W8c=;
+	b=34R6RyT5JJIzsSUVEyP9hlAhnAeGiQksMZhzjqsmdb8r22ouKO7QcxscewVI2R5h6wBQ
+	 ECaMqLeEKMcBnhvniyKbO3NB0Zgh3Yr9p4V9IA8YXeszdNh/THccBDiqkrfz3VzCyEMZh
+	 QDm/Xt/e/PzYCJkqqhczUkpXGGaGzi+e/a5vETEKiVhMYEaxZZrnTwxwVZ8vao+h496AO
+	 nQfTsJYrIus9CutKf3ibjJv9eIZ7gO+5JgUmwrD7xVKtQA5+LH55kK1KAuCIOie0dpoi0
+	 Q4juUPjb/3cfeUdzFoZRf+e2CkODfHt9j1V9/WOGMpkP4cyd2OILQavKf3PNVJfICqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ost/7BSc";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zq7ykDf3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91613606A326;
-	Tue,  3 Nov 2026 10:02:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB97E606EE90;
+	Tue,  3 Nov 2026 10:02:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ost/7BSc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23BC71F0093A;
-	Tue,  3 Nov 2026 10:02:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zq7ykDf3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ACAC1F0093A;
+	Tue,  3 Nov 2026 10:02:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793700147;
-	bh=U+jRsIe3hbOIuakB/IIaObwcL01BzDM7iQo/IOE9Kdo=;
+	s=k20260515; t=1793700161;
+	bh=x+uOsE01FYLCNNNOL1PikYz4xGMxpppHc1xkTCV4W8c=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Ost/7BScSkw1eZ0ulgw5J36kG6w7xOJJR2uV3NkNHBxVXzclrVv6fB9qRCjG7PwjO
-	 E7jpWgjpVKw3BOCxjiM+nEkqkJk0OnwVKEO5ir+c6GDn5ZFmeFq5kw2GAwht06h1iP
-	 8LVhlItwoOi1wO2whNXTPDp03qqoCsn0K8AbxDm4sVHREPo1j8wmSMPqXKL7YaUtaR
-	 ijXeET6QhBvQMo7XLJC82PtertytEYPwhqOJz9op7H8Df9RqIAhv03v4eXmsGHZ27P
-	 ivtbAIg+WoTeFLSBCQlUeF0IJNWQD401JRrI3XQdBsYQL6+X8xt0Dh0psY4OvrWdtw
-	 PeHz7BdeipuLw==
+	b=Zq7ykDf3LwUYRMrTGDMpxEENTVeJBwJwvSoLywvvUN4xRLl7KIsJvv8FEzUTV02Bj
+	 hspsXosw/LjGIhNaCC/EJ0QEWveZRiTgld41XcHQVeg6LxTi/2+fY+WvRB3kuPQPNt
+	 WGJqyS2kndDbczu8Mys4Abg7Y/6Nhw25wAIDJkrY1Wzgm6OTnMCULkeMkOhR1FIHTw
+	 vTfHDRvpIsQd8xi+DLVGWAsK7/utVJaTCixkalEBGP7arupKNNJV3xJWAUnHqK1MGf
+	 Aiq/Au66CkhJB1bXPGSOux/eMcl6p9d0jw3qrKDTcGAmYRKxZ5o8aF5bgj2FVCSNhS
+	 PhpHYPtkwigLw==
 From: Carlos Maiolino <cem@kernel.org>
-To: djwong@kernel.org, Binbin Deng <18983559317@163.com>
-Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261015080225.45215-1-18983559317@163.com>
-References: <20261015080225.45215-1-18983559317@163.com>
-Subject: Re: [PATCH v1] xfs: set healthmon mount cookie before publishing
- it
-Message-Id: <179370014586.413123.10104508891593461029.b4-ty@kernel.org>
-Date: Tue, 03 Nov 2026 11:02:25 +0100
+To: linux-xfs@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
+Cc: Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Dave Chinner <dgc@kernel.org>, Pankaj Raghav <p.raghav@samsung.com>, 
+ Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ Dai Ngo <Dai.Ngo@oracle.com>, Sergey Bashirov <sergeybashirov@gmail.com>, 
+ Andrey Albershteyn <aalbersh@kernel.org>, linux-nfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261029-xfs-pnfs-batch-v5-0-ef8d2eafb7fa@samsung.com>
+References: <20261029-xfs-pnfs-batch-v5-0-ef8d2eafb7fa@samsung.com>
+Subject: Re: [PATCH v5 0/9] xfs: pNFS block layout fixes
+Message-Id: <179370015876.413123.10956026336394412777.b4-ty@kernel.org>
+Date: Tue, 03 Nov 2026 11:02:38 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,20 +66,39 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
-On Thu, 15 Oct 2026 16:02:25 +0800, Binbin Deng wrote:
-> xfs_ioc_health_monitor() allocates the healthmon object with kzalloc(), so
-> mount_cookie starts as zero.  zero is also DETACHED_MOUNT_COOKIE, but
-> xfs_healthmon_attach() publishes hm through mp->m_healthmon before storing
-> the mount cookie.  A concurrent reporter can therefore acquire hm from
-> xfs_healthmon_get(), see the detached cookie in xfs_healthmon_push(), and
-> drop the event even though the monitor is being attached.
+On Thu, 29 Oct 2026 11:22:57 +0900, Daejun Park wrote:
+> The XFS side of the pNFS block and SCSI layout fixes. A pNFS client
+> alone can trigger the bugs fixed by patches 1 and 3 to 6. Patch 7
+> closes a race with a local process writing to a shared mapping.
+> Patches 8 and 9 make a LAYOUTCOMMIT stable the way fdatasync does.
+> 
+> Patch 3 needs patch 2. Patch 4 should not go without patches 2 and 3,
+> and patch 6 not without patch 5. Patches 1 to 6 are marked for stable.
+> XFS_BMAPI_CONVERT_ONLY takes bit 12 of the bmapi flags, which the
+> fs-verity series [1] also uses.
 > 
 > [...]
 
 Applied to for-next, thanks!
 
-[1/1] xfs: set healthmon mount cookie before publishing it
-      commit: 0344a9492efac4c79202a07cf284a382f7054170
+[1/9] xfs: mark the inode preallocated for pNFS write layouts past EOF
+      commit: 77d5d75d727ab3d4c540632ead457d47d3456cd3
+[2/9] xfs: add a flag to convert unwritten extents without allocating blocks
+      commit: e0fbfbec7d5ba059fcb1529054b5447cbe9c6e0e
+[3/9] xfs: refuse a pNFS LAYOUTCOMMIT of a range without blocks
+      commit: faf5f20d6c005af531de079a5a0ea658b305954a
+[4/9] xfs: clamp a pNFS LAYOUTCOMMIT extent before computing its end
+      commit: 351fccff2881e40f4f449bf100aceb47a54688e9
+[5/9] xfs: cap the block count of xfs_iomap_write_direct() at one extent
+      commit: cefa7c7b065d129fe95a64b24ee68ca8c47629c6
+[6/9] xfs: clamp the pNFS layout range to the maximum file size
+      commit: e4211f8034ce04a6bb1e12fc6a054e08b933e5cd
+[7/9] xfs: take the invalidate lock while mapping a pNFS layout
+      commit: d58a23e183d578aca38d7186c353702facbf722b
+[8/9] xfs: add datasync and log_flushed arguments to xfs_log_force_inode()
+      commit: c92cc6514b9c11dd29b90b0a814e8ea87b4a4687
+[9/9] xfs: make pNFS LAYOUTCOMMIT stable the way fdatasync does
+      commit: c3b00a553cbb68b0bebed0ca16d2aa0300d07e56
 
 Best regards,
 -- 
