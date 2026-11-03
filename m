@@ -1,99 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793682965;
-	b=Q7bHioqkU7vJEAPYuPJrpzpogKID5ROwYLkLbQuMPwsoLzQJszbXTfgYxhjFGewwYyJ1
-	 L9hut4bUhD2eVNwhsTARivH9yQlVYcCMFosV6kRpK+0XZErVQHiAkUNcZSV5VpkcmhV+p
-	 kbdGZzXuaKkD57P12kt66vy//i2NS8VJzunUmmkt8JhvWThgF9d3a5hxQnNXwd0a2QNn+
-	 7HPToTLJTAiukPKdRnrT/bGYqQzDBEx3RKkJEBtnV/7xJ2KCPLTmNFMmH9YOZznjWI4Ho
-	 sQmehe+cx051RtYf8ltCqNcw6zD0mdAtvDGYMZPnQICsaY2qZ5BDDhqDS+b9KQAqpdw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793682965;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793683707;
+	b=Ew0dU4Nty5u7rrBhsTvT/I2g53wQjgBj2hF0LbLUVCA0COZvQBKsCj6yDztgcdopbiyF
+	 Nn7JQNOgPBgTiD4eVo3G/JVKPubwEfrkN45ZoVXsWbe8G8R4moNkULpP2oaAjrxTARkTu
+	 HaHQMygic2QDV6P8cPSoBosRSMLEBP4w+lu3O4yBGpQR4o0W0B72ca8A2HZh4Z13232A+
+	 b0yvgAJoqv1hQqVugypMVgpgTh56itqKZJMZJPyZ0GvDPhTT0QUCvwHs1y/u6vwmrlAUH
+	 abgcZLsmK45Vz38LB+sPXW4G4rMTCbIQGQAVxKu4/b5LvlbdWCzl8GqwYU9nkXFer0g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793683707;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=PGFryZNd38Zhqh8hnykXJyIhCnVJvOsmZjjsn+Xx4Kk=;
-	b=kxQNPeCyovx1ELVPMk9TB+tQVNLg92pHhfnzo89idMJGzjNcs3JjOh/YLbcdmeMWekH3
-	 ane5g68OD0OXRdOCmdN31Rj8iJgx+t6eO6Zn0hqKPDuAFnsYjIKr+FtaJMJ4EYpbmmmG9
-	 wqPpglCIoQmCiJ7SWX+8UqYNM51hIQa5JS5eUTo6z4wljidByq+ZWwvSGTjdA6xWeePpT
-	 5pZmW007dFRnNWHxG+jHKTgDwGCtRolq/Keci0E8K9z+b+dTn+I01C2UZW0zbUcpimTsY
-	 LPwR35fDNtpVYb0IXKW6+F9FRffeghtmAuWA51EMwON+Akq3d7DfXSobbtoz4G2Pdyg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=asu.edu;
-	spf=pass smtp.mailfrom=asu.edu;
-	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=FSGnN9eu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.179
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com [209.85.167.179])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=aMipWiH6il94+oUwDW54rQDx5szuOcXlyk5T4hyKyg4=;
+	b=q1HVwAsnb4I+03ODujh9hBqMA9Fr5SSGJP2slFdLcDV3LZve+e7jdnlW5vz6vNtjpI8c
+	 CYpcsNgWfXUOh/qjcPCGh0T73cj0gPl3252VSsCZMQzEhmGy8cJLWWm5K27j1uhr8a+GY
+	 +aXYSivmgMoOX4rsvBuOIyy3lN+sbHJgC9xv2nNyZ7ANceTOVx4Wbov7Cr4I8uN/l3qNf
+	 E4G8szPAZPX7rC4ayCiwLVJ2j2rS+1XODOLvprhbMsGaPJsl0Z7lmhhuCIjE05sNsFQLP
+	 ttAFM4JiqCOBNKmGKL3NqV/L+W0TPv5eaO7mQtLxQc/ulXl77KbvfKqfDIGHK614PtA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=D67W3iim;
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F7E8606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 05:16:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F7E8606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF201606A329
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 05:28:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF201606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=FSGnN9eu
-Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-53656465d1dso2224634b6e.2
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 21:16:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793682964; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eOBsh67rTAK+C1RTrEeNlWj5f5vd6n3oBJQ7OK5tVqIbCjVDr7SRgrOOe+GMshgPBF
-         NhSsp11/tV3/FV99P+LgNWMsanpNvlAOkATs+R5SUTuBnCPyuHGDlSgpuYySA/ANxT5y
-         0AjfVuPlhQtO86Ua4UqJJ/TZMupQvYhOg3GTGRfSrfk3zcHm/9HD9FUyXqBqN+fiE4dQ
-         mSBB5BlH9RyvvwQSAvL+1vLcTU0Q6bSDtu5JeaSyfhwMVlmScm0A2qv903pdnvtpawiu
-         YxMlKHprNU4Pl+Py5arNGsOrx7/xOffJH51alNY0UgO+bHbD3Fr/NIVcINHWa5Q+612/
-         bspg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=PGFryZNd38Zhqh8hnykXJyIhCnVJvOsmZjjsn+Xx4Kk=;
-        fh=/dKmLzvyZHtoJ7hi8eS5AXj+a0czBJ7mU5bO39JS7dc=;
-        b=TI6cKzdofPV7H4eynwzvOE1CzEWZPa8f0qxchDC54gjmAMuTfDgh7MUmaxMCPhfWIv
-         LgS11X3GCXDsZoSYrqhD5B3Oy4riPBJFGVLWG7LSDcR0g9uzloF0WGwqEMpoUDQTuUr+
-         Z8NE17BWAKm+8dksoJJgkPM9+NaiO7VCPFX9o5Mm427N74c7GqrwPJE91RMqDzuvVQwF
-         pRq4xivJI0G8fZBysuicg4twrE8mU6oM6kr/5kQRpbAv1+uN8AxnsbimMMuwN9ce4qdw
-         OBTCarhnZ419fGnNUTGIuLCeFOMkQwsPQYUzHeQoUuSh0uE6hQh6+e7HVb+NVpfQNbfP
-         L02Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=D67W3iim
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ab926c236aso2952024a91.0
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 21:28:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1793682964; x=1794287764; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793683706; x=1794288506; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PGFryZNd38Zhqh8hnykXJyIhCnVJvOsmZjjsn+Xx4Kk=;
-        b=FSGnN9euCc9ApPpIPO11jVmZ5B0lESa7Ydpi553D8AMywtGLGjTxy80uGxzB5MbGBE
-         wsDmxZVI6weJS603WotaUcvaZeercfWdQkLTAvdBWod27m4nX/vh8KZgytWZkkZr9RP9
-         aHlZOYKQ+11VD8F63mr6nvqzOTxEK7TD5J8RvG7tZkN3h67kCjHAlOHRGw+YSHKAz7my
-         j4Hj2JZyAjzWEoD3IZQV6XU6wIeLzz0CrMdsFB8QCKx4yStdWTmNB9ojG/SYMxlLQutD
-         Tu+d4ch0ncnEEfl11kbmXXkuAX0sBOhMVMsWZLtTDrc5s3Gxr03xihwjRN3WCVC6wxNF
-         zq5Q==
+        bh=aMipWiH6il94+oUwDW54rQDx5szuOcXlyk5T4hyKyg4=;
+        b=D67W3iimOk/17qGhxaN/Eawx3Q2tNpJFK0LUWfdETtro3W5sr5EGCkDtygYnrx3UvE
+         PtO/AIFMUKKybxavy0wGnv3amrfM6FJIKFNt14XbVqG0vopML4NPoL4HXIaCQW8Wo25E
+         m2r85wLt0I2rv+glgxFJsvLAtqMWBPZm278yijwrr8OG4wgS5Pk5vLexAebxkOOIkd+L
+         j1PGpV1WORgkgY/3DRz+2HvMER6SxBjqqsYdj2xoJJ5Str90PpCGDgAspN7XxAxO4Rwk
+         B5ZNQ8zEg8uFh14BuOQ693MX1cwsra3iI5VUMDItTILNsN1s9vRhRN9gUHrngxfZ4+SC
+         nAgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793682964; x=1794287764;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PGFryZNd38Zhqh8hnykXJyIhCnVJvOsmZjjsn+Xx4Kk=;
-        b=xuEFWafZ7LxiFPwev4FWjKW6wYX+pdo3vX0MqjEs61nNDtSz/vtb77iqSQ8z9C6SU4
-         O53I+hauWWC1f+LY8D8rGFwSCNufIoErydxbBAPty7D+YKqBoC8EAWl8Ecph0Jq6J2lr
-         tENcKO1JKYpNkDG8Lo0Xhr/7JSaeKBC6AUjAJdPS8a9vhtyYt/Ngyr1WtA4WqjhuW2Kp
-         UgSdV5/xQ1849cjIBhqn2o6sFAD72MyxLO6b44yJiJaMHrHiC/z4TX3134JoyF6j52So
-         Oif4MwClPOobSSpRxpMTACwEOX+HCDFZGrVLNfB7aO4mFmjL8uikTIbzizzK5H6ZBc7r
-         Zxww==
-X-Forwarded-Encrypted: i=1; AKwUvBw2QRfneX+3UeROf6AlaE9bN32dY9nUJzwtDGvqLBVoViVxd1nGNOeShdBJD749TQ+PRI+y5KE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1U8Ey2hBx3VIRjcO5nFTmhgwW7aJf9mX4LfcnwlePwxmeZJqw
-	8vP09J116lyoOwLlSv9aEkkad6Vrs7z1Gy7bADnKeMbL+U0fdIpdRo4jr7YRyDskGR6+AunwoQL
-	Nb/FGexP1xu8rJbo5UJ5f/CD+87/5uusbMxWEKpcI
-X-Gm-Gg: AYBFou0Rupo597DAJXuPkV2ag6ygVcZV633II3XholTsr49RgnQ0NBK/QH9EsQ4d86j
-	/mEwclBGLxwZbYchZtCXKTDt4iaSc/iaHFiIetTmeCoEPjys4x7zlpnxEaJZzUra5elzk+Rlih7
-	ok90yNbuAUjRfuUgUapuPcjfHEFlfisc/DOXge4DlbYgTM8mu04XLrOJnj8HoUG3eyFVKjJ/TD2
-	tOGYVdQm9n7eIiYWfeoZHBuUcYlZPxNeKHfSajpp/ZKZGWzWCdDBUpcWzHPAH86jgge6VP7jBff
-	XsDsGlQ1NhirvtuoIOpDd83y9Tj1LUdCtBHIv3lwRf3mJgb3gapNTuJCoaYupVPf0dEinczVSc7
-	U6UOXOfO4Mf3i/XvHOnFmhqsK3PMNcDx2A0GsGPYgaFa+BK0mZzf2AP6rzt46jCp4gWDBYsM=
-X-Received: by 2002:a05:6808:178b:b0:4e9:cbdd:457d with SMTP id
- 5614622812f47-5640dcb7433mr8152707b6e.11.1793682964043; Mon, 02 Nov 2026
- 21:16:04 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793683706; x=1794288506;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aMipWiH6il94+oUwDW54rQDx5szuOcXlyk5T4hyKyg4=;
+        b=1TkpHckPLz9gFmpnnN5Fy5rpZWmB5Vmn6NpoWTUTYaMUgW0rfjck1LEVHBrNqCC1Tq
+         cBvUHMoR3v8wveqNkwGaphnZ9JifzsjtRXaHUG5paB1scxkCM5q4pWzf05hThY2jhy8+
+         f7OcEehAUR1tirtedGig4nGJV8ytfF688e7tRAqYnsckWX+LShCPugYg1X6lXlSWmp5G
+         USc+q/Q/H/+6RfZm5eFKIUoyruzu0N8UuIAVNTGAlFunUfp5qjfCtxmiIZrCEU2VFziJ
+         99BzmvlA4mmSWdtTWz5x5cSvaNWbmYDt4USRg2IqH14ls2FEnDT7L+SnOY4YiN15u7kK
+         Vu4g==
+X-Forwarded-Encrypted: i=1; AKwUvBz7lQGhZlTEoKL+5AP92CnEXBaM8Ha8IVUmG0H6TJoftEHAdysEYIys4R6SlhRPpbXKnoVX0Ik=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/+9MLa9YGS96kAZdKiaEyoVxBLEZwa04iBj7gQxh1jvfPtAkRy
+	MiLrT3CnuYFT/tE8jn9efrWCKXajnn89nF4JqYRsVB7RyYfsNCe5ED9AD9HO6xd92fJ5VtZewqb
+	Sq35/yw==
+X-Received: from pjbpj10.prod.google.com ([2002:a17:90b:4f4a:b0:3ad:6c5f:feb0])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4d83:b0:3ad:85fd:711c
+ with SMTP id 98e67ed59e1d1-3ae89736495mr10727525a91.28.1793683705855; Mon, 02
+ Nov 2026 21:28:25 -0800 (PST)
+Date: Tue, 3 Nov 2026 05:28:25 +0000
+In-Reply-To: <20261101061331.286404-3-jiayuan.chen@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,37 +77,78 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261103034932.1790235-1-smish149@asu.edu> <20261103034932.1790235-3-smish149@asu.edu>
- <9b8d9f77-981e-4bcc-9d30-5c53a2c1d1b2@suse.com>
-In-Reply-To: <9b8d9f77-981e-4bcc-9d30-5c53a2c1d1b2@suse.com>
-From: Siddharth Mishra <smish149@asu.edu>
-Date: Mon, 2 Nov 2026 22:15:52 -0700
-X-Gm-Features: AclHuK8EhuIqsMApcRe1p4MKz2sF3pCM5QkPwADZCjYjbLoYzLMJZd77Dx7ktuo
-Message-ID: <CAKpDGtmMzYinwYLF1AKbA4_kvpWS82Z3yWwsyo0-f0t1QknN_A@mail.gmail.com>
-Subject: Re: [PATCH 2/2] btrfs: tree-checker: reject extent owner ref without
- simple quota
-To: Qu Wenruo <wqu@suse.com>
-Cc: David Sterba <dsterba@suse.com>, Boris Burkov <boris@bur.io>, Chris Mason <mason@kernel.org>, 
-	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+References: <20261101061331.286404-1-jiayuan.chen@linux.dev> <20261101061331.286404-3-jiayuan.chen@linux.dev>
+Message-ID: <aulw7Bfq65l738px@google.com>
+Subject: Re: [PATCH net v3 2/5] ipv4: fix shift-out-of-bounds in ip_rt_send_redirect()
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, 
+	Fernando Fernandez Mancera <fmancera@suse.de>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	Joel Granados <joel.granados@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Petr Pavlu <petr.pavlu@suse.com>, Willem de Bruijn <willemb@google.com>, 
+	Maoyi Xie <maoyi.xie@ntu.edu.sg>, Jiri Wiesner <jwiesner@suse.de>, 
+	Zhan Xusheng <zhanxusheng1024@gmail.com>, Gerd Rausch <gerd.rausch@oracle.com>, 
+	Oleg Nesterov <oleg@redhat.com>, Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>, 
+	Wyatt Feng <bronzed_45_vested@icloud.com>, Yung Chih Su <yuuchihsu@gmail.com>, 
+	Hannes Frederic Sowa <hannes@stressinduktion.org>, Flavio Leitner <fbl@redhat.com>, 
+	"Paul E. McKenney" <paulmck@kernel.org>, Petr Mladek <pmladek@suse.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Mon, Nov 2, 2026 at 9:41 PM Qu Wenruo <wqu@suse.com> wrote:
->
-> I don't think this should go into BUG section, but CAUSE.
->
-> Again, remove the last paragraph.
->
-> Again, I don't think this really counts as a fixes.
->
-> Or all hardening would be considered as a fix, which makes no sense.
->
+On Sun, 01 Nov 2026 14:12:00 +0800, Jiayuan Chen wrote:
+> ip_rt_redirect_number is the max number of ICMP Redirects we send to one
+> endpoint; once we hit it we stop. Before that, ip_rt_redirect_load gives
+> the redirects an exponential backoff:
+> 
+> 	if (peer->n_redirects == 0 ||
+> 	    time_after(jiffies,
+> 		       (peer->rate_last +
+> 			(ip_rt_redirect_load << peer->n_redirects)))) {
+> 
+> n_redirects grows until it reaches ip_rt_redirect_number, and both
+> redirect_number and redirect_load are plain proc_dointvec sysctls with
+> no upper bound. Set redirect_number past 32 and n_redirects climbs past
+> 31, so "ip_rt_redirect_load << peer->n_redirects" shifts a 32-bit int by
+> >= 32 bits, which is UB:
+> 
+>   UBSAN: shift-out-of-bounds in net/ipv4/route.c:949:6
+>   shift exponent 32 is too large for 32-bit type 'int'
+>   CPU: 1 UID: 0 PID: 1845 Comm: ping Not tainted 7.3.0-rc7+ #364 PREEMPT
+>   Call Trace:
+>    <IRQ>
+>    dump_stack_lvl+0xc1/0xf0
+>    dump_stack+0x10/0x20
+>    __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
+>    ip_rt_send_redirect.cold+0x2c/0x146
+>    ip_forward+0x1ddc/0x2430
+>    ip_rcv+0x2b1/0x320
+>    __netif_receive_skb_one_core+0x16b/0x1c0
+>    __netif_receive_skb+0x21/0x150
+>    process_backlog+0x37e/0x1200
+>    __napi_poll.constprop.0+0xa5/0x5e0
+>    net_rx_action+0x4c0/0xf70
+> 
+> Bounding redirect_number instead is not an option: 0 disables redirects
+> and -1 removes the cap. Compute the backoff in u64 with the shift count
+> capped at 31, which cannot overflow once ip_rt_redirect_load is
+> non-negative, and clamp the result to MAX_JIFFY_OFFSET: on 32-bit a
+> backoff of 2^31 or more is read by time_after() as already expired. This
+> keeps redirect_number as the limit on how many ICMP redirects are sent,
+> and the shift can no longer go out of bounds.
+> 
+> redirect_load on the other hand gets a lower bound of 0. A negative
+> backoff never meant anything, the old code only happened to treat it as
+> no backoff, and once converted to u64 it would turn into the maximum
+> backoff instead.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-Thanks for the review. I'll send v2 with your reviews addressed.
-v2 will drop the last paragraph and the fixes tag from both patches,
-add the tree dumps you asked for, remove the comments, and move the
-reproduction of the second patch into the [CAUSE] section.
-
-Thanks,
-Siddharth
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
