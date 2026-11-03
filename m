@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704603;
-	b=QYHop3VCU+94x/FOttTyN3FdMrF7srk2965MzWfP37nbi7MuuCDtvBjdQhgSKTmG+kXo
-	 m+iRXpu8LtjLW993DQOMvRySYToMmg3TLTbCrih8tLMwzUweLUlIgsZUv520RJUaiGiVI
-	 x4xMgNK9Jl/YGBVsXDMunb+qbOd4cKlH8z4IGfDaMyPyWmNtwwdnNOBXFO3xKFxkbycqr
-	 rphc4z2jv7fKPWPV49kchwXmPCEhBB6C/oPeWF0OFsOis3+Kpjes+Sf6yrIolMRCwFzfd
-	 IiCRZPVFKvfg4wRSZaE2m0XxPw84QK/vlv9CBmWLE9tgv8eqG/ONo6TNpYAUcz+Agrg==
+	t=1793704606;
+	b=KagdMmtk4+YPWOriZrlldMPKE3VaeSIQGVJEMcfGyLiqfvpEeOeYmg1F5vfkSRberNd9
+	 REEja3sBHvgyPvsdV0kYBprh28trBR4WU77oOZ3vDmPliEO8xodcDgLBqSxELP/OYxIVS
+	 XRIrTuUuf3oDqlF+B7Q40CsPZjuwGUnWrynwAIjBwIASictMY7i8czHktzD8BM9vYJd6u
+	 88n/xW+Jzar0lja6kNDHrBHHezEQXW3TWjtSGiBOrM5Lfg9+WDrc8bDm/qtqC8Pg6e5RW
+	 OxCrZGnAJ3LqGOCIjnlJ8YAtpCzXqs7ayUO3SVR2KM9ziQDltEWSwmt/Nzk4yq94O2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704603;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704606;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zVJJ2NognD1d7d4h1wb/i78OMNjXv23NJUlU7dGwRhI=;
-	b=3t8E+atcgYsgjyP2G8b2L3MjEtxBVcgC44F1aJLp5l6h8hUGNtVKPpC8eau43TG/lKUi
-	 Swko5fyjJo2JrDtZBWGYWGcNw5HxOStYXM6te0jdPk2/IPXSozuNUdv+1Uq21tbQybqq3
-	 RzfN3NKcwOjmZwUaUe209bRrr6O+QoqfJMU2oPM4h18paI+7xHMfemzHKG1adxG+2pw6N
-	 /8Hro8QhpjtYXsULQgWMvwdoaDHzZnhSpGc0Izp3IQu6P+am9VtRKAPbxXv6rMxzFem7g
-	 pVY9JyIPHLEA/4ehMtUl283Lu6vxbdxJ86N6SLxNpeySqD7n32TcYCpVfFO0BGyaRmg==
+	bh=mtHWqNxPJPVZUrb7Fs0RHoJ4I8hsfb3ljGGS+wNd7Ek=;
+	b=cg16hlZOnrbYntyu69V9RmDYrvxOTh8TM1XCQXHrRTTHMJIUX1pPnPvU9ohkTTbYXGrk
+	 X2uUDGWl5GNXBPpJubogx/ASBlAyT2SnVDbAbW4SSntVQvxE8AzckU5Vn+wb65u0+Yu97
+	 eCZH8izOV266IyvGfIq+oavUOIr3LJsksb7mskyLhe3ys4BE8sxVELm9JvMy5c/ctwriT
+	 JRR3KPVFMkc5mYATICvC2FjGwDg3pedk26d4urhhHNysq1JeL+6CPvG90cTflBji0F+6I
+	 YPLj3lS/lmGMlNEvT9c0GuufaGnSIAKh30t0ZZa8cIJJuO2ryN9Mxmc46d6E4+14M2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0wih8F7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oEsRhxrB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7387F606C556;
-	Tue,  3 Nov 2026 11:16:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18CD5606C565;
+	Tue,  3 Nov 2026 11:16:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0wih8F7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 171AF1F00A15;
-	Tue,  3 Nov 2026 11:16:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oEsRhxrB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEA801F00919;
+	Tue,  3 Nov 2026 11:16:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704603;
-	bh=zVJJ2NognD1d7d4h1wb/i78OMNjXv23NJUlU7dGwRhI=;
+	s=k20260515; t=1793704606;
+	bh=mtHWqNxPJPVZUrb7Fs0RHoJ4I8hsfb3ljGGS+wNd7Ek=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N0wih8F7C0k+SvJJpg2XSwEMtfaq32mt2NPxLBFsr+7FkU2+1uzNWpvrzThpgwaCr
-	 vzudhq3J4o+4toNuJFbO1Jr70Sor+PxArTUti0PCEU1P1GtcQS3INSpPYgyDxXKRjw
-	 W6ZM0ebIlwHG9dGqpHQjt2GVEHAWR2fcark90/Ne3ZOfeWHy0mdQMS8HNOeLM+XFJD
-	 l1JT1kMH9XXEE+51vjBubClW2Lf6Ji07Iap47yQ9pih2GoZJokSKPpejlwpc48gxX1
-	 c5Uqi1zv/MaMCnLmbGRzNwX9XtIZKlHLDeyKnJcKhUZLW/uQSWXExPpbCvSuJ9xmyO
-	 ZER5L9sNuW7oA==
+	b=oEsRhxrBujyB9VnTEig97sy/+DAfc+YgaVEgLorM1VZ+3wL9ktFtn6jV3aK8dsKAZ
+	 2SE4vL/ZDO1mFVZtFdMlRcN6KwIjU+LnP0r6OdfQJgkK38wf+5r8cxKHHuKYy452Dv
+	 0flxRngmkKLZEsyNdbA44AF8Ecb3ErTFc5gTgkkf5idPb1filJeEuqXPSBgZv5mvic
+	 9R7QqlwtsXL9ZU8ZOnOUgfjDTRKRh/kMcvBloXJZVo31PQ7LjfmmPjfjvjDhMUhi70
+	 NoVFCx6VwYd6Bhj5EKK4ER9t9Mr28kCzZDHJhDSFnV+Eg+3w2reDRP4mz3QbCF2V0t
+	 ekGYa9SXbN7EQ==
 From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
 To: gregkh@linuxfoundation.org
 Cc: linux-serial@vger.kernel.org,
 	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/3] serial: 8250_exar: check priv->gpio properly
-Date: Tue,  3 Nov 2026 12:16:37 +0100
-Message-ID: <28c09cf858795491f66667781bf79fb6a603f159.1793704520.git.jirislaby@kernel.org>
+Subject: [PATCH 3/3] tty: fix misapplied compat_ptr() in tty_compat_ioctl()
+Date: Tue,  3 Nov 2026 12:16:39 +0100
+Message-ID: <63e9d84a1e8e23852423206cf3f8907aafc88f17.1793704520.git.jirislaby@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <cover.1793704520.git.jirislaby@kernel.org>
 References: <cover.1793704520.git.jirislaby@kernel.org>
@@ -61,57 +61,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-priv->gpio is set by platform_device_register_full(), which returns
-error-encoded pointers on failure, not NULL. Sashiko reported:
+Since commit f0193d3ea73b below, `cmd` was converted with compat_ptr(),
+while `arg` was passed to ld->ops->ioctl() unmodified. Fix it so `cmd`
+stays `cmd` and `arg` gets converted through compat_ptr() as intended.
 
-> Does __xr17v35x_register_gpio() return an ERR_PTR if
-> platform_device_register_full() fails?
->
-> If it does, we might be storing an error pointer directly into
-> priv->gpio in xr17v35x_register_gpio() without validating it with
-> IS_ERR(). Because the error is ignored, the device probe
-> successfully continues.
+Notes:
+2) compat_ptr() did nothing to `cmd`, provided it is uint,
+1) compat_ptr() is no-op everywhere (was different on s390 before
+   8e0b986c59c6 ("s390: Remove compat support")),
+3) `arg` might not have been chopped correctly until 8e0b986c59c6. But I
+   am not sure why noone noticed all those (7) years (from f0193d3ea73b
+   to 8e0b986c59c6)?
 
-Before commit 1145d1a0703f ("serial: 8250_exar: use
-platform_device_register_full()"), __xr17v35x_register_gpio()
-returned NULL on any failure (platform_device_alloc(),
-device_add_software_node() or platform_device_add() failing were all
-turned into a NULL return). The plain truthy check in
-xr17v35x_unregister_gpio() matched that convention. That commit
-switched registration to platform_device_register_full(), which
-reports failure as an ERR_PTR() instead of NULL, but the unregister
-check was never updated to match. As a result, a failed registration
-left an error pointer in priv->gpio, and unbind would tear it down as
-if it were a real platform_device, dereferencing the encoded error
-value in device_remove_software_node() and
-platform_device_unregister().
-
-Use IS_ERR_OR_NULL() instead, so both the unset (non-EXAR vendor,
-priv->gpio never assigned) and failed-registration (ERR_PTR) cases
-are skipped.
-
-Fixes: 1145d1a0703f ("serial: 8250_exar: use platform_device_register_full()")
+Fixes: f0193d3ea73b ("change semantics of ldisc ->compat_ioctl()")
 Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Cc: stable@vger.kernel.org
+Cc: stable@vger.kernel.org # applicable from 4.20 to 6.18 incl
 Assisted-by: LLM
-Link: https://lore.kernel.org/all/sashiko-outbox-170895@kernel.org/
 ---
- drivers/tty/serial/8250/8250_exar.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/tty/tty_io.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/tty/serial/8250/8250_exar.c b/drivers/tty/serial/8250/8250_exar.c
-index 57847c5bd2fc..b1e20fd4cfd2 100644
---- a/drivers/tty/serial/8250/8250_exar.c
-+++ b/drivers/tty/serial/8250/8250_exar.c
-@@ -1181,7 +1181,7 @@ static int xr17v35x_register_gpio(struct exar8250 *priv, struct pci_dev *pcidev,
+diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
+index 1a6c8a1bc764..150052f6d9db 100644
+--- a/drivers/tty/tty_io.c
++++ b/drivers/tty/tty_io.c
+@@ -2969,8 +2969,7 @@ static long tty_compat_ioctl(struct file *file, unsigned int cmd,
+ 	if (ld->ops->compat_ioctl)
+ 		retval = ld->ops->compat_ioctl(tty, cmd, arg);
+ 	if (retval == -ENOIOCTLCMD && ld->ops->ioctl)
+-		retval = ld->ops->ioctl(tty, (unsigned long)compat_ptr(cmd),
+-				arg);
++		retval = ld->ops->ioctl(tty, cmd, (unsigned long)compat_ptr(arg));
+ 	tty_ldisc_deref(ld);
  
- static void xr17v35x_unregister_gpio(struct exar8250 *priv)
- {
--	if (priv->gpio) {
-+	if (!IS_ERR_OR_NULL(priv->gpio)) {
- 		__xr17v35x_unregister_gpio(priv->gpio);
- 		priv->gpio = NULL;
- 	}
+ 	return retval;
 -- 
 2.56.0
 
