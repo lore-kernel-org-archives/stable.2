@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701315;
-	b=4NPSbZG9QIaWn2kMjzXSTN/MPXXh8cVis1JtNCp1zme6ev6/kOuFsn2SYhmg1PFvi3wr
-	 10lMi9Eqi/ls+G0HOlgwOxCDatrNOWSaG8FeuHFA1H/4Vy+Ov5USgDB3WmcdbgNE69Tkz
-	 vyydsvD2Zi1dPswqm4SeteegZjPu5hU1BrLlSQ5sU7sL5MV8o/wDqy3qic5Tm1K3d7Sw9
-	 RGZwm4RpMBi2R8UFEtLj7jsxnKQVG7Ll43guNv9xlcuLPmdRgdWFtqS6Sji1hVyo+W6wV
-	 YGG18S8XmX6zMGyjy1lL/RZCc7hPWMYr4MMCdRDhwwPARxDOgn4BlAnAe61s6QYlxFw==
+	t=1793701323;
+	b=zoTB0j1XmmOp9mhtVl9P4bOhIKyqBy7ur4p+zMx67+8AVEMqDIX3WlJT0wh00bmiZXaq
+	 q+5+285A+Da93Gr5MM+i7E7yu9PBwCkEM47QMduewddgUdCas0I70zXFW1p+7Y2LPPOls
+	 Ic4LHMVZi2SyF13gc8injFx1UFSwuQu32ci5C11kBux+QSv1/doPByG/JmGSKIyyE3uGU
+	 79Fr/VbUPAaoEWWGdQGXmk0WBN78jGTAAU2IiYGKag19CBYZQ1oMNTf26+d6qADjSg1GW
+	 FdPt4N9sV/bWYJxrzh9KoFQrH4iq28W1uCJyswCieBzwLdkLoHyDLfD5PXqhvKvLoTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701315;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701323;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tZ84vGRGWFLdn7FuSP9mNBUeQIyKlXvra2VzoLheRR4=;
-	b=4NttLF+K8cMv9AdJzCUBoQV6H+3yYUw7pFnTjBQdEfMzP2SNYiA81rj2zuuH2dABg37D
-	 hJ0rrltiE90J8Z8D2RSz52qb1LHk99QX0Z/VwqzIJnxb7dLyWLhRdnjQWxDWBim9cFWho
-	 EbLv0x3yQ7g3KQ8KgfgCsm2iZhVGlj9XNQ5VJdvYM/fxgoYPXTOtY7J1j+iptdj22kh60
-	 eWzApGp92BS5b1bIuxXS1lE2D3Z4RTNaZr5/lmQEzgEIDhCVOtgQ56IirLv4E55f6HF0q
-	 eo8K08J0aaRIX+UOO30Kfgveb1Du0yqsBf6xFOuPJpCUTHAJcWEe0lOVinSP8+3jFyA==
+	bh=3AC1AvZYME2aFarjruyImqmdQ+UYJbwQm/bFxFSwKCE=;
+	b=PqMpp9afZxMnumlpXKCyy48imnF+471q9xSn+J2m/v5pEsF1JCwOanvrpYGLSgtP/YlN
+	 hhSV8Q4iQIYIiUnMwxAraABw8tSioAjU2wJBB0FWd+BDlhH68IJk8E4hst/2qPXp+sAOg
+	 5WTecR/dI0/zKOHgR7G9DWKFs7vmJpfZvGFJtldQgnOKrR9TROpJHa+00f27b1msYNUHU
+	 bDJ7hzLt/TFbC99byvNBHsUheU9fTQJ71HrUqgBYcyZoIisu3D5T3JQ5DI5xnVzNmUds9
+	 gPb9tlIOof3h3BvY8wz5bYowpRODIEBWfgrRP0SmMF/qUbCX9EoyKnJR6LHTbDBeCVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Hk/Xgzze";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XcJTCDZD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65EC606B11E
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:21:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABDF606A832
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:22:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Hk/Xgzze
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57FA01F00919;
-	Tue,  3 Nov 2026 10:21:54 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XcJTCDZD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24CE51F0093A;
+	Tue,  3 Nov 2026 10:22:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701314;
-	bh=tZ84vGRGWFLdn7FuSP9mNBUeQIyKlXvra2VzoLheRR4=;
+	s=korg; t=1793701323;
+	bh=3AC1AvZYME2aFarjruyImqmdQ+UYJbwQm/bFxFSwKCE=;
 	h=Subject:To:Cc:From:Date;
-	b=Hk/Xgzze+kbNgasbGtFgPT68XYIf4yuPnv5jJjgmr+7Qr+MZ1pXg3tuacdjdlDYP0
-	 XMq9KbHQcYEvUQ3HJJK2ljOkvv/VG4SgDyFqm+df+xyOSt0RNlHbopLl9hRGT5a4hY
-	 GAiJIE7926zKyTacp98vCXBPcMuG3iYZrH7zpZt0=
-Subject: FAILED: patch "[PATCH] ksmbd: fix out-of-bounds read when padding the final compound" failed to apply to 5.15-stable tree
+	b=XcJTCDZDM74Ya8Z0cLcj/h8dBQnqw8THWAO/jYziVL3tAiD9uHRqlYFn31K3ctPDs
+	 QfsVGgps2hyRq249FIlswjE3psGPxrTxqkno6URFNpvuHLcvGjOLhC8V8JGtOraD3E
+	 Xbe0odcHHe/vt8Hxq4wpSnMEr1hmr0y3KHXSspU8=
+Subject: FAILED: patch "[PATCH] ksmbd: fix use-after-free after a failed durable reconnect" failed to apply to 7.3-stable tree
 To: icb@fastmail.org,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:21:43 +0100
-Message-ID: <2026110343-corporal-pang-fc06@gregkh>
+Date: Tue, 03 Nov 2026 11:21:49 +0100
+Message-ID: <2026110349-saggy-wimp-82b3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.3-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 714f27729121d59f103ca4dad7b0c2d1c125cd71
+git cherry-pick -x 248b5819591c577727930e4e255a455235fab50a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110343-corporal-pang-fc06@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110349-saggy-wimp-82b3@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,67 +79,126 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 714f27729121d59f103ca4dad7b0c2d1c125cd71 Mon Sep 17 00:00:00 2001
+From 248b5819591c577727930e4e255a455235fab50a Mon Sep 17 00:00:00 2001
 From: Ian Bridges <icb@fastmail.org>
-Date: Mon, 26 Oct 2026 20:40:21 -0500
-Subject: [PATCH] ksmbd: fix out-of-bounds read when padding the final compound
- response
+Date: Tue, 27 Oct 2026 10:25:19 -0500
+Subject: [PATCH] ksmbd: fix use-after-free after a failed durable reconnect
 
-Compound response handling pads the last response of a compound to an
-8-byte boundary by growing the final iov and the RFC1002 length.
-smb2_allocate_rsp_buf() allocates exactly response_sz. A command can
-fill the response buffer to within 7 bytes of its end, for example a
-QUERY_INFO whose output is bounded only by the space left. The padding
-can then run past the allocation, and ksmbd_tcp_writev() reads those
-bytes when it sends the response.
+ksmbd_reopen_durable_fd() republishes a detached durable handle in the
+reconnecting session's file table and takes no reference for that entry.
+If smb2_open() then fails, cleanup relies on the final ksmbd_fd_put() to
+remove the volatile id.
 
-  BUG: KASAN: slab-out-of-bounds in _copy_from_iter+0x744/0x10e0
+Two reconnects of the same handle can both take a lookup reference before
+either attaches it. If the one that reopens first then fails and drops
+its references first, the other request makes the final put through
+ksmbd_put_durable_fd(). That frees the handle without removing the first
+session's table entry, so tearing that session down writes to freed
+memory.
+
+  BUG: KASAN: slab-use-after-free in __close_file_table_ids+0x14d/0x740 [ksmbd]
   Call Trace:
-   _copy_from_iter+0x744/0x10e0
-   tcp_sendmsg_locked+0x2290/0x3f80
-   ksmbd_tcp_writev+0x10c7/0x1ab0 [ksmbd]
+   __close_file_table_ids+0x14d/0x740 [ksmbd]
+   ksmbd_destroy_file_table+0x76/0x100 [ksmbd]
+   ksmbd_session_destroy+0xf8/0x480 [ksmbd]
+   ksmbd_dispose_sessions+0x13e/0x200 [ksmbd]
+   ksmbd_conn_sessions_cleanup+0x4c3/0x6d0 [ksmbd]
+  Freed by task 1030:
+   __ksmbd_close_fd+0x97d/0x1000 [ksmbd]
+   smb2_open+0x14eb/0xd9f0 [ksmbd]
 
-Allocate room for the padding when the request is a compound, as
-smb2_read() and smb2_read_pipe() do for their payloads. response_sz is
-unchanged, so commands still fill only up to it, and kvzalloc() zeroes
-the padding.
+Commit 3515503322f4 ("ksmbd: fix durable reconnect error path file
+lifetime") handles a final put made by the reconnecting request, but not
+one made by another holder.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Remove the volatile id under the file-table lock on this error path,
+before the references are dropped, as ksmbd_close_fd() does on the
+request_open path just above. Removal then no longer depends on which
+holder makes the final put. The stale comment in the reconnect cleanup
+is updated to match. A successful reconnect is unchanged.
+
+Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ian Bridges <icb@fastmail.org>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 
 diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index db3a0500f9f3..b306bc6e21ee 100644
+index b306bc6e21ee..4dc91d4f1a94 100644
 --- a/fs/smb/server/smb2pdu.c
 +++ b/fs/smb/server/smb2pdu.c
-@@ -969,7 +969,7 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
- 	struct smb_version_values *vals = work->conn->vals;
- 	size_t small_sz = MAX_CIFS_SMALL_BUFFER_SIZE;
- 	size_t large_sz = small_sz + vals->max_trans_size;
--	size_t sz = small_sz;
-+	size_t sz = small_sz, pad_sz = 0;
- 	int cmd = le16_to_cpu(hdr->Command);
+@@ -5628,6 +5628,8 @@ int smb2_open(struct ksmbd_work *work)
+ 				ksmbd_close_fd(work, fp->volatile_id);
+ 				smb2_complete_request_open(work);
+ 			} else {
++				if (dh_info.reconnected && fp == dh_info.fp)
++					ksmbd_unpublish_reopened_fd(work, fp);
+ 				ksmbd_fd_put(work, fp);
+ 			}
+ 		}
+@@ -5641,10 +5643,9 @@ int smb2_open(struct ksmbd_work *work)
+ 	if (dh_info.reconnected) {
+ 		/*
+ 		 * If reconnect succeeded, fp was republished in the
+-		 * session file table.  On a later error, ksmbd_fd_put()
+-		 * above drops the session reference; drop the durable
+-		 * lookup reference through the same session-aware path so
+-		 * final close removes the volatile id before freeing fp.
++		 * session file table, and the error path above has
++		 * already removed its volatile id.  Drop the durable
++		 * lookup reference through the same session-aware path.
+ 		 */
+ 		if (rc && fp == dh_info.fp)
+ 			ksmbd_fd_put(work, dh_info.fp);
+diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
+index 4368e069fd5e..f9079c529d07 100644
+--- a/fs/smb/server/vfs_cache.c
++++ b/fs/smb/server/vfs_cache.c
+@@ -1074,6 +1074,34 @@ void ksmbd_wake_session_blocked_works(struct ksmbd_session *sess)
+ 	read_unlock(&ft->lock);
+ }
  
- 	if (cmd == SMB2_IOCTL_HE || cmd == SMB2_QUERY_DIRECTORY_HE)
-@@ -995,10 +995,17 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
- 	}
- 
- 	/* allocate large response buf for chained commands */
--	if (le32_to_cpu(hdr->NextCommand) > 0)
-+	if (le32_to_cpu(hdr->NextCommand) > 0) {
- 		sz = large_sz;
-+		/*
-+		 * is_chained_smb2_message() pads the last response of a
-+		 * compound to 8 bytes, which can take it past response_sz.
-+		 * Leave room for the padding. kvzalloc() zeroes it.
-+		 */
-+		pad_sz = ALIGN(sz - sizeof(__be32), 8) - (sz - sizeof(__be32));
++/**
++ * ksmbd_unpublish_reopened_fd() - remove a reopened durable handle from the
++ *	session file table after its CREATE failed
++ * @work:	smb work of the failed CREATE
++ * @fp:		durable handle republished by ksmbd_reopen_durable_fd()
++ *
++ * The reopen publishes @fp in this session's table without taking a reference
++ * for the entry, so the CREATE error path's puts need not be the last ones.
++ * Another holder of a global-table reference, such as a concurrent reconnect
++ * of the same handle, can drop the last one through ksmbd_put_durable_fd(),
++ * which frees @fp without touching this table.  Remove the id here, while
++ * the caller still holds its references.
++ *
++ * Every path that removes the id before the final put also clears
++ * @fp->volatile_id under ft->lock, so a valid id is still @fp's entry.
++ */
++void ksmbd_unpublish_reopened_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
++{
++	struct ksmbd_file_table *ft = &work->sess->file_table;
++
++	write_lock(&ft->lock);
++	if (has_file_id(fp->volatile_id)) {
++		idr_remove(ft->idr, fp->volatile_id);
++		fp->volatile_id = KSMBD_NO_FID;
 +	}
- 
--	work->response_buf = kvzalloc(sz, KSMBD_DEFAULT_GFP);
-+	work->response_buf = kvzalloc(sz + pad_sz, KSMBD_DEFAULT_GFP);
- 	if (!work->response_buf)
- 		return -ENOMEM;
- 
++	write_unlock(&ft->lock);
++}
++
+ int ksmbd_close_fd(struct ksmbd_work *work, u64 id)
+ {
+ 	struct ksmbd_file	*fp;
+diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
+index c00d92fdf94a..a0239ec178d8 100644
+--- a/fs/smb/server/vfs_cache.h
++++ b/fs/smb/server/vfs_cache.h
+@@ -205,6 +205,8 @@ static inline bool ksmbd_stream_fd(struct ksmbd_file *fp)
+ int ksmbd_init_file_table(struct ksmbd_file_table *ft);
+ void ksmbd_destroy_file_table(struct ksmbd_session *sess);
+ int ksmbd_close_fd(struct ksmbd_work *work, u64 id);
++void ksmbd_unpublish_reopened_fd(struct ksmbd_work *work,
++				 struct ksmbd_file *fp);
+ struct ksmbd_file *ksmbd_lookup_fd_fast(struct ksmbd_work *work, u64 id);
+ struct ksmbd_file *ksmbd_lookup_foreign_fd(struct ksmbd_work *work, u64 id);
+ struct ksmbd_file *ksmbd_lookup_fd_slow(struct ksmbd_work *work, u64 id,
 
