@@ -1,58 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793713431;
-	b=5bCRnI34aRF7+gftYdpGxAVmb+IyYfg+9+1wTu/xQw3ZWk/yyCcaQIHxqK7SDg+TTQgE
-	 b6CFxgKV2okIzBUnTo9dGaDYB5tlrRjUjngskF70h2xjMO2zWWBW3nX8hN19IqOGCueC6
-	 P+wVxL45DZvidGsmqkzlOxuJJqIdkfP9fnidBBHZfF2R+ZWDGeyM+P7Huyf1LJ33H8JqI
-	 cHiGgSykYrS/BL3tBG8VVpm0Yt4YkAc3a+3Y02cWIjFvSHTiWsOCZFBUpT79JY8bPdFtQ
-	 uIrkFR7LfQM8O1m7aN/lz5NDLdZsMzXj4MFHEpl4LN8oFGQ+ZoYr8uWvnUrkC3kbZQA==
+	t=1793713789;
+	b=i3calxNTjm3bv5KxCJ9GUhVvwk5zfIDZWCNB3mk8pnQkyLHAQmEZwAWOUmC0PMVcDDNL
+	 70vIdY4qR1LaYxHkhuZZH6eEArk2f3KRWTV5HkAvvPlY9G/E5jsFZwOWYIyDtLfMIXWDp
+	 pJcZFD+fbSZxPRHr38eNsO5OsVEiamS4hDUOz/oBLsX6xWfxKJqsT4qgmJpcDHRhwQOqe
+	 WfvjUikwDb5hvY9AyhVcdv0QMU96TvvSKShYppCBzsSUc8VLaCmtxXsT0HLvwTmsHbKmn
+	 OxLdWKIJ6oiUOY0iuSmD21JclqgebUO+lL0nGZNKawPNdIfUlbCSO+zr8Q7sHIsL8kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793713431;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=dR6KO4nW0tTae5QWVyu59hA1+lkU/4NucYgvcOJZiQY=;
-	b=pmLzeOEZqq9ilBJ8uLeZVQVIyPNtCsaOWE6N58IUvTJVfkEnReVdvLSTVgLx2xhod+jM
-	 oDUWlHe5XQwH6EL4yEV7ZRmj4J0OU1phLgzWx4XAfmOIwGNW/GO31FUUSxwyTgfctJCaL
-	 f0NWIDrlG4CWbHUO4+o4Ope6YOjN1x4bXerPvLLgWF0KCPrinhi1AMoqR86mKeUp1X34D
-	 AuMW887Z3mQEOUzgMIpbjKNv/VrdbPyrjH32mhhyI7I4U1konLW/U7RixA3DPrcPtBUvA
-	 XlT0G/wWN36cLSYaLOjh9qZiTcNFaphANGj7n8pA+rADKhfTkuvUAuj8mSDn8y/xfJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793713789;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=NiTHky/qrLqHb3kl55Ue+tJp0FqEUYQu+BGLrGjyymA=;
+	b=nkArn1NERkd/7BKxpGmC3IIx/mITiykvyhI4he2LkyIwVZRZl6oO7+sWokB8BTUhHz99
+	 HabG3zukrDjQ+t0XngkCo/h69pmTjKlYnYwCkQ5nIEHlDmeGrdSnRnWWISPVTScGcar3K
+	 9UtRm9Kg2CQ3px5Wiei7U1gZHQsNq4ED15ZtHD6tlXynxP3vl/GckrnL2ceR4i5GSOZK6
+	 tvdKalQUy+4l6srBn5zI1tidOk9tWNgeNgKrf1pUYalf7hUHiD/Ggh3AqdOJhvl9Uby59
+	 1wC22Pv8PCDWp863OcU/jn3oOcjgZfSJlRtrpRoDkVnnOOX7hwTVxJCKv9t72gc8aYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mkt6tTOs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S4yaRCoY;
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD80606A326
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 13:43:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3E7606A328
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 13:49:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B3E7606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mkt6tTOs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 679CD1F000C1;
-	Tue,  3 Nov 2026 13:43:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793713431;
-	bh=dR6KO4nW0tTae5QWVyu59hA1+lkU/4NucYgvcOJZiQY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Mkt6tTOszr5q69gF0BnrfDlryJjAjvgPTjDmZGLTIGtav5kLXtgaCv76RhagiGYn5
-	 LOV41U5W4CTOOT6TR1s7Nhklquhe+2ZZ0pbZiiWrkBqYs89idh3L5sx6d5FajhdF/u
-	 7fKRVOE9wfjEzXj6QuV8FJxCd0x7llSPkSo0ZESTJry2Evdtncj1OAsFnJQP+BtDoM
-	 Eqg4/fIpQGHRtbu9LYjCFfAcOnD3RQQDXV7rWgivRhA5zwxwH2khhfUYDrwBQQSnMk
-	 0gvTD0Vt6YFhRAlnSEVMtUs1Fj6l73Wp4AY917BuaSaHw1GOp9hxZj8ATk/uDlgr+I
-	 vmFOpZ26JHXaw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yuhang Zheng <z1652074432@gmail.com>,
-	Xin Liu <bird@lzu.edu.cn>,
-	Yucheng Lu <kanolyc@gmail.com>,
-	Ren Wei <n05ec@lzu.edu.cn>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] net/sched: cls_flower: avoid stale mask references after delete
-Date: Tue,  3 Nov 2026 08:43:49 -0500
-Message-ID: <20261103134301.3939151-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110336-surrogate-gummy-3f82@gregkh>
-References: <2026110336-surrogate-gummy-3f82@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S4yaRCoY
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cd8ba7c2694so1391608a12.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 05:49:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793713788; x=1794318588; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NiTHky/qrLqHb3kl55Ue+tJp0FqEUYQu+BGLrGjyymA=;
+        b=S4yaRCoYEDIdQx9nd6MUMVyTgQ3qjcEUxTHHScdNekTUOEs49FJUebRnufc4CA0UfB
+         i7VitCm15MSdNwcMNksQK0QvjqUYVkkYlVncknLcA07egs+zeTVEfXE1NtRR8C4Rmwe/
+         59e38cdM5NFOiGuDV80fmbH2/2EcpFpNNYCnNsD8RlFpvSi9QEqn/BNMOG25RZbdiKzL
+         nwgZBDetxUxC+AGwv/eMcJTCjKXZxosq4tRZkao88Q0YR5PIIrcjyTxKOYIp9G8Yg7Lr
+         ichja6cJTKLXLq+hstuadyHfGXBIFc2bnYzaPc5K4FMhCQqDTfAe8HhC5gFbMTWcqqBO
+         W3+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793713788; x=1794318588;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NiTHky/qrLqHb3kl55Ue+tJp0FqEUYQu+BGLrGjyymA=;
+        b=IM7bzXctDSNSpq2r4//EN7lwuIzHre3V9OXSX9Q8HZa/HG+hiwu+jQLr390MbJm6rY
+         UMp7Oo7/74ZwfN/QPidOWyQc008btj/kjU0vpcdcE27ZXnGtiF7je7MwixX31a74n3Ur
+         WLyzdmQZ/n+1H2PYJWpFn085Uy95ucjoCus2qZOenvljHSAf26daZdomjsCQr8mNmOhA
+         /O6BK3UM2/vjW4ayZ6W7ca+BCoty4QSqA6hcaJPsTdgc88UiCbxSSQ1sJP57YdYWTiKG
+         A8C+LPODLGkeG2/2hSSaHiHvdKpYu75PkKpZXfXMG25gCGpUttT/2j9jjY6hrrMtvKqv
+         qstw==
+X-Forwarded-Encrypted: i=1; AKwUvBwQOqZhZI7w9KM1Cj7iERijU+wib8kSoPz6AEfKQpl1vrhRffjLjD7nqOny/l0Nwy9e8NF5JP4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8f4X2ylXWTzsbYnRjdDn53agrBHF5N4cLJ54oZ4gCyVbRQccv5
+	1D7U+4JN0tgeWXVNNAaag350jZIzfHCwb4wCXbedOrME5FTk57oMf/eo
+X-Gm-Gg: AYBFou1s/rIeDInoJTiduNZbxx1KjbFn60dhKLqwzfL2nLNpScExy3DJTMLfojODlGX
+	Kbb6oNwhXF9bDFlNbgyniTJlsEqS26qI2a48g1nyCMdwLq5TyKsluZlbVLq1YyyEzAT4KQTEQ97
+	n3NZOFD8V5+IpVNWi+506Qy80r6fkTHYu7doQ48s+7+sqcrIkNyL4gBoy+uX/kDTEZelaleBgUr
+	dk/TPc4koyHO/VT52TAJNi1U8LUwNz9zM9Q3PXERRjrJW66hMpTwVj2ijQLu7BQR1sGv46BCjmQ
+	oYd+pLXE8y+D3pUkJ7k2zzMdg/kIhkvnqYUVbkqBflpFdQDgnUxnxcQmKQOfrWoNwesg0srS5Kf
+	X3IY2q0Tpvo7BGTtTV1fABsa/v577A/9kqfyY8RGfb47pdbbh8v+GV9GTptVuYnMW8+bavthNcv
+	chP4ZW8rPiZq0fWRU1IXBHsX8VO6IBb5RnHqMl4Xps8r/E6EArOgvgaTykTYiUAf9D/AjbTA/R0
+	QyC0jXtmVwPyD7kmUcQXSGCiu66OGJtU/SeQB4azXNwqeZmv3t3WjitmYQTwG6RugbNyyKgxqFQ
+	CzjxyBdo6hfR/R2tsP6Da2JfkBVMZvyetNULs5cmw0vqZFny8U6KseE/O0/iznh4
+X-Received: by 2002:a05:6a21:b88:b0:3e1:c6e6:d101 with SMTP id adf61e73a8af0-3e928da40d0mr11428618637.29.1793713787841;
+        Tue, 03 Nov 2026 05:49:47 -0800 (PST)
+Received: from localhost.localdomain ([2400:d802:dd7:8000:314f:4575:be3:a064])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb36449db7sm1446391a12.8.2026.11.03.05.49.44
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 03 Nov 2026 05:49:47 -0800 (PST)
+From: Yuqiang Sun <izaiahsun@gmail.com>
+To: leon@kernel.org
+Cc: haris.iqbal@ionos.com,
+	jinpu.wang@ionos.com,
+	jgg@ziepe.ca,
+	guoqing.jiang@linux.dev,
+	lgs201920130244@gmail.com,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] RDMA/rtrs-srv: Do not free the path on path file creation failure
+Date: Tue,  3 Nov 2026 21:49:39 +0800
+Message-ID: <20261103134939.55513-1-izaiahsun@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261103122024.GG264423@unreal>
+References: <20261103122024.GG264423@unreal>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,211 +105,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yuhang Zheng <z1652074432@gmail.com>
+On Tue, Nov 03, 2026 at 02:20:24PM +0200, Leon Romanovsky wrote:
+> Interesting claim. How did you trigger the KASAN warning in the RDMA ULP?
 
-[ Upstream commit 58f7989da6e715ce834ac861b7ba6ae9f9bdb098 ]
+With soft-RoCE in a KVM guest, with both ends of rtrs in the same guest,
+and failslab standing in for an allocation failure:
 
-Flower releases a mask reference when a filter is removed from the
-classifier. The filter object can remain alive while dump, walk, or
-hardware reoffload paths hold a reference to it. Those paths can then
-dereference f->mask after the mask has already been released.
+- Kernel: rdma for-next c3e8e9451e6f, x86_64, with KASAN, RDMA_RXE,
+  INFINIBAND_RTRS_CLIENT/SERVER, BLK_DEV_RNBD_CLIENT/SERVER, BLK_DEV_RAM,
+  FAILSLAB and FAULT_INJECTION_STACKTRACE_FILTER, all built in.
+- In the guest: "rdma link add rxe0 type rxe netdev eth0", then failslab
+  is limited to call stacks through rtrs_srv_create_path_files()
+  (require-start/require-end set to its range from /proc/kallsyms,
+  stacktrace-depth 32, probability 100, times 1, interval N), and /dev/ram0
+  is mapped through the rnbd client:
+  echo "sessname=s1 path=ip:10.0.2.15 device_path=/dev/ram0" \
+       > /sys/class/rnbd-client/ctl/map_device
+- The server handles the client's info request in its completion worker,
+  in rtrs_srv_info_req_done(). With N chosen so that the failing
+  allocation is the one in kobject_init_and_add() of srv_path->kobj,
+  rtrs_srv_create_path_files() fails, its kobject_put() frees srv_path
+  through rtrs_srv_release(), and process_info_req() and
+  rtrs_srv_info_req_done() go on using it: that is the KASAN report in
+  the changelog, followed by more in rtrs_srv_close_work() and a general
+  protection fault. Failing the stats kobject instead gives reports of
+  the same kind.
 
-Keep the mask reference until the filter reference count reaches zero.
-Release the mask synchronously from the final __fl_put() while the caller
-still holds the tcf_proto reference, and leave the existing RCU work to
-free the mask. This keeps the mask available to every reader that still
-holds the filter.
+The steps in the guest, after boot:
 
-The filter is still removed from the classifier indexes immediately.
-Therefore, a deleted filter can temporarily retain an otherwise empty
-mask; fl_delete() uses the handle IDR, rather than the mask list, to
-determine whether the classifier has become empty.
+  ip link set eth0 up
+  ip addr add 10.0.2.15/24 dev eth0
+  rdma link add rxe0 type rxe netdev eth0
+  f=rtrs_srv_create_path_files
+  start=$(awk -v f=$f '$3 == f {print $1; exit}' /proc/kallsyms)
+  end=$(sort /proc/kallsyms |
+        awk -v s=$start 'found && $1 != s {print $1; exit} $1 == s {found=1}')
+  F=/sys/kernel/debug/failslab
+  echo 0x$start > $F/require-start
+  echo 0x$end > $F/require-end
+  echo 32 > $F/stacktrace-depth
+  echo N > $F/task-filter
+  echo N > $F/ignore-gfp-wait
+  echo $N > $F/interval
+  echo 1 > $F/times
+  echo 2 > $F/verbose
+  echo 100 > $F/probability
+  echo "sessname=s1 path=ip:10.0.2.15 device_path=/dev/ram0" \
+       > /sys/class/rnbd-client/ctl/map_device
 
-Failed mask assignment can leave fnew->mask as an error or borrowed
-pointer without an owned mask reference. Clear it before the common
-failure path so the final put cannot release an unowned reference.
+With verbose=2 failslab prints the stack of the allocation it fails, so
+N is found by trying N=1, 2, ... until it is the one in
+kobject_init_and_add() for srv_path->kobj (21 in our build).
 
-This fix does not add fields, snapshots, or per-filter memory.
+So it needs an allocation failure while a client connects; nothing else
+is unusual. I can send the full KASAN log, the init script and the
+kernel config if that helps. The client that triggers patch 2's
+use-after-free from the network by sending an empty pathname (fixed by
+patch 3) is not public; I can send it to you privately if you want it.
 
-Fixes: 92149190067d ("net: sched: flower: set unlocked flag for flower proto ops")
-Cc: stable@vger.kernel.org
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Tested-by: Yucheng Lu <kanolyc@gmail.com>
-Signed-off-by: Yuhang Zheng <z1652074432@gmail.com>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-Link: https://patch.msgid.link/20261012010720.2248662-2-n05ec@lzu.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Adapted fl_change() error cleanup to use the existing errout path instead of unbind_filter and errout_idr. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/sched/cls_flower.c | 49 ++++++++++++++++++++++++------------------
- 1 file changed, 28 insertions(+), 21 deletions(-)
-
-diff --git a/net/sched/cls_flower.c b/net/sched/cls_flower.c
-index c6eb857bce895..ea0592b0249c3 100644
---- a/net/sched/cls_flower.c
-+++ b/net/sched/cls_flower.c
-@@ -508,15 +508,22 @@ static void fl_hw_update_stats(struct tcf_proto *tp, struct cls_fl_filter *f,
- 				 cls_flower.stats.used_hw_stats_valid);
- }
- 
--static void __fl_put(struct cls_fl_filter *f)
-+static bool __fl_put(struct tcf_proto *tp, struct cls_fl_filter *f)
- {
-+	bool last = false;
-+
- 	if (!refcount_dec_and_test(&f->refcnt))
--		return;
-+		return false;
-+
-+	if (f->mask)
-+		last = fl_mask_put(fl_head_dereference(tp), f->mask);
- 
- 	if (tcf_exts_get_net(&f->exts))
- 		tcf_queue_work(&f->rwork, fl_destroy_filter_work);
- 	else
- 		__fl_destroy_filter(f);
-+
-+	return last;
- }
- 
- static struct cls_fl_filter *__fl_get(struct cls_fl_head *head, u32 handle)
-@@ -553,11 +560,10 @@ static int __fl_delete(struct tcf_proto *tp, struct cls_fl_filter *f,
- 	list_del_rcu(&f->list);
- 	spin_unlock(&tp->lock);
- 
--	*last = fl_mask_put(head, f->mask);
- 	if (!tc_skip_hw(f->flags))
- 		fl_hw_destroy_filter(tp, f, rtnl_held, extack);
- 	tcf_unbind_filter(tp, &f->res);
--	__fl_put(f);
-+	*last = __fl_put(tp, f);
- 
- 	return 0;
- }
-@@ -598,7 +604,7 @@ static void fl_put(struct tcf_proto *tp, void *arg)
- {
- 	struct cls_fl_filter *f = arg;
- 
--	__fl_put(f);
-+	__fl_put(tp, f);
- }
- 
- static void *fl_get(struct tcf_proto *tp, u32 handle)
-@@ -2229,12 +2235,14 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 		goto errout;
- 
- 	err = fl_check_assign_mask(head, fnew, fold, mask);
--	if (err)
-+	if (err) {
-+		fnew->mask = NULL;
- 		goto errout;
-+	}
- 
- 	err = fl_ht_insert_unique(fnew, fold, &in_ht);
- 	if (err)
--		goto errout_mask;
-+		goto errout;
- 
- 	if (!tc_skip_hw(fnew->flags)) {
- 		err = fl_hw_replace_filter(tp, fnew, rtnl_held, extack);
-@@ -2288,7 +2296,6 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 
- 		spin_unlock(&tp->lock);
- 
--		fl_mask_put(head, fold->mask);
- 		if (!tc_skip_hw(fold->flags))
- 			fl_hw_destroy_filter(tp, fold, rtnl_held, NULL);
- 		tcf_unbind_filter(tp, &fold->res);
-@@ -2296,7 +2303,7 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 		 * after this.
- 		 */
- 		refcount_dec(&fold->refcnt);
--		__fl_put(fold);
-+		__fl_put(tp, fold);
- 	} else {
- 		if (handle) {
- 			/* user specifies a handle and it doesn't exist */
-@@ -2341,17 +2348,15 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 	if (in_ht)
- 		rhashtable_remove_fast(&fnew->mask->ht, &fnew->ht_node,
- 				       fnew->mask->filter_ht_params);
--errout_mask:
--	fl_mask_put(head, fnew->mask);
- errout:
--	__fl_put(fnew);
-+	__fl_put(tp, fnew);
- errout_tb:
- 	kfree(tb);
- errout_mask_alloc:
- 	tcf_queue_work(&mask->rwork, fl_uninit_mask_free_work);
- errout_fold:
- 	if (fold)
--		__fl_put(fold);
-+		__fl_put(tp, fold);
- 	return err;
- }
- 
-@@ -2364,8 +2369,10 @@ static int fl_delete(struct tcf_proto *tp, void *arg, bool *last,
- 	int err = 0;
- 
- 	err = __fl_delete(tp, f, &last_on_mask, rtnl_held, extack);
--	*last = list_empty(&head->masks);
--	__fl_put(f);
-+	spin_lock(&tp->lock);
-+	*last = idr_is_empty(&head->handle_idr);
-+	spin_unlock(&tp->lock);
-+	__fl_put(tp, f);
- 
- 	return err;
- }
-@@ -2387,12 +2394,12 @@ static void fl_walk(struct tcf_proto *tp, struct tcf_walker *arg,
- 		rcu_read_unlock();
- 
- 		if (arg->fn(tp, f, arg) < 0) {
--			__fl_put(f);
-+			__fl_put(tp, f);
- 			arg->stop = 1;
- 			rcu_read_lock();
- 			break;
- 		}
--		__fl_put(f);
-+		__fl_put(tp, f);
- 		arg->count++;
- 		rcu_read_lock();
- 	}
-@@ -2443,7 +2450,7 @@ static int fl_reoffload(struct tcf_proto *tp, bool add, flow_setup_cb_t *cb,
- 		cls_flower.rule =
- 			flow_rule_alloc(tcf_exts_num_actions(&f->exts));
- 		if (!cls_flower.rule) {
--			__fl_put(f);
-+			__fl_put(tp, f);
- 			return -ENOMEM;
- 		}
- 
-@@ -2461,7 +2468,7 @@ static int fl_reoffload(struct tcf_proto *tp, bool add, flow_setup_cb_t *cb,
- 		if (err) {
- 			kfree(cls_flower.rule);
- 			if (tc_skip_sw(f->flags)) {
--				__fl_put(f);
-+				__fl_put(tp, f);
- 				return err;
- 			}
- 			goto next_flow;
-@@ -2477,11 +2484,11 @@ static int fl_reoffload(struct tcf_proto *tp, bool add, flow_setup_cb_t *cb,
- 		kfree(cls_flower.rule);
- 
- 		if (err) {
--			__fl_put(f);
-+			__fl_put(tp, f);
- 			return err;
- 		}
- next_flow:
--		__fl_put(f);
-+		__fl_put(tp, f);
- 	}
- 
- 	return 0;
--- 
-2.53.0
-
+Thanks,
+Yuqiang
