@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697701;
-	b=cZpLom/EoGHlRiPdVAEEt/L/qNLoaJRCnKyZj3dTwDttHBoJyMSsVzEzmJaC4aOX3C6N
-	 loKrW1SJqZXtU36GrV3uyA03Tu7pAWBbPspQ+Nxy+l8M2mDdcTUG37+/BgLX9fg/vlKfX
-	 gyDw4YlA99GR46pOfBh2tiF3SxLP2GIAAL2IAmvrMsWCeFOP3UUI+r3CwCJTOUeZzhqVQ
-	 yYo2tYUP5aqXOn44PNG8OAja6T+CdBToxgB18xNWQd2HHzx/7tW0lnWtGZts5bQP48N36
-	 JtPR9BNfsFBahMr9khE80HJBxF02rdtYMfPUS4EZrPa/7OODR2kRsQfwNU+e8BlST7Q==
+	t=1793697708;
+	b=gJ8LcOa7CxdWr6c/+FFclI90Kgq6xM3dnptoyUdliObZeZOJfX45vLnfViu+WdIdxzMp
+	 mL69vkWuPs1AwU6f3quXil1xzuV9q1TBXMynxNUkrKdx7uai+aUE81ryImchqvCX5ujrz
+	 nhdsXXFuGlwb64+c3AcInvMIy2tXwlSBTbfzUkP9waQpqeRU9WUwF6ezNkXUFqiYWONwx
+	 qYHCsEjPbxpTKemLaBNgqoeH8ql0gljpVl1MHpwtrSk3JEaMIsyUjp7YJ65YlqkDobSPJ
+	 ggGd0fCUNRsPCUcBtvZanWhVU0TCpZluOBZrQpRUwbeVrURoUOuEu4zj125ExzAyKUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697701;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697708;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZtVxNjum2onVgyfgmJiMMLLrDXk38z30mQSMHGHOx2o=;
-	b=I+R6h2b4YTX3I8cso9zJml5mcc95FGjh9ze6ulnAjyIDEO+bjM1HTdFi5KY1yX8ds7sQ
-	 J5kITIZK9g/AVYBfo0zV9CyuMdoMNo+Vtefn8B7h+antixsRHVLDOurbZ6+47XXKkP8sR
-	 Skn/vM+Rolx66Qg6RCL7h7h1eocvM4k1RtVCUWW24mXrR+QV852LYreZcsMQqrHKTThak
-	 J85GfobsB3DhDTACen8hJIzDz43RV3UtZPIOd79/PIHvS/lHbCgMzXLd/wqyBDpKiG996
-	 w+ASLmICx1KO5EC80+IvRMLkEc+GpuAXL9cXRrkUwapLxMQOP7V8jIV+uy8Je7RhyPQ==
+	bh=Nl8vNU0L6hN5oGlwxYaKhQs3x0kx11JFhc47Zg4ZFSU=;
+	b=ERBcFH9E1q8sV4P1JZpyfHe7rrHz4YbcbLpndj5NsH5S2Wqv+F+4IFmryUYpJCV0wCCb
+	 uClsE6dd9tZ87hHjETlotvOZTlrfcPhPM+bVNJcMG2FyX5F8cyZxnaiuHO8m5CwZOeEVP
+	 SU3HyS5nH04B7h1tSUScaBdskUAwHfkd2Wa8SXUxL/Jm303WyejIkVx8RBnOE8exPxPd3
+	 PeIJBTYlWwpruOLAL8fo1Or5Tor12d41BLkwmGKAdqE2Nh8eHWF+32Sanze9nkIn7to93
+	 Q27/9CakrisqGrpb72a4JPKy5oXynGGNC30RJv288ZML2RumcYhhqXx1EGsBJS1S4bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZgbTgaGr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcvreDjF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3477A6082BC2;
-	Tue,  3 Nov 2026 09:21:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B1E6082BE5;
+	Tue,  3 Nov 2026 09:21:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZgbTgaGr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CE411F000C1;
-	Tue,  3 Nov 2026 09:21:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcvreDjF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34A451F00A1A;
+	Tue,  3 Nov 2026 09:21:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793697701;
-	bh=ZtVxNjum2onVgyfgmJiMMLLrDXk38z30mQSMHGHOx2o=;
+	s=k20260515; t=1793697707;
+	bh=Nl8vNU0L6hN5oGlwxYaKhQs3x0kx11JFhc47Zg4ZFSU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZgbTgaGrvAF8Fb6QRcJFIMevTkk+19RkTYYqUeUBK18d+O+RfedfvCgCLPnDxbDjh
-	 PIxu2xdGoJsz9a8OXS0W3RKZud0ftPsLJSDz/2EFQbwSMXQ7GphQSnux0zNeBnaQzI
-	 iLFeYjlrB+gzWnDA2GZqO7X0ylbBoynihEXQELaIsWEV2Lox1RvlkYYanmQkxbmii/
-	 yceR/kMzcMjVhJ4jKfULstJfXuMYDkmYDzyUIL7QdCGoEY0BzRh+8hcuSP+1AWxvk1
-	 6/HmFK3jttnLhZTBfHbx6YTS4sqLrGbN2IkJvb6J5hoIYtG2CVete7W3Drvmzm1ol7
-	 k5gxldwI3tGQw==
-Date: Tue, 3 Nov 2026 10:21:38 +0100
+	b=WcvreDjFEuUKl5HrFulwynlRAPT4P+qsjQEMm/JKfkcD2XGe8HydVS6jgO9GCMAFs
+	 BJErznURg5nIw4IgipGyr7ZGXDSkP1CDgsw/ifZzhea0swOADiDI6CG1GD4hQg/vhZ
+	 Ugf2BP+F4mSa8eOL6CX6hxlpG1VG0KSdvS4j/AB7l0ZGOHyE9XnNChcHLxT3CXmZ6l
+	 juyXJOS0Xibbo/iJjR2xgeesO5c5e2rtyGf9QIfT6sUmX0yrXUuf9xWbakkTqep5Uq
+	 4S/nORjhIvHPSIGx0s9m0QpFIXRtCVdElpe7M75PfqLGKzwMPmRNhwcUAxmuUqpKGb
+	 TZoiVn1eCLunA==
+Date: Tue, 3 Nov 2026 10:21:44 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: leon@kernel.org, linux-rdma@vger.kernel.org, stable@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dennis.dalessandro@cornelisnetworks.com, jgg@ziepe.ca
-Subject: Re: [PATCH] RDMA/hfi1: Free the trap send buffer when no address
- handle is available
-Message-ID: <20261103-peach-mongoose-of-charisma-dee123@quoll>
-References: <20261103081915.1147987-1-vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	stable@vger.kernel.org, sakari.ailus@linux.intel.com, mchehab@kernel.org, 
+	vladimir.zapolskiy@linaro.org
+Subject: Re: [PATCH] media: i2c: og0ve1b: Free controls when control creation
+ fails
+Message-ID: <20261103-viridian-rat-of-exercise-e8eaa3@quoll>
+References: <20261103082513.1162639-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,25 +60,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103081915.1147987-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103082513.1162639-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 08:19:15 +0000, Wentao Liang wrote:
-> send_trap() allocates a MAD send buffer before checking the subnet
-> manager address handle. If creating that handle fails, or if the subnet
-> manager LID is permissive, it unlocks and returns without submitting or
-> freeing the buffer. No send completion can release an unsubmitted MAD.
+On Tue, 03 Nov 2026 08:25:13 +0000, Wentao Liang wrote:
+> If a control cannot be created, og0ve1b_init_controls() returns the
+> handler error directly, skipping the cleanup used by its later failures.
+> The probe caller then powers the sensor off without freeing the control
+> handler, leaking controls that were successfully created before the
+> failure and the handler's allocation.
 > 
-> Free the send buffer after releasing the lock on both early returns,
-> matching the other failures after ib_create_send_mad().
+> Save the error and use the existing handler cleanup path. Preserve the
+> original error before v4l2_ctrl_handler_free() resets the handler.
 > 
-> Fixes: bf90aadd630c ("IB/hfi1: Send MAD traps until repressed")
+> Fixes: 25bf2e1925c9 ("media: i2c: Add OmniVision OG0VE1B camera sensor")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/infiniband/hw/hfi1/mad.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/media/i2c/og0ve1b.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 > 
 
 
