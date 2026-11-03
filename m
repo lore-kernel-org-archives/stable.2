@@ -1,50 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672144;
-	b=Z+KfrRLI6a7ZIbvnZsGKcm5EAW306462CYuEMyW1wYes1ZxA4KBWZ2jYdN826bpUXb5A
-	 Mux5OHzzJPi1mMniy8c2gc+uEJzuERgpP5Cu392uP9y9cAWomqBopg7Beu6GTDRRd4sAw
-	 8WfmVBPZYQmlvtnTdPRciTHVK2EUqL576BqQqOsdJ49xp9upbse/5eM8HqrU/4GZqSx+n
-	 2C+Xfz3bDwcStZQ7qBsCv10v83SpMjYltAxfPQEqmI+BbD1mrcoIRHSuTkkdLS24uBCv2
-	 G8gJFFAcWARG3rl9GLbXenTSaML8jUgGk33dxMZMAmpL1s2F8S05BaYhT0nnpHeeiew==
+	t=1793672146;
+	b=TDd0SdL6Sgk2OXsaYitEszSK1W/cuYOfmpw/L9VUjmuwKqYnzFPZ4ch5Dk5ZV7w3f3wL
+	 ud/DA8DmuZ3dsO4lSrzctJ0jOgiuBiSUavKwMb3AzOviiUNrgd/lKm0cOIgqCOMcr93Qn
+	 ik1+1gvJveshe64JWW3oYZquVCeS2pEF9l6HfXPZGqHNbrtv1jifR11xB2IeG2EtZ2XlW
+	 13+H30+PghCigfilOIAkvCUqQTnDPrv1lSMVMhTbBIUPONxnK2fXd7fPgXJrf0MxoeCdF
+	 wbv+AHNTdY/7wX/qFi6rackpU4e+ebtTfFTcL4EDChYV5WW10py/32MV0J249bMDtnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672144;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672146;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=0hH4diZxkE9FYqMBlXHB0HpZuREEprMCduMPs/5JO+0=;
-	b=yELMDDMzJC3NcehzyjZDYa8vdejyGOImw3gtJc9T9vpybWB92BRel4A2iLq5iPEQvt5N
-	 sG+/ddizlvblrrJl7X+GujJGCaDoVSkSY//A+z1NNH4dIg+66AhIp8n0wt+/nnB26H3Wq
-	 RuBPHATrXcmgV6lCpRds7KgF9Hxo8YxWqeOLwKYfUwbUmiVAitRdoSttOZAhFNDrc5Y4M
-	 A7rbmB4DBnJH6aLeXMnyOu+GLVJ4bWcrVmzTRMjOlsHBZD9h0q9jpSyr0Ulx8cJZCWSj0
-	 tb5alsHXYciH7t7wEtiBlanQ4OeOiLvObFXpkpBr2pf7zges+v7svgjvgXVOO8r1bwQ==
+	bh=AhiHYgzV9FytEyi5cnCdcJDs04Q5yBfo9h7wiXr5MbM=;
+	b=fq9/1GuAYLbVRra2ilij+dw6xgeM3289jw3/dyAJW5ljstfOK4F1dzu1gJwr12e+3SDA
+	 dYTBRH+cW/thV3QQjelYdT8JGrn/3YrxXu0NTW9cpyuEhLqJe3kEp50Jx3j76SzV0seWg
+	 GlzCWN83m94ewFp4VLiup1DjNstpui0MJR7cMIQYuqW+PAqDLYfaBJcd+waSEv4Hl0W9H
+	 GO8TbCR7yeL/KdWZbzhholXBGZKdXswSdqXia6ffK+foSwIwHBiLsMitcP9GB8qYwXHiv
+	 iRJewUsjR9iW9UHwETWQWiqH0avvBhVBkPLr5Q+LnVqQByMfcDgT3ivdOJcY5YqIbrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=zUsBBRll;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=R+rsMsnz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44760606A326;
-	Tue,  3 Nov 2026 02:15:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C05606A324;
+	Tue,  3 Nov 2026 02:15:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=zUsBBRll
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00A0B1F00919;
-	Tue,  3 Nov 2026 02:15:43 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=R+rsMsnz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F02F1F00919;
+	Tue,  3 Nov 2026 02:15:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793672144;
-	bh=0hH4diZxkE9FYqMBlXHB0HpZuREEprMCduMPs/5JO+0=;
+	d=linux-foundation.org; s=korg; t=1793672145;
+	bh=AhiHYgzV9FytEyi5cnCdcJDs04Q5yBfo9h7wiXr5MbM=;
 	h=Date:To:From:Subject;
-	b=zUsBBRllvN+l1ToWXDK2xF/7jMTJP+FrScis07yJS2ad7NlFrBaPrZPelGCd7omlB
-	 bpVz5N37bQLUxWMXNbdbnWQXVCmnuuXyIVGD38XXM4L00ufA24ov143n+7GL4HAwYC
-	 Mo3uvtPbwnYEde7ZPsFkra1U55aoMq8VZEYl+XhE=
-Date: Mon, 02 Nov 2026 18:15:43 -0800
-To: mm-commits@vger.kernel.org,youngjun.park@lge.com,vineeth@bitbyteword.org,
-	stable@vger.kernel.org,rafael.j.wysocki@intel.com,nphamcs@gmail.com,
-	kelleynnn@gmail.com,kasong@tencent.com,hughd@google.com,
-	huang.ying.caritas@gmail.com,chrisl@kernel.org,baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,baohua@kernel.org,chris@chrisdown.name,
-	akpm@linux-foundation.org
+	b=R+rsMsnzQ/S54HoMgTaF+CSyGTe3/ru2cyJhxPOeZ6lk41gFvPcdwtiC/C1tMHAxg
+	 SO72wsVDs3g0kvtxsaQdRzqUYSTHBgRExGmqfTKt4FQ0AvBEszFy/iYSOuIhGuayI+
+	 l2EN5jGA3wXHuEHDV/mSr2BOxkDt/RGVNtpvH55k=
+Date: Mon, 02 Nov 2026 18:15:45 -0800
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,
+	vincenzo.frascino@arm.com,stable@vger.kernel.org,odys.yuan@gmail.com,
+	matthew.brost@intel.com,joshua.hahnjy@gmail.com,gourry@gourry.net,
+	david@kernel.org,catalin.marinas@arm.com,byungchul@sk.com,apopple@nvidia.com,
+	andreyknvl@gmail.com,dennylin0707@gmail.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-make-swapoff-interruptible-when-unusing-mms-shmem.patch removed from -mm tree
-Message-Id: <20261103021544.00A0B1F00919@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-migrate-untag-addresses-when-querying-page-nodes.patch removed from -mm tree
+Message-Id: <20261103021545.6F02F1F00919@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,120 +55,67 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm: make swapoff interruptible when unusing mms/shmem
+     Subject: mm/migrate: untag addresses when querying page nodes
 has been removed from the -mm tree.  Its filename was
-     mm-make-swapoff-interruptible-when-unusing-mms-shmem.patch
+     mm-migrate-untag-addresses-when-querying-page-nodes.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Chris Down <chris@chrisdown.name>
-Subject: mm: make swapoff interruptible when unusing mms/shmem
-Date: Mon, 26 Oct 2026 22:31:03 +0800
+From: Hungyu Lin <dennylin0707@gmail.com>
+Subject: mm/migrate: untag addresses when querying page nodes
+Date: Mon, 26 Oct 2026 19:53:29 +0000
 
-try_to_unuse() only checks for a pending signal between mms, and
-shmem_unuse() doesn't check at all.  That means that once swapoff gets to
-a process or a shmem file with a lot swapped out, nothing can interrupt it
-until every last page of it has been read back in.
+When move_pages() is used with nodes == NULL, do_pages_stat_array() passes
+each page address directly to vma_lookup().  A valid tagged address
+therefore fails the VMA lookup and gets -EFAULT in its status entry,
+instead of the node reported for the corresponding untagged address.
 
-Just as one example of where this can concretely show up, freezing tasks
-for suspend or hibernation has to wait for swapoff to notice the freezer's
-fake signal, and gives up after freeze_timeout_msecs (20 seconds by
-default).
+The tagged address ABI permits these pointers, and the migration path
+already removes their tags.  Apply the target mm's untagging rules to the
+query path as well, while holding its mmap read lock.
 
-Here's a facetious example where one swaps out 2GiB of one process to a
-swap file on ext4, starts swapoff, and half a second later tries to freeze
-with pm_test=freezer.  Writing to /sys/power/state then fails with EBUSY
-and this in dmesg:
-
-    Freezing user space processes failed after 20.003 seconds (1 tasks refusing to freeze, wq_busy=0):
-    task:swapoff         state:D stack:0     pid:3175  tgid:3175  ppid:2955   task_flags:0x400100 flags:0x00000419
-    Call trace:
-     [...]
-     io_schedule+0x44/0x70
-     folio_wait_bit_common+0x1ec/0x3d0
-     __folio_lock+0x24/0x40
-     unuse_pte_range+0x2d0/0x348
-     unuse_vma+0x158/0x248
-     unuse_mm+0xfc/0x150
-     try_to_unuse+0x104/0x3f8
-     __do_sys_swapoff+0x220/0x5d8
-     [...]
-
-The same goes for anything else that wants swapoff to stop, like an admin
-hitting ^C in a panic, of course.
-
-Prior to commit b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
-try_to_unuse() was driven by find_next_to_unuse() which checks for a
-signal before every entry, so let's restore that behaviour.
-
-Just as an example of the improvements, here's how long freezing takes
-in the same test while swapoff is happening on my computer:
-
-                      before                  after
-    400MiB anon       8.925s                  0.028s
-    400MiB shmem      1.639s                  0.003s
-    2GiB anon         failed after 20.003s    0.011s
-
-Link: https://lore.kernel.org/at9kJwdGkHPsWwgG@chrisdown.name
-Fixes: b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
-Signed-off-by: Chris Down <chris@chrisdown.name>
+Link: https://lore.kernel.org/20261026195330.46757-1-dennylin0707@gmail.com
+Fixes: 057d3389108e ("mm: untag user pointers passed to memory syscalls")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Kairui Song <kasong@tencent.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Chris Li <chrisl@kernel.org>
-Cc: Nhat Pham <nphamcs@gmail.com>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Youngjun Park <youngjun.park@lge.com>
-Cc: Ying Huang <huang.ying.caritas@gmail.com>
-Cc: Kelley Nielsen <kelleynnn@gmail.com>
-Cc: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/r/20260721183257.706661F000E9@smtp.kernel.org
+Acked-by: Zi Yan <ziy@nvidia.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Andrey Konovalov <andreyknvl@gmail.com>
+Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>
+Cc: <odys.yuan@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/shmem.c    |    4 ++++
- mm/swapfile.c |    4 +++-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ mm/migrate.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/mm/shmem.c~mm-make-swapoff-interruptible-when-unusing-mms-shmem
-+++ a/mm/shmem.c
-@@ -1742,6 +1742,10 @@ static int shmem_unuse_inode(struct inod
- 		if (ret < 0)
- 			break;
+--- a/mm/migrate.c~mm-migrate-untag-addresses-when-querying-page-nodes
++++ a/mm/migrate.c
+@@ -2461,7 +2461,7 @@ static void do_pages_stat_array(struct m
+ 	mmap_read_lock(mm);
  
-+		if (signal_pending(current)) {
-+			ret = -ERESTARTSYS;
-+			break;
-+		}
- 		start = indices[folio_batch_count(&fbatch) - 1];
- 	} while (true);
- 
---- a/mm/swapfile.c~mm-make-swapoff-interruptible-when-unusing-mms-shmem
-+++ a/mm/swapfile.c
-@@ -2689,6 +2689,8 @@ static inline int unuse_pmd_range(struct
- 	pmd = pmd_offset(pud, addr);
- 	do {
- 		cond_resched();
-+		if (signal_pending(current))
-+			return -ERESTARTSYS;
- 		next = pmd_addr_end(addr, end);
- 		ret = unuse_pte_range(vma, pmd, addr, next, type);
- 		if (ret)
-@@ -2922,7 +2924,7 @@ retry:
- 	if (swap_usage_in_pages(si)) {
- 		if (!signal_pending(current))
- 			goto retry;
--		return -EINTR;
-+		return -ERESTARTSYS;
- 	}
- 
- success:
+ 	for (i = 0; i < nr_pages; i++) {
+-		unsigned long addr = (unsigned long)(*pages);
++		unsigned long addr = (unsigned long)untagged_addr_remote(mm, *pages);
+ 		struct vm_area_struct *vma;
+ 		struct folio_walk fw;
+ 		struct folio *folio;
 _
 
-Patches currently in -mm which might be from chris@chrisdown.name are
+Patches currently in -mm which might be from dennylin0707@gmail.com are
 
+fat-fix-parent-link-count-when-replacing-a-sibling-directory.patch
+delayacct-preserve-delay-extrema-when-aggregating-taskstats.patch
+shmem-clamp-negative-used-block-samples-in-statfs.patch
 
