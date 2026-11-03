@@ -1,60 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717553;
-	b=CGtJWTiiKZuKUhT7fI+q0QcOvkJ7QBvc3q76hZjtvj4bbCxF6Ey2DKSxI/4OHwbKx7DJ
-	 tMK1s5mn8Fd/wnvqVUhH08wdbLrwRc+gRlHNY1FMnB1I0dvqhfjIAGVb5PKhSsFA0J34J
-	 UwdU0stPx6F2ipYILrF89+Kl0CPeKBQTW5vz989sksKn3D88EVfDb+tW3yJPzXlMnPeux
-	 DMBimqO3AumTJ24ParEMv04cavlC+QlNGTkNgPks897bNI37QVn9uQbQLV4/T31ftiDU4
-	 kyZDRFKES6xZZ83Gz45GtvecjJAIm4fMBP/IMoeIXUsojQbokDOFMstSPFYkUvtZooQ==
+	t=1793717549;
+	b=axiKfS54sN/qrLLXbkYrJtVIMeRpomLJGDML8y+rUyBMiqHQUrfoOmo8wPvMv2MFY3mf
+	 dcvPYDiqwQ9nHvY43JEx0Vvd+TRLM5/IKbRkm4sQUePR6JVLQCtVOKPcGitWAKp9Sn36O
+	 cOiSfA6NicAqCWa6LJcDZ2ETx5GaGKS6gVCU8FvAdrrp0/ti8zqeppIibebQRo7a2Y+yf
+	 MMEjE1+AH7eMR5tc264wTjpGHscW15cpz8IWrPCKIxJMDd/IPYQ/gtOHa4W9XggHEgHS+
+	 CVfF7bZwKDwTPu2kkyQ23nMEavxsfhKnhMYQMaLrEcVqAr4Fewii4JwGqEF6yKEKu3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717553;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717549;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=LDPivuZnnU8Rh56OehEp+c1hcVH92q7KfdacsYP6D2k=;
-	b=gA4aM1HNBBo6L8bCLLTk5v6pZi5kEsWF3/tOiygZndAsezlMwTlHzi8SKiUhoFXm/+on
-	 8MXQ/prpmROSWmtGnvPJJO63mSOMceKKDAaMA9YLDbJeun9Awm1qUpNHMNFfjCXBs+YTf
-	 xItUqREkz45GRkLy5Pe/md7Ufm0mU10RSDGf6L5e66mX/ECokymzVFubojXfL2ZpbVRJq
-	 0rLNyAiTCNjq/wYR4FuzD6j1FOswFJi6L+1I4h7qigE1U1MQMQ8o09ngv3NdJ8iwHVAc/
-	 4+UhcfoNrsxgzzG/23+FsTC+QWkxX5wyk85BAbsL2dBOlb1Kn/d+whwhBT5WX4XMRKg==
+	bh=A+tKrZaRWVm75PTRzfEdV7eNXoe4/w0grid+41M9KbQ=;
+	b=aBhduu2PXY7InC4ZxP2hirvpIYtYRUVQdlpKoZ2G109OdzfrVNdobJKU8tSOBMzf8V0j
+	 LETPblpDZdyBvF9ZuDYhQrzUXQHcheTFHUVzcmX8PLPCBqjPzbHiucYToaRLbSK8WmvWp
+	 da4EXoXrwJZnyJAVAanFQKNykJ4pNOvRWm95qSty33w0G0gmQrNALzL1p+ts6a1nnx/JD
+	 o1bJTfFv2i2sbtChGIi9+k4wRkYEoqO1DGq7a6CVenZGoJdqCYxXUcdb5J3m+WxixZxug
+	 qOuF4pq3J7SanhLzAun2D2hfq1hT//F434xPFblw4QrDmVtpX3XmoAaEokSBgPkS8Bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LY1gFOl6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRc3mOoD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD1860A5BC0
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:52:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E086660A263B;
+	Tue,  3 Nov 2026 14:52:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LY1gFOl6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 941F71F00919;
-	Tue,  3 Nov 2026 14:52:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRc3mOoD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E06C1F000C1;
+	Tue,  3 Nov 2026 14:52:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717553;
-	bh=LDPivuZnnU8Rh56OehEp+c1hcVH92q7KfdacsYP6D2k=;
+	s=k20260515; t=1793717548;
+	bh=A+tKrZaRWVm75PTRzfEdV7eNXoe4/w0grid+41M9KbQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LY1gFOl6JojcNE5Ns6UtOnNCIel+D0a2gcftWIHGqHrKCXlfoP/yT25E6rTpUQedO
-	 cir/tgqH6eIIqPo/K6xhbnjjBDkUkReb9ppXeLOyLTTmLHY4eNxpmjtajlEj188tts
-	 O+pGoe83rjDkglma1IwgPN1zWVVRXZQeHTBGT/CWkE2ywDxfa880dEZvRqwfr6mZBO
-	 mZ7ECc/lBUYMnMGbWTQkAogpMPWLLBxhdonVY5KT2HWbtnqIe8z0rxshfwJtUVisY/
-	 IivRdnE+qT+ySCQNTMgse4axvOmyDEbvGjZ+Z05DoHNLjgIOktBbQdLF0Ixl5h2Dyn
-	 LtUBms2dabu6A==
+	b=eRc3mOoDdkBOCF0c8E/7Al2WeUUQHZwfCTZzH4z9srXUfoQFFrxdTPXBTzP3y/8ue
+	 uGJ33I3jaiSXOW7AZim45b199vK9dUFMVNGMu26lIzppvPYIYOCvKP2zd6AjC6mriz
+	 VxVuqmdsnn6oETkTVmv6xaBb2PzmscOXwVgUhmjHnWmnKBzqBt3RzgnE5ssO049Qyq
+	 ISE7ZbDUORr2e0CDKzKmFzsM2G63jcoAHBlL5gvSE0WlUScH+3bP0/caDfsMxW1Vko
+	 Q+Isn6QNEHcPnVw5A7WEZ0y5DGl303Duvcx5TSywbUGoT2B1kRvwgUKLfSDkSPbgEx
+	 PanebEwa3IU/w==
 From: Sasha Levin <sashal@kernel.org>
-To: Wentao Guan <guanwentao@uniontech.com>
+To: stable@vger.kernel.org,
+	Hoan Tran <hoan@os.amperecomputing.com>,
+	Serge Semin <fancer.lancer@gmail.com>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Alan Tull <atull@altera.com>,
+	Jamie Iles <jamie@jamieiles.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	gregkh@linuxfoundation.org,
-	stable@vger.kernel.org,
-	Li RongQing <lirongqing@baidu.com>,
-	Ingo Molnar <mingo@kernel.org>,
-	Sohil Mehta <sohil.mehta@intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH 5.10.y && 5.15.y && 6.1.y && 6.6.y && 6.12.y && 6.18.y] x86/ioperm: Prevent NULL dereference on theoretical missing IO bitmap
-Date: Tue,  3 Nov 2026 09:52:05 -0500
-Message-ID: <2026-11-03-1-daily-reply-0017-re-x86-ioperm-null-deref@kernel.org>
+	Benjamin Robin <benjamin.robin@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ralph Siemsen <ralph.siemsen@linaro.org>,
+	xiongxin <xiongxin@kylinos.cn>,
+	stable@kernel.org,
+	Riwen Lu <luriwen@kylinos.cn>,
+	Andy Shevchenko <andy@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Subject: Re: [PATCH 5.10.y v2] gpio: dwapb: mask/unmask IRQ when disable/enale it
+Date: Tue,  3 Nov 2026 09:52:00 -0500
+Message-ID: <2026-11-03-1-daily-reply-0012-re-gpio-dwapb-5-10@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261103093047.571626-1-guanwentao@uniontech.com>
-References: <20261103093047.571626-1-guanwentao@uniontech.com>
+In-Reply-To: <20261103-dwapb-fix-v2-1-9bd3785d1365@bootlin.com>
+References: <20261103-dwapb-fix-v2-1-9bd3785d1365@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,10 +80,11 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-> Outside the IOPL emulation path, the IO bitmap is always expected
-> to be allocated when TIF_IO_BITMAP is set.
+> From: xiongxin <xiongxin@kylinos.cn>
+>
+> commit 1cc3542c76acb5f59001e3e562eba672f1983355 upstream.
 
-Queued for 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
+Queued for 5.10, thanks.
 
 -- 
 Thanks,
