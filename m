@@ -1,54 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.192
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695315;
-	b=TjIiPBao8Y3Movk+x0Y5vQd2AgvgeAWXzqpXQlNfKik2pBpz+vJThXuY79Usxf63Aj0a
-	 FTCvGNlH3afXXGi1LtsN5rB7jMGPRhtj48XhtoyqfBqtyC3kCkF3uSXFqKT5Qu7RkApdt
-	 QNGW1Ob4jz7Tedsk112q8NWRRMEiXiCRbUidp3ZUuw0R5Yy9j1QhqZQHu8SPzmHz6JCsj
-	 90NHgtrntQ0hWCbMNlOddQQN8XZD3dPOyAJZ8ntTGyByCdRxH+SF2KWisOtcXF6cN5yz/
-	 m02PEUD7108luwylaOq+VnYzNdbaZoOESRqu1Jxa5hi+CXDpEeP91JhFT+I8xuZ3BMA==
+	t=1793695321;
+	b=EmmNovrKSPELEYs2Eoo5n3ueCk5XAvW7kKIZ+xPNbfl0YNuGYnk/G0Ao8Yn0GMAMWwtp
+	 nG/g4F0ZSP48s9cjt4LaJZGRhoRrouHzhjE3yHpFgYxrLl2/OoR9z6v/6VfT+YWZ0zgky
+	 q4KM64RMWgrWJe86e+7c2G2MwBISnJnPDQ6ynsg5t6Qvsc2XChJjfIwpF8EymuCtoaPM0
+	 AhzhhUvkNK8rsbNiSsHMK2Yz9bdQGFdBN5s8qHHHKIaHaxruyHLLkqo+khpAUPXWgHNJR
+	 O7pG6JZjwPQnHJtOeY+xPLAkLN7q7diViGyZPGP0f1jOq8/te3vOhH7SeN0Rnsj3adA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695315;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=r35ebxTXAFp75IFXPLib2rMbuUcQ84dYXkx8V7iwL8A=;
-	b=WuPaw5p5Y7HFoZFkb4ieVgMa3/exC2fiPRhr3wKrRu89CITAkm+bQRR+tV+mrja4StLA
-	 c4bp+tjx5aQ+e89RFGYQWoT3dhaT6yWYZ/FqsfANf5kxeJQvkQe1uD5FxBZRaan4rEkty
-	 6LqWbsI8lk7VWM8KdYu7+gMVOA8tOKyBx/yoswB3KqPMk+bNBwUATvz5A/dVdLxyl3Wbw
-	 WV82BYpH+2fiLNSYodgx+ZI8B4xOeHKm0ASX9QoH14XcRjbb9G8LMZTKqkqfDYF8WDk1o
-	 PtuFQJxCDJ3Rb1CkgPWAXvV9HYd+kqMYOFW5rEWv/S1JcT9+Vx4Azd/+1zeZNoTMxcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695321;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=eCqW7Q3ZNY5z9Vfz8jumrGbHLoTH4qAh2fcB1dgiNvk=;
+	b=LCdyWGF7ve7Km+9dJo5EiDACsnKRdJe8CQbkBb+9lL38yNPrzMmZa4sGhDOiTZwOxsoe
+	 DzNCxguVXzYfg8NuIqzk+yfq4x0lGfEZR7VlgRDqt442tqr7XtckVIuAjA6sox8M0V7yp
+	 8XmFcAJTq+aEh6YP9KcHjS85GElxlcWZ5ppprqNjINiIaDpzX5E5x+ZOAO6WTy4XVOsa+
+	 6qrSdGHZWrulJye6GUCiamgs+mbLhI91fujvpEflZKEMfNpZeDve/A7l1NxxsWNEMU7Gc
+	 McUMvUjbBsfbXM6gpd/3/+fzAYyRcOEnhmKlg4gntAk9fBeh88DNGpCtdiZagTFWBKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XK1DYUpv;
-	arc=none smtp.remote-ip=91.218.175.192
-Received: from mta0.migadu.com (out-192.mta0.migadu.com [91.218.175.192])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=hvqs12+j;
+	arc=none smtp.remote-ip=115.124.28.196
+Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com [115.124.28.196])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE5F606C697
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 08:41:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FE5F606C697
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F5F606A326;
+	Tue,  3 Nov 2026 08:42:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71F5F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XK1DYUpv
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=r35ebxTXAFp75IFXPLib2rMbuUcQ84dYXkx8V7iwL8A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793695313; v=1; x=1794300113;
- b=XK1DYUpvLk5CYvkb7JFC+S4lsX1Qqv4eUJlrtaue3W3zZb7pCf3qpo4zLyxKVIkvEtUzWZ+4
- S7M1RAa8eGkZH3JNO6bg+/5kwjAD1+ljLXL5I4B0+hAixXEB+fxlf7+rJokMyImgQB9peBBDw9m
- TU5YoENfR5BdtdIOzbGdNBa8=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 06b8647df261ab87;
-	Tue, 03 Nov 2026 08:41:53 +0000
-X-Mizu-Trace-ID: 06b8647df261ab87
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=hvqs12+j
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793695318; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=eCqW7Q3ZNY5z9Vfz8jumrGbHLoTH4qAh2fcB1dgiNvk=;
+	b=hvqs12+jO7DD22b0hS9Yc/jZWUQ9X8nb6IbC1pDxRJyel6nYSmS3Ob+eM3Rb/X+WDGPf6K5aUtcOfCpHVlqpYJoOiBPcXJ0ONbX+IIUJpvxWulDPwtbzle4EJXuHh/onPInnrU1bzprliTlMD6z9gjpZvLsWv24WlI1majOa2rY=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07659294|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00649487-0.00207021-0.991435;FP=13138527801659950782|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037006180;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jvVDfhS_1793695317;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jvVDfhS_1793695317 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 03 Nov 2026 16:41:58 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: luzmaximilian@gmail.com,
+	andersson@kernel.org
+Cc: konradybcio@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liuc63@xiaopeng.com,
+	stable@vger.kernel.org
+Subject: [PATCH] firmware: qcom: uefisecapp: Fix overflow in GetVariable response check
+Date: Tue,  3 Nov 2026 16:41:57 +0800
+Message-ID: <20261103084157.426838-1-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,65 +62,53 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH 1/4] x86: hugetlb: disable default CMA reservations on
- 32-bit kernel
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <61eee83da19a87337e68a7747fc0b89ee5d0393b.1793692578.git.zhengqi.arch@bytedance.com>
-Date: Tue, 3 Nov 2026 16:41:38 +0800
-Cc: osalvador@suse.de,
- david@kernel.org,
- akpm@linux-foundation.org,
- azpijr@gmail.com,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- Qi Zheng <zhengqi.arch@bytedance.com>,
- stable@vger.kernel.org,
- x86@kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <4EE65C7C-3532-4056-9794-47A9B894969F@linux.dev>
-References: <cover.1793692578.git.zhengqi.arch@bytedance.com>
- <61eee83da19a87337e68a7747fc0b89ee5d0393b.1793692578.git.zhengqi.arch@bytedance.com>
-To: Qi Zheng <qi.zheng@linux.dev>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+qsee_uefi_get_variable() validates the response written by the UEFI
+secure application before copying the variable data out of it:
 
+	if (rsp_data->data_offset + rsp_data->data_size > rsp_data->length)
+		return EFI_DEVICE_ERROR;
 
-> On Nov 3, 2026, at 16:01, Qi Zheng <qi.zheng@linux.dev> wrote:
->=20
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
->=20
-> A 32-bit x86 kernel can run on a 64-bit-capable CPU advertising =
-GBPAGES.
+All three fields are u32 and come straight from the response buffer, so
+the addition is performed modulo 2^32.  A response with
+data_offset = 0xFFFFFFF0 and data_size = 0x20 wraps around to 0x10 and
+passes the check as long as length is at least that.  The check on the
+caller buffer size further down only compares data_size against
+buffer_size, so a small data_size satisfies it too, and the memcpy then
+reads data_size bytes from rsp_data + data_offset.
 
-I don't think anyone would do that. That said, it is genuinely an issue.
+Since wrapping around requires data_offset itself to be huge, the source
+pointer ends up far outside the response buffer, typically in unmapped
+memory, and the fault takes the kernel down.  If the address happens to
+be mapped, kernel memory is copied into the caller's buffer instead.
 
-> arch_hugetlb_cma_order() checks only this feature and returns a =
-nonzero
-> order, although gigantic HugeTLB support on x86 requires =
-CONFIG_X86_64.
-> Specifying hugetlb_cma=3D can therefore reserve a CMA area that cannot
-> serve the intended gigantic HugeTLB allocations.
->=20
-> On non-PAE kernels, the folded PUD_SHIFT yields a 4 MiB order, which =
-is
-> equal to MAX_PAGE_ORDER. With CONFIG_DEBUG_VM enabled, this triggers =
-the
-> VM_WARN_ON(order <=3D MAX_PAGE_ORDER) check in hugetlb_cma_reserve(),
-> warning that hugetlb_cma is attempting to reserve a non-gigantic =
-order.
->=20
-> Require CONFIG_X86_64 as well as GBPAGES when selecting the default =
-CMA
-> order to avoid these ineffective reservations.
->=20
-> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic =
-hugepages using cma")
-> Cc: stable@vger.kernel.org
-> Cc: x86@kernel.org
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+Reorder the check so that no addition is performed: reject data_offset
+larger than length first, which also makes the subtraction below safe,
+then compare data_size against the remaining room.
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+Fixes: 759e7a2b62eb ("firmware: Add support for Qualcomm UEFI Secure Application")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+---
+ drivers/firmware/qcom/qcom_qseecom_uefisecapp.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Thanks.
+diff --git a/drivers/firmware/qcom/qcom_qseecom_uefisecapp.c b/drivers/firmware/qcom/qcom_qseecom_uefisecapp.c
+index befa68d1dcaf..0dda09ad156a 100644
+--- a/drivers/firmware/qcom/qcom_qseecom_uefisecapp.c
++++ b/drivers/firmware/qcom/qcom_qseecom_uefisecapp.c
+@@ -387,7 +387,8 @@ static efi_status_t qsee_uefi_get_variable(struct qcuefi_client *qcuefi, const e
+ 	if (rsp_data->length > rsp_size)
+ 		return EFI_DEVICE_ERROR;
+ 
+-	if (rsp_data->data_offset + rsp_data->data_size > rsp_data->length)
++	if (rsp_data->data_offset > rsp_data->length ||
++	    rsp_data->data_size > rsp_data->length - rsp_data->data_offset)
+ 		return EFI_DEVICE_ERROR;
+ 
+ 	/*
+-- 
+2.50.1
 
