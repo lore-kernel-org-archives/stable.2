@@ -1,55 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793720967;
-	b=MOCjRRjn+oJ7E7cOCJhxyVcLvjfCikK1WoEHPFKGL9khFFe9tMwAUARif2cCei9AIMP/
-	 bSyuVCqNMI1rTvAzW4a+gQhqG9WUUzTVJYJYTlgmvqVyYM97obcx9k5a6vRXDeM8JWYb5
-	 ek8fdrhfpgAjmnnSAosi3LX5+RpmH9XAMowkK1O4i9913HplkxeQofP7pd6VIuDorBllR
-	 I7Bm08eJ8LojyR8VXaBkBIIq8BQHKxPgqzAfgX9vTPiSokzJMc2aZqQATszJbH6d1PO4n
-	 ICpRfzl8ENtj6US10wfatSUGGWeXaH8KfoNmPLiL4zf0NbTBG2V+j3pogna/cTQ+WNQ==
+	t=1793720979;
+	b=T8Q0Me0I1zKaZBDd6561aWP9PaXb8t58QCTMnJV4s6Ewo3n/g9ZVl6+fwQKEVHseROp7
+	 4dGIXcc4tCT2I5fSLPajv/GTp/z/n4l7gHrhrL9YRCnPv1zJywoaqMpO8sDvE05JqN63M
+	 cULhkf5Zu1lbXn7+uVJJ8wZkWSoRlUvbTXp4ZSrpZMAFcld1LUYQ0myIoLNQmGkmzymnV
+	 GVEjqTAA1wabQz2l/UHw3nGN4OO0hY8rf2roSbweIR21H5+MCvs9Tu/cQJJ5uQnJdBedY
+	 9DK9AepkNT/hS97f00u61c9RvF0SYz/YYg2m89zZcgGowRshyORs5u2fS8ey+ZXDEmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793720967;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=yBVvkEycBHDzcqtk64wG1ZxAfNP7O82hXAvWkVI1BMY=;
-	b=VLh/tkdjlj3wiK3LUpdVq4nQtkHumo/iCNNGHDGVCHGzQZIWK3rr+EQVPsUokLQ+UsgT
-	 NyjKSFFdfxniBnPAzrunkUg+LZPMBuJCgvEM5nUE6lTwykEq7gEto5v4+vz8lyhFYAbDT
-	 EvHffGjWmkjmK0U9m+/fqn0cIWMyjUN8fPx0BUqyvjpDNVRt7MMC3viLuGw3wjYHy5XU8
-	 B+h86E/PVF32W4rlnr8ogI6vvlNuNtLB+kdHq7nFeE06YP7izXDaI9NgYTf0BWTrw2dU4
-	 RnKmz0lsdOsKB7fYuXXuGVQdHtFEexIqWqhpsD3APVApFz+yM3ae7GrYcTDDPtG5cfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793720979;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=6P0PHr+n9Ve3fxg8VsvgwFjBRTqtcr54xk6mXcgcgeU=;
+	b=Nx7bSymlkfqJasqTWyP+SzE6usJC0mBXV9SuHr9yOEwr5Fg7WGQTlmRqpjAn/HjbfHzt
+	 /Z7XQDt//K/i/RryGSb6TeymIdHGTlYiBnfEO+Y4+r0JTQBmPOMsGIZIM0ITCyyAz8Dpc
+	 KKRP9XB6Uu7KJmlDuxbjI1C1EFYJCz8QRHx2pcDkqowR/NdleBJ0v95bNWJs3fBkbFaX2
+	 UDGykdIbEdin607NYDrivPU4uEHP17JZ48nmgX7y2nLIWKoWFm+CYpR/sLtrOuLZCtJq1
+	 2rDZDqOz7OM6ZSszdqMrMHRd3z3tMxO09n14SqksEdfSc8uYdS4p1s0jFsz/WOtlKoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Flj/gEvw";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 815EB606A327
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:49:27 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="M/7yHUfQ";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D39F8606A338;
+	Tue,  3 Nov 2026 15:49:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D39F8606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Flj/gEvw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28C901F0093A
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:49:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793720967;
-	bh=yBVvkEycBHDzcqtk64wG1ZxAfNP7O82hXAvWkVI1BMY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Flj/gEvwZypjbqAT2i1vuTfp5IOXUKYT8EjKGdi7LN3DHt4HYMnZORez80eHDd1Fm
-	 HAyPvUudcDmOAEOo9lywAAV8ddmcz1jT9qfebWnZnDPgwpjEKXkNyZSxqPC9gj40zh
-	 ZdDyehkiL6JMFReGiCTUCibEwt/fMH3pCkT2frvcduMWbugKOnbYI13lA3eAjRTTeK
-	 mrMPfWC8MmjGJRisRPHKpgo6c82qjTS82+i0cs9eTro7PTaghgQBENLso0VI2RLrl9
-	 LcDuANSHauUuJNLFMTtBPMAVC+tS9P7Tugi5gVupqkrWgPaoe/KfTqtSYYLwwU4OtH
-	 o9fHOKWUt6XqQ==
-Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-4a76f63b243so686120fac.0
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 07:49:27 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBySguTOCy1ecvCwqkwTPZkMigQJZoZHD5WU7a12J6BfgfY7mYBbgOpmBgYpuPQejC/Qi0e3lGw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9C2+C+jzRF/wTO6LTH5JMel8BVs8RGYYbbmDHSQPVQRL9McWaI
-	fj2GHw7KOeBUJeF3gC6rjnYTV0d8/ucm1XODIgTJYo0XB8BZjCpcro2fknKoaihz4Zb9CfM/nyu
-	i/jbBafb4j/UyO81K7Rgq1RpeGJ7ootw=
-X-Received: by 2002:a05:6871:81e:b0:490:d828:a7e5 with SMTP id
- 586e51a60fabf-4a8e0a550bcmr7291633fac.30.1793720966471; Tue, 03 Nov 2026
- 07:49:26 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=M/7yHUfQ
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 32C9F1595;
+	Tue,  3 Nov 2026 07:49:35 -0800 (PST)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 03B563F673;
+	Tue,  3 Nov 2026 07:49:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793720978; bh=BID+rQWcre0pu+Hc8/Ybye16P1LYmsxhx3QBHIdrvHQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=M/7yHUfQ91gZ+q5qgdzem+UFmbdEMxBYyz+CL9oOvdC8qU9gEx1QByMs0dBh+bV/c
+	 zNfL2nWco0s5rbt1FNC0ZHZmFsRdKEgL5t9QFmJHt83yp55KIPjWcZ8E56qPdA0qmM
+	 H+Xuz2havdng9mdabhglVmV5KYNVjHwcLv4/cOug=
+Date: Tue, 3 Nov 2026 15:49:34 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Will Deacon <will@kernel.org>
+Cc: Wei Wang <wvw@google.com>, Mark Brown <broonie@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	wei.vince.wang@gmail.com
+Subject: Re: [PATCH] arm64: suspend: Save and restore TPIDR2_EL0 across CPU
+ suspend
+Message-ID: <auoCjmMnzRE8c1cN@arm.com>
+References: <20261102234813.1069156-1-wvw@google.com>
+ <aunKa8uBZJTCzVjd@willie-the-truck>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,109 +65,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
- <2026102727-data-sequel-ce41@gregkh> <42fe949f.1d67d.1a1a145bcf0.Coremail.xuhx@hust.edu.cn>
-In-Reply-To: <42fe949f.1d67d.1a1a145bcf0.Coremail.xuhx@hust.edu.cn>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Tue, 3 Nov 2026 16:49:14 +0100
-X-Gmail-Original-Message-ID: <CAL4WiiqeBmBZjmzXAqQB3rzBz_ew72euAs2uuvV2icnQ2RCc+w@mail.gmail.com>
-X-Gm-Features: AclHuK9zoFVvLkrFhmzzNCmXBvvs2C3RSpC5VfgBv-CSUvJgAvXjLkZlmpxUO7k
-Message-ID: <CAL4WiiqeBmBZjmzXAqQB3rzBz_ew72euAs2uuvV2icnQ2RCc+w@mail.gmail.com>
-Subject: Re: net: rtnetlink: rtnl_link_unregister() vs in-flight RTM_GETLINK
- dump readers -- v7.3 lacks the synchronize_rcu() fix (Fixes: 6b57ff21a310
- family); A/B reproduction on stock 7.3
-To: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aunKa8uBZJTCzVjd@willie-the-truck>
 
-Le mar. 3 nov. 2026 =C3=A0 12:57, =E5=BE=90=E6=99=97=E7=BF=94 <xuhx@hust.ed=
-u.cn> a =C3=A9crit :
->
-> On v7.3, rtnl_link_unregister() removes the rtnl_link_ops from the
-> global list and immediately destroys the embedded srcu_struct and
-> frees the ops memory -- a concurrent RTM_GETLINK dump that already
-> found the ops (rtnl_link_ops_get(), rtnetlink.c:599 hand-off inside
-> an RCU read critical section at :595) but has not yet taken
-> ops->srcu will, after the free, execute __srcu_read_lock() /
-> __srcu_read_unlock() on freed memory: two reads of the destroyed
-> object (ssp->srcu_ctrp, ssp->sda) whose subsequent percpu counter
-> writes land wherever the freed percpu pointers point -- for a module
-> rtnl_link_ops, the ops (and its srcu) live in module memory, so
-> module_memfree() is the freeing side.  Upstream already fixed this
-> with a synchronize_rcu() in rtnl_link_unregister() (the patch with
-> Fixes: 6b57ff21a310; its own comment: "Wait for rtnl_link_ops_get()
-> readers that found ops but have not yet taken ops->srcu").  v7.3
-> does not contain it.  I verified both sides on a stock 7.3 KASAN
-> kernel: parking a real dump reader (driven by an ordinary
-> RTM_GETLINK + IFLA_LINKINFO dump request) exactly at the :599
-> hand-off and unregistering+freeing underneath produces three KASAN
-> slab-use-after-free reports (__srcu_read_lock+0xe, +0x25,
-> __srcu_read_unlock+0x1a; bad address =3D ops+0x10 =3D ops->srcu); and
-> rebuilding the SAME kernel with ONLY the upstream one-line fix
-> flips the outcome to zero reports, with the kfree demonstrably
-> delayed until the parked reader left its RCU section.  Natural
-> hammering did not hit (the hand-off window is ~100 ns against a
-> ~4 ms unregister -- it needs a preempted/preemptible-RCU reader),
-> which matches the fix's own reasoning; the controlled run models
-> exactly that preemption.  The purpose of this mail is to support
-> the fix's propagation: trees still carrying the unfixed
-> rtnl_link_unregister() keep a cross-CPU UAF (write) plus potential
-> freed-module execution reachable by unprivileged netlink dumps
-> racing a module unload.
->
->
-> The detailed description:
->
-> * The gap (v7.3, net/core/rtnetlink.c)
->   rtnl_dump_ifinfo() runs lockless for dumps
->   (RTNL_FLAG_DUMP_UNLOCKED), takes rcu_read_lock() at :595, calls
->   linkinfo_to_kind_ops() -> rtnl_link_ops_get() which returns the
->   ops pointer at :599, and only then takes ops->srcu
->   (srcu_read_lock) to call ops->dumpit.  rtnl_link_unregister()
->   holds rtnl_mutex, removes the ops from the list, calls
->   cleanup_srcu_struct(&ops->srcu) and returns to the module, whose
->   exit then frees the module memory.  Nothing between the :599
->   hand-off and the srcu_read_lock is waited for on the unregister
->   side in 7.3 -- hence the fix's synchronize_rcu().
->
-> * Evidence (stock 7.3 KASAN, QEMU; A/B on the one-line fix;
->   reproducers attached)
->   rtnlrace.c registers a kzalloc'd rtnl_link_ops (kind "rtnlrace"),
->   parks a dump reader by kprobe at the exact hand-off (return
->   address rtnl_dump_ifinfo+0x374, ENDBR-adjusted), and unregisters
->   + kfrees from another thread (modeling module_exit ->
->   module_memfree).  nlr (userspace) sends the IFLA_LINKINFO dump
->   request that drives the reader path.
->   Defect kernel (stock 7.3):
->     park t=3D127041 (1004 ms) -> unregister+kfree at t=3D127249 (park
->     +208 ms, reader still parked 792 ms) -> park ends t=3D128045:
->     BUG: KASAN: slab-use-after-free in __srcu_read_lock+0xe
->     BUG: KASAN: slab-use-after-free in __srcu_read_lock+0x25
->     BUG: KASAN: slab-use-after-free in __srcu_read_unlock+0x1a
->       read stack: __srcu_read_lock <- rtnl_dump_ifinfo+0x374 <-
->         rtnl_dumpit <- netlink_dump <- rtnetlink_rcv_msg (task nlr)
->       bad address =3D object+0x10 =3D=3D ops->srcu (matches the
->       disassembly lea 0x10(%rbx))
->       alloc: insmod kzalloc;  free: unregister thread kfree
->   Fixed kernel (same sources, ONLY the upstream synchronize_rcu()
->   added to rtnl_link_unregister()):
->     park t=3D191305 -> park ENDS t=3D192306 -> unregister+kfree
->     t=3D192307 -- the order literally inverts -- zero KASAN reports,
->     dump completes with zero errors.  Same module, same parking.
->   Natural runs (three samplings, up to ~267k dumps/reader plus
->   6-CPU preemption spinners): zero hits; the window arithmetic
->   (~100 ns hand-off vs ~4 ms unregister) explains it, and the
->   controlled park models precisely the preemption the upstream
->   fix's comment describes.
->
+On Tue, Nov 03, 2026 at 11:50:03AM +0000, Will Deacon wrote:
+> On Mon, Nov 02, 2026 at 11:48:13PM +0000, Wei Wang wrote:
+> > On systems with FEAT_SME, TPIDR2_EL0 is part of userspace thread state:
+> > the AAPCS64 SME ABI uses it as the ZA lazy-save pointer, and the kernel
+> > context-switches it eagerly in tls_thread_switch(). While a task is
+> > running, the live register is the only copy of its value.
 
-What is the point of this email ? This looks like LLM slope to me.
+[...]
 
-I think we have far more serious bugs to fix.
+> There's a lot of unnecessary (AI-generated?) detail in here. Please can
+> you trim this down a bit? I don't think we care about the firmware part,
+> the stuff about idle or the bionic crash. The bottom line is that we're
+> not saving/restoring a live EL0 register across suspend/resume.
 
-3b70edea393d was tagged stable+noautosel on purpose: the race needs
-a module unload (CAP_SYS_MODULE in init_user_ns) to line up with a
-~100ns window, which your report also shows you could not hit
-without a kprobe. It is not reachable by an unprivileged user alone.
+I should get an LLM to trim it down when applying ;).
+
+> > diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
+> > index 7afbece885a3..c7b7fa6491c3 100644
+> > --- a/arch/arm64/mm/proc.S
+> > +++ b/arch/arm64/mm/proc.S
+> > @@ -103,6 +103,10 @@ SYM_FUNC_START(cpu_do_suspend)
+> >  alternative_if ARM64_HAS_TCR2
+> >  	mrs	x2, REG_TCR2_EL1
+> >  	str	x2, [x0, #104]
+> > +alternative_else_nop_endif
+> > +alternative_if ARM64_SME
+> > +	mrs_s	x2, SYS_TPIDR2_EL0
+> > +	str	x2, [x0, #112]
+> >  alternative_else_nop_endif
+> >  	ret
+> >  SYM_FUNC_END(cpu_do_suspend)
+> > @@ -142,6 +146,10 @@ alternative_if ARM64_HAS_TCR2
+> >  	ldr	x2, [x0, #104]
+> >  	msr	REG_TCR2_EL1, x2
+> >  alternative_else_nop_endif
+> > +alternative_if ARM64_SME
+> > +	ldr	x2, [x0, #112]
+> > +	msr_s	SYS_TPIDR2_EL0, x2
+> > +alternative_else_nop_endif
+> 
+> nit: We use msr and REG_* for TCR2, so it would be more consistent to do
+> the same for TPIDR2_EL0 if the assembler is happy with it.
+
+TPIDR2 is not defined in arch/arm64/tools/sysreg yet (for some reason,
+only TPIDR_EL1 is). Since this is a cc stable, I think we can leave it
+as is and do a TPIDR* cleanup going forward.
+
+-- 
+Catalin
