@@ -1,58 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793737252;
-	b=addtBbBDxsHYmeby6TiEpPZShjUMbAxgyFweBhOzRrty7FxanYkeO9BVCkVFgWh4p+EW
-	 b83R5llJ2W9SXP0otGW8TpLWm33TVsej3aImMcI+uefcWvZy8/neO6fVNsZBPvckTZc2G
-	 oIIwKJwoPut1gGSaucmZVS9/WdyZugFdf2vmAnpoFuszkFoEOGkzhmlSdsq3DLaPcfVxt
-	 7bhPtpRaMaqG9qqZjM6xzG9AVJ7whHUPnvweNG5MhBrE8/6R6SUNeOkQCEWfisfYTFSX+
-	 c+kGbNBLuiBV77j6GCjp/yN5dOtglak0u67WCYITFUtekvehkV8MjDP8gTU8DupZXlw==
+	t=1793738203;
+	b=bYszMKYntcdsZT5L7L98ENgjvyfyENv3/JwCuYyBeG4hPOjjSRAjMrXZx/aZjXXX2Heo
+	 8C1gkbcRT2Zq6dzEiZtQyWEhoFecO8g63cti1mENkh5gVa5J80mGxIq0SszQExtamZ0le
+	 VzK7Y+izUxs9loJRRmga3tKrro6PMW6qEcedrr5/5KCNTP0VZxXO0taIoXlxNNiDQzL8T
+	 N/K84TC/VI/qVOFJipYwKD6CYwX6QelldCeMYnDP5o7zEcq7GMAe8czt+1IDbV5rxMrKk
+	 47ySTODwxCTCfh5DkOgEUiqBD6kGpdVW6dRy747rCxW2aYiy9jBOXE5h+CvZSN2r5qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793737252;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=sDo6TDFkQ9uSctLBPvuoBtBBuRJVFhbyIu0XzsnfNOE=;
-	b=YSdYxjKPQIAnDnHKsg1tMTnonb88ugx2h7CmBYUNcG/PWW+0QAJpj4ZDQoKCTrT4pr57
-	 fn2YIgeME0P6Rft9dEthRh/9JqDeTwvcyR1D5IrR0Gp8EBYdbGr0srMMX9zeGPa74RDHm
-	 KBPvHbmYG+09nog2couJXhN+LuZ3vkOzc7UHzHD3+6f73z22kTYUwn3paYlJghKz9rRVF
-	 cGQQkVKoWewSNyCrHXA0FosWkPCLNR06XMzJIjfvNqOxfOp/4ZYXBvD62P1BkRcZkuBKc
-	 qB6NnqQkJhaokrpK42fMT9MDBhDlvS0z6LQc7ygb/4ygaR/QMrGtB7O0mk8vWwWvvzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793738203;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=H6euy1JPMcTX2hy9GI94GZuSFSw81ZMn0tXNEvb00oQ=;
+	b=HExciybylwjYyu94G3mem7f8XJZr0nFS+eN69+77Hw5Oynts02F+Hdd2qEN60GiOYNp9
+	 GLowioUGLik/yP+4vJZuu0jLlljrTAG/qQZ+BE7m/vCJmWDaaUEpIvR1ofEifsaoCNoR+
+	 sy+6roKVM94Vp3C5Nd8F+79DDr17xNdLNmwqrp2JF3GyKLNUtgpx636OgkJtmORNFwJLh
+	 wB0GBARKC5mANvc97flGKvCeT9Mp9KT/o0F+LCcLtcA8VWYTejetY4KE0Z0qvbQURyFq2
+	 vwekF4TI2Smc6+XH/TB5FCVsaivHbfKY7GHw9jQTtAtQSod3HvreIKwYkDN4HPdJFpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iqV0/Y4y";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HxYLUwvD;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=H6K4GAAd;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59120606A324;
-	Tue,  3 Nov 2026 20:20:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B331606A31B;
+	Tue,  3 Nov 2026 20:36:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B331606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqV0/Y4y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667571F000C1;
-	Tue,  3 Nov 2026 20:20:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793737252;
-	bh=sDo6TDFkQ9uSctLBPvuoBtBBuRJVFhbyIu0XzsnfNOE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=iqV0/Y4yOOhqqN30gEsyj0UsLqtz3B6eNqLqbFkI6IpiCECIAWPEYYLaPInNpVr+z
-	 7/IIiRAKxzKPE9iBv8JNxKwHzLcKxWktsWgBZG/FurB3A5FT69Gl06TQN5M7+q+ZL6
-	 uMIhCcTEunW22ow9cvMa3B94SkUsUvKvdhLFT9rbI8oLpkV47GWpjF4DKmqUyQh82s
-	 x6VfP19jqdUnFwYrbueI8McuqdCLbk0RYF6yRHINgFiECmViS6lC/EpF/OjkXymT8y
-	 ytlxow1WTFuDRgSYK4tLy5eG/cG2Z+aP5AhLo5hlt3pEiMQ6W1hTYYLyPP3R6T6apT
-	 xtGfRdG/Vudxg==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>, John
- Stultz <jstultz@google.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
- Srikanth Aithal <Srikanth.Aithal@amd.com>, Borislav Petkov <bp@alien8.de>,
- K Prateek Nayak <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org,
- tz2294@columbia.edu, stable@vger.kernel.org, Mani Tofigh
- <mt4022@columbia.edu>
-Subject: Re: [PATCH] clocksource: Use the clocksource under test for the
- skew check timeout
-In-Reply-To: <20261102-clocksource-skew-timeout-v1-1-4ff412918591@columbia.edu>
-References: <20261102-clocksource-skew-timeout-v1-1-4ff412918591@columbia.edu>
-Date: Tue, 03 Nov 2026 21:20:49 +0100
-Message-ID: <878q39y8da.ffs@fw13>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HxYLUwvD;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=H6K4GAAd
+Date: Tue, 03 Nov 2026 20:36:38 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793738200;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=H6euy1JPMcTX2hy9GI94GZuSFSw81ZMn0tXNEvb00oQ=;
+	b=HxYLUwvDWn+v+ihJGXGyPwrpD9IHW8nsrQ1jy7H/kAO1iT//ghfa4tYN7W71NZwOGdo4k4
+	ZnNJkvekl0MrwcJ/8grusbeOvETFZsspZWU6zhvyVfmTvkUq4kURmd0A41Bn2fNoc/643C
+	AXK+CZXgfPJZG+ix1f0VPgEqrGS93hcixFkjl2JBXPTZP36ZCegKFlq6SApADehOF4ImqV
+	5oYBXPAl9T/nbhNe4pZin4DbWTpyMQ4LTjEUGYhIP3kB0teY7XeJ247QUFUH17qK+6XDM0
+	7/x6inbwtgGeWEypEwcpfulXpABlwv8eRnD82/ONpkMTnCoVpQdtwKN2BMgB2w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793738200;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=H6euy1JPMcTX2hy9GI94GZuSFSw81ZMn0tXNEvb00oQ=;
+	b=H6K4GAAdHRL9B/JCxSlad7RkpphfzejlbFUWspDgsuP3iPL/u2Pr5hyLsZXKCgsf3hXPmu
+	GswTTs4PFjv14VCQ==
+From: "tip-bot2 for Thomas Gleixner" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/urgent] x86/entry: Fix ptrace regression
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Thomas Gleixner <tglx@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <87ecd4xwlr.ffs@fw13>
+References: <87ecd4xwlr.ffs@fw13>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,135 +78,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Message-ID: <179373819852.1009794.4642891487121637825.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 02 2026 at 16:45, Mani Tofigh via wrote:
-> watchdog_check_skew() waits for the remote CPU with interrupts disabled
-> and gives up after a timeout measured with ktime_get_raw_fast_ns().
-> While the clocksource is still jiffies during boot (or with
-> clocksource=jiffies) that timeout can't expire, because only the boot
-> CPU's tick advances jiffies and that's the CPU spinning with interrupts
-> disabled.
->
-> The boot then hangs when the remote CPU can't answer, eg in the
-> stop_machine() of the switch away from jiffies:
->
->   CPU0                                  CPU1
->   multi_cpu_stop()                      multi_cpu_stop()
->                                           local_irq_disable()
->                                           /* waits for CPU0 */
->     <timer interrupt>
->       clocksource_watchdog()
->         /* sends CSD to CPU1 */
->         watchdog_check_skew()
->           /* waits for CPU1 forever */
->
-> Nothing gets printed.  With the hard lockup detector on in a KVM guest:
+The following commit has been merged into the x86/urgent branch of tip:
 
-The above explanation is enough. No need for this backtrace.
+Commit-ID:     b697faab2c92653ee13bd950c8de13551a78971d
+Gitweb:        https://git.kernel.org/tip/b697faab2c92653ee13bd950c8de13551a7=
+8971d
+Author:        Thomas Gleixner <tglx@kernel.org>
+AuthorDate:    Sun, 01 Nov 2026 18:58:08 +01:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Tue, 03 Nov 2026 21:29:35 +01:00
 
-> Measure the timeout with the clocksource under test instead, which
-> keeps counting with interrupts disabled.  With the fix, the watchdog
-> gives up after the timeout and the boot goes on.  A 2-vCPU guest on one
-> host core hung in 4 of 150 boots without it, and it didn't hang at all
-> in 400 tests with the fix applied.
->
-> This bug was identified and confirmed with the help of a deterministic
-> hypervisor currently under development.  The C reproducer below however
-> hits it within about 80s on a kernel booted with clocksource=jiffies.
->
-> Fixes: 763aacf86f1b ("clocksource: Rewrite watchdog code completely")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
-> ---
-> Srikanth reported silent early boot hangs of large KVM guests that he
-> bisected to the same commit [1].  I think it's the same bug but it was
-> never confirmed.  Srikanth, would you mind giving this a try on your
-> setup?
+x86/entry: Fix ptrace regression
 
-Yes. I gave him a similar patch which simply uses sched_clock()
-instead. That solves the problem, but I was reluctant to post it due to
-the lack of explanation why this ends up in a situation which does not
-allow to make progress.
+The recent rework of the syscall entry code missed the historical detail of
+the abuse of syscall number -1L to abort a syscall and keep modifications
+by tracers to the return value, while a rewrite of the syscall number to an
+invalid value undoes eventual tracer modification to the return value and
+overwrite it with -ENOSYS.
 
-So your reproducer does:
+Restore the original behaviour.
 
-  while true; do echo 0 >/sys/devices/system/cpu/cpu1/online; echo 1 >/sys/devices/system/cpu/cpu1/online; done
-
-right?
-
-Unfortunately it does not reproduce here within a reasonable amount of
-time (still going strong after one hour...).
-
-But yes, your explanation makes sense and triggering it with the hotplug
-code is obviously a matter of probability.
-
-Though one thing I thought about before looking at your mail while
-reasoning over the possible causes of Srikanth's report and the possible
-consequences is that such a timeout might in the worst case result in a
-stale CPU state which is silently ignored. The consequence is that the
-watchdog wont run on a CPU with such state ever again.
-
-So something like the below delta patch on top of your fix (or the
-sched_clock()) variant might be appropriate.
-
-Can you and Srikanth please run that on top to validate that we don't
-end up with that?
-
-Thanks,
-
-        tglx
+Fixes: 1b1f3b3e1b39 ("x86/entry: Get rid of the sys_ni_syscall() indirection")
+Reported-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Tested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/87ecd4xwlr.ffs@fw13
+Closes: https://lore.kernel.org/all/20261022142425.3Wx-RrU5@linutronix.de
 ---
---- a/kernel/time/clocksource.c
-+++ b/kernel/time/clocksource.c
-@@ -250,6 +250,7 @@ enum wd_result {
- 	WD_FREQ_RESET,
- 	WD_FREQ_SKEWED,
- 	WD_CPU_TIMEOUT,
-+	WD_CPU_STALLED,
- 	WD_CPU_SKEWED,
- };
- 
-@@ -398,7 +399,7 @@ static void __watchdog_check_cpu_skew(st
- 
- 	wd = per_cpu_ptr(&watchdog_cpu_data, cpu);
- 	if (atomic_read(&wd->remote_inprogress) || wd_csd_locked(wd)) {
--		watchdog_data.result = WD_CPU_TIMEOUT;
-+		watchdog_data.result = WD_CPU_STALLED;
- 		return;
- 	}
- 
-@@ -590,11 +591,16 @@ static void watchdog_print_freq_skew(str
- 	pr_warn("Clocksource %20s interval: %16lluns\n", cs->name, watchdog_data.cs_delta);
- }
- 
--static void watchdog_handle_remote_timeout(struct clocksource *cs)
-+static void watchdog_print_remote_timeout(struct clocksource *cs)
- {
- 	pr_info_once("Watchdog remote CPU %u read timed out\n", watchdog_data.curr_cpu);
- }
- 
-+static void watchdog_print_remote_stall(struct clocksource *cs)
-+{
-+	pr_warn("Watchdog remote CPU %u stalled\n", watchdog_data.curr_cpu);
-+}
-+
- static void watchdog_print_remote_skew(struct clocksource *cs)
- {
- 	pr_warn("Marking clocksource %s unstable due to inter CPU skew\n", cs->name);
-@@ -635,9 +641,13 @@ static void watchdog_check_result(struct
- 
- 	case WD_CPU_TIMEOUT:
- 		/* Remote check timed out. Try again next cycle. */
--		watchdog_handle_remote_timeout(cs);
-+		watchdog_print_remote_timeout(cs);
- 		return;
- 
-+	case WD_CPU_STALLED:
-+		watchdog_print_remote_stall(cs);
-+		break;
-+
- 	case WD_CPU_SKEWED:
- 		watchdog_print_remote_skew(cs);
- 		break;
+ arch/x86/entry/syscall_32.c |  4 ++++
+ arch/x86/entry/syscall_64.c | 26 ++++++++++++++++++++++----
+ 2 files changed, 26 insertions(+), 4 deletions(-)
 
+diff --git a/arch/x86/entry/syscall_32.c b/arch/x86/entry/syscall_32.c
+index a59509b..ca97fa3 100644
+--- a/arch/x86/entry/syscall_32.c
++++ b/arch/x86/entry/syscall_32.c
+@@ -77,6 +77,10 @@ static __always_inline void do_syscall_32_irqs_on(struct p=
+t_regs *regs, unsigned
+ 	if (likely(nr < IA32_NR_syscalls)) {
+ 		nr =3D array_index_nospec(nr, IA32_NR_syscalls);
+ 		regs->ax =3D ia32_sys_call(regs, (unsigned int)nr);
++	} else {
++		/* See comment in do_syscall_64() */
++		if (nr !=3D -1UL)
++			regs->ax =3D -ENOSYS;
+ 	}
+ }
+=20
+diff --git a/arch/x86/entry/syscall_64.c b/arch/x86/entry/syscall_64.c
+index 966d3d1..bb95ad0 100644
+--- a/arch/x86/entry/syscall_64.c
++++ b/arch/x86/entry/syscall_64.c
+@@ -64,15 +64,20 @@ static __always_inline bool do_syscall_x64(struct pt_regs=
+ *regs, unsigned long n
+ 	return false;
+ }
+=20
+-static __always_inline void do_syscall_x32(struct pt_regs *regs, unsigned lo=
+ng nr)
++static __always_inline bool do_syscall_x32(struct pt_regs *regs, unsigned lo=
+ng nr)
+ {
++	if (!IS_ENABLED(CONFIG_X86_X32_ABI))
++		return false;
++
+ 	/* Adjust the starting offset of the table */
+ 	nr -=3D __X32_SYSCALL_BIT;
+=20
+-	if (IS_ENABLED(CONFIG_X86_X32_ABI) && likely(nr < X32_NR_syscalls)) {
++	if (likely(nr < X32_NR_syscalls)) {
+ 		nr =3D array_index_nospec(nr, X32_NR_syscalls);
+ 		regs->ax =3D x32_sys_call(regs, (unsigned int)nr);
++		return true;
+ 	}
++	return false;
+ }
+=20
+ /* Returns true to return using SYSRET, or false to use IRET */
+@@ -81,8 +86,21 @@ __visible noinstr bool do_syscall_64(struct pt_regs *regs,=
+ long nr)
+ 	if (likely(syscall_enter_from_user_mode_randomize_stack(regs, &nr))) {
+ 		instrumentation_begin();
+=20
+-		if (!do_syscall_x64(regs, nr))
+-			do_syscall_x32(regs, nr);
++		if (unlikely(!do_syscall_x64(regs, nr))) {
++			/*
++			 * The special treatment of syscall number -1 is a
++			 * historical bogosity as the original code used -1 to
++			 * indicate syscall abort, which is not distinguishable
++			 * from a syscall which is invoked with syscall number
++			 * -1. The historic behavior is to keep the return value
++			 * in regs->ax unmodified in that case, which means it's
++			 * either the preset value -ENOSYS or a value which was
++			 * written by a tracer. If the syscall number is invalid
++			 * but not -1 then overwrite any tracer modification.
++			 */
++			if (!do_syscall_x32(regs, nr) && nr !=3D -1L)
++				regs->ax =3D -ENOSYS;
++		}
+=20
+ 		instrumentation_end();
+ 	}
