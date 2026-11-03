@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704203;
-	b=bgZuiAK+D+DUm23zX5R++kAqltRE2YqJxKTurhOjFZWlf1AEfCEn7d1RM8PlwB9iej3p
-	 VPvSBz902WSxQN3o606azH2H84UGMWnmM31ymkCCCwJOC8IviPp0NoHyvWCZDklK61E9G
-	 CwT8BA2YpIkAYwrnRjYh0ftmmTyWgPtjt2fQ3LfpUhb/VuJaMUdepx2Noo7ITr9qF+4uv
-	 7OoT6XL3dBZzKMv/fQCr1NtCMbhqQ0c3iQmKGDwR/enLt8J0K/7W/XuWxjy92yDcUTXUA
-	 ThJqCQDILqciKC2h9owZmazqrewVP4PNFaX10Q4eOAU2TUH9ihMRdHoywEYnbQQ0kug==
+	t=1793704201;
+	b=pJZet7UWED331yQhd+TGBn+izR+WF3ZYjqViEi1AP/kSjnOMoLPs4HWV3Xg37GLjqUtI
+	 vCbkluPWn7+McK81PP/VkUfdFmbI+4ChhYDicZ4N05VVO9bSefVSjFIk6aQkq7cS2ea0S
+	 hyZ1U8OPvxhVSrHREA0ka2KhXt9Vz4LZkf7ZFowxa1lK/nzMCn3g62oqQ263aygrzlqqP
+	 8TH3GrM6kwdjLoUnNalq5sOKG35uaSRbCHVdEpKVFrCf0nEVFrGBp0QmiHqM1fqhtgEBP
+	 IS3+au9apWWSajpJd+NVu9cIPgVBhr/UpygvjKYUXc2h4hidV0PUWUcK66dTG0+gpHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704203;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704201;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=iVaqWCIvOxlTswj8zlqsLe/sDKMY0KDVW7ynZAQ76QM=;
-	b=ISgU7+aCK9+ajUJ6ZamMUZclWHTiW6Rjuz9LRUmn6+TKcIeWiIGZe612afPhDtvH433H
-	 thEmTUf3VHQBq21Gfz0M33l8y7kGNjmo8zzvN0GO45wBAY1EkESczNEPGF8soki6ej3xV
-	 6NlhJ4zoZYCx4w74RVhJ1mGqfcUiflGqOZUYG0pCUbvNK2bUqCjbKPJ70enz70Oia+VAP
-	 p22f35dfumRjZ4h3zcqobPikhZqv03V+jbulXkXKbQNYdGNK0CBYWoVLKq33tdboynT8v
-	 fstvlZ3PyzfmNtqG3LRL/dUxv7RWkjKEFh73pNkmbZiB42EU1oMRGei8eJoKv/HrRCg==
+	bh=V/64MdRHZYG+iHL/40CVZGl5w1WrDMY6/UJ84tc9K8g=;
+	b=zru2MCE2RbsWpUfr1WLbm+Jlir3kbtjzN5kRc/nfGDL6cKtzYMQqJ0Lf1/Rxe1R2sEy0
+	 QRZBIfmc26h1kpDGAda+pl6EoFEFmJO8NDAjTb5nKz2rq4ZeBI2s/xxboD8A/smwEbODU
+	 iJDzoL/1HwMo5XnwNv+hc3RQPg70wev4gzkN6ekUXT7WxV9ppF82ShmcKj5hX0jmOCJqa
+	 aTyazqgptmB+R9hMPqfllLGN55m0yr3q9+ToTb1eGSpUQRTIjl4CRU90LM76CyHMvoCbw
+	 4/q1Pl0TzGIe1vfqCtLjUOJCJMnmunKg+SHt7LBprbqMqUnVVVWejGh0oqy/0XTpxEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eO+vDHHY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UnPguzxM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FC5606BA54;
-	Tue,  3 Nov 2026 11:10:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7BB6606B136;
+	Tue,  3 Nov 2026 11:10:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eO+vDHHY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA06F1F00A15;
-	Tue,  3 Nov 2026 11:10:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UnPguzxM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F03831F000C1;
+	Tue,  3 Nov 2026 11:09:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704203;
-	bh=iVaqWCIvOxlTswj8zlqsLe/sDKMY0KDVW7ynZAQ76QM=;
+	s=k20260515; t=1793704200;
+	bh=V/64MdRHZYG+iHL/40CVZGl5w1WrDMY6/UJ84tc9K8g=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eO+vDHHYyHXIXO/jgynse3/Sp94LcLFR/kjfA062WAHHfA2W9w5XssbOHEjQisSJK
-	 WuBPAvh78jQFhSIzWK3kP2ef3lbDSbPx8NrjUCvG/cQNbex9ZO6kZXmqI/nCkoepKm
-	 edGMnC287tQxfEGtz80j6eCoZVw/eEdn3vmQKToLFV9dtdhJeapIb0a3UZmJzxjh0p
-	 jCyyBh/GvcDf7LULllMj2tq7ykbfrMyDIb7rs2klHO51i6MBKGV7SUDIh4S0tQm7MY
-	 weWsSRRwDOE5kJgu974OTcVfOqQKpK2iaa1YVTeWF3uRiDMbGt8+bkxEMgPmguP9N9
-	 qeU/uBeR1LMFw==
-Date: Tue, 3 Nov 2026 12:10:01 +0100
+	b=UnPguzxMJUuTI2Jr6+FKCxLBTZKnittQmHrd5lqF5I1Lxt9Fs4Otg2F1H7pCIU401
+	 T/cBva3JdP99fBXNBrKfJigcUGaAWmio/DoREr4rK25mwCLmQE2heYAkWRxiIHYWAv
+	 3k8RBuGAx3Gxd2WcWd8ll4/kipqobTdGNIaCP7fPgCEWp7+faO3pf5xGWhXS+NSG6c
+	 BVtt4UfPKSXhHAvWm7Fh9yKv4/Sj1P6xwaN3ilP4mUzFXLilw+7xQ0gvb2zCDc/uaQ
+	 tLaqK0NQqxYGvsSj+Ok8+KqRrr8j9tWm0wHLc2S2RRFxAgZB3RhIZevkEpT9VmVkEx
+	 C1ih6hyf869Zw==
+Date: Tue, 3 Nov 2026 12:09:58 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, Alexandre Belloni <alexandre.belloni@bootlin.com>
-Subject: Re: [PATCH] rtc: stm32: release the LSCO clock provider on remove
-Message-ID: <20261103-cunning-mellow-gaur-ade1c5@quoll>
-References: <20261103105546.1394618-1-vulab@iscas.ac.cn>
+Cc: devicetree@vger.kernel.org, stable@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] of: unittest: fix node reference leak in of_notify()
+Message-ID: <20261103-jolly-skua-of-perception-dac423@quoll>
+References: <20261103104236.1373612-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,26 +59,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103105546.1394618-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104236.1373612-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:55:46 +0000, Wentao Liang wrote:
-> The LSCO pinmux action registers the rtc_lsco clock provider with
-> of_clk_add_provider(), which takes a reference on the RTC device node.
-> stm32_rtc_remove() unregisters the gate clock but never calls
-> of_clk_del_provider(), so the node reference is never dropped and the
-> provider stays registered with a pointer to a clock that no longer
-> exists.
+On Tue, 03 Nov 2026 10:42:36 +0000, Wentao Liang wrote:
+> of_notify() takes a reference on the overlay node passed to the
+> notifier, but drops it only for the unexpected action. Every regular
+> action returns with the reference still held, which keeps the overlay
+> node alive after the changeset has been removed and its memory freed.
 > 
-> Delete the provider before unregistering the gate clock.
+> Move the release out of the default branch so that it is performed on
+> all paths.
 > 
-> Fixes: bb7b0df2be5c ("rtc: stm32: add Low Speed Clock Output (LSCO) support")
+> Fixes: 992b0dc5c38a ("of: overlay: unittest: add tests for overlay notifiers")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/rtc/rtc-stm32.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  drivers/of/unittest.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
 
 Multiple things here:
