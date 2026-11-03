@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702870;
-	b=5UxYrFsR3dki7OG7PeGK6KqdZRTTdFKGazJ5gZLBh9ZAV76gjeAFi6sDVR+vwbbw6aiX
-	 UQmFWjUxOL+E5EwG0O7QnJVbEbwuE+5YzFJlWSgDXWb2aX4fzRHqZ/xX66B4yAkkZd66q
-	 dELT6IRdn2s/FMU1h5YzSLEuDIA12UE96UjDrGlXI+VOHGthDvuCt3yXF4/xXNgDSXajb
-	 tFVnSAOWc0gSHh18FdzluADLWJrApznbAF12hNJyBDKwF8L8q+pF33S0hl3PgYQGHhIie
-	 Bci2nOpjR1S9Jd9zShjWvb1IRXppcOcqcebuXWe1s0yiRnxPBlmj05CFC4yPwxKpFYA==
+	t=1793702871;
+	b=UOuRp5OCxuuN1TQpIkyPyTNpKvt4/DS9qWjpCGqCarkjLTFiGsn4Qk4zC/5r20SyVWa3
+	 M2nKnsFgR6fgWrBAw3bDrDLVqu2eHvJgEzlJhZKn6A3bZZhLAtGHZiY2mnitHqEd6ToY2
+	 kvC+hYF0NbrC22TRwrTBR3RCad4D7xop4ydLN0pI/LARKZGDJxMIW6lGj+5mfeWGxnVBf
+	 35sHMBZedEeuM6IOed3UB38uiUX+rDOLEzHW1NadEEUpT6NMzKOPn1Ef1jwcnlX8SmGUy
+	 lOmLlH3AlYCvo8tFRZ6aC/di/oUr1Gpj8uX97FOZ4K8Tph1qCfEkNAq/t+ZfBdym9/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702870;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702871;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=D0pjJTxEJsexUvjwKBHn30dB74ZvbzYzJnQNYqhPQEM=;
-	b=IV0uQO7jKD+LxstJ9Ak7JMOEPl5m1IruoPJwSHUE4wqjAZMlg8FlGGTvp8qV0BxUlcJU
-	 BXRwZkEFPVTpWyPaVZ/uHFud7GrjdNvlIuIDx6DV9JfgTit1TpO0OCZPRKifRKcgvzk8N
-	 akc6EB/hu3RXbF0m77AemYONfA1B+2Mp6eGAPpmJN0iywPBK1L3kwd6Mu2H4mfNha9CE9
-	 GLV4sye4MJ1Qj3dNSmkpNxcozGfZAVHcCNUS4yBMSmabTYfcV/fYq+rPSjlLic3/pcqpO
-	 r+/vHME/6t/+3ra4bgcSGS0MVb+I1PJg5BCEU+or+l15BpXDRoayqaIWnegs+Pa1YMA==
+	bh=0ipOgUhpqq8sLWG7Ziqm12VluWJTe0L2pKVcwWG/vE0=;
+	b=vAHcnl1JBwCyygnJZe1a3aEtPp7impRv8yHW+kfzWcR1RzGmY2GPDl0Jo1N6goDelSrx
+	 FTppI4BSuR2T9295sYcdR8FPP24MvmNGCwHv0z7qRND+2vXFpPUCUKDCP7wskmwptBwRp
+	 oxD6CnRqK/zmO6FDy+tJB3+y2Lr65mhfzpgVbBPcdha+fz9DezhsSKJG4GbhgnWPx33XP
+	 xyzXsMZdvGELgq1YR3R84f2ZO3CQ7UwDpDp0NWgSj+SdUkJHADtPnS8WFp/RD4ePM/chc
+	 VvEsl7aByqAWPH5OvLPws9dmeSM44v0zNFZ3K1vMDQCrD9tOdu8mHjVQm0ZFq6NWUSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ayKyI9Pw;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IY5cqtpi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59126073787
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:47:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ADE360736EF
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:47:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ayKyI9Pw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 261DA1F00919;
-	Tue,  3 Nov 2026 10:47:49 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IY5cqtpi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEA691F000C1;
+	Tue,  3 Nov 2026 10:47:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793702869;
-	bh=D0pjJTxEJsexUvjwKBHn30dB74ZvbzYzJnQNYqhPQEM=;
+	s=korg; t=1793702871;
+	bh=0ipOgUhpqq8sLWG7Ziqm12VluWJTe0L2pKVcwWG/vE0=;
 	h=Subject:To:Cc:From:Date;
-	b=ayKyI9PwT/RdTftStZOUYhJpgbN1DZ5qOaCO+agavr9EoIKR3plrK7vvQ2nB2rDR0
-	 64DL4UaEDIbytx9v+SkZsdwJlYuBl4kr8YHRHmOg5wegt3J3d/efGdbXe1yjftwwwu
-	 0/vqfRjlvBnLUlvxiMFUDLUGvVSDTm7aP8FUE8+A=
-Subject: FAILED: patch "[PATCH] ksmbd: prevent share root removal through empty paths" failed to apply to 6.12-stable tree
-To: linkinjeon@kernel.org,zachariah@aplosai.com
+	b=IY5cqtpiRYrolc8QG9sF2lol9oorzziQF7zTJRUY/teqyh15N3TQwZU8UX92/R1Sk
+	 WmFE4p2m14vyoQ3DMTAXZNIWUVAXQnPTAFVw+r0IQIiilaAiczd5jvvhRzyAgwVIyx
+	 Esvh26elxlaEeC62kLrAD6SCF08WhBR8eQINPm7U=
+Subject: FAILED: patch "[PATCH] ksmbd: verify transform SessionId matches the decrypted" failed to apply to 6.12-stable tree
+To: zhangdairui@gmail.com,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:45:37 +0100
-Message-ID: <2026110337-chute-essential-cb01@gregkh>
+Date: Tue, 03 Nov 2026 11:46:43 +0100
+Message-ID: <2026110343-scored-pummel-0600@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9fd1fcbbf84986a7bcf601a2b90540899069d263
+git cherry-pick -x 798214e6fafcdcc29f5ba2661a473232b5e70cfb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110337-chute-essential-cb01@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110343-scored-pummel-0600@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,44 +79,153 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9fd1fcbbf84986a7bcf601a2b90540899069d263 Mon Sep 17 00:00:00 2001
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 23 Oct 2026 08:53:57 +0900
-Subject: [PATCH] ksmbd: prevent share root removal through empty paths
+From 798214e6fafcdcc29f5ba2661a473232b5e70cfb Mon Sep 17 00:00:00 2001
+From: Dairui Zhang <zhangdairui@gmail.com>
+Date: Tue, 29 Sep 2026 22:30:00 +0800
+Subject: [PATCH] ksmbd: verify transform SessionId matches the decrypted
+ header
 
-A FileLinkInformation request can supply "/" as the new link name.
-smb2_get_name() strips the trailing slash and passes an empty string to
-ksmbd_vfs_kern_path_start_removing().
+When an encrypted request comes in, the decryption key is picked by
+the SessionId in the transform header, but the request is then
+authorized under whatever session the decrypted inner header names.
+Nothing ever compares the two, so on a connection with more than
+one session a client can get a request decrypted with one session's
+key and run it as another session. Encrypted requests are exempt
+from signing too, so a valid AEAD tag is the only proof of session
+identity, and it is checked against the wrong session.
 
-ksmbd_vfs_path_lookup() resolves an empty pathname as the configured share
-path, without LOOKUP_BENEATH. With ReplaceIfExists set, smb2_create_link()
-can therefore remove the share root from its parent before link creation
-fails. An authenticated client with a writable share and DELETE access to
-a file can trigger this if the share root is empty and the mapped user
-has write and search permission on its parent directory.
+MS-SMB2 says the server must check that the transform SessionId
+matches the one in the decrypted SMB2 header and treat a mismatch
+as a protocol error. Add that check in __handle_ksmbd_work() after
+decryption, before dispatching: the message has to be at least one
+fixed SMB2 header, the first operation must not set
+SMB2_FLAGS_RELATED_OPERATIONS and its SessionId must match the
+transform SessionId, and every following non-related operation in
+a compound chain must carry the same SessionId. NextCommand
+offsets must be 8-byte aligned and stay inside the message; the
+bounds check is done by subtraction so it cannot wrap.
 
-Return -EINVAL for empty pathnames when for_remove is set, before
-resolving the share path or acquiring removal resources. Ordinary lookups
-continue to accept empty pathnames for opening the share root.
+When the decrypted payload is a compression transform, the
+existing decompression step runs first and the decompressed SMB2
+message is checked instead, since a compression transform header
+carries no SessionId.
 
-Fixes: 74d7970febf7 ("ksmbd: fix racy issue from using ->d_parent and ->d_name")
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Reported-by: Dairui Zhang <zhangdairui@gmail.com>
+Assisted-by: LLM
 Cc: stable@vger.kernel.org
-Reported-by: Zachariah Mithani (AploSec) <zachariah@aplosai.com>
+Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 5360c6999bb3..4ee72eda9bc0 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -62,6 +62,10 @@ static int ksmbd_vfs_path_lookup(struct ksmbd_share_config *share_conf,
- 	struct dentry *d;
+diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
+index 0827c8c51006..eb2952f2debe 100644
+--- a/fs/smb/server/server.c
++++ b/fs/smb/server/server.c
+@@ -187,6 +187,16 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
  
- 	if (pathname[0] == '\0') {
-+		/* The share root must never be removed. */
-+		if (for_remove)
-+			return -EINVAL;
+ 	if (conn->ops->is_transform_hdr &&
+ 	    conn->ops->is_transform_hdr(work->request_buf)) {
++		u64 tr_sess_id;
 +
- 		pathname = share_conf->path;
- 		root_share_path = NULL;
- 	} else {
++		if (get_rfc1002_len(work->request_buf) <
++		    sizeof(struct smb2_transform_hdr)) {
++			ksmbd_conn_abort(conn);
++			return;
++		}
++		tr_sess_id = le64_to_cpu(((struct smb2_transform_hdr *)
++				smb_get_msg(work->request_buf))->SessionId);
++
+ 		rc = conn->ops->decrypt_req(work);
+ 		if (rc < 0) {
+ 			ksmbd_conn_abort(conn);
+@@ -215,6 +225,12 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
+ 			ksmbd_conn_abort(conn);
+ 			return;
+ 		}
++
++		rc = ksmbd_check_transform_session(work, tr_sess_id);
++		if (rc < 0) {
++			ksmbd_conn_abort(conn);
++			return;
++		}
+ 	}
+ 
+ 	if (conn->ops->allocate_rsp_buf(work))
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 45dce9c30b6b..0592e2539d1d 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -12256,6 +12256,60 @@ bool smb3_is_transform_hdr(void *buf)
+ 	return trhdr->ProtocolId == SMB2_TRANSFORM_PROTO_NUM;
+ }
+ 
++/*
++ * The decryption key is selected by the transform SessionId, but
++ * the request is authorized under the session named in the
++ * decrypted SMB2 header. Per MS-SMB2 the two must match, so check
++ * the decrypted message and its compound chain before dispatch.
++ */
++int ksmbd_check_transform_session(struct ksmbd_work *work, u64 tr_sess_id)
++{
++	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
++	size_t msg_len = get_rfc1002_len(work->request_buf);
++	size_t off = 0;
++	bool first = true;
++
++	if (msg_len < sizeof(*hdr)) {
++		pr_err_ratelimited("Decrypted message is smaller than SMB2 header\n");
++		return -ECONNABORTED;
++	}
++
++	for (;;) {
++		u64 sid = le64_to_cpu(hdr->SessionId);
++		u32 next;
++
++		if (first) {
++			if (hdr->Flags & SMB2_FLAGS_RELATED_OPERATIONS) {
++				pr_err_ratelimited("RELATED_OPERATIONS set on first operation\n");
++				return -ECONNABORTED;
++			}
++			if (sid != tr_sess_id) {
++				pr_err_ratelimited("SessionId mismatch between transform and inner header\n");
++				return -ECONNABORTED;
++			}
++			first = false;
++		} else if (!(hdr->Flags & SMB2_FLAGS_RELATED_OPERATIONS) &&
++			   sid != tr_sess_id) {
++			pr_err_ratelimited("SessionId mismatch in compound chain\n");
++			return -ECONNABORTED;
++		}
++
++		next = le32_to_cpu(hdr->NextCommand);
++		if (!next)
++			return 0;
++		if (next % 8) {
++			pr_err_ratelimited("NextCommand %u is not 8-byte aligned\n", next);
++			return -ECONNABORTED;
++		}
++		if (next > msg_len - off - sizeof(*hdr)) {
++			pr_err_ratelimited("NextCommand %u is out of the message\n", next);
++			return -ECONNABORTED;
++		}
++		off += next;
++		hdr = (struct smb2_hdr *)((u8 *)smb_get_msg(work->request_buf) + off);
++	}
++}
++
+ int smb3_decrypt_req(struct ksmbd_work *work)
+ {
+ 	char *buf = work->request_buf;
+diff --git a/fs/smb/server/smb2pdu.h b/fs/smb/server/smb2pdu.h
+index 40d61745ef41..c90a1d4e9f11 100644
+--- a/fs/smb/server/smb2pdu.h
++++ b/fs/smb/server/smb2pdu.h
+@@ -416,6 +416,7 @@ struct channel *lookup_chann_list(struct ksmbd_session *sess,
+ void smb3_preauth_hash_rsp(struct ksmbd_work *work);
+ bool smb3_is_transform_hdr(void *buf);
+ int smb3_decrypt_req(struct ksmbd_work *work);
++int ksmbd_check_transform_session(struct ksmbd_work *work, u64 tr_sess_id);
+ int smb3_encrypt_resp(struct ksmbd_work *work);
+ bool smb3_11_final_sess_setup_resp(struct ksmbd_work *work);
+ int smb2_set_rsp_credits(struct ksmbd_work *work);
 
