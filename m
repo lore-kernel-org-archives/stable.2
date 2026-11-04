@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805403;
-	b=u+t2TyWHXYsF+MptvQ80PPhV8sRQHs5ji6KtGC9v4DMo7ZPr0H/04+hQ4FuU45vZ7HPH
-	 p7AGsjHToOE3CcaX0cb+Itz/tOeznsIgcARKk4/m7/G1N5RmWPbxZjLmqY3e+gED2GAU7
-	 D8VpBw7uKzMYY7iU0WEWj1MKzc1xIdTRdk31yZdRx98SjHXP/NlGinMxZnaaSMLgIQX2R
-	 TA9kARsNF/aLHIbpyNck6AJHRAKGSXGFZgAgwxFKJ51KNG5nlcN7HQB6QhFcSkpZrRNJB
-	 rX6IRMyx+wjJmcmyjiq7QsggvXEWVGmnR+tRQzYgDXRSYTTLFqb9ibLP4jsvczknUqQ==
+	t=1793805412;
+	b=izIJeIxAmvPKMg2PEeUp3Vf2XU6EMjGe808VJCtgM6IdcoNINjqeJ0CxBR0quVyCbK4v
+	 aLjoZEgDFFzZc9vQePDYXUTbZYYPZEjP4mU5xekJBw9Bri5uci3/iKPUs3lAOZoddsidJ
+	 MVYHQ46ne8oMKwXvvqXTNhIR9lciyEBQ5ssSMji3ho8XysmzULO1eW9+UCejp/cWdwmLn
+	 QKyGxdZkNMA8EOnFqJ6Pz6b1Tt6R1BCjYLlBBeNvM5HCdj6wCcaN3HBGiNE+obi8Zll3l
+	 UA4fXUDgVTtySgkoopdZD944G2Jr0Xh48vC84Kr9yemGBjFHamvyU6b11+nyMFRvPEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805403;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805412;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=QPfA/lYHrA66PMOBNE9+FoUNRUIrclUTtXR5ORVl93M=;
-	b=Cxl0t5CWHJwhNeHH/2eRSuV54UBl6gENpMPNKWmCBhDG3S+RWL8/O1P+KQE9Ez1bOg81
-	 ioyPUJMEZEwx58hvIE3G+rBL9SGLdKp0RKhA1JUaxOQcne6lnIjsP6/BqxBf3V4XjmExY
-	 tHPdgGUDIBsqIRgCHL6GLYFNvKsqaKIUkgJW4XQSjWziLQzHjb3pFU9izwyOqh5OH5EEn
-	 2vx29fp0c3a+AeAUf/XjpsFRfABPaqu8Yiw0vRjwPUazSehFi4e7n6a1i+Uisp9BD69e9
-	 IsIqcaRuMk06uOJVQBy2ocddFGKst02HpQgzP1KDZryvQHW2RmzME4KkU2WdNCUEY4A==
+	bh=o3GROl9226X8kQenVGUjYvgDixDCnvI6Yf/uylUE2Jc=;
+	b=CX0E5W9aqr0CcpesMfVibD4W8vGAqxo+brqcc/Tq5NurmiVRX/s/l2G20jrPVJsiunk2
+	 3bBGi2dbmp3/akjONXUlLLU+h/GrBdrsCVwqbaL0EmV9ecyK4Ra27KyVa8aHjy1u7+Q2E
+	 aHHjm4WDmjY69+AMfLRxgFDroVaxEH0YAUBNHeSdTfcTyerrlbEaC1A5hyk1J8n/HFhNt
+	 qkpFM0W7sd39uG43ckugMiw3cfhHjZDyaxBtWZGyWAVecuSkSV4FrZkoQ5vlcVWM9naFN
+	 Ol1Fkqrv9B6MWoyLyOxwpqsRbxITc0XO2XK8KF0DMKCBDQbRCu0xQMeGW+cAVOzaJCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ofctAZqp;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cGQY4zyk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB70B606EEA4
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:16:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F3B46074759
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:16:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ofctAZqp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E87B1F000C1;
-	Wed,  4 Nov 2026 15:16:42 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cGQY4zyk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD91D1F000C1;
+	Wed,  4 Nov 2026 15:16:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793805402;
-	bh=QPfA/lYHrA66PMOBNE9+FoUNRUIrclUTtXR5ORVl93M=;
+	s=korg; t=1793805412;
+	bh=o3GROl9226X8kQenVGUjYvgDixDCnvI6Yf/uylUE2Jc=;
 	h=Subject:To:Cc:From:Date;
-	b=ofctAZqp17vLzw/5NbdwpC8dY8I7Mak0AUtNwW6jjk3/COZZxQZWvWKmmb1/k9jw+
-	 K/n88U0zrXI42njBvmWpBZ9pS2GIA8iAvnfc93WXAeb01OkjtXR3/QwDtUigGcoMHc
-	 LyXg4B9Hd5pCS72vFSabAFgvf60SDbQlIal1VCqE=
-Subject: FAILED: patch "[PATCH] xfs: cross-reference the primary superblock" failed to apply to 6.6-stable tree
+	b=cGQY4zyk+gGKf0DQiEIBdDj869rP5qV4nmgf/+CMgh5b6UI37X/nsf/xIAEIMslrg
+	 TA5Rc2vK9txxk9i4y9LMUU16g4eww0fhnEAG1kRO8kR4OSX/uLzc/CJYmebxrnBfg7
+	 G+u4fQel+BROb/W6X7HyeHE/tesPwY1/8Dorw9E4=
+Subject: FAILED: patch "[PATCH] xfs: cross-reference the primary superblock" failed to apply to 5.10-stable tree
 To: djwong@kernel.org,cem@kernel.org,hch@lst.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 16:16:40 +0100
-Message-ID: <2026110440-september-retiring-e3ac@gregkh>
+Date: Wed, 04 Nov 2026 16:16:41 +0100
+Message-ID: <2026110441-writing-graceful-7908@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0c61016006ab08f8346f9e7b1e38559bd4ea499e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110440-september-retiring-e3ac@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110441-writing-graceful-7908@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
