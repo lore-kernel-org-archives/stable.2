@@ -1,93 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789207;
-	b=2JglywoeWXpQ3sVaS+8wM+grRqmIgDuGdYuNG0eEzlJgC/mimF2r+IkdHVnY7oQVZxFQ
-	 uge81oVYYCuNrFnv0VfwBmiRqClHVMrs3wyHGeX0xTMSHr/0QR4bAUVMZVnAU3J0kZnBG
-	 jfSt/YBKHHkqPRDtFaIEsFOJ8BngAelKmejaRd4pNakmcXvxmMvClleFWFH2320Ksmdi+
-	 ArFI96foor+42/P2k4R1I7HP9LDnMSa4Paj+TEcsmgaUcxMWo0yRGq8RowWxUyEWKG4Iw
-	 zh2gSnfwt6NzlrDj9gMjXdij5iFCr3KpMOKVkNqXwjU1SHFeQyBtfPBDHSrcFzSdaAg==
+	t=1793789373;
+	b=xVM1xS6rvLoJQQMvpJEgpXHU+JE4aNHuc+d4lSG36FbijOWrRbQYdMcNqpQXZHlA2e40
+	 qa0wDyfAIVtJ8QWnQ47clIcc6ReFps1niROAsnjd6CsmW3rM8KgRTcv3JZ18xfep/4c8c
+	 fU+KypsRXjcr/kUo3b00h5UhvNNiNw9W9RwyGJW12qcZ3oCaXmgUARwDgo3fW5N799xby
+	 hXWJ/+tp1QwU/p0/Z+zglYWf7OyLxBZIjFpCeLprkJXvX2Neh130RT/XlH0IqMjwK3EY/
+	 sowYcFceBa9YXx5eRCh6C0jez8hptHPhUm0ddnsAM+2cWumgliF3DpoAw5pgQOfPtPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789207;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HLh1868bM3xI6tmCVDDotZeFZNzZ5VuBhrB/LMUfaUQ=;
-	b=yqLwJZvsgLHnZXfu70OZtZDrwPQZhuPtN7S/cdO855gPxiIKF1QysvGCWAfG+bAnTtGH
-	 3jKFtV0Ivt5lvZ8epBEmYzdyuWv913R2DDI0WiT5xTdeJByqNdGfqd7ONPm0mM7nN1QR3
-	 yTkuvLFcMtqmVsYpGwIhHGcVGLTbb3v3rQsTs8HHNt3GTIxhR3WX0osHwQrELDeffvEds
-	 ysa/dovm89GnhMzihNKcsRFxMSotUQTNnmkRtyI0Bb4gdWqvwG0eqQaT5P+4BADUr/QNO
-	 P9MkK44Vs7pxe+PY+sM+d5N/ldJXCbWs1UNEvU1oc8zfgpm8ne14y4h7ko4l2RBSOxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789373;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=aI4EIZNxMoprUdCGvASntRDiuaop22syyWJWgaD/hhQ=;
+	b=rgHK/vwj06i+5Y8FEna8SdVJUHmw1xRE0yUOUAmG5CSHgyIEm15Sel/OjF3RvQaCu6WL
+	 VM1kEThNYSROLpiDq4yvYOnZjKI3uOqJL/Ci2uUrGJ9fMxtkt4Vx4ezJBzGndX3vcAoXk
+	 e8qmQA5QdSMNDuNrzbl8k78oqy5ApOzbkfNPKP5QHpMnAEvDwEhW83/y70E3OeMmHcCB/
+	 wEbKPT49P0bzBka4jY9T+5jwIBU/eW8AAf1Z13T7KghN8ReInV/CSi7C362iRC1V/fTTt
+	 fRlA7etcdg6UjdyyCvKDvDdBsLOYfxn8RpT6fKBZlLlvd49vr5iemxtp5rUIlaTfq+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XBmu7vWG;
-	arc=none smtp.remote-ip=74.125.229.137
-Received: from mail-dl2-f9.google.com (mail-dl2-f9.google.com [74.125.229.137])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Nc9ijgvo;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C59606A337
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 10:46:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27C59606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C37606A32C;
+	Wed,  4 Nov 2026 10:49:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26C37606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XBmu7vWG
-Received: by mail-dl2-f9.google.com with SMTP id a92af1059eb24-143255db95bso16371c88.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 02:46:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793789206; x=1794394006; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HLh1868bM3xI6tmCVDDotZeFZNzZ5VuBhrB/LMUfaUQ=;
-        b=XBmu7vWGfccTPCZSJN6LJ1LcmTTbH2lkdS3TuZX0tBvcqvUZL/zfrqQDumoIisWL9a
-         h1mSlQVMzAWwEw4Ul9Zpm6Go5YT6Eex48aDLDKrDo8npS3V/5W1MBA0MArp0Dry1R3GB
-         jnZQyHyYf3XOVByhWUGYfEs8aolp7Xg2q1GCuw3ROcv1RkgeXlJCWtUjZsBaxBQ7uid6
-         WIeEUsFtzohb+9SP1024P35VZEn5ckk3n3wSlVlTOMXfijU9YYIeQedKBUNJASHBxCe+
-         cUISp6p7wjpjoCQHU+pXxSsEgIjjBOmdCNh8AhdUqpYMg9yM22juUXHjblDI5PX/EIYl
-         B/CA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793789206; x=1794394006;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HLh1868bM3xI6tmCVDDotZeFZNzZ5VuBhrB/LMUfaUQ=;
-        b=L7KOkVqnoLo4vm+VieeLetbRfuwfM2Z76O1IwAmAl2klgPQlk5fOmerW0YNpfpxFiL
-         dAi7J38Q7KADy8TlPh1Rs9NCcvtjQW5qdq1srr71avMWINp72SaOyIwYwYOdVQ4jce4S
-         UroAi3/eYjRP02Y13CzU54YNkwWl8Nyot6VXUSZZT4Kj5qMDntiBkgvXsvZ0U/4mjNBZ
-         ENvXkTMPa6LdyEl75GBFOjWh0IfF4tQlVpXoEL4RNOlmiQzD2c7iP15hx2PoB1SDG4wO
-         ZhvBQws1xjh5N7mzgG6Z/aUdwK9yr/1C2j/E+m05WN97HzRqUQsqqtc5o8uNvS3whizL
-         UvkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy6sZYG/3pZtdrPSWYEp5o5RvpVRDf1IrhTGPjSBwlKDqYmEHIskk/EXO4s0KQFL/ezwrNJe8U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Aj+8nxi2LK5VPSTWY0vG9T7++mfpANTKxuEEglQCS5EJyyBOE
-	c8Ktji1hrchEUDzSt5YxNhjXanM10r47kb7FR2P8enEsRsJQpzeImqba
-X-Gm-Gg: AYBFou1srkZSd77mDYU4iV/5ajqm1Q9SBWaQFTKw76wlQWFh5RaBKIuu6E0+2uJ76B7
-	UnpoG0G/6qlnYuLAL3QOd6WY35tnUdUbKl6Rm2ljz6JIqxoTdOD5n6dOo4x/oAHNdpdqLNp9uDf
-	XZGfN9Roue7tkuZrxO9eyk7Y3kEt+VECuFblNbDRJndeevcqqIledxdC6D1KUuINH4XBSP4y+w0
-	32Dd6wITu0uHowfhzshjB2xSp3QY7lNW4EQTgXMCGA79CfN/KOlUXN0RpEMBOql3f4qwDqLHRR4
-	ls056wlw7jCQolopsAT9IChZYpTgmkMNe5aKMbKSx68W1LaxmyWCqS+xf0iADsnI96ePGBC91ep
-	p6tJLUxdQ/1yXTnSChOjYsB04wJQdDMWZpSnGfPJJ15zn32v5rGjGldx+aNwZj0T9ybqOy5Ar7M
-	L1gCXiVu5n8hhnFdl3hK/B7TXCVDgvwYXsTeM+dXWoue/nTFrhdTlWwlKd0CNz0b/tgiXEWzGYU
-	55aBEaB1MJN3ro145JUpewCA44SeV+py7AwSDRJr8fEOL1KHRpoMhLgv1DSdfkfcN+KlN8xXhKu
-	hYKyIIYKXM3PczYAai0LyW48kwhBPsxIXvHqx9wggn18iGmqVRoy4NU2IW4GU8JmkOi30jrRXOb
-	SNKNrjqA84njxMudrRTDwT/YKDeOso0xgcaM1wg==
-X-Received: by 2002:a05:701b:4248:20b0:191:3c:aae7 with SMTP id a92af1059eb24-1ac5c64cb0emr24775668c88.26.1793789205904;
-        Wed, 04 Nov 2026 02:46:45 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c6f0dcsm8266549c88.21.2026.11.04.02.46.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 02:46:45 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: dsterba@suse.com
-Cc: linux-fsdevel@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Nc9ijgvo
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id C4C08C8F46C;
+	Wed,  4 Nov 2026 10:50:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D624060770;
+	Wed,  4 Nov 2026 10:49:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9BD42103291D2;
+	Wed,  4 Nov 2026 11:49:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793789370; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=aI4EIZNxMoprUdCGvASntRDiuaop22syyWJWgaD/hhQ=;
+	b=Nc9ijgvoOPaVD3JjNxp4TrkUWCXvJfVSA7Gz//GSu7l6f9iaXiLK61WkKNRKyRlUIwR7zo
+	7FE0kZGM+RBek+cuVSC3SygzmeA1EpvWUVScm+CsZoR3Apou0U1tVBSCCVybXjchfyo6ve
+	sDJ8D6sd9uPlY/MS6cGjDxVNaBwQmCUQkVjGNlY2d2W3W7OYYtS2L2HRoBZFuBYhPZ+bU5
+	Y0UXcGVahaD6nXpiziHX2SruZBIQ/wtBb11y+giOIFBU3XDJTbs2TNMtTD0PA0caWgiugm
+	m/BeUkOcGBK6XBh+pFl/tOkhk20XG9SAxTgUG5DsLtobbtnR1wHf2eUzIAvv7Q==
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Robert Richter <rric@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
+	Umesh Kumar <ukumar@marvell.com>,
+	Shashank Gupta <shashankg@marvell.com>,
+	Tanmay Jagdale <tanmay@marvell.com>,
 	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] affs: honor copied length in OFS write_end
-Date: Wed,  4 Nov 2026 10:37:02 +0000
-Message-ID: <20261104103702.79093-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH 2/3] i2c: thunderx: Set DMA mask
+Date: Wed,  4 Nov 2026 11:49:11 +0100
+Message-ID: <20261104104912.166301-3-paul.cercueil@bootlin.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261104104912.166301-1-paul.cercueil@bootlin.com>
+References: <20261104104912.166301-1-paul.cercueil@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,63 +78,36 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-affs_write_end_ofs() uses the requested length instead of the number of
-bytes copied into the folio. It can therefore write data that was not
-copied and report more bytes than the source iterator consumed.
+From: Tanmay Jagdale <tanmay@marvell.com>
 
-generic_perform_write() then advances the file position without making
-the corresponding progress through the source iterator. A one-byte
-pwrite() from an unreadable buffer at EOF can repeatedly grow the file
-instead of failing with EFAULT. Partial copies are overreported as well.
+Without it, MSI-X initialization can fail.
 
-Limit the range written to the copied bytes. When nothing was copied,
-unlock and put the folio without modifying block metadata or reporting
-progress. Remove the obsolete comment: an uptodate destination folio does
-not guarantee that the copy from the source succeeded.
-
-Fixes: f2b6a16eb8f5 ("fs: affs convert to new aops")
+Fixes: 4c21541d8da1 ("i2c: thunderx: Replace pci_enable_msix()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
+Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
+Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 ---
- fs/affs/file.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ drivers/i2c/busses/i2c-thunderx-pcidrv.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/affs/file.c b/fs/affs/file.c
-index 23e088a7ed4f..84f53ece87d6 100644
---- a/fs/affs/file.c
-+++ b/fs/affs/file.c
-@@ -700,15 +700,13 @@ static int affs_write_end_ofs(const struct kiocb *iocb,
- 	u32 bidx, boff, bsize;
- 	unsigned from, to;
- 	u32 tmp;
--	int written;
-+	int written = 0;
+diff --git a/drivers/i2c/busses/i2c-thunderx-pcidrv.c b/drivers/i2c/busses/i2c-thunderx-pcidrv.c
+index 3959f23fc440..2208337e649b 100644
+--- a/drivers/i2c/busses/i2c-thunderx-pcidrv.c
++++ b/drivers/i2c/busses/i2c-thunderx-pcidrv.c
+@@ -198,6 +198,10 @@ static int thunder_i2c_probe_pci(struct pci_dev *pdev,
+ 	i2c->hlc_int_enable = thunder_i2c_hlc_int_enable;
+ 	i2c->hlc_int_disable = thunder_i2c_hlc_int_disable;
+ 
++	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(48));
++	if (ret < 0)
++		goto error;
 +
-+	if (!copied)
-+		goto err_first_bh;
- 
- 	from = pos & (PAGE_SIZE - 1);
--	to = from + len;
--	/*
--	 * XXX: not sure if this can handle short copies (len < copied), but
--	 * we don't have to, because the folio should always be uptodate here,
--	 * due to write_begin.
--	 */
-+	to = from + copied;
- 
- 	pr_debug("%s(%llu, %llu, %llu)\n", __func__, inode->i_ino, pos,
- 		 pos + len);
-@@ -716,7 +714,6 @@ static int affs_write_end_ofs(const struct kiocb *iocb,
- 	data = folio_address(folio);
- 
- 	bh = NULL;
--	written = 0;
- 	tmp = (folio->index << PAGE_SHIFT) + from;
- 	bidx = tmp / bsize;
- 	boff = tmp % bsize;
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+ 	ret = pci_alloc_irq_vectors(pdev, 1, 1, PCI_IRQ_MSIX);
+ 	if (ret < 0)
+ 		goto error;
 -- 
-2.43.0
+2.47.3
 
