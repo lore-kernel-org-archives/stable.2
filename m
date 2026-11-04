@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818490;
-	b=v9LcGWREI57lBQjg96288zuWRPh+L8OvMEMgIEc/sJ9WMgAApahpoBOjYXX8R9PUrbTx
-	 fVkkIp68+dOVbrFOItRaPQ2BwWKyme8diRRlDNYWA5ExF3lw4hIEXOxyGiYt5Jon99cKm
-	 t284F2TWZqVXbae4AurtGVCZTrDrFOx6H6Sd6X/OiRrDs3qetjWPw6HLWlwRvPeba72rf
-	 PenWQUBq1tkMF6aEY9zmNM4TqCy6TSGq38trbbpO0ogBs52ilZkZj/eCjpMfphZN1QLkX
-	 r94X9QMRHeeJCnP19juDaA3yJTZUP/+A7VBFimcmh+TujEDO4mC3mgaYAm6yzp4ytzA==
+	t=1793818495;
+	b=sp4EDn0kEhGtbxmDXz8zk/Ar6jg8li4QTnnqvDqaYVDiIhnwOH0A+oDRqqkai1abRJs/
+	 R2UiJdG7QWgteBZkiLfxCnkw3GNkKEaJG0lMTyGF3LQtnXswXqDJdIOdhNj8GFJf2o/4i
+	 rd8LjzgeY5KvAAAe3YYLjPl5f7KvagTkAC3y/2WIWCgxKgKcslvbAe5S+ytuyGzETCJVx
+	 WBxp6OapvTxIMdBwrvOVitAeHrMGcBt8p94TeJR8+/CQ4reb16vnfEaOamPhv4QZSBlev
+	 OkBsFgk04ZAsg5Qz+/0STlO81eO10EPRJzxXNgnuY631/b7dYnLRFbxt+n8V2K1MuLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818490;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818495;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=SeCfoWW2BNuVeO9m7QjSBA39I4eq+wxqSunkccrpJec=;
-	b=0AUqe+04eyGbUOxKGqQ+ZkOuR5B5Px6pX5k4PfgL1uBK05pWrWO+tzohdAgaxaEjSsNl
-	 CsR7sA66ieNR5brit81X3dwqKJ6AyCBwJuRwfVpFQabxiRZcJKv+8jgn+gFuD9rv4DlFm
-	 mEWmBmom7TjDE7ay0Cjihp5vgYMJxZVG8zdsSyCnOnSQfqTV7owLJrmLAyHamnocW2T/s
-	 CwDiJH5q2pURbmqTuvdpA44B7Mmse0+evrlXblbH1FtsEHSvDbMjUumBIuVY4StxqQxK8
-	 SACix5RfdnhZUPmtLWW6aAWO73O+vDgGhECLxyAajEUFqYjIFCWtosFe1Psh3vqdYZA==
+	bh=kXRR7Gsw03fCJKet3/Jm9WQZe71lsbg/2egRlA3BUY4=;
+	b=N57WQTApZpaf9bDg/3SffmzILVWyaG/O6eMf4o6/5hk0vOLkRBIsMLhWg5MPkCp6UWYk
+	 7Z9il7QDwWt6K5Y5oRXWL8dva4C5YulbXgb2LY1LHFOTNgUQhyOrRm+aem4trit4j1Wzc
+	 d4oMGqvJXvIvus/Hb19tNG/QQ8TZ5MG0gATfPJR21BE18pjne2x8RD1KgJVSPDxt9iBDk
+	 n8hYMTA4neyxaXusuJbOVK+S6Mp48e5qEMoNrV5ygeH2NgtqXk3vFmRBaSOxgvvL+aSWM
+	 NKkLOuB993KwYPpFab9N+YOe1GAh/qp+oBHb5Wlcw2zd1iFoMfEhihngMKCzBJPzyKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Icm1dN44;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cLzb9FTr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0B4606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:54:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1EA606EE89
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:54:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Icm1dN44
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6537F1F000C1;
-	Wed,  4 Nov 2026 18:54:49 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cLzb9FTr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B805A1F000C1;
+	Wed,  4 Nov 2026 18:54:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793818489;
-	bh=SeCfoWW2BNuVeO9m7QjSBA39I4eq+wxqSunkccrpJec=;
+	s=korg; t=1793818495;
+	bh=kXRR7Gsw03fCJKet3/Jm9WQZe71lsbg/2egRlA3BUY4=;
 	h=Subject:To:Cc:From:Date;
-	b=Icm1dN44i2hCvLHZz1wFnKZMZl4Ll0TagjVoDLg5Ssiy3+y1mghugnNTTIE8tHDbX
-	 yqkWrGEcxppLM6GM0w2FxLYFwYxk3YNbY5RQUFdPMzUSDHS8P1CQv5ZpwzXEn6LJvv
-	 ib3T50yIAct7Pax0aEx2lAmBo56RBpW2a1pSsigc=
-Subject: FAILED: patch "[PATCH] NFSD: map fh_verify() status codes for NFS_ACLv2 replies" failed to apply to 7.3-stable tree
+	b=cLzb9FTrElZNS0+9l5KoFFRelgnA8iJX+14/bgbF5zOzbkC8ioK0sWZrexXW3+QNF
+	 R5M9WE+oBgV52ejakwUpLs2GGbmCKC4/iUA4ekAeFjK8Ndw3GG2e+t66slexpbtQEf
+	 snMIiEba7lie0DZstmcyEUEDkkwurIeO72xGk9aw=
+Subject: FAILED: patch "[PATCH] NFSD: map fh_verify() status codes for NFS_ACLv2 replies" failed to apply to 6.18-stable tree
 To: cel@kernel.org,jlayton@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:54:36 -0500
-Message-ID: <2026110436-sputter-backdrop-7c80@gregkh>
+Date: Wed, 04 Nov 2026 13:54:37 -0500
+Message-ID: <2026110437-anatomist-emptier-0eda@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x ccfc4db5ab740175b9958ea0cf5986957bf4e659
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110436-sputter-backdrop-7c80@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110437-anatomist-emptier-0eda@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
