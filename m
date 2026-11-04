@@ -1,52 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793786231;
-	b=i5JRjOUWPkoDN8bpPgwNbKPLfhvDbJsKxo6R4hnuMFwLMs+9q85Irxte/u4F+bxKqeyW
-	 YumI9GRUW6Qe7mp51Zv71Jv6/JWjcMbVXCd//4mj+ocbABYcZbi9zoc2hwApHYH2ZteKf
-	 xIIAmfQ2WXlnvlQOfIlpQ/A525+s4EBFZzZQGZevTI8WYWlw+3i5ZKwwsZT/QgJ5MS4pZ
-	 G+kRRaaQh5wGxB7wKJp9CTN2BXrxF/r0CRG+2NfsSza33rP6Id/q0CdVh5Mzb0NWIgvcu
-	 2fAdntsERPgAQ/Oc4uVordg69ic/muuJ9qPeRvqhg+12ZI0k4I63ea/NbUOyC8ndnyA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793786231;
-	h=DMARC-Filter:Received:From:To:Cc:Date:Message-ID:Subject:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=a6xsRKL+cULQrPCgB872GUO7WGH3fVoHR5W/L6Dktxc=;
-	b=nvYU4DnlYrg5D69fTlY3P1mVpNqN4MV4a0UB/2pIgRKX7xmpRZS1MYT/4Y7JOpshVVZe
-	 NkxtANZBPeOP8etaK98HGxokuOZ3ISBOpa1317VDQqpK+QgX/EO8y2fGv8FzvrcGPNsoD
-	 Ll09sg5aJSvS0XlfFjIVOc6pS/FCCb0dnD7J+5fOpC5VC+aCRrRuFm0NXj0ikD4d7X5UJ
-	 NZkk7UR2nzjH2Jo6m/YluNksadWRVz4c94bck2HfllDAsFW7bdH+iMgaHSN9Zdqf9ggB2
-	 a7TqPw6zMWBVmr95ilh8OVm0z9M35JbHM9frq8vLNS5EQlydR0W34ku5N3s5chXelZg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.pku.edu.cn;
-	spf=pass smtp.mailfrom=stu.pku.edu.cn;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793786350;
+	b=005RBeR1ON68QA9LcFkdnsGF1WnkYC1HQHbkPEyoY9uYuT+sbX5EshP+2VBUKUuy4bSE
+	 YTbxxTBPVZBpfE2BOKXmAw8bJBKAW/9nd0WS0ExpTW7Oq60EVYgjVogmxshao2I9ou2ha
+	 fIJq1PXFslneg3vziZNk0OlyZNNzMVu6YSK4yakeZ3YVy4wnb51QEPxq8h3u8snXVVQNF
+	 bozG+gWCEQuk7t1P6ijk0COG5Mgc+OY44ZQAJ4fpgtF2ZgSWXR858tYxhVAD5Jm6+t0mc
+	 YXQgIjjxcDS4vQ6yKK/YAWuoLBoITYxqMnQel/3ISSfIZsDLc1a9GHN8Fl3xT/CZEOA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786350;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hhEgGsFrhB7fn+QYkE62uO6FmTu6zV39mSaIWkH0dJI=;
+	b=EMtSSjMBf2uLKw7VRBRlvMu3HnpTdpZKK5o3RtSzo8Bt7fc6xXIvuDjkJachXkXQbySm
+	 eyvkDjoZtBvQB3vzG3+6kf5CGhN4WrZufYyX7xcIqc/+w9liXhagElwrDtb61HkkGPbj4
+	 nTvwcgjmQ//6HAyIkRWexfKZgi1Gsw/VQfrH2NEKtPc808W0VXhkQHBb1p6qgkZTDwTOP
+	 7nRbckUTGtu1Li7aB+IhjczjgvqfyS7vb3BvPfQEVa5cP9JKJsEiZhaVfI9i46QNqVlyE
+	 pgtZvjEuATW+xCWJNLmgWjG30qFhMs2+mom/IhgWXDwUVyC8/4q9h0Zcq14qZuXCxPA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqlvqBAM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEE3606A330;
+	Wed,  4 Nov 2026 09:59:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqlvqBAM
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793786350;
+	b=R0hNYq0Lr+03WyHBH58qFLa/eUmyh1HJQ+QHW21ZzjzTCArjWpUKhNxx+gASxrso8OWS
+	 YBKbqxybRy/tkjKg3D/hCXxAYRwYYJ23AH/mpDADYKGNsb+r1w8AfuHU3A0HiyFHI0lHd
+	 zg6ZFSIG5+u9WJSGsApH9pWMFzpcm+3W6Mprkea0NQfJnG68PMyZY8KB/WyCmERzhW0ZZ
+	 3ZenzRjSyJu536qdqqxPBJxhMlKp2f7AQ2TO0448nSVxYh5yiNdKi0N62ARhlK9tJuNud
+	 SGapb6SM5HEO5BEAWcvVQmzqZoUIwFZnUda2cnTrq/rUV46iBF5Z2FN0B6WhDK4Y0MA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793786350;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hhEgGsFrhB7fn+QYkE62uO6FmTu6zV39mSaIWkH0dJI=;
+	b=p2ZyTODOWqTaZwCMN++dOiR+JVOf6MfjuReeGw/EtvuChs5LKYNpxGfzRDHVMR3mog+b
+	 Z6aDnKhreqiXy6OqF6H/GdW+4hqC4QeeFd42OKYkcAx3/VCoJ0qif5svtt8SfJo7JRwn5
+	 0+TV5vm28J09+8a5oGeCItzX4w4uYsGasknAFD6uLdlCApscoalW/5Y1jrNsGkb3rScXz
+	 pEKzq7BezmioZx0S8eHng1ghweKXxQEWSGbr4tv8XFEOHLBFis/H+EiYP1TAAZREcUJ9s
+	 vjW45X6DLrPmJxJa6hvCmEA0lJ0Inej9McysSyDMSBsyyyXXQYFWDppQ214ygmHIIiw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC5D606A31B;
-	Wed,  4 Nov 2026 09:57:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBC5D606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
-Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa (unknown [1.202.162.49])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5378c9734;
-	Wed, 4 Nov 2026 17:56:53 +0800 (GMT+08:00)
-From: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
-To: linux-wpan@vger.kernel.org, netdev@vger.kernel.org
-Cc: alex.aring@gmail.com, stefan@datenfreihafen.org, miquel.raynal@bootlin.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, zihanx@nebusec.ai, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 04 Nov 2026 17:56:53 +0800
-Message-ID: <179378621331.55520.8126896786309171541@stu.pku.edu.cn>
-Subject: [PATCH net v3] mac802154: validate pinned interface before beacon
- transmission
-In-Reply-To: <179337523079.51423.6573078122047317758@stu.pku.edu.cn>
-References: <179337523079.51423.6573078122047317758@stu.pku.edu.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	by smtp.kernel.org (Postfix) with ESMTPS id B6DEC1F0093A;
+	Wed,  4 Nov 2026 09:59:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793786350;
+	bh=hhEgGsFrhB7fn+QYkE62uO6FmTu6zV39mSaIWkH0dJI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=fqlvqBAM7VJ0X87CpOj7BJJC0BrgxnB8FhIzUDjE3pjB9kc5gwVSJuL2HIA+rm0UO
+	 9wfTZIMaO5D9oJKd4MiignFK2tsqZGQDF1eaR9g2lepep8KlXpsKzrZaVht1QZ8yf7
+	 QMIzIHyUrhPVtqssKyCc0gaEG7zoZ76L7SN4pWw+VTzTw2NHzB8pN4HoBBDGaLJXEC
+	 4SuMumitrxeWyItltFzL2W7JQ64GX2vme6UN1fg/VNFsVOQ7ksFa/xQlsrIMgwefRJ
+	 0t/Eu1zW1pykdPeu/pEdEzlkRKKddf4Cmx4Ui9XkyO/BzT+SohuhfypIs3WOWRLCTH
+	 KQadwEopSv/tg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2882A46D8D;
+	Wed,  4 Nov 2026 09:59:08 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Date: Wed, 04 Nov 2026 18:59:08 +0900
+Subject: [PATCH 1/2] mm/huge_memory: set memcg_data before a split page
+ leaves the folio
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,114 +83,135 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-HM-Tid: 0aa1a5fd751103a2kunm548c819715b7c9
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHUlIVh9JGR9DTRhNQxhIT1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKVUlLSVVKTUlVT0JZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0
-	xVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=HcdXRJRLjUqPKYOJ0DTRm0wpGM7p/u9thhdHqcbdpobq3OHTLTnharDfUguXFM3WSHSrheVMNd2Z9i71r0NWL9gTS+uf+2ruRkRIeYGWCZt+5CqEOxQARhOjNWSP1ud2QRSbEZtGCX3QRN68ZYZkiY1Dc8+gcE1pX4ZfmLCpQYQ=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
-	bh=a6xsRKL+cULQrPCgB872GUO7WGH3fVoHR5W/L6Dktxc=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261104-kpagecgroup-split-v1-1-f70e947fec85@samsung.com>
+References: <20261104-kpagecgroup-split-v1-0-f70e947fec85@samsung.com>
+In-Reply-To: <20261104-kpagecgroup-split-v1-0-f70e947fec85@samsung.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Tao Yi <escape@deepseek.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Matthew Wilcox <willy@infradead.org>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Brendan Jackman <brendan.jackman@linux.dev>, linux-mm@kvack.org, 
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793786347; l=3540;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=cwh5/ANoMn3q9VykAu3ZRo+0WnStzvXM2AIm27t94Zo=;
+ b=LfLHZKKD4ZZoASkLp/QUsGDpPgsHyik7sI6TFEG8bIwDQ7hcqjurrCS9tT9tVzD2uMffIdinU
+ W/ilRC7e8NWCpqe/mTE/+m/FmR8U19gtyf7Q6smPjJhulLiU663ynWV
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
+Content-Transfer-Encoding: 7bit
 
-mac802154_beacon_worker() selects a beacon request under RCU and pins
-the corresponding netdev before dropping the read lock.  The transmit
-helper used to read the request again, so a concurrent interface switch
-could make it dereference an unpinned netdev.
+From: Daejun Park <daejun7.park@samsung.com>
 
-Use the pinned wpan_dev throughout transmission.  Under RTNL, verify that
-the request still belongs to that interface and that the interface is
-running.  Build the beacon from the protected template while still
-holding RTNL, then hand it to the locked MLME transmit helper.  Free the
-skb only on errors before that handoff.
+__split_folio_to_order() copies memcg_data to a new folio after
+clear_compound_head(). Until then, memcg_data of the first tail page
+holds the folio's _nr_pages. page_cgroup_ino() can see that page as a
+folio in the window and take _nr_pages for an objcg pointer. Reading
+/proc/kpagecgroup as root then oopses while folios are split to
+order 0.
 
-This closes the interface-switch use-after-free without transmitting
-through a stopped interface or leaking the skb on the stopped-device
-path.
+Copy memcg_data before the smp_wmb(), as before commit fa23a338de93
+("mm: separate folio_split_memcg_refs() from split_page_memcg()"). Add
+the paired smp_rmb() to page_cgroup_ino().
 
-Fixes: 5f26a690e8ef ("mac802154: fix netdev use-after-free in beacon worker")
+Fixes: fa23a338de93 ("mm: separate folio_split_memcg_refs() from split_page_memcg()")
+Reported-by: Tao Yi <escape@deepseek.com>
+Closes: https://lore.kernel.org/all/20260907124001.1544655-1-escape@deepseek.com/
 Cc: stable@vger.kernel.org
-Signed-off-by: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 ---
-Changes in v3:
-- revalidate the request and pinned interface under RTNL
-- serialize beacon template access with request replacement
-- free the skb on every failure before the transmit-path handoff
+Tested on x86_64 with KASAN (7.3-rc7 and mm-hotfixes-unstable) in an
+8-vCPU QEMU guest: six threads read /proc/kpagecgroup for page 1 of 64
+THPs that debugfs split_huge_pages splits to order 0. Base oopsed in 6
+of 6 runs, 4 of them within 1.5 s. With patch 1, 8 runs of 300 s had
+no oops.
 
- net/mac802154/scan.c | 41 +++++++++++++++++++++++------------------
- 1 file changed, 23 insertions(+), 18 deletions(-)
+Before 7.4, page_cgroup_ino() and folio_memcg_check() take non-const
+pointers, so a stable backport needs "struct folio *folio" there. The
+hunk applies to those trees without a conflict, and the build then
+fails with CONFIG_WERROR=y (-Wdiscarded-qualifiers).
+---
+ mm/huge_memory.c | 17 +++++++++++++----
+ mm/memcontrol.c  |  9 ++++++++-
+ 2 files changed, 21 insertions(+), 5 deletions(-)
 
-diff --git a/net/mac802154/scan.c b/net/mac802154/scan.c
-index d393b1f4e74e4..b3c8076b8057a 100644
---- a/net/mac802154/scan.c
-+++ b/net/mac802154/scan.c
-@@ -354,35 +354,31 @@ static int mac802154_transmit_beacon(struct ieee802154_local *local,
- 				     struct wpan_dev *wpan_dev)
- {
- 	struct cfg802154_beacon_request *beacon_req;
--	struct ieee802154_sub_if_data *sdata;
-+	struct ieee802154_sub_if_data *sdata =
-+		IEEE802154_WPAN_DEV_TO_SUB_IF(wpan_dev);
- 	struct sk_buff *skb;
- 	int ret;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 14599d0fff..adc5a47ee7 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -3768,7 +3768,19 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
+ 		if (folio_test_swapcache(folio))
+ 			new_folio->swap.val = folio->swap.val + i;
  
--	/* Update the sequence number */
--	local->beacon.mhr.seq = atomic_inc_return(&wpan_dev->bsn) & 0xFF;
--
- 	skb = alloc_skb(IEEE802154_BEACON_SKB_SZ, GFP_KERNEL);
- 	if (!skb)
- 		return -ENOBUFS;
+-		/* Page flags must be visible before we make the page non-compound. */
++#ifdef CONFIG_MEMCG
++		/*
++		 * In the first tail page, memcg_data still holds
++		 * folio->_nr_pages. Lockless PFN walkers (page_cgroup_ino(),
++		 * page_owner) read memcg_data once the page is not a tail.
++		 */
++		new_folio->memcg_data = folio->memcg_data;
++#endif
++
++		/*
++		 * Page flags and memcg_data must be visible before we make the
++		 * page non-compound.
++		 */
+ 		smp_wmb();
  
--	rcu_read_lock();
--	beacon_req = rcu_dereference(local->beacon_req);
--	if (unlikely(!beacon_req)) {
--		rcu_read_unlock();
--		kfree_skb(skb);
--		return -EINVAL;
-+	rtnl_lock();
-+	beacon_req = rtnl_dereference(local->beacon_req);
-+	if (unlikely(!beacon_req || beacon_req->wpan_dev != wpan_dev ||
-+		     !ieee802154_sdata_running(sdata) ||
-+		     !netif_running(sdata->dev))) {
-+		ret = -ECANCELED;
-+		goto out_free;
+ 		/*
+@@ -3803,9 +3815,6 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
+ 			folio_set_young(new_folio);
+ 		if (folio_test_idle(folio))
+ 			folio_set_idle(new_folio);
+-#ifdef CONFIG_MEMCG
+-		new_folio->memcg_data = folio->memcg_data;
+-#endif
+ 
+ 		folio_xchg_last_cpupid(new_folio, folio_last_cpupid(folio));
  	}
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 84f4a8fd4d..c244d56446 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -375,12 +375,19 @@ struct cgroup_subsys_state *get_mem_cgroup_css_from_folio(const struct folio *fo
+  */
+ ino_t page_cgroup_ino(const struct page *page)
+ {
++	const struct folio *folio;
+ 	struct mem_cgroup *memcg;
+ 	unsigned long ino = 0;
  
--	sdata = IEEE802154_WPAN_DEV_TO_SUB_IF(beacon_req->wpan_dev);
-+	/* Update the sequence number */
-+	local->beacon.mhr.seq = atomic_inc_return(&wpan_dev->bsn) & 0xFF;
- 	skb->dev = sdata->dev;
+ 	rcu_read_lock();
+ 	/* page_folio() is racy here, but the entire function is racy anyway */
+-	memcg = folio_memcg_check(page_folio(page));
++	folio = page_folio(page);
++	/*
++	 * Order the memcg_data load after the compound_info load in
++	 * page_folio(). Pairs with smp_wmb() in __split_folio_to_order().
++	 */
++	smp_rmb();
++	memcg = folio_memcg_check(folio);
  
--	rcu_read_unlock();
--
- 	ret = ieee802154_beacon_push(skb, &local->beacon);
--	if (ret) {
--		kfree_skb(skb);
--		return ret;
--	}
-+	if (ret)
-+		goto out_free;
- 
- 	/* Using the MLME transmission helper for sending beacons is a bit
- 	 * overkill because we do not really care about the final outcome.
-@@ -402,7 +398,16 @@ static int mac802154_transmit_beacon(struct ieee802154_local *local,
- 	 * transmissions, wich anyway does not have a huge impact on the
- 	 * performances given the current design of the stack.
- 	 */
--	return ieee802154_mlme_tx(local, sdata, skb);
-+	ret = ieee802154_mlme_tx_locked(local, sdata, skb);
-+	rtnl_unlock();
-+
-+	return ret;
-+
-+out_free:
-+	rtnl_unlock();
-+	kfree_skb(skb);
-+
-+	return ret;
- }
- 
- void mac802154_beacon_worker(struct work_struct *work)
+ 	while (memcg && !css_is_online(&memcg->css))
+ 		memcg = parent_mem_cgroup(memcg);
+
 -- 
-2.39.5 (Apple Git-154)
+2.43.0
+
+
