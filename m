@@ -1,102 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.222.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793817029;
-	b=iTtNn1djG2c+lb+ToRNRtmpzMq7Bfgrq6j8/kDlPEZkqnVpx46tGqQRv9MGt3qDFpIRL
-	 fM5f078vx+uxSXDNWylLBwa8abQ2J6XUUzWrDVWoBHLn+Qtj12RQlYWsPFefgCOXQZTCL
-	 n/FFQcR+0j7iwkIIdw4zU4JVX5nKZAlNdLZ6ukavVJtmirhO1L/Q69bTQAikMu97c+Ekt
-	 2TwJNMR4uqzze/ODY7mknzzXu6O6RYZurHfVo2rr0zhABwHwwFL3+85nWWYjQIK6KqILt
-	 IWxSm693IJlVb2R/gg0BtoTOJ7C9trZfcOsMHF0UwXQmfnawmNzhzT5bnasnCEDhIuA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817029;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=6vlBLO9On7q47NyBJ2Rw1NocpmdzrNn/c5hU8D8zRfc=;
-	b=KylH65XiURFaWUQDbz3l5BxpJ12xqPx8RoYXo0u+Vus8BTFAvm0DtwyrI8yQOTbXgjVN
-	 AQGw+MdE0uczhCQ3fL2ECGlscNPeLSlit+z/t2juSw6ISrNQYe60cYlb+eVlhOokz3g4h
-	 Sak1H8NP48pwL59ebL4ExW677+nX+0s6BiVY0sS/t18/zAzjDbLA1iQBtLtdNVejPPplF
-	 fJ+qdc+n7/U10otPBPq4yT1YL3lPSSGNBDZAZKj1MrShV528LLANN9sVbhTEaoKJX39Qt
-	 ZwnfMvqxMTJ5yRP3hwfyZZ6+sGYmjrz7W6ETsNYeys9AMSBbZ3ilmPvwgvRpnCXGW7w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=everpuredata.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=D+vzaXEc;
-	arc=fail smtp.remote-ip=209.85.222.44
-Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793817033;
+	b=DeMpkXNQxiZVy2Axged7kgAHdxsBD1cdlv2OytkK2efSc3P+cIlzUVQ0Z9rrtu2QDuyb
+	 TuQRjKp6RDBh1ZibO/qw5F7kiC8wxI46QLboWG/DJV/Y5BAC/bxmdVZ5cEYu+fICeGFOu
+	 e0K0cgCwbR1QZYt36ZikUsh4Tt7haj5kbYUFeRKWbcRITTHo0Pd5R3MBxafX5vah369Yz
+	 vjhUsaF1ilzeQJT6UcjbX7p25PKAwdWs8CvwCPc2d7eNDngIz2BuE1zwGkoji1ChSdWvx
+	 wLYuP4TMv0ucQ+vDtYnUR+NDs/TJluQyhMOnM5WEVjP5XqhU3HT3Kr4CiAy27rPB2/w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817033;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=bzrtlIvz6UlLk7ATFl6D2jtOGSCU6ISd0avQ2fIQOak=;
+	b=gxpcDVAv6UTJ2cfqvyjCzqoqZXSmllrAdQa5y3aSjmCg2LZjKcm/5nF3SCEj7KP/wUhh
+	 le8J+JlVVeY4hWsKY9rz/bK5NNjoWWpw1e9VDrH+mhqk4vO32Rq/gdfB3IPLoAhrvJp+9
+	 5Js0PhzTqakGb3V2t3EcpZcqEGI2i2xRVdvbRKh4o3eXABDeNft/0wOq5gGds/5TwXYcN
+	 +2JEaKeRwP9k33q/cHv1Ph+YKrEWrUKQ4hmK0chufRM6lnlHlYLMNa+lHla+U8VtpGMgQ
+	 RnJZi1Bgg9lAFGo6Do5pm5F7OiGCH4HpnnEJPy/YNd+txWt2RA++Hx9oV2OhxYdCmUg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="liUTl/ex";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B448606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:30:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B448606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE1C606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:30:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=D+vzaXEc
-Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-990835cec4bso581244241.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:30:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793817023; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CaJTyLzpBY7rgKC9yFng10y9PBMFnRKpmCU7kEBSbBr47H48f9LQ3Qet25STNtgm5c
-         pZDrzXZqY47eOmPgnVWTm7myTA9U0xJwapSB+aeO1O2tlVEESKe4Uf7VwZ3Rux8aH54e
-         ACMc7FPx/ENdxOIVy23/domzcC14xM52ms6BOKXPQchudrR25BunL4rRBWmV6cBp/Cuu
-         If0Qk3X0wUCwUShKF70DYRBLAHZtsuCnr4gQZ70H1Q3YqlMB6ASf8weSlYirAFmkqWr9
-         dhbiPLJqPbn4dJjsAXLlt2/EONny/Phcr+su8w9prZeHLY8k3N+w9KsL+n9xLYaIFCUq
-         aEJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6vlBLO9On7q47NyBJ2Rw1NocpmdzrNn/c5hU8D8zRfc=;
-        fh=+jjhPaNpEkdEYIkUr2EOFawBu+UahN/raAsyeDFAyFs=;
-        b=THcttO3M4nKVmghe+tVq2ZcwJXNTso7jvhqDE9ECBbVDosVCwXLUAgbOmb5p2B4p7Q
-         Mm4AHbWnTYz5Br1mFsRV17HTZ/oarjCeZevRKfsyOwWAZ+CtAHhhbfrGMUPhpRvj1cMn
-         dJwMeNEVXSTMwLdbWN+0JU+tSob9TSc8SQ5ZYnIuw2QtOCXGXgD1UVkU1Vwa6JdXMVyi
-         3TCaBcr5HTGOYBdUj94jWjoQ+3t7ZlJaYOg+9rKsOCwSBUKXan0AZ1oNlw/se+/cota2
-         5yOqp7aFFG+YozR4JAOnLMshYzH3QO34yLeIFDXIdTr9qmETInV8Lf9y4501d39OmslN
-         n4nA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1793817023; x=1794421823; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6vlBLO9On7q47NyBJ2Rw1NocpmdzrNn/c5hU8D8zRfc=;
-        b=D+vzaXEcyQsrqSCPGZFnsmiGvYNBSc4foTiivjqiQoqaMvSxloeeFxaM5RXt6S2Kv6
-         V9y2OBTNagImvYAvD10a+ZoSyI9FAmiK/KzEsrd/zYfkRAWLXuO+u9GbM4FBFTl9MbPS
-         kRyUIbTsbZSmYQQLaciF+SGH0bpTJ1mFPQdzvRxHRBu1u/Miw3SOCmssLYPYx7bNVYPZ
-         EBJMPfwBdPViJ2doX3G+mxxchBNoO8kqnaMhAprre7AkIt/4ny0vrfK4SLSP0Nt2bTTw
-         uz/yAV3vprRPcCj3PtI0OiyjmsPECr7nrryw5M7Zb4RMktGqwLoCZwH84JtIQ+5N+CoT
-         6k7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817023; x=1794421823;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6vlBLO9On7q47NyBJ2Rw1NocpmdzrNn/c5hU8D8zRfc=;
-        b=TJnngQAG7Ldm9ehjTeopvqFwqHz3Vmi5y3CXGAw+tvs79z0S4bpporvV+5U3fA63C0
-         AQWcZK7Ql3U2WpA/J7fDozARmBBDP89WC6RC6d7fjAbX6/bbFDTy+rdFYNMLhmF6G3vF
-         xpE1rxB6nLIb5N0f8FQlVURH5SavH5AlP/5qLxlBygWK4tzuwKqhKiW0baYDCB6077lU
-         yAlU02Cul0h5euFzqMEfRnca3WCjGJLPiHSVm7NIJchJUDWtlRPf/ylAhWywf7UH0rxb
-         L889QhZbu7mF2xbfPBo3Nj968gg1avXCzeGvjWM/CcaIoQFHYwZ/K1Il3o4zj+ipiQET
-         ccHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy0NZZAbDVEzkO9hrMdvfmYvjibEclgdkU1Hx4CAB14nGR7RdVVhexft7eRFDPpL0+vaHdfLss=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+wSXF+USGOXiAEVj4regUFcQyTHv4KmxWFmqIZnO26y2JlWDUf
-	Tm2e6nwBjaU5VxS0b/PXH3/Xq/x8cAaf+LNgDC70hmi0EbqGl0duEyf9xvTFvzr/dU/2WoVxn2x
-	Hp0CHs2TvhRigiJTmahc31UH4Us2VHAI+HhaDVEFCHw==
-X-Gm-Gg: AYBFou0VuyQyIiiuEo9UCHCkPsYt4sFK0MT1Af89ZAWqDO+VUB6HNOdxPwS4UBtnTab
-	bo7PEmmQ3jvF2nuUfQ9batiY9rMRM9yT4MDXJJM8cRH3hG2ULJFhj7ubrEwUhkOig2ZRhsBiE4V
-	NlTdwvPCA3tk5yNW/E/+6jX9V3NDUFR23QfyXM63437w3TokUk6WwSv5C7XHl+nBvLbOr/HDhUT
-	LkbiXrhWsiHYTJ2FyYW8ObaEPeGl1rRXV2rNbvN9gRDUq0Yi4r0W02Ae5Z5+NHKs5Xirwd7QSWS
-	JhKgJ09tMYdwx2mn2+s/UaOBn9mJ7EfDYzC2Qa6ZPf8kKA/Mv5zHihsfEXOqEori1vl1Dnxyz0B
-	7+pjdOiI+aWfeSCcTjvu0NHKVFgf1hE7mD7jEGdUj84tBpjqAw0rnk+T6aPBzO4Rv8YCyKXIDEx
-	aT89BFO2rcs+pmcGJ7dHxY7BFdTDOYm333gn4WSFsEjHwMzDDsYSGMePuv+E4psMt9jd4Umj2dy
-	cRuqTh5IMgtjsgok0vMvKyb
-X-Received: by 2002:a05:6102:3e8e:b0:7cb:bb33:8413 with SMTP id
- ada2fe7eead31-7d072bb37c6mr7312101137.9.1793817022500; Wed, 04 Nov 2026
- 10:30:22 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=liUTl/ex
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11B401F000C1;
+	Wed,  4 Nov 2026 18:30:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793817033;
+	bh=bzrtlIvz6UlLk7ATFl6D2jtOGSCU6ISd0avQ2fIQOak=;
+	h=Subject:To:Cc:From:Date;
+	b=liUTl/exJrINFfnJo3Brc73JZztR+8WWyXnyhhmA1wM/Z5E8dOqXMxpOPjVvMj5B5
+	 4HfkNuTBf82Pe28m74eBMpdsu/mFiC6tTsNvlrpzDaPV6TE7NN3n5zCdgco5Vlmtpo
+	 EQYSEUcpvb6in9x2va7hddL1Z28tPkypCRkWxlsA=
+Subject: FAILED: patch "[PATCH] smb: client: fix buffer overflow in SMB2_tcon()" failed to apply to 5.15-stable tree
+To: rakukuip@gmail.com,bird@lzu.edu.cn,n05ec@lzu.edu.cn,pc@manguebit.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 13:30:31 -0500
+Message-ID: <2026110431-residence-starfish-1a10@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,188 +51,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102220310.12649-1-rjethwani@purestorage.com> <179374354756.488856.17787079121679404910@kernel.org>
-In-Reply-To: <179374354756.488856.17787079121679404910@kernel.org>
-From: Rishikesh Jethwani <rjethwani@everpuredata.com>
-Date: Wed, 4 Nov 2026 10:30:11 -0800
-X-Gm-Features: AclHuK9IwD1rDZTP-2krUHCIqiisxEe3xHzAbLlTex379jxu1nU7vOHg_omGLSc
-Message-ID: <CAKaoeS1koPSPtjzj3sFYnZoO5XkYaDcWnodHR+KsGNfz2CYrgA@mail.gmail.com>
-Subject: Re: [PATCH net v5] kcm: reject attaching sockets with a ULP, and TLS
- on KCM sockets
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org, jiayuan.chen@linux.dev, 
-	syzbot@syzkaller.appspotmail.com, davem@davemloft.net, edumazet@kernel.org, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, hare@suse.de, 
-	sagi@grimberg.me, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 3, 2026 at 2:05=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wrot=
-e:
->
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 2
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] The commit message understates one user-visible regression.
-> - [Low] The commit message says 'rmmod kcm waits until such sockets are
->   destroyed'.
-> - [Low] Documentation/networking/kcm.rst ('Attach transport sockets' /
->   'Unattach transport sockets', lines 144-190) is not updated for the=E2=
-=80=A6
->
-> --
->
-> kcm: reject attaching sockets with a ULP, and TLS on KCM sockets
->
-> With this commit, kcm_attach() refuses TCP sockets that already have a
-> ULP, and it now refuses raw IPPROTO_TCP sockets too. Attached sockets get
-> an unregistered dummy kcm_ulp_ops, so tcp_set_ulp() refuses kTLS on them
-> afterwards. The marker stays until the socket is destroyed, and it pins
-> the kcm module.
->
-> Link: https://lore.kernel.org/netdev/3108e934-ec00-458b-8720-450554b35b55=
-@linux.dev/
->
-> > Holding a ULP also has visible side effects: getsockopt(TCP_ULP) and
-> > inet_diag report "kcm" on a socket that was ever attached,
-> > sk_has_decrypt_user() is true so PSP RX association is refused after th=
-e
-> > attach, and adding an attached socket to a sockmap fails with -EINVAL
-> > rather than -EBUSY.
->
-> [Severity: Medium]
->
-> Is the sockmap effect really limited to attached sockets?
-> SIOCKCMUNATTACH does not remove the kcm_ulp_ops marker, because
-> kcm_unattach() only clears sk_user_data:
->
-> net/kcm/kcmsock.c:kcm_unattach() {
->     ...
->         write_lock_bh(&csk->sk_callback_lock);
->         csk->sk_user_data =3D NULL;
->         WRITE_ONCE(csk->sk_data_ready, psock->save_data_ready);
->     ...
-> }
->
-> sk_psock_init() checks for a ULP before it looks at sk_user_data:
->
-> net/core/skmsg.c:sk_psock_init() {
->     ...
->         if (sk_is_inet(sk) && inet_csk_has_ulp(sk)) {
->                 psock =3D ERR_PTR(-EINVAL);
->                 goto out;
->         }
->     ...
-> }
->
-> Before this patch, this sequence succeeded:
->
->   SIOCKCMATTACH -> SIOCKCMUNATTACH -> BPF_MAP_UPDATE_ELEM on a sockmap
->
-> With this patch, the map update fails with -EINVAL for the rest of the
-> socket's life.
->
-> Could the stable-facing paragraph that lists the user-visible changes als=
-o
-> say that a socket that was ever attached can no longer be added to a
-> sockmap or sockhash?
 
-Good catch, I'll list the sockmap case in the stable paragraph,
-and I'll fix the earlier paragraph that said the -EINVAL only applied to
-attached sockets.
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-> > listen() after a disconnect fails with -EINVAL, as
-> > the dummy has no .clone, and rmmod kcm waits until such sockets are
-> > destroyed.
->
-> [Severity: Low]
->
-> Is "waits" accurate here? Unloading does not block on a non-zero module
-> refcount:
->
-> kernel/module/main.c:try_stop_module() {
->         /* If it's not unused, quit unless we're forcing. */
->         if (try_release_module_ref(mod) !=3D 0) {
->                 *forced =3D try_force_unload(flags);
->                 if (!(*forced))
->                         return -EWOULDBLOCK;
->         }
->     ...
-> }
->
-> The reference taken by __module_get() in kcm_attach() is only dropped by
-> tcp_cleanup_ulp() when the TCP socket is destroyed. As long as any TCP
-> socket that was once attached still exists, rmmod kcm fails at once with
-> "Module kcm is in use". This holds even after every KCM socket is closed
-> and every socket has been unattached.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Right, rmmod fails immediately rather than waiting. I'll reword it to say
-it fails while any once-attached socket exists.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x 73cc469b0ff7551f8537ea919709973e6dc4f514
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110431-residence-starfish-1a10@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
-> > diff --git a/net/kcm/kcmsock.c b/net/kcm/kcmsock.c
-> > index a7f94d42036fb..1f8bcbb8b9c3b 100644
-> > --- a/net/kcm/kcmsock.c
-> > +++ b/net/kcm/kcmsock.c
-> > @@ -30,11 +30,26 @@
->
-> [ ... ]
->
-> > +/* Not registered, so TCP_ULP can't select it. It only holds
-> > + * icsk_ulp_ops so tcp_set_ulp() refuses other ULPs like kTLS. Like an=
-y
-> > + * ULP it stays until the socket is destroyed, pinning this module, an=
-d
-> > + * tcp_cleanup_ulp() releases it. Clearing it on a live socket would r=
-ace
-> > + * with lockless readers such as do_tcp_getsockopt() and tcp_diag.
-> > + *
-> > + * No .clone: children copy icsk_ulp_ops without a module reference, s=
-o
-> > + * a socket that was once attached must not listen().
-> > + */
-> > +static const struct tcp_ulp_ops kcm_ulp_ops =3D {
-> > +     .name =3D "kcm",
-> > +     .owner =3D THIS_MODULE,
-> > +};
->
-> [Severity: Low]
->
-> This isn't a bug, but should Documentation/networking/kcm.rst be updated
-> as well? The "Attach transport sockets" section only says:
->
->   - fd: file descriptor for TCP socket being attached
->
-> The "Unattach transport sockets" section says unattaching "is
-> straightforward".
->
-> After this patch, SIOCKCMATTACH refuses raw IPPROTO_TCP sockets and
-> sockets that already have a ULP, both with -EOPNOTSUPP.
->
-> The kcm marker also stays after SIOCKCMUNATTACH. For the rest of the
-> socket's life:
->
->   - setting TCP_ULP fails with -EEXIST
->   - getsockopt(TCP_ULP) and inet_diag report "kcm"
->   - listen() fails with -EINVAL
->   - sockmap insertion fails with -EINVAL
->   - PSP RX association is refused
+Possible dependencies:
 
-Yes. The next version updates kcm.rst.
 
-> [ ... ]
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261102220310.12649-1-rjethwani%40purestorage.com
 
-pw-bot: cr
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 73cc469b0ff7551f8537ea919709973e6dc4f514 Mon Sep 17 00:00:00 2001
+From: Luxiao Xu <rakukuip@gmail.com>
+Date: Fri, 16 Oct 2026 15:11:01 +0800
+Subject: [PATCH] smb: client: fix buffer overflow in SMB2_tcon()
+
+In SMB2_tcon(), unc_path is allocated with a fixed buffer size of
+MAX_SHARENAME_LENGTH * 2 bytes (672 bytes). However, the user-controlled
+UNC path (tree) length is passed to cifs_strtoUTF16(), which assumes the
+destination buffer is large enough and writes strlen(tree) + 1 UTF-16 code
+units.
+
+Commit 62a1a439e0fd ("cifs: clean up handling of unc= option") removed the
+length check on UNC mount options, allowing mount paths to exceed
+MAX_SHARENAME_LENGTH while retaining the fixed-size buffer allocation in
+SMB2_tcon(). Consequently, an oversized UNC string causes cifs_strtoUTF16()
+to write past the end of the heap object, resulting in a slab-out-of-bounds
+write. Furthermore, if a tree exceeds MAX_TREE_SIZE characters, strscpy()
+truncates it in cifs_tcon::tree_name, causing subsequent reconnects or
+failovers to fail.
+
+Fix this by first verifying that the length of tree does not exceed
+MAX_TREE_SIZE, returning -EINVAL if it does. Then, dynamically allocate
+unc_path based on the length of tree so that it safely accommodates all
+UTF-16 code units for paths within MAX_TREE_SIZE.
+
+Fixes: 62a1a439e0fd ("cifs: clean up handling of unc= option")
+Cc: stable@vger.kernel.org
+Reported-by: Xin Liu <bird@lzu.edu.cn>
+Closes: https://bugtracker.nebusec.ai/f/3292
+Assisted-by: LLM
+Suggested-by: Paulo Alcantara <pc@manguebit.org>
+Signed-off-by: Luxiao Xu <rakukuip@gmail.com>
+Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+[pc: remove unused MAX_SHARENAME_LENGTH]
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+
+diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
+index b140ec0a71a8..5d892300dabf 100644
+--- a/fs/smb/client/smb2pdu.c
++++ b/fs/smb/client/smb2pdu.c
+@@ -2104,8 +2104,6 @@ SMB2_logoff(const unsigned int xid, struct cifs_ses *ses)
+ 	return rc;
+ }
+ 
+-#define MAX_SHARENAME_LENGTH (255 /* server */ + 80 /* share */ + 1 /* NULL */)
+-
+ /* These are similar values to what Windows uses */
+ static inline void init_copy_chunk_defaults(struct cifs_tcon *tcon)
+ {
+@@ -2135,7 +2133,15 @@ int SMB2_tcon(const unsigned int xid, struct cifs_ses *ses, const char *tree,
+ 	if (!server || !tree)
+ 		return smb_EIO(smb_eio_trace_null_pointers);
+ 
+-	unc_path = kmalloc(MAX_SHARENAME_LENGTH * 2, GFP_KERNEL);
++	total_len = strlen(tree);
++	if (total_len > MAX_TREE_SIZE) {
++		cifs_server_dbg(VFS | ONCE,
++				"%s: tree name exceeded %u characters\n",
++				__func__, MAX_TREE_SIZE);
++		return -EINVAL;
++	}
++
++	unc_path = kmalloc((total_len + 1) * sizeof(*unc_path), GFP_KERNEL);
+ 	if (unc_path == NULL)
+ 		return -ENOMEM;
+ 
+
