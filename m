@@ -1,47 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801868;
-	b=qkFu1h+0w0mwuAsAZtBGU/DGxiu98+2S8kH+dqmVTpfKWAey0FIIuv5EotA3oSfAcRiU
-	 fN6EGYyjmfoYAHDTQhdR9nMG3FrJzkSqemrU9HCLKydXmwbChBngHBMTIgjnsWopwlJho
-	 IO4pKOfzU1qm5n6BFNN+3GnlkafmGyy+7EOYkMYEQ5l2RAOpG3tz6DGoFaKCoGz+hJQRt
-	 BnZi8eDgNLu0Td7b1DVIM+KoF2Cu8e9DrFFhTVVRrQUU3cX4g2k1sfgQHWYl/LA3urtxr
-	 JAOHLNdzDVjfRP7/H5F3fDPCKYxF1zF4jCfAx7VI6W4a/GmxigFLwbPkqsUPa8Twcpw==
+	t=1793801871;
+	b=uN8vlJQI0YYpXmTe0/prlioWjevbmfptmusR4qwLiZB7YorcOTWPbJKEpapWv9NE7I4r
+	 AfV2LGib47yd9x+w9BTw4M9+FDWHd063Jo+SelY0T8+Up/7MSufATJo6TKqx1GrKiZC1q
+	 p5lUcyrJkU6G1J3FnPBKxwZ64Ad/9TWNlnrfYKiDRr7tFq72ktwiITie5qq8rt21/HNuO
+	 1LStZeuMlj9gZqcuk9pLtWSLV2dMjwWq+PcISnucA9qGW2zYCSQS9+7n+HR/kj61mTQx3
+	 VXVd0xMfffJkJHj7UK+gyH+WaZhi3XnpTnLcjbkPki57pq1rcqzzVUcrIhSarFItoaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801868;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=A5MbAV8/VA/wYWWnAk7V9Kpjn4TjPNbSs9KdX3QtqWM=;
-	b=nDvD2EkQErfkjQb+i4F/ufTphqCyZ0w5zKfXO5vIhhshva/tYIu9ZqL9mNwM7AOxdjTc
-	 1X3PaSfrqm08Wo6fBiMvqyPR0ORJKpYphcoGe02DHcUitqLQXNe5RaEcn4VO3aU/X/5D0
-	 sDHK04dQYY7VCjXnHcdj4VS98LtTyMdla7pc+Vm7fdBo272AycZ+PulwcIrOmgvK+Ps4V
-	 i16u9WO60puiqfG0aD7+421+MvEzh0eBImAGAXiXkqU9YlvowqM5SS+fvHxZ44VW3ZU0U
-	 f2s+WD426wob3Mp6CWLn02LLSU8cTxu4FppeoS0n7ysVBG+t2b4V95M7remzEh+FEcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801871;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=mLazd9emzOWsv3JaPQ5UUfvKLht8lch/HQcvpq8y3GY=;
+	b=kMrAGuEoIs07Vv4GGZLxpMARFFusdiWFR8KXgyvdtMAwl3XLlRJDE3FUPAwh8H1piUsW
+	 Hb6D7bTYqNtG7AD7WVY0j/EYxr5SHxyCR+cr3u5FWqD2TSuBcXwIP4Uy9uxqnxWzugzGS
+	 /nRxZ1pYaCV++U1lCAG7u+EFe/Z+I9TEJtNEZEUnRIpZAFjjJjU9IT25wtLi/GZ1gLtum
+	 jkLgHlLv93zfA+9r1q1+nFdLblj2VhmEXSsasJw2qh0CwMILZFu+vD5SbanMIsJ3/jB90
+	 /FIDS1ml8xoFlPRvLPTeRG1s9g8f2kNFWHtZCfZXldoouPHddQNwfdeWUaZVjSJVZIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HQmTVqKX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iamqxdwk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D2F606D810
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:17:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F3A606A339
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:17:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HQmTVqKX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77CB11F000C1;
-	Wed,  4 Nov 2026 14:17:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801867;
-	bh=A5MbAV8/VA/wYWWnAk7V9Kpjn4TjPNbSs9KdX3QtqWM=;
-	h=Subject:To:Cc:From:Date;
-	b=HQmTVqKX3SoDOvwhMNG0yH9L0ziUzbnT/5HXJBmCVL9TYuNdEPCaVFoETFBJ8bIvu
-	 GdRTWTntACuNrk3QN8iGc7SUmccl4OgTeK4K2Z5YHYcbKdpHjFcoKDmWOQ2DC2UtPy
-	 6A+XxNttGNuSskbBF2IbSjirCAndVLeGrSnHlZT0=
-Subject: FAILED: patch "[PATCH] media: microchip-csi2dc: fix async notifier leak on probe" failed to apply to 6.1-stable tree
-To: congnt264@gmail.com,ehristev@kernel.org,hverkuil+cisco@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:17:43 +0100
-Message-ID: <2026110443-shell-unplanned-01c4@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iamqxdwk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB03B1F000C1
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:17:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793801870;
+	bh=mLazd9emzOWsv3JaPQ5UUfvKLht8lch/HQcvpq8y3GY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Iamqxdwk2AMMca8i7/sa2z4aGVs1ZDXisqqarwuSEFO+3gX2/sSG4TUL+BC4uv/Bv
+	 L3j6c6puWYceKcRFV8e0mZmapVSU/u/ObthL2mpXj80NEkeGUTAj06Vf6WjZ9NrM59
+	 Q7KUn1rKqcnYl4SnHEq5ay1vrWT+gP0zKBNZiRRbxJWWmgPin+8mVjjZZtnnXG9bf7
+	 KByMP3W5TDkbOFQKDC2nhkOPA9VZmXeDF30DJP5h12OjObuRjoUEsvEetY9BLKQqnA
+	 klLIqTxkaJzOkmnYBs6TI3dyDt/Tt0qK1cI62kKq/CzOKxdqBwTnaXxvS+hYTLHTTF
+	 nuMpT3N5zxsGw==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5be3cff0f6cso461060e87.0
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 06:17:50 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwcNGSWniv31hcfVqwrJwNkM0qJTBYObrExNABoBA2zI4noUo3gI4Z5SpkjuiHgGRasyOLJV2E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ERyluXaPdvpWPmEcFr/oner7339WhODKvoi4O8nGgHZqjLnZQ
+	CGPUnAa7ceCosv6ZfqhRMxhtJrTerGCyjJi2nkKc05YZIeCG7ZieU9a7PTiUYP2V41iRCQrO6sa
+	y3LccjJEDdAIALJ3DIdkyR6ewN+atV3s=
+X-Received: by 2002:a05:6512:114c:b0:5bf:b7d8:f38a with SMTP id
+ 2adb3069b0e04-5bfd95730ddmr5925507e87.37.1793801869245; Wed, 04 Nov 2026
+ 06:17:49 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,71 +59,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+References: <20261104070149.41393-1-lizhaoxin04@baidu.com>
+In-Reply-To: <20261104070149.41393-1-lizhaoxin04@baidu.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 4 Nov 2026 15:17:36 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0i_fmYOzgiJhoe_NdWfEopnDGb_GHuKXtMp5HD_-2_uLQ@mail.gmail.com>
+X-Gm-Features: AclHuK98DawDgpC2GZl5mXQB82W_aFxlZCFZTOvGX1cOlWUoWcXsJEy8Rra_a3E
+Message-ID: <CAJZ5v0i_fmYOzgiJhoe_NdWfEopnDGb_GHuKXtMp5HD_-2_uLQ@mail.gmail.com>
+Subject: Re: [PATCH] cpufreq: intel_pstate: Use rdmsrq_safe() to read MSR_MISC_PWR_MGMT
+To: Li Zhaoxin <lizhaoxin04@baidu.com>
+Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Nov 4, 2026 at 8:02=E2=80=AFAM Li Zhaoxin <lizhaoxin04@baidu.com> w=
+rote:
+>
+> From: lizhaoxin04 <lizhaoxin04@baidu.com>
+>
+> Commit ed7cad0504e3 ("cpufreq: intel_pstate: Relocate platform
+> preference check") moved the intel_pstate_platform_pwr_mgmt_exists()
+> call to the beginning of intel_pstate_init(), right after the vendor
+> check, so it now runs before "no_load" (intel_pstate=3Ddisable) and the
+> other checks.
+>
+> MSR_MISC_PWR_MGMT is model-specific and KVM does not emulate it. In a
+> KVM guest using a CPU model listed in intel_pstate_cpu_oob_ids[] (for
+> example "-cpu host" on Emerald Rapids), reading it raises #GP and the
+> unchecked rdmsrq() emits a warning with a call trace on every boot, even
+> with intel_pstate=3Ddisable:
+>
+>   unchecked MSR access error: RDMSR from 0x1aa at rIP: 0xffffffffa4009342=
+ (native_read_msr+0x2/0x50)
+>   Call Trace:
+>    <TASK>
+>    intel_pstate_platform_pwr_mgmt_exists+0x3b/0x220
+>    intel_pstate_init+0x1e/0x500
+>    do_one_initcall+0x59/0x350
+>    ...
+>
+> Before that commit, such guests typically returned from
+> intel_pstate_init() earlier, either because of intel_pstate=3Ddisable or
+> because intel_pstate_msrs_not_valid() failed on the zero ratios that
+> KVM reports in MSR_PLATFORM_INFO by default, so the MSR was not read.
+>
+> Use rdmsrq_safe() and treat a failing read as "no OOB mode". The
+> exception fixup already zeroes the result of a failed unchecked read,
+> so apart from the warning going away there is no functional change.
+>
+> Fixes: ed7cad0504e3 ("cpufreq: intel_pstate: Relocate platform preference=
+ check")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Li Zhaoxin <lizhaoxin04@baidu.com>
+> ---
+>  drivers/cpufreq/intel_pstate.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstat=
+e.c
+> index 0e6ae4cdda5d..67447280e86a 100644
+> --- a/drivers/cpufreq/intel_pstate.c
+> +++ b/drivers/cpufreq/intel_pstate.c
+> @@ -3649,12 +3649,12 @@ static struct acpi_platform_list plat_info[] __in=
+itdata =3D {
+>  static bool __init intel_pstate_platform_pwr_mgmt_exists(void)
+>  {
+>         const struct x86_cpu_id *id;
+> -       u64 misc_pwr;
+> +       u64 misc_pwr =3D 0;
+>         int idx;
+>
+>         id =3D x86_match_cpu(intel_pstate_cpu_oob_ids);
+>         if (id) {
+> -               rdmsrq(MSR_MISC_PWR_MGMT, misc_pwr);
+> +               rdmsrq_safe(MSR_MISC_PWR_MGMT, &misc_pwr);
+>                 if (misc_pwr & BITMASK_OOB) {
+>                         pr_debug("Bit 8 or 18 in the MISC_PWR_MGMT MSR se=
+t\n");
+>                         pr_debug("P states are controlled in Out of Band =
+mode by the firmware/hardware\n");
+>
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x c7528789244ce7329ca883170fb9315d739ae985
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110443-shell-unplanned-01c4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From c7528789244ce7329ca883170fb9315d739ae985 Mon Sep 17 00:00:00 2001
-From: Cong Nguyen <congnt264@gmail.com>
-Date: Sat, 8 Aug 2026 16:07:29 +0700
-Subject: [PATCH] media: microchip-csi2dc: fix async notifier leak on probe
- error path
-
-csi2dc_of_parse() ends up calling csi2dc_prepare_notifier(), which
-registers the V4L2 async notifier with v4l2_async_nf_register(). The
-probe error label csi2dc_probe_cleanup_notifier is reached after
-csi2dc_of_parse() has already succeeded (e.g. when media entity init,
-csi2dc_power() or v4l2_async_register_subdev() fail), but it calls only
-v4l2_async_nf_cleanup() and never v4l2_async_nf_unregister().
-
-The notifier therefore stays chained in the global notifier_list while
-the enclosing struct csi2dc_device is freed, leading to list corruption
-and a use-after-free when the list is next walked.
-
-Unregister the notifier before cleaning it up on the error path,
-matching the teardown already done in csi2dc_remove().
-
-Fixes: 2de0b3c0f678 ("media: atmel: introduce microchip csi2dc driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4
-Signed-off-by: Cong Nguyen <congnt264@gmail.com>
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-
-diff --git a/drivers/media/platform/microchip/microchip-csi2dc.c b/drivers/media/platform/microchip/microchip-csi2dc.c
-index e69292f3b2a9..b2c17ff2322f 100644
---- a/drivers/media/platform/microchip/microchip-csi2dc.c
-+++ b/drivers/media/platform/microchip/microchip-csi2dc.c
-@@ -735,6 +735,7 @@ static int csi2dc_probe(struct platform_device *pdev)
- 	return 0;
- 
- csi2dc_probe_cleanup_notifier:
-+	v4l2_async_nf_unregister(&csi2dc->notifier);
- 	v4l2_async_nf_cleanup(&csi2dc->notifier);
- csi2dc_probe_cleanup_entity:
- 	media_entity_cleanup(&csi2dc->csi2dc_sd.entity);
-
+Applied as 7.4-rc material, thanks!
