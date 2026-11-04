@@ -1,107 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793812428;
-	b=Ii3a39buYlYpdn6UfgEuOnNDd27NjXliPFRdmr0wlKa8fRtXy3dVAtUNGB59VHjzmwnr
-	 rlJyrk38dZQTZW3Tj00I9l6JtKk+QcPTcieqCjQXqq78mVJdWOKdKEcn25T6v91MAsfZC
-	 5vIehnJSH+/xS+xXYkQc2e6NPTkpW/tqeUjjgDsKh5IC9fLowdTt7U7tkmO5SVlXA80sU
-	 NERV0pRnkyzzXLcQoqAEnJUecH4aNbzn9nwpYPIOYdEWRCNEPvgG0HG3mDS57ZO7sByEL
-	 eBrTfG/DNDk8WhrxctdAID+3EtXLaQpemOLlwIabZK9qswYt/65DPN5TdC3IJfEtd7A==
+	t=1793812453;
+	b=u3c/bVjgRqtUIN1+cCvFXUPWlrWwhyinlyzESGK/qID0TM36rYDpLRTFvlzTWbWJ5i24
+	 7tavyyt6HZ9EPbQSIwLjFuzMs/N7CLhgFOUoLoWHiwkGl5vu+NA1FM8giW2fWc2ipcTXo
+	 YFOZCk2dgjGPjwpGsDLYQ5JgzXWaON63lbETPsZe03ZSlqXFnnNcspopejdLsQAQDqyVh
+	 OzdbIGG5JJK4m8IeB3UZ22Ab28QXt5tC7F8a5SAu8bDSYQBBkHFZ/SFFZgvmKf9xXVZKt
+	 B5Qoecaj7TqfPbnjvd1mT9/iIAwRLBibds5b9fwyyxZXriX4hnw5cCPHwe9HP2VH/Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793812428;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793812453;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
 	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:User-Agent:X-Spamd-Result:X-Spam-Score:X-Spam-Level:
-	 X-Spam-Flag;
-	bh=+L36k1Sd/+bCDhBzEwtHETSWJSrxy8Qp4k0ec6NLo/w=;
-	b=InyZJCbercheZo3j7U0MBUlJZhP9hrcI1EMz0qdtI8+2l8/p6IbSayd6jfE2lO6UyZRB
-	 JDcc+/9YEx8613sTG9LsxkIsQ1kPnYGRgLhl403/fX0ePI8tlS+GCwColFgMFsf1uBiIc
-	 BCff4OQt7u1cBOsWtHWMcGncsX4bon75pH8KQVsal6Z1Kg6Dxb0VOZc1Q3gSGn1YtK4Oq
-	 zYXiQbIlea8KLfsUEgR4YD+tQ4wZN6f61pOWHE3GUDinFzsjyhOsvwFlBdI1H2P9wQ4cV
-	 xub1yJ8n6BqsJd2xwgQZdr3aODQkYprOzkzCJzeIGLA/Y7mqmVAJAo5iFrOKKqNfixg==
+	 In-Reply-To;
+	bh=UoFgbUFr390e5Xu0VCDxVTfIqMC+VP5cBukPS2Qt+oc=;
+	b=B7+W5dh7dXdCGVIXW3/w99iKV1nQjJUL0rLw4XLikGA07zhmnmR7dbiXNHBBQavQXdSc
+	 bILdlRpWOwDtGvUwFKsu/czAyZjTTw0Oodl+SmHW0zL+I+scr2bXG6+NBHuflxjWLFvBo
+	 RsF9LusNEUcEtuIRHfeQF+QCSc1hDm5cqnWCMsDukkrAjUJIEf9wHuIzm2syCyyFPzwPR
+	 Kah9GIr0yGRYZvn/a184PGPwH4x1Vqi/170Wd8OkszPzCAgl0KNMGJloSxpvOlrgg6a74
+	 V1jcVGMxIum5TlcFgSQKO3TEh96O5Q95IBvf2SIlZlnUQLVCpuRbU5/774AP6NsHPrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=tFe9HUFj;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZLFotOvn;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=tFe9HUFj;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZLFotOvn;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oQh2M+72;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF51606A33C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:13:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FF51606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D653606A31B;
+	Wed,  4 Nov 2026 17:14:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=tFe9HUFj;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZLFotOvn;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=tFe9HUFj;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ZLFotOvn
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6AD1C21E88;
-	Wed,  4 Nov 2026 17:13:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793812419;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+L36k1Sd/+bCDhBzEwtHETSWJSrxy8Qp4k0ec6NLo/w=;
-	b=tFe9HUFjymJjrtr56g84u75Z2rf2vyYVeSQCcCCFMT1xp6lgWLUqIz03qKw4lb//fGAbw6
-	GXbEyoxK8IOW66wPu5Xy/NZdE5pLv/WH26O0Ax3bWh8xrLufIq3KeVRIuml/f7pAT7uY8d
-	hGBDe3iCA0oZajxl9SfAf9Xja1timkQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793812419;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+L36k1Sd/+bCDhBzEwtHETSWJSrxy8Qp4k0ec6NLo/w=;
-	b=ZLFotOvnGiNcRHmWrifau+kdrY9e1k6ziQgdnqgg/Xz0CeuB6DALnRhqLhvQ1C1luS5fpr
-	LN4YdwCY7RxM57Bg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793812419;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+L36k1Sd/+bCDhBzEwtHETSWJSrxy8Qp4k0ec6NLo/w=;
-	b=tFe9HUFjymJjrtr56g84u75Z2rf2vyYVeSQCcCCFMT1xp6lgWLUqIz03qKw4lb//fGAbw6
-	GXbEyoxK8IOW66wPu5Xy/NZdE5pLv/WH26O0Ax3bWh8xrLufIq3KeVRIuml/f7pAT7uY8d
-	hGBDe3iCA0oZajxl9SfAf9Xja1timkQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793812419;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+L36k1Sd/+bCDhBzEwtHETSWJSrxy8Qp4k0ec6NLo/w=;
-	b=ZLFotOvnGiNcRHmWrifau+kdrY9e1k6ziQgdnqgg/Xz0CeuB6DALnRhqLhvQ1C1luS5fpr
-	LN4YdwCY7RxM57Bg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 28ACE134A5;
-	Wed,  4 Nov 2026 17:13:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id dhh3AcNn62qtGwAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Wed, 04 Nov 2026 17:13:39 +0000
-Date: Wed, 4 Nov 2026 18:13:29 +0100
-From: David Sterba <dsterba@suse.cz>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: dsterba@suse.com, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] affs: honor copied length in OFS write_end
-Message-ID: <20261104171329.GA4186782@suse.cz>
-Reply-To: dsterba@suse.cz
-References: <20261104103702.79093-1-dennylin0707@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oQh2M+72
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 499331F0093A;
+	Wed,  4 Nov 2026 17:14:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793812453;
+	bh=UoFgbUFr390e5Xu0VCDxVTfIqMC+VP5cBukPS2Qt+oc=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=oQh2M+72G011a64t1DPXJOY1n2qjCueRpbSlNGk381Yw80jocTqJFuwhNo1od1Hpr
+	 aAt3mHZXGj4EKpHai9EZCvyS1ifQtjXR9gXvNouxi4xF/T5ASBDOJjXIQ1tGjNp27f
+	 zaLEEK2T/X9tvVigRBPwxf43vVqmrwHICQN+k7PMan+PuA/4/wCv+E7rZQjmDpMnYA
+	 kvjlwA6h90nrEIuZW/nIYZoIFY09sT7SfbJKXqqaA0Vh+sBwY5vnwyAluPB3VLIQ83
+	 1+eMz/zGaa77SNGlqVVv0xnlsUDbag2kLBgrphuLaNfW0r3CUAjqydvCTxH3DJfDHn
+	 2PAeDwDzVrO2g==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 03788CE091F; Wed,  4 Nov 2026 09:14:13 -0800 (PST)
+Date: Wed, 4 Nov 2026 09:14:12 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	rcu@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] srcu: Add list_splice_init_srcu()
+Message-ID: <9f8c94ff-29e3-4ea5-b9ec-b04b2bc21b1c@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261104-bug-nvme-remove-ns-srcu-v2-0-feb64ecb96ca@gmail.com>
+ <20261104-bug-nvme-remove-ns-srcu-v2-1-feb64ecb96ca@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,52 +70,102 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104103702.79093-1-dennylin0707@gmail.com>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spamd-Result: default: False [-13.00 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,imap1.dmz-prg2.suse.org:helo];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5]
-X-Spam-Score: -13.00
-X-Spam-Level: 
-X-Spam-Flag: NO
+In-Reply-To: <20261104-bug-nvme-remove-ns-srcu-v2-1-feb64ecb96ca@gmail.com>
 
-On Wed, Nov 04, 2026 at 10:37:02AM +0000, Hungyu Lin wrote:
-> affs_write_end_ofs() uses the requested length instead of the number of
-> bytes copied into the folio. It can therefore write data that was not
-> copied and report more bytes than the source iterator consumed.
+On Wed, Nov 04, 2026 at 01:30:39AM -0500, Qiliang Yuan wrote:
+> list_splice_init_rcu() makes a list look empty to new readers, waits for
+> the current ones with the given sync function, and only then links the
+> entries into the new list. The sync function takes no argument, so it
+> can wait for RCU readers but not for the readers of an srcu_struct.
 > 
-> generic_perform_write() then advances the file position without making
-> the corresponding progress through the source iterator. A one-byte
-> pwrite() from an unreadable buffer at EOF can repeatedly grow the file
-> instead of failing with EFAULT. Partial copies are overreported as well.
+> Passing synchronize_rcu() for a list read under SRCU still builds, but
+> leaves SRCU readers on the entries while the last one's next pointer is
+> moved onto the new list head. nvme_remove_namespaces() does this today.
 > 
-> Limit the range written to the copied bytes. When nothing was copied,
-> unlock and put the folio without modifying block metadata or reporting
-> progress. Remove the obsolete comment: an uptodate destination folio does
-> not guarantee that the copy from the source succeeded.
+> Add list_splice_init_srcu(), which waits for the readers of the given
+> srcu_struct instead.
 > 
-> Fixes: f2b6a16eb8f5 ("fs: affs convert to new aops")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> Suggested-by: Christoph Hellwig <hch@lst.de>
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 
-Thanks, added to queue.
+I am not inalterably opposed to adding a list_splice_init_srcu(),
+especially if quite a few more users show up, but here is what I was
+expecting people to do:
+
+	static void synchronize_my_srcu(void)
+	{
+		synchronize_srcu(&my_srcu);
+	}
+
+	...
+
+	list_splice_init_rcu(l, h, synchronize_my_srcu);
+
+We need at least six uses of the above idiom to break even on the line
+of code required for introducing a list_splice_init_srcu().
+
+							Thanx, Paul
+
+> ---
+>  include/linux/srcu.h | 36 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 36 insertions(+)
+> 
+> diff --git a/include/linux/srcu.h b/include/linux/srcu.h
+> index 1a8a465a5650d..d4dcaeb83e2b6 100644
+> --- a/include/linux/srcu.h
+> +++ b/include/linux/srcu.h
+> @@ -18,6 +18,7 @@
+>  
+>  #include <linux/mutex.h>
+>  #include <linux/rcupdate.h>
+> +#include <linux/rculist.h>
+>  #include <linux/workqueue.h>
+>  #include <linux/rcu_segcblist.h>
+>  
+> @@ -118,6 +119,41 @@ void cleanup_srcu_struct(struct srcu_struct *ssp);
+>  void synchronize_srcu(struct srcu_struct *ssp);
+>  void synchronize_srcu_atomic(struct srcu_struct *ssp);
+>  
+> +/**
+> + * list_splice_init_srcu - splice an SRCU-protected list into an existing list
+> + * @list:	the SRCU-protected list to splice
+> + * @head:	the place in the existing list to splice the first list into
+> + * @ssp:	the srcu_struct that readers of @list use
+> + *
+> + * Like list_splice_init_rcu(), but wait for the SRCU readers of @list
+> + * instead of RCU ones, so that none of them can follow a next pointer
+> + * onto @head.
+> + *
+> + * Note that this function blocks, and that the caller must prevent any
+> + * other updates to @list.
+> + */
+> +static inline void list_splice_init_srcu(struct list_head *list,
+> +					 struct list_head *head,
+> +					 struct srcu_struct *ssp)
+> +{
+> +	struct list_head *first = list->next;
+> +	struct list_head *last = list->prev;
+> +	struct list_head *next = head->next;
+> +
+> +	if (list_empty(list))
+> +		return;
+> +
+> +	INIT_LIST_HEAD_RCU(list);
+> +	synchronize_srcu(ssp);
+> +	ASSERT_EXCLUSIVE_ACCESS(*first);
+> +	ASSERT_EXCLUSIVE_ACCESS(*last);
+> +
+> +	last->next = next;
+> +	rcu_assign_pointer(list_next_rcu(head), first);
+> +	first->prev = head;
+> +	next->prev = last;
+> +}
+> +
+>  #define SRCU_GET_STATE_COMPLETED 0x1
+>  
+>  /**
+> 
+> -- 
+> 2.43.0
+> 
