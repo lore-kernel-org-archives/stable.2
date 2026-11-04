@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826890;
-	b=lCUf/cdPf9Z96/YwsIU7G2SdWMGSSrld+S3CPd41AeIlp2z08qLV4wfXqPIIO0vsTZpN
-	 10m2asdWo2ar6Ao0VZXBsgvGO1H0B5C/AGCzxkySqXLLewSd9h95uWP3caLJVYL3Y2N6r
-	 4TLF75h7jJsDa2mvUTmG7zOvFmf+shmi6d7LeMalzK4NJRd6/eH2iNRRXHrPye5guBlAz
-	 gX+49EYUZyDdBRqyfAi2bm47C3qsqtJiHlK49Iz+Ia12/bnLRRxRz8eR1Xu5KEzeTiNGD
-	 U/Y0vil6+vcc7NQimOlVNdaWsUoBCbm2xNjmx4O39f2xVAE1lWuCk25u73NG1kWP2Ag==
+	t=1793826893;
+	b=JmgraHQcmvY4JyEYNu11dC3efyxrinpUgVBJ9U+/NMhQwPdd1hRGu0m4oZbpa6nclR0d
+	 NG4W58qzlPbEn+YVPNtxT0Bg2QrmFm81iDS9eHhhY4YriDUGf1kShCrCA4/bareg0z0vW
+	 iBy17ADy772u07k1f8wDQPQeQ1/RHBt5I6C00T1J8t90SKUVH1Fxdi4JiDpKm0tm1P1/n
+	 6DW/UGRHk9WW94jf7KntJjM3N3NQuasvSzC9EYWoouawurR+Nx1d2Pq/fSKpxrzl/s2Sk
+	 gIKP2f/Tv5Ybq1PObBLVEVy6sHXdmmm2L9qsndJ0FpjJ9QV9gwqBPOdC37MBdtugzQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826890;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826893;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=lgQZUzuKmQKYJMmHJGvwXUOxiL+MscIBeL4exR4rhXY=;
-	b=hpyBJmJA+qUAx9vsMVFzeMbXSKBT/Q2q25c97C/U+97Vr+PsqxIIiu0wyvnp4515b3Sd
-	 MMSPwE0Md7+uEtmVe+MgvrcJwvjC1HWtKVkGiCXt4LEvt0VkRX3/XLRRCTos2RduVKyvp
-	 SSY5AuPLY+M2Saj791/yWyA+coBywMMdwdC06+ocV2xoIg+7okBV9IJkHRU+1lyz6I63y
-	 JlLc1Dq+FVT3MPxfCzgh2yWvyEPLo7BFkVUaX/emaJ1RrJYtHVqlQkb4Ai5nqLjqBZP9S
-	 pAw2w0/tuARtse7A5METrqT8jDrZS60HtASJSAh3zF/pYCeXKC/xCu7I1zsjF9/uG2w==
+	bh=KG6t7i+XBtMsELlwzn00XE39bNVHUODMb5Q05leb3BA=;
+	b=O2XN2ETKxkYG9m4pAZTaCjyF+JAc+y8THUOFudiQvHKssPg0jSj+slqQ2o4L6sow0Cq/
+	 o/uQzNfSRovdyz04G0RIwP3imKhcJiLR2e4L9HNRby8Q9MYjD8btMx48lRjMZFKapMG1p
+	 fcSxN9aXkFXLLeEGCPaGuBAjV8Yi5VL+7N0N21Von7WcRZafkDsnxzl4WGA2FIIYGcnmB
+	 vk+6U2U/utkXQ2LoxlanCN0bFstRvn/zc9tA/D4EC0qlcz5uGgYZLXItD2YEg/SWiw1Li
+	 zqfP/vtTOUgPSc9u/nzOPjgVoe7Z4P9oHqKvKKlNZxLG1vCEUY35bxPOL3eSdaVFvOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YxQhqcNg;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gulcMlWa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0914A6070745;
-	Wed,  4 Nov 2026 21:14:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D43F607075C;
+	Wed,  4 Nov 2026 21:14:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YxQhqcNg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ADD11F00919;
-	Wed,  4 Nov 2026 21:14:49 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gulcMlWa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAC7E1F00A1F;
+	Wed,  4 Nov 2026 21:14:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793826889;
-	bh=lgQZUzuKmQKYJMmHJGvwXUOxiL+MscIBeL4exR4rhXY=;
+	s=korg; t=1793826893;
+	bh=KG6t7i+XBtMsELlwzn00XE39bNVHUODMb5Q05leb3BA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YxQhqcNgVM3KRJsimPMdKya8JMYXSVuYLHMB60lRhOJJlsHWh2N1hlCJJlJJEIaf2
-	 co6G4AZsx9RbfIDyZBFAuqNPiKLz+fsccYpP2uNTKbwJiCHyuLVD8ExlGniN3jhB13
-	 vtsShvsUsgXBgsDnyFwZcomNdzEZyY3ScQPiExVw=
+	b=gulcMlWaX5Qwc7z5SJxq4dcyfVdQbT7WbmESlv0O6cclFqb1Weco2ZuLbaNaIsbSm
+	 C+ydTMBol67tOWAsw9KoJCDcGs6oa/AzUf9EVEkU5UuaqVoptDrknegQEZ2UVpcG70
+	 Pcb68HQDOYRtAC57j5WoohHZPcmXR+i+Q24CSYto=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Radek Podgorny <radek@podgorny.cz>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Subject: [PATCH 7.3 068/547] Bluetooth: forget a peers RPA once it advertises its identity address
-Date: Wed,  4 Nov 2026 16:04:12 -0500
-Message-ID: <20261104211040.198772065@linuxfoundation.org>
+	Muchun Song <muchun.song@linux.dev>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Russell King <rmk+kernel@armlinux.org.uk>
+Subject: [PATCH 7.3 070/547] ARM: 9524/1: mm: align hugetlb mappings to the huge page size
+Date: Wed,  4 Nov 2026 16:04:14 -0500
+Message-ID: <20261104211040.253079079@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -67,60 +68,77 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Radek Podgorny <radek@podgorny.cz>
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-commit 3889a5fcd091d2154861c19e9c581f9f04aabd0e upstream.
+commit 1eb87d8f77379d4e4b279487b8c859fb64bd1afb upstream.
 
-hci_connect_le() dials the RPA cached in the peer's IRK whenever one is
-set, on the assumption that a peer holding an IRK is on air with a
-resolvable private address. A peer that stops using privacy breaks that
-assumption: it advertises its identity address, the cached RPA keeps the
-value it had before the change, and the host aims at an address the peer
-has abandoned.
+mmap(MAP_HUGETLB) on 32-bit Arm can return an address which is not
+aligned to the huge page size. In a QEMU virt guest, unmapping the VMA
+then hits the alignment check in __unmap_hugepage_range():
 
-Nothing clears the cache. hci_find_irk_by_rpa() refreshes irk->rpa each
-time an advertisement resolves, so it tracks rotation, but a peer that
-stops sending RPAs stops producing the reports that would update it, and
-the stale address then survives until the adapter is powered off.
+  kernel BUG at mm/hugetlb.c:5213!
+  Internal error: Oops - BUG: 0 [#1] SMP ARM
+  PC is at __unmap_hugepage_range+0x540/0x584
+  LR is at __zap_vma_range+0x13a0/0x1410
 
-On the path that creates the connection object this is currently masked:
-__hci_conn_add() resolves the cached RPA back to the identity address, so
-that is what goes on air. It is not masked on the reuse branch, which
-copies the swapped address straight into an existing conn->dst, and the
-next patch removes the conversion for the case where the controller
-cannot translate an identity address, so the stale RPA would be dialled
-there too.
+Commit 7bd3f1e1a9ae ("mm: make hugetlb mappings go through
+mm_get_unmapped_area_vmflags") made hugetlb mappings use the
+architecture's arch_get_unmapped_area(). The generic implementations
+handle hugetlb alignment, but the Arm implementations only account for
+the optional SHMLBA cache-colouring constraint. A 4 KiB-page kernel can
+therefore align the mapping to 4 KiB or 16 KiB instead of the required
+2 MiB.
 
-Clear the cached RPA when the peer is seen on its identity address.
-hci_find_irk_by_addr() only matches public and static random addresses,
-so an unresolved RPA belonging to some other device cannot reach this
-path.
+Set the alignment mask from the file's hstate for hugetlb mappings in
+both Arm implementations. Huge-page alignment also satisfies the
+SHMLBA constraint.
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Radek Podgorny <radek@podgorny.cz>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Assisted-by: LLM
+
+Fixes: 7bd3f1e1a9ae ("mm: make hugetlb mappings go through mm_get_unmapped_area_vmflags")
+Cc: stable@vger.kernel.org
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Link: https://lore.kernel.org/r/20260901085740.66283-1-kmehltretter@gmail.com/
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- net/bluetooth/hci_event.c |    9 +++++++++
- 1 file changed, 9 insertions(+)
+ arch/arm/mm/mmap.c |   11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -6311,6 +6311,15 @@ static void process_adv_report(struct hc
- 	if (irk) {
- 		bdaddr = &irk->bdaddr;
- 		bdaddr_type = irk->addr_type;
-+	} else {
-+		/* The peer is on air with its identity address, so whatever
-+		 * RPA is cached for it has been abandoned. Drop it, or
-+		 * hci_connect_le() would swap it back in and dial an address
-+		 * the peer no longer answers.
-+		 */
-+		irk = hci_find_irk_by_addr(hdev, bdaddr, bdaddr_type);
-+		if (irk)
-+			bacpy(&irk->rpa, BDADDR_ANY);
- 	}
+--- a/arch/arm/mm/mmap.c
++++ b/arch/arm/mm/mmap.c
+@@ -11,6 +11,7 @@
+ #include <linux/io.h>
+ #include <linux/personality.h>
+ #include <linux/random.h>
++#include <linux/hugetlb.h>
+ #include <asm/cachetype.h>
  
- 	bdaddr_type = ev_bdaddr_type(hdev, bdaddr_type, &bdaddr_resolved);
+ #define COLOUR_ALIGN(addr,pgoff)		\
+@@ -72,7 +73,10 @@ arch_get_unmapped_area(struct file *filp
+ 	info.length = len;
+ 	info.low_limit = mm->mmap_base;
+ 	info.high_limit = TASK_SIZE;
+-	info.align_mask = do_align ? (PAGE_MASK & (SHMLBA - 1)) : 0;
++	if (filp && is_file_hugepages(filp))
++		info.align_mask = huge_page_mask_align(filp);
++	else
++		info.align_mask = do_align ? (PAGE_MASK & (SHMLBA - 1)) : 0;
+ 	info.align_offset = pgoff << PAGE_SHIFT;
+ 	return vm_unmapped_area(&info);
+ }
+@@ -123,7 +127,10 @@ arch_get_unmapped_area_topdown(struct fi
+ 	info.length = len;
+ 	info.low_limit = FIRST_USER_ADDRESS;
+ 	info.high_limit = mm->mmap_base;
+-	info.align_mask = do_align ? (PAGE_MASK & (SHMLBA - 1)) : 0;
++	if (filp && is_file_hugepages(filp))
++		info.align_mask = huge_page_mask_align(filp);
++	else
++		info.align_mask = do_align ? (PAGE_MASK & (SHMLBA - 1)) : 0;
+ 	info.align_offset = pgoff << PAGE_SHIFT;
+ 	addr = vm_unmapped_area(&info);
+ 
 
 
