@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803031;
-	b=j1UoMkvPy4qI7mxmqBCv3u091kW45YkxV24bCCqMW+asMwYs4q0VvD6cT16wkuVVAPak
-	 M75w9C51Ukjs+hI1IVHWaHW2vj7lDgpXkQN6zIVuQtwla6b2GGNGkgBXn8J3cTA7isEEV
-	 BaKHP68r1lDc4fP9nm4WZ4y1J/5WDlsbjZ+qGM+zzWVEWt5xINp1/0OAHjQkkB0iWpVS+
-	 9QKMpYiXuw270UUvYvOnb7NmYKAfYykRPYjxQJdADutVc5Jq1AltFjysbU9GCnG6Y92V6
-	 1s+NsBq1FXRHvA8792KcllUETWNyLrKj61uXClBSSPepVMTc3okKe55okVgQPuaH+Gg==
+	t=1793803033;
+	b=syl1g9kOf6jc948PPbgMpsM+DtzBYApjXgM+5q5AmIxQHdOSTedHT8d8fudBLdcxr/IJ
+	 oSzDUZE4D1ylMBpszSZv3ymxf+VM3V6DWixG/cMCznFhu7ZEUaf28r4uYpTdahXfaveOX
+	 49WamFJcDbC6eyHbuKD4TW1WrmtTOgSHkWbwsDcP2o1RQAtZ+wj55ker01qZe20uvcXSK
+	 VYzdNFrnFRpDCTmsnTUb2enMhZrkPegL1f3LyiJZILVocvOjrar5LfoAXO1bc4bs5P3wa
+	 ysD3IuyZ45rmyh25m65QtrCzFWgXJHccdceXcTUlTuMh9J8DjGPSrWRV7vB51+TEvlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803031;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803033;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=cjzs8QJ3XSbLJU0qUYhSPnKkvfsAveBYyIOQnnHsAE0=;
-	b=VhkltP66x7b2NVxjfwndcU4DTX7Nq57IRVFEpUixv3r25+wJMlq5jXM/pVK4ajVwHvCP
-	 HyE/dV/IHwvdh7rTB+fbc7dY0C67juxU6A02FB+G+hMYpx0yOqoaxfIWk/mDBRtAywnEu
-	 BUbs6meDckusO3dkeqGysSc80Deuy4zDiQqZmgeXTAG/bfcTitD3hK6zJAN/sljX/j2n0
-	 +4T8D/HIIAdTKK4Fa/NWoIDJOI/A0tXUvqhswkN+ZchQKAoNIVrV++o+Jmb1Uk4aO5cen
-	 T7YjJAeseuA3+5ygKfHsa9F8N7xcyTL3mWW54rmKO4KepWOdfJi61l50In/4KGSVdKg==
+	bh=7sJsRpa/I8dG3zEOAfn0PY332Ob5L5S4JyeVgDzhIQo=;
+	b=b6rgS/BY0yVfCDC1wQQ2LUGFxkvBkgz6+WI4wJGQ1Bg98RQ5wAaxxTbAX9C9s8BJ3AIn
+	 CHI3NW/ZHRPyoyGWV42V2fLEusV4aze7rp2K9tgy4uXY4y+Sx9/ozxPg3pg+BGwh+4kvG
+	 JkXjH0YI7acSHnYcmcK+5KZ31y4wq75LUrln3K+kypZNRRe4H1gZajiJCKFsLoij/41Sk
+	 ZJO/WnwfFrePzA0/fjd9Anb8QzKNvl3YtyKiBbaMu8EB7u1voOtmGtamGt3gt0EKcacSv
+	 Yq5drKr7/ycT8aIyFZ+DIbyXSediq9kDPC1sljJVV4LTM9cHmPzOnsTxy7NIGnPWd7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rvxJI+FW;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MP3hhVJM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C465606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:37:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4ABD606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:37:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rvxJI+FW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC3A01F000C1;
-	Wed,  4 Nov 2026 14:37:10 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MP3hhVJM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617C01F000C1;
+	Wed,  4 Nov 2026 14:37:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793803030;
-	bh=cjzs8QJ3XSbLJU0qUYhSPnKkvfsAveBYyIOQnnHsAE0=;
+	s=korg; t=1793803032;
+	bh=7sJsRpa/I8dG3zEOAfn0PY332Ob5L5S4JyeVgDzhIQo=;
 	h=Subject:To:Cc:From:Date;
-	b=rvxJI+FWRc0ycaThGaUCaL9oGUXRQDmtJAEZOyBEN1udHRX3fGjqgHAd+niG6Yy8b
-	 L4/2UxSex9xT2OJ1gIOjIdyL4CPZOGKfgU7fzpjBaFvesQh3Njh4cOft3N6Q1mGDda
-	 wSPGDNw9SQtuXcDnwDJGHeVl/7x3XLMDJzi2FGPY=
-Subject: FAILED: patch "[PATCH] ovl: fortify ovl_copy_xattr() against underlying layer" failed to apply to 5.10-stable tree
+	b=MP3hhVJMts2haInrgncQHY6z733W0y41Kxxsoe0DIGJ4pjF6HzhDOqP53J7RmRwW6
+	 P9eN+wggHkqVB9br5xCgLces6Z3K2EnJfOP4Z7cudOyBlW9hEITkvyFcOBtF2sxFfK
+	 0kTm8DIkem6mPtBT/MALZglgI/7qzyM1hX5Amtgw=
+Subject: FAILED: patch "[PATCH] ovl: fortify ovl_copy_xattr() against underlying layer" failed to apply to 5.15-stable tree
 To: amir73il@gmail.com,fahad@codepure.com,miklos@szeredi.hu
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:37:01 +0100
-Message-ID: <2026110401-darwinism-protract-00ef@gregkh>
+Message-ID: <2026110401-avatar-tapioca-21c6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x e6b9117076fb4c0ff4a670efa9c876d9a50d79ab
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110401-darwinism-protract-00ef@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110401-avatar-tapioca-21c6@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
