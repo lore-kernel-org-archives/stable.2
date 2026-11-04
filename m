@@ -1,58 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793755962;
-	b=p6w+a8fCtY7r4A1fEtmYxb3pZQfqYpYXEbvVQ9lM7waI2olobP7BIhehvHP+Lx3n2/Ba
-	 XXGDfDXxxCJ5UIxc6XzrEYsOBcNOohmVSgdMXzgGSO5Edt2M4bJznBk/PdeJY7UuHXVzV
-	 xfw/811McBlUWGnyQDsvc59eRBiZ9vXby9u9zVRz2Dq+bom9LN8/ueKwZh8RTrVTrKDGM
-	 oSZCuc4TKazrfDeA02jcTZ70UcrKZI/02aEyDGmIP4rWS6+WQYzwwkEDltOeFGIQXvsxd
-	 HeWIPpIa4KjYict13oHdKB1LANrztvWGKAKUCgE6y+n5T/DpDt3YgFPcV62lf//v62Q==
+	t=1793756574;
+	b=tOLDbnJjV/kKm3OqyEhnI8uZ3r54JpLEjqnKgjSzKIBqcRcfU5zkMP9xXzF7Hr8zREn2
+	 ziAAoMBk4iG9lUUyuemf2GSGvykrZh3PqccPRXSwnU2YB/7qyVw4v2vnVlEKVVEHsPjdQ
+	 HEKv2U/KUrRqrn9ixVEvs3n5f5c6garFQTzGJnOl7lEDV7m1Q0Vfv4FTuVh8YSK8dN4mO
+	 sHuIDBhm4hOzGkbXHu41gMnwQIznjR3DM51XzEzqKoZNEO1qncZJ9EEgYeVonNJEJpLSq
+	 2COcDiqdI6o8XlPt/WBu601OyW9S8mSa8d0x0INjEZguKWgjCUesGkPmrdxZ5G/o23g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793755962;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=QgxRabdyJk0gUhBMnbK2LoBhSYVwx5wXcplCcklft5I=;
-	b=vvc49/VfRojP92p1GPEYiZPHzvKrS5gOzAhrgzIz+euq9gbZZ3jYbcZyniLM4jSGaECc
-	 Cz3qGbyECjAZILuusGSxcgjSzlJIyqit9+n79ozrYTsGzk66AKQSxSpnq8MB8PXZqkdut
-	 tGDqBQFwt69wpsrXjhcoHGokem2hYUXys+3GYouM3vXF2cfsgue8VPLT/WiBQuUvpQPUi
-	 qnWux/XR4DKX/0qkEWO5ydW2zDLFFd0yecuEhFcV4bj13DKc6o8xJjQ0iRb4mtaWBLHtw
-	 c6cWTCAU7IlzgUtXb24hiHaERI9fdJUL+oieuijgKHPjEbu1g2UYEIVVkpNdaw9JFNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793756574;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=04qjylQiRjUxab0wFGioKpg+XzQ+3wNYfPCFHSRebIg=;
+	b=DZ43uMA/MY3caEvm7aPiXWXTCv3eVkDKe5Gq+12+BvR93q3weRleQwOvllDsoL3xxgib
+	 2BCk8NMEwuJscS+NWw+EvM++6jbQEv0SCom1ALjMStpUzYcBIKY32RSPWPlk8rp9R6py3
+	 9/mOfAOeXMSdz0n8dcY4DVUr8A/VAahQhB87x5cv33attvJWlJgI0Bwx/LNnNWRyc8Git
+	 Smesfzojwj/W0HCN+IZTsFtBy9yiIEZRsTiicgBfEc8WIMVBUtnppnZpHP+wtrn7ldlrY
+	 7Xlwbrse6XbE6p3ZFUG3JO2YtYgzD1c3gMqwvQa0nDhkVFGy9bsqhRudYHg9ZslIBuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AB9AF606A31B;
-	Wed,  4 Nov 2026 01:32:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB9AF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZnZ5cWJ+;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3115606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 01:42:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3115606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZnZ5cWJ+
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5720b0a57so8047485e9.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 17:42:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=QgxRabdyJk0gUhBMnbK2LoBhSYVwx5wXcp
-	lCcklft5I=; b=4dHuMw5Fq+B9DmpDBa/AxxkSuguziw/o0FL46c53UYTHwSNjcA
-	uwAwwBEOfzyVe7csES6ZqKHPNSaJufY9bVQsFpSVeqxnP8RMKsfB1nRDOTol/r53
-	SChrQVKDondPBtPiyXsqTm/xy9I7kVSyATfXTNtCjkIbeL5b1amviP0RE=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.67])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkB2lfsmi+pqRLYhAQ--.23171S2;
-	Wed, 04 Nov 2026 09:32:22 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Mathias Nyman <mathias.nyman@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+        d=gmail.com; s=20260707; t=1793756572; x=1794361372; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=04qjylQiRjUxab0wFGioKpg+XzQ+3wNYfPCFHSRebIg=;
+        b=ZnZ5cWJ+ytnymUUDiWLTVDB8LUTx11Pe67lDgEa6UTMikuPe68RtvMTSngvvG/kQTZ
+         zDW+WxILFmp5F9KDBr8bZ75Du8TzTPUcpFIzuzO1RlOJ4dCf1JMNDKjZXKeuCni92DH8
+         LV2A8/2ZiAOjNVuhXVEhHVa75+tQ4F/OWopgV+krqItDpK5BawAZn5fHh8JXk7wgQZGC
+         eUqFXjsoN77aU5Y6b6d/3e68Dyj3/lYlCdkhISVvTHfvZz5OaaEkExil5VEyLaShdqGu
+         GC+wwPZbki+kaZLg3qz1MoSCl8tEssvKKP92k7ba8KFQhfKls9TS1+HIul+I1aSQ7plR
+         YOsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793756572; x=1794361372;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=04qjylQiRjUxab0wFGioKpg+XzQ+3wNYfPCFHSRebIg=;
+        b=mXxwBPhVRPo4NbUZljbacJfonA7JCxpMAhGqmQtPc16r0qNJZe01hJ3MLy+eHXGZk5
+         3lLWooskxyscMHI/snpzNlYi7aiUyJUUDtPt2oscqERDzWT61mZOqZncE/neYY0Zgesx
+         T8YNCwS0U2sWTfVU0tB/TTPa66xvEdZ7CHVWOTbAr8b3XEU2JmA0vuM9wqtST25CrK0B
+         gdVU4aFk+dsc/qxKekdlhfwlBJLD6mg5PB0Da6nH2oX44KBcV+hZz68/T9Qo2V2y4VT1
+         S27Js6mk/5/LB1Kh+VlHftw5uKL82+sHbG+jewG+zOHfyBed0XAV2xDmJqTR9AvUIM8d
+         ODRg==
+X-Forwarded-Encrypted: i=1; AKwUvBzVkGt+1MSKwVgqkg5jVvfgXutIMpdFrgAm2Xj46jgAtIHrcVXbl+nWedgrg7SENs+J/Kd3138=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qj8J4UuMXnG9NN3RHYSWyXDhPLUNLSqrdPZ6F4o07L5lXFjBy
+	socyMZ7bo0Op667lx3Y3X5nzumKhSfkdvKJy1KJF/R6pEBzoBO9tbSA=
+X-Gm-Gg: AYBFou3ggx3HXzqCNU+Bdcy8sQnY2ndXeMbx6fw34jbBkCUSi3DVSNjDfIoRp1VlDm+
+	WkXoE7hXcje1VjGSmQ1yRMM5KT6D+dfoJl/ttEpMlSCvlLdyhsN8d4dcqQhvXmX/GcVVLPzW5ik
+	sxet06PU8IxkVq96NxKOqA5wCAyhDz1NmCCVTMnjmbxuvO+TOFqECdFApPloJX4n6ZB4NWRpz2X
+	KruVrf7uQQXZxz3N0PwSxThnbEGeh1cLlyB7EisGIHviw35qTE/0KVwc85WimquD6q8DVMc8VLe
+	7zvH3U9UQuRBofe0jPkkspHUUGTR97MWeiocpqKcWzL936G0UtcfUI+mtVZ7f6kWbrAYQ7OiC52
+	h9aiHqVdxuFBMVnK9lMr7Z6CIn8/XpVSPmMAEalegP9I0g4H7JP/cY+gnsrQCzfoWmsEYhxR3/u
+	Ac8RxWEZaTCBz30GFNqMAb0LzZBgZ/NyJfb67zmTZ8TOlXg2fZ067Y4u2y42AXOo3JU6glzRQmf
+	dCjX9of0SoWzTLAq7kAvZra5LOYC0r7s7zGEV/EovjoMPbuG8JyNFxHWBWXzUYw5VdOmvYjEplD
+	cGM1kYuInu0=
+X-Received: by 2002:a05:600c:4ece:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4ac169d7e39mr333856735e9.5.1793756572002;
+        Tue, 03 Nov 2026 17:42:52 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feeb5196esm885532f8f.58.2026.11.03.17.42.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 17:42:50 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
 	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH v4] usb: xhci: Fix use-after-free race in xhci_stop_device()
-Date: Wed,  4 Nov 2026 09:32:21 +0800
-Message-Id: <20261104013221.3223-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261104000031.679944e7.michal.pecio@gmail.com>
-References: <20261104000031.679944e7.michal.pecio@gmail.com>
+	linux-kernel@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v2 media] media: v4l2-mem2mem: cancel job_work in v4l2_m2m_release
+Date: Wed,  4 Nov 2026 01:42:48 +0000
+Message-ID: <20261104014248.3761373-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,355 +100,43 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkB2lfsmi+pqRLYhAQ--.23171S2
-X-Coremail-Antispam: 1UD129KBjvAXoW3tF1ktw1UKryUuFWfur4UJwb_yoW8WFy3Wo
-	WSvrnayF18tr4DA3yrXF43tFy3Wr92qF98JrW5Cws0gFWfZ3Z8Gw13K3W3Zay7ZF45K3W3
-	Aw12qryFqrsrGrn7n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUY97k0a2IF6w4kM7kC6x804xWl14x267AKxVW8JVW5JwAFc2x0
-	x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj4
-	1l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0
-	I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Cr0_Gr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8JVW8Jr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8I
-	j28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr
-	4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxG
-	rwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_KwCF04k20xvY0x0EwIxGrwCFx2IqxV
-	CFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r10
-	6r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxV
-	WUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG
-	6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr
-	1UYxBIdaVFxhVjvjDU0xZFpf9x07bYCJdUUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUGD2rp+NVEHwABs5
 
-A KASAN slab-use-after-free read was observed in xhci_stop_device():
+v4l2_m2m_release() frees the m2m_dev struct without cancelling
+m2m_dev->job_work.  When a job finishes, v4l2_m2m_schedule_next_job()
+calls schedule_work() to queue the next run.  If the driver tears down
+concurrently, v4l2_m2m_ctx_release() invokes v4l2_m2m_cancel_job() which
+handles per-context state (TRANS_RUNNING, TRANS_QUEUED) but does not
+drain the device-level job_work.  A pending work item can then fire after
+kfree and access freed memory.
 
-  BUG: KASAN: slab-use-after-free in xhci_stop_device.constprop.0.isra.0+0x395/0x430
-  drivers/usb/host/xhci-hub.c:479
-  Read of size 8 at addr ffff88804e85d2f0
+Add cancel_work_sync() before the kfree in v4l2_m2m_release() to ensure
+the work item is drained.
 
-  Freed by task 585700:
-   kfree+0xf8/0x390 mm/slub.c:6566
-   xhci_free_virt_device+0x3f/0x50 drivers/usb/host/xhci-mem.c:881
-   xhci_free_dev+0x286/0x350 drivers/usb/host/xhci.c:4131
-   usb_disconnect+0x6b6/0x910 drivers/usb/core/hub.c:2391
-   ...
-   usbdev_ioctl+0x6f05/0x86d0 drivers/usb/core/devio.c:2826
-
-  Allocated by task 572283:
-   xhci_alloc_virt_device+0x171/0xb70 drivers/usb/host/xhci-mem.c:986
-   xhci_alloc_dev+0x475/0x840 drivers/usb/host/xhci.c:4271
-   usb_alloc_dev+0xe8/0xdc0 drivers/usb/core/usb.c:661
-   hub_event+0x1c82/0x4050 drivers/usb/core/hub.c:5953
-
-xhci_stop_device() reads xhci->devs[slot_id] without xhci->lock and
-keeps using the pointer across xhci_alloc_command(GFP_NOIO), which may
-sleep.  All callers drop xhci->lock before calling it.  Both sides of
-the race can come from userspace through usbfs: a hub class
-CLEAR_FEATURE(PORT_SUSPEND) request to the root hub reaches
-xhci_stop_device() through xhci_hub_control(), while releasing the hub
-driver interface through USBDEVFS_IOCTL() quiesces the hub and
-disconnects the devices below it, ending in xhci_free_dev().  USB core
-does not serialize those two, and xhci_free_dev() frees virt_dev under
-xhci->lock, so the endpoint loop can dereference a freed device.
-
-commit 88716a93766b ("usb: xhci: Fix panic if disconnect") added a
-NULL check for this case, but that only helps when the device was
-already freed before the check; it does not close the window.
-
-Look up xhci->devs[slot_id] only after taking xhci->lock, and bail out
-if it is NULL or if the device is already being torn down.  The
-tracepoint reloads virt_dev->udev, so it moves under the lock and only
-runs while the device is still attached.
-
-xhci_free_dev() clears virt_dev->udev without xhci->lock, and only
-later detaches the device from xhci->devs[] in xhci_free_virt_device(),
-also under the lock.  Take xhci->lock when clearing ->udev so that
-xhci_stop_device() can rely on it while holding the same lock.
-xhci_free_virt_device() clears xhci->devs[slot_id] and frees the device
-under xhci->lock, so a device found there while holding the lock stays
-alive until xhci_stop_device() drops the lock, after which virt_dev is
-not used anymore.
-
-Fixes: be88fe4f4dda93e3 ("USB: xHCI: port power management implementation")
+Fixes: 7f98639def42 ("V4L/DVB: add memory-to-memory device helper framework for videobuf")
 Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
-Hi Michal,
+Changes in v2:
+- Expanded commit message to clarify that cancel_work_sync() complements
+  the per-context v4l2_m2m_cancel_job(), which handles TRANS_RUNNING and
+  TRANS_QUEUED flags but does not drain the device-level work item
+  (Nicolas Dufresne)
 
-Thanks for looking at this.  Full answers below.  The code is unchanged
-since v3; what changed is the commit message, which now says how the two
-sides of the race reach each other.
+ drivers/media/v4l2-core/v4l2-mem2mem.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-> But is it not a bug in the first place that we are suspending a device
-> which is being deleted or deleting one which is being suspended?
-
-Yes, and that is exactly the interleaving.  What makes it possible is
-that the suspend side does not come from the USB core suspend path at
-all:
-
-  CPU0 (control request to the root hub)   CPU1 (disconnect_claim, hub)
-  --------------------------------------   ---------------------------
-  usbdev_ioctl(USBDEVFS_CONTROL)           usbdev_ioctl(USBDEVFS_IOCTL)
-   do_proc_control                          proc_ioctl
-    usbfs_start_wait_urb                     usb_driver_release_interface
-     usb_submit_urb                           usb_unbind_interface
-      rh_call_control                          hub_disconnect
-       xhci_hub_control                         hub_quiesce
-        CLEAR_FEATURE(PORT_SUSPEND)              usb_disconnect(child)
-         xhci_stop_device(slot, 1)                hub_free_dev
-                                                   xhci_free_dev
-                                                    xhci_free_virt_device
-                                                     kfree(virt_dev)
-
-The port suspend is a hub class CLEAR_FEATURE(PORT_SUSPEND) sent from
-userspace through usbfs, and the teardown is userspace releasing the
-hub driver interface, which quiesces the hub and disconnects every
-child under it.  Neither side takes a per-device reference, and the
-usbfs control request is not serialized against the hub driver being
-unbound.  That is also why xhci_bus_suspend() 100 ms after a disconnect
-looks fine: this is a different entry into xhci_stop_device().
-
-> Would you mind revealing your secret sauce and posting complete stack
-> traces of how you got there, including xhci_stop_device()? What kernel
-> version was that? Those line numbers don't match current code.
-
-Fair question, and I should have been upfront about it in the commit
-message.  This was found by syzkaller running against the xHCI on QEMU,
-on 7.1.2; the patch itself is against 7.2.10, which is why the line
-numbers in the trace do not line up with current code.
-
-The report, trimmed to the stacks and the dmesg lines just above them:
-
-  xhci_hcd 0000:00:04.0: USB core suspending port 1-3 not in U0/U1/U2
-  usb usb2: usbfs: process 585700 (syz.6.213219) did not claim interface 0 before use
-  usb 1-1: USB disconnect, device number 108
-  BUG: KASAN: slab-use-after-free in xhci_stop_device.constprop.0.isra.0+0x395/0x430
-  Read of size 8 at addr ffff88804e85d2f0 by task syz.4.213206/585661
-
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0xa7/0xd0 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0xcb/0x5d0 mm/kasan/report.c:482
- ? _raw_write_unlock_irq+0x60/0x60
- ? xhci_stop_device.constprop.0.isra.0+0x395/0x430 drivers/usb/host/xhci-hub.c:479
- kasan_report+0xaf/0xe0 mm/kasan/report.c:595
- ? xhci_stop_device.constprop.0.isra.0+0x395/0x430 drivers/usb/host/xhci-hub.c:479
- xhci_stop_device.constprop.0.isra.0+0x395/0x430 drivers/usb/host/xhci-hub.c:479
- ? instrument_read_write include/linux/instrumented.h:55 [inline]
- ? atomic_try_cmpxchg_acquire include/linux/atomic/atomic-instrumented.h:1301 [inline]
- ? queued_spin_lock include/asm-generic/qspinlock.h:111 [inline]
- ? do_raw_spin_lock include/linux/spinlock.h:187 [inline]
- ? __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:133 [inline]
- ? _raw_spin_lock_irqsave+0x72/0xb0 kernel/locking/spinlock.c:166
- xhci_hub_control+0x1b6b/0x5590 drivers/usb/host/xhci-hub.c:1315
- ? dma_coherent_ok+0xa2/0x280 kernel/dma/direct.c:77
- ? xhci_set_link_state+0x30/0x30 drivers/usb/host/xhci-hub.c:805
- ? unpoison_slab_object mm/kasan/common.c:336 [inline]
- ? __kasan_slab_alloc+0x2c/0x60 mm/kasan/common.c:366
- ? kasan_save_track+0x10/0x30 mm/kasan/common.c:78
- rh_call_control drivers/usb/core/hcd.c:650 [inline]
- rh_urb_enqueue drivers/usb/core/hcd.c:815 [inline]
- usb_hcd_submit_urb+0x90d/0x1c20 drivers/usb/core/hcd.c:1536
- usb_submit_urb+0x86c/0x1740 drivers/usb/core/urb.c:586
- usbfs_start_wait_urb+0x10a/0x3a0 drivers/usb/core/devio.c:1149
- ? kasan_unpoison+0x23/0x50 mm/kasan/shadow.c:178
- ? usbfs_blocking_completion+0x40/0x40 drivers/usb/core/devio.c:1132
- ? kasan_unpoison+0x23/0x50 mm/kasan/shadow.c:178
- ? __mutex_unlock_slowpath.constprop.0+0x360/0x360
- do_proc_control drivers/usb/core/devio.c:1249 [inline]
- proc_control drivers/usb/core/devio.c:1280 [inline]
- usbdev_do_ioctl drivers/usb/core/devio.c:2645 [inline]
- usbdev_ioctl+0x33e1/0x86d0 drivers/usb/core/devio.c:2826
- ? instrument_atomic_write include/linux/instrumented.h:97 [inline]
- ? set_bit include/asm-generic/bitops/instrumented-atomic.h:28 [inline]
- ? set_ti_thread_flag include/linux/thread_info.h:104 [inline]
- ? __resched_curr+0x1e2/0x270 kernel/sched/core.c:1192
- ? __css_rstat_updated+0x15e/0x470 kernel/cgroup/rstat.c:97
- ? cpu_cgroup_cancel_attach+0x10/0x10 include/linux/workqueue.h:759
- ? root_cgroup_cputime+0x3d0/0x3d0 include/linux/find.h:67
- ? instrument_atomic_read include/linux/instrumented.h:82 [inline]
- ? _test_bit include/asm-generic/bitops/instrumented-non-atomic.h:141 [inline]
- ? test_ti_thread_flag include/linux/thread_info.h:133 [inline]
- ? test_tsk_thread_flag include/linux/sched.h:2069 [inline]
- ? test_tsk_need_resched include/linux/sched.h:2088 [inline]
- ? wakeup_preempt+0x1cd/0x330 kernel/sched/core.c:2260
- ? usbdev_mmap+0xa00/0xa00 drivers/usb/core/devio.c:286
- ? update_load_avg+0x176/0x1880 kernel/sched/fair.c:4983
- ? update_load_avg+0x176/0x1880 kernel/sched/fair.c:4983
- ? set_next_entity+0x1db/0x630 kernel/sched/fair.c:5743
- ? pick_next_task_fair+0x10da/0x2320 kernel/sched/fair.c:9283
- ? futex_wake+0x1aa/0x500 kernel/futex/futex.h:240
- ? futex_wake_mark+0x230/0x230 kernel/futex/waitwake.c:112
- ? __fget_files+0x1a0/0x250 fs/file.c:1103
- ? usbdev_mmap+0xa00/0xa00 drivers/usb/core/devio.c:286
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x877/0x1640 fs/ioctl.c:583
- ? ioctl_file_clone+0xf0/0xf0 fs/ioctl.c:238
- ? io_schedule_timeout+0x150/0x150 kernel/sched/core.c:8079
- ? do_sys_open fs/open.c:1370 [inline]
- ? __do_sys_openat fs/open.c:1386 [inline]
- ? __se_sys_openat fs/open.c:1381 [inline]
- ? __x64_sys_openat+0x12c/0x1d0 fs/open.c:1381
- ? __schedule_loop kernel/sched/core.c:7268 [inline]
- ? schedule+0x7e/0x2f0 kernel/sched/core.c:7283
- ? restore_fpregs_from_fpstate+0x7e/0x100 arch/x86/kernel/fpu/core.c:210
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0xad/0x480 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x4b/0x53
-
-Allocated by task 572283:
- kasan_save_stack+0x20/0x40 mm/kasan/common.c:57
- kasan_save_track+0x10/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0x77/0x90 mm/kasan/common.c:415
- kmalloc_noprof include/linux/slab.h:950 [inline]
- kzalloc_noprof include/linux/slab.h:1188 [inline]
- xhci_alloc_virt_device+0x171/0xb70 drivers/usb/host/xhci-mem.c:986
- xhci_alloc_dev+0x475/0x840 drivers/usb/host/xhci.c:4271
- usb_alloc_dev+0xe8/0xdc0 drivers/usb/core/usb.c:661
- hub_port_connect drivers/usb/core/hub.c:5470 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5707 [inline]
- port_event drivers/usb/core/hub.c:5871 [inline]
- hub_event+0x1c82/0x4050 drivers/usb/core/hub.c:5953
- process_one_work+0x662/0xdb0 kernel/workqueue.c:3314
- process_scheduled_works kernel/workqueue.c:3397 [inline]
- worker_thread+0x58b/0xc70 kernel/workqueue.c:3478
- kthread+0x394/0x4b0 kernel/kthread.c:436
- ret_from_fork+0x37f/0x7b0 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x11/0x20 arch/x86/entry/entry_64.S:245
-
-Freed by task 585700:
- kasan_save_stack+0x20/0x40 mm/kasan/common.c:57
- kasan_save_track+0x10/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x37/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x3b/0x60 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2689 [inline]
- slab_free mm/slub.c:6251 [inline]
- kfree+0xf8/0x390 mm/slub.c:6566
- xhci_free_virt_device+0x3f/0x50 drivers/usb/host/xhci-mem.c:881
- xhci_free_dev+0x286/0x350 drivers/usb/host/xhci.c:4131
- hub_free_dev drivers/usb/core/hub.c:2283 [inline]
- usb_disconnect+0x6b6/0x910 drivers/usb/core/hub.c:2391
- hub_quiesce+0x159/0x310 drivers/usb/core/hub.c:1405
- hub_disconnect+0xd1/0x460 drivers/usb/core/hub.c:1811
- usb_unbind_interface+0x188/0x770 drivers/usb/core/driver.c:458
- device_remove drivers/base/dd.c:621 [inline]
- device_remove+0x11f/0x170 drivers/base/dd.c:613
- __device_release_driver drivers/base/dd.c:1352 [inline]
- device_release_driver_internal+0x4b6/0x660 drivers/base/dd.c:1375
- usb_driver_release_interface+0x105/0x180 drivers/usb/core/driver.c:640
- proc_ioctl drivers/usb/core/devio.c:2359 [inline]
- proc_ioctl_default drivers/usb/core/devio.c:2402 [inline]
- usbdev_do_ioctl drivers/usb/core/devio.c:2766 [inline]
- usbdev_ioctl+0x6f05/0x86d0 drivers/usb/core/devio.c:2826
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x877/0x1640 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0xad/0x480 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x4b/0x53
-
-> As you are .edu, perhaps you have a reproducer for this bug?
-
-No, unfortunately.  syzkaller reported the crash but failed to
-reproduce it, so there is only the one trace.  The new part seems to be
-that a usbfs control request to the root hub can reach
-xhci_stop_device() while another thread is tearing that hub down.
-
-> That's an old bug, not sure how such things can still be happening?
-> It seems that xhci_free_dev() doesn't return until everything is
-> cleared, and I would naively expect USB core not to suspend the bus
-> until all devices are suspended or finished disconnecting.
->
-> In testing, I see xhci_bus_suspend() 100 ms after disconnection, so
-> this race seems tricky to trigger. How have you done it?
-
-Agreed for the bus suspend path: usb_disconnect() is long done by then.
-xhci_stop_device() is also the per-port suspend helper for the root
-hub, and that path is reachable from userspace without any of that
-ordering, which is the window above.
-
-The patch makes xhci_stop_device() re-read xhci->devs[] and the "device
-is going away" marker under xhci->lock, and give up with -ENODEV
-instead of touching a device that xhci_free_dev() has already detached.
-For that check to mean anything, xhci_free_dev() has to clear
-virt_dev->udev under the same lock, which is the second hunk.
-
-If you think the mutual exclusion belongs higher up instead - do not
-let usbfs suspend a port while the hub is being unbound - I am happy to
-work on that; from your message it sounds like you would prefer the fix
-there.
-
-Thanks,
-YuanZhe
-
-Changes since v3:
- - Commit message only, no code change: the v3 text described the race
-   without saying how either side is reached, which made it look like it
-   had to collide with the system bus suspend.
-
- drivers/usb/host/xhci-hub.c | 14 +++++++++-----
- drivers/usb/host/xhci.c     |  3 +++
- 2 files changed, 12 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/usb/host/xhci-hub.c b/drivers/usb/host/xhci-hub.c
-index b0264bd8577a..9a3437248e04 100644
---- a/drivers/usb/host/xhci-hub.c
-+++ b/drivers/usb/host/xhci-hub.c
-@@ -463,17 +463,21 @@ static int xhci_stop_device(struct xhci_hcd *xhci, int slot_id, int suspend)
- 	int i;
+diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
+index a65cbb124cfe0..311e2e08d066d 100644
+--- a/drivers/media/v4l2-core/v4l2-mem2mem.c
++++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
+@@ -1207,6 +1207,7 @@ EXPORT_SYMBOL_GPL(v4l2_m2m_init);
  
- 	ret = 0;
--	virt_dev = xhci->devs[slot_id];
--	if (!virt_dev)
--		return -ENODEV;
--
--	trace_xhci_stop_device(virt_dev);
- 
- 	cmd = xhci_alloc_command(xhci, true, GFP_NOIO);
- 	if (!cmd)
- 		return -ENOMEM;
- 
- 	spin_lock_irqsave(&xhci->lock, flags);
-+	virt_dev = xhci->devs[slot_id];
-+	if (!virt_dev || !virt_dev->udev) {
-+		spin_unlock_irqrestore(&xhci->lock, flags);
-+		xhci_free_command(xhci, cmd);
-+		return -ENODEV;
-+	}
-+
-+	trace_xhci_stop_device(virt_dev);
-+
- 	for (i = LAST_EP_INDEX; i > 0; i--) {
- 		if (virt_dev->eps[i].ring && virt_dev->eps[i].ring->dequeue) {
- 			struct xhci_ep_ctx *ep_ctx;
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index 5c759ad28199..9e375eb48f38 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -4128,9 +4128,12 @@ static void xhci_free_dev(struct usb_hcd *hcd, struct usb_device *udev)
- 	trace_xhci_free_dev(slot_ctx);
- 
- 	/* Stop any wayward timer functions (which may grab the lock) */
-+	spin_lock_irqsave(&xhci->lock, flags);
- 	for (i = 0; i < 31; i++)
- 		virt_dev->eps[i].ep_state &= ~EP_STOP_CMD_PENDING;
- 	virt_dev->udev = NULL;
-+	spin_unlock_irqrestore(&xhci->lock, flags);
-+
- 	xhci_disable_slot(xhci, udev->slot_id);
- 
- 	spin_lock_irqsave(&xhci->lock, flags);
+ void v4l2_m2m_release(struct v4l2_m2m_dev *m2m_dev)
+ {
++	cancel_work_sync(&m2m_dev->job_work);
+ 	kfree(m2m_dev);
+ }
+ EXPORT_SYMBOL_GPL(v4l2_m2m_release);
 -- 
-2.34.1
+2.47.3
 
