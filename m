@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826900;
-	b=prjLgt7X7P/2bD1FQCKsLSGB4fxWmxoE+K3WhzmjjSsIfjtwasb8WzN+xJKaOSXLP37C
-	 Qdur6NZYjfZValeLqENoXKrtlAzcNcFeUnj0gsyU5vOJ5zl15Z786EWnhjoubsUZbmKmI
-	 fV2TOOV08VNCiBWk5ZDOpYcbCnoZxjRX0sCRMFDjX3u0+UFvLkK7fNcVqczdUmC3ihf0k
-	 L3vBMHcZO9w2Qki13k41ggwpDPvzavdXpJnFk2QTim0e/5wTfdd3jb7THzEYtFMRdXJlr
-	 jNe9AaC/PuKjbAo6iW3YH9vlREum9qp+mmfhEbERIz9Yw4JLcx1iRviQs+QxSi1qS0A==
+	t=1793826891;
+	b=OYl6AuF2BLf6EIW3NNNhP/RSg8TvLb6xi7RvjGSJlVVp46UTELZ9Aeav6vI/wwxl5Xgn
+	 lUoq/IOFbYnEDFQoFmFM+R5EAm/17b5mJoBLzTLb+cVi2OgYgNTkI64FVQgZsPydaDsWE
+	 I3TlxtX3fI0HC8eg7QlsRnC8iBmKX3//3lGTdO6/iPBBVbuiGGFmSM2oiuyCdaT+7j5tV
+	 WNbAxxQrDlxP4G9ipSvZMNF9Xtgh4m2WJyqL9Ep2VAwVLg2ax0TKxwWLco6JV+cKX6YsB
+	 6ZJrBH3JyyxlgvAE7ydo6NfNur1gkdr5zFRmGurq2B9xflQ+783OnVQdo9ALRqncIIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826900;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826891;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=kQqMOZR1lPtTFvfMhhb12jXAMsGdJ17+6WBAGVyYTW0=;
-	b=LrXfwh/nvJyjf3i0/ckb62VPZr6R6thFVhcMhJxYye9ky3sALnvv5Vbbxi6uNJiFzc9E
-	 vw77FI4tVJNYlhLNE+wievoBFwelRGD1/l5UWfVURSCy7oCb3nmgFaANp/1IHA2ekuhb6
-	 Cpu3Uv8lVXYPPhXVTidtywXnq92uMC+G2nEjPf8cOt8+X8M/28Li0dXITxu7vfR5wh6JW
-	 F2kDGXuF5jEmUPkNhFXd7e3BoPhGBYDSt2KsgZxtLXZvpwS03/Uedt63c9q+me5ym7Dwj
-	 sFAns3QYhZXDgbX/Rh0aX9BfpVq2M1C9gJOitwte/H5pdGSk/A7RVvRa7JnrH179bFg==
+	bh=ZQy7mGS2SU9xP5VrYe3UXiuf9Fy084hcEKDQpSEH/UQ=;
+	b=jdquoM7NnYeK6XhtGgTd8jEgvs7T0Bz5i8LUyzDwLPa/8GMET2shuurUd33INkelOAw/
+	 eB9XzFXJy7H/PJUekkzRc31QtH3g7RymuxAIns1N0D9dKdcdTlkSzM/L3d2SPen7nxaIB
+	 y7ECCYE6XiwK8nzk0v5IIoFbzQV/xdO28e7UC2ElW/fHM9OESOqtDtWDV9JvAnvfSZxqe
+	 eZ4GB25cL9EjcRqeaDatn64KITuwZt6KboaDtgPkiYug9D8cqegFtP5O/hd4eIHhKCq58
+	 9SIhMNaidKppH1/qYuCxb25+iIIL7k96jF9Jkn8jhnNLrkuDkEtnJmhlgadp9dzXv1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nVRAg74t;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HYd5grVa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC9E60B479F;
-	Wed,  4 Nov 2026 21:14:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878C1607075A;
+	Wed,  4 Nov 2026 21:14:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nVRAg74t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CF691F00919;
-	Wed,  4 Nov 2026 21:14:59 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HYd5grVa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 131831F00919;
+	Wed,  4 Nov 2026 21:14:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793826899;
-	bh=kQqMOZR1lPtTFvfMhhb12jXAMsGdJ17+6WBAGVyYTW0=;
+	s=korg; t=1793826891;
+	bh=ZQy7mGS2SU9xP5VrYe3UXiuf9Fy084hcEKDQpSEH/UQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nVRAg74tBY1Tk/uJAFyg/pzqJpNIFuQPx5+Z4cVUxD1elEqiqkMPBktyUMdsiwes/
-	 nn+vDdm8Hehi+6lZ+LXoCur+TDBBqf3kgTjCd/bWraeOFohn3S4sjrbdmpi2YlvFv2
-	 q6lbtiyRIudueK7z6JczcawhCNBVu+oNWA7Reo44=
+	b=HYd5grVajjhPV0qDL3ifUYE9JoQsDhWnIY6ugGr2Vh67jJHrzTp+JeJQCAdjzeKXl
+	 BglV4COsXpxeP/0jPDUnUE7UgVCLVtJ6PaOF9wZNEoQF2HbAG0yEh1mkDI/8poWelh
+	 4YNLAjJbTvMPdqoN6s8gquWQ37ExSuPe3IBDFgIE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Weiming Shi <bestswngs@gmail.com>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	Xiang Mei <xmei5@asu.edu>,
-	Miklos Szeredi <mszeredi@redhat.com>
-Subject: [PATCH 7.3 073/547] fuse: dont BUG when the copy buffer is exhausted
-Date: Wed,  4 Nov 2026 16:04:17 -0500
-Message-ID: <20261104211040.332888128@linuxfoundation.org>
+	"ck.chang" <ck.chang@mediatek.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	Chris Marshall <deepspace69@gmail.com>
+Subject: [PATCH 7.3 069/547] wifi: mt76: mt7925: fix reset panic caused by the WM2 rx irq mask
+Date: Wed,  4 Nov 2026 16:04:13 -0500
+Message-ID: <20261104211040.225778304@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -69,65 +68,58 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Xiang Mei <xmei5@asu.edu>
+From: ck.chang <ck.chang@mediatek.com>
 
-commit c1338aae7b4054e26f322155423f6aba90aeea23 upstream.
+commit c182bfe944eb275f7526cc326f81229b0e974a0c upstream.
 
-fuse_copy_fill() hits BUG_ON(!err) once the iterator backing the copy
-runs out of pages.  Over io-uring the amount copied is not bounded by the
-payload buffer the server registered, so an unprivileged user can drain
-the iterator and panic the host - mount a FUSE filesystem with small
-payload buffers, then setxattr() a larger value:
+mt7925_irq_map sets wm2_complete_mask, but mt7925_dma_layout has no
+tx done ring, so the MT_RXQ_MCU_WA queue and its NAPI are never set up.
+On a chip reset, mt7925e_mac_reset() calls napi_disable() on that NAPI
+and crashes:
 
-  kernel BUG at fs/fuse/dev.c:1064!
-  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-  CPU: 1 UID: 0 PID: 148 Comm: exploit Not tainted 7.3.0-rc1 #2
-  RIP: 0010:fuse_copy_fill (fs/fuse/dev.c:1033)
+  BUG: kernel NULL pointer dereference, address: 0000000000000a40
+  Workqueue: mt76 mt7925_mac_reset_work [mt7925_common]
+  RIP: 0010:mutex_lock+0x1c/0x50
   Call Trace:
-   <TASK>
-   fuse_copy_args (fs/fuse/dev.c:1354 fs/fuse/dev.c:1380)
-   fuse_uring_args_to_ring (fs/fuse/dev_uring.c:891)
-   fuse_uring_prepare_send (fs/fuse/dev_uring.c:940 fs/fuse/dev_uring.c:1057)
-   fuse_uring_send_in_task (fs/fuse/dev_uring.c:1745)
-   tctx_task_work_run (io_uring/tw.c:96)
-   tctx_task_work (io_uring/tw.c:133)
-   task_work_run (kernel/task_work.c:233)
-   io_run_task_work (io_uring/tw.h:84)
-   io_cqring_wait (io_uring/wait.c:278)
-   __do_sys_io_uring_enter (io_uring/io_uring.c:2676)
-   do_syscall_64 (arch/x86/entry/syscall_64.c:61)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+   napi_disable+0x1d/0x50
+   mt7925e_mac_reset+0x327/0x420 [mt7925e]
+   mt7925_mac_reset_work+0x9a/0x1a0 [mt7925_common]
 
-The reply path can drain it the same way, via the server-supplied
-payload_sz in fuse_uring_copy_from_ring().
+Remove the WM2 mask from mt7925_irq_map and from
+MT7925_INT_RX_DONE_ALL.
 
-Return -EIO instead.  All three fuse_copy_fill() callers already
-propagate the error.
-
-Fixes: c090c8abae4b ("fuse: Add io-uring sqe commit and fetch support")
-Cc: stable@vger.kernel.org
-Reported-by: Weiming Shi <bestswngs@gmail.com>
-Suggested-by: Joanne Koong <joannelkoong@gmail.com>
-Assisted-by: Claude:claude-opus-4-8
-Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+Fixes: c4edf9e3e0e5 ("wifi: mt76: mt7925: replace shared rx irq masks with per-chip definitions")
+Signed-off-by: ck.chang <ck.chang@mediatek.com>
+Link: https://patch.msgid.link/20260805092409.1489401-1-eason.lai@mediatek.com
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Cc: Chris Marshall <deepspace69@gmail.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/fuse/dev.c |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/net/wireless/mediatek/mt76/mt7925/pci.c  |    1 -
+ drivers/net/wireless/mediatek/mt76/mt7925/regs.h |    3 +--
+ 2 files changed, 1 insertion(+), 3 deletions(-)
 
---- a/fs/fuse/dev.c
-+++ b/fs/fuse/dev.c
-@@ -1061,7 +1061,8 @@ static int fuse_copy_fill(struct fuse_co
- 		err = iov_iter_get_pages2(cs->iter, &page, PAGE_SIZE, 1, &off);
- 		if (err < 0)
- 			return err;
--		BUG_ON(!err);
-+		if (!err)
-+			return -EIO;
- 		cs->len = err;
- 		cs->offset = off;
- 		cs->pg = page;
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/pci.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/pci.c
+@@ -493,7 +493,6 @@ static const struct mt792x_irq_map mt792
+ 		.all_complete_mask = MT7925_INT_RX_DONE_ALL,
+ 		.data_complete_mask = MT7925_INT_RX_DONE_DATA,
+ 		.wm_complete_mask = MT7925_INT_RX_DONE_WM,
+-		.wm2_complete_mask = MT_INT_RX_DONE_WM2,
+ 	},
+ };
+ 
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/regs.h
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/regs.h
+@@ -48,8 +48,7 @@
+ #define MT7925_INT_RX_DONE_DATA		HOST_RX_DONE_INT_ENA2
+ #define MT7925_INT_RX_DONE_WM		HOST_RX_DONE_INT_ENA0
+ #define MT7925_INT_RX_DONE_ALL		(MT7925_INT_RX_DONE_DATA | \
+-					 MT7925_INT_RX_DONE_WM | \
+-					 MT_INT_RX_DONE_WM2)
++					 MT7925_INT_RX_DONE_WM)
+ 
+ #define MT7927_INT_RX_DONE_DATA		MT7927_RX_DONE_INT_ENA4
+ #define MT7927_INT_RX_DONE_WM		MT7927_RX_DONE_INT_ENA6
 
 
