@@ -1,117 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793776946;
-	b=vE0Hb5d/DINd3KXX80HXsJ7buhobNcCTbbIMTWp54t63RJHhjMuokH8MLORdRgUm5+OM
-	 Uty2Rpq5e22Hh+WebS6ukCNxif1KHJtGmPT9HelooMDI+tjeC6kSwt8aa5FDX78P7F9Rp
-	 RN2VRhhBL7yfEU6So4x6zdCrjJaUstITPdj9llpO9WnftCO+vGfF3d8FaEGhrMCVY416C
-	 7wVARQJv6nOkd3cOvTOcaPx/KHCJmt8aRtpL+dJvu7GEftoscLZstADA3Di2EMdQtG3ID
-	 lwN/11xunqt/thxMGili2AH1hUKijuFfXdKhP5MQvyOxbhiDlpntLGcg9tb/18dapxA==
+	t=1793776972;
+	b=1UIU8oBK6vMRdK2ZKOLALU2D7aGdbxWeW5zf3dawF8ifLAqf9orr5Y3rx6aa8xfp9g8f
+	 hcwJPGGg1qqMhCh4XrfdnYHxqIe5obDFqvqAWvX4qJteAHo1e/zQeS/fZs5A4fp/vr1Ja
+	 ic1NFzgGorq61EAi6Mjx6O/IQ6/t9k3AEh6N2hnlLkYD90KJ2wzl4vDID/lYrKzsDy+Yt
+	 UEPebOjjIhd4z/XQiqoZ7RcJPKML7MUzWN+g/OXOWDzD4cyQuE0QoVTQDxWQGDNifu6Mi
+	 XHlKoQbQwMdj18pSjPwF77RRxKc+6v3JPIOVXW3/dsAYHgNMtxfgipzwyUDLZ6I3vLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776946;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=+H1Cs3HEyvTi0DffUo23ljDUGdJ2HE+qMvgJ+s00WfY=;
-	b=377u1uxX+IwRVG09da2QO+t7PIwK12haJ2/YcS23VDvEUTKL6bha5ConQutDBKFWTWFl
-	 AsNdN7lh9oGyVSWQl+TYoBLn+WTRG17/mDFz6rovF1177wSkcct8w3FkM1QRvi1jQCtJd
-	 OCs0pVmn7PCQXGyyPHZ0auhIk/mIQct2tTyQd+pnI2lrWpxIrJD9Hrfsxvpg2gOzXC5zT
-	 tf4nxOokf5tROqVc+YzoF6R08wqsn83hIPZaRdl2W6KCnUjfll35xquxPEM66Ojvv1OnF
-	 W/adylJXxt8L0ADIOLuqtaT/7lGTg6Wwp+Rtc+i4e4aaewtlH1sZzDqJJ+iVLLDtwCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776972;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=amOqrW7TRxDYFxl6iI/KQH4BpM0KC+sLlSW8sb3QrDE=;
+	b=w05tR9HdccsE25S/dfSoedMILueSh9biSeEUacplzAPWcvhygKKazvt1Cu6ws7g42Tti
+	 rI7JVvdcKGnxjy3O95JfHwILl5WOdtMWJgLXKu+32cSVLpX5+KcBCFfzjo07/RDszh4Pv
+	 ehIdfJ9qfKK5gi/5PO3XaT8X3HA1WKyC3QSbOhl+z5s7gIIMdjwQdK9dko46syBn+Jhpd
+	 o0KfCzVaUrTvVs/6Djx5MuutTJVz8UvXvPr9XNiWgz+8hTkHwVmfZt+Z30mLXMvWS2Jgh
+	 ZGhecQ1q7wn/+GyIFk+CmX+0rqpNxv+xgcq5qidT/mnXHUtYc+q6gdaNcSKDPwd43vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aVIeYbJr;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RyR2Wjy7;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SCvLAOdw;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LXTAZYF8;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RLmrkDR0;
+	arc=none smtp.remote-ip=209.85.215.173
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9696082BD7
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 07:22:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB9696082BD7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F293A606D807
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 07:22:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F293A606D807
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aVIeYbJr;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RyR2Wjy7;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SCvLAOdw;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LXTAZYF8
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B65481F7A7;
-	Wed,  4 Nov 2026 07:22:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793776937; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+H1Cs3HEyvTi0DffUo23ljDUGdJ2HE+qMvgJ+s00WfY=;
-	b=aVIeYbJrplvCL5G6I/2q8kHt3LGCWu8wmC+u0EaWRLuOTuk+Hfna/vv2a9h3T4L6Mup8Dg
-	+Mm2g8SvyGVcFxB+plgOYZP9btw34qvmj9d+I80h5NmKU+AJ5Un/GOYTDILubpxSXTRM+x
-	5sN1jblXblTXl/jyEyYtR0AiDVXKDHo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793776937;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+H1Cs3HEyvTi0DffUo23ljDUGdJ2HE+qMvgJ+s00WfY=;
-	b=RyR2Wjy7SWm0bZMtg7L98LfqYJ4PkxNMIFIqktPNjN2N5eVf8Qhs7GEVP1ueK4tA5ze7Z/
-	dOCsG4kdCiuHnZAQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=SCvLAOdw;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=LXTAZYF8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793776936; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+H1Cs3HEyvTi0DffUo23ljDUGdJ2HE+qMvgJ+s00WfY=;
-	b=SCvLAOdwIhb+0Jj74xa6aMeE6P7C9VY9wVcjf2Pai/IvonOVTa/qJrfDKupdy7NEgSN7yJ
-	KDCQIiOGdsy2IG49u3k3AXz1ufppdH+eZQ92dx/jzVMsser69IAort/VTXg8P+q14DkYgI
-	JBhGk7KEAwzWHCs2TbjRFrMJst9Lpww=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793776936;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+H1Cs3HEyvTi0DffUo23ljDUGdJ2HE+qMvgJ+s00WfY=;
-	b=LXTAZYF8b+NWDtflu8zU1wbKqEVy7QpLhTCB12urZ7gWrEm7XAVsW5UOQ3RrJpro6ACwJW
-	XL0m6n5hJwsDQQAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4BC6A134A5;
-	Wed,  4 Nov 2026 07:22:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id OHNwCSjd6mpeMwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 04 Nov 2026 07:22:16 +0000
-Date: Wed, 04 Nov 2026 08:22:15 +0100
-Message-ID: <87pkwlukm0.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: med.jebabli@gmail.com
-Cc: regressions@lists.linux.dev,
-	Cristian Castellano <cristian.castellano@icloud.com>,
-	stable@vger.kernel.org,
-	Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thorsten Leemhuis <regressions@leemhuis.info>,
-	Shenghao Ding <shenghao-ding@ti.com>,
-	Kevin Lu <kevin-lu@ti.com>,
-	Baojun Xu <baojun.xu@ti.com>,
-	Sen Wang <sen@ti.com>
-Subject: Re: [PATCH] ALSA: hda/tas2781: Only accept CRC-less V1 data if all entries are valid
-In-Reply-To: <20261103-tas2781-v1-nocrc-fix-v1-1-a769c27f21ce@gmail.com>
-References: <20261103-tas2781-v1-nocrc-fix-v1-1-a769c27f21ce@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RLmrkDR0
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cdb0c80318cso14616a12.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 23:22:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793776971; x=1794381771; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=amOqrW7TRxDYFxl6iI/KQH4BpM0KC+sLlSW8sb3QrDE=;
+        b=RLmrkDR0Ynhfh+WtVHs5vtNl6CjEpV7pPIBN45/FMMsf2sBvXthqPEf4kGKnjdK+6V
+         UVUk3vPn8N/bpo9zHuCtl4KowsVhMJ8kmokKUrw54A+0nNUgQA5URNTEolPEWtunN9ie
+         bDKw7nfWijHkPlXzxoA1Qg3m7GwNBa0jGO7JiwfVc//xWCPy/UnNlYu5GcUgflDrLKPz
+         pVy55rR2xij7EvTu85R0jbSdxoD2StNOjjjxtyXHmExumbSccnCsx4o6HaY0Go1SFBOP
+         tJCrVH9MY1aC4atPZ1mJ66BYtwIDrYMS38UEVq35alAhFrT7Zcq4zaQ/VV9qj+493E1J
+         qrwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793776971; x=1794381771;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=amOqrW7TRxDYFxl6iI/KQH4BpM0KC+sLlSW8sb3QrDE=;
+        b=k8lV5dNfKuXHgd0G8VaNo2x4jgJFEk4PQTsMOjPp/14IMhiZRLh9Y3/+u4kU7V7EyT
+         GnRr5Cq40hfCOHTzf4RgsE127NaUwJ3x4dGisVB4lMPC34lcf9GG7E7nmXqt4eV5T+T0
+         Zi5nS1uBCtTW0oJz6umoufPnDQ+cBmaQykPm+tq5cKB9D6f9SkNQLBP8UkJZfbw9LkUw
+         BC8f/kzUu7RM6dBXrksLGBjqxwCKlfRvvTDJeEEZDhZNT7nWwFXONFxh7vKQsFdYOoA5
+         uMs4/UJgH9kjcLYYYkK0ozkwEdzB9l6vu1hmh24ID7NcT5vixY0lgFsgUSCfI9SmVUVD
+         IgkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw9mT2yzDKcyR1vrh//Luvlj+Wto6EeaOtf8l7AOWJoptl/NdFT4qxIqrvMasj94CViCU1xxFw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9qgphmiUfxv5kKYxT9Iglxdh/YjLJb3qY+UOAmtH2NGQQq2OXF
+	j/jbZ1ExvrTYL+fIKf2RGGEerFqH33fxn/B1vDzJ4d2l+JLYI3LVgpPN
+X-Gm-Gg: AYBFou2NEyOElzcu42krJXmJjy3z+IgbqMsFsJ3gj1WCcQolMh3Lvas8zNqRY8wVHF7
+	HRbCWFcvTMLzCwagc1skZc2jRxRxB51YOEfsHDKQLPpww5qrykQILuBDPDxjOja0YJEdS9y9r+G
+	GKHN6cngWvjPxD2A83Kh4u8XvaMG7HmusWyQzPrPpUkpGnIiURn/aep3/5OBbGjPCogXpik+7vi
+	nWzJsBFdjDlyVIQpC8Dt5AChH3f8GCWBx88ZYyWGrAI3bSEEoquWhvb+3c69V95dobGXPauG2oK
+	TYdOYrlS/tfFP9jG/e+T95KWC6iJ+hChYG0meijwZaA61PwWhbYf/2TkLeveV//REixQHKCTmE9
+	PbgSxdvbv+sTeO+xlL8v6Wz+oGvPw3bbZsmCijLnu7hj9Wz9fgzRqODvTT9oTIL26JIWjGOxTBw
+	M7siuRoslKpIskURw+5+S5FEgkDxgeGLfLvWuDmO0BJ6M7HHq2hnVcyAoYC/J4+OK6yYLNi8R1a
+	fEedVaNWdZPK1cJD/VQbFvyM6Q5qk5/c6NadC0cR5gYtXDtVyM+FNsX5frZvmrNO2Ufkv8Vn9lI
+	i+PEvawnTMG87Un7KU/SzoJ3nYEh2Q2CApcmcjcd4w==
+X-Received: by 2002:a05:6a21:f107:b0:3e2:1823:2b39 with SMTP id adf61e73a8af0-3e9288c9c22mr18484635637.2.1793776971244;
+        Tue, 03 Nov 2026 23:22:51 -0800 (PST)
+Received: from CRASHEDROM.localdomain ([142.249.36.161])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b097fe109fsm533533b3a.8.2026.11.03.23.22.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 23:22:50 -0800 (PST)
+From: Chengyu Liu <lui2012qwq@gmail.com>
+To: joro@8bytes.org
+Cc: suravee.suthikulpanit@amd.com,
+	vasant.hegde@amd.com,
+	iommu@lists.linux.dev,
+	Chengyu Liu <lui2012qwq@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] iommu/amd: do not remove the shared IRQ domain on intcapxt failure
+Date: Wed,  4 Nov 2026 15:22:41 +0800
+Message-Id: <20261104072241.1617661-1-lui2012qwq@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -120,82 +96,79 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: B65481F7A7
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-11.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FREEMAIL_TO(0.00)[gmail.com];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,icloud.com:email];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,icloud.com];
-	FREEMAIL_CC(0.00)[lists.linux.dev,icloud.com,vger.kernel.org,suse.com,perex.cz,leemhuis.info,ti.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	TAGGED_RCPT(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim]
-X-Spam-Score: -11.01
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 03 Nov 2026 10:27:12 +0100,
-Mohamed Yassine Jebabli via B4 Relay wrote:
-> 
-> From: Mohamed Yassine Jebabli <med.jebabli@gmail.com>
-> 
-> Commit 408249089c48 ("ALSA: hda/tas2781: Accept V1 calibration data
-> without CRC") only checked the first device entry. On machines where
-> the BIOS populates fewer entries than p->ndev, the remaining all-zero
-> entries are applied and tas2781_cali_preproc() divides by zero on
-> playback open.
-> 
-> Accept CRC-less V1 data only if every expected entry is non-zero and
-> self-consistent (R0 * 1/R0 close to 1.0), otherwise reject it as
-> before.
-> 
-> Fixes: 408249089c48 ("ALSA: hda/tas2781: Accept V1 calibration data without CRC")
-> Reported-by: Cristian Castellano <cristian.castellano@icloud.com>
-> Closes: https://lore.kernel.org/all/4e500063-d985-46b6-a0a1-3feaa77c4b2f@leemhuis.info/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mohamed Yassine Jebabli <med.jebabli@gmail.com>
-> ---
-> Cristian, could you test this on the Yoga Pro 9 16IRP8? With the fix,
-> the driver should log "V1 CRC error" again and fall back to default
-> parameters, as it did before 408249089c48. If it still logs
-> "accepting", p->ndev is 2 on your machine and the root cause is
-> elsewhere, so please send the full "dmesg | grep -i tas2781".
-> 
-> Takashi's re_cal check in tas2781_cali_preproc() is complementary
-> and still worth applying as a safeguard.
+iommu_get_irqdomain() lazily creates a single irq domain and caches
+it in the global iommu_irqdomain, shared by all IOMMUs.  Both
+failure branches of __iommu_setup_intcapxt() call
+irq_domain_remove() on it, which frees the domain, but the global
+pointer is never cleared and keeps handing out the freed domain.
 
-As the code looks safe enough, I applied now.
-Let me know if the problem still happens.
+The failure does not prevent reuse: register_syscore() runs in the
+IOMMU_ENABLED init state, one state before
+amd_iommu_enable_interrupts() runs in IOMMU_PCI_INIT, and the error
+paths never unregister it.  On resume, amd_iommu_resume() re-runs
+amd_iommu_enable_interrupts(); for an IOMMU whose setup failed,
+int_enabled was never set, so __iommu_setup_intcapxt() runs again,
+gets the freed domain from iommu_get_irqdomain() and passes it to
+irq_domain_alloc_irqs().
 
-I'm going to submit my zero-check patch as a further hardening, too.
+The shared domain also makes a single failure affect the healthy
+IOMMUs: if IOMMU#0 set up fine and IOMMU#1's setup fails, the remove
+frees a domain that still has IOMMU#0's irqs mapped, tripping the
+WARN_ON(!radix_tree_empty) in irq_domain_remove().
 
+Keep the domain alive on failure; a later attempt (including the
+resume path) reuses the cached domain.  The request_threaded_irq()
+failure branch still backs out the allocated irq via
+irq_domain_free_irqs().
 
-thanks,
+Found by static analysis.
 
-Takashi
+Fixes: d1adcfbb520c ("iommu/amd: Fix IOMMU interrupt generation in X2APIC mode")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+---
+ drivers/iommu/amd/init.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
+index 8a410d4aa3..78b11b04dd 100644
+--- a/drivers/iommu/amd/init.c
++++ b/drivers/iommu/amd/init.c
+@@ -2522,6 +2522,13 @@ static int __iommu_setup_intcapxt(struct amd_iommu *iommu, const char *devname,
+ 	int irq, ret;
+ 	int node = dev_to_node(&iommu->dev->dev);
+ 
++	/*
++	 * The IRQ domain is a cached singleton shared by all IOMMUs; a
++	 * setup failure must not remove it, otherwise the global
++	 * iommu_irqdomain is left dangling (and a shared domain could be
++	 * freed while still mapped by another IOMMU).  Leave it in place
++	 * so a later retry (e.g. resume) can use it.
++	 */
+ 	domain = iommu_get_irqdomain();
+ 	if (!domain)
+ 		return -ENXIO;
+@@ -2532,16 +2539,13 @@ static int __iommu_setup_intcapxt(struct amd_iommu *iommu, const char *devname,
+ 	info.hwirq = hwirq;
+ 
+ 	irq = irq_domain_alloc_irqs(domain, 1, node, &info);
+-	if (irq < 0) {
+-		irq_domain_remove(domain);
++	if (irq < 0)
+ 		return irq;
+-	}
+ 
+ 	ret = request_threaded_irq(irq, NULL, thread_fn, IRQF_ONESHOT, devname,
+ 				   iommu);
+ 	if (ret) {
+ 		irq_domain_free_irqs(irq, 1);
+-		irq_domain_remove(domain);
+ 		return ret;
+ 	}
+ 
+-- 
+2.25.1
+
