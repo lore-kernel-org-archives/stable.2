@@ -1,111 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811120;
-	b=AIiMf/D+fXs8k1+q3YhbqA8Rz/jsQ/ZzdEy3oq69eQyoBMn3j5vK0uPqRBjNJLGUdtBl
-	 AEVYML8ShfDUt1iGXQNBczZTRN4L4xHIW3NxLgdDKnj4/a/mvt+PE93Rtg87dzT8ikp9E
-	 n94krKMwrxB6PF//NfnYaz9s5cHcRmJL2kye6FVoxjDWcGM+Gk+B5OnqQy6X0DdXJJzkj
-	 a65O4Njmb7s+7b4GNfPnt7v9Rm/+f+n990EgO0byhbr1nb51KdjqoH73582hpgJOP3lHh
-	 V3ZcmNWI6CVrwK+jSHXYOCiBqOz0JTRnfi53LhivL+ZA6REc5JSOhAIFKknwwSHod9A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811120;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=q09G0Aw7d4VDdeSkcwEBqgMj77+p3jsgBtovOOCEeOA=;
-	b=CcI3HvY5WaBtZaN65zfbYYWgjn4HG++Q1NE0i+nuD//o3i0aUOpnJjYd7X+mBwKdc5yV
-	 xE/DMl0JfBhj33O8QKxcJ71MHoVc0r0jmFzkSusnCb1iXnPc0OZUKl3mVXxfqS1rd0hfZ
-	 q2hL9NiZYSSKsTNmlg8bN/yh6oFY7LFPSP9km1C3OT64wPEMBdLN/BA/kGXLYqq9KdJTe
-	 jNsVHNBqIu/z5aNFCCJRSfZoFd5qiWVw9d76B6s+6Vn82NPnThncd80iRiL5tfJW3c8kO
-	 IQorVrwgcnxsLKm+Nbah0Al4Y3OOTWYnBB8o/KXcJZfFRlrwhwo59F8Il9dFZ3SrZNw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=iErJK+Y5;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="+bx8X/OK";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=iErJK+Y5;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="+bx8X/OK";
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.165
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793811190;
+	b=PmnCydnmEPAZmIfDlfrylvjlJaZNIJaSfJV/yTiwySmWVXsFr/qt4of2uFEHAZ5C/XSu
+	 83U+jJ4QKk3Y3XjmmdQ5igDzfyyphNm30W3LsQ3D5LtF2fTEM+S2/FkjEUYYOORP2ag3q
+	 ducloRx5Qip8+dvGSWZtMoXb1OIi2/uUI2kMN9wRLefgtCNIV/nfRCdsc0fNyP+TUf6Zp
+	 KKWW3c4G/CDkNrVBFLPC/B/qC0Fg6PdMAMT0EFSVm2fZeeqecRVmeOGRFjcp6LJMu54VS
+	 WoIbmrQ5K51Jt4M9Q2+9iIslY5Wwz3+pl4emwg0d80TKCw6Y1lUP09irufqjEfrCaDA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811190;
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
+	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
+	 X-SimpleLogin-Want-Signing;
+	bh=THYlU6dsxV8ed96P6OJPtEWq8tUs/nV5roX8ImFt+iY=;
+	b=nigzYsvyrBOSYa3zXJEA9YkQjqSbXLoT3dsP4qlRGYeHCFPoKye+AIKe1DdaZAZNaTmO
+	 Gqr9y1p+DafRRT8YI1Q1i77eKE+gph/cTN0o8ZTvO86TZGBFnmOMSL3Bab+0iNBM8ZooO
+	 8N6g06ayroyHP9Mw/AQlWyZNv+3zef1yNwi+FvsbVJkJUlaeBVk+eIoxF35KPHz2KkVyc
+	 cnckJn5ay9HVtngP/YwhmUpIG92EF8hDaAJUmFBqH12UY+V0v2kH2uRhL+U0Y8DoNJ6AK
+	 +DtnAcKflK2HAgDXL3ZdOlH2QpXB+wE+Wu+VY2q5KOgn9e0QS4qD3XcKFJVuJoXwtSg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=eldare.de;
+	spf=pass smtp.mailfrom=eldare.de;
+	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=BIvjAjm5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.165
+Received: from mail-200165.simplelogin.co (mail-200165.simplelogin.co [176.119.200.165])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A4A606EEBD;
-	Wed,  4 Nov 2026 16:51:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49A4A606EEBD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA5E606D805
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:53:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEA5E606D805
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=iErJK+Y5;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+bx8X/OK;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=iErJK+Y5;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+bx8X/OK
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 27D011F79A;
-	Wed,  4 Nov 2026 16:51:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793811117; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=BIvjAjm5
+ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793811188;
+	cv=none; b=ewuAxjZP90EU4HaVoeuP3GWYoej2tgPTl6yWF7swF1B9Mve65vFJo+9kIp/acjRehFdBryyj3ZX62Owhm0CHL5m06vTVXI3Fl5R1v8tHKnIC+KEPXaLxzCKnVUhrmzg7TS0IjIgpzyM8ej/AdMffMtGDoEWoaQcVtyx2BdRH0QndS6L5gZbOmCSJW6BBPNWSSY5sHltEeccnoO369KsTp7R1K3Gx6ddFmYG8paLkeQ2003a4zfCniLGQm3CTKproSIRilYgkDvXXUY2mutEDK1VWabA100digYscU1Inyjnw5ON9z8PiVlW458z5Lj0S/Z7+KuCfpHH2AyhHrtjuDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
+	t=1793811188; c=relaxed/simple;
+	bh=b22BmvbWIYRK51tJiOsPu3kTH0mAG+T8cRcAHNYNM48=;
+	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=xEqLzWK2kckZgKHjGSIjZhmIh2T915A89KQOC6R0b8qZTM5kQYWoUanmaXeIptHmMNZrCIu9N37ZdvD72k7piLeay+NLjFMI9vRRgyvsO1Rgf3f0wS2jKOkHRqd+lst7NRgctYpLstbhFCq59CRlfvYj4lX5qYgNDViKSllN1hs9xFqC0xf1aNBtoC44sjcr0eRSILUXi9ljsGs9S+fMNFWpqt+xbUPgHF8IYGzj6ycEUtAj2XDL7AY4s3XQLqfl5wT8fLfFumvQEphZZBaCV/RWGpqy9t0KZrZQUutjO18lf7Q7YMhgM6oejms5/AP8QzhnwB6D9osjwuaHSDq6wQ==
+ARC-Authentication-Results: i=1; mail.protonmail.ch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
+	t=1793811187;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=q09G0Aw7d4VDdeSkcwEBqgMj77+p3jsgBtovOOCEeOA=;
-	b=iErJK+Y5gR9Gjv5/k1apT/Mm9VefEZ3QHI8OVAWHhxGjfibPOHdcr9L14vudbkPXO+n7HE
-	w43aVdDcwY88l0u3RHsqK04HAWGgKI7LAf7aQUmPKzjiKzrXR/cb94RwNFONj0N8urFns8
-	+vyxQFFP5zFbpDRH4ii/OyovvagUzmA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793811117;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=q09G0Aw7d4VDdeSkcwEBqgMj77+p3jsgBtovOOCEeOA=;
-	b=+bx8X/OK8p1hwRjp2QabLmwn/CFYBIAhxHIOoHnSHKtSPpoctrnA+D3Z/UxSXhr6KZHnIf
-	RdGtXzIpb2pbeCDw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=iErJK+Y5;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="+bx8X/OK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793811117; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=q09G0Aw7d4VDdeSkcwEBqgMj77+p3jsgBtovOOCEeOA=;
-	b=iErJK+Y5gR9Gjv5/k1apT/Mm9VefEZ3QHI8OVAWHhxGjfibPOHdcr9L14vudbkPXO+n7HE
-	w43aVdDcwY88l0u3RHsqK04HAWGgKI7LAf7aQUmPKzjiKzrXR/cb94RwNFONj0N8urFns8
-	+vyxQFFP5zFbpDRH4ii/OyovvagUzmA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793811117;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=q09G0Aw7d4VDdeSkcwEBqgMj77+p3jsgBtovOOCEeOA=;
-	b=+bx8X/OK8p1hwRjp2QabLmwn/CFYBIAhxHIOoHnSHKtSPpoctrnA+D3Z/UxSXhr6KZHnIf
-	RdGtXzIpb2pbeCDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 05477134F0;
-	Wed,  4 Nov 2026 16:51:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id wy9JNqxi62r2BQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 04 Nov 2026 16:51:57 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 864D4B437; Wed, 04 Nov 2026 17:51:56 +0100 (CET)
-Date: Wed, 4 Nov 2026 17:51:56 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Jan Kara <jack@suse.cz>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-ext4@vger.kernel.org, 
-	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Andreas Dilger <adilger.kernel@dilger.ca>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Namjae Jeon <namjae.jeon@samsung.com>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 1/9] ext2: add ext2_inode_block() helper
-Message-ID: <rqitd4futx6jkcl7nd6qjmjhwr7q24cmlpbbbidg5osbovetdj@5oaqbqpui5sb>
-References: <20261029-work-inode-metadata_writeback-v1-0-7d6c678a585d@kernel.org>
- <20261029-work-inode-metadata_writeback-v1-1-7d6c678a585d@kernel.org>
+	bh=THYlU6dsxV8ed96P6OJPtEWq8tUs/nV5roX8ImFt+iY=;
+	b=BIvjAjm5TRTO61GsOBpZh8JyEhMHRyp2ciJjRUsqrPmbrSppaR0sMWhwKWAEXDG9SQ3WbG
+	pLzwuv43YJd5ISH48y5Dh7JmSHF9GAFWgtTuZI7oPrsSFxxaCQHe7FztKNejlPJVgpeq4Q
+	XDisBlPe4pE7SmfmSFz2NcV1Az4/GnE=
+Date: Wed, 04 Nov 2026 16:52:59 +0000
+Subject: Re: [PATCH net v3 2/2] vsock/bpf: fix zero-length,
+ MSG_OOB and MSG_ERRQUEUE reads in recvmsg
+In-Reply-To: <auSngVsWiGI475J4@sgarzare-redhat>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,152 +64,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-work-inode-metadata_writeback-v1-1-7d6c678a585d@kernel.org>
-X-Rspamd-Queue-Id: 27D011F79A
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,suse.cz,toxicpanda.com,kernel.org,mail.parknet.co.jp,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,samsung.com];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Score: -11.51
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: jrmmhm.kernel@eldare.de
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: Bobby Eshleman <bobbyeshleman@meta.com>,"David S. Miller"
+ <davem@davemloft.net>,Eric Dumazet <edumazet@kernel.org>,Jakub Kicinski
+ <kuba@kernel.org>,Paolo Abeni <pabeni@redhat.com>,Simon Horman
+ <horms@kernel.org>,"Michael S. Tsirkin" <mst@redhat.com>,Michal Luczaj
+ <mhal@rbox.co>,virtualization@lists.linux.dev,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,stable@vger.kernel.org
+Message-ID: <179381118562.7.1635260105890086879.1746288140@eldare.de>
+References: <20261028-kbh3-1-022-fix-v2-v3-0-bc0752b2d3db@eldare.de>
+ <20261028-kbh3-1-022-fix-v2-v3-2-bc0752b2d3db@eldare.de>
+ <auSngVsWiGI475J4@sgarzare-redhat>
+X-SimpleLogin-Type: Reply
+X-SimpleLogin-EmailLog-ID: 1746288190
+X-SimpleLogin-Want-Signing: yes
 
-On Thu 29-10-26 14:28:16, Christian Brauner wrote:
-> Move the lookup of the inode table block that holds an inode out of
-> ext2_get_inode() into a helper. ext2_sync_inode_metadata() is going to
-> use it to find the block without reading it from disk.
-> 
-> No functional changes.
-> 
-> Cc: stable@vger.kernel.org # v7.3
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+On Fri, Oct 30, 2026 at 03:25:26PM +0100, Stefano Garzarella wrote:
+> Ditto.
 
-Looks good. Feel free to add:
+Same as for 1/2, I'll rewrite it.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+> >+    if (unlikely(flags & MSG_ERRQUEUE))
+> >+            return __vsock_recvmsg(sk, msg, len, flags);
+>
+> If the psock ingress queue is not empty, wouldn't recvmsg(MSG_ERRQUEUE)
+> (e.g. a MSG_ZEROCOPY user reading completions) also consume stream bytes
+> through sk_msg_recvmsg(), since it only looks at MSG_PEEK? If so, maybe
+> worth mentioning in the commit message.
 
-								Honza
+Yes, when the read passes a buffer. I reproduced it: without this patch
+a 1-byte MSG_ERRQUEUE read with stream data in the psock ingress queue
+returns that byte. A zero-length read, as MSG_ZEROCOPY users do, takes
+none, but never reaches the error queue either: it gets -EAGAIN instead
+of the completion. Routing MSG_ERRQUEUE first fixes both; I'll mention
+it in the message.
 
-> ---
->  fs/ext2/inode.c | 49 +++++++++++++++++++++++++++++++------------------
->  1 file changed, 31 insertions(+), 18 deletions(-)
-> 
-> diff --git a/fs/ext2/inode.c b/fs/ext2/inode.c
-> index 12ac4cfe1500..940f61a4dde3 100644
-> --- a/fs/ext2/inode.c
-> +++ b/fs/ext2/inode.c
-> @@ -1272,46 +1272,59 @@ static int ext2_setsize(struct inode *inode, loff_t newsize)
->  	return 0;
->  }
->  
-> -static struct ext2_inode *ext2_get_inode(struct super_block *sb, ino_t ino,
-> -					struct buffer_head **p)
-> +/*
-> + * Find the inode table block that holds inode @ino and the offset of the
-> + * inode in that block.
-> + */
-> +static int ext2_inode_block(struct super_block *sb, ino_t ino,
-> +			    unsigned long *block, unsigned long *offset)
->  {
-> -	struct buffer_head * bh;
->  	unsigned long block_group;
-> -	unsigned long block;
-> -	unsigned long offset;
->  	struct ext2_group_desc * gdp;
->  
-> -	*p = NULL;
->  	if ((ino != EXT2_ROOT_INO && ino < EXT2_FIRST_INO(sb)) ||
-> -	    ino > le32_to_cpu(EXT2_SB(sb)->s_es->s_inodes_count))
-> -		goto Einval;
-> +	    ino > le32_to_cpu(EXT2_SB(sb)->s_es->s_inodes_count)) {
-> +		ext2_error(sb, "ext2_get_inode", "bad inode number: %lu",
-> +			   (unsigned long) ino);
-> +		return -EINVAL;
-> +	}
->  
->  	block_group = (ino - 1) / EXT2_INODES_PER_GROUP(sb);
->  	gdp = ext2_get_group_desc(sb, block_group, NULL);
->  	if (!gdp)
-> -		goto Egdp;
-> +		return -EIO;
->  	/*
->  	 * Figure out the offset within the block group inode table
->  	 */
-> -	offset = ((ino - 1) % EXT2_INODES_PER_GROUP(sb)) * EXT2_INODE_SIZE(sb);
-> -	block = le32_to_cpu(gdp->bg_inode_table) +
-> -		(offset >> EXT2_BLOCK_SIZE_BITS(sb));
-> +	*offset = ((ino - 1) % EXT2_INODES_PER_GROUP(sb)) * EXT2_INODE_SIZE(sb);
-> +	*block = le32_to_cpu(gdp->bg_inode_table) +
-> +		(*offset >> EXT2_BLOCK_SIZE_BITS(sb));
-> +	*offset &= (EXT2_BLOCK_SIZE(sb) - 1);
-> +	return 0;
-> +}
-> +
-> +static struct ext2_inode *ext2_get_inode(struct super_block *sb, ino_t ino,
-> +					struct buffer_head **p)
-> +{
-> +	struct buffer_head *bh;
-> +	unsigned long block;
-> +	unsigned long offset;
-> +	int err;
-> +
-> +	*p = NULL;
-> +	err = ext2_inode_block(sb, ino, &block, &offset);
-> +	if (err)
-> +		return ERR_PTR(err);
->  	if (!(bh = sb_bread(sb, block)))
->  		goto Eio;
->  
->  	*p = bh;
-> -	offset &= (EXT2_BLOCK_SIZE(sb) - 1);
->  	return (struct ext2_inode *) (bh->b_data + offset);
->  
-> -Einval:
-> -	ext2_error(sb, "ext2_get_inode", "bad inode number: %lu",
-> -		   (unsigned long) ino);
-> -	return ERR_PTR(-EINVAL);
->  Eio:
->  	ext2_error(sb, "ext2_get_inode",
->  		   "unable to read inode block - inode=%lu, block=%lu",
->  		   (unsigned long) ino, block);
-> -Egdp:
->  	return ERR_PTR(-EIO);
->  }
->  
-> 
-> -- 
-> 2.53.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> >+    if (flags & MSG_OOB)
+> >+            return -EOPNOTSUPP;
+> >+
+> >+    if (!len)
+> >+            return 0;
+>
+> Is the order of the checks important? We should mention it in the commit
+> description (if it's important or not and why).
+
+Yes. MSG_ERRQUEUE must come first, or a zero-length error-queue read
+returns 0. MSG_OOB goes before len =3D=3D 0 so that recv(fd, buf, 0, MSG_OO=
+B)
+returns -EOPNOTSUPP as in the native path on a connected socket. I'll say
+so in the message.
+
+Thanks,
+Jerome
+
