@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827031;
-	b=IdcrZpzYbngHdluTe3zSgrfIaXGjUTCJs84pUmQC72U/UnX5/8DG3G5CTpXhhmc1g/9S
-	 DvGdgGRDK9BFilFVQcjbCJU0fR3BDB118EoY2hlI3xM95UeNn8EB6cB+GFZWO9uG9bKob
-	 om8gWNdSF4p/BRekNkOb9F+ce597YPJlRXi8Iv8PsRm0SDu4kEVnGbkou8DCnbNQ8FCgF
-	 7zpgRFdgXnV7bb7hodGwsiiC6cxZCKu1p9qVDJJNNZY6rc3VdgdAbSFFzOiDzvT0eiojp
-	 IHzyMbJMvxURdlhZ8p+bOlKMcwaWMQJ9syDYZQ8sO4zYUD1g02wBPkG3/+lwYdq05jw==
+	t=1793827035;
+	b=26T+yvvEo6kdVP3U/Fd74o/rZUzhHtKJEDb5vY4wVYVal0LFyS1xaXuWO0ngyQ1b6lX1
+	 B5l/PDKn8xHmIdcC158mF7t7xK+wVkIV2CcCpD/L0CXjf7A95NDuTpjICkiCqZ+R3lTD4
+	 +ax3FyqxrpmVgTN5nhPv9yhaOtnVOaR4Yxv/2eNPGybXBoCSFZvKUmdGD9gbnYZx46qvY
+	 +Pqh1zYtzH55zLJAGZG+hq0cOfaoF5g+HWqi+g2dNnQe8z2C6XboKnwjawJjFMKhXTqfu
+	 Fq7oQ/5P1o62F8stSdqQM58J5z6EUeoQzD1im0ntU2NA5UqgYlv+FTpEDsOwAuW2Yug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827031;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827035;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ahQuT7PAu9i1rKKBpgYXfxeBtAYD7/YuGtO5w/Qd230=;
-	b=es0B71vO6HujUoua7b/MBVhXsqu4ztQfdj4Z4JelOGMHpNYb4rrJhhyBhR2y8XaEkl6u
-	 5ntte8JyBGSVWQzMr+Tge/MCNFoDS2utOV14oSKnEuNIHfIfn0uVEk3REU9aIfoFyz+b1
-	 sYwJSOI1QpDP/NfbgukmWVv68Ifnt0YhH9vtQdknrZ9PT7/awvH/iUQDYxeDtR2N8caXK
-	 +RQpdMl9RzuujpeS1KW+HhRdpcaC80HytzlwQ9pzbptvGq/cczbrNZcZuoAGXkT2MQTMU
-	 Yhsd385qchbnt3BTYLHdHDJjhUV3R9/QN+PVJrzqzm6VGlmjPnKI/PcxPXoQeH2jJzg==
+	bh=dAGkAkdZSo+vHMHNUH0HTDf16u1ywvTAjA2RF9nqo0w=;
+	b=hDo3OeLTWH36sbjdNEkt0Y6AnWZG/49L4VRz8aFuj1KSTiM4tGTgU/Gaafx5Nzzkondm
+	 aEsr5eoUsGrpEfTWZ99e308Ofu5TESHpGMXdYihoYJujrnosGnfRR9CJ4sem93BCTKSG+
+	 l+azJeqxWr/7QanzNI8xmryd9DcFdFTDGOLde3yvWkM0UwnZdp2ZZmFvMCfWIe1hsr1vE
+	 27wU/iho0AGH73NbAYmmSqH73a5mt277adjbjEwhu3LOWdrlYDCEW++xE0AF5rnakFMnM
+	 iYbwU8YHjYt78sGhEyXzH+lUcmO6Pv/ZXD7rVhVaeyeFGLJzNvtu3dM6cqLL5lbc/Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sSZCAp4X;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cFquyZsW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4B36070A97;
-	Wed,  4 Nov 2026 21:17:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE055606AB10;
+	Wed,  4 Nov 2026 21:17:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sSZCAp4X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B87D31F000C1;
-	Wed,  4 Nov 2026 21:17:10 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cFquyZsW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F021F000C1;
+	Wed,  4 Nov 2026 21:17:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793827031;
-	bh=ahQuT7PAu9i1rKKBpgYXfxeBtAYD7/YuGtO5w/Qd230=;
+	s=korg; t=1793827034;
+	bh=dAGkAkdZSo+vHMHNUH0HTDf16u1ywvTAjA2RF9nqo0w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=sSZCAp4XXVHP2pP308GxVQxaFyPvTDIKWzjF20bAXTNB855a1BJmZATM+BsfFHKv0
-	 WfnmuFBoyhbadEqDTirf5Lh6CtrVk7Q//S5LcrkXh4+RyJZOSjP6wX6+sEebdVZ3bb
-	 zxcrY/1JG0J2EsU19ojdkfAvFo8VaunxjfKS2k3c=
+	b=cFquyZsW9Ms7gDKxXfxn6QUHDy76z4dVdI3dme3BrvN6pj+RQyqxRwBifVeptFHK5
+	 mqpuFw227lK64CJcuhgraZh2tbJiRrptr129xIqodNpItBGzev8TJkTpAEyhTULrE0
+	 DPgEupnUjSc7qC+QbPtvHBulL7t7OlpwCJ0zv3/I=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
-	Keith Busch <kbusch@kernel.org>
-Subject: [PATCH 7.3 154/547] nvmet-fc: fix use-after-free in nvmet_fc_ls_create_connection()
-Date: Wed,  4 Nov 2026 16:05:38 -0500
-Message-ID: <20261104211042.534306445@linuxfoundation.org>
+	Nirmoy Das <nirmoyd@nvidia.com>,
+	Jason Gunthorpe <jgg@nvidia.com>
+Subject: [PATCH 7.3 155/547] iommufd: Fix event queue release use-after-free
+Date: Wed,  4 Nov 2026 16:05:39 -0500
+Message-ID: <20261104211042.563576367@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -68,101 +67,45 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+From: Nirmoy Das <nirmoyd@nvidia.com>
 
-commit 2c29f8c9b9e598c09fa50aa02200136a107f6b3f upstream.
+commit 440ca8a4b69f40088065b9e05ef11373292a254e upstream.
 
-nvmet_fc_ls_create_connection() looks up the association with
-nvmet_fc_find_target_assoc(), which returns it with a reference held,
-and drops that reference as soon as the target queue has been allocated.
-iod->assoc is then dereferenced again by nvmet_fc_makeconnid() while
-building the connection id.
+iommufd_eventq_fops_release() drops the file's users reference before
+reading eventq->ictx. Once that reference is dropped, IOMMU_DESTROY in
+another thread can remove and free the event queue, so the later load
+accesses freed memory.
 
-The queue only borrows the pointer and takes no reference of its own.
-Once the lookup reference is dropped the association is kept alive
-solely by the reference taken when it was created, so a disconnect LS or
-a remote port unregister running concurrently can free it before
-nvmet_fc_makeconnid() reads it:
+Read ictx while the users reference still pins the event queue, then
+drop the reference and put the saved context. The context reference
+taken by iommufd_eventq_init() keeps ictx valid until the put. Fault and
+vEVENTQ file descriptors share this release path.
 
-BUG: KASAN: slab-use-after-free in nvmet_fc_handle_ls_rqst_work (drivers/nvme/target/fc.c:193 drivers/nvme/target/fc.c:1841 drivers/nvme/target/fc.c:1995 drivers/nvme/target/fc.c:2021)
-Read of size 8 at addr ffff888179f1b000 by task kworker/u9:2/1167
-
-Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: nvmet-wq nvmet_fc_handle_ls_rqst_work
-Call Trace:
- <TASK>
- dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
- print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
- kasan_report (mm/kasan/report.c:595)
- nvmet_fc_handle_ls_rqst_work (drivers/nvme/target/fc.c:193 drivers/nvme/target/fc.c:1841 drivers/nvme/target/fc.c:1995 drivers/nvme/target/fc.c:2021)
- process_scheduled_works (kernel/workqueue.c:3322 kernel/workqueue.c:3405)
- worker_thread (kernel/workqueue.c:3486)
- kthread (kernel/kthread.c:436)
- ret_from_fork (archkernel/process.c:158)
- ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
- </TASK>
-
-Freed by task 1167 on cpu 0 at 405.998150s:
- kasan_save_track (mm/kasan/common.c:57 mm/kasan/common.c:78)
- kasan_save_free_info (mm/kasan/generic.c:584)
- __kasan_slab_free (mm/kasan/common.c:253 mm/kasan/common.c:285)
- kfree (include/linux/kasan.h:235 mm/slub.c:2705 mm/slub.c:6405 mm/slub.c:6720)
- nvmet_fc_handle_ls_rqst_work (drivers/nvme/target/fc.c:1808 drivers/nvme/target/fc.c:1995 drivers/nvme/target/fc.c:2021)
- process_scheduled_works (kernel/workqueue.c:3322 kernel/workqueue.c:3405)
- worker_thread (kernel/workqueue.c:3486)
- kthread (kernel/kthread.c:436)
- ret_from_fork (archkernel/process.c:158)
- ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-
-The buggy address belongs to the object at ffff888179f1b000
- which belongs to the cache kmalloc-2k of size 2048
-The buggy address is located 0 bytes inside of
- freed 2048-byte region [ffff888179f1b000, ffff888179f1b800)
-
-Hold the lookup reference until the response has been built, and drop it
-on the error path as well.
-
-Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Closes: https://lore.kernel.org/linux-nvme/20260731204504.2396434-1-shuangpeng.kernel@gmail.com
-Fixes: c53432030d86 ("nvme-fabrics: Add target support for FC transport")
+Fixes: 07838f7fd529 ("iommufd: Add iommufd fault object")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Assisted-by: LLM, Specula
+Signed-off-by: Nirmoy Das <nirmoyd@nvidia.com>
+Link: https://patch.msgid.link/20261014133632.3440297-1-nirmoyd@nvidia.com
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/nvme/target/fc.c |    8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/iommu/iommufd/eventq.c |    4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
---- a/drivers/nvme/target/fc.c
-+++ b/drivers/nvme/target/fc.c
-@@ -1796,9 +1796,6 @@ nvmet_fc_ls_create_connection(struct nvm
- 					be16_to_cpu(rqst->connect_cmd.sqsize));
- 			if (!queue)
- 				ret = VERR_QUEUE_ALLOC_FAIL;
--
--			/* release get taken in nvmet_fc_find_target_assoc */
--			nvmet_fc_tgt_a_put(iod->assoc);
- 		}
- 	}
+--- a/drivers/iommu/iommufd/eventq.c
++++ b/drivers/iommu/iommufd/eventq.c
+@@ -396,9 +396,11 @@ static __poll_t iommufd_eventq_fops_poll
+ static int iommufd_eventq_fops_release(struct inode *inode, struct file *filep)
+ {
+ 	struct iommufd_eventq *eventq = filep->private_data;
++	/* eventq may be freed once the users reference is dropped. */
++	struct iommufd_ctx *ictx = eventq->ictx;
  
-@@ -1812,6 +1809,8 @@ nvmet_fc_ls_create_connection(struct nvm
- 					FCNVME_RJT_RC_INV_ASSOC :
- 					FCNVME_RJT_RC_LOGIC,
- 				FCNVME_RJT_EXP_NONE, 0);
-+		if (iod->assoc)
-+			nvmet_fc_tgt_a_put(iod->assoc);
- 		return;
- 	}
- 
-@@ -1833,6 +1832,9 @@ nvmet_fc_ls_create_connection(struct nvm
- 	acc->connectid.connection_id =
- 			cpu_to_be64(nvmet_fc_makeconnid(iod->assoc,
- 				be16_to_cpu(rqst->connect_cmd.qid)));
-+
-+	/* release get taken in nvmet_fc_find_target_assoc */
-+	nvmet_fc_tgt_a_put(iod->assoc);
+ 	refcount_dec(&eventq->obj.users);
+-	iommufd_ctx_put(eventq->ictx);
++	iommufd_ctx_put(ictx);
+ 	return 0;
  }
  
- /*
 
 
