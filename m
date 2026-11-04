@@ -1,60 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793833989;
-	b=r7FMm98oraTTrk1OFf84mMeWDJb+6g/LBFrK1yX9jkxbGIOgGIV2R93+2GfiPNuUOX0C
-	 oQSFZBHBTn4epibavgnO0mWt8ucqh29wHOdDMDIyOLthlcFA/kCSbPUjw6yw+b3HZkmqA
-	 HIiCkMGiqi+eDIbFqtGw0k4SkU26wnyUFL+EJiqJ2YhLnMbVXMJZqbF9xU0vYrsMes3FJ
-	 HHYd5jZHvEAnmX2YBNWv4lE3553VqSpl9KqoZ2VjJr/raBa4/a1bDkYjgWestmK16BGZ1
-	 47FDpk02JoA/dyiUG+KzGGFcZpXRWeYu0dkdlB361gw23MUwqmF1Wj/oEBqZu0S6TQA==
+	t=1793834083;
+	b=tav1ExIACHxKJLnVDPlIHDhPOQtHijlshrlPdUS/lOiuMUqe9T6w2qoAonrKSd00SG81
+	 xg+lM4Cisz1c20paQqzOI6JAIn01LjgSResOtestHKS+pLXYQREmtQTBpwr1yr2nE8rAO
+	 S3r5GktHFGp/8NCDZD5MbNrkw7VVIVRJmU1U/LcBbdo4jdV/ZNGpG9Ffg0HS6MzjVk98h
+	 QgjxABUoYlsecIaC3qbmx6CAUf0OZzbiK9Gbpxlej82bvL1gehPu8SYaxJNloX2dlUI/s
+	 MOWF5TfufUMkY101IrTrj2UyEwQb9d3X6JD3eIYuTXdxC7XkMNIOwBdt7Ie5KQXup2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793833989;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793834083;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=G5Mj8dqJSTXRooTqgvNaCTqADpcAYbxq/XLJNHoPL44=;
-	b=xy6Zhu/GhWUquspynxWhnJMMSwS2DkMnRsLvY2yaMQcX3tH/OrrEnYWhrPJt5Op2P4HA
-	 HkwKdU0vHllEIcBTjWj8RY742KPvDzCQ7CEUueeQNgbZ3QFkHiG3WgTb/JeyODutYcF9Z
-	 wiQSNRRmLlJiJ4ZsGc7WjIQ/Okj+SmAqwOdw73OKSq0R7hBSPV0ZlX1GVF+tpsjhW66Zd
-	 ytiSIwJ5zOlYZ8F0DIS+XqAh5WG4PzLpxYnREBjlaC1zoU0bcZ00iUEbNRMVAYrmIU/Gq
-	 g/vCdIMBSB4KVtXL71ah4XKqeYbqEpisCWY7A6I2jwJGCiNU4Hg28tObcl9BBUH2XmA==
+	bh=+mPBoAFZaI/kXrME1blIrD7m0pkImBMDcD7wGGRHj9M=;
+	b=U5Xm1mLq+SHyb7T7kUcsKzGO3mo+f60m6RBrLiNTn/O9MXq/zldBA1Bs0IgJl865GP67
+	 5+Ou5i7Fcl+CsfouQjSIKT4jpJ4fkR4iK0Z29QyQhzOTADl3LZAlWyIdXA1S/oRW1VZLa
+	 5qWcl9tIeFPQyhIEhpD1yY2uknC0bVqJ4TdKdljiT7vzZX2dQw8cNqXhu9qFiPVRpkr7w
+	 c+CHJVOdJWcP2WecEQ5iAUx3TMcY2WOKR5Gme5O2PYPfHZv8JGpLxoQ+b9RbqQUWEXIRn
+	 c4WQdE7ZjOYbxgVdS3588PvGRh/Wi7XkDyAqbn5+X72NueP5WhPW4I9AHL3uo6m4Naw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFpenx6f;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LjdSz0Ud;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C467606A329
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:13:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5500606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:14:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFpenx6f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64F941F0093A;
-	Wed,  4 Nov 2026 23:13:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LjdSz0Ud
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A96D1F0093A;
+	Wed,  4 Nov 2026 23:14:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793833989;
-	bh=G5Mj8dqJSTXRooTqgvNaCTqADpcAYbxq/XLJNHoPL44=;
+	s=k20260515; t=1793834082;
+	bh=+mPBoAFZaI/kXrME1blIrD7m0pkImBMDcD7wGGRHj9M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hFpenx6fwvdHAHwtFi3ktBWMKk6d/aeZYm4VFGNUKAZ5glq+X6wVArwmon55tUUAR
-	 v/2y3mPCFonh7/6AzJkiCIc2YHkXFhcVei18fCt0UO3uINc8ZVlzgpu5zlRLWw+3du
-	 8qg2FKknU+Zjyek1RrGiopZQs05M1qgdIPpfxBtgvHRnw4gkqMKfbkKzgtcZDLb4nh
-	 Qj/VDQ0ReInPeKwk3MvkTd+1EV/qavqPZTqi1nHYKMp6fLMSf3J0meHEsGuLAzuQtK
-	 7WQ5r7mKcineAhrOLhVeg5teHoRrUfeDmEXzIIohVOl7TX5MmY+Q6V2j9X3lotIIfz
-	 0LtylPsvz41jw==
+	b=LjdSz0UdPEma2jkh9nEG82urMHFp+Ybiyd/j9O2d1L3ogDGqrRtWMInGdf5hFVF5H
+	 FSDJEXB9vyNN4bClUHt7WXfxRb05t6WJJenunuM/wJS5/A9Ms7KB9+Ap/RAq9JF3sJ
+	 Uj+dbdI6pnOCu0Y1VHkkjpJerSO4IUu+9eOrfy2vWQB5ASPfjsRITk28gAvKzei/mb
+	 55IHxnHHMMJGf0+jQ+TdTdDa3u9E3gAz/u1Jmh+UdJPeCWqaAgKATOAl3yAvlR5QK7
+	 0VZr0HjxkUvJXctksqUmZWe/GRZtXUYunbClaFzg7w/RC5NkeBmrX4Qj9HTqVCViZj
+	 UgmiRz2dOsBYg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Woodhouse <dwmw@amazon.co.uk>,
-	Sean Christopherson <seanjc@google.com>,
-	syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com,
-	syzbot+fb7c2dd166d3ea63df2a@syzkaller.appspotmail.com,
-	Paul Durrant <paul@xen.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
+Cc: Vernon Yang <yanglincheng@kylinos.cn>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Zach O'Keefe <zokeefe@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/4] KVM: pfncache: use a dedicated invalidation sequence for cache refresh
-Date: Wed,  4 Nov 2026 18:13:04 -0500
-Message-ID: <20261104231214.887398-4-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm: khugepaged: fix folio is used after folio_put/unlock()
+Date: Wed,  4 Nov 2026 18:14:40 -0500
+Message-ID: <20261104231424.891478-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104231214.887398-1-sashal@kernel.org>
-References: <2026110445-lividly-gratified-dd5f@gregkh>
- <20261104231214.887398-1-sashal@kernel.org>
+In-Reply-To: <2026110413-cacti-bonded-6534@gregkh>
+References: <2026110413-cacti-bonded-6534@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,176 +68,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+From: Vernon Yang <yanglincheng@kylinos.cn>
 
-[ Upstream commit da260bcb56feeb6489a83f310308453a0a7de25e ]
+[ Upstream commit 9010383e71e6ce75fcd3c8f87133c8ce6c0e6ab4 ]
 
-The gfn_to_pfn_cache refresh path guards against mmu notifier
-invalidations which complete while it has dropped gpc->lock for the
-HVA->PFN lookup: hva_to_pfn_retry() samples kvm->mmu_invalidate_seq
-and retries if it changed, or if mn_active_invalidate_count is still
-elevated.
+On the rollback path, folio_put() has already dropped the last reference
+of new_folio.  On the success path, new_folio is already unlocked and can
+be freed concurrently.  The trace_mm_khugepaged_collapse_file() is left
+with a dangling folio pointer.
 
-That is insufficient for HVA-based caches. mmu_invalidate_seq is only
-advanced by kvm_mmu_invalidate_end() when the invalidated range
-overlaps a memslot, and an HVA-based cache (e.g. the Xen shared_info
-page mapped with KVM_XEN_ATTR_TYPE_SHARED_INFO_HVA) need not be backed
-by any memslot at all. An invalidation of the cached HVA which starts
-and ends entirely within the lookup window is thus invisible to the
-retry check: mn_active_invalidate_count is back to zero and the
-sequence never moved. The refresh then publishes a mapping of a page
-which has already been freed, and the next reader dereferences it:
+So using the folio_pfn() before dropping the reference, closing
+use-after-free window.
 
-  BUG: KASAN: use-after-free in kvm_xen_shared_info_init+0x3c6/0x440
-  Read of size 4 at addr ffff8880599c2900 by task syz.2.383/7257
-
-Since gfn_to_pfn_cache_invalidate_start() deliberately skips caches
-which are not currently valid (including one whose refresh is in
-progress, as the refresh clears the valid flag before dropping the
-lock), the retry check is the only line of defence, and it must fire
-for *any* invalidation, not just those hitting a memslot.
-
-Add a dedicated kvm->gpc_invalidate_seq, incremented by every
-kvm_mmu_notifier_invalidate_range_end() under mn_invalidate_lock
-before mn_active_invalidate_count is decremented, and check it in
-hva_to_pfn_retry() instead of mmu_invalidate_seq. Incrementing in
-range_end() in the same critical section as the in-progress count
-also closes the variant where the cache is activated with the
-contested HVA only after invalidate_range_start() has run.
-
-The same bug is also reachable through the per-vCPU vcpu_info cache
-(KVM_XEN_VCPU_ATTR_TYPE_VCPU_INFO_HVA), where the stale mapping is
-then dereferenced by kvm_setup_guest_pvclock() on the next KVM_RUN:
-
-  BUG: KASAN: use-after-free in kvm_setup_guest_pvclock+0x5bf/0x660
-
-This intentionally makes refresh retry on *unrelated* mmu notifier
-events; restoring precision (and reworking the GPC locking more
-generally) is left for a subsequent series.
-
-Reproducers: https://david.woodhou.se/xen_shinfo_race.c
-             https://david.woodhou.se/vcpu_info_race.c
-
-Suggested-by: Sean Christopherson <seanjc@google.com>
-Reported-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a0c5f2c.a00a0220.2c7954.0000.GAE@google.com/
-Tested-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
-Reported-by: syzbot+fb7c2dd166d3ea63df2a@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a426dd2.854d4ab9.360e1d.0008.GAE@google.com/
-Fixes: b9220d32799a ("KVM: x86/xen: allow shared_info to be mapped by fixed HVA")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Assisted-by: Claude:claude-mythos-5
-Reviewed-by: Paul Durrant <paul@xen.org>
-Link: https://patch.msgid.link/20260831213632.81023-13-dwmw2@infradead.org
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Link: https://lore.kernel.org/20260909025804.3233645-4-vernon2gm@gmail.com
+Fixes: 4c9473e87e75 ("mm/khugepaged: add tracepoint to collapse_file()")
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Zach O'Keefe <zokeefe@google.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: adjusted collapse_file() declaration context to preserve struct page *tmp instead of struct folio *tmp ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/kvm_host.h |  2 ++
- virt/kvm/kvm_main.c      | 10 ++++++++++
- virt/kvm/pfncache.c      | 18 +++++++++---------
- 3 files changed, 21 insertions(+), 9 deletions(-)
+ include/trace/events/huge_memory.h | 6 +++---
+ mm/khugepaged.c                    | 4 +++-
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index 9faa434765546..f051f6875c730 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -852,6 +852,8 @@ struct kvm {
- 	gfn_t mmu_invalidate_range_start;
- 	gfn_t mmu_invalidate_range_end;
+diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
+index 37f2443b3cdb0..a1ac19bab4a2d 100644
+--- a/include/trace/events/huge_memory.h
++++ b/include/trace/events/huge_memory.h
+@@ -207,10 +207,10 @@ TRACE_EVENT(mm_khugepaged_scan_file,
+ );
  
-+	unsigned long gpc_invalidate_seq;
-+
- 	struct list_head devices;
- 	u64 manual_dirty_log_protect;
- 	struct dentry *debugfs_dentry;
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 8c14fa9b0d89d..59328352b0eee 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -816,6 +816,16 @@ static void kvm_mmu_notifier_invalidate_range_end(struct mmu_notifier *mn,
+ TRACE_EVENT(mm_khugepaged_collapse_file,
+-	TP_PROTO(struct mm_struct *mm, struct folio *new_folio, pgoff_t index,
++	TP_PROTO(struct mm_struct *mm, unsigned long new_pfn, pgoff_t index,
+ 			unsigned long addr, bool is_shmem, struct file *file,
+ 			int nr, int result),
+-	TP_ARGS(mm, new_folio, index, addr, is_shmem, file, nr, result),
++	TP_ARGS(mm, new_pfn, index, addr, is_shmem, file, nr, result),
+ 	TP_STRUCT__entry(
+ 		__field(struct mm_struct *, mm)
+ 		__field(unsigned long, hpfn)
+@@ -224,7 +224,7 @@ TRACE_EVENT(mm_khugepaged_collapse_file,
  
- 	/* Pairs with the increment in range_start(). */
- 	spin_lock(&kvm->mn_invalidate_lock);
-+	kvm->gpc_invalidate_seq++;
-+
-+	/*
-+	 * As with the MMU sequence counter and mmu_invalidate_in_progress, the
-+	 * GPC sequence increase must be visible before the invalidate count
-+	 * goes to zero.  Pairs with the smp_rmb() in
-+	 * mmu_notifier_retry_cache().
-+	 */
-+	smp_wmb();
-+
- 	if (!WARN_ON_ONCE(!kvm->mn_active_invalidate_count))
- 		--kvm->mn_active_invalidate_count;
- 	wake = !kvm->mn_active_invalidate_count;
-diff --git a/virt/kvm/pfncache.c b/virt/kvm/pfncache.c
-index 728d2c1b488a8..3659686b97c24 100644
---- a/virt/kvm/pfncache.c
-+++ b/virt/kvm/pfncache.c
-@@ -124,7 +124,7 @@ static void gpc_unmap(kvm_pfn_t pfn, void *khva)
- #endif
- }
- 
--static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long mmu_seq)
-+static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long gpc_seq)
- {
- 	/*
- 	 * mn_active_invalidate_count acts for all intents and purposes
-@@ -136,20 +136,20 @@ static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long mmu_s
- 	 * Note, it does not matter that mn_active_invalidate_count
- 	 * is not protected by gpc->lock.  It is guaranteed to
- 	 * be elevated before the mmu_notifier acquires gpc->lock, and
--	 * isn't dropped until after mmu_invalidate_seq is updated.
-+	 * isn't dropped until after gpc_invalidate_seq is updated.
- 	 */
- 	if (kvm->mn_active_invalidate_count)
- 		return true;
- 
- 	/*
- 	 * Ensure mn_active_invalidate_count is read before
--	 * mmu_invalidate_seq.  This pairs with the smp_wmb() in
--	 * mmu_notifier_invalidate_range_end() to guarantee either the
-+	 * gpc_invalidate_seq.  This pairs with the smp_wmb() in
-+	 * kvm_mmu_notifier_invalidate_range_end() to guarantee either the
- 	 * old (non-zero) value of mn_active_invalidate_count or the
--	 * new (incremented) value of mmu_invalidate_seq is observed.
-+	 * new (incremented) value of gpc_invalidate_seq is observed.
- 	 */
- 	smp_rmb();
--	return kvm->mmu_invalidate_seq != mmu_seq;
-+	return kvm->gpc_invalidate_seq != gpc_seq;
- }
- 
- static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
-@@ -158,7 +158,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
- 	void *old_khva = (void *)PAGE_ALIGN_DOWN((uintptr_t)gpc->khva);
- 	kvm_pfn_t new_pfn = KVM_PFN_ERR_FAULT;
- 	void *new_khva = NULL;
--	unsigned long mmu_seq;
-+	unsigned long gpc_seq;
+ 	TP_fast_assign(
+ 		__entry->mm = mm;
+-		__entry->hpfn = new_folio ? folio_pfn(new_folio) : -1;
++		__entry->hpfn = new_pfn;
+ 		__entry->index = index;
+ 		__entry->addr = addr;
+ 		__entry->is_shmem = is_shmem;
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 42330aeb76386..1f7c0655d8db9 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1788,6 +1788,7 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
  	struct page *page;
+ 	struct page *tmp, *dst;
+ 	struct folio *folio, *new_folio;
++	unsigned long new_pfn = -1;
+ 	pgoff_t index = 0, end = start + HPAGE_PMD_NR;
+ 	LIST_HEAD(pagelist);
+ 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
+@@ -1800,6 +1801,7 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	result = alloc_charge_folio(&new_folio, mm, cc);
+ 	if (result != SCAN_SUCCEED)
+ 		goto out;
++	new_pfn = folio_pfn(new_folio);
  
- 	struct kvm_follow_pfn kfp = {
-@@ -181,7 +181,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
- 	gpc->valid = false;
+ 	mapping_set_update(&xas, mapping);
  
- 	do {
--		mmu_seq = gpc->kvm->mmu_invalidate_seq;
-+		gpc_seq = gpc->kvm->gpc_invalidate_seq;
- 		smp_rmb();
+@@ -2207,7 +2209,7 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 	folio_put(new_folio);
+ out:
+ 	VM_BUG_ON(!list_empty(&pagelist));
+-	trace_mm_khugepaged_collapse_file(mm, new_folio, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
++	trace_mm_khugepaged_collapse_file(mm, new_pfn, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
+ 	return result;
+ }
  
- 		write_unlock_irq(&gpc->lock);
-@@ -232,7 +232,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
- 		 * attempting to refresh.
- 		 */
- 		WARN_ON_ONCE(gpc->valid);
--	} while (mmu_notifier_retry_cache(gpc->kvm, mmu_seq));
-+	} while (mmu_notifier_retry_cache(gpc->kvm, gpc_seq));
- 
- 	gpc->valid = true;
- 	gpc->pfn = new_pfn;
 -- 
 2.53.0
 
