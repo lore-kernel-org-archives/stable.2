@@ -1,47 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793806649;
-	b=z3WCWgio6r2NA7Ml+AdwXaZ3ZdoBc2SvNMPec6OmiTx1vZsNjEWAnzlE+g2VzxglATlp
-	 KrbEhAmEDfEhi22fsBAOP9fw8s9NnkeKGHnwH9Z2eNIi9/cG/+8xnuAsPUbmCJ+G+2lv3
-	 qUpTdzHG18+lu1ounPKQ6mGKhqiXzcgGo7Vkql7pEO/t4i2kXLxQt3H2hKmpn5qVQ5jG7
-	 0vgKJpfjpU1htJcSuaW4puh3rJgghWa+7S2bUWjDzLDk/EzFhUbxJaKCfZgjYUS8TPPuW
-	 wsSGtoYZRJmzot4neMUR0utL/YAqr2mPnbV3IoyM69ySyxmJM6TDce/IiTUgEhiLcjg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793806649;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=0dZfnZLmDKeofjrNWSCvtSOvjjruHXh+6zAo/G4pKXM=;
-	b=S4BcPen3iU8J79+EUi/fHdJgRmvHFlrEc5xzZ9zWFuIHT2psmLY2Aw1l2Nua9ceaf/fR
-	 MaDSoxurhqHwRpKgJfEW5y+OpOb60NUjd/njkfcOTfW6ygsMpc2bze1NLxi+RRBrQXI9F
-	 vQamqBMJVtWswG/OVAkD70FQpxCz+AadTob5lW+MbDav0Qklqj+PJM3527HtFgMZqRvib
-	 7rplbbW3cB82BOxtAaQWgcrD5I3rAx1QNmEiHoRHcvc5JHIoH0U0s7hKOrGv+0TXdVFX2
-	 Pu4o10VYMcB+AXdJo/mUbzydv732E+EIbo9Y0MHLwPgz3EsPvOVTpb5p8FNHGadde7g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ohLm9M8w;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.148.77
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793807032;
+	b=M4Noa4AlxDyKzBTceQqaM81JFlVfYxsUQBc7aIYn0GnhqGqh3xC0uBS8b/i6ghfp0I3o
+	 6SoLHc5gufhIUWtcPT30V5mOrWaoMXk/GCgqkNnjVe4f+FTsVuExQVx/8QCk3pHJPevsk
+	 ER/JKgjeRjca8QycZ8uIHBU+lqhV0jqZ7QpC6MqflH1HtOsu/AiWyzX5a6MMAvGPSePoe
+	 zBK84Hy8X24hVSbwVlxi89FIFUkGFrxhnruSTsCukoOx6faXoGQJNLxH+oaHd5Wtmhvey
+	 ui96dA7YJL1RZCfGc3K5F92KSr20t2W0nEJ0M4DjAGbaETFnLaHTCphWTk0fPr3d3aA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793807032;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=UZrB/X8fytlaHPkClRgCuTJNsvMfYV/hLg3NLdrS2hs=;
+	b=sSoB4Xb1sTzkUfxX/jR02o5e0lOTwRPreAQswdojfQkcQPC+QAgaQsV6pTq3OnTipflV
+	 r5L0wC0wPakK4I1bo+kyq95K2cHiAXjrGmLiQtsdHwH3Rc6mTaPancVsK0QNU15TwTtVs
+	 TYm/cRfnda8RlfMNPQ8r79nxB8FhKJjHMXxZyChfOL0jBaPXxsgG0XdG//FLeje4Qd8QK
+	 2iWezP3n78IYSJyO2d/9CY47H3DAB+ewbRrYo+UAluQQErkyYPjs7qhCqqw+pI4F+g5AP
+	 y9ZQCM7pC/rYqU7ygghRS7cHiYoJf2B88mqGzWoLXkl11x/eZCGgdiMOtSIsBmg7nfQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=crowdstrike.com;
+	spf=pass smtp.mailfrom=crowdstrike.com;
+	dkim=pass header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=default header.b=fLSljIxA;
+	dkim=pass header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=google header.b=cY3nvhTJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.148.77
+Received: from mx0a-00206402.pphosted.com (mx0a-00206402.pphosted.com [148.163.148.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F52560A5BE3;
-	Wed,  4 Nov 2026 15:37:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71533606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:43:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71533606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ohLm9M8w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89EBE1F00919;
-	Wed,  4 Nov 2026 15:37:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793806649;
-	bh=0dZfnZLmDKeofjrNWSCvtSOvjjruHXh+6zAo/G4pKXM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ohLm9M8w+sPUogtQHsHFrvhP5/T6bXhVmBD08zqY5+xOFFYQdKdcMb9Mu56KhjLNi
-	 SxK7HW2VUNQ8vgU28lG6glxgWFFbmxoluyRirEbqKD+UFr3dekSasdmHBfppmeg/+J
-	 E9h7gp4Ki90Ot3z6e0zD6qZ7LqDoSNmAC/1bn2PdAu7y6b3uAd6H3+TubIBiWSlYHA
-	 mepdfToLGZ2iir5n85xJ1tWmf1xuj+q8sRXz45QXLlLlO0r0h6jVbYw6uiRiyLFDuV
-	 NXAe7OKuNBUB5MXUc1TX+1QJsyL3QwcmEhECD3aSxDr39ua3D0Di8zab5wYrByQVkS
-	 ZVCJvaE5IefEQ==
-Message-ID: <c52585e9-e3c7-4f75-9a3b-8a32e3559a5a@kernel.org>
-Date: Wed, 4 Nov 2026 16:37:23 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=default header.b=fLSljIxA;
+	dkim=pass (2048-bit key, unprotected) header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=google header.b=cY3nvhTJ
+Received: from pps.filterd (m0354652.ppops.net [127.0.0.1])
+	by mx0a-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4F7V3G138928
+	for <stable@vger.kernel.org>; Wed, 4 Nov 2026 15:43:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	default; bh=UZrB/X8fytlaHPkClRgCuTJNsvMfYV/hLg3NLdrS2hs=; b=fLSl
+	jIxAkl14wVTyWaozGslLqf6KXVAVCJyAgl8Kj/70qw6x0oWyXAhR/XDJBS/P/pOb
+	xmldL2ExI6JxG0OH66b2xO4Pzv8D05Dd4cw+v9buCwLYl0pK7Ve804X4nBW/xeIW
+	QSmHzokQEY0ZMChRllV3ay7CfbDcRq07PxYbi5QNzu326uZ+ma5Q1tcD9wmCYRT6
+	kp4DMyioiURlEvOljAMOkaaOOgxc8VrMMhpprJhPmxB/+WOA1T9RtEVV1tu2ArXk
+	YgcwAnGFtPR1dSudyVHZ1P8/lI8iTdvgWl6mVrVvMzWv5Zkl4cvzWYJCypZOcHH4
+	0hV8p7S6cYbxEcReQg==
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
+	by mx0a-00206402.pphosted.com (PPS) with ESMTPS id 4hqths2hhc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 04 Nov 2026 15:43:50 +0000 (GMT)
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8b0bf2140b7so13425007b3.3
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 07:43:50 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793807029; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nRv37WtzFVJCQz5YS2ZJYG855ZwWY3noOSDEh3pO52LhMt22eM1778OwQAtkEf08U4
+         6yc7huHdWSFqjf7T15N8lN3Lh7X5wk+wb9BcqAvxJ8O5F669hDBd9/UCFR4F3Krq++L9
+         0QU5YjCPlamPzDIoMCpf6S4pr9T7xhzkE1vDVSrGSnR1xcvco0a0gum+m3cbvjxJdQrW
+         HfQn8TlQ6PSweFIsR/sn4HcXJyjr9AFq0AwlNJhl/9d06yz9D7r/bUUesf425AZrNTlp
+         k6a1OUjbCrma90dt57jWWLYDaREGc/TKxozWc+63fWCjvQ8Kn2ft/WNuoThJ9hgGkm43
+         PNnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=UZrB/X8fytlaHPkClRgCuTJNsvMfYV/hLg3NLdrS2hs=;
+        fh=Aiufc48Pg5t40AHsnNOj32gTvKej6yNOe0jh6uJeZfU=;
+        b=NMUHlK6BdXJ+NMTpo2jF4cEaH2uo8e26N0m75i2MJgMFucpSvHRrjdeyzhy4n72MJ8
+         arA9TrBFIG5WWvzi7UE/BrU/zt4YvxqtOBCpG2dpb2Lan5o5BI516ErjQBTLYtpsiibx
+         cUoat6ZUN5VlVigT8iCccmCUTFzeS09Ea9Pt9DNxksrrbmAapec7F3LLbpa4yFZ273WJ
+         Eo+4sBICWvK37qr/IhYI0GxIC9280E+OmBHZ0XdXlGIq2EZ12lNQyqsLH0kVnOHRMCJn
+         HtXR6gVkXfgC4jfdClWaF6G7ug49uRA3RkOyiQjdYuIwZMPNERsabGjdBXIwTqsqx8+0
+         zPmw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=crowdstrike.com; s=google; t=1793807029; x=1794411829; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UZrB/X8fytlaHPkClRgCuTJNsvMfYV/hLg3NLdrS2hs=;
+        b=cY3nvhTJ5nHJQektWLH8s8XzAcuB/DfAO42jwao+O6nXqWNv9lkU0EtHP9K+b3we76
+         7/hiTadJ/z/1gdXHGUQugHrAm3ck1RMZd2wfuViKl2kJMScfyyB/76lVpUxP5ecS9BJQ
+         NZ+LKO9mxQnaBhcdYk+kJk7Hp2nXMIKKcjQRhzn+ZR+iITPHCe9itgXobCLeo+KIm9Wq
+         5MgM0srDZh9DNB0SE0mU+UL9NoEc8cAEll7vLZuA0xhItrfeLyiKlnQ/OVcXxg078dhp
+         3AVSZCpg6io7JTJs1AT9ydo5O0YsZxFV8LOt/4HKCex2XtXIkHfyEhcgUAPfYqEQEwSv
+         Z90Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793807029; x=1794411829;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UZrB/X8fytlaHPkClRgCuTJNsvMfYV/hLg3NLdrS2hs=;
+        b=Vcsk9kpP8cS6rYIQXluKNZS1Yh7tYI9ZXs8qKQqWqrKipuOTz6vf7rRbh7tNeDW2vH
+         esg71AFX8sQNXPhD3b3eMAKIhPzn1eyJTYNStF3joWfSYJIFNFdbYDifW30Lj9HxC7Zr
+         hAVUiLttb0VDB/p6lcpZKneDfXjjdNZjZBKLaNkgMdRa3ruWnZGO3HVwpAKXNrOMEwqA
+         T9E39ugK/LsV7J1WBkkaZrDWy27PC2/rKhy26FS+knzUiw0whM1+gmdHdQU8IRrQenXJ
+         MGZGBq5QXlAJRipNJ7jCqmup97bpkx5BdeNWfvTecOsW07LHZel2WU2kjEtu9pcnqBRU
+         MCPQ==
+X-Gm-Message-State: APuU4Z/pwGvb0fMDms03Q1e29sNqpa/wO8PnUA1UuAiWj8tbvkpFSC8Z
+	zoGaaH1nD94UZjlXyA08zcqfRfmXT7IGM7hLk38Up6k0ne5Vw0fPGSsqWR8CBWAN9083UnJ0Dq+
+	BHSaM/l5W+CJx43rODFRK1ml3GCEyJTlR2fRbI4KfXwDwvvUoOc8LCklvUrGjNgBe9xeaGFil3u
+	0Yb8tauyjzbDwBLy03NjQHCN3ILGBtqG8k
+X-Gm-Gg: AYBFou2+42nfO5T1Yq77qMfBElulQrjGcw1w50LufMFCbts3piaAFeIBoQS4Qh3QGMp
+	/nYK8ClwXRM1Lm98XLj0fYTgaxajwgGd1EvN3z+8puk2pStjGeIU9p4ev8c+3L2VytlI8BxUIfi
+	WtZKte00XnrS0AnxJX3LoBnAMucLekS9lDge2Lg7OtMqOqJDvPRFC+xU4iFg==
+X-Received: by 2002:a05:690e:144d:b0:67b:f249:5820 with SMTP id 956f58d0204a3-67bf259a5dfmr1510267d50.41.1793807029577;
+        Wed, 04 Nov 2026 07:43:49 -0800 (PST)
+X-Received: by 2002:a05:690e:144d:b0:67b:f249:5820 with SMTP id
+ 956f58d0204a3-67bf259a5dfmr1510259d50.41.1793807029056; Wed, 04 Nov 2026
+ 07:43:49 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,96 +126,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net] mptcp: pm: kernel: use RCU to free endpoint listeners
-Content-Language: fr
-To: Eric Dumazet <edumazet@kernel.org>
-Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
- Simon Horman <horms@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
- netdev@vger.kernel.org, Kyle Zeng <kylebot@openai.com>,
- stable@vger.kernel.org
-References: <20261104125327.1041456-1-edumazet@kernel.org>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20261104125327.1041456-1-edumazet@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <CAOu3gNgTSWE84fgdc1iUNKwes7E6u_X6b8pjZKBULEJWB=RAqQ@mail.gmail.com>
+ <20260820182015.4272b7a4@fedora> <CAOu3gNgv91dq8jLShteRWphrSgNWQ1o1dkNxRr577ez7pMuv6g@mail.gmail.com>
+ <20261104083903.0d7cdb06@gandalf.local.home>
+In-Reply-To: <20261104083903.0d7cdb06@gandalf.local.home>
+From: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
+Date: Wed, 4 Nov 2026 10:43:37 -0500
+X-Gm-Features: AclHuK-GzGaSMqWmXOhCGZrUgluo223XGW2okEANRweuImUmkPWzhv2fiSeOqs8
+Message-ID: <CAOu3gNiggAdifeAUpycoO-zGKb0k2-nZqWrtDXMXm_HXT8L1Vw@mail.gmail.com>
+Subject: Re: [STABLE REQUEST] ftrace: deprecate the ftrace_enabled disable switch
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: stable@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
+        sashal@kernel.org,
+        DL Linux Open Source Team <linux-open-source@crowdstrike.com>,
+        Jiri Olsa <olsajiri@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2MiBTYWx0ZWRfXyDcF5Km83kwq
+ hpTnJwDP7N5nXT7PTyEi/zwxIiPSl95q2QnxhiU3HNUFgsQD4tOJb669ZOwPcxslAi1L2pO06Wz
+ GrPjWmZZUFofGl22+FZ8Fm+QBh9DSuAaBDs7M7iFgwgcUnD/9VRB
+X-Proofpoint-GUID: 9urCiQXYEeaNHAK4kgX8epmn1sIdJ2a8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2MiBTYWx0ZWRfXwQdsXcoGd8kH
+ Emnqgu9/jCn/mcwXq7pkI2qSe6YjVBLWw6QPybsAnrNwlOMgDmzhNjEIbJILwlPbNvPHQvGGlkI
+ 7Cpr0emogD5snDYna0fg5Uhsl4JUqx9DnKHka1aRrgzk9TO/mmvZbXHh2Wfvgg9+U2CDmlmXtXG
+ vS4cYmOglFF3OJYxiQHOx9gEB/iTENW6EpDr9a7ifZ5uOQE4zwsLpkNHpOzlbfNqBEE4HYmICSx
+ ngvzjKb7+XEMBfKQtxppLfgJpvcrGFnQU440ki/wf37bRPGnomkXqywVT8MZuB61Hg+dh9IafQ2
+ /WCKFmlY9hX1VnCn4GI031eL2y7B2eSRMHpY0H95gwKQsp6RJMYXkdFXX95xi7IdygLpXZhVRqe
+ aE3eBl86xn5pYfPgzeUHIjtDJCk+ld2YwSZrl4Ek20gksN+2L/WswxhZSMskA+FY+X2If/TOz1l
+ gA7/uFfFj0gDHsxqBLA==
+X-Authority-Analysis: v=2.4 cv=CIC/zhrD c=1 sm=1 tr=0 ts=6aeb52b6 cx=c_pps
+ a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=KZhmPCYDdY0A:10 a=VkNPw1HP01LnGYTKEx00:22 a=T2KQ53IYiC3MXPrxx8bB:22
+ a=2KvRFfd_T_-xjmS8C1aD:22 a=VwQbUJbxAAAA:8 a=meVymXHHAAAA:8 a=pl6vuDidAAAA:8
+ a=BsxYfD___z3CQAnts2gA:9 a=QEXdDO2ut3YA:10 a=kLokIza1BN8a-hAJ3hfR:22
+ a=2JgSa4NbpEOStq-L5dxp:22
+X-Proofpoint-ORIG-GUID: 9urCiQXYEeaNHAK4kgX8epmn1sIdJ2a8
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11956
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0 adultscore=0
+ bulkscore=0 clxscore=1011 impostorscore=0 suspectscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040062
 
-Hi Eric,
+On Wed, Nov 4, 2026 at 8:39=E2=80=AFAM Steven Rostedt <rostedt@goodmis.org>=
+ wrote:
+>
+> On Tue, 3 Nov 2026 21:51:42 -0500
+> Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com> wrote:
+>
+> > Hi Steve, coming back to this topic (sorry it took me a while - other
+> > work related stuff kept me busy). Are you still willing to accept  [1]
+> >  upstream ? If yes, can you also please clarify why only the first 2
+> > patches and not the third, selftest patch?
+>
+> I was thinking for backporting purposes. The selftest patch is fine, but
+> not something that needs to be backported.
+>
+> -- Steve
 
-On 04/11/2026 13:53, Eric Dumazet wrote:
-> From: Kyle Zeng <kylebot@openai.com>
-> 
-> mptcp_pm_nl_create_listen_socket() starts the TCP listener directly
-> instead of going through mptcp_listen(). It consequently misses setting
-> SOCK_RCU_FREE on the parent MPTCP socket.
-> 
-> tcp_child_process() can invoke the listener's subflow_data_ready()
-> callback without holding the MPTCP parent lock or a reference to the
-> parent. An authenticated MP_JOIN racing with endpoint teardown can
-> therefore access the parent after its last reference has been dropped.
-> The ADD_ADDR error path can also close an already published listener.
-> 
-> Set SOCK_RCU_FREE before __inet_listen_sk() publishes the TCP listener,
-> matching mptcp_listen(). This protects the parent on every subsequent
-> close path, including a failed endpoint addition.
+Ok, so just to clear my own confusion: do we want to directly present
+this to stable as a backport fixing a bug, or go through merge to
+mainline first and then only backport? If we do want to take it into
+mainline then I think the selftest patch is beneficial especially
+because Jiri found some case that breaks there that needs furhter
+invistigation [1].
 
-Thank you for the patch! But it looks like Kyle already sent it earlier
-to the same list:
+Andrey
 
-https://lore.kernel.org/20261030042255.74216-1-kylebot@openai.com
-
-Probably best to drop this one here?
-
-(It's not clear what PW state we want to set for this case)
-
-Cheers,
-Matt
--- 
-Sponsored by the NGI0 Core fund.
-
+[1] - https://lore.kernel.org/all/amn-vbX6AitcIcC0@krava/
