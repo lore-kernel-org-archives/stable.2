@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802758;
-	b=v/G8x3A95sMONVBeFajJWERbDTnIJEYMD61V4exjy61LCXDefudX1JCjgoUALXYO8t1n
-	 0U/zIOGcI7I4Z7DWHsR/j8XoT7nijW2ndh+fXZ647xmnqXJKGfdOtT4GqQ4RhoqbkLiU5
-	 OoWlW1qGeZmoZ+m4qWkKMjO9N2xaFv7UVMWuyOJ3SvTgBAFeibMZC4vnmObkNWBnjRFnB
-	 6cee6XvN64WIbhbElRZAx71VvlbjSVKt12fmlYO/svYPEWA3HkhK3p0W9Oe7mySseM/HS
-	 HPPzpCsi+rQ10JDOoGjs+SgXXQnBNG8KNlmaeizCJgnhNPYQvN4TjEeReKbFSvMmhog==
+	t=1793802824;
+	b=LtAxIXggT5/4oxPTasGK1puQcOyropPo16aHz1YusGUZUOJDUxPVlbLU3OU7BIXANrY0
+	 RStocPlMbk/YgyIajgFoGsB+0qnf61q9BLfHyQm3ZA9KP0Sk0L9APd2ncBjSffliuq00Y
+	 JvqWXLNDO+u3EHV3Bg5cKgpciayzIlln3nm72Am5IlWUGLom3sslbVT/3cKYHEl5rQPZU
+	 JJGEzm4vtXCjRO16WlOyW4SPaQh1544x3P4wDgxBPI5/rn8hZdEViFgaPnmso7CFLL5WM
+	 WqMMss7KAebXZ4J0yYXzwR3ZccMZhCK7Wr4ovudBoTDE5Hj04mdIa5LFE35V1PPJE+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802758;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References;
-	bh=nQeS5Lk1UtDT47XmIqhRscqhps77QOPDmfqkTQTRxLI=;
-	b=nf8s/vSTpT9Vnr73j/jwdCHvGz4BgnIZyUY4ROBLK2PISLJ5Vkz2+Aw80QxpDbyy3nx+
-	 DWmUE23YdK9EHYixZyw+e7x2OXD6z2aCrHvcgvoRTYcEME1XIJlr1dZtMKi2piMn1eLvr
-	 1wmHPR5oYmx44Dd4uxi0j5VhRWv0STh+Gfm3vlVkNhfayeStA3LfOiERB1vBd4wRR1dEG
-	 kOnFPaz7M5MilvGEbSsk5ayYaXLbqbeXSEWRLj0dqHxezqJbSyMBPQNNtv3zwPRr5AwKs
-	 xyHKM/llv93bAruBIuNJp2IHcZzc5xquBsKdi/JSgc7yHZ3j9hsd7yr/Ydn5LUoxamQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802824;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=mQfVgQOhNVbKxKYEOoAY9kr4v7Tgw8p2ngTZZmOidtE=;
+	b=UidLiOBXDbAWUDizUC41ghwBrM53A2b8c6DwPFN8JbGXOYuVryeVtJrAC7xU1kvGkf6d
+	 R8Vq4Nenh2v2ilM3NH3g8z5/QSWbG9mkrvp4EjAA1Idqx27DWsNlSJ584Dc9gxI9nxC10
+	 kVSOCnc1SVrIXvxkmFNmLFtKlR1S+AOYa3lxUPy9wtM/mtdKZ2Mtuog0gW00DGq4pAuqK
+	 /SW3GHRfgLTan8HMKSkaEJvsZ7Iz2ARlJ0JnEI3kbOIa/dW/h86SWTzyFslV78njnBmMW
+	 GGu1eNNmhLZrOvf4XeGT1DAny4on5qPY5ipOW9x1zPgggH0pkQ/9qd3A8RJ44JGUEoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=OTR1z4e2;
-	arc=none smtp.remote-ip=209.85.217.47
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QXRWDNTh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE6F606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:32:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEE6F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D48606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:33:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=OTR1z4e2
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7c3b6e8225dso453530137.2
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 06:32:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793802757; x=1794407557; darn=vger.kernel.org;
-        h=references:in-reply-to:subject:cc:to:from:message-id:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=nQeS5Lk1UtDT47XmIqhRscqhps77QOPDmfqkTQTRxLI=;
-        b=OTR1z4e2AwCztFdqQd6BoNhDjxmHadtCoFYWTP7LvndSreX3RnlfONzVj0EVlzzVBj
-         8ecbxElNhPWGbxEkNiwkvxC+6vViqqZ5RSgaJBgxENvGI9SoZLa8vovYIyre1CjJ3LY9
-         SpwbpPlhI/UrCeLGXvQwmP0Rf/2CUSD6p1JD1zs86OB3l8F0JLAdodCl9QsK537oNMNF
-         xEqZXjJH1GA5hrI4WyOF9yrExDpzBec68yf+YjPE4onHIAg/2BJ5TmGLOhnU4aXxm7A3
-         2ydfdeuaxx8Igp7zmzteduuL26H8TxMpWvm39cCZkUng2TkwCbZuGU5xJ/HPzPIZvKOm
-         MTbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793802757; x=1794407557;
-        h=references:in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nQeS5Lk1UtDT47XmIqhRscqhps77QOPDmfqkTQTRxLI=;
-        b=Uhmo5UVbPEvggKznF08p36epi5xFQMEllu7gxBVaCLLrkWludCnq3hCobMxuzT1qIb
-         rr5EmbCHYslPVm4BIneKC9XMse/Dc8Db3Zo02qFinqbXXvMn0J5lv3wmVlO3GiKy1DVw
-         omKJ4woxnHqXO6I3kHH+y2aXtF3TOToEIMAiIiv0FQ9+nCP6J7iit2RAGmV0vEUAXg7F
-         YIdLwIPlrqZJIjr0d2+uX5Fhhb9K3UP4MLxEleKqwrspeMkpHuH1LQktx5iZ+Tstsi0x
-         SJgD+A8s9Pyu84NhexYB4NNqghTjJ452xc/KvVRKkejnz1+9Y4sqEXigwsLZuWEzhBb8
-         L9ww==
-X-Forwarded-Encrypted: i=1; AKwUvBxij0APZdacoS7FQta4lqtAAOqVjNYwhWqd38Na/tScafWz8YFRpbG7popqpWLgWoOEHjhy3M8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mEgVC7k2Nk7I1My8e6pHU6QGbEcHoC0batCY8YxBd6/vkZRkY
-	gny4XjOeo9cqw0wx2SSLlcwUhORbVMGMMnM5nVvGuRYDj7SVUvEyG6RnQPiZFXnajSE=
-X-Gm-Gg: AYBFou30bD4jlRT/xCZIwNVlfL10pma84dxdRO9Kgh6CubIytzkVKP7Rvo1H2GXWNbq
-	LDL/PLellej+Z1nRT2S2NPQjxo63CdheFHdGfdoxjQq61Rs5U6m9c6b1ubZpQaOmNcCoky/yxT6
-	H8SQltXn3V2xv0UkyyNvhUz9ITWEbjSQhjpcYZB/dcd9n8i2jCo8pS/YImeTqKWSenbyC2co7Z/
-	4mhnYnLkU+48PEELAWjGLXLadmMOwd34pSu6C/1s9kIri/9G2fAcc9xWMSGd3ERYQOEtm/5xOLR
-	Eu6UVb87EDGYRPtwjI5V5rJYPtukiT7eb860NBkbH3oPaWYvVtWXpnB5DZYdqCg2eX26qiKRJoG
-	pA7mkAiaCCuzAhJMKFjD4YwTEOHlDsAsd0tmIat1dcPcWC7WZYY7FfvXzIXr5roKmWqlkrhjYLI
-	LczgE41+Sx3vTvyIMNkshXJz+p83MVvBsxmwHK0z2j7imIRtGTQOB39anGoIrL0cMvJL6IDE1j8
-	05tLgrE0OAFC+grW0JrLBpSqArtku8sjrGKntmrQuvgGkQ/FlREibTvCISy8lT8tNrhBR8n/5Tr
-	O6KY6oCizzND+iLbcF44mGFm/Ocaz8c=
-X-Received: by 2002:a05:6102:6107:20b0:7d2:7be1:271f with SMTP id ada2fe7eead31-7d27be12fabmr472050137.31.1793802756625;
-        Wed, 04 Nov 2026 06:32:36 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.246])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e7e75b24asm20104976d6.39.2026.11.04.06.32.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 06:32:36 -0800 (PST)
-Date: Wed, 04 Nov 2026 14:32:35 +0000
-Message-ID: <d2efe4f22fe0ed9390e4d9224b81d78f.josef@toxicpanda.com>
-From: Josef Bacik <josef@toxicpanda.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-    "Liam R. Howlett" <liam@infradead.org>,
-    David Hildenbrand <david@kernel.org>,
-    Vlastimil Babka <vbabka@kernel.org>,
-    Jann Horn <jannh@google.com>,
-    Pedro Falcato <pfalcato@suse.de>,
-    Muchun Song <muchun.song@linux.dev>,
-    Oscar Salvador <osalvador@suse.de>,
-    "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-    linux-mm@kvack.org,
-    stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] mm/mremap: fix accounting on a partial move
-In-Reply-To: <20261102162304.c3585fc3fb88644118c152d7@linux-foundation.org>
-References: <20261102-b4-mremap-pre-split-v2-0-d281dd11ad7d@toxicpanda.com> <20261102162304.c3585fc3fb88644118c152d7@linux-foundation.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QXRWDNTh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3E901F00919;
+	Wed,  4 Nov 2026 14:33:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793802824;
+	bh=mQfVgQOhNVbKxKYEOoAY9kr4v7Tgw8p2ngTZZmOidtE=;
+	h=Subject:To:Cc:From:Date;
+	b=QXRWDNThWqsHhnDQh4PdbLCLGLOCL/ESPOQqhhLTIHnttzz8ieqEIeuc90A3BK0uG
+	 COh3OoMl8/ma5p8Eredn/KAGbccJb+NmCfLIli1753zxxYtyg/J5Xk22JQvnveOxtz
+	 9qN+A8RFmLFuNjqWqkP7U48GeoIU9qHOmMu50Dw8=
+Subject: FAILED: patch "[PATCH] ocfs2: snapshot dentry names in file and setattr traces" failed to apply to 6.1-stable tree
+To: zzzccc427@gmail.com,akpm@linux-foundation.org,baijiaju1990@gmail.com,heming.zhao@suse.com,jjzuming@gmail.com,jlbec@evilplan.org,joseph.qi@linux.alibaba.com,mark@fasheh.com,stable@vger.kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 15:33:43 +0100
+Message-ID: <2026110443-bakeshop-rush-4984@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,30 +50,326 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 04:23:04PM -0800, Andrew Morton wrote:
-> So we have two userspace-visible accounting fixups: htlb reservation
-> leak, Committed_AS if mremap's unmap failed.  Yes?
 
-Yes, though the Committed_AS part is two bugs, patch 3 charges memory
-that was never accounted and patch 4 loses the charge for the whole VMA.
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-The text you quoted is the v1 cover, which I kept below the changelog.
-The "last patch" it talks about is dropped in v2, so only hugetlb splits
-ahead of the move now.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-> How come the first is cc:stable and the second is not?
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x 8cd3ff30659775a6831c66687a69d2b83d163591
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110443-bakeshop-rush-4984@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
-The reservation leak happens on any partial move of a private hugetlb
-mapping, nothing has to go wrong, and the huge pages stay reserved after
-the process exits.
+Possible dependencies:
 
-The Committed_AS bugs need an allocation to fail during the unmap at the
-end of the move.  mremap() checks the map count and sealing before it
-gets there, so what's left is small GFP_KERNEL allocations, which in
-practice means a process that is already being OOM killed.  I only hit
-it with fault injection, so I left those with just Fixes and let the
-stable folks decide. If you want them cc'ed it's no problem to add.
-Thanks,
 
-Josef
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 8cd3ff30659775a6831c66687a69d2b83d163591 Mon Sep 17 00:00:00 2001
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Thu, 22 Oct 2026 17:08:41 +0800
+Subject: [PATCH] ocfs2: snapshot dentry names in file and setattr traces
+
+Patch series "ocfs2: stabilize dentry names in file and setattr traces",
+v4.
+
+Snapshot names at all six users of ocfs2__file_ops and at the separate
+setattr event. Patch 1 handles the five ordinary file-operation callers
+and setattr. Patch 2 handles release separately to preserve its locked
+open-count sample and take the snapshot outside that critical section.
+
+The release explanation distinguishes its existing RCU lifetime coverage
+from name/length consistency. It does not claim that the ordinary
+callers' external-name UAF interleaving crosses the held inode spinlock.
+The release source change is unchanged from v3.
+
+Patch 1 also removes the read callback's redundant NULL-inode check.
+The two patches apply independently and leave trace formats unchanged.
+
+
+This patch (of 2):
+
+The open, fsync, read, write and splice-read trace calls pass the live
+dentry name and length to the shared ocfs2__file_ops event class.
+ocfs2_setattr() passes the same unprotected arguments to its own event.
+Both events size and copy a __string field separately. A reference to
+the dentry does not pin the external storage backing an individual name.
+
+With an event enabled, a caller can be preempted after loading the name
+pointer. A long-to-short rename can then replace the name and reclaim its
+old external allocation before the trace callback sizes or copies it,
+provided no other snapshot retains that allocation.
+
+The setattr inode lock does not exclude every rename: a same-directory
+rename of a source directory need not take that directory's inode lock.
+It can therefore change the dentry name while setattr records its event.
+Inline names and separately loaded lengths can also change during trace
+record sizing and copying.
+
+Take a dentry name snapshot around each of these six trace calls and
+pass both the string and length from the snapshot. Check event enablement
+before taking a snapshot. Keep the event classes and formats unchanged.
+
+Also remove the redundant NULL-inode check in the read callback.
+file_inode() returns the open file's inode, which is already used by the
+trace call above the check.
+
+The historical report below is from the read path.
+
+KASAN report as below:
+
+    BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
+    Read of size 1 at addr ffff88810a5b2b18 by task python3/496
+
+    [CPU and host details omitted.]
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? strlen+0x85/0xa0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20e/0x420
+     ? strlen+0x85/0xa0
+     kasan_report+0xe0/0x110
+     ? strlen+0x85/0xa0
+     strlen+0x85/0xa0
+     trace_event_raw_event_ocfs2__file_ops+0xf0/0x480
+     ? __pfx_trace_event_raw_event_ocfs2__file_ops+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? pmbd_probe_hit_cookie+0xe7/0x1c0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+     ocfs2_file_read_iter+0x6cd/0xb30
+     ? __pfx_ocfs2_file_read_iter+0x10/0x10
+     ? selinux_file_permission+0x11d/0x540
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? security_file_permission+0x26/0x80
+     vfs_read+0x7d2/0xc20
+     ? __pfx_vfs_read+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_do_sys_openat2+0x10/0x10
+     ksys_read+0x111/0x200
+     ? __pfx_ksys_read+0x10/0x10
+     ? irqentry_exit+0xbe/0x820
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on_prepare+0x11d/0x150
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    [User register dump omitted.]
+     </TASK>
+
+    Allocated by task 489:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_noprof+0x2de/0x780
+     __d_alloc+0x5fc/0x8c0
+     d_alloc_parallel+0x106/0x11d0
+     lookup_open+0x3ff/0x13e0
+     path_openat+0x95e/0x2020
+     do_file_open+0x21e/0x470
+     do_sys_openat2+0xf4/0x1b0
+     __x64_sys_openat+0x136/0x1e0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 0:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     __rcu_free_sheaf_prepare+0x65/0x2a0
+     rcu_free_sheaf_nobarn+0x1d/0x50
+     rcu_core+0x6be/0x1ed0
+     handle_softirqs+0x1fa/0x8d0
+     __irq_exit_rcu+0x113/0x1e0
+     irq_exit_rcu+0xe/0x20
+     sysvec_apic_timer_interrupt+0x6c/0x80
+     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+
+    The buggy address belongs to the object at ffff88810a5b2b00
+     which belongs to the cache kmalloc-rcl-192 of size 192
+    The buggy address is located 24 bytes inside of
+     freed 192-byte region [ffff88810a5b2b00, ffff88810a5b2bc0)
+
+    [Page and shadow-memory dumps omitted.]
+
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-0@gmail.com
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-1@gmail.com
+Fixes: 468eedde23d6 ("ocfs2: Remove mlog(0) from fs/ocfs2/file.c")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
+
+diff --git a/fs/ocfs2/file.c b/fs/ocfs2/file.c
+index d6e977ba6565..c6e7606ff9e1 100644
+--- a/fs/ocfs2/file.c
++++ b/fs/ocfs2/file.c
+@@ -85,10 +85,17 @@ static int ocfs2_file_open(struct inode *inode, struct file *file)
+ 	int mode = file->f_flags;
+ 	struct ocfs2_inode_info *oi = OCFS2_I(inode);
+ 
+-	trace_ocfs2_file_open(inode, file, file->f_path.dentry,
+-			      (unsigned long long)oi->ip_blkno,
+-			      file->f_path.dentry->d_name.len,
+-			      file->f_path.dentry->d_name.name, mode);
++	if (trace_ocfs2_file_open_enabled()) {
++		struct dentry *dentry = file->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_open(inode, file, dentry,
++				      oi->ip_blkno,
++				      name.name.len, name.name.name,
++				      mode);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	if (file->f_mode & FMODE_WRITE) {
+ 		status = dquot_initialize(inode);
+@@ -174,11 +181,17 @@ static int ocfs2_sync_file(struct file *file, loff_t start, loff_t end,
+ 	tid_t commit_tid;
+ 	bool needs_barrier = false;
+ 
+-	trace_ocfs2_sync_file(inode, file, file->f_path.dentry,
+-			      oi->ip_blkno,
+-			      file->f_path.dentry->d_name.len,
+-			      file->f_path.dentry->d_name.name,
+-			      (unsigned long long)datasync);
++	if (trace_ocfs2_sync_file_enabled()) {
++		struct dentry *dentry = file->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_sync_file(inode, file, dentry,
++				      oi->ip_blkno,
++				      name.name.len, name.name.name,
++				      (unsigned long long)datasync);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	if (unlikely(ocfs2_emergency_state(osb)))
+ 		return -EROFS;
+@@ -1132,15 +1145,19 @@ int ocfs2_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 	int had_lock;
+ 	struct ocfs2_lock_holder oh;
+ 
+-	trace_ocfs2_setattr(inode, dentry,
+-			    (unsigned long long)OCFS2_I(inode)->ip_blkno,
+-			    dentry->d_name.len, dentry->d_name.name,
+-			    attr->ia_valid,
+-				attr->ia_valid & ATTR_MODE ? attr->ia_mode : 0,
+-				attr->ia_valid & ATTR_UID ?
++	if (trace_ocfs2_setattr_enabled()) {
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_setattr(inode, dentry, OCFS2_I(inode)->ip_blkno,
++				    name.name.len, name.name.name, attr->ia_valid,
++				    attr->ia_valid & ATTR_MODE ? attr->ia_mode : 0,
++				    attr->ia_valid & ATTR_UID ?
+ 					from_kuid(&init_user_ns, attr->ia_uid) : 0,
+-				attr->ia_valid & ATTR_GID ?
++				    attr->ia_valid & ATTR_GID ?
+ 					from_kgid(&init_user_ns, attr->ia_gid) : 0);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	status = ocfs2_emergency_state(osb);
+ 	if (unlikely(status)) {
+@@ -2392,11 +2409,17 @@ static ssize_t ocfs2_file_write_iter(struct kiocb *iocb,
+ 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+ 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+ 
+-	trace_ocfs2_file_write_iter(inode, file, file->f_path.dentry,
+-		(unsigned long long)OCFS2_I(inode)->ip_blkno,
+-		file->f_path.dentry->d_name.len,
+-		file->f_path.dentry->d_name.name,
+-		(unsigned int)from->nr_segs);	/* GRRRRR */
++	if (trace_ocfs2_file_write_iter_enabled()) {
++		struct dentry *dentry = file->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_write_iter(inode, file, dentry,
++					    OCFS2_I(inode)->ip_blkno,
++					    name.name.len, name.name.name,
++					    (unsigned int)from->nr_segs);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	if (!direct_io && nowait)
+ 		return -EOPNOTSUPP;
+@@ -2542,17 +2565,16 @@ static ssize_t ocfs2_file_read_iter(struct kiocb *iocb,
+ 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+ 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+ 
+-	trace_ocfs2_file_read_iter(inode, filp, filp->f_path.dentry,
+-			(unsigned long long)OCFS2_I(inode)->ip_blkno,
+-			filp->f_path.dentry->d_name.len,
+-			filp->f_path.dentry->d_name.name,
+-			to->nr_segs);	/* GRRRRR */
++	if (trace_ocfs2_file_read_iter_enabled()) {
++		struct dentry *dentry = filp->f_path.dentry;
++		struct name_snapshot name;
+ 
+-
+-	if (!inode) {
+-		ret = -EINVAL;
+-		mlog_errno(ret);
+-		goto bail;
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_read_iter(inode, filp, dentry,
++					   OCFS2_I(inode)->ip_blkno,
++					   name.name.len, name.name.name,
++					   to->nr_segs);
++		release_dentry_name_snapshot(&name);
+ 	}
+ 
+ 	if (!direct_io && nowait)
+@@ -2624,11 +2646,17 @@ static ssize_t ocfs2_file_splice_read(struct file *in, loff_t *ppos,
+ 	ssize_t ret = 0;
+ 	int lock_level = 0;
+ 
+-	trace_ocfs2_file_splice_read(inode, in, in->f_path.dentry,
+-				     (unsigned long long)OCFS2_I(inode)->ip_blkno,
+-				     in->f_path.dentry->d_name.len,
+-				     in->f_path.dentry->d_name.name,
+-				     flags);
++	if (trace_ocfs2_file_splice_read_enabled()) {
++		struct dentry *dentry = in->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_splice_read(inode, in, dentry,
++					     OCFS2_I(inode)->ip_blkno,
++					     name.name.len, name.name.name,
++					     flags);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	/*
+ 	 * We're fine letting folks race truncates and extending writes with
+
