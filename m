@@ -1,71 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793786863;
-	b=3BqFAo0JHync25aNopqsWz/f/VeX6Etc7K2Sr7uxt0Zm3/iUkMmnWG3Xnf0tIMuPvDLg
-	 bgVO+EEplaicgPD7GGQyHYVBr2gNRtL0Hz4lGIz7Vgob3iAG9Iawz5kqbt5GtxgieCj+1
-	 KPDjhh6UUWjnM9KJlOoKrOjuifb6cCczVO8eQ4Msy4GFI9o4O8dCW9y7xa0xnZE3RWrkk
-	 54KoKwUJ07rFde5Jc1E+htS2UFtUo36UEQZez0xOEbJ/4Y52jdBHj3BqHB9X1sWBJ9dEv
-	 olXaOO+7FD4De4TwQv207pCZN0saQfVeXz6HFlm5EH6n5XXH3XkO0KovPMK7YHnwfBA==
+	t=1793786873;
+	b=KYXJYJL3i+I80SK7jcreb6ZLfc40Il7GWYYeORlGkSpqHG5zJb4JLwLGMD9AWAseQU0k
+	 4t6S1bQrOZae083FWNk+Ed27S5WuDRW0ti5haFc4scjvp/CaSfYr7OYe9il6TKRHtcweN
+	 72rvOWlzCyJR0X+VP6+LvM3oMp57JqWL7xW61xRwP3Uo9zIr7dWg5W4Z1+YRicO9jTyVt
+	 49kpnJWicpzyWfpT9zKwIl4EL73b1jaoZhzqNSAhEAxRUQNSnU5VikCGZzNXkbAVfUXh7
+	 vCLrVi7MDoaaEAU0bODA+0o1+a8v06J7njivD36RJ7OYJmvVNhOyBfCF/8k24bk0tpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793786863;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=NTmWlY+XRW0YMuvEswA1sIR0fg4QDW681aO4CKPIjSg=;
-	b=HVtIIhwFUdf3MhmedToARedu2AOykZsB3qaiS6JDtG5exeY5Ygxqidu5fVmJT88vU6Hp
-	 1xCOTAb4eBr9DL78jhyRLxJGVqOpZtrs6HKLvzxaer79MKXCf2M1WLUrIsjZfMP3EKJQl
-	 CcJBCGs0PDdN6ntQtuusItqj+UErQi2+9pkdNgTeoeR13rT/jkfTkF6116HYGye6Q3WqL
-	 6D4RgByIK724iTez9k6mcJYCL9G9Wk1hRA9WlsKdIOxw05fI/0MuxdJ9+dKnwzlLp15Qp
-	 mGmVvpubGMpIVWa5O4xHoc8u8CUYQVm4wG0+5nErSc2KJsJ46tT6O9ORY3uueQeU7lA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786873;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9hueydKPHbwqRHr29tjXZcE3MJ9mKdeb8gNayc7RByM=;
+	b=d6pQwLyibv4+dO6n+LtCm2oN2TSy2jyT4pR3gEWBcjeimLg2Yy2Hj+34yjmB/PzO+m3Q
+	 gyV+IslA5mBWzhoSzMxSEs024B3xqBnMbYm9KzX68cUjIsJy3XDsfOXbbNUCbLIAfEJoL
+	 vEPv8TiALOAtg4t6TIRaq2Bjxf6miNuMi23w5erWEXsqc+XjcSvVYDDZ1giX/QWsUIzN+
+	 uRIAYt3HSI1w9pqr6qtwTKbg5JZFBu2fIa2IO3CfjBxizxQoftQiTcf7Mmgda1Puhq3+a
+	 dwdXC6go6wBfwxAv/iuDtmBNThwNYosnzziEsvcEzSvYRoM+pPUtO/8ROzhIMe+l58A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Gy3dZFh7;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o3nlOY1Q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80563606A331;
-	Wed,  4 Nov 2026 10:07:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80563606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EABB606A326;
+	Wed,  4 Nov 2026 10:07:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Gy3dZFh7
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id EF98AC8F46C;
-	Wed,  4 Nov 2026 10:08:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0EDF760770;
-	Wed,  4 Nov 2026 10:07:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C5B0810329217;
-	Wed,  4 Nov 2026 11:07:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793786859; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=NTmWlY+XRW0YMuvEswA1sIR0fg4QDW681aO4CKPIjSg=;
-	b=Gy3dZFh74FG32530KZ1XCETtIJggwGCX4Fhhha4zOBQprQVEc1zKScWANfNJOHNPUhTcmc
-	uG/Z4vzPyAXubfJqXYItky4CKfBUADTvAR/FD4sLPZR55pY/nFJmRwrV2WElI0CSZd5Hgl
-	FbS+/2EEcwNYTOQ1lF5k6G5IdDuwVgWyLYy3Bv0pTgWRfr8SBOY9b7B4lVJ+pxc2upyJTd
-	QCHrDsHd8pBELBw0FrIYoxEibEdnFSHD58mkq+yNm6GW8bYdOZ/UR5Oc3+NDTlE5JZnwFy
-	uyBz/rDiIh29gHyO1rZmmUSehq0aoFi8+LH6R0MB1Foi6E+Kz5obPd043YrxdA==
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
-	Tanmay Jagdale <tanmay@marvell.com>,
-	stable@vger.kernel.org,
-	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH 2/5] spi: cadence-xspi: Inform SPI core about size transferred
-Date: Wed,  4 Nov 2026 11:06:40 +0100
-Message-ID: <20261104100643.162694-3-paul.cercueil@bootlin.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261104100643.162694-1-paul.cercueil@bootlin.com>
-References: <20261104100643.162694-1-paul.cercueil@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o3nlOY1Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A6E11F00919;
+	Wed,  4 Nov 2026 10:07:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793786871;
+	bh=9hueydKPHbwqRHr29tjXZcE3MJ9mKdeb8gNayc7RByM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=o3nlOY1Qhr6Bk6bjbuvjzB1VBZMnZo43ALULab1PPD2ywwLWmblgaREyNW770dp86
+	 oVEFIfskshqiU6I2sDYsCkn5Kh0pZ+uA43xqXaCnIetBcahxXCfzu1hEu64HIe4oKW
+	 7IaJxxvHd0VkSHdIeabQYZAfmuTh2yxVTQezyuwxPyupwkFX/t+I/6Z1NKoBnnn7Nq
+	 em4KWN3srnOWFwPKpO1cUh+pP1AncQwN9bzS52P+wOREFruti5UpYVSRLTCMIsf0Yt
+	 yGc1QrHAjwpMEGKK43m5g+Q+Fw49ciBm7bt6S5WkyF4mbPQfR/Z/jhQVYbdSDcfFWg
+	 6HUqJIGQc1JfA==
+Date: Wed, 4 Nov 2026 12:07:47 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: 0z5a <dezhen.lu@student.uni-tuebingen.de>
+Cc: jgg@ziepe.ca, linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH rdma-rc] RDMA/mlx5: Fix DevX umem page size truncation
+ for pages >= 4G
+Message-ID: <20261104100747.GD478286@unreal>
+References: <20261103142804.67210-1-dezhen.lu@student.uni-tuebingen.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,35 +57,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103142804.67210-1-dezhen.lu@student.uni-tuebingen.de>
 
-From: Tanmay Jagdale <tanmay@marvell.com>
+On Tue, Nov 03, 2026 at 03:28:04PM +0100, 0z5a wrote:
+> From: Dezhen Lu <dezhen.lu@student.uni-tuebingen.de>
+> 
+> devx_umem_find_best_pgsize() computes the page size in an unsigned long
+> but returns it as unsigned int, and devx_umem_reg_cmd_alloc() stores it
+> in an unsigned int. When the DMA mapping of the umem is contiguous and
+> aligned to 4 GiB or more, and the umem length is a multiple of that
+> size, ib_umem_find_best_pgoff() selects a page size >= 2^32. Since the
+> value is a power of two, the truncation turns it into 0 and the
+> registration fails with -EINVAL.
+> 
+> The umem log_page_size field is 5 bits wide on top of
+> MLX5_ADAPTER_PAGE_SHIFT, so the command can encode these page sizes.
+> 
+> Seen on two GH200 nodes (ConnectX-7, firmware 32.38.3056 and
+> 32.43.1014) with a dma-buf exported from cudaMalloc memory: registering
+> 4 GiB or 8 GiB umems at 4 GiB-aligned offsets of the dma-buf fails with
+> EINVAL every time, while 2 GiB umems at the same offsets and
+> ibv_reg_dmabuf_mr() of the same ranges succeed. Restricting the user
+> pgsz_bitmap to <= 2 GiB makes all of them succeed.
+> 
+> Other large physically contiguous buffers, such as a 16 GiB hugetlb
+> page on an arm64 kernel with 64K base pages, should hit the same path.
+> 
+> Use unsigned long for the page size, as commit f0c2427412b4
+> ("RDMA/mlx5: Fix page_size variable overflow") already did for the MR
+> paths.
+> 
+> The bug was found by an AI coding assistant (Claude Opus 5.5, Anthropic)
+> during an audit of 32-bit truncations of page sizes and offsets in
+> drivers/infiniband/core and drivers/infiniband/hw/mlx5. The assistant
+> also wrote the reproducer and this patch. The reproducer was run on the
+> GH200 nodes described above.
+> 
+> Fixes: 7610ab57de56 ("RDMA/mlx5: Allow larger pages in DevX umem")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dezhen Lu <dezhen.lu@student.uni-tuebingen.de>
+> ---
+> 
+> Notes:
+>     Testing notes:
+>     - The failures above were reproduced with the DOCA-OFED 26.01 mlx5_ib,
+>       whose devx_umem_find_best_pgsize() is identical to upstream; I do not
+>       have root on these hosts, so I could not load a patched module.
+>     - So I have not verified that CREATE_UMEM accepts log_page_size values
+>       for pages >= 4 GiB. If it does not, capping pgsz_bitmap at 2^31 in
+>       devx_umem_find_best_pgsize() is the alternative fix.
+>     - Compile-tested on v7.4-rc1 (arm64 defconfig + MLX5_INFINIBAND, W=1).
+>     - A standalone reproducer (dma-buf from cuMemGetHandleForAddressRange()
+>       plus mlx5dv_devx_umem_reg_ex(), sweeping offsets) is available on
+>       request.
 
-The SPI core expects the 'actual_length' field of the spi_message to be
-updated with the number of bytes transferred.
 
-Fixes: 931e389ded0f ("spi: cadence: Add Marvell xfer operation support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
-Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
-Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
----
- drivers/spi/spi-cadence-xspi.c | 1 +
- 1 file changed, 1 insertion(+)
+Isn't this fix enough?
+https://patch.msgid.link/r/1-v1-88303e9e509f+f7-ib_umem_types_jgg@nvidia.com
+15fe76e23615 ("RDMA/umem: Fix truncation for block sizes >= 4G")
 
-diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
-index e3e265f51e56..3cb2f95b98f6 100644
---- a/drivers/spi/spi-cadence-xspi.c
-+++ b/drivers/spi/spi-cadence-xspi.c
-@@ -1205,6 +1205,7 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
- 			}
- 			cs_change = t->cs_change;
- 			t->len -= current_transfer_len;
-+			m->actual_length += current_transfer_len;
- 		}
- 		spi_transfer_delay_exec(t);
- 	}
--- 
-2.47.3
+Thanks
 
+> 
+>  drivers/infiniband/hw/mlx5/devx.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/infiniband/hw/mlx5/devx.c b/drivers/infiniband/hw/mlx5/devx.c
+> index fc6f793dc..2277160d9 100644
+> --- a/drivers/infiniband/hw/mlx5/devx.c
+> +++ b/drivers/infiniband/hw/mlx5/devx.c
+> @@ -2294,8 +2294,8 @@ static int devx_umem_get(struct mlx5_ib_dev *dev, struct ib_ucontext *ucontext,
+>  	return 0;
+>  }
+>  
+> -static unsigned int devx_umem_find_best_pgsize(struct ib_umem *umem,
+> -					       unsigned long pgsz_bitmap)
+> +static unsigned long devx_umem_find_best_pgsize(struct ib_umem *umem,
+> +						unsigned long pgsz_bitmap)
+>  {
+>  	unsigned long page_size;
+>  
+> @@ -2333,7 +2333,7 @@ static int devx_umem_reg_cmd_alloc(struct mlx5_ib_dev *dev,
+>  				   int access)
+>  {
+>  	unsigned long pgsz_bitmap;
+> -	unsigned int page_size;
+> +	unsigned long page_size;
+>  	__be64 *mtt;
+>  	void *umem;
+>  	int ret;
+> -- 
+> 2.43.0
+> 
