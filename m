@@ -1,76 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793834653;
-	b=rod+pr/1WdrbVhNOwY6n6aqbBUbohzwyNifQ2zTFMtqDJT+vR6C8BHvZWYbYEPApSqI2
-	 dC+H4EPUWvDNxGVrrB8ldgNoRzXRffm3bj/egooeSLA2tuW/dxLZjv+0EIS9T0u6jYR2Y
-	 7XqNvqN+s+hWe1GHJw1bkg/KyDgZ78f/CKK7D1H/ScRsEihbCQD4uL0iKz5z9xQfVIbpO
-	 fhwww4AL+gOf/hXF+4t+a4RGLm5Nyn3vLqXCwGfH4tX9HQxrZlkMB2Z0icjpKJt3550jo
-	 Nf3WcqM8hNqcAUuO/V7XdBRXwFz9koPwfMaTGRaqKqdjfSMvV15XeoHrbTXCzQ3Z5gg==
+	t=1793835540;
+	b=u+b565TIUl7xg3CJ7Hhx7xG3lWJArpyfih5u2xKI7wGt+n9MLRk4EZ5lWQElRLtr94+x
+	 CKEvAdLddl5AfDMCQ7nG/NimYyO/mghRmm/LX5dJz4dgWxLlKRiPAsyktag57SEXaC6JZ
+	 gmG3ucChVUEfzJtvSZTYU1N2vYk7ghznfFz/Eehoriqb4kcvGVxNlSltqbNNjN5gh8OrV
+	 s3inA03UHlhfOACYnlcH4DHhcNgqiDoAZpqHt81jnCMXtXDcGcurMbRNUvq0IQluOo5YW
+	 lwRK/AkufUFGARE3UWRGDs9FUmt6Swg6Y20VCoCmOK0OSPeIIMOXOhDlQxKztTqbFeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793834653;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HwVF3DNHZD4A3EFj8867gK9RIhk2o9tBhFNVHKFjgmg=;
-	b=oD/TEikTtQ/MqkPuacpsTH0sQNCOn5SHbnURTZW71EMLjt3kE7zDkP/jIhw1TNEhEmzM
-	 9/3+NWZQsMe4EsDyH7DQ8sZIGqyUJa+/Q02efDlQa9Xe4bBoYLe6T3izjZy7xLf0DDFRi
-	 +VUz4lGWQJKftWeu9/w0kL0LEA5Z2ZpgwfVA1tX33Adg2V7W5VxzCz+dE5DKRpk5BSNP0
-	 LbCGWcEbh3Jhzjhc13JGtZd+FEVrfmcDLE96se7xLUfHlohmSgKUcXeHL6v1javG3iyaF
-	 PiS14iTyDVQHfHWZx4x1W2FOUmbX5twhZXjkT8uhC8fGRkW3YdFJDOJvMls+EbhFflw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793835540;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=PBo1FWz7t49ZeRP8eHjWPfpVP+xiSb6ApP9pXpB3jTU=;
+	b=jzYoV3gtFFI/chGutsE6bzsrQdJZFisOb1Z4bydGo1poDAkbFuYlCke0GJIQ3S59tXYN
+	 6nJH6B96u15P1SN1+ZTIPvkd1QvpJecPJeM6Ay2dgBMIN6HECuoNmJujpSSpJPp2dFq+4
+	 tXEcNPP4ZSbXn32miKz6J3AgE8gCoRan9pe7aQd7MjpJB/IJKPmbxnhxOl60b1go45e4L
+	 QRu8GKHyPXwsaejZKoZSMaV8w2YKo34M0VId6yXn0kSCJIGHoGEIo85vj5X7qXPXQ08/i
+	 HPwrukoi9y6oV0Kmi9PbDekhuUnEAIhhawkV9nsrpl79WC3oKYoi+WceE7/X8eQ3s2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hbod3PAK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M54hMSNL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230A3606A32F
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:24:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA162606A326;
+	Wed,  4 Nov 2026 23:38:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hbod3PAK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AD6D1F00919;
-	Wed,  4 Nov 2026 23:24:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M54hMSNL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52F811F0093A;
+	Wed,  4 Nov 2026 23:38:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793834652;
-	bh=HwVF3DNHZD4A3EFj8867gK9RIhk2o9tBhFNVHKFjgmg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Hbod3PAKlCnwAU4lnMRBl27hNtwSCgYklX1w7FgESI+IXK5VP1YdaJ3noEHMt+j53
-	 Yg+CJ0Er7saTx58JyubIqVKs+QpLGH+2hs5xu4oIWOuQctJ8R2TGxGKGyrZY4WC7fu
-	 HbXhXfjH51sgm5aJW1mtnbSVxq8CP9ASClilQFptI/rsLYNb72TND7dnG920WmqImx
-	 8dZcLiXnaE0hTMZSjesURCFnzBxt2oR2MacdvQs9DhRwO9963eYMaYBguARgqQIQ0e
-	 mMcrr3M7AYj8aMHOMmWxoKEp48/wKFzlfV5C8IcoemB2jMru1434EZ3VRt74jil18d
-	 sZhF+2xIomjeA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zhang Yi <yi.zhang@huawei.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Zi Yan <ziy@nvidia.com>,
-	Brian Foster <bfoster@redhat.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	yizhang089@gmail.com,
-	Yang Erkun <yangerkun@huawei.com>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>,
-	yukuai@fnnas.com,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/truncate: look up the end-edge straddler by index
-Date: Wed,  4 Nov 2026 18:24:09 -0500
-Message-ID: <20261104232343.890460-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110400-reenact-degraded-eaf5@gregkh>
-References: <2026110400-reenact-degraded-eaf5@gregkh>
+	s=k20260515; t=1793835539;
+	bh=PBo1FWz7t49ZeRP8eHjWPfpVP+xiSb6ApP9pXpB3jTU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=M54hMSNLlhW0lvKG24McDDocUjgwYtxQTQzLTQOwFHnCxIA4nkTJ7pYiuPLnwlU3X
+	 18DEDVBOFD81Fqbkk1YyaUhm+9v04t5VAwfk/X8Ynop5uq+Ya55JYi3Hcus9JIc+IU
+	 r2UWk68BzxoYibWKuJEmCAG25fvFloSVUuh8RcNb/S1ARt18AnJvdWVxVB2kfwvwly
+	 gnuJfgbRkYsJLxJTQSue9+lpQqAEFG4cnbWN6cX6GuhDnIJnUXsVbru5YydMlYdRp4
+	 5hGc5e5ZF6H21sIoTSeHHMIZ41hPWJRlAEzr+bYlYvIMVLHONSAo7aLjLUpxfEO+wj
+	 75v+S+hKfeR3Q==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 96C7B26925F7;
+	Wed, 04 Nov 2026 23:38:57 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Lixu Zhang <lixu.zhang@intel.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Arpith Alexander <arpith99@gmail.com>
+Cc: Weibin Liu <liuwb@xiaopeng.com>, linux-spi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261103131435.21838-1-arpith99@gmail.com>
+References: <20261103131435.21838-1-arpith99@gmail.com>
+Subject: Re: [PATCH] spi: ljca: Don't require data in write replies
+Message-Id: <179379982119.2456854.16535704243207910546.b4-ty@b4>
+Date: Wed, 04 Nov 2026 13:43:41 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,121 +64,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1110; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=1UNQPe1ArkoCFmDMl3wCs2pcQrT9mK4iM2DcvGk0QUg=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJeHxL04YpPyntudiVldlH2m+wTxZPSJFZOO5h9Z3kGw
+ +KKv+J3O0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCR1ecY/mm/+JDB2Rotp/3s
+ a9BctVnHO5YxtummbWBKnjRj37y4J8cY/qmLK1+7+uK7HE+lng4/g88+A8uF89hqhUJnlRXkt6+
+ oZgcA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: Zhang Yi <yi.zhang@huawei.com>
+On Tue, 03 Nov 2026 18:44:35 +0530, Arpith Alexander wrote:
+> spi: ljca: Don't require data in write replies
 
-[ Upstream commit f47dee903b9f0f1e4e7181e8a398a7678cabf0a5 ]
+Applied to
 
-In truncate_inode_partial_folio(), after the first split at the start
-edge, folio_split() unlocks and drops the refcount of the after-split
-sub-folios.  The sub-folio straddling the end of the truncation range is
-therefore unlocked and only transiently ref'd in the page cache while the
-code still derives it from a page pointer inside the original folio.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
 
-Between the first split finishing and page_folio() resolving split_at2,
-that tail page can be reclaimed, freed and reallocated as a new large
-folio in the same mapping at a different file offset.  folio2 then points
-at a folio that does not cover the end boundary, yet folio2->mapping ==
-folio->mapping still holds, so the stale pointer passes the mapping check
-and folio_split_or_unmap() splits a folio at a wrong position (or, with a
-transient refcount, a use-after-free window opens between try_get and the
-split).  __folio_split()'s own folio != page_folio(split_at) check cannot
-catch this either since split_at2 has been reallocated as part of the new
-folio, so page_folio(split_at2) resolves back to folio2.
+Thanks!
 
-Look the straddler up by its page index instead.  __filemap_get_folio()
-returns the folio currently covering the boundary, ref'd and locked, with
-the mapping validated under the lock, so the split target is always the
-real folio at the end edge.
+[1/1] spi: ljca: Don't require data in write replies
+      https://git.kernel.org/broonie/spi/c/5072a9fae45a
 
-Link: https://lore.kernel.org/20260928120833.3440834-3-yi.zhang@huaweicloud.com
-Link: https://lore.kernel.org/linux-mm/DLGXT0ERY79Z.3C5DYVJVX6S9Z@nvidia.com/
-Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operation")
-Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/message/20260916094500.C30061F00893%40smtp.kernel.org
-Suggested-by: Jan Kara <jack@suse.cz>
-Suggested-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Brian Foster <bfoster@redhat.com>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Joanne Koong <joannelkoong@gmail.com>
-Cc: Darrick J. Wong <djwong@kernel.org>
-Cc: <yizhang089@gmail.com>
-Cc: Yang Erkun <yangerkun@huawei.com>
-Cc: Zhihao Cheng <chengzhihao1@huawei.com>
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
-Cc: <yukuai@fnnas.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: Retained try_folio_split_or_unmap() instead of folio_split_or_unmap() to preserve the uniform-split fallback. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/truncate.c | 30 ++++++++++++++++--------------
- 1 file changed, 16 insertions(+), 14 deletions(-)
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-diff --git a/mm/truncate.c b/mm/truncate.c
-index 4bf64fd610c94..9b1baa688a104 100644
---- a/mm/truncate.c
-+++ b/mm/truncate.c
-@@ -259,30 +259,32 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t start, loff_t end)
- 		 * for shmem truncate
- 		 */
- 		struct folio *folio2;
-+		pgoff_t end_idx;
- 
- 		if (offset + length == size)
- 			goto no_split;
- 
--		split_at2 = folio_page(folio,
--				PAGE_ALIGN_DOWN(offset + length) / PAGE_SIZE);
--		folio2 = page_folio(split_at2);
--
--		if (!folio_try_get(folio2))
-+		/*
-+		 * After the first split at the start edge, the folio at the
-+		 * end edge may be freed and reused concurrently.
-+		 * __filemap_get_folio() looks up the straddler at end_idx
-+		 * and returns it locked and ref'd with the mapping
-+		 * validated.
-+		 */
-+		end_idx = (pos + offset + length) >> PAGE_SHIFT;
-+		folio2 = __filemap_get_folio(folio->mapping, end_idx,
-+					     FGP_LOCK | FGP_NOWAIT, 0);
-+		if (IS_ERR(folio2))
- 			goto no_split;
- 
-+		/* make sure folio2 is large */
- 		if (!folio_test_large(folio2))
- 			goto out;
- 
--		if (!folio_trylock(folio2))
--			goto out;
--
--		/* make sure folio2 is large and does not change its mapping */
--		if (folio_test_large(folio2) &&
--		    folio2->mapping == folio->mapping)
--			try_folio_split_or_unmap(folio2, split_at2, min_order);
--
--		folio_unlock(folio2);
-+		split_at2 = folio_page(folio2, (end_idx - folio2->index));
-+		try_folio_split_or_unmap(folio2, split_at2, min_order);
- out:
-+		folio_unlock(folio2);
- 		folio_put(folio2);
- no_split:
- 		return true;
--- 
-2.53.0
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
