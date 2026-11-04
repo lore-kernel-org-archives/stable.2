@@ -1,87 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793817915;
-	b=cHYzCNyuplqe16c2biYfcrK9Nu/lyglgt8ZgUUca6om6+ee1kPUHJtohFiwoI+YqzolA
-	 Tbrq+/SoW3by4td5ZRI0Fuh9noH36ZUdG7CPbRhd53K0ojbRW9UiSwzrfcVwEAFlEL1RJ
-	 KA3UFXSNAjS94STZA/dVCYXEBJU1fDe+6mzhopwgKzbribF1LQomgw2B6IdfattneNbBb
-	 a39cfGANqHZ7uP2MyopXK40JmpNNn/XuOancKU0BXJTqVW8fm9mfY7htiv6JvI/HPFs7g
-	 /oQpOFgKuDkTtzCAqySrQ1p3ZIAckakkiqJ3WQaH4G618pFcRRfLLfdl2ptamNDDa9g==
+	b=SdPXaxyUp2Jf77RgopsNC6ruc6UAxIdCdILail0LOGA0mStTOOvsuQOT0zbpVnWxFeim
+	 8V9KqU8wqPIQCBXHI8LtrUEaQ1ZLjhUOlUrJKsTDa8miat6Lfd7XAOxv5pECAJANcpH/d
+	 o0uC4lRDdAMEhQofHHbJuJ/CAzgJ53MxRBfgEdRDQOxL9Y5gSzyIM4Jt42WwO4di3nE6C
+	 s6iJRZHMCrLJWq229XYhdFXLFrTAl9Rsrd66kVlpS3JtB1at1vMYLHMAKyf48q3966Y28
+	 EW5KYx5oGEZjiYSeI3ezuuV+vwG1ZuWKCaVtqTombhi3U+bgoGt7s83lppJvKxnEFdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793817915;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=u1qzKLk50EzNX2TmcZW1BLpBrT4v5gOfVsKHgBTUbgs=;
-	b=XVxRALjeJWWyp+eMSe6IjsoFJaNQmUeSEBOXUUJnIhypkohBuFpIArkmsg6SKvtlIybF
-	 ezg6MqKaoG6Gn+eTREWMDxDOZxR6S9srMS9/GeCoYMH7JfD2oyzlkmCI17VfLNUO4fB/z
-	 5q9Agr7nYRzs3hq92eXvKZFNkXwBrfMRl/+6zg17w1tislUERXBkCZJyOwODKEkUw4+RC
-	 PHLErp0FSksIloREQQViJM5vsPDAkHQJeBgkL7RMt5M4pQ5bhK+UJ696FXymPTusGLgxZ
-	 qUgkxlwLsBmuGord4XtS7YOFrOaS3n6Mbg5IuYqjru9OzI2njRNEDZhyQpKfIdkPCCQ==
+	bh=9CB+uPj6XGfVY2ImJfWHGnXjPQvdTprxe8YxT6UoYSQ=;
+	b=euu3vHMLiBAOppqgBTIVRf1/lcapm5Ml846T9FwpKJbP8BaQ6zSsk2D3fMvwXljCsJmm
+	 ATuwwWjacGJV5wWR3sD9PXS7KSEJtw4MdSqREyOV9jgivAbbB/fKkpHtGGdYNHspFAVlA
+	 zoW255p6PXU/HgkV69w7Y8zke1cWMhEfWRFdG1YnLyMo4S4E2BzNuYCsp+fA9xy4oDTry
+	 AWud1TI+HrwbLeSg7JQ4LsMdoe/0ONbAnTS/rktSimxirnfGDiAML8faz0PMAbRbe1wil
+	 bCRjJyyw76BZBvw5pRt6amnA6xeVtLGMiJLne2tTyF3bHsdjCKjKN/qv0kXdFv4Y7oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	arc=none smtp.remote-ip=209.85.160.49
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Vce+YXlN;
+	arc=none smtp.remote-ip=209.85.161.48
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32B5606A32E
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:45:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E32B5606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B566606A332
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:45:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B566606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-4911df1e196so704807fac.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:45:12 -0800 (PST)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Vce+YXlN
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-716d052dc23so160362eaf.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:45:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817912; x=1794422712; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817914; x=1794422714; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=u1qzKLk50EzNX2TmcZW1BLpBrT4v5gOfVsKHgBTUbgs=;
-        b=hjFrrFI9cA5Hnwf9hvtlTD6ucX1XXB3MbhhOUW97CbocFOn4diZDrPv5X1nAVDv7+O
-         z5B0J2yXvwCcl21YDyZsD6WEy3CSn4eav30MK4M6CrWZk02kghe0VndvO7NkEsGvpiM7
-         5ZzWwBufiMzGhO0KPv5u7EuU/ZlERzrvRyNgpNqtDoABd1Nj+Rz0DeLJXaKU/wyEW0lK
-         plL+KJDm4X2XLW3NO51b/32VKRPKGb6da1XQbhzFIoEpoU8UbynTHfGnxkaeHDJ66DEp
-         U+BLhClos17VwxKEtfm4MAekM2e+KoUG2/Z08nT2CuOdo/shbVK2eLXeo5S5I+bcegBn
-         oGwQ==
+        bh=9CB+uPj6XGfVY2ImJfWHGnXjPQvdTprxe8YxT6UoYSQ=;
+        b=Vce+YXlNaZBjRwreHO2+BSyg4VzpRivdh24FI3+ou1HIjU+Y6ulS+z7Im5VJNv20Tx
+         Z1ComTtmJRlWmx5svV1dmmcan0LK1wjFyrdeJuxMj+VIWWzaUePPlUBW9t0uK7VB+byI
+         Pe6PrROGGf4oyOZ1XUBJA4LyF+tCtCx9aN5qBPWnzd5ZFK6vSJr9m2a1IkHOJAbLoZGm
+         RRZgB9yTgul3JqI/r2fhvLRybGm6yaaR6ba3UQrbpiJlxt99lXPoVYAsJcG5FvsH2QTt
+         U3NRX27MS/gF6eQWs/jUedyjWcSURWdaU322qY3Io0PoGod91GYhj+JA1NxWDx2JGkUQ
+         oNMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817912; x=1794422712;
+        d=1e100.net; s=20260707; t=1793817914; x=1794422714;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=u1qzKLk50EzNX2TmcZW1BLpBrT4v5gOfVsKHgBTUbgs=;
-        b=RG5t+kfI5yiB7b2j6E1MrYQhfiljtHvDT/hvdXxKxNLFuiFDMaHglavpKevty0v6kQ
-         uhrXW3olIguW5oWvQO4l2QWbqxEGNQx3VnDyQO9eMEfbIuI2ndlFgmF7I3e610gTdBzb
-         IF1pnQpwS1aljWWbCZGrm1KgUB6bd4MS5o0O8lIo+U5up5me5Qx4bzWiHyAIq6XT9fst
-         WKfWM27eoFYd5LJLb7O7rZTvExEA/6MbW/LjWEkrIxMMedbpUQFivym6sfIPtO13Hkal
-         BinnkB12nkwwY/Yn/m9bz1S8c1z5ZdpvdCC5aCeunu10EB6DJXx1h1dawbFH8ARMTQaN
-         n9jg==
-X-Gm-Message-State: APuU4Z+w6JAb7DArap/IYqWXduJ0oRzeSeGFlpO002wYEo0TitVKEuKE
-	EkmBouVHS0ZPAGXGYRY0YlwxbhcA4Y2zIP1otxM23jjLyPU5+TCUOp/8VtiHpnlM84LhJTN63d+
-	BIMYZFFY=
-X-Gm-Gg: AYBFou1aqLTtohqQIujcIxxR+YjN9VYPpbwrMtAMJHHTnUf+uQMFKxePKIj3gvhHfAC
-	6603PGhgB6IMARVVgz1KJX4YgGPexvCuyr+Xl7cBKsrbILBv3tH3i1QWQNfqPgw7/3d4FDFtTf4
-	sYcSD1OKQ3c9wxrz3yc0cYN01ymj7567Mvl5baYYKS+Qn21408z0RzBNhC5oefzsqF2bVz0ZLlA
-	TUh5IJJnXOsIomx68lDNXB2lBVFkkwzYKQUbfABTaCMXQKJoCEtv2QHYbr9aiOS1Xz3sgTVsWKA
-	I1GVPB1XFj0OrTmtMWZKUO0a+4SYkYyVRpvGE2f9Zyh8Y5B171yHfffXvIj04/bCEFrGqeKugxC
-	jGIGfczEZAmqKrONLOdxP/M0zs6MIjtdxpZyPatuA3yQWINGazO5Btk2u9RlDh3EpEcM8vzcWBB
-	8qdMmB6lN6ZWCn7UFcodZYoW9XMr0VJqPld4a9NwJoadlJ/h3iEvp2IBW8XY6h/7BceZDdEv62e
-	L/CgJVdSnLX9yNsocY1MBomZhbqu362dZLrdSxlNHytA5bEkWJ3UCHinJH4ohpimY1Osu1/Uo6K
-	HuhMsCIz3HDl+KUCa/HeTsg90XJ6Fy+0zHxOvdtsRbqLxqrQksE7IzsU9jbAhSxG5P05RdrtWA=
+        bh=9CB+uPj6XGfVY2ImJfWHGnXjPQvdTprxe8YxT6UoYSQ=;
+        b=u2FvgU/sp/kdvTtGHC0MgT5jy6dKoP/o1Eu9bQNmBVuGR7Cm238EGPVv+8USCrDwQF
+         Dq8z1/9jsXvnDc9lnOixqD9FnOal8a0KUZP+0V8N4fdJdSRZw3up6xp5SpHJZAAVrfyA
+         bxu7t2+DlY4+QT/hS1GNXv0IAluU0UX4wQMfhiTpbCtTxnWMunVXpISxwOaJdwYTE8cI
+         jb9ejtN88/WQ+J9GePwVwSVRJnN9t6j+BZi+6QRIS2CQeFDYcaTv2SDuVUl75yklmLfL
+         ewusGc523XhHb6qiyLjujwgyOegkh8FEG8kn525ymnjUTClPI2vtjIA7AhgFoLI+LQBa
+         MzjA==
+X-Gm-Message-State: APuU4Z+QghnEB8B9HSxBWv5fSx1pSYseFQ88P2VcArfK3kuVjI70InJm
+	n0H6pOOCAvK/+2Fvktp4MGoXjUao9JXIIVzGRmtCJored99BiRAgchq09P0nfouO57dMjzLuPBz
+	q2CLG28Y=
+X-Gm-Gg: AYBFou252i0tuZ4Cayb9pRdVijP82OejUrn6fWdypkz/njrbzdgoLO9MX5BSS00BOn7
+	Rj/fI9F36vl6+QP7Tjm9GuNMqD49MkHtQuHm10Brp3a/PPoGG3+HTl5kT46C2RSy0WqkcNOknov
+	4xCnI3+rXFvqShPTtcH7ZXR5CmNDWn7nCqrH3mhqognyvc7I/6ECEfiZO2vq+8DVgKxpq//cFwL
+	7pMAuIKZPzXF1X/15SRT8d1CVNjV8H6/pS+MsOJuk1S1AbFmdO1g2iyvMPfnk6UuDyq1hz4siEY
+	4uWbF/LEQQPr/1nrMY3+8Z+RiCdENgrE0lIrkRgRM1Y0vxYodKT6+0NkCt1AmI2vDSmLpSfIdlS
+	QqZiPRNZuKXJEyhVSp07gRw2EVA8kfgHobecqFlOWrjpvI6YGax8mgD7B0kNprK9quwqKqUv9We
+	9ytvkNQfPatSkolE5gpgU2gIWbtvYseNX6gaGImFEb5t5+Tth1jHfLP4H1llS+5Cnlsm8BkNTUm
+	l64PyjuXa2YEsbnzoiUabhHnGsvH2zayY9GzIGjGoEh2TpKVjkc7AmU5RKZTgEH35sMi2HmKMsU
+	CCvUM1I/UeO/NvKKr+MsJ9TNnwEWYip68rLafZnTkSfx01quz8cBwc5ITNBZw3QoVhuHAzgF2g=
 	=
-X-Received: by 2002:a05:6870:1d14:b0:448:9d5b:6393 with SMTP id 586e51a60fabf-4a907605bb5mr12049646fac.14.1793817911744;
-        Wed, 04 Nov 2026 10:45:11 -0800 (PST)
+X-Received: by 2002:a05:6820:351a:10b0:70b:af3d:2b2b with SMTP id 006d021491bc7-714f29ec710mr6899564eaf.67.1793817914203;
+        Wed, 04 Nov 2026 10:45:14 -0800 (PST)
 Received: from xps16 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea4903e9sm2590963fac.3.2026.11.04.10.45.06
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea4903e9sm2590963fac.3.2026.11.04.10.45.11
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:45:06 -0800 (PST)
+        Wed, 04 Nov 2026 10:45:12 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 7.3.y 06/16] io_uring: keep the drain active when a deferred drain request is started
-Date: Wed,  4 Nov 2026 11:44:37 -0700
-Message-ID: <20261104184447.516768-7-axboe@kernel.dk>
+Subject: [PATCH 7.3.y 07/16] io_uring/io-wq: no new workers once the exit has begun
+Date: Wed,  4 Nov 2026 11:44:38 -0700
+Message-ID: <20261104184447.516768-8-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104184447.516768-1-axboe@kernel.dk>
 References: <20261104184447.516768-1-axboe@kernel.dk>
@@ -96,89 +99,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 2295613cd3713beffc8665e956135a5d48dfc208 upstream.
+From: Josef Bacik <josef@toxicpanda.com>
 
-ecb6817b769f ends the drain when the dispatched drain request has posted
-its CQE and nothing else is deferred. But the deferred list is processed
-in between, and if the request it starts is itself a drain request, the
-drain is over before that one has even run. A request submitted after
-that point then runs ahead of it:
+Commit 47c68f925062a6013235d06add85a59f7d91e0fb upstream.
 
-  1. P0 in flight, D1 and D2 (both IOSQE_IO_DRAIN) deferred behind it
-  2. P0 completes, D1 is started
-  3. D1 completes, drain_done is set, D2 is started, the list is empty
-  4. IO_RING_F_DRAIN_ACTIVE is cleared with D2 still in flight
+io_wq_exit_start() sets IO_WQ_BIT_EXIT, but worker creation task_work
+queued before that stays queued until io_wq_exit_workers() cancels it.
+In between the task runs its task_work while canceling requests, and a
+worker can still get created.
 
-Anything submitted now bypasses the drain. The same happens with D2 as
-the head of a link, as those aren't tracked in ->drain_req at all.
+That's a problem for exec. begin_new_exec() calls io_uring_task_cancel()
+after de_thread(), when it's supposedly the only thread left, and
+io_wq_exit_workers() only waits for ->worker_done, which a worker
+completes before do_exit(). So the exiting worker is still in the thread
+group, using the mm, files and sighand, while exec replaces them. Easy
+to hit with a signal pending when create_io_thread() fails and the retry
+gets queued right before execve().
 
-Have io_queue_deferred() report whether it started a drain request, and
-don't end the drain if it did. Starting non-drain requests and ending it
-is still fine, they were only waiting on the drain request that just
-completed.
+Cancel the queued creation task_work as soon as the exit bit is set.
+Pending work that isn't otherwise canceled now ends with -ECANCELED when
+the io-wq is destroyed, rather than depending on whether the task
+happened to run its task_work first.
 
-Fixes: ecb6817b769f ("io_uring: end the drain when the drain request completes")
-Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-Link: https://lore.kernel.org/io-uring/20261027043323.98916-1-kmehltretter@gmail.com/
-Cc: stable@vger.kernel.org
+Fixes: 685fe7feedb9 ("io-wq: eliminate the need for a manager thread")
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[axboe: the barrier is already upstream, see 0e5663856b69, only the
+ cancel is new]
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- io_uring/io_uring.c | 20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
+ io_uring/io-wq.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index 3d715536df72..dd6ad02d0e89 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -474,9 +474,9 @@ unsigned io_linked_nr(struct io_kiocb *req)
- 	return nr;
+diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
+index c48f2475d03c..6b9395060262 100644
+--- a/io_uring/io-wq.c
++++ b/io_uring/io-wq.c
+@@ -1416,6 +1416,12 @@ void io_wq_exit_start(struct io_wq *wq)
+ 	set_bit(IO_WQ_BIT_EXIT, &wq->state);
+ 	/* Pairs with task_work_add() in io_queue_worker_create(). */
+ 	smp_mb__after_atomic();
++	/*
++	 * No more workers from here on. The caller is going to run its task
++	 * work, and on exec a thread that is created now would still be
++	 * around, exiting, by the time that the caller must be on its own.
++	 */
++	io_wq_cancel_tw_create(wq);
  }
  
--static __cold noinline void io_queue_deferred(struct io_ring_ctx *ctx)
-+static __cold noinline bool io_queue_deferred(struct io_ring_ctx *ctx)
- {
--	bool drain_seen = false, first = true;
-+	bool drain_seen = false, first = true, drain_queued = false;
- 
- 	lockdep_assert_held(&ctx->uring_lock);
- 	__io_req_caches_free(ctx);
-@@ -490,17 +490,21 @@ static __cold noinline void io_queue_deferred(struct io_ring_ctx *ctx)
- 
- 		drain_seen |= de->req->flags & REQ_F_IO_DRAIN;
- 		if ((drain_seen || first) && ctx->nr_req_allocated != ctx->nr_drained)
--			return;
-+			return drain_queued;
- 
- 		list_del_init(&de->list);
- 		ctx->nr_drained -= io_linked_nr(de->req);
--		/* it runs alone, track its completion unless it's a link */
--		if ((de->req->flags & REQ_F_IO_DRAIN) && !de->req->link)
--			ctx->drain_req = de->req;
-+		if (de->req->flags & REQ_F_IO_DRAIN) {
-+			drain_queued = true;
-+			/* it runs alone, track its completion unless it's a link */
-+			if (!de->req->link)
-+				ctx->drain_req = de->req;
-+		}
- 		io_req_task_queue(de->req);
- 		kfree(de);
- 		first = false;
- 	}
-+	return drain_queued;
- }
- 
- void __io_commit_cqring_flush(struct io_ring_ctx *ctx)
-@@ -1227,7 +1231,9 @@ void __io_submit_flush_completions(struct io_ring_ctx *ctx)
- 	}
- 
- 	if (unlikely(ctx->int_flags & IO_RING_F_DRAIN_ACTIVE)) {
--		io_queue_deferred(ctx);
-+		/* a drain request started from the list keeps the drain going */
-+		if (io_queue_deferred(ctx))
-+			drain_done = false;
- 		if (drain_done && list_empty(&ctx->defer_list))
- 			ctx->int_flags &= ~IO_RING_F_DRAIN_ACTIVE;
- 	}
+ static void io_wq_cancel_tw_create(struct io_wq *wq)
 -- 
 2.56.0
 
