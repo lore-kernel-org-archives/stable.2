@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802087;
-	b=3HGTBoIGcnr8aC5JCagzJa3Bh7tGkYQ6fVXo64+54Z/2PNUI40HTz9tGWJdfauipnQWU
-	 EVjShGuSnmL78fuboO/PHxqfbiUv18G1+yNLrCy7dOL8/XTY78dnDSyuannLZc2Iu4s0k
-	 2tei4yoCuRZWjPytwfJq/2T0Bd5unJcKoRjvfG8Q8Fs1uOQwSaHuZvKJZkB0VQ6B7Vdfa
-	 Fx8ldCeqQeB0mwlNSULyrnu4eV859zbrFN9AgHxcUjgf6fW/jvb2/2o9uxZqV2PsnAWbM
-	 kHC0KIv1TFoYFcN6vCJXEcRTziN2Dz9PzUyEkOsKoteH8rE5Smr1SybLDz2AbPc93Yg==
+	t=1793802103;
+	b=tvgv8p5ZAPmd2w+j27OK5dAlBQwr9R5YDi6onOrNL2G6PbykEA4lo7Unv6n1BY/X+BPg
+	 UukNx+AI4gNUWAo4SflxgqFRNiprMjkOhkXAZdbAN5Il8vB1Zro3PngSr9RGydxLT1Ap9
+	 WUIEWj1CoD7M8nyvSNpIJp5cJV6RhvepNFLNml7lkMXJJTm3pXF3/WiGxF25ykqlOpL51
+	 W4xuFg6CkIPGypZ03lI2xedKbWTAgMSHg3/Hd68NrRxAiMYZClzCr7BPyuCz1YSNoaF22
+	 pLTG8x86taQ+57kh2ahwRXY7rvkcwOyBHY0/B6QY3yQGbO6RhxGUUxocMJNVjaX3vLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802087;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802103;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nntUYuLHphz3veNM7bho9ahTaBqgzATtHRgHiFjNan4=;
-	b=rRW0iYVNqH8BNVM0rpfgJlLTZ7hurFUa0j7qbz5xGF5JadSdqg4kE/GoyP4JUNt/sWGU
-	 czKDXoDW1rjk5CLrVuK9NsZlmKYf+aeT8f2UKkndJR8GqCnZfwIeaJSfH7LFT4Ulki0Hu
-	 FdSBaZ0+ORDGU11bZenxw98drjU9ayBwvM7HESC5HbfcsX5deny8A8Si3Y7uQifosW7fp
-	 2pKwDTvnmOuVeHiEEGH8Fk37W83g84gseHuUUHgwh5Mnj2EHziY2DK0heCl2xCO/zRkTK
-	 waOZGW4L/wOMfGjF0ycTePHOYYo3EHTWk9Y8FakNohAzB5VkfZfvrCUJ/S1GJ1FPtvg==
+	bh=OFwLMaf4Aqk9pxojo31sP5NDjv1vzfsLzCaNJ8Dg9FU=;
+	b=aJkbEGjiogNcpT0m4yvjxzuW2AodM9F8+khuW8Voz9+C3E7BimTKAWgPwsfnN44z3rfv
+	 qlOVc8CACbY8u7jsKPticpzckqdaNkjv6KcZMEok649/Q2dQXsIIVlffFjCtD8HitnmIV
+	 HGGoz+nqF3aCCXRDvgNZMxrX3p2H9beOjakrXQbMDR3V+Lq/vGoYvBEc+Q9qYi/5d8iOh
+	 rDJ8DrpDJ7YNh3XcnTmnR6npU+GvFEf0vqOmuwnleiUjzPSOWqAktPWnplsk/eMxpQ24Q
+	 5qk1+0zUGJCWLSFq6thSKWN4He0OQ6CWVUjk8m73ExJOF8uJLP+7OsyjjDKgOcr5R1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a+ldW6UV;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OslH0ZuJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EFB9606A330
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:21:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04284606A331
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:21:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a+ldW6UV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FE601F000C1;
-	Wed,  4 Nov 2026 14:21:27 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OslH0ZuJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432891F000C1;
+	Wed,  4 Nov 2026 14:21:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802087;
-	bh=nntUYuLHphz3veNM7bho9ahTaBqgzATtHRgHiFjNan4=;
+	s=korg; t=1793802102;
+	bh=OFwLMaf4Aqk9pxojo31sP5NDjv1vzfsLzCaNJ8Dg9FU=;
 	h=Subject:To:Cc:From:Date;
-	b=a+ldW6UV6Pj9QDKYO1NYh7IVELo/ydP5R6zkaha/JSoTsuvEdZJQ9Xa155bNqVcat
-	 S0TmewVAuhYH11aXber2B/NDAs6IbYtvghSh7h4iEdBKtKlo/WcysMcKdwqyYpJKQc
-	 Z9ndPytPN4TaDlnDstmfrTA2KY9k/IAHgtMvwFA8=
-Subject: FAILED: patch "[PATCH] wifi: mt76: mt7996: unlink TWT flow if the MCU rejects the" failed to apply to 6.12-stable tree
-To: enderaoelyther@gmail.com,nbd@nbd.name
+	b=OslH0ZuJdsu2v3OZpwapus0D5X63mAvj+Itqjn5JrJ8PxCrjOvYIxKvPl0BSzDWKy
+	 UFp5p2dZHDrkQ4sdsjQg/Stulch6F+IGdT45GKqf11+fkrH2yl93sK/84Vmbk/FWzW
+	 e1IAxU0taZUZz1hPwSPDbkYZIYAIGdE1y382zZrA=
+Subject: FAILED: patch "[PATCH] virtio_net: atomically disable rx mode work" failed to apply to 6.18-stable tree
+To: bestswngs@gmail.com,co+d17c2bc750a9cbbb@bugs.sh,pabeni@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:21:25 +0100
-Message-ID: <2026110425-drowsily-humbly-15e5@gregkh>
+Date: Wed, 04 Nov 2026 15:21:40 +0100
+Message-ID: <2026110440-steam-gleeful-8fc6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 022f5f8b7a0580da50fcbc34da853d03d4321fe2
+git cherry-pick -x 1234707482053f1d1ac7c5756207d2c29057974c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110425-drowsily-humbly-15e5@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110440-steam-gleeful-8fc6@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,52 +79,151 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 022f5f8b7a0580da50fcbc34da853d03d4321fe2 Mon Sep 17 00:00:00 2001
-From: Zhao Li <enderaoelyther@gmail.com>
-Date: Tue, 25 Aug 2026 19:26:20 +0800
-Subject: [PATCH] wifi: mt76: mt7996: unlink TWT flow if the MCU rejects the
- agreement
+From 1234707482053f1d1ac7c5756207d2c29057974c Mon Sep 17 00:00:00 2001
+From: Weiming Shi <bestswngs@gmail.com>
+Date: Sat, 17 Oct 2026 04:42:38 -0700
+Subject: [PATCH] virtio_net: atomically disable rx mode work
 
-mt7996_mac_add_twt_setup() links a new flow into dev->twt_list before
-asking the MCU to add the agreement, but exits without unlinking the flow
-if the request fails. The flow-ID and table masks are only committed
-after MCU success, so the still-linked flow is invisible to the
-mask-gated teardown paths.
+virtio-net uses a boolean to gate rx_mode_work during device teardown.
+The flag is changed under RTNL, but ndo_set_rx_mode checks it under the
+address-list lock. A callback can therefore pass the check and enqueue work
+after teardown has flushed it. The work is also enabled before late
+probe operations that can fail, allowing probe unwind to free the netdev
+with work still queued.
 
-If the station retries the setup, the same slot is cleared and its
-embedded list node reinitialized while it is still linked, corrupting
-dev->twt_list. If the station disassociates instead, teardown skips the
-flow and station storage can be freed while the node remains linked. A
-later scheduling or debugfs twt_stats walk can then dereference the
-freed flow, resulting in a use-after-free.
+KASAN reports the worker using a virtqueue that probe unwind already freed:
 
-Unlink the flow when the MCU rejects the agreement. This restores the
-list to its pre-request state while leaving the unchanged mask and
-agreement accounting untouched.
+  BUG: KASAN: slab-use-after-free in virtqueue_add_split
+  Workqueue: events virtnet_rx_mode_work
+  Call Trace:
+   virtqueue_add_split (drivers/virtio/virtio_ring.c:706)
+   virtqueue_add_sgs (drivers/virtio/virtio_ring.c:2839)
+   virtnet_send_command_reply (drivers/net/virtio_net.c:3565)
+   virtnet_rx_mode_work (drivers/net/virtio_net.c:3833)
+   process_one_work (kernel/workqueue.c:3322)
+   worker_thread (kernel/workqueue.c:3405)
+  Freed by task 119:
+   kfree (mm/slub.c:6625)
+   vp_del_vq.isra.0 (drivers/virtio/virtio_pci_common.c:259)
+   vp_del_vqs (drivers/virtio/virtio_pci_common.c:285)
+   virtnet_probe (drivers/net/virtio_net.c:7129)
 
-Fixes: 98686cd21624 ("wifi: mt76: mt7996: add driver for MediaTek Wi-Fi 7 (802.11be) devices")
+Use the workqueue disable mechanism to atomically reject new queue attempts
+and drain running work. Keep work disabled until probe succeeds or restore
+has reattached the netdev, then enable it and replay receive-mode state for
+a running interface. Disable it before resource teardown in freeze and
+remove.
+
+Fixes: b9f7425239a0 ("virtio-net: convert rx mode setting to use workqueue")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260729173632.14387-3-enderaoelyther@gmail.com/
-Assisted-by: Codex:gpt-5.6-sol
-Assisted-by: Kimi:K3
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-Link: https://patch.msgid.link/20260825112620.97568-1-enderaoelyther@gmail.com
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Reported-by: <co+d17c2bc750a9cbbb@bugs.sh>
+Assisted-by: LLM
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+Link: https://patch.msgid.link/20261017114237.2786302-2-bestswngs@gmail.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c b/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
-index 898cd9b8ff96..a8c4f629109b 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
-@@ -3288,8 +3288,10 @@ void mt7996_mac_add_twt_setup(struct ieee80211_hw *hw,
- 	flow->tsf = le64_to_cpu(twt_agrt->twt);
+diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+index daab43ac92ce..4e8a792cec0e 100644
+--- a/drivers/net/virtio_net.c
++++ b/drivers/net/virtio_net.c
+@@ -441,9 +441,6 @@ struct virtnet_info {
+ 	/* Work struct for setting rx mode */
+ 	struct work_struct rx_mode_work;
  
- 	if (mt7996_mcu_twt_agrt_update(dev, &msta->vif->deflink, flow,
--				       MCU_TWT_AGRT_ADD))
-+				       MCU_TWT_AGRT_ADD)) {
-+		list_del(&flow->list);
- 		goto unlock;
-+	}
+-	/* OK to queue work setting RX mode? */
+-	bool rx_mode_work_enabled;
+-
+ 	/* Does the affinity hint is set for virtqueues? */
+ 	bool affinity_hint_set;
  
- 	setup_cmd = TWT_SETUP_CMD_ACCEPT;
- 	dev->twt.table_mask |= BIT(table_id);
+@@ -710,16 +707,13 @@ static void virtnet_rq_free_buf(struct virtnet_info *vi,
+ 
+ static void enable_rx_mode_work(struct virtnet_info *vi)
+ {
+-	rtnl_lock();
+-	vi->rx_mode_work_enabled = true;
+-	rtnl_unlock();
++	if (enable_work(&vi->rx_mode_work) && netif_running(vi->dev))
++		schedule_work(&vi->rx_mode_work);
+ }
+ 
+ static void disable_rx_mode_work(struct virtnet_info *vi)
+ {
+-	rtnl_lock();
+-	vi->rx_mode_work_enabled = false;
+-	rtnl_unlock();
++	disable_work_sync(&vi->rx_mode_work);
+ }
+ 
+ static void virtqueue_napi_schedule(struct napi_struct *napi,
+@@ -3925,8 +3919,7 @@ static void virtnet_set_rx_mode(struct net_device *dev)
+ {
+ 	struct virtnet_info *vi = netdev_priv(dev);
+ 
+-	if (vi->rx_mode_work_enabled)
+-		schedule_work(&vi->rx_mode_work);
++	schedule_work(&vi->rx_mode_work);
+ }
+ 
+ static int virtnet_vlan_rx_add_vid(struct net_device *dev,
+@@ -5742,7 +5735,6 @@ static void virtnet_freeze_down(struct virtio_device *vdev)
+ 	/* Make sure no work handler is accessing the device */
+ 	flush_work(&vi->config_work);
+ 	disable_rx_mode_work(vi);
+-	flush_work(&vi->rx_mode_work);
+ 
+ 	if (netif_running(vi->dev)) {
+ 		rtnl_lock();
+@@ -5772,8 +5764,6 @@ static int virtnet_restore_up(struct virtio_device *vdev)
+ 
+ 	virtio_device_ready(vdev);
+ 
+-	enable_rx_mode_work(vi);
+-
+ 	if (netif_running(vi->dev)) {
+ 		rtnl_lock();
+ 		err = virtnet_open(vi->dev);
+@@ -5785,6 +5775,8 @@ static int virtnet_restore_up(struct virtio_device *vdev)
+ 	netif_tx_lock_bh(vi->dev);
+ 	netif_device_attach(vi->dev);
+ 	netif_tx_unlock_bh(vi->dev);
++
++	enable_rx_mode_work(vi);
+ 	return 0;
+ 
+ err_destroy_pools:
+@@ -6880,6 +6872,7 @@ static int virtnet_probe(struct virtio_device *vdev)
+ 
+ 	INIT_WORK(&vi->config_work, virtnet_config_changed_work);
+ 	INIT_WORK(&vi->rx_mode_work, virtnet_rx_mode_work);
++	disable_work(&vi->rx_mode_work);
+ 
+ 	if (virtio_has_feature(vdev, VIRTIO_NET_F_MRG_RXBUF)) {
+ 		vi->mergeable_rx_bufs = true;
+@@ -7038,8 +7031,6 @@ static int virtnet_probe(struct virtio_device *vdev)
+ 	if (vi->has_rss || vi->has_rss_hash_report)
+ 		virtnet_init_default_rss(vi);
+ 
+-	enable_rx_mode_work(vi);
+-
+ 	for (i = 0; i < ARRAY_SIZE(guest_offloads); i++) {
+ 		unsigned int fbit;
+ 
+@@ -7143,6 +7134,8 @@ static int virtnet_probe(struct virtio_device *vdev)
+ 		goto free_unregister_netdev;
+ 	}
+ 
++	enable_rx_mode_work(vi);
++
+ 	pr_debug("virtnet: registered device %s with %d RX and TX vq's\n",
+ 		 dev->name, max_queue_pairs);
+ 
+@@ -7195,7 +7188,6 @@ static void virtnet_remove(struct virtio_device *vdev)
+ 	/* Make sure no work handler is accessing the device. */
+ 	flush_work(&vi->config_work);
+ 	disable_rx_mode_work(vi);
+-	flush_work(&vi->rx_mode_work);
+ 
+ 	virtnet_free_irq_moder(vi);
+ 
 
