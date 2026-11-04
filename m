@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802747;
-	b=iwmCgpdALr+R175tWg97pHKM3fxE7pAFCCiWdiIr7JEtyQ8NRfApPlIRXRhjtgxFLeO0
-	 K1PvJByUiZBa1YsvbyfN+uskPBibnSsM5kuQ98Ly+80+OhBHnE9ylXZH+xb/C5385aXcl
-	 NNe1J8xiCMQMaro2nf2cbCHs7n5oI/+OyJU1nAxqXuhqAtl4bqf4mGjMt10OsQjb5mGN0
-	 Ylput/yQWuJoXdtGyr/i4ylMfaCQCwAjSSHNHe8m4ZK8ZIQbP9ew6M6Nakf0TMHPU+2mM
-	 vmI9zfjCr2O26iRvOx8JJEZIZnqIpJ+KS7IUfVHRZe6YSB05ZLFehyd3VqDnxFk5fHA==
+	t=1793802753;
+	b=3z3Bu6fMYVP00+H26/j0ARQ4rVm0Ya/8hIcLiz2Lv3X8R5l/Xn3HcZpH35uL7J47oe+v
+	 KexIv2TvQR0Xe4ywx91dvrgrIHgyt94HvD2G+H1elT4YIMI9as1WFXzbapFbKHV1uZi2Z
+	 hmLCxVDGd2JchVU9H/9FYqr0fcinBve40W+6fnCdQBx55cT2EkEulJrGH5/6adGc+IQpE
+	 bvDWFDQ1hM3rOCwZdsPKPl+ErJFFDmVQ8rYQtFB7/G5/VAUSjK6GOsssequbrluu1jsnt
+	 FUeNIkjwIa4DrPPmY48RdBi/PXHMZcuBxwbKznj9oMHbqazUTrXY4oljmY0wl2vOmIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802747;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802753;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=n6RkzuAA5us+bhSAByTpSLfYBgHROaLj6roI0fOWOh8=;
-	b=g0Qr1SELBLY+JGSDHQElX4MUEAruizuj9p2jtawoFtldnPzVWEZ8Tenhf2ScQZkUlD3W
-	 EwuKZtRC90Z2Pegz69ImVhJirLiNAouwm5N/+zF35RfiwSI6eCGZ0GJOmQvYpQRQhd1z/
-	 sIA6+uggjlqE7VWn8cykgVHCkyLUUygJfBVzFV0YtMZDYRPdNKQm4w7ALRcgFD74Mrr9r
-	 /3AuNqh+cw3oG8eiY3fkuRzgpV3PafaVj048zCYVy6dUq5zecP2/mkujX55p9sTdldyyA
-	 mD9PsDc8Yy4ocWW0U3e7JmSkpXdtwrYhCGBZKCHb7SgsGvgz83g3/wCkZyld6en4Yog==
+	bh=8Lfn8ctIYJiyRlZcsiw6Qy2gh4DMOHRj0Ezb8G97DWg=;
+	b=SBUpvoAoQ8LuG1PxzHmDjpisQvN3xHJNNU3qKnLlHEWHJ0rn76trV2Fz5YmrrlrEv/Aa
+	 LiMYF5/uSEHVHs1Rht43DBBcKgG8B+bRT3MRpNnckaE1ilvD5E7XXYdnZ63Z1JYTJ+ytW
+	 VxuFqQOSBAoKj5gqCJCx6nP3ISb6vpgthguOx2PTMnq7hJ8N7Cyq0fSFSmtQO2KVwb0at
+	 LmydAHFN7WmUfsDKMDgroXZo3sW+z51Gpg6B6vJrKfL1X0u40e2U9csZ7hV4bAIUp32yZ
+	 egAlNalCJY3ExD8vSmg8nO6offrvo0tR3UY3YXm/OX5qTts6aY7lABsqRu/67IA5w0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JNdSoHGw;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=s1jKhZMT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1F5606A33B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:32:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD648606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:32:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JNdSoHGw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE3841F000C1;
-	Wed,  4 Nov 2026 14:32:26 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=s1jKhZMT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AC541F000C1;
+	Wed,  4 Nov 2026 14:32:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802747;
-	bh=n6RkzuAA5us+bhSAByTpSLfYBgHROaLj6roI0fOWOh8=;
+	s=korg; t=1793802752;
+	bh=8Lfn8ctIYJiyRlZcsiw6Qy2gh4DMOHRj0Ezb8G97DWg=;
 	h=Subject:To:Cc:From:Date;
-	b=JNdSoHGwdrFbPJfVYU0qpuIY+MvJVWOpzHNYWNzyzh0HYpiDAar7ulR9cgg38MQK2
-	 su0OjhqpA2j6oeoLfRFwx56GYqLlJY7Ytl3S6PToQ19yxYcsxatVTs/kEajU6h2cp1
-	 /DnF3tgfGGgHGE5ccCd0cQyad5gG7XVdPpGRkF4E=
-Subject: FAILED: patch "[PATCH] media: rc: Fix ABBA deadlock by making locks more fine" failed to apply to 5.10-stable tree
+	b=s1jKhZMTa2G79wd/5AnCt4UF7z+v0LlqKO95mCE4Cz4hf/KuTNuQ/mCwadt2knmV8
+	 F+W4/FNUvc2B5fgtABApMPF/uMvia2i0KKHg9nDzsN3wJbbZb6NR6NH6c+NO1ppLUU
+	 pMuIUHYJKpqv1B2Y8/Q0SEM6TX7KBDszB9UZN8Q4=
+Subject: FAILED: patch "[PATCH] media: rc: Add missing locking for keymap" failed to apply to 6.18-stable tree
 To: sean@mess.org,hverkuil+cisco@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:32:15 +0100
-Message-ID: <2026110415-swiftness-afterglow-8cfd@gregkh>
+Date: Wed, 04 Nov 2026 15:32:24 +0100
+Message-ID: <2026110424-plant-jarring-53b7@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x c6d68866ad8aa1e957a3e5a6ede971148f1e3d59
+git cherry-pick -x ab9567336171e46ce9e03ee126902b3fd7901baa
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110415-swiftness-afterglow-8cfd@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110424-plant-jarring-53b7@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,125 +79,203 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c6d68866ad8aa1e957a3e5a6ede971148f1e3d59 Mon Sep 17 00:00:00 2001
+From ab9567336171e46ce9e03ee126902b3fd7901baa Mon Sep 17 00:00:00 2001
 From: Sean Young <sean@mess.org>
-Date: Wed, 12 Aug 2026 15:46:42 +0100
-Subject: [PATCH] media: rc: Fix ABBA deadlock by making locks more fine
- grained
+Date: Wed, 12 Aug 2026 14:03:10 +0100
+Subject: [PATCH] media: rc: Add missing locking for keymap
 
-The ir_raw_event_unregister() function takes the ir_raw_handler_lock
-first and then the rc_dev->lock. Other functions like change_protocol
-do this in the reverse order.
+When the rc_map for an rc_dev gets updated, locking is required but is
+missing in places. A concurrent scancode lookup and a call to
+rc_{register,unregistered}_device() could result in a use-after-free;
+this could happen if IR is decoded during those function calls.
 
-This means that an ir decoder module unload and writing to the protocol
-sysfs file can cause a deadlock.
+Add lockdep assertions where locks are required.
 
-ir_raw_handler_lock protects the client list, amongst other things.
-Split this out into a separate lock so we can ensure the locking
-order is always the same.
+ir_free_table() should only be called for non-TX devices else we will
+use a spinlock without iniitializing it.
 
-Fixes: 93cffffc18f6 ("[media] media: rc: fix decoder module unloading")
+Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
 Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
 Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
-index 54b323becb1f..75dee4a483d4 100644
---- a/drivers/media/rc/rc-ir-raw.c
-+++ b/drivers/media/rc/rc-ir-raw.c
-@@ -10,7 +10,8 @@
- #include <linux/sched.h>
- #include "rc-core-priv.h"
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index 53e39b7a489a..67d86b8ea5e0 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -104,7 +104,6 @@ static struct rc_map_list *seek_rc_map(const char *name)
  
--/* Used to keep track of IR raw clients, protected by ir_raw_handler_lock */
-+/* Used to keep track of IR raw clients, protected by ir_raw_client_lock */
-+static DEFINE_MUTEX(ir_raw_client_lock);
- static LIST_HEAD(ir_raw_client_list);
- 
- /* Used to handle IR raw handler extensions */
-@@ -273,13 +274,6 @@ static int change_protocol(struct rc_dev *dev, u64 *rc_proto)
- 	return 0;
- }
- 
--static void ir_raw_disable_protocols(struct rc_dev *dev, u64 protocols)
--{
--	mutex_lock(&dev->lock);
--	dev->enabled_protocols &= ~protocols;
--	mutex_unlock(&dev->lock);
--}
--
- /**
-  * ir_raw_gen_manchester() - Encode data with Manchester (bi-phase) modulation.
-  * @ev:		Pointer to pointer to next free event. *@ev is incremented for
-@@ -615,15 +609,18 @@ int ir_raw_event_register(struct rc_dev *dev)
+ struct rc_map *rc_map_get(const char *name)
  {
- 	struct task_struct *thread;
- 
-+	/* Holding dev->lock could result in a dead-lock */
-+	lockdep_assert_not_held(&dev->lock);
-+
- 	thread = kthread_run(ir_raw_event_thread, dev->raw, "rc%u", dev->minor);
- 	if (IS_ERR(thread))
- 		return PTR_ERR(thread);
- 
- 	dev->raw->thread = thread;
- 
--	mutex_lock(&ir_raw_handler_lock);
-+	mutex_lock(&ir_raw_client_lock);
- 	list_add_tail(&dev->raw->list, &ir_raw_client_list);
--	mutex_unlock(&ir_raw_handler_lock);
-+	mutex_unlock(&ir_raw_client_lock);
- 
- 	return 0;
- }
-@@ -656,16 +653,19 @@ void ir_raw_event_unregister(struct rc_dev *dev)
- 	kthread_stop(dev->raw->thread);
- 	timer_delete_sync(&dev->raw->edge_handle);
- 
--	mutex_lock(&ir_raw_handler_lock);
-+	mutex_lock(&ir_raw_client_lock);
- 	list_del(&dev->raw->list);
-+
-+	mutex_lock(&ir_raw_handler_lock);
- 	list_for_each_entry(handler, &ir_raw_handler_list, list)
- 		if (handler->raw_unregister &&
- 		    (handler->protocols & dev->enabled_protocols))
- 			handler->raw_unregister(dev);
- 
- 	lirc_bpf_free(dev);
 -
- 	mutex_unlock(&ir_raw_handler_lock);
-+
-+	mutex_unlock(&ir_raw_client_lock);
- }
+ 	struct rc_map_list *map;
  
- /*
-@@ -688,15 +688,24 @@ void ir_raw_handler_unregister(struct ir_raw_handler *ir_raw_handler)
- 	struct ir_raw_event_ctrl *raw;
- 	u64 protocols = ir_raw_handler->protocols;
- 
-+	mutex_lock(&ir_raw_client_lock);
+ 	map = seek_rc_map(name);
+@@ -201,7 +200,7 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
+  * ir_create_table() - initializes a scancode table
+  * @dev:	the rc_dev device
+  * @rc_map:	the rc_map to initialize
+- * @name:	name to assign to the table
++ * @map_name:	name to assign to the table
+  * @rc_proto:	ir type to assign to the new table
+  * @size:	initial size of the table
+  *
+@@ -211,23 +210,31 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
+  * return:	zero on success or a negative error code
+  */
+ static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
+-			   const char *name, u64 rc_proto, size_t size)
++			   const char *map_name, u64 rc_proto, size_t size)
+ {
++	struct rc_map_table *scan;
+ 	unsigned int alloc;
+-	rc_map->name = kstrdup(name, GFP_KERNEL);
+-	if (!rc_map->name)
++	char *name;
 +
- 	mutex_lock(&ir_raw_handler_lock);
- 	list_del(&ir_raw_handler->list);
-+	atomic64_andnot(protocols, &available_protocols);
-+	mutex_unlock(&ir_raw_handler_lock);
++	name = kstrdup(map_name, GFP_KERNEL);
++	if (!name)
+ 		return -ENOMEM;
 +
- 	list_for_each_entry(raw, &ir_raw_client_list, list) {
-+		mutex_lock(&raw->dev->lock);
-+		mutex_lock(&ir_raw_handler_lock);
- 		if (ir_raw_handler->raw_unregister &&
- 		    (raw->dev->enabled_protocols & protocols))
- 			ir_raw_handler->raw_unregister(raw->dev);
--		ir_raw_disable_protocols(raw->dev, protocols);
-+		raw->dev->enabled_protocols &= ~protocols;
-+		mutex_unlock(&ir_raw_handler_lock);
-+		mutex_unlock(&raw->dev->lock);
+ 	alloc = roundup_pow_of_two(size);
+-	rc_map->rc_proto = rc_proto;
+-	rc_map->len = 0;
+-	rc_map->size = alloc;
+-	rc_map->scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
+-	if (!rc_map->scan) {
+-		kfree(rc_map->name);
+-		rc_map->name = NULL;
++	scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
++	if (!scan) {
++		kfree(name);
+ 		return -ENOMEM;
  	}
--	atomic64_andnot(protocols, &available_protocols);
--	mutex_unlock(&ir_raw_handler_lock);
+ 
++	scoped_guard(spinlock_irqsave, &rc_map->lock) {
++		rc_map->name = name;
++		rc_map->scan = scan;
++		rc_map->rc_proto = rc_proto;
++		rc_map->len = 0;
++		rc_map->size = alloc;
++	}
 +
-+	mutex_unlock(&ir_raw_client_lock);
+ 	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
+ 		alloc, alloc * sizeof(struct rc_map_table));
+ 	return 0;
+@@ -237,16 +244,26 @@ static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
+  * ir_free_table() - frees memory allocated by a scancode table
+  * @rc_map:	the table whose mappings need to be freed
+  *
+- * This routine will free memory alloctaed for key mappings used by given
++ * This routine will free memory allocated for key mappings used by given
+  * scancode table.
+  */
+ static void ir_free_table(struct rc_map *rc_map)
+ {
+-	rc_map->size = 0;
+-	kfree(rc_map->name);
+-	rc_map->name = NULL;
+-	kfree(rc_map->scan);
+-	rc_map->scan = NULL;
++	struct rc_map_table *scan;
++	const char *name;
++
++	scoped_guard(spinlock_irqsave, &rc_map->lock) {
++		name = rc_map->name;
++		scan = rc_map->scan;
++
++		rc_map->size = 0;
++		rc_map->len = 0;
++		rc_map->name = NULL;
++		rc_map->scan = NULL;
++	}
++
++	kfree(name);
++	kfree(scan);
  }
- EXPORT_SYMBOL(ir_raw_handler_unregister);
+ 
+ /**
+@@ -266,6 +283,8 @@ static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
+ 	unsigned int newsize = rc_map->size;
+ 	struct rc_map_table *newscan;
+ 
++	lockdep_assert_held(&rc_map->lock);
++
+ 	if (rc_map->size == rc_map->len) {
+ 		/* All entries in use -> grow keytable */
+ 		if (newsize >= IR_TAB_MAX_ENTRIES)
+@@ -317,6 +336,8 @@ static unsigned int ir_update_mapping(struct rc_dev *dev,
+ 	int old_keycode = rc_map->scan[index].keycode;
+ 	int i;
+ 
++	lockdep_assert_held(&rc_map->lock);
++
+ 	/* Did the user wish to remove the mapping? */
+ 	if (new_keycode == KEY_RESERVED || new_keycode == KEY_UNKNOWN) {
+ 		dev_dbg(&dev->dev, "#%d: Deleting scan 0x%04llx\n",
+@@ -372,6 +393,8 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
+ {
+ 	unsigned int i;
+ 
++	lockdep_assert_held(&rc_map->lock);
++
+ 	/*
+ 	 * Unfortunately, some hardware-based IR decoders don't provide
+ 	 * all bits for the complete IR code. In general, they provide only
+@@ -396,7 +419,7 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
+ 	/* No previous mapping found, we might need to grow the table */
+ 	if (rc_map->size == rc_map->len) {
+ 		if (!resize || ir_resize_table(dev, rc_map, GFP_ATOMIC))
+-			return -1U;
++			return UINT_MAX;
+ 	}
+ 
+ 	/* i is the proper index to insert our new keycode */
+@@ -478,16 +501,18 @@ static int ir_setkeytable(struct rc_dev *dev, const struct rc_map *from)
+ 	if (rc)
+ 		return rc;
+ 
+-	for (i = 0; i < from->size; i++) {
+-		index = ir_establish_scancode(dev, rc_map,
+-					      from->scan[i].scancode, false);
+-		if (index >= rc_map->len) {
+-			rc = -ENOMEM;
+-			break;
+-		}
++	scoped_guard(spinlock_irqsave, &rc_map->lock) {
++		for (i = 0; i < from->size; i++) {
++			index = ir_establish_scancode(dev, rc_map,
++						      from->scan[i].scancode, false);
++			if (index >= rc_map->len) {
++				rc = -ENOMEM;
++				break;
++			}
+ 
+-		ir_update_mapping(dev, rc_map, index,
+-				  from->scan[i].keycode);
++			ir_update_mapping(dev, rc_map, index,
++					  from->scan[i].keycode);
++		}
+ 	}
+ 
+ 	if (rc)
+@@ -523,6 +548,8 @@ static unsigned int ir_lookup_by_scancode(const struct rc_map *rc_map,
+ {
+ 	struct rc_map_table *res;
+ 
++	lockdep_assert_held(&rc_map->lock);
++
+ 	res = bsearch(&scancode, rc_map->scan, rc_map->len,
+ 		      sizeof(struct rc_map_table), rc_map_cmp);
+ 	if (!res)
+@@ -1989,7 +2016,8 @@ out_rx_free:
+ 	scoped_guard(mutex, &dev->lock)
+ 		dev->registered = false;
+ out_free_table:
+-	ir_free_table(&dev->rc_map);
++	if (dev->driver_type != RC_DRIVER_IR_RAW_TX)
++		ir_free_table(&dev->rc_map);
+ out_raw:
+ 	ida_free(&rc_ida, minor);
+ 	return rc;
 
