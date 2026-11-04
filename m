@@ -1,47 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799423;
-	b=0gMxjYx0RwImXeT36EFhfPa9fU8Q6SIfWtxO2N7KAZ8mjso3FR9851Ul2Ddl9fTi6XGr
-	 NHE24dv7cUQhYtsZgubI1Txc1bhz0Rbz6aMUfmo1kT6MsgMS46UphrMPgWTziezavEjuz
-	 8M4BNxKRcnKsWBhVUXzkrOubWI0lbHcbY2gTU6uNYZkTOEQ5XqeJAnKkcLb06mJOjhrEz
-	 10dbfZ/nV/9qSFx3p525/BHjTL8oHAxATmXQ4OZ5Wkj9Of1nDwWJMF1qBLfehbytfjf4L
-	 dJ4u715HtnmO0DMZDz++CF7kaDc3HHJOakhtxmdnn0WFZwS9dorAldBkmHxuJ/ncNDA==
+	t=1793799468;
+	b=i3szu62cMPXAioeViGAKfP0gY5kIUFK+cAQPLhU0XKkVytCiGEcU8E/Jida77tRor8UC
+	 pQiBftasVLxlTuWOCePAatTWZ81g2Ajxb5qnwx7VlF10GL4ahdghTMdn/CVihkZewBz2s
+	 Rip2xJWZNqiKhb+8mJtf3jDFjm5zPERapg+rbQ/z316OzvDGHxZiFgDkguLdgs+8PXz/6
+	 OFxlK1adlIeyidETd8qEyOIaPKZC307VfIurN75vza4+C70Gbe1JCKzjfrxoRabhfPcMp
+	 XNq0cio9A9CYQgHvQo225dl8hp0gzP1hbeQebKD+JkkT+4EIhaFGafeu4jA1s9i+06Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799423;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=KXgCuXTDg+HNIi4LmSjU0o65XumS2iOut0f5G1XePbA=;
-	b=iEkok+0iRxSzYWfbFpG7l6t5bRtBQuEbb+qf3/8+KwROKL+FD9yuQj0NOoyzS5wG21LG
-	 8/gIzAjZYzMOPELUwVPKWG/Q6GsqzWj6knm0ynHpZwNbjgacvyNxJMitxZ9YxGM5KWgTp
-	 1yxjS3X03lExfYVPl2abXpT7j+VFZvFbW2ulZE5YhaRj2mBSvxvpmUMtdFL/YAB87Ot4K
-	 o3KnCN78nRS0fB+IouzD5FQIbCtXP2K0o0CHlxphNhZZV2oD9XO/FyGBjGOE/mTELJ/l/
-	 K/KiYhL4r0rIPi9crMKU4rHd9S60xqVvjIwmRNu7UiplJK4TF36JLeBAfAW27cNPu9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799468;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=P1PygSaRvCgyL8o50ty9nbaKvT4LTLDGq0VswjqXP6A=;
+	b=ZZAMe6B9h3WYl+tH4EjFf9QUntxeLZ2WMmu+kSOw1oGTftDYDJQaWL2b31s5woAvqftO
+	 E9fVTZt0E4lUcr3Nmo4eCa67UvPuF+ckC4GC7LJNLJ50uVmP++ga9rs3a62cYuYPyDsYl
+	 E8Tr7xfRQVu2WzeSTh3fzUWcIdmomnJck/jRb+Rszj8Mt/I0aiGxhpfiiCeujoprdFPbq
+	 b9JklWG7fzNO8C4AJpEHwMOk2SAbQIm0MlqAOZd6a3vA78LcpaXMToTLEADpON8k2xqoY
+	 wpmfIu4j/r16JQk/gx6//DmDB7nnTJXOqYNmODJ4KA5Rs66eK8bACabJYa82vcP+lWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cew49g21;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--atifashhar.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="I/3zDfAG";
+	arc=none smtp.remote-ip=209.85.215.200
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DAE606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:37:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2655C606A32F
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:37:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2655C606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--atifashhar.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cew49g21
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 609761F000C1;
-	Wed,  4 Nov 2026 13:37:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793799422;
-	bh=KXgCuXTDg+HNIi4LmSjU0o65XumS2iOut0f5G1XePbA=;
-	h=Subject:To:Cc:From:Date;
-	b=cew49g21qvnqn/S1HB4+qLOmsI4T6+Cu1x/d5C2kVRRsTvVGHhpHnZuQpLCnJW0Nr
-	 82phNSkOiwCRac3rie9zA4BBnct3oHTPqEt0FcuU/AqyUovAj7v7NRC7LeZs11Qvss
-	 GLOT/CPxenlMFCvpGVg3eDCxoM+m0rUWFu/5xGTA=
-Subject: FAILED: patch "[PATCH] pps: generators: fix use-after-free when closing a removed" failed to apply to 6.18-stable tree
-To: danishkhateeb03@gmail.com,giometti@enneenne.com,gregkh@linuxfoundation.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:37:01 +0100
-Message-ID: <2026110401-glitch-riveting-80d2@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=I/3zDfAG
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc7e0321ec1so858305a12.0
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 05:37:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793799467; x=1794404267; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P1PygSaRvCgyL8o50ty9nbaKvT4LTLDGq0VswjqXP6A=;
+        b=I/3zDfAG/EXO1AQkOQsRwC8drHuk6OLeIRrkRg3mKKy3oLcMTooZPEb4EXPEqrOSry
+         Hn9q9khZlOmoo3AGxA0fedXaFPZjBFiM2Ivyh+uCH/vG5TRuE4dAEVVP9jjxRgXOpawx
+         N4/IBgJq9WaSSWZVktAy1VITFRr47zzMlMkiso4CT4BPZWY1nmz/f6rcOwGis+waetcs
+         3himsTFSTkkoPlF1HKiHCYWBN4fnAYjNoOnDhR3oUjRUZmu1g/nbULKqNF6ijbLVRDw/
+         4B6fktwLw0crD2SuSxdxcHAx4auGtKANVqOMpWltcetqeamukbtTx32FQiIRD/B4woB/
+         bBhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793799467; x=1794404267;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P1PygSaRvCgyL8o50ty9nbaKvT4LTLDGq0VswjqXP6A=;
+        b=NAn1/HSUgi+QvQPDjgylX0Db3vV6pgVVcR9glhfHZUcacmfxD5WYH54eviQ1gXnCL0
+         YEUF6kfn4EocWFDjZDqPL4C+XN3JmWFIjJ38odNp2xsv0YI443QD25oPpAIASXkCHfVe
+         DLn6UV9DFpURP2HFUK1UzaImJK+YNFHfa/oT02BBGj/2ORqbE+npNP7+rZb1v4eGW6il
+         SVaXuawj9jduWEtGbzhnV4lyViRDt94c6J3BASa2/Ic2PYPA1elE4TSwp7gZlLuG4g5E
+         Dzw5mbZBidps6aLcxtprfsTbDflp7oJ5TYI9eh3YS67Po8AUxUnvZ46dr6IJDxrbkmGI
+         qy0g==
+X-Forwarded-Encrypted: i=1; AKwUvBzEKpTry0NjfXetMdLm00dl0MEqM2Ef0R+IG/Ka7Ss7UUIRJQTWdymrvPfqePn9NDKkr8Rv8DM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/rqjvM8zAMgKk8JwgK/6dIJotDxpVz1p9Ts0pcShz5ctiu9ziZ
+	ER1lk5bwbZr8I9qIZIQCVRliWi0xtavOMmGWv9MD1P7PhW6LptR/LacRe4qbfHqZQCLHL9WoJtr
+	swbMb5RF2EQIEky45g09Z3g==
+X-Received: from pfbmy5-n2.prod.google.com ([2002:a05:6a00:6d45:20b0:89e:bd5e:725d])
+ (user=atifashhar job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a21:6b8c:b0:3e9:15c2:83b5 with SMTP id adf61e73a8af0-3e928add0bdmr14068373637.74.1793799467220;
+ Wed, 04 Nov 2026 05:37:47 -0800 (PST)
+Date: Wed,  4 Nov 2026 13:37:45 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,266 +75,144 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
+Message-ID: <20261104133745.1432212-1-atifashhar@google.com>
+Subject: [PATCH] i2c: designware: Release slave SCL hold in __i2c_dw_disable()
+From: Atif Ashhar <atifashhar@google.com>
+To: Mika Westerberg <mika.westerberg@linux.intel.com>, Andi Shyti <andi.shyti@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Jarkko Nikula <jarkko.nikula@linux.intel.com>, Wolfram Sang <wsa@kernel.org>, 
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Atif Ashhar <atifashhar@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+When an external I2C master initiates a read to the Synopsys DW_apb_i2c
+adapter in slave mode during kexec teardown, runtime suspend, or driver
+unbind, the slave hardware stretches SCL low (0V) waiting for TX data,
+setting DW_IC_STATUS_SLAVE_HOLD_TX_FIFO_EMPTY.
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+In master mode, __i2c_dw_disable() issues DW_IC_ENABLE_ABORT to release
+the bus. However, according to the Synopsys DW_apb_i2c Databook, the
+ABORT bit applies only to master transfers and has no effect in slave
+mode. Because the slave cannot disable while stretching SCL,
+__i2c_dw_disable() times out, leaving DW_IC_ENABLE_STATUS[0] = 1 across
+kexec or rebind. Subsequent writes to DW_IC_SAR are write-protected and
+silently dropped by hardware, wedging the slave and blocking any other
+devices sharing the physical bus.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Fix this by:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x d19552611cb2eb6329826871565e5309bec2f288
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110401-glitch-riveting-80d2@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+1. In __i2c_dw_disable(), if DW_IC_STATUS_SLAVE_HOLD_TX_FIFO_EMPTY is
+   set while disabling, temporarily re-enable the controller so the APB
+   interface accepts data commands without racing with the slave ISR,
+   clear pending RD_REQ/TX_ABRT interrupts, write a dummy 0xFF byte to
+   DW_IC_DATA_CMD to release the SCL stretch, and immediately request
+   disable via __i2c_dw_disable_nowait(). Also drain the RX FIFO if RFNE
+   is set during SLAVE_ACTIVITY.
 
-Possible dependencies:
+2. In i2c_dw_reg_slave(), replace __i2c_dw_disable_nowait() with
+   __i2c_dw_disable() to ensure the controller is fully disabled before
+   calling i2c_dw_set_mode(), which programs DW_IC_SAR and DW_IC_CON.
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From d19552611cb2eb6329826871565e5309bec2f288 Mon Sep 17 00:00:00 2001
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-Date: Tue, 29 Sep 2026 07:49:34 -0500
-Subject: [PATCH] pps: generators: fix use-after-free when closing a removed
- device
-
-The cdev of a PPS generator is embedded in struct pps_gen_device, but
-nothing ties the lifetime of that structure to the cdev: pps_gen is
-freed by the release function of its device, and an open file holds a
-device reference only until pps_gen_cdev_release() drops it.
-
-When the generator is unregistered while /dev/pps-genN is open, that
-put_device() drops the last reference and frees pps_gen, and __fput()
-then calls cdev_put() on the freed cdev:
-
-  BUG: KASAN: slab-use-after-free in cdev_put+0x53/0x60
-  Read of size 8 at addr ffff88801383e138 by task ppsgen64/149
-  Call Trace:
-   cdev_put+0x53/0x60
-   __fput+0x745/0xad0
-   fput_close_sync+0xd9/0x1b0
-   __x64_sys_close+0x86/0xf0
-  ...
-  Freed by task 149:
-   kfree+0x25a/0x6d0
-   device_release+0xca/0x3c0
-   kobject_put+0x169/0x320
-   pps_gen_cdev_release+0x51/0x80
-   __fput+0x36a/0xad0
-
-pps.c had the same bug, fixed in commit c79a39dc8d06 ("pps: Fix a
-use-after-free").
-
-Fix it the usual way: embed the struct device in pps_gen_device and
-register both with cdev_device_add(). This makes the device the parent
-of the cdev, so the cdev holds a device reference until the last file
-is closed.
-
-Fixes: 86b525bed275 ("drivers pps: add PPS generators support")
+Fixes: 9f3e065c54b0 ("i2c: designware: add SLAVE mode functions")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
-Acked-by: Rodolfo Giometti <giometti@enneenne.com>
-Link: https://patch.msgid.link/20260929124937.51114-2-danishkhateeb03@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Atif Ashhar <atifashhar@google.com>
+---
+ drivers/i2c/busses/i2c-designware-common.c | 46 ++++++++++++++++++++++
+ drivers/i2c/busses/i2c-designware-slave.c  |  2 +-
+ include/linux/designware_i2c.h             |  1 +
+ 3 files changed, 48 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/pps/generators/pps_gen.c b/drivers/pps/generators/pps_gen.c
-index 5e207c75e340..059f4fe6c9b4 100644
---- a/drivers/pps/generators/pps_gen.c
-+++ b/drivers/pps/generators/pps_gen.c
-@@ -63,7 +63,7 @@ static long pps_gen_cdev_ioctl(struct file *file,
- 
- 	switch (cmd) {
- 	case PPS_GEN_SETENABLE:
--		dev_dbg(pps_gen->dev, "PPS_GEN_SETENABLE\n");
-+		dev_dbg(&pps_gen->dev, "PPS_GEN_SETENABLE\n");
- 
- 		ret = get_user(status, uiuarg);
- 		if (ret)
-@@ -77,7 +77,7 @@ static long pps_gen_cdev_ioctl(struct file *file,
- 		break;
- 
- 	case PPS_GEN_USESYSTEMCLOCK:
--		dev_dbg(pps_gen->dev, "PPS_GEN_USESYSTEMCLOCK\n");
-+		dev_dbg(&pps_gen->dev, "PPS_GEN_USESYSTEMCLOCK\n");
- 
- 		ret = put_user(pps_gen->info->use_system_clock, uiuarg);
- 		if (ret)
-@@ -89,12 +89,12 @@ static long pps_gen_cdev_ioctl(struct file *file,
- 		struct pps_gen_event info;
- 		unsigned int ev = pps_gen->last_ev;
- 
--		dev_dbg(pps_gen->dev, "PPS_GEN_FETCHEVENT\n");
-+		dev_dbg(&pps_gen->dev, "PPS_GEN_FETCHEVENT\n");
- 
- 		ret = wait_event_interruptible(pps_gen->queue,
- 				ev != pps_gen->last_ev);
- 		if (ret == -ERESTARTSYS) {
--			dev_dbg(pps_gen->dev, "pending signal caught\n");
-+			dev_dbg(&pps_gen->dev, "pending signal caught\n");
- 			return -EINTR;
- 		}
- 
-@@ -121,7 +121,7 @@ static int pps_gen_cdev_open(struct inode *inode, struct file *file)
- 	struct pps_gen_device *pps_gen = container_of(inode->i_cdev,
- 				struct pps_gen_device, cdev);
- 
--	get_device(pps_gen->dev);
-+	get_device(&pps_gen->dev);
- 	file->private_data = pps_gen;
- 	return 0;
- }
-@@ -130,7 +130,7 @@ static int pps_gen_cdev_release(struct inode *inode, struct file *file)
- {
- 	struct pps_gen_device *pps_gen = file->private_data;
- 
--	put_device(pps_gen->dev);
-+	put_device(&pps_gen->dev);
- 	return 0;
+diff --git a/drivers/i2c/busses/i2c-designware-common.c b/drivers/i2c/busses/i2c-designware-common.c
+index a1eca6cd4b75..ae737928820c 100644
+--- a/drivers/i2c/busses/i2c-designware-common.c
++++ b/drivers/i2c/busses/i2c-designware-common.c
+@@ -619,6 +619,50 @@ static int i2c_dw_set_sda_hold(struct dw_i2c_dev *dev)
+ 	return ret;
  }
  
-@@ -151,19 +151,15 @@ static void pps_gen_device_destruct(struct device *dev)
- {
- 	struct pps_gen_device *pps_gen = dev_get_drvdata(dev);
- 
--	cdev_del(&pps_gen->cdev);
--
- 	pr_debug("deallocating pps-gen%d\n", pps_gen->id);
- 	ida_free(&pps_gen_ida, pps_gen->id);
- 
--	kfree(dev);
- 	kfree(pps_gen);
- }
- 
- static int pps_gen_register_cdev(struct pps_gen_device *pps_gen)
- {
- 	int err;
--	dev_t devt;
- 
- 	err = ida_alloc_max(&pps_gen_ida, PPS_GEN_MAX_SOURCES - 1, GFP_KERNEL);
- 	if (err < 0) {
-@@ -171,46 +167,52 @@ static int pps_gen_register_cdev(struct pps_gen_device *pps_gen)
- 			pr_err("too many PPS sources in the system\n");
- 			err = -EBUSY;
- 		}
-+		kfree(pps_gen);
- 		return err;
- 	}
- 	pps_gen->id = err;
- 
--	devt = MKDEV(MAJOR(pps_gen_devt), pps_gen->id);
-+	/*
-+	 * From here on pps_gen belongs to its device and is freed by
-+	 * pps_gen_device_destruct(). The cdev holds a reference to the
-+	 * device, so pps_gen stays around until the last file is closed.
-+	 */
-+	device_initialize(&pps_gen->dev);
-+	pps_gen->dev.class = &pps_gen_class;
-+	pps_gen->dev.parent = pps_gen->info->parent;
-+	pps_gen->dev.devt = MKDEV(MAJOR(pps_gen_devt), pps_gen->id);
-+	pps_gen->dev.release = pps_gen_device_destruct;
-+	dev_set_drvdata(&pps_gen->dev, pps_gen);
- 
- 	cdev_init(&pps_gen->cdev, &pps_gen_cdev_fops);
- 	pps_gen->cdev.owner = pps_gen->info->owner;
- 
--	err = cdev_add(&pps_gen->cdev, devt, 1);
-+	err = dev_set_name(&pps_gen->dev, "pps-gen%d", pps_gen->id);
-+	if (err)
-+		goto put_dev;
++/*
++ * DW_IC_ENABLE_ABORT only aborts master transfers. If the adapter is acting
++ * as a slave and holding SCL low waiting for TX data (SLAVE_HOLD_TX_FIFO_EMPTY),
++ * hardware refuses to disable (IC_ENABLE_STATUS[0] stays 1) until a byte is
++ * written to DW_IC_DATA_CMD.
++ *
++ * Mask interrupts and temporarily set DW_IC_ENABLE_ENABLE so the APB interface
++ * accepts writes to the TX/RX FIFOs without racing with the slave ISR, clear
++ * pending RD_REQ/TX_ABRT interrupts, feed a dummy 0xFF byte to release SCL
++ * (or drain any pending RX byte), and immediately request disable again via
++ * __i2c_dw_disable_nowait() so the controller initiates disable upon
++ * completing the current byte.
++ */
++static void i2c_dw_release_slave_hold(struct dw_i2c_dev *dev)
++{
++	unsigned int status, dummy;
++	bool tx_hold, rx_pending;
 +
-+	err = cdev_device_add(&pps_gen->cdev, &pps_gen->dev);
- 	if (err) {
- 		pr_err("failed to add char device %d:%d\n",
- 				MAJOR(pps_gen_devt), pps_gen->id);
--		goto free_ida;
-+		goto put_dev;
- 	}
--	pps_gen->dev = device_create(&pps_gen_class, pps_gen->info->parent, devt,
--				     pps_gen, "pps-gen%d", pps_gen->id);
--	if (IS_ERR(pps_gen->dev)) {
--		err = PTR_ERR(pps_gen->dev);
--		goto del_cdev;
--	}
--	pps_gen->dev->release = pps_gen_device_destruct;
--	dev_set_drvdata(pps_gen->dev, pps_gen);
- 
- 	pr_debug("generator got cdev (%d:%d)\n",
- 			MAJOR(pps_gen_devt), pps_gen->id);
- 
- 	return 0;
- 
--del_cdev:
--	cdev_del(&pps_gen->cdev);
--free_ida:
--	ida_free(&pps_gen_ida, pps_gen->id);
-+put_dev:
-+	put_device(&pps_gen->dev);
- 	return err;
- }
- 
- static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
++	if (!IS_ENABLED(CONFIG_I2C_DESIGNWARE_SLAVE) || dev->mode != DW_IC_SLAVE)
++		return;
++
++	regmap_read(dev->map, DW_IC_STATUS, &status);
++
++	tx_hold = status & DW_IC_STATUS_SLAVE_HOLD_TX_FIFO_EMPTY;
++	rx_pending = (status & DW_IC_STATUS_SLAVE_ACTIVITY) &&
++		     (status & DW_IC_STATUS_RFNE);
++
++	if (!tx_hold && !rx_pending)
++		return;
++
++	regmap_write(dev->map, DW_IC_INTR_MASK, 0);
++	regmap_write(dev->map, DW_IC_ENABLE, DW_IC_ENABLE_ENABLE);
++
++	if (tx_hold) {
++		regmap_read(dev->map, DW_IC_CLR_RD_REQ, &dummy);
++		regmap_read(dev->map, DW_IC_CLR_TX_ABRT, &dummy);
++		regmap_write(dev->map, DW_IC_DATA_CMD, 0xFF);
++	}
++	if (rx_pending)
++		regmap_read(dev->map, DW_IC_DATA_CMD, &dummy);
++
++	__i2c_dw_disable_nowait(dev);
++}
++
+ void __i2c_dw_disable(struct dw_i2c_dev *dev)
  {
- 	pr_debug("unregistering pps-gen%d\n", pps_gen->id);
--	device_destroy(&pps_gen_class, pps_gen->dev->devt);
-+	cdev_device_del(&pps_gen->cdev, &pps_gen->dev);
-+	put_device(&pps_gen->dev);
- }
+ 	struct i2c_timings *t = &dev->timings;
+@@ -676,6 +720,8 @@ void __i2c_dw_disable(struct dw_i2c_dev *dev)
+ 		if (!(status & 1))
+ 			return;
  
- /*
-@@ -244,18 +246,15 @@ struct pps_gen_device *pps_gen_register_source(const struct pps_gen_source_info
- 	init_waitqueue_head(&pps_gen->queue);
- 	spin_lock_init(&pps_gen->lock);
++		i2c_dw_release_slave_hold(dev);
++
+ 		/*
+ 		 * Wait 10 times the signaling period of the highest I2C
+ 		 * transfer supported by the driver (for 400kHz this is
+diff --git a/drivers/i2c/busses/i2c-designware-slave.c b/drivers/i2c/busses/i2c-designware-slave.c
+index 0abcc7757b23..e51a6b60292a 100644
+--- a/drivers/i2c/busses/i2c-designware-slave.c
++++ b/drivers/i2c/busses/i2c-designware-slave.c
+@@ -40,7 +40,7 @@ int i2c_dw_reg_slave(struct i2c_client *slave)
+ 		return ret;
  
--	/* Create the char device */
-+	/* Create the char device, this frees pps_gen on failure */
- 	err = pps_gen_register_cdev(pps_gen);
- 	if (err < 0) {
- 		pr_err(" unable to create char device\n");
--		goto kfree_pps_gen;
-+		goto pps_gen_register_source_exit;
- 	}
+ 	pm_runtime_get_sync(dev->dev);
+-	__i2c_dw_disable_nowait(dev);
++	__i2c_dw_disable(dev);
+ 	dev->slave = slave;
+ 	i2c_dw_set_mode(dev, DW_IC_SLAVE);
  
- 	return pps_gen;
+diff --git a/include/linux/designware_i2c.h b/include/linux/designware_i2c.h
+index 53f37f18a722..113a9d84e34d 100644
+--- a/include/linux/designware_i2c.h
++++ b/include/linux/designware_i2c.h
+@@ -100,6 +100,7 @@
+ #define DW_IC_STATUS_MASTER_ACTIVITY		BIT(5)
+ #define DW_IC_STATUS_SLAVE_ACTIVITY		BIT(6)
+ #define DW_IC_STATUS_MASTER_HOLD_TX_FIFO_EMPTY	BIT(7)
++#define DW_IC_STATUS_SLAVE_HOLD_TX_FIFO_EMPTY	BIT(9)
  
--kfree_pps_gen:
--	kfree(pps_gen);
--
- pps_gen_register_source_exit:
- 	pr_err("unable to register generator\n");
- 
-@@ -289,7 +288,7 @@ void pps_gen_event(struct pps_gen_device *pps_gen,
- {
- 	unsigned long flags;
- 
--	dev_dbg(pps_gen->dev, "PPS generator event %u\n", event);
-+	dev_dbg(&pps_gen->dev, "PPS generator event %u\n", event);
- 
- 	spin_lock_irqsave(&pps_gen->lock, flags);
- 
-diff --git a/include/linux/pps_gen_kernel.h b/include/linux/pps_gen_kernel.h
-index 6214c8aa2e02..f26f6aac000d 100644
---- a/include/linux/pps_gen_kernel.h
-+++ b/include/linux/pps_gen_kernel.h
-@@ -54,7 +54,7 @@ struct pps_gen_device {
- 
- 	unsigned int id;			/* PPS generator unique ID */
- 	struct cdev cdev;
--	struct device *dev;
-+	struct device dev;
- 	struct fasync_struct *async_queue;	/* fasync method */
- 	spinlock_t lock;
- };
+ /* DW_IC_SMBUS_INTR_* bits */
+ #define DW_IC_SMBUS_INTR_ALERT			BIT(10)
+-- 
+2.56.0.317.g454f8302e1-goog
 
