@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803051;
-	b=zTWT0FRTDJFFfUGjZrV11fXcAsnjj3ylRFPgAEvaDzDH4Ks6cyXsk5RaTGNnXqdCARxP
-	 Z/1nETheYJ+W1alYduMYMg9wH14CfTl6Ff6ATKrUzmI28rBKszFP2BDz1dqtkUbQlf73s
-	 nPrLC4UQZNQWsjXdkeIrznkXDm1CAtl0tJsJ0sAevKnk/wakkaCB3RIJLybegkI93ZpoR
-	 Ky17GsqHoG+Q4kT5Xym70T33BdONmvQXwaeSbgkMsYsUq37er3x2rKWJuXbHbhGG3+zj0
-	 pDfDvFLXu59ihSH9tqlHv1m+EpqyLFGtrJyQ/5d7535edPDeXW/qTTvnJUIPGU+Jl0g==
+	t=1793803060;
+	b=Hf2jak+pFch0q9BNyEG7EhsKkWLTo6D/47zI3/ALgR6tVMOvR33GNxnTgI6gvU1/dGRG
+	 L1w7If6UsSFGp0amEpUOudErM7Yo3xi9/WZpwTR/zghrEfzgjgKfs7+wl4KCbahOtjHAx
+	 LVFgc+iWb9H1BEM4jYF00GxIgHIjKWmzys13KyBq0JMi9NIWxdba1ZgGrqMllOWiB7IrB
+	 DS1ka3zrkDic4FVo60OU70EyE0bfnADewBuF6KcF4XAF+DQylDDNBLd9V9ayiAx0uyCGN
+	 epIsKOf0VZovB4Mpx9sfL0g0qZqVurKfP24XPQtgSjbJw0m4VOHVX56cBvRPwDKZrmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803051;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803060;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=g8qQadul4sVH/IWtM2IMz0cSbxpDI7P1zxK1aoAQiKU=;
-	b=nJJckfyvmu5UySIL9KISpcT9eAoaj0te8FColyrXSldWJPo8NjyKtj5t1PFF5EXNU3Ft
-	 3CKIhy/vyDLMLUW4hIU3nkACk38ptiI65LTfV7S92W46qQLBGwfD3Vn39C1+9HWZ9UVGK
-	 H3sUGUemz3Wcq8rha5eHizq4i4cxEoBKANKHKgoMCGw9N3NUqLp+ViVFCmS+qbHcQddcp
-	 KmNAYOJcjUSs3/blqtgh9MLjsFXrwaSSDbR470kQlhzsN0GDGN/+Rw1f528CXg8pkm38V
-	 zL8bekpZDjw1LFC3n2VuoPM0UVbZoRqvVoLjgHd/HbQwPNukKzmAE1sPAzhWz0Apz6g==
+	bh=zonf7dO53XWxwJrdfSJIR44ldDf0d7rA0MysAOlXNBw=;
+	b=1QXzKchG1GmbyFWMjZ+74El/CWTXylqfo3ETPn9H/153Uxa3MpXT3UoxsDwp3kgfn9zB
+	 lhyw7Cb4Dv6a70IG+H5ACYZ9z0BONT2qXDp0Pt8+mS8gAW7Vi+T3IL6jWIzMpkCOHpLDy
+	 PfoE2jc/FS+xVjLQus8WD3lD2R23gnCbyFyf8jYb5pJOlK/LPAzEusGvAsPUzgat7uXqp
+	 Ial5JZcSGiBl+VdT2Hnksrs1GQfMh3iEDovwH0PlQM9VsobzxQu6ryEBXnqc1P43VMZYO
+	 drf5qD6/9E9Z8R2t+HxvZafB2bTyJWGaBLBLpeQD3UI8BqxkGs/JyNlCenj3vttvM3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="J/pwcuQg";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="GCDN/59j";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD39606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:37:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F929606A32E
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:37:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=J/pwcuQg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84FD21F000C1;
-	Wed,  4 Nov 2026 14:37:30 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GCDN/59j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98DDF1F000C1;
+	Wed,  4 Nov 2026 14:37:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793803050;
-	bh=g8qQadul4sVH/IWtM2IMz0cSbxpDI7P1zxK1aoAQiKU=;
+	s=korg; t=1793803060;
+	bh=zonf7dO53XWxwJrdfSJIR44ldDf0d7rA0MysAOlXNBw=;
 	h=Subject:To:Cc:From:Date;
-	b=J/pwcuQgZNXfGBySGMvEeafnYIOjXy+41+Jx8uU3dZifH0U84j1EZ7c2imfavCCdC
-	 tNOL29MJMhRMKQFMTCOMy2N+KyDv1AcMtTQZBNBtR8DZhFeF+QaeD18Kkkg6XDJE5a
-	 Dojz+dPw7EQPIrl3SsIt4XXHLgGoy8qkRY4PT5JY=
-Subject: FAILED: patch "[PATCH] ovl: set the revalidate flags after d_instantiate()" failed to apply to 6.1-stable tree
+	b=GCDN/59jCdth4P0u9peY35eolGDmDSDr6YRjCqumuIb7ur08hlkNGm/sBxXXMYTwL
+	 OOj393zYYl0dLHswCR1w202dZMElsaKe+r4+6QQtYoGiXiZvYsp5GWs8ef2oKahl8N
+	 /Qw79exNuiusRt0xYjn+nK2pZkcRG5qfQ9ieAjvE=
+Subject: FAILED: patch "[PATCH] ovl: set the revalidate flags after d_instantiate()" failed to apply to 5.10-stable tree
 To: mason@kernel.org,amir73il@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:37:29 +0100
-Message-ID: <2026110429-unwired-deplored-1236@gregkh>
+Date: Wed, 04 Nov 2026 15:37:30 +0100
+Message-ID: <2026110430-explain-dedicator-cfef@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 75e89c0055c1d7f7eeb462995f11253ca5864f79
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110429-unwired-deplored-1236@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110430-explain-dedicator-cfef@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
