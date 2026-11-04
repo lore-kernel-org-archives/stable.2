@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802052;
-	b=FUaakl44W58ad/iB8P61Z0TBdTXRfYFSUg+p9tLfQI3hvNzQkuTyt0uLvqU1hlZ1RnpY
-	 ijM4qVqD3JXExlPW2h/7RDjqMUw9XYwLL1m1SB3vgnOJClWbodkv1zcN7pncr1NvclhFl
-	 0ftpaqsEiatkrCIP0YV+dGo8Zt9OSnBThOFKnRmeOSHBFcQTtBCLyAWHI/uQWKEqmBT2r
-	 9Y0uahHILs0KzDJ3KxtJi1bGS18aVX9wzBZMGbWfIM2ScrX/MLxXps/+r15Ct3TUw49vB
-	 u+JtYLF8gbtmBnlDuDnFtEu1wCersGP8DxhqQJKTUQybHILt6DB9iNMerdM6KTrwpcw==
+	t=1793802054;
+	b=Sb398nlAUG22lni7HrKPuOMP/fXzD14fRAfFegm18xnUBawBjBsCX4QzK2PLdUCPIXY2
+	 tzdxdL7Nq30XxL4LUnI9Rbfy73CHsKaQ/MwUmjb5WjWlOxK0VDj9N54XRtkOt7dW7odRb
+	 M6SZlfTZ7BrRv7DibuDEo4YRKlIe7kYnNXfWJeADBzkXfn04Ba5Q7Z/1SnVxKEpe80yKi
+	 iarKET3p+B1emDW12AGcTE59TN99RrOs8ecHVgml0iazjVg/owtDmjqe/QAfzdczC3P0R
+	 6iB9Scfv1hnulseICS62o1tU8/DfoSLDa7Nm6foNNodUVhYo4ONTJ6RBVdeS5htIMbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802052;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802054;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=WzoMKU8IzBLfiIbL9tk+7ojiBV2kdH+pAgpkgu/IgKs=;
-	b=Kmlfz4YXepAaiYemPIs23asV7AkP9WvmTQgmoV9lcVfFSJ5amnBhN1UGmpfH8OTY1dh3
-	 w3grWrcFgrFJaPRYUXDEoAq708SVMSIxvswzehPzp3MlOFBvYSdSweor9mI8UCkC26fyY
-	 pnUH7Hm9bIj+yWOAJAT10jlKzW9+GNd+6s6cOJGLYaM+k8Rtz7p5uNW8pgLKwzK3mhjIg
-	 Gj1bXw1xG1IGrD8uqZR5zC/iSLzHZVS5uOpvE9pRys0xPrWx1p9aeJBhIKySf4bU9zEC6
-	 VjEv5iXhpcqa0TAOEVcAbjz5k/piAtoigvU5gA00pP0iy7E0DzRuK3QqbijKMB6IhSw==
+	bh=nr/EiIhThjqznpDXQ2/qVqrtUajWcViSHOtmgWFbgLw=;
+	b=ZxZ6GdwK6xwrMVFXtqo9IKG2tehiPm+PemO9pTyI7YtEc2+gxDUHJjIePTK/stWHeyVW
+	 GliHDKsGzwDVmKWiyiticdIsvA4MYB0toFr8C2ICBxRHHyiA6GcpL+gzXu9n6XQF9D4aM
+	 nFbqlnx5RIAKEcPisVHyht90SpifrOhFNwu+piQQoYi+nTIIcHmyP9cgb20aztcsKfhvZ
+	 GfpJ1mFQWsK7I55bk9r0nyjE2CxCdwgiKINlH3OhK1CZjIBXA6KkCUohCTIAOo95wt09m
+	 QGrYSgF5EYetcmj4kQ0i4GgOqbBObqI8CUTq+tQ3iXtuRio9EopPUJyHh/1Z7R3Jrtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mPDV001o;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kkNlbm3T;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6EB7606A32F
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:20:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA11606A32E
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:20:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mPDV001o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3381F00919;
-	Wed,  4 Nov 2026 14:20:51 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kkNlbm3T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BCFE1F000C1;
+	Wed,  4 Nov 2026 14:20:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802051;
-	bh=WzoMKU8IzBLfiIbL9tk+7ojiBV2kdH+pAgpkgu/IgKs=;
+	s=korg; t=1793802054;
+	bh=nr/EiIhThjqznpDXQ2/qVqrtUajWcViSHOtmgWFbgLw=;
 	h=Subject:To:Cc:From:Date;
-	b=mPDV001ogYK2ld9bLEDRcJjyUmwfP627VLCrDCsBSFCW7W8AiKxwXEZMUlarvBG6I
-	 fqDBYi5L+DylTL3RT+ea1wLzB0C4vjzLiRK+igRD7Mv31aotey4oPqx5C5EqtTNqMe
-	 I9VulX10i2Fcphui/XKIEmgJQ6UDpbXbNsvPf6Fg=
-Subject: FAILED: patch "[PATCH] staging: rtl8723bs: fix protected RX frame validation in" failed to apply to 6.1-stable tree
+	b=kkNlbm3TCCGWihFxA0n4rt4agPlSqNNbPRLXMssUlw55OJ//VXuoDKrhaZlTKxSS+
+	 JQQsRQAekax15M78j1/dWsF+GT5sXu2M/cOdN58RXAFGXDfEeQd3K5vh1UMn6VpEhW
+	 lFuYPshtc8upE+wokdWz+N8duoPb6nZFWwVW0haY=
+Subject: FAILED: patch "[PATCH] staging: rtl8723bs: fix protected RX frame validation in" failed to apply to 6.6-stable tree
 To: flynnnchen@tencent.com,gregkh@linuxfoundation.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:20:48 +0100
-Message-ID: <2026110448-heftiness-shed-a845@gregkh>
+Message-ID: <2026110448-mowing-much-b943@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 495cb31c791bdf3f9efef255a9587b05b0526c9d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110448-heftiness-shed-a845@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110448-mowing-much-b943@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
