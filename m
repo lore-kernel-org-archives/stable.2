@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802883;
-	b=Hrm4nUbS/xatsniU7H8c2OCMj+T4bC+6fBdGo7q5SyEeSt6MqA+AHyaGxGc/0rzRIy4A
-	 fFONoCwSMpoQqa5IVNyXxQsreCTU8QM6vzkdRD26z/Du5sxR6PGz/LiyLgzJQdkM9qqdr
-	 YgNserB8iDxufwyJWTEza/fKvNc/6UEEeGDeR7BwrvdhINKN67MWJlDX8R/oNVbnVWU13
-	 2GbNAp5MeJ7Z7byFWFLrekFR49dnKBjcU2jGgPLiX+zj6viYHjh/1dT6MSk0981C/1Jng
-	 /zPlVIgaSMx/ZWax0r2Is82Tl4HZ8Z3suppQL75a9gmhnnQtQHRoJGLYieevoP92JKg==
+	t=1793802888;
+	b=Z85qxW0DCZFDkfIDlsFjIx5ywGeOOwqpdHJc+6tQmcdzZuLUhKH//TP8y7v2xyuE48QD
+	 ck8E+mOY1YA2vldTqIAAG8Y/vUDlOelU0dWfElD7BHETZWK4eXjmtRLacA3vfqXP82tt+
+	 kTXp3rupdUF5mEa76FbqEvDXTiBfbQ7TfFAK3VdCrPHxUS7aA2xYVfeI7wslfPdfHXNTd
+	 Q0um0tgIU8uvpfpEGTCF6sQ4uiCnGAYvI1JMoMFCkWZIPVhqHJN5tzb5jW2ySbv0isCOE
+	 szbEJJEK2Il0WYygtiX3wWvPkhxi25HbkP0CuLhxCF8BzcAYN23bjPKhF7pcdvwHGLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802883;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=miceYdDB+7PLPC/J0qgYQmDdAc3qF6Ff3jq4UUQkwZY=;
-	b=D8ctjLXhKWabHySOwAGkaa+0611EIIG/oHRbjvutRsj5+5wIxUleMoF90XWhfGUnE4uY
-	 lC1cqk+vMhtRQkNNfzjHm0IhstDJgG27UD++iZNtoIln6lC6ikWDQEx57Rw2X428gQM4o
-	 xaSnU3uP7RzWhJMXkBYYtsEb0S2S1ojuVNEaZTXeesOsc66Fjz5ayRGmIhgBTSwsmgvop
-	 a9+x8p75TzLo76RrBN3C7LwAp4b+y7fKYf/c8iz2lZg0lmj4DjjyxKlGopOFD8zpJQyn+
-	 SfTL+lqdn7DwS+jPoH1oNYuVzHCoHDL4SL4LM9nUjXuM8j70Fv0At/j8KHq0zys37sA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802888;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=KkbljiAWvgyHZ9I3H3E2uZkc552wYyE1nU6kkZpmwLk=;
+	b=ip0/1HcWY2OOmjUukBTfjmCRzEiJ5EXBRxmwR5mIqW8kFgi7uTHVZaRCtjub9RZVre9i
+	 XsPyqYwyoSdBxoVEXrKVFnY5XMYojhrHVrchMfmuvlSfKv7ecPO4suGss8x4PN7tU7ipW
+	 rABaChdPYqCssKZo5lUAREvLOeSk48om9SfjKGkyMmzX0wFaCR0JwWdiH4bZQRDK/w2F3
+	 4VAtEtWC3/mMWEtdMSmZglWd3Um/YjP/aLKOe2BNnqzkZ3/M9O5HFTgd83cAp2hym6S70
+	 5DjVCxOFvuD2duhWcdhiwDZxW3eHJkkcQLtdmJIseh3C0TqjCwU3cEf3bTeas1obWPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZCQew7J4;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=F3mVriKP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C14A6606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:34:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98860606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:34:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZCQew7J4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87A501F00A15
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:34:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793802882;
-	bh=miceYdDB+7PLPC/J0qgYQmDdAc3qF6Ff3jq4UUQkwZY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ZCQew7J4C0cPbpFciKAO29xWInbT/Z9mDi4MngzVubYoiE/NbzT2woeIcapJeMO1d
-	 rOxhLT3GseRScwA22F7gUErzJFnWneWR8ELJ4/+aPneT3avjJDYLsymfA0og2a61Aw
-	 Td+crMWeYN2V0NTkV/ksXQvBalTAv6ZQDIpc32Z7ZlILQ7DaeMklE5gyS51OD4Ffqv
-	 y9ubd4J1tRS6KMYaJyiqAp1Nqd9tnk5Ly2DkSshSP5pAirdKjminDIUmG61Qar+l0w
-	 olOrzA9NoVYOWDFEIRj32Zj7BhbgBwa6xveznllTlS8//zKtVwUNIXIkBjzvW439Hr
-	 8pm9c2skhrRpg==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5ba3ec92031so877340e87.2
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 06:34:42 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzamhH/P/Tv1qMXT/gHhNNbaRHy8trs/mhFWNCMS8OkIS8ydRoloYN2JbUJqyif5/evspDdoBo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8+HtQOqd78q4ygZR87Yt1EI+JgcOQWWmANOrJyOYZn1L92CGMf
-	4eLr40rHn0RoQK2z1Ht/njKtVnvsLwZCN4Jyp+Xdy0PMMnlrRO4IZGtLWX7GgHD3oG7MJgXXUtd
-	Vp6c6gANYZryFI5OtDkVV4xZNhvZVshc=
-X-Received: by 2002:ac2:4c4e:0:b0:5be:605c:fca2 with SMTP id
- 2adb3069b0e04-5bfd954bf17mr5907232e87.4.1793802880980; Wed, 04 Nov 2026
- 06:34:40 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=F3mVriKP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF731F00A15;
+	Wed,  4 Nov 2026 14:34:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793802888;
+	bh=KkbljiAWvgyHZ9I3H3E2uZkc552wYyE1nU6kkZpmwLk=;
+	h=Subject:To:Cc:From:Date;
+	b=F3mVriKP3jbOEREGewK1aKbP0DoeGeZBaOD3d1+GfsHQF3JZdaIpt3aVjkkiWbdtg
+	 /dgvW/QOPkuwsZkpQeE/oJRubdI1fW2BRcE1WjuDIknYZbemgYOLE/SWFFm/kHJKgy
+	 6mq0HXOauxzeldXoSKaHHt2DLC02dNWumkEyftBE=
+Subject: FAILED: patch "[PATCH] ovl: hold a reference on the parent in readdir" failed to apply to 6.18-stable tree
+To: mason@kernel.org,amir73il@gmail.com,josef@toxicpanda.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 15:34:47 +0100
+Message-ID: <2026110447-heaviness-stylized-7fac@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,134 +51,144 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104112744.1630864-1-stanleyjhu@google.com>
-In-Reply-To: <20261104112744.1630864-1-stanleyjhu@google.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 4 Nov 2026 15:34:28 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0gWGVXeN9nq=cUe=ufeX5jC3oWpdms-2Eus13dFNxqxAw@mail.gmail.com>
-X-Gm-Features: AclHuK8_mlawzHb7grWA4pMsKYYbWB0rPIQSUSQOlRdZy4jfzqgdM01VFchXEqs
-Message-ID: <CAJZ5v0gWGVXeN9nq=cUe=ufeX5jC3oWpdms-2Eus13dFNxqxAw@mail.gmail.com>
-Subject: Re: [PATCH v2] block: Keep RPM_ACTIVE in blk_pre_runtime_resume()
- when already active
-To: Stanley Jhu <stanleyjhu@google.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Bart Van Assche <bvanassche@acm.org>, 
-	Brian Norris <briannorris@chromium.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Praveen Talari <praveen.talari@oss.qualcomm.com>, Alan Stern <stern@rowland.harvard.edu>, 
-	linux-block@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 4, 2026 at 12:27=E2=80=AFPM Stanley Jhu <stanleyjhu@google.com>=
- wrote:
->
-> Since commit eef1d74bf88f ("PM: runtime: Only set runtime_error on
-> suspend callback failures"), a failed runtime resume leaves
-> dev->power.runtime_error at 0 with runtime_status set to RPM_SUSPENDED,
-> so later runtime resume requests run sdev_runtime_resume() again:
->
-> 1. A runtime suspend increments q->pm_only from 0 to 1 and sets
->    q->rpm_status to RPM_SUSPENDED.
-> 2. The first runtime resume fails in the driver callback, and
->    blk_post_runtime_resume() sets q->rpm_status to RPM_ACTIVE and calls
->    blk_clear_pm_only(), decrementing q->pm_only from 1 to 0 so recovery
->    commands can enter the queue (intended since
->    commit 6e1fcab00a23 ("scsi: block: pm: Always set request queue
->    runtime active in blk_post_runtime_resume()")).
-> 3. A retried runtime resume calls blk_pre_runtime_resume(), which
->    overwrites q->rpm_status from RPM_ACTIVE to RPM_RESUMING, so
->    blk_post_runtime_resume() sees old_status !=3D RPM_ACTIVE and calls
->    blk_clear_pm_only() a second time without a matching
->    blk_set_pm_only().
-> 4. q->pm_only underflows from 0 to -1 (triggering WARN_ON_ONCE in
->    blk_clear_pm_only()), blocking non-PM requests in blk_queue_enter()
->    and __bio_queue_enter() while the device is RPM_ACTIVE, and the next
->    runtime suspend increments q->pm_only from -1 to 0, letting non-PM
->    requests dispatch while RPM_SUSPENDED. This hits the UFS device
->    well-known LUN by default and SCSI disks with
->    manage_runtime_start_stop enabled (ATA and FireWire sbp2 defaults).
->
-> Transition q->rpm_status to RPM_RESUMING in blk_pre_runtime_resume()
-> only when it is RPM_SUSPENDED, and call blk_clear_pm_only() in
-> blk_post_runtime_resume() only when old_status is RPM_RESUMING, pairing
-> each clear with a completed runtime suspend.
->
-> Tested on QEMU ARM64 UFS in SDB and MCQ modes by injecting
-> runtime-resume START STOP UNIT failures on the UFS device well-known
-> LUN, confirming zero pm_only underflows and balanced runtime PM cycles.
->
-> Fixes: eef1d74bf88f ("PM: runtime: Only set runtime_error on suspend call=
-back failures")
-> Cc: stable@vger.kernel.org # v7.3+
-> Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 
-LGTM
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+To reproduce the conflict and resubmit, you may use the following commands:
 
-> ---
-> Differences from v1:
-> - Move SUSPENDED -> RESUMING explicitly in blk_pre_runtime_resume() and
->   clear pm_only only for RPM_RESUMING in blk_post_runtime_resume()
-> - Describe the QEMU UFS test coverage in the commit message
-> - Link to v1: https://lore.kernel.org/r/20261029040001.2100001-1-stanleyj=
-hu@google.com
->
->  block/blk-pm.c | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
->
-> diff --git a/block/blk-pm.c b/block/blk-pm.c
-> index 8d3e052f91da..34cc7c5ca04e 100644
-> --- a/block/blk-pm.c
-> +++ b/block/blk-pm.c
-> @@ -142,7 +142,8 @@ EXPORT_SYMBOL(blk_post_runtime_suspend);
->   *
->   * Description:
->   *    Update the queue's runtime status to RESUMING in preparation for t=
-he
-> - *    runtime resume of the device.
-> + *    runtime resume of the device if the queue is runtime suspended, or=
- keep
-> + *    RPM_ACTIVE if a previous failed runtime resume already reactivated=
- it.
->   *
->   *    This function should be called near the start of the device's
->   *    runtime_resume callback.
-> @@ -153,7 +154,9 @@ void blk_pre_runtime_resume(struct request_queue *q)
->                 return;
->
->         spin_lock_irq(&q->queue_lock);
-> -       q->rpm_status =3D RPM_RESUMING;
-> +       /* Keep RPM_ACTIVE if a prior failed resume reactivated the queue=
-. */
-> +       if (q->rpm_status =3D=3D RPM_SUSPENDED)
-> +               q->rpm_status =3D RPM_RESUMING;
->         spin_unlock_irq(&q->queue_lock);
->  }
->  EXPORT_SYMBOL(blk_pre_runtime_resume);
-> @@ -168,8 +171,8 @@ EXPORT_SYMBOL(blk_pre_runtime_resume);
->   *    driver or error handler will need to communicate with the device.
->   *
->   *    This function should be called near the end of the device's
-> - *    runtime_resume callback to correct queue runtime PM status and re-=
-enable
-> - *    peeking requests from the queue.
-> + *    runtime_resume callback to mark the queue runtime active and clear
-> + *    pm_only if the queue was resuming.
->   */
->  void blk_post_runtime_resume(struct request_queue *q)
->  {
-> @@ -185,7 +188,7 @@ void blk_post_runtime_resume(struct request_queue *q)
->         pm_request_autosuspend(q->dev);
->         spin_unlock_irq(&q->queue_lock);
->
-> -       if (old_status !=3D RPM_ACTIVE)
-> +       if (old_status =3D=3D RPM_RESUMING)
->                 blk_clear_pm_only(q);
->  }
->  EXPORT_SYMBOL(blk_post_runtime_resume);
-> --
-> 2.56.0.385.gac671c819a-goog
->
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 16d319e12328acafeafd3eecdf09c46d7fb43452
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110447-heaviness-stylized-7fac@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 16d319e12328acafeafd3eecdf09c46d7fb43452 Mon Sep 17 00:00:00 2001
+From: Chris Mason <mason@kernel.org>
+Date: Wed, 7 Oct 2026 10:53:10 +0000
+Subject: [PATCH] ovl: hold a reference on the parent in readdir
+
+Listing a directory on an overlay uses a freed dentry and crashes the
+kernel when a lookup moves the directory at the same time.
+
+Code that can sleep may only use d_parent without a reference while
+something stops a move of the dentry. ovl_iterate_real(),
+ovl_need_adjust_d_ino() and ovl_cache_update() use the d_parent of the
+listed directory and hold only the lock of that directory. When a
+lookup finds the directory under another parent after a change to a
+layer, d_splice_alias() moves it without that lock and drops its
+reference on the old parent.
+
+With a delay in ovl_iterate_real(), getdents64 on an overlay directory
+raced a rename in the lower layer and a lookup that moved its dentry,
+and after an rmdir of the old parent KASAN reported a use-after-free in
+security_inode_getattr().
+
+Fix this by using dget_parent() in the three functions.
+
+Fixes: b5efccbe0a12 ("ovl: constant d_ino across copy up")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[amir: fix comments in ovl_need_adjust_d_ino()]
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+
+diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+index b875332107d3..45239ef63e8c 100644
+--- a/fs/overlayfs/readdir.c
++++ b/fs/overlayfs/readdir.c
+@@ -588,8 +588,8 @@ static int ovl_cache_update(const struct path *path, struct ovl_cache_entry *p,
+ 			goto get;
+ 		}
+ 		if (p->len == 2) {
+-			/* we shall not be moved */
+-			this = dget(dir->d_parent);
++			/* d_splice_alias() can move even a locked dir */
++			this = dget_parent(dir);
+ 			goto get;
+ 		}
+ 	}
+@@ -818,6 +818,7 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
+ 	struct dentry *dir = file->f_path.dentry;
+ 	struct ovl_fs *ofs = OVL_FS(dir->d_sb);
+ 	const struct ovl_layer *lower_layer = ovl_layer_lower(dir);
++	struct dentry *parent;
+ 	struct ovl_readdir_translate rdt = {
+ 		.ctx.actor = ovl_fill_real,
+ 		.ctx.count = ctx->count,
+@@ -829,18 +830,26 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
+ 	if (rdt.xinobits && lower_layer)
+ 		rdt.fsid = lower_layer->fsid;
+ 
+-	if (OVL_TYPE_MERGE(ovl_path_type(dir->d_parent))) {
++	/*
++	 * The lock on dir does not stop d_splice_alias() from moving it to
++	 * another parent, which drops the reference dir holds on this one.
++	 */
++	parent = dget_parent(dir);
++	if (OVL_TYPE_MERGE(ovl_path_type(parent))) {
+ 		struct kstat stat;
+ 		struct path statpath = file->f_path;
+ 
+-		statpath.dentry = dir->d_parent;
++		statpath.dentry = parent;
+ 		err = vfs_getattr(&statpath, &stat, STATX_INO, 0);
+-		if (err)
++		if (err) {
++			dput(parent);
+ 			return err;
++		}
+ 
+ 		WARN_ON_ONCE(dir->d_sb->s_dev != stat.dev);
+ 		rdt.parent_ino = stat.ino;
+ 	}
++	dput(parent);
+ 
+ 	if (ovl_is_impure_dir(file)) {
+ 		rdt.cache = ovl_cache_get_impure(&file->f_path);
+@@ -896,8 +905,10 @@ static bool ovl_need_adjust_d_ino(struct file *file)
+ {
+ 	struct dentry *dentry = file->f_path.dentry;
+ 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
++	struct dentry *parent;
++	enum ovl_path_type type;
+ 
+-	/* If parent is merge, then need to adjust d_ino for '..' */
++	/* With xino, need to map real d_ino to the unified overlay ino space */
+ 	if (ovl_xino_bits(ofs))
+ 		return true;
+ 
+@@ -906,8 +917,14 @@ static bool ovl_need_adjust_d_ino(struct file *file)
+ 		return false;
+ 
+ 	/* If dir is impure then need to adjust d_ino for copied up entries */
+-	if (ovl_is_impure_dir(file) ||
+-	    OVL_TYPE_MERGE(ovl_path_type(dentry->d_parent)))
++	if (ovl_is_impure_dir(file))
++		return true;
++
++	/* If parent is merge, then need to adjust d_ino for '..' */
++	parent = dget_parent(dentry);
++	type = ovl_path_type(parent);
++	dput(parent);
++	if (OVL_TYPE_MERGE(type))
+ 		return true;
+ 
+ 	/* Pure: no need to adjust d_ino */
+
