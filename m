@@ -1,88 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793833072;
-	b=f+QZoniQHgS4+VUSnYKFz9KbJKWA0iHGbMUvahAEQOTVya/6lLVpaha/eFcllXEC0sAi
-	 JLKFCROBniC/wpsBELajhPMKBVkydTTQi1VqK3WAjWwI+TQ6AY9zNUaRyLJCYxbZC8fNM
-	 BUTxETMP9lenHg/ojtM8URmZd1CR2ZYI01Wh/bpcW2U9vvY9I4DwumTcVexgMqmc6VXaa
-	 Ohv6WS+qZ2EgsSTGG7N5GZ9+xw3pkooipIdfZ5C8yJbdwcjEOsspbz/iEDrdoh9QGs55s
-	 uiTiqd9/eIL7pR+Bd7LwnT1dG7lrs1BbWFt3dPwxlNz4SveQNbwyQ2uYo3O9MUOsroA==
+	t=1793833147;
+	b=pqyzh6P7eqJUmTNr3hGY8DGW9TKERS0GNFChAPLepxTO9DpS6tc1Pg41Oxi+i4B8cOTW
+	 TwvP2BzYPwN9QI4KVi4nVChGKzwVyc9pfaowRKO3DuUNA+q4AiQWeUfghpm02NW2y9I1t
+	 zCfpWr6KCIDb1a5ynIbIJkYNxrYYq++fNUVJgKzn7n8NRpVcLJQlbx4UH0gHjXJ/MGQGO
+	 gBYAKV/bHalkW+00hw+HOi2nBgimaZBEE5cFm+1V/JuYkEbGcTypksMX9sTQn3CBFnKgm
+	 iDRHXobRM1qXcDvv0TWQ9DAFtbKWiBscGYsvNXblacadIG2Lhe7zewPWhz8WS2dmGdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793833072;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793833147;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=bZmm/fjciQHFDsHygF6gqzElYGHv0HpumcgfM0NGUjo=;
-	b=fQ4IjiZFaXAFxrVgZirYtWQ5e1xWhp4hitd9X3Vl4/1dVJKJQm4YYTTMYLgbHWz+ejDT
-	 7gVMk9Olxj/Vwmw3nxxKHpDzy3on0QUAcIrzlrM+SXeGcfHke3cMACHkLiShW/YcYONQs
-	 8m10+TOFKXQrafADH7m1WBY7i0vZ66s7LmcCe/bt/XQtg0Hlhd25x52+vtRcC/mpm4Szu
-	 2LsAoQRGkr2n2aCidngRZfkjgueD8rAB+gu097cxspG56FC1+dUVzmOM72BJz21YWU82i
-	 K8N5rokA4YbUOEKTrhr52Jx/QXrOC2RjhTFGZR1hTuDeEnNJybW1droovibO7Ipp1Xw==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
+	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
+	 Date:Message-ID;
+	bh=6/7endb+8IggIil5UdE7Nqzs9svPgIf5YHVcFbhUv1o=;
+	b=c5mgJGj7jl5ZVWo7eNKfrTtrEpWr7atLA0B+87Hu96bZbDcB/cYoMgt1UCR5bTIMvYxE
+	 RJBoa1ifwkZ2GKCRGzuMvTxpxCSGw6JAmM9mmRgYGsG/dl2MLA0001m3WS7qPlQa44zNn
+	 cq53LSL3GJ154W4n05QYIK62CEI1Ejhr4O86RwTxs1miRm/22gjTb5j63PiIMIf1Yts0H
+	 LfeQ2RsdZn46n2oxvVpnv53xoHGzY5EuC81JZ17Bu3jt4w2RaKbCIcz07nUQgRURPd1uZ
+	 pwXt3MM9buoAxVjKMv9u16yB1h2NmvZon+4gwLF3iWSNNMEYWuQqPDe9fblHNLMROZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cDfTc7XW;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dmarc=pass header.from=kernelci.org;
+	spf=pass smtp.mailfrom=kernelci.org;
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=fKK4yvvI;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B24606A329
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 22:57:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3B24606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC8C606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 22:59:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAC8C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cDfTc7XW
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so11070985e9.3
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 14:57:51 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=fKK4yvvI
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1b244fb7fffso1755661c88.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 14:59:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793833070; x=1794437870; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bZmm/fjciQHFDsHygF6gqzElYGHv0HpumcgfM0NGUjo=;
-        b=cDfTc7XW0ifae+8M1LuPWAwdIdNKakZkFWFnJt6KL55fGa37RQmqkq2uRmhEY7B1n3
-         CaBTcgavNgfBak+NIwaNa3H5fTfJ9PIT5PgZQgH2MazyhDmo4aFllXX0SMasXGEEM9Fl
-         p/51Tb9ZeDWq1NeJnxB9QMyf1cDUO3GXJQBRKRgploH8Le81bwbGb+y13nOzQrXCWpNq
-         F42HKXSHEzc0A6bpTaknb/yOiq64kB0H1wCLiqtk4d1YdokCcUVaxOjocfuDaznMEOXl
-         BFMxyeOdRQgLkukh4xswNJohIqsIMfXRyH1cjs8NbBnWvzJr4LA0LYjw3tAYWNzSjLvS
-         MNIA==
+        d=kernelci.org; s=google; t=1793833146; x=1794437946; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6/7endb+8IggIil5UdE7Nqzs9svPgIf5YHVcFbhUv1o=;
+        b=fKK4yvvIaPjTHLC4wdNOv2qwgpoiPVZpZJ1lz7xEgoDt/CUPCdHQxY8/jiJmycXIyS
+         rOuDl8Pa/plv8ya6+/dryi7bJRKRDqF4i1RdH+eiwRFWKC5Mqx2HWvNH8+vvHk746Y+w
+         gRvzfBPega5FrZJQyfEqphDBqDfJh3bEBxib08nE23cgYxzKh9Kz518pPB3log+LiBrm
+         IXGcHtcs08O+RpnhTwMDMB2Io4RX70P52L6Oxp4vAT95hNhuE7+WtO5RAiN9oBU3vaBv
+         YyG7VHdG7CGsiedmagEsRgmGHMDsv0p36GyQEriOHvI9u1hHH6p7N0ODyc/ZByVErc0e
+         nFOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793833070; x=1794437870;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bZmm/fjciQHFDsHygF6gqzElYGHv0HpumcgfM0NGUjo=;
-        b=SpzDsdjls0wyqvAlyQy4DjsXyrbf1mVNOGIeaH79F/QAjQpZ+7hJHFoDhjXvNKTQpK
-         bg7/B9Ei0VTiP6/RlVhBPyATKCJPrEU9196xvR5mzicFwMy5dnnVCYbaXZbauIhRsuJZ
-         VpHQpA3KjoA2kRQpPekTInlR/QuQrzIv7pt6/oUCs+jGdIsAv0wKvaj71JR9SVS+EfBe
-         /47am//AZ9CD1xWFLYWxw7tp8fSgIk4WsVybzAeioNqkcHpsBO5rMMgg0eBQIfPMkBFI
-         kCaM3qWBjqr1jlJPpQUfvE5GT3tHYorZaFWU0VPJaRQZ7eAh+sEpyUE6B8F5CJfVl1jj
-         MSQw==
-X-Forwarded-Encrypted: i=1; AKwUvBxt4EY9u2Z8ZdVknWEMIcBkOGmhMAap4EnKMnDDcGBEu4rb3xidisgC1dB6peNjlq5G22cNJAw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9IPZqSnbRneutpZ7ucQ9+VzM70l2u0YQAfMIcz4OuRvjkyrj0E
-	q99BAGMOgMVH4iWMd/p6QYH+xXkTdRfqTlG4yiffkKGq2kmK/9oxrUiT
-X-Gm-Gg: AYBFou183Al1uoX/nrdN7MRI82t5GvT9GbKXuZAhPErlaqoJZ7htvkY6zpM28uWQYvu
-	JdfmGSepe0iKwS4iKmhiOE1t8oW06NEqvHd9Cy+GyW+oDDWZhopVky7GzArsRHUBXvoL4cRT5zH
-	rePEeQ25U1+aH/D3BYcUZyt9eVz32qD/ymIv0jIUNpokmEvtGwx04wC2OzuUe1eZwkiEK6gDSBZ
-	ieF/z1Y3ghMfJqTP7FtIvQhMZJ0tXihsQK7SkMkre2r3hUBG3uDbZ+AqQYjiWgrkQNkUh5nNirc
-	HXrKZKnP2KXv8L0m4osGs0anKcsVsCtUnBXi2ep94UG+Sf2BDR8twf9LVtApL3B2IH/y0K4iEb3
-	q1zi6iSd6oKuMAd+sGoO81HBso5CzFgXao3rTbndZlUdeNDFFnI9DG5jAbI+oYnie0nKQYItVIe
-	P2rXh9lY38qOhBpNgj638scmg5Mm9mwwE9r4XUtM0CVJj5Rt8osZXktF3zq178nZ6+ZZz+S9s5R
-	aec/2KURFmHO/XsRnPvE16Wm5T9ACcikcw2kpN7uKiaf9T/Omz6YQ0IcLoYmVYIko2cWCv80DzM
-	RGX9Q8KcljFavNJITVxMHDk=
-X-Received: by 2002:a05:600c:6212:b0:4b0:a7aa:843 with SMTP id 5b1f17b1804b1-4b0a7aa0a54mr222825565e9.25.1793833070285;
-        Wed, 04 Nov 2026 14:57:50 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b5725061e1sm17756545e9.7.2026.11.04.14.57.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 14:57:49 -0800 (PST)
-Message-ID: <93d13781-0c37-4a3c-8fca-6f8108eff35a@gmail.com>
-Date: Wed, 4 Nov 2026 23:57:47 +0100
+        d=1e100.net; s=20260707; t=1793833146; x=1794437946;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6/7endb+8IggIil5UdE7Nqzs9svPgIf5YHVcFbhUv1o=;
+        b=ZjcQTHyZZIOFA107YwWLoOeaN3ogKBKgfaHbeKtsL7xIObcqBAjH6iG5rXbp90nC0w
+         2ArFugPole88b7BRKBXW2CE6wGwrkZJc4F15ajpXgDPkjCX4NdosGGHe6Eu8whcM231j
+         MP3nrf9A0f5BqTX8GVgoDNPkGO30mbPBNAlapm5NZoeja0C3k1fF2OXD2MyLDDvpOCI2
+         cT+8BfXQp8fOQINhroJDocCBVmmhbVGfxLqW4Mz6OdGSQ90Unz4Wn1H35+pqMPVJO09/
+         pXuxG+e8J6uvYrTorxytEzEFN9G8N1l+OhZV2xVAC1gJWOh9XNvpJ2YMITr3nAYG+SDl
+         kMhQ==
+X-Gm-Message-State: APuU4Z8pXVRqtM/fgKgrVNgA+6HIkCqUG5WfW10tZb9oz0X2kRT158Ut
+	iKSAaMnV3BukX2PG+lUw6ZG5LNnccSZs+fG6BE/tU8DA/RytvpDS0VAtjtXX02t7eUbbR6MuPNF
+	UFXqy
+X-Gm-Gg: AYBFou3VP92OqFihghgNfUb/4pkIn4wZrz8nfDtZ/aXOAw73Cko5twhfX4fMjaudpoc
+	fCekB4rxay1oyRjXbSIUiLsiefqGz+nEK/C4YhtYKKFUxmu5lJxcAUqeGZbSAvXWLfdknotLipg
+	Zbj2SoLOfLQSCyw0HL1hujQ6gdY6l+u5ugttKgEWsX+/MQhQdUmjWDDXpnRv5ykXqaR/eVfid6s
+	0d0UOWTtddLXJlZgjp7YMzkh/4RJcRIAHR/DPn0FpJMkJmoXl98UiFJlHw6irxup74n4IFGl5nk
+	VjCwxHFvRCPetwMm31ka3H5tZ+f9oiQC6Ftctrc3m0bX7SvsQRYimYq3bvs2adqr2AMQ0V80WNl
+	qE4rWvKi33jvO2osn4549aBBStS22vc7lpSHjoe7Mac3KiEuR6IQfWjSKSiQZmIxtbXsJORk/mT
+	tcr9bja0u5GnYcskAxUWA+euxgqgPcbuae2fHDnjxtgF9wsw+udW7HZ6jQHkIzHcgxNSJClw6/x
+	uXQ2iB84ma/c5wnYFpGpowVsg0rytdrtoBUsIUxibYOhB41kXUHZ49FiS1HEeUSh2/PXY0X39kl
+	WqOQS5WT3Q3+mJqkrrd5Uw==
+X-Received: by 2002:a05:7022:b053:10b0:184:19ee:1fdd with SMTP id a92af1059eb24-1ac56302618mr26406050c88.5.1793833145837;
+        Wed, 04 Nov 2026 14:59:05 -0800 (PST)
+Received: from 34406640b1f4 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245ac2f44sm11602661c88.0.2026.11.04.14.59.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 14:59:04 -0800 (PST)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,54 +89,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/4] mm/rmap: duplicate a PMD mapping as one in
- folio_dup_file_rmap_pmd()
-To: Konstantin Khorenko <khorenko@virtuozzo.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
- =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
- stable@vger.kernel.org
-References: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
- <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-1-c56d0d26f970@virtuozzo.com>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-1-c56d0d26f970@virtuozzo.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+Subject: [REGRESSION] stable-rc/linux-6.6.y: (build)call to undeclared
+ function
+ 'huge_page_mask_align'; ISO C99 and lat...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Wed, 04 Nov 2026 22:59:04 -0000
+Message-ID: <179383314366.333747.2380725177437581538@kernelci.org>
 
-On 11/4/26 9:40 PM, Konstantin Khorenko wrote:
-> folio_dup_file_rmap_pmd() passes PGTABLE_LEVEL_PTE to
-> __folio_dup_file_rmap() for HPAGE_PMD_NR pages, so it adds HPAGE_PMD_NR
-> PTE mappings to the folio instead of one PMD mapping.
-> 
-> The helper has no caller yet, the next patch adds the first one. Pass
-> PGTABLE_LEVEL_PMD, as folio_try_dup_anon_rmap_pmd() does.
-> 
-> Fixes: d8ef5e311d7b ("mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+New build issue found on stable-rc/linux-6.6.y:
 
-LGTM:
+---
+call to undeclared function 'huge_page_mask_align'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration] in arch/arm/mm/mmap.o (arch/arm/mm/mmap.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Log excerpt:
+=====================================================
+/tmp/kci/linux/arch/arm/mm/mmap.c:77:21: error: call to undeclared function 'huge_page_mask_align'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   77 |                 info.align_mask = huge_page_mask_align(filp);
+      |                                   ^
+/tmp/kci/linux/arch/arm/mm/mmap.c:77:21: note: did you mean 'huge_page_mask'?
+/tmp/kci/linux/include/linux/hugetlb.h:1108:29: note: 'huge_page_mask' declared here
+ 1108 | static inline unsigned long huge_page_mask(struct hstate *h)
+      |                             ^
+/tmp/kci/linux/arch/arm/mm/mmap.c:131:21: error: call to undeclared function 'huge_page_mask_align'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+  131 |                 info.align_mask = huge_page_mask_align(filp);
+      |                                   ^
+2 errors generated.
 
--- 
-cheers,
-jose a. p-a
+=====================================================
+
+When fixing this issue, please attribute this report according to the
+patch submission rules:
+
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:c7de300ea4138aca11b83ceaae1f1143053a5e75
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  7bb6899c97e42d33cd49ada817664841dc972f3d
+
+# Builds where the incident occurred:
+
+## multi_v7_defconfig on (arm):
+- compiler: clang-21
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aebb1be5b429d354eef1cce
+
+#kernelci issue maestro:c7de300ea4138aca11b83ceaae1f1143053a5e75
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
