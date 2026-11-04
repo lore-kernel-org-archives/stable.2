@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802554;
-	b=uy+o7piSoTRXOTk73+NEeyagCSlJcXvHzLMhDYtl/2CSo+vVxEp7SVV60bR9ZlUxT+AQ
-	 Locgbq+mCqazI2iI3qUO4voSTLCaaO1iGQcjLohAcGW1ejIv/SVF07Jimx8AqfXtzIWtY
-	 OltC25njdQz+3V2AGF3LicePLVwDOrJVDIFvFzl2FEyOa3F+QOIgcx4xa0V7fxhhe8xMT
-	 FYSe64zire9JHx+4xvStyvc5+cKi8YmVP2OdxwDteVDEqQ+YZqbiLXJIAYPcIeXSSZ1Ks
-	 lXjSef8t3ON3uJFYbgfbjasAKlqWnI/4JEzsz7xzk7GnQeAfBcOAhIdqHB3YP4b29DA==
+	t=1793802573;
+	b=ZG+hSNh1kU5YXVvt40SH/77u77ql0zGPFd6fBxgFFFzQfdlPwBuVT70n95M4PoknfIz1
+	 c/cDdILUvSVKovuHOWOrzEDrJ6b5+3eJG9j63j+lKHpsOo6TCI7Iw/J+mXtVp6uydrRTI
+	 PyssQP5VtDCNgw/I+UuyzB8KNnTI9XxVP0oXVrbQHlFHiJEo635glSUPA5Zi1HGrgS+Z6
+	 Lrwex4ZZKyayY1TTWjkksbpRTolDlneMn0Dk9FeHpR9SlR/ng2sXLCe+nfYK4yd/BEQ/g
+	 RVa2w69mk71VX6j1xwyIkCskZAmbM7nIO5N75VHDEuoYY6jQTqHxzCx+gBtJsjTSnoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802554;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802573;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+gplzVDUl7oGAcX8wJc95uGUd6ch1eZ6FNvNGOxRmT4=;
-	b=3e6GXtlD5OtjHG7LQ/0FCsaqhJXTS1WVEWGG2wr+R1tyAorW8QRe+gZamx6ahh+N92sc
-	 /LMrmjSKXARrGE1uZd2LUYhVRb0YLUyr3Gl4AS+0fdLHPbbk4FQyly9C7yZdrSk4Bq35e
-	 fFZUKYmJGpIJWvWqcgPmMtdvddz5gYpt8+G3Hk0mFtlR1qxsnMFlBinpzdC2ndmJNHnqk
-	 6FIRYhvdgO2knBt2Y1KIinmjDI+xcMvmPn6jrurFQffYYOz683h61+vYw/PJl9SXSK3L0
-	 ejOARtkQ7LAXOAUJVsrqglFUYZKHogxrOauRp1Rval8DciQF7bm2CCHdIy8JrFup4YQ==
+	bh=jUe+bQ//Dydq7H8+YOMxEInguf/SKCN2aBbYSiy7MvI=;
+	b=g//3YaBwEear8iIdV4gwHJDCTCyELDdPjjj605WKNtnl5QRfdizZ/2MKEiGygJcjeVEY
+	 1eGSrwiwppwHxP+UpivJyIa/9actLrF29kDsaun+5UFUiDI44dQq2S/7uKougwsVZNnJZ
+	 hfeuLavcFQYU5zzO7nEgaLd8FzB2NdvTZcmdKsprpIK8aZzBDosDIHcW7pDbCqluaB2Y/
+	 ShmkqJz6+l3xCmog1fFAfjyk5IIWu+2fHgFIeFY2thtkXXAKv+leVGiBmhEf4BP5d5ca+
+	 QOqkI00E4orWiMButk00aOjsIAG2UdNu46z+T2thyDTMwiLwIRBpWzaYbP9zvgXwWsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FBifTnvu;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Dzu/RE0p";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B77606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:29:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5886B606A333
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:29:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FBifTnvu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63F711F000C1;
-	Wed,  4 Nov 2026 14:29:13 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Dzu/RE0p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B57FC1F0093A;
+	Wed,  4 Nov 2026 14:29:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802553;
-	bh=+gplzVDUl7oGAcX8wJc95uGUd6ch1eZ6FNvNGOxRmT4=;
+	s=korg; t=1793802572;
+	bh=jUe+bQ//Dydq7H8+YOMxEInguf/SKCN2aBbYSiy7MvI=;
 	h=Subject:To:Cc:From:Date;
-	b=FBifTnvuNU3nzpMdKvb2DwOWntgUi85YFjBGPJiVXsJ5Wwxp1phjZKbVrrUVvaqGT
-	 Q1egQ0gh5ezsYzzJEPfHxExMrn6nFbuskaLANSVeuhSN0m6nqATiz94BpHUDjknNnp
-	 5hImoCs+f0el9VFyijERuBu8bG2PBT1dkhOUcWEA=
-Subject: FAILED: patch "[PATCH] phy: core: Fix race-condition between _of_phy_get() and" failed to apply to 5.10-stable tree
-To: bryan.odonoghue@linaro.org,loic.poulain@oss.qualcomm.com,manivannan.sadhasivam@oss.qualcomm.com,okerixx@gmail.com,vkoul@kernel.org
+	b=Dzu/RE0pNjZ/+7GcREKnqOaCz7y9Nd7EMsHLA7DT01kxlNw70pa3fiXbP7py8namY
+	 VDhV5TnKFaUX7ZLgcLzIhRZEUhQhFYzycASSGdoHcmLue7jYhNcVfTht4qQ/FHX4V9
+	 i12ZFBv6xTr5Iv21Rs1xodqhWbo6AWdt95MV/fLA=
+Subject: FAILED: patch "[PATCH] pps: generators: don't use the driver's info after unregister" failed to apply to 6.18-stable tree
+To: danishkhateeb03@gmail.com,giometti@enneenne.com,gregkh@linuxfoundation.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:29:12 +0100
-Message-ID: <2026110412-deskbound-splashy-7b2b@gregkh>
+Date: Wed, 04 Nov 2026 15:29:31 +0100
+Message-ID: <2026110431-imminent-guts-a847@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 090055ee629523092688da42428558ba56d4272f
+git cherry-pick -x 4e8063cae337cb7328e6856235cf4de5d165516e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110412-deskbound-splashy-7b2b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110431-imminent-guts-a847@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,183 +79,141 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 090055ee629523092688da42428558ba56d4272f Mon Sep 17 00:00:00 2001
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Fri, 18 Sep 2026 14:56:36 +0100
-Subject: [PATCH] phy: core: Fix race-condition between _of_phy_get() and
- try_module_get()
+From 4e8063cae337cb7328e6856235cf4de5d165516e Mon Sep 17 00:00:00 2001
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+Date: Tue, 29 Sep 2026 07:49:35 -0500
+Subject: [PATCH] pps: generators: don't use the driver's info after unregister
 
-Sashiko asked during a patch review if the existing usage pattern had a
-race condition; specifically in of_phy_get() if it was possible between
-returning from _of_phy_get() and running try_module_get() that a module
-might be unbound leading to use-after-free.
+A file that was opened before pps_gen_unregister_source() keeps
+pps_gen, and with it the pointer to the driver's pps_gen_source_info.
+PPS_GEN_SETENABLE and PPS_GEN_USESYSTEMCLOCK keep using that pointer
+after the driver has gone:
 
-Looking at the code this appears to be so, there is no linkage between the
-phy and module under a synchronisation primitive.
+ - pps_gen_tio allocates its info with devm_kzalloc(), so after an
+   unbind both ioctls read freed memory, and SETENABLE calls the
+   driver's enable() with its freed private data.
 
-Using the phy_provider_mutex in phy_get() will ensure there is a link between
-the returned phy pointer and the module_get() bumping the module reference
-count.
+ - pps_gen-dummy does not set info->owner, so it can be unloaded while
+   the file is open, and the ioctls then read the unloaded module's
+   data and call its code.
 
-Amend phy_get(), of_phy_get() and devm_of_phy_get_by_index() to fix the
-same usage pattern.
+TIO can't probe in a VM, as it needs ART. A test driver that registers
+its info in devm memory like TIO does, unbound while /dev/pps-gen0 is
+open, gives:
 
-phy_provider_unregister() must take the phy_provider_mutex so amending
-phy_get()/of_phy_get() to take that same mutex guarantees there is no
-use-after-free.
+  BUG: KASAN: slab-use-after-free in pps_gen_cdev_ioctl+0x4c1/0x580
+  Read of size 1 at addr ffff88800e647f38 by task ppsgen64/145
+  ...
+  Freed by task 146:
+   kfree+0x25a/0x6d0
+   release_nodes+0xd1/0x140
+   devres_release_all+0x10e/0x1a0
+   device_unbind_cleanup+0x71/0x250
+   device_release_driver_internal+0x41b/0x570
+   unbind_store+0xd9/0x100
 
-Fixes: ff764963479a1 ("drivers: phy: add generic PHY framework")
+and unloading pps_gen-dummy while its file is open oopses:
+
+  BUG: unable to handle page fault for address: ffffffffa0203040
+  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:pps_gen_cdev_ioctl+0x372/0x580
+
+Protect info in the ioctl handler with a mutex, and clear it under the
+mutex on unregister, so that unregister waits for the ioctls using it
+and later ones fail with -ENODEV. PPS_KC_BIND does the same for a
+removed PPS device since commit 3649f9a6b897 ("pps: don't allow
+PPS_KC_BIND on removed devices"). The sysfs attributes need nothing
+new: they are removed, and their callbacks drained, before info is
+cleared.
+
+Fixes: 86b525bed275 ("drivers pps: add PPS generators support")
 Cc: stable@vger.kernel.org
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11 (Glymur)
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Link: https://patch.msgid.link/20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-1-dc244e124e71@linaro.org
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+Acked-by: Rodolfo Giometti <giometti@enneenne.com>
+Link: https://patch.msgid.link/20260929124937.51114-3-danishkhateeb03@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-index 21aaf2f76e53..89addd732bff 100644
---- a/drivers/phy/phy-core.c
-+++ b/drivers/phy/phy-core.c
-@@ -124,13 +124,13 @@ static struct phy *phy_find(struct device *dev, const char *con_id)
- 	const char *dev_id = dev_name(dev);
- 	struct phy_lookup *p, *pl = NULL;
+diff --git a/drivers/pps/generators/pps_gen.c b/drivers/pps/generators/pps_gen.c
+index 059f4fe6c9b4..d80e28dc31dc 100644
+--- a/drivers/pps/generators/pps_gen.c
++++ b/drivers/pps/generators/pps_gen.c
+@@ -69,17 +69,28 @@ static long pps_gen_cdev_ioctl(struct file *file,
+ 		if (ret)
+ 			return -EFAULT;
  
--	mutex_lock(&phy_provider_mutex);
-+	lockdep_assert_held(&phy_provider_mutex);
+-		ret = pps_gen->info->enable(pps_gen, status);
+-		if (ret)
+-			return ret;
+-		pps_gen->enabled = status;
++		scoped_guard(mutex, &pps_gen->info_lock) {
++			if (!pps_gen->info)
++				return -ENODEV;
 +
- 	list_for_each_entry(p, &phys, node)
- 		if (!strcmp(p->dev_id, dev_id) && !strcmp(p->con_id, con_id)) {
- 			pl = p;
- 			break;
- 		}
--	mutex_unlock(&phy_provider_mutex);
++			ret = pps_gen->info->enable(pps_gen, status);
++			if (ret)
++				return ret;
++			pps_gen->enabled = status;
++		}
  
- 	return pl ? pl->phy : ERR_PTR(-ENODEV);
- }
-@@ -624,6 +624,8 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
- 	struct phy *phy = NULL;
- 	struct of_phandle_args args;
+ 		break;
  
-+	lockdep_assert_held(&phy_provider_mutex);
+ 	case PPS_GEN_USESYSTEMCLOCK:
+ 		dev_dbg(&pps_gen->dev, "PPS_GEN_USESYSTEMCLOCK\n");
+ 
+-		ret = put_user(pps_gen->info->use_system_clock, uiuarg);
++		scoped_guard(mutex, &pps_gen->info_lock) {
++			if (!pps_gen->info)
++				return -ENODEV;
++			status = pps_gen->info->use_system_clock;
++		}
 +
- 	ret = of_parse_phandle_with_args(np, "phys", "#phy-cells",
- 		index, &args);
- 	if (ret)
-@@ -635,11 +637,10 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
- 		goto out_put_node;
- 	}
++		ret = put_user(status, uiuarg);
+ 		if (ret)
+ 			return -EFAULT;
  
--	mutex_lock(&phy_provider_mutex);
- 	phy_provider = of_phy_provider_lookup(args.np);
- 	if (IS_ERR(phy_provider) || !try_module_get(phy_provider->owner)) {
- 		phy = ERR_PTR(-EPROBE_DEFER);
--		goto out_unlock;
-+		goto out_put_node;
- 	}
- 
- 	if (!of_device_is_available(args.np)) {
-@@ -653,8 +654,6 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
- out_put_module:
- 	module_put(phy_provider->owner);
- 
--out_unlock:
--	mutex_unlock(&phy_provider_mutex);
- out_put_node:
- 	of_node_put(args.np);
- 
-@@ -678,15 +677,21 @@ struct phy *of_phy_get(struct device_node *np, const char *con_id)
- 	if (con_id)
- 		index = of_property_match_string(np, "phy-names", con_id);
- 
-+	mutex_lock(&phy_provider_mutex);
+@@ -212,6 +223,15 @@ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
+ {
+ 	pr_debug("unregistering pps-gen%d\n", pps_gen->id);
+ 	cdev_device_del(&pps_gen->cdev, &pps_gen->dev);
 +
- 	phy = _of_phy_get(np, index);
- 	if (IS_ERR(phy))
--		return phy;
-+		goto out_unlock;
- 
--	if (!try_module_get(phy->ops->owner))
--		return ERR_PTR(-EPROBE_DEFER);
-+	if (!try_module_get(phy->ops->owner)) {
-+		phy = ERR_PTR(-EPROBE_DEFER);
-+		goto out_unlock;
-+	}
- 
- 	get_device(&phy->dev);
- 
-+out_unlock:
-+	mutex_unlock(&phy_provider_mutex);
- 	return phy;
++	/*
++	 * An open file keeps pps_gen around, but the driver may free info as
++	 * soon as we return. The sysfs files are gone now, so wait for the
++	 * ioctls using info and make later ones fail.
++	 */
++	scoped_guard(mutex, &pps_gen->info_lock)
++		pps_gen->info = NULL;
++
+ 	put_device(&pps_gen->dev);
  }
- EXPORT_SYMBOL_GPL(of_phy_get);
-@@ -786,6 +791,7 @@ struct phy *phy_get(struct device *dev, const char *string)
- 	struct phy *phy;
- 	struct device_link *link;
  
-+	mutex_lock(&phy_provider_mutex);
- 	if (dev->of_node) {
- 		if (string)
- 			index = of_property_match_string(dev->of_node, "phy-names",
-@@ -796,15 +802,18 @@ struct phy *phy_get(struct device *dev, const char *string)
- 	} else {
- 		if (string == NULL) {
- 			dev_WARN(dev, "missing string\n");
--			return ERR_PTR(-EINVAL);
-+			phy = ERR_PTR(-EINVAL);
-+			goto out_unlock;
- 		}
- 		phy = phy_find(dev, string);
- 	}
- 	if (IS_ERR(phy))
--		return phy;
-+		goto out_unlock;
+@@ -243,6 +263,7 @@ struct pps_gen_device *pps_gen_register_source(const struct pps_gen_source_info
+ 	pps_gen->info = info;
+ 	pps_gen->enabled = false;
  
--	if (!try_module_get(phy->ops->owner))
--		return ERR_PTR(-EPROBE_DEFER);
-+	if (!try_module_get(phy->ops->owner)) {
-+		phy = ERR_PTR(-EPROBE_DEFER);
-+		goto out_unlock;
-+	}
++	mutex_init(&pps_gen->info_lock);
+ 	init_waitqueue_head(&pps_gen->queue);
+ 	spin_lock_init(&pps_gen->lock);
  
- 	get_device(&phy->dev);
+diff --git a/include/linux/pps_gen_kernel.h b/include/linux/pps_gen_kernel.h
+index f26f6aac000d..c4d22b1af118 100644
+--- a/include/linux/pps_gen_kernel.h
++++ b/include/linux/pps_gen_kernel.h
+@@ -11,6 +11,7 @@
+ #include <linux/pps_gen.h>
+ #include <linux/cdev.h>
+ #include <linux/device.h>
++#include <linux/mutex.h>
  
-@@ -813,6 +822,8 @@ struct phy *phy_get(struct device *dev, const char *string)
- 		dev_dbg(dev, "failed to create device link to %s\n",
- 			dev_name(phy->dev.parent));
+ /*
+  * Global defines
+@@ -44,6 +45,7 @@ struct pps_gen_source_info {
+ /* The main struct */
+ struct pps_gen_device {
+ 	const struct pps_gen_source_info *info;	/* PSS generator info */
++	struct mutex info_lock;			/* protects info */
+ 	bool enabled;				/* PSS generator status */
  
-+out_unlock:
-+	mutex_unlock(&phy_provider_mutex);
- 	return phy;
- }
- EXPORT_SYMBOL_GPL(phy_get);
-@@ -961,15 +972,17 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
- 	if (!ptr)
- 		return ERR_PTR(-ENOMEM);
- 
-+	mutex_lock(&phy_provider_mutex);
- 	phy = _of_phy_get(np, index);
- 	if (IS_ERR(phy)) {
- 		devres_free(ptr);
--		return phy;
-+		goto out_unlock;
- 	}
- 
- 	if (!try_module_get(phy->ops->owner)) {
- 		devres_free(ptr);
--		return ERR_PTR(-EPROBE_DEFER);
-+		phy = ERR_PTR(-EPROBE_DEFER);
-+		goto out_unlock;
- 	}
- 
- 	get_device(&phy->dev);
-@@ -982,6 +995,8 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
- 		dev_dbg(dev, "failed to create device link to %s\n",
- 			dev_name(phy->dev.parent));
- 
-+out_unlock:
-+	mutex_unlock(&phy_provider_mutex);
- 	return phy;
- }
- EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
+ 	unsigned int event;
 
