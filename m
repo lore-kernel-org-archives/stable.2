@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820164;
-	b=a4bz1Bwy8GMxsMdU9158/e249D8qpzM9ddacSyqsQg0lFGP77sr684+Wj721xPTv0r2X
-	 7OujQOl3DJwWtH8XHzUyi0IVWfAJRF//nCD+7kiiApCYPH71PFW3eN6Rlqzudvn2XWmsA
-	 ERZZGQRluDLWe5TWARNtUDPkO857wb29ctTOON3XJav5xOe6Ht30idfbcil4ZJ4CLuExQ
-	 71hAS8j8L+x26EFvecIttzYYEloeJ0r67fBFTpZnMbcLXwf1YUO2iRJ0QPrLEwl7F+d7F
-	 ijON1f6+qSdF7QYCevvMR+95IXE/RwrjZAKayNfvZBwoYwluTmhe+6MxN/66T13AHZQ==
+	t=1793820173;
+	b=ZnqIl1xUJfhJUHBCshDd3eCmOStjEjqJMJ/LVSfB23S4aEgczMjjgDi7esivErFb/z9C
+	 4On2aR0ASoBZWNdvqn5v9WOAUdc5/+yjQnOZKtVITd105oqw/89YKqT17GEnQvFr4ZE9z
+	 gSKcZ76YE27qSi3Hw4Y3DN3G/IjI0BhcGQg8a8Y8P6tlrlWo2FRchA7a8VvCHWNZss4Iu
+	 PxSo55iAfqcIUKSC+ajOssBzRGX1fVwSkrCsOepUGsqRvqZHGvU7Et9c8Ng9j9KiTTOTh
+	 eNXQ/qdXIbm2UlvAuY4YRtUVIHB6IU/jxLPxVCwAPC5h0SjpH6rZ9viS+Nswa7Qw02g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820164;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820173;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xSHPRMwgYvv87BhKRb1F8Oqc/A4sbUaGTYI2VwdCY1Q=;
-	b=uDQ5jPwutqX69gIo/1xTk4hajkbdPJfdGnvwRa0J/s16cJLgzH70Uvc7xtbX10z9c0TD
-	 X3uWYYpsCIKh7FJJtXvFwoyJcMRQ7fLTMmqaMSUFcJdGSxpwSbhymVBrzI/ynC6lo9zp8
-	 myKm8u40qrBTeNq11CuNMvRL2tVZCBXFfKbk2vihXSjm28Fn3/JwIYrGQVP4xBvVXd429
-	 NMjquJ9fyNnsiKjE8tCHhmfhB9kNddf1BWhjh1IlyQjiQcprmY5+uwvOZ0quGEb2eNqsN
-	 /w8KHDuT5Gmc/jG4Djk3gokJlkHKvEE/sANWAOGOJiNqUTNmeQNaAsjdh+/WeZQQWQA==
+	bh=b+dKPKBiHusdRq8k+f2Xcxy60hmat6uaNJGaWRyDLzQ=;
+	b=0OUVNbe35ZGRXHjccNs4BjcWW2lQXOb1yE6xnuByWK8FqNdQAIrCVwzdMwhQfrV+2dRM
+	 pGvMPq+bFaHfh8HcpJLJUdrMoz7gA+kzSExjoeB4/Wuk/Hp4MzRpHYv+fStxrHeu1wlKc
+	 RHV/V0xwpaqmQutL2Qx15zepLx69PZtnLQ99huK3OYN+oAFtTvRhM6ufTSOn6VA5XiNnw
+	 /mCq7B6/j57mZwriP+WVim3mWy5JusWOOz5vMnGN672RJ9216CJRdX5QeGNakOG2Rot/d
+	 DtYwDausodcq0keuPSt5lc/yTfw0GLFT5tYp1sTkSZqqL6O1lo5j6kUgYgjPerw67yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uyu7lO7P;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OJxhLLlR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C342A606C90E
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:22:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5031607894A
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:22:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uyu7lO7P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 544FC1F00919;
-	Wed,  4 Nov 2026 19:22:43 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OJxhLLlR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64A2F1F0093A;
+	Wed,  4 Nov 2026 19:22:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793820163;
-	bh=xSHPRMwgYvv87BhKRb1F8Oqc/A4sbUaGTYI2VwdCY1Q=;
+	s=korg; t=1793820172;
+	bh=b+dKPKBiHusdRq8k+f2Xcxy60hmat6uaNJGaWRyDLzQ=;
 	h=Subject:To:Cc:From:Date;
-	b=uyu7lO7Pb+Avj+pRANXplHu6TWO0nds/HQItrCwOxzDZbZfLPj9kP/ER5qkOJ1AS+
-	 0lN3fPdb+C9JugHTd6XRMQJCBPnGyy1zpV31WdK1giZROkG9hXV3aTKY++AM4340qU
-	 2Ot4NcDumZIOauYtU19b+ANKdWv0vpcVmLEhkb/0=
-Subject: FAILED: patch "[PATCH] KVM: guest_memfd: take the invalidate lock when unbinding a" failed to apply to 6.18-stable tree
+	b=OJxhLLlRPI+Fft47CA3j519I506u9uy9rE5lEh400jPUM+kayyCr4kX5ddjoRpo+r
+	 zP3FG55u0jrw/HTecMhXBDABuVV5qZXys1PMmGzUfPkkDrFUP7rTkEUoItYGqSoSWO
+	 RbTywYXuMNwD2VjJzJMRG5Eulp5ufgXGOJVS/XIU=
+Subject: FAILED: patch "[PATCH] KVM: guest_memfd: take the invalidate lock when unbinding a" failed to apply to 6.12-stable tree
 To: shivankg@amd.com,david@kernel.org,sashiko-bot@kernel.org,seanjc@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:22:42 -0500
-Message-ID: <2026110442-recast-sequel-2c6a@gregkh>
+Date: Wed, 04 Nov 2026 14:22:43 -0500
+Message-ID: <2026110443-wham-canine-0ce3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0ee2c883b62deb74d8c43007e8049dc006d3a2fb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110442-recast-sequel-2c6a@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110443-wham-canine-0ce3@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
