@@ -1,62 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793834083;
-	b=tav1ExIACHxKJLnVDPlIHDhPOQtHijlshrlPdUS/lOiuMUqe9T6w2qoAonrKSd00SG81
-	 xg+lM4Cisz1c20paQqzOI6JAIn01LjgSResOtestHKS+pLXYQREmtQTBpwr1yr2nE8rAO
-	 S3r5GktHFGp/8NCDZD5MbNrkw7VVIVRJmU1U/LcBbdo4jdV/ZNGpG9Ffg0HS6MzjVk98h
-	 QgjxABUoYlsecIaC3qbmx6CAUf0OZzbiK9Gbpxlej82bvL1gehPu8SYaxJNloX2dlUI/s
-	 MOWF5TfufUMkY101IrTrj2UyEwQb9d3X6JD3eIYuTXdxC7XkMNIOwBdt7Ie5KQXup2g==
+	t=1793834629;
+	b=g4/61xf9q4I8v8dGjOhVNiZqneV9osQXeRi+cw8zfp2HBNe7E0v/Y9tqdT6UnAVASnro
+	 XlGb4NJkgBOgYuNOcM8xtLsfmnXBLqJC9zjNGhKqrMsI5YA/z7R6axmJvhLx+4XSgf9fg
+	 ijyd9qKeqVcWy4VdewxJug6PIFb7qe6ymEcn5WjqOdwECUsjlbhUFXaqdxkFXMvbUy/XG
+	 k4AGMXu1Ov1anlHp09XR8K7rHQjKs4j51a5PF25srultFV9YXH5yEcsIxj+pKEuiiUcex
+	 ZL0pAHmQQV24RYydgJr0ZlztuE1jdeCZk3RxuY3blfSs4LkRfPMW5BqgvCZLn36jdlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793834083;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793834629;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+mPBoAFZaI/kXrME1blIrD7m0pkImBMDcD7wGGRHj9M=;
-	b=U5Xm1mLq+SHyb7T7kUcsKzGO3mo+f60m6RBrLiNTn/O9MXq/zldBA1Bs0IgJl865GP67
-	 5+Ou5i7Fcl+CsfouQjSIKT4jpJ4fkR4iK0Z29QyQhzOTADl3LZAlWyIdXA1S/oRW1VZLa
-	 5qWcl9tIeFPQyhIEhpD1yY2uknC0bVqJ4TdKdljiT7vzZX2dQw8cNqXhu9qFiPVRpkr7w
-	 c+CHJVOdJWcP2WecEQ5iAUx3TMcY2WOKR5Gme5O2PYPfHZv8JGpLxoQ+b9RbqQUWEXIRn
-	 c4WQdE7ZjOYbxgVdS3588PvGRh/Wi7XkDyAqbn5+X72NueP5WhPW4I9AHL3uo6m4Naw==
+	bh=KfVheouHi+1GThaJVmkKTNEYMohg4ChJ8TYrxBe+kFU=;
+	b=GswhUzNUmQrm2pvuI9LxcEmCLtLhhBM6Q+tt0fFU+jYQvgmpych79sPh6B5IliFxY16L
+	 +987v4ETiXiPZiCOLtEl6U9PEB9yEAiKY6J3Lw9aWNFb7BSmQ1M7EoW+WyAAXXqLHt2OS
+	 tHsCiWaEhvRWIhIh88WfG+jqjRDHkXjXk3FCAMgcI8woakUxds8I/AJGltOjRwHcxYRR8
+	 eEzrOAwbEkkWI5Z9jZt06oLWaUgKVm9yQ1eRr4NP201+Ko0NiJaPsy9OZPJeH7NaVMQAx
+	 QGKbwi5QQOre29AaUhbp7JayvS79XLp7/Z5Z4QYhLySmuBglyxJ05T52R+7wL+SLFpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LjdSz0Ud;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uv1wTyY0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5500606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:14:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F498606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:23:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LjdSz0Ud
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A96D1F0093A;
-	Wed,  4 Nov 2026 23:14:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uv1wTyY0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E42951F000C1;
+	Wed,  4 Nov 2026 23:23:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793834082;
-	bh=+mPBoAFZaI/kXrME1blIrD7m0pkImBMDcD7wGGRHj9M=;
+	s=k20260515; t=1793834628;
+	bh=KfVheouHi+1GThaJVmkKTNEYMohg4ChJ8TYrxBe+kFU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LjdSz0UdPEma2jkh9nEG82urMHFp+Ybiyd/j9O2d1L3ogDGqrRtWMInGdf5hFVF5H
-	 FSDJEXB9vyNN4bClUHt7WXfxRb05t6WJJenunuM/wJS5/A9Ms7KB9+Ap/RAq9JF3sJ
-	 Uj+dbdI6pnOCu0Y1VHkkjpJerSO4IUu+9eOrfy2vWQB5ASPfjsRITk28gAvKzei/mb
-	 55IHxnHHMMJGf0+jQ+TdTdDa3u9E3gAz/u1Jmh+UdJPeCWqaAgKATOAl3yAvlR5QK7
-	 0VZr0HjxkUvJXctksqUmZWe/GRZtXUYunbClaFzg7w/RC5NkeBmrX4Qj9HTqVCViZj
-	 UgmiRz2dOsBYg==
+	b=Uv1wTyY0M70fWEkndmoyrDUEWp/gtcv5Z11FhSM5dq+8SVFpS/VcBL+01URXB8FOs
+	 dWnuuIzXgqAo99ETNTwvmFzW/OB0oZS0oL63ILxlKXn75qDkbO4h/7yH1KZw07DWj5
+	 ol2lPSdzXt9wavm5gyO5Adpx9+iGTcakGQtBvapOUa3ev4FnRIz2fkvNoK0H0LrjUl
+	 FDxmGeCpoSr1xi+ayDNwvU2qGzUgH1yFiS2Rc2IAiIYCGB7tl/CxeNlGzAstFwKOsL
+	 IpAvPtt+kEzg74hqk2PUVLceiuIHbdmH3PAGiGSB+dC8ujbHbyJnTV/q6nDESOdt69
+	 SqCwPNqcUOnug==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vernon Yang <yanglincheng@kylinos.cn>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Barry Song <baohua@kernel.org>,
-	Dev Jain <dev.jain@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Zach O'Keefe <zokeefe@google.com>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm: khugepaged: fix folio is used after folio_put/unlock()
-Date: Wed,  4 Nov 2026 18:14:40 -0500
-Message-ID: <20261104231424.891478-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] media: s5p-mfc: use timer_shutdown_sync() for the self-rearming watchdog
+Date: Wed,  4 Nov 2026 18:23:46 -0500
+Message-ID: <20261104232324.887984-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110413-cacti-bonded-6534@gregkh>
-References: <2026110413-cacti-bonded-6534@gregkh>
+In-Reply-To: <2026110425-turkey-reissue-e353@gregkh>
+References: <2026110425-turkey-reissue-e353@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,92 +64,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vernon Yang <yanglincheng@kylinos.cn>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit 9010383e71e6ce75fcd3c8f87133c8ce6c0e6ab4 ]
+[ Upstream commit 63069b5917cba2e15b1a78b3f4ff99e45102c56f ]
 
-On the rollback path, folio_put() has already dropped the last reference
-of new_folio.  On the success path, new_folio is already unlocked and can
-be freed concurrently.  The trace_mm_khugepaged_collapse_file() is left
-with a dangling folio pointer.
+The MFC watchdog timer (s5p_mfc_watchdog) is self-rearming: every
+callback re-arms itself with add_timer() and, on a timeout, schedules
+watchdog_work. s5p_mfc_remove() tears this down with timer_delete_sync()
+followed by flush_work().
 
-So using the folio_pfn() before dropping the reference, closing
-use-after-free window.
+timer_delete_sync() dequeues the timer and waits for a callback that is
+already running, but it does not prevent a subsequent re-arm. Because the
+watchdog callback re-arms via add_timer(), this is the wrong shutdown
+primitive: once the wait returns nothing guarantees a just-queued re-arm
+will not fire later, dereferencing dev (clock on/off, deinit_hw,
+load_firmware, init_hw) after video_unregister_device(), DMA teardown and
+s5p_mfc_final_pm() have run, a potential use-after-free.
 
-Link: https://lore.kernel.org/20260909025804.3233645-4-vernon2gm@gmail.com
-Fixes: 4c9473e87e75 ("mm/khugepaged: add tracepoint to collapse_file()")
-Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Zach O'Keefe <zokeefe@google.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: adjusted collapse_file() declaration context to preserve struct page *tmp instead of struct folio *tmp ]
+Use timer_shutdown_sync(), which puts the timer into a shutdown state so
+that any add_timer()/mod_timer() from the callback becomes a no-op and no
+later firing is possible. Switch flush_work() to cancel_work_sync() so any
+watchdog_work that was already queued before the timer was stopped is
+cancelled rather than allowed to run to completion against the torn-down
+device.
+
+This issue was found by an in-house static analysis tool. No runtime
+reproducer is available.
+
+Fixes: af9357467810 ("[media] MFC: Add MFC 5.1 V4L2 driver")
+Cc: stable@vger.kernel.org
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: adapted the timer replacement to remove del_timer_sync() instead of timer_delete_sync() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/trace/events/huge_memory.h | 6 +++---
- mm/khugepaged.c                    | 4 +++-
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
-index 37f2443b3cdb0..a1ac19bab4a2d 100644
---- a/include/trace/events/huge_memory.h
-+++ b/include/trace/events/huge_memory.h
-@@ -207,10 +207,10 @@ TRACE_EVENT(mm_khugepaged_scan_file,
- );
+diff --git a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
+index 50451984d59f7..eb844ddfd8a2d 100644
+--- a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
++++ b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
+@@ -1458,8 +1458,8 @@ static void s5p_mfc_remove(struct platform_device *pdev)
+ 	}
+ 	mutex_unlock(&dev->mfc_mutex);
  
- TRACE_EVENT(mm_khugepaged_collapse_file,
--	TP_PROTO(struct mm_struct *mm, struct folio *new_folio, pgoff_t index,
-+	TP_PROTO(struct mm_struct *mm, unsigned long new_pfn, pgoff_t index,
- 			unsigned long addr, bool is_shmem, struct file *file,
- 			int nr, int result),
--	TP_ARGS(mm, new_folio, index, addr, is_shmem, file, nr, result),
-+	TP_ARGS(mm, new_pfn, index, addr, is_shmem, file, nr, result),
- 	TP_STRUCT__entry(
- 		__field(struct mm_struct *, mm)
- 		__field(unsigned long, hpfn)
-@@ -224,7 +224,7 @@ TRACE_EVENT(mm_khugepaged_collapse_file,
+-	del_timer_sync(&dev->watchdog_timer);
+-	flush_work(&dev->watchdog_work);
++	timer_shutdown_sync(&dev->watchdog_timer);
++	cancel_work_sync(&dev->watchdog_work);
  
- 	TP_fast_assign(
- 		__entry->mm = mm;
--		__entry->hpfn = new_folio ? folio_pfn(new_folio) : -1;
-+		__entry->hpfn = new_pfn;
- 		__entry->index = index;
- 		__entry->addr = addr;
- 		__entry->is_shmem = is_shmem;
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 42330aeb76386..1f7c0655d8db9 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1788,6 +1788,7 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 	struct page *page;
- 	struct page *tmp, *dst;
- 	struct folio *folio, *new_folio;
-+	unsigned long new_pfn = -1;
- 	pgoff_t index = 0, end = start + HPAGE_PMD_NR;
- 	LIST_HEAD(pagelist);
- 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
-@@ -1800,6 +1801,7 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 	result = alloc_charge_folio(&new_folio, mm, cc);
- 	if (result != SCAN_SUCCEED)
- 		goto out;
-+	new_pfn = folio_pfn(new_folio);
- 
- 	mapping_set_update(&xas, mapping);
- 
-@@ -2207,7 +2209,7 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
- 	folio_put(new_folio);
- out:
- 	VM_BUG_ON(!list_empty(&pagelist));
--	trace_mm_khugepaged_collapse_file(mm, new_folio, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
-+	trace_mm_khugepaged_collapse_file(mm, new_pfn, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
- 	return result;
- }
- 
+ 	video_unregister_device(dev->vfd_enc);
+ 	video_unregister_device(dev->vfd_dec);
 -- 
 2.53.0
 
