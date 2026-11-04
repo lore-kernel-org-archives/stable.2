@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801816;
-	b=tod3QtffmfJbKoFaOFncz2+g1NFDiQzKeJ4StWUlV1hlLWh0XCmwNkX+Ei2aFoOiwZa8
-	 2VA7J9Zh5ryNORhbTz4T8LvGb1yGS2iLc+FqJhHuxXFq9OMVq4DHnrV8zwG5xvOoI5iWo
-	 ZgY329AB2w21tVqj1okXxjO6AAwHcuRZV/lxWjas45FCTO+K2xTNYH4Vl5rreLj3qmI44
-	 CuyOs71T9ybZykzj5U0PQbbC/jmNR9vOwhXWy6milMVLuPNFL0ahgtzX1UgrCq+U2nLL0
-	 aooDPBNX06wwEbG0BAoZmKIDc9wLjYLPFsYI/CgMS/E4TFdcgwu7/BgZEolb+IFR9IA==
+	t=1793801851;
+	b=JdmtD9SPGOOuF91VNKLE8R/WpB1r0OBPbCqkSknr8rKNQbRXIfcT7lO+/VjADgCLM3XQ
+	 zgBcijDILtfA5dIyCs1MN46+BL5sgk019GhoDZO3k3Prf2h6OtXi7zDPnbIsK5JoRc9Rj
+	 IaliHMiPp9bRSO93NBvB3wTFl36GiN++kB+hkraw2BHFH+Np5/Q/Co38XPkV/Qj9RV52G
+	 OOXxi2b7hL1NJZQg4XK0hukpRea2CYnNOHdVpLMm5Wa4qUbgvPfnKmi4s9SA90TH2yDa0
+	 2WTgBIZhfh4u3p4oZFL6ilV8z6a9zo8EBwjIbeVv1ocnLc7/iq0I6QGpVRj6Yq34jKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801816;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801851;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=lPBtCjdlgsoZHaroYSHhGL4X/H++SmuSqGFd/il9hmI=;
-	b=MF+ZXCG7DyIHoyGfEU2J1+sTXC7HKjGmgO1yzu4ousk7oC/mvxdWfbqPci+lGW8ZE4Zt
-	 igSMGNqfNOrJnPuCJaXD4FRjQUVmZ9n783r92500oPP02l4ieYOHT8K1GU78Swd1vth7J
-	 GbmCKcibmGfB7p0R4BopyykI4BFQABLYVGNNlmL5m1mYfW3NmDtkaoHjq1nRuCzZlNsh7
-	 S/b4eRGlLlS7soxdBBie53eYp2nmUtA6LmqLHug1THylPZxG12osUQ8zemx3uJBbTadAl
-	 KEB+SF0Ngr+yI/OwV3btHurE3+qZrryPTRTPasNPJau6hBXpzpp62sNMH0hiVArRc7Q==
+	bh=eBHxByOMHlOdtocKDli7VeGYfIsgXF8CSjPkN77O5m4=;
+	b=zB46x5Ahtm+rmgrc8iES3oEQQ6403Hof4U6CVuz09Rsc6DiIAud+C4ZwpAB11iqYVLiQ
+	 45SJ173rFnwoeihhH3Qfx5lNMam2pwfiEDo4bA9z3pKVpWX228Q+kiDLAc6DiIWh3/qX/
+	 qdsENDA7h7P6YqLUoeSJyL0kDh33Sl/M6tYzaB7CZodPmMlnCxPMwKz6wfIZLVwCi4IlJ
+	 WFHWgdD/y48FBUNP6fUTldFazfAgORxKkv5Cb2Qga28aTRqT5GLe9ikNwz3OV1DheY2Pi
+	 K8fFW7H1m7CR4+xddIZIe3JDnCzjvWZIs+cRHyTH+yfde1zw2PhZxG78tfzrBxC4aKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="bKsfBm/W";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GId0wtlM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7223C606A330
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:16:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A089606EE90
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:17:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bKsfBm/W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE29D1F000C1;
-	Wed,  4 Nov 2026 14:16:55 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GId0wtlM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17AE1F000C1;
+	Wed,  4 Nov 2026 14:17:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801816;
-	bh=lPBtCjdlgsoZHaroYSHhGL4X/H++SmuSqGFd/il9hmI=;
+	s=korg; t=1793801850;
+	bh=eBHxByOMHlOdtocKDli7VeGYfIsgXF8CSjPkN77O5m4=;
 	h=Subject:To:Cc:From:Date;
-	b=bKsfBm/W2JEwTzzetkXHnXNkwqtDEA9AbvitMworiiQO85NuayzQz8UjgME0CM52s
-	 1shjmyZMTdZQM+8dz13KRO6yn3AYAxGWjBYky/GZEW3TuO/3lsy8MQrGxFMmzEMr63
-	 o5KDVQEyq82CeGGHirzBTM2vkBDMFBYRGeOvEQKI=
-Subject: FAILED: patch "[PATCH] KVM: pfncache: use a dedicated invalidation sequence for" failed to apply to 6.12-stable tree
-To: dwmw@amazon.co.uk,paul@xen.org,pbonzini@redhat.com,seanjc@google.com
+	b=GId0wtlMvorfmv5NCU810oTET08O9MPzR6OBa2ZAZTnbfdC8P++4zz95hhBGm2ETE
+	 5RTv4Yy0u/OZXEittuhRUHGZOxOznnvI3aFggRuxy1hZYU3GpyqfcQE7K+2f4mCGRg
+	 x1oG3h5SVx9E/p0BAadNdlRW1ZDNsLmkdKZjs65s=
+Subject: FAILED: patch "[PATCH] media: marvell: mcam: stop DMA and cancel s_bh_work before" failed to apply to 6.6-stable tree
+To: fanwu01@zju.edu.cn,hverkuil+cisco@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:16:46 +0100
-Message-ID: <2026110446-submerge-emission-a419@gregkh>
+Date: Wed, 04 Nov 2026 15:17:29 +0100
+Message-ID: <2026110429-consent-correct-15d0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x da260bcb56feeb6489a83f310308453a0a7de25e
+git cherry-pick -x 0f29f84317c1e35f6a9265277be33e60d3fc8c1c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110446-submerge-emission-a419@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110429-consent-correct-15d0@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,170 +79,77 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From da260bcb56feeb6489a83f310308453a0a7de25e Mon Sep 17 00:00:00 2001
-From: David Woodhouse <dwmw@amazon.co.uk>
-Date: Mon, 31 Aug 2026 22:26:43 +0100
-Subject: [PATCH] KVM: pfncache: use a dedicated invalidation sequence for
- cache refresh
+From 0f29f84317c1e35f6a9265277be33e60d3fc8c1c Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Fri, 7 Aug 2026 05:35:53 +0000
+Subject: [PATCH] media: marvell: mcam: stop DMA and cancel s_bh_work before
+ freeing DMA buffers
 
-The gfn_to_pfn_cache refresh path guards against mmu notifier
-invalidations which complete while it has dropped gpc->lock for the
-HVA->PFN lookup: hva_to_pfn_retry() samples kvm->mmu_invalidate_seq
-and retries if it changed, or if mn_active_invalidate_count is still
-elevated.
+In vmalloc mode the frame-completion IRQ queues mcam_frame_work() on
+cam->s_bh_work, which memcpy()s from the dma_bufs[] that
+mcam_free_dma_bufs() frees with dma_free_coherent().  mccic_shutdown()
+frees those buffers without stopping the controller, so while streaming
+a late frame IRQ can re-arm the work after the buffers are gone, causing a
+use-after-free.
 
-That is insufficient for HVA-based caches. mmu_invalidate_seq is only
-advanced by kvm_mmu_invalidate_end() when the invalidated range
-overlaps a memslot, and an HVA-based cache (e.g. the Xen shared_info
-page mapped with KVM_XEN_ATTR_TYPE_SHARED_INFO_HVA) need not be backed
-by any memslot at all. An invalidation of the cached HVA which starts
-and ends entirely within the lookup window is thus invisible to the
-retry check: mn_active_invalidate_count is back to zero and the
-sequence never moved. The refresh then publishes a mapping of a page
-which has already been freed, and the next reader dereferences it:
+Stop the controller in mccic_shutdown() when streaming is still active
+(gated on an open fd, which holds a runtime-PM reference, so the device
+is powered), cancel s_bh_work in mcam_free_dma_bufs(), and move
+INIT_WORK() into mccic_register() before the device can be published.
 
-  BUG: KASAN: use-after-free in kvm_xen_shared_info_init+0x3c6/0x440
-  Read of size 4 at addr ffff8880599c2900 by task syz.2.383/7257
-
-Since gfn_to_pfn_cache_invalidate_start() deliberately skips caches
-which are not currently valid (including one whose refresh is in
-progress, as the refresh clears the valid flag before dropping the
-lock), the retry check is the only line of defence, and it must fire
-for *any* invalidation, not just those hitting a memslot.
-
-Add a dedicated kvm->gpc_invalidate_seq, incremented by every
-kvm_mmu_notifier_invalidate_range_end() under mn_invalidate_lock
-before mn_active_invalidate_count is decremented, and check it in
-hva_to_pfn_retry() instead of mmu_invalidate_seq. Incrementing in
-range_end() in the same critical section as the in-progress count
-also closes the variant where the cache is activated with the
-contested HVA only after invalidate_range_start() has run.
-
-The same bug is also reachable through the per-vCPU vcpu_info cache
-(KVM_XEN_VCPU_ATTR_TYPE_VCPU_INFO_HVA), where the stale mapping is
-then dereferenced by kvm_setup_guest_pvclock() on the next KVM_RUN:
-
-  BUG: KASAN: use-after-free in kvm_setup_guest_pvclock+0x5bf/0x660
-
-This intentionally makes refresh retry on *unrelated* mmu notifier
-events; restoring precision (and reworking the GPC locking more
-generally) is left for a subsequent series.
-
-Reproducers: https://david.woodhou.se/xen_shinfo_race.c
-             https://david.woodhou.se/vcpu_info_race.c
-
-Suggested-by: Sean Christopherson <seanjc@google.com>
-Reported-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a0c5f2c.a00a0220.2c7954.0000.GAE@google.com/
-Tested-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
-Reported-by: syzbot+fb7c2dd166d3ea63df2a@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a426dd2.854d4ab9.360e1d.0008.GAE@google.com/
-Fixes: b9220d32799a ("KVM: x86/xen: allow shared_info to be mapped by fixed HVA")
+Fixes: 67a8dbbc4e04 ("[media] marvell-cam: Basic working MMP camera driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Assisted-by: Claude:claude-mythos-5
-Reviewed-by: Paul Durrant <paul@xen.org>
-Link: https://patch.msgid.link/20260831213632.81023-13-dwmw2@infradead.org
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index 03bfc92864b6..3dd04605f2e5 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -855,6 +855,8 @@ struct kvm {
- 	gfn_t mmu_invalidate_range_start;
- 	gfn_t mmu_invalidate_range_end;
- 
-+	unsigned long gpc_invalidate_seq;
-+
- 	struct list_head devices;
- 	u64 manual_dirty_log_protect;
- 	struct dentry *debugfs_dentry;
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 65eb26a0520d..108d42c5c1d6 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -813,6 +813,16 @@ static void kvm_mmu_notifier_invalidate_range_end(struct mmu_notifier *mn,
- 
- 	/* Pairs with the increment in range_start(). */
- 	spin_lock(&kvm->mn_invalidate_lock);
-+	kvm->gpc_invalidate_seq++;
-+
-+	/*
-+	 * As with the MMU sequence counter and mmu_invalidate_in_progress, the
-+	 * GPC sequence increase must be visible before the invalidate count
-+	 * goes to zero.  Pairs with the smp_rmb() in
-+	 * mmu_notifier_retry_cache().
-+	 */
-+	smp_wmb();
-+
- 	if (!WARN_ON_ONCE(!kvm->mn_active_invalidate_count))
- 		--kvm->mn_active_invalidate_count;
- 	wake = !kvm->mn_active_invalidate_count;
-diff --git a/virt/kvm/pfncache.c b/virt/kvm/pfncache.c
-index 728d2c1b488a..3659686b97c2 100644
---- a/virt/kvm/pfncache.c
-+++ b/virt/kvm/pfncache.c
-@@ -124,7 +124,7 @@ static void gpc_unmap(kvm_pfn_t pfn, void *khva)
- #endif
- }
- 
--static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long mmu_seq)
-+static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long gpc_seq)
+diff --git a/drivers/media/platform/marvell/mcam-core.c b/drivers/media/platform/marvell/mcam-core.c
+index c1e8a2a3012d..2d0b8b60c509 100644
+--- a/drivers/media/platform/marvell/mcam-core.c
++++ b/drivers/media/platform/marvell/mcam-core.c
+@@ -406,6 +406,8 @@ static void mcam_free_dma_bufs(struct mcam_camera *cam)
  {
- 	/*
- 	 * mn_active_invalidate_count acts for all intents and purposes
-@@ -136,20 +136,20 @@ static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long mmu_s
- 	 * Note, it does not matter that mn_active_invalidate_count
- 	 * is not protected by gpc->lock.  It is guaranteed to
- 	 * be elevated before the mmu_notifier acquires gpc->lock, and
--	 * isn't dropped until after mmu_invalidate_seq is updated.
-+	 * isn't dropped until after gpc_invalidate_seq is updated.
+ 	int i;
+ 
++	cancel_work_sync(&cam->s_bh_work);
++
+ 	for (i = 0; i < cam->nbufs; i++) {
+ 		dma_free_coherent(cam->dev, cam->dma_buf_size,
+ 				cam->dma_bufs[i], cam->dma_handles[i]);
+@@ -1306,7 +1308,6 @@ static int mcam_setup_vb2(struct mcam_camera *cam)
+ 		break;
+ 	case B_vmalloc:
+ #ifdef MCAM_MODE_VMALLOC
+-		INIT_WORK(&cam->s_bh_work, mcam_frame_work);
+ 		vq->ops = &mcam_vb2_ops;
+ 		vq->mem_ops = &vb2_vmalloc_memops;
+ 		cam->dma_setup = mcam_ctlr_dma_vmalloc;
+@@ -1864,6 +1865,12 @@ int mccic_register(struct mcam_camera *cam)
+ 		goto out;
+ 	}
+ 
++#ifdef MCAM_MODE_VMALLOC
++	/* Init before sensor bind: armed by IRQ, cancelled on probe-error paths. */
++	if (cam->buffer_mode == B_vmalloc)
++		INIT_WORK(&cam->s_bh_work, mcam_frame_work);
++#endif
++
+ 	mutex_init(&cam->s_mutex);
+ 	cam->state = S_NOTREADY;
+ 	mcam_set_config_needed(cam, 1);
+@@ -1922,10 +1929,15 @@ void mccic_shutdown(struct mcam_camera *cam)
+ 	 * take it down again will wedge the machine, which is frowned
+ 	 * upon.
  	 */
- 	if (kvm->mn_active_invalidate_count)
- 		return true;
- 
- 	/*
- 	 * Ensure mn_active_invalidate_count is read before
--	 * mmu_invalidate_seq.  This pairs with the smp_wmb() in
--	 * mmu_notifier_invalidate_range_end() to guarantee either the
-+	 * gpc_invalidate_seq.  This pairs with the smp_wmb() in
-+	 * kvm_mmu_notifier_invalidate_range_end() to guarantee either the
- 	 * old (non-zero) value of mn_active_invalidate_count or the
--	 * new (incremented) value of mmu_invalidate_seq is observed.
-+	 * new (incremented) value of gpc_invalidate_seq is observed.
- 	 */
- 	smp_rmb();
--	return kvm->mmu_invalidate_seq != mmu_seq;
-+	return kvm->gpc_invalidate_seq != gpc_seq;
- }
- 
- static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
-@@ -158,7 +158,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
- 	void *old_khva = (void *)PAGE_ALIGN_DOWN((uintptr_t)gpc->khva);
- 	kvm_pfn_t new_pfn = KVM_PFN_ERR_FAULT;
- 	void *new_khva = NULL;
--	unsigned long mmu_seq;
-+	unsigned long gpc_seq;
- 	struct page *page;
- 
- 	struct kvm_follow_pfn kfp = {
-@@ -181,7 +181,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
- 	gpc->valid = false;
- 
- 	do {
--		mmu_seq = gpc->kvm->mmu_invalidate_seq;
-+		gpc_seq = gpc->kvm->gpc_invalidate_seq;
- 		smp_rmb();
- 
- 		write_unlock_irq(&gpc->lock);
-@@ -232,7 +232,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
- 		 * attempting to refresh.
- 		 */
- 		WARN_ON_ONCE(gpc->valid);
--	} while (mmu_notifier_retry_cache(gpc->kvm, mmu_seq));
-+	} while (mmu_notifier_retry_cache(gpc->kvm, gpc_seq));
- 
- 	gpc->valid = true;
- 	gpc->pfn = new_pfn;
++	mutex_lock(&cam->s_mutex);
+ 	if (!list_empty(&cam->vdev.fh_list)) {
+ 		cam_warn(cam, "Removing a device with users!\n");
++		/* Stop so the IRQ can't re-arm s_bh_work after the buffers are freed. */
++		if (cam->state == S_STREAMING)
++			mcam_ctlr_stop_dma(cam);
+ 		sensor_call(cam, core, s_power, 0);
+ 	}
++	mutex_unlock(&cam->s_mutex);
+ 	if (cam->buffer_mode == B_vmalloc)
+ 		mcam_free_dma_bufs(cam);
+ 	v4l2_ctrl_handler_free(&cam->ctrl_handler);
 
