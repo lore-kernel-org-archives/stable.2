@@ -1,96 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793813769;
-	b=filXIS2jRrbuae5QoOTSPZ4nxKNcEd8YIE+YCThd6ovfNrn9XFrxoWyIJnAofOJ4SQKd
-	 GXOQ6oc/Y8+sRw4w55PCWVH8i0MjAY43tGG+iTx7Qe+aZ2/H0ECsuucfY8ih6FfE5hLIe
-	 Iyyrl/K6hk01Lw/BLtzt31f7iY+Fr7izis/36PwbMPgfTwErLlApUuGgbuxWVqy4tEOg4
-	 5CyDk1OegRS0EY5X8Oire3C4PKvLjnirfz7QHy51N9AUKM8kSjoNI5egozAr0My90ZHCd
-	 Eh51Iu3Z/6jroliREOYHYkphxAfBK629WAvurCt+d2ZSe6PMtoEHEYvjC6NTxvYfzbg==
+	t=1793813765;
+	b=34xbTy452nvvU0lBw6w/YoSZzfiq8zgKSItxO+3IakQjIgq9+mcj4JhL1oCRykp19f+e
+	 dXCtnPyjzClcyxdalPrOzU0ZuSj0p5RUgwNTioZaMVn5OOw9TuenBhVIo2+ntPFeoSWqa
+	 05dSnd+riED6bcTEuCeb8+rlPnA+W1Mhs1d4Nl4oaCZCZ8iSSBTqpPkGBYxhALdaJvJQE
+	 9vkSuRK+oc0UDIQbWOAo87upcRYRaYOTT8dzcgQGK3/+/yRi/XAOmh7d0xY9hYMVBzvfr
+	 Pr0abFEgVICkv7dHuBlDquuCxMVGbxjCa8frXoqejMYOGeJocisOsNQdOLwRZV176OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793813769;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6zWWmAM/EjSfX+fzNtWWpqxiPfU3InnZ+YWyZ8VpU1Y=;
-	b=uQoAS//edvGmjCt3fushGgpHAtmV4rInXC1nyxuXkYdVgviPZDaOZaGausuNJ4SlgG0P
-	 5k9by8NzfSWX9olAIBhp0oeQxy/WNFzZe2KdEfibdjCf6NupZNaGXCIY6xB2ARU/CYBne
-	 C/h7NWN35tUPrA0Th6/Up+ilaN+e1fy4SwWHU+r7p/jb+WN0gamjCzrhas0Rzbd0+xXvm
-	 S7D5iXwRFGPRkE6PP0r8ziym05OLJoxtIievppbJAqGGS6TzA8iFfjaFyz9C5q3t4i5hU
-	 jdlaeUMYowoTUspBB1Jx88zvafZaDlDCX1sKpUrQgxB+rBPh0/RtRF+WA8HGs4/0iHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793813765;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=G20Wy6mvQhIhx6DbI6mVst9t/UsYM5tKx7o8MtawhC8=;
+	b=2LvNpdNcxqxF10dvbBE//+rE4mBEIJaNC9VOvoIvNC5eSky44/0fE9A3yc/a0cZaAErJ
+	 94j7VPqHcA3cQXiUddPa1HIILkAHiEwpuS12IU8vcjTKQkEXAPVogKdsTlxTJzGC95osr
+	 bC/HxY7CWMakOn1YCECv7PaGCAeYR/W9R3TXRbZwxvA7LcVJRE8xNGCrRF5kyZuLcee0J
+	 ybag1MflbcmQSI+1juka/RyMsO6JUVirR/QOtll/DrWiZ/5KBJs/3QUJ6QmsAYeb4pURK
+	 sTdiJWeiqeixdUP/1IKvsJrEZhw0xyRhTXSjo4tWdgFjwvSpjEuKS302QcmdR/Rtj5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="wufik20/";
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E3F606D83A
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:36:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67E3F606D83A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ndfZr0Qf;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D1F82606ECC0;
+	Wed,  4 Nov 2026 17:36:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1F82606ECC0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wufik20/
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48df4f540ebso523840f8f.3
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 09:36:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793813768; x=1794418568; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6zWWmAM/EjSfX+fzNtWWpqxiPfU3InnZ+YWyZ8VpU1Y=;
-        b=wufik20/hF2eGBxiq5EJOIEIs3TvBuHcrkCWZl4iunPIc/jhCgNNuuYqUB/VKoz4nb
-         rdlyC7Q0EPWILdkaRhUzDeEyKof0V28bqH2T0TlHfpRVt1Qe5Baf1lwWsvLU/75RZlbh
-         bqB0ykMxUep4Ur8yvE6fkibug9V5IZpeyAAIDrui3507ekFUacV6zsNvNAAMT3plDzfU
-         264qGYsGhaynzVWx2lPks/HF4qzlYieu62zoC2GL/yrIul+6mlfr4wr5bM1HKLPEqyOl
-         5CCD9HtILxCwa+SUjsFF0ysOHZLYiIna7ALDMU7R2oKtXjqJMScQ4bK1U58WOy0n75d9
-         TakQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793813768; x=1794418568;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6zWWmAM/EjSfX+fzNtWWpqxiPfU3InnZ+YWyZ8VpU1Y=;
-        b=ueAi9vEpF/kuZpnbPociiZL1D6+/DHhSaf9BVFmfYevP6LfD5iJi0fyEYECxEiEvdA
-         I06znkWui0orFGdElIbGDtaitP18eZ9FGNxAIcp6H3qCAhTcHNFp1UamFfCCniWggcSE
-         HYz4hjczHniJpw/T9zWtFHkBNJb1GAp/X0ZG7i5+lKoT0gRP1nkjUpd87/T9y5h7yuLP
-         FRU5EtPKjEr4jBBvDuAahispKtURKrBVadYg65nuYxqxIuyKGijef3Kld64EHjE5faTM
-         TThKBZ0USCRckd7rQLdn2iLVQIX1cqCPd9fmK4aUuiioeV0wlY+LncNixSCdEcwiSJu7
-         ZCdg==
-X-Forwarded-Encrypted: i=1; AKwUvBzbMfDZ6dYgYJdK97DKWsmI08XMopTpGShWEwe/ZwqJgws9uCQU4Fg0ojrxv83VZjJj/nHyf1g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+TywGcbJ/t4fJnRGi0lsiYljO23ZtcmiEQbXMmuDhjwKpT8i/M
-	/CY4gSsE1suckd5zkqK7hf+j8ToVbhzwjtBG4Ysd4ZLgXbWnSzPu/EDv
-X-Gm-Gg: AYBFou0hqfpneW28psH5tyIdVW6IMbrQ5Vx2ydKqSN/1mzUQLQb889T42LPlPPaNfDe
-	Os4XCgoZH6QJ2RHDTrQee44Cegt9HXarpfDbwLWPfREIophRXa6UjMC9CB+yYUQ+Pic2MTdYMs1
-	mnZsLwoNRDvYNnKhJim3MIhrNltWWmKfUZWXhDWgsboZEH9IlQjo+iW9A4vULAmGPcfctVtZZx0
-	VmAx0RUgykw0UHdVh8CG0etlt4UfhT7+HY8iORCdrRmfdebM3uIadidDbEQ4ebt896ApdXvzLw+
-	PJ7mJs0fzl3jMdNT+oWTXHzJLbLIJkhJ7nlEiswwNKfAhXsnRXtWZFdoq0Svex2XQVU1twTZD6e
-	nv6KkgR8JAvCDTRUgr72fdg4MV9/G5zJyV654LX7C46FpqB89I32qx32jX6eUDFaLbLQnTJqC0D
-	VBdV7MD6iUbKNYOz+sRkw7lH0c8znqeSKZUo6qKegFrMsEyte/ibflK9UUJKwz6Va333vatSG//
-	4NhoHmTDWkuYcj/d8tv4wa/ZJCUModbizHb517g0w021DuK5vYn6yqLEGndjJVkPvV12yPC7R/J
-	xltxtHu2J4WzSTyzzR0zQMfBkTu5A/2diktjQVcvtFHieU4fMPIp2dvTpEB2
-X-Received: by 2002:a05:6000:400c:b0:48e:35d4:55b5 with SMTP id ffacd0b85a97d-48e6e518368mr33802651f8f.52.1793813767532;
-        Wed, 04 Nov 2026 09:36:07 -0800 (PST)
-Received: from foxbook (bfg124.neoplus.adsl.tpnet.pl. [83.28.44.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fecac2772sm4825519f8f.18.2026.11.04.09.36.06
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Wed, 04 Nov 2026 09:36:07 -0800 (PST)
-Date: Wed, 4 Nov 2026 18:36:03 +0100
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Pengfei Lv <lvpengfei20@huawei.com>, gregkh@linuxfoundation.org,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, xuhaiyang5@hisilicon.com, xuetao09@huawei.com,
- caiyadong@huawei.com, suzhuangluan@hisilicon.com
-Subject: Re: [PATCH] usb: core: hub: Re-guess ep0 maxpacket size on reset
-Message-ID: <20261104183603.17d663ce.michal.pecio@gmail.com>
-In-Reply-To: <b9ac3c8f-7ce5-43d1-bcf1-d2ce9877d914@rowland.harvard.edu>
-References: <20261104124402.1269650-1-lvpengfei20@huawei.com>
-	<b9ac3c8f-7ce5-43d1-bcf1-d2ce9877d914@rowland.harvard.edu>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ndfZr0Qf
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B2A391BB0;
+	Wed,  4 Nov 2026 09:36:00 -0800 (PST)
+Received: from [10.57.90.115] (unknown [10.57.90.115])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 783133F673;
+	Wed,  4 Nov 2026 09:36:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793813763; bh=8YUIckxR/Kf62QtZ2ufF3DzvzhbMTOa7JbCXcU787hI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ndfZr0Qfl4BmjWFbLIDOfv7FasvdeCY1iV9z4z1mlwaskQYTjslhGpmaPhLOTjzFU
+	 AihpTEpECsvh4sn6Rx9EoLuW14kAiy4hZEduQSYinChn7Nz4vrSYooKESOowNOJmSQ
+	 QiDM1orkqob7nAvLCkHGiY7JpvCAU51GAtv86Hxs=
+Message-ID: <7da011fa-5bb1-4090-8421-eeebb42c1b26@arm.com>
+Date: Wed, 4 Nov 2026 17:35:59 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,68 +53,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/10] irqchip/gic-v5: Serialise ITS invalidation commands
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Timothy Hayes <timothy.hayes@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Jonathan Cameron <jic23@kernel.org>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Sashiko AI <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
+ <20261102-host_gicv5_fixes-v1-4-743b61626fc5@arm.com>
+ <auiyrFXjX0hGgd7D@red-moon>
+Content-Language: en-GB
+From: Sascha Bischoff <sascha.bischoff@arm.com>
+In-Reply-To: <auiyrFXjX0hGgd7D@red-moon>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 4 Nov 2026 09:59:24 -0500, Alan Stern wrote:
-> On Wed, Nov 04, 2026 at 08:44:02PM +0800, Pengfei Lv wrote:
-> > Per USB 2.0 spec section 5.5.3, the ep0 maxpacket size is fixed for
-> > all device speeds except full-speed devices, where it can be 8, 16,
-> > 32, or 64 bytes and can only be determined by reading the device
-> > descriptor.  During the initial enumeration of a full-speed device,
-> > the USB core guesses 64 bytes (hub_port_init() with initial=true);
-> > after reading the descriptor, the real value (e.g. 8) is stored in
-> > udev->ep0.desc.wMaxPacketSize and propagated to the xHCI ep0 context
-> > via an Evaluate Context command (xhci_check_maxpacket()).
-> > 
-> > After a port reset (usb_reset_and_verify_device() -> hub_port_init()
-> > with initial=false), the "if (initial)" guard added by commit
-> > ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") skips the ep0 maxpacket
-> > guess block, so udev->ep0.desc.wMaxPacketSize retains the real value
-> > (e.g. 8).  The xHCI Reset Device command preserves the ep0 context
-> > as well, so the xHC ep0 max_packet also stays at 8.
-> > 
-> > When the subsequent re-enumeration then uses the "new scheme" and
-> > issues a 64-byte GET_DESCRIPTOR (get_bMaxPacketSize0 with size=64),
-> > xhci_check_maxpacket() sees hw==sw==8 and does not issue an Evaluate
-> > Context command.  The xHC queues a Data TRB of length 64 but applies
-> > ep0 max_packet=8 for short-packet detection.  
+On 02/11/2026 15:56, Lorenzo Pieralisi wrote:
+> On Mon, Nov 02, 2026 at 01:32:57PM +0000, Sascha Bischoff wrote:
+>> The ITS uses DIDR and EIDR to select the translation to invalidate.
+>> These registers are shared by all interrupts targeting the ITS. Event
+>> invalidation can run concurrently for different IRQs, and device
+>> invalidation can overlap it. The per-IRQ descriptor lock does not
+>> serialise the commands, so one CPU can accidentally issue an
+>> invalidation using another CPU's DeviceID or EventID.
 > 
-> That's exactly what we want it to do.
-
-Should we want it, though?
-
-Were there known devices with bMaxPacketSize0 <= 16 which required the
-whole transfer to complete before they are reset?
-
-That's not what happens in the initial iteration, so it seems any such
-devices would always take two iterations to begin working.
-
-Is this what the only correct Proprietary Operating System does?
-
-> >  If the device's first
-> > data packet is exactly 8 bytes and it sends no ZLP, the xHC does not
-> > recognise a short packet, keeps issuing IN tokens for the remaining
-> > 56 bytes, and the control transfer hangs in the Data stage until URB
-> > timeout.  
+> "Another CPU's DeviceID or EventID " can probably be explained better
+> (or just removed because it is unclear) I understand there is a link to
+> Sashiko's report but it is worth updating the log IMO.
 > 
-> That is the correct behavior.  Indeed, the same issue applies to _any_ 
-> 64-byte transfer (not just control and not just Get-Descriptor) when the 
-> maxpacket value is 8.  If the device sends an 8-byte reply with no ZLP 
-> following, the transfer will hang in the data stage.  That's _supposed_ 
-> to happen.
+> "using the DeviceID or EventID associated with an IRQ that is invalidated
+> on another CPU" or something like that.
+> 
+>> Add a raw spinlock to each ITS and hold it across the command register
+>> writes and the STATUSR.IDLE poll for both invalidation paths. A raw
+>> spinlock is required because the forwarding path calls the event
+> 
+> Can you please define "the forwarding path" more explicitly ?  See above.
 
-Right, all those details about HC behavior and xHCI internals aren't
-important here. The device is out of spec, apparently expecting the
-host to always use MPS=64 for this particular request. It should send
-the full descriptor in response to further polling.
+I've tried to clean up this commit message to give the required context.
 
-More useful would be information about impact: what this abomination
-is, does it always fail to enumerate on the first try and trigger this
-unsuccessful retry, or only in exceptional cases? And of course,
+Thanks for the feedback!
 
-> Have you observed this problem in actual testing or is it purely 
-> theoretical?
+> 
+> Thanks,
+> Lorenzo
 
-Regards,
-Michal
+Thanks,
+Sascha
+
+> 
+>> invalidation helper with the IRQ descriptor lock held.
+>>
+>> Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
+>> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+>> Link: https://sashiko.dev/#/patchset/20261016155741.979985-1-sascha.bischoff@arm.com?part=11
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+>> ---
+>>   drivers/irqchip/irq-gic-v5-its.c | 9 +++++++++
+>>   1 file changed, 9 insertions(+)
+>>
+>> diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
+>> index 28e39b065de0e..6d98f3dbe34b6 100644
+>> --- a/drivers/irqchip/irq-gic-v5-its.c
+>> +++ b/drivers/irqchip/irq-gic-v5-its.c
+>> @@ -16,6 +16,7 @@
+>>   #include <linux/of_address.h>
+>>   #include <linux/of_irq.h>
+>>   #include <linux/slab.h>
+>> +#include <linux/spinlock.h>
+>>   
+>>   #include <linux/irqchip.h>
+>>   #include <linux/irqchip/arm-gic-v5.h>
+>> @@ -28,6 +29,8 @@
+>>   struct gicv5_its_chip_data {
+>>   	struct	xarray			its_devices;
+>>   	struct	mutex			dev_alloc_lock;
+>> +	/* Event and device invalidation commands share DIDR. */
+>> +	raw_spinlock_t			inv_lock;
+>>   	struct	fwnode_handle		*fwnode;
+>>   	struct gicv5_its_devtab_cfg	devtab_cfgr;
+>>   	void	__iomem			*its_base;
+>> @@ -129,6 +132,8 @@ static int gicv5_its_itt_cache_inv(struct gicv5_its_chip_data *its, u32 device_i
+>>   	eidr = FIELD_PREP(GICV5_ITS_EIDR_EVENTID, event_id);
+>>   	eventr = FIELD_PREP(GICV5_ITS_INV_EVENTR_I, 0x1);
+>>   
+>> +	guard(raw_spinlock_irqsave)(&its->inv_lock);
+>> +
+>>   	its_writeq_relaxed(its, didr, GICV5_ITS_DIDR);
+>>   	its_writel_relaxed(its, eidr, GICV5_ITS_EIDR);
+>>   	its_writel_relaxed(its, eventr, GICV5_ITS_INV_EVENTR);
+>> @@ -371,6 +376,9 @@ static int gicv5_its_device_cache_inv(struct gicv5_its_chip_data *its,
+>>   		  FIELD_PREP(GICV5_ITS_INV_DEVICER_EVENTID_BITS,
+>>   			     its_dev->itt_cfg.event_id_bits)	|
+>>   		  FIELD_PREP(GICV5_ITS_INV_DEVICER_L1, 0x0);
+>> +
+>> +	guard(raw_spinlock_irqsave)(&its->inv_lock);
+>> +
+>>   	its_writeq_relaxed(its, didr, GICV5_ITS_DIDR);
+>>   	its_writel_relaxed(its, devicer, GICV5_ITS_INV_DEVICER);
+>>   
+>> @@ -1112,6 +1120,7 @@ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_han
+>>   		return -ENOMEM;
+>>   
+>>   	mutex_init(&its_node->dev_alloc_lock);
+>> +	raw_spin_lock_init(&its_node->inv_lock);
+>>   	xa_init(&its_node->its_devices);
+>>   	its_node->fwnode = handle;
+>>   	its_node->its_base = its_base;
+>>
+>> -- 
+>> 2.34.1
+>>
+
