@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799752;
-	b=KsThdcORB/Y6L2ZbsBuQxrdDWtvhw3JU+Z35rfgKl6h1chCuBmqqEINs76jDO/oUm9T5
-	 E5wAudGEqSCfLvlR6ECOxF+qVqegFcAaUntlv+HOAabnSWyxD168pAVFSc20fS91tBKXY
-	 TOyA9kjRXeS75dfdaaic5fdtrIQvBHjPpp4R14AaMCxo924mfuh9Txgrxby4MGPv15f1L
-	 AxKpCmyiGsLlvCWKLJaHPrWr1XtDKHp5gIdI1FN4J1dJ989aJZg/4BeFzvvZrr6UdglwY
-	 cHDoM3y+DvKNTW7kwAE+pLtwFj2q7EgmGisdqdCFa6kj5t0qNpF3WgBR1l1iIVEjRog==
+	t=1793799753;
+	b=OyOpUXCMMXv1CA7nN7YFQvLxAAgIaiFLk+T+cbLrbosEXJaKyHUvAP9kxd0QxGXR8lM6
+	 fbyKgNr+osxZnKGznIrcIWG+CB2FoWLkG/nV7UQbBHGC7JUoSybYFzNTQyoexkLprmtGf
+	 K5kk8cBHmLfkLiZz+t0jbntHKcdNwUlvOSxUOynggr0GN3uM48oV2QEyys9/094mZWmx+
+	 KUv4Q8PXhydn2OVBhdvjYsv1GyI31npIN0GDomfgN1juBcJBpEHPIVp5XtaTAjqjDleMd
+	 5ayliP6kCQcBOp/BhOZkCgmJdi0H5bkal5lfC6sQdIyppIqja/niWwSNoLDcspibXLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799752;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799753;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oX6UlOV6qDfF+/f7fZQCJ6zT8+JXIDzBUler/q4j5BM=;
-	b=BwafkBcjHOC5ehiEjNp7ScfV32oz3aP9Xv4t/cuhCQ34CifUuIUA3EVRu1mRBxY2JRp/
-	 CwOSR4d2yVYlfNlWc1xtBCUAA4KGUEubHgm9clov0b9Vgn5p3aNynUFox41PHARpcRLAQ
-	 fDF1V7h1kJ64H73nDmQCfxQQ1oK8k4OtTXU5sNc/EpjUu4KRW2km1bj8tHHL+U5ywykuR
-	 gI7UIj6CEwUV9GGkBf0vGADhlPKGEU522fWTTP+T+wAZrzoXSx17Kx7ZpL9Ep6fNHfhZg
-	 4vnPQR5tHh3qVrPXnEGyXNjZakPvHZD64jmO32hfTeLaTK1ADLjUvWvOfL9rsu59MXg==
+	bh=sHI9zM0fvVId3VRn4Uf5gBNG6db+hPltkSATmtz2ro0=;
+	b=xgGRbqA2Zfvpgt5BbiHeZ4eCEAKoJsZjha1bYiCAVBtFYR+6/ECFCBC2p25LWzEmDNic
+	 QM2qtX3PBhB7ZV+62s8h2ZhkFzhR67uKT9Kd3jf2hcv6VVhr0CaKS7YDgQbdOWPGzIVwi
+	 P0rx2okLhR/Ln1dW1ePqYMKEMpddCyhn2uNxeJOVNzMpjQTnmMi52HJZUePBQnBSx8U8O
+	 4pEdCHORH7i+8ZBYqVi6T/dhlt4ppxMObhfwaXnGN2BrHSnSYdtPziPwcam7riSuOvDwJ
+	 1utBcE53jiUEEc9VOwKaL+tGuaFXB7+nkzaYlC4vgkL34KHYwY/pFjCXpUNv6ZgAwVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=g7MRxTTC;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LsZkCJfR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B45606A338
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:42:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76D3F606A330
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:42:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=g7MRxTTC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E58091F00A15;
-	Wed,  4 Nov 2026 13:42:31 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LsZkCJfR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24FF81F00A16;
+	Wed,  4 Nov 2026 13:42:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793799752;
-	bh=oX6UlOV6qDfF+/f7fZQCJ6zT8+JXIDzBUler/q4j5BM=;
+	s=korg; t=1793799753;
+	bh=sHI9zM0fvVId3VRn4Uf5gBNG6db+hPltkSATmtz2ro0=;
 	h=Subject:To:Cc:From:Date;
-	b=g7MRxTTC5eZPO58BGKyjokNRoXANRF6KrCs0G8WTWYcsgOIzSeLC43jK89Se6BwMv
-	 NXGwd2E6zmRnPL9nOt6dLiNYKQr0skq4BQrgobAYzj9eljw/b0ATokRPPz4xE7vZB3
-	 C8F4wpHWhCCc+UvK1ykqzYDFFAVJOx0EzlXCM7eE=
-Subject: FAILED: patch "[PATCH] s390/zcrypt: Guard domain index uses against speculative" failed to apply to 6.1-stable tree
+	b=LsZkCJfRnURzfowqwmSXz+f4Tn9UCDXaHowfZaGq3iA/yulYPQopEmznuCNGvv1gM
+	 ZWh+rlMenCWUBDeoiPmr/qp/0n1J/BT2DVTafrLSOd7+Z0OgVtYGrgXes62suVvc6E
+	 YYK4mb1qhbM6naos4t5GiRNDXkL/c9khWf6ygqeU=
+Subject: FAILED: patch "[PATCH] s390/zcrypt: Guard domain index uses against speculative" failed to apply to 6.6-stable tree
 To: freude@linux.ibm.com,dengler@linux.ibm.com,hca@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 14:42:29 +0100
-Message-ID: <2026110429-splashing-cathedral-020a@gregkh>
+Message-ID: <2026110429-pregame-imbecile-c66d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7b88e8b6d714cd1b2b6185e2963c8ec4d98542d0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110429-splashing-cathedral-020a@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110429-pregame-imbecile-c66d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
