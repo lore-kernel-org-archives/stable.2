@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826962;
-	b=nOXTaW+NDzUZb55hMKSSBcqNOdzyyXWmF0rHTTsuIhJPuum2hq+u4hqdmKSAl8cI9eXj
-	 lRE96wx4WAxQFwDsWuGq+7HC9YvbjIzO1EsSHS0fWejfl+/hoMywvP6p6sndMSkvB02WB
-	 iqELw/H+W46ZMkAxDklhvr4VeoruVszBWcITwOcHVGC1z8uPDYHuYLLKDVmXqezko9VsE
-	 6/rl5ydgzHO0/32xp8e1RCAQw4zFyVC8cSkj7UDCQUGuVIJ6rlPoK6ik/pTsfhFuYU+Mr
-	 SlyG9203zj/timhJVOQbdLbX5wIu9HOCX6gjCNdkAS57qiC6ECySmfOluAcbLJ7ETCw==
+	t=1793826957;
+	b=rEshAa8aJM99UFUDGUn4BCzNraDkv3cfl2K1rrwFTdbXL0HmaVxrsXe8QczQ/42AhoLJ
+	 /eUNDw3ebOUgFhymzh4vJp3Qsdkrni/HlT07/EBEeDlBs9l6kpLB6X9ea+z4+1FwqH51y
+	 7/lWDYCu9mfKX7Bk1IpS3CrWFwD+bip9IjUUSVdZkafPQ3KVnz2k6DfIL2PTZCTwgcZM6
+	 opANt6YiMwRebZBnJlxwFDL7KWDnqWdqSJnCrxBiQeSYATNbYCqQc9MfcKsMcGW6OL+NF
+	 CjyvUhyesBWAeaegfRrXFUWl3njTrpuEokzEOm5MherqDt/fpgqYNPfbysiCiUgzFrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826962;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826957;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Gwad6wFe9lHTk+Af+8UCMzCmouu2GG6yaRefJmEYPA8=;
-	b=OzrW0FGKoT6TFvaIwoDbknyIKKq8iLkvcoZbSyq30Wz9CWuWVdMartfzVe4gi2DOURm8
-	 Qw8/aHMgmFpnzSjdnhWxjRCbRv2nJ1/Nmrms/xYHax3u/7KrSW6fa8CRrb7sWyW6gwpFR
-	 mfeI5QTsoLwPHDHgmihILv+GWPWFESxy+0xRbMeazRQISrgaNdid2w/isJC+/i6r0rDl1
-	 3P7Zq7BV3BoDIHVo50LTfYWChf8sHzUN64G3RZC505lmDagk/xNI7KTi6f26lchelPhV4
-	 9Dhjk1tbdDL9/6K4VAAt9oAqMezqLq+QbOwldO9pstY4flYlCFTIjdN732ydX6+Fzrw==
+	bh=O/pNUG2Gts9LkOcDgIz49Ilg2yU/IKcFvInCIcfaoZA=;
+	b=gTH+zJJMPgqKqHhWGoD6BXxh3RtRTY/lQayjRqf1p1GJ15cgl2c93wj7+0eucsWcHcy1
+	 e4F3ATpFJJYX7BHo8oVqCu8g4cn7NJOO9AgmWfP6RU7kwOGgkzP66yojI9VUgSSj0r4Da
+	 kyDGCyalrtMk7Ezg4GbL1sM2u7PHHGxv7NqEjJdGigkYJqgfIjwpeP1mwQE/tK/TfKoKr
+	 lR6SVRxQ5MKlPHNwDvQz72seJb2vJ3WePGyyNxzHWmHyVJin0MPHPgyZLcXcazdqoD3un
+	 l0uh2OZ21HJEyMoamyc1Q3IMD7S0Xn/F/RucYmGFf148QTuakEyGjst1PEmqJmkcmtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mMLA0ObW;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2FtsXg8Q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 354EF6073522;
-	Wed,  4 Nov 2026 21:16:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3705060709A1;
+	Wed,  4 Nov 2026 21:15:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mMLA0ObW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFF5D1F000C1;
-	Wed,  4 Nov 2026 21:16:01 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2FtsXg8Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1C6D1F000C1;
+	Wed,  4 Nov 2026 21:15:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793826962;
-	bh=Gwad6wFe9lHTk+Af+8UCMzCmouu2GG6yaRefJmEYPA8=;
+	s=korg; t=1793826957;
+	bh=O/pNUG2Gts9LkOcDgIz49Ilg2yU/IKcFvInCIcfaoZA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mMLA0ObWmJVGNh3Q5Dxo025VK1vxPEP6ACj6Jv+9EcXzPufcIRVTQEGig/cznKwCZ
-	 DGlF/RdHOMcs9TU0Aq+QPCb6WlMQF5MMqTo2X3JJsFxzQYm5bcF7eYchNf3Do3IjX2
-	 VS7YTyICYI9Bczd2F1CwxdfoNHX/HqYp/gZLdvuI=
+	b=2FtsXg8QjpbH+RCMBqpOd/d0kHt3hRzlD3zX66eVtmwGUn4mkNZ+TvdQZCs3VWa14
+	 d/Ea5KBI6xeSFsFnemntMNi9E21e08sr5SqH8FWX9/NgXVBU0wV59p2NQ7eEBDCx1a
+	 5y7dskX6lRMfbzpvrBjotuM7IKjMBzkODqsxUsXM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	David Heidelberg <david@ixit.cz>,
+	Ijae Kim <ae878000@gmail.com>,
+	Myeonghun Pak <mhun512@gmail.com>,
 	"Daniel Thompson (RISCstar)" <danielt@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
 	Lee Jones <lee@kernel.org>
-Subject: [PATCH 7.3 112/547] backlight: qcom-wled: Fix WLED3 brightness register stride
-Date: Wed,  4 Nov 2026 16:04:56 -0500
-Message-ID: <20261104211041.389079419@linuxfoundation.org>
+Subject: [PATCH 7.3 109/547] backlight: lm3630a: Cancel delayed work before destroying workqueue
+Date: Wed,  4 Nov 2026 16:04:53 -0500
+Message-ID: <20261104211041.307248041@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -69,48 +69,46 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: David Heidelberg <david@ixit.cz>
+From: Myeonghun Pak <mhun512@gmail.com>
 
-commit e60dc9c05e0f415ef8bc63b3179abdd49830a619 upstream.
+commit 2cf184caab8b406fdd9db126ee40d62418237456 upstream.
 
-WLED3 has a 16-bit brightness register pair per string, at 0x40 + 2*n,
-which is what the pm8941-wled driver wrote to:
+The interrupt handler queues delayed work to read the interrupt status.
+After free_irq() stops the producer, this work can still be waiting on its
+timer. destroy_workqueue() cannot drain delayed work that has not yet been
+queued by its timer, so the timer can outlive both the workqueue and the
+devm-allocated chip containing the work.
 
-	rc = regmap_bulk_write(wled->regmap,
-			wled->addr + WLED3_CTRL_REG_VAL_BASE + 2 * i,
-			v, 2);
+Cancel the delayed work synchronously after freeing the IRQ and before
+destroying the workqueue. This also waits for any running status read to
+finish before the chip's resources are released.
 
-The restructuring for WLED3 turned that into WLED3_SINK_REG_BRIGHT(n),
-defined as 0x40 + n, so the two byte writes for consecutive strings
-overlap: string 1 overwrites the MSB of string 0 with its own LSB, and
-with the default three strings only string 1 ends up with the requested
-value.
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
-Use the 2 byte stride.
-
-Fixes: 775d2ffb4af6 ("backlight: qcom-wled: Restructure the driver for WLED3")
+Fixes: 0c2a665a648e ("backlight: add Backlight driver for lm3630 chip")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: David Heidelberg <david@ixit.cz>
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260921-qcom-wled-backlight-v4-2-bab8c7ef73cb@ixit.cz
+Link: https://patch.msgid.link/20261003030439.599330-1-mhun512@gmail.com
 Signed-off-by: Lee Jones <lee@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/video/backlight/qcom-wled.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/video/backlight/lm3630a_bl.c |    1 +
+ 1 file changed, 1 insertion(+)
 
---- a/drivers/video/backlight/qcom-wled.c
-+++ b/drivers/video/backlight/qcom-wled.c
-@@ -59,7 +59,7 @@
- #define  WLED3_SINK_REG_CURR_SINK_SHFT			5
+--- a/drivers/video/backlight/lm3630a_bl.c
++++ b/drivers/video/backlight/lm3630a_bl.c
+@@ -591,6 +591,7 @@ static void lm3630a_remove(struct i2c_cl
  
- /* WLED3 specific per-'string' registers below */
--#define WLED3_SINK_REG_BRIGHT(n)			(0x40 + n)
-+#define WLED3_SINK_REG_BRIGHT(n)			(0x40 + (n * 0x2))
- 
- #define WLED3_SINK_REG_STR_MOD_EN(n)			(0x60 + (n * 0x10))
- #define  WLED3_SINK_REG_STR_MOD_MASK			BIT(7)
+ 	if (pchip->irq) {
+ 		free_irq(pchip->irq, pchip);
++		cancel_delayed_work_sync(&pchip->work);
+ 		destroy_workqueue(pchip->irqthread);
+ 	}
+ }
 
 
