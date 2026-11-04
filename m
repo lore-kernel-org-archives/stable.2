@@ -1,85 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829550;
-	b=VBzPvriqBkTAe3JmdHw39i3OMqFuJar7yeefnlssA8JZSuygBrDLtr5B0BlBJythB2SS
-	 pW0LmUeEtUJZKtf5Rf2tJPq/ISiQSXAycz5m3WISIJUTeoXBjvtoO/q8DoZGCyM6KgQ3p
-	 I2gWIxvdYpZpZ7JQimnb840E3Tj5petBYYp0ZPXW0I/UPziqnVNO0PViugehv09CCr91R
-	 dz1J7Oc54lDUOlIWIvHLWClbgcgswD2KfhV7q5idSe0T8BJ8np4I6MzMOIsIy6HoYR7r4
-	 LRM1gHLo+5WYLdLhs89Ez0TcZiy9yc5T8nxke0RlMWkH/lpnR5D4R6Q6e+aEj0UzL0g==
+	t=1793829551;
+	b=apVmjrU4vqdp3yWr/jIIUby6FDzkO2xmqDSEFMcvhX/x0BzgxXIFYPBxPdgaRMoRqjFq
+	 5nEoS1gX6bmv7KllpNd/GNA1lm4Lr8YlFnXLQgCMtIxFafkr08fdP6KuPImDdUTrAiM9W
+	 XxyFCs5kcjT62EfuRFZCDAXViBteJqBS9pOC4q3Xc2QgYtkQi7wyWZecRf1/QohLnpKtb
+	 xNF6gJbxRSP7k0J+IM0tdPZ+vTtxDWtcIzvx+f0Qp8+yCuCGefJgqKuL8jJB3NRh9C/JE
+	 eNCIJxw03AQKD0p3WQ2YThIBKuqded/tCm4BZxQMDKtl3+1c2W5my3KBQjpXGgObNJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829550;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
-	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
-	 Date:Message-ID;
-	bh=HOGjeCK7VZpRFJVP6L7mKTf3wU4l+KENiauumJCgqRM=;
-	b=wU440l8JRIInOMJkB92o56l7cPwfKSBG+tGe0OFlCmEKemjdvInuGQN2dPtz6G/IZHXZ
-	 pRBBbF5b1XhRlLXyY5AQUEUf1qGZhiARGr0BWX4JFuF+Kqi9B/25VdX2Ckf6ZCnim2vwe
-	 69/kTFuq+og2vCvIEEVMcCZe4YCKgZYqRFbqe+00i7nLWBvA23y7KG2jzj/nY1yz3c5Jp
-	 XiRAl+ECmJbIDdMKFXVAUqF5rzuTou6j5RmRzD+Jx7v5Ev3ZCkmDZhl4kQvl90cRIvEr2
-	 SvT/xZS+nEMe6u+mKShWi69zogTiUpEYiuvOmKn5PaV+N5Qs6REwdyp0N9f95pUTIew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829551;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=FCb/WaSdtpZHz6ocV0ibxepH0XEjdkIKx9KRv0Tpx+Q=;
+	b=Mu550SX9MNKmfqgjBnf9fvQbZRzoeFTm+oWWz700vkjPLYRukCxstpRQZu0SeUdPOJ8q
+	 VVCg7j2dZLbQu3PJOc2UNqwrFF2x8vHmSvr7AmNErFa14C3u/A9Vy+KPq6lyrW0nmjPWB
+	 QY5gI3gavG7ZNWheE/Vh/jaxmtBa60qNUjvQWmHFhcNEStilAK+0kGztLJ56FbneckT4W
+	 /abMo+fYa+XlPk1MFdmmxaeKxbPXcpN2OHYsjgdf5AF+SrdKou8Pl/Dg+pqbV3+T1c7nJ
+	 aG36GvpQBjAlyVlS3ZV3B1CbM3CAO2TgurWbPezRY/l4GDWqZqQRDWhOk/LKJuLj5rQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernelci.org;
-	spf=pass smtp.mailfrom=kernelci.org;
-	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=i9LJesId;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eWJIY0+w;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3DFC6075273
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 21:59:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3DFC6075273
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C5B606B2C0;
+	Wed,  4 Nov 2026 21:59:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=i9LJesId
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36d6765756fso1163327eec.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 13:59:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1793829549; x=1794434349; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HOGjeCK7VZpRFJVP6L7mKTf3wU4l+KENiauumJCgqRM=;
-        b=i9LJesIdUTDj+2xnu8bQp0JHImHoWn2Pb2ZlJAPXW4DPbcZ/PU3ELwrVT3LVTwC7e0
-         QmYLJDXUl7j0901dA9vC/AlCxUDbvB1+nWtaOFFh6UViFRgASS9+sK1SkyCu081rb4CS
-         jJv82ffXJPOi9ClGtpJr8Qo9GwAjFeD8roZu0ZD4r8cIL+xize6Zf5RwkojWgSfTGojf
-         dfpLugq6IBA9yhzmA4tpeHCSd+/w1iNCX0IScXx64xHKpMhiw0JwRFPaYsgCNiaLbXWk
-         cLoyY3DjxoGmucPrBlE9gCj/maIEI16YdEXbQ5SWAbb8wdN+fKUNNow395YJJGdQtpOm
-         T7Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793829549; x=1794434349;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HOGjeCK7VZpRFJVP6L7mKTf3wU4l+KENiauumJCgqRM=;
-        b=FU585SMhIjSoqTWJrYTgBvZ0Ix8wnRcYuMNnfI2DH9yLYz8ClIguFQR855feBkh5Th
-         m5EXvjzU8LqLwHzxbUn0i5xjikJzEKrJPuKw2Hw1Fy1NXSuHJ8InRl8HilNIgPYH97rR
-         aFnhZqFet7mE4PVLbrpfJc3qD1bq7aWas4LI2VOabVHdBkzfV0wD5i6G6zNIGHRvQwTI
-         p5ZOQuDde6rDbyVjelOV3nDsFpDq8RYKK97G2BagsthcR93ARkXeyD3r/S/DOsObbGxI
-         FLfBZvrjAYQwyNEzB8thnB/WKEgMry5laK6cBTCB72Zru9Q+AH0hlPr6pgkn0VhB4NuM
-         Dplw==
-X-Gm-Message-State: APuU4Z8ywrlGDY+EztMy1P8X8UBhQxt/YYdlFNTbyGueAhssAD96vqEC
-	fPzwZY3uysxBGPXANUNGPX5IGg9LXZTDu5qAkiQvQlfCR+kXEL/qAbII6B+3s6PtINtXDWCcGki
-	pDiot
-X-Gm-Gg: AYBFou2jRIDDigqZjUyApBRkPAe6wBxQLuv6QSBgua7wip4+QkMY0qgCK00T/nnNcG0
-	Wa+mViwk/8rf8JBf02YIAGMDyTKjB6+zZJRPKD0kIKAY5Mv51Ibad9+LJLbpv14ffOW+ZUtBqpd
-	5iBaClWHEqwVBaFY/lYgSlkBWxtx0lbP8w6mvOHdECqLKhKyO4wzz5fTBUOz0skmBMv/d2OaZDD
-	PjH5FJLTxdnqduMwjoMvNxiR5WPeZB5fOswLeN/qyRbDPLAHi63LnpFjndeQBlhr+5HksnHEoGK
-	9WZCPBcdkIoTtSCIZ+s+L1TywRV81OiClBuCX5kirj8SxhRNZJsR5TVROLPwVOZ5jdQKqKulqQ8
-	OSPt8k7H489QtYC6jvZYvBQs2KNWOzEuGIbePeLMfRw0UKRLEJ54ULLNoQcC1WHhF1jTgBCDcau
-	w9A5Ob6veKLxWYb+HJqexoPMXHgc0fg9GlZ7X7qQ4HnYeKWz6vFU6dpbvGOGQTBZadZ61X10mvR
-	7dYWV3jkfUcgf7Co503Mq+2OPDg8vdrwdpPNRoP4F93mmOzwe1GPfq44H6FvXAGHJXAVUbyJMMK
-	ID5QcB+gWCTlOkNRVx/VZA==
-X-Received: by 2002:a05:7301:6f09:b0:36a:5126:a8aa with SMTP id 5a478bee46e88-36a5126a932mr21130034eec.27.1793829548557;
-        Wed, 04 Nov 2026 13:59:08 -0800 (PST)
-Received: from 34406640b1f4 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3989670sm13747501eec.25.2026.11.04.13.59.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 13:59:07 -0800 (PST)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eWJIY0+w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78DD31F00A16;
+	Wed,  4 Nov 2026 21:59:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793829550;
+	bh=FCb/WaSdtpZHz6ocV0ibxepH0XEjdkIKx9KRv0Tpx+Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eWJIY0+wDD1iQVu746DOJgW+eTMCzfquFc0CbbWSMCZgaGaX+tYV/OXgTNCdK8MWE
+	 PCTqqI+kwbOSHOjQ9Sp1nH05LxODhBgAeqhy9uO16nZbY2bRRJIq50tNtxomiEUxmz
+	 1JRuGgBQnMJqd1PoChMnKd2VR91W4+KfuWh09ADc=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Yuho Choi <dbgh9129@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 0197/1005] driver core: attribute_container: Unwind device_add() on attr failure
+Date: Wed,  4 Nov 2026 15:58:50 -0500
+Message-ID: <20261104211049.314031983@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
+References: <20261104211043.516122098@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,86 +62,51 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: 
- =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-5=2E10=2Ey=3A_=28build=29implicit?=
- =?utf-8?q?_declaration_of_function_=E2=80=98huge=5Fpage=5Fmask=5Falign?=
- =?utf-8?q?=E2=80=99=3B_did_you_me=2E=2E=2E?=
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
-Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Wed, 04 Nov 2026 21:59:07 -0000
-Message-ID: <179382954733.331468.11563971463195002541@kernelci.org>
 
-New build issue found on stable-rc/linux-5.10.y:
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
+------------------
+
+From: Yuho Choi <dbgh9129@gmail.com>
+
+[ Upstream commit 8cfe7ad274bb42c4653b645267410d4a3a23db98 ]
+
+attribute_container_add_class_device() first calls device_add() and then
+creates the container attributes. If attribute_container_add_attrs() fails,
+the helper returns the error with the class device still registered.
+
+Callers use an error from this helper as a failed add and do not call
+device_del() on that path. Undo the successful device_add() before
+returning the attribute creation error.
+
+Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
+Link: https://patch.msgid.link/20260608172717.88657-1-dbgh9129@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-implicit declaration of function ‘huge_page_mask_align’; did you mean ‘huge_page_mask’? [-Werror=implicit-function-declaration] in arch/arm/mm/mmap.o (arch/arm/mm/mmap.c) [logspec:kbuild,kbuild.compiler.error]
----
+ drivers/base/attribute_container.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-Log excerpt:
-=====================================================
-/tmp/kci/linux/arch/arm/mm/mmap.c:77:35: error: implicit declaration of function ‘huge_page_mask_align’; did you mean ‘huge_page_mask’? [-Werror=implicit-function-declaration]
-   77 |                 info.align_mask = huge_page_mask_align(filp);
-      |                                   ^~~~~~~~~~~~~~~~~~~~
-      |                                   huge_page_mask
-cc1: some warnings being treated as errors
+diff --git a/drivers/base/attribute_container.c b/drivers/base/attribute_container.c
+index b6f941a6ab693..b1d6eb6ab46b5 100644
+--- a/drivers/base/attribute_container.c
++++ b/drivers/base/attribute_container.c
+@@ -427,7 +427,12 @@ attribute_container_add_class_device(struct device *classdev)
+ 
+ 	if (error)
+ 		return error;
+-	return attribute_container_add_attrs(classdev);
++
++	error = attribute_container_add_attrs(classdev);
++	if (error)
++		device_del(classdev);
++
++	return error;
+ }
+ 
+ /**
+-- 
+2.53.0
 
-=====================================================
 
-When fixing this issue, please attribute this report according to the
-patch submission rules:
 
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:576f227846e1cfffb888e812add51c1251260b5d
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  87f290f068db5c53cdb05eabedd694141b5eaeac
-
-# Builds where the incident occurred:
-
-## imx_v6_v7_defconfig on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aeba2105b429d354eeea8f1
-
-## multi_v5_defconfig on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aeba2185b429d354eeea8fe
-
-## multi_v7_defconfig on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aeba21c5b429d354eeea94b
-
-## multi_v7_defconfig on (arm):
-- compiler: gcc-15
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aeba2085b429d354eeea8eb
-
-## multi_v7_defconfig+kselftest on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aeba2145b429d354eeea8fb
-
-## multi_v7_defconfig+netdev+nfs-root-boot+ltp+crypto+ima on (arm):
-- compiler: gcc-15
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aeba20b5b429d354eeea8ee
-
-## vexpress_defconfig on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aeba2205b429d354eeea94e
-
-#kernelci issue maestro:576f227846e1cfffb888e812add51c1251260b5d
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
