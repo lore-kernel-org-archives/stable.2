@@ -1,47 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819949;
-	b=M08pg9RvZrA0Hy+LsL5/DCPiiz+RXxss08iWEJsJqsb+S+97kMb+naVsGoCA0y/vv6N0
-	 +oJT5WJWN0QMMzK2LQ0xlDO44FAaVkfAQ818fHyMpXx5LLx18xxev6CfYKalm8aA0go2t
-	 r+c7F7jfrhmkJpm6uz8K92ikgphaZKEBW/QH1W80GvfSoaOGl1tKdCJajSOtzhFoMcJit
-	 h/uj84XfKEwe6B/Jl2hJpyJiUfzldMfe9IUaJlZkRO5mYwxTdF0zu7BkGKCp5UGTbjZas
-	 0qBCWH8WnQIW/JefjSllJ61t2oyEbz//RKhVRMMFHSDRPkvu8by2kqfTxBF2L/8yusQ==
+	t=1793819964;
+	b=ERbXDCOPBlHuaeLHRl34ZDgA27jsye2IHhlrQjAp2kl/gAJbbl30dgybSAwGzz8+QvZz
+	 ZrLYVUQpu8QAWh+kIaYKIiJaX3YJAR2sc+RNsNC0lQkCOa+39Xebx7roSk5DChIgdlnKX
+	 ysRH+ejiouxw0niyMSHteNbgkE/mS0F62hfA+eTwqZzQU14ibU7D5C8wkaeU77aN8D0VE
+	 qTZ8e9ztE/zi/oEfQ+fAvBDu01L0K/YFj9Onn3Pb0aiM239B/5LNdg9pbqLisDuJM55vw
+	 fyIVSH4jMpKlpVhGwMfkNKdiGCJxa9gLYsTNJ7dwWPiTO54aMCEoFaEI83VKOvMawbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819949;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fDwu3RlqltL21YJuQdXr8NkYMNQALIYTFQ0agRnzuPw=;
-	b=qhhTaStuZMb9ALSRhJskjZ5564R2ZWn6BaKMlCZwp8l4h1c8bChbjFMeSyFK8ceNlTcn
-	 BnU13bzX3heBpeRbhjuaL6jeXKjFMaVrEo2f/yb2tYCq9uOGrE7USgFpTthz9eHkV8+pb
-	 xIza6y/T9WH+DnzKHsQiRIio6EsGWYQGBSOrbYr1y9TKAjahRiOAcfXfDnZziVHUD136A
-	 hAJfM6iWTQ18AGq/3u+wuAx31AMGsgb/hgRJS6yo813b9LfaNsGNPgPIfy3g1NoU1hoa5
-	 pKDDvRe54b6T+nZLVbOwA/ru1OLozKvfWfw4S5fiihZNG0+piljhYTTuYi1LrpN0pmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819964;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=+QMuJvtMuQ+CXnn6xLeWoxU7H9VJY0mzKEyTXi76/+M=;
+	b=u1Tq8Jd6wwk8QvhAjbv4gS38dUEe2kpzpUpCUz5dRbOtIDcJJJl2aHYf9ikjYcv0B+KX
+	 rtq4rNtyonakfUwydTfITqfTDJb9dsNlvY7isXlIlNtVMDGM5deTtV8Yt2nesOaPRlnZD
+	 sPFRVsejEsPh7BSEmJW+E/rJh1KzT+hjCgs8PYboLqXmxWL7Q56qHR+p0TJD7EkcKMTBh
+	 +n6DyXp6LzHDRHI6Kz/vjUKmWjzZchvyLLTiyuQ1o6KyZaBCs5bm/CAUbUu9irhntX01m
+	 tMLezODQc4cB/MOi7+4wHf1EwNJbVHScmcpcWQbBb35vn6HZO1eqYZ6z7Vq84pvU9fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="M7SXnxh/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxIENLz0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206C6606A32C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:19:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C94E606EE8C;
+	Wed,  4 Nov 2026 19:19:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=M7SXnxh/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E92E1F00919;
-	Wed,  4 Nov 2026 19:19:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793819948;
-	bh=fDwu3RlqltL21YJuQdXr8NkYMNQALIYTFQ0agRnzuPw=;
-	h=Subject:To:Cc:From:Date;
-	b=M7SXnxh/BbbTLiMefthOovnMZfk4GK6GL45j5dOSi9/Z2QmkQdzcizGf8lvnhFCMm
-	 Z/HevVYOh59GflVJKvAqh2JtTi3W7LuOvbGk2FBIzpp9At4hxVyD83j89KiFCudLVi
-	 cF3tv/y/bMWK5PFvKYLQfQChhAxPlgVS1phjU0Io=
-Subject: FAILED: patch "[PATCH] KVM: VMX: Preserve negative return value in vmx_handle_exit()" failed to apply to 5.10-stable tree
-To: xiaoyao.li@intel.com,seanjc@google.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:19:01 -0500
-Message-ID: <2026110401-siren-occupancy-2a61@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxIENLz0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07C301F00919;
+	Wed,  4 Nov 2026 19:19:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793819964;
+	bh=+QMuJvtMuQ+CXnn6xLeWoxU7H9VJY0mzKEyTXi76/+M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gxIENLz0UJSM86XrOE1Sp3JOvLA1u1MA6tN2TKsN8z69sY8YtYsnY9pKSo3aFOcfQ
+	 It+yrAGN09WT7v77bOcS26Rrfp6yDzWLpkBPnc74ur6LeQ3oTzrvuG6Ky0kmVgi5Bb
+	 Z3j0QjnFD8aYVcI8yWVigWpiQHEHJJZHAuuleBaspMz1mpQ5rRYAMWLJX0zRU4vJo6
+	 RVoQiNLCqpiXG3Q/pt4TC6GrXdJ/RtFA4o6YSTd9QUZ7eQ0PuRnoorZ/GGmdi0VNty
+	 8+ElarT6h6fA4UlBB9caj85En7ce0T5GP9cwgZFrj2EBL5oKo+5dRL8rx9quzBAg6O
+	 vLwWBgOdvm1Pw==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH RESEND v2 13/51] sched/psi: don't drop the last byte of a trigger write
+Date: Wed,  4 Nov 2026 20:19:09 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-13-021c84d852e0@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,73 +115,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1310; i=brauner@kernel.org; h=from:subject:message-id; bh=/5ST8groFWC3ZYrB9+5K2L5OtN8hrslkTr6MpvXzbng=; b=kA0DAAoWkcYbwGV43KIByyZiAGrrgdqjlnhsS+Xn2bQzAZGlod8csUEIbzAtYr5Z7PKO7g1AP Ih1BAAWCgAdFiEEQIc0Vx6nDHizMmkokcYbwGV43KIFAmrrgdoACgkQkcYbwGV43KLVfgEA1c1M +KyfIhJG/BAv6BFn00vAnDN1zj94NkCXNtd8aaQBAIjacXos/OXrlYuIrWKCfCTQiGjILl4kpqo N1Eyu2lMK
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
+psi_write() copies at most 32 bytes of the write into its buffer and
+terminates the buffer by overwriting its last byte. For a write shorter
+than 32 bytes that is the last byte the writer sent. A trigger written
+without a trailing newline loses its last digit then, "some 150000
+1000000" turns into "some 150000 100000", and a shorter one like
+"some 150 10000" fails with -EINVAL because the window doesn't fit
+anymore. Only writes that end in a newline parse as intended.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Copy at most 31 bytes and terminate behind them.
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x cef48693da1e964e9f192bfc16cd0ed287c48337
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110401-siren-occupancy-2a61@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From cef48693da1e964e9f192bfc16cd0ed287c48337 Mon Sep 17 00:00:00 2001
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-Date: Wed, 19 Aug 2026 17:49:00 +0800
-Subject: [PATCH] KVM: VMX: Preserve negative return value in vmx_handle_exit()
- with bus lock detected
-
-Preserve the negative return value from __vmx_handle_exit() when a bus
-lock is detected, instead of always overwriting it with 0.
-
-The purpose of bus_lock_detected handling is to force a userspace exit to
-inform userspace that a bus lock happened. The negative return value can
-achieve this purpose, and changing the negative value to 0 fails to return
-an error to userspace. So, preserve the negative return value.
-
-Fixes: fe6b6bc802b4 ("KVM: VMX: Enable bus lock VM exit")
+Fixes: 0e94682b73bf ("psi: introduce psi monitor")
 Cc: stable@vger.kernel.org
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/all/20260805034602.5B2BB1F000E9@smtp.kernel.org/
-Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
-Link: https://patch.msgid.link/20260819094903.3060020-7-xiaoyao.li@intel.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ kernel/sched/psi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 965141e0d4c8..6df390ae8708 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -6864,11 +6864,12 @@ int vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
- 	 * a bus lock in guest.
- 	 */
- 	if (vmx_get_exit_reason(vcpu).bus_lock_detected) {
--		if (ret > 0)
-+		if (ret > 0) {
- 			vcpu->run->exit_reason = KVM_EXIT_X86_BUS_LOCK;
-+			ret = 0;
-+		}
+diff --git a/kernel/sched/psi.c b/kernel/sched/psi.c
+index 7c5381423334..8b59635e95d4 100644
+--- a/kernel/sched/psi.c
++++ b/kernel/sched/psi.c
+@@ -1566,11 +1566,11 @@ static ssize_t psi_write(struct file *file, const char __user *user_buf,
+ 	if (!nbytes)
+ 		return -EINVAL;
  
- 		vcpu->run->flags |= KVM_RUN_X86_BUS_LOCK;
--		return 0;
- 	}
- 	return ret;
- }
+-	buf_size = min(nbytes, sizeof(buf));
++	buf_size = min(nbytes, sizeof(buf) - 1);
+ 	if (copy_from_user(buf, user_buf, buf_size))
+ 		return -EFAULT;
+ 
+-	buf[buf_size - 1] = '\0';
++	buf[buf_size] = '\0';
+ 
+ 	seq = file->private_data;
+ 
+
+-- 
+2.53.0
 
