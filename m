@@ -1,86 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787046;
-	b=PgDGofJFAB9EVjR6bCugHrbr3nd/WQK7wWKIzD/KS63RGGtXiX9+/xNbCyS3sZ5gZuYJ
-	 7yVxVQrQiqUje8PpuutCQVOUaju3W4C0efhz48mEv9iCrsCkl6EpuTDRJX0nzB9eOioZ/
-	 7ABtJjcp93f8oR5gM6XfzOrC+7DE2ebrG89Q1ombKRRj5bM9dLaw+HCcNhfkJEG743w0A
-	 c1vHPJfZA9qoNNRlVtPTOdVfGfMkYJTdbsLNmoyeyrBjIR8XvYwMEArk/4igZUkshrmfM
-	 TqdybngjtL0MzsP+/dUyA427pFjCO7X43YF+KAnTf/ximKcsEoWWpwZIeNZ67jEJp1w==
+	t=1793787817;
+	b=Mw0Gv9Kc3tx+GlzOF6rwTTNQ8bKNQsiTnYKuBseM7HwoGd6+QRgzQs0JPb7EDSlHEWiw
+	 mixh6wmcLX18S6ZAd9jdj+U4my/1W4a0lgihGZ/ix5ZXYvT43NgPX6XMTxoH4rWvvu0R8
+	 PvAycBiKbyUOpk58A7NjolqdBS1WlCqIHUyDfLoImnQhRde2IoY2vqGHZE7xEAsUkJ28e
+	 Pv6vX46uVD1gT04OzumyE4SMSNHgOwcJChan93qJxVnm56TcYsO4vSxjwfWFkexW4E01f
+	 TJKaTpjH4aWbAqJvn/th4WKgyfFJ56qWE1Uztuu2NLQDS7w5yIfZxmgymH3zR2h1VGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787046;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gOy7eQpzHFpztlKvyzaiFTVnnLLXz7dkAkgtCzD74wg=;
-	b=TaZn2Vol6MDdcUGwWeKKmvvGwBuBELl1sUvuo6AB8w0DUSweQQTB4+wtpyXFnL5gSCRg
-	 skUzKgyXIZUN+4iG/5/8Qn/hioxc/hz6NksztwEgwmYwc/f+0Hk5MhOPUHOmkd4E8p+BT
-	 w+H8OignTzdLbEDRJ0hLDAbQWA6aHdXeLL9Pu+qjzJHTv9mCEfOeN+ICKnwtOk2FGCt7q
-	 /JyoDGROvPbe4s2pEng5eW6dpSbizCqoPmwo0+MpV6YT+P/Rj+Da8Rz09k8/UHozIzO1p
-	 rRT++DlPfRT/Rd7HDXNyfA4k0wFsnvBhkvjWOLro3f0Kne165oJWlPpiFRzJfhHoEHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793787817;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=m3d/wzGNwOwiGd7h6SwYhY1GxTniyAmLrkyjp/DieEQ=;
+	b=GmSundv5w2XrGBZ7ftLrFaNUHM09967gvAgRM8+XhWgAs0lloQ10PVOxiaKCZypuwLJF
+	 T+cqdKlISyLQIyUB7ZNIS53Q15fzNfmy4yx6E8LrE57SNtbRQzmRms56RHonoQTirvylD
+	 PTYk1w2/74VB5VESdUnN89QYz1caQr80PCzR1nZx7OSOYHJHfAKDgNx43hfQm/Sh1e/cY
+	 m7KTlawTjU6mmQP8FJyzgn5VV9J7Zx/znGy61FqQ/vzARs0IT3I533q54kHUZ9ailB9Q5
+	 a5AU+f2OZDlPHIxOLl0iz6lY9/d/Rp+KcSdlwI5PqDa3UT4yYKafQYCbVb5GieKIggg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=YOHwj3ZP;
-	arc=none smtp.remote-ip=203.205.221.210
-Received: from out203-205-221-210.mail.qq.com (out203-205-221-210.mail.qq.com [203.205.221.210])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=asu.edu;
+	spf=pass smtp.mailfrom=asu.edu;
+	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=Rw6J6PVY;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736D3606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 10:10:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 736D3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC485606A33C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 10:23:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC485606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=YOHwj3ZP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793787042; bh=gOy7eQpzHFpztlKvyzaiFTVnnLLXz7dkAkgtCzD74wg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YOHwj3ZPYIfVSGTuE7EpjJTzxRdacwiL7q6MD2hyqiXu7l7gMwpylsZzqTb/TXcOv
-	 q1M0G9/XrNl3kjTvQzlRyaoyY1rujff7N7I2WuJ0t5AY59FNjder16zt9Gz2EsTvuf
-	 gIigBDX2ncdl/q0pQPZcADbqF+myh76XEy18PRTU=
-Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id 2A6B48B0; Wed, 04 Nov 2026 18:10:38 +0800
-X-QQ-mid: xmsmtpt1793787038t70e1lbkq
-Message-ID: <tencent_4EAEF2024D7BB83D62E41306EED8D2112C08@qq.com>
-X-QQ-XMAILINFO: OIJV+wUmQOUAh1TBMEZac7874ZkPXaV+VLM3riPE8vYa/5fS9TiJRZsW2ue5Z0
-	 UFa5Ss97sjxBePqku8HLxBt3pziFL7SAiRoAodC8iOQHWhZ4Zqh5mVnQnJqLL80ooRsMf6/jwEG8
-	 my4prOG2dvplDauq9Q4xVkf5nJuUbgi8ZBrDesCR+zq3QQp56ACEOkvFuWUmcZh7HPQLT6n2SXWL
-	 VBikY4pNHDTggVpNW/R0oC2t2G7W1W5kHoUo62eGQzzBUEpZZ2br8PeQRtQ+zDw0h9jc8LVzxq8i
-	 oawQCq8OnCUuVAEwSzqzAt/bIQuOQx6GfPhfm2ANve4vUlrqvzdo5wMXzBEUKrouIKEchgctuCui
-	 HL5Ni/v5YJlAwYtouOm8bGVeq9dzx97YvU70V8gX3VoauTBLvotk7hJHwiuxn4zBsRpY6pz5Jij0
-	 AUx2lEOBg7Gh5K1DNBUpo+WtY1kgp0eF/nteZ5irUmNL6og6eMaIEiiT/xenYcvkZ2r2vlP7ZSfW
-	 oM2tPj86tXqbz27FHRaN+IBIpApGDnEpwtq7GCpWIsdgp0sEhTMVoiXKoA4orzPKUEX0s4Yat3V3
-	 ZDR1Ud3Op7DHFZjnZ6wUnXVmCnk9EUK0gR6oAcyAu1sfp0TjjABbjLnAiPnIp8fr1c3H20j4ACSi
-	 WEUyZsxjk/Z1WBlNgx68qZCWq7Gim76JOjO+3rAE3TaLJdRn2gHWcbl54JTiXceP6IKtGu/c9z1r
-	 ECvyC8t8zXqOYOzwYAw9C+c75bmLt+IRft7lVj7FWN29DR78Cg07ixvK5S+TuI5HkE8c9Sz9jhho
-	 j/2BYC2AFfxZSQNPvkY/rr/InPLEO9qQGpgNONq6zw3+iolF4w/mGLDFcmMHEvn/pY9Qj2cGDbjc
-	 dzTM4NPWGyjopFyL1Nu7jSqMWKcQVKK22jrd3zz9lUu+J7jcyr57r1vACAmzSZD4TrF2w/WYDIrD
-	 zS2CjwHvNMY7zAhzr2D1gjg9MVuH9qO08TB9TQNNlo9rIg1XXgQLyeBtyZeiFeDdM9pAuK+CUpgA
-	 d/A+3AKf/feUs7xcp6bKUfsFlupeVeaJ4KH1iDMSj/d4zGkoPi5SykRBgq95g/0P9VhM8CUd6vMy
-	 LlaFi2w6yhBbirNj72j+wp9EjLFPZrLS2euAx0
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-ext4@vger.kernel.org
-Cc: tytso@mit.edu,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
+	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=Rw6J6PVY
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3535a54bed9so682782eec.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 02:23:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1793787811; x=1794392611; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m3d/wzGNwOwiGd7h6SwYhY1GxTniyAmLrkyjp/DieEQ=;
+        b=Rw6J6PVY5JuXf3efAuBwBkmOqE0fmQT6ehKVaHVqWMSFdzWr3DEFzWO6B/0eRMq08u
+         ONefvo1rdhn7rgB995tA3v7K+u/xhWlegbSUAw2Gu4gEQh5+mu95QpX8EndSqFHSyagB
+         I8liLFX5toT/OAMZGtwBx44EytCBpHrGkKFYd9PrUBnBddNrUt6nnlymi1akZ/XaFuUm
+         o46JgYh/cpcE0isJGA0kdD0qoC2CtlECn2+4q53WBkC8T9QJoaT0W/ZPdpkRtZYouNJv
+         Hmg/cjIfslmaOowC76NHERWGt85a7PTcSNE6nVvOeKDQJYb6Db2RCMZsQ7X4ApIptDCM
+         rlQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793787811; x=1794392611;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m3d/wzGNwOwiGd7h6SwYhY1GxTniyAmLrkyjp/DieEQ=;
+        b=JQ3wkjDtp/ypqNUR6T5uaKiG+od79I6wZbEyLZe/BrgtTLe2Ar3qKY7XsgBk3d3O/Q
+         HQPWxcgDaLxKZWe4eosnjx77sO7PhsJV8lkQBms79v0A6vC93lFkfzNAw0k17JrRQgq6
+         yB+YuIKqbLaIihzx6d/XdGzI+Kg4Jywdh+SMLt8BcaRbW/MIJh2AJnH5tO8ImNlGi3iE
+         zemb0pRi6NfQ5OzulZKLDBQUVHTMXbGErt/UKqB/11jKew9aoy3Fe4+FzCkx3i199aep
+         iGJDuxTywcK1EjCM4cJYRSx0sT2iGlTozRFA2jUNk9z++2mNCl8zbYZ8RIRDfw1Ni5PS
+         DF1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx1g/BjxLsS4t1N/ZZeJh35fLwtcCkwimYKB35jy0jU3GfAHNgEFtlukO/I/dVTLMl2f3iAcB0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9fHwuw16/VdBqmF59549s3neGV0gdZnQTZAS+6AllygVlIOwCh
+	v6FkpubjuEsblrzFB+j5liVSjn7wGHOKlMbM3Um6SGJ+cnioqD/GdIH4tBf2tzWJtw==
+X-Gm-Gg: AYBFou3ZtX6kigTzd/fE90mybFLLvIMqxM2ucjBpBjm0oSX8aSeergYFF4+5QjNBLjV
+	ghlvl0wqU55E573D+VNqJdmkKDfO0GcywMPREz6ulJZFKmpUfMUNfVBI8mO4Tuarq+zr6R5vre4
+	vSrfWIDFVJtieEo2tGIP71j//1TV7YfDRWzvpN/8zYHYMyDQcKDzFPhaafgo0UE0LQyuhbVgI+Q
+	K9jYCsg4+R5lzKI62x8cx/kQT6JWU1oXQlN3lHccva2Y6Ru1r4PXIoSD26vbWlLYMxDhuNRfflv
+	dFUgmrZZnrUE5C/k1SEOzAOnKBSOfex+D38/+ketM07yDOB1Bz1Gx/ERS6WciQ+qr1wZDdHCV6a
+	XulQE7GfB6A8n6efgDIoabMdXZgzVS0GgjyMWoEB4T96HvN9yQSKYSeIX3Cc7RYPEcd5wzEnqaI
+	WNr8ogeMmRCKT3YlVpgTxhQK5IdMZ2TpyhiS2obMzr3KDAaiqEGyBmYV0B5zwZzroVgF2YXSRtF
+	9UlwidsH5gediaI0KiC8vvWqKY3jABbfb9TYMjjTkI2C8RhQUugN7ubsGY7grgrr/Tz/4D1iV5G
+	tdInBYnWCJ/uLI3fdEVyDZSN2Ez2XkxPCW4MzVdaLg==
+X-Received: by 2002:a05:693c:88c8:20b0:369:f2d6:4108 with SMTP id 5a478bee46e88-36a42401233mr23215503eec.10.1793787810538;
+        Wed, 04 Nov 2026 02:23:30 -0800 (PST)
+Received: from localhost.localdomain ([2600:8800:1e00:25f0:ff01:97fc:f9e5:d7e1])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a6160sm5749086eec.9.2026.11.04.02.23.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 02:23:29 -0800 (PST)
+From: Siddharth Mishra <smish149@asu.edu>
+To: dsterba@suse.com
+Cc: wqu@suse.com,
+	boris@bur.io,
+	josef@toxicpanda.com,
+	fdmanana@suse.com,
+	mason@kernel.org,
+	linux-btrfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com,
-	sashiko-bot@kernel.org,
-	Shuai Liu <847807867@qq.com>,
+	Siddharth Mishra <smish149@asu.edu>,
 	stable@vger.kernel.org
-Subject: [PATCH v5] ext4: fix slab-use-after-free in do_split()
-Date: Wed,  4 Nov 2026 18:10:38 +0800
-X-OQ-MSGID: <20261104101038.743378-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <sashiko-outbox-197027@kernel.org>
-References: <sashiko-outbox-197027@kernel.org>
+Subject: [PATCH 1/5] btrfs: skip tree blocks in btrfs_get_extent_owner_root()
+Date: Wed,  4 Nov 2026 03:23:19 -0700
+Message-ID: <20261104102323.4090290-2-smish149@asu.edu>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261104102323.4090290-1-smish149@asu.edu>
+References: <20261104102323.4090290-1-smish149@asu.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,133 +106,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-do_split() allocates a new directory block with ext4_append() to hold
-the second half of the entries of the leaf block being split, then
-dx_move_dirents() copies entries from the old block (*bh) into the new
-one (bh2).  Nothing verifies that the newly allocated block differs
-from the block being split.
+[BUG]
+With simple quotas enabled on a filesystem without the skinny-metadata
+feature, deleting a subvolume triggers the following warning:
 
-On a filesystem whose block bitmap is inconsistent with the directory
-tree, a block already referenced as a directory leaf or as an htree
-index block can still be marked free, so ext4_append() can return that
-same block.  With concurrent operations on such a filesystem (as
-exercised by the syzbot reproducer), the block can even be freed
-between allocations, resulting in bh2 aliasing *bh.  dx_move_dirents()
-then copies the block onto itself, corrupting directory entries
-mid-copy: a rec_len field can be overwritten with name bytes, so the
-subsequent wipe of the stale entry memset()s a bogus length, causing
-the slab-use-after-free reported by syzbot.
+ ------------[ cut here ]------------
+ WARNING: fs/btrfs/extent-tree.c:393 at
+   btrfs_get_extent_inline_ref_type+0x1b9/0x2d0, CPU#1: btrfs-cleaner/84
+ RIP: 0010:btrfs_get_extent_inline_ref_type (fs/btrfs/extent-tree.c:393)
+ Call Trace:
+  <TASK>
+  btrfs_get_extent_owner_root (fs/btrfs/extent-tree.c:3128)
+  btrfs_lookup_extent_info (fs/btrfs/extent-tree.c:187)
+  walk_down_proc (fs/btrfs/extent-tree.c:5647)
+  walk_down_tree (fs/btrfs/extent-tree.c:6170)
+  btrfs_drop_snapshot (fs/btrfs/extent-tree.c:6392)
+  btrfs_clean_one_deleted_snapshot (fs/btrfs/transaction.c:2728)
+  cleaner_kthread (fs/btrfs/disk-io.c:1553)
+  kthread (kernel/kthread.c:436)
+  ret_from_fork (arch/x86/kernel/process.c:158)
+  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+  </TASK>
+ ---[ end trace 0000000000000000 ]---
+ BTRFS error (device vda): eb 30720000 iref 0x3ee6 invalid extent
+   inline ref type 0
 
-The same aliasing applies to the htree index blocks: if the leaf block
-or the new block aliases any index frame (the parent index block
-frame->bh or one of its ancestors in the frames[] array),
-dx_move_dirents() and dx_pack_dirents() overwrite the index header,
-dx_insert_block() then memmove()s with a corrupted count and writes
-out of bounds, and dx_release() can loop past the frames[] array (or
-leak frames) with a corrupted indirect_levels.
+Writing to a snapshot (update_ref_for_cow()) or a metadata balance
+(relocate_block_group()) trigger the same warning.
 
-Fix this by checking for all of these aliases in do_split() and
-bailing out with -EFSCORRUPTED before any directory block contents are
-modified, reporting the corruption via ext4_error_inode_block().
+[CAUSE]
+Without skinny-metadata, the extent item of a tree block is an
+EXTENT_ITEM with the TREE_BLOCK flag, and a btrfs_tree_block_info sits
+between the btrfs_extent_item and the first inline ref:
 
-Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuai Liu <847807867@qq.com>
-Changes in v5:
-  - The v4 posting mistakenly carried the v3 diff (the code changes
-    were left unstaged when the commit was amended), so the code did
-    not match the v4 changelog.  The code now actually implements
-    those changes: do_split() takes the frames[] array and checks *bh
-    and bh2 against all frames[0..level] (spotted by Sashiko)
+	item 3 key (30441472 EXTENT_ITEM 16384) itemoff 16079 itemsize 51
+		refs 1 gen 5 flags TREE_BLOCK
+		tree block key (256 INODE_ITEM 0) level 0
+		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+		(176 0x5) tree block backref root FS_TREE
 
+But btrfs_get_extent_owner_root() always takes the first inline ref
+right after the btrfs_extent_item:
+
+	ptr = (unsigned long)(ei + 1);
+
+So for such a tree block it reads the lowest byte of the first key
+objectid as the inline ref type. For the key above that byte is 0, and
+btrfs_get_extent_inline_ref_type() warns. If the byte happens to be
+BTRFS_EXTENT_OWNER_REF_KEY (172), the key bytes are returned as the
+owner root.
+
+The filesystem is valid. It can be reproduced with:
+
+  mkfs.btrfs -f -O ^skinny-metadata $dev
+  mount $dev $mnt
+  btrfs quota enable --simple $mnt
+  btrfs subvolume create $mnt/sv
+  btrfs subvolume delete $mnt/sv
+  btrfs subvolume sync $mnt
+
+[FIX]
+Owner refs are only added to data extents, never to tree blocks, so
+return 0 for an extent item with the TREE_BLOCK flag before looking at
+its inline refs. This covers both the EXTENT_ITEM and the METADATA_ITEM
+layouts, and gives the same result as on a skinny-metadata filesystem,
+where the first inline ref of a tree block is never an owner ref.
+
+Fixes: 8d2990914073 ("btrfs: add helper for inline owner ref lookup")
+Cc: stable@vger.kernel.org # 6.7+
+Signed-off-by: Siddharth Mishra <smish149@asu.edu>
 ---
- fs/ext4/namei.c | 39 +++++++++++++++++++++++++++++++++++----
- 1 file changed, 35 insertions(+), 4 deletions(-)
+ fs/btrfs/extent-tree.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 354fc2d22df1..5f2790a0b8b4 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -1903,13 +1903,14 @@ static struct ext4_dir_entry_2 *dx_pack_dirents(struct inode *dir, char *base,
-  * Returns pointer to de in block into which the new entry will be inserted.
-  */
- static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
--			struct buffer_head **bh,struct dx_frame *frame,
--			struct dx_hash_info *hinfo)
-+			struct buffer_head **bh, struct dx_frame *frames,
-+			struct dx_frame *frame, struct dx_hash_info *hinfo)
- {
- 	unsigned blocksize = dir->i_sb->s_blocksize;
- 	unsigned continued;
- 	int count;
- 	struct buffer_head *bh2;
-+	struct dx_frame *f;
- 	ext4_lblk_t newblock;
- 	u32 hash2;
- 	struct dx_map_entry *map;
-@@ -1922,12 +1923,42 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
- 	if (ext4_has_feature_metadata_csum(dir->i_sb))
- 		csum_size = sizeof(struct ext4_dir_entry_tail);
+diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
+index 9b0a5c6b9..3ab4f2696 100644
+--- a/fs/btrfs/extent-tree.c
++++ b/fs/btrfs/extent-tree.c
+@@ -3117,6 +3117,9 @@ u64 btrfs_get_extent_owner_root(struct btrfs_fs_info *fs_info,
+ 		return 0;
  
-+	for (f = frames; f <= frame; f++) {
-+		if (*bh == f->bh) {
-+			ext4_error_inode_block(dir, (*bh)->b_blocknr,
-+					       EFSCORRUPTED,
-+					       "leaf block aliased with index block");
-+			brelse(*bh);
-+			*bh = NULL;
-+			return ERR_PTR(-EFSCORRUPTED);
-+		}
-+	}
+ 	ei = btrfs_item_ptr(leaf, slot, struct btrfs_extent_item);
++	if (btrfs_extent_flags(leaf, ei) & BTRFS_EXTENT_FLAG_TREE_BLOCK)
++		return 0;
 +
- 	bh2 = ext4_append(handle, dir, &newblock);
- 	if (IS_ERR(bh2)) {
- 		brelse(*bh);
- 		*bh = NULL;
- 		return ERR_CAST(bh2);
- 	}
-+	if (bh2 == *bh) {
-+		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
-+				       "cannot split aliased directory block");
-+		brelse(bh2);
-+		brelse(*bh);
-+		*bh = NULL;
-+		return ERR_PTR(-EFSCORRUPTED);
-+	}
-+	for (f = frames; f <= frame; f++) {
-+		if (bh2 == f->bh) {
-+			ext4_error_inode_block(dir, bh2->b_blocknr,
-+					       EFSCORRUPTED,
-+					       "leaf block aliased with index block");
-+			brelse(bh2);
-+			brelse(*bh);
-+			*bh = NULL;
-+			return ERR_PTR(-EFSCORRUPTED);
-+		}
-+	}
+ 	ptr = (unsigned long)(ei + 1);
+ 	end = (unsigned long)ei + btrfs_item_size(leaf, slot);
  
- 	BUFFER_TRACE(*bh, "get_write_access");
- 	err = ext4_journal_get_write_access(handle, dir->i_sb, *bh,
-@@ -2325,7 +2356,7 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
- 	if (retval)
- 		goto out_frames;
- 
--	de = do_split(handle,dir, &bh2, frame, &fname->hinfo);
-+	de = do_split(handle, dir, &bh2, frames, frame, &fname->hinfo);
- 	if (IS_ERR(de)) {
- 		retval = PTR_ERR(de);
- 		goto out_frames;
-@@ -2631,7 +2662,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
- 			goto journal_error;
- 		}
- 	}
--	de = do_split(handle, dir, &bh, frame, &fname->hinfo);
-+	de = do_split(handle, dir, &bh, frames, frame, &fname->hinfo);
- 	if (IS_ERR(de)) {
- 		err = PTR_ERR(de);
- 		goto cleanup;
 -- 
-2.43.0
+2.54.0
 
