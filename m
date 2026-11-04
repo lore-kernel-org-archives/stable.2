@@ -1,58 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829549;
-	b=VbD/Xp+K503N+xj1vbMds8WHy7HTMDXNBB1SMzEZ3AdLwhIwfcY/C5nuqBm0kT+VdQ19
-	 +PUqaBG9S0awFtK6Y+FazkiJ94y1e1MKuyYTdn/3yswCyJCnOKJbHpAMUJafa+G2zXeJl
-	 r741PQBn71LtpylvkGceqk37IC14Z6uFBJAjMwDzseHqTYS5PCesq4MwB7d+lQH5NofVT
-	 2FokS7xIwMpBIiY1DPGBHYevqJwaZmsRG9rQQB7DX/Qk+Hps8FSTAMeACTLAWWCTx9cIY
-	 iy+uTEePjE+Vc9wRiF68rgvG2VOOX4DshH+yKYu3Ecl+dkNANKsjB9x05NDOZKhnaPA==
+	t=1793829550;
+	b=VBzPvriqBkTAe3JmdHw39i3OMqFuJar7yeefnlssA8JZSuygBrDLtr5B0BlBJythB2SS
+	 pW0LmUeEtUJZKtf5Rf2tJPq/ISiQSXAycz5m3WISIJUTeoXBjvtoO/q8DoZGCyM6KgQ3p
+	 I2gWIxvdYpZpZ7JQimnb840E3Tj5petBYYp0ZPXW0I/UPziqnVNO0PViugehv09CCr91R
+	 dz1J7Oc54lDUOlIWIvHLWClbgcgswD2KfhV7q5idSe0T8BJ8np4I6MzMOIsIy6HoYR7r4
+	 LRM1gHLo+5WYLdLhs89Ez0TcZiy9yc5T8nxke0RlMWkH/lpnR5D4R6Q6e+aEj0UzL0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829549;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=2f1XjHUsGBdSCyxL4KV3EGEIZB5MV+EkhotrPu8x43c=;
-	b=KcoSH30wahh8BS/EwNJ+sMZmOSNn2kFwNywlFW/omEWPQeLCe9AVkpPhd9mOlcjihGqS
-	 EIsX3HBf/yXqrRildOE58yf0d1rajicg25xWlFdt2Waq3eu6QVZtzo1KW83gWoNYaglf/
-	 x9fQTvO+Lz2t5CKljuMjiwBZoPYrLthImnsLKkdJA2xnJglqp/8R3vKwaauUYOpcXeY3X
-	 CcjaHQFY7KSwBtJNwqNNC6xaW7/LHm6OraWA2mmBGMoqGG+h1igLL9Yp7GYH9Q4etT2NY
-	 Fy1sl28UfvNVzKUx2ZMKP5mnMywXJ/t9JpnWjuooRFCMQWR/ev9kqfl7alhfgvGQExA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829550;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
+	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
+	 Date:Message-ID;
+	bh=HOGjeCK7VZpRFJVP6L7mKTf3wU4l+KENiauumJCgqRM=;
+	b=wU440l8JRIInOMJkB92o56l7cPwfKSBG+tGe0OFlCmEKemjdvInuGQN2dPtz6G/IZHXZ
+	 pRBBbF5b1XhRlLXyY5AQUEUf1qGZhiARGr0BWX4JFuF+Kqi9B/25VdX2Ckf6ZCnim2vwe
+	 69/kTFuq+og2vCvIEEVMcCZe4YCKgZYqRFbqe+00i7nLWBvA23y7KG2jzj/nY1yz3c5Jp
+	 XiRAl+ECmJbIDdMKFXVAUqF5rzuTou6j5RmRzD+Jx7v5Ev3ZCkmDZhl4kQvl90cRIvEr2
+	 SvT/xZS+nEMe6u+mKShWi69zogTiUpEYiuvOmKn5PaV+N5Qs6REwdyp0N9f95pUTIew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=io3SXKTo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=kernelci.org;
+	spf=pass smtp.mailfrom=kernelci.org;
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=i9LJesId;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513DA606B381;
-	Wed,  4 Nov 2026 21:59:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3DFC6075273
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 21:59:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3DFC6075273
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=io3SXKTo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6F141F000C1;
-	Wed,  4 Nov 2026 21:59:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793829549;
-	bh=2f1XjHUsGBdSCyxL4KV3EGEIZB5MV+EkhotrPu8x43c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=io3SXKToDujPY4gUUrLWFSnCMLfy4aIO7klquABCQv8mq7PjZGIAOBARwyuQfcNU0
-	 Ame+RJlkNubOd3osulkqlcOQCTG6cedWAU6UJJLrlVDDE2A6ojCoIKBRnJIdWUzZ6N
-	 CXJoygvr1HI+U/CLbxYaHhCJQpmdB5hs9ykLZl4o=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0196/1005] PCI: switchtec: Add Microchip PCI1008 to NTB DMA alias quirk
-Date: Wed,  4 Nov 2026 15:58:49 -0500
-Message-ID: <20261104211049.288223546@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
-References: <20261104211043.516122098@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=i9LJesId
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36d6765756fso1163327eec.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 13:59:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1793829549; x=1794434349; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HOGjeCK7VZpRFJVP6L7mKTf3wU4l+KENiauumJCgqRM=;
+        b=i9LJesIdUTDj+2xnu8bQp0JHImHoWn2Pb2ZlJAPXW4DPbcZ/PU3ELwrVT3LVTwC7e0
+         QmYLJDXUl7j0901dA9vC/AlCxUDbvB1+nWtaOFFh6UViFRgASS9+sK1SkyCu081rb4CS
+         jJv82ffXJPOi9ClGtpJr8Qo9GwAjFeD8roZu0ZD4r8cIL+xize6Zf5RwkojWgSfTGojf
+         dfpLugq6IBA9yhzmA4tpeHCSd+/w1iNCX0IScXx64xHKpMhiw0JwRFPaYsgCNiaLbXWk
+         cLoyY3DjxoGmucPrBlE9gCj/maIEI16YdEXbQ5SWAbb8wdN+fKUNNow395YJJGdQtpOm
+         T7Gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793829549; x=1794434349;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HOGjeCK7VZpRFJVP6L7mKTf3wU4l+KENiauumJCgqRM=;
+        b=FU585SMhIjSoqTWJrYTgBvZ0Ix8wnRcYuMNnfI2DH9yLYz8ClIguFQR855feBkh5Th
+         m5EXvjzU8LqLwHzxbUn0i5xjikJzEKrJPuKw2Hw1Fy1NXSuHJ8InRl8HilNIgPYH97rR
+         aFnhZqFet7mE4PVLbrpfJc3qD1bq7aWas4LI2VOabVHdBkzfV0wD5i6G6zNIGHRvQwTI
+         p5ZOQuDde6rDbyVjelOV3nDsFpDq8RYKK97G2BagsthcR93ARkXeyD3r/S/DOsObbGxI
+         FLfBZvrjAYQwyNEzB8thnB/WKEgMry5laK6cBTCB72Zru9Q+AH0hlPr6pgkn0VhB4NuM
+         Dplw==
+X-Gm-Message-State: APuU4Z8ywrlGDY+EztMy1P8X8UBhQxt/YYdlFNTbyGueAhssAD96vqEC
+	fPzwZY3uysxBGPXANUNGPX5IGg9LXZTDu5qAkiQvQlfCR+kXEL/qAbII6B+3s6PtINtXDWCcGki
+	pDiot
+X-Gm-Gg: AYBFou2jRIDDigqZjUyApBRkPAe6wBxQLuv6QSBgua7wip4+QkMY0qgCK00T/nnNcG0
+	Wa+mViwk/8rf8JBf02YIAGMDyTKjB6+zZJRPKD0kIKAY5Mv51Ibad9+LJLbpv14ffOW+ZUtBqpd
+	5iBaClWHEqwVBaFY/lYgSlkBWxtx0lbP8w6mvOHdECqLKhKyO4wzz5fTBUOz0skmBMv/d2OaZDD
+	PjH5FJLTxdnqduMwjoMvNxiR5WPeZB5fOswLeN/qyRbDPLAHi63LnpFjndeQBlhr+5HksnHEoGK
+	9WZCPBcdkIoTtSCIZ+s+L1TywRV81OiClBuCX5kirj8SxhRNZJsR5TVROLPwVOZ5jdQKqKulqQ8
+	OSPt8k7H489QtYC6jvZYvBQs2KNWOzEuGIbePeLMfRw0UKRLEJ54ULLNoQcC1WHhF1jTgBCDcau
+	w9A5Ob6veKLxWYb+HJqexoPMXHgc0fg9GlZ7X7qQ4HnYeKWz6vFU6dpbvGOGQTBZadZ61X10mvR
+	7dYWV3jkfUcgf7Co503Mq+2OPDg8vdrwdpPNRoP4F93mmOzwe1GPfq44H6FvXAGHJXAVUbyJMMK
+	ID5QcB+gWCTlOkNRVx/VZA==
+X-Received: by 2002:a05:7301:6f09:b0:36a:5126:a8aa with SMTP id 5a478bee46e88-36a5126a932mr21130034eec.27.1793829548557;
+        Wed, 04 Nov 2026 13:59:08 -0800 (PST)
+Received: from 34406640b1f4 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3989670sm13747501eec.25.2026.11.04.13.59.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 13:59:07 -0800 (PST)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,42 +90,86 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-5=2E10=2Ey=3A_=28build=29implicit?=
+ =?utf-8?q?_declaration_of_function_=E2=80=98huge=5Fpage=5Fmask=5Falign?=
+ =?utf-8?q?=E2=80=99=3B_did_you_me=2E=2E=2E?=
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Wed, 04 Nov 2026 21:59:07 -0000
+Message-ID: <179382954733.331468.11563971463195002541@kernelci.org>
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+New build issue found on stable-rc/linux-5.10.y:
 
-------------------
-
-From: Logan Gunthorpe <logang@deltatee.com>
-
-[ Upstream commit 00a479ba1d01249d43ca5e453380d1ed60946f8a ]
-
-Add the PCI1008 device ID to the quirk_switchtec_ntb_dma_alias PCI fixup
-table. Without it, DMA transactions from a PCI1008 switch's NTB function
-are not given the correct requester ID alias, which can misdirect them
-under an IOMMU.
-
-Signed-off-by: Logan Gunthorpe <logang@deltatee.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Link: https://patch.msgid.link/20260714212010.230606-4-logang@deltatee.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/quirks.c | 1 +
- 1 file changed, 1 insertion(+)
+implicit declaration of function ‘huge_page_mask_align’; did you mean ‘huge_page_mask’? [-Werror=implicit-function-declaration] in arch/arm/mm/mmap.o (arch/arm/mm/mmap.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index e8067ff59e2a5..e03a3831bcc00 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -6045,6 +6045,7 @@ SWITCHTEC_PCI100X_QUIRK(0x1003);  /* PCI1003XG4 */
- SWITCHTEC_PCI100X_QUIRK(0x1004);  /* PCI1004XG4 */
- SWITCHTEC_PCI100X_QUIRK(0x1005);  /* PCI1005XG4 */
- SWITCHTEC_PCI100X_QUIRK(0x1006);  /* PCI1006XG4 */
-+SWITCHTEC_PCI100X_QUIRK(0x1008);  /* PCI1008XG4 */
- 
- 
- /*
--- 
-2.53.0
+Log excerpt:
+=====================================================
+/tmp/kci/linux/arch/arm/mm/mmap.c:77:35: error: implicit declaration of function ‘huge_page_mask_align’; did you mean ‘huge_page_mask’? [-Werror=implicit-function-declaration]
+   77 |                 info.align_mask = huge_page_mask_align(filp);
+      |                                   ^~~~~~~~~~~~~~~~~~~~
+      |                                   huge_page_mask
+cc1: some warnings being treated as errors
 
+=====================================================
 
+When fixing this issue, please attribute this report according to the
+patch submission rules:
 
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:576f227846e1cfffb888e812add51c1251260b5d
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  87f290f068db5c53cdb05eabedd694141b5eaeac
+
+# Builds where the incident occurred:
+
+## imx_v6_v7_defconfig on (arm):
+- compiler: gcc-14
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aeba2105b429d354eeea8f1
+
+## multi_v5_defconfig on (arm):
+- compiler: gcc-14
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aeba2185b429d354eeea8fe
+
+## multi_v7_defconfig on (arm):
+- compiler: gcc-14
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aeba21c5b429d354eeea94b
+
+## multi_v7_defconfig on (arm):
+- compiler: gcc-15
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aeba2085b429d354eeea8eb
+
+## multi_v7_defconfig+kselftest on (arm):
+- compiler: gcc-14
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aeba2145b429d354eeea8fb
+
+## multi_v7_defconfig+netdev+nfs-root-boot+ltp+crypto+ima on (arm):
+- compiler: gcc-15
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aeba20b5b429d354eeea8ee
+
+## vexpress_defconfig on (arm):
+- compiler: gcc-14
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aeba2205b429d354eeea94e
+
+#kernelci issue maestro:576f227846e1cfffb888e812add51c1251260b5d
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
