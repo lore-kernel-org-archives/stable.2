@@ -1,75 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810445;
-	b=dx9KcfmPdT35PSJN/vVAcPWbhczoyuqFf0B0WR0QrfaiDZy4rv7/rQmaCujfn4wUmtEG
-	 PJYq99OQ0UTeoh8OnVuSesO7J9FIYIxpsmm2vaC2Ykx/tjYxepD4d3J3JXK/dTRHHaeBS
-	 fzBKmbna399BOdat84cDXXLq8ZTmJeNIHEWH6nyx/XbDToQaZhJgfMeYETwo/X+VWacxC
-	 JmehmPPQm4ROVdgjZYirig+fVb9BweHimoOtgBtAkL+q77MnByp0JkZaddsO15BG966Aq
-	 arKfqTK3aQy+gw3hZEjleRskgaILefnsLOWZ5xBYkK1xtvYu4w1tvpzW6b0aTNDeyfQ==
+	t=1793810724;
+	b=rIt3AQ0cjSZsajS+W800EOCCzVJYYTxhPw8a3sceFBFe33QTjekHc6elKjZCckkfv+j0
+	 SXERxWWRKp3UXY1hu/2zRsFHGO6Mc9J78RwXPZ7z+pyVUsJzxFtZsJXtkh4AZXy3qjGA4
+	 36npTEDAEer7vjOnPKTGNDOnbk/Vo6se9JFH1w+LtLpr3iD6K0GnPZv2L2kIqtfzXljeV
+	 Mb1ykqtMnyi9zMJtQrTk2tR5d6Nzlzhwp/olA/zmvRJJhA1/sqMq+3so+5Zt84tS34/GX
+	 VY9+OP2ujG4RWx+m7KdeK96hozsCi1XETulvf0chsrs+sp2jHIJ/7s/egY5OmkK7SUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810445;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=whZk+5U0IpKR83qFbEVlR0PotzEDhK1VrQ467+d9wH8=;
-	b=jZ6FM3nPtjxqdxPsScemCMAZ6263suj7UD831q+MTeURsgKDyT7P5bhqayMGy4BFllru
-	 lDAqFNvllsh5xW3pUXGs63ZjXI7Ng8HciHhEUlpw30+3MrQZAj5ukB6UBCuZh5xGM+OzN
-	 4w8WFBfiu77O5tfqb4gnLvpv/TUhbz1cG1hPdBxRYXoNTfkd3+ZcC88Hb2BAxoPVfTecM
-	 7jR+WkJjIyocFTXGgxFY4mdd7EO80dSuSBIhHlYXWO9bbnMDfby8edYFXN96CcP2143at
-	 m5jYjcI8YEnulhlO6WoymPvcaprM/3pGi/NpvJjW4wAE7tkONw58823/NI6ceAH8Q6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810724;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xcudQ4a1QKypHuZuwVny/qv0KumrmKrAsLkHCKA1dD8=;
+	b=zT8dV0dodOveq8rl7WFugHVa+kwzCRN4NzTK0apctj5+ZDByQX86nXsTkBDL2s5fAGxz
+	 MBrvkFSQsCrBqZ8n+zancSF2e8ACrWT3iPYsvWM5kP9UaRy9BFbmhR0oFy+e2zDIF17iJ
+	 A87fMbvDBqkZ7bZiUY/9ds5GUnaVo1aZEJ5c9GK1Upe+O77OflbyNcYXjlOsKXq0yBVmH
+	 bQeWiwkMGG1alafDul0fyqmg2sCcUZDOKMGaQTWLyd3gc9qvpLTZ1pC7+eKmBuW5UNgfJ
+	 jVv22s3z12TO+fQkqoioFyUbCTgo4zKYrY2ieW5SNh03WIhPMVWl3FxGhPDJ4ZbSZXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b="VPjh/r3+";
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="aCJZ4/Xo";
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E7C606A32F
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:40:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22E7C606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37D0606A330
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:45:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A37D0606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=VPjh/r3+
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2807840E02CC;
-	Wed,  4 Nov 2026 16:40:42 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id H_IiZZlUFf1M; Wed,  4 Nov 2026 16:40:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793810436; bh=whZk+5U0IpKR83qFbEVlR0PotzEDhK1VrQ467+d9wH8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VPjh/r3+d2c3EQqX/g0JjvkmtKa2pZGJkERnnpGalXeEXWkSWlli9w0LRKZzrS8ZX
-	 pOaH/2RJakCHNwA27IAt/GOAmHgyXvhk+qqv37WNJrwDgGCJRSzgvBg3J4K2+cT2GL
-	 b64WBjeBdtlDp634yWJ+s3mSqjkHiUOJYD+RMiKQkfQi6uUDFqTkdqQVMJWvkoAxxM
-	 SqWcR9uxkkAzW0rb/FjLbbw1zGnPadYpZmCWrKVd9+NpVbM/9+RxWRxv9qqhKs+JbR
-	 THig0JOrmN7LbjJ3VCKZzLYbgN06ZWzZo4CtTreEVCsXu3JiBNVt0DO3T8NvrKMp2+
-	 P27YmfcVyJ64wV/DNs4oX5cdlIKsKTcvpaOwRHcZEHEoBJcMwOpSjwW3E14/QMgFDZ
-	 8gZveAjFnPVNrdlBAI+r7nppMAi6Agj46N/ws/M7S1/Td0CSf8YucDePjbzFTyQjjg
-	 KBRkXW0Lj9dXu8+nK4Oh2HwRyNo4CVpabWGdeGQP5n3uFPMvGLOJ22GBYltwDz1pcq
-	 d9AoAs+0wFxGl5PQ0xFJSRFQ/2r1EEMB69FQfrzEz41P1DhReI4q9B4ElPY+vA96ld
-	 +jR3Mn8LERne8Xy64PDriagZW62mBr+uGRl8zBkwIRqTmW7N2DkqPS7xCK2Flpas6E
-	 /6j4AuZGGXwdbLQNoT/swX0k=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id EAEE640E015B;
-	Wed,  4 Nov 2026 16:40:32 +0000 (UTC)
-Date: Wed, 4 Nov 2026 08:40:29 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, sshaiju.lkml@gmail.com
-Subject: Re: [PATCH 6.18] x86/bugs: Adapt SRSO mitigation to Zen6
-Message-ID: <20261104164029.GBautf_X-KzjRfCSSf@fat_crate.local>
-References: <20261103182143.27403-1-sshaiju.lkml@gmail.com>
- <2026-11-04-1-daily-reply-0003-re-x86-srso-zen6@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aCJZ4/Xo
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33fb4680717so1575433eec.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 08:45:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793810723; x=1794415523; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xcudQ4a1QKypHuZuwVny/qv0KumrmKrAsLkHCKA1dD8=;
+        b=aCJZ4/Xo9jKnaTImkPsBsYrn3ZiAHaVH5EYy0bf6wENa9Kq1tc6D6GlpvX5t0fkziK
+         wiAUHhfbnFo/FFaTP7tTCp1b8oDIUKJNqcc31oM/cgw5UTvGs6A7zVMmehHfmeh/jSh+
+         aDMBdXQ2XaaFhxuyQ0m4HZvj3Ao9VTgB4PbCAGxyOrHJNWc5imT1XVJXThXCSeckHrd8
+         FzzYh+R/uLqI+X/n4CgmuKQVIF6q2obULzITNmNETkMsHpPdDbK4/aeIAPeBTPshpCmV
+         JHCKzrf2gIhUIPftDnZYbaq7Q7rPcyllVwxNKOtUTIfy/Q3gqhTysqJh3PWEP0QYSyc+
+         8r7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793810723; x=1794415523;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xcudQ4a1QKypHuZuwVny/qv0KumrmKrAsLkHCKA1dD8=;
+        b=TLGPWzJKnErjuZyo+aqjkaRTiEwRXZ862k29h1KIZ1KRdZB1Ibyk7/Q0BoeBV9IEZc
+         19ny3RuRj+Bk2MWXtaJEmgvBGfu6nmXeav9IdnjsezhnNBCcW5W1O/tjVBAIR4Q9zepG
+         udZXizn3Re1N08Jd3SxYW72I20m+1ckuMgxNls8i3m38TMcSGwDLeIpZ9CfH6QwwQ3T8
+         FDOxTpBmxRsxeNRToXjagWGI4AtT3LOHBQBaZ6ZFZS8gxZ2Mcd04DN9bh3ar5iNoDKoe
+         bL3vCzbTH2DJWTg/ROHtdoZtLlvG4XLRFaOOj30aM3KKpVDOVESauggWRBLWslkNXjkN
+         ncow==
+X-Forwarded-Encrypted: i=1; AKwUvBxOtb+9BC4N9TqvCG2Mxr/WgUfIMjJ16qgr3Pt0Ejsf7ldQIwQ+JtHZKRchlpkOV6bCWFH5v3M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/3Y++SS8w/J61j/jnvsJqtqti2nUeY7AmoQ3oBjgD0wOx74Sqy
+	RXorNBAmNjjTVcIRgu5lTKcsYLwZoAhwhFYlnMRHJA6yeH8cuS/92HiQ
+X-Gm-Gg: AYBFou2v7305qF2fxX2EslKfDvRY9btWIyCAU7o6LIpo04N4Pdd5IAVRh8ZDbkMI+w+
+	q+Q91EyDRJr0CsRqGoRthgF8AV8n8wkcYje7zNDRyezJ9P0aMp9luNmmbXGI61iu1Hg2WdFWWxt
+	wcK+KLmpgmh4F/Qx6Tjr7S1DN1s5DWrGRZ7m3EKqVIQGV6glaDCwuDh4uAdnb3wtXCXdbzUlsBi
+	EBG/z6M5rykXucCqF8geXJYwWrVvTOz3fsM9aA3FFlVGzLJUnl5SuHAaPmYXj7LD9/M1ZUTKlva
+	4QJXGieUYrWVZdZe7k2olXap2Z6UinNvkeEMTS9gOf88258SD4NQmz3lXTjBQZYQ2w9SPFadEj3
+	US2dDWUTbDYYdIOUcl9iejsLmZoojWI5EdlmkABt+3jJTNkNBMlsC28g1QP39xueJ8TVnApTYWn
+	C0KdcRSOmtKjv+SpUNJX9PZSYpsXsjndTst/8pz8K9/gNbh2pYXxwtz3vmFUVhesDsnk0+4fBV4
+	3HjF/YFCmTYUQ7tjQz0p4CowthEblzPBQzmzAo3S4//sgNbdH7gLb8B4nDnjLN0Ccu9ZqcGyWWz
+	LD6bkQeQHN19UUORywVPw/rdWA0DJBTPN8Jef+hAnd/ytFaarJNocE6qIMmRONYFD0O7wNlogCZ
+	OYoRRx6dgtCDFhFeutNFKeTH33Ebt6re/mzLwlEBYjstucXBqK6C+jXhsBxfWAh3JGAzLTLHev9
+	l1JKmWUo6MaTkXUdIQ82NFD1/7IDKPzw1RHC7+ZaijAlR2JUZD1QNe/D0wimLEQ10=
+X-Received: by 2002:a05:7300:a8f:b0:368:4c93:544e with SMTP id 5a478bee46e88-36a422084d2mr25419815eec.1.1793810722385;
+        Wed, 04 Nov 2026 08:45:22 -0800 (PST)
+Received: from kapoor.iiserb.ac.in ([203.18.51.212])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d36a1sm10368825eec.12.2026.11.04.08.45.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 08:45:21 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Conall O'Griofa <conall.ogriofa@amd.com>,
+	Jonathan Cameron <jic23@kernel.org>
+Cc: Salih Erim <salih.erim@amd.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	stable@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] iio: adc: xilinx-ams: fix out-of-bounds accesses when parsing channels
+Date: Wed,  4 Nov 2026 22:14:59 +0530
+Message-ID: <20261104164510.105359-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,37 +110,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <2026-11-04-1-daily-reply-0003-re-x86-srso-zen6@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 10:03:12AM -0500, Sasha Levin wrote:
-> On 2026-11-03, "S Shaiju (AMD)" <sshaiju.lkml@gmail.com> wrote:
-> > Zen6 has BTB protection which isolates the different contexts
-> > (user/kernel, guest/host) from one another. This makes the SafeRET
-> > mitigation there unnecessary
-> 
-> This is Zen6 enablement (a new cpufeature bit, a new mitigation state and a new
-> sysfs string), not a fix. It has no Fixes: tag and no Cc: stable, and Zen6
-> already gets the correct SafeRET mitigation on 6.18 without it. 7.3 doesn't
-> have it either, so I won't queue it.
-> 
-> If it fixes a user-visible problem, please point me at it and I'll look again.
+The driver sizes its channel array for 10 fixed and 21 external PL
+channels, but accepts external channel nodes numbered 20 to 50, and it
+never checks the remaining room while filling the array. Channels 20 to
+29 are the fixed ones, so listing them adds duplicates and overflows
+the array.
 
-It gives back a big pile of performance and this will practically get
-backported everywhere. So I thought we should preempt all that work by doing
-it ourselves in stable and people can pick it up.
+Patch 1 limits the external channels in the binding to 30-50, as Sai
+pointed out. Patch 2 does the same in the driver and adds the bounds
+checks from v2.
 
-So yeah, perhaps the stable rules do not apply, or maybe this one:
+Changes in v3:
+- New patch 1: limit the binding to channels 30-50 (Sai)
+- Patch 2: only accept channels 30-50, so a channel node can no longer
+  duplicate a fixed channel (Sai), and add a static_assert() that
+  ams_pl_channels[] holds the fixed plus the external channels
+- Patch 2: rework the commit message around the duplicate channels
+- Rebase on fixes-togreg (now on 7.4-rc1)
 
-  - Serious issues as reported by a user of a distribution kernel may also
-    be considered if they fix a notable performance or interactivity issue.
-    				^^^^^^^^^^^^^^^^^^^
+v2: https://lore.kernel.org/all/20261023185652.195025-1-kapoorarnav43@gmail.com/
+v1: https://lore.kernel.org/all/20261021225356.625288-1-kapoorarnav43@gmail.com/
 
-Thx.
+Compile-tested only (W=1); I don't have ZynqMP hardware. dt_binding_check
+passes, and rejects a channel@25 node in the example.
 
+Arnav Kapoor (2):
+  dt-bindings: iio: adc: xlnx,zynqmp-ams: limit external channels to
+    30-50
+  iio: adc: xilinx-ams: fix out-of-bounds accesses when parsing channels
+
+ .../bindings/iio/adc/xlnx,zynqmp-ams.yaml     |  7 ++-
+ drivers/iio/adc/xilinx-ams.c                  | 57 +++++++++++++++----
+ 2 files changed, 50 insertions(+), 14 deletions(-)
+
+
+base-commit: c293f0db308fe76a0a9b0f6674cd2dea149b03aa
 -- 
-Regards/Gruss,
-    Boris.
+2.53.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
