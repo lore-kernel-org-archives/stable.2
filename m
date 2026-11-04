@@ -1,47 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799881;
-	b=TJO4bTObd8B0qXS7vswpMLz/byg6prKnl7eoF5y5FCci2xJC0G/ef1x0+y5zzXVNoaNz
-	 yhsAhu4xwdZMcbuiXL9t+pstUVVM5ylnpQwqDhr+7IzlImNheTxyGP6SSV4BUeBC7eGkx
-	 Y609w7yS/RbFkbBgF/D5lR4FPsCWEHk6iiGhZ7Vw1NOTbUeUlbXr0bUTAmUtWTj1/Gg+D
-	 xche0JO5rvwXBUo77H3bNf/PYWnauzZO0HM8rhhQSqjpeTA8wyWRf+GdvrrMeuEsm9j6L
-	 sWbYzDyeoOcawV5f2IBaZPZN29F/mQ81czDnwpCxx+o+287+J30JqRmDAyfx0Riy1qg==
+	t=1793799936;
+	b=K9oAreFgFtI1Xemm1CwNcYrzOqZ2lkW1NPxioW/oCOxEs/rn0bFRdqmx1vdUKIH1xDQS
+	 D1cKdoTLUtnECcuk+bmon45QeFG9FNt960yo6IZESrDxMiIL5JqaKvQbO6veZb418bAw+
+	 b9+SYDprTil7xRdGX7vtCubzefN6aUWvLaHzYjy8PahWym0akF3lfsrB5uYM5UlMcdfeZ
+	 Z74ePBVNhDIMT8n0pmUFbGx2qXicpmEnwXN3kCBi2HR8iloLn883OP+u7YGv+ip71xjGo
+	 GLeR+KRMjnU0hmi2bWQKlLYcIsrEggz41WH8diUOj4bR+EtDRgovjBtHBU0q7gPgFIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799881;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=haQveJfmTqpt8tNfzWBuQ95IRx/Z56KrtXuIwDInVmk=;
-	b=5QVpXkvcAp//4NneAf7E9D5jKh8ktVei1J9naklUQ63yCvcOxcoYauYEsB51PpuNWd7W
-	 e6VmKhHaG5dpDL4weK4Wzrsd7ajvb8qlfm4oTAPiScuKY8GlhJpERUuPWjD0I5xPQEzuj
-	 hxvxcbJxjI7ZKKXkJx8GeHqDrdPV2euslug+gck9xtibvdhVj7qRQHW+9KlQbL5hh0cp9
-	 7KFoYDjIPOxIewpWaZcVGJSpMRafF1w9gs6NPRwQID8DOTAi2KQ0p2KNZZfuHjcW1V/he
-	 HKO5hLmEnTlaQ/qcOu78/aqTd/YYY4JybdEXbYn7VoCPx746e0rYqiq30Q1QGCOKK+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799936;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=pZa1DyQ5dhNm7IcWztDUNPVGU8LXVDzTyG5czYuorX4=;
+	b=Em1JONR1pZ9I2Mdy70XXpLMtl83cyRfrBnwQpLirTlkl+FTyKvYfJ9D0PbU0PHVZmSaH
+	 HaWl1EF75zqWjdCKZxXQq3z3ghcvN05KX5xD5NjSORyG5n64XAsQNys1TBBrzksMBsRaL
+	 /NsL3S+I5XmfLOxH9EUnyuYfOedppd5CdqgAElGj8QUHYJCuSlG/x2Ydij0kws6HKzl5X
+	 eTUcft1VJcVb+qIVYqDCiTjPdTHDXXPGop2r3cDFF8bcC24pve4YOOISsjMCe7y5egvlv
+	 4tgFZ+70bBJ1iohYfAcyANyWUcoFXkjVzY+yYonDpsT2a9EQQZFKe6wCjyzJkLHyd0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="ujBv/qBh";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Lu+/V23W";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59FB6606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:44:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9D1606A333
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:45:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ujBv/qBh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1FA51F000C1;
-	Wed,  4 Nov 2026 13:44:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793799881;
-	bh=haQveJfmTqpt8tNfzWBuQ95IRx/Z56KrtXuIwDInVmk=;
-	h=Subject:To:Cc:From:Date;
-	b=ujBv/qBhHTlZxCE0JxORpmouQi9n9PXZ2nZcf7tVhjfuAwLmUsh3EKPNmCe3IWMxd
-	 pczKjwVqNlOmHJuB4e03CSAvPkge5kzg5s3FSSV8W7PiPROPodFZuDMqWhgFZX653s
-	 XH77CAvoOPVvEhYJD5wRdsb1ik2UTjyKhvovizHU=
-Subject: FAILED: patch "[PATCH] HID: wacom: Write shared touch initial status only once" failed to apply to 5.10-stable tree
-To: ping.cheng@wacom.com,jkosina@suse.com,lee@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:44:38 +0100
-Message-ID: <2026110438-reexamine-jubilant-7940@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lu+/V23W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEEA91F00A24
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:45:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793799935;
+	bh=pZa1DyQ5dhNm7IcWztDUNPVGU8LXVDzTyG5czYuorX4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Lu+/V23WSycXM249y8TFrnUl6pnNNAczyEkfJCPCcFSEDGnHvAN7R47uN0Rm5YOlb
+	 ksG0DWFJDoGQ+XKsxZoHcJhImNa1vUI5mxCJtznQwwm/t4wIw5e0tI3Yg9k/G5Q2L4
+	 fFOeO1onHFqwKzLY6BOr+KyXDJBhmwRRPEGZsgexcP7HEkhp7/CMW3ntJanVhf1YZo
+	 5WyloPwOjAsMwCQDPkAohS4CsCRQgv2FQ37+rA546fb0XUaQ/t5gQkWVarjo16xSYG
+	 5NARaUAeW/UeaP+rLZbakxwAbDsZ/H+MwVTMzvs+TyERdbiaZITZCeOw5ej/Jq7sIA
+	 PvV9EmRDWCvEw==
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3a9a1ed66b9so5785541fa.2
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 05:45:35 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwRE3aD5FLLqN0a0scA+0jgKd0bHEJ+R3fj6CkkKLg11vaIRW7UnNzSa4T/Lb2+0UgymFp7Q9s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z89Ps3erDVyQ+bpFYSxGKTolXUi7Ef1XkgyZyTvnMOw6cf/w2KY
+	NPoBZuEnOr14Ypu1+pfCuQKuewUV6LNSqxYmxJe+vrCTNIL3Gpmh/BUWQw5C0czOUSs4r1Ddv9r
+	8JS7Jb/xBk8mOA/PpyzlWwmzG4hxgjTI=
+X-Received: by 2002:a05:6512:3089:b0:5bf:f559:2d10 with SMTP id
+ 2adb3069b0e04-5bff5592d49mr943044e87.63.1793799934435; Wed, 04 Nov 2026
+ 05:45:34 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,59 +59,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+References: <20261026040230.22338-1-xiaoleiwangxiaolei@gmail.com>
+In-Reply-To: <20261026040230.22338-1-xiaoleiwangxiaolei@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 4 Nov 2026 14:45:22 +0100
+X-Gmail-Original-Message-ID: <CAD++jLk9BUeA6KEiER16ZEemBkV_k_EdUDmbEf=DLjbSsyO=5Q@mail.gmail.com>
+X-Gm-Features: AclHuK9G39re6JxrJ1z-ZGqu808jbf6f0YNR9rG3WzY_Xw8qXMct9UAID3GD4J8
+Message-ID: <CAD++jLk9BUeA6KEiER16ZEemBkV_k_EdUDmbEf=DLjbSsyO=5Q@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: imx: scmi: replace custom dt_free_map with pinctrl_utils_free_map
+To: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
+Cc: aisheng.dong@nxp.com, festevam@gmail.com, Frank.Li@nxp.com, 
+	ping.bai@nxp.com, kernel@pengutronix.de, s32@nxp.com, s.hauer@pengutronix.de, 
+	sudeep.holla@kernel.org, cristian.marussi@arm.com, peng.fan@nxp.com, 
+	linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Oct 26, 2026 at 5:02=E2=80=AFAM Xiaolei Wang
+<xiaoleiwangxiaolei@gmail.com> wrote:
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+> From: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
+>
+> pinctrl_scmi_imx_dt_node_to_map() kmemdup_array()s the pinctrl configs
+> of every pin into map[i].data.configs.configs, but the driver's own
+> pinctrl_scmi_imx_dt_free_map() only frees the map array itself. The
+> pinctrl core releases maps through pinctrl_dt_free_maps(), which calls
+> dt_free_map(); the duplicated configs are therefore never freed and leak
+> every time the DT node is parsed, e.g. on each (deferred) probe attempt.
+>
+> Replace the custom dt_free_map with the core helper
+> pinctrl_utils_free_map(), which frees the configs of each
+> PIN_MAP_TYPE_CONFIGS_* map before freeing the map itself. Its
+> signature matches pinctrl_ops.dt_free_map(), so the driver-specific
+> implementation can be dropped entirely.
+>
+> Detected with kmemleak on an i.MX95 board (FRDM-IMX95).
+>
+> Fixes: b755521fd6eb ("pinctrl: imx: support SCMI pinctrl protocol for i.M=
+X95")
+> Cc: stable@vger.kernel.org
 
-To reproduce the conflict and resubmit, you may use the following commands:
+No way I'm sending that to stable, it's no regression.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x cae3031c691dff0be61a26bc64e31a6939010d5c
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110438-reexamine-jubilant-7940@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+> Signed-off-by: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
 
-Possible dependencies:
+Patch applied as a nonurgent fix.
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From cae3031c691dff0be61a26bc64e31a6939010d5c Mon Sep 17 00:00:00 2001
-From: Ping Cheng <ping.cheng@wacom.com>
-Date: Wed, 7 Oct 2026 15:00:27 -0700
-Subject: [PATCH] HID: wacom: Write shared touch initial status only once
-
-For consistency with how the shared has_mute_touch_switch is handled
-during registration, let's apply WRITE_ONCE to is_touch_on too.
-
-Cc: stable@vger.kernel.org
-Fixes: ba16e5ffbaa1 ("HID: wacom: Advertise SW_MUTE_DEVICE capability prior to registration")
-Reviewed-by: Lee Jones <lee@kernel.org>
-Signed-off-by: Ping Cheng <ping.cheng@wacom.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-
-diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
-index 8dc7aa1c0a26..33fa491fba92 100644
---- a/drivers/hid/wacom_sys.c
-+++ b/drivers/hid/wacom_sys.c
-@@ -2386,7 +2386,7 @@ static void wacom_set_shared_values(struct wacom_wac *wacom_wac)
- 		 * match historic default.
- 		 */
- 		if (wacom_wac->is_soft_touch_switch)
--			wacom_wac->shared->is_touch_on = true;
-+			WRITE_ONCE(wacom_wac->shared->is_touch_on, true);
- 	}
- 
- 	if (wacom_wac->features.device_type & WACOM_DEVICETYPE_TOUCH) {
-
+Yours,
+Linus Walleij
