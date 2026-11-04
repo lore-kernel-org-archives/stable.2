@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803008;
-	b=KNXfj0UWHncMTUikXro2VgG501eil8BrqsibWDuVj3rdIjJFjEmT2fDKw5eG0dEz4PaM
-	 GnOMFodct/3rRLUq5RJ8R+Xs2N1H7S5xHxGxrMFx8WoBipfKPvrA4IGI4UO0ERaZBfNji
-	 3EO5wcj6CIfok6Fgtb/oXE/ttSiSonWRye9MTQFztZEzPM1o+aV0CeDoNC2YA9Nteobe6
-	 ecQ/46640oESdnAOp8vS6dnd0AdfguGXjigm8GDmoWsoEKHvlcDEv+ye8/Zo/7LilLFVb
-	 EsRJVwRDPfuC7FpKAu7gcl2WU2+jqm/ajEtSPrmjCYlIdjb1U8As2D1r4wdaRBNE+NA==
+	t=1793803017;
+	b=i9n52SxBKspjOtIhsms54ARHx5ngJlo9gMaJx42b48eCu0IR1UnAzjN4xGFNAi0lDH8U
+	 ShAie9GexFhHqmGogswtpiB+YD7vUb/RMfmcOUxRy8dKKuckKCh5V85Ytp2iA1svSwoNt
+	 7OW6wqRBUINwqfDhPp6PVq27zdGGuXPIiFYF0+Xlo0Nk3dson3Oy0NrPTt8NPTnDFi41g
+	 SzLmzFYX0okO7+RiU3bEV9Qedr5os2etBqJMthQCUWLlYv0I1OuPqYHXbFGOdcQVZTM8r
+	 cd5QpI6DvKWn3/DLdH1raHBh5ycdSgNSWb+NHwP9hBG0KmHeWSR+oLXvRd6Gs/bKACA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803008;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803017;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=8JyEI/K04KfPy3wL6ExMRPwc3D8QsFjXTrDi97y9KBI=;
-	b=iq+u5SK7uhJrxm1ktzHE/U7DPtA8m2FtsC2YCU23E9l+3q7KfEciQ4TmFAZhZOwu93SC
-	 eCR7LCrEPZvwqCyhEo7W6TWOTmxzNnFdGAap8dbJjvmROZvrUq7CLizcfzCfCWgc6i6Ts
-	 PgeBSCZD/dkv/WfPsXq7oF50gYM3rrFYrSPZHVVZpK16tcMiT6Ay5jWztjnHq++WyRBWz
-	 rG41z8IdrmYnxTBmSl1oqCDzIE5C9MojvnQezz4kRq/QdPI1JUNFCzEXviml7o/mxREyX
-	 VbQNuzKyrWBXqgMSpK3ML4x5zWG8O9CVpeNk4S8QIdgkeheiFln35769jkr/Gf3Nfxg==
+	bh=i6ZK5HzPJ2i9vTb7UQyLzhPXpFEY4dFnxJ/qgTGgpxc=;
+	b=U3kwby+g2sDrXZkubWpPVia6xfSQ4QGDEgIjARSYM3+Jo/mD2d0EEtalJUyruhssLGOS
+	 wsKKh2jFxh0Fg4FIMhq5nlpvJd3I0FsmdW7vdJXmXEMCkuf15EDcbyoBZWXDv+RCP/WD7
+	 vMdrc4iWRUOJQ++aBnUDjT1KzeBORq2nb28McXnIpdCQQAmvSTsWxodBNM++m2V5o0Rhz
+	 KqBM+HhZsO2uyeFMcEnDv1TEqw3SU/tw8XLmwjptt9Up0Lp4t7Cxg/AoXucKcnnF//kQ8
+	 ju4Nofqeh/h+y1ODyDkhOIsa15fQm6Q5HX6Kuh10VbUJdS+lj6NN5xJXo7+cxvkdE3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1hzHN92d;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=r1prrnqT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43928606A336
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:36:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F84B606A335
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:36:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1hzHN92d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB5271F00A15;
-	Wed,  4 Nov 2026 14:36:47 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=r1prrnqT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4ABA1F000C1;
+	Wed,  4 Nov 2026 14:36:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793803007;
-	bh=8JyEI/K04KfPy3wL6ExMRPwc3D8QsFjXTrDi97y9KBI=;
+	s=korg; t=1793803017;
+	bh=i6ZK5HzPJ2i9vTb7UQyLzhPXpFEY4dFnxJ/qgTGgpxc=;
 	h=Subject:To:Cc:From:Date;
-	b=1hzHN92dzFO3icEgHXl32Hv6YtUplPy+l8soGuZ6gX8eJUdIBqdLUzvuUuNf7Dqe5
-	 ymeGTEufgm0Ug4uk8xEzflF9RRok65NZpXMa3jWhP6gPtXjbhfXRH0W2u9O3i+jV16
-	 qfy/8B/zH6S5bKB6ixSu1GU1lya0KdWw0Wy+bJF8=
-Subject: FAILED: patch "[PATCH] ovl: fix mount setup failing when override_creds drops" failed to apply to 6.1-stable tree
+	b=r1prrnqTrlJfIAtRPC775aFkW+0urWX8B67/VbCZDo8qoLPG6RB41NXalx7xHq03C
+	 ygdExCWsTwgca8eiFwBie95FUXZHAQj3dn8PXPbTaHL6uZzfH0VZHf1dMw2X6sQgmh
+	 +Z1JUTtbk8FZiiWUkiW3YjV4lApiZlr2vL5/BwEU=
+Subject: FAILED: patch "[PATCH] ovl: fix mount setup failing when override_creds drops" failed to apply to 5.15-stable tree
 To: amir73il@gmail.com,brauner@kernel.org,disgoel@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:36:46 +0100
-Message-ID: <2026110446-patchwork-rush-7ffc@gregkh>
+Date: Wed, 04 Nov 2026 15:36:47 +0100
+Message-ID: <2026110447-bridged-battalion-b64b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 333ad304d4794d6384087ea7fc16e58ab642809b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110446-patchwork-rush-7ffc@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110447-bridged-battalion-b64b@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
