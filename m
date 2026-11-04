@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802024;
-	b=LngKdBMklvFjys2RaxK4aRyAHzpMpg5N8UB4A1eRobOWMLe7fG6C8o9XzjDrMq+MLQqN
-	 2s3ksZBgrXqRuJfVxArF3AC+j6Wg+s5Y3dCfBSFzEVHxuTo0Ea07tLPqh/LATdXiHss7a
-	 Eh6bHX4X/EzyRYgiFgMJC+8Iss8MPJbL8Cq2XLIWVgPM4sKdjBmfg0XmgXwN4l3cEjetW
-	 5Kl+Zfqwmzx44SP67XeEaGf3uczw/lzurDl1AdROOLb4u90fpIMqBtgxu3vOT3ql1kgZw
-	 dPxS68WKO6sZMOpobh8JWyxam03c5nCIBJYX6BiD6tczFl9QqS1quoHrNwMiRvytclQ==
+	t=1793802027;
+	b=ORi8s8X3zx6p0okYNYxRtcUr8O8h80VNCcL6z1BojzSSqNd86i6egk/OATwnxTlMm5qu
+	 0goCHfjVeCqVOCQfss/IlHOeU5sFUHTMyhZXfowIUFjbhZGH72GFzX5klxkdjnN/AxLNn
+	 PWqARPH6DoLtX2JBxAa1VskD2D40i1VEYyHtKCySjPFGdBOrepQlZnzk1hjNshL6C7V6a
+	 x53b4Gt1iCpR1XNQscgy/nMwNPQfLvoYiivgSHo+969hq6C9q69DZ2JbWBHAH+ur5Qvm1
+	 1OnuAOPZN5d2cJwRU81tiilye/g2Gyz3CTYCYYt0fva9eCn/0ZSSjdLPLmRiGrYyUUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802024;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802027;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Rgna4sCp6yBBHTT8+sf3Kpyb0dIJ90CZrJEgy4lEIY8=;
-	b=SVyE3KGbJcbvhnk3pqcdseruNOdIAS2yxVYrFtnUQVFyb9w6fkd6u+5coFx8/s602Akp
-	 Le9zpj7801EeQeCqZgQSgt/Ulouxzy6g870nFWvJ4D4x7m+iV5P9WDR7T1m1ydoenDp1Z
-	 qf3USA5uN5luyv9iAbj7tE+vJAOPRMpljxqhh28TdDU5OD0hFOPW8YIBFjMc7yL4qD4XX
-	 6m92tHCCofT79s6kSJ/98/wLMRpZAeguX6uLiXDtSi8kd+52xaPiVvgKXGmQwQhs8bMOn
-	 /2qzTBFzi/pyL0XK/ctvmEZT75vfcd03axJQr0vUPvLdvg4MYTRLWvXdfkyTXWJ67sw==
+	bh=W24HVrzk0lGEtZMfOiho5d13AlsH8/sKu5vvODVatBw=;
+	b=iL+y8e/b1tZaf9hPZ6A5PKbvolnEOY8pBnTX0bLoA9+LegGNuuSXTIHISXn9ACU3YNG1
+	 mrK75+yzbMRg1/1QJwRCLAjUDux+HqRrdtKuNqbTcOBjX7voRV0VPuQ7VRABLosdruBhM
+	 hzyhP2kX/kkyiWnRJbzwVS73obu0Cd5iracE101H7osAqH6hsHogTiB/qCjBbtgffjHpQ
+	 f9IhPNIkrOqO6Nz8+X09V7wK02ky68xh+OaCzvzVUM2X5uNEQ+ZCBU/kxKgg47Fr2OQMx
+	 ONuzPu69DpyG/dw19H5gBEFMunKTUsWLNIx0S3pYtBQCU7RrC3YDDzAm38n5IDnIl7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=u4MZf9lk;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yrmbfSut;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FBE606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:20:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142E8606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:20:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=u4MZf9lk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DC9A1F00A18;
-	Wed,  4 Nov 2026 14:20:23 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yrmbfSut
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A726B1F000C1;
+	Wed,  4 Nov 2026 14:20:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802024;
-	bh=Rgna4sCp6yBBHTT8+sf3Kpyb0dIJ90CZrJEgy4lEIY8=;
+	s=korg; t=1793802026;
+	bh=W24HVrzk0lGEtZMfOiho5d13AlsH8/sKu5vvODVatBw=;
 	h=Subject:To:Cc:From:Date;
-	b=u4MZf9lkbRvwk1zQqVhoeBIW8KUFV0uKUDAlqpokK0x+tkuPldq+WBMn8i0zFOXSD
-	 VYISQzNIU6smKGAUv0Wo61+21hcbR/f/zSBM0EpJ7ZjN5K/A5xO5KLWKZZXCrXMUVq
-	 gbJ0nuhCE9B79V8a4yBSOLHpyY+H0KF1+ECwLzzY=
-Subject: FAILED: patch "[PATCH] scsi: dc395x: sync the waiting_timer before freeing the host" failed to apply to 6.12-stable tree
+	b=yrmbfSutqY1akgXvJZQ9UucABSe9Gy3JNcoMbde/Ky+MT7sjI7dW8vSeHPFab4vxu
+	 Lw7oVwuoVu+9vY9aU5EsW14jFKST/h5TgQNw6/t4VEtkYmZVOaQvhdUe5CsibLG7Bu
+	 CBbD+m7geedO+tiWBOHRGC/EURCpfcUw+Cr+GSAI=
+Subject: FAILED: patch "[PATCH] scsi: dc395x: sync the waiting_timer before freeing the host" failed to apply to 6.6-stable tree
 To: fanwu01@zju.edu.cn,lenehan@twibble.org,mkp@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:20:22 +0100
-Message-ID: <2026110422-grandson-cling-4ad4@gregkh>
+Message-ID: <2026110422-glamour-fetal-620c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0b1a79f2791a06f139dce5450e487307cf0e241f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110422-grandson-cling-4ad4@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110422-glamour-fetal-620c@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
