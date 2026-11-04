@@ -1,48 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.210.215.66
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793774133;
-	b=ET0+neNyBJ7Ofvyusjz/6Mww2qF4qk/futlY1M1pT/zrsjaI8wIbZZjbEzSIYumP9JE6
-	 sfTon1s+EpAioplhQcv+D1ThsTLjqutTiL0HEl2px8CC3vKBUaeBeHs2EF86PBbaCjl8n
-	 EzLz3+5L1lltfIeXFob2lGTQwgiuKX8v68bR4R/xBUb6mu3r/TMt2+1dY4QRDvmLBpci/
-	 ZGFUXV1sKPwS4X+swt1LN44kjiY8zhp1D0qGW72VgcC8UFsJPY8WRU9FdWH3N797zdY4s
-	 Szt1wQjzCtw7XikMizPevKtEpqrw+pN10bu4DrMpjcimhgqqDgpoCa0jJr0xKqbZAKA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793774133;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=nxGL+5Onxh1VvxmROdhvrvuCDG6FH2Ln15EpsauUj6Q=;
-	b=1l/xu0WMVwDk5Gm5e2xEXm29DyVttpeOSlMZ7T0TjDdisTdFfDhqXN342JG4xTEAORMm
-	 vFdhMwqSA1c/f8DJbtWFH1QrAGceGnsiwAzKaajU9MYFLHjMyEWf1wxrKCEnXiwltnxnC
-	 6rfij6V+sQ3T703beAX/vvSymfHuDxOkGpkPexnYdmRb12cch3/KLlpPTZAJxatlbV8GB
-	 fX+GIcHBtGq6UUdq5d9w8dXqz1ooLram9yZf36UM8Qg0fB0//Hjiz/uCSQRaGoVJRgQdU
-	 kKq3PHNPq71qpGSo+1Hay/0kHM8LtEI12YhStPrLIUd8tptvbxkS5HavzCVPxDfPvWg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=miraclelinux.com;
-	spf=pass smtp.mailfrom=miraclelinux.com;
-	arc=none smtp.remote-ip=202.210.215.66
-Received: from smtp.priv.miraclelinux.com (202x210x215x66.ap202.ftth.ucom.ne.jp [202.210.215.66])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793774408;
+	b=mJvclhP2Gk6v1oydtdKFnReW330BHWHgc9ACSCpsw0PXWORTuzvKlxJiATkyAF0pHKAI
+	 z4Nld79WfQTiatFwDDZKB6OSWzzf5fVr3GWTBTaP4N2kStgFgfDAIdb3JUqKbdM8rmSuK
+	 8dTWJtNzeKlfux6juPoYeFhPfztoJ/EcILRkvdYjf9tcZWsHLpc1TkcMgsHURL7lfK34G
+	 Glmyzo9xdueshNJHsgm1ZaC0llC0hncPhFuya68PkqbxaicR2EBwltNBdRae9jEF+r2A6
+	 sBHU5KAu6xtIMoiHmrRrvve1tMcphJgwNGaPt8KbPaQcBY4YB5H+NkcIayDGJhIj9Ug==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793774408;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=LmIAJpo/xS665IwPjBABmtrfK7VJw0LEqv1DtrNo05g=;
+	b=wI4Y7htvu+8qjmAm6jubjZUknIwYI6CVaYgPvOHs2+gYcmrRScf2bc0Ie2dAs9IvCWlz
+	 jjWJ6JqtDjvO4xSu3E/7FLBI4Kq9p+Mw+UWLNq7plDTYhwwqmCEAUc/oEInHCC5TH/Ta8
+	 8QzSKb8eptRYb4wtQYJPucK3n1WaU7vt7Z6lM42idjrsen/Xy0Kf823p59qF0U8Gz6JYN
+	 Ik/xpb6Ggme/XoK3kKPfMbyx8L1zWV72u41PbBa70Jnsvv2GZnkeIqmqHl8VTs2IKCHAQ
+	 rCnj2xFf0W6/iG++oMMszE1xGiss3zir1O7/SqqTEOvhAM3AQx6hADjYiJ4Z1fO9bfQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aShw+7xp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFB2606A31B;
+	Wed,  4 Nov 2026 06:40:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aShw+7xp
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793774407;
+	b=vN3fteTjzeOsHCwnF4Y56AXC3KRGgCBCzxsonsC2yFfXtkemex1zVEcSf1jGDZVaW1gS
+	 z90YP4tXV3RsNCorLDp3dMeOuuCqUg7XcGF6wwIsFVd4iZ+nZxk7PKk6MhAR58jMCM/rr
+	 eA/ooMH8DzazYAzlGt95cR+XqKlYfZY2vzPx2wTibN5UfiX/mG8ZHv/I3lxcKvB1wiALj
+	 xMB8HqA/KZXuuYWSa7zTE/JDPg0Y9+vzF0STVnvZDrW/fYFL+vWRxHXBXO3jFjheYA4zz
+	 7K7C7f/Bj3bb3BQCosY42pQrgK8I77uloUyDmiBdF2BqckTEKsOSGHQFW1mlB/Q2R3w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793774407;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=LmIAJpo/xS665IwPjBABmtrfK7VJw0LEqv1DtrNo05g=;
+	b=0507TfGgZut8e23sihbRvaeG16Vo4SM32ZccZtZFuKfOeBhtTLiDFQBw09yspZkigZBF
+	 /M8Dcv8YSflbgOMEPJ0Jh9ch+d+hW/ZDGZ1Xax4kYaYOUROGWnkN2b/wM2qRHEr3Zal0f
+	 nJJO7mFpmCydbNVWuOseaWNHrJU1f1sax33Rq1bH0KL++qchCqlxFS7Hyou9yovKi7Fxo
+	 gLf3JPCSyD6jJE7z0THKWw1km1prtwCXnLIRT1TBQ7ymOpUoLNZoU7j77WWjTlEzcOhJ1
+	 KWo8in/M9M9y6CBtHDz1G+o+lzQfoTmP+KlCOMa6CAVqe0ylgTo9buKYhS3HZyPgahQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B2B606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 06:35:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13B2B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miraclelinux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miraclelinux.com
-Received: from iot-shnota-vm.. (iot-shnota-vm.priv.miraclelinux.com [10.2.1.238])
-	by smtp.priv.miraclelinux.com (Postfix) with ESMTP id EACF5140097;
-	Wed,  4 Nov 2026 15:35:29 +0900 (JST)
-From: Shun Ota <shun.ota@miraclelinux.com>
-To: stable@vger.kernel.org
-Cc: Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jianqi Ren <jianqi.ren.cn@windriver.com>,
-	He Zhe <zhe.he@windriver.com>,
-	Shun Ota <shun.ota@miraclelinux.com>
-Subject: [PATCH 5.10.y RESEND] net/sched: flower: Fix chain template offload
-Date: Wed,  4 Nov 2026 15:35:28 +0900
-Message-ID: <20261104063528.130078-1-shun.ota@miraclelinux.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 363581F000C1;
+	Wed,  4 Nov 2026 06:40:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793774407;
+	bh=LmIAJpo/xS665IwPjBABmtrfK7VJw0LEqv1DtrNo05g=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=aShw+7xpOHjHXq8xhhMZfVhwt09xPNs3ifZGM97PaF1euVrSOehDi6wgfLFQV2Udf
+	 IODqAdt/JIayVxyxaOj1ltFfSgXkKDwY7dK5r/Ti8IB1hWYN9TfNNcrsBnX1KEi0iu
+	 b8J8/Sch9a2E2Y9Jqv3kEE7Lb1n2J41iKCn+tGdXfday5Ie615/duW3+G9nQPsgeiF
+	 o3up2oFVH5OQbOPkHxj0cK82K0UzDnCEvhbOFkY6pWC/iP8vsfVl8tR/J3MDAshmRX
+	 ZQdDuiTLHdDR7wdQf1TU+EmOxe3lshN5iz2rbQensbL3nyA5WuXnZeMZVU0DN11Pal
+	 uS6/ri9EgO4Hw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B764B46CBB;
+	Wed,  4 Nov 2026 06:40:05 +0000 (UTC)
+From: Tjerk Kusters via B4 Relay <devnull+tkusters.aweta.nl@kernel.org>
+Subject: [PATCH net v5 0/4] igb: only strip the Rx timestamp header from
+ the first buffer of a frame
+Date: Wed, 04 Nov 2026 07:40:01 +0100
+Message-Id: <20261104-igb-rx-ts-fix-v5-0-bf4b4367129a@aweta.nl>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,206 +84,236 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEHT6moC/3XNQQrCMBAF0KtI1o4kkyamrryHuEiTUSNSJYlVK
+ b27aQWRgsv5/PenZ4lioMQ2i55F6kIK17Ycarlg7mTbI0Hw5WbIUXMtagjHBuITcoJDeILza66
+ MIpJCs2JukUo87e1YS5ntP2G6N2dyeVwaa6eQ8jW+pq8dTuU/DzoEAV42xmuunNW4tQ/KdtVep
+ ulO/mBUcywLrutG0sFy452d4eqLheA4xxVwMGujBFZOeZQ/eBiGN+mhMFg6AQAA
+X-Change-ID: 20260619-igb-rx-ts-fix-cd70585ee316
+To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, 
+ Sven Auhagen <sven.auhagen@voleatech.de>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Kurt Kanzenbach <kurt@linutronix.de>, 
+ Sriram Yagnaraman <sriram.yagnaraman@ericsson.com>
+Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Paul Moses <p@1g4.org>, 
+ stable@vger.kernel.org, Tjerk Kusters <tkusters@aweta.nl>, 
+ Piotr Kwapulinski <piotr.kwapulinski@intel.com>, 
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>, 
+ Alexander Nowlin <alexander.nowlin@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793774404; l=9836;
+ i=tkusters@aweta.nl; s=20260619; h=from:subject:message-id;
+ bh=9/866LQ02ZvOFzui6lZ0yG5RWFsfpe/KbY1lgj33KiE=;
+ b=8kaWM/zxNC57bs7QJKwJeKk9tWz0iUD79eBdACNVDrkBJz4NNVXpjzqzY265U8d3D3KFeCyaj
+ DLQm9Ncm0PSD+P9025chIgbefN4IqH6FKoihMV8fWb+tWREu+NcScFL
+X-Developer-Key: i=tkusters@aweta.nl; a=ed25519;
+ pk=JYRpYQ3+LrphEabgnxcbiOUpwvNP8WDDMcLzz+cwKsk=
+X-Endpoint-Received: by B4 Relay for tkusters@aweta.nl/20260619 with
+ auth_id=831
+X-Original-From: Tjerk Kusters <tkusters@aweta.nl>
+Reply-To: tkusters@aweta.nl
 
-From: Ido Schimmel <idosch@nvidia.com>
+With Rx hardware timestamping enabled (e.g. by ptp4l), igb strips the
+16-byte inline timestamp header from every Rx buffer of a frame instead
+of only from the first one. A continuation buffer that starts with 8
+zero bytes loses 16 bytes, so jumbo frames with zero payload arrive
+short and are dropped.
 
-[ Upstream commit 32f2a0afa95fae0d1ceec2ff06e0e816939964b8 ]
+v3 used skb == NULL to find the first buffer of a frame. The Sashiko
+AI review pointed out that this does not hold when an XDP program
+consumes the first buffer of a frame that spans several buffers, so v3
+was sent back for rework.
 
-When a qdisc is deleted from a net device the stack instructs the
-underlying driver to remove its flow offload callback from the
-associated filter block using the 'FLOW_BLOCK_UNBIND' command. The stack
-then continues to replay the removal of the filters in the block for
-this driver by iterating over the chains in the block and invoking the
-'reoffload' operation of the classifier being used. In turn, the
-classifier in its 'reoffload' operation prepares and emits a
-'FLOW_CLS_DESTROY' command for each filter.
+The same question came up for igc. There, Maciej suggested not to track
+frame boundaries in the data path, but to make sure that frames never
+span several buffers while XDP is attached [1]. Paul Moses' igc v3 does
+that [2]. This version follows the same approach for igb:
 
-However, the stack does not do the same for chain templates and the
-underlying driver never receives a 'FLOW_CLS_TMPLT_DESTROY' command when
-a qdisc is deleted. This results in a memory leak [1] which can be
-reproduced using [2].
+  1/4 limits the receive length (RLPML, or the PF pool's VMOLR with VFs)
+      to the configured frame size while XDP is attached, and leaves
+      room for the timestamp header in the XDP buffer size checks for
+      3 KiB, legacy-rx and PAGE_SIZE >= 8192 buffers. It also refuses
+      XDP with rx-all and legacy-rx changes while XDP is attached, as
+      both would break the limit. The limit is now set from
+      igb_configure() instead of igb_set_rx_mode().
+  2/4 is v3, unchanged in code, with a note that it relies on 1/4.
+      The Reviewed-by and Tested-by tags of v3 are kept for that reason.
+  3/4 gives AF_XDP zero-copy rings a 2 KiB or 3 KiB hardware buffer
+      instead of rounding the XSK frame size down to 1 KiB. It refuses
+      XSK pools that cannot hold the current maximum frame plus the
+      timestamp header, and MTU changes that would no longer fit a bound
+      pool. Unlike the igc patch in [2], which checks against the
+      largest XDP MTU, this checks the current MTU, as igb allows XDP up
+      to MTU 3030 and a fixed check would rule out 2 KiB chunks. A pool
+      that does not fit when its queue is configured, for example after
+      SR-IOV changed the queue count, is not used in zero-copy mode.
+  4/4 drops zero-copy frames that still span several descriptors, as
+      ixgbe does, instead of passing each buffer on as a frame. It
+      depends on 3/4.
 
-Fix by introducing a 'tmplt_reoffload' operation and have the stack
-invoke it with the appropriate arguments as part of the replay.
-Implement the operation in the sole classifier that supports chain
-templates (flower) by emitting the 'FLOW_CLS_TMPLT_{CREATE,DESTROY}'
-command based on whether a flow offload callback is being bound to a
-filter block or being unbound from one.
+As in igc, 1/4 moves the RLPML programming out of igb_set_rx_mode(),
+which can run without RTNL, into igb_configure(), which only runs while
+Rx is stopped. This includes the PF pool limit in VMOLR, which
+igb_set_rx_mode() now leaves as it is. Attaching or removing XDP on a
+running interface goes through igb_close() and igb_open(), and an MTU
+change through igb_down() and igb_up(), so the limit is updated before
+Rx is enabled again.
 
-As far as I can tell, the issue happens since cited commit which
-reordered tcf_block_offload_unbind() before tcf_block_flush_all_chains()
-in __tcf_block_put(). The order cannot be reversed as the filter block
-is expected to be freed after flushing all the chains.
+The Sashiko review of v4 also points out two older issues that this
+series does not change:
 
-[1]
-unreferenced object 0xffff888107e28800 (size 2048):
-  comm "tc", pid 1079, jiffies 4294958525 (age 3074.287s)
-  hex dump (first 32 bytes):
-    b1 a6 7c 11 81 88 ff ff e0 5b b3 10 81 88 ff ff  ..|......[......
-    01 00 00 00 00 00 00 00 e0 aa b0 84 ff ff ff ff  ................
-  backtrace:
-    [<ffffffff81c06a68>] __kmem_cache_alloc_node+0x1e8/0x320
-    [<ffffffff81ab374e>] __kmalloc+0x4e/0x90
-    [<ffffffff832aec6d>] mlxsw_sp_acl_ruleset_get+0x34d/0x7a0
-    [<ffffffff832bc195>] mlxsw_sp_flower_tmplt_create+0x145/0x180
-    [<ffffffff832b2e1a>] mlxsw_sp_flow_block_cb+0x1ea/0x280
-    [<ffffffff83a10613>] tc_setup_cb_call+0x183/0x340
-    [<ffffffff83a9f85a>] fl_tmplt_create+0x3da/0x4c0
-    [<ffffffff83a22435>] tc_ctl_chain+0xa15/0x1170
-    [<ffffffff838a863c>] rtnetlink_rcv_msg+0x3cc/0xed0
-    [<ffffffff83ac87f0>] netlink_rcv_skb+0x170/0x440
-    [<ffffffff83ac6270>] netlink_unicast+0x540/0x820
-    [<ffffffff83ac6e28>] netlink_sendmsg+0x8d8/0xda0
-    [<ffffffff83793def>] ____sys_sendmsg+0x30f/0xa80
-    [<ffffffff8379d29a>] ___sys_sendmsg+0x13a/0x1e0
-    [<ffffffff8379d50c>] __sys_sendmsg+0x11c/0x1f0
-    [<ffffffff843b9ce0>] do_syscall_64+0x40/0xe0
-unreferenced object 0xffff88816d2c0400 (size 1024):
-  comm "tc", pid 1079, jiffies 4294958525 (age 3074.287s)
-  hex dump (first 32 bytes):
-    40 00 00 00 00 00 00 00 57 f6 38 be 00 00 00 00  @.......W.8.....
-    10 04 2c 6d 81 88 ff ff 10 04 2c 6d 81 88 ff ff  ..,m......,m....
-  backtrace:
-    [<ffffffff81c06a68>] __kmem_cache_alloc_node+0x1e8/0x320
-    [<ffffffff81ab36c1>] __kmalloc_node+0x51/0x90
-    [<ffffffff81a8ed96>] kvmalloc_node+0xa6/0x1f0
-    [<ffffffff82827d03>] bucket_table_alloc.isra.0+0x83/0x460
-    [<ffffffff82828d2b>] rhashtable_init+0x43b/0x7c0
-    [<ffffffff832aed48>] mlxsw_sp_acl_ruleset_get+0x428/0x7a0
-    [<ffffffff832bc195>] mlxsw_sp_flower_tmplt_create+0x145/0x180
-    [<ffffffff832b2e1a>] mlxsw_sp_flow_block_cb+0x1ea/0x280
-    [<ffffffff83a10613>] tc_setup_cb_call+0x183/0x340
-    [<ffffffff83a9f85a>] fl_tmplt_create+0x3da/0x4c0
-    [<ffffffff83a22435>] tc_ctl_chain+0xa15/0x1170
-    [<ffffffff838a863c>] rtnetlink_rcv_msg+0x3cc/0xed0
-    [<ffffffff83ac87f0>] netlink_rcv_skb+0x170/0x440
-    [<ffffffff83ac6270>] netlink_unicast+0x540/0x820
-    [<ffffffff83ac6e28>] netlink_sendmsg+0x8d8/0xda0
-    [<ffffffff83793def>] ____sys_sendmsg+0x30f/0xa80
+- On 2 KiB build_skb rings, igb_skb_pad() leaves exactly
+  IGB_MAX_FRAME_BUILD_SKB bytes before skb_shared_info, with no room for
+  the 16-byte timestamp header. With Rx timestamping on, frame and
+  header can overlap skb_shared_info by up to 12 bytes, or 2 bytes at
+  the XDP limit at MTU 1500. This dates from 9cbc948b5a20 ("igb: add XDP
+  support"). I left it out of this series: it is a separate problem from
+  the one fixed here, and a fix changes the buffer layout and the XDP
+  headroom for all igb users, so it needs its own review and testing.
+- igb_set_vf_rlpml() let a VF set other VMOLR bits of its own pool. That
+  is fixed separately: https://lore.kernel.org/all/20261104-igb-vf-rlpml-v1-1-729621b60eee@aweta.nl/
 
-[2]
- # tc qdisc add dev swp1 clsact
- # tc chain add dev swp1 ingress proto ip chain 1 flower dst_ip 0.0.0.0/32
- # tc qdisc del dev swp1 clsact
- # devlink dev reload pci/0000:06:00.0
+How to reproduce
+----------------
+Receiver with igb (eth0), peer with MTU 8228. hwstamp_ctl turns on Rx
+timestamping with filter ALL, no ptp4l needed; this ping method is
+taken from Paul's igc report. One host with two ports also works if
+the sending port is moved into its own network namespace.
 
-Fixes: bbf73830cd48 ("net: sched: traverse chains in block with tcf_get_next_chain()")
-Signed-off-by: Ido Schimmel <idosch@nvidia.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-[Minor conflict resolved due to code context change.]
-Signed-off-by: Jianqi Ren <jianqi.ren.cn@windriver.com>
-Signed-off-by: He Zhe <zhe.he@windriver.com>
-Signed-off-by: Shun Ota <shun.ota@miraclelinux.com>
+1) Truncated jumbo frames (patch 2)
+
+  receiver:  ip link set eth0 mtu 8228
+             hwstamp_ctl -i eth0 -r 1
+  peer:      ping -c 5 -M do -s 8200 -p 00 <receiver>
+
+  Without the series there are no replies, and IpExtInTruncatedPkts
+  goes up by one per frame. With the series all requests are answered.
+
+2) XDP consumes the first buffer (patch 1)
+
+  receiver:  ip link set eth0 mtu 3000
+             hwstamp_ctl -i eth0 -r 1
+             xdp-filter load -m native eth0
+             xdp-filter ip <peer> -m src
+             tcpdump -nn -e -i eth0 'ether src 00:00:00:00:00:00'
+  peer:      ping -c 3 -M do -s 8200 -p 00 <receiver>
+
+  At MTU 3000 XDP can attach, but without patch 1 the MAC still accepts
+  the 8242-byte frames, which then span three Rx buffers. xdp-filter
+  drops the first one, and the rest reaches the stack as a separate
+  frame with all-zero MAC addresses:
+
+    without the series    5154 bytes (header stripped twice)
+    v3 alone              5170 bytes (stripped once)
+    this series           no frame; rx_long_length_errors +1 per frame
+
+3) AF_XDP zero-copy with 2 KiB chunks (patch 3)
+
+  receiver:  ip link set eth0 mtu 1500
+             ethtool -L eth0 combined 1
+             hwstamp_ctl -i eth0 -r 1
+             xdpsock -i eth0 -q 0 -r -z -N -f 2048
+  peer:      ping -c 50 -i 0.02 -s 1472 <receiver>
+
+  xdpsock is from xdp-project/bpf-examples (AF_XDP-example). It also
+  takes ARP, so the peer needs a fresh ARP entry before it starts.
+  Compare rx_packets (MAC) with rx_queue_0_packets in ethtool -S:
+
+    without the series    68 frames, 118 descriptors
+    this series           64 frames, 64 descriptors
+
+  At MTU 3000, -f 4096 receives 3014-byte frames in one buffer. Binding
+  with -f 2048 at MTU 3000 was refused with EOPNOTSUPP by the new check
+  on the 6.14.9 test kernel; current kernels refuse it earlier, in
+  xp_assign_dev(), with EINVAL.
+
+Tested on an I350 with these patches applied to the igb driver of
+kernel 6.14.9 (the series itself is against v7.1-rc7), with the steps
+above: results as listed. The v3 line is from an earlier run with an
+XDP program dropping ICMP. Also checked: XDP attach at MTU 1500 and
+3030 works, at MTU 3046 it is refused, as is an MTU change to 3046
+with XDP attached. With two VFs allocated (booted with pci=realloc),
+step 2 gives the same picture: three leftover frames without the
+series, none with it, as the PF pool limit in VMOLR drops the frames.
+In step 3, 98-byte frames and 4 KiB chunks take one descriptor per
+frame with and without the series. With XDP attached, rx-all stays off
+and legacy-rx cannot be changed, and XDP attach is refused with rx-all
+on, or with legacy-rx on at MTU 3000, also when it was set while the
+interface was down. RLPML and the PF pool's VMOLR limit read back as
+expected with and without XDP and VFs, also after each of about 200 MTU
+changes with XDP and two VFs. Patch 4 is not reproduced: with patch 3 the I350
+no longer splits frames in zero-copy mode.
+The steps above were repeated on kernel 7.3.1 with the series applied
+to the v7.3 igb driver, with the same results; without VFs, as that
+boot lacked pci=realloc.
+Not tested: PAGE_SIZE >= 8192.
+
+The patches, their descriptions and this cover letter were prepared
+with the help of an AI coding assistant (Claude). I reviewed them and
+ran the tests above on my test bench.
+
+[1] https://lore.kernel.org/all/20261025065154.2037149-1-p@1g4.org/
+[2] https://lore.kernel.org/all/20261028083344.3047350-1-p@1g4.org/
+
+Changes in v5:
+- Patch 1: v4 also subtracted the timestamp header from the build_skb
+  frame limit, so XDP no longer attached at MTU 1495-1510 on x86
+  (1493-1508 where NET_IP_ALIGN is 2), including the default MTU 1500.
+  Only subtract the header where the limit is the hardware buffer size,
+  and compute it from the adapter state instead of the ring flags. Skip
+  the check when XDP is removed, so a program can always be detached.
+- Patch 1: refuse XDP with rx-all and legacy-rx changes with XDP
+  attached, and turn rx-all back on after XDP removal if it was
+  requested meanwhile. Program RLPML and the PF pool limit from
+  igb_configure() instead of igb_set_rx_mode(). With XDP attached, an
+  MTU change can now move from 2 KiB to 3 KiB buffers. Added
+  Suggested-by: Maciej.
+- Patch 1: the issues above were also reported by the Sashiko review
+  of v4.
+- Patch 2: no code change. Commit message: igc is fixed by Paul's
+  series, not by this patch; the loss is per continuation buffer, not
+  only at the tail; the possible size wrap is described (Sashiko).
+- New patch 3: AF_XDP zero-copy Rx buffer size, as asked by Maciej.
+- New patch 4: drop zero-copy frames that span several descriptors;
+  depends on patch 3.
+- Link to v4: https://patch.msgid.link/20261102-igb-rx-ts-fix-v4-0-8785124c5d23@aweta.nl
+
+Changes in v4:
+- New patch 1: limit the receive length while XDP is attached, so that
+  skb == NULL reliably marks the first buffer (Sashiko review), as
+  done for igc.
+- Patch 2: no code change; added a note that it relies on patch 1.
+- Link to v3: https://patch.msgid.link/20260625-igb-rx-ts-fix-v3-1-99b3efa08dca@aweta.nl
+
 ---
-This is a resend of the following backport:
-https://lore.kernel.org/all/20250515004913.3611901-1-jianqi.ren.cn@windriver.com/
+Tjerk Kusters (4):
+      igb: do not let XDP frames span more than one Rx buffer
+      igb: only strip Rx timestamp header on the first buffer of a frame
+      igb: do not split AF_XDP zero-copy frames over several Rx buffers
+      igb: drop AF_XDP zero-copy frames that span several Rx buffers
 
-This backport was previously submitted for 5.10.y but seems to have been
-dropped. The diff is identical.
+ drivers/net/ethernet/intel/igb/igb.h         |  10 ++
+ drivers/net/ethernet/intel/igb/igb_ethtool.c |   9 ++
+ drivers/net/ethernet/intel/igb/igb_main.c    | 181 ++++++++++++++++++++-------
+ drivers/net/ethernet/intel/igb/igb_xsk.c     |  42 ++++++-
+ 4 files changed, 194 insertions(+), 48 deletions(-)
+---
+base-commit: 2d3090a8aeb596a26935db0955d46c9a5db5c6ce
+change-id: 20260619-igb-rx-ts-fix-cd70585ee316
 
-The conflict was just a context conflict in include/net/sch_generic.h
-as get_exts is absent in 5.10.y.
+Best regards,
+--  
+Tjerk Kusters <tkusters@aweta.nl>
 
-Verified with the reproducer from the upstream commit (using a minimal
-kernel module in place of mlxsw) that this cleanly fixes the memory leak
-on 5.10.y.
-
- include/net/sch_generic.h |  4 ++++
- net/sched/cls_api.c       |  9 ++++++++-
- net/sched/cls_flower.c    | 23 +++++++++++++++++++++++
- 3 files changed, 35 insertions(+), 1 deletion(-)
-
-diff --git a/include/net/sch_generic.h b/include/net/sch_generic.h
-index 7ec1f5aa6ada..b694d27f4171 100644
---- a/include/net/sch_generic.h
-+++ b/include/net/sch_generic.h
-@@ -378,6 +378,10 @@ struct tcf_proto_ops {
- 						struct nlattr **tca,
- 						struct netlink_ext_ack *extack);
- 	void			(*tmplt_destroy)(void *tmplt_priv);
-+	void			(*tmplt_reoffload)(struct tcf_chain *chain,
-+						   bool add,
-+						   flow_setup_cb_t *cb,
-+						   void *cb_priv);
- 
- 	/* rtnetlink specific */
- 	int			(*dump)(struct net*, struct tcf_proto*, void *,
-diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
-index 341128a00420..b958edbfe1a2 100644
---- a/net/sched/cls_api.c
-+++ b/net/sched/cls_api.c
-@@ -1431,6 +1431,9 @@ tcf_block_playback_offloads(struct tcf_block *block, flow_setup_cb_t *cb,
- 	     chain_prev = chain,
- 		     chain = __tcf_get_next_chain(block, chain),
- 		     tcf_chain_put(chain_prev)) {
-+		if (chain->tmplt_ops && add)
-+			chain->tmplt_ops->tmplt_reoffload(chain, true, cb,
-+							  cb_priv);
- 		for (tp = __tcf_get_next_proto(chain, NULL); tp;
- 		     tp_prev = tp,
- 			     tp = __tcf_get_next_proto(chain, tp),
-@@ -1446,6 +1449,9 @@ tcf_block_playback_offloads(struct tcf_block *block, flow_setup_cb_t *cb,
- 				goto err_playback_remove;
- 			}
- 		}
-+		if (chain->tmplt_ops && !add)
-+			chain->tmplt_ops->tmplt_reoffload(chain, false, cb,
-+							  cb_priv);
- 	}
- 
- 	return 0;
-@@ -2848,7 +2854,8 @@ static int tc_chain_tmplt_add(struct tcf_chain *chain, struct net *net,
- 	ops = tcf_proto_lookup_ops(name, true, extack);
- 	if (IS_ERR(ops))
- 		return PTR_ERR(ops);
--	if (!ops->tmplt_create || !ops->tmplt_destroy || !ops->tmplt_dump) {
-+	if (!ops->tmplt_create || !ops->tmplt_destroy || !ops->tmplt_dump ||
-+	    !ops->tmplt_reoffload) {
- 		NL_SET_ERR_MSG(extack, "Chain templates are not supported with specified classifier");
- 		module_put(ops->owner);
- 		return -EOPNOTSUPP;
-diff --git a/net/sched/cls_flower.c b/net/sched/cls_flower.c
-index a40a9e84c75f..42234a0101e7 100644
---- a/net/sched/cls_flower.c
-+++ b/net/sched/cls_flower.c
-@@ -2596,6 +2596,28 @@ static void fl_tmplt_destroy(void *tmplt_priv)
- 	kfree(tmplt);
- }
- 
-+static void fl_tmplt_reoffload(struct tcf_chain *chain, bool add,
-+			       flow_setup_cb_t *cb, void *cb_priv)
-+{
-+	struct fl_flow_tmplt *tmplt = chain->tmplt_priv;
-+	struct flow_cls_offload cls_flower = {};
-+
-+	cls_flower.rule = flow_rule_alloc(0);
-+	if (!cls_flower.rule)
-+		return;
-+
-+	cls_flower.common.chain_index = chain->index;
-+	cls_flower.command = add ? FLOW_CLS_TMPLT_CREATE :
-+				   FLOW_CLS_TMPLT_DESTROY;
-+	cls_flower.cookie = (unsigned long) tmplt;
-+	cls_flower.rule->match.dissector = &tmplt->dissector;
-+	cls_flower.rule->match.mask = &tmplt->mask;
-+	cls_flower.rule->match.key = &tmplt->dummy_key;
-+
-+	cb(TC_SETUP_CLSFLOWER, &cls_flower, cb_priv);
-+	kfree(cls_flower.rule);
-+}
-+
- static int fl_dump_key_val(struct sk_buff *skb,
- 			   void *val, int val_type,
- 			   void *mask, int mask_type, int len)
-@@ -3452,6 +3474,7 @@ static struct tcf_proto_ops cls_fl_ops __read_mostly = {
- 	.bind_class	= fl_bind_class,
- 	.tmplt_create	= fl_tmplt_create,
- 	.tmplt_destroy	= fl_tmplt_destroy,
-+	.tmplt_reoffload = fl_tmplt_reoffload,
- 	.tmplt_dump	= fl_tmplt_dump,
- 	.owner		= THIS_MODULE,
- 	.flags		= TCF_PROTO_OPS_DOIT_UNLOCKED,
--- 
-2.43.0
 
