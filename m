@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801991;
-	b=F93NjBxXg8flML9eoopLU+RXt/PXaYgxI5JeYdyDL7lZqprh77FCmAgJhuVlRaFxqm+n
-	 6imgL+hAQGCeLl3NjSbNP2EO9iEer+1glIXYQkRfMjM9uwGa5HSjjR0YCYCaaB4OID5Cy
-	 NZPIgNa9filwvWytdJqC+OY8ugmvpRE877Ibbx9ukgTDDFvFAOGf+iFTqHwML++VIVkR+
-	 3VIcZ1iqnm7EodPJRf6WaRzaYdybu+0b83pVgwZZsDg08dnSPGSX104t63O5/8JXKQjWr
-	 KyGxLWCdbpqV1UG71Yy8ENQGLq1YsWmrxt5Y9c7F6yoX+iYjwr5UPgj7HCYag+Oqgog==
+	t=1793801994;
+	b=j5uiOZbqCFRVYOvdhUqfxsj1WW3M/CnFTM8vb1KdxEDbw0kmvcs9ZaTHMFcLuD8QFbdn
+	 hsq1Yyf+N8bfUm+UeOBsPONog+bScLyS+2g851e6D6cxsKx8YL76VCWsGe/Sr14+MGEwS
+	 wS14yY48KNoyGxEzGeP65/CGkKllsbBscZXq1Kamf4dQu2S1cZLlfYmmG51LT16l/gXft
+	 nU/ir4JNo/BHQlKrrmr2oNS+6WHi0fXLFuFeZtz/e3Ai+4j9Ikz0EbHpW2qqogYzBtSMm
+	 7vZ33ORfXEOuigNLxiz99E68lmhQO191ffR9Lsio0jDzm4N+Gi0n/Du1D/kOPW/cDGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801991;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801994;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZaGpG5+A1JEAMi504z5da7YUUqKRMUpOnyF7uHlvEjU=;
-	b=uvvcK6C4EwrReCQd0XXCM89AUxD3MJAdpBNeW8SAGiC/kAYCYIBmAS3XAmeQi7UTk1Is
-	 QrQVD9EkDzpQ1u7ob1p1fvqi3Q56dtaRGpj4y9n62CzF/pzUCOD/SBlKrspWQ1nl3bQ+k
-	 FUs8BjcGuYb6/fFd7xqDaYXT+3pWOgNIYov1AxZbBb1rBzk8Mtdfai81r2ZLisK2zwRSG
-	 UVTTikIAsoOaccB3shNMza9r12JedIXpRt6LckLd1Vs0DK3PE5I7/TobQb6Hj8UZ8N9tz
-	 q3C+gjn0PC7vsNwXEE/6vacLwZV1mgcmlIoG476AWN/mLsOPVlGoyhYM4DpVszClDCg==
+	bh=UHW2zu/Mhsug3n4XaczOfYAIrbvuMw57JSq0AFajCj4=;
+	b=U5/LOEq0ACzpGbmc2tusrA6okCb1GIda6qQwKI9Mdhf2VuN5Wux2Dw0e8yeOmpXONqVZ
+	 zj87MIhOdMvqJKc51Fn0GPOB3zZD5K4ofm/YK9XGJCmitwskGoqmn+liTtCW/0TV4on93
+	 3wDq2vEYP4RdaSMnCnV6F3TP9AelX0WhNFYWxafnP8qqapQ1Z0U/htus7ChtJ7SavJ+q/
+	 erp/SZfGRVsSxL3pRRtdh293ienzeNRoauswCmjq2zEP1164HQeHOIEqKRIHN/cYXaFGp
+	 7ZwABXYifLRssb/TiivHyD/UWzdS/Veio9eK+CcWE8LqWr5K/Ob7suVQv9JkV+YhM0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iwLCGYPS;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VZsA2MIq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660C4606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:19:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7366606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:19:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iwLCGYPS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA3DE1F00919;
-	Wed,  4 Nov 2026 14:19:50 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VZsA2MIq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 181161F000C1;
+	Wed,  4 Nov 2026 14:19:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801991;
-	bh=ZaGpG5+A1JEAMi504z5da7YUUqKRMUpOnyF7uHlvEjU=;
+	s=korg; t=1793801993;
+	bh=UHW2zu/Mhsug3n4XaczOfYAIrbvuMw57JSq0AFajCj4=;
 	h=Subject:To:Cc:From:Date;
-	b=iwLCGYPSEXBKs+ivBrjnvknPCAITWHilTCzgYZ0rjkFGYigMiZGQCtHTCTkWUym7a
-	 B3ZHPS2jHPNHapag4lVSb5tZnrWT3UEt9Xw+7BvbIxJYhYVXpMTFFPOin6A9nQdTpV
-	 eTNSSk5RdfeAG3Naj5t3oiY0sLtHtXRDCe2ZHv30=
-Subject: FAILED: patch "[PATCH] mptcp: hold MP_JOIN msk ref when cloning reqsk" failed to apply to 6.12-stable tree
+	b=VZsA2MIqGqp7JoPIs96L358iyI9SVqWrIPIbErLKjrPipiniCmHWGocdFzCpQ5DCO
+	 UGOCOEHxt2D97T01rlPrjRg9rUJHI3Fb9S9bcxl/rK8Gn32AZbFEhl7t12nCn4Xty2
+	 5GBGOIYG7TRS1dKBYpBBduc8Ag5eOKkl5YYmcpRI=
+Subject: FAILED: patch "[PATCH] mptcp: hold MP_JOIN msk ref when cloning reqsk" failed to apply to 6.6-stable tree
 To: caoruide123@gmail.com,david.lee@trailofbits.com,kuba@kernel.org,kylebot@openai.com,matttbe@kernel.org,vega@nebusec.ai,weir@nebusec.ai
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:19:49 +0100
-Message-ID: <2026110449-profile-pessimism-5c6f@gregkh>
+Date: Wed, 04 Nov 2026 15:19:50 +0100
+Message-ID: <2026110450-skedaddle-wish-523e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x c9c90cf437a9e6597611b6d3aad6e255fad22867
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110449-profile-pessimism-5c6f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110450-skedaddle-wish-523e@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
