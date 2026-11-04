@@ -1,118 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826061;
-	b=A4rVt53lA4Ym1guKmwXleQPPmaG+S6psjj2JqDarXhJK7NgO5/J+aP5hYSddHoOs6X+o
-	 u79LDrtmzbjccGvHWXB9EiP9QfyopEBxhi/McqUSMTwuXHfHU/RBW+3unf9pNCzY5Tlfe
-	 Rn/PGgF5z+NtyqZsdD1hKPj0zidnAtnTjscl1xl5yPVeUiFtlYw2E79x4hR1JTk39p9ch
-	 U9lqaHaNyvDvqwX5PrlExxurOB7aoogFfvR2pwNi1Rdu4JZZqK1PQ/epeMLhgw+Z7vvR6
-	 JdSmXkRsCaW2k+wWJ7HTP4xq8HG4IxbrWnuKN7UQcpzFjQVHlHr0n79c4hHisxSXJQQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826061;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=jpFGPpxJvsWc+yR1AATTEDOFFhYrkMd+aw5etP91id8=;
-	b=JB6Guw5KxQbwuTkNIRc0G/x7ZhSVmO2XOSn8SCza0n9tXGHxrs6hMouaPH6Il3jwEsox
-	 xWWZbvymlrjW5puHZPyLJ+jq4Vzy/Dk/AFidzUsCn7KzmlYnv3tjtNOTpAvlZtBpeUia7
-	 LS+yCJzb6Yjuzobw1sgdMJ3p5Czvi5NNQlTKqlbp0duXH2ocpk8k4sfIxd1SUfy5Pfimw
-	 fJGfZya+dqZGiz7RvpJzsaz6ZP3Z3QEURb77wwhF4fH6gmXmYDa3hCE5tngos1pHMrrdv
-	 XPdufq5A64NaECnR0BQ3CzKQUE/X+2pRzdRy8Q2nJUr8LSF/G0nMzOFFeoyY78aQYEw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kroah.com;
-	spf=pass smtp.mailfrom=kroah.com;
-	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=i75XyGoj;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=RgR317EW;
-	arc=none smtp.remote-ip=103.168.172.153
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793826182;
+	b=WDs+4vd/f6SzntAWUqw/xjHc1v40OWZUpHknzWSEQzIyjEnFv4uJP/cYEVRFgRguN8L1
+	 iuCxBaTz7OtUDkkB+AcqJKqQWv3BFkG+SzcXZxfeeO+DbDwtGSfSyb1+GiGF7xK2ueqQY
+	 Rf+XqjfjYHDfLbTm0/+OlYQNtvk5zdxlvKhuiB/vdRXRNJsGiP1uvibIyaYDQat2p6Tfh
+	 tTtWlq9Ie/AWsIK9vCr/UCMW6JjfZtQjioLtXVSrzPhjL+OK/eLMO75qXur3KOIa2I2Dy
+	 IojydYDdZWDLwIuLAvgtEmcZA4TE9ShX/bmflyAS3LexG1OFVuvqhAW/IgJgdIPLLZw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826182;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=lxjwYeMZZmbD2QPsM83M/jtb8Csa4HQuEoxr2o/RPk8=;
+	b=EBsS0xPkR3P8k5iIdYmcPT/IdEm3zhp0UVCw/otNeyse4B6VmirQ4No0vw5OL3h2gpGn
+	 IQV8AW2DZvteuopbHwoZvO0bOvZRXhkCaZyPybPSdlphqKNj/4y2eBrSLY2nI3wLEeLGr
+	 AoUGEXULlXDjSWDsasrtLaZRqvvrd/fLLyIz1Zs9gFjPYwTvrw2kDEx8sk0M02D4i1KKI
+	 m2y8VNqRP7EOU5RN0QL/Pgojc71F85sX5eTV0RZNSM9i2fLWoMb9fSBwPqpVrKFN6lH4a
+	 zWw+vgGDc/vLaMXApO7hBThOkh3fWsSiOb5pzjnX6+9I0af+PkxbIIpQsLe0p+yZJAA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cj1c23zQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5BC606C926
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 21:00:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E5BC606C926
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C04C606D4DF;
+	Wed,  4 Nov 2026 21:03:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=i75XyGoj;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=RgR317EW
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 8FFF2140014F
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:00:56 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-09.internal (MEProxy); Wed, 04 Nov 2026 16:00:56 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1793826056; x=1793912456; bh=jpFGPpxJvs
-	Wc+yR1AATTEDOFFhYrkMd+aw5etP91id8=; b=i75XyGoj6VKVeT6DMuCR2vusJo
-	iDowfA4cxpA2HOXvd36rwN+OhoWBPNDm1GyjupuyQimueyW5YnCHfenNNMHYB0LZ
-	I8Xkp4D0iOGBPKj/HylD/wWviQKlICQa3jpXzfpxSmERBM3eX+9qZZKqzyl1WaCl
-	CmTN5aD2AYsVPvjL4P9TzV82Z7bpDhiTwoS1HvPkuyCZdirapHnvBgwU5edQZ7zn
-	vLrhuuHHfl9lDKX+Jw5iUuY6e1L5fxI3X3A9OAfJ2D+F58wALvDESb0IROddUGN9
-	V338ttmZNNXdqdVE3ziwD1rlcED0qvaA2kKZYHQD63rjkB0Uv3oMga/dkACw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1793826056; x=1793912456; bh=jpFGPpxJvsWc+yR1AATTEDOFFhYrkMd+aw5
-	etP91id8=; b=RgR317EWL0EhshEjn8Vp5rJUvCNKwdZnhHN8z4KSuNoKRZ4/PDj
-	0vWmK5mLB9QH7ncZomXvwDBBD3DkX7waSzk9Xine5z3D7HFY7Ryk5S0I+8kY19Im
-	dPwv3WDbsFm3yeKFqN+AhjfqaPTuahYYegKYQ6bVL7CNTjrO0h7tLP3wJdYVchmn
-	zgYl3umI/pUEy+vupiXAsMuMpEBd9rdf5nRfsPpdNndLK/z5JVaBHT3ywChHtvO+
-	qQvMoaguUJgIxJfH4cbBp/axj/D+o1qskwF66zN016CFTGu3tKO39Vj1202ZT1YN
-	B4gVNluGzSzciPSVwApxWug58/Uh68qHJYA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793826056; d=kroah.com;
-	mf=PGdyZWdAa3JvYWguY29tPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:dzBOKk+XMNojvw+DsezJMQ7Oa4jyd5W5h4EX4W9NDka3DNJ
-	2Gk8KRBxJAObm7U/2h7MzD4q9Ud46BfRVMFPTKuR4EovsXpM/edixXpDUE72hYEb
-	BAaYGFAF747pL6ym2+NEN8jpsSLJpxw2VSnVztCftoyFjjP/xl5Kkt66er8avSR3
-	vZWDgyn0Fey0pK0CgrYI6+GrVIUlA3xU4qf3phI0rknS5YILifX5/faBy7Lpz4/2
-	TpRnKzr9dGMy79PIVLSk6NrxjsT/sfPn2opOa3P0VJwUMxp0cc294FvhUQkKDDPR
-	PMaLmbKPAyc2suZH5wBxneiouMh8yUbAx9c5eZg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:8WZNkkGG5Qqq12FckfQ8thyVO6Z7Lv2kHlf7aFARYis=:YBMGAioFGNqULhmRoXA3q4SHKoH5gsRvqIvsSdfu49I=;
-X-ME-Sender: <xms:CJ3raqPcDXs-wf0H4XG4fPf2hwCcxomnDu-2RWFzTbJvXeIbpSOCnQ>
-    <xme:CJ3ramxxhXIt94UD3yciKENt0GeoabE1Lbqtalej-TjV3DYG-ErsYhuVjMklBicz7
-    kFBQWXYvz5qH2HboNd2pxcAWu4RLhKMKjbQaD-nyzCpvzHrDlw>
-X-ME-Received: <xmr:CJ3raruIiYsm9NqS8xPucfkfkiG1ekHlQNwcILiU4UhnsfuL2lEm3_JIp2d9TQ>
-X-ME-Proxy-Cause: dmFkZTG4wD77Kx/23uOAGmGprp4Q8UYI3jJjx2sYBbrtc7PmICrXUHYSOqK4AJ155Ot8pk
-    D0gdj86/FgxC6bUDMBgRqbLXmRaGkQEXM/oGGPFdTJQRJ1BmFyOceu5CdEsCoYZ215OLT7
-    yRG9EQ5yc0pQ6ykUWbVLmd/eHbA6qDb+NP6ASorVAnau2s/13XrHJAQfcQDIuEJtOytwk5
-    8WhUs89Sbq2nI+5pIrs7pYrMrp43iW1LiBbfC5egtCDOysCEZS/0BSU3A4HXiURZsvZFcv
-    LIElw+P9oD7aDL8KPB9p1fno4dS9hsmiWmO8xaznckONAItRpF+LbH1GFkmTUynePLH5Ri
-    nsGNWkHl2WGXWKD1AbDPOTsqt/kht5e3GowW8BNgcZjQe1OzY2ZsZMhnbKEmxxmPzMBsIM
-    6xVhAlLl6z/evteoJ+Cyv1Ukidm5D9DS/XtgiU1Dr7UKQKudXeSgKGeA0Ed3bGLmLCJ93+
-    c+Fok+prVpSsXdxKUrlLJg3q4gsEmmnDYUPKFITZWNW554riieHWA+yD8Mr1api9M6eX1Y
-    zhKAn0JnKNcSUYPNPmtwLPHIi7O1R7sJ8XSNxs9EXRaV/f5ltKHPzdrRJcwRsK33v+gG48
-    lPmK+9d9Rfi/xWZMGzI69oinmpxt+6oCBjoRqiB+/aZKmwfrndWqQX328y9A
-X-ME-Proxy: <xmx:CJ3ran6HYX-ip6uDDngUJHH2d2PZfo7YO8Kvhhbi4GWeQekn0kV32A>
-    <xmx:CJ3raiT4VJDPPN8ZGIxZBUI6nPhNZTFpp75Hw8R-q0hof1GS240osA>
-    <xmx:CJ3raurlet-QpEmtJUKtQSsGiARRnHJJEi541Kjti8vyMLLUKUXp-Q>
-    <xmx:CJ3raoKzrhTvNRfkaR3OrJbQ7zdBdHRx2LJLK7j70SGes-gySOmyvw>
-    <xmx:CJ3rauafrfQCeYG6ABRNYJ36y89mWuuQIKmgZBZBeUnDDxHvokeBIwNH>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 16:00:55 -0500 (EST)
-Date: Wed, 4 Nov 2026 16:00:55 -0500
-From: Greg KH <greg@kroah.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: stable@vger.kernel.org
-Subject: Re: [PATCH 6.1.y 0/8] io_uring fixes for 6.1-stable
-Message-ID: <2026110423-brick-bulginess-0f8a@gregkh>
-References: <20261104184328.516206-1-axboe@kernel.dk>
- <2026110410-coasting-snowplow-6509@gregkh>
- <0503e43c-5a26-4ee2-9781-083f16ce5cb4@kernel.dk>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cj1c23zQ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793826182;
+	b=o3iDM3ikeauvXsMbRVu6HmlMCtI2ea0WY+z+ddYDEJt+JkuIOKAcWlHMX8ujhrJDJx7y
+	 GheB1P2krmtS73aJOSL/M4olTQzAX08kKJnoTq+ikDe1mpE9opPtA3oActDGZVwm9KRX1
+	 aIzwLeZPfOXfFxjEHgYllN4Pyhy5qKHouOkurKtBCYXgwk29T7aRaYQ/vRft5ZNpjArOF
+	 S2BeCyCyCKSzxj3lIxUvqg/gW8LDzPu5Rfg2+tlKbwebQb55kL/fAPLZzdscEYG7CGPUR
+	 s6LbI8A0VATnXzeJctJ25KeR85EByPXoq6Njn1/mYFq0eHEHu4lv1BYcBT5QutApzew==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793826182;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=lxjwYeMZZmbD2QPsM83M/jtb8Csa4HQuEoxr2o/RPk8=;
+	b=x6U1Ww5ZkQTdTHnIVmqwxaNXzhdES1y+uF5ZsHFcqxn+Rpgm7J6cbNDOi1Nkk3/ypBcY
+	 d00MLHj9fVHLWEV8od5vq3jgRjd5wb+WIsufp1sGOqJ5qXeN2q1J+KUAXZm64GZBFHrSX
+	 Q4RbVGQZz0+nKS+8iplYdnAPKpQKBmaBfvuTwXqXHVxrScd8zxKEdDiVgrB3sB60nXbmx
+	 KyMTyJv4w1W4Zekda9eO3otkZPTz4BB74sAfjKscLGuuRN8EC5x+3Ei59MLswHEuc1r+z
+	 wo32nvRBJEpa6Pw4qq/yOUfbEr1McwQZUeA2doUg1S9+6Ed31ap5UMnASjTvLlxAEqA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 85EBE1F0093A;
+	Wed,  4 Nov 2026 21:03:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793826182;
+	bh=lxjwYeMZZmbD2QPsM83M/jtb8Csa4HQuEoxr2o/RPk8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Cj1c23zQnK2yuu/V4c/a91FDwHq14tMijCBIjiO8ZyL9q+fqaIge/wgvhOsgiRjTD
+	 35dqeRKYYM7/ZFhuKxKkern9tS4ip6P4oP5ZLS9gzYo+TDuBvs6WA3sZUvgfBuxRx4
+	 E9tKWsrrc13Zpg7QEXnN+Fqxz9zLoxi+LXfTgOSjEE7zwk8hXEBIn4yWjNAAh0Y2AU
+	 Au/V+W8E8M0+rNw79KtIv3sxtVOfdeKaPzbMYYQb64tj4N43dGQRkjVWP+b/V+hswy
+	 G9qXoJt3OPlEbr8zOnUsbRnIKPk7QTY2c6wWNxPBB/OtI3qt5HKSzTX46VQOwtGHnx
+	 VlW2GZsGXe6Yg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id DB06146F91;
+	Wed,  4 Nov 2026 21:03:00 +0000 (UTC)
+From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
+Date: Wed, 04 Nov 2026 21:03:01 +0000
+Subject: [PATCH] media: rc: redrat3: fix use-after-free of input device
+ name/phys strings
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -122,33 +83,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0503e43c-5a26-4ee2-9781-083f16ce5cb4@kernel.dk>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261104-redrat3-input-uaf-v1-1-b882e43d9803@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAISd62oC/x3MPQqAMAxA4atIZgOtlfpzFXGoNmqWKqmKIL27x
+ fEb3nshkjBF6IsXhG6OvIcMXRYwby6shOyzoVKV1VrVKOTFnQY5HNeJl1twst40bUfWzB3k7hB
+ a+Pmfw5jSB8kKYj1jAAAA
+To: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ syzbot+aec1962419768c5caf88@syzkaller.appspotmail.com, 
+ Joas Antonio dos Santos <joasantonio108@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793826180; l=3240;
+ i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
+ bh=c68HohiFSurQ192KfXE2Kl4zIbGHGZyY1chc3A+cUM8=;
+ b=ILJCTmi2LPNHZiDhY7hZLunAi84A/UWCfPjunPtMwwTdAoHe90uITNQ1TaMibVa9A+Mm4AS8A
+ AhGIDO/2g90AiLeApxlWYYeWMLde/tj808aR2QUoaXzpVg9dvNpcH6k
+X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
+ pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
+X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
+ auth_id=1371
+X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Reply-To: joasantonio108@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 04, 2026 at 01:53:15PM -0700, Jens Axboe wrote:
-> On 11/4/26 1:51 PM, Greg KH wrote:
-> > On Wed, Nov 04, 2026 at 11:43:20AM -0700, Jens Axboe wrote:
-> >> Hi Greg,
-> >>
-> >> Here are io_uring fixes for 6.1-stable.
-> > 
-> > Thanks for all of these different series, all now queued up!
-> 
-> Let's thank my tireless virtual assistant. Have the entire
-> process dialed in now, we'll never miss another stable
-> patch again and may even proactively backport things that
-> are in the "good to have" bucket in terms of behavior or
-> fixes.
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-Nice!
+redrat3_init_rc_dev() sets rc->device_name and rc->input_phys to point
+at the name[] and phys[] arrays embedded in struct redrat3_dev.
+rc_prepare_rx_device() then copies these pointers into input_dev->name
+and input_dev->phys without duplicating the strings.
 
-> Which makes me ponder if I should just switch the io_uring
-> side to be entirely self-provided, rather than have any kind
-> of automatic picking?
+When redrat3_dev_disconnect() runs, it calls redrat3_delete() which
+kfrees the redrat3_dev struct, freeing the embedded name and phys
+arrays.  If an evdev client still holds the input device open, a
+subsequent EVIOCGNAME or EVIOCGPHYS ioctl calls str_to_user() which
+reads the freed string via strlen(), triggering a KASAN
+slab-use-after-free on the freed kmalloc-2k object.
 
-That's your call, I'll do whatever you want here.
+Fix by allocating the name and phys strings with devm_kasprintf() and
+devm_kzalloc() respectively, tied to the USB interface device lifetime.
+This ensures the strings outlive the input device, since the USB
+interface device (and its devres) is not released until all references
+to it are dropped.
 
-thanks,
+Found by LLM-assisted code review of syzbot-reported crash patterns.
 
-greg k-h
+Reported-by: syzbot+aec1962419768c5caf88@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=aec1962419768c5caf88
+Fixes: 2154be651bfd ("[media] redrat3: new driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+---
+redrat3_init_rc_dev() stores pointers to the name[] and phys[] arrays
+embedded in struct redrat3_dev into rc->device_name and rc->input_phys.
+These are copied into input_dev->name/phys without duplication.
+
+When the device disconnects, kfree(rr3) frees the strings while evdev
+may still hold the input device open.  A subsequent EVIOCGNAME ioctl
+dereferences the freed string via str_to_user() -> strlen(), triggering
+a KASAN slab-use-after-free.
+
+syzbot link: https://syzkaller.appspot.com/bug?extid=aec1962419768c5caf88
+---
+ drivers/media/rc/redrat3.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
+index 3e82b5e66..d9e37ede2 100644
+--- a/drivers/media/rc/redrat3.c
++++ b/drivers/media/rc/redrat3.c
+@@ -229,8 +229,8 @@ struct redrat3_dev {
+ 
+ 	u32 carrier;
+ 
+-	char name[64];
+-	char phys[64];
++	char *name;
++	char *phys;
+ };
+ 
+ static void redrat3_dump_fw_error(struct redrat3_dev *rr3, int code)
+@@ -943,11 +943,16 @@ static struct rc_dev *redrat3_init_rc_dev(struct redrat3_dev *rr3)
+ 	if (!rc)
+ 		return NULL;
+ 
+-	snprintf(rr3->name, sizeof(rr3->name),
+-		 "RedRat3%s Infrared Remote Transceiver",
+-		 prod == USB_RR3IIUSB_PRODUCT_ID ? "-II" : "");
++	rr3->name = devm_kasprintf(rr3->dev, GFP_KERNEL,
++				   "RedRat3%s Infrared Remote Transceiver",
++				   prod == USB_RR3IIUSB_PRODUCT_ID ? "-II" : "");
++	if (!rr3->name)
++		goto out;
+ 
+-	usb_make_path(rr3->udev, rr3->phys, sizeof(rr3->phys));
++	rr3->phys = devm_kzalloc(rr3->dev, 64, GFP_KERNEL);
++	if (!rr3->phys)
++		goto out;
++	usb_make_path(rr3->udev, rr3->phys, 64);
+ 
+ 	rc->device_name = rr3->name;
+ 	rc->input_phys = rr3->phys;
+
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261104-redrat3-input-uaf-b6d3789e63c9
+
+Best regards,
+-- 
+Joas Antonio dos Santos <joasantonio108@gmail.com>
+
+
