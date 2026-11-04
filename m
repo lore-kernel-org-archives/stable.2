@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793784074;
-	b=3dtjy7/4aCovUYzjHfplPVxGB8UqD/uAR3dajPI5ysqBWZhQWUWbmeLWMOmvD9JgqaCL
-	 jaPpDtUVGKB04TMWIROy4H5SbpiAdNKbcRtpDFOVCJOPRN1b1IUl0Xw5Fwx/vLgToUfH+
-	 y57Ho4hjUEuPGnAeIrxcdpdU09DmXNkKIG+v4RH2cBh7utV16eGPWJCgG5qpfCY7iL8dK
-	 p2a4CAOMh5FN5e/tkRYc7g1rzGzx+xCS7yPvnAfFlcGRIx9AC1In7SRXfUerjLY9QPuh4
-	 sG/PT2xzuzz6Ctdw+HXykhh73rHZ/ikZcXr0udUIz2mrzgPnuclhOu6+gHXIlWRPgCw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784074;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=GY0htM7LLybH60Zvhq77Fsv6T50kPeUsLh+oGL9owIY=;
-	b=OrLXCkr2uGUhuW6Pr5Z80aqS2C67TCpn6c7je2SgT0p923xCfSG3U+RxLwnurlJ1r7UU
-	 DY80MrK/i6rp1mEeSRrXkIhrJISpxkkXUZ4XUixkopCvEXrfu9hGs+fO2Y8n+6gmB+6SB
-	 vMNiaccjcuQ+2Mc5YlsREhFwL2mkiwH5eSd/uBYFlD9D6VoGWvV+V+JDjI0TOhwOqCrf+
-	 y+luqyEHL1ygAc59BA5MtaP4MxCsfiFdRsO5WoiphsmI+0ZgbzvkTRJJBo0fDshYn/QRr
-	 NKX4E5zpwTOyT8cgkaowwdx49BvkGx9ZOyu0tMm4WC517PC6V1Rzy8l+RRfuRjlD6Lw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YRKpF+mo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793784101;
+	b=xKx7L7mCvFnflqBC4tp/n3HxCs41QqMXl6l6YrAPVE6MK+70BfUVKtBD980ASKTtp/Ym
+	 kg5PLvJ1dJvX/mOtSR3jPqNVF0RmGLLAGwF3g80Ox6kC1uiKpiCiFtj3IEeBhdHmh2z3R
+	 ADGgIXf9AHFBfVfaPCi6KQPmqJwldxD5NvdN4HODNovldqJgO8jBNPk5q1zKgDmhq+Cg7
+	 riafU2RpMq8Bs5B4nnwyw3NrZ2/EacUw7tILwippFKK6tFReODP7JtiCGIfoXMWJIS0y9
+	 mwanpwPThdaS7lho4yb/ZY1fjaCJMrKvykUr84nAchrP1RcmjF+7YWpV3oUzGoQU8fw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793784101;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=9CBa+fk3/kbt44GXuKWA+WI61VvuFZ1X813XyE7+/Vw=;
+	b=mfh5vGHXsB0ff4sqfGrheMZfleb+/L45TpZrya40cADOfleuJcJk9sMpiFqKg7sRj3mx
+	 xHIq18Zt29KD8nWO+wPjJmTPap0Zp0PB4QLG2XeMQqqjWgU4a6iVjouFDHgKrokqzd85h
+	 AwFvFFKRxjGPLtuNMnrEefpHJ9u8t0ZW/7N8pcOajTtY7fJEE7GxSf4Gs6H0rBoV9b8OD
+	 pPwqpRnpjs8jk+eFhJovvgltQY+K0yeh//AWew2lJwA/QQAeyjtBzf+iT1IqNrooFzzef
+	 5HD5W7ndQ+5/uR2/sFXsje+J7yUn7muaaT10ss5d7nUtloFpDwyxiboyFez9CapBQkw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UTmXrgKI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50C0606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 09:21:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A50C0606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C53606D821;
+	Wed,  4 Nov 2026 09:21:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YRKpF+mo
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b305e10ac7so4626717b3.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 01:21:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793784072; cv=none;
-        d=google.com; s=arc-20260327;
-        b=m/v4PdA5I6X+5Ph3A2ZFFwRTjRIoyC370F0tERaF+nl5aVlHkUtvnHYxvXnMx3SJTk
-         7EDp3LYGxsG3d0dH56LbsoIZTmgTDGsZ5f56ejgpRAq5hWCKQGv0OrkRwqJYgJV2gneI
-         3UTgR7ahyoIw2gANikJqHrWifQZpumMQUp++45o2I8CgRWjXTGI7vNE5YzRvJAWQt2vE
-         1QlQxPhuE9BodzDuEd043+ltDVh9mX8ZAqhuk5/u620v0WnQa6265mlcAV+u/pmNawFC
-         0GThSQgVL4RrqpBIF2qS1PWVHGAj42j4RIVvr+GBIzrmibZQfOUeCxrICzLXawW54daI
-         4RJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GY0htM7LLybH60Zvhq77Fsv6T50kPeUsLh+oGL9owIY=;
-        fh=0rxvPE/mShBVNWgSR6qti7XSOcReCk8lMl8JM+kY3Lo=;
-        b=ciOW/rlVqQcpCVIqWtx9qVajgFTrN9mHP/54Iq+om8AmgMAQiJHkdkvNENKsp2d+cu
-         Xp7xLIpUifiwj0KB4CVYFpnCL7uHsPFAKTPnncesGekwnkYCJlKcdayXMz1g593pByWN
-         v5otxMhAzyxgS0Zgk+Y9W6xeCIK733dk4iyXfCf012K9ephK7RpnwIzxOewjahO3lk+y
-         bzbNc3VUfAq4XMjB6D82zqNCk25HOnKJSyAD0GUF0fbxT+el0yc3U+r/p7ot4xGy4+6K
-         PW5YXJKn5UM2AY3hDTO1zP1Y+eLWHB6A2jPlxNKFRngqgQmh/mdNLl23ihflgTzlaWQj
-         Oiyw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793784072; x=1794388872; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GY0htM7LLybH60Zvhq77Fsv6T50kPeUsLh+oGL9owIY=;
-        b=YRKpF+mojX5gIcBXUamGdAWJ7kMFWIy8+YYu4+aKV+1U5/nhl4aJNR8LSWs+hpuo0o
-         89kqSzZRDO19yN21vK5wpbjZO6YZBSvhs66ZT3ZvnPEAYuRQe9+8+RcbHh/R8MBJKxww
-         urRzZIB3ibLIXsB8VuQz/Qm9jb/+ScusInci2MqTwUVr5IlwxC/z9czLoHOo/69W7WAx
-         rbwZuzOypvXbe+qlEdCDF19Tg3AMNCAhjwZVZHSKz40mkkCB9JO9sRhHjWpmY8QEqJ9E
-         af/y1ap1XjUOv4VvWbAx7RqYpSAYehvY0+ruPM0S24Kc8NUUlNQ0kqSW3ddIGbleSoYZ
-         3Hjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793784072; x=1794388872;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GY0htM7LLybH60Zvhq77Fsv6T50kPeUsLh+oGL9owIY=;
-        b=BZFqKtPg1V1LovtdgD+cC1h8o8mGoTg4kFnkKs2ZFnvmPxZ1dC98GNbxHTHBsA81cy
-         DRQhH4mRLIzx2ZrbWMvlPVe9XdJbNqvDLslDzkt3jf7R9pj+OHaSI5lSBeg2n5+4aNzJ
-         0qNz1s7lMHfryC29RGRVU754CXbQ9zI9BIh8j24Kzi7uVUja6ID4UOvYDCvJIL5u5fn+
-         XnGYBTwECvCJTVHssN7mZ5ilTak6oVIwIVmw2PllDLAX4RdDTxqzjUVrLr9sJ/1H3KkC
-         ziXSaQeuriFHtq5+SHdnuUyeeDvHEe5ewz5fxC32YLNrHvS2a7+VoIc4bWjBNaQfovC0
-         YYjg==
-X-Forwarded-Encrypted: i=1; AKwUvByqu1JCpSeWZa02gemJfU7WBqAqNsAq0qe4cZXw5lGbP+NPyJYEjauqOPZkF2WtVVmXnrt9EVw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8HlXVaiV1HQu65vjhPPOzLJyUmpnDmOsK0kX4kanwE0CxnvqMB
-	eOtajIcG77V2/Ib+7rHCJWU6tQGgOYITJiP57yJ1sP1sr0cU72x5PolaFrM2+AsiZnLJmPrjvU+
-	nBINQhVmVWAPl6rJTO8Z7ptnUqC5UOtY=
-X-Gm-Gg: AYBFou33a8Y2SQBPuikE9dOMvq17SKnrN51zMPacYeuhp7/TsJ1bitiEVVG4EBuV1F3
-	c2zAcP4l6eG+QnmEIkBaFNM8tMitj3x5nf+jdLxbq+GVTdMq9dIJP/AnvwGR5BgIPBT/y+s90p/
-	cof3rQfGSbW+r1UavUr/6Eus7h3zagXhz/wQ2/3iE1oihUXT54dHInesBKUz1DikTQK4677+axi
-	cSr6nrzb3Mt8vRyafQUo/pORJxt4fYKgjPS1WS3AzLz9rsO1Qn8MiTcbFCfAyxZHeSziZMx176O
-	PsMNAdhk1wW6RblwI9zTvkV+f6hEj7rLnLajz/s30s0MzdOfV5LTqgxBsVKmvN2YY5bEVnBWFMV
-	jd1qA+9/rEVZbra5RPzZKkhjQtjPdlRWLNwqXU6xrmNg5z1/GciuCQys2E/wqPRBSTjDgAcyY
-X-Received: by 2002:a05:690c:d83:b0:8b2:fde5:d95e with SMTP id
- 00721157ae682-8b2fde5e72dmr27025397b3.63.1793784072404; Wed, 04 Nov 2026
- 01:21:12 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UTmXrgKI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87AD41F000C1;
+	Wed,  4 Nov 2026 09:21:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793784101;
+	bh=9CBa+fk3/kbt44GXuKWA+WI61VvuFZ1X813XyE7+/Vw=;
+	h=From:To:Cc:Subject:Date;
+	b=UTmXrgKImETXIEXLhuBFnXWDp4j/L6cjYUCzMrVtiGLdAqlPntbX6u5i23jsRDVGP
+	 Deoa+3QtgyMVMulU5OHtgW1B7/dDgsHWwBEVOgdE+d94pADe1StR4pz0/wscipePyP
+	 FB9quHAV0mv9IFfg80INOaPxftkaExgoq3K5MQK0pVQZj+yt+FWvFQ9/FjgwN2Ycpz
+	 4Zs+cBE0heBYYRJb8spiZ5db0Grzt7/+bg0i5SKSyRZ3EQqHgM3HX+Zkx0GewV2u0Z
+	 PBJUUd3p9u08VSNhWkVA2vWol/x+Cl+806K3iAc2aYJLQKnsczi7EV6Tz/Owhl+tor
+	 Eiooa+OBUhTZw==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Andreas Larsson <andreas@gaisler.com>,
+	sparclinux@vger.kernel.org
+Cc: "David S . Miller" <davem@davemloft.net>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Magnus Lindholm <linmag7@gmail.com>,
+	Sang-Heon Jeon <ekffu200098@gmail.com>
+Subject: [PATCH v2] sparc32: don't clear the nocache pool through the PROM mappings
+Date: Wed,  4 Nov 2026 10:20:22 +0100
+Message-ID: <20261104092022.5837-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,34 +60,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102103621.156928-1-umangpokhriyall@gmail.com>
- <20261102103621.156928-2-umangpokhriyall@gmail.com> <auot2ZVM5YjyFlZZ@kernel.org>
-In-Reply-To: <auot2ZVM5YjyFlZZ@kernel.org>
-From: Umang Pokhriyal <umangpokhriyall@gmail.com>
-Date: Wed, 4 Nov 2026 14:51:00 +0530
-X-Gm-Features: AclHuK9dbghBwN40s0Kd9a8eejM4zi0u6MKlqoBKgZ5z64zrzbWRBqHetF1dhp0
-Message-ID: <CAOdFi6fb=d8RDk3EJSfGHSCKtsVjf=dmG5o2fq0dPxQoyBohzA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] userfaultfd: validate the whole range before changing
- write protection
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 4, 2026 at 12:24=E2=80=AFAM Mike Rapoport <rppt@kernel.org> wro=
-te:
+srmmu_nocache_init() runs before the switch to srmmu_swapper_pg_dir, so
+lowmem is reached through the PROM mappings inherited for KERNBASE,
+which end at 10MB on a SPARCstation 20. The pool, up to 5MB and
+allocated right above the kernel, was cleared there by
+memblock_alloc_or_panic(). Once the kernel image ends above 5MB the
+clear runs past the window, faults, and the boot CPU enters error mode.
 
-> If we a breaking on any error to out_unlock, why do we need err =3D 0 and
-> this check?
+Every user of the pool clears what it allocates, so allocate the pool
+with memblock_alloc_raw(), after the bitmap so the bitmap lands below it.
 
-We don't, thanks. v2 drops them and the -ENOENT inside the loop. I kept
-the one before the loop, because for a range with no VMA both loops are
-skipped, and without it the call would return the -EAGAIN left over from
-the mmap_changing check instead of -ENOENT.
+This has been broken since 2.4.0-test2pre2.
 
-I'll also drop the selftest.
+Cc: stable@vger.kernel.org
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+---
+Changes in v2:
+- Rebased onto sparc for-next, where "sparc32: remove redundant memset
+  in srmmu_nocache_init()" already dropped the memset(); the pool is
+  still cleared once by memblock_alloc_or_panic().
+- v1: https://lore.kernel.org/sparclinux/20260927005801.8338-1-kaloz@kernel.org/
+
+No Fixes: tag: this has been broken since 2.4.0-test2pre2, before the
+git history.
+
+ arch/sparc/mm/srmmu.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/arch/sparc/mm/srmmu.c b/arch/sparc/mm/srmmu.c
+index 337987e021d4..f0fb7b33c3e3 100644
+--- a/arch/sparc/mm/srmmu.c
++++ b/arch/sparc/mm/srmmu.c
+@@ -263,14 +263,24 @@ static void __init srmmu_nocache_init(void)
+ 
+ 	bitmap_bits = srmmu_nocache_size >> SRMMU_NOCACHE_BITMAP_SHIFT;
+ 
+-	srmmu_nocache_pool = memblock_alloc_or_panic(srmmu_nocache_size,
+-					    SRMMU_NOCACHE_ALIGN_MAX);
+-
+ 	srmmu_nocache_bitmap =
+ 		memblock_alloc_or_panic(BITS_TO_LONGS(bitmap_bits) * sizeof(long),
+ 			       SMP_CACHE_BYTES);
+ 	bit_map_init(&srmmu_nocache_map, srmmu_nocache_bitmap, bitmap_bits);
+ 
++	/*
++	 * Until the switch to srmmu_swapper_pg_dir, lowmem is only reachable
++	 * through the PROM's mappings, which may end below the top of the pool
++	 * (at 10MB on the SPARCstation 20). Allocate the pool after the bitmap
++	 * so the bitmap stays below it, and leave it uncleared: every user of
++	 * the pool clears what it allocates.
++	 */
++	srmmu_nocache_pool = memblock_alloc_raw(srmmu_nocache_size,
++						SRMMU_NOCACHE_ALIGN_MAX);
++	if (!srmmu_nocache_pool)
++		panic("%s: Failed to allocate %lu bytes\n", __func__,
++		      srmmu_nocache_size);
++
+ 	srmmu_swapper_pg_dir = __srmmu_get_nocache(SRMMU_PGD_TABLE_SIZE, SRMMU_PGD_TABLE_SIZE);
+ 	memset(__nocache_fix(srmmu_swapper_pg_dir), 0, SRMMU_PGD_TABLE_SIZE);
+ 	init_mm.pgd = srmmu_swapper_pg_dir;
+
+base-commit: c95443b98771a74c6689f5e7bbc56794fe95f550
+-- 
+2.47.3
+
