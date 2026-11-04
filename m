@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799598;
-	b=qk5GPVvET2RIqOFKSGi/hd87UJ3+sJee848lZhzeBO3aQPqszJPLXx3pAmzZjei1MnFQ
-	 4/NZldxaULTvngFFYe7dtA1XTs58E8LM/yjdgCYCzZDcyT31JDsMsxm4qYEWQsGGKuOv/
-	 YaNWE24RTEtPoFsTdt1kT6fD4kgEhZBUREvDg3yC3b0zUXB5TQjFzv0ROG6o258VHeOuz
-	 j+rN/+RU1uzlChnPdFgCuWyxcqu/IqGBKMSGemDWQ+exJphrjVfZYIKWz1e/PrxGcMQtA
-	 7lBGoyicAiDNMXyk8ldqyYXgl/JGeHy9m/Q2mWRt1UP9LASMkTYWClOHrqY/twW662A==
+	t=1793799599;
+	b=zAZOBETInyegVB9RxsHy5hJqe3iyiosBmSCeKbOYoRqluBUr9YNHV4/ok+fFPXs7r09V
+	 mGi4chjvTFIdw29XdgRwSpxMpz//6u6uqJO4PnPJ03bXQiKV9QMfU9lCK6nkzMEb9jmjR
+	 +MSNot0rTiG9/droL7abz+eoK0BWA9JPaxPF1qfzdxh5E4SjLlzk/6ecPjU8zwaLVpNQ8
+	 5IXc81ULH8CX1JSw+gGYdXbem2IbpqpPceeUYAH6vo2m1go/GXQsFHBlqNnsnW9bnbNYO
+	 QU5nuSr2DevFofk3g+e2N/jc2tgNl5N6p/n1bftXnrWVUxYJBhtOHFanCrfK/tGEdVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799598;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799599;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=kHGBy0u7NCMU6HHxGD3ywspfDGso2C/GHnNjQjVNRcg=;
-	b=mOB3sYVwcA2Iet8pXkgdFWRf6gUSAQjO6UG1a7hvrBl5F/cc76uAeM73Q9ro9SiOjWHc
-	 ZUHNYF1/SVzCxpZSiz64XhU0YoX602sMXEpvUYkxEVZ2UZVcvD6Sq32VFqQp6lBwvywUB
-	 L4drd2rCQXF4U+syVZMhRSW8vD2jC8ZkzxrxlbZbqafK7hqr2lBfMZ11xbfnxFP4a47Ga
-	 JGa83i+XtIIGZzF1EanOPHGVJXTotgo9C5125xkXYU+M0ZibYhF75yrI00Zr4U59KKHZR
-	 WYYrQEQ5mYKwELFtXNftpE9Fqye5iG1fGcSLFMfjQBvgSaMd9Eg2SFFuACRhYA7oCJg==
+	bh=fXzGMgpZ2gxpVJJ8l7+bBvPQpjARjywaqULZOWfcEE4=;
+	b=r2al94CmJx4YQUVrk6XK/yjQpdVoGh6NelYhcEEfFw8wtpWEHRWATUN5S5IytEZpMDJL
+	 Mts/iR/4G4+6GhPpB4IhwTjbUVhnREY3HgSnSoXI8D8XxtWnFrRI7sPrz2xG0j4dWZDds
+	 9koERIch9bbcjeEt5k3GpWgDYcoRNwKPVqFHm2SWvDSIGyME8Rt8wCAJrT5TYqOgYsO8p
+	 bz+zqvmTvstnwO5g8BjnOYIXMkXL30r3QIVzUKjKclWuBetfw7cLM7EqRvQb/mE4vrFMH
+	 1F3rC7tAsAzdd1zPHn05jXcURS0krJIwWSHBJ0GHSdrE/aeTT84UedwdCWlniE8syrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iq9WTjAQ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dHNUHGnh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A2EC606A333
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:39:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C978606A32C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:39:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iq9WTjAQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0F651F000C1;
-	Wed,  4 Nov 2026 13:39:57 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dHNUHGnh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0327D1F000C1;
+	Wed,  4 Nov 2026 13:39:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793799598;
-	bh=kHGBy0u7NCMU6HHxGD3ywspfDGso2C/GHnNjQjVNRcg=;
+	s=korg; t=1793799599;
+	bh=fXzGMgpZ2gxpVJJ8l7+bBvPQpjARjywaqULZOWfcEE4=;
 	h=Subject:To:Cc:From:Date;
-	b=iq9WTjAQ2TvWKpemnpzua8/m2rE+mFupq9Owau/PGBCU0ivhltzdRx0MrVpXaFPcP
-	 JqGCyX0TrJGVJfpDaAkV9XMhZtNQIzwibtUvd3eUkGETBDWlZafGphSfnLnz9BhuiH
-	 sfgg8V5g/jEMt/hv5AHP9vEtj5Mxy63tDHP+toeI=
-Subject: FAILED: patch "[PATCH] mm/hugetlb: fix use-after-free of a new anon folio" failed to apply to 6.12-stable tree
+	b=dHNUHGnh5RuaWqxMrft7JMvwvCNosyqG8rSXg/RSoH7m2nQB3eVUXQRbrZlds6xcm
+	 re8tLKkwGH+VjfN3roQqnXK8tORPz/fCBQz/Z/av0vomAsv9G2Sr1uTIKUn+WKoern
+	 Qdi5aC1SFZUFgSnild3jf8LHPJliH4KP/xOgateU=
+Subject: FAILED: patch "[PATCH] mm/hugetlb: fix use-after-free of a new anon folio" failed to apply to 6.6-stable tree
 To: josef@toxicpanda.com,agl@us.ibm.com,akpm@linux-foundation.org,david@kernel.org,jannh@google.com,kas@kernel.org,lance.yang@linux.dev,liam@infradead.org,linmiaohe@huawei.com,ljs@kernel.org,mgorman@techsingularity.net,muchun.song@linux.dev,nao.horiguchi@gmail.com,osalvador@suse.de,peterx@redhat.com,pfalcato@suse.de,riel@surriel.com,rppt@kernel.org,stable@vger.kernel.org,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:39:56 +0100
-Message-ID: <2026110456-remix-oversold-9ee1@gregkh>
+Date: Wed, 04 Nov 2026 14:39:57 +0100
+Message-ID: <2026110457-showroom-renewed-cc95@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 824cc56bf43c714319992bad3558803cac6e77c0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110456-remix-oversold-9ee1@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110457-showroom-renewed-cc95@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
