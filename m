@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811285;
-	b=k3HZyGRV08r6VEBWmacNi+1MCL/9znrVxrupOAtcKsk11dVG3BWEfoKdq9oi+/JxWII7
-	 8gqopTV1UAkwLHpLrTI789t3CD0y6/Lfz9gqa7b8fLtVaNofo/8G7TDyv6rqGe6S5Jufm
-	 dMu+XFA6wrl4WVpdaEsWEdzXjBpbVKDpM8uV9qfFB2m8U5RkkqLY4ao/5+0qQbob6iVBR
-	 a+8mMl1BO6KNNkdUyybZGsxLhrkQzuWr14JAReGEbQQOulovAwaMDnb2oDOJYK/zUDVbD
-	 k2uGEi2CMjXv70elGHTeHW/I+oivLuXt8pgqQ1QoulPVisr1kyNNXydiLLC0usa6Wjg==
+	t=1793811288;
+	b=H/2A420doZbIB5Qv1RtRdrkpnHm97eMIxi9NEIoLggxF+48hnn5Lh5uPu3/Qoc1d+/mr
+	 slVsurTEoTYFPaaPY33iW3zpv7z5NvJLlFOlqSBL5+Tl1ZVaoY1iKJ2I+E/trJJZgDwjS
+	 ygWifqiU0DWpluhnV5ttf48e6LLKLXd7b0S5WBqelmFevll+e1a693cG+01BJVQxVg3lZ
+	 SG2Yn191eaDmvLuemliDp0t+sMXOhPEKxmc8EuzXPZe0/WPqLTgFlz+58zdm+3gCmYZh8
+	 q82aQL4E7lE28y9DfA+VvfFCOMCyDr4kbNY1x0liPEbpxsgZctYqCcFu897+elvuU9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811285;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811288;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=VialEgseVdJGdqQdgHTTinAJ0tOMevENhFMxL7pq0mI=;
-	b=gG8+/wU/L3cQ0gvI5Jcjgbm7Nia1vkPmoyAJCwJ7aUgxYGSB8tzEaCIJpz/CCNIb+0CF
-	 +ZiknttdamO8Btcgbn/VvnGXEa291WTewoFTZ1VDT1MzJwxivtFpcN7Mh7B3rdoTPIw3h
-	 nnUUhM1ypJBFxrueKcmOZZvDpdEtqUMgZhEo/GOPZCHdBlHkjrlTF5aQqkuaUv57tpOWW
-	 oC+JEJ3MhxvPnR3Z/LIwmlhS+/xVEtYcXfZ2SLm7+Z6a441LmwdFANjIQFAMOlzatuFf/
-	 ictlsGmYTuruhmVoiVLiuOdf/4BiYNwyTQHBpHMgOel56tnwyF8r3BZb6K7RlbGSsWA==
+	bh=pP0G/vYS1TM/2HchOOlBcWYxTH5w939xlkvbqP0SKwA=;
+	b=Fs+57yCT1F/a1amoOSy5fYlRC7RKPMiNo6xbZIAY7VXxaouOqF4uzVECpVLrmrefXXCP
+	 MvXVX7w2uDCkUcvurf7PgzlEdQqjGpIUf21trMGPIW+nVEfFedee8y4hxsFdU5hv+VpeQ
+	 mO3Wdnv35eG79qFHKSCBNWllkjTrtS4Rtia/KyyyeRKHF9ERdEaBGE3IUPx7mMtCS3eja
+	 Mt0sFmd22/Kf2Y3wrbqVik3XPCWCisNe2V6GrQPJRzMZQPbFJpatgB5vkAekc+HSwpviN
+	 mXInOTV9nADYhLBdB5902mJVVIoC86CGQmpvYY7LN30vHmd0tot9A7hyzCZtUKLcVrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fk6jny6q;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bz4wmy2A;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF201606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:54:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5318B606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:54:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fk6jny6q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20B821F000C1;
-	Wed,  4 Nov 2026 16:54:43 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bz4wmy2A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D4731F000C1;
+	Wed,  4 Nov 2026 16:54:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793811284;
-	bh=VialEgseVdJGdqQdgHTTinAJ0tOMevENhFMxL7pq0mI=;
+	s=korg; t=1793811287;
+	bh=pP0G/vYS1TM/2HchOOlBcWYxTH5w939xlkvbqP0SKwA=;
 	h=Subject:To:Cc:From:Date;
-	b=Fk6jny6qbo0LBzgEj91ptLdErlUecck9m6JAea8DGjcDJYPUvRLSW6/JVnYv0v2tr
-	 elVrVA5gwH9ECp3JGOWAFJ7Ih2Scu7wSHk3ufsl95YxzzB/NsCzcZb/QMGAR9lvxm3
-	 mnVbE1q38zor3DV6qoI0y0SARW/ASdU1a8SLWFMI=
-Subject: FAILED: patch "[PATCH] xfs: always report scrub errors in tracepoints" failed to apply to 6.6-stable tree
+	b=bz4wmy2AZ/ORdDVHOFqbInNU7uD5xWUhk1/Bp+hE8h7iGsPzlDkFYGG9deiYw9ftV
+	 FrkE2VaTRbvsFHmuoiNyaNggsWPf1stjA1eCzN+Ul415jVovDufVhC+Ne8fBOg8e55
+	 K4kh9xDG0xwdipr3fl4Zp1EmBjtX3BPrmcBE1V+g=
+Subject: FAILED: patch "[PATCH] xfs: always report scrub errors in tracepoints" failed to apply to 6.1-stable tree
 To: djwong@kernel.org,cem@kernel.org,hch@lst.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 11:54:06 -0500
-Message-ID: <2026110406-device-hangover-5a05@gregkh>
+Date: Wed, 04 Nov 2026 11:54:08 -0500
+Message-ID: <2026110408-clay-heroics-73a0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 1ccc8f553d885d49c1bfe141ea1f331511940b3a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110406-device-hangover-5a05@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110408-clay-heroics-73a0@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
