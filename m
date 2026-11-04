@@ -1,92 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.75
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793770449;
-	b=ZZF5MYrGPLhDKjCxVIPHuqM9fdDFZDW+cMvndhW0MXiMuqNj6Xi7c/a2Zcd6/IB+EMta
-	 c3Fg6l3xQ5EGeteGYs/l7Ua/SeHXT+uVLvdHrXPcyfSoUIP3fiU0295vsScQ65qNZ8PdS
-	 gJEI3Er7bO6RmniTMRuH1rQXYjrT+7mFYWiPnShFBt0O9XKlymLNh5ModOnGutm0Sleoj
-	 0QUXeP+qJPOLEV7Wbj98GyD/ZD2GSmkMnI3BFZR3k77vwERjv/SjLhdkkeptYpVReqKgM
-	 D5mEUOS6NsGpVZ63eoqZmcZ/4VevCEeno4dX8gTk4FpgbpobFNMqsBAsZ6oBgBDu1DA==
+	t=1793770634;
+	b=k6Ng1hEramHHwW/oN4Hz0KTECShKwApyi1haY2WICOQUP3KoaMt9BcHRGQSi4NmnQWDe
+	 Cfmy4qlO1QR8c/5njVblW/YfPpbJaoUvIHyyqaeGYl10HlEAEZPoNgIGuVZUF0FS/tQl+
+	 pAoD6DOdRC/mZa5rCqjoJejKbo2Dy1VgUS15DRMmakD51cj7AXL6ZrsH4C/H9dCsEbe4x
+	 boznc9Ww2MrApfM+uRGQk2W2+Pknl6knAiZbrBdkQ07EYUtEf2YME50HFpLSLdxknTh7u
+	 FDb+MmRph3dNFYlQu9NAwd+GXSkaoi5g5miIj8BuiURrF3PyyfURtkNHMUjsOGouSRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793770449;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793770634;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=NaPAIDGDHTTSnPgiyoGnXRPKLlfc2mJQHfqQ2f481xg=;
-	b=ERRuhhbIduE/8/QoOcWkiP7qKn4t7MeTFb4YnOcca4xttJvH9mKUyMAipqV2bkRoknzo
-	 iSQgJE/K7ssAAuM3PzyRBQ+9i4KQi8G0xeNg0f5wPqQjHnXBIqPBFWc8aag9dtONA/aYF
-	 anpdC9goQfip/v3PhSH/IcqM2qwu0Y/VwMsPs+AfGnmVylF7uXuZnZet52z/YiMP2wqfg
-	 TvnCGJToCNtazGzUTM06f1hWog7hzG2OiIxEnxE1XgjzLyL1sNofqfrmbudWN9IvtyD57
-	 nin6ewaC0+tf2CXV56O469h9yov2tgG8hDvkDWUEONpNk99NuP3j/7nOVQ4etPpnRTg==
+	bh=nDRNxsDnkcgSBTFbAhj7C2jtia/Fnvvda25FOYiDmms=;
+	b=Prio/taKXELJ7FbRuVVDX67kDPWYELZgaigAQEpwurS5YXAQyOx51z+sLinK4SU+iqdz
+	 Ei5KQOGOSIm0iWcBF1JIp+7FTgdR2QfkQlvb3mV2+Adk0XnNcy4ZgDU9l/ZXGtrZiMj2S
+	 sHJUK1EvJOaqUkLbVdrBbmxYETFXG7UonJqReG6R7AIn83oJKzVm60j14co5Tjr+2nnxM
+	 mBxzNDMon+qZ5W1QmX0x8ZlqaZha1i6j+Dj/Y2sVZ+yVMuao83me9eHYnvhYxPdA5Y9lg
+	 wwYD/gc9ql17aJmZed2wM34t6EDGhfNwShRGGtUgPdbGaeZnmKglZ9RuNHHu+xVVrhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cfss1h09;
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=VXCY1mMc;
+	arc=none smtp.remote-ip=115.124.28.75
+Received: from out28-75.mail.aliyun.com (out28-75.mail.aliyun.com [115.124.28.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA3D606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 05:34:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAA3D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D0F606A31B;
+	Wed,  4 Nov 2026 05:37:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6D0F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cfss1h09
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1af971cd9f9so27460c88.3
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 21:34:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793770448; x=1794375248; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NaPAIDGDHTTSnPgiyoGnXRPKLlfc2mJQHfqQ2f481xg=;
-        b=cfss1h0964nVXzPW6asKCRWluZW36QCD/VgbvvklOprt1lgHuRdHrEFRuqMLE1KVaJ
-         zwQJbWZOMLVSjireD60gaeys/K8rzKFR+zYGTCC+q1mlI3M0pdkuipAyJCmYWxbZPgsk
-         VtmOYUa+V+8WvgeCXMcEmO1KXh39n3mI967aPOnEGnJmL+0/7chaW7OrR5eF2f33dNy4
-         Rwr/7HxvOtuOMGdLAc5rakRd+PjIbkFS3CQ6A2pTFnv/jwcgQUGiz+INamfg+PSJjvd5
-         NdAXVlv/nI9c2mvFO5R8WIAp+2RA8Di22xf1Ml4R/X3h8q6dZe0G1BHwNc2LGNgtCfKV
-         GvaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793770448; x=1794375248;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NaPAIDGDHTTSnPgiyoGnXRPKLlfc2mJQHfqQ2f481xg=;
-        b=XEocfbRRUBgkzFjYpLiLvdbELICkXPsQXQ7xtrVmOlWduHpAwCobRDS1yoESGjqqxr
-         dXFkc6Jp8Bes5FEsndiweNVo00FxU0YNoZCH/KwtzioqhphD/dpGrD8iBF4IqoFIl1vf
-         X55Pd/XQdw0eggUVhAt9mfVS+MaQ+rXY7KOI6wc6tIoQUezNjDtseLXPJLnnmn0KWpRG
-         L8AxLGdd890KBSSctGY9VfMHdCzULLCkUOrdq8dxasJOq+C0MUMlWQ5rDeawSN4Pzb00
-         b0ZTrYqjcWqhwZURBTjXur/6XClo7ZlUcObUTIiKO/OQRPkD4bIz/z7k/UI3qZt8sBCP
-         UcBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy8aF8RNm5sGhQjShI58Fvu5GSgU6tM+l8EtbxOCs+y1y51ql8pMSG4JTFOUmzQ3JnxHhPkv8U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9rXBtyDL6wrWH5YLxdxEtiP0rSR45zBcm1yiFPvLtk220A+Q+k
-	OzQQ+D/sEFdhrIluxNR2miY0Ufx7N0DH5NDcsGlwSJB6xw81522QeuDK
-X-Gm-Gg: AYBFou1nMw5ca1YcJKh78ZJNEDZpBJvIv1h50e/aHmmHE6rNmqy83oHU+pQjoHo5BrV
-	//qO4KcDWSGO3yyQBMR/4WbiN8PRMdokImW/WMnDEtM5A4gxuHXmpVcI164uJo86WPv1O4AE9SJ
-	S2vocE6IU7f+4FvB3620DIvPxsHIgn7x1+V3EmYOf2BS8Bf7cGkEHrfE4FIb74LGhGDC15nSywT
-	SicTTTK+8a1zEmGzkEQ1qEw+kBKb2ChEKqFzWtxw8Iu0FUT2Gyc0UZN1iYeH2JP9xCQpv5p4Tpp
-	TDk3EMVetxxLzsl1CwM5HTTJ9F9SfAUdKXlX8bEmMTw5H2M9RABLvYWARtH0Q6BKVIS2rYp0wFl
-	4NC8eyU7dKCL4OCtPF2bWoSpEMGXC9uRYaqT2bj7psD54Z6ncpBQ9QkksAxxjGBCbgutnR7kycL
-	JCSfVrr6iONEZn125XxXX4Q82XuN5Aw0pIf+c8fpHivSfCfI8dyw7tly4P/DNPnhbPWozwNYjn2
-	IiMswjEk8vOKusMh/ft6Ii1KaMhhzYho5LiQdFJRhdFeJjHxn7SE7Nse7TOw5P21flIBp36JOlU
-	avzx3kBOBnu98vPRDWjvIpHVOR0a6oShco6zIGIcHwI=
-X-Received: by 2002:a05:701b:428f:10b0:143:5c2a:e45f with SMTP id a92af1059eb24-1ac4f91ef0emr37439969c88.0.1793770447458;
-        Tue, 03 Nov 2026 21:34:07 -0800 (PST)
-Received: from CRASHEDROM.localdomain ([142.249.36.161])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1bcedsm4263001c88.7.2026.11.03.21.34.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 21:34:07 -0800 (PST)
-From: Chengyu Liu <lui2012qwq@gmail.com>
-To: sudeep.holla@kernel.org
-Cc: arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Chengyu Liu <lui2012qwq@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] firmware: arm_scmi: fix deadlock between reboot notifier and forceful work
-Date: Wed,  4 Nov 2026 13:33:59 +0800
-Message-Id: <20261104053359.1613991-1-lui2012qwq@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=VXCY1mMc
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793770627; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=nDRNxsDnkcgSBTFbAhj7C2jtia/Fnvvda25FOYiDmms=;
+	b=VXCY1mMcCuJTwcHW1IdvuaG0dkO9A/sG4kDNsYTOsESwODTsmHCxM0zu7HH9HdQnp4+jxaOMNudrToz7W20YPvtaLDdLEcCSP0zUIC6zp4PyGt2xkROt4QnrKJRjS9CURM08GNWUAysUq/UzNH1oICLYBO/PTvCbsEORgd312AQ=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436352|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.142451-0.00490227-0.852647;FP=9066074887955760626|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.jwHy6qj_1793770625;
+Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jwHy6qj_1793770625 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 04 Nov 2026 13:37:06 +0800
+From: Weibin Liu <liuwb@xiaopeng.com>
+To: linux-integrity@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zohar@linux.ibm.com,
+	roberto.sassu@huawei.com,
+	dmitry.kasatkin@gmail.com,
+	Weibin Liu <liuwb@xiaopeng.com>,
+	stable@vger.kernel.org,
+	Zhu Guanglei <zhugl3@xiaopeng.com>
+Subject: [PATCH] ima: hold ima_extend_list_mutex while locating the trim position
+Date: Wed,  4 Nov 2026 13:37:05 +0800
+Message-ID: <20261104053705.3967228-1-liuwb@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,91 +67,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-scmi_reboot_notifier() calls cancel_delayed_work_sync() while holding
-sc->state_mtx, but the work it waits on - scmi_forceful_work_func() -
-takes the same mutex.  If a forceful transition work is in flight when
-the reboot notifier fires, the notifier holds the lock and waits for
-the callback while the callback waits for the lock: deadlock, and the
-reboot wedges.
+ima_queue_delete_partial() looks up the queue entry at which the
+measurement list has to be cut without holding ima_extend_list_mutex,
+and only takes the mutex afterwards for __list_cut_position().  The
+comment above the cut justifies this with "ima_fs.c enforces
+single-writer exclusion".
 
-Moving the cancel outside the lock is not sufficient on its own, as the
-callback also calls unregister_reboot_notifier() unconditionally, which
-blocks on the reboot chain rwsem (down_write vs. the in-progress
-chain's down_read) while the notifier waits for the callback - the
-deadlock would just move to a different lock.  Fix both sides:
+That exclusion does not cover the write() path.  ima_measure_lock()
+registers measure_writer at open() time and even lets the same task
+open the file again by incrementing measure_writer_extra_writes, while
+_ima_measurements_write() never checks the caller's identity.  A
+privileged task can therefore open several descriptors for the
+measurement list and use them concurrently from its own threads.  Each
+open() creates a separate struct file, so the f_pos_lock taken by
+fdget_pos() does not serialize these writers (sharing a single
+descriptor would be serialized there).
 
-- Notifier: compute the decision under state_mtx, drop the lock, then
-  cancel.  A callback that slips in between sees state ==
-  SCMI_SYSPOWER_REBOOTING (not IN_PROGRESS), skips the forceful
-  request and finishes, so the cancel cannot miss it.  (The callback's
-  own system_state early-return does not cover a work item that
-  started before the reboot began: kernel_restart_prepare() runs the
-  notifier chain before setting system_state.)
+Two racing writers can then resolve the same, or an overlapping, trim
+position, and the second one dereferences a queue entry that the first
+one has already detached and handed to ima_queue_delete().  Depending
+on the interleaving this corrupts the measurement list, reads freed
+memory in __list_cut_position(), or frees the same entry twice.
 
-- Callback: only unregister the reboot notifier when actually forcing
-  the transition - that is the only case that needs it, because the
-  forceful kernel_restart()/kernel_power_off() would otherwise
-  re-enter scmi_reboot_notifier and self-deadlock on state_mtx.  When
-  the state is not IN_PROGRESS there is nothing to force, and skipping
-  the unregister keeps the callback from blocking on the reboot chain
-  rwsem while the notifier waits for it.
+Reproducer: generate some tens of thousands of measurement records,
+open() the measurement list for writing several times from one task,
+then write "20000\n" from that many threads using one descriptor each.
+KASAN reports a stack-out-of-bounds access in ima_queue_delete(),
+called from ima_queue_delete_partial().
 
-Found by static analysis.
+Move the lookup into the same critical section as the cut, so that the
+entry stays valid until it has been detached.  Holding
+ima_extend_list_mutex also excludes ima_extend_list(), so the plain
+list_for_each_entry() is sufficient and the RCU variant is no longer
+needed.  Keep the existing error precedence (a short list returns
+-ENOENT before the suspended check) and keep ima_queue_delete()
+outside the mutex, since the trimmed list is already private.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+Fixes: fcb0318a2969 ("ima: Support staging and deleting N measurements records")
+Cc: stable@vger.kernel.org # v7.2+
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+Reviewed-by: Zhu Guanglei <zhugl3@xiaopeng.com>
+Assisted-by: LLM
 ---
- .../firmware/arm_scmi/scmi_power_control.c    | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+ security/integrity/ima/ima_queue.c | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/firmware/arm_scmi/scmi_power_control.c b/drivers/firmware/arm_scmi/scmi_power_control.c
-index 9557363360..b5a0b71505 100644
---- a/drivers/firmware/arm_scmi/scmi_power_control.c
-+++ b/drivers/firmware/arm_scmi/scmi_power_control.c
-@@ -121,6 +121,7 @@ static int scmi_reboot_notifier(struct notifier_block *nb,
- 				unsigned long reason, void *__unused)
- {
- 	struct scmi_syspower_conf *sc = reboot_nb_to_sconf(nb);
-+	bool cancel_work;
+diff --git a/security/integrity/ima/ima_queue.c b/security/integrity/ima/ima_queue.c
+index 0f1b7e4113c4..cf8c164eea13 100644
+--- a/security/integrity/ima/ima_queue.c
++++ b/security/integrity/ima/ima_queue.c
+@@ -427,12 +427,16 @@ int ima_queue_delete_partial(unsigned long req_value)
+ 	struct ima_queue_entry *qe;
+ 	int ret = 0;
  
- 	mutex_lock(&sc->state_mtx);
- 	switch (reason) {
-@@ -138,11 +139,18 @@ static int scmi_reboot_notifier(struct notifier_block *nb,
- 		break;
- 	}
- 
--	if (sc->state == SCMI_SYSPOWER_REBOOTING) {
-+	cancel_work = sc->state == SCMI_SYSPOWER_REBOOTING;
-+	mutex_unlock(&sc->state_mtx);
++	mutex_lock(&ima_extend_list_mutex);
 +
-+	if (cancel_work) {
- 		dev_dbg(sc->dev, "Reboot in progress...cancel delayed work.\n");
-+		/*
-+		 * cancel_delayed_work_sync() waits for a running
-+		 * scmi_forceful_work_func(), which takes state_mtx - it must
-+		 * not be called with the lock held.
-+		 */
- 		cancel_delayed_work_sync(&sc->forceful_work);
+ 	/*
+-	 * list_for_each_entry_rcu() without rcu_read_lock() is fine because
+-	 * only list append can happen concurrently. No list replace due to the
+-	 * staging/delete writers mutual exclusion.
++	 * The lookup and the cut have to be atomic with respect to other
++	 * writers: ima_fs.c serializes open(), but write() can run
++	 * concurrently on independently opened descriptors. Holding
++	 * ima_extend_list_mutex also excludes ima_extend_list(), so the
++	 * plain list traversal is sufficient.
+ 	 */
+-	list_for_each_entry_rcu(qe, &ima_measurements, later, true) {
++	list_for_each_entry(qe, &ima_measurements, later) {
+ 		size_to_remove += get_binary_runtime_size(qe->entry);
+ 		num_to_remove++;
+ 
+@@ -441,18 +445,16 @@ int ima_queue_delete_partial(unsigned long req_value)
  	}
--	mutex_unlock(&sc->state_mtx);
  
- 	return NOTIFY_OK;
- }
-@@ -190,10 +198,11 @@ static void scmi_forceful_work_func(struct work_struct *work)
- 
- 	dev_dbg(sc->dev, "Graceful request timed out...forcing !\n");
- 	mutex_lock(&sc->state_mtx);
--	/* avoid deadlock by unregistering reboot notifier first */
--	unregister_reboot_notifier(&sc->reboot_nb);
--	if (sc->state == SCMI_SYSPOWER_IN_PROGRESS)
-+	if (sc->state == SCMI_SYSPOWER_IN_PROGRESS) {
-+		/* avoid deadlock by unregistering reboot notifier first */
-+		unregister_reboot_notifier(&sc->reboot_nb);
- 		scmi_request_forceful_transition(sc);
+ 	/* Not enough records to delete. */
+-	if (req_value_copy > 0)
++	if (req_value_copy > 0) {
++		mutex_unlock(&ima_extend_list_mutex);
+ 		return -ENOENT;
 +	}
- 	mutex_unlock(&sc->state_mtx);
- }
+ 
+-	mutex_lock(&ima_extend_list_mutex);
+ 	if (ima_measurements_suspended) {
+ 		mutex_unlock(&ima_extend_list_mutex);
+ 		return -ESTALE;
+ 	}
+ 
+-	/*
+-	 * qe remains valid because ima_fs.c enforces single-writer exclusion.
+-	 */
+ 	__list_cut_position(&ima_measurements_trim, &ima_measurements,
+ 			    &qe->later);
  
 -- 
-2.25.1
+2.50.1
 
