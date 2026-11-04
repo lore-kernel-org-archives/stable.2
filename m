@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793831765;
-	b=MqpGXSFc4DwrkhcSAT3O3VI71fGQND9+hgs2eOz6OCXSXQh1pN73IVtNwt32hlKvrV5w
-	 hNRR+Hfx/BjVmQy9Azxn9PMSt3loFOOLk5bmltNRrs8kSLqKUwo6/woHHgxIko4sjRjb5
-	 uOJcGtbmB291xJjUu6gNXbVetEmswYIhgMyB1mN1P8C5+asx5DPsJvgehsmXTbswLtKR4
-	 je7PAG7eGlHL7YQrq/MvWM1WsBqyGoc24w6usdjuht441QGp+RrVm8RPtakC6sW/a2nHw
-	 YrHJ8fy6wa1rcFg/V+r9h5IHoyf7WZ/2BwLGsDK97nW7CwNcR2csHdQnXHJoVNxersg==
+	b=DIShqfjfkyNc74EJfLquzY7dBYDBuTvBRRXFUmR0waAPRkLgGZwCKXic0V9nywYr36iM
+	 I38ECVFr+B67bS317H2BkEwURUCowx9KIlPoGKISvFQJ69QI2yVS8krdiM3xDsU9GaSEq
+	 KZorcnzh64Jk/d3k+dWyix1BdIeN7iTyZBtYSRarB4uEuAPFRrfBrWYSKljSS7bz7d70S
+	 BnK0l9E+0B4MS09laHCNImR03YXxCg/ir4RYVo43QvP0Xb8cMwHK7n6X8q9ZDf455UxTi
+	 2X8pcu1gVJ0nNuURyzhlEcqqrZfeAWbt3hbi5F43FSDWpxKLnc8ekpyhBkgagzC+/Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793831765;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=wPtpCL2Xh/QU9ZXU1whlgE4BdSvspCibiEvyhZalo+M=;
-	b=Mw1MxxBj/MH6d49d5HGQBY1Bq/1iN7MTNfbHZL6OMtu6cAfBWV+HE7mTRqBv7UMcTmfC
-	 wderEF/cTUYcKJQxPvYfIdORNieC2988lOE8BVTYzueIw6u6bINcijUOySDmyP0xp9iQm
-	 Y3HKBO79LalBpkK811Hzx9gElBULNivfUiyb/xpJHlTxIiBaV5Mri7KfIoMlHziea1lJt
-	 DKdv0WDC/hzOaEUEFf+blZwSJHtgyZfq4n9T3brec43/gHfR04HhPHeL6ayYGy/2ZSjlR
-	 ZbXlRCuTrLJbUID2Ob1JmwShtI9qy8MM+68NYjorPNpgpxpOPgf7HZrrf03TQusqDwA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=I8J1e6HSd1WWXfvc45MdlxK76ZO1XFwPn3fXtYypCrA=;
+	b=w9LYSPYGs6bwhke+23Vm0q0ggN0qBgFJSolI2xjShzDslu4GmmP+Yox3ybYD+4bc3Nqo
+	 19WviFvyBj2SJnNZrqYmF63dyfO7Md5i5pN1C83xku21rU9sPCI2yMV2MiL6AvAqpw34I
+	 CG/KjxXezx/MLlMYH8SmB2mrjqVw3RdfmABJ8r4BAQig3eNdsc/tt4Lj3L+rycNoYFg4v
+	 27mkRRCc86EWX+gZlMkxW8JOOlwQyBRCX5oQMQnkSoTllS98Pvm3bXdB/Iw2N7/f81O0C
+	 QfI4tVWWK5ydiV5kg/LiHwksCaytteFGBb+Gtatb94z5DfmBPoXUPw0aPF66d3doFUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dUmjrTWX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AfEE7im2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA758606A31B;
-	Wed,  4 Nov 2026 22:36:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBC1606AC0C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 22:36:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dUmjrTWX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 062B41F0093A;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AfEE7im2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F40161F00919;
 	Wed,  4 Nov 2026 22:36:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793831764;
-	bh=wPtpCL2Xh/QU9ZXU1whlgE4BdSvspCibiEvyhZalo+M=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793831764;
+	bh=I8J1e6HSd1WWXfvc45MdlxK76ZO1XFwPn3fXtYypCrA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dUmjrTWXbDLckTicgR8T4xx4V3OWCo2fr4xmg/npapfYPnpycfnnQ6uEVcUwWFYy8
-	 7RjgUQn6cbcyFJqy9Bk+djRL7c/0Xwl+RP/LM5Ycj7ADC1JpNEAW/klOOudxZ6rr10
-	 m6wAENbjbLDdDf9tmJeav/wX9wRsFUl9gKem/v/k=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=AfEE7im2Oyy6TmufPuAe9u2WQPEreQvG/vAbRP+VDFbymKmFvH07ppfxYzXhWCwvM
+	 6uJUyDhrJ9sOdYFC+SlY/9mpB5gra6PEfp9fqq/O4MPn0RZ1FrsPw0C6fdkvZXzr0U
+	 YbygtCcyOfGvozENq/1uxOSjY/qMb0LgZ4/NaFzCkAfilLj+zcJKhMb9zyQMbHY4pg
+	 VQDkPE9LzLbxfvGov62igWFaCbJ4+Aa6vwWNoRK9+/vzeYnCcRdBHtoduTfDOawvP0
+	 7ABstyZMrUthgbCgywuFeRvLlM7RB6OEc8V9i6Ls4IV5aQPZj3M8LQpNs8o6a2/9t1
+	 +9z9FrN8Vvf4g==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <cel@kernel.org>
-Subject: [PATCH 6.18 0898/1005] NFSD: Map flex file layout IDs through the requests user namespace
-Date: Wed,  4 Nov 2026 16:10:31 -0500
-Message-ID: <20261104211108.358022333@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
-References: <20261104211043.516122098@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Sean Christopherson <seanjc@google.com>,
+	Stefan Teodorescu <fane@google.com>,
+	Dennis Tighe <dtighe@google.com>,
+	Sashiko Bot <sashiko-bot@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] KVM: guest_memfd: Gracefully handle xarray errors when binding a memslot
+Date: Wed,  4 Nov 2026 17:36:02 -0500
+Message-ID: <20261104223313.638389-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110437-amusable-desecrate-4962@gregkh>
+References: <2026110437-amusable-desecrate-4962@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,122 +65,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Sean Christopherson <seanjc@google.com>
 
-------------------
+[ Upstream commit e6ecb88711d93b9e014532f17d3d29b57e80932c ]
 
-From: Chuck Lever <cel@kernel.org>
+If inserting a memslot into a guest_memfd's bindings xarray fails,
+propagate the error back to the caller, i.e. fail memslot creation as well.
+Signalling success and continuing on with memslot creation results in
+use-after-free, as the guest_memfd instance will remain reachable via the
+memslot after the file is freed (kvm_gmem_release() won't nullify the file
+pointer due to lack of a valid binding).
 
-commit f913d5d2130a584d1a027ffe3dfd88b6be2e0540 upstream.
+Opportunistically WARN and reject binding if KVM_MEMSLOT_GMEM_ONLY is
+already set, partly to guard against goofs elsewhere, but mostly so that
+KVM doesn't need to worry about clobbering flags when unwinding on failure.
 
-nfsd4_ff_proc_layoutget() and nfsd4_ff_encode_layoutget() translate
-the file's owner and group with init_user_ns, but every other identity
-nfsd places on the wire goes through nfsd_user_namespace(). When the
-transport carries a credential from a non-initial user namespace, the
-flex file layout reports host-global IDs. The client copies those IDs
-into the AUTH_SYS credential it presents to the data server, and
-svcauth_unix_accept() resolves that credential in the transport's
-namespace, so data server I/O runs under an identity unrelated to the
-file's owner.
+Regarding the unwind, the slot must be fully prepared before inserting it
+into the bindings, at which point the slot becomes reachable.  I.e. waiting
+to update the slot in order to avoid the ugly unwind isn't an option.  And
+as part of the unwind, explicitly nullify the relevant bindings, as xarray
+can store a subset of entries when populating a range.
 
-Switching to the request's namespace introduces a second hazard.
-from_kuid() returns (uid_t)-1 when the target namespace has no
-mapping for the owner, and the IOMODE_READ arm adds one to that
-result to derive an identity for which the data server denies
-writes. The addition would wrap to zero, handing the client uid 0
-instead of an identity distinct from the owner.
-
-Translate both IDs in nfsd4_ff_proc_layoutget(), which has the
-svc_rqst, and carry the wire values in struct pnfs_ff_layout.
-from_kuid_munged() substitutes overflowuid for an unmapped owner and
-thus never returns (uid_t)-1, so the increment cannot wrap to zero.
-
-Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
+Fixes: a7800aa80ea4 ("KVM: Add KVM_CREATE_GUEST_MEMFD ioctl() for guest-specific backing memory")
 Cc: stable@vger.kernel.org
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260720141442.783935-1-cel@kernel.org?part=3
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260720163724.810227-1-cel@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Reported-by: Dennis Tighe <dtighe@google.com>
+Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260823135031.4F6DC1F000E9%40smtp.kernel.org
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+Link: https://patch.msgid.link/20260922001332.1121266-2-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[ sashal: Changed the two &f->bindings references to &gmem->bindings to match the existing variable name. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/flexfilelayout.c    |   20 ++++++++++++--------
- fs/nfsd/flexfilelayoutxdr.c |    4 ++--
- fs/nfsd/flexfilelayoutxdr.h |    5 +++--
- 3 files changed, 17 insertions(+), 12 deletions(-)
+ virt/kvm/guest_memfd.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
---- a/fs/nfsd/flexfilelayout.c
-+++ b/fs/nfsd/flexfilelayout.c
-@@ -14,6 +14,7 @@
- #include <linux/sunrpc/addr.h>
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index a59a4446b8461..2ab7bb46a371e 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -576,6 +576,9 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
+ 	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
  
- #include "flexfilelayoutxdr.h"
-+#include "auth.h"
- #include "pnfs.h"
- #include "vfs.h"
- 
-@@ -23,10 +24,10 @@ static __be32
- nfsd4_ff_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
- 		const struct svc_fh *fhp, struct nfsd4_layoutget *args)
- {
-+	struct user_namespace *userns = nfsd_user_namespace(rqstp);
- 	struct nfsd4_layout_seg *seg = &args->lg_seg;
- 	u32 device_generation = 0;
- 	int error;
--	uid_t u;
- 
- 	struct pnfs_ff_layout *fl;
- 
-@@ -49,13 +50,16 @@ nfsd4_ff_proc_layoutget(struct svc_rqst
- 	fl->flags = FF_FLAGS_NO_LAYOUTCOMMIT | FF_FLAGS_NO_IO_THRU_MDS |
- 		    FF_FLAGS_NO_READ_IO;
- 
--	/* Do not allow a IOMODE_READ segment to have write pemissions */
--	if (seg->iomode == IOMODE_READ) {
--		u = from_kuid(&init_user_ns, inode->i_uid) + 1;
--		fl->uid = make_kuid(&init_user_ns, u);
--	} else
--		fl->uid = inode->i_uid;
--	fl->gid = inode->i_gid;
-+	fl->uid = from_kuid_munged(userns, inode->i_uid);
-+	fl->gid = from_kgid_munged(userns, inode->i_gid);
++	if (WARN_ON_ONCE(slot->flags & KVM_MEMSLOT_GMEM_ONLY))
++		return -EINVAL;
 +
-+	/*
-+	 * Do not allow an IOMODE_READ segment to have write permissions.
-+	 * The group is left intact so group-readable files stay readable;
-+	 * nfsd_setuser() squashes an unmapped uid to the export's anon ID.
-+	 */
-+	if (seg->iomode == IOMODE_READ)
-+		fl->uid++;
+ 	file = fget(fd);
+ 	if (!file)
+ 		return -EBADF;
+@@ -613,7 +616,13 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	if (kvm_gmem_supports_mmap(inode))
+ 		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
  
- 	error = nfsd4_set_deviceid(&fl->deviceid, fhp, device_generation);
- 	if (error)
---- a/fs/nfsd/flexfilelayoutxdr.c
-+++ b/fs/nfsd/flexfilelayoutxdr.c
-@@ -32,8 +32,8 @@ nfsd4_ff_encode_layoutget(struct xdr_str
+-	xa_store_range(&gmem->bindings, start, end - 1, slot, GFP_KERNEL);
++	r = xa_err(xa_store_range(&gmem->bindings, start, end - 1, slot, GFP_KERNEL));
++	if (r) {
++		xa_store_range(&gmem->bindings, start, end - 1, NULL, GFP_KERNEL);
++		slot->gmem.file = NULL;
++		slot->gmem.pgoff = 0;
++		slot->flags &= ~KVM_MEMSLOT_GMEM_ONLY;
++	}
+ 	filemap_invalidate_unlock(inode->i_mapping);
  
- 	fh_len = 4 + xdr_align_size(fl->fh.size);
- 
--	uid.len = sprintf(uid.buf, "%u", from_kuid(&init_user_ns, fl->uid));
--	gid.len = sprintf(gid.buf, "%u", from_kgid(&init_user_ns, fl->gid));
-+	uid.len = sprintf(uid.buf, "%u", fl->uid);
-+	gid.len = sprintf(gid.buf, "%u", fl->gid);
- 
- 	/* data server entry: deviceid + efficiency + stateid + fh list +
- 	 * user + group + flags + stats_collect_hint
---- a/fs/nfsd/flexfilelayoutxdr.h
-+++ b/fs/nfsd/flexfilelayoutxdr.h
-@@ -35,8 +35,9 @@ struct pnfs_ff_device_addr {
- struct pnfs_ff_layout {
- 	u32				flags;
- 	u32				stats_collect_hint;
--	kuid_t				uid;
--	kgid_t				gid;
-+	/* Values to encode; nfsd4_ff_proc_layoutget() has mapped these */
-+	u32				uid;
-+	u32				gid;
- 	struct nfsd4_deviceid		deviceid;
- 	stateid_t			stateid;
- 	struct nfs_fh			fh;
-
+ 	/*
+@@ -621,7 +630,6 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	 * not the other way 'round.  Active bindings are invalidated if the
+ 	 * file is closed before memslots are destroyed.
+ 	 */
+-	r = 0;
+ err:
+ 	fput(file);
+ 	return r;
+-- 
+2.53.0
 
