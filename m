@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793823481;
-	b=U/8OslGqt5Spl6K51m0ibRPPu+c/UYLuvlT0rdwfV1Gp5vGQnmIXyXGfIFkWOZQgzfed
-	 48kiHtNgx5345xt+LebRtcqeycnXgcgAhiLdfcf8d7ayjBKopjXLwiGph+Pl0mOyrC+K0
-	 dFiw1wCgHGanR1EYjNqn+Q0SKCPp54uZGXpvxlfal03fhC7x5GqqIYfu2KmXu5dDuGVFz
-	 f/mec8N6ARkaekxbfa5Z8FNabmlMqbWBVNFutyNH6LG6ljRrgqe8mHFug9EPmhybYCATV
-	 y6DkaHf1L+0drYsefEGzk6XEWh6JqWJvWyeMHbX48swP0a6VH8Zm0AOVO0McZgubXnQ==
+	t=1793823483;
+	b=LYgM925Xqrbkz/ybqXe1Pl17DEOxWtXh3Qn3S+LFDKKAvk2YPlfB1TXX8sCaZy3vFg6c
+	 X8d//FIDqCma0dlwYUUeI8N0buuAMXWjkP+YoBizfldZv4abiKqqf5IQpmQPCw4FE5WuN
+	 ohzq1P6WNF6PChQRQF8Q/iQKNDe7BsXDDGmJgAUyFg6foMDXy/Sv0i6UBJ+y8L4pxY7rP
+	 zA54LIaSv6R8TDHHde3B8+TtTCln+d2/p/zhpUJ3M1VrSy4XxS/+57C9KIA0p/VaaLI+u
+	 lyTaB92853xdPPYrVy0jeJuUqvKRwulDNJDVo8Aq6OtAlzocbaerlIbYWYkyaJtRK5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793823481;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793823483;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=izetZ7FXETA3hMto9JIcPYbq7w2tZYgethiOLfUWsAo=;
-	b=Zp1GyLk1OBBNQHhUgEFZFqYiurw3mILmff4Mj26S/mpNptHVCTOHvWs3OYjx25RspSGP
-	 wqOevyQ4TJc7DjS0bYq9XD4QZ44suWXHIT2wn7E9D/OVlPdVhID+yHoxY7tJqRyc7uZMC
-	 UgBmkb9ICvQ1Lccit5QxMg8NjGnGmt+BuKuiovY5sd/BCZYBWdFoM2tCYsSYTuwb34ow6
-	 b0EejKXS3o+VH21mnCc9IZyB9yqRG40SyYdB6us915P0QPYRTXdxPEy8m+o0OS5Ih6sVi
-	 4WDzRJGXDLJH9tAJyfXerDGsb0x6Lv+9yAo1dK5lxEdTvP/1wO94UAScfH6CyQ7u8FQ==
+	bh=aDOv6PsXoAQL6u2vo1US1p8FLhKg2iRCJfEJpWeJz3E=;
+	b=3OKrnec5Ifbzec0XroWtNHRfMDBRNJilUCsgd9P7jrc+XpwHK2vjBtHcU6uZBMQzQXcn
+	 xv/bCedhYMFf70ZVAKisb8VBgi+P7GZ0vK7R5gm+JOFBpE7An3B38surUV7mR4XySwugf
+	 ML2lsYnEBr8U237I/ahiu+s3NcAL1MHN0z6Z/zdGeASsGsJWOHlfeCvvMhKXGo1QYetGF
+	 P83YfTiT6Tq33GDrXESIVafVZ38LkGRYu0YtH+6mdQKbgD2l6soVDUF50wN7isnvz+IHw
+	 pyyO80Pg1l8T+Z/Y529euh7OV9ee2xkEb3qc/0+w4T5FKK++Dj5HV3LIjp/Nt+7v68w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=corw5kGw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ceaHdx1w;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24DB606D810
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 20:18:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2039D606A330
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 20:18:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=corw5kGw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A55621F000C1;
-	Wed,  4 Nov 2026 20:17:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ceaHdx1w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78F281F000C1;
+	Wed,  4 Nov 2026 20:18:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793823480;
-	bh=izetZ7FXETA3hMto9JIcPYbq7w2tZYgethiOLfUWsAo=;
+	s=k20260515; t=1793823483;
+	bh=aDOv6PsXoAQL6u2vo1US1p8FLhKg2iRCJfEJpWeJz3E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=corw5kGwgJQYErHb9sNb5FrTEWUeslQQSAiy0hpbCn1dH7pmy8OoJnTnkOZGyW+0/
-	 uhacioW+AwJ2wD+5VFP4UvR3EJdyr8OrcCpjDkOfjE0G0WfzrrYeSlFGLf3OrLSHXd
-	 yc6jr4g9b1e6oKmSaLRDWqggVmtlWs7U45++ImMB83ho0AbCa9p57z4GlgJLjshHyL
-	 YS1CiHi9PHgQOh6SDLwOZN3VY/fhFV3FZJV6txyGeZ631rOrq7JUWpecF+u52ZVMXM
-	 7sNHMP5HvtrmYFSuw45I9gXAWwiC7q1Jdww9qtYxydQBtRrAsw+/xw9CnIwpMX0+/y
-	 usTBYh3nBDvMw==
+	b=ceaHdx1wrjwpzvdaycuulLgTQl3EIIk3A5OZLRdL9JeeTWqvs5IJBYhrMwVYAmJiG
+	 HfgGqTNmSLqb6Tj7HVwNkzkKr+tu4Sod1xElv+2p8UGrbbRW/j7+W4X2C4kgvDDZud
+	 rkK/nLnwJTFQBKitPl0/A17KpckKG0SFTy/qv6xZbyoRdk3gtYJOlPZ4DbHtXFNeip
+	 FEs5aoqaSj04XENDlABzf3e+WWgGGxoorCU52LdX6K4DaXVrwLcOXPrSPgs1tfDFHT
+	 FDaI1jKSC2TsXhV0VCxVZC3riNIprzZ8GPlirlHaT5EPcZhutGZ9nKlGrBAvJi/Pfm
+	 R3KGs7gyrdQXg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sami Tolvanen <samitolvanen@google.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Gary Guo <gary@garyguo.net>,
-	Danilo Krummrich <dakr@kernel.org>,
+Cc: FUJITA Tomonori <fujita.tomonori@gmail.com>,
 	Miguel Ojeda <ojeda@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] rust: irq: declare cfi_encoding for irqreturn
-Date: Wed,  4 Nov 2026 15:17:58 -0500
-Message-ID: <20261104201749.480655-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] rust: bug: pass TAINT_WARN to warn_slowpath_fmt() on UML
+Date: Wed,  4 Nov 2026 15:18:01 -0500
+Message-ID: <20261104201749.344995-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110407-tubeless-endorse-45e8@gregkh>
-References: <2026110407-tubeless-endorse-45e8@gregkh>
+In-Reply-To: <2026110447-anything-wildcard-f4e0@gregkh>
+References: <2026110447-anything-wildcard-f4e0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,129 +61,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sami Tolvanen <samitolvanen@google.com>
+From: FUJITA Tomonori <fujita.tomonori@gmail.com>
 
-[ Upstream commit 01f3e6b4b1c8c1748e59ba53631ab1f5d9ad0ea4 ]
+[ Upstream commit 951d09ca450ca76a695016ea76c3fa653bd20439 ]
 
-The IRQ callbacks return c_uint. C calls them through irq_handler_t,
-which returns enum irqreturn. kCFI encodes enum types by name even with
-integer normalization, so the type ids never match and every call fails
-the CFI check.
+On UML, `warn_flags!` calls `warn_slowpath_fmt()` directly. Its third
+argument is a taint number, but `warn_on!` passes its bug flags there.
 
-Generate irqreturn as a newtype with a cfi_encoding, as is done for
-lru_status, and return bindings::irqreturn_t from the callbacks.
+As a result, `add_taint()` gets 2304 instead of 9 (`TAINT_WARN`). The
+warning is not recorded: `/proc/sys/kernel/tainted` stays 0 after
+`warn_on!` fires, where it should be 512. It also causes an
+out-of-bounds write in `add_taint()`.
 
-Fixes: 0851d34a8cc3 ("rust: irq: add support for non-threaded IRQs and handlers")
-Fixes: 135d40523244 ("rust: irq: add support for threaded IRQs and handlers")
-Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Acked-by: Danilo Krummrich <dakr@kernel.org>
+Pass `TAINT_WARN` directly, as C does on UML.
+
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261019-rust-cfi-fixes-v1-1-9503472ba738@google.com
+Fixes: dff64b072708 ("rust: Add warn_on macro")
+Signed-off-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+Link: https://patch.msgid.link/20261001123103.2198104-1-tomo@flapping.org
 Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-[ sashal: Adjusted insertion context to preserve existing fwctl_rpc_scope CFI declarations. ]
+[ sashal: adapted warning handling to the single-argument warn_flags! macro and existing CStr API ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- rust/bindgen_parameters    |  2 ++
- rust/kernel/irq/request.rs | 28 +++++++++++++++++-----------
- 2 files changed, 19 insertions(+), 11 deletions(-)
+ rust/kernel/bug.rs | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
-index 39aae62dca669..cbc0a302647e5 100644
---- a/rust/bindgen_parameters
-+++ b/rust/bindgen_parameters
-@@ -29,6 +29,8 @@
- # enums that appear in indirect function calls should specify a cfi type
- --newtype-enum fwctl_rpc_scope
- --with-attribute-custom-enum=fwctl_rpc_scope='#[cfi_encoding="15fwctl_rpc_scope"]'
-+--newtype-enum irqreturn
-+--with-attribute-custom-enum=irqreturn='#[cfi_encoding="9irqreturn"]'
- --newtype-enum lru_status
- --with-attribute-custom-enum=lru_status='#[cfi_encoding="10lru_status"]'
- 
-diff --git a/rust/kernel/irq/request.rs b/rust/kernel/irq/request.rs
-index c1c6525a676a7..1afa9fcaad1f6 100644
---- a/rust/kernel/irq/request.rs
-+++ b/rust/kernel/irq/request.rs
-@@ -25,10 +25,10 @@
- #[repr(u32)]
- pub enum IrqReturn {
-     /// The interrupt was not from this device or was not handled.
--    None = bindings::irqreturn_IRQ_NONE,
-+    None = bindings::irqreturn::IRQ_NONE.0,
- 
-     /// The interrupt was handled by this device.
--    Handled = bindings::irqreturn_IRQ_HANDLED,
-+    Handled = bindings::irqreturn::IRQ_HANDLED.0,
- }
- 
- /// Callbacks for an IRQ handler.
-@@ -240,25 +240,28 @@ fn drop(self: Pin<&mut Self>) {
- /// # Safety
- ///
- /// This function should be only used as the callback in `request_irq`.
--unsafe extern "C" fn handle_irq_callback<T: Handler>(_irq: i32, ptr: *mut c_void) -> c_uint {
-+unsafe extern "C" fn handle_irq_callback<T: Handler>(
-+    _irq: i32,
-+    ptr: *mut c_void,
-+) -> bindings::irqreturn_t {
-     let ptr = ptr.cast_const().cast::<Registration<'_, T>>();
-     // SAFETY: `ptr` is a pointer to `Registration<'_, T>` set in `Registration::new()`.
-     let registration = unsafe { &*ptr };
- 
--    T::handle(&registration.handler) as c_uint
-+    bindings::irqreturn_t(T::handle(&registration.handler) as c_uint)
- }
- 
- /// The value that can be returned from [`ThreadedHandler::handle`].
- #[repr(u32)]
- pub enum ThreadedIrqReturn {
-     /// The interrupt was not from this device or was not handled.
--    None = bindings::irqreturn_IRQ_NONE,
-+    None = bindings::irqreturn::IRQ_NONE.0,
- 
-     /// The interrupt was handled by this device.
--    Handled = bindings::irqreturn_IRQ_HANDLED,
-+    Handled = bindings::irqreturn::IRQ_HANDLED.0,
- 
-     /// The handler wants the handler thread to wake up.
--    WakeThread = bindings::irqreturn_IRQ_WAKE_THREAD,
-+    WakeThread = bindings::irqreturn::IRQ_WAKE_THREAD.0,
- }
- 
- /// Callbacks for a threaded IRQ handler.
-@@ -461,23 +464,26 @@ fn drop(self: Pin<&mut Self>) {
- unsafe extern "C" fn handle_threaded_irq_callback<T: ThreadedHandler>(
-     _irq: i32,
-     ptr: *mut c_void,
--) -> c_uint {
-+) -> bindings::irqreturn_t {
-     let ptr = ptr.cast_const().cast::<ThreadedRegistration<'_, T>>();
-     // SAFETY: `ptr` is a pointer to `ThreadedRegistration<'_, T>` set in
-     // `ThreadedRegistration::new()`.
-     let registration = unsafe { &*ptr };
- 
--    T::handle(&registration.handler) as c_uint
-+    bindings::irqreturn_t(T::handle(&registration.handler) as c_uint)
- }
- 
- /// # Safety
- ///
- /// This function should be only used as the callback in `request_threaded_irq`.
--unsafe extern "C" fn thread_fn_callback<T: ThreadedHandler>(_irq: i32, ptr: *mut c_void) -> c_uint {
-+unsafe extern "C" fn thread_fn_callback<T: ThreadedHandler>(
-+    _irq: i32,
-+    ptr: *mut c_void,
-+) -> bindings::irqreturn_t {
-     let ptr = ptr.cast_const().cast::<ThreadedRegistration<'_, T>>();
-     // SAFETY: `ptr` is a pointer to `ThreadedRegistration<'_, T>` set in
-     // `ThreadedRegistration::new()`.
-     let registration = unsafe { &*ptr };
- 
--    T::handle_threaded(&registration.handler) as c_uint
-+    bindings::irqreturn_t(T::handle_threaded(&registration.handler) as c_uint)
- }
+diff --git a/rust/kernel/bug.rs b/rust/kernel/bug.rs
+index 15a84e553fd4d..7e540954d67a0 100644
+--- a/rust/kernel/bug.rs
++++ b/rust/kernel/bug.rs
+@@ -79,13 +79,17 @@ macro_rules! warn_flags {
+ #[cfg(all(CONFIG_BUG, CONFIG_UML))]
+ macro_rules! warn_flags {
+     ($flags:expr) => {
++        if false {
++            _ = $flags;
++        }
++
+         // SAFETY: It is always safe to call `warn_slowpath_fmt()`
+         // with a valid null-terminated string.
+         unsafe {
+             $crate::bindings::warn_slowpath_fmt(
+-                $crate::str::CStrExt::as_char_ptr($crate::c_str!(::core::file!())),
++                $crate::str::CStr::as_char_ptr($crate::c_str!(::core::file!())),
+                 line!() as $crate::ffi::c_int,
+-                $flags as $crate::ffi::c_uint,
++                $crate::bindings::TAINT_WARN,
+                 ::core::ptr::null(),
+             );
+         }
 -- 
 2.53.0
 
