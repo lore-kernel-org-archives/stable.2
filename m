@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805300;
-	b=wAmLWm5ZaUlYsaREHmS0Mt254GIvqQznUwIDqZaKQFDn2xJk5+x+O3fvJ3r6I4du5wWa
-	 jsnUWRv6ud+jD7oBlGSGrrKgV2dEK/NCqxGHcwA+GSD2AUyua+251/Kc1wQYhFgn+tRtK
-	 gB8LJ41NKb3fMSiV1V2R6fwUu5AG5UdZ2awpTZpxKjgt+T6FYagItYfwDj55ljZGZZMOy
-	 Oe9q4sgc6KsUKIVt7Fm2EPAtU0LL/MnrLCDVFAcouMIirpD9exFcQcfquk+r4AWWyeSxn
-	 5o6Bc2AqyaW2dLKvQs36N2SoE/5jT3qdzOWTtQ2T/j1mmljWFx9wubTtzTOOBJVfSyQ==
+	t=1793805311;
+	b=DgI8NE6TcEqNHuCFB9yf0hl+0w32hEMlaieT7oXvMQ6F8V2Jnbi3W5U3ZvPjzZNOqglo
+	 psgzieoq29Xoe8FvxqsgGbrstns9jRckdxFU2RV25aSpUrSVI0gEbEZBCnr5OX27tQI5D
+	 6mvpaA/sDhQYSMsUHwLfOKYm8DFmBD+QnLHiPyiyCS4rQDtBv/8rPqK+QRS6ojyRO9lb7
+	 zTCjB98DKqZCw6gNNsi0CtY4xXwPe50FrrzcnM19GmUyHD4zS/TTCGwla2C2dav3X/0gr
+	 ZCtE1Q82pQmQy06jMTLrpoVTeuoTELykpKgDjD28NX+88lb29JoAoEZv6zvCtEjcD4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805300;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805311;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gLxpnyM0SnEh3UIGban/eeydY8HiaYDGEkOdDjoNAw8=;
-	b=xWYKzl6Uqd0yBN4IycnjgS0VZ9uh7W3fB4GxG7GbJ8inpC1w9HlU3wHOMqSLlY5XpIse
-	 Gyaeo/XyTW0d6T0CIfHPm42jhC7/loWN6hQD9SxQmLiuXzof3D//WOZk67lvRTmaxsvoo
-	 GMDR+vSbCxwO2fyZa5qdxJ9O5B7s94X7jLMw9pgG+5SJq9fLleoyv0ci6Wy9MVUsbtePA
-	 tRV2ByEMcGrdardDwygbu3n+5CbdYhF6BRKVVDei8zj5jTR3EPmi+WLWdzgJvCfmwag4U
-	 JcL5FSykX/gmq2EgRSC65eueU0git/Pc8dnY3lCxc0mBhrWmm1Y4/L6PxPD1+reWMEw==
+	bh=6hnf7Irfe5FG1GMoLJAVAdswZuXc599T2vEKIiaj9MY=;
+	b=gv1TD3k/W1HKwwDcoF3j04wgE6Jjn4jgXz2X1uLfXct3NEmHsnlRTaeRkuN2cdBkOtCj
+	 QBLQ5mIa7kFp3JyNbn3eC8I5H+uIOon7/VlV+kZ/UDhS9ucNYR7ETF6GJns6kAcxqbZHI
+	 mwsjCLfFvn+TL87I/u6dKwKy5kn+tIbR3cj3Ug7RxO33lJb1kPTSK0H5wyhJce/1cHoGE
+	 4u09RK6LgDJGjI0pF3v4CjyNHsmD9uwEWChk+9EpzwqWNeeEwXG/B26pNE5coYeURZvZt
+	 zIhvpmU1goK75XVs2qopOwo8PGUkth5E4M3CDrKbEILKDYqjPK5rXrKhv3ff0xeW9EQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cjQhCkhy;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NX3+APwZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0305606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:15:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2394606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:15:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cjQhCkhy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4F5F1F000C1;
-	Wed,  4 Nov 2026 15:14:59 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NX3+APwZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0CA61F000C1;
+	Wed,  4 Nov 2026 15:15:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793805300;
-	bh=gLxpnyM0SnEh3UIGban/eeydY8HiaYDGEkOdDjoNAw8=;
+	s=korg; t=1793805310;
+	bh=6hnf7Irfe5FG1GMoLJAVAdswZuXc599T2vEKIiaj9MY=;
 	h=Subject:To:Cc:From:Date;
-	b=cjQhCkhy6k0nlYRVS4JW4eK+ql57VkTe6x0SaCGn61m33dIcpCAKX7UHPYtIewr2D
-	 fXpDSPle1s9zb+lVgBZa8OmwoNOAP/f2qZ0aBjJmz7sWvVaA1d4C0kdfD6QAe4lM21
-	 DOtgxQZQFPo3YdfNQZGnkGZPLtweyM/HYa2/8WQM=
-Subject: FAILED: patch "[PATCH] xfs: flag excessive delalloc rt extents as corruption" failed to apply to 6.12-stable tree
+	b=NX3+APwZMTLNkAus4UdO8Pug4xz/uybm3Cscc51K+Ve8arNVWCom45aHHoMMKzQ6k
+	 ZuykPZ+jzkoF3uAm3OjgeFbkJ+4V1mwjFfJ2kNLivh0EnwsHxW/JdoMcF4pCUB1WoZ
+	 Bb4h8PoL7bGBCbHhDVlnsn9HznUy2pwfwvRPLYhk=
+Subject: FAILED: patch "[PATCH] xfs: flag excessive delalloc rt extents as corruption" failed to apply to 6.6-stable tree
 To: djwong@kernel.org,cem@kernel.org,hch@lst.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 16:14:58 +0100
-Message-ID: <2026110458-culprit-afar-aadb@gregkh>
+Date: Wed, 04 Nov 2026 16:14:59 +0100
+Message-ID: <2026110459-usual-unlit-cb9f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2b47be015a5e54f4a3d62afa636ba593de9b67f6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110458-culprit-afar-aadb@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110459-usual-unlit-cb9f@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
