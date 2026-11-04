@@ -1,55 +1,112 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819074;
-	b=UfkahTRWNx+RBAXVqS+BUJgyRtTD1E+D6t1LOas375lNaRkNVCLMyxLwHCGTiqkgwasQ
-	 4SSVJl3fT/6lBW9VAoLdPs9kttAKJgEywSxBuC/+/4j37Cqs2d+FAJTnh6wYlmlIH02HG
-	 vVVPMLKcmim0N1TPC7OvCwuNlZ3NqbpFWrPD2bLFxAaqZiEdAs7+UWYOamOQzG6XL54I5
-	 Ke94wpNyLy4u79waUntr/C3pOL1cYFK8KAzwgvzTqktrEgt2p7f4EcDJeJhNvKdTjFEqo
-	 ZmNJznO6W/uF7XEua84T8d/R4NiRRlYfKD7rMK10wYUdoz/vRCLHj/nE7bz/vai23Dw==
+	t=1793819167;
+	b=pII3O/H0JhIFi75BYLytGq/k14EtHr8K172+3M9UqBhR9kCcWY1gxqjoRzxzfr+4vQY7
+	 oClWcakfjrI/VFRCrYaUKEnZE0THWyvDM+iBHCQ+pPsnIyoCZlcAhMrtNJHhOhNPRhcZS
+	 nu4I3nn37S22U8UELyjqnSG6V8SGhTPuWasNVzc60GwC600qfkjZYpOtQiDQk4cOP1d2O
+	 BWveBncY1N4lhKUuOS3ggenBXP2m9bwbnLY29JJL8pwtlOPiS6IF4yhwsNaAU5rUm1YVO
+	 Stf1J51h6pOBz8egaQWb8+9P+TksakEAgFcsVoltzImTLK4vZic6EbhyR1a5sC5Z73A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819074;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ZUguZxPIWfc3oegcmJL0PTwqxra4HiHF93TR12uo4NY=;
-	b=V5oEC/DSkJuw8LNnNRZVvEKEJ7069L4trojBI/LpqR2KqSJ03sCgflwyQEB+J5Ql9M9X
-	 4yBOH7D8wcwXHAKl0Aue4BQtkuiymUdDwwvBibx6HzbYIkBis6jMo+SbZOnzodipbT2gR
-	 y29kBdulTbq6Mn1fGox9/P9GEeId/5S0vhUBfsp9pAeGfZ3NJ2LXPE7yvSu6e3NQ9rmiH
-	 D/9LbEns3asymdJUXEyzQ9IaXdjy2cfluQsVU96hwZB7PUow5FZ+PFdcb0vlQUy4/7BWI
-	 cv7OmFyO7I87QSAbS7zy3ojJpRB8KmdN1ILgiiRqKRdP1yjj4ChXQJZz4Kv3YthD8Bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819167;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Change-ID:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=KBnIAOfPiUPoDex/SfWzDlUF8Qk1VOvUoMhRAIg+eoc=;
+	b=tBCQDzDzmCRNhWm4BoIRpot+4KhFkjBmvwDmDWvnKAjurFrHvqNdHY+QlY3Fxa7vvzOo
+	 yWbJH0FEn+viCgQKJcgZjkUSWWkpsXo5cxrhyC2hH8t9bMMl/Upy1OWiPoi7hT5iWgslM
+	 8eW5uvCuCrhRp/YUeb9+Ez+jGG3U4wobU8tek4rLid8FeXKHa3EKtliFhvVwnP68I7RKQ
+	 ngvprW4/1WmeWkiKG6+Zjlf4T1uLDO6Icb+iyCJ116B+5L8RkWtPFVD9rW3AqrLIEvF/W
+	 N/6Bzaj+mkPS+cTlJTZOY9+dQStn9XXmq3MpkvlvK8k0nzcKYoxoxEK4l6QmEkeOi+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RkLX6UzX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WHafkJEG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF19606EE8D
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:04:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3AF606A31B;
+	Wed,  4 Nov 2026 19:06:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RkLX6UzX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55621F00A17
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:04:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WHafkJEG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3E6E1F0093A;
+	Wed,  4 Nov 2026 19:05:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793819073;
-	bh=ZUguZxPIWfc3oegcmJL0PTwqxra4HiHF93TR12uo4NY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=RkLX6UzXZYGOL3yPDk5XnTlpcTuWaAB95EoNpOuCFIxMOvenFNdBr5MqJyRM7wvJq
-	 +6kbz26PK97fWncppi3V7SzqH27X/V5xN+Ts2m1HD/iPnTF7Dos4DuzWsZvpI85QiO
-	 B2ONFAgnldPsqR9UhwHNeB2lArrV6DYRVuLRDEPfTZFNVEQ5cjXtvq3PcwV50xN/xc
-	 XQGhbJ8Hguo3rFNFphXCW9AtsraK5pAMh3NsV5BM+2CUykbUrs5DHWLGvQwKKD0ll5
-	 crCA8pS9ThREZXb9ZAvbWvYHzCTNRkxY5GxqFbuMJIVARrN2qmwhEr/r/xq6yEAXkp
-	 YXjfuo3pWMH/g==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso1204139e87.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 11:04:33 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBy+6GKR8XFoySa1gNo13XBlypKqxb72Bn3vk3SPswQl2Q/fjXCh2PLAIujgdLGbSsO7A2YfqMg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CFlkaxfScgWTemhZqoR6LiDKuR/EV/8oIDtuYKAto8aqy6ft4
-	lIqnjGk0duo2M42BXJOAOZbKitZTSUb6aaXUzIIIhsmwFGY254ncsKNvPi8hKyMNpgs15GzAEGb
-	ElEpQI4xO5rnMaRLHVFBe1Ha556MFUoc=
-X-Received: by 2002:a05:6512:308a:b0:5bf:c9c6:b079 with SMTP id
- 2adb3069b0e04-5bfd957e2c8mr5502741e87.60.1793819072177; Wed, 04 Nov 2026
- 11:04:32 -0800 (PST)
+	s=k20260515; t=1793819166;
+	bh=KBnIAOfPiUPoDex/SfWzDlUF8Qk1VOvUoMhRAIg+eoc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WHafkJEGPruZzWMxufkZSRf2BMKLz2Vf0ChJCh4Ybcz9cOO+gGpfGS1toTwwvKiur
+	 UM4Ye+29J64qaaMyxPTKfZr0sCNT0n2uIPJ9P5zt76wPWFpID9TidNrn3yhi8MmWNK
+	 SznJ6J/kIB801eO767w1DdHYfUu+E8IjapkrAlVAsN3zDjKyqgfEbOY2xb3/cztLJl
+	 u+E5kVUhb1tTATDdZceTPYdsSuV02g8yRuqyHHP82u/xuOA4TpFGESgCv8cLdUG2YZ
+	 thLkvp/N/sb68TElkIYMkcHi/Jh8mL3W4ZwoeaH/AyWSMgCe5mQFz61jza1K9vCte4
+	 2tG41fEnMayAg==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	stable@vger.kernel.org,
+	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Subject: [PATCH RESEND v2 00/51] proc: fix a few old bugs in /proc handlers (Part 1/7)
+Date: Wed,  4 Nov 2026 20:05:48 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+In-Reply-To: <20261104-work-procfs-v2-0-b45cd5789ac5@brauner>
+References: <20261104-work-procfs-v2-0-b45cd5789ac5@brauner>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,229 +116,232 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104153042.3987338-1-zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20261104153042.3987338-1-zhongqiu.han@oss.qualcomm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 4 Nov 2026 20:04:19 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0gAXT+gEF7_dpJuDZDxB1hu7+Tq5dacZZhGz=X+VKDNwQ@mail.gmail.com>
-X-Gm-Features: AclHuK8mJ90pxjEPp4xsBeFllT55SQ_eiEDNIK21ZANAR6oYOCZeJ4k8y1kLIN4
-Message-ID: <CAJZ5v0gAXT+gEF7_dpJuDZDxB1hu7+Tq5dacZZhGz=X+VKDNwQ@mail.gmail.com>
-Subject: Re: [PATCH] cpufreq: Only cache resolved frequency in cpufreq_driver_resolve_freq()
-To: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Cc: rafael@kernel.org, viresh.kumar@linaro.org, vincent.donnefort@arm.com, 
-	linux-pm@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20261101-work-procfs-bugfixes-054d00028491
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12752; i=brauner@kernel.org; h=from:subject:message-id; bh=dHFVDsqzVVLzF92JADeu8gl/OCJWuDPglYRMQSYFROs=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bjw1r9slglWOrVJS1jHj5cX1ie/nuWx6uKT2w9WHC 8Nr7j8831HKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCR6nkM//13SLq9+Lf/beUU rffsWa8qd71L0/0bq7to2eZDm3X3JU5kZLg1Uanr0+vDzjk93F7Ts4+tOHKiXsW8Z1efwNY9Ejl GSXwA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 4, 2026 at 4:30=E2=80=AFPM Zhongqiu Han
-<zhongqiu.han@oss.qualcomm.com> wrote:
->
-> Commit e3c062360870 ("cpufreq: add cpufreq_driver_resolve_freq()") added
-> policy->cached_resolved_idx so that "a subsequent fast_switch operation
-> can avoid repeating the same lookup", and made cpufreq_set_policy()
-> invalidate the cache instead of filling it. That is, the cached index is
-> only meant to be used by the frequency switch immediately following the
-> resolution that has produced it.
->
-> However, two other places now access the cache without synchronizing
-> with its other users:
->
->  * Since commit f9ccdec24d91 ("cpufreq: Reuse cpufreq_driver_resolve_freq=
-()
->    in __cpufreq_driver_target()"), __cpufreq_driver_target() reads the
->    resolved index back from the cache before calling ->target_index().
->    sugov_work() calls it without sg_policy->update_lock, so the scheduler
->    path (a tick on the policy CPU or a remote update) can overwrite the
->    index via cpufreq_driver_resolve_freq() meanwhile. This matters when
->    sugov_hold_freq() discards the lower frequency resolved there, leaving
->    the CPU below the frequency schedutil has kept for it.
->
->   CPU0 (sugov_work())                  CPU0 (tick interrupt)
->   __cpufreq_driver_target(f_i)
->     __resolve_freq()
->       cached_resolved_idx =3D i
->                                        sugov_update_single_freq()
->                                          get_next_freq()
->                                            cpufreq_driver_resolve_freq(f_=
-k)
->                                              cached_resolved_idx =3D k
->     __target_index(cached_resolved_idx)
->       ->target_index(policy, k)
->
->  * Since commit 151717690694 ("cpufreq: Make policy min/max hard
->    requirements"), cpufreq_set_policy() updates the cache as a side effec=
-t
->    of __resolve_freq(), which can race with governors switching frequenci=
-es
->    without policy->rwsem (schedutil, ondemand, conservative), and a simil=
-ar
->    race was addressed by commit 7491cdf46b5c ("cpufreq: Avoid using
->    inconsistent policy->min and policy->max"). qcom-cpufreq-hw and
->    apple-soc-cpufreq ->fast_switch() read the cached index directly too.
->
->   CPU0 (sugov_work(), work_lock held)  CPU1 (handle_update(), rwsem held)
->   __cpufreq_driver_target(f_i)
->     __resolve_freq()
->       cached_resolved_idx =3D i
->                                        cpufreq_set_policy()
->                                          __resolve_freq(min)
->                                            cached_resolved_idx =3D j_min
->     __target_index(cached_resolved_idx)
->       ->target_index(policy, j_min)
->
-> In both cases, schedutil does not call the driver again until its
-> selection changes, so the CPU can get stuck at a frequency it has not
-> selected. All drivers implementing ->target_index() are affected.
->
-> The cache is only consumed by ->fast_switch() right after
-> cpufreq_driver_resolve_freq(), so only update it there and use a local
-> index in __cpufreq_driver_target().
->
-> Fixes: f9ccdec24d91 ("cpufreq: Reuse cpufreq_driver_resolve_freq() in __c=
-pufreq_driver_target()")
-> Fixes: 151717690694 ("cpufreq: Make policy min/max hard requirements")
-> Cc: stable@vger.kernel.org # 5.14+
-> Signed-off-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Part 1/7 of "proc: move procfs to what kernfs does", the base of the
+other six parts:
 
-Please see Sashiko's feedback on this one:
+  https://patch.msgid.link/20261104-work-procfs-v2-0-b45cd5789ac5@brauner
 
-https://sashiko.dev/#/patchset/20261104153042.3987338-1-zhongqiu.han%40oss.=
-qualcomm.com
+Moving procfs to what kernfs does touches just about every
+->proc_read(), ->proc_write() and ->proc_ioctl() in the tree. Reviewing
+that turned up bugs that have nothing to do with the conversion and are
+a lot older. They go first so they can go to stable on their own. Four
+selftests come with them.
 
-and let me know what you think about it.
+In procfs itself:
 
-> ---
->  drivers/cpufreq/cpufreq.c | 38 ++++++++++++++++++++++++++++++--------
->  1 file changed, 30 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-> index 54dde8419bdc..ffde75dab91d 100644
-> --- a/drivers/cpufreq/cpufreq.c
-> +++ b/drivers/cpufreq/cpufreq.c
-> @@ -471,10 +471,17 @@ void cpufreq_disable_fast_switch(struct cpufreq_pol=
-icy *policy)
->  }
->  EXPORT_SYMBOL_GPL(cpufreq_disable_fast_switch);
->
-> +/*
-> + * Note that this does not update the cached frequency lookup in @policy=
-,
-> + * because it may be running in parallel with a frequency switch carried=
- out by
-> + * the governor that uses the cached index.  If @resolved_idx is not NUL=
-L, the
-> + * index of the resolved frequency in the frequency table is stored in t=
-he
-> + * location pointed to by it instead.
-> + */
->  static unsigned int __resolve_freq(struct cpufreq_policy *policy,
->                                    unsigned int target_freq,
->                                    unsigned int min, unsigned int max,
-> -                                  unsigned int relation)
-> +                                  unsigned int relation, unsigned int *r=
-esolved_idx)
->  {
->         unsigned int idx;
->
-> @@ -484,8 +491,8 @@ static unsigned int __resolve_freq(struct cpufreq_pol=
-icy *policy,
->                 return target_freq;
->
->         idx =3D cpufreq_frequency_table_target(policy, target_freq, min, =
-max, relation);
-> -       policy->cached_resolved_idx =3D idx;
-> -       policy->cached_target_freq =3D target_freq;
-> +       if (resolved_idx)
-> +               *resolved_idx =3D idx;
->         return policy->freq_table[idx].frequency;
->  }
->
-> @@ -505,6 +512,7 @@ unsigned int cpufreq_driver_resolve_freq(struct cpufr=
-eq_policy *policy,
->  {
->         unsigned int min =3D READ_ONCE(policy->min);
->         unsigned int max =3D READ_ONCE(policy->max);
-> +       unsigned int freq, idx;
->
->         /*
->          * If this function runs in parallel with cpufreq_set_policy(), i=
-t may
-> @@ -517,7 +525,20 @@ unsigned int cpufreq_driver_resolve_freq(struct cpuf=
-req_policy *policy,
->         if (unlikely(min > max))
->                 min =3D max;
->
-> -       return __resolve_freq(policy, target_freq, min, max, CPUFREQ_RELA=
-TION_LE);
-> +       target_freq =3D clamp_val(target_freq, min, max);
-> +       freq =3D __resolve_freq(policy, target_freq, min, max, CPUFREQ_RE=
-LATION_LE,
-> +                             &idx);
-> +
-> +       /*
-> +        * Cache the lookup result for the subsequent ->fast_switch() cal=
-l, which
-> +        * is the only user of it.
-> +        */
-> +       if (policy->freq_table) {
-> +               policy->cached_resolved_idx =3D idx;
-> +               policy->cached_target_freq =3D target_freq;
-> +       }
-> +
-> +       return freq;
->  }
->  EXPORT_SYMBOL_GPL(cpufreq_driver_resolve_freq);
->
-> @@ -2355,12 +2376,13 @@ int __cpufreq_driver_target(struct cpufreq_policy=
- *policy,
->                             unsigned int relation)
->  {
->         unsigned int old_target_freq =3D target_freq;
-> +       unsigned int idx;
->
->         if (cpufreq_disabled())
->                 return -ENODEV;
->
->         target_freq =3D __resolve_freq(policy, target_freq, policy->min,
-> -                                    policy->max, relation);
-> +                                    policy->max, relation, &idx);
->
->         pr_debug("CPU %u: cur %u kHz -> target %u kHz (req %u kHz, rel %u=
-)\n",
->                 policy->cpu, policy->cur, target_freq, old_target_freq, r=
-elation);
-> @@ -2393,7 +2415,7 @@ int __cpufreq_driver_target(struct cpufreq_policy *=
-policy,
->         if (!cpufreq_driver->target_index)
->                 return -EINVAL;
->
-> -       return __target_index(policy, policy->cached_resolved_idx);
-> +       return __target_index(policy, idx);
->  }
->  EXPORT_SYMBOL_GPL(__cpufreq_driver_target);
->
-> @@ -2666,14 +2688,14 @@ static int cpufreq_set_policy(struct cpufreq_poli=
-cy *policy,
->          * concurrently by cpufreq_driver_resolve_freq() during the updat=
-e.
->          */
->         freq =3D __resolve_freq(policy, new_data.max, new_data.min, new_d=
-ata.max,
-> -                             CPUFREQ_RELATION_H);
-> +                             CPUFREQ_RELATION_H, NULL);
->         if (freq !=3D policy->max) {
->                 WRITE_ONCE(policy->max, freq);
->                 policy->update_limits =3D true;
->         }
->
->         freq =3D __resolve_freq(policy, new_data.min, new_data.min, new_d=
-ata.max,
-> -                             CPUFREQ_RELATION_L);
-> +                             CPUFREQ_RELATION_L, NULL);
->         freq =3D min(freq, policy->max);
->         if (freq !=3D policy->min) {
->                 WRITE_ONCE(policy->min, freq);
-> --
-> 2.43.0
->
->
+- readdir resumed a listing at a counted position, so an entry that came
+  or went in between repeated or skipped one, and it ended a listing
+  early when the entry it was emitting went away. It resumes after the
+  last name now, like kernfs. /proc/sys had the same bug.
+- /proc/sys readdir ended a listing early at an entry that was being
+  unregistered, so getdents64() reported EOF with entries left.
+- /proc/sys copied to and from userspace with the table held, so a read,
+  write or getdents64() that faults for as long as userspace wants kept
+  unregister_sysctl_table() waiting, which addrconf calls under RTNL.
+- proc_sys_make_inode() read the table after it had dropped sysctl_lock.
+- a symlink's entry stayed pinned while readlink() copied it out, so a
+  faulting readlink() held up remove_proc_entry(). ALSA removes its card
+  links with snd_card_mutex held.
+- name resolution walked through regular files, and pktgen lets
+  userspace pick names, so an unprivileged user could hang an entry
+  below another file and get it freed. pktgen refuses a '/' now.
+- proc_register() WARNed on a duplicate name, which pktgen's names can
+  provoke.
+- proc_remove() removed by name, so removing an entry that was already
+  gone could take out a different one.
+- the parent of entries a dying network namespace left in /proc/net was
+  freed silently. procfs warns now.
+- on NOMMU every /proc file could be mapped privately, which reads it
+  with nommu_region_sem held, and /proc/maps takes that lock. Any user
+  could hang the machine.
+- sunrpc queued the pollers of its channel files on a wait queue in the
+  per-namespace cache_detail, which is freed with the namespace. Back to
+  one static queue here, the conversion makes procfs own the queues.
+- vmcore_cleanup() could run twice at once.
+
+In the handlers:
+
+- PCI/proc and isapnp truncated the position to an int, so a pwrite()
+  or pread() at a huge offset went negative and accessed config space
+  far outside the file.
+- dasd looked in front of its buffer on an empty write.
+- toshiba_acpi's brightness and fan write checks could never fail.
+- simdisk read the file name without the lock that protects it, so a
+  reader could copy out memory a concurrent detach had freed.
+- rtas_flash read past its validate message, and rtasd handed out what
+  vmalloc() left in its log buffer.
+- ALSA's info layer let a write past the end of a data entry through
+  unclamped.
+- BusLogic, ips and libipw returned 0 from writes, so stdio writers
+  retry forever.
+- the scsi host files and um's /proc/exitcode parsed writes without
+  NUL-terminating them.
+- ntfs3 tripped the page allocator's warning on a huge label write.
+- esas2r took the lengths of its HBA, SMP and firmware ioctls from
+  userspace unchecked, through a file everyone can open.
+- powerpc's copy_oldmem_page() didn't check ioremap_cache() and only
+  recovered from a machine check for read(), the pseries ofdt parser
+  read past its input, and lparcfg reported a failed hcall as a huge
+  write.
+- alloc_tag removed /proc/allocinfo with the codetag module lock held
+  when a module's tags couldn't be reserved, and a reader of the file
+  takes that lock with the entry pinned, so the module load and the
+  reader waited for each other for good.
+- esas2r copied the kernel addresses of the adapter, its pci_dev and its
+  Scsi_Host out through the 0444 ATTONode.
+- cs46xx stored the chip in the private data of its region files and
+  read it back as the region.
+- isapnp went on talking to whatever device the card had selected, and
+  unlocked a mutex it never took, when isapnp_cfg_begin() refused a
+  logical device number.
+- simdisk freed the gendisk before it removed the entry, so a write in
+  between set the capacity of a freed disk.
+- the pseries ofdt commands leaked a node reference per property
+  command, and lockd handed out the NUL behind "Y\n".
+- lparcfg and psi overwrote the last byte of a write to terminate it,
+  so a write without a trailing newline lost a character.
+- the sparc LED and rtas progress files consumed only the start of a
+  write, so a looping writer sent the rest as a second command.
+- profiling reported success when /proc/profile couldn't be created,
+  and zorro sized its files like a zorro_dev instead of the ConfigDev
+  they serve.
+
+The xt_recent deadlock v1 fixed here goes in through netfilter instead.
+
+The procfs, sysctl, readlink, pktgen, sunrpc, PCI and duplicate name
+bugs reproduce on a KASAN and lockdep kernel in a VM and are gone with
+the series. The rest is build tested.
+
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Changes in v2:
+- thirteen more fixes that the review of v1 turned up: alloc_tag,
+  esas2r, cs46xx, isapnp, simdisk, pseries ofdt, lockd, lparcfg, psi,
+  the sparc LED, rtas progress, profiling and zorro
+- the NOMMU, crash_dump and lparcfg patches say more about the bug
+- new patch: sysctl readdir ended a listing early when an entry was
+  being unregistered, pre-existing
+- the xt_recent patch is dropped, Cen Zhang's fix for the same lock is
+  on its way through netfilter
+- the readdir churn selftests skip instead of failing without
+  /dev/net/tun, the sysctl removal selftest seeks past the dots first so
+  its fault lands in an entry, the selftests' Makefile, .gitignore and
+  config lines sit in the series that adds each test
+- struct sysctl_dirent loses its unused mode
+- Reviewed-by and Acked-by from Rafael, Takashi and Chuck
+- rebased onto v7.4-rc1
+- Link to v1: https://patch.msgid.link/20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org
+
+---
+Christian Brauner (51):
+      alloc_tag: don't remove /proc/allocinfo under the codetag module lock
+      scsi: esas2r: don't copy kernel pointers out in EXPRESS_IOCTL_GET_MOD_INFO
+      ALSA: cs46xx: hand the region to the region proc files
+      PNP: isapnp: don't go on when isapnp_cfg_begin() fails
+      xtensa: simdisk: remove the proc entry before the disk
+      powerpc/pseries: put the node that the ofdt property commands look up
+      lockd: don't hand out the terminator of nlm_end_grace
+      powerpc/pseries/lparcfg: don't drop the last byte of a write
+      profiling: report it when /proc/profile can't be created
+      zorro: size the proc files like what they serve
+      sparc: led: consume the whole write
+      powerpc/rtas: consume the whole write to /proc/powerpc/rtas/progress
+      sched/psi: don't drop the last byte of a trigger write
+      proc: sysctl: don't stop readdir at an entry that is being unregistered
+      PCI/proc: don't truncate the position of config space accesses
+      PNP: isapnp: don't read past the end of the buffer on a large pread()
+      s390/dasd: don't look in front of the buffer on an empty write
+      platform/x86: toshiba_acpi: reject malformed brightness and fan writes
+      xtensa: simdisk: don't read the file name without the lock
+      powerpc/rtas_flash: don't read past the validate message
+      powerpc/rtasd: zero the error log buffer
+      ALSA: info: don't write past the end of a data entry
+      scsi: BusLogic: don't return 0 from writes to the proc file
+      scsi: ips: don't return 0 from writes to the proc file
+      wifi: libipw: don't return 0 from writes to debug_level
+      scsi: core: NUL-terminate what is written to the host proc files
+      um: NUL-terminate what is written to /proc/exitcode
+      ntfs3: don't warn when a huge label is written
+      proc: don't walk through a non-directory when resolving a name
+      net: pktgen: reject device names with a '/'
+      proc: don't WARN about a name that is already registered
+      proc: resume readdir after the last name it returned
+      selftests/proc: check a /proc listing while entries come and go
+      proc: let proc_remove() remove the entry it was given
+      proc: warn about entries left in /proc/net of a dying namespace
+      proc: don't let NOMMU map procfs files
+      proc/vmcore: don't let vmcore_cleanup() run twice at once
+      powerpc/crash_dump: check ioremap_cache() in copy_oldmem_page()
+      powerpc/crash_dump: recover from a machine check in copy_oldmem_page()
+      sunrpc: make queue_wait a global wait queue again
+      scsi: esas2r: bound the lengths of the HBA, SMP and firmware ioctls
+      powerpc/pseries: bound the lengths in the ofdt property parser
+      powerpc/pseries/lparcfg: return h_get_ppp()'s status as a long
+      proc: sysctl: resume readdir after the last name it returned
+      selftests/proc: check a sysctl listing while entries come and go
+      proc: sysctl: copy to and from userspace without holding the table
+      proc: sysctl: look at the table under sysctl_lock when creating an inode
+      proc: sysctl: don't hold the tables while readdir copies to userspace
+      selftests/proc: check that faulting sysctl accesses don't hold up removal
+      proc: don't pin a symlink's entry while readlink() copies it out
+      selftests/proc: check that a faulting readlink() doesn't hold up removal
+
+ arch/powerpc/kernel/crash_dump.c                   |   6 +-
+ arch/powerpc/kernel/rtas-proc.c                    |   3 +-
+ arch/powerpc/kernel/rtas_flash.c                   |   2 +-
+ arch/powerpc/kernel/rtasd.c                        |   2 +-
+ arch/powerpc/platforms/pseries/lparcfg.c           |   7 +-
+ arch/powerpc/platforms/pseries/reconfig.c          |  24 +-
+ arch/sparc/kernel/led.c                            |   3 +-
+ arch/um/kernel/exitcode.c                          |   3 +-
+ arch/xtensa/platforms/iss/simdisk.c                |  28 +-
+ drivers/net/wireless/intel/ipw2x00/libipw_module.c |   2 +-
+ drivers/pci/proc.c                                 |  15 +-
+ drivers/platform/x86/toshiba_acpi.c                |   8 +-
+ drivers/pnp/isapnp/core.c                          |  16 +-
+ drivers/pnp/isapnp/proc.c                          |  11 +-
+ drivers/s390/block/dasd.c                          |   2 +-
+ drivers/scsi/BusLogic.c                            |   2 +-
+ drivers/scsi/esas2r/esas2r.h                       |   2 +-
+ drivers/scsi/esas2r/esas2r_ioctl.c                 |  48 ++-
+ drivers/scsi/esas2r/esas2r_main.c                  |   3 +-
+ drivers/scsi/ips.c                                 |   2 +-
+ drivers/scsi/scsi_proc.c                           |   1 +
+ drivers/zorro/proc.c                               |   2 +-
+ fs/lockd/procfs.c                                  |   2 +-
+ fs/ntfs3/super.c                                   |  11 +-
+ fs/proc/generic.c                                  | 174 ++++++---
+ fs/proc/inode.c                                    |  38 +-
+ fs/proc/internal.h                                 |   1 +
+ fs/proc/proc_net.c                                 |   7 +
+ fs/proc/proc_sysctl.c                              | 388 ++++++++++++++-------
+ fs/proc/root.c                                     |   1 +
+ fs/proc/vmcore.c                                   |   5 +
+ include/linux/sunrpc/cache.h                       |   1 -
+ kernel/profile.c                                   |   8 +-
+ kernel/sched/psi.c                                 |   4 +-
+ mm/alloc_tag.c                                     |  27 +-
+ net/core/pktgen.c                                  |   4 +
+ net/sunrpc/cache.c                                 |  12 +-
+ sound/core/info.c                                  |   2 +
+ sound/isa/es18xx.c                                 |   6 +-
+ sound/pci/cs46xx/cs46xx_lib.c                      |   2 +-
+ tools/testing/selftests/proc/.gitignore            |   4 +
+ tools/testing/selftests/proc/Makefile              |   4 +
+ tools/testing/selftests/proc/config                |   9 +
+ tools/testing/selftests/proc/proc-readdir-churn.c  | 240 +++++++++++++
+ .../selftests/proc/proc-remove-slow-readlink.c     | 191 ++++++++++
+ .../selftests/proc/proc-remove-slow-sysctl.c       | 215 ++++++++++++
+ .../selftests/proc/proc-sysctl-readdir-churn.c     | 152 ++++++++
+ 47 files changed, 1420 insertions(+), 280 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261101-work-procfs-bugfixes-054d00028491
+
