@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817232;
-	b=nSVW3uYsmvEYkxPfPbul2bW2R+B2Dg5iKCSeevlHkhaE1m2jNosaz1W3+3IDuNN1mQzs
-	 q+/xiXJZ9H5ZWhAj1Tug7KUUormJ1LuKc8Q0CxkzsqOxSgUbiD5A9wiE+ruxbf4O2RyY3
-	 oZ1NGf6BYsuCAyeozIZuUunV3JyMNKaJWmX7eD09mSo6q2eKqeiAGeHaxcf1zc/t8Dega
-	 Di+zpl8Vjp0kfPykOnMPg0vFemZJik3azZVAG1UIadf6CwluxHw0iSXv0/hnC6EN0wjVB
-	 BXTHXo5ieBOUnwv43Tez/AVMN6vcCu4R4uhOYwXUpNqs10V7XYrljnVOk98jhRsizLg==
+	t=1793817233;
+	b=uByPyZhvtlpEDg7WANglaEyXgohJab8i0wD95UAiduwmM2Wp6LqWYVkrb5viCqXWF1LB
+	 sjIrNhAL5FolyaYKEk3i02RTY/nmXz0bhLer2U9avRtuPWNxU6B58dUuiiTmKCKRsRpDi
+	 Br+2bsWqWZGWJmTxhhPsXRDZIeQbIETDaDFFIfhy4q4B0gSMBuQFan7qBPcl3qtwOLaQa
+	 xCNimt2EGZnTL4DYqzSUWfncDDwDr789j74aFDKrwsS3Bbm1fpIu/JnuxN/yX1iZ0SAs8
+	 c9I6sD79aQiXVVNU+ERHtvz0exiSydCEmOnh/5o7yF2ewgH0ZwXMkL6kovewlJJuVxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817232;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817233;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gDgG2y1P0qeTU5xlHUJ0ghF8PNFUjeppC7BLvYUPBTc=;
-	b=k4/UYEgdZ6A+bf9IcI5sKW1uBFrL80nti4oJK5ioh9XlOJXZSiUNCEqCyUEV9CfTSXH7
-	 ZdnSVqreykO+9PL5qtNbW5MnBIa4vpe5N7hu/pDjNVlOeAW674rTma5qOdCEztC2irIvJ
-	 znqd7M+8ZdlxcP3S3KtAnMSaV1nH7pPvQAFe0G0f+dqfeBVOvhXX9GTmOKAngCPl1B+gu
-	 k+OU4WchgcrIzEd4rw/FoGJ8RRqJNWdIzBsJpdCkq36WG+uqH3m6/mFROOv5X4XJkPtaB
-	 wSJfv/q7JMSpMWaBDQebhTlmnwnd2kDIbVjCzltoHqdm0gwad3kuXNpRuH8e9heOV3A==
+	bh=1XDFCuGe4mWXTesmGkPv+jkaNe5h0463nEIp/3qjxwg=;
+	b=0rnS2Iu6jzwBvOCuxE7YLUaeVlOyRjNZziRojnXlbOfoZfKAzfJiifj9VSmEPsJPDwWK
+	 Xc6DrO5Ugjphc1T284iDMjovEZAht3MVn8JHhe5qC5h5EcwOsobgQZjI+besO5Cy52q1Y
+	 7KLw7gl4IvNm2KGTstunCyG8hEj7xAQOlPTYMgMSUjQAM6vhAZ9z+sDbr9t+ZhhsMZP3/
+	 Ok3YwiXV3Rqa91WulfQVHjI0TvO0aqmO86j6jLABghYaF0Cr4TLKLWdf7zHGcmBnxdlGO
+	 pfRJPjMmfnrXVK8nEAJyrOWikZTZ//u9E1Dfoy7FnjUvJNfZ0UzkAIbvMJMJureu86w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZlCN3rJR;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=i3CuT36x;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7477606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:33:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14CD4606A32C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:33:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZlCN3rJR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03C981F000C1;
-	Wed,  4 Nov 2026 18:33:50 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=i3CuT36x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D12C1F000C1;
+	Wed,  4 Nov 2026 18:33:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793817231;
-	bh=gDgG2y1P0qeTU5xlHUJ0ghF8PNFUjeppC7BLvYUPBTc=;
+	s=korg; t=1793817232;
+	bh=1XDFCuGe4mWXTesmGkPv+jkaNe5h0463nEIp/3qjxwg=;
 	h=Subject:To:Cc:From:Date;
-	b=ZlCN3rJReKhnE4hoIQ8DtDhu89BVhFCJE4FRokAityli/niR6wIy2ih9BpXXBU/DU
-	 S6LZHKArfle90NU7fE14YR3rTz5dTYCDXWiT14txVnP3eQYlFr/YX//19cIzwyf5m3
-	 EC0Ns8H1VQlwhlIghHu6rRh9Da5DUbBEOmxx6czg=
-Subject: FAILED: patch "[PATCH] smb: client: reclaim credits for decrypted reads with no" failed to apply to 6.1-stable tree
+	b=i3CuT36xR+gmhy1zbOFMZ3FyivZZmXm6N7auco9pe1YpQQ0Vlm7khHxGu4pIAEmim
+	 2p1EE1x4jwcw/BkIIMxeBfpAleF6PJG3VeZgW3fm9AJtNKk7tcAAggf9ziZfR1Lj84
+	 IvKmUFrhgWGzsix80dR7pMcpXP6GNGzRTrTgH82s=
+Subject: FAILED: patch "[PATCH] smb: client: reclaim credits for decrypted reads with no" failed to apply to 5.15-stable tree
 To: pc@manguebit.org,bharathsm@microsoft.com,dhowells@redhat.com,linkinjeon@kernel.org,ronniesahlberg@gmail.com,sprasad@microsoft.com,tom@talpey.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:33:43 -0500
-Message-ID: <2026110443-affair-placate-9a6c@gregkh>
+Date: Wed, 04 Nov 2026 13:33:44 -0500
+Message-ID: <2026110444-glance-splashing-5f08@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 78f73985846465a25a7bd1d89904053661f3ca92
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110443-affair-placate-9a6c@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110444-glance-splashing-5f08@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
