@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820421;
-	b=Q2ZJ9VcuDNBcvt3CPy+jyDyyY2wwNW8o0dpCLyokCy37ch06O5GwazFsB5mWdrmL8yWj
-	 ngIKjsCZqQXXrsOuWRmjoeqmdaFu+kQWJk60tgdyrjOOBz7vgRjna4G+ZzkQ38MaoAjc7
-	 l+hQ/MxQAEsSHCGqmpGcPM6Biv3er0i6lnTpgIxVhEeHOzVgNf1s8URpr+2Ml91FsLnqB
-	 wHgZQGG4oW+8LmSjuU0MYp9TFEHbuCWa0Hr3S7KU+NTqGeCnZ2Kv8sc6oA0atycU3Cs/7
-	 ycEAQR7bFPgwuPG47RDfRPXIIy0oFxqXk02KprAJLX1QFWedcoJrGHaQ4+JrRmIbTcQ==
+	t=1793820449;
+	b=sxw6YTDjxR4QqcLDQhpNozflSt7LvF/W+BUnr1c2gkxC8K76nM528Q6awU25tWYDzHmY
+	 lJAVMnFBs5etVUe/C2TEOwk3fVSam2ZVdmAEtW1QQYQuLq+NUezKq7cYsUcjneJNblKpC
+	 YA2IM/SfZTkSTwelsDK2HcajuQbX3ZAh2/kjRyL2pHUSCw2KnsG9xzfqDDsiVuptUERGy
+	 YDVGm5Yygu4dr34AA2kQsBtytJR1aKzagRbaJCNQQpkq7Sa6vqgRh5QLbRCIahIpyZtri
+	 aDTlXaVMeAQ0IcI+HliobsOmG8RhN/O+yP4Jsh+b5fGWYIr87xMMHEreuZBBm5CvR/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820421;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820449;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=7+iLqul4i6MH7HabpPra1XD+cE9kLUhjlQUujW+Foac=;
-	b=mKHT1U3k+19b7q7xPgHZgpdbgCQ/vuQ9+wX47zCSztCVx7/tgjdRqpV2CKztwOfpI45A
-	 mlt5RrlyEUE8GRUMLCOlTqdDSBBAjiHZlBWcgLtDq2wJ3W6dSBzGp7dL6PSqWiNgGl766
-	 DUQJ/XrP3L3QRt1467grGt8PsHUiyciMwC6GL46R1z6Zbx03X/nl0FkEB3TazXEDGitJr
-	 C+4nzxAOqnpi93GWna9PoHEJLGv6NNSNBKb85Zh+Fjx2/qz/RgAHPIAeez9YgYjufol0s
-	 2WjDF6pEeaJ+EAuVNDG3CXLKOZn/WO64GhWWXfyp1aBi/KEUIoyPMvbRR4Bp6vCOjjA==
+	bh=SGZXtenDzDnzN/hAwCoJvR7nlijFBob6FQl7GJGEPCo=;
+	b=neHCgjLOGUft3PDS8S9WRcdTtx2usB0WBbt272+c9/sHu3+cj8YKV7hMUsGGJS93lQkU
+	 MFNRpkhFd+wB4/4lVmL1bBSqjLqBgsCU4lDJbLROVXFFwTFUs7NrPp1eUAfWXASwT4YvW
+	 7nEcYb3BziVL4m6dGIfxIK/HMc1fJzOdAMvBJKnJA6RfyC7MckoJP9zOjXdNu18jn+/Zr
+	 tw65J3nXmdpWe1ulq5p9363xJmD8iuX5dUcM/jF8iUFYNyBhHE31t4gs0+m8iBVbIA/mG
+	 GBc2da/oK/DYROevIkOvZ5hhMjRiGzLg5l1HIRUtLMy21hJ2MKvJHjT3z9SSgAH5/OQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AwuYQ/g0";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTvTLYti;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1360607032F;
-	Wed,  4 Nov 2026 19:27:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362176070A80;
+	Wed,  4 Nov 2026 19:27:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AwuYQ/g0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7056C1F000C1;
-	Wed,  4 Nov 2026 19:26:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTvTLYti
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E111F000C1;
+	Wed,  4 Nov 2026 19:27:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793820420;
-	bh=7+iLqul4i6MH7HabpPra1XD+cE9kLUhjlQUujW+Foac=;
+	s=k20260515; t=1793820449;
+	bh=SGZXtenDzDnzN/hAwCoJvR7nlijFBob6FQl7GJGEPCo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AwuYQ/g05s3gCBWqi01st+AhG7zHew/xp8Uznvwn+sDxcWbOQHDx0K6MiMNaJlMnn
-	 FmRdPCKm7fkDETjs85IQuGrygG0+Kztae+2biv7affNlVGZa+740Q3EgS6bHLXzDAV
-	 aZg/kj7ORMq3jG1VJUSRX7BspNpMXg05Y19bYI5nFwDkTbUCy7DkbcjACUCYm39cJL
-	 1hjnL/Y8r5QEdR/ZG6gyEzvVACpd4uA3340dvWdaCzuD2XUKV78V0T86RZ4/PTZxmN
-	 6DWlsLGZikNjgCiYO3E2b9BOArDy2vTby4LS8qdcZoBLlt+6sqSyJxYEok/M8LmEf+
-	 KqqS4SWhqzhlw==
+	b=WTvTLYtifxKVDAKFEwxAEpP+KqKkmbss0O3FvCVjbPGqXrJpDoCPGQ5oGFz8SBrvF
+	 tD4WfYtmmvZefQl5gXXU+H6104nXZB3j0cHwCa26xKcGLASKW04PHQjju0x3TofBoF
+	 S79TIjcYh1lweJqcaNbaT/pbmq+p2weA2MdCekZKRls0X/Ylguuocf58PMZMsqe6iU
+	 WvCIu6r2l53iIdxnn8bil7C8dwL66KwhqW+O2kINiXOW3Ed+Ri+kkytDZR5IK/8kso
+	 n+9Fdzr9qEImJtKrDVp1BycV7REVcXz7sk4DiO2Lwzvv9u/aZkCNq9czsaCkPV2+GQ
+	 KdO70U2m2nATw==
 From: Christian Brauner <brauner@kernel.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: Linus Torvalds <torvalds@linux-foundation.org>,
@@ -101,9 +101,9 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
 	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Chuck Lever <cel@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH RESEND v2 44/51] proc: sysctl: resume readdir after the last name it returned
-Date: Wed,  4 Nov 2026 20:26:46 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-44-021c84d852e0@kernel.org>
+Subject: [PATCH RESEND v2 46/51] proc: sysctl: copy to and from userspace without holding the table
+Date: Wed,  4 Nov 2026 20:27:15 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-46-021c84d852e0@kernel.org>
 In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
@@ -117,201 +117,121 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6631; i=brauner@kernel.org; h=from:subject:message-id; bh=KA4vlzE2TMzRxzNzG7ghDFHvczKD3qjxMkOpFlB4RO0=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bmKaP+1dqtKk7Ry8h36o7w8+8ED+es07ge0M3E7bf EVjbtyc0lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRo+YM/xQP2S46ukZlhay/ dM9N5vuX+JaYFXVstFEvOrL+mO15sy0M//3tvzCq2Bx6uWV+/uS+iG11xZcyBKb+navC/L3kW8y Go9wA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3702; i=brauner@kernel.org; h=from:subject:message-id; bh=+LAd81fwJIRlW5EjEhH8yOMnOBiQOQqVJycA7u6Pdz8=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bmJ1eDRjm+PEc3vLTC2v/lkZcX9ytWi95Scpc5nVn y74amrGd5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzEMJzhvx/PlO0lwpvb3J5V fmKL8G+eIrrAz/ZQTsb51hX150VF7Rj+abVIqjzO1EzVz7t77eLZC5a9v0xatB6dWHvCQsyFq2M 7IwA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-proc_sys_readdir() counts the entries of a directory and resumes a
-listing at the number getdents64() stopped at. The entries are sorted
-by name, so one that is registered or unregistered in between shifts
-everything behind it by one. Listing /proc/sys/net/ipv4/conf with a
-buffer that holds ".", ".." and "all" and registering a device whose
-name sorts before "all" makes the next call return "all" a second time.
-Unregistering one that sorted before the position makes it skip an
-entry instead. So a listing that takes more than one call shows a name
-twice, or not at all. Even the 64k buffer of ls needs a second call to
-find the end of the directory, so a device that comes up right then
-repeats the last entry.
+proc_sys_call_handler() grabs the table, copies in what is written,
+calls the handler and copies what it produced out to userspace before
+it lets go of the table again. Unregistering a table waits until nobody
+uses it anymore. So a reader or writer whose copy faults for as long as
+it wants, with userfaultfd or a stalled FUSE mapping, keeps
+unregister_sysctl_table() waiting, and its callers like to hold locks
+while they do that. addrconf unregisters the ipv6 sysctls of a device
+with RTNL held, so a stalled read of /proc/sys/net/ipv6/conf/<dev>/mtu
+holds up every RTNL user until the reader gives up.
 
-So remember the name of the last entry a call emitted in the file and
-resume at the first usable entry after it, like kernfs resumes after
-the node it stopped at. The entry itself can't be pinned across calls,
-unregistering waits for that. If the position was moved by a seek in
-between the listing counts from the start like before, seeking to an
-arbitrary position has never been better than that.
+Copy in before grabbing the table and copy out after letting go of it,
+like procfs and kernfs do for their files. The buffer is ours, nothing
+needs the table for the copies.
 
-That also takes one walk down the tree to resume instead of a walk over
-every entry in front of the position with a round trip through
-sysctl_lock for each of them.
+That moves the allocation and the copy in before the permission check.
+A write that can't be copied in, or a request that is too large, now
+fails with -EFAULT or -ENOMEM where it used to fail with -EPERM.
 
-Fixes: 77b14db502cb ("[PATCH] sysctl: reimplement the sysctl proc support")
+Fixes: 330d57fb98a9 ("[PATCH] Fix sysctl unregistration oops (CVE-2005-2709)")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/proc/proc_sysctl.c | 106 ++++++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 103 insertions(+), 3 deletions(-)
+ fs/proc/proc_sysctl.c | 50 ++++++++++++++++++++++++++++----------------------
+ 1 file changed, 28 insertions(+), 22 deletions(-)
 
 diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
-index b4a309d49698..ba52f13eb8f3 100644
+index ba52f13eb8f3..f5c9f04e8509 100644
 --- a/fs/proc/proc_sysctl.c
 +++ b/fs/proc/proc_sysctl.c
-@@ -417,6 +417,54 @@ static void next_entry(struct ctl_table_header **phead, const struct ctl_table *
- 	*pentry = entry;
- }
- 
-+/*
-+ * The first usable entry of @dir after @name, or the first one at all for a
-+ * NULL @name. The entries are sorted by name, so that is where a listing
-+ * resumes when entries in front of it came or went in between. -ENOENT if
-+ * the directory is being unregistered.
-+ */
-+static int entry_after(struct ctl_dir *dir, const char *name, int namelen,
-+		       struct ctl_table_header **phead,
-+		       const struct ctl_table **pentry)
-+{
-+	struct ctl_table_header *head = NULL;
-+	const struct ctl_table *entry = NULL;
-+	struct rb_node *node, *after = NULL;
-+	struct ctl_node *ctl_node;
-+
-+	spin_lock(&sysctl_lock);
-+	if (unlikely(dir->header.unregistering)) {
-+		spin_unlock(&sysctl_lock);
-+		return -ENOENT;
-+	}
-+	if (!name) {
-+		after = rb_first(&dir->root);
-+	} else for (node = dir->root.rb_node; node;) {
-+		const struct ctl_table *table;
-+		struct ctl_table_header *h;
-+
-+		ctl_node = rb_entry(node, struct ctl_node, node);
-+		h = ctl_node->header;
-+		table = &h->ctl_table[ctl_node - h->node];
-+		if (namecmp(table->procname, strlen(table->procname),
-+			    name, namelen) > 0) {
-+			after = node;
-+			node = node->rb_left;
-+		} else {
-+			node = node->rb_right;
-+		}
-+	}
-+	ctl_node = first_usable_entry(after);
-+	spin_unlock(&sysctl_lock);
-+	if (ctl_node) {
-+		head = ctl_node->header;
-+		entry = &head->ctl_table[ctl_node - head->node];
-+	}
-+	*phead = head;
-+	*pentry = entry;
-+	return 0;
-+}
-+
- /*
-  * sysctl_perm does NOT grant the superuser all rights automatically, because
-  * some sysctl variables are readonly even to root.
-@@ -675,6 +723,36 @@ out:
- 	return ret;
- }
- 
-+/*
-+ * Where the next readdir resumes. The entries are counted, so one that is
-+ * registered or unregistered in front of the position would shift what
-+ * the next call returns. The name of the last entry emitted doesn't move.
-+ */
-+struct sysctl_cursor {
-+	loff_t pos;			/* the position behind the entry */
-+	int len;
-+	char name[NAME_MAX + 1];
-+};
-+
-+/* If this can't remember the entry the next call counts from the start. */
-+static void sysctl_cursor_set(struct file *file, const char *name, int len,
-+			      loff_t pos)
-+{
-+	struct sysctl_cursor *cursor = file->private_data;
-+
-+	if (len > NAME_MAX)
-+		return;
-+	if (!cursor) {
-+		cursor = kmalloc(sizeof(*cursor), GFP_KERNEL);
-+		if (!cursor)
-+			return;
-+		file->private_data = cursor;
-+	}
-+	cursor->pos = pos;
-+	cursor->len = len;
-+	memcpy(cursor->name, name, len);
-+}
-+
- static bool proc_sys_fill_cache(struct file *file,
- 				struct dir_context *ctx,
- 				struct ctl_table_header *head,
-@@ -756,8 +834,11 @@ static int scan(struct ctl_table_header *head, const struct ctl_table *table,
- 	else
- 		res = proc_sys_fill_cache(file, ctx, head, table);
- 
--	if (res)
-+	if (res) {
- 		ctx->pos = *pos;
-+		sysctl_cursor_set(file, table->procname, strlen(table->procname),
-+				  ctx->pos);
-+	}
- 
- 	return res;
- }
-@@ -765,6 +846,7 @@ static int scan(struct ctl_table_header *head, const struct ctl_table *table,
- static int proc_sys_readdir(struct file *file, struct dir_context *ctx)
+@@ -602,14 +602,36 @@ static ssize_t proc_sys_call_handler(struct kiocb *iocb, struct iov_iter *iter,
+ 		int write)
  {
- 	struct ctl_table_header *head = grab_header(file_inode(file));
-+	struct sysctl_cursor *cursor = file->private_data;
- 	struct ctl_table_header *h = NULL;
- 	const struct ctl_table *entry;
- 	struct ctl_dir *ctl_dir;
-@@ -778,9 +860,20 @@ static int proc_sys_readdir(struct file *file, struct dir_context *ctx)
- 	if (!dir_emit_dots(file, ctx))
+ 	struct inode *inode = file_inode(iocb->ki_filp);
+-	struct ctl_table_header *head = grab_header(inode);
+ 	const struct ctl_table *table = PROC_I(inode)->sysctl_entry;
++	struct ctl_table_header *head;
+ 	size_t count = iov_iter_count(iter);
+ 	char *kbuf;
+ 	ssize_t error;
+ 
+-	if (IS_ERR(head))
+-		return PTR_ERR(head);
++	/* don't even try if the size is too large */
++	if (count >= KMALLOC_MAX_SIZE)
++		return -ENOMEM;
++	kbuf = kvzalloc(count + 1, GFP_KERNEL);
++	if (!kbuf)
++		return -ENOMEM;
++
++	/*
++	 * Copy in before grabbing the table and copy out after letting go of
++	 * it. Unregistering the table waits for us and a copy that faults can
++	 * take as long as userspace wants.
++	 */
++	if (write) {
++		error = -EFAULT;
++		if (!copy_from_iter_full(kbuf, count, iter))
++			goto out_free_buf;
++		kbuf[count] = '\0';
++	}
++
++	head = grab_header(inode);
++	if (IS_ERR(head)) {
++		error = PTR_ERR(head);
++		goto out_free_buf;
++	}
+ 
+ 	/*
+ 	 * At this point we know that the sysctl was not unregistered
+@@ -624,28 +646,15 @@ static ssize_t proc_sys_call_handler(struct kiocb *iocb, struct iov_iter *iter,
+ 	if (!table->proc_handler)
  		goto out;
  
--	pos = 2;
-+	/*
-+	 * Resume after the last entry the previous call emitted. Only a seek
-+	 * that moved the position away from it counts from the start, like
-+	 * seeking to an arbitrary position always did.
-+	 */
-+	if (cursor && cursor->pos == ctx->pos) {
-+		entry_after(ctl_dir, cursor->name, cursor->len, &h, &entry);
-+		pos = ctx->pos;
-+	} else {
-+		first_entry(ctl_dir, &h, &entry);
-+		pos = 2;
-+	}
+-	/* don't even try if the size is too large */
+-	error = -ENOMEM;
+-	if (count >= KMALLOC_MAX_SIZE)
+-		goto out;
+-	kbuf = kvzalloc(count + 1, GFP_KERNEL);
+-	if (!kbuf)
+-		goto out;
+-
+-	if (write) {
+-		error = -EFAULT;
+-		if (!copy_from_iter_full(kbuf, count, iter))
+-			goto out_free_buf;
+-		kbuf[count] = '\0';
+-	}
+-
+ 	error = BPF_CGROUP_RUN_PROG_SYSCTL(head, table, write, &kbuf, &count,
+ 					   &iocb->ki_pos);
+ 	if (error)
+-		goto out_free_buf;
++		goto out;
  
--	for (first_entry(ctl_dir, &h, &entry); h; next_entry(&h, &entry)) {
-+	for (; h; next_entry(&h, &entry)) {
- 		if (!scan(h, entry, &pos, file, ctx)) {
- 			sysctl_head_finish(h);
- 			break;
-@@ -791,6 +884,12 @@ out:
- 	return 0;
+ 	/* careful: calling conventions are nasty here */
+ 	error = table->proc_handler(table, write, kbuf, &count, &iocb->ki_pos);
++out:
++	sysctl_head_finish(head);
+ 	if (error)
+ 		goto out_free_buf;
+ 
+@@ -658,9 +667,6 @@ static ssize_t proc_sys_call_handler(struct kiocb *iocb, struct iov_iter *iter,
+ 	error = count;
+ out_free_buf:
+ 	kvfree(kbuf);
+-out:
+-	sysctl_head_finish(head);
+-
+ 	return error;
  }
  
-+static int proc_sys_dir_release(struct inode *inode, struct file *file)
-+{
-+	kfree(file->private_data);
-+	return 0;
-+}
-+
- static int proc_sys_permission(const struct mnt_idmap *idmap,
- 			       struct inode *inode, int mask)
- {
-@@ -870,6 +969,7 @@ static const struct file_operations proc_sys_dir_file_operations = {
- 	.read		= generic_read_dir,
- 	.iterate_shared	= proc_sys_readdir,
- 	.llseek		= generic_file_llseek,
-+	.release	= proc_sys_dir_release,
- };
- 
- static const struct inode_operations proc_sys_inode_operations = {
 
 -- 
 2.53.0
