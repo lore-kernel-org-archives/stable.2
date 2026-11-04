@@ -1,55 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.82.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819551;
-	b=bjol7LFJjlEncdaTbyflehW17LqlE1ngIiNTrny8gpQ3py1tqiHs2F873x25gVnTAyJl
-	 OCbCjogvrFhilzQ4hKftNOjNDO6VEig7TUhkfTSKQcCeKdQrl2LEKmwRK1fW5hvyZ0MLa
-	 scO7kM+4aioHLG0WOLOLrpN2KQSe3MMw47Ag9bNsMXlDa3pS9Vk/MediAfAzBkhPn3QoN
-	 HxPXfF1Z5k4uXuaM5D7GFfXEx7EHWxPvr7XxBN7jQYgyHJJ/nKRWJj57aqBLVHzhHT16O
-	 WIQNmQ8o7qLPrtmoaPH40XKt6v0w3eikU/eeV82HZ45h7CooTkC9e1CmgCtigLJf4/w==
+	t=1793819559;
+	b=Qo7LnCQqH/xZkZy11qvLD80h9/1xIr1lPETbNOiqwvObsbmvruSRSyMvtQqHI4DCTq+k
+	 d/YddnXIkZAPfUG0PlhnANj4i/9jwHImZTj9rwmYotSalWSxY0grnAnFAfU/JAliyVNmC
+	 euZCwTbsNpZw/LfCJuj1V89Z/SwxkXcAunheMwquC5f+MePyHYGEMShu64pyvtyd/pe1X
+	 cuT2wlpACKbvYa0X1Y66WwnjD99uL/4uWSswyPuo6ToAc4u9GRIv65z80Bm4ua38yUo79
+	 cToXRGqnzrPFBztw+VKkuI06eYRR0QfcdO79CwtYqwCGEkIbquus54IHvwkml8FNsYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819551;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=fOBMGQim/n0DIvZol9w5A8rbF8AXfuTYBk54hrONqJU=;
-	b=34qbZEL+rbL5B6zmLucHZHu2wdny6BPzePRQ46pulyOR7EKkq/SwX1vknW+gJtDnzsnQ
-	 z2qZdInyMNXnkLlFpF1tVksps7EDpHaZnaKw++btXxdfRivvY7F55tfjc1i5j8ys9diO0
-	 I+hOIn50XXm3vJaEu8bSWOCWFqvDmoT3pkxsj2bKHVPO9Vc/W3hR2DlnD2cYpVVgEOeg/
-	 uDIpVlmiDmpkw7dT0yTKlS+2i2XPhSnxHNP3sl1FV9YjhiS/rbsUUiU0B99iaN/u5wz3E
-	 Ht8OaqEPiY9NMw1pgYIFK8yctnEe0hKE5ElT8zqHgix2TzHbUHjNQ6B+oW42oci7jvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819559;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2eBasa7agXmVq6bqhWG9P4J2rj64c5jg7X5XSFiq59I=;
+	b=qoX/SuKjychtvHNwdDK06GNM/49QLV9PWgMmJ1gRsxqQivkMR/iPu6ZST60u8tGDhBsn
+	 J+wZv3jG2YwAdKy6wZwzj6WcLGX7XihKIMvV9ZZy8qzOSpsdC7CVTKSqc1orndOyObdMb
+	 xGnoigset6Uf9QnfcdGfIY1gnLFo+gUQcqD1VauhCvZtRZEeIvOQDr6WnI7+eTkegrdeF
+	 rAfnkaUJC/exr8uBiIYBos6ODHlQs84BGcyJ11POsvcYVHnLdmPxFVx+apwMOG0vIexen
+	 2LbDZp8gU9dqf5ineQOLuztUEdPKhh8jWFvrt83L8iH8EHcdpXExr4/GVq6ZRcSSmVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samba.org;
-	spf=pass smtp.mailfrom=samba.org;
-	dkim=pass header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=F+LkGch5;
-	arc=none smtp.remote-ip=144.76.82.148
-Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
-	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eqj5Og8j;
+	arc=none smtp.remote-ip=74.125.229.7
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BE7606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:12:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2BE7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85FD5606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:12:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85FD5606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (3072-bit key, unprotected) header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=F+LkGch5
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
-	s=42; h=From:Cc:To:Date:Message-ID;
-	bh=fOBMGQim/n0DIvZol9w5A8rbF8AXfuTYBk54hrONqJU=; b=F+LkGch5E1r0gCqff9BTAQJN4R
-	iEcfoO130Hg68nmRkLepQDHuSoJ88ysY4vgVTcxd6e4VPHhUM8cwo/MXi87cGSs9c1oRX9QtQB2IR
-	Y2lqLVSlEE9kll5C95FisXfNbQl+b7qwMK5VvIs9sAboaAxOn2yHhV3ftZcjDdEdIk3ZBP9inL7uR
-	8WxZdAeL4L/ZmYCh74Jm1UPLNirf6IInPhS5fLePmuLSQvv09ncgJPwTB4dK3R7OsJDTNk3yBqfrp
-	ULS4I0UJLfY7lM/PNSR81qwQzDjbB+o23aq1+t288HTgHDhHCqsdtSRIVne0BfBCepY882TO3r/ku
-	D33yBmxHeyCuJnJUSiN+G1A1wwE63VC+rXGB19HdH0K166aylevRoRu8CNG3BoONobDYZNUfqHxPW
-	6m3Cf2XMzedZLERMmBQ2CMr9sOkyaHeVeRWLyDU9LwJwbWd/B+YQRfNrYeMKl5054FLM9PcSK0GlR
-	jylXcZTYs6KtzQMi9c7gJUu9;
-Received: from [127.0.0.2] (localhost [127.0.0.1])
-	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
-	(Exim)
-	id 1xOgPG-00000008Iyp-2Vjf;
-	Wed, 04 Nov 2026 19:12:22 +0000
-Message-ID: <456026fe-5cf5-4a35-bf82-75d5ed652846@samba.org>
-Date: Wed, 4 Nov 2026 20:12:22 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eqj5Og8j
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-36c9b5c6faaso492975eec.0
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 11:12:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793819559; x=1794424359; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2eBasa7agXmVq6bqhWG9P4J2rj64c5jg7X5XSFiq59I=;
+        b=Eqj5Og8j+BJqXcySMWz1SZiTErQxINNNlbsUZj31hS7lGoG6Gq9yCzn7VNE6Om5jkB
+         kOR/Wp5R7NWosG0U9+7d8IAIP1sv4mt+75u/LDEIaa20TqtV4Ul83r/2HgwP0B10j0+V
+         pvaOhvJEZbZ5eAGpy9LPLKRGp40zyGTb3678OrokeIryxlwDK3f5uUw2nAEFNFjZWazt
+         wGwi+9gouE314rfJTQmK3m8GFxdq+kOnUNcIQoNk8YQeF7zg1n5UXZXWtIbtFAjfsKUo
+         g57vlJFrdxiyU5wSrlEijhSz1DSvlhKvPoHNLF/BG/9+9zLelsLukMg0MYJi7JMpGp9L
+         Gfmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793819559; x=1794424359;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2eBasa7agXmVq6bqhWG9P4J2rj64c5jg7X5XSFiq59I=;
+        b=PMOhcDYCyGzoS9NRxJw/Y5c6pX8Fu1dOHhlcJQJgzYPxWlAQG5ZbNNx2whkq4JiNTD
+         Y2kJ/K5P+Jp6Ilp+ZN8YxUdDx3mSxAR1JzkJAU5nP8C5B5cuA9gzRp4Pe0XZ1E5gpLo+
+         q4FGjP249La6naY2Eu+YReVNykj+li33H8kVpELG5zIFRHENgiYryG0yCE74g9Qqc1R+
+         iutpxNtjynG3UD6wvPNB47/EVWo0bpOO2+VRGJW7XD3ScS90q6n+/0L9A+pHxPEkfK3a
+         tqFYTFs3T6LCzYbW0Kf/7XHYG3DCsPXcAki+sFYum8ODDdGvjL9VlXJz1FY2pCH2GH5P
+         Nr8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxyu0u3uiBsYVmIBbJhWxMq+g9mD0oOgGixFPTVGqH2ComGZbDwH04aXsXzlBmO9OOX1tVjAXg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kKYG5z6zDDXf2bx02brRiX3RwqOxjVi7IABSRwZN/ACShbcHl
+	576WpJUsIMSOlVR0rNlphqfLpX3/OVLMgSvwJplCfxcK6PfTzAUXfeMn
+X-Gm-Gg: AYBFou03VkIZoVuVrwSeun59kI/Ovqsp5gsv9ZX2Z+RcjAEej1DJp62nDtxxU2QdwmL
+	GUqfU+DNTKgRax7a2P08bHwXCADiQjwUt91KZxjUaWKYbJ6PNa+5YbbdjzBXDV/9ta83eiMMt4l
+	zxKrsZ6TntjPjuya8d7pJ71NizBKNCa6Xka7Tktwr98UI/JR4da4VU9MK3RzxgJBZO8rhnm0N0I
+	en7kFNNxAFb+2haUILbdrJIyy3EQNtleiXJm9+krY+nFuKj0gYhx+XEnkza4qnhEZRIYGc/0HZp
+	NGSJaiH5f+gcHXNVYZdVNNE+1xfSqtZ4IL/XWbK34Y4NHGvCedO4oZ4gQEJIbGNM0Z+izEbJXg6
+	hyK6Tgtt5AYJP3UqbtMfejl8tpD6biBaCrUe8QViVJC646s+0zxmPKS3DNTRRopn3ZVKmjXxq+7
+	FfUYBNJyaGTtX9y8w/nM808KAVmFGbXx3f2BFqBgY3lJQcYVJP2y4i06F6ARGXWq2uZd+9ROJJC
+	3rzh/kDN7XdRHXXVPgcJ5WuP4eGf08ji+d06fiTh5ZSe5Wv5pzVg5kFXTfKGQmiesljXVi6QsrB
+	QpMCpDFun4ZkZeo6KwvkxTe6PytyG8asNoMhmqweAonAmQsNIB11cQGopIsXf70nXpIzwXr22B4
+	A3EU8uzzlYN/wuBFZj2OYgZ+WFB8BYvlwKRn4Og==
+X-Received: by 2002:a05:7301:6189:20b0:358:ec5c:bef1 with SMTP id 5a478bee46e88-36a42425486mr23614256eec.39.1793819558461;
+        Wed, 04 Nov 2026 11:12:38 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36dad72dc52sm1916864eec.0.2026.11.04.11.12.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 11:12:38 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: richard@nod.at
+Cc: chengzhihao1@huawei.com,
+	lin.nan@h3c.com,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] ubifs: account for short copies in ubifs_write_end
+Date: Wed,  4 Nov 2026 19:11:31 +0000
+Message-ID: <20261104191132.89515-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,86 +99,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: FAILED: patch "[PATCH] smb: smbdirect: fix buffer length
- underflow in RDMA transfers" failed to apply to 6.18-stable tree
-To: gregkh@linuxfoundation.org, linkinjeon@kernel.org
+Content-Transfer-Encoding: 8bit
+
+ubifs_write_end() updates i_size and ui_size to pos + len even when
+fewer bytes were copied. A one-byte write at EOF from an unreadable
+buffer can fail with EFAULT while extending the file by one byte.
+Partial writes can also extend the file past the last byte copied.
+
+Use pos + copied for size updates and cancel the budget when no data
+was copied. Keep the appending decision based on the requested length
+to match the inode budgeting and ui_mutex locking in ubifs_write_begin().
+If a short copy ends within the old size, release any unused inode budget
+without reducing the size, and still unlock ui_mutex.
+
+Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
+Link: https://lore.kernel.org/linux-mtd/20261027061226.3506517-1-lin.nan@h3c.com/
 Cc: stable@vger.kernel.org
-References: <2026110436-thee-asleep-2059@gregkh>
-Content-Language: en-US
-From: Stefan Metzmacher <metze@samba.org>
-In-Reply-To: <2026110436-thee-asleep-2059@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ fs/ubifs/file.c | 29 +++++++++++++++++++----------
+ 1 file changed, 19 insertions(+), 10 deletions(-)
 
-Am 04.11.26 um 19:29 schrieb gregkh@linuxfoundation.org:
-> 
-> The patch below does not apply to the 6.18-stable tree.
-> If someone wants it applied there, or to any other stable or longterm
-> tree, then please email the backport, including the original git commit
-> id to <stable@vger.kernel.org>.
-> 
-> To reproduce the conflict and resubmit, you may use the following commands:
-> 
-> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-> git checkout FETCH_HEAD
-> git cherry-pick -x 7193241a49c958782ba4b8df06da3734d1e317d2
-> # <resolve conflicts, build, test, etc.>
-> git commit -s
-> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110436-thee-asleep-2059@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
-> 
-> Possible dependencies:
-> 
-> 
-> 
-> thanks,
-> 
-> greg k-h
-> 
-> ------------------ original commit in Linus's tree ------------------
-> 
->  From 7193241a49c958782ba4b8df06da3734d1e317d2 Mon Sep 17 00:00:00 2001
-> From: Stefan Metzmacher <metze@samba.org>
-> Date: Fri, 23 Oct 2026 19:26:09 +0900
-> Subject: [PATCH] smb: smbdirect: fix buffer length underflow in RDMA transfers
-> 
-> When a remote buffer descriptor is larger than the remaining local
-> buffer, smbdirect_connection_rdma_xmit() clamps its length and sets
-> buf_len to zero. The common accounting code then subtracts the clamped
-> length from buf_len, causing it to underflow. If another descriptor
-> follows, the loop processes it with a wrapped remaining length and
-> includes memory beyond the local buffer in the RDMA transfer.
-> 
-> A client can trigger an out-of-bounds kernel write with an SMB WRITE
-> request, or an out-of-bounds kernel read with an SMB READ request, by
-> supplying multiple RDMA buffer descriptors with an oversized descriptor
-> before the last one.
-> 
-> Remove the premature assignment to buf_len. Subtracting the clamped length
-> already consumes the remaining buffer, so the next iteration stops and
-> only descriptors within the local buffer are used to build work requests.
-> 
-> Fixes: e628bf939aaf ("ksmbd: reduce descriptor size if remaining bytes is less than request size")
-> Cc: stable@vger.kernel.org
-> Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-33549
-> Signed-off-by: Stefan Metzmacher <metze@samba.org>
-> Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-> 
-> diff --git a/fs/smb/smbdirect/rw.c b/fs/smb/smbdirect/rw.c
-> index 6fe38042cfb9..cb142c3c50b2 100644
-> --- a/fs/smb/smbdirect/rw.c
-> +++ b/fs/smb/smbdirect/rw.c
-> @@ -143,7 +143,6 @@ int smbdirect_connection_rdma_xmit(struct smbdirect_socket *sc,
->   		if (desc_buf_len > buf_len) {
->   			desc_buf_len = buf_len;
->   			desc[i].length = cpu_to_le32(desc_buf_len);
-> -			buf_len = 0;
->   		}
->   
->   		credits_needed += smbdirect_connection_calc_rw_credits(sc,
+diff --git a/fs/ubifs/file.c b/fs/ubifs/file.c
+index 99dd52715ee..8ebd3f4cddf 100644
+--- a/fs/ubifs/file.c
++++ b/fs/ubifs/file.c
+@@ -523,8 +523,8 @@ static int ubifs_write_end(const struct kiocb *iocb,
+ 	struct inode *inode = mapping->host;
+ 	struct ubifs_inode *ui = ubifs_inode(inode);
+ 	struct ubifs_info *c = inode->i_sb->s_fs_info;
+-	loff_t end_pos = pos + len;
+-	int appending = !!(end_pos > inode->i_size);
++	loff_t end_pos = pos + copied;
++	int appending = !!(pos + len > inode->i_size);
+ 
+ 	dbg_gen("ino %llu, pos %llu, pg %lu, len %u, copied %d, i_size %lld",
+ 		inode->i_ino, pos, folio->index, len, copied, inode->i_size);
+@@ -552,6 +552,11 @@ static int ubifs_write_end(const struct kiocb *iocb,
+ 		goto out;
+ 	}
+ 
++	if (unlikely(!copied)) {
++		cancel_budget(c, folio, ui, appending);
++		goto out;
++	}
++
+ 	if (len == folio_size(folio))
+ 		folio_mark_uptodate(folio);
+ 
+@@ -562,14 +567,18 @@ static int ubifs_write_end(const struct kiocb *iocb,
+ 	}
+ 
+ 	if (appending) {
+-		i_size_write(inode, end_pos);
+-		ui->ui_size = end_pos;
+-		/*
+-		 * We do not set @I_DIRTY_PAGES (which means that
+-		 * the inode has dirty pages), this was done in
+-		 * filemap_dirty_folio().
+-		 */
+-		__mark_inode_dirty(inode, I_DIRTY_DATASYNC);
++		if (end_pos > inode->i_size) {
++			i_size_write(inode, end_pos);
++			ui->ui_size = end_pos;
++			/*
++			 * We do not set @I_DIRTY_PAGES (which means that
++			 * the inode has dirty pages), this was done in
++			 * filemap_dirty_folio().
++			 */
++			__mark_inode_dirty(inode, I_DIRTY_DATASYNC);
++		} else if (!ui->dirty) {
++			ubifs_release_dirty_inode_budget(c, ui);
++		}
+ 		ubifs_assert(c, mutex_is_locked(&ui->ui_mutex));
+ 		mutex_unlock(&ui->ui_mutex);
+ 	}
 
-In older releases this is smb_direct_rdma_xmit() in fs/smb/server/transport_rdma.c
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.50.1 (Apple Git-155)
 
-I hope that helps.
-
-metze
