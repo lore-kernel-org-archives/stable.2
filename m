@@ -1,53 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793809525;
-	b=gWE8Gg4LtKfXoq0sK1tVfDCeBU3VVMvohQ5OiGb6AOxNjghyJOr2plTv7Q85CJwY8vEb
-	 tLaDgbz95dIJ+7ub3zbxHJJJz+1IUv1qd9dM6GZylD+zL9ep1Reim14MIQW/GR+SstEXZ
-	 xtMkLUo32vZMnvDJWKtTSNY5x32D4tub0CktZUEv0kF8LK6yXHVC64f12SWuHcAqok+ex
-	 D3qdGr6XF/ss4CXCe/1frXpaVvdw1JcjrCdq4swsZALwfV3qRPmLyWxUi9S/+L2e0vUQl
-	 yh5GT4xz+h3b6f2oeF5Kjzo4SyfAFwLAfBoUe3mFtVCXNyNbk38sL+P2dqJW4XB6eOg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809525;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=HG7fdBO4WEcwQ4gpZzbvoeJECFEi3NHcwKvoIeLGBYg=;
-	b=b/1f+2biV6FbpF0NctU2dL+KuBYltIAZcWLMZZ8kwbOYtbaUTqe7G6w63rLmvh1Sufq3
-	 QIu61ln0VaRLx0j9BzAO3OpnIg3faD1WXULxLbO+34iUg8Rmg+Tt/+WBi3ztyLrT1Byi0
-	 uXFs1rZHXhlrHi0V5TxXTNrfgOmhkvOmHBbL3afhXtIppWDJL65+EeKII93AJoMEoKoW4
-	 nkXZxoEAiLvJThKbscDXBdyFKm+9QR8rFSW5oPWc2hX6NvlYu6/4a3HpDViq4N6KTrRdN
-	 Vo/xALH4K7V8kfWGp0iHgbGRJPrYM9WvGwmwy/QEzDBqCdSiYX8hinKyPD/jAC8r2uQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793809605;
+	b=QmwDsYYB7FWzMsY3e4kZgUe6KLJ0OiaXUSt3RB8KjgW6c8OHhhH6/mIHBGB4tKsmajKT
+	 wN2laiSaJixycawP8pS38OLUVMwMDijRl244q8fjvpTOzxgY69feFiQGgJEAvtwhwFPNq
+	 zK4qksoQ9EKCCIBJam0sQjVo/F3wOMT0RL5RCAXZHBG1fAApdFudX1KuldMrcQoAhCixS
+	 +CG6BE4jQBUKLLP0aE4LS9mXrtue+MDoUN88ZbF81bDrnBtmwzs+ujd0SaWVJlocto7FZ
+	 hjZpR12NjqNSjZxvssV+mXfF29nQOV3s5tNebzfXX0mseMOS2TvmyEOsx3q1dbwWuew==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809605;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=XqcOSoI2kRENMhOfGA/ODIWysXZLeFgrpZu657FzjSs=;
+	b=nppq6DXj9zKyS4PkzVV6eqSBbLQjv6fKGgh09JQmfc3/16KU6MtkaIP0g7eimw+vRJB3
+	 b0EZrAc6waFZr5JlbTJOZynVJeqKqhzzuIp1F0nq5Q5Cd2se+RFhL2Dg28HmTcC/UjriK
+	 ju6hCzlOfXv8JS349Ho23mSM/7CxU0iVbyZegy1F9LuLhiRoM+JK4Jc/5CAfNXlEM3iKW
+	 IgwJ4OLnWVAUm3jGACtS+zq4cWH6Sx9UqRXuO4cd79m4QsnKZjWi5j7ocYBOfMhmfVsGL
+	 hXpoiSBWEN12BS5GgPbeLSV1ah7qwJFBPUvbrnwKYF7fVO+91sBHWWUXA4evAs6JQTQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CM13evda;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90486606A326;
+	Wed,  4 Nov 2026 16:26:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CM13evda
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793809605;
+	b=WxZPwbTLs0KLHl+Y7/bDq5EeiH32pOSyFk4P09lXBH9dF2seUJu44p470se3wsI74tzT
+	 WcrquxfneGGiRT+n8IU1aHg6U1AuCa2emIBcA3cLfdUtaYcw9fpilDTtYTuh+9OnyGr07
+	 EeZb9wpSm3f4TDphS0BMzr3r1Q8i6qZLk3Yjp4Cg4CoCx/5hCML9aHELHpWOmm9a00lZL
+	 j+OBnXWZOUmfGHBgqeQhHUtNoXHRGVsMjy7k05+9m3YtsSsjCD3TOGLQnHUJ7WqIaWTPY
+	 Ex6KQ2cCpp1aTFS9+cMvjDEQEiucO/K2EI6oqsug9RjD9azs3fGXcLRM4EwPLmQUIww==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793809605;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=XqcOSoI2kRENMhOfGA/ODIWysXZLeFgrpZu657FzjSs=;
+	b=NNbH7XPwzJfIQjpan58x1x/Hrab8LGKgPFEytOcIfBePGX5XMDMkyMmBBmlKFQs4/+T4
+	 pOtx2a4bvpbVSAN0dzXNJlHzvEHBKnmo9tbmXwoZjYB659YpBmbNMzQZIDm5KBDBSqGWP
+	 BgM/s3udsrf2igTOTUfntD0Rmv7SLiUXLB+Ei5w6X9TlvMCQfEnfbhp7vuoFmhHLMookp
+	 8ZGAn59if6nEwjzxyTC8++mYo3ucsLBmUciRXuqL2Dm7+xFI/MRQXanbIkDM0ZB6xZCMG
+	 gIht11bAi8S7bcfSDb0hTPkzeuMqx5iw9sEkHrNKGho/r2M+zvYb7cRaeik1ksqv6zQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2466F606A32F;
-	Wed,  4 Nov 2026 16:25:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2466F606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jKW4x5gWmz5BNRf;
-	Thu, 05 Nov 2026 00:25:21 +0800 (CST)
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl1.zte.com.cn with SMTP id 6A4GPCCv020169;
-	Thu, 5 Nov 2026 00:25:12 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Thu, 5 Nov 2026 00:25:15 +0800 (CST)
-X-Zmail-TransId: 2af96aeb5c6b6a7-c1505
-X-Mailer: Zmail v1.0
-Message-ID: <20261105002515934UMImG6EiHrJdKjsLu3j9d@zte.com.cn>
-Date: Thu, 5 Nov 2026 00:25:15 +0800 (CST)
+	by smtp.kernel.org (Postfix) with ESMTPS id B45F11F000C1;
+	Wed,  4 Nov 2026 16:26:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793809605;
+	bh=XqcOSoI2kRENMhOfGA/ODIWysXZLeFgrpZu657FzjSs=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=CM13evdaMJmOZ/jza3wRt04swqYZGmtAK3y2WcUtsY/MgxRFQVipTGnzvkFwlj1I8
+	 VsU3wwImJsiWAsXZDVB9dUB0ExaApWNna0zqOwUhGmQ18PwDszl1TyaQdRtPucoPt2
+	 HDLXYRPa8fRQOywziLUJZcWGZC7c4mi8Q8tjj9/eis6O7Fwu1nQPfRTLFL8qLocTDM
+	 mjrQRFLg9LxFyjDNX2+SJHm92HHsnFh775dE5sbCE6Jdd5LgA+rIMTTbXN5NQczRmg
+	 1TNWzqMUEmHiJwG2FbVQtLzHEaPEHAUbKMRlPjuKS+5WPOSg9MGYJD+8hCz6TRBCUx
+	 SK4fR2wZOg4Ew==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 13AC946EB7;
+	Wed,  4 Nov 2026 16:26:44 +0000 (UTC)
+From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
+Date: Wed, 04 Nov 2026 17:26:43 +0100
+Subject: [PATCH net v3] vsock/virtio: clear vqs[] to avoid a UAF on a
+ failed PM restore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,150 +82,132 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
-Cc: <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIFJFU0VORF0gdWJpZnM6IHhhdHRyOiBmaXggb3V0LW9mLWJvdW5kcyB3cml0ZSBpbiB1Ymlmc19saXN0eGF0dHIoKQ==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A4GPCCv020169
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Thu, 05 Nov 2026 00:25:21 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEB5C71.000/4jKW4x5gWmz5BNRf
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261104-vsock-restore-uaf-send-v3-1-d60d06488b57@eldare.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XNQQ7CIBAF0Ks0sxYD1IK68h7GBYXBooYaaImm6
+ d2luOnGuPyTP+9PEDE4jHCsJgiYXHS9z6HeVKA75a9InMkZOOWCUcpIir2+k4Bx6AOSUVkS0Rv
+ CrJb1QVjFWgP5+RnQuleBz+BxgMv3GMf2hnpYyKXWucV5l/nESvnfUmKEkcYoQa2ksqHihA+jA
+ m4NlpHEVwzf/2R4ZoRslDLCKMl2a2ae5w9qgSuWGgEAAA==
+X-Change-ID: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
+To: Stefan Hajnoczi <stefanha@redhat.com>, 
+ Stefano Garzarella <sgarzare@redhat.com>, 
+ Bobby Eshleman <bobbyeshleman@meta.com>, 
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: virtualization@lists.linux.dev, kvm@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Jerome Mohm <jrmmhm.kernel@eldare.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793809603; l=3366;
+ i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
+ bh=M5xaSNmFTKxhlPUeiNqMrmM7Ti9uva3s+Lictxc3xSk=;
+ b=WiOH3gK7gWMGtImU9UnXdRgEZeOga4gZyBeLDnXYU6u/5UOadx+GaGWSQtbgVTmXTQcBfTXY9
+ PGRLQ/f248gDMYpfGRy39AwTlpbiJWq423G3xb7DftydlGoHe0CV4/S
+X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
+ pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
+X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
+ auth_id=1075
+X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Reply-To: jrmmhm.kernel@eldare.de
+Content-Transfer-Encoding: 7bit
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+From: Jerome Mohm <jrmmhm.kernel@eldare.de>
 
-ubifs_listxattr() derives the size of the name list from
-ui->xattr_names + ui->xattr_cnt and uses it to reject a call whose
-buffer is too small.  It then copies every visible xattr name returned
-by ubifs_tnc_next_ent() without checking @size again.
+virtio_vsock_vqs_del() frees the virtqueues but leaves vsock->vqs[]
+pointing at them. If virtio_vsock_restore() then fails, the driver
+stays bound with a dangling vqs[], and the next freeze or unbind
+passes a freed virtqueue to virtqueue_detach_unused_buf():
 
-Both counters are read from the on-flash inode node and are only
-accounting values.  A modified image can make them under-report the
-number of xattr entries while the TNC still contains more entries: the
-node CRC only protects against accidental corruption, it is recomputed
-for a crafted image.
+  BUG: KASAN: slab-use-after-free in virtqueue_detach_unused_buf
+   virtio_vsock_vqs_del (net/vmw_vsock/virtio_transport.c:785)
+   virtio_vsock_remove
+  Freed by task ...:
+   vp_del_vqs
+   virtio_vsock_freeze
 
-The usual caller first invokes listxattr(path, NULL, 0), which returns
-the too small size computed from those counters, then allocates a
-buffer of that size and invokes listxattr() again.  In the second
-system call fs/xattr.c:listxattr() allocates the kernel buffer with
-kvmalloc(size) and passes it to ubifs_listxattr(), which copies the
-names past its end.  The copied bytes are the xattr names from the
-image, so part of the overflow content is attacker controlled.
+Clear vqs[] after del_vqs() and when virtio_find_vqs() fails. Return
+early from virtio_vsock_vqs_del() when vqs[] is empty: a second
+del_vqs() would free virtio-mmio's IRQ again ("Trying to free
+already-free IRQ").
 
-Bound each copy by @size and return -ERANGE when the list does not fit.
-With a corrupt image the reported size may now be too small, but the
-following call fails cleanly instead of overflowing.  Note that nlen
-itself is already bounded by ubifs_validate_entry(), which every node
-returned by ubifs_tnc_next_ent() has passed; the missing check is only
-against the caller's buffer.
+Found with the help of Anthropic's Claude and reproduced on virtio-pci
+by failing the restore with failslab; the virtio-mmio IRQ issue was
+found by the netdev Sashiko review. With this patch neither report
+appears on virtio-pci or virtio-mmio guests, and the vsock vmtest.sh
+single-VM tests pass. A find_vqs() failure after some virtqueues were
+set up was not exercised.
 
-While here, validate the two counters individually.  Their sum is
-computed in 32 bits, so the existing check is bypassed when it wraps
-around; rejecting the oversized values at mount time keeps the O(1)
-size query in listxattr() from returning a wrapped (possibly negative)
-length.
-
-Mounting UBIFS requires CAP_SYS_ADMIN in the initial user namespace, so
-this is only reachable with a crafted image.  Compile tested with W=1
-and checkpatch --strict.  Runtime reproduction needs a modified UBI
-image: change xattr_cnt/xattr_names in an inode node and recompute its
-CRC; a KASAN kernel then reports the overflow on the second
-listxattr() call.
-
-Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
+Fixes: bd50c5dc182b ("vsock/virtio: add support for device suspend/resume")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
 ---
-Resend after 7 days without feedback; no code change.
+Changes in v3:
+- Shorten the commit message (Stefano, Michael).
+- Drop the two comments on clearing vqs[] (Bobby) and shorten the
+  remaining one.
+- Drop the tool note below "---"; it is in the commit message (Stefano).
+- Comment changes only; not rebuilt or retested.
+- Link to v2: https://patch.msgid.link/20261028-vsock-restore-uaf-send-v2-1-675aad6da714@eldare.de
+---
+ net/vmw_vsock/virtio_transport.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-Link: https://lore.kernel.org/all/2026102817301132485IE4Ia6aXSqUo5KZUvgW@zte.com.cn/
-
-Tested on 7.3.0-next-20261030 (QEMU/TCG, x86_64) with mtdram and KASAN.
-The image has a file with three xattrs, i.e. 21 bytes of names.  Its
-on-flash inode counters are modified and the node CRC recomputed.
-
-low (xattr_cnt=1, xattr_names=0), unpatched:
-  first listxattr() returns 1; the second call is given a 1-byte buffer
-  but copies 21 bytes.  KASAN reports a slab-out-of-bounds in
-  _copy_to_user and ubifs_assert(written <= size) fires.
-low, patched:
-  first returns 1; the second returns -ERANGE (errno 34).
-
-wrap (xattr_cnt=0x20, xattr_names=0xFFFFFFF0; the 32-bit sum is 16),
-unpatched:
-  first returns 16; the second call is given a 16-byte buffer but copies
-  21 bytes, with the same KASAN report and assert.
-wrap, patched:
-  first returns -EINVAL; ubifs_iget() rejects the counters in
-  validate_inode() before ubifs_listxattr() is called.
-
-diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
-index 38972786817e..fe24e1949bb3 100644
---- a/fs/ubifs/super.c
-+++ b/fs/ubifs/super.c
-@@ -82,7 +82,15 @@ static int validate_inode(struct ubifs_info *c, const struct inode *inode)
- 		return 2;
- 	}
+diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+index 4f9aa9c4c3aa..ffe7cd93463d 100644
+--- a/net/vmw_vsock/virtio_transport.c
++++ b/net/vmw_vsock/virtio_transport.c
+@@ -714,8 +714,10 @@ static int virtio_vsock_vqs_init(struct virtio_vsock *vsock)
+ 	atomic_set(&vsock->queued_replies, 0);
  
--	if (ui->xattr_names + ui->xattr_cnt > XATTR_LIST_MAX)
-+	/*
-+	 * Both counters are read from the on-flash inode node.  Check them
-+	 * individually first: the addition is performed in 32 bits and can
-+	 * wrap around, which would make the check below pass for absurd
-+	 * values.
+ 	ret = virtio_find_vqs(vdev, VSOCK_VQ_MAX, vsock->vqs, vqs_info, NULL);
+-	if (ret < 0)
++	if (ret < 0) {
++		memset(vsock->vqs, 0, sizeof(vsock->vqs));
+ 		return ret;
++	}
+ 
+ 	virtio_vsock_update_guest_cid(vsock);
+ 
+@@ -781,6 +783,14 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
+ 	 */
+ 	virtio_reset_device(vdev);
+ 
++	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
++
++	/* After a failed restore no virtqueues are live, and a second
++	 * del_vqs() would free virtio-mmio's IRQ again.
 +	 */
-+	if (ui->xattr_cnt > XATTR_LIST_MAX ||
-+	    ui->xattr_names > XATTR_LIST_MAX ||
-+	    ui->xattr_names + ui->xattr_cnt > XATTR_LIST_MAX)
- 		return 3;
- 
- 	if (ui->data_len < 0 || ui->data_len > UBIFS_MAX_INO_DATA)
-diff --git a/fs/ubifs/xattr.c b/fs/ubifs/xattr.c
-index 3b0e8a270f59..8efe2c545bf4 100644
---- a/fs/ubifs/xattr.c
-+++ b/fs/ubifs/xattr.c
-@@ -421,8 +421,25 @@ ssize_t ubifs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 		fname_len(&nm) = le16_to_cpu(xent->nlen);
- 
- 		if (xattr_visible(xent->name)) {
--			memcpy(buffer + written, fname_name(&nm), fname_len(&nm) + 1);
--			written += fname_len(&nm) + 1;
-+			int nlen = fname_len(&nm);
++	if (!vsock->vqs[VSOCK_VQ_RX])
++		return;
 +
-+			/*
-+			 * nlen is bounded by ubifs_validate_entry(): the
-+			 * node length is nlen + UBIFS_DENT_NODE_SZ + 1 and
-+			 * is itself bounded by UBIFS_MAX_DENT_NODE_SZ, so
-+			 * the name cannot run past the node.
-+			 *
-+			 * The missing bound is the caller's buffer: the
-+			 * on-flash xattr counters are not authoritative and
-+			 * a crafted image can under-report them.
-+			 */
-+			if (written + nlen + 1 > size) {
-+				kfree(xent);
-+				err = -ERANGE;
-+				break;
-+			}
-+			memcpy(buffer + written, fname_name(&nm), nlen + 1);
-+			written += nlen + 1;
- 		}
+ 	mutex_lock(&vsock->rx_lock);
+ 	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
+ 		kfree_skb(skb);
+@@ -791,10 +801,10 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
+ 		kfree_skb(skb);
+ 	mutex_unlock(&vsock->tx_lock);
  
- 		kfree(pxent);
-@@ -432,6 +449,9 @@ ssize_t ubifs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 	kfree(pxent);
- 	up_read(&host_ui->xattr_sem);
- 
-+	if (err == -ERANGE)
-+		return err;
+-	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
+-
+ 	/* Delete virtqueues and flush outstanding callbacks if any */
+ 	vdev->config->del_vqs(vdev);
 +
- 	if (err != -ENOENT) {
- 		ubifs_err(c, "cannot find next direntry, error %d", err);
- 		return err;
++	memset(vsock->vqs, 0, sizeof(vsock->vqs));
+ }
+ 
+ static int virtio_vsock_probe(struct virtio_device *vdev)
+
+---
+base-commit: 363c8c79220d0db4d65dcd570529ddda15067cb5
+change-id: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
+
+Best regards,
+--  
+Jerome Mohm <jrmmhm.kernel@eldare.de>
+
+
