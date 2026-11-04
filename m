@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793836291;
-	b=GfjJ6zNvSLej6i9QaGg1aBVqCgkAie0ODdrPblwjkaMFO4Z+JW6HUA+bNn3GCtIyDUfY
-	 QImTQLKF+qepNFhJz9rJM3XYNL0GP+c4Mf7RXyt5rx8Iaq3um7d+o5p6zHhGrcCRf+xvX
-	 ZALExq1tAZ6UcN6PUCOyA4vyjngdxdclVhlYBEU1q6kKOIS/7z8K2JOjjV8tAPQon38CO
-	 58xNS1qJkw0PptwE6BpwDCE50d6bavfUyXjOiwTy8CIarVQcg3l2pvhffREZ1Z+B8475M
-	 xmR3P3ilpCg/Men28xuib30ElGO/+bR4wS7TJIpGBYrwpQbEkt4mXddqUMXT7Zgt20w==
+	t=1793836293;
+	b=eKI1DknuxpUkNz0NT9OQtJRH0r/dmWnoU51JiRdZXiMKs7JHgaFkT836NXXZ6YjlA2v9
+	 WH39yB4iJ4T6ukljzoHwKQ7YfxoI4LY+0LflO4k2dyJ2A2jgRv8pdJBCsY+SWTclkURI9
+	 xl3dil5UQ7B5xqjHRRm/oPLFSs6tPY8Pey4UcrwyLd13gLZxnglCOqdznhValIh0aDmDw
+	 +kmN/K9YSPNdzzCnQ8UNqb8x7X/idVYr5nm+19MonTg56WOOJNb8KVHb5p5RtCUs8aLMt
+	 GAMfFSWLrCLo3m5Q0SK9m1BkxynOlHfNKnZs3r9KDYPIFn9tava9nMuFF13wG4T7dgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793836291;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793836293;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=k6AIvHyxHD6z4NIUXg+gGWRQd6y0g1u8wvVGNnyj+4I=;
-	b=Yyyr/jEMM7skopSUmTq19SFkcBGwpSDyMjGDH1napGaEfbGL4gi2BpvavsVs7Ma2OsGq
-	 wb8kXKHYb+nWMkcXVgfdDNxzHq8eVUFzhC2+/SXRLchrLSfPn1rxDjfPNXYeAL1fsow1/
-	 Snkm7bXST81QYLV+qVTNyQztEOaL7ZvZ/+gPu3YBab3RxRcDdPmwgfX4odBzlwFQiKATe
-	 tJWezMuM7fapHf/eqoZqMRL9KGfWSWQVL6w90FtP7UBUfbK6Z0H+94XZiiSDXZsme+ssz
-	 qe0M7pMhh4mHwRApu8OwE7q4MCtTyoRTvPWgiKqJHz2z+KqASj2a1qSlq2swsokEQTg==
+	bh=Sfry1kHkGoI00sEuShgmwRE319huUyE47/fhH9PZ1BI=;
+	b=r2ZJrDlxHQUoUOIF3E6iJzyq0rj1kk2WWGkFm9UQV7CKyMMjxX1Gp6JfKQIdFU3VSZmT
+	 no7NNs2e6hzhNpk1W6CPrflrIO1jZN5PbkdhJVZIUOtVqpCpa1CB0rGVrQA5SyfaortyO
+	 Ljnmz1XZCwhGwp4Q3RKzl+f3xkA8v7YqTitJxJk6D6U4SR4QS7aj/01r5yX7iMfaJf11Q
+	 CKy8cgWcLfG7IcRUprxzFX/Yo8RbEjuWe3/L/2RYvD2FvxC7giKyqyxwhmKqzphJtRN9z
+	 QTgMnsXiG+ljjwnTFDzDt44Zg5Ui0DgpwekB84nCEqIOZyvgz0m1H6bDnYYEVhcvmnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCsLPFMT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i4mTzMnt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA68606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:51:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F4D606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:51:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCsLPFMT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 046F41F000C1;
-	Wed,  4 Nov 2026 23:51:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i4mTzMnt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B92D81F000C1;
+	Wed,  4 Nov 2026 23:51:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793836290;
-	bh=k6AIvHyxHD6z4NIUXg+gGWRQd6y0g1u8wvVGNnyj+4I=;
+	s=k20260515; t=1793836292;
+	bh=Sfry1kHkGoI00sEuShgmwRE319huUyE47/fhH9PZ1BI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DCsLPFMTnUXGCUuHALQOgcLt7WnKXD3pjNAwSlItf/tG2p2+RkHX4ThOuqaLotBNa
-	 NqYSmhQW6pn1YWucqU1X8/MgvWR2WnFffNVbsWBffpSl2Do3K1GvN3aF+RwqTSUDJR
-	 IW0em2CJ9barXZGJWlFcSSTCGW/1qZrHCTuJoQy/+vzO11PQhbPgLL5HnAVKch+kUH
-	 fE8r+QbAY5oTBRcRw93ET6DAFYvOVJ7G9tc87Ebu9qvy8J/oMVjaU13N6Kpqbo04g0
-	 IYaSq9HcgkXDjJkME0r8kL5d6kiOTzlWk4ylMvoo+2SkRrBmtZNDrlnNa1J9QJ4JJA
-	 2a2Ys8DT3ey2A==
+	b=i4mTzMntw4qHEogkpu7JKztYTZUhg6YgDJdMYL6xgiFs4uZ+iIKAHH9ZPYzP4bTpj
+	 gBWDypyvIWV0mLBteFLD3wAHC3PR15uV8X4BGaOUZY4oBNNHPjnRJ9Fmhehnn5RTBx
+	 0J9ZOuGnC96LE7iUb6miFe+YlY7sa+jwi2F+n3wEoOnh38Ww7gSC3zZNn+vjfl3+7T
+	 3dfmH3AkoiJYpHhR1Mew6I4W/uIiXOhcXys2cu44GvisFnsC/NUd8qwk//Y0RzimZT
+	 DdSj5k3npJbbxf6kutXnWewIYQZm0NeTJxUqa3QgzwO0pLUWre2Jm1gT95CgkzrtMx
+	 VLcjkSEMR53gQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Woodhouse <dwmw@amazon.co.uk>,
-	Sean Christopherson <seanjc@google.com>,
-	syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com,
-	syzbot+fb7c2dd166d3ea63df2a@syzkaller.appspotmail.com,
-	Paul Durrant <paul@xen.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] KVM: pfncache: use a dedicated invalidation sequence for cache refresh
-Date: Wed,  4 Nov 2026 18:51:28 -0500
-Message-ID: <20261104235105.929254-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] media: s5p-mfc: use timer_shutdown_sync() for the self-rearming watchdog
+Date: Wed,  4 Nov 2026 18:51:30 -0500
+Message-ID: <20261104235107.950691-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110446-submerge-emission-a419@gregkh>
-References: <2026110446-submerge-emission-a419@gregkh>
+In-Reply-To: <2026110426-scrutiny-value-3242@gregkh>
+References: <2026110426-scrutiny-value-3242@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,177 +64,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit da260bcb56feeb6489a83f310308453a0a7de25e ]
+[ Upstream commit 63069b5917cba2e15b1a78b3f4ff99e45102c56f ]
 
-The gfn_to_pfn_cache refresh path guards against mmu notifier
-invalidations which complete while it has dropped gpc->lock for the
-HVA->PFN lookup: hva_to_pfn_retry() samples kvm->mmu_invalidate_seq
-and retries if it changed, or if mn_active_invalidate_count is still
-elevated.
+The MFC watchdog timer (s5p_mfc_watchdog) is self-rearming: every
+callback re-arms itself with add_timer() and, on a timeout, schedules
+watchdog_work. s5p_mfc_remove() tears this down with timer_delete_sync()
+followed by flush_work().
 
-That is insufficient for HVA-based caches. mmu_invalidate_seq is only
-advanced by kvm_mmu_invalidate_end() when the invalidated range
-overlaps a memslot, and an HVA-based cache (e.g. the Xen shared_info
-page mapped with KVM_XEN_ATTR_TYPE_SHARED_INFO_HVA) need not be backed
-by any memslot at all. An invalidation of the cached HVA which starts
-and ends entirely within the lookup window is thus invisible to the
-retry check: mn_active_invalidate_count is back to zero and the
-sequence never moved. The refresh then publishes a mapping of a page
-which has already been freed, and the next reader dereferences it:
+timer_delete_sync() dequeues the timer and waits for a callback that is
+already running, but it does not prevent a subsequent re-arm. Because the
+watchdog callback re-arms via add_timer(), this is the wrong shutdown
+primitive: once the wait returns nothing guarantees a just-queued re-arm
+will not fire later, dereferencing dev (clock on/off, deinit_hw,
+load_firmware, init_hw) after video_unregister_device(), DMA teardown and
+s5p_mfc_final_pm() have run, a potential use-after-free.
 
-  BUG: KASAN: use-after-free in kvm_xen_shared_info_init+0x3c6/0x440
-  Read of size 4 at addr ffff8880599c2900 by task syz.2.383/7257
+Use timer_shutdown_sync(), which puts the timer into a shutdown state so
+that any add_timer()/mod_timer() from the callback becomes a no-op and no
+later firing is possible. Switch flush_work() to cancel_work_sync() so any
+watchdog_work that was already queued before the timer was stopped is
+cancelled rather than allowed to run to completion against the torn-down
+device.
 
-Since gfn_to_pfn_cache_invalidate_start() deliberately skips caches
-which are not currently valid (including one whose refresh is in
-progress, as the refresh clears the valid flag before dropping the
-lock), the retry check is the only line of defence, and it must fire
-for *any* invalidation, not just those hitting a memslot.
+This issue was found by an in-house static analysis tool. No runtime
+reproducer is available.
 
-Add a dedicated kvm->gpc_invalidate_seq, incremented by every
-kvm_mmu_notifier_invalidate_range_end() under mn_invalidate_lock
-before mn_active_invalidate_count is decremented, and check it in
-hva_to_pfn_retry() instead of mmu_invalidate_seq. Incrementing in
-range_end() in the same critical section as the in-progress count
-also closes the variant where the cache is activated with the
-contested HVA only after invalidate_range_start() has run.
-
-The same bug is also reachable through the per-vCPU vcpu_info cache
-(KVM_XEN_VCPU_ATTR_TYPE_VCPU_INFO_HVA), where the stale mapping is
-then dereferenced by kvm_setup_guest_pvclock() on the next KVM_RUN:
-
-  BUG: KASAN: use-after-free in kvm_setup_guest_pvclock+0x5bf/0x660
-
-This intentionally makes refresh retry on *unrelated* mmu notifier
-events; restoring precision (and reworking the GPC locking more
-generally) is left for a subsequent series.
-
-Reproducers: https://david.woodhou.se/xen_shinfo_race.c
-             https://david.woodhou.se/vcpu_info_race.c
-
-Suggested-by: Sean Christopherson <seanjc@google.com>
-Reported-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a0c5f2c.a00a0220.2c7954.0000.GAE@google.com/
-Tested-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
-Reported-by: syzbot+fb7c2dd166d3ea63df2a@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a426dd2.854d4ab9.360e1d.0008.GAE@google.com/
-Fixes: b9220d32799a ("KVM: x86/xen: allow shared_info to be mapped by fixed HVA")
+Fixes: af9357467810 ("[media] MFC: Add MFC 5.1 V4L2 driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Assisted-by: Claude:claude-mythos-5
-Reviewed-by: Paul Durrant <paul@xen.org>
-Link: https://patch.msgid.link/20260831213632.81023-13-dwmw2@infradead.org
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-[ sashal: adjusted context to preserve the CONFIG_KVM_GENERIC_MMU_NOTIFIER guard and existing hva_to_pfn() implementation ]
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: adjusted context for del_timer_sync() instead of timer_delete_sync() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/kvm_host.h |  2 ++
- virt/kvm/kvm_main.c      | 10 ++++++++++
- virt/kvm/pfncache.c      | 18 +++++++++---------
- 3 files changed, 21 insertions(+), 9 deletions(-)
+ drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index 2b7068685ff2a..eeaf3d893398d 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -846,6 +846,8 @@ struct kvm {
- 	long mmu_invalidate_in_progress;
- 	gfn_t mmu_invalidate_range_start;
- 	gfn_t mmu_invalidate_range_end;
-+
-+	unsigned long gpc_invalidate_seq;
- #endif
- 	struct list_head devices;
- 	u64 manual_dirty_log_protect;
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 7debedc1ddaae..b73f22729a1e0 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -847,6 +847,16 @@ static void kvm_mmu_notifier_invalidate_range_end(struct mmu_notifier *mn,
+diff --git a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
+index e30e54935d79a..1386208b092f5 100644
+--- a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
++++ b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
+@@ -1454,8 +1454,8 @@ static void s5p_mfc_remove(struct platform_device *pdev)
+ 	}
+ 	mutex_unlock(&dev->mfc_mutex);
  
- 	/* Pairs with the increment in range_start(). */
- 	spin_lock(&kvm->mn_invalidate_lock);
-+	kvm->gpc_invalidate_seq++;
-+
-+	/*
-+	 * As with the MMU sequence counter and mmu_invalidate_in_progress, the
-+	 * GPC sequence increase must be visible before the invalidate count
-+	 * goes to zero.  Pairs with the smp_rmb() in
-+	 * mmu_notifier_retry_cache().
-+	 */
-+	smp_wmb();
-+
- 	if (!WARN_ON_ONCE(!kvm->mn_active_invalidate_count))
- 		--kvm->mn_active_invalidate_count;
- 	wake = !kvm->mn_active_invalidate_count;
-diff --git a/virt/kvm/pfncache.c b/virt/kvm/pfncache.c
-index f0039efb9e1e3..73532d071d02c 100644
---- a/virt/kvm/pfncache.c
-+++ b/virt/kvm/pfncache.c
-@@ -124,7 +124,7 @@ static void gpc_unmap(kvm_pfn_t pfn, void *khva)
- #endif
- }
+-	del_timer_sync(&dev->watchdog_timer);
+-	flush_work(&dev->watchdog_work);
++	timer_shutdown_sync(&dev->watchdog_timer);
++	cancel_work_sync(&dev->watchdog_work);
  
--static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long mmu_seq)
-+static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long gpc_seq)
- {
- 	/*
- 	 * mn_active_invalidate_count acts for all intents and purposes
-@@ -136,20 +136,20 @@ static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long mmu_s
- 	 * Note, it does not matter that mn_active_invalidate_count
- 	 * is not protected by gpc->lock.  It is guaranteed to
- 	 * be elevated before the mmu_notifier acquires gpc->lock, and
--	 * isn't dropped until after mmu_invalidate_seq is updated.
-+	 * isn't dropped until after gpc_invalidate_seq is updated.
- 	 */
- 	if (kvm->mn_active_invalidate_count)
- 		return true;
- 
- 	/*
- 	 * Ensure mn_active_invalidate_count is read before
--	 * mmu_invalidate_seq.  This pairs with the smp_wmb() in
--	 * mmu_notifier_invalidate_range_end() to guarantee either the
-+	 * gpc_invalidate_seq.  This pairs with the smp_wmb() in
-+	 * kvm_mmu_notifier_invalidate_range_end() to guarantee either the
- 	 * old (non-zero) value of mn_active_invalidate_count or the
--	 * new (incremented) value of mmu_invalidate_seq is observed.
-+	 * new (incremented) value of gpc_invalidate_seq is observed.
- 	 */
- 	smp_rmb();
--	return kvm->mmu_invalidate_seq != mmu_seq;
-+	return kvm->gpc_invalidate_seq != gpc_seq;
- }
- 
- static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
-@@ -158,7 +158,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
- 	void *old_khva = (void *)PAGE_ALIGN_DOWN((uintptr_t)gpc->khva);
- 	kvm_pfn_t new_pfn = KVM_PFN_ERR_FAULT;
- 	void *new_khva = NULL;
--	unsigned long mmu_seq;
-+	unsigned long gpc_seq;
- 
- 	lockdep_assert_held(&gpc->refresh_lock);
- 
-@@ -172,7 +172,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
- 	gpc->valid = false;
- 
- 	do {
--		mmu_seq = gpc->kvm->mmu_invalidate_seq;
-+		gpc_seq = gpc->kvm->gpc_invalidate_seq;
- 		smp_rmb();
- 
- 		write_unlock_irq(&gpc->lock);
-@@ -224,7 +224,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
- 		 * attempting to refresh.
- 		 */
- 		WARN_ON_ONCE(gpc->valid);
--	} while (mmu_notifier_retry_cache(gpc->kvm, mmu_seq));
-+	} while (mmu_notifier_retry_cache(gpc->kvm, gpc_seq));
- 
- 	gpc->valid = true;
- 	gpc->pfn = new_pfn;
+ 	video_unregister_device(dev->vfd_enc);
+ 	video_unregister_device(dev->vfd_dec);
 -- 
 2.53.0
 
