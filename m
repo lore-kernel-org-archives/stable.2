@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793836281;
-	b=C6mnR3GEpENTZXzf5JVNuOzielJPXDiF8tbottGWNtaTD2ogeNIviw7sqvDXULmq7Dnn
-	 bai3vII3HCSE0JZi+uExLLwX41mPSuGEiG3Uh0cy2Hirr940H6y2EcvUiihfTCNvHSnJt
-	 Ns0EuvkyBmlYYMKNHrwPxmIWi6iRS3jZ8kXVlPfxi+7+Q76lvCRsj1XAnqswMhfufdDHw
-	 Ct8llqbZ5iUMinarONTEcpC1G6UbSdVZ7va1rcCFa3Mgl2uh0lBnt+Syl4y7CCfsAOBQe
-	 xXw1sgsJgvAo7Z1rR+sbdC0/kZkxKj79yhYnYkgTqXLTdiZGBCKUNDaoaWRlYrBhmbw==
+	t=1793836291;
+	b=GfjJ6zNvSLej6i9QaGg1aBVqCgkAie0ODdrPblwjkaMFO4Z+JW6HUA+bNn3GCtIyDUfY
+	 QImTQLKF+qepNFhJz9rJM3XYNL0GP+c4Mf7RXyt5rx8Iaq3um7d+o5p6zHhGrcCRf+xvX
+	 ZALExq1tAZ6UcN6PUCOyA4vyjngdxdclVhlYBEU1q6kKOIS/7z8K2JOjjV8tAPQon38CO
+	 58xNS1qJkw0PptwE6BpwDCE50d6bavfUyXjOiwTy8CIarVQcg3l2pvhffREZ1Z+B8475M
+	 xmR3P3ilpCg/Men28xuib30ElGO/+bR4wS7TJIpGBYrwpQbEkt4mXddqUMXT7Zgt20w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793836281;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793836291;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=By49OjL5Kc6sEndYRi/FBlyKkbEPbOohPjlM3mSw1j4=;
-	b=v72YbxWuUe06qorbJYH5sNVX8bBuInEb2YeTQw6iVpG3ga+UGx/Eo9mrFThxBHGT4o10
-	 ZhZ9peru6Gih1Dh6w4DXO/jetf1T4qmzP/3tsYdeT+pq0PasBPqbA6Ff22uyGhjWeUctG
-	 lf1927PUYpEQ415Y0fhoL91RIN/yqjfCVq/F6zfjX69ui/ztOlCXvPmbCFaG29s+QpDY4
-	 yigxSE0vjI1zuf2b1p9aryNPqkd5YA2DVlfgRJNnO9TeMBM/OQdVGiKUOl0SaG3F2pzNX
-	 rknMHizG8dvP+m6XEtkJwXWq0IpBNAPQ71jnZod+EOMYmIWpJBHsRrRztN/xGaawIQw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=k6AIvHyxHD6z4NIUXg+gGWRQd6y0g1u8wvVGNnyj+4I=;
+	b=Yyyr/jEMM7skopSUmTq19SFkcBGwpSDyMjGDH1napGaEfbGL4gi2BpvavsVs7Ma2OsGq
+	 wb8kXKHYb+nWMkcXVgfdDNxzHq8eVUFzhC2+/SXRLchrLSfPn1rxDjfPNXYeAL1fsow1/
+	 Snkm7bXST81QYLV+qVTNyQztEOaL7ZvZ/+gPu3YBab3RxRcDdPmwgfX4odBzlwFQiKATe
+	 tJWezMuM7fapHf/eqoZqMRL9KGfWSWQVL6w90FtP7UBUfbK6Z0H+94XZiiSDXZsme+ssz
+	 qe0M7pMhh4mHwRApu8OwE7q4MCtTyoRTvPWgiKqJHz2z+KqASj2a1qSlq2swsokEQTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gh0PtVFZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCsLPFMT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC09606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:51:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA68606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:51:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gh0PtVFZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16FE61F0093A;
-	Wed,  4 Nov 2026 23:51:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCsLPFMT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 046F41F000C1;
+	Wed,  4 Nov 2026 23:51:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793836280;
-	bh=By49OjL5Kc6sEndYRi/FBlyKkbEPbOohPjlM3mSw1j4=;
+	s=k20260515; t=1793836290;
+	bh=k6AIvHyxHD6z4NIUXg+gGWRQd6y0g1u8wvVGNnyj+4I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Gh0PtVFZChPfW7pTVQuLhfMqMDJBuUi2SrzY9Ah+bYQtYZvdTxUezYRd8VhgYIyvS
-	 JsUUgAMcMGWo1twD3z2+H+4dx0TBZdYya3pENWS4yFR4OO36l28AVsotQrWjTBRCw2
-	 yxd/L0P9HKmLZVH/H8VzLdIeoIhpM+WL0gpGFIHfMn/7uNR/j68GSjnFw/CxBBwK25
-	 6WcXM2VrXbVvtE6yCfm7i7DODZr/x0OUVxnCk+0C2BfOD65J7aXVXJSnMSCimKjq5C
-	 gHC1Ii4KuO6nFKPO56IIgjJMFzIzCkLbMiY1tid5rGdwmdEneGauk44v2YqxS84I6H
-	 xwrnS/Y70Wzhg==
+	b=DCsLPFMTnUXGCUuHALQOgcLt7WnKXD3pjNAwSlItf/tG2p2+RkHX4ThOuqaLotBNa
+	 NqYSmhQW6pn1YWucqU1X8/MgvWR2WnFffNVbsWBffpSl2Do3K1GvN3aF+RwqTSUDJR
+	 IW0em2CJ9barXZGJWlFcSSTCGW/1qZrHCTuJoQy/+vzO11PQhbPgLL5HnAVKch+kUH
+	 fE8r+QbAY5oTBRcRw93ET6DAFYvOVJ7G9tc87Ebu9qvy8J/oMVjaU13N6Kpqbo04g0
+	 IYaSq9HcgkXDjJkME0r8kL5d6kiOTzlWk4ylMvoo+2SkRrBmtZNDrlnNa1J9QJ4JJA
+	 2a2Ys8DT3ey2A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yuchao Zhang <ndaugoing@gmail.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger@xenproject.org>,
-	Juergen Gross <jgross@suse.com>,
+Cc: David Woodhouse <dwmw@amazon.co.uk>,
+	Sean Christopherson <seanjc@google.com>,
+	syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com,
+	syzbot+fb7c2dd166d3ea63df2a@syzkaller.appspotmail.com,
+	Paul Durrant <paul@xen.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] xen-blkfront: unbind irq before tearing down ring and shadow requests
-Date: Wed,  4 Nov 2026 18:51:18 -0500
-Message-ID: <20261104235104.933465-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] KVM: pfncache: use a dedicated invalidation sequence for cache refresh
+Date: Wed,  4 Nov 2026 18:51:28 -0500
+Message-ID: <20261104235105.929254-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110402-division-regulate-7540@gregkh>
-References: <2026110402-division-regulate-7540@gregkh>
+In-Reply-To: <2026110446-submerge-emission-a419@gregkh>
+References: <2026110446-submerge-emission-a419@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,75 +63,179 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yuchao Zhang <ndaugoing@gmail.com>
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-[ Upstream commit f3e27b7955727a4d7c0e9264a2a209fbba788bdc ]
+[ Upstream commit da260bcb56feeb6489a83f310308453a0a7de25e ]
 
-In blkif_free_ring(), the driver tears down the ring's persistent grants,
-shadow request arrays, and shared ring structure (xenbus_teardown_ring),
-and only calls unbind_from_irqhandler() at the very end.
+The gfn_to_pfn_cache refresh path guards against mmu notifier
+invalidations which complete while it has dropped gpc->lock for the
+HVA->PFN lookup: hva_to_pfn_retry() samples kvm->mmu_invalidate_seq
+and retries if it changed, or if mn_active_invalidate_count is still
+elevated.
 
-While blkif_free_ring() is freeing persistent grants and clearing the
-shadow array, the event channel interrupt (blkif_interrupt) is still
-registered and active.  If an interrupt arrives from the backend during
-this teardown window, blkif_interrupt() reads rinfo->ring.sring and,
-via blkif_completion(), accesses rinfo->shadow[id].grants_used and
-rinfo->shadow[id].sg.  blkif_free_ring() tears these structures down
-without holding rinfo->ring_lock, and the handler only checks
-info->connected at entry, so this is a real race resulting in a
-use-after-free or NULL pointer dereference.
+That is insufficient for HVA-based caches. mmu_invalidate_seq is only
+advanced by kvm_mmu_invalidate_end() when the invalidated range
+overlaps a memslot, and an HVA-based cache (e.g. the Xen shared_info
+page mapped with KVM_XEN_ATTR_TYPE_SHARED_INFO_HVA) need not be backed
+by any memslot at all. An invalidation of the cached HVA which starts
+and ends entirely within the lookup window is thus invisible to the
+retry check: mn_active_invalidate_count is back to zero and the
+sequence never moved. The refresh then publishes a mapping of a page
+which has already been freed, and the next reader dereferences it:
 
-Fix this by moving unbind_from_irqhandler() to the beginning of
-blkif_free_ring().  Calling unbind_from_irqhandler() first frees the
-IRQ and synchronizes with any in-flight interrupt handlers on other CPUs
-before ring memory and shadow request structures are deallocated,
-matching the teardown order in drivers/net/xen-netfront.c.
+  BUG: KASAN: use-after-free in kvm_xen_shared_info_init+0x3c6/0x440
+  Read of size 4 at addr ffff8880599c2900 by task syz.2.383/7257
 
-Fixes: 11659569f720 ("xen/blkfront: split per device io_lock")
+Since gfn_to_pfn_cache_invalidate_start() deliberately skips caches
+which are not currently valid (including one whose refresh is in
+progress, as the refresh clears the valid flag before dropping the
+lock), the retry check is the only line of defence, and it must fire
+for *any* invalidation, not just those hitting a memslot.
+
+Add a dedicated kvm->gpc_invalidate_seq, incremented by every
+kvm_mmu_notifier_invalidate_range_end() under mn_invalidate_lock
+before mn_active_invalidate_count is decremented, and check it in
+hva_to_pfn_retry() instead of mmu_invalidate_seq. Incrementing in
+range_end() in the same critical section as the in-progress count
+also closes the variant where the cache is activated with the
+contested HVA only after invalidate_range_start() has run.
+
+The same bug is also reachable through the per-vCPU vcpu_info cache
+(KVM_XEN_VCPU_ATTR_TYPE_VCPU_INFO_HVA), where the stale mapping is
+then dereferenced by kvm_setup_guest_pvclock() on the next KVM_RUN:
+
+  BUG: KASAN: use-after-free in kvm_setup_guest_pvclock+0x5bf/0x660
+
+This intentionally makes refresh retry on *unrelated* mmu notifier
+events; restoring precision (and reworking the GPC locking more
+generally) is left for a subsequent series.
+
+Reproducers: https://david.woodhou.se/xen_shinfo_race.c
+             https://david.woodhou.se/vcpu_info_race.c
+
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Reported-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6a0c5f2c.a00a0220.2c7954.0000.GAE@google.com/
+Tested-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
+Reported-by: syzbot+fb7c2dd166d3ea63df2a@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6a426dd2.854d4ab9.360e1d.0008.GAE@google.com/
+Fixes: b9220d32799a ("KVM: x86/xen: allow shared_info to be mapped by fixed HVA")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
-Acked-by: Roger Pau Monné <roger@xenproject.org>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20260922072155.34625-1-ndaugoing@gmail.com>
-[ sashal: Adjusted context to preserve direct grant and memory cleanup where upstream uses xenbus_teardown_ring(). ]
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Assisted-by: Claude:claude-mythos-5
+Reviewed-by: Paul Durrant <paul@xen.org>
+Link: https://patch.msgid.link/20260831213632.81023-13-dwmw2@infradead.org
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[ sashal: adjusted context to preserve the CONFIG_KVM_GENERIC_MMU_NOTIFIER guard and existing hva_to_pfn() implementation ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/block/xen-blkfront.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ include/linux/kvm_host.h |  2 ++
+ virt/kvm/kvm_main.c      | 10 ++++++++++
+ virt/kvm/pfncache.c      | 18 +++++++++---------
+ 3 files changed, 21 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-index 831747ba8113c..02dc4a67ac82f 100644
---- a/drivers/block/xen-blkfront.c
-+++ b/drivers/block/xen-blkfront.c
-@@ -1215,6 +1215,14 @@ static void blkif_free_ring(struct blkfront_ring_info *rinfo)
- 	struct blkfront_info *info = rinfo->dev_info;
- 	int i, j, segs;
- 
-+	/*
-+	 * Interrupt teardown must be done ahead of freeing queue-related
-+	 * data, otherwise the interrupt handler can race with the cleanup.
-+	 */
-+	if (rinfo->irq)
-+		unbind_from_irqhandler(rinfo->irq, rinfo);
-+	rinfo->evtchn = rinfo->irq = 0;
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index 2b7068685ff2a..eeaf3d893398d 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -846,6 +846,8 @@ struct kvm {
+ 	long mmu_invalidate_in_progress;
+ 	gfn_t mmu_invalidate_range_start;
+ 	gfn_t mmu_invalidate_range_end;
 +
- 	/*
- 	 * Remove indirect pages, this only happens when using indirect
- 	 * descriptors but not persistent grants
-@@ -1304,10 +1312,6 @@ static void blkif_free_ring(struct blkfront_ring_info *rinfo)
- 	free_pages_exact(rinfo->ring.sring,
- 			 info->nr_ring_pages * XEN_PAGE_SIZE);
- 	rinfo->ring.sring = NULL;
--
--	if (rinfo->irq)
--		unbind_from_irqhandler(rinfo->irq, rinfo);
--	rinfo->evtchn = rinfo->irq = 0;
++	unsigned long gpc_invalidate_seq;
+ #endif
+ 	struct list_head devices;
+ 	u64 manual_dirty_log_protect;
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 7debedc1ddaae..b73f22729a1e0 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -847,6 +847,16 @@ static void kvm_mmu_notifier_invalidate_range_end(struct mmu_notifier *mn,
+ 
+ 	/* Pairs with the increment in range_start(). */
+ 	spin_lock(&kvm->mn_invalidate_lock);
++	kvm->gpc_invalidate_seq++;
++
++	/*
++	 * As with the MMU sequence counter and mmu_invalidate_in_progress, the
++	 * GPC sequence increase must be visible before the invalidate count
++	 * goes to zero.  Pairs with the smp_rmb() in
++	 * mmu_notifier_retry_cache().
++	 */
++	smp_wmb();
++
+ 	if (!WARN_ON_ONCE(!kvm->mn_active_invalidate_count))
+ 		--kvm->mn_active_invalidate_count;
+ 	wake = !kvm->mn_active_invalidate_count;
+diff --git a/virt/kvm/pfncache.c b/virt/kvm/pfncache.c
+index f0039efb9e1e3..73532d071d02c 100644
+--- a/virt/kvm/pfncache.c
++++ b/virt/kvm/pfncache.c
+@@ -124,7 +124,7 @@ static void gpc_unmap(kvm_pfn_t pfn, void *khva)
+ #endif
  }
  
- static void blkif_free(struct blkfront_info *info, int suspend)
+-static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long mmu_seq)
++static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long gpc_seq)
+ {
+ 	/*
+ 	 * mn_active_invalidate_count acts for all intents and purposes
+@@ -136,20 +136,20 @@ static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long mmu_s
+ 	 * Note, it does not matter that mn_active_invalidate_count
+ 	 * is not protected by gpc->lock.  It is guaranteed to
+ 	 * be elevated before the mmu_notifier acquires gpc->lock, and
+-	 * isn't dropped until after mmu_invalidate_seq is updated.
++	 * isn't dropped until after gpc_invalidate_seq is updated.
+ 	 */
+ 	if (kvm->mn_active_invalidate_count)
+ 		return true;
+ 
+ 	/*
+ 	 * Ensure mn_active_invalidate_count is read before
+-	 * mmu_invalidate_seq.  This pairs with the smp_wmb() in
+-	 * mmu_notifier_invalidate_range_end() to guarantee either the
++	 * gpc_invalidate_seq.  This pairs with the smp_wmb() in
++	 * kvm_mmu_notifier_invalidate_range_end() to guarantee either the
+ 	 * old (non-zero) value of mn_active_invalidate_count or the
+-	 * new (incremented) value of mmu_invalidate_seq is observed.
++	 * new (incremented) value of gpc_invalidate_seq is observed.
+ 	 */
+ 	smp_rmb();
+-	return kvm->mmu_invalidate_seq != mmu_seq;
++	return kvm->gpc_invalidate_seq != gpc_seq;
+ }
+ 
+ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
+@@ -158,7 +158,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
+ 	void *old_khva = (void *)PAGE_ALIGN_DOWN((uintptr_t)gpc->khva);
+ 	kvm_pfn_t new_pfn = KVM_PFN_ERR_FAULT;
+ 	void *new_khva = NULL;
+-	unsigned long mmu_seq;
++	unsigned long gpc_seq;
+ 
+ 	lockdep_assert_held(&gpc->refresh_lock);
+ 
+@@ -172,7 +172,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
+ 	gpc->valid = false;
+ 
+ 	do {
+-		mmu_seq = gpc->kvm->mmu_invalidate_seq;
++		gpc_seq = gpc->kvm->gpc_invalidate_seq;
+ 		smp_rmb();
+ 
+ 		write_unlock_irq(&gpc->lock);
+@@ -224,7 +224,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
+ 		 * attempting to refresh.
+ 		 */
+ 		WARN_ON_ONCE(gpc->valid);
+-	} while (mmu_notifier_retry_cache(gpc->kvm, mmu_seq));
++	} while (mmu_notifier_retry_cache(gpc->kvm, gpc_seq));
+ 
+ 	gpc->valid = true;
+ 	gpc->pfn = new_pfn;
 -- 
 2.53.0
 
