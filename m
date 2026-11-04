@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827213;
-	b=bwqlmdzUECjGkKutaeIwcF7vXi9dInLLYJP71XxfVD42ZyHhfEYq8z2eJKSBr2Hw8Zyw
-	 dCywoekxELiOMd6Jkx2l+kBkL326nmVDtCV1j7Oe8Ys8XA1d630YbiznetZaAPPS+ZzZz
-	 eUb3Lju1bJOXiuSbirTeqdsC/UbJHzu+Z0PipUnMHR9IL1dye4bPph/9VFaAr6m7Anp7Q
-	 ZTn8B4ZlhjvENTCdDVG9TOr7aK2gGRreN8rQNbBic14zAyG5OYRwZbdDq7aV6qc3nUjiw
-	 nk/ye6C82OAZS+lfX0aGiWLVQAEoDhbaUZPNiRV6Fzu5+KwYF63vv6bLB7RjWA892fg==
+	t=1793827216;
+	b=dg082xJLh/Ws063tNxcERoBNbk9EoAth0eU0GnlexNmLcAk1iwTBK5z/SJOsqYkIxpiP
+	 7VbUB9PoF4b83y2UGJihHzjTqKqYMSs8Wmn6zzSXAi+i4k6pJ3KUNfy1S9eH+WSxbyCU4
+	 yqsODj1Cem10uuq21rZgd4jVCa3txPtcXYrdUY3ygyRydJclLO2AQVlpkt8Ri+G6kIiYN
+	 56hCfyEkLKRDrS1gX5FM6HS0qs/Ll3DG5thVmDXsLL68QplGyerXUoKuq4gXMsIt8k6nu
+	 Gg9/kPfmcTd90gIsm4jpKwV6Jr1o6ddkUc1io8bwTkcfVNLFKK8pLprRWXdy/h+L/SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827213;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827216;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=2eqlUlaf1ZvZZnhYb1z9PWaTglAJQzvtRSGVmdkpUGo=;
-	b=3l+Cs6Q0x1XFVyWLwFQdH6b/z1RCK5jQudT67CtN7z/7UHyWQtGZl0QoK9tRnWMKYfRZ
-	 wQ4FcyhFoJjxW8nFclCuPDEAOTDfnogJPWLQjs9X/crC6ndQebPnXymhiRiNhYKztsv1g
-	 nk9FpRJxwvKavdZ9P3q1woQn6khorjbXgBti+RUt/TPOOde5ZHYSExnBmtGT9JdMyNiPM
-	 Jm8oJVIQ1Rw5lcJNBu2DUpIOQrzO1gj+2mEFWDKnWIWJ8rGGQAQpAqFXhy+YDJb1qwG/+
-	 9dtkcZ15pzqXe3OIlSaeQf86OZl5OpXuVCVcoWD7MnBOTakbMrVGahctLVjmp0OVRVA==
+	bh=15gY3vpODUe7OD34w8lpAMx5vIrX2MVMyW2gmEoOtSA=;
+	b=v5RPS0JSVnImJ3iRMaNssxiiqBN7Coz9QGJ2IvxLU976+ku4y31HXyHtKonChQ5XKO3J
+	 f2Ck+xNFEU8O4FeK3T80xsUF79JvJ0xTtXfC8gJKjzRg60Jzm5e3sK3OrrKo0xPpxOjXH
+	 OszxnBPfw74BjY7cEQ1Kf+B7HW3LQ68tg4BVrSzwBxy1CMLFe0uSups+GGqQ14kweiq2V
+	 llFwkam7DVy7y2MyBmetxMWLk71O6XM+HBpbtiV2hud/EYLxzopnalM1++XFtGm1tJbkY
+	 LHz98dUYNjPOYsIFW8gWPiJhuxWW+ZELvrnfHRT3WCf6oKUf25qi4EBRGaKjTmLbibw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=142FVKC2;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=X6YyTpVc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C284F608C9A1;
-	Wed,  4 Nov 2026 21:20:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECFC4608C9B5;
+	Wed,  4 Nov 2026 21:20:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=142FVKC2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BF671F000C1;
-	Wed,  4 Nov 2026 21:20:12 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=X6YyTpVc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 763BF1F000C1;
+	Wed,  4 Nov 2026 21:20:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793827212;
-	bh=2eqlUlaf1ZvZZnhYb1z9PWaTglAJQzvtRSGVmdkpUGo=;
+	s=korg; t=1793827215;
+	bh=15gY3vpODUe7OD34w8lpAMx5vIrX2MVMyW2gmEoOtSA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=142FVKC2g6jL1qzyEECjXGJN+MNEhOpII7n9ZD5TjwO7DKedaOWGtrfws0y1wZGjw
-	 5YhO1tM7uQzHmLr5luyEAe5yfD1LBGiZcsZFQFIuCDIlBFCOuBisO83E+1BYhhfLts
-	 ANs5krqQaNsSIxplKune2hVD78xxDjGZXctmxIYw=
+	b=X6YyTpVcpUGOQAymBzs6k/xGrPzPTMdpq0hc2byIH1V0DISBMp1ujc9T/5Rsp7tGn
+	 wncGUwCXmKdl2UZf1rwDf1MPmfZJw8VmvxseogYx77jK3VwB7OUJUPNVwAgFW778/B
+	 zosp1SThyn1/01WsZdn6LoTRGDegCHcO81UiC0yk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Dmitry Sinyavin <sinyavin@gmail.com>,
-	Janne Grunau <j@jannau.net>,
-	Srinivas Kandagatla <srini@kernel.org>
-Subject: [PATCH 7.3 260/547] nvmem: core: Fix OOB read for bit offsets of more than one byte
-Date: Wed,  4 Nov 2026 16:07:24 -0500
-Message-ID: <20261104211045.575636078@linuxfoundation.org>
+	Ijae Kim <ae878000@gmail.com>,
+	Myeonghun Pak <mhun512@gmail.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: [PATCH 7.3 225/547] media: cx23885: unregister DVB bus when SP2 CI setup fails
+Date: Wed,  4 Nov 2026 16:06:49 -0500
+Message-ID: <20261104211044.548174428@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -68,47 +68,85 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Janne Grunau <j@jannau.net>
+From: Myeonghun Pak <mhun512@gmail.com>
 
-commit 24530401e8001aaa637dd5007fcdc6fbc00300be upstream.
+commit 22f552ff726a82a086be4ef02ce5099a0e8624b6 upstream.
 
-When the bit offset is BITS_PER_BYTE or larger the read position is
-advanced by `bytes_offset`. This is not taken into account in the
-per-byte read loop which still reads `cell->bytes` resulting in an out of
-bounds read of `bytes_offset` bytes. The information read OOB does not
-leak directly as the erroneously read bits are cleared.
+The DVBSKY S950C, DVBSKY T980C and TechnoTrend CT2-4500 CI paths register
+the DVB bus before attaching their SP2 CI client. If that client cannot be
+created, bound, or pinned, the current error path removes the I2C frontend
+components and only deallocates the frontend list, leaving the registered
+DVB adapter behind. Removing an I2C demod before unregistering the DVB bus
+can also expose the use-after-free ordering fixed for the normal remove
+path.
 
-Detected by KASAN while looking for a use-after-free in simplefb.c.
+Unregister the DVB bus immediately when SP2 CI setup fails, before the
+existing I2C client cleanup. The bus helper empties the frontend list, so
+the later frontend deallocation has nothing left to release. Keep failures
+from vb2_dvb_register_bus() on the existing cleanup path. Also release an
+unbound SP2 client and propagate the actual I2C creation or CI registration
+error.
 
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
+
+Fixes: 2b0aac3011bc ("[media] cx23885: move CI/MAC registration to a separate function")
 Cc: stable@vger.kernel.org
-Fixes: 7a06ef751077 ("nvmem: core: fix bit offsets of more than one byte")
-Tested-by: Dmitry Sinyavin <sinyavin@gmail.com>
-Signed-off-by: Janne Grunau <j@jannau.net>
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20261002101329.1084348-5-srini@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Assisted-by: OpenAI:GPT-5.6
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/nvmem/core.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/media/pci/cx23885/cx23885-dvb.c |   14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
---- a/drivers/nvmem/core.c
-+++ b/drivers/nvmem/core.c
-@@ -1598,12 +1598,14 @@ static void nvmem_shift_read_buffer_in_p
- 		*p = *b++ >> bit_offset;
+--- a/drivers/media/pci/cx23885/cx23885-dvb.c
++++ b/drivers/media/pci/cx23885/cx23885-dvb.c
+@@ -1158,8 +1158,12 @@ static int dvb_register_ci_mac(struct cx
+ 		info.platform_data = &sp2_config;
+ 		request_module(info.type);
+ 		client_ci = i2c_new_client_device(&i2c_bus->i2c_adap, &info);
+-		if (!i2c_client_has_driver(client_ci))
++		if (IS_ERR(client_ci))
++			return PTR_ERR(client_ci);
++		if (!client_ci->dev.driver) {
++			i2c_unregister_device(client_ci);
+ 			return -ENODEV;
++		}
+ 		if (!try_module_get(client_ci->dev.driver->owner)) {
+ 			i2c_unregister_device(client_ci);
+ 			return -ENODEV;
+@@ -1202,7 +1206,7 @@ static int dvb_register(struct cx23885_t
+ 	int (*p_set_voltage)(struct dvb_frontend *fe,
+ 			     enum fe_sec_voltage voltage) = NULL;
+ 	int mfe_shared = 0; /* bus not shared by default */
+-	int ret;
++	int ret = -EINVAL;
  
- 		/* setup rest of the bytes if any */
--		for (i = 1; i < cell->bytes; i++) {
-+		for (i = 1; i < (cell->bytes - bytes_offset); i++) {
- 			/* Get bits from next byte and shift them towards msb */
- 			*p++ |= *b << (BITS_PER_BYTE - bit_offset);
+ 	/* Get the first frontend */
+ 	fe0 = vb2_dvb_get_frontend(&port->frontends, 1);
+@@ -2586,8 +2590,10 @@ static int dvb_register(struct cx23885_t
+ 		goto frontend_detach;
  
- 			*p = *b++ >> bit_offset;
- 		}
-+		/* point to end of the buffer unused bits will be cleared */
-+		p = buf + cell->bytes - 1;
- 	} else if (p != b) {
- 		memmove(p, b, cell->bytes - bytes_offset);
- 		p += cell->bytes - 1;
+ 	ret = dvb_register_ci_mac(port);
+-	if (ret)
++	if (ret) {
++		vb2_dvb_unregister_bus(&port->frontends);
+ 		goto frontend_detach;
++	}
+ 
+ 	return 0;
+ 
+@@ -2618,7 +2624,7 @@ frontend_detach:
+ 
+ 	port->gate_ctrl = NULL;
+ 	vb2_dvb_dealloc_frontends(&port->frontends);
+-	return -EINVAL;
++	return ret;
+ }
+ 
+ int cx23885_dvb_register(struct cx23885_tsport *port)
 
 
