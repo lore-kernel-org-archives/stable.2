@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793836005;
-	b=IJFFRU43rrCo0bBJiSjr40kDXR3648XE+RJxljPO6/nvxnEQ2+lnuQQ7uPbFQ0wneojQ
-	 Y4T5Ot27G5NYXxiJJMHbvg2lMIjjeWfTCTrzmaVk9r2EoCzFnKu+meT6d2RvS8UICCMdA
-	 WPlZTfuiJxoVkYRJlwxKX0t/nvFbVnf1CzljI55pJoqYt9cFpmpPpMNo6SL0qQz14LNDc
-	 vi8cP7jhWZyQEnTDFvOrsaOBYOipJvO1GknRow0kTD9DZQxJ4gbmdMWJxN+ypybS17Pru
-	 WyNawSDISltBLeheDgoRctIzrXJZnvh0V4PtIFqkbREAKC2e6pe9I43NaHQf8j7dSQQ==
+	t=1793836011;
+	b=zRvHo6X7xA4ZvDCvREc6FdV0u+nhbOUsRrVbjN+/G/lVPE79DoxHyIDS/d7m7D/GkKiA
+	 +ULe+KBcI8rj2UxL2/0e5+6kTUXOpU1m2Gjb+xDWR+pY8oQFUffW318uxLdDxRnu/Qt93
+	 +rA/8+UK/QMzTL1fw2hEM1aJZPEzHw7at0TH10/HCofBnLI2mlo+zHfuYWrKFbNOX+VHV
+	 Evl2jYiq74cnaWwMn2zTry+ac5krmnC/bZTmyjrhTpBHqLyKiB9XrTO/msIu3+dbPX+vr
+	 yKhd9EI2iFvyaSSgHuxO2yZ0rQ8u98TwTUMxsQF2IUSiXieWTulskphfnua1EQ3qR4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793836005;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793836011;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6e2BydUkhErauFs848R7eef9kvwIdSIObZdXSJmz2uA=;
-	b=zcnXW5T8xahQm22V4AxM6iY7/qoKtjIIgCQUbbc863cHhQsu4u3hCqvZKyeGkv2j3Sv6
-	 f7ZQC04afDrwtwUZqeFRgUjM+zWBueJvebIQOjjGuDdwm16jF8V+9A0wDDNNFplOMZO7E
-	 exNM5vaTulbiAygbnV2fdWfvMwZUtvy4duu1j+OdpHJn5nv1vkFjiwDG4pwpR2ORgaTo3
-	 5ugawDdaWQis3prU+M0RBEtrlVssgxG3MM4NMSvD8Fe4+zd/axvq2A0OnP4yMC7LJj1co
-	 YIoPDbtByyRYAViaxdg1sfPiZGXolRgpuhmxfjYTwIQ5j1/NEGbKNSU44ltxGzI1EzQ==
+	bh=59z3hyIrDVF05gcn5ObtBN19eD0iiIezfodWuj5Z1Cw=;
+	b=qbjRq237LVTWgt0CcqbfwjTgTO8O7hgeGfbY4JTU3PHnTWPXKfaPHKLTXn3UMPBhPRgf
+	 HGAQT3IyoEMC4oSt/1XY4ty4tf9PsCekTDRWcyVmPY5tfWi7Q3RcFXnAxC4RB/rkS1Ufp
+	 dmaOnj5t+LUbd9Cwo989BFUYYMT9ZKK59wbcaH+5irwiEj+x5NfAwM3k4Y84LA9b1uvkD
+	 MD7aVruvbqJ+1jsVLZlcGoEiPFY5tOYxGPFouV8wfdJIG7A/u7gTSPz/4LP5JxscCRjOB
+	 xqLhbtds9F8xleeoTq4TCvvnTkmV5BxlBI8DlQLnW6QCqK1UeoCeNFQsdnBrRp3t38w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQ6RV0tz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gjnR0HmT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992E9606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:46:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F433606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:46:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQ6RV0tz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE8F41F0093A;
-	Wed,  4 Nov 2026 23:46:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gjnR0HmT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5710C1F000C1;
+	Wed,  4 Nov 2026 23:46:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793836005;
-	bh=6e2BydUkhErauFs848R7eef9kvwIdSIObZdXSJmz2uA=;
+	s=k20260515; t=1793836002;
+	bh=59z3hyIrDVF05gcn5ObtBN19eD0iiIezfodWuj5Z1Cw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VQ6RV0tzQoYvI0xGKBVN1RNV7PDEX2XdRzGOz1IiFVJb0ekeI8hG5vFMMQ5Vs4mKB
-	 9F2TBG2SgT+ZlaAagfTsr/L3xsdi+nXqB0l3s2/Ytb92qi+ZjOSBJ7XKb5vwDcJy1p
-	 IDDYJzah6wk7t0J2+xxWaiiSJv8OGEEf0gV+aRLNEOpXnhrb7hprM6Rxzi3svm6UpN
-	 5M6CC8UKFvTGVgWM2iKuZvUA9RWAaov/IiCplLKid8vnhEIyS+FbAjwrEOSPoD8Zrm
-	 kkpbJHOQPhsIlUpVKmAh/s66WTmkT/kA5TmVWDJopE+vTOZU4XASKF0K+oHBe6j/V8
-	 FcvXCp24s+hkQ==
+	b=gjnR0HmTsw2jvOHBGSJ/nbxYW43qLYExLYNVnH/4T3X6q8SjT1ymxIY01eFMjPocv
+	 S65Cdjjlb/TTRMQQA/knN7TuUS6xwrbgdgDsv2eRz3E0hsaIbBcPhEOrwC8hD2pbId
+	 3YkkDQGAG2W3BvUNonv8Nbl6J5Z6Cmw9AMkQRUGcCfMJUqfl6BHE94nQo+D+QodJZz
+	 XoKZW9FIDrMeP+yPsPiOoAxUYS49//hjnzwi7L+bsGMut2JW0XsSuUI9fRpJzIOPyg
+	 u2eoYJN+4m6p833H4wP/bTSJJugiP7jjA3ZuPjVb9KlE16J0AKHwcYXshxE4v/2ad1
+	 rN5VYt+7zC9kw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhao Li <enderaoelyther@gmail.com>,
-	Felix Fietkau <nbd@nbd.name>,
+Cc: Richard Patel <ripatel@wii.dev>,
+	Thomas Gleixner <tglx@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] wifi: mt76: mt7996: unlink TWT flow if the MCU rejects the agreement
-Date: Wed,  4 Nov 2026 18:46:43 -0500
-Message-ID: <20261104234540.934421-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] genirq: Defer kfree(irqaction) until irq_thread_dtor() finishes
+Date: Wed,  4 Nov 2026 18:46:41 -0500
+Message-ID: <20261104234540.889354-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110425-drowsily-humbly-15e5@gregkh>
-References: <2026110425-drowsily-humbly-15e5@gregkh>
+In-Reply-To: <2026110452-king-quizzical-51bf@gregkh>
+References: <2026110452-king-quizzical-51bf@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,57 +61,158 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhao Li <enderaoelyther@gmail.com>
+From: Richard Patel <ripatel@wii.dev>
 
-[ Upstream commit 022f5f8b7a0580da50fcbc34da853d03d4321fe2 ]
+[ Upstream commit d04adff6860587e843948b0c31174f8ae11b8dfe ]
 
-mt7996_mac_add_twt_setup() links a new flow into dev->twt_list before
-asking the MCU to add the agreement, but exits without unlinking the flow
-if the request fails. The flow-ID and table masks are only committed
-after MCU success, so the still-linked flow is invisible to the
-mask-gated teardown paths.
+When an interrupt thread exits abnormally via do_exit() (e.g. the interrupt
+handler oopses) without returning from irq_thread(), a concurrent call to
+free_irq() could free the irqaction before the irq_thread_dtor() exit task
+work runs.
 
-If the station retries the setup, the same slot is cleared and its
-embedded list node reinitialized while it is still linked, corrupting
-dev->twt_list. If the station disassociates instead, teardown skips the
-flow and station storage can be freed while the node remains linked. A
-later scheduling or debugfs twt_stats walk can then dereference the
-freed flow, resulting in a use-after-free.
+  irq thread (oopsed)                 free_irq()
+  -------------------                 ----------
+  do_exit()
+    exit_mm()
+      complete_vfork_done()  -------> kthread_stop() returns
+    exit_files() ...                  kfree(action)
+    exit_task_work()
+      irq_thread_dtor()
+        action->...                   <- use-after-free
 
-Unlink the flow when the MCU rejects the agreement. This restores the
-list to its pre-request state while leaving the unchanged mask and
-agreement accounting untouched.
+Track the pending exit work with the IRQTF_EXIT_WORK thread flag, and have
+__free_irq() wait for the bit to clear before kfree().
 
-Fixes: 98686cd21624 ("wifi: mt76: mt7996: add driver for MediaTek Wi-Fi 7 (802.11be) devices")
+irq_thread_dtor() only runs on irq_thread abnormal exit. If that dtor also
+faults, free_irq() will hang indefinitely, but double IRQ thread faults
+require a reboot anyways.
+
+[ tglx: Add missing include ]
+
+Fixes: ed3e694d78cc ("move exit_task_work() past exit_files() et.al.")
+Signed-off-by: Richard Patel <ripatel@wii.dev>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260729173632.14387-3-enderaoelyther@gmail.com/
-Assisted-by: Codex:gpt-5.6-sol
-Assisted-by: Kimi:K3
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-Link: https://patch.msgid.link/20260825112620.97568-1-enderaoelyther@gmail.com
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
-[ sashal: Changed the MCU helper argument from &msta->vif->deflink to msta->vif to match the existing interface. ]
+Link: https://patch.msgid.link/20261009145842.1616117-2-ripatel@wii.dev
+[ sashal: Replaced kthread_stop_put() with separate kthread_stop() and put_task_struct() calls. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/mediatek/mt76/mt7996/mac.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ kernel/irq/internals.h |  2 ++
+ kernel/irq/manage.c    | 32 ++++++++++++++++++++++----------
+ 2 files changed, 24 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c b/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
-index 89d8a22e967c3..5b12f152b0acb 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
-@@ -2654,8 +2654,10 @@ void mt7996_mac_add_twt_setup(struct ieee80211_hw *hw,
+diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
+index da1f282d5a1d1..e9531706a91ae 100644
+--- a/kernel/irq/internals.h
++++ b/kernel/irq/internals.h
+@@ -30,6 +30,7 @@ extern struct irqaction chained_action;
+  * IRQTF_AFFINITY  - irq thread is requested to adjust affinity
+  * IRQTF_FORCED_THREAD  - irq action is force threaded
+  * IRQTF_READY     - signals that irq thread is ready
++ * IRQTF_EXIT_WORK - irq thread exit task_work is pending
+  */
+ enum {
+ 	IRQTF_RUNTHREAD,
+@@ -37,6 +38,7 @@ enum {
+ 	IRQTF_AFFINITY,
+ 	IRQTF_FORCED_THREAD,
+ 	IRQTF_READY,
++	IRQTF_EXIT_WORK,
+ };
+ 
+ /*
+diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
+index ce0433446a8ed..87f8ed44ca870 100644
+--- a/kernel/irq/manage.c
++++ b/kernel/irq/manage.c
+@@ -21,6 +21,7 @@
+ #include <linux/sched/isolation.h>
+ #include <uapi/linux/sched/types.h>
+ #include <linux/task_work.h>
++#include <linux/wait_bit.h>
+ 
+ #include "internals.h"
+ 
+@@ -1224,17 +1225,14 @@ static void wake_threads_waitq(struct irq_desc *desc)
+ 		wake_up(&desc->wait_for_threads);
+ }
+ 
+-static void irq_thread_dtor(struct callback_head *unused)
++static void __irq_thread_dtor(struct irqaction *action)
+ {
+ 	struct task_struct *tsk = current;
+ 	struct irq_desc *desc;
+-	struct irqaction *action;
+ 
+ 	if (WARN_ON_ONCE(!(current->flags & PF_EXITING)))
+ 		return;
+ 
+-	action = kthread_data(tsk);
+-
+ 	pr_err("exiting task \"%s\" (%d) is an active IRQ thread (irq %d)\n",
+ 	       tsk->comm, tsk->pid, action->irq);
+ 
+@@ -1251,6 +1249,14 @@ static void irq_thread_dtor(struct callback_head *unused)
+ 	irq_finalize_oneshot(desc, action);
+ }
+ 
++static void irq_thread_dtor(struct callback_head *unused)
++{
++	struct irqaction *action = kthread_data(current);
++
++	__irq_thread_dtor(action);
++	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
++}
++
+ static void irq_wake_secondary(struct irq_desc *desc, struct irqaction *action)
+ {
+ 	struct irqaction *secondary = action->secondary;
+@@ -1307,6 +1313,7 @@ static int irq_thread(void *data)
+ 	else
+ 		handler_fn = irq_thread_fn;
+ 
++	set_bit(IRQTF_EXIT_WORK, &action->thread_flags);
+ 	init_task_work(&on_exit_work, irq_thread_dtor);
+ 	task_work_add(current, &on_exit_work, TWA_NONE);
+ 
+@@ -1331,6 +1338,7 @@ static int irq_thread(void *data)
+ 	 * oneshot mask bit can be set.
+ 	 */
+ 	task_work_cancel_func(current, irq_thread_dtor);
++	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
+ 	return 0;
+ }
+ 
+@@ -1867,6 +1875,13 @@ __setup_irq(unsigned int irq, struct irq_desc *desc, struct irqaction *new)
+ 	return ret;
+ }
+ 
++static void irq_stop_thread(struct irqaction *action)
++{
++	kthread_stop(action->thread);
++	put_task_struct(action->thread);
++	wait_on_bit(&action->thread_flags, IRQTF_EXIT_WORK, TASK_UNINTERRUPTIBLE);
++}
++
+ /*
+  * Internal function to unregister an irqaction - used to free
+  * regular and special interrupts that are part of the architecture.
+@@ -1971,12 +1986,9 @@ static struct irqaction *__free_irq(struct irq_desc *desc, void *dev_id)
+ 	 * the same bit to a newly requested action.
+ 	 */
+ 	if (action->thread) {
+-		kthread_stop(action->thread);
+-		put_task_struct(action->thread);
+-		if (action->secondary && action->secondary->thread) {
+-			kthread_stop(action->secondary->thread);
+-			put_task_struct(action->secondary->thread);
+-		}
++		irq_stop_thread(action);
++		if (action->secondary && action->secondary->thread)
++			irq_stop_thread(action->secondary);
  	}
- 	flow->tsf = le64_to_cpu(twt_agrt->twt);
  
--	if (mt7996_mcu_twt_agrt_update(dev, msta->vif, flow, MCU_TWT_AGRT_ADD))
-+	if (mt7996_mcu_twt_agrt_update(dev, msta->vif, flow, MCU_TWT_AGRT_ADD)) {
-+		list_del(&flow->list);
- 		goto unlock;
-+	}
- 
- 	setup_cmd = TWT_SETUP_CMD_ACCEPT;
- 	dev->twt.table_mask |= BIT(table_id);
+ 	/* Last action releases resources */
 -- 
 2.53.0
 
