@@ -1,75 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793791689;
-	b=YlxzKnu6HdMA3x/a8LD8WL0mO6ekrhC+12bUva6UyU4embqOgzO79PAwmMJID0S06792
-	 h+wjPf2TRLpGOHSkXDvS+vL6tg4kIjd4rGT9NSiIk/A7jLvDy903Mfj5s4ES6lwkMMlvq
-	 mKPmMxnkuN62FbUqQyxpcjGxhM16FqCbzytv+EoEpJ94huBKmMo4TKrsGIt7VRdbl9lMF
-	 EbeSJ95r70IG0bBm+bvjWSYwhZcCmDdj779n9Qq0Yc3k6vqsb1+wXmoJ4tFUR5twjqpL0
-	 e11ZZv0X8Uw1vtEqDOOadX7weSTI5qymxLj7ZXHIlI9OE96JIY1E+WpNzgDT7RwNdjA==
+	t=1793792055;
+	b=Gjr5vDrXyxoosvnOwB76C98FXA2Sw+IjOzZdNhj+x9FOpF8QDP0xa5GuCqC4SxBTQ7O6
+	 Aq17XtSndLYBOqvQ2SNVypxgxDQmgXPXQ0TwkYjygfzNL4Gj51ApKaGWky/6ngTmEGpNS
+	 FgD0st67XZmzZWtpAnR1Bkrn2u+xYpTvd4CnE7qhHrNl144zQjBkaRqjZKwuWgBgk1LEB
+	 hd01cwOw+Xzf+35pOtkZdbL0XeawIRpJArerOMeazn8hkBJzmFz6cb2wmlsI/KmIBqSjP
+	 SklVOKGebhZFQyuKtZEAJfUivKUA2dfDFt5ejd1INbat5jvvhq03noZii3iAGKH1J7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793791689;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=SF7pZMo5UMRqgADcWk2DKfyPMybDDB6N5ged2rxXhPs=;
-	b=KvnqNcfosmYKy7EkuqpzNlqTY4uvJpxjHcLRfUyU6AVpNEBOAC17PjT2s8HRmaxhztLo
-	 PdxmRc6rdkKgy0qmnjP5F7Tgm4ooSsdeH2UjbWTHl0Rt+EU11FHFwBVhK7DgwUWxrWVnp
-	 U/ijtrcFBiQ1t8330egP6toAoJhVvqzeDaoLUL6kHwICClB0sqDaopx2/RnmIMHD8hQ4o
-	 aZCwooeWif2Gs0jo8h1tdH4Pwe3sOqp+tFWZJfshacrXcJSZ60obXN3jKhigd7s/5n5E1
-	 HRgobZSyxbGLu5nahzqonON5vW0uxu5oOn+c8BX1lDfxyrt4BwNkkPr0v02cXfiy/2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793792055;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=RTHNRS3cuSeG5GDbUcMOi27y+OoEx5qcLeQYW+KCpYY=;
+	b=ZozV0YheYO47yynG0rRamyV9bz8okKPPbb6ucdytDtWvfdpepKOaktXZoNdrmjtuD1Dg
+	 Dt3y98xXTK8f75quuYeoqgi6oxkcrp6nXbGTpgIRnbXfm1LvtXep3ZlSpwNmZs21cPOXr
+	 Zj5E2n3UDY05CwWX950nSqv/DJIV16GAaxqJbh/Dbni6DYQ/7AVAseTWLCl0vhYLBR7q5
+	 oOfBCWWtiE3koWfOUT/ws4pwDEbvRb4mM2b+NrHjansQIQxjsfywfQ4eMrKtSpUdVmGzU
+	 V+cD5vvNx10k6jSyI1tjv3JbVtifMcVSpXM4HvVq3GL5MRx3/cuY7mUh1192rfUqI9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lhQ4jzXL;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lsI9xpDR;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC23606A32D
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 11:28:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFC23606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81A2606A31B;
+	Wed,  4 Nov 2026 11:34:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E81A2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lhQ4jzXL
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-89f84753b43so645397b3a.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 03:28:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793791688; x=1794396488; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SF7pZMo5UMRqgADcWk2DKfyPMybDDB6N5ged2rxXhPs=;
-        b=lhQ4jzXLF2fzjGuCJrAbkiK1nLdnyfY52DFnzVeC/2DsqTN28ZHrP5r4hi4qyQMS0d
-         yv1Do4Ba6BR3zB0Vw5csch1E6ohsqxcMWgX/vFN4KbceavWSxJEvRvHs2qD7jxojvauX
-         0xr9w/mAastp1XtPgrKhcJ/HU8q/P9mEWicah0qAnR190jRbYK9bLM4g4EPuuSMGYYKM
-         SIovzdsG9Axzki2fv8SWX8uowK3De+3LdmfOPHoOZhuzGCBEIM5FgJVbSG1dhGDFr45r
-         ho2mNK0I2mMFevwFST1fj1pggWYDuY4W1eXBOqt7lkicYCFdR8CAFwpkVShoZiH8S6we
-         lvWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793791688; x=1794396488;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SF7pZMo5UMRqgADcWk2DKfyPMybDDB6N5ged2rxXhPs=;
-        b=onIhG1yPonJkO8uySoQ0O/mEJ6AvMfoIIRou1SK44LmZbG3dfd4MePDQP2hN6E9nlP
-         Qf0V08Z7rvv2wSR35cZu+L9NvF83tLWQbDjPZbJhVYys/Hw0TTRlgoY98Dfe7CgZQeGN
-         uIj8bmabNWmopaHmR4glDIFyCswqy5Eygy3lL5id9TXrQSBaDNSc4RaPfjs2XKD6GFmU
-         3UldR/ZZknw4Tahv+v3VMnxjqtUSitTp+BHsBiYQFXxELdIc2TITjKjDED+3Is3ICZf4
-         0cp/GzeM94IAILLhXm1AnRBdJDjFF3NKck5+aEUgdr5sPDV3fIkA1yw8dQLfF34om/th
-         RARA==
-X-Forwarded-Encrypted: i=1; AKwUvByIwv/6Wwflg5V6MoNajU8T7mOi/rC/87FJf8BNH07H2IJR0ZFWeWjubVzJ7DMyA+bGY8daVSg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/TgyvxZ/PwXUDIfbmGOW5mgMyWWwyye9SHqzBQCjC/I2DlgWYl
-	oIBxd2AnvDsEHGjosEpkoMx/yrOB4kSdcGT3wkLmho3PPzmr/X4Kw+RMQyCADmy7BXT/pODGTLZ
-	sQCqNniNSZR9z1Yj/XagCDw==
-X-Received: from pfbfb28.prod.google.com ([2002:a05:6a00:2d9c:b0:88e:f55:207e])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:bd12:b0:873:e3b4:5d4 with SMTP id d2e1a72fcca58-8a9b9a4ecd9mr12223851b3a.2.1793791687832;
- Wed, 04 Nov 2026 03:28:07 -0800 (PST)
-Date: Wed,  4 Nov 2026 19:28:06 +0800
-In-Reply-To: <6e42537e-c7da-4b44-90bf-dc4cf30be6cf@acm.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lsI9xpDR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793792055; x=1825328055;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=v9T4a1onP4WP8CqdupXINDZUewTsnnH+98JgAdSfLjc=;
+  b=lsI9xpDRQxVhMNrtF1gA8l+SwWr6pVpJrWp/7RU2G1i4o6JG2QT3ADng
+   1nHsw0k8rcFPA0ReAVU3vYIqc7nKPNaXhvH4NcqgTZ5MLzuFcZ8WSrefj
+   5lt4D1aQEfkorTiGVK47Cp+bWcWUY50zjT18iSxgJvmDvLCjANeI3ypd1
+   6Q4vzRUighUq01EDfTv0TCLR/PcmqQ1PPcd4CxUbTcScp5EMKw6uMTHL3
+   wT4wEPjKEXLXUKCmD6mQDRl1zIr1Ng7H+hO6lrHzn4O8+2lxMg/5lOMFQ
+   HBZfsfe95qbW4S+Wxq9fcWe7FNtx/ZEeVtncZDBrnK0i2x2Bh1vHnzJ7x
+   g==;
+X-CSE-ConnectionGUID: WD05TyRDSeeNEs8xwLH7YQ==
+X-CSE-MsgGUID: szQmW1DaT8uZ6StiEbm7qg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2440211"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2440211"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:34:14 -0800
+X-CSE-ConnectionGUID: Bef6jIsfSKauaMUyVnm8cg==
+X-CSE-MsgGUID: jW3Lgd7FTcy11iZ7JV6hTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="7013601"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.19])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 03:34:12 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 8FBB9121B88;
+	Wed, 04 Nov 2026 13:34:20 +0200 (EET)
+Date: Wed, 4 Nov 2026 13:34:20 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>, Arpith Alexander <arpith99@gmail.com>
+Cc: Lixu Zhang <lixu.zhang@intel.com>, Weibin Liu <liuwb@xiaopeng.com>,
+	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] spi: ljca: Don't require data in write replies
+Message-ID: <ausYPKtlMva6I94z@kekkonen.localdomain>
+References: <20261103131435.21838-1-arpith99@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,39 +82,30 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261029040001.2100001-1-stanleyjhu@google.com> <6e42537e-c7da-4b44-90bf-dc4cf30be6cf@acm.org>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261104112806.1633283-1-stanleyjhu@google.com>
-Subject: Re: [PATCH] block: Keep RPM_ACTIVE in blk_pre_runtime_resume() when
- already active
-From: Stanley Jhu <stanleyjhu@google.com>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Jens Axboe <axboe@kernel.dk>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Praveen Talari <praveen.talari@oss.qualcomm.com>, Alan Stern <stern@rowland.harvard.edu>, 
-	linux-block@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Stanley Jhu <stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103131435.21838-1-arpith99@gmail.com>
 
-On Tue, Nov 03, 2026 at 12:54:35PM -0800, Bart Van Assche wrote:
-> Stanley, the analysis looks right to me. Could you make the invariant
-> explicit? Only move SUSPENDED -> RESUMING in blk_pre_runtime_resume(),
-> and only call blk_clear_pm_only() in blk_post_runtime_resume() if
-> old_status == RPM_RESUMING. Please also describe in the commit message
-> how this was tested. With those changes:
->
-> Reviewed-by: Bart Van Assche bvanassche@acm.org
+Hi Arpith,
 
-I have sent v2 with the explicit RPM_SUSPENDED -> RPM_RESUMING invariant
-in both functions, the testing description in the commit message, and
-your Reviewed-by tag.
+On Tue, Nov 03, 2026 at 06:44:35PM +0530, Arpith Alexander wrote:
+> Where the Intel Visual Sensing Controller (IVSC) is connected through
+> the LJCA, as on the Dell XPS 13 9340, its initialisation fails and the
+> camera behind it is lost:
+> 
+>   spi_ljca usb_ljca.ljca-spi.0: transfer failed len: 256
+>   vsc-tp spi-INTC10D0:00: SPI transfer failed: -5
+>   intel_vsc intel_vsc: error -ENODEV: init hw failed
 
-> Separately: since commit eef1d74bf88f, ufshcd_recover_pm_error() no
-> longer sees power.runtime_error after a resume failure. Its handling of
-> that case is probably dead code now.
+Indeed. I can also confirm this is the case on Dell XPS 9315. I guess it's
+the same on all systems with LJCA.
 
-After commit eef1d74bf88f, a failed W-LUN runtime resume leaves
-ufs_device_wlun in RPM_SUSPENDED with power.runtime_error == 0, so
-ufshcd_recover_pm_error() skips waking consumer device queues after a
-host reset. I am preparing a separate UFS series for that path.
+Acked-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+
+Mark: can we get this in as a fix for v7.4?
+
+-- 
+Regards,
+
+Sakari Ailus
