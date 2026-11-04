@@ -1,71 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779387;
-	b=hxEbRWtUeKWg6wBumKMfGFk3G6hJn6hjINn9oLKRia9oLtUz929CYmTzM5bWdx8mGHhl
-	 0tARKB90ohb0fErUydgHb8kEXfGkG0KPeLtijLAnwVku/Ixb34WlSWKH4NeQqLPT4n7PO
-	 fYpHQbbz3+S4RMajlS6TKmbo1osiPyTi87I/GBWx0GVWIPlVjsZkgJRdvrBusH1wHaNUl
-	 GoMSbjHDy2T1EF29/PQWev+0G4R7riz7m32e8b2d6ffLNW3TiXr7PBtKrdBMNALlmQbaP
-	 Oprvb6g2IRucxi5wjyfuRjizleLnhZe/TEB/ug49q50T3DgYIIsFfOL+cmL6iWQkl9Q==
+	t=1793779577;
+	b=q9DmL0HJZcUwW2TvItl/EScBhBxNjqEC8wCBU7LHQaVLvwvkF7XrAcwR2Q+oJG7xI8YV
+	 33SPXObj5Q/W81jlMsM4pL5e4SlanaUHfqatnaxwBMb6e+9j/Q/QzxZKrpN7X5gM0k7s6
+	 X3YHu/xz1SdOroy0EzZ3euh87AxpB8S9tqlVMyjQB8TQzOjI77WZ7NXy4u5cMTIhxGLk8
+	 TYVOdYmHGiBaqrpxXxcWf4IC5ui4R169eREeedx+EEWlUqckE0ePpeTlLIGo3w1ThFlhW
+	 g/kxVVSGI6nTrugztuplrXkPIAZDo0CA9GDDtOxXnZYfqJAfMjhve3CZIulkf3NYuIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779387;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=XV9GMZ9ARnbEUDTmpGeUALzqWg3SZrmQDiIpPzkxOHI=;
-	b=rcEIwYF5J+qr6m2zxTifudMuukIvueK3rw21qb5PFgYM5JbNRrwAC7ul10RdZ6ZA541g
-	 kflLeHB8xGMTKnaiSBX6gFKFMLox09XaRR8Dk05XClTYVpJK2Laup/hVTEGriKBJRV63+
-	 9Gfm6806eLusZYClQUnOMODHZeycahTr8HFVYT00lugMmdJDreM7RvGRDnoUjPocHEUlk
-	 h2AvdUq4FketeMCR0HmnfGjhu1PCKzssr9PWbanQx1QekWp+qvG/r7HgsNZiOohHIGwM5
-	 N91f145MPfGBXt8ukImmEG8p+L9d5KUX5HAzGDmjicB2OEIaHNCqHnwEagq1qczkGGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779577;
+	h=DMARC-Filter:DKIM-Signature:Cc:Content-Transfer-Encoding:Message-Id:
+	 Received:User-Agent:X-Original-From:References:In-Reply-To:To:Date:
+	 Mime-Version:X-Lms-Return-Path:Content-Type:From:Subject:
+	 Content-Language;
+	bh=sduOP3VW/r6BpntDuFO0P9ijMJnVNglrHxEYHPAMFGs=;
+	b=rYbvPnpbIpJ5MqB9vUDA1hL67U9pLmxKr2Wk6XGJtp4D/Tag1JTc5h1Qfsl6GxJljkPl
+	 TA1zaEjav4EwWRePr2B2Zf1wheWES9IYY/YmCo91mm0MfvwSulXuEYJ2WKioIR8jumtG1
+	 pMN44YG6vN1xpbqAKw73VkwlyrZS0GGAQVVhPfURI0tMfImDgtu59tztYWXpZv2dElbYC
+	 5nYNdsm9MPaHVGgGblLYs4UICZIyLhfGL5sjc1rv6IATu4oFdwcTiSxgYjhJp/KH65qns
+	 R7eNCqVHw+cmGT4LOaCJAW54c6tCUmCDwcynd7hsPQ1JHxHqMMOnYx1iroe11J+kILA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mOSchalZ;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41A9A606A31B;
-	Wed,  4 Nov 2026 08:03:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41A9A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=picoheart.com;
+	spf=pass smtp.mailfrom=picoheart.com;
+	dkim=pass header.d=picoheart.com header.i=@picoheart.com header.a=rsa-sha256 header.s=feishu2604151535 header.b="W2/poyEC";
+	arc=none smtp.remote-ip=209.127.231.48
+Received: from va-2-48.ptr.blmpb.com (va-2-48.ptr.blmpb.com [209.127.231.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CA15606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 08:06:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CA15606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mOSchalZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=mOSchalZAy9EbFRbwYZ23/2idFY6qoZH4i8Zc0A9n1e6BDtESptFrxoLCKMVzeQF3ZZDx6nQ2p96C
-	 +FRlxF/ewXV8gmhwkCbTc6ebxpqf9VH/+sihytAD7U9Zi8egDE0Tgp0mQO4yCc982LO5nvgzbwCqdi
-	 0d46hUrpXaFIEeUE=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46aeae6b46a9-3b0fa;
-	Wed, 04 Nov 2026 16:03:03 +0800 (CST)
-X-RM-TRANSID:2ee46aeae6b46a9-3b0fa
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHA-W6400298 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96aeae6b10a5-19406;
-	Wed, 04 Nov 2026 16:03:01 +0800 (CST)
-X-RM-TRANSID:2ee96aeae6b10a5-19406
-From: Tang Bin <tangbin@cmss.chinamobile.com>
-To: david.rhodes@cirrus.com,
-	rf@opensource.cirrus.com,
-	lgirdwood@gmail.com,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	linux-kernel@vger.kernel.org,
-	tangbin@cmss.chinamobile.com,
-	stable@vger.kernel.org
-Subject: [PATCH] ASoC: cs42l43: leak MCLK when PLL enable fails on PRE_PMU
-Date: Wed,  4 Nov 2026 16:02:57 +0800
-Message-ID: <20261104080257.1144-1-tangbin@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.52.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=picoheart.com header.i=@picoheart.com header.a=rsa-sha256 header.s=feishu2604151535 header.b=W2/poyEC
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604151535; d=picoheart.com; t=1793779571; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=sduOP3VW/r6BpntDuFO0P9ijMJnVNglrHxEYHPAMFGs=;
+ b=W2/poyECXARfu9is4ZU+Li4KeWeaPximlH2D+qD/TtRq5pFs1hXguohrDoTv1QWajIW5bE
+ bWHGMG3A38jijTz83NfkZL3Pjn0ZD8cxzuwiLiXl2U0dFvlBU+XcHz8qkl32oAvv3HfK60
+ FUJnM3Zs4xMx6vor1GOKrQq/BBEGresZkX5H1vS8bbQQlIPpX8d9EvgcntG2PJuU+ikNTM
+ ybnyQIulSG7ks+IUOMg/UM5P007X1Io74MBRw9ASOO5CKOFRVHUZ5PblRJ/Axi66s+I3Re
+ zEyGK/bX70o+82tz7jD0IzEl+XJqRybW6elVag0fk5w6JHlWlEbDNnJ0+RMQOg==
+Cc: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, 
+	<alex@ghiti.fr>, <zong.li@sifive.com>, <wangruikang@iscas.ac.cn>, 
+	<debug@rivosinc.com>, <qirui.001@bytedance.com>, <guoziyi114@gmail.com>, 
+	<samuel.holland@sifive.com>, <ben.dooks@codethink.co.uk>, 
+	<cyrilbur@tenstorrent.com>, <linux-riscv@lists.infradead.org>, 
+	<linux-kernel@vger.kernel.org>, <yang.yicong@picoheart.com>, 
+	<stable@vger.kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <b8f28bee-83d6-4566-889d-6119e2837ddb@picoheart.com>
+Received: from [100.86.223.207] ([61.141.241.106]) by smtp.feishu.cn with ESMTPS; Wed, 04 Nov 2026 16:05:58 +0800
+User-Agent: Mozilla Thunderbird
+X-Original-From: Yicong Yang <yang.yicong@picoheart.com>
+References: <20261022083212.84721-1-cuiyunhui@bytedance.com>
+In-Reply-To: <20261022083212.84721-1-cuiyunhui@bytedance.com>
+To: "Yunhui Cui" <cuiyunhui@bytedance.com>
+Date: Wed, 4 Nov 2026 16:05:55 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,37 +68,58 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26aeae767+147470+vger.kernel.org+yang.yicong@picoheart.com>
+Content-Type: text/plain; charset=UTF-8
+From: "Yicong Yang" <yang.yicong@picoheart.com>
+Subject: Re: [PATCH] riscv: Fix SR_SUM leakage across context switches
+Content-Language: en-US
 
-cs42l43_pll_ev() PRE_PMU arm enables mclk (when refclk_src is MCLK) then
-calls cs42l43_enable_pll(). If PLL enable fails, ret is negative and DAPM
-does not power up the widget, so POST_PMD never runs and the matching
-clk_disable_unprepare(mclk) at line 1621 is skipped - mclk refcount leaked.
-Roll back the mclk enable on PLL failure.
+On 10/22/26 4:32 PM, Yunhui Cui wrote:
+> __switch_to() saves the sstatus value of prev and restores the SR_SUM bit
+> of next with csrs. However, csrs only sets bits. If prev has SR_SUM set
+> and next has SR_SUM clear in its saved state, the old SR_SUM bit remains
+> set in sstatus.
+> 
+> This lets next run with user memory access enabled even though its saved
+> SR_SUM state is clear.
+> 
+> Use csrrc to save the sstatus value of prev and clear SR_SUM from the
+> live CSR before restoring the saved SR_SUM state of next. This keeps
+> prev's SR_SUM state intact, while preventing it from leaking to next.
+> 
+> Fixes: 788aa64c01f1 ("riscv: save the SR_SUM status over switches")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
 
-Fixes: fc918cbe874e ("ASoC: cs42l43: Add support for the cs42l43")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
----
- sound/soc/codecs/cs42l43.c | 2 ++
- 1 file changed, 2 insertions(+)
+a straightforward fix :)
 
-diff --git a/sound/soc/codecs/cs42l43.c b/sound/soc/codecs/cs42l43.c
-index 1b817e1a6..0ac9e2361 100644
---- a/sound/soc/codecs/cs42l43.c
-+++ b/sound/soc/codecs/cs42l43.c
-@@ -1613,6 +1613,8 @@ static int cs42l43_pll_ev(struct snd_soc_dapm_widget *w,
- 		}
- 
- 		ret = cs42l43_enable_pll(priv);
-+		if (ret && priv->refclk_src == CS42L43_SYSCLK_MCLK)
-+			clk_disable_unprepare(priv->mclk);
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
- 		ret = cs42l43_disable_pll(priv);
--- 
-2.52.0.windows.1
+Reviewed-by: Yicong Yang <yang.yicong@picoheart.com>
 
-
-
+> ---
+>  arch/riscv/kernel/entry.S | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/riscv/kernel/entry.S b/arch/riscv/kernel/entry.S
+> index 61b7a77166971..628b85e3915a7 100644
+> --- a/arch/riscv/kernel/entry.S
+> +++ b/arch/riscv/kernel/entry.S
+> @@ -443,15 +443,15 @@ SYM_FUNC_START(__switch_to)
+>  	REG_S s10, TASK_THREAD_S10_RA(a3)
+>  	REG_S s11, TASK_THREAD_S11_RA(a3)
+>  
+> -	/* save the user space access flag */
+> -	csrr  s0, CSR_STATUS
+> +	/* Save and clear the user space access flag. */
+> +	li    s1, SR_SUM
+> +	csrrc s0, CSR_STATUS, s1
+>  	REG_S s0, TASK_THREAD_SUM_RA(a3)
+>  
+>  	/* Save the kernel shadow call stack pointer */
+>  	scs_save_current
+>  	/* Restore context from next->thread */
+>  	REG_L s0,  TASK_THREAD_SUM_RA(a4)
+> -	li    s1,  SR_SUM
+>  	and   s0,  s0, s1
+>  	csrs  CSR_STATUS, s0
+>  	REG_L ra,  TASK_THREAD_RA_RA(a4)
