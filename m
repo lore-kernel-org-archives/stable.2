@@ -1,99 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811596;
-	b=mx+FlfVV4i08MB9v+EuRM+ByFwOzCnXzF+xQh09r/HraluN3j7TwSg4TdqUODReI/t3k
-	 75045AiWc0qjwEDWDUzKS2i4Jl4eGRJMjxdVL9RbnTNLBW7Re9MrfS2a1YC71yhsFG+5f
-	 ARCvDlXgD33A6ym2KT+m0KR7X5SFe/vHfatcDaOYwgOhoYqzrGO3nUAW5oj3OojJsRxZv
-	 70Jhjz4XTDEJqcB3kGPaZL7IRKzko0JP1X3c+hT+3KpRi27rDQ1N+S2j4/ByoQdI7fPsD
-	 jqVh18zMD3Y3y0gaeAjld/nbM2V3+G1fAJ6X4q+H5ovEJNg2E+dzq2XAvsD9so1kGKg==
+	t=1793811610;
+	b=3+FaotfV4/Ed4O2Zq+JI7c+3G1w0KKXCWCHa0Q14ij1zTs6KKbKpMBtfgXleEaQKAYfH
+	 iiCkMkbH0cfCCVHLFuaZhyFO7Xfi4+RlBArahVD5VIpIUHAOLisJrt464udr0B2t4DROC
+	 Z/IagCMV1Xiry7Bb2URqC6gqyusWRNANIHcr1htr4gr1N37WjozZfM2x48omer3hzEyfT
+	 AMtFCNM0ZOnHBJnDx6jkT4WHgTDeaD+zomoEOBO6wW/96nhpQzow9Bz3SJLIj/eyB4Nnp
+	 ttoQ5+DnyH9VnAEv3edKBqczN1FVXDC6bZ0YrlVvCaELx688gxKo/N5/yoy2JR5mX2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811596;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=3nBmuFFvpK9ZuJMVGhj4Fxmt/qwgnA7lrzzghhGHOis=;
-	b=K5qLrO0RIwIxgpTO0hUmJ5UQndbH22w3j94IYdqUJZius0JkK1uJpbjlakrob+t6kWfy
-	 jU/bmhJcWqtpKnzKm4MKQLodeksL0hv7B3JH7IoGoxD0mQ4k4BIFwMfAlhDaVXRotUDJw
-	 KZVN6lcsc1wRXz/U89XSGfs+k3hT/jQy8LdUnL6ff+RY9QQgdVcF8mkWct143bf9OyN7Z
-	 GItS6RneAcjHrrCUg8V4e5sIfArXU7ikzWnvwyPlIYRG6rWwfm/oDTj0nXM+63FB13faW
-	 ZWuwhUZtd8kgfZHWmGaV4HUwXZt07A1N5bpQs7W3zjNsMVB0Rp8satrqe0TNFBh4sJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811610;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=zQbRPgCQjmiqPHgqXIMU+69nlTOr4hhylTHONgjuS0Q=;
+	b=DJQ4ipEUYO8jvPRFXrl4dqh00xmrld0sS8vqmJik0Jx3yi/4+oRzJTESM3GlGV0a8fYO
+	 km+qhm+/mFpVjyl7QMWjn3qgOmidx5IIkEVMjAvnrbzJuNs48VMDfcWVe0AUaIFoIyFs+
+	 2c0UdnrQ5ulGsvb5KYPerMAIjbIbSWmTa1r53YNvbl/26sdrLhgwwW1UMnMeQRiGXkDRW
+	 ItodkQXB54YUBbO1UlaiwbohjiZx/eZ3w+IhVtzmYz2T94BpyHqUccSruURyHDjZEq7yq
+	 j9M26DAEcleM698daqSxnF/VrdBoIYzJMOFLe/RZW0NtqEjLFJkLfJyGR4Oj/vrv9nQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aCMplPqy;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=GiDPqE8S;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F37A606A330
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:59:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F37A606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC793606A326;
+	Wed,  4 Nov 2026 17:00:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aCMplPqy
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-490f38e9688so165093f8f.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 08:59:55 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=GiDPqE8S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8402A1F000C1;
+	Wed,  4 Nov 2026 17:00:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793811594; x=1794416394; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3nBmuFFvpK9ZuJMVGhj4Fxmt/qwgnA7lrzzghhGHOis=;
-        b=aCMplPqypvZ02Qbsm7VMD3bTNFEpqoSx1cyTAXBIt7KNVO+q2nAmW/IKy2PuDVXETR
-         WHBjMbNP+1l3BOQE+u2M8lp5zAPtu7PPTazCS0uyJ+nO1RPAr+XWi9bxVx5lKiMH4ywd
-         +Cl4vFbEHFnZywwCIRYqrtTYmdU3bnh3mCcDhDlo/sMJ/pzojDkG8mZuyBddOCPbEs1/
-         B3cj95SagdKjtw5Jj59Uvg7guAwnSBRBknmG6MIYCZSgKK+HbdEsEBaxlK9kZqFlOIq4
-         kY8I5lmO6Lasd2+R8YN3f6/WKzvP6Z2+bgKt+5y4k8aAkZZRNWr6BtFkMTL64VVzFi+q
-         GOzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793811594; x=1794416394;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3nBmuFFvpK9ZuJMVGhj4Fxmt/qwgnA7lrzzghhGHOis=;
-        b=se5zP9T1m501wErm5woxcJleUffU0rp6uYA4l/tInusKOTPaswcuwWQTzEtgVQ78HR
-         EYe9pDkA3pvhPJLSwsv32CX+bT05033bUC7nbH2zHwHMVHC8lz8nGk0Q/h7AwL0ML1fP
-         /ZRlSxntC8sJ27nu1ilb18d4IKpB7YAGwxsWC2BuUnIutDaVbyz6fNBg1U5oBSaz+ZZq
-         idu2zSWllyZGO/fiBxGckVxRtlBFWtBAUk98D6oyqploH5sEppV4FxW8Tuk9OiP+jBGX
-         TX545h9Y1IZsYUMFyZpfz6hokRTfjIA+MvIxs+LsmoLIuwuAVZNp1oQgubIltIh94wGQ
-         ZCow==
-X-Forwarded-Encrypted: i=1; AKwUvBxaSJpy9xFQi2YarJbISuboYODQP9NfcOohy4+zh8+7BXN2wq2zXJwONenIpVnYAYx3qBJzbFo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cK9atOEFQAqJrUtVq+7N55iWt3MXhT9EbdI+5LdDjE4m6nnNh
-	AdFWccBrRqPFKAD9U+ZkRnF0lNhdGgmoHRINXn63R9RrOQ+p/492VK4K
-X-Gm-Gg: AYBFou3ioVIlze9lvk/ns+cva5g7mjMYuW7hnUpAEQtFmk+NeNNIRs1RiXZFAo0ninA
-	JtVLd5binbo63HzjSqWicGgJRq4F3wDig+sdlzkQI2nYqEOH7VuZ3I7wHok0M+9O9sxM9RstJyN
-	ZeGmYOGNUbTvf/NZddQ8IMyB0vQGALYyeDmjtDqFdmWv+b/9jEsT6RwlZKiXTZcsONfSkYiM4gn
-	+X/BIRaWF1bA8U5FeveGCgLf21a7q+GXlmBn/9zCAP7eyHCVTIE2eDkbMiT0Myb0gpd9hxIYpj0
-	gshJSYodqEg8iA1lzOFJZXbZcW1mYbThyQsccaN0wlIPg5Fi28T6X57INlgiFgVgnAgw49+z1dY
-	+xpMXBHs5s136qblb12hqkJ9XqijfUFqM5RetcQo/Wg8NR7zb9Pv4HNqKOml8OaGiHhFLrH8Msy
-	9dGC0A5cm76aA4UYORcIKdGkshDGDVp3mRKVD/KS5qMAicl4tq+4mtNsLcPQJeWPyNAuGcpAEjG
-	C+0Li7LOZArfijBZhbBrDNBFShFs8VyJegj8IhumcewKoqTVRIaaIv3I/fb0llWRak70OXFGbEL
-	l/m9eDPhZMsRGnv9b20GJiMaVmdk2d/+DUQ2rgSZZ3LFynUK0AHO/VmM+oyYog==
-X-Received: by 2002:a05:6000:4804:b0:48e:22fd:1ea3 with SMTP id ffacd0b85a97d-4911aa56dc1mr33104f8f.28.1793811593929;
-        Wed, 04 Nov 2026 08:59:53 -0800 (PST)
-Received: from foxbook (bfg124.neoplus.adsl.tpnet.pl. [83.28.44.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda1fb0esm4769440f8f.49.2026.11.04.08.59.52
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Wed, 04 Nov 2026 08:59:53 -0800 (PST)
-Date: Wed, 4 Nov 2026 17:59:49 +0100
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: YuanZhe Liu <25031212351@stu.xidian.edu.cn>, Mathias Nyman
- <mathias.nyman@intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Bin Yu <byu@xidian.edu.cn>, Cheng Wen
- <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH v5] usb: xhci: Fix use-after-free race in
- xhci_stop_device()
-Message-ID: <20261104175949.71804650.michal.pecio@gmail.com>
-In-Reply-To: <b8ea2f8f-ff9e-4cc6-853b-114fe51173e6@rowland.harvard.edu>
-References: <20261104000031.679944e7.michal.pecio@gmail.com>
-	<20261104035637.3325-1-25031212351@stu.xidian.edu.cn>
-	<b8ea2f8f-ff9e-4cc6-853b-114fe51173e6@rowland.harvard.edu>
+	d=linux-foundation.org; s=korg; t=1793811609;
+	bh=zQbRPgCQjmiqPHgqXIMU+69nlTOr4hhylTHONgjuS0Q=;
+	h=Date:To:From:Subject;
+	b=GiDPqE8S4CC2tjrxur4L2kbUaD8qCWKnM7w9bdBrbgt5bwemn92YMtALe6sP0+CQP
+	 WStyqbBblbeheAasJQz0PGJyK8XDPEO8ucTwaQUbgYytai46T5wwxI7u2umrQYzqJh
+	 3cC7EVFAzh77nNieTa6FI3X5710Gvss6NfQjwDHc=
+Date: Wed, 04 Nov 2026 09:00:09 -0800
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,
+	joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,
+	heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-dlmfs-keep-the-superblock-alive-during-lock-work.patch added to mm-nonmm-hotfixes-unstable branch
+Message-Id: <20261104170009.8402A1F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,77 +51,132 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Wed, 4 Nov 2026 10:02:48 -0500, Alan Stern wrote:
-> On Wed, Nov 04, 2026 at 11:56:37AM +0800, YuanZhe Liu wrote:
-> > The port suspend is a hub class SET_FEATURE(PORT_SUSPEND) sent from
-> > userspace through usbfs, and the teardown is userspace releasing the
-> > hub driver interface, which quiesces the hub and disconnects every
-> > child under it.  Neither side takes a per-device reference, and the
-> > usbfs control request is not serialized against the hub driver being
-> > unbound.  That is also why xhci_bus_suspend() 100 ms after a disconnect
-> > looks fine: this is a different entry into xhci_stop_device().
-> > 
-> > CLEAR_FEATURE(PORT_SUSPEND) is the resume direction: in
-> > xhci_hub_control() it ends in xhci_ring_device(), so it cannot produce
-> > this trace.  
-> 
-> > The patch makes xhci_stop_device() re-read xhci->devs[] and the "device
-> > is going away" marker under xhci->lock, and give up with -ENODEV
-> > instead of touching a device that xhci_free_dev() has already detached.
-> > For that check to mean anything, xhci_free_dev() has to clear
-> > virt_dev->udev under the same lock, which is the second hunk.
-> > 
-> > If you think the mutual exclusion belongs higher up instead - do not
-> > let usbfs suspend a port while the hub is being unbound - I am happy to
-> > work on that; from your message it sounds like you would prefer the fix
-> > there.  
-> 
-> Don't know about Michal, but _I_ think the problem should be solved 
-> higher up in the stack.
 
-Perhaps in userspace? Or is it expected that root hubs (or other hubs)
-receive random and conflicting requests through USBFS?
+The patch titled
+     Subject: ocfs2/dlmfs: keep the superblock alive during lock work
+has been added to the -mm mm-nonmm-hotfixes-unstable branch.  Its filename is
+     ocfs2-dlmfs-keep-the-superblock-alive-during-lock-work.patch
 
-Do we know that the device whose port is being suspended has been
-quiesced? Is its driver even aware of anything?
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-dlmfs-keep-the-superblock-alive-during-lock-work.patch
 
-What I find more disturbing is the existing protection from this race
-added by 88716a93766b - it looks like core was triggering this too.
-I found this usb_disconnect() code suspicious:
+This patch will later appear in the mm-nonmm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-        if (port_dev && test_and_clear_bit(port1, hub->child_usage_bits))
-                pm_runtime_put(&port_dev->dev);
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-        msleep(150);		// my addition
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-        hub_free_dev(udev);	// this drops xHCI device state
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-        put_device(&udev->dev);
+------------------------------------------------------
+From: Cen Zhang <zzzccc427@gmail.com>
+Subject: ocfs2/dlmfs: keep the superblock alive during lock work
+Date: Thu, 29 Oct 2026 15:00:13 +0800
 
-but it seems that even with the sleep, the bus only gets suspended
-after put_device(). So IDK how that panic was possible in 2016.
+Queued dlmfs lock work holds an inode reference, but no active reference
+to its superblock.  The workqueue is drained on module exit rather than on
+each dlmfs unmount, and an inode reference does not stop superblock
+shutdown: generic_shutdown_super() reports the busy inode and goes on.
 
-> It sounds like the sort of race that could  affect any HCD, not just
-> xhci-hcd.
+  DLM callback / worker               Unmount
+  ---------------------               -------
+  queue lock work; igrab(inode)
+  worker delayed
+                                      drop last active superblock ref
+                                      kill_anon_super()
+                                        report the busy inode
+                                        free the superblock
+  finish lock work
+  iput(inode)
+    access the inode's freed superblock
 
-xhci-hcd is affected because it tracks association between devices
-and ports and accesses devices on port suspend. IDK if others do.
+Flushing the workqueue from a dlmfs kill_sb would not be enough: a
+blocking AST can queue new work for an inode that is still alive after the
+flush and before eviction, and that work again holds only an inode
+reference.
 
-xhci-hcd shouldn't even need to do this, becaues it's pointless if
-devices behind the port have already had their URBs unlinked. Case in
-point, nobody noticed it's only done to the immediate child :)
+Take an active superblock reference before acquiring the queued inode
+reference, with the atomic_inc_not_zero() on s_active that grab_super()
+and the NFS and procfs superblock walkers use.  Decline to queue if the
+superblock is already shutting down; the inode is then being evicted and
+user_dlm_destroy_lock() tears the lock down.  The existing l_lock and
+USER_LOCK_QUEUED flag serialize this with other queue attempts.  Each
+execution drops its inode reference before releasing the active superblock
+reference, outside l_lock.  If that releases the last active reference,
+the unmount completes on the worker; it only waits for DLM replies and
+never for this workqueue.
 
-I would have sent a patch to nuke xhci_stop_device() altogether, if
-there weren't known cases where core leaves URBs on suspended ports.
-That stuff should probably be fixed, it caused problems before.
+Only the relevant frames of the report are kept:
 
-I recall the main blocker being that core wants to setup wakeups in
-the same call which puts ports to suspend, so it cannot reject ep0
-URBs before doing this call.
+Oops: general protection fault, probably for non-canonical address 0xfbd59c0000000026: 0000 [#1] SMP KASAN NOPTI
+KASAN: maybe wild-memory-access in range [0xdead000000000130-0xdead000000000137]
+Workqueue: user_dlm user_dlm_unblock_lock
+RIP: 0010:iput+0x246/0xc10
+Call Trace:
+ <TASK>
+ user_dlm_unblock_lock+0x503/0xa50
+ process_one_work+0x9a8/0x1b40
+ worker_thread+0x65c/0xe40
+ </TASK>
 
-Regards,
-Michal
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0054-v6-c3887cceae3b039e591e@gmail.com
+Fixes: 8df08c89c668 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ fs/ocfs2/dlmfs/userdlm.c |   12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+--- a/fs/ocfs2/dlmfs/userdlm.c~ocfs2-dlmfs-keep-the-superblock-alive-during-lock-work
++++ a/fs/ocfs2/dlmfs/userdlm.c
+@@ -162,7 +162,13 @@ static void user_dlm_unblock_lock(struct
+ 
+ static void __user_dlm_queue_lockres(struct user_lock_res *lockres)
+ {
++	struct inode *inode = user_dlm_inode_from_user_lockres(lockres);
++
+ 	if (!(lockres->l_flags & USER_LOCK_QUEUED)) {
++		/* Pin the superblock through the worker's iput(). */
++		if (!atomic_inc_not_zero(&inode->i_sb->s_active))
++			return;
++
+ 		user_dlm_grab_inode_ref(lockres);
+ 
+ 		INIT_WORK(&lockres->l_work, user_dlm_unblock_lock);
+@@ -275,9 +281,11 @@ static struct ocfs2_locking_protocol use
+ 
+ static inline void user_dlm_drop_inode_ref(struct user_lock_res *lockres)
+ {
+-	struct inode *inode;
+-	inode = user_dlm_inode_from_user_lockres(lockres);
++	struct inode *inode = user_dlm_inode_from_user_lockres(lockres);
++	struct super_block *sb = inode->i_sb;
++
+ 	iput(inode);
++	deactivate_super(sb);
+ }
+ 
+ static void user_dlm_unblock_lock(struct work_struct *work)
+_
+
+Patches currently in -mm which might be from zzzccc427@gmail.com are
+
+ocfs2-serialize-inode-journal-access-with-shutdown.patch
+ocfs2-dlmfs-keep-the-superblock-alive-during-lock-work.patch
+
