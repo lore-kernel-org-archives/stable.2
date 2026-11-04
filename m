@@ -1,86 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793782048;
-	b=ZLJbmllpJ3Hdy2s8USimmG7Ul6VPJZ+lqeVaGtn5za300RsqVq+h8EgqHQved33bPfBw
-	 ZxOrdrlP90w6X4iK6It2W3tOSZ3sHI24VnCJ9akbP2nxjt1llBm/RkxqbGqrHlCfi2BHt
-	 YfFnmlpDjmXubqftGTyYuyvvqg0WOeZTwkNOTNzkZslGGKA3nVBoFDfHaHzDcuHjnPIxV
-	 s+10MM83ddjVTl6ht10zuKAzimkG/c7Y8Xe0XjdyFMOF0CJo/7Ahb4JBC47TgQUsHImCs
-	 i7I0cCr+JBiw9gNNPMsutRFBH9/kt70MGnc0luPuNnctKeMBuG477RYDQh+3FWRSlGQ==
+	t=1793782054;
+	b=szmHPYyqW6H+yo38Od/WV0eS1quvBJdbvD9hkKy8LOKnD5dxVs0td8onX+sStFDc/yCV
+	 dGJ8igkTgpI10XQAxUSeFD3VO2GieScqix/8hsAZhThyf6GDx/BWxLX2PD/IA/hcmgBO/
+	 yNEs76SPW8wvMUlJf5dXiZ5sLrKcuEzeIFWANF3xhjtPl9q44esGNfxtVDOJKvjfHaLX9
+	 JGXlvV8IGPRE7TzJxLVy2Ot9Sy2jT79AgQ7pUXNkxe2+mxuQygkNfaPqnoqbJnM2dWL94
+	 /HnFyn4syIPMQMtbshEJSyJQequ8OzPOsgRMEp4o8o2StNH7ONZ5EJ0piGioCpxyShA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782048;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SikW6QyWShPPm+9vJqKGpIuLHnANOtAHXWhBfwLtRyU=;
-	b=cEnntQdToV12tiWOnZBgxgzF+rqWyVBQI2fZ6fR67JzX/IcylHU7BXMXfcCtHGs1Fuxm
-	 uxTl8DXZ1rgn5Uox2fKmN5Oamr+ZIMzTJQtmSi/PmIZxcXUiiUZg+AiZFzNLg3/pd4F/a
-	 vxaaZmJ+qWHyf0lNvMyG2ST6AR12MoIXrMosbLCbFcJS/eh6b/rW4+pf2pASh2e3Th4hJ
-	 wGhclS6tAtdl7yvsaG3/f+bSj3McbQGaihgBap50D8uTb7EruKg9NV6RT+DX1BJWTU2yH
-	 wiun+2fvgLnFJVqss8mocY60yE8/HJTv4XPCiLsm1VyCK3Vkls6NywXA/tOmeBtQmDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782054;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Zc3GoX0ECbzLkOBHOSYu3V5e/r9eriT5q21unOxbg1A=;
+	b=nq0/ksfhRhID0kDnjX5OAnaj+RR3VCYD5G8JRzra/s2wFKGSVLUAHZQWy8I17CdLQliM
+	 Ov5IXZUm7+6isVxHImNSbC6KhxCXuKgG4qqAdPQsQiCKR42vQI6JujySZBr+cu0s8FNoB
+	 bFjKMwbvfcQbh4mA6VelFjjsR+SfekPTN5xeP5g/B36xTdqcRh+NFKkSz3MeD7pJc/L97
+	 ynZPQCJ10hKQER6H9coyXb6S2Cf4tAgHZ1Ub30sJkfpHNM8Gh4AA3wgqKhECjH/BkK6+2
+	 +TyRlOHJvIxIlG4E5FwakSP4P0jSMdfyEFIaGkGna2l4Ecm7P7M5Y+T8Q8MQUEoDQlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bZRtAiM9;
-	arc=none smtp.remote-ip=162.62.58.216
-Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=PkfWi19Q;
+	arc=none smtp.remote-ip=115.124.30.112
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050AD606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 08:47:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 050AD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5862B606A332;
+	Wed,  4 Nov 2026 08:47:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5862B606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bZRtAiM9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793782043; bh=SikW6QyWShPPm+9vJqKGpIuLHnANOtAHXWhBfwLtRyU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bZRtAiM9OKN1W3C9hdwkIB5/yoDuzgDoPoC7A8GMx0A2VaG+ujrM28J9eanPjToEb
-	 1WhOme993G2tXL7fENZSh3JZZqHE5wpf0I1b5YsbaXQew4w+Pz/ZdNXoyzk1NWjXzf
-	 4heses8lJSl/usf99MivL17aP96mtzlJG0hG6JuE=
-Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id BD38AA11; Wed, 04 Nov 2026 16:47:19 +0800
-X-QQ-mid: xmsmtpt1793782039t1bbnb9rz
-Message-ID: <tencent_7AA5D3581EE4D99A947097C4F02730DCCF09@qq.com>
-X-QQ-XMAILINFO: MhLcXbI0hPoHPaMb0xENbO95KO7fvhYaPi13zOgmgRW4/bAl3c3/yP6732NiKY
-	 fodR/3UumoR4uAJ4hURhxvAo0QEkH8ztoePnPhXPHYtC0+6/l1jLMgfL7sRdrGf50VjTZihPphGh
-	 gaGTBhg3/sTKj/5stiqUFbQ6AFr3AGTFyLlHZNUdGtxhIp5l6gf40BvfntvhfFwM3OVsaHhYk763
-	 Cutmi2ur43rGlUfxF5ajPdea7l5fWXENLYdrbPzBqpn60Ca/uWiUvxpp6b+LOioCJXA8ee7xU5IY
-	 NkxtC/c9XXtTUScnIBboZXDEgdAyY1xfsw8DfcRYIG33Ei9QlIndNJakroXYbdMziKEdvg/Za+WY
-	 6TAprsoBd7a0Yd5jMxpj68HzqgkHGCEsXoWZV5gf+GA2hwfFFtBGS+tYD4WqqLfIvPEEFr6MG7Pm
-	 K5S0AzjO7RElh41vAQQkHp5YFDLp7dG64b6A87RoP/M/E2h6mQRsEBKQidiBUVMxGt3C7jRlXHgR
-	 3IxuOrxijxAVc2I6Ql21I3qoSyr57UPUsCVIiak6Xy10W+WNQ0ppTyZoukbhf6rnVS+6OthxQRDj
-	 F5QJrjBMh8tGBUV0k0Z9xuMZ9oz/R9IGheDSDu/kT8RmRgAL4xKHH8VigI9rE/j77OHrCbFvBFnN
-	 JwDJ3HeO/gEUeY6az1wVfYR+McRqJhvu02KdapE2n6+Vke3Eq6lqsnAWpJrZ2g77gJs8uZ7QCHIT
-	 VBZDXIhqKNIk56dbZGmQLYQ+8HOBYAZEaaIZ2iIADcoMP0JlYX1KsZmuOHcW8ROpKU7odRhZzvn0
-	 3hf3lInTgCY37bjOwOYW8ZtgugTwkUBn/mS1v8YgctCDYRg1LUhu/HVmLc7/sQ78nLxLcyNBxdIW
-	 TNFegfrOtYSetceZtVCXcX+bnEBFkXC0kGivYHRP5E1OHZYxYlchsGv6pkPlWZ1369sB7wjNFKfc
-	 ODjJtS86tS5iJJaDztuviNXcMq8lj6P3soQslyMxwMmLFfaMnaoQppib46JMJ93af0UT1NhKGD6f
-	 63bVR94rRJyKCu33xvD3CfD+g8kdm01/v6Ugw7ubfHNQJe0oQPq/ljf7R07sfe7vkwo160pqK7UH
-	 Tirypes5wypdUs0/PWWtHnyss0d1leITQvoFAGnByV9YrJWQcDbFspTSBp6g==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-ext4@vger.kernel.org
-Cc: tytso@mit.edu,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-kernel@vger.kernel.org,
-	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com,
-	sashiko-bot@kernel.org,
-	Shuai Liu <847807867@qq.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] ext4: fix slab-use-after-free in do_split()
-Date: Wed,  4 Nov 2026 16:47:19 +0800
-X-OQ-MSGID: <20261104084719.715372-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <sashiko-outbox-196874@kernel.org>
-References: <sashiko-outbox-196874@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=PkfWi19Q
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793782049; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=Zc3GoX0ECbzLkOBHOSYu3V5e/r9eriT5q21unOxbg1A=;
+	b=PkfWi19Qxi68+srZGUDomlwxa+CTa/fT5rcJa8vBcKauolwJoZ5yHivgoYKvGN7/ctD+V2og2sQv4gCCLEvbQiT+XYBjqXpedOMeHwzbY1gD0C9/7a0qw5F+kif2pOZKoZGycaKDsYvNeuZx6MM4+Gmget3XilWYbw+UWlm8RZ8=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XE5G0bw_1793782047;
+Received: from 30.221.129.178(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE5G0bw_1793782047 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 04 Nov 2026 16:47:28 +0800
+Message-ID: <77b4f252-ac97-40ab-8696-6a92a6487929@linux.alibaba.com>
+Date: Wed, 4 Nov 2026 16:47:27 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,66 +53,243 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ocfs2: advance locking_state through the live cursor
+To: Cen Zhang <zzzccc427@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: mark@fasheh.com, heming.zhao@suse.com, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ baijiaju1990@gmail.com, jjzuming@gmail.com, jlbec@evilplan.org
+References: <pm-ocfs2-objects-candidate-0053-v7-ec41d4bbd38bb4d795a8@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0053-v7-ec41d4bbd38bb4d795a8@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-do_split() allocates a new directory block with ext4_append() to hold
-the second half of the entries of the leaf block being split, then
-dx_move_dirents() copies entries from the old block (*bh) into the new
-one (bh2).  Nothing verifies that the newly allocated block differs
-from the block being split.
 
-On a filesystem whose block bitmap is inconsistent with the directory
-tree, a block already referenced as a directory leaf can still be
-marked free, so ext4_append() can return that same block.  With
-concurrent operations on such a filesystem (as exercised by the
-syzbot reproducer), the block can even be freed between allocations,
-resulting in bh2 aliasing *bh.  dx_move_dirents() then copies the
-block onto itself, corrupting directory entries mid-copy: a rec_len
-field can be overwritten with name bytes, so the subsequent wipe of
-the stale entry memset()s a bogus length, causing the slab-use-
-after-free reported by syzbot.
 
-Fix this by checking for bh2 == *bh right after ext4_append() and
-bailing out with -EFSCORRUPTED before any directory block contents
-are modified, reporting the corruption via ext4_error_inode_block().
+On 10/29/26 2:56 PM, Cen Zhang wrote:
+> locking_state copies each lock resource under ocfs2_dlm_tracking_lock
+> so its containing inode or quota object can be freed during the dump.
+> The copied l_debug_list pointers do not have that lifetime protection.
+> Yet ocfs2_dlm_seq_next() follows them to find the next record.
+> 
+> Remounting read-only can free a quota-info object while a debugfs read
+> is between the snapshot and the next iterator callback:
+> 
+>   locking_state reader                Quota suspension
+>   --------------------                ----------------
+>   snapshot current lock resource
+>     copy l_debug_list.next
+>                                       remove next resource from live list
+>                                       free quota-info object
+>   seq_next(): follow copied link
+>     read freed lock resource
+> 
+> Advance through the live dummy cursor instead. List removal updates its
+> links under the tracking lock. Position it after the resource being
+> copied before releasing the lock, and never walk the snapshot's links.
+> Reuse the per-open snapshot for a nonzero seq_start() position, including
+> read continuation and buffer retries. Rewind the live cursor only when
+> seq_file starts at index zero; seq_lseek() traverses from there through
+> seq_next(). Clear the snapshot's l_ops marker at end of list so later
+> reads remain at EOF. This avoids replaying the list prefix under the
+> tracking lock on each read, without adding a new cursor or position field.
+> 
+> KASAN report as below:
+> 
+>     BUG: KASAN: slab-use-after-free in ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
+>     Read of size 8 at addr ffff888117ea9838 by task python3/489
+>     
+>     CPU: 3 UID: 0 PID: 489 Comm: python3 Not tainted 7.3.0-rc4-next-20260921-pmb-bt-functional-v1+ #1 PREEMPT(lazy) 
+>     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>     Call Trace:
+>      <TASK>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      ? ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __virt_addr_valid+0x20e/0x420
+>      ? ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
+>      kasan_report+0xe0/0x110
+>      ? ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
+>      ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
+>      ? __pfx_ocfs2_dlm_next_res.isra.0+0x10/0x10
+>      ? __pfx_do_raw_spin_lock+0x10/0x10
+>      ocfs2_dlm_seq_next+0xb8/0x4c0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      seq_read_iter+0x92f/0x1110
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      seq_read+0x362/0x5a0
+>      ? __pfx_seq_read+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? selinux_file_permission+0x11d/0x540
+>      full_proxy_read+0x11f/0x180
+>      ? __pfx_full_proxy_read+0x10/0x10
+>      vfs_read+0x1a0/0xc20
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? kmem_cache_free+0x242/0x580
+>      ? __pfx_vfs_read+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? putname+0x93/0xe0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? do_sys_openat2+0x12a/0x1b0
+>      ? __pfx_do_sys_openat2+0x10/0x10
+>      ksys_read+0x111/0x200
+>      ? __pfx_ksys_read+0x10/0x10
+>      ? irqentry_exit+0xbe/0x820
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? trace_hardirqs_on_prepare+0x11d/0x150
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     RIP: 0033:0x7f0266dbb687
+>     Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+>     RSP: 002b:00007ffccf76fc40 EFLAGS: 00000202 ORIG_RAX: 0000000000000000
+>     RAX: ffffffffffffffda RBX: 00007f0266d27780 RCX: 00007f0266dbb687
+>     RDX: 0000000000000001 RSI: 00007f0266a53200 RDI: 0000000000000004
+>     RBP: 00007f0266d27700 R08: 0000000000000000 R09: 0000000000000000
+>     R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000001
+>     R13: 00007f0266a53200 R14: 0000000000000004 R15: 00007f0266b651e0
+>      </TASK>
+>     
+>     Allocated by task 547:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_kmalloc+0xaa/0xb0
+>      __kmalloc_cache_noprof+0x28d/0x610
+>      ocfs2_local_read_info+0x181/0x1580
+>      dquot_load_quota_sb+0x68b/0x1000
+>      dquot_load_quota_inode+0x227/0x3e0
+>      ocfs2_enable_quotas+0x27c/0x520
+>      ocfs2_fill_super+0x21f9/0x38f0
+>      get_tree_bdev_flags+0x35d/0x5f0
+>      vfs_get_tree+0x93/0x320
+>      fc_mount+0x1d/0x200
+>      path_mount+0x592/0x1e00
+>      __x64_sys_mount+0x24b/0x2d0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     
+>     Freed by task 577:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      kfree+0x308/0x580
+>      ocfs2_local_free_info+0x47b/0x800
+>      dquot_disable+0x5d9/0x17a0
+>      ocfs2_susp_quotas.isra.0+0x22c/0x2b0
+>      ocfs2_reconfigure+0x284/0xd00
+>      reconfigure_super+0x3ca/0xa70
+>      path_mount+0x16ae/0x1e00
+>      __x64_sys_mount+0x24b/0x2d0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     
+>     The buggy address belongs to the object at ffff888117ea9800
+>      which belongs to the cache kmalloc-1k of size 1024
+>     The buggy address is located 56 bytes inside of
+>      freed 1024-byte region [ffff888117ea9800, ffff888117ea9c00)
+>     
+>     The buggy address belongs to the physical page:
+>     page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x117ea8
+>     head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+>     flags: 0x200000000000040(head|node=0|zone=2)
+>     page_type: f5(slab)
+>     raw: 0200000000000040 ffff888100042dc0 dead000000000100 dead000000000122
+>     raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+>     head: 0200000000000040 ffff888100042dc0 dead000000000100 dead000000000122
+>     head: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+>     head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+>     head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
+>     page dumped because: kasan: bad access detected
+>     
+>     Memory state around the buggy address:
+>      ffff888117ea9700: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>      ffff888117ea9780: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>     >ffff888117ea9800: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>                                             ^
+>      ffff888117ea9880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>      ffff888117ea9900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>     ==================================================================
+> 
+> Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
-Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuai Liu <847807867@qq.com>
----
+Looks fine.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-Changes in v2:
-  - Release both buffer_head references when bh2 aliases *bh to avoid
-    leaking one reference (Sashiko)
-  - Pass the physical block number instead of the logical block number
-    to ext4_error_inode_block() (Sashiko)
-  - Pass a positive errno to ext4_error_inode_block(), as is the
-    convention (Sashiko)
-
- fs/ext4/namei.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 354fc2d22df1..c664ae84320a 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -1928,6 +1928,14 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
- 		*bh = NULL;
- 		return ERR_CAST(bh2);
- 	}
-+	if (bh2 == *bh) {
-+		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
-+				       "cannot split aliased directory block");
-+		brelse(bh2);
-+		brelse(*bh);
-+		*bh = NULL;
-+		return ERR_PTR(-EFSCORRUPTED);
-+	}
- 
- 	BUFFER_TRACE(*bh, "get_write_access");
- 	err = ext4_journal_get_write_access(handle, dir->i_sb, *bh,
--- 
-2.43.0
+> 
+> ---
+> Changes in v2:
+> - Resume nonzero read positions from the existing snapshot instead of
+>   rescanning the list prefix under the tracking lock.
+> - Rewind only at index zero and let seq_lseek() traverse through next();
+>   clear the cached record at EOF.
+> 
+> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0053-v5-76075d5da2df8108f813@gmail.com
+> 
+>  fs/ocfs2/dlmglue.c | 19 ++++++++++++++++---
+>  1 file changed, 16 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/ocfs2/dlmglue.c b/fs/ocfs2/dlmglue.c
+> index 88d946466083..99885d21e06b 100644
+> --- a/fs/ocfs2/dlmglue.c
+> +++ b/fs/ocfs2/dlmglue.c
+> @@ -3102,9 +3102,17 @@ static void *ocfs2_dlm_seq_start(struct seq_file *m, loff_t *pos)
+>  {
+>  	struct ocfs2_dlm_seq_priv *priv = m->private;
+>  	struct ocfs2_lock_res *iter;
+> +	struct ocfs2_lock_res *dummy = &priv->p_iter_res;
+> +
+> +	/* Continue or retry the snapshot left by ->next(). */
+> +	if (*pos)
+> +		return priv->p_tmp_res.l_ops ? &priv->p_tmp_res : NULL;
+>  
+> +	/* Reads from zero and seek traversal start at the list head. */
+>  	spin_lock(&ocfs2_dlm_tracking_lock);
+> -	iter = ocfs2_dlm_next_res(&priv->p_iter_res, priv);
+> +	list_move(&dummy->l_debug_list,
+> +		  &priv->p_dlm_debug->d_lockres_tracking);
+> +	iter = ocfs2_dlm_next_res(dummy, priv);
+>  	if (iter) {
+>  		/* Since lockres' have the lifetime of their container
+>  		 * (which can be inodes, ocfs2_supers, etc) we want to
+> @@ -3113,8 +3121,11 @@ static void *ocfs2_dlm_seq_start(struct seq_file *m, loff_t *pos)
+>  		 * trust any pointers on the copy returned, but that's
+>  		 * ok as the information we want isn't typically held
+>  		 * in them. */
+> +		list_move(&dummy->l_debug_list, &iter->l_debug_list);
+>  		priv->p_tmp_res = *iter;
+>  		iter = &priv->p_tmp_res;
+> +	} else {
+> +		priv->p_tmp_res.l_ops = NULL;
+>  	}
+>  	spin_unlock(&ocfs2_dlm_tracking_lock);
+>  
+> @@ -3128,17 +3139,19 @@ static void ocfs2_dlm_seq_stop(struct seq_file *m, void *v)
+>  static void *ocfs2_dlm_seq_next(struct seq_file *m, void *v, loff_t *pos)
+>  {
+>  	struct ocfs2_dlm_seq_priv *priv = m->private;
+> -	struct ocfs2_lock_res *iter = v;
+> +	struct ocfs2_lock_res *iter;
+>  	struct ocfs2_lock_res *dummy = &priv->p_iter_res;
+>  
+>  	(*pos)++;
+>  	spin_lock(&ocfs2_dlm_tracking_lock);
+> -	iter = ocfs2_dlm_next_res(iter, priv);
+> +	iter = ocfs2_dlm_next_res(dummy, priv);
+>  	list_del_init(&dummy->l_debug_list);
+>  	if (iter) {
+>  		list_add(&dummy->l_debug_list, &iter->l_debug_list);
+>  		priv->p_tmp_res = *iter;
+>  		iter = &priv->p_tmp_res;
+> +	} else {
+> +		priv->p_tmp_res.l_ops = NULL;
+>  	}
+>  	spin_unlock(&ocfs2_dlm_tracking_lock);
+>  
 
