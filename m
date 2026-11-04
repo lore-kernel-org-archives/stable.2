@@ -1,97 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793817923;
-	b=w5Tm+DdKLbTpsb0bU2gqsmO+3eOWjHPMkgXUyw44CFA7Mi0wthzXEvG6OhSL/oxa8f4d
-	 9mYJqlEN++GJKcTZXd1yYp8WLbr4bddJesr5LWD6gnnWnqj01hHfMUGvmKhmGvtl4Bihm
-	 cjLe8M+aFP/U3FSH9ijHc/aOomp8vGKfhW87txCS8g0r/sfpwxWXi7NP4bpACiTs8X7yl
-	 Aet5qlVr4o295KViqvT1UGrDbFzP/qYKbY88AFqZFkstuRsM5HFM5At5gvEh9Y0p2Tm+w
-	 5X+V6r6eNhearzcJiD5lNefgQeUYFGSvPpPHYoaR4YmoAC0BU4UlTy3M5UxxaDkjsFg==
+	b=eCPzOkM10e4cHbyfm9Oj7Tu2cHkV2oobTbKONhB4atAUUlAs2TYyQBz/QGeW63d+pwkM
+	 rrdyNiwvsDAweF5YgPVxoOWWbu+8tlb6QoRNejgTezisiKnuTTjRJJAMXRHjXs4cm5yLx
+	 MqOqt5P/1/KH6IIdRGmFzJKCg7eHosiAP/g+mWEg7Hn45H9Osng9ppGyHNwT0VgAcqSxE
+	 Y1hjLMwWP2tBzcS64UypK8nNa1nn3Ih/L1YWwcyYXWPsfd0IWGIZLWNvdOClh7ekgy2gh
+	 YH/XwUMuFCwphaZnFtdbbRCJDf1d0PJ2o4htSs2N7fOiGqbE88+tOc3iLJ6qQvqS2TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793817923;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7yYOLqYN6DkdjgfCk6HvsFoCg1+tvjoIOvaqudKYChY=;
-	b=rpaWXvzJIyycuG92OGYqblJn0eXWSFElujhnNSli7ngUKjt8GBsowS1g5uT245jhvCRu
-	 n3ga2AYyuYCmUE9HfrCKbuH5KikLEbxTKPSCEFGOmVLgau38lXfgo3zP4qWpmNOv99FhZ
-	 0GPGYeFdeUPC9SDO4hso/ECMhUmrZtg4x2/COARgjKE63gugaEfIL2qiGJgreaI19z2NZ
-	 iJ6BGMhw0RDTdS28T2y05zDEJKZlFHiUmJFafvtk0E0I3/RDWEIQvzEeiuY5JW5iB4CeG
-	 oX8HxoyQ5lPihrFqL0Xmw/ztYNxhMxgX0KAy8uIv/9pBZaxx9rB0VdJpoD0yVI3CjpA==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/HJvCdMj9t3RgsVVdsCkZ/tzMLTDI1OvXVNAicOL6xc=;
+	b=nnTgKJxX2VOQUDVSPEiUi/vmHVJ/+gho8criaJf7Gkti1UaxS2/Ay24IPoi+xYwbTTJg
+	 EsnDkP2mSD9HJKpn2lF3PFeJ1poFsVvvRiyyjq9DgIOec9DRBHrijKNOgbgbCz01u/j2M
+	 yFp4s2NGLQkGerDTW1AdYx8WE6uJOy4/OOomqwTHsk4/ce1p3CNEoqunxu/AK4Xfaq8cm
+	 KuMtDV9X0+GwP0Sv81z3lria2XrXYD1GmXXcFaz/jgpAWkVuNR+8N168xYZBzDafrojOs
+	 IVtFgoRb4SKIOaDcvSA3mKJRap8ElyGI//21RsZl9cXW/SbcY+MTEN/jvuLQA482j2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VE2aSb3W;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ardWqYlr;
+	arc=none smtp.remote-ip=209.85.160.52
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE71B606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F45606A336
 	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:45:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE71B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06F45606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VE2aSb3W
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so9971715e9.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ardWqYlr
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4a6bb779d13so675127fac.1
         for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:45:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793817921; x=1794422721; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817922; x=1794422722; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7yYOLqYN6DkdjgfCk6HvsFoCg1+tvjoIOvaqudKYChY=;
-        b=VE2aSb3Ws1kRKaJMzMPJLgGS906H4ucRvf4ajxmcusUuZsY7eupgwLOdwmxjAq78uL
-         WFPRY/65Vdkp2iKhkwg76Ddtu+qlnm0LGVamsO2yrLGlSXO8ruoVY+tYj+eFeJmgMNVR
-         sWTcoOXYX3m1CXAtMki928x0Eu9KY6e1ZHgQ7bJ/XQfcImPawkDrIITIji9GLQoLRpY7
-         QUKLEUhI+L9ziFJgHrFsZnkzIZq7tqvBJQ62aNojNHHl+G9KXLUEq7L+1tfdSUzmWGTz
-         j6zNHoOUA70gZZfp4tDK+62cw0yWiAtkmxHHw7Yhr80AsAO570fh7yOxeguWdOGce2AS
-         3YoQ==
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/HJvCdMj9t3RgsVVdsCkZ/tzMLTDI1OvXVNAicOL6xc=;
+        b=ardWqYlrgh0AIawM5Nj4BdUuTrPvEPv75lLcj5DBOO3bAwYlVsXb0tsQWXzdLTCEFC
+         XdGwrh1SGzCOmIj7IiczHl6Y94EAGQ7ge4KxJbH+Do/NTbaXNnzVgbZ3EgVDfFV9ws20
+         ckDsi9U55hk4W1dgl+2JsJIX7OEQnkuIkp1ZdMb6I5TA2+XQTPGA6Fpmzw16lBCrCa1+
+         mj+knzgbfzUIcTN+iNJ0j4irBjWG5i1Uz3J9layFgO62MHRUyc6ANYDUE4KIoLE9F8kF
+         iub+5OWZVGZ6gb8wzv48gmrhL20qXlprXJLUQcXzEqyyYoaFtE1s9qleY6wr+9bzF/83
+         d20A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817921; x=1794422721;
+        d=1e100.net; s=20260707; t=1793817922; x=1794422722;
         h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7yYOLqYN6DkdjgfCk6HvsFoCg1+tvjoIOvaqudKYChY=;
-        b=w/PiaQ7od4YC6+wecvJo5F24sOD1pFfSAhO+GoX/ad8nw1fEd7ig1KTD4LK/CrtLFr
-         ze2Ckqdi00M0gV5mp2empg+yWOgnQEWcTWLN2VSCvSfO64sOybrtCfBpIhBYlqouJz6U
-         1QrsdNmjU3ApbhiaQ06c6nK5Y+oGmyQpybJi7IjZD/MovPeiXKhrpI2yLruzZsFBQiYo
-         hS4OJnnWebyZDrfywr3ZqRl7HnSWpHOvq4RbgwkMThYQaQHrxqZqK171Or2mCmJc0U02
-         r1p4VDgVBMQDdQLzO/ZVYtAH/gkfSxCf6qZMxfLSKnGz8TfDL2yB6jBEFu2EnmY4bFaN
-         Tqcw==
-X-Forwarded-Encrypted: i=1; AKwUvBwmpRNKdbulDBgLJSzYDKKHrqoVBpIiAU4LuTciAHRqoYfxzDCf11fjYTEcXnqKJVQuqyxT44o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BTdGxXnNrDhTr1TvO7pznXi1IITsWqINi3KU6HJ2gii8J53Cm
-	YWLQOyW/amJecGbL5O7lQm7pH3WUL//wMovrM+h5NBZPzC4yYQkzKU1w
-X-Gm-Gg: AYBFou2dvhThg/3avCWCH4QmKqstRWQ5JsHjfa+bIacdSOZ2DAyEPHDSFxWhGeHIWER
-	ZfejpXG+uQrFaKHBDQJy32HsmsFIbvDNp6vWcTfrchvLd1Kk+UdBR53g/RZxJfMc4SR0W2w/0TA
-	MZ+CpSdnCG7ZPlUszOjqaRj82Tldr6D2lbcW3YeqzHu4qCLyTQBlR9zTZurs4wvehoowm/dhWFs
-	2KwKfczGI7bUSLFjPNtuGUsnm2tpIZzW6SFQltWKWMoz0B/112hpknwACeZObzqdoMSCPcrarmD
-	kjaow7XA+opxvgs9CRIDpJyhgyWwvSs2HoXFedcyPIbboRE6pcbEe56BZUZxgR4J0WhCpAUv+xo
-	kLNoj3CZT6HeMEdfhzi6dzQlD3nHaoP9vtn3p0v8Y+hWiTnEij7kVm5qVh5OrkNllgrJb+zVuv8
-	C6MvoQV3ikKefynRyiklsmaWB3X0nmLJEFSU+UiltYKS660SlnaDPNZv4FMVmKXIdqep8Zdm28T
-	/PS3H+DixzFvKY+QayojOc6GBtm8NjmnMxXEMVpIG+0lK0kQcalYtqgd1EDcZwqzKCy3+o8U7mC
-	+UZBpp50vT3bnMM3Nx+EVIspbbSML6gwE7T+zoHu+uyYpA1mA4ccsuBWRYRSxjJkaJQbQpoMypd
-	Us7xDtLO9W1U=
-X-Received: by 2002:a05:600c:46c8:b0:4a2:1a:a120 with SMTP id 5b1f17b1804b1-4ac16acfde1mr398229935e9.6.1793817920931;
-        Wed, 04 Nov 2026 10:45:20 -0800 (PST)
-Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e2ae762sm3927915e9.2.2026.11.04.10.45.20
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=/HJvCdMj9t3RgsVVdsCkZ/tzMLTDI1OvXVNAicOL6xc=;
+        b=h1gvsBy/IceXhiWmnqSh5gXgQhvKn2YbBVLZJyymBSWKkzTJU3+4uQ/5stMEmmxk2o
+         L0r1S+d6jyorEokMY3TpTaR9qENGpKzDxlu6EQavVCkDqgxD1lgB1XN6NcjkPTxJyd5v
+         jQ7PCGPpp4y6bU15sp/rY67chEak54GBBlVtx70lxQQvsSBsbaLjgkRCtigXpIImUWmu
+         pKmQ/Xc4FVB1+UsbFtmXqW9YyG2liNrIZveURvYa/9nsL/4Yd6cA9pEw1GoYtGnJJmkf
+         TR9wNUYLGHVoVgN2tHk3ldRfMSPhrAqUBYgbqMZYMrjnMQWn0yBLLr8v8MG1/NsP0Kq0
+         90Lw==
+X-Gm-Message-State: APuU4Z/t2SxpL/6AA7ul//Woe8xhWov/Jp/uMNmOXD0lBJEoS5yI3iWl
+	49BLO2KIVzMjqZMpqTqmx7Leg7mkzsucJUYwT+c7Jyfyh5+fNTt1Gsn2vrJJLNBjs9XaczTzC09
+	Rv0VXx4w=
+X-Gm-Gg: AYBFou2zQMJvmXLcnXtmHSWmiWEVi6jSiH7qFSvFUkvFWSolLN4Cqlbs6JoQXmdtcKr
+	EAQoCxXg6ZlvuDETiNVXWxqIkLBOyJla/EjaWlCpEcHMpnM7yT39BJ4mhc7ZcQxsMZQIzYCuMgl
+	jWf9PJqXZG6hlvYAK+iOy43zSbhO16zpG+7RSJ1BrNnGijLHztWSZkXOrDmvq7DEuXgoVA0/nKT
+	09j1KxeycMVDgOt5x/+e1cFOpdsybWZHeo5uTFFaLeaBKYNAXBuWgZbtPU7Y2Mnn3vaFB6Dnppl
+	zXXL/ODasMV+yUI2xq3Siz7p4tmuLNez7ugQ05NLBFdCCbI0SuBGhUnnsqYewWxcEZkhO1UzPbc
+	G77VCwWqtVZkX31foK1PRKcqm8f17Pc7G1eXkuFbULSstWx7CCDRmTFDRO01ODvtOLdoPSRwalz
+	AO37TLNrbD3Czv9bt0IHv8emNfzk/za1wK8+fcbHTx6NLCz0yB5AGm1ORiRfNwt5tMQWT7dNYsd
+	WAKlnBLA3FKD8ZdP8GjYR354BzyBTkjr4beM6/Ly0RJebQ3lhBXjxE82MxCsD6qaSwtpY2fTpxO
+	W9XdxpmWj0dQq50JX1InwxZKiXT05/Rh24xMSCQBB5JGzqfTxAHFmXueB1LxuSHOb4EICXyyyQ=
+	=
+X-Received: by 2002:a05:6870:a79f:b0:47b:7862:c1c6 with SMTP id 586e51a60fabf-4a9076b7670mr11797279fac.23.1793817921856;
+        Wed, 04 Nov 2026 10:45:21 -0800 (PST)
+Received: from xps16 ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea4903e9sm2590963fac.3.2026.11.04.10.45.20
+        for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 04 Nov 2026 10:45:20 -0800 (PST)
-From: Amir Goldstein <amir73il@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Miklos Szeredi <miklos@szeredi.hu>,
-	stable@vger.kernel.org,
-	linux-unionfs@vger.kernel.org,
-	Chris Mason <mason@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>
-Subject: [PATCH 6.18 1/3] ovl: check that the parents of volatile/dirty are dirs
-Date: Wed,  4 Nov 2026 19:45:14 +0100
-Message-ID: <20261104184517.3630089-2-amir73il@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261104184517.3630089-1-amir73il@gmail.com>
-References: <20261104184517.3630089-1-amir73il@gmail.com>
+From: Jens Axboe <axboe@kernel.dk>
+To: stable@vger.kernel.org
+Subject: [PATCH 7.3.y 09/16] io_uring: charge tctx nodes and personalities
+Date: Wed,  4 Nov 2026 11:44:40 -0700
+Message-ID: <20261104184447.516768-10-axboe@kernel.dk>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104184447.516768-1-axboe@kernel.dk>
+References: <20261104184447.516768-1-axboe@kernel.dk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,77 +101,61 @@ Content-Transfer-Encoding: 8bit
 
 From: Chris Mason <mason@kernel.org>
 
-commit e34d2ef818e4c7676d8d8e1bf43e6a1ed39efb2a upstream.
+Commit 0b34e7b20a48710b6f53716bf7030920b69fdbdd upstream.
 
-An unprivileged user crashes the kernel by mounting overlayfs with the
-volatile option.
+The io_tctx_node allocated the first time a task touches a ring, and
+the XArray nodes behind tctx->xa and ctx->personalities, are plain
+GFP_KERNEL. tctx->xa is indexed by the ring pointer, so nearly every
+entry needs nodes of its own, and a task gets one entry per ring it has
+used. 642 threads on 4000 rings held 2.3GB with 59MB charged against a
+64MB memory.max.
 
-A dentry that serves as the parent of a lookup must be a directory.
-ovl_create_volatile_dirty() walks work/incompat/volatile/dirty by name,
-and ovl_lookup_or_create() returns an existing entry whatever its type.
-A file or a symlink that another task creates during the mount becomes
-the parent of the next lookup, which calls a NULL ->lookup.
+Allocate the node with GFP_KERNEL_ACCOUNT and set XA_FLAGS_ACCOUNT on
+both XArrays.
 
-An unprivileged user mounted overlayfs with "volatile" in a user
-namespace while a second process created a symlink named work/incompat,
-and the mount task oopsed on a NULL ->lookup call.
-
-Fix this by returning -ENOTDIR from ovl_lookup_or_create() when the
-caller asked for a directory and the existing entry is a non-dir.
-
-Fixes: c86243b090bc ("ovl: provide a mount option "volatile"")
-Cc: stable@vger.kernel.org
+Fixes: 0f2122045b94 ("io_uring: don't rely on weak ->files references")
 Signed-off-by: Chris Mason <mason@kernel.org>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[backport: no ovl_start_creating_upper(), check the child of
- ovl_lookup_upper() in ovl_lookup_or_create() instead]
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- fs/overlayfs/super.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ io_uring/io_uring.c | 2 +-
+ io_uring/tctx.c     | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
-@@ -636,17 +636,25 @@ static int ovl_check_rename_whiteout(struct ovl_fs *ofs)
- 	return err;
- }
- 
- static struct dentry *ovl_lookup_or_create(struct ovl_fs *ofs,
- 					   struct dentry *parent,
--					   const char *name, umode_t mode)
-+					   const char *name, bool is_dir)
- {
- 	size_t len = strlen(name);
- 	struct dentry *child;
- 
- 	inode_lock_nested(parent->d_inode, I_MUTEX_PARENT);
- 	child = ovl_lookup_upper(ofs, name, parent, len);
--	if (!IS_ERR(child) && !child->d_inode)
--		child = ovl_create_real(ofs, parent, child, OVL_CATTR(mode));
-+	if (!IS_ERR(child)) {
-+		if (!child->d_inode) {
-+			child = ovl_create_real(ofs, parent, child,
-+						OVL_CATTR(is_dir ? S_IFDIR :
-+								   S_IFREG));
-+		} else if (is_dir && !d_can_lookup(child)) {
-+			dput(child);
-+			child = ERR_PTR(-ENOTDIR);
-+		}
-+	}
- 	inode_unlock(parent->d_inode);
- 	dput(parent);
- 
-@@ -667,7 +675,7 @@ static int ovl_create_volatile_dirty(struct ovl_fs *ofs)
- 	const char *const *name = volatile_path;
- 
- 	for (ctr = ARRAY_SIZE(volatile_path); ctr; ctr--, name++) {
--		d = ovl_lookup_or_create(ofs, d, *name, ctr > 1 ? S_IFDIR : S_IFREG);
-+		d = ovl_lookup_or_create(ofs, d, *name, ctr > 1);
- 		if (IS_ERR(d))
- 			return PTR_ERR(d);
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index dd6ad02d0e89..f218a1ec3f09 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -271,7 +271,7 @@ static __cold struct io_ring_ctx *io_ring_ctx_alloc(struct io_uring_params *p)
+ 	if (ret)
+ 		goto free_ref;
+ 	init_completion(&ctx->ref_comp);
+-	xa_init_flags(&ctx->personalities, XA_FLAGS_ALLOC1);
++	xa_init_flags(&ctx->personalities, XA_FLAGS_ALLOC1 | XA_FLAGS_ACCOUNT);
+ 	mutex_init(&ctx->uring_lock);
+ 	init_waitqueue_head(&ctx->cq_wait);
+ 	init_waitqueue_head(&ctx->poll_wq);
+diff --git a/io_uring/tctx.c b/io_uring/tctx.c
+index 466b7300e208..4dedcdc44780 100644
+--- a/io_uring/tctx.c
++++ b/io_uring/tctx.c
+@@ -104,7 +104,7 @@ __cold struct io_uring_task *io_uring_alloc_task_context(struct task_struct *tas
  	}
+ 
+ 	tctx->task = task;
+-	xa_init(&tctx->xa);
++	xa_init_flags(&tctx->xa, XA_FLAGS_ACCOUNT);
+ 	init_waitqueue_head(&tctx->wait);
+ 	atomic_set(&tctx->in_cancel, 0);
+ 	atomic_set(&tctx->inflight_tracked, 0);
+@@ -123,7 +123,7 @@ static int io_tctx_install_node(struct io_ring_ctx *ctx,
+ 	if (xa_load(&tctx->xa, (unsigned long)ctx))
+ 		return 0;
+ 
+-	node = kmalloc_obj(*node);
++	node = kmalloc_obj(*node, GFP_KERNEL_ACCOUNT);
+ 	if (!node)
+ 		return -ENOMEM;
+ 	node->ctx = ctx;
 -- 
-backport
+2.56.0
 
