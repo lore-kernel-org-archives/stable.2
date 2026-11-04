@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793830880;
-	b=NpNEnBGWbLtMVMtBVSFEc5T0H3bicsEvpeTcYjwe5+bt59mTV7idnR/HpC4OHKMk1cX7
-	 smjtyQvEeH6ZxxYZA4JkCjEf3HNJ7eRWIM7YXT/8GQI3M+SGhusyOb07deu8b9ur31U33
-	 TExjOmNroWq09UO5tGbCnenoF1nEvNAa7BUKczF5qg43h2ot0hOJo+t7TftI2pK0H1j+N
-	 dHNifoWivQCxjCtID2PcAAnugn8C6PK2NwwlxDnOwc3uWlbuD64vwwV1o0g3ve1nijsEM
-	 jnHgKjUepChNCtIYuisxEpg4Rcp3AEf14utrsUX/Fdh03Jf9wCOIUNbdiWiMQA60bGg==
+	t=1793830886;
+	b=tAPe/hoQgJvEXdN9ObJnu5dg0sVdwmDi0eYAlHrrgWgansGF2CKkjySEYK04ak69HDvh
+	 x1b2rpWPswve8mB/YfyLSDbdJWypagl9GDKlYm1/fV7FoAkGlXUNqgmXPyW1eVCY/P7vi
+	 UxTYvqJiOwK7a3duh4eJ0znyTrT/PLb0znfxdHfexEhBNiYUb5klzxmZygYYBNLrMra5x
+	 +lJ0Xrtj5y/z9jUptiNSs8mrNDwxRJw+P2D9CdR9LI5qLVIxy3hXv5L23tAisU4owfHMU
+	 H6NLe1rGNkoeOKAAD+dvEGo9fTRD5cJQKRSkYS/lNpxg/WCHx/olKwzb9inv0ZygQlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830880;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830886;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=dSi/FoBQG2Yxjit5Hvvi2xk0G+My+ZHMQ2+AM6bURMw=;
-	b=NGsNq53RgQF7+5y4CynP2S7TEQ6ymT9iwRuqyAa0xbJn9DEshDCkcjaluvx8JL5RGYA5
-	 mWMC9kaSazBV+eJhWVU+PQeK3SzYxxHLCiHA1Kcqh9PWJ31Yvgu6KyJoGKxedkc455cn9
-	 vrVPGc7YB7lF922m6lHILXPBXDpTEB1phnc57+zziGTCoYUVffGkK/SLqupJZelmAR/+F
-	 jjqUXD4zov6dF8grrG36mfFWYOOCctQYipkme24mNEVob8cIrgTWfm1g33hj1RS9v9tBz
-	 +SzI3Qm3y9jiia/wQXCWh5aDdNGwlinzNdev1YoIVBEBmehMW8P925eeg187Jai0mIA==
+	bh=57fscZ9Rp9V987RNG4hQYpLbpvC9rMRJdru+MmTp4dE=;
+	b=oCAKTArwIq3tSB+I8gY+iOuO2vOqZ4RIeFdsBlkRRgvpk9OSYyhxiZsfAtTtBqBLNQMa
+	 EgfHZ9QuIcRq1/9jbh3VoZn81LF33yzqnhn8Kvlnxmif5aD5RNxkHmBthTJNKIC8138cc
+	 h60RXYkC+x+iF4+3xWNJOYh1adZIajqi6cnx72PsRGHPsLhbfDzkdIf1PXSggBVXEluVc
+	 MD2zMEN8wZHtnwLjZCG+/AEp5Ag5OcOBGPg/BfMOCv9BrOS1pQHVVDxYrijK+Jzy07Zle
+	 ddETwhyjl5Rur/lH4o3g7BvNVr5Tso1X5Iwn8O3/zl1uid6PKnxVfj0lfilUIlz0PWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="lQh/7jyI";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MHLJmGxU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8460606E82B;
-	Wed,  4 Nov 2026 22:21:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62B9606EE8D;
+	Wed,  4 Nov 2026 22:21:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lQh/7jyI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40DFE1F0093A;
-	Wed,  4 Nov 2026 22:21:19 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MHLJmGxU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FCC01F00A17;
+	Wed,  4 Nov 2026 22:21:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793830879;
-	bh=dSi/FoBQG2Yxjit5Hvvi2xk0G+My+ZHMQ2+AM6bURMw=;
+	s=korg; t=1793830885;
+	bh=57fscZ9Rp9V987RNG4hQYpLbpvC9rMRJdru+MmTp4dE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lQh/7jyIwxBVVqby7fDBkbidBOmeBXuKSxKMaBXaSsCP7mLUk/YeIzxXL/CcZuvSx
-	 RaD3QMrNyH30LukYPUMmPlRky6ICfpWX414rRolRLCW+TO8G886vaEvxjevUE5D8EV
-	 VCsojGItz9DPzgXmQV7KLY363p6YBNS4a151Z6Pk=
+	b=MHLJmGxU1dhjFeLlIcnN8+8hB6V7vDtoafSI3tkactvN76mU/SetEu5QfwINXnbGE
+	 s1ATv2J+pFYdo9/YR0K6zRbATn9/uSlYNSd5xZwbzX+4nGdR13AGrTXuu+jlWSSgpA
+	 V9yZzJUOoD4WH68R01KE0gG4f/yTbECqiY4guibQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Zhe Liu <liuzhe1@kylinos.cn>,
-	Tao Cui <cuitao@kylinos.cn>,
-	Tejun Heo <tj@kernel.org>,
+	Zhao Dongdong <zhaodongdong@kylinos.cn>,
+	Neeraj Sanjay Kale <neeraj.sanjaykale@nxp.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0376/1005] docs: cgroup-v2: fix stale "io" controller introduction
-Date: Wed,  4 Nov 2026 16:01:49 -0500
-Message-ID: <20261104211054.623730360@linuxfoundation.org>
+Subject: [PATCH 6.18 0348/1005] Bluetooth: btnxpuart: Fix use-after-free in probe error path
+Date: Wed,  4 Nov 2026 16:01:21 -0500
+Message-ID: <20261104211053.726752592@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
 References: <20261104211043.516122098@linuxfoundation.org>
@@ -69,57 +69,54 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Zhe Liu <liuzhe1@kylinos.cn>
+From: Zhao Dongdong <zhaodongdong@kylinos.cn>
 
-[ Upstream commit 3345c7248a9e2a91cb9e2477c29af16881706f4f ]
+[ Upstream commit a2b3b4f00403a3a40c5627d1bf537c8fb166e221 ]
 
-The introductory paragraph for the IO controller still states that
-weight based distribution is "available only if cfq-iosched is in use"
-and that "neither scheme is available for blk-mq devices".  This text
-dates from when the cgroup v2 documentation was first written (2015)
-and was correct at the time, but is no longer accurate:
+In nxp_serdev_probe(), if hci_register_dev() succeeds but ps_setup()
+fails, the error path jumps to 'probe_fail' which only calls
+hci_free_dev() and asserts the reset GPIO, but does NOT call
+hci_unregister_dev() first.
 
-  * cfq-iosched was removed in v5.0;
-  * blk-mq is now the only block I/O path, and both the absolute limit
-    scheme (io.max via blk-throttle) and the weight based scheme
-    (io.weight via iocost, or io.bfq.weight under BFQ) work on it;
-  * latency based protection (iolatency) and I/O priority (ioprio)
-    controllers have since been added.
+This leaves the HCI device registered in the system with its backing
+memory freed, leading to a use-after-free when userspace subsequently
+accesses the device (e.g. via hciconfig or bluetoothd).
 
-The rest of the section already documents io.weight, io.max,
-io.cost.{qos,model}, io.latency and io.prio.class correctly, so the
-introduction is the only part that contradicts them.  Rewrite it to
-reflect the current state.
+Fix by adding a 'probe_fail_unregister' label that calls
+hci_unregister_dev() before falling through to the existing
+'probe_fail' label. The original 'probe_fail' label is preserved
+for the case where hci_register_dev() itself fails (device was
+never registered, so no unregister is needed).
 
-Signed-off-by: Zhe Liu <liuzhe1@kylinos.cn>
-Reviewed-by: Tao Cui <cuitao@kylinos.cn>
-Signed-off-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Zhao Dongdong <zhaodongdong@kylinos.cn>
+Reviewed-by: Neeraj Sanjay Kale <neeraj.sanjaykale@nxp.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/admin-guide/cgroup-v2.rst | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/bluetooth/btnxpuart.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index edcd125d6992f..a62505e55dd07 100644
---- a/Documentation/admin-guide/cgroup-v2.rst
-+++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -1959,9 +1959,13 @@ IO
+diff --git a/drivers/bluetooth/btnxpuart.c b/drivers/bluetooth/btnxpuart.c
+index c7acf6c7efcf6..870ce16ad40b1 100644
+--- a/drivers/bluetooth/btnxpuart.c
++++ b/drivers/bluetooth/btnxpuart.c
+@@ -1924,13 +1924,15 @@ static int nxp_serdev_probe(struct serdev_device *serdev)
+ 	}
  
- The "io" controller regulates the distribution of IO resources.  This
- controller implements both weight based and absolute bandwidth or IOPS
--limit distribution; however, weight based distribution is available
--only if cfq-iosched is in use and neither scheme is available for
--blk-mq devices.
-+limit distribution.  Absolute BPS and IOPS limits are enforced by
-+blk-throttle and apply to all devices, while weight based proportional
-+distribution is provided by the iocost cost model controller
-+(CONFIG_BLK_CGROUP_IOCOST) and, when the BFQ I/O scheduler is in use
-+for a device, by BFQ's own cgroup support.  Latency-based protection
-+(CONFIG_BLK_CGROUP_IOLATENCY) and I/O priority assignment
-+(CONFIG_BLK_CGROUP_IOPRIO) are also available.
+ 	if (ps_setup(hdev))
+-		goto probe_fail;
++		goto probe_fail_unregister;
  
+ 	hci_devcd_register(hdev, nxp_coredump, nxp_coredump_hdr,
+ 			   nxp_coredump_notify);
  
- IO Interface Files
+ 	return 0;
+ 
++probe_fail_unregister:
++	hci_unregister_dev(hdev);
+ probe_fail:
+ 	reset_control_assert(nxpdev->pdn);
+ 	hci_free_dev(hdev);
 -- 
 2.53.0
 
