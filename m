@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805354;
-	b=MhB6NCucJ8LSark4IaUAL1yeVXMEADrCXLyndhCBAWLxln/lBBoo6VjwRDU4qTYpDsgC
-	 irCYlkUQKec9/LqQVXK/8GhnjLXm0g6aFKbfyjptiuAegnyVy+bJC8ky1oAGJHHS5naRN
-	 dHJ3RhKoSF2iuSjFd27IDm69c+PprXYXi2/O2HoYsjfUuLDgEivTf4JwecbA86PL6b4BJ
-	 G0+ERmcn3a+zEJxUmWxuzRxR0fF+w2RTSNUjb7fyQYssUJ7ih/t93Aj8NQ45JMSpU1jqi
-	 fBG/M2D6Chdq/OKjnFzzx0ZBIEu+LVM5XtMUtcUZ3Pfn+2EzV1gllUU65o6ii5Sl4Tw==
+	t=1793805357;
+	b=d/S4aTUlDYB3QfOf2V8mllWQ7QbzFCdM6QEZ7sP48Q6eN+sDiamvGRCZ1Xkm9FOlkmf+
+	 OssVgJ9cu7lA3f+8MDzS1Y1UBu9HibX8FL1L5nQfyq57/T5q+LhauDUYHRQbrZPybqTmj
+	 h1bqie+UNDv9vxCjIhU3izGdPbWv44wxcAIhSx5wt1iadM7hDVMOAnjzUfkfZqS/JX0tn
+	 4WR84I9kFnmpE56aOdyAsPps81181iWsQgbrZs6x9Dn873groiCbtR5IrmJLPdM8U+psx
+	 A8I+4vcAfIxTW+9+oXHT9nNf81bAvHtsZggTxRXFsPqOD1Erp3YqJK1owi7T2FbLwFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805354;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805357;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=LAF9hCN464MsXoxOH9DwHpOcmoNxeDcS3SVjcgNqpdM=;
-	b=wvUbkbKi1xNfoyEY19wkXuK04G+OfErche+A1sPFYkqJrbUxj/2ZPGCcoS7KPaypBrDx
-	 XrZuMJ+bYcujGxtElv3rMNlNUu3U7A4f4dhudXL73Y6datn4f3lF/x4NCi1gmMxRnXkjt
-	 O9LTehikPkAdmsnYc3e01ULVHeREphWenwQy0xe+A1bGplMLyl9xIH98Hn/rYFdMJkGL1
-	 r8zbKffCwbc4kr2xFLl93x1FQcEyJi6BBdLDpbYW+v6UXEWPPjWLKrA5ubnkwpcp4CWL+
-	 75f/sooC8iH6QfKH9moPPqwNg1hBR86F+7537FEL8nK1ocm2ommfcmku4XnB9PyVrRw==
+	bh=gr/4tSJp50JTZttJQylxC8/JrEPDFy7ZvBuxyEIHMng=;
+	b=2VOLEa+fqcO0afYAtVCiYsBuqlhvYR2KvCHBecTFN1vuaZumC4PcFU4WjEjoz4cFIn+w
+	 WtdW6g+0iZCjB7A6SzAYDrGTGZxz4c7H7NyqGZ8E0/mht27ahiJqSo9DmPa1Am8n3OMI6
+	 hxqz/B7Qe9noLK3D72SDYlZXdzSVj+5m057b9B8g5xB6zKXOVNYrO4pRqwML0Q3ReQkY0
+	 yJd+FLSjsyXD400aH1QdOcOzEUp7iojLCUnWi9C+tw3wpYXcDEPkcx7VqHWu6bBYM/qiN
+	 449KuX0eU+Lj6XYmBtw3Rjmdx1Kx2xY2XVxifCq5D31rHFc9VoieERJomKrmveIXl+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="UaCh/5tK";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Cytp2eNA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C5B606A330
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:15:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078FF606A331
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:15:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UaCh/5tK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5123D1F00A02;
-	Wed,  4 Nov 2026 15:15:53 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Cytp2eNA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799DF1F000C1;
+	Wed,  4 Nov 2026 15:15:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793805353;
-	bh=LAF9hCN464MsXoxOH9DwHpOcmoNxeDcS3SVjcgNqpdM=;
+	s=korg; t=1793805356;
+	bh=gr/4tSJp50JTZttJQylxC8/JrEPDFy7ZvBuxyEIHMng=;
 	h=Subject:To:Cc:From:Date;
-	b=UaCh/5tKNFFIsO9zSjgD6mGFinTKSXgVHn4z06p/ShLOxRwwudgRcygY4f75Edf2E
-	 3sRMi4tpoSLmyAfvZgj0QaaTjGmjvZcUnYv4neu86CYoDq47SxiHvseVjKG8WTI0ia
-	 nKHVFLBYMh35Z4hT8psjmvk7oVMgLBlvtXb/d3rc=
-Subject: FAILED: patch "[PATCH] xfs: allow softlimit with no hardlimit in quota scrub" failed to apply to 6.1-stable tree
+	b=Cytp2eNATYc0pBbbU6l8Ss9WIiMm/aix0lgcWrXUBZy1Ph0O9SUgKyg3E+mQUOT85
+	 LhJW1AY0PcbSQLrwRe6OGJ6u2YUt/bnRbsi0xXqTeGnxY3HnuZ8a/JTV+fIljkUaAr
+	 vHscpuVa0HYFj5XKN2Beqetcj12wiZuY1FZiNiko=
+Subject: FAILED: patch "[PATCH] xfs: allow softlimit with no hardlimit in quota scrub" failed to apply to 5.15-stable tree
 To: djwong@kernel.org,cem@kernel.org,hch@lst.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 16:15:43 +0100
-Message-ID: <2026110443-cardiac-untrained-502a@gregkh>
+Message-ID: <2026110443-flammable-slimy-0f35@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 342c2e00b3a99099a7088f7b8c8f075670c603a9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110443-cardiac-untrained-502a@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110443-flammable-slimy-0f35@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
