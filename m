@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801809;
-	b=UIPaAjdSxdL+94A2ebTXzZJvwzbeVPsidJ3IAQ9kBfrO7CcJIE2cb1HdG9gChuum/hmN
-	 7MKruQ/FaMq2/iM9aYTLJjSI5pYgkXZQTjAB8/EzUNde6MH99rQahxvLbHafZu1FvHzvM
-	 ZYMWvMT5R8ksYahoX2iuyZe23cadTcv/LR3ccDGaterr8O0tQ1eLGz9mDYkwS8mA/HdAy
-	 KCdyqanfcvpb4i0+UZVTo+b+PuN40h8pFCGC3lbhkQ0AWLTIOM1d0VGPZt6FBbDDmiaU6
-	 TGiB8NGKKHCxMLQRIu3KT5r+MPQX296Wmm9p4H/4XmVO5wF4l6kvRiX8uEIAcXWfoyg==
+	t=1793801816;
+	b=tod3QtffmfJbKoFaOFncz2+g1NFDiQzKeJ4StWUlV1hlLWh0XCmwNkX+Ei2aFoOiwZa8
+	 2VA7J9Zh5ryNORhbTz4T8LvGb1yGS2iLc+FqJhHuxXFq9OMVq4DHnrV8zwG5xvOoI5iWo
+	 ZgY329AB2w21tVqj1okXxjO6AAwHcuRZV/lxWjas45FCTO+K2xTNYH4Vl5rreLj3qmI44
+	 CuyOs71T9ybZykzj5U0PQbbC/jmNR9vOwhXWy6milMVLuPNFL0ahgtzX1UgrCq+U2nLL0
+	 aooDPBNX06wwEbG0BAoZmKIDc9wLjYLPFsYI/CgMS/E4TFdcgwu7/BgZEolb+IFR9IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801809;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801816;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2VquHf0bESPmOQ2ET6zlv6gF+oOaU6XQ44bDpKf2Mj0=;
-	b=3vyIAKVTMDz/qjaC9vCMpOmCspCpfvooQCjmyPykguqZQea5rbqRhpOxMnEGZHCMrcH0
-	 dNB/4t4VUhpNwM6kAsY/J/j6DHiZLVKtneL5lCC44MnpfIpaeRe8MIEWgan19zc2fg8Hs
-	 zdYQiJbAKJpcoqLZ4GV0xubKzzqhGrWzAUGn4XVYRA/rTJLxljsDLmwYi/eW2F8QJQvXn
-	 Xcx3L/wYCtaM8v0Y7eOfCeEc9sNcJqShUobQiEfc5Fu7jNCDt7HDKKL+/xjNohmWljhtl
-	 7TmshMycjYB3cT606ZUcQQtPT/T/1uFh3nivR/1METkl/69hw8lRbRvmVPKTpPlox2g==
+	bh=lPBtCjdlgsoZHaroYSHhGL4X/H++SmuSqGFd/il9hmI=;
+	b=MF+ZXCG7DyIHoyGfEU2J1+sTXC7HKjGmgO1yzu4ousk7oC/mvxdWfbqPci+lGW8ZE4Zt
+	 igSMGNqfNOrJnPuCJaXD4FRjQUVmZ9n783r92500oPP02l4ieYOHT8K1GU78Swd1vth7J
+	 GbmCKcibmGfB7p0R4BopyykI4BFQABLYVGNNlmL5m1mYfW3NmDtkaoHjq1nRuCzZlNsh7
+	 S/b4eRGlLlS7soxdBBie53eYp2nmUtA6LmqLHug1THylPZxG12osUQ8zemx3uJBbTadAl
+	 KEB+SF0Ngr+yI/OwV3btHurE3+qZrryPTRTPasNPJau6hBXpzpp62sNMH0hiVArRc7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dOcH9AqK;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="bKsfBm/W";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 927B0606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:16:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7223C606A330
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:16:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dOcH9AqK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D0C1F000C1;
-	Wed,  4 Nov 2026 14:16:47 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bKsfBm/W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE29D1F000C1;
+	Wed,  4 Nov 2026 14:16:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801808;
-	bh=2VquHf0bESPmOQ2ET6zlv6gF+oOaU6XQ44bDpKf2Mj0=;
+	s=korg; t=1793801816;
+	bh=lPBtCjdlgsoZHaroYSHhGL4X/H++SmuSqGFd/il9hmI=;
 	h=Subject:To:Cc:From:Date;
-	b=dOcH9AqKdKK4zXLpB/EuI7RTVpK2DVdlSTIedWjxMJm1z3XHQSdTnZp8kiHpFRb9A
-	 PmmOsiU452C0cjaTG7NKhihYk/y/mA1rW1qN/AQe6h24tj218PH3bcMuq6Zy8LjCgC
-	 nQifD2qTk5IbMcpylfWQq0VtC6Qe2G4zgti1f+5c=
-Subject: FAILED: patch "[PATCH] KVM: pfncache: use a dedicated invalidation sequence for" failed to apply to 6.18-stable tree
+	b=bKsfBm/W2JEwTzzetkXHnXNkwqtDEA9AbvitMworiiQO85NuayzQz8UjgME0CM52s
+	 1shjmyZMTdZQM+8dz13KRO6yn3AYAxGWjBYky/GZEW3TuO/3lsy8MQrGxFMmzEMr63
+	 o5KDVQEyq82CeGGHirzBTM2vkBDMFBYRGeOvEQKI=
+Subject: FAILED: patch "[PATCH] KVM: pfncache: use a dedicated invalidation sequence for" failed to apply to 6.12-stable tree
 To: dwmw@amazon.co.uk,paul@xen.org,pbonzini@redhat.com,seanjc@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:16:45 +0100
-Message-ID: <2026110445-lividly-gratified-dd5f@gregkh>
+Date: Wed, 04 Nov 2026 15:16:46 +0100
+Message-ID: <2026110446-submerge-emission-a419@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x da260bcb56feeb6489a83f310308453a0a7de25e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110445-lividly-gratified-dd5f@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110446-submerge-emission-a419@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
