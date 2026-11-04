@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816966;
-	b=Svmv3ECgjV+QbpfN+KkNaKldaOyKL1z9wQlTu+fluYTEFeyNGbkWOWtiWEpVQGGtjnUn
-	 GHG5QDUZFjipEK6ZEWnppVbSklKC9lNpvri4m1EDmTzrcY/ihMrpt/d3O6PlFXlAm+yb0
-	 N1DKF/atFnn1prtT3nT1eLtjk+o4Vyp32tYmIAdQ44BHtug6hV2Oyu1Y/fw4nG9aLkc6M
-	 dI6u5kbJ8gskHPxYk5cM5KPVidJEMOZXtB1vKyyFfdEep6yLKSlVdgWlZCFl8hdPMl7dM
-	 ygk2dSETJBScdySom4M0mZntiXtHCN/VAUDI89KO3TckQ2MD0iobiISJ5rerobop+3w==
+	t=1793816974;
+	b=GJa1qXbII8Mq3JbLyofnDxu+cvezwwSqlc15p04CnpU5krqkTGlhfqGVkJNGlMt9kOLd
+	 DdTVhDnJKP925A++m4HuZeYJ9zHgH39GQ5qTWCwe0y6o5f75gYChTUOWqOH680wN9rvWw
+	 lxwyTsAsbYADcX/lQiD0TyZ4t+ejiR9fhNCPXC7xCuMkCXTQyChgj1WBc4bJiARjFvxQO
+	 rn1ieOUCv2NtHhR0IH70Ff92Znkr9fL6JFNwrwnBRUsJYmQMqMpEPndbGwhTY6/lgR8LS
+	 kscKd7CTAcU00GI0cl4U0hp6i7IJSwDp3a1HKWMo4iaGMihxTGAmU4ikrP0BwYiZM9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816966;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816974;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gEfC+CLV/ed3wzGS9t3dFfdDmPtq49mLFwiR4hcK464=;
-	b=1Z3rtd1xrJ1CEHOCz32cEr/f0uz/lRyA+HJHytreL4qJaTSsgfSgoCD/Hvy4Jz9rAMsL
-	 cH024w6XTlJqGOrSl4O/TbxUJgzBFYxBjeLs2rKU4ugMxYv9BsRo/xQUQb0liUPAyPPor
-	 p4lIo06aoRuIIRYr32UDCxiXeNUD+wNgzLUh/JxUDG5X2ne56TR6kJ/9h23bY6v4X66z6
-	 NayRn6GYc01foZejHXgbUadWx1cV5M1+lpkvCVRQR1TRGxLSNqZOigv8xljZtkxWmmD6u
-	 Dn0U1YkwhfivPJ/uGzcmWM3kMmgUIf0Sx2NySsuqzyAXOkmFO/DNbnPWnahAaIz7KwA==
+	bh=e6Rm2UJ47md6836TjvxHTgjX3EPrAOcethFEnp8u6CM=;
+	b=PkK3JlFIOY69nVGswus430JpEvykXNv3i2OI2Yw+P+coD99pN9Y66b/364vktj+iFcov
+	 umjbLvOjgg8q+PXB0NgdACtK5koEXq9GBaySjVIwku9zIhJIuTMyv3Xfamwp9FnxowSkG
+	 jrihTZwpiS+7A0Zwv8UBpjdyYT1zlKUsfvOWLdMNUQkjFYxXjSHMeqa4Z+TlmEcmMD6HA
+	 NOM7yd8Ag7IH51swJZ2uQYJhNO8Dc71GOWNOF8l9ysNXiEPe9l5OcfuH7Kh2wOntsH9RA
+	 C3VXO+8AjPFw8qa7n4aUqXF1B8gSs8s+io0gsVdIte0TNPWbOwj+8NKPfcjezHq+pjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dfPIR6ZA;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0qddoAX2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7EAC606A330
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:29:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87CF2606A330
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:29:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dfPIR6ZA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 575441F0093A;
-	Wed,  4 Nov 2026 18:29:25 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0qddoAX2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E32D01F000C1;
+	Wed,  4 Nov 2026 18:29:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793816965;
-	bh=gEfC+CLV/ed3wzGS9t3dFfdDmPtq49mLFwiR4hcK464=;
+	s=korg; t=1793816974;
+	bh=e6Rm2UJ47md6836TjvxHTgjX3EPrAOcethFEnp8u6CM=;
 	h=Subject:To:Cc:From:Date;
-	b=dfPIR6ZA+olzfWnKPqFJndsw3Dvx2SEcj2KBuEJxzgAVrMSwEo8I+j4e9RNfXVIug
-	 4iSejCl7eQRzo1A0JiK36OI2Dkzsj6AAK1e2+anNCzSyXD9Z91loSLo58ewM1reKyI
-	 xQEr6UwFhzz0IATfVmtUvGApTpC7ko40Eojtqy7o=
-Subject: FAILED: patch "[PATCH] smb: server: size directory name conversion buffer correctly" failed to apply to 6.6-stable tree
+	b=0qddoAX2SWMHg4GbK+fII9dj8xqBIJQwGB9g1865scg+HwsLY6pbr3wkf655SXJ+D
+	 6hYWQxBB8ln8MvjkLagjtHldncPuNm9JT+X3IPyB9BMekMoVfAuQUXveSE/mk5adV4
+	 NfYTkF/SNtZP/Ch2/THuwHfF1vHDLFu5l8RWUAAE=
+Subject: FAILED: patch "[PATCH] smb: server: size directory name conversion buffer correctly" failed to apply to 6.1-stable tree
 To: coderzeng@hotmail.com,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 13:29:24 -0500
-Message-ID: <2026110424-submarine-stool-e2c1@gregkh>
+Message-ID: <2026110424-hypnoses-average-6482@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x f1f37834eaba5904103af1f18afe3510c7e9dc71
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110424-submarine-stool-e2c1@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110424-hypnoses-average-6482@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
