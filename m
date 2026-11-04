@@ -1,51 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827020;
-	b=pyvUfCtDPfCmOOuQZlYWgxK6fJARr9RjaljJPkd7l6QH5ZvH8RWb0HVSket/HFPSuK3P
-	 pFuiZcvPMHR51LhvVS2M9n5pJwE3vbPwsEP+1I3Nx6Jmxm4zPOuoMcBhL1FAkkVTdEN/W
-	 WfaQH92Hx/1a4EkuLiAoH2LSCVOmvWqt9EBdr0jAfzRjplgRBmVZSOjqrm40UyneuXoa5
-	 BwrNF3KLmtnOl668GUGeNc6BWsFR8O4AtwtxzG0q63tpuESz1A56brTPDQaWXl64PQZd5
-	 uz9N6vf6OdwQqic0INMX7qEQhPxFCiBzurpyZziDM0UEN/j68eNcvp60ssQXTqTdb0g==
+	t=1793827021;
+	b=hn8yE/y2nTOLB/7cgyhSyvby4wQ9bN45lKM2+2r4rSLjMy9pl62c7II+gZfQxxU6kWBn
+	 EljCHHrQx3smeqFHlk6UX3EOmQyTtZRGowQ5d85y739/YWMw/tkuNDDhwwN7X8ifZ79u1
+	 6pLCiL6MBkXMlzECqZxrGCdzbwcxWlqrmtNJHz9I8iiOMz2ov7NS8AJGX7R0gSDtTHBHU
+	 31hm7JKIS0dlKweN8zz1JsovdBbtzhdLaJMcY9t53X6mnRSSFcOQ3iPW9gGWneXtmeUV0
+	 Rrsz0aF4ZZyYh8Cjly2ORc2F3RM9Y+eO9rGjr+QjypWUTEchBRFhQJqKccQ1qgoFzUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827020;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827021;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=VOa2QTCuRtzKxhkNPbxE+1nXJ+rjs8ylpw0AG6Qrazg=;
-	b=reg8TehodKOMV28s0mO7QH4iUG6exIePpgBRXOGKJsmTb9fI/TF4Y38U+WGv34+J6AZG
-	 ATF2VsU9MA7xDGVS9ffKzC6QbwcvAcDow+1S/Ui8a/AhqxujWmKf+CRnlFLwhnd8EZJ95
-	 tyzxJ4rpZLevm88FaHgLJUV2ACqxvncU/w24s8XkLdebxV1O5WdQDbsk14x9utjEfp1YA
-	 BcQWZ54YpmKrq+7wJfmX+Zfjs5ypv29OZmcgeGLckx/Zdrpb8Wwm+HvnFPi8zT3L91aDD
-	 8t5JJ7OSl9Uzg3vGNkna2tdht9lJQR0/pIx4iZb9lxPFypHaaRFwkBQEmHdqsNZH+7A==
+	bh=/WgmUJssjUkjKBVBsQ2j1KvpQaVO/enQip7JhT4ssOM=;
+	b=woR4aDVCT4kZm4Ucr+Z9VIYPa5qKj/moEIM8lPU0rXtAGC5z5bfU7nYSZqBjA/yUUnT2
+	 w19nLrA7I53/szzt0XMG+PGVrXz47XjQL9Ix7YgzCF2XqGEo0X4dDhAnNdbAgNkSULQrl
+	 dr+7U9PLbzgAikpfBmHCTFh6xz6FuaGi0KXvyVPBhtk7Nv+l6IkMXbFZRTSvHB5/n881H
+	 PaRW3s1W99ZrXvc4gd/PtnCLPW6JwxARg67g+jYwNbi6MlpsXwZlwRRlb/dtCrbH1f02Q
+	 5wOGszUWDxlnFdR8tePOU5SnxgpNOQy1a/e4DUv9GTQnw/F8gBa0FJa+u0/lAXaAutQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EEV6684T;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KfdtviOB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84FC607490E;
-	Wed,  4 Nov 2026 21:16:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495ED606A865;
+	Wed,  4 Nov 2026 21:17:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EEV6684T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40AA21F00A16;
-	Wed,  4 Nov 2026 21:16:59 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KfdtviOB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3D9B1F00919;
+	Wed,  4 Nov 2026 21:17:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793827019;
-	bh=VOa2QTCuRtzKxhkNPbxE+1nXJ+rjs8ylpw0AG6Qrazg=;
+	s=korg; t=1793827021;
+	bh=/WgmUJssjUkjKBVBsQ2j1KvpQaVO/enQip7JhT4ssOM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EEV6684TKpOmp5sh7q75PKQMX1OmU4sOhKqBayjz5pT9V17p5TIcLdc6Sh3aTPKpJ
-	 QczMq8IbVlSnulhDwL2G3/GVSpY1QP3x4VP7bGwwVJw8rSUMB4tJo85O8ExReVUUtN
-	 SQI7yZHY+3GHQlMAh+7Ya83PklFMPoDhdiKH9jcs=
+	b=KfdtviOB98llAxQj180c3BJ1Zv3hSRlMi/fKDr13inh7sx8YWTjZ+AUQmVDYCv9Lf
+	 9pvXG9Hhomow1GPCD5NBtQIXJsLMSj7WqsripPsRRIZk57rJYDYVTFDIheWZ3cGkRd
+	 fVNcuvey21qyRoviSN4cC+bPShNl3wlcTAydhY0w=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Leon Romanovsky <leon@kernel.org>
-Subject: [PATCH 7.3 147/547] RDMA/irdma: avoid use-after-free in icrdma_remove
-Date: Wed,  4 Nov 2026 16:05:31 -0500
-Message-ID: <20261104211042.343602107@linuxfoundation.org>
+	James Kim <james010kim@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Alexandre Bounine <alex.bou9@gmail.com>,
+	Dan Carpenter <dan.carpenter@linaro.org>,
+	Matt Porter <mporter@kernel.crashing.org>
+Subject: [PATCH 7.3 148/547] rapidio: mport_cdev: fix use-after-free in mport_mm_close()
+Date: Wed,  4 Nov 2026 16:05:32 -0500
+Message-ID: <20261104211042.370805743@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -67,70 +70,63 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: James Kim <james010kim@gmail.com>
 
-commit 8a8088b899e4cdfe558428cd6113d45df81625be upstream.
+commit 0f2cd84858e67cf8e02438bf28243bcdc67aa49a upstream.
 
-icrdma_remove() dereferences iwdev after calling
-irdma_ib_unregister_device():
+A use-after-free vulnerability was identified in mport_mm_close() in
+drivers/rapidio/devices/rio_mport_cdev.c, identical to the pattern
+previously addressed in dma_req_free().
 
-  irdma_ib_unregister_device(iwdev)
-    -> ib_unregister_device(&iwdev->ibdev)
-      -> __ib_unregister_device()
-        -> ib_dealloc_device()
+This is observable from userspace when an application creates an mmap
+mapping via the RapidIO character device and subsequently unmaps it (or
+terminates, triggering exit_mmap()).  During munmap, mport_mm_close() is
+invoked and drops the mapping reference via kref_put().
 
-irdma registers irdma_ib_dealloc_device() as the dealloc_driver
-callback in its ib_device_ops. The RDMA core explicitly documents
-ib_unregister_device() that when ops.dealloc_driver is used, ib_dev
-will be freed upon return from the function.
+If kref_put() drops the last reference, mport_release_mapping() is called,
+which frees the underlying rio_mport_mapping structure.  The subsequent
+mutex_unlock() then dereferences map->md to unlock buf_mutex, leading to a
+use-after-free:
 
-The ib_device is embedded in struct irdma_device and iwdev itself was
-allocated by ib_alloc_device(irdma_device, ibdev). Consequently, once
-irdma_ib_unregister_device() returns, iwdev must no longer be
-dereferenced.
+   mport_mm_close()
+     -> mutex_lock(&map->md->buf_mutex);
+     ...
+     -> kref_put(&map->ref, mport_release_mapping); /* map is freed */
+     -> mutex_unlock(&map->md->buf_mutex);          /* UAF: map used */
 
-However, icrdma_remove() currently accesses iwdev->rf afterwards when
-deinitializing interrupts, destroying ah_tbl_lock, and freeing rf.
-Although the final ib_device storage is released with kfree_rcu(), the
-object lifetime has already ended and callers must not rely on the RCU
-grace period to continue dereferencing iwdev.
+Fix this by caching map->md before kref_put() and using the cached pointer
+for mutex unlocking, ensuring that freed memory is not accessed.
 
-Save iwdev->rf before unregistering the RDMA device and use the saved
-pointer for the remaining cleanup.
-
-This issue was found by manual code inspection.
-
-Fixes: 8498a30e1b94 ("RDMA/irdma: Register auxiliary driver and implement private channel OPs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Link: https://patch.msgid.link/20260914122840.1709743-1-lgs201920130244@gmail.com
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
+Link: https://lore.kernel.org/20260914042327.49798-1-james010kim@gmail.com
+Fixes: e8de370188d0 ("rapidio: add mport char device driver")
+Signed-off-by: James Kim <james010kim@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Alexandre Bounine <alex.bou9@gmail.com>
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Matt Porter <mporter@kernel.crashing.org>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/infiniband/hw/irdma/icrdma_if.c |    9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/rapidio/devices/rio_mport_cdev.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
---- a/drivers/infiniband/hw/irdma/icrdma_if.c
-+++ b/drivers/infiniband/hw/irdma/icrdma_if.c
-@@ -318,14 +318,15 @@ static void icrdma_remove(struct auxilia
- 		container_of(aux_dev, struct iidc_rdma_core_auxiliary_dev, adev);
- 	struct iidc_rdma_core_dev_info *cdev_info = idc_adev->cdev_info;
- 	struct irdma_device *iwdev = auxiliary_get_drvdata(aux_dev);
--	u8 rdma_ver = iwdev->rf->rdma_ver;
-+	struct irdma_pci_f *rf = iwdev->rf;
-+	u8 rdma_ver = rf->rdma_ver;
+--- a/drivers/rapidio/devices/rio_mport_cdev.c
++++ b/drivers/rapidio/devices/rio_mport_cdev.c
+@@ -2167,11 +2167,12 @@ static void mport_mm_open(struct vm_area
+ static void mport_mm_close(struct vm_area_struct *vma)
+ {
+ 	struct rio_mport_mapping *map = vma->vm_private_data;
++	struct mport_dev *md = map->md;
  
- 	ice_rdma_update_vsi_filter(cdev_info, iwdev->vsi_num, false);
- 	irdma_ib_unregister_device(iwdev);
--	icrdma_deinit_interrupts(iwdev->rf, cdev_info);
--	mutex_destroy(&iwdev->rf->ah_tbl_lock);
-+	icrdma_deinit_interrupts(rf, cdev_info);
-+	mutex_destroy(&rf->ah_tbl_lock);
+ 	rmcd_debug(MMAP, "%pad", &map->phys_addr);
+-	mutex_lock(&map->md->buf_mutex);
++	mutex_lock(&md->buf_mutex);
+ 	kref_put(&map->ref, mport_release_mapping);
+-	mutex_unlock(&map->md->buf_mutex);
++	mutex_unlock(&md->buf_mutex);
+ }
  
--	kfree(iwdev->rf);
-+	kfree(rf);
- 
- 	pr_debug("INIT: Gen[%d] func[%d] device remove success\n",
- 		 rdma_ver, PCI_FUNC(cdev_info->pdev->devfn));
+ static const struct vm_operations_struct vm_ops = {
 
 
