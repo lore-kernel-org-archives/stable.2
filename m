@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801920;
-	b=W4LtUPtv1cnwjIyDUDNsw15UP8L8ca6VDPreQuQ/wJm/grVFBb6NsWydYhDCbrwmHhjd
-	 BYVkse1eoKraAWJh1ZbYvj+AwUpELN/b1mF/7w8/cAiejDexEkbNvfu0LXyUFoUkyxtrP
-	 q3lGr+1WldRmciJHhhW8wij9zWc7mRh6mf7P6wX7oMRO52UeoKXjg4kgCF7zrOKFMfx9Q
-	 7aHv2PFrko993DimXXsoHkh/gipZper7hAMVY1SRY/JO1Zih/OYhTpqyxIQ0XXIrVsxXB
-	 cOxyUNux40N/5yhL7fv0+wgfTqGT50tD2IBsK/Dk4lJIVKajV3sJlGrarnke+elDKaQ==
+	t=1793801928;
+	b=uX3HXBXU2v2X0Hbfk4WvBcGZRYclqrL2OfFhd+EwXi/GjXoGrFVPiu5OYM2dDg+u1AYO
+	 hY4RvuJZAQDCCe4JQaUCVndOrkw0nnj+/0jR/EXVRXIDfhM5oPgIJxSdNrtKxL6yS/RJP
+	 CYcV9sBXI/umi4NIjxV07+pGujB3l7TXKk0nZGzvzxbYMTJC7Fab+vRmxdRb9mHt/Gdf/
+	 Qv7iCGBMdncs3P+y7MzVf9GnUs60LNZzjlkLXZl1ZGGCkGViwPz9LLHijMGjQsQ/oDxVO
+	 4zzj+RBBt7TainiXhD08wbBb+14fpHt2PTvHyDOoxN5MEbVofTZsFu/RrKwNeI7otew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801920;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801928;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=UG1xZK4Hutm9q/gCj+wsVrVDDhDfcv9Y9Qh/8CIo1SA=;
-	b=UKsz0Jtz2Gr2B/MS/my9jVOMV3OISJseEepcdrW76PZs2XPFXCg+iw+x6WQAfJFc0u5+
-	 /iEWMfQ/H/pszmnMb210g7eW7IT/SrGReY962ZckPT93G1djHsWTAEiI3i/MVOKCQ9BKM
-	 USx9FAwWEOLCDE64ASK15++uDG5g8cV/B7BJCAEsDuhUiSHKbX7CzHIEjjir79EvsEtg8
-	 /6fhqwLKIX0woEAc1FStRvO8lZZc4DY4cZ2qNGnVVb7FOGkPey7tdreuPrY4lh1rnHkIg
-	 xUjys10P+QhDiUIQ2f4E4nKfiFK5skJTT3Y/jiRRW1DSt6YFuMcuzSRZ9AR/wVYS/Cw==
+	bh=rAUDVtOJQUZMd1KxdYiC+rANOZFN1RCVWLIMIB+OOKM=;
+	b=sB4R1iSOVCEioG8juNj24R5hUwoYWkvBNuyEBkltnWy7wCZLuxK/bwUc7C4oa+jg37iY
+	 TXv5hoOm0bPmfcHw4Yn1HXfC27JKitLJcexZtYyaIIqaRk81QOCM+4PvY2Opb7pa2/3fd
+	 U7cM/FlHa9iTt01Mmx+TP5ZIwGeVUfaN2r3b7ECAS0IQJ1CAitI4kciC3vF73ctArdS2X
+	 QKZgTxgjq1cUlNuKWpYAUwuxm96X5Vl+zVUslJnXAni1f+Qgbzkvju2Fek3dBZ935c+Yx
+	 119np14v8N9j9icWssIcSxBy8RscnOKIVsHCrfAK7nXT6u9m+X0cWtvkuFtRI/QtH6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=t+HqCNUY;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=06VKaUoe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2886B606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:18:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33386606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:18:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=t+HqCNUY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A03171F000C1;
-	Wed,  4 Nov 2026 14:18:39 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=06VKaUoe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9841F00A15;
+	Wed,  4 Nov 2026 14:18:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801920;
-	bh=UG1xZK4Hutm9q/gCj+wsVrVDDhDfcv9Y9Qh/8CIo1SA=;
+	s=korg; t=1793801928;
+	bh=rAUDVtOJQUZMd1KxdYiC+rANOZFN1RCVWLIMIB+OOKM=;
 	h=Subject:To:Cc:From:Date;
-	b=t+HqCNUYi0noOOgILEOpnGLbIXyjB+4u3RkUFdgBnd7Uc7HbLuRTwfnC/v02WT7am
-	 1dP9Yq+5/ag5aGezrw4vKPz9btxj0GOp64QfIRM5XhHTJyT6Wq1FRIiqYVQy+rRkSb
-	 /T+S6d2TdJojdu9tgLYygNu1nSHMgGF7MPIGKeMs=
-Subject: FAILED: patch "[PATCH] mm/rmap: don't discard lazyfree THPs at PMD level" failed to apply to 6.18-stable tree
+	b=06VKaUoe+6t/4a1H/eWn9qq41+QS5+AULVYGZ+Rl9Tj7T8ItUXDFe09m9wbPgx2Lg
+	 SAdAIUD4yrGtPxA1gXipnMVQ/tOFfgKFRKkA2FwM8Y2HAqFpmpj8SXmW2yo1PBx7wS
+	 EfLLDuESwafbU4vEhjVFgRD7jGNDSLpk1vMJXYIk=
+Subject: FAILED: patch "[PATCH] mm/rmap: don't discard lazyfree THPs at PMD level" failed to apply to 6.12-stable tree
 To: ziy@nvidia.com,akpm@linux-foundation.org,david@kernel.org,harry@kernel.org,jannh@google.com,kylebot@openai.com,lance.yang@linux.dev,liam@infradead.org,ljs@kernel.org,malhyuk97@gmail.com,riel@surriel.com,stable@vger.kernel.org,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:18:37 +0100
-Message-ID: <2026110437-sizably-daylight-e650@gregkh>
+Date: Wed, 04 Nov 2026 15:18:38 +0100
+Message-ID: <2026110438-manpower-atrium-3945@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 984c0700854e35779a2bcce6b02783e709b6efa2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110437-sizably-daylight-e650@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110438-manpower-atrium-3945@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
