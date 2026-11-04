@@ -1,61 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793780774;
-	b=Le2wNYBdujbTJi1UKaoQ207tkac/OpudAdJrnemYObyfCTzCJCAqjUS7RPolNhYUfTBW
-	 ZgegeFieh59GPo1EgoC7ChXcIIry1IM6oCShUATtYQy0ihr9dgg1rh4yGhpN5pE+A/+5j
-	 Ug0Vr/wLVWpWSCOMt0bYy5dq7QT8hGjcVwH8pDfz2vVT/i6fu8q0tPj2dDVws7xS8xjpI
-	 w9pTBv6JWUh2UhOjDX1nCjIknNA7TfaLEs9GYYF4TDtWSEXtEKxwj7nfL/J3jugTL9q9I
-	 WPGSCSSQ7PXKMB92IYe1fYOASw4kFWrMhQ39j6C6wQqsKTAYEkfjllsoZKMjK4aRvLw==
+	t=1793781058;
+	b=VOLsqiVRT1kS0VMshnbBNHf2guEYgSjTA5w5DMqZGcgieKgkKXZcaE1iq6+ucCUIXtGp
+	 NhkLZTvTkOCfrplTUzbyxyoQGVKtcj70xssaJdCZom3jRnzYHfZXmJrJLBKyDENcBEulw
+	 RY2YbLoQVkiJP3DRIZtKWfzPytojZNkmtz4W92fwNwZ/SAkzgTfYIFq3U31DvASxnpyOO
+	 KmZ9//rC1Jq+KjpNbhvKZs8KYUbjiLGkgIIvSsQkXkJIxMgliRcpyQlMH9ix8kM2mUsAs
+	 a5EfIMOcIoGbR/E91qZ0osnVOBqAqZf6kpVtWGTi+Ba57rQ1CE60Vsd7Chp+uC8BW/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793780774;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793781058;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=RUoNRwuRK2U7ML+NwwoRg+GWv/RIjHN0PfoN4RGRRaA=;
-	b=MjkPyXCQx6/mL5XiEU5NXzk74zbhNoe+ZL8cSGfQuQZ+U14khGsUJNqc+yx/AWlxd3jc
-	 Wz7GkG680xHj/L7nE3dUNQ7QXV7ht1Bna1HWaDY9/rc6iCJKQkQTNZ6O38xBnf04nV5Uv
-	 Axa9VXAxBT0htPKEEia0Kn+TlHrN+h55qm4thRkm/gdOW2LgUtcX8qvig5iauL06ERe/F
-	 kez2Kl+f13UfvsotvG/J3jjojYz4drhVXm3HyHiyBRBCAWEl4Z6v9aAl2lqp3VZvfSOzd
-	 e78OQWAHfQnNJexA4/fhA/sle0IWoDxnbdSzyaozqkBqOlohLcDXCFyRh6sphZVq7xA==
+	bh=Uj8tvQfzebEib49IP4TwO7biv2xdB7sPLDoMB1lqXfY=;
+	b=3ELyIG/SFCvdlxJBAguBr8r7kFSQ/b6+XhuKkkpp0zonC+ux+maZBh0vNOqnFHfkCI8K
+	 axwAOh9XGdCAUJhFYI64F1rpAfgBrKYARFEb7yJFGxiDa9QVdKHlgJkJh2lByrGhZf0dc
+	 zl8WFfn6QHLSrKFqa3QzJzx3WVebPsefzF06StnQ3MI5/C2GX18ihXuIo+xPM4BDP+hIv
+	 PBrLp2qJ4P5cgfvdtl9JmTSbp586TnIRlzVoXWMTr0j0N6FVFKvbqJqrVa+qV3P+oTQYz
+	 eUPYAHnsTzCC4+WjRhFjjCI4g2eJ2x5UTqfU1BmswMy90oaJeMwi0TdNvEPf53/Alpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=DFgRmZxD;
-	arc=none smtp.remote-ip=115.124.30.119
-Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0FB606A329;
-	Wed,  4 Nov 2026 08:26:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C0FB606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=DFgRmZxD
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793780766; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=RUoNRwuRK2U7ML+NwwoRg+GWv/RIjHN0PfoN4RGRRaA=;
-	b=DFgRmZxDheiFkOBdzyHwAKk9gWXeiyv+LqNmOhusDcPMkt9IsDOZ1zbhzu/yanrNjpBHgJjejKR2jVReLQ+0aEJ7dzWYOEuEBFUvyfnsD/Yq19+0I9+Rc3nt6m9HSPLpDzCJuEXPUXJTwuB6nlwVMcBQ/Q512wSrgKEuuYIbEL8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XE5A0yX_1793780765;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE5A0yX_1793780765 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 04 Nov 2026 16:26:05 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Cc: Steve French <stfrench@microsoft.com>,
-	stable@vger.kernel.org,
-	linux-cifs@vger.kernel.org,
-	Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: [PATCH 6.6.y v2] smb: client: base punch-hole EOF decision on server_eof
-Date: Wed,  4 Nov 2026 16:25:35 +0800
-Message-Id: <20261104082535.404128-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20261103092918.2363406-1-joseph.qi@linux.alibaba.com>
-References: <20261103092918.2363406-1-joseph.qi@linux.alibaba.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E1D606A31B;
+	Wed,  4 Nov 2026 08:30:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47E1D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 0a48e63ad82a11f19a56ed5b684f684d-20261104
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:4457f2ba-a248-4bf4-9933-fa9fdace82e7,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:20
+X-CID-META: VersionHash:7db8b62,CLOUDID:9eb46779cbfa0239073993231c2a8354,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
+	:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,
+	LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 0a48e63ad82a11f19a56ed5b684f684d-20261104
+X-User: songxiebing@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <songxiebing@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1147232008; Wed, 04 Nov 2026 16:30:49 +0800
+From: songxiebing <songxiebing@kylinos.cn>
+To: tiwai@suse.com,
+	perex@perex.cz
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	songxiebing@kylinos.cn,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: hdsp: Fix divide-by-zero in DDS offset control
+Date: Wed,  4 Nov 2026 16:30:45 +0800
+Message-Id: <20261104083045.1939479-1-songxiebing@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,156 +72,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-smb3_punch_hole() decides whether to move the server EOF marker by
-comparing against netfs_inode(inode)->remote_i_size.  Nothing on this
-base keeps that field up to date: netfs_inode_init() has no caller under
-fs/smb/, so remote_i_size is never even initialized, and the only writes
-to it are netfs_resize_file() from the clone and copy_file_range paths
-and this function itself.  The writeback path tracks the server size in
-cifsi->server_eof through cifs_update_eof() instead, and
-cifs_fattr_to_inode() refreshes only server_eof as well.
+From: Bob Song <songxiebing@kylinos.cn>
 
-Reading remote_i_size therefore compares the punch against whatever the
-slab object last held.  With it at zero, punching the first 4k of a clean
-8k file passes "end > remote_i_size && i_size > remote_i_size", issues
-SMB2_set_eof(4096) and truncates the server file in half, with nothing
-dirty left to write the tail back.
+hdsp_set_dds_offset() computes the target rate as
+system_sample_rate + offset_hz without validating the result.  A user
+can set the DDS offset to -system_sample_rate through the control API,
+making rate zero and causing div_u64() in hdsp_set_dds_value() to
+divide by zero.
 
-The flush added by commit 216e46958605 ("smb/client: flush dirty data
-before punching a hole") makes a second variant reachable.  It writes
-out and cleans any page straddling the end of the punched range,
-including the valid data in it beyond the hole, and advances server_eof
-but not remote_i_size.  When the punch end lies beyond that stale value,
-SMB2_set_eof() shrinks the server to the end of the hole and discards
-what the flush just wrote out.  The page is clean, so a later fsync or
-close will not write it again and the data is silently lost.
+Reject non-positive rates before programming the DDS value.
 
-Base the decision on CIFS_I(inode)->server_eof and keep both size fields
-in sync when the marker moves, so the server is never shrunk below data
-that has already been written out.
-
-The cached server_eof can in turn lag the server.  Writeback of
-already-dirty folios beyond the punched range is excluded by neither
-i_rwsem nor the invalidate lock (cifs_writepages() takes neither), so it
-can complete while the decision or the SMB2_set_eof() request based on
-it is in flight, extending the server EOF beyond the value the request
-carries; the request then shrinks the server below data that writeback
-has just committed, and the local marker is left ahead of the server.
-When the marker needs to move, flush the whole file and re-read
-server_eof before deciding: writeback completions publish server_eof
-before ending folio writeback, so once filemap_write_and_wait() returns,
-the cached value reflects everything written out and no dirty folio
-remains that could race with the request.  Take inode->i_lock for the
-reads and the update, as server_eof is documented to require, and only
-ever advance it, matching cifs_update_eof(): folios dirtied through an
-mmap can still be written back while the request is in flight.
-
-Mainline does not need this change.  cifs_alloc_inode() zeroes
-_remote_i_size there, cifs_fattr_to_inode() refreshes it, and the
-writeback path advances it through netfs_resize_file(), so the value
-cannot be stale after the flush.
-
-Fixes: 288d398df80c ("cifs: Fix FALLOC_FL_PUNCH_HOLE support")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Fixes: e4b6088c8cf1 ("[ALSA] hdsp - Add support for fine tuning of sample rate support to HDSP 9632")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Bob Song <songxiebing@kylinos.cn>
 ---
- fs/smb/client/smb2ops.c | 75 ++++++++++++++++++++++++++++++++++-------
- 1 file changed, 62 insertions(+), 13 deletions(-)
+ sound/pci/rme9652/hdsp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 21a2b265ae7c4..df3499c8a2249 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -3346,7 +3346,7 @@ static long smb3_punch_hole(struct file *file, struct cifs_tcon *tcon,
- 	struct inode *inode = file_inode(file);
- 	struct cifsFileInfo *cfile = file->private_data;
- 	struct file_zero_data_information fsctl_buf;
--	unsigned long long end = offset + len, i_size, remote_i_size;
-+	unsigned long long end = offset + len, i_size, server_eof;
- 	long rc;
- 	unsigned int xid;
- 	__u8 set_sparse = 1;
-@@ -3392,20 +3392,69 @@ static long smb3_punch_hole(struct file *file, struct cifs_tcon *tcon,
- 	if (rc)
- 		goto unlock;
- 
--	/* If there's dirty data in the buffer that would extend the EOF if it
--	 * were written, then we need to move the EOF marker over to the lower
--	 * of the high end of the hole and the proposed EOF.  The problem is
--	 * that we locally hole-punch the tail of the dirty data, the proposed
--	 * EOF update will end up in the wrong place.
-+	/*
-+	 * If the tail of the file beyond the hole has not been written out
-+	 * yet, the server EOF marker is still below both the end of the hole
-+	 * and i_size.  Move it up to the lower of the two: when that is
-+	 * i_size the file is already at its final size, otherwise the
-+	 * remaining dirty tail is written later and extends it the rest of
-+	 * the way.
-+	 *
-+	 * Decide on server_eof rather than the netfs remote_i_size, which
-+	 * nothing here keeps up to date: the flush above advances only
-+	 * server_eof, through cifs_update_eof(), so comparing against
-+	 * remote_i_size would shrink the server below data that was just
-+	 * written out.
- 	 */
-+	spin_lock(&inode->i_lock);
- 	i_size = i_size_read(inode);
--	remote_i_size = netfs_inode(inode)->remote_i_size;
--	if (end > remote_i_size && i_size > remote_i_size) {
--		unsigned long long extend_to = umin(end, i_size);
--		rc = SMB2_set_eof(xid, tcon, cfile->fid.persistent_fid,
--				  cfile->fid.volatile_fid, cfile->pid, extend_to);
--		if (rc >= 0)
--			netfs_inode(inode)->remote_i_size = extend_to;
-+	server_eof = CIFS_I(inode)->server_eof;
-+	spin_unlock(&inode->i_lock);
+diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
+index 7dce548b9f36..694816f966d2 100644
+--- a/sound/pci/rme9652/hdsp.c
++++ b/sound/pci/rme9652/hdsp.c
+@@ -2802,6 +2802,9 @@ static int hdsp_dds_offset(struct hdsp *hdsp)
+ static int hdsp_set_dds_offset(struct hdsp *hdsp, int offset_hz)
+ {
+ 	int rate = hdsp->system_sample_rate + offset_hz;
 +
-+	if (end > server_eof && i_size > server_eof) {
-+		/*
-+		 * The cached server_eof may still lag the server: writeback
-+		 * of already-dirty folios beyond the punched range takes
-+		 * neither i_rwsem nor the invalidate lock (see
-+		 * cifs_writepages()), so it can extend the server EOF while
-+		 * the decision or the request below is in flight, and the
-+		 * request would then shrink the server below data that
-+		 * writeback has just committed.  Flush the whole file and
-+		 * re-read before deciding: writeback completions publish
-+		 * server_eof before ending folio writeback, so once the
-+		 * flush has returned the cached value reflects everything
-+		 * that was written out, and no dirty folio is left that
-+		 * could race with the request.
-+		 */
-+		rc = filemap_write_and_wait(inode->i_mapping);
-+		if (rc < 0)
-+			goto unlock;
-+
-+		spin_lock(&inode->i_lock);
-+		i_size = i_size_read(inode);
-+		server_eof = CIFS_I(inode)->server_eof;
-+		spin_unlock(&inode->i_lock);
-+
-+		if (end > server_eof && i_size > server_eof) {
-+			unsigned long long extend_to = umin(end, i_size);
-+
-+			rc = SMB2_set_eof(xid, tcon, cfile->fid.persistent_fid,
-+					  cfile->fid.volatile_fid, cfile->pid,
-+					  extend_to);
-+			if (rc >= 0) {
-+				/*
-+				 * Folios dirtied through an mmap while the
-+				 * request was in flight can still be written
-+				 * back and publish a larger EOF, so only ever
-+				 * advance, as cifs_update_eof() does.
-+				 */
-+				spin_lock(&inode->i_lock);
-+				if (extend_to > CIFS_I(inode)->server_eof)
-+					CIFS_I(inode)->server_eof = extend_to;
-+				netfs_inode(inode)->remote_i_size = extend_to;
-+				spin_unlock(&inode->i_lock);
-+			}
-+		}
- 	}
- 
- unlock:
++	if (rate <= 0)
++		return -EINVAL;
+ 	hdsp_set_dds_value(hdsp, rate);
+ 	return 0;
+ }
 -- 
-2.39.3
+2.25.1
 
