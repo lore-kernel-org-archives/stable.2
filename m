@@ -1,105 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793796250;
-	b=16bElp2v+8HJzZGNaJjxS8SKbcoJpj3AsAkasZkBVtxesvkO4BU5/6L9jS7HLhgEqv8s
-	 Q9QzpENKRBBZeRUUe+J5e1N4g7n1xJEDmEbJyrAyWY9UlE8YUsXOOrq0tChBJUtfXvX3N
-	 aqB2x6VSj0RCNuVPM4IqLG2GNESwNhcRpoxNFjxT0jTGs3qgIfyWGCyhipvzL993Wqz5P
-	 MOnlDA6SvVqjt4gZNz3+oZRyBb0g0uTM7BPdkKqTlzaVDJA6v2+S9oGLGyRVAEhJk/HdZ
-	 Y0N6m4UYdVjyHy6/oeqZQ9/sii/R+dZP+nsoR4k/F0rBcI3Rh00FADes+xQzLxVrwEg==
+	t=1793796289;
+	b=Y5CMzTn2Q1r5fXyR5EQ7uyQRSzECx55G7guO52TsopHH1zAPnutwwYBYTQbfJs5ogJWX
+	 /Cb53bDyhqEBxyABOG/2eEC4lpgQusnVFSzhPgcU5XjPy2FDD/EZm1J9SAT90oPABi+hu
+	 69pi5pR6O8KVC3+T0BzYRNgOCNfssVMPUsmILaproUmWVhPALx/ZGU75U5o+UndNUyXT4
+	 fLQ5lIxNzAjNPmrZofYK2gm3DC92CpceCzAzxal5zu7SBKgOhNpVjz8Q4u0+pbErDP6QE
+	 nVi0cDhO68OknC/yJSmuZEi1b5ZecIqeFDIAjHLuLd5CX5VDWaqdf2sXE57StZJ1HGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793796250;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=WwaC4b0cLVSF727gUMsJoTLQTIaBl/Xdkq7vP7dh0BA=;
-	b=xwpUvptUxVJHRA8rXetkrSaRVB1ChcdqxshmHNVn0Mh21SD2V05/1iw2jOI+8p+48iyS
-	 ozOawUk642+oKkBYN6GFZLlBPVzL5SrrygULT5BEZKgpJgL46RPXJiXTiuEfKqYo1vFGn
-	 3ZfRZAZJLWw8jvmTM+/YNKUTIYpXKRyiY5cyP7oZ3kNJ+378iGQ4xRypn5C5vCD6AcE2n
-	 zoSV77PldNWpt35kfmMRoNeaUDmoGK62fx7HKIFPpuis4iawfSS5LQ+DN8fLMqQt70fjw
-	 lZGsV4kx8cY6R4EES1oeBENJla0trPLhOOK7ZxKDCsHbuPrPlzcMC7WePoDG7j/gtZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793796289;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=E7Vw/XE5thAVyI3TZeFiM04oOjnhXJsy/OqySkvTrQQ=;
+	b=Yx5Ja4nO/ON3ktGKvAtCiI/lXwHipx31mx6WmnVZG0eu8sLX6n6p7/SKv/XbYFy+or48
+	 vybrJHtz3AUA1JgMxIlrVu79WCO1CBwnnce+WUeLIaxHRb2vnCqNOOHUAOSzHef1NiJT1
+	 1CL6kGTZddjPmyoqmB1HDNdamSoartRjp6k46lmLiDST/WvsMzJTAyPrJDG3EOI/mvKlp
+	 4onQobwpz4l+uI/PWL2eroA/tDZULxfHt4MLKYHSjldaUAeu3OuqwCWImNoGzKXqaRBAP
+	 KsvDHDjNF9epQIUhZliiY3U0QqQuGp0qfdjigbQuCxpiD7QfFH3Xq4IocVy1WVfdmLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Mhyf3BE6;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IRmQPJhP;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="bpOP/wvs";
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Qsc0Kgxm;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qV222pOf;
+	arc=none smtp.remote-ip=113.46.200.223
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8A6606A32F
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 12:44:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A8A6606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47C0606A339;
+	Wed,  4 Nov 2026 12:44:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E47C0606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Mhyf3BE6;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IRmQPJhP;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=bpOP/wvs;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Qsc0Kgxm
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6E9BC21FA1;
-	Wed,  4 Nov 2026 12:43:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793796240; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WwaC4b0cLVSF727gUMsJoTLQTIaBl/Xdkq7vP7dh0BA=;
-	b=Mhyf3BE6NJeb/qk+/NhyS/IRZbTImpwO0Dthehtdt+sqCCqe/AZXy942JUPapgyQLxAgBt
-	wZruvANz5WKkby3Cuxa4nys9QAxt09gRWFpJ3XVWjFcEmbfbF+zpTkS85As7Jg0mZTvZtS
-	MMpbWdAq2AKfBEzazeNLQwSqCsYhFnI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793796240;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WwaC4b0cLVSF727gUMsJoTLQTIaBl/Xdkq7vP7dh0BA=;
-	b=IRmQPJhP/RnsnYsQyZrOKUJQM9c3jFVhocXzoUHrSelbWp/hb4B1S9cmI5X8TTXNRBZwaS
-	KlIqoatvOIt0XJBA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793796239; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WwaC4b0cLVSF727gUMsJoTLQTIaBl/Xdkq7vP7dh0BA=;
-	b=bpOP/wvsBq+FbQBilNbHf5zRLhlDuFkRo45IeelOELKNg5xneBtXczvRaI+mLQGxcnb0c4
-	MaLVm2Flc1ArH+0hBPyZjpk5/svInAoCk8lIK+hOYRCNwOjyJrq7SnKddkl7/LhWLRF427
-	ppRGOP6hJqOdv9eTLhWBNEubQQdw0jE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793796239;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WwaC4b0cLVSF727gUMsJoTLQTIaBl/Xdkq7vP7dh0BA=;
-	b=Qsc0Kgxm/wArigy8p0g/R2sQdvI7aJvHA6am9jUhI3UhIPfMgjEMAl8b2SeuzkesXphFWE
-	yl7+LOFUNCsZlzAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4535E134F0;
-	Wed,  4 Nov 2026 12:43:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 67JlCI8o62oafwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 04 Nov 2026 12:43:59 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id CA1C4B3B7; Wed, 04 Nov 2026 13:43:54 +0100 (CET)
-Date: Wed, 4 Nov 2026 13:43:54 +0100
-From: Jan Kara <jack@suse.cz>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: jack@suse.com, ritesh.list@gmail.com, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ext2: preserve IOMAP_F_DIRTY for extending direct writes
-Message-ID: <jnqgrofg5eh4rvmpqr3wrhyimlux2cwtguj2o5d3tjzdaqq6nc@xsxxjpzmpomu>
-References: <20261029013616.97194-1-dennylin0707@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qV222pOf
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=E7Vw/XE5thAVyI3TZeFiM04oOjnhXJsy/OqySkvTrQQ=;
+	b=qV222pOffz4XdiVtpWlxIi+W+hNXn/YAUcK1nndQSUvuKi4iuZOC3b9Noqn3XuawVwEcA4Z23
+	mAX/IulpkKSKC1aK28T6wjGvRTNKam3HShwQBj1l0Uf/8XYJUd10YSYdVPypsM8/9Ukzea+4sem
+	Rutfl2N2antt2dxRKnjIPQg=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jKQB61xQCzmVBl;
+	Wed,  4 Nov 2026 20:44:30 +0800 (CST)
+Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
+	by mail.maildlp.com (Postfix) with ESMTPS id 11CAD40578;
+	Wed,  4 Nov 2026 20:44:41 +0800 (CST)
+Received: from vm.huawei.com (7.238.34.231) by whupemk100010.china.huawei.com
+ (7.152.184.41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 4 Nov
+ 2026 20:44:40 +0800
+From: Pengfei Lv <lvpengfei20@huawei.com>
+To: <gregkh@linuxfoundation.org>
+CC: <stern@rowland.harvard.edu>, <linux-usb@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
+	<xuhaiyang5@hisilicon.com>, <xuetao09@huawei.com>, <caiyadong@huawei.com>,
+	<suzhuangluan@hisilicon.com>, Pengfei Lv <lvpengfei20@huawei.com>
+Subject: [PATCH] usb: core: hub: Re-guess ep0 maxpacket size on reset
+Date: Wed, 4 Nov 2026 20:44:02 +0800
+Message-ID: <20261104124402.1269650-1-lvpengfei20@huawei.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,169 +70,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="hhurp2xrs3achqmx"
-Content-Disposition: inline
-In-Reply-To: <20261029013616.97194-1-dennylin0707@gmail.com>
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[multipart/mixed,text/plain,text/x-patch];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.com,gmail.com,vger.kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,msgid.link:url,imap1.dmz-prg2.suse.org:helo,suse.cz:email];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	HAS_ATTACHMENT(0.00)[]
-X-Spam-Score: -12.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ whupemk100010.china.huawei.com (7.152.184.41)
 
+Per USB 2.0 spec section 5.5.3, the ep0 maxpacket size is fixed for
+all device speeds except full-speed devices, where it can be 8, 16,
+32, or 64 bytes and can only be determined by reading the device
+descriptor.  During the initial enumeration of a full-speed device,
+the USB core guesses 64 bytes (hub_port_init() with initial=true);
+after reading the descriptor, the real value (e.g. 8) is stored in
+udev->ep0.desc.wMaxPacketSize and propagated to the xHCI ep0 context
+via an Evaluate Context command (xhci_check_maxpacket()).
 
---hhurp2xrs3achqmx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+After a port reset (usb_reset_and_verify_device() -> hub_port_init()
+with initial=false), the "if (initial)" guard added by commit
+ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") skips the ep0 maxpacket
+guess block, so udev->ep0.desc.wMaxPacketSize retains the real value
+(e.g. 8).  The xHCI Reset Device command preserves the ep0 context
+as well, so the xHC ep0 max_packet also stays at 8.
 
-On Thu 29-10-26 01:36:16, Hungyu Lin wrote:
-> ext2_iomap_begin() sets IOMAP_F_DIRTY for writes that may extend i_size,
-> but clears the flag after ext2_get_blocks(). When the write uses an
-> existing mapped block, iomap can then use FUA and skip
-> generic_write_sync(), even though ext2_dio_write_end_io() updates the
-> inode size. An O_DSYNC write can therefore return without persisting
-> the new size.
-> 
-> For example, on a FUA-capable device, a 512-byte O_DIRECT|O_DSYNC write
-> at offset 512 into a fsynced one-byte file returns successfully and
-> extends the in-memory size to 1024, while an immediate read of the
-> on-disk inode still shows size 1. An explicit fsync persists the new
-> size.
-> 
-> Initialize iomap->flags before setting IOMAP_F_DIRTY so that the flag
-> survives and the required metadata synchronization takes place.
-> 
-> Fixes: fb5de4358e1a ("ext2: Move direct-io to use iomap")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+When the subsequent re-enumeration then uses the "new scheme" and
+issues a 64-byte GET_DESCRIPTOR (get_bMaxPacketSize0 with size=64),
+xhci_check_maxpacket() sees hw==sw==8 and does not issue an Evaluate
+Context command.  The xHC queues a Data TRB of length 64 but applies
+ep0 max_packet=8 for short-packet detection.  If the device's first
+data packet is exactly 8 bytes and it sends no ZLP, the xHC does not
+recognise a short packet, keeps issuing IN tokens for the remaining
+56 bytes, and the control transfer hangs in the Data stage until URB
+timeout.  (A standard 18-byte descriptor returned as 8+8+2 is not
+affected because the final 2-byte packet is a short packet.)
 
-Thanks for the fix. I've just move the setting of the IOMAP_F_DIRTY bit
-instead of moving the initialization. Functionally this is equivalent and
-the iomap modification is better localized that way (the resulting patch is
-attached).
+Fix this by removing the "if (initial)" guard so that the ep0
+maxpacket size is re-guessed from udev->speed on every reset.  For
+full-speed devices this re-establishes the 64-byte guess, which makes
+xhci_check_maxpacket() issue an Evaluate Context command that brings
+the xHC ep0 context back to max_packet=64 before the GET_DESCRIPTOR
+data stage; the data stage then terminates correctly via short-packet
+detection, and the ep0 maxpacket is subsequently corrected to the
+real value as usual.
 
-								Honza
+For high-speed, low-speed, and SuperSpeed-or-faster devices the
+re-guess is a no-op (guessed value equals the fixed real value).
+The descriptor-immutability checks (!initial && maxp0 !=
+udev->descriptor.bMaxPacketSize0) remain unchanged.
 
-> ---
->  fs/ext2/inode.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/ext2/inode.c b/fs/ext2/inode.c
-> index 12ac4cfe1500..ba23cadb157b 100644
-> --- a/fs/ext2/inode.c
-> +++ b/fs/ext2/inode.c
-> @@ -805,6 +805,7 @@ static int ext2_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
->  	    (first_block << blkbits) < i_size_read(inode))
->  		create = 0;
->  
-> +	iomap->flags = 0;
->  	/*
->  	 * Writes that span EOF might trigger an IO size update on completion,
->  	 * so consider them to be dirty for the purposes of O_DSYNC even if
-> @@ -818,7 +819,6 @@ static int ext2_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
->  	if (ret < 0)
->  		return ret;
->  
-> -	iomap->flags = 0;
->  	iomap->offset = (u64)first_block << blkbits;
->  	iomap->bdev = inode->i_sb->s_bdev;
->  
-> -- 
-> 2.43.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
-
---hhurp2xrs3achqmx
-Content-Type: text/x-patch; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0001-ext2-preserve-IOMAP_F_DIRTY-for-extending-direct-wri.patch"
-
-From 6fda7e6fba044590ce5d7bae6eebd437df1f5b92 Mon Sep 17 00:00:00 2001
-From: Hungyu Lin <dennylin0707@gmail.com>
-Date: Thu, 29 Oct 2026 01:36:16 +0000
-Subject: [PATCH] ext2: preserve IOMAP_F_DIRTY for extending direct writes
-
-ext2_iomap_begin() sets IOMAP_F_DIRTY for writes that may extend i_size,
-but clears the flag after ext2_get_blocks(). When the write uses an
-existing mapped block, iomap can then use FUA and skip
-generic_write_sync(), even though ext2_dio_write_end_io() updates the
-inode size. An O_DSYNC write can therefore return without persisting
-the new size.
-
-For example, on a FUA-capable device, a 512-byte O_DIRECT|O_DSYNC write
-at offset 512 into a fsynced one-byte file returns successfully and
-extends the in-memory size to 1024, while an immediate read of the
-on-disk inode still shows size 1. An explicit fsync persists the new
-size.
-
-Move setting of IOMAP_F_DIRTY after the initialization.
-
-Fixes: fb5de4358e1a ("ext2: Move direct-io to use iomap")
+Fixes: ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-Link: https://patch.msgid.link/20261029013616.97194-1-dennylin0707@gmail.com
-Signed-off-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Pengfei Lv <lvpengfei20@huawei.com>
 ---
- fs/ext2/inode.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ drivers/usb/core/hub.c | 46 ++++++++++++++++++++----------------------
+ 1 file changed, 22 insertions(+), 24 deletions(-)
 
-diff --git a/fs/ext2/inode.c b/fs/ext2/inode.c
-index 12ac4cfe1500..51250717c70b 100644
---- a/fs/ext2/inode.c
-+++ b/fs/ext2/inode.c
-@@ -805,6 +805,12 @@ static int ext2_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
- 	    (first_block << blkbits) < i_size_read(inode))
- 		create = 0;
+diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+index 199d3f535a89..51f66b24b353 100644
+--- a/drivers/usb/core/hub.c
++++ b/drivers/usb/core/hub.c
+@@ -4969,31 +4969,29 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
+ 	}
+ 	oldspeed = udev->speed;
  
-+	ret = ext2_get_blocks(inode, first_block, max_blocks,
-+			&bno, &new, &boundary, create);
-+	if (ret < 0)
-+		return ret;
-+
-+	iomap->flags = 0;
- 	/*
- 	 * Writes that span EOF might trigger an IO size update on completion,
- 	 * so consider them to be dirty for the purposes of O_DSYNC even if
-@@ -812,13 +818,6 @@ static int ext2_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
- 	 */
- 	if ((flags & IOMAP_WRITE) && offset + length > i_size_read(inode))
- 		iomap->flags |= IOMAP_F_DIRTY;
--
--	ret = ext2_get_blocks(inode, first_block, max_blocks,
--			&bno, &new, &boundary, create);
--	if (ret < 0)
--		return ret;
--
--	iomap->flags = 0;
- 	iomap->offset = (u64)first_block << blkbits;
- 	iomap->bdev = inode->i_sb->s_bdev;
+-	if (initial) {
+-		/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
+-		 * it's fixed size except for full speed devices.
++	/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
++	 * it's fixed size except for full speed devices.
++	 */
++	switch (udev->speed) {
++	case USB_SPEED_SUPER_PLUS:
++	case USB_SPEED_SUPER:
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
++		break;
++	case USB_SPEED_HIGH:		/* fixed at 64 */
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
++		break;
++	case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
++		/* to determine the ep0 maxpacket size, try to read
++		 * the device descriptor to get bMaxPacketSize0 and
++		 * then correct our initial guess.
+ 		 */
+-		switch (udev->speed) {
+-		case USB_SPEED_SUPER_PLUS:
+-		case USB_SPEED_SUPER:
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
+-			break;
+-		case USB_SPEED_HIGH:		/* fixed at 64 */
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+-			break;
+-		case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
+-			/* to determine the ep0 maxpacket size, try to read
+-			 * the device descriptor to get bMaxPacketSize0 and
+-			 * then correct our initial guess.
+-			 */
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+-			break;
+-		case USB_SPEED_LOW:		/* fixed at 8 */
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
+-			break;
+-		default:
+-			goto fail;
+-		}
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
++		break;
++	case USB_SPEED_LOW:		/* fixed at 8 */
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
++		break;
++	default:
++		goto fail;
+ 	}
  
+ 	speed = usb_speed_string(udev->speed);
 -- 
-2.53.0
+2.34.1
 
-
---hhurp2xrs3achqmx--
