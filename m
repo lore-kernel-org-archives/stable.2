@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799364;
-	b=g8cylh19Iqgsjk9ODAW7rmTWn2CAlsEhiGVtVag0/blz6d2NVH3yqD0V/4da1RS5RxdO
-	 9JmVvVnRJQOA7rWLVCBNiJqDrKkoWD7Y25emeXtd2XEWwLrtr5ePSvwOam54PLcEggoPw
-	 wTc/+jbUuTDTZhnjq1AXwsMZd8UY6cg0iUIGQW1GApF2NYpa3u84olwxRyMsd710IWvX4
-	 YmBUAkPyHtVj9aj8pQ+NYesj5AuFPOXOt8484GHWwWwjexuqHtTnqfy2XEn+kyPJteXsu
-	 JyWsjd0J9QaiFA6WnTuOQxh9ksI7vzZzgrMEPN0k1rBltQcSMeTFqKlISn7zt6CFIKQ==
+	t=1793799366;
+	b=w8TWuwU98m+dtGlyCKt42ctcZlqdLLl34ssQ3XfdITph/f5BYrFHKp7a1U3OlLeYVbWI
+	 tzMiL+Rm9Wdu8FLutqS9cFyLJbIr25KkoH6qxvf58uQoZhzDDnTZGqJ5cibwHE5TrQxlC
+	 eXyupgcdzYD+XqeJLbkwLnDj9iEunXbmNanhMbFtInrd22ro9s2Youv7oRzxnB8RVDuvt
+	 Kf/jEauLxYooou7jHzD5gZJOIt/dNtQVhZg35v1s9Pp+9sIHbkBhO/bkFlQwtNi6Ftmh3
+	 UCoyfXHnlkalj9UEat4USSOP3WT590JpfEHHILoCZjmFOICJL8ApWGzowg3QR14Wrrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799364;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799366;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=n0QcJlO49mLlPuoVveuD9kiththTJoHkGdZRLNM7qxE=;
-	b=0VJDrpwa9cMLC7v0ZIHwC0yScI7V1NgdnR8KP8rreVJ3mF4ifCXmgYra83qBWdY81r1R
-	 +J8cObo7flW4MZvrvHndbPU9Zpwp9cQhEeKEmnJqj60Xo1HLj1sYax786deKrVkfWkqTg
-	 V/ma5UMqtIc00YEPlCylPFaHwfJYDJlUKK0J3ZwRtOvL+FX2RLxHDp8Uz5cASx4/tijv0
-	 X5wT36FIXI4EAjd4eNXRurLeuTKVT4aIhI6Kwlby8K8y/Pw0bLFqnOpeNuuyF24vj0bFh
-	 kUkiYhNT1Xcrwe4T5HUnN+6530wmujfWAVY3GTvR/UOOekxabdtXegs/jDIRRrYbhNw==
+	bh=KfvXFvl3jCu56Ho8n7U5oMPxQIEoMzMDcmieYYQFYb8=;
+	b=V8kncQ2m0lDkLZ7txTZoQ8B3Q1yVMnmaDg7MRUpi5KF1IsLVnRrH1xuPd6d/KT1heVCw
+	 M+2JX1n/gLHxO1UgfaIL3pkhnPXKOgUv1LDSMfe2BXOVQ8zyBTAZ6nzzl7DgW9nmUTt2T
+	 E+drNnVoBTYSpTmYRRv+8RVNBJ/xRQsUSe7CS6ELDYdcmjdHJIo7vkfQItRQDbm7oxhoY
+	 VtvukQH48TUfAfp8rnEWAnhx3SSd5hHGRSFfJE8tP4lIpYiEN9ign8oWI6N3PXJMRipdX
+	 dLi9qboeoIAykdd2Sk6I8q9VgtOLvBldDMF6Dhop8kF/xZ4EWWd0hjcrdNWucJnCpeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZSKPALfI;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a+vdT1Lc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314E8606A32F
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:36:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D43606A32D
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:36:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZSKPALfI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2CC21F000C1;
-	Wed,  4 Nov 2026 13:36:03 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a+vdT1Lc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76FBD1F00A17;
+	Wed,  4 Nov 2026 13:36:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793799364;
-	bh=n0QcJlO49mLlPuoVveuD9kiththTJoHkGdZRLNM7qxE=;
+	s=korg; t=1793799365;
+	bh=KfvXFvl3jCu56Ho8n7U5oMPxQIEoMzMDcmieYYQFYb8=;
 	h=Subject:To:Cc:From:Date;
-	b=ZSKPALfI4xWUupZwn7zm+rKbLmT847YOjl9lDSHSVrGpV2xTwc4ZEW+m28lHxpoUZ
-	 OEen109tCBSvZjSJKXiu7ZRzQ7KtsfRm/nFAlXqlNOh3uYfCErzq/FK+3JARlW3UPp
-	 uk4gzRh6Zxadk8uXnEu+8VUhfmIOWj+74PqATkY0=
-Subject: FAILED: patch "[PATCH] smb: client: fix use-after-free infoleak via the readdir" failed to apply to 6.1-stable tree
+	b=a+vdT1LcCWp+VNi2zzBezOQXZMtUu+TetS23wmJoUJiYd4BpE0WphKdbv2InbLkAv
+	 YSJEVDZKOMfxJgqV725EoRnohlH1/6pBT6tXxg2bRyCcRdWNQf5qvBkWbN+GZT+twa
+	 d5vrBXUH6teuFCrLmHzHFW2+kjBoux8+a1wqqMlE=
+Subject: FAILED: patch "[PATCH] smb: client: fix use-after-free infoleak via the readdir" failed to apply to 5.15-stable tree
 To: diego@bynar.io,dhowells@redhat.com,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:36:02 +0100
-Message-ID: <2026110402-earlobe-scanner-01d6@gregkh>
+Date: Wed, 04 Nov 2026 14:36:03 +0100
+Message-ID: <2026110403-submersed-uncloak-dc0a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 59131dd72f62b198fc9ea1489ad9d3573154f684
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110402-earlobe-scanner-01d6@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110403-submersed-uncloak-dc0a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
