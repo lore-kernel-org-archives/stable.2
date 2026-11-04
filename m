@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793791668;
-	b=sXROcd5Vul3dDQ3Msg82o2V1icytoiKTDCrUVmoAuv/CNlPckpQPZ2AADUJTW5RNUGr0
-	 4eQ3VWd+ns/bqrfnGecvsh1wMmVty/fuSMYh27fH8nuJK738FJLkG7jZzJfa0qu3MZ+B6
-	 2MLpCBN+icPcODbM2AjQNiN3NaxaOtRQuaFoRnm7okCIbmWwsHT3AaomOVMKAGQeu3Ohw
-	 J06N3veHoYbAtpy25ZclvpkEwKRgbg02ezO3DpUa5WcA6Co9DHICo2gHM1IRDxNJmvBc+
-	 lktOpiCWdc7lwNEWIz5gkWs6ttr7ZdIZzIvM9vDKvyCJSHCNJKUaxMNdBbqLD/cqKug==
+	t=1793791689;
+	b=YlxzKnu6HdMA3x/a8LD8WL0mO6ekrhC+12bUva6UyU4embqOgzO79PAwmMJID0S06792
+	 h+wjPf2TRLpGOHSkXDvS+vL6tg4kIjd4rGT9NSiIk/A7jLvDy903Mfj5s4ES6lwkMMlvq
+	 mKPmMxnkuN62FbUqQyxpcjGxhM16FqCbzytv+EoEpJ94huBKmMo4TKrsGIt7VRdbl9lMF
+	 EbeSJ95r70IG0bBm+bvjWSYwhZcCmDdj779n9Qq0Yc3k6vqsb1+wXmoJ4tFUR5twjqpL0
+	 e11ZZv0X8Uw1vtEqDOOadX7weSTI5qymxLj7ZXHIlI9OE96JIY1E+WpNzgDT7RwNdjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793791668;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791689;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=pyY2wj3cJVqfa/dTdmvd0ISos1ijTzTPDWm7P9keHwc=;
-	b=WP7whp4TQpTV+6CAQ+3MBsAq/vZMB8HgCrOdq59MPHTjn/yo9QrC2HXudOBLCv4x5bHA
-	 V+DNWSw6LmssdUpdto4WQUeSpNY9B+G9Eum4B6Hgf+iAXQumNnYfhku9qs5HLL+XbV0e+
-	 cIHjb5NRDoqWCvE255zWBPpGYzbuopDRSTL2VtEczw/RoS6eWpuw6ZDo5xP5ST9gMrZE0
-	 9mCQLK/hgVd/EIV9f4jwnpFXHNnfbxMnCv56FOxrx0heKtihQKDdH9fh2dgfH3C+wuitd
-	 k5UqZjGcpK5YGV2V/a/ysv4atY8P01l0O0wL/ryTGI2pPtfus23SeBlMXjfTSn0dG8w==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=SF7pZMo5UMRqgADcWk2DKfyPMybDDB6N5ged2rxXhPs=;
+	b=KvnqNcfosmYKy7EkuqpzNlqTY4uvJpxjHcLRfUyU6AVpNEBOAC17PjT2s8HRmaxhztLo
+	 PdxmRc6rdkKgy0qmnjP5F7Tgm4ooSsdeH2UjbWTHl0Rt+EU11FHFwBVhK7DgwUWxrWVnp
+	 U/ijtrcFBiQ1t8330egP6toAoJhVvqzeDaoLUL6kHwICClB0sqDaopx2/RnmIMHD8hQ4o
+	 aZCwooeWif2Gs0jo8h1tdH4Pwe3sOqp+tFWZJfshacrXcJSZ60obXN3jKhigd7s/5n5E1
+	 HRgobZSyxbGLu5nahzqonON5vW0uxu5oOn+c8BX1lDfxyrt4BwNkkPr0v02cXfiy/2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fXk1BHcc;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lhQ4jzXL;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D351F606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 11:27:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D351F606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC23606A32D
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 11:28:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFC23606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fXk1BHcc
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-341eff9e381so1153978eec.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 03:27:47 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lhQ4jzXL
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-89f84753b43so645397b3a.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 03:28:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793791667; x=1794396467; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pyY2wj3cJVqfa/dTdmvd0ISos1ijTzTPDWm7P9keHwc=;
-        b=fXk1BHccVFgFL2XcIFK6TH7HehutMBNeWYP7scpQtF10DBbnkfjU9vEeP2Lyeb3JVf
-         aWgvXyVKWpfgm8PcYjhDbp/pWFpgUqmg0N64KdFw3ujsvWyKJgkd1aVc97gU/36coh6F
-         dO04GJ1Am/hsPTFUGv3yxntdeN/g+pASqWYCBkuclbq/rLyll8ckuhZuIIgsNWmFXTx7
-         30VPsrGWE95BTqmWa/vsSvEG+yhcpiQZOPzL0nWx6dK67jQ0aXbWZ4StHt0jIV87/RIN
-         45M7NgACwqrJfKeN2Eez6hvyh7s4zBqAW1jGlEfkLh69N9WTJEsrA+og0e5iGPAr2Au/
-         yxNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793791667; x=1794396467;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793791688; x=1794396488; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pyY2wj3cJVqfa/dTdmvd0ISos1ijTzTPDWm7P9keHwc=;
-        b=l/jH0GPZZ/PhgyZZk35qmE+TItKQQQSmlzE9tzD5iHhmI5w+qPPZ8dPlhXPLEMPcRx
-         OS+0LQ+VpZ9QAdWvJSKc5kHCm3B2Ba9hzNGgkrQTsQbSdbDqAAaN5381r0R10UA9c9ea
-         CZJf0m9PeokkZfqnRGVJsUOamBEdZt16tewQ5shyJeut0/wHtKPlrQMF6PJdZ56cMpCi
-         pmK++EFXlXk1id0LQCVL/LpwQOfqk9USfBwktw6hMPGe0s9Ko1q5rq+WRVfxKyPlDOto
-         p7VN7Rj3WwOWE1z42/WpwDGHwY9k6d3jdZlpsU631RMkSJ9SBit70zpeVN7OMZiAvbnV
-         kRlw==
-X-Forwarded-Encrypted: i=1; AKwUvBxGEeFktR640Ubf6rvAI+LD77t4kXnGR/Y+Ylszb7m58ppXPiQe7tLMLGKxwU8uZJ03PVLYwRA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+esAxR+kLEnQbJgmS5zu9GJGNFYvijR8pqePbWp1XenO4quqA5
-	NZ/ACzcdaHuFXDazKZs/vh1vqHB7/ALWYb0n/vl5bZavpb3/Oatss4JuDgcBtliN+/1cPIrKxkX
-	P5yn7Tzhs2DzcdkTJ7z9hCw==
-X-Received: from dybpl4.prod.google.com ([2002:a05:7301:4304:b0:369:dd6b:ac5c])
+        bh=SF7pZMo5UMRqgADcWk2DKfyPMybDDB6N5ged2rxXhPs=;
+        b=lhQ4jzXLF2fzjGuCJrAbkiK1nLdnyfY52DFnzVeC/2DsqTN28ZHrP5r4hi4qyQMS0d
+         yv1Do4Ba6BR3zB0Vw5csch1E6ohsqxcMWgX/vFN4KbceavWSxJEvRvHs2qD7jxojvauX
+         0xr9w/mAastp1XtPgrKhcJ/HU8q/P9mEWicah0qAnR190jRbYK9bLM4g4EPuuSMGYYKM
+         SIovzdsG9Axzki2fv8SWX8uowK3De+3LdmfOPHoOZhuzGCBEIM5FgJVbSG1dhGDFr45r
+         ho2mNK0I2mMFevwFST1fj1pggWYDuY4W1eXBOqt7lkicYCFdR8CAFwpkVShoZiH8S6we
+         lvWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793791688; x=1794396488;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SF7pZMo5UMRqgADcWk2DKfyPMybDDB6N5ged2rxXhPs=;
+        b=onIhG1yPonJkO8uySoQ0O/mEJ6AvMfoIIRou1SK44LmZbG3dfd4MePDQP2hN6E9nlP
+         Qf0V08Z7rvv2wSR35cZu+L9NvF83tLWQbDjPZbJhVYys/Hw0TTRlgoY98Dfe7CgZQeGN
+         uIj8bmabNWmopaHmR4glDIFyCswqy5Eygy3lL5id9TXrQSBaDNSc4RaPfjs2XKD6GFmU
+         3UldR/ZZknw4Tahv+v3VMnxjqtUSitTp+BHsBiYQFXxELdIc2TITjKjDED+3Is3ICZf4
+         0cp/GzeM94IAILLhXm1AnRBdJDjFF3NKck5+aEUgdr5sPDV3fIkA1yw8dQLfF34om/th
+         RARA==
+X-Forwarded-Encrypted: i=1; AKwUvByIwv/6Wwflg5V6MoNajU8T7mOi/rC/87FJf8BNH07H2IJR0ZFWeWjubVzJ7DMyA+bGY8daVSg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/TgyvxZ/PwXUDIfbmGOW5mgMyWWwyye9SHqzBQCjC/I2DlgWYl
+	oIBxd2AnvDsEHGjosEpkoMx/yrOB4kSdcGT3wkLmho3PPzmr/X4Kw+RMQyCADmy7BXT/pODGTLZ
+	sQCqNniNSZR9z1Yj/XagCDw==
+X-Received: from pfbfb28.prod.google.com ([2002:a05:6a00:2d9c:b0:88e:f55:207e])
  (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:65d2:b0:369:1401:c5c2 with SMTP id 5a478bee46e88-36a423bf43fmr21671592eec.26.1793791666553;
- Wed, 04 Nov 2026 03:27:46 -0800 (PST)
-Date: Wed,  4 Nov 2026 19:27:44 +0800
+ 2002:a05:6a00:bd12:b0:873:e3b4:5d4 with SMTP id d2e1a72fcca58-8a9b9a4ecd9mr12223851b3a.2.1793791687832;
+ Wed, 04 Nov 2026 03:28:07 -0800 (PST)
+Date: Wed,  4 Nov 2026 19:28:06 +0800
+In-Reply-To: <6e42537e-c7da-4b44-90bf-dc4cf30be6cf@acm.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,114 +79,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261029040001.2100001-1-stanleyjhu@google.com> <6e42537e-c7da-4b44-90bf-dc4cf30be6cf@acm.org>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261104112744.1630864-1-stanleyjhu@google.com>
-Subject: [PATCH v2] block: Keep RPM_ACTIVE in blk_pre_runtime_resume() when
+Message-ID: <20261104112806.1633283-1-stanleyjhu@google.com>
+Subject: Re: [PATCH] block: Keep RPM_ACTIVE in blk_pre_runtime_resume() when
  already active
 From: Stanley Jhu <stanleyjhu@google.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Bart Van Assche <bvanassche@acm.org>, Brian Norris <briannorris@chromium.org>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Praveen Talari <praveen.talari@oss.qualcomm.com>, 
-	Alan Stern <stern@rowland.harvard.edu>, linux-block@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Stanley Jhu <stanleyjhu@google.com>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Jens Axboe <axboe@kernel.dk>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Praveen Talari <praveen.talari@oss.qualcomm.com>, Alan Stern <stern@rowland.harvard.edu>, 
+	linux-block@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Stanley Jhu <stanleyjhu@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Since commit eef1d74bf88f ("PM: runtime: Only set runtime_error on
-suspend callback failures"), a failed runtime resume leaves
-dev->power.runtime_error at 0 with runtime_status set to RPM_SUSPENDED,
-so later runtime resume requests run sdev_runtime_resume() again:
+On Tue, Nov 03, 2026 at 12:54:35PM -0800, Bart Van Assche wrote:
+> Stanley, the analysis looks right to me. Could you make the invariant
+> explicit? Only move SUSPENDED -> RESUMING in blk_pre_runtime_resume(),
+> and only call blk_clear_pm_only() in blk_post_runtime_resume() if
+> old_status == RPM_RESUMING. Please also describe in the commit message
+> how this was tested. With those changes:
+>
+> Reviewed-by: Bart Van Assche bvanassche@acm.org
 
-1. A runtime suspend increments q->pm_only from 0 to 1 and sets
-   q->rpm_status to RPM_SUSPENDED.
-2. The first runtime resume fails in the driver callback, and
-   blk_post_runtime_resume() sets q->rpm_status to RPM_ACTIVE and calls
-   blk_clear_pm_only(), decrementing q->pm_only from 1 to 0 so recovery
-   commands can enter the queue (intended since
-   commit 6e1fcab00a23 ("scsi: block: pm: Always set request queue
-   runtime active in blk_post_runtime_resume()")).
-3. A retried runtime resume calls blk_pre_runtime_resume(), which
-   overwrites q->rpm_status from RPM_ACTIVE to RPM_RESUMING, so
-   blk_post_runtime_resume() sees old_status != RPM_ACTIVE and calls
-   blk_clear_pm_only() a second time without a matching
-   blk_set_pm_only().
-4. q->pm_only underflows from 0 to -1 (triggering WARN_ON_ONCE in
-   blk_clear_pm_only()), blocking non-PM requests in blk_queue_enter()
-   and __bio_queue_enter() while the device is RPM_ACTIVE, and the next
-   runtime suspend increments q->pm_only from -1 to 0, letting non-PM
-   requests dispatch while RPM_SUSPENDED. This hits the UFS device
-   well-known LUN by default and SCSI disks with
-   manage_runtime_start_stop enabled (ATA and FireWire sbp2 defaults).
+I have sent v2 with the explicit RPM_SUSPENDED -> RPM_RESUMING invariant
+in both functions, the testing description in the commit message, and
+your Reviewed-by tag.
 
-Transition q->rpm_status to RPM_RESUMING in blk_pre_runtime_resume()
-only when it is RPM_SUSPENDED, and call blk_clear_pm_only() in
-blk_post_runtime_resume() only when old_status is RPM_RESUMING, pairing
-each clear with a completed runtime suspend.
+> Separately: since commit eef1d74bf88f, ufshcd_recover_pm_error() no
+> longer sees power.runtime_error after a resume failure. Its handling of
+> that case is probably dead code now.
 
-Tested on QEMU ARM64 UFS in SDB and MCQ modes by injecting
-runtime-resume START STOP UNIT failures on the UFS device well-known
-LUN, confirming zero pm_only underflows and balanced runtime PM cycles.
-
-Fixes: eef1d74bf88f ("PM: runtime: Only set runtime_error on suspend callback failures")
-Cc: stable@vger.kernel.org # v7.3+
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
----
-Differences from v1:
-- Move SUSPENDED -> RESUMING explicitly in blk_pre_runtime_resume() and
-  clear pm_only only for RPM_RESUMING in blk_post_runtime_resume()
-- Describe the QEMU UFS test coverage in the commit message
-- Link to v1: https://lore.kernel.org/r/20261029040001.2100001-1-stanleyjhu@google.com
-
- block/blk-pm.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
-
-diff --git a/block/blk-pm.c b/block/blk-pm.c
-index 8d3e052f91da..34cc7c5ca04e 100644
---- a/block/blk-pm.c
-+++ b/block/blk-pm.c
-@@ -142,7 +142,8 @@ EXPORT_SYMBOL(blk_post_runtime_suspend);
-  *
-  * Description:
-  *    Update the queue's runtime status to RESUMING in preparation for the
-- *    runtime resume of the device.
-+ *    runtime resume of the device if the queue is runtime suspended, or keep
-+ *    RPM_ACTIVE if a previous failed runtime resume already reactivated it.
-  *
-  *    This function should be called near the start of the device's
-  *    runtime_resume callback.
-@@ -153,7 +154,9 @@ void blk_pre_runtime_resume(struct request_queue *q)
- 		return;
- 
- 	spin_lock_irq(&q->queue_lock);
--	q->rpm_status = RPM_RESUMING;
-+	/* Keep RPM_ACTIVE if a prior failed resume reactivated the queue. */
-+	if (q->rpm_status == RPM_SUSPENDED)
-+		q->rpm_status = RPM_RESUMING;
- 	spin_unlock_irq(&q->queue_lock);
- }
- EXPORT_SYMBOL(blk_pre_runtime_resume);
-@@ -168,8 +171,8 @@ EXPORT_SYMBOL(blk_pre_runtime_resume);
-  *    driver or error handler will need to communicate with the device.
-  *
-  *    This function should be called near the end of the device's
-- *    runtime_resume callback to correct queue runtime PM status and re-enable
-- *    peeking requests from the queue.
-+ *    runtime_resume callback to mark the queue runtime active and clear
-+ *    pm_only if the queue was resuming.
-  */
- void blk_post_runtime_resume(struct request_queue *q)
- {
-@@ -185,7 +188,7 @@ void blk_post_runtime_resume(struct request_queue *q)
- 	pm_request_autosuspend(q->dev);
- 	spin_unlock_irq(&q->queue_lock);
- 
--	if (old_status != RPM_ACTIVE)
-+	if (old_status == RPM_RESUMING)
- 		blk_clear_pm_only(q);
- }
- EXPORT_SYMBOL(blk_post_runtime_resume);
--- 
-2.56.0.385.gac671c819a-goog
-
+After commit eef1d74bf88f, a failed W-LUN runtime resume leaves
+ufs_device_wlun in RPM_SUSPENDED with power.runtime_error == 0, so
+ufshcd_recover_pm_error() skips waking consumer device queues after a
+host reset. I am preparing a separate UFS series for that path.
