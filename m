@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793807886;
-	b=lN4VhMqJm9pKpe7tjCAMr9kMZSqR5G5wItRqUDb+Tkc8xGyY9sT8BjOvRmXnZwu971i7
-	 tOyfw+TRoVO3eU3PXWy+SepAvYcH5aeucOJHFNEPGKsbAav4kAgF1oV62j+ShJPQ8xjXn
-	 M+HLpKHZmSJ8wFc9jZxAZdfDfQOzl++E2qvH480DDqG/OHg5BWuqTM/4RlqvGonDjMfpF
-	 eFql3oGy/QMNBRYJa8QnvFQenm84XULivBXrF+NHE+Succf1qzPHwukH2I7EWjAve0BKP
-	 pVpZdT8iPkWfEM5yhFLfNIWLUf7uFVCIy5ERGf5DwmnBBMpxW2sWomDfEc5ZtosvbjQ==
+	t=1793807888;
+	b=QYhEXHpPRj382VZ7HDAKllx8GP7Rb9ch3360VmlNp7EdEdE4L+s74QgYOAbRqE/fSFG6
+	 wje9Z7OpycI7DMYJdQb4CBil3eVe5F8cWDB8/iD9bnvokYlUVYSr1gd2XjzPAqx0jA1ja
+	 9vyrQMTse8onv5+8dlCbhGf2PDuTGE4RM0gYAr/jI54hAVSFztotiN5wPcm7ILmCM0vqm
+	 9OH9QK3qqWsQi/aMIw1ntu5nPiv/eSxv8K2KMOXFqz+1LgOmSxqDg/4LOrBPdNyYYl472
+	 638IGi4izD6zM204FkpJ8lgbjLnFDbLREdvO0dgY2XOpjJbZcvzyEQgW+bJkT/yybEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793807886;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793807888;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=18af4ooA2M/CV3PjsddkbdOkhKI5CROPA8mm1PxMJnY=;
-	b=PrtukiAw08+WCITEQwDMeD7Z+OBhIPEDyoAMPB22f3AO13FsVRBSlpEZqMWZAqiqoJZI
-	 T3raP1a2fEl2Lawyt2Azg5u6i/Sdt9OArjCMaw92X9+X4DXGkESJW9p9TfUXHUB/Mo4L6
-	 N4ycvxjIwhJyDvMmBIMmDcA/6M0/Q0zA6Y2cu093Nf4TsUDpi/PSQaogXfhnbkELmDTNo
-	 Ob4b/K6vcKvY3Hxl3ZWJcZjJ03NIv0aVkB7bDOXLSM2EXqP6fyOWmAg9hbc3dMelaKeZg
-	 Q5EXVk1fkFiS58Z/6gv9Uia/8WqaeIDDhCSceg+F1KcyZdCSiC8Orz0srUum2GjSxug==
+	bh=CobIDIgBpZYtO1bIvi1qP1oCrjRP4ucdUu/eXRQ04v4=;
+	b=o3UXxaHLEW32h8YVmTOFz/vjduV1duGuUdRjxTWcNPMTl8w6eX2Me12h2h2ZfTb15YGd
+	 236PboEs/a5tja7gAToCMZDzlWSCSKyxvRTxokHjoEM1wqZfkgiCXcGUBn60Z2kkGfMJM
+	 judL/w4/xuVP+GdYTMZfTeDdrq9ijdm00kRB633pUlBFcEOTHzghz503YBCvnuTiSKmEA
+	 prTpGWWlCYQzlQlvszPtaGzZws0kFxjBVAXoqfiFbdx2xlrs08FIS5VkjCJROaZ/cTvIh
+	 uIekQYPnv0pxIciFKIg32W+lhAfFaJntMZmixha+2KAL4NXx+ztlfkNzIQB/wYTohMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZuUdCPO1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gTlnoSDv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8E860A6F7E
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:58:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC6E3606A9DD
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:58:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZuUdCPO1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C34E1F000C1;
-	Wed,  4 Nov 2026 15:58:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gTlnoSDv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3FF1F0093A;
+	Wed,  4 Nov 2026 15:58:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793807885;
-	bh=18af4ooA2M/CV3PjsddkbdOkhKI5CROPA8mm1PxMJnY=;
+	s=k20260515; t=1793807887;
+	bh=CobIDIgBpZYtO1bIvi1qP1oCrjRP4ucdUu/eXRQ04v4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZuUdCPO1bV084/BvJqk5gE2KeQ+U+h2kuRv5qWTjhZm0eTjJUNgmF5zYCp9FNRiZz
-	 VV7Q+ZSyahvv7opmNrCOjG+xMLFqMeiJgefffCwXI/XUKKEo5VJ0r2zhTD7/yuAX7v
-	 bsTiJ/qwhRZf8NsXn1ehB7/6k3knOTOie8imcwIyfmxo2OrOPkW+lyEDVD4jtcVMac
-	 Ld09f6yuG6N0q/znVaHTEXxXt9nq4m+D3vZjJNOVnAWlHI8PW+aDo74gqI19Xg/yde
-	 wf3XIT66lF2cAV/HODSL0NtMvXGEfZcbk2UnrcTdmuj7/sDYW1ATCCGi1B9t6mQrey
-	 4yGkKA1ZTw4pA==
+	b=gTlnoSDv9hq+BvBKJxNVPR3KVb8hqFKYrthJ07HnyLHfcsLyyngxdKxR/lwjWiyZm
+	 5vU1e6cVVJ3mufxebhLX6gIfB9TWLBT7NejV2PoaqyTxiH/YT5SvLe7tYzJBIr/FpU
+	 Oq9ZJd5AFFw7iNpzuvpn5eBM0yA699m11tkP8duTQgQiCXvga9Ex+wv5PzKCgyOVSh
+	 9ITKQempBfw2WDCRsXNNkZ2BZtMuYdm1ssy0IKLSTNSr2T9YMnLRuVyah3aAkB44mR
+	 TgE6577v5EJ7cYvyVer/uYypEsdo8BF2yZv6EOoA8yC/WUEHEtzxvXizKVJT3oBLax
+	 SVTwhBZ1q9efQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yibo Tan <lhfff@tju.edu.cn>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
+Cc: Sumanth Korikkar <sumanthk@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] media: ipu-bridge: Fix use-after-free in IVSC error path
-Date: Wed,  4 Nov 2026 10:58:03 -0500
-Message-ID: <20261104155730.3919501-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] s390/cpum_cf: Check session mask before cpu offline
+Date: Wed,  4 Nov 2026 10:58:05 -0500
+Message-ID: <20261104155732.3921147-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110432-retry-unrivaled-a1c3@gregkh>
-References: <2026110432-retry-unrivaled-a1c3@gregkh>
+In-Reply-To: <2026110414-reliable-bonded-7e4b@gregkh>
+References: <2026110414-reliable-bonded-7e4b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,59 +62,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yibo Tan <lhfff@tju.edu.cn>
+From: Sumanth Korikkar <sumanthk@linux.ibm.com>
 
-[ Upstream commit 3d42d1c82717f0853379b516a7fab54b636e09cc ]
+[ Upstream commit 99a95985dfc85eecad97f0991a2401d2fcef294c ]
 
-ipu_bridge_get_ivsc_acpi_dev() returns an ACPI device with a reference
-held. If no matching CSI device is found, ipu_bridge_check_ivsc_dev()
-drops that reference before passing the device to dev_err(). Concurrent
-CSI device and ACPI namespace removal can drop the other references,
-making this the final put. dev_err() then reads the freed struct
-acpi_device and its kobject name.
+cfset_offline_cpu() stops counter sets for every active session without
+checking whether the outgoing cpu belongs to the session mask.
 
-This was reproduced without kprobes by racing normal CSI platform-device
-unregistration and ACPI configfs table removal against the production
-ipu_bridge_init() entry. KASAN reported the final free through
-device_release(), followed by invalid reads through _dev_err().
+For example, run an hwctr session on cpu0 and a cpu bound perf event on
+cpu1:
 
-Emit the error message while the lookup reference is still held, then
-drop the reference as before.
+lshwc -l 9999 -i 5 0:b
+perf stat -C 1 -e cpum_cf/CPU_CYCLES/ sleep 120
+chcpu -d 1
+chcpu -e 1
 
-Source reproducers and vulnerable/fixed serial logs, with only the build
-hostname redacted, are available at:
-https://github.com/kimaiden1984-boop/linux-ipu-bridge-acpi-uaf-reproducer
+Although the hwctr session does not include cpu1, cfset_offline_cpu()
+decrements its counter set reference count. The subsequent perf teardown
+decrements it again, causing it to underflow.
 
-The fixed target builds with W=1 on x86-64. This was not tested on
-physical IPU hardware. The tests establish runtime reachability but do
-not measure occurrence frequency on shipping systems or establish
-exploitability.
+The perf event keeps the percpu state alive across hotplug. When cpu1
+comes online, the hwctr session is started there and the reference count
+moves from -1 to 0. Stopping the hwctr session then decrements it to -1
+again, so the zero triggered counter set disable path is skipped.
 
-Fixes: c66821f381ae ("media: pci: intel: Add IVSC support for IPU bridge driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-[ sashal: Retained the existing "MEI CSI dev" diagnostic because CVS support is absent. ]
+Check the session mask before stopping counter sets on the outgoing cpu.
+This prevents the unmatched decrement and the resulting reference count
+underflow.
+
+Fixes: a029a4eab39e ("s390/cpumf: Allow concurrent access for CPU Measurement Counter Facility")
+Reported-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: stable@vger.kernel.org # v5.14+
+Signed-off-by: Sumanth Korikkar <sumanthk@linux.ibm.com>
+Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+[ sashal: adapted the per-session CPU-mask check to the existing if condition for the single global cfset_request. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/pci/intel/ipu-bridge.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/s390/kernel/perf_cpum_cf.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 4e579352ab2c0..a5e221f42193b 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -191,8 +191,8 @@ static int ipu_bridge_check_ivsc_dev(struct ipu_sensor *sensor,
- 	if (adev) {
- 		csi_dev = ipu_bridge_get_ivsc_csi_dev(adev);
- 		if (!csi_dev) {
--			acpi_dev_put(adev);
- 			dev_err(ADEV_DEV(adev), "Failed to find MEI CSI dev\n");
-+			acpi_dev_put(adev);
- 			return -ENODEV;
- 		}
+diff --git a/arch/s390/kernel/perf_cpum_cf.c b/arch/s390/kernel/perf_cpum_cf.c
+index d2a2a18b55808..f7b270d2404cc 100644
+--- a/arch/s390/kernel/perf_cpum_cf.c
++++ b/arch/s390/kernel/perf_cpum_cf.c
+@@ -1223,7 +1223,8 @@ int cfset_offline_cpu(unsigned int cpu)
+ 	struct cfset_call_on_cpu_parm p;
  
+ 	mutex_lock(&cfset_ctrset_mutex);
+-	if (cfset_request.ctrset) {
++	if (cfset_request.ctrset &&
++	    cpumask_test_cpu(cpu, &cfset_request.mask)) {
+ 		p.sets = cfset_request.ctrset;
+ 		cfset_ioctl_off(&p);
+ 		cpumask_clear_cpu(cpu, &cfset_request.mask);
 -- 
 2.53.0
 
