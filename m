@@ -1,49 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814047;
-	b=RIPBkSDLMMoxmfBK4InH4tKS7VRv2IL2jhhLvfLG0y6/u9f5I6VPb5YyXOSf+gEGJbTu
-	 OC0hcF/PyrVbW55OQF0ff6lXaIK9A4bq45fHmCCQEoDRxFzqSZJHxeVgfUWCXuEX8DA08
-	 RgPDAbSs/ZdmOEklwdVvJK2NwT2y7tqmIsqDMgpvzorbjBVDmfhJ6iAVRohMgGmj2W9la
-	 ppJ4V0h5rYOc2sJYueSLgPRBuiV2Ne6Q9aUDNkGBC40Fw/qSEQK3qZh5cBrPMV6lXp8gS
-	 hHvIyAfdqzVG0H7eZNwOzB5JgjlgP/mcGEWxULpeRVWbB7EIqQwf/aTM3OGprKS2BvQ==
+	t=1793814094;
+	b=bG/JuWlWdrZ1p5u+CS2A3OGuV3rnsrr/V19u5lVzwlUeV1tw279L2CwZ9KIhmhZ9r0w0
+	 I4VoOMUKKh0MD6srUA3NN2uWF6TcbuDR4gwnMHJmZwpwSUik2jEWyyXFVBk+1DViF4L9R
+	 uwiLeoKpG5U2OvbnCnwmHdM4AmIGL30ZvMNcBTpawGTFu5oMKAv4Figi9kT0jMwrpenLj
+	 fR4zFpF/rpNf+MLlAKt27ER/UjNNB+Mdv9Ww/Un5DjuTACWkJRDGwBaSmVs5TLTLZpVI0
+	 WrjuZhYvUmV6Xdl9srjwv36EmQWH6aMruG5v3ipt0gtT0VQ27lZ2qkm6tlHfmQ4lKBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814047;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=TQnRvPeX0s11xwNIzy2fTv5gyAO1V6iutDNVwBAIQGw=;
-	b=NbWS1F3gJo157dedGwPsSk56Mar9qF7wirgwcUfT6ySGLRStQ0FHBjJg34N4lh3zwq35
-	 2SroEb7UeMtkMlJUeJn+qi5/0rfIMuwXT+NMC1dbBwpL6V1DC4l9EhA446unTF9LijaoR
-	 AWR4yxdJJI+WUv4i3a1x+ut6kFp3sQ1PG2zI2VnOF2JJ6cskfk8bS91sLC12kQrI39mzw
-	 EfiRBLOwu09wtNz8uKHcVeL4op++cPX/4RV+UrgDCfyoRNNjZFLffITIAIJH7BUnWLjWJ
-	 myjhQ7qVQym0tDz5zWqmXj/uVzZfninA7y+wEuQ2bagEeUiehRdR6SJFUBFbYsvtO6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814094;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=2Bn9FhU93BdgOrC5pVVG0zFQslWoaSReWKy3goxIbQ4=;
+	b=A18gVGKvZTEzijPNb1q8aZxgngZOZ5qRtElOx2HjDR33Svb0Ik+9uNka+m0NjU2Ge1lV
+	 R7pt1gGN1y0kXCL7Dnwv/1uGbw1XBGiA+1AZ8jioxtgpYTbutCSigihQ4CuKpnMEDyN2t
+	 rN8JyIdAPuZK/F5hYwQgkSCHmLiE6CSRLq/TKB2iIa5O3FUEAPu5ynvgkultWt2UUdZUh
+	 xu6O8suDeRlBLCrj/YSUzHxUz2rszWzfXFDJPRVKt8JY8yaCBEJpZKPaf5T9s1CXQrqev
+	 OG4ePwJF/j12ZsyZ5aAAArzML11PPJBFiQw/dQe0qOuOdFbP6mPtn8lkHgfex8J/GTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C6OJR5TU;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 27D1E606A331;
-	Wed,  4 Nov 2026 17:40:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27D1E606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XdUKACYm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09970606A339
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:41:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=C6OJR5TU
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4DDE81BB0;
-	Wed,  4 Nov 2026 09:40:43 -0800 (PST)
-Received: from [10.57.90.115] (unknown [10.57.90.115])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 158A03F673;
-	Wed,  4 Nov 2026 09:40:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793814046; bh=+W72MjjHirhzVA/qDT+k2DAMSV2VvDQzAofbMpBBwSk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=C6OJR5TUg1o9qDAz7haD+JUV0dWjrhETeV6oWpF8Z1Xl0ya74LmaqfHTaz7bpxff+
-	 5PwdOYNd3un5lwbYrQrG7cslAkDMCC6/ni1jA2XCr0oALAWU14yhVn52MSttnogBJY
-	 nGIlmpqVsdnM9KYCGjy44d0lfG2ZuSJiJzOHWycM=
-Message-ID: <a2677ff9-e342-4f06-bf28-8f56aadb14a4@arm.com>
-Date: Wed, 4 Nov 2026 17:40:42 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XdUKACYm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EBF41F000C1;
+	Wed,  4 Nov 2026 17:41:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793814093;
+	bh=2Bn9FhU93BdgOrC5pVVG0zFQslWoaSReWKy3goxIbQ4=;
+	h=Subject:To:Cc:From:Date;
+	b=XdUKACYmtkR1+z2mFe3urE3JvwSLRsxMazNYkJ1Fc5SWacNTtcwxcSFUgabqqs206
+	 iTMRxooyqDUtLVTiX1RxxEJPTw3D5/fXiFID3nDqzEYC5p1NG100hV+pq5y95RAdPI
+	 tNyff4SBkY6EQGCmv9BZ/mrzIHo+mp9ZXVolc3d0=
+Subject: FAILED: patch "[PATCH] xfs: bound inode fork length against the fork size during log" failed to apply to 5.15-stable tree
+To: qwe.aldo@gmail.com,cem@kernel.org,djwong@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 12:41:24 -0500
+Message-ID: <2026110424-cure-criteria-18e5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,108 +51,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/10] irqchip/gic-v5: Fix misc IRS and ITS host driver
- issues
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Timothy Hayes <timothy.hayes@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Jonathan Cameron <jic23@kernel.org>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Sashiko AI <sashiko-bot@kernel.org>
-References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
- <aun2udtwaIo2RiRC@red-moon>
-Content-Language: en-GB
-From: Sascha Bischoff <sascha.bischoff@arm.com>
-In-Reply-To: <aun2udtwaIo2RiRC@red-moon>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+
+
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x 9232301894a06e664d8de2da97175cf98419bd16
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110424-cure-criteria-18e5@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+
+Possible dependencies:
 
 
 
-On 03/11/2026 14:59, Lorenzo Pieralisi wrote:
-> On Mon, Nov 02, 2026 at 01:32:53PM +0000, Sascha Bischoff wrote:
->> This series fixes issues in the GICv5 host IRS and ITS drivers.
->>
->> The ITS invalidation serialisation fix addresses Sashiko's report of a
->> race between event and device invalidation commands [1]. The other
->> patches correct IRS allocation and routing behaviour, serialise IRS
->> synchronisation, and fix ITS L1/L2 table selection, cache maintenance,
->> ACPI coherency handling, and resource cleanup.
->>
->> The IRS changes:
->> * Reject allocation of an SPI without an IRS, preventing a null-pointer
->>    dereference, and warn about low-quality firmware.
->> * Only program IRS_PE_CR0.DPS when 1-of-N routing is supported as this field
->>    is RES0, otherwise.
->> * Serialise IRS synchronisation requests, as the IRS ignores a request while
->>    an earlier one is still active.
->>
->> The ITS changes:
->> * Serialise event and device cache invalidations because both use the ITS's
->>    shared DIDR register, so concurrent writes are a bad idea!
->> * Select linear device and interrupt translation tables when one L2
->>    table covers the full ID space. Currently, this selects the wrong
->>    path, then the L1 table code rejects the attempt to create the
->>    table.
->> * Check the ACPI noncoherent flag with ACPI, rather than checking the
->>    DT's property.
->> * Correct cache-maintenance sizing after limiting the DeviceID width.
->> * Invalidate the device cache before freeing an ITT.
->> * Use firmware-node names in initialisation warnings.
->> * Release the reserved MMIO region if DT-based ITS initialisation fails.
->>
->> I've CC'd stable for the IRS/ITS locking fixes, the ITS table alloc
->> issue, and the ACPI coherency fix, as these are the most important
->> changes to backport.
->>
->> The series is based on v7.4-rc1. Thanks for taking a look!
-> 
-> Thank you for fixing these bugs Sascha.
-> 
+thanks,
 
-Absolutely no worries. One of those times where one pulls on a thread, 
-and a few more things unravel than one expects :)
+greg k-h
 
-V2 incoming.
+------------------ original commit in Linus's tree ------------------
 
-Thanks,
-Sascha
+From 9232301894a06e664d8de2da97175cf98419bd16 Mon Sep 17 00:00:00 2001
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Date: Wed, 23 Sep 2026 08:57:44 -0300
+Subject: [PATCH] xfs: bound inode fork length against the fork size during log
+ recovery
 
-> Lorenzo
-> 
->>
->> Sascha
->>
->> [1] https://sashiko.dev/#/patchset/20261016155741.979985-1-sascha.bischoff@arm.com?part=11
->>
->> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
->> ---
->> Sascha Bischoff (10):
->>        irqchip/gic-v5: Reject SPIs not backed by an IRS
->>        irqchip/gic-v5: Only set IRS DPS when 1ofN routing is supported
->>        irqchip/gic-v5: Serialise IRS synchronisation requests
->>        irqchip/gic-v5: Serialise ITS invalidation commands
->>        irqchip/gic-v5: Use linear DT and ITT when L2 covers all IDs
->>        irqchip/gic-v5: Honour ACPI ITS noncoherent flag
->>        irqchip/gic-v5: Use firmware node name in ITS warning
->>        irqchip/gic-v5: Invalidate ITS device cache before freeing ITT
->>        irqchip/gic-v5: Clean the allocated linear device table size
->>        irqchip/gic-v5: Release ITS MMIO region on DT probe failure
->>
->>   drivers/irqchip/irq-gic-v5-irs.c   | 22 +++++++++++++++-------
->>   drivers/irqchip/irq-gic-v5-its.c   | 29 ++++++++++++++++++++++++-----
->>   drivers/irqchip/irq-gic-v5.c       |  9 +++++++++
->>   include/linux/irqchip/arm-gic-v5.h |  1 +
->>   4 files changed, 49 insertions(+), 12 deletions(-)
->> ---
->> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
->> change-id: 20261102-host_gicv5_fixes-1eeea29d2ea4
->>
->> Best regards,
->> --
->> Sascha Bischoff <sascha.bischoff@arm.com>
->>
+xlog_recover_inode_commit_pass2() copies an inode log item's data/attr
+fork region into the inode buffer using the on-log region length without
+bounding it against the fork capacity, e.g.:
+
+	len = item->ri_buf[2].iov_len;
+	memcpy(XFS_DFORK_DPTR(dip), src, len);
+
+The only guard is an ASSERT, which is a no-op on production kernels
+(CONFIG_XFS_DEBUG off), and xfs_dinode_verify() runs only after the copy.
+A crafted image with a dirty log can therefore drive a heap out-of-bounds
+write at mount time. The XFS_ILOG_DBROOT sibling already passes
+XFS_DFORK_DSIZE as a bound; the DDATA/DEXT and ADATA/AEXT memcpy paths
+did not.
+
+Bound each logged fork region against the destination fork size before
+copying it, and reject the log item with -EFSCORRUPTED when it does not
+fit. Because the recovered inode is only verified after the fork data has
+been copied in, the checks are done up front, before any memcpy into the
+on-disk inode.
+
+Fixes: 658fa68b6f34 ("xfs: refactor log recovery inode item dispatch for pass2 commit functions")
+Cc: stable@vger.kernel.org # v5.8
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+
+diff --git a/fs/xfs/xfs_inode_item_recover.c b/fs/xfs/xfs_inode_item_recover.c
+index 1d2319ad15c5..8da95131ab55 100644
+--- a/fs/xfs/xfs_inode_item_recover.c
++++ b/fs/xfs/xfs_inode_item_recover.c
+@@ -507,6 +507,25 @@ xlog_recover_inode_commit_pass2(
+ 	ASSERT(!(fields & XFS_ILOG_DFORK) ||
+ 	       (len == xlog_calc_iovec_len(in_f->ilf_dsize)));
+ 
++	/*
++	 * The recovered inode is verified only after the fork data has been
++	 * copied into it, so bound each logged fork region against the size of
++	 * its fork now, before the memcpy below can overrun the on-disk inode.
++	 * The DBROOT/ABROOT cases already bound their copies against the fork
++	 * size.
++	 */
++	if ((fields & (XFS_ILOG_DDATA | XFS_ILOG_DEXT)) &&
++	    item->ri_buf[2].iov_len > XFS_DFORK_DSIZE(dip, mp)) {
++		error = -EFSCORRUPTED;
++		goto out_release;
++	}
++	if ((fields & (XFS_ILOG_ADATA | XFS_ILOG_AEXT)) &&
++	    item->ri_buf[(fields & XFS_ILOG_DFORK) ? 3 : 2].iov_len >
++	    XFS_DFORK_ASIZE(dip, mp)) {
++		error = -EFSCORRUPTED;
++		goto out_release;
++	}
++
+ 	switch (fields & XFS_ILOG_DFORK) {
+ 	case XFS_ILOG_DDATA:
+ 	case XFS_ILOG_DEXT:
+@@ -546,7 +565,6 @@ xlog_recover_inode_commit_pass2(
+ 		case XFS_ILOG_ADATA:
+ 		case XFS_ILOG_AEXT:
+ 			dest = XFS_DFORK_APTR(dip);
+-			ASSERT(len <= XFS_DFORK_ASIZE(dip, mp));
+ 			memcpy(dest, src, len);
+ 			break;
+ 
 
