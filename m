@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802111;
-	b=DDUPjmk5ahpxDraini3R8hM2DcbvzcNxALO3SN5xa91DzuO2LnsGNvDqHQM7Ymb2VzV2
-	 Vi6B4kS7ymeNjMzbRow5/OBQD3H1BOHAiq/S8npzeO1jBsRNvTCqmmiAToApurgnBY2tu
-	 oiCZkqoX4drdsDKJnWW2X1gIoXEb/NDfwV3ireqNinq4HDJlxlTgKb9zxF0x5DYyORSeB
-	 YVv36178d5Iyd/8eTJrYr877cvQ4Ubv6suJGmdvBZtfDqw+dQlekIwaoZQcF1IQib8t1O
-	 pSXMW4RVWJbgaTmoqWNdVD1shNZ4eEuXa+JURt/wVSwp2oFReQdiUj3mSwYvYjSA9ew==
+	t=1793802139;
+	b=MVh2sXstaesEX+yilWaBCrq9j8hgzIx7+nqBmHAS3L2hj/Gu7mlF816xvzLE+3xymZT9
+	 5LwKOv3UCkWjjWESKRIwvM9VWgvcbvhNJWXdRWFUe07jBx7FcBj8a0Ze6iTw2uJ1g1/0G
+	 Na6TKVWqpwsz8aXpesCGROgeyprMAgvm6YeD7U4zDrs7ZkcitaHfGxb4ZTuf2HEPsdORP
+	 mvnwYSrGDA8q6gpXxHOSulkFMLZvxk19KjwSATUeHlsazSg96r9v8+/1XAUwdq/SZUt/p
+	 p5GUm8uD2E25Nx3hYvOa6IjgCJN9fZWkS4UOJTWLfBh5ZvmqZDucKVwhhJWnWSv7olQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802111;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802139;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=mnXy25wPIeSR51Nmn9G4wXgqLJ66F3Kd6VJ6/6zvm0w=;
-	b=rfRYN5iqR2nj2qMFzA5wnw9xZxdoT1pTcPu5NgMt1urIoobyuoQFpRYkjFYxPmvutZp1
-	 mKfG20rwCmrOxVZpCp88YC9FGmtBUu3q61irs2weT4yOPUPzRBdjaL873j9YiJBgFYu/f
-	 VqeQjOZRibeR6LZwasQlShuKOnk/1RMUbbf1srqStzVpm7gneslbHe3iiWy0BU+b+J3OR
-	 OkevXpfv/QGE8MXSe997OCd5KPu/lSLAXLNwWAyv+MnCPUd6VZVutoUW0Ej5YzAy0K1Tp
-	 bXMDe2in3CQtsohDMWqgbUjAe0u2XSTYQ7mWDLgiiSItS/zvp9L+7FCiP85sUx9OUxA==
+	bh=Oc2YwK2n6z5kIikdySyzmvxO3PBadt4kaSvluqg47ls=;
+	b=pyH3Du04YqxUwHA+vLkqyPXNRUSozW2cQisyAsTc/iFiCz8A5uEM03S0WCEBz3cuKqiE
+	 36JRglbel2T3MIDMHDfoi+De0GG1+deUcXO5jl0sGWHKfXsQhKCicoMxlnBHWtOL0efQe
+	 syWQpGCKvYZgWnPyM+V3QNmBQXwnozAb0pN0JnsnLrM5itm3EMWPExhBabMcCfdQvGHU+
+	 5NDhvey9rJNfhNBMyBJk+dlXHAEI1cSyDhJXbwfsoEK02/w4fU1kr/ss41k86c9oqHi2t
+	 Y7e8MlCJYc+hAHdHWSzz2RJGgwmf9qsX9VSSjWVCLVsmpb+rE8bxpG9LyYPveyie2CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zSKQ143f;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=v7n0rZ9G;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5776606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:21:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10A6606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:22:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zSKQ143f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712DA1F00919;
-	Wed,  4 Nov 2026 14:21:50 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=v7n0rZ9G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D5191F000C1;
+	Wed,  4 Nov 2026 14:22:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802110;
-	bh=mnXy25wPIeSR51Nmn9G4wXgqLJ66F3Kd6VJ6/6zvm0w=;
+	s=korg; t=1793802138;
+	bh=Oc2YwK2n6z5kIikdySyzmvxO3PBadt4kaSvluqg47ls=;
 	h=Subject:To:Cc:From:Date;
-	b=zSKQ143fFZm0MxgtD6BoyPRaB8e/rsEneb9PGCdtNPoA+h+wd4h5koVR/bWbygeJg
-	 RD4Ntj2fIMasgLCO2JE6eAL82gVioD8A39QLzJJ+Z1DHYmFJnEoxBDpjUhnjtZEVZe
-	 69T46xijWer6WP55irY5rtpV6hfrzUjt3YoRv9Pc=
-Subject: FAILED: patch "[PATCH] virtio_net: atomically disable rx mode work" failed to apply to 6.12-stable tree
-To: bestswngs@gmail.com,co+d17c2bc750a9cbbb@bugs.sh,pabeni@redhat.com
+	b=v7n0rZ9Gz5EEje3I9hUxGJ99o4PhsHlVRS1sYqInddmHBoiI6IWTmSLIPZvaIFwr4
+	 WNxxDvOzLnGLCpihRQ5it9gV53VOVwODfaVxiakg5eiZzEoHf/XbVYzCGMNNu2skef
+	 MvjaJmaK3oRFFwvHsbfgPFZCIXdw6TQ4q8sAU7no=
+Subject: FAILED: patch "[PATCH] spi: spi-pci1xxxx: quiesce DMA engines on transfer timeout" failed to apply to 6.12-stable tree
+To: liuwb@xiaopeng.com,broonie@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:21:40 +0100
-Message-ID: <2026110440-coastline-slimness-7973@gregkh>
+Date: Wed, 04 Nov 2026 15:22:17 +0100
+Message-ID: <2026110417-chatroom-stock-3229@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1234707482053f1d1ac7c5756207d2c29057974c
+git cherry-pick -x 0b591332a2bdc13d3f9163793131fe3651d1556a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110440-coastline-slimness-7973@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110417-chatroom-stock-3229@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,151 +79,173 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1234707482053f1d1ac7c5756207d2c29057974c Mon Sep 17 00:00:00 2001
-From: Weiming Shi <bestswngs@gmail.com>
-Date: Sat, 17 Oct 2026 04:42:38 -0700
-Subject: [PATCH] virtio_net: atomically disable rx mode work
+From 0b591332a2bdc13d3f9163793131fe3651d1556a Mon Sep 17 00:00:00 2001
+From: Weibin Liu <liuwb@xiaopeng.com>
+Date: Fri, 16 Oct 2026 10:00:36 +0800
+Subject: [PATCH] spi: spi-pci1xxxx: quiesce DMA engines on transfer timeout
 
-virtio-net uses a boolean to gate rx_mode_work during device teardown.
-The flag is changed under RTNL, but ndo_set_rx_mode checks it under the
-address-list lock. A callback can therefore pass the check and enqueue work
-after teardown has flushed it. The work is also enabled before late
-probe operations that can fail, allowing probe unwind to free the netdev
-with work still queued.
+If a DMA-mapped transfer times out waiting for DMA_TERM and neither DMA
+abort interrupt arrived, pci1xxxx_spi_transfer_with_dma() returns
+through the error label while both DMA engines are still enabled, the
+done/abort interrupt status is still armed and the transfer state
+(p->xfer, p->tx_sgl, p->rx_sgl) is still registered.
 
-KASAN reports the worker using a virtqueue that probe unwind already freed:
+The ISRs keep firing afterwards: they reprogram the DMA engines from
+p->tx_sgl / p->rx_sgl and signal completion through p->xfer and
+p->spi_xfer_done, all of which the SPI core is free to unmap or reuse
+once transfer_one() has returned, which is a use-after-free. A late
+done interrupt can also start the next transfer queued behind the
+failed one.
 
-  BUG: KASAN: slab-use-after-free in virtqueue_add_split
-  Workqueue: events virtnet_rx_mode_work
-  Call Trace:
-   virtqueue_add_split (drivers/virtio/virtio_ring.c:706)
-   virtqueue_add_sgs (drivers/virtio/virtio_ring.c:2839)
-   virtnet_send_command_reply (drivers/net/virtio_net.c:3565)
-   virtnet_rx_mode_work (drivers/net/virtio_net.c:3833)
-   process_one_work (kernel/workqueue.c:3322)
-   worker_thread (kernel/workqueue.c:3405)
-  Freed by task 119:
-   kfree (mm/slub.c:6625)
-   vp_del_vq.isra.0 (drivers/virtio/virtio_pci_common.c:259)
-   vp_del_vqs (drivers/virtio/virtio_pci_common.c:285)
-   virtnet_probe (drivers/net/virtio_net.c:7129)
+Stop both DMA engines, drain the pending done/abort interrupt status
+and synchronize the DMA IRQs before dropping the in-progress state and
+the transfer pointers, and re-enable the engines afterwards so that
+subsequent transfers keep working. The engines are only turned back on
+once both were confirmed to have stopped: re-enabling an engine that
+failed to stop would cancel the pending stop request and let it keep
+running into buffers the SPI core is about to unmap or free, which is
+exactly the window this patch closes. An engine that failed to stop is
+left disabled, as the abort paths already do.
 
-Use the workqueue disable mechanism to atomically reject new queue attempts
-and drain running work. Keep work disabled until probe succeeds or restore
-has reattached the netdev, then enable it and replay receive-mode state for
-a running interface. Disable it before resource teardown in freeze and
-remove.
+The DMA interrupt status and mask registers are shared between the two
+SPI instances, so the cleanup drains only this instance's done/abort
+status bits instead of masking the interrupt lines, which would also
+suppress the peer instance's completion interrupts.
 
-Fixes: b9f7425239a0 ("virtio-net: convert rx mode setting to use workqueue")
-Cc: stable@vger.kernel.org
-Reported-by: <co+d17c2bc750a9cbbb@bugs.sh>
-Assisted-by: LLM
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-Link: https://patch.msgid.link/20261017114237.2786302-2-bestswngs@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Also make the DMA ISRs ignore interrupts while no transfer is in
+progress so that a stray MSI after the cleanup can no longer act on
+the cleared state.
 
-diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-index daab43ac92ce..4e8a792cec0e 100644
---- a/drivers/net/virtio_net.c
-+++ b/drivers/net/virtio_net.c
-@@ -441,9 +441,6 @@ struct virtnet_info {
- 	/* Work struct for setting rx mode */
- 	struct work_struct rx_mode_work;
+No PCI1XXXX hardware was available for testing and QEMU has no model
+of this PCIe part, so the timeout path was exercised with a userspace
+replica of the timeout branch and the DMA ISRs, with the register and
+interrupt accesses mocked: on the unfixed code both a wedged engine
+that clears after the timeout and a late done interrupt touch the
+freed transfer state, while with this fix applied neither does and an
+engine that failed to stop is left disabled.  The module was also
+loaded and unloaded in a QEMU x86_64 guest running a kernel with this
+fix applied.
+
+Fixes: 9538edeb72c9 ("spi: mchp-pci1xxxx: DMA support for copying data to and from SPI Buf")
+Cc: stable@vger.kernel.org # 6.8+
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+Link: https://patch.msgid.link/20261016020036.1333548-1-liuwb@xiaopeng.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+
+diff --git a/drivers/spi/spi-pci1xxxx.c b/drivers/spi/spi-pci1xxxx.c
+index af6ed78493e3..c50e6841de52 100644
+--- a/drivers/spi/spi-pci1xxxx.c
++++ b/drivers/spi/spi-pci1xxxx.c
+@@ -542,6 +542,8 @@ static int pci1xxxx_spi_transfer_with_dma(struct spi_controller *spi_ctlr,
+ 	struct pci1xxxx_spi_internal *p = spi_controller_get_devdata(spi_ctlr);
+ 	struct pci1xxxx_spi *par = p->parent;
+ 	dma_addr_t tx_dma_addr = 0;
++	unsigned long flags;
++	bool engines_stopped;
+ 	int ret = 0;
+ 	u32 regval;
  
--	/* OK to queue work setting RX mode? */
--	bool rx_mode_work_enabled;
--
- 	/* Does the affinity hint is set for virtqueues? */
- 	bool affinity_hint_set;
- 
-@@ -710,16 +707,13 @@ static void virtnet_rq_free_buf(struct virtnet_info *vi,
- 
- static void enable_rx_mode_work(struct virtnet_info *vi)
- {
--	rtnl_lock();
--	vi->rx_mode_work_enabled = true;
--	rtnl_unlock();
-+	if (enable_work(&vi->rx_mode_work) && netif_running(vi->dev))
-+		schedule_work(&vi->rx_mode_work);
- }
- 
- static void disable_rx_mode_work(struct virtnet_info *vi)
- {
--	rtnl_lock();
--	vi->rx_mode_work_enabled = false;
--	rtnl_unlock();
-+	disable_work_sync(&vi->rx_mode_work);
- }
- 
- static void virtqueue_napi_schedule(struct napi_struct *napi,
-@@ -3925,8 +3919,7 @@ static void virtnet_set_rx_mode(struct net_device *dev)
- {
- 	struct virtnet_info *vi = netdev_priv(dev);
- 
--	if (vi->rx_mode_work_enabled)
--		schedule_work(&vi->rx_mode_work);
-+	schedule_work(&vi->rx_mode_work);
- }
- 
- static int virtnet_vlan_rx_add_vid(struct net_device *dev,
-@@ -5742,7 +5735,6 @@ static void virtnet_freeze_down(struct virtio_device *vdev)
- 	/* Make sure no work handler is accessing the device */
- 	flush_work(&vi->config_work);
- 	disable_rx_mode_work(vi);
--	flush_work(&vi->rx_mode_work);
- 
- 	if (netif_running(vi->dev)) {
- 		rtnl_lock();
-@@ -5772,8 +5764,6 @@ static int virtnet_restore_up(struct virtio_device *vdev)
- 
- 	virtio_device_ready(vdev);
- 
--	enable_rx_mode_work(vi);
--
- 	if (netif_running(vi->dev)) {
- 		rtnl_lock();
- 		err = virtnet_open(vi->dev);
-@@ -5785,6 +5775,8 @@ static int virtnet_restore_up(struct virtio_device *vdev)
- 	netif_tx_lock_bh(vi->dev);
- 	netif_device_attach(vi->dev);
- 	netif_tx_unlock_bh(vi->dev);
+@@ -618,12 +620,72 @@ static int pci1xxxx_spi_transfer_with_dma(struct spi_controller *spi_ctlr,
+ 			p->dma_aborted_wr = false;
+ 			ret = -ECANCELED;
+ 		}
 +
-+	enable_rx_mode_work(vi);
- 	return 0;
- 
- err_destroy_pools:
-@@ -6880,6 +6872,7 @@ static int virtnet_probe(struct virtio_device *vdev)
- 
- 	INIT_WORK(&vi->config_work, virtnet_config_changed_work);
- 	INIT_WORK(&vi->rx_mode_work, virtnet_rx_mode_work);
-+	disable_work(&vi->rx_mode_work);
- 
- 	if (virtio_has_feature(vdev, VIRTIO_NET_F_MRG_RXBUF)) {
- 		vi->mergeable_rx_bufs = true;
-@@ -7038,8 +7031,6 @@ static int virtnet_probe(struct virtio_device *vdev)
- 	if (vi->has_rss || vi->has_rss_hash_report)
- 		virtnet_init_default_rss(vi);
- 
--	enable_rx_mode_work(vi);
--
- 	for (i = 0; i < ARRAY_SIZE(guest_offloads); i++) {
- 		unsigned int fbit;
- 
-@@ -7143,6 +7134,8 @@ static int virtnet_probe(struct virtio_device *vdev)
- 		goto free_unregister_netdev;
++		/*
++		 * A timed out transfer leaves the DMA engines running and
++		 * the done/abort interrupt status armed with p->xfer,
++		 * p->tx_sgl and p->rx_sgl still registered.  Stop the
++		 * engines, drain the pending status and synchronize the
++		 * IRQs before dropping the transfer state, otherwise a
++		 * late interrupt makes the ISRs reprogram the engines
++		 * from or signal completion through memory which the SPI
++		 * core is about to unmap or free.
++		 */
++		writel(SPI_DMA_ENGINE_DIS,
++		       par->dma_offset_bar + SPI_DMA_GLOBAL_WR_ENGINE_EN);
++		writel(SPI_DMA_ENGINE_DIS,
++		       par->dma_offset_bar + SPI_DMA_GLOBAL_RD_ENGINE_EN);
++		engines_stopped =
++			!(readl_poll_timeout(par->dma_offset_bar +
++					     SPI_DMA_GLOBAL_WR_ENGINE_EN,
++					     regval, regval == 0x0, 0,
++					     USEC_PER_MSEC) ||
++			  readl_poll_timeout(par->dma_offset_bar +
++					     SPI_DMA_GLOBAL_RD_ENGINE_EN,
++					     regval, regval == 0x0, 0,
++					     USEC_PER_MSEC));
++		if (!engines_stopped)
++			dev_warn(&par->dev->dev,
++				 "SPI DMA engines failed to stop\n");
++
++		spin_lock_irqsave(&par->dma_wr_reg_lock, flags);
++		writel((SPI_DMA_DONE_INT_MASK(p->hw_inst) |
++			SPI_DMA_ABORT_INT_MASK(p->hw_inst)),
++		       par->dma_offset_bar + SPI_DMA_INTR_WR_CLR);
++		spin_unlock_irqrestore(&par->dma_wr_reg_lock, flags);
++		spin_lock_irqsave(&par->dma_rd_reg_lock, flags);
++		writel((SPI_DMA_DONE_INT_MASK(p->hw_inst) |
++			SPI_DMA_ABORT_INT_MASK(p->hw_inst)),
++		       par->dma_offset_bar + SPI_DMA_INTR_RD_CLR);
++		spin_unlock_irqrestore(&par->dma_rd_reg_lock, flags);
++
++		p->spi_xfer_in_progress = false;
++		synchronize_irq(p->irq[1]);
++		synchronize_irq(p->irq[2]);
++
++		/*
++		 * Turn the engines back on only once both are confirmed
++		 * to have stopped: re-enabling an engine that failed to
++		 * stop would cancel the pending stop request and let it
++		 * run into buffers the SPI core is about to unmap or
++		 * free.  An engine that failed to stop is left disabled,
++		 * as the abort paths already do.
++		 */
++		if (engines_stopped) {
++			writel(SPI_DMA_ENGINE_EN,
++			       par->dma_offset_bar + SPI_DMA_GLOBAL_WR_ENGINE_EN);
++			writel(SPI_DMA_ENGINE_EN,
++			       par->dma_offset_bar + SPI_DMA_GLOBAL_RD_ENGINE_EN);
++		}
+ 		goto error;
  	}
+ 	ret = 0;
  
-+	enable_rx_mode_work(vi);
+ error:
+ 	p->spi_xfer_in_progress = false;
++	p->xfer = NULL;
++	p->tx_sgl = NULL;
++	p->rx_sgl = NULL;
+ 
+ 	return ret;
+ }
+@@ -695,6 +757,9 @@ static irqreturn_t pci1xxxx_spi_isr_dma_rd(int irq, void *dev)
+ 	unsigned long flags;
+ 	u32 regval;
+ 
++	if (!p->spi_xfer_in_progress)
++		return IRQ_NONE;
 +
- 	pr_debug("virtnet: registered device %s with %d RX and TX vq's\n",
- 		 dev->name, max_queue_pairs);
+ 	/* Clear the DMA RD INT and start spi xfer*/
+ 	regval = readl(p->parent->dma_offset_bar + SPI_DMA_INTR_RD_STS);
+ 	if (regval) {
+@@ -723,6 +788,9 @@ static irqreturn_t pci1xxxx_spi_isr_dma_wr(int irq, void *dev)
+ 	unsigned long flags;
+ 	u32 regval;
  
-@@ -7195,7 +7188,6 @@ static void virtnet_remove(struct virtio_device *vdev)
- 	/* Make sure no work handler is accessing the device. */
- 	flush_work(&vi->config_work);
- 	disable_rx_mode_work(vi);
--	flush_work(&vi->rx_mode_work);
++	if (!p->spi_xfer_in_progress)
++		return IRQ_NONE;
++
+ 	/* Clear the DMA WR INT */
+ 	regval = readl(p->parent->dma_offset_bar + SPI_DMA_INTR_WR_STS);
+ 	if (regval) {
+@@ -755,6 +823,9 @@ static irqreturn_t pci1xxxx_spi_isr_dma(int irq, void *dev)
+ 	irqreturn_t spi_int_fired = IRQ_NONE;
+ 	u32 regval;
  
- 	virtnet_free_irq_moder(vi);
- 
++	if (!p->spi_xfer_in_progress)
++		return IRQ_NONE;
++
+ 	/* Clear the SPI GO_BIT Interrupt */
+ 	regval = readl(p->parent->reg_base + SPI_MST_EVENT_REG_OFFSET(p->hw_inst));
+ 	if (regval & SPI_INTR) {
 
