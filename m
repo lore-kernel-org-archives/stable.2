@@ -1,49 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793813765;
-	b=34xbTy452nvvU0lBw6w/YoSZzfiq8zgKSItxO+3IakQjIgq9+mcj4JhL1oCRykp19f+e
-	 dXCtnPyjzClcyxdalPrOzU0ZuSj0p5RUgwNTioZaMVn5OOw9TuenBhVIo2+ntPFeoSWqa
-	 05dSnd+riED6bcTEuCeb8+rlPnA+W1Mhs1d4Nl4oaCZCZ8iSSBTqpPkGBYxhALdaJvJQE
-	 9vkSuRK+oc0UDIQbWOAo87upcRYRaYOTT8dzcgQGK3/+/yRi/XAOmh7d0xY9hYMVBzvfr
-	 Pr0abFEgVICkv7dHuBlDquuCxMVGbxjCa8frXoqejMYOGeJocisOsNQdOLwRZV176OQ==
+	t=1793813830;
+	b=YO+Fv0ZUSZWT/oEr9Mu6+dPz86cJJUeOs/RTPeZ1otWiBDZaqqN+vPAKsDPyjmx1bc3P
+	 3DQHCkgpkwncEwDvPfFMUoAikTWXmzdhomPwB/OHImufUkXnfrI1QrtyCAUb6tlPUO7mM
+	 cwiVpGP0nJqlLE/lGxtwLp/qMHP6BioaJfWXBwjBxKKT9VHYG4h6roDJlVKMTq9z+Ia7+
+	 50KMu37xhYgmTFfvel946OmuQTG1kzDJZ/f5rMpFevGc0mlW5pB/XobSjSzzWKpSb1xRT
+	 1ma/v5IsuhQ9c5eTRxnH4RN9HEEwfxpBhBhCXSpAjsjN7s9xWx79VY4lWCVCAATm52A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793813765;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=G20Wy6mvQhIhx6DbI6mVst9t/UsYM5tKx7o8MtawhC8=;
-	b=2LvNpdNcxqxF10dvbBE//+rE4mBEIJaNC9VOvoIvNC5eSky44/0fE9A3yc/a0cZaAErJ
-	 94j7VPqHcA3cQXiUddPa1HIILkAHiEwpuS12IU8vcjTKQkEXAPVogKdsTlxTJzGC95osr
-	 bC/HxY7CWMakOn1YCECv7PaGCAeYR/W9R3TXRbZwxvA7LcVJRE8xNGCrRF5kyZuLcee0J
-	 ybag1MflbcmQSI+1juka/RyMsO6JUVirR/QOtll/DrWiZ/5KBJs/3QUJ6QmsAYeb4pURK
-	 sTdiJWeiqeixdUP/1IKvsJrEZhw0xyRhTXSjo4tWdgFjwvSpjEuKS302QcmdR/Rtj5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793813830;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=j2LrEMhUN0qSGqiDRYF06jsyACnmwPOUcMnf7oZ+Qik=;
+	b=X/xlCXCNfQtD8wUPcZqZMeBdr1nJlcLxIbWgJMA69XwLdaisfliZ1d1x5Eh0zlbaVVKK
+	 eaBtAFXfu2JAP8y/Xj4IYqqlmm5A1zH2oH6xRLEa9gnblD4w3K1ChAd1plW+oxREycuC/
+	 zB0A8Fe/l+sgNd6NjNKnneZKiYBqbnSwx65MHPyW81aW55QxOxHytgPShqxl3VxEqwvxl
+	 aZCxirIWNFsahIaYmrxxCtL6XAAgSYKJGs2cAg1Vh1rRZnsxL72HsK4Hvgd4Ds7rgfMFM
+	 4GP2rtjk/NCm7qk9yHNwTLrqf9c/hx094TT6OGzhLdAGucMtt9UsQJsWSE7eedeKo6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ndfZr0Qf;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D1F82606ECC0;
-	Wed,  4 Nov 2026 17:36:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1F82606ECC0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=OKEnd3j1;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=me1iPhyF;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=OKEnd3j1;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=me1iPhyF;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED335606A328;
+	Wed,  4 Nov 2026 17:37:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED335606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ndfZr0Qf
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B2A391BB0;
-	Wed,  4 Nov 2026 09:36:00 -0800 (PST)
-Received: from [10.57.90.115] (unknown [10.57.90.115])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 783133F673;
-	Wed,  4 Nov 2026 09:36:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793813763; bh=8YUIckxR/Kf62QtZ2ufF3DzvzhbMTOa7JbCXcU787hI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ndfZr0Qfl4BmjWFbLIDOfv7FasvdeCY1iV9z4z1mlwaskQYTjslhGpmaPhLOTjzFU
-	 AihpTEpECsvh4sn6Rx9EoLuW14kAiy4hZEduQSYinChn7Nz4vrSYooKESOowNOJmSQ
-	 QiDM1orkqob7nAvLCkHGiY7JpvCAU51GAtv86Hxs=
-Message-ID: <7da011fa-5bb1-4090-8421-eeebb42c1b26@arm.com>
-Date: Wed, 4 Nov 2026 17:35:59 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=OKEnd3j1;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=me1iPhyF;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=OKEnd3j1;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=me1iPhyF
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A2E9021DFD;
+	Wed,  4 Nov 2026 17:37:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793813827; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=j2LrEMhUN0qSGqiDRYF06jsyACnmwPOUcMnf7oZ+Qik=;
+	b=OKEnd3j1r0hOztImTIrV0bOxJy3A8jr6x0oBl2ZPkQhzsGZfRG+olgjCmOxgS1jOu4I2/X
+	72Md7uROdd/JCOsp1x9T4ZwgSsblDqLZPF1/nPldXGiRbELYl9A7cjVgTzXyeOQm1DDLX9
+	IGzOXuCtd0aeX+rM6J8VkXa86B7L9KQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793813827;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=j2LrEMhUN0qSGqiDRYF06jsyACnmwPOUcMnf7oZ+Qik=;
+	b=me1iPhyFrrE8t83SaH4ITwiyhxdL3aL38LllkVxYyR7MaLyE9arZ5X8+b7yngwd1/JP6AE
+	XqPUw/JG2s+hfsAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793813827; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=j2LrEMhUN0qSGqiDRYF06jsyACnmwPOUcMnf7oZ+Qik=;
+	b=OKEnd3j1r0hOztImTIrV0bOxJy3A8jr6x0oBl2ZPkQhzsGZfRG+olgjCmOxgS1jOu4I2/X
+	72Md7uROdd/JCOsp1x9T4ZwgSsblDqLZPF1/nPldXGiRbELYl9A7cjVgTzXyeOQm1DDLX9
+	IGzOXuCtd0aeX+rM6J8VkXa86B7L9KQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793813827;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=j2LrEMhUN0qSGqiDRYF06jsyACnmwPOUcMnf7oZ+Qik=;
+	b=me1iPhyFrrE8t83SaH4ITwiyhxdL3aL38LllkVxYyR7MaLyE9arZ5X8+b7yngwd1/JP6AE
+	XqPUw/JG2s+hfsAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 76C38134A5;
+	Wed,  4 Nov 2026 17:37:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id +d5IFENt62rFMwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 04 Nov 2026 17:37:07 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 04F84B459; Wed, 04 Nov 2026 18:37:02 +0100 (CET)
+Date: Wed, 4 Nov 2026 18:37:02 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Jan Kara <jack@suse.cz>, 
+	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-ext4@vger.kernel.org, 
+	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Andreas Dilger <adilger.kernel@dilger.ca>, 
+	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Namjae Jeon <namjae.jeon@samsung.com>, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 9/9] fs: don't strand I_METADATA_WRITEBACK inodes
+ outside the LRU
+Message-ID: <xgy547oy47dzwxygezwnhea2am37yqyvf226jtwaw7nrgwujbo@q3fsxucfkipa>
+References: <20261029-work-inode-metadata_writeback-v1-0-7d6c678a585d@kernel.org>
+ <20261029-work-inode-metadata_writeback-v1-9-7d6c678a585d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,120 +114,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/10] irqchip/gic-v5: Serialise ITS invalidation commands
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Timothy Hayes <timothy.hayes@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Jonathan Cameron <jic23@kernel.org>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Sashiko AI <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
- <20261102-host_gicv5_fixes-v1-4-743b61626fc5@arm.com>
- <auiyrFXjX0hGgd7D@red-moon>
-Content-Language: en-GB
-From: Sascha Bischoff <sascha.bischoff@arm.com>
-In-Reply-To: <auiyrFXjX0hGgd7D@red-moon>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-work-inode-metadata_writeback-v1-9-7d6c678a585d@kernel.org>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	TAGGED_RCPT(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,suse.cz,toxicpanda.com,kernel.org,mail.parknet.co.jp,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,samsung.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.30
 
-On 02/11/2026 15:56, Lorenzo Pieralisi wrote:
-> On Mon, Nov 02, 2026 at 01:32:57PM +0000, Sascha Bischoff wrote:
->> The ITS uses DIDR and EIDR to select the translation to invalidate.
->> These registers are shared by all interrupts targeting the ITS. Event
->> invalidation can run concurrently for different IRQs, and device
->> invalidation can overlap it. The per-IRQ descriptor lock does not
->> serialise the commands, so one CPU can accidentally issue an
->> invalidation using another CPU's DeviceID or EventID.
+On Thu 29-10-26 14:28:24, Christian Brauner wrote:
+> Since commit c474bc56b6d1 ("fs: Provide way for filesystem to wait for
+> metadata writeback") ext2, ext4 without a journal, fat, udf and minix
+> set I_METADATA_WRITEBACK on an inode whose metadata was copied into a
+> buffer that might not have reached the disk yet. Only data integrity
+> writeback, i.e. fsync() and friends, clears it again. The flusher and
+> sync(2) leave it alone. So a clean, unused inode keeps the bit around.
 > 
-> "Another CPU's DeviceID or EventID " can probably be explained better
-> (or just removed because it is unclear) I understand there is a link to
-> Sashiko's report but it is worth updating the log IMO.
+> inode_lru_isolate() treats every state bit other than I_REFERENCED as a
+> reason not to reclaim the inode right now. It takes the inode off the
+> LRU and relies on iput(), writeback completion or the removal of the
+> last page from the page cache to put it back once the reason is gone.
 > 
-> "using the DeviceID or EventID associated with an IRQ that is invalidated
-> on another CPU" or something like that.
+> But I_METADATA_WRITEBACK doesn't go away on its own. Using the inode
+> again puts it back on the LRU with the bit still set and the next scan
+> takes it off again. So neither memory pressure nor drop_caches can free
+> these inodes. Only fsync() and friends or unmounting the filesystem get
+> rid of them.
 > 
->> Add a raw spinlock to each ITS and hold it across the command register
->> writes and the STATUSR.IDLE poll for both invalidation paths. A raw
->> spinlock is required because the forwarding path calls the event
+> On ext4 without a journal this is especially bad because
+> ext4_mark_iloc_dirty() sets the bit on every ext4_mark_inode_dirty().
+> So even an atime update is enough. An unprivileged user creating or
+> touching lots of files grows the inode cache without bound until the
+> OOM killer comes along.
 > 
-> Can you please define "the forwarding path" more explicitly ?  See above.
-
-I've tried to clean up this commit message to give the required context.
-
-Thanks for the feedback!
-
+> The inode can't just be thrown away though. An fsync() after the inode
+> was read back in wouldn't know that its metadata still has to be
+> written out. But writing it out on eviction is exactly what these
+> filesystems already do for the metadata buffers they track in their
+> mapping_metadata_bhs.
 > 
-> Thanks,
-> Lorenzo
-
-Thanks,
-Sascha
-
+> ext2, ext4, fat, udf and minix all call mmb_sync() from ->evict_inode()
+> and that is what allowed commit 972b9dd4e418 ("fs: Ignore inode metadata
+> buffers in inode_lru_isolate()") to take metadata buffers out of
+> inode_lru_isolate().
 > 
->> invalidation helper with the IRQ descriptor lock held.
->>
->> Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
->> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
->> Link: https://sashiko.dev/#/patchset/20261016155741.979985-1-sascha.bischoff@arm.com?part=11
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
->> ---
->>   drivers/irqchip/irq-gic-v5-its.c | 9 +++++++++
->>   1 file changed, 9 insertions(+)
->>
->> diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
->> index 28e39b065de0e..6d98f3dbe34b6 100644
->> --- a/drivers/irqchip/irq-gic-v5-its.c
->> +++ b/drivers/irqchip/irq-gic-v5-its.c
->> @@ -16,6 +16,7 @@
->>   #include <linux/of_address.h>
->>   #include <linux/of_irq.h>
->>   #include <linux/slab.h>
->> +#include <linux/spinlock.h>
->>   
->>   #include <linux/irqchip.h>
->>   #include <linux/irqchip/arm-gic-v5.h>
->> @@ -28,6 +29,8 @@
->>   struct gicv5_its_chip_data {
->>   	struct	xarray			its_devices;
->>   	struct	mutex			dev_alloc_lock;
->> +	/* Event and device invalidation commands share DIDR. */
->> +	raw_spinlock_t			inv_lock;
->>   	struct	fwnode_handle		*fwnode;
->>   	struct gicv5_its_devtab_cfg	devtab_cfgr;
->>   	void	__iomem			*its_base;
->> @@ -129,6 +132,8 @@ static int gicv5_its_itt_cache_inv(struct gicv5_its_chip_data *its, u32 device_i
->>   	eidr = FIELD_PREP(GICV5_ITS_EIDR_EVENTID, event_id);
->>   	eventr = FIELD_PREP(GICV5_ITS_INV_EVENTR_I, 0x1);
->>   
->> +	guard(raw_spinlock_irqsave)(&its->inv_lock);
->> +
->>   	its_writeq_relaxed(its, didr, GICV5_ITS_DIDR);
->>   	its_writel_relaxed(its, eidr, GICV5_ITS_EIDR);
->>   	its_writel_relaxed(its, eventr, GICV5_ITS_INV_EVENTR);
->> @@ -371,6 +376,9 @@ static int gicv5_its_device_cache_inv(struct gicv5_its_chip_data *its,
->>   		  FIELD_PREP(GICV5_ITS_INV_DEVICER_EVENTID_BITS,
->>   			     its_dev->itt_cfg.event_id_bits)	|
->>   		  FIELD_PREP(GICV5_ITS_INV_DEVICER_L1, 0x0);
->> +
->> +	guard(raw_spinlock_irqsave)(&its->inv_lock);
->> +
->>   	its_writeq_relaxed(its, didr, GICV5_ITS_DIDR);
->>   	its_writel_relaxed(its, devicer, GICV5_ITS_INV_DEVICER);
->>   
->> @@ -1112,6 +1120,7 @@ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_han
->>   		return -ENOMEM;
->>   
->>   	mutex_init(&its_node->dev_alloc_lock);
->> +	raw_spin_lock_init(&its_node->inv_lock);
->>   	xa_init(&its_node->its_devices);
->>   	its_node->fwnode = handle;
->>   	its_node->its_base = its_base;
->>
->> -- 
->> 2.34.1
->>
+> So let the shrinker reclaim inodes with I_METADATA_WRITEBACK like any
+> other clean inode and make evict() call sync_inode_metadata() for them
+> unless they are being deleted. With the previous patches
+> ->sync_inode_metadata() doesn't read anything from disk anymore. It
+> writes and waits for whatever is still dirty or under writeback and
+> usually the flusher has long taken care of that by the time an unused
+> inode reaches the end of the LRU.
 
+I don't think we want to call sync_inode_metadata() from evict. As you
+explain above filesystems that use I_METADATA_WRITEBACK call mmb_sync()
+from their ->evict callbacks when needed. If they want to flush something
+else, they can do that from ->evict as well. So I don't see a need for the
+below hunk in the generic code unless I miss something...
+
+> diff --git a/fs/inode.c b/fs/inode.c
+> index 1cb6293b237a..332108961df6 100644
+> --- a/fs/inode.c
+> +++ b/fs/inode.c
+> @@ -818,6 +818,14 @@ static void evict(struct inode *inode)
+>  	inode_wait_for_writeback(inode);
+>  	spin_unlock(&inode->i_lock);
+>  
+> +	/*
+> +	 * fsync() can't find what I_METADATA_WRITEBACK tracks anymore once the
+> +	 * inode is gone, so write it out unless the inode is being deleted.
+> +	 */
+> +	if (inode->i_nlink &&
+> +	    (inode_state_read_once(inode) & I_METADATA_WRITEBACK))
+> +		sync_inode_metadata(inode, 1);
+> +
+>  	if (op->evict_inode) {
+>  		op->evict_inode(inode);
+>  	} else {
+
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
