@@ -1,47 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817658;
-	b=TUGcSyS+NMyG6DDq37loFB+659EvvtnPIVTpOU+NKD1wwwGbQZduk8xQOB+4YYIyML93
-	 o0fcpR0WJCzb5kko2ZzLoMWEmd9oYx1SL8B/sVqok4G8MUwz+NrH7renANSSY6O/rtSOw
-	 nGdhSGp2pbusuhPW3+RYXV+9zrzo47pzwxbmPSEmXVd+4PvvLpqPihBGQzhZIc2o8/QMv
-	 6wm1yv5WqxO8DbjthVX+G3ZuzCZvK68ITBvUoUGC98d6v0ox+Icf+aQZS2XJNs6ZvGK0N
-	 EsNAL8GAUuSAfPY2rcpl2Is03yPwmqh9ABmvFY5k2kXOaR2kKVSLRNQNFVjQh3xA5Tg==
+	t=1793817813;
+	b=UJwkCCHLCg44sAD7bigoA0xzaRu4SoUHAhsQJFe6rep0K7VnUojHrHEnxIdfuZ7E/hja
+	 cUN48YskoRZNGjsZhrnuEKVTG9H6BH1HS/CWpSbSWdngo88n09SmEjYx8q26Hes9tysAl
+	 jg8I6ka+2tD//HTqtFeajaLvWRafMZGA+Y0+3MhVRqYuKdZCvFsjSXHxOav6zzPGR4ps5
+	 Y2A3mcEg2y/APJzS7UO1T3qlqWVGK3QCTRY3wTJX9NymvbWeiN6TzFvkWawkQk2jpzvcG
+	 pMDWXkv/K1yua5yLtSPQinXjVW4pICiUMmnibpCP7AHAOiK7EH14gqFqxAwIJzwLWVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817658;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ggyXg2xM+1s1EQjrkhfKY+SLad2QQIG5vrn2CQognHA=;
-	b=jAqfKvfDI5stWpLoUPBJ7FHVzAj+feBI+AnOXCtgdH8DlUkEF8c1tifs1+zD6pyRvRNL
-	 VCvCfbtbpvGHF5/r1YWcU09YxTxYb/KDnAhjDxsmN9Wew6jmpGAZ2XYyqkDdMKELDinCM
-	 2BERQACrB7N/PEh6YtDNmUWybtv8sh5pljGIGMc6+tRUD39GIWZMlK4Hq2knfW3hvOzxo
-	 C+912YyUocyAnrvnWE90KeDL9v8tfBHtFDU5wqMfWpsWQrmIYs2kRRCChf+N26SGqgeSD
-	 cqd7hyy8OgfTuLmQRza97mcFLtz/xsTwlmVY9oer8jrFxRErhKZPhscFP+rCEg4hirA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817813;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=76SApyLuR5toNly/nNQRtkgpOpbIqkrVYQyUrgzYh2o=;
+	b=TrNYVFk7Hx15/kyLakVwqfLBu6ws9BIQVPD3Y5BhKxtS1UAq2B00U6B58bDXYGTdLnxV
+	 zVseQPBT2BQTJlwcnZzm17Gic7O2+R0JdfoI8Z2Al47Fq7OBixaT+1W+xQjGAxoLPq8kR
+	 UAwsXFmWiWSNWiHZ3RHQyURb5BHf1nLWwOg/E0eJ6tlVAxk51YkSq+pkBpODSXlNbv8hK
+	 NIB3mZb3GmvwUztFS6qrTsHIi3gCRutX7airioXBIeBV4h9xKB4vt05lqkwpackKVVPEv
+	 aBWiYllCYmkF4MuYVwz0wS86afn7IC37oCUfV+IWsI0c+nE7ns+B+48H8X9zlGUQxow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kf526tEg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=QN5aTRwq;
+	arc=none smtp.remote-ip=209.85.210.52
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 059D0606D836
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:40:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A43F9606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:43:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A43F9606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kf526tEg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 868F11F000C1;
-	Wed,  4 Nov 2026 18:40:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793817657;
-	bh=ggyXg2xM+1s1EQjrkhfKY+SLad2QQIG5vrn2CQognHA=;
-	h=Subject:To:Cc:From:Date;
-	b=kf526tEga3mXHF7gS7Rk58Q0At8Dqh2YmqwHILxp5HWSi3kQVqkb3+P3LhjE5grnW
-	 27yXklCRSniUpUOxId0v6W7sE4w/LaBF/pshGrb1C0t4D8AKZ6xIcsr2PLfyuDsHCQ
-	 JX2vFGEFfyH948y42GTHPOQDqJg9hIPO7IgL1sHw=
-Subject: FAILED: patch "[PATCH] smb: client: validate the data area in SMB2_read()" failed to apply to 6.1-stable tree
-To: suruurism@gmail.com,linkinjeon@kernel.org,pc@manguebit.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:40:53 -0500
-Message-ID: <2026110453-subwoofer-stove-d336@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=QN5aTRwq
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-823e4047037so742057a34.2
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:43:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817810; x=1794422610; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=76SApyLuR5toNly/nNQRtkgpOpbIqkrVYQyUrgzYh2o=;
+        b=QN5aTRwqiQsMSx1fQlj/zdRkWFFeCSuhbYg6HswgvKDwKlzitioUfb46rRJ7L9qNl5
+         +Nnq5tS4Htbpwnxcr2NBK71SdjINtBEcyyPZqDicMT6jAlw+VtD0rE0kci1MTcKF4EM0
+         n0JPrBkMY2TqIysTY4QWzhwDs1V9qo+OmsHnyTOffDO+PZf9us0FpK+P5XwoAtVHRB4P
+         uaIJSPooq4+kzuaX0QmU14OaiWLtddi42U3AYdqfq9x996vXoASW+OvtbICcrS4pAiVJ
+         TTf9RSeu78M8270SXcXE1FxTfoEepdWwNc4cJ+fW45H/p6XffK1nT+OBKUuUx2W9/x9q
+         9gVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793817810; x=1794422610;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=76SApyLuR5toNly/nNQRtkgpOpbIqkrVYQyUrgzYh2o=;
+        b=n5MeQ/4agbTNGPlzLGqdgWbTqEYxgzbMWXE0J+qvMwCApuT57PeOp3QSrcDPal75GT
+         gsCHJGelBzIaB5yV6oaRyzXHKz+UWBFixIfDl6eG5EXahASmpDGZoi+w6KiWnz4aWxGz
+         gJjcQOpfFdkuIKqFIFJmT2tEiDvtMK+6yeMGRrtPFB0Jas7lo+s2C7qmJFTh7WRGJVyf
+         nkJXcznfYoYAzJHLrqoHH6rvMqb8WN6PzVVnqb6KRH8IRaUyP9VOa1mpGqeVfLyU/s9B
+         aSL1TsPHw3cjMo2++GjNufz3eeKi4Z7zi/aKqQ5RBDUa4tKo4+F/6Doffnm0jEYZPOjw
+         5g6w==
+X-Gm-Message-State: APuU4Z98/VRJyhpt07efs1ehIjvwmM6VS7dM11F5aeFTOSsPBbHspL8J
+	Mnq11WA6O38D73SeAhPteZRVQxk3N2jTeoWzgM4Bzp6jHxO4QaV8H8kYrSWbAEDX62MvPvnzXfr
+	5DQVWGlA=
+X-Gm-Gg: AYBFou2DHoueVfazw/1zX2SgjHoI2ZjepXsNOhR4lZeOy+l+mY7qSCuHE7fJDJTntqz
+	fTUeGV1vWyLhVvJ6w1nGNLl6ADVrspeE9o010cNeLUwDh2+TcXnsf9pyPKP/aC1uNsWk/NOnz4L
+	uBDUhxET+PkFuBBKD6zaureandfxUnKaPnMDXk2OUtkGjsPd/u6j5Esm+m+FR6P5s+g2JDHYFpP
+	NODPzsG5kdrfly++ZQabqdqdLid/Gu7dL+TjZiHBYM/wayFhmqVA0STdhtLMkD1QBgBW5Ag+v1c
+	q3EOl5SKyBNAJhq1HeIher3DXAgiLbBlhsue/B1QS20T5LpJbSQS6E+px+apoNZKSBnF5uqomKO
+	90hLfs6RKJAO/6ldCSp0aL3HUWFO8rJizY863gQ4GgtlblZ2jhYFNjSaskDe6a+r7MJrerP6Sx6
+	4lA15GVbIQ6dLx9Oz71HtZ0NlV4J9Oodu+i7QWfBxL440alzpS+AR6oGjN2252xJOtk69y2aMlN
+	GQTmtF+aahRvSkt3xMxW7sosfn5ImFKRpgP5gQWOZ6gmcl54bCrCIXaf7Ws+bb/M864Lsp4jABE
+	8xd/mcSMJX7XWhxnUpLwOeRlhxKGe9vs2JsmapEPQ8LRIX568a+K2pml8DMUQ8Fux/Blj4sS/w=
+	=
+X-Received: by 2002:a05:6830:4494:b0:824:df9:971 with SMTP id 46e09a7af769-85d3636d0fcmr13738484a34.10.1793817810240;
+        Wed, 04 Nov 2026 10:43:30 -0800 (PST)
+Received: from xps16 ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3d74959sm2578834a34.5.2026.11.04.10.43.29
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:43:29 -0800 (PST)
+From: Jens Axboe <axboe@kernel.dk>
+To: stable@vger.kernel.org
+Subject: [PATCH 6.1.y 0/8] io_uring fixes for 6.1-stable
+Date: Wed,  4 Nov 2026 11:43:20 -0700
+Message-ID: <20261104184328.516206-1-axboe@kernel.dk>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,105 +93,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+Hi Greg,
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Here are io_uring fixes for 6.1-stable.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+They apply on top of v6.1.191 with the current queue-6.1 applied
+(stable-queue 6575ff04f2fd). They don't depend on anything in the queue,
+and apply to v6.1.191 alone as well.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 2ec9cdf469dd32bcf33073aeb30c08e9356e0ca1
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110453-subwoofer-stove-d336@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+"io_uring/io-wq: save worker type before dropping its reference" is
+already in queue-6.1, so it's not included here.
 
-Possible dependencies:
+Patches 1, 4, 5, 6, 7 and 8 needed changes to apply to 6.1, the
+[axboe: ...] note in each says what was changed.
 
+Cheng Yongkang (1):
+  io_uring/timeout: count cancelled timeouts in cq_timeouts
 
+Chris Mason (4):
+  io_uring/rsrc: charge buffer arrays and nodes to memcg
+  io_uring: charge tctx nodes and personalities
+  io_uring: free XArray nodes left by a failed store
+  io_uring/sqpoll: don't wait for the thread to exit
 
-thanks,
+Daan De Meyer (1):
+  io_uring/net: don't retry a non-blocking connect() that fails with
+    -EAGAIN
 
-greg k-h
+Josef Bacik (1):
+  io_uring/io-wq: no new workers once the exit has begun
 
------------------- original commit in Linus's tree ------------------
+Yichong Chen (1):
+  io_uring/net: keep recvmsg buffer select length within MAX_RW_COUNT
 
-From 2ec9cdf469dd32bcf33073aeb30c08e9356e0ca1 Mon Sep 17 00:00:00 2001
-From: Abdifatah Suruur <suruurism@gmail.com>
-Date: Thu, 22 Oct 2026 06:53:29 +0300
-Subject: [PATCH] smb: client: validate the data area in SMB2_read()
+ io_uring/io-wq.c    |  6 ++++++
+ io_uring/io_uring.c |  3 ++-
+ io_uring/net.c      | 12 ++++++++++++
+ io_uring/rsrc.c     |  4 ++--
+ io_uring/sqpoll.c   | 28 +++++++++++++++++++++++-----
+ io_uring/sqpoll.h   |  3 ++-
+ io_uring/tctx.c     |  6 ++++--
+ io_uring/timeout.c  |  3 +++
+ 8 files changed, 54 insertions(+), 11 deletions(-)
 
-SMB2_read() copies le32_to_cpu(rsp->DataLength) bytes from
-(char *)rsp + rsp->DataOffset without checking that the range lies
-within the response actually received. A READ response with
-DataOffset == 0 makes smb2_get_data_area_len() zero the data length, so
-smb2_check_message() accepts a frame as short as the fixed response,
-while SMB2_read() still uses the server-supplied DataLength, capped only
-by CIFS_MAX_MSGSIZE and the caller's length.
-
-A malicious server can answer the synchronous read used by the
-mfsymlinks (or SFU) symlink parser with an 81-byte READ response
-carrying DataOffset 0 and DataLength 1067, making the client copy 1067
-bytes from a 448-byte receive object (KASAN slab-out-of-bounds; up to
-16 KiB in the general case).
-
-Clamp a zero (or header-overlapping) DataOffset to read_rsp_size, as
-handle_read_data() does for the asynchronous path, and reject the
-response unless DataOffset + DataLength fits within rsp_iov.iov_len.
-The SMB1 helper was fixed the same way in 5be5bdda5863.
-
-Fixes: d8e050398d23 ("CIFS: Add readpage support for SMB2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 06a6ca0dc098..f85595136ef8 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -4948,6 +4948,7 @@ SMB2_read(const unsigned int xid, struct cifs_io_parms *io_parms,
- 	struct kvec iov[1];
- 	struct kvec rsp_iov;
- 	unsigned int total_len;
-+	u16 data_offset;
- 	int flags = CIFS_LOG_ERROR;
- 	struct cifs_ses *ses = io_parms->tcon->ses;
- 
-@@ -5007,8 +5008,29 @@ SMB2_read(const unsigned int xid, struct cifs_io_parms *io_parms,
- 		*nbytes = 0;
- 	}
- 
-+	data_offset = rsp->DataOffset;
-+	if (data_offset < io_parms->server->vals->read_rsp_size) {
-+		/*
-+		 * win2k8 sometimes sends an offset of 0 when the read is beyond
-+		 * the EOF.  Treat it as if the data starts just after the header,
-+		 * as handle_read_data() does.
-+		 */
-+		cifs_dbg(FYI, "data offset %u inside read response header\n",
-+			 data_offset);
-+		data_offset = io_parms->server->vals->read_rsp_size;
-+	}
-+
-+	/* The data area must lie within the response actually received */
-+	if (*nbytes && (size_t)data_offset + *nbytes > rsp_iov.iov_len) {
-+		cifs_dbg(FYI, "bad data offset %u length %u for response of %zu\n",
-+			 data_offset, *nbytes, rsp_iov.iov_len);
-+		rc = smb_EIO2(smb_eio_trace_read_bad_offset,
-+			      data_offset, *nbytes);
-+		*nbytes = 0;
-+	}
-+
- 	if (*buf) {
--		memcpy(*buf, (char *)rsp + rsp->DataOffset, *nbytes);
-+		memcpy(*buf, (char *)rsp + data_offset, *nbytes);
- 		free_rsp_buf(resp_buftype, rsp_iov.iov_base);
- 	} else if (resp_buftype != CIFS_NO_BUFFER) {
- 		*buf = rsp_iov.iov_base;
+-- 
+2.56.0
 
