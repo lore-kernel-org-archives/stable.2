@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818298;
-	b=PIcFXruFAkPlbYYgnKlH82J1/gqz2ROJwXHOSubs9/wLorC1d1h3HiXD2fplcGnjVl7M
-	 NkSii/L/Buhmwj6I5rAS8eiwShJoipTehXSwjcoFlqqOGs66XumerphzCaGGYTjh3l8/w
-	 eZmhtvKmb83t4V/AR1PGjTDn3h98ibKEWZcn3zynOvZ7VZ2XKCfG+v8LLYz8iGal2+hJe
-	 bTdvCayUWjQYu2tlGXKP+z/pLM1zILibJtTBK6eM/a6M2tjBMc6ZjeWPODJwer9Z44ZiE
-	 bCYanXCWXY4qkioc/29ywbVzsPW5ZYhtpUVfqmStLrykWLEavvp4VWm71/B1umv/h6Q==
+	t=1793818299;
+	b=01t99/LMdOZHbwdCsIHUBD0sr+ShCsQcv0evT0OB/AI6BbeZfQZn3NMA0MlZ0ZfCtUI0
+	 9lkEc0fhx4pqyasuh/Va/yFbOuol1cHOPF1NSoWYEjukGV/I0Ne7MgdHgW65FM9G4vqb4
+	 5SghngVUCkxYX9zZ5lxDC2hLhLUTiWuRIpBpRidA1zK/Jsqb7Us3sLSOzq2zyu2Kt7xGM
+	 HBLED10Su8pgQrsVbrsDNU9C5rOlI1HUz7tjVoV5SGO0DpGM8/T7oioQiP8aIYinM0zC0
+	 3tLmgImT3CgBzwGlNejovY3uus5jODMNwFeZ/I+QM+Ofj3aOnw8luNJrsVy9SmC3lqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818298;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818299;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ixIf/O1rej4xwPAfsSS4PrVvK2W+4h7d7LIQubDg2yQ=;
-	b=5tXotH008jZKY2u39/0wKFri+g2IzBm8LWWazBWdNMVn65HeiO1hMYn7eRUH7s3HRwDG
-	 ady3Bk6qfJQG8bpARi+JSrRF2KuUvcyYLokG0r40j2+rtDoQjT0D+rFNC1G1LyLUMM5bI
-	 dHRmDI59VuGkHPv2zIQvT436CL7m8NI7GE0K6bZpi4TV4pfRPGMu1d+s6SFe+dq63bPxF
-	 iufSavmsuCKN9jMJQ1bLoMwRgdFLEPStvMLLrUN+8SCTV/kCuaanHpNMla3PzDxJVhpQb
-	 jxp1HIOzo326R90Vg+wFKMVEZhrfvrnpaNpYovV5ZBa+jtrwB5iWvE0mrTbRcdmJFQQ==
+	bh=OZrD6W/cpe/3NMm1KlSdEpezLvbv7UoEEElV31ZkAFk=;
+	b=GLKCLGqyBCo4vghAVMC0bgc0zV+0XJIFNbnDJ23RC09SpGm7FKGq6rz4b0ba/EDF2usS
+	 /qWU4/zBOssizfwx9DvE/+nVtFH4z63yHPPwd6CIQ1C864rwqbf2kRC+7DsrhzB0l07Da
+	 c8twm4wDmkCKt1w49KUbaS2BxR4AC2wZjlusHpMQ8qYztvurYWlOQCUyAEZAQa6aKoHFo
+	 lRW6Xen/7p077Y0TUwHYv9L13tKy6cRQwuAaa0z5RcZ1yhDfjiF1U8hjpe3IKkXO2wKXt
+	 kg2vn6nXZ2BZ5I5RbypzLTWNUV0q6u4tzfvtZeVFjPu2+91s4v/aY8Ua02fHE6em7HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tb+Z0H5f;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=an13JAXF;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6F9606D801
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:51:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D6F9606D801
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD62606D811
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:51:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CD62606D811
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tb+Z0H5f
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48e0d885929so862345f8f.3
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:51:37 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=an13JAXF
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so8973595e9.3
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:51:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793818296; x=1794423096; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793818298; x=1794423098; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ixIf/O1rej4xwPAfsSS4PrVvK2W+4h7d7LIQubDg2yQ=;
-        b=Tb+Z0H5f8Ujn95lpcrYX6Sd9IlolZJlKwRalnmZAREtJXke2ariHsWPEgRaS+cZuo3
-         sW89k6nQgSNEh6VqH7HS1Gdr0P6V/MdS1A9/iIEjXB5yts4D7/MM8bdjyCjOdHV28k5i
-         zIw4+2t3iD8gS88Z1sE4zKtiBnXaBdbNVbAS7zy2F5qq+pSEb9RlJdmk/8h2ZNYfcV4d
-         JBdqN8ketxfyxbKUxxAFEt5Mmvkxbdi2z32JQv3POYjR2kjJJbw8qtlPO/LfoD8kc0OK
-         FNjq3P1vPa7u+qdJQIAlRBtmX9997KWTXNCUNEFuB2m2UURwzWnQtHjYKfvdFINoRBjt
-         lbRg==
+        bh=OZrD6W/cpe/3NMm1KlSdEpezLvbv7UoEEElV31ZkAFk=;
+        b=an13JAXFqWXgby22kGqHnVxHA2OiZZ52LePA5VrOH3duaVkGwtdNJlyHsDg2pZNlNt
+         EP07ECnDWiPhaQD1a/r48VfztR3g6fKqnNJ0wCiRHs/ZFGeKl67CTWWAUAMvsVIf+GX+
+         SKQDg+2l6EhvqVA2R5fZMgiV7REwndXOL9tmMJzMAZS3ipjjOgpd4fdK77C1ZJP1f4MN
+         Ir86LE4N19gML1UX2IrS5dUlmu87j7yt6Lo99s3ZeM/RCufI+xS2y7wUiFL+glBpHbmY
+         +qY/Qd/H1jaM4vDUUH1jAL4R51xi2Mulu8w93bHh7MKmQ4yjI1e6eNY4XsLLJWtihFbV
+         8vVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793818296; x=1794423096;
+        d=1e100.net; s=20260707; t=1793818298; x=1794423098;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ixIf/O1rej4xwPAfsSS4PrVvK2W+4h7d7LIQubDg2yQ=;
-        b=eXj5EfsNOZY1cuZJQp4wt2WdOssC01tynIYolYwM9qMgP2UpGC45WA8S+grCUVhFmY
-         7+vr5G3B/pPXy9QWkZkpfMAPBSX4RM653oFzWkgJmIqWLhg4b9IiVdSor//9YSpwK2lq
-         bsPs+I9RFOzJFVw5k/Yk8vP2eGVh5+jK7hqVjurZpx/RiZOBUTwS6Em2697XSV6a87Bd
-         Ux6FiGgw/eme7GqE93V5VGjikhz0ZRgMa7I26fqg+5dpaTQbTcivsoSb/pvWcJQ4V5XP
-         aFAp0XmxOyf3rHzCS/F9hNPAUiXAzE4X46S704w1/GifNuoNLV2zG4f37XYt0Xabn55+
-         RLoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxAtc5OOtSGUPhPY8+GPlJw73A4fRkadGOrhoyANXEaDUpVpM22uIDs1p0hC/kePMkl7QciWpQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8t4Pc66WhueUkh1HQzmWNLXmxCvFTD0iyBDOsVqwnt8PeBwJdJ
-	Fcoq+DTBAKbI7Z7KxcBuGSro1xEEsdh3RcuhX1OtjrzVe9aw8mZvDdgD
-X-Gm-Gg: AYBFou2K0GMdgE3qVJZJmI6anONYRaFr3I75d/ulBOxvwptDJW0nrKZEOgz4PFZ5rBX
-	XSFVQHlBfHSu10JTZjPoq+jbhlqOG7zjH6Ti9jg7RobPlzQ/uiR0ujb2h1zd8MSpjG01uumV/Kn
-	8flG11WSWAWN+LLuZtnfmiIspRjX2msmBhsS+DSdtoW4r4Rhw+QlZzN3bMfsVlXEtxST3RgXzGy
-	BbslQYnBDQMZOsvUjUX5c5MdlMredCyoHgMhsKsoNhwXrO1FjrzRA6Xea67po7JxPUPUP2JMhgl
-	iLf7FKShT3Xqoc+UdHBDAgbSz+pj9lwW0qkZ/zWTvCxqwJJq24OundpH6JirYcpyncf13KM2dfV
-	u8NUUa+hzhQqIp3lrZh0wEt3NOEhl8X4pn2ap8NEdSZVfg3Rl5mmjvEm9h3NJKdwNNs++ywWYDf
-	OeeIMNA9AmS0ihRNIuuQxOj4qa3HLC/HWY3mQZIoDNZVurLvsvy46z33z7z9s99IVc6Sr7iREnR
-	nWBLOPH/6bx9u5yr+MJV/oHz17F9mQ7A9xP9iDGo1l9nQfZvVa8QLt7WrNC5zpUqbGzrU0mZNIB
-	btFTJNdP0oy69l6YSic8wLKZs41L8dFuC3cR8JP3oqh8Qt4BhCPKAluoDClSZCmdWydQJ6Xkeqg
-	x5/BXxTQVvI4=
-X-Received: by 2002:a5d:6e88:0:b0:48d:ba3b:af36 with SMTP id ffacd0b85a97d-48e6e5016c5mr29006819f8f.37.1793818296326;
-        Wed, 04 Nov 2026 10:51:36 -0800 (PST)
+        bh=OZrD6W/cpe/3NMm1KlSdEpezLvbv7UoEEElV31ZkAFk=;
+        b=dadxg9By+LpW3hPqG4lIKEcjAilmZ5cOCfLeq4MejpU+1oXEgAD6YEihcdWFVrrbfJ
+         HtL6lg/dOu7rJDpeJoum09V7tvZ32BezgKsvR9OPryruzEP8KGHvlmDoWbvQuDXoIVnc
+         oVXhSCrSnLbsl/tjTUR2DekRZ19TCbxWljl//RRTpcOKkIHAJOnCD6Ym6wxPwrbwqXI0
+         T4E2tcyPyftGbSsEV2F8LQh+b8UYnj+pJfdkTsTUgqD2wu7/rLsEnqt7IK9Z5lEsmjXz
+         2pFJew52wn5KPTrOzA44UUx5CcXHZB3bHVqHgLlxrSACssMRRcgWuacMWqKUgm1eJuUU
+         shFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzrZtSvDwTqQbl2K7HlDgmKHz1VElYP2/GzHMze1+MwnOaQR+434m8ejmvp08exvfTj/zr2vZc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z967AGAxIlTxNAqEAz1EnT0Lm0EO2np5M6MGQMjrGgroTnIcKYW
+	sEatk52K3vsV/9P+Vp9FerGmCVy5REGEEPyVqdFkugPYvFP9rHglh6tB
+X-Gm-Gg: AYBFou1avRQ51MK0i4haEJxdlQJcPKnuyFrvRNSlby0g/Dn0nY5cXQtUgNN5D/Yb0XL
+	35IDK6suFZYExI4S6TkBVzscNS4xSWcf8dDmMW8J1HwxkMfXcxR9QVgsIrXTT00aELdk1BKhwkL
+	V5YA9jbVADEUgyP50gF6/emU5Wqfbh9cBjR3DWf6sZIsm+CSWxONIeW/BH7EzzlxI/MvFhPE0gj
+	hgzj0yK6ZO9iMUkJaj+AxsgQ+t+yJLGWXBWyzaNM9frWy7XnYKIihqgz46UbIK3z44od8nkL6n9
+	mDEPLU5th39HCtBgjvUpQcA7w6eeOxX6Y89kakJtOEkEefTPsG/V/aPWI3T5d5PzD0mPQhYmJt3
+	N2q65y/9Te0opy/GP9AiEMPmkjtaVC/jbpnuaL7zQ5CbssuE5f6la4E2xcGajU7NbjjWsZW2Vi0
+	Uf7awB4Fj4BTd11zAo612/7yIGOZ1z4mSzcLAhTLNqqBwVl2OkiCYJnF1UbUs/nVCQYcu+iGiKD
+	3t6tUl1cMtBPrsIMrv2R3V0wG1EkS8wXwyV/bRk8kGzQCRXyBI/Mf7mnAGjOWGmZbwj9RH3eQXe
+	LX3Wi6+bqPjsb0FdShmKGncUWNG/ofBdotIdbvYrG8ySsts8d9Vf0dhye25LfUjKLupknymwGiF
+	ZrgLenDODA8s=
+X-Received: by 2002:a05:600c:8b04:b0:4a1:fb01:13 with SMTP id 5b1f17b1804b1-4ac17a3683bmr388077125e9.18.1793818297737;
+        Wed, 04 Nov 2026 10:51:37 -0800 (PST)
 Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed551dc5sm5516390f8f.34.2026.11.04.10.51.35
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b4104d600fsm71954645e9.0.2026.11.04.10.51.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:51:35 -0800 (PST)
+        Wed, 04 Nov 2026 10:51:37 -0800 (PST)
 From: Amir Goldstein <amir73il@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Miklos Szeredi <miklos@szeredi.hu>,
@@ -86,9 +86,9 @@ Cc: Miklos Szeredi <miklos@szeredi.hu>,
 	linux-unionfs@vger.kernel.org,
 	Chris Mason <mason@kernel.org>,
 	Josef Bacik <josef@toxicpanda.com>
-Subject: [PATCH 6.12] ovl: set OVL_WHITEOUTS before publishing the upper dir
-Date: Wed,  4 Nov 2026 19:51:32 +0100
-Message-ID: <20261104185133.3630642-2-amir73il@gmail.com>
+Subject: [PATCH 6.6] ovl: set OVL_WHITEOUTS before publishing the upper dir
+Date: Wed,  4 Nov 2026 19:51:33 +0100
+Message-ID: <20261104185133.3630642-3-amir73il@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261104185133.3630642-1-amir73il@gmail.com>
 References: <20261104185133.3630642-1-amir73il@gmail.com>
@@ -145,7 +145,7 @@ Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
 --- a/fs/overlayfs/copy_up.c
 +++ b/fs/overlayfs/copy_up.c
-@@ -843,8 +843,8 @@ static int ovl_copy_up_workdir(struct ovl_copy_up_ctx *c)
+@@ -774,8 +774,8 @@ static int ovl_copy_up_workdir(struct ovl_copy_up_ctx *c)
  
  	if (!c->metacopy)
  		ovl_set_upperdata(inode);
@@ -158,7 +158,7 @@ diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
 diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
 --- a/fs/overlayfs/readdir.c
 +++ b/fs/overlayfs/readdir.c
-@@ -961,7 +961,8 @@ static int ovl_dir_open(struct inode *inode, struct file *file)
+@@ -947,7 +947,8 @@ static int ovl_dir_open(struct inode *inode, struct file *file)
  		return PTR_ERR(realfile);
  	}
  	od->realfile = realfile;
