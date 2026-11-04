@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802895;
-	b=b8SRSbI9/8H5O2mqWmimxjMY+IPo/zkZZPzRQ6Ewm0NUqt94YUaXrGa+x8IvItA9qvJ4
-	 Q+bYivdL7bJNdE3eKe0cpaDHiz3rUvQAxzV18TuFboZ+/M1XGCvTonTHINz6vmsSYXJ5E
-	 uaUsvsttVIe5AnaR3dkhxcNfzKEpveM8KQl/RGF42uYHO5jfITpMY2roHxShk7yJi+pHM
-	 q30RXZvPbTxpibuR/oodzitTB8zZt/ZZEnZLPp67Z6jadR0TlBQ+1UPNT57hnH+oBPw4p
-	 M/95w16KTmYR7dp6E//HKZLCQYCZByIELwyc+r78FhhiNFtOY89qndEvG/c5qCehEHQ==
+	t=1793802897;
+	b=EhuABiYC0AG4uep2i7De9FNfC4xCB6e1k19usrMsRYWN4g4uXni9v/i2OoN1JnJLcTbg
+	 UQqY9Hp5bYOrldMSgvt7aLZcfLW6B/9cEYa++n6zJChDHz2dSjfpDJFqTq0gsNsnLbSc+
+	 MEkQvIBrJdTqUtSCN/L6uEv9llwFQSZfAX1d7QqT3+RAOP4/y+mzFMitK93i8dYDjDULc
+	 5QL358V2vUSGxB8vlewBWsSph95eyd8767qwryZZz0yu7WY5E189CfvLlJGKrfzTGoVCf
+	 CWS9bkudBL1EQFiuto1xGBLQ0Pm6thEuqXlJNDgvQIG0kWVjCsSLUDmHD1N2gxNUOzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802895;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802897;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=sxuk2xcju7HU4V3MUW1XYbyijbw1VT4EQNF5fRzLzEg=;
-	b=bHdzTAwVqcrlsfzrLr6HRBQXwiyKdER98H6V+6UYH6t6A7bEmenaiX+/OLwsdkshP30j
-	 WwUBpvwxfqyX5wLE+9S9EYYDOZd6R64RAXQHF7VXIROXdUUGsHCt5XUgqb8/6WK23utg4
-	 jgsShgqXXI18Wh1xBOSlHoYgu3upaS0UJxp4sf82P4nDmv2SW9nb1760jWrmvWpfnOjSZ
-	 /e1wTnn8+Xw2dcfyIvnPo3mMc3GPgz7su+G6qJf4/79S18NDm64owKj4pTwTZhKUuTE+N
-	 PRPB1/I2Qpgf7J22eOfEiwdH9BbqQUIA6CMK/oejQWDhkXhFsJLfJgNBBEGNMztuv7Q==
+	bh=wNbRa+xkWjEqZK45TVy51iRmNPZiZltD0SNNb+zWfuw=;
+	b=oyOzm0e1IoKCjN1FNXyBVOHpFrz+RJN99tMEzkD/gSGjgiyHtAKEFbrDpswnWZd/Q7dv
+	 2h1mw4YZXNPs0MHh4fXDI0JZnoeJ/KOxbZFLC1IR4V62uBlJBf3Gsv7RIlns6e7CrqBW1
+	 EuOUwJxjx3OmymAAKC7gPu0/zqRdU/zL98oudLsMZ86eAxB+pdIrhVaJls089BnOy2BD5
+	 DlSeTa1CeAW8zDxVdHSvw3TEx9iOeKQ8jrH6l4GENEZjRgbGMycIQVdBWMs5D7utw3PeA
+	 dthpFXoYa3V7t9bAGIkdEiz3czTqW6agNbRYBJwZuVFf9HaGywuLx3wUaTEf33lGC0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Mc5J159g;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tMxzzXCp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F47D606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:34:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850CE606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:34:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Mc5J159g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D87631F000C1;
-	Wed,  4 Nov 2026 14:34:54 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tMxzzXCp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 222661F000C1;
+	Wed,  4 Nov 2026 14:34:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802895;
-	bh=sxuk2xcju7HU4V3MUW1XYbyijbw1VT4EQNF5fRzLzEg=;
+	s=korg; t=1793802897;
+	bh=wNbRa+xkWjEqZK45TVy51iRmNPZiZltD0SNNb+zWfuw=;
 	h=Subject:To:Cc:From:Date;
-	b=Mc5J159g0o+XRSTWYVvGtkK51bP7zNEf+/N0TiX9xcYEN+1khmfxTeFzQlOHJuXof
-	 jD88Jm6RmXE5bwFpSqFVwQZWW2PGg+OlZl1HFfI3hA1voPMGQXmgOa0YbTK/f/L7l1
-	 HE5dcF0EUPptwoxL8Yo++cgjZxt6UZsqfdyzO+9Q=
-Subject: FAILED: patch "[PATCH] ovl: hold a reference on the parent in readdir" failed to apply to 6.1-stable tree
+	b=tMxzzXCpIpHLgUlHWRuuYB71cHaKUZO4X8l2Je1ygMFbBZNrmVDCCg7y+53mxVWqa
+	 uZXKAgWZWhn0AT53UawB/p7dAzfO1C6JX0vyHRveWwHcpDrb4+8ioxqTdwnT39vuG5
+	 4qAJclbNrL4icUWt1vwQ0WmXRGchWdA9+UHsYVMo=
+Subject: FAILED: patch "[PATCH] ovl: hold a reference on the parent in readdir" failed to apply to 5.10-stable tree
 To: mason@kernel.org,amir73il@gmail.com,josef@toxicpanda.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:34:48 +0100
-Message-ID: <2026110448-running-steadfast-67b5@gregkh>
+Date: Wed, 04 Nov 2026 15:34:49 +0100
+Message-ID: <2026110449-diligent-sip-8b14@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 16d319e12328acafeafd3eecdf09c46d7fb43452
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110448-running-steadfast-67b5@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110449-diligent-sip-8b14@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
