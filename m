@@ -1,55 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793750349;
-	b=Umpz8eIudGqiz5bx/rbY5JUBXRVnzDXHEO/98wdOQV29Tcf9XL1SpSRC6yL0x85jLy0A
-	 FD/tWBwq8wMk1pr7DUF+Ia0plp7hSTSPXalLqo17cyNVo/BgvuiWUDU8tV0oxc6Xb74vg
-	 VEiSgDmVPla+nO8eDWazMa6e6M0VfzIRryIV7CxEeZzOaSrnroS8s4ondnXwCeRXpRBGk
-	 wpRp3y5RVNEujbpdzyKKvHKQn84SZ4Naw9p4gkYsnVZyOj6sbOWpwD9dZ8FI3MHHv7Zfb
-	 BCDnWL1/djaHmvAY8uLuj7yW6Vn/1QJ0pzPepYVSsnHesCOG0RThfsT+D1zKCespeng==
+	t=1793750565;
+	b=K3rGemOSIM9XstMqgnKLD59KE7Qv6nM+G22z4rspgT2ji4HUjaEaRtr3UbhW1shFjCsi
+	 nw1qKlQB8Z0ccYM9gXc8pnnNrIFk08l092X6MxQqWMFu7ruqWi5RYPs+wmXXky4weB5a0
+	 YO/i1sCBUOXmR07PFKOAm51LTBoCTFohDF7Mc0SJYMjplTvzwC/atnUv/Cr+dY1AKlgVg
+	 kp5d0ENkZ+aPn72myAtyu5GihcKVc6IXZ7+CqhtsGJRltyNDIb9Wj87idMVgXEBLdIh9w
+	 ltT3p7Y1KrvUEAIGjwtudbpdBsLJnEDVFRIMcYLFvGSCfC7XcbX5fC6opq86wZS2Xew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793750349;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=11xycmde+P96yRqwVFQTg8wuiG85Q0m5541e7NLDPgk=;
-	b=CoFhaRSzIx7oTV0bKuyrBIxpxegGJfBHECu0UhrU4lAcKN/4rg4qt98hdCUE8HCbm161
-	 g7qEdD7CQpJNVrUIFIN8Go+0oUHQG62kw4BEZ1S/Mv9Qib4fsPqiFdqfbrTOA7hD//1Vm
-	 PvDqmBq/IY4JNvCo5nlT7+PUV0M2Ofap1pMNbhsR0hsLw4fatTPiBAlzhOiLis1FWSIYc
-	 ewiqojvDFQL2oTGD1pVShgmmV7zUQBfYXVV9XPXoJtSCLA85zkCcTv3LVPyJDmADTf6vZ
-	 W+eWHZIZKZ1wo6omLxEA+4zrI2BR6KLNy/Kib8xvCDnbP1qUNvsS3TirWCxSj7IPfNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793750565;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=kowKGEG8GhEeYbc52I9hqfYuIffCT+VKLMki4zsClrQ=;
+	b=KZsOdQ91NeGqwPTrcVeDYxH6dZobTAdRe7ize97HujgGpJsrhZAmnJWV5dW9TcmAW4rH
+	 wE/dMfQP4gu3+uEmM7/qcjiUkcTxlojBOxrO8JSki7aHwMaF1kPSui42GohKHNn/MvIoX
+	 cfYFANwbfwdUkgca9hXH6lgINt3TlP3Fl7GJ2Dx8Lo/Y67AglvJTPnJRjxyjaOgpaIYBu
+	 YrHch5FQRro/ffOJKPppI24ZykT+n8gneW2/KELCqmv+qPrrVRYmGTvJsGPR5r+OZmvqd
+	 g9EnLEjVF6dN4uAzSgam+EMGrwnmiHVjwD/5pj0Aulvc30bR71hp+/379O3WZ0jvljA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JzeUFeJl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="S3Vw1Nu/";
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54B0606A32C
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 23:59:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1427E606A324
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 00:02:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1427E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JzeUFeJl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 002951F00A1D;
-	Tue,  3 Nov 2026 23:59:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793750348;
-	bh=11xycmde+P96yRqwVFQTg8wuiG85Q0m5541e7NLDPgk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JzeUFeJlVJuVZIvdUd3KrCRzx73rgm+VFYwK+Veeo9ZES3Q/b6Agq+ti1DAyyk1p/
-	 /f/yyS/NkuyBtrrcz7UBRdz41axk6JnR1EN8qXRhmpGIzvcSopCiUyAY8g2AoJtc5J
-	 JRshwwKEkuIshxECO2UWQ6J9YSHiRLjbdkTU1mVglGcjHJTwcW7k2TEHzJQk9moJWd
-	 lLPEsXw/fH7uGg664snRGMyRy9ygVBLGeukGpM53G9wH2yf4J870dLYuhJgDrdv1/u
-	 TNlZ+9P0aMM5w8OO1AUBL/n5kCKVKkOi8zAhNR1A1Qrxh03qKsgzT+C8UAOgbdVDgl
-	 xPdcQaqlomaiw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ian Bridges <icb@fastmail.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ksmbd: fix use-after-free after a failed durable reconnect
-Date: Tue,  3 Nov 2026 18:59:06 -0500
-Message-ID: <20261103235757.1933352-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110352-reaction-cranial-2386@gregkh>
-References: <2026110352-reaction-cranial-2386@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S3Vw1Nu/
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48fbe12cfdcso67641f8f.2
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 16:02:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793750563; x=1794355363; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kowKGEG8GhEeYbc52I9hqfYuIffCT+VKLMki4zsClrQ=;
+        b=S3Vw1Nu/FppcBaS3Qvw6U5JmHn0zhK/FM0VrI/JSwsDkFBT/vvY3vheYtkNv817LbK
+         ciWppLK/mw4aILC1gksjwqYF7piGXHNWXbdiFg87w+YuoZrfWQmR0YbrXJYC5SO6RG/d
+         4WjcNz+T4Z9V6J7edlkrnuU7fMqHMoca+sQdPW9d7oxfK8Ze6qyQeWPb2d7fVrLW6wfI
+         sXe4Tgxo7ueuLhUE9izZ9XRvLIglpccZw3xXy8cbA886T+8ylxyN2/xmegLJEmBribBS
+         j7Tr2BVnkiqAUd4vSeneRBOxv095k5O+XJRWCsWCjQTYhz0TzEMZvyXYNCWDYdvPbPpm
+         anxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793750563; x=1794355363;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kowKGEG8GhEeYbc52I9hqfYuIffCT+VKLMki4zsClrQ=;
+        b=WP/+wP0VQ2K9PdF0guQJBZ8kjw1qOVrxa5oyBCSYoUQ8ZqtN6sZrlLNRkcFTcidaPE
+         NFWY5Jg/JQasKVc3IewWFP3Mp4RpojorbUtCyyDsKXeiTTHM2UO5AFE3mKllHUNI62Gn
+         YirIx50IMItOEhq2YvBqBitv6xAI1QTkOUlqvLWFsNrFDh7vddkl6bHMvqSzyPe0GsxH
+         b3h+59+M2FEX+E1wp/nd4YwNXoRTPAXJuk0lIJWOGddTrE4lCjJa+WUku6B10TdgcYCG
+         Es9oWlcoPtGEz8ZoG48LWdB/rUcKHYB+yuVO0AQEx+94JPGNiNinrJ47XMiVet/Yy1SF
+         bQ7w==
+X-Forwarded-Encrypted: i=1; AKwUvBwOeEuCKsQ1O6KZl1RqCxJhWUuScmmWSSTfk+qCg8nck8fdcXcTNWLR7CXiQqxIkDzTyJ+ro3Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8jf3q9ebBnBjnE7RQeONxXTwqY3uhUee0lCHtov4J8UIe+6rCy
+	rgSs1/vQP255BqR2zaUy1v959Eanm/qVgoAgaOj/HWk1a3gpgDBvMT8=
+X-Gm-Gg: AYBFou1tYvXyMEO+WLRW1bkCvjS7Q8P+5ZWqmTeBa5+SQ04B8PmIWcZkeSsGZQx0lLa
+	NTQpBwKn3SKLhnWtswVRM5NU0GHOkBZzyAUIMKIPTrkYmHDiBmbAyPTIRuYuv55ZRCO9eXTJ+bF
+	SFZ0nb7Rd1TGxvcuqv5pCuoKpmqiB/7C+ZSXCeCsH/lg1J22LTpfJQOFdVmp3UfzbVW+KabFK09
+	YVUlHpWlXQh9xDBoT4+H/suLxbOac29xhyfoYdQi2HZuE4cWVxBcXrsSDs0/arYZXOJEMRcOqpX
+	hFdDviXDk2N1UEmhzOrkfozGBIN++MvbnC1lpmeibYaRqm4v0jmQ2bw+BEP6yrmBebUYen2GWD7
+	ALQs7/HDQSzM+XINPByD/Kbgo39X7zkPo78p+++YJCgqcfsV4I1Y05Y/cWdbDwx5pw8slmGAbMO
+	iiJDAp9crxjDZMdy/vx5Z7sh+sNq1RQ19HkDt4WRESMGZNM130GVzeCPNQUBdyzwiCNNJeSPhpt
+	Mki4CsxDjRkFA2tCM6eTj8r7roIpxTFrip7hBkEQwJHWJYL6d9FHlpxpvEJcG/xTR6sl7KfVaUv
+	BV9YezmntA1QSoCk8sQ=
+X-Received: by 2002:a05:6000:2410:b0:48e:6674:3b2f with SMTP id ffacd0b85a97d-48e6e5005c5mr34358784f8f.51.1793750563327;
+        Tue, 03 Nov 2026 16:02:43 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fec8d8e29sm714193f8f.19.2026.11.03.16.02.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 16:02:41 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: Neill Kapron <nkapron@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH] usb: gadget: f_uac1_legacy: cancel playback_work before freeing audio
+Date: Wed,  4 Nov 2026 00:02:39 +0000
+Message-ID: <20261104000239.2798131-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,138 +99,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ian Bridges <icb@fastmail.org>
+From: Tristan Madani <tristan@talencesecurity.com>
 
-[ Upstream commit 248b5819591c577727930e4e255a455235fab50a ]
+f_audio_free() frees the f_audio struct without first cancelling
+playback_work. If the work function is still running or pending at the
+time of the free, it will access freed memory via container_of.
 
-ksmbd_reopen_durable_fd() republishes a detached durable handle in the
-reconnecting session's file table and takes no reference for that entry.
-If smb2_open() then fails, cleanup relies on the final ksmbd_fd_put() to
-remove the volatile id.
+Add cancel_work_sync() before cleanup and deallocation.
 
-Two reconnects of the same handle can both take a lookup reference before
-either attaches it. If the one that reopens first then fails and drops
-its references first, the other request makes the final put through
-ksmbd_put_durable_fd(). That frees the handle without removing the first
-session's table entry, so tearing that session down writes to freed
-memory.
-
-  BUG: KASAN: slab-use-after-free in __close_file_table_ids+0x14d/0x740 [ksmbd]
-  Call Trace:
-   __close_file_table_ids+0x14d/0x740 [ksmbd]
-   ksmbd_destroy_file_table+0x76/0x100 [ksmbd]
-   ksmbd_session_destroy+0xf8/0x480 [ksmbd]
-   ksmbd_dispose_sessions+0x13e/0x200 [ksmbd]
-   ksmbd_conn_sessions_cleanup+0x4c3/0x6d0 [ksmbd]
-  Freed by task 1030:
-   __ksmbd_close_fd+0x97d/0x1000 [ksmbd]
-   smb2_open+0x14eb/0xd9f0 [ksmbd]
-
-Commit 3515503322f4 ("ksmbd: fix durable reconnect error path file
-lifetime") handles a final put made by the reconnecting request, but not
-one made by another holder.
-
-Remove the volatile id under the file-table lock on this error path,
-before the references are dropped, as ksmbd_close_fd() does on the
-request_open path just above. Removal then no longer depends on which
-holder makes the final put. The stale comment in the reconnect cleanup
-is updated to match. A successful reconnect is unchanged.
-
-Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
+Fixes: c6994e6f067c ("USB: gadget: add USB Audio Gadget driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: adapted the cleanup hook to the simpler if (fp) error path in smb2_open() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- fs/smb/server/smb2pdu.c   | 12 +++++++-----
- fs/smb/server/vfs_cache.c | 28 ++++++++++++++++++++++++++++
- fs/smb/server/vfs_cache.h |  2 ++
- 3 files changed, 37 insertions(+), 5 deletions(-)
+ drivers/usb/gadget/function/f_uac1_legacy.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index aaccef2e3f3bb..5f6f138d6c70d 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -3865,8 +3865,11 @@ int smb2_open(struct ksmbd_work *work)
- 		if (!rsp->hdr.Status)
- 			rsp->hdr.Status = STATUS_UNEXPECTED_IO_ERROR;
+diff --git a/drivers/usb/gadget/function/f_uac1_legacy.c b/drivers/usb/gadget/function/f_uac1_legacy.c
+index 7c8d60c7e87d1..a9807697265c5 100644
+--- a/drivers/usb/gadget/function/f_uac1_legacy.c
++++ b/drivers/usb/gadget/function/f_uac1_legacy.c
+@@ -943,6 +943,7 @@ static void f_audio_free(struct usb_function *f)
+ 	struct f_audio *audio = func_to_audio(f);
+ 	struct f_uac1_legacy_opts *opts;
  
--		if (fp)
-+		if (fp) {
-+			if (dh_info.reconnected && fp == dh_info.fp)
-+				ksmbd_unpublish_reopened_fd(work, fp);
- 			ksmbd_fd_put(work, fp);
-+		}
- 		smb2_set_err_rsp(work);
- 		ksmbd_debug(SMB, "Error response: %x\n", rsp->hdr.Status);
- 	}
-@@ -3874,10 +3877,9 @@ int smb2_open(struct ksmbd_work *work)
- 	if (dh_info.reconnected) {
- 		/*
- 		 * If reconnect succeeded, fp was republished in the
--		 * session file table.  On a later error, ksmbd_fd_put()
--		 * above drops the session reference; drop the durable
--		 * lookup reference through the same session-aware path so
--		 * final close removes the volatile id before freeing fp.
-+		 * session file table, and the error path above has
-+		 * already removed its volatile id.  Drop the durable
-+		 * lookup reference through the same session-aware path.
- 		 */
- 		if (rc && fp == dh_info.fp)
- 			ksmbd_fd_put(work, dh_info.fp);
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index 286bb3af85872..42d2b9cbdd894 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -486,6 +486,34 @@ static void set_close_state_blocked_works(struct ksmbd_file *fp)
- 	spin_unlock(&fp->f_lock);
- }
- 
-+/**
-+ * ksmbd_unpublish_reopened_fd() - remove a reopened durable handle from the
-+ *	session file table after its CREATE failed
-+ * @work:	smb work of the failed CREATE
-+ * @fp:		durable handle republished by ksmbd_reopen_durable_fd()
-+ *
-+ * The reopen publishes @fp in this session's table without taking a reference
-+ * for the entry, so the CREATE error path's puts need not be the last ones.
-+ * Another holder of a global-table reference, such as a concurrent reconnect
-+ * of the same handle, can drop the last one through ksmbd_put_durable_fd(),
-+ * which frees @fp without touching this table.  Remove the id here, while
-+ * the caller still holds its references.
-+ *
-+ * Every path that removes the id before the final put also clears
-+ * @fp->volatile_id under ft->lock, so a valid id is still @fp's entry.
-+ */
-+void ksmbd_unpublish_reopened_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
-+{
-+	struct ksmbd_file_table *ft = &work->sess->file_table;
-+
-+	write_lock(&ft->lock);
-+	if (has_file_id(fp->volatile_id)) {
-+		idr_remove(ft->idr, fp->volatile_id);
-+		fp->volatile_id = KSMBD_NO_FID;
-+	}
-+	write_unlock(&ft->lock);
-+}
-+
- int ksmbd_close_fd(struct ksmbd_work *work, u64 id)
- {
- 	struct ksmbd_file	*fp;
-diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
-index e39d6e9023504..e54690a8e3a27 100644
---- a/fs/smb/server/vfs_cache.h
-+++ b/fs/smb/server/vfs_cache.h
-@@ -155,6 +155,8 @@ static inline bool ksmbd_stream_fd(struct ksmbd_file *fp)
- int ksmbd_init_file_table(struct ksmbd_file_table *ft);
- void ksmbd_destroy_file_table(struct ksmbd_session *sess);
- int ksmbd_close_fd(struct ksmbd_work *work, u64 id);
-+void ksmbd_unpublish_reopened_fd(struct ksmbd_work *work,
-+				 struct ksmbd_file *fp);
- struct ksmbd_file *ksmbd_lookup_fd_fast(struct ksmbd_work *work, u64 id);
- struct ksmbd_file *ksmbd_lookup_foreign_fd(struct ksmbd_work *work, u64 id);
- struct ksmbd_file *ksmbd_lookup_fd_slow(struct ksmbd_work *work, u64 id,
++	cancel_work_sync(&audio->playback_work);
+ 	gaudio_cleanup(&audio->card);
+ 	opts = container_of(f->fi, struct f_uac1_legacy_opts, func_inst);
+ 	kfree(audio);
 -- 
-2.53.0
+2.47.3
 
