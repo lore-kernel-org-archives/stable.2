@@ -1,75 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783863;
-	b=Mp/cCq9dDUkW6x5kXXovUkU7J2Ex+2BqH69nJ8KhkeNbPD/7prSSk650FUwGrH8lOyLp
-	 DLUKUJJGIMlfk2qSqAmZ/79JddkC6q2vyUYRZMho57P0tgyJb5IbwLTDrbszeDlWXNztD
-	 Gja1FcEBx3NRAJSk+p5KUFPBlfef033sxwY0NreKWyNSaJuJGbZDdwIiB3L7duz0On+6C
-	 615q4ErCCEnxaZzLq9savxhB882DouhijwqN1Nfgxo170QqtMIzPKK5exJfPjdn+LmbV6
-	 SlJLqer8eJaJHAFTkyouKkld5rcONdezwYqmvMHy9LU8sNBpddBCF2OVfjO9cBOD4Qg==
+	t=1793783874;
+	b=DiRNjFPqSn/YCxzX5hQAp9uzCDTZBJtnExWncVTCFtsCXXebPQZB/x/Qd3GrXqUVNJch
+	 pqzAyA+45utjZnKebus8NN8D4sGO6S1z8Kw56SzvWK7LfHAZubHYO/fQNy4lqZGgM8LTR
+	 5dnAqnf0bbZNcA5kHUd4Mpul6bftRtjOQW3BwLEPHMJX04fi/Hi7PDDSGqtSAZZuUZgND
+	 ljVK/ApOIVdcTBdemxTnP0VPDVxDd7ZRAzFNYlwQBlH1QYBUUBmb9UPdXwYyqWvcUVxsj
+	 6OHd3Skspz/9Tc3REnw1qt1C+1qJkF7EiZu5UkVWfRc11Qnm3e3Wr+PWLvLRU+E8jWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783863;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=vFLCfIpQzvj87maXuJncKjZMHxfbMjkVEErOwSrEMzQ=;
-	b=sFWKpBwLggaRTm8knp6AldUbYKl9CFDvHYpYxQ0aIYOK66knpWkwBJGQ6MrbCws4tUW5
-	 /9wYQlWzbbdct9yJklGSVNfw1Qeq5cFbORaIa5K5rluZFtqQOTrVIPaSU4CZtYHG0jcb+
-	 xMaxR5g4+0UmnzCKSr1qjjRNJN3steQAoDhNvG2fi2N/XYXPYtmBGpgeA06dgoa1P/1iT
-	 g+uT2q5j3TNWVFjsOSYaNjz0fftSURMmT1Jn/EFO7OnjczO9MBjHSYgydQl8PmosW8/m6
-	 dEDYZPS0Ljyow+DwVy65NwlNnPA2quntRu/FjrvBzizeDghFWwhhmsSlf+NdH31xglA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783874;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=REYCwLzVTyXXiLUH6Yf4bo3GwRsHUh3qcFy5GtRjoz4=;
+	b=KMVXm/CHTj3mcIKZBsE+Lv6dAMo4bNAWaDVl/wJuvFUsmXJJc2mxbCdh+HUqU6DUDc0G
+	 fsp1XRPbBTM76PRawqRzVLVQbNiradZhx5VK3GbYc9jZjno0/XP3ehbojY/V4oZwQOQr3
+	 lC3MIR172hIr5R/7g4S19mOzGRR6paTvlkSE9eoiyB2yMpBwxfwtJx7sI/gJa/1HjZgJf
+	 1LIHVuUiJdq6QJLYz7K8Xl/fQdkUUsxu99QpmMcrgI8YyDDSvKFREOdc2n8PzBc3B1MSy
+	 MkqJa87F4p4+PmWWOKh3GYRc1SkVEzMb8vu4JXWGR/K9TxfDarVU1YrfxyW0OqekR/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AkGIp68v;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C20606A31B;
-	Wed,  4 Nov 2026 09:17:43 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=o6Gi+ZDD;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 51ED2606A328;
+	Wed,  4 Nov 2026 09:17:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51ED2606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AkGIp68v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9461A1F000C1;
-	Wed,  4 Nov 2026 09:17:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793783862;
-	bh=vFLCfIpQzvj87maXuJncKjZMHxfbMjkVEErOwSrEMzQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AkGIp68vobiZwB2XixXdCJHgtF8bS2InhigVuwsdqp6n5/W+M82eXJQmgMDIXncGQ
-	 ZsgLev6upKoTph4wRGMw/6Rt8tdd4yiEe0QTNTPemQ626tgZDkM1GcZGQlIINcGmX1
-	 rweyg/M+elK322suBIlSSUF7Ca/phJp24NGzpraEYkCKjrptZL+chTq0rR5ps9q2f2
-	 buSjg3t9Zzbjt9a55NJ2t3tMIsF7dtK6fdeAh04poa02hll2Rco50kbc8I+oEfsxAS
-	 NzUPxVvIxDSaOzz7ERaAm3QpoNHvfOUNEKEQothQH0rTaYd4IAl0SGRh52pJdJDENe
-	 eaiECSjcPGAaQ==
-Date: Wed, 4 Nov 2026 10:17:28 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
-	NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
-	Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
-	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
-	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
-	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
-	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
-	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
-	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
-	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 01/38] PCI/proc: don't truncate the position of
- config space accesses
-Message-ID: <20261104-beugt-kapern-geehrt-19e2e2dd58f6@brauner>
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
- <20261102-work-procfs-bugfixes-v1-1-59422ed3e465@kernel.org>
- <CAHk-=wiSA7-mqmAjTQDaU7UjUyWt0TxYwXHafL8ZAPudy+B_uQ@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=o6Gi+ZDD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=o6Gi+ZDDRVp+f5lDwn18+MvApvDBwFzjMcuztqFBvUD18adJ/qZ50fJ7cAbjR+txLuQdAs3V9kqb4
+	 SU6nvLkSnMoAlzI6OmAJS36v7kNb61NG3+k/mJu/8Pp16U3BrV8xWhn5hEudCkj+aA1tZk6G8EV0yd
+	 dRdnOJfwPSbgXkdM=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96aeaf83eeba-a1e2a;
+	Wed, 04 Nov 2026 17:17:50 +0800 (CST)
+X-RM-TRANSID:2ee96aeaf83eeba-a1e2a
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[223.108.79.97])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16aeaf83da4d-1d1bb;
+	Wed, 04 Nov 2026 17:17:50 +0800 (CST)
+X-RM-TRANSID:2ee16aeaf83da4d-1d1bb
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org,
+	dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	willemdebruijn.kernel@gmail.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yana06070@163.com,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org,
+	willemb@google.com
+Subject: Re: [PATCH net] ipv6: fix cached route reuse for SO_MARK control messages
+Date: Wed,  4 Nov 2026 17:17:37 +0800
+Message-ID: <20261104091737.13469-1-yanxia@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179371875338.488856.4546363285391899557@kernel.org>
+References: <20261030141435.779302-1-yanxia@cmss.chinamobile.com> <179371875338.488856.4546363285391899557@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,28 +82,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wiSA7-mqmAjTQDaU7UjUyWt0TxYwXHafL8ZAPudy+B_uQ@mail.gmail.com>
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 02, 2026 at 09:58:51AM -0800, Linus Torvalds wrote:
-> I think this would actually be better with rw_verify_area() just
-> checking a per-file maxbytes.
->
-> We already have that logic for lseek and friends - using that fairly
-> hacky combination of s_maxbytes and !unsigned_offsets().
->
-> We should combine s_maxbytes and unsigned_offsets() at file open time
-> into f_maxbytes and check that not just at lseek but in
-> rw_verify_area.
->
-> And then things like proc_bus_pci could set it's size limit in one single place.
+Hi,
 
-Yeah, I like that.
+Thanks for the review. I reproduced the race with a test-only pause
+after sk_dst_check() takes a reference to the cached route. Changing
+the socket mark to the cmsg mark while the sender is paused still lets
+v1 send through the old route.
 
-Hm, maybe we should keep this and the isapnp thing small and do that
-change on top.
+I've prepared v2 to record whether an SO_MARK cmsg was supplied and use
+a fresh route lookup for those UDP and ping sends. With v2, the send
+skips the cache helper and returns EACCES. The cache check added in v1
+is gone, so the comment there no longer needs the proposed mark update.
 
-This also might mean a change in behavior. Because a read past the end
-returns 0 for proc_bus_pci and for a regular file past s_maxbytes. So
-that would potentially need some more changes.
+The series also adds connected-socket cases to cmsg_so_mark.sh. The
+same test fails two IPv6 cases on baseline and passes all 54 with the
+fix; the separate UDP/ping route checks pass 50/50.
+
+DSCP and flowlabel remain separate follow-ups, as discussed with Willem:
+https://lore.kernel.org/netdev/20261031033159.2712-1-yanxia@cmss.chinamobile.com/
+The other port and source-address cases still need checking.
+
+I'll send v2 as a new thread.
+
+Best regards,
+Xia Yan
+
+pw-bot: cr
+
+
