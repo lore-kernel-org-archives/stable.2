@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814702;
-	b=Iw/trJpNgS/T/BF/uzcJ+Votlt7rADqoqNdcnM0iwVAWWEMAWw79OUwMbMcFcNfyCELF
-	 s2sB5pvDoJ/Tt22ECJZWvXcJGiCAj6DTx5pdMoMv302Pf6t24pAgSrfiD82C3+ce3MAec
-	 NkljW91kO+eD5Xxip+bLgqBJVILpRq7ttxi7IRuqEVsPPMJhXkkBLIsC6bVYlx2ZviePU
-	 h+wntM+BpdJgJb70ELEAkE0QbqCjI8QoE4NFhg77EwPv5zfZQJlKk8qdkR4z1okj8lS7B
-	 NYBFNHw5DUl2RurnZ9n37UYmtq1gILFiSdC/F+7erage8IrY4DaFALo++ESPuI/g2cg==
+	t=1793814704;
+	b=mpy9BOtBrEqm1rE+0mRDR2ym/fLv5CztbShCqaGr/RvqbtFtkp1Txo5cTO086z0o1GpW
+	 MoUukNRDYc+NNed1BJPgB/rMaokhJXwE1lESQwFnNj0HCad3oUvpqNFopulMo8mbeOMZ/
+	 pbzdboeiNByj2LbTRO/3Lmf4lmGvoNsOFZTQ44S3O798MXvyIqM+lFXdUmpQR1HiFym9k
+	 uiL/h8eB3qZyHEXwAza7v26Z/L2aWSdEdgzCo0aHO3l5iwaA1wwFA31VE0r0rDkBIN7Rn
+	 R3FoLX4zuGW/v2Cl63V/YXsH1q3hbUMXhgFExle8iwcO6vNTs5yInKgYHqvfvtsuM2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814702;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814704;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bNITLFL+RJcpipymN89bGf/LSKlTMyMNDfQCH1u+Agg=;
-	b=bGQIYnOqatbqFAY9ckTXQie1pKA9bLkj6coZsdkKd6qBa96H4mqQUOvWr7XUIRmb7UOC
-	 a4bZcwvkpUWUjpgMwC6J7TOu8Ppmk/rl6RpwhLoE1+M7fJ1wHJkQ8lgqHVsnZ+awyAK3Q
-	 nAhz5G3INzedobWTGfiTuBghyz+0o+oKXxju8vCVAyo0yRNA+4/6y5jFCOrJMTH825QV3
-	 QCXJkvAfw15bWdD9xj6rOfSMRYY0flDRBeeSPUyOWRb/g+LbIPnPTZ1N1avcZl+NZkkRe
-	 M5qX1/qtar3cuGmjBVAHpmxHP9wxYaBGjeQvsfuRM9KlxJeeYAbsoGxgT1XCBLxrYAA==
+	bh=PKGV7JYSvZQ00q34q1+wYqPGKHrfWBTpCr9icWb6zlM=;
+	b=T4UH7mdyfd2TMGN2nKNSmQRG4+rc5eojcLIxn9IXKlDeghor+YAJOjW9q6UJ0u17eR/8
+	 iOA6ZDtF6piM4Ba8Gorf1F5XqZJEZc0nPwtFCzJimbK0MWwOCoyh90YyQm2Hf7Ra9kFNs
+	 ykiQNfQq6QVjDDhbE2wfRCpgaiynj5OCb9kKY56D4PXDDtkY+rVSbmH8DhsssiQSqv1a1
+	 QreTi1/ffxBHfBN74/oi/mbnDdNa/zW1yLbNZ8KStMj8dxSs5NPxjD+9zcqxP0rIKiUS0
+	 RAZ7KJZ2C0PQ01PnvP8YDs5L9QPflXy1NFQSxnbBxwjJw2SsD4VsWpCP0QfBzRYmcxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hs3qoKVE;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iDQ+Rqp3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27E75606A334
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:51:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1241606A334
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:51:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hs3qoKVE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DDC41F000C1;
-	Wed,  4 Nov 2026 17:51:41 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iDQ+Rqp3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 443531F00A02;
+	Wed,  4 Nov 2026 17:51:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793814701;
-	bh=bNITLFL+RJcpipymN89bGf/LSKlTMyMNDfQCH1u+Agg=;
+	s=korg; t=1793814703;
+	bh=PKGV7JYSvZQ00q34q1+wYqPGKHrfWBTpCr9icWb6zlM=;
 	h=Subject:To:Cc:From:Date;
-	b=hs3qoKVEqMmbe8icuVMqZZi/UYFjFqhWeW1AQTC7oXFTfyf+K3lsBMoZFvkK5rCfj
-	 x2uQy+jyL3iEfaEXFubdAd2ll+f51rcMxBdSO+BH4aVonN8DuSaWdqtR20BQJ4OJ2k
-	 T2afVktIHq2DfVu9XFWGZOThCnWgJY+jyZplUzLI=
-Subject: FAILED: patch "[PATCH] xfs: forcibly reset quota timers when upgrading to bigtime" failed to apply to 6.18-stable tree
+	b=iDQ+Rqp36RIvlgpdUizdn8HhHc6jaIUB134Y/252bpdzLh5A9kIKnapYWEWpdWf0c
+	 hVO+xxUk8lBmV++ZUFbe4MYcyNG4SSteHUVarKajvrY2VV0/hDGgO+0k+TALUE4FYY
+	 DjXrKdZzGZCF5SgswMbOk0IEmOBH4DJWNrVGztjo=
+Subject: FAILED: patch "[PATCH] xfs: forcibly reset quota timers when upgrading to bigtime" failed to apply to 7.3-stable tree
 To: djwong@kernel.org,cem@kernel.org,hch@lst.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 12:51:33 -0500
-Message-ID: <2026110433-tingling-faculty-9098@gregkh>
+Message-ID: <2026110433-diaphragm-obsolete-bbe9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 7.3-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
 git cherry-pick -x 780212c8d8105eadb5f56b4c7aafb94937755582
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110433-tingling-faculty-9098@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110433-diaphragm-obsolete-bbe9@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Possible dependencies:
 
