@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818610;
-	b=bI8qDxVUxAvMBeCrCjwqF2NPRNWzuo2MuQv3SO2psmOVy1dLwd4yPjjmX9xKUIANa/g4
-	 OrHUM4iVcEB0dMvOkdhRS5tKU1lksz40FP6Drmv9x2cy+BB+WwupYvzT9aDSeDRRej04O
-	 duOM2TTW+ayyczqOiJueW/zHPRUCTibNm766HXqGjpV3PHYt0HKojxCn0w0JNO/uzhMCS
-	 rb8m617XhjfxV2Quo0k2jOveDuyeH0lLfm4m+vvH7UBEHJViLIfmjcv4hmgdYeeaRcRUW
-	 84rMk3lFqTbdbdJBUPyOyToXgVR7rOTGTcV8nasrIV6Hwu8nSdgPYkWZiWTilFZ0/sw==
+	t=1793818614;
+	b=0ixuTms2oMdbUujICNTXvJjneD7sSTrQ00TIMQY5fLThUtbU95FSQWAqz1xhbXGvfVQu
+	 dFDfidg8pzqhYxbgaIDHIZvF0WltEeos6ZzH3CkjwFeVaDcSJBaI850/45YG1erT+O9sk
+	 GvjlcKC68OIDcMWtetrg53WRn3TaBqg6ePQSUdlhMF8z4f6uSiOijEo7YGqrkH7K2XJYq
+	 NXZiF9pztxBhAXCEvpJ10EHYnJJ/PH/nBirLvYT1FXU0mItHZAlx2sYKyjgFNTmX4kX9h
+	 6xvhbkJY+9eK3z343Qx/tvsFBj2coMpV7ue/PZVjEhFrusqiJXnPI0ggbbzhJ66M/Ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818610;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818614;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pFMuMADhTP/GFHVP2M5Tfmm5siw238LwvYgFdWGEVv4=;
-	b=FcjHQnoYWaFrFbpXsEp9jJqaQp4G0nRS9664HeM/Z2pjmvTa5Kda3Gbgq/SevTHDQc2C
-	 gPASGdnEEdCSigzEtpe/ES3ClZ4l4fIa1eC4lfcagdmzQdFYyZfNWAHI7HbrEGlxue3iK
-	 LyBVUnA+EJ74kgmCoz5CP0h38lqfgn8UmrDZ0YjdAVcTWXrwNlxwwGEGcTQqdR/Mv7Bc6
-	 zVi8AxHzYW8NMsk2oSY3vBClFTAtVbpz6EFmVR1e+VP4opN3p0tDktl8UaUdHPO/gRuxZ
-	 /8dNGALSIGyZio9qClBA/gLZKv6VU/uBo4uHZNQBUY53pJC9ZdJ7ItO03UaXv1NJi6A==
+	bh=j975vXgzUm4+QG20E/19LdQZ46DMtdDTVRZh5ImSTW0=;
+	b=l0pmOvWG96xTwulDlTtqUfjkbP/Iq66qaJWrlk1Ue5GFtSDkXyP4Xo4PMCpCviB1al/J
+	 iW3jBFO7eanWUGTfnavef+tw02e6mHFtxTjYQTnhfv0Tmu0c//8n45bFwhPsPKZOeqYBz
+	 T6Eie2jyiAC/6pDqBkrD+7Pz1idziC+6aeyTre4MMW0nhV81iipRpYkeCul6ijuYiLVuT
+	 z1KEJjDLPVa7K+UjHQJ9j/zFAlVdvD9VIAGvMD+n2hDECnNdCKXKo8929696DSsI5ThAK
+	 /KSvPftuJWxXYlELjuXfDHdo81Goh5jzEzUqcfmJeffFYvBwJKG9qG/+GRB3YE3cugQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HAiBvDD8;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oaknPNJZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9BA606EE86
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:56:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3CEF6082BDE
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:56:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HAiBvDD8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C50E81F000C1;
-	Wed,  4 Nov 2026 18:56:49 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oaknPNJZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524BF1F00A1C;
+	Wed,  4 Nov 2026 18:56:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793818610;
-	bh=pFMuMADhTP/GFHVP2M5Tfmm5siw238LwvYgFdWGEVv4=;
+	s=korg; t=1793818613;
+	bh=j975vXgzUm4+QG20E/19LdQZ46DMtdDTVRZh5ImSTW0=;
 	h=Subject:To:Cc:From:Date;
-	b=HAiBvDD8xn14d/jXXa4pmSSPFlHw8mZ6qmcIIE6t6dL9+ddzLeSnD7lo274KB+tvO
-	 91owz3IzRNGcfxN0UxcBHFlxxIxbBhEaGIq5oPOfFbKUKHTUE/fglT7QJ4rlp1345i
-	 HXDdcNavqSM69dkb/8Hedki0zlIaGyWDMNJKb1HI=
-Subject: FAILED: patch "[PATCH] NFSD: Complete a cld upcall when copying its reply fails" failed to apply to 6.6-stable tree
+	b=oaknPNJZgQHJcHLTZW5QMcyFeF8cv5NwwSbXK90uP8qGomztS9hSJ48l3E7fuPoBi
+	 YlXKm9W6u43qCGMZZ5K1lwNAKWCKUomw3Ht0KpWRQykHaqR2EeX7MyOktJEvm1pBos
+	 9zvJ/Zbr9yDQM+9D+dmVcG6yA7YbDcO21FV0d0WI=
+Subject: FAILED: patch "[PATCH] NFSD: Complete a cld upcall when copying its reply fails" failed to apply to 6.1-stable tree
 To: cel@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 13:56:45 -0500
-Message-ID: <2026110445-revenge-computing-e665@gregkh>
+Message-ID: <2026110445-skittle-silenced-49eb@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 8cef2b0a01d28647facc57501a3df7ccd8d13ccd
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110445-revenge-computing-e665@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110445-skittle-silenced-49eb@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
