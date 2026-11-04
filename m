@@ -1,47 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819604;
-	b=myWKmUbnTXdOYtz81GxXlWoKX9lUgczDu6hbpkLWiER+sdfu2kKVqWLl9CLvMuZeaVkf
-	 EaVDtCLAJc6MA+vftYZyApD6gEKkQ/gRI0qV78Lmpl/VbUhgrOQ8qyJpZkllLK+lthJoS
-	 JZuCicAF/zSF09n1T1CpRzGMAjZEqWyqnc+LOdPHvcBlczQIFyXHuzq/0Tj4hf8GboiH5
-	 A/8KbYuaxE7JOHLhcq0xX+JUC+lgoN09PsB0UDYQ+deLSSYRyTP3/Q/c12KfLTtwoGqVT
-	 Eol/X6aHGqMfb/NR//CFodWjfgPCEjcQ5p9NoD9uNO111mGd/GoiPbCb3s40caDKO3g==
+	t=1793819619;
+	b=bYCREpAioJ6bVwVD7nW0HGOg2aRJMDt1qfeK5gGHJX3g4+UMdt67PML2sOUIsKwD1U4e
+	 ADKkAgth66uaM/C2bAEezDQb1kHKygVmhEKdBDtXFRQXW9Dza0tar8gKV0qeYmG3p30PP
+	 +SEcoOnTFmafhZU+MkYAlE0aioPmFUS0RYB2ATgW4KuFAKKM4MY6uTeqw2An/sGn1bsY0
+	 MVPEmyIlB2Cu9inrk7Q6abuNTSL14X0Y+eF1VEJKDQq+sj1ptIDRnJ4ot6gYklrwNJrZC
+	 8Lc2TslcjW+HR5O2nD+yg9t4ON8/X0NH0Il8y41bdnXCpztAUwKQziETedWG8cfuorg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819604;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=GNvd2sniUOcdEcNypH/J1HH7TTXtuCkvppAjFjB3oFg=;
-	b=jXbQWcTsnk/SNf7JvVVhw5CPSjjX+kC0Fljhqyis19C3oFwDzfTv7JJRVrAAedju/lxm
-	 mXfqM8uAgSPjgjWryxXWTT6RBdYpynC4FAzJ1LE+HNguv7L1I0Wlok8lkxcHJ11wShhgq
-	 nmOX3Zbzh8kxi304AXwe2nCVdmi7H2vKRieFqOJe4lhOcTJOfpTfssPB6Dmgs0BUt/sSP
-	 tPxm878iLJZp5j8NpcL5dcups27SyMhIdAIT4i9uC0XXECQijck+yWdy4URaOOQk3ALf5
-	 KHdcPk53Y+T9ki/gVKtB4j0Z4OP65Trk6omxx3/877pSMEhYjCw5DAkzE3615f1ECow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819619;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=R/Zw9aXDdwSnJl1ZKIXFjhqLEWW0pCJMnlQQQIRFmbU=;
+	b=BbHsdA4DHT+ydPFvh0u+CDo8lQ1mfltF+uSicTsMcfBIjKlJOSf5UiDiUQlLNR0kxFUN
+	 ls6B8uJr4NS0/YtD84QK6sR7p3plfkSk1sCzOwE7CHwwhCsECo+nBDjC0XCrMUpG/cV1h
+	 JntaHAzfFRYeQJWJ8RnvworxIEPwHUKQ6z433ePVJ1grT1FEHOQ7Tw67o4HMOcXoftNZp
+	 WYjG7YvUaBs7aAt9EsOIFis3L1qHQeVBu/RKkHUwxwHbb+i1yKDT5inBr7keJgUuOhaN+
+	 RZ/90BK2S8zenvsXOZ04O+0wOSndOHtV6b5Kxez9ElNB90n0SZac3jDqye3kYUEpZvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=186KGQc6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=bur.io;
+	spf=pass smtp.mailfrom=bur.io;
+	dkim=pass header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=POZTX9LU;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=MH8LmMLt;
+	arc=none smtp.remote-ip=202.12.124.153
+Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C93606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:13:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8061606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:13:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8061606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bur.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=186KGQc6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26AA31F000C1;
-	Wed,  4 Nov 2026 19:13:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793819604;
-	bh=GNvd2sniUOcdEcNypH/J1HH7TTXtuCkvppAjFjB3oFg=;
-	h=Subject:To:Cc:From:Date;
-	b=186KGQc68isIXK2ndW3LofH4Gfv+5Rz6neFfjf7X6p1HnADddK6RNMCjQbl4zxTYc
-	 moZPMO+30DuhthaE/MgH9L9qtcTsR8DxBN0ZBGkvUtJemYt2j2qbmIikRMKYLEUJFo
-	 e58cazxIrpGI1E4Sc1piwIsmcqE65PZSJzMoq1dw=
-Subject: FAILED: patch "[PATCH] afs: Fix afs to abort the rxrpc call on send error" failed to apply to 5.10-stable tree
-To: dhowells@redhat.com,davem@davemloft.net,edumazet@google.com,horms@kernel.org,kuba@kernel.org,marc.dionne@auristor.com,pabeni@redhat.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:13:16 -0500
-Message-ID: <2026110416-surrogate-sanctity-b62f@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=POZTX9LU;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=MH8LmMLt
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 307EB7A011B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:13:38 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Wed, 04 Nov 2026 14:13:38 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bur.io; h=cc:cc
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1793819616; x=1793906016; bh=R/Zw9aXDdw
+	SnJl1ZKIXFjhqLEWW0pCJMnlQQQIRFmbU=; b=POZTX9LU2E6wDR8Nk8+asgrzQo
+	mtR8oUIR9YUGkoQZu6TZpu5yucBssLAS1/VJmIFkmNS4dXl7jdcrK3rmlnQssiXE
+	hszPBz0F9wMNVGApxIQ0/IuhBnVsstgdip9iGWXasC74zxeUe7yRXMY06pijdHfi
+	OzCOb5VQoQMaZv8HcCc4m2I1qTkYvOyNwUVdA/DSJz17OpEK46elDKc5/xuE9eba
+	4ob93FOmSrdemKuzQq1WNcZWhfqz95xFO+1h3exDPuhtFJob9ynnVWXN6J4LzSI1
+	Yvkel7UUcJXiN93aEWGRKsnH7rdmh1Qvj4NfZplZHAOzT9UqVfHr5fF1V88w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1793819616; x=1793906016; bh=R/Zw9aXDdwSnJl1ZKIXFjhqLEWW0pCJMnlQ
+	QQIRFmbU=; b=MH8LmMLtfylWiZNGUml7ghUGNIjs5o/++I86NbGdhlRL5uReTej
+	kjFN21IS+cndRNhqsYo2D/iYka/oT20UtMe4g7yBBWnNTTZCtah/TZc8M5pZ2iqY
+	cPmk3QtaLHOyW92HrB7n6aikdEPySuG0wmrLJUNDkhZ54hIXFCM0x73lnE1cPpIJ
+	aynxMLixFuY/YhXf9r4fLoJ8J1ZMp85b9INZXkdP9TebDJofnYfIYTgoIVu0+NMs
+	nqw2Q40cUO93uKxwB3w4yGO1bdVxrmWYv+y0/zEM288DMfBtL31U7pEFt+tAwjqZ
+	s6S0byqcUbkOwkSCEp1w3A+oTHYEj+oOV5Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=bur.io a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793819616; d=bur.io;
+	mf=PGJvcmlzQGJ1ci5pbz4=; rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:Gm7eoVWT2feOXW1yAEmBzVrl50c9/IBr2MdEL4Pg6dcpLQ5
+	c6WRG0OvpzNWWseLip4qsI+GEpJBUU75c3LUBhS6sZXg+oyyDBjs95TJ/mS/fllB
+	4kKiBhbWyL7uw6YLBQSlGB1N/8tBcSuhbsCX2nCiSxm+HHOhjDrgvUgXr3U3LGiC
+	HQG1FC1DInB1d6Cd7HiO7H2zsRgIPv7+xknYbM7jKVLUb8o5B+aLtEY5vXLcSggl
+	pt3hqNRG01oOE670+dYI1udoAo/mCsv0R7JB7j9Dy7NWH2Dkazs9cIPOnERL2+LZ
+	v4BcKhthkJzTUDyzQPd48LHarsk1A+ti0wkvCzA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:Do8AOxKL1PsfOei2cabABuc9oDk2PzvdE2E9ovZgXjE=:TQ1NRrE5MaF4AJMFyxsnn3nsn/bl1cE5HhilxM8818Q=;
+X-ME-Sender: <xms:4IPrar7Uq59_38tKTfVYtW7gBQTIjSsgt0IGrRzES_PiNhVTiIwJ5A>
+    <xme:4IPrahX_FVJ0WP5ilf6c9rdlEBiMYFM2uxtAkEq5Vy21Dwj31gHq6rapL6wV5cYh3
+    18ruduXOJMMeYaqrzO3mmfyY4P6hi76b6VoojhgQCRogDw4FJUFcfIt>
+X-ME-Received: <xmr:4IPrajJ27dzA2zkzrKZgGmfDmdPKKNeBL0LLQjt846bray0zUeDNqR57>
+X-ME-Proxy-Cause: dmFkZTFKfU6gmjaNjQRv4742HxQNz5qcx43PvODO8cE3Klpvbcsys2xeAxDTiJH4S2RWI1
+    Bpt+51ElFQGLyu6bY6plLJYbOmTBK1uGkS2ry0KT+xOVrbuzxxdyiPhLUV+PcVRWJ2YpSz
+    4dqymtddmmnJJYnaXsDTphJx7vIqeQsy8L8VhZmVhnZekTEFGcEWgUuuadx3qnzcGihSiy
+    2x+l5N1zaKj4UNT/qANWul4pfxzeALBBBlMMlidwJEmpsUA6SzOfVNMKfALwMI8MczuESS
+    wZpnn2iIj75CbS4mp+kdNfjH5rokU/i8KyjYwywKwQvy3JqpGu8S+ftex0SAOCXFeVTgGT
+    Mkg/R0HVYIho62aIg4LI2fegY5nVCJs96m6+LgpwZjS+syCEQ5AicE6wP1s5an0NQcoZeE
+    Tg3QTl7HaOgUoYQAWIUxsJGzmkQ0jX7JuUw7a23XsZl+FO5jEOJgOtu17xUDirEQ5Hs0II
+    9jBKzjdY0q8K66dMwQ1+k5PAemiUlmSfbTgqqD6ZVDh/ZzHhchf6xQNJXz0VI8efAWK2N0
+    ZBrytpVzvbTq6MAnmK2sS1/y1m7Vq0qgZPytkNGmP1SU7cKwxr6DrCPvP8pSuwbxO9aXnH
+    irAtSgAWFR/607Tj+2RJ54ntbBeQMEuKbdVuAbkI0mJaxD7xk/x7zoT9j1Nw
+X-ME-Proxy: <xmx:4IPrajsmMDPyBCrYxVGYYfCzrmlYTBvdthRetLLV4cwA7wdTMmye1w>
+    <xmx:4IPragKC4-nwDO_cuo5rsCQZ76l9gOH4Tu1KspjXcMPo0j3l2MXGtw>
+    <xmx:4IPrajMo-cLUU6Cyanm0RON7nVYiud8w5CNXJSXtYu61YOKQBdgh1w>
+    <xmx:4IPrarXHVYONAtwO7NIqjUg3uP3EUCT7uv_08NgVNgl0gEsBQGksGA>
+    <xmx:4IPrajQQUWOnqdw0eAen1Pu_kvMvMR9LvuEjbVoI6yETpFPXXF-fX5az>
+Feedback-ID: i083147f8:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 4 Nov 2026 14:13:36 -0500 (EST)
+Date: Wed, 4 Nov 2026 11:13:50 -0800
+From: Boris Burkov <boris@bur.io>
+To: Siddharth Mishra <smish149@asu.edu>
+Cc: dsterba@suse.com, wqu@suse.com, josef@toxicpanda.com, fdmanana@suse.com,
+	mason@kernel.org, linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/5] btrfs: skip tree blocks in
+ btrfs_get_extent_owner_root()
+Message-ID: <20261104191350.GA3301639@zen.localdomain>
+References: <20261104102323.4090290-1-smish149@asu.edu>
+ <20261104102323.4090290-2-smish149@asu.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,145 +123,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104102323.4090290-2-smish149@asu.edu>
 
+On Wed, Nov 04, 2026 at 03:23:19AM -0700, Siddharth Mishra wrote:
+> [BUG]
+> With simple quotas enabled on a filesystem without the skinny-metadata
+> feature, deleting a subvolume triggers the following warning:
+> 
+>  ------------[ cut here ]------------
+>  WARNING: fs/btrfs/extent-tree.c:393 at
+>    btrfs_get_extent_inline_ref_type+0x1b9/0x2d0, CPU#1: btrfs-cleaner/84
+>  RIP: 0010:btrfs_get_extent_inline_ref_type (fs/btrfs/extent-tree.c:393)
+>  Call Trace:
+>   <TASK>
+>   btrfs_get_extent_owner_root (fs/btrfs/extent-tree.c:3128)
+>   btrfs_lookup_extent_info (fs/btrfs/extent-tree.c:187)
+>   walk_down_proc (fs/btrfs/extent-tree.c:5647)
+>   walk_down_tree (fs/btrfs/extent-tree.c:6170)
+>   btrfs_drop_snapshot (fs/btrfs/extent-tree.c:6392)
+>   btrfs_clean_one_deleted_snapshot (fs/btrfs/transaction.c:2728)
+>   cleaner_kthread (fs/btrfs/disk-io.c:1553)
+>   kthread (kernel/kthread.c:436)
+>   ret_from_fork (arch/x86/kernel/process.c:158)
+>   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+>   </TASK>
+>  ---[ end trace 0000000000000000 ]---
+>  BTRFS error (device vda): eb 30720000 iref 0x3ee6 invalid extent
+>    inline ref type 0
+> 
+> Writing to a snapshot (update_ref_for_cow()) or a metadata balance
+> (relocate_block_group()) trigger the same warning.
+> 
+> [CAUSE]
+> Without skinny-metadata, the extent item of a tree block is an
+> EXTENT_ITEM with the TREE_BLOCK flag, and a btrfs_tree_block_info sits
+> between the btrfs_extent_item and the first inline ref:
+> 
+> 	item 3 key (30441472 EXTENT_ITEM 16384) itemoff 16079 itemsize 51
+> 		refs 1 gen 5 flags TREE_BLOCK
+> 		tree block key (256 INODE_ITEM 0) level 0
+> 		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 		(176 0x5) tree block backref root FS_TREE
+> 
+> But btrfs_get_extent_owner_root() always takes the first inline ref
+> right after the btrfs_extent_item:
+> 
+> 	ptr = (unsigned long)(ei + 1);
+> 
+> So for such a tree block it reads the lowest byte of the first key
+> objectid as the inline ref type. For the key above that byte is 0, and
+> btrfs_get_extent_inline_ref_type() warns. If the byte happens to be
+> BTRFS_EXTENT_OWNER_REF_KEY (172), the key bytes are returned as the
+> owner root.
+> 
+> The filesystem is valid. It can be reproduced with:
+> 
+>   mkfs.btrfs -f -O ^skinny-metadata $dev
+>   mount $dev $mnt
+>   btrfs quota enable --simple $mnt
+>   btrfs subvolume create $mnt/sv
+>   btrfs subvolume delete $mnt/sv
+>   btrfs subvolume sync $mnt
+> 
+> [FIX]
+> Owner refs are only added to data extents, never to tree blocks, so
+> return 0 for an extent item with the TREE_BLOCK flag before looking at
+> its inline refs. This covers both the EXTENT_ITEM and the METADATA_ITEM
+> layouts, and gives the same result as on a skinny-metadata filesystem,
+> where the first inline ref of a tree block is never an owner ref.
+> 
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Nice catch, LGTM.
+Reviewed-by: Boris Burkov <boris@bur.io>
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 3e6af08a571fe2943a006acf3e890f36322602bc
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110416-surrogate-sanctity-b62f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 3e6af08a571fe2943a006acf3e890f36322602bc Mon Sep 17 00:00:00 2001
-From: David Howells <dhowells@redhat.com>
-Date: Tue, 6 Oct 2026 14:29:57 +0100
-Subject: [PATCH] afs: Fix afs to abort the rxrpc call on send error
-
-Fix afs_send_empty_reply() and afs_send_simple_reply() to always try to
-abort the rxrpc call rather than just aborting on -ENOMEM and otherwise
-abandoning it.  If the call is already complete due to network failure or a
-received abort, this will do nothing.
-
-Also make afs_make_call() always abort on send error; again, it does
-nothing if the rxrpc call is already dead.
-
-Fixes: 08e0e7c82eea ("[AF_RXRPC]: Make the in-kernel AFS filesystem use AF_RXRPC.")
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824091645.415423-1-dhowells%40redhat.com
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: Eric Dumazet <edumazet@google.com>
-cc: "David S. Miller" <davem@davemloft.net>
-cc: Jakub Kicinski <kuba@kernel.org>
-cc: Paolo Abeni <pabeni@redhat.com>
-cc: Simon Horman <horms@kernel.org>
-cc: linux-afs@lists.infradead.org
-cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261006133011.531806-6-dhowells@redhat.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-
-diff --git a/fs/afs/rxrpc.c b/fs/afs/rxrpc.c
-index bcb8bb15d471..64dd32df8a34 100644
---- a/fs/afs/rxrpc.c
-+++ b/fs/afs/rxrpc.c
-@@ -441,10 +441,8 @@ void afs_make_call(struct afs_call *call, gfp_t gfp)
- 	return;
- 
- error_do_abort:
--	if (ret != -ECONNABORTED)
--		rxrpc_kernel_abort_call(call->net->socket, rxcall,
--					RX_USER_ABORT, ret,
--					afs_abort_send_data_error);
-+	rxrpc_kernel_abort_call(call->net->socket, rxcall,
-+				RX_USER_ABORT, ret, afs_abort_send_data_error);
- 	if (call->async) {
- 		afs_see_call(call, afs_call_trace_async_abort);
- 		return;
-@@ -857,6 +855,7 @@ void afs_send_empty_reply(struct afs_call *call)
- {
- 	struct afs_net *net = call->net;
- 	struct msghdr msg;
-+	int ret;
- 
- 	_enter("");
- 
-@@ -869,21 +868,13 @@ void afs_send_empty_reply(struct afs_call *call)
- 	msg.msg_controllen	= 0;
- 	msg.msg_flags		= 0;
- 
--	switch (rxrpc_kernel_send_data(net->socket, call->rxcall, &msg,
--				       afs_notify_end_reply_tx)) {
--	case 0:
--		_leave(" [replied]");
--		return;
--
--	case -ENOMEM:
--		_debug("oom");
-+	ret = rxrpc_kernel_send_data(net->socket, call->rxcall, &msg,
-+				     afs_notify_end_reply_tx);
-+	if (ret < 0) {
- 		rxrpc_kernel_abort_call(net->socket, call->rxcall,
--					RXGEN_SS_MARSHAL, -ENOMEM,
--					afs_abort_oom);
--		fallthrough;
--	default:
--		_leave(" [error]");
--		return;
-+					RXGEN_SS_MARSHAL, ret,
-+					afs_abort_send_error);
-+		afs_set_call_complete(call, ret, RXGEN_SS_MARSHAL);
- 	}
- }
- 
-@@ -913,12 +904,10 @@ void afs_send_simple_reply(struct afs_call *call, const void *buf, size_t len)
- 	ret = rxrpc_kernel_send_data(net->socket, call->rxcall, &msg,
- 				     afs_notify_end_reply_tx);
- 	if (ret < 0) {
--		if (ret == -ENOMEM) {
--			_debug("oom");
--			rxrpc_kernel_abort_call(net->socket, call->rxcall,
--						RXGEN_SS_MARSHAL, -ENOMEM,
--						afs_abort_oom);
--		}
-+		rxrpc_kernel_abort_call(net->socket, call->rxcall,
-+					RXGEN_SS_MARSHAL, ret,
-+					afs_abort_send_error);
-+		afs_set_call_complete(call, ret, RXGEN_SS_MARSHAL);
- 		_leave(" [error]");
- 	}
- }
-diff --git a/include/trace/events/rxrpc.h b/include/trace/events/rxrpc.h
-index 704a10de6670..554dfb777b93 100644
---- a/include/trace/events/rxrpc.h
-+++ b/include/trace/events/rxrpc.h
-@@ -20,10 +20,10 @@
- 	/* AFS errors */						\
- 	EM(afs_abort_general_error,		"afs-error")		\
- 	EM(afs_abort_interrupted,		"afs-intr")		\
--	EM(afs_abort_oom,			"afs-oom")		\
- 	EM(afs_abort_op_not_supported,		"afs-op-notsupp")	\
- 	EM(afs_abort_probeuuid_negative,	"afs-probeuuid-neg")	\
- 	EM(afs_abort_send_data_error,		"afs-send-data")	\
-+	EM(afs_abort_send_error,		"afs-send-error")	\
- 	EM(afs_abort_unmarshal_error,		"afs-unmarshal")	\
- 	EM(afs_abort_unsupported_sec_class,	"afs-unsup-sec-class")	\
- 	/* rxperf errors */						\
-
+> Fixes: 8d2990914073 ("btrfs: add helper for inline owner ref lookup")
+> Cc: stable@vger.kernel.org # 6.7+
+> Signed-off-by: Siddharth Mishra <smish149@asu.edu>
+> ---
+>  fs/btrfs/extent-tree.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
+> index 9b0a5c6b9..3ab4f2696 100644
+> --- a/fs/btrfs/extent-tree.c
+> +++ b/fs/btrfs/extent-tree.c
+> @@ -3117,6 +3117,9 @@ u64 btrfs_get_extent_owner_root(struct btrfs_fs_info *fs_info,
+>  		return 0;
+>  
+>  	ei = btrfs_item_ptr(leaf, slot, struct btrfs_extent_item);
+> +	if (btrfs_extent_flags(leaf, ei) & BTRFS_EXTENT_FLAG_TREE_BLOCK)
+> +		return 0;
+> +
+>  	ptr = (unsigned long)(ei + 1);
+>  	end = (unsigned long)ei + btrfs_item_size(leaf, slot);
+>  
+> -- 
+> 2.54.0
+> 
