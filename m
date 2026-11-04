@@ -1,93 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818540;
-	b=BK5vAvjKzA9Rj0PGKKLKTX6tMD8T6elu/YOTEovtPc/AXZe/qYpbdFsJzXAV1Tg6SmML
-	 o65aLJ8etUsPbhv9Dsjtfm5BCqK3jG5KDjSL7mfi2Bcd/RvyJw4lNf5Dm4qqsts5xusGA
-	 uzPTw9ZKPFutD1urnoV/luBLXXCkZOXhhBgGhADYgn45usWr3ux4yycrSZDCu0OuoXijQ
-	 5H316c1EeubR8YKORHDNWOvnqhjM1LRsMB3T/J6RQrDipXUQ1pYZuLvB38SBMYY3H6y6Y
-	 VQjx04OXzpX+v6JJYD3lVe4RhEz31q1lXFiKeO3XtolZW56z80KzMtZSwxumEdDW6gQ==
+	t=1793818541;
+	b=x6WFzdc7RAHR9WA/1BC/rXZLGLMCyF/hiAWAcOtL3RgfYPw+rCHgWUDjArgtBCGqMQDw
+	 3Rku7hf752ImAPlhNLgc14ZgCUEyqpR6UKUzmmBvGaHYycx2hDgshurBfg+Y5Oetbl2QQ
+	 g8WOjX1FLA9eK/qy1mgw/NGq9ep4MI/zspsC0ahD9sMeWQtmcGiGzDfJdcizOim0/WLIC
+	 uPqfWVJwEcp5VnSU/scLFHwjpBLQtajim3FnBZQt9j9oqlftvXUIqGi8rbC6salPM+pDw
+	 QQ33jxCqYZbNqMT4Uc1lsXBB4zjwW80efTJKTrHqBcLj1A7W7gVy1G+u3YjhipFtZBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818540;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818541;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lJ9oFY2f4SSxHAugcTyJowGx3KfjwtaAECBMXqE4R2o=;
-	b=Y5xKyHoyqlMLrLutQBDjICS0bb/abC5golLCE633PgdMa+5pzz5fDQUUGxexY2fMbclB
-	 1a5V2TVGFZ0q9u5Xud+s8IoU4YSik0QGTFsazqAFKUM6d7jJTXnDfhTt9UBUdlu+UEFyC
-	 AEcSsuFGRnetOug6giwmLKL1F1fkzZkrzz8WRw/q2Un8fr6LNWLE6/J6yb8e7Pt3BDrET
-	 My1Oz04GO54xAvgg7QuM9atKsChhjspBgw/3Y31AZDhu9VwsVoLk5qQG8Iz7UStjYdAZQ
-	 MHAeHc8HLKkHrVum4B1IukLiQqik04c/dvaHR27bKt1vyhs8Z+denQr32h9+UEfKCkw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Uw+ltulG0emNHhLXpUx5MHUqNAFvHB2/zMCw3FPX7pg=;
+	b=UulT1seqGR/W56gQD+dXB4BtV6JSLoqPnstBqSNbE9k42L49epIRiCGMkOh4yj4ON/Wn
+	 KRbU7x7afntx6hlr3Uz2Z+MpvghbllRFkjUPyEvit19ki3hInFghPVUMGWOp7UDqKhfT8
+	 RQnV/lUhZxkIYvKL4EmMRARIQl+vA1ybJ8oQygLrZBGhmZQorBkOk2ylWnyqr0ITuPE1e
+	 u1CMTshV2ZMFrgZom7gthjyp/2KGyGt1ddSDIh8BfQ09nwNe7hOUWe2wGNfc7uk21JYZh
+	 TBgOdy/8o1nFqAHxif+1bLwME3aBX2bZmpX/DfpSMOWo72dSv4X8AsPAyTW6e4lIKGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m8BXgpez;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LjOSIXSZ;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A089A606A32F
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:55:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A089A606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49126606A337
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:55:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49126606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m8BXgpez
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a215e64962so10256545e9.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:55:39 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LjOSIXSZ
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so8372315e9.3
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:55:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793818538; x=1794423338; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lJ9oFY2f4SSxHAugcTyJowGx3KfjwtaAECBMXqE4R2o=;
-        b=m8BXgpezTv3Wd1N0PQZlR95qtaN6nSFi4sYXFhljOYLto4MiT5wuHpPnUHdxtUYYp2
-         n9Ob1kQsyslCDkr1MonzSRLtMVd3SuaTGdBe9lK/AAz5czYcI0Vl/OAbmBK8kx/To8ZN
-         j0hrpFSMeY/u4azd5DkFs7U35AXXwM1bSsI1CWKrowIaezSc0E+RmEpw4F5WlM4YEEkG
-         SpWxbLGZvee8KrcH/ZRyM7qPIIIJpshy5H2+boSxIJeV2dyju20tvlUz+MWCS59fxkNE
-         UgbXfS4FUAHS8C+NtrS/iLvC/yH3CRyiqnrvt9dEa0xpyL0pg+D/zL/cqwAn4dzB4F9l
-         LrRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793818538; x=1794423338;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793818540; x=1794423340; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lJ9oFY2f4SSxHAugcTyJowGx3KfjwtaAECBMXqE4R2o=;
-        b=Qctcp63kk8LlTw3OBGkcaK+xG1LP6Ttv06zOuKaTgh+O9/QxRWTaHDBUNk639aHZLo
-         vgrA7sb13L0z3vPnKeRmC0XFqSswbH028PtyDaU/4B2KREZjxHwod7DGd8yA79uFYxqt
-         BmVu3htEh/CDIIGo7Pr1PFjhqoD+v8T60zH3Eou0hCoqVnnPoNI3oGxvQDI7lAyGgDap
-         yH9fApWF0pPmFJF9SLfOVKVq/ST5ZYK6rqV5erCyu9r5xYNUr4mQQuIAPYxlijPN9P6X
-         UpipZARrbVjKIFeCnHLZV0TQzlpVAJf6kyzwM2swIAv49uOT3nsvkMdVqoNl6Qq49xJw
-         HKvg==
-X-Forwarded-Encrypted: i=1; AKwUvBzjXz7dl14GdmBAzi7YNRGcpoFjmr9AJ52POw48qr6Ht3KqSk1pkAzLGJ2RpQJZ3uKfUOWsIp0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/NsueCiMJ3iIsMLckAOu4y5ODJ90dw9ssKf0RLz7VSDGGjGE51
-	XzQUwQSj9s3OJgtE9iBVS2SI0n2jeonUKtzSdT5SOiDT5YR4TtEynsmKZdBoiScr
-X-Gm-Gg: AYBFou1RPKoKn84xMTvHWgzuFYi6pBEB2cGcqPISTKRb9PbS39XLJzF2vx3ZcY25ZNI
-	bRCLu2w1aAw5yJWJAi90fZMY9SDhT9Xd1N3/nnFJ49CZxoX7mkPJhoYC8ko2VweKJCOmTNgw0f5
-	SRhuiIpv03CQqvfCmQoW6ZCB5QWVWfFrBGorpW2FfQbeelM/a02l+dYwiOcvZdGJ1bOYRgl3r67
-	e/BpN33m3hTkRDG6q6kPoZ4/TZI9Qz7lyUbH7WkdXe3C6FYd8nbaJupgvjKFMwh6MsLGLNPaFKH
-	QM4W6Lg7MCTO/tqph8jHSFhDWvnyCk/aFWu/sELDBYB6UIXtwD53dLx7ZzJWfHMdqayif0llrxI
-	g1miA9hRmOnwQAFR3jbwF9cCIPOnNDGFhffQCCZ950hj8lR4iQeOe271M3xuqo1CVQ1rpe3vwFm
-	EUZtfhu08v2YMKr7gF1oMol1mHZx71GBRmNkF9YOTcs4TSFCxzzwUNwBeCnY3XHMH0J596GTjx2
-	R+nCikXJHyCOXo3TK60V315PNQpbA0qaszJ3ttLppWmf0tIuXKOMqiT8WZAtS9dLRqQCTqs1zFD
-	KLsoxD+2IP61dEN0Swukz7L23T3bdQnUtVS2OCxGVIxg5F0qQTaZX0CRLziW5NMuk5hsmRGfd3V
-	lBoHLBivNapzm
-X-Received: by 2002:a05:600c:8b5c:b0:4a1:fe55:88ef with SMTP id 5b1f17b1804b1-4ac1889c4b9mr405197805e9.20.1793818537981;
-        Wed, 04 Nov 2026 10:55:37 -0800 (PST)
+        bh=Uw+ltulG0emNHhLXpUx5MHUqNAFvHB2/zMCw3FPX7pg=;
+        b=LjOSIXSZvi1Co/ojQnJJS0/HHNEXdZQaaHqfkwIX5m5qvdHzjryvAMJhtcO37LEafD
+         O37KMPZQVO5L2VTsjvxdvDs/sS5SKBM5Hsp3BoE3YKfsZsg58bLh5wI5HZJX79pv0DRT
+         QZaMjSVY0L3CgHO3E4xCU5MFH9CFZ0/I0FQRIPzX/a+xXhGuBqihSFcC1KyKdFyjJKbl
+         0i3E19JQFlh3td6BrF+68qgnQZ1WdTSWVadjoyMN5e14Hf1KhJRsAFe7zZ5oex4c+61l
+         IxuEpUreEuX3yrgR7uKVEbWwH10QNFMppqVpD/fvdqKdLOfTYMfXWIAUDSPK00ODjwPo
+         2iXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793818540; x=1794423340;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Uw+ltulG0emNHhLXpUx5MHUqNAFvHB2/zMCw3FPX7pg=;
+        b=zk/+9HKzsPPSLcuob0rc4scjSzc52GylTy8pT6qj21cZLUeN63xwjvdvQDKQ2YCdxm
+         UvjO+gxXvJQefCPgtUgONqUE+IdSYyPuPsXQOHJXB1RBMLRGcHDhx9P1ovvXtd95u4YM
+         E27l+ykCBQMS5ZO5LWPcTjA55TNgeCtk0KrOPAXek2SzcONPnDqio6pL6aLJAXiaZXWL
+         UWbfIGksjqe4BLnbQR1ZSLl8K2MmvnSCXAhWvIL0ozLroHK03B/w2jyBeyi8pxsnmi+G
+         h6hi7TpmKIXtzlpsqKdtb8E7uwG89GOkNVKAW8szYfUIsl9FkqZiB03YkZi95gCFaGTc
+         1qoA==
+X-Forwarded-Encrypted: i=1; AKwUvBzSV9PMO2XTROnVZB6Y2M8Q/5P7x7Pl8fLnI2rDJTBpTdLZNcG26Zpo50Q+g+7HfVhzmbSVFEU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+CD5QeyNVN92py2iGrL9XyE7Pdqgx+dzqslaj3agvZDvFRjIcK
+	uPhEef1bnz7O2ZnmJ65lwHFMnQqpo7dsjrIRzoxC5VtpEp+f7YwSc6PX
+X-Gm-Gg: AYBFou2kCLQyOQrIAsjpoTvGxSIUxkz/6EBkW07QBRGcwNjjUFfIV6lXGQF18aJrsVj
+	6FMuOa+AXzIhdK3oskFzL1dSWzViVswLVjcknl+ZG3SK9LgM7OtL0swzMnWGcUshhzUyZh9OvV2
+	grCOwAiD5nlRj0czrl4qDYElgAonOihp2BmwaCF8/4a4JBHMQGn+mvmagLNW7WP8OgvKpJPDNqH
+	9j4aN/VWUfLLOtWKlJ6NK2lVnEnXd2QZ8X3I9El1gxllkB6qLsCO4jzZjYNmxhZjPq3LfPO69cD
+	28iw8/YbUUHAJiDjq1ALdlIlDS/xLd72xCOrkI1hCKOsT6D+VqRpK7V0PpfS5rKeX4hhTJqS/8+
+	WMHCw4/VamLy2mC2ii5+K2H8i0ZYdkOf3ddrUjvOuxsSzfCYEg9qdlfYuKODeJw6PVkHBy1089d
+	QQAM6vWrLgIfn3A1vF1AI8FBlwZiiuXwll+FsQnjgbQYWXFmc0gIwnvCwpbtUlh2KqkQwSeMPwA
+	aKNVuGsZCqXto0dpxywWfPC29eLMQPwYc3mZzewiiUlFR4eRhUI7cbOENgA4krEjg/IP2APWHis
+	mb6ASN5AwRqIOob6NHR7G4v7Mv/nqKWWYyu4lsrRSQVkIS1ZYJv954uVgPdM583BP9Laq8tRDz5
+	c+n608R6RJn8=
+X-Received: by 2002:a05:600c:4fd4:b0:4a1:e250:b191 with SMTP id 5b1f17b1804b1-4ac180f2ff3mr377755925e9.17.1793818539533;
+        Wed, 04 Nov 2026 10:55:39 -0800 (PST)
 Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57317cb8esm3831625e9.13.2026.11.04.10.55.37
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fea180ee1sm6294308f8f.4.2026.11.04.10.55.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:55:37 -0800 (PST)
+        Wed, 04 Nov 2026 10:55:39 -0800 (PST)
 From: Amir Goldstein <amir73il@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Miklos Szeredi <miklos@szeredi.hu>,
 	stable@vger.kernel.org,
 	linux-unionfs@vger.kernel.org,
-	Josef Bacik <josef@toxicpanda.com>
-Subject: [PATCH 6.1 2/3] ovl: skip copy up of empty security.capability
-Date: Wed,  4 Nov 2026 19:55:35 +0100
-Message-ID: <20261104185536.3631167-1-amir73il@gmail.com>
+	Chris Mason <mason@kernel.org>
+Subject: [PATCH 6.1 3/3] ovl: set the revalidate flags after d_instantiate()
+Date: Wed,  4 Nov 2026 19:55:36 +0100
+Message-ID: <20261104185536.3631167-2-amir73il@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261104185536.3631167-1-amir73il@gmail.com>
+References: <20261104185536.3631167-1-amir73il@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,73 +102,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 50912a1715b8a7c614b654011a0db750e372b43e upstream.
+From: Chris Mason <mason@kernel.org>
 
-ovl_copy_xattr() gives up if it can't read an attribute that
-listxattr() has named.  An empty security.capability, which anybody has
-been able to store on any file for a long time, is such a case: it is
-listed, and getxattr() has nothing to return for it.  A file in a lower
-layer that carries one can't be copied up: it can't be written to,
-renamed or have its mode changed.
+commit 75e89c0055c1d7f7eeb462995f11253ca5864f79 upstream.
 
-There is nothing to copy if there are no data.  Go on with the next
-one.
+stat() of a file on an overlayfs mount triggers a kernel warning and
+fails with ECHILD if another task is creating that file at the same
+time. This happens on an overlay with a FUSE upper layer, which is the
+layer where overlayfs creates new files. Write access to a directory on
+such an overlay is all a user needs to run the two tasks.
 
-Fixes: 8db6c34f1dbc ("Introduce v3 namespaced file capabilities")
+The revalidate flags are DCACHE_OP_REVALIDATE and
+DCACHE_OP_WEAK_REVALIDATE. They tell path walk to call ->d_revalidate()
+or ->d_weak_revalidate() on a dentry, so that the filesystem can check
+that the cached dentry is still valid. An overlay dentry only has one of
+these flags if a dentry in one of its layers has it. FUSE dentries have
+the first one.
+
+When a flag is set on an overlay dentry, path walk calls
+ovl_dentry_revalidate_common(). That function only expects a dentry
+without an inode in RCU walk, while the dentry is being destroyed. For
+such a dentry outside of RCU walk, it hits a WARN_ON() and
+returns -ECHILD. So a negative overlay dentry must never have the flags
+set.
+
+ovl_instantiate() breaks this rule. When a task creates a file, the
+overlay dentry for the new name is hashed but still negative.
+ovl_instantiate() then works in this order:
+
+- It copies the flags from the new upper dentry to the overlay dentry.
+- It calls ovl_get_inode(), which can sleep in a getxattr request to the
+  FUSE server.
+- Only then does it call d_instantiate().
+
+A second task that looks up the name between the first step and the last
+finds a negative dentry with the flags set and revalidates it.
+
+Reproduced with a FUSE server that delays its getxattr reply: stat() of
+a name that was being created hit the WARN_ON() and failed with ECHILD.
+
+Fix this by setting the flags after d_instantiate().
+
+Fixes: bccece1ead36 ("ovl: allow remote upper")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[amir: treat -EINVAL as no capability too, and do the same in
- ovl_copy_up_meta_inode_data()]
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+[backport: no tmpfile case and a 2-arg ovl_dentry_init_reval(); no WARN_ON,
+ but a negative dentry still fails with -ECHILD]
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
-[ backport: context: no blank line before the ovl_getxattr_value() call;
-  depends on e6b9117076fb ("ovl: fortify ovl_copy_xattr() against
-  underlying layer modifications") ]
+ fs/overlayfs/dir.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
- fs/overlayfs/copy_up.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
-
-diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
---- a/fs/overlayfs/copy_up.c
-+++ b/fs/overlayfs/copy_up.c
-@@ -47,6 +47,15 @@ static bool ovl_must_copy_xattr(const char *name)
- static ssize_t ovl_getxattr_value(const struct path *path, char *name,
- 				  char **value, ssize_t *value_size);
+diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
+--- a/fs/overlayfs/dir.c
++++ b/fs/overlayfs/dir.c
+@@ -269,7 +269,6 @@ static int ovl_instantiate(struct dentry *dentry, struct inode *inode,
  
-+/*
-+ * Any user can store an empty security.capability, which fails to read with
-+ * -EINVAL.  It grants no capability, so treat it as none, like no xattr.
-+ */
-+static bool ovl_no_fscap(ssize_t err)
-+{
-+	return err == -ENODATA || err == -EOPNOTSUPP || err == -EINVAL;
-+}
-+
- int ovl_copy_xattr(struct super_block *sb, const struct path *oldpath, struct dentry *new)
- {
- 	struct dentry *old = oldpath->dentry;
-@@ -98,6 +107,10 @@ int ovl_copy_xattr(struct super_block *sb, const struct path *oldpath, struct de
- 		}
- 		size = ovl_getxattr_value(oldpath, name, &value, &value_size);
- 		if (size < 0) {
-+			if (!strcmp(name, XATTR_NAME_CAPS) && ovl_no_fscap(size)) {
-+				error = 0;
-+				continue;
-+			}
- 			error = size;
- 			break;
- 		}
-@@ -947,9 +960,9 @@ static int ovl_copy_up_meta_inode_data(struct ovl_copy_up_ctx *c)
- 	if (c->stat.size) {
- 		err = cap_size = ovl_getxattr_value(&upperpath, XATTR_NAME_CAPS,
- 						    &capability, &cap_size);
--		if (cap_size == -ENODATA || cap_size == -EOPNOTSUPP)
-+		if (ovl_no_fscap(cap_size))
- 			cap_size = 0;
--		if (cap_size < 0)
-+		else if (cap_size < 0)
- 			goto out;
+ 	ovl_dir_modified(dentry->d_parent, false);
+ 	ovl_dentry_set_upper_alias(dentry);
+-	ovl_dentry_init_reval(dentry, newdentry);
+ 
+ 	if (!hardlink) {
+ 		/*
+@@ -296,6 +295,12 @@ static int ovl_instantiate(struct dentry *dentry, struct inode *inode,
  	}
  
+ 	d_instantiate(dentry, inode);
++	/*
++	 * The dentry is hashed and a path walk can find it at any time.  Set
++	 * the revalidate flags only now, because ovl_dentry_revalidate_common()
++	 * does not expect them on a negative dentry.
++	 */
++	ovl_dentry_init_reval(dentry, ovl_dentry_upper(dentry));
+ 	if (inode != oip.newinode) {
+ 		pr_warn_ratelimited("newly created inode found in cache (%pd2)\n",
+ 				    dentry);
 -- 
 backport
