@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799868;
-	b=LsOqWaQr7AFf0DyuE/QDGj8BkhBlPb2oGxyXf2zqiygjcZn/ktjQpHANBh7fYeFXKiBz
-	 f6iwW6A0DEtb71d1ehhMrDqTQBzbuwlcNa85wIrR33B0bJBPO40/h0Qhhg5una4OFLvRJ
-	 KDepgaFNMBah/8Qg+U5Y2IcgJYBdYPGC4Xo/xfZuIis0tEfBFtsUfVRY6ku4/EeeMUjmy
-	 8Hv25NC4UWLE1oWaB+mNGexTbNwVJRMfta7+k9cMZgls9XqHIpJl0VJFonorpFdf+/p88
-	 P8cHq3IFuWkbXOvWC03lNbTBz+/sge/g8B3dr9b1VDvcAebyEaTophUe5U3UecqvHSQ==
+	t=1793799876;
+	b=HnU8gQrU5Gt2RM2gtgxSMi7MnJMi4gw8YCaYMap545821ZMd5elcC/odxV8mMj81hz3a
+	 ALlYKsr+o52mNQcUzIZ+0wUkuMuOw5lrPqGo8Xvh6HY1pjSM0Se1CNnTSyO0HfD43gosI
+	 aRh16GBfMwy1DaADbXqh7ZjLS51/D2I7pPPqUGfA/XEejro40MCNfTZnB8rTGaue5xqce
+	 8F4bjsyEmP5W5N2kKhOq6UfaIPYNYdaDFPKmiftyuaim0PN+3KzmjxinFoPVLYtvhWGkr
+	 2zQ6SygaqS0Wu807trA9VCtqAD+eJQE7/t66wrJWjbVdCGLXWi4/n+ffL3Ru7C4HwGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799868;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799876;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=8ytfRyGTmhnnzH9ExO6ygvycgbCQYFU3kULDcrG2nQw=;
-	b=f7aFqLIw5Fl32cd3yU8NB6OBbKSeXSjy9rdc3KSjd6KR+LAizP1gVzRFe3hnqABegWC9
-	 wPqCNOpNYapSUU4AGOE+D8ia0eX4X/K1dkBMbEiEpTDlu6vn7uigCeYgqiVweGBuKCesm
-	 rBn1Qw4EB+oqED7iTgiGzKqBS/2+uxrLqCHldpJ2rFaujZQCAFblc///Z30uxNm6X8HVO
-	 v2KFM9GirLJPaSpwWARCdNCysF4Le17rG3BnL3sbOKCt8fWo+TVGlE0H/teglT6sKsD6g
-	 ZpyU7SFXTjWNjXhFC79j86naOhJEj/zgTyg/AlQZfJkZwk2wJfYEQqemdJXe7az5DXA==
+	bh=pmpDY+bbZacgr+GpSVebdKeSwOS1svToB+DIT97wJCc=;
+	b=1AI/jxp5pSgbk2FSiCu1Iw8BTgpQ5hpN+d9s29YjXINUQ2zNyLAABQ80Z/70sWsJR+5w
+	 6ZHrZiJ0UVettgYztGtmd45F413XZZ7AmANCiK8n9BtFBbrCgwhqyOSf0CzB2NetPLjBc
+	 UvC9C4B+ka9zLTs2stb6+75yiluoshLq65LUOKyg1cN440i/8nfUhjHcVc+FRsax0K0v6
+	 IDK4IeDJncj3Gg++Ket67aktkg24StoDrE+5ucb3d4WSVF0X1erBLDUES28UG+rIZHAYq
+	 m+85ctBAwE/m4nuS0v93d2ZnDDLiMBsN1rtWXZlUse8uMzzRVbxM1j05S9vM4J/uBGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zQeIa3h1;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QTPVhbXC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F43A606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:44:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1987D606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:44:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zQeIa3h1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A20851F000C1;
-	Wed,  4 Nov 2026 13:44:27 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QTPVhbXC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9E2F1F00919;
+	Wed,  4 Nov 2026 13:44:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793799867;
-	bh=8ytfRyGTmhnnzH9ExO6ygvycgbCQYFU3kULDcrG2nQw=;
+	s=korg; t=1793799876;
+	bh=pmpDY+bbZacgr+GpSVebdKeSwOS1svToB+DIT97wJCc=;
 	h=Subject:To:Cc:From:Date;
-	b=zQeIa3h12J4FDfP+mtalLQPh1TVfSHRpG6Q1v1svC0hOB+tOwC4b9U19QgFoyY7W3
-	 PZfhBVgnhc+fRfG5cFxW5vAOdUzHsIsLOQibe9xRemEve65VNvyEP7L3tQPLDDR9Jb
-	 7JtORrRsIK+mC4Ei0WD9lebQOsjiWYWPf7m/U9oI=
-Subject: FAILED: patch "[PATCH] HID: wacom: Setup SW_MUTE_DEVICE according to the order of" failed to apply to 5.15-stable tree
+	b=QTPVhbXCN+SnK6/kj6o44PguaapDbqFeS76GNrVgmcGtz/+DgL2fUeKFy98Y8D1rq
+	 wCn7FOBp+1Ia+sv3tPpt20BkN4SvI1F3v/wLVjXMoHM1DmihJQmwI+c4F7dJanB33I
+	 1UE15a5vwtGrwREA7JxjN1oCmDS8xty9wkyK+A7U=
+Subject: FAILED: patch "[PATCH] HID: wacom: Setup SW_MUTE_DEVICE according to the order of" failed to apply to 5.10-stable tree
 To: ping.cheng@wacom.com,jkosina@suse.com,lee@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 14:44:26 +0100
-Message-ID: <2026110426-recite-mullets-f0cd@gregkh>
+Message-ID: <2026110426-partner-wildcard-01e9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 97ce491bcef2d231b8d51cee8e579183319a5ba4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110426-recite-mullets-f0cd@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110426-partner-wildcard-01e9@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
