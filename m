@@ -1,56 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793835991;
-	b=evMPuX/oKXvbxXx042XUoMG9mcy3FwJUn+gS0LR6XphqOLNwm9P8ihtuNk1r7bw7s7R5
-	 OYBWvSywER6a3dPbI2iEIYgia9oBxsBlDlPfsF0VYQzq/GO5N8lmT1aD670enUp+wRdIo
-	 D62eW+PBneUpNu0LFWzR11JhWWZsGeS2Ff5d0vEOXlYm9PZo9HjDs9Ugm+b4H+08pIYbn
-	 a4Qh0mXHQEHnEi8y7bK8Ss4mIcaQ40oSy5TXboFJ2QhvqPgzWo50dw4aI+vwG1hfW+mad
-	 nKpzdH1mRlJkIraqP3lmSMMqk0OBImGZG5al2XtT6bJOlCnLlqULvUcEa+d3gou+Jaw==
+	t=1793836004;
+	b=kHi0joVUQwPEQMpwrdwaqlFx3izEIynQAVsoPtSNy2nUOILtGhPBW/lorLvKwF3BOX5R
+	 5XXJ4RDmUaiS/zaxDHJm86A9IImayutB7uKASSi6fUsAgFA2rwqHKpzZCtwIi3HTBt4Z3
+	 TlgAdUck+31XffJ9owlDiEnLAxAa7+3bVQhnwcR+hbtDNMJt7zprW4VW736C3+thC9Rvz
+	 l1lhvGxirSRMJWzkqvrh9Zw0QRiC5KJ3KU/HWpBno1nfs+5jaJwDUfHNwFDcNY5wcx4Zn
+	 YgMSAO9pihcbYXgUBSheP7YWEsg+34ZStSzTIPJwF9YqKzWcukjqnJJWA340h3JbWvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793835991;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WaDki5iflaF1gpBkOLCWiItVv0liaRuAFDb6zs0UdOM=;
-	b=SKo1lP9+GlyCumhP+0X9IWckrxscb/8ojRtJHuwsubD2Vtpk+ueL+jR6HHmAOGHQfo1J
-	 hYMv5Lg/A9EQnmZgfN9pG3NXU+XSr89QiUNRXxQZSdgUeLROG586y5pR8PpNl12MGowzy
-	 M0c5rQD7yCe3po1TVYQ88H6eQpLP5EaSOkzZ5vlVQ0aF7OHBePbAjoXlMkkAfmgl2sm/u
-	 IWrv/ZpjqHLRfkr0px8RQgz/J5jYeTIzWJvjeat0ZPKwe/wZzQa/QWRxoqReDmK4G4+31
-	 4klDEXeqYmw7YUbkeV0uidyD7l3y5Hs/wQpTLBuUPSFTCujrbVFIg8WF8jtmi9UR5rQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793836004;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=rKToFDzUi6qhaHyBZmmLDL7zVXQz7iwmFV5QQTYo7qQ=;
+	b=KGt0ueMIRkMCTO4jVNUgxnp08DMinL7ClVN7AOc/D4FOx+mkmuZ/nvBS5fulHlmBUPuN
+	 IndetLXGR6hAjL5caT7IIorV4OP9DUiCFSTGN76CCWwipPecLn3Pz6ZL7dh00IQkkOULu
+	 1qspjioZtlTlv85tL0Un7cR3OoUuPK21pUb4lMrxrzTLHkuyOhht6Dyp1N0ajHmNnQhRt
+	 Nm31FK4Tf0+PPjvLKFJA1dznvaxelT+3ezBC0ha3RcQk1RRgFqIORnapcGiGcAb37mjHI
+	 /EcPigs2cM+LOXa4VoXGXYMcmhelFOQ/SyoEMI5XjBA3i9p6f0/Mv2kHsaZipcVRGdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kg6hAPn9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v4qTVCCb;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44C3606A32C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:46:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE63606A329
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:46:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BE63606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kg6hAPn9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E680F1F0093A;
-	Wed,  4 Nov 2026 23:46:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793835990;
-	bh=WaDki5iflaF1gpBkOLCWiItVv0liaRuAFDb6zs0UdOM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Kg6hAPn9mC1xY1npR67Bsx+q6N2/hs15GsOXM03DmyH/KbIKsVgH1n6xoMUAQi8CH
-	 yyQC3MtEWh0/Rwq4EEbinzIaP5kQQ+xjRijyNuFtNtF+gj2rmq5TypHjyW2Sz+JUFP
-	 DkJ57Zcmg0red722XqKawQtRT4L1A8u5fLd4bAuYsg54Hg0IxI2luITSnq64y3M16t
-	 RNI66awg9JysLdwGyUFKE5whcdtkfzuotPl9beEVv76878sPfjDkJlmAFEw5xmLXwm
-	 RVh5ka/ZU/jbecxsA4GwgfRER5UwA1KU7g5DxHyo0A2htVpyecH4sVvI5xcmz5AYWl
-	 1MPWPHljraMyA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Tianchu Chen <flynnnchen@tencent.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] staging: rtl8723bs: fix protected RX frame validation in decrypt path
-Date: Wed,  4 Nov 2026 18:46:27 -0500
-Message-ID: <20261104234538.932811-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104234538.932811-1-sashal@kernel.org>
-References: <2026110447-escalate-hull-6ee2@gregkh>
- <20261104234538.932811-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v4qTVCCb
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3514b90bb89so2435391eec.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 15:46:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793836003; x=1794440803; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rKToFDzUi6qhaHyBZmmLDL7zVXQz7iwmFV5QQTYo7qQ=;
+        b=v4qTVCCb7VVhal+oXEIMin9L6U8kT6Yq4/927OR1/wzDyR0v3HuXZSR2FHrMyKaSX/
+         ivFqQMctHdPU8OUU9Eu8c1vow2qmhP8IvkXOstT5ait5IWGPdcTK5G+YFV+HRl2/9BKS
+         CWTSW7yjW3d/J9mRK4ps5gOToHcdSsfzXBjHHgTS33iOC8jJes4c+rW+6mVpjdhvUuUV
+         xysT08LZGEYTQHR6X6wiROX+YZMmlnvq0EV65Irq5uyTRs0B34WY0FKNKPzaHyKkOPOz
+         zcLR5TuJ52uS6UxKQW532KJPui7tjFGg3ilYtOkQuDwE4VNcEnOYQ5zfW3YdTNS85Tgo
+         dwBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793836003; x=1794440803;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rKToFDzUi6qhaHyBZmmLDL7zVXQz7iwmFV5QQTYo7qQ=;
+        b=xypIJ6KvDUi28/hM70XcDtsRwIqYCxjGSapghyr+jkMeRgX7bA2J7KujQq990oK4n6
+         4fLuFqYV9SdbZmV+aR6VvRDPARTUr5UECr6pFQ+Ch8uWg8s+xRdqpPCAaUpKzh7YJhcw
+         HYqlYc19maid/M3cvFYl+qYXjl/HkhEiDvYzcIC0K/EHEqs0PI0h9ehKMGkW1vufhxsc
+         zQI0m5z3/1C+I9Vxog7ZSwZWerYX10S+nOugPnMtHkLTQtU2f/6mSPmKfXbRbGcdj8Ps
+         HXiVbRGBNSb4PA05Xsvxn+GHhBD5+QmFtMHKqqA8p0fdPAPp6R6AuuQNjQX4K+69yLQ8
+         gdNg==
+X-Forwarded-Encrypted: i=1; AKwUvBxSw1DhsL7NmJumZaE6TB/r1+iJS8e2/ZTnpxwrmz6K4JA0jbVE74s1fGDVHE7VQ4+FTaQmQaQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/CeTAK1BEVrof0sR2aoTkm6kdlHlcHtxKvbRK2+lAurr9xG46c
+	vtdqJCL5JpIqVLPz7OI77aKYiahtSSItVFXcVPyy0SF2cdT13Hrwg2XT
+X-Gm-Gg: AYBFou2VM/FkVP7jnEKriAQseor+QUk9lcQCZHUWA8dqDMSuEGl4K/BC03vRQaNVgPj
+	s2+zeMi4k9wYClKiZ4sfF7MWh0r2BzQ4n+8l2l6B/QPL34bAxsQF83Jam+wNIAkd6XJ3xtC9s5J
+	AXEJLG7NGjj07oa4nSmugNw2r9R2RUVx96zLK9XyRMYYgl5GnKWVbEs/YHxA9WwD7g+1ccvq2/e
+	jQodyA4MVBXh6+ZzVrM2mCgG7rHMPlkgdFpowY3e/Wxju7t/cQCAKqTLZJvJfTmde32RTjqNGG/
+	A7lYua0D+fuyubP9ovGjkE1kiRPswjW8wMFEXFSJuAWfcPQQWonx69TcmBqBrUE/4TTr5gIQUQj
+	oBECQ2okdfl9/+WsPR/3nIAp5AMtyQI/32Q/1mBOOHxXpZQFMGXy2EAOHCpX6S/AHECaajgmz5p
+	r3MqYq2aTUhVDQVc2YtJkJog3MqK2MREiEoOH91VbNySMxLZFhJdaHIiwY29KOhuYRSkZ4/LVBK
+	LmBKBA2xXkIiMiVobtS580dAvxexLlyg0fNCwAEegJmJbahbC8XBOWU/rUJrBmVteTFJSjiZv1K
+	2ng0CsPRLPFOTyJl7TCLEZS0QwxpKNEFwrJQSurPhgYsI44koTm34lt22Jji7G56WitaGA==
+X-Received: by 2002:a05:7300:7a83:b0:35e:2c6:d46c with SMTP id 5a478bee46e88-36a42362460mr24871452eec.10.1793836003085;
+        Wed, 04 Nov 2026 15:46:43 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:c8f4:b7d9:252f:4483])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a6160sm9855784eec.9.2026.11.04.15.46.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 15:46:42 -0800 (PST)
+Date: Wed, 4 Nov 2026 15:46:39 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Guanglei Zhu <zhugl3@xiaopeng.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	liuc63@xiaopeng.com, stable@vger.kernel.org
+Subject: Re: [PATCH] Input: db9 - enlarge the Saturn multitap packet buffer
+Message-ID: <auvD3ISOJKoQv0cZ@google.com>
+References: <20261103084135.426629-1-zhugl3@xiaopeng.com>
+ <20261103084135.426629-4-zhugl3@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,103 +97,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103084135.426629-4-zhugl3@xiaopeng.com>
 
-From: Tianchu Chen <flynnnchen@tencent.com>
+On Tue, Nov 03, 2026 at 04:41:31PM +0800, Guanglei Zhu wrote:
+> The Saturn multitap path fills the packet buffer block by block:
+> 
+> 	for (i = 0; i < 60; i += 10) {
+> 		data[i] = db9_saturn_read_analog(port, type, powered);
+> 		if (data[i] != 0xff)
+> 			/* read each pad */
+> 			for (j = 0; j < (data[i] & 0x0f); j++)
+> 				data[i + j + 1] = db9_saturn_read_analog(port, type, powered);
+> 	}
+> 
+> Each block is ten bytes apart, and the low nibble of the block
+> header - taken from the device - allows up to fifteen more bytes,
+> so the last block can write up to data[65]. The buffer, however,
+> is sixty bytes, and the six bytes past it belong to the rest of
+> the stack frame.
+> 
+> Give the buffer the size the protocol layout actually requires.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 
-[ Upstream commit 495cb31c791bdf3f9efef255a9587b05b0526c9d ]
+Applied, thank you.
 
-The RX software decrypt path mishandles crafted protected frames from a
-malicious AP in two ways:
-
-1) decryptor() never checks that a protected frame is long enough to
-hold the 802.11 header plus the per-cipher trailer.  All of
-rtw_wep_decrypt(), rtw_tkip_decrypt() and rtw_aes_decrypt() compute
-
-	length = hdr.len - hdrlen - iv_len;
-
-and act on the result, and recvframe_chkmic() similarly computes
-
-	datalen = hdr.len - hdrlen - iv_len - icv_len - 8;
-
-for TKIP (the 8-byte Michael MIC is not accounted for in icv_len).
-A frame shorter than hdrlen + iv_len + icv_len (+ 8 for TKIP) underflows
-these unsigned subtractions, turning into a ~4 GiB iteration count in
-aes_decipher()/arc4_crypt()/rtw_seccalctkipmic() or a ~4 GiB crc32_le()
-length, causing out-of-bounds reads/writes of up to ~4 GiB starting from
-the rx skb.  Reject such frames in decryptor() before touching the IV;
-this covers all three ciphers and the TKIP MIC check, and also keeps the
-unconditional iv[3] access within the frame.
-
-2) validate_80211w_mgmt() keeps using the frame - two memcpys through
-the stale rx_data pointer and a pkt_len update - before checking
-whether decryptor() returned NULL.  On decrypt failure (e.g. a unicast
-protected deauth/disassoc/action frame with a bad MIC, which this path
-always software-decrypts) the skb has already been freed, so this is a
-use-after-free read/write, and the caller's error path frees the frame
-a second time, drifting free_recvframe_cnt.  Bail out immediately when
-decryptor() fails, freeing the temporary mgmt_DATA buffer first.
-
-Discovered by Atuin - Automated Vulnerability Discovery Engine.
-
-Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
-Link: https://patch.msgid.link/8ee3bdd1c45034200cb1aa9a7e9b575b9584643a@linux.dev
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/staging/rtl8723bs/core/rtw_recv.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/rtl8723bs/core/rtw_recv.c
-index 9f9d80e42e4db..f8ade0bea1da0 100644
---- a/drivers/staging/rtl8723bs/core/rtw_recv.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
-@@ -437,8 +437,21 @@ static union recv_frame *decryptor(struct adapter *padapter, union recv_frame *p
- 	u32  res = _SUCCESS;
- 
- 	if (prxattrib->encrypt > 0) {
--		u8 *iv = precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
-+		u8 *iv;
-+		u32 min_len = prxattrib->hdrlen + prxattrib->iv_len + prxattrib->icv_len;
- 
-+		/* TKIP appends an 8-byte Michael MIC that icv_len doesn't account for */
-+		if (prxattrib->encrypt == _TKIP_)
-+			min_len += 8;
-+
-+		/* a protected frame must be long enough to hold the IV and ICV/MIC */
-+		if (precv_frame->u.hdr.len < min_len) {
-+			rtw_free_recvframe(precv_frame,
-+					   &padapter->recvpriv.free_recv_queue);
-+			return NULL;
-+		}
-+
-+		iv = precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
- 		prxattrib->key_index = (((iv[3]) >> 6) & 0x3);
- 
- 		if (prxattrib->key_index > WEP_KEYS) {
-@@ -1411,6 +1424,10 @@ static signed int validate_80211w_mgmt(struct adapter *adapter, union recv_frame
- 			if (!mgmt_DATA)
- 				goto validate_80211w_fail;
- 			precv_frame = decryptor(adapter, precv_frame);
-+			if (!precv_frame) {
-+				kfree(mgmt_DATA);
-+				goto validate_80211w_fail;
-+			}
- 			/* save actual management data frame body */
- 			memcpy(mgmt_DATA, ptr + pattrib->hdrlen + pattrib->iv_len, data_len);
- 			/* overwrite the iv field */
-@@ -1418,8 +1435,6 @@ static signed int validate_80211w_mgmt(struct adapter *adapter, union recv_frame
- 			/* remove the iv and icv length */
- 			pattrib->pkt_len = pattrib->pkt_len - pattrib->iv_len - pattrib->icv_len;
- 			kfree(mgmt_DATA);
--			if (!precv_frame)
--				goto validate_80211w_fail;
- 		} else if (is_multicast_ether_addr(GetAddr1Ptr(ptr)) &&
- 			(subtype == WIFI_DEAUTH || subtype == WIFI_DISASSOC)) {
- 			signed int BIP_ret = _SUCCESS;
 -- 
-2.53.0
-
+Dmitry
