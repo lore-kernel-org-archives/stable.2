@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802736;
-	b=ZszYzm+5DnIIVgiZUAXvw3v3DqbQOT1nZMjbXorGt3+qUF2+VO1oWLszJHPtwq8BNa2j
-	 o6IRncnY7Tr3x2FndvmDsSiWm+fwqah3gfvYe19fcEdmGe0orM+GZnRjiz8BMFURCie7i
-	 OwNpdQ+U0RP0UY/yRPe/x7JOlF3j1Lu5B5Nz/TNTDZEVVqg1P5Fi75wHXOnnQmPiWc+jz
-	 aQghKKswUlLHpmhCYGVBYU1q3PqCL8yRRBh3B83V4pNkQYDzpk3aXvzYj6exEz+53pziI
-	 MjipemXhygy1KUQR17ZoYuh8pRgEfPK4qJnL/Sm3dH0bTyMLkNlazIUzxwM4SO17gWw==
+	t=1793802745;
+	b=cygyuXS/pgk1MbttLlwHv9mocd5BsSXw5zjVIds53ZxjPo1u4+Tns1PmMDTT0wx2iMSH
+	 rmnfvZsMxLKxUKx84o6oRkAK65ybl/KjPm9XQHhV9yWxFw6HPj5JqbmbieWkWNiUsf9vU
+	 2S6J8kXIod8TO+lp0bWyDZ0KEV7LJm/mEkSjdv6/bsdfn0mbzVuMAh32EaP5BbXJAuTms
+	 ijjBAd7xXk1IGx4TsuahRqHLwbl5vgB7LuKn4huwEUu0jHAxKWbXX1P+HgUYEbCuFA0zB
+	 85QUoQmfTafAQKpx/0tt+HDzcvldJvelVBVKZS4vYOZMDkQtL3wULeGPh3gzS0eby+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802736;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802745;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nYJHjcvU3C8ufKKarGHA8plCjwV6/fU4TEXnnxEEFBA=;
-	b=qWp7J3K5e50dcolWn7G1aRDcpyh8oujmzolFHUiEgiTu4WbsADiI7UqpTuw7B+8dkoEI
-	 0n5qQZKlRPN/C3lEiYeXIhdElMoHeQr4MP2a8Aq6P1USJzb9gHqJCet0xX5FGVUceCUKi
-	 IfAJWG6wXkWfKEZVqCE7zA68quzZXcX9NwyNWOCA5sDyoszN2wST5ersM/qxjrMTb7FDK
-	 DhzA+uyBYxNYKUOFnnf7pxV7DZl7hoOn14Fgh+FL3BNRvGOcc8Nmqqvx702or8cExi63J
-	 Qk29048taRpAHKHvpLwUGtx4bAVBdTAgPE4ofjBAPSgWe4YrgeaBwyvJ1XVkV3EYiag==
+	bh=TrRTpM9Nixt72XtVl3DVwXgBuyXm+AzOsJHdmtba0qU=;
+	b=t4wo3HqvFydoNqvGejkzVEA4Eb8CpNmhHu1klfr/SJKyUspBi18tkBk1vn+rOap+9kjy
+	 rTt/oCYB1HhMBP9THBxe6W3XfEGHVPbRHENPbslzQVnKLPdwpM9q8XH8WJKsBTMjfRPfZ
+	 Awyn1c9Ar89bTDRRijKHJSE33UeGH2UFcD+ww8LaNya6bHaZEZBq8mUGnIvraZq+IBPUN
+	 oiX9VgV2yLRFRSyIWALAysdmujHsPT+W9yfoMI5ApVamB/LrHWtRwkL0IfFkfdhWijMCB
+	 nHUou4ig/nUQvJuJyHC0Un+AJKIRtHOtOSHNmL2aSem26T6/2573VETSZ8szuDmHtUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hBEOsepj;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YmE6J7bE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 699E4606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:32:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9791D606D802
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:32:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hBEOsepj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E78581F000C1;
-	Wed,  4 Nov 2026 14:32:15 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YmE6J7bE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3EB21F00A16;
+	Wed,  4 Nov 2026 14:32:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802736;
-	bh=nYJHjcvU3C8ufKKarGHA8plCjwV6/fU4TEXnnxEEFBA=;
+	s=korg; t=1793802745;
+	bh=TrRTpM9Nixt72XtVl3DVwXgBuyXm+AzOsJHdmtba0qU=;
 	h=Subject:To:Cc:From:Date;
-	b=hBEOsepjoSYmKQI8Te5HuOzIlHAAPFlh5AazY5FoDhFBrSzwyK404wbr7ECV/dxXo
-	 vCEmS2g+Ou3Kxo1ovjQp6zo7OieQCGM+l96PeZPVOI7lLta+TA8XZ/i3Wf9V4kCPj/
-	 BzRAvu/WpPmn3r1SNJplX6Y8P0lhBA1/ccHUNq+g=
-Subject: FAILED: patch "[PATCH] media: rc: Fix ABBA deadlock by making locks more fine" failed to apply to 6.1-stable tree
+	b=YmE6J7bEhIH2JomY4ZT4Z/39g0UlFyAAxo5KhH8Gi4flK4bHToo+ZGMyU0i9o4w8T
+	 vFr8bPpzvzVLYOB1cHnFnMy4zOBEfzLYGkll/yolmMEW9yLdmGJRb8IOLXVuPHBC2Q
+	 RkhmqDxZNvGgqD9sXS21xbJRYOa63yn2Xpy1xaP8=
+Subject: FAILED: patch "[PATCH] media: rc: Fix ABBA deadlock by making locks more fine" failed to apply to 5.15-stable tree
 To: sean@mess.org,hverkuil+cisco@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:32:15 +0100
-Message-ID: <2026110414-outsource-laxative-3178@gregkh>
+Message-ID: <2026110415-mocker-phony-91d4@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x c6d68866ad8aa1e957a3e5a6ede971148f1e3d59
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110414-outsource-laxative-3178@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110415-mocker-phony-91d4@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
