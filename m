@@ -1,94 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820642;
-	b=xXWTmbyXzfx+b3ljLwsDNoDYy6svka6tojWgvXecr/NcWR5oUCpKgN37rG3nDBilBx6L
-	 juFczrDFqCzyEasrWg1gFePQk2nGwDLAfbAC4XKGY/1KTFfMlLSYRLjYe3ElirJITfD51
-	 MAGdEIzVUKqa8IkZu2ZIAYrMNj5ZmMoIemePstZkJlA8r7JW0YXYPmHsSAyuDZJnK8wL+
-	 0wGxvIEQbee+66TQb3ZyGlEcVgJSMLHT4aGy5z8UN49Vu80FeSGTqEYWD5eDjJ/CJwxbZ
-	 x4k2kQ9D5U2EI13OiZnAgxcFTrMY7N+tOeCZ7hJROWcwB1TMnsrYptCQ1APyViRKs1A==
+	t=1793821004;
+	b=N4fX2lnhCLISp1C/kEdVjcTRRWMls/9GIn29jnf3xjE7YtlxY4wLKT/tZfG5DuUQLxKD
+	 vx/1tQ8mma0ZRg0p2LyavODczQTIfk5134ZN7kGzSouyraKpfCSPS79hD5dI27QqQwULc
+	 uXh+V7B06SSvmz6IfhlHgu7RCobMH5pR3xTk9dEQXlzovldp9S8Dbhql+6KLBhczzvgIg
+	 TAvJLctoKliJQvsLI10Y7e83Kv4zL7XAExALm480yTrPQ4AGiDWw/hBYvZnCsg2Ugf9yY
+	 B0OOHZi4/0YQ2Y/NcGe3ZZcAJFKCD3aqVeUAaFRqi96XU00/q2xaMMAQjqNBGOQP42g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820642;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=3at1T5Y3NkxHZArmAf/Wyx+q3DAsNgKKHj/Uc4gaVrA=;
-	b=3uQnbOmcHV8dSkPSTi5EnQJ9coSQUE2moXmulMfgd8rTAI8umQ6C7QZOR1Q41H37O/AZ
-	 Lhs+9mG/rMbRYJrf43qO7OS0WMtIYrYbr6FCVN4onMknh0VRJLuwoG5SYsSlGKhpesTJm
-	 vKT7kQwrs+75t9g/iGhO+XVcr5UoJYUOI7SC15Q5bKuC6Lc2Eg81nmQbQSMXoCSk26rVX
-	 tsYlchSOrGAD85ohD89aVHtYKGNp6dM8otusjsA7BioNDVvEyoCTlwy4Tjtz7Ll7URCuF
-	 aQwYz4oERUPj3WxUgn6C3oRvZZndqxRxfsDlnuH8v4nJDwRqElpBfykdYSoXaxpu0lQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821004;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=DDgqq9Q/Bm6V4j3poo6cKSuwiGo9D8SzrfLgV7szOVc=;
+	b=bnbUIZ4g94y1e+nYN6jWBtbswG/pf2oUwYpM+jl/fgB9E3ppOymga3gEujBwaDU6R9tJ
+	 br6zt0I3aVjJFg/SL0EGRPKieyFmVpsy2dy6urZy/sntXwRa3oQw4bk4pFmjC2a7B45DA
+	 pBNWwmmlZUiLzZ3WQji9uTW7sBR+8DnuJ+vMM809dSQek9m+sCJyIREbUOBnEyU2OBSxA
+	 Vkp9krZYnI2vKgZgEovXWY7xL2p9w8gOwm9SdwJpjBC8L7FGvtxazSJRyYMrSvcuObD62
+	 Rnjf6SMazmv9t5EHWSZJGjivxEo2T3WqYWakVoCXXQY7GyON85rz6sbT256TxIkT7YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a5TQ7dJv;
-	arc=none smtp.remote-ip=209.85.210.44
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XoSWyb+q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59BD46076CE4
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:30:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59BD46076CE4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814666070259
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:36:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a5TQ7dJv
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-846566246e8so1037539a34.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 11:30:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793820641; x=1794425441; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3at1T5Y3NkxHZArmAf/Wyx+q3DAsNgKKHj/Uc4gaVrA=;
-        b=a5TQ7dJv2Q8yNW9kFRS0c6hHEyDGSH0UpHFfuS115vtOJ6fLBlOX4RhN54HWkAGDlI
-         N9PbT6hfdGZoy77XMwJNDQQdOGEP4XPu2lDttzbHwVmtKnZBfEAa8O/7nNRMx85uyAJM
-         LK0rrhtIf8701DxXoQH6hXxrr8WWRIqTbxkc8xcYkf0kcXu90tj8fQ+QWFUmMzsTikwr
-         W+Y674kZHB/kEpXccuP0JS80f4jZhEVk3pPbDQm/wTvybAxLs0QLYUkn5ogSW3jH9/ht
-         /AvkQ2oKeeJhmku/wJ5xcll2/IsRRIL5hyEBtJvUQ6+JoUVUyh4wt7DlXx0eEEvBtfz0
-         Rzyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793820641; x=1794425441;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3at1T5Y3NkxHZArmAf/Wyx+q3DAsNgKKHj/Uc4gaVrA=;
-        b=1OpEVHytZJxW7b1xRiNUDiqySAqBfLNHpEs2gc1NixejhTcPPviPO1mD/KQSJzNX5C
-         ChmbovVJKkKMFfabSVC5rxslPqpxX3RoLJDBMCIv+JUcsJjPnyWJCErx+81Hhzn32zs1
-         wn+C2JVlt9GDr8Dj3gIMj0MphQsXkAOxe9HwQg5x6wXVSYVCDZn+QXlpvt4Z+IQ3qie2
-         sfGaa+4rberr7D5OsTn+W6N7YqBZfFJz4mbpQLgbKbehkxxqtC2RxxwcLEJheuJc7jgv
-         UfcYOarimZXGuPC3iLKXgPCRmVmVKTIuOm6bmxbyR/kg3GwErWxc7xtC2zikdlWg+wJV
-         2P7g==
-X-Forwarded-Encrypted: i=1; AKwUvBwbucyB1Ypx7YWJ4rVWjYHSW8cdtfQZhYD8QWioxsSSdXyDjuM532xolgMhWDnaEUGL7hL1lpw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z95fMyl5w8DGx6PxZQzSyScN/y1SBel6GtFclyfg5YO+RZ/b1p/
-	6nmf7oLm+Vduc1t3CUsoIexZ56UVJZkPSP445Aoj2NePmeUOpcVTt6qM
-X-Gm-Gg: AYBFou1Y+RR4QdnH5WfRdm2NE8vHLa4EhNGWy1O9JCHb4T2pBb3xz8hE5ebATf1DUgC
-	SaV3nJnxZv7TfYW+kZpHwEu8eBzHHj9jKdGzehhTh3XtalJRG2adeyQCzXCxlEh1uPqPUmK0RMm
-	tBSKca54n/hisu6Y+2d5o1c2W3YiiQVVhs48oSSJ3YA7ZTWn6zbNREndcJOR57XrslSYXEjYaey
-	gLlPUwysE0NhhxsZ4Bvz077H7skDU2CSfVYbkwTufGLj4Yd148I6JL4GGQqhhfWg1zj6p9nvcWx
-	7pBTbubIvOOw2qDNvyCGZB1u1SprayQMDlCNGkB09KpMWAsZLDZ9sXPsDz5OUNGQIJqK06FuMp9
-	Xumko/ARO67UfndkDyea8uh9KC9zjq+kDnetuQ+GG0J/7FzlI5iyx9jwHYDRHjopqBu8n/pzfXF
-	Nmu4DWHrmSICfBrVf2GbzSY50m9KqGP9XgkfWDaqOQm3ZTQ6pbCk/qurt1EogI2PZe9qolNOQqn
-	w6YBtcLXKFSD83YaP6lekI3WK6IvUkl6SxN3nbdKBALRfukYyVV/n3WkWA4iwLst1NQye8a3bvz
-	Jd8zA2vUoo9+go/Evj0jWS67FksRBGT0NomRKmjUQWNT2OxH3EgrgfgmL5roACkgLPViLd4=
-X-Received: by 2002:a05:6830:6412:b0:81d:9acd:ee04 with SMTP id 46e09a7af769-85f0528fe51mr386304a34.0.1793820641158;
-        Wed, 04 Nov 2026 11:30:41 -0800 (PST)
-Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3e55906sm2577422a34.18.2026.11.04.11.30.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 11:30:40 -0800 (PST)
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>
-Cc: Andrew Davis <afd@ti.com>,
-	linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v4] leds: tca6507: Fix use-after-free on unbind
-Date: Wed,  4 Nov 2026 13:30:38 -0600
-Message-ID: <20261104193038.91614-1-danishkhateeb03@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XoSWyb+q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE8A81F00A15;
+	Wed,  4 Nov 2026 19:36:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793821004;
+	bh=DDgqq9Q/Bm6V4j3poo6cKSuwiGo9D8SzrfLgV7szOVc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XoSWyb+qJrADrwGRreFWyvmxNHq0pOAN305q/mwm9akxAcFRIECpY0QVWuNkMqmcS
+	 Nj0ud05DqjxJzmkddjcBXJ7YNNUUfZ+KBUmcIvL7VEUM8tG0AMyQCBUTXGE7FCvH4Y
+	 tLbRcdlAvTVe5VEOTYit/xx6JfOd+oGFFieEEON+Mv+KYvxRXjOF+KSp9f34szFyQI
+	 /rnVpazSP4Z3Q0pMuSuAZM61hPoFXFyWcXw9odw9czMRoBgDtt4Su1GHzVegNh1Ag9
+	 3UEpDnwj0T86pW4legy8SG5L/aI+HoCuCxMYHqnPO8yTrTSJc8nN92cXGqGakDJbQT
+	 VI+hmELSOJKUw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Paulo Alcantara <pc@manguebit.com>,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] smb: client: fix warning in CIFSFindFirst()
+Date: Wed,  4 Nov 2026 14:36:40 -0500
+Message-ID: <20261104155725.3917936-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110402-earlobe-scanner-01d6@gregkh>
+References: <2026110402-earlobe-scanner-01d6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,114 +61,148 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since the LEDs are registered with devm_led_classdev_register(), they
-are unregistered only after tca6507_remove() has cancelled the work.
-Unregistering an LED that is on turns it off, which queues the work
-again from led_assign(), and the work then runs after devres has freed
-the chip:
+From: Paulo Alcantara <pc@manguebit.com>
 
-  BUG: KASAN: slab-use-after-free in assign_work+0x414/0x5b0
-  Read of size 8 at addr ffff888010d5c0c0 by task kworker/1:2/65
-  ...
-  Last potentially related work creation:
-   ...
-   queue_work_on+0xb6/0xc0
-   led_assign+0x223/0x340 [leds_tca6507]
-   led_classdev_unregister+0x26b/0x340
-   release_nodes+0xb3/0x140
-   devres_release_group+0x247/0x470
-   i2c_device_remove+0xbf/0x1b0
+[ Upstream commit 032137fe136a6073dcc699ee15fa3fd05fd77f21 ]
 
-Initialise the work before the LEDs are registered and flush it from a
-devres action, which then runs after the LEDs are gone and before the
-chip is freed, and drop tca6507_remove(). Flushing instead of cancelling
-also makes sure that the queued writes reach the chip, so the LEDs are
-really turned off. By the time the action runs, the LEDs and the GPIO
-chip have been unregistered, and the work does not queue itself, so
-nothing can queue it again.
+This fixes the following warning reported by kernel test robot
 
-Fixes: 1b5c2fa7081c ("leds: tca6507: Use devm_led_classdev_register() to simplify remove path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+  fs/smb/client/cifssmb.c:4089 CIFSFindFirst() warn: missing error
+  code? 'rc'
+
+Link: https://lore.kernel.org/all/202306170124.CtQqzf0I-lkp@intel.com/
+Signed-off-by: Paulo Alcantara (SUSE) <pc@manguebit.com>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: 59131dd72f62 ("smb: client: fix use-after-free infoleak via the readdir resume name")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ fs/smb/client/cifssmb.c | 98 ++++++++++++++++++-----------------------
+ 1 file changed, 44 insertions(+), 54 deletions(-)
 
-Notes:
-    Changes in v4:
-    - Squash the two v3 patches into one, flushing the work from the start (Lee)
-    - Drop Andrew's Acked-by, since the code is now different from the
-      version he acked
-    - Rebase on for-leds-next
-    - Link to v3: https://lore.kernel.org/all/20261028174348.64014-1-danishkhateeb03@gmail.com/
-    
-    Tested in QEMU on a next-20260930 KASAN kernel, with the driver built as
-    a module and a test-only module that adds a fake I2C adapter, logs the
-    register writes and adds a software node for a TCA6507 with two LEDs.
-    Without this patch, unbinding with the LEDs on hits the report above
-    (39 reports in 20 unbind/bind cycles). With it there are no reports in
-    20 cycles or on unload, and every unbind ends with a write that turns
-    both LEDs off (with v2's cancel, 7 of 20 unbinds left an LED on). A W=1
-    build with GPIOLIB is clean. The code is the same as v3 with both
-    patches applied.
-    
-    An LLM was used to help with this patch.
-
- drivers/leds/leds-tca6507.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/leds/leds-tca6507.c b/drivers/leds/leds-tca6507.c
-index 9afe2722986c..ffad476af625 100644
---- a/drivers/leds/leds-tca6507.c
-+++ b/drivers/leds/leds-tca6507.c
-@@ -711,6 +711,11 @@ static const struct of_device_id __maybe_unused of_tca6507_leds_match[] = {
- };
- MODULE_DEVICE_TABLE(of, of_tca6507_leds_match);
+diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+index 65418d15c3a02..735d01f5e992c 100644
+--- a/fs/smb/client/cifssmb.c
++++ b/fs/smb/client/cifssmb.c
+@@ -3904,11 +3904,12 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
+ 	TRANSACTION2_FFIRST_REQ *pSMB = NULL;
+ 	TRANSACTION2_FFIRST_RSP *pSMBr = NULL;
+ 	T2_FFIRST_RSP_PARMS *parms;
+-	int rc = 0;
++	struct nls_table *nls_codepage;
++	unsigned int lnoff;
++	__u16 params, byte_count;
+ 	int bytes_returned = 0;
+ 	int name_len, remap;
+-	__u16 params, byte_count;
+-	struct nls_table *nls_codepage;
++	int rc = 0;
  
-+static void tca6507_flush_work(void *work)
-+{
-+	flush_work(work);
-+}
+ 	cifs_dbg(FYI, "In FindFirst for %s\n", searchName);
+ 
+@@ -3999,63 +4000,52 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
+ 			 (struct smb_hdr *) pSMBr, &bytes_returned, 0);
+ 	cifs_stats_inc(&tcon->stats.cifs_stats.num_ffirst);
+ 
+-	if (rc) {/* BB add logic to retry regular search if Unix search
+-			rejected unexpectedly by server */
+-		/* BB Add code to handle unsupported level rc */
++	if (rc) {
++		/*
++		 * BB: add logic to retry regular search if Unix search rejected
++		 * unexpectedly by server.
++		 */
++		/* BB: add code to handle unsupported level rc */
+ 		cifs_dbg(FYI, "Error in FindFirst = %d\n", rc);
+-
+ 		cifs_buf_release(pSMB);
+-
+-		/* BB eventually could optimize out free and realloc of buf */
+-		/*    for this case */
++		/*
++		 * BB: eventually could optimize out free and realloc of buf for
++		 * this case.
++		 */
+ 		if (rc == -EAGAIN)
+ 			goto findFirstRetry;
+-	} else { /* decode response */
+-		/* BB remember to free buffer if error BB */
+-		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
+-		if (rc == 0) {
+-			unsigned int lnoff;
+-
+-			if (pSMBr->hdr.Flags2 & SMBFLG2_UNICODE)
+-				psrch_inf->unicode = true;
+-			else
+-				psrch_inf->unicode = false;
+-
+-			psrch_inf->ntwrk_buf_start = (char *)pSMBr;
+-			psrch_inf->smallBuf = false;
+-			psrch_inf->srch_entries_start =
+-				(char *) &pSMBr->hdr.Protocol +
+-					le16_to_cpu(pSMBr->t2.DataOffset);
+-			parms = (T2_FFIRST_RSP_PARMS *)((char *) &pSMBr->hdr.Protocol +
+-			       le16_to_cpu(pSMBr->t2.ParameterOffset));
+-
+-			if (parms->EndofSearch)
+-				psrch_inf->endOfSearch = true;
+-			else
+-				psrch_inf->endOfSearch = false;
+-
+-			psrch_inf->entries_in_buffer =
+-					le16_to_cpu(parms->SearchCount);
+-			psrch_inf->index_of_last_entry = 2 /* skip . and .. */ +
+-				psrch_inf->entries_in_buffer;
+-			lnoff = le16_to_cpu(parms->LastNameOffset);
+-			if (CIFSMaxBufSize < lnoff) {
+-				cifs_dbg(VFS, "ignoring corrupt resume name\n");
+-				psrch_inf->last_entry = NULL;
+-				return rc;
+-			}
+-
+-			psrch_inf->last_entry = psrch_inf->srch_entries_start +
+-							lnoff;
+-
+-			if (pnetfid)
+-				*pnetfid = parms->SearchHandle;
+-		} else {
+-			cifs_buf_release(pSMB);
+-		}
++		return rc;
++	}
++	/* decode response */
++	rc = validate_t2((struct smb_t2_rsp *)pSMBr);
++	if (rc) {
++		cifs_buf_release(pSMB);
++		return rc;
+ 	}
+ 
+-	return rc;
++	psrch_inf->unicode = !!(pSMBr->hdr.Flags2 & SMBFLG2_UNICODE);
++	psrch_inf->ntwrk_buf_start = (char *)pSMBr;
++	psrch_inf->smallBuf = false;
++	psrch_inf->srch_entries_start = (char *)&pSMBr->hdr.Protocol +
++		le16_to_cpu(pSMBr->t2.DataOffset);
 +
- static int tca6507_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
-@@ -735,9 +740,12 @@ static int tca6507_probe(struct i2c_client *client)
- 		return -ENOMEM;
- 
- 	tca->client = client;
--	INIT_WORK(&tca->work, tca6507_work);
- 	spin_lock_init(&tca->lock);
--	i2c_set_clientdata(client, tca);
++	parms = (T2_FFIRST_RSP_PARMS *)((char *)&pSMBr->hdr.Protocol +
++					le16_to_cpu(pSMBr->t2.ParameterOffset));
++	psrch_inf->endOfSearch = !!parms->EndofSearch;
 +
-+	INIT_WORK(&tca->work, tca6507_work);
-+	err = devm_add_action_or_reset(dev, tca6507_flush_work, &tca->work);
-+	if (err)
-+		return err;
- 
- 	for (i = 0; i < NUM_LEDS; i++) {
- 		struct tca6507_led *l = tca->leds + i;
-@@ -766,20 +774,12 @@ static int tca6507_probe(struct i2c_client *client)
- 	return 0;
++	psrch_inf->entries_in_buffer = le16_to_cpu(parms->SearchCount);
++	psrch_inf->index_of_last_entry = 2 /* skip . and .. */ +
++		psrch_inf->entries_in_buffer;
++	lnoff = le16_to_cpu(parms->LastNameOffset);
++	if (CIFSMaxBufSize < lnoff) {
++		cifs_dbg(VFS, "ignoring corrupt resume name\n");
++		psrch_inf->last_entry = NULL;
++	} else {
++		psrch_inf->last_entry = psrch_inf->srch_entries_start + lnoff;
++		if (pnetfid)
++			*pnetfid = parms->SearchHandle;
++	}
++	return 0;
  }
  
--static void tca6507_remove(struct i2c_client *client)
--{
--	struct tca6507_chip *tca = i2c_get_clientdata(client);
--
--	cancel_work_sync(&tca->work);
--}
--
- static struct i2c_driver tca6507_driver = {
- 	.driver   = {
- 		.name    = "leds-tca6507",
- 		.of_match_table = of_match_ptr(of_tca6507_leds_match),
- 	},
- 	.probe    = tca6507_probe,
--	.remove   = tca6507_remove,
- 	.id_table = tca6507_id,
- };
- 
-
-base-commit: fb511964723311e9a7223e424d725c58dde8307a
+ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
 -- 
-2.56.0
+2.53.0
 
