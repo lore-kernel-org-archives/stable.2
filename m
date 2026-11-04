@@ -1,54 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.114
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793798723;
-	b=VHGRr/JWK48nVrj0DyFAG+dQDwiFSmE5vhbeWzXWOvmAaiwzzYLWbfSnHzP8LLdcklO5
-	 luTUxfCsKQ3PY1rfowIsaqfRy6l/aVcha/jU9zzVvQpQqBVF9sZXpa1iOKaVVuKwZOkDr
-	 CDd33ri2wZz6LRL5V0QoWqlKWJ8bk3TnsdKMIh9GRNCdaBeV3NQ9A3MQ0eLf0iTkN7GMD
-	 TOA/m9GiOGyY5rYGaaNm+EBOiehYRkkO0xWwNeRh6T8djIvas6gPKi073sqKmbVvASJcf
-	 pR95pKCeHUqMzJY6hToL8JfBtQ2mvpayQuDT8Hc7E/gzD2dNsnxvuF+k/VyXrMZd2jg==
+	t=1793798798;
+	b=WddtrIDp1Sv07G1u/2zAtJz+lP6tzONXcJPClTllD2/STQqzl4TitNZnLJAmu1QMsfU+
+	 +Oz0rFsJLvJxlNHdpx5DoJ/O0STpqr/7CrRZX8UUi1IqYEoBOilqyCAPxSzm6GLVX2Xep
+	 pr5WMUTFoqAvNqYCNvxNen6UPzd8GRZr9HqiTSYOFvkG3uZiplDNAEDxsliHgY2ehalL5
+	 Cb0kzoesMQtQYT/Gubzf2KOlGj4dz5wEQBybxlkVnyAom9P2pcGRf9menvSwvZsdpXJjp
+	 xKm7l2FfZAECp97r4cK5jlE4aJNUVPq0ljwHSOQPdwzYtnajxhd0USqXnIrG8jqU7kQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793798723;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WewCNuo8YovPY2dmGEGeXhtwDfjeK4b5OhGvtgGhTF0=;
-	b=y0p5MZ//4SyVfCdAnI5XnM5o+jQ6Z2F+v9DwHROZx22/CFT+ha0+QmUzHE1xLT2wGm0Q
-	 2NSF3I89w+R99/ykQ+5HiCSzEkrIXK1gYDTPmgUVJUYH62dHikcPb4WxaSr7xDJj9nLTy
-	 nAgvUluUH7MuAxkwMlD0b3B5BEjVomYzdR9w89W0RiKIhTrPO60AAqIMovAn182GK8KZb
-	 iSgq22RVBfqjV8HYpHiWpR07UiRJlLp9MzlDfyXDJjA9bOgxYlnbGRtByOLtcfWwemgiK
-	 S/cH3fRvyoQ0+jP5IZiRXqEiW9aLdUzYw4/vFjcAtexj3yk7u/qEBe+GqAZYpcoa9Og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793798798;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=yjmwql2Q0/WWj7I5rUoCbaZQ81/0rY7QHc3z6oUDgjE=;
+	b=cEPetTQvzuan5vv/yVjm5W8yARj79YeGLOx3aPJZkScARqvR+qqglUDxC5ne8AJmsjPt
+	 Yt4f5gCzCL1QjpYJLNYmDb+8nbbuDnSuiMv4er1FllJmCej7EqBSpdMdThctvqjFd/mnW
+	 61TU1aYKygjNJpu3KXhWgr6j+iXpOpfv6K6gqhyO72oIyZQVirG07woUrJccVSSSqMSvP
+	 rzOE5prXQR0YnNEL0g1Bp5l1vxzGJmBnGOsx9jw38AtKC6ZeCOEh0rFR5WI3XTtwBCL0f
+	 hkBJ4Ox/HefSrknKGgjuMFdvYzutIHYwwyES99bEcusQvRzudnSANQNQlbfH2p37Lyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="YhT7a/p1";
-	arc=none smtp.remote-ip=95.215.58.114
-Received: from mta1.migadu.com (out-114.mta1.migadu.com [95.215.58.114])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=JHY6z7vu;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712A4606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:25:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 712A4606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902C3606A33A;
+	Wed,  4 Nov 2026 13:26:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 902C3606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YhT7a/p1
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BNLoTZcqlZkdyN8nI/N/fiKEzBgCvrjgOnls62w/d7g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793798720; v=1; x=1794403520;
- b=YhT7a/p1dfsL/eIlLPBtQDmuzjGr03JYM2Gxa5WMRSSPpTLxzmO3W1fKHTFQjo8AgVngvNSc
- JzwxYKxyMMo1od4tWhMEmYiw96VQeFm440m2HOBGqSOificvFPUSbqBUSjWMAYGFKzVYngYH6Ni
- liDZR52RlRNsexBbDOBBvHsw=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eca819494a8d83eb;
-	Wed, 04 Nov 2026 13:25:19 +0000
-X-Mizu-Trace-ID: eca819494a8d83eb
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <57f4dd69-a326-4802-b9b3-f715568b8ea4@linux.dev>
-Date: Wed, 4 Nov 2026 21:25:10 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=JHY6z7vu
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BiAgQ3026253;
+	Wed, 4 Nov 2026 13:26:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=yjmwql
+	2Q0/WWj7I5rUoCbaZQ81/0rY7QHc3z6oUDgjE=; b=JHY6z7vuCDPfVgknKa7b8y
+	Bx9eZ7LN23WYxB/7Hd+1hi+4+s1R61V2JYJE8WCqJ1pmN7+SZ/fRvWFUrt0sXzNb
+	BR4bVKUXTeFUCrD8JrHS1tnwAWSASYdECHSSR2EhLIVod4+Dh1WKHo5EiRBVG7Rj
+	edEE7CTcsIIo13GgtrAJ0yahYTQgE3yAwCD/jQODWHn6aJZE4ub4tOf0GOCiqNRw
+	slQ3zbcextdUzlyyjoTKlN/CjDvcRjJVP27xfikiA+Fww0l12E+LSyMh9xMETuff
+	sZTHcmtss8XB/xmeh6LrN259nSJ4KQils7ioMlBs15o1VcWE3YAUBtUccW0pF6nw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn80sv0m8-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 04 Nov 2026 13:26:14 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Baj9w3997539;
+	Wed, 4 Nov 2026 13:26:13 GMT
+Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hqcrce8v1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 04 Nov 2026 13:26:13 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A4DQD0Q14942870
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 4 Nov 2026 13:26:13 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E42C558061;
+	Wed,  4 Nov 2026 13:26:12 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 12C1158057;
+	Wed,  4 Nov 2026 13:26:09 +0000 (GMT)
+Received: from [9.123.7.57] (unknown [9.123.7.57])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  4 Nov 2026 13:26:08 +0000 (GMT)
+Message-ID: <c172b7a8-bea1-4004-83be-af6dfe921df0@linux.ibm.com>
+Date: Wed, 4 Nov 2026 18:56:07 +0530
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,124 +87,77 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu,
- stable@vger.kernel.org
-Subject: Re: [PATCH] cgroup/freezer: walk exiting tasks in the v1 freezer
-To: mt4022@columbia.edu, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>
-References: <20261103-cgroup-freezer-exiting-v1-1-00d43b443747@columbia.edu>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20261103-cgroup-freezer-exiting-v1-1-00d43b443747@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] blk-mq: take quiesce_lock when removing a queue from the
+ tag set
+To: Christoph Hellwig <hch@lst.de>, mt4022@columbia.edu
+Cc: Jens Axboe <axboe@kernel.dk>,
+        Mohamed Khalfella <mkhalfella@purestorage.com>,
+        Keith Busch <kbusch@kernel.org>, Ming Lei <tom.leiming@gmail.com>,
+        Bart Van Assche <bvanassche@acm.org>,
+        Josef Bacik <josef@toxicpanda.com>, linux-block@vger.kernel.org,
+        linux-kernel@vger.kernel.org, tz2294@columbia.edu,
+        stable@vger.kernel.org
+References: <20261103-blk-mq-del-quiesce-lock-v1-1-04aa29a481f6@columbia.edu>
+ <20261104071926.GA29136@lst.de>
+Content-Language: en-US
+From: Nilay Shroff <nilay@linux.ibm.com>
+In-Reply-To: <20261104071926.GA29136@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: OL6bJ6XdGfIfN-IE_2nKDKeceYmhD930
+X-Proofpoint-ORIG-GUID: kjX0ct8-6NHIu3_iWyRCWMcwoDsr-7ZW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1MiBTYWx0ZWRfXwKFBVFCEePT5
+ rNCc8CexrDkmhuZK7SJRXcM5SUHKI8IS/QLv/GNZWkGrkpgK6GjzwFLeSu+eGaOiMAz0RDQOAXz
+ lydGC02v0dE+dpONYcrH51O8K/N7zMYszUcWGfnUa3wFJKv7jRt2FpgyTJvnblXrj3mDj6sQHmB
+ 4IMG02DYwsP5v8gXlEf5UpOM4oGqYT5EpAw7PH9qMDN1oZRkSytUlojNbWzQUnftz697NyiTcQN
+ e+Mev6zQ1u87scFqLGKfkNz5NZuJNn9PSEgVlDZc6HGW/tsRypf0H2vgXcxkrciqteRAr+4/DGw
+ M/nSyuTyeqSdMFmDPh2i19ZEboF5vDIOdFb2pAwsf17iTgEg0uszuqyO3N1pzuWUCGDXXe+rTaO
+ 6ckxnRMjo2YWwKGLC88Q9WyyrqvLuT8S5xCzemyFqbyF50bcpmb9kDilTp53vh9c0lqqIDLVJqn
+ GH5uLipbFU/Jhi++T/A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1MiBTYWx0ZWRfX/ccD5SVabaSY
+ kTLhYnJYNUHqla6dpbi/r8suZKJaxfLjJ1MjA1bUijRJQD7fsPWs/A/81jG8CzSFEx0hgIQwgZq
+ 3awMjGIASlt6K01/6QjjkqNTOrMspfI=
+X-Authority-Analysis: v=2.4 cv=FIqOVOos c=1 sm=1 tr=0 ts=6aeb3276 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=DfyN0UfllRvmPPNdMxQA:9
+ a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
+ bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040052
 
-Hi Mani,
+On 11/4/26 12:49 PM, Christoph Hellwig wrote:
+> Looks good, but the note from Mohamed should be taken into account.
+> 
+> Or even better add a guarded_by so that clang catches this (requires
+> actualy compile testing with clang, though).
+> 
+Yeah agreed! I also recommend adding __guarded_by() annotation around
+set->tag_list and set->quiesce_depth.
 
-在 2026/11/4 02:09, Mani Tofigh via B4 Relay 写道:
-> From: Mani Tofigh <mt4022@columbia.edu>
-> 
-> An exiting task can stay frozen after its v1 freezer cgroup is thawed.
-> Since commit a72f73c4dd9b ("cgroup: Don't expose dead tasks in cgroup")
-> the css task walk hides an exiting task once its process has no live
-> threads left.  That count drops when another thread of the process
-> exits, which can happen between the freeze and the thaw walk.  A pid
-> namespace init hits this easily since it waits freezably in
-> zap_pid_ns_processes() after commit 81933038f5e2 ("pid_namespace: make
-> zap_pid_ns_processes() freezable"):
-> 
->   Task A (pid ns init)      Task B (A's thread)      Task C
->                             do_exit()
->                               exit_signals()
->   do_exit()
->     zap_pid_ns_processes()
->                                                      write FROZEN
->                                                        /* A frozen */
->                               /* live count 0 */
->                                                      write THAWED
->                                                        /* A skipped */
-> 
-> A then stays frozen even after SIGKILL:
-> 
->   [   10.775155] task:fz-init         state:D stack:28152 pid:65    tgid:65    ppid:1      task_flags:0xc0004c flags:0x00080000
->   [   10.775176] Call Trace:
->   [   10.775180]  <TASK>
->   [   10.775188]  __schedule+0x10f1/0x4760
->   [   10.775252]  schedule+0xd7/0x2c0
->   [   10.775265]  zap_pid_ns_processes+0x2c7/0x5f0
->   [   10.775346]  do_exit+0x1bf4/0x2560
->   [   10.775403]  __x64_sys_exit+0x3d/0x50
->   [   10.775414]  x64_sys_call+0x156c/0x1570
->   [   10.775425]  do_syscall_64+0xfb/0x590
->   [   10.775450]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
->   [   10.775529]  </TASK>
-> 
-> Use CSS_TASK_ITER_WITH_DEAD in the three v1 freezer walks so they all
-> see the same tasks, as commit 60f21a264930 ("cgroup, sched_ext: Include
-> exiting tasks in cgroup iter") did for sched_ext.  With the fix, A is
-> thawed and exits.
-> 
+With this change, I have sorted following locking pattern:
 
-Thanks for the clear writeup and reproducer. Ran freezev1.c against
-next-20261103 on a 2-vCPU VM. Base reproduced the hang on round 1
-(5.1s), with the patch 600s / 6124 rounds ran clean.
+1. Every set->tag_list mutation holds both set->tag_list_lock and set->quiesce_lock.
+2. Every set->tag_list traversal holds at least one of set->tag_list_lock or set->quiesce_lock.
+3. The set->tag_list_lock and set->quiesce_lock order is preserved.
 
-Reviewed-by: Tao Cui <cuitao@kylinos.cn>
-Tested-by: Tao Cui <cuitao@kylinos.cn>
+So the above scheme fits really well in the context annotations.
+
+We can define context annotation as follows:
+
+struct blk_mq_tag_set {
+     ...
+     struct list_head    tag_list __guarded_by(&tag_list_lock, &quiesce_lock);
+     unsigned int        quiesce_depth __guarded_by(&quiesce_lock);
+     ...
+}
 
 Thanks,
-Tao
-> This bug was identified and confirmed with the help of a deterministic
-> hypervisor currently under development.  The C reproducer below however
-> hits it within about 10s.
-> 
-> Fixes: a72f73c4dd9b ("cgroup: Don't expose dead tasks in cgroup")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
-> ---
-> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/freezev1.c
-> ---
->  kernel/cgroup/legacy_freezer.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/kernel/cgroup/legacy_freezer.c b/kernel/cgroup/legacy_freezer.c
-> index 8545e0d1ba3d..bd11047f2311 100644
-> --- a/kernel/cgroup/legacy_freezer.c
-> +++ b/kernel/cgroup/legacy_freezer.c
-> @@ -265,7 +265,7 @@ static void update_if_frozen(struct cgroup_subsys_state *css)
->  	rcu_read_unlock();
->  
->  	/* are all tasks frozen? */
-> -	css_task_iter_start(css, 0, &it);
-> +	css_task_iter_start(css, CSS_TASK_ITER_WITH_DEAD, &it);
->  
->  	while ((task = css_task_iter_next(&it))) {
->  		if (freezing(task) && !frozen(task))
-> @@ -309,7 +309,7 @@ static void freeze_cgroup(struct freezer *freezer)
->  	struct css_task_iter it;
->  	struct task_struct *task;
->  
-> -	css_task_iter_start(&freezer->css, 0, &it);
-> +	css_task_iter_start(&freezer->css, CSS_TASK_ITER_WITH_DEAD, &it);
->  	while ((task = css_task_iter_next(&it)))
->  		freeze_task(task);
->  	css_task_iter_end(&it);
-> @@ -320,7 +320,7 @@ static void unfreeze_cgroup(struct freezer *freezer)
->  	struct css_task_iter it;
->  	struct task_struct *task;
->  
-> -	css_task_iter_start(&freezer->css, 0, &it);
-> +	css_task_iter_start(&freezer->css, CSS_TASK_ITER_WITH_DEAD, &it);
->  	while ((task = css_task_iter_next(&it)))
->  		__thaw_task(task);
->  	css_task_iter_end(&it);
-> 
-> ---
-> base-commit: fffbdad76a57eed26cff1be19f4cbb407f0b6e7c
-> change-id: 20261102-cgroup-freezer-exiting-c7f60e4c3200
-> 
-> Best regards,
-> --  
-> Mani Tofigh <mt4022@columbia.edu>
-
+--Nilay
