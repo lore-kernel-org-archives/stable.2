@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793822089;
-	b=Rc38+gshlExvh/semWrnEqGfWnQ260n2iw7PrYyHo25XkeJKJNM+73Ml40m81PIe1822
-	 GP9RcSV6+5uxyKtL7hgcija0FpD1vXzWIATwZl/etHd1t7AueJBCfmz2NT7F5K2zyNoef
-	 p3y8dBxtw5/on7//r59rWpK/CpLkHEajcg4s8zZcqUcWdiW+UVDj3/D446DIcjtRIj5Dd
-	 HIbSHuZ2grWF6puS2k+Hn3dNc1HlLAWSYAOVxdPTi9O0L0hPdDqvDaZt+xsbUjOtedoUr
-	 3kK/75gauwYkYDpHYw9TlVXZtBoRzsIcaQyjtLoHBSry+WNJS6tYlWRpb0k45Lew/0w==
+	t=1793822090;
+	b=Hu/Ohncr/Fe/klAxCtD1zUsWnq7QCPmY4p3AaYWrnFlL445P7g4fKasvVrORqmF6qNcu
+	 MxAASzhIXVRjq6NcV/r6kTO4d4xJEPa5pli+AsvpKAsmSe/gMm2M4ZcH2rY9mbvPVQkGH
+	 hZiNT0K7S7P8AD/Jo8GN/YoQ8HDjD2CgnkcpqJ4jAu2tOB2y6caPJf2OK7NiJv+SwzLtq
+	 IUuxsq9cYypVdfYTDvBx5JjF1kVGpmLsICqtwC9SSsCqwrwOcjM8AikLC2zmmipshw2Fd
+	 Hpf/oFAUvBd5VawZY7qHaL0ftYSqgluTNzKCwGdpvZrmnY3JkmhzlZ885bzWpSnQxtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793822089;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793822090;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+8x5u/WQAsr/DmLNTm5CNAZNTQSL37JAEny2UX6Q5+c=;
-	b=mJeRHs8cHCfTsQXnlfilcGaKjG4MVsl5OTAr2ErL+19+bpvUZp8MPf79UuAF7HKRhuIy
-	 CyG1wMFHxFeGKQHrlxaYkWwf4lvnFba4fsopL10ECQW6dMAdQM5fO2Idov88BJ641d46d
-	 OwSK3MQ+ZwqxnY/0GGOk2oamPcZ/MfuGVuzVmXzzel4GlNF4gRDPJH6Hi6J8KjhqMoFMf
-	 PtJt3wNswnf14j0ZKM/ElTFXkOaYO4XR7sZYps//vt0ox/q/uws/ythWyPCYpjOpsEODN
-	 DJIdfU1OjCJjahxEBqWYGpb1HPERKdtOHbkfTNkkNZ9aWcPthHw6mAEbZr4i4J+1JvA==
+	bh=BE+w62NRPHyJ8tRdn1GuDNMJzwi0nKBDdFGcX9mWqik=;
+	b=zustBmEl+teYUF57dgcCSbEXnTLO7CSY71umiG4bh6TB2bW6OTDWY4W6EW+vDOQHx/da
+	 DaxEVQT1U3arpun/zTKLAqsCRkU1eym/hzVaBvssdI6JH1RyJSYbdyoIogAKr7u6yk1fx
+	 rUnAv1OPKwUurSXKOCOMQ3DDrslQ2gIGOD3ENPGjRl+dIJw9MOBHpO5OiPXlyt6wW7r7Q
+	 T3oyXjmrgtwmzTak5CBfDY4PE7vu/v1Ou6QZnSe5H4ZiKlMOAkzns2vdtekWsC8sykbHx
+	 R8TbtvaHI8cbg11yR7gW/fDiRI8iwRvTNMC9mOChDIILkbNvZIhEixopuXsneFVlNZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V75xnXYc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QEpBtidp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294E5606C5BC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32D16099A06
 	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:54:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V75xnXYc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68D761F00A1D;
-	Wed,  4 Nov 2026 19:54:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QEpBtidp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295661F00A1A;
+	Wed,  4 Nov 2026 19:54:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793822088;
-	bh=+8x5u/WQAsr/DmLNTm5CNAZNTQSL37JAEny2UX6Q5+c=;
+	s=k20260515; t=1793822089;
+	bh=BE+w62NRPHyJ8tRdn1GuDNMJzwi0nKBDdFGcX9mWqik=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V75xnXYcPmKYCft6kCABHARdSNKe8jvexBS9IfN0rPZeaJYEZfBBbHxoR1CnMDHsO
-	 6dDy2heEN3JiW3bW/3TeY75OvpLI7FiNunIzIxCC+gj6eXKf/pjBqr454yIIpzuDyB
-	 78bT6ZTweTU+HBXLdlSeCFunK/nF2QWIurH2TjGcoeJ7tqsJj7BpXxV7fpalSuthfP
-	 JyUZy47tYyeEEbn3yJ3aKvLWBPC9iD5jJT8npELaqlGpfI0rasNc+TrU1d5UokxgId
-	 OjcDQD0Gv04kUtD+HtpojXXGeHD+wp6yeJX0h1vVuWtLmnPhd0CLkY5MHF+/uhGV4c
-	 0a4f5FsQgHZdQ==
+	b=QEpBtidpHIBA6iLiZWZWb3puewynrAJn8/FQwFmT36+yW7WDVKUCuaO/9ZUBnO0SO
+	 XGyrw1xp4NQBYs33mzm0K7tTw7pM6NAJmRKwp1Gw+e8/dgJPev+NxuF0oDOk38VOMc
+	 et3hnfU+kt69DwxvYW/aLNT8ahF85fXl9AO5Poxf8agHAO4WwtQxckY+I2gfltA8uo
+	 Mb/Xag2Vwhj7vvDI/Bii58OY2pB+8KTqfmDm5MxUJAPwGgBGkixY5Cr3vQm/2ci8nU
+	 q//3RYFWeTJztx6MiwiLqeQDn45JN6hMhWeytmag+y2G6DdS2IABy0LWtsbgMagRdi
+	 Kw0f1veZkz/GQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.com>,
-	Steve French <stfrench@microsoft.com>,
+Cc: Diego Oliva <diego@bynar.io>,
+	David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/3] smb: client: fix warning in CIFSFindNext()
-Date: Wed,  4 Nov 2026 14:54:45 -0500
-Message-ID: <20261104195419.360475-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/3] smb: client: fix use-after-free infoleak via the readdir resume name
+Date: Wed,  4 Nov 2026 14:54:46 -0500
+Message-ID: <20261104195419.360475-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261104195419.360475-1-sashal@kernel.org>
 References: <2026110404-moonrise-gnarly-7268@gregkh>
@@ -62,172 +63,152 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.com>
+From: Diego Oliva <diego@bynar.io>
 
-[ Upstream commit 215533f888dcf18f7cfbbf520bdd52e67ac6265a ]
+[ Upstream commit 59131dd72f62b198fc9ea1489ad9d3573154f684 ]
 
-This fixes the following warning reported by kernel test robot
+CIFSFindNext() copies the resume name that cifs_save_resume_key()
+recorded from the last entry of the previous response into its request;
+psrch_inf->presume_name points into the response buffer that entry came
+from, and nothing ever clears it. find_cifs_entry() records a new
+name only from a response with a usable last entry, and cifs_readdir()
+only from an entry it walks to, so a response that carries no entries
+and leaves last_entry NULL, because CIFSFindFirst() or CIFSFindNext()
+rejected LastNameOffset, refreshes neither and presume_name keeps
+pointing into the previous response. That buffer has already been
+released: by CIFSFindNext() before it installs the new response, or by
+find_cifs_entry() when it rewinds the search, which does not drop the
+name either and can then fail in initiate_cifs_search() before a new
+response replaces it. The next CIFSFindNext() then copies up to
+PATH_MAX - 1 bytes of the resume name out of the released buffer into
+its request and sends them to the server: a use-after-free read
+that leaks kernel memory to a malicious or compromised server, which
+can provoke it with a single FindNext response that carries no entries
+and a LastNameOffset above CIFSMaxBufSize, which is all the existing
+check rejects.
 
-  fs/smb/client/cifssmb.c:4216 CIFSFindNext() warn: missing error
-  code? 'rc'
+With KASAN enabled, a server that answers a listing that way gives:
 
-Link: https://lore.kernel.org/all/202306170124.CtQqzf0I-lkp@intel.com/
-Signed-off-by: Paulo Alcantara (SUSE) <pc@manguebit.com>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Stable-dep-of: 59131dd72f62 ("smb: client: fix use-after-free infoleak via the readdir resume name")
+ CIFS: VFS: ignoring corrupt resume name
+ ==================================================================
+ BUG: KASAN: slab-use-after-free in CIFSFindNext+0x8ca/0x14c0
+ Read of size 4080 at addr ffff88807c823f98 by task ls/83
+
+ CPU: 0 UID: 0 PID: 83 Comm: ls Tainted: G    B               7.3.0-rc4-00457-gf14572c203d5 #69 PREEMPT(lazy)
+ Tainted: [B]=BAD_PAGE
+ Call Trace:
+  <TASK>
+  kasan_report+0xdf/0x1a0
+  kasan_check_range+0x10f/0x1e0
+  __asan_memcpy+0x23/0x60
+  CIFSFindNext+0x8ca/0x14c0
+  cifs_readdir+0xf51/0x29c0
+  iterate_dir+0x1c0/0x570
+  __x64_sys_getdents64+0x133/0x270
+  do_syscall_64+0x109/0x5d0
+  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  </TASK>
+
+ Allocated by task 83 on cpu 1 at 13.497119s:
+  cifs_buf_get+0x36/0x90
+  smb_init+0x4f/0x110
+  CIFSFindNext+0xf7/0x14c0
+  cifs_readdir+0xf51/0x29c0
+
+ Freed by task 83 on cpu 0 at 13.584018s:
+  cifs_buf_release+0x41/0x80
+  CIFSFindNext+0xfce/0x14c0
+  cifs_readdir+0xf51/0x29c0
+
+ The buggy address is located 16280 bytes inside of
+  freed 16588-byte region [ffff88807c820000, ffff88807c8240cc)
+ ==================================================================
+
+The same memcpy() first reads past the end of that object while it is
+still live, a slab-out-of-bounds read that the following patches
+bound; that is the taint the report above carries.
+
+SMB1 is not negotiated by default; reaching this code requires an
+explicit vers=1.0 mount.
+
+Clear presume_name and resume_name_len whenever a new response is
+installed and when the rewind path releases the search buffer, so that
+the name never outlives the buffer it points into, and reset
+resume_key with them, since it was taken from the same entry and would
+otherwise be sent with an empty name. A response without a usable
+last entry then continues the search with an empty resume name rather
+than a stale one; CIFSFindNext() skips the copy of a zero-length name
+so that it never runs on the NULL pointer.
+
+The next patch in the series leaves last_entry NULL for a response
+that carries no entries, and bounds LastNameOffset against the
+received response rather than against CIFSMaxBufSize. Responses that
+are given a last entry today then take the path fixed here, so that
+patch must not be applied without this one.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: b77d753c413e ("[CIFS] Check that last search entry resume key is valid")
+Cc: stable@vger.kernel.org
+Assisted-by: Bynario AI
+Signed-off-by: Diego Oliva <diego@bynar.io>
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/cifssmb.c | 111 +++++++++++++++++++++-------------------------
- 1 file changed, 51 insertions(+), 60 deletions(-)
+ fs/cifs/cifssmb.c | 11 ++++++++++-
+ fs/cifs/readdir.c |  3 +++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
 diff --git a/fs/cifs/cifssmb.c b/fs/cifs/cifssmb.c
-index 7712ba6d0dee7..7f0839d5c6db7 100644
+index 7f0839d5c6db7..b823231e53ab5 100644
 --- a/fs/cifs/cifssmb.c
 +++ b/fs/cifs/cifssmb.c
-@@ -4592,11 +4592,12 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
- 	TRANSACTION2_FNEXT_REQ *pSMB = NULL;
- 	TRANSACTION2_FNEXT_RSP *pSMBr = NULL;
- 	T2_FNEXT_RSP_PARMS *parms;
--	char *response_data;
--	int rc = 0;
--	int bytes_returned;
- 	unsigned int name_len;
-+	unsigned int lnoff;
- 	__u16 params, byte_count;
-+	char *response_data;
-+	int bytes_returned;
-+	int rc = 0;
- 
- 	cifs_dbg(FYI, "In FindNext\n");
- 
-@@ -4641,8 +4642,8 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
+@@ -4573,6 +4573,9 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
+ 	psrch_inf->entries_in_buffer = le16_to_cpu(parms->SearchCount);
+ 	psrch_inf->index_of_last_entry = 2 /* skip . and .. */ +
+ 		psrch_inf->entries_in_buffer;
++	psrch_inf->presume_name = NULL;
++	psrch_inf->resume_name_len = 0;
++	psrch_inf->resume_key = 0;
+ 	lnoff = le16_to_cpu(parms->LastNameOffset);
+ 	if (CIFSMaxBufSize < lnoff) {
+ 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
+@@ -4636,7 +4639,10 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
+ 	name_len = psrch_inf->resume_name_len;
+ 	params += name_len;
+ 	if (name_len < PATH_MAX) {
+-		memcpy(pSMB->ResumeFileName, psrch_inf->presume_name, name_len);
++		if (name_len) {
++			memcpy(pSMB->ResumeFileName,
++			       psrch_inf->presume_name, name_len);
++		}
+ 		byte_count += name_len;
+ 		/* 14 byte parm len above enough for 2 byte null terminator */
  		pSMB->ResumeFileName[name_len] = 0;
- 		pSMB->ResumeFileName[name_len+1] = 0;
- 	} else {
--		rc = -EINVAL;
--		goto FNext2_err_exit;
-+		cifs_buf_release(pSMB);
-+		return -EINVAL;
- 	}
- 	byte_count = params + 1 /* pad */ ;
- 	pSMB->TotalParameterCount = cpu_to_le16(params);
-@@ -4653,71 +4654,61 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
- 	rc = SendReceive(xid, tcon->ses, (struct smb_hdr *) pSMB,
- 			(struct smb_hdr *) pSMBr, &bytes_returned, 0);
- 	cifs_stats_inc(&tcon->stats.cifs_stats.num_fnext);
-+
- 	if (rc) {
-+		cifs_buf_release(pSMB);
- 		if (rc == -EBADF) {
- 			psrch_inf->endOfSearch = true;
--			cifs_buf_release(pSMB);
- 			rc = 0; /* search probably was closed at end of search*/
--		} else
-+		} else {
- 			cifs_dbg(FYI, "FindNext returned = %d\n", rc);
--	} else {                /* decode response */
--		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
--
--		if (rc == 0) {
--			unsigned int lnoff;
--
--			/* BB fixme add lock for file (srch_info) struct here */
--			if (pSMBr->hdr.Flags2 & SMBFLG2_UNICODE)
--				psrch_inf->unicode = true;
--			else
--				psrch_inf->unicode = false;
--			response_data = (char *) &pSMBr->hdr.Protocol +
--			       le16_to_cpu(pSMBr->t2.ParameterOffset);
--			parms = (T2_FNEXT_RSP_PARMS *)response_data;
--			response_data = (char *)&pSMBr->hdr.Protocol +
--				le16_to_cpu(pSMBr->t2.DataOffset);
--			if (psrch_inf->smallBuf)
--				cifs_small_buf_release(
--					psrch_inf->ntwrk_buf_start);
--			else
--				cifs_buf_release(psrch_inf->ntwrk_buf_start);
--			psrch_inf->srch_entries_start = response_data;
--			psrch_inf->ntwrk_buf_start = (char *)pSMB;
--			psrch_inf->smallBuf = false;
--			if (parms->EndofSearch)
--				psrch_inf->endOfSearch = true;
--			else
--				psrch_inf->endOfSearch = false;
--			psrch_inf->entries_in_buffer =
--						le16_to_cpu(parms->SearchCount);
--			psrch_inf->index_of_last_entry +=
--				psrch_inf->entries_in_buffer;
--			lnoff = le16_to_cpu(parms->LastNameOffset);
--			if (CIFSMaxBufSize < lnoff) {
--				cifs_dbg(VFS, "ignoring corrupt resume name\n");
--				psrch_inf->last_entry = NULL;
--				return rc;
--			} else
--				psrch_inf->last_entry =
--					psrch_inf->srch_entries_start + lnoff;
--
--/*  cifs_dbg(FYI, "fnxt2 entries in buf %d index_of_last %d\n",
--    psrch_inf->entries_in_buffer, psrch_inf->index_of_last_entry); */
--
--			/* BB fixme add unlock here */
+@@ -4691,6 +4697,9 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
+ 	psrch_inf->endOfSearch = !!parms->EndofSearch;
+ 	psrch_inf->entries_in_buffer = le16_to_cpu(parms->SearchCount);
+ 	psrch_inf->index_of_last_entry += psrch_inf->entries_in_buffer;
++	psrch_inf->presume_name = NULL;
++	psrch_inf->resume_name_len = 0;
++	psrch_inf->resume_key = 0;
+ 	lnoff = le16_to_cpu(parms->LastNameOffset);
+ 	if (CIFSMaxBufSize < lnoff) {
+ 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
+diff --git a/fs/cifs/readdir.c b/fs/cifs/readdir.c
+index 9a7315aa24e0d..40005e7da5771 100644
+--- a/fs/cifs/readdir.c
++++ b/fs/cifs/readdir.c
+@@ -759,6 +759,9 @@ find_cifs_entry(const unsigned int xid, struct cifs_tcon *tcon, loff_t pos,
+ 			cfile->srch_inf.ntwrk_buf_start = NULL;
+ 			cfile->srch_inf.srch_entries_start = NULL;
+ 			cfile->srch_inf.last_entry = NULL;
++			cfile->srch_inf.presume_name = NULL;
++			cfile->srch_inf.resume_name_len = 0;
++			cfile->srch_inf.resume_key = 0;
  		}
-+		return rc;
-+	}
- 
-+	/* decode response */
-+	rc = validate_t2((struct smb_t2_rsp *)pSMBr);
-+	if (rc) {
-+		cifs_buf_release(pSMB);
-+		return rc;
- 	}
-+	/* BB fixme add lock for file (srch_info) struct here */
-+	psrch_inf->unicode = !!(pSMBr->hdr.Flags2 & SMBFLG2_UNICODE);
-+	response_data = (char *)&pSMBr->hdr.Protocol +
-+		le16_to_cpu(pSMBr->t2.ParameterOffset);
-+	parms = (T2_FNEXT_RSP_PARMS *)response_data;
-+	response_data = (char *)&pSMBr->hdr.Protocol +
-+		le16_to_cpu(pSMBr->t2.DataOffset);
- 
--	/* BB On error, should we leave previous search buf (and count and
--	last entry fields) intact or free the previous one? */
-+	if (psrch_inf->smallBuf)
-+		cifs_small_buf_release(psrch_inf->ntwrk_buf_start);
-+	else
-+		cifs_buf_release(psrch_inf->ntwrk_buf_start);
- 
--	/* Note: On -EAGAIN error only caller can retry on handle based calls
--	since file handle passed in no longer valid */
--FNext2_err_exit:
--	if (rc != 0)
--		cifs_buf_release(pSMB);
--	return rc;
-+	psrch_inf->srch_entries_start = response_data;
-+	psrch_inf->ntwrk_buf_start = (char *)pSMB;
-+	psrch_inf->smallBuf = false;
-+	psrch_inf->endOfSearch = !!parms->EndofSearch;
-+	psrch_inf->entries_in_buffer = le16_to_cpu(parms->SearchCount);
-+	psrch_inf->index_of_last_entry += psrch_inf->entries_in_buffer;
-+	lnoff = le16_to_cpu(parms->LastNameOffset);
-+	if (CIFSMaxBufSize < lnoff) {
-+		cifs_dbg(VFS, "ignoring corrupt resume name\n");
-+		psrch_inf->last_entry = NULL;
-+	} else {
-+		psrch_inf->last_entry =
-+			psrch_inf->srch_entries_start + lnoff;
-+	}
-+	/* BB fixme add unlock here */
-+
-+	/*
-+	 * BB: On error, should we leave previous search buf
-+	 * (and count and last entry fields) intact or free the previous one?
-+	 *
-+	 * Note: On -EAGAIN error only caller can retry on handle based calls
-+	 * since file handle passed in no longer valid.
-+	 */
-+	return 0;
- }
- 
- int
+ 		rc = initiate_cifs_search(xid, file, full_path);
+ 		if (rc) {
 -- 
 2.53.0
 
