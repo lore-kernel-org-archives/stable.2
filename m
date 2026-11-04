@@ -1,55 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793832864;
-	b=5kHqz9M7j0u21ewUqOzzQw41uzfiRwe1PFBtD45Ea2SOERkEfQ3n8JHWQGq7WFHHuhL0
-	 B8A4wwxcVxexMM9n/xe8QjSAgF3374E5Oolpc08+nLgFnxST7Xvm9/kMsiqSae3GZ0Vik
-	 euGKhNxEZVlphkjP8TVjNKHnUKpajIC5CLnIfTNh3RtI/JN+jI232ePGqMg1xJWt2udHu
-	 6klQ7dPnanrw66T8ueUOYr7Z7lYMlp9L8hKpYHPEEXDn2BsyGjhillIQyDRRRen8IpkOH
-	 1s8netxZAqIATt0Obsw74v1e8faxgly2uduuBTOtUXwgHyVwon2AJrUoTkIOqg8U3tQ==
+	t=1793833072;
+	b=f+QZoniQHgS4+VUSnYKFz9KbJKWA0iHGbMUvahAEQOTVya/6lLVpaha/eFcllXEC0sAi
+	 JLKFCROBniC/wpsBELajhPMKBVkydTTQi1VqK3WAjWwI+TQ6AY9zNUaRyLJCYxbZC8fNM
+	 BUTxETMP9lenHg/ojtM8URmZd1CR2ZYI01Wh/bpcW2U9vvY9I4DwumTcVexgMqmc6VXaa
+	 Ohv6WS+qZ2EgsSTGG7N5GZ9+xw3pkooipIdfZ5C8yJbdwcjEOsspbz/iEDrdoh9QGs55s
+	 uiTiqd9/eIL7pR+Bd7LwnT1dG7lrs1BbWFt3dPwxlNz4SveQNbwyQ2uYo3O9MUOsroA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793832864;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=74FcWjy0ZHL5YPzci5eZPYO959+1gWbym1W+k8aITh0=;
-	b=bNymFw8G7oquFujwTY8GN8/8RaiuAenEU39aQSCdnHjDvhK3STnlIZk/8lbLqst6QLqT
-	 FDMMVq3WKRSgryG9Xtpm2hIrmAfLb0mFzkzb37+1CMUiD+j2AQtUxm4OPL2Ls8gTG95wE
-	 liC+WfkdUw3YIcRHxMLWyeeDEPRloMRHXPMhnrSf6S7JFX10S0UI6qMJm40PDl49mQTUL
-	 HlPlUe3igmXbeJib+oC/ONdZs9xi8ZkLLSz5Ktgi+8Lw4J/WxM3R9bh9rdttjbv9TF7Qz
-	 V9PnZr5AkliMbulwag3n8STVULKxqZ8l0+BvajXnywAutXCVH97KzJSFi0dFkMqZE4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793833072;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=bZmm/fjciQHFDsHygF6gqzElYGHv0HpumcgfM0NGUjo=;
+	b=fQ4IjiZFaXAFxrVgZirYtWQ5e1xWhp4hitd9X3Vl4/1dVJKJQm4YYTTMYLgbHWz+ejDT
+	 7gVMk9Olxj/Vwmw3nxxKHpDzy3on0QUAcIrzlrM+SXeGcfHke3cMACHkLiShW/YcYONQs
+	 8m10+TOFKXQrafADH7m1WBY7i0vZ66s7LmcCe/bt/XQtg0Hlhd25x52+vtRcC/mpm4Szu
+	 2LsAoQRGkr2n2aCidngRZfkjgueD8rAB+gu097cxspG56FC1+dUVzmOM72BJz21YWU82i
+	 K8N5rokA4YbUOEKTrhr52Jx/QXrOC2RjhTFGZR1hTuDeEnNJybW1droovibO7Ipp1Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aDJw6LN/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cDfTc7XW;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD55606A32C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 22:54:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B24606A329
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 22:57:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3B24606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aDJw6LN/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3B7B1F000C1;
-	Wed,  4 Nov 2026 22:54:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793832856;
-	bh=74FcWjy0ZHL5YPzci5eZPYO959+1gWbym1W+k8aITh0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aDJw6LN/DwGKEMXCofyABC4qee9nxcTYSr2Kf2MTOxB/VLZRqy8ZFOBuzR+jxYxPu
-	 dEUipqYsXwZWlShvlOjfVB62ahl9pvf+cKlkjB4eo9gd75VTNFdW2ikchoJADaJSCt
-	 S0NR8JWtK0uM6pi/xS7XjB5Ecklxs74BUpzPjlpTjhpLDZzWsSN4QPq8Uv3DC0BXwv
-	 pnq7ka2b7rpJAltz2cWpF4HjMeNBxw+A/WV9fmXqE346WFkyMwJjComSxnbTV2BUu/
-	 jKWPQpNcLv1/0shATkrgWpOptlkValfeMUBSgllwjkKxCPN+PU0HeTuAaZlp6q7oFH
-	 ADXTfu1eXOAbQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Richard Patel <ripatel@wii.dev>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] genirq: Defer kfree(irqaction) until irq_thread_dtor() finishes
-Date: Wed,  4 Nov 2026 17:54:14 -0500
-Message-ID: <20261104225336.845493-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110452-liability-uncooked-f75f@gregkh>
-References: <2026110452-liability-uncooked-f75f@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cDfTc7XW
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so11070985e9.3
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 14:57:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793833070; x=1794437870; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bZmm/fjciQHFDsHygF6gqzElYGHv0HpumcgfM0NGUjo=;
+        b=cDfTc7XW0ifae+8M1LuPWAwdIdNKakZkFWFnJt6KL55fGa37RQmqkq2uRmhEY7B1n3
+         CaBTcgavNgfBak+NIwaNa3H5fTfJ9PIT5PgZQgH2MazyhDmo4aFllXX0SMasXGEEM9Fl
+         p/51Tb9ZeDWq1NeJnxB9QMyf1cDUO3GXJQBRKRgploH8Le81bwbGb+y13nOzQrXCWpNq
+         F42HKXSHEzc0A6bpTaknb/yOiq64kB0H1wCLiqtk4d1YdokCcUVaxOjocfuDaznMEOXl
+         BFMxyeOdRQgLkukh4xswNJohIqsIMfXRyH1cjs8NbBnWvzJr4LA0LYjw3tAYWNzSjLvS
+         MNIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793833070; x=1794437870;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bZmm/fjciQHFDsHygF6gqzElYGHv0HpumcgfM0NGUjo=;
+        b=SpzDsdjls0wyqvAlyQy4DjsXyrbf1mVNOGIeaH79F/QAjQpZ+7hJHFoDhjXvNKTQpK
+         bg7/B9Ei0VTiP6/RlVhBPyATKCJPrEU9196xvR5mzicFwMy5dnnVCYbaXZbauIhRsuJZ
+         VpHQpA3KjoA2kRQpPekTInlR/QuQrzIv7pt6/oUCs+jGdIsAv0wKvaj71JR9SVS+EfBe
+         /47am//AZ9CD1xWFLYWxw7tp8fSgIk4WsVybzAeioNqkcHpsBO5rMMgg0eBQIfPMkBFI
+         kCaM3qWBjqr1jlJPpQUfvE5GT3tHYorZaFWU0VPJaRQZ7eAh+sEpyUE6B8F5CJfVl1jj
+         MSQw==
+X-Forwarded-Encrypted: i=1; AKwUvBxt4EY9u2Z8ZdVknWEMIcBkOGmhMAap4EnKMnDDcGBEu4rb3xidisgC1dB6peNjlq5G22cNJAw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9IPZqSnbRneutpZ7ucQ9+VzM70l2u0YQAfMIcz4OuRvjkyrj0E
+	q99BAGMOgMVH4iWMd/p6QYH+xXkTdRfqTlG4yiffkKGq2kmK/9oxrUiT
+X-Gm-Gg: AYBFou183Al1uoX/nrdN7MRI82t5GvT9GbKXuZAhPErlaqoJZ7htvkY6zpM28uWQYvu
+	JdfmGSepe0iKwS4iKmhiOE1t8oW06NEqvHd9Cy+GyW+oDDWZhopVky7GzArsRHUBXvoL4cRT5zH
+	rePEeQ25U1+aH/D3BYcUZyt9eVz32qD/ymIv0jIUNpokmEvtGwx04wC2OzuUe1eZwkiEK6gDSBZ
+	ieF/z1Y3ghMfJqTP7FtIvQhMZJ0tXihsQK7SkMkre2r3hUBG3uDbZ+AqQYjiWgrkQNkUh5nNirc
+	HXrKZKnP2KXv8L0m4osGs0anKcsVsCtUnBXi2ep94UG+Sf2BDR8twf9LVtApL3B2IH/y0K4iEb3
+	q1zi6iSd6oKuMAd+sGoO81HBso5CzFgXao3rTbndZlUdeNDFFnI9DG5jAbI+oYnie0nKQYItVIe
+	P2rXh9lY38qOhBpNgj638scmg5Mm9mwwE9r4XUtM0CVJj5Rt8osZXktF3zq178nZ6+ZZz+S9s5R
+	aec/2KURFmHO/XsRnPvE16Wm5T9ACcikcw2kpN7uKiaf9T/Omz6YQ0IcLoYmVYIko2cWCv80DzM
+	RGX9Q8KcljFavNJITVxMHDk=
+X-Received: by 2002:a05:600c:6212:b0:4b0:a7aa:843 with SMTP id 5b1f17b1804b1-4b0a7aa0a54mr222825565e9.25.1793833070285;
+        Wed, 04 Nov 2026 14:57:50 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b5725061e1sm17756545e9.7.2026.11.04.14.57.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 14:57:49 -0800 (PST)
+Message-ID: <93d13781-0c37-4a3c-8fca-6f8108eff35a@gmail.com>
+Date: Wed, 4 Nov 2026 23:57:47 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,160 +92,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/4] mm/rmap: duplicate a PMD mapping as one in
+ folio_dup_file_rmap_pmd()
+To: Konstantin Khorenko <khorenko@virtuozzo.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+ =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ stable@vger.kernel.org
+References: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com>
+ <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-1-c56d0d26f970@virtuozzo.com>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-1-c56d0d26f970@virtuozzo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Richard Patel <ripatel@wii.dev>
+On 11/4/26 9:40 PM, Konstantin Khorenko wrote:
+> folio_dup_file_rmap_pmd() passes PGTABLE_LEVEL_PTE to
+> __folio_dup_file_rmap() for HPAGE_PMD_NR pages, so it adds HPAGE_PMD_NR
+> PTE mappings to the folio instead of one PMD mapping.
+> 
+> The helper has no caller yet, the next patch adds the first one. Pass
+> PGTABLE_LEVEL_PMD, as folio_try_dup_anon_rmap_pmd() does.
+> 
+> Fixes: d8ef5e311d7b ("mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 
-[ Upstream commit d04adff6860587e843948b0c31174f8ae11b8dfe ]
+LGTM:
 
-When an interrupt thread exits abnormally via do_exit() (e.g. the interrupt
-handler oopses) without returning from irq_thread(), a concurrent call to
-free_irq() could free the irqaction before the irq_thread_dtor() exit task
-work runs.
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-  irq thread (oopsed)                 free_irq()
-  -------------------                 ----------
-  do_exit()
-    exit_mm()
-      complete_vfork_done()  -------> kthread_stop() returns
-    exit_files() ...                  kfree(action)
-    exit_task_work()
-      irq_thread_dtor()
-        action->...                   <- use-after-free
-
-Track the pending exit work with the IRQTF_EXIT_WORK thread flag, and have
-__free_irq() wait for the bit to clear before kfree().
-
-irq_thread_dtor() only runs on irq_thread abnormal exit. If that dtor also
-faults, free_irq() will hang indefinitely, but double IRQ thread faults
-require a reboot anyways.
-
-[ tglx: Add missing include ]
-
-Fixes: ed3e694d78cc ("move exit_task_work() past exit_files() et.al.")
-Signed-off-by: Richard Patel <ripatel@wii.dev>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261009145842.1616117-2-ripatel@wii.dev
-[ sashal: Replaced unavailable kthread_stop_put() with kthread_stop() followed by put_task_struct(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/irq/internals.h |  2 ++
- kernel/irq/manage.c    | 32 ++++++++++++++++++++++----------
- 2 files changed, 24 insertions(+), 10 deletions(-)
-
-diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
-index 35e85323940c3..7f1b7c1534d18 100644
---- a/kernel/irq/internals.h
-+++ b/kernel/irq/internals.h
-@@ -30,6 +30,7 @@ extern struct irqaction chained_action;
-  * IRQTF_AFFINITY  - irq thread is requested to adjust affinity
-  * IRQTF_FORCED_THREAD  - irq action is force threaded
-  * IRQTF_READY     - signals that irq thread is ready
-+ * IRQTF_EXIT_WORK - irq thread exit task_work is pending
-  */
- enum {
- 	IRQTF_RUNTHREAD,
-@@ -37,6 +38,7 @@ enum {
- 	IRQTF_AFFINITY,
- 	IRQTF_FORCED_THREAD,
- 	IRQTF_READY,
-+	IRQTF_EXIT_WORK,
- };
- 
- /*
-diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
-index a5843563d0154..8827e7cb7166e 100644
---- a/kernel/irq/manage.c
-+++ b/kernel/irq/manage.c
-@@ -21,6 +21,7 @@
- #include <linux/sched/isolation.h>
- #include <uapi/linux/sched/types.h>
- #include <linux/task_work.h>
-+#include <linux/wait_bit.h>
- 
- #include "internals.h"
- 
-@@ -1216,17 +1217,14 @@ static void wake_threads_waitq(struct irq_desc *desc)
- 		wake_up(&desc->wait_for_threads);
- }
- 
--static void irq_thread_dtor(struct callback_head *unused)
-+static void __irq_thread_dtor(struct irqaction *action)
- {
- 	struct task_struct *tsk = current;
- 	struct irq_desc *desc;
--	struct irqaction *action;
- 
- 	if (WARN_ON_ONCE(!(current->flags & PF_EXITING)))
- 		return;
- 
--	action = kthread_data(tsk);
--
- 	pr_err("exiting task \"%s\" (%d) is an active IRQ thread (irq %d)\n",
- 	       tsk->comm, tsk->pid, action->irq);
- 
-@@ -1243,6 +1241,14 @@ static void irq_thread_dtor(struct callback_head *unused)
- 	irq_finalize_oneshot(desc, action);
- }
- 
-+static void irq_thread_dtor(struct callback_head *unused)
-+{
-+	struct irqaction *action = kthread_data(current);
-+
-+	__irq_thread_dtor(action);
-+	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
-+}
-+
- static void irq_wake_secondary(struct irq_desc *desc, struct irqaction *action)
- {
- 	struct irqaction *secondary = action->secondary;
-@@ -1301,6 +1307,7 @@ static int irq_thread(void *data)
- 	else
- 		handler_fn = irq_thread_fn;
- 
-+	set_bit(IRQTF_EXIT_WORK, &action->thread_flags);
- 	init_task_work(&on_exit_work, irq_thread_dtor);
- 	task_work_add(current, &on_exit_work, TWA_NONE);
- 
-@@ -1325,6 +1332,7 @@ static int irq_thread(void *data)
- 	 * oneshot mask bit can be set.
- 	 */
- 	task_work_cancel_func(current, irq_thread_dtor);
-+	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
- 	return 0;
- }
- 
-@@ -1859,6 +1867,13 @@ __setup_irq(unsigned int irq, struct irq_desc *desc, struct irqaction *new)
- 	return ret;
- }
- 
-+static void irq_stop_thread(struct irqaction *action)
-+{
-+	kthread_stop(action->thread);
-+	put_task_struct(action->thread);
-+	wait_on_bit(&action->thread_flags, IRQTF_EXIT_WORK, TASK_UNINTERRUPTIBLE);
-+}
-+
- /*
-  * Internal function to unregister an irqaction - used to free
-  * regular and special interrupts that are part of the architecture.
-@@ -1963,12 +1978,9 @@ static struct irqaction *__free_irq(struct irq_desc *desc, void *dev_id)
- 	 * the same bit to a newly requested action.
- 	 */
- 	if (action->thread) {
--		kthread_stop(action->thread);
--		put_task_struct(action->thread);
--		if (action->secondary && action->secondary->thread) {
--			kthread_stop(action->secondary->thread);
--			put_task_struct(action->secondary->thread);
--		}
-+		irq_stop_thread(action);
-+		if (action->secondary && action->secondary->thread)
-+			irq_stop_thread(action->secondary);
- 	}
- 
- 	/* Last action releases resources */
 -- 
-2.53.0
-
+cheers,
+jose a. p-a
