@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818415;
-	b=0j7qOZIldYGIHLvHh1rdMmZmsjtWFpZajh4+7kYd+ZFSpzYNJiSEuPeURpaIWkRwVqU1
-	 aMPQ6Ik6aJFsZLbjXVRKsfJeoWAuHV5zUkUarHE4gQ6ktQNq9Z3DqYT2SWCinDXnbYHXP
-	 KGY47/vZN0Es0knCeGF6macjv9CJvmogrOxcTCs+w1ox4zTm5soVjBftDC5RkC7kAGbau
-	 dWCCLwgEgxYPf6gIaMEPNXCK/GACQ/7Jo7JtHMcIo7VvbfzZnBdAhdYhZuWNn89spzzl/
-	 9LmV1CNjUE1CfLYTaefWGN3PkpQrYjiUrtkDyqqTDqk/livfvoWKXkpuXL4X8KoR31w==
+	t=1793818417;
+	b=CVOYrsrgK4TUtPQQAWHUXbL1utVtC/RayuN6aIK0NlMoNYgwm2C6vdS9PmaxQSjtQ4R/
+	 oij43krZzBmiiu9NEg6tDI3DkNk0SVPlojDXd8IXOBttiRIbc27b+p4Oltu7zlap2byiM
+	 EVJ116wlm2jXefm/MC6oO5GV+bnps3LRTRyEBph/b52vBNUDercalUXAvRaasIEmo3S7B
+	 A0W+f+S/rnY7K6v3P0WJrNE/5JWUIktb4v4vVR1nByPo+ed2kju8c+0h09NDe/1vLeiL4
+	 O0unxTWj+CtzFFAWODxdti+ypPI4+XRzc2bMK+j6EN7YLSimouswd2/xksStXHVH5XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818415;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818417;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=qyjgZVElkhxmNn8MT/L1bkLtwLPYv0DPOtVpq0J4bIE=;
-	b=TylR4XJNt/yCd9/RUXlGrFrfRBjS2QesRfkxaTzdxoZiwMA2BAJXJdt8SY7OnJ60g6iQ
-	 +FSgl1j31zF3cISTU3MIkVx/PM9PfFFmZztkF3p+Fopwfssg8WMf7hw9jsTjNIRqN9nSl
-	 11KirMkthBJQm+lHAkIcwakGozns+vz28B/7cPN3Mx5T8SNndgAL9NdJwdECOFpzfR4kC
-	 hKXr3zuYlYJf4By6Stkw+1oYy0+dVkfDsBcYpJm5c7J3vuMzjUp98sl9PfXXCG3tWJ+wF
-	 IYG4v9HQRN9T8u5BSHXjzgIbGVhokZjIhZpDHCeaCSIrFpt/bQiwlgZkAkzZCgxF1fg==
+	bh=fTFa5tjzgE4zGkn73srDHCFk786w6Pf4qBrXit8GrKs=;
+	b=q0ejM8Hq+D+j3noLa5U8lWzGnIKPvygIXcxvLkQXGaiNPpwq8XJ7m2Vxns475zF5doNu
+	 k3GeGbi1fX8J+cC0OhDbXR5ShVcq34ZTMmAVzS3LbL4l1D8Abss/1LDYageHDEAE+czRZ
+	 A1NCLk3xkheKijdEG2hqaxzC7TVOMdKVkJZbRW5PQ/QDRnBzdf1HOz8ufHovk+4CDW8Q6
+	 88bujqfSakuzcO7ehsCrkHtx3P2Hl6XtNpB/caxs4vBQ+1wYREA/D890hks/8CNO56o1B
+	 nZPPlPxJKrsBUPbExi/JtSJtkwtgTYoqZWECQlRBguCUqwkPvx9Yl3qjWo62CdmXx8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="K5/Id/Ia";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="OHcee/us";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B50F606D835
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:53:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2DA606D835
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:53:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K5/Id/Ia
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDE4A1F00919;
-	Wed,  4 Nov 2026 18:53:34 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OHcee/us
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66CF61F00919;
+	Wed,  4 Nov 2026 18:53:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793818415;
-	bh=qyjgZVElkhxmNn8MT/L1bkLtwLPYv0DPOtVpq0J4bIE=;
+	s=korg; t=1793818416;
+	bh=fTFa5tjzgE4zGkn73srDHCFk786w6Pf4qBrXit8GrKs=;
 	h=Subject:To:Cc:From:Date;
-	b=K5/Id/IaRX8CNmpUdrnDQhGtqNK2sCKh3pMWq4ywHnbCMNZAihqqwv5FS8M6FP5tA
-	 +uT/Ksimqhoh8wfaiG6NKeNfr7FoLSzIZIVhSa/RMPHs+hWcVAikjyRfkpPATAou0Q
-	 jGFacpDRnWVfqnq/MWtD6V9OdmjCZNRxgwvzj1/s=
-Subject: FAILED: patch "[PATCH] NFSD: Set nn->cld_net before registering the cld pipe" failed to apply to 5.15-stable tree
+	b=OHcee/us8MHhFJEFJG6HGkki0W1eCq7y0q8FvI/GrVLXDyFkeT5InmxAKyZJzFEjr
+	 CU6uzOfG0gPZ857s5IILbUWf4Bjn10WqcPgdqITjNCTnHLxogOQftdXrsLzgZVsQ29
+	 e7XpC3jWj0wI6MN7J9aa/ckHg/1/jVY1XmcM1VPo=
+Subject: FAILED: patch "[PATCH] NFSD: Set nn->cld_net before registering the cld pipe" failed to apply to 6.1-stable tree
 To: cel@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 13:53:32 -0500
-Message-ID: <2026110432-spoilage-unseemly-ecac@gregkh>
+Message-ID: <2026110432-unearth-superjet-be12@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 14996e662f3b734427e2d645cacffc27b779f7d1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110432-spoilage-unseemly-ecac@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110432-unearth-superjet-be12@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
