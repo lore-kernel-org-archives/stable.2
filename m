@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826897;
-	b=znvElajMdAnZn6TrZELZEvi9EFF1sE6b5XrYjus3DH657nIBcbOj4xHu1yVx7VqnB6so
-	 +z3EsGBOi4ntd//O6l8M8wuXSAoQp3ppeCpKgf64bPPYO+TSfuer96UCwosVk5s2Gc0Lp
-	 HZWGBfC1ddiJTEAP1NpnCjWbxYD9cDmhfqBnNYbMYLZVVx9batGGUpKzU98VJ/wQKMzLM
-	 42fnL6O1g/91pWk37cTthx/QTowfwX2FRUgiN4wGdZt/qo3OpAM8duOgHsDyTsdNb5NHy
-	 9LPkTtUk2DXXeOleAqLIln0owkvmUegReyBV1WWMLvB2finxrCIT4ZAZuIWawDifrOQ==
+	t=1793826903;
+	b=KSkgdX2RTsUvvmD1qrPHDAOL3RLx6dS+AY0XcEM2mDDGYtDBVnFjTcyY3Ppd1rH5SK+D
+	 ys5025QJOa3H3uBhu1YEXIoYw4lfbzFVs4/x99Qltec6ElErqRP7lB/Y5OMSwBBPJOtWY
+	 TEc9nfo4F9LW7xflivg7r1IfhphMfzVDI1IWhlBpTuQfFFcn2N1sTk7KfSPxaA/UJ2PQT
+	 OqZVShJqsouq09lKbDot6OyEDMcZ20piEipenR/XXsO+BhFtFmpzSh876XRIiazrzJcrv
+	 Rd7hOH3lSv27+wHe78YAxKr7OZ6K/ChDRtAGqEKUB1rS4HKi8dHcQNpid7qyW8ggsWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826897;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826903;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CjG+oREx2WvP5NWTO0L21NS7l0ODlLJ30zPN15dSUHI=;
-	b=J2eI+JWATsqMe/0UUQFch2avCTNxinuS7kAhKXe1HGa8vBOsAGSOKDDLhRgDCoFRJsN8
-	 IgJjhsQrw/TxcDgV8DxXGMIyOhuNsRI07Xgk1cKDHb3A7qYUk0txij2tkoVhEFQRIAiy0
-	 4SMd9CO5ycR+bt2im1YQGVzgUM66FRgYsmQcxL5EZex83Pl8kvvV+l4SE5LkCSQ6tWm7/
-	 q0QPfgks3n1ceT+VbM00vrPEnrQMhj2UsyQPqdx/hAXNio4SJ+coOyHy1xnJ6hTroVmcN
-	 s34xcZ8lVylKAg1W4qPBW2YYrzPyFtTQPlyxyAaok9ShNt3IJ0VOEuT83c45tn9QMdw==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RgE8sp2SgWZ2MpXy+XvL7QDHKaXTwRxsyDMFpWoMjPo=;
+	b=RiyXG3aG3sH+pNn9xxQCWSTpazOTpROx1EMpwYCeMEamqXl2Vx/7L4BFq74IZ8Vx5VrZ
+	 DcqNQZ6B/2KePpVjkr9zVvqlzmBH5/HCb+ahFtoR/wLRcjPf5MFj67fcjcCOWn2ZhKfax
+	 wiHr+r0PWHyBv0XQHn5kDoMH+8piqMPD2LsH+VQbeyezdikIUsQaFutE79L5SZjoAqBw0
+	 +in+zBdOQiBOGC9tjfWIWj+qD35N7iNWy3THUTVw17cfKk68z91c3SpBcS1L9gmHyqtRY
+	 w7x1p3BTxa0505krRyDHdvReHnIQxZu1lurXIQVS5V+qpNdkPaH6l1ZHZaFELYrglyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XK7EeZCM;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RrXy1tuP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DD26070762;
-	Wed,  4 Nov 2026 21:14:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8E36070775;
+	Wed,  4 Nov 2026 21:15:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XK7EeZCM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2C091F00919;
-	Wed,  4 Nov 2026 21:14:55 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RrXy1tuP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55DB1F000C1;
+	Wed,  4 Nov 2026 21:15:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793826896;
-	bh=CjG+oREx2WvP5NWTO0L21NS7l0ODlLJ30zPN15dSUHI=;
+	s=korg; t=1793826903;
+	bh=RgE8sp2SgWZ2MpXy+XvL7QDHKaXTwRxsyDMFpWoMjPo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XK7EeZCM6x4dhjrxqV+/6L/G8RY49mH6tDMQJL5I4wV0E0uu/lCmLSb3E5ijs8M3R
-	 4O2k/neh+5bsAhaeEKjesnPibQGHSdW5GU+Pc45Ns2zpdq85Nca5UyTyvPsfGsfux4
-	 NNJOimfpMxLr9x6tCmfFd/t+jrwne9VKXGHclG58=
+	b=RrXy1tuPIZ0JbSS17AahoycqNjYOsI0SDsb2fpKQt/obLfWGGGLb8DV3xmWpdMjSx
+	 5aF7yj2gUghk2Fo6hOWHCCHQZSis/7OfcPrHQVqDXGtsapLNQNSdY6YdV/X/nDP5fR
+	 mZ49oMsIu7x+CPctY6boQLr0vAXuNjM8uR4m0GBA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Sashiko <sashiko-bot@kernel.org>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH 7.3 071/547] blk-crypto: fix NULL deref and UAF in __blk_crypto_evict_key()
-Date: Wed,  4 Nov 2026 16:04:15 -0500
-Message-ID: <20261104211040.280623826@linuxfoundation.org>
+	Marco Elver <elver@google.com>,
+	Andrea Parri <parri.andrea@gmail.com>
+Subject: [PATCH 7.3 075/547] kcsan: Avoid division by zero in kcsan_prandom_u32_max()
+Date: Wed,  4 Nov 2026 16:04:19 -0500
+Message-ID: <20261104211040.389473501@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -63,106 +61,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 7.3-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Baokun Li <libaokun@linux.alibaba.com>
+From: Andrea Parri <parri.andrea@gmail.com>
 
-commit c8c53d669d4e45b3a804013251a34387d7e11bfb upstream.
+commit 99b6fcce87037cfb6b5e177848342e97f5141205 upstream.
 
-Sashiko reported a possible NULL pointer dereference, triggered by the
-following flow:
+KCSAN's skip_watch, udelay_task and udelay_interrupt parameters can be
+changed at runtime through /sys/module/kcsan/parameters/, where 0 means
+watching every access or not delaying at all. With the default
+CONFIG_KCSAN_SKIP_WATCH_RANDOMIZE=y and CONFIG_KCSAN_DELAY_RANDOMIZE=y,
+writing 0 to any of them makes the next watchpoint setup divide by zero:
 
-  dm-inlinecrypt ctor            # first use of the fallback
-   ├─ blk_crypto_init_key()      # succeeds, ctx->key.size != 0
-   ├─ blk_crypto_start_using_key()
-   │   ├─ hw-wrapped key: -EOPNOTSUPP
-   │   │    # profile never allocated (NULL)
-   │   └─ raw key: fallback_start_using_mode()
-   │      └─ blk_crypto_fallback_init() fails
-   │         └─ kfree(profile)   # not NULLed
-   ├─ goto bad
-   └─ inlinecrypt_dtr()          # evicts whenever key.size is set
-      └─ blk_crypto_evict_key()
-         └─ blk_crypto_config_supported_natively() = false
-            └─ blk_crypto_fallback_evict_key()
-               └─ __blk_crypto_evict_key(blk_crypto_fallback_profile)
-                  └─ profile->num_slots # BOOM!!!
+  # echo 0 > /sys/module/kcsan/parameters/udelay_task
+  Oops: divide error: 0000 [#1] SMP NOPTI
+  CPU: 0 UID: 0 PID: 93 Comm: sh Not tainted 7.3.0-rc5 #3 PREEMPT(lazy)
+  RIP: 0010:kcsan_setup_watchpoint+0x1b5/0x410
+  Code: ... 65 89 05 ad 8d 98 02 d3 ee <f7> f6 29 d7 e8 22 0e 0f 01 ...
+  RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+  ...
+   __show_trace_log_lvl+0x1bd/0x315
+   __die_body.cold+0x19/0x2b
+   die+0x34/0x50
+  ...
+  BUG: TASK stack guard page was hit at ffffd3ab001fbfe8 (...)
 
-This issue can be reproduced using the following commands:
+reset_kcsan_skip() and delay_access() pass these values unchecked to
+kcsan_prandom_u32_max(), which returns "state % ep_ro". delay_access()
+halves the delay for compound and assert accesses, so
+udelay_interrupt=1 is enough there.
 
-  dd if=/dev/zero of=/tmp/backing bs=1M count=64
-  LOOP=$(losetup -f --show /tmp/backing)
-  SZ=$(blockdev --getsz $LOOP)
-  KEY=$(head -c 64 /dev/urandom | od -An -tx1 | tr -d ' \n')
-  dmsetup create ic --table "0 $SZ inlinecrypt aes-xts-plain64 \
-    $KEY 0 $LOOP 0 1 keytype:hw-wrapped"
+The oops path runs instrumented code, which faults again until the stack
+overflows. With skip_watch=0 the guest hangs without printing anything.
 
-And the following oops is triggered:
+The division came in with commit 71a076f4a61a ("kcsan: Rewrite
+kcsan_prandom_u32_max() without prandom_u32_state()"). Before it, the
+helper scaled the random value with a multiply-shift, which yields 0 for
+ep_ro == 0. Go back to that via reciprocal_scale().
 
-  ==================================================================
-  blk-crypto: loop0: no support for wrapped keys
-  Oops: general protection fault, probably for non-canonical address
-        0xdffffc000000000b: 0000 [#1] SMP KASAN PTI
-  KASAN: null-ptr-deref in range [0x0000000000000058-0x000000000000005f]
-  CPU: 5 UID: 0 PID: 901 Comm: dmsetup 7.3.0-rc3 #1 PREEMPT(lazy)
-  RIP: 0010:__blk_crypto_evict_key+0x2e/0x3b0
-  Call Trace:
-   blk_crypto_evict_key+0x24c/0x320
-   inlinecrypt_dtr+0xf6/0x160
-   inlinecrypt_ctr+0x2d3/0xbd0
-   dm_table_add_target+0x661/0xf40
-   table_load+0x1c4/0x490
-   ctl_ioctl+0x32f/0x5f0
-   dm_ctl_ioctl+0xe/0x20
-  ==================================================================
+Tested in an x86-64 KCSAN guest with virtme-ng: after this patch,
+writing 0 to each parameter, or 1 to udelay_interrupt, no longer
+oopses. skip_watch=0 now watches every access, which is very slow with
+the default delays but completes when they are set to 0.
 
-dm-inlinecrypt is the only caller that can evict a key that was never
-started, as fscrypt frees such a key without evicting it.
-
-Fix this by returning early from blk_crypto_fallback_evict_key() when
-tfms_inited[] is not set for the key's mode.  tfms_inited[] is only set
-after blk_crypto_fallback_init() has successfully initialized the
-profile, so the crash above is no longer reachable.
-
-The bug has been latent since commit c984ff1423ae ("blk-crypto:
-dynamically allocate fallback profile") was merged in v6.5, and only
-became actually triggerable when commit e7f57d2c47e2 ("dm-inlinecrypt:
-add target for inline block device encryption") was merged in v7.2.
-
-Fixes: c984ff1423ae ("blk-crypto: dynamically allocate fallback profile")
+Fixes: 71a076f4a61a ("kcsan: Rewrite kcsan_prandom_u32_max() without prandom_u32_state()")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://patch.msgid.link/sashiko-outbox-167341@kernel.org
-Suggested-by: Eric Biggers <ebiggers@kernel.org>
-Link: https://patch.msgid.link/20261014155131.GB322435@quark
-Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
-Reviewed-by: Eric Biggers <ebiggers@kernel.org>
-Link: https://patch.msgid.link/20261023081908.3505413-1-libaokun@linux.alibaba.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Assisted-by: LLM
+Reviewed-by: Marco Elver <elver@google.com>
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Signed-off-by: Marco Elver <elver@google.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- block/blk-crypto-fallback.c |    6 ++++++
- 1 file changed, 6 insertions(+)
+ kernel/kcsan/core.c |    7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
---- a/block/blk-crypto-fallback.c
-+++ b/block/blk-crypto-fallback.c
-@@ -524,6 +524,12 @@ bool blk_crypto_fallback_bio_prep(struct
- 
- int blk_crypto_fallback_evict_key(const struct blk_crypto_key *key)
- {
-+	/*
-+	 * Pairs with smp_store_release() in
-+	 * blk_crypto_fallback_start_using_mode()
-+	 */
-+	if (!smp_load_acquire(&tfms_inited[key->crypto_cfg.crypto_mode]))
-+		return 0;
- 	return __blk_crypto_evict_key(blk_crypto_fallback_profile, key);
+--- a/kernel/kcsan/core.c
++++ b/kernel/kcsan/core.c
+@@ -290,8 +290,9 @@ should_watch(struct kcsan_ctx *ctx, cons
  }
  
+ /*
+- * Returns a pseudo-random number in interval [0, ep_ro). Simple linear
+- * congruential generator, using constants from "Numerical Recipes".
++ * Returns a pseudo-random number in interval [0, ep_ro), or 0 if ep_ro is 0,
++ * which the runtime-tunable callers may pass. Simple linear congruential
++ * generator, using constants from "Numerical Recipes".
+  */
+ static u32 kcsan_prandom_u32_max(u32 ep_ro)
+ {
+@@ -300,7 +301,7 @@ static u32 kcsan_prandom_u32_max(u32 ep_
+ 	state = 1664525 * state + 1013904223;
+ 	this_cpu_write(kcsan_rand_state, state);
+ 
+-	return state % ep_ro;
++	return reciprocal_scale(state, ep_ro);
+ }
+ 
+ static inline void reset_kcsan_skip(void)
 
 
