@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827026;
-	b=oThboCOPz3chzKvsHajE+UKcJq3pnmXZL0t+t4929ttCTjJfk1ok/6W5U/NbZ4dDBZKW
-	 RCK0aXcbc1FqOrOV3eQfPZQMrbudXz90RrHCY4wXRle1ci4AqdGPqlXYRIsDcSmBzZK17
-	 MjQL/W/v5wIBvM3fRTrRNhsPzc7cuICUPmUSiPzOgnQkJPj1+ML+5RQovm6CAguI+Szug
-	 /v/pnk81x2iQDHpNKG0XFYFSv3HYjN43WSSeXxlHq9IdgYjid3W4D7Tc8xUPjTHP/5Ied
-	 m7p4kHiTh8b1GNFBIb6Jeg4eXZNTTR2gOIHcHngnUEp48nRTHlmbWAvnRiMKP8jFpyg==
+	t=1793827028;
+	b=Vq6Ip3Dd2TBNIR7xnI1Hyz9J8fmTHyGywo0XgpfzmZe3cghMQ2G8/DSE/JKU2kcd1Dh6
+	 b/Qw3f/fnzfqlvlTjETWUsp9cD01HlCXEeGKJTrseZ9TVF0zFDx5EWaWxvbiQ3dc3BYxI
+	 C8P62vKsPU0a/8ylgLOUcSCqHIppW7oTIpV5HU9B/RiimSSx/qZQMNh998nzga2vhLLIG
+	 EOTspnGNjXJlcE2Ac+co3hcfJH9Wm0OzagSwv3jlYSIcfta9NEL81Q7TN/TtokC0zajIz
+	 R92EMOCATmSGMeoJfhZ5MtQehsLsFOTxU6g5n/V+zuZhOVqDGJj7DnovFsEeCXn7lEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827026;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827028;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pv09KNf04NaAk5A0cAyuZw5dClmLNLk7SnSV1QkpKm4=;
-	b=Zj40PEIJTJSit5Wbpew7RUDSt0NUBu9lg564B9Jb/+8EVklg69yCxJSd2PW776kbZFG6
-	 AvPfqfzms7dlfC6KHyocrpTdc7FeQ1Gg9z9ucsvS+nwy7iv1Yd8dfgdcIB125pKERpmZ7
-	 vt7WOSxu+gsBzMb7KtEAg3GW57Wf9vGROCZVQf9rRQ/6qZ+sltJdHjV2Gb2gPiun2g1L3
-	 bCAE9s5qXq2c+Bbht8ux10hgy7mW92SL2dlaALl6WrPgnH555Uua+8scjxl0sGv9xIY2t
-	 MWpRrGYOB+TslK0d4TKz+Pl4XE19a3liHhtTH/imnlf/i6hfnp8SXgpG5PUA9iFUAHA==
+	bh=nFk1M9tWfeqNxtg5DgFauyFe+Nyeg9JkgjL8WeHeeZY=;
+	b=2zbhXaB6fuBPu0Nj9OTjy7VeS19cyhNMcJJkurYHZF85E3WKLByJOFn6Nt4MYrhyKt2g
+	 7QcswkfubnxePVdJqxgmUaRxBB3UoHBGFbbs2ZmHzKg29gK77xRpGFssbVWJVRORgF9y8
+	 LGulYDvK7LcFFZYaASurrneZBCgOIuVZ1EMlWBC09BqLJ4LFBWNE895aJ3sSYXvlcFP69
+	 IylhfNydaLgOfrmt/rhldrfFyelLnYOYq8BG66R1McLmA912JT82hxOm80y6fmfLtqc7W
+	 7ZmuEjmna041MpI6qMeHb69k8Oud6bsPxvTWmogaJE1Y4mX1PJT9SVRX20IgJzdFNbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zP8dQaP9;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rErcOEPh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41303606A86B;
-	Wed,  4 Nov 2026 21:17:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2EF460C0147;
+	Wed,  4 Nov 2026 21:17:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zP8dQaP9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9371F00A02;
-	Wed,  4 Nov 2026 21:17:05 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rErcOEPh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F3F61F000C1;
+	Wed,  4 Nov 2026 21:17:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793827026;
-	bh=pv09KNf04NaAk5A0cAyuZw5dClmLNLk7SnSV1QkpKm4=;
+	s=korg; t=1793827027;
+	bh=nFk1M9tWfeqNxtg5DgFauyFe+Nyeg9JkgjL8WeHeeZY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zP8dQaP9XNj9VqJLaIXTrs/iHs551gAEdS7yu7zNw0/PCqop1ut0yMxfMqS3d06fz
-	 TF8/2Ggp4J5EXjzpc/gHEQaqkIUc7zqygj1eE9/q7sbmE77pT0lMim5W6runOMtH6X
-	 ObFxxW/6+x7BjEX5rvOWqOiUS5HH6niUbJ85+Amw=
+	b=rErcOEPh2G8efyW/6i+To3XNZ08VnvdFPCI2yEyojSbePZ26PhwdZ3fd+mo0bamZy
+	 FwFP7JkuD+nf12Vi05t+w4KE91WovmHpmz548w+GGKflY1aqtU0Z+WzIl9wXXVDwdF
+	 1pv4L5cX//N8Z5fbjI7X1QjMznkRd+Dxv3qMAkhQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Hugo Baigue <hugobaigue2004@gmail.com>,
-	Denis Benato <denis.benato@linux.dev>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Mario Limonciello <mario.limonciello@amd.com>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 7.3 151/547] platform/x86: asus-wmi: fix use-after-free unregistering kbd_led led
-Date: Wed,  4 Nov 2026 16:05:35 -0500
-Message-ID: <20261104211042.453099561@linuxfoundation.org>
+Subject: [PATCH 7.3 152/547] platform/x86/amd: hfi: Fix a use-after-free when unloading the driver
+Date: Wed,  4 Nov 2026 16:05:36 -0500
+Message-ID: <20261104211042.480666805@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -69,68 +69,65 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Denis Benato <denis.benato@linux.dev>
+From: Mario Limonciello <mario.limonciello@amd.com>
 
-commit 639bc2254816b7c4e7a9801a7b3aa71bfa3f915c upstream.
+commit 55d8406dfa2fa8ad8ac2f053c2a53a97d8b0ce48 upstream.
 
-kbd_led_update_all() registers asus->kbd_led with
-devm_led_classdev_register() on the platform device, but kbd_led is
-embedded in struct asus_wmi, which asus_wmi_remove() frees at its end.
-The driver core calls .remove() before devres_release_all(), so the
-deferred devres release runs led_classdev_unregister() on memory that
-has already been freed. Whether that faults depends on whether the
-slab has been reused in between, which makes the crash on module
-unload intermittent and silently corrupts the led classdev state in
-the remaining runs.
+amd_hfi_probe() registers CPU hotplug callbacks with
+cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, ...) and schedules the static
+sched_amd_hfi_itmt_work work item, but amd_hfi_remove() tears down
+neither.  The dynamically assigned hotplug state returned by
+cpuhp_setup_state() is discarded, so cpuhp_remove_state() can never be
+called, and the pending work is never cancelled.
 
-Unregister the led classdev explicitly in asus_wmi_led_exit(), after
-the led workqueue has been destroyed: kbd_led_work can then neither
-run nor be queued anymore, since asus_ref.asus is NULL too, so
-kbd_led_registered is stable and the classdev can be released while
-the memory embedding it is still alive. devm_led_classdev_unregister()
-also drops the devres entry, leaving nothing to run at unbind cleanup
-time; it warns when no devres entry exists, hence the
-kbd_led_registered check.
+After the module is unloaded and its memory is freed, any subsequent CPU
+hotplug event or execution of the scheduled work dereferences the stale
+callback and work function pointers, resulting in a use-after-free and
+kernel panic.
 
-Fixes: fac55d29581f ("platform/x86: asus-wmi: Add support for multiple kbd led handlers")
-Closes: https://lore.kernel.org/all/CAO84+x+P2_xyHP89+nGVSMV6bL+dy0P9=vyEEfZGnFhv0hBNWw@mail.gmail.com
-Reported-by: Hugo Baigue <hugobaigue2004@gmail.com>
-Tested-by: Hugo Baigue <hugobaigue2004@gmail.com>
+Store the hotplug state returned by cpuhp_setup_state() and, on removal,
+call cpuhp_remove_state() to unregister the callbacks and
+cancel_work_sync() to flush the scheduled work before the module memory
+goes away.
+
 Cc: stable@vger.kernel.org
-Assisted-by: zcode:glm-5.3-flash
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
-Link: https://patch.msgid.link/20260915172608.14234-1-denis.benato@linux.dev
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: bb20421c05fc ("platform/x86: hfi: Add online and offline callback support")
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://patch.msgid.link/20260921170411.1149960-2-mario.limonciello@amd.com
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/platform/x86/asus-wmi.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/platform/x86/amd/hfi/hfi.c |    5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index c2af1f049b67..0eb43ca44119 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -2088,6 +2088,18 @@ static void asus_wmi_led_exit(struct asus_wmi *asus)
+--- a/drivers/platform/x86/amd/hfi/hfi.c
++++ b/drivers/platform/x86/amd/hfi/hfi.c
+@@ -76,6 +76,8 @@ struct amd_hfi_data {
+ 	struct amd_shmem_info	*shmem;
  
- 	if (asus->led_workqueue)
- 		destroy_workqueue(asus->led_workqueue);
+ 	struct dentry *dbgfs_dir;
 +
-+	/*
-+	 * kbd_led is registered lazily by kbd_led_work: now that the
-+	 * workqueue is destroyed and asus_ref.asus is NULL, the work can
-+	 * neither run nor be queued anymore, furthermore leaving it to
-+	 * devres would run the unregister from devres_release_all(),
-+	 * after .remove() returned and the struct asus_wmi embedding
-+	 * kbd_led has been freed.
-+	 */
-+	if (asus->kbd_led_registered)
-+		devm_led_classdev_unregister(&asus->platform_device->dev,
-+					     &asus->kbd_led);
++	int cpuhp_state;
+ };
+ 
+ /**
+@@ -244,6 +246,8 @@ static void amd_hfi_remove(struct platfo
+ {
+ 	struct amd_hfi_data *dev = platform_get_drvdata(pdev);
+ 
++	cpuhp_remove_state(dev->cpuhp_state);
++	cancel_work_sync(&sched_amd_hfi_itmt_work);
+ 	debugfs_remove_recursive(dev->dbgfs_dir);
  }
  
- static int asus_wmi_led_init(struct asus_wmi *asus)
--- 
-2.56.0
-
+@@ -494,6 +498,7 @@ static int amd_hfi_probe(struct platform
+ 				amd_hfi_online, amd_hfi_offline);
+ 	if (ret < 0)
+ 		return ret;
++	amd_hfi_data->cpuhp_state = ret;
+ 
+ 	schedule_work(&sched_amd_hfi_itmt_work);
+ 
 
 
