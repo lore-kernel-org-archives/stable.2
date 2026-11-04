@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793785378;
-	b=dbfgwzpeSFW9dotxf8j3dyGzSVm4efLniFXcSWmCFsxTHs96+XAwt7ghNJVvVzmHHZ5S
-	 d3YWPfVtAKkdVM1AWzddrqM4d2aBsvdI6/erY8sMTiBhtaolp4vyv8MF6bKgDymBrTLOU
-	 RUGmHMDNrdprQrxM6NdVCAKJqwkngDkvYUhgBVqj5M9huJR/QUfKWQib+5Hwy/S3hN+nF
-	 BO1YZiWURFA2IOJ7z56WDfsQ5cX7mp2d839LNGlhDVrNVTkGR/MUdZHICX3VFYJimN3Si
-	 mnsIDooOROeFMkmU+i5xD4GJ+eTo/ZJO5yLnPmoBE2sFSu7WVSE0MiJbq0L9ZZQTi6g==
+	t=1793785379;
+	b=dcpL3MWeuzOS8LZ1gDZVikwIXAcHofUtB++Bz/htDDs9cpz/PYKy/rnSVgwUa2D76IRS
+	 nQRIluR66xZ+kAz15sQNx0jJBWNoCu3cBi+3FhN9EDFJsZBNEKRgFDyOKr/SUM6+EemSH
+	 2alKq6SEqrDCIIQEV1u1hBsXaojI5CwxUAfkOd/IXS8yBvUp9ciuGhHAjTbfr5D0bwmi3
+	 OH5u8/Oa0XOB0UvdXdssgFbjDU2Ot4E6GIVC2QWHgQQjLDMcHDMMGWtPjfpOyPWqkwPms
+	 w0mTJYCjtw0r3uniFihVam/7QwD85bj4PWM8HJlAq06650u2KsLY27HcpfrRhgP93tw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785378;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785379;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=yQ7xKLTNb/iiYDHuD04QbANNeHHKZXD8bdhyGqyPxF4=;
-	b=W0ejAkvwLIB3rorCKs4qURDFP+D+GcB+CSb3oUe7hmhmEtEHnTiXsx7XE3qi/qWN5kBb
-	 VdUJEgyw2aB4fsnGmida8RITQBvikxrQe/CsEx2OkZv3zMSzFVrFoo4S9KFduo3D36Arl
-	 IhNnVgfBEmqOsIIYGFEtMge1hfN34NPF2RbGm2wSL7qFan11fb6NbWBI3q8RL1bjJVL/x
-	 V1MARWSMDlwMIcyEPujz54hnRp67cvVvB0rOM9B26Ew+usti/HuiJ4CGftbNmDa/WBBkr
-	 oGfTRk4mZtNb//sCmf0wPr+s+z7WniERio+RcOasa//S6TqpChncyZoDODgit0Uorqg==
+	bh=ezPYznbslsnAcqfprTwt3BpYe5eDIl6ErFqG/k3BNSs=;
+	b=0TjnscymCigAWs2FrElIPtJqOrEeT8pKkOGBw0uY0KxZmM9W3X7iXIdswXVkfZ/Dn6cO
+	 Qo4jinP9afu7abWtwK+LXniW3CtmJck07hOMsIQf4sztsAUmctUy18n9OHiPtJEY6hzaF
+	 Oy4hWdpF8uXivcNRA/21ySOnk1gG7HOj17DFGDA5JY0EsgRNVg+3mFEneY9DIAqo7CSkc
+	 VqjiQkBh6mna1v7Km/LQTN+K9MNTLpPGHacUg57m9AyxtLxYJ9gavJorT58lAd6PTafw/
+	 MsAkSqS3fwBsdFHIy/cFVOsl8N90vAiJ74XKOd8FElKE8/BUeyHqb9x/TwVS5t4nRYg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqB36GAh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YyOU2HOu;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939B3606A32C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE8F606A32D;
 	Wed,  4 Nov 2026 09:42:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqB36GAh
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YyOU2HOu
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793785378;
-	b=I9wS48WuB5MR33c6W5RAcZ5IlITfT6aHWGPfqpjUGjGX3+PKHrrPNG8WhQN3olsvic9M
-	 cf+lGhD+mf+kFKA+u7y4lpi3YDGMPEcQGFflKGk5FshIgS3bAJ2AnK1mU0icc3R+937fF
-	 NtZsD9JOS25a5QvU3tbp4ZKn//QGzEZnYfqHJrEL7GLal+JTBp0bBAabKQnG1rrOfSkPb
-	 fk3hvjk06mUjXY60U4oZCMhYuTd9AlsIzxIja4UHfoMMyrJwUhbS2Hw3MO2r11YNZLiQw
-	 WkvmAn6tgQNkxlSQeAGp5U1xiR4VyZ85UpY5Y1aqlAnpNt80xSbgcmsOELIgXsq00oQ==
+	b=0f/RMo1CuCXB0nldvUsfiJ2C39ZsLz8PyO0X21Ojh9GIgqbWSTdoRBPDSW+TdzjBJakp
+	 bGhbcPJ2DrEGcKIzfq9t5vimmQi2eOg9FNaUar9Yrl3asj70G/nTyq9py9ADmrufHy6PG
+	 gJlECU60cAEW81hSGxOYXI6n8sywHXnyRcA+HG/WxfYS1bVw90gWAGvv9xaKE3RXT4AMl
+	 a4K3cOFsAQstKAP2UqOg9pWbzYIEcpikpDmycVnRjQrWCU7bl5UinO0gH+iTcVKHuVmra
+	 zOL13sUOwmlnrMyu/gbbHD40Ek8XZAPTB8NoR3oDLXQCAvCyoZa8DSZsHqdytzPy48A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793785378;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=yQ7xKLTNb/iiYDHuD04QbANNeHHKZXD8bdhyGqyPxF4=;
-	b=NmgoFWIjt6jnBtcRzoDxPlj5gJA8mURNB9nSb2g1jVhNzjuCVLOUuEpyxEKOOuD7ZaqU
-	 nNJaKsvFCz4N5r2/JJ+wnCSQfwC96FLapNgjW9sIF+wMETftQl8OW7/nu0pMFPEQIu8RM
-	 +OSjnpJDDjWhnWA5IwC/fz/QdYPS4vMT3FLiPHJnUXyG8eltHppRYLdEykQeYFLhnTj9m
-	 fNl2U/SOAFEYAHi3WOHCwVL3OjfPg3Tmtf3RRu49XRcaX+GnSuR41drycV+B7jx/at9Nb
-	 aqf7ChrILAqQWjv0C0FE82tNjQf5z+ksNI/A1Qun1Yho0pJSb5+vIzIYgfh2gRzgHSg==
+	bh=ezPYznbslsnAcqfprTwt3BpYe5eDIl6ErFqG/k3BNSs=;
+	b=SSJ0lfMsgoNfkOv0sz8h3FXcb4NKpEWR7mq4oTsxNXAYWW5fRXameS+b8yUwK3s+MHvc
+	 k0Gv1P9K0U2SjjeM12r2WCaLMH7yFVvnqPDF6bqCSKTRX+Ri7cMmLDn3prLCCxlcZY7Yr
+	 RVuQrPt7WFAY7EbOio72TfxRqbXHYD00ynPdYrfWMg0Ra3WCq56brh2gdkYPHYVTeLsHW
+	 cyShmZF/Evt+63uooOd2Ojfgc0EqKcBThdSGwgTDTZlO+vSjp33E4pinY24E7zBahOQSK
+	 zojNopBNO5eMKpKFlcGWzp//YBcYHU/ESPwWLTGzzrgEKEGHj9npyn0Osm0aWqdfs9A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 791941F000C1;
+	by smtp.kernel.org (Postfix) with ESMTPS id 7B6CE1F00A16;
 	Wed,  4 Nov 2026 09:42:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793785378;
-	bh=yQ7xKLTNb/iiYDHuD04QbANNeHHKZXD8bdhyGqyPxF4=;
+	bh=ezPYznbslsnAcqfprTwt3BpYe5eDIl6ErFqG/k3BNSs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=iqB36GAh6XQLg+q5lfh2D75QUeUZmrx9Cf7l7YEFO02yNUcVhzuYTb4N7vnj6paTt
-	 1YuhXPXeQUB7vEU3zZ5qwqwLsFL7Cgaw/w0UOs8XeAhOCVcTk9PvDUmOd4lyWJbuTJ
-	 a/+62On0o3VjuC690b7ntJgoCt+y3pUXbofnEb5K5MQFyfEXmnKu90ltXzX8NqXf42
-	 yT92l+7Gwitr6a06wvQZ0KPzXGA30el3UX5Dg81Q+wVTrZoX9MuyAZP8hr5mvRwJ52
-	 XqDaalRz8ULECXVyT+6Sna1sMBPJNrW6nTQylh7f3K7/yJf8BlP0WC2ihkcCQEwiV4
-	 I/dPjCCgdGt/A==
+	b=YyOU2HOuWxksK/VM+JYCjj8GgC3NmpSgveHx8Z++PFBGD/Po7FJpIeCAxuda8Y8rR
+	 35U3IuccZD0lKEi2qoJbyJm9GMhb1USbfYWosGBb8jiTT+LL7qgiEPN+3sXqnawKpP
+	 xjb2qu2HRuaxityzZcwy/z7lX917C8tSLUEYxEJ0JOwpCH45QBdvcUvEqhWYpS1qiQ
+	 fsh7wsPU0IWTNqm5vEuqhDDmtwWp9vY7LgaY5fJfqL3QM7TKE6SDdIy1+cG0J7OHt2
+	 e2LHmifGNd6hrV9wOTx1Ti4vPC1zMybXgTOFmrax/yEl7/8HoYjmgLWoya00u8WuaR
+	 E3JIn+uewxAdw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EA0C046D81;
-	Wed,  4 Nov 2026 09:42:56 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 03E9646D85;
+	Wed,  4 Nov 2026 09:42:57 +0000 (UTC)
 From: Babis Danias via B4 Relay <devnull+b.danias.tutamail.com@kernel.org>
-Date: Wed, 04 Nov 2026 11:42:48 +0200
-Subject: [PATCH 2/3] media: i2c: ov8856: Enable runtime PM before
- registering the sub-device
+Date: Wed, 04 Nov 2026 11:42:49 +0200
+Subject: [PATCH 3/3] media: i2c: ov8856: Power off the sensor during system
+ suspend
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-ov8856-pm-fixes-v1-2-1958b730ce66@tutamail.com>
+Message-Id: <20261104-ov8856-pm-fixes-v1-3-1958b730ce66@tutamail.com>
 References: <20261104-ov8856-pm-fixes-v1-0-1958b730ce66@tutamail.com>
 In-Reply-To: <20261104-ov8856-pm-fixes-v1-0-1958b730ce66@tutamail.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -97,11 +97,11 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
  linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org, Babis Danias <b.danias@tutamail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793785376; l=3065;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793785376; l=2806;
  i=b.danias@tutamail.com; s=20261103; h=from:subject:message-id;
- bh=rio8Ofl7JAOdPxjbb0My+vg5aCRf/Neov9MPh8InP7c=;
- b=Xd/bDsiTeDb3b9wbUGceRefwIPGyKMVOY70n0EcT6npYcEB4o4gzVl2tdVCHgQfhDz7AlqE8k
- qZMAB9PuKe6A3PTqiKH9P7R9D+DIAsUePRfoplEwpDXrQOvqGAefh2j
+ bh=D6TzCaSHwO5sxfGpSVeAfyeQYpOZbznZnsTWQvfOylA=;
+ b=RaX+DSEFW0zQSOLC+4Irzx1Rw9oIY89rIlVs810BM1jeOii2AqSXcbpcaJcKLy6AviB3b1Sd5
+ ItiBQ2Jm82EA5myR/D/Lq7D0r/+A5uGsqms2TaXMz1eXkbmzvbn04JC
 X-Developer-Key: i=b.danias@tutamail.com; a=ed25519;
  pk=6DWeigdk0D3JwBjwvmxo9RW8cG8S1Eku42cb9PP+ghk=
 X-Endpoint-Received: by B4 Relay for b.danias@tutamail.com/20261103 with
@@ -112,80 +112,68 @@ Content-Transfer-Encoding: 7bit
 
 From: Babis Danias <b.danias@tutamail.com>
 
-ov8856_probe() registers the async sub-device before it enables runtime
-PM. But the sub-device can be used as soon as it is registered. On ACPI
-systems where ipu-bridge instantiates a VCM for the sensor, the bridge's
-.bound() callback queues a work item that runtime-resumes the sensor.
-If the work runs before probe reaches pm_runtime_enable(),
-pm_runtime_get_sync() fails with -EACCES and the VCM is never created:
+On a Dell Latitude 7320 Detachable, the rear OV8856 stays powered for
+the whole of s2idle once the dw9714 VCM driver is bound, even with the
+camera idle. Tracing a 20 second suspend shows the sensor's clock and
+regulators enabled about 0.5 s after "PM: suspend entry", and disabled
+only just before "PM: suspend exit". Without the VCM driver bound, they
+stay off.
 
-  [  213.265894] ov8856 i2c-OVTI8856:00: Error -13 runtime-resuming sensor, cannot instantiate VCM
+ipu-bridge links the VCM to the sensor with a runtime PM device link,
+which makes the sensor a supplier of the VCM. The dw9714 driver has
+system sleep callbacks, so the VCM can't use direct-complete, and
+dpm_clear_superiors_direct_complete() then clears direct_complete for
+the sensor as well. The sensor goes through the full system suspend
+path, where acpi_subsys_suspend() runtime-resumes it before calling the
+driver's suspend callback. But ov8856 has had no system sleep callbacks
+since commit 19ae6ba57f88 ("media: i2c: ov8856: Drop system suspend and
+resume handlers"), so nothing powers the sensor off again.
 
-On a Dell Latitude 7320 Detachable this happened on every bind of the
-rear sensor after the IPU6 ISYS driver had probed, so the dw9714 focus
-motor never showed up. Documentation/driver-api/media/v4l2-subdev.rst
-asks drivers to enable runtime PM before registering the sub-device.
+This matters since commit 609a71568664 ("media: i2c: ov8856 : remove
+ACPI node bypass mechanism") made the runtime PM callbacks control the
+sensor's power on ACPI systems.
 
-Enable runtime PM first, and hold a usage reference until registration
-is done, so that the sensor can't be suspended halfway through. Drop the
-reference with pm_runtime_put(), which also lets the sensor suspend once
-probe is done, as the old pm_runtime_idle() call did. If registration
-fails, undo the runtime PM setup. The probe_error_media_entity_cleanup
-label then has no users left, so remove it.
+Use DEFINE_RUNTIME_DEV_PM_OPS(), so that pm_runtime_force_suspend()
+powers the sensor off during system suspend, and
+pm_runtime_force_resume() powers it on again only if it was in use. With
+this, the sensor is off for the whole suspend. It is still powered up
+for a few milliseconds at suspend entry, by acpi_subsys_suspend().
 
 The problem was found, and this patch written, with the help of an AI
 coding assistant (Claude Opus 5.5). See the cover letter for details.
 
-Fixes: 879347f0c258 ("media: ov8856: Add support for OV8856 sensor")
+Fixes: 609a71568664 ("media: i2c: ov8856 : remove ACPI node bypass mechanism")
 Cc: stable@vger.kernel.org
 Signed-off-by: Babis Danias <b.danias@tutamail.com>
 ---
- drivers/media/i2c/ov8856.c | 23 ++++++++++++++++-------
- 1 file changed, 16 insertions(+), 7 deletions(-)
+ drivers/media/i2c/ov8856.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/media/i2c/ov8856.c b/drivers/media/i2c/ov8856.c
-index 988ce0310..f9bcdd412 100644
+index f9bcdd412..848e981ff 100644
 --- a/drivers/media/i2c/ov8856.c
 +++ b/drivers/media/i2c/ov8856.c
-@@ -2425,22 +2425,31 @@ static int ov8856_probe(struct i2c_client *client)
- 		goto probe_error_v4l2_ctrl_handler_free;
- 	}
+@@ -2462,9 +2462,8 @@ static int ov8856_probe(struct i2c_client *client)
+ 	return ret;
+ }
  
-+	/* Set the device's state to active if it's in D0 state. */
-+	if (full_power)
-+		pm_runtime_set_active(ov8856->dev);
-+	/*
-+	 * The sub-device can be used as soon as it is registered, so enable
-+	 * runtime PM first, and hold a reference until registration is done.
-+	 */
-+	pm_runtime_get_noresume(ov8856->dev);
-+	pm_runtime_enable(ov8856->dev);
-+
- 	ret = v4l2_async_register_subdev_sensor(&ov8856->sd);
- 	if (ret < 0) {
- 		dev_err(ov8856->dev, "failed to register V4L2 subdev: %d",
- 			ret);
--		goto probe_error_media_entity_cleanup;
-+		goto probe_error_pm_runtime_disable;
- 	}
+-static const struct dev_pm_ops ov8856_pm_ops = {
+-	SET_RUNTIME_PM_OPS(ov8856_power_off, ov8856_power_on, NULL)
+-};
++static DEFINE_RUNTIME_DEV_PM_OPS(ov8856_pm_ops, ov8856_power_off,
++				 ov8856_power_on, NULL);
  
--	/* Set the device's state to active if it's in D0 state. */
--	if (full_power)
--		pm_runtime_set_active(ov8856->dev);
--	pm_runtime_enable(ov8856->dev);
--	pm_runtime_idle(ov8856->dev);
-+	pm_runtime_put(ov8856->dev);
- 
- 	return 0;
- 
--probe_error_media_entity_cleanup:
-+probe_error_pm_runtime_disable:
-+	pm_runtime_disable(ov8856->dev);
-+	pm_runtime_set_suspended(ov8856->dev);
-+	pm_runtime_put_noidle(ov8856->dev);
- 	media_entity_cleanup(&ov8856->sd.entity);
- 
- probe_error_v4l2_ctrl_handler_free:
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id ov8856_acpi_ids[] = {
+@@ -2484,7 +2483,7 @@ MODULE_DEVICE_TABLE(of, ov8856_of_match);
+ static struct i2c_driver ov8856_i2c_driver = {
+ 	.driver = {
+ 		.name = "ov8856",
+-		.pm = &ov8856_pm_ops,
++		.pm = pm_ptr(&ov8856_pm_ops),
+ 		.acpi_match_table = ACPI_PTR(ov8856_acpi_ids),
+ 		.of_match_table = ov8856_of_match,
+ 	},
 
 -- 
 2.56.0
