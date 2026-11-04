@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801770;
-	b=g+SDz5JZHHv7EddX5Rq5y1F+dBo45fBwbjpVox29fZ+N2uFgl77rv7qdSLk9BsrOwAUB
-	 S2vIfYypAo0jVdacrX3Cd0k4muvSaYkoBGe9HXYBSjxWaD2V0Q4nvSzrY7kPIWYTKQCoq
-	 caifmJYrgV+9hIemfIWU19cxmiiQhMyKFUV8gYr60CiRg6/TCdjKC9ZgayIC9swfquGZs
-	 cJdWvdrta5pgwbc6QsVuMXEuU8aHqimBnBfPjDjGs6iBnvqIavRWjyJS61EVmxb3cKp9G
-	 HsMCCiI4+nvUSIo4mDzbN4sWCnEvrVh4UPlM4qLHiGmlE347YV0tP7jmAYaSuw4OksQ==
+	t=1793801772;
+	b=sUdxIzygx1yghsG6nxDmlyqmeYWYbwTf7kCxevDTd/Me3L4Sq37MCUbierZdBhxqqXB7
+	 bOqVZ5O9sjajBgVnke7h/IlQXcyl0TKc0YUEtgEVcG6LYnQ/ltJWfP+sAsR8KPhqcIvSl
+	 ie3STt+t1VQfT5Wu97Nwj7dcc08UrGX2Dru56MCn8s5Erm9mNaPkXdGjry/MdPcf0kul5
+	 658Ec2k6+SmLKR76Z1iIgH5vFXZer9imVCJSzL9thzyQ0ENzkVesU4JRtd/Lukh6+nUet
+	 JvwJYDurUCLL7x1JRH1qIBTxZmFrrYLPSXN5IbifpKVt5h29q4W96bzo0VS2I6txUvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801770;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801772;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Cv5eDjwIXnAhcfcJ2xYv3l7kp0KHW5qIeCEgUrOjiVY=;
-	b=YaQxhazul3DKyvXNlyPirsfZM1XRHgc/jez7Ji+Adun03U7IR1GRzK0+U1oALpy5Oaga
-	 o6efZomcnwXCVqrQTAT6rV48noYe0Zxzyhnj8nyk6m+ti7GAz2UzpIMGmSgwvAUpl84Gg
-	 2ieOo4kfZs56lef2KXdIGvVQ8217N/egDtMDJW8ahcQGU0L6KYWdzr/+vCGRNslvDlGEx
-	 I8T0KVIqzIkfpRmypjU5djyDl7Vgd0tzstGgPr2xe7vFzFuFIoqMhhGom33PoIPep1RE9
-	 t0JobqLLmcPkM0uk+j9Aw7lwgxXQE4xer5+7A2fyA6Z38XQ9fkzbqpQHHanj2cl7KXg==
+	bh=FVlIPdUt+qW8pxfP8aO/wdWPJckXSHsiX/X1hcbOCEg=;
+	b=EmXfgENOSJm4et6cgcp5x8VA4KJGouGq74GIvreL5thocp4k11iGcIS6fwODki0u93o3
+	 zEuu/xZtlN2y6/1gGroK3BPYN/TsKv/qB5Bz7EXjzLYuBB1wT4pk3/MiUxOYEGaTj309L
+	 DKgeV373jTu5p5yl8H4TSBVEYvApDEIhPuBGjWSyXRie1q4JMucwVYUMS6iY1XKT0hMZ3
+	 i5/mOJKv07lUwU4mNHWqlFlY/Ip7cjExMW8JTiABA02o9sCpEZttmxJuO5pNDUyhQ8z7U
+	 RRuJPZPGqv9Ql72b1gPOGbIaDKEagIQmM6o5PSPbcLX3r2pH/x/qSQG7X3j+4Q5QXxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NPBOR7fw;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0r9H6Ekd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B79606D81F
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:16:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6A56082BE0
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:16:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NPBOR7fw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D148B1F000C1;
-	Wed,  4 Nov 2026 14:16:08 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0r9H6Ekd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A931F000C1;
+	Wed,  4 Nov 2026 14:16:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801769;
-	bh=Cv5eDjwIXnAhcfcJ2xYv3l7kp0KHW5qIeCEgUrOjiVY=;
+	s=korg; t=1793801771;
+	bh=FVlIPdUt+qW8pxfP8aO/wdWPJckXSHsiX/X1hcbOCEg=;
 	h=Subject:To:Cc:From:Date;
-	b=NPBOR7fwP7046B1w+Os84al/btFiDmWEjhdtQE2K36SpY2e/zDZJM9Ue/Vd947w/U
-	 3h8wvKZCIIgmV6tjE/piJBJ0fXSnodbKFClyfg7rQ/SBDQXUrX2RRS0tSYhSKSJuGD
-	 PjpALW6UdCBLW/SBTQ5Y/77Ly0HPDdzgOpni1ORw=
-Subject: FAILED: patch "[PATCH] genirq: Move interrupt thread exit_work object to irqaction" failed to apply to 5.10-stable tree
+	b=0r9H6Ekd2AdXhikZTUqQ7J8rV1Ujh2q+eMSv0iUJfMQmiOyR6legoS1Iu6Ao/CIMY
+	 F8VV7f3nuTkkp1EEThYRAuHyEYyqu3yO/uKhg9pBBiDEz3cwgfv1PbwsTHqk4gSBuN
+	 TCwOwN7B9TuOftX7PPuj20Anva+DerE4hzE81Dz8=
+Subject: FAILED: patch "[PATCH] genirq: Move interrupt thread exit_work object to irqaction" failed to apply to 5.15-stable tree
 To: ripatel@wii.dev,tglx@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:16:06 +0100
-Message-ID: <2026110406-unstable-science-81d8@gregkh>
+Message-ID: <2026110406-task-cobalt-d290@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 89a9e003a2ef73f67dff03dfd59e0a5474b56b0b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110406-unstable-science-81d8@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110406-task-cobalt-d290@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
