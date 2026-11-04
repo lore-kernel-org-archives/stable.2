@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816982;
-	b=qve0PRzUm9yWGc0LzAznX8klumtEqvZ8F5WVDl29xzZBkOiePIV7JkeIEL7PFCY0ixSL
-	 5vlyvBlOhYdT0LwOKSvBZUT5pw2iAPuuJ48sLAlwXralKzTOYiNeB3qYiyRPp9oqEvbzd
-	 rkMt6xb6Vji4N1CkG83oy5SiD8In2tTk2beZnWOQnjPSh02mPkApn0OV1dDQkDjI5k3Z8
-	 f0+aFlzkC3hPU4EeggI7YvYGMObbl6ytApLNBDEUGq3d1UspS6k8ta0ICiekR5RrXjtQH
-	 639cCbgIA3gen4NWUO6V9/wZLcF6dI+iWF6ygGqFImmn75c2D3qjyw4QcBkGgyryOXQ==
+	t=1793816986;
+	b=ew8fJKHq4F5goF9UM928fpYqA1azV7y2X3Ny9Ur2EHeMPmnu9bJ1ijghCJjgRF9NvxkY
+	 f8Nnt5rxwpLTL6L0NHo9B4Cp3cp/bIs7YrdNRyjK5T98aAEhFNScA9y97nWG1ygLWXSKl
+	 pzwrE/f70GXXIr7xkoDSmuMVL7Utkx4kXpeyHQWYG/USEdFr0bghyTDt65ZuArYeOdfdx
+	 UBNdgm/nFAHINBbr2aYYbcvYBofeNeY9i1k69DX73X+mfFv8jfhAE0jp8OmQWWEN791j2
+	 FkEn8TNBtyBvssElDVP4OKC5iK/iI5gmjQ3TlSqQsiGUtZRgVWc2zn44lB2a3NX4ASQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816982;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816986;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=8k9M17B+vCEQB5q+WJKsC/Kb8NyIcxQMMJgZRJs/RXo=;
-	b=BeYnVDY/N7HbY6rfDCO6WN9Oe2MLYsp8WRzPCDnCkYxN3X+wlmaGe8MSiWRfw9/fKQ7w
-	 mMldKifkMvG4qlzEyR0rMR/CsGJKmd+2p5+nOWpnpTziBrP56hg4PxUJ0P2xi7XECvWe5
-	 Q83Kzu3tRoehV0JzE7dMa/A5PvvzvnT68dzEGKhMG0Otr+fosljBgH81O349CfGxcil+p
-	 +x8TO4fIviIkir9seGuwoKWQDGyfD9e/S/rinI+CiIU+gFG1uKByPLCsgTRkZBHkDuOyt
-	 d6YHlwpRtTx+rSXR88Q6l9zpGbkiM6FyNZ3M6S9AD0UtOQguwbHxAFS3ZdCgP16OFkg==
+	bh=IbiUj5/U4oYMPrlyR+2oAehG1y0Ea4Dhw8b9KyjMoMk=;
+	b=cqPAosZdnB5/Wokzu/MqDyRcobP7T/GKNuf6nQ2Ij7+UQR4QDBLdR17m8g79rdTZ53u0
+	 4lPovqyKYYn5tiDNIhx2gx671R0MpWMjGk6QPtJm4e7MHP1bV9Urcbaf8bWqPnMPX55E0
+	 3r/rv38e+oTHAgbpQg3QDyfHH0XHWvDKQhoZgTRNI3/x+xuw+/VsmwpQxybCjIOZ7+u2I
+	 C0Q+csfsFg6+9fEzZ/T6jtIZfdnwdFoLWwM3oCOLaKDgIMDB5NhhdEgmSFsrPoa10j8AT
+	 Z7nVMkphk8NVNqtrRRi2s27/mfi2nJHHEdlwvTorjtwrUoSqSJ6fhiZBsdTr0pTDeKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Xym+6K8f;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nAEsXkZF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6280A606A32C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:29:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A25606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:29:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Xym+6K8f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C84291F000C1;
-	Wed,  4 Nov 2026 18:29:39 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nAEsXkZF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4A0E1F000C1;
+	Wed,  4 Nov 2026 18:29:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793816982;
-	bh=8k9M17B+vCEQB5q+WJKsC/Kb8NyIcxQMMJgZRJs/RXo=;
+	s=korg; t=1793816985;
+	bh=IbiUj5/U4oYMPrlyR+2oAehG1y0Ea4Dhw8b9KyjMoMk=;
 	h=Subject:To:Cc:From:Date;
-	b=Xym+6K8fAlHnDqpNIZcSeXOquhGZWBNfLBfEa4KYpfBZy5uDVv5Js0d50IIRWJlJd
-	 W0QhNqy1JF8UAt0GLgMC0KEuqqVxt7j9V0GuAniV8g+3Nr0frP7smVfKpKSTVLC6Nk
-	 tRDOVdxCM4KBWSQeKg8diUa+6XutmUvYipfP7CEA=
-Subject: FAILED: patch "[PATCH] smb: smbdirect: fix buffer length underflow in RDMA transfers" failed to apply to 6.12-stable tree
+	b=nAEsXkZF4s/D9Vz8Yo4tMNNpZukbzsp69WkHWN5kAww724oXXgvh/ciocJyLApfRp
+	 e3kRu45AOCO/ElTCMW4vpdg1StGc/8IMS8wqSHd6Trvn4TIlXhEnBYMAJGLs5QEASr
+	 CvlpdjUhBSrAobUqLiynxorGyrp84jmJCUwjdwt8=
+Subject: FAILED: patch "[PATCH] smb: smbdirect: fix buffer length underflow in RDMA transfers" failed to apply to 6.6-stable tree
 To: metze@samba.org,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 13:29:37 -0500
-Message-ID: <2026110437-bully-enviable-15b3@gregkh>
+Message-ID: <2026110437-flagpole-glitch-eff0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7193241a49c958782ba4b8df06da3734d1e317d2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110437-bully-enviable-15b3@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110437-flagpole-glitch-eff0@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
