@@ -1,58 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829345;
-	b=lfLo2hsGZT00wnFihrmtKDpCzpTdI7lfRkDwBKOXs4KMXqMTPFB2vl3mJXpJOQ2gaESo
-	 Zp7GJ3Y0M6hptwSLmQROKIT0byVmQjwJfge05bznCGWfhx0fl3TPYnO4Ok1ly/h5N4E5a
-	 f28SBF2TgBMOVgwRcv7dz0SuC/cHtrfuyOkR/YU0M0VgLMYbMvRnrgmzackdQID/Mmz3r
-	 XpqmuB5rqlFH9TFu17QeXMmWowP8Z/InpJtQS4ddn4r2bFr33Lf85DxF3SAUpQvKX4XFo
-	 /Tr3TE5RPWZKkYCie0elTGfWz0jbPy3rNrB+Xdw20bP8cjKB5qvICQEQWx87wh21IPg==
+	t=1793829341;
+	b=MNP90IjmutBjCd8qiuobX3qWVDKB8tqeBOGQp20/AY1eMfbkDlNk3i/UZdD31cNF7lE2
+	 Tshoz/uMpG9iyUcOspErBFgO3Sm0/E1vM+wqpOhjt70B9RoN1/R/D4+bfAhw+0rRuwtZC
+	 zdZM8x0P4968JMcbk3aJDZ+adlhvyZiUM/AU+7Sw/qGLvjE/DyA93PKQ6+OL+4Bjck/7L
+	 gfkfNgrwMoKB0euk/JzvGuldSumUSwSR7aeB1RpaD9jRKw71g/WvjSJUmHlYIR/NFejYl
+	 Hb1tzsGYdwb1hcr8ySS2crUc2raiS0f4pSwppnOcN2xDAPZfW23Q4qxNbMo4I+VlBWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829345;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=n02kr0RimIzjmb+Qu+5tpqEizuqQ8vu2TL0HtGPBL6Y=;
-	b=AnoZcu9uLOxSsMviva9c84HG/0C7f0kqfphmOBHP+bAjtveD1kddW81EPCexCJqeNDAa
-	 8vgulkRxRaqkqCcUb1XfV9E7cwLlTlkR1OLp9rU1DiDuAORO/loke6hHzGmksOweVIbQQ
-	 qDnEgNR9+z23+kV/dDMV2SMnhRgb31blpFlE4Ln2QvF9uRW85s54ehghOnoQpOaxBc5xa
-	 dlckSqMTGjNjLsGb2ZWQAdkp69Uje1Q585KVfDfbF1t/ku/RwlGxVBYvl/ytOOM3nBqkm
-	 ap8z8bjR4n3FuLtr8JJe77OE+dBMtdZsXbl9iUvauUAyPrFr2/jKsVba2DKbDjVfyUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829341;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=mNv4xjMMy7I5DQm+piFsVss84RDUYiAkm8TSEYtVupw=;
+	b=go46UjkzCvP1jpjUlfffGxgo3NwzaXghxXLOoNzRjsWRrfkO1KcN7aAFHqbjWXp3DqFB
+	 hmrdbB5HKovtUrpcC65KQiwUpddZIPniNysesr5gL5B6hNxXwA/SzbEfFREy5kwCC8vAF
+	 Ka2PMbQYIKWUOEK0Kw0Zgr8QPQGumbRjAfbISPJfVUPBhHUFHUPQs63feY7ZP4BTDlnh7
+	 IWOLCdGAmjdvzS7qF0hmjKyx/uZpF/1jv4WxvY40GzYeCn/hQ3FSj1DZZXvrMZxeWCoIR
+	 YMCv41d1H9nqtTW5WmEx1ovykJzZmqonFrHtQfnuC7Lpe/uq7ZVw+o3z5qf9O5wyk1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RLaUNyUJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KRixRl9F;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4202160A5BDE;
-	Wed,  4 Nov 2026 21:55:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F171C607491C;
+	Wed,  4 Nov 2026 21:55:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F171C607491C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RLaUNyUJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2AFB1F00919;
-	Wed,  4 Nov 2026 21:55:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793829345;
-	bh=n02kr0RimIzjmb+Qu+5tpqEizuqQ8vu2TL0HtGPBL6Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RLaUNyUJCl08RK3Xb3YwwNTV0EYPDbrM+/9pd9OSh2xcCeAX3qB1ljVQoB+tGV/JU
-	 qqYVYhvKcXwidwhGG5LJ6zMyL/bgXDHpxH53qHgEaKwOsDtHCZJSpf+wl8K3/WdCNW
-	 kRNZaC41s24EnObbjZbXKMFSGjldw2QsguSzrFYg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Lijo Lazar <lijo.lazar@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0068/1005] drm/amdgpu: Guard reads in pcie state readout
-Date: Wed,  4 Nov 2026 15:56:41 -0500
-Message-ID: <20261104211045.519062681@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
-References: <20261104211043.516122098@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KRixRl9F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793829340; x=1825365340;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=dTKkmVA2sw1NSzd9GEd1jGm3jnMpihGVWC4Korlnq8k=;
+  b=KRixRl9F6R6ois8phQEPTCrmsGi+Bw2XxFI7vgE4FJweDEl6F2m6135W
+   cNHLsNlQALHNpYkNswmOBfUOJgJl40DGqeuUUIr/hs/cek0MyR6FpckM8
+   uQMArJG4f9gMxtA9QQkyol2Zua72yAKnCCXGrMY8yf4xngIgifbIjtWSk
+   1WO+VpOz+SGvdIYBtm9+3cMNXLOmL278qFSSvBgb7w8x08D9sXzYU9r4B
+   cZFgEMtmJNYEa+lgxrZfJsl8pWDYC8bdjai7VuIXSMXEDqUJ81ditsie7
+   dRsMfkedXUb7VfUdhICM4ukSUEFq5OfSGw2y25h/+aDni+looAp0rvKBl
+   g==;
+X-CSE-ConnectionGUID: hTbf9BYPR6u0e0lUoCRp6A==
+X-CSE-MsgGUID: LGxuMFe5RXmDsCe1QxkDHw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2607141"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2607141"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:55:39 -0800
+X-CSE-ConnectionGUID: 6E8Y/IVmRJ2LTESdn8bWGA==
+X-CSE-MsgGUID: wxIaTqaoRWCrl8aEME/UCA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="8609220"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 13:55:37 -0800
+Date: Wed, 4 Nov 2026 23:55:35 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Kent Gibson <warthog618@gmail.com>,
+	Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 5/5] gpio: cdev: don't overwrite the whole flags field
+ when configuring lines
+Message-ID: <auup1z79S7Rv6cMe@ashevche-desk.local>
+References: <20261104-gpio-desc-flags-atomic-v1-0-e23cedf619ba@oss.qualcomm.com>
+ <20261104-gpio-desc-flags-atomic-v1-5-e23cedf619ba@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,116 +84,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104-gpio-desc-flags-atomic-v1-5-e23cedf619ba@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+On Wed, Nov 04, 2026 at 04:37:00PM +0100, Bartosz Golaszewski wrote:
+> linehandle_flags_to_desc_flags() and
+> gpio_v2_line_config_flags_to_desc_flags() read the flags word with
+> READ_ONCE(), modify the local copy and write it back with WRITE_ONCE().
+> 
+> The per-request config_mutex does not exclude sysfs, the irq core or
+> drivers touching the same descriptor, so bits they set or clear
+> concurrently can be lost.
+> 
+> Build the mask of bits owned by the line configuration and their new
+> values locally and apply them with gpiod_update_flags(). The whole
+> group changes in a single atomic step.
 
-------------------
+...
 
-From: Lijo Lazar <lijo.lazar@amd.com>
+> -	unsigned long flags = READ_ONCE(*flagsp);
 
-[ Upstream commit 230753e46a4a9d04dad6a9b5dbaeb7fd52add7d0 ]
+> +	unsigned long val = 0;
 
-Internal US/DS switch may not be exposed in passthrough. Guard the
-upstream port reads to avoid a NULL dereference.
+Why variable renaming?
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 59 +++++++++++++++-------
- 1 file changed, 42 insertions(+), 17 deletions(-)
+...
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-index 15e70415c35b4..b73e114206cc1 100644
---- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-+++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
-@@ -613,6 +613,29 @@ static struct aqua_reg_list pcie_reg_addrs[] = {
- 	{ smreg_0x1A380088, 6, DW_ADDR_INCR },
- };
- 
-+/*
-+ * Return the GPU's internal US switch port, or NULL if it is not visible
-+ * (e.g. passthrough) or the EP is parented under an unrelated bridge.
-+ */
-+static struct pci_dev *aqua_vanjaram_get_us_pdev(struct amdgpu_device *adev)
-+{
-+	struct pci_dev *ds_pdev, *us_pdev;
-+
-+	ds_pdev = pci_upstream_bridge(adev->pdev);
-+	if (!ds_pdev || ds_pdev->vendor != PCI_VENDOR_ID_ATI ||
-+	    pci_pcie_type(ds_pdev) != PCI_EXP_TYPE_DOWNSTREAM)
-+		return NULL;
-+
-+	us_pdev = pci_upstream_bridge(ds_pdev);
-+	if (!us_pdev ||
-+	    (us_pdev->vendor != PCI_VENDOR_ID_ATI &&
-+	     us_pdev->vendor != PCI_VENDOR_ID_AMD) ||
-+	    pci_pcie_type(us_pdev) != PCI_EXP_TYPE_UPSTREAM)
-+		return NULL;
-+
-+	return us_pdev;
-+}
-+
- static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
- 					     void *buf, size_t max_size)
- {
-@@ -620,7 +643,7 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
- 	uint32_t start_addr, incrx, num_regs, szbuf;
- 	struct amdgpu_regs_pcie_v1_0 *pcie_regs;
- 	struct amdgpu_smn_reg_data *reg_data;
--	struct pci_dev *us_pdev, *ds_pdev;
-+	struct pci_dev *us_pdev;
- 	int aer_cap, r, n;
- 
- 	if (!buf || !max_size)
-@@ -652,25 +675,27 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
- 		}
- 	}
- 
--	ds_pdev = pci_upstream_bridge(adev->pdev);
--	us_pdev = pci_upstream_bridge(ds_pdev);
-+	us_pdev = aqua_vanjaram_get_us_pdev(adev);
-+	if (us_pdev) {
-+		pcie_capability_read_word(us_pdev, PCI_EXP_DEVSTA,
-+					  &pcie_regs->device_status);
-+		pcie_capability_read_word(us_pdev, PCI_EXP_LNKSTA,
-+					  &pcie_regs->link_status);
-+
-+		aer_cap = pci_find_ext_capability(us_pdev, PCI_EXT_CAP_ID_ERR);
-+		if (aer_cap) {
-+			pci_read_config_dword(us_pdev,
-+					      aer_cap + PCI_ERR_COR_STATUS,
-+					      &pcie_regs->pcie_corr_err_status);
-+			pci_read_config_dword(us_pdev,
-+					      aer_cap + PCI_ERR_UNCOR_STATUS,
-+					      &pcie_regs->pcie_uncorr_err_status);
-+		}
- 
--	pcie_capability_read_word(us_pdev, PCI_EXP_DEVSTA,
--				  &pcie_regs->device_status);
--	pcie_capability_read_word(us_pdev, PCI_EXP_LNKSTA,
--				  &pcie_regs->link_status);
--
--	aer_cap = pci_find_ext_capability(us_pdev, PCI_EXT_CAP_ID_ERR);
--	if (aer_cap) {
--		pci_read_config_dword(us_pdev, aer_cap + PCI_ERR_COR_STATUS,
--				      &pcie_regs->pcie_corr_err_status);
--		pci_read_config_dword(us_pdev, aer_cap + PCI_ERR_UNCOR_STATUS,
--				      &pcie_regs->pcie_uncorr_err_status);
-+		pci_read_config_dword(us_pdev, PCI_PRIMARY_BUS,
-+				      &pcie_regs->sub_bus_number_latency);
- 	}
- 
--	pci_read_config_dword(us_pdev, PCI_PRIMARY_BUS,
--			      &pcie_regs->sub_bus_number_latency);
--
- 	pcie_reg_state->common_header.structure_size = szbuf;
- 	pcie_reg_state->common_header.format_revision = 1;
- 	pcie_reg_state->common_header.content_revision = 0;
+> +{
+> +	const unsigned long mask = BIT(GPIOD_FLAG_ACTIVE_LOW) |
+> +				   BIT(GPIOD_FLAG_EDGE_RISING) |
+> +				   BIT(GPIOD_FLAG_EDGE_FALLING) |
+> +				   BIT(GPIOD_FLAG_OPEN_DRAIN) |
+> +				   BIT(GPIOD_FLAG_OPEN_SOURCE) |
+> +				   BIT(GPIOD_FLAG_PULL_UP) |
+> +				   BIT(GPIOD_FLAG_PULL_DOWN) |
+> +				   BIT(GPIOD_FLAG_BIAS_DISABLE) |
+> +				   BIT(GPIOD_FLAG_EVENT_CLOCK_REALTIME) |
+> +				   BIT(GPIOD_FLAG_EVENT_CLOCK_HTE);
+> +	unsigned long val = 0;
+
+Ditto.
+
 -- 
-2.53.0
-
+With Best Regards,
+Andy Shevchenko
 
 
