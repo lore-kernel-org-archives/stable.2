@@ -1,64 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783088;
-	b=5sRhoQS9NbnvrLPWz5tWQ4PVzz/V+WP0wZW8NffPKgxWvZwZO+VeWmOrcC+Iv1Q102UO
-	 fRNSw6SbGJ3SijLURMa1QPnbM0e2qKPgM+nibvmdEff0BNAZEP0mf3xLIS2FiuBSZ3Uz6
-	 J60KZAejayR6RlMkAK76YWcvBIoaJEuL6hV4xeTn4jeQYBkxG+YoUlnTVuP4CCbWV6KtP
-	 A/IPBHF9ZEbfSieJ4aCOoCtsyIp01FSh6qRn17HdvyS90R4uVt6963pJNikH64K5IQcTs
-	 I7B1AtTCDMttbJ6BUpNHEFOhIXOBrXvyaB4eS6TKlllw8u9Yyy/MnjIpkn8YIAIuiHA==
+	t=1793783393;
+	b=WFN3kQP5g0pfYioKQRFRtxSTHvbi/JREs+1LHy2Rt1nrjKqRHRTwcTE6YeGVwyypF7q0
+	 HeRDjgEpresEHiqKcBU8zO7b53ORlVmgsWLmQ3uempAs9uToOnXFLIn6ZhinTg9avVKLh
+	 LVCQ5IFpYj/GdtV4YmSjn4IqPJs4V1q+EmU01649EsyFdn5RlqHr90GVmabQgMsQryL+I
+	 dqzUCx6+vDpazNpHKZTwS5hjhy1THY52kYe5tAkwyMQkb37CrV6i+agMwbkqMGW4FUAS6
+	 mwBfYZj050LE079ZJhV03ESaWZSq3cqhezN8MOR5LS6xwSw1sYiPi5rIQfmM4fEH0Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783088;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=jS8EmX9YEz1aAtqHNYTh2/HG8DpSqns+F77LtDtIDbI=;
-	b=adxAjxX32EHquj3rFcjpN+sQ8fgLUPjqLvdfxqvc+YlHu3/BYl8csner6/CndFURL+p7
-	 NZz87oF22vOgRd6Q7EH+ynr2C3FtyOz2doPV0o/f1Km5oLCwtH4mh8sR1XHst+uDb8rv3
-	 yglHkYXfzBlXYrPC+sGiDjIq8zQPH5OP8xI2C9QdvySGO9TBmjjCT+diaceLj/a3Zdz8M
-	 KRHv9UK5Fu4b5JjRQApwpGuJZyWho0DAPr+ROPcBnf5r5Mt+jdLLrv/dh8GgLMMLQE7Kb
-	 JTVAKxkr4zqLaBWryoM631hleh3MqxHwI1AztE/ybMO4+LP1+w1kE2S5fQoQpgDsxSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783393;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PhJXxZjl8atL8PR+6e4yHQuvKFdTDoSNus6/fp0TAmI=;
+	b=VOIJSnZy8W3newJKvJzOwnhiabl3aNUKv9YNJ31LpYyyAiFrIpofDhXQZsQI0QI3Om8/
+	 Kx6ybbWLnJpehMHqFh+GZ9078uGheP1F55s39/ouu4ZYP5xoBWyLP5qQ0I+kqN69lRlMx
+	 yEZ2wDbawvd4HEBz8eeFUt6LlG94tQ66fPdgIvbfnI/FafKYoCqT03TlYtUk0bVYtGTcw
+	 NRdF4PAQb/+5buln3+JDrNZ88SmRxiJf9EKUKMf7TEZMYYACPrC0IHVNV9lbjyowDQK8K
+	 kO0noRI0NX0UwsEGoWhEmcKKJMbKuEfinAhmQeJNj1BSh5EwPJsSqVEQI6VArKBtcAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=X2R+6IL2;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=ffQ9dJKs;
+	arc=none smtp.remote-ip=115.124.30.97
+Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48DE606A339;
-	Wed,  4 Nov 2026 09:04:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C48DE606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D35606A326;
+	Wed,  4 Nov 2026 09:09:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02D35606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=X2R+6IL2
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=jS8EmX9YEz1aAtqHNYTh2/HG8DpSqns+F77LtDtIDbI=; 
-	b=X2R+6IL2gnfc5FgubrtLAKLQSJY+mN0EfeVOSFCsM/IEf302O+Su0HqqjRbbqRoGUIZWFZQ+KKm
-	o/aO8U+iHj/27Ra1L4Vt/PJBWovhO0PXxCkkfrozk/Sn/PacWeYKXtNKjTVlSD5zBgPnb6ulv/ZEc
-	PZJiTrqGHL+gplGx/vytt+Ogz5nK9nXq77qTCjegD+D0h9RQesgGW5HtUxb8q72gY3i1c4K0xtmHl
-	BEI1B6TuUUM1x6nxJlb11XmbO1tqbU73dIZxSr4UmxTE2jvQcYQYZqr49P+X5Ip7P9k2748NP8kiT
-	ncKMIVn7guVlRtiBaPwCEan94G7xQPikTVSA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xOWvC-0000000AnKs-1L9j;
-	Wed, 04 Nov 2026 17:04:43 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 04 Nov 2026 17:04:42 +0800
-Date: Wed, 4 Nov 2026 17:04:42 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	Sahil Malhotra <sahil.malhotra@nxp.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=ffQ9dJKs
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793783384; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=PhJXxZjl8atL8PR+6e4yHQuvKFdTDoSNus6/fp0TAmI=;
+	b=ffQ9dJKscjx3sn4WNlsQhOCn6rHcmOXqO6zP1knncadcwBslOoTHs2snb3KHK0udW3nbTZIgJTliGOwzHAeS8wZU4rASjKi+7DZyjFYItezgZE+UXX2GeAaSOXr9naKMD7Cr45WO1Q7DTOJJrn4FV0ONKN5ARbbpC5pw6or2qs8=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0XE5PlFA_1793783383;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE5PlFA_1793783383 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 04 Nov 2026 17:09:43 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Jan Kara <jack@suse.cz>,
+	Christian Brauner <brauner@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
 	stable@vger.kernel.org
-Subject: Re: [REPOST PATCH] crypto: caam - reject overlong RSA CRT parameters
-Message-ID: <aur1Kpi3GRQ-fT2W@gondor.apana.org.au>
-References: <20261008093553.384608-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH] ufs: free cylinder group structures on late mount failure
+Date: Wed,  4 Nov 2026 17:09:23 +0800
+Message-Id: <20261104090923.540863-1-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,38 +61,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261008093553.384608-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
-On Thu, Oct 08, 2026 at 09:35:53AM +0000, Jérémy Jean wrote:
-> caam_read_rsa_crt() right-aligns dP, dQ, and qInv in buffers sized
-> from the corresponding prime. rsa_parse_priv_key() only bounds these
-> integers against n, so a malformed key can provide, for example, a
-> two-byte dP with a one-byte p. dstlen - nbytes then underflows and
-> memcpy() writes outside the allocation during set_priv_key(). KASAN
-> reports a slab-out-of-bounds write in caam_read_rsa_crt().
-> 
-> Reject empty or overlong CRT parameters after stripping leading zeros.
-> qInv is consumed by CAAM as a p-sized value, so size it from p rather
-> than q to match the DMA mapping in set_rsa_priv_f3_pdb(). Let the
-> top-level key cleanup handle partial form-3 allocations and return the
-> specific error to the caller.
-> 
-> Also test nbytes before dereferencing it while stripping zeros, so an
-> all-zero integer does not read one byte beyond its input.
-> 
-> Fixes: 4a651b122adb ("crypto: caam - add support for RSA key form 3")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
->  drivers/crypto/caam/caampkc.c | 69 +++++++++++++++--------------------
->  1 file changed, 30 insertions(+), 39 deletions(-)
+ufs_fill_super() reads the cylinder group structures before it creates
+the root dentry, so that a failure there no longer publishes a
+superblock whose s_fs_info has already been freed.  The two failures
+that remain after the read, a failed ufs_iget() and a failed
+d_make_root(), still jump to the label that only frees the in-core
+superblock information.
 
-Patch applied.  Thanks.
+Everything ufs_read_cylinder_structures() allocated is released by
+ufs_put_super_internal(), which runs from ufs_put_super(), and
+generic_shutdown_super() calls that only inside its if (sb->s_root)
+block.  With s_root left NULL, the s_cssize allocation behind s_csp, the
+s_ncg buffer heads behind s_ucg[] and the UFS_MAX_GROUP_LOADED s_ucpi[]
+entries are leaked, once per mount attempt.
+
+Neither failure needs an I/O error to happen: ufs_iget() rejects a root
+inode number that falls outside the s_ncg * s_ipg range the image
+claims, and s_ipg is not validated.
+
+Give those two paths their own label, and move the unwind that
+ufs_read_cylinder_structures() already performs on its own failure into
+a helper that both call.  The helper also clears the pointers it
+releases.
+
+Fixes: 55a4c98abb96 ("ufs: create the root dentry after loading cylinder metadata")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+---
+ fs/ufs/super.c | 42 +++++++++++++++++++++++++++++++-----------
+ 1 file changed, 31 insertions(+), 11 deletions(-)
+
+diff --git a/fs/ufs/super.c b/fs/ufs/super.c
+index 3569ac92b065b..50adfef5f2aa9 100644
+--- a/fs/ufs/super.c
++++ b/fs/ufs/super.c
+@@ -448,6 +448,32 @@ static void ufs_setup_cstotal(struct super_block *sb)
+ 	UFSD("EXIT\n");
+ }
+ 
++/*
++ * Release everything ufs_read_cylinder_structures() allocated.  Besides its
++ * own error path this is needed when a mount fails after the cylinder groups
++ * have been read: s_root is still NULL then, so generic_shutdown_super() never
++ * calls put_super and ufs_put_super_internal() does not run.
++ */
++static void ufs_free_cylinder_structures(struct super_block *sb)
++{
++	struct ufs_sb_info *sbi = UFS_SB(sb);
++	struct ufs_sb_private_info *uspi = sbi->s_uspi;
++	unsigned int i;
++
++	if (sbi->s_ucg) {
++		for (i = 0; i < uspi->s_ncg; i++)
++			brelse(sbi->s_ucg[i]);
++		kfree(sbi->s_ucg);
++		sbi->s_ucg = NULL;
++		for (i = 0; i < UFS_MAX_GROUP_LOADED; i++) {
++			kfree(sbi->s_ucpi[i]);
++			sbi->s_ucpi[i] = NULL;
++		}
++	}
++	kfree(sbi->s_csp);
++	sbi->s_csp = NULL;
++}
++
+ /*
+  * Read on-disk structures associated with cylinder groups
+  */
+@@ -511,15 +537,7 @@ static int ufs_read_cylinder_structures(struct super_block *sb)
+ 	return 1;
+ 
+ failed:
+-	kfree (base);
+-	if (sbi->s_ucg) {
+-		for (i = 0; i < uspi->s_ncg; i++)
+-			if (sbi->s_ucg[i])
+-				brelse (sbi->s_ucg[i]);
+-		kfree (sbi->s_ucg);
+-		for (i = 0; i < UFS_MAX_GROUP_LOADED; i++)
+-			kfree (sbi->s_ucpi[i]);
+-	}
++	ufs_free_cylinder_structures(sb);
+ 	UFSD("EXIT (FAILED)\n");
+ 	return 0;
+ }
+@@ -1211,17 +1229,19 @@ static int ufs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	inode = ufs_iget(sb, UFS_ROOTINO);
+ 	if (IS_ERR(inode)) {
+ 		ret = PTR_ERR(inode);
+-		goto failed;
++		goto failed_cg;
+ 	}
+ 	sb->s_root = d_make_root(inode);
+ 	if (!sb->s_root) {
+ 		ret = -ENOMEM;
+-		goto failed;
++		goto failed_cg;
+ 	}
+ 
+ 	UFSD("EXIT\n");
+ 	return 0;
+ 
++failed_cg:
++	ufs_free_cylinder_structures(sb);
+ failed:
+ 	if (ubh)
+ 		ubh_brelse_uspi (uspi);
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.39.3
+
