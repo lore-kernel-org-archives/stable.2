@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801655;
-	b=dq7nzz/4oo0EOPn7Bx0Z/cQVBUwO5+ePMz338pcMMpXhaOtdIe05yAZYUsEeh1Jposox
-	 qpJlSyMSUD0XRzcLgzA89kzEHFYvrJ4cswtiMSTKAVt4MjRgOZN2jdFouD6K0IyfJZsCU
-	 vID58+4zYWHeY0LNfQZca1u8ksi/EJjucxQhP1PedvnjxBFuIEuMkrr+pIhx69PdRALr/
-	 JwZqDK9N+gt9ix3TaPUvujeX4yy/K3m8bSSBvc/U9rDEfevivKp6UiGYWiAezh9kBZeIE
-	 5DGtd7izKY9IbIx0OkrpXSNnI2DD4dLO9KD1OyA2mmlFshgo+1+2kQCIEf1sSS1girg==
+	t=1793801657;
+	b=KQLqzCdZcTg+c5A1i1iiLEu/P2WPvxo4hGLMk1unvnCXj8/PODfQpvyLo3BIrtXEY117
+	 phqU9g3ghEpP0tTr6IjkEPBhmTh9q7AsW6JMkfFKL+ATXi3rltTA9ybovm5w/HJhNEiwM
+	 rrGta+BzuWcLfpxTImnJG8tkBy5NHMomJb/oZCwkDLqrZOLrT1V+xLyUcxAuJriqYZFFT
+	 Vi7Ir9HzyBP0jlMZ/l4o//UfcM/aSloXYxwdk7R23bHQR3mTn/gzrIdFgn2jULttYfhMq
+	 f3mgHh513I7GQuzGAhs6O3hIubPsZP9qRHqzG5o5c8I9hXcYvlwn6hyGNOScVxhEoBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801655;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801657;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=MPGD7o8XtPK7IccvaW3qzYWKZzgGNWYlioutnxpxaxE=;
-	b=k894pPGCliLhkTsHOLnRR2dyaJBHdFDCJ1S26ETsFEUFsycALsKKipPxz9vPEKY+lWOQ
-	 aLm2UqEBTnBQxmUhsyr/jAneclbSijD6Z3SZLUxjU+7ACSlGcEySlVPyCxx58XzWM7N/c
-	 8O72gmraxl/VC9RAhu9ja/yb0ijvN3myN9brgi6vYbmwClhg9//R9FO5RG3LYYALL9nsX
-	 HCt9iAWgodKTpIjvQZ9OYUuFkaE4Bwq9qzjBQpqld1iQOV0+hHQb0qgfuH4usNo+bSVlI
-	 GYNWGC3okTMJB2WM945+FJQmEwgsSoog3sI9xGOoRRp/732US5IeM6MsSzzMDiyb/xQ==
+	bh=+5N4JkAz7Oxk6JFa1uc2/eqtj3bP4tVrTPR/C/Aq5fc=;
+	b=LdZMB68xTQgf21I40Frd7l7O/+gpAFiBTMktGsJVHMaL+E70QW0u6SDSNGZpivgrkbyQ
+	 rrAE+72FXqIU0bUnZpmlGxcTO7PAUTDSd7rfL9S1k+w5GgbrKT/ts0mr+1T1LPxef+DPS
+	 2oBWecbUvwOrOEFsMzS4BkMkmTSeI7AU5sqV6VIuM0zoocG7m7ecDX1kshsoi99ZtaPlC
+	 A2faGpQmAmywjOKBHmFvFRLVxvsXM00abHItmEWSdr0TbT1s0Lv0YNaOtCET4nLF8h2jb
+	 tuNUcJrN38mwMyFSA1w/cXsI1OZt21jDRuB3B61p2AkdV5u5O08IZs4gndPtbK7o0Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Zk7VdADT;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xDLze8YJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5087606A329
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:14:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D9F9606A329
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:14:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Zk7VdADT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CF311F00919;
-	Wed,  4 Nov 2026 14:14:14 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xDLze8YJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFB481F000C1;
+	Wed,  4 Nov 2026 14:14:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801654;
-	bh=MPGD7o8XtPK7IccvaW3qzYWKZzgGNWYlioutnxpxaxE=;
+	s=korg; t=1793801657;
+	bh=+5N4JkAz7Oxk6JFa1uc2/eqtj3bP4tVrTPR/C/Aq5fc=;
 	h=Subject:To:Cc:From:Date;
-	b=Zk7VdADTkMzF2hs7jS24yT/OBWz2LMf2D/u1EqQYzQLay9bKNkvFsd2jujZ6pNBg4
-	 7fZqTotE5womEFnNwaRypbaDhvWN3DBpRjo1jcZbQZnKlOzWMce9IdO1U7KHx8LOGs
-	 S7XD09iJ3zZbiH3Mo+dTiiwe6Kvu18qtUdnOWNiw=
-Subject: FAILED: patch "[PATCH] rust: dma: declare cfi_encoding for dma_data_direction" failed to apply to 7.3-stable tree
+	b=xDLze8YJdPX4pWUC/FMf7hB/jHuU69rZvkDmTqhgOrOhW2q2y+m4JRSFOQwt8HDUU
+	 MPqCDxAfLsybQ+Ew++pqwvcHZFmxi7NCdqiXPe8TvjrHgjsKxbso2QHp4UOTKluVDn
+	 gm7z52RtqHkaFOFIYp7q0DdZTFSmQgQRZYu1gZ6Q=
+Subject: FAILED: patch "[PATCH] rust: dma: declare cfi_encoding for dma_data_direction" failed to apply to 6.18-stable tree
 To: samitolvanen@google.com,aliceryhl@google.com,dakr@kernel.org,gary@garyguo.net,ojeda@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:14:12 +0100
-Message-ID: <2026110412-blemish-tinsel-f7cf@gregkh>
+Message-ID: <2026110412-idealism-matador-e917@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7d109178cd644268326cd31702ed46c7ac8bb300
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110412-blemish-tinsel-f7cf@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110412-idealism-matador-e917@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
