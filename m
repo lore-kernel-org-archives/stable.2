@@ -1,53 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793777179;
-	b=X/Dk8aJtwq2Avs06O6R9sGiNjO7VutAkyUCiPWuGVY9ZeoCjkF0srkCxteQvN1KNQqh5
-	 x8zrYRx20FAVvq1tmL2e+/Mqyq/uyJDNVaZP4T3tZkOZ1cZ3MoNmeyu1sUrB+DMCUpIbt
-	 Vemcr1+e0/FJr5l7YgdT2Q1DewJPFoj3eLUuVYVser+8hfY6fJytFXR+mcpdFyXyVLZyy
-	 2Zbvzo0aw3fcY7gB8noqX0AfFffJBpuNC2++9KKiGW+Hm+Iy0OXZ6Tza45cNjQ1iFK9PV
-	 D9LyvQLEnLyg2oqxbY53FOfbZlJP3SuzntkDIzXE3dUy/SFJg9DWz/+7FEoCg25qlow==
+	t=1793777606;
+	b=gp4YtpVNqE5l21721YmaKC6QumChByCAqmxjhoMbpMWPRr6hXDCIG9VBIs9pcAYaL665
+	 gF9Of+H7bgZvsF0Ni3R7Yn2aDquUQ64G1E9YBZEdccOMOS9vT1gh+wAllfjuzELXpPVsQ
+	 rNy6dsbUns7Sy7CfTgevM7ttgJwNhpk4P3Psu0LxLic5E+pYHtk1YSwwVGZ2F7NLhRXlx
+	 S2CpJHuTeRxggAi2SRw2NiD4RHjtpQJ0WxTCfuOYtmfVN6YIFFd4QoGDOqe8GOHLab5q+
+	 ZbwMTzWWuWD1tIvYKEq5nSr/cRfNUEVYOkOEXJpxs8om8q3gKU2YuV+MQU3+ym02cZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793777179;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=odPVEGJNI068vOlDDlXNPqYz0NLXdEZnh3rgurqIlvs=;
-	b=pri2Ehx5IVRQY+peAq3th4JjHVPeIPh2Ud5hx4YZpX8V80vHkckYZ4HLs6NLnCX2akHh
-	 UJDvy0ke12ny741YOSatOoyXzkMqrWevNJjPxDBgcRLI3VPHGbTk51Hz7KrGxsYmOSiCE
-	 CI0TURqHEbQEpLc3WHGtcs38yHskHCsgIFV34cz9wJzPiPW01bAJpK8YT3n0uZLuTIJyd
-	 r/KOdNcIqWincW00mdCUVuQuEI8G9/efkOMkIaN9u9BJiYvP/qO2xd5EfMzucsq5DtThJ
-	 HWufYBMQZklvsBHA5g7qdRTPI72M+ka1f0iZhVSu804uWUdDTs8cWj8h4TM57QFG+VQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793777606;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=/XbaYXLldoLvnznmVKhXjejOBcwlPqhhTJlN1aaHsr8=;
+	b=WxtdpXYNzDl+rq1lMhPuYiN5D/DAUdMD8ekbCWFXYgronLzqPmNeCj0TTst5oSvNlLC3
+	 Hff6ooyZ7izsmXYM1TjwIZgn50OVmtBLNtQUR4IqDV6RxQQxDAw7es0EFGax7uygC0Rpi
+	 DxfW7C298BguXRM6XnPc1rsbdAu38qyZFdff8vBCVzynBQOKwQvHf53CqNYmygkSpclYg
+	 vq8KxZ7A0LS72NapH344mv+SlPtqlzV0s2UcSCVlnm2p8+STocUjZdBrLwjQdfzgn6Mkd
+	 55FaGxHdICI9F3PyQKnkOf07Xane8aJlmYk6YAJg28lgmFWCkZX2S4PgRp5Z8MB9wiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=t89g3hbC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p4n4POhV;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7CB4606A335;
-	Wed,  4 Nov 2026 07:26:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCAD606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 07:33:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FCAD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=t89g3hbC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 325BD1F000C1;
-	Wed,  4 Nov 2026 07:26:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p4n4POhV
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36a1467ca93so32701eec.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 23:33:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793777178;
-	bh=odPVEGJNI068vOlDDlXNPqYz0NLXdEZnh3rgurqIlvs=;
-	h=Date:To:From:Subject;
-	b=t89g3hbCwfpvNJaLL7DpZKZf5FcM5JEUHOQDYbZMXdsZlx0EilYxqjO98gCwCF1Fm
-	 1O2LuvuOpjqn7apBzPQ9QFs/Q+UUiHpsZ9jQ80BKQq63oCPaNZW4tzXTYhnlHRCDL5
-	 PYwnoTj2l0IUbI85CygX5JD3+JQZpZbNGmWeAzig=
-Date: Tue, 03 Nov 2026 23:26:17 -0800
-To: mm-commits@vger.kernel.org,youngjun.park@lge.com,yosry@kernel.org,
-	vbabka@kernel.org,usamaarif642@gmail.com,surenb@google.com,
-	stable@vger.kernel.org,shikemeng@huaweicloud.com,ryncsn@gmail.com,
-	rppt@kernel.org,nphamcs@gmail.com,neil@brown.name,mt4022@columbia.edu,
-	mhocko@suse.com,ljs@kernel.org,liam@infradead.org,kasong@tencent.com,
-	josef@toxicpanda.com,hch@lst.de,hannes@cmpxchg.org,hanchuanhua@oppo.com,
-	david@kernel.org,chrisl@kernel.org,chengming.zhou@linux.dev,
-	baoquan.he@linux.dev,baohua@kernel.org,mason@kernel.org,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-swap-fix-large-swap-in-across-swap-file-extents.patch added to mm-new branch
-Message-Id: <20261104072618.325BD1F000C1@smtp.kernel.org>
+        d=gmail.com; s=20260707; t=1793777605; x=1794382405; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/XbaYXLldoLvnznmVKhXjejOBcwlPqhhTJlN1aaHsr8=;
+        b=p4n4POhVx9ba4qfgRBLJJq8iWcuZ9DZsljroi72/xuvSDxFpnPH/z6NYQshuozLHhB
+         tO100+TqBMwO3xdU3avBYX6dV6aozpDqJZTrnvM4UINs6mA5Q0TR0I6uDD8zAwGl/DAf
+         ca09IoryiQOrcVkKZyXe92jtaBzh7UOjI3lt5ioUT3ji920tg13glhupiSQAIdo2d/Na
+         AfEwP7fHphjrftjd0wCNtoy4Mfg5KghwIXEFSxhmBRQsql8eXS7+2sdk4qLIHRtk/yqG
+         lYrKXMhRWJPgv/M0ajgyCXQhtmyHKbio58Ja7U1fKdtDWKTfNxtymbIOMbrX2P+HCugl
+         vhaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793777605; x=1794382405;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/XbaYXLldoLvnznmVKhXjejOBcwlPqhhTJlN1aaHsr8=;
+        b=j81NnuvqTXHkPzFnXNDd0jy75s7LWlGBRlsbvIM7+dU6oZLvd1/pvaL1JSeHMmrlk3
+         mtRdFoCEvDL2WUbFl6oJJ0Ge+UEHrVmqFO2ydqrJKBRu5viHO7TFwctPvAB6NR6Q8Txz
+         Epr8Vf1pTU1NiYBdia3O4hDjCbLEScnweGQOEZb12IX7+XG5iFl7e0afyGLMCM/IVrgR
+         0FWiZfgaD+vfST5U9zvHwDzaTiht3DYTpCEtoTBojnE84Gjho1zHvOwrlm4+0mZ+TV1X
+         5JnjD37V+d1+YYp+BQefFyu87iTOXogZEjboMFEkw450jIlC+p12d99xpd1cG0fTrbHB
+         sDFQ==
+X-Forwarded-Encrypted: i=1; AKwUvByY/luBBN6g2D8CF34YTtMWwmMTnbEJchQ3GXwpJvDY0L5rgziGBA73rMYu78nSRQ0/MRZCClI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/C20ku86mW79/LCZ1hkOMx7F0nypK+AF6Xt7vMI0Qiedz2Xl6O
+	wTRYkMnLL4m2qRarejuJjw996YHOlFBSLaT5SKnNJyzzmaxdLvpQHEzD
+X-Gm-Gg: AYBFou3wk55PSs4suDE45yibdvIRSh305Xbjv4e4YcaxyWavYyrJ4b29b/P5zxqiPcf
+	Kq3EeuOrFkx7m7td+vAJa1fUiBb1fPaqOKA68CvgNe0/pjro+68gOFwkCLzNO8MUkMRJuT/nPFa
+	bCusI09OzXR6sYFXIta/mvk+7RhjBt+jqM0mBdQJCw5pAquRIvhbTMgNI4kbQhG77GsQfP6Hofo
+	enwtTxRbHDVIXNp7Z+msPmk5ARui9q5+VMnktk1pSjzIFMGlc6vGp2u8zIBdc4gjD7CF65xZ5X/
+	GxAO9bdrTAdrChRguA+yHFvuZOO8KCA41Djq2PPZWmw3LYvgMIEb8rztcwe1AHuuCDV2Q0CEZDW
+	pgamEbuL6J70OoEPj9JCJQKJXm6+RBSvT40SyYnoevAn3+WS7ENvCkAFObFAtKaFcm3205Ihj3h
+	WBZ1Kq3PPP1hxqd9DTCfTFLuI/dDy2OXCBOJWw2Am2ijBAUeh9ETBK/sddBysEeH/cqVV8se9h5
+	ynLfMThPrrpJ1r5s4BJPk0wCJW/aZV/YzFECp2T9GmjgnmdZR/gu+00zy1idQpgigYnIrgdlVki
+	dIcP4q40T+bJ5insjpNlwnTtBqCM6PXKHmTV3ldkgQ==
+X-Received: by 2002:a05:7301:fa6:b0:369:f195:a5ff with SMTP id 5a478bee46e88-36a4231f8e3mr35132513eec.1.1793777604980;
+        Tue, 03 Nov 2026 23:33:24 -0800 (PST)
+Received: from CRASHEDROM.localdomain ([142.249.36.161])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d3754sm6295359eec.14.2026.11.03.23.33.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 23:33:24 -0800 (PST)
+From: Chengyu Liu <lui2012qwq@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+	jani.nikula@linux.intel.com,
+	joonas.lahtinen@linux.intel.com,
+	rodrigo.vivi@intel.com,
+	tursulin@ursulin.net,
+	Chengyu Liu <lui2012qwq@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] i915/gt: tolerate ERR_PTR pd in gen6_ppgtt teardown
+Date: Wed,  4 Nov 2026 15:33:10 +0800
+Message-Id: <20261104073311.1617823-2-lui2012qwq@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261104073311.1617823-1-lui2012qwq@gmail.com>
+References: <20261104073311.1617823-1-lui2012qwq@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,171 +101,52 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+gen6_ppgtt_create() stores the result of gen6_alloc_top_pd() into
+ppgtt->base.pd and, on failure, jumps to err_put with the ERR_PTR still
+in the field.  i915_vm_put() runs vm->cleanup = gen6_ppgtt_cleanup(),
+which calls gen6_ppgtt_free_pd(), where gen6_for_all_pdes() immediately
+dereferences pd - with an ERR_PTR that is an invalid dereference and a
+crash (in the async release worker).  The free_pd() right after is only
+guarded against NULL, not ERR_PTR.
 
-The patch titled
-     Subject: mm, swap: fix large swap-in across swap file extents
-has been added to the -mm mm-new branch.  Its filename is
-     mm-swap-fix-large-swap-in-across-swap-file-extents.patch
+Bail out of gen6_ppgtt_free_pd() for an invalid pd and skip free_pd()
+likewise, so an allocation failure under memory pressure stays a plain
+-ENOMEM instead of an oops.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-swap-fix-large-swap-in-across-swap-file-extents.patch
+Found by static analysis.
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Chris Mason <mason@kernel.org>
-Subject: mm, swap: fix large swap-in across swap file extents
-Date: Wed, 04 Nov 2026 00:18:15 +0800
-
-A page fault can give an unprivileged process blocks of other users'
-files instead of its own swapped-out data. This affects systems with a
-swap file on a synchronous block device, such as brd or zram. For an
-anonymous mapping it also takes a huge page size below the PMD size
-(mTHP), such as 64 KiB, that is enabled for anonymous memory.
-
-A swap area is divided into slots of one page each. A swap file is a
-regular file, so adjacent swap slots can lie in two extents, far apart
-on disk. A folio is read from swap with a single bio that starts at the
-sector of the folio's first slot. So all slots of a large folio must be
-contiguous on disk.
-
-The swap allocator knows this: it only hands out a run of slots for a
-large folio if the swap area is a block device (SWP_BLKDEV).
-
-The swap-in path does not. On a synchronous device (SWP_SYNCHRONOUS_IO),
-one that always completes I/O in the submitter's context, do_swap_page()
-can read several swapped-out pages as one large folio (a large swap-in).
-thp_swapin_suitable_orders() makes that decision, and looks only at the
-swap offsets (the slot numbers) in the page table.
-
-Pages that were swapped out one at a time can end up in consecutive,
-aligned slots, and are then read as one large folio. If the extent of
-the first slot ends inside that folio, the rest of the folio is filled
-from the blocks that follow the extent on disk. These blocks can belong
-to other files.
-
-Reproduced with a fragmented swap file on brd and 64 KiB folios enabled.
-After single pages were swapped out, a fault returned blocks of a
-root-owned file with mode 0600.
-
-Fix this by allowing a large swap-in only when SWP_BLKDEV is set.
-
-Known gaps:
-- A swap file on zram, brd, pmem or btt is now read one page at a time,
-  even where its slots lie in one extent. Its swpin counters in
-  /sys/kernel/mm/transparent_hugepage/hugepages-*/stats stay at 0.
-- There could be devices with SWP_SYNCHRONOUS_IO but not
-  SWP_BLKDEV, so the new check would have to let that device pass.
-
-[kasong@tencent.com: simplify the note about the unmerged xswap patch]
-Link: https://lore.kernel.org/20261104-swap-fixes-v2-2-204be064be5b@tencent.com
-Fixes: 242d12c98174 ("mm: support large folios swap-in for sync io devices")
-Signed-off-by: Chris Mason <mason@kernel.org>
-Signed-off-by: Kairui Song <kasong@tencent.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
-Cc: Chris Li <chrisl@kernel.org>
-Cc: Kemeng Shi <shikemeng@huaweicloud.com>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Youngjun Park <youngjun.park@lge.com>
-Cc: Usama Arif <usamaarif642@gmail.com>
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: Yosry Ahmed <yosry@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Chuanhua Han <hanchuanhua@oppo.com>
-Cc: Mani Tofigh <mt4022@columbia.edu>
-Cc: NeilBrown <neil@brown.name>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Josef Bacik <josef@toxicpanda.com>
-Cc: Kairui Song <ryncsn@gmail.com>
-Cc: <stable@vger.kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
 ---
+ drivers/gpu/drm/i915/gt/gen6_ppgtt.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
- mm/memory.c |   16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
-
---- a/mm/memory.c~mm-swap-fix-large-swap-in-across-swap-file-extents
-+++ a/mm/memory.c
-@@ -4830,7 +4830,8 @@ static inline unsigned long thp_swap_sui
- 	return orders;
- }
+diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
+index 438cd4724a..72a9ad4642 100644
+--- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
+@@ -259,6 +259,9 @@ static void gen6_ppgtt_free_pd(struct gen6_ppgtt *ppgtt)
+ 	struct i915_page_table *pt;
+ 	u32 pde;
  
--static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
-+static unsigned long thp_swapin_suitable_orders(struct swap_info_struct *si,
-+						struct vm_fault *vmf)
- {
- 	struct vm_area_struct *vma = vmf->vma;
- 	unsigned long orders;
-@@ -4855,6 +4856,14 @@ static unsigned long thp_swapin_suitable
- 	if (!zswap_never_enabled())
- 		return 0;
- 
-+	/*
-+	 * Neighbouring slots of a swap file can lie in two extents, and a folio
-+	 * is read with one bio. The flag is set in swapon() and stays, so the
-+	 * race is benign.
-+	 */
-+	if (!data_race(si->flags & SWP_BLKDEV))
-+		return 0;
++	if (IS_ERR_OR_NULL(pd))
++		return;
 +
- 	entry = softleaf_from_pte(vmf->orig_pte);
- 	/*
- 	 * Get a list of all the (large) orders below PMD_ORDER that are enabled
-@@ -4891,7 +4900,8 @@ static unsigned long thp_swapin_suitable
- 	return orders;
- }
- #else /* !CONFIG_TRANSPARENT_HUGEPAGE */
--static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
-+static unsigned long thp_swapin_suitable_orders(struct swap_info_struct *si,
-+						struct vm_fault *vmf)
- {
- 	return 0;
- }
-@@ -5037,7 +5047,7 @@ vm_fault_t do_swap_page(struct vm_fault
- 		/* Swapin bypasses readahead for SWP_SYNCHRONOUS_IO devices and zswap */
- 		if (swap_entry_synchronous(si, entry))
- 			folio = swapin_sync(entry, GFP_HIGHUSER_MOVABLE,
--					    thp_swapin_suitable_orders(vmf) | BIT(0),
-+					    thp_swapin_suitable_orders(si, vmf) | BIT(0),
- 					    vmf, NULL, 0);
- 		else
- 			folio = swapin_readahead(entry, GFP_HIGHUSER_MOVABLE, vmf);
-_
-
-Patches currently in -mm which might be from mason@kernel.org are
-
-mm-swap-fix-large-swap-in-across-swap-file-extents.patch
+ 	gen6_for_all_pdes(pt, pd, pde)
+ 		if (pt)
+ 			free_pt(&ppgtt->base.vm, pt);
+@@ -271,7 +274,7 @@ static void gen6_ppgtt_cleanup(struct i915_address_space *vm)
+ 	gen6_ppgtt_free_pd(ppgtt);
+ 	free_scratch(vm);
+ 
+-	if (ppgtt->base.pd)
++	if (!IS_ERR_OR_NULL(ppgtt->base.pd))
+ 		free_pd(&ppgtt->base.vm, ppgtt->base.pd);
+ 
+ 	mutex_destroy(&ppgtt->flush);
+-- 
+2.25.1
 
