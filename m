@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801871;
-	b=uN8vlJQI0YYpXmTe0/prlioWjevbmfptmusR4qwLiZB7YorcOTWPbJKEpapWv9NE7I4r
-	 AfV2LGib47yd9x+w9BTw4M9+FDWHd063Jo+SelY0T8+Up/7MSufATJo6TKqx1GrKiZC1q
-	 p5lUcyrJkU6G1J3FnPBKxwZ64Ad/9TWNlnrfYKiDRr7tFq72ktwiITie5qq8rt21/HNuO
-	 1LStZeuMlj9gZqcuk9pLtWSLV2dMjwWq+PcISnucA9qGW2zYCSQS9+7n+HR/kj61mTQx3
-	 VXVd0xMfffJkJHj7UK+gyH+WaZhi3XnpTnLcjbkPki57pq1rcqzzVUcrIhSarFItoaA==
+	t=1793801879;
+	b=swj6YcpL7qsW5+pBTgMQq0+zskFY06UHu3nJ/WXD1JnEU2P7qZwo1sAkjtEumz7W+Ory
+	 Kp1RD48SUHgr/HdbcoNuyYSAlSTrsXLcn7vWv9G4J0WOBwSrwmoAP73IAGPj3uPhytUlg
+	 aT54f9hgTlbGKKxkhAhMuUq4sAkMAczHxB4OS5nvh+KZSN/dRrt64rtlZpA8pWgDkcprG
+	 krcQrBcSOrMiQQO2GHlFwe78qJ80urkHv3qSKSF953XJ8pob8zDCPpdl2+Dlx4h2b2L5C
+	 rfJNU66DekiawuEYS4X7vJ+4jwJHtDuSHyB+lk5MY4Nr3MYFNBGwQVbn2hPHx7hAlEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801871;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=mLazd9emzOWsv3JaPQ5UUfvKLht8lch/HQcvpq8y3GY=;
-	b=kMrAGuEoIs07Vv4GGZLxpMARFFusdiWFR8KXgyvdtMAwl3XLlRJDE3FUPAwh8H1piUsW
-	 Hb6D7bTYqNtG7AD7WVY0j/EYxr5SHxyCR+cr3u5FWqD2TSuBcXwIP4Uy9uxqnxWzugzGS
-	 /nRxZ1pYaCV++U1lCAG7u+EFe/Z+I9TEJtNEZEUnRIpZAFjjJjU9IT25wtLi/GZ1gLtum
-	 jkLgHlLv93zfA+9r1q1+nFdLblj2VhmEXSsasJw2qh0CwMILZFu+vD5SbanMIsJ3/jB90
-	 /FIDS1ml8xoFlPRvLPTeRG1s9g8f2kNFWHtZCfZXldoouPHddQNwfdeWUaZVjSJVZIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801879;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=MyZrj42L8jrwyQSRGCl3GivBbElz89p/F5V3do/GXmA=;
+	b=ZT49fkVM2G5X8Yvd3BH+TT9udW3ig7YrQ+47xgDGpqYfL7x8ZhaBC3/DF3H7i4n3f3iX
+	 nSBHo6iMV/tH4pZpsJ8CZEaCLhLyqXPH00fHlyFWhFc0H1gm/BCHAvrgIeGxOlMM4i9aG
+	 pfV7kmcdH9upcGNnBjMleY+i8EBrTC/+r5jMjCnhL5oHY/X0QeeWDEu2EtZtUH9/V2b3P
+	 1h2p12xT/77o7kEYY7lyUgWqGVK1rnnhCSjifGRdAu89eA0BFQiATfAIAV9UOLlY8rrJL
+	 hp3hWUaWr8X+FZvQ6PsnIHKDuM/baZigk1MqO3VLmYQmTkFI57VAF1RAD0tq90mK4oQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iamqxdwk;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="CPR/Y69+";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F3A606A339
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:17:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA850606A33C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:17:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Iamqxdwk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB03B1F000C1
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:17:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793801870;
-	bh=mLazd9emzOWsv3JaPQ5UUfvKLht8lch/HQcvpq8y3GY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Iamqxdwk2AMMca8i7/sa2z4aGVs1ZDXisqqarwuSEFO+3gX2/sSG4TUL+BC4uv/Bv
-	 L3j6c6puWYceKcRFV8e0mZmapVSU/u/ObthL2mpXj80NEkeGUTAj06Vf6WjZ9NrM59
-	 Q7KUn1rKqcnYl4SnHEq5ay1vrWT+gP0zKBNZiRRbxJWWmgPin+8mVjjZZtnnXG9bf7
-	 KByMP3W5TDkbOFQKDC2nhkOPA9VZmXeDF30DJP5h12OjObuRjoUEsvEetY9BLKQqnA
-	 klLIqTxkaJzOkmnYBs6TI3dyDt/Tt0qK1cI62kKq/CzOKxdqBwTnaXxvS+hYTLHTTF
-	 nuMpT3N5zxsGw==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5be3cff0f6cso461060e87.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 06:17:50 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwcNGSWniv31hcfVqwrJwNkM0qJTBYObrExNABoBA2zI4noUo3gI4Z5SpkjuiHgGRasyOLJV2E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ERyluXaPdvpWPmEcFr/oner7339WhODKvoi4O8nGgHZqjLnZQ
-	CGPUnAa7ceCosv6ZfqhRMxhtJrTerGCyjJi2nkKc05YZIeCG7ZieU9a7PTiUYP2V41iRCQrO6sa
-	y3LccjJEDdAIALJ3DIdkyR6ewN+atV3s=
-X-Received: by 2002:a05:6512:114c:b0:5bf:b7d8:f38a with SMTP id
- 2adb3069b0e04-5bfd95730ddmr5925507e87.37.1793801869245; Wed, 04 Nov 2026
- 06:17:49 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CPR/Y69+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9A61F00919;
+	Wed,  4 Nov 2026 14:17:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793801878;
+	bh=MyZrj42L8jrwyQSRGCl3GivBbElz89p/F5V3do/GXmA=;
+	h=Subject:To:Cc:From:Date;
+	b=CPR/Y69+zSk73C7oua3Zjj3A4A4eCuWbRDpoNxRa6hTSfcmnG6ZszE3x6Qne3gJVl
+	 YkC2M5Eo4pz48QAwSTwiyUgF0XO/wQmYbU31m74jwY1OcjuqgkYUirj+71+qhqUomq
+	 KzzZQmpBRElyhjfj6jwA45NQ8ziNf688lSk8wuaA=
+Subject: FAILED: patch "[PATCH] media: microchip-isc: take a reference on the parsed" failed to apply to 6.6-stable tree
+To: balakrishnan.s@microchip.com,ehristev@kernel.org,hverkuil+cisco@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 15:17:57 +0100
+Message-ID: <2026110457-outflank-doorway-6469@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,88 +51,179 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104070149.41393-1-lizhaoxin04@baidu.com>
-In-Reply-To: <20261104070149.41393-1-lizhaoxin04@baidu.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 4 Nov 2026 15:17:36 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0i_fmYOzgiJhoe_NdWfEopnDGb_GHuKXtMp5HD_-2_uLQ@mail.gmail.com>
-X-Gm-Features: AclHuK98DawDgpC2GZl5mXQB82W_aFxlZCFZTOvGX1cOlWUoWcXsJEy8Rra_a3E
-Message-ID: <CAJZ5v0i_fmYOzgiJhoe_NdWfEopnDGb_GHuKXtMp5HD_-2_uLQ@mail.gmail.com>
-Subject: Re: [PATCH] cpufreq: intel_pstate: Use rdmsrq_safe() to read MSR_MISC_PWR_MGMT
-To: Li Zhaoxin <lizhaoxin04@baidu.com>
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 4, 2026 at 8:02=E2=80=AFAM Li Zhaoxin <lizhaoxin04@baidu.com> w=
-rote:
->
-> From: lizhaoxin04 <lizhaoxin04@baidu.com>
->
-> Commit ed7cad0504e3 ("cpufreq: intel_pstate: Relocate platform
-> preference check") moved the intel_pstate_platform_pwr_mgmt_exists()
-> call to the beginning of intel_pstate_init(), right after the vendor
-> check, so it now runs before "no_load" (intel_pstate=3Ddisable) and the
-> other checks.
->
-> MSR_MISC_PWR_MGMT is model-specific and KVM does not emulate it. In a
-> KVM guest using a CPU model listed in intel_pstate_cpu_oob_ids[] (for
-> example "-cpu host" on Emerald Rapids), reading it raises #GP and the
-> unchecked rdmsrq() emits a warning with a call trace on every boot, even
-> with intel_pstate=3Ddisable:
->
->   unchecked MSR access error: RDMSR from 0x1aa at rIP: 0xffffffffa4009342=
- (native_read_msr+0x2/0x50)
->   Call Trace:
->    <TASK>
->    intel_pstate_platform_pwr_mgmt_exists+0x3b/0x220
->    intel_pstate_init+0x1e/0x500
->    do_one_initcall+0x59/0x350
->    ...
->
-> Before that commit, such guests typically returned from
-> intel_pstate_init() earlier, either because of intel_pstate=3Ddisable or
-> because intel_pstate_msrs_not_valid() failed on the zero ratios that
-> KVM reports in MSR_PLATFORM_INFO by default, so the MSR was not read.
->
-> Use rdmsrq_safe() and treat a failing read as "no OOB mode". The
-> exception fixup already zeroes the result of a failed unchecked read,
-> so apart from the warning going away there is no functional change.
->
-> Fixes: ed7cad0504e3 ("cpufreq: intel_pstate: Relocate platform preference=
- check")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Li Zhaoxin <lizhaoxin04@baidu.com>
-> ---
->  drivers/cpufreq/intel_pstate.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstat=
-e.c
-> index 0e6ae4cdda5d..67447280e86a 100644
-> --- a/drivers/cpufreq/intel_pstate.c
-> +++ b/drivers/cpufreq/intel_pstate.c
-> @@ -3649,12 +3649,12 @@ static struct acpi_platform_list plat_info[] __in=
-itdata =3D {
->  static bool __init intel_pstate_platform_pwr_mgmt_exists(void)
->  {
->         const struct x86_cpu_id *id;
-> -       u64 misc_pwr;
-> +       u64 misc_pwr =3D 0;
->         int idx;
->
->         id =3D x86_match_cpu(intel_pstate_cpu_oob_ids);
->         if (id) {
-> -               rdmsrq(MSR_MISC_PWR_MGMT, misc_pwr);
-> +               rdmsrq_safe(MSR_MISC_PWR_MGMT, &misc_pwr);
->                 if (misc_pwr & BITMASK_OOB) {
->                         pr_debug("Bit 8 or 18 in the MISC_PWR_MGMT MSR se=
-t\n");
->                         pr_debug("P states are controlled in Out of Band =
-mode by the firmware/hardware\n");
->
 
-Applied as 7.4-rc material, thanks!
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x f2eb2fd388bf3f1959556a326e797cacca341c86
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110457-outflank-doorway-6469@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From f2eb2fd388bf3f1959556a326e797cacca341c86 Mon Sep 17 00:00:00 2001
+From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Date: Mon, 17 Aug 2026 12:21:59 +0530
+Subject: [PATCH] media: microchip-isc: take a reference on the parsed
+ endpoints
+
+for_each_endpoint_of_node() drops the reference on the current node as
+it advances. xisc_parse_dt() and isc_parse_dt() store the node in
+subdev_entity->epn and release it later with of_node_put(), but never
+took their own reference, so the stored pointer refers to an
+already-released node. This underflows the refcount and can
+use-after-free, reachable through the camera device tree overlay.
+
+Take a reference with of_node_get() when storing the node, and drop it
+in microchip_isc_subdev_cleanup() so the entities the bind loop never
+reaches on an early exit do not leak it.
+
+Fixes: c9aa973884a1 ("media: atmel: atmel-isc: add microchip-xisc driver")
+Fixes: d6701f13bd07 ("media: atmel: Use v4l2_async_notifier_add_fwnode_remote_subdev")
+Cc: stable@vger.kernel.org
+Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+
+diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
+index eebbcb28a7ee..ca4f3b5f58aa 100644
+--- a/drivers/media/platform/microchip/microchip-isc-base.c
++++ b/drivers/media/platform/microchip/microchip-isc-base.c
+@@ -1853,6 +1853,12 @@ void microchip_isc_subdev_cleanup(struct isc_device *isc)
+ 	list_for_each_entry(subdev_entity, &isc->subdev_entities, list) {
+ 		v4l2_async_nf_unregister(&subdev_entity->notifier);
+ 		v4l2_async_nf_cleanup(&subdev_entity->notifier);
++		/*
++		 * Release the endpoint reference taken while parsing. It is
++		 * NULL for entities the bind loop already consumed, so this
++		 * only drops the ones left over on an early exit.
++		 */
++		of_node_put(subdev_entity->epn);
+ 	}
+ 
+ 	INIT_LIST_HEAD(&isc->subdev_entities);
+diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+index 25d241b4c66a..18e1ec0b94fa 100644
+--- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
++++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+@@ -357,28 +357,30 @@ static int isc_parse_dt(struct device *dev, struct isc_device *isc)
+ 	struct device_node *epn;
+ 	struct isc_subdev_entity *subdev_entity;
+ 	unsigned int flags;
++	int ret;
+ 
+ 	INIT_LIST_HEAD(&isc->subdev_entities);
+ 
+ 	for_each_endpoint_of_node(np, epn) {
+ 		struct v4l2_fwnode_endpoint v4l2_epn = { .bus_type = 0 };
+-		int ret;
+ 
+ 		ret = v4l2_fwnode_endpoint_parse(of_fwnode_handle(epn),
+ 						 &v4l2_epn);
+ 		if (ret) {
+-			of_node_put(epn);
+ 			dev_err(dev, "Could not parse the endpoint\n");
+-			return -EINVAL;
++			of_node_put(epn);
++			ret = -EINVAL;
++			goto err_cleanup;
+ 		}
+ 
+ 		subdev_entity = devm_kzalloc(dev, sizeof(*subdev_entity),
+ 					     GFP_KERNEL);
+ 		if (!subdev_entity) {
+ 			of_node_put(epn);
+-			return -ENOMEM;
++			ret = -ENOMEM;
++			goto err_cleanup;
+ 		}
+-		subdev_entity->epn = epn;
++		subdev_entity->epn = of_node_get(epn);
+ 
+ 		flags = v4l2_epn.bus.parallel.flags;
+ 
+@@ -399,6 +401,11 @@ static int isc_parse_dt(struct device *dev, struct isc_device *isc)
+ 	}
+ 
+ 	return 0;
++
++err_cleanup:
++	list_for_each_entry(subdev_entity, &isc->subdev_entities, list)
++		of_node_put(subdev_entity->epn);
++	return ret;
+ }
+ 
+ static int microchip_isc_probe(struct platform_device *pdev)
+diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+index 28d975002476..07cfe1109ff0 100644
+--- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
++++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+@@ -341,6 +341,7 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
+ 	struct isc_subdev_entity *subdev_entity;
+ 	unsigned int flags;
+ 	bool mipi_mode;
++	int ret;
+ 
+ 	INIT_LIST_HEAD(&isc->subdev_entities);
+ 
+@@ -348,23 +349,24 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
+ 
+ 	for_each_endpoint_of_node(np, epn) {
+ 		struct v4l2_fwnode_endpoint v4l2_epn = { .bus_type = 0 };
+-		int ret;
+ 
+ 		ret = v4l2_fwnode_endpoint_parse(of_fwnode_handle(epn),
+ 						 &v4l2_epn);
+ 		if (ret) {
+-			of_node_put(epn);
+ 			dev_err(dev, "Could not parse the endpoint\n");
+-			return -EINVAL;
++			of_node_put(epn);
++			ret = -EINVAL;
++			goto err_cleanup;
+ 		}
+ 
+ 		subdev_entity = devm_kzalloc(dev, sizeof(*subdev_entity),
+ 					     GFP_KERNEL);
+ 		if (!subdev_entity) {
+ 			of_node_put(epn);
+-			return -ENOMEM;
++			ret = -ENOMEM;
++			goto err_cleanup;
+ 		}
+-		subdev_entity->epn = epn;
++		subdev_entity->epn = of_node_get(epn);
+ 
+ 		flags = v4l2_epn.bus.parallel.flags;
+ 
+@@ -388,6 +390,11 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
+ 	}
+ 
+ 	return 0;
++
++err_cleanup:
++	list_for_each_entry(subdev_entity, &isc->subdev_entities, list)
++		of_node_put(subdev_entity->epn);
++	return ret;
+ }
+ 
+ static int microchip_xisc_probe(struct platform_device *pdev)
+
