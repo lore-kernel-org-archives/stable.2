@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801651;
-	b=o4/XwK0bhIS94SE5Bz7g/sqXXU3F+K07CHyG/Nd10TeBslwMftZuGP7QohhHERJr3Sfs
-	 dNss75ohw2bnygImaFD373gMOcVE2Bd9kVV4J/2ghfPLumFYu/qMrB+ZJH6RRqUEhNHuW
-	 K5iZKuNv8Wmq9w8m2MA79oDp387plKL/dpMlwCoAG5DsMAc9BkgqbjD5quX2RxFqBXRxs
-	 gvHmVAViHkDFW4P5T9fjiqazwFsQ72N5qA3B+PZSTOpE+nrl/5nvD4ggM7Czis68gT6Lh
-	 DV8DVvNFbobeetByrP529/YSP4Il1wDEzf7scfseLyjJOXDPi7pNIEkcQdJEBY0SUaQ==
+	t=1793801654;
+	b=n3HA0WHRgMNS3YYAvY/qfSE41kVW4Jkv8ME1lDeyA5Yaw9cg1sR4L4eXrJosfoumTG5C
+	 8HjFa3yQOyBb7xDb0gkEa7VxSJASr78xFnM0+uQN3JVJEYl/LJ1TMbEqsVFByJPSNvcHg
+	 tKmO0xk8TPxSk2CRtu00rW5+DP9OsVK17cjOtgklQys5oxpsceGCSwbkz7MwkRfdvuofD
+	 buVWSv8H0/plbzP68YBBG0S4Fp9nkffcQdVxYhFTOsCy1KQbKh+GZdSmo/jVnBFy7XymC
+	 u1VVctLJM3aBQxwBipSyRqkyTkXf3HmcrXNEyuilxVWAeKRxfVyKzUkMjWZ7yC9fpzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801651;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801654;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=WeylZYggPP2HnDexTrnICIit4jKaZ+fUuhuIMeP/bjs=;
-	b=QUgKHJThTWwqak1cWjPuCy0ENuDBRdwk73+c3PIo0ZyWbfe4hY82N9yNf9fGUqAM7Pad
-	 wEy/o7xqTC4LfB77PfWayO4divfryotyHaQTrV1lGVkS7u5pSV4yaYi3fX0WpITIe+1EA
-	 I8YwvIMWXEWU2RMhPDr6GsiIzB7SBhWdzBkak9opKO5Vf3kdaV071smw8r6IiaVkUys4n
-	 p6NrZl2HFvkqFzcTLL375ZUhlIAoTb6Rx58ZIr7hwcRjKNXllTI4YNMEQCeFQZyF0yGPi
-	 YRXdQQ2tEmV3dYMkXPtkd8VC40wukZkhtGxL434S87/YyZDXleV/If1Hi4Nsp5sGMZg==
+	bh=HN5EdBmp7jc6AdnoG9r6wRnz0GPOcBsSLzM6xNXg/K0=;
+	b=brlBxLfy0kdvhX0hujHEX1HTr8Xo5LpPmnq6Q7WDTpJJkKl8eDW7Vn/TzKuCg4mhtVQX
+	 kvoDCB3kaGWCVSJ3yTCbveyT8vTLTboMr6HGaKZwcwPXDqxSTLhfyMEhtpTP+GzuNaIy8
+	 Sg6ND/8bl6yf4bxB8zZVvVD2/cVHLm8jhoLemsNvoySn+aXLOCXBJI3pq6LWXD+00Rpcb
+	 +LbNgtXhSFOXGKCzbpt16w9C6twJ/bJCp+tAh8nJBH6m/qWbb2x+nz+/0eqWTNRFVE/Zc
+	 SkA0OrfZ9YLWgrH3UqKIWXVvSREXSkheA1eYFB5qs3VOYgjxPQi1+bONVmOWA1EyrnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=w9s2xp7h;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="r/PcwQPA";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F365606D817
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:14:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2803606A329
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:14:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=w9s2xp7h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABB6E1F00A02;
-	Wed,  4 Nov 2026 14:14:09 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=r/PcwQPA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09BA71F00919;
+	Wed,  4 Nov 2026 14:14:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801650;
-	bh=WeylZYggPP2HnDexTrnICIit4jKaZ+fUuhuIMeP/bjs=;
+	s=korg; t=1793801653;
+	bh=HN5EdBmp7jc6AdnoG9r6wRnz0GPOcBsSLzM6xNXg/K0=;
 	h=Subject:To:Cc:From:Date;
-	b=w9s2xp7hGfXhMTHtZIHF//v7ZE92ncZIBwx4Tk+RgE3Q2qkGMNY00YV3VaVCmGqWY
-	 ZcxeK970sKc24NwQHu6l4JH9BrcmfsO9g/GjGF2h8bIhIG8IEmOFuVjUWOeQqTZ2AX
-	 4m6MExrp7BBanM3ZEPmFIh1SpNElYDpfNrrKeYjk=
-Subject: FAILED: patch "[PATCH] rust: irq: declare cfi_encoding for irqreturn" failed to apply to 7.3-stable tree
+	b=r/PcwQPArWI78Uck6Eaq7zX37RwQOyaymYRAzYpKV3oy80f9Odq3EODZt1qqmCmtR
+	 Pc51q4CTg+oi0ZE1JJ8CWOg0dTm2YbO1HIS0mwMP5S4eV3LsqVeW3jwqhxay2WkmGD
+	 uxSQbMIS2jWBFsZljDQm/p2hrbJuNjv0KzbDbHmc=
+Subject: FAILED: patch "[PATCH] rust: irq: declare cfi_encoding for irqreturn" failed to apply to 6.18-stable tree
 To: samitolvanen@google.com,aliceryhl@google.com,dakr@kernel.org,gary@garyguo.net,ojeda@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:14:07 +0100
-Message-ID: <2026110407-tubeless-endorse-45e8@gregkh>
+Message-ID: <2026110407-hydrated-decipher-a8a9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 01f3e6b4b1c8c1748e59ba53631ab1f5d9ad0ea4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110407-tubeless-endorse-45e8@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110407-hydrated-decipher-a8a9@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
