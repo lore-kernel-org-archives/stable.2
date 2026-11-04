@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820044;
-	b=s8oab5qSdbh07ySOFZajKfJ+SvKRkwLQWOaU91R5ZL+sYhSKx+TCXV1UwFJ6qJ28tW52
-	 BYm95wsn4EThTQ7H42SPbL/A2uNwLCIsoGt+Zeik5gw69J+OsGNIBeDhNFNY3uglRLmy8
-	 C5L2CK517o7LlqIJoOQIjHXvm/KiCVI/dugwK5Jl9fFihTOOP0zqM4efaARCN/Omkp/yl
-	 RBhTvxYYACNsqB9vdMYu3fX3r1PAGV8mXHn48b2S6PSzVg0TX7jWR0Sc/xcI2bMoJlVdy
-	 K+6QLNTI1h9Qbr0AdK2gOK5Pn2gsLOlQ7/AMAlCIpoxD22+Qqvsf0DdteuaObx5ubCw==
+	t=1793820045;
+	b=w/Gp9BN3Ry9jhnwB7I0hTh2YanQj/ZdqixENo1VdoLIcgRjf0BThRd5EJ9b5bFVOqC16
+	 uP6XE0eQ/QX4E8upmwIv2p49g+kyNclcLII1aOS5kqm5X4ux/mJ09XP4DioAj2JUbuRYf
+	 SPt7TV4/4fZ+5S8yODKREgFXwn3UoCKvJcgU4DT3Df0SepSHfk5cG5sqRMgWYmX/a93rN
+	 WKVSUmELmuAAwVQsNyIuHE3pubvnH8Y4nt5ahBtF2UCNkdFWz4j96woPDk0fEn5dEs+bC
+	 FqZ+Yua/BDgjE4+OJsDWHg/CgIGcswzn/iABQxv0EBRRHCYCZfsDjBZo5wO5hhrzHdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820044;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820045;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4pH14YrCHzwlJMU9K1JaFQ+JWnk1/SvOvN8542nsS3o=;
-	b=IaxEXPhwd0V4isdMtCSyths14aeHsm+zhpdeDHSeLfxgv1Bp1qBE9nxAv8lV5RU4Kcor
-	 OJ39XzHAQZTQemDgo93X8bGcXPGa47cCVa8ldex/7gblJeOWldfCbZ3GkjgCqz8MS/SeG
-	 gmGjfpBjR66J9nHShuz6Jr4vsu3nZiSwBiNimgxxSHssMehXpZ9Jf17LI1jg99Hn9yyeo
-	 KOOpab1LoYMLqeo+xxAfyKIm9UeNit0jLJZrl4PcOC+c1qAnAaJXKzCcdglSN3sj0CH2j
-	 B8U9WJO6/d+Qe/UUI+EWoaAhTy/B9BTPhYfBUwXOF3oQWdobOQphA84oExFt8GvCPMQ==
+	bh=bEwBzYOIhB/1TSbFRaSj1JMXXx6PGKVOm6cw55t7dLM=;
+	b=WOFadgWa70557NmnmGYw8KzpawSLjpzRJ6hzR5DowYGRhfyyeuicthQCY6s6rIdFsqqi
+	 1kLeLbFKuNfnzpO28SeaDLTLIEjXQ24+2a/t97bkYWa9F6jQVcYwp2Rox2DacdhGMO0tZ
+	 ybe0UHc4kbTUbefmJ615Y5sVxZT1+e0TEpBtbtstHI538+L5Duslc1wPgjogUdtJ4rN9/
+	 WpASvP4GjLXNJmc+fofSlLaFggpBowK4q0/lBl6WKC6E6pu9WDnz3k7+F79TJculLhzJq
+	 /sz0AKGm4guNInbtHynSwjJZBYaMndIJ7Cc0+2rP9VX/JSKvmZUxfP24H5qOg3Lj3HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rn800Xws;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bbuaoSsS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D56FA607032F
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:20:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431B06070307
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:20:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rn800Xws
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60A801F00A16;
-	Wed,  4 Nov 2026 19:20:43 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bbuaoSsS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8EC81F00A15;
+	Wed,  4 Nov 2026 19:20:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793820043;
-	bh=4pH14YrCHzwlJMU9K1JaFQ+JWnk1/SvOvN8542nsS3o=;
+	s=korg; t=1793820045;
+	bh=bEwBzYOIhB/1TSbFRaSj1JMXXx6PGKVOm6cw55t7dLM=;
 	h=Subject:To:Cc:From:Date;
-	b=rn800XwsvvLSK/D0nSTGb4GUqhsbwteOEzvO+y+68aMOWStYdqfvK4+Zc0a2bSdOe
-	 qp5mYwkwFyNwS9sZV5ktxl8ptOLfHTap5z36vq1f7YK8J/kDNw+7B5hdoWg/bP1qVi
-	 e3YOkIiZ0OQ4POLBQk0P4K5Dy5xmv0lWkRCKU2yM=
-Subject: FAILED: patch "[PATCH] KVM: x86: Clear hardware HLT state when userspace makes a" failed to apply to 5.15-stable tree
+	b=bbuaoSsSD+uSI8eYlTDtSn5Ps5hqhTSPe+daHWyH3lWbav+lqxQOtvk29Si+xFJ/u
+	 4iF3dprFdSH9UqUSbapnDHpF3HtMlO+p8RcQwHxtYol1YwcXX8Xwa9n5ngqJYTcIKk
+	 0m8nXMB/EP3QB7wthzokv+5QdhsXWXgEj240MOgA=
+Subject: FAILED: patch "[PATCH] KVM: x86: Clear hardware HLT state when userspace makes a" failed to apply to 5.10-stable tree
 To: duankeqiangcym@gmail.com,chao.gao@intel.com,chenqinguang@kuaishou.com,duzhiping@kuaishou.com,seanjc@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:20:36 -0500
-Message-ID: <2026110436-molecule-hardness-92c9@gregkh>
+Date: Wed, 04 Nov 2026 14:20:38 -0500
+Message-ID: <2026110438-starving-entwine-fc77@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 883719f57f5d3898637b130d6db4742471cad618
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110436-molecule-hardness-92c9@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110438-starving-entwine-fc77@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
