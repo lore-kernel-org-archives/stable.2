@@ -1,47 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801954;
-	b=I1NcYxPwf/ZBREX6r87YWQDitKJBysJK/J7LJezbxEVgAZKIy0tBt8hRWK5jLcylSzeK
-	 4rYM32gwAy/qyFx559dAhi6ayhrYAgx8zXV9W3L3jSYc7stLnlKDtQ7gXRS8ZXjCqYdfn
-	 Wx7pu42+9fC6uWRb1PS97bfXhHCwd14+oMTZllk3sAIC8TSz+aU0FU00Ccatbz436i+xm
-	 h0CgbMnNsRwzejL5hUYZOhO7Glb+EMRj8EfEt8PHTi7RNvnF9xHzaj+BACmsxrzd4YjZu
-	 ZwE7q1yXR1bjZ8ZQbtgwWGq6zu28QHUGBbaoDmd9SIJbiaxGCIZMEoq9oj/KS1C+/0w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801954;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Bj/g7o71Zed+1Va5Vai+bkcv41XUcj0kv6daT+lrMpE=;
-	b=Jd3tgrjwdJTvqlqElE+s/iiiduY0zE2SjVZf+EA7dbaTLocj7Vi4t2ATTgdGGIIJQqz6
-	 ttt8h1EHDIggCROoXnCbw2uR77adyIptbPczX2KtYpJCHPICTYW7c4yvbPqWuV6jktdhR
-	 lt1bEzsg+0vtoVDsNdQV6h23X9+/eiBsZ2LpyC8CgmnxCyuRe1UUt2IvY3/xhsUEKBGNp
-	 MZePQ83buysCgOH07sIoTOBAHgcyKIKNBpjL0pdypyueAnESsYMggDwTYsJYrxxTemfIx
-	 KcxzPtR8r3HniPzZIBcPL7jFuFnBwdCMK7v+QVupnUh51+DmSMdr9mz8VW+SwhJmgVQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="yaJphJ/y";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793801956;
+	b=xl8ac4drzou9ANdZvtSlyT3RZeA5iF0H0YxY8aQuSNkZEsde2lty32kQ9AeiukrXfTNw
+	 ulIIiws8X/OV1LQpOvm2VV4Hi01kNStPXwPLpdlCxZ6OcED+XJdIavVB7YGVsQuIPEt8H
+	 Cy3v5a5jsLUNuL/F/FimA43z4+3IVIYpKb1j4+UsGW2e7FHuq0Dcqj7HT5KP2Jb9145wD
+	 RcYMeO5wBsG7q9r+ES3dsbyvMBF7ruzYKKtk/QDrfVRSgExc2C8fDYUb/jI2sgosEtk5A
+	 igtXC3wEKj/uQutD6y5uSIYcX5H9vun6AvujCh5/d9ddFfvL2pGa9Tp/8mrn/JhTYBw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801956;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=q2BqXdx+EdHeRHslloG+Jxr0IRjuPUfBGuAn6TTKiaI=;
+	b=5o6m4yUvRoPLPHuqi4hLPEYGWmE5aUc7c73YC9Vv9Xk+lHpd6ZI7VVKZWh4ji/+Y/EfI
+	 zRhElWcd1DY7u2lbNYiFfFWHan7Hk4DwLkoQ5s34jbRLT2GS0Uc3yfSnQl79WJx35/MYN
+	 wi7wO1XwrtPrMknSLOTYtWgAaM1vzS1dTQpw5xJdZFue2HxCrcbIeyQQlc90IUvdhq1NJ
+	 66ISlW5x4Fr2Olbb5CiJrjecQ0tFh+nR8uoTpdIqDG336vyNnQUnDJLCJH8w9ZaOLTzMp
+	 3g7KB7dDmvhjmP7eA1qEeS8Pb3UKkDB3wgW3zf1M7314sm5xpJBKc6Ur0SJCfN5qeFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=d5kQAnW4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E19606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:19:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC96B606A31B;
+	Wed,  4 Nov 2026 14:19:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC96B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yaJphJ/y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2ADE1F000C1;
-	Wed,  4 Nov 2026 14:19:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801954;
-	bh=Bj/g7o71Zed+1Va5Vai+bkcv41XUcj0kv6daT+lrMpE=;
-	h=Subject:To:Cc:From:Date;
-	b=yaJphJ/yPR8jO93JMjkEmppnj5k1kdzj+dBIZpPh08Bw0QW+kAKIAgwHPdQyw8hhp
-	 jMyI2pd1GOVzpXs+X1rC2oCzzdCBkauSzhe/t45jsc6dyVG6RGRffSWUKRgRgquDHv
-	 SCAQSTw/HJI8iy3ButN9d6ikocvwxBeVTtK0hkCw=
-Subject: FAILED: patch "[PATCH] mm: khugepaged: fix folio is used after folio_put/unlock()" failed to apply to 6.6-stable tree
-To: yanglincheng@kylinos.cn,akpm@linux-foundation.org,baohua@kernel.org,david@kernel.org,dev.jain@arm.com,lance.yang@linux.dev,ljs@kernel.org,ryan.roberts@arm.com,stable@vger.kernel.org,zokeefe@google.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:19:13 +0100
-Message-ID: <2026110413-cacti-bonded-6534@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=d5kQAnW4
+ARC-Seal: i=1; a=rsa-sha256; t=1793801923; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=DBVfeNLfXabUNMkp7xC611fcDiXKusM2FO/lvSYIBEVfX5vEOlG99/wAEPA2nn1CmXMhxquDhJ/w5GiywA6nmhAZAQ9qR7kF6ZMUae4yoaMtdtjL/LGafcmjiO9taQ12h2QoIBl8gE01pgR0qC7/J9C60lBls5dFPBBjTHoReTc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793801923; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=q2BqXdx+EdHeRHslloG+Jxr0IRjuPUfBGuAn6TTKiaI=; 
+	b=WxF7Md9n/6T9oMxYLFDsCmJnDW/IVHf1shql+aBVA+9q2NfoaI/L64IpgZYtqsbS4nQtM+ZrIZCIztHXGJb13T0oOh68+mJYaFG71d450cuEDwWUOjOtOyPApLWKQN5hcHlBesm+jTEPcMIJCXvZ8vOMh2TWSDVOzaxvNU8s+Mc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=d5kQAnW4pZPZT28S914Jp3/gQri6eNKfx76LfGqS26FI8NDKAKizKE03J94JN31BLLMGtJqpZ4NljQxcfbqngsOJCZWEN3Rorwv+kFPTrd3s+wdboiqeHH4x75d872lLsCLbIpGrxdV42MtiOzOwR2Nn548ghSLKKgX/gyLo3cw=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=q2BqXdx+EdHeRHslloG+Jxr0IRjuPUfBGuAn6TTKiaI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793801921669437.63445022416045;
+	Wed, 4 Nov 2026 06:18:41 -0800 (PST)
+Message-ID: <17cb2a11-9c9d-43c9-889e-8581522c7a74@collabora.com>
+Date: Wed, 4 Nov 2026 17:18:36 +0300
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,113 +58,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 01/10] media: synopsys: hdmirx: free the driver data
+ when the last user is gone
+To: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
+ Shreeya Patel <shreeya.patel@collabora.com>,
+ Gerald Loacker <gerald.loacker@wolfvision.net>,
+ Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@collabora.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
+ <20261005-hdmirx-media-v3-1-71a11a2e3e76@pengutronix.de>
+ <647b6128-2bd1-40cb-86bb-d36e84378d93@collabora.com>
+ <5b3592b1-74b4-43e6-96e8-a600b6fa991c@pengutronix.de>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <5b3592b1-74b4-43e6-96e8-a600b6fa991c@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
+On 10/16/26 14:06, Sascha Hauer wrote:
+> Hi Dmitry,
+> 
+> On 2026-10-07 14:20, Dmitry Osipenko wrote:
+>> On 10/5/26 16:28, Sascha Hauer wrote:
+>>> @@ -2792,16 +2807,13 @@ static void hdmirx_remove(struct platform_device *pdev)
+>>>   	hdmirx_disable_irq(dev);
+>>>   
+>>>   	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
+>>> -	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
+>>>   	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
+>>>   
+>>> -	/* touched by hdmirx_disable()->hdmirx_plugout() */
+>>> -	hdmirx_dev->rgb_range = NULL;
+>>> -	hdmirx_dev->content_type = NULL;
+>>> -
+>>>   	hdmirx_disable(dev);
+>>>   
+>>>   	reset_control_bulk_assert(HDMIRX_NUM_RST, hdmirx_dev->resets);
+>>> +
+>>> +	v4l2_device_put(&hdmirx_dev->v4l2_dev);
+>>>   }
+>>
+>> This is uncommon v4l driver removal pattern, I suspect it's either not
+>> correct or needs to be fixed in the core code.
+> 
+> The pattern looks uncommon because many drivers in the tree are affected
+> by the same issue ;)
+> 
+> Just like many other drivers the hdmirx embeds a struct v4l2_device in
+> its private data struct which is allocated with devm_*, thus freed
+> during driver removal. With an opened file descriptor the video_device
+> outlives the driver removal, and v4l2_release(), called on
+> the last file descriptors close then references the already freed memory
+> via vdev->v4l2_dev
+> 
+> This is a long standing problem. See [1] for example for an attempt to
+> fix it in the core. It seems consencsus at that time was that it must be
+> fixed in the drivers which is what this patch does for the hdmirx.
+> 
+> [1] https://lore.kernel.org/all/20240610100530.1107771-1-sakari.ailus@linux.intel.com/
+> 
+>>
+>> What is the user-visible or sanitizer-visible problem? How to reproduce it?
+> 
+> It can be reproduced with Kasan on affected drivers, below on the hdmirx
+> driver, but it should be reproducible like this on hantro and others as
+> well.
+> ...
+Thanks, the patches are good to me (tested on 5b with no problems found) 
+apart from this one that feels like it's not a proper solution.
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Will be good to have input from the v4l core maintainers, or have this 
+fix made separately from the series to not hold rest of the patches.
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x 9010383e71e6ce75fcd3c8f87133c8ce6c0e6ab4
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110413-cacti-bonded-6534@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 9010383e71e6ce75fcd3c8f87133c8ce6c0e6ab4 Mon Sep 17 00:00:00 2001
-From: Vernon Yang <yanglincheng@kylinos.cn>
-Date: Wed, 9 Sep 2026 10:58:03 +0800
-Subject: [PATCH] mm: khugepaged: fix folio is used after folio_put/unlock()
-
-On the rollback path, folio_put() has already dropped the last reference
-of new_folio.  On the success path, new_folio is already unlocked and can
-be freed concurrently.  The trace_mm_khugepaged_collapse_file() is left
-with a dangling folio pointer.
-
-So using the folio_pfn() before dropping the reference, closing
-use-after-free window.
-
-Link: https://lore.kernel.org/20260909025804.3233645-4-vernon2gm@gmail.com
-Fixes: 4c9473e87e75 ("mm/khugepaged: add tracepoint to collapse_file()")
-Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Zach O'Keefe <zokeefe@google.com>
-Cc: <stable@vger.kernel.org>
-
-diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
-index fa828967e1fb..5fb4d92cfd84 100644
---- a/include/trace/events/huge_memory.h
-+++ b/include/trace/events/huge_memory.h
-@@ -211,10 +211,10 @@ TRACE_EVENT(mm_khugepaged_scan_file,
- );
- 
- TRACE_EVENT(mm_khugepaged_collapse_file,
--	TP_PROTO(struct mm_struct *mm, struct folio *new_folio, pgoff_t index,
-+	TP_PROTO(struct mm_struct *mm, unsigned long new_pfn, pgoff_t index,
- 			unsigned long addr, bool is_shmem, struct file *file,
- 			int nr, int result),
--	TP_ARGS(mm, new_folio, index, addr, is_shmem, file, nr, result),
-+	TP_ARGS(mm, new_pfn, index, addr, is_shmem, file, nr, result),
- 	TP_STRUCT__entry(
- 		__field(struct mm_struct *, mm)
- 		__field(unsigned long, hpfn)
-@@ -228,7 +228,7 @@ TRACE_EVENT(mm_khugepaged_collapse_file,
- 
- 	TP_fast_assign(
- 		__entry->mm = mm;
--		__entry->hpfn = new_folio ? folio_pfn(new_folio) : -1;
-+		__entry->hpfn = new_pfn;
- 		__entry->index = index;
- 		__entry->addr = addr;
- 		__entry->is_shmem = is_shmem;
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 730829947b4c..792166950bba 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -2253,6 +2253,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 	struct address_space *mapping = file->f_mapping;
- 	struct page *dst;
- 	struct folio *folio, *tmp, *new_folio;
-+	unsigned long new_pfn = -1;
- 	pgoff_t index = 0, end = start + HPAGE_PMD_NR;
- 	LIST_HEAD(pagelist);
- 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
-@@ -2272,6 +2273,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 	result = alloc_charge_folio(&new_folio, mm, cc, HPAGE_PMD_ORDER);
- 	if (result != SCAN_SUCCEED)
- 		goto out;
-+	new_pfn = folio_pfn(new_folio);
- 
- 	mapping_set_update(&xas, mapping);
- 
-@@ -2675,7 +2677,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 	folio_put(new_folio);
- out:
- 	VM_BUG_ON(!list_empty(&pagelist));
--	trace_mm_khugepaged_collapse_file(mm, new_folio, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
-+	trace_mm_khugepaged_collapse_file(mm, new_pfn, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
- 	return result;
- }
- 
-
+-- 
+Best regards,
+Dmitry
