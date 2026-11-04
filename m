@@ -1,54 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826783;
-	b=o6iKEuMu/m6Mw8wQc9AvxzGfj9ibJqxY2k4W41LIEk7aYm4668R+nw1hCYAon7qgLeny
-	 GPqgH5zy4PiH1vDGV0X6ab1VT0QfSidZy0F3QDKnxkyo0dRYFahQI/THxOgH/TMLwofaB
-	 tTs0qAKFISy/ZMUuSx3BG7tNBSBz+lv+hoVf1dtBnD8aiWt7X3vcOOF2FHOz4xNa5TVND
-	 CXFAvEObrGbGCqi1Nky22hpKFM1bFt4pyDNQ0/RmJ9l8IxiGrKkwM9f7bOY86bbh3Kj9v
-	 UMLZHYUkmt1wpYDE5whQwopvPblWHDzCXAAci8IUQ/yYv/1RI2sgQ3Rls8yEk4Lvr8w==
+	t=1793826778;
+	b=oHkNJQuYaiZXbPV7YgxybtTKg0oQTxkmFRo11J1Nr9dXrJEBQuBHNNDwbDLgkrqYw2cY
+	 Jd938plQICr28ZdD9MgvDp1CyGUAFD0gYDT+kq93mh8UJVuPG9DorY1cpbabrTmhodJzU
+	 nRNczu9tzw0LwWlDMH+Pwp4mk1E1KLevXka/uk0qdniXihxPloiXegZj4B85S0YeBNTne
+	 Hwsyp5EGwoK/5KkgeqtTYpAC+D3JjGZPN5AdzY6UbWYb83EYaHiRJ4jeOyAT9sBHA1JuG
+	 L1+0nkxpAXMl162xX3+5yWHRJ79waVBOXlEcwRWv+olvkJe/1pgG5RQjIoeSxV9WGdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826783;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826778;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=HPn6MW2O/9yuqznaM+EZagORgSPJ1JfFLIvuU/c9y2w=;
-	b=Oi2Hw08An6KcRPlcrMlOwO5DJRsFD9hU4F6tMvMfcy+pj7vtDBWZOW4GDkI8zsd2T1Gg
-	 Fo7JNcWkodgI8zKQarMKMR4joOAx5CniXjJo+WCHvWK8/iStF+lUXZNnognylrP4ZVlSh
-	 Mqa+w/xAJvwzUjV35Z/6BZ1EYPF3qgDdeoWDUEAkhNreG6VlG/GeWUgEkUJEF6YCW6NmB
-	 tQN2NcuZ+il9plFrSYnXxwY9c5fd/fquNctQ3qz/UIHJVS3C0/66Oi0btz6Cmcq07fFg3
-	 wBf/3IpurqHB1LRKBJM+GoHRefwTIZbj0S/8QcrZbmLMiA8Ed+OHXK8rfNPAqnG5kAg==
+	bh=Js3H5w5P7g1bfalxuJQng6+wcgfsNELPLVPcB1aF3Qg=;
+	b=FKyUoQxTeGnwN8CeL67qVt/DhP9SNLnlzBtRiUo0K6yRKOIEDcy9Zz5r2KKAkpbJspjz
+	 8eFxR+8dbvOSaig2Mvx0EwxoDot3veWQoHnGkZYtGDVFp5ECSR29kez0q+Uq14F0GizTs
+	 ZWC/mIT8j1PkvJhlRX5+jHgkoCmOJ2NdSwVVtjslrZu3BScEP6URNM2LuST1fsq5TARlg
+	 mDqSqQWyvO2Rl4nmxc9xFnX82TagQqIbzvEXZ3bqP1Atg58bB3udoNELMyT/rU9lgeARm
+	 0xOUcjVe/t95uS5vG/5U2a4ggvQGnyFuoSOewAY3QNu+ow6mKRn2HcQyBNh9SJWgSbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OMq+20O5;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="dU1sE/L9";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36B3F6071A0B;
-	Wed,  4 Nov 2026 21:13:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EF5B6071A05;
+	Wed,  4 Nov 2026 21:12:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OMq+20O5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B68451F00A16;
-	Wed,  4 Nov 2026 21:13:02 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dU1sE/L9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2F7B1F00A16;
+	Wed,  4 Nov 2026 21:12:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793826783;
-	bh=HPn6MW2O/9yuqznaM+EZagORgSPJ1JfFLIvuU/c9y2w=;
+	s=korg; t=1793826778;
+	bh=Js3H5w5P7g1bfalxuJQng6+wcgfsNELPLVPcB1aF3Qg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OMq+20O5+aVrbtB+eM0LZp10kfVsJekwbMluPfPWhcpSwZHXCPaEJUX2LkfMlmqPt
-	 mFimxVFmLbxF/XoTEUdqyvQlY/U2QROl4rqDdGaSNGmd+9EmowIhwNyWowiXtdOQYL
-	 vVWf/t2PXXXOkJh8q4MHNy6q/7CJmtADU5C4m9VQ=
+	b=dU1sE/L9VHjS831NIo9QQqmWBPK5UMM8Y4snY/gmPYHsEgwuOzJvl850CKyqbajS1
+	 uuC0eikU4eP2h46K/dnPZKrAUQsxlNDcW6j11YrAXYsmeZhwQgBaerPc8UI9VF4hBM
+	 bPcPAni3Q4y0FOz+jpIp0Gxa8DRsRjeNnnn36iJA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Tom Talpey <tom@talpey.com>,
+	linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	linux-rdma@vger.kernel.org,
+	Stefan Metzmacher <metze@samba.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 010/547] wifi: ath12k: convert DP_RXDMA_MONITOR_DST_RING_SIZE to inline helper
-Date: Wed,  4 Nov 2026 16:03:14 -0500
-Message-ID: <20261104211038.677608694@linuxfoundation.org>
+Subject: [PATCH 7.3 003/547] smb: smbdirect: dont wait for RDMA_CM_EVENT_DISCONNECTED in smbdirect_socket_destroy_sync()
+Date: Wed,  4 Nov 2026 16:03:07 -0500
+Message-ID: <20261104211038.498675154@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -70,84 +73,162 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+From: Stefan Metzmacher <metze@samba.org>
 
-[ Upstream commit 62e2758d17d307753457bd51af074be5f8265c03 ]
+[ Upstream commit 4ca76b89917ad5b317e07ae4f0edc16f7c2a1248 ]
 
-Replace DP_RXDMA_MONITOR_DST_RING_SIZE macro with
-ath12k_dp_rxdma_monitor_dst_ring_size() static inline helper.
+smbdirect_socket_destroy_sync() waited for RDMA_CM_EVENT_DISCONNECTED
+after smbdirect_socket_cleanup_work() called rdma_disconnect(). That
+can take very long, e.g. if the peer just disappeared, until the
+rdma cm gives up, or forever if the event already happened, but the
+status was overwritten afterwards.
 
-Pass the DP profile parameters explicitly to improve type safety and
-make the interface explicit.
+This is not needed: smbdirect_socket_destroy() drains the qp under
+rdma_lock_handler(), destroys it and calls rdma_destroy_id(), which
+only waits for a currently running event handler and makes sure no
+further events are delivered. The rest of the disconnect protocol
+(DREQ/DREP and timewait for IB, abrupt close for iWarp) is handled
+by the rdma core asynchronously. drivers/nvme/host/rdma.c also just
+calls rdma_disconnect() and ib_drain_qp() before rdma_destroy_id().
 
-No functional change intended.
+So smbdirect_socket_destroy() now also accepts
+SMBDIRECT_SOCKET_DISCONNECTING and changes the status to
+SMBDIRECT_SOCKET_DISCONNECTED itself under rdma_lock_handler().
 
-Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
+We could still get RDMA_CM_EVENT_DISCONNECTED in the small
+windows between rdma_unlock_handler() and rdma_destroy_id(),
+but in that case smbdirect_connection_rdma_event_handler()
+is basically a no-op.
 
-Signed-off-by: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
-Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260820054804.3222296-5-aaradhana.sahu@oss.qualcomm.com
-Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Fixes: 422a2436697d ("smb: smbdirect: introduce smbdirect_socket_destroy[_sync]()")
+Cc: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Paulo Alcantara <pc@manguebit.org>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: linux-cifs@vger.kernel.org
+Cc: samba-technical@lists.samba.org
+Cc: linux-rdma@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Stefan Metzmacher <metze@samba.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/ath/ath12k/dp.h    | 8 ++++++--
- drivers/net/wireless/ath/ath12k/dp_rx.c | 8 ++++++--
- 2 files changed, 12 insertions(+), 4 deletions(-)
+ fs/smb/smbdirect/connection.c | 12 ++++----
+ fs/smb/smbdirect/socket.c     | 56 ++++++++++++++++++++++++++++-------
+ 2 files changed, 52 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath12k/dp.h b/drivers/net/wireless/ath/ath12k/dp.h
-index 9081655eae77e..a7cd2535866bd 100644
---- a/drivers/net/wireless/ath/ath12k/dp.h
-+++ b/drivers/net/wireless/ath/ath12k/dp.h
-@@ -216,8 +216,6 @@ struct ath12k_pdev_dp {
- #define DP_RXDMA_REFILL_RING_SIZE	2048
- #define DP_RXDMA_ERR_DST_RING_SIZE	1024
- #define DP_RXDMA_MON_STATUS_RING_SIZE	1024
--#define DP_RXDMA_MONITOR_DST_RING_SIZE(ab) \
--	((ab)->profile_param->dp_params.rxdma_monitor_dst_ring_size)
- #define DP_RXDMA_MONITOR_DESC_RING_SIZE	4096
- #define DP_TX_MONITOR_BUF_RING_SIZE	4096
- #define DP_TX_MONITOR_DEST_RING_SIZE	2048
-@@ -696,6 +694,12 @@ ath12k_dp_rxdma_monitor_buf_ring_size(const struct ath12k_dp_profile_params *p)
- 	return p->rxdma_monitor_buf_ring_size;
- }
+diff --git a/fs/smb/smbdirect/connection.c b/fs/smb/smbdirect/connection.c
+index afd31fa12a368..f48c857bda5a4 100644
+--- a/fs/smb/smbdirect/connection.c
++++ b/fs/smb/smbdirect/connection.c
+@@ -83,9 +83,9 @@ static int smbdirect_connection_rdma_event_handler(struct rdma_cm_id *id,
+ 		 * smbdirect_socket_schedule_cleanup[_status]() =>
+ 		 * smbdirect_socket_cleanup_work().
+ 		 *
+-		 * As otherwise we'd set SMBDIRECT_SOCKET_DISCONNECTING,
+-		 * but never ever get RDMA_CM_EVENT_DISCONNECTED and
+-		 * never reach SMBDIRECT_SOCKET_DISCONNECTED.
++		 * As otherwise we'd set SMBDIRECT_SOCKET_DISCONNECTING
++		 * and call rdma_disconnect(), but never ever get
++		 * RDMA_CM_EVENT_DISCONNECTED.
+ 		 */
+ 		if (event->event == RDMA_CM_EVENT_DEVICE_REMOVAL)
+ 			smbdirect_socket_schedule_cleanup_status(sc,
+@@ -113,9 +113,9 @@ static int smbdirect_connection_rdma_event_handler(struct rdma_cm_id *id,
+ 		 * smbdirect_socket_schedule_cleanup_status() =>
+ 		 * smbdirect_socket_cleanup_work().
+ 		 *
+-		 * As otherwise we'd set SMBDIRECT_SOCKET_DISCONNECTING,
+-		 * but never ever get RDMA_CM_EVENT_DISCONNECTED and
+-		 * never reach SMBDIRECT_SOCKET_DISCONNECTED.
++		 * As otherwise we'd set SMBDIRECT_SOCKET_DISCONNECTING
++		 * and call rdma_disconnect(), but never ever get
++		 * RDMA_CM_EVENT_DISCONNECTED.
+ 		 *
+ 		 * This is also a normal disconnect so
+ 		 * SMBDIRECT_LOG_INFO should be good enough
+diff --git a/fs/smb/smbdirect/socket.c b/fs/smb/smbdirect/socket.c
+index bb02df6158b97..c36cb7cc0088b 100644
+--- a/fs/smb/smbdirect/socket.c
++++ b/fs/smb/smbdirect/socket.c
+@@ -511,7 +511,13 @@ static void smbdirect_socket_destroy(struct smbdirect_socket *sc)
+ 	if (sc->status == SMBDIRECT_SOCKET_DESTROYED)
+ 		return;
  
-+static inline u32
-+ath12k_dp_rxdma_monitor_dst_ring_size(const struct ath12k_dp_profile_params *p)
-+{
-+	return p->rxdma_monitor_dst_ring_size;
-+}
-+
- void ath12k_dp_vdev_tx_attach(struct ath12k *ar, struct ath12k_link_vif *arvif);
- void ath12k_dp_partner_cc_init(struct ath12k_base *ab);
- int ath12k_dp_pdev_alloc(struct ath12k_base *ab);
-diff --git a/drivers/net/wireless/ath/ath12k/dp_rx.c b/drivers/net/wireless/ath/ath12k/dp_rx.c
-index efc419d41d210..31e7d47f77341 100644
---- a/drivers/net/wireless/ath/ath12k/dp_rx.c
-+++ b/drivers/net/wireless/ath/ath12k/dp_rx.c
-@@ -330,16 +330,20 @@ static int ath12k_dp_rx_pdev_srng_alloc(struct ath12k *ar)
- {
- 	struct ath12k_pdev_dp *dp = &ar->dp;
- 	struct ath12k_base *ab = ar->ab;
-+	u32 monitor_dst_ring_size;
-+	u32 mac_id = dp->mac_id;
- 	int i;
- 	int ret;
--	u32 mac_id = dp->mac_id;
-+
-+	monitor_dst_ring_size =
-+		ath12k_dp_rxdma_monitor_dst_ring_size(&ab->profile_param->dp_params);
+-	WARN_ONCE(sc->status != SMBDIRECT_SOCKET_DISCONNECTED,
++	/*
++	 * smbdirect_socket_destroy_sync() doesn't wait
++	 * for RDMA_CM_EVENT_DISCONNECTED, so we may still
++	 * be in SMBDIRECT_SOCKET_DISCONNECTING
++	 * (or already reached SMBDIRECT_SOCKET_DISCONNECTED)
++	 */
++	WARN_ONCE(sc->status < SMBDIRECT_SOCKET_DISCONNECTING,
+ 		  "status=%s first_error=%1pe",
+ 		  smbdirect_socket_status_string(sc->status),
+ 		  SMBDIRECT_DEBUG_ERR_PTR(sc->first_error));
+@@ -542,6 +548,32 @@ static void smbdirect_socket_destroy(struct smbdirect_socket *sc)
+ 	if (sc->rdma.cm_id)
+ 		rdma_lock_handler(sc->rdma.cm_id);
  
- 	for (i = 0; i < ab->hw_params->num_rxdma_per_pdev; i++) {
- 		ret = ath12k_dp_srng_setup(ar->ab,
- 					   &dp->rxdma_mon_dst_ring[i],
- 					   HAL_RXDMA_MONITOR_DST,
- 					   0, mac_id + i,
--					   DP_RXDMA_MONITOR_DST_RING_SIZE(ab));
-+					   monitor_dst_ring_size);
- 		if (ret) {
- 			ath12k_warn(ar->ab,
- 				    "failed to setup HAL_RXDMA_MONITOR_DST\n");
++	/*
++	 * We hold the handler lock, so the rdma event
++	 * handlers can't change the status anymore.
++	 *
++	 * If RDMA_CM_EVENT_DISCONNECTED didn't arrive yet,
++	 * we just stop waiting for it here.
++	 *
++	 * We already disabled disconnect_work above
++	 * and before we call rdma_unlock_handler below
++	 * we call smbdirect_connection_destroy_qp which
++	 * sets sc->ib.qp = NULL.
++	 *
++	 * Between rdma_unlock_handler() and
++	 * rdma_destroy_id() below there's a small
++	 * windows where RDMA_CM_EVENT_DISCONNECTED
++	 * could still arrive.
++	 *
++	 * But smbdirect_connection_rdma_event_handler
++	 * will be a noop when calling smbdirect_socket_schedule_cleanup*
++	 * ib_drain_qp() also won't be called.
++	 */
++	if (sc->status < SMBDIRECT_SOCKET_DISCONNECTED) {
++		sc->status = SMBDIRECT_SOCKET_DISCONNECTED;
++		smbdirect_socket_wake_up_all(sc);
++	}
++
+ 	if (sc->ib.qp) {
+ 		smbdirect_log_rdma_event(sc, SMBDIRECT_LOG_INFO,
+ 			"drain qp\n");
+@@ -679,17 +711,21 @@ void smbdirect_socket_destroy_sync(struct smbdirect_socket *sc)
+ 		"destroying rdma session\n");
+ 	if (sc->status < SMBDIRECT_SOCKET_DISCONNECTING)
+ 		smbdirect_socket_cleanup_work(&sc->disconnect_work);
+-	if (sc->status < SMBDIRECT_SOCKET_DISCONNECTED) {
+-		smbdirect_log_rdma_event(sc, SMBDIRECT_LOG_INFO,
+-			"wait for transport being disconnected\n");
+-		wait_event(sc->status_wait, sc->status == SMBDIRECT_SOCKET_DISCONNECTED);
+-		smbdirect_log_rdma_event(sc, SMBDIRECT_LOG_INFO,
+-			"waited for transport being disconnected\n");
+-	}
+ 
+ 	/*
+-	 * Once we reached SMBDIRECT_SOCKET_DISCONNECTED,
+-	 * we should call smbdirect_socket_destroy()
++	 * We don't wait for RDMA_CM_EVENT_DISCONNECTED,
++	 * rdma_disconnect() was already called by
++	 * smbdirect_socket_cleanup_work() if needed
++	 * and smbdirect_socket_destroy() drains the qp,
++	 * destroys it and calls rdma_destroy_id(), which
++	 * only waits for a currently running event handler
++	 * and makes sure no further events are delivered.
++	 * The rest of the disconnect protocol is handled
++	 * by the rdma core asynchronously.
++	 *
++	 * Waiting for RDMA_CM_EVENT_DISCONNECTED could
++	 * take very long or forever, e.g. if the peer
++	 * just disappeared.
+ 	 */
+ 	smbdirect_socket_destroy(sc);
+ 	smbdirect_log_rdma_event(sc, SMBDIRECT_LOG_INFO,
 -- 
 2.53.0
 
