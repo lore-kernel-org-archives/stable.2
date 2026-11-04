@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817862;
-	b=cGt9nRyhUcEADqQjSmTaKqyEG4GosTsQA2vpV3iZhAQ/4TZyWHnLpJvTYs4kDJCmvzGf
-	 T4HKS83yGsdvAUfTIslsj5kjH+gWVZ7gSBZ9KWuxkSYaMWypp14QQ6TRSzgcxvilFui3H
-	 0vdg4VPdyf27fBemtYBzwkKYxZl1/h+zE9fbwiYCxs1gVx2ORyJzoP8q1fExdXWFqyyx8
-	 66eiF+3P3fhfKJ0j3TiJqZ/779wbsHBC+wwuD2xHH3iLmrVOtb8Agu9+8ZgqJ/XTFkpzJ
-	 jjnedUl965NWc3xUtaPLhN9/FfUteV+GJZHkClLDyjEfgTsHS9DoWh7T8nzAOMHFZpQ==
+	t=1793817863;
+	b=LuV3LycDKyZK4PZ7W4CGRb666VA8GrtpwvrVajYf3L2/RzUaSyXyUDw8ZY1T2zCcL9Ml
+	 QTZzdk09R5DnYcMWHuT88snvOcoOQq6pe4hQ38mPP2GhWUKii5LkgeOTcyzP2oaB41RhT
+	 ubR66pVuGJ6dMI5PfDDMEHE6glPkFrRUs/TMN29KAZXa6VInITEN71zODoC8i2ZMSAvWK
+	 XGHTa1SB0Xb/H1ICpVxk7kLbUreKjFSO7YR41g5dCnJcY3icRnuPZAp8Qnq0nBEsBhgNj
+	 1AQEjpU4m4LEfckmpBlAQfyURtYXWbnVIZCXpm8mPYvWDSzyySpoFpl3WSCgBXEjAlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817862;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817863;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=qsTWKZW4aSJH657qRlnryDC5MGLkIqGmC5+Q8I1yFrY=;
-	b=PZmrau2jlUNhFwkGE9wqkP1C2XwrVXwiY5xw9hdmpbtCqzVUJnK9I+muzuqm4EPCf55n
-	 +rPfXbW8JvwWFbGs6fO2Fx0Fw/XIzE2w+N2ETJjCEmpnGZX7iorm9rqb1OcR5V9GhZ5ak
-	 xYR+9LzuwBb/PFliZwmlPV7gf5acQRvgUL5DLZWQT6JeOiNad4Z+uWSAyK/MTGzc+13To
-	 IV+CX5K20C2WugE+YjG3WupSvwzV3tJbPJ89R/cG2uAnAb+Wwc5D2NbWI7YZ6uEmzEx/o
-	 +NGousdQQWR7hBkQP389tKan+U0AgPLjptNk1zdhzUxOyYKRG5ew9qTk/tesqsqCnOw==
+	bh=k28CGNrgsP1N/7X/mEZD1ccfEAetSu0oVzCNkNH+zAU=;
+	b=0qPIydIMRl9hLO+Yc8ZU+Dlo0dkYWA1cP6+YTIPLckXq+m4Gum3mOg3qZn/dW2Gl3kJn
+	 uefhRxijIM+HAJi9bhfnMlGNTrpLwvz8L5OcwK+KttMiMOHF4GykdeEiI/exzucsPzLQQ
+	 LtFiAWbYmbzOoK06itmY7Mdr0T3Q/OjFert0iTo2MgHLezglDnfqe0793GJ1kQq7EGtwz
+	 5tKqekqJALcpfQjEhVk9aWBlUnlCsfgeTuzCHmjt+EgeKhOkpeNQGSfsNB5ocRpKU4RJ8
+	 5HsBjAV79s6kwHtGVUjGin2tgb1B7o0XI7eMFqm0sXShr37nN+raIZfH+YLNYBC5GJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AbZPgQZv;
-	arc=none smtp.remote-ip=209.85.210.52
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=isC4kcGE;
+	arc=none smtp.remote-ip=209.85.161.53
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D9D606A33A
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:44:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7D9D606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E67606A336
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:44:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52E67606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AbZPgQZv
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-8446af403b5so651372a34.2
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:44:21 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=isC4kcGE
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-702dedeb70dso603415eaf.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:44:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817861; x=1794422661; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817862; x=1794422662; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=qsTWKZW4aSJH657qRlnryDC5MGLkIqGmC5+Q8I1yFrY=;
-        b=AbZPgQZvZBruMUhPjZVjGsJ5U+qFbdJirKKaMmyZ5GsLURrDI6eh3c9m7L/0KIsIgp
-         sGLQ8MO9YhvNxGEuJdNmvPXBXI3XPhRhINXo7J5uFKZZNR+DAsP32IhLUM6qHFmEzW0B
-         7twVIJzvculwh3lgKwYgh8IpbC36aqiMjHGBOnxu6Tpo+1sZmurZoCq1WQjEsL+jKKCm
-         SmuDkrYSmlKiSRKEVLgVIRSm1kqwPraNs2NxZG9kSOjpd/56AH7y9oGOm+kRvoTBnlmu
-         iDNt1ZE9I0PJEhonZKMiA+4W5h931DTVcqfrvsc2wwLX0U0raqDqKL+5jKwnMZeeH3g5
-         aCfA==
+        bh=k28CGNrgsP1N/7X/mEZD1ccfEAetSu0oVzCNkNH+zAU=;
+        b=isC4kcGE2nkgQMKeDJjRL83mCm/AuFM4Bo4tovhrOMTVxpvzSe7ZQeILBNo4STzQ2E
+         I4YohTeHnavVoSP893xOkQdYkUmABVma5EEpiuLALbKLpgOHcFO1+sgrMyQsJtG//Nv7
+         mCEfGQBS+HIrzSJa8QskVHkqYRfPU3b8GxEUKBKYrkkH+do7XJrefqytTAnc1qs3tlLN
+         P2GMhY8dA9gGEdlg+6phaP3+d9wjYpGPZU0m0rIznEslnyIC4clzX/qOu9+Evx2RIBRc
+         JozALbXo5nppOxHqP+yL7LN8QirX04ZEhFofbT5xZR1vQMzQYLk3eIYPrigrevPKoJVr
+         dsXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817861; x=1794422661;
+        d=1e100.net; s=20260707; t=1793817862; x=1794422662;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=qsTWKZW4aSJH657qRlnryDC5MGLkIqGmC5+Q8I1yFrY=;
-        b=GZDyqQoXmuhxzY2BU4uNPUJsIxyLDWRU/RBR/PrT0QmKPeHjul28wysKrbo7lhUNhH
-         dgN6/i3c9FrMnFKqrchFQ5nqkBiMw69mZyGotvkX43mV/e6YJ0OXELl+MzPS5Dk4LlL3
-         dr973PRTMs7fE9wPScwJwe2gHRQUJqA0ik3NtC9D9o+XGdpRYB3V3aP1zutGYlUOqyZt
-         +jEGxX+R8iW2cTvFMbNaTFqPL4aZ/NIpkwaXY2tu49urNLjd0rLxkfOdgIuKX03Cg3Ak
-         WtinLZbjzimh7OPS68yTi2IunQL9Fm3kS1gFy6QIFKJB+fCQfM9CH43I3Hr+BkUx0It9
-         i+LA==
-X-Gm-Message-State: APuU4Z/5VPOZEfR1VUHOnWA0i/5LiqI1mt9xsOquQpYUMegiGStd9EFg
-	gKqdfsTkBCvOe7TyEfiScRncoX6VGleLTLs/Y1A7OrQbJFsPWFD+zpnC2zbZZ7bC1VLn2rgC6No
-	xtvqxt1Y=
-X-Gm-Gg: AYBFou0e4bTq01nge+xu2COkOTuk0H3+IY577ugPfoFf+R9dTCwonmtAyN4Fuq4TB4v
-	z3wxrv5VOc7JZNI3/JkR3ph/vyEc6468MdME7g5Oz42DdAUoDi3Iu4NhlmkdL4tLsSXDoDNSXbB
-	bn+l2C2KTnzkvAjhG0LVyF+SJhq9hbwU4Hdekb9eQKBKb1g3X1n0SV3u0FM9k8KmDfa2OUzCUyP
-	A0ugpXKxUEMK1ERNCpQ5vT3L+ITNWlaEUCkoWpF4K5ikfzI+DbUZbSwAFbof3Ow1dN3pVs6+K4I
-	wgHfNOv4WC+QLQzg+SJGPd43K/poDaAXpWjHTHBQ7wNnFp8LhtDgEObDlX3JVOURmZsLV78UmW7
-	YZKGlxzTHqwWfyemdqt//ECTMf8s3deqQFN2ypTlo8BWfBon8rRi+CBIjXOUlQhQe8HlMh0+7J4
-	rEeke9qAtUcgV/xs+bReKZuOgvX+oJszbvV2BnU1IyOwyYKGRFV9U5a6BVvciHxs4cOklLBTSWP
-	fKvdnGq60frYbsJKPzh8Ops2OleIvUl8QrtOJCt4WRyu6TvXyMBqxsQwQ6e/9W0lJZiinWwYISp
-	SzOiOXqC5lg9aeBaahzjlyAf4hyWe+YgRzrxOGp99kIFoz3YF88ydOtNC78gPbA0zEP4YTKtcNP
-	4Njf/qMFZtfu/FlYLmdE=
-X-Received: by 2002:a05:6830:2317:b0:81c:a8c5:633c with SMTP id 46e09a7af769-85d3653a260mr11673895a34.17.1793817860735;
-        Wed, 04 Nov 2026 10:44:20 -0800 (PST)
+        bh=k28CGNrgsP1N/7X/mEZD1ccfEAetSu0oVzCNkNH+zAU=;
+        b=ia/XT45Sz1GVzFVUz+hxctzFBNd8iGfQ1BQ4f/9sVgwy0DAKHKPhoEPWbeZP7jvrWM
+         +E0FkEDBEXb3SXGam+HZXrkPIOYtnHO9v7dHww1TuP2L+UGqhrfd9Rau97PBycIpK/Lq
+         oVoJwEZIUJVJpTIXq4zk90F96e5hh4E+8y9juZSgCCtr+jn4qp4c+yqtiQCyrow1h1hw
+         5XLDGTFShQijaoobFFW36i2RwMnR7tvI9NNvvaoTtF0P2v4Ef5c6mKN7wIJHqps1lSg7
+         TQSKxvwT5Pk2jmrkz59NUnO0UAQZoo8IwNGo2Z6Kkk9SwepOKIFLO32T/KA5bVXgCo/K
+         WeIQ==
+X-Gm-Message-State: APuU4Z96Os9aJLbBzaNxEgd38V0WFgBUISlOZmDbodYCWv/zyZ0HwEsy
+	u7f26YswjhwNcRAzZb/7jyT6lAyQXbQK/Y/OG2vBIcudXpz8k46mdw5Wv/xIeVxC+OLEhNWhHvn
+	hNlG5bTE=
+X-Gm-Gg: AYBFou1JDfRD0UFn/9P5yi0VcSpkABC/ZgSITZZ3FDwBuL+ZnxrGnkGTyOi6Jt6TjDC
+	mWWkWWfGLRmxlEtcG2eGbAAWnuT9HQCfn1Nmv//g4lyK292BSjuxzZPemoNR+nh8qifQyDWpCDl
+	S702q2+NOKJXWwvay/Ely5f0pDTmq6VtDxlQuFVb/QMk/asSjMBWD0hGER6u143RG59j/ILjeUY
+	2VLrOLCcpA3hAu/gp23HByitc8dm75EDOgR7gp9Rq/r7Vzi28iuJL0oV68pw6NJWZBIHdIA6iC3
+	A1otGflBvBpY8x/1sM4t3W921MGPffSiZ6Up/L+icBgK6ydaPGQm1jiLUoxA+ttqk3Jajwqk+E5
+	r8mSsvopYJIDe1sc+LyJXTF1q+cP89OFRyBrDRTTni+UBzGv/wOYwHuYuIEOq7iDN55M1x9PlsX
+	xkk36cW/aX7/vF8OtlcYXL/hCWchDx5y0TfomBqf2BV8sMeTrbv398xtglrJLu7pExFCcp8zcda
+	HTiqKIg/b9szZU2cbdrmDWA+r801rbANP3BTd48w1fHv4GpZvAU52ap4h2l72g+hYMBZcbppfuN
+	AguGt3xWouwcxFdGEGDfBUEYDPM3qh8mb+J/hQdgbv+wykA6wR1GI+GvWnIaNFxWuKGj5hL0/gX
+	fY2B3BbCXfOvyXUDlNUM=
+X-Received: by 2002:a05:6820:c448:10b0:703:a9bc:b80c with SMTP id 006d021491bc7-714f246437cmr7014362eaf.36.1793817862206;
+        Wed, 04 Nov 2026 10:44:22 -0800 (PST)
 Received: from xps16 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3e16ef1sm2540779a34.14.2026.11.04.10.44.19
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3e16ef1sm2540779a34.14.2026.11.04.10.44.20
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:44:19 -0800 (PST)
+        Wed, 04 Nov 2026 10:44:21 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.18.y 04/11] io_uring/io-wq: no new workers once the exit has begun
-Date: Wed,  4 Nov 2026 11:44:05 -0700
-Message-ID: <20261104184412.516558-5-axboe@kernel.dk>
+Subject: [PATCH 6.18.y 05/11] io_uring/rsrc: charge buffer arrays and nodes to memcg
+Date: Wed,  4 Nov 2026 11:44:06 -0700
+Message-ID: <20261104184412.516558-6-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104184412.516558-1-axboe@kernel.dk>
 References: <20261104184412.516558-1-axboe@kernel.dk>
@@ -99,54 +99,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Chris Mason <mason@kernel.org>
 
-Commit 47c68f925062a6013235d06add85a59f7d91e0fb upstream.
+Commit 075d5837bafc317e796548f721b8fbf7add6821d upstream.
 
-io_wq_exit_start() sets IO_WQ_BIT_EXIT, but worker creation task_work
-queued before that stays queued until io_wq_exit_workers() cancels it.
-In between the task runs its task_work while canceling requests, and a
-worker can still get created.
+The io_mapped_ubuf of a registered buffer has one bio_vec per page,
+unless the pages coalesce into huge pages. Huge pages only count against
+RLIMIT_MEMLOCK once per ring, so a buffer that maps the same 2MB folio
+over and over in a way that defeats coalescing gets a full bvec array
+per registration while only the one folio counts as locked. 1GB of that
+registered in 100 slots took several times a 64MB memory.max, with 2.6MB
+charged.
 
-That's a problem for exec. begin_new_exec() calls io_uring_task_cancel()
-after de_thread(), when it's supposedly the only thread left, and
-io_wq_exit_workers() only waits for ->worker_done, which a worker
-completes before do_exit(). So the exiting worker is still in the thread
-group, using the mm, files and sighand, while exec replaces them. Easy
-to hit with a signal pending when create_io_thread() fails and the retry
-gets queued right before execve().
+Allocate the io_mapped_ubuf and the io_rsrc_node with
+GFP_KERNEL_ACCOUNT. An object reused from the ring caches stays charged
+to whoever allocated it first, same as the io_kiocb cache.
 
-Cancel the queued creation task_work as soon as the exit bit is set.
-Pending work that isn't otherwise canceled now ends with -ECANCELED when
-the io-wq is destroyed, rather than depending on whether the task
-happened to run its task_work first.
-
-Fixes: 685fe7feedb9 ("io-wq: eliminate the need for a manager thread")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[axboe: the barrier is already upstream, see 0e5663856b69, only the
- cancel is new]
+Fixes: de2939388be5 ("io_uring: improve registered buffer accounting for huge pages")
+Signed-off-by: Chris Mason <mason@kernel.org>
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
+[axboe: 6.18 uses kvmalloc() + struct_size_t() rather than
+kvmalloc_flex()]
 ---
- io_uring/io-wq.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ io_uring/rsrc.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index 7d89aa79d06e..fd53297af26e 100644
---- a/io_uring/io-wq.c
-+++ b/io_uring/io-wq.c
-@@ -1412,6 +1412,12 @@ void io_wq_exit_start(struct io_wq *wq)
- 	set_bit(IO_WQ_BIT_EXIT, &wq->state);
- 	/* Pairs with task_work_add() in io_queue_worker_create(). */
- 	smp_mb__after_atomic();
-+	/*
-+	 * No more workers from here on. The caller is going to run its task
-+	 * work, and on exec a thread that is created now would still be
-+	 * around, exiting, by the time that the caller must be on its own.
-+	 */
-+	io_wq_cancel_tw_create(wq);
+diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
+index 8d28c6bfebb1..41e5755bd9aa 100644
+--- a/io_uring/rsrc.c
++++ b/io_uring/rsrc.c
+@@ -110,9 +110,9 @@ static struct io_mapped_ubuf *io_alloc_imu(struct io_ring_ctx *ctx,
+ 					   int nr_bvecs)
+ {
+ 	if (nr_bvecs <= IO_CACHED_BVECS_SEGS)
+-		return io_cache_alloc(&ctx->imu_cache, GFP_KERNEL);
++		return io_cache_alloc(&ctx->imu_cache, GFP_KERNEL_ACCOUNT);
+ 	return kvmalloc(struct_size_t(struct io_mapped_ubuf, bvec, nr_bvecs),
+-			GFP_KERNEL);
++			GFP_KERNEL_ACCOUNT);
  }
  
- static void io_wq_cancel_tw_create(struct io_wq *wq)
+ static void io_free_imu(struct io_ring_ctx *ctx, struct io_mapped_ubuf *imu)
+@@ -140,7 +140,7 @@ struct io_rsrc_node *io_rsrc_node_alloc(struct io_ring_ctx *ctx, int type)
+ {
+ 	struct io_rsrc_node *node;
+ 
+-	node = io_cache_alloc(&ctx->node_cache, GFP_KERNEL);
++	node = io_cache_alloc(&ctx->node_cache, GFP_KERNEL_ACCOUNT);
+ 	if (node) {
+ 		node->type = type;
+ 		node->refs = 1;
 -- 
 2.56.0
 
