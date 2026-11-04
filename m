@@ -1,47 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818409;
-	b=MFYyWAizEnqfyJDbFe3eulh6TlofV994C/yeNnSlnJkw+w8TpDB9M2nknpQVK1hHleir
-	 f9/bOmlg28QfEPmp1PNoMGJf7K4nSIFIyQEVHsAIBSNM9Ud8wscbSKQzRJzzvG1T12t4d
-	 mupIjRdwTXtXXlbH59bwic28YC+3NnHRjTSzWZD5iQduopB+jIllqw2xuQAGDW6rJE3Pe
-	 HVnYUIXjMJjgmmhVjkAf8IjtgcrN5djk70Fb40O7mOgfK1kmYvrHO05VFpgm1WZy69Clq
-	 MP13/Cr8cqNRgGzC+EW61hd1NnIqSdcoMNj6z93wHABB6Rd5QmPnk83FZkv1dBUzQIQ==
+	t=1793818404;
+	b=UVeDxFqu63TzLLO1By9lFbRJ7SyHd89pDKL/zpD5VTLj2M9ReX2Y91Dn2I+0vYjTgMBk
+	 3F2APIY+silr8XGevc8lAnTlPuBM+CdT3MMbv/nvbiJ8vEC3mmQSdtcvBalk5wvOse+1t
+	 E3S2rcShGQviKJG3N/ZPkADV0IS1nr+ipSXXNMbDem58Ts5m/98stofrPt/38wTRazwuH
+	 AajLenHv821AiRggMLKQsDfB6oLdutDuZyYtKvP21wlz6FSh00pLIv3k6GW/FHgHXtTrk
+	 CfaW6GsAAqrjX4eAJXD38Z2ypuycpqwcRukOc5pmnYvQjKzQBhQN+NgRTAIy20YKmyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818409;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Wg4ehXNBbPnO/er6UUBGduT3L+tqdHXmNSYXNnPemvY=;
-	b=dR+yKZ6wgjPmLquWb79BFir1t0ymJQ7dvu4X/0eFGfb6YcAs4NVhi5OO2SjMDvs1tDmT
-	 9NCwBSa3VObcFnaTTA061xrLCSW9FAU4qr0b3Ml8lhYIjfpsfaOduJ4JcfBLpGjVlssON
-	 J+tTAtpq8lmxjcCI8lZ7kNBiYr6vt9nwZT051JcagFaLrKmTKEL2cGE4ZPMPbuXUcB2J2
-	 oh0lf2PkdkG91xPMpmbrh8SYJwg5nw7CWnmisRfKEDPVSnlZK2dLKkv7ZX4Rt6MsfhFPo
-	 ae8V5x/oI4MziMAiDJHdA9wv93LirpINdjJKKrwmaHz99C1gsDRxA+jm6MBqjLgtbbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818404;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=kll/G1zD/C2JyZu7pxNelwTrLUBWbNvvxhXCfrLDdII=;
+	b=DcVbQQwFFQyfHpphCRb5kWOOJDJtA1ZTe8G5csjuB1lLBgO/70PhHmsgGrpWB3nz76Cw
+	 HXFPRss/sejsL356RsbVuA8U46MULSeDV+S9Gfau0FzOFuWjJ5f49VZFEq+JvKVqw6f52
+	 FxINpstaBlCy/TUenrWs3NOtmY58xaIK72ikc0u9o1S3HDoi9EBppJ8Y+1UMWyYRjbdo4
+	 eyaAg4VGhceR+ux3ImIwQ61kmSCxjOtERoRcX7YUPgTE73ZZHBIX1ldxBWVv/uawB0Tl0
+	 ohBwVBPYlU97Fe60KRjgD/qXRLvbaw1I+sndDaQAT/ox28vIeZ35CSl6D6d27bW1HGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BGqENEvD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Tv+VOjuX;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4166082BDE
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:53:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7749A606D835;
+	Wed,  4 Nov 2026 18:53:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7749A606D835
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BGqENEvD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FDB91F00A15;
-	Wed,  4 Nov 2026 18:53:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793818408;
-	bh=Wg4ehXNBbPnO/er6UUBGduT3L+tqdHXmNSYXNnPemvY=;
-	h=Subject:To:Cc:From:Date;
-	b=BGqENEvDoMag/Plg5z8g696kuF3vvggGy7kgnQZxrq/K3t2c7hcJb433ctfFkQKD6
-	 3Liedfe8D/ALRONFt5gVqDpnFmDxWecf4Cqjuorgzr+t3ek/ry97HLbpLR0pX7Q6mH
-	 dWxkrhKxdsIThgANZqPTnf0OtDNy+efNshyIvdzQ=
-Subject: FAILED: patch "[PATCH] NFSD: Send a meaningful CB_RECALL_ANY keep count" failed to apply to 5.10-stable tree
-To: cel@kernel.org,jlayton@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:53:19 -0500
-Message-ID: <2026110419-postwar-grunge-8e90@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Tv+VOjuX
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id B7F164E41403;
+	Wed,  4 Nov 2026 18:53:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6714A60770;
+	Wed,  4 Nov 2026 18:53:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C414410329205;
+	Wed,  4 Nov 2026 19:53:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793818395; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=kll/G1zD/C2JyZu7pxNelwTrLUBWbNvvxhXCfrLDdII=;
+	b=Tv+VOjuXj3AH4ln4E3aXj4PZMQKql3KWSZmz2mqRiK+jgYCiAKLyFxJvFwNFzOT2mtfa/p
+	/bx6al1jJJa+bZV3C/HjKYVwdSHnNj8K+VmDEMZY3OlMMIZEFHnds8sgV9MHo+HHCYtDbn
+	x70RoP2HsMme65Nfa8ffeM8rDHEGo3j2+2HSbRpN6yCyuTlkgd0HG3FUPB2K32I/sVrj1A
+	QtaakxhrG4MI4ibpZz6wPkLdC3Y5lwyrVFf/Ha/JM1zFsyvQeTFeUDZjjKHvUFr+l7oMnW
+	YRz4CV1SlYuEY/gOOB+7jtEAUBx2umSS15PswdMcUJmkil+id0WtdNn/3JwwbA==
+Date: Wed, 4 Nov 2026 19:53:08 +0100
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Boris Brezillon <bbrezillon@kernel.org>,
+	Mark Brown <broonie@kernel.org>, Andy Gross <andy.gross@linaro.org>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	stable@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2] memory: atmel-ebi: Disable SMC clock on probe failure
+Message-ID: <20261104185308b845fb6d@mail.local>
+References: <20261101190733.121473-3-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,112 +78,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101190733.121473-3-krzysztof.kozlowski@oss.qualcomm.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi,
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+On 01/11/2026 20:07:34+0100, Krzysztof Kozlowski wrote:
+> Unprepare and drop the SMC clock reference, if probe fails to avoid
+> resource leakage e.g. during probe deferral.
+> 
+> There is no remove() callback, presumably on purpose so only error paths
+> are handled.
+> 
+> Cc: <stable@vger.kernel.org>
+> Fixes: 87108dc78eb8 ("memory: atmel-ebi: Enable the SMC clock if specified")
+> Reported-by: Wentao Liang <vulab@iscas.ac.cn>
+> Closes: https://lore.kernel.org/all/20260917101623.2146392-1-vulab@iscas.ac.cn/
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/bug/linux-8e236c81-01b2-4274-a213-11c3f31acfc2
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> ---
+> 
+> I independently developed the patch and then checked the queue with
+> pending work of iscas. That one has issues and other complains from me,
+> so only credits for the report.
+> 
+> Changes in v2:
+> 1. Handle of_platform_populate() error.
+> ---
+>  drivers/memory/atmel-ebi.c | 27 ++++++++++++++++++++-------
+>  1 file changed, 20 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/memory/atmel-ebi.c b/drivers/memory/atmel-ebi.c
+> index 1e8e8aba2542..7dc2f7add1b1 100644
+> --- a/drivers/memory/atmel-ebi.c
+> +++ b/drivers/memory/atmel-ebi.c
+> @@ -562,7 +562,7 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+>  	}
+>  	ret = clk_prepare_enable(ebi->smc.clk);
+>  	if (ret)
+> -		return ret;
+> +		goto err_put_clk;
+>  
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Couldn't we simply devm_clk_get_enabled() ?
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 9af39c0773ef956039e1ebe9c235532fe6ee1e50
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110419-postwar-grunge-8e90@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+>  	/*
+>  	 * The sama5d3 does not provide an EBICSA register and thus does need
+> @@ -572,14 +572,16 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+>  		ebi->regmap =
+>  			syscon_regmap_lookup_by_phandle(np,
+>  							ebi->caps->regmap_name);
+> -		if (IS_ERR(ebi->regmap))
+> -			return PTR_ERR(ebi->regmap);
+> +		if (IS_ERR(ebi->regmap)) {
+> +			ret = PTR_ERR(ebi->regmap);
+> +			goto err_disable_clk;
+> +		}
+>  	}
+>  
+>  	ret = of_property_read_u32(np, "#address-cells", &val);
+>  	if (ret) {
+>  		dev_err(dev, "missing #address-cells property\n");
+> -		return ret;
+> +		goto err_disable_clk;
+>  	}
+>  
+>  	reg_cells = val;
+> @@ -587,7 +589,7 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+>  	ret = of_property_read_u32(np, "#size-cells", &val);
+>  	if (ret) {
+>  		dev_err(dev, "missing #address-cells property\n");
+> -		return ret;
+> +		goto err_disable_clk;
+>  	}
+>  
+>  	reg_cells += val;
+> @@ -603,11 +605,22 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+>  
+>  			ret = atmel_ebi_dev_disable(ebi, child);
+>  			if (ret)
+> -				return ret;
+> +				goto err_disable_clk;
+>  		}
+>  	}
+>  
+> -	return of_platform_populate(np, NULL, NULL, dev);
+> +	ret = of_platform_populate(np, NULL, NULL, dev);
+> +	if (ret)
+> +		goto err_disable_clk;
+> +
+> +	return 0;
+> +
+> +err_disable_clk:
+> +	clk_disable_unprepare(ebi->smc.clk);
+> +err_put_clk:
+> +	clk_put(ebi->smc.clk);
+> +
+> +	return ret;
+>  }
+>  
+>  static __maybe_unused int atmel_ebi_resume(struct device *dev)
+> -- 
+> 2.53.0
+> 
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 9af39c0773ef956039e1ebe9c235532fe6ee1e50 Mon Sep 17 00:00:00 2001
-From: Chuck Lever <cel@kernel.org>
-Date: Mon, 17 Aug 2026 21:08:39 -0400
-Subject: [PATCH] NFSD: Send a meaningful CB_RECALL_ANY keep count
-
-deleg_reaper() sets craa_objects_to_keep to zero on every
-CB_RECALL_ANY. RFC 8881 Section 20.6.3 defines that field as the
-number of objects the client may keep, leaving the client to choose
-which of the excess to return, because the server cannot read lack
-of recent use as lack of usefulness. Zero asks for every delegation
-the client holds, including the ones backing files an application
-still has open.
-
-There is also no reason NFSD has to reclaim the entire delegation
-working set on the first sign of memory pressure.
-
-Derive the keep count from cl_deleg_count so that each callback
-asks for one delegation. Both the shrinker and the laundromat re-arm
-while their condition lasts, so a client with more to give is asked
-again on the next pass.
-
-The Linux client ignores craa_objects_to_keep and returns unused
-delegations selected from the type mask alone, so the count changes
-nothing for it.
-
-Fixes: 44df6f439a17 ("NFSD: add delegation reaper to react to low memory condition")
-Cc: stable@vger.kernel.org
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260817-recall-any-keep-count-v5-4-3b2cffce701e@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index f6da74ce16a9..9d40b573a295 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -7959,6 +7959,7 @@ deleg_reaper(struct nfsd_net *nn)
- {
- 	struct list_head *pos, *next;
- 	struct nfs4_client *clp;
-+	unsigned int count;
- 
- 	spin_lock(&nn->client_lock);
- 	list_for_each_safe(pos, next, &nn->client_lru) {
-@@ -7968,21 +7969,33 @@ deleg_reaper(struct nfsd_net *nn)
- 			continue;
- 		if (clp->cl_state != NFSD4_ACTIVE)
- 			continue;
--		if (list_empty(&clp->cl_delegations))
--			continue;
- 		if (atomic_read(&clp->cl_delegs_in_recall))
- 			continue;
- 		if (ktime_get_boottime_seconds() - clp->cl_ra_time < 5)
- 			continue;
- 		if (clp->cl_cb_state != NFSD4_CB_UP)
- 			continue;
-+		/*
-+		 * This read races with hash_delegation_locked() and
-+		 * unhash_delegation_locked() on other CPUs. A stale
-+		 * count only skews the keep value; the next
-+		 * laundromat pass sees a more current one.
-+		 */
-+		count = data_race(READ_ONCE(clp->cl_deleg_count));
-+		if (!count)
-+			continue;
- 		if (test_and_set_bit(NFSD4_CALLBACK_RUNNING, &clp->cl_ra->ra_cb.cb_flags))
- 			continue;
- 
- 		/* release in nfsd4_cb_recall_any_release */
- 		kref_get(&clp->cl_nfsdfs.cl_ref);
- 		clp->cl_ra_time = ktime_get_boottime_seconds();
--		clp->cl_ra->ra_keep = 0;
-+		/*
-+		 * Ask for a single delegation. Recalling one before it
-+		 * is needed costs the client an OPEN when it next
-+		 * touches the file.
-+		 */
-+		clp->cl_ra->ra_keep = count - 1;
- 		clp->cl_ra->ra_bmval[0] = BIT(RCA4_TYPE_MASK_RDATA_DLG) |
- 						BIT(RCA4_TYPE_MASK_WDATA_DLG) |
- 						BIT(RCA4_TYPE_MASK_DIR_DLG);
-
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
