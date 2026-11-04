@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810984;
-	b=ZF/izEYFXBWLlRviLl/LUI7hdeu3wb80HaPknU1RI6pJFOIer6wGAW7JDlskR9lHOU63
-	 QBrCOW4kr3YLvt526yF6SjloFftFvhJ+CMXumaUswd39lPwC6SUUuwI//VEt2Be/UXoxe
-	 s64i7rEa7YUjXEfkq70yO7f8bvL/aocmgHwWA22mrF+d0f1fUTY1JyvI7qePJsP9MyUSw
-	 KHAXGEjn3YYgAz9dSN+Ge6tokS40WRCXc8kaWuP2tRwyoGJtlXh+gSvHzPY1y9GRs4WO2
-	 Mryp2GZYxyQSpIcibSzny1ONCIABSLBZFReTGMs3VGhwaND3j0LV9pIjWloDxAy32xw==
+	t=1793810985;
+	b=rsG4uqkTD64riMqX1M2MxntPZK8R0iQ9crV4RAnJznXFAoZu2jmy9b3c/kI3dywo+Lol
+	 /tejLV5ZEjNQRlhltNLiEV5JwAixxpvjmOYZJkHuM2koFuzKO44rHAMTnCJMxfBLeqlmL
+	 Pyy/ic4K1QruziDWthmrjImWKZKeZ093oYYwBT08zNescgIU1Z4OD/fMh6ITCw0e5EqiY
+	 qxgiIjHDy7/MZq3IXWGR2KNpqQdb1HPgX3zRI/rlbylkk2oToD74lM1876swQOMo31Aaq
+	 tcrvaxgFBQI4es34kkWCw9x9atKn1xSMLYfriUBg+xcVMVjlIxZlukqt0WxbuxSbMzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810984;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810985;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=d+nuOasvOw5wIZP6LvJDhCjLyeQZF9QCGPw2TiFcohw=;
-	b=Y1GW2jdsKtsxoXYbaa6UrfmZG81f/l4fagSlzPbTKBrFb+0pEqaURx9UygnGvGmL+RYA
-	 mQESlaTHpNEwbdUk69/j34EXF9MP9JNDg8JhAN6dH2+Ii0pPzGPY17PsWCCeSHyH8kSnK
-	 zjHNVr7+fqimburcPgnGylH03reFG0llEzJJ5FfWXu+HwfE7CJnLD1HlUpIdu55YDxrR2
-	 BBP6ctWFWwxNjwjSPT7A1NUv/0svOB9angSfVM4a705Fzl5pWVJQvWy8BnfoATpFwH5xq
-	 KKwMys2aI6CqgiuiMNJWGE4qruCWp5uHMJ8fQxN9P+2Yn/4xXZ6gFbByQD9Syv5lhnA==
+	bh=8GwM68krthilW0muDK9rnvDgwd+88m9Hhei5W+eq9v4=;
+	b=OFgevsKVRNbL50sFywaZfi19elNPyZft8ZaD9F13MIOUPTz4L67dZ29Y3/Mh1lvuDCs3
+	 0zd7j+aV11YfAWObssYflc00stDjDQDlKvtKr+Qy8TD5lLjekFC7WDzyC/kJsuVNf5Hrr
+	 YqepczmksNetpCsxf4MFhZNKfHrEuusQArQPSPsjANBbND5+jXNe2K5FVFh2PpXj1ZzdR
+	 rors3qvcnl04nKkQ/WgwFur+veHLvfiIv8v1FvD6FcApBabhY0muioOotkkCS73P8C7yu
+	 V0p7ljkw65SKNY4PChDGtwky/SnNQ1P2gmwoz85GxEXDTKzo0oj2VHSX7EeV+cjnIhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=snxFoWSk;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iKxRqgGK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE604606D829
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:49:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34A2606D831
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:49:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=snxFoWSk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F0DC1F00A1E;
-	Wed,  4 Nov 2026 16:49:43 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iKxRqgGK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BC911F00A15;
+	Wed,  4 Nov 2026 16:49:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793810983;
-	bh=d+nuOasvOw5wIZP6LvJDhCjLyeQZF9QCGPw2TiFcohw=;
+	s=korg; t=1793810984;
+	bh=8GwM68krthilW0muDK9rnvDgwd+88m9Hhei5W+eq9v4=;
 	h=Subject:To:Cc:From:Date;
-	b=snxFoWSkgs2V6vj+NejupEWWvXBNLPhm5NqEVQZD2oxejFQZUaydhF6BVjZnwwpiu
-	 lXQM2IbItKcV+BLCsHbb+29T3H24sY6bWvJ4Tbs2mPcB4ooDz704yroLP3fBMliFp7
-	 0VtfkG3xegGRgfmfirkAuvvLDrfGjnCXv7Yk5Eno=
-Subject: FAILED: patch "[PATCH] xfs: reject absurdly large xattr value lengths in" failed to apply to 5.10-stable tree
+	b=iKxRqgGK+wnDQBmoRYGfHb1ENG0Qeush+1VMko/eldnjFzZrPVHRO4IhqZ4mWa8by
+	 BafVrMBo9DGhVyvElM8wNvEyv6y/u1oxET8IUC0C9Or+w+mSv9Eno61fBNs80sE9Sk
+	 /N9TxaGmqZzhHfrEi1wEs2r1h38E5c/zRCQMfScE=
+Subject: FAILED: patch "[PATCH] xfs: reject absurdly large xattr value lengths in" failed to apply to 6.1-stable tree
 To: djwong@kernel.org,cem@kernel.org,hch@lst.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 11:49:33 -0500
-Message-ID: <2026110433-circling-donator-d93c@gregkh>
+Message-ID: <2026110432-cortex-papyrus-00b5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x fd012955641881169a9f01a00f656f6ca73842ec
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110433-circling-donator-d93c@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110432-cortex-papyrus-00b5@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
