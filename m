@@ -1,47 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801578;
-	b=AkeIVwIdFfCnPnY5UJYrNxdZrdPCeU/JQz/3pjRKr97o5zQAMTSy8fyP0PtOAyt2jvJ7
-	 hl7NM92mZzwbi3KmEP9G9vJ1dgFnmNor+tXpCo9TKpQJN6X5RXms+aHcxnNECE34om9DS
-	 gRpCpjEpV7qGuZhw+3jsXpdxEaqiVfFi6TjFrAuDpIG7FuUyPOo66WR+jCAQbqdsFncQj
-	 tX9ygzpCRQ4/Ymhpy20EFXN0TjyOrvQo3mJYde6KqgtOkKI4wZDXgYJEw642rwOVQSTHR
-	 UD7Jm0/Udb5GBcKBaJcPtvvJ8KKXHO8zDxv7cr9/ZyxZR7TNqfd2/wGRQSY7Y4nVBCg==
+	t=1793801574;
+	b=NtwG8jN4RyMDRFWYqSzZ+z8wW/2LPmqeJ0k0OEgomDFp7kpqt1hWq5e0mIYlYZF3r6MP
+	 RFmFI24I6UIc+d9YOzX/XY0/LtFh/c/PzAjQ3KY+XT7UUk2pH3bKTlIQtNVaLIQFhwl8q
+	 vh7gFsvAXXJxmQpGl0H9HiMfJcdpnVqjtKFbllORZ0SP5qmC8v71XqxMOLiWNueELDW9o
+	 +qn9fwWtjolViPvvZuuQWdKN81fkel7gv2a0IDQiwmuB8rknYovbuz4gYu8APEzTAYpuA
+	 o1S+5ib8N6vwMcG1b4zi5QdZvlIC/idW+wDwCnjInJyFwUNtwcktNn7QNCRk0whcmaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801578;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=idzZSOAti8Nn8PmKa4YUHdyHhnbm+xhVJSm51eKcTeE=;
-	b=nphTYuC0YWP1WA7wcal+DnW+xhUVlTOPNJwgLID+Q6Db0E3QI+CD+ec53EEN/uCf6BEs
-	 0Irv/OI/oOjAQsZFAvV39yjoq68h+g8qwl40ARqLn8QVAeg97lFgwJLu5V+HMn8iQ/dqE
-	 BTBaiXXttx34PG7iJVBeAiQMjAscTfziDg2yQT8ysi8QdWSNHot6yzR7iTKoROIMm5FNT
-	 iJiSaELocqLBR3aEVv5YNh22LU50OtT3tw4QDlQfWeYdIMDeROLQpsDXBtVbGKB1z43cQ
-	 NQUWhR4b3uoptXKasMRGrPZXury0lWJ2k87CfvYNum3BBWYPedbLybd2oBR44YYDrSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801574;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=6AJSYYW5ZAgrqBGJS0OC9W3bPQi0BhlyPP+rFdFD3pI=;
+	b=OBd+sDly22rspCxlR7hmjMgcY8k3tv1U+LwplY1dtzPt+ZO/UvqFRDOFEVxrJz0U/nYf
+	 kguMJuvfSe30vug9Kthok/RVv85ppi6GYIwHfpAvOKvSmNqm/OPAuJs1ZjnacJzH3h6Mj
+	 OJANNXRx8OYdOClh+XDcqev59yjwQQjPw6vPveoFVWF9FAzSM3N3DOODangdFsw9mpmm4
+	 ytW9s6b3HnMjI3YHq5d0jG7L1mrY3cNOarV2nH96KRsaKapRLQUcDG80Ku35Ym/5Ms6BU
+	 XU/f0bir4QrMNo4n9LSJK4l7lJ/0COY/43XVHLHGF+/b/KJbnB6aZ0BfqIXfz75Elog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eitjPjg6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A645606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:12:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eitjPjg6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011CE1F0093A;
-	Wed,  4 Nov 2026 14:12:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801578;
-	bh=idzZSOAti8Nn8PmKa4YUHdyHhnbm+xhVJSm51eKcTeE=;
-	h=Subject:To:Cc:From:Date;
-	b=eitjPjg6YgclGPr3XYuq81LD8GF+GqDw8AQwQo2nfoV516Mu0boRMxo+c+7XrYJMi
-	 xr9r4+5iVhK3Yn9v3rgwiWEYhBstT70yc3UePPwO56QYryX9fSXxs0Rs7Egvtezxk0
-	 URned3aCrg+ur+U0ZyJTbiN0LvSdm3+Cr1CYDJog=
-Subject: FAILED: patch "[PATCH] rust: bug: update the SAFETY comment for warn_slowpath_fmt()" failed to apply to 6.18-stable tree
-To: fujita.tomonori@gmail.com,ojeda@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:12:56 +0100
-Message-ID: <2026110456-quartet-gondola-4267@gregkh>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E1C606A33B;
+	Wed,  4 Nov 2026 14:12:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58E1C606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jKS7y5jVyz5B15L;
+	Wed, 04 Nov 2026 22:12:46 +0800 (CST)
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl1.zte.com.cn with SMTP id 6A4ECj8P034143;
+	Wed, 4 Nov 2026 22:12:45 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Wed, 4 Nov 2026 22:12:49 +0800 (CST)
+X-Zmail-TransId: 2afc6aeb3d61529-2e41a
+X-Mailer: Zmail v1.0
+Message-ID: <20261104221249196PEndOlhSBLk0FozQ1xnab@zte.com.cn>
+Date: Wed, 4 Nov 2026 22:12:49 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,72 +56,67 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIXSBhdGE6IGxpYmF0YS1hY3BpOiBjaGVjayB0aGUgX0dUTSByZXR1cm4gb2JqZWN0IGJlZm9yZSB1c2luZyBpdA==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6A4ECj8P034143
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Wed, 04 Nov 2026 22:12:46 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEB3D5E.000/4jKS7y5jVyz5B15L
 
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+ata_acpi_gtm() evaluates _GTM with acpi_evaluate_object() and, after
+checking the status, dereferences output.pointer without checking it.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+acpi_evaluate_object() can return AE_OK with a zero-length result and a
+NULL output.pointer.  A _GTM method returning a reference to a method
+local does exactly that: ACPICA clears the reference when the method
+terminates, so the caller ends up with no object.  ata_acpi_gtm() then
+dereferences the NULL pointer while probing the ATA port.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x 5c94956f2bfb87025c1eaded6c51d5841d38d333
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110456-quartet-gondola-4267@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+ata_dev_get_GTF(), the sibling function in this file, already checks both
+output.length and output.pointer before using the result.  Add the same
+check to ata_acpi_gtm().
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 5c94956f2bfb87025c1eaded6c51d5841d38d333 Mon Sep 17 00:00:00 2001
-From: FUJITA Tomonori <fujita.tomonori@gmail.com>
-Date: Fri, 2 Oct 2026 19:45:50 +0900
-Subject: [PATCH] rust: bug: update the SAFETY comment for warn_slowpath_fmt()
- on UML
-
-The SAFETY comment says that it is always safe to call
-`warn_slowpath_fmt()` with a valid null-terminated string. This is not
-true. The taint argument must also be a valid taint number.
-Commit 951d09ca450c ("rust: bug: pass TAINT_WARN to warn_slowpath_fmt()
-on UML") fixed a bug where it was not.
-
-List each condition that the call meets: the file name, the taint
-number, and the null `fmt`.
-
-Suggested-by: Miguel Ojeda <ojeda@kernel.org>
-Signed-off-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
-Link: https://patch.msgid.link/20261002104550.2877930-1-tomo@flapping.org
+Fixes: 64578a3de723 ("libata-acpi: implement _GTM/_STM support")
 Cc: stable@vger.kernel.org
-Fixes: dff64b072708 ("rust: Add warn_on macro")
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with a PIIX3 IDE
+controller.  A TEST-ONLY SSDT, loaded with -acpitable on both kernels,
+adds a _GTM method that returns a reference to a method local.  ACPICA
+clears that reference when the method terminates, so
+acpi_evaluate_object() returns AE_OK with a NULL object.
 
-diff --git a/rust/kernel/bug.rs b/rust/kernel/bug.rs
-index 6abed2c055b1..3b40b0bd37b5 100644
---- a/rust/kernel/bug.rs
-+++ b/rust/kernel/bug.rs
-@@ -88,8 +88,10 @@ macro_rules! warn_flags {
-             _ = $flags;
-         }
+  unpatched                            patched
+  BUG: kernel NULL pointer             no panic; ata1/ata2 probe
+  dereference in ata_acpi_gtm          /dev/sda probes
+  Kernel panic - not syncing
+
+The diagnostic is emitted with ata_port_dbg(): a _GTM method that keeps
+returning no object is a permanent firmware deviation and the check runs
+on every reset, so a KERN_ERR would spam the log indefinitely.
+diff --git a/drivers/ata/libata-acpi.c b/drivers/ata/libata-acpi.c
+index 4433f626246b..a0b85f74eabb 100644
+--- a/drivers/ata/libata-acpi.c
++++ b/drivers/ata/libata-acpi.c
+@@ -376,6 +376,11 @@ int ata_acpi_gtm(struct ata_port *ap, struct ata_acpi_gtm *gtm)
+ 	}
  
--        // SAFETY: It is always safe to call `warn_slowpath_fmt()`
--        // with a valid null-terminated string.
-+        // SAFETY:
-+        // - The file name is a null-terminated string with `'static` lifetime.
-+        // - `TAINT_WARN` is a valid taint number.
-+        // - `fmt` can be NULL, and NULL is passed.
-         unsafe {
-             $crate::bindings::warn_slowpath_fmt(
-                 $crate::str::CStrExt::as_char_ptr($crate::c_str!(::core::file!())),
-
+ 	out_obj = output.pointer;
++	if (!out_obj || !output.length) {
++		ata_port_dbg(ap, "_GTM returned no object\n");
++		goto out_free;
++	}
++
+ 	if (out_obj->type != ACPI_TYPE_BUFFER) {
+ 		ata_port_warn(ap, "_GTM returned unexpected object type 0x%x\n",
+ 			      out_obj->type);
