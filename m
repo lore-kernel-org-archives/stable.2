@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802961;
-	b=DVoysKMKiWGHPFC9g3fFm+zFE6RkC+VemH516zLCDQvLem/NF2nYDjwGH1NhTaVYOADc
-	 f84fHr6GA0rgAGj4ebWIKM9jJa1DXc/GZWgDlPsZQMWKT6Ju2kc4+HDsn9eZDBROCVlEg
-	 tsSqg8TjmrwjovcqfJY+EX1JCqqsG03dbzAmnkYujnGDscCTAyaWeyIPihkucwYIXeryf
-	 Huu10XDfluHPKKk9mDWq+z4LmICWLpJnbN9t7N2jRB94DmfK/gQxhkALLbp1jUb6ZtrTC
-	 VJ01BqU4te9E4kBueimc0a9ji/oGKyzeZL8h7v/cELuHN2dpfbhOeg3UZYso9x1gpOQ==
+	t=1793802969;
+	b=mS5noSiIzPCkIuc0bO4NsB37oXQwAAndyPu7D/b5MisBi24gjeNM2yjGY8aXWsIvIJXM
+	 lbjUixIimWBZtlMtQlNqDd6tQURW6JnwMVqCMRUDol5vBxuIIkqU265axy1CSk4TQ/Xkh
+	 +4nfOHPeXEMV7A7nVfrzWWJa51btCbN1rgJG/jeazo9U+Ai7G0XmF9b+BQxILOJ0VQ7uB
+	 EZGR/HkoJA2SKciwbPDYvhXhKJNg0Pt9QYUgivgElXCIENb4U+GXmdEk0tdfn394r7H9a
+	 HifT0iVK6zhbOx44LaQ5R1BwfemszCWkMY40utj+yTu+HnIJ+lNaO75/0VY1V/MuAJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802961;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802969;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=foWWiEzcryCdCvrf61x5bHvRXVeu7NcFuidhZky0Zk4=;
-	b=V84KsukmoGiOcDkKvWITMY7T4UJ0sZ3UaA4eBpkqokcaa6e8bQbCU/6HmsRNKDyH4HhA
-	 wWEretCrxHeTHorOtRXtuer1MUWl7Sk15Deve6mormqkYUYFBlprTBI4GUm5OVJPNkNoB
-	 jW4FCqArGIhtkN/imN0a8HdrteMNe8YTzevdy5T7Z7giLtXFrv2GLRDfsfKWu1Ys+pn86
-	 18GOU2UkLTHg3pGg2nPQmdWqUlhXUzHVhQJnR30vGWJtINdr4zrFkBcYZIbc7UqyMIQUW
-	 LIV5jkW0rvsQQCeqC+9zv5HW33xA700rLtwJOfzP4QEx5i+bQWxo8SLeZCG4kteFmrQ==
+	bh=+NVd6jpBlTUf61cnVn9Km3UjTveAZFCscYQDe8AlE9k=;
+	b=XIBcubRYC/6LE215DLK/iqbMT2edmaNXcj9Kns1Ef5SFzWK4AdhTpaz+NlXxifF9suga
+	 TRnH2/7bTclGj2359u7HkXHmj1lXOUdTY4fdFs3KAMHMq+mu0VotY1rL+hrp6ex5qJU+7
+	 eFebXpoMIrxoMWsy6M8k6eDLtY2qKtGN0Ojus6LfypMQgFl63EvixXbbe6YcfFTkgWhZq
+	 0baypuwERB2AhKGC5FkePZ7Ut07HfrGOhZv8jH7Q9hbepzOKqG0hiu1Mr2+ot8l/WQBrj
+	 Zk993nxTMK52n4YFtpXDbO2HKWztJmVrucQtA8HDuHXAIIoqyP4AGxn0obTRgfqmFIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dE7uk7Lw;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dLrKNYwG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64552606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:36:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090A1606A331
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:36:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dE7uk7Lw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1252B1F00919;
-	Wed,  4 Nov 2026 14:36:01 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dLrKNYwG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94B711F00A02;
+	Wed,  4 Nov 2026 14:36:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802961;
-	bh=foWWiEzcryCdCvrf61x5bHvRXVeu7NcFuidhZky0Zk4=;
+	s=korg; t=1793802968;
+	bh=+NVd6jpBlTUf61cnVn9Km3UjTveAZFCscYQDe8AlE9k=;
 	h=Subject:To:Cc:From:Date;
-	b=dE7uk7LwVMT32sBPNHLIffx8bydRwLwdL91LVUS/jmCjlDFa34KwkUQsFsv3nUnR+
-	 FAVq3GgDgg2Bdh6ApO8ScJ7ZzWIQJxiSwxoY6WhwM98Eiz7pJ1aS38G8whn82VAOz9
-	 urY0qMu3+BaCajnXEFly4v4HfD7l13LgVgBWaFnQ=
-Subject: FAILED: patch "[PATCH] ovl: check that the parents of volatile/dirty are dirs" failed to apply to 5.10-stable tree
+	b=dLrKNYwGDHVMXwWruZkG0nGgjLuOozFBpcRlA6I0qaX2z1xMC9R/1kNp4iO5616/X
+	 XybLhJ+bRbb86NWF3Cn/O251Kzg/njZPSqR+x1R69/oNiQxyUhUlRP1OmHGG5u/G21
+	 NR6lKqDdHvKc/gx3VOmCHGVH+ODZUrfyuZztHkSQ=
+Subject: FAILED: patch "[PATCH] ovl: do not copy up a dentry that was removed" failed to apply to 6.18-stable tree
 To: mason@kernel.org,amir73il@gmail.com,josef@toxicpanda.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:35:54 +0100
-Message-ID: <2026110454-overstate-universe-e323@gregkh>
+Date: Wed, 04 Nov 2026 15:36:06 +0100
+Message-ID: <2026110406-repair-smashup-78e1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x e34d2ef818e4c7676d8d8e1bf43e6a1ed39efb2a
+git cherry-pick -x f635192ad223d2009ee640b63adf5ce3198aa338
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110454-overstate-universe-e323@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110406-repair-smashup-78e1@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,69 +79,52 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e34d2ef818e4c7676d8d8e1bf43e6a1ed39efb2a Mon Sep 17 00:00:00 2001
+From f635192ad223d2009ee640b63adf5ce3198aa338 Mon Sep 17 00:00:00 2001
 From: Chris Mason <mason@kernel.org>
-Date: Wed, 7 Oct 2026 10:15:11 +0000
-Subject: [PATCH] ovl: check that the parents of volatile/dirty are dirs
+Date: Wed, 7 Oct 2026 11:00:06 +0000
+Subject: [PATCH] ovl: do not copy up a dentry that was removed
 
-An unprivileged user crashes the kernel by mounting overlayfs with the
-volatile option.
+A change to a removed file through an open descriptor replaces whatever
+has its old name in the upper layer.
 
-A dentry that serves as the parent of a lookup must be a directory.
-ovl_create_volatile_dirty() walks work/incompat/volatile/dirty by name,
-and ovl_lookup_or_create() returns an existing entry whatever its type.
-A file or a symlink that another task creates during the mount becomes
-the parent of the next lookup, which calls a NULL ->lookup.
+Copy up must only create a name in the upper directory, never replace
+one. After an unlink, an rmdir or a rename over a lower dentry, a
+dentry that an open file keeps alive still has its old parent and name,
+but in the upper directory that name is now a whiteout or a new object.
+ovl_copy_up_workdir() renames the copy over it, which brings back the
+removed object and destroys whatever took its name.
 
-An unprivileged user mounted overlayfs with "volatile" in a user
-namespace while a second process created a symlink named work/incompat,
-and the mount task oopsed on a NULL ->lookup call.
+An unprivileged user opened a lower FIFO and unlinked it, root created
+a file at that name, and fchmod on the old descriptor replaced the file
+of root with the FIFO.
 
-Fix this by returning -ENOTDIR from ovl_lookup_or_create() when the
-caller asked for a directory and the existing entry is a non-dir.
+Fix this by looking up the target name of the rename in
+ovl_copy_up_workdir() with LOOKUP_EXCL, so that copy up fails with
+-EEXIST if the name is taken, as copy up with O_TMPFILE already does
+when it links the copy to the name.
 
-Fixes: c86243b090bc ("ovl: provide a mount option "volatile"")
+Fixes: e9be9d5e76e3 ("overlay filesystem")
 Cc: stable@vger.kernel.org
 Signed-off-by: Chris Mason <mason@kernel.org>
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[amir: use LOOKUP_EXCL instead of relying on d_unhashed()]
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index bd0a3f9039d2..18f56d463572 100644
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
-@@ -621,16 +621,21 @@ cleanup_temp:
- 
- static struct dentry *ovl_lookup_or_create(struct ovl_fs *ofs,
- 					   struct dentry *parent,
--					   const char *name, umode_t mode)
-+					   const char *name, bool is_dir)
- {
- 	struct dentry *child;
- 
- 	child = ovl_start_creating_upper(ofs, parent, &QSTR(name));
- 	if (!IS_ERR(child)) {
--		if (!child->d_inode)
-+		if (!child->d_inode) {
- 			child = ovl_create_real(ofs, parent, child,
- 						&QSTR(name),
--						OVL_CATTR(mode));
-+						OVL_CATTR(is_dir ? S_IFDIR :
-+								   S_IFREG));
-+		} else if (is_dir && !d_can_lookup(child)) {
-+			end_creating(child);
-+			child = ERR_PTR(-ENOTDIR);
-+		}
- 		end_creating_keep(child);
- 	}
- 	dput(parent);
-@@ -652,7 +657,7 @@ static int ovl_create_volatile_dirty(struct ovl_fs *ofs)
- 	const char *const *name = volatile_path;
- 
- 	for (ctr = ARRAY_SIZE(volatile_path); ctr; ctr--, name++) {
--		d = ovl_lookup_or_create(ofs, d, *name, ctr > 1 ? S_IFDIR : S_IFREG);
-+		d = ovl_lookup_or_create(ofs, d, *name, ctr > 1);
- 		if (IS_ERR(d))
- 			return PTR_ERR(d);
+diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
+index 12000e45fefc..286978d47ef7 100644
+--- a/fs/overlayfs/copy_up.c
++++ b/fs/overlayfs/copy_up.c
+@@ -793,9 +793,10 @@ static int ovl_copy_up_workdir(struct ovl_copy_up_ctx *c)
+ 	rd.old_parent = c->workdir;
+ 	rd.new_parent = c->destdir;
+ 	rd.flags = 0;
+-	err = start_renaming_dentry(&rd, 0, temp,
++	/* The name may have been taken since lookup, never replace it */
++	err = start_renaming_dentry(&rd, LOOKUP_EXCL, temp,
+ 				    &QSTR_LEN(c->destname.name, c->destname.len));
+-	if (err) {
++	if (err && err != -EEXIST) {
+ 		/* temp or workdir moved underneath us? map to -EIO */
+ 		err = -EIO;
  	}
 
