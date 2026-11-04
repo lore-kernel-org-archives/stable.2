@@ -1,108 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793776153;
-	b=qF71qDPCBBJdi9ukaA8ksXL6TwmutkcDG+u2TSFly0n/XWpwiT1miNHBrib00jBvxSMU
-	 kSLqBXPVrnTykpYWuRghE9T3wmsyY8RjIw69N8MCgS2LSS7FtMFDZJEG/1rKNbAVPENML
-	 76UpU4Zpb7V66SShyeyaaGKrejIw2fusN9S7xkJxYpbdDboVCNEgRgKRzvr64efxpkfu3
-	 rRXsakSZ7OR/XXhrWYrGTe3ORIS1PclzgXylpVs31DmXqfgKwzM3TlKKcctLFR10jyk5M
-	 JEwYtW6c5ydJn/XvCveqIC4oYOgj7pQMxWXezibKfk78W63s1bWlhVzn84KkU/wEFiQ==
+	t=1793776155;
+	b=k/v61v1g1Kj7mKjpxH/5IFDCVQVUlbIsJzEsXc6Tj7gROuSrs2rvAzXvjPYVDLrEg+zt
+	 HXtbfT/+ZmyvskPPy7NFtU+O+XsKXEH0xL/x+jGKeNtrJU9szDqvP7G/OptzmdUYumNmc
+	 dR57oMwzpnOXyTFFZGgLCozcBGEVboTKMUy9nK7mXDgUqvzU6ZOTcRvaSDQhnTJEAzVQK
+	 5PdvRmwlJolrYkxoGxg39ZBmbSKNlIHWgmRRdDuSfnPRtkx1PwfP8y2EojMfCofSboZ1V
+	 PjozFN9KuaSqfP3o4jcdULNQDsO70ZylpNq6pmnjVDHs818STRxcAV9ZWDess56ialA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776153;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=emnBMYYtlelYYV2L6n2Io2FmE+4Pu+/TpD5NrJBlQnk=;
-	b=hSSpM1Z437DemGRtJhuu/U9d3rJyIBKNboKHHiGb01HjY2ZmlOpwDqxPakEoL8vVA5y5
-	 JsfxTCKcf6N2SLsNdtjRUPuT/Phyc8aRAJjWvm2QuYJ8GDm/HlpjVplazidpqedKbyH5v
-	 4D9rIQHI044VuFcmH6svpXXzIJ/bOHWipGuKJKK3pYUaTk/nARHoTajiFzKWSZR1pPm09
-	 VL9u7s2bGaiXVl0FbY7H/CzQMJkVUGS8BDaq3Y8zf5LDQEGgqjqGWpgMkgEyQtBzEabep
-	 kdhffHX4tAfcAXGjeNjrrBFYlDYgJUG3DzEjGxoE7rTrdJXJTkKwiQO+5E8AIOotqKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776155;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=B+/q+3jqNq8N+fdXWKPQNteaKIvpaUaMzh/T5wohdh0=;
+	b=XSPOP32Q5rrXlBbwGODLHEgfYdMoZJcTi/lA494IELyYLEmKheuT1b4zHitlyWJv4GJ4
+	 8r0LLkbKHBaUSHGwTjBAVuJcDDfD3GYeK+1lT0JkXwBguvxX1n5pufuErH5RjQWfWhdHA
+	 07bQLTI7EDF5tREhkFBzu5D2jr6djow2uJU3pUq8aP1Z31WvbcunL1giHs1RLHfnqlCK2
+	 pBVG8yRkJzd4dXztYiw1M9BUnDXQ8Sz1pW1B68H9AOmVmJfdauil6V31qDlr5L+09QbIH
+	 0WSI1ThyX8StLXXo3Cc7u4FOUOicicRtnvlNP7CgJsR8jY5gFzybBtCKNnNWaygGVuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NqvtMp1w;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=U2z5gkbP;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NqvtMp1w;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=U2z5gkbP;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=tM8DYMkh;
+	arc=none smtp.remote-ip=115.124.30.111
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1A5606A31B;
-	Wed,  4 Nov 2026 07:09:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D1A5606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9A6606A333
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 07:09:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C9A6606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NqvtMp1w;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=U2z5gkbP;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=NqvtMp1w;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=U2z5gkbP
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 83C5821F99;
-	Wed,  4 Nov 2026 07:09:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793776150; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=emnBMYYtlelYYV2L6n2Io2FmE+4Pu+/TpD5NrJBlQnk=;
-	b=NqvtMp1wtygzwO2MiMnGRHr4qNurHVyURpcVOgMImoGRzvi3nO0lB8LFXv35+q4D+BmBiq
-	1D3NYGvvMzPVX5Lobe+2TGpuF9qVvl3QjbgX+o5tFYo9+ZpOL+uxwiDLFk0tPg9YFgoGr1
-	fsiIT6eiW+3IAMad2+rQGfAeI6tDqw4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793776150;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=emnBMYYtlelYYV2L6n2Io2FmE+4Pu+/TpD5NrJBlQnk=;
-	b=U2z5gkbP2Fcy3YRapafti7PUuZi1wT8gj0iFbbi7ySmfP4Y9SKpkXQK5uo4E36lgPHauQd
-	NIl13uND1dh2M8Ag==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793776150; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=emnBMYYtlelYYV2L6n2Io2FmE+4Pu+/TpD5NrJBlQnk=;
-	b=NqvtMp1wtygzwO2MiMnGRHr4qNurHVyURpcVOgMImoGRzvi3nO0lB8LFXv35+q4D+BmBiq
-	1D3NYGvvMzPVX5Lobe+2TGpuF9qVvl3QjbgX+o5tFYo9+ZpOL+uxwiDLFk0tPg9YFgoGr1
-	fsiIT6eiW+3IAMad2+rQGfAeI6tDqw4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793776150;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=emnBMYYtlelYYV2L6n2Io2FmE+4Pu+/TpD5NrJBlQnk=;
-	b=U2z5gkbP2Fcy3YRapafti7PUuZi1wT8gj0iFbbi7ySmfP4Y9SKpkXQK5uo4E36lgPHauQd
-	NIl13uND1dh2M8Ag==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0ED35134A5;
-	Wed,  4 Nov 2026 07:09:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id eXeNNBXa6mqSJQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 04 Nov 2026 07:09:10 +0000
-Date: Wed, 04 Nov 2026 08:09:09 +0100
-Message-ID: <87zevpul7u.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: songxiebing <songxiebing@kylinos.cn>
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=tM8DYMkh
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793776151; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=B+/q+3jqNq8N+fdXWKPQNteaKIvpaUaMzh/T5wohdh0=;
+	b=tM8DYMkh5YnvRB6BlncXVSj0Uaym6cmi9tf/R0gdavB7lvGLlEKJ1RfzrjkgxII3D4gyWONfCpBdUBtNzabo82P4LBOmpy95T4i+txrKDr4Ozr7e51yV64Nifvkb/241Sz4HDy0liBtCSSIi5o+6YJ9JHaX8PzR3mGbVg1NPcmQ=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R771e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=4;SR=0;TI=SMTPD_---0XE5.ISp_1793776150;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE5.ISp_1793776150 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 04 Nov 2026 15:09:11 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Cc: Al Viro <viro@zeniv.linux.org.uk>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: info: Fix maxsize underflow in snd_info_entry_write()
-In-Reply-To: <20261104061311.1345791-1-songxiebing@kylinos.cn>
-References: <20261104061311.1345791-1-songxiebing@kylinos.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+Subject: [PATCH 6.6.y] ufs: fix ufs_read_cylinder() failure handling
+Date: Wed,  4 Nov 2026 15:09:10 +0800
+Message-Id: <20261104070910.272012-1-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,77 +59,109 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email]
-X-Spam-Score: -12.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 04 Nov 2026 07:13:11 +0100,
-songxiebing wrote:
-> 
-> From: Bob Song <songxiebing@kylinos.cn>
-> 
-> snd_info_entry_write() computes maxsize as entry->size - pos without
-> first checking whether pos has already reached entry->size.  If a write
-> is issued with an offset beyond the entry size, the subtraction
-> underflows and count is left unclamped, so the write callback is called
-> with an out-of-range offset and the original count.
-> 
-> The read path already handles this case by returning 0 when
-> pos >= entry->size.  Add the same check to the write path.
-> 
-> Fixes: d97e1b78239c ("ALSA: info - Check file position validity in common layer")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Bob Song <songxiebing@kylinos.cn>
+From: Al Viro <viro@zeniv.linux.org.uk>
 
-This was already addressed in Christian's recent patchset.
-https://lore.kernel.org/20261102-work-procfs-bugfixes-v1-9-59422ed3e465@kernel.org
+commit 0bfd3e1078c537cd66a8addb1c01835de4234a4c upstream.
 
-(... and he mentioned that return 0 would lead to endless stdio
-retry, too.)
+1) ufs_load_cylinder() should return NULL on ufs_read_cylinder() failures.
+ufs_error() is not enough.  As it is, IO failure on attempt to read a part
+of cylinder group metadata is likely to end up with an oops.
 
+2) we drop the wrong buffer heads when undoing sb_bread() on IO failure
+halfway through the read - we need to brelse() what we've got from
+sb_bread(), TYVM...
 
-thanks,
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+---
+This is a prerequisite for commit 58c0c414b2b8 ("ufs: validate cylinder
+group metadata before caching it"). Otherwise the NULL check in caller
+is meaningless and will still use invalid ucpi.
 
-Takashi
+ fs/ufs/cylinder.c | 31 ++++++++++++++++++-------------
+ 1 file changed, 18 insertions(+), 13 deletions(-)
 
-> ---
->  sound/core/info.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/sound/core/info.c b/sound/core/info.c
-> index 3b8ccda04e1a..676b06e0d463 100644
-> --- a/sound/core/info.c
-> +++ b/sound/core/info.c
-> @@ -171,6 +171,8 @@ static ssize_t snd_info_entry_write(struct file *file, const char __user *buffer
->  	pos = *offset;
->  	if (!valid_pos(pos, count))
->  		return -EIO;
-> +	if (pos >= entry->size)
-> +		return 0;
->  	if (count > 0) {
->  		size_t maxsize = entry->size - pos;
->  		count = min(count, maxsize);
-> -- 
-> 2.25.1
-> 
+diff --git a/fs/ufs/cylinder.c b/fs/ufs/cylinder.c
+index 5781c7db97276..b930ee1cf8530 100644
+--- a/fs/ufs/cylinder.c
++++ b/fs/ufs/cylinder.c
+@@ -26,7 +26,7 @@
+  * Read cylinder group into cache. The memory space for ufs_cg_private_info
+  * structure is already allocated during ufs_read_super.
+  */
+-static void ufs_read_cylinder (struct super_block * sb,
++static bool ufs_read_cylinder(struct super_block *sb,
+ 	unsigned cgno, unsigned bitmap_nr)
+ {
+ 	struct ufs_sb_info * sbi = UFS_SB(sb);
+@@ -46,9 +46,11 @@ static void ufs_read_cylinder (struct super_block * sb,
+ 	 * We have already the first fragment of cylinder group block in buffer
+ 	 */
+ 	UCPI_UBH(ucpi)->bh[0] = sbi->s_ucg[cgno];
+-	for (i = 1; i < UCPI_UBH(ucpi)->count; i++)
+-		if (!(UCPI_UBH(ucpi)->bh[i] = sb_bread(sb, UCPI_UBH(ucpi)->fragment + i)))
++	for (i = 1; i < UCPI_UBH(ucpi)->count; i++) {
++		UCPI_UBH(ucpi)->bh[i] = sb_bread(sb, UCPI_UBH(ucpi)->fragment + i);
++		if (!UCPI_UBH(ucpi)->bh[i])
+ 			goto failed;
++	}
+ 	sbi->s_cgno[bitmap_nr] = cgno;
+ 			
+ 	ucpi->c_cgx	= fs32_to_cpu(sb, ucg->cg_cgx);
+@@ -77,13 +79,14 @@ static void ufs_read_cylinder (struct super_block * sb,
+ 		goto failed;
+ 	}
+ 	UFSD("EXIT\n");
+-	return;	
++	return true;
+ 	
+ failed:
+ 	for (j = 1; j < i; j++)
+-		brelse (sbi->s_ucg[j]);
++		brelse(UCPI_UBH(ucpi)->bh[j]);
+ 	sbi->s_cgno[bitmap_nr] = UFS_CGNO_EMPTY;
+ 	ufs_error (sb, "ufs_read_cylinder", "can't read cylinder group block %u", cgno);
++	return false;
+ }
+ 
+ /*
+@@ -166,15 +169,14 @@ struct ufs_cg_private_info * ufs_load_cylinder (
+ 				UFSD("EXIT (FAILED)\n");
+ 				return NULL;
+ 			}
+-			else {
+-				UFSD("EXIT\n");
+-				return sbi->s_ucpi[cgno];
+-			}
+ 		} else {
+-			ufs_read_cylinder (sb, cgno, cgno);
+-			UFSD("EXIT\n");
+-			return sbi->s_ucpi[cgno];
++			if (unlikely(!ufs_read_cylinder (sb, cgno, cgno))) {
++				UFSD("EXIT (FAILED)\n");
++				return NULL;
++			}
+ 		}
++		UFSD("EXIT\n");
++		return sbi->s_ucpi[cgno];
+ 	}
+ 	/*
+ 	 * Cylinder group number cg is in cache but it was not last used, 
+@@ -205,7 +207,10 @@ struct ufs_cg_private_info * ufs_load_cylinder (
+ 			sbi->s_ucpi[j] = sbi->s_ucpi[j-1];
+ 		}
+ 		sbi->s_ucpi[0] = ucpi;
+-		ufs_read_cylinder (sb, cgno, 0);
++		if (unlikely(!ufs_read_cylinder (sb, cgno, 0))) {
++			UFSD("EXIT (FAILED)\n");
++			return NULL;
++		}
+ 	}
+ 	UFSD("EXIT\n");
+ 	return sbi->s_ucpi[0];
+-- 
+2.39.3
+
