@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803471;
-	b=ZZfJ/Yz7utMMhOcSnJJeztTpc0Y0XrtU/hyGZdHwu/1Ek0GBzv/6g1pGoSdzTzoN5GWG
-	 xIINjVI60aQB/Jagp1vknX3NdeuXzpYKH2Iy8ArWl50Owqp1fjw5pxdVLix9DbxRo7t7I
-	 WhWRx/+GawvtqXaJhZjg0Cxw5oj1h3ziTCtvpkTf0KnKCmWcLmkfBvMkupEY8Hn63cPSn
-	 Ckw6MyC9yq5nGsHHcgkHefIrCkhxmb4TN1NHRIHViTpT+ssSgo3pd/o3/0aJ8oER7jBaf
-	 KY31NC2x7+cKkDuL0nqW8TJkYfU5kANF+i3RwU5MVq7SbbA5vQb3FsiN0HwTe7MB6Bg==
+	t=1793803583;
+	b=4/8cno6qunt6AoxqID7U8M8qpc7762hkKgvPxtY0mLs9mv74O7DFo/TzvMK1TEpNhnC8
+	 07JEvmuyhXIekQ5cRPOoISPmvHn8BB+xab49MBLCbI7dCM3LsXolcXpCGAsAvR4N1uiTv
+	 k1ebLpZj9DHjaISERENuegq+ssNB09q9YtuwJ6oKr8TFeAIAen5xDxHMie6igUsf6+Y+n
+	 JC+7WsvnDZri8dxng9iXLjapmubexT9SUskHbUmat49+Hfyt5iYhvnKz7pbyYEA73b9tm
+	 /hrIS47QpKqArYCuHJXk6NmC6gGqqTXegA5DHJ9b0NJjyNXodfFbvDyx3S/epaT2Fog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803471;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803583;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=XLRfnTSyVrKGMhEo1BPAy8g3XpQrm9HrjoWV2plVbB4=;
-	b=CR2uGDBxJz1XoOryaQsKb+kAVqCYG7/pTZ339IMyDmBAvx1ClN7FUslIrQh9o0HHV4mH
-	 zW9AJ/kQtEazg755lkdpbpD4n1rGYYmqFzqc4/oRE/txsItJlI70/n3NPBNdqZDu9imqn
-	 Z1q1QdSobBsebutDbODJ+x4GhUVCZSquBJsRjb9XH9eYSa8Q5YKFvJJlOO1NcKDGoZXbX
-	 Dxsv52Fl9DlWHEZt7ikYFpy4wpmQ4sQWueJpmlMVPUMWux9pAPqCKAIfC80NYu61YKlPp
-	 7I/ogD0eSKEBbZYIt93jJHnVZaTZbtvUfHcw7XvaKPizX4tCm+s7/OS+6+xr4BRwofw==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=XvwysgLfyIs5+DpWw1HKgaTFW31+lgpV5TFO7hfqvV4=;
+	b=HZ0uPoNtA8BKDpQQZbtIYGP8ry1PvX96NUHD1rNHK6DI0fHpUu60EXG2Yjjj2LOqlW6c
+	 Q0AT6hajDE/zJYsJfywg8VIh1Z5JEUY+KqKYlal/cmmlUinyxg1GANK28JrbqEoBxBG7e
+	 ASAEd6tpm86PKNBjpHhb5QYlOAvrpm2U9JHZ4QPbSNm+X1CYNfTXZHB38nkaZ/3cqkuoQ
+	 uRHHGrJEI1A0CyEgIckdSyTuCjTK5l5/qJzA8+IHdcfYKJvg6vbuS0AX0LpU55WkwGz1w
+	 CgOXx9uApXiYeceZ0+w+mrcV8Q95xp9n3TI0+acJ9c8geCQ+2C+eKc9tRk2X5k+dG8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EienJjew;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMZW0dBR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2051606A31B;
-	Wed,  4 Nov 2026 14:44:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2960D606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:46:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EienJjew
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 802241F000C1;
-	Wed,  4 Nov 2026 14:44:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMZW0dBR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E02FB1F000C1;
+	Wed,  4 Nov 2026 14:46:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793803470;
-	bh=XLRfnTSyVrKGMhEo1BPAy8g3XpQrm9HrjoWV2plVbB4=;
+	s=k20260515; t=1793803583;
+	bh=XvwysgLfyIs5+DpWw1HKgaTFW31+lgpV5TFO7hfqvV4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EienJjewkDZ++J1iWGuwrgtvdGACfu0M9zuYsCSYhhK5CIM3w+bBga7Rw7zz2tnaH
-	 1/sSf5Wr9+M6gRpeBdTcT9p0eJvkQ2wGmoSo/HDDzNwyfZmgeiT+CrOnNITfeVrJW/
-	 hVVM0NT4vvzTBJg7H91OWRQ3KsKXXlvL3TaKuhs3IMUAOQrCWf+Duc+0YEODYlx9Nb
-	 b2vNm01E0zADaPz1R/6BpeDaqZXCID98bTHPKMsYSkXmS9ZZSpUjkU9JjuUyJ1ihT7
-	 ENeUV4+99U9WTVKXJtY4/q2hOExqnCLWqpoqcjRRyOTOkgctQs91Uk5IAT54yC9NTi
-	 mSNAZv5TkAQ/g==
-Date: Wed, 4 Nov 2026 14:44:26 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Chengyu Liu <lui2012qwq@gmail.com>
-Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] regulator: disable disable_work for good in
- regulator_unregister()
-Message-ID: <1c80a8ab-673d-461c-9b24-0475110c46d0@sirena.org.uk>
-References: <20261103174911.1600930-1-lui2012qwq@gmail.com>
- <20261104134838.326041-1-lui2012qwq@gmail.com>
- <5e63dcea-a397-41a4-a647-a356ab67f1a9@sirena.org.uk>
- <CAE=Q7=5Dx7DYoVO=VcO9gs8euBY3c2hfJ2yze1HQuymJj=ZH9Q@mail.gmail.com>
+	b=GMZW0dBRIx8mvbM2KDH5Mq/dO3W2/K2tCDu3B35/dJTuD9Z5x/7s8I3oCZQnzZz9l
+	 FhYKV8usOtxuEBFqs40vBPLEHiOPRUebcoIvqC3AbzVEC5tDV9avRLG4Mj/ddAc2fk
+	 CQzZHnMsyuJOgDBfxWUgB+Ia3D4sFJD5rmGSkFkZJGzyCKP+AuHyP+NuD5TgLLopen
+	 pnIYiBAUIsXgMOvrdcqKgb4OliCnCgRK4B2EpUpMPeV6VEwY+ASmgiunVXcDk9EYW7
+	 Jtg2C8BK1OgAntrhhbw24OjOmRpacmQBVd78pWRcxIyahSg4q9Lz9fpbc3emUnlPM1
+	 /+AgkxC2K+gcQ==
+Date: Wed, 4 Nov 2026 14:46:17 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, David Hildenbrand <david@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>, linux-mm@kvack.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] mm/mremap: fix accounting on a partial move
+Message-ID: <autE7-oTy_W1WJ4V@gremlin>
+References: <20261102-b4-mremap-pre-split-v2-0-d281dd11ad7d@toxicpanda.com>
+ <20261102162304.c3585fc3fb88644118c152d7@linux-foundation.org>
+ <d2efe4f22fe0ed9390e4d9224b81d78f.josef@toxicpanda.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,45 +61,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KEbYb1efJ8uTenNo"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAE=Q7=5Dx7DYoVO=VcO9gs8euBY3c2hfJ2yze1HQuymJj=ZH9Q@mail.gmail.com>
-X-Cookie: All rights reserved.
+In-Reply-To: <d2efe4f22fe0ed9390e4d9224b81d78f.josef@toxicpanda.com>
 
+On Wed, Nov 04, 2026 at 02:32:35PM +0000, Josef Bacik wrote:
+> The Committed_AS bugs need an allocation to fail during the unmap at the
+> end of the move.  mremap() checks the map count and sealing before it
+> gets there, so what's left is small GFP_KERNEL allocations, which in
+> practice means a process that is already being OOM killed.  I only hit
+> it with fault injection, so I left those with just Fixes and let the
+> stable folks decide. If you want them cc'ed it's no problem to add.
 
---KEbYb1efJ8uTenNo
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Generally would prefer the fault-injection ones _not_ to be backported,
+they're essentially technical fixes since to actually hit them <4 KiB
+allocs would have to fail meaning OOM + fatal signal -> process dying soon
+anyway so doesn't matter.
 
-On Wed, Nov 04, 2026 at 09:58:35PM +0800, Chengyu Liu wrote:
-> On Wed, Nov 4, 2026 at 9:53=E2=80=AFPM Mark Brown <broonie@kernel.org> wr=
-ote:
-> > Please don't send new patches in reply to old patches or serieses, this
-> > makes it harder for both people and tools to understand what is going
-> > on - it can bury things in mailboxes and make it difficult to keep track
-> > of what current patches are, both for the new patches and the old ones.
->=20
-> Understood, sorry about that - I'll repost v2 as a fresh thread with a
-> link to v1.
-
-No, please don't do that - that will create even more confusion as there
-will be multiple v2s floating about.
-
---KEbYb1efJ8uTenNo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrrRMoACgkQJNaLcl1U
-h9CKQgf/aiOEoOULnF8ThaiN6AJb8ZKctN+rZMJZLzU/mekkMGEcBdIXzZJ/935p
-RsEagDrP3UX81IN2Y6rDCSOch7p+C2P99DOOGGudbC8E3xB+boACWunxo7KZlkgT
-88NKtnaWCiTbPNnQRt7WT2fPXIrBRyl41479dWKFHt+2Q1xLJ0PXY5d991btp51K
-AJFGMvBludh326obHLEjs2lhX3hFnEN6nh5gRABiTJFjXh3EtcLstzikqSkCn2lw
-V0lsnSACmYFHzE0e7qYhAvTq6EovaktnFRrgo9QOX2Hg4FM7aahdIOOUW3veYu1r
-dvDBUuTXERDwGDwuGmCalJftYVTuaA==
-=4ju1
------END PGP SIGNATURE-----
-
---KEbYb1efJ8uTenNo--
+--
+Cheers, Lorenzo
