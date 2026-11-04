@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804961;
-	b=kgfYOzKuYu4lip6EyeJtEXULW06KLMCefy2+mGIU+9hw95jKCaqoVNJkfGfubMS8rp9Y
-	 uD1F5O42IBjIh4tiAozKe5sGY/ShYl4HLAsNUDmN+LIyX9X/33gms/+YAXQMAMk9n81RI
-	 Pci86qgm0DKw3yHtjUzdoWs4Ujd3SdROYhb7/mmPvV8UdmzsTsmwlDcb7ePlaukafKvyv
-	 amnlaV2TxFZUrp+owLxTEWyxC/kcBMVT4/hkMdiohzq5u4yUHg9Ot0fagYZeDH8A+Km0K
-	 X7wwnvKt38sITyMYY5BiRDa513Qp0n5+lzoemLrG4O/PSJ+RrCcnZ4q+MUJ79gQH/Fg==
+	t=1793804993;
+	b=KW5y9Vmf9PcDVa0i6LJvGYbtk8OjiTvnnDj0hFV/J4UTa6h+VTw8OFQtGSeIkdhdR0it
+	 bTXW8LqjgF5pVIfy5eNQ9g7CiQpCZV5hml5H1X/zOdyS9Gt1WevUk2Z0Pl0v8FFNPWAwu
+	 Ip//l1aRxxFnSKTCDiTJIrvNTVZYXl/JCY04CJpOkVF+01JJsP7Rcue0jProkVaaF6fBM
+	 wGAVE0ktqKv4a/oYdtCIeGfgvo0/XYxo7Ox4De9iRVzplZJBUHRX+ZstEmXHNSYxZ9Y6t
+	 9D8NmiBYfyWLQ4Zo3FQ7LTKRJ9xZmajUmkr+pXXKTvBLSchYDxI1Rhn4enCcRLDxbmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804961;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804993;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=PZ9W5jMyXKX3yUIRHeeF4bKkSid+UAfYqLNNsUE71VU=;
-	b=EPvnWCOT1Hfd7qSPGHv+x+E3NJDa+qiJn5D1tHCvBiWf37sQk5oYCTfYEVVTjeac67hq
-	 bji1s8TaLoye3vdowsnuUZKc40RLqljD/GI3oje83FFdJr+tdnj9T3UZ8H7t1xxctiRhr
-	 o0fyZ8fCG3uiN470qhTtwJyabBDMS/B8Q3EpwNWO8v5egQEyUnNp+j91qUVr7h5fXtEoj
-	 XQwGg1aXM9lXIjn3HlY4wg26uNqN8IQU0NCQI9oRsb+nC+4/Gbae/9F6DuHhji24aP5L5
-	 HY4KKiJlCEIUS70oPy0anHsGut6v14/HF73XjlBYNAnPYEjC9TcacMmyWL2IsB12DVg==
+	bh=cFsxHXe85/v7h5RQTtycXAo9hnX3kcBe7fUXrj2gfx4=;
+	b=VI9rGyoKgNyUViSMqrDGTIWpr26eE65hs5uHzP/72GAJC6d3KkqALeyFZoLKJispWdKj
+	 D+ZtVTQ6N7AOvwULoYnNPlzp8IOqIU5fqPjHgHYLijNTxRL2+EaRXV3g6QtO/keqxh24r
+	 DfoqIyqQayulFSVIi+e0rH72on7GxGQu4CVE/TKo0pRLLNd/X9iVU6r+CnVmx4qZ6UFjv
+	 r8DU4NeAlLMnslz51pLTUQIsV3EMuVQ+4+qhnQQO+x8UwNfarn582TWTNxzIinRrphMg/
+	 SJnQ6k7TuOtMQ5RuGZIYs/ikbI0SYJyWRjo+Rn1vjBuM2YwrCqVPK3SPmQv13p0Lp0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZJ9Vj+E;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CT/S8IUC";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634C3606A32E
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:09:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48091606A32F
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:09:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZJ9Vj+E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECB531F0093A
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:09:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CT/S8IUC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE8301F00A1B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:09:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793804961;
-	bh=PZ9W5jMyXKX3yUIRHeeF4bKkSid+UAfYqLNNsUE71VU=;
+	s=k20260515; t=1793804993;
+	bh=cFsxHXe85/v7h5RQTtycXAo9hnX3kcBe7fUXrj2gfx4=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jZJ9Vj+EUsOKcs5AaAMaejgBs1wmEyEZhvVFxEM2EXkz/sOghQPbZX1fgLOpKb+wv
-	 cw2W4vj/g2HmZRwZrnoyy/YZmEeJ8pLFNfXJ9763YjnorHl3/smo8LkyoX5gSNvg5p
-	 LwmJjNaFHtDUFcus+sw/NWLAazQ0TQUywmfZcJHSUYlrSBtgBDETxjAuZZoc3PbXTG
-	 6FnY3d4qbcUjXNRQTRLh+DPWoJcpf4H5Q0FAhxNBsa+3nmJq2O4qrF5a3HmQXcr75l
-	 sb4OsmlZeQmrKEhbaiYl1bkg78K2vnXSkLNpVr/PaB7mgxzLSX/ZohBORDEn7XjO2x
-	 SU5yUk+vbLEHA==
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-4ad4072943dso235100fac.3
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 07:09:20 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxIf8IegZzl1olznTFosmsrK21ZTX5lAmiAmrlEfo2KcBNDgnx6Lgh1bdXsd8rhKbaBM1DHCKM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+IGTZtqXyHMWLNMQpIqH2Isk0RumPxHl2j7S3vkPEYpPFvQNWB
-	YQ4tEVSIyl5K67CaIYu2lN3+efaR/WlTFFAUALRcF3umLuYO7NQesCzkKcO1hXDNY59QtPFOjoO
-	lk81cdWpHVu0lPhphacSlnelWWTrAQMI=
-X-Received: by 2002:a05:6870:c0d0:b0:449:bccf:bb6e with SMTP id
- 586e51a60fabf-4a9072eed47mr9411537fac.7.1793804960254; Wed, 04 Nov 2026
- 07:09:20 -0800 (PST)
+	b=CT/S8IUCOkBY2NJcAxLyGod9YTW2hzzz+a+XsaeLCkjRMnsTUCq+ZI/0DzM9h7/W0
+	 O4vMs+JUc0MdoyNyyoPrIAdaILKuaiImrcuxQigF3MBjJ7se3qAdBLB+PohxzqDIeT
+	 wUSZIMkTeWWcqacD7Rq5/2U4cx2UO35IA9a0b9EwnJ5/esR0IiJHrRy/IoxF3Vhaw0
+	 eCr/f2uvDN7Kgw/DLkdwDX/OSibWcv9Dp5BZBrKO2+9k+sUVV3S/M9XYCUfRRyg63m
+	 MC7S45DZmHgFTJA9JPBiH29470EDaFJ5zkGxwoUt+RtcfcHZEjLGVUcIVnF5rK9ww3
+	 sprAL96kEZsOg==
+Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-48ed188ee81so495980fac.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 07:09:52 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBy3L3EW6zT2phq4qQLOC+vxJTaGiGYbykW3E4mM8YWUGo1c83vww6Z0NjYXQclCpdtR2d6bXD8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Xcg+ufW4EHE4dqrn1L2oH8/toCzqOeeSRzffJxXcsBPJLLbl1
+	4mAI8zPMFk1temDKKvDvCUx2pKWSccDck/iWNxDmzGdbNzrR4uS0VZgGTESgHUCwPpcqSSRaXBL
+	M2RdJw3V0VDWyW0x+F5qgxYcIJW9XrG8=
+X-Received: by 2002:a05:6870:f113:b0:491:a2d5:ab31 with SMTP id
+ 586e51a60fabf-4a90764ca5fmr10771021fac.12.1793804992258; Wed, 04 Nov 2026
+ 07:09:52 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,15 +59,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103105752.49542-2-edumazet@kernel.org> <179380083642.488856.12336059973220391773@kernel.org>
-In-Reply-To: <179380083642.488856.12336059973220391773@kernel.org>
+References: <20261103105752.49542-3-edumazet@kernel.org> <179380083773.488856.10057167003627471575@kernel.org>
+In-Reply-To: <179380083773.488856.10057167003627471575@kernel.org>
 From: Eric Dumazet <edumazet@kernel.org>
-Date: Wed, 4 Nov 2026 16:09:08 +0100
-X-Gmail-Original-Message-ID: <CAL4WiipYthA7wwfuk4xU0OQaW5No11XXRG5HwFxNeMfMnA8ucQ@mail.gmail.com>
-X-Gm-Features: AclHuK98ebxXGkgNQALWUk96fG91psaFgnvdDfUzdKl-qYDRdANoT3i1s2uQNko
-Message-ID: <CAL4WiipYthA7wwfuk4xU0OQaW5No11XXRG5HwFxNeMfMnA8ucQ@mail.gmail.com>
-Subject: Re: [PATCH net v3 1/2] net: gro: do not undo remote checksum offload
- on merged packets
+Date: Wed, 4 Nov 2026 16:09:40 +0100
+X-Gmail-Original-Message-ID: <CAL4WiiqwUhcLVvkcLzDcyUUvEvqffFBWLiwb760iuo+fuJ4vyQ@mail.gmail.com>
+X-Gm-Features: AclHuK8skOyT40Y0SuONlcxb2OlQdL3nuEJPupGI6O1KWHIXg1XphjooR5KpWV4
+Message-ID: <CAL4WiiqwUhcLVvkcLzDcyUUvEvqffFBWLiwb760iuo+fuJ4vyQ@mail.gmail.com>
+Subject: Re: [PATCH net v3 2/2] net: gro: invalidate frag0 after a pull
 To: netdev-bot+sashiko@kernel.org
 Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
 	netdev@vger.kernel.org, willemb@google.com, steffen.klassert@secunet.com, 
@@ -83,7 +82,7 @@ rit :
 > Thank you for your contribution! Sashiko AI review found 1 potential
 > issue(s) to consider.
 >
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
 >
 > If you believe none of the issues are legitimate, please reply to each
 > issue of Medium severity or higher and explain why the AI is wrong.
@@ -93,127 +92,116 @@ k
 y
 > (one such reply per series is enough).
 >
-> - [High] For VXLAN, the new fraglist branch in skb_gro_remcsum_cleanup()
->   (include/net/gro.h) breaks inner checksums when the VXLAN packet is=E2=
-=80=A6
+> - [Medium] The patch adds a fallback in gro_try_pull_from_frag0()
+>   (net/core/gro.c:465): when frag0_len is 0 it calls `pskb_may_pull(skb,=
+=E2=80=A6
 >
 > --
 >
-> net: gro: do not undo remote checksum offload on merged packets
+> net: gro: invalidate frag0 after a pull
 >
-> This patch changes skb_gro_remcsum_cleanup() so it no longer undoes the
-> remote checksum adjustment on packets that GRO merged. Fraglist members
-> are the exception: their original inner checksum is restored in the
-> headers pulled by skb_gro_receive_list(). The goal is to avoid stray
-> writes into payload, or into a freed frag0 page.
+> This patch adds skb_gro_frag0_invalidate(), which clears
+> NAPI_GRO_CB(skb)->frag0_len. It is called before the pulls in
+> skb_gro_header_slow(), skb_gro_receive_list(), udp_gro_receive_segment(),
+> esp4_gro_receive() and esp6_gro_receive(). It also changes
+> gro_try_pull_from_frag0() so it copies from frag0 only while frag0_len is
+> not zero, and falls back to pskb_may_pull() otherwise.
 >
-> > diff --git a/include/net/gro.h b/include/net/gro.h
-> > index 2300b6da05b27..13a8ef217a1d7 100644
-> > --- a/include/net/gro.h
-> > +++ b/include/net/gro.h
-> > @@ -354,6 +354,23 @@ static inline void skb_gro_remcsum_cleanup(struct =
-sk_buff *skb,
-> >       if (!grc->delta)
-> >               return;
+> > diff --git a/net/core/gro.c b/net/core/gro.c
+> > index 1b033855a20db..49e7f64f27756 100644
+> > --- a/net/core/gro.c
+> > +++ b/net/core/gro.c
+>
+> [ ... ]
+>
+> > @@ -454,8 +455,14 @@ static void gro_try_pull_from_frag0(struct sk_buff=
+ *skb)
+> >  {
+> >       int grow =3D skb_gro_offset(skb) - skb_headlen(skb);
 > >
-> > +     if (NAPI_GRO_CB(skb)->same_flow) {
-> > +             /* skb_segment_list() keeps the inner headers of fraglist
-> > +              * members: restore their checksum. skb_gro_receive_list(=
-)
-> > +              * pulled these headers, then moved skb->data past them.
-> > +              * A valid remote checksum offset points to the inner
-> > +              * transport header, which is part of these headers.
-> > +              * Headers of other merged skbs are not used anymore.
-> > +              */
-> > +             if (NAPI_GRO_CB(skb)->is_flist &&
-> > +                 grc->offset + sizeof(u16) <=3D skb_gro_offset(skb))
-> > +                     remcsum_unadjust((__sum16 *)(skb->data -
-> > +                                                  skb_gro_offset(skb) =
-+
-> > +                                                  grc->offset),
-> > +                                      grc->delta);
+> > -     if (grow > 0)
+> > +     if (grow <=3D 0)
+> > +             return;
+> > +
+> > +     /* frag0 can only be used if no pull happened. */
+> > +     if (likely(NAPI_GRO_CB(skb)->frag0_len))
+> >               gro_pull_from_frag0(skb, grow);
+> > +     else
+> > +             pskb_may_pull(skb, skb_gro_offset(skb));
+> >  }
 >
-> [Severity: High]
-> Restoring the sender's checksum on fraglist members is correct when the
-> outer VXLAN packet is forwarded unchanged. Is it also correct when the
-> packet is decapsulated locally by VXLAN?
+> [Severity: Medium]
 >
-> The VXLAN socket accepts fraglist GSO packets:
+> Is it safe to ignore the return value of pskb_may_pull() here?
 >
-> drivers/net/vxlan/vxlan_core.c:vxlan_create_sock() {
+> gro_try_pull_from_frag0() still returns void. Before calling it,
+> dev_gro_receive() has already incremented gro_list->count (or called
+> gro_flush_oldest()). After it returns, the skb is held unconditionally:
+>
+> net/core/gro.c:dev_gro_receive() {
 >     ...
->         udp_allow_gso(sock->sk);
->         return sock->sk;
-> }
+>         if (unlikely(gro_list->count >=3D MAX_GRO_SKBS))
+>                 gro_flush_oldest(gro, &gro_list->list);
+>         else
+>                 gro_list->count++;
 >
-> Because of this, udp_unexpected_gso() returns false for the
-> UDP_TUNNEL|FRAGLIST|TCPV4 aggregate. udp_queue_rcv_skb() then passes the
-> whole aggregate to vxlan_rcv() without segmenting it.
->
-> The decap side then adjusts the checksum only once, through a pointer
-> into the head skb's linear data:
->
-> drivers/net/vxlan/vxlan_core.c:vxlan_remcsum() {
->     ...
->         skb_remcsum_process(skb, (void *)(vxlan_hdr(skb) + 1), start, off=
-set,
->                             !!(vxflags & VXLAN_F_REMCSUM_NOPARTIAL));
+>         /* Must be called before setting NAPI_GRO_CB(skb)->{age|last} */
+>         gro_try_pull_from_frag0(skb);
+>         ...
+>         list_add(&skb->list, &gro_list->list);
+>         ret =3D GRO_HELD;
 >     ...
 > }
 >
-> include/linux/skbuff.h:skb_remcsum_process() {
+> Before this patch, gro_pull_from_frag0() was the only thing done here,
+> and it could not fail because frag0_len is bounded by the tailroom.
+>
+> One way to reach this point with frag0_len =3D=3D 0 is through
+> esp4_gro_receive() and esp6_gro_receive(). With this patch they do:
+>
+>         skb_gro_frag0_invalidate(skb);
+>         if (!pskb_pull(skb, offset))
+>                 return NULL;
+>
+> This returns without setting NAPI_GRO_CB(skb)->flush. For an ordinary
+> unfragmented IPv4 packet, inet_gro_receive() computes flush as 0, so
+> dev_gro_receive() takes the GRO_HELD path.
+>
+> offset =3D=3D skb_gro_offset(skb), so the retry in gro_try_pull_from_frag=
+0()
+> is the same pull that just failed.
+>
+> If the held skb's linear area does not reach skb_gro_offset(), later
+> packets in the same bucket would read stale tailroom bytes as headers:
+>
+> net/ipv4/af_inet.c:inet_gro_receive() {
 >     ...
->         delta =3D remcsum_adjust(ptr, skb->csum, start, offset);
+>                 iph2 =3D (struct iphdr *)(p->data + off);
 >     ...
 > }
 >
-> Nothing walks skb_shinfo(skb)->frag_list. So after this patch, each
-> fraglist member keeps the restored sender checksum, which is not a valid
-> final checksum under RCO.
+> The same applies to ipv6_gro_receive(), udp_gro_receive() and the
+> tcp_hdr(p)/udp_hdr(p) lookups.
 >
-> iptunnel_pull_offloads() removes only the encap GSO bits, which leaves
-> SKB_GSO_FRAGLIST|SKB_GSO_TCPV4. Suppose the decapsulated inner packet is
-> then bridged or routed out a device without FRAGLIST support. In that
-> case skb_segment_list() reuses each member's own inner TCP/UDP header.
-> __tcpv4_gso_segment_list_csum() also leaves the checksum alone when the
-> addresses and ports match:
+> If one of these bogus headers matches and a merge happens,
+> inet_gro_complete() writes tot_len and check through skb->data + nhoff.
+> Those writes would go into tailroom rather than the real header, and the
+> aggregated packet would keep its original single-segment tot_len.
 >
-> net/ipv4/tcp_offload.c:__tcpv4_gso_segment_list_csum() {
->     ...
->         if (!(*(const u32 *)&th->source ^ *(const u32 *)&th2->source) &&
->             iph->daddr =3D=3D iph2->daddr && iph->saddr =3D=3D iph2->sadd=
-r)
->                 return segs;
->     ...
-> }
+> The window looks narrow. The retry can only fail for an skb that entered
+> GRO with headlen =3D=3D 0 and frags[0] mapped as frag0, and that skb must
+> also be either:
 >
-> Would every segment except the head then leave with an invalid inner L4
-> checksum? This path needs:
+>   - cloned, with pskb_expand_head(..., GFP_ATOMIC) failing, or
+>   - carrying unreadable frags while frags[0] is a normal page.
 >
-> - a remote sender setting VXLAN_HF_RCO
-> - REMCSUM_RX and REMCSUM_NOPARTIAL on the VXLAN device
-> - rx-gro-list on the lower device
-> - no local socket for the inner flow, so is_flist gets set
+> No concrete in-tree source of such skbs has been identified, but they
+> don't look impossible either.
 >
-> Before this patch, with frag0-based drivers, the member's linear header
-> kept the adjusted checksum, which is valid for this path. The stray write
-> went to the stale frag0 page instead. The commit message does not mention
-> the local decap case.
->
-> GUE does not seem to be affected. FOU/GUE sockets do not call
-> udp_allow_gso(), so the aggregate is segmented before gue_remcsum() runs
-> on each segment. The follow-up patch "net: gro: invalidate frag0 after a
-> pull" does not change this logic either.
->
-> Could fraglist GRO be refused or flushed once a NOPARTIAL remote
-> checksum adjustment has been made? Alternatively, could the VXLAN decap
-> path adjust the frag_list members too?
+> Could gro_try_pull_from_frag0() return a bool? On failure,
+> dev_gro_receive() could undo the count change and take the normal path
+> instead of holding the skb.
 
-Yes, the checksum of fraglist members can not be right both for
-forwarded packets and for packets decapsulated locally.
-
-In v4, skb_gro_receive_list() refuses skbs with skb->remcsum_offload
-set, so fraglist members never carry an adjusted checksum, and
-skb_gro_remcsum_cleanup() simply returns for merged skbs.
-
-pw-bot: cr
+Yes. In v4, gro_try_pull_from_frag0() returns false if the pull fails.
+dev_gro_receive() calls it before changing gro_list->count, and takes
+the normal path instead of holding the skb.
