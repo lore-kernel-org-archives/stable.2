@@ -1,74 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793825139;
-	b=EKtOhRxt0rap2S1KNGms7dYUCWr/Y1Z8gfgUnywvedlfNl//xaB8ESl3pZwp7L4J1ogM
-	 d1K9EcLwsLvNOToZMviCGdKHQSp2IlUah1mjQlAOYG/ZGU+HHyLkOUBrSf2jzZv7g2o/P
-	 CMoqiAriFqjmIzwU5/PEjx8nF/GbD43qBnd2+TuEurOgbPW1mFoaG6tC23Qzg/AFvBqpy
-	 jUMr5q1AcqwLbW+YXLzOyY5ymtVeYnleMijsidpZTblVi6UPxrlPoiKid9svPl72y5f/Z
-	 VeaBC/IUDaMwSZg1pHxP2qMI8ohhnPsGyS3UWodZGbM0F2Ckw64g0HKSLFXHJ8V9Q3Q==
+	t=1793825210;
+	b=aTszMjearo/TqxscM611lCIjkrYGZmLX3+7MB8E1mXscssizem7iIBIC2ZB6SNGKo8Mr
+	 DqCSfVJnL80ji1aIn1YQhOBqCDo9I4UbOmbUWt2cnIlq++DEYynY7LrtS+kXNLN+zbrB0
+	 i/gg7NuR9SYGx3ah1VpyotRccyuvB6JYbsttZB0ZhFdJnW6kvfN2DXtnVnZ/UUmKqGTzs
+	 Rh8lSqrzS5kU3wy6ulmazOPSo7zs1TbJWa8FmWHUCP6CyAZfgDPMPSLpYEc4KjbGHA6iZ
+	 dgEozOFdbUMDgatu1mkw8k8qpp7lpT/qRqiIIj5eVO0kFMrLv53y+hqpNVl1iDBKvvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825139;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=m6RxhV28tVDd3IWEmU/52xEW4Trn9GkOrvqtd0+keQs=;
-	b=gbDP35D5eFCO2siMUwGFsTBEW949V0jGuBIQagSaCgua+M4FBN/ZvcBAXda1ZwQoY6pd
-	 +7/9VpFZgdFmvxK7EAvr0SRaKTAF1gE8SDQ2OXT8CqeE+8Dg5yWvVqwXhnwxLcifKLhC8
-	 OFUdrAN6hRV8EWymWsCZkYxPRDdxlbU4RVbo+Nb7XRiBXDfOYylSY/MCDsjHvLlCFSTYk
-	 MQvkf8mWWCJRwSwabAsJedSEaXoGXQz3w1KBUIRPVvLEg17N1kdlHS/Q+DQERg8/eM4PG
-	 DCqYA1+AYtIEDaCojmf6c8q+Lclx0cstTyZrOE3ZFPafTBZHrnnUSYa3HJ9JEwZy5jQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793825210;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=6kDklRHxeJbP19X2gPkeCnRUqEiSyCdqaMmB98XvLnw=;
+	b=LBRWCtpGvVGREAFrrHPIcTOtIuiLICeCO6U0pOigw4ZrhKhyfwJYrWxrJVaaHGFrHKdF
+	 84lh+w1dsWTFooRQ6uWpdPBcs4bclRC1lEd9zsJVYTW47dYoPqUjJaQpX+sIkdSZQz29/
+	 NzeKpPTnChLeUDWRmWgm4tVirg+vLDYuleIrH7bIES4T3Jv19/n3OeJF6QnVDHd+AYibg
+	 4lKkGE4Kv3IexoGORYuJ57qwSg4wey84c6NsSDyH1e/gHbre/IZX/IFxK5r+5DQ4EKzHk
+	 YzL8+3LsIqVAVb9lgkG8Zh2OfU8j0vi4QC/bfQpcK3RyecrKOmiLmWGdMnF2w6FW9Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Kqm1ta0z;
-	arc=none smtp.remote-ip=209.85.216.71
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8AGlTNP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05B160952B5
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 20:45:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D05B160952B5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839BE6083633;
+	Wed,  4 Nov 2026 20:46:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Kqm1ta0z
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3aed1b64104so1562027a91.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 12:45:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793825138; x=1794429938; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m6RxhV28tVDd3IWEmU/52xEW4Trn9GkOrvqtd0+keQs=;
-        b=Kqm1ta0zK7vn0YdeoBJpPK/M2kcB3iQP8Oyy+Aq5LPlVpfU3OXb2Kxp4F0rQ04uHBR
-         o2yUc06bDe28XDMBcHUk0g8+Z1hAXrlbc4ZFp80HURRCxKu/suNRPZsLQ3z7QuQujaZE
-         slCGGXPxf4zV/34kkmlUFZ4IikeoD8kX0mM7dBQymluM6ulD+Xg/QiOuvo/+qtT+onLF
-         CSgRQ6gHN70dBIdLMWND+DkHrVUR8hmNh6d3GhCQEJSI3l9Nb0SHO3qTCXdvXYrdj2qU
-         PqZZYPOkELGcQG3wnPxAxxuvMCpShuz8odIg+7WtpxSJZ+mm4qq6jCs2uhN4sjx8YfMO
-         aR2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793825138; x=1794429938;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m6RxhV28tVDd3IWEmU/52xEW4Trn9GkOrvqtd0+keQs=;
-        b=wcuiBlaf4hAWjGMWoMmK8+QX52p6Rbdm1b6kGrIVB5EflUC/BhZfAGUtQX/xjuSvtf
-         Somjb89pHN637KpwbG3Cw7HFhgzO+Dy6kJq3+GHNl17ID8eQ4tEU4xba5cLVh8d47iz9
-         RXYaXRft2E2T32Hzx7rf4A0JVw150yStTFMcqMAay5+ceoR/UK4fYljqrORib1xMNQvk
-         QA9HO6hY+Ge+udVlNVByCC3tq+gnOrD7dqvBzPJXq1cjuF9kSNZhN4vM/dRN+WKKd8Pq
-         u76JvqtUhZPFP1rZxZLk1C4mUjsKmLms33cOEGEtvgZUtyDngeMcSToMjTZBhPB61KER
-         mc4w==
-X-Forwarded-Encrypted: i=1; AKwUvByHGRpWq2O8F/sm8YE8kbuwe8yxBm7XZSDROgRTQcS+McGfU38xwSJ29wkR29mOhp/Vt+efjj8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+BdjS9m2d01c7haAWfBoMmYJ/WzLi1RYLaXLp1ysCUl8lSSTFS
-	70AI+2IYprd9wIRdhlypbKWrlK12hTcFL+pRBOztkO5X8ZtFvMZoeJgvhw9OxHPKmTD4FIW7f5P
-	LZmTigQ==
-X-Received: from pjhw22.prod.google.com ([2002:a17:90a:5296:b0:3ab:54fb:2a3d])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2e52:b0:3ab:24b2:9016
- with SMTP id 98e67ed59e1d1-3ae897ec759mr14634100a91.25.1793825137869; Wed, 04
- Nov 2026 12:45:37 -0800 (PST)
-Date: Wed, 4 Nov 2026 12:45:37 -0800
-In-Reply-To: <20261020234535.3182385-3-jmattson@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8AGlTNP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD4F91F00A02;
+	Wed,  4 Nov 2026 20:46:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793825210;
+	bh=6kDklRHxeJbP19X2gPkeCnRUqEiSyCdqaMmB98XvLnw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=C8AGlTNPofwk9WqlC3PZ6Qy5pgZqKZ+yY+QgOm+d9053PINrbfWJ2uQaVQiYmNWIi
+	 h7+2tvXujDavHFg8gsI6w0cmaFK8/j1PQmafzx8D9T9ybMqkjapapGrYeb2P8RjRZf
+	 hDtcCZZjna03JgxPn7QPQ14ioplEz1fYh0m1OVqboYIYWE8jtz5L6BEbp7c100QK16
+	 /RymX0IErQxOgaw6WpAX6aLoGp8cfRaietv0DwpANxG/PrtJH8kufXDQSYtRFzY9xj
+	 PUmGUp4+uDwYBrnUqaKGEK5QBkJfp6LAYWptEHiKFWEwzS8TS/cIthxvbObtfq9C3q
+	 db1iJ4DFZObgQ==
+Subject: Re: [PATCH net 09/15] can: raw, isotp: copy socket options outside of
+ lock_sock()
+From: netdev-bot+sashiko@kernel.org
+To: mkl@pengutronix.de
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
+ linux-can@vger.kernel.org, kernel@pengutronix.de, liucj1228@outlook.com,
+ s.grosjean@peak-system.fr, stable@vger.kernel.org
+Date: Wed, 04 Nov 2026 20:46:49 +0000
+Message-ID: <179382520924.488856.15425235949830518760@kernel.org>
+In-Reply-To: <20261103204305.3211144-10-mkl@pengutronix.de>
+References: <20261103204305.3211144-10-mkl@pengutronix.de>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,102 +62,191 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261020234535.3182385-1-jmattson@google.com> <20261020234535.3182385-3-jmattson@google.com>
-Message-ID: <auuZcZhBhrkZd9qM@google.com>
-Subject: Re: [PATCH 2/4] KVM: VMX: Refresh LBR MSR intercepts on full MSR
- intercept recalc
-From: Sean Christopherson <seanjc@google.com>
-To: Jim Mattson <jmattson@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Yosry Ahmed <yosry@kernel.org>, Like Xu <likexu@tencent.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 
-On Tue, Oct 20, 2026, Jim Mattson wrote:
-> Re-apply the LBR MSR intercepts in vmx_recalc_msr_intercepts() if the
-> LBRs are currently passed through, so that changes to userspace MSR
-> filters are reflected in the MSR bitmap.  Unlike SVM, which can simply
-> rewrite the intercepts in either direction, leave the bitmap alone if
-> the LBRs aren't passed through, as a filter can only force interception,
-> never prevent it, i.e. the bitmap is already correct.  Note, clearing
-> msr_passthrough to force vmx_passthrough_lbr_msrs() to re-apply the
-> intercepts on the next VM-Enter isn't an option, as doing so would
-> leave stale passthrough bits behind if the guest LBR event is no longer
-> active.
-> 
-> vmx_recalc_msr_intercepts() is invoked in response to
-> KVM_REQ_RECALC_INTERCEPTS, which is raised on MSR filter updates, but it
-> skips the LBR MSRs, and vmx_enable_lbr_msrs_passthrough() does nothing
-> if lbr_desc->msr_passthrough is already set.  If the LBR MSRs are passed
-> through when userspace installs a filter that denies them, they remain
-> passed through, and the guest can access them without exiting to
-> userspace.  Conversely, if a filter forced interception when the guest
-> LBR event became active, relaxing the filter leaves the MSRs needlessly
-> intercepted.  Either way, the bitmap remains stale until the guest LBR
-> event is torn down and recreated.
-> 
-> Only x2APIC MSRs are exempt from userspace filtering (see
-> kvm_msr_allowed() and the KVM_X86_SET_MSR_FILTER documentation), and the
-> filter is honored when LBR passthrough is first enabled, so KVM's
-> behavior shouldn't depend on whether the filter is set before or after
-> the guest enables LBRs.  Drop the LBR MSRs from the comment claiming
-> that they can't be filtered by userspace, and clarify that
-> lbr_desc.msr_passthrough tracks KVM's desired interception, which may
-> not match the MSR bitmap when userspace filters are in play.
-> 
-> Fixes: 9254beaafd12 ("KVM: vmx/pmu: Reduce the overhead of LBR pass-through or cancellation")
-> Cc: stable@vger.kernel.org
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Meh, this isn't stable material.  Unlike SVM, where LBR virtualization is tied
-to a pile of other crud, if userspace wants to filter LBRs on Intel it should
-just not expose LBRs in the first place.
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
 
-If it weren't for SVM, and the fact that avoiding the filters is actually more
-work, I probably would vote to fix the docs.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> Signed-off-by: Jim Mattson <jmattson@google.com>
-> ---
->  arch/x86/kvm/vmx/pmu_intel.c | 20 +++++++++++++++++++-
->  arch/x86/kvm/vmx/pmu_intel.h |  7 ++++++-
->  arch/x86/kvm/vmx/vmx.c       |  6 ++++--
->  arch/x86/kvm/vmx/vmx.h       |  1 +
->  4 files changed, 30 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
-> index 70a8c4816135..b945213f0b68 100644
-> --- a/arch/x86/kvm/vmx/pmu_intel.c
-> +++ b/arch/x86/kvm/vmx/pmu_intel.c
-> @@ -517,7 +517,8 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
->  	memset(&lbr_desc->records, 0, sizeof(lbr_desc->records));
+- [High] The patch does not remove the RTNL stall it describes.
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but CAN_BCM has
+  the same RTNL-stall problem through a sibling notifier, and the series…
+
+--
+
+can: raw, isotp: copy socket options outside of lock_sock()
+
+This commit moves the user space copies for the CAN_RAW and CAN_ISOTP
+socket options, including the CAN_RAW_FILTER filters, so they happen
+before lock_sock(). raw_getsockopt() now duplicates the filters under
+the socket lock and copies them to user space after release_sock(). The
+goal is to stop a stalled user copy from holding lock_sock() and blocking
+raw_notify()/isotp_notify() under RTNL.
+
+Link: https://patch.msgid.link/20261027-can-rx-lock-v12-4-eb5afc2d8b9b@hartkopp.net
+
+> diff --git a/net/can/raw.c b/net/can/raw.c
+> index d6517f71cadeb..0926d5686e419 100644
+> --- a/net/can/raw.c
+> +++ b/net/can/raw.c
+
+[ ... ]
+
+> @@ -795,17 +730,84 @@ static int raw_setsockopt(struct socket *sock, int level, int optname,
+>  			  sockptr_t optval, unsigned int optlen)
+>  {
+>  	struct sock *sk = sock->sk;
+> +	struct can_filter *filter = NULL;  /* dyn. alloc'ed filters */
+> +	struct can_filter sfilter;         /* single filter */
+> +	union {
+> +		can_err_mask_t err_mask;
+> +		int flag;
+> +		struct can_raw_vcid_options vcid_opts;
+> +	} val;
+> +	unsigned int size = 0;
+> +	int count = 0;
+>  	int err;
 >  
->  	/*
-> -	 * Setting passthrough of LBR MSRs is done only in the VM-Entry loop,
-> +	 * LBR MSRs are initially passed through only in the VM-Entry loop (a
-> +	 * full MSR intercept recalc merely refreshes an existing passthrough),
->  	 * and PMU refresh is disallowed after the vCPU has run, i.e. this code
->  	 * should never be reached while KVM is passing through MSRs.
->  	 */
-> @@ -704,6 +705,23 @@ static inline void vmx_enable_lbr_msrs_passthrough(struct kvm_vcpu *vcpu)
->  	lbr_desc->msr_passthrough = true;
->  }
+>  	if (level != SOL_CAN_RAW)
+>  		return -EINVAL;
 >  
-> +/*
-> + * Refresh the LBR MSR intercepts if the LBRs are passed through, so that
-> + * changes to userspace MSR filters are reflected in the MSR bitmap.  There's
-> + * nothing to do if the LBRs are intercepted, as a filter can only force
-> + * interception, never prevent it.
+> +	/* Copy the option values from user space before lock_sock(), so a
+> +	 * stalled copy can not block raw_notify() waiting for lock_sock()
+> +	 * under RTNL.
+> +	 */
 
-Hmm, I don't love assuming that recalcs are only done for filter updates.  On the
-other hand, taking action if lbr_desc->msr_passthrough=false is nonsensical.
-Rather than immediately refresh the updates, what if we just disable passthrough
-and let vmx_passthrough_lbr_msrs() do the actual update?
+[Severity: High]
+The comment says a stalled copy can not block raw_notify() waiting for
+lock_sock() under RTNL. Is that true for the socket as a whole?
 
-void vmx_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
-{
-	if (WARN_ON_ONCE(!vcpu_to_lbr_desc(vcpu)))
-		return;
+The same bound CAN_RAW socket can still hold the socket lock during a
+user copy through the SOL_SOCKET path. sk_setsockopt() takes the lock
+before it handles SO_ATTACH_FILTER:
 
-	/* Disable passthrough to force a recalc on the next VM-Entry. */
-	vmx_disable_lbr_msrs_passthrough(vcpu);
+net/core/sock.c:sk_setsockopt() {
+    ...
+	sockopt_lock_sock(sk);
+    ...
+			ret = sk_attach_filter(&fprog, sk);
+    ...
 }
 
+and sk_attach_filter()->__get_filter() then copies the program from
+user space:
+
+	if (copy_from_user(prog->insns, fprog->filter, fsize)) {
+
+SO_ATTACH_REUSEPORT_CBPF goes down the same path. On the getsockopt
+side, sk_get_filter() calls copy_to_sockptr() under sockopt_lock_sock().
+That is the SOL_SOCKET equivalent of the CAN_RAW_FILTER copy this patch
+moves after release_sock().
+
+Suppose fprog.filter points into a FUSE or userfaultfd backed mapping
+that never resolves. On NETDEV_UNREGISTER or a netns change of the
+bound device, raw_notify() then waits under RTNL:
+
+net/can/raw.c:raw_notify() {
+    ...
+	case NETDEV_UNREGISTER:
+		lock_sock(sk);
+    ...
+}
+
+As far as I can tell, net/can/ has no capability checks. That would
+make this reachable by any local user who can create and bind a CAN_RAW
+socket.
+
+The commit message says "The generic SOL_SOCKET options in
+sk_setsockopt() are not affected by this patch". It does not say that
+the RTNL stall is still reachable on the same socket. No later patch in
+the series changes net/core/sock.c or net/core/filter.c.
+
+Would it be better to stop raw_notify() and isotp_notify() from blocking
+on lock_sock() under RTNL? The other option would be to also move the
+generic filter copies out of the socket lock.
+
+> +	switch (optname) {
+> +	case CAN_RAW_FILTER:
+
+[ ... ]
+
+> +	if (size) {
+> +		if (optlen != size)
+> +			return -EINVAL;
+> +
+> +		if (copy_from_sockptr(&val, optval, size))
+> +			return -EFAULT;
+> +	}
+> +
+>  	lock_sock(sk);
+>  
+> -	err = raw_setsockopt_locked(sock, optname, optval, optlen);
+> +	err = raw_setsockopt_locked(sock, optname, &val, filter, count);
+>  
+>  	release_sock(sk);
+
+[Severity: High]
+This is a pre-existing issue and was not introduced by this patch, but
+CAN_BCM seems to have the same RTNL stall through its notifier. This
+series does not address or mention it.
+
+bcm_sendmsg() takes the socket lock and then dispatches to
+bcm_tx_setup(), bcm_rx_setup() and bcm_tx_send(). These copy the CAN
+frames from the user iovec while the lock is held:
+
+net/can/bcm.c:bcm_sendmsg() {
+    ...
+	lock_sock(sk);
+    ...
+}
+
+net/can/bcm.c:bcm_tx_setup() {
+    ...
+			err = memcpy_from_msg((u8 *)cf, msg, op->cfsiz);
+    ...
+}
+
+bcm_notify() takes the lock for every bcm socket in the netns under
+RTNL. It does this before checking whether the socket is bound to the
+vanishing device:
+
+net/can/bcm.c:bcm_notify() {
+    ...
+	if (!net_eq(dev_net(dev), sock_net(sk)))
+		return;
+
+	switch (msg) {
+
+	case NETDEV_UNREGISTER:
+		lock_sock(sk);
+    ...
+}
+
+Say a BCM socket sends TX_SETUP, RX_SETUP or TX_SEND with the frame
+data in a FUSE or userfaultfd backed mapping that stalls. Can any CAN
+device unregistration in that netns then block RTNL indefinitely?
+
+No later patch in the series changes these paths. The only bcm.c
+changes are proc and can_rx_register naming.
+
+>  
+> +	/* on error free the filters allocated for CAN_RAW_FILTER above */
+> +	if (err && count > 1)
+> +		kfree(filter);
+> +
+>  	return err;
+>  }
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103204305.3211144-2-mkl%40pengutronix.de
