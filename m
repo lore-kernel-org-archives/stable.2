@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793824129;
-	b=jFZYhLXwfifv4tMbyunWozB2Vcie6CQxwOcIp2laf0inGhqETPoXKPjLYwl/vNOio2r+
-	 NuK9+JLoByrBC2hvuHoBQ/rKDLOQpdzD83Xq1jJSwLF23Y+9S2PMFs1X76E+1Qj2y6CWi
-	 21xMHSmnPFft1aaRPnM3W5FPG52FUYXmGl1KHKEglBFkTX+kCLNKPr840j7Xa/sVJ663R
-	 fpQlpcZapX/7gsI2lcfgr1FVHo8qtJXnFyxxUvscD7/qn8eYdORDW7KQPaqkw02SisQ+E
-	 xPxmSo5KMTtMxx/0augd71mqwztjrhflreC1ZjR//amVTS7jsI6bJ28vhhhkUm+JJkg==
+	t=1793824131;
+	b=3ZGLZV09i8KHDqJGqCgMPnVC2T4YG8WjFKg3o0q8/C+7aUPdxL5GMilyiUwwS77rSe0c
+	 ICYfSmy7/2Q/1fm0qA8xdw/o0bXWcSiDB9Mk6VCH/G06sY54Js5pFpcJrBovfXhWtgQzC
+	 0Ll9waal2w0L228jKzYbC0WEDMKpLukkE0q0RfrZC7wwIHkx1j8TXds8YT4r3LUgkYCMK
+	 ubL1z57m7ohyvlkkWJlQxmEPbi/05RBz+7bOo9SVNVWiSTLp2FlXkub+f+lGVFd20bQ0e
+	 N8zJs2OtQTB1EvXMHi+Kb6IdkwjrBGS3ZnJBZKxpohhBLVsmoH9d1kRGi4uqcCKFFiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793824129;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793824131;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tdxhe0wg7Kaxda3NMTBYsVg9+hq0589vyVTHVS0neMY=;
-	b=a7nWZOlL2T0KiKpElrwIFTYspr/m3l+PxZd2Ixwz3zBxQ6uMrhXaahr9eyP1YbBP3dr3
-	 nwsElqAEP6MY7T2Hc0BD6Lw79+UU8sSsE3qAX+BLud68oiVlKlfsjz0RtPTgSZJDFX6YX
-	 1bVZpVq6pSbOBF0fuvOSnic+Q0E4Ek2NCpJPDsDVaXV5CE6lRA+sUpkplbVhyy9BWAvC6
-	 XzpMyzKvMPoK86E04NOOOGJn/YFS80bVyqd/EA2X/GZ3pkRlGG8APQLfKSNQAuv7yEd1Z
-	 IBot4SaXz2jVRdPSRifBtUTUQaqGP0LxlL5f5XH7Tj2KuS9VdJvSZoJWsdtace2I2fw==
+	bh=AFveXvHpg9Bf/XlxlS+5wxEBbDCG3hyN0lX0L8ZDDAo=;
+	b=cMedLJCsDCwpjhLtnsvwOu5F5sez8qqGLEH8Hy0NLqpA+3gEhaBZw94rgTMH5qTVU9YP
+	 1Yin2U9fYrXyaM0tjFasKOw+wcjrhJRJzfGrcepBfMmIneIJkbe0xVm5CVeYcpzxDDG+v
+	 3xA0jxv+P1UUCkA1u/+Uv0QO0bi3DPPqnEFLSoCfjMcwKpnKTdJxIxMcvd7zi5up4LAk7
+	 4GE4FMmNaD8ipij5keJq6kev8lT/ODPYg9KVxBLTTaS3ExRBQQHvR2Z8bZtW+bzM5a8lG
+	 VkuPrQP7z5qTBYyjX9LAp3uK3WcV16Q2JaH6LAIfSby7aiAZTjC04Mbk0LubUn0BBYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PvBLsByx;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=n1Wpnufe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95526070AAA
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 20:28:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19796070AAA
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 20:28:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PvBLsByx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E2E51F00A1A;
-	Wed,  4 Nov 2026 20:28:48 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=n1Wpnufe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FB291F000C1;
+	Wed,  4 Nov 2026 20:28:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793824128;
-	bh=tdxhe0wg7Kaxda3NMTBYsVg9+hq0589vyVTHVS0neMY=;
+	s=korg; t=1793824130;
+	bh=AFveXvHpg9Bf/XlxlS+5wxEBbDCG3hyN0lX0L8ZDDAo=;
 	h=Subject:To:Cc:From:Date;
-	b=PvBLsByxAI8MB4Ex4IF58fbw5G1RMupatXOPOnZZv2L0jkIH0cUh3NS9a3R0XtMNA
-	 K/cAw+mOa9/LwEEVI3wXIP9f8wvsyEse94MGaBSTBYFL2m+eSdhk/2+MqlNBhXkkT0
-	 8cItL2SN67eALAq9TvFH9kHzM+pb5kGVr+HmPN5E=
-Subject: FAILED: patch "[PATCH] HID: prodikeys: validate fixed-format MIDI reports" failed to apply to 6.1-stable tree
+	b=n1Wpnufe8+3YE0tXhTEk3+QuluKAt/4VGZduLbojT+XHDeM+d1aXXU4vY3ERaBJPL
+	 3teX0pPTLt+9o2ouWnCYCsSaZ09G9n31V2DkjLkbxN4NG52bvnO0mug/h8Ley13Sh9
+	 Wji2MbAW3I9obFzxvF0mkzSlrNdR7FDF4NR1I7js=
+Subject: FAILED: patch "[PATCH] HID: prodikeys: validate fixed-format MIDI reports" failed to apply to 5.15-stable tree
 To: yaojiale02@163.com,jkosina@suse.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:28:46 -0500
-Message-ID: <2026110446-amnesty-outsmart-92b6@gregkh>
+Date: Wed, 04 Nov 2026 15:28:48 -0500
+Message-ID: <2026110448-anime-deduct-1f8b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0ff37294c41bd925258893310398bc2b45fcd4a7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110446-amnesty-outsmart-92b6@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110448-anime-deduct-1f8b@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
