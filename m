@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.165
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793811190;
-	b=PmnCydnmEPAZmIfDlfrylvjlJaZNIJaSfJV/yTiwySmWVXsFr/qt4of2uFEHAZ5C/XSu
-	 83U+jJ4QKk3Y3XjmmdQ5igDzfyyphNm30W3LsQ3D5LtF2fTEM+S2/FkjEUYYOORP2ag3q
-	 ducloRx5Qip8+dvGSWZtMoXb1OIi2/uUI2kMN9wRLefgtCNIV/nfRCdsc0fNyP+TUf6Zp
-	 KKWW3c4G/CDkNrVBFLPC/B/qC0Fg6PdMAMT0EFSVm2fZeeqecRVmeOGRFjcp6LJMu54VS
-	 WoIbmrQ5K51Jt4M9Q2+9iIslY5Wwz3+pl4emwg0d80TKCw6Y1lUP09irufqjEfrCaDA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811190;
-	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
-	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
-	 X-SimpleLogin-Want-Signing;
-	bh=THYlU6dsxV8ed96P6OJPtEWq8tUs/nV5roX8ImFt+iY=;
-	b=nigzYsvyrBOSYa3zXJEA9YkQjqSbXLoT3dsP4qlRGYeHCFPoKye+AIKe1DdaZAZNaTmO
-	 Gqr9y1p+DafRRT8YI1Q1i77eKE+gph/cTN0o8ZTvO86TZGBFnmOMSL3Bab+0iNBM8ZooO
-	 8N6g06ayroyHP9Mw/AQlWyZNv+3zef1yNwi+FvsbVJkJUlaeBVk+eIoxF35KPHz2KkVyc
-	 cnckJn5ay9HVtngP/YwhmUpIG92EF8hDaAJUmFBqH12UY+V0v2kH2uRhL+U0Y8DoNJ6AK
-	 +DtnAcKflK2HAgDXL3ZdOlH2QpXB+wE+Wu+VY2q5KOgn9e0QS4qD3XcKFJVuJoXwtSg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=eldare.de;
-	spf=pass smtp.mailfrom=eldare.de;
-	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=BIvjAjm5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.165
-Received: from mail-200165.simplelogin.co (mail-200165.simplelogin.co [176.119.200.165])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793811204;
+	b=aGgWlTeP5Wo6PpgUrWVbWw6WwxAE18uzt9EMqxKjYQLWK7/Otdmg3s/vrWy2ygM2ixVJ
+	 WSBw41/PaB43qwmhEL8T9ZlxKtyKQ5qxjnN1Cgh8xzCz5UZIn8R1mn1c9iU/CW9SsD8Iy
+	 eDi7chsIvMKTsz++3Md4OWHQ57D0W33htSOgWY3qEa/GNvAXvwRq4uuLQIbLS6vO1MzLN
+	 nQngXTZ/d1WR8ePhvD/RLhRlUsSTbA4HZBzYA5S9K3FqmonYhjIhOgMTH5i0VefYEWXof
+	 0t9I+IDqCjeaJYtDKclzxpWTk3ej0Ibae/LJS1KxZMmn/5hnbkYMQyeUpWCGqKYVXIA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811204;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=UQ1bDXYKGYdl2Og2jD+uXrW+t00qIxcQlDDGCIWN6fs=;
+	b=S1KYZiUkTH7XaL356A0H5vH1YWriWbh+6BjviZosrIFuCTZJb9AMYnUkoMrtL89tYSPI
+	 p68u/Z6XHtgVX77TifxLK2eb63fRWTgSPWogi0zSfB/sEWjJJsXS+W5HtBJy3YnFOMtL5
+	 qJ6/4KIopg7rIaT4MJVW+Eyf24FWG5wrs71dD6pNsiqrxOKb1kOtTedNOSfFs1MMhHh81
+	 zMWuSBzeTo7ZKJ5pzNsrX5hD72QjoF8oKG5vOEy/N/DW+HlAbrwmtjQ99mvsS6IU6VRDm
+	 MoCEqREhWzxPrwegcf1xSe+cR0CWUxQn1ZGw9xYwAA4QSSjz1exZImF2/cNu7zTwZ8g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NfMVOP+W;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA5E606D805
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:53:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEA5E606D805
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE94C606D83E;
+	Wed,  4 Nov 2026 16:53:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE94C606D83E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=BIvjAjm5
-ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793811188;
-	cv=none; b=ewuAxjZP90EU4HaVoeuP3GWYoej2tgPTl6yWF7swF1B9Mve65vFJo+9kIp/acjRehFdBryyj3ZX62Owhm0CHL5m06vTVXI3Fl5R1v8tHKnIC+KEPXaLxzCKnVUhrmzg7TS0IjIgpzyM8ej/AdMffMtGDoEWoaQcVtyx2BdRH0QndS6L5gZbOmCSJW6BBPNWSSY5sHltEeccnoO369KsTp7R1K3Gx6ddFmYG8paLkeQ2003a4zfCniLGQm3CTKproSIRilYgkDvXXUY2mutEDK1VWabA100digYscU1Inyjnw5ON9z8PiVlW458z5Lj0S/Z7+KuCfpHH2AyhHrtjuDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
-	t=1793811188; c=relaxed/simple;
-	bh=b22BmvbWIYRK51tJiOsPu3kTH0mAG+T8cRcAHNYNM48=;
-	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=xEqLzWK2kckZgKHjGSIjZhmIh2T915A89KQOC6R0b8qZTM5kQYWoUanmaXeIptHmMNZrCIu9N37ZdvD72k7piLeay+NLjFMI9vRRgyvsO1Rgf3f0wS2jKOkHRqd+lst7NRgctYpLstbhFCq59CRlfvYj4lX5qYgNDViKSllN1hs9xFqC0xf1aNBtoC44sjcr0eRSILUXi9ljsGs9S+fMNFWpqt+xbUPgHF8IYGzj6ycEUtAj2XDL7AY4s3XQLqfl5wT8fLfFumvQEphZZBaCV/RWGpqy9t0KZrZQUutjO18lf7Q7YMhgM6oejms5/AP8QzhnwB6D9osjwuaHSDq6wQ==
-ARC-Authentication-Results: i=1; mail.protonmail.ch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
-	t=1793811187;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=THYlU6dsxV8ed96P6OJPtEWq8tUs/nV5roX8ImFt+iY=;
-	b=BIvjAjm5TRTO61GsOBpZh8JyEhMHRyp2ciJjRUsqrPmbrSppaR0sMWhwKWAEXDG9SQ3WbG
-	pLzwuv43YJd5ISH48y5Dh7JmSHF9GAFWgtTuZI7oPrsSFxxaCQHe7FztKNejlPJVgpeq4Q
-	XDisBlPe4pE7SmfmSFz2NcV1Az4/GnE=
-Date: Wed, 04 Nov 2026 16:52:59 +0000
-Subject: Re: [PATCH net v3 2/2] vsock/bpf: fix zero-length,
- MSG_OOB and MSG_ERRQUEUE reads in recvmsg
-In-Reply-To: <auSngVsWiGI475J4@sgarzare-redhat>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NfMVOP+W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793811203; x=1825347203;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=d/n2sCxEobfdrct2quWj6oFiwwBQ5P4rZozc4rIP7Xg=;
+  b=NfMVOP+WDrBJ7nmgbpQG5+3XcEqQ2mdGTwV0zfV8E8NFqwTuT+55sZOi
+   6DS1AeqcZUhNzUdvhMWdvc5Pw6U9Uk5bjuINrQtSjY86EPHHKTbAzVs10
+   YRyPP50OT/Tt+FEDJetAzd00RSQopW6hENKVMm9gKcfPt8YOwytin1+eu
+   BAte0R2fgd15ffuubGW9njyokpBO+rgQOjPovNAVC+G/SyFB+Ah5hJ784
+   SBqx/ClK0M8rfAO/lf48+ijxtSd2BSdrHm5XTlYXYkOVTydV6bp0WzaJX
+   AmEhKWI2LgAI1r011dxO8u/Em9TUOB6LrpIdY98IIm7SeEBEAl5B+Etkx
+   w==;
+X-CSE-ConnectionGUID: 5L10r3jAR5S44wbh4OdvFw==
+X-CSE-MsgGUID: oWvfOwmCThaqEtMzB22AVg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2570439"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2570439"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 08:53:23 -0800
+X-CSE-ConnectionGUID: NDo/dX6MRd6MKYnEtEiXrQ==
+X-CSE-MsgGUID: VEuzpK/CSRGIwueXMXEulg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="7087603"
+Received: from spandruv-desk.jf.intel.com ([10.54.55.20])
+  by fmviesa008.fm.intel.com with ESMTP; 04 Nov 2026 08:53:23 -0800
+From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+To: jikos@kernel.org,
+	jic23@kernel.org,
+	bentiss@kernel.org
+Cc: linux-input@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	simeon@maryasin.name,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] iio: hid-sensors: fix fractional part for unit exponents -7 and -8
+Date: Wed,  4 Nov 2026 08:53:19 -0800
+Message-ID: <20261104165319.1890851-1-srinivas.pandruvada@linux.intel.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,58 +83,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: jrmmhm.kernel@eldare.de
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: Bobby Eshleman <bobbyeshleman@meta.com>,"David S. Miller"
- <davem@davemloft.net>,Eric Dumazet <edumazet@kernel.org>,Jakub Kicinski
- <kuba@kernel.org>,Paolo Abeni <pabeni@redhat.com>,Simon Horman
- <horms@kernel.org>,"Michael S. Tsirkin" <mst@redhat.com>,Michal Luczaj
- <mhal@rbox.co>,virtualization@lists.linux.dev,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,stable@vger.kernel.org
-Message-ID: <179381118562.7.1635260105890086879.1746288140@eldare.de>
-References: <20261028-kbh3-1-022-fix-v2-v3-0-bc0752b2d3db@eldare.de>
- <20261028-kbh3-1-022-fix-v2-v3-2-bc0752b2d3db@eldare.de>
- <auSngVsWiGI475J4@sgarzare-redhat>
-X-SimpleLogin-Type: Reply
-X-SimpleLogin-EmailLog-ID: 1746288190
-X-SimpleLogin-Want-Signing: yes
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 03:25:26PM +0100, Stefano Garzarella wrote:
-> Ditto.
+split_micro_fraction() scales the remainder to micro units by
+multiplying it by 10^(6 - exp). The unit exponent of a HID field goes
+down to -8, so exp can be 7 or 8 here. Then the argument of int_pow()
+is negative, which the unsigned parameter turns into a huge power of
+ten: 0 modulo 2^64. As a result, the fractional part of a value read
+from the hysteresis attributes is always reported as 0.
 
-Same as for 1/2, I'll rewrite it.
+Divide by 10^(exp - 6) in these two cases. This matches the reverse
+conversion in convert_to_vtf_format().
 
-> >+    if (unlikely(flags & MSG_ERRQUEUE))
-> >+            return __vsock_recvmsg(sk, msg, len, flags);
->
-> If the psock ingress queue is not empty, wouldn't recvmsg(MSG_ERRQUEUE)
-> (e.g. a MSG_ZEROCOPY user reading completions) also consume stream bytes
-> through sk_msg_recvmsg(), since it only looks at MSG_PEEK? If so, maybe
-> worth mentioning in the commit message.
+Fixes: 73c6768b710a ("iio: hid-sensors: Common attribute and trigger")
+Cc: stable@vger.kernel.org
+Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+---
+v2:
+- Fix __udivdi3 link error on 32-bit by using a 32-bit divisor
+- Address Andy's comment:
+Keep no % divisor in a temporary variable next to no / divisor
 
-Yes, when the read passes a buffer. I reproduced it: without this patch
-a 1-byte MSG_ERRQUEUE read with stream data in the psock ingress queue
-returns that byte. A zero-length read, as MSG_ZEROCOPY users do, takes
-none, but never reaches the error queue either: it gets -EAGAIN instead
-of the completion. Routing MSG_ERRQUEUE first fixes both; I'll mention
-it in the message.
+ drivers/iio/common/hid-sensors/hid-sensor-attributes.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-> >+    if (flags & MSG_OOB)
-> >+            return -EOPNOTSUPP;
-> >+
-> >+    if (!len)
-> >+            return 0;
->
-> Is the order of the checks important? We should mention it in the commit
-> description (if it's important or not and why).
-
-Yes. MSG_ERRQUEUE must come first, or a zero-length error-queue read
-returns 0. MSG_OOB goes before len =3D=3D 0 so that recv(fd, buf, 0, MSG_OO=
-B)
-returns -EOPNOTSUPP as in the native path on a connected socket. I'll say
-so in the message.
-
-Thanks,
-Jerome
+diff --git a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
+index 9e7c26e37880..d44091faf122 100644
+--- a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
++++ b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
+@@ -96,9 +96,14 @@ static void simple_div(int dividend, int divisor, int *whole, int *micro_frac)
+ static void split_micro_fraction(unsigned int no, int exp, int *val1, int *val2)
+ {
+ 	int divisor = int_pow(10, exp);
++	unsigned int rem;
+ 
+ 	*val1 = no / divisor;
+-	*val2 = no % divisor * int_pow(10, 6 - exp);
++	rem = no % divisor;
++	if (exp > 6)
++		*val2 = rem / (unsigned int)int_pow(10, exp - 6);
++	else
++		*val2 = rem * int_pow(10, 6 - exp);
+ }
+ 
+ /*
+-- 
+2.56.0
 
