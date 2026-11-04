@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817880;
-	b=bzB0WYcFRw+70Mk7Xgnxsr9vSVTEe0u61bDKRbrVW9Q8IwGFVZEh50xMDBb+nLY9uUvl
-	 O6Lf6LXZquje1wwV0Xhnvo4wTkrvQrmscSPivQzol2yUXDMCwF069UWYyUCgwHqC/QPgn
-	 KujY0R4ALM7Fx5DvEKAiMFd8kcFUSqpDljO3f7tpbMSqOtyJsZVY/3nRphbfNAx6iUQxS
-	 SzftO/hKXwOo2ZeuAnOo8FDG7ZzUEL+E2j8+wIfz5rA//72elew4BDGLt2lFmdTUuktsY
-	 a5PU88cBmlLtCWM0WePvxC+EFNPCC0ZaFFrbBFLvwuR8T4e/ykxBPQGt7TmraLub36g==
+	t=1793817883;
+	b=as5WLgknL+euC2p27IahUGVVR/ebh/jyVUGubYQF5CWs1MLRxpeZIBe5Kbaf62sSOjaE
+	 skVMtvGEBbvHz7H0k96RDbLnkwCyYhn+kUk6ZViVxTHD9kNlt2XxKxZ3/y4jnF7Pmp2OE
+	 uSqpAfeVBRM9KGAIX0PNr72horYoW/+y4Lz2SHb0Q0FHMuISimbpShASt6+zd5LGa2EUk
+	 RBdu6EOaEs3hvTexY6LUwVDu04Ju/m+3BF+5gfVOJciW1pzKz52qvLWIFvEzKyogUsTgj
+	 bDgxbwjwJy5K3IcrFrQExsa6dHxBFOxqiahD+3v1b7IdSeyHQ7mU7MKH+AhN46UHhxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817880;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817883;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Zg9cDaOUcPVVIlnDKbuThw66w0SAt8rNOpQrBFsKPb0=;
-	b=t79AYXAVAOfyFsZqudZL2uykBpmCyfjX8Xznz43XgyHfNxqKy69+NbJO591RQhwRIz/i
-	 enSa24dANdGAQxni8thL6WAtcNEsZZ0kE4UJvdI6yhzoJ2BqSyqNMpUTCyFExyoI1tcNO
-	 V72RU8hWQHEP2ePPD0VMgUkRpC/T9pHKOCv2SvVQFSxQOgz11QCdfOCEJaux76r3bKaVx
-	 cqlDayRN9V5kcfclLdrDiU9NvnoQ8wzKpPczSs8sI/VI1Fxj1xPGIQRhg2xnxBt7HjFDj
-	 nJ5uLqnAZPzY68vhCmWQ6kYWh9HUBm+8lDpgUXn3/AKWZuFLnkqYdZ+Iy/YoJWA+2sw==
+	bh=BKgadK2I/GgNvZDn4Xm20+I35igbD6d8qDSMaHto9bI=;
+	b=XNaWZepf+lP3JGZlYtrxQVvifECUM7cOgXImMM3OJusfGjVzJCfONYi5Tx9dWdMj4m0i
+	 xusoQ9hKWJ5U+buqPiXuk5F633s5gmMCA+ipOAcegF3yA/XJ8GJxvFo+H5QTvCsmsWhf3
+	 6IfUoT76eJjalEHsHdXGwiOknJVWQ/1uycwr/6bAVCC3Gu2V5fU7HVffbdOO5fY7vgQ8t
+	 q5yiPXo26AEInavA0e9yyk11VzqkSlUPAawsW6qDuwwzTI6/UGXdLqdBcc5mrdN1CotaC
+	 r5z4O4EjgjdprMG3DqFCyS3lY/JQuw8Ju7s+syI1kEEE2iylW3O+Wlx8kPu+Ol1k0Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=YvcVZr5b;
-	arc=none smtp.remote-ip=209.85.210.45
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kmDd05dT;
+	arc=none smtp.remote-ip=209.85.210.49
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0FA606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:44:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C0FA606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97504606A32C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:44:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97504606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=YvcVZr5b
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-7f48c750afcso731454a34.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:44:40 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kmDd05dT
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-833e671ee9fso1031548a34.0
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:44:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817879; x=1794422679; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817881; x=1794422681; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Zg9cDaOUcPVVIlnDKbuThw66w0SAt8rNOpQrBFsKPb0=;
-        b=YvcVZr5bw2atP6MkiDHOvcwAlvpO3Ahrkn437s7Dwq7tKEgQ748iccNDMMs6FtDXE6
-         9Mdbm/cO3yzc2hNh4APzuI8EepHs9BWI5bXmtnZlqqyXZYBINWKunlBcmwOYUwLBDe8I
-         8HVErwKqlZpk8aYzXwXYZkhgmUDn1wQckd3TAG0iY9TLcg9MJHStJDLH9Dptkc4enejj
-         /+PBLNZVgEzf+v7W+LDG/xVI4zzjftPdJaV5J07DtgxafAd8sCEhqFbpzokhx85IKKB3
-         9MhxuWU1WdBi3hpXdNQqJjFDJawmZZ1KysN+xcchKTpipVqWmnY3gOMkNuEIGpTUhUkc
-         23MQ==
+        bh=BKgadK2I/GgNvZDn4Xm20+I35igbD6d8qDSMaHto9bI=;
+        b=kmDd05dTpZGJ9mPeu1Ip8CQhohdc8D9lZpGUQCDUjR710K9qXyfYQPx1gjiTra6mau
+         QaqQmbcnk264FAKK/JuSWPvSA0ox/UunJ9d3B9ymqdMAV9TLr+Z6rFKj1Urnh6EzaeN1
+         bc+yFwhxf3Qk2YbH5y+c+UqKqyi674oZGEO+LPvbGDSYLqehHRpeaYsmUiPf8miWRJ+h
+         6dz73t1keVXxjp7obEIYbMJbYa43SQhmiBv+CS5C+/Pfw778wsoowxKdfA3V9SmQqqRT
+         3mISobqiZweSO3wDk4SrQH7x5itv5j48JqeknW+u9BfsmgMWx4yFZwZKn2MqwqMPjm6J
+         Qe7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817879; x=1794422679;
+        d=1e100.net; s=20260707; t=1793817881; x=1794422681;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=Zg9cDaOUcPVVIlnDKbuThw66w0SAt8rNOpQrBFsKPb0=;
-        b=mcCitcrNwx3k+k1SgmbGXP1BgmEk9dVb+net+eaAdix+zZ2PfMdtWcAiXNaH3mX7pK
-         YLPUXjnE4kx6DZVC7C4DbNo4pju2IPtIDPqKgqG2mDCZttEhzv3yVXvi0w7hTbv/u1ye
-         bIdWrm4vnphzt3JKlgKjbhrd7x0aJJ0P+wUL2eKlCFgt2PmJ1ymBM9OjlDuu3mbQ2v48
-         BSkWYbKxw/21hDC/c5tO7Yb88RcxwikDKbGc7Ngl0+mlmyBfQBHdVv0d42/N86DHQacv
-         p7SHPOsckDjHmKrNHSsXdA7+6h2qzz0MvSU01f4IJwbgRVDVVP/abcViNk92SMEBwLWg
-         vVrg==
-X-Gm-Message-State: APuU4Z+U/R/4P9PMe+613K00+vB+VB9BND62EJY1J9l2tNnF/lYbRFhV
-	XnNKXMklCA9Z94cDdzgGx0G9tg1oHmVvtZ8hgAc2IdZc7xNqaA+VmegW2MA/aNPh70v5/s/rY6y
-	me099Wv0=
-X-Gm-Gg: AYBFou2kMb5Lqjem8mpBOHTm6g8no8dqokJ61QckvSxUeP1fIizezmpIrlSqe35Ih/c
-	9PvSWwCoUYD8PI+bj9TK0v2ozzLd4AHvhRtqucDL6Ln10PLRTAhhE6BoaVRw20DPFoQiOqF/Lug
-	nVqeC5FMNCMmq2ybG5fCO0qcxSX/+LJNWCcnl+dpF18iEu0Tq9xkGgLqbEQUFiIrNDi1/5kpz2b
-	Zdbi0Xwh3k87BOgoLz5CG7JfvRXsKNW7p8gEbpsP2QvexDkx9vthe9/F9pGxA7no1fnkZjWSb5G
-	SbFvxHthZcABgL+02ywfCXl+1FauCcLuIEWkSFU/ZLzg3J4t4eNv3gqEZK5unGSUe22uJe7P3yX
-	Mtf2VhjhtWc330h4tvaERB3I9RyLtLbzruOXZzR2m2iOfEN3ueyQusj0qZTq3xoVfPdSDYC0eFn
-	zs6mJ89Dak/AshEd24gmSTAUjPPFupkFIEicHT3QKXQfOW1ka5GgAwd732nDd2mjg92kJ1A7bwQ
-	pLZRweefGThiPPiSq+DHp71w6jAsZ45zVSmv0Sb2pzkuL/NLIzZp68hRnZflzJigcgkDENTE0Ig
-	xB31u89YimDKOsJkhlTu8H1bORocRnz+oaCP1WwHQP8J9ID7jnPxd+wEGHpfIfZBDiEVieg3tw=
+        bh=BKgadK2I/GgNvZDn4Xm20+I35igbD6d8qDSMaHto9bI=;
+        b=eJZ5RhDDJEQzItG8FLP14bA9OxnXUEOqIZi+cTzIDBMVqH4SnwCSV9njN3lHysmLvx
+         8a/UvrVplSt3x7lPv+i2016ysGNYWW7pr9wje7G6JZzc0X4XRyrlFkTgMinWecQGeIui
+         gmIAfGIyc2hifIvQKwEqDmiVmtM96axQak4xYrIOhGy4D9/FCKobQIeUobYshENRyUgW
+         1+6Mzr0wdIwf9sLQSYFMUFYRUc8oB3+NoMqsbxSBdTC6Qf22Goe9nngwX1uKB96AltNP
+         /s3it96ALAYYsmABXCoqYJm/9oSZNCU0GhLPGySXSLbiCdDrnzXCm2xjOcHkSwCLLihi
+         XiSw==
+X-Gm-Message-State: APuU4Z+wU5fVnwXLpIjCqwi9wwyYde3b8nPLLPyB7SLHaOTuF+mfjVB9
+	79zUo9ld3fPtvPdNc4UaTj7f96/fB5KYJSecO0lWP8VcaISknKhRvxGA/lQA2TKZe0QlGKlaMTO
+	At318Udk=
+X-Gm-Gg: AYBFou2iIWzpHfZ9bg+GZfVkkF10X5/FA6s4sv3pEg+GF6SefYk16qm8zPAAWQbrAub
+	SCyCf6lUXFTVtwqWnnO/LVE4gMaB51+w81r6zWjb6HbUaUW3ucc8N4llKUIjxrpRb6PQHE1ERMt
+	D5ceVlQq8/ZPlWW5Gdm7x+YH9bc7U3vjDStcPmgiazSyr+LrZ3OaTjXwmwJK7XnklyQDQkkKXP/
+	k1ogHLYwy3Q7wRe/uvnf/QnHDv42k91Vafo1F5PwBhbONJCKUVTZgMb4jOP2TC0HLWKicNhEJo1
+	o5CzQXwoHD52Xjv0jzP/ol0EyBmM24NwIhWnuRZ8oIfJ6YttAgmPM3uGW9bnodh9K027VWJn5ca
+	vJ4EaRDtr39VU7kXRJTS+h7Ljc0qxvQ18pxBtbdSTDy13vFl5d8bUY2U4lwdYQNIf2FwleNUy/A
+	Xb/roIQCadNAmqRZjubPl/0T6OO+gz5Ec45qzSBxVd9pPZzJ3wX/oSWNxIcfXPV1ZEkO1HbJ+eP
+	q4lf1fBfo825IkziUlwLvXMLEFPIk5TigiMygL4IcCOENRqFfOzXF8WSgO6Ht1e05oWtIaVUMop
+	6yzKD1ldwdFOUWVn7yEJaW/q09HuqyAW27oXw5Cmt+swrX9jqpvrssZFS/KLqnOCwIGlUXmKLg=
 	=
-X-Received: by 2002:a05:6830:3e03:b0:821:cee2:489e with SMTP id 46e09a7af769-85d3616574amr13431518a34.2.1793817879194;
-        Wed, 04 Nov 2026 10:44:39 -0800 (PST)
+X-Received: by 2002:a05:6820:c2c2:10b0:6dd:e81a:5906 with SMTP id 006d021491bc7-714f2980cdfmr7072804eaf.50.1793817881307;
+        Wed, 04 Nov 2026 10:44:41 -0800 (PST)
 Received: from xps16 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3e16ef1sm2540779a34.14.2026.11.04.10.44.28
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3e16ef1sm2540779a34.14.2026.11.04.10.44.39
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:44:29 -0800 (PST)
+        Wed, 04 Nov 2026 10:44:39 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.18.y 10/11] io_uring/timeout: count cancelled timeouts in cq_timeouts
-Date: Wed,  4 Nov 2026 11:44:11 -0700
-Message-ID: <20261104184412.516558-11-axboe@kernel.dk>
+Subject: [PATCH 6.18.y 11/11] io_uring/net: fix multishot recv length limit accounting
+Date: Wed,  4 Nov 2026 11:44:12 -0700
+Message-ID: <20261104184412.516558-12-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104184412.516558-1-axboe@kernel.dk>
 References: <20261104184412.516558-1-axboe@kernel.dk>
@@ -101,56 +101,72 @@ Content-Transfer-Encoding: 8bit
 
 From: Cheng Yongkang <teel4res@gmail.com>
 
-Commit 1c8b49851543f41fc8bb18bcd1f15cc93d14b530 upstream.
+Commit 3e3aebb7570ccdde5cc49c9bfc8fd3a436b71b0c upstream.
 
-io_timeout_cancel() posts the cancelled timeout's -ECANCELED CQE without
-advancing ctx->cq_timeouts.  io_timeout_fn() and io_kill_timeout()
-advance it for every timeout CQE they post, and io_flush_timeouts()
-computes the number of non-timeout completions as
+io_recv_finish() debits sr->mshot_total_len with min_t(int, sel->val,
+sr->mshot_total_len).  sel->val is the cumulative byte count of the
+request: on a bundle retry the receive path adds sr->done_io back to the
+return value, and the bundle branch in io_recv_finish() recovers the new
+bytes with this_ret = sel->val - sr->done_io.  The debit therefore uses
+the wrong value after a bundle retry, and the int cast truncates a limit
+above INT_MAX.
 
-    seq = cached_cq_tail - cq_timeouts
+For an IORING_OP_RECV multishot request with optlen above INT_MAX, the
+limit becomes negative when cast to int, so the first completion debits
+the entire limit and ends the multishot with IORING_RECV_MSHOT_DONE
+while the socket still holds data that covers the limit.  With 120 bytes
+queued, a 64-byte buffer and optlen 0x80000000, the first 64-byte CQE
+lacks IORING_CQE_F_MORE and 56 bytes remain unread; the same setup with
+optlen 0x7fffffff posts 64 and 56 bytes with F_MORE.
 
-to compare against each off timeout's target_seq.  The cancelled
-timeout's CQE is therefore counted as a regular completion, so every
-cancellation makes an already armed off timeout fire one completion
-early.
+After a bundle retry, the bytes already debited for the previous
+attempts are debited again, so the limit is exhausted early.  With 1400
+bytes queued, optlen 1000 and buffers of 600, 100, 100, 50, 50 and 200
+bytes, the first attempt delivers 700 bytes and retries; the second
+delivers 200 more, but the debit accounts for 900 and finishes the
+request with a terminal 900-byte CQE while 500 bytes remain unread.  The
+limit could have been reached.
 
-A ring with a keep-alive timeout of off=4 completes it after two NOPs
-when one off=100 victim is cancelled through IORING_OP_ASYNC_CANCEL, and
-before any NOP when two victims are cancelled.  The cancel CQE should
-count, but the cancelled timeouts' -ECANCELED CQEs must not: the
-expected counts are three and two NOPs respectively.
+Debit only the bytes received by this invocation, sel->val -
+sr->done_io, and compare as unsigned so a limit above INT_MAX is
+accounted correctly. Non-bundle multishot requests keep sr->done_io at
+zero, so their accounting is unchanged.
 
-Advance cq_timeouts when io_timeout_extract() succeeds, under
-timeout_lock and before the -ECANCELED completion is queued, matching
-io_timeout_fn() and io_kill_timeout().  The -ENOENT and -EALREADY paths
-post no new timeout CQE and keep their accounting.  Both the
-ASYNC_CANCEL and the TIMEOUT_REMOVE path go through io_timeout_cancel().
-
-Fixes: bfe68a221905 ("io_uring: off timeouts based only on completions")
+Fixes: 0ebc9a7ecf6a ("io_uring/net: Support multishot receive len cap")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
-Link: https://patch.msgid.link/179328314078.648427.13761781546953594668@gmail.com
+Link: https://patch.msgid.link/179328314078.648427.10086632105828535293@gmail.com
+[axboe: fix-up near-by incorrect comment while in there]
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- io_uring/timeout.c | 3 +++
- 1 file changed, 3 insertions(+)
+ io_uring/net.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/io_uring/timeout.c b/io_uring/timeout.c
-index dbbb9615ec9e..2637c8bb61a0 100644
---- a/io_uring/timeout.c
-+++ b/io_uring/timeout.c
-@@ -327,6 +327,9 @@ int io_timeout_cancel(struct io_ring_ctx *ctx, struct io_cancel_data *cd)
+diff --git a/io_uring/net.c b/io_uring/net.c
+index e78ec89ca5dd..e8d5d17fc754 100644
+--- a/io_uring/net.c
++++ b/io_uring/net.c
+@@ -879,12 +879,15 @@ static inline bool io_recv_finish(struct io_kiocb *req,
+ 		cflags |= IORING_CQE_F_SOCK_NONEMPTY;
  
- 	raw_spin_lock_irq(&ctx->timeout_lock);
- 	req = io_timeout_extract(ctx, cd);
-+	if (!IS_ERR(req))
-+		atomic_set(&ctx->cq_timeouts,
-+			   atomic_read(&ctx->cq_timeouts) + 1);
- 	raw_spin_unlock_irq(&ctx->timeout_lock);
- 
- 	if (IS_ERR(req))
+ 	if (sel->val > 0 && sr->flags & IORING_RECV_MSHOT_LIM) {
++		unsigned int this_len = sel->val - sr->done_io;
++
+ 		/*
+-		 * If sr->len hits zero, the limit has been reached. Mark
+-		 * mshot as finished, and flag MSHOT_DONE as well to prevent
+-		 * a potential bundle from being retried.
++		 * If sr->mshot_total_len hits zero, the limit has been reached.
++		 * Mark mshot as finished, and flag MSHOT_DONE as well to
++		 * prevent a potential bundle from being retried.
+ 		 */
+-		sr->mshot_total_len -= min_t(int, sel->val, sr->mshot_total_len);
++		sr->mshot_total_len -= min_t(unsigned int, this_len,
++					     sr->mshot_total_len);
+ 		if (!sr->mshot_total_len) {
+ 			sr->flags |= IORING_RECV_MSHOT_DONE;
+ 			mshot_finished = true;
 -- 
 2.56.0
 
