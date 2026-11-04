@@ -1,93 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818440;
-	b=mnd3jaDMoQdaCk+uUUXQzORRAHPkBjoUmxXkTeMPIhqh69/6t8ua6gYTWLxSlZO/Qw07
-	 nDiV2KOQEXU/AA27wqw8YTRnMZ5usUY7Yl4qoP79NIvCf/Wv1ZmZzAZ33Cf0p3Dg49mZ/
-	 kFxh62H3pj/793c1SVwsJHiySnIlzc+MWvNV0dkogz78dXG4Yn8+YsTAuj3PRHHN3dMtd
-	 I8CoxRx8Q6jhki8O7bmDtqY49Wiftqp6ShbLmrb606pkg0VokR0jIYtxAnb8V3I2SIE+A
-	 fVrjXkc+TmlkMk4WO+E13lBd6RUmfukzTNPJQOQg6Reovx7msG47Xy4uAQjXkI2/Ecg==
+	t=1793818465;
+	b=pSgoA1xkYalbqc2/RjGPxTPn4Ys+ybF70Uw4f37dDNDBfJT1fGWob+YyyBp8WUl1qOaU
+	 iz9wf/wRND/FGD74vUyCIwHPlUIB3haJElyu58pj5BJjaoJss3sm0rg8Oqzsh1W3sGvdD
+	 RxSV5TYM9SxMIT7OKx7IxBuWAXbvAvJdx38Vl9SKn9OwG1ZVCBNwJk4kF/Nc8COfbC1ep
+	 yW+5mrsTszGC7XkTQrewEJVLoFCSCiXDElX7OlZT/7wsQU1uQQLavNiOJoharXEF/9zAm
+	 yS4JvSWTiS6mkyFK5+QWsQecERs0NF6ani1bNVcBLBOyrt0mPaNnqdDzbHLMHKpv+CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818440;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=G5wbYNiPhAHIb+26anH3v3vEHstJg4FjlaenE/QZAko=;
-	b=5ANzoERE1KIE9vyH+YPLqVW28dcS2hEzVFa1+0+ZoUKG9SQEB4KqowI1hgBqZU+qZLvl
-	 JgMHn146+l7kbJbh7PC/K1/QJi+/M3UkqmBOcXvwK7Pi4k9gevKra20glTw1dYfy/EXEa
-	 6ZRZ0W6eVBMekvXk52xG+cj92Hc0xwZkUH6quOCNmmrUScV5hwo+6RXvzr247KlWtkYTp
-	 uVuB8qjSpWg5XUJQAhF33LP7v75ZVx+/a+hOvuss6JOndESCwJV+YXwsgF4jHOXhur4x7
-	 EaXtmJqERyTLZJW6S1xJkhA+0kxTrPfXZJIazRcrJOG6OMJPe2IMhUHZr7VnxsYsulg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818465;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=8QchOC74fWjIvW1N5SMx/XfdQkzDChZIYv1trFS8mJk=;
+	b=T2uTwjmLKzzWYYduiJekxagJysLHI5A9htoBvsUehpMLyiXn5699tdcSfE3pqmcZ8aPk
+	 B8b4Y1bbwtfCrxrVzN8qY+FKDzrYmfY2w66pHUZkJxPT92fwyKvQ8M1jEbfZlJW9P5dgG
+	 gT1uHRyDgbMD7evxAHiIWOdZ7ksITLuaEwgZaoohyX4pNHhspTrF56OKj4SGs+0QhG9DM
+	 W3AFZCZDs7xlrAb+rt0gionuWA8KrkCBrKO4O3NmKwK7JqbA4/q3becwSkWrDX0VNJVHU
+	 lKW66tBj6dfjEEKX/10M1DgDlKqe8kPlPH5KnFexx3DdStKBtgu8DYEeQH7ufWvnHpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w4gDAWve;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xbmdY20A;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FAF5606EE9F
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:53:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FAF5606EE9F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487E5606A32C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:54:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w4gDAWve
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48bbb06e746so696145f8f.3
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:53:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793818438; x=1794423238; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G5wbYNiPhAHIb+26anH3v3vEHstJg4FjlaenE/QZAko=;
-        b=w4gDAWveJlfcdoihCDwXx9RBMOCcH2h36Pa3eLdnrl6Lr7QVTrk2MGx7+S3FCayk70
-         7WjWbLHkvBIBmS3ANQEjxQ2lu1mdA9B2+n0F4vfWLs6YZOazhKD/MPiQ4MUNEOD9kKjx
-         I/yYl6a8IBCaUqWOQihMxMlJj1mIUnyKMBuG5FrT02+OY5eULftm7IRmrfPUxNpOQh8+
-         QCfy1WorYWqAWla7SuKWP03Yl4waWffqS74izShxCKyJ7RLumPEMa74/CcIGYwpkdAJ6
-         vy1jLgELsrW6LDIHjuYqyLS1nPRXPGoOZz4yXDFq7GtzTPjVvxybRA9i8qKf8IIQiKDa
-         Yy3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793818438; x=1794423238;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G5wbYNiPhAHIb+26anH3v3vEHstJg4FjlaenE/QZAko=;
-        b=Lx+P0NgBSzYqRMNpX7SonHaeCrLyKqyBziKCgqCzC4gsGjbeRd5PvndSFop357GFcL
-         9oOgNU6vLwprwYmKrkuACCH24W+HeuNM1J/EB7pjVw5HuSdgVBdrhdwoz4hWkZYCjLXw
-         iIj0Bc893dUYW2oUAODDv5/pY9Bp8CEOucC1/uBghqPlF+sMr0295nEYqYJ24WgmWV6I
-         +PL8Ym2rxCej+VbzV1llfL/Ik4gvABSpVpTz9TPwfntEQigiiPRpL4FUa0i17SsM+bxc
-         xGZvazrUuKavfurGetbI6KBY7inkBY41PttI1ir6meDYChrS3bMDLfWoqFmnGTAK0jA/
-         Ysqw==
-X-Forwarded-Encrypted: i=1; AKwUvBxT++5neGZCLfUKyY/W1mkZoskTR7HYU8IyrAQok5CQEcdt4P+QQlSZncXDtiyl8aO8ufYhCsw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9IuW/l63lv9BcWHbJLCFZF7GFnFcbjVhNNBaVJ5FAru+fp0WT3
-	vNylLI5dKgaY8RVjnI/yaV9P9FHGe7MBMWhYdYk8XZg1t1zmBsbY/yKg
-X-Gm-Gg: AYBFou0EnvNvXM0Gv8+X8KR0uQ9nGtSom7+9T0r1u8sYcV4XrLCcNNirdiCxYN6oy6B
-	2aS7AylVvYwignJv9lxYJL/bfRqsy4CiihxSaeecixfQSczK3YSsYcpZ9i/WB/idy7eujaOzvso
-	YKzWypTae3QSsXAlYnz4vWoSbRMjW/aRIywDPT9bn+fU1DUUDL9SJ943ZwS9vYCASyVLB8VybuA
-	CTOR1iTSsjVudkXPugbUZtLkiZDuz9l5QMY4LQVZM/sPD5q38SbX5oeFCN8HYh6VdPJbGzJEETh
-	I6CklmnHD+VaY/L4lkEqKZOC7VddoqcPFHFvlP3D5GP7CexDayDW0Pk+H+L8wCivrTQtvFvzYqS
-	OKInaIq7E+alB9orKsNy+YRAmcqpv7FFStygevyCTHd0a3ye8WRUwqJhgTFzUbJA2W+XsDuWUa0
-	yoPypkksBZFYjY8wgHjJ6tA/n9nM2ajF2jfsb1rtDXc+JKAcGzjUQu11M98YbKhzzU7bC6mx/5l
-	NGEr90bjvan2x3m6N47lQuFdSjRlTNrTvX+8ZF8GCE9kEjIxVKHl5IfdjsR2mbWyFrJjldTYFDN
-	55ydwoycmL8pv6X8NdkLH9icVZgSVgJXALc0AWPa1FBlrmaJlm91NuPCVAr8fv3UUTh99uoLiOh
-	MJOvccq8I5sI=
-X-Received: by 2002:a05:600c:8b04:b0:4a1:fb01:13 with SMTP id 5b1f17b1804b1-4ac17a3683bmr388138315e9.18.1793818437576;
-        Wed, 04 Nov 2026 10:53:57 -0800 (PST)
-Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57317cb8esm3727555e9.13.2026.11.04.10.53.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:53:57 -0800 (PST)
-From: Amir Goldstein <amir73il@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Miklos Szeredi <miklos@szeredi.hu>,
-	stable@vger.kernel.org,
-	linux-unionfs@vger.kernel.org,
-	Fahad Alharbi <fahad@codepure.com>
-Subject: [PATCH 6.1 1/3] ovl: fortify ovl_copy_xattr() against underlying layer modifications
-Date: Wed,  4 Nov 2026 19:53:55 +0100
-Message-ID: <20261104185356.3631002-1-amir73il@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xbmdY20A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF8DE1F0093A;
+	Wed,  4 Nov 2026 18:54:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793818465;
+	bh=8QchOC74fWjIvW1N5SMx/XfdQkzDChZIYv1trFS8mJk=;
+	h=Subject:To:Cc:From:Date;
+	b=xbmdY20AzXznbAnzY1Hx/bUmpdF3CEQezvNzxMAUH0vHFkdiocFq/41cHvY9v/0gH
+	 no6JZ9Q8IayY+CYgi1eLg4YHxA8FMR+oPJW6d1HPxCd9qsgpj+mPTXIQXrWUH11XLr
+	 uBF2iw2+CsSMlFefoYNh3oQd58rESko2tYAeAszs=
+Subject: FAILED: patch "[PATCH] NFSD: stop registering with rpcbind after a failure in" failed to apply to 7.3-stable tree
+To: jlayton@kernel.org,cel@kernel.org,okorniev@redhat.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 13:54:23 -0500
+Message-ID: <2026110423-herself-payroll-200f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,164 +51,144 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-commit e6b9117076fb4c0ff4a670efa9c876d9a50d79ab upstream.
 
-Adapt ovl_getxattr_value() to be used from ovl_copy_xattr(), by
-allowing to pass it a pre-allocated buffer, which can be resized
-and by handling the ENODATA/EOPNOTSUPP return codes in the caller.
+The patch below does not apply to the 7.3-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-This replaces the retry loop in ovl_copy_xattr() with a single retry
-after resizing the buffer. If the value changed again by then, the
-underlying layer was modified, so return -EIO instead of retrying.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-As a side effect, ovl_copy_up_meta_inode_data() now returns -EIO instead
-of -ERANGE in this case of underlying xattr size changes.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git checkout FETCH_HEAD
+git cherry-pick -x bf0f3a37e6ccb78ae80cc6eb2edde4f033c7574c
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110423-herself-payroll-200f@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
-Reported-by: Fahad Alharbi <fahad@codepure.com>
-Tested-by: Fahad Alharbi <fahad@codepure.com>
-Suggested-by: Miklos Szeredi <miklos@szeredi.hu>
-Link: https://lore.kernel.org/linux-fsdevel/CAJfpegsVoUyqy0dYkTvBGRZvgdv_nmzmCw_uF+LP-Vq3EhEkSg@mail.gmail.com/
-Fixes: e4ad29fa0d22 ("ovl: use a minimal buffer in ovl_copy_xattr")
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From bf0f3a37e6ccb78ae80cc6eb2edde4f033c7574c Mon Sep 17 00:00:00 2001
+From: Jeff Layton <jlayton@kernel.org>
+Date: Tue, 1 Sep 2026 09:39:48 -0400
+Subject: [PATCH] NFSD: stop registering with rpcbind after a failure in
+ listener_set
+
+nfsd_nl_listener_set_doit() calls svc_xprt_create_from_sa() once for each
+requested listener and passes flags of 0, so every listener registers with
+rpcbind on its own. A rpcbind that accepts the connection and never replies
+therefore costs one timeout for each entry. With the cap of 1024 entries
+the request can hold nfsd_mutex for about 34 minutes, which is roughly 17
+times the hung-task threshold.
+
+One failure is enough to know that the next call will not fare better.
+Read svc_rpcb_failure_count() before the create loop, and pass
+SVC_SOCK_ANONYMOUS for the rest of the request once the count moves.
+
+Fixes: 16a471177496 ("NFSD: add listener-{set,get} netlink command")
 Cc: stable@vger.kernel.org
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
----
-[ backport: context: ovl_must_copy_xattr() instead of ovl_copy_acl(), no
-  blank line before the retry: label and no OVL_VERIFIED_DIGEST;
-  depends on 755b5c5c9277 ("ovl: do not copy up an xattr value that was
-  never read") ]
+Assisted-by: LLM
+Link: https://syzkaller.appspot.com/bug?extid=c7eae0eb80858a2dba0f
+Suggested-by: Olga Kornievskaia <okorniev@redhat.com>
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260901-nfsd-nl-hang-v5-10-a540d86668b0@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
 
- fs/overlayfs/copy_up.c | 68 ++++++++++++++++++++----------------------
- 1 file changed, 32 insertions(+), 36 deletions(-)
-
-diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
---- a/fs/overlayfs/copy_up.c
-+++ b/fs/overlayfs/copy_up.c
-@@ -44,6 +44,9 @@ static bool ovl_must_copy_xattr(const char *name)
- 	       !strncmp(name, XATTR_SECURITY_PREFIX, XATTR_SECURITY_PREFIX_LEN);
- }
+diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
+index 779fd244c771..967c21ff7199 100644
+--- a/fs/nfsd/nfsctl.c
++++ b/fs/nfsd/nfsctl.c
+@@ -2092,7 +2092,10 @@ int nfsd_nl_listener_set_doit(struct sk_buff *skb, struct genl_info *info)
+ 	const struct nlattr *bad_attr = NULL;
+ 	struct svc_xprt *xprt, *tmp;
+ 	const char *bad_xprt = NULL;
++	unsigned int rpcb_failures;
+ 	const struct nlattr *attr;
++	bool skipped_rpcb = false;
++	bool bad_rpcb = false;
+ 	struct svc_serv *serv;
+ 	LIST_HEAD(permsocks);
+ 	struct nfsd_net *nn;
+@@ -2182,13 +2185,16 @@ int nfsd_nl_listener_set_doit(struct sk_buff *skb, struct genl_info *info)
+ 	if (delete)
+ 		svc_xprt_destroy_all(serv, net, false);
  
-+static ssize_t ovl_getxattr_value(const struct path *path, char *name,
-+				  char **value, ssize_t *value_size);
++	rpcb_failures = svc_rpcb_failure_count(serv);
 +
- int ovl_copy_xattr(struct super_block *sb, const struct path *oldpath, struct dentry *new)
- {
- 	struct dentry *old = oldpath->dentry;
-@@ -93,34 +96,12 @@ int ovl_copy_xattr(struct super_block *sb, const struct path *oldpath, struct de
- 			error = 0;
- 			continue; /* Discard */
- 		}
--retry:
--		size = ovl_do_getxattr(oldpath, name, value, value_size);
--		if (size == -ERANGE) {
--			size = ovl_do_getxattr(oldpath, name, NULL, 0);
--			/* Nothing was read into value, so it must not be used */
--			if (size >= 0 && size <= value_size)
--				size = -EIO;
--		}
--
-+		size = ovl_getxattr_value(oldpath, name, &value, &value_size);
- 		if (size < 0) {
- 			error = size;
- 			break;
+ 	/* walk list of addrs again, open any that still don't exist */
+ 	nlmsg_for_each_attr_type(attr, NFSD_A_SERVER_SOCK_ADDR, info->nlhdr,
+ 				 GENL_HDRLEN, rem) {
+ 		struct nlattr *tb[NFSD_A_SOCK_MAX + 1];
+ 		const char *xcl_name;
+ 		struct sockaddr *sa;
+-		int ret;
++		bool hit_rpcb;
++		int flags, ret;
+ 
+ 		/* validated up front in nfsd_nl_validate_listeners() */
+ 		if (nla_parse_nested(tb, NFSD_A_SOCK_MAX, attr,
+@@ -2207,12 +2213,27 @@ int nfsd_nl_listener_set_doit(struct sk_buff *skb, struct genl_info *info)
+ 			continue;
  		}
  
--		if (size > value_size) {
--			void *new;
--
--			new = kvmalloc(size, GFP_KERNEL);
--			if (!new) {
--				error = -ENOMEM;
--				break;
--			}
--			kvfree(value);
--			value = new;
--			value_size = size;
--			goto retry;
--		}
--
- 		error = ovl_do_setxattr(OVL_FS(sb), new, name, value, size, 0);
- 		if (error) {
- 			if (error != -EOPNOTSUPP || ovl_must_copy_xattr(name))
-@@ -896,26 +877,39 @@ static bool ovl_need_meta_copy_up(struct dentry *dentry, umode_t mode,
- 	return true;
- }
- 
--static ssize_t ovl_getxattr_value(const struct path *path, char *name, char **value)
-+static ssize_t ovl_getxattr_value(const struct path *path, char *name,
-+				  char **value, ssize_t *value_size)
- {
- 	ssize_t res;
- 	char *buf;
- 
--	res = ovl_do_getxattr(path, name, NULL, 0);
--	if (res == -ENODATA || res == -EOPNOTSUPP)
--		res = 0;
-+	res = ovl_do_getxattr(path, name, *value, *value_size);
-+	if (res == -ERANGE) {
-+		res = ovl_do_getxattr(path, name, NULL, 0);
-+		/* Xattr changed underneath us? */
-+		if (res >= 0 && res <= *value_size)
-+			return -EIO;
-+	}
- 
--	if (res > 0) {
--		buf = kzalloc(res, GFP_KERNEL);
-+	if (res > *value_size) {
-+		buf = kvmalloc(res, GFP_KERNEL);
- 		if (!buf)
- 			return -ENOMEM;
- 
- 		res = ovl_do_getxattr(path, name, buf, res);
--		if (res < 0)
--			kfree(buf);
--		else
--			*value = buf;
-+		if (res < 0) {
-+			kvfree(buf);
-+			/* Xattr changed underneath us? */
-+			if (res == -ERANGE)
-+				return -EIO;
-+			return res;
+-		ret = svc_xprt_create_from_sa(serv, xcl_name, net, sa, 0,
++		flags = skipped_rpcb ? SVC_SOCK_ANONYMOUS : 0;
++		ret = svc_xprt_create_from_sa(serv, xcl_name, net, sa, flags,
+ 					      current_cred());
++
++		hit_rpcb = false;
++		if (!skipped_rpcb &&
++		    svc_rpcb_failure_count(serv) != rpcb_failures) {
++			skipped_rpcb = true;
++			hit_rpcb = true;
++			if (ret < 0)
++				ret = svc_xprt_create_from_sa(serv, xcl_name,
++							      net, sa,
++							      SVC_SOCK_ANONYMOUS,
++							      current_cred());
 +		}
 +
-+		kvfree(*value);
-+		*value = buf;
-+		*value_size = res;
+ 		/* always save the latest error */
+ 		if (ret < 0) {
+ 			bad_attr = attr;
+ 			bad_xprt = xcl_name;
++			bad_rpcb = hit_rpcb;
+ 			err = ret;
+ 		}
  	}
-+
- 	return res;
- }
- 
-@@ -926,7 +920,7 @@ static int ovl_copy_up_meta_inode_data(struct ovl_copy_up_ctx *c)
- 	struct path upperpath;
- 	int err;
- 	char *capability = NULL;
--	ssize_t cap_size;
-+	ssize_t cap_size = 0;
- 
- 	ovl_path_upper(c->dentry, &upperpath);
- 	if (WARN_ON(upperpath.dentry == NULL))
-@@ -934,7 +928,9 @@ static int ovl_copy_up_meta_inode_data(struct ovl_copy_up_ctx *c)
- 
- 	if (c->stat.size) {
- 		err = cap_size = ovl_getxattr_value(&upperpath, XATTR_NAME_CAPS,
--						    &capability);
-+						    &capability, &cap_size);
-+		if (cap_size == -ENODATA || cap_size == -EOPNOTSUPP)
-+			cap_size = 0;
- 		if (cap_size < 0)
- 			goto out;
+@@ -2224,8 +2245,21 @@ int nfsd_nl_listener_set_doit(struct sk_buff *skb, struct genl_info *info)
+ 	 */
+ 	if (err) {
+ 		NL_SET_BAD_ATTR(info->extack, bad_attr);
+-		NL_SET_ERR_MSG_FMT(info->extack, "cannot create %s listener",
+-				   bad_xprt);
++		if (bad_rpcb)
++			NL_SET_ERR_MSG_FMT(info->extack,
++					   "cannot create %s listener; rpcbind did not answer",
++					   bad_xprt);
++		else if (skipped_rpcb)
++			NL_SET_ERR_MSG_FMT(info->extack,
++					   "cannot create %s listener; rpcbind did not answer earlier, so some listeners are not registered",
++					   bad_xprt);
++		else
++			NL_SET_ERR_MSG_FMT(info->extack,
++					   "cannot create %s listener",
++					   bad_xprt);
++	} else if (skipped_rpcb) {
++		NL_SET_ERR_MSG(info->extack,
++			       "rpcbind did not answer, some listeners are not registered");
  	}
-@@ -961,7 +957,7 @@ static int ovl_copy_up_meta_inode_data(struct ovl_copy_up_ctx *c)
  
- 	ovl_set_upperdata(d_inode(c->dentry));
- out_free:
--	kfree(capability);
-+	kvfree(capability);
- out:
- 	return err;
- }
--- 
-backport
+ 	if (!serv->sv_nrthreads && list_empty(&nn->nfsd_serv->sv_permsocks))
+
