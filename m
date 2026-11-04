@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793784177;
-	b=wH4x6vsQq8QgGS4sLxfde1PF7rI+j757Aea1noZpsSXifZrSeyK0OEUMNg6fAu1J2E4D
-	 3jH3SR+nysJfErMgKtophqPmGhstD2b8XcR8NYvHXpv//2RXr3JRUjfOmrK7RUKiGzewt
-	 JOruGMepk+12X/S5LTqRJFwTYJWK/i4b9DgK17CsTR++bHMYFoVQnMeR9yL6YQrLxj6om
-	 p+dEYx0nzWiKo8kLRAA2z8gKieZ/f/YvepyvJcLNCLAuoAKjg/cv5tziVUNLK8g5112IY
-	 aKwDNdV0gpBwaVvbcE/bLcYXNl3vYhpUu6z2qZ8h6QjpqQw94Xe9X15OV5SNJDS0zNQ==
+	t=1793784189;
+	b=JurCIfKbBewwkIX+U88WJxcusXld//p7KL6OGgrndMlx/Cfpjew4eGmHoZEuLhUc8aOC
+	 0DbhXCXSO2vyuJIzId0HCofyEeXRl5TSUri/FCgsOA4D4xXd0O0/7O1Z+dye/oiNv4w+u
+	 wyHZhSPLmxnLRFnI1j16QAdDQnxrcrg0SbrcJoL6EZ9azMrQexmBSY5n/B9oThdBZSxZz
+	 MbOLqv3h0eFsw6H6MRdxXBDseY6jkz3h23FCvw0y2wKYYoe+FkXO0Lj+43Gx3fXE5moJ7
+	 Ik3J355yyukuIp0s93/d1PuZtfcaf35LWgczMJK/CLlbhVx4sjX3jZj2ZPlME/mdy7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784177;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793784189;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=XyxQL7N3jJ1+AgX+vuqyEXAXQ6bEZTTPu9AIW39S+SA=;
-	b=h0p52qBkvIRtOsnLbYSzWsH1RUm2AWO/9Xjpbk9cRHK5qMdlXjaywCErQf3qILd+YN05
-	 TpfSF2wd7RpsMbXZUrSZcqC6K7YP0tsoDfizHj5J/gUWwIE/7s5QGnBxP3nNJnCir71MJ
-	 as22a4PWZRvAZMFQrI966g8HWGP8YJP5pkoIYV9jE0ZSf6HrXbe/JHaALnqjAT5M7N8/A
-	 ppJMERgL0vH/Gph4MlU7HHIdpEbc9MBZ4OIWCtXu75KeRahWee6qkoEn1/XHVB+DYyfun
-	 WIIP9kSqDpLyBOrbOeiQccsaRx1VD55xI+dkr7Ab+uky2Xxe/lRroWdHAWW8fhUZRxg==
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=bmXVSSlN45L+rv4ubBxKKCnM10XnTPIhgH058pVIBqk=;
+	b=U5Y7kdDcsqxYbXSteOmXftDq7mfkAfWiCtVYUWvr+g6KjjlG3z6qovtGvxeZD06aBn2o
+	 QImsbKWWxmV6+uGDJPFO9xue7Dri83vjL3rBir1+nWfK8reYW/kagGAhz7NmZjt6fiBDU
+	 C7pehPh1ObARsKXBR9oyA3weudoq4qh9h/Mhpx2cjNIW/yatz3wccBkDrNB5PYfu6bjbA
+	 cHkxTPxqDAwt9+ZZo0wXTYr41Cweq3J8mNvwiMx5i332zfgitJ31YbRrqFIJFs2Yf9RMb
+	 gtt2XGxxvGTHHozFj8NsYEgZuK8PqOsVEcV9TV2lUv+TMZ0ghQL4e91LORGHRNj3vCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=paNFTQjM;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 732FA606A31B;
-	Wed,  4 Nov 2026 09:22:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 732FA606A31B
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Yuo2h5l8;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 698AB606A32E;
+	Wed,  4 Nov 2026 09:23:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 698AB606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=paNFTQjM
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Yuo2h5l8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=paNFTQjM8M3uck52rWaW+viXtG/Lh6l03F2y4sXG99km1CIN10GXx1rARn58l/w4AW4Psv3vqMOzx
-	 1+h2o2iSZMQp3M6e98z7fMoVZdboHNxHV3mYDQ2q1IhltMefhnxFY6An27bTYvN0deXb8jDoexcC3n
-	 4v1k9Dyn1eEUu4U0=
+	b=Yuo2h5l87UV4o0gWUa4o4VALrLc2KJegur7qOWc388cIJSMKpjFWL5lxnL+0VXf3JWNG5dqOQPsbB
+	 jWY8eVH1YouWxbIGPD9RMwFiNshML03+1XazcuXhLWjjGMMDTHNiY8FMzR5blCS7CpCEe7OYuPIPSY
+	 JU7RXOmrOnVkLqBk=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16aeaf96e3b3-7848b;
-	Wed, 04 Nov 2026 17:22:54 +0800 (CST)
-X-RM-TRANSID:2ee16aeaf96e3b3-7848b
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66aeaf97ab15-6931f;
+	Wed, 04 Nov 2026 17:23:06 +0800 (CST)
+X-RM-TRANSID:2ee66aeaf97ab15-6931f
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from localhost.localdomain (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6aeaf96b915-c8a78;
-	Wed, 04 Nov 2026 17:22:54 +0800 (CST)
-X-RM-TRANSID:2eea6aeaf96b915-c8a78
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86aeaf9799c5-1cd8e;
+	Wed, 04 Nov 2026 17:23:06 +0800 (CST)
+X-RM-TRANSID:2ee86aeaf9799c5-1cd8e
 From: Xia Yan <yanxia@cmss.chinamobile.com>
 To: netdev@vger.kernel.org
 Cc: dsahern@kernel.org,
@@ -66,10 +66,12 @@ Cc: dsahern@kernel.org,
 	shuah@kernel.org,
 	linux-kselftest@vger.kernel.org,
 	willemb@google.com
-Subject: [PATCH net v2 1/2] ipv6: fix cached route reuse for SO_MARK control messages
-Date: Wed,  4 Nov 2026 17:22:40 +0800
-Message-ID: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
+Subject: [PATCH net v2 2/2] selftests: net: exercise SO_MARK on connected sockets
+Date: Wed,  4 Nov 2026 17:22:53 +0800
+Message-ID: <20261104092252.15712-1-yanxia@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
+References: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,112 +84,127 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-A connected IPv6 UDP or ping socket can reuse a route selected for the
-socket mark when an SO_MARK control message supplies a different mark. A
-packet can then bypass a prohibit rule for its per-message mark instead
-of failing with EACCES.
+cmsg_so_mark.sh sends to an explicit destination without connecting the
+socket, so it does not exercise the route cached by connect(). This left
+the IPv6 SO_MARK cache bug uncovered.
 
-ip6_sk_dst_lookup_flow() consults the socket dst cache even when
-connected is false. That argument only controls whether a new route is
-cached. The cache check does not compare the mark used for the lookup.
+Add a cmsg_sender option to connect before sending and omit msg_name in
+that mode. Keep the existing cases and add connected IPv4 and IPv6 UDP,
+ping and raw sends with a per-message mark equal to the socket mark,
+prohibited by a policy rule, or explicitly zero.
 
-Record whether SO_MARK was supplied by the control messages, including
-an explicit zero. For UDP and ping sends with that flag, call
-ip6_dst_lookup_flow() directly. Keep the cache handling for sends
-without SO_MARK unchanged.
+On UML, the added IPv6 UDP and ping cases with the prohibited mark fail
+before the kernel fix. With the fix, all 54 cases pass.
 
-The concurrent SO_MARK case was identified in the review of v1.
-
-The issue was reproduced on UML with connected sockets and mark-based
-routing. A separate test kernel paused the sender after it acquired a
-cached dst reference; another thread then changed the socket mark to the
-per-message mark. The old code still sent the packet. The fix bypasses
-that cache path and returns EACCES. The 50 UDP/ping route checks and all
-54 cmsg_so_mark.sh cases pass with the fix.
-
-Fixes: c6af0c227a22 ("ip: support SO_MARK cmsg")
-Cc: stable@vger.kernel.org
 Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
 ---
 v2:
-  - Replace the current sk_mark comparison with a flag recording whether
-    SO_MARK was supplied, and bypass the cache for those UDP/ping sends.
-  - Add connected-socket regression coverage in patch 2.
+  - New patch; add 18 connected-socket cases alongside the existing 36.
 
-v1: https://lore.kernel.org/netdev/20261030141435.779302-1-yanxia@cmss.chinamobile.com/T/
-Review: https://lore.kernel.org/netdev/179371875338.488856.4546363285391899557@kernel.org/
+The test gap was noted during automated review of v1:
+https://lore.kernel.org/netdev/179371875338.488856.4546363285391899557@kernel.org/
 
-Tested on net cb284914e749388eef402938bdb3115fe1f6d337 with GCC 12.3.1:
-  - UML normal: baseline 41/50, v1 and v2 50/50; the same extended
-    cmsg_so_mark.sh has 2/54 failures on baseline and passes on v1/v2.
-  - Test-only pause: baseline/v1 retain the old cached dst and send after
-    the socket mark changes; v2 skips the cache helper and gets EACCES.
-  - x86_64 W=1: full vmlinux, bzImage and modules builds pass on baseline
-    and v2 using configs derived from allmodconfig and allyesconfig.
-    WERROR, KASAN and KCSAN are disabled; KUNIT_ALL_TESTS is also disabled
-    for allyesconfig. The unmodified configs fail on the same existing
-    GCC 12.3.1 Werror diagnostics on both sides. Derived-build diagnostics
-    are identical on both sides, including their occurrence counts.
+Tested the same selftest on baseline, v1 and v2 UML kernels: baseline
+fails 2/54 cases; v1/v2 pass all 54. Both versions of cmsg_sender build
+with GCC 12.3.1. ShellCheck 0.11.0 reports the same 13 existing SC2086
+diagnostics before and after the change.
 
+ tools/testing/selftests/net/cmsg_sender.c   | 21 ++++++++++++++++++---
+ tools/testing/selftests/net/cmsg_so_mark.sh | 16 ++++++++++++++++
+ 2 files changed, 34 insertions(+), 3 deletions(-)
 
- include/net/ipv6.h  | 1 +
- net/ipv6/datagram.c | 2 ++
- net/ipv6/ping.c     | 5 ++++-
- net/ipv6/udp.c      | 5 ++++-
- 4 files changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/include/net/ipv6.h b/include/net/ipv6.h
---- a/include/net/ipv6.h
-+++ b/include/net/ipv6.h
-@@ -353,6 +353,7 @@
- 	__s16 tclass;
- 	__u16 gso_size;
- 	__s8  dontfrag;
-+	bool mark_set;
- 	struct ipv6_txoptions *opt;
+diff --git a/tools/testing/selftests/net/cmsg_sender.c b/tools/testing/selftests/net/cmsg_sender.c
+--- a/tools/testing/selftests/net/cmsg_sender.c
++++ b/tools/testing/selftests/net/cmsg_sender.c
+@@ -34,6 +34,7 @@
+ 	ERN_CMSG_RD,
+ 	ERN_CMSG_RCV,
+ 	ERN_SEND_MORE,
++	ERN_CONNECT,
  };
  
-diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
---- a/net/ipv6/datagram.c
-+++ b/net/ipv6/datagram.c
-@@ -819,6 +819,8 @@
- 			err = __sock_cmsg_send(sk, cmsg, &ipc6->sockc);
- 			if (err)
- 				return err;
-+			if (cmsg->cmsg_type == SO_MARK)
-+				ipc6->mark_set = true;
- 			continue;
- 		}
+ struct option_cmsg_u32 {
+@@ -48,6 +49,7 @@
+ 	unsigned int size;
+ 	unsigned int num_pkt;
+ 	bool msg_more;
++	bool connected;
+ 	struct {
+ 		unsigned int mark;
+ 		unsigned int dontfrag;
+@@ -93,6 +95,7 @@
+ 	printf("Usage: %s [opts] <dst host> <dst port / service>\n", bin);
+ 	printf("Options:\n"
+ 	       "\t\t-s      Silent send() failures\n"
++	       "\t\t-k      Connect before sending\n"
+ 	       "\t\t-S      send() size\n"
+ 	       "\t\t-4/-6   Force IPv4 / IPv6 only\n"
+ 	       "\t\t-p prot Socket protocol\n"
+@@ -121,8 +124,12 @@
+ {
+ 	int o;
  
-diff --git a/net/ipv6/udp.c b/net/ipv6/udp.c
---- a/net/ipv6/udp.c
-+++ b/net/ipv6/udp.c
-@@ -1693,7 +1693,10 @@
+-	while ((o = getopt(argc, argv, "46sS:p:P:m:M:n:d:tf:F:c:C:l:L:H:Q:")) != -1) {
++	while ((o = getopt(argc, argv,
++			   "46ksS:p:P:m:M:n:d:tf:F:c:C:l:L:H:Q:")) != -1) {
+ 		switch (o) {
++		case 'k':
++			opt.connected = true;
++			break;
+ 		case 's':
+ 			opt.silent_send = true;
+ 			break;
+@@ -521,6 +528,12 @@
  
- 	fl6->flowlabel = ip6_make_flowinfo(ipc6.tclass, fl6->flowlabel);
+ 	ca_set_sockopts(fd);
  
--	dst = ip6_sk_dst_lookup_flow(sk, fl6, final_p, connected);
-+	if (ipc6.mark_set)
-+		dst = ip6_dst_lookup_flow(sock_net(sk), sk, fl6, final_p);
-+	else
-+		dst = ip6_sk_dst_lookup_flow(sk, fl6, final_p, connected);
- 	if (IS_ERR(dst)) {
- 		err = PTR_ERR(dst);
- 		dst = NULL;
-diff --git a/net/ipv6/ping.c b/net/ipv6/ping.c
---- a/net/ipv6/ping.c
-+++ b/net/ipv6/ping.c
-@@ -148,7 +148,10 @@
++	if (opt.connected && connect(fd, ai->ai_addr, ai->ai_addrlen)) {
++		fprintf(stderr, "Can't connect socket: %s\n", strerror(errno));
++		err = ERN_CONNECT;
++		goto err_out;
++	}
++
+ 	if (clock_gettime(CLOCK_REALTIME, &time_start_real))
+ 		error(ERN_GETTIME, errno, "gettime REALTIME");
+ 	if (clock_gettime(CLOCK_MONOTONIC, &time_start_mono))
+@@ -530,8 +543,10 @@
+ 	iov[0].iov_len = opt.size;
  
- 	fl6.flowlabel = ip6_make_flowinfo(ipc6.tclass, fl6.flowlabel);
+ 	memset(&msg, 0, sizeof(msg));
+-	msg.msg_name = ai->ai_addr;
+-	msg.msg_namelen = ai->ai_addrlen;
++	if (!opt.connected) {
++		msg.msg_name = ai->ai_addr;
++		msg.msg_namelen = ai->ai_addrlen;
++	}
+ 	msg.msg_iov = iov;
+ 	msg.msg_iovlen = 1;
  
--	dst = ip6_sk_dst_lookup_flow(sk, &fl6, daddr, false);
-+	if (ipc6.mark_set)
-+		dst = ip6_dst_lookup_flow(sock_net(sk), sk, &fl6, daddr);
-+	else
-+		dst = ip6_sk_dst_lookup_flow(sk, &fl6, daddr, false);
- 	if (IS_ERR(dst))
- 		return PTR_ERR(dst);
- 	rt = dst_rt6_info(dst);
+diff --git a/tools/testing/selftests/net/cmsg_so_mark.sh b/tools/testing/selftests/net/cmsg_so_mark.sh
+--- a/tools/testing/selftests/net/cmsg_so_mark.sh
++++ b/tools/testing/selftests/net/cmsg_so_mark.sh
+@@ -68,6 +68,22 @@
+     done
+ done
+ 
++# Check per-message marks after connect() has populated the route cache.
++for i in 4 6; do
++    [ "$i" = 4 ] && TGT=$TGT4 || TGT=$TGT6
++
++    for p in u i r; do
++	for mark in "$((MARK + 1))" "$MARK" 0; do
++	    expected=0
++	    [ "$mark" -eq "$MARK" ] && expected=1
++
++	    ip netns exec "$NS" ./cmsg_sender -"$i" -p "$p" -k \
++		-M "$((MARK + 1))" -m "$mark" -s "$TGT" 1234
++	    check_result "$?" "$expected" "IPv$i $p connected mark $mark"
++	done
++    done
++done
++
+ # Summary
+ if [ $BAD -ne 0 ]; then
+     echo "FAIL - $BAD/$TOTAL cases failed"
 
 
