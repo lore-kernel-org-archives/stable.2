@@ -1,56 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793824313;
-	b=F6x32pyK75e6aRoVUJqio7Klc+WbdM2waCzO9v6TxGAZEumTP9R1Vb4glECDNkZnhxxA
-	 GZhk/uB5mumBapQCVBZcwvW9HaymIkZGx2DSvQ4LlvjMLj+/LdHpObBEUx0wWZYHOp/S9
-	 FfYKJL6F/DgZZoIdHtPXIYn0QYHIW9B+NZcaqWRExO/gl9911zBVWmv6UmM0aMmpBJTak
-	 SWDfNHgFsffv4N5VOqDVbfYMm260gSxKpKsXxB+YHSsrZdkv+7STGYdp337W/YtE88Wxu
-	 C8fFAZajVk19kRY2NYL9HMokKUQnaJp/Sj6/I/54T0bkpP4i2sFvuNMDQAjuEZpMlNA==
+	t=1793824575;
+	b=vZEvyZ6ZrrQpZGVW3BZowYUdr26iMoAa2g6/jUF/GJnTb9Zt+Tpa2yZSfFCbhGhvCJL/
+	 Abw0VI/mGVBhPstdBR4C8kJe+zVmXdC+qLdH3hWbIkAw3+6q3c39jjS1Hvbjmzv+G3+vv
+	 y4uIdEZE3wmoyqoksF7yBN/rzmTOWmzp2Azc8vH1gQ1AJUcnMgupQqaIYm7ywI2N7b79x
+	 vAin8fUISAxICHiaqQL/qz4ElJ1xX+k2iWCI0C54nXV/JqN9ySGPPWiQtM1RlG1GdKXgw
+	 LDls0r3I5vK8vfJTw4e1mO9DhK6nfel7dyFhVrSVySsu7qqahjbisFC8f04SULgxXBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793824313;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=EC0TjKzAX572QqvqWa+fnOyUGOVVYWeF17T5HQbHbD8=;
-	b=iimSpYPUyjl4GsKmcxJ81+hZmWW+NUBNYu5dn2apuEXsrGRP2+eT5eD2BxNE6JqdMIWh
-	 m25i+8vfxmm9rfxHiYrbwoJp8Pump6iYD/WEmnmsf8/33sVzMQ+XhP7ZuvQz3sZ31i3cH
-	 JlGSK51YePWSsvIhG1Qzmdmqf389UHCeVtVmvQXtrav2OWdjy+0Lmzz4JNmCiBaR4XhJe
-	 dLgo8+uss87TDixFQDcNlPeGjPsmg1fwxL2haXpVLD90KWZoEzPIeTkk/F3UgZWStPNqx
-	 9MDIeabqTab1L4/IQgrTrdWpQSyUVFPBK4aO5BxugAHhfz0ZzwpLxQG1pP3hrLVLMGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793824575;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:From:To:Cc:Subject:References:In-Reply-To;
+	bh=VwPEOH6TnC9eq0kvN9U5QGgPY1fvhRUkSYpizPQPnRc=;
+	b=W0k0IQ6qSrdx2DN8jJHVp5rMarrCXb4Av2DtYoJPEK3nqGN+EDYzK6qQGrgPBDokksQj
+	 RBUmnfjG/7Jy1TXeiMGj1yOh92xTWdBUCfLFW0Z6iWvAUhGeZO1GimJ1VorbUGRFQFWCr
+	 eSJMeeScymIAKUP61ROn/3pBalNv/fKBI3y2X6wNSlyOz3F4yP7ib8Lailm5/KZWGhpP/
+	 eh7m80WrSckECILMbcjvYOHFn8e4wZEq91cUbVSChP2a8DWvi18mJ7WgHX2CG8WYmNy0r
+	 9M3rJUVN2xuztGNgAMCiH32YHjC5NQsgbiJ1U3OWnVlduSrLZ/uUWxANwpwKjRiMd1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lXsQXi1d;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=paul-moore.com;
+	spf=pass smtp.mailfrom=paul-moore.com;
+	dkim=pass header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=awiKX9MW;
+	arc=none smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F117606AB15
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 20:31:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E1F6075267
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 20:36:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6E1F6075267
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lXsQXi1d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4521F000C1;
-	Wed,  4 Nov 2026 20:31:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793824312;
-	bh=EC0TjKzAX572QqvqWa+fnOyUGOVVYWeF17T5HQbHbD8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lXsQXi1dnswZVglXdLd3Mcvm0+GHaVFQqjxRT5HSRTPwZ4zz0qVZabZRx90wt8TO4
-	 LZ5p+Tq+/5my5HexL13fmj2L43JfJPB1oOAbO7EymCDNZKJ9kl8U6QvCVOOYzhGqEb
-	 qPRSW4Lgv2XEigcToD5BRruWSgu78Z0SUB9GBK1YaSAbATrXndKwjEz2H5Cvc2yIKF
-	 b1vfaS6pNqviepLcWOkZvaMS+IZmwSNaMwyjd0BK8N88TTjEYfWcd9WvP7M/6/Ayi/
-	 9pfgHuFuDISw/eoFYAOtL4urlr2YcstKBDleKNC00p2hkRZ4FxhrkaX/l5aswIYz6P
-	 lTQpW//Ufnllw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Lee Jones <lee@kernel.org>,
-	Ping Cheng <ping.cheng@wacom.com>,
-	Jiri Kosina <jkosina@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] HID: wacom: Redesign shared sibling data lifecycle
-Date: Wed,  4 Nov 2026 15:31:51 -0500
-Message-ID: <20261104203129.334404-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110412-blanching-tweed-1612@gregkh>
-References: <2026110412-blanching-tweed-1612@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=awiKX9MW
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-53cd0c8614eso7475091cf.0
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 12:36:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1793824574; x=1794429374; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VwPEOH6TnC9eq0kvN9U5QGgPY1fvhRUkSYpizPQPnRc=;
+        b=awiKX9MW+jQ/pdyMQdy5h1Kdt8Ffbv5vW1j2PVua0fdRVCyzRn/omf16XlmjmEm1ZP
+         73LSi8BQEugNpgM5sLZtYBz7MnLwufSsK557NzaoyuzhS/B4FmyVGl3VtGXEoIyky50L
+         9AE+frPji8xMLgNEJ276X4Hyo5FDkpUv2Hn+HkRPxxuULdYHsrAspFJCRM+zZPs771HG
+         J0T0+AyqUejnXm+zJVP8iDGjzjB6fi145gQtY7lAEHXVqWqHEOgd9xWJDbx8gFrJRjDu
+         t7dnNwY6Dmbj5fYjA/wOYbq5jUg/7x1SvaU7U2FOIb4i5lYriTnKXVzGZBS37Nmetr+W
+         7sMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793824574; x=1794429374;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VwPEOH6TnC9eq0kvN9U5QGgPY1fvhRUkSYpizPQPnRc=;
+        b=o4Sjiiqs77cGRZCdQD2lxQUpccY0g/PlaMEizZ9flkV0CtnboHLtVDgSFG7pNZF71h
+         3HhjjqNAS9Ncknj5Y3xNkkufBpJfXGBtPNtuN2xqgKFR40dTGjuf2vbLAeCv8Ebc31rX
+         41D/q4CAkLJiiso9eI6kkW+v0PyZJmWzEJoVt4aBA3cPXvZEqqPIAqiN4MWvz50SpkbP
+         tTLpmvEcy/TMwI+UbMmmmLI2sabtbRpmnpHILUNhCGxKJ8fPq4Tk/wPdMVUMDO+VFain
+         pLYg/R4yRI8570Mt5JcB2gW0GPBw3uXSDKnU2tALgWS+JJaWRV28WO1yfH0uTkRJ660F
+         0F4w==
+X-Forwarded-Encrypted: i=1; AKwUvByuEKgHQhBIPpMwUSb05yTjEx3b8KNcWTeEsc76VpLEs0Mkm7CAI+4rCO8XwRtyjMIA11rLqY4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ostme9yzN5Vsrg90i61HSSU3kXw8booFO/0SdoTjWb5FWr7OI
+	64kg4KdAADsCqN/QDbnCHZQejy38yGpOpnG/yKtRmuaAL0ccaU6Uwz8TyQi+pOCccQ==
+X-Gm-Gg: AYBFou0wD5fRNPoXL6CuUApSzXcA/hSGCyiAm8B78Crs+JZa645Gy5pjjCjC1VgY7XU
+	HiGLCD1/82CknePJnyIgx0w1lyuUMetG5cdjEnQMgNHjIUqR6+oo35vI0ab2/0mAOYAiXJc3lWw
+	cFLMObOLjSGyMDJBtqPda0CLNw9LcOX1Aov5W7g3B6eGt6LZvp1O228o0nkQsCJepj3WuyzhvDy
+	J6cFK9bnQTsbaaDH1aCdulNWmSEkrTeELpzKAOEpulPQ7ToHLHzUUClKkkEQTedFzcuvdiXocwT
+	Jvj4yXfbeE8mt/IMLQh4kfo3w3RXRtsowrOBCjNnVoALROboT0bf9kHGOwW+4aOUcIS9YGw6Gt5
+	pyFpQ4vQ3nNPE6LvDShUZ5cGI1eQ9d/Rql6wKD2MDu259vyWCpM7u9oL45rhXhvFS4Wo4HhSHLD
+	I16ZHU3y9+/sERHIvsDZpZJkg2GhGUVStiapTCEsLqOaZOOjuCzaNvC3L0LK98MgLec+QuRZDxy
+	BX8y6jmU88pe4fsSGRQumfSCEo5dxbKZ6DWnxLHRTRiLm+OwVDcu9W3duQVh4I2oh71bQAaD9WN
+	0BsHxAePumW8gIJbG5jNPfYewc1PpGAlp8u9USbBJ5MMCKt5IlbdQnhL4DpizGmlQZAvc5zcS1A
+	HVlE9EuoyCxJBLQiAxgDs3bbiRpHmQg==
+X-Received: by 2002:ac8:5d46:0:b0:535:9798:3f0c with SMTP id d75a77b69052e-542b6a6d944mr300331831cf.34.1793824573629;
+        Wed, 04 Nov 2026 12:36:13 -0800 (PST)
+Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b10c4dcddsm33431391cf.20.2026.11.04.12.36.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 12:36:12 -0800 (PST)
+Date: Wed, 04 Nov 2026 15:36:12 -0500
+Message-ID: <b446cedf8a7977337389f8cdc1e5acce@paul-moore.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,233 +90,91 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 
+Content-Type: text/plain; charset=UTF-8 
+Content-Transfer-Encoding: 8bit 
+X-Mailer: pstg-pwork:20261103_1853/pstg-lib:20261103_1851/pstg-pwork:20261103_1853
+From: Paul Moore <paul@paul-moore.com>
+To: Bradley Morgan <brads@mainlining.org>, =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>, Eric Paris <eparis@redhat.com>
+Cc: audit@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] audit: fix UAF in kauditd_send_queue()
+References: <20261031211258.1626829-2-Jeremy.Jean@oss.cyber.gouv.fr>
+In-Reply-To: <20261031211258.1626829-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
-From: Lee Jones <lee@kernel.org>
+On Oct 31, 2026 Bradley Morgan <brads@mainlining.org> wrote:
+> 
+> kauditd_send_queue() grabs an extra reference to the skb header before
+> netlink_unicast() since it may need to retry a failed send. If unicast
+> delivery reuses that same header, the receive path stores the
+> destination socket in skb->sk without taking a socket reference.
+> Consequently, after the receiver consumes the skb and closes the
+> socket, the extra reference taken on the skb header makes kauditd
+> release a header whose skb->sk points to freed socket storage.
+> 
+> KASAN reports a UAF as:
+> 
+>   BUG: KASAN: slab-use-after-free in sock_rfree+0x44/0x140
+>   Write of size 4 at addr ffff888004f94140 by task kauditd/31
+> 
+> Clone the header before netlink_unicast(), then use the clone for
+> delivery and keep the original skb only for retries. If cloning fails,
+> handle it as -EAGAIN so the send can be retried.
+> 
+> Fixes: f3d357b09295 ("Audit: save audit_backlog_limit audit messages in case auditd comes back")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+>  kernel/audit.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/kernel/audit.c b/kernel/audit.c
+> index 9412af9144bc..5e739fa606be 100644
+> --- a/kernel/audit.c
+> +++ b/kernel/audit.c
+> @@ -790,6 +790,7 @@ static int kauditd_send_queue(struct sock *sk, u32 portid,
+>  {
+>  	int rc = 0;
+>  	struct sk_buff *skb = NULL;
+> +	struct sk_buff *skb_to_send;
+>  	struct sk_buff *skb_tail;
+>  	unsigned int failed = 0;
+>  
+> @@ -810,9 +811,11 @@ static int kauditd_send_queue(struct sock *sk, u32 portid,
+>  		}
+>  
+>  retry:
+> -		/* grab an extra skb reference in case of error */
+> -		skb_get(skb);
+> -		rc = netlink_unicast(sk, skb, portid, 0);
+> +		/* Keep the original header unowned for retries. */
+> +		skb_to_send = skb_clone(skb, GFP_KERNEL);
 
-[ Upstream commit 480c9cb14ae81f8e112ff83f8778b3d7b9324dc8 ]
+As Bradley pointed out, this appears a little confusing as the existing
+approach of skb_get()+netlink_unicast() should end up doing something
+very similar to what you are proposing due to netlink_unicast() calling
+into netlink_trim() which in this case should always end up doing a
+skb_clone().  I'm sure I'm missing something, can you help me understand
+why this proposed patch is different and solves the problem?
 
-The Wacom driver coordinates state between sibling interfaces of
-the same physical device using a shared structure 'wacom_shared'
-inside 'wacom_hdev_data'.  The driver kept a volatile representative
-pointer 'data->dev' pointing to a sibling 'hid_device' for physical
-path comparisons during sibling matching.
+Also, do you have a reproducer for this?
 
-This pointer management is fragile.  When the representative device
-is disconnected, wacom_remove_shared_data() failed to clear/update
-'data->dev', leading to a Use-After-Free vulnerability when
-subsequent sibling probes dereference the dangling 'data->dev'
-pointer.
+> +		/* Preserve the connection on a temporary allocation failure. */
+> +		rc = skb_to_send ?
+> +			netlink_unicast(sk, skb_to_send, portid, 0) : -EAGAIN;
+>  		if (rc < 0) {
+>  			/* send failed - try a few times unless fatal error */
+>  			if (++failed >= retry_limit ||
+> @@ -827,7 +830,7 @@ retry:
+>  			} else
+>  				goto retry;
+>  		} else {
+> -			/* skb sent - drop the extra reference and continue */
+> +			/* skb sent - consume the original and continue */
+>  			consume_skb(skb);
+>  			failed = 0;
+>  		}
+> -- 
+> 2.47.3
 
-Resolve this issue by redesigning the sibling data lifecycle:
-
- - Eliminate the volatile 'data->dev' representative pointer
-   completely
- - Redesign 'wacom_hdev_data' to store stable static copies of the
-   required attributes upon first allocation: 'phys' path string,
-   'vendor', 'product' IDs and the sibling's 'device_type'
- - Use these static attributes for stable sibling matching in
-   wacom_are_sibling() and wacom_get_hdev_data()
-
-This ensures sibling matching remains safe and stable even if
-individual siblings are dynamically added or removed.
-
-To secure the lifecycle against concurrent probe/disconnect races:
-
- - Switch kref_put() to kref_put_mutex() in
-   wacom_remove_shared_data() to serialize refcount drops with list
-   traversal and lookup
- - Modify wacom_release_shared_data() to assume the list lock is
-   already held
-
-Also, do not accumulate the 'device_type' capability flag during
-subsequent sibling probes.  Keeping only the first probed sibling's
-device_type exactly preserves the original sibling matching behavior
-without introducing side effects.
-
-Cc: stable@vger.kernel.org
-Fixes: 4492efffffeb ("Input: wacom - share pen info with touch of the same ID")
-Signed-off-by: Lee Jones <lee@kernel.org>
-Acked-by: Ping Cheng <ping.cheng@wacom.com>
-Tested-by: Ping Cheng <ping.cheng@wacom.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[ sashal: Retained direct pointer cleanup in wacom_remove_shared_data() because the existing implementation lacks upstream RCU cleanup. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/hid/wacom_sys.c | 70 +++++++++++++++++++++++++++--------------
- 1 file changed, 46 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
-index b5e6605a83753..9f72b5c3ce95f 100644
---- a/drivers/hid/wacom_sys.c
-+++ b/drivers/hid/wacom_sys.c
-@@ -750,27 +750,47 @@ static void wacom_retrieve_hid_descriptor(struct hid_device *hdev,
- struct wacom_hdev_data {
- 	struct list_head list;
- 	struct kref kref;
--	struct hid_device *dev;
-+	char phys[64];
-+	__u32 vendor;
-+	__u32 product;
-+	__u32 device_type;
- 	struct wacom_shared shared;
- };
- 
-+static bool wacom_compare_device_paths(struct hid_device *hdev_a,
-+				       const char *phys_b, char separator)
-+{
-+	const char *p1 = strrchr(hdev_a->phys, separator);
-+	const char *p2 = strrchr(phys_b, separator);
-+	int n1, n2;
-+
-+	if (!p1 || !p2)
-+		return false;
-+
-+	n1 = p1 - hdev_a->phys;
-+	n2 = p2 - phys_b;
-+
-+	if (n1 != n2 || n1 <= 0 || n2 <= 0)
-+		return false;
-+
-+	return !strncmp(hdev_a->phys, phys_b, n1);
-+}
-+
- static LIST_HEAD(wacom_udev_list);
- static DEFINE_MUTEX(wacom_udev_list_lock);
- 
- static bool wacom_are_sibling(struct hid_device *hdev,
--		struct hid_device *sibling)
-+		struct wacom_hdev_data *data)
- {
- 	struct wacom *wacom = hid_get_drvdata(hdev);
- 	struct wacom_features *features = &wacom->wacom_wac.features;
--	struct wacom *sibling_wacom = hid_get_drvdata(sibling);
--	struct wacom_features *sibling_features = &sibling_wacom->wacom_wac.features;
- 	__u32 oVid = features->oVid ? features->oVid : hdev->vendor;
- 	__u32 oPid = features->oPid ? features->oPid : hdev->product;
- 
- 	/* The defined oVid/oPid must match that of the sibling */
--	if (features->oVid != HID_ANY_ID && sibling->vendor != oVid)
-+	if (features->oVid != HID_ANY_ID && data->vendor != oVid)
- 		return false;
--	if (features->oPid != HID_ANY_ID && sibling->product != oPid)
-+	if (features->oPid != HID_ANY_ID && data->product != oPid)
- 		return false;
- 
- 	/*
-@@ -778,11 +798,11 @@ static bool wacom_are_sibling(struct hid_device *hdev,
- 	 * device path, while those with different VID/PID must share
- 	 * the same physical parent device path.
- 	 */
--	if (hdev->vendor == sibling->vendor && hdev->product == sibling->product) {
--		if (!hid_compare_device_paths(hdev, sibling, '/'))
-+	if (hdev->vendor == data->vendor && hdev->product == data->product) {
-+		if (!wacom_compare_device_paths(hdev, data->phys, '/'))
- 			return false;
- 	} else {
--		if (!hid_compare_device_paths(hdev, sibling, '.'))
-+		if (!wacom_compare_device_paths(hdev, data->phys, '.'))
- 			return false;
- 	}
- 
-@@ -795,7 +815,7 @@ static bool wacom_are_sibling(struct hid_device *hdev,
- 	 * devices.
- 	 */
- 	if ((features->device_type & WACOM_DEVICETYPE_DIRECT) &&
--	    !(sibling_features->device_type & WACOM_DEVICETYPE_DIRECT))
-+	    !(data->device_type & WACOM_DEVICETYPE_DIRECT))
- 		return false;
- 
- 	/*
-@@ -803,17 +823,17 @@ static bool wacom_are_sibling(struct hid_device *hdev,
- 	 * devices.
- 	 */
- 	if (!(features->device_type & WACOM_DEVICETYPE_DIRECT) &&
--	    (sibling_features->device_type & WACOM_DEVICETYPE_DIRECT))
-+	    (data->device_type & WACOM_DEVICETYPE_DIRECT))
- 		return false;
- 
- 	/* Pen devices may only be siblings of touch devices */
- 	if ((features->device_type & WACOM_DEVICETYPE_PEN) &&
--	    !(sibling_features->device_type & WACOM_DEVICETYPE_TOUCH))
-+	    !(data->device_type & WACOM_DEVICETYPE_TOUCH))
- 		return false;
- 
- 	/* Touch devices may only be siblings of pen devices */
- 	if ((features->device_type & WACOM_DEVICETYPE_TOUCH) &&
--	    !(sibling_features->device_type & WACOM_DEVICETYPE_PEN))
-+	    !(data->device_type & WACOM_DEVICETYPE_PEN))
- 		return false;
- 
- 	/*
-@@ -829,7 +849,7 @@ static struct wacom_hdev_data *wacom_get_hdev_data(struct hid_device *hdev)
- 
- 	/* Try to find an already-probed interface from the same device */
- 	list_for_each_entry(data, &wacom_udev_list, list) {
--		if (hid_compare_device_paths(hdev, data->dev, '/')) {
-+		if (wacom_compare_device_paths(hdev, data->phys, '/')) {
- 			kref_get(&data->kref);
- 			return data;
- 		}
-@@ -837,7 +857,7 @@ static struct wacom_hdev_data *wacom_get_hdev_data(struct hid_device *hdev)
- 
- 	/* Fallback to finding devices that appear to be "siblings" */
- 	list_for_each_entry(data, &wacom_udev_list, list) {
--		if (wacom_are_sibling(hdev, data->dev)) {
-+		if (wacom_are_sibling(hdev, data)) {
- 			kref_get(&data->kref);
- 			return data;
- 		}
-@@ -851,29 +871,28 @@ static void wacom_release_shared_data(struct kref *kref)
- 	struct wacom_hdev_data *data =
- 		container_of(kref, struct wacom_hdev_data, kref);
- 
--	mutex_lock(&wacom_udev_list_lock);
- 	list_del(&data->list);
--	mutex_unlock(&wacom_udev_list_lock);
--
- 	kfree(data);
- }
- 
- static void wacom_remove_shared_data(void *res)
- {
--	struct wacom *wacom = res;
-+	struct wacom *res_wacom = res;
- 	struct wacom_hdev_data *data;
--	struct wacom_wac *wacom_wac = &wacom->wacom_wac;
-+	struct wacom_wac *wacom_wac = &res_wacom->wacom_wac;
- 
- 	if (wacom_wac->shared) {
- 		data = container_of(wacom_wac->shared, struct wacom_hdev_data,
- 				    shared);
- 
--		if (wacom_wac->shared->touch == wacom->hdev)
-+		if (wacom_wac->shared->touch == res_wacom->hdev)
- 			wacom_wac->shared->touch = NULL;
--		else if (wacom_wac->shared->pen == wacom->hdev)
-+		else if (wacom_wac->shared->pen == res_wacom->hdev)
- 			wacom_wac->shared->pen = NULL;
- 
--		kref_put(&data->kref, wacom_release_shared_data);
-+		if (kref_put_mutex(&data->kref, wacom_release_shared_data, &wacom_udev_list_lock))
-+			mutex_unlock(&wacom_udev_list_lock);
-+
- 		wacom_wac->shared = NULL;
- 	}
- }
-@@ -896,7 +915,10 @@ static int wacom_add_shared_data(struct hid_device *hdev)
- 		}
- 
- 		kref_init(&data->kref);
--		data->dev = hdev;
-+		strscpy(data->phys, hdev->phys, sizeof(data->phys));
-+		data->vendor = hdev->vendor;
-+		data->product = hdev->product;
-+		data->device_type = wacom_wac->features.device_type;
- 		list_add_tail(&data->list, &wacom_udev_list);
- 	}
- 
--- 
-2.53.0
-
+--
+paul-moore.com
