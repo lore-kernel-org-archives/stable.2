@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819868;
-	b=jDv1jRl3OJy9b/UEk79TMtFadGcdFvUcSqQjpoikIwJf6x4u9bsVZEs5xGaNZjjkHzZ2
-	 QGL6HrXpqJNs0vrVT0AYk1hzr9yVvp8Oda0Umn+QvksoqmkwLFH5zlG5uwW2m4AX5jMTY
-	 tVAvAEP6kkG9XNkQsOXxN/PPzK8u+UM/dLwIzkwueB/LqIty1qdjdvDYNpyPNHK/IKtLC
-	 zQlR0O9gWOyghFyJCPfx8kqJBg4NOPsZkPtuCkvW31JC15XvmtKCh7x+NTEAS0K+M4vOx
-	 ttCf2AUCbR472fXrO7qvh2fQKT9VSS5+53dWxvCQzbzST+IBm0oL168SxB2UKaDxRpw==
+	t=1793819870;
+	b=EavgZcRwtQlPEae9vC4v1zx2mFC5nI20hxYiOl545H7r12r/ifjigRac4/XFZoysiiUu
+	 oenaqEJ5JW4rVHCQQVxROFsZ7NaeNIoeK2WkGVE8z3AuHl8mX6IHRkhklRRw+IAdSTaLD
+	 jGALYQISaC38wvEXFy2kGkTEyO8LxCxOklnCg+Qya1ijBU8fYukj8/Deb9jXIbxwAaR2Z
+	 tk9kCG7z59wnnTUiA6UK6lxZEZEYwKtIBx3cNlewYpxHnoCYB9QGey3saONqZHraBLYGa
+	 +rmBS6j1yLLa6L9uc6NqmihBKQggxqs+5++hIe913p4TnwCD3iVbFHCOO0HpXuA+3Ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819868;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819870;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=dLDXjqWflMAWluzQhZ9qMyFri5XhjDZ5Cf/AuRTJkwA=;
-	b=xvIh1RO4LSRNkpreLlpxUyKsATToTVWpG8Wi6lTi6UOKP5QpF0WNu/m9BcnU4IwOEglE
-	 WBYNJgwikQUU3wJKnsXITrptMbZxMIzy6PDx9e/c60FXJ2AfWtDiLcYyQu0tBNhoGXWCu
-	 SF8/96e8t+E3elD32/XFaA/FFFnhRSY5sDFRZhetDgv93tq9a9NkrDE4n8yFBALxqEqPS
-	 rnzYRLR2Ha/ueIrq+oTSM6iSTqlxrzR94EBuH0xvNo0gQUxog9gKfSGdx/eMBQZy5m0Dx
-	 86J54G8sS3zmsy9rvx+4ATKLnrDQlxQotK3pfv26Md0ouzx7NS9SdzaEJ9TK55kCcbg==
+	bh=8zadNOOGfpnfTtXhLfHyjJhuBzjvVYuzbamBIhB5hRI=;
+	b=fHzymIga0P/2joUFNKEnKyuOLrps8kVaqOJ1wJAE5lPACE75jFDIft3kPh6fPYZQM6Nb
+	 R/fOHg2ijd2PKzo1etS650Mirh1vL8uc2Ma/1f37M+fwcHYz00ZSBAMXzc6WvVpHhs+3L
+	 UdwOFnoz3YCzRUPqbuOS3WV8YX4GpeknsWy5UT5X4mnRe28h8hfDrkA3KN+nnz824SxIX
+	 vzQ6R2kmAOENLNZGH3VcdORXGgX5sIK5c2EEPCz36AHdNe3QsO6DQdYFRDTIeKrv3XPK6
+	 dgsefUw+RGjICt+kq9Uhv4GR29vkqaNx3Ts2rGLlw+pB4e2eA3/tEXV5cZ7yh6bc6AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wUNLELoi;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DKAbrnt4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696C5606D815
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:17:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237D0606D81F
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:17:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wUNLELoi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 003131F00919;
-	Wed,  4 Nov 2026 19:17:47 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DKAbrnt4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 757FE1F00919;
+	Wed,  4 Nov 2026 19:17:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793819868;
-	bh=dLDXjqWflMAWluzQhZ9qMyFri5XhjDZ5Cf/AuRTJkwA=;
+	s=korg; t=1793819869;
+	bh=8zadNOOGfpnfTtXhLfHyjJhuBzjvVYuzbamBIhB5hRI=;
 	h=Subject:To:Cc:From:Date;
-	b=wUNLELoi3XO929n1RtDZldNIXJyFVJzHBhtcBruiRwzETaOvb1HSCYLQHe2edWkVE
-	 OUNqwvXUtGkjsg/KNDQ1puq/LxN+uBzNt/nysrwoRsJpR5ko5xaKHTEr9n5g1EoM07
-	 Vtka4jYpAMB2Ew/BOeDWMIQmWNP5umKUO8P2P5+Y=
-Subject: FAILED: patch "[PATCH] KVM: nSVM: Reject KVM_SET_NESTED_STATE if L1 has EFER.LMA=1" failed to apply to 6.1-stable tree
+	b=DKAbrnt4l/Go10rFlguVSI1Ox4pZxhM4rH7m+00c+aBqPOxunR5dv/2E2Sks2quop
+	 fmwx1pVm5JV6s41/nfuzxm9wpVdtFnsbfas0FnzWVChuw85AievuyFINQVerYmi44p
+	 1mXoxnFhfX3vAKxfuqd6k+wpnFzgA+8dPLlwxoD0=
+Subject: FAILED: patch "[PATCH] KVM: nSVM: Reject KVM_SET_NESTED_STATE if L1 has EFER.LMA=1" failed to apply to 5.10-stable tree
 To: seanjc@google.com,fane@google.com,yosry@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:17:39 -0500
-Message-ID: <2026110438-lining-quintuple-4db4@gregkh>
+Date: Wed, 04 Nov 2026 14:17:40 -0500
+Message-ID: <2026110440-diligence-kimono-b7c6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 5dc500a354cc8e109df678076ae3488094649468
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110438-lining-quintuple-4db4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110440-diligence-kimono-b7c6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
