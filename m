@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803068;
-	b=YC6fljCsG44MA/2+2nZ4m7IE6wY+pFjGcp3d9qnjCW1/xyhlZhvjcT8I6c24MHGfwf0P
-	 cfsk5KUY6hxjQOkFq5xpe16rGMTjI+p/W+y7EX+CXwreyE9QOtqBi6CpSz1m2KXgGr8eM
-	 PmvF0blQ0MxuPhiX1APg3kaJin4Ru+dyrDemCqWOXb4d/n3GkWT2BweFPcaEsIwscwnzW
-	 hHnCgoe7IG5hOxxOrKkNQ6sjtvXNmKBwsOUbxXPuvlOl3zWe5byrvVjRZEcfDr7j/AQnR
-	 OpBNlCXEHVooDz/fCBerIdP0tawS0J+Op7U9v+TZ8FkWbbpnMrF0IxwzvNAzjiYdOOg==
+	t=1793803201;
+	b=N+gdQZ94oovxzOK+XbfV3rhYZUUoTwoHPalDKNPszPedW7MqGwwmq13Tp/ODmxCmA6Ei
+	 tVem81Flw323mWPMyckzurhgOKXY8X5j0T8u+n0++AQaf4H/KaFQ3iT1E9n5K2kSTWWso
+	 ZppLhaRMBD+eM91raa8ZqRDQMD5GCW+4Znp6I7prFrG/zw9cEhEDwwhX2kHm9bWnVbtMJ
+	 U9fyYpOPc3QVLm2cs2v80hPEwKa7zh4Qshi8wx5QoX1lbjk0NNKxNMEELuQ7L1/UEXzyU
+	 79YEZVw1vhVeoJ1UfKK7x5m3kmTvHONOD8nKnboHPlYHjJqfUDLdBia0HZKME1E8JgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803068;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803201;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=S4gAP3sbj6zbJYQhmgqtJQpgAe61JqzniZpgx/xqez0=;
-	b=fXM0Fbcirk6RvTTCK88fdGlhjB4pEipEe2mRGPKH6JzkkgUhJ95O7c5c9i/fYnCmSap8
-	 D4WhtqkIjC/KsHJj16xjGgk4Mt/5kViT3dgcDqwaUR/loOKGtQ3eERDACG16VtlsLQyBU
-	 47X8y+KxZy6+rGyRS/Nyi5z+F/p6zlouGatXuRLb7q3/Q3PbisNk1gjUz4WHIn4A3DG6a
-	 ZVDa0qBxXzJRUdYFJbOtB/YAE14q4BwHs9gH9l5pGO7+udzc1Oo9ig2GmgcJOzt0CJ8cX
-	 82HhU8EX87SIof+MKC2TzVPgLNI4EzkQVdnubJH7Qg34RE93ZmPjRI2fRoRNU5Td0rA==
+	bh=Iv4STDTwjSbcPZ7tdIoiu8WqPht2hfBHjjQiA65MwfE=;
+	b=KqvmFM2Z8JxWBnuXO1A4vMH6KAmMrCXacYtEHHgdrzVmBIUx5vYLQsAqmpETAlMisxuw
+	 5NiKZTmVnSHkcXgRr8QRjgvzz9rUE8I2ZBGMTZ8ta2ztc96mn+OJt9bJh3thvwaptBjph
+	 tcFtVVPytKops0UXF58Ub7qZhfhJ8Sb+AJLqW7NcuaiQ95mprNBMiWtV/u2sRe4Dt54M6
+	 m/4B5MrpNyhejbpqavNre7rowQs2WTONPlFIIfQnBLySTMIh5KpQvp/CKctwv+Uh8vjFq
+	 NjqHtXA9+XTOVpPIsCoYswEh5ZADO0bE38DFoouq7r+7ruXiMZ/QYc1sWXKSYl0bItQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZVDeLRnL;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=twueK7Wv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19117606A32C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:37:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57ED7606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:40:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZVDeLRnL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFF531F0093A;
-	Wed,  4 Nov 2026 14:37:47 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=twueK7Wv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABF291F00919;
+	Wed,  4 Nov 2026 14:40:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793803068;
-	bh=S4gAP3sbj6zbJYQhmgqtJQpgAe61JqzniZpgx/xqez0=;
+	s=korg; t=1793803200;
+	bh=Iv4STDTwjSbcPZ7tdIoiu8WqPht2hfBHjjQiA65MwfE=;
 	h=Subject:To:Cc:From:Date;
-	b=ZVDeLRnLDCySiLMlD2vbmrRcAyiVzlsw7QJJ8EvMdg1cQ5iGuY+OO9dw8KtQiIpcz
-	 r2YP8JV8HOSNrGakPeafkPuD1ZGFkS7rLYUJVymAySHaWX7BFxR8R0NJ0zjg/RlmYu
-	 Kw24ktydsNSA9byhcEkRmnf60BRjyx2eqtPy38pI=
-Subject: FAILED: patch "[PATCH] ovl: skip copy up of empty security.capability" failed to apply to 5.10-stable tree
-To: amir73il@gmail.com,josef@toxicpanda.com
+	b=twueK7WvqhRT5rnh2F21tqt+93I9kHA8zyxAeZBSRnA5TN+0S3wx3QsEpG+ARrBKm
+	 WFE4UXA9ZNJ0QeZvAMCDmjqX5CXJu1RlwpstHHMhoPa8XaO+PPAHseiALkAaRvVHGR
+	 FDA34f1xqSNMWdNjf4EM55WNYPMrPqE2QliDnBqM=
+Subject: FAILED: patch "[PATCH] power: supply: sbs-battery: disable polling before supply" failed to apply to 6.6-stable tree
+To: mhun512@gmail.com,ae878000@gmail.com,sebastian.reichel@collabora.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:37:42 +0100
-Message-ID: <2026110442-disparate-unshaven-1c46@gregkh>
+Date: Wed, 04 Nov 2026 15:39:59 +0100
+Message-ID: <2026110459-old-quarrel-7ee6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 50912a1715b8a7c614b654011a0db750e372b43e
+git cherry-pick -x 5c1c602463d597c5189ddc5a73dece588ba2c57a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110442-disparate-unshaven-1c46@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110459-old-quarrel-7ee6@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,69 +79,65 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 50912a1715b8a7c614b654011a0db750e372b43e Mon Sep 17 00:00:00 2001
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Sun, 18 Oct 2026 11:52:52 +0200
-Subject: [PATCH] ovl: skip copy up of empty security.capability
+From 5c1c602463d597c5189ddc5a73dece588ba2c57a Mon Sep 17 00:00:00 2001
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Sun, 4 Oct 2026 00:10:19 -0400
+Subject: [PATCH] power: supply: sbs-battery: disable polling before supply
+ teardown
 
-ovl_copy_xattr() gives up if it can't read an attribute that
-listxattr() has named.  An empty security.capability, which anybody has
-been able to store on any file for a long time, is such a case: it is
-listed, and getxattr() has nothing to return for it.  A file in a lower
-layer that carries one can't be copied up: it can't be written to,
-renamed or have its mode changed.
+The managed poll-work cancellation is registered before the power
+supply, so cleanup unregisters the supply before draining polling.
+A pending or running poller can then call power_supply_changed() on
+the released supply.
 
-There is nothing to copy if there are no data.  Go on with the next
-one.
+Commit 8d59cf3887fb ("power: supply: sbs-battery: Fix use-after-free in
+power_supply_changed()") moved the IRQ request after supply registration,
+but did not change the poll-work cancellation order.
 
-Fixes: 8db6c34f1dbc ("Introduce v3 namespaced file capabilities")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[amir: treat -EINVAL as no capability too, and do the same in
- ovl_copy_up_meta_inode_data()]
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Add a later managed action that disables and drains polling before
+supply teardown. Its retained disabled state prevents external-power
+callbacks from rearming the poll work after it has been drained.
+Keep the original autocancel to initialize work before supply callbacks
+can run and to cover failed supply registration.
 
-diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
-index 286978d47ef7..0cd76ca5b8d7 100644
---- a/fs/overlayfs/copy_up.c
-+++ b/fs/overlayfs/copy_up.c
-@@ -75,6 +75,15 @@ static int ovl_copy_acl(struct ovl_fs *ofs, const struct path *path,
- static ssize_t ovl_getxattr_value(const struct path *path, char *name,
- 				  char **value, ssize_t *value_size);
+The teardown ordering issue was found by static analysis.
+
+Fixes: 6d0c5de2fd84 ("power: supply: Clean-up few drivers by using managed work init")
+Cc: stable@vger.kernel.org # 6.10+
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20261004041019.1123723-1-mhun512@gmail.com
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+diff --git a/drivers/power/supply/sbs-battery.c b/drivers/power/supply/sbs-battery.c
+index 501c8e069755..6714313bb3a3 100644
+--- a/drivers/power/supply/sbs-battery.c
++++ b/drivers/power/supply/sbs-battery.c
+@@ -1068,6 +1068,13 @@ static void sbs_alert(struct i2c_client *client, enum i2c_alert_protocol prot,
+ 	sbs_supply_changed(i2c_get_clientdata(client));
+ }
  
-+/*
-+ * Any user can store an empty security.capability, which fails to read with
-+ * -EINVAL.  It grants no capability, so treat it as none, like no xattr.
-+ */
-+static bool ovl_no_fscap(ssize_t err)
++static void sbs_disable_work(void *data)
 +{
-+	return err == -ENODATA || err == -EOPNOTSUPP || err == -EINVAL;
++	struct sbs_info *chip = data;
++
++	disable_delayed_work_sync(&chip->work);
 +}
 +
- int ovl_copy_xattr(struct super_block *sb, const struct path *oldpath, struct dentry *new)
+ static void sbs_external_power_changed(struct power_supply *psy)
  {
- 	struct dentry *old = oldpath->dentry;
-@@ -134,6 +143,10 @@ int ovl_copy_xattr(struct super_block *sb, const struct path *oldpath, struct de
+ 	struct sbs_info *chip = power_supply_get_drvdata(psy);
+@@ -1208,6 +1215,10 @@ static int sbs_probe(struct i2c_client *client)
+ 		return dev_err_probe(&client->dev, PTR_ERR(chip->power_supply),
+ 				     "Failed to register power supply\n");
  
- 		size = ovl_getxattr_value(oldpath, name, &value, &value_size);
- 		if (size < 0) {
-+			if (!strcmp(name, XATTR_NAME_CAPS) && ovl_no_fscap(size)) {
-+				error = 0;
-+				continue;
-+			}
- 			error = size;
- 			break;
- 		}
-@@ -1099,9 +1112,9 @@ static int ovl_copy_up_meta_inode_data(struct ovl_copy_up_ctx *c)
- 	if (c->stat.size) {
- 		err = cap_size = ovl_getxattr_value(&upperpath, XATTR_NAME_CAPS,
- 						    &capability, &cap_size);
--		if (cap_size == -ENODATA || cap_size == -EOPNOTSUPP)
-+		if (ovl_no_fscap(cap_size))
- 			cap_size = 0;
--		if (cap_size < 0)
-+		else if (cap_size < 0)
- 			goto out;
- 	}
++	rc = devm_add_action_or_reset(&client->dev, sbs_disable_work, chip);
++	if (rc)
++		return rc;
++
+ 	if (!chip->gpio_detect)
+ 		goto out;
  
 
