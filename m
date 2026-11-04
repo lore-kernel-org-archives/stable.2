@@ -1,65 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779585;
-	b=0k0YDWrovV2D4Cyps69d/DKheX+vCRzB2vT4zDKbhV7H43evgEARvazzV7l/koBKxzvF
-	 16voVQqXrYaQvvA1tpxpVSoIX0X4we4A3vpr3fve5f+h9OPoNiskFFZ0VLPFIpO41m4Oe
-	 r8jw5wpIr5cSk1bGDVEVi7qcPIjRiPj/VhBZwOEW1T2jhi1EDuArTCtViTRvgVWzDy0k/
-	 ClhzQEJhN1okMsQyI1PJjqCNT6u8ISta64ic73hApQO4XyWWAODC9nDP1HiM5vitCBHON
-	 RTqGC3uswetYhfoq585STlr+JiS5m4No2boVwbLKASgaGimud3vYf8wgE2ldkui0Cmg==
+	t=1793779812;
+	b=UPK10mXgHf3uGjGA3CcbHYwrIP0K2HXIO60yw7sU5pCXrpqB1WQTmJ5wRntlxUiasdOp
+	 jUvvvM7qCBK7qrdQrTe+5oAmLo2kqjGoeHOQj1hj5bjhknJAnRK0jLSIyMb5EvQv3GJZ6
+	 KjQrdOUoC4wdgaNEuXz4huuNRHd/gvaMONDjtSNR0AmGTRvrJOLeu/snyCsRgCVQILsDG
+	 GiCrIDKqNbYaN/Cigmxa7601MIvdjf0v74rh2PNtfKVRNEHqxSpI0FLnr/ZCrNddbTf4E
+	 rdcexHM2HTeTaRpDX4RW0IZkDCxsPProRwtWDb8jXKZY9vGFlQwk0Lc3DmUi+92DnKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779585;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
-	 In-Reply-To:X-QQ-mid;
-	bh=WgxEiGMcAXeHim/OCpv0zMeF0d48h/zJZ1XH8xX5r4w=;
-	b=fW8KS9JDFNdGN4lxDNFmfL5FHEiYz7KsS8OFWlWj8jMHRnK9cz2Rz6TAbsYUxC7yJVDw
-	 fsfPn9i1Cjq8ZiEyhTCideEQDEo28fRKHKRAu3c9X0gsQCFutBgvBe7uMoeo8UJJnSMWW
-	 X6Mib0c2l3YQ/sBS8pn2g+aZgp9mqaRRn+9ZPMqh4fMfYZogtnGbMIcMHPmbju2F9FrGY
-	 /KrVrZuRWVXach1OWRAnCDcI29XpsVGlUtFvNa1vvH0rBOTEd8UUetnAyOuK3+SIyOReU
-	 /fbzAkGA9goxjfj37nciGGNjCzpuDdwGUb/r2HxdYqrYErBEdgEhWT9zPW4/AWtF+RA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779812;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=0pN/UiSEiZTZEf/nEIpAfugAVv0D3hEkF/wqURLysQQ=;
+	b=bTvCyqFQYWIkwrvgl2vSsYOlsTC/G3BqCUwx9I4V/W7BrLTDm+RNl96DvkVlqU1OeqOL
+	 AHBE+4dJHSPSKBMwqeNZOoQVbBNS/Xi1a9Kau+MvREyFVzuiT4QaesLI91hVpQx4iKhDV
+	 A/+xui4Yjd6sx5tfvcgwMHwDGlEDuxQK/502oFOUfCYP5MzfGJ0ESOU3Tgk1LUf0tbywa
+	 3ayPc8StRW9944SXyGSCmowFC/Ae/siuonvmyoKp6SzOYRTRC0eSw1ra6DzBTl4n+Ho3l
+	 pkwv+CP8QIyFHTUmN3BYuaeI/oaCqN3465wYlC4q+SNLwKBZpGgnWeR9n8Qh54hDKRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fOEj9ig5;
-	arc=none smtp.remote-ip=162.62.58.216
-Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l2S7cjny;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809B5606A334;
-	Wed,  4 Nov 2026 08:06:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 809B5606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76289606A326;
+	Wed,  4 Nov 2026 08:10:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fOEj9ig5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793779579; bh=WgxEiGMcAXeHim/OCpv0zMeF0d48h/zJZ1XH8xX5r4w=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=fOEj9ig5JXN09CLHqNfTNgbw330Bh/WIacL9+P9J5rKELZqrG/iX3nWAuCG41tSLn
-	 3v2RfVVwIiWX9HMUBlu8oX6dbosXWswYQ2tpi76OJJHbKygZRed3lrS1MI5Ic3xMoR
-	 7P5ESqp3MzxmK8aiNu8ZZuBBgwpvf5duWSzGefiE=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-XMAILINFO: Nze9Gsl2QAyr5RxeywbNGg6T5cysE3+3MmOq0TdLhgaEbwUJeN9vA51HWHzzUm
-	 8+OJbKEXn/feXKvOo/2TOKWuMMaZCIRy0UWsahrowRynnMa1jlpI0vfs9ZOmuX96Xaup7yVWAnGAv
-	 r6wM66C+1UYEho16kdBhDsLpHI+JddESc7SYXXmZFx+74oaXiw1W84KD1+73Doq2momM1ZyOLpLVm
-	 fV1uRXtsx6533qpYQG0c/4T9nSYawztosAet8uI+nIP0baYUxMTrZM6eK6ENU6GbdUALaUjqa0nRi
-	 JnOK5vl0RU0PdywsI/aetYv7E9OSBwmGX/iD5HmmDmiizWHdl/1TqbAd/oR/algyGG2OKdfBXDKKs
-	 HYqgTOgGjUruMQ4c8dzbqe2eny2nQmPRQJzS/PZl+J8H0qcVkrNQTuWxK9xo6H+CFbLfKBVfUZYbr
-	 YFzatZMYpuAeERkWN/EVm/6nx6H3BGOnp6RfaVyYhAG3R6IXVMAT0xrRZqUkHNvRb4f1imVoF9rs1
-	 AgJ4Nim5PyXcsyshlnwttdra7XpG5Ls3uNC36X5MeDQ1quwW6q3FR7XldERP8bD0LnpebQ6n0k6ut
-	 ckQyxhQSLVEBGkgDVS03MOpisqtOZEZUdkSTHf8r8nTSBNlw3vLQbj7qrPJUQH3T8fvb7f6ApkmI3
-	 oKSY3zzZhEtVBvUu+4Z8tkOqR6AxKoiFdFU5fJKc6g3r9j8J9HxW4uw65lrmt1oX2qWz9vD1R4MQi
-	 oGDAWCUPBoJDgw0g9uG7UTzINOwf29Qfz4hq2mV93CqttBx9jgEFeEU6VLR2o4ZoXtFvdhutAE9aM
-	 6x7HpA6IltYkk0VpbHrv7WyxWvTIyjGN1CVBT1rfTLKTEZQdeSZWj+r2UrpU9TxRd7GvadgTmsEpb
-	 gZhqcpqIdrU4vRN1thMDTweEEW5ZOrTmuoFywATQS6FxrleaLOG/Wpq6Ff2xANFsj9ceWelW2BxeQ
-	 rtkA9lMeex1XHsrHi3eRcpdnX2oz4zD+rIDRa/nMGR4jboJp0+BFH+GoAmUjwEwcQlLuusR5xtYtb
-	 JRCvoxORlO2iH+BN6Q7T2DXhPGw==
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?bmV0ZGV2LWJvdCtzYXNoaWtv?=" <netdev-bot+sashiko@kernel.org>
-Cc: "=?utf-8?B?bWts?=" <mkl@pengutronix.de>, "=?utf-8?B?bWFpbGhvbA==?=" <mailhol@kernel.org>, "=?utf-8?B?aGVpa28=?=" <heiko@sntech.de>, "=?utf-8?B?ZGF2ZW0=?=" <davem@davemloft.net>, "=?utf-8?B?d2c=?=" <wg@grandegger.com>, "=?utf-8?B?c29ja2V0Y2Fu?=" <socketcan@hartkopp.net>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?ZWR1bWF6ZXQ=?=" <edumazet@kernel.org>, "=?utf-8?B?a3ViYQ==?=" <kuba@kernel.org>, "=?utf-8?B?cGFiZW5p?=" <pabeni@redhat.com>, "=?utf-8?B?aG9ybXM=?=" <horms@kernel.org>, "=?utf-8?B?Y29yYmV0?=" <corbet@lwn.net>, "=?utf-8?B?c2toYW4=?=" <skhan@linuxfoundation.org>, "=?utf-8?B?cmR1bmxhcA==?=" <rdunlap@infradead.org>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, 
-	"=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?bGludXgtZG9j?=" <linux-doc@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
-Subject: Re: [PATCH net v6 3/6] can: rockchip_canfd: cancel bus-off restart before closing the device
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l2S7cjny
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 370B11F0093A;
+	Wed,  4 Nov 2026 08:10:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793779811;
+	bh=0pN/UiSEiZTZEf/nEIpAfugAVv0D3hEkF/wqURLysQQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l2S7cjnyBl8IM15zl9kvALPts2a7RAHC6v2h+FzHXKkh5TFEnU8ALnqhKH0OABcd4
+	 g1qW454YtYpayO038yBV/kT2yRveimPjALmITujrNuHJNkZlBf+k6lpJvO3Yax+ag2
+	 /2/MK23EEnVoRyRy4Gb1wMflcC/thgtclSYyGhj7OxiVW2ISmn7fAKq4X10yVeMw48
+	 qwAbAt5HbTETVs6gf4MeItb8/YErqVOqKvSx5I8zUU9FiVq3euS2gDQ+6Xovab3Kmm
+	 yNtd6YypXDn5BfBoj0a8U55caLkQPq8OSAPB34K/zZAnEJDNX3BZ1l6RpYwWTzMBai
+	 ClCQn1oHpuc/w==
+Date: Wed, 4 Nov 2026 10:10:08 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Wentao Liang <vulab@iscas.ac.cn>, linux-rdma@vger.kernel.org,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dennis.dalessandro@cornelisnetworks.com, jgg@ziepe.ca
+Subject: Re: [PATCH] RDMA/hfi1: Free the trap send buffer when no address
+ handle is available
+Message-ID: <20261104081008.GN264423@unreal>
+References: <20261103081915.1147987-1-vulab@iscas.ac.cn>
+ <20261103-peach-mongoose-of-charisma-dee123@quoll>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,44 +58,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Wed, 4 Nov 2026 16:06:17 +0800
-X-Priority: 3
-Message-ID: <tencent_2E7A44783FBE26011A7319CF849111D78007@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261017-rockchip-canfd-restart-close-v6-3-ed605feb4b6e@qq.com>
-	<179237864073.3135.8117104622491949177@kernel.org>
-In-Reply-To: <179237864073.3135.8117104622491949177@kernel.org>
-X-QQ-mid: xmsezb41-0t1793779577t7nbgj69z
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-peach-mongoose-of-charisma-dee123@quoll>
 
-SGksCgo+IElzIHJrY2FuZmRfc3RhcnRfeG1pdCgpIHNlcmlhbGl6ZWQgYWdhaW5zdCB0aGlz
-IHJlaW5pdGlhbGl6YXRpb24gYXQgYWxsPwo+IFdvdWxkIHRoaXMgbGVhdmUgSU5UX01BU0sg
-dW5tYXNrZWQgYW5kIHRoZSBUWCBxdWV1ZSBhd2FrZSBvbiBhCj4gY29udHJvbGxlciB0aGF0
-IGlzIGluIHJlc2V0IHdpdGggdGhlIENBTiBzdGF0ZSBhdCBDQU5fU1RBVEVfQlVTX09GRj8K
-CkJvdGggd2luZG93cyBwcmVkYXRlIHRoaXMgcGF0Y2guIEl0cyBhZGRlZCB3YWl0cyBjYW4g
-ZXh0ZW5kIHRoZSBUWCByYWNlCmFmdGVyIHRoZSBjb3JlIHJlc3RvcmVzIGNhcnJpZXIuIFBh
-dGNoIDUgb2YgdjYgY2xvc2VzIGJvdGggd2luZG93cy4KSSB3aWxsIGZpeCB0aGlzIGlzc3Vl
-IGluIHY3IGJ5IGludHJvZHVjaW5nIHJlc3RhcnQgc3luY2hyb25pemF0aW9uIGFuZApUWCBw
-cm90ZWN0aW9uIHRvZ2V0aGVyLgoKSW4gdGhlIGNvbXBsZXRlIHY2IHNlcmllcywgYm90aCBy
-ZXN0YXJ0IGFuZCBvcGVuIHVzZQpya2NhbmZkX2NoaXBfc3RhcnRfZmluaXNoKCkuIEl0IGhv
-bGRzIHR4X2xvY2sgd2hpbGUgY2xlYXJpbmcgdGhlIElSUSBnYXRlLAp1bm1hc2tpbmcgaW50
-ZXJydXB0cyBhbmQgd2FraW5nIHRoZSBxdWV1ZS4gQSBuZXcgYnVzLW9mZiBtdXN0IGFjcXVp
-cmUgdGhlCnNhbWUgbG9jayBpbiBya2NhbmZkX3R4X2Rpc2FibGUoKSBiZWZvcmUgcHVibGlz
-aGluZyBCVVNfT0ZGIGFuZCBzdG9wcGluZwp0aGUgY29udHJvbGxlciwgc28gaXQgdGFrZXMg
-cHJlY2VkZW5jZSBvdmVyIHN0YXJ0dXAuIFRoZSBmbGFnIGlzIG5vdCB0aGUKb25seSBzeW5j
-aHJvbml6YXRpb24gaGVyZTsgYW4gYWRkaXRpb25hbCBsb2NrIGFyb3VuZCB0aGUgd2hvbGUg
-aGFuZGxlcgppcyBub3QgbmVlZGVkIGZvciB0aGUgcmVwb3J0ZWQgaW50ZXJsZWF2aW5nLgoK
-PiBDYW4gdGhlIGhhbmRsZXIgc2VlIGEgbmV3IGN5Y2xlX2xhc3QgdG9nZXRoZXIgd2l0aCBh
-biBvbGQgbnNlYz8KClllcywgYmVmb3JlIHBhdGNoIDYgb2YgdjYuIFRoYXQgcHJlLWV4aXN0
-aW5nIHJhY2UgaXMgZml4ZWQgYnkgdGFraW5nCnRpbWVzdGFtcF9sb2NrIGZvciBjb252ZXJz
-aW9uIGFzIHdlbGwgYXMgdGltZWNvdW50ZXIgdXBkYXRlcy4gSSB3aWxsCnJldGFpbiB0aGF0
-IGZpeCBpbiB2Ny4gVGhlIHdvcmtlciByZWFybWluZyBpc3N1ZSBpcyBhbHJlYWR5IGZpeGVk
-IGJ5IHRoZQpsb2NrZWQgYWN0aXZlIGNoZWNrIGluIHBhdGNoIDQgb2YgdjYgYW5kIHdpbGwg
-YWxzbyByZW1haW4gZml4ZWQuCgpCZXN0IHJlZ2FyZHMsCkN1bmhhbyBMdQoKcHctYm90OiBj
-cgo=
+On Tue, Nov 03, 2026 at 10:21:38AM +0100, Krzysztof Kozlowski wrote:
+> 
+> On Tue, 03 Nov 2026 08:19:15 +0000, Wentao Liang wrote:
+> > send_trap() allocates a MAD send buffer before checking the subnet
+> > manager address handle. If creating that handle fails, or if the subnet
+> > manager LID is permissive, it unlocks and returns without submitting or
+> > freeing the buffer. No send completion can release an unsubmitted MAD.
+> > 
+> > Free the send buffer after releasing the lock on both early returns,
+> > matching the other failures after ib_create_send_mad().
+> > 
+> > Fixes: bf90aadd630c ("IB/hfi1: Send MAD traps until repressed")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> > ---
+> >  drivers/infiniband/hw/hfi1/mad.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> > 
+> 
+> 
+> 
+> Multiple things here:
+> 1. Your team ignored completely previous feedback. Multiple times.
+> 
+> 2. You use multiple identities with this email address, thus I doubt that we
+>    speak with an actual person.
+> 
+> 3. Your bot does not even bother running checkpatch, right?
+> 
+> 4. Nothing of this was reproduced nor tested.
+> 
+> 5. Finally, the same feedback:
+> You sent multiple independent patches, to multiple independent
+> subsystems. The amount of these patches clearly suggest this was
+> AI generated and most likely not tested.
+> 
+> More importantly, you sent all this work without properly organizing
+> relevant patches into patchsets. This makes reviewing difficult
+> and might cause multiple reviewers to address the same issue.
+> Replying to the entire set is impossible and requires handling each
+> patch independently, instead of applying or discarding the set.
+> Maintainers also won't see the bigger picture of your work. Quite
+> worrying.
+> 
+> This is on the verge of hostile patch: bomb us with so many
+> contributions, we won't be able to handle them in efficient manner,
+> like responding ONCE to ask you to slow down.  Considering all this
+> is untested and LLM generated, I have even more doubts whether this
+> should be considered for review.
 
+Thanks, we will simply drop this patch. It is not worth to review it.
+
+Thanks
