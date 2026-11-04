@@ -1,119 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819619;
-	b=bYCREpAioJ6bVwVD7nW0HGOg2aRJMDt1qfeK5gGHJX3g4+UMdt67PML2sOUIsKwD1U4e
-	 ADKkAgth66uaM/C2bAEezDQb1kHKygVmhEKdBDtXFRQXW9Dza0tar8gKV0qeYmG3p30PP
-	 +SEcoOnTFmafhZU+MkYAlE0aioPmFUS0RYB2ATgW4KuFAKKM4MY6uTeqw2An/sGn1bsY0
-	 MVPEmyIlB2Cu9inrk7Q6abuNTSL14X0Y+eF1VEJKDQq+sj1ptIDRnJ4ot6gYklrwNJrZC
-	 8Lc2TslcjW+HR5O2nD+yg9t4ON8/X0NH0Il8y41bdnXCpztAUwKQziETedWG8cfuorg==
+	t=1793819621;
+	b=4I9UUo0ExYZWMsKgCS15w6XxDC7E1Uyw4JnkW+ATEiPe8SgGy9J1Bg6BOC8egfv4QNCT
+	 3ekT/wKCkCra5uRn7u9ZHhGV7xhz8rdjkYCQmUgfUlv+I1uacXpBGe/UbLGuAvCBPqTTC
+	 rh1mj+WKfzpZBS1DLMedZHd6jeJfYbVCyIOE1EFwMkUHawE3QgM+72QSxRCDHuVRJYs+V
+	 4TRKdNxj5XKTCdah88hbrlXv9oj5EIBDfa4OlqMjDtm43OrHHT+dTErZlWOAv0kUb2FSD
+	 C7SX5ZVQSP8QZsCHIKXueyAstHzJj987lK35QAybgFhObrWwAEMdVxKQRjJGTi+gcrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819619;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=R/Zw9aXDdwSnJl1ZKIXFjhqLEWW0pCJMnlQQQIRFmbU=;
-	b=BbHsdA4DHT+ydPFvh0u+CDo8lQ1mfltF+uSicTsMcfBIjKlJOSf5UiDiUQlLNR0kxFUN
-	 ls6B8uJr4NS0/YtD84QK6sR7p3plfkSk1sCzOwE7CHwwhCsECo+nBDjC0XCrMUpG/cV1h
-	 JntaHAzfFRYeQJWJ8RnvworxIEPwHUKQ6z433ePVJ1grT1FEHOQ7Tw67o4HMOcXoftNZp
-	 WYjG7YvUaBs7aAt9EsOIFis3L1qHQeVBu/RKkHUwxwHbb+i1yKDT5inBr7keJgUuOhaN+
-	 RZ/90BK2S8zenvsXOZ04O+0wOSndOHtV6b5Kxez9ElNB90n0SZac3jDqye3kYUEpZvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819621;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=majT39kIkLJK5Q1r1apUVMY/oUzo07EughVw6WT3YaY=;
+	b=gWO2bvSCR9wSORvogJiXaFOSpDHnYzFDN8cDkxIqq72r5t5R/9kMi9rHx5z9Nh8wxyla
+	 4RxbdtkVMzaiU83p0r3TCufUN1Vun0FMaYae5zdyU3RLntVHRCHk3cqIT32CSzziIl5m+
+	 Jad6uCrjPBpWJ6a42JwhS6jCvfTOsOI6MJkJSbFLmQ1DPG+zQhLBrc0SZltGE5/8NEQvF
+	 bH1BWAsNazxNAUe0kL4JCyaSxgkfC4MU4NTlDUtHSBH/rast1EOVkaf2nRAakq3j8ov+4
+	 O7dJS9LyRnE+dlvhbQl0Fphg3qEbz8F8lFC8KxL9+Lt/bMm5YpfTq7wHs0s9kDj9DPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=bur.io;
-	spf=pass smtp.mailfrom=bur.io;
-	dkim=pass header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=POZTX9LU;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=MH8LmMLt;
-	arc=none smtp.remote-ip=202.12.124.153
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KTO3mXDC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8061606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:13:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8061606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bur.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51FD5606A33C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:13:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bur.io header.i=@bur.io header.a=rsa-sha256 header.s=fm1 header.b=POZTX9LU;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=MH8LmMLt
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 307EB7A011B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:13:38 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Wed, 04 Nov 2026 14:13:38 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bur.io; h=cc:cc
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1793819616; x=1793906016; bh=R/Zw9aXDdw
-	SnJl1ZKIXFjhqLEWW0pCJMnlQQQIRFmbU=; b=POZTX9LU2E6wDR8Nk8+asgrzQo
-	mtR8oUIR9YUGkoQZu6TZpu5yucBssLAS1/VJmIFkmNS4dXl7jdcrK3rmlnQssiXE
-	hszPBz0F9wMNVGApxIQ0/IuhBnVsstgdip9iGWXasC74zxeUe7yRXMY06pijdHfi
-	OzCOb5VQoQMaZv8HcCc4m2I1qTkYvOyNwUVdA/DSJz17OpEK46elDKc5/xuE9eba
-	4ob93FOmSrdemKuzQq1WNcZWhfqz95xFO+1h3exDPuhtFJob9ynnVWXN6J4LzSI1
-	Yvkel7UUcJXiN93aEWGRKsnH7rdmh1Qvj4NfZplZHAOzT9UqVfHr5fF1V88w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1793819616; x=1793906016; bh=R/Zw9aXDdwSnJl1ZKIXFjhqLEWW0pCJMnlQ
-	QQIRFmbU=; b=MH8LmMLtfylWiZNGUml7ghUGNIjs5o/++I86NbGdhlRL5uReTej
-	kjFN21IS+cndRNhqsYo2D/iYka/oT20UtMe4g7yBBWnNTTZCtah/TZc8M5pZ2iqY
-	cPmk3QtaLHOyW92HrB7n6aikdEPySuG0wmrLJUNDkhZ54hIXFCM0x73lnE1cPpIJ
-	aynxMLixFuY/YhXf9r4fLoJ8J1ZMp85b9INZXkdP9TebDJofnYfIYTgoIVu0+NMs
-	nqw2Q40cUO93uKxwB3w4yGO1bdVxrmWYv+y0/zEM288DMfBtL31U7pEFt+tAwjqZ
-	s6S0byqcUbkOwkSCEp1w3A+oTHYEj+oOV5Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=bur.io a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793819616; d=bur.io;
-	mf=PGJvcmlzQGJ1ci5pbz4=; rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:Gm7eoVWT2feOXW1yAEmBzVrl50c9/IBr2MdEL4Pg6dcpLQ5
-	c6WRG0OvpzNWWseLip4qsI+GEpJBUU75c3LUBhS6sZXg+oyyDBjs95TJ/mS/fllB
-	4kKiBhbWyL7uw6YLBQSlGB1N/8tBcSuhbsCX2nCiSxm+HHOhjDrgvUgXr3U3LGiC
-	HQG1FC1DInB1d6Cd7HiO7H2zsRgIPv7+xknYbM7jKVLUb8o5B+aLtEY5vXLcSggl
-	pt3hqNRG01oOE670+dYI1udoAo/mCsv0R7JB7j9Dy7NWH2Dkazs9cIPOnERL2+LZ
-	v4BcKhthkJzTUDyzQPd48LHarsk1A+ti0wkvCzA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:Do8AOxKL1PsfOei2cabABuc9oDk2PzvdE2E9ovZgXjE=:TQ1NRrE5MaF4AJMFyxsnn3nsn/bl1cE5HhilxM8818Q=;
-X-ME-Sender: <xms:4IPrar7Uq59_38tKTfVYtW7gBQTIjSsgt0IGrRzES_PiNhVTiIwJ5A>
-    <xme:4IPrahX_FVJ0WP5ilf6c9rdlEBiMYFM2uxtAkEq5Vy21Dwj31gHq6rapL6wV5cYh3
-    18ruduXOJMMeYaqrzO3mmfyY4P6hi76b6VoojhgQCRogDw4FJUFcfIt>
-X-ME-Received: <xmr:4IPrajJ27dzA2zkzrKZgGmfDmdPKKNeBL0LLQjt846bray0zUeDNqR57>
-X-ME-Proxy-Cause: dmFkZTFKfU6gmjaNjQRv4742HxQNz5qcx43PvODO8cE3Klpvbcsys2xeAxDTiJH4S2RWI1
-    Bpt+51ElFQGLyu6bY6plLJYbOmTBK1uGkS2ry0KT+xOVrbuzxxdyiPhLUV+PcVRWJ2YpSz
-    4dqymtddmmnJJYnaXsDTphJx7vIqeQsy8L8VhZmVhnZekTEFGcEWgUuuadx3qnzcGihSiy
-    2x+l5N1zaKj4UNT/qANWul4pfxzeALBBBlMMlidwJEmpsUA6SzOfVNMKfALwMI8MczuESS
-    wZpnn2iIj75CbS4mp+kdNfjH5rokU/i8KyjYwywKwQvy3JqpGu8S+ftex0SAOCXFeVTgGT
-    Mkg/R0HVYIho62aIg4LI2fegY5nVCJs96m6+LgpwZjS+syCEQ5AicE6wP1s5an0NQcoZeE
-    Tg3QTl7HaOgUoYQAWIUxsJGzmkQ0jX7JuUw7a23XsZl+FO5jEOJgOtu17xUDirEQ5Hs0II
-    9jBKzjdY0q8K66dMwQ1+k5PAemiUlmSfbTgqqD6ZVDh/ZzHhchf6xQNJXz0VI8efAWK2N0
-    ZBrytpVzvbTq6MAnmK2sS1/y1m7Vq0qgZPytkNGmP1SU7cKwxr6DrCPvP8pSuwbxO9aXnH
-    irAtSgAWFR/607Tj+2RJ54ntbBeQMEuKbdVuAbkI0mJaxD7xk/x7zoT9j1Nw
-X-ME-Proxy: <xmx:4IPrajsmMDPyBCrYxVGYYfCzrmlYTBvdthRetLLV4cwA7wdTMmye1w>
-    <xmx:4IPragKC4-nwDO_cuo5rsCQZ76l9gOH4Tu1KspjXcMPo0j3l2MXGtw>
-    <xmx:4IPrajMo-cLUU6Cyanm0RON7nVYiud8w5CNXJSXtYu61YOKQBdgh1w>
-    <xmx:4IPrarXHVYONAtwO7NIqjUg3uP3EUCT7uv_08NgVNgl0gEsBQGksGA>
-    <xmx:4IPrajQQUWOnqdw0eAen1Pu_kvMvMR9LvuEjbVoI6yETpFPXXF-fX5az>
-Feedback-ID: i083147f8:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 14:13:36 -0500 (EST)
-Date: Wed, 4 Nov 2026 11:13:50 -0800
-From: Boris Burkov <boris@bur.io>
-To: Siddharth Mishra <smish149@asu.edu>
-Cc: dsterba@suse.com, wqu@suse.com, josef@toxicpanda.com, fdmanana@suse.com,
-	mason@kernel.org, linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/5] btrfs: skip tree blocks in
- btrfs_get_extent_owner_root()
-Message-ID: <20261104191350.GA3301639@zen.localdomain>
-References: <20261104102323.4090290-1-smish149@asu.edu>
- <20261104102323.4090290-2-smish149@asu.edu>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KTO3mXDC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E86F21F00A15;
+	Wed,  4 Nov 2026 19:13:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793819621;
+	bh=majT39kIkLJK5Q1r1apUVMY/oUzo07EughVw6WT3YaY=;
+	h=Subject:To:Cc:From:Date;
+	b=KTO3mXDCvnjzNJTUU8QthuY2ze31N4iHIQVBoMcWhv9rql19tR6SjnOj1G+CKKuB3
+	 bSECYNrz0xDj+lBKJIVoYjSXcTomzB48Ald8ASTMMV5BRJPZMasyRcaedLHkOjzcRE
+	 +Ryn942mDv3GoGGWuGx6rk1d8+ExseMOZnMgoXjA=
+Subject: FAILED: patch "[PATCH] rxrpc: Fix return in rxrpc_recvmsg_data() for service calls" failed to apply to 6.6-stable tree
+To: dhowells@redhat.com,davem@davemloft.net,edumazet@google.com,horms@kernel.org,jaltman@auristor.com,kuba@kernel.org,marc.dionne@auristor.com,pabeni@redhat.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 14:13:39 -0500
+Message-ID: <2026110439-sectional-harmonics-b283@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -123,102 +51,174 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104102323.4090290-2-smish149@asu.edu>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 03:23:19AM -0700, Siddharth Mishra wrote:
-> [BUG]
-> With simple quotas enabled on a filesystem without the skinny-metadata
-> feature, deleting a subvolume triggers the following warning:
-> 
->  ------------[ cut here ]------------
->  WARNING: fs/btrfs/extent-tree.c:393 at
->    btrfs_get_extent_inline_ref_type+0x1b9/0x2d0, CPU#1: btrfs-cleaner/84
->  RIP: 0010:btrfs_get_extent_inline_ref_type (fs/btrfs/extent-tree.c:393)
->  Call Trace:
->   <TASK>
->   btrfs_get_extent_owner_root (fs/btrfs/extent-tree.c:3128)
->   btrfs_lookup_extent_info (fs/btrfs/extent-tree.c:187)
->   walk_down_proc (fs/btrfs/extent-tree.c:5647)
->   walk_down_tree (fs/btrfs/extent-tree.c:6170)
->   btrfs_drop_snapshot (fs/btrfs/extent-tree.c:6392)
->   btrfs_clean_one_deleted_snapshot (fs/btrfs/transaction.c:2728)
->   cleaner_kthread (fs/btrfs/disk-io.c:1553)
->   kthread (kernel/kthread.c:436)
->   ret_from_fork (arch/x86/kernel/process.c:158)
->   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
->   </TASK>
->  ---[ end trace 0000000000000000 ]---
->  BTRFS error (device vda): eb 30720000 iref 0x3ee6 invalid extent
->    inline ref type 0
-> 
-> Writing to a snapshot (update_ref_for_cow()) or a metadata balance
-> (relocate_block_group()) trigger the same warning.
-> 
-> [CAUSE]
-> Without skinny-metadata, the extent item of a tree block is an
-> EXTENT_ITEM with the TREE_BLOCK flag, and a btrfs_tree_block_info sits
-> between the btrfs_extent_item and the first inline ref:
-> 
-> 	item 3 key (30441472 EXTENT_ITEM 16384) itemoff 16079 itemsize 51
-> 		refs 1 gen 5 flags TREE_BLOCK
-> 		tree block key (256 INODE_ITEM 0) level 0
-> 		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> 		(176 0x5) tree block backref root FS_TREE
-> 
-> But btrfs_get_extent_owner_root() always takes the first inline ref
-> right after the btrfs_extent_item:
-> 
-> 	ptr = (unsigned long)(ei + 1);
-> 
-> So for such a tree block it reads the lowest byte of the first key
-> objectid as the inline ref type. For the key above that byte is 0, and
-> btrfs_get_extent_inline_ref_type() warns. If the byte happens to be
-> BTRFS_EXTENT_OWNER_REF_KEY (172), the key bytes are returned as the
-> owner root.
-> 
-> The filesystem is valid. It can be reproduced with:
-> 
->   mkfs.btrfs -f -O ^skinny-metadata $dev
->   mount $dev $mnt
->   btrfs quota enable --simple $mnt
->   btrfs subvolume create $mnt/sv
->   btrfs subvolume delete $mnt/sv
->   btrfs subvolume sync $mnt
-> 
-> [FIX]
-> Owner refs are only added to data extents, never to tree blocks, so
-> return 0 for an extent item with the TREE_BLOCK flag before looking at
-> its inline refs. This covers both the EXTENT_ITEM and the METADATA_ITEM
-> layouts, and gives the same result as on a skinny-metadata filesystem,
-> where the first inline ref of a tree block is never an owner ref.
-> 
 
-Nice catch, LGTM.
-Reviewed-by: Boris Burkov <boris@bur.io>
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-> Fixes: 8d2990914073 ("btrfs: add helper for inline owner ref lookup")
-> Cc: stable@vger.kernel.org # 6.7+
-> Signed-off-by: Siddharth Mishra <smish149@asu.edu>
-> ---
->  fs/btrfs/extent-tree.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
-> index 9b0a5c6b9..3ab4f2696 100644
-> --- a/fs/btrfs/extent-tree.c
-> +++ b/fs/btrfs/extent-tree.c
-> @@ -3117,6 +3117,9 @@ u64 btrfs_get_extent_owner_root(struct btrfs_fs_info *fs_info,
->  		return 0;
->  
->  	ei = btrfs_item_ptr(leaf, slot, struct btrfs_extent_item);
-> +	if (btrfs_extent_flags(leaf, ei) & BTRFS_EXTENT_FLAG_TREE_BLOCK)
-> +		return 0;
-> +
->  	ptr = (unsigned long)(ei + 1);
->  	end = (unsigned long)ei + btrfs_item_size(leaf, slot);
->  
-> -- 
-> 2.54.0
-> 
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 18a71e111c7505e16c2de91480561fc491f41341
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110439-sectional-harmonics-b283@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 18a71e111c7505e16c2de91480561fc491f41341 Mon Sep 17 00:00:00 2001
+From: David Howells <dhowells@redhat.com>
+Date: Tue, 6 Oct 2026 14:30:01 +0100
+Subject: [PATCH] rxrpc: Fix return in rxrpc_recvmsg_data() for service calls
+
+When rxrpc_recvmsg_data() gets called on a service call that has received
+all of the request, RXRPC_CALL_RECVMSG_READ_ALL has been set, and this
+causes rxrpc_recvmsg_data() to jump straight out, indicating the end of the
+call (ie. rxrpc_kernel_recv_data() returns 1) without waiting for the call
+to be processed or the reply to be transmitted.
+
+rxperf_deliver_to_call() also has to be altered to call
+rxrpc_kernel_recv_data() to collect the final ACK on a service call as does
+afs_deliver_to_call().
+
+Fixes: d001648ec7cf ("rxrpc: Don't expose skbs to in-kernel users [ver #2]")
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914151340.3227501-1-dhowells%40redhat.com
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Jeffrey Altman <jaltman@auristor.com>
+cc: Eric Dumazet <edumazet@google.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261006133011.531806-10-dhowells@redhat.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+
+diff --git a/Documentation/networking/rxrpc.rst b/Documentation/networking/rxrpc.rst
+index 9239f7bd8885..eca055a536aa 100644
+--- a/Documentation/networking/rxrpc.rst
++++ b/Documentation/networking/rxrpc.rst
+@@ -909,10 +909,15 @@ The kernel interface functions are as follows:
+       want_more should be true if further data will be required after this is
+       satisfied and false if this is the last item of the receive phase.
+ 
+-      There are three normal returns: 0 if the buffer was filled and want_more
+-      was true; 1 if the buffer was filled, the last DATA packet has been
+-      emptied and want_more was false; and -EAGAIN if the function needs to be
+-      called again.
++      For client calls, there are three normal returns: 0 if the buffer was
++      filled and want_more was true; 1 if the buffer was filled, the last DATA
++      packet has been emptied and want_more was false; and -EAGAIN if the
++      function needs to be called again.
++
++      For service calls, there are four normal returns: 0 and -EAGAIN are the
++      same as for client calls; 2 indicates that the last DATA packet of the
++      request has been received, want_more was false and the call is still in
++      progress; and 1 indicates that the call is now successfully complete.
+ 
+       If the last DATA packet is processed but the buffer contains less than
+       the amount requested, EBADMSG is returned.  If want_more wasn't set, but
+diff --git a/fs/afs/rxrpc.c b/fs/afs/rxrpc.c
+index 64dd32df8a34..768b26820dea 100644
+--- a/fs/afs/rxrpc.c
++++ b/fs/afs/rxrpc.c
+@@ -541,7 +541,7 @@ void afs_deliver_to_call(struct afs_call *call)
+ 						     &call->service_id);
+ 			trace_afs_receive_data(call, &call->def_iter, false, ret);
+ 
+-			if (ret == -EINPROGRESS || ret == -EAGAIN)
++			if (ret == -EAGAIN || ret == 2)
+ 				return;
+ 			if (ret < 0 || ret == 1) {
+ 				if (ret == 1)
+@@ -934,7 +934,7 @@ int afs_extract_data(struct afs_call *call, bool want_more)
+ 		return ret;
+ 
+ 	state = READ_ONCE(call->state);
+-	if (ret == 1) {
++	if (ret == 1 || ret == 2) {
+ 		switch (state) {
+ 		case AFS_CALL_CL_AWAIT_REPLY:
+ 			afs_set_call_state(call, state, AFS_CALL_CL_PROC_REPLY);
+diff --git a/net/rxrpc/recvmsg.c b/net/rxrpc/recvmsg.c
+index 56fa324d0962..0c960f13b5fc 100644
+--- a/net/rxrpc/recvmsg.c
++++ b/net/rxrpc/recvmsg.c
+@@ -638,9 +638,11 @@ int rxrpc_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
+  * Note that we may return %-EAGAIN to drain empty packets at the end
+  * of the data, even if we've already copied over the requested data.
+  *
+- * Return: %0 if got what was asked for and there's more available, %1
+- * if we got what was asked for and we're at the end of the data and
+- * %-EAGAIN if we need more data.
++ * Return: %0 if got what was asked for and there's more available, %1 if we
++ * got what was asked for and we're at the end of the call, %2 if a service
++ * call received all of the request but is still in progress and %-EAGAIN if we
++ * need more data.  A variety of other errors can be returned if the call
++ * completed with failure.
+  */
+ int rxrpc_kernel_recv_data(struct socket *sock, struct rxrpc_call *call,
+ 			   struct iov_iter *iter, size_t *_len,
+@@ -679,6 +681,11 @@ int rxrpc_kernel_recv_data(struct socket *sock, struct rxrpc_call *call,
+ 
+ read_phase_complete:
+ 	ret = 1;
++	if (rxrpc_is_service_call(call)) {
++		if (rxrpc_call_is_complete(call))
++			goto call_failed;
++		ret = 2;
++	}
+ out:
+ 	if (_service)
+ 		*_service = call->dest_srx.srx_service;
+diff --git a/net/rxrpc/rxperf.c b/net/rxrpc/rxperf.c
+index 823eedc5d16f..0bc3de061b93 100644
+--- a/net/rxrpc/rxperf.c
++++ b/net/rxrpc/rxperf.c
+@@ -293,8 +293,20 @@ static void rxperf_deliver_to_call(struct work_struct *work)
+ 	       state == RXPERF_CALL_SV_AWAIT_ACK
+ 	       ) {
+ 		if (state == RXPERF_CALL_SV_AWAIT_ACK) {
+-			if (!rxrpc_kernel_check_life(rxperf_socket, call->rxcall))
++			size_t len = 0;
++			iov_iter_kvec(&call->iter, ITER_DEST, NULL, 0, 0);
++			ret = rxrpc_kernel_recv_data(rxperf_socket,
++						     call->rxcall, &call->iter,
++						     &len, false, &remote_abort,
++						     &call->service_id);
++
++			if (ret == -EAGAIN || ret == 2)
++				return;
++			if (ret < 0 || ret == 1) {
++				if (ret == 1)
++					ret = 0;
+ 				goto call_complete;
++			}
+ 			return;
+ 		}
+ 
+@@ -369,7 +381,7 @@ static int rxperf_extract_data(struct rxperf_call *call, bool want_more)
+ 	if (ret == 0 || ret == -EAGAIN)
+ 		return ret;
+ 
+-	if (ret == 1) {
++	if (ret == 1 || ret == 2) {
+ 		switch (call->state) {
+ 		case RXPERF_CALL_SV_AWAIT_REQUEST:
+ 			rxperf_set_call_state(call, RXPERF_CALL_SV_REPLYING);
+
