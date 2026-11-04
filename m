@@ -1,58 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793836293;
-	b=eKI1DknuxpUkNz0NT9OQtJRH0r/dmWnoU51JiRdZXiMKs7JHgaFkT836NXXZ6YjlA2v9
-	 WH39yB4iJ4T6ukljzoHwKQ7YfxoI4LY+0LflO4k2dyJ2A2jgRv8pdJBCsY+SWTclkURI9
-	 xl3dil5UQ7B5xqjHRRm/oPLFSs6tPY8Pey4UcrwyLd13gLZxnglCOqdznhValIh0aDmDw
-	 +kmN/K9YSPNdzzCnQ8UNqb8x7X/idVYr5nm+19MonTg56WOOJNb8KVHb5p5RtCUs8aLMt
-	 GAMfFSWLrCLo3m5Q0SK9m1BkxynOlHfNKnZs3r9KDYPIFn9tava9nMuFF13wG4T7dgg==
+	t=1793836368;
+	b=RaBvCgmXCFGG0QqIJSIW0MxGsXzrAD7SGYpxF4sm/w9G5AfVNg84Azz3YGq5ezxFfErm
+	 QUAgrB/L5/lMvC9BVhUs613Z9XYrVPJFsWxTC9GDrqHuYof7Tn/dluJzCPJBKXgcCz8H0
+	 35X/cwD8bTn0NqDhUvfdegk67MtgRbc8kXlSxnzF6/JJQ5XyW4zgVqjYKqM4Ceky+eCSE
+	 2ZEfZOME/P7GNVVgkIUC1SCtaizyIhgQBWm3moKG902753fS2HoN8Z1zbsuLbTPLIaWTZ
+	 svJ9fqHcB4rGKuOBy94NvvL37jcAXoMeE/Z9yZste5+ZO9QCPN5vCXYA5dVRNknpxKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793836293;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Sfry1kHkGoI00sEuShgmwRE319huUyE47/fhH9PZ1BI=;
-	b=r2ZJrDlxHQUoUOIF3E6iJzyq0rj1kk2WWGkFm9UQV7CKyMMjxX1Gp6JfKQIdFU3VSZmT
-	 no7NNs2e6hzhNpk1W6CPrflrIO1jZN5PbkdhJVZIUOtVqpCpa1CB0rGVrQA5SyfaortyO
-	 Ljnmz1XZCwhGwp4Q3RKzl+f3xkA8v7YqTitJxJk6D6U4SR4QS7aj/01r5yX7iMfaJf11Q
-	 CKy8cgWcLfG7IcRUprxzFX/Yo8RbEjuWe3/L/2RYvD2FvxC7giKyqyxwhmKqzphJtRN9z
-	 QTgMnsXiG+ljjwnTFDzDt44Zg5Ui0DgpwekB84nCEqIOZyvgz0m1H6bDnYYEVhcvmnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793836368;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=GCBkedzgVlQqMi1kz++iUtIpIacOFXvDUza6lGua/T0=;
+	b=3IFwWKbhiZhN9EbgV0iUshvmVFRf5tOdSFu+7zfY6UjwxgtR2fyd+6ZP6zcLYUygFqf3
+	 o3WpCnF+82UlXPsyxbx3KzjxmrTvcYgaTHVhgO+mfCzW1xvweRRXQuWfyrV1lNBMl86ez
+	 l3BFhwX04bYt91JIXnkhYtHEOmdCLIZkVYnpgpPqT8FPLk/az4BOxfahoTgWhBYFGmzx0
+	 nSY1VKrKIBmXNJC+LY0UYpEiXJo804ZCVUU6JqFQLpXrTlvALPBBIgO5hGU9ntLAEPDNY
+	 y4KKbK3Gm3XN2RQLWo6E2Pgr98zR+B823iA8MQpw/keLlE5xtdlefJvez3b49Fs0yjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i4mTzMnt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=APNcuOLA;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F4D606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:51:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C7D606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:52:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40C7D606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i4mTzMnt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B92D81F000C1;
-	Wed,  4 Nov 2026 23:51:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793836292;
-	bh=Sfry1kHkGoI00sEuShgmwRE319huUyE47/fhH9PZ1BI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i4mTzMntw4qHEogkpu7JKztYTZUhg6YgDJdMYL6xgiFs4uZ+iIKAHH9ZPYzP4bTpj
-	 gBWDypyvIWV0mLBteFLD3wAHC3PR15uV8X4BGaOUZY4oBNNHPjnRJ9Fmhehnn5RTBx
-	 0J9ZOuGnC96LE7iUb6miFe+YlY7sa+jwi2F+n3wEoOnh38Ww7gSC3zZNn+vjfl3+7T
-	 3dfmH3AkoiJYpHhR1Mew6I4W/uIiXOhcXys2cu44GvisFnsC/NUd8qwk//Y0RzimZT
-	 DdSj5k3npJbbxf6kutXnWewIYQZm0NeTJxUqa3QgzwO0pLUWre2Jm1gT95CgkzrtMx
-	 VLcjkSEMR53gQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] media: s5p-mfc: use timer_shutdown_sync() for the self-rearming watchdog
-Date: Wed,  4 Nov 2026 18:51:30 -0500
-Message-ID: <20261104235107.950691-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110426-scrutiny-value-3242@gregkh>
-References: <2026110426-scrutiny-value-3242@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=APNcuOLA
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1a2af4c8d00so2850889c88.0
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 15:52:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793836367; x=1794441167; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GCBkedzgVlQqMi1kz++iUtIpIacOFXvDUza6lGua/T0=;
+        b=APNcuOLANR3tXkFYFrqmLoAVFs9VbmwMK/1tF/C2bbYpl15hrlGP9+jh8MHtqM41Xs
+         wX+ZSp9Y/3Tklu64K+XcpQQUro2nztcBc6Q394I4u87LUdCImgwSEFQVr2qAvdYnBPtM
+         Cu2C4HKZseSvAcqJNy+0ZYjREj0DyjWd6qdAkGOfjmT6AdA+Z6ASOtrF0eMUC85aHhAh
+         S2HlDXsFrSfvY9obHVU+CX2YdkXbcz+TdxsmYflz247QFwgmMcGNL1hwKsqDKMSlwBP3
+         mMcsMcIr7FmFC6EsKeZbFotAEeKF8iCsOhcgZwIft+Edp0A7rGP9iIDDN1sW6kMij4IK
+         H4JA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793836367; x=1794441167;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GCBkedzgVlQqMi1kz++iUtIpIacOFXvDUza6lGua/T0=;
+        b=rGxb3NCm8Fht7kFL0PPh/pY2Ah/mZmsoJVsAOUho3vaVP4diAtSkaQhYLBL8BCLo3S
+         zFvH18ywNerWtCGSeh3/7NE7KjW5hp4dj8ph7Q2HF6y8nsT9IHqU8hFvsGy7XOdSws7i
+         0rPK7MqPCV1NwU+WUqf0CQ7FMRyWZ6HYU3jzh0bAK/jR/Wmnkk0ZWj6AEu9+MuzH7Sbe
+         adqC602rcXWXaT1z9okmf6ttVsCOk6C8Afsog9JYjIGt3WBoVUTOm4CDi2GSInF+q/zI
+         v4HMLEJJ0pwsumXrQy2ZzUN8LKDtS0GEcXi59d/pwqevhHhUFCKQS40IkB03bzp17T51
+         PDKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxNOZxwgizHTM3CifYeTHmhGR5Jd4RrBWENUPeFwPf9EzuDN8DOrRm6681GPzPsIAb0wKCII00=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9e7EhaFGlUzgEzH71aE2N4KGt8cErqPe/L7ihrKBPGdbCDLSqh
+	iUxaB23lpXCMDmol6URlpr5V+Shx+mYaDa1QVzmR4JppGaeXqvjoSpvR
+X-Gm-Gg: AYBFou3PAZqDrHw6d8V+c66JYmWI88OA1woLTBP3w2l00dZNdyFCeRMlpyqkzmIcq3Q
+	CY8DN7SneNGjK0bXWSptxZdYtM9CNjjm2Qa9Ej9N8Fsf2gCWJ0IwS4NY/7+tQlmgkwiBYuFp/fl
+	AJLPUFIlKKDpbHouXVidwQMLZRl2MODuYC1SiDHH4VKyZ5bVS7eWhIetdFvRLXAbKuCxN/HZDe2
+	3mwEjvbSc466vb5FhGsBTIJyOwfotgAHbn+VR0hfdEEXjpvmED6VMSFChtO2Bz1BSa5b8/XHZmd
+	yVUxAxcbSW9JgL8T/IR4AVQ1PE1nz9WzVh/fRrPJm5b7odtpbpdGK2xHFm5zLUij6GcgRVML1h3
+	cNhRFvFhE9qhYpFHLM/O+MLe9OgzxSgVvSACWP7AsYAp/dEh5fAjR+TgUKQwmOBdetKzmnvU80g
+	Ip6bO3ParAb7i78bXtF+04HNYJsF/g0E6bpsYU9jxZuBfR/Lte/w2Zwcgw7jsJole7GBFNlyNgT
+	PMcJFgunGRCJ1k8wIHsy8ReSWKAxJCuUnY1bqxFxASA3DFPLvWYBHlV0StrTcla/mbXvYnBDLPR
+	Yo9TGCT+m8hn4Wj6+u3KeLYhRogFKYviQw2bcx5eCbateyfrnULJmKOMb1cWNHbxgH3t5zyjNs4
+	3DlvLpefCE9NEa6c=
+X-Received: by 2002:a05:701b:428a:20b0:17b:fed6:7449 with SMTP id a92af1059eb24-1ac5da7725fmr28530265c88.47.1793836367131;
+        Wed, 04 Nov 2026 15:52:47 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:c8f4:b7d9:252f:4483])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39c5f0csm10107500eec.29.2026.11.04.15.52.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 15:52:46 -0800 (PST)
+Date: Wed, 4 Nov 2026 15:52:43 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Guanglei Zhu <zhugl3@xiaopeng.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	liuc63@xiaopeng.com, stable@vger.kernel.org
+Subject: Re: [PATCH] Input: mt6779-keypad - check the reported row and column
+Message-ID: <auvFSNx_RS60_tO0@google.com>
+References: <20261103084135.426629-1-zhugl3@xiaopeng.com>
+ <20261103084135.426629-6-zhugl3@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,64 +98,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103084135.426629-6-zhugl3@xiaopeng.com>
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+On Tue, Nov 03, 2026 at 04:41:33PM +0800, Guanglei Zhu wrote:
+> The interrupt handler turns register bits into a matrix position
+> and indexes the keycode array with it:
+> 
+> 		keypad->calc_row_col(key, &row, &col);
+> 
+> 		scancode = MATRIX_SCAN_CODE(row, col, row_shift);
+> 		...
+> 		input_report_key(keypad->input_dev, keycode[scancode], pressed);
+> 
+> The keycode array is sized after the rows and columns the device
+> tree declared, but neither the probe nor the handler checks that a
+> reported position actually fits those dimensions. A register glitch
+> or a matrix smaller than the hardware's fixed layout indexes past
+> the array and reports whatever sits there as a key code.
+> 
+> Skip positions outside the declared matrix.
+> 
+> Fixes: f28af984e771 ("Input: mt6779-keypad - add MediaTek keypad driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 
-[ Upstream commit 63069b5917cba2e15b1a78b3f4ff99e45102c56f ]
+Applied, thank you.
 
-The MFC watchdog timer (s5p_mfc_watchdog) is self-rearming: every
-callback re-arms itself with add_timer() and, on a timeout, schedules
-watchdog_work. s5p_mfc_remove() tears this down with timer_delete_sync()
-followed by flush_work().
-
-timer_delete_sync() dequeues the timer and waits for a callback that is
-already running, but it does not prevent a subsequent re-arm. Because the
-watchdog callback re-arms via add_timer(), this is the wrong shutdown
-primitive: once the wait returns nothing guarantees a just-queued re-arm
-will not fire later, dereferencing dev (clock on/off, deinit_hw,
-load_firmware, init_hw) after video_unregister_device(), DMA teardown and
-s5p_mfc_final_pm() have run, a potential use-after-free.
-
-Use timer_shutdown_sync(), which puts the timer into a shutdown state so
-that any add_timer()/mod_timer() from the callback becomes a no-op and no
-later firing is possible. Switch flush_work() to cancel_work_sync() so any
-watchdog_work that was already queued before the timer was stopped is
-cancelled rather than allowed to run to completion against the torn-down
-device.
-
-This issue was found by an in-house static analysis tool. No runtime
-reproducer is available.
-
-Fixes: af9357467810 ("[media] MFC: Add MFC 5.1 V4L2 driver")
-Cc: stable@vger.kernel.org
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Reviewed-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: adjusted context for del_timer_sync() instead of timer_delete_sync() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
-index e30e54935d79a..1386208b092f5 100644
---- a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
-+++ b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
-@@ -1454,8 +1454,8 @@ static void s5p_mfc_remove(struct platform_device *pdev)
- 	}
- 	mutex_unlock(&dev->mfc_mutex);
- 
--	del_timer_sync(&dev->watchdog_timer);
--	flush_work(&dev->watchdog_work);
-+	timer_shutdown_sync(&dev->watchdog_timer);
-+	cancel_work_sync(&dev->watchdog_work);
- 
- 	video_unregister_device(dev->vfd_enc);
- 	video_unregister_device(dev->vfd_dec);
 -- 
-2.53.0
-
+Dmitry
