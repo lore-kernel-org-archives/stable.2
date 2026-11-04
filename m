@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803063;
-	b=tXcP7dBtrnod/FvVBB2YR5yJS4QuRbFnW0u9tFnjENlCm+Kf92bHzK7KcqYYyJ6Zbs/y
-	 hjd9+ELpRMZRM1WNU/gSs7fJvAMaRp+WsT9FTnLu0iPNLVCdIIBgScN1ZMGU1tFg7UFR4
-	 LA8Yl0FqYCgU7vpAMKgf1u5oaNkgxXjJjoKXd1jYPpv7bCK7GUbaTOUuj+lJDpHI+fWDm
-	 q6WW9YrErREuNI6vHkXvolgRfvCGNz5gBnobOh71D8eiGCtveWeK39GLy8pRiZdZEgJ6b
-	 3h8s7DyWEJOSzgdgws5uq0uzHxgk3yNjmJisZovVlM/AEtVUEQHRXqHNNyI3hBB6ibg==
+	t=1793803065;
+	b=RMUxFCs8H0jjZBnWKeA39PdsdpV+l5T6Wq2unXfLnIFP8+AV1F0N4RfeESy33UrmYMOa
+	 FZMlHH5zcc5LtZaMMjwqRSCXiaNJX7S5eyej2GfxOZqe+YHVU1auFgdU8k8kU0TnEDZ0I
+	 LlAtYcU4mJu12bQO3HX6EWylbCnAJRQO0ehEC+01arLghNbu0q7unrvrAW/EguPFTi3dB
+	 SNBhbF0KvbjcHZQdPJL7RRp9I1P96jIR/GNisdT9LlfM27oWtlB/h93p/RuwokrsRi1OZ
+	 Kp6jdTE9o+JyvzCvvFsEgUDhaE0rD92BzfWNn06eh7e/pq+ao1TecAIrA4ppra1kh7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803063;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803065;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+p7rRy8wRybhO/rr6seTtChXXNsCuX/vEGO4d6gjKJQ=;
-	b=ecf03rD2CPj7r/3Uib5QYEST+60TorzHsdi+KIqSuFZn5ewE1GIm50NYtlkbMJ266Vax
-	 VCaNYjiJyGqKyUkcbs/gozMfmF8CDe/NvPE40lvzI7zoSf/Sp+Yi2E5Eix5DOlc4H6F1f
-	 toUKODcGB5p5YZd+dazafjIOZDuD2Ic+vvBatE0JvKXNJYfR4qsNYUxbEDnnlDdccjqTM
-	 JBTa6n4ObqnnI4m8Q7J3ANPjC5A5S6WcUng7DdjF75iKMfRhhqiJQssVMu2m7gFS/Mbpl
-	 wpg+WPk4oVM8HI3BAbu6zYqkr6jI0kn6XyBxePRSw7sLTaHRBbU5mr86FnyDIIpNiZw==
+	bh=YUcNk40fKt9ZQJhhKay4qF3rZIuqi2F/jK5Y/CfOxUw=;
+	b=DKBRw4NySaVdlRB4nS8z1IAcjluwGKBUIIsJIakG0Drn3tugdF6slikL+zbTjgm3q9Zc
+	 qwEW6+4IW7oU4wL4XCVTSZM+OIsFLl+woUD4N9H8I1i8V8Tf+9JaJa4o8vzGm/6thI5RX
+	 jEDetwY3IwNqRtjNjwWp7iJGHtxT/7xw/bGlO7QttYPiLS56GqtMFIAIe1pelecL6l5ZC
+	 LN3l3gFV+1+cIkpp718NxD+Sby+HU0fkllu+12evuixXVMtWh7zxQZLOH0ET6cxvJO1Gi
+	 5pgnbt2r7EqtlBHNCuK0AQ85zlQ4ONNOd9BpGlnJwM2vVSVneqJrl8p+JY92EJxQxUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hFrA43Qq;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DPSrmHnh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F3E606A32E
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:37:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A44606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:37:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hFrA43Qq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E23D1F00919;
-	Wed,  4 Nov 2026 14:37:43 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DPSrmHnh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 699B51F000C1;
+	Wed,  4 Nov 2026 14:37:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793803063;
-	bh=+p7rRy8wRybhO/rr6seTtChXXNsCuX/vEGO4d6gjKJQ=;
+	s=korg; t=1793803064;
+	bh=YUcNk40fKt9ZQJhhKay4qF3rZIuqi2F/jK5Y/CfOxUw=;
 	h=Subject:To:Cc:From:Date;
-	b=hFrA43QqtgIEoOIg210zSkFktbKJIlinGQkOJDxdQQMMs1CdZayrcvQJDLv2DVodJ
-	 m/JLnBWiCl2RLzMb6owD1kZN725+VquWJKNaFzD8wg76u0Nhm5YaWhEqLhWysjD81B
-	 5T/QzKyL+AUTld/5DG5vUNBH+lEXtjVxBXSuZzNc=
-Subject: FAILED: patch "[PATCH] ovl: skip copy up of empty security.capability" failed to apply to 6.1-stable tree
+	b=DPSrmHnhjNrtCoUTAY8dsimkBAiYEIXNz+3H2qEBpxxc4rYocRZ1W3DaJFcc2eeqc
+	 S/3fLXtlO4ZybaWGV6upeZuJOe2jTWbLH+mbwLQkZGBWgpKel9P9G9XVIWu5ahvPcl
+	 krFmfjV1AhlP8Ke8Y8KHAii0va6sgYZTdw/Wnr2M=
+Subject: FAILED: patch "[PATCH] ovl: skip copy up of empty security.capability" failed to apply to 5.15-stable tree
 To: amir73il@gmail.com,josef@toxicpanda.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:37:41 +0100
-Message-ID: <2026110441-verbalize-sauna-b06f@gregkh>
+Date: Wed, 04 Nov 2026 15:37:42 +0100
+Message-ID: <2026110442-emote-irritably-d734@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 50912a1715b8a7c614b654011a0db750e372b43e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110441-verbalize-sauna-b06f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110442-emote-irritably-d734@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
