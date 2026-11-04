@@ -1,59 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799548;
-	b=zQomGzl0wLYE4IJl2ksmpPfQar4IUFqdghTQgHk4mdrawMNjuNq96XPKRcLKAGSdIqRn
-	 aroPSVFwrWbPrmZX7FVyd5v0TmidqYL0n5Q8o7zq6+NsQO7V/sWDka4xEr/wcBEWErgiS
-	 SSm6tH74OuGZJvSwtcyZoxYwufHgXYrffrhRKUH8K+7RzYJ4JI1TrTgkRk7xMMOHcnXfw
-	 sJPsL1XACSsH2HRAs8F9tDkAxoejydle6CsBRYj24mXawm0UdG7H/2OkdMNEzSa7oMCmd
-	 4YWDXJtQPn4C2ZPDDY/eoNRaDuBjtnAdwOXzUzdanuby3tY96vfeF1GBPciB9/LqnmA==
+	t=1793799574;
+	b=qRy+oSm1i7woEkLAH2ji/4risSiYpmtbNh89rL+rRZGmzljcgExXXPcLikiMNLPWYnYv
+	 EwlK+Q6eoNlj92TrxWbBxycvxt6hEmQ4WJXowWAgFMs04VxiuKkkmVVRpTxKs+lza0Mto
+	 Vq3LeOfqkUow9MATCuTNEe/+XW4Nb0hTQMQaoIyBIxna14SzWiAlnN8raJNayOU86Vy/t
+	 IJPZg9nLp/RXHUYsJKPQn6WMFaHIOkysj8gf0Y9nu62UzM38xjiIXKBhIzMhQ3K04Jc9k
+	 IkqoP74ZL9/IsFuti/eo0ovJOLJcRkpH40aMtd5iWL2D6YZqrXVnf+8L3XQwYpOSfHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799548;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=z7sSJMfuWwhvqNeraow/YEhbHEAVWeqjNC+18be8Lgo=;
-	b=kGQMNVqIp336FU/usBppBsrVgloSXw1Wzmjs+LIiQ5IejU9Fu+GgBoRGckwePZZ8XKYe
-	 V71pWHCjczPFUX3YPOnexQ2AMY9t872MelG9Ka5R7KpiKFnbW4+fWpYgwPdVmhYMFBDGv
-	 Um+8dtPHe9opjeiXvmQKZBQ1Y9r0wHZ9eOJ1IrAmMK3xJNBsAy7E/6uwuRSZVs4n1UikK
-	 1SXUqGYrxSDthQDhKJHldvh/klkzeq0CTBQxy74xuM11YLbuPy2naQGh4sYdq6ZQLhqr7
-	 rATT1jdyjYLyOKaONurNgu3bY9uOu+vdhSHGVNkpzS6pPxBybSH3QdHRoRmk7Eoz2Rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799574;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=9uUMXG1/O/H2muN5NV9vOmGMF8MAQ04Wmdfw8LInq+8=;
+	b=PleVlLf+srIcnyM7e2HoCb0C2SeVoGlLUwTZI9mInP/NgsC4yigzn+vkoAn4Kou05Vdy
+	 rjmVT/19wQLm7WJ/leY/rM/OuUSHZDI1gclAwj0lHZ1+xX80spIQFEceYfLX2TJvzHrZz
+	 q7GwzMkNTk/BMs6RcZ9ddl2GpOQvb4lg8r/XY/hFHZ/eHSgXUVwnP+bMCz7Yf2ttE1wX1
+	 MODXzQtcnMlsCOsnBOvnMsZulOoxy4TR1T4GyNu9QGOmQReLtFOrdRzdgSChPufiBnhDS
+	 lzH6WDxXHNxQ1K8Ru0aqd6esa9CT9Qm3Rvs73hi97Ej0N5MjCpYrsaJuw5AP3LJhSrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=uT2NpfFa;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nI1tjR86;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC2D606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:39:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AC2D606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22D4606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:39:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=uT2NpfFa
-Received: from omf08.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay09.hostedemail.com (Postfix) with ESMTP id 2A63E80725;
-	Wed,  4 Nov 2026 13:39:06 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf08.hostedemail.com (Postfix) with ESMTPA id 5054520026;
-	Wed,  4 Nov 2026 13:39:04 +0000 (UTC)
-Date: Wed, 4 Nov 2026 08:39:02 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
-Cc: stable@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
- sashal@kernel.org, DL Linux Open Source Team
- <linux-open-source@crowdstrike.com>
-Subject: Re: [STABLE REQUEST] ftrace: deprecate the ftrace_enabled disable
- switch
-Message-ID: <20261104083903.0d7cdb06@gandalf.local.home>
-In-Reply-To: <CAOu3gNgv91dq8jLShteRWphrSgNWQ1o1dkNxRr577ez7pMuv6g@mail.gmail.com>
-References: <CAOu3gNgTSWE84fgdc1iUNKwes7E6u_X6b8pjZKBULEJWB=RAqQ@mail.gmail.com>
-	<20260820182015.4272b7a4@fedora>
-	<CAOu3gNgv91dq8jLShteRWphrSgNWQ1o1dkNxRr577ez7pMuv6g@mail.gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nI1tjR86
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 354AD1F000C1;
+	Wed,  4 Nov 2026 13:39:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793799573;
+	bh=9uUMXG1/O/H2muN5NV9vOmGMF8MAQ04Wmdfw8LInq+8=;
+	h=Subject:To:Cc:From:Date;
+	b=nI1tjR86nHFdw9dnoL52+kSXOoCtw+/oxYwkbDPiiUhk530HLBfm8hjCZpY/E+ZGj
+	 oWt6aMlcp70WbSLoFHz6Omk1itfsWqhQp1kV5sGV0BNRfa+7O+UC7rjrmuQuOzN1Z3
+	 xqqaMkxH0VPr6KucJpUKI1Irjo7KLlyM1KF4HdxI=
+Subject: FAILED: patch "[PATCH] media: ipu-bridge: Fix use-after-free in IVSC error path" failed to apply to 6.18-stable tree
+To: lhfff@tju.edu.cn,sakari.ailus@linux.intel.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 14:39:32 +0100
+Message-ID: <2026110432-retry-unrivaled-a1c3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,26 +51,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: cgz48q5e7w6bzegc5tty7tenyxfudjm1
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: 5054520026
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18ywDAmlmCeYxHVsuPJE75iqXMsSnfNtoQ=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=z7sSJMfuWwhvqNeraow/YEhbHEAVWeqjNC+18be8Lgo=; b=uT2NpfFarHFxZPq+G6xJWB1QXQfCYY+UzBnpL0fKy7jpGZzx33BNgzNV7HwWuVPt2n/mPY6NeXZGqLlyeFlc2OtQjzgDeOrrdRYJCAHuOe6pSjj+O8BYkHZnaMpPJCbRXZsvZz9JDVTYXWlq32kxeZdjRykB3K2oiSTobG5u+Ig=
-X-HE-Tag: 1793799544-763974
-X-HE-Meta: U2FsdGVkX1/5D2zjhLpH37yBZt94zgOTppAQR80oSL8Y9xEhcCv9jQJZIsMNpRYJACNtH7eHc6h8E9X95F5GFnVlijEYNRhOZjy9FSdIRt52YXV2QCXHQd4A+hQ4F/HjT/D+tQbLxstSg2hRRtXOCcrUHLE/FId+YgWe3nQFhChDediswLj6/kHoRaBrsicBbrUV8cd+4IDN50bhuL9PWEPLDVDzkG8mLIA1CjgUqaE7u9WBYxFBa5imhzeWFMRl6dxpmzPXbVIDgeNw4ev4dLlj0LT7UB6YzxUQPwMwUojuUOsEJbYiroHUYgqkfBMeM3qFj0AR8Y9VWZ2WAQQmHD1PnU/iND0CcSSNMcZIqFKXlbdIuzcUfA==
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Tue, 3 Nov 2026 21:51:42 -0500
-Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com> wrote:
 
-> Hi Steve, coming back to this topic (sorry it took me a while - other
-> work related stuff kept me busy). Are you still willing to accept  [1]
->  upstream ? If yes, can you also please clarify why only the first 2
-> patches and not the third, selftest patch?
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-I was thinking for backporting purposes. The selftest patch is fine, but
-not something that needs to be backported.
+To reproduce the conflict and resubmit, you may use the following commands:
 
--- Steve
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 3d42d1c82717f0853379b516a7fab54b636e09cc
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110432-retry-unrivaled-a1c3@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 3d42d1c82717f0853379b516a7fab54b636e09cc Mon Sep 17 00:00:00 2001
+From: Yibo Tan <lhfff@tju.edu.cn>
+Date: Mon, 7 Sep 2026 06:43:50 +0800
+Subject: [PATCH] media: ipu-bridge: Fix use-after-free in IVSC error path
+
+ipu_bridge_get_ivsc_acpi_dev() returns an ACPI device with a reference
+held. If no matching CSI device is found, ipu_bridge_check_ivsc_dev()
+drops that reference before passing the device to dev_err(). Concurrent
+CSI device and ACPI namespace removal can drop the other references,
+making this the final put. dev_err() then reads the freed struct
+acpi_device and its kobject name.
+
+This was reproduced without kprobes by racing normal CSI platform-device
+unregistration and ACPI configfs table removal against the production
+ipu_bridge_init() entry. KASAN reported the final free through
+device_release(), followed by invalid reads through _dev_err().
+
+Emit the error message while the lookup reference is still held, then
+drop the reference as before.
+
+Source reproducers and vulnerable/fixed serial logs, with only the build
+hostname redacted, are available at:
+https://github.com/kimaiden1984-boop/linux-ipu-bridge-acpi-uaf-reproducer
+
+The fixed target builds with W=1 on x86-64. This was not tested on
+physical IPU hardware. The tests establish runtime reachability but do
+not measure occurrence frequency on shipping systems or establish
+exploitability.
+
+Fixes: c66821f381ae ("media: pci: intel: Add IVSC support for IPU bridge driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 0817216f72ea..63470be888ba 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -351,8 +351,8 @@ static int ipu_bridge_check_ivsc_dev(struct ipu_sensor *sensor,
+ 	if (adev) {
+ 		csi_dev = ipu_bridge_get_ivsc_csi_dev(adev);
+ 		if (!csi_dev) {
+-			acpi_dev_put(adev);
+ 			dev_err(ADEV_DEV(adev), "Failed to find MEI or CVS CSI dev\n");
++			acpi_dev_put(adev);
+ 			return -ENODEV;
+ 		}
+ 
+
