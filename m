@@ -1,130 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793821659;
-	b=LKQ2ZyfGyTwz/Mgmont6VymxLRUQ9YeuXhlk8zi7ihzGC9Pi8c6/auQ/2ISZlCeCG4/E
-	 +JDDAjwqCLb/8w50lmRh4vOwi7sH3FfyqPLyJvxnRFdx74Pr5T7tErDg0bEki2bVFe0PF
-	 euSF5YopvreJeBto2ypLIK6DfGIB6fFKT3DFKtz3m7aGzKY/RN2lSzYYFTsf5CTq1c928
-	 BsHtWMC5yWAn37dpGNMAesWqGHillMasfuvj6DMiDUVuoK3ZYguwYnWaIRwlRKx6YiqbD
-	 EEGvUBC1Fnc96EZM3qurZCvZx0lLgODHVMIpwzw4+wNOCiKIc9tQQWiki6vZEtaSOuA==
+	t=1793821674;
+	b=dRuUDRCVFxhWwLmkzND6H2SF5eo99PYv3dzvV+r1duHcOUW2ARz4NLBdr8ZfgA8X+lXQ
+	 qaTZO2z8pN+pfSEZF5Uu/wjGC83F+6xCwaIWL3+Mk/fs7+bJ+6EcHAG/QYPf9P52KuuPy
+	 s7PhaqOaE3aclRl5jI+I98FY6skT7t6mcCfY3g5Y1w5VUSiAS5TwY+drbKohh0DTH1ANP
+	 FO7K9EATheufr2Ik0l88noUnlSqgd4nb2TDhvEpymY7xr+6TblvVGdRIqdcoUDuPVw40S
+	 nHPBq++6FvRBsdkvy7rWlIYvW+AayOx0SmZb5vreVpg+BI6yPfMjlDe47em+WBqd4HQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821659;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:CC:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=b3XJ3uMLgJmcQrJgXnJXJ6ykpT19UaHPPeMEczP1Fco=;
-	b=nAOQHAsnIL8US0liq9DaD4mf5Li7jDzwzXgbkcYvHNzgyu6zBXrrfsMdeAMzN1xBS8bn
-	 LTpM4ByMGtwLdXK9jwkfmFx/gmdVUSE6wlG5Rev86rMc1Xzbv0UWoc1bBD3RCnHTjTS6n
-	 REXSqHa2I6pI3wQGU+Iq3dxlvoQfXZC/irtcS+wXK5EEwJux6yxRcX7KY3oAT2xE42tVp
-	 ZCOHKRwEIZGTApB7Z1X1e8Jdx1EGLId6RoLrvWyh2ao6Ls9Cjwga2Cu99Qn97xXe9foDD
-	 5YqjylYJ9pYsDT9aWhRquOOGQEEib5wjhl0TocOFGsI+PPzPEjB6Wl/LXcb+mdPhFxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821674;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Jrd32+YJEVParF9gDYjq1VptNJioJAFlM7MtJqO7Iqw=;
+	b=TdDCBT2GlXoDi/B/DRs61DOBj0Ndig3zgtvhR4azK6kkp6F1fC3DdQ8FY/3/aVGByMJE
+	 HsTAES815pnAWak/G/rhemZxXUsWvNArJCBZCrqkjKGxI3LXyUn31pvRshLG7tHiTxA8d
+	 oZni1q7NImBprVmUOUlx38wEXtKnq7WlDd7sLEQQ/7aEigUun3GOLA1Io39PZ2m9hcEBL
+	 aV7s/V/8D3I0CK2rWDjSEY+4/qEJLQ2ZaSH+VTqw5O3bxWRTgDAVdji42GDQpcvwEgvrN
+	 lQhutyuwg3D9jn0IIgCHL/TPJ5SJ6ArPKdEh8aZSlCzlS1WmZxSQMoE73c6QaEY97TQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=TGJaBplg;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=UutwuyGX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P2nVfXQS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 472B9606AB03;
-	Wed,  4 Nov 2026 19:47:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 472B9606AB03
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30FA608F3CF
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:47:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F30FA608F3CF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=TGJaBplg;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=UutwuyGX
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6A4JlZ5i3035911;
-	Wed, 4 Nov 2026 13:47:35 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=b3XJ3uMLgJmcQrJgXnJXJ6ykpT19UaHPPeMEczP1F
-	co=; b=TGJaBplgjPoImUokcEIDXEdBUrxxDIFOIBAaZqgyX2KRhUjgsFWNnNVim
-	hViMxvypmhAkCp+3lA3sWX1uXmSqpB2io7z7Baim7ZJ5/NvGwQeVTPSZuo5rZZjb
-	J2w9x9howmOilOLV1vWjRs6t2liqC0Gr/Wl0XNwyXtvPw0ZHtdsATGfZmq7odijH
-	pbRK8Pd+3v4tNruD0FJZP7Nx6cyCft+00yliTQdH7Q8VyJlmgfmTB/J3R3ujDZSe
-	EQjYgtcyaXGZp7jy3WhUhIhrt2DWc73gEzN5MHqPAw9vdHacmOqZJ59UybOqr9IL
-	jSR411ufpcfgxLi+Soy4I/4mM6Rmw==
-Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012066.outbound.protection.outlook.com [40.107.209.66])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4hqqra6vpu-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 13:47:35 -0600 (CST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lrMEkElDJ4zmGGdT/R7g8LBxRWmK5WOqwYthI0i2VU3rXbLWw4uJqMub2qwo6RbLSlmAfcCw9NaPRbmvMWOjMx735+MhklVulSeisZG7VGsTbfiTVwlKZVgNtq7ZAkEazoFuelaJERDYMulpO/G9EfhDd5Ji5A8uHPlCNivqPB1DH+J84q5C8cq0QSTX+516mpBSd2nM6X2va3A1zghDYUYjiUzhGgVNviXQpobigyFhMVkQNV0CjtMA5lqcc8ZsBRAkw+uNADtTPOBkf1nkaoH/kc8vxkLefr1vSu4q6t/Irm8mYp+qypZyfwFFdg38aykD7OuQumak4T5bGEGePA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b3XJ3uMLgJmcQrJgXnJXJ6ykpT19UaHPPeMEczP1Fco=;
- b=KIjQtImxUGnnacuVV4yMposlKIsG+VsIEyB3iWPJXoGmx0Sik+KNq7s4C/8WrceNnp9wgSG4ctfaV1Vlp40CcV9Ul/8x8+Zt8279WHENnqsVneJwcyUMy0UyGnSSpGP37ThKH4eNGrC4+7UkuLWPPH272oxvbw1ot+jg7tFE8vA9G3Tz0UXZpQUuM+xJZKaqzYlo/fTdbL3ksZa8CxrAC6dFffFJWpvXL8tUHtOcAEivNo1NwFyaV7KrFoGRld6v/FV3BtDW6eohaNrz0cX19kxZJ02f2ADhdpCppyRrDiRVY8roYPm4wQooxi6f6fq20HTT9sAZ8ITugXqFDm2/Eg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P2nVfXQS
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b570ff3dfdso580634a12.3
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 11:47:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793821672; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RiIWpP/Uajxjp034ILNF5P3wOTsQ2Ix/EToKRAJabgVjv08FSBHVYGVJ8wr4U9VbFJ
+         fu/RKU0mFg1c9mz35JVkvGhNsl8+MN5KV0n22IzMYacAf1BNGz/lxDOvNLG0Eb2TT7AS
+         INwvM1MDNfMz+oNZ2BEgMLOx43UjVBEXcWcdi+fo6nph+k0n/dfBJMEc2JRoMqQBaxSi
+         HMc6yGIxXnKiR9SC2gmcLk35wEIYWUp7HpsuGGgQS94ZSj2bg4JsxLQdX/BN4atx5Ihp
+         9b4bV903Ml1lwY2Ay4/SWvftUJ+R8QDxq/xk9eExWP+KS1QoRXqyp8vGP8WZY2m4ksvS
+         ypzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Jrd32+YJEVParF9gDYjq1VptNJioJAFlM7MtJqO7Iqw=;
+        fh=7kmjs9FObO2UHtTZJSngSztZdI+Pe5+FR4hhvIIYS24=;
+        b=BcgUO2Lco2HqmUBGyUPIf4VidaZPRGEsHJNAFo+LyaId+0hHFv2D/1yQQKVUzA0LJl
+         QDgNuycBZV4wEnMpAzWFg4xl71imze8R/SfW5JAYXGTxGPoN/CKTt6uuMWCHMg2N+lxp
+         QmsBA2bQwNo0T6MOOhOUjwR3EM2r6LpcTugLTbpuaRCLutmwirP5lizDJrwwLg4TCIao
+         WJ59rmV5ACQ4d+MHMPimUhNzR2xZbXGhAcsySUXlY53cySMdlD06WZSGn6CAXRlwNU20
+         yF1sIeGTBc5xAJ4Jzxlk9uikHnRPxaw01l4x0z72Dqk3V7T4jo5LLS11QikT/Kc4xW9Q
+         A05w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b3XJ3uMLgJmcQrJgXnJXJ6ykpT19UaHPPeMEczP1Fco=;
- b=UutwuyGXffY3icexxZerA9i7JmGccgeifVKLCPR+TAINBMJp3H7VcQCE2x0iHEeStU3CNKFhUlG9iYO3CJsQ7YprhQUtKTD1BEJBxF/FrTEI5hQO0ba6vrFvI5nLnW56Z+jRBMWm9l53ppFiF5/e8rwKs/Wr+QGTuP86dPPwTL0=
-Received: from PH7PR02CA0008.namprd02.prod.outlook.com (2603:10b6:510:33d::27)
- by CHBPR10MB780557.namprd10.prod.outlook.com (2603:10b6:610:407::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
- 2026 19:47:31 +0000
-Received: from SJ5PEPF000001EF.namprd05.prod.outlook.com
- (2603:10b6:510:33d:cafe::67) by PH7PR02CA0008.outlook.office365.com
- (2603:10b6:510:33d::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
- Nov 2026 19:47:31 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- SJ5PEPF000001EF.mail.protection.outlook.com (10.167.242.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 19:47:31 +0000
-Received: from DLEE209.ent.ti.com (157.170.170.98) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 4 Nov
- 2026 13:47:05 -0600
-Received: from DLEE211.ent.ti.com (157.170.170.113) by DLEE209.ent.ti.com
- (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 4 Nov
- 2026 13:47:05 -0600
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE211.ent.ti.com
- (157.170.170.113) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 4 Nov 2026 13:47:05 -0600
-Received: from [10.249.32.147] ([10.249.32.147])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6A4Jl4fq1815910;
-	Wed, 4 Nov 2026 13:47:04 -0600
-Message-ID: <6d906d09-74aa-4e7d-b8fc-08fe975da7b7@ti.com>
-Date: Wed, 4 Nov 2026 13:47:04 -0600
+        d=gmail.com; s=20260707; t=1793821672; x=1794426472; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Jrd32+YJEVParF9gDYjq1VptNJioJAFlM7MtJqO7Iqw=;
+        b=P2nVfXQSoEWDSx+ehrVF2CrwruKgd6BRzwSUsBTyRf+Q4jqPVn147nDPJwF+wf6i5n
+         PVEVgKQcNUC1G0iClbLZ0uOPeBo5Wvy30G5Q0KY0Cz+zwTTgBTdPW4VsqUQMkRueRNiC
+         JgmMB05I2CSg5RqRT+i8WjqqB5MDVcLcv1+28C7/x5vYMqN3Pqjy7JCIJfWvS2NGNAFP
+         rGzICRf7g7x/wcJi4A24Hd8tZLxK7IjrH0N9w7djtu//3UtIV045oNmcCosFNmbhLNad
+         edesHS1IOw9tK8qO8AwNrAMP4mA2wJi9fWcVRejnsdBewx3aYmdS5hvLS5SJcz+Jx1zr
+         GCeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793821672; x=1794426472;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Jrd32+YJEVParF9gDYjq1VptNJioJAFlM7MtJqO7Iqw=;
+        b=pFGPIHIB7Hw4a9TRI+2eJBIwew5Vu01j4uNXWkTW6dLdwL9tYkEA1YoMtSZwbod8AG
+         8gWvDhRmFeEfN3rMJ70SHZ8RJ3ueUioNvxHnjDfgY260D8yNJNEiKkK112AiLHPMzOkJ
+         m3ekJfIZhwMWLAt+HKQXyHE8PT+XkRBL3yq1eLa7Rg1XkqrWrlG7N5tkFdc+92zwua3F
+         kakMdITp3E+g7ZhTXukrA7xYR+9Bd+AzSkdJouRxRil3NpiyXqulMMQSLbM2GGCQfINB
+         uyXbEkFYfMZkCocdKkXr4Qr0XbutniOsnXlNHUJLRH6V36nphPVWBuJFJ/l2f699PPhd
+         ro7A==
+X-Forwarded-Encrypted: i=1; AKwUvBx/zwHJGNuh9oqSq48gm0QSR1GLYUvceq+UyBRLeRkGhtRBm0QDhFbLrCbVg0O9F6foymi7Dc4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8bo+mrcaMvfljE0B5j+oFRBkuWItQMwzm+cgeHuREuDWWg99fH
+	iGqJDp9ycL5QfVxDzWCX4876XYqafjwZxP7N/4zV4o20lpCJ5tsFemGfAe30JXpVmBfIwZnmW5G
+	TfMuPAhWuyRJpNIpIzKB7ejMEYgd3qppUoU5pncg=
+X-Gm-Gg: AYBFou07a0RiSfNxpI42hLeBwYy0i+k7ly4QTWF0vDNuLjoS46Nyn19hz7QM4adqLn/
+	xPOr4qND9YcxkcEaS9jcRJFOH10n+MaWXJjk8mqHMhOFMvGzlg5bfBwELWPd62Iw7hUkw+lMVye
+	BISSwg5Mmv3HchQm56Nmcd/+2j4IfDbyEz+eT3FmNNax5ZnMDO7E1Woess2shRUBaEaYFu0q8/5
+	B08P4SaaO5lnjp6gFHkh2k/s9FKrHMUKqj9gngcaiGVC4jVVFPalxS6HZiSnM83Qm7Ayu3Yp87e
+	M0DGWmO7dLS0LEjEw2o/Gyg9gKYFXh0qg/LH6ON6lDe80PdrCIKPVZ4WD9NpfbZbYRNJIwwWa2Z
+	IEnIKIns9a1JdYyKT1wNty2SewgfQJj91LbNzAaM7QK5St36sMzZwK68aFZxuZvgwMBhfSH+Cbe
+	/QBiDJiY2uNQhUV6M=
+X-Received: by 2002:a05:6402:4008:b0:6b4:208d:21f2 with SMTP id
+ 4fb4d7f45d1cf-6b4d3392226mr12668210a12.2.1793821672207; Wed, 04 Nov 2026
+ 11:47:52 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -134,185 +105,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] leds: tca6507: Fix use-after-free on unbind
-To: Danish Khateeb <danishkhateeb03@gmail.com>, Lee Jones <lee@kernel.org>,
-        Pavel Machek <pavel@kernel.org>
-CC: <linux-leds@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-References: <20261104193038.91614-1-danishkhateeb03@gmail.com>
-Content-Language: en-US
-From: Andrew Davis <afd@ti.com>
-In-Reply-To: <20261104193038.91614-1-danishkhateeb03@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EF:EE_|CHBPR10MB780557:EE_
-X-MS-Office365-Filtering-Correlation-Id: 21bbddc0-bc9d-4c3d-f270-08df3aac76cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|261022105027099003|5023799004|10067099003|261021123027099003|56012099006|261009223027099003|261028144727099003|261022075727099003|261021121427099003|261026121527099003|261102123227099003|261026140227099003|22082099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	tPViXkfXdkz0DruopeF3EwwjpArVknWulixPVtNv/xJfjfC3W8qYsz1jhVGRTIkN0zgE9M5COT+5MqSyX34F/ZTVV/4Q9CH5RbTtfOWiea9RNnqZzQ2NCET65w9AfGjwnlnnWph8b0J2kKwzcjKZn+ZULkhIjDiisYzNS7mAPFsyriRm+BreuuS07KZh52yUX2OJGtrZ4BfFGwzJ3qayHwDgrzNZAXT5V+suObj6X+K8EAuLklWc7KFi74nyjTBh4EArj+XMJ3+Af0YF7wPZBJ2jNwT6clDRRpH6O/Ta8fK3/N0xh33Sd6S66f1S7E+ErNu8gLmq+k9su+URZ7o8ExQCGm3m9QqL3zbNwMXh+lJOcd9Fh/ihOTIojbpRM7XtNEAGbrCw7UE499V4k5p4PgTV6wIBCZkynmOYt9e/l3R3TRPLQAJs+i0BUBRF8+E4KWljrqs89867qoxytuJC9+64DZXqoDFqKmbcO8KuqbFhenr3n+grd7+VaR+3Uat+OC9wT5kDkJw26wj5Ypdh0ikr+HKEaCrFumJ9DESzbCUIlyA/awxdH79vwNyOmbI5fQY9VKFnq0OGU+51F82Mji5k/hNe2qm6PR9U7qOU3q7EVRw5Fm6L+QkKL9qL6rjoibVkyqZE7CXHZJZwrIbqzPi2O9WfgoQDuOkuPOID+64=
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(261022105027099003)(5023799004)(10067099003)(261021123027099003)(56012099006)(261009223027099003)(261028144727099003)(261022075727099003)(261021121427099003)(261026121527099003)(261102123227099003)(261026140227099003)(22082099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	UU8QFEajxsVtkyX44odT39TJp3fezr5SRLootdK8ATrixzn+GCY4tgVEfX3uE9QbdbTzT+lAggXrvqhTViSPIgI9VNRF02Z13h51DQsICXOfgA22P9/aROT79/KZxPX/6MjAVfGseGBARMcyuBWkLEXN4EvbT0CO1AJd1i4r1D30VNrUYQhK1O8sevovTmOIFslHNX7yD1+4vNKiCGdtEhgbXyWZIRU6VYHP6FUAAYIcpe+vMZTdZY7PP+NvEz8TcisDzyTh4c50lk1OAXEMcPA7KAUoBrGyyivcBP9JJjBWwXMCO0I/1SJGqBMoyqys4tgGlg8vRaidcHHK3P9YL5HR5dlh4GCjGsiss4BPSfqXmNEVcHCBXwBTUNaqF4GBcn8/P/C0UdkO+s1u+swcSsIo7qEYdVnDtnR2VekMP0kLhbtsu3eo0NLVR/XfWVVb
-X-Exchange-RoutingPolicyChecked:
-	1j/uhy/0VoVuUnFHOytmKzAEqKveaYzWAYPz3Uw1IIg4SEAQc6D74Lv+s64r+OfeZ/NUTf8FMpMwj7gJ6+KvB1W/uza5bGoCVIO7XDwDGZtirrxfjydN3ujvVNx2fYNMysnwqDuDbUVDE8kxmPApG38nDsJ/rOrcCTxtiZKPQbBk0Tr42/UUL80tgYaQ9oE+QQyZ+YZUBlcxR71KQucMtQzy+GBwKA21qmlLlDkK8KV/QAGqNnALsXj0MGaVwrHTwd2MRIwjNpZ4W9KnTGBkx6tLSUjSORQM/17inb+7p7H5j2WOpRZdbTRTthKpu4HLsPxOTgZUuaZ2zeLs3JJbag==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 19:47:31.0498
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21bbddc0-bc9d-4c3d-f270-08df3aac76cb
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001EF.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHBPR10MB780557
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA3OCBTYWx0ZWRfXy1XSctZknivL
- qXgj8it6Vmh9w1Qf4SlKNCZAJbW/M03GX1w7i5irEY+/W5wIdUNM8KMBIHy2pBcPO+CU4SbKlYL
- ru9B793uvUwx9tEGqYnVcrQ6ojjherw=
-X-Authority-Analysis: v=2.4 cv=F9TC5ahN c=1 sm=1 tr=0 ts=6aeb8bd7 cx=c_pps
- a=TLqzh4Vj95vWg92rYJ0Jsw==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=sozttTNsAAAA:8 a=KlaZ7X0WMiNgMZjx13wA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA3OCBTYWx0ZWRfX0XinGVkfzDCE
- sqtQcj3gTBm7eKtCyam9pEaev0mn83SgOiykA1W2QucPno/tGEIM6rLhls3j4rEU1NpAiSX0gzo
- 7FwBsZnyoXb2tyqn6gfnQBX/ADm2N5086EOFK5FArcrZRntxYDFIqP+mUxuucJp16HxlKE0Ui2Y
- XyobCvAMQDpAzp87tUlbRaRvWQB1ypWZNRH8BXHjl8jSkZibBJ+XmPCe+TS+pgVVpmcfPxUhK0y
- DUK2zLhbYKTI3N2hZpM6InKDJ+5+nEBpEayTBQsVy7zzog2JOUP1tTVgjpqo6GP+joGaEon6Irs
- zFP0SEOlIWmtIa3uaxSQqYB2Me0aCKccrWlwkawvwgx8xptwjQxJtf0v3D6epDgHIZe6P57/yE+
- h9KnqafyKk3Arxfo8GipetrnI+AwmALin0Cdc6yTMRDsHC+DUYzB9tv2ge3eboj7NB00UsB/xUG
- ZQhWlpztxCO0GfflNqw==
-X-Proofpoint-ORIG-GUID: aIapWjQrFyS6ifZDY7X8D5yyRdBPzmgY
-X-Proofpoint-GUID: aIapWjQrFyS6ifZDY7X8D5yyRdBPzmgY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 adultscore=0 clxscore=1015 phishscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040078
+References: <20261104185536.3631167-1-amir73il@gmail.com>
+In-Reply-To: <20261104185536.3631167-1-amir73il@gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Wed, 4 Nov 2026 20:47:40 +0100
+X-Gm-Features: AclHuK_IaB2NZ5LjJ5ygkT3wi1DynfRtq14s9J0eq9PWgeIQdcdCkasqWVkNTxI
+Message-ID: <CAOQ4uxhi3aM57BrXmM238TO3baeN75JduY4fQ8km8bLOx_SXyQ@mail.gmail.com>
+Subject: Re: [PATCH 6.1 2/3] ovl: skip copy up of empty security.capability
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, stable@vger.kernel.org, 
+	linux-unionfs@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/4/26 1:30 PM, Danish Khateeb wrote:
-> Since the LEDs are registered with devm_led_classdev_register(), they
-> are unregistered only after tca6507_remove() has cancelled the work.
-> Unregistering an LED that is on turns it off, which queues the work
-> again from led_assign(), and the work then runs after devres has freed
-> the chip:
-> 
->    BUG: KASAN: slab-use-after-free in assign_work+0x414/0x5b0
->    Read of size 8 at addr ffff888010d5c0c0 by task kworker/1:2/65
->    ...
->    Last potentially related work creation:
->     ...
->     queue_work_on+0xb6/0xc0
->     led_assign+0x223/0x340 [leds_tca6507]
->     led_classdev_unregister+0x26b/0x340
->     release_nodes+0xb3/0x140
->     devres_release_group+0x247/0x470
->     i2c_device_remove+0xbf/0x1b0
-> 
-> Initialise the work before the LEDs are registered and flush it from a
-> devres action, which then runs after the LEDs are gone and before the
-> chip is freed, and drop tca6507_remove(). Flushing instead of cancelling
-> also makes sure that the queued writes reach the chip, so the LEDs are
-> really turned off. By the time the action runs, the LEDs and the GPIO
-> chip have been unregistered, and the work does not queue itself, so
-> nothing can queue it again.
-> 
-> Fixes: 1b5c2fa7081c ("leds: tca6507: Use devm_led_classdev_register() to simplify remove path")
+On Wed, Nov 4, 2026 at 7:55=E2=80=AFPM Amir Goldstein <amir73il@gmail.com> =
+wrote:
+>
+> commit 50912a1715b8a7c614b654011a0db750e372b43e upstream.
+>
+> ovl_copy_xattr() gives up if it can't read an attribute that
+> listxattr() has named.  An empty security.capability, which anybody has
+> been able to store on any file for a long time, is such a case: it is
+> listed, and getxattr() has nothing to return for it.  A file in a lower
+> layer that carries one can't be copied up: it can't be written to,
+> renamed or have its mode changed.
+>
+> There is nothing to copy if there are no data.  Go on with the next
+> one.
+>
+> Fixes: 8db6c34f1dbc ("Introduce v3 namespaced file capabilities")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [amir: treat -EINVAL as no capability too, and do the same in
+>  ovl_copy_up_meta_inode_data()]
+> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 > ---
-> 
-> Notes:
->      Changes in v4:
->      - Squash the two v3 patches into one, flushing the work from the start (Lee)
->      - Drop Andrew's Acked-by, since the code is now different from the
->        version he acked
+> [ backport: context: no blank line before the ovl_getxattr_value() call;
+>   depends on e6b9117076fb ("ovl: fortify ovl_copy_xattr() against
+>   underlying layer modifications") ]
 
-Acked-by: Andrew Davis <afd@ti.com>
+Greg,
 
->      - Rebase on for-leds-next
->      - Link to v3: https://lore.kernel.org/all/20261028174348.64014-1-danishkhateeb03@gmail.com/
->      
->      Tested in QEMU on a next-20260930 KASAN kernel, with the driver built as
->      a module and a test-only module that adds a fake I2C adapter, logs the
->      register writes and adds a software node for a TCA6507 with two LEDs.
->      Without this patch, unbinding with the LEDs on hits the report above
->      (39 reports in 20 unbind/bind cycles). With it there are no reports in
->      20 cycles or on unload, and every unbind ends with a write that turns
->      both LEDs off (with v2's cancel, 7 of 20 unbinds left an LED on). A W=1
->      build with GPIOLIB is clean. The code is the same as v3 with both
->      patches applied.
->      
->      An LLM was used to help with this patch.
-> 
->   drivers/leds/leds-tca6507.c | 20 ++++++++++----------
->   1 file changed, 10 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/leds/leds-tca6507.c b/drivers/leds/leds-tca6507.c
-> index 9afe2722986c..ffad476af625 100644
-> --- a/drivers/leds/leds-tca6507.c
-> +++ b/drivers/leds/leds-tca6507.c
-> @@ -711,6 +711,11 @@ static const struct of_device_id __maybe_unused of_tca6507_leds_match[] = {
->   };
->   MODULE_DEVICE_TABLE(of, of_tca6507_leds_match);
->   
-> +static void tca6507_flush_work(void *work)
+Sorry for messing up the send of this series.
+
+This one depends on patch 1/3 from Message-ID
+<20261104185356.3631002-1-amir73il@gmail.com>
+
+Thanks,
+Amir.
+
+>
+>  fs/overlayfs/copy_up.c | 17 +++++++++++++++--
+>  1 file changed, 15 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
+> --- a/fs/overlayfs/copy_up.c
+> +++ b/fs/overlayfs/copy_up.c
+> @@ -47,6 +47,15 @@ static bool ovl_must_copy_xattr(const char *name)
+>  static ssize_t ovl_getxattr_value(const struct path *path, char *name,
+>                                   char **value, ssize_t *value_size);
+>
+> +/*
+> + * Any user can store an empty security.capability, which fails to read =
+with
+> + * -EINVAL.  It grants no capability, so treat it as none, like no xattr=
+.
+> + */
+> +static bool ovl_no_fscap(ssize_t err)
 > +{
-> +	flush_work(work);
+> +       return err =3D=3D -ENODATA || err =3D=3D -EOPNOTSUPP || err =3D=
+=3D -EINVAL;
 > +}
 > +
->   static int tca6507_probe(struct i2c_client *client)
->   {
->   	struct device *dev = &client->dev;
-> @@ -735,9 +740,12 @@ static int tca6507_probe(struct i2c_client *client)
->   		return -ENOMEM;
->   
->   	tca->client = client;
-> -	INIT_WORK(&tca->work, tca6507_work);
->   	spin_lock_init(&tca->lock);
-> -	i2c_set_clientdata(client, tca);
-> +
-> +	INIT_WORK(&tca->work, tca6507_work);
-> +	err = devm_add_action_or_reset(dev, tca6507_flush_work, &tca->work);
-> +	if (err)
-> +		return err;
->   
->   	for (i = 0; i < NUM_LEDS; i++) {
->   		struct tca6507_led *l = tca->leds + i;
-> @@ -766,20 +774,12 @@ static int tca6507_probe(struct i2c_client *client)
->   	return 0;
->   }
->   
-> -static void tca6507_remove(struct i2c_client *client)
-> -{
-> -	struct tca6507_chip *tca = i2c_get_clientdata(client);
-> -
-> -	cancel_work_sync(&tca->work);
-> -}
-> -
->   static struct i2c_driver tca6507_driver = {
->   	.driver   = {
->   		.name    = "leds-tca6507",
->   		.of_match_table = of_match_ptr(of_tca6507_leds_match),
->   	},
->   	.probe    = tca6507_probe,
-> -	.remove   = tca6507_remove,
->   	.id_table = tca6507_id,
->   };
->   
-> 
-> base-commit: fb511964723311e9a7223e424d725c58dde8307a
-
+>  int ovl_copy_xattr(struct super_block *sb, const struct path *oldpath, s=
+truct dentry *new)
+>  {
+>         struct dentry *old =3D oldpath->dentry;
+> @@ -98,6 +107,10 @@ int ovl_copy_xattr(struct super_block *sb, const stru=
+ct path *oldpath, struct de
+>                 }
+>                 size =3D ovl_getxattr_value(oldpath, name, &value, &value=
+_size);
+>                 if (size < 0) {
+> +                       if (!strcmp(name, XATTR_NAME_CAPS) && ovl_no_fsca=
+p(size)) {
+> +                               error =3D 0;
+> +                               continue;
+> +                       }
+>                         error =3D size;
+>                         break;
+>                 }
+> @@ -947,9 +960,9 @@ static int ovl_copy_up_meta_inode_data(struct ovl_cop=
+y_up_ctx *c)
+>         if (c->stat.size) {
+>                 err =3D cap_size =3D ovl_getxattr_value(&upperpath, XATTR=
+_NAME_CAPS,
+>                                                     &capability, &cap_siz=
+e);
+> -               if (cap_size =3D=3D -ENODATA || cap_size =3D=3D -EOPNOTSU=
+PP)
+> +               if (ovl_no_fscap(cap_size))
+>                         cap_size =3D 0;
+> -               if (cap_size < 0)
+> +               else if (cap_size < 0)
+>                         goto out;
+>         }
+>
+> --
+> backport
