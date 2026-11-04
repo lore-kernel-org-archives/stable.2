@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793789580;
-	b=Z91GcvmW3pL3OZcKu+bxfvYJMph7BXK2UWGimha2r8iR58I0znjVIfQI1vaDNd1B+HrD
-	 v4FF0vRARa6IIK1BCLE9Pg9n2790KMlpcFaPks2rD8dJWVqXisi7AUSPSDsBflbDZTE+z
-	 cp7dYD9dd6sCy9ww5t+CL0SNllX6+mnQ8yEnOCUnt/Yn+kd7YOa2D6hF68oHbXCcuTH0r
-	 2hpZ2SSbtrfisz+Y6tCTu8blF97sevNRiYHim0k5EB3qRRkJd6VcHEq6FoxXFuAj6eIup
-	 ZmhEqnoA5d/kgu+zyt812caa/iFxpd4Bq4uUnC9kPcIsrcfnPojm52VtdiZw2ayGE9A==
+	t=1793789914;
+	b=1MBTMPt5w3QoNyE6kwYV8n8Lh0PYRgFye+9SobhpokkFKYd415E9zxGD1Rrg14nw9UFB
+	 d8oWxL8mFJLLa/jMNSGalLFKCEVCn3GUP9aoX5aM1JFnsbM+0nd5j7KoQeDYkYBQm3C66
+	 6NVntal75yGwoHOrQc3dtFVGVLyIkfkJ+h2vunT5ePSrnDsZ4q753/LCVuZh+739g+C08
+	 VFuGIpxxj5JRxh0qySEM8H2Eqy5Kjw48klLBxIM8uXk4tS2HZALTtrjqD5evYLg5m7D6i
+	 jP09S4pc2IJ0ArYyqjLMo3gqX/Nn2q5ajkcD0hhDwdN3kD1E0btVLK0pQI31R2iDqeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793789580;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=GimgcPXH2fNoHOLDkivcT6L2F+6r2bGEOK3CclBJHEE=;
-	b=2PWo4Q3I0qEWcbUvgr+2dIycZDcw+Ma41tOlroeDML5YuFixr37TU3nwzTZo3prWk68o
-	 ncPDrxqhCAn1xnfJXy65XD4VxfZP9mrRmuJuIPRTszKWLPu2hxbIItQXoX4ylpx49C2k/
-	 /hWSrkEzbhBaxRqeg55XtT7Aa2YfL3+poDvkY87Ao+PxrhSWvujQF03QZ7otCpY18kb/D
-	 Ps5TcmyQJIwYrh6wd3WE4+IK7lDrYaZW7pcJ4s3BUihOMp41ffdeeXcYFMHvdiS8Dm6Wp
-	 hMlF/b6VJcwhE9A+wIf/gdtAXjXab7xQYOmJGJm95Mb8uzX2t+KJ7LlTpM8WkKcq50Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793789914;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=UYMZYA16pBJWYaNihgVXIF9xjzU0+2ohahxkf0gwfVc=;
+	b=f+odEFr/jri0Wjc93B2AYQTAsAMhYawiEVXOdSVc3wCCnjIFUYvB2Krg0z5H1WAdxaRq
+	 XsGBSK4WqZZpbjKroRo9qcdhbwk9taUVzcnG69O5dISDsGn0JL4rzNVN1qzz1LJO+QRvt
+	 x8Wp/MtAX9Kpahssc4g6na2bOt8MpvKFQReYb2l5t4bzePgM0eF4Xy47+eU1at4n4iP7n
+	 ogQ3cQ6gyCBWAs/cmgZKZOU9aO/js7szCRgcwwcghYZestel0hYGspK1YRHs7rovVgQyV
+	 UalFbDyd0xynjrSGH2TbSmy61EOtEIicfq1wT4OzBxbQJOBH9F2tD+bbVcYpUPgq85Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="JzGU/S5R";
-	arc=none smtp.remote-ip=185.70.43.102
-Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJVeFQnb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8FD606A31B;
-	Wed,  4 Nov 2026 10:53:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F8FD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A69606A31B;
+	Wed,  4 Nov 2026 10:58:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=JzGU/S5R
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793789578; x=1794048778;
-	bh=GimgcPXH2fNoHOLDkivcT6L2F+6r2bGEOK3CclBJHEE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=JzGU/S5RVygaOe8FMojJxUCsVBL7E7/XsSh395fO6shr6D2yu1uFTNpoTxNFVuh5U
-	 iZNN5cHZbaKFar+uMz2gkdHHHc1n97zLAjvC6V1u8Pw3yXwSFwvYnW4Tt4w1TUoHQJ
-	 94P5NCVnVJ9EPfi1KbkjWWsNpvwgHlp9hkgq8tL0G54i9U+p0GqSyHX+r/rAvQHq61
-	 5YZNy0uzcJCWsFoHQbLZUBGgpMdLqnYsKC8qwb0vqS5yJzupH2ZU8xhokB1p6vX4Su
-	 5cfU/dUIiuelFxwFnBgOJ1FjnUEeHkRUIsypIAENBZ/G4QNy/VMY4n/B6lTs0q9jEq
-	 kLseACskaee4w==
-Date: Wed, 04 Nov 2026 10:52:55 +0000
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-From: Sinan Turunc <enscrpt@pm.me>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v3 2/2] ALSA: usx2y: Guard the playback copy
-Message-ID: <20261104105228.1124-3-enscrpt@pm.me>
-In-Reply-To: <20261104105228.1124-1-enscrpt@pm.me>
-References: <20261104105228.1124-1-enscrpt@pm.me>
-Feedback-ID: 48393780:user:proton
-X-Pm-Message-ID: 6f257916e3e14e150a1c466d7fb4812cb07fc0e7
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJVeFQnb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 626021F000C1;
+	Wed,  4 Nov 2026 10:58:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793789914;
+	bh=UYMZYA16pBJWYaNihgVXIF9xjzU0+2ohahxkf0gwfVc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AJVeFQnb6VpMx40meUsvImeqFm1Ho0oI2xBeCY2Vz0GN/UolsUN+T7DAr0lEVoJY+
+	 u7R9TGhgk/uITOn9aBD5Q9RSTzV6OVQ3cNn7qrk0mmniV/2Lycp/7XX77G9Gk00445
+	 tNojgdaSBrRrZzp5/EIoJb+Npm+1VC0lP75BK2PMlGQxxrCwwMy1c4EzeP4zFwPRdN
+	 Fo6X2gStnKUsBvj/JdLT4srE+fW00YDc+qFvgSOzosomKInJVKUvd/nVpBneg7NYnP
+	 Ri6Sjue8N7LMkf5EWuuG1AkFicMniK+6HxjZnyjSnai3FJxYAiJ5P8gtgn1eAXrdIy
+	 OspWeFijkhAVg==
+Date: Wed, 4 Nov 2026 10:58:29 +0000
+From: Lee Jones <lee@kernel.org>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: dmitry.torokhov@gmail.com, jic23@kernel.org,
+	linux-input@vger.kernel.org, mfd@lists.linux.dev,
+	linux-iio@vger.kernel.org, stable@vger.kernel.org,
+	Marc Zyngier <maz@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH] mfd: mxs-lradc: Pass mapped IRQs to child devices
+Message-ID: <20261104105829.GI792264@google.com>
+References: <20261018022400.599028-1-festevam@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,83 +59,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261018022400.599028-1-festevam@gmail.com>
 
-usx2y_urb_play_prepare() sums the packet lengths of a whole URB, copies
-that many frames with a single wrap, and sizes each playback packet from
-the capture packet's actual_length. Two assumptions are unchecked: that
-the URB fits in the ring buffer, and that a packet fits in the playback
-endpoint's maxpacksize, from which tmpbuf is allocated.
+On Sat, 17 Oct 2026, Fabio Estevam wrote:
 
-Return -EPIPE, as the existing packet-size check does, when the URB is
-larger than the buffer or a packet is larger than maxpacksize. The first
-case is prevented by the buffer bound in the previous patch and this is
-the guard for it; the second depends only on the device.
+> The MFD resource tables store indices into the parent DT interrupts
+> property. Since the MFD core is given neither an IRQ domain nor a base,
+> however, it exposes those indices to child devices as though they were
+> Linux IRQ numbers.
+> 
+> The touchscreen interrupt is at DT index 0 on both supported SoCs.
+> platform_get_irq_byname() therefore rejects its child resource with:
+> 
+>  0 is an invalid IRQ number
+> 
+> On current kernels it also returns -EINVAL, preventing the touchscreen
+> driver from probing.
+> 
+> The child drivers try to map their resource values afterwards with
+> irq_of_parse_and_map(), but the touchscreen driver never reaches that
+> call for index 0. More generally, translating the parent firmware's IRQ
+> indices does not belong in the child drivers, where platform IRQ
+> resources are expected to contain mapped Linux IRQs already.
+> 
+> Have the MFD parent copy each resource template and resolve its IRQ
+> indices with platform_get_irq() before registering the child. The child
+> drivers can then request the mapped IRQs directly. Use per-device copies
+> so later instances and reprobes still start with the DT indices.
+> 
+> Apply the same fix to the ADC child, which uses the same IRQ mapping
+> scheme.
+> 
+> Tested on an i.MX28 EVK. The mxs-lradc-ts driver now probes
+> successfully, and its interrupt counters increase when the screen is
+> touched.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: a85a6c86c25b ("driver core: platform: Clarify that IRQ 0 is invalid")
+> Closes: https://lore.kernel.org/linux-input/CAOMZO5CgTzo6GuXptD4mFTN=UsJJqpkixDW1Q64gqZGrij8+uQ@mail.gmail.com/
+> Signed-off-by: Fabio Estevam <festevam@gmail.com>
+> ---
+> This is a long-standing bug that I reported in 2020:
+> https://lore.kernel.org/linux-input/CAOMZO5CgTzo6GuXptD4mFTN=UsJJqpkixDW1Q64gqZGrij8+uQ@mail.gmail.com/
+> 
+> This patch touches MFD, IIO, and Input. Since the IRQ mapping is moved
+> into the MFD parent, I suggest merging it through the MFD tree, with
+> acks from the IIO and Input maintainers.
+> 
+> The full backtrace:
+> 
+> [   10.540505] WARNING: drivers/base/platform.c:492 at __platform_get_irq_byname+0xb4/0xcc, CPU#0: swapper/0/1
+> [   10.555516] 0 is an invalid IRQ number
+> [   10.559627] Modules linked in:
+> [   10.562849] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc7-next-20261016-00003-g36062817a968 #17 VOLUNTARY
+> [   10.573732] Hardware name: Freescale MXS (Device Tree)
+> [   10.578934] Call trace:
+> [   10.578992]  unwind_backtrace from show_stack+0x10/0x14
+> [   10.586955]  show_stack from dump_stack_lvl+0x48/0x64
+> [   10.592170]  dump_stack_lvl from __warn+0x8c/0x190
+> [   10.597114]  __warn from warn_slowpath_fmt+0x94/0xcc
+> [   10.602232]  warn_slowpath_fmt from __platform_get_irq_byname+0xb4/0xcc
+> [   10.609027]  __platform_get_irq_byname from platform_get_irq_byname+0x10/0x30
+> [   10.616337]  platform_get_irq_byname from mxs_lradc_ts_probe+0x18c/0x378
+> [   10.623247]  mxs_lradc_ts_probe from platform_probe+0x58/0x90
+> [   10.629174]  platform_probe from really_probe+0xc4/0x2cc
+> [   10.634649]  really_probe from __driver_probe_device+0xa0/0x1e0
+> [   10.640721]  __driver_probe_device from driver_probe_device+0x30/0xc0
+> [   10.647315]  driver_probe_device from __driver_attach+0x94/0x158
+> [   10.653466]  __driver_attach from bus_for_each_dev+0x7c/0xd0
+> [   10.659280]  bus_for_each_dev from bus_add_driver+0x158/0x1fc
+> [   10.665169]  bus_add_driver from driver_register+0x7c/0x114
+> [   10.670901]  driver_register from do_one_initcall+0x60/0x294
+> [   10.676721]  do_one_initcall from kernel_init_freeable+0x19c/0x24c
+> [   10.683073]  kernel_init_freeable from kernel_init+0x14/0x10c
+> [   10.688997]  kernel_init from ret_from_fork+0x14/0x38
+> [   10.694200] Exception stack(0xc8819fb0 to 0xc8819ff8)
+> [   10.699335] 9fa0:                                     00000000 00000000 00000000 00000000
+> [   10.707591] 9fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+> [   10.715843] 9fe0: 00000000 00000000 00000000 00000000 00000013 00000000
+> [   10.723117] irq event stamp: 146363
+> [   10.726729] hardirqs last  enabled at (146367): [<c00adbd8>] __nbcon_atomic_flush_pending_con+0x120/0x1c0
+> [   10.736770] hardirqs last disabled at (146372): [<c0008f38>] __irq_svc+0x58/0xb0
+> [   10.744618] softirqs last  enabled at (146362): [<c0032c20>] __irq_exit_rcu+0x148/0x1d4
+> [   10.753153] softirqs last disabled at (146385): [<c0032c20>] __irq_exit_rcu+0x148/0x1d4
+> [   10.761603] ---[ end trace 0000000000000000 ]---
+> [   10.766374] mxs-lradc-ts mxs-lradc-ts: error -EINVAL: IRQ mxs-lradc-touchscreen not found
+> [   10.766456] mxs-lradc-ts mxs-lradc-ts: probe with driver mxs-lradc-ts failed with error -22
+> 
+>  drivers/iio/adc/mxs-lradc-adc.c          |  7 +---
+>  drivers/input/touchscreen/mxs-lradc-ts.c |  7 +---
+>  drivers/mfd/mxs-lradc.c                  | 47 +++++++++++++++++++-----
+>  3 files changed, 42 insertions(+), 19 deletions(-)
 
-The first case is reachable on the unpatched driver with ordinary
-packets: on 7.3-rc7, a USB/IP device presenting the US-122 interface
-layout and sending 48-frame packets, with a 100-frame playback buffer
-(two 50-frame periods, inside the stock constraints), KASAN reports:
+Nightmare!  Right, let's make a decision to stop kicking the can down
+the road with these hacks on hacks, and fix it properly please.
 
-  BUG: KASAN: out-of-bounds in i_usx2y_urb_complete+0x79b/0x1ac0
-  Read of size 18446744073709551280 at addr ffff88800e6b02e0 by task vhci_r=
-x/80
+While your patch fixes the immediate symptom, keeping DT indices inside
+static 'struct resource' templates and kmemdup'ing/mutating them at
+probe time is really just building a hack on top of a hack.  This stops
+now.
 
-With both patches, the same device and a 200-frame playback buffer is
-refused at hw_params with EINVAL, and a 400-frame buffer plays for 30 s
-with the position advancing inside the buffer, no KASAN report and
-neither guard message. The maxpacksize check is not exercised: the
-emulated device reports the same wMaxPacketSize on both endpoints.
+Background:
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sinan Turunc <enscrpt@pm.me>
----
-v3: new patch, split out of the v3 draft; the review of v2 found both
-unchecked assumptions. The buffer case is confirmed on the unpatched
-driver and the guards tested on 7.3-rc7, see above.
+The existing IRQ handling in this driver is a bit of a historical comedy
+of errors:
 
- sound/usb/usx2y/usbusx2yaudio.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+1. The MFD driver stuffs raw DT 'interrupts' indices (0..12) into
+   DEFINE_RES_IRQ_NAMED(), which is meant for either Linux virqs or
+   hwirq offsets into an MFD irq_domain.
 
-diff --git a/sound/usb/usx2y/usbusx2yaudio.c b/sound/usb/usx2y/usbusx2yaudi=
-o.c
-index ee224b4dfb0..5f241d45401 100644
---- a/sound/usb/usx2y/usbusx2yaudio.c
-+++ b/sound/usb/usx2y/usbusx2yaudio.c
-@@ -112,7 +112,8 @@ static int usx2y_urb_play_prepare(struct snd_usx2y_subs=
-tream *subs,
- =09=09/* calculate the size of a packet */
- =09=09counts =3D cap_urb->iso_frame_desc[pack].actual_length / usx2y->stri=
-de;
- =09=09count +=3D counts;
--=09=09if (counts < 43 || counts > 50) {
-+=09=09if (counts < 43 || counts > 50 ||
-+=09=09    counts * usx2y->stride > subs->maxpacksize) {
- =09=09=09dev_err(&usx2y->dev->dev, "%s: should not be here with counts=3D%=
-i\n",
- =09=09=09=09__func__, counts);
- =09=09=09return -EPIPE;
-@@ -125,6 +126,16 @@ static int usx2y_urb_play_prepare(struct snd_usx2y_sub=
-stream *subs,
- =09=09urb->iso_frame_desc[pack].length =3D cap_urb->iso_frame_desc[pack].a=
-ctual_length;
- =09}
- =09if (atomic_read(&subs->state) >=3D STATE_PRERUNNING) {
-+=09=09/*
-+=09=09 * The copy below wraps once, which needs count <=3D buffer_size.
-+=09=09 * snd_usx2y_pcm_open() guarantees it; guard anyway.
-+=09=09 */
-+=09=09if (unlikely(count > runtime->buffer_size)) {
-+=09=09=09dev_err_ratelimited(&usx2y->dev->dev,
-+=09=09=09=09=09    "%s: URB of %i frames exceeds %lu-frame buffer\n",
-+=09=09=09=09=09    __func__, count, runtime->buffer_size);
-+=09=09=09return -EPIPE;
-+=09=09}
- =09=09if (subs->hwptr + count > runtime->buffer_size) {
- =09=09=09/* err, the transferred area goes over buffer boundary.
- =09=09=09 * copy the data to the temp buffer.
---=20
-2.56.0
+2. It registers the child devices with neither an irq_domain nor an
+   irq_base, exposing those raw DT indices as if they were mapped
+   Linux IRQ numbers, which understandably blew up once IRQ 0
+   started being rejected by platform_get_irq_byname():
 
+     a85a6c86c25b ("driver core: platform: Clarify that IRQ 0 is invalid")).
+
+3. Both the MFD parent and the child drivers duplicate the exact same
+   lists of IRQ name strings, only for the children to loop over them
+   calling platform_get_irq_byname() to fish the raw DT index back
+   out, pass it to irq_of_parse_and_map() on the parent's of_node
+   and then register the exact same IRQ handler for every single one
+   of them.
+
+4. To top it off, the YAML DT binding added last year (009528b5aa13)
+   doesn't even match the driver's IRQ index order, since it lists
+   the touchscreen IRQ at index 6/10 instead of index 0.
+
+Solution:
+
+When the parent platform_device is created from DT, the OF core has
+already parsed and mapped all of the interrupts into the parent's
+resources.  Neither child driver actually distinguishes between its
+individual IRQs (they just loop over them and register the same handler
+for each) and both children already access the parent's ddata.
+
+Instead of jumping through all of these resource hoops, let's:
+
+ - Drop all of the static IRQ resource tables and the duplicated
+   irq_names[] string arrays across all three drivers.
+
+ - Collapse mx23_cells and mx28_cells into a single 'static const struct
+   mfd_cell' array (passing the MEM resource via the mem_base argument
+   of devm_mfd_add_devices() rather than overwriting RES_MEM manually).
+
+ - Resolve the IRQs in mxs_lradc_probe() via platform_get_irq() and
+   store them in 'struct mxs_lradc' (similar to stm32-timers.c) for the
+   children to request directly.
+
+If this all seems like too much, let me know and I'll spin-up an RFC for
+you to test.
+
+-- Lee Jones
