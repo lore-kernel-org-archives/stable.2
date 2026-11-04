@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801861;
-	b=idYs+1LEyPTvw7B9m5f3q8wsws3rGPPbwbCirU2PugUqh48RIdDD64lYOf0hhv9oAown
-	 PtAU7cHto9Z5odLGMDMK/VeT+lHE/J2/ud9hATMlhy1IbJ5SrGkjlIOtQVCGHcUzvOhQQ
-	 pMiyjip6f2J4S+AcXvVBH2+c4IMts8U3L2MLXravrHZZpxvOvrGK3/3fMppkiYQ2MPCbN
-	 CwtZ3zh8kdUaKCoeHWaX8rkrb1ZE3YVxfS5cfdZqB9F6R2MtkGpVHbon4ev/rDzuVZ68b
-	 6aYvoBs51HKKPHpRnzAhcHvWSQ/A/weYWXiINlXKDAd5nYaC4gMOYGgA2hZZbw0zqzQ==
+	t=1793801863;
+	b=XFY/xU6twJBo++iyZK9Ol1JrfV7fOZGXFcrq9Pn9MRjxf1iiuBoORjqVboHVpp7J+MiI
+	 utLs2CFW2oEao/3v8Joi084btW0uAISclxAy3FzsbA0G1b2v0AnMd9ATF2iX541hKMEK2
+	 8im9bCDBC2UBelZd39JrhiqBk0UDeNAhqZ3y7e7CXO7+3GtcJTl2/iv19kFa9YjPKyc5w
+	 uKrkN0lvEdrjp9GTGdmy1QVUN0RahKOqX0NfWNQAc41QYOgqpOXrPnGTPUMVjTm6yTqUE
+	 tSRsc14tKWBBuEIoLGJ39WJgYrOBKOeAHMeEQt14Mbv3mFROBhwgWO8LeQGlW1XvBrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801861;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801863;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=TfH9RDxkD8qs3qr+bmhZ6UYgLtmGepnFKWh9jNaGf0M=;
-	b=RlZZB43Ust3s/OsICZwZ17YLFfSDxqYtpTqy9mW18itUQdXLSptvXrFHqOeFqMdKZDUX
-	 VKzSnW1dwIvGCUAzFMD3Ic6Ak3AARvdGhf8MAPDcQI73M0pziw/MvmvZXzpqhPNfn5k0T
-	 fBNmOo7/mVPWzQTYuwnKOmPUg313JnAd9czV2zfcvkvoqxX/4Wkc9enrZqwyp/Em5E1zY
-	 X1MvYjus2mcPrY1zjC2X+eJ4K59WMsHQukM3hsy+cwAy3zqTUg6j4KQMcISID64TfYRpc
-	 /41q6NaQM6m88gySXOp2WYi8B8Ss0PQAOCgggYspHBOfUQ1Eq/kF6XAKV3pFbwKXWfQ==
+	bh=Nrxz1K9L+6yYGNWnIO0d1Rs6JaGPA5BcFcoLxz8XYHM=;
+	b=0DbnZFAorKXH+aAzOS/lImqPYa0zVFJSiz4u1Ig6wcL7k856Accd07jux2Ws0F5F7Izi
+	 EEYalmA8sO9e5Qn+GCPEkpEIredGst3dHjrW2Rq+X86bLFWZiBj+CGeGULoTF9zNShmS0
+	 it1Pz+wugXcaIKm8SmcezkoFVO2ArxJGp7ceeLbnTCn6SV7V7M9fyuJKG0y4FVfd/H042
+	 XWN7HMF2LcgsOxsovwc6oxCKrxLf/FsVCKfY1u47otalHVgZr6g2q2xlu7fu0OZUzYPc6
+	 2CCYRc+O42yo4cITeOSRXt9qeFi8ZGJ3HA+1Vyl9Ffe0JN2jtsLiaObd+xy+h/dLPHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Z93rEiE9;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=S+hGvXzi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC98A606A334
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:17:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0DA606A333
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:17:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Z93rEiE9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F5921F00A02;
-	Wed,  4 Nov 2026 14:17:39 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=S+hGvXzi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E5641F000C1;
+	Wed,  4 Nov 2026 14:17:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801860;
-	bh=TfH9RDxkD8qs3qr+bmhZ6UYgLtmGepnFKWh9jNaGf0M=;
+	s=korg; t=1793801862;
+	bh=Nrxz1K9L+6yYGNWnIO0d1Rs6JaGPA5BcFcoLxz8XYHM=;
 	h=Subject:To:Cc:From:Date;
-	b=Z93rEiE9PtMgQnSe6kEj6k8ZZQ1tny/TmJVEih18q+8mkOvR+7hyq0DlNQZHWXQED
-	 tbR8x95gxfgPzQs/ZIhWotyPBoU+5SuqHPzNzN3E3OGteZqfueTRKrVjPTHGQnYcge
-	 V4kAq7sKezVHu8Zn7bBLdA1XtoSgHUav378/5S/s=
-Subject: FAILED: patch "[PATCH] media: marvell: mcam: stop DMA and cancel s_bh_work before" failed to apply to 5.15-stable tree
+	b=S+hGvXziYbKUhdKr5rOnZuoSCmm+KdoRcb76pZA1RgssmyEsM6TS7ZLVHHHiNxI0E
+	 OsZ4184ViX64y71Sl/aH6YVOZX8zj9enby413X5VtVHhBzJYN+nvpwa+XF0kRdTY64
+	 D++IJ/6KNyXEpq3ak3MEdrSQKU9Bp1UFGYU/21Sk=
+Subject: FAILED: patch "[PATCH] media: marvell: mcam: stop DMA and cancel s_bh_work before" failed to apply to 5.10-stable tree
 To: fanwu01@zju.edu.cn,hverkuil+cisco@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:17:30 +0100
-Message-ID: <2026110430-confess-cosigner-a088@gregkh>
+Message-ID: <2026110430-duplicity-rehab-e3ce@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0f29f84317c1e35f6a9265277be33e60d3fc8c1c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110430-confess-cosigner-a088@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110430-duplicity-rehab-e3ce@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
