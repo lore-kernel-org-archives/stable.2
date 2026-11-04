@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801933;
-	b=Jai1vMk8pDHshEr/1tf3FVjxoFKUN916i02M1T3zyAE6gGcBMB8cVX/ZJtju7/yuLpN+
-	 XTzkeROllJHi0RCRrDpsh0TAV6wUVryi3A8D9q9Y1xNNkkxnQhPOWJA7qv1ADGfUXxf5n
-	 T4cdqvAzcD/baxFoW1Xm18UqA2RQn/xCQdSLqPVZtBrENggkDmwxWrOAvNxc7LZ7gA+11
-	 dMubKWr4k9Nu3ddjF6Qg+wxNgqt3ySETON/9vwAfUOjhnwPKUzq+41RuBvHB9EBP8Z1lT
-	 63CidMB9HkqwLAW/vCgjmop/FrvBDWbXSmB564BNBrvkxXbg23dkuQ4aBQAvAUx3vxw==
+	t=1793801936;
+	b=tJx4NkC8N68OaVNXfGvjOKiepgf0OgyplS+FXBRZykX1p07YKiXDjerwigJPm6tTSdBV
+	 oeYlE6FYbtP66eNR00TbWx4dV67lz/8UlJj+jH3rp/Wq6jHGCpm43kKiuoYKJFUixs3Y5
+	 FcqHp0vwci28axaIlNEUehaZNk2ArBPxR88zzBbKMx8rr5oMvlpk26ydkc7S3FO/kzxov
+	 NcH+t6P5tK0YFOrOvrUM40ODZViCUwR3ZRNvlSGraZaNIZaCQI85bxNuB1XKxw5GDyyx4
+	 1Zfcjoq50a+MYe+RlaoIKpNEuJGPvZu5Ai4lAxQxAW5fEgSVK9qLzhYm6CPXQ8kkFXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801933;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801936;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xtmLaj5+ks0lcYh8eZbA17IzH5OULkUWHegvWHSBEw4=;
-	b=18Xdda2t0ofjIwvK78TudpYEeMIkC8hlAu76wxNLBULEYJIFHEhiQsqi7tPLwxx8roxa
-	 uOWATWQ8rI081bodOutgubqWT10iM2kUoIYbQ/8eX984FkQ72+g3WVUyDyDwUWLATb+sR
-	 AXD8NkqttpzAinhSmNcR0BhM3nu/8nkiUu5bQjcxPYvo3uU2Gijz+ubLXTVj1L4TJzZIC
-	 O+F3wOlXk6s7p+QOun5a7YIHOaqp2tZhsJl9S2b8ESoNH0FGnn8qUmsxbRCEARbRVWLT5
-	 D578r88g/15alzlLsBIZXs6scuEOj/TgWhr15y23pq/YND67W20Ge+Zckx7zSb23oOg==
+	bh=qFThCsWy1qJUNmgdzn9uk5d3/1G7aGwj1ftfHw0PCkQ=;
+	b=tJF59IwgjHLMICFa9bjkK9sh3Qy1c0egqxh9h2rfjFc6kdAlNNP7o8xVDT2ma/wWgr/N
+	 gg++gFf01mxqSaykSo9zvY+8+qJb80khlfoJ7kXG4mbakfHASeohIoL9oWtLPvJaCo4E7
+	 KPCFVPkjq6TEaEpgVhu8mvqbV6a6Mg9g/7KUwTdc7JCbZhKmMZnqBSv+QlDYywskVR7a9
+	 9f/Tv+jeAN/tuHWnYrQbnzcYGwo5zCK4OJmTtmwBFWp8/iNl3FLv/5nEZdWVnUSFBHX/+
+	 PeH0kLnhCXqaXwIHOsO0GdAMmfsGvvQmT4652botZoVno8mwlhWFs6N8BoR8klEXY1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uXWEpt6s;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pBZW87KN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE83606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:18:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89F0606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:18:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uXWEpt6s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AE4D1F000C1;
-	Wed,  4 Nov 2026 14:18:52 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pBZW87KN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E217A1F000C1;
+	Wed,  4 Nov 2026 14:18:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801932;
-	bh=xtmLaj5+ks0lcYh8eZbA17IzH5OULkUWHegvWHSBEw4=;
+	s=korg; t=1793801935;
+	bh=qFThCsWy1qJUNmgdzn9uk5d3/1G7aGwj1ftfHw0PCkQ=;
 	h=Subject:To:Cc:From:Date;
-	b=uXWEpt6sFsqXWH4Hf1oOdiNb6EGgXiDvpZkmdGnLDor49FRoE7jCEpiXEIRvn/+z1
-	 v/c2pyVWa+VlvIpnTY/PwFC7Rq6vqgJ5Pqo3hpqVtIGtIIB4Sw5Qf1lgF00vkEJgyw
-	 Gzil3pYEzbWyPqv/XX39lVcKOYt+vbVru9v8iFbw=
-Subject: FAILED: patch "[PATCH] mm/slab: sample slab_state once in kmem_cache_destroy()" failed to apply to 6.6-stable tree
+	b=pBZW87KNk0StE073sWXRb8MmmKiTKVSNqp9A/iyA+3Fs637vZxvWoa4orGLtGzU2Z
+	 wUuMqS+23mLPfO2gxmow2/FO6NG0WxDZam261DtmPOdxzLN7pRaBWGUzGSku934S3n
+	 LzMXdT4rCZfMdIIEVLxXKR8Ojzi/97kkFkVUY4+E=
+Subject: FAILED: patch "[PATCH] mm/slab: sample slab_state once in kmem_cache_destroy()" failed to apply to 6.1-stable tree
 To: kaloz@kernel.org,azpijr@gmail.com,harry@kernel.org,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:18:50 +0100
-Message-ID: <2026110450-golf-tricolor-c37d@gregkh>
+Date: Wed, 04 Nov 2026 15:18:51 +0100
+Message-ID: <2026110451-heroics-among-fc22@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 088bfdc0d7947d623f4899b9011c866e4445074d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110450-golf-tricolor-c37d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110451-heroics-among-fc22@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
