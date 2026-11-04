@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793807918;
-	b=ttLLNcwSDRlVkkM/bH0lEvzW43XKjoxeoV0fy/jWyynQ5F0ZNoMZzUdggMLyLJghO+Mg
-	 zlegGObtg/mO3lkRuzaLxpST56BO5tabK0yIKDAfTqoUEmNqEm5RNp7xl/Zdbs4pRRxv2
-	 +WmeZB7qK4iDPfPv/j08FCmAnRh4fxPOGT8pdrV+kHcQU23CGtYvcoNfXaVLAoyLzKSXF
-	 wgFBFbMXFsnFePA6qRvHtIBq9iIzMdLUCI/CDD07gp4O1EYj+WLpGCdj8i5A1jPsS6HVW
-	 0NvkHFRDECUHf0xSRRhoH7woumMAgvZd/dmH7NR5IYOqgeoY/JcdQClWmRxsAQUkZfA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793807918;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mvRMKEVmclkdGqYc1LxvLGz4/cikVy9gbxUr6+VgkYA=;
-	b=UWvqUoFp6jzXYSy/uU7ERWbwadvdMqHUTQ1VhOINj3ThKEfZl4o9z+RxS7VMEib96V5k
-	 eAkAZQX5YKiHXGK3tKJz0gnT9e6MHyD3V4jYSIsgU+ay8tNjHRUqGtyekW3HKTKMaZj+3
-	 SGKN6oUz0B2WM8UijzOMIg/ARm0J80djg2A/RBBrzklyc0j4UGfM7zOJMoAj4TejWhY0G
-	 DdEYWdHB0QQGHFPoJrJWFxVtArJ4zKTqCECcbMzFpWvgwwpgN/X25ZE2KEQPluFpWNORD
-	 2hQkKGgq0W91khNBWK76YgkeeGMosXP46E0Wnqv4zMgotUbOLP4eugFHrHeyVP+D6Gw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MQK3AtnL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=79.135.107.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793809097;
+	b=GFhfw76lploBzxQqjS2u02p5SS1ItIVPTXdndq4I4GzshtnZ3RYjZi1kmyXiBimvX8jq
+	 yI3oeU53LuUG7ddIMUZMYCAzrj2MXP+PscLZzvx2P0+IXawlLFWAU9c7Rp5Ic23ybsm0w
+	 p93ko2v/gGHps76M4eqruS4ujywVapofFlM2+DLKHL67sh7UNxrLO1ZXbUashKbKJe7Kf
+	 1nO6GE8ygU6AxcKjOgj6NvVgEVFmIGI9xE9sYGoh6pD0FIeLEfoBZdwotaEs7R52HYR2o
+	 e4NoXRoG8mVIK5lzkNOPIU7PaTUe1rg5AjBfPFTCznO1ujz+ejP5F9mPV61vuJlRkgA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809097;
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
+	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
+	 X-SimpleLogin-Want-Signing;
+	bh=/rQmXVkHiDzs2uGaSf1glcnE9dLrPSRCk+lZ+qfQqGw=;
+	b=fbYONeN3dm1aXq9PxmzEs1AF1+01kmUwHXDCTQwWp2YrZPg3lGeg0bMyZHHm4K7wcONX
+	 FXgtCV1621DztTuyWRTVOX98+04Z6wQFHKXFpUFYOG2+xh6lTzztDC6S+E6muo1qlFDdx
+	 Ha4wgfWtbcvb9Rk8EbwUjU8wY5FD6VJyqHbL1B4su1dLtsc9lG1YB7G4eGSfwNJIx+HX4
+	 0T6SeT3peRXY+0jG33t7QuADN1XXHLDsYPt0YcL6ywTnCtNiFCHNrdlEcZ8A9iOT7ZgZO
+	 GOhCJnmyZVwBoOeEXWfZ7bByXYRAJTMoeICpQ7PXYLa3dKJXiTDawbZeYGyy8tJk0Cw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=eldare.de;
+	spf=pass smtp.mailfrom=eldare.de;
+	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=xSx87DqC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=79.135.107.171
+Received: from mail-107171.simplelogin.co (mail-107171.simplelogin.co [79.135.107.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07EAC606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:58:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C7B606EEAB
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:18:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6C7B606EEAB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MQK3AtnL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C36B01F00A02;
-	Wed,  4 Nov 2026 15:58:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793807917;
-	bh=mvRMKEVmclkdGqYc1LxvLGz4/cikVy9gbxUr6+VgkYA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MQK3AtnLiOmkFzhUXWx3vILI73r7irP/8hWJwnl08oXzhKd/ryPNvcSHdBp1Oitlv
-	 xeDdGemUOAr1l3KgVohWkM6Y6m2axR7VbhUeItMTzWl1LOZzRc9GFsJKQ1FrFRE79C
-	 Ae3AWg8C96ZStt8vzfe6sds89AEWt8BMQe0TwQ8t/U7dBr4ERBF9Y0FV1gxGUAQQXo
-	 3L0Zz0poGfW4rZ4fjTMY4cZ8z+QTT5YdzOK5pEjRJtpqLwO8CmWRrthOpAk6K20+rq
-	 4VURq++knNPEEGwx01FYR55XUQqVkG4ilsU0KtvHgt63ukXDz9k9GfPuJANDVNplZC
-	 MY8lHHCIppqgw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Oscar Salvador <osalvador@suse.de>,
-	David Hildenbrand <david@redhat.com>,
-	Gavin Guo <gavinguo@igalia.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Peter Xu <peterx@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/5] mm,hugetlb: sort out folio locking in the faulting path
-Date: Wed,  4 Nov 2026 10:58:30 -0500
-Message-ID: <20261104155731.3920547-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104155731.3920547-1-sashal@kernel.org>
-References: <2026110456-remix-oversold-9ee1@gregkh>
- <20261104155731.3920547-1-sashal@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=xSx87DqC
+ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793809095;
+	cv=none; b=rNhBcnJBGT5vY8TOubhM6rBFm8SpI5iq4ZgabOm1hxruxsHuBUYIyFsZHbdhSEN0sz6AKzcuEPYF4UAUqOUHEMnhUjNAP17OBPueumFM/lgP/iLKS4rj3VI4+WSH1jk1+eEWubTiLRjNG82mCv2Tsyh9doGyea56QPc8FK63GudWo75yEnMgrXWg9ttlllMsIyqkbr1NDvGqi3/0Xn4R+Ff8cxNTc4zEJWy1C3Hdx4RLBOIh72mWpW6ntFss+jv49g/1v6Oa0QlEy7E5aRM1/sqV+Q/3AJleRygPu87il5hybWx/loqfJSbU1DllVwgs40HM6hCDIVjmSR6mQp76SQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
+	t=1793809095; c=relaxed/simple;
+	bh=/rQmXVkHiDzs2uGaSf1glcnE9dLrPSRCk+lZ+qfQqGw=;
+	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=mdjmSQwQR4rSeVppfo1dQetXWHxhh4XNQGQkQ8UQBQVVGc6mS6EVNj/SzaPXsbyB1MERpuLubET4XK2g09jyD3mCSLz4I46IAfLWANB2UAv3BPLErb0AzE7IFqrqN56bvCU1fSIYfP2UhhHBFVq0zOoYtzSrj/ijnZ6Qrc2poG3AHovfouG4NMKUn8K+BnMB8xrhEwold2IHc/3vVYvZbGHqV2FGAmr1OOBjyC9B88bSEX/8vWjf0SrDWjPDIYiNfwdQbY0rlVaZnr+nKqgZ+0sorfmyl7TkYox4Rdk8r0bTGZUNHI4yXwVfU5BYvDSUvHx1M4XwpsgrGs25P/os1w==
+ARC-Authentication-Results: i=1; mail.protonmail.ch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
+	t=1793809095;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/rQmXVkHiDzs2uGaSf1glcnE9dLrPSRCk+lZ+qfQqGw=;
+	b=xSx87DqCQq+Fct0l999tAxbeu/mkF5mEzDxj2RgbXVt2RT84a6q03GkZR80mtxSUGeNhXN
+	CDFeabpFPCjfRpci/FftoVLVlcKd5pq8+5K1HQz6ar3BNJs49aJJNw39wCrpiipVod1alh
+	KiKGZESQXgxJANgZXScTRCMj6oHeow0=
+Date: Wed, 04 Nov 2026 16:18:06 +0000
+Subject: Re: [PATCH net v2] vsock/virtio: clear vqs[] to avoid a UAF on a
+ failed PM restore
+In-Reply-To: <20261030101918-mutt-send-email-mst@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,100 +64,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: jrmmhm.kernel@eldare.de
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Stefano Garzarella <sgarzare@redhat.com>,Stefan Hajnoczi
+ <stefanha@redhat.com>,Bobby Eshleman <bobbyeshleman@meta.com>,Jason Wang
+ <jasowangio@gmail.com>,=?utf-8?q?Eugenio_P=C3=A9rez?=
+ <eperezma@redhat.com>,Xuan Zhuo <xuanzhuo@linux.alibaba.com>,"David S.
+ Miller" <davem@davemloft.net>,Eric Dumazet <edumazet@kernel.org>,Jakub
+ Kicinski <kuba@kernel.org>,Paolo Abeni <pabeni@redhat.com>,Simon Horman
+ <horms@kernel.org>,virtualization@lists.linux.dev,kvm@vger.kernel.org,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,stable@vger.kernel.org
+Message-ID: <179380909424.8.665274581449917096.1746194870@eldare.de>
+References: <20261028-vsock-restore-uaf-send-v2-1-675aad6da714@eldare.de>
+ <auSZtMqcTz3r1nRk@sgarzare-redhat>
+ <20261030101918-mutt-send-email-mst@kernel.org>
+X-SimpleLogin-Type: Reply
+X-SimpleLogin-EmailLog-ID: 1746194908
+X-SimpleLogin-Want-Signing: yes
 
-From: Oscar Salvador <osalvador@suse.de>
+On Fri, Oct 30, 2026 at 10:21:09AM -0400, Michael S. Tsirkin wrote:
+> On Fri, Oct 30, 2026 at 02:51:26PM +0100, Stefano Garzarella wrote:
+> > Do we really need to write in a commit message that checkpatch.pl --str=
+ict
+> > is clean?
 
-[ Upstream commit 9293fb4765527c0d2375eb441d045a5a75f5210d ]
+No, v3 will drop it.
 
-Recent conversations showed that there was a misunderstanding about why we
-were locking the folio prior to call in hugetlb_wp().  In fact, as soon as
-we have the folio mapped into the pagetables, we no longer need to hold it
-locked, because we know that no concurrent truncation could have happened.
+> Yea please write it yourself and make it concise. My eyes glazed over
+> in the 1st paragraph.
 
-There is only one case where the folio needs to be locked, and that is
-when we are handling an anonymous folio, because hugetlb_wp() will check
-whether it can re-use it exclusively for the process that is faulting it
-in.
+Point taken. v3 will have a commit message shorter than the diff.
 
-So, pass the folio locked to hugetlb_wp() when that is the case.
+> > This is already in the commit description, no?
 
-Link: https://lkml.kernel.org/r/20250627102904.107202-3-osalvador@suse.de
-Link: https://lkml.kernel.org/r/20250630144212.156938-3-osalvador@suse.de
-Signed-off-by: Oscar Salvador <osalvador@suse.de>
-Suggested-by: David Hildenbrand <david@redhat.com>
-Acked-by: David Hildenbrand <david@redhat.com>
-Cc: Gavin Guo <gavinguo@igalia.com>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Peter Xu <peterx@redhat.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: 824cc56bf43c ("mm/hugetlb: fix use-after-free of a new anon folio")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/hugetlb.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+Yes, v3 will have it in the commit message only.
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 4d80b8497142a..5196c1a816e38 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -6116,6 +6116,7 @@ static vm_fault_t hugetlb_no_page(struct address_space *mapping,
- 	pte_t new_pte;
- 	bool new_folio, new_pagecache_folio = false;
- 	u32 hash = hugetlb_fault_mutex_hash(mapping, vmf->pgoff);
-+	bool folio_locked = true;
- 
- 	/*
- 	 * Currently, we are forced to kill the process in the event the
-@@ -6282,6 +6283,14 @@ static vm_fault_t hugetlb_no_page(struct address_space *mapping,
- 
- 	hugetlb_count_add(pages_per_huge_page(h), mm);
- 	if ((vmf->flags & FAULT_FLAG_WRITE) && !(vma->vm_flags & VM_SHARED)) {
-+		/*
-+		 * No need to keep file folios locked. See comment in
-+		 * hugetlb_fault().
-+		 */
-+		if (!anon_rmap) {
-+			folio_locked = false;
-+			folio_unlock(folio);
-+		}
- 		/* Optimization, do the COW without a second fault */
- 		ret = hugetlb_wp(vmf);
- 	}
-@@ -6296,7 +6305,8 @@ static vm_fault_t hugetlb_no_page(struct address_space *mapping,
- 	if (new_folio)
- 		folio_set_hugetlb_migratable(folio);
- 
--	folio_unlock(folio);
-+	if (folio_locked)
-+		folio_unlock(folio);
- out:
- 	hugetlb_vma_unlock_read(vma);
- 
-@@ -6480,15 +6490,20 @@ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
- 
- 	if (flags & (FAULT_FLAG_WRITE|FAULT_FLAG_UNSHARE)) {
- 		if (!huge_pte_write(vmf.orig_pte)) {
--			/* hugetlb_wp() requires page locks of pte_page(vmf.orig_pte) */
-+			/*
-+			 * Anonymous folios need to be lock since hugetlb_wp()
-+			 * checks whether we can re-use the folio exclusively
-+			 * for us in case we are the only user of it.
-+			 */
- 			folio = page_folio(pte_page(vmf.orig_pte));
--			if (!folio_trylock(folio)) {
-+			if (folio_test_anon(folio) && !folio_trylock(folio)) {
- 				need_wait_lock = true;
- 				goto out_ptl;
- 			}
- 			folio_get(folio);
- 			ret = hugetlb_wp(&vmf);
--			folio_unlock(folio);
-+			if (folio_test_anon(folio))
-+				folio_unlock(folio);
- 			folio_put(folio);
- 			goto out_ptl;
- 		} else if (likely(flags & FAULT_FLAG_WRITE)) {
--- 
-2.53.0
+> > I guess this issue could be spread around virtio drivers, so would be n=
+ice
+> > to add common API in the virtio core to be used in all of them.
+
+Agreed, that would be a good follow-up; this patch stays the minimal fix.
+
+Thanks for the reviews,
+Jerome
 
