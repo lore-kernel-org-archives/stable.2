@@ -1,60 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793785677;
-	b=i83K5A6JPa1GGCr8vXZeptv6L86q3cBUd4t3uVlLm6VtIrcqcNUupiH5Hu6y2KSMzJ+w
-	 KJ+6crZsi1cvW24nSAnE2NgYfTVG4Hosib+p/4VPg17gAddTt7C18TnsDGkbYM+Qefe26
-	 G5CZ0L8sO0O2Jd+Hd9EAGTgA2186ZSxWQUgLBRHBfO2jl6GiarR93a0z1UW9S5tyJqyKC
-	 JZeNnEAjjLZ5XBoCmIf2qJMflzRvfYiDk7kWcT3XyVlVpS66de0ia6mEkv8IOnK1O3Kuw
-	 Cgwj1iIvAur7lEPZguDEWrzPo8CwfiHW+el2aLrJJ9Z7MeUzCefuPqjWipgVsjT3kxg==
+	t=1793785772;
+	b=0KInD3/oeqIPHetOHOtl9sTSS/j9M8awL/JV0O/41ZyP7yAKdJy/LvWSUcJMZqZwN/wC
+	 O5dEP2zjAMvGizI0rmdLDz2WxC8Ku5Om6e7RL6TsRDXEn/vWgGBA2WY/BEciwAbx2JKHO
+	 8a9dnaHMGRU8++xSpBbLNWet247sG4dmWhLYBbI5sttpdUfkHEhbdXZs/WKkgFDTj4w/E
+	 90xP1V8gqqCfWmKwuAd1mqYH55Q12gn/kOlAcsvTWYCDAyaMk8amaWP9FiiODel7LIw8v
+	 wzY3+knpn2cuq6KtMLP6PbX+IRvd17OfMU5timC2JBQ/UaaPUuC5u55fkgfO1WfFeWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785677;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=n+attB9PvL2n6dsbSQ6Vs1/AeKnQk1sOTd77loYwPLM=;
-	b=YOOUxCvmIrBBxcnmF20nnD88oqNflyycpjX/ov/jA8AMRQjEHqi3/9L2Mk2d0POFf/P8
-	 1OLPHvaSQ0+4O9GuT3UFVlb0mvllIP9ILH/w3G1f0NUyX8Qhbqpz52z0llQfOgpuEUr3g
-	 YQbRCGKDXV3cmZCet6bnMcUcoS1V+/pdeGFlXYwmSefHv1obXO82sh+yPCxMXBRLxjk0T
-	 uWlYSp7+1uyrXrE7mC1YmftuEeaBW7o2o5Mv8rz6oGUvozXAjVlZji0vjOoma/KENvK29
-	 fJ9tcbLeGQ4T8Z2c0yjDiPlkZq5G+1SFSg1teLxDAnHHvVawezQ9RtUfHZflZDxrB6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785772;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
+	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:
+	 X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=V5+9lPLxcbB6HS72R7yHHf/aIkQQXwAa5F2YdjVWI1s=;
+	b=d6hya0g6og4CFR0oOcbm7EOLao18NAqDC6nQW55ItyWOxX+uiYYuit18piLqaTWwLXlh
+	 BBprZQn6Et+qDJTSBWEgX9Bmow9JYZBF0dt7/p6769StFuINcERaVWFddfndxLZZJbspr
+	 AYtXWpagpQ3DKlYSvr1unx1Z3VZ92mV0FJUGBYYN+8WnQChBYNhmSxfeVBACgIPFOCk6h
+	 WWP9+vcwyFmhsVKa4aWpgy0TSmB0p06E0svbHk6LKwtfAexQkEXjlzl/UOO72YBE3asCL
+	 u2/ddCZZRVoElp43AlI/5yjuGdf5zSK8AQXePbFn7hq+nFJ7Xdgic/timIk47huXhOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=Cm7wEFo4;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=UQbnQhi1;
+	arc=none smtp.remote-ip=203.254.224.25
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF057606A31B;
-	Wed,  4 Nov 2026 09:47:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF057606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D44606A334
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 09:49:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3D44606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=Cm7wEFo4
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=n+attB9PvL2n6dsbSQ6Vs1/AeKnQk1sOTd77loYwPLM=; 
-	b=Cm7wEFo4Pm4FVw8bVsqV2KFGXONAXn6Pmnx4MSA9MrouvnFLO4rMTc1JraBdzLb9Bg6/iiJoyXx
-	zh+NuJSooJuoesImo5j1R6UDhSebvzodBtz5iurbl64AjowLXbqNIALrzPAt8P3sucbiTxTsr5Xnl
-	WqpLIAnocz5CJFUFw+3TlX6v6TqKf3qfqPsd6LXajQgP81vaIiDsX6YMuO3OpDnncmLSmyRxGywrM
-	f096M2hlh/uIfaYwGU8xCbcnRlst5USAx6Cz2KMBimgSZ6lx6amC1anM3UMyVG01ExWUYWdf+ihl2
-	20SN9YL3LfeLWs7fq95MO26ay61JZNaSbaog==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xOXax-0000000AoNg-1YbC;
-	Wed, 04 Nov 2026 17:47:52 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 04 Nov 2026 17:47:51 +0800
-Date: Wed, 4 Nov 2026 17:47:51 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] crypto: essiv: fix use-after-free in AEAD path
-Message-ID: <aur_R6HA1ylklPB_@gondor.apana.org.au>
-References: <20261016075030.3463123-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=UQbnQhi1
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261104094923epoutp02ebb77252c37fdd323b615b1f6d32e00b~kzqXgeb5g2052520525epoutp02L
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 09:49:23 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261104094923epoutp02ebb77252c37fdd323b615b1f6d32e00b~kzqXgeb5g2052520525epoutp02L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793785763;
+	bh=V5+9lPLxcbB6HS72R7yHHf/aIkQQXwAa5F2YdjVWI1s=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=UQbnQhi1EbPqddrXf8LmT5R4rExPYlvGpOAe7F4RQG/cWUynbUsQTppHpDQApWd+7
+	 rexJYUA1NdUtZzw7m+lu8BujdYcjQAiUEtN6VrRKiooGshv4GZ/U7sFAPprPcAGzTl
+	 1eYuJxwJswjWzLtwiOzkgwnVtiS+8vH5P8mZtKkk=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261104094922epcas2p2626a497f18ca8bd46105001758db9eb9~kzqXB8KdG0604706047epcas2p2R;
+	Wed,  4 Nov 2026 09:49:22 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.210]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4jKLJ253jGz6B9m7; Wed,  4 Nov
+	2026 09:49:22 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261104094922epcas2p275e9b663a40b1a6f86f208f11e21ae64~kzqWXLkpu0383403834epcas2p24;
+	Wed,  4 Nov 2026 09:49:22 +0000 (GMT)
+Received: from apsw.samsungds.net (unknown [12.80.211.160]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261104094922epsmtip1457c7e75f56a7d418b1dbd739accd372~kzqWRTGgq3232832328epsmtip1u;
+	Wed,  4 Nov 2026 09:49:22 +0000 (GMT)
+From: Kiwoong Kim <kwmad.kim@samsung.com>
+To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alim.akhtar@samsung.com, jejb@linux.ibm.com, martin.petersen@oracle.com,
+	bvanassche@acm.org, kwangwon.min@samsung.com, hy50.seo@samsung.com,
+	cpgs@samsung.com, h10.kim@samsung.com
+Cc: stable@vger.kernel.org, stanleyjhu@google.com, Kiwoong Kim
+	<kwmad.kim@samsung.com>
+Subject: [PATCH v5 0/2] ufs: fix the abort path of device management
+ commands in MCQ mode
+Date: Wed,  4 Nov 2026 18:49:12 +0900
+Message-ID: <20261104094914.180788-1-kwmad.kim@samsung.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,46 +81,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261016075030.3463123-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-CMS-MailID: 20261104094922epcas2p275e9b663a40b1a6f86f208f11e21ae64
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261104094922epcas2p275e9b663a40b1a6f86f208f11e21ae64
+References: <CGME20261104094922epcas2p275e9b663a40b1a6f86f208f11e21ae64@epcas2p2.samsung.com>
 
-On Fri, Oct 16, 2026 at 07:50:31AM +0000, Jérémy Jean wrote:
-> The request that ESSIV submits to its wrapped AEAD transform may
-> finish before crypto_aead_encrypt() or crypto_aead_decrypt() returns.
-> In case this happens, essiv_aead_done() calls aead_request_complete()
-> on the original ESSIV request, which can end up freeing the request
-> before essiv_aead_crypt() resumes, creating a UAF:
-> 
->   BUG: KASAN: slab-use-after-free in essiv_aead_crypt+0x8e6/0x950
->   Read of size 8 at addr ffff888102af1360 by task init/66
-> 
-> Check the return status before dereferencing rctx after submitting that
-> request. If the operation did not return -EINPROGRESS or -EBUSY, then
-> the request cannot have been freed yet.
-> 
-> Fixes: be1eb7f78aa8 ("crypto: essiv - create wrapper template for ESSIV generation")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
-> 
-> Changes in v3:
->  - Code simplification.
-> 
-> Changes in v2:
->  - Drop the local assoc variable and check the return status before
->    dereferencing rctx, as requested by Herbert Xu.
-> 
-> v1: https://lore.kernel.org/linux-crypto/20261014222351.2930674-1-Jeremy.Jean@oss.cyber.gouv.fr/
-> v2: https://lore.kernel.org/linux-crypto/20261015121743.3151400-2-Jeremy.Jean@oss.cyber.gouv.fr/
-> 
->  crypto/essiv.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+This series fixes how a timed-out device management command (query, NOP)
+is aborted in MCQ mode.
 
-Patch applied.  Thanks.
+Patch 1 makes ufshcd_try_to_abort_task() skip the task management path
+for device management commands and clear them with ufshcd_clear_cmd()
+directly, as the single doorbell path in ufshcd_abort() already does.
+Since the conversion to scsi_get_internal_cmd(), ufshcd_mcq_abort() sends
+these commands to the QUERY TASK / ABORT TASK path, which is meant for
+SCSI I/O commands.
+
+Patch 2 makes ufshcd_mcq_sq_cleanup() wait for the OCS of a device
+management command to be updated after SQ cleanup. UFSHCI does not
+specify the order between the OCS update and the SQ_CUS update. Without
+the wait, a late completion of the cleaned-up query can race with the
+retry of that query, which leaves the host with two query contexts and
+raises IS.UTPES.
+
+Patch 2 depends on patch 1. Without patch 1, ufshcd_mcq_sq_cleanup() is
+reached for a device management command only if the ABORT TASK TMF
+succeeds.
+
+Changes since v4:
+- Read the OCS in ufshcd_mcq_sq_cleanup() with READ_ONCE() directly and
+  drop the cq_lock and the ufshcd_mcq_read_ocs() helper, per review. (Bart)
+- Report an error when the OCS poll times out. (Bart)
+
+Link: https://lore.kernel.org/linux-scsi/cover.1793598099.git.kwmad.kim@samsung.com/
+
+Changes since v3:
+- Split the v3 patch into two patches: the abort path fix and
+  the OCS poll after SQ cleanup (Bean Huo).
+- Explain in patch 1 that the problem is only reachable since the
+  scsi_get_internal_cmd() conversion and add the corresponding Fixes tag,
+  per review.
+- Add a Fixes tag to patch 2. (Bean Huo)
+- Fix the step numbering of the timeline in the patch 2 commit message.
+
+Link: https://lore.kernel.org/linux-scsi/20261030111045.982094-1-kwmad.kim@samsung.com/
+
+Changes since v2:
+- Use read_poll_timeout() for the OCS poll in ufshcd_mcq_sq_cleanup().
+  The open-coded loop did not re-read the OCS after the timeout, so it
+  could return a false -ETIMEDOUT if the OCS was updated while sleeping
+  in the last iteration (Sashiko).
+
+Link: https://lore.kernel.org/linux-scsi/20261030093645.790159-1-kwmad.kim@samsung.com/
+
+Changes since v1:
+- Limit the OCS poll in ufshcd_mcq_sq_cleanup() to device management
+  commands. ufshcd_compl_one_cqe() copies the OCS from the CQE into the
+  UTRD only for them, so for SCSI commands the poll always ran for
+  MCQ_POLL_US and then failed with -ETIMEDOUT (Sashiko).
+- Return -ETIMEDOUT only if OCS is still OCS_INVALID_COMMAND_STATUS
+  after the poll. OCS_ABORTED, which the host controller reports for
+  the cleaned-up request, is no longer treated as a cleanup failure
+  (Sashiko).
+- Update the commit message to match.
+
+Link: https://lore.kernel.org/linux-scsi/20261030083311.602909-1-kwmad.kim@samsung.com/
+
+Kiwoong Kim (2):
+  ufs: core: skip ABORT TASK for device management commands
+  ufs: mcq: poll OCS after sq cleanup for device management commands
+
+ drivers/ufs/core/ufs-mcq.c | 18 ++++++++++++++++++
+ drivers/ufs/core/ufshcd.c  |  4 ++++
+ 2 files changed, 22 insertions(+)
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.43.0
+
