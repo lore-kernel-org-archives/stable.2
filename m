@@ -1,58 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793831519;
-	b=hZld/3r/VHqwyYo2jCzaHeGrh0tJHu8o0lpYRlYJTlLfe0Kz/csuDoGjhE9d23I13wMO
-	 LSKeb+199q9RfgbHfhn/BPmf3UBbwSr3rhUWaKGtn0GVgLUnxZSY3HAN9zHbJivjs6gzr
-	 Q3lkZ0xQSNdvW6K8DnMtHNklE3dQ8qDcwF6WHYDOqtG7YkZ72YAXDX7X3agQeMXm9xhWE
-	 lMDD1a2B73XoeiEB20typGrrkweiy/Oz9dw5B3s8g/BWLljlshmT9bbNG0T45fzQMtzWR
-	 C5xMNse5vkVQBtoSyazu4jXJbynZpe/QEKsrQzFrdyiTDitE3ju+Js9O1VewQqirFHw==
+	t=1793831525;
+	b=IDS6JqZ7mQV0GMLjBL1hJqvE4XCmcmOrcekXPsKCtRV/6na7NEMRUCojGpGXCUWEXshz
+	 QVHU0mVDaGB983V+UctFeyG/dOF1j2N7X69PlLgrk9ecp91mp+8SEKgfgE6Ut1fVom6l3
+	 JzZ3w/KmAj+L04aL1szEmPWBUzvk5hYCyaNC15rTtyTNG1Z0u4cagYbDCsvLTQbSu67E3
+	 Uwjk4QN/uBQ8iEZfn+BycavCLmL/lSH4deWaZhnKF1drqeefpNDnwsL4W/XJh9PdJolDl
+	 lewJFdLlf8UUlzFL939HWhsyVpebsq9TrQVtueBa3xey8dbkRvzFCgiR8D5hK64c85A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793831519;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793831525;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=6cCT7A+AK+vWgo72VmFwub9nLFu+JXzJG/cnIpeowrU=;
-	b=J5s1N0+dSYRWKPVJVz+jKeF1SW/yU2yDE5dRXFCwU4nnW8whaLsbIIT94QVKN61OeWGJ
-	 DxfAla2UfM8L0vVQMkV3t3DxkVhqZFi4AowU+YMtPoqthHL5sf2F8FG5J55cTtBbgSjNe
-	 QWdJeggnPeLdhefq7f1tiLz+dfJ2riFwr82VZ8g+w+nbmzHriNhkz7KOWeOU4Mv6qVJjk
-	 vCdEzvBN6S5EBtFx/7pMxRTl9Wod8357ySf4Oue1z6touwaraa20bizzfQolE+UcL0S4Q
-	 l0N8JpfCQBGHoZZQkecAE518Jzsz2nkRKXsCta4z0ZuCI28Zca5Bp4ZmmAFRiwDY0lA==
+	bh=GJA6m1Nalr7jf5uJRsYcf1fwQLy/WeqaMCQlYo5RzFI=;
+	b=jvs66VJ6ix9MPtLKKMSCP2CVphiuBi057aIaCaUu0dx1RPjX7z0N45bA+Cwlm+ie29+w
+	 meHa+WzNIJKYlhF45hqcTO534TBm0LfxtCZbjhLaHv+n1fB4Iuj8Cxr/EMOb1CeTq9226
+	 GR9BbdQ/Ud0hIBJ8JLoHtDQxZq3JPIdW9Ou8Wnw8LzLQkZfUWcxIYgaHnVMA57WBUBXUi
+	 BxgYkW8woSyrKiDkW8aFXKirqMZLTjzKtemWjvNYFdscPF/nH8noLv8VEV/WKFhdezneM
+	 c825bEW+zGq20u/o1qKYbXwst9UHYYwrPPWgR1cNl8ePitIv6+ELxinvYUxq/Mzd0Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="YLe6HN/E";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PposN4aG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56439606A33F;
-	Wed,  4 Nov 2026 22:31:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 699B6606A33D;
+	Wed,  4 Nov 2026 22:32:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YLe6HN/E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E773E1F00A17;
-	Wed,  4 Nov 2026 22:31:58 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PposN4aG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 054811F0093A;
+	Wed,  4 Nov 2026 22:32:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793831519;
-	bh=6cCT7A+AK+vWgo72VmFwub9nLFu+JXzJG/cnIpeowrU=;
+	s=korg; t=1793831525;
+	bh=GJA6m1Nalr7jf5uJRsYcf1fwQLy/WeqaMCQlYo5RzFI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YLe6HN/EnfSzLLi1rpVM1E+eQBNRhLDaWTiOhdqs4PH6s9RiJApUd2an/xltDxVxq
-	 3+66SoQl3Zsc2ipE9XvGfdAIDK8c+3/8WKKxDn7WykdDf/dUccFOkWpR1DKQIdXksC
-	 LFlfWsqcIdfsnVV7ou8M1CZWJ8Gd/NyK1F6XkSb4=
+	b=PposN4aGRZnc9SdplgQ/nn00jxrHDXW/FMyQgRBd7KJtsEiPUJwiD9JiumY6+zgK7
+	 LbI0Q7kQYbB4hxDUXaVHJ2B6VC/NJKUtahrDCK8ciEVdEAiSQr/eempVCQoD9s2xwH
+	 k1ivfK3f4aOeleknGamh64HIyzWdcBy+MEx00mcM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Cen Zhang <zzzccc427@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Yufan Chen <ericterminal@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	Jia-Ju Bai <baijiaju1990@gmail.com>,
-	jjzuming@gmail.com
-Subject: [PATCH 6.18 0752/1005] ocfs2/heartbeat: unlink live slots when their node is missing
-Date: Wed,  4 Nov 2026 16:08:05 -0500
-Message-ID: <20261104211104.514658204@linuxfoundation.org>
+	Brian Foster <bfoster@redhat.com>,
+	Christoph Hellwig <hch@lst.de>,
+	Andrea Parri <parri.andrea@gmail.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: [PATCH 6.18 0718/1005] iomap: dont resubmit an ioend after ->writeback_submit() failed
+Date: Wed,  4 Nov 2026 16:07:31 -0500
+Message-ID: <20261104211103.644309592@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
 References: <20261104211043.516122098@linuxfoundation.org>
@@ -74,131 +69,65 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Cen Zhang <zzzccc427@gmail.com>
+From: Andrea Parri <parri.andrea@gmail.com>
 
-commit 3ccd24c3f7a577b84a532cb027f1378385b82ef6 upstream.
+commit 3f517370076f1fedaa38cd8c78ceb73616b79336 upstream.
 
-o2hb_shutdown_slot() returns immediately when its node is no longer in the
-configfs registry.  A slot can still be linked in o2hb_live_slots when
-that lookup fails.  Region teardown or startup-error cleanup then frees
-the slot array without removing its embedded list member.
+iomap_add_to_ioend() submits the pending ioend through
+->writeback_submit() before allocating a new one for the current range.
+When the submission fails the helper completes the ioend with an error,
+but iomap_add_to_ioend() returns the error without clearing
+wpc->wb_ctx.  iomap_writepages() then submits whatever wpc->wb_ctx
+points to, so the already completed ioend is submitted a second time.
 
-With the same peer live in another region, the next list update can follow
-a predecessor into the freed array.  Reusing the node number can also make
-a later insertion encounter that stale member.
+For XFS the second bio_endio() lands in xfs_end_bio(), which
+list_add_tail()s the already linked ioend into ip->i_ioend_list.  This
+corrupts the list and leaves a use-after-free/double-free window against
+the ioend completion worker.  Reproduced with a fault-injected
+->writeback_submit() failure on a reflinked XFS file with several
+CoW writeback ranges in flight: the unfixed kernel hits repeated
+"list_add double add" warnings from __list_add_valid_or_report(),
+the fixed kernel fails writeback cleanly.
 
-Always remove the slot under o2hb_live_lock, even when node lookup fails.
-Preserve aggregate membership accounting and the last-region DOWN
-callback: the existing callback interface explicitly permits a NULL node
-for DOWN events.  Only drop the node reference when lookup returned one.
-This closes both normal release and startup-abort paths without changing
-the publication or callback locking protocol.
+Clear wpc->wb_ctx when ->writeback_submit() fails.  The old
+iomap_submit_ioend() cleared the context unconditionally; that clear was
+lost when submission moved to iomap_ioend_writeback_submit().  The final
+->writeback_submit() call in iomap_writepages() needs no equivalent fix:
+it is the last thing the function does before returning, and every
+caller allocates its iomap_writepage_ctx on the stack for a single call,
+so wpc->wb_ctx is never read again afterwards.
 
-Also require a configured node before admitting a new live slot in
-o2hb_check_slot().  The early live-bitmap check is not held through
-admission: the last live slot in another region can be removed in between.
-Without a node, admission can then queue an UP event with a NULL argument
-and hit the event helper's BUG_ON.  Existing live slots can still leave
-and generate NULL-node DOWN events.
-
-A controlled probe-instrumented test reproduced this while stopping one of
-two regions after removing the peer from configfs.  Its KASAN report
-includes:
-
-  BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report+0x1e0/0x210
-  Read of size 8 at addr ffff888106a4ac60 by task o2hb-pmbd0058_b/497
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x93/0xd0
-   print_report+0xce/0x630
-   kasan_report+0xe0/0x110
-   __list_del_entry_valid_or_report+0x1e0/0x210
-   o2hb_do_disk_heartbeat+0x1591/0x2c50
-   o2hb_thread+0x1ed/0xe70
-   kthread+0x351/0x460
-   ret_from_fork+0x659/0x940
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
-  Allocated by task 491:
-   kasan_save_stack+0x33/0x60
-   kasan_save_track+0x14/0x30
-   __kasan_kmalloc+0xaa/0xb0
-   __kmalloc_noprof+0x2de/0x780
-   o2hb_region_dev_store+0x7c2/0x1b60
-   configfs_write_iter+0x2f9/0x4f0
-   vfs_write+0x639/0x1010
-   ksys_write+0x111/0x200
-   do_syscall_64+0x114/0x620
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  Freed by task 491:
-   kasan_save_stack+0x33/0x60
-   kasan_save_track+0x14/0x30
-   kasan_save_free_info+0x3b/0x60
-   __kasan_slab_free+0x5f/0x80
-   kfree+0x308/0x580
-   o2hb_unmap_slot_data+0x1db/0x330
-   o2hb_region_release+0x14b/0x4f0
-   config_item_cleanup+0x14b/0x230
-   config_item_put+0x79/0x90
-   configfs_rmdir+0x58a/0x910
-   vfs_rmdir+0x2e8/0x820
-   filename_rmdir+0x3b1/0x520
-   __x64_sys_rmdir+0x4b/0x70
-   do_syscall_64+0x114/0x620
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0058-v2-9446113c2b16c817c538@gmail.com
-Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Assisted-by: LLM
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Yufan Chen <ericterminal@gmail.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
-Cc: <jjzuming@gmail.com>
-Cc: <stable@vger.kernel.org>
+Fixes: f4fa7981fa26 ("iomap: hide ioends from the generic writeback code")
+Cc: stable@vger.kernel.org # v6.17
+Reviewed-by: Brian Foster <bfoster@redhat.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Link: https://patch.msgid.link/90fbd42df4f51306e57a95830d2d53873f630eb9.1790342457.git.parri.andrea@gmail.com
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/ocfs2/cluster/heartbeat.c |   12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ fs/iomap/ioend.c |   10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
---- a/fs/ocfs2/cluster/heartbeat.c
-+++ b/fs/ocfs2/cluster/heartbeat.c
-@@ -868,8 +868,11 @@ static void o2hb_shutdown_slot(struct o2
- 	int queued = 0;
- 
- 	node = o2nm_get_node_by_num(slot->ds_node_num);
--	if (!node)
--		return;
-+	/*
-+	 * The node may have been removed from the node table while this
-+	 * region's slot is still linked.  The list member must still be
-+	 * removed before the region releases its slot array.
-+	 */
- 
- 	spin_lock(&o2hb_live_lock);
- 	if (!list_empty(&slot->ds_live_item)) {
-@@ -891,7 +894,8 @@ static void o2hb_shutdown_slot(struct o2
- 	if (queued)
- 		o2hb_run_event_list(&event);
- 
--	o2nm_node_put(node);
-+	if (node)
-+		o2nm_node_put(node);
- }
- 
- static void o2hb_set_quorum_device(struct o2hb_region *reg)
-@@ -1026,7 +1030,7 @@ static int o2hb_check_slot(struct o2hb_r
- fire_callbacks:
- 	/* dead nodes only come to life after some number of
- 	 * changes at any time during their dead time */
--	if (list_empty(&slot->ds_live_item) &&
-+	if (node && list_empty(&slot->ds_live_item) &&
- 	    slot->ds_changed_samples >= O2HB_LIVE_THRESHOLD) {
- 		mlog(ML_HEARTBEAT, "Node %d (id 0x%llx) joined my region\n",
- 		     slot->ds_node_num, (long long)slot->ds_last_generation);
+--- a/fs/iomap/ioend.c
++++ b/fs/iomap/ioend.c
+@@ -187,8 +187,16 @@ ssize_t iomap_add_to_ioend(struct iomap_
+ new_ioend:
+ 		if (ioend) {
+ 			error = wpc->ops->writeback_submit(wpc, 0);
+-			if (error)
++			if (error) {
++				/*
++				 * ->writeback_submit() completed the ioend
++				 * with an error, so drop the stale context;
++				 * iomap_writepages() would otherwise submit
++				 * it a second time.
++				 */
++				wpc->wb_ctx = NULL;
+ 				return error;
++			}
+ 		}
+ 		wpc->wb_ctx = ioend = iomap_alloc_ioend(wpc, pos, ioend_flags);
+ 	}
 
 
