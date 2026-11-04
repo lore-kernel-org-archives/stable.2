@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817907;
-	b=KxmvlX0aJj7DhuPfWwATyr01mIWmTILvtSTrkuGwKJMIGEJRwEnTCIkhNsy1McVLnjHH
-	 FpF30mjZ7DgyhTt59ahHZ0/VSLnJ0KzdDwqpvchyPHAnfmGPt/O4pNcnimTLktzLB2aCV
-	 vMmFAewxEaZPTdFDeLnohjs1RjgNN/dqD4DDPc+yTiNH/RqFKF7KxoeTnt6dJ9DLR9drB
-	 RVq/u/W42EBgGiz69sat+3+S7wg9jWkFo5h6KU0UArIqnkabQOJhU6hoeVBNzSSTDCKKE
-	 m9fpHboQ21o+U+NfIu7UZYREUCgty20bnaHyoV8Y1sXUq/MOVfq3vb6mCrb6KnXennA==
+	t=1793817902;
+	b=AkxUdqdteBgGmGqQJ5xcHGXDRitOHgmzoKGATTxtOsYIjhwdpdEGa4NQHet12DQOdZSv
+	 ty/BuO3hZsSCp4ek63QyYefbdC+MSLM/kA2KQEduFLezY/QFU2XKv+ef6WyMmUYOuLBsh
+	 Czm9D4kLoisX4oplO6uId/xsjyRQfUybiSFbwN8aOUVgDzKYkV9pDA4sAFWG7mqrKS38R
+	 v/xr5J/gWYzpH7eI9bzSP8s9HgJavrxMv8I3i6axNweLbM1zXYIGNfK6eo7pRCAfYthpu
+	 gGcpUP+UweDq3wwnptj39bIxS/zKtg7uQPb6/kAx+WAxMevwNlMSKmZNYLuQRGYaiUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817907;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817902;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=xpQ//ELM/dXg3Oye858m6VaH/gYZHAk+E+a15l9Gz6U=;
-	b=AisDiAgvqh3KJwUkLRNB6uT/rLhy5vL0htRLzQ/MkoNKFrT2xU2qJ8SQ7+42Ej6wG9n+
-	 N+06BMTdUuTaRjytzCMcsUIoIUHWNyTqcNXe0n5hhN78HAO5NA1J7cxe34/9HjYyOv9tN
-	 SYYApmjr9CN0f7doXHRgI6g2fDmHmGVT6eiezxtTfLUTnCJUdiYnNkN8yUItvROHuzEkl
-	 K67nAr0qIyNteVib1Ah1uqSrPKzgz4W+011gAMf7DFd2F6q45+42oUeZZ8tivPTTXqoB4
-	 yil1LX7x1LcVGWHHi5DR4TUBv15Dks0VQGMoB6HklpsxzDa+j/xm1tfg8ldF5RcWbHg==
+	bh=+Ed1RBU6KSOPwmrvEGQdxd2yjZ9qjAAPrPeuqAImy58=;
+	b=tMC7GhxjrJZ6BGaCUUiIvplklTk39HlpWQ38rwFd0SOBvM8yi6U77rYNrNnBhFqe7jWk
+	 CFuqoGn3wsz0jOSEMZKbPSmiBaphBs1bq2mIuZcuCn12sOFMQFx3Hcg5cSas+gr7mqI2j
+	 0PibY9pCI/wORgMpch6P2jCAEfc09/LI8CzG1vKRAlGe59428Q9NKyphCwYrmYzn1ActB
+	 nEWpsP9GtH6ynCpJ+KjMUrkoNbzGNfAPcMlgm3Ou66c/v2lI5v6gCuCeSwvUO07HUd6ez
+	 lohyKkEDDlfq3z13oXv4J73o7pONMLla85zv49fPEOdlwo+SzCT5O6pYD9OHe272A6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=QFm3Op0j;
-	arc=none smtp.remote-ip=209.85.161.41
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DPRVPfts;
+	arc=none smtp.remote-ip=209.85.161.44
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380D5606A330
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:45:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 380D5606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96ED1606A33E
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:45:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96ED1606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=QFm3Op0j
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-702fd86d674so683763eaf.2
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:45:07 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DPRVPfts
+Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-716c0217635so780277eaf.0
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:45:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817906; x=1794422706; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817901; x=1794422701; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=xpQ//ELM/dXg3Oye858m6VaH/gYZHAk+E+a15l9Gz6U=;
-        b=QFm3Op0jriiSX9anl1KYujAcKS2Ft2/d1/9YJXm27v/jitW7mzouMsaVqtfBjgOfeL
-         LTSSD8j3Sph7C2UOPmaTAi8FPyBxERZCVZ1Z4ZWLRoXkBfPVDo7GH2e3FmSGJ/Tb4/Tm
-         RVBr51uxlrI15RKtiA19ILVK+tC0kSl79QyrjGkHsesjMEsLfoRgg6mOSBVSOEHBy0lw
-         yGxbzShfYBtjmK+kJFZW6ctyBFAJQ8YoIVoYLJrBetJOXAp7urAPVlZroM6u4aExqTbL
-         62B/UfstflHHgi8HDf4JjAFao2gYw6GquRpFf2nTb+08zy6fAOEm8bKmcsR9kEEb6pIw
-         zq1A==
+        bh=+Ed1RBU6KSOPwmrvEGQdxd2yjZ9qjAAPrPeuqAImy58=;
+        b=DPRVPftsHNk3Le59K6cFptzrdAbBztWOBl/xJAw/gfykRBgaGRezDJOKfIKHtt7FWQ
+         TfTaddBw8o/HNkfllArRhlU8rtafjJyO3rwMpJMudOEEGzg7omaBDd4NKZbPzhJIT098
+         yI98GZ6DkxEzyzPmWA44ImnQ/MAZsgzDwqeGc6Z54/EODJ0ElOZqTtE6fESOCZrjsuxM
+         E5llMiD5Yp5GZ7wffhACu7WPn4V9VBQGO5T1KOssyrFIaGGzj8mPnHERWxx6tAtLQhio
+         tca9gjbedQpd3+EUWRYaCQvi7EWISdujnBV92TJ1d8roWIBU7MuXgXGZ2bz/s28jKGsJ
+         gjuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817906; x=1794422706;
+        d=1e100.net; s=20260707; t=1793817901; x=1794422701;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=xpQ//ELM/dXg3Oye858m6VaH/gYZHAk+E+a15l9Gz6U=;
-        b=pDsBFyhJRCbsPEvlH/RcoXHah01goRD6vJNuFQO3yAddKu+IKxM8fHSkkXleOUNOh6
-         Hmxq4ucfAdDDTLbKVoHzZqirCZ0DTvYKAN8OECnilbG9J8vQTOoGt2IO50s2ol/TPkcx
-         PAStRxTvBGdOJnQtBkaKYlbrvD0VYlx48kV0BiNwJTUxpUn1aeueAeMyNT8yLNZd4Egc
-         KdiV7MUwrHMwZu6nbZ93waK3bO4g+WRZWsUy6FLtdAfh+Uw0kzlNWn7tPA8blaVAVJP3
-         0V/axFbPzLlQUvKU62Wik2TeYu6Ytpq8BZvmiCmeBaSCFK+48pU3+XMEW0//NbqCoN+V
-         oIzg==
-X-Gm-Message-State: APuU4Z/zsBdWiiN1dxK4rHZMITpOM77N8ggER2LZjmlIMcnNDekNVk2H
-	NCf0AqTi1yzC3LAVhel0kSs/cKicbukP4mInxH+SOX92xNaDwYSkEuiTyamgMkayPELnhLupFyP
-	TPyaOtV8=
-X-Gm-Gg: AYBFou2NJDPnQysYBQ9wVPc/H6NN47GIa56r4a4Tfmp+SiGpF0wSFtVd1Fo/1dfdsXV
-	zY2gBxCXWgNnfYHRtZRzwbXZCFcVP97SxbJ8N0rAA2Xq3EE+VhHBPCzBjqd9DHl3sfy9iWPfof4
-	wulw9CXIrdCkGYAthpIQu3movzZV698o8C6i47tTAsFWSyTy0n6gtMtRq40J963DSKMOzTAnVaC
-	l8j2DOSb/qCbAL9YWOnNDXiSisFWw7k3Z1SCyWqAqDJ1mVL8tF61kZu+LjT3hrIEg9mi2B3Sqr5
-	6GlQL1W2SV2585NwZbkNRwHU6J8J5WIr/FbPLKDTiIVA5+Ok8ZGc//gIF0bjeoa1j+XA2PILNze
-	WfSqPQBjccL2OPfDQZowGG9jwq5NK7+QKtXtWQRWiFpgmd3Z7M2MLEC/QRxTn0Yg/aS81TV824Q
-	waFf88VdH7M2+3A/HbmPkQBx+Gg16PhweQu79q+gWf+DM8BCaMqnA0Uc7fxcc0zOrvDzF7gF5KX
-	F/KdNVMEgfQUvkid2gOjtzutBikuomo8OcO2dTJe5luo6Q5BQHKBmw78Fzwieh2eJSrxvsye4Nu
-	c6A7jp4pEJ7ctx+shPaZ7G+/i4K7vT6Qq6SKcRNqfRxwGdmnxA5hcfSYS9d6N3yuGZcYHBqQOg=
+        bh=+Ed1RBU6KSOPwmrvEGQdxd2yjZ9qjAAPrPeuqAImy58=;
+        b=e8SZ7IfE/zXUvKu5nmYpXS9fI856K1Cb1vAGaG10XfpELkZ78xkPPVaRhNwqz2a6to
+         vNPDk6xRl97sLB147UJxZGj5aJz2mu1B7lsLz7jFL6pe2Qyu1UKoPhqCsNmJ1c4uC6Er
+         6T70HIJtvqg76q9EineyH4oCkQqifpnE9cCiMXH8KtEmcZgMsMqvGQz0WT/kmTfEdAYa
+         bDdR2UpSlOmP/c3l5dw78HF4ilzXuumPVDufj3ZsUgkkcE0eF3ot2v1lP5l+f/0iXNg2
+         vK43Xyv0cHyqxNXgFNEKLTsfObx12qDfkLrw0/gyA8CaDKjML6Q0DVggzto1HaB6kTwL
+         Geqg==
+X-Gm-Message-State: APuU4Z+l9lY8/ZBN+66cK7WKg0vbqmFSi6EMHV0qbSN0cnmTz/4/ZSnJ
+	8/iNKsI+bAtZanojwlbYxRg0Jc1LfUW3V2sQo6jfcuCYASdj6dWpMutv8dINBAFbOMw7RUrDjV3
+	ni0oTaTc=
+X-Gm-Gg: AYBFou0psPLeJ+0ZcJjwwtgqFcNUMaWAfK44nngqJCOfSGTnNWjwXPVHJHQUrR8wiPm
+	pB2ha1YiSNMEvDws8V3jByA4jKxKaN0WRyQBTn0g/rBm0f+fSZw9wltqCNbQtzfyCJgJGQX6Wtv
+	CpQgB+eK7ivh3DdXGR/2yZI25Ev4hZKSkEHUmQUn7Ghq+CUBTStVXWrMOaCwQ3MYFD5O4a7GQYl
+	ZHYUahdL9bUu8ATn5QFDK0tRscQbFpFY8aLAIjOTQ15bFGNT3MNRuhIG7SxeR9zWb4MRuZc7kEg
+	z1DctScZJnFFwgAJOUWh8Dqoi/eXTOQOONbioP4McekZda6SThX7HK6TUk0qN+LgZuA94u9l386
+	EPAS6/Wrkv3MEyVEBMjFxL1HaaYWhl6nT1yQqvXwkzPKHXXFWQg2LpRrCLS0E5NYsX4wBUcojnK
+	qO+iQC2TUVorbbHSgPItsVWQda8gZ8PG3BETc36qJHIVFZG0W34u7Q/1lri/yKECIaYHjThgmlF
+	Rmm6swfb40VlvsIbuvu6xH9VcVp3ywxGEdYam2FPHtqLHCQK5+vrm4NompuzE4DkpDq5g3N/hvu
+	4RJVOPi2qv6rgWqj6q0TMli4m7uhZ/KYfZa+z4LwCq61f9PQxqrZbV7FqMTKWViM/KKwxmm1Tw=
 	=
-X-Received: by 2002:a05:6820:1627:b0:700:8d6d:93fe with SMTP id 006d021491bc7-714f23ffc06mr11382681eaf.38.1793817906120;
-        Wed, 04 Nov 2026 10:45:06 -0800 (PST)
+X-Received: by 2002:a05:6820:6acf:b0:6de:9205:845e with SMTP id 006d021491bc7-716d2130668mr238950eaf.27.1793817901168;
+        Wed, 04 Nov 2026 10:45:01 -0800 (PST)
 Received: from xps16 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea4903e9sm2590963fac.3.2026.11.04.10.45.03
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea4903e9sm2590963fac.3.2026.11.04.10.44.56
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:45:03 -0800 (PST)
+        Wed, 04 Nov 2026 10:44:58 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 7.3.y 05/16] io_uring/net: don't retry a non-blocking connect() that fails with -EAGAIN
-Date: Wed,  4 Nov 2026 11:44:36 -0700
-Message-ID: <20261104184447.516768-6-axboe@kernel.dk>
+Subject: [PATCH 7.3.y 03/16] io_uring/net: mask socket type with SOCK_TYPE_MASK in io_socket_bpf_populate()
+Date: Wed,  4 Nov 2026 11:44:34 -0700
+Message-ID: <20261104184447.516768-4-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104184447.516768-1-axboe@kernel.dk>
 References: <20261104184447.516768-1-axboe@kernel.dk>
@@ -99,61 +99,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daan De Meyer <daan@amutable.com>
+From: Dominik Maier <dmnk@google.com>
 
-Commit 71537ed811107c514c0342e98902d489d6d2b7cd upstream.
+Commit e66907c3ba229399ecfb4ef032b95a4a071c894e upstream.
 
-IORING_OP_CONNECT on an O_NONBLOCK AF_UNIX stream socket retries a
-connect that fails with -EAGAIN because the listener's backlog is full.
-Polling the client socket doesn't help: an unconnected stream socket
-reports EPOLLOUT and EPOLLHUP right away, before the backlog drains. So
-io_uring retries the connect until the apoll retry limit is hit, then
-punts the request to io-wq. With a full backlog, io_connect() runs 128
-times in the submitting task and once more in a new io-wq worker. That
-worker stays in the task's thread group, so a later
-unshare(CLONE_NEWUSER) fails with -EINVAL.
+When an IORING_OP_SOCKET request is prepared in io_socket_prep(),
+sock->type retains creation flags such as SOCK_CLOEXEC and SOCK_NONBLOCK
+until __sys_socket_file() masks them off with SOCK_TYPE_MASK during
+execution.
 
-None of this changes the result. __sys_connect_file() adds the socket's
-own O_NONBLOCK to every attempt, so the attempt from io-wq fails with
--EAGAIN as well. That -EAGAIN becomes the CQE result, and connect(2)
-returns the same -EAGAIN.
+However, io_socket_bpf_populate() copies sock->type into
+bctx->socket.type without masking off ~SOCK_TYPE_MASK. As a result, a
+cBPF filter inspecting bctx->socket.type against socket types such as
+SOCK_DGRAM or SOCK_STREAM can be bypassed by ORing SOCK_CLOEXEC or
+SOCK_NONBLOCK into the socket type.
 
-Let's complete the request with -EAGAIN right away when the socket has
-O_NONBLOCK set, like connect(2) does. io_accept() already completes
--EAGAIN this way for IORING_ACCEPT_DONTWAIT. -EINPROGRESS still waits
-for the connection to complete. A blocking socket still ends up in
-io-wq, where the connect sleeps until the listener accepts.
+Mask sock->type with SOCK_TYPE_MASK when populating bctx->socket.type.
 
-Fixes: f8e85cf255ad ("io_uring: add support for IORING_OP_CONNECT")
-Signed-off-by: Daan De Meyer <daan@amutable.com>
-Link: https://patch.msgid.link/20261027-b4-io-uring-connect-eagain-v1-1-f4e3aaaa49ee@amutable.com
+Fixes: cff1c26b4223 ("io_uring/net: allow filtering on IORING_OP_SOCKET data")
+Assisted-by: ARTIST LLM
+Signed-off-by: Dominik Maier <dmnk@google.com>
+Link: https://patch.msgid.link/20261022232120.2537530-1-dmnk@google.com
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- io_uring/net.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ io_uring/net.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/io_uring/net.c b/io_uring/net.c
-index ef455f1a47eb..b62f21df42f2 100644
+index 4678f29f5177..ef455f1a47eb 100644
 --- a/io_uring/net.c
 +++ b/io_uring/net.c
-@@ -1878,6 +1878,17 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
- 			if (connect->seen_econnaborted)
- 				goto out;
- 			connect->seen_econnaborted = true;
-+		} else if (req->file->f_flags & O_NONBLOCK) {
-+			/*
-+			 * __sys_connect_file() adds O_NONBLOCK from the socket
-+			 * to every attempt, so a retry from io-wq fails with
-+			 * -EAGAIN as well. A poll on the socket doesn't wait
-+			 * until a retry can succeed. For example, an AF_UNIX
-+			 * client reports EPOLLOUT right away while the
-+			 * listener's backlog is full. Complete the request
-+			 * with -EAGAIN, like connect(2) does.
-+			 */
-+			goto out;
- 		}
- 		return -EAGAIN;
- 	}
+@@ -1734,7 +1734,7 @@ void io_socket_bpf_populate(struct io_uring_bpf_ctx *bctx, struct io_kiocb *req)
+ 	struct io_socket *sock = io_kiocb_to_cmd(req, struct io_socket);
+ 
+ 	bctx->socket.family = sock->domain;
+-	bctx->socket.type = sock->type;
++	bctx->socket.type = sock->type & SOCK_TYPE_MASK;
+ 	bctx->socket.protocol = sock->protocol;
+ }
+ 
 -- 
 2.56.0
 
