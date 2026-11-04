@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793777177;
-	b=KQTaux32xUANoef+XbLT3Y/g2EU/KrtxCXu9hmbXyUZ6tbc/n9LckLPq3HXmxgaB5MVY
-	 krV2U/zXlP090WMdgoDKooAj9L3QumtcXS0AYefq7gzMlaoBl9zpE6o/vOUYVkYG4fx5D
-	 /8zbydu22MMlrRWRRU9YAuaWaSu9i0sidicHHLJ4du+3eWZ1hZ5iaMx2gukLs6m5QiWn7
-	 8B0GkPZPfr1QuWGMsf7DqR4e1UBJluOoTppsTJuRUp55OSL906xLX7ZEgE3V9maMh0STq
-	 hg64e0ObvSxQ38RPELouBMlZ5PZmoEfz10hrLAlpU8+rB8N2E4rHKb44K4lTqLWkp+Q==
+	t=1793777179;
+	b=X/Dk8aJtwq2Avs06O6R9sGiNjO7VutAkyUCiPWuGVY9ZeoCjkF0srkCxteQvN1KNQqh5
+	 x8zrYRx20FAVvq1tmL2e+/Mqyq/uyJDNVaZP4T3tZkOZ1cZ3MoNmeyu1sUrB+DMCUpIbt
+	 Vemcr1+e0/FJr5l7YgdT2Q1DewJPFoj3eLUuVYVser+8hfY6fJytFXR+mcpdFyXyVLZyy
+	 2Zbvzo0aw3fcY7gB8noqX0AfFffJBpuNC2++9KKiGW+Hm+Iy0OXZ6Tza45cNjQ1iFK9PV
+	 D9LyvQLEnLyg2oqxbY53FOfbZlJP3SuzntkDIzXE3dUy/SFJg9DWz/+7FEoCg25qlow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793777177;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793777179;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=gqkOltD+7V4gOjDgNlHaUe0A1OssjIMRfOG7zDyJv8g=;
-	b=s3aAcSVGf62UmErKEmaMgSNvftFvQNiJUt742MqoFqUUEkzcfzrhZ7d8LLhkx6rOoRRg
-	 bP7XBDyL7LF5akdLSDkaBE8kVV3igqc0Aip6lPxzg+mYoNrJvKTWlICgnCf1tiV2H/KGf
-	 MUev34ogbXFrSyRe7Sq5R5ApWWCX1CMSGnCA0FJjKsZ8HMwy7mqixxxZyLxBjnqPZnikV
-	 RAfvo26EPnnPEVAbNtBDYdleDpFsvxLOUm0KDV0xgzMIF6mRweHm5p764tkk/FaG8XgIv
-	 8CJFmjOWOEqUYoOujRCX9OveYRt9h8LEdm9U9NdAYOr2HWh0t1+oohclO0/2CRVN2Fg==
+	bh=odPVEGJNI068vOlDDlXNPqYz0NLXdEZnh3rgurqIlvs=;
+	b=pri2Ehx5IVRQY+peAq3th4JjHVPeIPh2Ud5hx4YZpX8V80vHkckYZ4HLs6NLnCX2akHh
+	 UJDvy0ke12ny741YOSatOoyXzkMqrWevNJjPxDBgcRLI3VPHGbTk51Hz7KrGxsYmOSiCE
+	 CI0TURqHEbQEpLc3WHGtcs38yHskHCsgIFV34cz9wJzPiPW01bAJpK8YT3n0uZLuTIJyd
+	 r/KOdNcIqWincW00mdCUVuQuEI8G9/efkOMkIaN9u9BJiYvP/qO2xd5EfMzucsq5DtThJ
+	 HWufYBMQZklvsBHA5g7qdRTPI72M+ka1f0iZhVSu804uWUdDTs8cWj8h4TM57QFG+VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Z2vYunQb;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=t89g3hbC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FED606A31B;
-	Wed,  4 Nov 2026 07:26:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7CB4606A335;
+	Wed,  4 Nov 2026 07:26:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Z2vYunQb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88D721F000C1;
-	Wed,  4 Nov 2026 07:26:16 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=t89g3hbC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 325BD1F000C1;
+	Wed,  4 Nov 2026 07:26:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793777176;
-	bh=gqkOltD+7V4gOjDgNlHaUe0A1OssjIMRfOG7zDyJv8g=;
+	d=linux-foundation.org; s=korg; t=1793777178;
+	bh=odPVEGJNI068vOlDDlXNPqYz0NLXdEZnh3rgurqIlvs=;
 	h=Date:To:From:Subject;
-	b=Z2vYunQburGadqvNll6uBDXPO/jgorzLQzzTJrDOxCuEWAQ1pw+y2iV7evLUD5AN9
-	 KTWFxfIcWSClKodAYsXxUhI8wXQNUeyaaAa2MMx1iCIaYlE+/U5k8fLdCbiZfaedA8
-	 Dxk9BdDxytc+mbmFezBzXIU+tg69mi6wbxqqu6Pw=
-Date: Tue, 03 Nov 2026 23:26:16 -0800
+	b=t89g3hbCwfpvNJaLL7DpZKZf5FcM5JEUHOQDYbZMXdsZlx0EilYxqjO98gCwCF1Fm
+	 1O2LuvuOpjqn7apBzPQ9QFs/Q+UUiHpsZ9jQ80BKQq63oCPaNZW4tzXTYhnlHRCDL5
+	 PYwnoTj2l0IUbI85CygX5JD3+JQZpZbNGmWeAzig=
+Date: Tue, 03 Nov 2026 23:26:17 -0800
 To: mm-commits@vger.kernel.org,youngjun.park@lge.com,yosry@kernel.org,
 	vbabka@kernel.org,usamaarif642@gmail.com,surenb@google.com,
 	stable@vger.kernel.org,shikemeng@huaweicloud.com,ryncsn@gmail.com,
 	rppt@kernel.org,nphamcs@gmail.com,neil@brown.name,mt4022@columbia.edu,
-	mhocko@suse.com,mason@kernel.org,ljs@kernel.org,liam@infradead.org,
-	kasong@tencent.com,hch@lst.de,hannes@cmpxchg.org,hanchuanhua@oppo.com,
+	mhocko@suse.com,ljs@kernel.org,liam@infradead.org,kasong@tencent.com,
+	josef@toxicpanda.com,hch@lst.de,hannes@cmpxchg.org,hanchuanhua@oppo.com,
 	david@kernel.org,chrisl@kernel.org,chengming.zhou@linux.dev,
-	baoquan.he@linux.dev,baohua@kernel.org,josef@toxicpanda.com,
+	baoquan.he@linux.dev,baohua@kernel.org,mason@kernel.org,
 	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-zswap-drop-the-stale-zswap-entry-of-a-zero-folio.patch added to mm-new branch
-Message-Id: <20261104072616.88D721F000C1@smtp.kernel.org>
+Subject: + mm-swap-fix-large-swap-in-across-swap-file-extents.patch added to mm-new branch
+Message-Id: <20261104072618.325BD1F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,12 +59,12 @@ Precedence: list
 
 
 The patch titled
-     Subject: mm/zswap: drop the stale zswap entry of a zero folio
+     Subject: mm, swap: fix large swap-in across swap file extents
 has been added to the -mm mm-new branch.  Its filename is
-     mm-zswap-drop-the-stale-zswap-entry-of-a-zero-folio.patch
+     mm-swap-fix-large-swap-in-across-swap-file-extents.patch
 
 This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-zswap-drop-the-stale-zswap-entry-of-a-zero-folio.patch
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-swap-fix-large-swap-in-across-swap-file-extents.patch
 
 This patch will later appear in the mm-new branch at
     git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
@@ -93,82 +93,58 @@ branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 and is updated there most days
 
 ------------------------------------------------------
-From: Josef Bacik <josef@toxicpanda.com>
-Subject: mm/zswap: drop the stale zswap entry of a zero folio
-Date: Wed, 04 Nov 2026 00:18:14 +0800
+From: Chris Mason <mason@kernel.org>
+Subject: mm, swap: fix large swap-in across swap file extents
+Date: Wed, 04 Nov 2026 00:18:15 +0800
 
-Patch series "mm/swap, zswap: fix stale zswap data and swap-in bugs", v2.
+A page fault can give an unprivileged process blocks of other users'
+files instead of its own swapped-out data. This affects systems with a
+swap file on a synchronous block device, such as brd or zram. For an
+anonymous mapping it also takes a huge page size below the PMD size
+(mTHP), such as 64 KiB, that is enabled for anonymous memory.
 
-There are some bug fixes found by AI and collected by David, mostly
-originally from Anthropic.  After filtering and dropping a few that are
-already being patched up by the community [1] [2], these are the 3 we
-kept.  The accounting fix is in two patches now, the second one from
-Johannes to cover asynchronous devices too.
+A swap area is divided into slots of one page each. A swap file is a
+regular file, so adjacent swap slots can lie in two extents, far apart
+on disk. A folio is read from swap with a single bio that starts at the
+sector of the folio's first slot. So all slots of a large folio must be
+contiguous on disk.
 
-Patches 1 and 2 are marked for stable, they affect v6.12 and later.
-Patches 3 and 4 only affect v7.3 and later, so they are not marked for
-stable.
+The swap allocator knows this: it only hands out a run of slots for a
+large folio if the swap area is a block device (SWP_BLKDEV).
 
-The zswap bug in patch 1 can return stale data instead of the zeroes that
-were written, so it is data corruption and seems critical.  The extent
-fix in patch 2 is more urgent than it might look, as it can also read in
-unexpected data, but the setup could be really rare.
+The swap-in path does not. On a synchronous device (SWP_SYNCHRONOUS_IO),
+one that always completes I/O in the submitter's context, do_swap_page()
+can read several swapped-out pages as one large folio (a large swap-in).
+thp_swapin_suitable_orders() makes that decision, and looks only at the
+swap offsets (the slot numbers) in the page table.
 
-For the extent fix, in the long term we might actually want to detect
-extent contiguity and allow mTHP swap-in for single-extent swap files.
-We already disable mTHP allocation for swap files, so the current fix is
-trivial. It seems the most minimal and correct one for now.
-Optimization and cleanups can come later.
+Pages that were swapped out one at a time can end up in consecutive,
+aligned slots, and are then read as one large folio. If the extent of
+the first slot ends inside that folio, the rest of the folio is filled
+from the blocks that follow the extent on disk. These blocks can belong
+to other files.
 
-Patch 3 gives up readahead batching for synchronous devices, as its
+Reproduced with a fragmented swap file on brd and 64 KiB folios enabled.
+After single pages were swapped out, a fault returned blocks of a
+root-owned file with mode 0600.
 
+Fix this by allowing a large swap-in only when SWP_BLKDEV is set.
 
-This patch (of 4):
+Known gaps:
+- A swap file on zram, brd, pmem or btt is now read one page at a time,
+  even where its slots lie in one extent. Its swpin counters in
+  /sys/kernel/mm/transparent_hugepage/hugepages-*/stats stay at 0.
+- There could be devices with SWP_SYNCHRONOUS_IO but not
+  SWP_BLKDEV, so the new check would have to let that device pass.
 
-A folio can stay in the swap cache after zswap_store() has stored it,
-when a swapin fault gets a reference on it before reclaim can remove it.
-do_swap_page() maps an exclusive folio writable and, for a read fault,
-keeps it in the swap cache, so it can be modified and swapped out again
-to the same slot. zswap_store() handles this, it replaces the old entry,
-or drops it if the store fails or zswap got disabled, "otherwise,
-writeback could overwrite the new data in the swapfile".
-
-swap_writeout() does not get as far as zswap_store() if the folio is
-zero-filled now. It only sets the zero flag of the slot, and the zswap
-entry with the previous contents stays in the tree and on the LRU:
-
-  reclaim            fault              zswap shrinker
-  zswap_store(D1)
-                     swap cache hit,
-                     map, write zeroes
-  swap_writeout()
-    zero flag set
-  folio reclaimed
-                                        zswap_writeback_entry()
-                                          swap_cache_alloc_folio()
-                                          decompress D1, uptodate
-                     swap cache hit:
-                     maps D1
-
-Swapin looks at the zero flag first, but only when it has to read the
-folio. The folio that zswap writeback leaves in the swap cache is up to
-date as far as anybody can tell, so the process gets its old data back
-instead of the zeroes it has written, until that folio is reclaimed.
-
-Invalidate the zswap entries in the zero-filled case as well. The folio
-is locked and in the swap cache, which keeps zswap writeback away.
-
-[kasong@tencent.com: fix zswap_invalidate() arguments]
-Link: https://lore.kernel.org/20261104-swap-fixes-v2-0-204be064be5b@tencent.com
-Link: https://lore.kernel.org/20261104-swap-fixes-v2-1-204be064be5b@tencent.com
-Fixes: 0ca0c24e3211 ("mm: store zero pages to be swapped out in a bitmap")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[kasong@tencent.com: simplify the note about the unmerged xswap patch]
+Link: https://lore.kernel.org/20261104-swap-fixes-v2-2-204be064be5b@tencent.com
+Fixes: 242d12c98174 ("mm: support large folios swap-in for sync io devices")
+Signed-off-by: Chris Mason <mason@kernel.org>
 Signed-off-by: Kairui Song <kasong@tencent.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
 Reviewed-by: Nhat Pham <nphamcs@gmail.com>
-Reviewed-by: Yosry Ahmed <yosry@kernel.org>
 Cc: Chris Li <chrisl@kernel.org>
 Cc: Kemeng Shi <shikemeng@huaweicloud.com>
 Cc: Baoquan He <baoquan.he@linux.dev>
@@ -176,6 +152,8 @@ Cc: Barry Song <baohua@kernel.org>
 Cc: Youngjun Park <youngjun.park@lge.com>
 Cc: Usama Arif <usamaarif642@gmail.com>
 Cc: Chengming Zhou <chengming.zhou@linux.dev>
+Cc: Yosry Ahmed <yosry@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
 Cc: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
@@ -186,39 +164,63 @@ Cc: Chuanhua Han <hanchuanhua@oppo.com>
 Cc: Mani Tofigh <mt4022@columbia.edu>
 Cc: NeilBrown <neil@brown.name>
 Cc: Christoph Hellwig <hch@lst.de>
-Cc: Chris Mason <mason@kernel.org>
+Cc: Josef Bacik <josef@toxicpanda.com>
 Cc: Kairui Song <ryncsn@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/page_io.c |   10 ++++++++++
- 1 file changed, 10 insertions(+)
+ mm/memory.c |   16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
---- a/mm/page_io.c~mm-zswap-drop-the-stale-zswap-entry-of-a-zero-folio
-+++ a/mm/page_io.c
-@@ -224,7 +224,17 @@ int swap_writeout(struct swap_io_ctx *ct
- 	 * acquired internally by swap_zeromap_folio_set/clear.
- 	 */
- 	if (is_folio_zero_filled(folio)) {
-+		swp_entry_t entry = folio->swap;
-+
- 		swap_zeromap_folio_set(folio);
-+
-+		/*
-+		 * The folio may have been stored in zswap before and dirtied
-+		 * again while it stayed in the swap cache. Drop the old copy,
-+		 * or zswap writeback would bring it back into the swap cache.
-+		 */
-+		zswap_invalidate(swp_type(entry), swp_offset(entry),
-+				 folio_nr_pages(folio));
- 		goto out_unlock;
- 	}
+--- a/mm/memory.c~mm-swap-fix-large-swap-in-across-swap-file-extents
++++ a/mm/memory.c
+@@ -4830,7 +4830,8 @@ static inline unsigned long thp_swap_sui
+ 	return orders;
+ }
  
+-static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
++static unsigned long thp_swapin_suitable_orders(struct swap_info_struct *si,
++						struct vm_fault *vmf)
+ {
+ 	struct vm_area_struct *vma = vmf->vma;
+ 	unsigned long orders;
+@@ -4855,6 +4856,14 @@ static unsigned long thp_swapin_suitable
+ 	if (!zswap_never_enabled())
+ 		return 0;
+ 
++	/*
++	 * Neighbouring slots of a swap file can lie in two extents, and a folio
++	 * is read with one bio. The flag is set in swapon() and stays, so the
++	 * race is benign.
++	 */
++	if (!data_race(si->flags & SWP_BLKDEV))
++		return 0;
++
+ 	entry = softleaf_from_pte(vmf->orig_pte);
+ 	/*
+ 	 * Get a list of all the (large) orders below PMD_ORDER that are enabled
+@@ -4891,7 +4900,8 @@ static unsigned long thp_swapin_suitable
+ 	return orders;
+ }
+ #else /* !CONFIG_TRANSPARENT_HUGEPAGE */
+-static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
++static unsigned long thp_swapin_suitable_orders(struct swap_info_struct *si,
++						struct vm_fault *vmf)
+ {
+ 	return 0;
+ }
+@@ -5037,7 +5047,7 @@ vm_fault_t do_swap_page(struct vm_fault
+ 		/* Swapin bypasses readahead for SWP_SYNCHRONOUS_IO devices and zswap */
+ 		if (swap_entry_synchronous(si, entry))
+ 			folio = swapin_sync(entry, GFP_HIGHUSER_MOVABLE,
+-					    thp_swapin_suitable_orders(vmf) | BIT(0),
++					    thp_swapin_suitable_orders(si, vmf) | BIT(0),
+ 					    vmf, NULL, 0);
+ 		else
+ 			folio = swapin_readahead(entry, GFP_HIGHUSER_MOVABLE, vmf);
 _
 
-Patches currently in -mm which might be from josef@toxicpanda.com are
+Patches currently in -mm which might be from mason@kernel.org are
 
-mm-zswap-drop-the-stale-zswap-entry-of-a-zero-folio.patch
-mm-swap-account-synchronous-swap-reads-as-memory-stall.patch
-zram-lz4-lz4hc-accept-dictionaries-of-more-than-64-kib.patch
+mm-swap-fix-large-swap-in-across-swap-file-extents.patch
 
