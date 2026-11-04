@@ -1,18 +1,18 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.0
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.54
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793798479;
-	b=U9Ea/+OJNj3GuKhE1g7S9op0lSzGAKclf/MUqNYol9sKWYg0lfEU8VEgCLOXddYSoXog
-	 XYb5MYKpDZdnlrUm7JRxLb6k+Jyaj5pqK95hsQk7xjB7jetkW19sFOApC4kOwUVdvJbDE
-	 90aVUBajRDK2Mc/LCxn7TFZM/ledMVV7gP0dxcYHk0kFzrk6VfTGfsk7LtYrbe7l4qo+R
-	 xnBGQ8NiSnZDtstPWPh2Mvq5KPVkWHuSKlElmxzws3VR/KvytlQ7adSs4Oa93aUjHHUHz
-	 q8SYYONDpmZ0TzfNlQjsbNC5vzykw+37Q7mbHItZ3I/MarjwavzpLGvRhgSdEYWCXKQ==
+	t=1793798477;
+	b=nMSD8Si2ArHXxWultOUz1PmmlBvdUgBtRPOz6zobeCBpoa2tRQdFPxWPGydMrSNhc0W6
+	 Ymf1jdqoZX5GbCWt4HqR6KuyX6Q8q/BpajtdHm0iyINKA4DbhkrVOuNXwgf47zDChmk+B
+	 SRQYFL4lco5Hl9jzxBA4YuxS2dLa5WuE7jXoAKfUy7T1j6Re7XcYPPE+IZIg0ouknc+7c
+	 m05OJgC3mUsGKLvnNCTKnpdk91pbCly7tpFz2d4msx4A6DzNKbvDQ0wIy+p+bNHBSknJr
+	 oHyjJ1uvQmnUAJXGcsPwwRwd5u9PNcd2a6qoK6D6cuOJkPxGYp3gt7X/QE939A/9NDw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793798479;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793798477;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
-	 X-Mailer:X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 Received:From:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
 	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
 	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
@@ -26,76 +26,77 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=9olOVdFS1aXF20Do/pamWcf+1hqtl+Wp40o1QDhN2wo=;
-	b=f0A5aqr/uKejAxqTZoSrVACkxXGSpoVKzkTGxUUXnauIByEfiozufFVqtuUIPIq3V8Vv
-	 KYeq3MDH/Z7ndb9deLffU+2qE3PxjumLh3ODsU3SCzyikpbqEzYPY+nWVv3N+9R6ITt+k
-	 WoDvKwzyseqP7vgShK7Uw9C21VK1jjeu8rqn6HkQxr1DtQ5HVV2IhGEVKRdCWDbdL30x8
-	 igORHgPMBLbaqRNq6YH1ip/FYUH6aEoGcq3odtZ1ZgvkydEA51Bu+4eyiHJ9cwgNu6xbf
-	 YdoVilSQzDKoU4xG5JZ+fEt53Ao4fn51+D9D0eTcjHSiwGudeF8+vy0XlyRkQPurhlA==
+	bh=Woks12ayzA+ixH+YvqZEhYqpnHQriIDTepnLgmONhAA=;
+	b=GfCevp08ubOAjVYqyHOeCYltSReW8FXiBKJQAfuO8/9sK8UhZaY5vB/71v4Th4IKIWZk
+	 okQTZyQnHo/xz0r6sw3j19AewDUG8TEYaXF2NMkFDoFgnefN2yJwcc9a0LWG2nGujRgJ4
+	 15FO9vlLX+o2Yk77FxWqe2GcGKqQ3hsVnMO8m/Bzip74lkHTZuROURcYbpHTG70HLyyYj
+	 VmRT3M60sGG4EuCfqCjmeijg0xJATtoabx8f6mxd07OaEkNzEe5nZNHwZhVq7FfOS8f1H
+	 +bqklogD/CxmddJh1GnvMCk2jUi8gOg2/aoZ+23zftkp8oyEym4sckwawknIxU+Om/g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=foss.st.com;
 	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=SvLuDqM8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.0
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013000.outbound.protection.outlook.com [52.101.83.0])
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=IaXMjf8+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.54
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013054.outbound.protection.outlook.com [40.107.162.54])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C08606A332;
-	Wed,  4 Nov 2026 13:21:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2C08606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97573606A31B;
+	Wed,  4 Nov 2026 13:21:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97573606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=SvLuDqM8
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=IaXMjf8+
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f09qZr/Y8DT8e4sUmstz4DvxnHzhfAtNvOrj2JCnHg/bZHqMoPj0APqXppE7j+FJuz/F5sjEJ/uTeu/N56XErRHIh+ZSszoC+Lr9qBUqeD+xfpnQnqG0Z0aHcDmx2wYoZ6QJzCrqHFkt3S6sacIfxjZTnLHkTJH0++pdgc9PVTchai6+/CzXaQumb63NxNlQP4rdlP50/kH9q/aEfgRZZjw2Sl7/h/l8PU39LBPzVC9TuAeTt56ZSP37CPnoH1w3DMd96mKZjB6AjaSLgIMhRttjCwGcAY9VPNKGId9J0ivjE/x1ef3M1q8a96mTVODTm+IdA3rCA+RcgWWS/g3MOA==
+ b=DkqFblteC1lfB73N2pR/LO1kAKm68k5PyAcQ7fUUeiKw11KHn+5i2+z4Y4iza0rihDkO6p+pPyCQo/RQi4JmEM6SogQ4SrQZIsK6W6erAxGBvDpQEsurngHzKhy8wVHQcvx2G46kwGobtHUnr7FIketcYozhFdh8DpGtLavs/lMsmNEZ511l15RBfK6TmbMWdd0jwjpp+P3okez20p8H3Iu23NsiQImOtIYN6hNtQcYo7DkGAZxsQU56T0p0w5WjeEoBLSCEXZ5pyMQShGs5jgUFyVKNoj9sVGO+lx2WNFh7Wax83kSfc/E9mdDny/+XTmtmhUblYM6Wjaj01XwKOg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9olOVdFS1aXF20Do/pamWcf+1hqtl+Wp40o1QDhN2wo=;
- b=RSKyP0GSZkc6SVR5BekfULZD+y3hc0uRIOr8ZDYSFEVncbTd9nqB2fyt8we+9m+xS/Di0o6gaay9MdCWHihEcVR+RGei8aT3nsNXvdg7bCDFwZlDforj8J60IsZT56EnvJvFqxMA3bEEqjKNMwW1mrS6kgsQtdyr2xiYBkja/jwgo9SQWS2dovTRJRcq2+AbHENo4YBNeTBL4vkikq5teEJRGhcDborbkqgUSnYVeHFAiocDMnUAl9Q5wLiEVXyO+M9cPy7OijC7akdgi9qkHEvu4ynC8iMfGHO7JfgobPH+TscKZuB6pfSEOu4QpdN5Dot2otxbi4C+9fwk9YMAng==
+ bh=Woks12ayzA+ixH+YvqZEhYqpnHQriIDTepnLgmONhAA=;
+ b=x3lHagYTG8Jhu3HqZ01Ir2Pky7w8klZY5NmbX7UEXFzHE6Ok9RRenZr1OgV/sqf08B5eQyra9wwnP0jof7WiLfAWEBnIiybl3KepWzVG+T/aRKCbp706hzsoLbeIBuR54ZSrq4Pv2jAq+YE27B0UpGun4hbpjcMxp1zIAr3j/5WBVEkUbNny6uvxk/1rof/z83+/qDy6XgJhGym7iHBOR9UpI6joVmJStaBcSsKkV5V+tf9tmGTcee12JuQfMnYz+BmKxNH/iY+PBedMRJhWJRDyMmKch711Qs/w3CHzTN8h2UoaZdWVkLbmW1ZDs4prydNf600aGtgqzZq7oI62sQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=synopsys.com smtp.mailfrom=foss.st.com;
+ 164.130.1.59) smtp.rcpttodomain=synopsys.com smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9olOVdFS1aXF20Do/pamWcf+1hqtl+Wp40o1QDhN2wo=;
- b=SvLuDqM8U07kdYQu36x8K/b3uPDh68DKERT+tDFwnSp/sTMKa34Azew7xkAd2jrmlcveBOqYBoHkRlx+bMpg2kSvHfhBZBjE+88VAT1Ye2gmlLFNsHkXg1szS9PdsrKhq3EQGUuysyqXdUocZXjR3MnRIQZzjCClFsWqogwLljdeCS50JjXINyd8E7WbqGLEFK4iKLk7ab7d51wtMkyE6tn77/3CXR15o/Aa2xg85YwWeP/l9OAMKGWN4HLm8kzh+1gYcpH3X6Bg/u/38KUyPEeb6OFyUg1xSJkxi7EnkjcVgl9NGjIWkHwzu6q1d5ugjEvCfpfeT5jUngYVydpGPA==
-Received: from AM7PR03CA0019.eurprd03.prod.outlook.com (2603:10a6:20b:130::29)
- by GV2PR10MB7536.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:d4::8) with
+ bh=Woks12ayzA+ixH+YvqZEhYqpnHQriIDTepnLgmONhAA=;
+ b=IaXMjf8+RReGfZIDYqjJUsVxoeOL8YFzv22VCgc23Arb2YEye32pR+7beKYvkqAn64VBed5AmYzXZeHJo7Lc3bo0KLtVvOrbcNrczX17DNlsSwUf9VAadWSy/igQyoc0b/Z7/nGS8tFeQMZPRq2iboa3ls7b9m9Q44deO/GgLbbe3d/H6rHYxmFTDRVkjeCqGQ0bKa6T87CfUWdeLidnI7BIuwlCn5h0PcomQuwryBVzh3dW+ageZTzsOARytcmUwsvZBThQdpzP3pc3dhsNe6z2qbV+AdY0FEQZIMJEHgVSMWlY/rZYiYHCBZ5lN55JaPsHNz+NVG6j/pdRvNRthg==
+Received: from AS4P192CA0032.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:658::15)
+ by GV4PR10MB993150.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:400::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 13:21:14 +0000
-Received: from AMS0EPF0000056D.eurprd02.prod.outlook.com
- (2603:10a6:20b:130:cafe::53) by AM7PR03CA0019.outlook.office365.com
- (2603:10a6:20b:130::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.9 via Frontend Transport; Wed, 4
- Nov 2026 13:21:14 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Wed, 4 Nov
+ 2026 13:21:13 +0000
+Received: from CPH1EPF00000520.eurprd04.prod.outlook.com
+ (2603:10a6:20b:658:cafe::59) by AS4P192CA0032.outlook.office365.com
+ (2603:10a6:20b:658::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
+ Nov 2026 13:21:12 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
 Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AMS0EPF0000056D.mail.protection.outlook.com (10.167.242.123) with Microsoft
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ CPH1EPF00000520.mail.protection.outlook.com (10.167.241.235) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 13:21:12 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 13:21:11 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 4 Nov
- 2026 14:21:57 +0100
+ 2026 14:21:40 +0100
 Received: from localhost (10.252.2.138) by STKDAG1NODE2.st.com (10.75.128.133)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 4 Nov
- 2026 14:21:12 +0100
+ 2026 14:21:11 +0100
 From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Date: Wed, 4 Nov 2026 14:20:15 +0100
-Subject: [PATCH v2 1/2] usb: dwc2: fix fifo reinit in
- dwc2_hsotg_core_init_disconnected
+Subject: [PATCH v2 0/2] usb: dwc2: fix fifo reinit and workaround for isoc
+ tx packet
+Date: Wed, 4 Nov 2026 14:20:14 +0100
+Message-ID: <20261104-dwc2-fifo-fixes-v2-v2-0-2bb13820f662@foss.st.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,9 +108,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261104-dwc2-fifo-fixes-v2-v2-1-2bb13820f662@foss.st.com>
-References: <20261104-dwc2-fifo-fixes-v2-v2-0-2bb13820f662@foss.st.com>
-In-Reply-To: <20261104-dwc2-fifo-fixes-v2-v2-0-2bb13820f662@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAA4x62oC/yWMQQqDQAxFryJZN5AJUrRXKS7aMVPThZaJjgXx7
+ qZ28+HxeW8Dk6xicKs2yFLUdBod+FJBHB7jS1B7Z2DiawhUY79GxqRp8vmKYWEMlKjhto2UArj
+ 4yXJ+7t27P9vyfEucfyXY9wM0f8jRdgAAAA==
+X-Change-ID: 20261104-dwc2-fifo-fixes-v2-10f08299c0f1
 To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman
 	<gregkh@linuxfoundation.org>
 CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
@@ -120,78 +122,56 @@ X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF0000056D:EE_|GV2PR10MB7536:EE_
-X-MS-Office365-Filtering-Correlation-Id: dec2212b-1aa1-4ccb-f326-08df3a767f8f
+X-MS-TrafficTypeDiagnostic: CPH1EPF00000520:EE_|GV4PR10MB993150:EE_
+X-MS-Office365-Filtering-Correlation-Id: d717d747-b91f-433c-6cde-08df3a767ef4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|261021123027099003|11063799006|56012099006|261028144727099003|261009223027099003|261021121427099003|261026140227099003|261022105027099003|10067099003|18002099003|261102123227099003|22082099003;
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|82310400026|36860700016|11063799006|56012099006|261021123027099003|261021121427099003|261009223027099003|261102124527099003|261022075727099003|261102123227099003|10067099003|18002099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	NhPo+q06sor8y2XMOsWCpxNnMMXXJY1sM7pvD8Fe9lRJTgWCIPNUViO1ZHvmIM/4vJZ3HOltokZOo6EkmjCT6K5yLb16uCo7GoF8Tka9dWSrahBLp4yn2KOaELibcTgLx08I/omiHbGpGa7Gwqcdgzn8oZSczlLO8nzuYhvwQFKrQ5RmUUZGOFak0Jy1+kJm9aHQ/S/EM2Tp+rx2oGHGUs6Wvu5xhOLXvVQOz/8URW9U9495IKrubAx0hbIxDafNokWx/EvCEt2ncTCVHtO/7ZCvRsFZ3/iMQxC0WVrUAf6kmBpAA2dXNUbUCzvuZsL9krX3O8fCHsHh9nstDl36g9rsZaLOwr2An2833Qa7oB1JlxEgyG0XR7ilePpaky9f5dlOpg/xVrA/ZlwEc8uomxtSEIbQCrvdaCcgsig87aZ4EsZRYZuhWpZFVUfZFebwSUS2aWnZIxiE/DpMBYnSGpVKt4zAF6NU1QEeZTIrm7VvCrqR2KiTELaLVMR1ELSYMi6fxbiEdJ8WagoEcAPD8E5rItrTS7ugqx38hueGWcNqVuGE42BsiGXZ+QDO967j8apTiFoz8g7PdVrXTxZg1zZOENyz7IgNIqwQZDBjv9GpCTp5Js1CXATmbHzGy+psDFRt9o8rrrczOMNib2yTywgAjweeYT0LYNkXj0V2E7IxFuMrO4RI40VTWd3V/XChO88IKXz0ycWT2ZTdIR3X3w==
+	fPdiLV8ZiXNh866Q4shrl0ApaJ/XxfQ+AGKMoZ8bjHxzm4f3yCG38V4Bk9gaQLz+qua2VE/eKBAkP8iqBKgA50KdHTKr8IXGcHHB4oUHN5g/71k2TzC05uc6G94NYP94+hPnN717t/Ze6eO5hlCV+3N7VHu8iYSlVPOKrvjQFauH4nhjhn6NzsgnGfUWFBjZ0Sem4OvozMOSQlDUZB1jZ45QFx05A84bb62v43Zy8zShEzFFeTGrRye/hqmaNiumhKOZkXbzznBOEEt2gCQgO0xkmW7ImVcS8OpR4tqOM+gjC9LutsO3nxsAWXFsvQoB/K8O0jL/KLhPkljrktk8wQ7bXSzqh/y+GnRExWdr/QDu9INoo0hAlLlg5i2/vE2ElV24zRtAK9sgDQMQdLIBki19xeJ9qYwwGIeV7RLyIRG+cxn4KkiE3hd7FTGCqd67GBeqohgDN9KJTExSIF2JFljWwythdMmUYNGGS1CUecIBaSJQIVmXB8UrO48EkBsU5Ijun9LKXufj8oxicF58QR07jG8lcvabQ896xSGrx6mRomFJJy1wIwwuKXsXqrYgjHA7kRlCST5R4F30YflRVj+wPLEp1RMiFaZhCEqejOORpvDK2BDivzTZkJ2FFCPrT2ZtNUkuGLenwOC8+edM5Q==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(261021123027099003)(11063799006)(56012099006)(261028144727099003)(261009223027099003)(261021121427099003)(261026140227099003)(261022105027099003)(10067099003)(18002099003)(261102123227099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261009223027099003)(261102124527099003)(261022075727099003)(261102123227099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	zuPFmG5lPdKr2VVKceFb97Vp3DWJXQLvmbIgS4UUUGCho1Mn4FxgEC+m4FUJqegluO2rPpZbltOYAHriV9B4E/3HFNIIm1B+pFrXMaG6EJUSAusiShdgGNqoKXV8kG+qZCWiaDDUfL/xfOG3O+ap+uxb8iH3O7Syg2x/USm3Pgs74xEnDNUT6EM0lKN1RpaoPjXKHbwVylqFAVBJH6ue8EXliQBeolLGKQGKJdY+qXCDE5JOjU+E4+RiHdYnbRKsji9UKxzfKwrT5FIRfsDpTrUNCsXqumt1R9/rm18EfO/8Q3G6MEVMrjrf1bL3d/xbDCDrlQPHVPzwPtCfNmH7ETzxbVmbexc0Tj2Oj03xoQLC+26ldagv0T+I7Ojz+Q0Wb7kg2RC2hii0hItla/6NLdcJthsheGr5/D1rvA3HcCcmw8YKHODWbGOJ4PH9NUoD
+	t4ab74gQOSHXttWW5v7sEoo3RRLFwA2z+xVCHZ9eDxCLkT9kz4VuU/zhHzQx4ftCmaoyrmrCeHrFWEpQVuLNHA3AsBFVGJjboMSAoW/BSII/+VRP56Px+5vlipbrkE4ehR/BBuI/jE+XMBWgnBOuNbRVYVsZKyOjgTELlrf5wsOfvAEFFhRTWyFdLFmnUUcTHGvM6fE3zAEhajO3as9IW/A7/frt62vG53+s3FVaAyTsBW7IkgXdtLWLjTko46TKq/ENO9I1qpxDvGjPJHdUFETSnYl4uS6sanXEaPLL0YQJGhZWg3O7jbBxAVUCSFRgHHAk4pgfDatvQaDwN5q/W93iyhOrqrK+k1jLECWV9RHy0OHhTaaIGdu30a27y3ZdM6OLey5wTv9U7tkRphcMWO9qSjMHiZVGIUMaZjwmPhR1BpQXMnk1SAKjqu+MSv0y
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 13:21:12.9677
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 13:21:11.9420
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dec2212b-1aa1-4ccb-f326-08df3a767f8f
+X-MS-Exchange-CrossTenant-Network-Message-Id: d717d747-b91f-433c-6cde-08df3a767ef4
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF0000056D.eurprd02.prod.outlook.com
+	CPH1EPF00000520.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR10MB7536
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR10MB993150
 
-Currently, the fifo gets re-init, with a running DMA, e.g. when
-using_desc_dma():
-- dwc2_hsotg_init_fifo -> Flushes the FIFO, DMA may run in parallel
-- DCFG_DESCDMA_EN gets cleared (e.g. disables dma desc)
-- then DCFG_DESCDMA_EN gets set back again.
+This series addresses two issues in the dwc2 driver:
+- First one fixes fifo re-initialisation when using dma
+- Second one is a workaround on some cores that may send long TX
+packets.
+As these two changes may conflict together send them in a series.
 
-So move the dwc2_hsotg_init_fifo() call after DCFG_DESCDMA_EN gets
-cleared e.g. DCFG write. Then the FIFO can be flushed safely, before
-DCFG_DESCDMA_EN is set back on.
-
-A BNA interrupt may happen on EP0, before this change. When it happens
-we can't recover to a working device.
-
-Fixes: a5c18f113150 ("usb: dwc2: gadget: Enable descriptor DMA mode")
-Cc: stable@vger.kernel.org
-Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
 Changes in v2:
-- Update Fixes tag and collect Thinh's Acked-by tag.
+- Send the two patches in series as advised by Thinh
+- Address Thinh's Review comments
+- Link to v1: https://patch.msgid.link/20261014-dwc2-fix-fifo-reinit-v1-1-d918de90ee3a@foss.st.com
+- Link to v1: https://patch.msgid.link/20261014-dwc2-fix-wa-isoc-v1-1-f261ce0852bd@foss.st.com
+
 ---
- drivers/usb/dwc2/gadget.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Fabrice Gasnier (2):
+      usb: dwc2: fix fifo reinit in dwc2_hsotg_core_init_disconnected
+      usb: dwc2: wa for isoc packet tx fifo flush at periodic frame boundary
 
-diff --git a/drivers/usb/dwc2/gadget.c b/drivers/usb/dwc2/gadget.c
-index 6c8a9f05fff0..bdabf3c39da1 100644
---- a/drivers/usb/dwc2/gadget.c
-+++ b/drivers/usb/dwc2/gadget.c
-@@ -3486,8 +3486,6 @@ void dwc2_hsotg_core_init_disconnected(struct dwc2_hsotg *hsotg,
- 
- 	dwc2_phy_init(hsotg, true);
- 
--	dwc2_hsotg_init_fifo(hsotg);
--
- 	if (!is_usb_reset) {
- 		dwc2_set_bit(hsotg, DCTL, DCTL_SFTDISCON);
- 		if (hsotg->params.eusb2_disc)
-@@ -3515,6 +3513,8 @@ void dwc2_hsotg_core_init_disconnected(struct dwc2_hsotg *hsotg,
- 
- 	dwc2_writel(hsotg, dcfg,  DCFG);
- 
-+	dwc2_hsotg_init_fifo(hsotg);
-+
- 	/* Clear any pending OTG interrupts */
- 	dwc2_writel(hsotg, 0xffffffff, GOTGINT);
- 
+ drivers/usb/dwc2/core.h   |  1 +
+ drivers/usb/dwc2/gadget.c | 19 +++++++++++++++++--
+ 2 files changed, 18 insertions(+), 2 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261104-dwc2-fifo-fixes-v2-10f08299c0f1
 
--- 
-2.43.0
+Best regards,
+--  
+Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
