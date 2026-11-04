@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793815222;
-	b=FjH60WOaRK8J4PChV82LXWZ+twOKZNW6Nak1Hi85Xm6C/kfeP/RUTbkaK7J66H+ekR/i
-	 7TltMtVTGyR+D9yWjtvNxbjAoNDjQ5JCVXKtUV4oLvsZlc0nOFXkAfu2DmUjiQkPZ1CXx
-	 7ESxviJf4aUV03q12E15HsK+o0WoLBJ6CSA9Oku1olaDA9U7nAMoDV/Qz5Ncb1RlZuNiV
-	 HjKsnEwcEmeWS825mrvgvbHCflpPTbskx2H+tJgMETZo8Mr0wUEgh2LuWjn2o5QvAZwLP
-	 fCREV7B5HpqNi6CzfticscmH5AMSmSHJHXycKS5IYy7hsczkFmfi7TwLbtHWGHiHQJg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793815222;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=HDJZHnPib4T7PdLyVxZxv1NhSiNDuQYmPM2+9bBYZRw=;
-	b=qFcaod9NX2RPgywxIfPofxxN+iojrifgpqcChfgr49UG2q5kYC1INeTL9FOIJ0xQSUq+
-	 7ghgMB/XqAlzb5Ufcqn5f9FcVNTMTm8BFRE3CxJCEH8ukAC7M6iM7JqyH4iR0pBYHYcjA
-	 fHw4nYxAMTHCVFDaRD4GWcLF0HWfOT+hy9be9a6WINiOQovjceoGaALtPDUoQRW1X+Uo8
-	 QCWHEthAXYNINSkyseXrPTCgO1dRzcwj8cTXkDBIJIQBC7hbYVQBLz9OdLOlwh4RiAEjT
-	 WowrCzBXRnX+Ou1uhVboyupCn7atu4Bm6k8hCLfDr/iXOnnspuxC8xR/FmWzIImf6aw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gkNVsDwn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793815488;
+	b=C6ogvTrQFlruJq7ySI7jJ3tWt9G9nNwmoAZqAW7Ysjta98m1OOGpTJIByeag/XRxjMPx
+	 P4BHyNOwld8rZmZx8D2d1spjcJebLyszYrQ0VoYyqTB1vJlR2dPMbCCG6UBgUCqOhP/zu
+	 ecEVcoTB50jM/Av42QOZLccnEHiAlyqZPmNlQR29ca6QVvmFg6CYHSzFjZsTVpHzr4nTz
+	 NklZIbjS4bnprzuQIJyadCYM6KL/g+VuD71L+zlAWVv0OtpV5UPySCjNhsmEf2QtxRcRa
+	 H6WQ1xPWWTYsTuBKB1ycQcA1SgdLtNL6K2opqZ54cVp0zH+XZtCn0HQ0/CQWKaHZQsA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793815488;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=azgmO/c7erxIjuuP/E4HWpspy1buwqPL1vap21Ioe3Q=;
+	b=whh+789l+uuB0TO9tQpQLv7YnrkCVR0gjF7zjosIQo0nA0AC+xCNIW2nDkdRkVHJCMZa
+	 US/sGNFuGW15UWb/jGzz+gJB+ubI4AWwTb6I10cykgWAKHzTENOxH/MKrlxkDOadhohNd
+	 T1Nb/qIrgOnD92VRo++4RywYI2nMPykj9a342ICq07fH6aBnoajQacvYigfs/gBq+NmMa
+	 MVwUgxEBlahsA2ny8uZ47Erx8am6+bUrHILTU54yyAV9tGC8EO+wrLDHAUU/MipJEhFn9
+	 cybusgGl66zN5ILmzoJ5KHX10PdFmCIajWn32wmciHV3A8UpRbQkADsCF36tTopHvTg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=t0XqHxEA;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ADE5606B233;
-	Wed,  4 Nov 2026 18:00:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A9B0606A328;
+	Wed,  4 Nov 2026 18:04:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gkNVsDwn
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793815220;
-	b=G9e52223Ghk1OdbbxR2cQwdffZhXk2Fj9c2A6OyXZ5xYIO1bxOIVmsooeUvPGe891dOR
-	 ykVj5uJORVH0P+mQXCvKDcbZwe3CqrqNGq+/zTlG/Wcp5N9Xf1wRfNbcfdPqBy17ueMtM
-	 2GXNeP97FbmWvgiDoKUT5ldXMHkMMrMPyetNXr9nLg8iwH2fAz/C8oyGXkcAAOzq+x12g
-	 YJdKejYfeiCXUsamwuU95NfJPJ9DFqG9an0j9fvJ0L3yuloawpCCEN4oyy0o6yIPeFDkF
-	 qKqIsjkIs2KT2CL7puUQdxdPQg2Kq1uUdi9AsOGx5SVHFOaKmWm476ahfhx1ER1Ua+g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793815220;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=HDJZHnPib4T7PdLyVxZxv1NhSiNDuQYmPM2+9bBYZRw=;
-	b=vNLA6eYeZyH9AAZUEyIBi20PGHeAn08NJ2LMGMZEdWiyYtnOgw3v6XEk5XLVM2keD0CI
-	 NfDfBZ4U20uQU3g270f7cWbFUOzZ23d9nlYeKNmr3/AbycsgcQE8ahHItYFmZCBHauWko
-	 XNyIr3jtGGqIR+dwyhG21bRZCadHTAg6HBTdgfpk0VvKkliIl7fUdsem9wJEq3gsvNLrP
-	 ZXEcxYE9aaDXSU38WM6nygYAd28p7i+kDhTglhdkr0ebKOGh/HlCCu4Ejcfn0iKzAALK/
-	 0NBkvFbomTMQLghtTL7MHv0+BqzDT5+h6NN7XcNVv/POlPWeLrdDDmAnVe0IysP9VEQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2B4E31F00A15;
-	Wed,  4 Nov 2026 18:00:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793815220;
-	bh=HDJZHnPib4T7PdLyVxZxv1NhSiNDuQYmPM2+9bBYZRw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=gkNVsDwneFiu+NMVZeDLkdo4dZyOidOvRvO1usvrNIBgD6khpstw+4SeCoxtkv5cZ
-	 lrcXdtRGU4zeDSFy59Ux1ilsvvK34T4FzyWE3GrOlhpuZ43OSReJTOcl7DSpiJoVYj
-	 UdsyJuex3dNx5o58NU2uCPffonj1Qjy8WDiOgeXgHE4ek3W+qPtTpwTCleZdy5QEqR
-	 9iZVEHVot8VZ86lvAjFKd/V+tig8hIOm4Bar5NCW3TVHQK4t1Q6qYRE9fpS9IEdACv
-	 uss01O6uwjIx06G1QhgH5OlgHuhyxl4iGdzg4OhHnJ1BIF1NQBHeN7a9IkpW1eDPAh
-	 EO1n49zLFqgUQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8F16046ED6;
-	Wed,  4 Nov 2026 18:00:19 +0000 (UTC)
-From: Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org>
-Date: Wed, 04 Nov 2026 23:00:19 +0500
-Subject: [PATCH v2 1/2] btrfs: zoned: finish the zones of a relocated block
- group
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=t0XqHxEA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 194C31F00A02;
+	Wed,  4 Nov 2026 18:04:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793815488;
+	bh=azgmO/c7erxIjuuP/E4HWpspy1buwqPL1vap21Ioe3Q=;
+	h=Date:To:From:Subject;
+	b=t0XqHxEAB2C5m4vydigRFcx8E5xAuIkmREGILopI7lwENBEwdLmvLklONaRXTbB4p
+	 eb2PTq+r3x40guKloNzwUvpejmRUMteKWJHsgUf3Rc0kzkejucHy0CPcd5QGaIaCsK
+	 nsde7ZqUC801lcrHqQ2ji5jKRof1v0s3tWICkFmc=
+Date: Wed, 04 Nov 2026 10:04:47 -0800
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
+	stable@vger.kernel.org,shuah@kernel.org,rppt@kernel.org,peterx@redhat.com,
+	osalvador@suse.de,muchun.song@linux.dev,mhocko@suse.com,ljs@kernel.org,
+	liam@infradead.org,david@kernel.org,azpijr@gmail.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-userfaultfd-recheck-wp-registration-in-the-hugetlb-uffdio_copy-retry.patch added to mm-new branch
+Message-Id: <20261104180448.194C31F00A02@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,141 +52,123 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-btrfs-zoned-active-zone-leak-v2-1-0cee2ef72171@gmail.com>
-References: <20261104-btrfs-zoned-active-zone-leak-v2-0-0cee2ef72171@gmail.com>
-In-Reply-To: <20261104-btrfs-zoned-active-zone-leak-v2-0-0cee2ef72171@gmail.com>
-To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
- Naohiro Aota <naohiro.aota@wdc.com>
-Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Johannes Thumshirn <johannes.thumshirn@wdc.com>, stable@vger.kernel.org, 
- Mark Korenberg <socketpair@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793815218; l=4749;
- i=socketpair@gmail.com; s=20260603; h=from:subject:message-id;
- bh=gaQLP1Y985cx5GItFHMmB9iX4pBxq93xF+S4CSWbcYE=;
- b=FdcQYVMwhqgmuO7gDR7Qvzk1Wd9lvERd+SIlrF64oCKvUxnABa6U324HBDzTWM0DOV/s4UN7n
- 4tXLN1rluagBwyTGw9p5g2PH/WlAAah38fLXozSjBdhqbotAFM9PBB+
-X-Developer-Key: i=socketpair@gmail.com; a=ed25519;
- pk=2iAMjWhs7kA9X8ccetT2YVX8dvniXua2okQogw3Don8=
-X-Endpoint-Received: by B4 Relay for socketpair@gmail.com/20260603 with
- auth_id=806
-X-Original-From: Mark Korenberg <socketpair@gmail.com>
-Reply-To: socketpair@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Mark Korenberg <socketpair@gmail.com>
 
-btrfs_relocate_block_group() ignores -EAGAIN from btrfs_zone_finish().
-A metadata or system block group with tree blocks not written yet, or
-the data relocation block group, is then relocated and removed with its
-zone still active: it stays on zone_active_bgs and its share of
-reserved_active_zones is never given back. Repeated balances drive the
-reservation negative, which ends in -ENOSPC and lost data in writeback
-(see the next patch).
+The patch titled
+     Subject: mm/userfaultfd: recheck WP registration in the hugetlb UFFDIO_COPY retry
+has been added to the -mm mm-new branch.  Its filename is
+     mm-userfaultfd-recheck-wp-registration-in-the-hugetlb-uffdio_copy-retry.patch
 
-Finish the zone in btrfs_relocate_chunk_finish() before removing the
-block group. Nothing is left to write in it by then: it is read-only
-and empty, and relocate_block_group() has committed the transaction.
-So only wait for extent buffer writeback and finish it as fully
-written. Taking it read-only again, as btrfs_zone_finish() does, can
-allocate a system chunk under ro_block_group_mutex for a system block
-group and take the mutex again to finish another block group. If
-finishing fails, warn and remove the block group as before.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-userfaultfd-recheck-wp-registration-in-the-hugetlb-uffdio_copy-retry.patch
 
-Fixes: 7ae9bd18032e ("btrfs: zoned: finish relocating block group")
-Cc: stable@vger.kernel.org # 7.0.x
-Signed-off-by: Mark Korenberg <socketpair@gmail.com>
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: mm/userfaultfd: recheck WP registration in the hugetlb UFFDIO_COPY retry
+Date: Tue, 03 Nov 2026 11:28:35 +0100
+
+Patch series "mm/userfaultfd: recheck WP registration in the hugetlb
+UFFDIO_COPY retry", v3.
+
+The urgent fixes made hugetlb_fault() tolerate uffd bits left in VMAs
+that are no longer registered for them, and asked for follow-ups that
+remove the sources [1]. This is one: a hugetlb UFFDIO_COPY_MODE_WP copy
+that has to fault in its source page doesn't recheck the WP registration
+before retrying, so re-registering the range without WP in that window
+leaves a uffd-wp PTE behind.
+
+Patch 1 adds the missing check. Patch 2 adds a uffd-unit-tests case for
+it, which fails on hugetlb without patch 1.
+
+The other source 6/10 of [1] mentions, UFFDIO_COPY in MODE_WP racing
+with UFFDIO_UNREGISTER [2], is closed by "mm/userfaultfd: write-lock the
+VMA before waking waiters when unregistering" [3].
+
+Based on mm-unstable.
+
+Tested on x86_64 in QEMU.
+
+
+This patch (of 2):
+
+mfill_atomic_hugetlb() drops its locks to copy the source page with page
+faults enabled and then looks the VMA up again. The retry doesn't check
+that the VMA is still registered for WP, so if the range is re-registered
+without WP in that window, a UFFDIO_COPY_MODE_WP copy installs a uffd-wp
+PTE in a VMA without VM_UFFD_WP.
+
+Recheck VM_UFFD_WP for UFFDIO_COPY_MODE_WP copies after looking the VMA
+up again, and fail with -EINVAL if it is gone.
+
+Link: https://lore.kernel.org/20261103102840.68903-1-azpijr@gmail.com
+Link: https://lore.kernel.org/20261103102840.68903-2-azpijr@gmail.com
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-0-42796911043b@kernel.org [1]
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-6-42796911043b@kernel.org [2]
+Link: https://lore.kernel.org/20261031-fixes_core-v3-23-d6437171ecc3@kernel.org [3] (in linux-next)
+Link: https://lore.kernel.org/sashiko-outbox-194303@kernel.org [4]
+Fixes: 6041c6917903 ("mm/hugetlb: take care of UFFDIO_COPY_MODE_WP")
+Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: <stable@vger.kernel.org>
 ---
- fs/btrfs/volumes.c |  1 +
- fs/btrfs/zoned.c   | 37 +++++++++++++++++++++++++++++++++++++
- fs/btrfs/zoned.h   |  3 +++
- 3 files changed, 41 insertions(+)
 
-diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
-index 3d4ef6725de0..1547eee60612 100644
---- a/fs/btrfs/volumes.c
-+++ b/fs/btrfs/volumes.c
-@@ -3720,6 +3720,7 @@ static int btrfs_relocate_chunk_finish(struct btrfs_fs_info *fs_info,
- 
- 	btrfs_discard_cancel_work(&fs_info->discard_ctl, bg);
- 	length = bg->length;
-+	btrfs_zone_finish_relocated(bg);
- 	btrfs_put_block_group(bg);
- 
- 	/*
-diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
-index 3192b86669b9..1d64c6e162ca 100644
---- a/fs/btrfs/zoned.c
-+++ b/fs/btrfs/zoned.c
-@@ -2680,6 +2680,43 @@ int btrfs_zone_finish(struct btrfs_block_group *block_group)
- 	return do_zone_finish(block_group, false);
- }
- 
-+/*
-+ * Finish the zones of a block group emptied by relocation, before removing it.
-+ *
-+ * btrfs_relocate_block_group() tries this before relocating, but gets -EAGAIN
-+ * while tree blocks allocated in the block group are not written yet, and for
-+ * the data relocation block group. If the block group is then removed with its
-+ * zones still active, it stays on fs_info->zone_active_bgs and, for metadata
-+ * and system, its share of reserved_active_zones is never given back. After a
-+ * few balances the reservation is negative and data writeback fails with
-+ * -ENOSPC.
-+ *
-+ * Here nothing is left to write: the block group is read-only and empty,
-+ * relocation waited for its reservations and ordered extents, and
-+ * relocate_block_group() committed the transaction. So only wait for extent
-+ * buffer writeback and finish it as fully written. do_zone_finish(bg, false)
-+ * would take it read-only again, which for a system block group can allocate
-+ * a system chunk under ro_block_group_mutex and finish another block group to
-+ * activate it, taking the mutex again.
-+ */
-+void btrfs_zone_finish_relocated(struct btrfs_block_group *block_group)
-+{
-+	struct btrfs_fs_info *fs_info = block_group->fs_info;
-+	int ret;
-+
-+	if (!btrfs_is_zoned(fs_info))
-+		return;
-+
-+	if (block_group->flags & (BTRFS_BLOCK_GROUP_METADATA | BTRFS_BLOCK_GROUP_SYSTEM))
-+		wait_eb_writebacks(block_group);
-+
-+	ret = do_zone_finish(block_group, true);
-+	if (ret)
-+		btrfs_warn(fs_info,
-+			   "failed to finish zones of relocated block group %llu: %d",
-+			   block_group->start, ret);
-+}
-+
- bool btrfs_can_activate_zone(struct btrfs_fs_devices *fs_devices, u64 flags)
- {
- 	struct btrfs_fs_info *fs_info = fs_devices->fs_info;
-diff --git a/fs/btrfs/zoned.h b/fs/btrfs/zoned.h
-index 8e21a836f858..510e9d118c7c 100644
---- a/fs/btrfs/zoned.h
-+++ b/fs/btrfs/zoned.h
-@@ -82,6 +82,7 @@ int btrfs_sync_zone_write_pointer(struct btrfs_device *tgt_dev, u64 logical,
- 				  u64 physical_start, u64 physical_pos);
- bool btrfs_zone_activate(struct btrfs_block_group *block_group);
- int btrfs_zone_finish(struct btrfs_block_group *block_group);
-+void btrfs_zone_finish_relocated(struct btrfs_block_group *block_group);
- bool btrfs_can_activate_zone(struct btrfs_fs_devices *fs_devices, u64 flags);
- int btrfs_zone_finish_endio(struct btrfs_fs_info *fs_info, u64 logical,
- 			     u64 length);
-@@ -238,6 +239,8 @@ static inline int btrfs_zone_finish(struct btrfs_block_group *block_group)
- 	return 0;
- }
- 
-+static inline void btrfs_zone_finish_relocated(struct btrfs_block_group *block_group) { }
-+
- static inline bool btrfs_can_activate_zone(struct btrfs_fs_devices *fs_devices,
- 					   u64 flags)
- {
+ mm/userfaultfd.c |    4 ++++
+ 1 file changed, 4 insertions(+)
 
--- 
-2.56.0
+--- a/mm/userfaultfd.c~mm-userfaultfd-recheck-wp-registration-in-the-hugetlb-uffdio_copy-retry
++++ a/mm/userfaultfd.c
+@@ -810,6 +810,10 @@ retry:
+ 		if (vma_hpagesize != vma_kernel_pagesize(dst_vma))
+ 			goto out_unlock_vma;
+ 
++		/* The range may have been re-registered without WP meanwhile. */
++		if ((flags & MFILL_ATOMIC_WP) && !(dst_vma->vm_flags & VM_UFFD_WP))
++			goto out_unlock_vma;
++
+ 		/*
+ 		 * If memory mappings are changing because of non-cooperative
+ 		 * operation (e.g. mremap) running in parallel, bail out and
+_
 
+Patches currently in -mm which might be from azpijr@gmail.com are
+
+mm-userfaultfd-recheck-wp-registration-in-the-hugetlb-uffdio_copy-retry.patch
+selftests-mm-add-a-uffd-test-for-re-registering-during-uffdio_copy.patch
 
