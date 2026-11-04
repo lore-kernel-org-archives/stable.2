@@ -1,69 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.82.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819509;
-	b=SO3AhqWVAizj/i7/ZoV6Tv3O1cQ7KsVxsWUOYZY+AekrAH/z/FRDw/ORqMR33mVajvbE
-	 MQRHExRPvmZNXSaguvEfl6rWvbSN0rJ+qsuhceGvyKcMmQkS1N0SO2lM+JnACWqYxLNa7
-	 qgOWwcecV2aCSAs3Kj5O+hyayWts3vlTn93C0KaRt/crg7X2OsFIUcfM5TBLNVV3LVY5V
-	 0I8ghYB/Qxbb7lqDFlQO1mfMcVP14TPAHGSX/GChGtelmqY7OLY/O6zM6p93/dx17TOjI
-	 oI1SwgDr/ulavwCBcxGRAZRjB+4chTn/lLrcME47rS6PwvHZtwrePXDizu3NBuXETzA==
+	t=1793819551;
+	b=bjol7LFJjlEncdaTbyflehW17LqlE1ngIiNTrny8gpQ3py1tqiHs2F873x25gVnTAyJl
+	 OCbCjogvrFhilzQ4hKftNOjNDO6VEig7TUhkfTSKQcCeKdQrl2LEKmwRK1fW5hvyZ0MLa
+	 scO7kM+4aioHLG0WOLOLrpN2KQSe3MMw47Ag9bNsMXlDa3pS9Vk/MediAfAzBkhPn3QoN
+	 HxPXfF1Z5k4uXuaM5D7GFfXEx7EHWxPvr7XxBN7jQYgyHJJ/nKRWJj57aqBLVHzhHT16O
+	 WIQNmQ8o7qLPrtmoaPH40XKt6v0w3eikU/eeV82HZ45h7CooTkC9e1CmgCtigLJf4/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819509;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=kQCDgLQog4AfZ803aJDiF06q9I2NpsVkPXVUjCXTu2c=;
-	b=U11ZZ/tf2ONl7Cqm6ATuS71KSgz6Aty3QXwSaKby63NGbS/U1/uEszmJfTp6VaWCLiu8
-	 QODlA7yxo0WmNe86u2oAdb9dMRWsFqpUm8UQAxizucRcqG2eIbdFy5I04kq4d5FLteRZD
-	 hPnVZJvU36DzArz1rcCbETzwYzmsiyVeZd/iMZZgnxMxM4E22LZZ9G3+OJlk1hTpRq58N
-	 8f4QuWhX0sieT1F+V+5FWaEetrHclBoaAzCGni0hL3apV+5oMp6ENidGkItb33lxGz96I
-	 o2t9mLB1NtgB2khnTeSU9scupX9QcLHijQoKfd2y1rA7X2NBGZ4XAGL5+XzqYb0U+Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819551;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=fOBMGQim/n0DIvZol9w5A8rbF8AXfuTYBk54hrONqJU=;
+	b=34qbZEL+rbL5B6zmLucHZHu2wdny6BPzePRQ46pulyOR7EKkq/SwX1vknW+gJtDnzsnQ
+	 z2qZdInyMNXnkLlFpF1tVksps7EDpHaZnaKw++btXxdfRivvY7F55tfjc1i5j8ys9diO0
+	 I+hOIn50XXm3vJaEu8bSWOCWFqvDmoT3pkxsj2bKHVPO9Vc/W3hR2DlnD2cYpVVgEOeg/
+	 uDIpVlmiDmpkw7dT0yTKlS+2i2XPhSnxHNP3sl1FV9YjhiS/rbsUUiU0B99iaN/u5wz3E
+	 Ht8OaqEPiY9NMw1pgYIFK8yctnEe0hKE5ElT8zqHgix2TzHbUHjNQ6B+oW42oci7jvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=VEmYirc+;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=samba.org;
+	spf=pass smtp.mailfrom=samba.org;
+	dkim=pass header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=F+LkGch5;
+	arc=none smtp.remote-ip=144.76.82.148
+Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
+	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26528606A31B;
-	Wed,  4 Nov 2026 19:11:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26528606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BE7606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:12:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2BE7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=VEmYirc+
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
-	From:Reply-To; bh=kQCDgLQog4AfZ803aJDiF06q9I2NpsVkPXVUjCXTu2c=; t=1793819507;
-	x=2109179507; b=VEmYirc+1f8C476CiOIYu0eMbFVNfTgFlkFTw3sZkuyz7GWe0MrKIpS8nf/EF
-	BBSZZfpbky760kVeU6axz9QTsoW2ZuTinzE7GYnMQ7hBfhhC1hIYGXh5i2j9EQEMiAjPXFYTFHJHQ
-	8xeX3p+Bzz2GEpjvvKoiioQYDyU15iQ3uhxuNehNbgDh4jhm94HlDVHIcKXXstXrE/rIH/jXPpqO4
-	YO2LIWu+BZeqKV4vxv868lQGXODo+lkqJm0S9GNVz2EcOgEOXEIzpJVQro2ODT/o/VJGXxw9xCgdj
-	2RVTOeKp7Tha8D+4eQsS39TjPHrndR4czkDFNvEOp1sylx5A5A==;
-Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1] helo=quatroqueijos.cascardo.eti.br)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xOgOV-002Zhk-QV; Wed, 04 Nov 2026 20:11:36 +0100
-Date: Wed, 4 Nov 2026 16:11:24 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: Salvatore Dipietro <dipiets@amazon.it>
-Cc: linux-kernel@vger.kernel.org, hch@infradead.org, abuehaze@amazon.com,
-	akpm@linux-foundation.org, alisaidi@amazon.com, blakgeof@amazon.com,
-	brauner@kernel.org, dgc@kernel.org, dipietro.salvatore@gmail.com,
-	djwong@kernel.org, hannes@cmpxchg.org, jackmanb@google.com,
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
-	linux-xfs@vger.kernel.org, mhocko@suse.com, ritesh.list@gmail.com,
-	rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
-	vbabka@kernel.org, willy@infradead.org, ziy@nvidia.com,
-	David Hildenbrand <david@redhat.com>,
-	Christoph Hellwig <hch@lst.de>, Dmitry Ilvokhin <d@ilvokhin.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH v6] mm/page_alloc: avoid direct reclaim and compaction
- for costly __GFP_NORETRY allocations
-Message-ID: <auuDXDglZ-Z1LZhA@quatroqueijos.cascardo.eti.br>
-References: <20261001082152.2879289-1-dipiets@amazon.it>
+	dkim=pass (3072-bit key, unprotected) header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=F+LkGch5
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
+	s=42; h=From:Cc:To:Date:Message-ID;
+	bh=fOBMGQim/n0DIvZol9w5A8rbF8AXfuTYBk54hrONqJU=; b=F+LkGch5E1r0gCqff9BTAQJN4R
+	iEcfoO130Hg68nmRkLepQDHuSoJ88ysY4vgVTcxd6e4VPHhUM8cwo/MXi87cGSs9c1oRX9QtQB2IR
+	Y2lqLVSlEE9kll5C95FisXfNbQl+b7qwMK5VvIs9sAboaAxOn2yHhV3ftZcjDdEdIk3ZBP9inL7uR
+	8WxZdAeL4L/ZmYCh74Jm1UPLNirf6IInPhS5fLePmuLSQvv09ncgJPwTB4dK3R7OsJDTNk3yBqfrp
+	ULS4I0UJLfY7lM/PNSR81qwQzDjbB+o23aq1+t288HTgHDhHCqsdtSRIVne0BfBCepY882TO3r/ku
+	D33yBmxHeyCuJnJUSiN+G1A1wwE63VC+rXGB19HdH0K166aylevRoRu8CNG3BoONobDYZNUfqHxPW
+	6m3Cf2XMzedZLERMmBQ2CMr9sOkyaHeVeRWLyDU9LwJwbWd/B+YQRfNrYeMKl5054FLM9PcSK0GlR
+	jylXcZTYs6KtzQMi9c7gJUu9;
+Received: from [127.0.0.2] (localhost [127.0.0.1])
+	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
+	(Exim)
+	id 1xOgPG-00000008Iyp-2Vjf;
+	Wed, 04 Nov 2026 19:12:22 +0000
+Message-ID: <456026fe-5cf5-4a35-bf82-75d5ed652846@samba.org>
+Date: Wed, 4 Nov 2026 20:12:22 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,182 +59,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001082152.2879289-1-dipiets@amazon.it>
+User-Agent: Mozilla Thunderbird
+Subject: Re: FAILED: patch "[PATCH] smb: smbdirect: fix buffer length
+ underflow in RDMA transfers" failed to apply to 6.18-stable tree
+To: gregkh@linuxfoundation.org, linkinjeon@kernel.org
+Cc: stable@vger.kernel.org
+References: <2026110436-thee-asleep-2059@gregkh>
+Content-Language: en-US
+From: Stefan Metzmacher <metze@samba.org>
+In-Reply-To: <2026110436-thee-asleep-2059@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 01, 2026 at 08:21:51AM +0000, Salvatore Dipietro wrote:
-> Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
-> introduced high-order folio allocations in the iomap buffered write
-> path.  When memory is fragmented, each failed costly-order allocation
-> enters __alloc_pages_slowpath() which runs direct reclaim, direct
-> compaction and drain_all_pages(), causing a 0.38x throughput drop on
-> PostgreSQL pgbench (simple-update) with 1024 clients on a 96-vCPU arm64
-> system.
+Am 04.11.26 um 19:29 schrieb gregkh@linuxfoundation.org:
 > 
-> The root issue is that direct reclaim and direct compaction are too
-> expensive for hot allocation paths that have fallbacks to smaller
-> allocations.  __filemap_get_folio_mpol() already marks higher-order
-> allocations with __GFP_NORETRY | __GFP_NOWARN, signalling that the
-> caller can handle failure.  However, the page allocator still enters the
-> full blocking slowpath for costly orders with __GFP_NORETRY, which is
-> unnecessarily aggressive when the caller will simply retry at a lower
-> order.
+> The patch below does not apply to the 6.18-stable tree.
+> If someone wants it applied there, or to any other stable or longterm
+> tree, then please email the backport, including the original git commit
+> id to <stable@vger.kernel.org>.
 > 
-> For costly-order allocations with __GFP_NORETRY, clear
-> __GFP_DIRECT_RECLAIM at the very start of the slowpath, before
-> can_direct_reclaim, can_compact and the nofail checks are evaluated.
-> This makes the entire slowpath treat the request as non-blocking: no
-> direct reclaim, no direct compaction and no drain_all_pages() IPI
-> across every CPU.  Reclaim and compaction move to the background
-> instead: kswapd is still woken for reclaim, and it wakes kcompactd for
-> defragmentation.  The system keeps its long-term health while the
-> latency-critical direct allocation path no longer stalls.
+> To reproduce the conflict and resubmit, you may use the following commands:
 > 
-> Allocations that also request __GFP_THISNODE are exempted.  That flag
-> pairing identifies the local-node-first THP attempt issued by
-> alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
-> form transparent huge pages.
+> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+> git checkout FETCH_HEAD
+> git cherry-pick -x 7193241a49c958782ba4b8df06da3734d1e317d2
+> # <resolve conflicts, build, test, etc.>
+> git commit -s
+> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110436-thee-asleep-2059@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 > 
-> Clearing __GFP_DIRECT_RECLAIM makes these allocations reach the
-> !can_direct_reclaim bailout, which since commit 4c0ed883e051
-> ("mm/page_alloc: fix defrag_mode for non-reclaimable allocations") drops
-> ALLOC_NOFRAGMENT and retries instead of failing when defrag_mode is on.
-> With vm.defrag_mode=1 a __GFP_NORETRY allocation could therefore succeed
-> by fragmenting another migratetype's pageblock.  That is the wrong trade
-> for a caller that has already communicated it can handle failure and has
-> a cheap lower-order fallback, so exclude __GFP_NORETRY from the
-> relaxation.  The exclusion is not restricted to costly orders: any
-> __GFP_NORETRY caller has said it can cope with failure, so failing is
-> preferable to fragmenting for all of them.
+> Possible dependencies:
 > 
-> Test environment:
->   Hardware:  AWS EC2 m8g.24xlarge (96 vCPU, arm64)
->              12x 1TB IO2 32000 IOPS RAID0 XFS
->   OS:        AL2023
->   Kernel:    v7.3-rc1
->   Database:  PostgreSQL 18.4
->   Workload:  pgbench simple-update, 1024 clients, 96 threads, 1200s
 > 
-> Results (average of 3 runs, TPS):
 > 
->   Config                                       Avg TPS   % vs baseline
->   v7.3-rc1 baseline (vm.defrag_mode=0)          58,602               -
->   v7.3-rc1 + this patch (vm.defrag_mode=0)     157,246         +168.3%
->   v7.3-rc1 baseline (vm.defrag_mode=1)         109,012               -
->   v7.3-rc1 + this patch (vm.defrag_mode=1)     157,778          +44.7%
+> thanks,
 > 
-> Link: https://lore.kernel.org/all/20260403193535.9970-1-dipiets@amazon.it/T/#t [v1]
-> Link: https://lore.kernel.org/linux-mm/20260420161404.642-1-dipiets@amazon.it/T/#u [v2]
-> Link: https://lore.kernel.org/all/20260710143437.12379-1-dipiets@amazon.it/T/#u [v3]
-> Link: https://lore.kernel.org/all/20260904115629.3993331-1-dipiets@amazon.it/T/#u [v4]
-> Link: https://lore.kernel.org/all/20260911142102.2294202-1-dipiets@amazon.it/T/#u [v5]
-> Fixes: 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+> greg k-h
+> 
+> ------------------ original commit in Linus's tree ------------------
+> 
+>  From 7193241a49c958782ba4b8df06da3734d1e317d2 Mon Sep 17 00:00:00 2001
+> From: Stefan Metzmacher <metze@samba.org>
+> Date: Fri, 23 Oct 2026 19:26:09 +0900
+> Subject: [PATCH] smb: smbdirect: fix buffer length underflow in RDMA transfers
+> 
+> When a remote buffer descriptor is larger than the remaining local
+> buffer, smbdirect_connection_rdma_xmit() clamps its length and sets
+> buf_len to zero. The common accounting code then subtracts the clamped
+> length from buf_len, causing it to underflow. If another descriptor
+> follows, the loop processes it with a wrapped remaining length and
+> includes memory beyond the local buffer in the RDMA transfer.
+> 
+> A client can trigger an out-of-bounds kernel write with an SMB WRITE
+> request, or an out-of-bounds kernel read with an SMB READ request, by
+> supplying multiple RDMA buffer descriptors with an oversized descriptor
+> before the last one.
+> 
+> Remove the premature assignment to buf_len. Subtracting the clamped length
+> already consumes the remaining buffer, so the next iteration stops and
+> only descriptors within the local buffer are used to build work requests.
+> 
+> Fixes: e628bf939aaf ("ksmbd: reduce descriptor size if remaining bytes is less than request size")
 > Cc: stable@vger.kernel.org
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Vlastimil Babka <vbabka@kernel.org>
-> Cc: David Hildenbrand <david@redhat.com>
-> Cc: Michal Hocko <mhocko@suse.com>
-> Cc: Johannes Weiner <hannes@cmpxchg.org>
-> Cc: Matthew Wilcox <willy@infradead.org>
-> Cc: Christoph Hellwig <hch@lst.de>
-> Cc: Dave Chinner <dgc@kernel.org>
-> Cc: Ritesh Harjani <ritesh.list@gmail.com>
-> Cc: Zi Yan <ziy@nvidia.com>
-> Cc: Dmitry Ilvokhin <d@ilvokhin.com>
-> Cc: linux-mm@kvack.org
-> Cc: linux-fsdevel@vger.kernel.org
-> Cc: linux-xfs@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> Acked-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
-> Signed-off-by: Salvatore Dipietro <dipiets@amazon.it>
-> ---
->  mm/page_alloc.c | 21 ++++++++++++++++++---
->  1 file changed, 18 insertions(+), 3 deletions(-)
+> Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-33549
+> Signed-off-by: Stefan Metzmacher <metze@samba.org>
+> Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 > 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 12fac9084c48..64d09964ca77 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -4784,10 +4784,10 @@ static inline struct page *
->  __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
->  						struct alloc_context *ac)
->  {
-> -	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
-> -	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
-> -	bool nofail = gfp_mask & __GFP_NOFAIL;
->  	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
-> +	bool can_direct_reclaim;
-> +	bool can_compact;
-> +	bool nofail;
->  	struct page *page = NULL;
->  	unsigned int alloc_flags;
->  	unsigned long did_some_progress;
-> @@ -4802,6 +4802,18 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
->  	bool can_retry_reserves = true;
->  	unsigned long alloc_start_time = jiffies;
->  
-> +	/*
-> +	 * Costly __GFP_NORETRY callers have a cheap fallback, so don't stall
-> +	 * them in reclaim or compaction. __GFP_THISNODE callers are exempt.
-> +	 */
-> +	if (costly_order && (gfp_mask & __GFP_NORETRY) &&
-> +	    !(gfp_mask & __GFP_THISNODE))
-> +		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
-> +
-> +	can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
-> +	can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
-> +	nofail = gfp_mask & __GFP_NOFAIL;
-> +
->  	if (unlikely(nofail)) {
->  		/*
->  		 * Also we don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
+> diff --git a/fs/smb/smbdirect/rw.c b/fs/smb/smbdirect/rw.c
+> index 6fe38042cfb9..cb142c3c50b2 100644
+> --- a/fs/smb/smbdirect/rw.c
+> +++ b/fs/smb/smbdirect/rw.c
+> @@ -143,7 +143,6 @@ int smbdirect_connection_rdma_xmit(struct smbdirect_socket *sc,
+>   		if (desc_buf_len > buf_len) {
+>   			desc_buf_len = buf_len;
+>   			desc[i].length = cpu_to_le32(desc_buf_len);
+> -			buf_len = 0;
+>   		}
+>   
+>   		credits_needed += smbdirect_connection_calc_rw_credits(sc,
 
-This would trigger a warning if __GFP_NOFAIL and __GFP_NORETRY were ever
-used together, though that does not make sense and I haven't found a case
-where it is used in practice.
+In older releases this is smb_direct_rdma_xmit() in fs/smb/server/transport_rdma.c
 
-Aside from either warning for the specific case of these flags being used
-together or adding a comment right here to that effect, I don't think any
-other change is needed, though.
+I hope that helps.
 
-Another comment about the general approach: TTM pool page allocator does
-use __GFP_NORETRY and __GFP_DIRECT_RECLAIM for high orders and when we
-previously suggested to drop __GFP_DIRECT_RECLAIM to avoid compaction, it
-was frowned upon. In the end, a lot of other changes were made and for the
-relevant cases, this does not seem to change its current behavior, amongst
-other things, because it uses __GFP_THISNODE.
-
-I did run some TTM GTT allocations with some fragmentation workload and I
-haven't seen much change in the latency for these high order allocations,
-so:
-
-Tested-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-
-> @@ -4918,8 +4930,11 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
->  		 * Reclaim/compaction cannot run, so defrag_mode's strategy
->  		 * of enforcing ALLOC_NOFRAGMENT cannot be fulfilled. Allow
->  		 * fallbacks rather than failing the allocation outright.
-> +		 * Not for __GFP_NORETRY: those have a cheap lower order
-> +		 * fallback, so failing beats fragmenting.
->  		 */
->  		if (defrag_mode && (alloc_flags & ALLOC_NOFRAGMENT) &&
-> +		    !(gfp_mask & __GFP_NORETRY) &&
->  		    (gfp_mask & __GFP_KSWAPD_RECLAIM)) {
->  			alloc_flags &= ~ALLOC_NOFRAGMENT;
->  			goto retry;
-> 
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> -- 
-> 2.50.1
-> 
-> 
-> 
-> 
-> AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
-> 
-> 
-> 
+metze
