@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814616;
-	b=xEP48AXalDNwudh6/zfvRXEjAWh8wEfWPtC0GmiPeDZFiFC8rO7cEeeQcuIOQNjMduDm
-	 C50M/RtIS9d8mYi+5gMGwJfwkfib5gTkCFQCtW/wbh168KThSk+u2BAl2U7mOwq0jD3P/
-	 CB4mbUuTFFDdezF+Rf5iRwFyRnTzjGgotfP8dp7LMT9BgQLtOuk//g2rY+tc95FNkXLxx
-	 SVXwV7WvjLgpg/cqHn1TLRuIPWa3TTcjWrlSTmfnZVYRDIqFC3g/RhhjUN3x8VTiqmAuj
-	 cqClxX9nJY1R1N2Ou6GC6IILsiEtIN5CFi3KuepIM09+pUtcy+BTyzdPpDLYneUnSHA==
+	t=1793814652;
+	b=hSyto3vjbkrR1tYFiT+pLVj6orb9ci85nBvXdyjYWovkVI0aAvsl0p7rRdYVV4zksUgO
+	 g1JzrTPMywU+Gbv629UZU7B7wVqwwoYasQ64yIX7a1rDgJUqQmNr5MS01kBfUVPngLR9m
+	 WIq/27GnOh4yK268DHogHXql83GzDC937JmmbkcjXBl2A78hYKNDs9ymsr5B5EebFw1J7
+	 urEbzWiSBiiH+Y6b6tc59WklwmGXmGdWJKa7EClkP+UD6WK+RryKtNKYDKBKw84WXWPNw
+	 yhXxW9HZsSYOyJg3rH5srUh0VnWIU+MOmmSYCEZNNYe/ud/tvflK06IfUDmj6ZnvHXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814616;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814652;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=Ayyh3GSY9IX8l/NxmtUwOJrSt8ohKQ1xsnTJeKuAZFg=;
-	b=GsG4eH6sJK8SoXxy+B3c7u0oIANzerXkH0u11gVjjPsfirLJrVehoaqWJ2Gh8UIYiFjI
-	 R1aaNhIjy3pJ5l3223k63B8wCIaABq0GfO1ACN4MiaHxl/bRfaPWHJdS6bBTVS3BbqwxX
-	 gkQaKGEuM+tKoQ6DWp05ufbMEZvp9KuwswM4Jpjrh8cBhzjT+QxrCZ6GWKkgUGRXiqAAg
-	 +7THLcAocae9mu6SF28ygx9GQWFLbM5bOWfFW/NVgsG1+ZDytpuA+4IYzOdsx3aoXVv9f
-	 JIPVv/BBUpfp8O1rOPx/G24jhQK34VnifnGLeyF4swxH2JvKDDuXLrUGnO13E/ZFMRQ==
+	bh=ih8EKkL3fEFrmnOibnSg6zuDA24U9CpFmMUb1+ThTQI=;
+	b=OVwHA3KJCOHcrj7kZvh4Hc0DX4ss2PohPlrVhpPn8f5pENdrDEiSUgkDEh/XYkKRm9yE
+	 7l6qnBS52Uv9RFX6PHrw4YCMNWGWxrDR2bl9/gssKcpzQL+XzLjdcI4MEC9YI+rchRc3t
+	 6KWpF6IR+5FqqX5oTCAIcZouFJJeZ28+3scTNiAyiNC9DSoJUVcnlgxwBX89/eE8gorig
+	 AUWj6Wrwh7r7QzUBoPCm1OBy7uBdHXQ+RPu6y4IMYnlSPPBS634s/l7ntYlySqbYIvfXu
+	 Nu6QGuiJ3WWmS7Z5SpYk1xC0b5ca/RGbwDIcGt+7aj1tUyvuBm6tl/03Wwjgt5bcrxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGhyitu5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Rs900pf/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780C5606BDCB;
-	Wed,  4 Nov 2026 17:50:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B21A60A3811;
+	Wed,  4 Nov 2026 17:50:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGhyitu5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EC531F00919;
-	Wed,  4 Nov 2026 17:49:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rs900pf/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9A5D1F00919;
+	Wed,  4 Nov 2026 17:50:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793814616;
-	bh=Ayyh3GSY9IX8l/NxmtUwOJrSt8ohKQ1xsnTJeKuAZFg=;
+	s=k20260515; t=1793814652;
+	bh=ih8EKkL3fEFrmnOibnSg6zuDA24U9CpFmMUb1+ThTQI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IGhyitu5c+TLBGkN2ZGwDU5Rsh1w/dzPMJRviHA5R0mqU+LsoYuTVg18Jscu2+6e9
-	 Bde/aMBOPoYzdl/OGhbYhq2RMksr0qSkO6OBBKfsIB2QpTbcfD5O1d7DOOn6y0WboD
-	 luv6dPR8E2zuVmQwRu6+4E313LCJ0DI7VA+RNwygcTxJ2P+0Zxk4UQl+ViD8uLTSyj
-	 0Bj56pQlnnoENGhH5tM4j+e/k88FvtR06w4zxZ0OD2mDGN5+rEvzwyzh17+R2wIXby
-	 my99TU5Vz2jDt+TrjxUCacOsyHguhDC7NltTczyRHXx91ZO5qtVY+n6qU6a+sO5L4R
-	 ZOW5mHfdcdKFg==
+	b=Rs900pf/e96en+TLGDsSEaZDMSU5oZQyH5nZF7UwPtKKPbnRGVFWZ00+YoXP6F4Is
+	 q0FuLwKaUF4nN3gz2xJIMC1lUGMhu05g4EQmKbrK+q0N8NJzLb9mePMfp7AcDBYc10
+	 x61YX33cPuH/8i8ufX0WghhS/B3zq07hwoKbuiqX72KPAMBcVqLQvk07L0+V7P/Tdr
+	 40YtyYcMx0U/wZ/Yjv8DvJGoDR8zXAMEeTQuW2MXE0nFHOsHJCtQqwc7JWZq4qZj7/
+	 4xvxSNCcWgEK4gFORKmZhaLtRdAL9biaxJIFwBQ3BbvkWhj9sqmIOkeZP6BWLhtYp2
+	 6TwkPAQH74hwA==
 From: Christian Brauner <brauner@kernel.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: Linus Torvalds <torvalds@linux-foundation.org>,
@@ -101,9 +101,9 @@ Cc: Linus Torvalds <torvalds@linux-foundation.org>,
 	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Chuck Lever <cel@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 20/51] powerpc/rtas_flash: don't read past the validate message
-Date: Wed,  4 Nov 2026 18:47:06 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-20-bbf7d5546809@kernel.org>
+Subject: [PATCH v2 22/51] ALSA: info: don't write past the end of a data entry
+Date: Wed,  4 Nov 2026 18:47:08 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-22-bbf7d5546809@kernel.org>
 In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
 References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
@@ -117,36 +117,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1303; i=brauner@kernel.org; h=from:subject:message-id; bh=7JHU1Fe1PUKfNakrIeb+3f7MU5rT/9SRwlQjBFg57NM=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9zru+45fmhHOmCTv0/xXyljhu8Ir9cn6xZ2brsiN/Z jmlm2+821HKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRKEaG//GPri/6rCTy5+J8 1kMXe3b3xt9+LRAy/bux8ZXk+aLWoroM//OvT312ZfeyeUVOzxsmOu8P7DVL+ub/7E+HuUjwFae yubwA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1329; i=brauner@kernel.org; h=from:subject:message-id; bh=/wIh+WZXKaFyyFYwMjXKmLvFs42DoCHjOzS3J0v96D0=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9zrsptH6O04ab9YvmrtGx55O9VOyReez3z/NfPx/vP bHVeEsQV0cpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEvhsyMqz6Zx61me86u+1+ Z73TMTGbvt9IUwoxnH1ZvumySeeKiAeMDJPbtrXoiO+Y8M60S/DOI8mwolZ5lkfT2EO5qks1+iT vcwIA
 X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-get_validate_flash_msg() adds up what snprintf() returns, which is the
-length of the whole string and not what fit into msg. If the update
-results the firmware hands back don't fit into what is left of the 256
-bytes, the length ends up larger than msg and validate_flash_read()
-copies whatever follows it on the stack to userspace. Use scnprintf().
+snd_info_entry_write() clamps the count to what is left of the entry
+by computing entry->size - pos as a size_t. For a position past the end
+that wraps and the write goes to the driver unclamped, for opl4 into
+sample memory outside of what the entry covers. At the end of the entry
+the driver gets a count of 0 and vmalloc(0) warns. Before the clamp
+moved into the common code the driver ignored such writes. Fail them
+with -ENOSPC instead, like a block device does at the end of the
+device. Returning 0 would make writers that use stdio retry forever.
 
-Fixes: a94a14720eaf ("powerpc/rtas_flash: Fix validate_flash buffer overflow issue")
+Fixes: d97e1b78239c ("ALSA: info - Check file position validity in common layer")
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- arch/powerpc/kernel/rtas_flash.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/core/info.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/powerpc/kernel/rtas_flash.c b/arch/powerpc/kernel/rtas_flash.c
-index 722dbfb6fbf8..f1cd105f7426 100644
---- a/arch/powerpc/kernel/rtas_flash.c
-+++ b/arch/powerpc/kernel/rtas_flash.c
-@@ -448,7 +448,7 @@ static int get_validate_flash_msg(struct rtas_validate_flash_t *args_buf,
- 		n = sprintf(msg, "%d\n", args_buf->update_results);
- 		if ((args_buf->update_results >= VALIDATE_CUR_UNKNOWN) ||
- 		    (args_buf->update_results == VALIDATE_TMP_UPDATE))
--			n += snprintf(msg + n, msglen - n, "%s\n",
-+			n += scnprintf(msg + n, msglen - n, "%s\n",
- 					args_buf->buf);
- 	} else {
- 		n = sprintf(msg, "%d\n", args_buf->status);
+diff --git a/sound/core/info.c b/sound/core/info.c
+index 023b4736aa6d..f608d335b6c9 100644
+--- a/sound/core/info.c
++++ b/sound/core/info.c
+@@ -171,6 +171,8 @@ static ssize_t snd_info_entry_write(struct file *file, const char __user *buffer
+ 	pos = *offset;
+ 	if (!valid_pos(pos, count))
+ 		return -EIO;
++	if (pos >= entry->size)
++		return count ? -ENOSPC : 0;
+ 	if (count > 0) {
+ 		size_t maxsize = entry->size - pos;
+ 		count = min(count, maxsize);
 
 -- 
 2.53.0
