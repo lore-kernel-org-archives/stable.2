@@ -1,111 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814525;
-	b=u/xP9CieB8CFcjvH6YQ5AZxbw+eeqouUvvUqg1xcMCHNGN3h4EYvZkpyV9ahmHSMNhG6
-	 29KZI2j8vjWBLqdrWemVs5tkQKgqm1HgOeB1KU91LS05VjdlGYfucruSF68DEycw0mXmR
-	 j8lxYN5QLJukjGiZ1n+FOiBPnfFpfW9Uo54DvLlx7eJPINmXGUAZsAd8mIe6eDJM6rdmu
-	 AzyJpg97UChMGiBueDQ9eUdr228jdgwRP7QAbtiFiCag+5r7GJi3hvce7xz/HMDgs1jl4
-	 doPMTrg+k3m8KiLyaBTeB40UtQtZo9BUn23QwcHmBV8LXHp7Zxk/OwgkKko3uIafvDA==
+	t=1793814542;
+	b=rom7Wx12WKaNnUJ4q8nry7eGZm6HPMb4Xx9q9pvmNQ+MziJniyT6DkzItiYGYHu77W2T
+	 pmoSrQnF55iSwo5kJFtlwtZZ+vt7hEaly43PcFWEZsihOaPHvqOgUHmWu/ii3OxL/LNfi
+	 oONVhih0bKuDeIjpnEuhc+tLpLNUx+oV3a5WG7eC5ISJDxsm8klXF9UATnFGNWMjE0Bo1
+	 PJBVgpAGQ3yvfxNXRCZGylgPBQLOrk7CPV5GQid1RsHRVN4C+ia5pxIpMJzAeS3Socc0q
+	 BFf01yhestcaROj9u8kzsESCbrqoiRc0EqAypzq+B4uRJTLqureu34zFpoRNF2knwCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814525;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=0oFqdYtQQ93hmf66Xu9P3kJmoMCkLJeiEqd5UgVqoAA=;
-	b=atIeio7gOLlyBIiIi7kPz4Hh4yK1MzmM4Hntohc3wdjL4D++C3BEB8IjwEmNJ//Ceks/
-	 6xUESH27mpoOykPnKix+L3Fw4suFIZKvkgkIPM3Q7zfnGKSJ7sjW9tCRik5LuAczv9RFO
-	 pcXQpEnFQTw2Wo24ewlsIbwLbG4W4n3NAdXiJKhpzZneggNejjnqm+KMtKe5Bk7SmH01v
-	 PHU+VONw6qIA12dhmilBxO24cbPFljIY6Yk3xVLiIU2g7Mt8ICBVP0FHgCGPGUyJUa2yh
-	 WstKDHO9pdERNR8qYO4eBg3vkw26Wba2/iRdHq0njA1FjehoLgWdOU6ZrXPoXD1jF5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814542;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=yK/jOQueXDOAtkKlqT4t4kAjkVnT0u/J4DuQFmkUISU=;
+	b=wVQKf+twFOIUogMtR9wU8WHNHuOPTl5Yx0jgjsKRejCUnDt1si91P5a7zmxZXUolRwBm
+	 W00FANr57tWV3pocdVm4LDwufGVn3vYqm1R8qo2h4D6SmSWca+ggv6li7TQTuHLxAIEnJ
+	 qkwSDsYbW+TWqO/xPLPXPVa/hp228AF4zFuHWUSJrIs36ZiKvMeEv+zjxBJsBabp4w0ok
+	 +puf58iO9cqdso5FN6HICcj24OmMM4Apnh26IZZhMXO2P7+TSDIWIijWSOwL6LOjK6//M
+	 MEEbTWNKvMvIHnPDBclHpkGMmjO8wdfZCKSPOVpE5a6zpCR2qPABLHFcMwBXTAo+EQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=noCFKCgL;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cnP8MeuO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875B7606EE89;
-	Wed,  4 Nov 2026 17:48:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B5360A5BC4
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:49:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=noCFKCgL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D05981F00A25;
-	Wed,  4 Nov 2026 17:48:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793814525;
-	bh=0oFqdYtQQ93hmf66Xu9P3kJmoMCkLJeiEqd5UgVqoAA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=noCFKCgLdEz18/sqF1FCWtVxsv/QyKV8mQTymoxWK+iiCMJtG9Zq8MeqLvY3hYEr3
-	 hW0ksLKsCqDeUuyeCxIewkpGMAQxP5+SbkknINTi3v5SKU9g7u+iNy/q6EWBSY9M47
-	 a1HQI18KNvLYtRt2WygIYuE3c2BaTAI19pyJSUQbaTz/JNG7KXivQ8k0SWqUWZ//Sp
-	 Lzi0wOR/fuOZR0XnuR86I0XCuZc2sD6cH4+TLvQA7RQoawB8oy5aktiHmUQYq3Xkoz
-	 UcEpl9KlnnxOyIAxi4Pq7KbGS/jLgYWdG338W7ywff7d3Gg7oQPjS/4lnVEktzCirU
-	 mKurYZoNKsVQw==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 15/51] PCI/proc: don't truncate the position of config space accesses
-Date: Wed,  4 Nov 2026 18:47:01 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-15-bbf7d5546809@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
-References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cnP8MeuO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C0C91F0093A;
+	Wed,  4 Nov 2026 17:48:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793814541;
+	bh=yK/jOQueXDOAtkKlqT4t4kAjkVnT0u/J4DuQFmkUISU=;
+	h=Subject:To:Cc:From:Date;
+	b=cnP8MeuOP0CL4XJujLR5RF2MprEvSzNz7sH/RoI7RsXlPbuL8vt4zUV1u8r+61IDG
+	 488lJECiANfQfcPptdM50TB+1kRz7b311CGrBwM1kFXX2Yo1xpkknqSZb/TWaMPYTN
+	 L9pzgqfaUa1xKaVHXF58SL0D9JzOOT5+a0YTtJd4=
+Subject: FAILED: patch "[PATCH] xfs: don't queue rmap update twice when reaping a fork" failed to apply to 6.12-stable tree
+To: djwong@kernel.org,cem@kernel.org,hch@lst.de
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 12:48:57 -0500
+Message-ID: <2026110457-depravity-unflawed-a6ca@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,92 +51,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2714; i=brauner@kernel.org; h=from:subject:message-id; bh=57Zv3BgjxHPYJgAYtfWWUhWCD6jzurA4v7Zp2iJg+04=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9zrv4QSS7QmxmKncEz+ddbFt2TmsVZdYQ90tKWuXxf jfnr3lMHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABMp/8jw39du2rR1IQ2zol85 T2Hk+y4ZopKb1hC0/t8rkxtned7ZfWVkaIoWnH59RriBT2Zy3NRn+o8WPb/8RpnjV+SftqXfD/1 8xQIA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-proc_bus_pci_write() truncates the file position to an int. A pwrite()
-at an offset like 0xfffff000 turns it negative, the check against the
-size of the config space passes and the count it clamps to ends up
-larger than what was written. The loop then reads past the end of the
-caller's buffer and writes all of it into config space at negative
-offsets, which pci_user_write_config_*() pass on to the config
-accessors unchecked. The write also returns more than it was asked to
-write.
 
-An offset above 4G that truncates to a small positive value writes to
-the start of config space instead. proc_bus_pci_read() keeps the
-position in an unsigned int, so a read at such an offset returns the
-start of config space instead of hitting EOF.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Check the position against the size of the config space before
-narrowing it.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- drivers/pci/proc.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 219ff8a734d8438e24eb346a847c9b1ad9b7ab5d
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110457-depravity-unflawed-a6ca@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-diff --git a/drivers/pci/proc.c b/drivers/pci/proc.c
-index 3d7a9ed5fc22..e0dc70123f82 100644
---- a/drivers/pci/proc.c
-+++ b/drivers/pci/proc.c
-@@ -32,8 +32,7 @@ static ssize_t proc_bus_pci_read(struct file *file, char __user *buf,
- 				 size_t nbytes, loff_t *ppos)
- {
- 	struct pci_dev *dev = pde_data(file_inode(file));
--	unsigned int pos = *ppos;
--	unsigned int cnt, size;
-+	unsigned int pos, cnt, size;
- 
- 	/*
- 	 * Normal users can read only the standardized portion of the
-@@ -51,8 +50,9 @@ static ssize_t proc_bus_pci_read(struct file *file, char __user *buf,
- 	if (!nbytes)
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 219ff8a734d8438e24eb346a847c9b1ad9b7ab5d Mon Sep 17 00:00:00 2001
+From: "Darrick J. Wong" <djwong@kernel.org>
+Date: Mon, 12 Oct 2026 23:06:30 -0700
+Subject: [PATCH] xfs: don't queue rmap update twice when reaping a fork
+
+LOLLM noticed that xrep_reap_bmapi_iter calls xfs_bmap_unmap_extent and
+xfs_rmap_unmap_extent to remove a mapping from a file fork and its
+reverse mapping.  However, xfs_bmap_del_extent_real also queues a
+deferred rmap removal log item, which means that we incorrectly queue
+two rmap removal operations.  Fix that by removing the extra call and
+updating the comment to mention this subtlety that I forgot, having
+written the code. :P
+
+Cc: stable@vger.kernel.org # v6.10
+Fixes: 5befb047b9f4de ("xfs: add the ability to reap entire inode forks")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+
+diff --git a/fs/xfs/scrub/reap.c b/fs/xfs/scrub/reap.c
+index 235e5e7e16c4..a0bee8c7abc0 100644
+--- a/fs/xfs/scrub/reap.c
++++ b/fs/xfs/scrub/reap.c
+@@ -1480,12 +1480,12 @@ xrep_reap_bmapi_iter(
+ 		/*
+ 		 * t0: Schedule removal of the mapping from the fork.  We use
+ 		 * deferred log intents in this function to control the exact
+-		 * sequence of metadata updates.
++		 * sequence of metadata updates.  The BUI queues a RUI to
++		 * remove the reverse mapping.
+ 		 */
+ 		xfs_bmap_unmap_extent(sc->tp, rs->ip, rs->whichfork, imap);
+ 		xfs_trans_mod_dquot_byino(sc->tp, rs->ip, XFS_TRANS_DQ_BCOUNT,
+ 				-(int64_t)imap->br_blockcount);
+-		xfs_rmap_unmap_extent(sc->tp, rs->ip, rs->whichfork, imap);
  		return 0;
- 
--	if (pos >= size)
-+	if (*ppos >= size)
- 		return 0;
-+	pos = *ppos;
- 	if (nbytes >= size)
- 		nbytes = size;
- 	if (pos + nbytes > size)
-@@ -119,9 +119,8 @@ static ssize_t proc_bus_pci_write(struct file *file, const char __user *buf,
- {
- 	struct inode *ino = file_inode(file);
- 	struct pci_dev *dev = pde_data(ino);
--	int pos = *ppos;
- 	int size = dev->cfg_size;
--	int cnt, ret;
-+	int pos, cnt, ret;
- 
- 	ret = security_locked_down(LOCKDOWN_PCI_ACCESS);
- 	if (ret)
-@@ -130,14 +129,16 @@ static ssize_t proc_bus_pci_write(struct file *file, const char __user *buf,
- 	if (!nbytes)
- 		return 0;
- 
-+	if (*ppos >= size)
-+		return 0;
-+	pos = *ppos;
-+
- 	if (resource_is_exclusive(&dev->driver_exclusive_resource, pos, nbytes)) {
- 		pci_warn_once(dev, "%s: Unexpected write to kernel-exclusive config offset %x",
- 			      current->comm, pos);
- 		add_taint(TAINT_USER, LOCKDEP_STILL_OK);
  	}
  
--	if (pos >= size)
--		return 0;
- 	if (nbytes >= size)
- 		nbytes = size;
- 	if (pos + nbytes > size)
-
--- 
-2.53.0
 
