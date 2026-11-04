@@ -1,53 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816535;
-	b=FJcqGEl7LasmXEVffyuMB+7KuFfadtsGIlsGhui8u5uhaDOG8Mk21v99EfbU9tbd5odH
-	 KvV1eIsNW8FYaqWAHedkfRv2klrmBWgdWba22ZWApVAbI/WND61P7G5BcZ3NRxVxhlEuS
-	 /+AJdyrTNtOpEzqRdf+WBPT7eVl3xGwZkAd9WdugpRlREwiPATB1Vc1kcPd7/+8buLCOu
-	 agY4PkHtEWZTdibbKj70UC4LpFF5T2eQ3jwEM965gV41LyxDxfPvuE+bc8yqYOouQFmKX
-	 ALQ+cks8XziT8iNFWou6NpbI9IiGxAfMuwncC7EuMBfau7D8NGreKMk/HIibF1aDIuA==
+	t=1793816529;
+	b=XvYfDLYf5skGdNJC8ql/zwNYQGOC1X938KI4ARI4N7PqbGy4p2aSnbT8KxWUmnE6gkj0
+	 cVTR6xydivSduNFwT86/0XA14S3CCf9YRGVdP8Pv7QuPM4YGDvqwXKNpDJjqGoKw61Qjw
+	 9PNeyUosVbzyqjTE1NZcZ51elDE9sck5xpoFaLKzIklEYyfAADfSYt1s0xPlpabWCdpPZ
+	 FTemyI1fonhrvTI1aTrphkuUtk4ORekxj2HppE4rFNa9ML8GaOGZqOMIqp/ooQ6l59mAM
+	 r6+UJEdCJA4z4MHIo0LhttHsN+JNMu+uH6+4TucOebzLNZAuAshWYvyJHx7gOMAV1UA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816535;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816529;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qPPpN4ahLrF8o8TLPRgTarwvhVY4ABlVCELeHfidc/Q=;
-	b=r61cSqknbrsWLT1wpPfPuArDJXOwo2ewo3OM30+ZCaF+kDD58ihonNmCOAbEpo8qy2+R
-	 3mB1OxHkIc2ffCOw/jZaQ/S53nxJhZkEJUAok01fOH/KLxCS4CfFnqXkjTv+aVXI9x1iW
-	 VgSfHtntgLTP7jiBNxm7B9nfpTV+GjhOkKiW3+ksgOhnTHVaUmZRTtiX3LLJea+bMC9FQ
-	 GCQXc2pW3ST6yMHWkNI9Dwu+L9bioby67SEngBOf7caLykq+PBEljnrHDlDgVj5iz6Rqt
-	 1adeLWPf8LWgXftNzyigQcFmAzVc1ytUeBjPXVNmIjeEMJdxDLkZ8vZoq5szs5Y3LFg==
+	bh=tKZ99yrY5MwjJg6mbBHdYITDM8HO7rTF9ZUJ5jgSrtE=;
+	b=EywvljzzKkEqimYoR+6Rq8rDjhYOo+zCOS7IHGkWTVvydpkVehQCi35CXM9APTXOt8sI
+	 2LXwxl0QXpwdXSwNfswFax0RMW8OxJzH3LYJF8asXkI4FxpbtbqJG8g5ex7huhIcusmxh
+	 mGeIwr2o9jTMk8mtg2j/oRx24KmuBV1JadxCmX2WVMkjBPK0s3u+VzgazH9T8SmFkvxnB
+	 Rn4VCI6reUs7qPza9YfWUpEvxSA3w5MgUg7/ks6cYuEqm+Tocmpimbsf6FZztsbCHz4KK
+	 /tFb4Y1w/UVi6LVHyCwaLgske2mZCAwPMklXbBegkLY7MVpt8ORchiJ/gk0OzY4+ocw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AyO0ICnc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkFlMoZa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D84E606D2EF;
-	Wed,  4 Nov 2026 18:22:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79496083613;
+	Wed,  4 Nov 2026 18:22:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AyO0ICnc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2712D1F00919;
-	Wed,  4 Nov 2026 18:22:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TkFlMoZa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B8A61F0093A;
+	Wed,  4 Nov 2026 18:22:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793816535;
-	bh=qPPpN4ahLrF8o8TLPRgTarwvhVY4ABlVCELeHfidc/Q=;
+	s=k20260515; t=1793816528;
+	bh=tKZ99yrY5MwjJg6mbBHdYITDM8HO7rTF9ZUJ5jgSrtE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AyO0ICncZ/G+WVzrSQnHEGMG5uhpXeVqKpOeFqJtFLXeKIaJqfd5rcaKPfYmOzQo3
-	 Yt3/8Qk0h5qML/MT2uNhamu8T4HIz3niXHEFCmFivjkeuGkd/Xm9fVhJ4mF5F6GfBg
-	 idpCp0I5MgXiYSfYOJ8XglNTw5G/we6/PndnfyuRxEYtR8o18cQ/TWQKLet2rDWF59
-	 AltzOO6GAhb2HXBZxCVXXmxh6CU9/5MfHEucQQwfoBLr63lRid0JvlxJF7/BXFNjxx
-	 l9UAmjzVpqZauUoVatAsV1ZdbT5OrQK/IpwrLABHQFrOzUXJTyi8YGBhKUmxps0sF+
-	 XNrwyyNJ0bQQw==
+	b=TkFlMoZakaOAg8ky4ucULLy9xFmOWcZnDHOV2mS3j5XC0wUC1q/PoCV++kMnfkOEQ
+	 TUqS2Dw5zrSNBAgL44c5nR7fb/rlwVn/crSMgqEogrQqnGyWBP1dKzg06JKNs8yDU7
+	 0huHLzjp6YLouavcfQg2jc4ib3CV0pmBkRw6FsrgoI91LsR2ekKVsJUbqLgkHmaS6P
+	 pb+hBlpEU61GTKahFiI0hOYyfcMf9+2Rh5gltvGMqDMFazpBt1s5PkIi/Dw0FYlJQ0
+	 xlL1WTndlGPwQmz+9BMkyI6nqSfZQV4NaF3gm2FEz42XeclJkV4XEVIeSz3qeY5lqe
+	 kKnoFe4jXg9SA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
-	linux-kernel@vger.kernel.org
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	patches@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 03/10] regulator: core: Flush delayed disable_work before releasing supply in regulator_unregister()
-Date: Wed,  4 Nov 2026 18:20:53 +0000
-Message-ID: <20261104182148.1176116-4-lee@kernel.org>
+Subject: [PATCH 02/10] regulator: arizona-ldo1: Avoid double gpiod_put() on enable GPIO
+Date: Wed,  4 Nov 2026 18:20:52 +0000
+Message-ID: <20261104182148.1176116-3-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
 In-Reply-To: <20261104182148.1176116-1-lee@kernel.org>
 References: <20261104182148.1176116-1-lee@kernel.org>
@@ -62,54 +67,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-regulator_unregister() currently calls flush_work() on
-rdev->disable_work.work after tearing down and freeing rdev->supply.
-This has two bugs:
+Passing config.ena_gpiod to devm_regulator_register() transfers ownership
+of the GPIO descriptor to the regulator core, which releases it via
+gpiod_put() in regulator_ena_gpio_free() upon registration failure or
+when devres unregisters the regulator.
 
-1. Because rdev->disable_work is a delayed_work, flush_work() only waits
-   for work that has already been queued and ignores an armed timer,
-   allowing delayed_work_timer_fn() to fire after device_unregister()
-   has freed rdev.
-2. regulator_disable_work() locks and disables rdev->supply via
-   regulator_lock_dependent() and _regulator_disable(), so releasing
-   rdev->supply before flushing disable_work races with any pending or
-   running deferred disable work item.
+Calling gpiod_put(ldo1->ena_gpiod) in arizona_ldo1_remove() prematurely
+frees the enable GPIO while the regulator is still registered and causes
+a second gpiod_put() when devm_rdev_release() runs.  Drop the redundant
+remove callback and ena_gpiod field so the regulator core manages the
+descriptor lifetime exclusively.
 
-Use flush_delayed_work() at the start of regulator_unregister() so any
-deferred disable work completes before rdev->supply is torn down.
-
-Fixes: da07ecd93b19 ("regulator: Implement deferred disable support")
-Fixes: e032b376551a ("regulator: Fix deadlock on removal of regulators with supplies")
-Closes: https://sashiko.dev/#/bug/linux-6ee97926-52f2-4842-ba55-b554f9b39d53
-Closes: https://sashiko.dev/#/bug/linux-aac296d1-789a-469b-8bde-8e110c4447ea
+Fixes: a9191579ba10 ("regulator: arizona-ldo1: Use correct device to get enable GPIO")
+Closes: https://sashiko.dev/#/bug/linux-7988402e-ca08-4bd3-9488-5779d6da0450
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/regulator/core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/regulator/arizona-ldo1.c | 16 ----------------
+ 1 file changed, 16 deletions(-)
 
-diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index 14422cfe80e2..935fee27f126 100644
---- a/drivers/regulator/core.c
-+++ b/drivers/regulator/core.c
-@@ -6299,6 +6299,8 @@ void regulator_unregister(struct regulator_dev *rdev)
- 	if (rdev == NULL)
- 		return;
+diff --git a/drivers/regulator/arizona-ldo1.c b/drivers/regulator/arizona-ldo1.c
+index 501843996faa..981e047167ea 100644
+--- a/drivers/regulator/arizona-ldo1.c
++++ b/drivers/regulator/arizona-ldo1.c
+@@ -35,8 +35,6 @@ struct arizona_ldo1 {
  
-+	flush_delayed_work(&rdev->disable_work);
-+
- 	if (rdev->supply) {
- 		regulator_unregister_notifier(rdev->supply,
- 					      &rdev->supply_fwd_nb);
-@@ -6308,8 +6310,6 @@ void regulator_unregister(struct regulator_dev *rdev)
- 		regulator_put(rdev->supply);
+ 	struct regulator_consumer_supply supply;
+ 	struct regulator_init_data init_data;
+-
+-	struct gpio_desc *ena_gpiod;
+ };
+ 
+ static int arizona_ldo1_hc_set_voltage_sel(struct regulator_dev *rdev,
+@@ -262,8 +260,6 @@ static int arizona_ldo1_common_init(struct platform_device *pdev,
+ 	if (IS_ERR(config.ena_gpiod))
+ 		return PTR_ERR(config.ena_gpiod);
+ 
+-	ldo1->ena_gpiod = config.ena_gpiod;
+-
+ 	if (pdata->init_data)
+ 		config.init_data = pdata->init_data;
+ 	else
+@@ -287,8 +283,6 @@ static int arizona_ldo1_common_init(struct platform_device *pdev,
+ 		return ret;
  	}
  
--	flush_work(&rdev->disable_work.work);
+-	platform_set_drvdata(pdev, ldo1);
 -
- 	mutex_lock(&regulator_list_mutex);
+ 	return 0;
+ }
  
- 	WARN_ON(rdev->open_count);
+@@ -339,14 +333,6 @@ static int arizona_ldo1_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-static void arizona_ldo1_remove(struct platform_device *pdev)
+-{
+-	struct arizona_ldo1 *ldo1 = platform_get_drvdata(pdev);
+-
+-	if (ldo1->ena_gpiod)
+-		gpiod_put(ldo1->ena_gpiod);
+-}
+-
+ static int madera_ldo1_probe(struct platform_device *pdev)
+ {
+ 	struct madera *madera = dev_get_drvdata(pdev->dev.parent);
+@@ -375,7 +361,6 @@ static int madera_ldo1_probe(struct platform_device *pdev)
+ 
+ static struct platform_driver arizona_ldo1_driver = {
+ 	.probe = arizona_ldo1_probe,
+-	.remove = arizona_ldo1_remove,
+ 	.driver = {
+ 		.name = "arizona-ldo1",
+ 		.probe_type = PROBE_FORCE_SYNCHRONOUS,
+@@ -384,7 +369,6 @@ static struct platform_driver arizona_ldo1_driver = {
+ 
+ static struct platform_driver madera_ldo1_driver = {
+ 	.probe = madera_ldo1_probe,
+-	.remove = arizona_ldo1_remove,
+ 	.driver = {
+ 		.name = "madera-ldo1",
+ 		.probe_type = PROBE_FORCE_SYNCHRONOUS,
 -- 
 2.56.0.385.gac671c819a-goog
 
