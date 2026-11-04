@@ -1,42 +1,42 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826823;
-	b=TytlhVifQdb3WsylONXAw4mlKv1VoY0dCyJzQKXVwJ+5ZBX2yb6PCa2V5TQtC5yDPjaD
-	 qLLpuL+UNjBfBeq7r7qZMND4uArBeuYT9jnKPzn9TeDeSN6Y663cbsNlyqtc66FCmDTxJ
-	 T4hGKU5Zjg2tvmwmYrPRLb2pS1/+lrZfCDNIYc1ZyeXvyrCBYF9IZQICB4XX7k3DKO/8g
-	 VDe5hHCf9ZDdUht60egrNHBXnIgnZIW/LZlOIOI2Hju+IDyu6PiSnBFHqrSnnVKpnEENj
-	 ni1F+zlHmYZR0jWoeuMKbafPySbOTezJRElw+ARyIUPgQTRKQ57pISzb0YEzHJhEH6g==
+	t=1793826818;
+	b=4VD8tMvFC/SAfsSTkaaSdDSWk9a/bKzisx4cVniOXcyJJbIyz31ZBJAcrO9h7YjpZwmo
+	 on3sau2AF6p+z0PTFTOSWYypQWUoBoQfWSl3VWp+plfvnhQ5zuCB0zKw3lFvnz/LMw3kq
+	 jQJt4cicCmVMu/NvnG3PROXFWb5wH+Hl/OHT8bdxIE6NHcoTyAqRM6TaoNOJ7t/o0/qm/
+	 oUj36ShLmTt9f4sS7scF9BljrJaUtyzCxV39JUVoSBZB+04OAoQNVxg1mXhRUDcYrkAAd
+	 rtdfBbceiI9oeeVfqK8vY77utQvmuYTsTg3VYPe70mzzTePaOuzKmiLdsMn9VdRLDjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826823;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826818;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=2AR71Kee82nr/v1BgtCIuekWvRUnTkQSP+bfQZ4pfAk=;
-	b=UnkvbrGd2sG5PadkPr6uuZVnXiwcWFhMTxsiUwo38f0svAubLmypBZ18XCec0DlP3JuJ
-	 ztmHqS18RucGKBkFKzhomHK0HMXcJtXXSVaZTW91A5zFzrWXga6JDn6eS5VhHA1q3Qryc
-	 Rjq788MYYu0vEx1FieBfSbl99L3kB0Cu6zYjGx7GbgWIpl+fCotwiD+jQ8Uqx8ygKnRxV
-	 qDFnLXsrNCxPpK2x5UoQ2+V50b39B8WaWClPMTVsNCLE4eSpOeMNndTvfpRnpZT0F0PwD
-	 BNBTX4LNUTUU5W6oHW0y/p00mGWrOEan7R4idyl8I3itv2pF1P6EwXRDbrPommhnH7g==
+	bh=mb4AywhwZQs519UHUO/fYW+nIA7/6Uek0Y5c2JZ4TUA=;
+	b=TBGG7trgjZAN1d+aUoY6jI+REif+vNJb70u1fkj1HmBh4dbAlIfStaxNPPVcE3kyVgrK
+	 SClvkSWPlQNJea5i+UA5xu4fC2SvHY2FISzJtjz6tvvKpnEfBYxLDT5W0yBoNMnrNAduI
+	 Z55CmmHmllivcieTL8RAJtPxmq7a2Bx+mg1tt9oO+ZwWO6s5g29uC9bBuNYiGGvPpMopO
+	 T3xtCc1jTZHHyEhkoNymC9cgURLTMu4cpycfxiIpIcRfcw8FOTG4ZfJ3HuMdJ0EV1IaS6
+	 JEpYH9bL6eC1+NYTfa7F2yf+HHIsQPRkEt5e7smVbCpYFI2iXgejajJzQhf7j7tZMvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=njE4cLem;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=O6Tjn7LA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7446071AE0;
-	Wed,  4 Nov 2026 21:13:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B39C0606A32D;
+	Wed,  4 Nov 2026 21:13:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=njE4cLem
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40FDA1F00A16;
-	Wed,  4 Nov 2026 21:13:42 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=O6Tjn7LA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54C051F00A2B;
+	Wed,  4 Nov 2026 21:13:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793826822;
-	bh=2AR71Kee82nr/v1BgtCIuekWvRUnTkQSP+bfQZ4pfAk=;
+	s=korg; t=1793826817;
+	bh=mb4AywhwZQs519UHUO/fYW+nIA7/6Uek0Y5c2JZ4TUA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=njE4cLemGhgBvuI9r7ZhLJQs53vDQBP94XzyX3FJGBeL45h9MI2XEuTzaA4DYVqDQ
-	 VWQyZxGVBcmxQ7iF4mqcUmTUGwoFXcyNLKKmbz/odcGz/dq/XTuvfX149MrypSp2or
-	 MdTooezXplWjq64LEk7ormQ2Wl2ubdjxekgCfxxY=
+	b=O6Tjn7LAPyeleO216Jsh/k1moPBkXAaeDmDUAbTIBjV7J81VjgAQq0n0WegvLzMn6
+	 rN9ofYXo9J/UueQdXALDuKHCGkHYgTOrnbo3QDCVAgaylO1JvdS9wo0DhA16U65dJ2
+	 KZS8A9LgTxyFsjFIAxbW6BZveYlYnGCs8vBwA5P4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -44,9 +44,9 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Josef Bacik <josef@toxicpanda.com>,
 	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 029/547] io_uring/io-wq: let cancel find picked up hashed work
-Date: Wed,  4 Nov 2026 16:03:33 -0500
-Message-ID: <20261104211039.177903098@linuxfoundation.org>
+Subject: [PATCH 7.3 026/547] io_uring/io-wq: dont go to sleep on pending work
+Date: Wed,  4 Nov 2026 16:03:30 -0500
+Message-ID: <20261104211039.099830389@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -70,119 +70,88 @@ Content-Transfer-Encoding: 8bit
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit e9efeb4fc97b0879512a3c3b995ed448f2487e12 ]
+[ Upstream commit f19c38feb96802ee53a99649d740d2bf630bcce7 ]
 
-io_get_next_work() takes all the work items that share a hash off the
-work list in one go, and the worker runs them one after the other. Only
-the one it is working on is visible as ->cur_work. The others are neither
-on the list nor current, so io_wq_cancel_cb() can't find them.
+io_wq_enqueue() wakes a worker off the free list. If there is none it
+creates one, unless ->nr_running says that a worker is running. That
+relies on whoever takes ->nr_running to zero to check for pending work,
+which io_wq_dec_running() no longer does for a worker without
+->cur_work, on the grounds that an idle worker is either woken right
+away or someone else has created a worker. Neither has to be the case:
 
-IORING_OP_ASYNC_CANCEL and IORING_REGISTER_SYNC_CANCEL return -ENOENT for
-a request that has not even been started, e.g. a buffered write queued
-behind another write to the same file that is blocked, and the request is
-carried out. The cancellation done for a task or ring that goes away gets
-there in the end, as it keeps trying, but it has to wait for each item to
-become current.
+worker A (idle)          worker B (idle)          io_wq_enqueue()
+                         woken for work 1
+woken (e.g. timeout)     takes work 1
+work list is empty
+                                                  queues work 2
+                                                  B is first on the free
+                                                  list: wake_up_process(B)
+                         leaves the free list
+                         work 1 blocks
+                           nr_running 2 -> 1
+schedule_timeout()
+  nr_running 1 -> 0
+  ->cur_work == NULL
 
-Keep a pointer to the remainder of the chain next to ->cur_work, and have
-io_wq_worker_cancel() look at it. The items on it belong to the worker,
-which needs ->lock to move on to the next one. Matching work is flagged
-with IO_WQ_WORK_CANCEL and fails with -ECANCELED when its turn comes. The
-worker isn't signalled for it, that would interrupt the unrelated work it
-is busy with. As the request isn't gone yet, it is reported like running
-work, with -EALREADY.
+Work 2 isn't looked at until work 1 is done or A's idle timeout fires,
+five seconds later. ->cur_work is also NULL while a worker blocks on
+->uring_lock in io_wq_put_work(), with the same result if it was the
+only one running.
 
-Fixes: 86f3cd1b589a ("io-wq: handle hashed writes in chains")
+Let the idle worker leave ->nr_running by itself before it takes its last
+look at the work list. Both that and queueing work are done under
+acct->lock, so either the worker sees the work, or the enqueue side sees
+that it can't count on this worker. This doesn't bring back the request
+for a new worker which the check was meant to avoid, and as idle workers
+don't get to io_wq_dec_running() any more, the check can go.
+
+Fixes: 8343cae362e1 ("io_uring/io-wq: ignore non-busy worker going to sleep")
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Link: https://patch.msgid.link/20261015-b4-io-uring-fixes-v1-13-c1556f5d7bf5@toxicpanda.com
+Link: https://patch.msgid.link/20261015-b4-io-uring-fixes-v1-10-c1556f5d7bf5@toxicpanda.com
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- io_uring/io-wq.c | 35 +++++++++++++++++++++++++++++------
- 1 file changed, 29 insertions(+), 6 deletions(-)
+ io_uring/io-wq.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
 diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index 0120ec40effad..32c830d33a4da 100644
+index 6a59994d4bd5e..38fcccf389936 100644
 --- a/io_uring/io-wq.c
 +++ b/io_uring/io-wq.c
-@@ -56,6 +56,8 @@ struct io_worker {
- 	struct io_wq_acct *acct;
+@@ -467,11 +467,9 @@ static void io_wq_dec_running(struct io_worker *worker)
  
- 	struct io_wq_work *cur_work;
-+	/* rest of the hashed chain ->cur_work was taken off the list with */
-+	struct io_wq_work *next_work;
- 	raw_spinlock_t lock;
- 
- 	struct completion ref_done;
-@@ -581,6 +583,17 @@ static struct io_wq_work *io_get_next_work(struct io_wq_acct *acct,
- 	return NULL;
- }
- 
-+static void __io_assign_current_work(struct io_worker *worker,
-+				     struct io_wq_work *work)
-+{
-+	raw_spin_lock(&worker->lock);
-+	worker->cur_work = work;
-+	/* stays valid while in between two items of a chain */
-+	if (work)
-+		worker->next_work = wq_next_work(work);
-+	raw_spin_unlock(&worker->lock);
-+}
-+
- static void io_assign_current_work(struct io_worker *worker,
- 				   struct io_wq_work *work)
- {
-@@ -589,9 +602,7 @@ static void io_assign_current_work(struct io_worker *worker,
- 		cond_resched();
- 	}
- 
--	raw_spin_lock(&worker->lock);
--	worker->cur_work = work;
--	raw_spin_unlock(&worker->lock);
-+	__io_assign_current_work(worker, work);
- }
- 
- /*
-@@ -622,9 +633,7 @@ static void io_worker_handle_work(struct io_wq_acct *acct,
- 			 * work list, but isn't yet discoverable as the
- 			 * current work item for this worker.
- 			 */
--			raw_spin_lock(&worker->lock);
--			worker->cur_work = work;
--			raw_spin_unlock(&worker->lock);
-+			__io_assign_current_work(worker, work);
- 		}
- 
+ 	if (!atomic_dec_and_test(&acct->nr_running))
+ 		return;
+-	if (!worker->cur_work)
+-		return;
+ 	if (!io_acct_run_queue(acct))
+ 		return;
+-	if (io_wq_hash_defer(worker->cur_work, acct)) {
++	if (worker->cur_work && io_wq_hash_defer(worker->cur_work, acct)) {
  		raw_spin_unlock(&acct->lock);
-@@ -1175,6 +1184,7 @@ static bool __io_wq_worker_cancel(struct io_worker *worker,
- static bool io_wq_worker_cancel(struct io_worker *worker, void *data)
- {
- 	struct io_cb_cancel_data *match = data;
-+	struct io_wq_work *work;
- 
- 	/*
- 	 * Hold the lock to avoid ->cur_work going out of scope, caller
-@@ -1183,6 +1193,19 @@ static bool io_wq_worker_cancel(struct io_worker *worker, void *data)
- 	raw_spin_lock(&worker->lock);
- 	if (__io_wq_worker_cancel(worker, match, worker->cur_work))
- 		match->nr_running++;
-+	/*
-+	 * Hashed work is taken off the work list a chain at a time, what the
-+	 * worker hasn't started yet can only be found here. It doesn't move on
-+	 * without the lock. Just mark the work, it fails once it is its turn.
-+	 */
-+	for (work = worker->next_work; work; work = wq_next_work(work)) {
-+		if (match->nr_running && !match->cancel_all)
-+			break;
-+		if (match->fn(work, match->data)) {
-+			atomic_or(IO_WQ_WORK_CANCEL, &work->flags);
-+			match->nr_running++;
+ 		return;
+ 	}
+@@ -747,6 +745,19 @@ static int io_wq_worker(void *data)
+ 		raw_spin_unlock(&acct->workers_lock);
+ 		if (io_run_task_work())
+ 			continue;
++		/*
++		 * io_wq_enqueue() leaves new work to us for as long as we are
++		 * accounted as running. Get out of ->nr_running before taking
++		 * the last look at the work list, rather than when scheduling
++		 * out. No need to ask for another worker then, we can do it.
++		 */
++		clear_bit(IO_WORKER_F_RUNNING, &worker->flags);
++		atomic_dec(&acct->nr_running);
++		if (io_acct_run_queue(acct)) {
++			io_wq_worker_running(current);
++			io_worker_handle_work(acct, worker);
++			continue;
 +		}
-+	}
- 	raw_spin_unlock(&worker->lock);
- 
- 	return match->nr_running && !match->cancel_all;
+ 		ret = schedule_timeout(WORKER_IDLE_TIMEOUT);
+ 		if (signal_pending(current)) {
+ 			struct ksignal ksig;
 -- 
 2.53.0
 
