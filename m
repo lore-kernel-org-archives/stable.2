@@ -1,64 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805057;
-	b=RLoQPyyPMRMP79t88ui76NsGOE+5z0EnVV2N4ngaZE5UX0tMYOApdWvFqKUaJhknNFR9
-	 rxx27JTlKoLWU2gtlpHRAUHfJHpdNRFJUh76e2foNXaSIiFZeLoUtpPQw4pq6Oaqr6gJa
-	 VjrofTDblQCAwFLZGkwnvYvBpseL58WeYkRJHTb5Qsm0AauzVoHKGPn3YbTDIvc8vymT0
-	 ewvfGpljnLo8s1kjJ2VjGum2r+QZxiIhqqYmaYCUJ+XXYZTZ1FkUvLYJHH4jv2DT4z2Pd
-	 iUEAkCFcXa2v2xzRfMUXI8koCXXqZ+5UgCWPnND5AViReWKtqdMcb1zGBw6zZMLuNXA==
+	t=1793805191;
+	b=SzH3SM0V/9+Vu+HNOPr3df56b3UbB/5vBovePoXthn/lJ5nTOT6LPFIf03rPerFpb/XW
+	 Ez5AZqWeL/wzwp5YWeKBSAvKtej7Sl/8drLnTd0NH4v/2+LaCrJ/0ZWLiHFTvx39g6EUK
+	 ur4Jk7STe7CTQ0RrA5uj8SU8LVIPSFaw3D3s1uIPF1/iWQWSrr4wDy2cr39pCKDRpesPJ
+	 7hW1Qp95osXpE6FE1CpUa1mIMb3Ke8oeywBNIgvIGA4QuiV60/zUAl+A6GAAYBJ4Iy2wl
+	 ZywK643xv0GiQE8DKyR6vduqMtJ9VD0ws2gQhnobceLqZx78A2SCShoh1XK2KXmnavw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805057;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=c0Yx8fCK0WNB0T/fR6sEUWKNxkcIAIvJtE+ku38GnRo=;
-	b=R595X1CIotFRH8eT16UvXsBIpm9n7gOQKmfXnAd+VqBTvK6VVpCpUrK/9HN3REC5wLe5
-	 EyAhGcGn29GFLNep5MrFaiO+OrySQUm3ehA6nir1qH9vtGUCgTQt0xryFAhMbleRj+c/X
-	 KvVkfOP6zu/nauDbipxDgK3taW78qP4ZPhzPQcFpqK2miLGcPKekZoD38+OizqocR0842
-	 55CGk07akKmoqtBUAYXP53XEBwNoha2T3JFolbAnXjEXYIOHo7kkf72Ez1jIAmf0vCiIN
-	 PUwmYlKhb8Cd/6IOE/r3wkhJNuu2sCi3lNmHdjPpcX/FcIbvCEhgLMh8rXiC7jL3wMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805191;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=dskWzzN1hH35FxTBczFkiwz7l/M/BHHM5cU7UnvpCbg=;
+	b=s03g6vUYj4ELru1e/XsjQSZ+A2BscxoH6bC5idEbqY9AFR/vj7wEtTPaIcQsG4clFVYC
+	 h0j59Z76XPiGYqc4Q3wZPg6SL79rT+rtQIHdvzTBPgQ9OXVaVglCkfpidQntAm02wTnfL
+	 MC/VnpbEaAU24EouiL1FE4iZvVtu5gsVolemqBXGP4qXX72ILIJ5LYV9RQ5JK3tycAXfh
+	 qr9nNCC30GAsFPzb8IzCV1g4gbgQYdmBRfgvqoxugimFCKbSe6N6svJ4CPlKX7A66qzu3
+	 PwgeTP4NDKcdMePoCXbdclhsN2wy/zt36A2fHBQ6YVWWJhSKS4veyzBGokQr/hkKgdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VxCUen4N;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mCM61fHS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B169D606A339;
-	Wed,  4 Nov 2026 15:10:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E109E606D822
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:13:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VxCUen4N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6B771F0093A;
-	Wed,  4 Nov 2026 15:10:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793805056;
-	bh=c0Yx8fCK0WNB0T/fR6sEUWKNxkcIAIvJtE+ku38GnRo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VxCUen4NZ3vMY6FPjJBWsDBEG3Cr4cxOXUzHPRxo7vu1KJ8bVaJ2iolxlHa4/Y69O
-	 k7aD2ffxNSvIdYaB35guq4qpr63DJfMzjs7q97G4hdG4g4VQQeDvbQsJneRwE8gUP8
-	 2/jhKyKEZx2slly2Ipi2rodTX947xCSNbtCEK3Sh5R+0qywpFADx5gtr4FVnirAHpR
-	 ieZTTOgYOou9GT7LOmERzu8UgdHJGRdnjFEMc1ng2Uq1ucMkRv/14qw8lOGbu/9Dsj
-	 6XATEQawrajFHcTotkLrA7VGKUFOtqIRpbLTHgIoAkvhJTDkkFdDo2hKyPYWFU9F+k
-	 p3S+kdR1PoK5Q==
-From: Eric Dumazet <edumazet@kernel.org>
-To: davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	netdev@vger.kernel.org,
-	willemb@google.com,
-	steffen.klassert@secunet.com,
-	tom@herbertland.com,
-	cenzhang@linux.microsoft.com,
-	AutonomousCodeSecurity@microsoft.com,
-	Eric Dumazet <edumazet@kernel.org>,
-	stable@vger.kernel.org,
-	Taesoo Kim <tsgatesv@gmail.com>
-Subject: [PATCH net v4 2/2] net: gro: invalidate frag0 after a pull
-Date: Wed,  4 Nov 2026 16:10:42 +0100
-Message-ID: <20261104151042.1157782-3-edumazet@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104151042.1157782-1-edumazet@kernel.org>
-References: <20261104151042.1157782-1-edumazet@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mCM61fHS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF5CA1F000C1;
+	Wed,  4 Nov 2026 15:13:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793805190;
+	bh=dskWzzN1hH35FxTBczFkiwz7l/M/BHHM5cU7UnvpCbg=;
+	h=Subject:To:Cc:From:Date;
+	b=mCM61fHSUJX4ucZ8KqgoOP70GkdPYggAbz5ET7NDo9C8q6cOgTKZnYfRwBAN2mnQA
+	 eozEq+Q/5RXVKTWBuGXKexOCR7TG8PGgs8EjF86NUfgdrZhXxrNzd4cfyIwpzg6zxs
+	 JyGk0DRjCP10CMMaUCSA5rrAxGIKtSO4v0V3DQUI=
+Subject: FAILED: patch "[PATCH] xfs: mark cow extents bad if there's no rmap mapping for them" failed to apply to 6.12-stable tree
+To: djwong@kernel.org,cem@kernel.org,hch@lst.de
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 16:13:06 +0100
+Message-ID: <2026110406-poise-feisty-313e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,188 +51,239 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-Since commit bd56a29c7a4e ("net: gro: change skb_gro_network_header()"),
-skb_gro_header_slow() no longer invalidates NAPI_GRO_CB(skb)->frag0
-after pskb_may_pull(). skb_gro_may_pull() keeps comparing against the
-frag0_len value set in skb_gro_reset_offset(), assuming that after a
-slow pull, all later accesses are beyond frag0_len.
 
-This is not true:
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-- udp4_gro_receive() and udp6_gro_receive() read the network header
-  with skb_gro_network_header() after udp_gro_udphdr() pulled the
-  UDP header.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-- vxlan_gro_receive() calls skb_gro_remcsum_cleanup() at a lower
-  offset after the inner handlers pulled their headers.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 2ffc0619c9c2881443c5fffb10db8f2bc0aa2ce8
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110406-poise-feisty-313e@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-- skb_gro_remcsum_process() can pull beyond the inner Ethernet header
-  before eth_gro_receive() reads it.
+Possible dependencies:
 
-- napi_frags_skb() calls __skb_pull(skb, ETH_HLEN) after a slow pull,
-  so frag0 still points to the Ethernet header.
 
-If the pull consumed the first page fragment, __skb_pull_tail() released
-it. If the head had to grow, pskb_expand_head() freed the old one.
-These reads, and the 2-byte write in skb_gro_remcsum_cleanup(), then
-access memory the skb no longer holds a reference on.
 
-esp4_gro_receive(), esp6_gro_receive(), skb_gro_receive_list() and
-udp_gro_receive_segment() also pull directly and never invalidated
-frag0.
+thanks,
 
-Add skb_gro_frag0_invalidate(), which only clears frag0_len, and call
-it before each of these pulls. This is a single store in the slow path,
-and frag0 stays non NULL, so skb_gro_network_header() does not need
-a NULL test.
+greg k-h
 
-frag0 must be invalidated even if the pull fails: __pskb_pull_tail()
-can return NULL after pskb_expand_head() freed the old head, for
-instance if a frag_list member has to be cloned or pulled.
+------------------ original commit in Linus's tree ------------------
 
-As frag0 is now invalidated before a pull that can fail,
-gro_try_pull_from_frag0() can see an skb whose linear part does not
-cover skb_gro_offset() while frag0 still points to the start of the
-packet, for instance after skb_gro_remcsum_cleanup() pulled a shorter
-length. Copying from frag0 would then corrupt the headers: only use
-frag0 while frag0_len is not zero, and use pskb_may_pull() otherwise.
-If this pull fails, for instance after a failed pskb_pull() in
-esp4_gro_receive(), do not hold the packet: later GRO lookups and
-gro_complete() handlers expect its headers in the linear part.
+From 2ffc0619c9c2881443c5fffb10db8f2bc0aa2ce8 Mon Sep 17 00:00:00 2001
+From: "Darrick J. Wong" <djwong@kernel.org>
+Date: Tue, 22 Sep 2026 23:01:16 -0700
+Subject: [PATCH] xfs: mark cow extents bad if there's no rmap mapping for them
 
-This was found by Taesoo Kim and Cen Zhang, using LLM assisted code
-analysis, and confirmed with reproducers.
+LOLLM noticed that we fail to mark cow staging extents as bad if there's
+a cow staging extent but no rmap record for the cow staging event.
+Close this gap.
 
-Fixes: bd56a29c7a4e ("net: gro: change skb_gro_network_header()")
-Fixes: 9fd1ff5d2ac7 ("udp: Support UDP fraglist GRO/GSO.")
-Cc: stable@vger.kernel.org
-Reported-by: Taesoo Kim <tsgatesv@gmail.com>
-Reported-by: Cen Zhang <cenzhang@linux.microsoft.com>
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
----
- include/net/gro.h       | 10 ++++++++++
- net/core/gro.c          | 20 ++++++++++++++++----
- net/ipv4/esp4_offload.c |  1 +
- net/ipv4/udp_offload.c  |  1 +
- net/ipv6/esp6_offload.c |  1 +
- 5 files changed, 29 insertions(+), 4 deletions(-)
+Cc: stable@vger.kernel.org # v6.8
+Fixes: dbbdbd0086320a ("xfs: repair problems in CoW forks")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
 
-diff --git a/include/net/gro.h b/include/net/gro.h
-index c49ea8e1298f..7a19d4486456 100644
---- a/include/net/gro.h
-+++ b/include/net/gro.h
-@@ -160,9 +160,19 @@ static inline bool skb_gro_may_pull(const struct sk_buff *skb,
- 	return likely(hlen <= NAPI_GRO_CB(skb)->frag0_len);
- }
- 
-+/* A pull can release the page fragment frag0 points to, or reallocate
-+ * skb->head, even if it fails. Call this before the pull, to make sure later
-+ * skb_gro_header() and skb_gro_network_header() calls no longer use frag0.
-+ */
-+static inline void skb_gro_frag0_invalidate(struct sk_buff *skb)
-+{
-+	NAPI_GRO_CB(skb)->frag0_len = 0;
-+}
-+
- static inline void *skb_gro_header_slow(struct sk_buff *skb, unsigned int hlen,
- 					unsigned int offset)
+diff --git a/fs/xfs/scrub/cow_repair.c b/fs/xfs/scrub/cow_repair.c
+index 8dd9c0266e21..e49d9396edc5 100644
+--- a/fs/xfs/scrub/cow_repair.c
++++ b/fs/xfs/scrub/cow_repair.c
+@@ -200,29 +200,35 @@ xrep_cow_mark_missing_staging_rmap(
+ 	void				*priv)
  {
-+	skb_gro_frag0_invalidate(skb);
- 	if (!pskb_may_pull(skb, hlen))
- 		return NULL;
+ 	struct xrep_cow			*xc = priv;
+-	xfs_agblock_t			rec_bno;
+-	xfs_extlen_t			rec_len;
+-	unsigned int			adj;
++	const xfs_agblock_t		rec_end =
++			rec->rm_startblock + rec->rm_blockcount;
++	int				error = 0;
  
-diff --git a/net/core/gro.c b/net/core/gro.c
-index a749755c83f3..75f6a5f39a4b 100644
---- a/net/core/gro.c
-+++ b/net/core/gro.c
-@@ -245,6 +245,7 @@ int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
- 	if (unlikely(skb->remcsum_offload))
- 		return -EINVAL;
- 
-+	skb_gro_frag0_invalidate(skb);
- 	if (!pskb_may_pull(skb, skb_gro_offset(skb))) {
- 		NAPI_GRO_CB(skb)->flush = 1;
- 		return -ENOMEM;
-@@ -457,12 +458,19 @@ static void gro_pull_from_frag0(struct sk_buff *skb, int grow)
+-	if (rec->rm_owner == XFS_RMAP_OWN_COW)
+-		return 0;
+-
+-	rec_bno = rec->rm_startblock;
+-	rec_len = rec->rm_blockcount;
+-	if (rec_bno < xc->irec_startbno) {
+-		adj = xc->irec_startbno - rec_bno;
+-		rec_len -= adj;
+-		rec_bno += adj;
++	/* Was there a gap since the last rmap? */
++	if (xc->next_bno < rec->rm_startblock) {
++		error = xrep_cow_mark_file_range(xc,
++				xfs_gbno_to_fsb(cur->bc_group, xc->next_bno),
++				rec->rm_startblock - xc->next_bno);
++		if (error)
++			return error;
  	}
+ 
+-	if (rec_bno + rec_len > xc->irec_startbno + xc->irec.br_blockcount) {
+-		adj = (rec_bno + rec_len) -
+-		      (xc->irec_startbno + xc->irec.br_blockcount);
+-		rec_len -= adj;
++	if (rec->rm_owner != XFS_RMAP_OWN_COW) {
++		const xfs_agblock_t	bad_bno =
++				max(xc->irec_startbno, rec->rm_startblock);
++		const xfs_agblock_t	irec_end =
++				xc->irec_startbno + xc->irec.br_blockcount;
++		const xfs_extlen_t	bad_end = min(irec_end, rec_end);
++
++		error = xrep_cow_mark_file_range(xc,
++				xfs_gbno_to_fsb(cur->bc_group, bad_bno),
++				bad_end - bad_bno);
++		if (error)
++			return error;
+ 	}
+ 
+-	return xrep_cow_mark_file_range(xc,
+-			xfs_gbno_to_fsb(cur->bc_group, rec_bno), rec_len);
++	xc->next_bno = max(xc->next_bno, rec_end);
++	return error;
  }
  
--static void gro_try_pull_from_frag0(struct sk_buff *skb)
-+static bool gro_try_pull_from_frag0(struct sk_buff *skb)
- {
- 	int grow = skb_gro_offset(skb) - skb_headlen(skb);
+ /*
+@@ -263,10 +269,12 @@ xrep_cow_find_bad(
+ 	struct xfs_perag		*pag;
+ 	struct xfs_scrub		*sc = xc->sc;
+ 	xfs_agnumber_t			agno;
++	xfs_agblock_t			irec_end;
+ 	int				error;
  
--	if (grow > 0)
-+	if (grow <= 0)
-+		return true;
-+
-+	/* frag0 can only be used if no pull happened. */
-+	if (likely(NAPI_GRO_CB(skb)->frag0_len)) {
- 		gro_pull_from_frag0(skb, grow);
-+		return true;
+ 	agno = XFS_FSB_TO_AGNO(sc->mp, xc->irec.br_startblock);
+ 	xc->irec_startbno = XFS_FSB_TO_AGBNO(sc->mp, xc->irec.br_startblock);
++	irec_end = xc->irec_startbno + xc->irec.br_blockcount;
+ 
+ 	pag = xfs_perag_get(sc->mp, agno);
+ 	if (!pag)
+@@ -278,7 +286,7 @@ xrep_cow_find_bad(
+ 
+ 	/* Mark any CoW fork extents that are shared. */
+ 	rc_low.rc_startblock = xc->irec_startbno;
+-	rc_high.rc_startblock = xc->irec_startbno + xc->irec.br_blockcount - 1;
++	rc_high.rc_startblock = irec_end - 1;
+ 	rc_low.rc_domain = rc_high.rc_domain = XFS_REFC_DOMAIN_SHARED;
+ 	error = xfs_refcount_query_range(sc->sa.refc_cur, &rc_low, &rc_high,
+ 			xrep_cow_mark_shared_staging, xc);
+@@ -287,7 +295,7 @@ xrep_cow_find_bad(
+ 
+ 	/* Make sure there are CoW staging extents for the whole mapping. */
+ 	rc_low.rc_startblock = xc->irec_startbno;
+-	rc_high.rc_startblock = xc->irec_startbno + xc->irec.br_blockcount - 1;
++	rc_high.rc_startblock = irec_end - 1;
+ 	rc_low.rc_domain = rc_high.rc_domain = XFS_REFC_DOMAIN_COW;
+ 	xc->next_bno = xc->irec_startbno;
+ 	error = xfs_refcount_query_range(sc->sa.refc_cur, &rc_low, &rc_high,
+@@ -295,11 +303,10 @@ xrep_cow_find_bad(
+ 	if (error)
+ 		goto out_sa;
+ 
+-	if (xc->next_bno < xc->irec_startbno + xc->irec.br_blockcount) {
++	if (xc->next_bno < irec_end) {
+ 		error = xrep_cow_mark_file_range(xc,
+ 				xfs_agbno_to_fsb(pag, xc->next_bno),
+-				xc->irec_startbno + xc->irec.br_blockcount -
+-				xc->next_bno);
++				irec_end - xc->next_bno);
+ 		if (error)
+ 			goto out_sa;
+ 	}
+@@ -308,11 +315,20 @@ xrep_cow_find_bad(
+ 	rm_low.rm_startblock = xc->irec_startbno;
+ 	memset(&rm_high, 0xFF, sizeof(rm_high));
+ 	rm_high.rm_startblock = xc->irec_startbno + xc->irec.br_blockcount - 1;
++	xc->next_bno = xc->irec_startbno;
+ 	error = xfs_rmap_query_range(sc->sa.rmap_cur, &rm_low, &rm_high,
+ 			xrep_cow_mark_missing_staging_rmap, xc);
+ 	if (error)
+ 		goto out_sa;
+ 
++	if (xc->next_bno < irec_end) {
++		error = xrep_cow_mark_file_range(xc,
++				xfs_agbno_to_fsb(pag, xc->next_bno),
++				irec_end - xc->next_bno);
++		if (error)
++			goto out_sa;
 +	}
-+	return pskb_may_pull(skb, skb_gro_offset(skb));
- }
- 
- static void gro_flush_oldest(struct gro_node *gro, struct list_head *head)
-@@ -564,13 +572,17 @@ static enum gro_result dev_gro_receive(struct gro_node *gro,
- 	if (NAPI_GRO_CB(skb)->flush)
- 		goto normal;
- 
-+	/* Must be called before setting NAPI_GRO_CB(skb)->{age|last}.
-+	 * A held packet must have its headers in the linear part.
-+	 */
-+	if (unlikely(!gro_try_pull_from_frag0(skb)))
-+		goto normal;
 +
- 	if (unlikely(gro_list->count >= MAX_GRO_SKBS))
- 		gro_flush_oldest(gro, &gro_list->list);
- 	else
- 		gro_list->count++;
+ 	/*
+ 	 * If userspace is forcing us to rebuild the CoW fork or someone turned
+ 	 * on the debugging knob, replace everything in the CoW fork.
+@@ -344,9 +360,11 @@ xrep_cow_find_bad_rt(
+ 	struct xfs_rmap_irec		rm_high = { 0 };
+ 	struct xfs_scrub		*sc = xc->sc;
+ 	struct xfs_rtgroup		*rtg;
++	xfs_agblock_t			irec_end;
+ 	int				error = 0;
  
--	/* Must be called before setting NAPI_GRO_CB(skb)->{age|last} */
--	gro_try_pull_from_frag0(skb);
- 	NAPI_GRO_CB(skb)->age = jiffies;
- 	NAPI_GRO_CB(skb)->last = skb;
- 	if (!skb_is_gso(skb))
-diff --git a/net/ipv4/esp4_offload.c b/net/ipv4/esp4_offload.c
-index abd77162f5e7..2309468cfc3d 100644
---- a/net/ipv4/esp4_offload.c
-+++ b/net/ipv4/esp4_offload.c
-@@ -37,6 +37,7 @@ static struct sk_buff *esp4_gro_receive(struct list_head *head,
- 	__be32 seq;
- 	__be32 spi;
+ 	xc->irec_startbno = xfs_rtb_to_rgbno(sc->mp, xc->irec.br_startblock);
++	irec_end = xc->irec_startbno + xc->irec.br_blockcount;
  
-+	skb_gro_frag0_invalidate(skb);
- 	if (!pskb_pull(skb, offset))
- 		return NULL;
+ 	rtg = xfs_rtgroup_get(sc->mp,
+ 			xfs_rtb_to_rgno(sc->mp, xc->irec.br_startblock));
+@@ -360,7 +378,7 @@ xrep_cow_find_bad_rt(
  
-diff --git a/net/ipv4/udp_offload.c b/net/ipv4/udp_offload.c
-index cf07c3c6611a..cd9d7426b227 100644
---- a/net/ipv4/udp_offload.c
-+++ b/net/ipv4/udp_offload.c
-@@ -743,6 +743,7 @@ static struct sk_buff *udp_gro_receive_segment(struct list_head *head,
- 			pp = p;
- 		} else {
- 			if (NAPI_GRO_CB(skb)->is_flist) {
-+				skb_gro_frag0_invalidate(skb);
- 				if (!pskb_may_pull(skb, skb_gro_offset(skb))) {
- 					NAPI_GRO_CB(skb)->flush = 1;
- 					return NULL;
-diff --git a/net/ipv6/esp6_offload.c b/net/ipv6/esp6_offload.c
-index 22895521a57d..ca947cb94fb7 100644
---- a/net/ipv6/esp6_offload.c
-+++ b/net/ipv6/esp6_offload.c
-@@ -64,6 +64,7 @@ static struct sk_buff *esp6_gro_receive(struct list_head *head,
- 	if (NAPI_GRO_CB(skb)->proto == IPPROTO_UDP)
- 		encap_type = UDP_ENCAP_ESPINUDP;
+ 	/* Mark any CoW fork extents that are shared. */
+ 	rc_low.rc_startblock = xc->irec_startbno;
+-	rc_high.rc_startblock = xc->irec_startbno + xc->irec.br_blockcount - 1;
++	rc_high.rc_startblock = irec_end - 1;
+ 	rc_low.rc_domain = rc_high.rc_domain = XFS_REFC_DOMAIN_SHARED;
+ 	error = xfs_refcount_query_range(sc->sr.refc_cur, &rc_low, &rc_high,
+ 			xrep_cow_mark_shared_staging, xc);
+@@ -369,7 +387,7 @@ xrep_cow_find_bad_rt(
  
-+	skb_gro_frag0_invalidate(skb);
- 	if (!pskb_pull(skb, offset))
- 		return NULL;
+ 	/* Make sure there are CoW staging extents for the whole mapping. */
+ 	rc_low.rc_startblock = xc->irec_startbno;
+-	rc_high.rc_startblock = xc->irec_startbno + xc->irec.br_blockcount - 1;
++	rc_high.rc_startblock = irec_end - 1;
+ 	rc_low.rc_domain = rc_high.rc_domain = XFS_REFC_DOMAIN_COW;
+ 	xc->next_bno = xc->irec_startbno;
+ 	error = xfs_refcount_query_range(sc->sr.refc_cur, &rc_low, &rc_high,
+@@ -377,11 +395,10 @@ xrep_cow_find_bad_rt(
+ 	if (error)
+ 		goto out_sr;
  
--- 
-2.53.0
+-	if (xc->next_bno < xc->irec_startbno + xc->irec.br_blockcount) {
++	if (xc->next_bno < irec_end) {
+ 		error = xrep_cow_mark_file_range(xc,
+ 				xfs_rgbno_to_rtb(rtg, xc->next_bno),
+-				xc->irec_startbno + xc->irec.br_blockcount -
+-				xc->next_bno);
++				irec_end - xc->next_bno);
+ 		if (error)
+ 			goto out_sr;
+ 	}
+@@ -389,12 +406,21 @@ xrep_cow_find_bad_rt(
+ 	/* Mark any area has an rmap that isn't a COW staging extent. */
+ 	rm_low.rm_startblock = xc->irec_startbno;
+ 	memset(&rm_high, 0xFF, sizeof(rm_high));
+-	rm_high.rm_startblock = xc->irec_startbno + xc->irec.br_blockcount - 1;
++	rm_high.rm_startblock = irec_end - 1;
++	xc->next_bno = xc->irec_startbno;
+ 	error = xfs_rmap_query_range(sc->sr.rmap_cur, &rm_low, &rm_high,
+ 			xrep_cow_mark_missing_staging_rmap, xc);
+ 	if (error)
+ 		goto out_sr;
+ 
++	if (xc->next_bno < irec_end) {
++		error = xrep_cow_mark_file_range(xc,
++				xfs_rgbno_to_rtb(rtg, xc->next_bno),
++				irec_end - xc->next_bno);
++		if (error)
++			goto out_sr;
++	}
++
+ 	/*
+ 	 * If userspace is forcing us to rebuild the CoW fork or someone
+ 	 * turned on the debugging knob, replace everything in the
 
