@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799821;
-	b=eVXUJXcfQr3YBHhKoQRkZla9G4NKVE7Y8uQ1milAiNUCo6V+lwl7K+OVAd1npFU21YXt
-	 4Oh1btHtXpuTwTgZbn58hwg5uL7GI+H4rlHzz9pkz08WLJRkP+SfdqIVYYKSKRhkdOy1S
-	 tXDdK2ZgMyPldyB0GPPc+ywbNLSKUs75m/RDPsgtJaP1r5FBHs1/AMw5/lmodoPpjf8AR
-	 Qig3vchHtMiSQHowhzVu4B+G7NGjIrcheH7cKmH47bhllAMyxB0CuDQMQXdgNYjU3ROu/
-	 0LFlwB9pdLDhQufh5ylyX/NP3SFRSR/fk3APt6kiGjK29+JopJx853Fui3hoS1iltPA==
+	t=1793799829;
+	b=DgkLQvwxLC/4Qon7uGDXi+uxg8basu9Ir+yaUjZNKOzhUIBxhXs8VWWJKMsF29yu8v21
+	 xAbaEm6UwqHz8UakmC1qwpGUaWgdcyi0rNEJC6yL703iVhzMyTOPc/swE6AO6zgCpjhHL
+	 1ZFOk4/sPMPrtpiOC6n1WELNMobgHx8+oRiBNFmA/hnVFYeYBjKT41Ta/rFMJHskWB3JR
+	 qIx0ZhJ0QCkFglg4WpNUG4BS4Nf4X4QSDhd6HbtYyN7fc+hdHH9Qf/kC/JexCHJX/d3Xv
+	 iKAirO8hqDiEcHxiKDsI84b8+wIHhwNd9Q2r9Y4zPnj0amvgrMgZUUBqytgqLDNsRdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799821;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799829;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=l7gc94Hwax4DPkgV+0GhEX5FSiGHeSFaZAcVyHlZAe8=;
-	b=FC4tS6Gw3KeEX0NcBWxPt+tkhOg/IvyT7jAdrdbr/T0bDTSMlDd6L5DLvcfTKFfMRq+Y
-	 YfTz9UkvRl1LENMUGvn1CSqwPQMkvYiYxdwCVj5umVjut7RvaEkoEihj35t27+Vniz3kk
-	 c3HQFYkX/j+KV7Zeg0biACsTwJ3AORruT/K5kJk6urDTUoSNwjLYuXD19hL0H3qClzoO8
-	 xgz6i2ao4yu7QSKYyPK9hnoSPElSx/frClPV3EzvZNrF2AiEgv96qsF+l0PRi9eBDsMOc
-	 jDMzO88lEo1fYCYHI46/oTTO83TyiRcccpHDPzH4DyoQ3+Ba+yfEfXHu2XT3VTdfIuA==
+	bh=i8icQTFTRG/1ixiqdj915PPUIVjAmAQVRklVikeo6tI=;
+	b=lKNNT/LOoV/8SkTCtADWkEqtRmTkYqcAj2fj2S+Of3/8hwgxguMW3pbn2kPdeEZrNdIO
+	 me9AvoOiZSHwqfnxfAOTaKgPm73L/J1IKuRzs5LZaiaNWWdhIaGK6gSmzZGgsHNKLLtjA
+	 TGJMsOcTdotk7P993FIjFPBb1C8+yfj3eglYTCYUO8QehsW84W7k76053NX2khgUv2R0o
+	 LP0Ps1Uc7M8jm9YJ6FwehjE9FV+pOwQUvDI3TbIuDXaGUvf1pAJhsOxrgmdAGbljr24/o
+	 tgB2D30xrLF6NRxiAXnkgMxnK8O5UAf8tj5D2wzvWhEMEfuW+rEbn4Ju5dwgBwIy3tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PKS4MfLI;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gbFEVL4V;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B357606A32D
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:43:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA32B606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:43:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PKS4MfLI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82A451F000C1;
-	Wed,  4 Nov 2026 13:43:40 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gbFEVL4V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E71A1F00919;
+	Wed,  4 Nov 2026 13:43:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793799820;
-	bh=l7gc94Hwax4DPkgV+0GhEX5FSiGHeSFaZAcVyHlZAe8=;
+	s=korg; t=1793799828;
+	bh=i8icQTFTRG/1ixiqdj915PPUIVjAmAQVRklVikeo6tI=;
 	h=Subject:To:Cc:From:Date;
-	b=PKS4MfLIjLgPaYASAcJFNMBjJrm42l+GWz8VxM3XdMwAJZ1tVJIJ8EWliZtOhTDFe
-	 SKGez/taEn4qVrevskI6bIkM9bTb3ZvDhvUduNhGhKpgC5znDFrI8dRSzftlrE11KP
-	 J6YQxyGurVckodfFUfSh8Tkc54AVTqwu3AU4hMIw=
-Subject: FAILED: patch "[PATCH] HID: wacom: Fix Use-After-Free in wacom_intuos_pad" failed to apply to 5.15-stable tree
+	b=gbFEVL4VvAtdpW514rs5J5CpHWpEGN8dfmyx+DrnnS6r7goliyCwckTQdAOqHgePM
+	 abTt/y0Zh7Otaf9UYK0utBtrm5Pq6ODaFk3HHeM0YigCnq+JWrzZXIQsx7PBEOWvKU
+	 kGHlvcxwgmAwWF5CgWfAAR6NSRPM4mclrZSPpjQw=
+Subject: FAILED: patch "[PATCH] HID: wacom: Fix Use-After-Free in wacom_intuos_pad" failed to apply to 5.10-stable tree
 To: lee@kernel.org,jkosina@suse.com,ping.cheng@wacom.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:43:38 +0100
-Message-ID: <2026110438-unmasked-browbeat-7285@gregkh>
+Date: Wed, 04 Nov 2026 14:43:39 +0100
+Message-ID: <2026110439-ramble-ebook-0594@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x ef32877368a7013c060ef6bd03a30b6da2fe0c41
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110438-unmasked-browbeat-7285@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110439-ramble-ebook-0594@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
