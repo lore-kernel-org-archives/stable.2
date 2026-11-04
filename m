@@ -1,112 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811228;
-	b=ILu5cum2zx6OYqGsHF/Y91pSBUm+P/bviL30c0cS3hBcXJTFj+wUhkLg7O66Q+Whjais
-	 Y/yitvXvb7PrdKmiOxgstVV+wGqo8Wua5t2mBEmfXMkoe3jypdUzCj5wpwsU2Sfi61bFW
-	 vXTJkPjFG4ndjViv8s5mYMTE13mNVQ+tfGNfA9CjE5+up2QY2XpUmmcTpMnlXHTVE87wV
-	 I1QIcyJAJ5T87I+0nsXQL2CCKGNCei6XGByqe+YYN0k/vclHCHWr1LhZmkTNYvf+oTeo0
-	 Unno/cYv4He0SmlSVFDI32H8pLSXvl6dB5JHiwFtp5y50ZbvCr/YRQHLyesGLYEw5iA==
+	t=1793811285;
+	b=k3HZyGRV08r6VEBWmacNi+1MCL/9znrVxrupOAtcKsk11dVG3BWEfoKdq9oi+/JxWII7
+	 8gqopTV1UAkwLHpLrTI789t3CD0y6/Lfz9gqa7b8fLtVaNofo/8G7TDyv6rqGe6S5Jufm
+	 dMu+XFA6wrl4WVpdaEsWEdzXjBpbVKDpM8uV9qfFB2m8U5RkkqLY4ao/5+0qQbob6iVBR
+	 a+8mMl1BO6KNNkdUyybZGsxLhrkQzuWr14JAReGEbQQOulovAwaMDnb2oDOJYK/zUDVbD
+	 k2uGEi2CMjXv70elGHTeHW/I+oivLuXt8pgqQ1QoulPVisr1kyNNXydiLLC0usa6Wjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811228;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=4G+6DIPOVHtjtGmntgfDSVsJzFwPyFWDveLCz6VShN8=;
-	b=XgoKt5jh7lGhKCLjvhDYcnapaE6vm5Id86Cq3DoQMrHWgs6eyUKApIbDOOfi7Elc73ZJ
-	 rBphI7Qb80oUv7XcSGOoWTbwZap9oqDLpo1roBKkXlKVYULTvh2UIokSrFDf58KKVHvtp
-	 ++DQ5KMKvB6C16BTu/APNOvHQWfqY/pco1QG5pLMFBhAmD29FEhUHStnUZYj1AVfeotcH
-	 ilRvBNHvB/Gybc5Y7XLi71eflnAqGFL5S9Atnw+zj+b8+6SU5QwZHXzXH21RNpBLblU3L
-	 XFeDgfX7bLrRkFxJBR9YvSye2XczGoHaN8zxUYxZV7O8Z8uNkokmt94XlvpJ68+uM7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811285;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=VialEgseVdJGdqQdgHTTinAJ0tOMevENhFMxL7pq0mI=;
+	b=gG8+/wU/L3cQ0gvI5Jcjgbm7Nia1vkPmoyAJCwJ7aUgxYGSB8tzEaCIJpz/CCNIb+0CF
+	 +ZiknttdamO8Btcgbn/VvnGXEa291WTewoFTZ1VDT1MzJwxivtFpcN7Mh7B3rdoTPIw3h
+	 nnUUhM1ypJBFxrueKcmOZZvDpdEtqUMgZhEo/GOPZCHdBlHkjrlTF5aQqkuaUv57tpOWW
+	 oC+JEJ3MhxvPnR3Z/LIwmlhS+/xVEtYcXfZ2SLm7+Z6a441LmwdFANjIQFAMOlzatuFf/
+	 ictlsGmYTuruhmVoiVLiuOdf/4BiYNwyTQHBpHMgOel56tnwyF8r3BZb6K7RlbGSsWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="LJ/z7pF0";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5b8uXr4t;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="LJ/z7pF0";
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5b8uXr4t;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fk6jny6q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7112E606A330;
-	Wed,  4 Nov 2026 16:53:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7112E606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF201606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:54:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LJ/z7pF0;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5b8uXr4t;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LJ/z7pF0;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5b8uXr4t
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A833B1F388;
-	Wed,  4 Nov 2026 16:53:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793811225; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4G+6DIPOVHtjtGmntgfDSVsJzFwPyFWDveLCz6VShN8=;
-	b=LJ/z7pF0VqGEvjMGbdjtpFsaVmmxMIyEyeUH2Nsk+Ds6Y2YAqHhExUHzTLgBxLIU4obXoT
-	67bUTK8UA+1sfr+Qs7G3FsTWZCIFY6mp5ig3/ueQTq5RixgbpyngMO8qsTWflm06NoWwAa
-	oJY4tiq7lmZNPTJkbPbnkKP8LzG7f3Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793811225;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4G+6DIPOVHtjtGmntgfDSVsJzFwPyFWDveLCz6VShN8=;
-	b=5b8uXr4tMOajkwxeEPPuG50AWnf7Mq6lEWshBBU3mpyehhtlW3sJjk8yQqy9MGddjre/tv
-	Eh/KVn8pXEdPnZAQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="LJ/z7pF0";
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=5b8uXr4t
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793811225; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4G+6DIPOVHtjtGmntgfDSVsJzFwPyFWDveLCz6VShN8=;
-	b=LJ/z7pF0VqGEvjMGbdjtpFsaVmmxMIyEyeUH2Nsk+Ds6Y2YAqHhExUHzTLgBxLIU4obXoT
-	67bUTK8UA+1sfr+Qs7G3FsTWZCIFY6mp5ig3/ueQTq5RixgbpyngMO8qsTWflm06NoWwAa
-	oJY4tiq7lmZNPTJkbPbnkKP8LzG7f3Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793811225;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4G+6DIPOVHtjtGmntgfDSVsJzFwPyFWDveLCz6VShN8=;
-	b=5b8uXr4tMOajkwxeEPPuG50AWnf7Mq6lEWshBBU3mpyehhtlW3sJjk8yQqy9MGddjre/tv
-	Eh/KVn8pXEdPnZAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 73A29134F0;
-	Wed,  4 Nov 2026 16:53:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id mImBDxlj62q9BwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 04 Nov 2026 16:53:45 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id E5A16B439; Wed, 04 Nov 2026 17:53:40 +0100 (CET)
-Date: Wed, 4 Nov 2026 17:53:40 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Jan Kara <jack@suse.cz>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-ext4@vger.kernel.org, 
-	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Andreas Dilger <adilger.kernel@dilger.ca>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Namjae Jeon <namjae.jeon@samsung.com>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 2/9] ext2: don't read the inode block in
- ext2_sync_inode_metadata()
-Message-ID: <rczezs5hk6alwpfpd3h3yevzbpc462lv2cgqxxgh7vfkro67u4@cmz3zcc3hjyj>
-References: <20261029-work-inode-metadata_writeback-v1-0-7d6c678a585d@kernel.org>
- <20261029-work-inode-metadata_writeback-v1-2-7d6c678a585d@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fk6jny6q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20B821F000C1;
+	Wed,  4 Nov 2026 16:54:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793811284;
+	bh=VialEgseVdJGdqQdgHTTinAJ0tOMevENhFMxL7pq0mI=;
+	h=Subject:To:Cc:From:Date;
+	b=Fk6jny6qbo0LBzgEj91ptLdErlUecck9m6JAea8DGjcDJYPUvRLSW6/JVnYv0v2tr
+	 elVrVA5gwH9ECp3JGOWAFJ7Ih2Scu7wSHk3ufsl95YxzzB/NsCzcZb/QMGAR9lvxm3
+	 mnVbE1q38zor3DV6qoI0y0SARW/ASdU1a8SLWFMI=
+Subject: FAILED: patch "[PATCH] xfs: always report scrub errors in tracepoints" failed to apply to 6.6-stable tree
+To: djwong@kernel.org,cem@kernel.org,hch@lst.de
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 11:54:06 -0500
+Message-ID: <2026110406-device-hangover-5a05@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -116,115 +51,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-work-inode-metadata_writeback-v1-2-7d6c678a585d@kernel.org>
-X-Rspamd-Queue-Id: A833B1F388
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-11.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,suse.cz,toxicpanda.com,kernel.org,mail.parknet.co.jp,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,samsung.com];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Score: -11.51
-
-On Thu 29-10-26 14:28:17, Christian Brauner wrote:
-> ext2_sync_inode_metadata() looks up the inode block with
-> ext2_get_inode() which reads it from disk if it isn't cached. But a
-> block that isn't in the buffer cache is neither dirty nor under
-> writeback. So there's nothing to write or to wait for and reading it in
-> is pointless.
-> 
-> It's also not something we can afford once inode eviction calls
-> ->sync_inode_metadata() from reclaim. So look the block up with
-> sb_find_get_block_nonatomic() instead, the same way
-> fat_sync_inode_metadata() already does.
-> 
-> Cc: stable@vger.kernel.org # v7.3
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
 
-> ---
->  fs/ext2/inode.c | 12 +++++++-----
->  1 file changed, 7 insertions(+), 5 deletions(-)
-> 
-> diff --git a/fs/ext2/inode.c b/fs/ext2/inode.c
-> index 940f61a4dde3..efb50cb48da3 100644
-> --- a/fs/ext2/inode.c
-> +++ b/fs/ext2/inode.c
-> @@ -1586,19 +1586,22 @@ int ext2_write_inode(struct inode *inode, struct writeback_control *wbc)
->  int ext2_sync_inode_metadata(struct inode *inode, struct writeback_control *wbc)
->  {
->  	struct buffer_head *bh;
-> -	struct ext2_inode *raw_inode = ext2_get_inode(inode->i_sb, inode->i_ino,
-> -						      &bh);
-> +	unsigned long block, offset;
->  	int err = 0;
->  
-> -	if (IS_ERR(raw_inode))
-> +	if (ext2_inode_block(inode->i_sb, inode->i_ino, &block, &offset))
->  		return -EIO;
->  	err = mmb_sync(&EXT2_I(inode)->i_metadata_bhs);
->  	if (err) {
->  		ext2_error(inode->i_sb, __func__,
->  			"Error syncing inode metadata ino=%lu\n",
->  			(unsigned long)inode->i_ino);
-> -		goto out;
-> +		return err;
->  	}
-> +	/* A block that isn't cached is neither dirty nor under writeback. */
-> +	bh = sb_find_get_block_nonatomic(inode->i_sb, block);
-> +	if (!bh)
-> +		return 0;
->  	sync_dirty_buffer(bh);
->  	if (buffer_write_io_error(bh)) {
->  		ext2_error(inode->i_sb, __func__,
-> @@ -1606,7 +1609,6 @@ int ext2_sync_inode_metadata(struct inode *inode, struct writeback_control *wbc)
->  			(unsigned long)inode->i_ino);
->  		err = -EIO;
->  	}
-> -out:
->  	brelse(bh);
->  	return err;
->  }
-> 
-> -- 
-> 2.53.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 1ccc8f553d885d49c1bfe141ea1f331511940b3a
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110406-device-hangover-5a05@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 1ccc8f553d885d49c1bfe141ea1f331511940b3a Mon Sep 17 00:00:00 2001
+From: "Darrick J. Wong" <djwong@kernel.org>
+Date: Mon, 12 Oct 2026 23:08:04 -0700
+Subject: [PATCH] xfs: always report scrub errors in tracepoints
+
+LOLLM complains that the error processing functions in scrub will
+sometimes zero out *error before recording a tracepoint.  This makes
+diagnosing problems harder, so let's fix that.
+
+Cc: stable@vger.kernel.org # v4.15
+Fixes: 4700d22980d459 ("xfs: create helpers to record and deal with scrub problems")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+
+diff --git a/fs/xfs/scrub/btree.c b/fs/xfs/scrub/btree.c
+index 17bd8505be04..43a7ea7308ee 100644
+--- a/fs/xfs/scrub/btree.c
++++ b/fs/xfs/scrub/btree.c
+@@ -46,8 +46,14 @@ __xchk_btree_process_error(
+ 	case -ENODATA:
+ 		/* Note the badness but don't abort. */
+ 		sc->sm->sm_flags |= errflag;
++		if (cur->bc_ops->type == XFS_BTREE_TYPE_INODE)
++			trace_xchk_ifork_btree_op_error(sc, cur, level,
++					*error, ret_ip);
++		else
++			trace_xchk_btree_op_error(sc, cur, level,
++					*error, ret_ip);
+ 		*error = 0;
+-		fallthrough;
++		break;
+ 	default:
+ 		if (cur->bc_ops->type == XFS_BTREE_TYPE_INODE)
+ 			trace_xchk_ifork_btree_op_error(sc, cur, level,
+diff --git a/fs/xfs/scrub/common.c b/fs/xfs/scrub/common.c
+index e5233e31abb7..a61895872072 100644
+--- a/fs/xfs/scrub/common.c
++++ b/fs/xfs/scrub/common.c
+@@ -107,8 +107,9 @@ __xchk_process_error(
+ 	case -ENODATA:
+ 		/* Note the badness but don't abort. */
+ 		sc->sm->sm_flags |= errflag;
++		trace_xchk_op_error(sc, agno, bno, *error, ret_ip);
+ 		*error = 0;
+-		fallthrough;
++		break;
+ 	default:
+ 		trace_xchk_op_error(sc, agno, bno, *error, ret_ip);
+ 		break;
+@@ -183,8 +184,10 @@ __xchk_fblock_process_error(
+ 	case -ENODATA:
+ 		/* Note the badness but don't abort. */
+ 		sc->sm->sm_flags |= errflag;
++		trace_xchk_file_op_error(sc, whichfork, offset, *error,
++				ret_ip);
+ 		*error = 0;
+-		fallthrough;
++		break;
+ 	default:
+ 		trace_xchk_file_op_error(sc, whichfork, offset, *error,
+ 				ret_ip);
+diff --git a/fs/xfs/scrub/dabtree.c b/fs/xfs/scrub/dabtree.c
+index bbf6ece58828..02c8544d8918 100644
+--- a/fs/xfs/scrub/dabtree.c
++++ b/fs/xfs/scrub/dabtree.c
+@@ -49,8 +49,12 @@ xchk_da_process_error(
+ 	case -ENODATA:
+ 		/* Note the badness but don't abort. */
+ 		sc->sm->sm_flags |= XFS_SCRUB_OFLAG_CORRUPT;
++		trace_xchk_file_op_error(sc, ds->dargs.whichfork,
++				xfs_dir2_da_to_db(ds->dargs.geo,
++					ds->state->path.blk[level].blkno),
++				*error, __return_address);
+ 		*error = 0;
+-		fallthrough;
++		break;
+ 	default:
+ 		trace_xchk_file_op_error(sc, ds->dargs.whichfork,
+ 				xfs_dir2_da_to_db(ds->dargs.geo,
+
