@@ -1,60 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793831827;
-	b=haER5jsnARdCDQV1ODv9vBggidBcYDAQ6opwVe8+X0jp/k2fnyoXwapf2m10YYJejzTG
-	 IIdF01l+PQnteCfXUw2PUfI5G3kH6vDu4Sn+Ju/ar9WZwPyqRBrQbh/xiAHXOOnmdqR+r
-	 DuR16TMh2AQ55s+CwaaUcKd+KGEUymvdjJwalJK+Hq+G20CRNKDML2FYckreGynxsGS8R
-	 H/f3c8T8/pItva7HOMSNQXx44072a6ZK2qbJX0+kyFjYrwtvL1gLm78ypYLQQXiEXy836
-	 GqTfntIynwqc7+2m7uMbJJ9iu9n/wehSS3nGKc2yMjEn3T6fcr1c9sbLgiCLkzTsrdQ==
+	t=1793831828;
+	b=L6NgAMgk1skD3ETOrq4rjx8urHCmCTvRPBXW0KXx6CqJ8GjrKk/2Np3PRbhRGkl3+4Ju
+	 9zzsDDZJ3HbLKOHlGNzMRydu7kfyHGITgthOX0T2EtoPXDgPt+hP1ji0btyuZp+rVP4DS
+	 skldWHb/iLDK1cD3xYwVKFutRg+M/7LV8qHafY7+uiMh8Cq+O59GZlDJ3u0xW1w+y+imy
+	 kpCxJi+tR0W3/35EqMWqTAuD5jKYffxw61V3/Llbuu3gPwubZlATykOjQMip6aMeeBddJ
+	 QkfBiozNY68ZwQTD35E3H2ePyAi4EYaoIn/0wbIJoCNHPREXN+FBQ/rp60mCv9S1tOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793831827;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793831828;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=C9orzjhBnJdiCvCBT5WPpCLycXJh84BG5QvuI67+KIQ=;
-	b=mWJloQ8IiBshUHcTQF28i0RRdx4UKaOK/aJdR+AZCarP1IqSyphZE/PQhZKp4yN9ZGVd
-	 Ri33DOVDWQffMOlrdQGfeeLX3TAcAQyl57cIg3U6l1Z+fGCBvH0GZ5PLCLuH742+EJIDg
-	 EA7DBT3WI0sqpoU+SzUGrj2R+1h2rhD/TpoEfgS5FXnjTqTIq/27bqI/Aw6oZ82azjsj9
-	 6xaNNmokp52YSBsz84sU9qgZOwWF69IO30QlH72IMCPxRUXt5etSZNdxg56doNpB8TmaS
-	 eewYixQGq/8mNFuD+tlvNoRBEp/I1Y1ByQLG8pLN6xx7zMaU7fFWGY1MWSkh/20FINQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=H3JaIieos+KyR6zzBZXfF2wHbDwa3oT6SC6JNt66htw=;
+	b=E0hTOSiU6uR7qcNruuVWASDTAYO1qT8MxaV2zp+Hk50i713Unw1Hh0n7z7yF1vQyy4/c
+	 WhsfanX1rEqedytcjSe8CJKsKiTy/6eAFeWAXtm4lZ+bsuTZ5pvIJcvYhvuXWJjbpC8pe
+	 w1iFIcwgbOhcf+SkPDj4DQ6Ys+2qje1YrkBsbtE5MOQJN+9iqxTnkqyvZ3IWaU+Eha+GH
+	 dwWg8Ji9sIK9eROqF7mTEsRNVu7tzxJZ5qYMYjgjqRh5S0kLDTd4lZiC104Zk5Whv+M1L
+	 oSn5wlyDHU8t9RLyI4ih0HsH45XY0CjF+YOLVm8/5wf/bvaPVBI211sPXbFKmV8yyKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=D6uHn8cR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AE8r3Vsh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E29D606A337;
-	Wed,  4 Nov 2026 22:37:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4BB1606A878
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 22:37:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=D6uHn8cR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8BCF1F000C1;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AE8r3Vsh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE7031F00919;
 	Wed,  4 Nov 2026 22:37:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793831827;
-	bh=C9orzjhBnJdiCvCBT5WPpCLycXJh84BG5QvuI67+KIQ=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793831827;
+	bh=H3JaIieos+KyR6zzBZXfF2wHbDwa3oT6SC6JNt66htw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D6uHn8cRLAioQbNRgJUbb5EnM9X8fnRNUlkgnwG36HqkIpatCbZbkZFYClH2NdfVl
-	 bS/ApCMkFHF2/dOF370bhAB0NuDai3qx380ljlHOAJlM9eQKb4J0CHRhOik/VuzXQy
-	 rW7rjWEQ6s1N7C1Ha19KQaf8gjsqcGt6SJByqf10=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=AE8r3VshZscfIidFRO9uFFFvyY7zoc91oljSKaDCbUzFGuHWuzOb8lvznC/ej7155
+	 tWq3YWZuQeUTnsCNiE4SDy/t7x7GDAgIl4xWawPOzt1+rn4K5eFDvkLQgFFY21Zlp0
+	 vSCxHVwP6YBFv64tDtT3MdHe8MqIMo3NK/VLk3vXwDeW9BZsJvEG+vCTpOFU2Q4j+9
+	 9gkP7Pezl/h788iZyQ1mtFRxGzcQm2BKylhSyM0RCJqtiOEPL6xgBdn06y8Up0o5xs
+	 4l0wtqgGxna0qZdj7pFuRdRcbDmM8919OrjEGjJtSq/bwOkOsc0ODMxTK3iHwFwiGE
+	 +aK6n9Aj/3wyQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Qinguang Chen <chenqinguang@kuaishou.com>,
-	Zhiping Du <duzhiping@kuaishou.com>,
-	Keqiang Duan <duankeqiangcym@gmail.com>,
-	Chao Gao <chao.gao@intel.com>,
-	Sean Christopherson <seanjc@google.com>
-Subject: [PATCH 6.18 0935/1005] KVM: x86: Clear hardware HLT state when userspace makes a vCPU not-halted
-Date: Wed,  4 Nov 2026 16:11:08 -0500
-Message-ID: <20261104211109.318247810@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
-References: <20261104211043.516122098@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] ASoC: amd: ps: fix snd_acp63_remove() teardown ordering
+Date: Wed,  4 Nov 2026 17:37:05 -0500
+Message-ID: <20261104223315.540991-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110455-remark-unbuckled-2216@gregkh>
+References: <2026110455-remark-unbuckled-2216@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,174 +63,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-------------------
+[ Upstream commit c53791d673ed4da6759d276078627ec4d0c6536b ]
 
-From: Keqiang Duan <duankeqiangcym@gmail.com>
+The ACP IRQ handlers dereference the SoundWire, SoundWire DMA, and PDM
+child platform devices, but snd_acp63_remove() unregisters them while
+the interrupt is still held by devres, which frees it only after remove
+returns. An interrupt in this window is a use-after-free.
 
-commit 883719f57f5d3898637b130d6db4742471cad618 upstream.
+Mask the ACP interrupt sources and call devm_free_irq() before the
+first child device is unregistered. The masking goes through the new
+acp_hw_ops->disable_interrupts callback, keeping the remove path
+platform-agnostic. The interrupt line is shared, and acp_hw_deinit()
+clears the sources only after the children are gone, which would
+leave the line raised with no handler left to ack it. The window
+predates the tagged refactor, which only reshaped the dereferences.
 
-Force a vCPU out of its hardware-tracked halted state when userspace puts
-the vCPU into any state other than HALTED via KVM_SET_MP_STATE, i.e. clear
-VMCS.GUEST_ACTIVITY_STATE if it says the vCPU is halted.  Add an optional
-kvm_x86_ops hook to do the clearing, as SVM has no equivalent VMCB field.
+devm_free_irq() waits for in-flight handlers, but not for work the
+hardirq has already queued: acp63_irq_handler() schedules
+amd_sdw_irq_thread on the SoundWire manager. Draining that work in
+the manager's remove path is a soundwire-side change and follows
+separately.
 
-When HLT-exiting is disabled for a VM (KVM_CAP_X86_DISABLE_EXITS with
-KVM_X86_DISABLE_EXITS_HLT, e.g. QEMU's "-overcommit cpu-pm=on"), a guest
-HLT halts the physical CPU instead of exiting to KVM, and hardware saves
-GUEST_ACTIVITY_STATE=HLT into the VMCS on the next VM-Exit.  That field is
-sticky: it survives VM-Exit/VM-Enter and is only cleared by vmx_clear_hlt()
-on event injection, or by vmx_vcpu_reset() on INIT / vCPU creation.
+This issue was found by an in-house static analysis tool.
 
-Nothing clears it on a userspace-driven state change.  KVM_SET_REGS only
-writes the software register cache and KVM_SET_MP_STATE only writes
-vcpu->arch.mp_state; kvm_vcpu_running() likewise consults software state
-only.  A VMM that emulates a machine reset therefore ends up with a vCPU
-that KVM happily VM-Enters while hardware refuses to fetch instructions.
-
-Reproduce with a Linux guest by triggering a panic/kdump on a non-boot
-vCPU: nmi_shootdown_cpus() parks the other vCPUs -- including vCPU0 -- in
-crash_nmi_callback(), which does local_irq_disable() followed by a bare
-HLT.  The capture kernel then resets the machine via port 0xCF9.  QEMU
-rewrites RIP to 0xfff0 and sets mp_state to RUNNABLE, but vCPU0's
-GUEST_ACTIVITY_STATE is still HLT, so the BSP never executes the reset
-vector, never sends SIPIs, and the entire VM hangs at "reboot: machine
-restart" forever.  Only destroying and recreating the VM recovers it.
-
-Key off "not HALTED" rather than "is RUNNABLE" as HALTED is the only target
-state for which retaining the hardware halted state is meaningful; every
-other transition either can't be reached on VMX, e.g. AP_RESET_HOLD, or
-goes through vmx_vcpu_reset(), which stuffs GUEST_ACTIVITY_ACTIVE anyways.
-This also captures the intent more directly: KVM only ever drops the
-hardware halted state, it never installs it.
-
-Hook KVM_SET_MP_STATE rather than the VM-Enter path so that the clearing
-is driven by an explicit userspace declaration, and so that no work is
-added to vmx_vcpu_run().  Gate the call on kvm_hlt_in_guest() even though
-vmx_clear_hlt() checks it as well, as the check is cheap and makes it
-obvious in common code when the hardware state can exist at all.
-
-Do nothing for TDX vCPUs as TDX doesn't support disabling HLT-exiting and
-KVM cannot access a TD's VMCS, i.e. the VMCS used to run the vCPU can't
-in HALTED state, and even if it were, KVM can't change it.
-
-Fixes: caa057a2cad6 ("KVM: X86: Provide a capability to disable HLT intercepts")
+Fixes: eaf825037d6d ("ASoC: amd: ps: refactor acp child platform device creation code")
 Cc: stable@vger.kernel.org
-Tested-by: Qinguang Chen <chenqinguang@kuaishou.com>
-Signed-off-by: Zhiping Du <duzhiping@kuaishou.com>
-Signed-off-by: Keqiang Duan <duankeqiangcym@gmail.com>
-Reviewed-by: Chao Gao <chao.gao@intel.com>
-Link: https://patch.msgid.link/20260820123512.87236-1-duankeqiangcym@gmail.com
-[sean: drop claim that spurious wakeups are ok, massage changelog]
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Link: https://patch.msgid.link/20260929061349.3879-1-fanwu01@zju.edu.cn
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[ sashal: Replaced acp_hw_disable_interrupts() with the existing acp63_disable_interrupts() helper because the hardware operations framework is absent. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/include/asm/kvm-x86-ops.h |    1 +
- arch/x86/include/asm/kvm_host.h    |    7 +++++++
- arch/x86/kvm/vmx/main.c            |   13 +++++++++++++
- arch/x86/kvm/vmx/vmx.c             |    2 +-
- arch/x86/kvm/vmx/x86_ops.h         |    1 +
- arch/x86/kvm/x86.c                 |   13 +++++++++++++
- 6 files changed, 36 insertions(+), 1 deletion(-)
+ sound/soc/amd/ps/pci-ps.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
---- a/arch/x86/include/asm/kvm-x86-ops.h
-+++ b/arch/x86/include/asm/kvm-x86-ops.h
-@@ -80,6 +80,7 @@ KVM_X86_OP(interrupt_allowed)
- KVM_X86_OP(nmi_allowed)
- KVM_X86_OP(get_nmi_mask)
- KVM_X86_OP(set_nmi_mask)
-+KVM_X86_OP_OPTIONAL(clear_hlt)
- KVM_X86_OP(enable_nmi_window)
- KVM_X86_OP(enable_irq_window)
- KVM_X86_OP_OPTIONAL(update_cr8_intercept)
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -1824,6 +1824,13 @@ struct kvm_x86_ops {
- 	int (*nmi_allowed)(struct kvm_vcpu *vcpu, bool for_injection);
- 	bool (*get_nmi_mask)(struct kvm_vcpu *vcpu);
- 	void (*set_nmi_mask)(struct kvm_vcpu *vcpu, bool masked);
-+	/*
-+	 * Force the vCPU out of any hardware-tracked halted/inactive state so
-+	 * that it will fetch and execute instructions on the next VM-Enter.
-+	 * Only needed by VMX, where VMCS.GUEST_ACTIVITY_STATE persists across
-+	 * VM-Exit/VM-Enter; SVM has no equivalent VMCB field.
-+	 */
-+	void (*clear_hlt)(struct kvm_vcpu *vcpu);
- 	/* Whether or not a virtual NMI is pending in hardware. */
- 	bool (*is_vnmi_pending)(struct kvm_vcpu *vcpu);
- 	/*
---- a/arch/x86/kvm/vmx/main.c
-+++ b/arch/x86/kvm/vmx/main.c
-@@ -590,6 +590,18 @@ static void vt_set_nmi_mask(struct kvm_v
- 	vmx_set_nmi_mask(vcpu, masked);
- }
+diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
+index eb4b552c94241..8875989d63651 100644
+--- a/sound/soc/amd/ps/pci-ps.c
++++ b/sound/soc/amd/ps/pci-ps.c
+@@ -724,6 +724,8 @@ static void snd_acp63_remove(struct pci_dev *pci)
+ 	int ret;
  
-+static void vt_clear_hlt(struct kvm_vcpu *vcpu)
-+{
-+	/*
-+	 * TDX doesn't support disabling HLT-exiting, and KVM can't access a
-+	 * TD's VMCS, so there is never any hardware halted state to clear.
-+	 */
-+	if (is_td_vcpu(vcpu))
-+		return;
-+
-+	vmx_clear_hlt(vcpu);
-+}
-+
- static void vt_enable_nmi_window(struct kvm_vcpu *vcpu)
- {
- 	/* Refer to the comments in tdx_inject_nmi(). */
-@@ -947,6 +959,7 @@ struct kvm_x86_ops vt_x86_ops __initdata
- 	.nmi_allowed = vt_op(nmi_allowed),
- 	.get_nmi_mask = vt_op(get_nmi_mask),
- 	.set_nmi_mask = vt_op(set_nmi_mask),
-+	.clear_hlt = vt_op(clear_hlt),
- 	.enable_nmi_window = vt_op(enable_nmi_window),
- 	.enable_irq_window = vt_op(enable_irq_window),
- 	.update_cr8_intercept = vt_op(update_cr8_intercept),
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -1772,7 +1772,7 @@ int vmx_skip_emulated_instruction(struct
- 	return skip_emulated_instruction(vcpu);
- }
- 
--static void vmx_clear_hlt(struct kvm_vcpu *vcpu)
-+void vmx_clear_hlt(struct kvm_vcpu *vcpu)
- {
- 	/*
- 	 * Ensure that we clear the HLT state in the VMCS.  We don't need to
---- a/arch/x86/kvm/vmx/x86_ops.h
-+++ b/arch/x86/kvm/vmx/x86_ops.h
-@@ -95,6 +95,7 @@ int vmx_interrupt_allowed(struct kvm_vcp
- int vmx_nmi_allowed(struct kvm_vcpu *vcpu, bool for_injection);
- bool vmx_get_nmi_mask(struct kvm_vcpu *vcpu);
- void vmx_set_nmi_mask(struct kvm_vcpu *vcpu, bool masked);
-+void vmx_clear_hlt(struct kvm_vcpu *vcpu);
- void vmx_enable_nmi_window(struct kvm_vcpu *vcpu);
- void vmx_enable_irq_window(struct kvm_vcpu *vcpu);
- void vmx_update_cr8_intercept(struct kvm_vcpu *vcpu, int tpr, int irr);
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -11698,6 +11698,19 @@ int kvm_arch_vcpu_ioctl_set_mpstate(stru
- 	}
- 
- 	kvm_set_mp_state(vcpu, mp_state->mp_state);
-+
-+	/*
-+	 * Force the vCPU out of any hardware-tracked halted state, e.g. VMX's
-+	 * GUEST_ACTIVITY_STATE=HLT, when userspace puts the vCPU into a state
-+	 * other than HALTED.  The hardware state is sticky across VM-Exit and
-+	 * VM-Enter and is not touched by any other ioctl, so a vCPU that halted
-+	 * with HLT-exiting disabled stays wedged even after userspace rewrites
-+	 * its registers, e.g. when a VMM emulates a machine reset.
-+	 */
-+	if (kvm_hlt_in_guest(vcpu->kvm) &&
-+	    mp_state->mp_state != KVM_MP_STATE_HALTED)
-+		kvm_x86_call(clear_hlt)(vcpu);
-+
- 	kvm_make_request(KVM_REQ_EVENT, vcpu);
- 
- 	ret = 0;
-
+ 	adata = pci_get_drvdata(pci);
++	acp63_disable_interrupts(adata->acp63_base);
++	devm_free_irq(&pci->dev, pci->irq, adata);
+ 	if (adata->sdw) {
+ 		amd_sdw_exit(adata);
+ 		platform_device_unregister(adata->sdw_dma_dev);
+-- 
+2.53.0
 
