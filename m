@@ -1,48 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811845;
-	b=aDAiaIjokKWDvLDXprgQPChto4+7LKI79eh7RPiGXxih8wPr+yix35pYHkPcKF8I7TCO
-	 fJUc2rs/KrSZjhdprpwYZICrBYi0ycpTBpUsJ2Kq5OdTCp1j57mcN1X8mT7sDkCBuEGK9
-	 PZWYc7Gcp1yeoQ4igIxk++cKYcoM3r0RrURQvEJ4PXcVvxt3mytM87jTqQsiUDKj2vDZY
-	 NBixd0bY55mCigM2KjF0KAOYDw6/5NROSdcMTrViWtdlkVnuf4/uBYZhoDzK7qAheLVtR
-	 MBAkPMUNna6ndaRjL6TMeIgaLkGMgkHPdOXvk6Q4CY7Znhlt51eI0EFhVwkPJrn2s5Q==
+	t=1793811872;
+	b=OrB1mdzxiu77dhHZUjeKd5Dh9fwo5VcHLOj1nmUJ6x/8KJ5Xt4Vgr6yq5sZBL5LueQlB
+	 uw+T1R8fsvhQVNxRVFkTKo/78D3AH00iZ8/MWKee9meKXasIpZu0RuSd7iZPJrLDEKy+g
+	 m2amg+hREGJjrSDu8QVvPiqABO/BH5E6QXHaBlK9d0QSPCRQ3XPi5dH8whnHnorr4SPqa
+	 c3MWdNrI8QR8U1K6h3pK5Pa77k8DFfmdS/ZNHFrg2SodBl0GWbJQAYJaBshv0s4rlXrhc
+	 tQRQiIBQEv+v9AJJZw+G9dLL0hN45t+Jq+QSW3Ggcpxj8QSQUaL3XtUP2DPScrC/WVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811845;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=FDju3qBsmuEoe6qkaXsJ5LB/zywH6Uyq0xHvxrUuqck=;
-	b=jKNbUH5ultdhjv2IOh9oRHXQRAFNbnoMXSgROIMew9rsDYmgT+n4/MSUu0TWYqyosSk5
-	 MonkSB/lamP7PtSCgkn9Sd/MHxFFeG8v8zmsDGaicMZrx55D0x62uKDWCb3VbOB3VuWvq
-	 B7/rHFg6eefKnFn3v2E5c8WsvTKfXPIQWaU6k8QLz7w2Vj5BeA3i71G1ptmYH8GlsdU4V
-	 bj8BbXHDu+IsQokPZSpgec24UVjCbEKhlNzn+6/YKsabbJc0+1ZSQrnzuWJTkif6JO/rA
-	 N5IHWQrkeOIsAUfzcwQ8W3fpeAScTyCOTt++Ek8yLCHl0GfISvcUhMgwe5cXHkqxJrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811872;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=uk4o3l+cI6AUeTKrPcS2F8cKNnNOt3JCQtSUOlfoC4U=;
+	b=nZbAW6qdTQeX2Ti7amTkJOGIGjZ19zU2j6pA/tmTuqEQTf+3sAGrYZoQypjK0v5exUFS
+	 DuMfMk6IxsNfPltJMrcgSxGH6RS06BDTLaRy8unV+RmXVMXNh+uPDaIszElQEpYjIrkh1
+	 xanQU2SMqd0JHbnIIlJlcfxAoJNv/bRxKL1a8aWs+p0F31S4n31oItUJ8YGGESr3yehdW
+	 VpEtg5D9eAjby1MYrFcHBM+jjEmx8d3lL74Kx97QnK57PIpxf3kBjObef/9NYN+fuqcyg
+	 tH7sDHXjTTLhKaueshkC5sk26n9Y3bR9nsdrbDkIf0TeEueQoP5jyVui0nDMlGtK71Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Bez5TzcV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="Wy/Nfw9n";
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84415606A31B;
-	Wed,  4 Nov 2026 17:04:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F5E606A328;
+	Wed,  4 Nov 2026 17:04:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51F5E606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Bez5TzcV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33571F000C1;
-	Wed,  4 Nov 2026 17:04:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793811843;
-	bh=FDju3qBsmuEoe6qkaXsJ5LB/zywH6Uyq0xHvxrUuqck=;
-	h=Date:To:From:Subject;
-	b=Bez5TzcVgGkbNHGsZX+eKQUNMXbvpyUZWS2x8ZOgidc0Fq2xtIVGa1YptKU6e6h62
-	 qOuhv82RLPLTXx7q7nT7WP2QEEcXiGSbXBkH6nCmJDFhLFYJlXmNQetP968hZfJXql
-	 sUr1cwP4NvVgk5e7tx4kZcSaO/zHLpsVsirHaOGU=
-Date: Wed, 04 Nov 2026 09:04:03 -0800
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,
-	joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,
-	heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + ocfs2-advance-locking_state-through-the-live-cursor.patch added to mm-nonmm-hotfixes-unstable branch
-Message-Id: <20261104170403.D33571F000C1@smtp.kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Wy/Nfw9n
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=uk4o3l+cI6AUeTKrPcS2F8cKNnNOt3JCQtSUOlfoC4U=; b=Wy/Nfw9nAGXrezygvqCJUcWDuP
+	4tgj9tSVq9W21pEAPZZ9e6czTmt5vPLa3mjxAKu+VopWXU1bLEI6w1m4C9tz+LxLDoIrOpv/AFWdL
+	7ifGkJ3Gm7GGZZiRqwp4QZlll2MusDoLdUSyk1jgb6jvIbFJ+8S52iLM2w1eVpz5cNz3x54dRDXK5
+	6Krp4Nho2/k3OmuX0nuYY58Vsx5czGjZf/fTUbXYftJwo6QS7LB16RwIRSkIlulkfDnW08RGCrG3m
+	brKhMGLNMCjYQdus0nbmlMvJmgwdnIjcEmggGy5V9J+mXcRAjLgfK7U6zI+FZTcZSlrEf1cpCTZFt
+	6qBwWb9w==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xOePQ-007sJp-24;
+	Wed, 04 Nov 2026 17:04:24 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Wed, 04 Nov 2026 09:04:11 -0800
+Subject: [PATCH net] net/mlx5e: Fix queue stats access to queues without
+ stats
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,258 +62,106 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-mlx5e-qstats-null-v1-1-a6a003245cec@debian.org>
+X-B4-Tracking: v=1; b=H4sIAIpl62oC/yWM2w6CMBAFf4Xss5vQyiX6K8YHLgdYU6t2iyEh/
+ DtFH2eSmZUUQaB0zVYK+IrKyycwp4y6qfEjWPrEZHNbGZMX/HRLCf5obKKyn53j86WvCosaGGp
+ K3TtgkOX3vJFHpPtf6tw+0MXjRtu2A31tYDF6AAAA
+X-Change-ID: 20261104-mlx5e-qstats-null-39d642e7eef7
+To: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, 
+ Mark Bloch <mbloch@nvidia.com>, Leon Romanovsky <leon@kernel.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Joe Damato <joe@dama.to>
+Cc: netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2484; i=leitao@debian.org;
+ h=from:subject:message-id; bh=DiyLilUFtJe6EmmoocnPaoco145t0qJs//3Ho1BL0Wk=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq62WVgMUdZQ4y0rzCThMu01r/F/P+jSPB3bkZk
+ b3M/nIuo0mJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCautllQAKCRA1o5Of/Hh3
+ bWRlD/99Y/6qRsFFNX71O1qu3CGXHscsZwfh3YL61/vLVI4DDqf7GnBdpkBU9zJ0Clyrp/KBMuR
+ ZkOBaMoBvm+E+HRVEaORAGGYwbNzJGN0DwfGFL6ZG/7gb0ckFh61uFAlqyendRGKcbwkN4PXVnt
+ 3784zfyNWda0EeWDNGjD+oABU4Era2v0ljujk5bsWfXnqeqI38rI85R9TonKew6agHkGDQ0cZtW
+ 1Vcg3fUW3dyFSlaOxfia3zO8rh78fEB3RQxK4K1yk9hYZ8xFv4U/KD762bj2Jfco2DxJg+VoJMo
+ Or+yg1erejs5oFsMAcHq4oCXpcD3q/N+D5MvukWOfDHxMTAmaDVgeS032FFfyqj9jTbILWpAsuT
+ 7dON+rw/NX8kXgszgNYGQNGxd7hSKHHKsigSzydZy/zsG6l2nhoWAT0k7d+pVKzudM95mBgZDSt
+ SRW8xhs+znClLYOAdvI7jvFafPY+Q4S4NxSzyn8xvajoXTDi79YBIUtx897Nh3XV4tI/5uuvWrf
+ e47uy6ZdyuJQOME4L7wlAW8Z5ufI09HuiibVAZek1y7rgYWD+a9RF21R8xw6oKM0QswLoIggMN8
+ KETDdftzW6rDlVuM/rav9jpM2r7/XW0E8XngG/IR2qj3JXDOS+dhjwQFFNLGgyT64mFI756+Lxo
+ z92N/uGV2L24xlQ==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
+I am seeing the following mlx5e crash in the Meta fleet:
 
-The patch titled
-     Subject: ocfs2: advance locking_state through the live cursor
-has been added to the -mm mm-nonmm-hotfixes-unstable branch.  Its filename is
-     ocfs2-advance-locking_state-through-the-live-cursor.patch
+  pc : mlx5e_get_queue_stats_rx+0x4c/0xc8
+  Call trace:
+   mlx5e_get_queue_stats_rx+0x4c/0xc8 (P)
+   netdev_stat_queue_sum+0x78/0x480
+   netdev_nl_qstats_get_dump_one+0xf0/0x268
+   netdev_nl_qstats_get_dumpit+0x7c/0x1f8
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-advance-locking_state-through-the-live-cursor.patch
+When dumping device-wide qstats, the core calls the per-queue callbacks
+for every queue below real_num_{rx,tx}_queues, regardless of whether the
+netdev is up. Some of those queues have no stats behind them:
 
-This patch will later appear in the mm-nonmm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+ - RX stats live in priv->channel_stats[], which only has entries for
+   channels that have been opened (stats_nch). real_num_rx_queues can
+   be larger, for example after the channel count is raised while the
+   netdev is down, or after opening the channels failed part way.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+ - TX stats are looked up in priv->txq2sq_stats[], which is NULL for
+   SQs that were never activated and for HTB queues while the channels
+   are closed.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+In both cases the callback dereferences a NULL pointer. The dump needs
+no privileges, so any user can trigger it.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+Return early for RX queues at or above stats_nch and for TX queues
+without SQ stats.
 
-------------------------------------------------------
-From: Cen Zhang <zzzccc427@gmail.com>
-Subject: ocfs2: advance locking_state through the live cursor
-Date: Thu, 29 Oct 2026 14:56:48 +0800
-
-locking_state copies each lock resource under ocfs2_dlm_tracking_lock so
-its containing inode or quota object can be freed during the dump.  The
-copied l_debug_list pointers do not have that lifetime protection.  Yet
-ocfs2_dlm_seq_next() follows them to find the next record.
-
-Remounting read-only can free a quota-info object while a debugfs read is
-between the snapshot and the next iterator callback:
-
-  locking_state reader                Quota suspension
-  --------------------                ----------------
-  snapshot current lock resource
-    copy l_debug_list.next
-                                      remove next resource from live list
-                                      free quota-info object
-  seq_next(): follow copied link
-    read freed lock resource
-
-Advance through the live dummy cursor instead.  List removal updates its
-links under the tracking lock.  Position it after the resource being
-copied before releasing the lock, and never walk the snapshot's links. 
-Reuse the per-open snapshot for a nonzero seq_start() position, including
-read continuation and buffer retries.  Rewind the live cursor only when
-seq_file starts at index zero; seq_lseek() traverses from there through
-seq_next().  Clear the snapshot's l_ops marker at end of list so later
-reads remain at EOF.  This avoids replaying the list prefix under the
-tracking lock on each read, without adding a new cursor or position field.
-
-KASAN report as below:
-
-    BUG: KASAN: slab-use-after-free in ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
-    Read of size 8 at addr ffff888117ea9838 by task python3/489
-    
-    CPU: 3 UID: 0 PID: 489 Comm: python3 Not tainted 7.3.0-rc4-next-20260921-pmb-bt-functional-v1+ #1 PREEMPT(lazy) 
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
-     kasan_report+0xe0/0x110
-     ? ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
-     ocfs2_dlm_next_res.isra.0+0x1b1/0x1d0
-     ? __pfx_ocfs2_dlm_next_res.isra.0+0x10/0x10
-     ? __pfx_do_raw_spin_lock+0x10/0x10
-     ocfs2_dlm_seq_next+0xb8/0x4c0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     seq_read_iter+0x92f/0x1110
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     seq_read+0x362/0x5a0
-     ? __pfx_seq_read+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? selinux_file_permission+0x11d/0x540
-     full_proxy_read+0x11f/0x180
-     ? __pfx_full_proxy_read+0x10/0x10
-     vfs_read+0x1a0/0xc20
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? kmem_cache_free+0x242/0x580
-     ? __pfx_vfs_read+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? putname+0x93/0xe0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? do_sys_openat2+0x12a/0x1b0
-     ? __pfx_do_sys_openat2+0x10/0x10
-     ksys_read+0x111/0x200
-     ? __pfx_ksys_read+0x10/0x10
-     ? irqentry_exit+0xbe/0x820
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? trace_hardirqs_on_prepare+0x11d/0x150
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    RIP: 0033:0x7f0266dbb687
-    Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-    RSP: 002b:00007ffccf76fc40 EFLAGS: 00000202 ORIG_RAX: 0000000000000000
-    RAX: ffffffffffffffda RBX: 00007f0266d27780 RCX: 00007f0266dbb687
-    RDX: 0000000000000001 RSI: 00007f0266a53200 RDI: 0000000000000004
-    RBP: 00007f0266d27700 R08: 0000000000000000 R09: 0000000000000000
-    R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000001
-    R13: 00007f0266a53200 R14: 0000000000000004 R15: 00007f0266b651e0
-     </TASK>
-    
-    Allocated by task 547:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x28d/0x610
-     ocfs2_local_read_info+0x181/0x1580
-     dquot_load_quota_sb+0x68b/0x1000
-     dquot_load_quota_inode+0x227/0x3e0
-     ocfs2_enable_quotas+0x27c/0x520
-     ocfs2_fill_super+0x21f9/0x38f0
-     get_tree_bdev_flags+0x35d/0x5f0
-     vfs_get_tree+0x93/0x320
-     fc_mount+0x1d/0x200
-     path_mount+0x592/0x1e00
-     __x64_sys_mount+0x24b/0x2d0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    
-    Freed by task 577:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x308/0x580
-     ocfs2_local_free_info+0x47b/0x800
-     dquot_disable+0x5d9/0x17a0
-     ocfs2_susp_quotas.isra.0+0x22c/0x2b0
-     ocfs2_reconfigure+0x284/0xd00
-     reconfigure_super+0x3ca/0xa70
-     path_mount+0x16ae/0x1e00
-     __x64_sys_mount+0x24b/0x2d0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    
-    The buggy address belongs to the object at ffff888117ea9800
-     which belongs to the cache kmalloc-1k of size 1024
-    The buggy address is located 56 bytes inside of
-     freed 1024-byte region [ffff888117ea9800, ffff888117ea9c00)
-    
-    The buggy address belongs to the physical page:
-    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x117ea8
-    head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-    flags: 0x200000000000040(head|node=0|zone=2)
-    page_type: f5(slab)
-    raw: 0200000000000040 ffff888100042dc0 dead000000000100 dead000000000122
-    raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
-    head: 0200000000000040 ffff888100042dc0 dead000000000100 dead000000000122
-    head: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
-    head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-    head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
-    page dumped because: kasan: bad access detected
-    
-    Memory state around the buggy address:
-     ffff888117ea9700: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-     ffff888117ea9780: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-    >ffff888117ea9800: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                            ^
-     ffff888117ea9880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-     ffff888117ea9900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-    ==================================================================
-
-Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0053-v7-ec41d4bbd38bb4d795a8@gmail.com
-Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
-Cc: <jjzuming@gmail.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 7b66ae536a78 ("net/mlx5e: Add per queue netdev-genl stats")
+Cc: stable@vger.kernel.org
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
+ drivers/net/ethernet/mellanox/mlx5/core/en_main.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
- fs/ocfs2/dlmglue.c |   19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
-
---- a/fs/ocfs2/dlmglue.c~ocfs2-advance-locking_state-through-the-live-cursor
-+++ a/fs/ocfs2/dlmglue.c
-@@ -3094,9 +3094,17 @@ static void *ocfs2_dlm_seq_start(struct
- {
- 	struct ocfs2_dlm_seq_priv *priv = m->private;
- 	struct ocfs2_lock_res *iter;
-+	struct ocfs2_lock_res *dummy = &priv->p_iter_res;
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+index c3c2c5720c6f32..72bca10c579df9 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+@@ -5489,7 +5489,7 @@ static void mlx5e_get_queue_stats_rx(struct net_device *dev, int i,
+ 	struct mlx5e_rq_stats *xskrq_stats;
+ 	struct mlx5e_rq_stats *rq_stats;
+ 
+-	if (mlx5e_is_uplink_rep(priv) || !mlx5e_stats_nch_read(priv))
++	if (mlx5e_is_uplink_rep(priv) || i >= mlx5e_stats_nch_read(priv))
+ 		return;
+ 
+ 	channel_stats = priv->channel_stats[i];
+@@ -5521,6 +5521,9 @@ static void mlx5e_get_queue_stats_tx(struct net_device *dev, int i,
+ 	 * inactive sqs.
+ 	 */
+ 	sq_stats = priv->txq2sq_stats[i];
++	if (!sq_stats)
++		return;
 +
-+	/* Continue or retry the snapshot left by ->next(). */
-+	if (*pos)
-+		return priv->p_tmp_res.l_ops ? &priv->p_tmp_res : NULL;
+ 	stats->packets = sq_stats->packets;
+ 	stats->bytes = sq_stats->bytes;
  
-+	/* Reads from zero and seek traversal start at the list head. */
- 	spin_lock(&ocfs2_dlm_tracking_lock);
--	iter = ocfs2_dlm_next_res(&priv->p_iter_res, priv);
-+	list_move(&dummy->l_debug_list,
-+		  &priv->p_dlm_debug->d_lockres_tracking);
-+	iter = ocfs2_dlm_next_res(dummy, priv);
- 	if (iter) {
- 		/* Since lockres' have the lifetime of their container
- 		 * (which can be inodes, ocfs2_supers, etc) we want to
-@@ -3105,8 +3113,11 @@ static void *ocfs2_dlm_seq_start(struct
- 		 * trust any pointers on the copy returned, but that's
- 		 * ok as the information we want isn't typically held
- 		 * in them. */
-+		list_move(&dummy->l_debug_list, &iter->l_debug_list);
- 		priv->p_tmp_res = *iter;
- 		iter = &priv->p_tmp_res;
-+	} else {
-+		priv->p_tmp_res.l_ops = NULL;
- 	}
- 	spin_unlock(&ocfs2_dlm_tracking_lock);
- 
-@@ -3120,17 +3131,19 @@ static void ocfs2_dlm_seq_stop(struct se
- static void *ocfs2_dlm_seq_next(struct seq_file *m, void *v, loff_t *pos)
- {
- 	struct ocfs2_dlm_seq_priv *priv = m->private;
--	struct ocfs2_lock_res *iter = v;
-+	struct ocfs2_lock_res *iter;
- 	struct ocfs2_lock_res *dummy = &priv->p_iter_res;
- 
- 	(*pos)++;
- 	spin_lock(&ocfs2_dlm_tracking_lock);
--	iter = ocfs2_dlm_next_res(iter, priv);
-+	iter = ocfs2_dlm_next_res(dummy, priv);
- 	list_del_init(&dummy->l_debug_list);
- 	if (iter) {
- 		list_add(&dummy->l_debug_list, &iter->l_debug_list);
- 		priv->p_tmp_res = *iter;
- 		iter = &priv->p_tmp_res;
-+	} else {
-+		priv->p_tmp_res.l_ops = NULL;
- 	}
- 	spin_unlock(&ocfs2_dlm_tracking_lock);
- 
-_
 
-Patches currently in -mm which might be from zzzccc427@gmail.com are
+---
+base-commit: 241dec6f9ab74d8c3ef246764f3611666b96b9e1
+change-id: 20261104-mlx5e-qstats-null-39d642e7eef7
 
-ocfs2-serialize-inode-journal-access-with-shutdown.patch
-ocfs2-dlmfs-keep-the-superblock-alive-during-lock-work.patch
-ocfs2-advance-locking_state-through-the-live-cursor.patch
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
