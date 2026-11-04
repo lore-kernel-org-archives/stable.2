@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826893;
-	b=JmgraHQcmvY4JyEYNu11dC3efyxrinpUgVBJ9U+/NMhQwPdd1hRGu0m4oZbpa6nclR0d
-	 NG4W58qzlPbEn+YVPNtxT0Bg2QrmFm81iDS9eHhhY4YriDUGf1kShCrCA4/bareg0z0vW
-	 iBy17ADy772u07k1f8wDQPQeQ1/RHBt5I6C00T1J8t90SKUVH1Fxdi4JiDpKm0tm1P1/n
-	 6DW/UGRHk9WW94jf7KntJjM3N3NQuasvSzC9EYWoouawurR+Nx1d2Pq/fSKpxrzl/s2Sk
-	 gIKP2f/Tv5Ybq1PObBLVEVy6sHXdmmm2L9qsndJ0FpjJ9QV9gwqBPOdC37MBdtugzQg==
+	t=1793826888;
+	b=jXpSVr7BibKVLzn+OnDl2XpOb688yMhtnVHg/3jkJoOVR1o7d0e7/QKBHT0QdV6whxj2
+	 Nfl7CwKyXlNsSiX8i3bBYmLa1TGIScBJOlU/jViPxfEzOkFEnphcsD25lvgCJ856fU9c5
+	 1Q1rRP9bApxSx89keK/UlLhRxMBCRpQ6hVLGQPzvZzRJ1bPn0EBarXdUADCcKZn5AIdeW
+	 3ZXKDOyAvHnbioYj7nRIn37l4oIPguZN/0hG1jvne7hFlx0201U1QQdovZXRT+tdEVu4c
+	 iniO1qaRh7ltWHAu749qvTE4HueSDIWrvSDsXtNTprfNZlqYw76bfy3e1aU+lvYfljA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826893;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826888;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=KG6t7i+XBtMsELlwzn00XE39bNVHUODMb5Q05leb3BA=;
-	b=O2XN2ETKxkYG9m4pAZTaCjyF+JAc+y8THUOFudiQvHKssPg0jSj+slqQ2o4L6sow0Cq/
-	 o/uQzNfSRovdyz04G0RIwP3imKhcJiLR2e4L9HNRby8Q9MYjD8btMx48lRjMZFKapMG1p
-	 fcSxN9aXkFXLLeEGCPaGuBAjV8Yi5VL+7N0N21Von7WcRZafkDsnxzl4WGA2FIIYGcnmB
-	 vk+6U2U/utkXQ2LoxlanCN0bFstRvn/zc9tA/D4EC0qlcz5uGgYZLXItD2YEg/SWiw1Li
-	 zqfP/vtTOUgPSc9u/nzOPjgVoe7Z4P9oHqKvKKlNZxLG1vCEUY35bxPOL3eSdaVFvOg==
+	bh=DjWiQoIz3qDeBmS+rH/fg8mnE2gELOFWS+DORs3t4GE=;
+	b=n1naWiOXm5M1WsZTUQydG8na7K89t4CPOwP0ke3GFSW5NryYdcbtIlHpxfoh0EyouWKN
+	 jrg1DS7N/T7Jj6DKQ5pKmKWpmgTdgzneDyUnRkZKYxzGsbzEAMD7wxl5l/2Kn87JcvVkE
+	 CrjwoBYn9Bk73KMtXLxhm2/JnJabJTb0Xe/UZuUNDLzVONuGp1+7kFTgwx3wZfRsMrb0Q
+	 ZDwbDg0/wLdE55qh6U7ATXPDpuTLP6/YqKC9628xQj8nr+e68+h/hIH3EXg2gTPVg56Bb
+	 vfcZ7GMNAPns5iDZWb9v+iDlLLvUzI2eqOpyC/T9vLDUUQsPQZiN6uqvimeMptwqprA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gulcMlWa;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=s+0uzY5A;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D43F607075C;
-	Wed,  4 Nov 2026 21:14:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2086082FDF;
+	Wed,  4 Nov 2026 21:14:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gulcMlWa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAC7E1F00A1F;
-	Wed,  4 Nov 2026 21:14:52 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=s+0uzY5A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D76C41F00919;
+	Wed,  4 Nov 2026 21:14:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793826893;
-	bh=KG6t7i+XBtMsELlwzn00XE39bNVHUODMb5Q05leb3BA=;
+	s=korg; t=1793826888;
+	bh=DjWiQoIz3qDeBmS+rH/fg8mnE2gELOFWS+DORs3t4GE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gulcMlWaX5Qwc7z5SJxq4dcyfVdQbT7WbmESlv0O6cclFqb1Weco2ZuLbaNaIsbSm
-	 C+ydTMBol67tOWAsw9KoJCDcGs6oa/AzUf9EVEkU5UuaqVoptDrknegQEZ2UVpcG70
-	 Pcb68HQDOYRtAC57j5WoohHZPcmXR+i+Q24CSYto=
+	b=s+0uzY5AKcKJidWW6JwFBAS3Ii54uLevvXbjQ9mFvHOPtORk8Wzum1kieOhDVVJQN
+	 SqG17aPUC/LzDKdnEp1PMiTofu+imIeYA9JRP0p39RlHDJunprr8hBqXXxq6eFsYV+
+	 6fld/N0prNKi8oBa0H2Gr/u33oAYtoDVEBGX9ZQU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Muchun Song <muchun.song@linux.dev>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Russell King <rmk+kernel@armlinux.org.uk>
-Subject: [PATCH 7.3 070/547] ARM: 9524/1: mm: align hugetlb mappings to the huge page size
-Date: Wed,  4 Nov 2026 16:04:14 -0500
-Message-ID: <20261104211040.253079079@linuxfoundation.org>
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
+	Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH 7.3 067/547] ALSA: line6: Clear prev_fbuf on capture buffer release
+Date: Wed,  4 Nov 2026 16:04:11 -0500
+Message-ID: <20261104211040.172322839@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -68,77 +69,77 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
-commit 1eb87d8f77379d4e4b279487b8c859fb64bd1afb upstream.
+commit aa118c8f61d59387961d58ffae831c5259a9f222 upstream.
 
-mmap(MAP_HUGETLB) on 32-bit Arm can return an address which is not
-aligned to the huge page size. In a QEMU virt guest, unmapping the VMA
-then hits the alignment check in __unmap_hugepage_range():
+A KASAN slab-use-after-free read was reported in submit_audio_out_urb()
+when generating an impulse test signal:
 
-  kernel BUG at mm/hugetlb.c:5213!
-  Internal error: Oops - BUG: 0 [#1] SMP ARM
-  PC is at __unmap_hugepage_range+0x540/0x584
-  LR is at __zap_vma_range+0x13a0/0x1410
+  BUG: KASAN: slab-use-after-free in create_impulse_test_signal sound/usb/line6/playback.c:76 [inline]
+  BUG: KASAN: slab-use-after-free in submit_audio_out_urb+0x1848/0x1b20 sound/usb/line6/playback.c:249
+  Read of size 2 at addr ffff888008d74870 by task syz.2.3214/7785
 
-Commit 7bd3f1e1a9ae ("mm: make hugetlb mappings go through
-mm_get_unmapped_area_vmflags") made hugetlb mappings use the
-architecture's arch_get_unmapped_area(). The generic implementations
-handle hugetlb alignment, but the Arm implementations only account for
-the optional SHMLBA cache-colouring constraint. A 4 KiB-page kernel can
-therefore align the mapping to 4 KiB or 16 KiB instead of the required
-2 MiB.
+  Allocated by task 11:
+   kmem_cache_alloc_noprof+0x2f0/0x390 mm/slub.c:4144
+   line6_buffer_acquire+0x1a1/0x220 sound/usb/line6/pcm.c:158
+   line6_pcm_acquire+0xb6/0x230 sound/usb/line6/pcm.c:329
+   line6_startup_work+0x3c/0x50 sound/usb/line6/driver.c:728
 
-Set the alignment mask from the file's hstate for hugetlb mappings in
-both Arm implementations. Huge-page alignment also satisfies the
-SHMLBA constraint.
+  Freed by task 7785:
+   kfree+0xf8/0x390 mm/slub.c:6566
+   line6_buffer_release sound/usb/line6/pcm.c:176 [inline]
+   line6_buffer_release+0xa5/0xf0 sound/usb/line6/pcm.c:170
+   __line6_pcm_release sound/usb/line6/pcm.c:305 [inline]
+   line6_pcm_release+0x5a/0x80 sound/usb/line6/pcm.c:313
+   snd_toneport_monitor_put+0x11b/0x190 sound/usb/line6/toneport.c:183
 
-Assisted-by: LLM
+line6pcm->prev_fbuf points into the capture PCM stream buffer
+(line6pcm->in.buffer), which is updated during audio_in_callback() to
+feed rate synchronization, software monitoring, and impulse test signal
+generation on playback side.
 
-Fixes: 7bd3f1e1a9ae ("mm: make hugetlb mappings go through mm_get_unmapped_area_vmflags")
+When all capture streams are closed, line6_buffer_release() frees
+pstr->buffer with kfree().  However, it does not clear line6pcm->prev_fbuf.
+If playback is subsequently started (e.g. via impulse test signal
+volume control snd_line6_impulse_volume_put()), submit_audio_out_urb()
+dereferences the stale pointer line6pcm->prev_fbuf under in.lock,
+resulting in a slab-use-after-free read.
+
+Clear prev_fbuf and prev_fsize in line6_buffer_release() when releasing
+the capture stream buffer under in.lock, ensuring that no stale buffer
+pointer can be accessed by submit_audio_out_urb().
+
+Fixes: 63e20df1e5b2 ("ALSA: line6: Reorganize PCM stream handling")
 Cc: stable@vger.kernel.org
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Link: https://lore.kernel.org/r/20260901085740.66283-1-kmehltretter@gmail.com/
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Link: https://patch.msgid.link/20261013063554.571-1-25031212351@stu.xidian.edu.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- arch/arm/mm/mmap.c |   11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ sound/usb/line6/pcm.c |    8 ++++++++
+ 1 file changed, 8 insertions(+)
 
---- a/arch/arm/mm/mmap.c
-+++ b/arch/arm/mm/mmap.c
-@@ -11,6 +11,7 @@
- #include <linux/io.h>
- #include <linux/personality.h>
- #include <linux/random.h>
-+#include <linux/hugetlb.h>
- #include <asm/cachetype.h>
- 
- #define COLOUR_ALIGN(addr,pgoff)		\
-@@ -72,7 +73,10 @@ arch_get_unmapped_area(struct file *filp
- 	info.length = len;
- 	info.low_limit = mm->mmap_base;
- 	info.high_limit = TASK_SIZE;
--	info.align_mask = do_align ? (PAGE_MASK & (SHMLBA - 1)) : 0;
-+	if (filp && is_file_hugepages(filp))
-+		info.align_mask = huge_page_mask_align(filp);
-+	else
-+		info.align_mask = do_align ? (PAGE_MASK & (SHMLBA - 1)) : 0;
- 	info.align_offset = pgoff << PAGE_SHIFT;
- 	return vm_unmapped_area(&info);
- }
-@@ -123,7 +127,10 @@ arch_get_unmapped_area_topdown(struct fi
- 	info.length = len;
- 	info.low_limit = FIRST_USER_ADDRESS;
- 	info.high_limit = mm->mmap_base;
--	info.align_mask = do_align ? (PAGE_MASK & (SHMLBA - 1)) : 0;
-+	if (filp && is_file_hugepages(filp))
-+		info.align_mask = huge_page_mask_align(filp);
-+	else
-+		info.align_mask = do_align ? (PAGE_MASK & (SHMLBA - 1)) : 0;
- 	info.align_offset = pgoff << PAGE_SHIFT;
- 	addr = vm_unmapped_area(&info);
- 
+--- a/sound/usb/line6/pcm.c
++++ b/sound/usb/line6/pcm.c
+@@ -173,6 +173,14 @@ static void line6_buffer_release(struct
+ 	clear_bit(type, &pstr->opened);
+ 	if (!pstr->opened) {
+ 		line6_wait_clear_audio_urbs(line6pcm, pstr);
++		if (pstr == &line6pcm->in) {
++			/* prev_fbuf points into the capture buffer we are about
++			 * to free; drop it while no capture URB is in flight.
++			 */
++			guard(spinlock_irqsave)(&line6pcm->in.lock);
++			line6pcm->prev_fbuf = NULL;
++			line6pcm->prev_fsize = 0;
++		}
+ 		kfree(pstr->buffer);
+ 		pstr->buffer = NULL;
+ 	}
 
 
