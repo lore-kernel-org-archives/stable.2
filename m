@@ -1,101 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.139
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793762887;
-	b=X6/a7QEStjpJH3cVCPnXxmm1DCEuAVVorXa8sgNwAL8Ajn6zdOzrSw8n9NoajEccGJAx
-	 7xqj8wlDiZjdEJARZ4TFfh7na0Lk5VVCO4yzP1lHLVktEZEZZVy4tQ8Ux0v1B0nbUJkoz
-	 n0b0znruKgL1VKEZoc+MLEWrfrmrVIFtzuary1jk1iuED/s9IQcSLUt8fvR3TGwVE8SWS
-	 Yw4C8deB0sO1wWzKYpCHvcZMWtgCwW2iHJ0OoYfEbE5g83B69uS/r551Tw/xSl/YIalBh
-	 kbAg3HKKm0Q2rFLKEhLgHUWIGVq0zCvfqwoYUyMQqmNaymBwm8lVMgG4rkIyjIDO5QQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793762887;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=TKN5fm3lE6PDFTg4E4wZZqhp3eyt6dK1s1483aTN3Bo=;
-	b=3oULxr5tILHYyLZFfmrqZ0D9AdqQID9TKSpUMFfkzJQySiUaLuLttiN8ml5Pey4AqLMe
-	 LUafyCtso1PikbT3LHPei2wPEnSmy9cutBPygpGgkDMSszMBCiJ8QIFxGxA1FQB/tkaPh
-	 zDuhJ9t3jkXzhFPznCStKud23qf3Vj1yM6eEDsEkFxkehbxyHW6vPP8n0Uo4RFhjMSIBK
-	 DgLFcEdRsGY8NB+Q3y/o3FHvlNd2p9Jp/A3CVI8P/TvbbkW0rLf6oJFAU957E8sWcA9q/
-	 WUsBw9LDv6hohkJP5Gg4OkzwbT2zYj9nkDQTlAaz21KdXJnQjCBmBjT1zLm8g4nOb+w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dw1w6O5E;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.139
-Received: from mail-yx2-f11.google.com (mail-yx2-f11.google.com [74.125.224.139])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.230
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793762889;
+	b=LLzT2u4Bp2AZVJlCYl6uqLNLSVXoCejW1Lv2GGYKg4i25mDS3vinu6QWusB5BzCxDw2S
+	 yGy8NGoA11s/oAIVymLSWkRkCZseA4s/3iMVyNMZ7+XOfmDSkVTfvkIlKKgwMWvjyViZ4
+	 P6CZM4gaeIRF8CHvFXhox8n8WkGROqXXYW7rAvxZHifkxqieJOBGf7EnuLqU5APQdeKzU
+	 iCVV2BbMZKKO8Wn2Sd8ndAYdNcB+c2rIr1HJBT74Q1w06z6y99NwzK0m6nPcyM6bCAFga
+	 YV3pNgDFfL2oVIu9NmLiuDJE6jRNVqOjnzIX7nLs20RVGLca0MVuMW4LsAISX6yrHLw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793762889;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=j371QPGtCFPV+Osbl1SGKaUOxa6Nr78TllBqJLarcOY=;
+	b=soLM0k6XsehdG3mdMsl0j15Fm5ddL1F/c6B4rbFHWl6+RqZnxJwezG8E7WmLwN8gZFEL
+	 1Dmwy7rte3mMxIUl55veDx9xjSAGiy07Z1ls/6BfkodUNCZdwvxoXJmIaZQF5sQE6uh8i
+	 7g76CTgbEP1Kvhwofn9wKaFXpvYiRuQw5B6MCkyCUXwX/TcVdF90U9In5PQH3x9ApTe3s
+	 QkiP1zOxP7AR6WImkpOTfhemvE6/uF9yK4odqb3jsWk4K/Z7GhNXRo2FgC+SLr2wikS2I
+	 WZMUMaij83PgRkGvW+wdEGk6Z+mkh7U3sjrv4EZXyddTbNxLBGU668r8TZrLXjjZKYg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="GH3/5Rdq";
+	arc=none smtp.remote-ip=95.215.58.230
+Received: from mta1.migadu.com (out-230.mta1.migadu.com [95.215.58.230])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6657606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE3C606A31B
 	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 03:28:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6657606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAE3C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dw1w6O5E
-Received: by mail-yx2-f11.google.com with SMTP id 956f58d0204a3-67a51292ce3so147880d50.0
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 19:28:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793762886; cv=none;
-        d=google.com; s=arc-20260327;
-        b=J19xRSrykRqIlHgvnbcoOIZbwiUntYJHo8w7ZIMbgtCQDKVpFH/ygckr65KujVhdlX
-         7E3ZV9vyYF6996XQ9TlCnVirG1h1uTcOd1RqrnsZ6o/StMB8YuqzJWfyz0WPA5m7ynsP
-         1uxuNHspfZXBgMWduYOa6DWl8SsJ5JPyePnb8JTr3B8N3NpIH3rgW0EgXdWus0UVnnwq
-         ikwT+4DqjrIm6vpDQ6o0gXNzyeiFROBpVun5iQbAvqnKALe4kpuqbhX9CI+92dd1IU5E
-         NEo3Wkg3NjAC9nbYFLIWe1QHaLEouKCHPF03uc2i++lr2hYH91XPfu1gfHfKJqfGK9Hd
-         dIhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TKN5fm3lE6PDFTg4E4wZZqhp3eyt6dK1s1483aTN3Bo=;
-        fh=94S+/3ICg/02l3x8FEo3vjl/P24+b/K5kFv0NpiRf3Y=;
-        b=qPb9QAgpqHnnE/765IgPL5AaGOvTH+x8AD53lKwLGoiezGeW7+4QhtrUDh/FNDdzh0
-         6QOb1VGxR+srCgm7r9r0V4sj3tz9JYm+aZSnaHbhbT1Zh/4fA7TN4eqmXwK1QqCxjIDd
-         dtZl5W3WOT6YGeOqpAeJLmwzGnZlYpKyXpp0e+siHKNT3Maip+2paB5YwwK7iwuPW9SQ
-         sDDO4f93040pGQGB5eQ8Mx46CCIzSVkb5YS2pWPH9UPFN+XvV8Pwv6EDlAEY0hSRnLwf
-         nJVXHGxbGgWmOTNyZIK47L8WZM1A2WC8MNQcJPvzRheUHZCbKJ4oYUPzxRQ8c14kd0wh
-         LCCA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793762886; x=1794367686; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TKN5fm3lE6PDFTg4E4wZZqhp3eyt6dK1s1483aTN3Bo=;
-        b=Dw1w6O5EUnpm393XQ2xHXvpYnx4DuRvEb75Qu6TwCtbbIxjyYM0Vb88t/Vc/UeEVVD
-         5B7ypa7o5ZhemJ5Yvh77dquQToqee/RAyTWH74SrjIpeqD1tqkRJAhPnu7cTIkWul2bF
-         eQalHBHwFKvLUQV9hdCGpbhUgbkd7RiMhkYOU2oD1V+niZVKMMaN4Ep5Dqxq9bsclcB0
-         SQVeemz6NVgahtYGmTIoM6/vQeRfLFt1Vn/mNVSAT+d73T39tCXkoBKrn1ScqCl7AFf0
-         iVRTJkV8FfiGoVTaNJSLcEfa084ZVqJa5OFGa6JMYCgFQCNVfuxCaG4za6Drh12gGSCF
-         Bg7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793762886; x=1794367686;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TKN5fm3lE6PDFTg4E4wZZqhp3eyt6dK1s1483aTN3Bo=;
-        b=KZ2dgM4dObYLDjWEv5MooP62uQR7Eks1Yh/tNg2AiqIcxgf1b8DC2fJfPPCt2tdWMc
-         L5ALGhZ+neEjPLDPh617LfvSCg5XjZmYh95ea3eBeV5VGa910rj0gjuHgerc6DlqsNzE
-         viSosLrg+hfQLzgEVBvav/tGXBUbObb0hWDtoQXFkyV6CBQYL3AuN77iSOrhy9BPA6vG
-         sPEYnePTAinq9DmGAlkFKWQ9KUnA3UM6QEavSpaF1NhT9MmkwvA7U3q2+umNxM+NjYih
-         oQDWsFlMupIYL8cF33YqH+0waa/MQy+fR0J+8VHYNKvpukZvsVAN6d2csMM9UTq1eZND
-         Sr3w==
-X-Forwarded-Encrypted: i=1; AKwUvBz7xM8y/Zz/Ihgkxmo+zXHCGGDMxsoq+7BT8//J73CQjnphRJ61Pq83XIICwS/+g7djsKZ/flw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+YAPiGhAek49PTshrZ7Gm6T7Cj5XBm7EUbFaiADTeB0Eg+tEU6
-	4WR82ZZq11lt5vk1yQXUrc42ylu/joFZpHizOPQeDPrpy1a55utH8cLt5pJt+tkEBRBIQqiFQRb
-	YUy1uHWNKryFYAlzAYW3dJrj6OwX9itU=
-X-Gm-Gg: AYBFou1WFW6AQNAdIyAFOv+WHNShnPpOBerkYHNEV71jlX9eB7bYNCN6nci9DeRW5x8
-	NKaCq15TCP+TS7wpzz611sJHS11ApOYj+fiLoysRvBLm3YoR5IfZy1dK6B8FTl16WkrpcGXhLgh
-	tAPuNhkeBuN1G86rXr2a0KuFB/nZQMJMKe9/DTzArImYgaApXu0buR+B36HmzCnc/5Wta8mNrEa
-	AJT4L2775WDqi+VpdokIcLg+Uldr3cdHAKeeZVaqX7yNU/Kh73xlkrmpJbd6nl3yyvEUXESbYEr
-	ry/r7MAVh5s4G6BbIvKcDN6r4Eyx/x7YFUSoHICzYVujov3oTn6Z+bQvlAL0MllbrSNRXv9g7LB
-	pqdDGva4L+CZ6lgjaBeW0S60UEqPAl1gv/YlCJ9YNr/PY2422tnkO81+m4qtOjsW/aIPSTZ5BZV
-	kJbi8gFluAZxd049Y=
-X-Received: by 2002:a05:690e:484f:b0:679:bf13:c01b with SMTP id
- 956f58d0204a3-67ba4e968d9mr7976806d50.17.1793762885716; Tue, 03 Nov 2026
- 19:28:05 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GH3/5Rdq
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=GqvAQHYdWiYyT2aaCpv6yjKE3M/YhdWdm4Wb8nulwQ0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793762885; v=1; x=1794367685;
+ b=GH3/5Rdqw2twps5UKA5/nQBLEGOlXJwRbpFzL2sc0jprsLwog/p2LnuitbVMmOcF+CJxXoCS
+ 21SciKaEuno2FSI6O/BUzvSIU1T5RD4CPedSDelDDyxqA3taVK3prRVx3tI+E+s+T67bfxLJCnq
+ 61S11zOHNu1fsSMZCplZFCFQ=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id aafce94ffd4739ab;
+	Wed, 04 Nov 2026 03:28:04 +0000
+X-Mizu-Trace-ID: aafce94ffd4739ab
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <8b7f6573-ed12-494f-9210-d6f6dbf01567@linux.dev>
+Date: Wed, 4 Nov 2026 11:27:59 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,110 +58,223 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103144148.14430-1-jianyungao89@gmail.com> <aun6-mywXYg2VTL4@nidhogg.toxiclabs.cc>
-In-Reply-To: <aun6-mywXYg2VTL4@nidhogg.toxiclabs.cc>
-From: Jianyun Gao <jianyungao89@gmail.com>
-Date: Wed, 4 Nov 2026 11:27:54 +0800
-X-Gm-Features: AclHuK8-QaZQophNFvzc0AoFSF-bpUKDXP10OLzU1_aqdxeGYmQPW2wekA4osYg
-Message-ID: <CAHP3+4ChRtv5OCoRrF9-D2GYXJnu0kS4_3O7kXqYRbTtLAt8mA@mail.gmail.com>
-Subject: Re: [PATCH] xfs: fix spurious len double-counting in rmap three-way
- merge check
-To: Carlos Maiolino <cem@kernel.org>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	"Darrick J. Wong" <djwong@kernel.org>, Alexei Starovoitov <ast@kernel.org>, Eric Sandeen <sandeen@redhat.com>, 
-	Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>, Yuzuki Ishiyama <ishiyama@hpc.is.uec.ac.jp>, 
-	Dave Chinner <dchinner@redhat.com>, 
-	"open list:XFS FILESYSTEM" <linux-xfs@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] mm: hugetlb: skip CMA allocations under
+ PF_MEMALLOC_PIN
+To: Muchun Song <muchun.song@linux.dev>
+Cc: osalvador@suse.de, David Hildenbrand <david@kernel.org>,
+ akpm@linux-foundation.org, azpijr@gmail.com, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, stable@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>
+References: <cover.1793692578.git.zhengqi.arch@bytedance.com>
+ <5bc00742fe249cf09a3095abccf8889d5fa71116.1793692578.git.zhengqi.arch@bytedance.com>
+ <4EC5E593-7537-4659-879C-95ECC2224D2F@linux.dev>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <4EC5E593-7537-4659-879C-95ECC2224D2F@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Carlos,
+Hi Muchun,
 
-Thanks for the review. To answer your questions:
+On 11/3/26 6:56 PM, Muchun Song wrote:
+> 
+> 
+>> On Nov 3, 2026, at 16:01, Qi Zheng <qi.zheng@linux.dev> wrote:
+>>
+>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>>
+>> With gigantic overcommit enabled, a fault during long-term pinning
+>> can allocate a fresh HugeTLB folio from CMA despite PF_MEMALLOC_PIN.
+>>
+>> The folio must then be migrated before it can be pinned. However,
+>> fresh gigantic migration targets are not supported, so pinning fails
+>> when the HugeTLB pool has no suitable target, even if the original
+>> fault could have allocated pinnable memory outside CMA.
+>>
+>> Honor PF_MEMALLOC_PIN in the HugeTLB CMA allocator so the fault can
+>> try the non-CMA fallback, or fail when allocation is restricted to CMA.
+> 
+> Wait... I think my Acked-by got ahead of me here. :)
+> 
+> There seems to be a rather odd distinction that GUP is missing.
+> 
+> The usual reason long-term GUP must migrate a page out of a
+> MIGRATE_CMA pageblock is that the page was only borrowed from CMA by the
+> normal page allocator.  The corresponding CMA bitmap range is still
+> available, so a future CMA allocation relies on being able to migrate
+> that page away.  A long-term pin would prevent that.
+> 
+> However, a HugeTLB folio returned by
+> hugetlb_cma_alloc_frozen_folio() is different.  It is the actual CMA
+> allocation, not merely a movable page that happens to reside in a
+> MIGRATE_CMA pageblock.  Its range has already been marked allocated in
+> the hugetlb CMA bitmap.
+> 
+> Therefore, CMA cannot allocate that range again until the HugeTLB folio
+> is freed anyway.  Long-term pinning the folio does not seem to make the
+> CMA area any less available than keeping the HugeTLB folio mapped for
+> the same amount of time.
+> 
+> folio_is_longterm_pinnable() currently only sees MIGRATE_CMA and does
+> not distinguish these two cases.  In that light, rejecting
+> PF_MEMALLOC_PIN in hugetlb_cma_alloc_frozen_folio() looks like working
+> around an overly broad GUP classification.  It also means that
+> hugetlb_cma_only users will fail the fault, while other users may consume
+> a gigantic contiguous range outside the dedicated hugetlb CMA area even
+> when that area has free space.
+> 
+> Would it make more sense to fix the long-term GUP check instead, so that
+> an explicitly CMA-allocated HugeTLB folio is considered pinnable, while
+> ordinary pages merely borrowed from MIGRATE_CMA pageblocks remain unpinnable?
 
-How I found it: I found this while reviewing the merge logic in
-xfs_rmap_map. After tracing the left-edge merge path, I noticed that
-ltrec.rm_blockcount is already updated at line 1119
-(ltrec.rm_blockcount +=3D len), so adding len again in the overflow check
-is redundant. When the real merged length is still within
-XFS_RMAP_LEN_MAX but the inflated value exceeds it, the three-way merge
-is incorrectly rejected, leaving the right record unmerged.
+Make sense!
 
-Testing: I ran the rmap-specific regression tests with this patch
-applied, using kvm-xfstests on a 4k-block XFS configuration with
-rmapbt=3D1 and reflink=3D1:
+I'll replace this patch with an exception for HPG_cma folios in the
+MIGRATE_CMA check. This also lets the HugeTLB allocator select preallocated
+CMA folios during long-term pinning. MIGRATE_ISOLATE and ZONE_MOVABLE
+remain restricted.
 
-  kvm-xfstests -c xfs/4k xfs/236 xfs/578
+Fresh CMA allocations under PF_MEMALLOC_PIN also need to skip ranges
+in ZONE_MOVABLE. Returning -EBUSY here lets CMA try its remaining ranges.
 
-Results:
-  xfs/236      Pass     6s
-  xfs/578      Pass     34s
-Totals: 2 tests, 0 skipped, 0 failures, 0 errors
+The incremental diff against this patch is below.
 
-xfs/236 directly exercises the rmap btree grow/shrink paths affected by
-this change. I did not observe any regressions or warnings.
-If there are specific test cases you'd like me to run, please let me know.
+diff --git a/include/linux/cma.h b/include/linux/cma.h
+index 8555d38a97b1..7fd1b6e65b58 100644
+--- a/include/linux/cma.h
++++ b/include/linux/cma.h
+@@ -21,11 +21,13 @@
+  #define CMA_MIN_ALIGNMENT_BYTES (PAGE_SIZE * CMA_MIN_ALIGNMENT_PAGES)
+
+  struct cma;
++struct folio;
+
+  extern unsigned long totalcma_pages;
+  extern phys_addr_t cma_get_base(const struct cma *cma);
+  extern unsigned long cma_get_size(const struct cma *cma);
+  extern const char *cma_get_name(const struct cma *cma);
++bool cma_folio_is_pinnable(struct folio *folio);
+
+  extern int __init cma_declare_contiguous_nid(phys_addr_t base,
+  			phys_addr_t size, phys_addr_t limit,
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index cb993a1d0728..d15810be7d96 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -3,6 +3,7 @@
+  #define _LINUX_MM_H
+
+  #include <linux/args.h>
++#include <linux/cma.h>
+  #include <linux/errno.h>
+  #include <linux/mmdebug.h>
+  #include <linux/gfp.h>
+@@ -2975,14 +2976,16 @@ static inline bool is_zero_folio(const struct 
+folio *folio)
+  	return is_zero_page(&folio->page);
+  }
+
+-/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
++/* Borrowed CMA pages and ZONE_MOVABLE folios cannot be pinned long 
+term. */
+  #ifdef CONFIG_MIGRATION
+  static inline bool folio_is_longterm_pinnable(struct folio *folio)
+  {
+  #ifdef CONFIG_CMA
+  	int mt = folio_migratetype(folio);
+
+-	if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
++	if (mt == MIGRATE_ISOLATE)
++		return false;
++	if (mt == MIGRATE_CMA && !cma_folio_is_pinnable(folio))
+  		return false;
+  #endif
+  	/* The zero page can be "pinned" but gets special handling. */
+diff --git a/mm/cma.c b/mm/cma.c
+index a10ea37a261d..c2814f54f86a 100644
+--- a/mm/cma.c
++++ b/mm/cma.c
+@@ -27,6 +27,7 @@
+  #include <linux/log2.h>
+  #include <linux/cma.h>
+  #include <linux/highmem.h>
++#include <linux/hugetlb.h>
+  #include <linux/io.h>
+  #include <linux/kmemleak.h>
+  #include <trace/events/cma.h>
+@@ -55,6 +56,12 @@ const char *cma_get_name(const struct cma *cma)
+  }
+  EXPORT_SYMBOL_GPL(cma_get_name);
+
++bool cma_folio_is_pinnable(struct folio *folio)
++{
++	/* Explicit HugeTLB CMA allocations own their bitmap ranges. */
++	return folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio);
++}
++
+  static unsigned long cma_bitmap_aligned_mask(const struct cma *cma,
+  					     unsigned int align_order)
+  {
+@@ -792,6 +799,11 @@ static int cma_range_alloc(struct cma *cma, struct 
+cma_memrange *cmr,
+  	int ret = -EBUSY;
+  	struct page *page = NULL;
+
++	/* Each range lies within one zone; try other ranges if needed. */
++	if ((current->flags & PF_MEMALLOC_PIN) &&
++	    is_zone_movable_page(pfn_to_page(cmr->base_pfn)))
++		return -EBUSY;
++
+  	mask = cma_bitmap_aligned_mask(cma, align);
+  	offset = cma_bitmap_aligned_offset(cma, cmr, align);
+  	bitmap_maxno = cma_bitmap_maxno(cma, cmr);
+diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
+index dde1c866406f..95fd2d190f0d 100644
+--- a/mm/hugetlb_cma.c
++++ b/mm/hugetlb_cma.c
+@@ -62,9 +62,6 @@ struct folio *hugetlb_cma_alloc_frozen_folio(int 
+order, gfp_t gfp_mask,
+  	if (!hugetlb_cma_size)
+  		return NULL;
+
+-	if (current->flags & PF_MEMALLOC_PIN)
+-		return NULL;
+-
+  retry_cpuset:
+  	if (!nodemask) {
+  		cpuset_mems_cookie = read_mems_allowed_begin();
 
 Thanks,
-Jianyun
+Qi
 
-On Tue, Nov 3, 2026 at 11:33=E2=80=AFPM Carlos Maiolino <cem@kernel.org> wr=
-ote:
->
-> On Tue, Nov 03, 2026 at 10:41:44PM +0800, jianyungao89@gmail.com wrote:
-> > From: Jianyun Gao <jianyungao89@gmail.com>
-> >
-> > In xfs_rmap_map, the left-edge merge path already executes
-> > ltrec.rm_blockcount +=3D len at line 1119 before checking whether the
-> > right record is also contiguous and can be merged.  The subsequent
-> > overflow guard therefore must compare the already-incremented
-> > ltrec.rm_blockcount plus gtrec.rm_blockcount against XFS_RMAP_LEN_MAX,
-> > but it incorrectly adds len a second time:
-> >
-> > (unsigned long)ltrec.rm_blockcount + len +
-> >    gtrec.rm_blockcount <=3D XFS_RMAP_LEN_MAX
-> >
-> > The extra len makes the check too strict: when the real merged length
-> > does not overflow but the inflated value exceeds XFS_RMAP_LEN_MAX, the
-> > three-way merge is rejected and the code falls back to a two-way merge,
-> > leaving the right record unmerged.  This produces rmap btree
-> > fragmentation but does not corrupt on-disk metadata.
-> >
-> > Remove the spurious len from the overflow check.
-> >
-> > Fixes: 0a1b0b3855cf7 ("xfs: add an extent to the rmap btree")
-> > Cc: <stable@vger.kernel.org>
-> > Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
->
-> Hi, even though this looks reasonably correct, how did you find this
-> issue?
-> Did you test this at all against any regressions (i.e. running it
-> against xfstests)? This is touching critical logic on the rmap trees
-> which can potentially end really bad.
->
-> Cheers.
->
-> > ---
-> >  fs/xfs/libxfs/xfs_rmap.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/fs/xfs/libxfs/xfs_rmap.c b/fs/xfs/libxfs/xfs_rmap.c
-> > index 14aef87837a9..c2b2f8e7502d 100644
-> > --- a/fs/xfs/libxfs/xfs_rmap.c
-> > +++ b/fs/xfs/libxfs/xfs_rmap.c
-> > @@ -1120,7 +1120,7 @@ xfs_rmap_map(
-> >               if (have_gt &&
-> >                   bno + len =3D=3D gtrec.rm_startblock &&
-> >                   (ignore_off || offset + len =3D=3D gtrec.rm_offset) &=
-&
-> > -                 (unsigned long)ltrec.rm_blockcount + len +
-> > +                 (unsigned long)ltrec.rm_blockcount +
-> >                               gtrec.rm_blockcount <=3D XFS_RMAP_LEN_MAX=
-) {
-> >                       /*
-> >                        * right edge also contiguous, delete right recor=
-d
-> > --
-> > 2.34.1
-> >
-> >
+> 
+> Thanks,
+> Muchun
+> 
+>>
+>> Fixes: eb02f14c4a2b ("mm/hugetlb: allow overcommitting gigantic hugepages")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+>> ---
+>> mm/hugetlb_cma.c | 3 +++
+>> 1 file changed, 3 insertions(+)
+>>
+>> diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
+>> index 95fd2d190f0d2..dde1c866406fb 100644
+>> --- a/mm/hugetlb_cma.c
+>> +++ b/mm/hugetlb_cma.c
+>> @@ -62,6 +62,9 @@ struct folio *hugetlb_cma_alloc_frozen_folio(int order, gfp_t gfp_mask,
+>> 	if (!hugetlb_cma_size)
+>> 		return NULL;
+>>
+>> +	if (current->flags & PF_MEMALLOC_PIN)
+>> +		return NULL;
+>> +
+>> retry_cpuset:
+>> 	if (!nodemask) {
+>> 		cpuset_mems_cookie = read_mems_allowed_begin();
+>> -- 
+>> 2.54.0
+>>
+> 
+
