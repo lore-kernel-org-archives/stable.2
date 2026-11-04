@@ -1,95 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819804;
-	b=VGeUt1PICTwLSR1paejCXeredZa0kZgiE27eZMDSVXchNqohdX6P5HYuMk3dBBrUKOVc
-	 2Omzt8L2lfcw2n634+/CxpBu97z4aXUarnf+7mtOUlkhjRz5K+fmIH/nW336bvkF1mXLb
-	 /GoIgNyJFOcdnydePY9hPV7O5hBFTq8Gbw62I9jPQVAqdbLAHHpN+u4rDwGHh6xOU+IyK
-	 KvVBUQrgqG1gIlZbpVVwdKfSMK9AeMMb8e6iaZCEqhNM5h9FQReQmjv02/iNUTX7JinRy
-	 hPY2m9dpk+wqx0CToxPqedCN4qIRoAtdKzKfljuO7jHQUNcpd6AJIlJ9OyPLfjucPjw==
+	t=1793819805;
+	b=prYIHfrcNamfrTFBhddQ7Mu8juo7D3U77vRjnhofDee9uQRhPJZgJnabJcdanfr6HifT
+	 ocLtgFl1+bHcigEgNkZWktvyBMbIOjmpz+EyICHEOQM/sySy/VvrJeKBvrFRlbzPfRlCU
+	 AWo/lhPnXXcxDa+04mRQ3q0auQu5zrXdZPJkskefVXB9bxXacXtX4QgwPKnSnbpGimQgZ
+	 BfKWNCV9732uLOuhF0yP3dpBU6YtiYLCpYHyShe3EQbbnTx5qV2ewF66OqbpchPh7ZHEL
+	 EVHjDf6VtoFZ4r+VFQnyPOaOY9fyGH8pkJXTXJfM3Tp1P6apkSNBB4zxAN5YI1AHYdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819804;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=eSNiR/u+jF1juXBbpc/UT4G6ygT/mwfkEaeSc9JG4Bo=;
-	b=QK46b46B8lVbGhLVk15RMUzp3jR+2fbHMEwajkdUZvHjudlcfUccqG3HdkOyVtph09US
-	 qqKgfOeI1l22uM+dcdZ1zf8sPngPJOnKAUwMaS0MAyyb1ewED14Qrx37G3qpTtihoQuJv
-	 4HHFxqb0AxebWNQsMy7qlq3kMAtgsQowmXT0yRbrlTPQQUYNjoUgsMWps2quBtFj/xhrE
-	 EgaveSAeCiFOFj/RyL79fMQOs0mgQKIe+sSYp7tASybYpaWBLhTob8w9dO3FjGEcA6kCO
-	 F/hXzzs24fX1WEHH9gvBAK7gDLT6qLQXiTrS9x3vM1BOmocPDfOt75qQmV7Mv2arxqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819805;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=iSk3nsArFOOtW91DExIIvIg+E3fTnIkI1uYFn4dT7G8=;
+	b=wNyb7wkWytn63/Hp7EBF4PCzwNqExF3okYnT2PcMlbD2BdCGgaWP0k6oAvAqDESupJWm
+	 c9boXz2V7cB1uSW3DkK179Zz9d+l01c6zi1viWciET4VdFWHt9HUF+4TUuf0LSfZCWy57
+	 3+QIzxi2oC78Z5/2NSUzHv7LMBh6Ypv9Y+kpxhuKd0nRR/WgVxWevQYlaFjv1ut9qiXoR
+	 M0EqR5XR6fk6som3zmRVCTGHKTW0L1hxaeOqWn50cNPCFEuvUnqgsOSG6f8xoKWhfuimB
+	 OvlWRkZYLTDXC+kO/Y8RTWIESbMAApj8XhfF6Qb68Trp8uA08y0emP53HaRI064gkFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HPML37VD;
-	arc=none smtp.remote-ip=74.125.229.5
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=adc5P9d8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A65B606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:16:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A65B606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B145A606A32C;
+	Wed,  4 Nov 2026 19:16:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HPML37VD
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36caa19b0ffso610788eec.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 11:16:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793819803; x=1794424603; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eSNiR/u+jF1juXBbpc/UT4G6ygT/mwfkEaeSc9JG4Bo=;
-        b=HPML37VDjqNIY79kIBbqkgr0jhTitN3IVcQUPu7dW9DT2p0aGqioBaqqa9L9V8ZLqn
-         n8G4IEccGsEJajih8bcwZrWEoTrqUhRkxMzpy7ePIl9e94el616ne9BZ635i2X9wcfiM
-         gKslbNEGQLIcAjrjujMkOx6g+9sBE7L854Wjt7piOzrUA4G8E291xPTXlpfxnHK8u+pL
-         t3k9e7N27gFvtnQDfwGsCdqloM8s8w3kyaeMYq/CKPPmVyTpoyHrGbE4uVltYdm+H4hM
-         aFgFdrA2533Qa08IyBCJXFfShfPoXuIR0XZBCqcXYRHs/ICmuRfjMmjSM/F7hnt3rCgb
-         lD7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793819803; x=1794424603;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eSNiR/u+jF1juXBbpc/UT4G6ygT/mwfkEaeSc9JG4Bo=;
-        b=Ow3DwuzGF48oYfJNHUQYDrBdPUEtXoINQz31zmc1Zd4EwvvmMFO6uF21AKyDve+8RL
-         iUSQU2m/bMBKEsNb+k0TYRuMVdO1k+tAHY4jKIks/ChNu67K55jpQBmm3sArD8XqhrRp
-         BZSpC4v+p1hdP8M2rOZqTeY+bWyGqEM30i70GyfPGcHXx8FPnTOHwCiAN7dZOPR7bc9C
-         brFQjLcAJe2ODvrd7kDkgHAyRPWVSJT6sOx9WSB8yu/XX9xveYnMn4EaxshWV70GiodM
-         HgQ7LU8KLM9i1YtFLWQAoBaaxRPZnrWi/JwAPu1/WVQTpX9cGfA7Njuv8slR0OS+fXDu
-         pc4w==
-X-Forwarded-Encrypted: i=1; AKwUvBzk9md6VBdnhpOU0ORcXs6gGzI8WVkC3dzwNJz1P9Gz4MZNim4O6SiwuquTnEwg03PMlZjIN80=@vger.kernel.org
-X-Gm-Message-State: APuU4Z95L+EqcnMMFmEYt+1LyJKBN1wIoq5sDWK4Lp0erY0anaelHbg8
-	uJ1r7TN5n+LrPy7fA+IZTkPExjheA6QFqGEBVR2XLAqKuN8rgenNbe2K
-X-Gm-Gg: AYBFou18r3tRMYCByvRDkLKruPxcl8wnf+AD46FeNE8/e4N2SaIg0MB9QmkqiwnLw5S
-	UM1a3VwHt71ckuumJU4Eo3RpmHzgEoUb9llXlafr0GfctUHGvPDQSm9h5hUK+RYVEWknIeIj9dA
-	rulemFz3hMRKXjMQnXCBsbYW8GhhtEEwD5Nm3/D1XoHj0KHgs8rjf134WYEGFHBCYL20WNL/KCH
-	5BQ12IRGRVJ06PhMbBfTnK1w+ovNb8qqrXAdswbTOc2PeAxqwFb1x6uHgC9snj3h1KbA76b2qis
-	in4SdYxeySwMtJ0M2Vn7OfN5wuHylz+ycQsX0K1uIyr5/tYHDFcatGeWxq+NSgzIfiJhAGYHKhU
-	Uqyx3EboqHyfnm1Q7JiKDrhr4nGOpRSOLl7HG/jkcSpCcbuD9ghyvLNcf91u79m9jOlAMG0rPof
-	Ch/a3tTZrs4yWjcCGOhpur3VwJ5qN3a09nNYuToZHi5xWGr20Ih66FKwweHSNR/UhDGrJgqOyPa
-	4zlT7f+skJ8oZVeZT9cAt/VnF6G31da2C31HxUxCKjNR3aAq4hELXypUbNbye5hgzo+0ZdD6Uko
-	/tc4N5GRv/xepQcjGjM83j6qkQbXWS93fXzaDO2ZeL9kIzOzrI2Rir9fI+5DzJ5foEeNKTqpDoQ
-	2VHIwJR8K7QpQlnxZtFEWHfbEn/sK7xSIQ9UAJw==
-X-Received: by 2002:a05:7022:1707:b0:189:d6bf:7eaa with SMTP id a92af1059eb24-1ac5c3699f6mr22489147c88.16.1793819802794;
-        Wed, 04 Nov 2026 11:16:42 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c2c2f7sm10017000c88.9.2026.11.04.11.16.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 11:16:42 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: daehojeong@google.com,
-	linux-f2fs-devel@lists.sourceforge.net,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=adc5P9d8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 406881F000C1;
+	Wed,  4 Nov 2026 19:16:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793819804;
+	bh=iSk3nsArFOOtW91DExIIvIg+E3fTnIkI1uYFn4dT7G8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=adc5P9d8MahDP5MWnF8/BQZpdhwQF+Ch+DamqvSkAjn9rCUlBnkqECo/i8i5m6rCU
+	 r+0D3t4BrnoadvsSIYVAap135Zl9/uPV+3cWE1MIZO02KbRYUYm6qut6Iw4ZTKqOu/
+	 6k7TrsWTmBmMQUM3tHfS92Olrwro6VG7uRQk7JNC9KNK3inBXn1gscAHaKpctq+lkz
+	 NHgRnuuGNNngzWx7kkuO/bS69mOTmSTRK/+7SYlvkts5zOYpp6/1gj+SaDwhe5nUBd
+	 NQB1zsZF5ExMRUSJm8geywWpAxhsrbuzBIhJsIT/iETtc8kHozEESlyxMXTZO60F+g
+	 m408MmhemLThg==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] f2fs: read atomic replacements through the COW inode
-Date: Wed,  4 Nov 2026 19:16:21 +0000
-Message-ID: <20261104191621.89561-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH RESEND v2 02/51] scsi: esas2r: don't copy kernel pointers out in EXPRESS_IOCTL_GET_MOD_INFO
+Date: Wed,  4 Nov 2026 20:16:30 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-2-021c84d852e0@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,90 +115,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1380; i=brauner@kernel.org; h=from:subject:message-id; bh=dmwAod4+27NCncmw2oz8APM07k66EUOhHcJdusbTjjg=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bjzbuC42lkN5rrFaxyvfJQdiNbQZ7W/e2Jquu5RPe /ZM3ftRHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABNpfM3wzy5cJTFdotRbNPeq 5U63fQ+S03+85HippbBf44binOdz1BgZPlpuOyXM5rh4Ucv0N+t5PzZYf39meEdz+QFRtsctyxa 1cQAA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-Starting an atomic replacement drops the page cache and resets i_size,
-but keeps the original block mappings so the operation can be aborted.
-After a sparse write extends the replacement, buffered reads still use
-those original mappings for the skipped range and cache the old data.
-Commit removes the old gap mappings, but the cached data remains visible
-even after reopening the file. A subsequent partial write to the gap can
-write those stale bytes back to disk.
+EXPRESS_IOCTL_GET_MOD_INFO fills in the addresses of the adapter, its
+pci_dev and its Scsi_Host and copies the whole struct back to userspace.
+Nothing in userspace can do anything with those addresses, and the
+ioctl is reachable through /proc/scsi/esas2r/ATTONode, which is created
+with mode 0444. Only pass the host number.
 
-Resolve buffered reads through the COW inode during atomic replacement,
-so unwritten ranges are read as holes. Keep using the original inode for
-the read bio and its encryption context. Once FI_ATOMIC_COMMITTED is set,
-use the newly committed original mappings again.
-
-Hold the mapping invalidate lock while committing or aborting the atomic
-write to serialize these mapping transitions with buffered-read faults
-and readahead.
-
-Fixes: 41e8f85a75fc ("f2fs: introduce F2FS_IOC_START_ATOMIC_REPLACE")
+Fixes: 26780d9e12ed ("[SCSI] esas2r: ATTO Technology ExpressSAS 6G SAS/SATA RAID Adapter Driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/f2fs/data.c    | 8 +++++++-
- fs/f2fs/segment.c | 6 ++++++
- 2 files changed, 13 insertions(+), 1 deletion(-)
+ drivers/scsi/esas2r/esas2r_ioctl.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 28fd8afff5d..89c4de3640d 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2489,7 +2489,13 @@ static int f2fs_read_single_page(struct inode *inode, struct fsverity_info *vi,
- 	map->m_lblk = block_in_file;
- 	map->m_len = last_block - block_in_file;
+diff --git a/drivers/scsi/esas2r/esas2r_ioctl.c b/drivers/scsi/esas2r/esas2r_ioctl.c
+index 3f7c1d131ec3..c93d9265e100 100644
+--- a/drivers/scsi/esas2r/esas2r_ioctl.c
++++ b/drivers/scsi/esas2r/esas2r_ioctl.c
+@@ -1468,9 +1468,10 @@ int esas2r_ioctl_handler(void *hostdata, unsigned int cmd, void __user *arg)
  
--	ret = f2fs_map_blocks(inode, map, F2FS_GET_BLOCK_DEFAULT);
-+	/* Original blocks are kept for rollback, not for replacement reads. */
-+	if (is_inode_flag_set(inode, FI_ATOMIC_REPLACE) &&
-+	    !is_inode_flag_set(inode, FI_ATOMIC_COMMITTED))
-+		ret = f2fs_map_blocks(F2FS_I(inode)->cow_inode, map,
-+				      F2FS_GET_BLOCK_DEFAULT);
-+	else
-+		ret = f2fs_map_blocks(inode, map, F2FS_GET_BLOCK_DEFAULT);
- 	if (ret)
- 		goto out;
- got_it:
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 43f40071576..f45b5ad78fc 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -193,6 +193,8 @@ void f2fs_abort_atomic_write(struct inode *inode, bool clean)
- 	if (!f2fs_is_atomic_file(inode))
- 		return;
+ 	case EXPRESS_IOCTL_GET_MOD_INFO:
  
-+	filemap_invalidate_lock(inode->i_mapping);
-+
- 	if (clean)
- 		truncate_inode_pages(inode->i_mapping, 0);
+-		ioctl->data.modinfo.adapter = a;
+-		ioctl->data.modinfo.pci_dev = a->pcid;
+-		ioctl->data.modinfo.scsi_host = a->host;
++		/* these are kernel pointers, userspace has no use for them */
++		ioctl->data.modinfo.adapter = NULL;
++		ioctl->data.modinfo.pci_dev = NULL;
++		ioctl->data.modinfo.scsi_host = NULL;
+ 		ioctl->data.modinfo.host_no = a->host->host_no;
  
-@@ -218,6 +220,8 @@ void f2fs_abort_atomic_write(struct inode *inode, bool clean)
- 		f2fs_i_size_write(inode, fi->original_i_size);
- 		fi->original_i_size = 0;
- 	}
-+	filemap_invalidate_unlock(inode->i_mapping);
-+
- 	/* avoid stale dirty inode during eviction */
- 	sync_inode_metadata(inode, 0);
- }
-@@ -409,11 +413,13 @@ int f2fs_commit_atomic_write(struct inode *inode)
- 		return err;
- 
- 	f2fs_down_write(&fi->i_gc_rwsem[WRITE]);
-+	filemap_invalidate_lock(inode->i_mapping);
- 	f2fs_lock_op(sbi, &lc);
- 
- 	err = __f2fs_commit_atomic_write(inode);
- 
- 	f2fs_unlock_op(sbi, &lc);
-+	filemap_invalidate_unlock(inode->i_mapping);
- 	f2fs_up_write(&fi->i_gc_rwsem[WRITE]);
- 
- 	return err;
+ 		break;
 
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
 
