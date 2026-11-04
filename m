@@ -1,49 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811964;
-	b=VEk1XhSI9EW/6W17w6vYux8FEZ5Lp9B50dAmLQI6OmTnooyhvB6PsDLkIMQzz2Jrz6X5
-	 z1EiJ7x79OezGF5Z0Hf6XcBi4X1TbKmrCs8pQ1AwBBb57kXBiNq1ZLsxUE0Ac7j1sUYg2
-	 NAgLkDV0zIn8/oQvGjKeCLc9YWkNsZUeKjfgPKpZ8A4H5IrZhKsvHTqSw3A0+x7HHsfHu
-	 Jzorgp0MfSs5GHzI0cD/Y+oWNTdwi4GZgSZzmfbPMy2T//n8iniBq8AfPI92f3SqlFFLg
-	 AvZ424gB6rz3VH+HyWNjDr89+mOwnScCsaVtX1UIckMkXn6KJfhhIgnfnfFgjrRl3og==
+	t=1793812036;
+	b=l0o4u/cu2rUS4xtCxgn7hAJG0sClJDZ3var4slqiwT6IJnvh1Z8YTX1KlKbN5TI7+9eD
+	 7wqCkv9d2KGxajLdz2ikZ3KACXLC/X+FnnSFrJgcScXqY5solUsW4AVQ/QGqPEqAMQyu/
+	 Ma+oxO5g4qhEBGXYlKQkBFemD+T7E21f/jYkHBMbxapqeQ1tVss//cjtm7WJ/WqWpmytw
+	 a5GYWrvgHAhdjVFhUnJ2N2gpyoZwnKgFM1Te5QmwAI7ACYMds8vK9mWYcWcZsKdvOT9qO
+	 PehW58+10ad0kAgxXSaTsuraNRuCgBz8HDKYouWJ8+PgFzDgJimtivQmg8Wc/QJLc1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811964;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=xHp9zcciDt9BQSTYUI4c3pqvrH6NfBZKhO/JkiSc8yA=;
-	b=eLNGp0w4ZE9eNdTvJU+xULnJUSczG0EU1r0bDMx7UbmKFjF+z2YZbvhM4amAvXRXgXBc
-	 ki3I54qPklKf2zSvPdjIfZrKNQRMNLKVr+h2H0qTsMOOOTczELD9RqbkJwhrqx5pvXm4J
-	 +BmLiD28yNRsDq9KTi+h7tjjJ/2rK2GLhR14a8UJOt70llucqq071F4mcPbE5pGXARqz5
-	 mIGg13vrjQzenI8SYvV+5BSZpGLaYe/vgaFOtSwAddLEisR5/I6UebgtugxoRwC9lZnsm
-	 aHFkjXC6l+HhAW858oEWH/c9A2EiFuDc5j12FeNx0pNht2ygPZFHZpeCdl3sPaTbYbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793812036;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=aNDPKOPejKWaDge59K9+Y4zvO9k5lOGA3Jkf04Pk/QY=;
+	b=yDFjcQdHQ921nyr66Gr4P7766EttcmXFigqFtuF9uxrBS7lgdgbczV3tZC6hhSQYvm7M
+	 e3WJULPSgZTjsPA7CKaNnWtLSDtot0o9bOAF57OTjHaIm4bIkdkeVKAOaCVHinnObhSop
+	 ZMjBemLGjsH3tl4VzRZonTXC9naeLPYWI/e7SoXfKT8bxGNY7qq+akiXkkHPhJjomF1RU
+	 DZ171mjkREcO9lv6qVRDXcLG/etPUAgMerP7ZaAUtSFHO09vMIVW1Ue2bjFsNwo13wNHE
+	 mMMYctUFI/2qD01EwGa0kWWHmCohvtriA1/CqapY6Qywbl2Q6RkvxYRoqg+FavmdybA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=aBYGdWw7;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 58B15606A326;
-	Wed,  4 Nov 2026 17:06:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B15606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ItA2E3p4;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=62553P6V;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ItA2E3p4;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=62553P6V;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F714606A326;
+	Wed,  4 Nov 2026 17:07:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F714606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=aBYGdWw7
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 813BE1BB0;
-	Wed,  4 Nov 2026 09:06:00 -0800 (PST)
-Received: from [10.57.90.115] (unknown [10.57.90.115])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 909573F673;
-	Wed,  4 Nov 2026 09:06:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793811963; bh=M5dLetY60rROLOEP0RTG1zWPi4zkfIzPuDEW8MB3PWQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=aBYGdWw7WH5tD8TaTad1UX5sXkFqHy3kJFkCIO/NV+nPvDKlY2sXMTXu+pv2gHLoM
-	 z3vZUPDN/buLPybv/Q+X6+qfjoULVPVgWwTWUrdshr2BqKyGHwDH3WX9pynYyFbpe+
-	 ECT6kIX/0a74V1YeaSzu7NMMtnYPeJE0Zi4A9SSk=
-Message-ID: <ba2d9aa3-f14d-47e6-8cdc-62a6d385515e@arm.com>
-Date: Wed, 4 Nov 2026 17:05:59 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ItA2E3p4;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=62553P6V;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ItA2E3p4;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=62553P6V
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 751B41F388;
+	Wed,  4 Nov 2026 17:07:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793812033; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aNDPKOPejKWaDge59K9+Y4zvO9k5lOGA3Jkf04Pk/QY=;
+	b=ItA2E3p4o9qbG5LaRFWOhTqNeU0Eepe+Uw9UgIjt6b6Sjip5Y4p9tHm/9X8/t1R1i+8eIP
+	FEV+OgrvYzbajR/JvwqIIzwsP9w5xHJRCsufbKzpjWMLjaq/5NsigMIy2aKQN9C9yj/tSU
+	0kKHX4DD7Na5zDWrJLylYZ8tcPeGBpU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793812033;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aNDPKOPejKWaDge59K9+Y4zvO9k5lOGA3Jkf04Pk/QY=;
+	b=62553P6V5yueYuV+re3HE/rB6ZrmSUnWEJrrN9vhf8JEM6mhbguBY5lKWKeAXis2KR7WGb
+	Yt7PrhNIxt7fMXAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793812033; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aNDPKOPejKWaDge59K9+Y4zvO9k5lOGA3Jkf04Pk/QY=;
+	b=ItA2E3p4o9qbG5LaRFWOhTqNeU0Eepe+Uw9UgIjt6b6Sjip5Y4p9tHm/9X8/t1R1i+8eIP
+	FEV+OgrvYzbajR/JvwqIIzwsP9w5xHJRCsufbKzpjWMLjaq/5NsigMIy2aKQN9C9yj/tSU
+	0kKHX4DD7Na5zDWrJLylYZ8tcPeGBpU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793812033;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aNDPKOPejKWaDge59K9+Y4zvO9k5lOGA3Jkf04Pk/QY=;
+	b=62553P6V5yueYuV+re3HE/rB6ZrmSUnWEJrrN9vhf8JEM6mhbguBY5lKWKeAXis2KR7WGb
+	Yt7PrhNIxt7fMXAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4B3B0134A5;
+	Wed,  4 Nov 2026 17:07:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id hB+FCUFm62p4FQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 04 Nov 2026 17:07:13 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id C5AD4B445; Wed, 04 Nov 2026 18:07:04 +0100 (CET)
+Date: Wed, 4 Nov 2026 18:07:04 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Jan Kara <jack@suse.cz>, 
+	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-ext4@vger.kernel.org, 
+	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Andreas Dilger <adilger.kernel@dilger.ca>, 
+	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Namjae Jeon <namjae.jeon@samsung.com>, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 3/9] ext4: add ext4_inode_loc_block() helper
+Message-ID: <lqhym4n6vu46kretnwfstfutik4vl4l5imhnf6pi3aranjpryx@bgtxuzuha2zs>
+References: <20261029-work-inode-metadata_writeback-v1-0-7d6c678a585d@kernel.org>
+ <20261029-work-inode-metadata_writeback-v1-3-7d6c678a585d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,106 +113,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/10] irqchip/gic-v5: Serialise IRS synchronisation
- requests
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Timothy Hayes <timothy.hayes@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Jonathan Cameron <jic23@kernel.org>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
- <20261102-host_gicv5_fixes-v1-3-743b61626fc5@arm.com>
- <aumlixJkwDBlv8Yf@red-moon>
-Content-Language: en-GB
-From: Sascha Bischoff <sascha.bischoff@arm.com>
-In-Reply-To: <aumlixJkwDBlv8Yf@red-moon>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-work-inode-metadata_writeback-v1-3-7d6c678a585d@kernel.org>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	TAGGED_RCPT(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,suse.cz,toxicpanda.com,kernel.org,mail.parknet.co.jp,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,samsung.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Score: -11.30
 
-On 03/11/2026 09:12, Lorenzo Pieralisi wrote:
-> On Mon, Nov 02, 2026 at 01:32:56PM +0000, Sascha Bischoff wrote:
->> IRS_SYNCR writes are ignored while IRS_SYNC_STATUSR.IDLE is clear.
->> Calls to gicv5_irs_syncr() for different IRQs can overlap, allowing
->> the second request to be dropped. Its caller can then observe the
->> first request completing and assume that its own events have been
->> processed.
->>
->> Serialise the request and completion poll with a raw spinlock. We use
->> atomic polling, as the lock cannot be held over a sleeping wait.
->>
->> Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
->> ---
->>   drivers/irqchip/irq-gic-v5-irs.c | 8 ++++++--
->>   1 file changed, 6 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/irqchip/irq-gic-v5-irs.c b/drivers/irqchip/irq-gic-v5-irs.c
->> index 4edf787f3f97f..ead76560ea08f 100644
->> --- a/drivers/irqchip/irq-gic-v5-irs.c
->> +++ b/drivers/irqchip/irq-gic-v5-irs.c
->> @@ -10,6 +10,7 @@
->>   #include <linux/log2.h>
->>   #include <linux/of.h>
->>   #include <linux/of_address.h>
->> +#include <linux/spinlock.h>
->>   
->>   #include <linux/irqchip.h>
->>   #include <linux/irqchip/arm-gic-v5.h>
->> @@ -22,6 +23,8 @@
->>   #define LPI_ID_BITS_LINEAR		12
->>   
->>   static DEFINE_PER_CPU_READ_MOSTLY(struct gicv5_irs_chip_data *, per_cpu_irs_data);
->> +/* Synchronization requests must not overlap in an IRS Domain. */
->> +static DEFINE_RAW_SPINLOCK(irs_sync_lock);
->>   static LIST_HEAD(irs_nodes);
->>   
->>   static u32 irs_readl_relaxed(struct gicv5_irs_chip_data *irs_data,
->> @@ -507,10 +510,11 @@ void gicv5_irs_syncr(void)
->>   		return;
->>   
->>   	syncr = FIELD_PREP(GICV5_IRS_SYNCR_SYNC, 1);
->> +	guard(raw_spinlock_irqsave)(&irs_sync_lock);
+On Thu 29-10-26 14:28:18, Christian Brauner wrote:
+> Move the lookup of the inode table block out of
+> ext4_get_inode_loc_noio() into a helper. ext4_sync_inode_metadata() is
+> going to use it to find the block without reading it from disk.
 > 
-
-Hi Lorenzo,
-
-> Why does it have to be a spinlock ?
-
-gicv5_irs_syncr() is also called while restoring the host ITTE in 
-gicv5_its_set_vcpu_affinity() once we have the GICv5 ITS support for 
-KVM. That callback runs under the irq descriptor lock via 
-irq_set_vcpu_affinity(), so it cannot sleep. I’ll clarify this in the 
-commit message.
-
-Apologies for the lack of clarify in that regard for some of these 
-commits. They logically made more sense when they were bundled together 
-with my KVM changes, but now that I pulled them out some of the commit 
-messages lack context.
-
+> No functional changes.
 > 
-> Thanks,
-> Lorenzo
+> Cc: stable@vger.kernel.org # v7.3
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Thanks,
-Sascha
+So I don't think this patch is really needed. ext4_get_inode_loc_noio()
+does exactly what you need so you can use it in the next patch. If you
+really wanted to use sb_find_get_block_nonatomic() instead of
+sb_find_get_block(), you can actually switch ext4_get_inode_loc_noio() to
+use it.  ext4_get_inode_loc_noio() has only a single caller in ext4 -
+ext4_fc_snapshot_inode() - that is actually fine to take the folio lock.
+But that is mostly unrelated improvement to ext4.
 
+								Honza
+
+> ---
+>  fs/ext4/inode.c | 38 +++++++++++++++++++++++++++-----------
+>  1 file changed, 27 insertions(+), 11 deletions(-)
 > 
->>   	irs_writel_relaxed(irs_data, syncr, GICV5_IRS_SYNCR);
->>   
->> -	gicv5_wait_for_op(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
->> -			  GICV5_IRS_SYNC_STATUSR_IDLE);
->> +	gicv5_wait_for_op_atomic(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
->> +				 GICV5_IRS_SYNC_STATUSR_IDLE, NULL);
->>   }
->>   
->>   int gicv5_irs_register_cpu(int cpuid)
->>
->> -- 
->> 2.34.1
->>
-
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index b4d581aa5ee1..b34b99d15db6 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -5874,16 +5874,14 @@ int ext4_get_inode_loc(struct inode *inode, struct ext4_iloc *iloc)
+>  }
+>  
+>  /*
+> - * ext4_get_inode_loc_noio() is a best-effort variant of ext4_get_inode_loc().
+> - * It looks up the inode table block in the buffer cache and returns -EAGAIN if
+> - * the block is not present or not uptodate, without starting any I/O.
+> + * Find the inode table block that holds @inode without looking at the block
+> + * itself. Fills in iloc->block_group and iloc->offset.
+>   */
+> -int ext4_get_inode_loc_noio(struct inode *inode, struct ext4_iloc *iloc)
+> +static int ext4_inode_loc_block(struct inode *inode, struct ext4_iloc *iloc,
+> +				ext4_fsblk_t *block)
+>  {
+>  	struct super_block *sb = inode->i_sb;
+>  	struct ext4_group_desc *gdp;
+> -	struct buffer_head *bh;
+> -	ext4_fsblk_t block;
+>  	int inodes_per_block, inode_offset;
+>  	unsigned long ino = inode->i_ino;
+>  
+> @@ -5902,15 +5900,33 @@ int ext4_get_inode_loc_noio(struct inode *inode, struct ext4_iloc *iloc)
+>  	inode_offset = ((ino - 1) % EXT4_INODES_PER_GROUP(sb));
+>  	iloc->offset = (inode_offset % inodes_per_block) * EXT4_INODE_SIZE(sb);
+>  
+> -	block = ext4_inode_table(sb, gdp);
+> -	if (block <= le32_to_cpu(EXT4_SB(sb)->s_es->s_first_data_block) ||
+> -	    block >= ext4_blocks_count(EXT4_SB(sb)->s_es)) {
+> +	*block = ext4_inode_table(sb, gdp);
+> +	if (*block <= le32_to_cpu(EXT4_SB(sb)->s_es->s_first_data_block) ||
+> +	    *block >= ext4_blocks_count(EXT4_SB(sb)->s_es)) {
+>  		ext4_error(sb,
+>  			   "Invalid inode table block %llu in block_group %u",
+> -			   block, iloc->block_group);
+> +			   *block, iloc->block_group);
+>  		return -EFSCORRUPTED;
+>  	}
+> -	block += inode_offset / inodes_per_block;
+> +	*block += inode_offset / inodes_per_block;
+> +	return 0;
+> +}
+> +
+> +/*
+> + * ext4_get_inode_loc_noio() is a best-effort variant of ext4_get_inode_loc().
+> + * It looks up the inode table block in the buffer cache and returns -EAGAIN if
+> + * the block is not present or not uptodate, without starting any I/O.
+> + */
+> +int ext4_get_inode_loc_noio(struct inode *inode, struct ext4_iloc *iloc)
+> +{
+> +	struct super_block *sb = inode->i_sb;
+> +	struct buffer_head *bh;
+> +	ext4_fsblk_t block;
+> +	int err;
+> +
+> +	err = ext4_inode_loc_block(inode, iloc, &block);
+> +	if (err)
+> +		return err;
+>  
+>  	bh = sb_find_get_block(sb, block);
+>  	if (!bh)
+> 
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
