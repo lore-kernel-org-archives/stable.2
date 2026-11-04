@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819598;
-	b=ShbCVtUep875yFhHhVVQZ4CLX+gtcXpHwjCgn7XwrZ7QU3JgpMXE9EgAt/6d6+vBUoki
-	 RPwMucSkEh1wBkuKrkQhBcNY6DCxJtbN9H86rqcaK83e1nklDas5bj87AtuA6cf5lt6Es
-	 pMt3j7yoL2cAqa1eGf689f5Rm6/3PMwfwMKsxGHm9/r0kFdLtwhTAEx+XOmM/wKN7U7Ke
-	 Ahgj8Lq2v1ryGwIR6TqX/dmVfaYK4s6+Bk8D7ZYg1ek4T72zAXeAWbLqqMa5dNBIi95Od
-	 TM9327cwV5fTf53OoJQ6ENtyt7Ujosp+jSBFn0rccNQCZJ22tMRzo7AH9fKC2h2QjJA==
+	t=1793819599;
+	b=o9G57BgsaxD+AJcy8a0iiO8svlJxHAdAEVAS3x794VfgEuiX8w2MGu3Xthzk212FPZlZ
+	 tWTqaBFaGhIq42rX/Sh7lEq4FfkH23oJVRy+ZfZ0hAhUHziH2nh8P2voQ29Lrgeue4QP1
+	 LHkdHPSRcgK/6BlR+hdL49jw7nD/VWL/7IIVj3bQuTofjKQHWSoNBVmUJ52r68Q/FVC+v
+	 zpGeGo8VyweYk54X46Ryv810sogZ7qeg5e9F7l+UWOS0HOfGL0iOcmZSDhmqLOaQj4XjQ
+	 NTKfbfqxRPTuyKJtypNMUT9np+ptO5k8KspFyBI/b0hWqiBaoiIZBYXRPVPQwWcAnBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819598;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819599;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pDFdmpD3J3h06ytfXUPrCHVMwZjXjMCT08mVKdDf5IA=;
-	b=NZcOaEMaHU9BaV69pkDoMTkTj+4URihLYijzgtVH++MHRm15p4+MsOmaijKz0i/C03kq
-	 BNPYZUjOPc6l+h/mwiTSufE7Iv0PTNH9haOWAI2ideWIBSpxgJDzcjM6w32EU8Y+T2RFQ
-	 9Ij0ZyRp9HaUiJdOiSiQSHNbFubj1pqk8MthNpG/WBM7KYHhkp9c9vSIGoEK0qq/xKTG5
-	 2VyYwI4/Jw7XjogqB6Vy1I2zrZ7kyuwYjSaDHP9pIegdWw745in48qML+Cil/xjqwgGIG
-	 y6xjgeFVur1dd6VBtZefAukN+iEjOC9+ExBA60PnifQUj/jqhb+ZIFmUnInjNl6TxaQ==
+	bh=wj2M5mMLNvHQArDV1TIbUXI+/2652YuD19EZnfvU6lw=;
+	b=u3iFBfHzZrxkmY0CbSrffY8DJIT7i/3f0zl6MfKtCJo/MksMx08RxI1eljNn+Fc0JYC7
+	 2+pn8bRvKbnwz9CDw+wmrAFn4NSF+fHk197EM6iM7VmCpgSZOp/t6RP1LzEnvD2ITT2G2
+	 0/90W++lWMTEA7Ooqr5SEOpBHLDcJljYM4gPyZYk+M50Xm6IEPlRAqGEdzlEB/xTgM7i1
+	 UrhKNNpTGZx7wfo9bzJc7RO4adc6f42bGA1W+tgbn6j7obzbjwChHlPWMMDd5HBj0AtFi
+	 H/pqYmP3E1sVH0x5Uppn1XHNnK2GqWGx04LvRezkhjcfk/WvBBg7ljV6sf8yUILJpPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SpHLO1eN;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uiBnFQpF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95A1606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:13:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27440606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:13:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SpHLO1eN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59C341F000C1;
-	Wed,  4 Nov 2026 19:13:17 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uiBnFQpF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCD2E1F000C1;
+	Wed,  4 Nov 2026 19:13:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793819597;
-	bh=pDFdmpD3J3h06ytfXUPrCHVMwZjXjMCT08mVKdDf5IA=;
+	s=korg; t=1793819599;
+	bh=wj2M5mMLNvHQArDV1TIbUXI+/2652YuD19EZnfvU6lw=;
 	h=Subject:To:Cc:From:Date;
-	b=SpHLO1eNQQ38IDLqF0WtjAaLHbYQFDOhGRKmj1TmEr3BAk6d1dPablsq7IdbLVa7U
-	 vuH3CBFYkmcWrcYf0VisM3pDCWiPuR34eKCT8QeJ81LqmO5fnj17/qRyJ+Pzad30uh
-	 OLo4/h321ERmMoN6TISZkd4f6kVRffL9NVroLYto=
-Subject: FAILED: patch "[PATCH] afs: Fix afs to abort the rxrpc call on send error" failed to apply to 6.1-stable tree
+	b=uiBnFQpFc6nBQ5K9vPfBMBrRJHFTM1IdJN6aGP92hZdEZ4wYp3mq/HqHyZqj2crCN
+	 otKu0D70soMrNZThwLGvxYrqOLyqvQXjdXBHFFxbkAfarJ0EA80B5tHRU/d5uD0Snw
+	 IMRrpCX7dFuVpL1pv4XSu0brWdXojNCnj5EDZrzQ=
+Subject: FAILED: patch "[PATCH] afs: Fix afs to abort the rxrpc call on send error" failed to apply to 6.6-stable tree
 To: dhowells@redhat.com,davem@davemloft.net,edumazet@google.com,horms@kernel.org,kuba@kernel.org,marc.dionne@auristor.com,pabeni@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:13:15 -0500
-Message-ID: <2026110415-paying-grill-e5e0@gregkh>
+Date: Wed, 04 Nov 2026 14:13:14 -0500
+Message-ID: <2026110414-occultist-maturity-4b0c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3e6af08a571fe2943a006acf3e890f36322602bc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110415-paying-grill-e5e0@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110414-occultist-maturity-4b0c@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
