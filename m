@@ -1,55 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793800392;
-	b=vD0wie9u8qdxbzH3DP3ibTTbFLfpnxjflPYeiXbi6w08sMcnE4V7lD5wUebGoE8a9Kqj
-	 NVhyecr8B+k/LRnreyXHYmuhL6lX4iqiJtL5Vv1E3sikXMKn0JNQ3HP6otLzLPRgwsMDv
-	 9KoJxLbM7lLpLumJRy1ZzOmIBRjCyQb3669CoNZ9pbgy5L/ZvUGfSuRYDZhMbbTqxsIaU
-	 XmlEYc732w8KB5Vqs7chrSmhZJ25px0ZmZVx7mnR4R+T7qL7gS6X7yddP7YbAMTvoZhhi
-	 FrdE1HivisRXYqcayDmmiDJbeKFQSN/lvjqDEb3/+LMWRPD2ndxEo4oU3QEvKtZXIIQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793800392;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=TauMCQr5SfziqD6k5VSsvGBJXXxJunQZxGoZnoDMU38=;
-	b=NPcqToqq39T6hslsx5hrc/nrPiapF4zHEzMqP9Kpi5gVI/EXhVElpepG55utelzvBpok
-	 whLTqlzNgHpTZvTdM7In5bzTmURAisHktXpBD/1V7UECFXOSC08li30jxWXaJcKN7moRX
-	 wOB0m2jiLa2puDB8foRIPFKcfm0jGKulsVuZwngMxMsaD1qvzdHslr9BHcDMqOonrs4Fi
-	 eZe2x1QpjyT0PPx41JpA1BHCnI3ObPslq95Kze0xS2/UotMM0uCEyI66NvVCByoqoIQ6c
-	 OWCxkVYyHHfJlQRB6xEI6c64QHWjWKFGLnN5coMADdotMLDtXpLmSHIfVHBAUJ76BFg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KsBdrZMG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793800511;
+	b=mD5lkMvJxf/UMzShTN4kNmj/ti+Eo3jz+FrKQqbLRRMkS2I36G4qhl/cvlLdNzaHRCpv
+	 DQFwmHLKIprxRf4SBYPEG1FqjGBBnVKamMfXhrgxXeS8AFh22sgnE1jJRMdRDOsYcw+pK
+	 yZ9oBy7voGAZJCZpPwJlgJoFqlU+7Ys6TJKY74xEawsnWaa5o6YO1/ZlF+Ny6fUGF7fvN
+	 XwhU3xNmzTkK5OAIA2Ffl7TtyWOqKBrYl9radARrRBeZ5WGKAOdeXMGFAor7anp5YpGfI
+	 Fz3F6gCBPQMJ/z/U+X75ZUZcWgL8a6WVo4zmc5rxTsZJjzrSdarK5VQYdf0odnou9Fw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793800511;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=maDQ2WD6HiiRMLihh/6PlAJLLE5S+DKoSCvfTu9OXko=;
+	b=Tl9MEqlLT4b65HHk635OwgyfYFuIL9HXdWbvVwQ2h5CCUXjjWDcRhumhVDSvUIPi2Z3h
+	 0OjJTI0ultRePt7yCs2eOzNooFHY6kFdFWEM47JEGysDoWBlemio+TR1lwhhDVVo3FGr9
+	 gfpTR/QoKgcPAFxotGNy80NMwI0tpE6EtE6QQI1y2bYm+BQX7qfWuXhcTOCa8TtWL2gZN
+	 rdub2Rvia1rtlC8SBhEgOEo40Ctqb60oFqUx4S2EdqNZ5XW5ejL6898hSGdxwvj3GHD1z
+	 /6eINxXp/OMl/+r8ipQAnjlmL8nPOpwSn3YK79Ar5sS1n+FE4CDl0qSdFvJX8qJhGsA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=grische.xyz;
+	spf=pass smtp.mailfrom=grische.xyz;
+	arc=fail smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38676606A31B;
-	Wed,  4 Nov 2026 13:53:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KsBdrZMG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD9791F000C1;
-	Wed,  4 Nov 2026 13:53:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793800391;
-	bh=TauMCQr5SfziqD6k5VSsvGBJXXxJunQZxGoZnoDMU38=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KsBdrZMGYslUlrw159MQZM1yGBRvFOW+mgCwb3GfULU4Vmz/NVXNg7yA004p3o+BW
-	 zRAAn8aQShUwwUG72mVfANjki//iW8YlgOYPC58R/29fyq49qQ80/3uCGtB+iBBwp0
-	 /DNk7x7UztqX0syDNojNaHjGSu7Xv5afPQnSeYEJrw5P/YUP1K8r74UfUyGkBqoPPD
-	 x38+3iKRY8sqn6JiMJr2pFZX+o+dH2g2hOIfAnWO7ctYNy/aX7ajLIqqN9+YftgMhO
-	 9SHsmxPjYvtMlKbpTbSoF/XA+Mdz4cIzTp/ZbS5dBWqm8Aksd3RRvD/k11H+rrv2vp
-	 tyyrDqa6F3tEA==
-Date: Wed, 4 Nov 2026 13:53:08 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Chengyu Liu <lui2012qwq@gmail.com>
-Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] regulator: disable disable_work for good in
- regulator_unregister()
-Message-ID: <5e63dcea-a397-41a4-a647-a356ab67f1a9@sirena.org.uk>
-References: <20261103174911.1600930-1-lui2012qwq@gmail.com>
- <20261104134838.326041-1-lui2012qwq@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB134606A332
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:55:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB134606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grische.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grische.xyz
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6afafc89b48so1060551a12.2
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 05:55:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793800509; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OwD95I8Uo9cplxnb9hjxL3P7Xq3GczzIVenO3GEXzEphYWYsnJ66g3TRVaMBa82rnK
+         1nB8IGLRoEzrpynNJEUlMqk4e8goC/sm6+z6CswC14NhLUbmnMUYUKXzbXQXBn1q72GP
+         4x7lAMI6cPkjrwKFgHrbZalSlK6gDNXRQ184HaxiwzEd5vXKktudM6tTOcEw4kWqoAnl
+         COmplxg1vRjgv9oldZ5RgQTGc8YHKa2OucWfQb8jsKuL/mhwc2kte4Kwj4gwKIQXS4i1
+         7DnyWTeUupfg2MQCh23UkGUu0oV1DrSadaMcKgj2QJ9JbT0xuygHJIczKVeaMG5TNMKQ
+         l72g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version;
+        bh=maDQ2WD6HiiRMLihh/6PlAJLLE5S+DKoSCvfTu9OXko=;
+        fh=h4NKKXGTrsnUPs7/QY21ubjv/6QNZfOlmeHOWbo0FxY=;
+        b=hMbs8LYUXRnwOtUC2n/jPTskgfUaFG/XIdskXyzSPWzFU6UxfVrmVxbQQ0OIzXhGan
+         pjQc5ycISY/Z+QaWEbxgNUAxUY7Zm158uGja8XB0jZj9JtqCZu5CyJ/HTGxJfLsnlyls
+         jXtTktNBUtVBVW3nvcVm8JZUGGO6pd5BgmfWMtuEr4NtyFE+Wwq7+WCd0kkXV/mmty/t
+         zAAC7kWPqkpcNrOV+B7wbi74ybzj5x2Ih1d5SbaTQ28vVi0dcAltEaSYanDMJbRTd3Ab
+         wamoRz9JQGlqS1a392JHALvoYWpk5NJY3Zg4oI8aNmdoqd3Ivyh5WGZrK4oQ8lGebuZ+
+         dXgw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793800509; x=1794405309;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=maDQ2WD6HiiRMLihh/6PlAJLLE5S+DKoSCvfTu9OXko=;
+        b=daTiT5bYFHzYFgKRWTbioJ8++0h2F7pQvMyJBuoRAdnEIYHMg3O+51So0hVazLpT7a
+         UWQltnye1TPb/uSfLIaE0/q+d8REjiv5xGecDBE0/1VE/P1s47/bqAl9obm9tmQBnWQm
+         zq6/04hmiOlcPTVa4eL8uqV4HkmisQ9uS2S5Ply9e2I184Tfw3BRG8ZEzMEHAf5fCBoS
+         0zc7Oy5lTqZTKb7lpwv9y26y94niwzCRZzkx34M3le5Q6SNxecJypi4tbbw/i/kx8S3B
+         FqPoFRapg7I5+NU9+XbuvmS/4Z8dOup1VmuDxY0QzjdaoMHGhLLJfFtWeEPA4BX2QQM/
+         G17w==
+X-Forwarded-Encrypted: i=1; AKwUvBwUY3U8qmz5OSynsg9O1lPWA0A8vjqajT/hqsWsL5YqxlxcPyYMMXHqGQW8+VeBLEt6+BHRi1g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8CH0k+5wKl74kFpUGLXda2Nsusb0FKEDQCXD80psncP2ix83wS
+	nKb/bPBcm55r/j8KT/nS/AJlS7uxZsLJ5oMA+Q+SACvvzmflGbfGCMFxZYxib2XZNKwXiBFR2o3
+	ojIn/LlnlfziLb7eO72Vd5K6UpMDGOXOIWhGjEHk1og==
+X-Gm-Gg: AYBFou31Q54qzBRVvvmKOO4XVHwNZz4lZziSwFm4IXwrjhoE3b6WaoR9vHrFxSnrVtF
+	F+yjys5bascQm5d33umt30sI+A5tYIauLKlDGB7AVJfl1zNy+yS1xS2p+s5nj6imFERFVtET1OZ
+	C/VYWnOxPMQhC6TeDSNNc1Limoqg2ZpHBtTxRaNqyWvkyZGbQd3pMXjk7M0+LgcIsd7QI4/gePW
+	cNzz18O2N3kGk9Ikzmn6yJeDIbtRfyf0OwmQwLYxTDmtjeS6F/cL2kOMnDs0Zi23ZE9qqXkfxL/
+	tTNTxgKGjmlBGmoHQsP+cZ2lo9KsmgqlW6SYnKqiUkWd3Kk8e0WOQqN9nFY07gW6CR2c2OvOM5L
+	FYLEzMVo7dGQKhGMUgQYJhz47v9ULGgbjJD0=
+X-Received: by 2002:a05:6402:1851:b0:6b3:f7f6:649e with SMTP id
+ 4fb4d7f45d1cf-6b4d438aba8mr8776244a12.7.1793800508173; Wed, 04 Nov 2026
+ 05:55:08 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,44 +88,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="r1mTOHNVXENWSM17"
-Content-Disposition: inline
-In-Reply-To: <20261104134838.326041-1-lui2012qwq@gmail.com>
-X-Cookie: All rights reserved.
+References: <20261020190319.884375-3-opensource@grische.xyz> <179279532326.3134.8925339564776340456@kernel.org>
+In-Reply-To: <179279532326.3134.8925339564776340456@kernel.org>
+From: opensource@grische.xyz
+Date: Wed, 4 Nov 2026 14:54:41 +0100
+X-Gm-Features: AclHuK-Y4PhN7UgN6Wg1KVGHuCHUflIixbfP_eRM3Iuwj9ty4dhSxmMFdf4CmYc
+Message-ID: <CALsH2cy0Pn2DFAjqb5H2PR6o+_Vr=ig7bbL9-RA82sC99wf50Q@mail.gmail.com>
+Subject: Re: [PATCH net 2/3] net: stmmac: dwmac1000: don't discard frames with
+ only a checksum error
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, maxime.chevallier@bootlin.com, 
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, o.rempel@pengutronix.de, 
+	stable@vger.kernel.org, mcoquelin.stm32@gmail.com, 
+	alexandre.torgue@foss.st.com, aaro.koskinen@nokia.com, 
+	linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+> Can this mask let giant frames through when Rx checksum offload is
+> disabled?
 
---r1mTOHNVXENWSM17
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Yes, in threshold Rx mode. The dangerous case was a giant frame that
+spans two buffers, because stmmac_rx() parsed its last descriptor as a
+new frame. The same happened without this series for any frame larger
+than the Rx buffer.
 
-On Wed, Nov 04, 2026 at 09:48:38PM +0800, Chengyu Liu wrote:
-> regulator_unregister() stops rdev->disable_work with
-> flush_work(&dw->work), which is a no-op for a delayed_work pending on
-> the timer wheel: flush_work() only waits for a queued or running work
-> item.  A disable deferred by a consumer's regulator_disable_deferred()
-> therefore survives the provider's unbind, and regulator_disable_work()
-> fires after device_unregister() has freed the rdev, dereferencing it
-> via container_of().  Use-after-free.
+Commit 834ec9530832 ("net: stmmac: drop split frames on AF_XDP
+zero-copy RX") has since fixed that in net, and v2 will be based on it.
 
-Please don't send new patches in reply to old patches or serieses, this
-makes it harder for both people and tools to understand what is going
-on - it can bury things in mailboxes and make it difficult to keep track
-of what current patches are, both for the new patches and the old ones.
+>
+> Should bit 7 also count as a discard reason unless IPC (hw->rx_csum) is
+> enabled?
 
---r1mTOHNVXENWSM17
-Content-Type: application/pgp-signature; name="signature.asc"
+Bit 7 alone does not identify a giant frame, because on cores with the
+advanced timestamp feature it reports a timestamp instead.
+With the current code enh_desc_get_rx_status() does not know which core
+it runs on, and it has no access to hw->rx_csum.
 
------BEGIN PGP SIGNATURE-----
+A giant frame that fits one buffer therefore reaches the stack with a
+verified FCS in threshold Rx mode only.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrrOMMACgkQJNaLcl1U
-h9AY6Qf/YDsn3/z3Ip4FsAx/iYVXNkX+Tj59/+U04/uBNX1p4VF8dvobid56hyY/
-4R1d85MsF2sY1AOHuwCdA8TyLoGQJmUISiUIg8mY4clECUjRjpHhMYaFbqlxJujs
-YR47oW6KG+r8VSIG2i47xP+96zzcJEteFyV4T/KJGJEr6qqeOr5wZV1/KwidK8MY
-6EVW+cdRjASoUsKMZEl1BNYO/IyqRfBNQr5WupbD7fp1tOgha8NIFuarOawRdqON
-Vwyy1TlkmTYv9uHkAfoLUD9vNhDqSmT7fDvonrWoV47H381MU5Z73HSHP3gw3jnv
-PFtkjkTYJ1yaIkpjtXnGAWODOsyGPA==
-=kmR9
------END PGP SIGNATURE-----
-
---r1mTOHNVXENWSM17--
+Dropping it would need a new parameter that tells the parser whether
+the core has the timestamp feature.
