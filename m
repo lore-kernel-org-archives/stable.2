@@ -1,61 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820088;
-	b=r4HBF4xLKpk+V8Kudx7eL9hh465rumPygtci0knxave9jxOZQhrP6lUj9ae2qFhBAB+L
-	 Hcwrslt3ElAAfFGtg3FcQijFCNSqxsgwJIU4tLIRkg/oxhYiZZxDytnAZVhCpNKUyk/YD
-	 htoU6AAg9Htim7oD+ViXyiGKL2fMETdHDMcoUQZyti6zDwPWOMJqalasWfml3qbxsEfeW
-	 btrWtvbMW+LvI/E2Q2aNc8Q4/P5a6/Tmn9nmA4NS2SYD++5w0hE6nZGTaTYiZv0UV+J8n
-	 AikSco/esMgYEhW5jG4M9aLpc54+uma1yzr6vT4JKGxytbpl/Pguf7iEd9unbiMfDwg==
+	t=1793820095;
+	b=PpGNl2JQ+Iyn+xRsPkOFwNGQKgZifn2VdMDrh2lzlqAcBVLJStjcibvYaKVabTOlA0be
+	 4ODPnhfIsS8bRz17dD3M3IfREJ5sPvVCk9pnn65Mt3Z2BCYJgWRqRcmepm9WSiKILKScc
+	 hnd40fvuiOmWbTyzd7798FgqGi3gGBMAznwE/4eNlDBMIWSJIAbSmwb+l/1AaR/Iq1Bu4
+	 PaSsjO1H8qqau96qEzOswi+0U0AYT94GQSY3mma+545hamhH8qxnZ2s36OXT6aT4CQQXf
+	 ZpBb1x2f7Z6CJpq08S0D7kqaQQyWemA4DjfMggz6XJqTZcwAsGqnHLPxO6G4UwEit7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820088;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uBrjyKSzbHrbtx5cf0dEuUjCPybe2lMOg8DMZ1oB1tE=;
-	b=swRLAipeKOtiVS3p0JMKyU8C14RmC5x2HiRrA+QwTr8VhRixXbgJgGX+y4HEtAPTN6XU
-	 LeSb1xjgMMgs9lQhtnaExaumfzc1kq4utLi7j0ysLnlIgWc03Hvzc5Hm8UuhScjcuWHYA
-	 T3b40J34adJpSCKi0VzQJ+Myz6vnd1LHBu5UYOJ9mLo0yzfxJtniFKDQNcKFv7o8KkBFB
-	 QCsnlE99u/jxR2WGaB2CTvu3Gv3G1cl27tKplwJtxbnRZgU4YyyqeIHyK0JmELEbmo/2P
-	 Dt9u6Nr7tuCbq0pquVYX7odKZ7V3XOherKGYJO/mSN/aKGzcFqnUCy0gi+hnS6JPolw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820095;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=ih8EKkL3fEFrmnOibnSg6zuDA24U9CpFmMUb1+ThTQI=;
+	b=sMunYd4xJPcP/d89IArdZqMCCE30wexaTGhVntJmaxDeKe2/mTiBynXQH23cxfE7zOIr
+	 a72HO/gry9K229WLZhXaJv1tG0Bbak70k4Tx/7PqFWMvJHUrxiJ9nVhYAjWIoRI2bv8Wa
+	 SpsIuAWGfq8vBbN0d5wJGxnhL/OiWIt70CDiOX2Lk3V8boCl6uLk3csIU9DJ7KAawItCB
+	 0GEq6c/2IQ4ppmQv3Al7b2r2dfLOXfBZYcoq/9isSLPM6bNwC8V50ENxO7B/Orflqe83Q
+	 I1MENUp140WM3v/7UXK93ESgR5BU3CC0uj2N5FNcrPggDtrcHc+Uxi9Uti2+4txNRIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BhKb7mNe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="NV/pCHTx";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5840D606A87B;
-	Wed,  4 Nov 2026 19:21:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D0F0606AB3A;
+	Wed,  4 Nov 2026 19:21:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BhKb7mNe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23A181F00A15;
-	Wed,  4 Nov 2026 19:21:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NV/pCHTx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEDE71F0093A;
+	Wed,  4 Nov 2026 19:21:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793820088;
-	bh=uBrjyKSzbHrbtx5cf0dEuUjCPybe2lMOg8DMZ1oB1tE=;
+	s=k20260515; t=1793820095;
+	bh=ih8EKkL3fEFrmnOibnSg6zuDA24U9CpFmMUb1+ThTQI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BhKb7mNemEs1CZupJBi7fsLzyV/vmJ+xFTelKfuaugtPQ1en4LXM2nrxtfEaL1Qea
-	 Ijk/VnTIKENiqsHBmJmspxYS7q1F92EOmV+8zQeiAg2F5XnLfv3rYSDSpSBvQUwOpt
-	 K3cJkZw0f6n9BVIFoZ8Tzafw2T7wpgqM8bJPFbWIJMZVNFhU8A8eekOGaQxOwlNRB5
-	 GPP7czddJsxtRgjRGnoSbDqmPtlLEsypeETOtHF4tkUN5WjqlS/u/JvEl3WZPIwAT4
-	 5GV4bkl5oFVJSnPVVM5IXchPsEoXQHgFm9aKDRAOTnpasTWxhjAublDGNgTjz6DieR
-	 FlxdxqR1l0pMQ==
-From: Oliver Upton <oupton@kernel.org>
-To: kvmarm@lists.linux.dev
-Cc: Marc Zyngier <maz@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Oliver Upton <oupton@kernel.org>,
+	b=NV/pCHTxChzVH1ioWmq+QeUT+SBXucwSnRPJOdBi/Q2y75DGHw15YBMqYjqgrtt2O
+	 VyFPPs8v7zjoqFDFOJ5oAl9YXifHpXNyabEPReJZQwa8XXH4iQGv2Qty9h/jandirD
+	 aUMSk23okxfo9KtkbC4/nzn1Iw09lddant5cO9hakE0csEjqm8lPvF90MPEOYpmUAd
+	 IMkDVpUwfqgAQLlAK9nXdyRgIdGxWTHDKSyuqOT48xWUvA/iAJk+qPbBXnzRbF0y+d
+	 wn/gLZpI4BHKSDGznFL2I2ZF9zF+c1mxFQKqQBN2chjmpu2miV52eKF6iZL2Z2lRgn
+	 AL7Cg1xDOYz2Q==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH 7/8] KVM: arm64: nv: Enforce sysreg visibility before evaulating guest traps
-Date: Wed,  4 Nov 2026 11:21:23 -0800
-Message-ID: <20261104192124.3932743-8-oupton@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261104192124.3932743-1-oupton@kernel.org>
-References: <20261104192124.3932743-1-oupton@kernel.org>
+Subject: [PATCH RESEND v2 22/51] ALSA: info: don't write past the end of a data entry
+Date: Wed,  4 Nov 2026 20:21:20 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-22-021c84d852e0@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,164 +115,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1329; i=brauner@kernel.org; h=from:subject:message-id; bh=/wIh+WZXKaFyyFYwMjXKmLvFs42DoCHjOzS3J0v96D0=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bny2zMufh/VIknXNykPasit38Tx6t1dcVkb8Us6vt wpbDDY/7ihlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZjI8+UM/3Qne19pyPzkZ7uK 4+ps9RZDLa75iTtP5zvl3PvzK0/j/yuGf5bm066vnniBYWL95HgLE52AGfqMMk4eWldmv104x1K Fmw8A
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-Not all sysregs / system instructions can be described by FGUs. Of
-these, there are some which may be not implemented for the VM (e.g. MTE
-cache maintenance instructions) yet intersect with valid trap bits for
-the VM (HCR_EL2.TPCP).
+snd_info_entry_write() clamps the count to what is left of the entry
+by computing entry->size - pos as a size_t. For a position past the end
+that wraps and the write goes to the driver unclamped, for opl4 into
+sample memory outside of what the entry covers. At the end of the entry
+the driver gets a count of 0 and vmalloc(0) warns. Before the clamp
+moved into the common code the driver ignored such writes. Fail them
+with -ENOSPC instead, like a block device does at the end of the
+device. Returning 0 would make writers that use stdio retry forever.
 
-This is annoying to deal with since most of our UNDEF infrastructure is
-built around traps being RESx for unimplemented features. Test the
-visibility of the sys_reg_desc to avoid injecting traps for non-existent
-system registers into the guest hypervisor.
-
+Fixes: d97e1b78239c ("ALSA: info - Check file position validity in common layer")
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
 Cc: stable@vger.kernel.org
-Fixes: a7484c80e5ca ("KVM: arm64: Allow userspace to request KVM_ARM_VCPU_EL2*")
-Signed-off-by: Oliver Upton <oupton@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- arch/arm64/kvm/emulate-nested.c | 24 +++++++++++++++++++++---
- arch/arm64/kvm/sys_regs.c       | 18 ++++++++++--------
- arch/arm64/kvm/sys_regs.h       |  4 +++-
- 3 files changed, 34 insertions(+), 12 deletions(-)
+ sound/core/info.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/kvm/emulate-nested.c b/arch/arm64/kvm/emulate-nested.c
-index d04ac5203454..46dc658b041b 100644
---- a/arch/arm64/kvm/emulate-nested.c
-+++ b/arch/arm64/kvm/emulate-nested.c
-@@ -2546,12 +2546,13 @@ static bool check_fgt_bit(struct kvm_vcpu *vcpu, enum vcpu_sysreg sr,
- 	return !(kvm_get_sysreg_res0(kvm, sr) & BIT(tc.bit));
- }
- 
--bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
-+bool triage_sysreg_trap(struct kvm_vcpu *vcpu, const struct sys_reg_desc **r)
- {
- 	enum vcpu_sysreg fgtreg;
- 	union trap_config tc;
- 	enum trap_behaviour b;
- 	bool is_read;
-+	int sr_index;
- 	u32 sysreg;
- 	u64 esr;
- 
-@@ -2559,6 +2560,7 @@ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
- 	sysreg = esr_sys64_to_sysreg(esr);
- 	is_read = (esr & ESR_ELx_SYS64_ISS_DIR_MASK) == ESR_ELx_SYS64_ISS_DIR_READ;
- 
-+	*r = NULL;
- 	tc = get_trap_config(sysreg);
- 
- 	/*
-@@ -2569,6 +2571,11 @@ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
- 	if (!tc.val)
- 		goto local;
- 
-+	if (tc.sri) {
-+		sr_index = tc.sri - 1;
-+		*r = kvm_sys_reg_idx_to_desc(esr_sys64_to_sysreg(esr), sr_index);
-+	}
-+
- 	/*
- 	 * If a sysreg can be trapped using a FGT, first check whether we
- 	 * trap for the purpose of forbidding the feature. In that case,
-@@ -2595,6 +2602,18 @@ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
- 	if (is_hyp_ctxt(vcpu) && !vcpu_is_host_el0(vcpu))
- 		goto local;
- 
-+	/*
-+	 * Certain sysregs and system instructions could be UNDEF for the VM
-+	 * but lack a corresponding FGU description and intersect with a valid
-+	 * trap bit for the VM. Test the visibility the sysreg (if we have a
-+	 * sys_reg_desc) before determining the effects of the guest
-+	 * hypervisor's traps.
-+	 */
-+	if (*r && sysreg_guest_hidden(vcpu, *r)) {
-+		kvm_inject_undefined(vcpu);
-+		return true;
-+	}
-+
- 	switch ((enum fgt_group_id)tc.fgt) {
- 	case __NO_FGT_GROUP__:
- 		break;
-@@ -2666,7 +2685,7 @@ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
- 		goto inject;
- 
- local:
--	if (!tc.sri) {
-+	if (!(*r)) {
- 		struct sys_reg_params params;
- 
- 		params = esr_sys64_to_params(esr);
-@@ -2697,7 +2716,6 @@ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
- 		return true;
- 	}
- 
--	*sr_index = tc.sri - 1;
- 	return false;
- 
- inject:
-diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-index 7f7a197a9ad6..7c8277de0494 100644
---- a/arch/arm64/kvm/sys_regs.c
-+++ b/arch/arm64/kvm/sys_regs.c
-@@ -5407,6 +5407,15 @@ void kvm_reset_sys_regs(struct kvm_vcpu *vcpu)
- 		kvm_make_request(KVM_REQ_RELOAD_PMU, vcpu);
- }
- 
-+const struct sys_reg_desc *kvm_sys_reg_idx_to_desc(u32 encoding, int sr_idx)
-+{
-+	/* System registers have Op0=={2,3}, as per DDI487 J.a C5.1.2 */
-+	if (sys_reg_Op0(encoding) == 2 || sys_reg_Op0(encoding) == 3)
-+		return &sys_reg_descs[sr_idx];
-+	else
-+		return &sys_insn_descs[sr_idx];
-+}
-+
- /**
-  * kvm_handle_sys_reg -- handles a system instruction or mrs/msr instruction
-  *			 trap on a guest execution
-@@ -5418,22 +5427,15 @@ int kvm_handle_sys_reg(struct kvm_vcpu *vcpu)
- 	struct sys_reg_params params;
- 	unsigned long esr = kvm_vcpu_get_esr(vcpu);
- 	int Rt = kvm_vcpu_sys_get_rt(vcpu);
--	int sr_idx;
- 
- 	trace_kvm_handle_sys_reg(esr);
- 
--	if (triage_sysreg_trap(vcpu, &sr_idx))
-+	if (triage_sysreg_trap(vcpu, &desc))
- 		return 1;
- 
- 	params = esr_sys64_to_params(esr);
- 	params.regval = vcpu_get_reg(vcpu, Rt);
- 
--	/* System registers have Op0=={2,3}, as per DDI487 J.a C5.1.2 */
--	if (params.Op0 == 2 || params.Op0 == 3)
--		desc = &sys_reg_descs[sr_idx];
--	else
--		desc = &sys_insn_descs[sr_idx];
--
- 	perform_access(vcpu, &params, desc);
- 
- 	/* Read from system register? */
-diff --git a/arch/arm64/kvm/sys_regs.h b/arch/arm64/kvm/sys_regs.h
-index 50214271b24a..d8ae21578665 100644
---- a/arch/arm64/kvm/sys_regs.h
-+++ b/arch/arm64/kvm/sys_regs.h
-@@ -263,10 +263,12 @@ int kvm_sys_reg_get_user(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg,
- int kvm_sys_reg_set_user(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg,
- 			 const struct sys_reg_desc table[], unsigned int num);
- 
--bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index);
-+bool triage_sysreg_trap(struct kvm_vcpu *vcpu, const struct sys_reg_desc **r);
- 
- int kvm_vcpu_finalize_sys_regs(struct kvm_vcpu *vcpu);
- 
-+const struct sys_reg_desc *kvm_sys_reg_idx_to_desc(u32 encoding, int sr_idx);
-+
- #define AA32(_x)	.aarch32_map = AA32_##_x
- #define Op0(_x) 	.Op0 = _x
- #define Op1(_x) 	.Op1 = _x
+diff --git a/sound/core/info.c b/sound/core/info.c
+index 023b4736aa6d..f608d335b6c9 100644
+--- a/sound/core/info.c
++++ b/sound/core/info.c
+@@ -171,6 +171,8 @@ static ssize_t snd_info_entry_write(struct file *file, const char __user *buffer
+ 	pos = *offset;
+ 	if (!valid_pos(pos, count))
+ 		return -EIO;
++	if (pos >= entry->size)
++		return count ? -ENOSPC : 0;
+ 	if (count > 0) {
+ 		size_t maxsize = entry->size - pos;
+ 		count = min(count, maxsize);
+
 -- 
-2.47.3
+2.53.0
 
