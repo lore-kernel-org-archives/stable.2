@@ -1,77 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793780418;
-	b=vXnQP8/6px3R8yCGlSswSOfT9YCcjUVj/dklE0YgYfDM7ZCDchsgc74QTR68jsssj5tJ
-	 E2XwLM0RLfmx7x1WHNy7N5Nw+hFx/8x4td3Kfl4UxQdkP5RdgMG2dXACLcJUzWMZvy/Zr
-	 /xAYO/Ss8ztfrhB4Lyh7inCnVEw5Q2YO2HtTDGhNsiIrPXOsXfANTWRR1Kca7uDzlcc+h
-	 BR2piJM4BSTwoF5CCFfVtq1a2hNyvb13VYRCwKRbX4NHbQGrsdRD1B24buk8/E2EWgeZi
-	 wv0Y6WYJKnH2TiPuEqbmzDrUt/mudWCvxkjN2kmtpdldiQ8R/eywjmzZQWUtThNZ/Xg==
+	t=1793780491;
+	b=FKpqOB/VtBPU7X7LMp+4OrWMxrACGPsPV2apec9VIxoITY36rjqZ8JUisYgbrCg/KAgB
+	 uvsJ9646qjVjIyIhAbSotsJbQK3rZc+b9GG9Ez24nwP7pe1bykXvtI2C5lFmB7isKpohp
+	 GNasKyqU3JJshQXXTZA9GZ04dtPsETgLCQXzF0xxTxLzieBh5qFFEgYvfgz+Au/cTm6mU
+	 JYilqCYCn4KLnfWwWv75ObvjU8CRkErUyx/VC8N1lS1fw2on/nU4CZjDCwfaPW1z6Y6vG
+	 3uQz7YIL/FuJ/3oUycYG1Y6gCYIaQqdzlsFO0nofvqLwdIn+MYCyeCOUHLbeFqKuNPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793780418;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=SBs5ngltfceoGz65CnfqU4ni/SkBXbisTdH2AJEoDqw=;
-	b=yvpZn3rF2gCrxtTJfSeRBoYRrMlnUAtANqZ5pYC+pbooj0m0O3IwIFiJJBRo5uJvPjRi
-	 gMtuY5Cyg+7XEwXwPhjfSmu62V0JScffZMCcuycasmbk4c5sRqvulQk8kMwBnFv6CxSmT
-	 Q6a7t0WwD7Ye62H/+gFW7z/K/tCHbHsgpGz5Yu1xLSuRUnNB+64g02Cfmn15jD866lnrO
-	 G7NilD9qjLKvjEyZCrClZRG74oSlh4rgy0xuTUso2eMdhCz2pk3pOuwDdTsbVmY7xSTnM
-	 kCCFFTcYJf1QCZN55oCpsELTDkQ24N2C/htXMN2qYFcSYPYiZbZPlNRA+IrHcb5ouDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793780491;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2L8Phg4vAm8z6UFJHLXifD8svd0Kk4bbcZZ25kyGs7M=;
+	b=qWBCUCIkSGGEKrCgrwEsjxDdrCb4NT8n6LT0xAVHQK4I7GGPQ1oD9IW/OLjYEzfX/8L7
+	 Jn2KZMeesshNZKGLY2AEO59K9MPJePNDvxHNynrF08C/X4Mai3jsptNQgwiZXMmV+8Oau
+	 zIw+ClauXgP+yZsRp3M77TZEog693Zwm6Clftf9wi2dtPfS2eOCjNmqEQ06e8lTJl3w80
+	 cph0FOYLrqOSqbyN08uPfa8RKSSN8MAW6el8CV9CSJsOxybaIYTiGK4Yq357/vxnnpI0y
+	 1BfYsQXGAez9K76btdAXfOnWual0b/kgjtj4kOgsKbzFPhqCp2azaLDI8F+R7GxrfeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=eXIA9Z1v;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=eXIA9Z1v;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d8lWT74G;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9CAD606A32C;
-	Wed,  4 Nov 2026 08:20:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9CAD606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EF0606A32C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 08:21:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64EF0606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=eXIA9Z1v;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=eXIA9Z1v
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id BD87321F36;
-	Wed,  4 Nov 2026 08:20:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1793780415; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=SBs5ngltfceoGz65CnfqU4ni/SkBXbisTdH2AJEoDqw=;
-	b=eXIA9Z1vNflgGIOD5PkcOdSYo7dHNT3ZabQ8geK1s2F/ydy0f/2FauA1E/q6xI/G4tZyCD
-	hawq/AZcyJTCwHO50k9qt0L16WZYMLIFXjQjBvzvVyyI73gPknSCO1+pjFnwMyy3uAnB33
-	nDaHGRkE17aD+t1GHtIKDO3ztODie7c=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1793780415; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=SBs5ngltfceoGz65CnfqU4ni/SkBXbisTdH2AJEoDqw=;
-	b=eXIA9Z1vNflgGIOD5PkcOdSYo7dHNT3ZabQ8geK1s2F/ydy0f/2FauA1E/q6xI/G4tZyCD
-	hawq/AZcyJTCwHO50k9qt0L16WZYMLIFXjQjBvzvVyyI73gPknSCO1+pjFnwMyy3uAnB33
-	nDaHGRkE17aD+t1GHtIKDO3ztODie7c=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3D980134F0;
-	Wed,  4 Nov 2026 08:20:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 8rhoBb/q6mp9bgAAD6G6ig
-	(envelope-from <jgross@suse.com>); Wed, 04 Nov 2026 08:20:15 +0000
-Message-ID: <d6d14b59-66a2-4a1d-ba57-15b86412ed1b@suse.com>
-Date: Wed, 4 Nov 2026 09:20:14 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d8lWT74G
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a215e64962so3767365e9.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 00:21:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793780490; x=1794385290; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2L8Phg4vAm8z6UFJHLXifD8svd0Kk4bbcZZ25kyGs7M=;
+        b=d8lWT74G+yXWFlqGK8Bo4Tdcnvx0gGeCOXNOZ9hvAcn9Mnk6EPmrQ2cIwxDsCNRczn
+         B8MmhbTG1GF8PnLdup/yJuHZA+v673ZG7cqmCYKELm34vpU7ONvPW/4n9hfSl8n8C9Fx
+         24l1fernS6sYW8RQKkQiuEwgOWPgW4dwSkJsp2Xa61RvxLVVrO79WG0irFpzRmXVhAnP
+         BYYO+Xmx8yrSRqVMr0LBFCISWGGUmUb7RTfWAXv8gyV9592UIQHQPjFiAVvz9grh37U2
+         hokKw3BIWzPcJNNRWESawKpKIKF5nE6j2hzCQ6Kv4TG97G36A/ELCdjQw31mBQ6eRK2p
+         zkAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793780490; x=1794385290;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2L8Phg4vAm8z6UFJHLXifD8svd0Kk4bbcZZ25kyGs7M=;
+        b=xp92EYoXaxxyEgIrBv2RcaSEabfKPHx9lL3NchZ3o8SeIKCqUMG5w1tIXlZgpcx31h
+         7jEuZ7eXkzns0uEGKWffst6WZnEhp4n7OYluHsTk18PRVuLwkfulhFgnF2VmZ1Nx/TOa
+         wC66NoPig//heHgqVWI4TnejELKfDFKff1wchKQfuy3yIRvivySbW/QqqF9rEIAtSJil
+         S/qvkeUE+Pl9/12PktoD2d9MQyAKumH3om44RDbo6VWwoTgH+Jp6F4HhmPa7/HLSET7U
+         vlN1rtPwbb19cGeqbaCRhAKRSGbSXECaI9rS0YsVWZ1xrKBOx2/0LCBQ9fsD0N2moNUJ
+         ucJg==
+X-Forwarded-Encrypted: i=1; AKwUvByzshP1RBwkhEU3EeaQWZumo0umz7JvzpobCNBinSHw5MdehWfb8KIxIObu9fD9D22CjQOuN24=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/vhptg8P3FE1PBtcfEkCY8ZWrA+IeKi3ZZ16OKlVnqCh7dLnfF
+	aAo84bCP6MawbRSWBkKneWJwg5L6ftKV8ELqpWtcfjpIm7JM1qhrbNuC
+X-Gm-Gg: AYBFou2kCGV0omCWYU9EiowMib/MmK8Ok+iTSW9/oweB6ND5D6kSRaxnZU82+0nAYGO
+	a0bNAc6A55P2ClUdSyk3gYrEhbwSFST0vvBy1PPcEtTtfT/uZcxxDQZydG3YcJiJBlDJFdi2va9
+	64iCV81CzDttBc5cIGDjuQLLwD777nY9TlbE2hI5OE49i/mGkxNuK59xaZ3eW2hMf6rQzGeDAAu
+	ord0X/ExgTnLnjkeRZ8ZXsAUPRTiB0nNGDdInaxKUrIXUZvND1VP5K7CVP87+SIPlTvb3XBsqa0
+	lCTtfGRa4rKO0sXxl1wCT7iL/kIEQPiIMZjV0QWUOZaPlfUHIZf0BDxEMrt5Ms1LXmtzVBRTBUw
+	H1gB3JQyM1X/IMTBn58IkcI+BN0lG3qDDSABnG2Jhg8J+xN0zPEzxnTLfNikn9gHr4VjSE9H+vL
+	qtRwuSzSophFUz0HmCPqhKBcRv5Ejt4P9myguztdNBTfi+wctgz7PKYDQIdT/N12rRAmIu4+Fw1
+	ABo61EB/f7bkvXWDao4lbcTc9oTW8kb0iVmmFnmH9tRj5P0qdDXMLYSsOETe2BUgH/LkgG1xk/+
+	MyWtxCXWbgEKhtczwXmAa2G53/CjMFObUs+wreJ/rBdnmo/yB5Xd80J0SAtHYfPyCTYlN1j3V/A
+	EAQtZfGOYRDg=
+X-Received: by 2002:a05:600c:4f0f:b0:4b3:ad9d:e21 with SMTP id 5b1f17b1804b1-4b3ad9d0e48mr67987735e9.12.1793780489447;
+        Wed, 04 Nov 2026 00:21:29 -0800 (PST)
+Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43cff3fcdsm35490905e9.11.2026.11.04.00.21.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 00:21:28 -0800 (PST)
+From: Amir Goldstein <amir73il@gmail.com>
+To: Paul Moore <paul@paul-moore.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	Chris Mason <mason@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	linux-unionfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] lsm: put the copy up creds when an LSM hook fails
+Date: Wed,  4 Nov 2026 09:21:28 +0100
+Message-ID: <20261104082128.3573690-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,165 +100,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/CPU/AMD: Don't print reset reason in VMs
-To: Jason Andryuk <jason.andryuk@amd.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Yazen Ghannam <yazen.ghannam@amd.com>
-Cc: xen-devel@lists.xenproject.org, Ariadne Conill <ariadne@ariadne.space>,
- Sean Christopherson <seanjc@google.com>, stable@vger.kernel.org,
- Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org
-References: <20261104013026.185392-1-jason.andryuk@amd.com>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20261104013026.185392-1-jason.andryuk@amd.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------LKuNJD8fzNHF2QkAVsWACpJT"
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-9.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	NEURAL_SPAM_LONG(3.49)[0.998];
-	BAYES_HAM(-3.00)[100.00%];
-	SIGNED_PGP(-2.00)[];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_BASE64_TEXT(0.10)[];
-	XM_UA_NO_VERSION(0.01)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	HAS_ATTACHMENT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -9.80
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------LKuNJD8fzNHF2QkAVsWACpJT
-Content-Type: multipart/mixed; boundary="------------aF0OXbWKlvGAtnWy4QKg8fQK";
- protected-headers="v1"; hp="clear"
-Message-ID: <d6d14b59-66a2-4a1d-ba57-15b86412ed1b@suse.com>
-Date: Wed, 4 Nov 2026 09:20:14 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/CPU/AMD: Don't print reset reason in VMs
-To: Jason Andryuk <jason.andryuk@amd.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Yazen Ghannam <yazen.ghannam@amd.com>
-Cc: xen-devel@lists.xenproject.org, Ariadne Conill <ariadne@ariadne.space>,
- Sean Christopherson <seanjc@google.com>, stable@vger.kernel.org,
- Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org
-References: <20261104013026.185392-1-jason.andryuk@amd.com>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20261104013026.185392-1-jason.andryuk@amd.com>
+From: Chris Mason <mason@kernel.org>
 
---------------aF0OXbWKlvGAtnWy4QKg8fQK
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+security_inode_copy_up() leaks a struct cred when one LSM allocates new
+creds for an overlayfs copy up and a later LSM then denies the copy up.
+One such pair is SELinux and a BPF LSM program that denies
+inode_copy_up. Enabling both LSMs and loading the program requires
+root. After that, each denied copy up leaks one struct cred, no matter
+which user triggers it.
 
-T24gMDQuMTEuMjYgMDI6MzAsIEphc29uIEFuZHJ5dWsgd3JvdGU6DQo+IHByaW50X3M1X3Jl
-c2V0X3N0YXR1c19tbWlvKCkgZXhwZWN0cyB0byByZWFkIEZDSCBNTUlPIG9uIGJhcmVtZXRh
-bC4gIFZNcw0KPiBkb24ndCBoYXZlIGVtdWxhdGVkIEZDSCByZWdpc3RlcnMsIHNvIHRoZXJl
-IGlzIG5vdGhpbmcgdG8gY2hlY2suICBBZGQgYW4NCj4gZWFybHkgZXhpdCB3aGVuIHJ1bm5p
-bmcgb24gYSBoeXBlcnZpc29yLg0KPiANCj4gVGhlIHJlYWwgbW90aXZhdGlvbiBpcyBYZW4g
-UFYgZG9tVXMgY2FuJ3QgYm9vdCBvbiBaZW4gQ1BVcy4gIFBWIGRvbVVzDQo+IFBURSBjb250
-YWluIHN5c3RlbSBwaHlzaWNhbCBhZGRyZXNzZXMgLSB0aGV5IGRvbid0IGhhdmUgY29uY2Vw
-dCBvZiBndWVzdA0KPiBwaHlzaWNhbCBhZGRyZXNzZXMuICBkb21VcyBjYW4gb25seSBtYXAg
-cGh5c2ljYWwgYWRkcmVzc2VzIHRoZXkgYXJlDQo+IGFzc2lnbmVkLCBzbyBhIGRvbVUgZmFp
-bHMgdG8gbWFwIHRoZSBGQ0ggTU1JTyBhZGRyZXNzZXMuICBIb3dldmVyDQo+IHNldF9wdGUo
-KSBkb2VzIG5vdCByZXR1cm4gZmFpbHVyZSwgc28gaW9yZW1hcCgpIHJldHVybnMgYSBwb2lu
-dGVyIHdoaWxlDQo+IHRoZSBQVEVzIGFyZSB1bnBvcHVsYXRlZC4gIHByaW50X3M1X3Jlc2V0
-X3N0YXR1c19tbWlvKCkgZmF1bHRzIHdoZW4NCj4gcmVhZGluZyB0aHJvdWdoIHRoZSBwb2lu
-dGVyLCBicmVha2luZyB0aGUgYm9vdC4gIFRoaXMgY2hhbmdlIGZpeGVzIFhlbg0KPiBQViBk
-b21VcyBib290aW5nIG9uIFplbiBDUFVzLg0KPiANCj4gZG9tMCBjYW4gbWFwIHRoZSBGQ0gg
-TU1JTywgYnV0IGl0IGhhcyBYODZfRkVBVFVSRV9IWVBFUlZJU09SIHNldC4gIFdpdGgNCj4g
-dGhpcyBjaGFuZ2UsIGl0IG5vIGxvbmdlciBwcmludHMgdGhlIHJlc2V0IHJlYXNvbi4NCj4g
-DQo+IEZpeGVzOiBhYjgxMzEwMjg3MTAgKCJ4ODYvQ1BVL0FNRDogUHJpbnQgdGhlIHJlYXNv
-biBmb3IgdGhlIGxhc3QgcmVzZXQiKQ0KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZw0K
-PiBTdWdnZXN0ZWQtYnk6IEJvcmlzbGF2IFBldGtvdiA8YnBAYWxpZW44LmRlPg0KPiBTaWdu
-ZWQtb2ZmLWJ5OiBKYXNvbiBBbmRyeXVrIDxqYXNvbi5hbmRyeXVrQGFtZC5jb20+DQpSZXZp
-ZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4N
-Cg==
+The hook calls each enabled LSM in turn. SELinux or Smack allocates the
+creds and returns them through a pointer argument of the hook. A later
+LSM can still return an error, and the hook then returns that error with
+the creds still allocated. Its kernel-doc does not say that the caller
+owns them on error, and the only caller, overlayfs, does not put them.
 
---------------aF0OXbWKlvGAtnWy4QKg8fQK--
+Reproduced with SELinux and such a BPF LSM program: 36000 failed opens
+and chmods by an unprivileged user on an overlayfs mount left 36000
+struct cred objects allocated, which kmemleak reported.
 
---------------LKuNJD8fzNHF2QkAVsWACpJT
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+Fix this by putting the creds in security_inode_copy_up() when the hook
+fails, so the caller gets either creds that it owns or none.
 
------BEGIN PGP SIGNATURE-----
+Fixes: d8ad8b496184 ("security, overlayfs: provide copy up security hook for unioned files")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+[amir: put the creds in security_inode_copy_up() instead of in overlayfs]
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+---
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmrq6r4FAwAAAAAACgkQsN6d1ii/Ey+X
-Ngf+NSERpLNaHp3iNP/+G4bYmYAUbmiwYtU4yyLTSMiNx1rDMcPEAKSlzfKJxhvL400QiamrqdMU
-eQQgp+A1yz3WYp+7q5AIf7XFq9uNjXAxknysZorXcaTYdi0X3OgAmyGClfHbBQ/d9FMqh1WYoFFE
-cv3Nd25TdM5PXq5WVLrK565FnrgBHJB/b6AgX+kQGHQpy5qFvEEC1eOP+mGim9KZrMIibKgLoztb
-tJaE0SFruiJehG/ueh6qSaEIKYl3KUSzNq7k2Czn/o5H83dE6eQ79k+YszaQkRDJXepCumXqmYD9
-E3DBL8fcA5OvWQVs6B6+AWbWMqkfE9MWSB0a8W88Zw==
-=Os7j
------END PGP SIGNATURE-----
+Hi Paul,
 
---------------LKuNJD8fzNHF2QkAVsWACpJT--
+I think this LSM hook was introduced with confusing contact for chained
+LSMs and this change makes the hook contract more sane in this case.
+
+Thanks,
+Amir.
+
+ security/security.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/security/security.c b/security/security.c
+index f6583d5073959..ad382afbff271 100644
+--- a/security/security.c
++++ b/security/security.c
+@@ -2314,18 +2314,26 @@ void security_inode_getlsmprop(struct inode *inode, struct lsm_prop *prop)
+ /**
+  * security_inode_copy_up() - Create new creds for an overlayfs copy-up op
+  * @src: union dentry of copy-up file
+- * @new: newly created creds
++ * @new: newly created creds, must point to NULL on entry
+  *
+  * A file is about to be copied up from lower layer to upper layer of overlay
+  * filesystem. Security module can prepare a set of new creds and modify as
+  * need be and return new creds. Caller will switch to new creds temporarily to
+  * create new file and release newly allocated creds.
+  *
+- * Return: Returns 0 on success or a negative error code on error.
++ * Return: Returns 0 on success or a negative error code on error, in which
++ *         case @new is left pointing to NULL.
+  */
+ int security_inode_copy_up(struct dentry *src, struct cred **new)
+ {
+-	return call_int_hook(inode_copy_up, src, new);
++	int rc = call_int_hook(inode_copy_up, src, new);
++
++	/* An earlier LSM may have prepared creds before a later one failed */
++	if (unlikely(rc < 0) && *new) {
++		put_cred(*new);
++		*new = NULL;
++	}
++	return rc;
+ }
+ EXPORT_SYMBOL(security_inode_copy_up);
+ 
+-- 
+2.55.0
+
