@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818480;
-	b=p76VJIPDMyfXgJJWerDg8moMMJriAtuppxZ+iWCvloIlPjHZNQ6VFi2CTUzk/WiL1JvQ
-	 5/MD6JyBOOp7ZbtIhrWDz33XS1hT2Iy7MciTI64DzZEYgWf3lQtxOW9GQL2z9uAKJWwtG
-	 G1KxQYoI77BT9MLcjexKnM6KmrYeKMSftNqGOKHSTzVigdMAVudscj/i0oFEAKk+wzBwI
-	 uEgaKcowkECCacLEHtiHYv+OLaVkCDaLTW9lkBaRKN78o7LpvJ4iPlUseeHK7He7nq/cf
-	 b9BBon+P9ZVZbtve95u33A+k/MzmRoFqU3x7wZOEmJNDoxVmO1gp/m2UeS8yJQSQ5qA==
+	t=1793818482;
+	b=D064r3eX/PWbrVhKM08bP+vbm6AUO5uYBDzNqidh3Fb9vXOtDIbiHfHdVFecqKzxrCsn
+	 KCQL2eQnlaE5GFII842fu0+HP69DAipjpEtGG2DuU0x1TZzqGDVd/rpXRxv1Zz1ntdDXj
+	 IOfSvFYscD0H9xyJzIPK9h0giqnWqM56QxlTjPT/sOygGZLPbOXWWBiaD0246TzsFBXlI
+	 OAmxU5yOwNG3B8HfOYXbh2pnrJN13EkHPtSB4OFJQ3cEwpyfI+PRxpI7NNsTOGthbuMUk
+	 v/tdvWW//gfRzqEY3R1BlXFfM7NkpwpIsSJsGgxsfCmm/S/yUCDpJ2aLS/G7BbLpALA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818480;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818482;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=FMyxoGd5CBsuHrr0WOZ7ZIsZoew4X8lrpYn1S1WR0PA=;
-	b=HLeNpF86gRfwQgMvMEDzlmHBRNUKbpJ8Hazr4fBO2i5NG+o5XzYLzNfAjRnoM4aaHeRb
-	 S+Lu2C3vnL3Navw2OKWt/Ev1PkfRYyfCz48DyoB0yqxJl7DcPPhjv1h21KL+xa4VokZeV
-	 v5FaWHWRfKfX5E9xWOl1WQmrXn+q3iov/oCra7pbpDDZMT1PdJx22q7MyzoU+ZOF5Z+NT
-	 qXmRawkIHj4UP9HqT3BFHnEeuhnWp0SF2p03ymuB9I2O41fY3pRf5ZM5CW93Oo+pk/Ixa
-	 K/tcoYXkcoXGngAFvBQ6g8lJElJp9wRztw6cT6DXF180BjTjlmsLZMlj+qlRbrRtNJA==
+	bh=/dN98mfpRO3T/ALs1SGQ7BvpfU3vm91/oOfyjM/2L1o=;
+	b=YFsniHcJdm4NucY3RLsV0d6Mo5vfEA071LSi5VS536fk9LWFCa7pC5UgNVRkZNz29s7R
+	 F3HW+wErY+NA3uNNW50GpqWTWCW3humJfv7mR9+MJwh7VG9HCR9T1d+hraPGSVoVJF37I
+	 sh+FCER6kDvrozsfZ6P5RWdplHEfi0SOziqs7atC2iqEXlBEFMNEICp2Q6bhjM4m0Je31
+	 nkV+vMm2Y8KMrh6R5uy5o6IGkRKLFh+IgwkXcSab5wXLToEd/UDaUNyxBg0PHA4Nq2Lo8
+	 ibwPETfdWxJ2srjey7Khjz7yWMI8IjrzUF2OUQjrgykU/w9Shu9lXxq0eHfpD0vVCNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HR0rBHA4;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aS86r0fN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39FFB606A334
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:54:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1ED6606A334
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:54:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HR0rBHA4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 919541F00A15;
-	Wed,  4 Nov 2026 18:54:39 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aS86r0fN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A3831F00A15;
+	Wed,  4 Nov 2026 18:54:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793818479;
-	bh=FMyxoGd5CBsuHrr0WOZ7ZIsZoew4X8lrpYn1S1WR0PA=;
+	s=korg; t=1793818481;
+	bh=/dN98mfpRO3T/ALs1SGQ7BvpfU3vm91/oOfyjM/2L1o=;
 	h=Subject:To:Cc:From:Date;
-	b=HR0rBHA4Rkf0sUcpAUG1CGDNw77suftr9glew8Zvg99QNe9N408TUR/MwcdjQgJXu
-	 DbLWJxbT2hKSGzP3N6rdwZIQg2QiklaYi7tfGQAgCHktX8ppkqB/1xZf+qKdqAxfKX
-	 ee3ouziXzgpKc+5PE0lhI06fgwsyu1aap+vP5m3E=
-Subject: FAILED: patch "[PATCH] NFSD: return NFS4ERR_EXIST for a guarded OPEN of a" failed to apply to 6.12-stable tree
+	b=aS86r0fNoAyMX22TVTU3bIuhRz+ZstiMcLeQQak1FEjSQCNeG1/qHgxnoqD77DuM3
+	 GjOLrtR3EEzCeH0Xs/jK1Xro028/Ch1kQzlBpsXO1Ecas+yHMKrSvQK6Ubr/1Edldv
+	 h543vqE0LWUR1mxKhEOPGWetDhCEnkfAgMJYEaUg=
+Subject: FAILED: patch "[PATCH] NFSD: return NFS4ERR_EXIST for a guarded OPEN of a" failed to apply to 6.1-stable tree
 To: cel@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:54:30 -0500
-Message-ID: <2026110430-landside-veggie-d182@gregkh>
+Date: Wed, 04 Nov 2026 13:54:31 -0500
+Message-ID: <2026110431-dreamy-predict-faa4@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 89318a02fe1c19aac6d85a17c45800544bd3cbe0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110430-landside-veggie-d182@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110431-dreamy-predict-faa4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
