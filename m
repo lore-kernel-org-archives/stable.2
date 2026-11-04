@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818497;
-	b=OR/6mleqTqeof+oNJuSHB44y9tHSvKSMWm2x6MmLwTT9lxnEfhM3DMXnOwWQzZkU6foo
-	 MhJlGS7OpohMric9Gw37c0CZbe/sRc+zLT7ofmrx4PEvsknyu7IFkxTd+leHGmIxjv2s4
-	 qyuZJV0THBjfGUIhho5FzaZzynlL9VUmsOgNpICuwrTd1YoempOQYIxyJpwEYekB6KUlA
-	 uA7OmdzRO4SJT4vDqlfjfSW2NqyCNvhq2QpX8uVrWhiWcMMdM9hwTZMECYQznc5wlB/Pf
-	 rCfTyV+L2wfC0PS/v+q30NkTMjCAXCEMrfWgLUajb2LSUxhzGG7rA8bVNvgA+l4aPdA==
+	t=1793818500;
+	b=vBXQ+D+I/q+/0qjeD4I6xB37x8Wonv9wKVNQSbocOhwaKFouwqyB6fWqck4NsZxhTqLT
+	 JWyoyhSlloSq/pZzKaOHE88SyNwBjk1Sd47AXy1oMFc15g9debwU1+dSlizpVvrNuSI/y
+	 ZR2fJ/xCqCyFPnJq0eg0ImBBRvLPkAJbw+RaWx7/ciolFqHFxaQB5vmZJbyC77YHCtY2S
+	 XXsX8X1pg7+4Fl6iaA+YY7xn3vGV327cZCw5g733cJzb3UFnYNAkZ6B8U4q+fHWnzk6cS
+	 sk2clay4FZv38SChmxMCCIx8eq38JTwFWsULb7AgWZg5xpXd33UPng8r4whRTNbL52Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818497;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818500;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=79ixh9MiHdi1dXUeRAH+VArPibo26Nau1cwt8MM/OP4=;
-	b=47e9rO/uVM2jKBP1MMn0FDRKGVMu0X/P/cZVlWzZiGIwnoGdUtffBZLr6Uy8d7Wa9eNg
-	 dTTLkdKA8UZdoZk7EorjE6gDkYSZQSiqWzipMG4LuohHewB08IGsRjQ92R4+VUtrPDX6t
-	 LxM3OsfOYK4eTT3NDWDJkZxpuoaB+h9yloMdl/4JjJtcyi2FbqtVHXjRbfzN9lyhgsYTK
-	 lrsq/ZYrXJ2aCb/OmyVAHpE8ef5dHY1S0zUQ8Bqpo0jdnQBZGk5zT/sjF9wl52Ty/yBnY
-	 iE6TUgf1q02zzIlr1wQybFTBbmDfkr2OBZgMPwHJBX7r5UkPL7mvV/rQoPeOStX0Raw==
+	bh=caxoY3H4Kl4uMOmsCep8iCz3VP5lNQye4rUNwGHOUDk=;
+	b=ttmZwb1Zing+AYOCGAKMwOZEiDWcmGzpPDjWQMUeJAiUW08lQaRLMCGh595hqpIrTL9L
+	 CahPnfjFIMwJb5oUDv4flxr2aasSm32A8kxfaBKrcTDjo2EPV3YVj0daQuDbl5awAR380
+	 du/fNkkVS1IWXgcMLTsZw/1rJp0wE+BDUHicPJ/u6FfTz2ritbU2Njvbn4CiZ3kl/XUBk
+	 a13lYelmgDweDbN3m25WM7OIT+tTAXc6AzaLCRJF+7EDTStsE9exExCAOJTgcK2NKiTDz
+	 FsJoBMllh8f8sB//ap1w+vxpSB4SnRdIF+MegSEoeGXhaHmi8E+6VI1LkbxvfONVN+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WvWnK+aC;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ONXPNdFG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF0F606EE8E
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:54:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75471606A33D
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:55:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WvWnK+aC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E3281F000C1;
-	Wed,  4 Nov 2026 18:54:56 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ONXPNdFG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D51B11F000C1;
+	Wed,  4 Nov 2026 18:54:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793818496;
-	bh=79ixh9MiHdi1dXUeRAH+VArPibo26Nau1cwt8MM/OP4=;
+	s=korg; t=1793818500;
+	bh=caxoY3H4Kl4uMOmsCep8iCz3VP5lNQye4rUNwGHOUDk=;
 	h=Subject:To:Cc:From:Date;
-	b=WvWnK+aCMomrOiSIwIK5LmfAEHx+8iK/hVce5O57PHs4+MvCMcYD6o9bIQRcPwNlK
-	 +iPKqk1Ou5NH9IWJTMPcaO5J0xOxd8zD7hS0xFDvUILntYCYiDxRJ/msqA0dDqfeID
-	 9zPn6BR9o+UgajhUf6qgPu1oB+s75YITyGYpZW98=
-Subject: FAILED: patch "[PATCH] NFSD: map fh_verify() status codes for NFS_ACLv2 replies" failed to apply to 6.12-stable tree
-To: cel@kernel.org,jlayton@kernel.org
+	b=ONXPNdFG5+wmiU8Hdz5Hr1KGNFmc1y1X1Q0O2Sj/WG+CpzZ4hpLDnwUn0Ozb9EmRi
+	 ghJJj4REaTy9rYVBeN+wZkzqjx3sLDLYfs5Yeu7/+IAqofojla9nV5Lg5j3YHTRhnL
+	 kCwaxZoAVMmciNgdxU/wBoUYFnps+KmkZfeVIX5A=
+Subject: FAILED: patch "[PATCH] SUNRPC: Copy the deferred RPC Call from the head buffer" failed to apply to 5.10-stable tree
+To: cel@kernel.org,bug-report@moonshot.ai,yilinzhang@moonshot.ai
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:54:38 -0500
-Message-ID: <2026110438-retaliate-hasty-41b5@gregkh>
+Date: Wed, 04 Nov 2026 13:54:58 -0500
+Message-ID: <2026110458-walnut-distant-f403@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x ccfc4db5ab740175b9958ea0cf5986957bf4e659
+git cherry-pick -x 2192a56b0686599358909c3e12e9a366f5b5d452
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110438-retaliate-hasty-41b5@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110458-walnut-distant-f403@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,86 +79,102 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ccfc4db5ab740175b9958ea0cf5986957bf4e659 Mon Sep 17 00:00:00 2001
+From 2192a56b0686599358909c3e12e9a366f5b5d452 Mon Sep 17 00:00:00 2001
 From: Chuck Lever <cel@kernel.org>
-Date: Tue, 15 Sep 2026 20:42:39 -0400
-Subject: [PATCH] NFSD: map fh_verify() status codes for NFS_ACLv2 replies
+Date: Wed, 2 Sep 2026 09:31:01 -0400
+Subject: [PATCH] SUNRPC: Copy the deferred RPC Call from the head buffer
 
-The NFS_ACL v2 protocol shares its status code space with NFSv2,
-which has no NFSERR_BADHANDLE and no NFSERR_NOFILEHANDLE. An
-NFS_ACLv2 GETACL, SETACL, GETATTR, or ACCESS request that carries a
-malformed or empty file handle gets a reply with status 10001 or
-10020, values the client cannot interpret.
+svc_defer() snapshots the RPC Call for replay once a pending cache
+upcall resolves. It copies the Call starting (rq_arg.len -
+head[0].iov_len) bytes before head[0].iov_base, a back-up that once
+covered a transport header. No transport has had one since commit
+983084b2672c ("SUNRPC: Remove svc_rqst::rq_xprt_hlen"), so the two
+lengths are meant to be equal.
 
-Commit 1459ad57673b ("nfsd: Move error code mapping to per-version
-proc code.") removed the version check from fh_verify() that turned
-those codes into NFSERR_STALE for any version 2 program. The NFSv2
-procedures gained nfsd_map_status() in exchange, but the NFS_ACL v2
-procedures did not, so the unmapped status reaches the encoder.
+An RPCSEC_GSS Call breaks that assumption. Unwrapping the integrity
+service truncates rq_arg.len by the length of the trailing checksum,
+and unwrapping the privacy service leaves rq_arg.len short by an
+amount the client sets with trailing bytes after the wrap token.
+Neither adjusts head[0].iov_len. Both lengths are size_t, so the
+subtraction underflows and the copy starts past head[0].iov_base.
+Every deferred integrity Call replays a shifted snapshot.
 
-Add the same mapping to the NFS_ACL v2 procedures.
+A deferred replay skips GSS verification, so a shifted snapshot runs
+as an authenticated Call. With the privacy service the offset is
+client-chosen. A forged Call placed in that window, naming another
+user's GSS context handle, runs under that identity.
 
-Fixes: 1459ad57673b ("nfsd: Move error code mapping to per-version proc code.")
+Copy the Call from head[0].iov_base. Refuse to defer a Call whose
+length runs past the head buffer, so the copy cannot read out of
+bounds.
+
+Fixes: 260c1d1298f6 ("svc: Add transport hdr size for defer/revisit")
 Cc: stable@vger.kernel.org
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260916004240.141975-1-cel@kernel.org
+Reported-by: Kimi Security Team <bug-report@moonshot.ai>
+Reported-by: Yilin Zhang <yilinzhang@moonshot.ai>
+Link: https://patch.msgid.link/20260902133101.48914-1-cel@kernel.org
 Signed-off-by: Chuck Lever <cel@kernel.org>
 
-diff --git a/fs/nfsd/nfs2acl.c b/fs/nfsd/nfs2acl.c
-index 0a5c444fef99..0673e83b6666 100644
---- a/fs/nfsd/nfs2acl.c
-+++ b/fs/nfsd/nfs2acl.c
-@@ -59,6 +59,20 @@ static const struct nfsd_access_maps nfsd2_access_maps = {
- 	.other		= nfsd2_otheraccess,
- };
+diff --git a/net/sunrpc/svc_xprt.c b/net/sunrpc/svc_xprt.c
+index 68310521ddb9..d5634dd6d6cc 100644
+--- a/net/sunrpc/svc_xprt.c
++++ b/net/sunrpc/svc_xprt.c
+@@ -1299,13 +1299,8 @@ static void svc_revisit(struct cache_deferred_req *dreq, int too_many)
+ }
  
-+static __be32 nfsacld_map_status(__be32 status)
-+{
-+	switch (status) {
-+	case nfserr_nofilehandle:
-+	case nfserr_badhandle:
-+		status = nfserr_stale;
-+		break;
-+	case nfserr_wrongsec:
-+		status = nfserr_acces;
-+		break;
-+	}
-+	return status;
-+}
-+
  /*
-  * NULL call.
+- * Save the request off for later processing. The request buffer looks
+- * like this:
+- *
+- * <xprt-header><rpc-header><rpc-pagelist><rpc-tail>
+- *
+- * This code can only handle requests that consist of an xprt-header
+- * and rpc-header.
++ * Save the request off for later processing. Only a Call that fits
++ * entirely in rq_arg.head[0] can be deferred.
   */
-@@ -123,6 +137,7 @@ static __be32 nfsacld_proc_getacl(struct svc_rqst *rqstp)
+ static struct cache_deferred_req *svc_defer(struct cache_req *req)
+ {
+@@ -1318,8 +1313,11 @@ static struct cache_deferred_req *svc_defer(struct cache_req *req)
+ 		dr = rqstp->rq_deferred;
+ 		rqstp->rq_deferred = NULL;
+ 	} else {
+-		size_t skip;
+ 		size_t size;
++
++		if (rqstp->rq_arg.len > rqstp->rq_arg.head[0].iov_len)
++			return NULL;
++
+ 		/* FIXME maybe discard if size too large */
+ 		size = sizeof(struct svc_deferred_req) + rqstp->rq_arg.len;
+ 		dr = kmalloc(size, GFP_KERNEL);
+@@ -1333,9 +1331,7 @@ static struct cache_deferred_req *svc_defer(struct cache_req *req)
+ 		dr->daddr = rqstp->rq_daddr;
+ 		dr->argslen = rqstp->rq_arg.len >> 2;
  
- 	/* resp->acl_{access,default} are released in nfssvc_release_getacl. */
- out:
-+	resp->status = nfsacld_map_status(resp->status);
- 	return rpc_success;
+-		/* back up head to the start of the buffer and copy */
+-		skip = rqstp->rq_arg.len - rqstp->rq_arg.head[0].iov_len;
+-		memcpy(dr->args, rqstp->rq_arg.head[0].iov_base - skip,
++		memcpy(dr->args, rqstp->rq_arg.head[0].iov_base,
+ 		       dr->argslen << 2);
+ 	}
+ 	dr->xprt_ctxt = rqstp->rq_xprt_ctxt;
+@@ -1358,17 +1354,13 @@ static noinline int svc_deferred_recv(struct svc_rqst *rqstp)
  
- fail:
-@@ -181,6 +196,7 @@ static __be32 nfsacld_proc_setacl(struct svc_rqst *rqstp)
+ 	trace_svc_defer_recv(dr);
  
- out:
- 	/* argp->acl_{access,default} are released in nfsaclsvc_release_setacl. */
-+	resp->status = nfsacld_map_status(resp->status);
- 	return rpc_success;
- 
- out_drop_lock:
-@@ -207,6 +223,7 @@ static __be32 nfsacld_proc_getattr(struct svc_rqst *rqstp)
- 		goto out;
- 	resp->status = fh_getattr(&resp->fh, &resp->stat);
- out:
-+	resp->status = nfsacld_map_status(resp->status);
- 	return rpc_success;
- }
- 
-@@ -231,6 +248,7 @@ static __be32 nfsacld_proc_access(struct svc_rqst *rqstp)
- 		goto out;
- 	resp->status = fh_getattr(&resp->fh, &resp->stat);
- out:
-+	resp->status = nfsacld_map_status(resp->status);
- 	return rpc_success;
- }
+-	/* setup iov_base past transport header */
+ 	rqstp->rq_arg.head[0].iov_base = dr->args;
+-	/* The iov_len does not include the transport header bytes */
+ 	rqstp->rq_arg.head[0].iov_len = dr->argslen << 2;
+ 	rqstp->rq_arg.page_len = 0;
+-	/* The rq_arg.len includes the transport header bytes */
+ 	rqstp->rq_arg.len     = dr->argslen << 2;
+ 	rqstp->rq_prot        = dr->prot;
+ 	memcpy(&rqstp->rq_addr, &dr->addr, dr->addrlen);
+ 	rqstp->rq_addrlen     = dr->addrlen;
+-	/* Save off transport header len in case we get deferred again */
+ 	rqstp->rq_daddr       = dr->daddr;
+ 	rqstp->rq_xprt_ctxt   = dr->xprt_ctxt;
  
 
