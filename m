@@ -1,61 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802740;
-	b=ag4rKIi/7eLaYvqOl+rn27tY/HsTt7q1xSWxw6sAGz+L5FE8UCOlwtt0jp4jQX2DB6Ht
-	 WxxiGJq3g2/Z/4K2rKBuf1LugSyHjImuiwtV8KXC2SfpHWm8RRmgJ8rnvI1jKZgnjIb7/
-	 jnFpE6QvvkGWf34rs2Gj9KzWncNPtoFZAesRraKFTg7xXr/Zs5dcxVBCWDL7ULG+sGG4y
-	 ZHuXr1ZxRyAlcBfPLOj5VRRaOiIqGjHrlzPwv+TWDTpDDnRXNjXmFmBXX28mSXIxUJgul
-	 fMeZKKCUA5ahO0O6Exy+UbfxxDkBl9+M1WGgfgAFAQ0j515EoqQ3gm0B2pbF/KADtyA==
+	t=1793802747;
+	b=iwmCgpdALr+R175tWg97pHKM3fxE7pAFCCiWdiIr7JEtyQ8NRfApPlIRXRhjtgxFLeO0
+	 K1PvJByUiZBa1YsvbyfN+uskPBibnSsM5kuQ98Ly+80+OhBHnE9ylXZH+xb/C5385aXcl
+	 NNe1J8xiCMQMaro2nf2cbCHs7n5oI/+OyJU1nAxqXuhqAtl4bqf4mGjMt10OsQjb5mGN0
+	 Ylput/yQWuJoXdtGyr/i4ylMfaCQCwAjSSHNHe8m4ZK8ZIQbP9ew6M6Nakf0TMHPU+2mM
+	 vmI9zfjCr2O26iRvOx8JJEZIZnqIpJ+KS7IUfVHRZe6YSB05ZLFehyd3VqDnxFk5fHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802740;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=ruu8JrnBwogLTne/D6uuGsufWUgVImMj+eWmulfcz+E=;
-	b=RMSW4ogePJdt5aLCe+UwtRS41mxUGyMLbKxcDXmzs8G+IHkyPcwovnTHm+w8OCl2nxoE
-	 WDR5pAfZV1HwhNw/SjCeVCRRb+t7aB4G7iF8CO/noN0ncZ8CHMM6IWLWT0h05G1Ld49mH
-	 ARmJJAFaAJu8aSBPRbWDbzQqXJms+q4oPQKbgITdZhWl7z42wUJw6W/C3Mp5GZV+3BI7T
-	 wXwMVmzbohl984L2acAZP6/tKnHV2vYn6aUZtTqxKcGNDn31FXFPH+N0ZQwPFS8RfdPfM
-	 NQYytYa3YUnXmiwhyh5sEkDvQSBvE31Zn8/6R5pij1bMWmQazkhifq/JvenlZqaDzYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802747;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=n6RkzuAA5us+bhSAByTpSLfYBgHROaLj6roI0fOWOh8=;
+	b=g0Qr1SELBLY+JGSDHQElX4MUEAruizuj9p2jtawoFtldnPzVWEZ8Tenhf2ScQZkUlD3W
+	 EwuKZtRC90Z2Pegz69ImVhJirLiNAouwm5N/+zF35RfiwSI6eCGZ0GJOmQvYpQRQhd1z/
+	 sIA6+uggjlqE7VWn8cykgVHCkyLUUygJfBVzFV0YtMZDYRPdNKQm4w7ALRcgFD74Mrr9r
+	 /3AuNqh+cw3oG8eiY3fkuRzgpV3PafaVj048zCYVy6dUq5zecP2/mkujX55p9sTdldyyA
+	 mD9PsDc8Yy4ocWW0U3e7JmSkpXdtwrYhCGBZKCHb7SgsGvgz83g3/wCkZyld6en4Yog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=WPShMz71;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JNdSoHGw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16746606A31B;
-	Wed,  4 Nov 2026 14:32:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16746606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1F5606A33B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:32:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=WPShMz71
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=ruu8JrnBwogLTne/D6uuGsufWUgVImMj+eWmulfcz+E=; b=WPShMz71Ub0ru03Q+/16XtsIp3
-	hFwUkwg6C46KgyjigFTJ3sWDX+t8VOtxv9XebZasMzS/SEqjE5XsuSQHHqOo+SVtNX7qrmmNd1D44
-	w0HDiJiRJUKPqPXx3LYdBvWmk+tJfvWU0L1DmaJbPdiQQGpm11EWCRDRo6dz4WdfEcKaV8kLvD3Ib
-	s78Yn32GD37QQrlisZD4u+EHy629/zWbdwVy8IlFBOgeF6u0/eUl4gHkAjbWRUoS1+iLt0ebNvuv/
-	E+0MDABf8vf5iLPZfw7+vpeSTCghHpivz48qTgyV9lwHZbh4CPQUHe2XtlYS01Wll2Qjmgji8JMZ3
-	5DAPZMsQ==;
-Received: from willy by casper.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xOc2C-00000009glu-2ihC;
-	Wed, 04 Nov 2026 14:32:16 +0000
-Date: Wed, 4 Nov 2026 14:32:16 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: me@bobcopeland.com, akpm@linux-foundation.org,
-	linux-karma-devel@lists.sourceforge.net,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] omfs: reject writes starting beyond EOF
-Message-ID: <autB8H-rCbbeTdF0@casper.infradead.org>
-References: <20261104112052.5604-1-dennylin0707@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JNdSoHGw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE3841F000C1;
+	Wed,  4 Nov 2026 14:32:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793802747;
+	bh=n6RkzuAA5us+bhSAByTpSLfYBgHROaLj6roI0fOWOh8=;
+	h=Subject:To:Cc:From:Date;
+	b=JNdSoHGwdrFbPJfVYU0qpuIY+MvJVWOpzHNYWNzyzh0HYpiDAar7ulR9cgg38MQK2
+	 su0OjhqpA2j6oeoLfRFwx56GYqLlJY7Ytl3S6PToQ19yxYcsxatVTs/kEajU6h2cp1
+	 /DnF3tgfGGgHGE5ccCd0cQyad5gG7XVdPpGRkF4E=
+Subject: FAILED: patch "[PATCH] media: rc: Fix ABBA deadlock by making locks more fine" failed to apply to 5.10-stable tree
+To: sean@mess.org,hverkuil+cisco@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 15:32:15 +0100
+Message-ID: <2026110415-swiftness-afterglow-8cfd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,28 +51,153 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104112052.5604-1-dennylin0707@gmail.com>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 11:20:52AM +0000, Hungyu Lin wrote:
-> OMFS does not initialize gaps between EOF and a buffered write. When the
-> requested block lies beyond the allocated extents, omfs_get_block() grows
-> the last extent and maps the write to the newly allocated block without
-> accounting for the skipped logical blocks.
-> 
-> A one-byte pwrite() at offset 8192 into an empty file returns success, as
-> does fsync(), but after remounting the byte is at offset 0 and offset 8192
-> reads as zero.
-> 
-> Reject writes starting beyond i_size before block_write_begin() can
-> allocate or map buffers. Overwrites, appends and writes crossing EOF
-> remain allowed. Gap initialization can be implemented separately.
 
-Why don't we just delete omfs?
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-          This is the proprietary file system used by the Rio Karma music
-          player and ReplayTV DVR
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Rio Karma and ReplayTV were both EOL in 2005.  Let's just delete this
-filesystem.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x c6d68866ad8aa1e957a3e5a6ede971148f1e3d59
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110415-swiftness-afterglow-8cfd@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From c6d68866ad8aa1e957a3e5a6ede971148f1e3d59 Mon Sep 17 00:00:00 2001
+From: Sean Young <sean@mess.org>
+Date: Wed, 12 Aug 2026 15:46:42 +0100
+Subject: [PATCH] media: rc: Fix ABBA deadlock by making locks more fine
+ grained
+
+The ir_raw_event_unregister() function takes the ir_raw_handler_lock
+first and then the rc_dev->lock. Other functions like change_protocol
+do this in the reverse order.
+
+This means that an ir decoder module unload and writing to the protocol
+sysfs file can cause a deadlock.
+
+ir_raw_handler_lock protects the client list, amongst other things.
+Split this out into a separate lock so we can ensure the locking
+order is always the same.
+
+Fixes: 93cffffc18f6 ("[media] media: rc: fix decoder module unloading")
+Signed-off-by: Sean Young <sean@mess.org>
+Cc: stable@vger.kernel.org
+Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+
+diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
+index 54b323becb1f..75dee4a483d4 100644
+--- a/drivers/media/rc/rc-ir-raw.c
++++ b/drivers/media/rc/rc-ir-raw.c
+@@ -10,7 +10,8 @@
+ #include <linux/sched.h>
+ #include "rc-core-priv.h"
+ 
+-/* Used to keep track of IR raw clients, protected by ir_raw_handler_lock */
++/* Used to keep track of IR raw clients, protected by ir_raw_client_lock */
++static DEFINE_MUTEX(ir_raw_client_lock);
+ static LIST_HEAD(ir_raw_client_list);
+ 
+ /* Used to handle IR raw handler extensions */
+@@ -273,13 +274,6 @@ static int change_protocol(struct rc_dev *dev, u64 *rc_proto)
+ 	return 0;
+ }
+ 
+-static void ir_raw_disable_protocols(struct rc_dev *dev, u64 protocols)
+-{
+-	mutex_lock(&dev->lock);
+-	dev->enabled_protocols &= ~protocols;
+-	mutex_unlock(&dev->lock);
+-}
+-
+ /**
+  * ir_raw_gen_manchester() - Encode data with Manchester (bi-phase) modulation.
+  * @ev:		Pointer to pointer to next free event. *@ev is incremented for
+@@ -615,15 +609,18 @@ int ir_raw_event_register(struct rc_dev *dev)
+ {
+ 	struct task_struct *thread;
+ 
++	/* Holding dev->lock could result in a dead-lock */
++	lockdep_assert_not_held(&dev->lock);
++
+ 	thread = kthread_run(ir_raw_event_thread, dev->raw, "rc%u", dev->minor);
+ 	if (IS_ERR(thread))
+ 		return PTR_ERR(thread);
+ 
+ 	dev->raw->thread = thread;
+ 
+-	mutex_lock(&ir_raw_handler_lock);
++	mutex_lock(&ir_raw_client_lock);
+ 	list_add_tail(&dev->raw->list, &ir_raw_client_list);
+-	mutex_unlock(&ir_raw_handler_lock);
++	mutex_unlock(&ir_raw_client_lock);
+ 
+ 	return 0;
+ }
+@@ -656,16 +653,19 @@ void ir_raw_event_unregister(struct rc_dev *dev)
+ 	kthread_stop(dev->raw->thread);
+ 	timer_delete_sync(&dev->raw->edge_handle);
+ 
+-	mutex_lock(&ir_raw_handler_lock);
++	mutex_lock(&ir_raw_client_lock);
+ 	list_del(&dev->raw->list);
++
++	mutex_lock(&ir_raw_handler_lock);
+ 	list_for_each_entry(handler, &ir_raw_handler_list, list)
+ 		if (handler->raw_unregister &&
+ 		    (handler->protocols & dev->enabled_protocols))
+ 			handler->raw_unregister(dev);
+ 
+ 	lirc_bpf_free(dev);
+-
+ 	mutex_unlock(&ir_raw_handler_lock);
++
++	mutex_unlock(&ir_raw_client_lock);
+ }
+ 
+ /*
+@@ -688,15 +688,24 @@ void ir_raw_handler_unregister(struct ir_raw_handler *ir_raw_handler)
+ 	struct ir_raw_event_ctrl *raw;
+ 	u64 protocols = ir_raw_handler->protocols;
+ 
++	mutex_lock(&ir_raw_client_lock);
++
+ 	mutex_lock(&ir_raw_handler_lock);
+ 	list_del(&ir_raw_handler->list);
++	atomic64_andnot(protocols, &available_protocols);
++	mutex_unlock(&ir_raw_handler_lock);
++
+ 	list_for_each_entry(raw, &ir_raw_client_list, list) {
++		mutex_lock(&raw->dev->lock);
++		mutex_lock(&ir_raw_handler_lock);
+ 		if (ir_raw_handler->raw_unregister &&
+ 		    (raw->dev->enabled_protocols & protocols))
+ 			ir_raw_handler->raw_unregister(raw->dev);
+-		ir_raw_disable_protocols(raw->dev, protocols);
++		raw->dev->enabled_protocols &= ~protocols;
++		mutex_unlock(&ir_raw_handler_lock);
++		mutex_unlock(&raw->dev->lock);
+ 	}
+-	atomic64_andnot(protocols, &available_protocols);
+-	mutex_unlock(&ir_raw_handler_lock);
++
++	mutex_unlock(&ir_raw_client_lock);
+ }
+ EXPORT_SYMBOL(ir_raw_handler_unregister);
+
