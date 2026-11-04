@@ -1,93 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817883;
-	b=as5WLgknL+euC2p27IahUGVVR/ebh/jyVUGubYQF5CWs1MLRxpeZIBe5Kbaf62sSOjaE
-	 skVMtvGEBbvHz7H0k96RDbLnkwCyYhn+kUk6ZViVxTHD9kNlt2XxKxZ3/y4jnF7Pmp2OE
-	 uSqpAfeVBRM9KGAIX0PNr72horYoW/+y4Lz2SHb0Q0FHMuISimbpShASt6+zd5LGa2EUk
-	 RBdu6EOaEs3hvTexY6LUwVDu04Ju/m+3BF+5gfVOJciW1pzKz52qvLWIFvEzKyogUsTgj
-	 bDgxbwjwJy5K3IcrFrQExsa6dHxBFOxqiahD+3v1b7IdSeyHQ7mU7MKH+AhN46UHhxw==
+	t=1793817891;
+	b=LohOeF1X2sX8KrAwyXWmdSoY/NjzDuqzRKJXTLAjN/gx7OkmPt9sqG151xehRXKbeFNv
+	 kVYSkA4P5RfFqDOHt37J/F0AAC+Im5Ew+VmqONSxP9V5SIx73zt4YWTbmmgP0VWZ8efGr
+	 aa1LIUVlC6Ebhpkxo/imSEyHXOWNLFOh550iJxTBZNbedJy5+wGAEYl42baA+XZEuMlQW
+	 6VczMXa1lhDbqevlAyhApTHDeW5pIriaWycSPpVEb4kM6gAz9WsNPpv/bLgU+GtZRRjF6
+	 8oIUBATyDh3QysD5gov3kJv4GIQPdqYpWAugyaTs/c4K8ByyxCnGeOhEg/sIAVUhheg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817883;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817891;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BKgadK2I/GgNvZDn4Xm20+I35igbD6d8qDSMaHto9bI=;
-	b=XNaWZepf+lP3JGZlYtrxQVvifECUM7cOgXImMM3OJusfGjVzJCfONYi5Tx9dWdMj4m0i
-	 xusoQ9hKWJ5U+buqPiXuk5F633s5gmMCA+ipOAcegF3yA/XJ8GJxvFo+H5QTvCsmsWhf3
-	 6IfUoT76eJjalEHsHdXGwiOknJVWQ/1uycwr/6bAVCC3Gu2V5fU7HVffbdOO5fY7vgQ8t
-	 q5yiPXo26AEInavA0e9yyk11VzqkSlUPAawsW6qDuwwzTI6/UGXdLqdBcc5mrdN1CotaC
-	 r5z4O4EjgjdprMG3DqFCyS3lY/JQuw8Ju7s+syI1kEEE2iylW3O+Wlx8kPu+Ol1k0Dw==
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=IzFeI2cnmmGzvjJZu+hFjAcqQKixXHFpu6q/gaFGong=;
+	b=P1pf13/pHeaB/xEfmP5GLjrOT1wd85p4EpWIdNJDVCYj0ARRSNfKUBOAcfEdEf64MRd5
+	 OCOW1pabRSpYh2OgWvb7er/mxZ4C6n4qKkB3sOZauKoTbxno8kcm2NSoJiRvk+xQcAG7V
+	 nLdp8f7vCjz/aD8fLXmBhqHVxaVPEc4/pNfLPRSqHPV1CQMKUs0yEpAcVrdUmJf4FHj6j
+	 JVsx5ULB0zKGn9AVve+TCekH1FsevYavonLmKmUqYQCnPt82qc7gAArvUudsGwVA4rqEk
+	 Ll1xTlV93iXjL4BjAeh6tWubiEp34sdkHJ7Mvmv726eJDJeTaq2ovuOviZsyXBh1d5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kmDd05dT;
-	arc=none smtp.remote-ip=209.85.210.49
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gSOhCMva;
+	arc=none smtp.remote-ip=209.85.160.54
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97504606A32C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:44:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97504606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DCB606A329
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:44:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2DCB606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=kmDd05dT
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-833e671ee9fso1031548a34.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:44:42 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gSOhCMva
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-4ad5b52f0a7so425655fac.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:44:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817881; x=1794422681; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=BKgadK2I/GgNvZDn4Xm20+I35igbD6d8qDSMaHto9bI=;
-        b=kmDd05dTpZGJ9mPeu1Ip8CQhohdc8D9lZpGUQCDUjR710K9qXyfYQPx1gjiTra6mau
-         QaqQmbcnk264FAKK/JuSWPvSA0ox/UunJ9d3B9ymqdMAV9TLr+Z6rFKj1Urnh6EzaeN1
-         bc+yFwhxf3Qk2YbH5y+c+UqKqyi674oZGEO+LPvbGDSYLqehHRpeaYsmUiPf8miWRJ+h
-         6dz73t1keVXxjp7obEIYbMJbYa43SQhmiBv+CS5C+/Pfw778wsoowxKdfA3V9SmQqqRT
-         3mISobqiZweSO3wDk4SrQH7x5itv5j48JqeknW+u9BfsmgMWx4yFZwZKn2MqwqMPjm6J
-         Qe7A==
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817890; x=1794422690; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IzFeI2cnmmGzvjJZu+hFjAcqQKixXHFpu6q/gaFGong=;
+        b=gSOhCMvahMOPzO/DFr5fE9KZjbqGZhF6423foR37qWpbzlObTC2hLTtzb/BsiVN0qt
+         QKY5eQGZzh5+WX+xPERLRiNEVU5oa8/FFvZ+wu86plUIews/jYRtItsGLV3gDBMvtCAZ
+         MKDjSq+j7UtFdpd+iBoeKPziw7XHSwYiBQKUVbs72uk7ZNs36+T0hhWPGoGx0TXMpoJm
+         lq6G1cQRtNoy61QGXpOyArLL8wYceeP9w+RbH97mcM4Zk9UKioJlOlG8YbdxWXNWNWFI
+         MoZySbSGgqDkdIOZAlfge+6nwe/qt9AVbsn9yu+81039ymrLFv+1g/cw2DGMqCwsnjk9
+         8AzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817881; x=1794422681;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=BKgadK2I/GgNvZDn4Xm20+I35igbD6d8qDSMaHto9bI=;
-        b=eJZ5RhDDJEQzItG8FLP14bA9OxnXUEOqIZi+cTzIDBMVqH4SnwCSV9njN3lHysmLvx
-         8a/UvrVplSt3x7lPv+i2016ysGNYWW7pr9wje7G6JZzc0X4XRyrlFkTgMinWecQGeIui
-         gmIAfGIyc2hifIvQKwEqDmiVmtM96axQak4xYrIOhGy4D9/FCKobQIeUobYshENRyUgW
-         1+6Mzr0wdIwf9sLQSYFMUFYRUc8oB3+NoMqsbxSBdTC6Qf22Goe9nngwX1uKB96AltNP
-         /s3it96ALAYYsmABXCoqYJm/9oSZNCU0GhLPGySXSLbiCdDrnzXCm2xjOcHkSwCLLihi
-         XiSw==
-X-Gm-Message-State: APuU4Z+wU5fVnwXLpIjCqwi9wwyYde3b8nPLLPyB7SLHaOTuF+mfjVB9
-	79zUo9ld3fPtvPdNc4UaTj7f96/fB5KYJSecO0lWP8VcaISknKhRvxGA/lQA2TKZe0QlGKlaMTO
-	At318Udk=
-X-Gm-Gg: AYBFou2iIWzpHfZ9bg+GZfVkkF10X5/FA6s4sv3pEg+GF6SefYk16qm8zPAAWQbrAub
-	SCyCf6lUXFTVtwqWnnO/LVE4gMaB51+w81r6zWjb6HbUaUW3ucc8N4llKUIjxrpRb6PQHE1ERMt
-	D5ceVlQq8/ZPlWW5Gdm7x+YH9bc7U3vjDStcPmgiazSyr+LrZ3OaTjXwmwJK7XnklyQDQkkKXP/
-	k1ogHLYwy3Q7wRe/uvnf/QnHDv42k91Vafo1F5PwBhbONJCKUVTZgMb4jOP2TC0HLWKicNhEJo1
-	o5CzQXwoHD52Xjv0jzP/ol0EyBmM24NwIhWnuRZ8oIfJ6YttAgmPM3uGW9bnodh9K027VWJn5ca
-	vJ4EaRDtr39VU7kXRJTS+h7Ljc0qxvQ18pxBtbdSTDy13vFl5d8bUY2U4lwdYQNIf2FwleNUy/A
-	Xb/roIQCadNAmqRZjubPl/0T6OO+gz5Ec45qzSBxVd9pPZzJ3wX/oSWNxIcfXPV1ZEkO1HbJ+eP
-	q4lf1fBfo825IkziUlwLvXMLEFPIk5TigiMygL4IcCOENRqFfOzXF8WSgO6Ht1e05oWtIaVUMop
-	6yzKD1ldwdFOUWVn7yEJaW/q09HuqyAW27oXw5Cmt+swrX9jqpvrssZFS/KLqnOCwIGlUXmKLg=
+        d=1e100.net; s=20260707; t=1793817890; x=1794422690;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IzFeI2cnmmGzvjJZu+hFjAcqQKixXHFpu6q/gaFGong=;
+        b=Hi3Ql0Ej4zthMZCKQ4S1y3KENDhAVs9wCyv4PzZ0l6fBJfwgwyGXQKsurXBPdm8Kej
+         I0ruyxDlf1kt1Kls5R/Cou5wYK++bOATean/5Pg+U/Ecz1GVJJatb2hqfsP5ET0YS9iP
+         3l5fUfYtV5y2hJqN9apiqN39a3/LWhn+lfFaD/bBROkKmNtstIQe4FSizPGtOmmFlwi9
+         LSmysuDS6fYQBUknbqfDWxbiGwyj3uYiVhbnlkcQAenSktc+84KOOLoxN6STlVx9kPTH
+         WqZwM0xnJuWINs/CUB7zr5jZ8qaV0KDf2CpVz9n1Xzu+dtHth/bf9wftZ9anB7bGdkOv
+         MI5w==
+X-Gm-Message-State: APuU4Z+cZ9MVsETAUpQjehCET+nbA9y9bIJ7wozhIxlunxL6R1niWRG9
+	6AYgkABILatwvoidPvNIv1CyVTDXu1Spa3h866w9SI0BUacNkxep0ciGqQ56x9UgjJe+g78nPeD
+	qLU80nd8=
+X-Gm-Gg: AYBFou1VRK5LaeYY7m1iVSrUptcJzcMvZheQWZmlta297LjjD2vzcUarjIZcSryBRem
+	WF/npc4hkGNEZOjbba7h0GkTzlCLPYi6JFdqGMOSBpsW9twt03KTBrQWZ2P7rqIs8eLTaMsXLZE
+	l3eBWl7zRo2T2fQTC6a8a7x5miLFHxlkyRaOEtJoeS1a1aErd5MPMLONIv/owTtsAA4yGgA8kb4
+	8wuodam2tUHJRPTVRmUgVgSvpvg68njYvndRSnnNX4LRqz3kMzZTayH4Kwv7JnkaIzrbHJEzpR3
+	w53NVRyxvSyU0R1f1VGhgr/sUoChb7uZPR38UUy0/d+KzkpWnI868k4fQWWRNSj+I2fItn2h9Tr
+	2CK7bh7nz694syYbYysMv47IMjJxTjanbwEK8+NNP+JuLcCsx7idsJG9KZw5Sgrfty2wYBpgd7S
+	yGbbYQKnmLztvwCojUAkFoQopnXZ7jU7emp6wQgNWTzvFeFyVkKfERZZTS1HSwRzCUPpmxTCiG7
+	nDZl8UWKF2b+OX2RalKR0af1uNIt8t7rQtgQhuB62Sx3yAESXtTTWnmHjXB1gjn/i/QUn7kgvX4
+	lBaZTaBGsi6M5gcW+qrhPZXSOapfpFg+CGDPnsuxGlHKwdkF4UE9C8Z1xEmYl3/W8j1P0PlcOQ=
 	=
-X-Received: by 2002:a05:6820:c2c2:10b0:6dd:e81a:5906 with SMTP id 006d021491bc7-714f2980cdfmr7072804eaf.50.1793817881307;
-        Wed, 04 Nov 2026 10:44:41 -0800 (PST)
+X-Received: by 2002:a05:6870:bacd:b0:483:cb42:3979 with SMTP id 586e51a60fabf-4a90765f6a0mr11613003fac.17.1793817889721;
+        Wed, 04 Nov 2026 10:44:49 -0800 (PST)
 Received: from xps16 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3e16ef1sm2540779a34.14.2026.11.04.10.44.39
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea4903e9sm2590963fac.3.2026.11.04.10.44.47
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:44:39 -0800 (PST)
+        Wed, 04 Nov 2026 10:44:48 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.18.y 11/11] io_uring/net: fix multishot recv length limit accounting
-Date: Wed,  4 Nov 2026 11:44:12 -0700
-Message-ID: <20261104184412.516558-12-axboe@kernel.dk>
+Subject: [PATCH 7.3.y 00/16] io_uring fixes for 7.3-stable
+Date: Wed,  4 Nov 2026 11:44:31 -0700
+Message-ID: <20261104184447.516768-1-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104184412.516558-1-axboe@kernel.dk>
-References: <20261104184412.516558-1-axboe@kernel.dk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,74 +95,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Cheng Yongkang <teel4res@gmail.com>
+Hi Greg,
 
-Commit 3e3aebb7570ccdde5cc49c9bfc8fd3a436b71b0c upstream.
+Here are io_uring fixes for 7.3-stable.
 
-io_recv_finish() debits sr->mshot_total_len with min_t(int, sel->val,
-sr->mshot_total_len).  sel->val is the cumulative byte count of the
-request: on a bundle retry the receive path adds sr->done_io back to the
-return value, and the bundle branch in io_recv_finish() recovers the new
-bytes with this_ret = sel->val - sr->done_io.  The debit therefore uses
-the wrong value after a bundle retry, and the int cast truncates a limit
-above INT_MAX.
+They apply on top of v7.3.1 with the current queue-7.3 applied
+(stable-queue 6575ff04f2fd). They depend on the io_uring patches that
+are already in queue-7.3: from patch 14 onwards they won't apply to
+v7.3.1 alone.
 
-For an IORING_OP_RECV multishot request with optlen above INT_MAX, the
-limit becomes negative when cast to int, so the first completion debits
-the entire limit and ends the multishot with IORING_RECV_MSHOT_DONE
-while the socket still holds data that covers the limit.  With 120 bytes
-queued, a 64-byte buffer and optlen 0x80000000, the first 64-byte CQE
-lacks IORING_CQE_F_MORE and 56 bytes remain unread; the same setup with
-optlen 0x7fffffff posts 64 and 56 bytes with F_MORE.
+The other io_uring fixes I had for 7.3 that are already in queue-7.3
+aren't included here.
 
-After a bundle retry, the bytes already debited for the previous
-attempts are debited again, so the limit is exhausted early.  With 1400
-bytes queued, optlen 1000 and buffers of 600, 100, 100, 50, 50 and 200
-bytes, the first attempt delivers 700 bytes and retries; the second
-delivers 200 more, but the debit accounts for 900 and finishes the
-request with a terminal 900-byte CQE while 500 bytes remain unread.  The
-limit could have been reached.
+Cheng Yongkang (2):
+  io_uring/timeout: count cancelled timeouts in cq_timeouts
+  io_uring/net: fix multishot recv length limit accounting
 
-Debit only the bytes received by this invocation, sel->val -
-sr->done_io, and compare as unsigned so a limit above INT_MAX is
-accounted correctly. Non-bundle multishot requests keep sr->done_io at
-zero, so their accounting is unchanged.
+Chris Mason (6):
+  io_uring/rsrc: charge buffer arrays and nodes to memcg
+  io_uring: charge tctx nodes and personalities
+  io_uring: free XArray nodes left by a failed store
+  io_uring/bpf-ops: clear bpf_ctx while submitting SQEs
+  io_uring: free the task context after a grace period
+  io_uring/sqpoll: don't wait for the thread to exit
 
-Fixes: 0ebc9a7ecf6a ("io_uring/net: Support multishot receive len cap")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
-Link: https://patch.msgid.link/179328314078.648427.10086632105828535293@gmail.com
-[axboe: fix-up near-by incorrect comment while in there]
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
----
- io_uring/net.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+Daan De Meyer (1):
+  io_uring/net: don't retry a non-blocking connect() that fails with
+    -EAGAIN
 
-diff --git a/io_uring/net.c b/io_uring/net.c
-index e78ec89ca5dd..e8d5d17fc754 100644
---- a/io_uring/net.c
-+++ b/io_uring/net.c
-@@ -879,12 +879,15 @@ static inline bool io_recv_finish(struct io_kiocb *req,
- 		cflags |= IORING_CQE_F_SOCK_NONEMPTY;
- 
- 	if (sel->val > 0 && sr->flags & IORING_RECV_MSHOT_LIM) {
-+		unsigned int this_len = sel->val - sr->done_io;
-+
- 		/*
--		 * If sr->len hits zero, the limit has been reached. Mark
--		 * mshot as finished, and flag MSHOT_DONE as well to prevent
--		 * a potential bundle from being retried.
-+		 * If sr->mshot_total_len hits zero, the limit has been reached.
-+		 * Mark mshot as finished, and flag MSHOT_DONE as well to
-+		 * prevent a potential bundle from being retried.
- 		 */
--		sr->mshot_total_len -= min_t(int, sel->val, sr->mshot_total_len);
-+		sr->mshot_total_len -= min_t(unsigned int, this_len,
-+					     sr->mshot_total_len);
- 		if (!sr->mshot_total_len) {
- 			sr->flags |= IORING_RECV_MSHOT_DONE;
- 			mshot_finished = true;
+Dominik Maier (2):
+  io_uring/net: mask socket type with SOCK_TYPE_MASK in
+    io_socket_bpf_populate()
+  io_uring/register: enforce per-task restrictions in
+    io_uring_register_blind()
+
+Jens Axboe (1):
+  io_uring: keep the drain active when a deferred drain request is
+    started
+
+Josef Bacik (1):
+  io_uring/io-wq: no new workers once the exit has begun
+
+Kyle Zeng (1):
+  io_uring: defer foreign io-wq enqueues to task_work
+
+Yichong Chen (2):
+  io_uring/kbuf: advance head when a pickup empties the buffer ring
+  io_uring/net: keep recvmsg buffer select length within MAX_RW_COUNT
+
+ include/linux/io_uring_types.h |  3 ++
+ io_uring/bpf-ops.c             | 16 ++++++++++-
+ io_uring/io-wq.c               |  6 ++++
+ io_uring/io_uring.c            | 50 +++++++++++++++++++++++++++-------
+ io_uring/kbuf.c                |  4 ++-
+ io_uring/net.c                 | 25 +++++++++++++----
+ io_uring/register.c            |  7 +++++
+ io_uring/rsrc.c                |  7 +++--
+ io_uring/sqpoll.c              | 28 +++++++++++++++----
+ io_uring/sqpoll.h              |  3 +-
+ io_uring/tctx.c                |  9 ++++--
+ io_uring/timeout.c             |  3 ++
+ 12 files changed, 132 insertions(+), 29 deletions(-)
+
 -- 
 2.56.0
 
