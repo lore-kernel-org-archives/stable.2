@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818168;
-	b=u5lJjBawc/eic4muqr++9tn2o89qyZj0/z8249srTJ8Xk9hioFO7cXdYcldqhOdRRorS
-	 1zZ48jbBfH8LWdRwQCAgMj7EBapLqjATOsPZwX029DOcCXhkdtjj78OyqmPbd32LK6/uj
-	 g1J+atpPrXA7YxRHf2lzffuZRHh4WHS0AV43hcriVS5d3wmub7ijOm5RG11wWvSgYG6WD
-	 seGBb5mHJtIyzHmaIaC5Zf7Ek7R+s8vMBoQdrptslHSoMwRnAODguDEslq8DWgQx6sLNM
-	 22nHEcW60xDsF8igt/5UfFx9kai+Qm/e0XzU1WXrHa80PUXjpfgrqLhE0gERbX/XW6A==
+	t=1793818169;
+	b=KDAiBHZMdeEEqzSzZtOdJ5x1a+1hxVOUqDIOn+imNRr7wmqPJzvjbsT/UiIS/4BtLqGv
+	 eWKFcSvigrRi39Dttf2TQCeQLS0aYFVgXYXUqScVYifRYsx0y0NLPcfp/sLntRrR+yHxB
+	 +u+xIMs5/oHqh1aC4Q0iStEWfgE8I8fgLttXMfgCSaTFci1cWnCTc1aSzF7ceswGbPBBA
+	 7T9t7d7p7KsDLiFBKiJJuGvTIr6Da8qz6JoorHiCXo/FihkgnAbzLRTTZ6sIW15ZJuSrR
+	 NE0IUeF4BALJzNLxneh4b80LoBkS/dxK8WlKc7tobbUrQDG/HpYfBrkB8qwxaWmibmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818168;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818169;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1POvRj+SIaGvb97q89/R11pOb2c++MNYCJ3G0SOogJo=;
-	b=GsHTKyR6hiotrAlcuD5I0n5DMCzEWzxFyEg73F9pQ/x/a6FWItKme9AW3qymqRdWoW5f
-	 /tuGacyj/sB5i1yUawc/fKSqBsXHmDCz5T81dzPmuv1+FWUX+dVYPdZ2xgv23YsnnkPKe
-	 ldD4KCgez/yMBeXPtJ79FjM6oimnPw3QlIMMtfKs8Fbn7IkHNoIdd0lbCkWdGxeICEAOK
-	 NQBGBlUBJIiQIwvFmkEiNHhKfClm4CIwW5Uge5wByk7JG3REaB78cg2hsjNshaVP+ixZF
-	 /rrR06TNAXKNaWNmsthrPWRSDzoxf03IUXz+fwer1js+5PnBX+GxU81kvFneshM8Zrg==
+	bh=cqT+1H5/8OwHzsAHtxih9nGK/dsg6IueR1cLy56Bg10=;
+	b=Pj2xHkQRjVqJxb2E3LjQFf2jUAjqnTaSa7IbTUJjwDH2gFW2riAZUFZT8xZAJTzJH0m6
+	 hnzzabWRBC4wq/C+bq5zFUhXknasVofsrmOnvgQUKCKsHpaX/BBBIz5s0Gi7dwqEm8ISZ
+	 2FIpmg91AjM8c/h1buzKOAneoCbJ3KfAJ6Dy7Kb+8IzwMbDxEANP0Uhb2CANVMKKrXd/9
+	 5efpPpY4cYOIHFn1lPvlXIyRFhzy5HQcqr27lFCkTVkNbJtJQ93thHxFGbKYPB4bDaCed
+	 vRaQlFY0fPN9WT4a5iroGB4LG0/5JTRldd4lZTSuq2D/IsqJU2HYmko0Z7j1jz0RmxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aPtSlwo8;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bu3FAc0V;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852F96082BED
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:49:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA876083600
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:49:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aPtSlwo8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D57571F00A18;
-	Wed,  4 Nov 2026 18:49:26 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bu3FAc0V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46E7C1F00A18;
+	Wed,  4 Nov 2026 18:49:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793818167;
-	bh=1POvRj+SIaGvb97q89/R11pOb2c++MNYCJ3G0SOogJo=;
+	s=korg; t=1793818168;
+	bh=cqT+1H5/8OwHzsAHtxih9nGK/dsg6IueR1cLy56Bg10=;
 	h=Subject:To:Cc:From:Date;
-	b=aPtSlwo8N1DkCO4Veyw+QmgNaW5HFyB6SP55Os+vmY8avLg41yWiUhSVXTzC8uLCB
-	 2/ieVcp2otijSv3ix+GQvNh3KbfF5cjnPZASBprlO/Bx+aKnQNA4ofd5ymZ/ThIjlU
-	 A/SKmprlZ8irOBTJH8YbX/48aFglqg/Jwgb7kPXk=
-Subject: FAILED: patch "[PATCH] NFSD: Destroy a recalled delegation the client does not hold" failed to apply to 6.6-stable tree
+	b=bu3FAc0V3R8/32j+HVwSRzSQ9WuOD+eCeaqmKacmgJl5aiRrawszflHwglR1OMo6D
+	 K55SgpmFGbwRcCbTMyYU2saiCN7DVu8r/caC7UjLwIs/ZyzHw9OQ/ZIhkYCY+Yru81
+	 MNVyoKSOWdfNOn2jIzl6TnysbP+1wc8dHBZy8FIM=
+Subject: FAILED: patch "[PATCH] NFSD: Destroy a recalled delegation the client does not hold" failed to apply to 6.12-stable tree
 To: cel@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 13:49:24 -0500
-Message-ID: <2026110424-filth-enhance-055f@gregkh>
+Message-ID: <2026110424-untitled-galore-5fef@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x bbfa823f624d41e85ebca929ac77dc2182cadfed
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110424-filth-enhance-055f@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110424-untitled-galore-5fef@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
