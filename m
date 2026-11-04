@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811352;
-	b=BtE1kG0KFxmE3BNpPh0MlRZR3Vxyo1IxfCBaA23FouF7eRQ5CG+fWpctHdX0bJfRRRln
-	 1QgU8yQWgUBTYQsyaYKP+lc6mKy1IPdWzFTpzaH/AVUN8+ujYpSJzPkRjbYC0myp7PwQD
-	 8fgamjAnFb5zWrUDcZ/+kjoAo9jTlUFMHC+uEInpgpBcwCgcVXOrzw9TyJQkSg+yZHiAd
-	 DUXkHWEGWWfIaDV7K8DP1MmdAy0VblmLKDUI7ft7tVaoiXjMR5laBIJ3OLy9lDy5qxL76
-	 8J5aYLnNQuGze2xOXNtJbiq+U3Nq1CHG6TywvtiIdOhiXXG6W6afgMd5fg4QXhZUIGg==
+	t=1793811355;
+	b=NtY9vjiz/B3v902NGag56JbFYwHfKdkuY310GJM9ofECGtMm8/meJMPSSfrPV/VYzFZI
+	 lXcjbqvsV6CPeb16wntFHVWGrI01ESBr0DztWXzvhTx8bSvtiArXbOF5p/Pmb6ILZGrKv
+	 jbz6M/AjMXHyFDMXDdEE1kuUu7oLStzBqjrCGR/j92W3R4tSr61Gx0IarGmQy1IIlSqG3
+	 U4Wo1kjEak+pSRdOPS6cuhmjqkcs/HFztWLu2hWS+EJbZigEGph28xxAId4xvHMdjpTja
+	 KyXl7v08yCwiRzKpFSGRNLeNfGvYl6lq29DLpe+LOdyLr7rfzC5D0AoHdawIH3FTDxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811352;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811355;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fo3kb2xiJIrnwItMokltpCeg4H5rwUaCp7vcM7w/6ME=;
-	b=IEJxj7NSMXwlyGyrGkYPEQeHWcj0m6TZxshMiBKN2TduP7CDoqkWrec/aUWu/8QzUNjc
-	 0FtwHOuWOn4p88c+88zV5MuGePY3iUxNu2o37Ndiz57xEC/kaR/h6qXzlmulpWK4/zdx6
-	 1B0SujcwIDoNXXGJFwXFC4A9Koa4IbwK0+Xt3uwDye3hWHzuvI9z0DuGPHSszzQOerPMF
-	 XR3uCUJRvVOkmojK1MzkpBVlgG0TG5PBMjgDwuXhmZ9nQqdfog74EpTe8eqAWojnTkyPw
-	 HnAVBwo8WZJ97xjabXx91KKieCKIIXXZdDA1oWmZYERgKi1+L2hhdRBXfqCV8ufE73Q==
+	bh=IsnYdtyy1CSwZRAjcyP3DOcnU9o9MUb7QHprYMxe73A=;
+	b=lJsyT9qZ/nQiD95pf+01JQH5g5rUjTHRluZEtlsOq25bKtgTdg1DaVjXzhnM6Hl3q/rC
+	 RHcRH7I0OD4+v4bG+1XAjMhBzTQzvgW4gRkr2pxqCrrsHMnqnnxIBrN6fDnX+OLBbX3M5
+	 HkhsGdGRZ3cLFM8TJlScNXUcZRzvPXacHhMzQCZ/X4XkwNWDFD4Gty6hmaMZcjKH3B5OO
+	 TnlKjNzWT52aPBkN6Hd6XPHaZiRhaWwc7XhXcfEIEqBV0qWoXXdbQmmTc6ypUHJGYbc1I
+	 ktDNwhe4VYxJDBWbwpUlfruvlAW/dQpcF42sOJoVLSNlXvSbYjcimjLq8oyTDe6n8pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dojkCSD4;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eftHqDDQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2686E606A33E
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:55:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03AF3606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:55:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dojkCSD4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2781B1F00A02;
-	Wed,  4 Nov 2026 16:55:51 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eftHqDDQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D8C41F00A02;
+	Wed,  4 Nov 2026 16:55:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793811352;
-	bh=fo3kb2xiJIrnwItMokltpCeg4H5rwUaCp7vcM7w/6ME=;
+	s=korg; t=1793811354;
+	bh=IsnYdtyy1CSwZRAjcyP3DOcnU9o9MUb7QHprYMxe73A=;
 	h=Subject:To:Cc:From:Date;
-	b=dojkCSD46byVzeemA3XPR4BFLdGqLyAsd7A9Xf6AZ3yTP/oaZl+rkCRbjP5qazQvJ
-	 bSLQEdkEFOoWC1bK/CmeiN87XU1BPzil5+NmiDRdEefUOP1X4T0Ii5TVQWE/VXsAKG
-	 O13Dz3AHCFRRZbA2og9ibooAENtvArw9XIs+BsZQ=
-Subject: FAILED: patch "[PATCH] xfs: bound da-node entry count against the correct geometry" failed to apply to 6.6-stable tree
+	b=eftHqDDQcUPsZdZgRAkJLpGQhnp3REr08BEzKGLvm6KGZbBE17FKPGtSrnqhAx5Gw
+	 +Rr53efAx/4rjtqShGgBn4DrguHOdkgiVE1OgMX58CnkOLxhAxLhzHwdr7zR3s9i8u
+	 8X13DgeYO6rLvLEZRWc+0SevK+UPjidEQ5d3iPI0=
+Subject: FAILED: patch "[PATCH] xfs: bound da-node entry count against the correct geometry" failed to apply to 5.15-stable tree
 To: qwe.aldo@gmail.com,cem@kernel.org,djwong@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 11:55:05 -0500
-Message-ID: <2026110405-unleaded-ongoing-7d17@gregkh>
+Date: Wed, 04 Nov 2026 11:55:06 -0500
+Message-ID: <2026110406-unheard-batboy-4143@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3df5e5aaa3bc0913236c48ab29b7df3a785aa29f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110405-unleaded-ongoing-7d17@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110406-unheard-batboy-4143@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
