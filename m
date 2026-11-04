@@ -1,89 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817838;
-	b=KXi8YlbEC9hQPcvi6X3bqTLkJb2fSl+KMK4XdRWd1AXCcgHQDxWIR1tDiMfahhGRiXBN
-	 FvEr0bKbAqaGp6slBMvnGw6JxxU+4MFYgfQopvSWsXK+y2V5cyQ0Zgs2j3tIznHLPglFz
-	 it8eSOVty9qjs15nRE509BQ2IKu8Qy9go1dM65eKt4cbsTjtiM3BhG/t8Y9MFai/ASNVK
-	 W9+drN/Z8iCuFvoMKt/O0XwFbh1GqegLhXAYC9IdqqeprzQ4QvnR2FVp4Wzs12gGpeaTO
-	 IiQU+eoheVzc3rAWAsj2aQYfDgb1JpaQ2qL0qOYEy+QOnJfLXygwFrX7dQ0StHr3a2w==
+	t=1793817839;
+	b=n+G0rVpfrYibyVE2tKPFO9Y8APpMtwqozbJ4JniVSYdV3DF4fc983hj45Q/0KtlofCrM
+	 U+Ntn5ePWVcnV47GxcUzJgQvdM+swgsnBw7FqYAe2rXYRdQTdVWznTOSN5qomtlRVEo/U
+	 SG8Kv2fnvRaurisWh8FE+SfLR9FwrIFGFnx0cm8eaT7s58xblEZ1ZJclZ+D7eaWYf83pZ
+	 z9gkkaO3axr3YD/jEggKzvSxOWEERiwwKMqHhIkVocgZgVInMlOWAMRZGAd4f8rkq3Qhj
+	 3FJN1WYUwypuyS4P/K6kRGX+amMo80ufRgdgfqt+NDaiJn6bDvLmObcrdrbttPh9nDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817838;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817839;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=rzIBNmtnhQAizDMO0mckPBbuZE2/wV82lsxH5xvEbjw=;
-	b=uQ9VPiAU22uB/XYObMN8t0jpuK/Bo2xVDCnDxAX/N3pkAQhXz8GOJCOE8k3x8SGexEZY
-	 Ipgn8wP7RxRhSUy+cUHH+fIfT7SYiCBur/MKD0GS4M2itiK0++JKCKCGbANuK57d5hbBN
-	 b6w7Fsxpg+FkwXSiqRGMui03WMKLwdR2r0XogBmY8GB2vUPTMeCSalrkOw+Xin+PN3pby
-	 yHBCTwofqD9T/gi7mgZvK8cZhjBKFijByTQlp1zi2xyWBAGdj6mTpVDvHDKqFGt1Yyr7x
-	 VEwJncEzOV3B7P6SEeqcztIG0DANCUUh04xcwN1BvJkhwEoXVoK0t9PGxjOD6W4pQ6w==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cOA0q7paRIxlLdk5xzmnGNe14MFB+O+MPf0ZyBQ1jhI=;
+	b=oy5GXgY4ujOiP9+KOHzMq+DKnRLDkSjoXbOtG2b33SIaspMTye5x19gcrCdtOFvueEbn
+	 V3e8Kyn3ndq1IZ2/WnnjN6WSePduExpbEziuqEUJOdUFo2/SlpPZgtl3OWG3cLsruSOg6
+	 4ZLutsftfqhWO5hhWfB+pTMspJp7RSmwtWBIaAGAMWVTKSfnwLtpYwbwf8QhU8ypUcEjO
+	 yAig/jqDKZiZXF9/S18fFeP71dg2eb3CEKQwf85ePoy9HzPNogQMufUMoeBreAf0hYG8d
+	 sC3djTaB5vzozLGofHfwa1qKltyA9fjy9zCJH2n1LQUYzBXWG96lVsltJOyKN6zbfOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=R9lb5qma;
-	arc=none smtp.remote-ip=209.85.167.177
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=qu8YkKrC;
+	arc=none smtp.remote-ip=209.85.167.174
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B7A606D809
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:43:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84B7A606D809
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A49606D809
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:43:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09A49606D809
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=R9lb5qma
-Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-51f2e9e6987so1496493b6e.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:43:57 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=qu8YkKrC
+Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-53dda625f63so725617b6e.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:43:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817836; x=1794422636; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rzIBNmtnhQAizDMO0mckPBbuZE2/wV82lsxH5xvEbjw=;
-        b=R9lb5qmauQQBtZAMFbx/a76627NxV/+CPELBBWU9Qziyf4YzXZ1tBWio6yMcR0F4BS
-         ANTNvznSPceWfFwtwLdmujhenEWhMgz3Hu9LKII3CzetR8P2Y1U2h39Dqq6XE9Rdr0ya
-         lgC0LH6lgt/v/qTk1SQbFNoXkuJnNYvar/4iTAYaXuaLlEWCHOkJQAq07vGifJZQCupz
-         skGMNhRaIeQ6xPB1DD/YszWZvmdtaHgVBKZI39ui8yniXIH/qYNJlnjjFqxiJ7rLcZ+P
-         /7cVcvWVTUC8UfhEuYCUHtYaY5LyLZ7Cmo0lN5o/xiESAZg/IolUc8y/K9RJL9ue7kNL
-         ziXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817836; x=1794422636;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817838; x=1794422638; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=rzIBNmtnhQAizDMO0mckPBbuZE2/wV82lsxH5xvEbjw=;
-        b=B0cjDjzRhVeDGVpxTqFbbFfuzcozvxrEEjXgaZvztINGM/kDkPBCQAYQtkhsP1X32y
-         u73vjwbGMfTR7VOhrGrUQP142xNnhMmEmAorCGKjV3m+UZLr1/wXwRB8oEUw9LNyUh+P
-         Lg0vRaWaIvvHBCp0kMyhKWBvbkYEiDl6DsEv2GbSP28CJLY7ob3zKB70XO1R3dAiOxso
-         shYYCAPoj4zrrLR1jRCbQRi6XhMmMpXYTTQAL/BHy0uoGS8szs3mdkQ2jzv0LnNE2LL1
-         YotW6qhIh4HO7rG0vQqXMQnsX8bb4HN4lVBPjXNG0FVmbvMr3HSNsoFosokRIw9wODMw
-         WEeQ==
-X-Gm-Message-State: APuU4Z+RMRGVBEgEcpA/AYszPoF4+0u/FTOl9gNX5JaE+rNmDXyfWtEl
-	doeBi92rbxZ9YpNt3WVY066KJ8MZe4WwQlIYoZn2fAroB0U/Vn5T+VtuzJfR6OAzXawWiac7e9F
-	Mqr/gOyE=
-X-Gm-Gg: AYBFou3A0K2u3F5TxW66J3ajQ96iuafxBR5VHSZHqWbc1td3x0ac3HltwIjLrR8aqx9
-	1mfLDZ+qXJB0yV901/fPVJyVLpS1Rl7NjT2GWzVGr0ExEBhdb5VxRx0GhdGjZ9xJO9GlZRjp+bv
-	TF/lB6/a2GRON9mMnIvcwf5KQqrYqCgdXiyR7o1S9vAAJ8/WovoQbveFXMdcamTzdRXEDrEJQvz
-	xRYIEG1FHm8V7uKoVzWyHjkFuBzZK1cSHER4Q/pdK+/Qadk4YRqqqTUQQup3CV+nBYIszoaPZct
-	GdVyVV9TQx57PhAGFA+qyba0eeHTTRKQGnbgxi7YGBGUy8q2qXLjv2LxVHwqYzyCaMmvybITd+j
-	u4Vt7r8QQJK3jqUY+OFpKiJ/Fy+pBw00tOXsXALHWwsAPO3M7MAzS5e8+wiMfFX2ZjOEnOhWJ2J
-	J9saE12R0ut5TOaEq0fovubQgROguN41+J81t+km+tbqJbt8S15xv8qVZQOOrMTAKU9nKhl97u+
-	clylWOyitXpJKWmpL2B5ZrEXMlB0pLCVcqOEauiX5dH/bu2nkOOZTY99mqLWiPN0cjxTibslNY7
-	xY3A9U+RuiEpMPpf2l0NdVOj3K/k8nonB+ucc2pJlErZvTqlkQQR5kByhTosEq+Ey9BlDbuEJg=
-	=
-X-Received: by 2002:a05:6808:2391:b0:567:baa0:39a3 with SMTP id 5614622812f47-567be4360damr237078b6e.32.1793817836415;
-        Wed, 04 Nov 2026 10:43:56 -0800 (PST)
+        bh=cOA0q7paRIxlLdk5xzmnGNe14MFB+O+MPf0ZyBQ1jhI=;
+        b=qu8YkKrCni6cVt48zROXdyKt+BePPaV6b2aZ7Tewqmwvdnkc2HiTzpPm6bt3RY+q9i
+         VRDecQAMEsRY1ESDPSOPXenoXhh/TL9QJLaO4zIdsn1puL9mhtEw+qlQWOvFXQOQsAXq
+         Yosa+rbl1xkfG9b2qK/xWuVDbK6G1bYoRetPjipabQTV7fSfMtZ17ifbdwVt3L904GXP
+         0RDp7ESmE4VzaBH4RpAyjhpOL/3vuJS3sn6W6+eqdvdX82/eU4TYqZjqcl98gGH4khDT
+         D1y52ZyGrUdAi7DhCkA0Fh8KZPcZpdc3g0sqb0WTdCkcvk5yqAOmzju7+SPQOGyPPDpO
+         jIkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793817838; x=1794422638;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=cOA0q7paRIxlLdk5xzmnGNe14MFB+O+MPf0ZyBQ1jhI=;
+        b=AyqhHSyUWDT3Au87ANjRZgFU8MN7HVrENB/cWmOu7ZL7KICtNg/5QfDuQ7nL4Vbz2F
+         OHhxqwsAPVXNJurAp0ccW5EiyYbOf8qKLhvM8RzSyC+JBJth9fKYNN45IfZRQ4xzAHCh
+         pz3W6O9CYYB7EP6esgLQGpXjsPIZSu6DDvEU5U+lB4/lt4PyN/z3NxvbkzPNIWt/Xuhw
+         N4JGQWGcQCyuIzSLoxkv9Vl4aalPYo7qyvmZY7qAwgqS0KqBySoxtfTS28tpAsE+gMSl
+         +1vJSsK5HIs3LL3Rr0w+VZSpB+g9OS5jBeGnYpDqwVqAUBMwID+RotSax9GXLDiX5Wyz
+         xnng==
+X-Gm-Message-State: APuU4Z+7k38iKJx0gStZDGYbWEhF0IL8B0AzLEvp3oXu934a11zjYc4J
+	y9H3ipU0fFvWFIFeAIGES1aJzlOgm1l0gCDznHxYUZ24pqTE2t4C412CejZw7SbUhzC0VHvNaAO
+	U61ATyqQ=
+X-Gm-Gg: AYBFou2rLj9Ld1S3rSGcTZjSVviFNUq/k1PT1+Duwa0iHzZBbr8jcvLwcZxk0Yx8y10
+	V2DbfiemqMTNQtly6dmyWOR6PW/mNnHZgVQPIDjSAWXyBbZt7/DSmC8T6WQrBXUpnIemkKN19tr
+	Ti6sEj1gL/eBsyH28bFywZkDxhgiUxo8exzKWoU84Ld2XEA1EsZEgHrY+uLKIGD06HvGguAHKZW
+	AKoN/wYz7fjvarMCQMsDBxo6jJvMheRueLy27Wz8qD1xDCrLf+Yd/u3sQ/ehPdVnGXUct7gsaS6
+	VUqn2hfNIUwn+bRd0dihqGv9B9nLVjwoke+TggOxfmApOubKrh2UGdsfrsAdj/0FJpyF6bK7/QP
+	oYksz+Ojx1xg+8gxvWKeER642IXo0Nea+sR21sicpecBTN6pD4aellv25J88xLwU4Yu618mpcuk
+	oTfJii9WULqWfHNGaOTf07xZlWjcgbjYGlXuUWTeRvQXgwW70Vcv9TKVgIwCLwFTtnZOA+pqSVe
+	r2g4732g6NCQQB9RahTQhZaKa7zih4egI8QUYasG7TRQCHKU8rO97VaGJFrgS3C/6v3yTUwW+Ge
+	6a2Mh1R7UyvHNBZ/HQi/LyL5mYlJVYrTNToO5CbHt4b2ppnMGvKurTZN9llJ/l8tNvIRveJxlzf
+	SGQLYTdDskSj8WIWuWYI=
+X-Received: by 2002:a05:6808:148e:b0:551:a229:c8a2 with SMTP id 5614622812f47-5640decc467mr11325621b6e.64.1793817837952;
+        Wed, 04 Nov 2026 10:43:57 -0800 (PST)
 Received: from xps16 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9fdfa53sm2199007b6e.15.2026.11.04.10.43.54
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9fdfa53sm2199007b6e.15.2026.11.04.10.43.56
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:43:55 -0800 (PST)
+        Wed, 04 Nov 2026 10:43:57 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.12.y 0/9] io_uring fixes for 6.12-stable
-Date: Wed,  4 Nov 2026 11:43:44 -0700
-Message-ID: <20261104184353.516403-1-axboe@kernel.dk>
+Subject: [PATCH 6.12.y 1/9] io_uring/kbuf: advance head when a pickup empties the buffer ring
+Date: Wed,  4 Nov 2026 11:43:45 -0700
+Message-ID: <20261104184353.516403-2-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104184353.516403-1-axboe@kernel.dk>
+References: <20261104184353.516403-1-axboe@kernel.dk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,51 +99,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Greg,
+From: Yichong Chen <chenyichong@uniontech.com>
 
-Here are io_uring fixes for 6.12-stable.
+Commit 8742f4b5a472c347fe568a73468a2d9e4d630b33 upstream.
 
-They apply on top of v6.12.115 with the current queue-6.12 applied
-(stable-queue 6575ff04f2fd). They don't depend on anything in the queue,
-and apply to v6.12.115 alone as well.
+io_ring_buffers_peek() flags the request with REQ_F_BL_EMPTY if the
+buffers it picked were the last ones available, comparing head to tail.
+When the loop breaks because max_len was exhausted the buffer was picked,
+but head is left pointing at it, so the flag isn't set if it was the last
+buffer. A bundle receive then retries, finds no buffer, and the request,
+which has received data, is marked as failed on account of the -ENOBUFS.
+That severs a link, and ends a multishot.
 
-"io_uring/io-wq: save worker type before dropping its reference" is
-already in queue-6.12, so it's not included here.
+Fixes: 35c8711c8fc4 ("io_uring/kbuf: add helpers for getting/peeking multiple buffers")
+Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
+Link: https://patch.msgid.link/20261023091711.83481-1-chenyichong@uniontech.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+---
+ io_uring/kbuf.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Patches 5, 6, 7 and 9 needed changes to apply to 6.12, the [axboe: ...]
-note in each says what was changed.
-
-Cheng Yongkang (1):
-  io_uring/timeout: count cancelled timeouts in cq_timeouts
-
-Chris Mason (4):
-  io_uring/rsrc: charge buffer arrays and nodes to memcg
-  io_uring: charge tctx nodes and personalities
-  io_uring: free XArray nodes left by a failed store
-  io_uring/sqpoll: don't wait for the thread to exit
-
-Daan De Meyer (1):
-  io_uring/net: don't retry a non-blocking connect() that fails with
-    -EAGAIN
-
-Josef Bacik (1):
-  io_uring/io-wq: no new workers once the exit has begun
-
-Yichong Chen (2):
-  io_uring/kbuf: advance head when a pickup empties the buffer ring
-  io_uring/net: keep recvmsg buffer select length within MAX_RW_COUNT
-
- io_uring/io-wq.c    |  6 ++++++
- io_uring/io_uring.c |  3 ++-
- io_uring/kbuf.c     |  4 +++-
- io_uring/net.c      | 12 ++++++++++++
- io_uring/rsrc.c     |  4 ++--
- io_uring/sqpoll.c   | 28 +++++++++++++++++++++++-----
- io_uring/sqpoll.h   |  3 ++-
- io_uring/tctx.c     |  6 ++++--
- io_uring/timeout.c  |  3 +++
- 9 files changed, 57 insertions(+), 12 deletions(-)
-
+diff --git a/io_uring/kbuf.c b/io_uring/kbuf.c
+index b1c5e80b94fa..da6b46244e6d 100644
+--- a/io_uring/kbuf.c
++++ b/io_uring/kbuf.c
+@@ -302,8 +302,10 @@ static int io_ring_buffers_peek(struct io_kiocb *req, struct buf_sel_arg *arg,
+ 
+ 		arg->out_len += len;
+ 		arg->max_len -= len;
+-		if (!arg->max_len)
++		if (!arg->max_len) {
++			head++;
+ 			break;
++		}
+ 
+ 		buf = io_ring_head_to_buf(br, ++head, bl->mask);
+ 	} while (--nr_iovs);
 -- 
 2.56.0
 
