@@ -1,53 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793791238;
-	b=CjWuby/5EXloJmiR/kI5OA7IRaq2YXSfPi4Mse2p4vXvlfJijJCJm7J1WxxjQDiVWh0U
-	 c9T6EC+571QDu0aMDrWOGD7n5gSyfW1UmE5xIQVT6paw+RBQkp6uKWn307gRwJrnoa5/Z
-	 HYFZrPVA92uxqQI2mIwnZGrfUYsHeFaBwdu7rcOl9UhbGRzU8dk4hHQCaK0Odbv7yUiXL
-	 89xIMR+NRkHx78ec5dmOCG2CfaUNGPqkOmGxLezqwI7fo3oWSUUGNGg6iSJiMh9vkjrdK
-	 uXR/m+kvtqTyBlCuVMJ2Brs1lKaka4gyvQEkJmaoMuj70WIz4b7/3RKA5+n0v4Bt0Hw==
+	t=1793791420;
+	b=1kIPc7osmrLK2o30EdnrTYUXfHyodfIYTPi0bTVVQb0tvA+c8uqkbRnjpChS2Pipullj
+	 CRm1+sT+tMEh/daQmrT1nZjUXJUBQblupD9BAVroyokQiYX0GIRwf3vbf6AaS2o44y0Ho
+	 eFvV29NqSBbNdpV1CrXdZryBtiw6mObQysgFu5fF5GiojRR9l8qJw6KRch1rB29lIaqn9
+	 PT78Oj44BcPyiMCL155DHeyKrqst56qISAlzPFjexFrIaRlDV4K5u4S6UOZwumKjWRvJc
+	 A3CQItMbTt970tQsQcH5wf+aF5LGem/gAUoHVv+0yPojI92HxcLpix7+93BMOTBPm3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793791238;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=7OBRCgBQnDjoyoTud5lcIffP0TY3Gb0y5+6q7d4Ue4E=;
-	b=GD5inxSph6U7YuI0Sc1jektT9VijZ1Aisna3LR7ptdloBrKm98tcgerF+h9hr4uNBN2i
-	 VgnF92ehOt/lIHU3SSmvmTnEM5sj8kHtMjAWp4UtzbxEHmHzhkNZtbi90NlPB+N+iVhdB
-	 aM1y3AOMrzydvvVK3ZDegANegxwzIlL/hM3rkjuEGl61ovi7SeOGumeHRBJ+SVV1AxRh0
-	 c4r4eVRDkhB8onP0PAMvMaZ0tqYc/ag5jepGPUD8o2Fcmg0y0cWTb1S0ph1ajOHfZHrbY
-	 Zx1/zrlDX6wx5TjqXXf4Y8n/UyyPxenPBqwwpYr0EbBIJveY8KDBJmgAOqCVMrrc39Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791420;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lk9/6hT+VNSIJmASQM87OvbXZ/RteGN+GK78gZKzHZE=;
+	b=mKOmcZ9XinZbtVR6UQg9axmbmVFeTyqcivYLUasclir9+HX+YY7oC1uujh8Uhmnofzl2
+	 jCE63jpK8YPVk0nRoI6qBbe215yipA/BMrJ3ZEyjzcdUGlmjskSqLM2I0El0pIhHlqamD
+	 M3r9shiVwrJUE2IbwAaqFRVI/03Zs5Xy0IM28PRHeQiQWKe/MU/NUNGzGr0oE6VBvl0s2
+	 oBOYyWAzq4N26DPw50Vi4QrZt2KJe0tx7YWOucod9kI6nvlv2J7rOCusPAFGU0tEHT+zl
+	 Sb+TlOGAWdf0SWb1sDN7RNzBTzYUcg0/ZWlRms0YYk62CsG5Pj4X5q9C2IN6hkE2c9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=YGTFORqR;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UfGwjTFd;
+	arc=none smtp.remote-ip=74.125.229.8
+Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D93F606A32C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 11:20:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D93F606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FDA606A32F
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 11:23:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73FDA606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=YGTFORqR
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=7OBRCgBQnDjoyoTud5lcIffP0TY3Gb0y5+6q7d4Ue4E=; t=1793791236; x=2109151236; 
-	b=YGTFORqRZ7hz1+/hqNZ1F29GV77SEwu/TfhNDOQzpn4qhAsjeTRHI6v89UJqvWAbnQP9o7+zglg
-	VKwRvl1ZoJXDKoovI5K75Yo3FZheYbS5QzeZkJBiRH1RhFVXE44CsApx5okXyfbLeWHTvZvDZlwTS
-	ndGJH6wfYoTJ1O3RKhgJ4eHq3CixsVGOTssMsg68tHOTPrdX8qEAJVcoyfRAj5Ifglf58LuEUUkl2
-	DeajYHWWOV6JLDEv/Z54I3xWbqjTE7+S2YZDdMKQ3ELtbWUBsvoGgr/5x2FMfrA5lZljKMXZRFMi6
-	nJMEIROtFaRz9OCLgBgJALKAKgccaWSY0s6g==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xOZ2X-002CLZ-E2; Wed, 04 Nov 2026 12:20:25 +0100
-Message-ID: <e209e3f5-714e-4717-9037-6e47e76a6e72@igalia.com>
-Date: Wed, 4 Nov 2026 11:20:24 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UfGwjTFd
+Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-36a6ce64b95so348399eec.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 03:23:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793791418; x=1794396218; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lk9/6hT+VNSIJmASQM87OvbXZ/RteGN+GK78gZKzHZE=;
+        b=UfGwjTFdJc2f/tcsb4Xgjtx0MV4UR/nA4OIZHI2G3C7kk7WlTFFZhYr0DCwmCwQQOc
+         706kQH149rwZCeRGAVCHn55ORHE1Q6CtmH8Ub7X8OPGaHouQWSo7lmgLLrVg/kta3E69
+         CLf4YQSjmZXrXWCRKQuISr2JAit5Vuc6QH8RZejYUtcvPUuyNKOYjEYu6lk6IlORlnzx
+         6uRjCa8OOV8yJWpXX7Lcl5Y2Rs44pl34byuPTJCZhw2wyuRoquqjud3iFYc0vbXu41ZZ
+         eTSNMGDiwthZ/0TRpH8uZeBS18LekhySohteGd9guS4hlj7o5bBfgDLjsYWmg/PpW12o
+         Exxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793791418; x=1794396218;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lk9/6hT+VNSIJmASQM87OvbXZ/RteGN+GK78gZKzHZE=;
+        b=FhElmQ1pq5uQE/EOyIG7cEdpQncjp2bO53SCLAOpLOzNA7tFxccjzu5jM9liDqrG1Q
+         FSr2Cvorqe+zFqcFRm9g9Pmj5VXIylAOTw/+uh2evZvgGOz67SId59NANE0t/+7tqDe9
+         3R5aYZXfC5GzexAUEXbxj6lKo/YPWBU96kaRWcMb4N7GNEmTFDfFGxPHUNfE6WPdhus/
+         NKvXN8QmHAr3O/mmi7o+uE/NVAGDx9+3AXcFie6MwJlo2knNWrbJEjcEW6y1g2SyN7FJ
+         Lv5MiJE4o21guF138CREmgTtafkdI67YYNoyswcx3hby31fSZTmLp+NZbvxTTzNVj1Ax
+         WMAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxLALlad56K5UMRK0mlzJH8At9TFT/CFjsqzkieLy0B4TXOf/8rIGrjDngZ1KFV7ZEkWk7IjGo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8DldW28a0HXDIaq5t6l2yhCILOAf4qpYhITtFFffjORiewrLfB
+	l7iq16wjdhZ1jt+2ad0mtEsRlme8pN3/Ryf2HgDx/8WD5Wq+q3aRBk9Y
+X-Gm-Gg: AYBFou3RV8VLlkvOOg1QwOdR7pPFCbKvg2LAlNvjfMBBHXb7cH9cQKDJWNxDlzGz1t3
+	3KYG5TSgorXxin4hXuHrz3F0XUB1UYnHaH0i4k6ddrJ3y48TH6uANfPguw+eXgRqubi9dccg6rD
+	h9iHr/4VSiw0OJl9E+jDDswE33rmPB/kZcZRj0SHI0hhdz1knrYpn+ULYKh3w1iMSz7sTmhA9hd
+	OQqmUDQZzpZtMK1cGDxprsgnzoT97JYRP+5rSsFQfLxUpamia/HYEhcm8X+2kv0SDCWc8tUBNMM
+	F1OItynqErNY1LxhQGmyD7OlF4G9bk4Z1HD6KzsS8SLCkDRwMXdMShJDmeEjbkWMzHu0oxH5MFo
+	ERvgrli3dEGrzyneBfiA6VOT3L9ETC0dauwotXhXy+H6tAqME4DVEFU4l1cycRT+TDigvYThQOW
+	u3BVMojLf64Xb4J0keN+D7hlQyhJS7sd/XluTHpKPeTpf72+0PSJp8MaTTbdnKdDTjLqk15VcZf
+	aRqnJeyIuUAk2LfyOQg+0hQI79jn+bi190dMgQ/Az22bJS9zsQMPk7ysgXAFD6ApEpvGB5E2B9C
+	DY8F6zNMmTe/qWXbRNvlO6BHcmNy6o2kYgbIQGD19cBy881KGKnQKY1lH+Lei5Ze1QfGP/FIQFg
+	PBwGopxCWxz/jL0wbxAPQ9Tt3QneAxJPgG5SXww==
+X-Received: by 2002:a05:693c:88c9:20b0:35c:8b96:94d9 with SMTP id 5a478bee46e88-36a42444bf2mr25229379eec.19.1793791418192;
+        Wed, 04 Nov 2026 03:23:38 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39c5f0csm6285277eec.29.2026.11.04.03.23.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 03:23:37 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: me@bobcopeland.com
+Cc: akpm@linux-foundation.org,
+	linux-karma-devel@lists.sourceforge.net,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] omfs: reject writes starting beyond EOF
+Date: Wed,  4 Nov 2026 11:20:52 +0000
+Message-ID: <20261104112052.5604-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,83 +99,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/sched: Adjust run-queue when changing priority
- at runtime
-To: phasta@kernel.org, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- stable@vger.kernel.org
-References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
- <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
- <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
- <6e113935-f303-4f49-bc27-e1d85abffa70@igalia.com>
- <72cba5d23a977185696db12ac547174708652bcc.camel@mailbox.org>
- <dd6e0f86-67e8-40c0-bf8a-1948623d0646@igalia.com>
- <6e9a32c633eec28b9d5e539b9e35c00a26ea5bd4.camel@mailbox.org>
- <64e2b65e-afe3-4fc0-8201-03cb72ae5d32@igalia.com>
- <7327af158cb66e6a5ac59e8fee413d569e85115a.camel@mailbox.org>
- <7277f083-2d17-4bed-bdaf-e6c616cc5ec9@igalia.com>
- <b93eef3f44db1cd8018a742a39cba57b67dd1d94.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <b93eef3f44db1cd8018a742a39cba57b67dd1d94.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+OMFS does not initialize gaps between EOF and a buffered write. When the
+requested block lies beyond the allocated extents, omfs_get_block() grows
+the last extent and maps the write to the newly allocated block without
+accounting for the skipped logical blocks.
 
-On 04/11/2026 11:04, Philipp Stanner wrote:
-> On Wed, 2026-11-04 at 10:43 +0000, Tvrtko Ursulin wrote:
->>
->> On 04/11/2026 08:48, Philipp Stanner wrote:
->>> On Wed, 2026-11-04 at 08:33 +0000, Tvrtko Ursulin wrote:
->>>> I lost you here - what should the comment say?
->>>
->>> Just a "TODO: entity->rq_priority could not be fully removed due to the
->>> partial revert of the CFS scheduling rework. For formal correctness, it
->>> still has to be adjusted here".
->>>
->>> Just so that the reader sees that this is in an intermediate state
->>> right now, and so he's incentivized to git-blame the TODO to find the
->>> associated commits and mailing-list-archives.
->>
->> I would rather not do it in a patch with a Fixes: tag, or actually at
->> all - it feels arbitrary to sprinkle a TODO mentioning future work at a
->> single random place like set_priority(). Could we go with these two as
->> they are and continue from there?
-> 
-> Help me out here, I don't have the CFS series paged into my mind right
-> now:
-> 
-> Will future callers, after your redesign, make use of
-> drm_sched_entity_set_priority()?
+A one-byte pwrite() at offset 8192 into an empty file returns success, as
+does fsync(), but after remounting the byte is at offset 0 and offset 8192
+reads as zero.
 
-Yes it stays, as does entity->priority. It's just that with FAIR 
-priority affects the virtual runtime accounting and all entities are in 
-a single run queue.
+Reject writes starting beyond i_size before block_write_begin() can
+allocate or map buffers. Overwrites, appends and writes crossing EOF
+remain allowed. Gap initialization can be implemented separately.
 
-Three step plan would be like this:
+Fixes: 8f09e98768c1 ("omfs: add file routines")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ fs/omfs/file.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-1.
-With these two fixes we think about making FAIR the default (all known 
-bugs sorted).
+diff --git a/fs/omfs/file.c b/fs/omfs/file.c
+index 79a413f1dc0..82c15756671 100644
+--- a/fs/omfs/file.c
++++ b/fs/omfs/file.c
+@@ -317,6 +317,10 @@ static int omfs_write_begin(const struct kiocb *iocb,
+ {
+ 	int ret;
+ 
++	/* Initializing a gap between EOF and the write is not supported. */
++	if (pos > i_size_read(mapping->host))
++		return -EOPNOTSUPP;
++
+ 	ret = block_write_begin(mapping, pos, len, foliop, omfs_get_block);
+ 	if (unlikely(ret))
+ 		omfs_write_failed(mapping, pos + len);
 
-2.
-Then, if it works fine for a kernel release or two, we can remove FIFO 
-and RR.
-
-3.
-Then, after another release or two we can reapply the final part of the 
-original series - replace multiple run-queues with a singleton embedded 
-into the scheduler.
-
-2 & 3 could happen together, but lets say a regression is discovered 
-between 2 and 3 and there is no other way than bringing back FIFO/RR 
-then it is easier if 3 hasn't landed yet since that's the part with 
-touches all the drivers (due drm_sched_init_args).
-
-Regards,
-
-Tvrtko
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+-- 
+2.50.1 (Apple Git-155)
 
