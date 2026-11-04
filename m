@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793831518;
-	b=xSGP5+ORYMs+LGfF/aCps0IDkM/neOK0Xf58JRJOnM9ZqfWeRKrMFhFbmKIjMt1ptNh4
-	 z8NITu2VWN8k33M1plnqDJrG5CTPeXJofLp939/uoqD5DA1JxVdIfre6eVcU6ejQLAa6m
-	 HO9ykL0kDoaHrzwgT4j3LUqvBCTF9I3NK47ljvpoe6Y77k8weYDJ3UkNXWRp2AEstCv61
-	 BE37Tu4QpRZ17D4FICOenfK/bC41qcUya9Cczmd9jlY0glJNSNY1bNkdA00m9O/OEedWp
-	 CkTutRe0NxqPIpsxhLrJNbMGYdxiJflvQausariTHp3IZeTGPR5mOGZAi0Eg3GInwqQ==
+	t=1793831521;
+	b=czZm6XC7xdeskZc5mGISjacvTI7uFlyKx/Cas9Belh88YXgLHOSV9Mm/q3mrL8ww1Loj
+	 Ch301oksWWoTj12rw0NqoiP/RIKtGmh8zB1b6b0baeiJTz26HAUz203vSp+IkgvCC+N91
+	 +ehv5mpLVGKjpmH6Y1aGZS3M7bUZ94XSfaD0OJRgqQK+Zl6U56HxwrirsMAOUOUcRlW+l
+	 FXBq8KO8tTxKOAuh92KVSwcth80kXbsBJDUVeZFuQ6ieLcQfqcQdy44/NmKJE4TmYLLw2
+	 53YVyuK4g7AKPo5XkW+5rMNnkdBZN5tCe9JbuHtcHD+9Ta4w2ujx4AJ7UN0QLdz6RUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793831518;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793831521;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=+ex4sYRuctXwXfj3dp8MZQ0qXgMmnNCkmAHeaR43AJQ=;
-	b=3jEnkrwJJ4LzwvTrjcFJUuit1Vzh/iMwB90b42bgqKsbnxEarbzbzkQ/uKU1DW1KTBTM
-	 8PArWvDEA5orozgsrr7Fe8XI+zLl+/icJXLVoVfCb177U2R0J6Q6JAhv3OkxwTw/I8lW4
-	 T6yaq9NOAcY2fZ9J2q0KhW84TIg7mhLnYlokauLwiViMARVPac8Av4RceVGy5bvuhCNeK
-	 kU8NlkpZ1+UQ7yG6XzxvMxYwsRi745jvfkICN27GjpGqWhPB1AWNLMl4Iovrlogiu2LO1
-	 4WkCZrN8YmpI1t2S9gZtcsX14JDtuo9NqJ7sxuKnwbszB54VQDLg6OQbY4bvwRVBCbw==
+	bh=HMMYbKnePe6SVVg/8nHHoGLOzCMxMr6/LIU2hsDOsao=;
+	b=oZBde2IZKP6srn+z7EGD/yuJZaigHFRhHcK7Jn0KxFmhmtgCCpfHhqV/k0HIFrFYdvEK
+	 qyJWqy5Yuv27Bmpd27nVnbeTEVQCfkB3R5vWzqFdHwscyr9qbIcv8UZ27DOkqbSUG6QMd
+	 brqipyPGtZfl/L/TT4j+Scv5jEK+uMIIrD+A3nujX7sMVuRCkhFJRCkvdeLXrH9Gd7UZj
+	 T/kpqUxHmtqzOldizEDNZmHSajUCcmmie9GXlgI/b8XFLcPPRrFBAiBW/GZN6iAm8c9hN
+	 +W7x8YTStYblaa4BgH+Hnq3QdXynMLSi1k3Hu+Gyq0ilHrkdWLoRusLWKF1kSHmsGaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RJvIj9GU;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CO2qJGSl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB69606D80B;
-	Wed,  4 Nov 2026 22:31:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E57D1606D839;
+	Wed,  4 Nov 2026 22:32:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RJvIj9GU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6852B1F0093A;
-	Wed,  4 Nov 2026 22:31:57 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CO2qJGSl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E93E1F0093A;
+	Wed,  4 Nov 2026 22:32:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793831517;
-	bh=+ex4sYRuctXwXfj3dp8MZQ0qXgMmnNCkmAHeaR43AJQ=;
+	s=korg; t=1793831520;
+	bh=HMMYbKnePe6SVVg/8nHHoGLOzCMxMr6/LIU2hsDOsao=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RJvIj9GUf+eW5tcjjG+h6L8uzfU62WgKWkHclKjT4749T3Upxbj5BKJdtxy72SE9I
-	 T8P+L/x/CEsZzpGu1dwHst/a3dw8tkDlLTNKVnMWkPAa0qJJzJe3+uETfeQI5KnQsC
-	 YS6BNnsVifSRVH2RP6e8i8heUSvbHUjbwolFtjP8=
+	b=CO2qJGSl2jiwhn6dvqcheFwC1ZuKvv9o4aC7m5d1u2fPvrNzruUpYAVsHEe0LvGkH
+	 mx3fwhSbN+cVXSh/CiUry8+ydVMTNAQTora7w1ae/BxU5Ggt6SbefNDnX90ObW1Qv6
+	 1rqsv0kVTyuQlSmaaYNFP4GLVL3IGCagmRXUrhIs=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Sean Young <sean@mess.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCH 6.18 0751/1005] media: rc: Fix ABBA deadlock by making locks more fine grained
-Date: Wed,  4 Nov 2026 16:08:04 -0500
-Message-ID: <20261104211104.487788407@linuxfoundation.org>
+	Kyle Zeng <kylebot@openai.com>,
+	Jens Axboe <axboe@kernel.dk>
+Subject: [PATCH 6.18 0717/1005] io_uring/io-wq: save worker type before dropping its reference
+Date: Wed,  4 Nov 2026 16:07:30 -0500
+Message-ID: <20261104211103.618838937@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
 References: <20261104211043.516122098@linuxfoundation.org>
@@ -67,126 +67,52 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Sean Young <sean@mess.org>
+From: Kyle Zeng <kylebot@openai.com>
 
-commit c6d68866ad8aa1e957a3e5a6ede971148f1e3d59 upstream.
+commit 37e425460b7c41687e51e3254b1eb1d799da9614 upstream.
 
-The ir_raw_event_unregister() function takes the ir_raw_handler_lock
-first and then the rc_dev->lock. Other functions like change_protocol
-do this in the reverse order.
+io_wq_cancel_tw_create() inspects cb->func after calling
+io_worker_cancel_cb(). For an existing worker, that call can drop the
+last worker reference and wake io_worker_exit(). If the canceling task
+is preempted, the worker can be unlinked and freed by kfree_rcu() before
+the callback function is inspected. KASAN reports a slab-use-after-free
+read in this path.
 
-This means that an ir decoder module unload and writing to the protocol
-sysfs file can cause a deadlock.
+Save whether the callback belongs to an unpublished continuation worker
+while its reference is still held, then use the saved result for the
+conditional free. This preserves the existing accounting and frees only
+the worker allocated for the canceled continuation.
 
-ir_raw_handler_lock protects the client list, amongst other things.
-Split this out into a separate lock so we can ensure the locking
-order is always the same.
-
-Fixes: 93cffffc18f6 ("[media] media: rc: fix decoder module unloading")
-Signed-off-by: Sean Young <sean@mess.org>
+Fixes: e6db6f9398da ("io_uring/io-wq: only free worker if it was allocated for creation")
 Cc: stable@vger.kernel.org
-Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/media/rc/rc-ir-raw.c |   39 ++++++++++++++++++++++++---------------
- 1 file changed, 24 insertions(+), 15 deletions(-)
+ io_uring/io-wq.c |    8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
---- a/drivers/media/rc/rc-ir-raw.c
-+++ b/drivers/media/rc/rc-ir-raw.c
-@@ -10,7 +10,8 @@
- #include <linux/sched.h>
- #include "rc-core-priv.h"
+--- a/io_uring/io-wq.c
++++ b/io_uring/io-wq.c
+@@ -1420,14 +1420,16 @@ static void io_wq_cancel_tw_create(struc
  
--/* Used to keep track of IR raw clients, protected by ir_raw_handler_lock */
-+/* Used to keep track of IR raw clients, protected by ir_raw_client_lock */
-+static DEFINE_MUTEX(ir_raw_client_lock);
- static LIST_HEAD(ir_raw_client_list);
+ 	while ((cb = task_work_cancel_match(wq->task, io_task_work_match, wq)) != NULL) {
+ 		struct io_worker *worker;
++		bool free_worker;
  
- /* Used to handle IR raw handler extensions */
-@@ -288,13 +289,6 @@ static int change_protocol(struct rc_dev
- 	return 0;
- }
- 
--static void ir_raw_disable_protocols(struct rc_dev *dev, u64 protocols)
--{
--	mutex_lock(&dev->lock);
--	dev->enabled_protocols &= ~protocols;
--	mutex_unlock(&dev->lock);
--}
--
- /**
-  * ir_raw_gen_manchester() - Encode data with Manchester (bi-phase) modulation.
-  * @ev:		Pointer to pointer to next free event. *@ev is incremented for
-@@ -633,15 +627,18 @@ int ir_raw_event_register(struct rc_dev
- {
- 	struct task_struct *thread;
- 
-+	/* Holding dev->lock could result in a dead-lock */
-+	lockdep_assert_not_held(&dev->lock);
-+
- 	thread = kthread_run(ir_raw_event_thread, dev->raw, "rc%u", dev->minor);
- 	if (IS_ERR(thread))
- 		return PTR_ERR(thread);
- 
- 	dev->raw->thread = thread;
- 
--	mutex_lock(&ir_raw_handler_lock);
-+	mutex_lock(&ir_raw_client_lock);
- 	list_add_tail(&dev->raw->list, &ir_raw_client_list);
--	mutex_unlock(&ir_raw_handler_lock);
-+	mutex_unlock(&ir_raw_client_lock);
- 
- 	return 0;
- }
-@@ -674,16 +671,19 @@ void ir_raw_event_unregister(struct rc_d
- 	kthread_stop(dev->raw->thread);
- 	timer_delete_sync(&dev->raw->edge_handle);
- 
--	mutex_lock(&ir_raw_handler_lock);
-+	mutex_lock(&ir_raw_client_lock);
- 	list_del(&dev->raw->list);
-+
-+	mutex_lock(&ir_raw_handler_lock);
- 	list_for_each_entry(handler, &ir_raw_handler_list, list)
- 		if (handler->raw_unregister &&
- 		    (handler->protocols & dev->enabled_protocols))
- 			handler->raw_unregister(dev);
- 
- 	lirc_bpf_free(dev);
--
- 	mutex_unlock(&ir_raw_handler_lock);
-+
-+	mutex_unlock(&ir_raw_client_lock);
- }
- 
- /*
-@@ -706,15 +706,24 @@ void ir_raw_handler_unregister(struct ir
- 	struct ir_raw_event_ctrl *raw;
- 	u64 protocols = ir_raw_handler->protocols;
- 
-+	mutex_lock(&ir_raw_client_lock);
-+
- 	mutex_lock(&ir_raw_handler_lock);
- 	list_del(&ir_raw_handler->list);
-+	atomic64_andnot(protocols, &available_protocols);
-+	mutex_unlock(&ir_raw_handler_lock);
-+
- 	list_for_each_entry(raw, &ir_raw_client_list, list) {
-+		mutex_lock(&raw->dev->lock);
-+		mutex_lock(&ir_raw_handler_lock);
- 		if (ir_raw_handler->raw_unregister &&
- 		    (raw->dev->enabled_protocols & protocols))
- 			ir_raw_handler->raw_unregister(raw->dev);
--		ir_raw_disable_protocols(raw->dev, protocols);
-+		raw->dev->enabled_protocols &= ~protocols;
-+		mutex_unlock(&ir_raw_handler_lock);
-+		mutex_unlock(&raw->dev->lock);
+ 		worker = container_of(cb, struct io_worker, create_work);
+-		io_worker_cancel_cb(worker);
+ 		/*
+ 		 * Only the worker continuation helper has worker allocated and
+-		 * hence needs freeing.
++		 * hence needs freeing. Save this before dropping its reference.
+ 		 */
+-		if (cb->func == create_worker_cont)
++		free_worker = cb->func == create_worker_cont;
++		io_worker_cancel_cb(worker);
++		if (free_worker)
+ 			kfree(worker);
  	}
--	atomic64_andnot(protocols, &available_protocols);
--	mutex_unlock(&ir_raw_handler_lock);
-+
-+	mutex_unlock(&ir_raw_client_lock);
  }
- EXPORT_SYMBOL(ir_raw_handler_unregister);
 
 
