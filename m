@@ -1,51 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793833988;
-	b=FFFORNPBN4BSIWSHqFv8ZiA0bETtQth4/XmyqFq4x4/ZADY+3Ea1ugwlQEu5q/0vxmv5
-	 ESlXfVVg7fin88XyIXcJ4MXFhBWHwXpUmOEjTyYNRV5X8DTb5DT6ftHuLX5LC6+v8OPtP
-	 QjLayANh/WMYuAe6rXHIadh13+HyUnkAwUVKCVhhJ7qIBszHFSvu+umihZ7cGTpyo+MWs
-	 vlPBzVqRpCNm2S5peauiFIogB4F+v7edCIyK9MTacMDb0nrKiDf2QcyFSCAbVDxfh4p5I
-	 LsZ+TeNYE6PoQYtQtZdjbPsaagYHRe4znZ0CC5CqfpYU4R4yRSaETTlAeYnm7ao4l3A==
+	t=1793833989;
+	b=r7FMm98oraTTrk1OFf84mMeWDJb+6g/LBFrK1yX9jkxbGIOgGIV2R93+2GfiPNuUOX0C
+	 oQSFZBHBTn4epibavgnO0mWt8ucqh29wHOdDMDIyOLthlcFA/kCSbPUjw6yw+b3HZkmqA
+	 HIiCkMGiqi+eDIbFqtGw0k4SkU26wnyUFL+EJiqJ2YhLnMbVXMJZqbF9xU0vYrsMes3FJ
+	 HHYd5jZHvEAnmX2YBNWv4lE3553VqSpl9KqoZ2VjJr/raBa4/a1bDkYjgWestmK16BGZ1
+	 47FDpk02JoA/dyiUG+KzGGFcZpXRWeYu0dkdlB361gw23MUwqmF1Wj/oEBqZu0S6TQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793833988;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793833989;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HAntF9u4ArumqUmCaCu5jJQRhMyuiZz0pLk76ZFB0pI=;
-	b=U1nns4F1id4SgaqCyMcaMpqxAXlsw/zcVDIhZBuLb7mFfQpHtEB1wA5gbmm6c9rCMqWW
-	 D7Ugqu1mwi3FSxL+nS2IZ4LqJtV+0P1tS0UBuS1KTnKtd8mjbEV2nrcGleDu1lNvXvRrD
-	 XqxARuPy0n5tZpfN5mjbX7Dk368+el8ki/7btIGK3YdOVfCCxKU5h+rgXK6g4Zy1XN8Kh
-	 kvXy9dRw13UnSNQI4cKpxQxBMBCQRJfb4xi8OYezpv21YxtJaCAW30HNosh2WaukKN+Br
-	 NYa7jU25WIe/s7UQ/MFg8ignfGS/XKO/G36B2l06W1q51dZGDi0gOuDHnsr+iiVaLBQ==
+	bh=G5Mj8dqJSTXRooTqgvNaCTqADpcAYbxq/XLJNHoPL44=;
+	b=xy6Zhu/GhWUquspynxWhnJMMSwS2DkMnRsLvY2yaMQcX3tH/OrrEnYWhrPJt5Op2P4HA
+	 HkwKdU0vHllEIcBTjWj8RY742KPvDzCQ7CEUueeQNgbZ3QFkHiG3WgTb/JeyODutYcF9Z
+	 wiQSNRRmLlJiJ4ZsGc7WjIQ/Okj+SmAqwOdw73OKSq0R7hBSPV0ZlX1GVF+tpsjhW66Zd
+	 ytiSIwJ5zOlYZ8F0DIS+XqAh5WG4PzLpxYnREBjlaC1zoU0bcZ00iUEbNRMVAYrmIU/Gq
+	 g/vCdIMBSB4KVtXL71ah4XKqeYbqEpisCWY7A6I2jwJGCiNU4Hg28tObcl9BBUH2XmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j5Ezn4tr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFpenx6f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F43606A329
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:13:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C467606A329
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:13:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j5Ezn4tr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B87B21F000C1;
-	Wed,  4 Nov 2026 23:13:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFpenx6f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64F941F0093A;
+	Wed,  4 Nov 2026 23:13:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793833988;
-	bh=HAntF9u4ArumqUmCaCu5jJQRhMyuiZz0pLk76ZFB0pI=;
+	s=k20260515; t=1793833989;
+	bh=G5Mj8dqJSTXRooTqgvNaCTqADpcAYbxq/XLJNHoPL44=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j5Ezn4trTN3+amrIGL56gS1zM8Kfx2eLiyxOYMGaPUk2VPgh13z+LDTynz/KvJ3Mi
-	 wlbs1CeBYwgI6QeDbY7L0vNxBOECZwhxT3DassYBWCG7s0FYl9NODQ1W5+ZY7lTuYg
-	 kqOH5/W+gcMOX73jBrVIIKeFeZH0aFSAse+tzl9AWp0ZTChM1Dm+UouMXMJRxCrFSL
-	 FqW/oyN1zySMxdkOlt0PH/fHQfqHwL9/AUfS5nvaEVQaqJf9+TBAwUwlw53/d4tEWa
-	 88L6AzpSr7BfkElBLink0cCzyiGPM8WdwyCDfuoBRH5yRFUbOOPm89f+rEqW/MPMwX
-	 07YGFCL/HFrNg==
+	b=hFpenx6fwvdHAHwtFi3ktBWMKk6d/aeZYm4VFGNUKAZ5glq+X6wVArwmon55tUUAR
+	 v/2y3mPCFonh7/6AzJkiCIc2YHkXFhcVei18fCt0UO3uINc8ZVlzgpu5zlRLWw+3du
+	 8qg2FKknU+Zjyek1RrGiopZQs05M1qgdIPpfxBtgvHRnw4gkqMKfbkKzgtcZDLb4nh
+	 Qj/VDQ0ReInPeKwk3MvkTd+1EV/qavqPZTqi1nHYKMp6fLMSf3J0meHEsGuLAzuQtK
+	 7WQ5r7mKcineAhrOLhVeg5teHoRrUfeDmEXzIIohVOl7TX5MmY+Q6V2j9X3lotIIfz
+	 0LtylPsvz41jw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
+Cc: David Woodhouse <dwmw@amazon.co.uk>,
+	Sean Christopherson <seanjc@google.com>,
+	syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com,
+	syzbot+fb7c2dd166d3ea63df2a@syzkaller.appspotmail.com,
+	Paul Durrant <paul@xen.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/4] KVM: remove CONFIG_KVM_GENERIC_MMU_NOTIFIER
-Date: Wed,  4 Nov 2026 18:13:03 -0500
-Message-ID: <20261104231214.887398-3-sashal@kernel.org>
+Subject: [PATCH 6.18.y 4/4] KVM: pfncache: use a dedicated invalidation sequence for cache refresh
+Date: Wed,  4 Nov 2026 18:13:04 -0500
+Message-ID: <20261104231214.887398-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261104231214.887398-1-sashal@kernel.org>
 References: <2026110445-lividly-gratified-dd5f@gregkh>
@@ -61,298 +66,176 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paolo Bonzini <pbonzini@redhat.com>
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-[ Upstream commit 407fd8b8d8cce03856aa67329715de48b254b529 ]
+[ Upstream commit da260bcb56feeb6489a83f310308453a0a7de25e ]
 
-All architectures now use MMU notifier for KVM page table management.
-Remove the Kconfig symbol and the code that is used when it is
-disabled.
+The gfn_to_pfn_cache refresh path guards against mmu notifier
+invalidations which complete while it has dropped gpc->lock for the
+HVA->PFN lookup: hva_to_pfn_retry() samples kvm->mmu_invalidate_seq
+and retries if it changed, or if mn_active_invalidate_count is still
+elevated.
 
+That is insufficient for HVA-based caches. mmu_invalidate_seq is only
+advanced by kvm_mmu_invalidate_end() when the invalidated range
+overlaps a memslot, and an HVA-based cache (e.g. the Xen shared_info
+page mapped with KVM_XEN_ATTR_TYPE_SHARED_INFO_HVA) need not be backed
+by any memslot at all. An invalidation of the cached HVA which starts
+and ends entirely within the lookup window is thus invisible to the
+retry check: mn_active_invalidate_count is back to zero and the
+sequence never moved. The refresh then publishes a mapping of a page
+which has already been freed, and the next reader dereferences it:
+
+  BUG: KASAN: use-after-free in kvm_xen_shared_info_init+0x3c6/0x440
+  Read of size 4 at addr ffff8880599c2900 by task syz.2.383/7257
+
+Since gfn_to_pfn_cache_invalidate_start() deliberately skips caches
+which are not currently valid (including one whose refresh is in
+progress, as the refresh clears the valid flag before dropping the
+lock), the retry check is the only line of defence, and it must fire
+for *any* invalidation, not just those hitting a memslot.
+
+Add a dedicated kvm->gpc_invalidate_seq, incremented by every
+kvm_mmu_notifier_invalidate_range_end() under mn_invalidate_lock
+before mn_active_invalidate_count is decremented, and check it in
+hva_to_pfn_retry() instead of mmu_invalidate_seq. Incrementing in
+range_end() in the same critical section as the in-progress count
+also closes the variant where the cache is activated with the
+contested HVA only after invalidate_range_start() has run.
+
+The same bug is also reachable through the per-vCPU vcpu_info cache
+(KVM_XEN_VCPU_ATTR_TYPE_VCPU_INFO_HVA), where the stale mapping is
+then dereferenced by kvm_setup_guest_pvclock() on the next KVM_RUN:
+
+  BUG: KASAN: use-after-free in kvm_setup_guest_pvclock+0x5bf/0x660
+
+This intentionally makes refresh retry on *unrelated* mmu notifier
+events; restoring precision (and reworking the GPC locking more
+generally) is left for a subsequent series.
+
+Reproducers: https://david.woodhou.se/xen_shinfo_race.c
+             https://david.woodhou.se/vcpu_info_race.c
+
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Reported-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6a0c5f2c.a00a0220.2c7954.0000.GAE@google.com/
+Tested-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
+Reported-by: syzbot+fb7c2dd166d3ea63df2a@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6a426dd2.854d4ab9.360e1d.0008.GAE@google.com/
+Fixes: b9220d32799a ("KVM: x86/xen: allow shared_info to be mapped by fixed HVA")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Assisted-by: Claude:claude-mythos-5
+Reviewed-by: Paul Durrant <paul@xen.org>
+Link: https://patch.msgid.link/20260831213632.81023-13-dwmw2@infradead.org
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Stable-dep-of: da260bcb56fe ("KVM: pfncache: use a dedicated invalidation sequence for cache refresh")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/kvm/Kconfig     |  1 -
- arch/loongarch/kvm/Kconfig |  1 -
- arch/mips/kvm/Kconfig      |  1 -
- arch/powerpc/kvm/Kconfig   |  4 ----
- arch/powerpc/kvm/powerpc.c |  1 -
- arch/riscv/kvm/Kconfig     |  1 -
- arch/s390/kvm/Kconfig      |  2 --
- arch/x86/kvm/Kconfig       |  1 -
- include/linux/kvm_host.h   |  7 +------
- virt/kvm/Kconfig           |  9 +--------
- virt/kvm/kvm_main.c        | 16 ----------------
- 11 files changed, 2 insertions(+), 42 deletions(-)
+ include/linux/kvm_host.h |  2 ++
+ virt/kvm/kvm_main.c      | 10 ++++++++++
+ virt/kvm/pfncache.c      | 18 +++++++++---------
+ 3 files changed, 21 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm64/kvm/Kconfig b/arch/arm64/kvm/Kconfig
-index 4f803fd1c99af..7d1f22fd490b2 100644
---- a/arch/arm64/kvm/Kconfig
-+++ b/arch/arm64/kvm/Kconfig
-@@ -21,7 +21,6 @@ menuconfig KVM
- 	bool "Kernel-based Virtual Machine (KVM) support"
- 	select KVM_COMMON
- 	select KVM_GENERIC_HARDWARE_ENABLING
--	select KVM_GENERIC_MMU_NOTIFIER
- 	select HAVE_KVM_CPU_RELAX_INTERCEPT
- 	select KVM_MMIO
- 	select KVM_GENERIC_DIRTYLOG_READ_PROTECT
-diff --git a/arch/loongarch/kvm/Kconfig b/arch/loongarch/kvm/Kconfig
-index ae64bbdf83a7a..f480728e7fb22 100644
---- a/arch/loongarch/kvm/Kconfig
-+++ b/arch/loongarch/kvm/Kconfig
-@@ -29,7 +29,6 @@ config KVM
- 	select KVM_COMMON
- 	select KVM_GENERIC_DIRTYLOG_READ_PROTECT
- 	select KVM_GENERIC_HARDWARE_ENABLING
--	select KVM_GENERIC_MMU_NOTIFIER
- 	select KVM_MMIO
- 	select VIRT_XFER_TO_GUEST_WORK
- 	select SCHED_INFO
-diff --git a/arch/mips/kvm/Kconfig b/arch/mips/kvm/Kconfig
-index ab57221fa4dde..e37fbba8b95de 100644
---- a/arch/mips/kvm/Kconfig
-+++ b/arch/mips/kvm/Kconfig
-@@ -24,7 +24,6 @@ config KVM
- 	select KVM_GENERIC_DIRTYLOG_READ_PROTECT
- 	select HAVE_KVM_VCPU_ASYNC_IOCTL
- 	select KVM_MMIO
--	select KVM_GENERIC_MMU_NOTIFIER
- 	select KVM_GENERIC_HARDWARE_ENABLING
- 	select HAVE_KVM_READONLY_MEM
- 	help
-diff --git a/arch/powerpc/kvm/Kconfig b/arch/powerpc/kvm/Kconfig
-index 2f2702c867f76..c1be5f1f67b2e 100644
---- a/arch/powerpc/kvm/Kconfig
-+++ b/arch/powerpc/kvm/Kconfig
-@@ -39,7 +39,6 @@ config KVM_BOOK3S_64_HANDLER
- config KVM_BOOK3S_PR_POSSIBLE
- 	bool
- 	select KVM_MMIO
--	select KVM_GENERIC_MMU_NOTIFIER
- 
- config KVM_BOOK3S_HV_POSSIBLE
- 	bool
-@@ -82,7 +81,6 @@ config KVM_BOOK3S_64_HV
- 	tristate "KVM for POWER7 and later using hypervisor mode in host"
- 	depends on KVM_BOOK3S_64 && PPC_POWERNV
- 	select KVM_BOOK3S_HV_POSSIBLE
--	select KVM_GENERIC_MMU_NOTIFIER
- 	select KVM_BOOK3S_HV_PMU
- 	select CMA
- 	help
-@@ -204,7 +202,6 @@ config KVM_E500V2
- 	depends on !CONTEXT_TRACKING_USER
- 	select KVM
- 	select KVM_MMIO
--	select KVM_GENERIC_MMU_NOTIFIER
- 	help
- 	  Support running unmodified E500 guest kernels in virtual machines on
- 	  E500v2 host processors.
-@@ -221,7 +218,6 @@ config KVM_E500MC
- 	select KVM
- 	select KVM_MMIO
- 	select KVM_BOOKE_HV
--	select KVM_GENERIC_MMU_NOTIFIER
- 	help
- 	  Support running unmodified E500MC/E5500/E6500 guest kernels in
- 	  virtual machines on E500MC/E5500/E6500 host processors.
-diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
-index cc22d41f8b2fe..721a4b1411eed 100644
---- a/arch/powerpc/kvm/powerpc.c
-+++ b/arch/powerpc/kvm/powerpc.c
-@@ -631,7 +631,6 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
- 		break;
- #endif
- 	case KVM_CAP_SYNC_MMU:
--		BUILD_BUG_ON(!IS_ENABLED(CONFIG_KVM_GENERIC_MMU_NOTIFIER));
- 		r = 1;
- 		break;
- #ifdef CONFIG_KVM_BOOK3S_HV_POSSIBLE
-diff --git a/arch/riscv/kvm/Kconfig b/arch/riscv/kvm/Kconfig
-index c50328212917e..b3de712c3a40b 100644
---- a/arch/riscv/kvm/Kconfig
-+++ b/arch/riscv/kvm/Kconfig
-@@ -31,7 +31,6 @@ config KVM
- 	select KVM_GENERIC_HARDWARE_ENABLING
- 	select KVM_MMIO
- 	select VIRT_XFER_TO_GUEST_WORK
--	select KVM_GENERIC_MMU_NOTIFIER
- 	select SCHED_INFO
- 	select GUEST_PERF_EVENTS if PERF_EVENTS
- 	help
-diff --git a/arch/s390/kvm/Kconfig b/arch/s390/kvm/Kconfig
-index 0c93ed676508b..2e3f28120b771 100644
---- a/arch/s390/kvm/Kconfig
-+++ b/arch/s390/kvm/Kconfig
-@@ -29,9 +29,7 @@ config KVM
- 	select HAVE_KVM_INVALID_WAKEUPS
- 	select HAVE_KVM_NO_POLL
- 	select KVM_VFIO
--	select MMU_NOTIFIER
- 	select VIRT_XFER_TO_GUEST_WORK
--	select KVM_GENERIC_MMU_NOTIFIER
- 	select KVM_MMU_LOCKLESS_AGING
- 	help
- 	  Support hosting paravirtualized guest machines using the SIE
-diff --git a/arch/x86/kvm/Kconfig b/arch/x86/kvm/Kconfig
-index 278f08194ec87..a795fdc677f34 100644
---- a/arch/x86/kvm/Kconfig
-+++ b/arch/x86/kvm/Kconfig
-@@ -20,7 +20,6 @@ if VIRTUALIZATION
- config KVM_X86
- 	def_tristate KVM if (KVM_INTEL != n || KVM_AMD != n)
- 	select KVM_COMMON
--	select KVM_GENERIC_MMU_NOTIFIER
- 	select KVM_ELIDE_TLB_FLUSH_IF_YOUNG
- 	select KVM_MMU_LOCKLESS_AGING
- 	select HAVE_KVM_IRQCHIP
 diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index 56033126bcde5..9faa434765546 100644
+index 9faa434765546..f051f6875c730 100644
 --- a/include/linux/kvm_host.h
 +++ b/include/linux/kvm_host.h
-@@ -253,7 +253,6 @@ bool kvm_setup_async_pf(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
- int kvm_async_pf_wakeup_all(struct kvm_vcpu *vcpu);
- #endif
- 
--#ifdef CONFIG_KVM_GENERIC_MMU_NOTIFIER
- union kvm_mmu_notifier_arg {
- 	unsigned long attributes;
- };
-@@ -275,7 +274,6 @@ struct kvm_gfn_range {
- bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range);
- bool kvm_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range);
- bool kvm_test_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range);
--#endif
- 
- enum {
- 	OUTSIDE_GUEST_MODE,
-@@ -848,13 +846,12 @@ struct kvm {
- 	struct hlist_head irq_ack_notifier_list;
- #endif
- 
--#ifdef CONFIG_KVM_GENERIC_MMU_NOTIFIER
- 	struct mmu_notifier mmu_notifier;
- 	unsigned long mmu_invalidate_seq;
- 	long mmu_invalidate_in_progress;
+@@ -852,6 +852,8 @@ struct kvm {
  	gfn_t mmu_invalidate_range_start;
  	gfn_t mmu_invalidate_range_end;
--#endif
+ 
++	unsigned long gpc_invalidate_seq;
 +
  	struct list_head devices;
  	u64 manual_dirty_log_protect;
  	struct dentry *debugfs_dentry;
-@@ -2100,7 +2097,6 @@ extern const struct kvm_stats_desc kvm_vm_stats_desc[];
- extern const struct kvm_stats_header kvm_vcpu_stats_header;
- extern const struct kvm_stats_desc kvm_vcpu_stats_desc[];
- 
--#ifdef CONFIG_KVM_GENERIC_MMU_NOTIFIER
- static inline int mmu_invalidate_retry(struct kvm *kvm, unsigned long mmu_seq)
- {
- 	if (unlikely(kvm->mmu_invalidate_in_progress))
-@@ -2178,7 +2174,6 @@ static inline bool mmu_invalidate_retry_gfn_unsafe(struct kvm *kvm,
- 
- 	return READ_ONCE(kvm->mmu_invalidate_seq) != mmu_seq;
- }
--#endif
- 
- #ifdef CONFIG_HAVE_KVM_IRQ_ROUTING
- 
-diff --git a/virt/kvm/Kconfig b/virt/kvm/Kconfig
-index 5f0015c5dd957..a3d24f5459fa5 100644
---- a/virt/kvm/Kconfig
-+++ b/virt/kvm/Kconfig
-@@ -5,6 +5,7 @@ config KVM_COMMON
-        bool
-        select EVENTFD
-        select INTERVAL_TREE
-+       select MMU_NOTIFIER
-        select PREEMPT_NOTIFIERS
- 
- config HAVE_KVM_PFNCACHE
-@@ -96,24 +97,16 @@ config HAVE_KVM_PM_NOTIFIER
- config KVM_GENERIC_HARDWARE_ENABLING
-        bool
- 
--config KVM_GENERIC_MMU_NOTIFIER
--       select MMU_NOTIFIER
--       bool
--
- config KVM_ELIDE_TLB_FLUSH_IF_YOUNG
--       depends on KVM_GENERIC_MMU_NOTIFIER
-        bool
- 
- config KVM_MMU_LOCKLESS_AGING
--       depends on KVM_GENERIC_MMU_NOTIFIER
-        bool
- 
- config KVM_GENERIC_MEMORY_ATTRIBUTES
--       depends on KVM_GENERIC_MMU_NOTIFIER
-        bool
- 
- config KVM_GUEST_MEMFD
--       depends on KVM_GENERIC_MMU_NOTIFIER
-        select XARRAY_MULTI
-        bool
- 
 diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 23e7d1bb80b04..8c14fa9b0d89d 100644
+index 8c14fa9b0d89d..59328352b0eee 100644
 --- a/virt/kvm/kvm_main.c
 +++ b/virt/kvm/kvm_main.c
-@@ -501,7 +501,6 @@ void kvm_destroy_vcpus(struct kvm *kvm)
- }
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_destroy_vcpus);
+@@ -816,6 +816,16 @@ static void kvm_mmu_notifier_invalidate_range_end(struct mmu_notifier *mn,
  
--#ifdef CONFIG_KVM_GENERIC_MMU_NOTIFIER
- static inline struct kvm *mmu_notifier_to_kvm(struct mmu_notifier *mn)
+ 	/* Pairs with the increment in range_start(). */
+ 	spin_lock(&kvm->mn_invalidate_lock);
++	kvm->gpc_invalidate_seq++;
++
++	/*
++	 * As with the MMU sequence counter and mmu_invalidate_in_progress, the
++	 * GPC sequence increase must be visible before the invalidate count
++	 * goes to zero.  Pairs with the smp_rmb() in
++	 * mmu_notifier_retry_cache().
++	 */
++	smp_wmb();
++
+ 	if (!WARN_ON_ONCE(!kvm->mn_active_invalidate_count))
+ 		--kvm->mn_active_invalidate_count;
+ 	wake = !kvm->mn_active_invalidate_count;
+diff --git a/virt/kvm/pfncache.c b/virt/kvm/pfncache.c
+index 728d2c1b488a8..3659686b97c24 100644
+--- a/virt/kvm/pfncache.c
++++ b/virt/kvm/pfncache.c
+@@ -124,7 +124,7 @@ static void gpc_unmap(kvm_pfn_t pfn, void *khva)
+ #endif
+ }
+ 
+-static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long mmu_seq)
++static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long gpc_seq)
  {
- 	return container_of(mn, struct kvm, mmu_notifier);
-@@ -900,15 +899,6 @@ static int kvm_init_mmu_notifier(struct kvm *kvm)
- 	return mmu_notifier_register(&kvm->mmu_notifier, current->mm);
+ 	/*
+ 	 * mn_active_invalidate_count acts for all intents and purposes
+@@ -136,20 +136,20 @@ static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long mmu_s
+ 	 * Note, it does not matter that mn_active_invalidate_count
+ 	 * is not protected by gpc->lock.  It is guaranteed to
+ 	 * be elevated before the mmu_notifier acquires gpc->lock, and
+-	 * isn't dropped until after mmu_invalidate_seq is updated.
++	 * isn't dropped until after gpc_invalidate_seq is updated.
+ 	 */
+ 	if (kvm->mn_active_invalidate_count)
+ 		return true;
+ 
+ 	/*
+ 	 * Ensure mn_active_invalidate_count is read before
+-	 * mmu_invalidate_seq.  This pairs with the smp_wmb() in
+-	 * mmu_notifier_invalidate_range_end() to guarantee either the
++	 * gpc_invalidate_seq.  This pairs with the smp_wmb() in
++	 * kvm_mmu_notifier_invalidate_range_end() to guarantee either the
+ 	 * old (non-zero) value of mn_active_invalidate_count or the
+-	 * new (incremented) value of mmu_invalidate_seq is observed.
++	 * new (incremented) value of gpc_invalidate_seq is observed.
+ 	 */
+ 	smp_rmb();
+-	return kvm->mmu_invalidate_seq != mmu_seq;
++	return kvm->gpc_invalidate_seq != gpc_seq;
  }
  
--#else  /* !CONFIG_KVM_GENERIC_MMU_NOTIFIER */
--
--static int kvm_init_mmu_notifier(struct kvm *kvm)
--{
--	return 0;
--}
--
--#endif /* CONFIG_KVM_GENERIC_MMU_NOTIFIER */
--
- #ifdef CONFIG_HAVE_KVM_PM_NOTIFIER
- static int kvm_pm_notifier_call(struct notifier_block *bl,
- 				unsigned long state,
-@@ -1225,10 +1215,8 @@ static struct kvm *kvm_create_vm(unsigned long type, const char *fdname)
- out_err_no_debugfs:
- 	kvm_coalesced_mmio_free(kvm);
- out_no_coalesced_mmio:
--#ifdef CONFIG_KVM_GENERIC_MMU_NOTIFIER
- 	if (kvm->mmu_notifier.ops)
- 		mmu_notifier_unregister(&kvm->mmu_notifier, current->mm);
--#endif
- out_err_no_mmu_notifier:
- 	kvm_disable_virtualization();
- out_err_no_disable:
-@@ -1291,7 +1279,6 @@ static void kvm_destroy_vm(struct kvm *kvm)
- 		kvm->buses[i] = NULL;
- 	}
- 	kvm_coalesced_mmio_free(kvm);
--#ifdef CONFIG_KVM_GENERIC_MMU_NOTIFIER
- 	mmu_notifier_unregister(&kvm->mmu_notifier, kvm->mm);
- 	/*
- 	 * At this point, pending calls to invalidate_range_start()
-@@ -1310,9 +1297,6 @@ static void kvm_destroy_vm(struct kvm *kvm)
- 		kvm->mn_active_invalidate_count = 0;
- 	else
- 		WARN_ON(kvm->mmu_invalidate_in_progress);
--#else
--	kvm_flush_shadow_all(kvm);
--#endif
- 	kvm_arch_destroy_vm(kvm);
- 	kvm_destroy_devices(kvm);
- 	for (i = 0; i < kvm_arch_nr_memslot_as_ids(kvm); i++) {
+ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
+@@ -158,7 +158,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
+ 	void *old_khva = (void *)PAGE_ALIGN_DOWN((uintptr_t)gpc->khva);
+ 	kvm_pfn_t new_pfn = KVM_PFN_ERR_FAULT;
+ 	void *new_khva = NULL;
+-	unsigned long mmu_seq;
++	unsigned long gpc_seq;
+ 	struct page *page;
+ 
+ 	struct kvm_follow_pfn kfp = {
+@@ -181,7 +181,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
+ 	gpc->valid = false;
+ 
+ 	do {
+-		mmu_seq = gpc->kvm->mmu_invalidate_seq;
++		gpc_seq = gpc->kvm->gpc_invalidate_seq;
+ 		smp_rmb();
+ 
+ 		write_unlock_irq(&gpc->lock);
+@@ -232,7 +232,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
+ 		 * attempting to refresh.
+ 		 */
+ 		WARN_ON_ONCE(gpc->valid);
+-	} while (mmu_notifier_retry_cache(gpc->kvm, mmu_seq));
++	} while (mmu_notifier_retry_cache(gpc->kvm, gpc_seq));
+ 
+ 	gpc->valid = true;
+ 	gpc->pfn = new_pfn;
 -- 
 2.53.0
 
