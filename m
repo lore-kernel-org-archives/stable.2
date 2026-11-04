@@ -1,53 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793786873;
-	b=KYXJYJL3i+I80SK7jcreb6ZLfc40Il7GWYYeORlGkSpqHG5zJb4JLwLGMD9AWAseQU0k
-	 4t6S1bQrOZae083FWNk+Ed27S5WuDRW0ti5haFc4scjvp/CaSfYr7OYe9il6TKRHtcweN
-	 72rvOWlzCyJR0X+VP6+LvM3oMp57JqWL7xW61xRwP3Uo9zIr7dWg5W4Z1+YRicO9jTyVt
-	 49kpnJWicpzyWfpT9zKwIl4EL73b1jaoZhzqNSAhEAxRUQNSnU5VikCGZzNXkbAVfUXh7
-	 vCLrVi7MDoaaEAU0bODA+0o1+a8v06J7njivD36RJ7OYJmvVNhOyBfCF/8k24bk0tpA==
+	t=1793786995;
+	b=W6xEJ1XO1H404EhUUVIo3SWnisV/IaFxMHaV9odmxXdxUbFkCmeu5roPrh35nG0H+bNf
+	 UiBVG+n+JFMcj6LgGMdKJOdLoVjJ6IMmPqTr6srK99RQAZyVOi+/oagq/t+xWDvybzKTa
+	 Cw+Nk2EJFPKiK7FOFfF8I+Gcar2pVvITjPqzWsNMyEwS9N7S6iEIt2KgqPkUk5yI2ZqCU
+	 D2oTIpHMDq0cZFIOCB81R//XmYyRA7J2AuZh6X56jP0rwyreN7v+1L6o94WxNTH65NsJ8
+	 cE+0liyCosE4uQr+qzQmt+8ni3zFVr3ada3G7021JYeUbJacu4GFGuE0uRTQ3BkAJUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793786873;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9hueydKPHbwqRHr29tjXZcE3MJ9mKdeb8gNayc7RByM=;
-	b=d6pQwLyibv4+dO6n+LtCm2oN2TSy2jyT4pR3gEWBcjeimLg2Yy2Hj+34yjmB/PzO+m3Q
-	 gyV+IslA5mBWzhoSzMxSEs024B3xqBnMbYm9KzX68cUjIsJy3XDsfOXbbNUCbLIAfEJoL
-	 vEPv8TiALOAtg4t6TIRaq2Bjxf6miNuMi23w5erWEXsqc+XjcSvVYDDZ1giX/QWsUIzN+
-	 uRIAYt3HSI1w9pqr6qtwTKbg5JZFBu2fIa2IO3CfjBxizxQoftQiTcf7Mmgda1Puhq3+a
-	 dwdXC6go6wBfwxAv/iuDtmBNThwNYosnzziEsvcEzSvYRoM+pPUtO/8ROzhIMe+l58A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786995;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=qIMpR+0/hdmd8jinaUXUOgaSrCAhJGIMFs5i4DB1BC0=;
+	b=lt08DoblzFYYZ08AlD2FL3acppWBnxb31HiTntKVWSH3nn/88U8pQMTR2uiwnyAqo+I0
+	 OaA03yuiPawSURAv8vIsOAk7bbUGNOodDatFDXNR526f81GVnxfp0/ImnKOyXhHZQpjtE
+	 RnYtttFDPM7ieHY8OOfqHZAObxlqxwBITJG67UpN1kemdKCGlncS4sA+xIZVqDqhA8WMu
+	 6NPNrVHpJ0ld28xNUY/eH8CbwPASRGtbZVI0a0uUC101IE/b1gSO8WL9Zny84hyYs09DM
+	 n2DQQZDQSEkakEppFm8ext4xVXb5Ey/6COZmH/ARiH0012t4TItEXPiaao59g0BxbMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o3nlOY1Q;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Qf5SVuE5;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HOncpjtD;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Qf5SVuE5;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HOncpjtD;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EABB606A326;
-	Wed,  4 Nov 2026 10:07:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78503606A31B;
+	Wed,  4 Nov 2026 10:09:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78503606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o3nlOY1Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A6E11F00919;
-	Wed,  4 Nov 2026 10:07:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793786871;
-	bh=9hueydKPHbwqRHr29tjXZcE3MJ9mKdeb8gNayc7RByM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=o3nlOY1Qhr6Bk6bjbuvjzB1VBZMnZo43ALULab1PPD2ywwLWmblgaREyNW770dp86
-	 oVEFIfskshqiU6I2sDYsCkn5Kh0pZ+uA43xqXaCnIetBcahxXCfzu1hEu64HIe4oKW
-	 7IaJxxvHd0VkSHdIeabQYZAfmuTh2yxVTQezyuwxPyupwkFX/t+I/6Z1NKoBnnn7Nq
-	 em4KWN3srnOWFwPKpO1cUh+pP1AncQwN9bzS52P+wOREFruti5UpYVSRLTCMIsf0Yt
-	 yGc1QrHAjwpMEGKK43m5g+Q+Fw49ciBm7bt6S5WkyF4mbPQfR/Z/jhQVYbdSDcfFWg
-	 6HUqJIGQc1JfA==
-Date: Wed, 4 Nov 2026 12:07:47 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: 0z5a <dezhen.lu@student.uni-tuebingen.de>
-Cc: jgg@ziepe.ca, linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Qf5SVuE5;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HOncpjtD;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Qf5SVuE5;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HOncpjtD
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A5F891F7BE;
+	Wed,  4 Nov 2026 10:09:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793786992; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qIMpR+0/hdmd8jinaUXUOgaSrCAhJGIMFs5i4DB1BC0=;
+	b=Qf5SVuE5r5sMGvj7IuH5vo0P85ZM9kxaqzSqW1XbVBFfT+FApLpNv8ubyfpPHxwO81EgOp
+	/GsS9ojUyK02u6bvpBfC/X+rf8YlrPL5JVqvtaHrEBkeV1CeFQo+CBlE5NrIecInviDZ2k
+	ZH8qcIx/ouPU+YGux8L/i+IdzgzEIfQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793786992;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qIMpR+0/hdmd8jinaUXUOgaSrCAhJGIMFs5i4DB1BC0=;
+	b=HOncpjtDOpzbthgdoYNKyHQC7pAcFwn9ve/w08zlusNUzXH25eB2xRmoT5SIPHVYDm9fzj
+	yRMNnN4pOg2TGHAw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793786992; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qIMpR+0/hdmd8jinaUXUOgaSrCAhJGIMFs5i4DB1BC0=;
+	b=Qf5SVuE5r5sMGvj7IuH5vo0P85ZM9kxaqzSqW1XbVBFfT+FApLpNv8ubyfpPHxwO81EgOp
+	/GsS9ojUyK02u6bvpBfC/X+rf8YlrPL5JVqvtaHrEBkeV1CeFQo+CBlE5NrIecInviDZ2k
+	ZH8qcIx/ouPU+YGux8L/i+IdzgzEIfQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793786992;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qIMpR+0/hdmd8jinaUXUOgaSrCAhJGIMFs5i4DB1BC0=;
+	b=HOncpjtDOpzbthgdoYNKyHQC7pAcFwn9ve/w08zlusNUzXH25eB2xRmoT5SIPHVYDm9fzj
+	yRMNnN4pOg2TGHAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 020C6134F0;
+	Wed,  4 Nov 2026 10:09:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id /kgrMm8E62pxXwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 04 Nov 2026 10:09:51 +0000
+Date: Wed, 04 Nov 2026 11:09:51 +0100
+Message-ID: <878q38vrf4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: songxiebing <songxiebing@kylinos.cn>
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH rdma-rc] RDMA/mlx5: Fix DevX umem page size truncation
- for pages >= 4G
-Message-ID: <20261104100747.GD478286@unreal>
-References: <20261103142804.67210-1-dezhen.lu@student.uni-tuebingen.de>
+Subject: Re: [PATCH] ALSA: hdsp: Fix divide-by-zero in DDS offset control
+In-Reply-To: <20261104083045.1939479-1-songxiebing@kylinos.cn>
+References: <20261104083045.1939479-1-songxiebing@kylinos.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,98 +111,70 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103142804.67210-1-dezhen.lu@student.uni-tuebingen.de>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-12.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Tue, Nov 03, 2026 at 03:28:04PM +0100, 0z5a wrote:
-> From: Dezhen Lu <dezhen.lu@student.uni-tuebingen.de>
+On Wed, 04 Nov 2026 09:30:45 +0100,
+songxiebing wrote:
 > 
-> devx_umem_find_best_pgsize() computes the page size in an unsigned long
-> but returns it as unsigned int, and devx_umem_reg_cmd_alloc() stores it
-> in an unsigned int. When the DMA mapping of the umem is contiguous and
-> aligned to 4 GiB or more, and the umem length is a multiple of that
-> size, ib_umem_find_best_pgoff() selects a page size >= 2^32. Since the
-> value is a power of two, the truncation turns it into 0 and the
-> registration fails with -EINVAL.
+> From: Bob Song <songxiebing@kylinos.cn>
 > 
-> The umem log_page_size field is 5 bits wide on top of
-> MLX5_ADAPTER_PAGE_SHIFT, so the command can encode these page sizes.
+> hdsp_set_dds_offset() computes the target rate as
+> system_sample_rate + offset_hz without validating the result.  A user
+> can set the DDS offset to -system_sample_rate through the control API,
+> making rate zero and causing div_u64() in hdsp_set_dds_value() to
+> divide by zero.
 > 
-> Seen on two GH200 nodes (ConnectX-7, firmware 32.38.3056 and
-> 32.43.1014) with a dma-buf exported from cudaMalloc memory: registering
-> 4 GiB or 8 GiB umems at 4 GiB-aligned offsets of the dma-buf fails with
-> EINVAL every time, while 2 GiB umems at the same offsets and
-> ibv_reg_dmabuf_mr() of the same ranges succeed. Restricting the user
-> pgsz_bitmap to <= 2 GiB makes all of them succeed.
+> Reject non-positive rates before programming the DDS value.
 > 
-> Other large physically contiguous buffers, such as a 16 GiB hugetlb
-> page on an arm64 kernel with 64K base pages, should hit the same path.
-> 
-> Use unsigned long for the page size, as commit f0c2427412b4
-> ("RDMA/mlx5: Fix page_size variable overflow") already did for the MR
-> paths.
-> 
-> The bug was found by an AI coding assistant (Claude Opus 5.5, Anthropic)
-> during an audit of 32-bit truncations of page sizes and offsets in
-> drivers/infiniband/core and drivers/infiniband/hw/mlx5. The assistant
-> also wrote the reproducer and this patch. The reproducer was run on the
-> GH200 nodes described above.
-> 
-> Fixes: 7610ab57de56 ("RDMA/mlx5: Allow larger pages in DevX umem")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dezhen Lu <dezhen.lu@student.uni-tuebingen.de>
+> Fixes: e4b6088c8cf1 ("[ALSA] hdsp - Add support for fine tuning of sample rate support to HDSP 9632")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Bob Song <songxiebing@kylinos.cn>
 > ---
+>  sound/pci/rme9652/hdsp.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> Notes:
->     Testing notes:
->     - The failures above were reproduced with the DOCA-OFED 26.01 mlx5_ib,
->       whose devx_umem_find_best_pgsize() is identical to upstream; I do not
->       have root on these hosts, so I could not load a patched module.
->     - So I have not verified that CREATE_UMEM accepts log_page_size values
->       for pages >= 4 GiB. If it does not, capping pgsz_bitmap at 2^31 in
->       devx_umem_find_best_pgsize() is the alternative fix.
->     - Compile-tested on v7.4-rc1 (arm64 defconfig + MLX5_INFINIBAND, W=1).
->     - A standalone reproducer (dma-buf from cuMemGetHandleForAddressRange()
->       plus mlx5dv_devx_umem_reg_ex(), sweeping offsets) is available on
->       request.
-
-
-Isn't this fix enough?
-https://patch.msgid.link/r/1-v1-88303e9e509f+f7-ib_umem_types_jgg@nvidia.com
-15fe76e23615 ("RDMA/umem: Fix truncation for block sizes >= 4G")
-
-Thanks
-
-> 
->  drivers/infiniband/hw/mlx5/devx.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/infiniband/hw/mlx5/devx.c b/drivers/infiniband/hw/mlx5/devx.c
-> index fc6f793dc..2277160d9 100644
-> --- a/drivers/infiniband/hw/mlx5/devx.c
-> +++ b/drivers/infiniband/hw/mlx5/devx.c
-> @@ -2294,8 +2294,8 @@ static int devx_umem_get(struct mlx5_ib_dev *dev, struct ib_ucontext *ucontext,
+> diff --git a/sound/pci/rme9652/hdsp.c b/sound/pci/rme9652/hdsp.c
+> index 7dce548b9f36..694816f966d2 100644
+> --- a/sound/pci/rme9652/hdsp.c
+> +++ b/sound/pci/rme9652/hdsp.c
+> @@ -2802,6 +2802,9 @@ static int hdsp_dds_offset(struct hdsp *hdsp)
+>  static int hdsp_set_dds_offset(struct hdsp *hdsp, int offset_hz)
+>  {
+>  	int rate = hdsp->system_sample_rate + offset_hz;
+> +
+> +	if (rate <= 0)
+> +		return -EINVAL;
+>  	hdsp_set_dds_value(hdsp, rate);
 >  	return 0;
 >  }
->  
-> -static unsigned int devx_umem_find_best_pgsize(struct ib_umem *umem,
-> -					       unsigned long pgsz_bitmap)
-> +static unsigned long devx_umem_find_best_pgsize(struct ib_umem *umem,
-> +						unsigned long pgsz_bitmap)
->  {
->  	unsigned long page_size;
->  
-> @@ -2333,7 +2333,7 @@ static int devx_umem_reg_cmd_alloc(struct mlx5_ib_dev *dev,
->  				   int access)
->  {
->  	unsigned long pgsz_bitmap;
-> -	unsigned int page_size;
-> +	unsigned long page_size;
->  	__be64 *mtt;
->  	void *umem;
->  	int ret;
-> -- 
-> 2.43.0
-> 
+
+The caller doesn't check the error case properly.
+Please fix the caller side, too.
+
+
+thanks,
+
+Takashi
