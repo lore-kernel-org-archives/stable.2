@@ -1,74 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818404;
-	b=UVeDxFqu63TzLLO1By9lFbRJ7SyHd89pDKL/zpD5VTLj2M9ReX2Y91Dn2I+0vYjTgMBk
-	 3F2APIY+silr8XGevc8lAnTlPuBM+CdT3MMbv/nvbiJ8vEC3mmQSdtcvBalk5wvOse+1t
-	 E3S2rcShGQviKJG3N/ZPkADV0IS1nr+ipSXXNMbDem58Ts5m/98stofrPt/38wTRazwuH
-	 AajLenHv821AiRggMLKQsDfB6oLdutDuZyYtKvP21wlz6FSh00pLIv3k6GW/FHgHXtTrk
-	 CfaW6GsAAqrjX4eAJXD38Z2ypuycpqwcRukOc5pmnYvQjKzQBhQN+NgRTAIy20YKmyg==
+	t=1793818413;
+	b=gCn/CjlTDf/dWjgx7di1/wnvjCjGlYYkVCSsKodZNflIuUtEdQAUlivOxlJuCIpesPDJ
+	 Y7JpdQriIDdJ9nvdSxDG3WZrq5ofgMy7+BzDrHofUFbcIx8VBvPAGAiXU4B7pPbHuHE2C
+	 BTb5PKlKY/euz0lsBv8paQbEEwpu/xClo5WLxuOj8UECb81FtsA/ImPGuN1daNRy8kZu/
+	 vNv3e+ZziSgJh63T+sn65QbBaLyqSuMdKb0gPl8Uv5x0y0WNqWMIWvnZklf2FYcb0CK+F
+	 NehmuUqaxo3TMvwTCMwMTKdkuVF5YvFPPdfQ0/9VNz4sOObK97imJLznpK9AoxNHWkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818404;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=kll/G1zD/C2JyZu7pxNelwTrLUBWbNvvxhXCfrLDdII=;
-	b=DcVbQQwFFQyfHpphCRb5kWOOJDJtA1ZTe8G5csjuB1lLBgO/70PhHmsgGrpWB3nz76Cw
-	 HXFPRss/sejsL356RsbVuA8U46MULSeDV+S9Gfau0FzOFuWjJ5f49VZFEq+JvKVqw6f52
-	 FxINpstaBlCy/TUenrWs3NOtmY58xaIK72ikc0u9o1S3HDoi9EBppJ8Y+1UMWyYRjbdo4
-	 eyaAg4VGhceR+ux3ImIwQ61kmSCxjOtERoRcX7YUPgTE73ZZHBIX1ldxBWVv/uawB0Tl0
-	 ohBwVBPYlU97Fe60KRjgD/qXRLvbaw1I+sndDaQAT/ox28vIeZ35CSl6D6d27bW1HGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818413;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=oA6B1J6JqblohHPBghAuHGFHKmrzw+K9dB8VmV/4ogI=;
+	b=q82JzYYUOi1ksSyCKYLyjlTPO8LtZtYGXlJz7gkxp/10Q6XqGB6eBBk1MmFXS+TE+edr
+	 2Zdu8YwpZbp9kJ1N8KN5zQZXgHrCPF4DbCVtKQ20ksOTZTrSdjSnU4GfjpXYy3v/8HFJf
+	 OPOa0R+Fvbin3FiHmyiFBU32QI8jszveWiBC5FpxL3MWONihtlaLkVQ4O7qPhyUGYLUJl
+	 qwwHMfxcqN13Iow/uz4eV6uyJ884ZKJNz8mDe2Blc+5xg9ExaZYsF33XSB4P7/VogUw1W
+	 EPm4RUeFAO+FFAPzBN4sH5exysEZMIh3n1qIFqjjCocqm7CGH+Fo5CAkB4F8tx3jtPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Tv+VOjuX;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LrFgix3H;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7749A606D835;
-	Wed,  4 Nov 2026 18:53:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7749A606D835
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99BB4606D837
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:53:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Tv+VOjuX
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id B7F164E41403;
-	Wed,  4 Nov 2026 18:53:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6714A60770;
-	Wed,  4 Nov 2026 18:53:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C414410329205;
-	Wed,  4 Nov 2026 19:53:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793818395; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=kll/G1zD/C2JyZu7pxNelwTrLUBWbNvvxhXCfrLDdII=;
-	b=Tv+VOjuXj3AH4ln4E3aXj4PZMQKql3KWSZmz2mqRiK+jgYCiAKLyFxJvFwNFzOT2mtfa/p
-	/bx6al1jJJa+bZV3C/HjKYVwdSHnNj8K+VmDEMZY3OlMMIZEFHnds8sgV9MHo+HHCYtDbn
-	x70RoP2HsMme65Nfa8ffeM8rDHEGo3j2+2HSbRpN6yCyuTlkgd0HG3FUPB2K32I/sVrj1A
-	QtaakxhrG4MI4ibpZz6wPkLdC3Y5lwyrVFf/Ha/JM1zFsyvQeTFeUDZjjKHvUFr+l7oMnW
-	YRz4CV1SlYuEY/gOOB+7jtEAUBx2umSS15PswdMcUJmkil+id0WtdNn/3JwwbA==
-Date: Wed, 4 Nov 2026 19:53:08 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Boris Brezillon <bbrezillon@kernel.org>,
-	Mark Brown <broonie@kernel.org>, Andy Gross <andy.gross@linaro.org>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	stable@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v2] memory: atmel-ebi: Disable SMC clock on probe failure
-Message-ID: <20261104185308b845fb6d@mail.local>
-References: <20261101190733.121473-3-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LrFgix3H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01DE31F00919;
+	Wed,  4 Nov 2026 18:53:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793818413;
+	bh=oA6B1J6JqblohHPBghAuHGFHKmrzw+K9dB8VmV/4ogI=;
+	h=Subject:To:Cc:From:Date;
+	b=LrFgix3H5FjbzqW+JplXN0qhoH+KWNGxTZLGNjljdCrpBoVai9T+ghK84gAot7gK3
+	 JLDh2i9Ly5zMk7U/Hjn2U31VZ1qo7Qxn2vXrsHnbtCZ7eTY+cuwtY21XFm4Ct+3hsw
+	 y8DmA7BmK82meVDoN05u41xZhNAFzZ51jCHypua4=
+Subject: FAILED: patch "[PATCH] NFSD: Set nn->cld_net before registering the cld pipe" failed to apply to 6.6-stable tree
+To: cel@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 13:53:31 -0500
+Message-ID: <2026110431-crudeness-dreamboat-14d3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,115 +51,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261101190733.121473-3-krzysztof.kozlowski@oss.qualcomm.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Hi,
 
-On 01/11/2026 20:07:34+0100, Krzysztof Kozlowski wrote:
-> Unprepare and drop the SMC clock reference, if probe fails to avoid
-> resource leakage e.g. during probe deferral.
-> 
-> There is no remove() callback, presumably on purpose so only error paths
-> are handled.
-> 
-> Cc: <stable@vger.kernel.org>
-> Fixes: 87108dc78eb8 ("memory: atmel-ebi: Enable the SMC clock if specified")
-> Reported-by: Wentao Liang <vulab@iscas.ac.cn>
-> Closes: https://lore.kernel.org/all/20260917101623.2146392-1-vulab@iscas.ac.cn/
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/bug/linux-8e236c81-01b2-4274-a213-11c3f31acfc2
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
-> ---
-> 
-> I independently developed the patch and then checked the queue with
-> pending work of iscas. That one has issues and other complains from me,
-> so only credits for the report.
-> 
-> Changes in v2:
-> 1. Handle of_platform_populate() error.
-> ---
->  drivers/memory/atmel-ebi.c | 27 ++++++++++++++++++++-------
->  1 file changed, 20 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/memory/atmel-ebi.c b/drivers/memory/atmel-ebi.c
-> index 1e8e8aba2542..7dc2f7add1b1 100644
-> --- a/drivers/memory/atmel-ebi.c
-> +++ b/drivers/memory/atmel-ebi.c
-> @@ -562,7 +562,7 @@ static int atmel_ebi_probe(struct platform_device *pdev)
->  	}
->  	ret = clk_prepare_enable(ebi->smc.clk);
->  	if (ret)
-> -		return ret;
-> +		goto err_put_clk;
->  
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Couldn't we simply devm_clk_get_enabled() ?
+To reproduce the conflict and resubmit, you may use the following commands:
 
->  	/*
->  	 * The sama5d3 does not provide an EBICSA register and thus does need
-> @@ -572,14 +572,16 @@ static int atmel_ebi_probe(struct platform_device *pdev)
->  		ebi->regmap =
->  			syscon_regmap_lookup_by_phandle(np,
->  							ebi->caps->regmap_name);
-> -		if (IS_ERR(ebi->regmap))
-> -			return PTR_ERR(ebi->regmap);
-> +		if (IS_ERR(ebi->regmap)) {
-> +			ret = PTR_ERR(ebi->regmap);
-> +			goto err_disable_clk;
-> +		}
->  	}
->  
->  	ret = of_property_read_u32(np, "#address-cells", &val);
->  	if (ret) {
->  		dev_err(dev, "missing #address-cells property\n");
-> -		return ret;
-> +		goto err_disable_clk;
->  	}
->  
->  	reg_cells = val;
-> @@ -587,7 +589,7 @@ static int atmel_ebi_probe(struct platform_device *pdev)
->  	ret = of_property_read_u32(np, "#size-cells", &val);
->  	if (ret) {
->  		dev_err(dev, "missing #address-cells property\n");
-> -		return ret;
-> +		goto err_disable_clk;
->  	}
->  
->  	reg_cells += val;
-> @@ -603,11 +605,22 @@ static int atmel_ebi_probe(struct platform_device *pdev)
->  
->  			ret = atmel_ebi_dev_disable(ebi, child);
->  			if (ret)
-> -				return ret;
-> +				goto err_disable_clk;
->  		}
->  	}
->  
-> -	return of_platform_populate(np, NULL, NULL, dev);
-> +	ret = of_platform_populate(np, NULL, NULL, dev);
-> +	if (ret)
-> +		goto err_disable_clk;
-> +
-> +	return 0;
-> +
-> +err_disable_clk:
-> +	clk_disable_unprepare(ebi->smc.clk);
-> +err_put_clk:
-> +	clk_put(ebi->smc.clk);
-> +
-> +	return ret;
->  }
->  
->  static __maybe_unused int atmel_ebi_resume(struct device *dev)
-> -- 
-> 2.53.0
-> 
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 14996e662f3b734427e2d645cacffc27b779f7d1
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110431-crudeness-dreamboat-14d3@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 14996e662f3b734427e2d645cacffc27b779f7d1 Mon Sep 17 00:00:00 2001
+From: Chuck Lever <cel@kernel.org>
+Date: Tue, 1 Sep 2026 16:19:46 -0400
+Subject: [PATCH] NFSD: Set nn->cld_net before registering the cld pipe
+
+rpc_mkpipe_dentry() instantiates the pipe's dentry before it returns,
+so the cld pipe can be opened as soon as nfsd4_cld_register_net() has
+run. __nfsd4_init_cld_pipe() does not store the new cld_net in
+nn->cld_net until after that call. cld_pipe_downcall() reaches the
+cld_net only through that pointer and takes cn_lock without checking
+it, so a write() that lands in the window oopses.
+
+Store nn->cld_net once @cn is fully initialized and before the pipe is
+registered, and clear it again when registration fails.
+
+Fixes: f3f8014862d8 ("nfsd: add the infrastructure to handle the cld upcall")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260901-alemi-v2-6-e163f94a3a6e@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
+
+diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
+index 8af935ed0c4e..1a9ea6393740 100644
+--- a/fs/nfsd/nfs4recover.c
++++ b/fs/nfsd/nfs4recover.c
+@@ -941,18 +941,24 @@ __nfsd4_init_cld_pipe(struct net *net)
+ 	}
+ 	spin_lock_init(&cn->cn_lock);
+ 	INIT_LIST_HEAD(&cn->cn_list);
++#ifdef CONFIG_NFSD_LEGACY_CLIENT_TRACKING
++	cn->cn_has_legacy = false;
++#endif
++
++	/*
++	 * The pipe's methods reach @cn through nn->cld_net, so set
++	 * it before the pipe can be opened.
++	 */
++	nn->cld_net = cn;
+ 
+ 	ret = nfsd4_cld_register_net(net, cn->cn_pipe);
+ 	if (unlikely(ret))
+ 		goto err_destroy_data;
+ 
+-#ifdef CONFIG_NFSD_LEGACY_CLIENT_TRACKING
+-	cn->cn_has_legacy = false;
+-#endif
+-	nn->cld_net = cn;
+ 	return 0;
+ 
+ err_destroy_data:
++	nn->cld_net = NULL;
+ 	rpc_destroy_pipe_data(cn->cn_pipe);
+ err:
+ 	kfree(cn);
+
