@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829422;
-	b=EAlAZSjEyKgOMFbMsmFnkMxbWFOjjCgwtpm9qcCrwd882U+aNys5FEcV8cvaZIA5rAt6
-	 nDtM3NgxcjaqZQCk/arnGhx/Y+3mjkkn2fSkAAhZQv1JeVqP3U6+C4qyFPyJarWHXfA5p
-	 uRbIjOVy3aLbPfhwfOy/e3yJTO4LCYZKZMUyBFp2Qy0/U2SgVmQqid2dZTM5yVz3gDGZy
-	 PCxGc0FtI7W7oF9bZ2KOIjSlr6+60aPanbJ9tPPMyF1Unv8Tc7rMjb6fvQuTyBVbYW8ie
-	 NfGG8UJHcYX6zvapnHtV/5pnDPg4aajMRkn8baIERcFxABYRbbs8b/cU8pjMMBZ1zug==
+	t=1793829423;
+	b=UybGR6Esq1COid3cRa1/6GZgl6ox/mGzLqmcXcFZ5bdyoU7eVgafSBsqnpg17Vf9sYAj
+	 oBP9wG3jTXxECDFjjdg4YLXVmwAI0iZ2NplE4cveO7GvKzmcuwa8DGy+EGVVKQJW+TPsR
+	 q6zBGrakobtDyrKndvihadJrK20hkUlymdpOOU3G8mQkbxQsXQlx8QqgqwsJ8fSfJakV8
+	 nh4U5CFWpgm2B6bjOZUzYJrSC5UNXU7upzkyzHH2iMIFv0CAH7hF2LuQ4oMxgn1iTnqBD
+	 O8teTGfKrdEX6jFflXAIz0oTLTIfs21J3E0wX2eRHpEpEC1JnRt2IGA5OC6NjmrHT6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829422;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829423;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=p4yXFIfuuRoTOe4paTH5moylNGP07WFFrQRHG2crOQQ=;
-	b=ES5YcKIuTneLGlW2cD+LdvfmyojK5zMgiTDNj+lGXJZ5Vy3rT9ZDBlcegLTPh1iB6l+i
-	 fdMtjFySTioD4V+EPwlvl2IQWHgBSS+hxhOenaCCEYLwdFufi8jidFjkVpMdJMqdyYAIG
-	 WUzgtPRXFckIRlemPnT57FhIiJu5TDVnM6mDhwZdU/BwUJycxiyPap/+DYAsjsJ/5deFg
-	 X2GiBEfHYinHb577DTAUKM9xNAmCVKfmdDJVixmhCWzB32yo2b36LSChNrz+201EvR/VH
-	 aNPS323J4KXCU4eA5obG3g650ayQuRxabPjdzpw2qFOqCgttRE9GFiqTShS50R15f2Q==
+	bh=XPBlF/VLIIzKVknLcSJ9ZGdf7FD7B8XhkJUlwcbIZF8=;
+	b=SUNg29fT7LdRSMumnnPgJs491dLF83OK9MLOgVAwqgqqlcmtdEknqJKXSet+kwOWO+WE
+	 svwAAKAzbNau8oTqWHFPEkEygRex7pOFQEZcxl9R2Hoki3TtJwdbaD9sJX8VMeshiDcIS
+	 Xt5EMYXvjTqXa3ar1eGVK70+JAUMYKPFM6gBVxJvJLoEGmgiiDBXY7kP+4v8hw1uqimYz
+	 FNdBNK9QVqSJZ411h1w4d+DvYsFpUIbwALmkcawjT3nUKZk5VB5cQvhLgCPapLb4CYd+p
+	 00yI3qbD3yrsLyswAjRiAZRUKsFeR5FTBBcxb3HdgAk3FA21gtDtEgEaTJLjheGFEhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PgZ+9JhD;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fq9IP2Df;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA8A60877C2;
-	Wed,  4 Nov 2026 21:57:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6142C606A850;
+	Wed,  4 Nov 2026 21:57:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PgZ+9JhD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52A911F00A1B;
-	Wed,  4 Nov 2026 21:57:01 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fq9IP2Df
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDB6E1F00919;
+	Wed,  4 Nov 2026 21:57:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793829421;
-	bh=p4yXFIfuuRoTOe4paTH5moylNGP07WFFrQRHG2crOQQ=;
+	s=korg; t=1793829423;
+	bh=XPBlF/VLIIzKVknLcSJ9ZGdf7FD7B8XhkJUlwcbIZF8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PgZ+9JhDmjhVKEqmAdpA2KT/vmTlcEC/im1sMJwCnjsI5zxACDlACARNqUI4l81Yc
-	 aMLnNhSCKOiv+XEzkgvvFDSUfz3EsFsSvbMsnN3YDeCz8rvB9vz9qKwG4SRb+4H2F2
-	 0hSAA4keY2IsDMQ4nDuLThX62JWbA29Kz2kNqPP8=
+	b=fq9IP2DfqdnY3LMDQAGfSba53XsrQ+utGKWwSKx2EzqJ2EL548L2CWtVHsFpHhZ/W
+	 P1aYHpXUK56qnT27WWbu2By7AcoaGGX5I6T08y5SzwQuu3ls+ucJvrohc9JsTeRNbf
+	 F8Pe4XhaIF01ulCQGl+2AS+0CeY0Xom+uvOMLcCE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Christoph Hellwig <hch@lst.de>,
-	John Garry <john.g.garry@oracle.com>,
-	Keith Busch <kbusch@kernel.org>,
+	Qingtao Cao <qingtao.cao.au@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0116/1005] nvme: dont reference NS after unlocking in nvme_ns_head_ctrl_ioctl()
-Date: Wed,  4 Nov 2026 15:57:29 -0500
-Message-ID: <20261104211046.907441008@linuxfoundation.org>
+Subject: [PATCH 6.18 0117/1005] bus: mhi: core: Fix sys error transition latency
+Date: Wed,  4 Nov 2026 15:57:30 -0500
+Message-ID: <20261104211046.939314034@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
 References: <20261104211043.516122098@linuxfoundation.org>
@@ -69,35 +69,58 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: John Garry <john.g.garry@oracle.com>
+From: Qingtao Cao <qingtao.cao.au@gmail.com>
 
-[ Upstream commit 77c57daf98a2ad95ec9ac1371caeff8939cc1f58 ]
+[ Upstream commit 22568e8f13a42ab69b7d624741768cbf15dded74 ]
 
-In nvme_ns_head_ctrl_ioctl(), once we drop the SRCU read lock we should
-not reference the NS to lookup the controller, so use the available
-controller pointer directly.
+Bring forward the idea to fix the power down latency in
+mhi_pm_disable_transition() further to mhi_pm_sys_error_transition()
+so that the transition into system error (triggered by AT!RESET) in the
+modems won't have to return only after the timeout of up to 24 seconds.
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: John Garry <john.g.garry@oracle.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Once the device gets reset, there is no guarantee that it will send an
+interrupt to indicate the state transition. So polling is the sensible
+option here.
+
+Signed-off-by: Qingtao Cao <qingtao.cao.au@gmail.com>
+[mani: commit log]
+Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
+Reviewed-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260603011333.3306102-2-qingtao.cao.au@gmail.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/host/ioctl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/bus/mhi/host/pm.c | 14 +++-----------
+ 1 file changed, 3 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/nvme/host/ioctl.c b/drivers/nvme/host/ioctl.c
-index fb8533127116a..b3e58de6f5cc5 100644
---- a/drivers/nvme/host/ioctl.c
-+++ b/drivers/nvme/host/ioctl.c
-@@ -727,7 +727,7 @@ static int nvme_ns_head_ctrl_ioctl(struct nvme_ns *ns, unsigned int cmd,
+diff --git a/drivers/bus/mhi/host/pm.c b/drivers/bus/mhi/host/pm.c
+index b4ef115189b50..71bcb0f98ce6a 100644
+--- a/drivers/bus/mhi/host/pm.c
++++ b/drivers/bus/mhi/host/pm.c
+@@ -651,21 +651,13 @@ static void mhi_pm_sys_error_transition(struct mhi_controller *mhi_cntrl)
  
- 	nvme_get_ctrl(ns->ctrl);
- 	srcu_read_unlock(&head->srcu, srcu_idx);
--	ret = nvme_ctrl_ioctl(ns->ctrl, cmd, argp, open_for_write);
-+	ret = nvme_ctrl_ioctl(ctrl, cmd, argp, open_for_write);
+ 	/* Trigger MHI RESET so that the device will not access host memory */
+ 	if (reset_device) {
+-		u32 in_reset = -1;
+-		unsigned long timeout = msecs_to_jiffies(mhi_cntrl->timeout_ms);
+-
+ 		dev_dbg(dev, "Triggering MHI Reset in device\n");
+ 		mhi_set_mhi_state(mhi_cntrl, MHI_STATE_RESET);
  
- 	nvme_put_ctrl(ctrl);
- 	return ret;
+ 		/* Wait for the reset bit to be cleared by the device */
+-		ret = wait_event_timeout(mhi_cntrl->state_event,
+-					 mhi_read_reg_field(mhi_cntrl,
+-							    mhi_cntrl->regs,
+-							    MHICTRL,
+-							    MHICTRL_RESET_MASK,
+-							    &in_reset) ||
+-					!in_reset, timeout);
+-		if (!ret || in_reset) {
++		ret = mhi_poll_reg_field(mhi_cntrl, mhi_cntrl->regs, MHICTRL,
++				 MHICTRL_RESET_MASK, 0, 25000, mhi_cntrl->timeout_ms);
++		if (ret) {
+ 			dev_err(dev, "Device failed to exit MHI Reset state\n");
+ 			write_lock_irq(&mhi_cntrl->pm_lock);
+ 			cur_state = mhi_tryset_pm_state(mhi_cntrl,
 -- 
 2.53.0
 
