@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817519;
-	b=ES+53fRiqabfOj3dgipBazXQhcaYcWVbDHw+A9AI80vLbOJTsmIRvd+XwqDovU0qFj/s
-	 kPYqiMRbDIexX5Qhx0phU4YN9ewvxDS1ROPoSmeGJmsOxEyFmS/B/ZBklDFhbxnxlr2Z3
-	 L7bo78N9fvvuIEvzecjr8C8/+9pzkBcBY7JYYJu5Yqsg7wJTo4kT1sUUGETNfAHAILwPT
-	 0NHwl3QJsDvS8p49RykFANjPoUjc0m0ER3ms/396B8DfJiYY7A+dQy/DpZI85g4iuMjYm
-	 0NaXYrPHWRG64TjriD+nsXYSXRu7o1fisayt3PTvgUq3Ngm+2VLBCp+SEmjnlT+lQgw==
+	t=1793817521;
+	b=sFCU96s4Q3m2vvoij8NB7rqTTuhjDUppV3kgu4MkpabfBB28bE5sRbE4HfPWsvB6YlpK
+	 plC0so8Xq4bCxM5fTzAtcDqAjGMRM+d7Ml3xUxgEnC9JaORpTSmXNuPpyDZ7DPIcvSjxj
+	 DfMI/HSwNFfz3nU3d/zec3XA+NQ9N4/zL0ghXMjJwMWWqag3m0QApEGipNfNPjwiOL2zo
+	 AXIAawbmjwiGLkojHoI/I129q9vgzl6AH1pdjYc5tSgmAMl6miavsxFjrmRuxdyf9jAHQ
+	 N0m6xQh5rbhAEoRZlR19RwNVntMtERDbCBPPpAoz4KBu6X3UQtA2rAcHzl0P88c+IkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817519;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817521;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=hvn9fyp+MF6b+2EWn/VpjW25OQCpK0CUmaM0dxM07Z4=;
-	b=FB6lthSYb5ztTpP7twyoqJwGfIjaH2XRPE764aj+jYgKjDwYwnHK3Za4ZJdGyyxXuPpR
-	 QS83cQERQ+id+BSb4aHkev/+ZkQd/8LAS7J4wAuSmpAg8NCA/prENC4VjxXa7Mcq1a8FL
-	 X/7ZWPd9sSguzEtZKKkNt8Twf08tD6qGx1yjPtPmjxsZl77gHsmnQoyLHr2gY6Q082DS6
-	 LieOYagTeJQ6guX5HWs9ERqpNHu5DU2j7pIPVkDnlJABqFNozgCuzZU3PSI5OJUq4wVBC
-	 v+I01K90Q6njKtmG0tQzbbld2Oa2Un9HkKcEEz0gcZKKLKVq8zBU4aFlbckgn9E22Dg==
+	bh=Mhxy6CTQJlkMvYvv/xbAygtPA643cma91iEX7wYaXSw=;
+	b=Oe03FHB7ICWRLI+6Zjpm5x7ER6hqCM3bkJJ0bwiYroZUAA9JYRhhZgZJHJRC3GjbTJMN
+	 V/O74iK9QV/Gq/e1lA0zo3Qo7nLWD4P1QOJM3BYEztsyJBRTGjQ0i+KDHbsRvvI5AbmrK
+	 GbhxdmL0w/O0UHpviMeHVzdmpZZVzUwySZaDwZvjlZ0jT/SGRkdpqEcSmnnWATm6nQX1T
+	 MEMBEQHlDsJ4lGBJIS0vyqG85iFv+OVE2ioLi1+fMLhrTMI7gUu8Bgpy2sBTRuTcBo+eO
+	 3nJdLLhkaVjels1hZjvoVQx5A46iGdjg6S4HEvAFdiPKHsTgMBWa14hnc2smaABZpCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UFtnKz9w;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KeD65Pj2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED942606A339
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:38:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5BF606A33D
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:38:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UFtnKz9w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A67F1F00919;
-	Wed,  4 Nov 2026 18:38:38 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KeD65Pj2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77DB71F000C1;
+	Wed,  4 Nov 2026 18:38:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793817518;
-	bh=hvn9fyp+MF6b+2EWn/VpjW25OQCpK0CUmaM0dxM07Z4=;
+	s=korg; t=1793817520;
+	bh=Mhxy6CTQJlkMvYvv/xbAygtPA643cma91iEX7wYaXSw=;
 	h=Subject:To:Cc:From:Date;
-	b=UFtnKz9wiyvv9i7Z2TU5mVC/VNKjQOf3utpJCcm8MjHKCePTYXd6EDe9kBs57+VTb
-	 KBflmO5u1dSzPUJKLWZDyXGoXTjJD5Yfhcp7Hbd5VVFiUVj56o74K+1RW5JgFOmyvq
-	 ZDNCJ/yp8nuebk6l0babiyiufNk85QezXbGbMXMg=
-Subject: FAILED: patch "[PATCH] smb: client: fix OOB read of the resume name sent in" failed to apply to 6.12-stable tree
+	b=KeD65Pj2CwF1RQAU4vYMCvunm1NBguQ3wQP7NuoBzgOJPjVNN2gzdyXsfbYph4XKt
+	 8umZgRtGEPYBYSB0xo5E0xmdw/Ump1bMX4WJ3QZ3X2O6vpnpublzcEt/+4RQ+nWC1f
+	 Ql3ESWOlha2RZrJlkp+PNjyGoDUaNJp0MG/t1Sv0=
+Subject: FAILED: patch "[PATCH] smb: client: fix OOB read of the resume name sent in" failed to apply to 6.6-stable tree
 To: diego@bynar.io,dhowells@redhat.com,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:38:37 -0500
-Message-ID: <2026110437-yam-dyslexic-c2b8@gregkh>
+Date: Wed, 04 Nov 2026 13:38:39 -0500
+Message-ID: <2026110439-cosmetics-ideology-ed29@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x f8171804a39ee89a11cd462f67862899de9c6b10
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110437-yam-dyslexic-c2b8@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110439-cosmetics-ideology-ed29@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
