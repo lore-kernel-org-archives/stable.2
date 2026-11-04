@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804774;
-	b=V+B9HKFXfKAnZwc9r4g/7xDiSHJA2lBGA4RhPQz3U/TqQGRH7rD1193THNn/MEubLhRs
-	 njgKNbQ6EPT4UnMIFDgKhXWYamySoGACVBjWeEu6KR8GLzFkhM1OuhIg7CyRYEpBUYdq4
-	 IVjPSWm5+dkidUj09DLaafkZG9AOeXllr1vDq+qXHKdhTN9HkD1Ti5my7TF56gVtouMq7
-	 uU2Va8RPFpy2LKU8QE3VbgrU7gouBUlw4uAz9vYwggJNrbQNkrizlAbtWbY8nOqCP4B/n
-	 R0Zil5YuWqim+6Ua4ZiM79S8T7KDNQTqvjQSdZ89o2LiE0ImZ8926VtBKeLqVNI63bw==
+	t=1793804826;
+	b=p1Tw0OxiX4Z68MjLKH2DhjllCr56E6i3IKyYzFWwVhwoyIS99xd8tuEiRHjBhub7vD09
+	 p4taLza7AWHvrDPqX4SS7ZFpntF1RH/MB8pmVNyt4dvrTjuFm03gEATCw9D7WK+MIFQSF
+	 kSdGZzjFKWGlz07XUBfUWEXWgz7wl0qV+QRI8SrM4U2BJCKjR3oL12NtZAX7m7hwBjrPw
+	 pe01itOg2bF3tVPom4zqhbwnlJT+0a0KezymTQcEIbX5v10DVzICw67Mz05DdVSY5L2PK
+	 eIPj2u5CCABcPiPH+Qh+srfACrnLLEjCJP7CVR5/xHNqmRn/lgiCPneNlNtuTsEuf0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804774;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804826;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=mpjy4N7ju8WFAnWkyGbCF8Zve0rYLtgmlfwqrLPcOQM=;
-	b=33dp9+jJn/m6bBm1XUKX9w6+IbG1jgQYdM/sMVB5QMukThgg8GKS1cxBCABl91g9yG56
-	 /cRnECWJaA4a62YTCFvINe3/SU0XYL/lvkRDizIgsbIRfrOivTXdM9RzneVpXPYoQ648o
-	 3tBI2aoOqJS0Kuu+zKMcXkiqipe7FAxg/7HEvRyZDVucGbZSdaB/G7j18AFTFrJFGydoz
-	 0GUWTvwb+Nf/bIxF8YB6fvKh9xDkze571ASPfBroGSgLXmWVtKBhLeoOyjAtlKodAuqHR
-	 g8SzC42zJVf0n+mP/zdo5h7du2A67xYGvHBItjVPZnZOXYB5BTzLjukoPimjWNWmNPQ==
+	bh=DFc1MUb3hpfO5G//Ubc8PIaCQn63+FYV1/D5MOgpwvk=;
+	b=nT8pFm9WoA57TXb0KWe8qbVuDS/hoOyy+tXp61EQaEb5o/5qwz7qAOuFgfnSJk/p/07t
+	 mhYv58dT/SgXY/DmmKrGn60I6X4rsSrWYX+3tG/q9n9WWhXhNYXXJE/uaJQnlwp3+C9Iw
+	 /gYq+6fvcIzzWA8t+zjv7eAVzi3uDRwSwSlr4hgt3oYjZZXaRGpJrJ2/yqEsoS6I8mTZ4
+	 dpAoyO/9jXr/myGw1mU4iz98qFdzs2lK8qPTeYQVkVO2q4Lj2gKwcaovMVkru7gFxja9x
+	 k9LRvfG5O29zszHGY/QbSZsPApoWsvNVZgXIh6H7QujOnuF8RMiji/lINWDGJoghIJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iX3Lf4eE;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=O7lc+2Z6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED69606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:06:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36B5606A32D
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:07:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iX3Lf4eE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30ADF1F000C1;
-	Wed,  4 Nov 2026 15:06:13 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=O7lc+2Z6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 854571F00919;
+	Wed,  4 Nov 2026 15:07:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793804773;
-	bh=mpjy4N7ju8WFAnWkyGbCF8Zve0rYLtgmlfwqrLPcOQM=;
+	s=korg; t=1793804825;
+	bh=DFc1MUb3hpfO5G//Ubc8PIaCQn63+FYV1/D5MOgpwvk=;
 	h=Subject:To:Cc:From:Date;
-	b=iX3Lf4eEqz5B8l+DNEBCDq9j29btCNtZUBAlGBQHFz1MKJjbHvh3DlhRJrttqpwdv
-	 2F8/hejP6xDvJwxe6/rdOZJDinHOIFbC+SZ41/+K1q/C/sQdQjtHIWk/ZZGAgM3GVN
-	 P3PdzoB5VQciOsXZMVnCO2OrMFXORqUNYoNdhfgY=
-Subject: FAILED: patch "[PATCH] ovl: do not take a name snapshot in RCU walk" failed to apply to 6.18-stable tree
-To: mason@kernel.org,amir73il@gmail.com,josef@toxicpanda.com
+	b=O7lc+2Z6jZydHXVIo25m8SWDGrRz3789BbblnaBA+P9JQe4rvmCJH4pXma7NsIFZ3
+	 OunkWgy4ct4AodeHCmxwFe/pj71YHVOmlPH2GHDPlrj4R2Y4es8AFc4hMVuvii93pi
+	 BjiVssTTr1EjORIcr+0AWIdiw1c5gjDGB0Am4sdo=
+Subject: FAILED: patch "[PATCH] ovl: fix mount setup failing when override_creds drops" failed to apply to 6.18-stable tree
+To: amir73il@gmail.com,brauner@kernel.org,disgoel@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 16:06:03 +0100
-Message-ID: <2026110403-limeade-limit-5dd3@gregkh>
+Date: Wed, 04 Nov 2026 16:07:04 +0100
+Message-ID: <2026110404-yonder-underfoot-3469@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0b691c3c59a58aa6a2fc3f87c10cc1e399f1d33f
+git cherry-pick -x 333ad304d4794d6384087ea7fc16e58ab642809b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110403-limeade-limit-5dd3@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110404-yonder-underfoot-3469@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,55 +79,75 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0b691c3c59a58aa6a2fc3f87c10cc1e399f1d33f Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Wed, 7 Oct 2026 10:38:39 +0000
-Subject: [PATCH] ovl: do not take a name snapshot in RCU walk
+From 333ad304d4794d6384087ea7fc16e58ab642809b Mon Sep 17 00:00:00 2001
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Sat, 17 Oct 2026 18:43:30 +0200
+Subject: [PATCH] ovl: fix mount setup failing when override_creds drops
+ CAP_SYS_ADMIN
 
-A path lookup on an overlay over FUSE loops in the kernel for ever and
-stalls RCU.
+When a process drops CAP_SYS_ADMIN and calls fsconfig(FSCONFIG_SET_FLAG,
+"override_creds"), overlayfs saves those restricted credentials in
+ofs->creator_cred. ovl_fill_super() then wraps the entire mount setup in
+with_ovl_creds(), switching to those restricted credentials for the
+duration.
 
-take_dentry_name_snapshot() needs a dentry that the caller keeps alive,
-because for a dead dentry the refcount of an external name stays at
-zero and the function retries without end. In RCU walk
-ovl_revalidate_real() holds no reference on the real dentry, and the
-eviction of the overlay inode on another CPU can drop the last one.
+Mount setup calls clone_private_mount(), which checks CAP_SYS_ADMIN
+against current credentials. With restricted credentials active, this
+check fails with -EPERM even though the task issuing
+FSCONFIG_CMD_CREATE is fully privileged.
 
-With a delay in ovl_revalidate_real(), a stat() loop on a 48 byte name
-in an overlay over FUSE, raced with drop_caches, spun for ever in
-take_dentry_name_snapshot() and stalled RCU.
+Use the mounter's real credentials only for cloning the private layer
+mounts. Keep all other backing filesystem operations during mount setup
+under the stashed credentials.
 
-Fix this by using try_take_dentry_name_snapshot() in RCU walk, and by
-returning -ECHILD when it fails.
-
-Fixes: 5be1fa8abd7b ("Pass parent directory inode and expected name to ->d_revalidate()")
+Reported-by: Disha Goel <disgoel@linux.ibm.com>
+Closes: https://lore.kernel.org/linux-unionfs/20260924112858.51392-1-disgoel@linux.ibm.com
+Fixes: c28f922c9dcee ("clone_private_mnt(): make sure that caller has CAP_SYS_ADMIN in the right userns")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[amir: use try_take_dentry_name_snapshot() instead of open coded snapshot]
+Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index 18f56d463572..cc4b0959faf6 100644
+index cc4b0959faf6..b452b8c5f641 100644
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
-@@ -100,11 +100,17 @@ static int ovl_revalidate_real(struct dentry *d, unsigned int flags, bool weak)
- 			dir = d_inode_rcu(parent);
- 			if (!dir)
- 				return -ECHILD;
-+			/*
-+			 * Nothing pins d in RCU walk: eviction of the overlay
-+			 * inode may drop the last reference at any time.
-+			 */
-+			if (!try_take_dentry_name_snapshot(&n, d))
-+				return -ECHILD;
- 		} else {
- 			parent = dget_parent(d);
- 			dir = d_inode(parent);
-+			take_dentry_name_snapshot(&n, d);
+@@ -503,6 +503,20 @@ static int ovl_report_in_use(struct ovl_fs *ofs, const char *name)
+ 	}
+ }
+ 
++/*
++ * clone_private_mount() checks CAP_SYS_ADMIN in current->cred.
++ * ovl_fill_super_creds() runs under the stashed creator cred, which
++ * override_creds may have dropped.
++ * The task that issued FSCONFIG_CMD_CREATE is still current->real_cred, so
++ * use that only for the clone. creator_cred stays in effect for every other
++ * backing-fs operation.
++ */
++static struct vfsmount *ovl_clone_private_mount(const struct path *path)
++{
++	scoped_with_creds(current_real_cred())
++		return clone_private_mount(path);
++}
++
+ static int ovl_get_upper(struct super_block *sb, struct ovl_fs *ofs,
+ 			 struct ovl_layer *upper_layer,
+ 			 const struct path *upperpath)
+@@ -526,7 +540,7 @@ static int ovl_get_upper(struct super_block *sb, struct ovl_fs *ofs,
+ 	if (err)
+ 		goto out;
+ 
+-	upper_mnt = clone_private_mount(upperpath);
++	upper_mnt = ovl_clone_private_mount(upperpath);
+ 	err = PTR_ERR(upper_mnt);
+ 	if (IS_ERR(upper_mnt)) {
+ 		pr_err("failed to clone upperpath\n");
+@@ -1104,7 +1118,7 @@ static int ovl_get_layers(struct super_block *sb, struct ovl_fs *ofs,
+ 			}
  		}
--		take_dentry_name_snapshot(&n, d);
- 		ret = d->d_op->d_revalidate(dir, &n.name, d, flags);
- 		release_dentry_name_snapshot(&n);
- 		if (!(flags & LOOKUP_RCU))
+ 
+-		mnt = clone_private_mount(&l->path);
++		mnt = ovl_clone_private_mount(&l->path);
+ 		err = PTR_ERR(mnt);
+ 		if (IS_ERR(mnt)) {
+ 			pr_err("failed to clone lowerpath\n");
 
