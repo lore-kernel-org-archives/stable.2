@@ -1,51 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801173;
-	b=nVCKVli43y4IBHZlpzattUBX06e34Kgyuik1aRbiNCsHdJJcquQugpDgF+OvFbSgB1fQ
-	 lOEOlNjxwpthU0+ReiRanDoy2lWXItCrru1eHEW02GrFPfrpO7DR8EIQoRH+it1KzbQaf
-	 vNyLr83UPbDzTO73o2lmIh2C8cfKmyIcOCjOzgqub3cfahtQsyxymQFqXjKAiiroRw2DK
-	 jn/bMuRCPmy07HDv7E+tCycTJ/7Rk/XTI80zvtFsdvBW/OxGnRwZiyz2iIeF9tr9P59xw
-	 s2VZKPb+sCJD0Uc3D2x+ugTzjvLjHlN/VJKsYLevZdVmFbqno/Fzp12XpDWkJ8KhnnA==
+	t=1793801266;
+	b=kQtDv8fJ1XkiImaHyiNlYXYj+IxdpjQDLFoOUbWAjPmh3jJXAUMIIi2bGP189MfE3HRR
+	 4qMZA7sn9SigiFLVFJnk5bMw4JheApbH4gDa/5GqCG8xTnX81IYZ+8q7tX90BKLU09Rqu
+	 /ukTzXSJ7SEEWEGmIlQPjVpRm4NGECtfymat7BV6Hj0eGlt+x5anyxjj6UNB3WrCP+2+o
+	 QFR7jp4NDy50eW56a2bvswtNnQHj5CZlL/lWCbKZzX0UnHrCApnmz2dBH186J1Le3y22k
+	 IohfPZ7DIxQqf9hdUtPC+gWd8FNfpacSSDXLrRQvObXYKzDXwwPgW6JldXfg+mjjg5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801173;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=uH/6JLhT16+uh3bW5gdjq+6yXQL9dmv7OYBFAVG5ong=;
-	b=dzDqSkqY3oCP9OrH6dgkgrpiBidRFPEKHv9i9+bsXrvGXDyYlNraoei5u8tFUp6ZX8JC
-	 TigcwsG+Ti9UOPH1RJFjPE2OFZVvv6ATNP/a16w9pfwDkE3yH6d8bmVrFoZZ3TmASnabP
-	 lfacWOtnap1A7Y2ulmmI8RAVo4baFnjYCZgW7crAG/MAX9pkIiPQrO/YdZGhGOJDXQzP3
-	 T17a2ZMWZuHayvSUJs0P60G32630c5F1xDz8rS5ShBBHvRNQCqOQGf9Y5gT4pAu2SJ006
-	 fnijdYhXPO/A5pSZB1y5ruMiXHQMxVarIcBYl8pbdZegqTJ18rnVValErF1+m5sTRXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801266;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cq1h4+ONwtAezyaksz2FMWNnWoV6ehnNK390tiSgqPg=;
+	b=GZ8f+HLcreRJbDd6+v9VWqLhHd24bzwqTYRmDEnb3onl6UjkrReGSP5jKFtu7M2p1mb0
+	 tQHoopild13m11uBjfjyeqllh6wDBmzmsRMSO8Bye+gk33EhxxYUZ8bGAsUpU3Sg6se2d
+	 NtIxH5Dogr47n7No6K+lpfEfo8xAtgCr4AcD7WOEDe1dky0YtM5/3mAJkteaWDo2q/+en
+	 +/8ZqKEcTnf7AMqXV2nO+5SNGL9MCcaOgO62Y/FA4s/55SxJ97Q6vGEOOEmR4BLay7YR2
+	 6zvHX1Icd5DG8cJw2rk5DJhgPuvUYtVn71U1wBOt/pBB5ksmfkumPMza1SkrrOt5O4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bwj21dMA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aQVHLjUU;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0478606A31B;
-	Wed,  4 Nov 2026 14:06:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CB6606A335
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:07:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31CB6606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bwj21dMA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D1E1F00A02;
-	Wed,  4 Nov 2026 14:06:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793801172;
-	bh=uH/6JLhT16+uh3bW5gdjq+6yXQL9dmv7OYBFAVG5ong=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bwj21dMA2bAt5X0SBhxl1ciJ2aZjBzaohvzuvHnnQ2tDGvIHJ/RF53Qp2h1CWpMig
-	 EZp6Ph6/MTKHktLMN8c/NiEEFc4LwvljmJJksKjPB/TsLhJ8XXjzNPheYTjO0Ps0Sz
-	 esTC2l4gORhcFk1Bby+JEQO7wrkmR5tinkTw9dTsYg/QSiIZRL9UIc7W/qKyB/IP+Q
-	 vPodoz+msQIcFomqeSur4lcBoR6t//kfIFcgPUqO6NXH/GGVF3YqhcCyT/ImIjB5Wd
-	 m+MkDQuBlrs47seDt7WpsUQjJxGzG7jmVOuEFqYD2/8O3a8qQKlso83Or4z1m0VzM6
-	 j5vC5Tl1yoTwg==
-Date: Wed, 4 Nov 2026 16:06:08 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Chengyu Liu <lui2012qwq@gmail.com>
-Cc: jgg@ziepe.ca, linux-rdma@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] RDMA/ipoib: cancel the AH reaper work synchronously
-Message-ID: <20261104140608.GF478286@unreal>
-References: <20261103170703.1600310-1-lui2012qwq@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aQVHLjUU
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3b09cc7ed1aso58785a91.2
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 06:07:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793801265; x=1794406065; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cq1h4+ONwtAezyaksz2FMWNnWoV6ehnNK390tiSgqPg=;
+        b=aQVHLjUUvc+RTbCC5A3JUXiBiwuj89jDNl7XoUtPmDn0jR3QO+CGYfAWxmx33xC6lT
+         SkHRx5GXN/ZiWqr/kOLtlLKWp/STozQ7taoj2mLpipxq8M76pGQgaF8Piq7S7+hl/wfB
+         g0aq3MbYxKSXLb0t0Uh1QfVXEgOVMipz9FYfkfc2V6bgPQC3qZgbX7lUk/8IC/5M9Gma
+         lW3ILBx9Aju2wfopx5UYuTXERTto9gc7pRptfiMccEGHrj3AxBEZrq7GTe1d3spvpk/m
+         vkr9web93IX+gdgc4gxXbEzV7zfmYVYeuDiCjOk0FqIr1V51EVDohrdYbBUsaH6EbCkF
+         VShg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793801265; x=1794406065;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cq1h4+ONwtAezyaksz2FMWNnWoV6ehnNK390tiSgqPg=;
+        b=rAH2t2RRFKqKsqXrOlMqu2NkuCpu5JeZGnXM8bmib3fV8MwzGyohEFNaG2xtAJWg+9
+         hAcRxLK9wZxWgF4iuhrgpUNlCOJ4UtDRDG7LdOM4gaFM7msErKyTHVAGkGKcA97leUeF
+         mZDrZMD9hPuIAcdl1eqNyGJJ2F/Kh8pvqig9QnRwbS4/tGLvcdT5zPzn0OCeBs/VfUNz
+         /4Vo5etZbmADLfwOrglPGCiOMutkWpCIHV8N+Rx97HS3QbS9ruhmKWSBwEjJRvehSdJp
+         cFjnJR8LUUDKTY7KIrHjyyUn4w28IRgtuxWV6HOSMYcLy7W8hy+Qj4UtrUXR87zbXh38
+         ZEww==
+X-Forwarded-Encrypted: i=1; AKwUvBwa8rvBS3WuAQa3ALiJlhz2+R5w5Gw+t5Bm6mivGfmKHm0pXWoBQP0PC57jC6b0bvzcEGUOXx8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wpVXn/IUMnnbIiqusGO/jdh01QrEHfThY3/EK2zJGks5ASLFT
+	rimKbkBVWQxI5BmvmYpkUbMapcvFM+yjoQ4y3ilMNHMVqkXTYOenjD0v
+X-Gm-Gg: AYBFou3YRsdk4NTx66nWtmbBhxG5OITUWFfhZGK/253Fi1tEAtZD6p4B/TkAwDoxkyw
+	48PDTrbgX4qdS7Tm1oSq9aD4Gc/rlw5bwGgFQuztHSIScnK0VrApQGftuAVOICk5ZxUzCPwv2zQ
+	1Z8emjOlFNacRQvXzE4rDTNXNNIZuPoPLWJplsnlxzFDPW25rnAccljU0dtvAxkUA/hUwGvkcUt
+	2YS8pQp1iFwohwTWD/QV7+B2yxmOeoVQqVqu6dVbZ1PgwUXo53yVWN8uZPT5P90czl/0pekNmEH
+	k6cw1XnixjnT9a93K6ApPVEZLHRoYUk2py07c2/ZgXhKQhPjTuY4aCjQBy9+lyeT/QEagf4Xoju
+	O102V/VikcFpaQ/9xFUXrKL0NmSSmnrS7H+FITAULA/zZCvwpdo3D08f2y+u3pmPv1YuYVvNiq9
+	oZ9ts8CRg567C+RTN0V6VQR2/rf/4MBJXpAdEKHcgaxXPj18tYOjFLmPh2H10zXoAxKRqZsUIjA
+	sknU4t+hYYhwitgLGTnmhPfNAiRG3NMmrVhWKKmledcUMUvt33tlbvw14NgygZyFHpxlerncU0g
+	Dww1xIHqPmg0PiFdhyg2P55cFFpT5Q/YMo1rkLzY9A==
+X-Received: by 2002:a17:90b:3693:b0:3b0:accf:5c65 with SMTP id 98e67ed59e1d1-3b0accf61d8mr241791a91.6.1793801265362;
+        Wed, 04 Nov 2026 06:07:45 -0800 (PST)
+Received: from CRASHEDROM.localdomain ([142.249.36.161])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39b3b7esm7379556eec.28.2026.11.04.06.07.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 06:07:44 -0800 (PST)
+From: Chengyu Liu <lui2012qwq@gmail.com>
+To: broonie@kernel.org
+Cc: lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Chengyu Liu <lui2012qwq@gmail.com>
+Subject: [PATCH v2] regulator: disable disable_work for good in regulator_unregister()
+Date: Wed,  4 Nov 2026 22:07:22 +0800
+Message-Id: <20261104140722.389859-1-lui2012qwq@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,192 +96,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103170703.1600310-1-lui2012qwq@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 04, 2026 at 01:07:03AM +0800, Chengyu Liu wrote:
-> ipoib_stop_ah_reaper() uses cancel_delayed_work(), which cannot stop a
-> callback that is already running.  ipoib_reap_ah() re-arms itself after
-> an unlocked test_bit(IPOIB_STOP_REAPER) check, so a callback that has
-> passed the check but has not re-armed yet still queues the delayed work
-> after the "stop":
-> 
->   CPU0 (reaper)                     CPU1 (stop/teardown)
->   test_bit(STOP_REAPER) == 0
->                                     set_bit(STOP_REAPER)
->                                     cancel_delayed_work()  (no-op)
->                                     ... destroy_workqueue(priv->wq)
->   queue_delayed_work(priv->wq, ...)  <- delayed work sits on the timer
-> 
-> destroy_workqueue() cannot see a delayed work that is pending on the
-> timer wheel, so the re-armed work fires after the workqueue is
-> destroyed and priv is freed: both the queueing onto the dead queue and
-> the callback's container_of() on freed memory are use-after-free.
-> 
-> Use cancel_delayed_work_sync(), which waits for a running callback and
-> prevents its re-arm from taking effect.
-> 
-> The comment above claims ipoib_reap_dead_ahs() "ensures the work is
-> really stopped", but it never touches the work item - it only walks the
-> dead_ahs list under priv->lock.  The stop guarantee comes from the
-> cancel; fix the comment along with it.
-> 
-> Found by static analysis.  The race was reproduced on a KASAN build
-> with a small module exercising this exact guard/cancel/free pattern
-> (no Infiniband hardware available); PoC and splat are below.
+regulator_unregister() stops rdev->disable_work with
+flush_work(&dw->work), which is a no-op for a delayed_work pending on
+the timer wheel: flush_work() only waits for a queued or running work
+item.  A disable deferred by a consumer's regulator_disable_deferred()
+therefore survives the provider's unbind, and regulator_disable_work()
+fires after device_unregister() has freed the rdev, dereferencing it
+via container_of().  Use-after-free.
 
-Please revisit this once you can reproduce the issue with real IPoIB code,
-not code that merely resembles it.
+The in-tree users are ASoC DAPM regulator widgets with a 20 ms
+power-down delay (sound/soc/soc-dapm.c): the window is the entire
+deferral period, not a race between adjacent instructions.
 
-Dropped for now.
+Use disable_delayed_work_sync(): it dequeues a timer-pending instance
+and waits for a running callback, and keeps the work disabled so a
+concurrent regulator_disable_deferred() cannot re-arm it while the
+teardown proceeds.
 
-Thanks
+Found by static analysis.
 
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
-> ---
-> 
-> Reproducer notes (PoC source below; a module parameter selects the
-> shape): mode=3 (cancel_delayed_work + lockless guard race, this bug's shape) produces
-> 
->     [    2.05] BUG: KASAN: slab-use-after-free in queue_delayed_work_on+0x27/0x70
->     [    2.05] Workqueue: events pm_td_cb [pm_flush_poc]
-> 
-> after the teardown frees the container; mode=1
-> (cancel_delayed_work_sync, i.e. this fix) stays clean.
-> 
-> ---------------------------- reproducer: pm_flush_poc.c ----------------------------
-> // SPDX-License-Identifier: GPL-2.0
-> /*
->  * pm_teardown_poc - mechanism PoC for the drv-teardown-sync C/D variants
->  * (F-026 ipoib / F-028 epf-ntb / F-029 habanalabs).
->  *
->  * Modes (module parameter):
->  *   0  F-029 vuln shape:  flush_delayed_work + lockless guard
->  *   1  control:           cancel_delayed_work_sync (>=6.9 swallows re-arm)
->  *   2  F-028 vuln shape:  cancel_delayed_work (non-sync) + unconditional re-arm
->  *   3  F-026 vuln shape:  cancel_delayed_work (non-sync) + guard check/queue
->  *                         race window (test passes, teardown slips in before
->  *                         the queue_delayed_work)
->  *
->  * Every vuln mode must produce KASAN slab-use-after-free when the orphaned
->  * work fires after kfree; the control mode must stay clean.
->  */
-> #include <linux/module.h>
-> #include <linux/workqueue.h>
-> #include <linux/slab.h>
-> #include <linux/delay.h>
-> 
-> static int mode;
-> module_param(mode, int, 0444);
-> MODULE_PARM_DESC(mode, "0=flush(F-029) 1=cancel_sync(ctrl) 2=cancel_nosync(F-028) 3=cancel_nosync+guard-race(F-026)");
-> 
-> struct pm_td_ctx {
-> 	bool			fini_pending;
-> 	struct delayed_work	work;
-> };
-> 
-> static struct pm_td_ctx *ctx;
-> 
-> static void pm_td_cb(struct work_struct *w)
-> {
-> 	struct pm_td_ctx *c = container_of(to_delayed_work(w),
-> 					   struct pm_td_ctx, work);
-> 
-> 	pr_info("PM-POC: cb running, fini_pending=%d\n", c->fini_pending);
-> 
-> 	switch (mode) {
-> 	case 0:		/* F-029: lockless guard then long body then re-arm */
-> 		if (c->fini_pending)
-> 			return;
-> 		msleep(300);
-> 		schedule_delayed_work(&c->work, HZ / 10);
-> 		pr_info("PM-POC: re-armed (flush shape)\n");
-> 		break;
-> 	case 2:		/* F-028: unconditional re-arm, cancel must catch running cb */
-> 		msleep(300);	/* long body so cancel lands mid-run */
-> 		schedule_delayed_work(&c->work, HZ / 10);
-> 		pr_info("PM-POC: re-armed (no guard)\n");
-> 		break;
-> 	case 3:		/* F-026: guard check passes, THEN teardown slips in */
-> 		if (c->fini_pending)
-> 			return;
-> 		/* widen the check->queue race window like ipoib's 724->725 */
-> 		msleep(300);
-> 		schedule_delayed_work(&c->work, HZ / 10);
-> 		pr_info("PM-POC: re-armed past guard (test-queue race)\n");
-> 		break;
-> 	default:
-> 		break;
-> 	}
-> }
-> 
-> static int __init pm_poc_init(void)
-> {
-> 	ctx = kzalloc(sizeof(*ctx), GFP_KERNEL);
-> 	if (!ctx)
-> 		return -ENOMEM;
-> 	ctx->fini_pending = false;
-> 	INIT_DELAYED_WORK(&ctx->work, pm_td_cb);
-> 
-> 	pr_info("PM-POC: arming, mode=%d\n", mode);
-> 	schedule_delayed_work(&ctx->work, 0);
-> 
-> 	msleep(50);	/* callback is mid-run now */
-> 
-> 	/* teardown sequence for the selected variant */
-> 	ctx->fini_pending = true;
-> 	switch (mode) {
-> 	case 1:
-> 		cancel_delayed_work_sync(&ctx->work);
-> 		break;
-> 	case 0:
-> 		flush_delayed_work(&ctx->work);
-> 		break;
-> 	default:
-> 		cancel_delayed_work(&ctx->work);	/* non-sync: C variants */
-> 		break;
-> 	}
-> 
-> 	pr_info("PM-POC: teardown done, freeing ctx\n");
-> 	kfree(ctx);
-> 
-> 	msleep(600);
-> 	pr_info("PM-POC: SURVIVED (no KASAN splat)\n");
-> 	return 0;
-> }
-> 
-> static void __exit pm_poc_exit(void) { }
-> 
-> module_init(pm_poc_init);
-> module_exit(pm_poc_exit);
-> MODULE_LICENSE("GPL");
-> MODULE_DESCRIPTION("drv-teardown-sync C/D variant mechanism PoC (F-026/028/029)");
-> 
->  drivers/infiniband/ulp/ipoib/ipoib_ib.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/infiniband/ulp/ipoib/ipoib_ib.c b/drivers/infiniband/ulp/ipoib/ipoib_ib.c
-> index 81bbb3f7c1..5ed4f709cb 100644
-> --- a/drivers/infiniband/ulp/ipoib/ipoib_ib.c
-> +++ b/drivers/infiniband/ulp/ipoib/ipoib_ib.c
-> @@ -736,11 +736,11 @@ static void ipoib_start_ah_reaper(struct ipoib_dev_priv *priv)
->  static void ipoib_stop_ah_reaper(struct ipoib_dev_priv *priv)
->  {
->  	set_bit(IPOIB_STOP_REAPER, &priv->flags);
-> -	cancel_delayed_work(&priv->ah_reap_task);
-> +	cancel_delayed_work_sync(&priv->ah_reap_task);
->  	/*
->  	 * After ipoib_stop_ah_reaper() we always go through
-> -	 * ipoib_reap_dead_ahs() which ensures the work is really stopped and
-> -	 * does a final flush out of the dead_ah's list
-> +	 * ipoib_reap_dead_ahs() which does a final flush out of the
-> +	 * dead_ah's list
->  	 */
->  }
->  
-> -- 
-> 2.25.1
-> 
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+---
+v2: switch to disable_delayed_work_sync() (Mark Brown): also keeps the
+    work disabled so nothing can re-arm it past the teardown.
+
+v1: https://lore.kernel.org/r/20261103174911.1600930-1-lui2012qwq@gmail.com
+
+ drivers/regulator/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
+index 6a4008f387b5..4ba0457c4747 100644
+--- a/drivers/regulator/core.c
++++ b/drivers/regulator/core.c
+@@ -6300,7 +6300,7 @@ void regulator_unregister(struct regulator_dev *rdev)
+ 		regulator_put(rdev->supply);
+ 	}
+ 
+-	flush_work(&rdev->disable_work.work);
++	disable_delayed_work_sync(&rdev->disable_work);
+ 
+ 	mutex_lock(&regulator_list_mutex);
+ 
+-- 
+2.25.1
+
