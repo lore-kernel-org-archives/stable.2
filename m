@@ -1,42 +1,42 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826820;
-	b=o3orQaZW4vvymN0ub8aMVJf6bvSPiwCxH2BebIUgPsDQHfR0Q80wKb+9med4+pUFgjr2
-	 QUuaN3tfH9zLy4wwviKL/osM+MrSW0xyUsdoLWRs6I+WHWweR1wVCndgNWQYwIB2+lB/n
-	 fejggJy+DewAV0ghIOhOFdXQAnhvvdnxOYpUVdKjRc0F7THdBvN9QLotVzaEDeGGKBxuI
-	 q1DsW75fe/hQofRjG0RdpYP0wbSkVvR6jjJtDe45ZuNjPDWqMC2LUvyfDluXQc1MmfaxU
-	 mRX8y/mhSGjcKkrCnLlXW5yQKjFVAa67eeIK4wqpPWOMSrInxvPfIECx1DCZYWFblkw==
+	t=1793826821;
+	b=zgirvX7UiCo5OiRe81TZ5dBfhZUh6D3FVbTlhhuelgcdhgMTf4jQC00uettCgZ6T6qtv
+	 fG+DNTvwna8OkrgQ6muEfNWeZyvGAFBivi1K0t/7MNSdFgAJ/kao2eEg7keftbfnVHAoZ
+	 aJiB8nL++kxS75dADN+zRx6q2dyBYVzC1cthjCdr21X5Bkn83arx0uXRd3RZbBhGT/bPl
+	 pp3XQB4oFIzacgcHqrxBbuqn9vo49H06jDWY5lfPHMvwu7BlyjGLW6EkqqHUii32brpyz
+	 IxbtQc8hTZiP+GbCD82N1Opm87DDCC2Rq/zOMv1wIKDrIwMfSsNIwJYBpaqHGX81+MQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826820;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826821;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ysl4zElsqCR+cs3WQhXCSbOnmZa2l3h2MMh6Ouzp3Hg=;
-	b=ir/60aJx6mDFnprt0eSKlezOJRIXMW5IWjAaLAlMDL2QXGuoReNPOgpTw3CeZeG0gNcI
-	 vcJPQZ5JMjkMR6dTMPBW4Rvu34YMHOIjxB0dNtygm5Q5Nl0DJxIUVUdqbAPwF8wcKM915
-	 U6gr2EM4FWupYsq5xp/wj+IvTURwjE4N1azaKbubn5AevbbDkkKmLqcLRgH2psFHYFKa0
-	 PUtqQLiYKivUcDmGE1MyICm6EhCAqomoWl+6q19Jj+uvSa5AXTJzEbRKoFf4v3DE6nKEU
-	 8QIawfO2BxH3qnp5pis+dsez0lxn9DcDTh4lLE17jsfCHducQn0OkL0xh0oqFfM1hgQ==
+	bh=eVKXrLFH0bmMx4r4EadxYf13QlO6QFDwhqyYhYdRFBA=;
+	b=yEzUw8yl1qoITOg/6Itjf3fKAQN0bKKQ7CHNM4PB9svnZ8Lvsu7mk1OAnMjwiMV3K2MF
+	 t0rK3hYsjjlnrBBYpT+FyqxFZ/C8dYGhOiUXBUIJbwQzoGTFpm2xjQcE0TD8IuiG+kKqx
+	 we2s3x2b2axF32OcP1ePaH6mNXwOf+RFIbjIYbbfsczzjTGzBas3lWU1I8Erw57q6ajvc
+	 j0RYpCaTxhg5Ufcl8wHT0IEpy8cfW9OJ8822eBKd1K5t2RmvyGuWImlfq93k+mWgJO1Wm
+	 gtCwdv7AZ2Fl37dMa5whCr1tVTqXD/aU958KwUzwpdEbJS+VxjNKY+m2FefzhPcC0yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HsgauYhw;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KmJ1DRPD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3286071ADF;
-	Wed,  4 Nov 2026 21:13:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0440A6071AE7;
+	Wed,  4 Nov 2026 21:13:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HsgauYhw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D89B21F00A1A;
-	Wed,  4 Nov 2026 21:13:38 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KmJ1DRPD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 858FE1F00A16;
+	Wed,  4 Nov 2026 21:13:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793826819;
-	bh=ysl4zElsqCR+cs3WQhXCSbOnmZa2l3h2MMh6Ouzp3Hg=;
+	s=korg; t=1793826820;
+	bh=eVKXrLFH0bmMx4r4EadxYf13QlO6QFDwhqyYhYdRFBA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HsgauYhwnw5joP34AMgOb8qC+xiUp63xcf0PEAGEaYqH5S1ODSiseuW/d3QdM57rb
-	 wnJmHe/4MPtfmQhBGzvUTgNkZROXuLMfR0riAzAmPTvT8h6ZBTfo0S/u+rRLRhB26A
-	 QtKpcefpCxQhsq9zKjqV59+gjCEsa4cFEAcCkb1o=
+	b=KmJ1DRPDtP0znmM6RXYnB0WvS6GaA7Gi5xDh1XQmNSMfqwzet1YRb2LcqumnxhBR8
+	 Vb85wTfpee7ZBHlBG/jwbvL4/D1x+m1DpCx5ktFP2reL0n3VJERnlLDGAkmNs7vSbk
+	 vhr3DjaBAZgaBjZs10SCAA3V4pjxuvt3KRYWadBg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -44,9 +44,9 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Josef Bacik <josef@toxicpanda.com>,
 	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 027/547] io_uring/io-wq: dont strand work when a worker exits
-Date: Wed,  4 Nov 2026 16:03:31 -0500
-Message-ID: <20261104211039.126488618@linuxfoundation.org>
+Subject: [PATCH 7.3 028/547] io_uring/io-wq: dont exit with a creation pending
+Date: Wed,  4 Nov 2026 16:03:32 -0500
+Message-ID: <20261104211039.152278003@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -70,106 +70,75 @@ Content-Transfer-Encoding: 8bit
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit ad41f325be1271b22d99353819c90f0d5e45acc8 ]
+[ Upstream commit e231d2e8f80d3649ecd3851b7f2abdfbe606c04b ]
 
-A worker exits if its idle timeout fired and it isn't the last one, if
-its affinity was changed, or if the wq is marked exit-on-idle. It decides
-so after it found the work list empty, and until io_worker_exit() is
-through it stays on the free list and in ->nr_running:
+A worker that is the last one to go to sleep while work is pending asks
+for another worker. io_wq_dec_running() bumps ->nr_running on behalf of
+the new worker and queues create_worker_cb() as task_work for the owner
+of the io-wq. Until that has run, everybody else takes it that a worker
+is running which is going to look after the work list: io_wq_enqueue()
+doesn't create one, and other workers that go to sleep don't find
+themselves to be the last.
 
-worker                                io_wq_enqueue()
-io_acct_run_queue() == false
-                                      queues work
-                                      io_acct_activate_free_worker()
-                                        wake_up_process(worker)
-                                      // found one, nothing to create
-acct->nr_workers--
-break
+If the worker that made the request exits, io_worker_exit() cancels the
+task_work, and io_worker_cancel_cb() drops ->nr_running without a look at
+the work list:
+
+worker A                   worker B                 io_wq_enqueue()
+blocks, work is pending
+  nr_running++
+  queues create_worker_cb()
+wakes, handles the work
+idle timeout, decides to exit
+                           picks up work 1
+                                                    queues work 2
+                                                    B is on the free list
+                                                    still: wakes B
+                           work 1 blocks
+                             nr_running 2 -> 1
 io_worker_exit()
+  io_worker_cancel_cb()
+    nr_running 1 -> 0
 
-Nobody is going to look at the work. If other workers exist, it has to
-wait until one of them finishes what it is blocked on or hits its idle
-timeout. If not, which is possible for the affinity and the exit-on-idle
-case, it sits there until something else is queued. For exit-on-idle it
-takes a task that closes its last ring and sets up a new one while the
-workers are on their way out.
+Work 2 has to wait for work 1, although there is room for more workers.
+It takes an owner that doesn't get around to run its task_work for the
+time of the idle timeout, less if the worker exits because its affinity
+was changed or the io-wq is marked exit-on-idle.
 
-Make the worker take itself off the free list when it gives up its
-->nr_workers slot, then leave ->nr_running, and only then take the final
-look at the work list. That look and queueing work are both done under
-acct->lock, so either the worker sees the work and stays, or the enqueue
-side sees that the worker is gone and wakes or creates another one. If it
-wants to stay and finds that its slot has been taken, a worker has been
-created in its place, which is going to look at the work list, and it can
-leave after all.
+Let the worker stay around until its request has been dealt with. Only
+the worker itself sets ->create_state, so it can't be set behind its
+back once it has decided to leave.
 
-Fixes: 38aa434ab933 ("io_uring/io-wq: add exit-on-idle state")
-Fixes: 05c5f4ee4da7 ("io-wq: get rid of FIXED worker flag")
+Fixes: 1d5f5ea7cb7d ("io-wq: remove worker to owner tw dependency")
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Link: https://patch.msgid.link/20261015-b4-io-uring-fixes-v1-11-c1556f5d7bf5@toxicpanda.com
+Link: https://patch.msgid.link/20261015-b4-io-uring-fixes-v1-12-c1556f5d7bf5@toxicpanda.com
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- io_uring/io-wq.c | 36 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 35 insertions(+), 1 deletion(-)
+ io_uring/io-wq.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index 38fcccf389936..4230a8ca7d8a3 100644
+index 4230a8ca7d8a3..0120ec40effad 100644
 --- a/io_uring/io-wq.c
 +++ b/io_uring/io-wq.c
-@@ -699,6 +699,35 @@ static void io_worker_handle_work(struct io_wq_acct *acct,
- 	} while (1);
- }
- 
-+/*
-+ * The worker has decided to exit, and has given up its ->nr_workers slot and
-+ * its place on the free list. io_wq_enqueue() may have picked it from that
-+ * list, or seen it running, after it last looked at the work list. Leave
-+ * ->nr_running as well and check again. Returns false if the worker has to
-+ * stay.
-+ */
-+static bool io_worker_retire(struct io_wq_acct *acct, struct io_worker *worker)
-+{
-+	/* turns io_wq_dec_running() and the scheduler hooks into no-ops */
-+	clear_bit(IO_WORKER_F_UP, &worker->flags);
-+	atomic_dec(&acct->nr_running);
-+	if (!io_acct_run_queue(acct))
-+		return true;
-+	raw_spin_unlock(&acct->lock);
-+
-+	raw_spin_lock(&acct->workers_lock);
-+	if (acct->nr_workers >= acct->max_workers) {
-+		/* a worker was created in our place, the work is its business */
-+		raw_spin_unlock(&acct->workers_lock);
-+		return true;
-+	}
-+	acct->nr_workers++;
-+	raw_spin_unlock(&acct->workers_lock);
-+	atomic_inc(&acct->nr_running);
-+	set_bit(IO_WORKER_F_UP, &worker->flags);
-+	return false;
-+}
-+
- static int io_wq_worker(void *data)
- {
- 	struct io_worker *worker = data;
-@@ -736,9 +765,14 @@ static int io_wq_worker(void *data)
- 		if ((last_timeout && (exit_mask || acct->nr_workers > 1)) ||
- 		    test_bit(IO_WQ_BIT_EXIT_ON_IDLE, &wq->state)) {
+@@ -761,9 +761,13 @@ static int io_wq_worker(void *data)
+ 		 * idle-exit, drop the worker as well. This is used to avoid
+ 		 * keeping io-wq workers around for tasks that no longer have
+ 		 * any active io_uring instances.
++		 * Not as long as a request of ours for another worker is
++		 * pending, though. It is accounted as a running worker, which
++		 * others rely on, and io_worker_exit() would cancel it.
+ 		 */
+-		if ((last_timeout && (exit_mask || acct->nr_workers > 1)) ||
+-		    test_bit(IO_WQ_BIT_EXIT_ON_IDLE, &wq->state)) {
++		if (((last_timeout && (exit_mask || acct->nr_workers > 1)) ||
++		     test_bit(IO_WQ_BIT_EXIT_ON_IDLE, &wq->state)) &&
++		    !test_bit(0, &worker->create_state)) {
  			acct->nr_workers--;
-+			if (test_and_clear_bit(IO_WORKER_F_FREE, &worker->flags))
-+				hlist_nulls_del_init_rcu(&worker->nulls_node);
- 			raw_spin_unlock(&acct->workers_lock);
- 			__set_current_state(TASK_RUNNING);
--			break;
-+			if (io_worker_retire(acct, worker))
-+				break;
-+			last_timeout = false;
-+			continue;
- 		}
- 		last_timeout = false;
- 		__io_worker_idle(acct, worker);
+ 			if (test_and_clear_bit(IO_WORKER_F_FREE, &worker->flags))
+ 				hlist_nulls_del_init_rcu(&worker->nulls_node);
 -- 
 2.53.0
 
