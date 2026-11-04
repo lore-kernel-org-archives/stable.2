@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818080;
-	b=BxVLqQcxGMPGtjwS1SHXeTuHw9auZTvo054BDGsz8Uo8soRt1yg7lmRiPvde7JPhRc9W
-	 qK3uMVAT9Qz/h0vYrt0B78K2uPHccMQKACJOfTqxPLnW1h31OkUhAsuYixLlYKtvARlSZ
-	 F3vEmxdmKkaEa7zVC6muQm+MxR3du8+mWTg+Sk1vXEZe4FchNCiINyH/omNGHBimu146R
-	 s0P4keC0LP7rjc0gh8oz6E1PJloIW0HlPX0csDEpGPLDu8FS8AiKhD6MM2s1aSfrGGZ2E
-	 pdcxqFK15SHvATn4I0AFnMzWSCBWABSuSvfbqUO3/gepZaDtI7WALq9tBLeOU0hi3Lw==
+	t=1793818165;
+	b=5URg5RN2eB26MUOI0SYNxMsQQQh+UiLGd7SJkxAkXCBSccbjmA3yoB/F55JKS9jszn6h
+	 eOYabhkhxvGVGL9WeQnMK6EN4ua8dVjF5PLc0fCQomeWJKknhvRd2Z1mXcphIhlLEte6f
+	 4hwMAglj+T2ahlcPLN04toAWbhycokbA/y23F0tKUXv0veFZnYKqJJuN5qfGRx0XZ3lJc
+	 UXcOV51M4nWSsRBRyzj3uktkWvriXvvc6gNZaDazroC9+dfhSeBenSfL8VwYflUsaeE7g
+	 0IgrcVDw2KH0De/+a+vHRII7tEA50iAbByw1KIhLvhM7NMKNpQVSQjapVFVgLMo4vWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818080;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818165;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=hBt+JTkYqpKt/XKocjBqDqUusNdtyXCreI1EAFHlfCk=;
-	b=ZiQQnjoiZEZrGzqTnUuLrlvZl7erZwdDr110srmdVRx/TR7UM3ecN0h3ld0RuGr/LynF
-	 AWGcXTOb2GgsU7Zy+Bzt4ESoARPyp1Cdx7Rl58MMn2q1JtdNaDJdprxakn/S3ayUnYiiA
-	 DIx/sllUVF3T5zCXqWliXawKqigs497yREVV3EhN6d2ZOr6vezgoyidjTFvH8DAZZmWO3
-	 e5iA6idf7yJT+HRqOXnL5qI87OBqrv5DvIqtafJOQjWUDHhZXWgLPeUPmmvLuwj95lOHD
-	 E4cP1xtEXWyE3TqKIJjE4P1YrEw5aJf3PDykbcxrA//PekMtIQnDXb6CgVJQ8CbQG/A==
+	bh=HHSEIMn7jfH6DsPOb9P6T+k/rT+kDQp6noWPJyq76Do=;
+	b=OQVeo+x3Lfd1wWi+mNay1l7xTZz32aXdbfxIFNpDrgt4gdNieCflsgpdtt6AZbsQoGJ0
+	 zylZ9sgcuMw3Xsmb2YZntDTcoJ13/sMYhIP48eavNU9wKMBMu+39m5QJIyyX3W3kiumsb
+	 IhhJDAGUOfFTDqhaRa5keIoC8aaGcMmQ7Ls89XIAhYmN2hdetYU+kxLtl0kOmS44O1zh/
+	 RBNCdo2/kw6UcFQsMh9k0Pc2S5VpsPIcRRjW57+PME3YasWAK58togFRx79GV+CkXAqN8
+	 zoP4S2ks8lwMSj0HE0t4AWEDrPQFIE/7rqT2dMqs2kP20TD2mJXTnbnTKGVU+5IAR4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=u1x4o5iN;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ECaL7JN6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6B2606A335
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:47:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260256082BC1
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:49:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=u1x4o5iN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65D8C1F000C1;
-	Wed,  4 Nov 2026 18:47:59 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ECaL7JN6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CB111F00ADC;
+	Wed,  4 Nov 2026 18:49:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793818079;
-	bh=hBt+JTkYqpKt/XKocjBqDqUusNdtyXCreI1EAFHlfCk=;
+	s=korg; t=1793818165;
+	bh=HHSEIMn7jfH6DsPOb9P6T+k/rT+kDQp6noWPJyq76Do=;
 	h=Subject:To:Cc:From:Date;
-	b=u1x4o5iNUuOQaPSHRqKu6iJXnfQxJDIPvmzDkh7szZlwF2j61f+mG42tVNF/C5kqE
-	 qQKmmF+gzx660f38saZbaxY5epro+pQ6NzpyMGxZOMtqgXcuL0gDsmq6ZTpd+fhSLZ
-	 xTBH3v8s9nrKJK6u0AX8z0HD9K6Ds3XmBDjaw8LY=
-Subject: FAILED: patch "[PATCH] NFS/localio: detect a short read or write before the iterator" failed to apply to 6.18-stable tree
-To: snitzer@kernel.org,anna.schumaker@hammerspace.com
+	b=ECaL7JN6sAwW2Qei6nCBtnzFhHN9GsyEA3hQNswM4u+38K9e4ve92/hM1lAMhrG5f
+	 w+i6+oxhoRVMXgHQEtWHAv9a6gcHGV0x9HSNAGgz3TRcLbKGwXShXVRLcJdc9YMTL6
+	 EOAUrNsYVPD8p+75wXXfFpfMpt2691kJcrKkj6Zs=
+Subject: FAILED: patch "[PATCH] NFSD: Destroy a recalled delegation the client does not hold" failed to apply to 6.18-stable tree
+To: cel@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:47:58 -0500
-Message-ID: <2026110458-dreamt-steering-e6da@gregkh>
+Date: Wed, 04 Nov 2026 13:49:23 -0500
+Message-ID: <2026110423-causing-jaws-04ab@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x db3ca539c1142d2c5380c5dbd3154ab7bb1c7d77
+git cherry-pick -x bbfa823f624d41e85ebca929ac77dc2182cadfed
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110458-dreamt-steering-e6da@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110423-causing-jaws-04ab@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,103 +79,383 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From db3ca539c1142d2c5380c5dbd3154ab7bb1c7d77 Mon Sep 17 00:00:00 2001
-From: Mike Snitzer <snitzer@kernel.org>
-Date: Mon, 28 Sep 2026 11:54:26 -0400
-Subject: [PATCH] NFS/localio: detect a short read or write before the iterator
- has moved
+From bbfa823f624d41e85ebca929ac77dc2182cadfed Mon Sep 17 00:00:00 2001
+From: Chuck Lever <cel@kernel.org>
+Date: Sun, 2 Aug 2026 13:04:35 -0400
+Subject: [PATCH] NFSD: Destroy a recalled delegation the client does not hold
 
-nfs_local_call_read() and nfs_local_call_write() issue a misaligned
-DIO as up to three segments and must stop at the first short one, or
-the next segment lands at the wrong file offset.  They test for that
-by comparing the bytes transferred against iov_iter_count() of the
-segment, read after read_iter() or write_iter() has advanced the
-iterator, when the count is the residual rather than the request:
+A client that answers CB_RECALL with NFS4ERR_BADHANDLE or
+NFS4ERR_BAD_STATEID has no record of the delegation, so the
+FREE_STATEID that clears it from cl_revoked never arrives. Every later
+SEQUENCE reply carries SEQ4_STATUS_RECALLABLE_STATE_REVOKED, and the
+client loops issuing TEST_STATEID.
 
-    before the call:  count == expected
-    after the call:   count == expected - status
+Destroy such a delegation when it is reaped rather than revoking it
+onto cl_revoked. RFC 8881 Section 20.2.4 completes the recall at the
+reply when its status is neither NFS4_OK nor NFS4ERR_DELAY, so a
+rejected recall leaves nothing to revoke. An administrative revoke
+keeps that path, since NFS4ERR_ADMIN_REVOKED reports it. A destroyed
+stateid returns NFS4ERR_BAD_STATEID instead of NFS4ERR_DELEG_REVOKED. A
+client that rejects the recall but still holds the delegation gets no
+notice that its state was revoked.
 
-The test is therefore status < expected - status, and it fires only
-when less than half of the segment was transferred.  A short I/O that
-covers between 50% and 99% of a segment slips through: the loop moves
-on with ki_pos advanced by the short amount, the next segment is
-issued at the wrong offset, and the header's byte count is
-over-reported to the caller.  A write that slips through also never
-sets NFS_CONTEXT_WRITE_SYNC, which is what makes the writes that
-follow a short one synchronous.
+CB_RECALL can outrun the reply that granted the delegation, so honor
+a rejection only once the client has seen that grant. Per RFC 8881
+Section 2.10.6.3, retirement of the slot that carried the grant is that
+proof; retry until then, and revoke when the retries lapse.
 
-Take the segment's count before issuing it and compare against that.
+Fixes: 3bd64a5ba171 ("nfsd4: implement SEQ4_STATUS_RECALLABLE_STATE_REVOKED")
+Cc: stable@vger.kernel.org # 6.14.x
+Link: https://patch.msgid.link/20260802-nfsd-deleg-destroy-badhandle-v1-8-323aa7196055@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
 
-This is the same defect that commit 250ec14932d5 ("nfsd: fix
-partial-write detection in nfsd_direct_write") fixed in NFSD's version
-of this loop.
-
-Fixes: c817248fc831 ("nfs/localio: add proper O_DIRECT support for READ and WRITE")
-Fixes: d0497dd27452 ("nfs/localio: backfill missing partial read support for misaligned DIO")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Mike Snitzer <snitzer@kernel.org>
-Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
-
-diff --git a/fs/nfs/localio.c b/fs/nfs/localio.c
-index 63c38dea50cc..9fcae2391b72 100644
---- a/fs/nfs/localio.c
-+++ b/fs/nfs/localio.c
-@@ -674,6 +674,8 @@ static void nfs_local_call_read(struct work_struct *work)
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index 58e300c2a5ef..3283b2225b76 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -94,6 +94,8 @@ static void nfsd4_end_grace(struct nfsd_net *nn);
+ static void _free_cpntf_state_locked(struct nfsd_net *nn, struct nfs4_cpntf_state *cps);
+ static void nfsd4_file_hash_remove(struct nfs4_file *fi);
+ static void deleg_reaper(struct nfsd_net *nn);
++static void nfsd4_drop_revoked_stid(struct nfs4_stid *s)
++	__releases(&s->sc_client->cl_lock);
  
- 	n_iters = atomic_read(&iocb->n_iters);
- 	for (int i = 0; i < n_iters ; i++) {
-+		size_t expected;
+ static const struct lease_manager_operations nfsd_lease_mng_ops;
+ 
+@@ -1281,6 +1283,9 @@ __alloc_init_deleg(struct nfs4_client *clp, struct nfs4_file *fp,
+ 	dp->dl_type = dl_type;
+ 	dp->dl_retries = 1;
+ 	dp->dl_recalled = false;
++	dp->dl_recall_rejected = false;
++	dp->dl_recall_grant.valid = false;
++	dp->dl_recall_grant.retired_at_send = false;
+ 	get_nfs4_file(fp);
+ 	dp->dl_stid.sc_file = fp;
+ 	nfsd4_init_cb(&dp->dl_recall, dp->dl_stid.sc_client,
+@@ -1565,27 +1570,22 @@ static void destroy_delegation(struct nfs4_delegation *dp)
+ }
+ 
+ /**
+- * revoke_delegation - perform nfs4 delegation structure cleanup
+- * @dp: pointer to the delegation
++ * revoke_delegation - dispose of a delegation the server has revoked
++ * @dp: delegation to dispose of
+  *
+- * This function assumes that it's called either from the administrative
+- * interface (nfsd4_revoke_states()) that's revoking a specific delegation
+- * stateid or it's called from a laundromat thread (nfsd4_landromat()) that
+- * determined that this specific state has expired and needs to be revoked
+- * (both mark state with the appropriate stid sc_status mode). It is also
+- * assumed that a reference was taken on the @dp state. This function
+- * consumes that reference.
++ * The caller holds a reference on @dp, which this function consumes.
++ * On NFSv4.1 and newer, @dp's sc_status must already carry
++ * SC_STATUS_REVOKED or SC_STATUS_ADMIN_REVOKED.
+  *
+- * If this function finds that the @dp state is SC_STATUS_FREED it means
+- * that a FREE_STATEID operation for this stateid has been processed and
+- * we can proceed to removing it from recalled list. However, if @dp state
+- * isn't marked SC_STATUS_FREED, it means we need place it on the cl_revoked
+- * list and wait for the FREE_STATEID to arrive from the client. At the same
+- * time, we need to mark it as SC_STATUS_FREEABLE to indicate to the
+- * nfsd4_free_stateid() function that this stateid has already been added
+- * to the cl_revoked list and that nfsd4_free_stateid() is now responsible
+- * for removing it from the list. Inspection of where the delegation state
+- * in the revocation process is protected by the clp->cl_lock.
++ * @dp is parked on the client's cl_revoked list to await a FREE_STATEID.
++ * Where none can arrive, @dp is destroyed here instead: FREE_STATEID has
++ * already freed it, or the client rejected the recall with
++ * NFS4ERR_BADHANDLE or NFS4ERR_BAD_STATEID and holds no record of the
++ * delegation. NFS4ERR_ADMIN_REVOKED still prompts one, so an
++ * administrative revoke waits on cl_revoked.
++ *
++ * Context: Takes and releases the client's cl_lock; may sleep after
++ *          dropping it.
+  */
+ static void revoke_delegation(struct nfs4_delegation *dp)
+ {
+@@ -1603,6 +1603,19 @@ static void revoke_delegation(struct nfs4_delegation *dp)
+ 		list_del_init(&dp->dl_recall_lru);
+ 		goto out;
+ 	}
++	if (dp->dl_recall_rejected &&
++	    !(dp->dl_stid.sc_status & SC_STATUS_ADMIN_REVOKED)) {
++		/*
++		 * SC_STATUS_CLOSED, set under cl_lock, makes a racing
++		 * FREE_STATEID bail out rather than drop this reference
++		 * too. The put releases what cl_revoked would have held.
++		 */
++		dp->dl_stid.sc_status |= SC_STATUS_CLOSED;
++		spin_unlock(&clp->cl_lock);
++		nfs4_put_stid(&dp->dl_stid);
++		destroy_unhashed_deleg(dp);
++		return;
++	}
+ 	list_add(&dp->dl_recall_lru, &clp->cl_revoked);
+ 	dp->dl_stid.sc_status |= SC_STATUS_FREEABLE;
+ out:
+@@ -2897,11 +2910,18 @@ __destroy_client(struct nfs4_client *clp)
+ 		list_del_init(&dp->dl_recall_lru);
+ 		destroy_unhashed_deleg(dp);
+ 	}
++	/*
++	 * A CB_RECALL reply can release revoked delegations concurrently:
++	 * nfsd4_shutdown_callback() has not run yet.
++	 */
++	spin_lock(&clp->cl_lock);
+ 	while (!list_empty(&clp->cl_revoked)) {
+ 		dp = list_entry(clp->cl_revoked.next, struct nfs4_delegation, dl_recall_lru);
+-		list_del_init(&dp->dl_recall_lru);
+-		nfs4_put_stid(&dp->dl_stid);
++		/* this function drops ->cl_lock */
++		nfsd4_drop_revoked_stid(&dp->dl_stid);
++		spin_lock(&clp->cl_lock);
+ 	}
++	spin_unlock(&clp->cl_lock);
+ 	while (!list_empty(&clp->cl_openowners)) {
+ 		oo = list_entry(clp->cl_openowners.next, struct nfs4_openowner, oo_perclient);
+ 		nfs4_get_stateowner(&oo->oo_owner);
+@@ -6071,6 +6091,60 @@ bool nfsd_wait_for_delegreturn(struct svc_rqst *rqstp, struct inode *inode)
+ 	return timeo > 0;
+ }
+ 
++static bool nfsd4_recall_grant_slot_retired(struct nfs4_delegation *dp)
++{
++	struct nfs4_client *clp = dp->dl_stid.sc_client;
++	struct nfsd_net *nn = net_generic(clp->net, nfsd_net_id);
++	struct nfsd4_session *ses;
++	struct nfsd4_sessionid sid;
++	bool retired = false;
++	void *entry;
 +
- 		if (iocb->iter_is_dio_aligned[i]) {
- 			iocb->kiocb.ki_flags |= IOCB_DIRECT;
- 			/* Only use AIO completion if DIO-aligned segment is last */
-@@ -684,6 +686,8 @@ static void nfs_local_call_read(struct work_struct *work)
- 		} else
- 			iocb->kiocb.ki_flags &= ~IOCB_DIRECT;
++	if (!dp->dl_recall_grant.valid)
++		return false;
++
++	/*
++	 * gen_sessionid() composes a sessionid from the client's clientid
++	 * and a sequence counter, so the sequence alone identifies the
++	 * granting session.
++	 */
++	sid.clientid = clp->cl_clientid;
++	sid.sequence = dp->dl_recall_grant.sessionid_seq;
++	sid.reserved = 0;
++
++	/*
++	 * A missing session does not prove the client saw the grant: a
++	 * DESTROY_SESSION unhashes its own session before the reply to
++	 * that compound is encoded.
++	 */
++	spin_lock(&nn->client_lock);
++	ses = __find_in_sessionid_hashtbl((struct nfs4_sessionid *)&sid,
++					  clp->net);
++	entry = ses ? xa_load(&ses->se_slots, dp->dl_recall_grant.slotid) : NULL;
++	if (xa_is_value(entry)) {
++		/*
++		 * A slot is freed only once the client has acknowledged
++		 * the smaller slot table, which it cannot do while a
++		 * request on that slot is outstanding.
++		 */
++		retired = true;
++	} else if (entry) {
++		struct nfsd4_slot *slot = entry;
++
++		/*
++		 * A reactivated slot was freed and rebuilt, so the same
++		 * acknowledgment applies. The seqid test errs toward
++		 * revoking: a rebuilt slot restarting at seqid 1 matches
++		 * an old grant.
++		 */
++		retired = (slot->sl_flags & NFSD4_SLOT_REUSED) ||
++			  ((slot->sl_flags & NFSD4_SLOT_INITIALIZED) &&
++			   slot->sl_seqid != dp->dl_recall_grant.seqid);
++	}
++	spin_unlock(&nn->client_lock);
++	return retired;
++}
++
+ static bool nfsd4_cb_recall_prepare(struct nfsd4_callback *cb)
+ {
+ 	struct nfs4_delegation *dp = cb_to_delegation(cb);
+@@ -6092,9 +6166,37 @@ static bool nfsd4_cb_recall_prepare(struct nfsd4_callback *cb)
+ 		list_add_tail(&dp->dl_recall_lru, &nn->del_recall_lru);
+ 	}
+ 	spin_unlock(&nn->deleg_lock);
++
++	dp->dl_recall_grant.retired_at_send =
++			nfsd4_recall_grant_slot_retired(dp);
+ 	return true;
+ }
  
-+		/* read_iter() advances the iterator: measure it beforehand */
-+		expected = iov_iter_count(&iocb->iters[i]);
- 		scoped_with_creds(filp->f_cred)
- 			status = filp->f_op->read_iter(&iocb->kiocb, &iocb->iters[i]);
++/*
++ * cl_lock orders this against a laundromat reaping @dp: either
++ * revoke_delegation() observes dl_recall_rejected and destroys @dp, or
++ * it reached cl_revoked first and @dp is released here instead.
++ */
++static void nfsd4_deleg_recall_rejected(struct nfs4_delegation *dp)
++{
++	struct nfs4_client *clp = dp->dl_stid.sc_client;
++
++	spin_lock(&clp->cl_lock);
++	if (dp->dl_stid.sc_status & (SC_STATUS_CLOSED | SC_STATUS_FREED |
++				     SC_STATUS_ADMIN_REVOKED)) {
++		spin_unlock(&clp->cl_lock);
++		return;
++	}
++	if (dp->dl_stid.sc_status & SC_STATUS_FREEABLE) {
++		dp->dl_stid.sc_status |= SC_STATUS_CLOSED;
++		/* this function drops ->cl_lock */
++		nfsd4_drop_revoked_stid(&dp->dl_stid);
++		return;
++	}
++	dp->dl_recall_rejected = true;
++	spin_unlock(&clp->cl_lock);
++}
++
+ static int nfsd4_cb_recall_done(struct nfsd4_callback *cb,
+ 		struct rpc_task *task)
+ {
+@@ -6102,27 +6204,33 @@ static int nfsd4_cb_recall_done(struct nfsd4_callback *cb,
  
-@@ -691,7 +695,7 @@ static void nfs_local_call_read(struct work_struct *work)
- 			continue;
- 		/* Break on completion, errors, or short reads */
- 		if (nfs_local_pgio_done(iocb, status) || status < 0 ||
--		    (size_t)status < iov_iter_count(&iocb->iters[i])) {
-+		    (size_t)status < expected) {
- 			nfs_local_read_iocb_done(iocb);
- 			break;
+ 	trace_nfsd_cb_recall_done(&dp->dl_stid.sc_stateid, task);
+ 
+-	if (dp->dl_stid.sc_status)
+-		/* CLOSED or REVOKED */
+-		return 1;
+-
+ 	switch (task->tk_status) {
+ 	case 0:
+ 		return 1;
+ 	case -NFS4ERR_DELAY:
++		if (dp->dl_stid.sc_status)
++			/* CLOSED or REVOKED */
++			return 1;
+ 		rpc_delay(task, 2 * HZ);
+ 		return 0;
+ 	case -EBADHANDLE:
+ 	case -NFS4ERR_BAD_STATEID:
+ 		/*
+-		 * Race: client probably got cb_recall before open reply
+-		 * granting delegation.
++		 * Retirement of the granting slot proves the client saw
++		 * the grant. Trust the rejection only if the slot had
++		 * retired when this recall was sent.
+ 		 */
+-		if (dp->dl_retries--) {
++		if (dp->dl_recall_grant.retired_at_send) {
++			nfsd4_deleg_recall_rejected(dp);
++			return 1;
++		}
++		if (!dp->dl_stid.sc_status && dp->dl_retries--) {
++			dp->dl_recall_grant.retired_at_send =
++					nfsd4_recall_grant_slot_retired(dp);
+ 			rpc_delay(task, 2 * HZ);
+ 			return 0;
  		}
-@@ -890,7 +894,7 @@ static void nfs_local_call_write(struct work_struct *work)
- 	file_start_write(filp);
- 	n_iters = atomic_read(&iocb->n_iters);
- 	for (int i = 0; i < n_iters ; i++) {
--		size_t icount;
-+		size_t expected;
+-		fallthrough;
++		return 1;
+ 	default:
+ 		return 1;
+ 	}
+@@ -6716,9 +6824,25 @@ static bool nfsd4_want_deleg_timestamps(const struct nfsd4_open *open)
+ 	return open->op_deleg_want & OPEN4_SHARE_ACCESS_WANT_DELEG_TIMESTAMPS;
+ }
  
- 		if (iocb->iter_is_dio_aligned[i]) {
- 			iocb->kiocb.ki_flags |= IOCB_DIRECT;
-@@ -902,16 +906,17 @@ static void nfs_local_call_write(struct work_struct *work)
- 		} else
- 			iocb->kiocb.ki_flags &= ~IOCB_DIRECT;
++static void
++nfs4_delegation_record_grant_slot(struct nfs4_delegation *dp,
++				 const struct nfsd4_compound_state *cstate)
++{
++	const struct nfsd4_sessionid *sid;
++
++	if (!cstate->session)
++		return;
++	sid = (struct nfsd4_sessionid *)cstate->session->se_sessionid.data;
++	dp->dl_recall_grant.sessionid_seq = sid->sequence;
++	dp->dl_recall_grant.slotid = cstate->slot->sl_index;
++	dp->dl_recall_grant.seqid = cstate->slot->sl_seqid;
++	dp->dl_recall_grant.valid = true;
++}
++
+ static struct nfs4_delegation *
+-nfs4_set_delegation(struct nfsd4_open *open, struct nfs4_ol_stateid *stp,
+-		    struct svc_fh *parent)
++nfs4_set_delegation(struct nfsd4_open *open,
++		    const struct nfsd4_compound_state *cstate,
++		    struct nfs4_ol_stateid *stp, struct svc_fh *parent)
+ {
+ 	bool deleg_ts = nfsd4_want_deleg_timestamps(open);
+ 	struct nfs4_client *clp = stp->st_stid.sc_client;
+@@ -6808,6 +6932,14 @@ nfs4_set_delegation(struct nfsd4_open *open, struct nfs4_ol_stateid *stp,
+ 	dp = alloc_init_deleg(clp, fp, odstate, dl_type);
+ 	if (!dp)
+ 		goto out_delegees;
++
++	/*
++	 * Record the granting slot before kernel_setlease() makes @dp
++	 * visible to lease breakers. A conflicting open can drive
++	 * CB_RECALL to completion from that point on.
++	 */
++	nfs4_delegation_record_grant_slot(dp, cstate);
++
+ 	if (stp->st_stid.sc_export)
+ 		dp->dl_stid.sc_export = exp_get(stp->st_stid.sc_export);
  
-+		/* write_iter() advances the iterator: measure it beforehand */
-+		expected = iov_iter_count(&iocb->iters[i]);
- 		scoped_with_creds(filp->f_cred)
- 			status = filp->f_op->write_iter(&iocb->kiocb, &iocb->iters[i]);
+@@ -6972,6 +7104,7 @@ nfs4_open_delegation(struct svc_rqst *rqstp, struct nfsd4_open *open,
+ 		     struct nfs4_ol_stateid *stp, struct svc_fh *currentfh,
+ 		     struct svc_fh *fh)
+ {
++	struct nfsd4_compoundres *resp = rqstp->rq_resp;
+ 	struct nfs4_openowner *oo = openowner(stp->st_stateowner);
+ 	bool deleg_ts = nfsd4_want_deleg_timestamps(open);
+ 	struct nfs4_client *clp = stp->st_stid.sc_client;
+@@ -7008,7 +7141,7 @@ nfs4_open_delegation(struct svc_rqst *rqstp, struct nfsd4_open *open,
+ 		default:
+ 			goto out_no_deleg;
+ 	}
+-	dp = nfs4_set_delegation(open, stp, parent);
++	dp = nfs4_set_delegation(open, &resp->cstate, stp, parent);
+ 	if (IS_ERR(dp))
+ 		goto out_no_deleg;
  
- 		if (status == -EIOCBQUEUED)
- 			continue;
- 		/* Break on completion, errors, or short writes */
--		icount = iov_iter_count(&iocb->iters[i]);
- 		if (nfs_local_pgio_done(iocb, status) || status < 0 ||
--		    (size_t)status < icount) {
--			if ((size_t)status < icount) {
-+		    (size_t)status < expected) {
-+			if ((size_t)status < expected) {
- 				struct nfs_lock_context *ctx =
- 					iocb->hdr->req->wb_lock_context;
+@@ -10302,6 +10435,7 @@ nfsd_get_dir_deleg(struct nfsd4_compound_state *cstate,
+ 	dp = alloc_init_dir_deleg(clp, fp);
+ 	if (!dp)
+ 		goto out_delegees;
++	nfs4_delegation_record_grant_slot(dp, cstate);
+ 	if (cstate->current_fh.fh_export)
+ 		dp->dl_stid.sc_export =
+ 			exp_get(cstate->current_fh.fh_export);
+diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
+index 42d3320622eb..ff1c9fa731aa 100644
+--- a/fs/nfsd/state.h
++++ b/fs/nfsd/state.h
+@@ -292,7 +292,8 @@ struct nfsd4_cb_notify {
+  * If the server attempts to recall a delegation and the client doesn't do so
+  * before a timeout, the server may also revoke the delegation. In that case,
+  * the object will either be destroyed (v4.0) or moved to a per-client list of
+- * revoked delegations (v4.1+).
++ * revoked delegations (v4.1+). A v4.1+ client that rejects the recall holds
++ * no record of the delegation, so the object is destroyed rather than listed.
+  *
+  * This object is a superset of the nfs4_stid.
+  */
+@@ -308,9 +309,19 @@ struct nfs4_delegation {
+ 	int			dl_retries;
+ 	struct nfsd4_callback	dl_recall;
+ 	bool			dl_recalled;
++	bool			dl_recall_rejected;
+ 	bool			dl_written;
+ 	bool			dl_setattr;
  
++	/* Forward-channel slot that carried the granting request */
++	struct {
++		u32			sessionid_seq;
++		u32			slotid;
++		u32			seqid;
++		bool			valid;
++		bool			retired_at_send;
++	} dl_recall_grant;
++
+ 	union {
+ 		/* for CB_GETATTR */
+ 		struct nfs4_cb_fattr    dl_cb_fattr;
 
