@@ -1,49 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793796055;
-	b=wCnt9nzHa1LXN4n1Bv1P62e4xEa4kM3aeh+6wG+Q1naT/AnHiy3RPdQymLfIR3+9kRiZ
-	 Lnum0c3W70UkfNu9GaZzXsW6MU35gwoQpEufh2D1jsqXWDlmOyxwLqFK6Jt8ZipVRLVYt
-	 SYkg/ciGSqJgPUt0zGvmIwfu2im2pUvJzETqNUwltcgdFGQT+TAdwywpDMXP0OtKYzV44
-	 IknAkEnkN++dIDi/s7l+SO74HNsA1YrqIbAYAiWQokxrSJQuKyJCuO7H3ZnurjzSQcsHi
-	 qzAaCmCzQhSgmhZpIu0WfKHCMUdmwi5xdl4Nds2wKWgVWNA5oKztbffF70zjmYUQU5Q==
+	t=1793796250;
+	b=16bElp2v+8HJzZGNaJjxS8SKbcoJpj3AsAkasZkBVtxesvkO4BU5/6L9jS7HLhgEqv8s
+	 Q9QzpENKRBBZeRUUe+J5e1N4g7n1xJEDmEbJyrAyWY9UlE8YUsXOOrq0tChBJUtfXvX3N
+	 aqB2x6VSj0RCNuVPM4IqLG2GNESwNhcRpoxNFjxT0jTGs3qgIfyWGCyhipvzL993Wqz5P
+	 MOnlDA6SvVqjt4gZNz3+oZRyBb0g0uTM7BPdkKqTlzaVDJA6v2+S9oGLGyRVAEhJk/HdZ
+	 Y0N6m4UYdVjyHy6/oeqZQ9/sii/R+dZP+nsoR4k/F0rBcI3Rh00FADes+xQzLxVrwEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793796055;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Qu7Yw+WD0W+wi9N7j2myB2cji10J5fDY+ApcA841Sz0=;
-	b=UQHZMRNFxbFa2q1G5Zjx/LP3GHwv+7RaoUOeJ+1fpuxjks3zaAvobyjAC1W4h0D9pYQ6
-	 pXLlIOC7aBOpQCVxolUCM6s0BZ5ZBMzrz1C3UCrgEWLAs9KBTTTbswN9HO21c4P3+fsu3
-	 81+nvW/m++OktjkBWb2nYYQn2nBPgKSYzhdUuUxHVvHpw9YwGTpe9GY6PihnIjaLHl3W+
-	 Y7oC/xuHAyEim91LWfeCj3+Cd6LDy38GpoWVYzvLy6su2/IF38+SSVsZML9gpc3bkVUbG
-	 UDagzaUiGVGrcktnnWS/X9c1gzY2WeolIKE5IP7TUEN6maiSzUkFjDQKgF9L8aVeZ5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793796250;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=WwaC4b0cLVSF727gUMsJoTLQTIaBl/Xdkq7vP7dh0BA=;
+	b=xwpUvptUxVJHRA8rXetkrSaRVB1ChcdqxshmHNVn0Mh21SD2V05/1iw2jOI+8p+48iyS
+	 ozOawUk642+oKkBYN6GFZLlBPVzL5SrrygULT5BEZKgpJgL46RPXJiXTiuEfKqYo1vFGn
+	 3ZfRZAZJLWw8jvmTM+/YNKUTIYpXKRyiY5cyP7oZ3kNJ+378iGQ4xRypn5C5vCD6AcE2n
+	 zoSV77PldNWpt35kfmMRoNeaUDmoGK62fx7HKIFPpuis4iawfSS5LQ+DN8fLMqQt70fjw
+	 lZGsV4kx8cY6R4EES1oeBENJla0trPLhOOK7ZxKDCsHbuPrPlzcMC7WePoDG7j/gtZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="Z8d/Rftc";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CA6AF606A33C;
-	Wed,  4 Nov 2026 12:40:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA6AF606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Mhyf3BE6;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IRmQPJhP;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="bpOP/wvs";
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Qsc0Kgxm;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8A6606A32F
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 12:44:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A8A6606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Z8d/Rftc
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B39E42247;
-	Wed,  4 Nov 2026 04:40:43 -0800 (PST)
-Received: from [10.57.15.10] (unknown [10.57.15.10])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9316B3F628;
-	Wed,  4 Nov 2026 04:40:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793796046; bh=5+mieZXs7MNZ6sx1ZeGlRyjEfTaZXcaiheHN4KGpcWE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Z8d/Rftc+Q2HeWZuWw7ukw5Gdmi0vl/xhp9ZizZjw5lfOEn+oQcL441mnR/5kg0cu
-	 i0U6AgxBZee+rjErsMfHAv0kHpCQqkVphcjRBIaN0pzAIt1E+1oN8jIAqoF6V/1Cv6
-	 SbR4JSBoLZVfaYUjz0XVmjAKT71XZPO4aLqMw0cs=
-Message-ID: <d7135fe4-5e92-4c42-8d6b-3afbc3b1bb33@arm.com>
-Date: Wed, 4 Nov 2026 12:40:42 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Mhyf3BE6;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IRmQPJhP;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=bpOP/wvs;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Qsc0Kgxm
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6E9BC21FA1;
+	Wed,  4 Nov 2026 12:43:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793796240; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WwaC4b0cLVSF727gUMsJoTLQTIaBl/Xdkq7vP7dh0BA=;
+	b=Mhyf3BE6NJeb/qk+/NhyS/IRZbTImpwO0Dthehtdt+sqCCqe/AZXy942JUPapgyQLxAgBt
+	wZruvANz5WKkby3Cuxa4nys9QAxt09gRWFpJ3XVWjFcEmbfbF+zpTkS85As7Jg0mZTvZtS
+	MMpbWdAq2AKfBEzazeNLQwSqCsYhFnI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793796240;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WwaC4b0cLVSF727gUMsJoTLQTIaBl/Xdkq7vP7dh0BA=;
+	b=IRmQPJhP/RnsnYsQyZrOKUJQM9c3jFVhocXzoUHrSelbWp/hb4B1S9cmI5X8TTXNRBZwaS
+	KlIqoatvOIt0XJBA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793796239; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WwaC4b0cLVSF727gUMsJoTLQTIaBl/Xdkq7vP7dh0BA=;
+	b=bpOP/wvsBq+FbQBilNbHf5zRLhlDuFkRo45IeelOELKNg5xneBtXczvRaI+mLQGxcnb0c4
+	MaLVm2Flc1ArH+0hBPyZjpk5/svInAoCk8lIK+hOYRCNwOjyJrq7SnKddkl7/LhWLRF427
+	ppRGOP6hJqOdv9eTLhWBNEubQQdw0jE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793796239;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WwaC4b0cLVSF727gUMsJoTLQTIaBl/Xdkq7vP7dh0BA=;
+	b=Qsc0Kgxm/wArigy8p0g/R2sQdvI7aJvHA6am9jUhI3UhIPfMgjEMAl8b2SeuzkesXphFWE
+	yl7+LOFUNCsZlzAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4535E134F0;
+	Wed,  4 Nov 2026 12:43:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 67JlCI8o62oafwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 04 Nov 2026 12:43:59 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id CA1C4B3B7; Wed, 04 Nov 2026 13:43:54 +0100 (CET)
+Date: Wed, 4 Nov 2026 13:43:54 +0100
+From: Jan Kara <jack@suse.cz>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: jack@suse.com, ritesh.list@gmail.com, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] ext2: preserve IOMAP_F_DIRTY for extending direct writes
+Message-ID: <jnqgrofg5eh4rvmpqr3wrhyimlux2cwtguj2o5d3tjzdaqq6nc@xsxxjpzmpomu>
+References: <20261029013616.97194-1-dennylin0707@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,138 +109,169 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma: swiotlb: Round restricted DMA pool size down to
- IO_TLB_SEGSIZE
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
- Michael Kelley <mhklinux@outlook.com>,
- "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: Claire Chang <tientzu@chromium.org>,
- Konrad Rzeszutek Wilk <konrad@kernel.org>, Giorgi Kobakhia
- <gkobakhi@asu.edu>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <CGME20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862@eucas1p1.samsung.com>
- <20261103155016.1107958-1-m.szyprowski@samsung.com>
- <MN2PR02MB686381EADCEECF16B23214D0D4692@MN2PR02MB6863.namprd02.prod.outlook.com>
- <8276a107-7115-48e3-a40a-2660fe1beaa5@samsung.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <8276a107-7115-48e3-a40a-2660fe1beaa5@samsung.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="hhurp2xrs3achqmx"
+Content-Disposition: inline
+In-Reply-To: <20261029013616.97194-1-dennylin0707@gmail.com>
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[multipart/mixed,text/plain,text/x-patch];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.com,gmail.com,vger.kernel.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,msgid.link:url,imap1.dmz-prg2.suse.org:helo,suse.cz:email];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	HAS_ATTACHMENT(0.00)[]
+X-Spam-Score: -12.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On 2026-11-04 7:37 am, Marek Szyprowski wrote:
-> On 03.11.2026 22:18, Michael Kelley wrote:
->> From: Marek Szyprowski <m.szyprowski@samsung.com> Sent: Tuesday, November 3, 2026 7:50 AM
->>> All other paths creating a swiotlb pool ensure that nslabs is a multiple
->>> of IO_TLB_SEGSIZE, and the swiotlb code relies on that. Since commit
->>> 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization") a
->>> restricted pool can have an arbitrary size taken from the device tree.
->>>
->>> If the pool size is not a multiple of IO_TLB_SEGSIZE, the last segment is
->>> partial and swiotlb_release_slots() reads mem->slots[index + nslabs],
->>> which is one past the end of the slots array when the freed buffer ends
->>> at the end of the pool:
->>>
->>>   BUG: KASAN: slab-out-of-bounds in swiotlb_release_slots
->>>   Read of size 2
->>>
->>> Round the pool size down to a multiple of IO_TLB_SEGSIZE, wasting a bit
->>> of memory, and warn about it.
->> I'm not familiar with the macro scenarios where a device has a
->> restricted pool specified in DT. But I wonder if it would be better to
->> round up instead of down. DT has specified that the device should
->> have a restricted DMA pool of a certain size, and rounding down gives
->> the device a smaller pool than was requested. Could DMA operations
->> then fail because of not having a large enough pool? Rounding down
->> also allows the pool to end up being size zero, which this patch
->> detects and results in a definite failure at device initialization time.
->>
->> What's the tradeoff in rounding up instead?The device restricted
->> pool at least as large as requested. Presumably, being larger than
->> requested doesn't cause any problems for the device or its driver.
->> The downside is using up to 256 KiB more system memory than
->> expected. In an embedded system with only a few MiB of system
->> memory, maybe that's a relatively big problem. I don't know the
->> scenarios well enough to judge whether using a bit more system
->> memory is better or worse than the device not having all the
->> restricted pool space it said it needed for DMA.
+
+--hhurp2xrs3achqmx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu 29-10-26 01:36:16, Hungyu Lin wrote:
+> ext2_iomap_begin() sets IOMAP_F_DIRTY for writes that may extend i_size,
+> but clears the flag after ext2_get_blocks(). When the write uses an
+> existing mapped block, iomap can then use FUA and skip
+> generic_write_sync(), even though ext2_dio_write_end_io() updates the
+> inode size. An O_DSYNC write can therefore return without persisting
+> the new size.
 > 
-> The main problem with enlarging the restricted pool is that the memory
-> has been already allocated (reserved) by the generic of_reserved_mem
-> code before the rmem_swiotlb_device_init() is called. There might be
-> even another reserved region just after the one being processed by
-> rmem_swiotlb_device_init(). The reserved region might be specified in
-> the device tree exactly, by pointing its base address and size. In
-> such case the rmem_swiotlb_device_init() really cannot do anything
-> else than using the provided already allocated region partially.
-> The only thing that might be improved is freeing the 'wasted' part
-> of the region back to the memory allocator if You think that
-> printing a warning is not enough.
+> For example, on a FUA-capable device, a 512-byte O_DIRECT|O_DSYNC write
+> at offset 512 into a fsynced one-byte file returns successfully and
+> extends the in-memory size to 1024, while an immediate read of the
+> on-disk inode still shows size 1. An explicit fsync persists the new
+> size.
+> 
+> Initialize iomap->flags before setting IOMAP_F_DIRTY so that the flag
+> survives and the required metadata synchronization takes place.
+> 
+> Fixes: fb5de4358e1a ("ext2: Move direct-io to use iomap")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-Realistically, the granularity of any physical memory protection system 
-is going to be based on at least 4KB pages, so I don't see much excuse 
-for any restricted pool not being aligned to at least the current 2KB 
-segment size - if anything I reckon we could just consider it a DT error 
-and fail the init rather than worry about rounding either way.
+Thanks for the fix. I've just move the setting of the IOMAP_F_DIRTY bit
+instead of moving the initialization. Functionally this is equivalent and
+the iomap modification is better localized that way (the resulting patch is
+attached).
 
-Note that freeing parts of a restricted pool for any other use would not 
-be a thing anyway, as they are by definition not a "reusable" region.
+								Honza
 
-Thanks,
-Robin.
->> Your commit message also mentions "wasting a bit of memory".
->> What is wasted in the round down case? The rounding down is
->> done before the pool memory is allocated. I would have thought
->> the wasting would occur in the round up case, where the restricted
->> pool is given more memory than the device said it needed.
->>
->> Michael
->>
->>> Reported-by: Giorgi Kobakhia <gkobakhi@asu.edu>
->>> Closes: https://lore.kernel.org/all/20261026032007.1957949-1-gkobakhi@asu.edu/
->>> Fixes: 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization")
->>> CC: stable@vger.kernel.org
->>> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
->>> ---
->>>   kernel/dma/swiotlb.c | 15 ++++++++++++++-
->>>   1 file changed, 14 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
->>> index 2c57b49ac7c0..a68f35192582 100644
->>> --- a/kernel/dma/swiotlb.c
->>> +++ b/kernel/dma/swiotlb.c
->>> @@ -2007,6 +2007,19 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
->>>   	 */
->>>   	if (!mem) {
->>>   		struct io_tlb_pool *pool;
->>> +		unsigned long aligned_nslabs = ALIGN_DOWN(nslabs, IO_TLB_SEGSIZE);
->>> +
->>> +		if (aligned_nslabs != nslabs) {
->>> +			dev_warn(dev, "Restricted DMA pool size %zu is not a multiple of %lu, rounding down to %lu bytes\n",
->>> +				 (size_t)rmem->size,
->>> +				 (unsigned long)IO_TLB_SEGSIZE << IO_TLB_SHIFT,
->>> +				 aligned_nslabs << IO_TLB_SHIFT);
->>> +			nslabs = aligned_nslabs;
->>> +		}
->>> +		if (!nslabs) {
->>> +			dev_err(dev, "Restricted DMA pool is too small\n");
->>> +			return -EINVAL;
->>> +		}
->>>
->>>   		mem = kzalloc_obj(*mem);
->>>   		if (!mem)
->>> @@ -2034,7 +2047,7 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
->>>
->>>   			mem->cc_shared = true;
->>>   			ret = set_memory_decrypted((unsigned long)phys_to_virt(rmem->base),
->>> -						   rmem->size >> PAGE_SHIFT);
->>> +						   (nslabs << IO_TLB_SHIFT) >> PAGE_SHIFT);
->>>   			if (ret) {
->>>   				dev_err(dev, "Failed to decrypt restricted DMA pool\n");
->>>   				kfree(pool->areas);
->>> --
->>> 2.43.0
->>
-> Best regards
+> ---
+>  fs/ext2/inode.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext2/inode.c b/fs/ext2/inode.c
+> index 12ac4cfe1500..ba23cadb157b 100644
+> --- a/fs/ext2/inode.c
+> +++ b/fs/ext2/inode.c
+> @@ -805,6 +805,7 @@ static int ext2_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+>  	    (first_block << blkbits) < i_size_read(inode))
+>  		create = 0;
+>  
+> +	iomap->flags = 0;
+>  	/*
+>  	 * Writes that span EOF might trigger an IO size update on completion,
+>  	 * so consider them to be dirty for the purposes of O_DSYNC even if
+> @@ -818,7 +819,6 @@ static int ext2_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+>  	if (ret < 0)
+>  		return ret;
+>  
+> -	iomap->flags = 0;
+>  	iomap->offset = (u64)first_block << blkbits;
+>  	iomap->bdev = inode->i_sb->s_bdev;
+>  
+> -- 
+> 2.43.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
+--hhurp2xrs3achqmx
+Content-Type: text/x-patch; charset=us-ascii
+Content-Disposition: attachment;
+	filename="0001-ext2-preserve-IOMAP_F_DIRTY-for-extending-direct-wri.patch"
+
+From 6fda7e6fba044590ce5d7bae6eebd437df1f5b92 Mon Sep 17 00:00:00 2001
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Thu, 29 Oct 2026 01:36:16 +0000
+Subject: [PATCH] ext2: preserve IOMAP_F_DIRTY for extending direct writes
+
+ext2_iomap_begin() sets IOMAP_F_DIRTY for writes that may extend i_size,
+but clears the flag after ext2_get_blocks(). When the write uses an
+existing mapped block, iomap can then use FUA and skip
+generic_write_sync(), even though ext2_dio_write_end_io() updates the
+inode size. An O_DSYNC write can therefore return without persisting
+the new size.
+
+For example, on a FUA-capable device, a 512-byte O_DIRECT|O_DSYNC write
+at offset 512 into a fsynced one-byte file returns successfully and
+extends the in-memory size to 1024, while an immediate read of the
+on-disk inode still shows size 1. An explicit fsync persists the new
+size.
+
+Move setting of IOMAP_F_DIRTY after the initialization.
+
+Fixes: fb5de4358e1a ("ext2: Move direct-io to use iomap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Link: https://patch.msgid.link/20261029013616.97194-1-dennylin0707@gmail.com
+Signed-off-by: Jan Kara <jack@suse.cz>
+---
+ fs/ext2/inode.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
+
+diff --git a/fs/ext2/inode.c b/fs/ext2/inode.c
+index 12ac4cfe1500..51250717c70b 100644
+--- a/fs/ext2/inode.c
++++ b/fs/ext2/inode.c
+@@ -805,6 +805,12 @@ static int ext2_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+ 	    (first_block << blkbits) < i_size_read(inode))
+ 		create = 0;
+ 
++	ret = ext2_get_blocks(inode, first_block, max_blocks,
++			&bno, &new, &boundary, create);
++	if (ret < 0)
++		return ret;
++
++	iomap->flags = 0;
+ 	/*
+ 	 * Writes that span EOF might trigger an IO size update on completion,
+ 	 * so consider them to be dirty for the purposes of O_DSYNC even if
+@@ -812,13 +818,6 @@ static int ext2_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+ 	 */
+ 	if ((flags & IOMAP_WRITE) && offset + length > i_size_read(inode))
+ 		iomap->flags |= IOMAP_F_DIRTY;
+-
+-	ret = ext2_get_blocks(inode, first_block, max_blocks,
+-			&bno, &new, &boundary, create);
+-	if (ret < 0)
+-		return ret;
+-
+-	iomap->flags = 0;
+ 	iomap->offset = (u64)first_block << blkbits;
+ 	iomap->bdev = inode->i_sb->s_bdev;
+ 
+-- 
+2.53.0
+
+
+--hhurp2xrs3achqmx--
