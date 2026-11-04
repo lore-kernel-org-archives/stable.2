@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801659;
-	b=pmCdUNinNDl8StL8lkSh+t6SB251g99tTR2+VAhBL98b+HiqY4IKp5/ztA66Ur+yvu7o
-	 1/G3QHr1VpROMet4iIxXbUIB1xor9CT2X3cttjFjedJILj9kgP0YrkeqDaCaaMTJe2x9n
-	 p18g8hlpgKK/xUsOWbjHRKiTibK5gXbwkonr0OXw70UFX2RjafidY10ODEWhuLavbqvWs
-	 mRvUbVCEsqLyrOP14z2H2BXei6ISyHebWdOSo+rAzWby69RljhtbeYx2lpRDkKytNijls
-	 2ME4rtaRfI9DbUf1hVaf3SrOBKUreotBOwuZKuJQpllSaEpMqmbkzbRCwZ3+h72YbXQ==
+	t=1793801662;
+	b=GK83MHAW+wVLU4pMaFTSRo1lccCHybaXBlsp4nRs9wr7+DZUspTq82BQ/ze0e9LywJ6q
+	 xGB/M2J2Qwbpgb0Q9FTqlT/JoJEo9bN9baOn0KR7Tr4x2WlO1JXjolj1M/0YQCKY8ANFo
+	 oDy7nmi1Bncx3d0OmnivpqdT5vCmYw4mluW2ywveIW/fg9krMLFUySgXYNQWi2FdnXfP7
+	 24uCyqIVb+7JpaH2a0Wxsv5oKrFuYa9On5H74qAE8j9Hm+OM3z9uGUhQpxyJ3T0VkP5Ln
+	 K4E/gsgFjqOq5u61gvxf4W3jnQD6t0YqEodeZpZ/4JpRnY5eOJJ+B0PiEMPBEzlGPMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801659;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801662;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=qb8GtsXqI21yluWyGOHRFi3r8C19Xuv58DXmbQnXru8=;
-	b=cTv1RbFJtoS3eXif66wLehvMXTMe6sAMek74aD4H/WgmtaEMtabLxKTuX7LtDSeDgbpe
-	 JyKrrxe5zZ4j6QsmYKUlVhL9UCscMfaiKzSmlgEvq/rIADdD0RUlHHT1Gja04ZITj7LqK
-	 DRSzt4NWEzMSfiTJ/1jXgfRfnibfdeq2Hc+yqHhIWqc+fNLodiGrEAVaN8YJWNZZKhBPF
-	 mWLLDBMg4xT43GwpNH42HyuS3+ZE9kEKbFrfDy1k29g68AWRItrNI6kKlqVCN1pGgekk8
-	 mfRvTGRTLcAfNgw1JbQt9IllAglwtlWz1Qtkc1nYY7sH7YGesT5QUpn5JHKT//stZrA==
+	bh=TCD1igzNutY5QMI9bYGZTIUEhw0x1KFwSfJfOgQTsC4=;
+	b=3fFk6LUb8dN4bPYwIaaK8zAiDogMqYqSfoWkZxV+bZIPGvpECKUTucGpVD37Z55ZoYOX
+	 LoWMwqEN40QMOjUVIkw4Ufyy1y/RWsPsZlFVyAbbGS7yECD9YollUUU631tsrRxf9mCbb
+	 fX1x397KhY+krQElzbHq699kGudvKJWaslDKJyh1TpQmVUz8HGeonL0Coqun/JstG21CR
+	 a9f80mbTcRMEZc/xUQvAmGjASb4HTt1E4cwJAbnZivRk99rJGmab7nvkEPJN45PuLN+Oh
+	 PhQqwfP4uwBqPqw/kOVtiG0ze2F9JM837QUjo+2cfLCxSb/ym9xMe1eDqxxoiwHVOeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x1tdd8tg;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QFGo2zfp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D49D606A329
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:14:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70267606A329
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:14:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x1tdd8tg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88DE11F0093A;
-	Wed,  4 Nov 2026 14:14:18 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QFGo2zfp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEB4F1F000C1;
+	Wed,  4 Nov 2026 14:14:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801659;
-	bh=qb8GtsXqI21yluWyGOHRFi3r8C19Xuv58DXmbQnXru8=;
+	s=korg; t=1793801662;
+	bh=TCD1igzNutY5QMI9bYGZTIUEhw0x1KFwSfJfOgQTsC4=;
 	h=Subject:To:Cc:From:Date;
-	b=x1tdd8tg3Zh6+4qVwXNWXPY67ZnwCY0vyIeMXXXE43TWS1PSGvUHGB6D7QudwkBHB
-	 CZ1zJxN1CjhLrHhl605/bFgTujJjX43V4G/MxOUlYLr3Dl5NNoFFzuhpQuVbLKaqE/
-	 x/DxQvKoZVLtMONUEerEakzVBrAcKKpVf9zBAzGw=
-Subject: FAILED: patch "[PATCH] rust: hrtimer: declare cfi_encoding for hrtimer_restart" failed to apply to 7.3-stable tree
+	b=QFGo2zfpHmAP7DYSsjrq5ZZ0T0ePW9cDGc6mteMQCmtspdR84HxzYx9PW0SRPbBYR
+	 WHgrRGLW+rot5Bm/Hs0n1tmgWnWmUdMPE6/dggRe8YqkFe1AB6gRfE0bfRmBjcPJ//
+	 LVLhSBpKxjglTUF1skaaz9vTpVbjlNK1teX//tOc=
+Subject: FAILED: patch "[PATCH] rust: hrtimer: declare cfi_encoding for hrtimer_restart" failed to apply to 6.18-stable tree
 To: samitolvanen@google.com,a.hindborg@kernel.org,aliceryhl@google.com,dakr@kernel.org,fujita.tomonori@gmail.com,gary@garyguo.net,ojeda@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:14:16 +0100
-Message-ID: <2026110415-camping-contently-b1f9@gregkh>
+Message-ID: <2026110416-donut-counting-ca1b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 39fe6892fd52faed6325ff7f13a92da01ab35727
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110415-camping-contently-b1f9@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110416-donut-counting-ca1b@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
