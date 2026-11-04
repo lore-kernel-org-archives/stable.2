@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817846;
-	b=oUGQs/AO1QQBXUpY23+k0IcLGWFpezlzFdqiiaoleuGD+2+hXEA++fqqRn10nJPoT+l/
-	 uEaVBhY1nF4n8nZNAGNKissDu3v38QtPp6T31AzLhMpMFZ1f7EkjeaYK0KznNFPN2plKb
-	 +P7lRTcVVOBPYgbtX6qmo6zu3i8KAe11am2APh3bMPBZ+1cAzGl0s3LlZ7LzYu2pRRGox
-	 cMh13HNGRx5Ry1RpqMR4bMjHJxyeNBR2Al0j5f1L9cu0mjnn91OCyzrkjl0wzcJ1OR2dz
-	 hTh8UV6kYSnmiWmdOtr+vqYtIBzlLK0MN+RUcFqkmRf/MG+MfXmJ+BpRaizQQfTUZbA==
+	t=1793817847;
+	b=EKX2hfxXIagwcVZFEyojCffOE4aNivv1FBy+v/jqhr67xWidaNyJm09nFg5Mt/fWCg70
+	 wN3ZMCCMvJklTsC42HgcycY3LB97rh99nZPygH5hxYgVnOntebr55MyEqw3mKz3gpmQqW
+	 C/Z4Dpzr4Fh1LtnOQ+7XNDo82y9aWqp8Ehz9ppPif2Oh58eCv6xSGb4X5uWORj87idPgv
+	 Vxl1mVlVjVKmsoL2fkNYVdhiITzQR48FGcvtL115z3W1Cwj264IIyq0X+BALQtSKo8DF9
+	 KrlyRKx8zAUExlGFUht0oX9koco4aP0nzzNgaTsR4hdSwBP/6T7/mcSgVSwKVR5h+/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817846;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817847;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=BrZU+RcPkwW02N/LjfZFHHBcEcuKXqXoi25KpDPShzQ=;
-	b=yB0hLH6l0WAxxtasSNPEDRMqE+KC7xPmQ5slCOZV/ElwkFoXx1Lklvyl91TztQ9PLGLF
-	 pgwL0myG70eEuKXryjWnLcK4Eone5M7SEgsNGn/Ozq6U60VYXuRCl2Mh4lyUc/+pQwQ9I
-	 PAFgcjCbLdWzTftVHYvA4GRCUOJGVbTos0LAAk4guBIVJmtRlmP0Soo/Xrk/b9dzLurf6
-	 GK/S7qQxi1CyTNh0DOuMggx8B1ion5z9Cq1yscpE6hIduwtv4Iuz+ntZxDWdzdBdJwlO0
-	 eu80cgfX/m8ZhdJXU7cNc7kd53sRzpRM67YyLks4wVOl/2qs08QF5l14lHiZSPm0J7A==
+	bh=js051FxEjEBk07tnP5DGQP7j36TGHOjjBlGBbOJjHlc=;
+	b=ZQFGj5gVmzR9TbpsPxgfktgMfLC5BqhAIl93whOT1CjCoVTIDfoIUv1C/mEgKOxUYur8
+	 iAEXgYmwGJzNSJdiBIVceAAHBW3q9OfD06dnPjX8GreBt3JTzULVH/3gS6ZvVShJqpWg5
+	 3ugNjMM8dbk8UbwJbm60GSG+kE5eS0v9B0N0vfujtMtwjb6nCEvtDMm3c0OYuejCkABYL
+	 lngrxKLooUapOvxytu9xs9op7Os4Si8RwGxcbxs9fQCYWtqjd89CAMMJJt5xX7w2gjVP1
+	 IN+Yj+CLoQCl+SHgKR0UFcx4/IC4oROrYMc452cYiTAMW/I6K55ep+yiya9IYrNfSYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=l8V42o4X;
-	arc=none smtp.remote-ip=209.85.210.52
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="lBc9lJe/";
+	arc=none smtp.remote-ip=209.85.167.174
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AACB5606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:44:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AACB5606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7BBC606A338
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:44:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7BBC606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=l8V42o4X
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-8446af403b5so651246a34.2
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:44:05 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=lBc9lJe/
+Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4f66bb2ab57so396998b6e.3
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:44:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817845; x=1794422645; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817846; x=1794422646; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=BrZU+RcPkwW02N/LjfZFHHBcEcuKXqXoi25KpDPShzQ=;
-        b=l8V42o4X2Kly4lLNr2ygD8643gTVHt7mUwUvinAZkYbpU+JsML70Bgz5MBY9EM3qXS
-         gF0WXXKXAf3S5Ercc8rfYHeqVpvgQuETftoTJFFly+/FZdJPxAs1pK5BlA0WYu4FEt0O
-         qumAgqDpBdU3pnN90k+1oIJZ9szidQRM+C1C9o3xVE1w2S2NiEyyarJqSK/vv8T3P2ct
-         7tbfJ3D5VBITA7eGknQeF99Yo6Wr9E6vhR1sAqmimx2JjHRAijkqQsvXm1VFdr+C4Hbv
-         306nkbGHT5X5Cb1teNBrDDI+6dKg7smXw3nX8ybaExwkCrNHB+m/xKcE9wgSzUfwtNfu
-         IRMA==
+        bh=js051FxEjEBk07tnP5DGQP7j36TGHOjjBlGBbOJjHlc=;
+        b=lBc9lJe/NzuucVHWo6JZg9cSK1//Pu0XfkMRSZdo/yfO/cJJHw16+9TMsgCIBQONQF
+         WgWxZVCQgAcZAe6gQwrbnnNaECsuCS0yk69PCQkuqghDtgRZVRsGqtxpkPwOcgMxrWVo
+         lfIvG8kbkDVYNsVZlLhSxETakZrmHz9n8xRzYA5sz3SIftGDSRFEBfSRNp26vzmNto7T
+         WgP7omVSiewWZzAHxQBTQBEIIb5GG/F9weCvNQdWg0DpBSPA4bDGRvQbkvzYIo/sE9D9
+         kz533P82JXzjbOx3ds8QnOnmpBy5+8jAlSzdoQgzg8F4NuJFZs9Exh0yu/AuodivFqdU
+         6IQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817845; x=1794422645;
+        d=1e100.net; s=20260707; t=1793817846; x=1794422646;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=BrZU+RcPkwW02N/LjfZFHHBcEcuKXqXoi25KpDPShzQ=;
-        b=Rq+eUAQHYdXvSxgAR1SNbjtmkkK6rXwtyjFcFa/zZAr+Cv4jTkfqiqtJMkfFI6P+L7
-         0RJGeal6I4xEBMXe+4lOEurFi9E7IZdQWKdR9YlyYCojz6wMGWPevGyDKoCgcNlOGopN
-         qqptc5iwqm3av9SQqEerKxA6QkvNcF1hBoFjQ44S4S4YMN43XgcA/Z36GmzWSgkk55ig
-         nzQJQXDOdy6oDWSONEpP+MoQi6uD7DxLiqEnT3A+BhwHBMLCo2AZ2JpgfGMRKU8EO/H9
-         yaJwx+bpTxuULj9JMwJwMjWtM1fVVvAEZwW3qm4q31aWAxxV0x0T6W0iG9v5jI5f+LDs
-         BmwQ==
-X-Gm-Message-State: APuU4Z/C8ntyiwWi8QO1X+DLTob0HKF9SJ0W5Xc6XHbx9YqVdc4yTBQR
-	0Sjww+zcNGQzgmK1kH0lH/PbEN+roOcB3IMRa2BSUdqfdHeMkD5heSWqn/Q5OvskxqEHuiByfoC
-	6wvSGPEU=
-X-Gm-Gg: AYBFou2Zcqim+26zih2XjsXDbJlH3EiH4ovAdUFl3DkDF3AyEUzhZ2wKt2oa/u55xLW
-	O6+zLFVyE3kxKFCiQAhxh/Y+TxXWxm5FSkFuJR7hZ7NMBiaVJ65WvnyTcYCq+EbAYYJSUMQtURv
-	jDEwFXy2XSs+WEn5Cm7HUNA90J0TbaQX4JOeqQp5QtzQJU9RZl4BvUnmEYWsqSdCZsyr7S74yD/
-	8fCENdhqyZqbNgfApQ+3MTwf+GMNpOCTHDBpBw7zK+T/9ZUSMfqXlVPAYvYbhBZPk1PBdxsqozE
-	lAhtt3qfLjQeotaFCFU1LiMPgW1DOT51Hsq/7pkJEPl2bMFq1l3lYpIf5XaZsIkrzpPaIB9Y6h3
-	MIAQ+UPW9XIo+Ztus+CF3dkhvpphFk8wKekkKX0gB7dMPR6GJQWEStFo9VIacEOM/bomTRlpJNM
-	frubTL3Y7kjjhEGZWO8cVrnBeNuFFBNY0TSIlv9Ym2xaW8w6xmpKPg1tmE2guFr82W+Yqb6bXNp
-	MIo7GJO0bcJyBjMnTIkea7oRXJGEcsette6cRUWFdk9voI2sgdi7vNoAN37mrQPSGWBpsTrTXOQ
-	41n6lcs/MJWphSgsupfnfRwk0pLbywNq4xGdSyQjfLEI7cTpZR/3sXukC0PWpKnK8m1YNkjQBw=
+        bh=js051FxEjEBk07tnP5DGQP7j36TGHOjjBlGBbOJjHlc=;
+        b=19T46a+Dfl1mx2CGABjNuTHu7VCVivBB494+i3qGdonLyLctzpTlaU35hglrEPOndS
+         oWUApDuQTKU/WN8M6lRAWc/13+4gr2WpPzQEKRhWhprehkxN09TebiapNMSiS6wuqnx/
+         PtOZGe4q3MFb2AoG6HqMr9NkvEholX6pq1+6m7TaRDUJoUI8wkliCksvaX50bGzyURtW
+         xqWD3te4TJpwWjpYb8uoQQVC3YPs47jMMajIK/eyeGXkydaRC7TGwood0/lRBOfzOZnC
+         xFWAtNo2t/XZJ3L3EVeExgKhMUTxYccP7/9b/NyjMofIWAeLqu9vbW2BCqADMi0fHHQL
+         0qtA==
+X-Gm-Message-State: APuU4Z+KBULJ+iazsCNfnrAjNM2/Q3wvtlBC4cYP7FPwdPbCDWAOheiI
+	eNr8ZSoL0q0VOHuW/4DnKZRsGrXae7PMXMqo/E8KjCzRT18CMNAo7zACYKq5RHnEDoKXuWzHN/8
+	pbwzNLnY=
+X-Gm-Gg: AYBFou2kN/rNDU0sQKHdclWwSvZ0zcm6dVwMjtybN1LGeeWoBgl6O0AX6qeja383QXW
+	jLlPG3T1ecNw0c4lM/fIJ8ep7izBrrhyvEZszRzjdRsEpVdBp9K2L0AKcTGpcFnDMGDujpjJOpJ
+	mr1OQKQ0hXr7IYmSyKiNYD/raRBGv2w7a24mP/AypZLvFqgnqsH/Mw3lZtssEQWPcoSoFIHLKAO
+	6BBs2rsBXE7OmItree67dw44/6caHrcxlMzY3cjJIflWqnGUZ4DUUgHTPHbyInl+gEf8ov68+5n
+	HRTq8CE0sIQhAcrmUvfXW1HsVC1WVkkXqk3hu04c5bY/ZzWmZ2w59gP8pK+fh7J/IlkrxjUwuHv
+	ymp7zTB02CPMG+8HN3KECYZOmWVTQqWthSZJrRbXyG+cK+sedjtCdaYHPbDs6I/KvhYvB5Vh21N
+	avQUrDIQS2nrIPZe4BvTgGTxmeTb6JDBB0ybXODyM5+z/T/l2VZyG28hl3blc2pq2jbH4Nxx8C6
+	U6sEhXLyKhdHmaTQhScpM7/IcPFMk+fbdf3rHbJTCMDYKrOFfBgMGeDkSeSdfKaPmz7FCgCv5vf
+	4SNfCT24vPWILeg7k6qK9Ia3qa2vvWMY2FVRshhrYXEBR0rGnr22Ma9G8e6gsmS+wBqc66K/pA=
 	=
-X-Received: by 2002:a05:6808:1a08:b0:53a:8c5:d7d6 with SMTP id 5614622812f47-5640d91b2f6mr12025743b6e.6.1793817844622;
-        Wed, 04 Nov 2026 10:44:04 -0800 (PST)
+X-Received: by 2002:a05:6808:3c4d:b0:55b:f8cc:aef1 with SMTP id 5614622812f47-5640ddfbf7bmr11922977b6e.15.1793817845588;
+        Wed, 04 Nov 2026 10:44:05 -0800 (PST)
 Received: from xps16 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9fdfa53sm2199007b6e.15.2026.11.04.10.44.03
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9fdfa53sm2199007b6e.15.2026.11.04.10.44.04
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:44:03 -0800 (PST)
+        Wed, 04 Nov 2026 10:44:05 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.12.y 5/9] io_uring/rsrc: charge buffer arrays and nodes to memcg
-Date: Wed,  4 Nov 2026 11:43:49 -0700
-Message-ID: <20261104184353.516403-6-axboe@kernel.dk>
+Subject: [PATCH 6.12.y 6/9] io_uring: charge tctx nodes and personalities
+Date: Wed,  4 Nov 2026 11:43:50 -0700
+Message-ID: <20261104184353.516403-7-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104184353.516403-1-axboe@kernel.dk>
 References: <20261104184353.516403-1-axboe@kernel.dk>
@@ -101,51 +101,63 @@ Content-Transfer-Encoding: 8bit
 
 From: Chris Mason <mason@kernel.org>
 
-Commit 075d5837bafc317e796548f721b8fbf7add6821d upstream.
+Commit 0b34e7b20a48710b6f53716bf7030920b69fdbdd upstream.
 
-The io_mapped_ubuf of a registered buffer has one bio_vec per page,
-unless the pages coalesce into huge pages. Huge pages only count against
-RLIMIT_MEMLOCK once per ring, so a buffer that maps the same 2MB folio
-over and over in a way that defeats coalescing gets a full bvec array
-per registration while only the one folio counts as locked. 1GB of that
-registered in 100 slots took several times a 64MB memory.max, with 2.6MB
-charged.
+The io_tctx_node allocated the first time a task touches a ring, and
+the XArray nodes behind tctx->xa and ctx->personalities, are plain
+GFP_KERNEL. tctx->xa is indexed by the ring pointer, so nearly every
+entry needs nodes of its own, and a task gets one entry per ring it has
+used. 642 threads on 4000 rings held 2.3GB with 59MB charged against a
+64MB memory.max.
 
-Allocate the io_mapped_ubuf and the io_rsrc_node with
-GFP_KERNEL_ACCOUNT. An object reused from the ring caches stays charged
-to whoever allocated it first, same as the io_kiocb cache.
+Allocate the node with GFP_KERNEL_ACCOUNT and set XA_FLAGS_ACCOUNT on
+both XArrays.
 
-Fixes: de2939388be5 ("io_uring: improve registered buffer accounting for huge pages")
+Fixes: 0f2122045b94 ("io_uring: don't rely on weak ->files references")
 Signed-off-by: Chris Mason <mason@kernel.org>
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[axboe: 6.12 predates the rsrc node rework, charge the imu kvmalloc()
-and the node kzalloc() instead]
+[axboe: 6.12 has kmalloc() for the node, inline in
+__io_uring_add_tctx_node()]
 ---
- io_uring/rsrc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ io_uring/io_uring.c | 2 +-
+ io_uring/tctx.c     | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-index 1687e35e21c9..ad7ad35545d6 100644
---- a/io_uring/rsrc.c
-+++ b/io_uring/rsrc.c
-@@ -183,7 +183,7 @@ struct io_rsrc_node *io_rsrc_node_alloc(struct io_ring_ctx *ctx)
- 
- 	ref_node = io_alloc_cache_get(&ctx->rsrc_node_cache);
- 	if (!ref_node) {
--		ref_node = kzalloc(sizeof(*ref_node), GFP_KERNEL);
-+		ref_node = kzalloc(sizeof(*ref_node), GFP_KERNEL_ACCOUNT);
- 		if (!ref_node)
- 			return NULL;
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index fdf7c646da1a..6d1f06642c2d 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -319,7 +319,7 @@ static __cold struct io_ring_ctx *io_ring_ctx_alloc(struct io_uring_params *p)
+ 	if (ret)
+ 		goto free_ref;
+ 	init_completion(&ctx->ref_comp);
+-	xa_init_flags(&ctx->personalities, XA_FLAGS_ALLOC1);
++	xa_init_flags(&ctx->personalities, XA_FLAGS_ALLOC1 | XA_FLAGS_ACCOUNT);
+ 	mutex_init(&ctx->uring_lock);
+ 	init_waitqueue_head(&ctx->cq_wait);
+ 	init_waitqueue_head(&ctx->poll_wq);
+diff --git a/io_uring/tctx.c b/io_uring/tctx.c
+index 8597bcb903b2..d056cce2c1a8 100644
+--- a/io_uring/tctx.c
++++ b/io_uring/tctx.c
+@@ -93,7 +93,7 @@ __cold int io_uring_alloc_task_context(struct task_struct *task,
+ 		return ret;
  	}
-@@ -982,7 +982,7 @@ static int io_sqe_buffer_register(struct io_ring_ctx *ctx, struct iovec *iov,
- 	/* If it's huge page(s), try to coalesce them into fewer bvec entries */
- 	coalesced = io_try_coalesce_buffer(&pages, &nr_pages, &data);
  
--	imu = kvmalloc(struct_size(imu, bvec, nr_pages), GFP_KERNEL);
-+	imu = kvmalloc(struct_size(imu, bvec, nr_pages), GFP_KERNEL_ACCOUNT);
- 	if (!imu)
- 		goto done;
- 
+-	xa_init(&tctx->xa);
++	xa_init_flags(&tctx->xa, XA_FLAGS_ACCOUNT);
+ 	init_waitqueue_head(&tctx->wait);
+ 	atomic_set(&tctx->in_cancel, 0);
+ 	atomic_set(&tctx->inflight_tracked, 0);
+@@ -125,7 +125,7 @@ int __io_uring_add_tctx_node(struct io_ring_ctx *ctx)
+ 		}
+ 	}
+ 	if (!xa_load(&tctx->xa, (unsigned long)ctx)) {
+-		node = kmalloc(sizeof(*node), GFP_KERNEL);
++		node = kmalloc(sizeof(*node), GFP_KERNEL_ACCOUNT);
+ 		if (!node)
+ 			return -ENOMEM;
+ 		node->ctx = ctx;
 -- 
 2.56.0
 
