@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819820;
-	b=LUf6qKSNoZmB2Ip7m1T125VUOxcVNVzQyORMX8BVdI3Q3xl4/7fYSJ6XWjJOs1VE8gux
-	 Kv8yrxwCwhzrT2ZsiA3Ij61sZ6PYxKDU/FmSmFKnCl/y0zsC3S5NAvuGcSzrEtfVZPf9j
-	 gjWSdfFxIIxKf+8sManMmdTuvwssd6ZKVDMfKmn9z0yOgSexTvZAZ1h0AwuRRCe7hdMsW
-	 eiW26o1BSXq8VDYBF8NpDl6BhK5cfL5e2Y7LkPE5oNix2lsSAhZUohqt+OxpIxqPmPMbn
-	 bXdf+8dzsxXiyozxTJPyhJfLQ68jWdShiVjDym2NC4sjF8l64bIbzWtbczEDgYQREWw==
+	t=1793819822;
+	b=z4Wf35Ii9NJrqjHozEflPI8HyeNr9r9Ov5OHabHLJDsZh3/PbnwA0fvkvoZlQgQKEaI4
+	 jAtPaL6Qb2sxq4jVanoXNWB/KDpqcVi0uQNXfYKtUcOCWiehAq4K3EGEujSTUhp/J9aIH
+	 CfrFoF/xqRWluEfTb/+SuURgM3qT1G6rrtpQsCpWJ5q9Op/QPDYzhl/EqiVvPQdDDuiOp
+	 kEi6dyWG5i3PPCl1hb+ZAa2xUeVHEcWNWtiRgUnVMims5HnbrTeZtEUug5OBP7wQTTvFS
+	 E5pVUGxbiTpzBZZBloS1qGqtF6l8weAt5NT5N8coca0L+Eon0BIPDZpLzDeMLrH8wwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819820;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819822;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ANQpjCuGh7cx3JwWGCzVhLqSzjFG86py9XG0Q4ZYaLg=;
-	b=10j/+WKHV3BbBuyAvrnu2pApiT2QxlS83jqyC7vcOvlu9yewicXK45gDj+H6B526SUAn
-	 QSTrXKUV+rm8RZW1daVjXbP8N/5RagLE0k7YqZif8GhS0On1qXGeo5rWgmDuquU1nX/Up
-	 Q61GrfkpvH1UaW3yB+yY+BjIF1wHOAJKIUOhq3a0GoQ4MLvPxh4bPLiZa7/aEsD+EelYG
-	 wUDr5KJqMELjuOZjCMj8OfmqIVwKSjcM+mUeNJ1ZBLpOozWO/WO0PPF5BSY34jxp44PuO
-	 H8/PN2s2tZDFAnqe/8a3lwojFv0dQyxUZWhj2gvENzQCDvjsM1gJCLL+ar7egLYMZoA==
+	bh=/hX9EgwhbtAzTIcvo+CnFuKQau2I45Vrll/q4Stio0A=;
+	b=KfyAag4m5c6dra09NkDdtaAEIhvnWRI+iCzbflUQGgnTADQBzetyTSvMy/uWygV+fzDi
+	 VCrH9n/4z13fo1uxhmDuOFfe696L6J47rldwBXj6E0CJu6TASmKfFi7KlJMzOWDlD83Kr
+	 2TaIW3W10COcWzMBYWKVQSVdDXabmtxsNjIftG4THQUGjbKfGY1bAwxQWRmSSS/6hGDtV
+	 epOER+ESpzIpAddGUAuUKMty8FjydRC1jq2+E+zt5sTLwSElIWxeCnzpvA4HpPwzKng/q
+	 AXPnZjUxDhDyjsw8RgxQq+3aVyfMiTmu7/5dq2K/AsGqPd66Zk4lPgGlMLAqoEaSO7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Xc2Qfeid;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="i/nGS4/K";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E72606D807
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:16:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49181606EE98
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:17:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Xc2Qfeid
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FAB81F000C1;
-	Wed,  4 Nov 2026 19:16:59 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=i/nGS4/K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 885BC1F00919;
+	Wed,  4 Nov 2026 19:17:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793819819;
-	bh=ANQpjCuGh7cx3JwWGCzVhLqSzjFG86py9XG0Q4ZYaLg=;
+	s=korg; t=1793819821;
+	bh=/hX9EgwhbtAzTIcvo+CnFuKQau2I45Vrll/q4Stio0A=;
 	h=Subject:To:Cc:From:Date;
-	b=Xc2QfeidUU1cArJSTR5z7BnSjVZQAzlKTqAfOaLPPEUcmp+oLpGR4i7Y9YwA4+XNI
-	 QUh1RpIOQyPGdTaOi41ykh2iNygKvDiAcLH8pjpy3o1IBggQ5uOf24DlsDW3QXYLuD
-	 Crsu0pfzYmq2II3hOE22Ckbf69Zynu61TxXfHdZ4=
-Subject: FAILED: patch "[PATCH] KVM: Only bind memslot to guest_memfd instance for CREATE" failed to apply to 6.18-stable tree
+	b=i/nGS4/KJEhtftqN4JQVfEkmLPVmeZypWTAkKiTO3xSL2cYxbeWUDHQUWqIy9RHxI
+	 k2ZUDAZi6Tr+TKpr+/aC9bNxkGqtaS/ncOtcH0qXmb/Mzj443fDOGTRRsztyDwQUju
+	 Z+G1VIYZM8MU9LD2+svoBuDIbNAOCPNtMI1bhPOI=
+Subject: FAILED: patch "[PATCH] KVM: Only bind memslot to guest_memfd instance for CREATE" failed to apply to 6.6-stable tree
 To: seanjc@google.com,david@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:16:58 -0500
-Message-ID: <2026110458-mobility-lucid-2243@gregkh>
+Date: Wed, 04 Nov 2026 14:16:59 -0500
+Message-ID: <2026110459-implosive-graves-670b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 513333a5546017da2a4a6173bfb70372f83733b3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110458-mobility-lucid-2243@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110459-implosive-graves-670b@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
