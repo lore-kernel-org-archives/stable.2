@@ -1,84 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810724;
-	b=rIt3AQ0cjSZsajS+W800EOCCzVJYYTxhPw8a3sceFBFe33QTjekHc6elKjZCckkfv+j0
-	 SXERxWWRKp3UXY1hu/2zRsFHGO6Mc9J78RwXPZ7z+pyVUsJzxFtZsJXtkh4AZXy3qjGA4
-	 36npTEDAEer7vjOnPKTGNDOnbk/Vo6se9JFH1w+LtLpr3iD6K0GnPZv2L2kIqtfzXljeV
-	 Mb1ykqtMnyi9zMJtQrTk2tR5d6Nzlzhwp/olA/zmvRJJhA1/sqMq+3so+5Zt84tS34/GX
-	 VY9+OP2ujG4RWx+m7KdeK96hozsCi1XETulvf0chsrs+sp2jHIJ/7s/egY5OmkK7SUQ==
+	t=1793810732;
+	b=g9TJC3QNXY2HUPtZM4wcBjYXHi7qUh/RIWqkhDR522Vlsfs+7ZXzIe7n++Viwtc34+l7
+	 uklXoqFGSuQ5JLkezvP3bhE3iJ5KO6CExTg+Y0a9K4nOnrKhM/JJiJiZkdytWYbu1WVbk
+	 gvmA/7BR+uOtnDa6ie6H+If0EI/frhIaLOpuO1rBrDELxmckvKWiXytH3kNvcRXRoB4PB
+	 wSzVqCHh89G18x6DsiUqIZevoYiUCvhBXO1ROTH7yxWAWuOfiLpmQW1BSf+fkXpbPRh25
+	 Ite9+iAlTd4MhSQWj4Ghc+pUCnG46qvIc/4HV19hE6fidb6D4sc0NJX4baHdlltAFOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810724;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810732;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xcudQ4a1QKypHuZuwVny/qv0KumrmKrAsLkHCKA1dD8=;
-	b=zT8dV0dodOveq8rl7WFugHVa+kwzCRN4NzTK0apctj5+ZDByQX86nXsTkBDL2s5fAGxz
-	 MBrvkFSQsCrBqZ8n+zancSF2e8ACrWT3iPYsvWM5kP9UaRy9BFbmhR0oFy+e2zDIF17iJ
-	 A87fMbvDBqkZ7bZiUY/9ds5GUnaVo1aZEJ5c9GK1Upe+O77OflbyNcYXjlOsKXq0yBVmH
-	 bQeWiwkMGG1alafDul0fyqmg2sCcUZDOKMGaQTWLyd3gc9qvpLTZ1pC7+eKmBuW5UNgfJ
-	 jVv22s3z12TO+fQkqoioFyUbCTgo4zKYrY2ieW5SNh03WIhPMVWl3FxGhPDJ4ZbSZXQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=a/9ygPAkTkEPoEGsinPiA3vfqnT3GrgOWJ1i5yM5FwM=;
+	b=5WY/B5RUF8pJ7G4s2QCkrkL+V/80SgGY3ddWOeMN0LSY61FiJ1faUog6J73V1qk9vBxr
+	 aRE7AzC3L3t23gQpYemQ9/ni7mW29Xin+15OrtV28orr+XCt7TyLB/qZ/uM8vAMR3eakB
+	 qbmskrkIqIW+1S+ZsFloQkxR2iAsZNxbjO4c+dhPKaix9kc4kdGQd3632fIdPbI70UPog
+	 1FeHkv0RRxtA4yJkEnXHievQ8i0d2jZvtBdcwlwYtCrPAQvMV6/xa++Skk2G3TtdNZHVh
+	 nfJ0uq3HPJXOL9thKWnPpKIbY1StAF4BqHTdczsH4vjxoHuvK6pY0DDhrZAnEjUG4IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="aCJZ4/Xo";
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="bn/OceYF";
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37D0606A330
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:45:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A37D0606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3F3606A32D
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:45:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E3F3606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aCJZ4/Xo
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33fb4680717so1575433eec.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 08:45:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bn/OceYF
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36d6765756fso713723eec.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 08:45:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793810723; x=1794415523; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xcudQ4a1QKypHuZuwVny/qv0KumrmKrAsLkHCKA1dD8=;
-        b=aCJZ4/Xo9jKnaTImkPsBsYrn3ZiAHaVH5EYy0bf6wENa9Kq1tc6D6GlpvX5t0fkziK
-         wiAUHhfbnFo/FFaTP7tTCp1b8oDIUKJNqcc31oM/cgw5UTvGs6A7zVMmehHfmeh/jSh+
-         aDMBdXQ2XaaFhxuyQ0m4HZvj3Ao9VTgB4PbCAGxyOrHJNWc5imT1XVJXThXCSeckHrd8
-         FzzYh+R/uLqI+X/n4CgmuKQVIF6q2obULzITNmNETkMsHpPdDbK4/aeIAPeBTPshpCmV
-         JHCKzrf2gIhUIPftDnZYbaq7Q7rPcyllVwxNKOtUTIfy/Q3gqhTysqJh3PWEP0QYSyc+
-         8r7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793810723; x=1794415523;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793810731; x=1794415531; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xcudQ4a1QKypHuZuwVny/qv0KumrmKrAsLkHCKA1dD8=;
-        b=TLGPWzJKnErjuZyo+aqjkaRTiEwRXZ862k29h1KIZ1KRdZB1Ibyk7/Q0BoeBV9IEZc
-         19ny3RuRj+Bk2MWXtaJEmgvBGfu6nmXeav9IdnjsezhnNBCcW5W1O/tjVBAIR4Q9zepG
-         udZXizn3Re1N08Jd3SxYW72I20m+1ckuMgxNls8i3m38TMcSGwDLeIpZ9CfH6QwwQ3T8
-         FDOxTpBmxRsxeNRToXjagWGI4AtT3LOHBQBaZ6ZFZS8gxZ2Mcd04DN9bh3ar5iNoDKoe
-         bL3vCzbTH2DJWTg/ROHtdoZtLlvG4XLRFaOOj30aM3KKpVDOVESauggWRBLWslkNXjkN
-         ncow==
-X-Forwarded-Encrypted: i=1; AKwUvBxOtb+9BC4N9TqvCG2Mxr/WgUfIMjJ16qgr3Pt0Ejsf7ldQIwQ+JtHZKRchlpkOV6bCWFH5v3M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3Y++SS8w/J61j/jnvsJqtqti2nUeY7AmoQ3oBjgD0wOx74Sqy
-	RXorNBAmNjjTVcIRgu5lTKcsYLwZoAhwhFYlnMRHJA6yeH8cuS/92HiQ
-X-Gm-Gg: AYBFou2v7305qF2fxX2EslKfDvRY9btWIyCAU7o6LIpo04N4Pdd5IAVRh8ZDbkMI+w+
-	q+Q91EyDRJr0CsRqGoRthgF8AV8n8wkcYje7zNDRyezJ9P0aMp9luNmmbXGI61iu1Hg2WdFWWxt
-	wcK+KLmpgmh4F/Qx6Tjr7S1DN1s5DWrGRZ7m3EKqVIQGV6glaDCwuDh4uAdnb3wtXCXdbzUlsBi
-	EBG/z6M5rykXucCqF8geXJYwWrVvTOz3fsM9aA3FFlVGzLJUnl5SuHAaPmYXj7LD9/M1ZUTKlva
-	4QJXGieUYrWVZdZe7k2olXap2Z6UinNvkeEMTS9gOf88258SD4NQmz3lXTjBQZYQ2w9SPFadEj3
-	US2dDWUTbDYYdIOUcl9iejsLmZoojWI5EdlmkABt+3jJTNkNBMlsC28g1QP39xueJ8TVnApTYWn
-	C0KdcRSOmtKjv+SpUNJX9PZSYpsXsjndTst/8pz8K9/gNbh2pYXxwtz3vmFUVhesDsnk0+4fBV4
-	3HjF/YFCmTYUQ7tjQz0p4CowthEblzPBQzmzAo3S4//sgNbdH7gLb8B4nDnjLN0Ccu9ZqcGyWWz
-	LD6bkQeQHN19UUORywVPw/rdWA0DJBTPN8Jef+hAnd/ytFaarJNocE6qIMmRONYFD0O7wNlogCZ
-	OYoRRx6dgtCDFhFeutNFKeTH33Ebt6re/mzLwlEBYjstucXBqK6C+jXhsBxfWAh3JGAzLTLHev9
-	l1JKmWUo6MaTkXUdIQ82NFD1/7IDKPzw1RHC7+ZaijAlR2JUZD1QNe/D0wimLEQ10=
-X-Received: by 2002:a05:7300:a8f:b0:368:4c93:544e with SMTP id 5a478bee46e88-36a422084d2mr25419815eec.1.1793810722385;
-        Wed, 04 Nov 2026 08:45:22 -0800 (PST)
+        bh=a/9ygPAkTkEPoEGsinPiA3vfqnT3GrgOWJ1i5yM5FwM=;
+        b=bn/OceYFwArPyDFSPPPx6F7fxbevCxKT8R7FeB0p2fbvIf+7OBijoe08vy0rwYc+5G
+         /QZBWvJuKv/UYxDHvFcwLo1G5AofW5PO7IZT2FC4GT2O6VrxOvu2JcN1jB7k5hdV/kYN
+         fS38yTExWUTJGvZc8YTuWCR+sxiYYi1vChhUP2aaBrFUuS7OpBt8gd/X4hXLV1RRI5mO
+         ChyQV/5HOvlWE8Kuu1Qu8f1m4wzI2Nu/JhSro6UmNEX+Pux9AKYWt89R04k4H1B1tg0q
+         BH8kBQIYND/ACmTt+ZaioNGqcPPB4bwc0yDq1hYXQKG2B83ZPSN2qQsgFmuGLfJUj+QH
+         xj+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793810731; x=1794415531;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a/9ygPAkTkEPoEGsinPiA3vfqnT3GrgOWJ1i5yM5FwM=;
+        b=X38VpPuGDXZvbBlviDKSuiS5QnIxpY4h6TRWYF/LrnoOU4RoIs5j9muodCmxA/Z6dp
+         1lb8MB6odOamUsvXu2rlZTmpgw03l3tMJuvPlzp1S1Q4VCU/xWewAEIDDhjyUSfcxJEb
+         0GBEx4dh2draBbY0JHPUzJjc/M0k5TpIX74AIGCs9EtlVFyhdWiLVnJW+3ulJdNfWeyJ
+         viUgEBXjummB/Bdr7JLbcSxsXvG8yC6u9YcfuEomuqxxRhb6OsJlNe7TujCPfFAmt07f
+         mDP2vdydmafwc1iXodA+ndEctpHh0RWWx88+vF7RSe+l/CmsI+rLEv1epSoE29kR0WqB
+         IyWg==
+X-Forwarded-Encrypted: i=1; AKwUvByCLAbtLjDyYhjcPUFMnN1zFHbkmlwYxTjK4oKpJ3UBoQgeSoy1X8Zg63T5RtSKv2eQBkhVGdk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8BBzMM0q6CZoT9nnVnZ2PpAL9vXEArectARMgHsCm4XHVWhJz1
+	YC/9KSO8v6uhKjkQpPjBStKawOoL2jtNIahhIlRxQ7N+AJKErInkuFmf
+X-Gm-Gg: AYBFou2t8ncpjVaWYMZVWE3MlasqUTv3vXFZ5nqRPxG9DzKp/D5WDj7r07OwjvL2F+w
+	0bcG+ChJ/TlAo/LtKi2pM5PpPzMJ941+cXbjWhbjm5kXcUEevPf0x/misnJDwKXbJENzUjMQOzc
+	YqG2gyGpLHV+EGWPwNARm/ODnoDRFAO4BiZATQtXIPg7/wU5udjAxIsDi7rG0qljiCmXAJwfDCt
+	0X4tf7M4OLrUM9D/zUBGtheRnTxo1P0PaYDaszu+KZ1lebU+0d7YwmLMVnDgIEy52W3EbWws2pt
+	YuDRFyPJkLJ78rKjOzQYOAXrHnblmTwHUbjInj61ZEUQ2OWcJXqk0TTBA5K5liZpJ3fbRAv7Lbw
+	yyQeOBzvz7QvGw15Eg4HsmT8YVVoiuYtlUKLRGpHEymbYkfiaYwgNt9uTaxqEbNZcPpr84Z2oE+
+	+dojssnKHKnXh6pcR84qks5iQyktWEuFuQWwmdEsHbOUmR/TsMwNzmW7lNQSXf7Ur2ytuLIOfMX
+	eq5tzj6LPZ3z7nB0j4eSDQZAj8hkJvd8BYsVH6zgfviRUN8T7NJgJIG50M0uSqR1AYxrQxsBoXQ
+	m58gAWiSkHMVmSyv7/siIbx1ru52O8mfVgDR3wmhVK3xyMykEyDybZ+HUJKUafNqE/+e5Y7NKr1
+	FJ9iDaTMW/2IJFCO0z0Z3U16/hBxTuXjqFglpj+O5vNzt+VCNSkZNL76YxWqWlbZ+gW6ZQ+uBRJ
+	35EYMPZtp22LNkPHLD0S2OtZ67q/RFowqtfc8VOrofRQ==
+X-Received: by 2002:a05:693c:4154:10b0:369:f4d7:19fc with SMTP id 5a478bee46e88-36a424988abmr28669874eec.41.1793810730934;
+        Wed, 04 Nov 2026 08:45:30 -0800 (PST)
 Received: from kapoor.iiserb.ac.in ([203.18.51.212])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d36a1sm10368825eec.12.2026.11.04.08.45.15
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d36a1sm10368825eec.12.2026.11.04.08.45.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 08:45:21 -0800 (PST)
+        Wed, 04 Nov 2026 08:45:30 -0800 (PST)
 From: Arnav Kapoor <kapoorarnav43@gmail.com>
 To: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
 	Conall O'Griofa <conall.ogriofa@amd.com>,
@@ -97,10 +98,12 @@ Cc: Salih Erim <salih.erim@amd.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/2] iio: adc: xilinx-ams: fix out-of-bounds accesses when parsing channels
-Date: Wed,  4 Nov 2026 22:14:59 +0530
-Message-ID: <20261104164510.105359-1-kapoorarnav43@gmail.com>
+Subject: [PATCH v3 1/2] dt-bindings: iio: adc: xlnx,zynqmp-ams: limit external channels to 30-50
+Date: Wed,  4 Nov 2026 22:15:00 +0530
+Message-ID: <20261104164510.105359-2-kapoorarnav43@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261104164510.105359-1-kapoorarnav43@gmail.com>
+References: <20261104164510.105359-1-kapoorarnav43@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,41 +115,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The driver sizes its channel array for 10 fixed and 21 external PL
-channels, but accepts external channel nodes numbered 20 to 50, and it
-never checks the remaining room while filling the array. Channels 20 to
-29 are the fixed ones, so listing them adds duplicates and overflows
-the array.
+Channels 20 to 29 of the PL-SYSMON block are its fixed channels (PL
+temperature to VCCADC), which the driver always provides. Only channels
+30 to 50 (the differential input, VUser0-3 and VAux0-15) are external
+channels that can be described as "channel@N" child nodes, yet the
+binding accepts any N from 20 to 50. Listing one of the fixed channels
+there only makes the driver add it a second time.
 
-Patch 1 limits the external channels in the binding to 30-50, as Sai
-pointed out. Patch 2 does the same in the driver and adds the bounds
-checks from v2.
+Limit the child nodes to channels 30 to 50.
 
-Changes in v3:
-- New patch 1: limit the binding to channels 30-50 (Sai)
-- Patch 2: only accept channels 30-50, so a channel node can no longer
-  duplicate a fixed channel (Sai), and add a static_assert() that
-  ams_pl_channels[] holds the fixed plus the external channels
-- Patch 2: rework the commit message around the duplicate channels
-- Rebase on fixes-togreg (now on 7.4-rc1)
+Fixes: 39dd2d1e251d ("dt-bindings: iio: adc: Add Xilinx AMS binding documentation")
+Suggested-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+---
+ .../devicetree/bindings/iio/adc/xlnx,zynqmp-ams.yaml       | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-v2: https://lore.kernel.org/all/20261023185652.195025-1-kapoorarnav43@gmail.com/
-v1: https://lore.kernel.org/all/20261021225356.625288-1-kapoorarnav43@gmail.com/
-
-Compile-tested only (W=1); I don't have ZynqMP hardware. dt_binding_check
-passes, and rejects a channel@25 node in the example.
-
-Arnav Kapoor (2):
-  dt-bindings: iio: adc: xlnx,zynqmp-ams: limit external channels to
-    30-50
-  iio: adc: xilinx-ams: fix out-of-bounds accesses when parsing channels
-
- .../bindings/iio/adc/xlnx,zynqmp-ams.yaml     |  7 ++-
- drivers/iio/adc/xilinx-ams.c                  | 57 +++++++++++++++----
- 2 files changed, 50 insertions(+), 14 deletions(-)
-
-
-base-commit: c293f0db308fe76a0a9b0f6674cd2dea149b03aa
+diff --git a/Documentation/devicetree/bindings/iio/adc/xlnx,zynqmp-ams.yaml b/Documentation/devicetree/bindings/iio/adc/xlnx,zynqmp-ams.yaml
+index 3ae1a0bab38f..0872f5f314c1 100644
+--- a/Documentation/devicetree/bindings/iio/adc/xlnx,zynqmp-ams.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/xlnx,zynqmp-ams.yaml
+@@ -160,17 +160,18 @@ properties:
+         const: 0
+ 
+     patternProperties:
+-      "^channel@([2-4][0-9]|50)$":
++      "^channel@([34][0-9]|50)$":
+         type: object
+         description:
+-          Describes the external channels connected.
++          Describes the external channels connected. Channels 20 to 29 are
++          always available and are not listed here.
+ 
+         properties:
+           reg:
+             description:
+               Pair of pins the channel is connected to. This value is
+               same as Channel Number for a particular channel.
+-            minimum: 20
++            minimum: 30
+             maximum: 50
+ 
+           xlnx,bipolar:
 -- 
 2.53.0
 
