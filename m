@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802221;
-	b=G9otkp/xrQ62a+yqqGxHHTggLn8KdcEIibd2o4Fltb5EolvuZlGtP78xykanjl6GGUBm
-	 zn+94vfU2nlL/I2CXIxLg9E+hRV53o71vjMcOXh2FFnokG1M6p62a/0cGBoKA0ljeU1Im
-	 fxJor1BfQX6bVp2PAnbRs0Mp5G+6WFVaKN1lpMlNB3H1WZGDI2JhUPOnAJ8id16MOzaww
-	 AnAnya7YWbsuWbpLK8j6p8siS1Nl5cSmgcbdrNdo0wONw3yboPZpETmpZRbMl8g8w0T94
-	 V5HI54o8JstEAn8iXl/fnU89XPX1/DB2ECdtEVn9a2yJOrNcd1pGY9jCn9JXFw1ppXQ==
+	t=1793802223;
+	b=tskc+A1KaRAkgvWPyaB8KiU5i2ufpvD+c7npis5pPuf9HdgcEEullOBEDuo5on4znGqb
+	 3VxGnZvJ/O0ZfLNTGtUDX9/JbWZa+ZPrSIDdfJNpI72NuP8PTArBKIRrSt9dhWe9H2rPO
+	 Dia4RgSAc/mY8CfdYSuGTTjBa/yxZXRPS47rREo7rpdkFJqzdFCQVyL9HDoDjVJYR3PKr
+	 I5xbigkdvC1Zlr+76xnPd8kMGAAKtYfUzSPGbpTAvxyTm1Co4pw5q5qyQAOuQg1tCYa/1
+	 +7qj6Mk1fjlZiVR829Mhpgb4Wh07Xs/dtNlXh8c6PsvuPtgoQ/n5HP57jumbp47mBKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802221;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802223;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=F7EwJsmj18W0pUfMqXmJj65rq5RvHfF0di84ScosGFo=;
-	b=XUZtEHkECYyWc5GRN43ZYntawXyoeMdlz2OsMQW+QrQIlXHTQwncz94mC3SugU/Jv4Pp
-	 RzJ/ZHaYARHp+1iMnXiWNfvsNupDHSgZDEXawXsBHsMv4ZQ8lCsNxtHbFEE8T77HmfW7d
-	 Z61hoJwH7CnTjOWL5x5ehtrHDF/DHBJ3TwTpHy5eT64ROnsgrRAlO62k+9qbHKp7Q0rlT
-	 sV711dlSQ49T0N8tdb7QXzJ7EIGGA8hlCh/V73FTxpXxANQ1fpmNtjGd0ATb6MqjKREYF
-	 jBCCHt2lyav/PZSImNE0b1oDSXKzFkIkMcB7PJlyl97kvKDxjJKq2xkWyLU8kZfW5Xw==
+	bh=yK86mZ6xkWiB6+lMDBr+sJo1P+djBBfwjFkSLmZT8pA=;
+	b=wgj26CBZGZTvBiJNoCtPf9GXdU1n1CQLYfWNNpsrID1tyfMTa6skCQquMq43ZLS9sCcx
+	 B6B8CBIaMz817bZE/3BDFgPTWDWO3OsaJEVEgJg3/PN5Mj6bBPyKoWO/DhfNzfE55Ys8p
+	 EThjwzWW0RsI7qef3WfAn67YAZLQaRLWDO+BbHyrLnQVfTiVKFDA498mOeohie5tP0e1O
+	 j7BPf2Xa2RF4Ue3ojMHogZbz8N0Oi+NbGXq+SjUpfRyIeptUMBiFgU0x4peg2jjuKBIpj
+	 84t77Z6xG9RjyM5lsIl/e08yTJKF13lPbwrNFLI77+38VP94sqgL6MwrU/xrroIC9OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a4CH3lJq;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="V/ba0b3S";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8EB7606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:23:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB96606A32C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:23:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=a4CH3lJq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D679F1F000C1;
-	Wed,  4 Nov 2026 14:23:39 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=V/ba0b3S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BCF21F000C1;
+	Wed,  4 Nov 2026 14:23:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802220;
-	bh=F7EwJsmj18W0pUfMqXmJj65rq5RvHfF0di84ScosGFo=;
+	s=korg; t=1793802222;
+	bh=yK86mZ6xkWiB6+lMDBr+sJo1P+djBBfwjFkSLmZT8pA=;
 	h=Subject:To:Cc:From:Date;
-	b=a4CH3lJqUF8shvbV8wraMnB4Q6gdbT/8gPzEgOwmVwNpCt4Z16sYR03VvP89yUTt7
-	 3sCQAjIH+WFpUrusBgsPOVoU80bLDEy7kJlYpf9eG7w4hq0DXgmjz9T5GqYl0FXbQA
-	 ZUuNMDCGC4QRcapB5Gd96sUdrczm95X111E9y4iI=
-Subject: FAILED: patch "[PATCH] serial: core: shut down initialized port on removal" failed to apply to 5.15-stable tree
+	b=V/ba0b3SrZTRRAzbNYIVN9TApvmTTf6SxIkGVChtQIL0zShO4rN4qL9yOVGD9aW8A
+	 LIR66ALS23SdH/00csUKbzp3oUlAmMkZ/WSrWCU/koLEsoLEFRj1hrkUmTSaSYg269
+	 7Jt6sIxou98sOznuPMEhjVRJ6vW3HtpDzlE7mGVg=
+Subject: FAILED: patch "[PATCH] serial: core: shut down initialized port on removal" failed to apply to 5.10-stable tree
 To: igorpetindev@gmail.com,gregkh@linuxfoundation.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:23:37 +0100
-Message-ID: <2026110437-fabulous-dingbat-b644@gregkh>
+Date: Wed, 04 Nov 2026 15:23:40 +0100
+Message-ID: <2026110440-crouch-oblivion-2771@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 810d467c11f0c85107874d08dfdd11acba6aa0c0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110437-fabulous-dingbat-b644@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110440-crouch-oblivion-2771@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
