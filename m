@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793831811;
-	b=G8Rtgv+7aGfd12z5IWjjswxGqahn6D4pLGir0f4rJ1d/zLtnDOWKhIrZ7BndRfXJZya2
-	 6ljz96DULt2175e0gnQZa3/HghX+LG5JGS+L180bvLjUqjL+lO8Tg6B+2Z7UhiqdCeu3g
-	 G3Wye4OmnQIOPtoMSYp1ma0A/5Kb3ddEjFLNfalZITy+WqaiJjKWCp2FqVTlUO+KcfEpd
-	 NTdOBDtc5GT8uGfITqeVn1EtW5eq8/oIlsH707hwVZiYMYSLmR9+Je1k0vayVIpRVZyhR
-	 e9wBCn5kkMAnnDVcYA8pgls+T1tjoEpxnxEGw/HjzEqXe5ZNpmYSHNMoDJzIWa9lbfg==
+	t=1793831812;
+	b=2YLcHX3tDU8LEblcG86hEMov1Ye1yOS/rEs6DaFeRcWMHjET9uJCBxHMHI5wN/NQWCVn
+	 0quIBAfSyIDZC+A9HLUFLNQgnwM3OcSYVPWSByq0hYjq7sHMJiNN99/JWy5CIG0juuUOp
+	 J+c599jAWBAJ1ykjZBJW77xaHjgAo2Bg73wj45rFofE3tgoeHCnikEeE0gzm9hbG6wcV8
+	 t3nBHi2INR4+tNGjrrQ+j2tCr2b0vMRg7UxCraKM3hppchpvSy0kq72fvpa08TMVlAYiU
+	 FzJx22Y1WJ1Lj/8xia0sIh4p5EdcVkNUUoRqh3VKyuOyB0pW+lnOJzl1FKvO7JlXibw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793831811;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793831812;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zX++9I2DfscRQXteGt7QPsKvk0K+ejOj2VW52nYgAes=;
-	b=4R5ZwIg5GswCB4Vygn7SAJ0TTVlrQiRgXAg/i/guz1z5h329SUU5GNLChkC0NBinkWyW
-	 MIGave8yQqpRaG3x5FYcwvNffSbGMf0XE5Ks8kdV/qHsYoRoovl1IlZUcXJYoOu2AEG5r
-	 +81n6g7LshEMjeOmhBAB4rUzfOUhNdLhMOdiN1a+nWguaFduYqfsPFIehqLhXVbznH5qm
-	 E6mxTNEiZuXF9z5mk/E7SRBqrsZv/APtGpVLr+g+XRJnOZMnKK3+0rCTxgKXYyQMM9HxF
-	 uOGJG/9hKbEK/ea5ezrkNkqHB9CUZ3XxBqFT/+Fi3XpoNo8RAxUqGlhHhi6fpxl+53A==
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=0857d9FV4bbO3/WUXOKbdq/qWvU4Znl+l8g4zrm8yPM=;
+	b=ogmuEbWIQXcdXwYtiD9HETpGxHlrBBYPYF0ZRIa8cJHD74hIWOWPBhDD/Xb2iGwB2SdY
+	 Bhf3AbP/VTfPgFXQg6a2v4UtlVu6WxID+4+Qjz50uMh+HrU/AlzQ2vK01WUIaManZHWMK
+	 Gx7DRZudW2GC78BE174ATbe7qsDPTMZOa4sB/8DORP8mqz/1Ff51J980WgzemRw17xlDl
+	 abrcMlha0LNiIZuVLhr5sMy/KSukn1rlO/w/SpZiKekNiq45kp+8HyfCnVrE//gIO5yT2
+	 ByGQbQj7uaddx00q1XCkWEuz/+k0YioA3tguDivoFSmna1dtNh9DOyJO0HxgJQXQRxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S7KzrwKZ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TaYc6vhq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEED606A863
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 22:36:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F15606A86B;
+	Wed,  4 Nov 2026 22:36:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S7KzrwKZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61CA71F000C1;
-	Wed,  4 Nov 2026 22:36:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793831810;
-	bh=zX++9I2DfscRQXteGt7QPsKvk0K+ejOj2VW52nYgAes=;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TaYc6vhq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51E171F0093A;
+	Wed,  4 Nov 2026 22:36:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793831811;
+	bh=0857d9FV4bbO3/WUXOKbdq/qWvU4Znl+l8g4zrm8yPM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S7KzrwKZqbCpQnwAqf6DZ8ck2wesQrG2FfPfmM/TC9dvIrSIW9ZP37GeWvUwzEbow
-	 rLrGsuyIhYF77wcr0LKEh0bZLqAD75gXZGMSKnuYyF0l1kNpsCtcw/HL0O2E2HUpVk
-	 aATqFdG0QKM/+x8kxp3Hr0KXLsvpUKn3IxUobAuj/2nHty9szZ/LTsjukJCNOLfwCh
-	 onqB6aCUIPoaWiMnbXsTn7CdXBw1PDi43mJoJMYqi1239AVHQrnbMHHGVMKYGO7ES2
-	 x4Zixk6MSZTPai8RUvx1UbBuMgg9hmQm2HLx46CMX+PKkOwLi1bqSRomSu/lqyv2hK
-	 XMMaIEtXQkt5A==
-From: Sasha Levin <sashal@kernel.org>
+	b=TaYc6vhqmv1RC/iyzr1URrMK6qWqtRRa8vs4qCJjU+OBf8rtSSAEUd1tf6pvLxfT/
+	 hB4frnH+mD8sQd7GGh45ALTjQACdvdCGXRQNPkerjuOkWTMIuHXngq7PufyQUnYdlO
+	 lkujMqnXG8P1RdR1RX4NJ8kxUcY5qxItxyBAVMvQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Sami Tolvanen <samitolvanen@google.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Gary Guo <gary@garyguo.net>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] rust: irq: declare cfi_encoding for irqreturn
-Date: Wed,  4 Nov 2026 17:36:48 -0500
-Message-ID: <20261104223318.627233-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110407-hydrated-decipher-a8a9@gregkh>
-References: <2026110407-hydrated-decipher-a8a9@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Yosry Ahmed <yosry@kernel.org>,
+	Sean Christopherson <seanjc@google.com>
+Subject: [PATCH 6.18 0926/1005] KVM: nSVM: Ignore EFER.LMA if EFER.LME=0 when preparing L2 state
+Date: Wed,  4 Nov 2026 16:10:59 -0500
+Message-ID: <20261104211109.077476331@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
+References: <20261104211043.516122098@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,161 +63,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sami Tolvanen <samitolvanen@google.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 01f3e6b4b1c8c1748e59ba53631ab1f5d9ad0ea4 ]
+------------------
 
-The IRQ callbacks return c_uint. C calls them through irq_handler_t,
-which returns enum irqreturn. kCFI encodes enum types by name even with
-integer normalization, so the type ids never match and every call fails
-the CFI check.
+From: Sean Christopherson <seanjc@google.com>
 
-Generate irqreturn as a newtype with a cfi_encoding, as is done for
-lru_status, and return bindings::irqreturn_t from the callbacks.
+commit 1c4c84a643b704e473cb171f7b61359ff29b12a4 upstream.
 
-Fixes: 0851d34a8cc3 ("rust: irq: add support for non-threaded IRQs and handlers")
-Fixes: 135d40523244 ("rust: irq: add support for threaded IRQs and handlers")
-Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Acked-by: Danilo Krummrich <dakr@kernel.org>
+Force EFER.LMA=0 if EFER.LME=0 when preparing L2 state for VMRUN, i.e.
+mimic real hardware's behavior of ignoring EFER.LMA if EFER.LME=0.  VMRUN
+unfortunately allows the nonsensical combination, i.e. doesn't fail, but
+KVM itself has an invariant EFER.LMA can be set et if and only if EFER.LME
+is set.   Breaking that invariant can lead to a variety of issue,
+particularly in MMU code that keys off EFER.LMA when determining whether to
+emulate/virtualization 4/5-level paging versus PAE paging.
+
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261019-rust-cfi-fixes-v1-1-9503472ba738@google.com
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-[ sashal: replaced bindgen's custom enum attribute option with sed post-processing to support older bindgen ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: Yosry Ahmed <yosry@kernel.org>
+Link: https://patch.msgid.link/20260902232028.2767071-3-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- rust/Makefile              |  3 ++-
- rust/bindgen_parameters    |  3 +++
- rust/bindings/lib.rs       |  1 +
- rust/kernel/irq/request.rs | 22 +++++++++++-----------
- 4 files changed, 17 insertions(+), 12 deletions(-)
+ arch/x86/kvm/svm/nested.c |    4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/rust/Makefile b/rust/Makefile
-index d4618f646b05b..3867ff14fbdec 100644
---- a/rust/Makefile
-+++ b/rust/Makefile
-@@ -367,7 +367,8 @@ quiet_cmd_bindgen = BINDGEN $@
- $(obj)/bindings/bindings_generated.rs: private bindgen_target_flags = \
-     $(shell grep -Ev '^#|^$$' $(src)/bindgen_parameters)
- $(obj)/bindings/bindings_generated.rs: private bindgen_target_extra = ; \
--    sed -Ei 's/pub const RUST_CONST_HELPER_([a-zA-Z0-9_]*)/pub const \1/g' $@
-+    sed -Ei 's/pub const RUST_CONST_HELPER_([a-zA-Z0-9_]*)/pub const \1/g' $@; \
-+    sed -Ei 's/^pub struct irqreturn\(/#[cfi_encoding="9irqreturn"]\n&/' $@
- $(obj)/bindings/bindings_generated.rs: $(src)/bindings/bindings_helper.h \
-     $(src)/bindgen_parameters FORCE
- 	$(call if_changed_dep,bindgen)
-diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
-index e13c6f9dd17b2..9e02500dc9792 100644
---- a/rust/bindgen_parameters
-+++ b/rust/bindgen_parameters
-@@ -23,6 +23,9 @@
- # warning. We don't need to peek into it anyway.
- --opaque-type spinlock
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -671,6 +671,10 @@ static void nested_vmcb02_prepare_save(s
  
-+# enums that appear in indirect function calls should specify a cfi type
-+--newtype-enum irqreturn
+ 	kvm_set_rflags(vcpu, vmcb12->save.rflags | X86_EFLAGS_FIXED);
+ 
++	/* SVM ignores EFER.LMA if EFER.LME=0 (instead of failing VMRUN). */
++	if (!(svm->nested.save.efer & EFER_LME))
++		svm->nested.save.efer &= ~EFER_LMA;
 +
- # `seccomp`'s comment gets understood as a doctest
- --no-doc-comments
+ 	svm_set_efer(vcpu, svm->nested.save.efer);
  
-diff --git a/rust/bindings/lib.rs b/rust/bindings/lib.rs
-index 8305adbdf8cbf..37f584727eba1 100644
---- a/rust/bindings/lib.rs
-+++ b/rust/bindings/lib.rs
-@@ -23,6 +23,7 @@
-     unreachable_pub,
-     unsafe_op_in_unsafe_fn
- )]
-+#![feature(cfi_encoding)]
- 
- #[allow(dead_code)]
- #[allow(clippy::as_underscore)]
-diff --git a/rust/kernel/irq/request.rs b/rust/kernel/irq/request.rs
-index 70700f43ddd37..4f2b315856b9b 100644
---- a/rust/kernel/irq/request.rs
-+++ b/rust/kernel/irq/request.rs
-@@ -20,10 +20,10 @@
- #[repr(u32)]
- pub enum IrqReturn {
-     /// The interrupt was not from this device or was not handled.
--    None = bindings::irqreturn_IRQ_NONE,
-+    None = bindings::irqreturn::IRQ_NONE.0,
- 
-     /// The interrupt was handled by this device.
--    Handled = bindings::irqreturn_IRQ_HANDLED,
-+    Handled = bindings::irqreturn::IRQ_HANDLED.0,
- }
- 
- /// Callbacks for an IRQ handler.
-@@ -275,7 +275,7 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
- unsafe extern "C" fn handle_irq_callback<T: Handler + 'static>(
-     _irq: i32,
-     ptr: *mut c_void,
--) -> c_uint {
-+) -> bindings::irqreturn_t {
-     // SAFETY: `ptr` is a pointer to `RegistrationInner` set in `Registration::new`
-     let inner = unsafe { &*(ptr as *const RegistrationInner) };
-     // SAFETY: `inner.handler` is a pointer to `T` set in `Registration::new`
-@@ -284,20 +284,20 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
-     // callback is running implies that the device has not yet been unbound.
-     let device = unsafe { inner.dev.as_bound() };
- 
--    T::handle(handler, device) as c_uint
-+    bindings::irqreturn_t(T::handle(handler, device) as c_uint)
- }
- 
- /// The value that can be returned from [`ThreadedHandler::handle`].
- #[repr(u32)]
- pub enum ThreadedIrqReturn {
-     /// The interrupt was not from this device or was not handled.
--    None = bindings::irqreturn_IRQ_NONE,
-+    None = bindings::irqreturn::IRQ_NONE.0,
- 
-     /// The interrupt was handled by this device.
--    Handled = bindings::irqreturn_IRQ_HANDLED,
-+    Handled = bindings::irqreturn::IRQ_HANDLED.0,
- 
-     /// The handler wants the handler thread to wake up.
--    WakeThread = bindings::irqreturn_IRQ_WAKE_THREAD,
-+    WakeThread = bindings::irqreturn::IRQ_WAKE_THREAD.0,
- }
- 
- /// Callbacks for a threaded IRQ handler.
-@@ -501,7 +501,7 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
- unsafe extern "C" fn handle_threaded_irq_callback<T: ThreadedHandler + 'static>(
-     _irq: i32,
-     ptr: *mut c_void,
--) -> c_uint {
-+) -> bindings::irqreturn_t {
-     // SAFETY: `ptr` is a pointer to `RegistrationInner` set in `ThreadedRegistration::new`
-     let inner = unsafe { &*(ptr as *const RegistrationInner) };
-     // SAFETY: `inner.handler` is a pointer to `T` set in `ThreadedRegistration::new`
-@@ -510,7 +510,7 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
-     // callback is running implies that the device has not yet been unbound.
-     let device = unsafe { inner.dev.as_bound() };
- 
--    T::handle(handler, device) as c_uint
-+    bindings::irqreturn_t(T::handle(handler, device) as c_uint)
- }
- 
- /// # Safety
-@@ -519,7 +519,7 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
- unsafe extern "C" fn thread_fn_callback<T: ThreadedHandler + 'static>(
-     _irq: i32,
-     ptr: *mut c_void,
--) -> c_uint {
-+) -> bindings::irqreturn_t {
-     // SAFETY: `ptr` is a pointer to `RegistrationInner` set in `ThreadedRegistration::new`
-     let inner = unsafe { &*(ptr as *const RegistrationInner) };
-     // SAFETY: `inner.handler` is a pointer to `T` set in `ThreadedRegistration::new`
-@@ -528,5 +528,5 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
-     // callback is running implies that the device has not yet been unbound.
-     let device = unsafe { inner.dev.as_bound() };
- 
--    T::handle_threaded(handler, device) as c_uint
-+    bindings::irqreturn_t(T::handle_threaded(handler, device) as c_uint)
- }
--- 
-2.53.0
+ 	svm_set_cr0(vcpu, svm->nested.save.cr0);
+
 
