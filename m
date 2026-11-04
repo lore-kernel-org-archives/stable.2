@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799735;
-	b=tGkDdg5omWTqiYEVrG+8scyCc6bjbo/mo+AIiq5nFpP4mXTu6lPy2f/ffwTCYcmu19Uk
-	 bbhWD3TqGMTnnidp1ODTjLhChqqbnt0W474nTyNxmyZP109FvL3kdKyZuLdzIjJE+zCtz
-	 ijdh36zmdsfPz7YtS36Qla5jhIcmbYRKUZH7YkWthofrM7yYOPec0qgvc0M0Dq0AzqC6t
-	 DXu9z/bg4iPIh5yA14/ki4PFUHm7e1zzG5xCUCI4k1PRC3qeyzp64shhXhTRBlAUtWJGk
-	 79/8P3r3FlKVoujuwqNxMz8/8hEolWo7XR1iVHLOS5j6FVlCfM1Jj9JNwOZBKbwuxfg==
+	t=1793799738;
+	b=jUGX0AeKzDpUgB26AX16BaovVS9GK6O+DqLy41ECwKvJuGhdUOyfpFQwK6KA8tvIjpWe
+	 I5eoPuYqz1LDkKdoOeOEuJuJ9PDfXyTwuAsU/Ra5GNGj0TnAacygbpyYuGZdgdOahxaoB
+	 ddNxmUqIwQGzn1zadrW+yqxOFg2IDBVhRBjPlwt2O030SNXQvXAqKzQPEjzbMLlnLhqZG
+	 vqfXxGaoq7De67CLqT7W5SaEv9YeenM6ikZsp5Cq2Ft4OJf3BkHbD3n9u4dMMSXXfIwcg
+	 yKdYd+HtXBxWIcKzPKrSBmtQrdnDARARTr3ok9jRefQAwBX4yrztY0dHTCJdutJdUbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799735;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799738;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=OrrpBGc0zqOuQ7sFcvIfGAp1qBYg6tdqub29z3KOC88=;
-	b=vxONB8G3R14lFCOHoRwsSJR9j3BbRkHJqMbf2oTdBOkc9ddtpXNSZ/Z9a6TEEihV9DHB
-	 hKD5j0jMaPnEHyA22ey74evmDVqVSxTmoAHGlElHCnpZFpqP+VxUhwjzrNJ2VMhHoile3
-	 Yea4zXD89FcOUmfI9N1Bs48tVqlrQGkClOhkc6jFJdvQN3mNwnhaIx77SrLtG4ZHqg+ul
-	 CVVEwd5UcJcKQgeH/VC2Axmp2NN+XPwSlUMh94zug74vD3jjRPppkJZ7B23id53T2LmIc
-	 6aWGZHsGnj5PbhaSa58kE4F6lpgnx6tRtypm33q+355cM50t40rhmak8KecxJxbrS2Q==
+	bh=ww2P4XLTGcec17aklZE2bnNkoWZfGGb0r5B5tsBP+wM=;
+	b=WbhHiqmx2vd4bFffXeSdfRdbIbenWpSNS93K6rFwuH0Akay2URZz6+bsJd/18koPer8s
+	 ZfV3qZ53QkXitA9XGN+1iSIaprYmXENJIBU1bst72zxwOBjhcVOCkvkXNgHJYaqo1Mo4F
+	 Wf7ipZ5mNS0QyqOV5r11ElYlVEVmOMp1UJ1Lle9hpu1naUIC+/op0JmtzcL7rtRLHJaBZ
+	 vdL22QaR5QavSGtT/LlTvAEy4m++0RASdr7s9Ik6xRIe29SWnecmWaFQli6zkNI4zzT9j
+	 0qS+r8jX3DDBKmzjSszLU5KHIvYUYxKO7loojf0p9I78BPX7yjz6jnfPgLhn+Fy41NQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AV8ult4b;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=faYMpx78;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3482C606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:42:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9EE5606A32E
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:42:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AV8ult4b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5DA91F00919;
-	Wed,  4 Nov 2026 13:42:14 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=faYMpx78
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 596F81F00919;
+	Wed,  4 Nov 2026 13:42:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793799735;
-	bh=OrrpBGc0zqOuQ7sFcvIfGAp1qBYg6tdqub29z3KOC88=;
+	s=korg; t=1793799737;
+	bh=ww2P4XLTGcec17aklZE2bnNkoWZfGGb0r5B5tsBP+wM=;
 	h=Subject:To:Cc:From:Date;
-	b=AV8ult4bzTXIaXO5J+tKjGrOyVH+DvFpgeIBUCPXsPMPBT7CmzrU/1AFPed7jvaw0
-	 x7ebNNOvcuhlQGEcJGeuSD/KKgNAMjh2aOod/48fYoqr9xjDv0l/708n4BeLVQpbzJ
-	 8HSAFNLHZ5kLSLyQaLOeN4ikPuVOtLUs8GRNAOHM=
-Subject: FAILED: patch "[PATCH] s390/zcrypt: Fix and improve zcrypt reply message" failed to apply to 6.6-stable tree
+	b=faYMpx78eg+Hp7V5WaYFu+eOnL1h7Pl9+NWk7jlovXw18wLWMXP4YlHvRP5oMrHJA
+	 bNLS6XptD+rHtlQu4bw4Efmb0LbKkRr7pq1h2560QZRpSYjri3UKtIaL60y7W4Va2f
+	 VdUwlCUsZAlDzHMbgcErG3lhuJ5YG7/DVi53sBHc=
+Subject: FAILED: patch "[PATCH] s390/zcrypt: Fix and improve zcrypt reply message" failed to apply to 5.15-stable tree
 To: freude@linux.ibm.com,dengler@linux.ibm.com,hca@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:42:08 +0100
-Message-ID: <2026110408-geometry-exclude-4819@gregkh>
+Date: Wed, 04 Nov 2026 14:42:10 +0100
+Message-ID: <2026110410-acquire-shadow-c174@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 5e9b339f323216d71f3ede8a0a427abf7859c486
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110408-geometry-exclude-4819@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110410-acquire-shadow-c174@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
