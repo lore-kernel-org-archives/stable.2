@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819922;
-	b=AtIDvSMouZMZPqY4+rhZKJFJQuTt7UcG+JXZGK8u6LnHoQaqevGn8iai9qF8KU5lqZmp
-	 TWj/z2YlBThcOSg38vG7i626Ugx7XeJ/ZssME6pQ9YLHURO1G+z4VvFlRG0EH8QzNyHJH
-	 HC65D+eABIf3DhPnl3w76uHTy19Gne/589yVf1ctT65yDerWHDmcZSUpEarm86w5qG6JY
-	 3hzBjxXaqIJoRBhIRD5c7NIdk/EWGxNaUrwRBZO/+luLl76o2tLTizoavqosqIpJCYg06
-	 qHKuZGpnIs1GnmJqDt6PpV6aJK67/Y9YqVSSEeyXNjjxEbttbH7YpY83Bbxx0Xv2GxQ==
+	t=1793819929;
+	b=sknIMvmJi19ocqR2mjJpCV8OS4BMp5FADwzQMUx1mUj/ab30GIq4RewQ4aTg7/vRJkr1
+	 jsnxLmfY8zQAJll/mXx0I4K7wetw6QitpszxWp/yymNw+SraiIpm0FkQdMhNco3THNO3i
+	 lTeCfBeZDG5T7j9oJ0h9qW+Zag677JbC467xMMNvAhLFrQy8kdam5nJJu4N7DSYtu7OkV
+	 87J2/tS6MxL1EXxjrZ316k7sOZNNPq9WjqcJSjY/UFqYs4+7knSd7rtpPYJ6wzXs3sJrP
+	 tacsOJaIXPzE0cyxfqt47sEDVVSbN2VCOZ+bhR1UtdiICPGW9EZkg7H1gdNARC0VtKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819922;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819929;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4aRXolj3DcxyowgYB2B/4T5GPw5sT30CQ9iSEg7MFAw=;
-	b=Yg2tQrjMsBKPHUDlr1g/ZC37am221WD16nZMiSqPc82ROODfpPQ5lXO57IOgJ+bxNYYz
-	 DTqSnPaHqNmzjYD1EfAShvp5BDa2Z4a0wL+6TW6DdjK4xe5fh8T8MB6riLDC6+ST9tMyw
-	 MaiA8/qy5fT/1PYzNc/oXDfYlapqB5RNAE7tMRZPailz7sx4JmUdRhO4ZrhridVifVQG2
-	 RDzyUJiByPt7fQLolTGYYUjUQTJmo89KEJoj1XX56MAYn3X65plG5QfTwNu7+QblKQmBN
-	 7PJutvBOv3e58SqKBJyNXP2dqSSur+3NIJ+y8eqC7Q1/ueoVW5Wv4uZAiGcTbzQcP8w==
+	bh=NWH74B5Ztsfw+d3V3Wu/OyEn09vie4wwAYKAVacTJlM=;
+	b=RMNDKw0G27T+YxUkbiAgPje855fh6PLtq/HJOy0UpGIGBr/VmgYym4kfkvT9hGw4J/H4
+	 CDHvsZ83s2J41B7P0Ty4ZNzEhWhQk8/86ZURkbynp1E0F6T453WWog2ClBiL72CekaCnm
+	 mL2quqhq17M1EK8hg1AAN8tWp4LxDRdMqk42ZVLjyWZH6WqaUrV9sZzjSu4yfpKaLsf4I
+	 ubpRjCZiyy+wDl2uOs94QEQXU+xDRnDT4Pf1CgfxZ2uak44P01JQHvUk0Y9G2jdNyv2yf
+	 eB9k7iqKS0aRPMp5vEkWW3sUWZF6YtLXFzNVHNBzgj62GDF67W/WBXG5hp18zmf1tVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VbORWY+x;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LVys0iPv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F87606B2D8
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:18:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8AB606BA25
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:18:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VbORWY+x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0904A1F00A02;
-	Wed,  4 Nov 2026 19:18:39 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LVys0iPv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9F6E1F0093A;
+	Wed,  4 Nov 2026 19:18:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793819920;
-	bh=4aRXolj3DcxyowgYB2B/4T5GPw5sT30CQ9iSEg7MFAw=;
+	s=korg; t=1793819928;
+	bh=NWH74B5Ztsfw+d3V3Wu/OyEn09vie4wwAYKAVacTJlM=;
 	h=Subject:To:Cc:From:Date;
-	b=VbORWY+xdhcjtRVH2m9g3UjrzGV7Mwx67QnqIsyWhGUGEVJvRD+NByJ1wMaR8z+zr
-	 Ke6XGkuZAvbqdAamXivxPcagkvs73LdMdNNbsffmYxP82hJ/zQagJeL/E2AeTVJY2z
-	 Q+hxSDCvSlZdAoZsijmcdPDzOmTWOVq6mFMInt2E=
-Subject: FAILED: patch "[PATCH] KVM: VMX: Formally define KVM's "0xdead" exit reason used for" failed to apply to 6.18-stable tree
+	b=LVys0iPvz5yo9+j5oFy5dddmILXsBkmwAChdNFZ5FdFYI4kWZDsFVykYdY4blZPdO
+	 c7ak1wc25FnTdgzCs+ps+qAPC242NQsblVOHjQ63rk5ksdwYNz/S3xMQnakU6HLSrK
+	 Xwz/4srgYtPtUyT8Xb2Yk6mYa6U17y8IS/4V85Xc=
+Subject: FAILED: patch "[PATCH] KVM: VMX: Formally define KVM's "0xdead" exit reason used for" failed to apply to 6.12-stable tree
 To: seanjc@google.com,binbin.wu@linux.intel.com,rick.p.edgecombe@intel.com,xiaoyao.li@intel.com,yan.y.zhao@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:18:38 -0500
-Message-ID: <2026110438-shrink-panic-2119@gregkh>
+Date: Wed, 04 Nov 2026 14:18:39 -0500
+Message-ID: <2026110439-makeshift-acting-834f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x d85f7dc8cf3c91a131946dae4c3aa8d9c97322d7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110438-shrink-panic-2119@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110439-makeshift-acting-834f@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
