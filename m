@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818834;
-	b=kdUWTyHwQ6c/ZO+9ItCgGt5kpBF4dzjzjD5HFC2mKnGeNrdbCb4JDJ0Q9uv5enOmtMH0
-	 mcuwfCNygP4XyN/9I+RYjtud2cBaE6ZlKK43L48EdJDBd0kWGB7DRVNroQZ0SZ1vhYAoX
-	 TshMigh95GJayKNRlE5bXAVvY2u5UTidsfVfQdao3ZUS+wcn8mHZzL+a1hrgEDME3Avfb
-	 OYhtuTHohXsVVUrvVV+aiqTLbVtEEb8bVG4Y9r0QXlUcbngJ3rh3Jk5/cWAljIpwh8tMw
-	 fl6a4Q9X75ACOBxPZ3sEmElb4uENi8D7XSQHhVQKwZPAt6JRMeEdOZY/vObPePfxVlg==
+	t=1793818844;
+	b=y9Mz6E9fpjc2FPSU0V3hTbVaDXpBub3BUZ2RuuA68ZOoJommVDkyRsrr7pGX1W/fBv6O
+	 l5on75cFiyeMZOK0f4dS6MkjSxIIsHsP+iQUgsKtrXIOLyYwnWxjyl1p+mCqhOqSV2N15
+	 PqeUAsCUXB2KVrulHUpF6a3wZGVclWW4BW0tC2o/B6mv4BmIt+FQ6+FHlQ9OAnSwOk5HS
+	 Eliu1wvb4i6IldnnCCXKj0PYPqsDi5lomWjutT7nf3+X8xvLYFnbWhESkmlQ0kZn30IAr
+	 2RnIHAW/MmOphIPqX1/NprviuFPbC+gEkMjgNGMVh+gvY4P4buG3dpZ0hxLNPR2i4Bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818834;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818844;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=714Nc1wwE3lw71rbcnCgmvDAHy78ZsrHCHZ5yjpWTVw=;
-	b=C0CIrjy/yW61fMaN/jIwPHuh1gijUxDUN00G6PK1RDMvoK3OO2V96hRcNJPiwu8z33nL
-	 xTOTusGwM5JbZ3JvJ9Hqt6RSsWoYf1udxLWn3ET/cW1FT9up0d/tn2LhHdzVeRFnkK+3b
-	 cXrxmlAMaZHbSLxhBO5zRISheyrxcGzR8Dzmw2XyAotiJ21m7MNC7X7ZcnmuIp+KodREi
-	 9hFsIkgQtCYmhedRKAszHz/WxlKfXavreoB9NTh3+UnAb07MS0/FPtxQXcGRhb2DRaAx8
-	 QKrxPiyT1+IQj91xo0wcfcACi8VmlMAXv2/padsOfSA/Ss/5Q9/2o2Drj5ZSMcyVNJQ==
+	bh=fXU7fR0pZHJgNDkwNhECpM9FbUNxRYMTvWrB7UWnyfk=;
+	b=hj7OdhZBwwsi0Ro7tURPAKp+yh8arec8kQu2h2bNzKSFPJc62FOBS2qKwHC70dHDoEW7
+	 iUDPXg+dttAvSsa6MCFkAwB4OLMJUK/OjvkzjEfg6J6f7fOPV/P0H6IF8/hlbYBO3gNSL
+	 QoVnRUbc0Wxy/H2nSf/WjJs5bF4s8dOqBLhWqQ4+5FuV5snkTSiYmGFX3TtNjkkba+91d
+	 fEmUawf1zg+0oBF57212kZUYxK/Gw0cmpl+GNdeEUR0hDycf3iRQqZPRbiJ7pb8ZHmkIn
+	 c8rjTnNrlzQRmmeRMw1wwjIKx1V02KwR+iL/lIqWXIk8esbYyTMRd1rMGp9DFf3MjnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dMDaqGbE;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U2xr24Wz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D6E606A33C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:00:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA76E606A32E
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:00:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dMDaqGbE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B32B1F00919;
-	Wed,  4 Nov 2026 19:00:29 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U2xr24Wz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A561F00919;
+	Wed,  4 Nov 2026 19:00:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793818829;
-	bh=714Nc1wwE3lw71rbcnCgmvDAHy78ZsrHCHZ5yjpWTVw=;
+	s=korg; t=1793818843;
+	bh=fXU7fR0pZHJgNDkwNhECpM9FbUNxRYMTvWrB7UWnyfk=;
 	h=Subject:To:Cc:From:Date;
-	b=dMDaqGbEELT9YximnVCwLNpfyOm1e/OSSxSth2UGti3UUlJX6Yk5+DyY58TQEepsd
-	 RBhN5a0YHVRGE27FqtysC/sr76pw14HAiBRKzxQ2ExnEx89kusQYuTrWKudv6CHK6s
-	 JwujjNPcQeG0h/cj/haW1QMZPnCPN614+cqTciwc=
-Subject: FAILED: patch "[PATCH] NFSD: Send a meaningful CB_RECALL_ANY keep count" failed to apply to 7.3-stable tree
+	b=U2xr24WzsYju5t3G9FO87ZiShptZQx6K8JyCmN9Ct298gc2ix5IbzmlPozPL8qBJt
+	 SUjMMWQcoK6kaEfRJnIObh9lbsuLpsoIpQY4S5EM/eLBScwQTbIOooXx3aRdzwnAZ6
+	 DDnyTEqka71glQKfxSVrpsMUfG+YJs2RVmxQxAg8=
+Subject: FAILED: patch "[PATCH] NFSD: Send a meaningful CB_RECALL_ANY keep count" failed to apply to 6.18-stable tree
 To: cel@kernel.org,jlayton@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 14:00:28 -0500
-Message-ID: <2026110428-scalping-unclaimed-78cf@gregkh>
+Message-ID: <2026110428-retention-sandfish-d9c2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 9af39c0773ef956039e1ebe9c235532fe6ee1e50
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110428-scalping-unclaimed-78cf@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110428-retention-sandfish-d9c2@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
