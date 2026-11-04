@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829357;
-	b=YfU+/x5fE+t+jugaWal6FhPPkt67QJVuMXS4beYFQm98mW5FnzkpRsFKJwo96CVDak0D
-	 CLgB0RdWJvzKKgO7dajBxlYSiy1ZKeJxxHGWxuqFgsY7IQInTCFRSgOsQGtc9foj2qCeu
-	 r/MUsiV1I7iCSH/gWQmebZU8ffELI023ER5vqWsGSudJj9VRApicd5g+NnPNfNgMw2sDh
-	 3DTPjd8ij+9ks1Xw7UVrK3bROTwajIexcDfZKTRVkhNB6QLo267QShQ4UnsZxg+6iLi7Q
-	 6ILRHe9y0Q80QJv4S/vb2/Vm2w+JmmDe9ueaCIfXfO8MPvKQbDRl2Xs2SAqYdbe1adw==
+	t=1793829361;
+	b=Rsf6eZwDriCUcCmtFwTA0I6f6ZaAJbNgt5AMavmM2fh9s4Wl9J0OOcao5hylCLW88iL5
+	 wa18EUQnwi5ndbhxAeZik+EV4NgZBcA2Ophtb67A+1HUtN9I3XjFrec94i0/xK60XxnFy
+	 m/UgRK4p5r/aszfabblztkzhr3kxSJ9mEgrHe8B55VnKF9fnPTC4Dj7QtOJ3VyC2ez8iA
+	 dcJKauvjvA5leJr5ecO5FsPIsftyD6GL53e1xoktgKlWp3SdvnHMACcMi+M8BguKeiQ6g
+	 R5VChKBQmwTis3xAGZ3PKVyAV07ulRKkMYH2R+gH3thCAAHYAk4nNol1MZWQWxxGw6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829357;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829361;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=wiJ7TAV6+6DMin7BeNzVECOhkqFEsEIPIXAIhycS9K4=;
-	b=ebtxsEGHHeWwgCcPG36nZtc/4O+F4ZDGK8OfQZJ32177pcpoOOOjHR2S8Uc5F/nVRsYo
-	 9BLOdFDqum39lLMQ40HkshryBpsmpqkKRAp0Bd7DF8zcSq/ZndfHMK9sQ42NANSpS2r7M
-	 qJjWpi0ceIBpOu6HKY2uqHlZdsiyGoYOX5IFl/tLx1JT2udDtgWUE7m+kzfdI47iniJVh
-	 JGyDnUwzg+I9YGOlfRgDH5PaWiRJ54NBd1KHsTAuyFsT9S1FzKHfynHHEXDz15XqJgZJo
-	 xq1KSckXcbj/E2F5yVgL+bDLrdhOls3/D7NpATTi5aj9CP8k1loSkG2jRpNS75gQ1/g==
+	bh=jmcb3erjpWA5T8RBN93Q4KW0hdRAwNQEb8ZnJjhmMyU=;
+	b=MRYnwsM0lAhpWoee0XWyxiKNA6FJPOi5jicF24lHHLPnHbNUy/uX5QRqA4aGeRV0nCbY
+	 wa/H3AQBUNQpSlnC3pqy2JE9+ELymgfR2OjjxB8fA7gRb6LFRn/Ny7JbSnH3TElWaS6wd
+	 UFUnJIMNuouqzAmvtOdA7A/vAVlVtxP8bY3ufWN8nf49C56BhtW204I0RkA1mQ7fWNwB5
+	 GWORqvBzFYV/71X9q8nZpX+kxeVM0GuMD4sAtQfUo9RT3NzuLedFJFJyiUvtV42kcx8NQ
+	 wOWpKMjvMrWu08hr/ryrYLnbAjxM5/crOawrndJhtisALWxn956h7Pq+j997muaeboA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LWal6KQw;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VswzS0lF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0178E607493E;
-	Wed,  4 Nov 2026 21:55:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D9760BF2C2;
+	Wed,  4 Nov 2026 21:56:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LWal6KQw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96AAB1F00919;
-	Wed,  4 Nov 2026 21:55:56 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VswzS0lF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6B0E1F00919;
+	Wed,  4 Nov 2026 21:55:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793829356;
-	bh=wiJ7TAV6+6DMin7BeNzVECOhkqFEsEIPIXAIhycS9K4=;
+	s=korg; t=1793829360;
+	bh=jmcb3erjpWA5T8RBN93Q4KW0hdRAwNQEb8ZnJjhmMyU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LWal6KQwBodnM76A5xWi5guKXfv1Ne3jV68TOgzCuKpsxSISOihj/8Sy7py4xtCL9
-	 q5e37rfmijKeVVHXV8WEcpkacMjdj8hWhvNapvxBusIO5lhAt1unFnjAtYqkSeSehT
-	 j072VaNJDMQhpNhHgQ2QOutOnVzrE0pLTJ5INe44=
+	b=VswzS0lFy3KL//rXv7c/LoFIswhx2kUWXU72m1nxWqcIvZGvctDrkl+4uvEVMZO4t
+	 uw5W0OJW2Py3mOKt5X9edLJA+Xdh2mZyDJTFua/6we01ItiM/L8NxkXE8OAFb5m1xj
+	 DQDZI+ke+J6mK4Qz2d+COWnGGiMjmZDBMzNWXlGk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Xiang Liu <xiang.liu@amd.com>,
-	Hawking Zhang <Hawking.Zhang@amd.com>,
+	Yang Wang <kevinyang.wang@amd.com>,
+	Asad Kamal <asad.kamal@amd.com>,
+	Kenneth Feng <kenneth.feng@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0075/1005] drm/amd/pm: Guard VBIOS AC timing table walk
-Date: Wed,  4 Nov 2026 15:56:48 -0500
-Message-ID: <20261104211045.715198116@linuxfoundation.org>
+Subject: [PATCH 6.18 0077/1005] drm/amd/pm: Validate Vega10 PPTable subtable bounds
+Date: Wed,  4 Nov 2026 15:56:50 -0500
+Message-ID: <20261104211045.772643201@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
 References: <20261104211043.516122098@linuxfoundation.org>
@@ -69,129 +70,692 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Xiang Liu <xiang.liu@amd.com>
+From: Yang Wang <kevinyang.wang@amd.com>
 
-[ Upstream commit 2bf6867e5953a140fc91c3159987656e44ed29fb ]
+[ Upstream commit 9914149f99fd2ddcfd2a8c1053a57d96ec43448e ]
 
-Reject AC timing blocks with a stride smaller than a dword before walking
-VBIOS data. A zero stride can otherwise keep reg_data pinned on a
-nonmatching MEM_ID forever.
+v1:
+Vega10 PPTable parsing uses VBIOS-provided offsets, revision fields
+and entry counts to locate subtables. Malformed data can otherwise
+drive out-of-bounds reads from soft_pp_table_size, and voltage lookup
+tables can overrun their fixed-size destination arrays.
 
-Also bound the data-block and END marker reads by the returned VRAM_Info
-table size so malformed index/data sizes do not push the timing walk past
-the table.
+Add shared bounds helpers and validate fixed-size subtables, dynamic
+entry arrays and revision-specific layouts before consuming thermal,
+fan, power-tune, clock dependency, PCIE, hard-limit and voltage lookup
+data.
 
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+v2:
+if ucRevId is not matched, fallback to default table size instead of returning -EINVAL.
+
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/pm/powerplay/hwmgr/ppatomctrl.c   | 28 +++++++++++++++----
- 1 file changed, 22 insertions(+), 6 deletions(-)
+ .../powerplay/hwmgr/vega10_processpptables.c  | 564 ++++++++++++++----
+ 1 file changed, 459 insertions(+), 105 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-index 1fff7567bca27..4b796d60b03d4 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-@@ -46,16 +46,22 @@ union voltage_object_info {
- static int atomctrl_retrieve_ac_timing(
- 		uint8_t index,
- 		ATOM_INIT_REG_BLOCK *reg_block,
-+		u8 *table_end,
- 		pp_atomctrl_mc_reg_table *table)
- {
- 	uint32_t i, j;
-+	u16 stride = le16_to_cpu(reg_block->usRegDataBlkSize);
- 	uint8_t tmem_id;
- 	ATOM_MEMORY_SETTING_DATA_BLOCK *reg_data = (ATOM_MEMORY_SETTING_DATA_BLOCK *)
- 		((uint8_t *)reg_block + (2 * sizeof(uint16_t)) + le16_to_cpu(reg_block->usRegIndexTblSize));
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_processpptables.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_processpptables.c
+index 64cff9f4850a6..63fa6b937d9ef 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_processpptables.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/vega10_processpptables.c
+@@ -63,6 +63,46 @@ static const void *get_powerplay_table(struct pp_hwmgr *hwmgr)
+ 	return table_address;
+ }
  
- 	uint8_t num_ranges = 0;
- 
--	while (*(uint32_t *)reg_data != END_OF_REG_DATA_BLOCK &&
-+	if (stride < sizeof(uint32_t))
-+		return -EINVAL;
++static bool vega10_pp_table_has_space(struct pp_hwmgr *hwmgr, size_t offset,
++				      size_t size)
++{
++	size_t table_size = hwmgr->soft_pp_table_size;
 +
-+	while ((uint8_t *)reg_data + sizeof(uint32_t) <= table_end &&
-+	       *(uint32_t *)reg_data != END_OF_REG_DATA_BLOCK &&
- 			num_ranges < VBIOS_MAX_AC_TIMING_ENTRIES) {
- 		tmem_id = (uint8_t)((*(uint32_t *)reg_data & MEM_ID_MASK) >> MEM_ID_SHIFT);
- 
-@@ -67,6 +73,10 @@ static int atomctrl_retrieve_ac_timing(
- 			for (i = 0, j = 1; i < table->last; i++) {
- 				if ((table->mc_reg_address[i].uc_pre_reg_data &
- 							LOW_NIBBLE_MASK) == DATA_FROM_TABLE) {
-+					if ((uint8_t *)reg_data +
-+					    (j + 1) * sizeof(uint32_t) > table_end)
-+						return -EINVAL;
++	return offset <= table_size && size <= table_size - offset;
++}
 +
- 					table->mc_reg_table_entry[num_ranges].mc_data[i] =
- 						(uint32_t)*((uint32_t *)reg_data + j);
- 					j++;
-@@ -81,11 +91,13 @@ static int atomctrl_retrieve_ac_timing(
- 		}
- 
- 		reg_data = (ATOM_MEMORY_SETTING_DATA_BLOCK *)
--			((uint8_t *)reg_data + le16_to_cpu(reg_block->usRegDataBlkSize)) ;
-+			((uint8_t *)reg_data + stride);
- 	}
- 
--	PP_ASSERT_WITH_CODE((*(uint32_t *)reg_data == END_OF_REG_DATA_BLOCK),
--			"Invalid VramInfo table.", return -1);
-+	if ((uint8_t *)reg_data + sizeof(uint32_t) > table_end ||
-+	    *(uint32_t *)reg_data != END_OF_REG_DATA_BLOCK)
-+		return -EINVAL;
++static int get_vega10_subtable(struct pp_hwmgr *hwmgr,
++		const ATOM_Vega10_POWERPLAYTABLE *powerplay_table,
++		u16 table_offset, size_t table_size, const void **table)
++{
++	PP_ASSERT_WITH_CODE((table_offset != 0),
++			    "Invalid PowerPlay Table!", return -1);
++	PP_ASSERT_WITH_CODE((vega10_pp_table_has_space(hwmgr, table_offset,
++						       table_size)),
++			    "Invalid PowerPlay Table!", return -1);
 +
- 	table->num_entries = num_ranges;
- 
++	*table = (const void *)(((unsigned long)powerplay_table) + table_offset);
++
++	return 0;
++}
++
++static int validate_vega10_table_entries(struct pp_hwmgr *hwmgr,
++		u16 table_offset, size_t entries_offset,
++		u8 num_entries, size_t entry_size)
++{
++	size_t table_size;
++
++	PP_ASSERT_WITH_CODE((num_entries != 0),
++			    "Invalid PowerPlay Table!", return -1);
++
++	table_size = entries_offset + num_entries * entry_size;
++	PP_ASSERT_WITH_CODE((vega10_pp_table_has_space(hwmgr, table_offset,
++						       table_size)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	return 0;
++}
++
+ static int get_vega10_state_array(struct pp_hwmgr *hwmgr,
+ 	const ATOM_Vega10_POWERPLAYTABLE *powerplay_table,
+ 	const ATOM_Vega10_State_Array **state_array)
+@@ -102,6 +142,293 @@ static int get_vega10_state_array(struct pp_hwmgr *hwmgr,
  	return 0;
-@@ -136,6 +148,7 @@ int atomctrl_initialize_mc_reg_table(
+ }
+ 
++static int get_vega10_gfxclk_dependency_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Vega10_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Vega10_GFXCLK_Dependency_Table **gfxclk_dep_table)
++{
++	const ATOM_Vega10_GFXCLK_Dependency_Table *table;
++	u16 table_offset;
++	size_t table_size;
++	size_t entry_size;
++
++	table_offset = le16_to_cpu(powerplay_table->usGfxclkDependencyTableOffset);
++	if (!table_offset)
++		return -EINVAL;
++
++	PP_ASSERT_WITH_CODE((vega10_pp_table_has_space(hwmgr, table_offset,
++						       sizeof(*table))),
++			    "Invalid PowerPlay Table!", return -1);
++
++	table = (const ATOM_Vega10_GFXCLK_Dependency_Table *)
++		(((unsigned long)powerplay_table) + table_offset);
++	PP_ASSERT_WITH_CODE((table->ucNumEntries != 0),
++			    "Invalid PowerPlay Table!", return -1);
++
++	if (table->ucRevId == 0)
++		entry_size = sizeof(ATOM_Vega10_GFXCLK_Dependency_Record);
++	else if (table->ucRevId == 1)
++		entry_size = sizeof(ATOM_Vega10_GFXCLK_Dependency_Record_V2);
++	else
++		PP_ASSERT_WITH_CODE(false,
++			"Unsupported GFXClockDependencyTable Revision!",
++			return -EINVAL);
++
++	table_size = offsetof(ATOM_Vega10_GFXCLK_Dependency_Table, entries) +
++		table->ucNumEntries * entry_size;
++	PP_ASSERT_WITH_CODE((vega10_pp_table_has_space(hwmgr, table_offset,
++						       table_size)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	*gfxclk_dep_table = table;
++
++	return 0;
++}
++
++static int get_vega10_clk_dependency_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Vega10_POWERPLAYTABLE *powerplay_table,
++		u16 table_offset,
++		const ATOM_Vega10_SOCCLK_Dependency_Table **clk_dep_table)
++{
++	const ATOM_Vega10_SOCCLK_Dependency_Table *table;
++	int ret;
++
++	ret = get_vega10_subtable(hwmgr, powerplay_table, table_offset,
++				  sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	ret = validate_vega10_table_entries(hwmgr, table_offset,
++					    offsetof(ATOM_Vega10_SOCCLK_Dependency_Table,
++						     entries),
++					    table->ucNumEntries,
++					    sizeof(ATOM_Vega10_CLK_Dependency_Record));
++	if (ret)
++		return ret;
++
++	*clk_dep_table = table;
++
++	return 0;
++}
++
++static int get_vega10_mclk_dependency_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Vega10_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Vega10_MCLK_Dependency_Table **mclk_dep_table)
++{
++	const ATOM_Vega10_MCLK_Dependency_Table *table;
++	u16 table_offset;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usMclkDependencyTableOffset);
++	ret = get_vega10_subtable(hwmgr, powerplay_table, table_offset,
++				  sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	ret = validate_vega10_table_entries(hwmgr, table_offset,
++					    offsetof(ATOM_Vega10_MCLK_Dependency_Table,
++						     entries),
++					    table->ucNumEntries,
++					    sizeof(ATOM_Vega10_MCLK_Dependency_Record));
++	if (ret)
++		return ret;
++
++	*mclk_dep_table = table;
++
++	return 0;
++}
++
++static int get_vega10_mm_dependency_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Vega10_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Vega10_MM_Dependency_Table **mm_dep_table)
++{
++	const ATOM_Vega10_MM_Dependency_Table *table;
++	u16 table_offset;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usMMDependencyTableOffset);
++	ret = get_vega10_subtable(hwmgr, powerplay_table, table_offset,
++				  sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	ret = validate_vega10_table_entries(hwmgr, table_offset,
++					    offsetof(ATOM_Vega10_MM_Dependency_Table,
++						     entries),
++					    table->ucNumEntries,
++					    sizeof(ATOM_Vega10_MM_Dependency_Record));
++	if (ret)
++		return ret;
++
++	*mm_dep_table = table;
++
++	return 0;
++}
++
++static int get_vega10_pcie_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Vega10_POWERPLAYTABLE *powerplay_table,
++		const Vega10_PPTable_Generic_SubTable_Header **pcie_table)
++{
++	const ATOM_Vega10_PCIE_Table *table;
++	u16 table_offset;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usPCIETableOffset);
++	ret = get_vega10_subtable(hwmgr, powerplay_table, table_offset,
++				  sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	if (!table->ucNumEntries) {
++		*pcie_table = (const Vega10_PPTable_Generic_SubTable_Header *)table;
++		return 0;
++	}
++
++	ret = validate_vega10_table_entries(hwmgr, table_offset,
++					    offsetof(ATOM_Vega10_PCIE_Table,
++						     entries),
++					    table->ucNumEntries,
++					    sizeof(ATOM_Vega10_PCIE_Record));
++	if (ret)
++		return ret;
++
++	*pcie_table = (const Vega10_PPTable_Generic_SubTable_Header *)table;
++
++	return 0;
++}
++
++static int get_vega10_hard_limit_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Vega10_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Vega10_Hard_Limit_Table **hard_limit_table)
++{
++	const ATOM_Vega10_Hard_Limit_Table *table;
++	u16 table_offset;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usHardLimitTableOffset);
++	ret = get_vega10_subtable(hwmgr, powerplay_table, table_offset,
++				  sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	ret = validate_vega10_table_entries(hwmgr, table_offset,
++					    offsetof(ATOM_Vega10_Hard_Limit_Table,
++						     entries),
++					    table->ucNumEntries,
++					    sizeof(ATOM_Vega10_Hard_Limit_Record));
++	if (ret)
++		return ret;
++
++	*hard_limit_table = table;
++
++	return 0;
++}
++
++static int get_vega10_thermal_controller_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Vega10_POWERPLAYTABLE *powerplay_table,
++		const ATOM_Vega10_Thermal_Controller **thermal_controller)
++{
++	u16 table_offset;
++
++	table_offset = le16_to_cpu(powerplay_table->usThermalControllerOffset);
++
++	return get_vega10_subtable(hwmgr, powerplay_table, table_offset,
++				   sizeof(**thermal_controller),
++				   (const void **)thermal_controller);
++}
++
++static int get_vega10_fan_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Vega10_POWERPLAYTABLE *powerplay_table,
++		const Vega10_PPTable_Generic_SubTable_Header **fan_table)
++{
++	const Vega10_PPTable_Generic_SubTable_Header *header;
++	u16 table_offset;
++	size_t table_size;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usFanTableOffset);
++	ret = get_vega10_subtable(hwmgr, powerplay_table, table_offset,
++				  sizeof(*header), (const void **)&header);
++	if (ret)
++		return ret;
++
++	if (header->ucRevId == 10)
++		table_size = sizeof(ATOM_Vega10_Fan_Table);
++	else if (header->ucRevId == 0xb)
++		table_size = sizeof(ATOM_Vega10_Fan_Table_V2);
++	else if (header->ucRevId > 0xb)
++		table_size = sizeof(ATOM_Vega10_Fan_Table_V3);
++	else
++		table_size = sizeof(*header);
++
++	PP_ASSERT_WITH_CODE((vega10_pp_table_has_space(hwmgr, table_offset,
++						       table_size)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	*fan_table = header;
++
++	return 0;
++}
++
++static int get_vega10_power_tune_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Vega10_POWERPLAYTABLE *powerplay_table,
++		const Vega10_PPTable_Generic_SubTable_Header **power_tune_table)
++{
++	const Vega10_PPTable_Generic_SubTable_Header *header;
++	u16 table_offset;
++	size_t table_size;
++	int ret;
++
++	table_offset = le16_to_cpu(powerplay_table->usPowerTuneTableOffset);
++	ret = get_vega10_subtable(hwmgr, powerplay_table, table_offset,
++				  sizeof(*header), (const void **)&header);
++	if (ret)
++		return ret;
++
++	if (header->ucRevId == 5)
++		table_size = sizeof(ATOM_Vega10_PowerTune_Table);
++	else if (header->ucRevId == 6)
++		table_size = sizeof(ATOM_Vega10_PowerTune_Table_V2);
++	else
++		table_size = sizeof(ATOM_Vega10_PowerTune_Table_V3);
++
++	PP_ASSERT_WITH_CODE((vega10_pp_table_has_space(hwmgr, table_offset,
++						       table_size)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	*power_tune_table = header;
++
++	return 0;
++}
++
++static int get_vega10_voltage_lookup_table(struct pp_hwmgr *hwmgr,
++		const ATOM_Vega10_POWERPLAYTABLE *powerplay_table,
++		u16 table_offset, uint32_t max_levels,
++		const ATOM_Vega10_Voltage_Lookup_Table **lookup_table)
++{
++	const ATOM_Vega10_Voltage_Lookup_Table *table;
++	size_t table_size;
++	int ret;
++
++	ret = get_vega10_subtable(hwmgr, powerplay_table, table_offset,
++				  sizeof(*table), (const void **)&table);
++	if (ret)
++		return ret;
++
++	PP_ASSERT_WITH_CODE((table->ucNumEntries != 0 &&
++			     table->ucNumEntries <= max_levels),
++			    "Invalid PowerPlay Table!", return -1);
++
++	table_size = offsetof(ATOM_Vega10_Voltage_Lookup_Table, entries) +
++		table->ucNumEntries * sizeof(ATOM_Vega10_Voltage_Lookup_Record);
++	PP_ASSERT_WITH_CODE((vega10_pp_table_has_space(hwmgr, table_offset,
++						       table_size)),
++			    "Invalid PowerPlay Table!", return -1);
++
++	*lookup_table = table;
++
++	return 0;
++}
++
+ static int check_powerplay_tables(struct pp_hwmgr *hwmgr,
+ 	const ATOM_Vega10_POWERPLAYTABLE *powerplay_table)
  {
- 	ATOM_VRAM_INFO_HEADER_V2_1 *vram_info;
- 	ATOM_INIT_REG_BLOCK *reg_block;
-+	u8 *table_end;
- 	int result = 0;
- 	u8 frev, crev;
- 	u16 size;
-@@ -157,6 +170,7 @@ int atomctrl_initialize_mc_reg_table(
- 	}
+@@ -149,14 +476,16 @@ static int init_thermal_controller(
+ 	const ATOM_Vega10_Fan_Table *fan_table_v1;
+ 	const ATOM_Vega10_Fan_Table_V2 *fan_table_v2;
+ 	const ATOM_Vega10_Fan_Table_V3 *fan_table_v3;
+-
+-	thermal_controller = (ATOM_Vega10_Thermal_Controller *)
+-			(((unsigned long)powerplay_table) +
+-			le16_to_cpu(powerplay_table->usThermalControllerOffset));
++	int ret;
  
- 	if (0 == result) {
-+		table_end = (uint8_t *)vram_info + size;
- 		reg_block = (ATOM_INIT_REG_BLOCK *)
- 			((uint8_t *)vram_info + le16_to_cpu(vram_info->usMemClkPatchTblOffset));
- 		result = atomctrl_set_mc_reg_address_table(reg_block, table);
-@@ -164,7 +178,7 @@ int atomctrl_initialize_mc_reg_table(
+ 	PP_ASSERT_WITH_CODE((powerplay_table->usThermalControllerOffset != 0),
+ 			"Thermal controller table not set!", return -EINVAL);
  
- 	if (0 == result) {
- 		result = atomctrl_retrieve_ac_timing(module_index,
--					reg_block, table);
-+					reg_block, table_end, table);
- 	}
++	ret = get_vega10_thermal_controller_table(hwmgr, powerplay_table,
++						  &thermal_controller);
++	if (ret)
++		return ret;
++
+ 	hwmgr->thermal_controller.ucType = thermal_controller->ucType;
+ 	hwmgr->thermal_controller.ucI2cLine = thermal_controller->ucI2cLine;
+ 	hwmgr->thermal_controller.ucI2cAddress = thermal_controller->ucI2cAddress;
+@@ -185,9 +514,9 @@ static int init_thermal_controller(
+ 	if (!powerplay_table->usFanTableOffset)
+ 		return 0;
  
- 	return result;
-@@ -177,6 +191,7 @@ int atomctrl_initialize_mc_reg_table_v2_2(
+-	header = (const Vega10_PPTable_Generic_SubTable_Header *)
+-			(((unsigned long)powerplay_table) +
+-			le16_to_cpu(powerplay_table->usFanTableOffset));
++	ret = get_vega10_fan_table(hwmgr, powerplay_table, &header);
++	if (ret)
++		return ret;
+ 
+ 	if (header->ucRevId == 10) {
+ 		fan_table_v1 = (ATOM_Vega10_Fan_Table *)header;
+@@ -332,12 +661,15 @@ static int init_over_drive_limits(
+ 		struct pp_hwmgr *hwmgr,
+ 		const ATOM_Vega10_POWERPLAYTABLE *powerplay_table)
  {
- 	ATOM_VRAM_INFO_HEADER_V2_2 *vram_info;
- 	ATOM_INIT_REG_BLOCK *reg_block;
-+	u8 *table_end;
+-	const ATOM_Vega10_GFXCLK_Dependency_Table *gfxclk_dep_table =
+-			(const ATOM_Vega10_GFXCLK_Dependency_Table *)
+-			(((unsigned long) powerplay_table) +
+-			le16_to_cpu(powerplay_table->usGfxclkDependencyTableOffset));
++	const ATOM_Vega10_GFXCLK_Dependency_Table *gfxclk_dep_table;
+ 	bool is_acg_enabled = false;
+ 	ATOM_Vega10_GFXCLK_Dependency_Record_V2 *patom_record_v2;
++	int ret;
++
++	ret = get_vega10_gfxclk_dependency_table(hwmgr, powerplay_table,
++						 &gfxclk_dep_table);
++	if (ret)
++		return ret;
+ 
+ 	if (gfxclk_dep_table->ucRevId == 1) {
+ 		patom_record_v2 =
+@@ -900,51 +1232,13 @@ static int init_powerplay_extended_tables(
  	int result = 0;
- 	u8 frev, crev;
- 	u16 size;
-@@ -198,6 +213,7 @@ int atomctrl_initialize_mc_reg_table_v2_2(
+ 	struct phm_ppt_v2_information *pp_table_info =
+ 		(struct phm_ppt_v2_information *)(hwmgr->pptable);
+-
+-	const ATOM_Vega10_MM_Dependency_Table *mm_dependency_table =
+-			(const ATOM_Vega10_MM_Dependency_Table *)
+-			(((unsigned long) powerplay_table) +
+-			le16_to_cpu(powerplay_table->usMMDependencyTableOffset));
+-	const Vega10_PPTable_Generic_SubTable_Header *power_tune_table =
+-			(const Vega10_PPTable_Generic_SubTable_Header *)
+-			(((unsigned long) powerplay_table) +
+-			le16_to_cpu(powerplay_table->usPowerTuneTableOffset));
+-	const ATOM_Vega10_SOCCLK_Dependency_Table *socclk_dep_table =
+-			(const ATOM_Vega10_SOCCLK_Dependency_Table *)
+-			(((unsigned long) powerplay_table) +
+-			le16_to_cpu(powerplay_table->usSocclkDependencyTableOffset));
+-	const ATOM_Vega10_GFXCLK_Dependency_Table *gfxclk_dep_table =
+-			(const ATOM_Vega10_GFXCLK_Dependency_Table *)
+-			(((unsigned long) powerplay_table) +
+-			le16_to_cpu(powerplay_table->usGfxclkDependencyTableOffset));
+-	const ATOM_Vega10_DCEFCLK_Dependency_Table *dcefclk_dep_table =
+-			(const ATOM_Vega10_DCEFCLK_Dependency_Table *)
+-			(((unsigned long) powerplay_table) +
+-			le16_to_cpu(powerplay_table->usDcefclkDependencyTableOffset));
+-	const ATOM_Vega10_MCLK_Dependency_Table *mclk_dep_table =
+-			(const ATOM_Vega10_MCLK_Dependency_Table *)
+-			(((unsigned long) powerplay_table) +
+-			le16_to_cpu(powerplay_table->usMclkDependencyTableOffset));
+-	const ATOM_Vega10_Hard_Limit_Table *hard_limits =
+-			(const ATOM_Vega10_Hard_Limit_Table *)
+-			(((unsigned long) powerplay_table) +
+-			le16_to_cpu(powerplay_table->usHardLimitTableOffset));
+-	const Vega10_PPTable_Generic_SubTable_Header *pcie_table =
+-			(const Vega10_PPTable_Generic_SubTable_Header *)
+-			(((unsigned long) powerplay_table) +
+-			le16_to_cpu(powerplay_table->usPCIETableOffset));
+-	const ATOM_Vega10_PIXCLK_Dependency_Table *pixclk_dep_table =
+-			(const ATOM_Vega10_PIXCLK_Dependency_Table *)
+-			(((unsigned long) powerplay_table) +
+-			le16_to_cpu(powerplay_table->usPixclkDependencyTableOffset));
+-	const ATOM_Vega10_PHYCLK_Dependency_Table *phyclk_dep_table =
+-			(const ATOM_Vega10_PHYCLK_Dependency_Table *)
+-			(((unsigned long) powerplay_table) +
+-			le16_to_cpu(powerplay_table->usPhyClkDependencyTableOffset));
+-	const ATOM_Vega10_DISPCLK_Dependency_Table *dispclk_dep_table =
+-			(const ATOM_Vega10_DISPCLK_Dependency_Table *)
+-			(((unsigned long) powerplay_table) +
+-			le16_to_cpu(powerplay_table->usDispClkDependencyTableOffset));
++	const ATOM_Vega10_MM_Dependency_Table *mm_dependency_table;
++	const Vega10_PPTable_Generic_SubTable_Header *power_tune_table;
++	const ATOM_Vega10_GFXCLK_Dependency_Table *gfxclk_dep_table;
++	const ATOM_Vega10_MCLK_Dependency_Table *mclk_dep_table;
++	const ATOM_Vega10_Hard_Limit_Table *hard_limits;
++	const Vega10_PPTable_Generic_SubTable_Header *pcie_table;
++	const ATOM_Vega10_SOCCLK_Dependency_Table *clk_dep_table;
+ 
+ 	pp_table_info->vdd_dep_on_socclk = NULL;
+ 	pp_table_info->vdd_dep_on_sclk = NULL;
+@@ -956,63 +1250,114 @@ static int init_powerplay_extended_tables(
+ 	pp_table_info->vdd_dep_on_phyclk = NULL;
+ 	pp_table_info->vdd_dep_on_dispclk = NULL;
+ 
+-	if (powerplay_table->usMMDependencyTableOffset)
+-		result = get_mm_clock_voltage_table(hwmgr,
++	if (powerplay_table->usMMDependencyTableOffset) {
++		result = get_vega10_mm_dependency_table(hwmgr, powerplay_table,
++							&mm_dependency_table);
++		if (!result)
++			result = get_mm_clock_voltage_table(hwmgr,
+ 				&pp_table_info->mm_dep_table,
+ 				mm_dependency_table);
++	}
+ 
+-	if (!result && powerplay_table->usPowerTuneTableOffset)
+-		result = get_tdp_table(hwmgr,
++	if (!result && powerplay_table->usPowerTuneTableOffset) {
++		result = get_vega10_power_tune_table(hwmgr, powerplay_table,
++						     &power_tune_table);
++		if (!result)
++			result = get_tdp_table(hwmgr,
+ 				&pp_table_info->tdp_table,
+ 				power_tune_table);
++	}
+ 
+-	if (!result && powerplay_table->usSocclkDependencyTableOffset)
+-		result = get_socclk_voltage_dependency_table(hwmgr,
++	if (!result && powerplay_table->usSocclkDependencyTableOffset) {
++		result = get_vega10_clk_dependency_table(hwmgr, powerplay_table,
++				le16_to_cpu(powerplay_table->usSocclkDependencyTableOffset),
++				&clk_dep_table);
++		if (!result)
++			result = get_socclk_voltage_dependency_table(hwmgr,
+ 				&pp_table_info->vdd_dep_on_socclk,
+-				socclk_dep_table);
++				(const ATOM_Vega10_SOCCLK_Dependency_Table *)
++				clk_dep_table);
++	}
+ 
+-	if (!result && powerplay_table->usGfxclkDependencyTableOffset)
+-		result = get_gfxclk_voltage_dependency_table(hwmgr,
+-				&pp_table_info->vdd_dep_on_sclk,
+-				gfxclk_dep_table);
++	if (!result && powerplay_table->usGfxclkDependencyTableOffset) {
++		result = get_vega10_gfxclk_dependency_table(hwmgr,
++			powerplay_table, &gfxclk_dep_table);
++		if (!result)
++			result = get_gfxclk_voltage_dependency_table(hwmgr,
++					&pp_table_info->vdd_dep_on_sclk,
++					gfxclk_dep_table);
++	}
+ 
+-	if (!result && powerplay_table->usPixclkDependencyTableOffset)
+-		result = get_pix_clk_voltage_dependency_table(hwmgr,
++	if (!result && powerplay_table->usPixclkDependencyTableOffset) {
++		result = get_vega10_clk_dependency_table(hwmgr, powerplay_table,
++				le16_to_cpu(powerplay_table->usPixclkDependencyTableOffset),
++				&clk_dep_table);
++		if (!result)
++			result = get_pix_clk_voltage_dependency_table(hwmgr,
+ 				&pp_table_info->vdd_dep_on_pixclk,
+ 				(const ATOM_Vega10_PIXCLK_Dependency_Table *)
+-				pixclk_dep_table);
++				clk_dep_table);
++	}
+ 
+-	if (!result && powerplay_table->usPhyClkDependencyTableOffset)
+-		result = get_pix_clk_voltage_dependency_table(hwmgr,
++	if (!result && powerplay_table->usPhyClkDependencyTableOffset) {
++		result = get_vega10_clk_dependency_table(hwmgr, powerplay_table,
++				le16_to_cpu(powerplay_table->usPhyClkDependencyTableOffset),
++				&clk_dep_table);
++		if (!result)
++			result = get_pix_clk_voltage_dependency_table(hwmgr,
+ 				&pp_table_info->vdd_dep_on_phyclk,
+ 				(const ATOM_Vega10_PIXCLK_Dependency_Table *)
+-				phyclk_dep_table);
++				clk_dep_table);
++	}
+ 
+-	if (!result && powerplay_table->usDispClkDependencyTableOffset)
+-		result = get_pix_clk_voltage_dependency_table(hwmgr,
++	if (!result && powerplay_table->usDispClkDependencyTableOffset) {
++		result = get_vega10_clk_dependency_table(hwmgr, powerplay_table,
++				le16_to_cpu(powerplay_table->usDispClkDependencyTableOffset),
++				&clk_dep_table);
++		if (!result)
++			result = get_pix_clk_voltage_dependency_table(hwmgr,
+ 				&pp_table_info->vdd_dep_on_dispclk,
+ 				(const ATOM_Vega10_PIXCLK_Dependency_Table *)
+-				dispclk_dep_table);
++				clk_dep_table);
++	}
+ 
+-	if (!result && powerplay_table->usDcefclkDependencyTableOffset)
+-		result = get_dcefclk_voltage_dependency_table(hwmgr,
++	if (!result && powerplay_table->usDcefclkDependencyTableOffset) {
++		result = get_vega10_clk_dependency_table(hwmgr, powerplay_table,
++				le16_to_cpu(powerplay_table->usDcefclkDependencyTableOffset),
++				&clk_dep_table);
++		if (!result)
++			result = get_dcefclk_voltage_dependency_table(hwmgr,
+ 				&pp_table_info->vdd_dep_on_dcefclk,
+-				dcefclk_dep_table);
++				(const ATOM_Vega10_DCEFCLK_Dependency_Table *)
++				clk_dep_table);
++	}
+ 
+-	if (!result && powerplay_table->usMclkDependencyTableOffset)
+-		result = get_mclk_voltage_dependency_table(hwmgr,
++	if (!result && powerplay_table->usMclkDependencyTableOffset) {
++		result = get_vega10_mclk_dependency_table(hwmgr, powerplay_table,
++							  &mclk_dep_table);
++		if (!result)
++			result = get_mclk_voltage_dependency_table(hwmgr,
+ 				&pp_table_info->vdd_dep_on_mclk,
+ 				mclk_dep_table);
++	}
+ 
+-	if (!result && powerplay_table->usPCIETableOffset)
+-		result = get_pcie_table(hwmgr,
++	if (!result && powerplay_table->usPCIETableOffset) {
++		result = get_vega10_pcie_table(hwmgr, powerplay_table,
++					       &pcie_table);
++		if (!result)
++			result = get_pcie_table(hwmgr,
+ 				&pp_table_info->pcie_table,
+ 				pcie_table);
++	}
+ 
+-	if (!result && powerplay_table->usHardLimitTableOffset)
+-		result = get_hard_limits(hwmgr,
++	if (!result && powerplay_table->usHardLimitTableOffset) {
++		result = get_vega10_hard_limit_table(hwmgr, powerplay_table,
++						     &hard_limits);
++		if (!result)
++			result = get_hard_limits(hwmgr,
+ 				&pp_table_info->max_clock_voltage_on_dc,
+ 				hard_limits);
++	}
+ 
+ 	hwmgr->dyn_state.max_clock_voltage_on_dc.sclk =
+ 			pp_table_info->max_clock_voltage_on_dc.sclk;
+@@ -1140,30 +1485,39 @@ static int init_dpm_2_parameters(
  	}
  
- 	if (0 == result) {
-+		table_end = (uint8_t *)vram_info + size;
- 		reg_block = (ATOM_INIT_REG_BLOCK *)
- 			((uint8_t *)vram_info + le16_to_cpu(vram_info->usMemClkPatchTblOffset));
- 		result = atomctrl_set_mc_reg_address_table(reg_block, table);
-@@ -205,7 +221,7 @@ int atomctrl_initialize_mc_reg_table_v2_2(
+ 	if (powerplay_table->usVddcLookupTableOffset) {
+-		const ATOM_Vega10_Voltage_Lookup_Table *vddc_table =
+-				(ATOM_Vega10_Voltage_Lookup_Table *)
+-				(((unsigned long)powerplay_table) +
+-				le16_to_cpu(powerplay_table->usVddcLookupTableOffset));
+-		result = get_vddc_lookup_table(hwmgr,
+-				&pp_table_info->vddc_lookup_table, vddc_table, 8);
++		const ATOM_Vega10_Voltage_Lookup_Table *vddc_table;
++
++		result = get_vega10_voltage_lookup_table(hwmgr, powerplay_table,
++				le16_to_cpu(powerplay_table->usVddcLookupTableOffset),
++				8, &vddc_table);
++		if (!result)
++			result = get_vddc_lookup_table(hwmgr,
++					&pp_table_info->vddc_lookup_table,
++					vddc_table, 8);
+ 	}
  
- 	if (0 == result) {
- 		result = atomctrl_retrieve_ac_timing(module_index,
--					reg_block, table);
-+					reg_block, table_end, table);
+-	if (powerplay_table->usVddmemLookupTableOffset) {
+-		const ATOM_Vega10_Voltage_Lookup_Table *vdd_mem_table =
+-				(ATOM_Vega10_Voltage_Lookup_Table *)
+-				(((unsigned long)powerplay_table) +
+-				le16_to_cpu(powerplay_table->usVddmemLookupTableOffset));
+-		result = get_vddc_lookup_table(hwmgr,
+-				&pp_table_info->vddmem_lookup_table, vdd_mem_table, 4);
++	if (!result && powerplay_table->usVddmemLookupTableOffset) {
++		const ATOM_Vega10_Voltage_Lookup_Table *vdd_mem_table;
++
++		result = get_vega10_voltage_lookup_table(hwmgr, powerplay_table,
++				le16_to_cpu(powerplay_table->usVddmemLookupTableOffset),
++				4, &vdd_mem_table);
++		if (!result)
++			result = get_vddc_lookup_table(hwmgr,
++					&pp_table_info->vddmem_lookup_table,
++					vdd_mem_table, 4);
+ 	}
+ 
+-	if (powerplay_table->usVddciLookupTableOffset) {
+-		const ATOM_Vega10_Voltage_Lookup_Table *vddci_table =
+-				(ATOM_Vega10_Voltage_Lookup_Table *)
+-				(((unsigned long)powerplay_table) +
+-				le16_to_cpu(powerplay_table->usVddciLookupTableOffset));
+-		result = get_vddc_lookup_table(hwmgr,
+-				&pp_table_info->vddci_lookup_table, vddci_table, 4);
++	if (!result && powerplay_table->usVddciLookupTableOffset) {
++		const ATOM_Vega10_Voltage_Lookup_Table *vddci_table;
++
++		result = get_vega10_voltage_lookup_table(hwmgr, powerplay_table,
++				le16_to_cpu(powerplay_table->usVddciLookupTableOffset),
++				4, &vddci_table);
++		if (!result)
++			result = get_vddc_lookup_table(hwmgr,
++					&pp_table_info->vddci_lookup_table,
++					vddci_table, 4);
  	}
  
  	return result;
