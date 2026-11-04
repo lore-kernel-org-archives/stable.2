@@ -1,79 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793826182;
-	b=WDs+4vd/f6SzntAWUqw/xjHc1v40OWZUpHknzWSEQzIyjEnFv4uJP/cYEVRFgRguN8L1
-	 iuCxBaTz7OtUDkkB+AcqJKqQWv3BFkG+SzcXZxfeeO+DbDwtGSfSyb1+GiGF7xK2ueqQY
-	 Rf+XqjfjYHDfLbTm0/+OlYQNtvk5zdxlvKhuiB/vdRXRNJsGiP1uvibIyaYDQat2p6Tfh
-	 tTtWlq9Ie/AWsIK9vCr/UCMW6JjfZtQjioLtXVSrzPhjL+OK/eLMO75qXur3KOIa2I2Dy
-	 IojydYDdZWDLwIuLAvgtEmcZA4TE9ShX/bmflyAS3LexG1OFVuvqhAW/IgJgdIPLLZw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826182;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=lxjwYeMZZmbD2QPsM83M/jtb8Csa4HQuEoxr2o/RPk8=;
-	b=EBsS0xPkR3P8k5iIdYmcPT/IdEm3zhp0UVCw/otNeyse4B6VmirQ4No0vw5OL3h2gpGn
-	 IQV8AW2DZvteuopbHwoZvO0bOvZRXhkCaZyPybPSdlphqKNj/4y2eBrSLY2nI3wLEeLGr
-	 AoUGEXULlXDjSWDsasrtLaZRqvvrd/fLLyIz1Zs9gFjPYwTvrw2kDEx8sk0M02D4i1KKI
-	 m2y8VNqRP7EOU5RN0QL/Pgojc71F85sX5eTV0RZNSM9i2fLWoMb9fSBwPqpVrKFN6lH4a
-	 zWw+vgGDc/vLaMXApO7hBThOkh3fWsSiOb5pzjnX6+9I0af+PkxbIIpQsLe0p+yZJAA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cj1c23zQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793826286;
+	b=Bh8d8Tzbz+ZPNQRTNqbCOzB7+HdlzKyDcSTR9Ncrg7pt40eZDyyAz+BcfyXE8OXAiYPv
+	 lWhicGo9mQ9Y2ZCg3H/R2BR9CYJxSK28YXePLdrFpeK+4McBm8VgQ58JlHtHWckReCmg0
+	 eyo/YDUjrg8beGZlLBXqWtF4pTpu8OW48oOMTxDJDKJlmq6oNHfK1rFS36aJbz8/C2goJ
+	 KvpiCO03O7UW5IVPcDKq0p/49H0Y8/AN7gN5K/4GOOnRiwX7P4npvXrhxdhv06x3I8kdx
+	 ZGg72lOPrjHcibqvoGprvaWWf0wKzM1gOcdN6yg+bw18dwujz9Wde0g7qfpJL0AlG0g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826286;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=RsihQdT4egIDZrzmcCZO6haUhy9KDf27AGdG/nP+mGw=;
+	b=oYsz/CP7/f4qgr51c8tYSXaghCQgFG0+jRCegi6NHIt1T/lExwa9W58JTOIimGToV0aj
+	 IBEOY4oOyHuW0Q4k9qumNo3TJsxh/j3445pOMY7eqBS2ezynVEMUYM4+UStide9SonnLO
+	 tGhkVgdRNXYMW9EzS9nLCJKbrxXqp3TRQRtp7nU5fAIMPl4dj+FSOLosVfJlSV5By0jok
+	 9ivsLmf+HdGZgq8cDiF7tqsq9zEGHvSbTnotu+jc5IKOURSx4Hejyogn7iFSgy2GW3MXZ
+	 wcoQfb94QlR12dubnEG3euFKolhTqqK45taCJUG7EPoheLsaUGQMo0MKX0Ca+/iFdkw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KvfPq5Mr;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C04C606D4DF;
-	Wed,  4 Nov 2026 21:03:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B49606D4C2
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 21:04:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cj1c23zQ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793826182;
-	b=o3iDM3ikeauvXsMbRVu6HmlMCtI2ea0WY+z+ddYDEJt+JkuIOKAcWlHMX8ujhrJDJx7y
-	 GheB1P2krmtS73aJOSL/M4olTQzAX08kKJnoTq+ikDe1mpE9opPtA3oActDGZVwm9KRX1
-	 aIzwLeZPfOXfFxjEHgYllN4Pyhy5qKHouOkurKtBCYXgwk29T7aRaYQ/vRft5ZNpjArOF
-	 S2BeCyCyCKSzxj3lIxUvqg/gW8LDzPu5Rfg2+tlKbwebQb55kL/fAPLZzdscEYG7CGPUR
-	 s6LbI8A0VATnXzeJctJ25KeR85EByPXoq6Njn1/mYFq0eHEHu4lv1BYcBT5QutApzew==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793826182;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=lxjwYeMZZmbD2QPsM83M/jtb8Csa4HQuEoxr2o/RPk8=;
-	b=x6U1Ww5ZkQTdTHnIVmqwxaNXzhdES1y+uF5ZsHFcqxn+Rpgm7J6cbNDOi1Nkk3/ypBcY
-	 d00MLHj9fVHLWEV8od5vq3jgRjd5wb+WIsufp1sGOqJ5qXeN2q1J+KUAXZm64GZBFHrSX
-	 Q4RbVGQZz0+nKS+8iplYdnAPKpQKBmaBfvuTwXqXHVxrScd8zxKEdDiVgrB3sB60nXbmx
-	 KyMTyJv4w1W4Zekda9eO3otkZPTz4BB74sAfjKscLGuuRN8EC5x+3Ei59MLswHEuc1r+z
-	 wo32nvRBJEpa6Pw4qq/yOUfbEr1McwQZUeA2doUg1S9+6Ed31ap5UMnASjTvLlxAEqA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 85EBE1F0093A;
-	Wed,  4 Nov 2026 21:03:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793826182;
-	bh=lxjwYeMZZmbD2QPsM83M/jtb8Csa4HQuEoxr2o/RPk8=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Cj1c23zQnK2yuu/V4c/a91FDwHq14tMijCBIjiO8ZyL9q+fqaIge/wgvhOsgiRjTD
-	 35dqeRKYYM7/ZFhuKxKkern9tS4ip6P4oP5ZLS9gzYo+TDuBvs6WA3sZUvgfBuxRx4
-	 E9tKWsrrc13Zpg7QEXnN+Fqxz9zLoxi+LXfTgOSjEE7zwk8hXEBIn4yWjNAAh0Y2AU
-	 Au/V+W8E8M0+rNw79KtIv3sxtVOfdeKaPzbMYYQb64tj4N43dGQRkjVWP+b/V+hswy
-	 G9qXoJt3OPlEbr8zOnUsbRnIKPk7QTY2c6wWNxPBB/OtI3qt5HKSzTX46VQOwtGHnx
-	 VlW2GZsGXe6Yg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DB06146F91;
-	Wed,  4 Nov 2026 21:03:00 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Wed, 04 Nov 2026 21:03:01 +0000
-Subject: [PATCH] media: rc: redrat3: fix use-after-free of input device
- name/phys strings
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KvfPq5Mr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA2341F000C1;
+	Wed,  4 Nov 2026 21:04:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793826286;
+	bh=RsihQdT4egIDZrzmcCZO6haUhy9KDf27AGdG/nP+mGw=;
+	h=Subject:To:Cc:From:Date;
+	b=KvfPq5MrVfR0Iu3qR4H2lBPbv0xtPHCJNQsKIjuycuL2MTU5ZB/Itj0+2BAie+9wZ
+	 k9pXPI6d2/HAGMQMrTO4eBbfkOV6i2ohLMEbCs/l07eQykeoZGYMmmBELJp/s9H53M
+	 1ZixQIVx73RRlbMEcwkol0AJzLaysHl6RKzs4dNg=
+Subject: FAILED: patch "[PATCH] ksmbd: look up stream size by exact xattr name" failed to apply to 6.18-stable tree
+To: gael.blivet@gmail.com,linkinjeon@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 16:04:44 -0500
+Message-ID: <2026110444-union-header-f23a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,115 +51,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-redrat3-input-uaf-v1-1-b882e43d9803@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAISd62oC/x3MPQqAMAxA4atIZgOtlfpzFXGoNmqWKqmKIL27x
- fEb3nshkjBF6IsXhG6OvIcMXRYwby6shOyzoVKV1VrVKOTFnQY5HNeJl1twst40bUfWzB3k7hB
- a+Pmfw5jSB8kKYj1jAAAA
-To: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- syzbot+aec1962419768c5caf88@syzkaller.appspotmail.com, 
- Joas Antonio dos Santos <joasantonio108@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793826180; l=3240;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=c68HohiFSurQ192KfXE2Kl4zIbGHGZyY1chc3A+cUM8=;
- b=ILJCTmi2LPNHZiDhY7hZLunAi84A/UWCfPjunPtMwwTdAoHe90uITNQ1TaMibVa9A+Mm4AS8A
- AhGIDO/2g90AiLeApxlWYYeWMLde/tj808aR2QUoaXzpVg9dvNpcH6k
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-redrat3_init_rc_dev() sets rc->device_name and rc->input_phys to point
-at the name[] and phys[] arrays embedded in struct redrat3_dev.
-rc_prepare_rx_device() then copies these pointers into input_dev->name
-and input_dev->phys without duplicating the strings.
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-When redrat3_dev_disconnect() runs, it calls redrat3_delete() which
-kfrees the redrat3_dev struct, freeing the embedded name and phys
-arrays.  If an evdev client still holds the input device open, a
-subsequent EVIOCGNAME or EVIOCGPHYS ioctl calls str_to_user() which
-reads the freed string via strlen(), triggering a KASAN
-slab-use-after-free on the freed kmalloc-2k object.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Fix by allocating the name and phys strings with devm_kasprintf() and
-devm_kzalloc() respectively, tied to the USB interface device lifetime.
-This ensures the strings outlive the input device, since the USB
-interface device (and its devres) is not released until all references
-to it are dropped.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 10ea20d6584ecdaf2f7505855412a856a88d8934
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110444-union-header-f23a@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
-Found by LLM-assisted code review of syzbot-reported crash patterns.
+Possible dependencies:
 
-Reported-by: syzbot+aec1962419768c5caf88@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=aec1962419768c5caf88
-Fixes: 2154be651bfd ("[media] redrat3: new driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
----
-redrat3_init_rc_dev() stores pointers to the name[] and phys[] arrays
-embedded in struct redrat3_dev into rc->device_name and rc->input_phys.
-These are copied into input_dev->name/phys without duplication.
 
-When the device disconnects, kfree(rr3) frees the strings while evdev
-may still hold the input device open.  A subsequent EVIOCGNAME ioctl
-dereferences the freed string via str_to_user() -> strlen(), triggering
-a KASAN slab-use-after-free.
 
-syzbot link: https://syzkaller.appspot.com/bug?extid=aec1962419768c5caf88
----
- drivers/media/rc/redrat3.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+thanks,
 
-diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
-index 3e82b5e66..d9e37ede2 100644
---- a/drivers/media/rc/redrat3.c
-+++ b/drivers/media/rc/redrat3.c
-@@ -229,8 +229,8 @@ struct redrat3_dev {
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 10ea20d6584ecdaf2f7505855412a856a88d8934 Mon Sep 17 00:00:00 2001
+From: Gael Blivet <gael.blivet@gmail.com>
+Date: Mon, 14 Sep 2026 01:26:36 +0200
+Subject: [PATCH] ksmbd: look up stream size by exact xattr name
+
+get_file_stream_info() walks the xattr list from a single
+ksmbd_vfs_listxattr() and sizes each stream it finds with
+ksmbd_vfs_casexattr_len(), which matches with strncasecmp(). Linux
+xattr names are case-sensitive, so two streams differing only in case
+report each other's size.
+
+The loop already holds the exact name, so query it directly with
+ksmbd_vfs_xattr_len(), which is what casexattr_len() calls once its
+search succeeds. Make it non-static and declare it in vfs.h, and drop
+the comment above it, which describes a different bug and no longer
+matches the code.
+
+This also drops a full listing per stream: casexattr_len() runs its own
+listxattr on every call, so enumerating a file with N xattrs cost N
+listings instead of one.
+
+Fixes: 689f1eb3719d ("ksmbd: report actual xattr value length in stream enumeration")
+Signed-off-by: Gael Blivet <gael.blivet@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index f46a29ce118f..10bcd724343c 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -6948,17 +6948,8 @@ static int get_file_stream_info(struct ksmbd_work *work,
+ 		streamlen *= 2;
+ 		kfree(stream_buf);
+ 		file_info->StreamNameLength = cpu_to_le32(streamlen);
+-		/*
+-		 * stream_name_len is the byte length of the xattr's *name*,
+-		 * not its value -- same class of bug ksmbd_stream_eof()
+-		 * (smb2pdu.c) already fixes for EndOfFile/AllocationSize on
+-		 * a stream handle; this enumeration path needs the same
+-		 * real xattr value length, not the name length reused as a
+-		 * size.
+-		 */
+-		slen = ksmbd_vfs_casexattr_len(file_mnt_idmap(fp->filp),
+-						path->dentry, stream_name,
+-						strlen(stream_name) + 1);
++		slen = ksmbd_vfs_xattr_len(file_mnt_idmap(fp->filp),
++					   path->dentry, stream_name);
+ 		ssize = slen < 0 ? 0 : (loff_t)slen;
+ 		file_info->StreamSize = cpu_to_le64(ssize);
+ 		file_info->StreamAllocationSize = cpu_to_le64(ssize);
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index 0b03e0eec0a8..2e2c554bc2c1 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -842,8 +842,8 @@ ssize_t ksmbd_vfs_listxattr(struct dentry *dentry, char **list)
+ 	return size;
+ }
  
- 	u32 carrier;
- 
--	char name[64];
--	char phys[64];
-+	char *name;
-+	char *phys;
- };
- 
- static void redrat3_dump_fw_error(struct redrat3_dev *rr3, int code)
-@@ -943,11 +943,16 @@ static struct rc_dev *redrat3_init_rc_dev(struct redrat3_dev *rr3)
- 	if (!rc)
- 		return NULL;
- 
--	snprintf(rr3->name, sizeof(rr3->name),
--		 "RedRat3%s Infrared Remote Transceiver",
--		 prod == USB_RR3IIUSB_PRODUCT_ID ? "-II" : "");
-+	rr3->name = devm_kasprintf(rr3->dev, GFP_KERNEL,
-+				   "RedRat3%s Infrared Remote Transceiver",
-+				   prod == USB_RR3IIUSB_PRODUCT_ID ? "-II" : "");
-+	if (!rr3->name)
-+		goto out;
- 
--	usb_make_path(rr3->udev, rr3->phys, sizeof(rr3->phys));
-+	rr3->phys = devm_kzalloc(rr3->dev, 64, GFP_KERNEL);
-+	if (!rr3->phys)
-+		goto out;
-+	usb_make_path(rr3->udev, rr3->phys, 64);
- 
- 	rc->device_name = rr3->name;
- 	rc->input_phys = rr3->phys;
-
----
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261104-redrat3-input-uaf-b6d3789e63c9
-
-Best regards,
--- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
-
+-static ssize_t ksmbd_vfs_xattr_len(const struct mnt_idmap *idmap,
+-				   struct dentry *dentry, char *xattr_name)
++ssize_t ksmbd_vfs_xattr_len(const struct mnt_idmap *idmap,
++			    struct dentry *dentry, char *xattr_name)
+ {
+ 	return vfs_getxattr(idmap, dentry, xattr_name, NULL, 0);
+ }
+diff --git a/fs/smb/server/vfs.h b/fs/smb/server/vfs.h
+index 12f3ce79b3c5..216c76291fc1 100644
+--- a/fs/smb/server/vfs.h
++++ b/fs/smb/server/vfs.h
+@@ -108,6 +108,8 @@ ssize_t ksmbd_vfs_getxattr(const struct mnt_idmap *idmap,
+ 			   struct dentry *dentry,
+ 			   char *xattr_name,
+ 			   char **xattr_buf);
++ssize_t ksmbd_vfs_xattr_len(const struct mnt_idmap *idmap,
++			    struct dentry *dentry, char *xattr_name);
+ ssize_t ksmbd_vfs_getcasexattr(const struct mnt_idmap *idmap,
+ 			       struct dentry *dentry, char *attr_name,
+ 			       int attr_name_len, char **attr_value);
 
