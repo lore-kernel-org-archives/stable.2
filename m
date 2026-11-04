@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799588;
-	b=3vBfnDJAdlngbE/yj/yCSaCYzb5UqnQhUTrdepzz3Fg9euibV/IdzocakAbJnQXfxT6Q
-	 /I8864ntVRZyZ+W/Eaynqt9NqFpfgZYAIwACfdyq1UZYVjOMAXFPOsrgrmXcVMR84Lahi
-	 swyzJ7DlTWI5eVwM01hNURaJN0lWvQL1wL9EVX3S/kcon4tegMCe962DyAF28w2AZd7O+
-	 Gr9XGpzW8hcgakXDjaAJHw+4DA+aNCqetwyLlsoZl7hjVsM/NmQuBoZecQIc/xRUe5ZXw
-	 PNT3IGUhAzmSlv46p9y+pp9MGCNB865CvqMhSSscZwrb48kbQK2AWvUd1qPpWDR/o6A==
+	t=1793799598;
+	b=qk5GPVvET2RIqOFKSGi/hd87UJ3+sJee848lZhzeBO3aQPqszJPLXx3pAmzZjei1MnFQ
+	 4/NZldxaULTvngFFYe7dtA1XTs58E8LM/yjdgCYCzZDcyT31JDsMsxm4qYEWQsGGKuOv/
+	 YaNWE24RTEtPoFsTdt1kT6fD4kgEhZBUREvDg3yC3b0zUXB5TQjFzv0ROG6o258VHeOuz
+	 j+rN/+RU1uzlChnPdFgCuWyxcqu/IqGBKMSGemDWQ+exJphrjVfZYIKWz1e/PrxGcMQtA
+	 7lBGoyicAiDNMXyk8ldqyYXgl/JGeHy9m/Q2mWRt1UP9LASMkTYWClOHrqY/twW662A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799588;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799598;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=yl/Gy08XKoe3mtrryXuqQZ/T9p9WbuTrQtwFRw93CUM=;
-	b=Nibqw8W2EblnIzMjFz1Umk3GyXtMj39Vs2bFZILoVDlDhbuZeogUEIXRlS13CjcAnx5b
-	 nKl8n7gjpwH+d8CYIaQ/wb0ALIrh/kPGHRu6s5YS7m9m85QFjtGNHz/eTV8UMQpDul9tJ
-	 73WpBLwrNblkSzd2VFM7O3uA17vKxDfjHlihZ0CZqT3Xn0bI8W3jrJCPgvDZLJq6yJqLY
-	 qx3yQxqVnowGBHvuxjdSuMsfV8jeYfMlbbbEdHqGUEwY45No7Wr2nCJ1xHdkPF9cVkB8p
-	 SdtMS9PuPzt8WL9w9+5E5L7dmFHSc7g8fd9eKADVnI5URjaH0UWm/IEvwG0JQ+5uccw==
+	bh=kHGBy0u7NCMU6HHxGD3ywspfDGso2C/GHnNjQjVNRcg=;
+	b=mOB3sYVwcA2Iet8pXkgdFWRf6gUSAQjO6UG1a7hvrBl5F/cc76uAeM73Q9ro9SiOjWHc
+	 ZUHNYF1/SVzCxpZSiz64XhU0YoX602sMXEpvUYkxEVZ2UZVcvD6Sq32VFqQp6lBwvywUB
+	 L4drd2rCQXF4U+syVZMhRSW8vD2jC8ZkzxrxlbZbqafK7hqr2lBfMZ11xbfnxFP4a47Ga
+	 JGa83i+XtIIGZzF1EanOPHGVJXTotgo9C5125xkXYU+M0ZibYhF75yrI00Zr4U59KKHZR
+	 WYYrQEQ5mYKwELFtXNftpE9Fqye5iG1fGcSLFMfjQBvgSaMd9Eg2SFFuACRhYA7oCJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="qE3/mUd/";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iq9WTjAQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54813606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:39:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A2EC606A333
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:39:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qE3/mUd/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFC571F00A17;
-	Wed,  4 Nov 2026 13:39:47 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iq9WTjAQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0F651F000C1;
+	Wed,  4 Nov 2026 13:39:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793799587;
-	bh=yl/Gy08XKoe3mtrryXuqQZ/T9p9WbuTrQtwFRw93CUM=;
+	s=korg; t=1793799598;
+	bh=kHGBy0u7NCMU6HHxGD3ywspfDGso2C/GHnNjQjVNRcg=;
 	h=Subject:To:Cc:From:Date;
-	b=qE3/mUd/0fS47lTDhJ+UHAB3L9toD5JLrtuCB0a4sIOy2OXbxF8D2upCkJYjOMxsK
-	 HUzDs4LAof2esm3ba2uoknQhFVlghv2/2+9nnryCvPA5TOsh2r2tUw43HkFwAxHXQs
-	 5fqmcFvAB2u0vlZrJHFIVsJDpOdlvaqB6YmJ5URI=
-Subject: FAILED: patch "[PATCH] mm/hugetlb: fix use-after-free in hugetlb_mfill_atomic_pte()" failed to apply to 6.1-stable tree
-To: david@kernel.org,agl@us.ibm.com,akpm@linux-foundation.org,jannh@google.com,josef@toxicpanda.com,kas@kernel.org,lance.yang@linux.dev,liam@infradead.org,linmiaohe@huawei.com,ljs@kernel.org,mgorman@techsingularity.net,muchun.song@linux.dev,nao.horiguchi@gmail.com,osalvador@suse.de,peterx@redhat.com,pfalcato@suse.de,riel@surriel.com,rppt@kernel.org,stable@vger.kernel.org,vbabka@kernel.org
+	b=iq9WTjAQ2TvWKpemnpzua8/m2rE+mFupq9Owau/PGBCU0ivhltzdRx0MrVpXaFPcP
+	 JqGCyX0TrJGVJfpDaAkV9XMhZtNQIzwibtUvd3eUkGETBDWlZafGphSfnLnz9BhuiH
+	 sfgg8V5g/jEMt/hv5AHP9vEtj5Mxy63tDHP+toeI=
+Subject: FAILED: patch "[PATCH] mm/hugetlb: fix use-after-free of a new anon folio" failed to apply to 6.12-stable tree
+To: josef@toxicpanda.com,agl@us.ibm.com,akpm@linux-foundation.org,david@kernel.org,jannh@google.com,kas@kernel.org,lance.yang@linux.dev,liam@infradead.org,linmiaohe@huawei.com,ljs@kernel.org,mgorman@techsingularity.net,muchun.song@linux.dev,nao.horiguchi@gmail.com,osalvador@suse.de,peterx@redhat.com,pfalcato@suse.de,riel@surriel.com,rppt@kernel.org,stable@vger.kernel.org,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:39:46 +0100
-Message-ID: <2026110446-swimmer-stimulate-cc19@gregkh>
+Date: Wed, 04 Nov 2026 14:39:56 +0100
+Message-ID: <2026110456-remix-oversold-9ee1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x d8a9cd7fd2fb01211430c933932da58839b8ca65
+git cherry-pick -x 824cc56bf43c714319992bad3558803cac6e77c0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110446-swimmer-stimulate-cc19@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110456-remix-oversold-9ee1@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,21 +79,61 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From d8a9cd7fd2fb01211430c933932da58839b8ca65 Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 15 Oct 2026 18:07:09 +0200
-Subject: [PATCH] mm/hugetlb: fix use-after-free in hugetlb_mfill_atomic_pte()
+From 824cc56bf43c714319992bad3558803cac6e77c0 Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Thu, 15 Oct 2026 18:07:08 +0200
+Subject: [PATCH] mm/hugetlb: fix use-after-free of a new anon folio
 
-Let's fix another instance where we use a folio after dropping the PTL,
-where someone else could e.g., MADV_DONTNEED it once we drop the PTL,
-making us trigger a use-after-free on the folio.
+For a fault in a private mapping with nothing in the page cache,
+hugetlb_no_page() allocates a folio, locks it and maps it.  The folio has
+one reference, which belongs to the page table entry from then on.  After
+dropping the page table lock the function still sets the migratable flag
+of the folio and unlocks it.
 
-Link: https://lore.kernel.org/20261015-urgent_fixes-v1-3-42796911043b@kernel.org
-Fixes: cb6acd01e2e4 ("hugetlbfs: fix races and page leaks during migration")
-Fixes: 1c9e8def43a3 ("userfaultfd: hugetlbfs: add UFFDIO_COPY support for shared mappings")
+Whoever zaps the entry in between frees the folio.  The fault holds the
+fault mutex and the lock of the vma.  MADV_DONTNEED and the first unmap of
+a hole punch, hugetlb_vmdelete_list(), do not take the fault mutex, and a
+private vma only has a lock if it owns a reservation map: not with
+MAP_NORESERVE, and not in the child after fork().
+
+Then the flag is set in, and folio_unlock() is called on, a folio that is
+free or has a new owner.  A surplus page goes back to the page allocator
+while it is locked:
+
+  BUG: Bad page state in process init  pfn:108e00
+  flags: 0x200000000000059(locked|uptodate|dirty|head|node=0|zone=2)
+  page dumped because: PAGE_FLAGS_CHECK_AT_FREE flag(s) set
+
+A page of the pool can be given to the next user, of any file, who locks
+it and loses the lock to the late folio_unlock():
+
+  kernel BUG at mm/filemap.c:1532!
+   hugetlb_no_page+0x111b/0x23e0
+   hugetlb_fault+0x3a9/0x14a0
+
+An unprivileged process is enough: threads that write to a MAP_PRIVATE |
+MAP_NORESERVE hugetlb mapping, threads that call MADV_DONTNEED on it, and
+one that takes the freed pages for another file.
+
+Until commit 3a47c54f09c4 ("hugetlbfs: revert use i_mmap_rwsem for more
+pmd sharing synchronization") the fault held i_mmap_rwsem for reading,
+which everybody who zaps takes for writing.  The lock that commit
+bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs") gave
+to private vmas closed the window again, but only for those with a
+reservation map.
+
+Be done with the folio before the page table lock is dropped, as
+hugetlb_wp() is with its copy.  The function already unlocks page cache
+folios under that lock.
+
+Original fix generated by an LLM and sent in private by Josef.
+
+[david@kernel.org: simplify+move comment]
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-2-42796911043b@kernel.org
+Fixes: 3a47c54f09c4 ("hugetlbfs: revert use i_mmap_rwsem for more pmd sharing synchronization")
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Acked-by: Muchun Song <muchun.song@linux.dev>
 Reviewed-by: Lance Yang <lance.yang@linux.dev>
@@ -110,29 +150,32 @@ Cc: Rik van Riel <riel@surriel.com>
 Cc: Peter Xu <peterx@redhat.com>
 Cc: Kiryl Shutsemau <kas@kernel.org>
 Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Josef Bacik <josef@toxicpanda.com>
 Cc: <stable@vger.kernel.org>
 
 diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 16a3abb985be..5db64fa98404 100644
+index b017ae1dfd6f..16a3abb985be 100644
 --- a/mm/hugetlb.c
 +++ b/mm/hugetlb.c
-@@ -6520,11 +6520,16 @@ int hugetlb_mfill_atomic_pte(pte_t *dst_pte,
- 	/* No need to invalidate - it was non-present before */
- 	update_mmu_cache(dst_vma, dst_addr, dst_pte);
+@@ -5991,8 +5991,6 @@ static vm_fault_t hugetlb_no_page(struct address_space *mapping,
+ 		ret = hugetlb_wp(vmf);
+ 	}
  
--	spin_unlock(ptl);
- 	if (!is_continue)
- 		folio_set_hugetlb_migratable(folio);
- 	if (vm_shared || is_continue)
+-	spin_unlock(vmf->ptl);
+-
+ 	/*
+ 	 * Only set hugetlb_migratable in newly allocated pages.  Existing pages
+ 	 * found in the pagecache may not have hugetlb_migratable if they have
+@@ -6003,6 +6001,12 @@ static vm_fault_t hugetlb_no_page(struct address_space *mapping,
+ 
+ 	if (folio_locked)
  		folio_unlock(folio);
 +
 +	/*
 +	 * Hold the PTL until we're done with the folio: the page table owns the
 +	 * folio reference now.
 +	 */
-+	spin_unlock(ptl);
- 	ret = 0;
++	spin_unlock(vmf->ptl);
  out:
- 	return ret;
+ 	hugetlb_vma_unlock_read(vma);
+ 
 
