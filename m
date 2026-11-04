@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802066;
-	b=vdRWl3nogha0f/So4nP8xvIsyDlOa7KgpTc5crVwJgPtKmIjHf/R5teCxesnryQeInvv
-	 1K5iiGHdNBsl+NDDFLI44dcfs2cUUc3boR9+L4zLhs+hZS8isAirJUGrznaixsaaXdWmA
-	 xozF0CWZBJFC2rLgeW7S2uSnZZ3GShKyiEXSGHXSwGzVRa4p8GUq+qggPEhyI7HYr6Shx
-	 qlU+eIhDX55p0w5Jgozr1M52DOlbG2Ywqmrgzifu9GZZ1KE8Q9dGZtd68vV1rrlQhNJWN
-	 54v0cJoPht4rVy4Qs6B9SWErIWsPOoJZnyb9mjgxayWEddXgtIeVShxwVdQjzcgTP6w==
+	t=1793802091;
+	b=2ZT3ksksHMpovSioxVZ3BVnqPDoz+tCZjrYdb8c+X/OoJrOkMrfidT5+xwXEzYqrIBrv
+	 088SOtMp/4m1hJ45hVy4cJ/nMNyRr2ThrTYQrtAjE0LYh+k9uyrptBcQEx8FqYEaU16nS
+	 C8Pw5fEFISqiZjDhr5sErxSQPwMHPCv4eTiUkgHCTTBXeffiB1DDduDqB1BtiwUN+3DhS
+	 g4rZvMshO80DXRpNlmCIiA1T1a0VTO/98eoIsZrI0piI6oirgGEk0qLZcJcytdDS5aeXB
+	 6Xv8wOBi1WEI2MJhY2ewn8cFxLwT2aBDoia8Dx82DTFqZaOqxVc9+L4N6ToZMkzUY2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802066;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802091;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=lJ6kgg9JNMYMQ23CLwPjn3Q4F/tBNrJKWc+LXtsQXlI=;
-	b=amCUeRQzQ6PjtbNvqWVzFCmtPXOcdGCu0cZ9rLUjOD4sHvc+bA8ZdISS/CDUvM1B/b3J
-	 uC3VA/wAUeWvDChBqHBoYwwySmlNcd041ORwYAR6/eFjCddDpQoS5z/W0uN392GMJHOfM
-	 cwhAuH288KJ5m1ewuZ6cLrkSVh8SJr+j7xd4hixhf7Tzp1h+TsqlvGunhGgm4dDBN6yVS
-	 n4E0HGugDy1rZpV7FtTIBbuSrd7it24XwXOw7O3q5XemiPhwReUM95ZAt7vrkbwXe/Vdn
-	 CdgMbm/vroxGj1Nv/YPCWtMZry4aag31/Am5IRrwngI4kBHwas5NXolwl+9DbTkPfvw==
+	bh=L+cd+dCSY0OpGvoqFfEHL29/LvoUj8DIlUGPlH1eOCI=;
+	b=ODrUV0hmirBd0qiIUxB6kKLkurAdH+rsyLzDdtwdxrjinNZ8Fcg8P8JO2UB12O8QOx8K
+	 fSCq84ACy3MwnTOamCsfd8hZ8nSfxNTgtC6kCxcsJXgCvVFhzzBvCfeErLz9TJvW1kmSp
+	 cV8d+r5cEkmTnwRzQvMG1TXGWMWK7umDyFE2m1Zl2F+bIJoGYuccHpj7vqL98fmull1Ct
+	 p0ikNyPuua1DJyVREisVpH1TGUBS4F79Dxvonqwhll82DvFu6pyPxbZXdIim0B/jkj4R5
+	 f+1LPIbhfrotldzzTelFhkH+7CVQX6fWoFWM6tUSgxMcEwARHcKlVGqQG5HTPmMhCfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ckCEmnzs;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dU8ke4cx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF845606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:21:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7027E606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:21:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ckCEmnzs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EECB1F000C1;
-	Wed,  4 Nov 2026 14:21:05 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dU8ke4cx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E2B61F0093A;
+	Wed,  4 Nov 2026 14:21:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802065;
-	bh=lJ6kgg9JNMYMQ23CLwPjn3Q4F/tBNrJKWc+LXtsQXlI=;
+	s=korg; t=1793802091;
+	bh=L+cd+dCSY0OpGvoqFfEHL29/LvoUj8DIlUGPlH1eOCI=;
 	h=Subject:To:Cc:From:Date;
-	b=ckCEmnzs7tSs6h6uV4kUtUyo5s6hCPQNrXYFuZlM/h+7hxHwM59nFZYQvpMM0r92l
-	 qED9niediL+L9BugHwYU6qO22kREGelDIiu3xEn3CHKZJnhF/UPN3yX63KjwPyaa8r
-	 LdAEihE/VTqZDA3I8jEflYSIAx5vHbB5PuGu9MmY=
-Subject: FAILED: patch "[PATCH] xen-blkfront: unbind irq before tearing down ring and shadow" failed to apply to 5.10-stable tree
-To: ndaugoing@gmail.com,jgross@suse.com,roger@xenproject.org
+	b=dU8ke4cxNN7XPKniBH7R5q/fREU90CZgFngDpKCBkQUkwqaDcIqXfVOnSC+wxWOVI
+	 l2WaZfVYxA7PX0yEjpeOtJEfetH91aW0j9LU5x/1l6Iq6sH0JmdMsmFtmB8qsZqH4L
+	 11hK1/jjX2sTi22hj0vaLPDQIazDMFKMsEZJpTLo=
+Subject: FAILED: patch "[PATCH] wifi: mt76: mt7996: unlink TWT flow if the MCU rejects the" failed to apply to 6.6-stable tree
+To: enderaoelyther@gmail.com,nbd@nbd.name
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:21:03 +0100
-Message-ID: <2026110403-viper-verify-b61d@gregkh>
+Date: Wed, 04 Nov 2026 15:21:30 +0100
+Message-ID: <2026110430-vagueness-punctuate-be5b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,23 +51,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x f3e27b7955727a4d7c0e9264a2a209fbba788bdc
+git cherry-pick -x 022f5f8b7a0580da50fcbc34da853d03d4321fe2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110403-viper-verify-b61d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110430-vagueness-punctuate-be5b@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,70 +79,52 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f3e27b7955727a4d7c0e9264a2a209fbba788bdc Mon Sep 17 00:00:00 2001
-From: Yuchao Zhang <ndaugoing@gmail.com>
-Date: Tue, 22 Sep 2026 15:21:55 +0800
-Subject: [PATCH] xen-blkfront: unbind irq before tearing down ring and shadow
- requests
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 022f5f8b7a0580da50fcbc34da853d03d4321fe2 Mon Sep 17 00:00:00 2001
+From: Zhao Li <enderaoelyther@gmail.com>
+Date: Tue, 25 Aug 2026 19:26:20 +0800
+Subject: [PATCH] wifi: mt76: mt7996: unlink TWT flow if the MCU rejects the
+ agreement
 
-In blkif_free_ring(), the driver tears down the ring's persistent grants,
-shadow request arrays, and shared ring structure (xenbus_teardown_ring),
-and only calls unbind_from_irqhandler() at the very end.
+mt7996_mac_add_twt_setup() links a new flow into dev->twt_list before
+asking the MCU to add the agreement, but exits without unlinking the flow
+if the request fails. The flow-ID and table masks are only committed
+after MCU success, so the still-linked flow is invisible to the
+mask-gated teardown paths.
 
-While blkif_free_ring() is freeing persistent grants and clearing the
-shadow array, the event channel interrupt (blkif_interrupt) is still
-registered and active.  If an interrupt arrives from the backend during
-this teardown window, blkif_interrupt() reads rinfo->ring.sring and,
-via blkif_completion(), accesses rinfo->shadow[id].grants_used and
-rinfo->shadow[id].sg.  blkif_free_ring() tears these structures down
-without holding rinfo->ring_lock, and the handler only checks
-info->connected at entry, so this is a real race resulting in a
-use-after-free or NULL pointer dereference.
+If the station retries the setup, the same slot is cleared and its
+embedded list node reinitialized while it is still linked, corrupting
+dev->twt_list. If the station disassociates instead, teardown skips the
+flow and station storage can be freed while the node remains linked. A
+later scheduling or debugfs twt_stats walk can then dereference the
+freed flow, resulting in a use-after-free.
 
-Fix this by moving unbind_from_irqhandler() to the beginning of
-blkif_free_ring().  Calling unbind_from_irqhandler() first frees the
-IRQ and synchronizes with any in-flight interrupt handlers on other CPUs
-before ring memory and shadow request structures are deallocated,
-matching the teardown order in drivers/net/xen-netfront.c.
+Unlink the flow when the MCU rejects the agreement. This restores the
+list to its pre-request state while leaving the unchanged mask and
+agreement accounting untouched.
 
-Fixes: 11659569f720 ("xen/blkfront: split per device io_lock")
+Fixes: 98686cd21624 ("wifi: mt76: mt7996: add driver for MediaTek Wi-Fi 7 (802.11be) devices")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
-Acked-by: Roger Pau Monné <roger@xenproject.org>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20260922072155.34625-1-ndaugoing@gmail.com>
+Link: https://lore.kernel.org/all/20260729173632.14387-3-enderaoelyther@gmail.com/
+Assisted-by: Codex:gpt-5.6-sol
+Assisted-by: Kimi:K3
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Link: https://patch.msgid.link/20260825112620.97568-1-enderaoelyther@gmail.com
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
 
-diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-index 8dad7bf5f664..86f5dd3aced1 100644
---- a/drivers/block/xen-blkfront.c
-+++ b/drivers/block/xen-blkfront.c
-@@ -1210,6 +1210,14 @@ static void blkif_free_ring(struct blkfront_ring_info *rinfo)
- 	struct blkfront_info *info = rinfo->dev_info;
- 	int i, j, segs;
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c b/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
+index 898cd9b8ff96..a8c4f629109b 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
+@@ -3288,8 +3288,10 @@ void mt7996_mac_add_twt_setup(struct ieee80211_hw *hw,
+ 	flow->tsf = le64_to_cpu(twt_agrt->twt);
  
-+	/*
-+	 * Interrupt teardown must be done ahead of freeing queue-related
-+	 * data, otherwise the interrupt handler can race with the cleanup.
-+	 */
-+	if (rinfo->irq)
-+		unbind_from_irqhandler(rinfo->irq, rinfo);
-+	rinfo->evtchn = rinfo->irq = 0;
-+
- 	/*
- 	 * Remove indirect pages, this only happens when using indirect
- 	 * descriptors but not persistent grants
-@@ -1292,10 +1300,6 @@ static void blkif_free_ring(struct blkfront_ring_info *rinfo)
- 	/* Free resources associated with old device channel. */
- 	xenbus_teardown_ring((void **)&rinfo->ring.sring, info->nr_ring_pages,
- 			     rinfo->ring_ref);
--
--	if (rinfo->irq)
--		unbind_from_irqhandler(rinfo->irq, rinfo);
--	rinfo->evtchn = rinfo->irq = 0;
- }
+ 	if (mt7996_mcu_twt_agrt_update(dev, &msta->vif->deflink, flow,
+-				       MCU_TWT_AGRT_ADD))
++				       MCU_TWT_AGRT_ADD)) {
++		list_del(&flow->list);
+ 		goto unlock;
++	}
  
- static void blkif_free(struct blkfront_info *info, int suspend)
+ 	setup_cmd = TWT_SETUP_CMD_ACCEPT;
+ 	dev->twt.table_mask |= BIT(table_id);
 
