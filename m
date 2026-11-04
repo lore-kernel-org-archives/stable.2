@@ -1,95 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819559;
-	b=Qo7LnCQqH/xZkZy11qvLD80h9/1xIr1lPETbNOiqwvObsbmvruSRSyMvtQqHI4DCTq+k
-	 d/YddnXIkZAPfUG0PlhnANj4i/9jwHImZTj9rwmYotSalWSxY0grnAnFAfU/JAliyVNmC
-	 euZCwTbsNpZw/LfCJuj1V89Z/SwxkXcAunheMwquC5f+MePyHYGEMShu64pyvtyd/pe1X
-	 cuT2wlpACKbvYa0X1Y66WwnjD99uL/4uWSswyPuo6ToAc4u9GRIv65z80Bm4ua38yUo79
-	 cToXRGqnzrPFBztw+VKkuI06eYRR0QfcdO79CwtYqwCGEkIbquus54IHvwkml8FNsYQ==
+	t=1793819560;
+	b=LzDZ13Rup9vGQeTfdiZvRO2FztixM6ezWrmZRY7im3CO2COzep/AA/HX4VaIkYNpfl2r
+	 y0LqO0EQ3GgKqpGcPim3hyPq7h0rH8hgrBXpdYt9RQ9yxopWPrcWkLevOe48Jkk9//ZRR
+	 IyV23G2O1M+zFa1U9vYKd6q7GDa96E57q/REV110ycoW2jWaDccfX+lx+XiX7vFZAA1td
+	 oIYiJK2dk8TbTXiQrrWFjrRbZFtL4O95DvC5jUoCA9inLq9my5w2y5OvgHiDtz8oHRKUg
+	 VMOtQ4UcP6+Ya/xiVfTI/8x05Mvs7TSo3U5sQIF8ReYK2scNtkSuF1qyEpAsO0NBoOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819559;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=2eBasa7agXmVq6bqhWG9P4J2rj64c5jg7X5XSFiq59I=;
-	b=qoX/SuKjychtvHNwdDK06GNM/49QLV9PWgMmJ1gRsxqQivkMR/iPu6ZST60u8tGDhBsn
-	 J+wZv3jG2YwAdKy6wZwzj6WcLGX7XihKIMvV9ZZy8qzOSpsdC7CVTKSqc1orndOyObdMb
-	 xGnoigset6Uf9QnfcdGfIY1gnLFo+gUQcqD1VauhCvZtRZEeIvOQDr6WnI7+eTkegrdeF
-	 rAfnkaUJC/exr8uBiIYBos6ODHlQs84BGcyJ11POsvcYVHnLdmPxFVx+apwMOG0vIexen
-	 2LbDZp8gU9dqf5ineQOLuztUEdPKhh8jWFvrt83L8iH8EHcdpXExr4/GVq6ZRcSSmVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819560;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=aQx0c5xCN28jBypc/xCIRKxL14/y6SUpmcCYedg+4gI=;
+	b=M0mHsTrCMg4LeVUtZdxacwX/l+iI5v3THuAOkRxEfpjxgMYesrUf6Bp79qDajx8DRyDX
+	 0ZuNI78HlTYtUbuPh3FMU4uzRWXHUkaNL1hRp7OJz399NtpHXcECUFDwwrggcVhl2kZz1
+	 QPpdF9InSsTzeDDbo3GDgYMId13XTkrsRqwUxWoIZ7PDhQ5SX/6yyGOZR3eHMy7QlpFRU
+	 DAObeOup44T5FpbTVbsqXmo2MJl+6BBtaLW0Uzs/LGFvgOjkeY/HqjmGQGtWTvLDxxKn8
+	 C8c5dzpgJ3Lqrth2pXjiJZeLgVxt8kBNcFEBxre6Ls4l9ZW40nsXRorwZzY7YKWbEig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eqj5Og8j;
-	arc=none smtp.remote-ip=74.125.229.7
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=T24k1i24;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85FD5606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9DB606A329
 	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:12:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85FD5606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eqj5Og8j
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-36c9b5c6faaso492975eec.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 11:12:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793819559; x=1794424359; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2eBasa7agXmVq6bqhWG9P4J2rj64c5jg7X5XSFiq59I=;
-        b=Eqj5Og8j+BJqXcySMWz1SZiTErQxINNNlbsUZj31hS7lGoG6Gq9yCzn7VNE6Om5jkB
-         kOR/Wp5R7NWosG0U9+7d8IAIP1sv4mt+75u/LDEIaa20TqtV4Ul83r/2HgwP0B10j0+V
-         pvaOhvJEZbZ5eAGpy9LPLKRGp40zyGTb3678OrokeIryxlwDK3f5uUw2nAEFNFjZWazt
-         wGwi+9gouE314rfJTQmK3m8GFxdq+kOnUNcIQoNk8YQeF7zg1n5UXZXWtIbtFAjfsKUo
-         g57vlJFrdxiyU5wSrlEijhSz1DSvlhKvPoHNLF/BG/9+9zLelsLukMg0MYJi7JMpGp9L
-         Gfmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793819559; x=1794424359;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2eBasa7agXmVq6bqhWG9P4J2rj64c5jg7X5XSFiq59I=;
-        b=PMOhcDYCyGzoS9NRxJw/Y5c6pX8Fu1dOHhlcJQJgzYPxWlAQG5ZbNNx2whkq4JiNTD
-         Y2kJ/K5P+Jp6Ilp+ZN8YxUdDx3mSxAR1JzkJAU5nP8C5B5cuA9gzRp4Pe0XZ1E5gpLo+
-         q4FGjP249La6naY2Eu+YReVNykj+li33H8kVpELG5zIFRHENgiYryG0yCE74g9Qqc1R+
-         iutpxNtjynG3UD6wvPNB47/EVWo0bpOO2+VRGJW7XD3ScS90q6n+/0L9A+pHxPEkfK3a
-         tqFYTFs3T6LCzYbW0Kf/7XHYG3DCsPXcAki+sFYum8ODDdGvjL9VlXJz1FY2pCH2GH5P
-         Nr8A==
-X-Forwarded-Encrypted: i=1; AKwUvBxyu0u3uiBsYVmIBbJhWxMq+g9mD0oOgGixFPTVGqH2ComGZbDwH04aXsXzlBmO9OOX1tVjAXg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kKYG5z6zDDXf2bx02brRiX3RwqOxjVi7IABSRwZN/ACShbcHl
-	576WpJUsIMSOlVR0rNlphqfLpX3/OVLMgSvwJplCfxcK6PfTzAUXfeMn
-X-Gm-Gg: AYBFou03VkIZoVuVrwSeun59kI/Ovqsp5gsv9ZX2Z+RcjAEej1DJp62nDtxxU2QdwmL
-	GUqfU+DNTKgRax7a2P08bHwXCADiQjwUt91KZxjUaWKYbJ6PNa+5YbbdjzBXDV/9ta83eiMMt4l
-	zxKrsZ6TntjPjuya8d7pJ71NizBKNCa6Xka7Tktwr98UI/JR4da4VU9MK3RzxgJBZO8rhnm0N0I
-	en7kFNNxAFb+2haUILbdrJIyy3EQNtleiXJm9+krY+nFuKj0gYhx+XEnkza4qnhEZRIYGc/0HZp
-	NGSJaiH5f+gcHXNVYZdVNNE+1xfSqtZ4IL/XWbK34Y4NHGvCedO4oZ4gQEJIbGNM0Z+izEbJXg6
-	hyK6Tgtt5AYJP3UqbtMfejl8tpD6biBaCrUe8QViVJC646s+0zxmPKS3DNTRRopn3ZVKmjXxq+7
-	FfUYBNJyaGTtX9y8w/nM808KAVmFGbXx3f2BFqBgY3lJQcYVJP2y4i06F6ARGXWq2uZd+9ROJJC
-	3rzh/kDN7XdRHXXVPgcJ5WuP4eGf08ji+d06fiTh5ZSe5Wv5pzVg5kFXTfKGQmiesljXVi6QsrB
-	QpMCpDFun4ZkZeo6KwvkxTe6PytyG8asNoMhmqweAonAmQsNIB11cQGopIsXf70nXpIzwXr22B4
-	A3EU8uzzlYN/wuBFZj2OYgZ+WFB8BYvlwKRn4Og==
-X-Received: by 2002:a05:7301:6189:20b0:358:ec5c:bef1 with SMTP id 5a478bee46e88-36a42425486mr23614256eec.39.1793819558461;
-        Wed, 04 Nov 2026 11:12:38 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36dad72dc52sm1916864eec.0.2026.11.04.11.12.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 11:12:38 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: richard@nod.at
-Cc: chengzhihao1@huawei.com,
-	lin.nan@h3c.com,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] ubifs: account for short copies in ubifs_write_end
-Date: Wed,  4 Nov 2026 19:11:31 +0000
-Message-ID: <20261104191132.89515-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=T24k1i24
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16F071F000C1;
+	Wed,  4 Nov 2026 19:12:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793819559;
+	bh=aQx0c5xCN28jBypc/xCIRKxL14/y6SUpmcCYedg+4gI=;
+	h=Subject:To:Cc:From:Date;
+	b=T24k1i24RbSfawCwMkGhy/Gbx1KiHKVDU9WkkSQ2dDy0kAhYDJSMz/vVu++GG79eE
+	 r5Cp3cTEszvgHeR3KUnYI+iuAqiF7XjbsUB16xMmqkZixp4n5RryJQxYB3rMlReWvn
+	 tfkpCaCXI5UYdo+l7aS4TLawtprqh2fvKzNiWlVE=
+Subject: FAILED: patch "[PATCH] rxrpc: Fix update of call->tx_pending without holding lock" failed to apply to 6.12-stable tree
+To: dhowells@redhat.com,davem@davemloft.net,edumazet@google.com,horms@kernel.org,kuba@kernel.org,marc.dionne@auristor.com,pabeni@redhat.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 14:12:37 -0500
+Message-ID: <2026110437-felt-tip-think-1d33@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,83 +51,269 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-ubifs_write_end() updates i_size and ui_size to pos + len even when
-fewer bytes were copied. A one-byte write at EOF from an unreadable
-buffer can fail with EFAULT while extending the file by one byte.
-Partial writes can also extend the file past the last byte copied.
 
-Use pos + copied for size updates and cancel the budget when no data
-was copied. Keep the appending decision based on the requested length
-to match the inode budgeting and ui_mutex locking in ubifs_write_begin().
-If a short copy ends within the old size, release any unused inode budget
-without reducing the size, and still unlock ui_mutex.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
-Link: https://lore.kernel.org/linux-mtd/20261027061226.3506517-1-lin.nan@h3c.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- fs/ubifs/file.c | 29 +++++++++++++++++++----------
- 1 file changed, 19 insertions(+), 10 deletions(-)
+To reproduce the conflict and resubmit, you may use the following commands:
 
-diff --git a/fs/ubifs/file.c b/fs/ubifs/file.c
-index 99dd52715ee..8ebd3f4cddf 100644
---- a/fs/ubifs/file.c
-+++ b/fs/ubifs/file.c
-@@ -523,8 +523,8 @@ static int ubifs_write_end(const struct kiocb *iocb,
- 	struct inode *inode = mapping->host;
- 	struct ubifs_inode *ui = ubifs_inode(inode);
- 	struct ubifs_info *c = inode->i_sb->s_fs_info;
--	loff_t end_pos = pos + len;
--	int appending = !!(end_pos > inode->i_size);
-+	loff_t end_pos = pos + copied;
-+	int appending = !!(pos + len > inode->i_size);
- 
- 	dbg_gen("ino %llu, pos %llu, pg %lu, len %u, copied %d, i_size %lld",
- 		inode->i_ino, pos, folio->index, len, copied, inode->i_size);
-@@ -552,6 +552,11 @@ static int ubifs_write_end(const struct kiocb *iocb,
- 		goto out;
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 7801c42c3bb737cfb06194a383873fcad8daacf5
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110437-felt-tip-think-1d33@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 7801c42c3bb737cfb06194a383873fcad8daacf5 Mon Sep 17 00:00:00 2001
+From: David Howells <dhowells@redhat.com>
+Date: Tue, 6 Oct 2026 14:29:55 +0100
+Subject: [PATCH] rxrpc: Fix update of call->tx_pending without holding lock
+
+Currently, rxrpc_send_data() updates call->tx_pending just before it
+returns - but it won't be holding the call->user_mutex when it does this if
+a wait was interrupted by a signal.  This would allow a parallel sendmsg()
+to race.
+
+Further, both the callers of rxrpc_send_data() call it with the lock held,
+and then it returns an indication through the parameter list to say whether
+it has dropped the lock or not - after which the callers both just drop the
+lock if it's still held.
+
+Fix this by:
+
+ (1) Moving the release of call->user_mutex down into rxrpc_send_data() and
+     get rid of the indicator parameter.  This makes it easier to see where
+     the lock is held.
+
+ (2) After waiting, if the attempt to reacquire the mutex is interrupted,
+     just return directly there rather than going to out_unlock
+
+ (3) Restricting the txb variable to inside the buffering loop and leaving
+     ->tx_pending set until we've queued the buffer.
+
+Note that there's a slight change in behaviour in that wait_for_space
+failure now doesn't check for completion because it doesn't hold the call
+user_mutex.  The caller, however, should re-issue the send and pick up any
+error at a second attempt.
+
+Fixes: b0f571ecd794 ("rxrpc: Fix locking in rxrpc's sendmsg")
+Closes: https://sashiko.dev/#/patchset/20260702144919.172295-1-dhowells%40redhat.com
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Eric Dumazet <edumazet@google.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261006133011.531806-4-dhowells@redhat.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+
+diff --git a/net/rxrpc/sendmsg.c b/net/rxrpc/sendmsg.c
+index ed2c9a51005a..fb8d48418882 100644
+--- a/net/rxrpc/sendmsg.c
++++ b/net/rxrpc/sendmsg.c
+@@ -320,10 +320,9 @@ static int rxrpc_alloc_txqueue(struct sock *sk, struct rxrpc_call *call)
+ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 			   struct rxrpc_call *call,
+ 			   struct msghdr *msg, size_t len,
+-			   rxrpc_notify_end_tx_t notify_end_tx,
+-			   bool *_dropped_lock)
++			   rxrpc_notify_end_tx_t notify_end_tx)
++	__releases(&call->user_mutex)
+ {
+-	struct rxrpc_txbuf *txb;
+ 	struct sock *sk = &rx->sk;
+ 	enum rxrpc_call_state state;
+ 	long timeo;
+@@ -334,30 +333,26 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 		trace_rxrpc_abort(call->debug_id, rxrpc_sendmsg_late_send,
+ 				  call->cid, call->call_id, call->rx_consumed,
+ 				  0, -EPROTO);
+-		return -EPROTO;
++		ret = -EPROTO;
++		goto out_unlock;
  	}
  
-+	if (unlikely(!copied)) {
-+		cancel_budget(c, folio, ui, appending);
-+		goto out;
-+	}
+ 	timeo = sock_sndtimeo(sk, msg->msg_flags & MSG_DONTWAIT);
+ 
+ 	ret = rxrpc_wait_to_be_connected(call, &timeo);
+ 	if (ret < 0)
+-		return ret;
++		goto out_unlock;
+ 
+ 	if (call->conn->state == RXRPC_CONN_CLIENT_UNSECURED) {
+ 		ret = rxrpc_init_client_conn_security(call->conn);
+ 		if (ret < 0)
+-			return ret;
++			goto out_unlock;
+ 	}
+ 
+ 	/* this should be in poll */
+ 	sk_clear_bit(SOCKWQ_ASYNC_NOSPACE, sk);
+ 
+ reload:
+-	txb = call->tx_pending;
+-	call->tx_pending = NULL;
+-	if (txb)
+-		rxrpc_see_txbuf(txb, rxrpc_txbuf_see_send_more);
+-
+ 	ret = -EPIPE;
+ 	if (sk->sk_shutdown & SEND_SHUTDOWN)
+ 		goto maybe_error;
+@@ -386,6 +381,8 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 	}
+ 
+ 	do {
++		struct rxrpc_txbuf *txb = call->tx_pending;
 +
- 	if (len == folio_size(folio))
- 		folio_mark_uptodate(folio);
+ 		if (!txb) {
+ 			size_t remain;
  
-@@ -562,14 +567,18 @@ static int ubifs_write_end(const struct kiocb *iocb,
+@@ -411,6 +408,9 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 				ret = -ENOMEM;
+ 				goto maybe_error;
+ 			}
++			call->tx_pending = txb;
++		} else {
++			rxrpc_see_txbuf(txb, rxrpc_txbuf_see_send_more);
+ 		}
+ 
+ 		_debug("append");
+@@ -445,9 +445,9 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 
+ 			ret = call->security->secure_packet(call, txb);
+ 			if (ret < 0)
+-				goto out;
++				goto out_unlock;
+ 			rxrpc_queue_packet(rx, call, txb, notify_end_tx);
+-			txb = NULL;
++			call->tx_pending = NULL;
+ 		}
+ 	} while (msg_data_left(msg) > 0);
+ 
+@@ -456,45 +456,46 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 	if (rxrpc_call_is_complete(call) &&
+ 	    call->error < 0)
+ 		ret = call->error;
+-out:
+-	call->tx_pending = txb;
++out_unlock:
++	mutex_unlock(&call->user_mutex);
+ 	_leave(" = %d", ret);
+ 	return ret;
+ 
+ call_terminated:
+-	rxrpc_put_txbuf(txb, rxrpc_txbuf_put_send_aborted);
+-	_leave(" = %d", call->error);
+-	return call->error;
++	ret = call->error;
++	goto out_unlock;
+ 
+ maybe_error:
+ 	if (copied)
+ 		goto success;
+-	goto out;
++	goto out_unlock;
+ 
+ efault:
+ 	ret = -EFAULT;
+-	goto out;
++	goto out_unlock;
+ 
+ wait_for_space:
+ 	ret = -EAGAIN;
+ 	if (msg->msg_flags & MSG_DONTWAIT)
+ 		goto maybe_error;
+ 	mutex_unlock(&call->user_mutex);
+-	*_dropped_lock = true;
++
+ 	ret = rxrpc_wait_for_tx_window(rx, call, &timeo,
+ 				       msg->msg_flags & MSG_WAITALL);
+ 	if (ret < 0)
+-		goto maybe_error;
++		goto out_nolock;
+ 	if (call->interruptibility == RXRPC_INTERRUPTIBLE) {
+ 		if (mutex_lock_interruptible(&call->user_mutex) < 0) {
+ 			ret = sock_intr_errno(timeo);
+-			goto maybe_error;
++			goto out_nolock;
+ 		}
+ 	} else {
+ 		mutex_lock(&call->user_mutex);
+ 	}
+-	*_dropped_lock = false;
+ 	goto reload;
++out_nolock:
++	_leave(" = %d [intr]", ret);
++	return copied ?: ret;
+ }
+ 
+ /*
+@@ -660,7 +661,6 @@ rxrpc_new_client_call_for_sendmsg(struct rxrpc_sock *rx, struct msghdr *msg,
+ int rxrpc_do_sendmsg(struct rxrpc_sock *rx, struct msghdr *msg, size_t len)
+ {
+ 	struct rxrpc_call *call;
+-	bool dropped_lock = false;
+ 	int ret;
+ 
+ 	struct rxrpc_send_params p = {
+@@ -769,16 +769,15 @@ int rxrpc_do_sendmsg(struct rxrpc_sock *rx, struct msghdr *msg, size_t len)
+ 		ret = 0;
+ 		break;
+ 	case RXRPC_CMD_SEND_DATA:
+-		ret = rxrpc_send_data(rx, call, msg, len, NULL, &dropped_lock);
+-		break;
++		ret = rxrpc_send_data(rx, call, msg, len, NULL);
++		goto error_put;
+ 	default:
+ 		ret = -EINVAL;
+ 		break;
  	}
  
- 	if (appending) {
--		i_size_write(inode, end_pos);
--		ui->ui_size = end_pos;
--		/*
--		 * We do not set @I_DIRTY_PAGES (which means that
--		 * the inode has dirty pages), this was done in
--		 * filemap_dirty_folio().
--		 */
--		__mark_inode_dirty(inode, I_DIRTY_DATASYNC);
-+		if (end_pos > inode->i_size) {
-+			i_size_write(inode, end_pos);
-+			ui->ui_size = end_pos;
-+			/*
-+			 * We do not set @I_DIRTY_PAGES (which means that
-+			 * the inode has dirty pages), this was done in
-+			 * filemap_dirty_folio().
-+			 */
-+			__mark_inode_dirty(inode, I_DIRTY_DATASYNC);
-+		} else if (!ui->dirty) {
-+			ubifs_release_dirty_inode_budget(c, ui);
-+		}
- 		ubifs_assert(c, mutex_is_locked(&ui->ui_mutex));
- 		mutex_unlock(&ui->ui_mutex);
- 	}
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.50.1 (Apple Git-155)
+ out_put_unlock:
+-	if (!dropped_lock)
+-		mutex_unlock(&call->user_mutex);
++	mutex_unlock(&call->user_mutex);
+ error_put:
+ 	rxrpc_put_call(call, rxrpc_call_put_sendmsg);
+ 	_leave(" = %d", ret);
+@@ -808,7 +807,6 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
+ 			   struct msghdr *msg, size_t len,
+ 			   rxrpc_notify_end_tx_t notify_end_tx)
+ {
+-	bool dropped_lock = false;
+ 	int ret;
+ 
+ 	_enter("{%d},", call->debug_id);
+@@ -819,12 +817,9 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
+ 	mutex_lock(&call->user_mutex);
+ 
+ 	ret = rxrpc_send_data(rxrpc_sk(sock->sk), call, msg, len,
+-			      notify_end_tx, &dropped_lock);
++			      notify_end_tx);
+ 	if (ret == -ESHUTDOWN)
+ 		ret = call->error;
+-
+-	if (!dropped_lock)
+-		mutex_unlock(&call->user_mutex);
+ 	_leave(" = %d", ret);
+ 	return ret;
+ }
 
