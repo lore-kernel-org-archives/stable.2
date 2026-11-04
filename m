@@ -1,52 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829075;
-	b=HTT4jC+BwAxZNXgZHGMe6MlCP2HlVp/DRzFXaZVKDhIfUJWPqkyfJJwm3lDLWeKMjjpe
-	 3qlaW344RFhplgV3O2wQSBZ0fU6INf7DbzhoSHsjgDlKeHJ5nCKset015bi36RvQ+hgtn
-	 ak8gdwrTqWBRoeiYHpPsAlUvMDzvnSUoAvvvbfKi2z5HC0JqioLAkmTr+8VESbf0thiEF
-	 Ba4i56JD3wgTSWSDyeiOWl9Ztp5PheKbfCIVBf0I5i4seShsd9RDGa+wp2Eo0ckMazBxB
-	 gqWakYUmNqHqpUII774Ds5nCeWo5PIO6aDgVfcTebo1YYFYPkIQxoqiXADFLi04U2Kg==
+	t=1793829077;
+	b=xxgfjKgIB7HHOpvGpFXxE75kuPGizD++/9ITBzjLqjTzDk4xa2n4QqejVY18GLdl1623
+	 G/c1fpDnGf/AJNOoLpPw5mqiGvcAHvVv5U4TrvvWnQh9HMzVs8x8inyq1qSHO+zbBcJvk
+	 oFrVu5BBa9DQfxI5sNmu7WJiPVXOnOklUVVWanzBIl3Y4P5LRHIUjb+ZPRacKRDejf022
+	 arhsxH/MYqFaFr0amDn6sE5PFY2XkqJaNPO20X+PKjifskYH3rv10f06E5vVYOvPmnnfY
+	 iUGRWwVhDAsEtbxWTdQf4fRDWvK79/q4goGPfrmGdH24pUOh0SDcffEh7aNTqrJ58uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829075;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829077;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=jEFSwNGzVLLgYs2D+tX7pGQjYQR081e6BPDuEQfSXbg=;
-	b=I0WbPg6uigQSrX9FUoNgSF8dZHHSmLPyzIHo9rw092245R9A4tb7d2Ad6PQo1hINIPHH
-	 rocIlQTXOIpuIrCofgF/HFXY7vybi9nJsQNOW9gdNTxfXA3UpkHE22oKN72PYduGHN//b
-	 Tn9vEVkVjCjYx/z4H12uSk4m6Mf4KEMUrAhdfp4+kjbJjI9YuljCoQ6IUvz/HF9ZY967f
-	 Cbq8TuUTNxqfDLGR1vXjRQ2HahX1tCOuTjoAh6NE/FetD4Z73qACguR9svPf+2+iqdH1t
-	 P7tEKYYaYUJ6gwzNtgH8pRN6JyR8KlsgueUGDE2uU6bt8QcIw4cLijmuKG57kdhHRAg==
+	bh=l4gJh6X6/B9h4qkRX3iZlW40TK8h7l/X64k1AXNo8lY=;
+	b=yIHqOwl9SdPxlTqrC/Z8Da1C0n+78nuZq993qXClF+t2wlOhs+6VqFgkr+l9BX7xZYnx
+	 KPkAiQ8bjb53lE+zWwkixTHHrrpMhy92K1MuXgbz0zAIS1BmxYMyGYXS19iQFQRdakDjF
+	 IhpBUBGWUfkyOwVzbYqdoE1nm/OYmB6RPHIJxTZU3LZvTQEPnzAFdxoiF18Dg3sN7jJhk
+	 v5uiTrIRw+F47J7zF51dqjpo7aHtg0XZ8wtJu2Miq8EKNoXOd9B9UbSeb1aeI8xV94571
+	 UOCBnxQ7EZ9b7E6Etu2JsC8OJ4APH6heG/IrD/YOXSdpWQxfZsgh94gwP1rpmRUVk9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=w3bHyoYW;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XXeqmn09;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6649606EEB6;
-	Wed,  4 Nov 2026 21:51:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A6A56072F80;
+	Wed,  4 Nov 2026 21:51:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=w3bHyoYW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 177E21F00A18;
-	Wed,  4 Nov 2026 21:51:14 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XXeqmn09
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB2C81F000C1;
+	Wed,  4 Nov 2026 21:51:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793829074;
-	bh=jEFSwNGzVLLgYs2D+tX7pGQjYQR081e6BPDuEQfSXbg=;
+	s=korg; t=1793829077;
+	bh=l4gJh6X6/B9h4qkRX3iZlW40TK8h7l/X64k1AXNo8lY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=w3bHyoYWT1Mz/KK06qJhrRso61hLzxSRPDD64kZqA6EP3mweyOGmXVbCyJ8jagmNu
-	 8B9l/13hK37/vylbK3EGqN/poYH9cLw9AyyKnk0UhSGw6yBo/KE+fqBf9LS1K6dpgq
-	 U4XRlogFag37FHp/Q/xdxu2a284zvYuEnQVKVOlM=
+	b=XXeqmn09gvsn28eQSTQMivvwZTKtUnMaibkV39M8+VUbhY/bJ7NF9qfD7EL2tyWFX
+	 usIChnABRv3M6rzJR6sFDrz0rCuw82aZTkZ3NYDjqPt82UDkbaKrjwEMilj9TbbjNc
+	 R6JiBVXCsxc05qFeUMgrmSsFNqCOaFlChPpH5keA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Abdifatah Suruur <suruurism@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>
-Subject: [PATCH 7.3 391/547] smb: client: validate the data area in SMB2_read()
-Date: Wed,  4 Nov 2026 16:09:35 -0500
-Message-ID: <20261104211049.407829671@linuxfoundation.org>
+	Chuck Lever <cel@kernel.org>
+Subject: [PATCH 7.3 428/547] NFSD: Reject an oversized principal hash from nfsdcld
+Date: Wed,  4 Nov 2026 16:10:12 -0500
+Message-ID: <20261104211050.505696959@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -68,79 +66,46 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Abdifatah Suruur <suruurism@gmail.com>
+From: Chuck Lever <cel@kernel.org>
 
-commit 2ec9cdf469dd32bcf33073aeb30c08e9356e0ca1 upstream.
+commit dbed9418c48906dae1a7bc328fb3bc0d0d0020c8 upstream.
 
-SMB2_read() copies le32_to_cpu(rsp->DataLength) bytes from
-(char *)rsp + rsp->DataOffset without checking that the range lies
-within the response actually received. A READ response with
-DataOffset == 0 makes smb2_get_data_area_len() zero the data length, so
-smb2_check_message() accepts a frame as short as the fixed response,
-while SMB2_read() still uses the server-supplied DataLength, capped only
-by CIFS_MAX_MSGSIZE and the caller's length.
+__cld_pipe_inprogress_downcall() takes the principal hash length
+from the daemon's GraceStart downcall without checking it against
+the cc_princhash payload it describes, which holds at most
+SHA256_DIGEST_SIZE bytes. The length is stored verbatim in the
+reclaim record, and nfsd4_cld_check_v2() later hands it to memcmp()
+against a digest array of SHA256_DIGEST_SIZE bytes on the stack. A
+length up to U8_MAX reads past the end of that array, and the stray
+bytes can only make the comparison fail, denying the client its
+reclaim. The pipe is mode 0600 in rpc_pipefs, so the trigger is a
+broken or hostile nfsdcld rather than an unprivileged task.
 
-A malicious server can answer the synchronous read used by the
-mfsymlinks (or SFU) symlink parser with an 81-byte READ response
-carrying DataOffset 0 and DataLength 1067, making the client copy 1067
-bytes from a 448-byte receive object (KASAN slab-out-of-bounds; up to
-16 KiB in the general case).
+Reject a length larger than the wire field, as the existing check
+on the client name length does.
 
-Clamp a zero (or header-overlapping) DataOffset to read_rsp_size, as
-handle_read_data() does for the asynchronous path, and reject the
-response unless DataOffset + DataLength fits within rsp_iov.iov_len.
-The SMB1 helper was fixed the same way in 5be5bdda5863.
-
-Fixes: d8e050398d23 ("CIFS: Add readpage support for SMB2")
+Fixes: 6ee95d1c8991 ("nfsd: add support for upcall version 2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Link: https://patch.msgid.link/20260901-alemi-v2-4-e163f94a3a6e@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/smb/client/smb2pdu.c |   24 +++++++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
+ fs/nfsd/nfs4recover.c |    5 +++++
+ 1 file changed, 5 insertions(+)
 
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -4962,6 +4962,7 @@ SMB2_read(const unsigned int xid, struct
- 	struct kvec iov[1];
- 	struct kvec rsp_iov;
- 	unsigned int total_len;
-+	u16 data_offset;
- 	int flags = CIFS_LOG_ERROR;
- 	struct cifs_ses *ses = io_parms->tcon->ses;
- 
-@@ -5021,8 +5022,29 @@ SMB2_read(const unsigned int xid, struct
- 		*nbytes = 0;
- 	}
- 
-+	data_offset = rsp->DataOffset;
-+	if (data_offset < io_parms->server->vals->read_rsp_size) {
-+		/*
-+		 * win2k8 sometimes sends an offset of 0 when the read is beyond
-+		 * the EOF.  Treat it as if the data starts just after the header,
-+		 * as handle_read_data() does.
-+		 */
-+		cifs_dbg(FYI, "data offset %u inside read response header\n",
-+			 data_offset);
-+		data_offset = io_parms->server->vals->read_rsp_size;
-+	}
-+
-+	/* The data area must lie within the response actually received */
-+	if (*nbytes && (size_t)data_offset + *nbytes > rsp_iov.iov_len) {
-+		cifs_dbg(FYI, "bad data offset %u length %u for response of %zu\n",
-+			 data_offset, *nbytes, rsp_iov.iov_len);
-+		rc = smb_EIO2(smb_eio_trace_read_bad_offset,
-+			      data_offset, *nbytes);
-+		*nbytes = 0;
-+	}
-+
- 	if (*buf) {
--		memcpy(*buf, (char *)rsp + rsp->DataOffset, *nbytes);
-+		memcpy(*buf, (char *)rsp + data_offset, *nbytes);
- 		free_rsp_buf(resp_buftype, rsp_iov.iov_base);
- 	} else if (resp_buftype != CIFS_NO_BUFFER) {
- 		*buf = rsp_iov.iov_base;
+--- a/fs/nfsd/nfs4recover.c
++++ b/fs/nfsd/nfs4recover.c
+@@ -728,6 +728,11 @@ __cld_pipe_inprogress_downcall(const str
+ 			name.len = namelen;
+ 			if (get_user(princhashlen, &ci->cc_princhash.cp_len))
+ 				return -EFAULT;
++			if (princhashlen > SHA256_DIGEST_SIZE) {
++				dprintk("%s: invalid princhashlen (%u)",
++					__func__, princhashlen);
++				return -EINVAL;
++			}
+ 			if (princhashlen > 0) {
+ 				princhashcopy = memdup_user(
+ 					&ci->cc_princhash.cp_data,
 
 
