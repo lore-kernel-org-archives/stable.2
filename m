@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818216;
-	b=zQl3z778q3ivNS9T3PgVn62cKo2QCaAyMJh6mJcj9hqvOd8Hks+lqKjHuFjkCbpDEmes
-	 RDqKpr9/yxCkKoPcNeb0h92ahPFheumroeE7OiukLyTkQeZ3NhVXSFuKcljz/YEEpr0on
-	 yrZkTOf0dEGTg+v3eiKiJjGUSaDIHbNoV6MACLnblQriloNPIr0KAUuqsAgA5Rv/NX7A6
-	 GJP2u3kizAPjltChWN08RyCRyZyy5fFFaQank62yPobq2myeZNQR5MsjYostAUH6x5PMe
-	 BH7nvG86OsQnBsLAO8TxvW2Dk2mK2GjHbmPDDZbWZ1ElrIfBmyrJ5sIeQQJrvhg9Ivg==
+	t=1793818223;
+	b=btksxhiLyh5VNMikYmQOjg7ifBmrxOIcQvVbw0VJuttfC7CLHKDKqQ1YqHWDKOmUhmue
+	 yJpbywOUAM8cwXRvzVbFZChCp1XqaMtEkekv+tvwHsiEqKkW9JTkmGbfhCdQQ5aw3kUn4
+	 ACVO6I2OxgsADgb14nxz3CiGrQMr3NU2LFr6SklRtcFa8ZE/ckV+F4pityRjGtXbtAtyO
+	 XqcLikmiDU732IvOgJ3rP1EIHXoKFnjzzIz3miYvsza9PoBITTA7lxtQ7NluDdA4VJ8fd
+	 J0lqpv9IPCxzunAyirHyUBT+kDZ9YwNTJaXH+4MpKRnGcshp/PUi2esXueTktUPXCDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818216;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818223;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=UsV0dN01Vg5fC9X7byxzespgVu/8/WAXqQ8aGoifyOQ=;
-	b=BNgnzZe8dhrzky6MVJZoz22eD+gtLbB3qbMUo0SMo0aOhStU2QGhUJAU9OGdo6/dJvID
-	 kV2vaVsHfYl2RXWM7k5TU0wPi2DFYvOpCjhghDfyzlwSpzrqWVlVsyCVXrEilGqZUOfqS
-	 syXXZ0/zfKRGValAQzY8+Bz6d9uz8vw/ZPOsczBsYtLrYasqslAtIURrJyDTIvJnHQeMg
-	 xFO9nbW4d4DuAKFfmyvyQgF56Tv5qwsPv8m3xU1Kz+YD930ofRh7rZqvNIfjawRx7nToj
-	 euIqFX6FT/PnifSLOHhh/cHMnC+iaS3C/8W7049p2MURQS02BVrE0YMmgOwufIV40Ig==
+	bh=0zNYIJptNPd7ywAtyvGG6/ZMZfGJZ7V8S/65BpgoKEo=;
+	b=QG6aMEtwCF16i0xGn16P76EqjdL+7v5qxchmav9KFjsnItHmNfVqzsK4FOM4MDp6O3N/
+	 pJw/FxZ4M7Du0GKTHflqYJ+RHRM6MgDX9by1S1N9d7nyc0XNBqd1pu0K5zSxrZPDOFTQf
+	 Wg+/DkoPD+p3s9VzmvLPmagnWknqYJVIvo1yE7zkB6xCM7fN57dM4Y6anWzq5yfPfhOue
+	 fHPLtut6Dmf86Xa1/hzn/2Q5qezt4lOstorwGdeBTRwceedRuXQUaonGa0AqLaddiOc3e
+	 NYKvUhM0XWQjHsEhWY7wBiEuyfFxtIzge3no7q9tTXtDiojKOY0oM/UfGd31ly1i6bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2mj3yk3f;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jnH+qNzi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87994606EEAC
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:50:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636D5606A338
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:50:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2mj3yk3f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ECA91F0093A;
-	Wed,  4 Nov 2026 18:50:16 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jnH+qNzi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 807371F00A18;
+	Wed,  4 Nov 2026 18:50:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793818216;
-	bh=UsV0dN01Vg5fC9X7byxzespgVu/8/WAXqQ8aGoifyOQ=;
+	s=korg; t=1793818223;
+	bh=0zNYIJptNPd7ywAtyvGG6/ZMZfGJZ7V8S/65BpgoKEo=;
 	h=Subject:To:Cc:From:Date;
-	b=2mj3yk3fLAanuQBoMz3C/K4Y36GnRuAWGWtANTt4+8KWzIRLnp9BYR1JdHPxTiX52
-	 oP0cZqMzRhKi1fEvtzbIV4T662+uPPDQ8oMpOM5ylHqn/jpSXeef1KuBl8cgTcNDCe
-	 ltroQX2d/6AYhKuTQWvmnRtYJc2N5OTvFeXTnFh8=
-Subject: FAILED: patch "[PATCH] nfsd: don't offer flexfiles layouts when NFSv3 isn't being" failed to apply to 6.1-stable tree
+	b=jnH+qNziEvmGyEnhPnakpJP54gMeGjsGKwWpfcZ1pKe+9VojaklT2ZKEbxF/jn6Ja
+	 +uN8VtudrgWQKqGh2AK1JhvnWZWD6fYRnMa+DcUeE4xYKsh/aflAWtzU+0LU60xAFf
+	 OcyRTblO6qnbGcE5CzTRRcRDnWX2WQ5clX44iQL4=
+Subject: FAILED: patch "[PATCH] nfsd: don't offer flexfiles layouts when NFSv3 isn't being" failed to apply to 5.10-stable tree
 To: jlayton@kernel.org,cel@kernel.org,itsme@benjiwiebe.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:50:11 -0500
-Message-ID: <2026110411-frequency-agency-61c8@gregkh>
+Date: Wed, 04 Nov 2026 13:50:12 -0500
+Message-ID: <2026110412-deodorize-departed-4d37@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 5d28b2c920d9d9d3c45b41769342ad785eb372a7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110411-frequency-agency-61c8@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110412-deodorize-departed-4d37@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
