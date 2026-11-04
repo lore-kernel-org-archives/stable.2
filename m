@@ -1,47 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819830;
-	b=fJGzaHPAcMtxM5IX3UOiFcPdYClt5T8ZGetrfKYBcsv/HQjWv6D3Kklwg3RnpoC8mqlW
-	 htqYzufKlpb9CwWPIhYtzu3hB5MVsze1A5SKxjdmAjZpLUPgoRHGwP+db7FJWi3X8pvmC
-	 4jFp7QCR4IuQLvhm7IE80/Vsloi6Q2O+6R/QIGAq0uomEyKfG+AreVIYcGdizs3pOoNMn
-	 r9JwVp+hGomX/aSGA9ESStb0S31U9lI1is9Bla4fQ5SE4foXkARusJhI2vwoz6zjYTLqF
-	 5exGAp6zucL8ANu9YYwhNt/Fs8XtRQpiIjzGBADOB61tHCi+m2TV9t4WuTLwoEkewVQ==
+	t=1793819820;
+	b=vSjsG8U6sqXrNArx+izivr7UKWuxrC5qFRL4RUVoMbHWeIOpS9be6VDUHDU17pjQepGc
+	 6IzJg3o/k4t8AqIgT4yv7ynSX+EWRzYOeeuQb4Yr9jaKOWPWBeyKxoej/KXz13nAd7z55
+	 3a09Hnlhos7tif03HainiCzAWAz0REHvzrxZc3oAPfphM8AJc/atV7UVuEJCcrf5fnjTl
+	 nZBXF6khTq0nJWjCUU+HYAIqz4AVy8uvXKIJCv+a3kcxe0DFXodW/6h8dNQt9ETBgAiuJ
+	 VITGhYoGgr0E26y1w7hXb24XjjDoMl6DDfpfUxo+4McpmabPpisgGpkLfmYczuy1BVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819830;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=vnWDbXrs3/3tjfAl7+qPORhCRRgFkvsIQZZ1CCw0W4c=;
-	b=2g31F8EmrV1/elMI3McHmhE+F3Iqu0uFJfgCtseXfjO/0ou3fMzOXYJ26L5/HQhEcY3K
-	 g9nF4RZ+mSMsJORvQBzH8DMfxH+WoVLkO/CgoBA/+F62YId+wvz7M2u10Q94kmCVwPaHN
-	 B6nDHwEBSm8JxRB8PBrzMtGvUO9aaiIlmaxbA7CbA9kwLd87dzxeHINyklFwdqv9lOXSM
-	 MRalF27OF9VtWrb+0jvANIybdalCwiWGQN6Sd4TnPvysDXBOq70Nn01nBVsfXYZrgxoFg
-	 XeHDH6qOnyD35oIctdO/vYquMwDOOZJnOFe8+Q7LhHvAn74oZm0d1FoGtnAc9MFZj1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819820;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=Cbujoj2vf5W42joV5o7W0AvKkij9cCOpaGGghku9+G8=;
+	b=xEOV+MXl6cw+l2q8ztcDZugn9vZSUb6rtwCLDUbSnxC3w1JJUFqprPWY+A67oKf6vnxL
+	 Hn5ZgtJMJeaqsnhmJRuJlnaorQwa7Klskw0HOFgTINMo9XkFD3vvO2TaFbnTaOIjwRxtj
+	 Lht08vv/agvJQxTGjE+NyVVQFv5oYc4HXxLAV5hInPjXlShSu8FvYeIZnQz58aj/Aw0YS
+	 HU1FnGFQ7GArMxh9D5NvVXLYFwbIRv+M8+1hzEt7COntvm1Dec1k2Pf9vvnTSNVzfKY3b
+	 nbG0AQkPmtyKRmIMdzvQogwzRnjr+WIILyqYndN3OCZMU4gsrwzBgD96/5jrl3G8RnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fRygZGeS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omO9IGCx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3151606D83E
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:17:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB71606D803;
+	Wed,  4 Nov 2026 19:16:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fRygZGeS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94EAC1F00A1A;
-	Wed,  4 Nov 2026 19:17:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793819829;
-	bh=vnWDbXrs3/3tjfAl7+qPORhCRRgFkvsIQZZ1CCw0W4c=;
-	h=Subject:To:Cc:From:Date;
-	b=fRygZGeSOWHrJdgLes2BfoPUkkuKlmuatb4/NiCkNfcm9mJWS1H8Mkz0Vr1BYAErZ
-	 rSSq7eoXhYkcAI/RAruNoLRh/gf4BA2S4ZVkkYaEIsd9uykG/QUATooTm+cBeWycui
-	 wTxlcFdS5+rOceVHBRM0hHU6dBDiza7wjmpaZoOk=
-Subject: FAILED: patch "[PATCH] KVM: Only bind memslot to guest_memfd instance for CREATE" failed to apply to 5.15-stable tree
-To: seanjc@google.com,david@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:17:01 -0500
-Message-ID: <2026110400-expend-attain-5e68@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omO9IGCx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24F441F00A02;
+	Wed,  4 Nov 2026 19:16:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793819819;
+	bh=Cbujoj2vf5W42joV5o7W0AvKkij9cCOpaGGghku9+G8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=omO9IGCxRyG7KD0kOxfDpDxNQyYIzODWVtRjkLnN3/zFnPKj34X5crXOKucSFkfWr
+	 K2vwmPWEfSCfTc7KrJwcOMFunLOjtXDVztdyYUmknteKFz3PelPVAL1UgBnI+tAbd4
+	 XF5ErKRbX8bdCtSjgX0zvSFTT6L0PDEOQbHUmwQkI114XRdB8cIfxqGscpwpemafw3
+	 K7MJZBUNHbtj7OSLbkije9HCjsdQTGe+6yASXSAIELhzrF5YD6mcuYVUBb8Sm2r2MZ
+	 MV/cCX6mrHLPa/XrLIYAdVEN9IQTdCweH82A0WOCV2qCcCupff8Ero6Vt+lk3uRxZE
+	 xip5YgJ7X0fVA==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH RESEND v2 03/51] ALSA: cs46xx: hand the region to the region proc files
+Date: Wed,  4 Nov 2026 20:16:45 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-3-021c84d852e0@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,93 +115,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1215; i=brauner@kernel.org; h=from:subject:message-id; bh=Z6ZRkJrhuCU4H5MdQ4cObdjJffW/paOotMbfYVXoKlo=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bjy38dymo9fKTmUGbmnq3vJ19u55ybMf3qtLXF/lV 3V+wtzWzx2lLAxiXAyyYoosDu0m4XLLeSo2G2VqwMxhZQIZwsDFKQAT+VXCyPDsb6PwnbR1njvC l2SKvFp3T79ebMkTpTsZWRmxsjzl6xoZ/qmcK6g8/p/jzJXZ7Ak/uerEBKe8Z+6ItmpmfjKzNzX 8DSMA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
+snd_cs46xx_proc_init() stores the chip in the private data of the five
+region entries, but snd_cs46xx_io_read() reads that back as the region,
+so a read of /proc/asound/cardN/CS46xx_BA0 and friends copies from
+whatever sits at the region's offset in struct snd_cs46xx instead of
+the mapped registers. Store the region.
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 513333a5546017da2a4a6173bfb70372f83733b3
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110400-expend-attain-5e68@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 513333a5546017da2a4a6173bfb70372f83733b3 Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Mon, 21 Sep 2026 17:13:29 -0700
-Subject: [PATCH] KVM: Only bind memslot to guest_memfd instance for CREATE
- operations
-
-For additional defense-in-depth, and to avoid having to handle impossible
-unwind scenarios when binding to a memslot fails, bind a memslot to a gmem
-instance only for CREATE operations, i.e. don't attempt to establish a
-binding for MOVE and FLAGS_ONLY operations.  And when FLAGS_ONLY operations
-are eventually supported (this is currently all dead code), creating a new
-binding would be incorrect; KVM instead needs to do a 1:1 replacement of
-the existing binding, i.e. FLAGS_ONLY will need its own dedicated handling.
-
-Update the relevant TODO to make a better guess as to what needs to be done
-to support toggling dirty logging for guest_memfd memslots.
-
-Because it's dead code, no functional change intended.
-
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Link: https://patch.msgid.link/20260922001332.1121266-4-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ sound/pci/cs46xx/cs46xx_lib.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 3c0dbe60a5b4..c53a88cea1f2 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -1742,10 +1742,10 @@ static void kvm_commit_memory_region(struct kvm *kvm,
- 			kvm_destroy_dirty_bitmap(old);
- 
- 		/*
--		 * Unbind the guest_memfd instance as needed; the @new slot has
--		 * already created its own binding.  TODO: Drop the WARN when
--		 * dirty logging guest_memfd memslots is supported.  Until then,
--		 * flags-only changes on guest_memfd slots should be impossible.
-+		 * TODO: Drop the WARN and do the unbind() call only for MOVE
-+		 * when dirty logging guest_memfd memslots is supported.  Until
-+		 * then, flags-only changes on guest_memfd slots should also be
-+		 * impossible; unbind the old memslot for defense-in-depth.
- 		 */
- 		if (WARN_ON_ONCE(old->flags & KVM_MEM_GUEST_MEMFD))
- 			kvm_gmem_unbind(old);
-@@ -2106,7 +2106,7 @@ static int kvm_set_memory_region(struct kvm *kvm,
- 	new->npages = npages;
- 	new->flags = mem->flags;
- 	new->userspace_addr = mem->userspace_addr;
--	if (mem->flags & KVM_MEM_GUEST_MEMFD) {
-+	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD)) {
- 		r = kvm_gmem_bind(kvm, new, mem->guest_memfd, mem->guest_memfd_offset);
- 		if (r)
- 			goto out;
-@@ -2119,7 +2119,7 @@ static int kvm_set_memory_region(struct kvm *kvm,
- 	return 0;
- 
- out_unbind:
--	if (mem->flags & KVM_MEM_GUEST_MEMFD)
-+	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD))
- 		kvm_gmem_unbind(new);
- out:
- 	kfree(new);
+diff --git a/sound/pci/cs46xx/cs46xx_lib.c b/sound/pci/cs46xx/cs46xx_lib.c
+index 797a5f09cade..efc7df444cb5 100644
+--- a/sound/pci/cs46xx/cs46xx_lib.c
++++ b/sound/pci/cs46xx/cs46xx_lib.c
+@@ -2764,7 +2764,7 @@ static int snd_cs46xx_proc_init(struct snd_card *card, struct snd_cs46xx *chip)
+ 		struct snd_cs46xx_region *region = &chip->region.idx[idx];
+ 		if (! snd_card_proc_new(card, region->name, &entry)) {
+ 			entry->content = SNDRV_INFO_CONTENT_DATA;
+-			entry->private_data = chip;
++			entry->private_data = region;
+ 			entry->c.ops = &snd_cs46xx_proc_io_ops;
+ 			entry->size = region->size;
+ 			entry->mode = S_IFREG | 0400;
+
+-- 
+2.53.0
 
