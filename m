@@ -1,53 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793781893;
-	b=A9tUTiBz2SxEvtGTWSGH/jeNx/Bt1pXol9pFKiTkvghlU+Avnhr4j19SDEsFxbyJ2o5b
-	 iGGj4h5S5wRlA4uxhi6Y/Ko+ZOYh1O4lH3i5uNItbRnpDoo62VeY3xU17HX0cYH6vJPsa
-	 0r6O18pMJfU1+H7F8I3zDKpupoQPaTq25p5LSx2qglGp2fJ8B+alndGjOdLZL7+HIpuhH
-	 ZRO6YlP0/LH2FVfuPj6i1fbdMfXSkUrTyh/MNHwIv0zNswWdSmKd29mDLwu2QlJBdVEAo
-	 bSBa5NgGcaP3h+6fVoEvahmcyNcURGgCjx4CHO48ALqCSmj9iXG+k5Z4T1oF3ZOceLQ==
+	t=1793782048;
+	b=ZLJbmllpJ3Hdy2s8USimmG7Ul6VPJZ+lqeVaGtn5za300RsqVq+h8EgqHQved33bPfBw
+	 ZxOrdrlP90w6X4iK6It2W3tOSZ3sHI24VnCJ9akbP2nxjt1llBm/RkxqbGqrHlCfi2BHt
+	 YfFnmlpDjmXubqftGTyYuyvvqg0WOeZTwkNOTNzkZslGGKA3nVBoFDfHaHzDcuHjnPIxV
+	 s+10MM83ddjVTl6ht10zuKAzimkG/c7Y8Xe0XjdyFMOF0CJo/7Ahb4JBC47TgQUsHImCs
+	 i7I0cCr+JBiw9gNNPMsutRFBH9/kt70MGnc0luPuNnctKeMBuG477RYDQh+3FWRSlGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793781893;
-	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
-	bh=ctB5Vq7rzRA1tmvwFfYQJUZK4yutrxijqadyX44J5Ow=;
-	b=uIRrRKIqITMLDiEidOrA1LJy5clWY92OIoaDEvshuj6ujCvXo/FzNt3Lq+ROo12k9Hjs
-	 z84kzGZPO6IZrY3z89+OnTtz/0NrcIAHDo8LtNzEA5HFHAe8gjJr/tPv1ocfNtHDrvZaW
-	 dGcVLQalH1Bc8nAyNpM+VSRWqVPLc4GB6FNV8NpXemdtVc8GAt6uUvYUkuRJRLEAy8E4F
-	 elGzB+h2BuCnB414l7BOP++Wmw1PwgKI2ge2GBbEvCBF0mw2353i86R/tH3M6ZhGBIdsk
-	 lM6UjzSdUpKmOR1+Q0O7/jD1sTe3Sl3A6IX8q31fqoj3L4wVRFOzFs9rF3mM8Z82V0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782048;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=SikW6QyWShPPm+9vJqKGpIuLHnANOtAHXWhBfwLtRyU=;
+	b=cEnntQdToV12tiWOnZBgxgzF+rqWyVBQI2fZ6fR67JzX/IcylHU7BXMXfcCtHGs1Fuxm
+	 uxTl8DXZ1rgn5Uox2fKmN5Oamr+ZIMzTJQtmSi/PmIZxcXUiiUZg+AiZFzNLg3/pd4F/a
+	 vxaaZmJ+qWHyf0lNvMyG2ST6AR12MoIXrMosbLCbFcJS/eh6b/rW4+pf2pASh2e3Th4hJ
+	 wGhclS6tAtdl7yvsaG3/f+bSj3McbQGaihgBap50D8uTb7EruKg9NV6RT+DX1BJWTU2yH
+	 wiun+2fvgLnFJVqss8mocY60yE8/HJTv4XPCiLsm1VyCK3Vkls6NywXA/tOmeBtQmDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=orcam.me.uk;
-	spf=none smtp.mailfrom=orcam.me.uk;
-	arc=none smtp.remote-ip=78.133.224.34
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3AE57606A31B;
-	Wed,  4 Nov 2026 08:44:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AE57606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 9144B92009E; Wed,  4 Nov 2026 09:44:50 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id 8A1FB92009C;
-	Wed,  4 Nov 2026 08:44:50 +0000 (GMT)
-Date: Wed, 4 Nov 2026 08:44:50 +0000 (GMT)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Tzu-Ching Yang <shingekinocore@gmail.com>
-cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-    Marco Crivellari <marco.crivellari@suse.com>, 
-    Frederic Weisbecker <frederic@kernel.org>, 
-    Nathan Chancellor <nathan@kernel.org>, 
-    Nick Desaulniers <ndesaulniers@google.com>, 
-    Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-    linux-mips@vger.kernel.org, llvm@lists.linux.dev, 
-    linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH] MIPS: Fix genex.S build with LLVM before 21
-In-Reply-To: <20261104030147.3117325-1-shingekinocore@gmail.com>
-Message-ID: <alpine.DEB.2.21.2611040746160.6502@angie.orcam.me.uk>
-References: <20261104030147.3117325-1-shingekinocore@gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bZRtAiM9;
+	arc=none smtp.remote-ip=162.62.58.216
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050AD606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 08:47:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 050AD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=bZRtAiM9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793782043; bh=SikW6QyWShPPm+9vJqKGpIuLHnANOtAHXWhBfwLtRyU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bZRtAiM9OKN1W3C9hdwkIB5/yoDuzgDoPoC7A8GMx0A2VaG+ujrM28J9eanPjToEb
+	 1WhOme993G2tXL7fENZSh3JZZqHE5wpf0I1b5YsbaXQew4w+Pz/ZdNXoyzk1NWjXzf
+	 4heses8lJSl/usf99MivL17aP96mtzlJG0hG6JuE=
+Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id BD38AA11; Wed, 04 Nov 2026 16:47:19 +0800
+X-QQ-mid: xmsmtpt1793782039t1bbnb9rz
+Message-ID: <tencent_7AA5D3581EE4D99A947097C4F02730DCCF09@qq.com>
+X-QQ-XMAILINFO: MhLcXbI0hPoHPaMb0xENbO95KO7fvhYaPi13zOgmgRW4/bAl3c3/yP6732NiKY
+	 fodR/3UumoR4uAJ4hURhxvAo0QEkH8ztoePnPhXPHYtC0+6/l1jLMgfL7sRdrGf50VjTZihPphGh
+	 gaGTBhg3/sTKj/5stiqUFbQ6AFr3AGTFyLlHZNUdGtxhIp5l6gf40BvfntvhfFwM3OVsaHhYk763
+	 Cutmi2ur43rGlUfxF5ajPdea7l5fWXENLYdrbPzBqpn60Ca/uWiUvxpp6b+LOioCJXA8ee7xU5IY
+	 NkxtC/c9XXtTUScnIBboZXDEgdAyY1xfsw8DfcRYIG33Ei9QlIndNJakroXYbdMziKEdvg/Za+WY
+	 6TAprsoBd7a0Yd5jMxpj68HzqgkHGCEsXoWZV5gf+GA2hwfFFtBGS+tYD4WqqLfIvPEEFr6MG7Pm
+	 K5S0AzjO7RElh41vAQQkHp5YFDLp7dG64b6A87RoP/M/E2h6mQRsEBKQidiBUVMxGt3C7jRlXHgR
+	 3IxuOrxijxAVc2I6Ql21I3qoSyr57UPUsCVIiak6Xy10W+WNQ0ppTyZoukbhf6rnVS+6OthxQRDj
+	 F5QJrjBMh8tGBUV0k0Z9xuMZ9oz/R9IGheDSDu/kT8RmRgAL4xKHH8VigI9rE/j77OHrCbFvBFnN
+	 JwDJ3HeO/gEUeY6az1wVfYR+McRqJhvu02KdapE2n6+Vke3Eq6lqsnAWpJrZ2g77gJs8uZ7QCHIT
+	 VBZDXIhqKNIk56dbZGmQLYQ+8HOBYAZEaaIZ2iIADcoMP0JlYX1KsZmuOHcW8ROpKU7odRhZzvn0
+	 3hf3lInTgCY37bjOwOYW8ZtgugTwkUBn/mS1v8YgctCDYRg1LUhu/HVmLc7/sQ78nLxLcyNBxdIW
+	 TNFegfrOtYSetceZtVCXcX+bnEBFkXC0kGivYHRP5E1OHZYxYlchsGv6pkPlWZ1369sB7wjNFKfc
+	 ODjJtS86tS5iJJaDztuviNXcMq8lj6P3soQslyMxwMmLFfaMnaoQppib46JMJ93af0UT1NhKGD6f
+	 63bVR94rRJyKCu33xvD3CfD+g8kdm01/v6Ugw7ubfHNQJe0oQPq/ljf7R07sfe7vkwo160pqK7UH
+	 Tirypes5wypdUs0/PWWtHnyss0d1leITQvoFAGnByV9YrJWQcDbFspTSBp6g==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Shuai Liu <847807867@qq.com>
+To: linux-ext4@vger.kernel.org
+Cc: tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	linux-kernel@vger.kernel.org,
+	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com,
+	sashiko-bot@kernel.org,
+	Shuai Liu <847807867@qq.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ext4: fix slab-use-after-free in do_split()
+Date: Wed,  4 Nov 2026 16:47:19 +0800
+X-OQ-MSGID: <20261104084719.715372-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-196874@kernel.org>
+References: <sashiko-outbox-196874@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,62 +90,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Wed, 4 Nov 2026, Tzu-Ching Yang wrote:
+do_split() allocates a new directory block with ext4_append() to hold
+the second half of the entries of the leaf block being split, then
+dx_move_dirents() copies entries from the old block (*bh) into the new
+one (bh2).  Nothing verifies that the newly allocated block differs
+from the block being split.
 
-> Wrap both expressions in %lo(). For that operator, LLVM 17 to 20
-> emit a LO16 fixup instead of rejecting the operand, and resolve it when
-> writing the object, since both expressions are constants by then; no
-> relocation is left. Both values are between 2 and 30, so %lo() does
-> not change them. 
+On a filesystem whose block bitmap is inconsistent with the directory
+tree, a block already referenced as a directory leaf can still be
+marked free, so ext4_append() can return that same block.  With
+concurrent operations on such a filesystem (as exercised by the
+syzbot reproducer), the block can even be freed between allocations,
+resulting in bh2 aliasing *bh.  dx_move_dirents() then copies the
+block onto itself, corrupting directory entries mid-copy: a rec_len
+field can be overwritten with name bytes, so the subsequent wipe of
+the stale entry memset()s a bogus length, causing the slab-use-
+after-free reported by syzbot.
 
- Seems fair.
+Fix this by checking for bh2 == *bh right after ext4_append() and
+bailing out with -EFSCORRUPTED before any directory block contents
+are modified, reporting the corruption via ext4_error_inode_block().
 
->   - The objects are byte-identical before and after with GCC, with
->     LLVM_IAS=0 and with LLVM 21 to 23. The only exception is the
->     microMIPS ADDIU above. The 4-byte move with LLVM_IAS=0 is harmless:
->     set_vi_handler() computes the offsets and the length of the vectored
->     handler from symbols before copying it, and ejtag_debug_handler and
->     nmi_handler are only referenced through their symbols.
+Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuai Liu <847807867@qq.com>
+---
 
- I would be tempted to accept the GAS microMIPS code size regression as a 
-missed optimisation.  This is a general issue with forward references and 
-%lo() calculation is only one example: we're missing microMIPS relaxation 
-for 16-bit vs 32-bit instruction encodings, except for branches.  We only 
-do it for MIPS16 code.
+Changes in v2:
+  - Release both buffer_head references when bh2 aliases *bh to avoid
+    leaking one reference (Sashiko)
+  - Pass the physical block number instead of the logical block number
+    to ext4_error_inode_block() (Sashiko)
+  - Pass a positive errno to ext4_error_inode_block(), as is the
+    convention (Sashiko)
 
-> - The malta kernels built with GCC 8.1 and 16.2, LLVM 17, 20 and 23, and
->   LLVM 17 with LLVM_IAS=0 boot under QEMU 6.2 -cpu 24Kf. That CPU uses
->   r4k_wait(), so interrupts go through skipover_handle_int. Each kernel
->   boots to an init that keeps the CPU going in and out of idle and then
->   reboots; a QEMU trace shows every interrupt that lands in the idle
->   region resuming at r4k_wait_exit. A microMIPS kernel does not boot
->   under QEMU -cpu M14Kc with or without this patch, so the microMIPS
->   change was not run.
+ fs/ext4/namei.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
- I wouldn't be surprised with a microMIPS kernel not booting.  Support was 
-messy right from the beginning and despite my opposition it was merged as 
-it stood.  Maybe one of the fragile assumptions broke here or there.  Or 
-it could be a QEMU emulation bug too; it doesn't seem too stable compared 
-to actual hardware, microMIPS or not.  I could try bisecting it sometime 
-as I do have an otherwise working microMIPS QEMU setup; sadly no actual 
-microMIPS hardware.
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+index 354fc2d22df1..c664ae84320a 100644
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -1928,6 +1928,14 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+ 		*bh = NULL;
+ 		return ERR_CAST(bh2);
+ 	}
++	if (bh2 == *bh) {
++		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
++				       "cannot split aliased directory block");
++		brelse(bh2);
++		brelse(*bh);
++		*bh = NULL;
++		return ERR_PTR(-EFSCORRUPTED);
++	}
+ 
+ 	BUFFER_TRACE(*bh, "get_write_access");
+ 	err = ext4_journal_get_write_access(handle, dir->i_sb, *bh,
+-- 
+2.43.0
 
-> On 6.18.y, which also allows LLVM 15 and 16, the patch applies after
-> 2b6d718c8dbe, and LLVM 15 and 16 fail and are fixed the same way.
-> 
-> The 56651128e2fb backport was dropped from the 6.14, 6.12 and 6.6
-> stable queues because of this build failure [1], so 6.12.y and 6.6.y
-> still lack that fix.
-
- Shouldn't this use:
-
-Cc: <stable@vger.kernel.org> # 6.6.x: 56651128e2fb: MIPS: Fix idle VS timer enqueue
-Cc: <stable@vger.kernel.org> # 6.6.x: 2b6d718c8dbe: MIPS: Fix whitespace damage in r4k_wait from VS timer fix
-Cc: <stable@vger.kernel.org> # 6.6.x
-
-then to get this all picked up?  Or is it unsupported annotation syntax 
-where a prerequisite matches a Fixes: tag?
-
-  Maciej
