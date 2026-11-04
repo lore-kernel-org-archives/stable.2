@@ -1,95 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793790252;
-	b=VrKNrxnYuHcwNxx+VxP+F2vJCfbA83deNpstvh+I8TINUR6znbpgiqZ1O0ZZv4CLZ0Ep
-	 hYFUHhsPeyS25Z/bvxY6KmH2yy1rO9LhvWzP0+gEF90wIxS/OG3M2TW7a5hxVewt/kZcc
-	 Kuy+2N9czWySW73NluqZELw9XpFMaFGMQWxKB4qmhhviI5W5WusHgiUSAeJqq1ZUmAHd5
-	 UvVDP7AdmoIKPwkK52R2tbtk+AFom7dRptXqD3qKa2RD+wuhgRsgl7M4Y/GKDFqAKpbMd
-	 9Sfs1J0Ap1ImAAsUC6p2UJnPFisuZslcsTF9Ruh5ZyK+qj9Ww/VSHbJjzZSI1uKOoAA==
+	t=1793790265;
+	b=NrwkECp9hBHQJytPAxcIcPF64mtdrkeYkqfhUbZNKYQmKFUNUGoGd5jCFJmWEjDUrFyh
+	 FXGUXv5wX7zLXUVKtrlYf8lACRVYVZqkkids+kWnRVhy2zp0eEydiqu2Tbb49w5ElWte4
+	 N6eEa785Ck1K+Dp60yq8pkPfzMQYAl7Ss+LTJiXy4X5B0YaBogN+r2UcoY9IxnZ/Qdo/O
+	 qnC8dy18yPWIdUyiTOkWU+QwN71mOQnH7w/pE+WSRDOHCdGXiz7BoOqOsjMJrLYSh1EGC
+	 FTXUaR8R1kQ52HNKQrzhskJmHBKV5hFa6z4NRWRpk4sd3rWb6mArrHGGqF4PyPlNFHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793790252;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=W8Tbj15l65wdrQ6nP1bdM5KDmeBZZQ0e1b03QxB4foY=;
-	b=dulHbMDpSbM/XVrXlrQzJgr279c/wjR+VJj4MN4o6j3jULyh+JHPEf7Cikq50xzJyVei
-	 i2J7lVyDWfsiWh+6CnaW7+sIpuVciCuyQjR5vyHkWpPQUs1TzZFp7jNj6SliEv1rpDZAK
-	 kSHshLgPlqCYKAu4Go+Unv0evxohMwvNFeA/X08ildKJ014ITUJvYax955EyXgrS821kk
-	 PNf83q/Zb2v51i/6PI/TKxoEU0zuZtn8rIYH+EMfkU1IQXUf6Us1gMFMBfHVxtoMi3oXd
-	 iZ8eaGdR1h9Xzi1mRpiQF6vRnD02JAc0j6fD1EFZ3FXCCLwSB8lcOCoodrUzx17SCDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793790265;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-META:
+	 X-MBO-RS-ID;
+	bh=W7vWa0flX1PsKvHiGeb5kFf5432F354CuXzCDkcbp1Q=;
+	b=rsQvoPXaM/x6dXfHG5csvBlXfX/ThhjAToJhKNnmK42CuKtVdm1sXBmLZ71HVuogxeS6
+	 23MlOfq+cyiwRIWQ4F5ukaEmj86tVURXdOpP2vtOHVmYBlyWYGoj9UgKbQofIQlQswTxq
+	 bOHRXOMgGd6UdUsq2zsCnxKGOVO+pe/aCuto38t8VV6UK7ozOsJ+txRQgpxCDsaP/8UFu
+	 ytcMmYW+DheD6Z7aiPJJo/tYKTl1oTfJNtsKQV14hEO/aeaLDcNL6Co36nDjFE8k7Zm3l
+	 C85aXm9s3DhL3GEDVWXeiPZrvrVqEmOyF7sfTrOV3cv9AqRhbBxQIN2VgL/BT1JEYvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x6kxLp6+;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b="OiMIgPv/";
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32E7606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 11:04:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F32E7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF82E606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 11:04:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF82E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x6kxLp6+
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso3183085e9.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 03:04:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793790250; x=1794395050; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W8Tbj15l65wdrQ6nP1bdM5KDmeBZZQ0e1b03QxB4foY=;
-        b=x6kxLp6+6OdHly5ZjwbVKxcP5nNxoiBGXacIlAc0bItDupUMHNN3wxAKO/SK6wXwCv
-         ZS8bJuOyDtL/3ETRewTitB5b0bLZZrkIYmBtGfiaMr/Oe1fzEX6qhI8e5c+nEb8+aRMv
-         fg+JZuc2M6ooueTPGzkXHedrOHw+nOdusL1FhG++ekipJH7kjXjZs0zzZLisCBD424xv
-         tLooMNYvxFRoLV/CKo7KTneOEm2fE2H/TBcSDQVu1ewGGKpvyDo8geX54Zvv7a40I5z4
-         TyqkhgvcOfqRMaG4InFMSmGtqEO0ss2/15WUXwuW1yeG9Efa1TQ3q4jOfrIJeYUxFkva
-         6dpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793790250; x=1794395050;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=W8Tbj15l65wdrQ6nP1bdM5KDmeBZZQ0e1b03QxB4foY=;
-        b=PYK2SCmAHIY0xD6c89MiTrv34a4QCV4OhUncKaHuq9xUkKD/ansY1BZdibXeZPdoKb
-         RhGjOe/AeBmO0xm/IoDSZFONH0u+n4lNI/acMNjs2JewvUQoPaVu9eLWXx+1BhZTeCO6
-         DNz6TFAnNmxIrfePgkCMjQO5psDpyBYlhC7yCq6VO7C+htRgbHZs+cfjk8lwUwPuuqEr
-         GmluNKUu9PfzXU8QoVE50dhkU9mKqBqco+jInSXmZNgQl5yP/wU5peMcVZCtOLSo7pXZ
-         Hxx9WWtKFUwi6xL+VsJt7AEVdecObHevbXxz8WW042j0yfBMMRAgGJyheik7LUOaDZg1
-         lRxA==
-X-Forwarded-Encrypted: i=1; AKwUvBynPJrpR3EezJgv6tztjTx69iBRYRfhhZgk1pqz1HMDWqxR6FLmji9BtKnd9rxY4GY3vru47Nk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8aZGImwhcQhLF2MF9NMjbqYLEwNhNQFIpwZrT8QPCF8IQjiI1L
-	4W+ntyWpUglev5MGprY0rcTd6RZ1iiMhXZtgB5HT6+1xeBSnCrGy1B0=
-X-Gm-Gg: AYBFou2Tn6K8xoUR8IeuOMkTTmFLJqO7ya+Aq8eoxSvkXj0reictrogeBoYgPD/D4mg
-	/mWKWC4cZifrWu39ycCfDURuuyaNkOkEA+U/d01+KCNnTMEbNxSl1GYOvKs0r+gr2v5ntCDICGU
-	o6WhCA9SUdzMB7J6QkdFTwLY3l2tCF9sIk3NnwcWI18a7DaUVGRjxJuEDGXvj1GNs+52MKVRqTw
-	emKYhDhn6GeeyGqetpGPlGgf64AR/FmIvXSmIVh2UIybJ+VaRbQQDW3/lHcbrTaYpMbZ7ozqBMY
-	czANmmFOH+VuLJB0uEVxwCzZ46audXxlj+4de58VHsWyvccPedT2QKIa15K0dHcd0qwb7lMLYLs
-	Q9+LtEyVlAaaPH8r2dFIIPjhXruh3GE0TBnaN7GXHP6a+SBfwItaHU7rRULsa0tDK5waZFRamac
-	/OnAOMAolLyMD+3uLno87gphZrHMWQHPg+oQ+LsaK9PWqpwIG08QyBur4wx5vrVlZ89gXOAJsJ4
-	BMPyY7VRkh/bGe4hbvtwdfN2fKPuNqhNdwPHDxmB0ZhJ+qaFa+/CR9at1pfNbUnz5YV3Baya33i
-	2PZuv8BcQL4=
-X-Received: by 2002:a05:600c:674f:b0:4a2:1655:87db with SMTP id 5b1f17b1804b1-4ac1228a434mr377260735e9.0.1793790250163;
-        Wed, 04 Nov 2026 03:04:10 -0800 (PST)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43c748105sm43888435e9.6.2026.11.04.03.04.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 03:04:09 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Pouiller?= <jerome.pouiller@silabs.com>,
-	linux-wireless@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v2 wireless] wifi: wfx: validate num_tx_confs in rx_helper before use
-Date: Wed,  4 Nov 2026 11:04:08 +0000
-Message-ID: <20261104110408.986252-1-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=OiMIgPv/
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jKMyX1DRHz8vmb;
+	Wed, 04 Nov 2026 12:04:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793790260; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W7vWa0flX1PsKvHiGeb5kFf5432F354CuXzCDkcbp1Q=;
+	b=OiMIgPv/sr3a9MmWXb6EbBTH1G/G11Yb2DD3j04rbrv053pACO+9UYaQpqc+G0BYY52fJG
+	O6gl6OHkujIM4RrgYmWNt7nbC6nKOEhWtHG1+a5UH8F7zwlnhzDiLCdXIcWxlZnOwHYayT
+	ZNOvhi6RJJ8F+bZK6+iwSJOD4piUeTA8UHGre49DKhnG7hcLSz+1fP1wVQpEDQ9k0IT1nQ
+	PQ2rp10kgdFf4zaeHOOPV0jFT7P3NCCx1SGHD7XXYMR2FbOjFzBOXnjk691luqCR0YPSMS
+	ViIqdFLBkrgBfPw/kpUkjpViu4V3WrJOyaVTMH+Wp6oogJFPV6gcY+W/f2Uo6w==
+Message-ID: <b93eef3f44db1cd8018a742a39cba57b67dd1d94.camel@mailbox.org>
+Subject: Re: [PATCH v2 2/2] drm/sched: Adjust run-queue when changing
+ priority at runtime
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+	dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
+ <dakr@kernel.org>, Matthew Brost	 <matthew.brost@intel.com>,
+ stable@vger.kernel.org
+Date: Wed, 04 Nov 2026 12:04:18 +0100
+In-Reply-To: <7277f083-2d17-4bed-bdaf-e6c616cc5ec9@igalia.com>
+References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
+	 <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
+	 <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
+	 <6e113935-f303-4f49-bc27-e1d85abffa70@igalia.com>
+	 <72cba5d23a977185696db12ac547174708652bcc.camel@mailbox.org>
+	 <dd6e0f86-67e8-40c0-bf8a-1948623d0646@igalia.com>
+	 <6e9a32c633eec28b9d5e539b9e35c00a26ea5bd4.camel@mailbox.org>
+	 <64e2b65e-afe3-4fc0-8201-03cb72ae5d32@igalia.com>
+	 <7327af158cb66e6a5ac59e8fee413d569e85115a.camel@mailbox.org>
+	 <7277f083-2d17-4bed-bdaf-e6c616cc5ec9@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,64 +87,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: nerq6ks4ixrp7ddkrsti497zumhn496k
+X-MBO-RS-ID: d9f4ec4cfe333c3fab6
 
-rx_helper() reads num_tx_confs from a firmware multi-transmit
-confirmation and uses it to update tx_buffers_used before the message
-is dispatched to wfx_hif_multi_tx_confirm(), which iterates over the
-tx_conf_payload flexible array.  Neither path checks that the message
-is large enough to hold the claimed number of entries.
+On Wed, 2026-11-04 at 10:43 +0000, Tvrtko Ursulin wrote:
+>=20
+> On 04/11/2026 08:48, Philipp Stanner wrote:
+> > On Wed, 2026-11-04 at 08:33 +0000, Tvrtko Ursulin wrote:
+> > > I lost you here - what should the comment say?
+> >=20
+> > Just a "TODO: entity->rq_priority could not be fully removed due to the
+> > partial revert of the CFS scheduling rework. For formal correctness, it
+> > still has to be adjusted here".
+> >=20
+> > Just so that the reader sees that this is in an intermediate state
+> > right now, and so he's incentivized to git-blame the TODO to find the
+> > associated commits and mailing-list-archives.
+>=20
+> I would rather not do it in a patch with a Fixes: tag, or actually at
+> all - it feels arbitrary to sprinkle a TODO mentioning future work at a=
+=20
+> single random place like set_priority(). Could we go with these two as=
+=20
+> they are and continue from there?
 
-Add a struct_size() check in rx_helper() before num_tx_confs is first
-used, so that both the buffer accounting and the subsequent iteration
-operate on validated data.
+Help me out here, I don't have the CFS series paged into my mind right
+now:
 
-Fixes: 9bca45f3d692 ("staging: wfx: allow to send 802.11 frames")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
-Changes in v2:
-- Moved validation from wfx_hif_multi_tx_confirm() in hif_rx.c to
-  rx_helper() in bh.c, where num_tx_confs is first used for buffer
-  accounting, so the check fires before any side effects (Jérôme Pouiller)
-- Used struct_size() for overflow-safe payload length computation
-
- drivers/net/wireless/silabs/wfx/bh.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/wireless/silabs/wfx/bh.c b/drivers/net/wireless/silabs/wfx/bh.c
-index 0071659bc9c98..d4c904324edb7 100644
---- a/drivers/net/wireless/silabs/wfx/bh.c
-+++ b/drivers/net/wireless/silabs/wfx/bh.c
-@@ -99,11 +99,23 @@ static int rx_helper(struct wfx_dev *wdev, size_t read_len, int *is_cnf)
- 
- 	if (!(hif->id & HIF_ID_IS_INDICATION)) {
- 		(*is_cnf)++;
--		if (hif->id == HIF_CNF_ID_MULTI_TRANSMIT)
--			release_count =
--				((struct wfx_hif_cnf_multi_transmit *)hif->body)->num_tx_confs;
--		else
-+		if (hif->id == HIF_CNF_ID_MULTI_TRANSMIT) {
-+			const struct wfx_hif_cnf_multi_transmit *body =
-+				(const struct wfx_hif_cnf_multi_transmit *)hif->body;
-+			size_t needed = struct_size(body, tx_conf_payload,
-+						   body->num_tx_confs);
-+
-+			if (le16_to_cpu(hif->len) < sizeof(*hif) + needed) {
-+				dev_err(wdev->dev,
-+					"invalid num_tx_confs %d for msg len %d\n",
-+					body->num_tx_confs,
-+					le16_to_cpu(hif->len));
-+				goto err;
-+			}
-+			release_count = body->num_tx_confs;
-+		} else {
- 			release_count = 1;
-+		}
- 		WARN(wdev->hif.tx_buffers_used < release_count, "corrupted buffer counter");
- 		wdev->hif.tx_buffers_used -= release_count;
- 	}
--- 
-2.47.3
-
+Will future callers, after your redesign, make use of
+drm_sched_entity_set_priority()?
