@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817279;
-	b=AtKhR/jiFvlViToP5YCsZvNhicsLhRmnwBUEeANnYewytKD4tp9OUEec93YaeBHTawFJ
-	 R3NEyl1tygypQpAoqMNXluzvkIoK+2WgMiUTuJKJH5RcBsW5gZayTRu7ndd4UyFcXa2Lh
-	 IsMdzqvdIL7FDxqWMHl7uRkdIpURVlCWKwkaXE7+RCEd1yYorsvIEQ1R/yVo8eQkOWs2n
-	 DMgn8j5zZEOmnQvEci9D/NeCJbS3ebMxAnuCFEA4mU/i5zRAishKxkl5RhdpgUmg9lX08
-	 sxYVNRmDUYpuwaW+iLuUXNHlLBiDOgfDmRQ/c+ZAXR7AwF6ANZWAOAHw/kUtBsVh42w==
+	t=1793817280;
+	b=iCJC+M4GyTCDZzZQGl4uSl+iYJXdpLTZUz7JIbloVFr+Yjww59AT7PItbsKpg+CEno3U
+	 +4/BL1tkZIaJtDvUUxs/AoRLNpt0HLNwOsdPeit89IUBv5yOsyEmbgxSnscHH0Jluyzn1
+	 R+JCrymBpkjoOW1RLWVd3xSNp7iqsONLcM8Oz8mu2QnV7id/o4fW9lvTHbF/WHquyBz6Q
+	 QBCgp2qoSupGz9wCdahNMJPPAsdtwQoK7TeiQSUQo5Lck7cXa/Dq2vEz0A6rivmBSUvz9
+	 y81IhoqS9f/8S3W12nKTg7Oorx+87xUPDjzqhC2smfPlJwcOlMHa1YYWxNCloE/2a0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817279;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817280;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oNsA2W+nvDv12f64JB4eSk6HKmbDu/UMMza72ar2CGg=;
-	b=YfovFvXaw3piOTaf11h1McwS3DlP8s9gZQQenhe9VeuRuKcHe+48tfUoKpWcCS3VLvqB
-	 bLMiAS9tfQeRNiAy0RzsdGmeadZjPhyRACDm0Xhg6EeM6xAaa3KaJ7LsNxTJnv1qMi6Mx
-	 pHi5/Qe4UXoA9/KkwEtgNDjtmOcry+DnZBVeY9Z+zOUYSTXLXGn+0083GXvNgzKa/b+pj
-	 D0FfD8Ok50IL9nXT7AjBEcLLCRoAOOrUTWDiYt5SpJiQ6PGSg+yuqZicIV9BCUE4WhBje
-	 oyDg6G5cU1dzzwObEiuWokIfrHJRjVMdQsuuDtUP6mGYMsSr3kwfAEguXJXdJ4ulraQ==
+	bh=9bV0R1NtEGWRPScwQgq1yDsbsG0YOT2FLXe60xOkZRE=;
+	b=OKcC0wCF7ktSY6ORhj/sPaHBVQfCf6hXQjBYup4Ngx4RuzMIB0iz1Fx/g8iHYSqPRknB
+	 2Ojf1pnz5QCFckI+VzB47pNKf8PsduIOR4jxUWxyc0nXzUdQjol430T9wikmZ8VRCn0yX
+	 zIzBIHvljPqmIF14EE28ghYnUO8JIoP0MrYgImTkO/ERwn8xGvar4fNDDBumznUv0tjFz
+	 HoVN3KlKrCsEZ+VEB12qo7Vk6ITQzJGCTq3ASWEqmgRQeiTtEsnkow3OPyrbacFWI4o8C
+	 fIJTn3KzLCeTkxXXiyKvrQxwf0WElPgO7dTNsK6kOzIXDQMzMGuBWsSIBrSeUWf45sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wAULBin6;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OEaeGaC+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16377606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:34:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C23606A32C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:34:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wAULBin6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 802C31F000C1;
-	Wed,  4 Nov 2026 18:34:38 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OEaeGaC+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 113731F000C1;
+	Wed,  4 Nov 2026 18:34:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793817278;
-	bh=oNsA2W+nvDv12f64JB4eSk6HKmbDu/UMMza72ar2CGg=;
+	s=korg; t=1793817280;
+	bh=9bV0R1NtEGWRPScwQgq1yDsbsG0YOT2FLXe60xOkZRE=;
 	h=Subject:To:Cc:From:Date;
-	b=wAULBin6VVg7EbWB7quU5dG0n400cRsT2bS7wL9VE22ovUcSYG/kvVcHw2bx8VH8b
-	 wmMO+Woaz1Irr24qE7CnyUiX1SDBDeoSlrtBaYi5uNez3J1AKcXszJj5luRhGaVAcL
-	 Fc4zZhMHOH2wXROPWTQ1FTL9eqrGbt7nsmRZpypo=
-Subject: FAILED: patch "[PATCH] smb: client: reject short SESSION_SETUP responses" failed to apply to 5.15-stable tree
+	b=OEaeGaC+cOBS8Z30khi5bYTUOVswQlxE2fwvAaf3XKUgLMczXEY9Va37bAbGWFUay
+	 ZXLXXCf7tu1/bVAM4SuN1vFppiU6FXcu1azu6IYod8MNn18gVZzz+7MIwKypjphgFh
+	 jhMzbG8Z5IvDPSdsEqQczSjIedxBJ8g/ZwFQtlWw=
+Subject: FAILED: patch "[PATCH] smb: client: reject short SESSION_SETUP responses" failed to apply to 5.10-stable tree
 To: suruurism@gmail.com,linkinjeon@kernel.org,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:34:31 -0500
-Message-ID: <2026110431-bankable-myth-eb3d@gregkh>
+Date: Wed, 04 Nov 2026 13:34:32 -0500
+Message-ID: <2026110432-five-romp-5513@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 4d8930afa3446041358a7db33e7b23a0bb9459b5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110431-bankable-myth-eb3d@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110432-five-romp-5513@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
