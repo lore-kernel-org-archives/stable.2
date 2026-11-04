@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816995;
-	b=Wp166MhbSFyru7kOVkqh0VJyObqVQV0riRwfJFNDXnIGt+jjKRnbEcPeyYbQPDZjKEEE
-	 njVckut+PCJeCoE5WcNNPwZkK2qK4nlyKvwEnVW11BzkCdWSRA3EyXjev5QnchPYHq/5w
-	 KaaCpL90nqdLauC2Rhy92dxShT9ShaKTrqzUdVaxFQ8JQoz/WU3GEy0mhJ41zQzw/5jgQ
-	 lL+e8W1iEZWAXM+76fKyVEXYWzFDPfqGx7S1uXklwTbcwgUKRzWhBOT3A4y/5gSYDfJFP
-	 wfKM2raCa7JAUdgZlZEsQBuErI3GGNny92FmJOYS2SbXfXNOeYA6384Rg0EOp56BUag==
+	t=1793816997;
+	b=VxwHycdUZ17lUAVGVLiEqEHa5exwC4QKKx/kYNWpE4ZK/8jumGpgeQ83B/5WDUJnx3cU
+	 lJlpQAs9A9xZf2XmRgYFd1o72lG3gmBb3BZAWa76m+YC8oEedQxgGAC2DLHuf1AZgpFbe
+	 nu5Uf+EXAppNFQS7Y1O54PMyIgOaiICF27NaJbmc1EokW255vjk9gDC1wX1KsqliOmQun
+	 pWaGdlUZd+e0CGW+oWmW3EU2DXVW6EOHxqqy87L6hDjl+klcQihvQlyvVjfC8qiOmDJtS
+	 mIsFVAnBtuLyO5D715iyi0+CAQ7YBjgS+vqB+linLjYSlkHE+hyYMW8xxtRRNe0O7YA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816995;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816997;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Ys4L4mY9HqvE8M6/Ksj8lmCT+Fs2qsgHYRJzjnJGmtU=;
-	b=LMAauHZNJFEJZRGfXQskXnFqDl1XrCegkgTKIk2DKD0pHsmIkqu1NJeYdFZEi2bAuGjC
-	 LR8qk3Nd63w9HGN4cioQqmDq2sg5BgMlVW2D/iJ4BnEUCutP2vNffzRQUjBBunSn6V0rB
-	 DiHD+ldK3XOI2YMPsm/1nCHX0oTjrHZDKr5iRu45rSzWXv8dYO3/DcGXBUfsFDPd2RcUV
-	 oLcWJ8xAP+YiDNzAsfprYQx3CY96rO3TmBmvYsP10u15yKL+N625oe4bPKVoZ00p8yXrq
-	 cv/01qLn6oThOimQ40eQXV5e0LGfqLTUpwkl9tIaKrqzhzxZOQNF/LwBfooGKnhiFGQ==
+	bh=i1He9VEmsEek0Z2RdxsTg+1qCRXApswmVNrD1GW1SAI=;
+	b=wwhRJ6nEXd9ANzS6TjX22cnIz+i2y4zTNbRZZdEWJ+L772bkxoSpwBZDRfAFxLpLoOf6
+	 lUkaGQSq7yMumQfQ8bCDTRI9nHVOOcyApxXdDfuJKwhoc70yOceKfkM44RTOKY9csUtiX
+	 ONqNGRRI0poS279KK3mz7oma/7lMw6ouN3uPSvitC8ZLVP9LCqUJoozKPp6jifYvGDveg
+	 fsWV9Y584JVIHYKJuweTzEWyJTPvnEcYmrRIYMMuBHAIo0unPSuzN7k6yddAyqMNQ/W4G
+	 mjt/yISc44h1xl1wsQCb6ufEy3ZjUqEPqI5LXFKYG2OoKvgKSVnHgBegC1W4LvFRElw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xmZrF8bK;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=M1TQ7rFz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C2C606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:29:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D71C606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:29:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xmZrF8bK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416E31F000C1;
-	Wed,  4 Nov 2026 18:29:54 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=M1TQ7rFz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77B7D1F000C1;
+	Wed,  4 Nov 2026 18:29:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793816994;
-	bh=Ys4L4mY9HqvE8M6/Ksj8lmCT+Fs2qsgHYRJzjnJGmtU=;
+	s=korg; t=1793816996;
+	bh=i1He9VEmsEek0Z2RdxsTg+1qCRXApswmVNrD1GW1SAI=;
 	h=Subject:To:Cc:From:Date;
-	b=xmZrF8bKfJUlU9qu/+8/CynOLTdkOKdV+NBjADCc1jpkhXPtohPPOP0H9Bdiq06GU
-	 5o4JJcZaEoc//67mApOGdn4+PvbfsUHbjKCWtEAnfo3nOSH9Xz0mrcBBy1mK83J8AZ
-	 gGvYdcSiBUGdplvPh2oBc7gFOKL32o43waJChDhA=
-Subject: FAILED: patch "[PATCH] smb/server: prevent file publication after tree disconnect" failed to apply to 6.12-stable tree
+	b=M1TQ7rFzSpxOUeJpJwQpJWKxcSeeygZLcWT/Fnyo8GdLw5vbeXk6lxZ/4JrZj5plx
+	 G7Ec1/waSbPpn47883aeCRiOPgOne7GB2WXL/pIg5kn9zC1lZPZc5sDdQ0nHrgRTZP
+	 280xB/Lzv7RkKJlFUc09dHJSmLob7nwBpdUH9+eg=
+Subject: FAILED: patch "[PATCH] smb/server: prevent file publication after tree disconnect" failed to apply to 6.6-stable tree
 To: bestswngs@gmail.com,co+d531129f2f9fbf88@bugs.sh,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:29:51 -0500
-Message-ID: <2026110451-repeater-armchair-1d86@gregkh>
+Date: Wed, 04 Nov 2026 13:29:52 -0500
+Message-ID: <2026110452-overfed-reoccur-1b4e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2ff3730998b015b5b0a3f28330bee16c648dd114
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110451-repeater-armchair-1d86@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110452-overfed-reoccur-1b4e@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
