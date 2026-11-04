@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817033;
-	b=DeMpkXNQxiZVy2Axged7kgAHdxsBD1cdlv2OytkK2efSc3P+cIlzUVQ0Z9rrtu2QDuyb
-	 TuQRjKp6RDBh1ZibO/qw5F7kiC8wxI46QLboWG/DJV/Y5BAC/bxmdVZ5cEYu+fICeGFOu
-	 e0K0cgCwbR1QZYt36ZikUsh4Tt7haj5kbYUFeRKWbcRITTHo0Pd5R3MBxafX5vah369Yz
-	 vjhUsaF1ilzeQJT6UcjbX7p25PKAwdWs8CvwCPc2d7eNDngIz2BuE1zwGkoji1ChSdWvx
-	 wLYuP4TMv0ucQ+vDtYnUR+NDs/TJluQyhMOnM5WEVjP5XqhU3HT3Kr4CiAy27rPB2/w==
+	t=1793817042;
+	b=3zzz5b+s4I1Ops66Sn9Eliy5WHKo8Ql+flfQ6zwYaogFQNQHNwJ2+6WTG4tGq4rdH/6u
+	 oLJxzopmYY+1ncsCHwGYFB8IZn3S9sToLWaL+QXWhDAgMa2Z3eG9LYCTWYEVPlt0MugjQ
+	 kWcPlIJWNk2PhTypi7pfaK+md1DjxENCsILTooGjXXXSE8Kk2fAcl8cWo/7WdeiN0e+wo
+	 SyCd2QH9ZOggUwd82JwKyqF+oSNKxls2hfPXLYQyN+lPEBPEKHK2A3VfBkKsMslolg4Z5
+	 3GeMzb/sS15Av9Jr6+OkgM5F/ejCD/lmfbZOJekmSv+yn3lO+yp5ICTJvhDGUvViD0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817033;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817042;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bzrtlIvz6UlLk7ATFl6D2jtOGSCU6ISd0avQ2fIQOak=;
-	b=gxpcDVAv6UTJ2cfqvyjCzqoqZXSmllrAdQa5y3aSjmCg2LZjKcm/5nF3SCEj7KP/wUhh
-	 le8J+JlVVeY4hWsKY9rz/bK5NNjoWWpw1e9VDrH+mhqk4vO32Rq/gdfB3IPLoAhrvJp+9
-	 5Js0PhzTqakGb3V2t3EcpZcqEGI2i2xRVdvbRKh4o3eXABDeNft/0wOq5gGds/5TwXYcN
-	 +2JEaKeRwP9k33q/cHv1Ph+YKrEWrUKQ4hmK0chufRM6lnlHlYLMNa+lHla+U8VtpGMgQ
-	 RnJZi1Bgg9lAFGo6Do5pm5F7OiGCH4HpnnEJPy/YNd+txWt2RA++Hx9oV2OhxYdCmUg==
+	bh=RxtFqtHI/vXEgfQDe6VvwneuYdT2QQiY4ue9KyQiUCY=;
+	b=mLoR9P80LX/79CyMNbTbDtc3vvDwG7N0v0zul33U79cLWkE34JemKjLk5HRPgzkx/wwJ
+	 Wwz4JFXbYdICWWmCkmSfRoJ4+XcSz10LFKn71kjN6POw91dpU/RVZue9JrCwKdUdJ6p78
+	 3zcUiiAPAU/zB87DZnLT/ROW6aj3cT3i5dpR2TPVOenBT4zydzsqDIcy1guzcN02YsqF6
+	 wYcLomhow7r1m8d1odPqdVRUL633u/A0ec1XzVE51LW2fytmSwanjib4/OaAmGfwLz39O
+	 QNPz81U+EHodw4Ac93xiEpXgUEGsQ4It2WKsgtya2suJG6d6cqmw0KIqwe+mn9WX1Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="liUTl/ex";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Usee2yxN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE1C606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:30:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78447606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:30:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=liUTl/ex
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11B401F000C1;
-	Wed,  4 Nov 2026 18:30:32 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Usee2yxN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13AD31F000C1;
+	Wed,  4 Nov 2026 18:30:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793817033;
-	bh=bzrtlIvz6UlLk7ATFl6D2jtOGSCU6ISd0avQ2fIQOak=;
+	s=korg; t=1793817042;
+	bh=RxtFqtHI/vXEgfQDe6VvwneuYdT2QQiY4ue9KyQiUCY=;
 	h=Subject:To:Cc:From:Date;
-	b=liUTl/exJrINFfnJo3Brc73JZztR+8WWyXnyhhmA1wM/Z5E8dOqXMxpOPjVvMj5B5
-	 4HfkNuTBf82Pe28m74eBMpdsu/mFiC6tTsNvlrpzDaPV6TE7NN3n5zCdgco5Vlmtpo
-	 EQYSEUcpvb6in9x2va7hddL1Z28tPkypCRkWxlsA=
-Subject: FAILED: patch "[PATCH] smb: client: fix buffer overflow in SMB2_tcon()" failed to apply to 5.15-stable tree
+	b=Usee2yxNrSy8lgvQWgJyRYfe1zhnCIqnvlVtsQ2x1Z0Yy6T81U1FlZ1rMkLOcHNws
+	 2x7UbcfNRikrsc8jTjlB+UAVppFQMjBYkuuTOAzyjorIlRrSFXkofn1d9L9DqZgVNt
+	 SE4IH5upZUzIXmDrZAdYkS7ugnlhn2CD4vASXw2A=
+Subject: FAILED: patch "[PATCH] smb: client: fix buffer overflow in SMB2_tcon()" failed to apply to 5.10-stable tree
 To: rakukuip@gmail.com,bird@lzu.edu.cn,n05ec@lzu.edu.cn,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:30:31 -0500
-Message-ID: <2026110431-residence-starfish-1a10@gregkh>
+Date: Wed, 04 Nov 2026 13:30:32 -0500
+Message-ID: <2026110432-purity-munchkin-1270@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 73cc469b0ff7551f8537ea919709973e6dc4f514
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110431-residence-starfish-1a10@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110432-purity-munchkin-1270@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
