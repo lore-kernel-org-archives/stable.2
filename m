@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793822988;
-	b=X0p7eCxaoOm/CiNkAWyEGlDfIv8Km8jw+T/SLx8++DjyORvN2sK9BRTG+R/Hfq9aF/fN
-	 kna8E6jdE5B9gH+zDWyKoRxQi1x1Uwu7mq+kmsFcGJrdQRBeAaMoDbF9cGijoDEH4p1Ap
-	 ILjaV1fP9414i/qLLb+T0czyiVLj7hnpvZ1tFpU0f9HpdqZEmkCIEknWpzZiTtR93+0an
-	 KxuXNR8cAKuj97L/fd0ZEQ5M3h+zodYBGMYaD9SkRo02f8OTJ5jpe1wLwtcNTzBee7GYl
-	 UvfR1C0CyZyginCda4Uuspev+U6ssqBymB0UhS05vTjLBuTWLj6R/hGG1BFvLW4Tquw==
+	t=1793823147;
+	b=YrTRAiTGWEnKxeWLCTRSoRBOAaFGx37o8wU4PzVty6gg37ap2zoB/fBDQXkRwiFCqVE3
+	 BWK9KZLn/AvBwDVHZ7mc4vt3PsCrkct1YdhfmAvdg/t2J0ygJJUB6ocYZb+YHX2TmMTPl
+	 YTtxYfuSdhuSGFc6opledSwlmWMCHjTw056SYxT0u9wv/8ZYNT24YLGugwRMkXpRLdstw
+	 V4o43U0quUklpj52tRdBEP/gEkImOqBMQg2CcAbL27KAuPxwA/get3ZgIeZqVvAN+xWlO
+	 kSLfSYZUvLhUyMngMiFwdZajkfd8LfMU2M45oCSEnZ33VQlt2ANT6Bt5uuHuEkqw6kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793822988;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Content-Disposition;
-	bh=7PJM4PbhJHpLhbWOLitVKtM/DyGHKxiR5hSKnNJAjXU=;
-	b=Md41/D4YLIeupYfxElVt2Dw2NtdDCClVT5tMet5L+Uh5T+lP2NPOjHt/Bhh/ROQMXB22
-	 OJ13C3f3UolHNegSSQd6wwhJ+AeVlcJTGAqY4DU09U+osJ3jicqcdopaWzH3tASmnPjFQ
-	 w55+qpqMWRfX+dKvqYz6vcGTaGGDiM26gkBVmlDD58T1rVMk4KSu06/LAGBSSw31pLtAg
-	 dwxf7jysBfF0NfehewtKx0aoPznrtnYsQI9onMW89J/hFhl7g+iWG98JfJLEwHwVZpGDF
-	 Phj4ZBtYtQOowkGw+accZW6NtGlz66D2O2LGNbrsLzcpJm1fnIbL736JCP54lrmgDwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793823147;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=m6Y2FrQYtywLWPdbNUCyj9ycOW3DW8gDUvjpTJ2uS2Q=;
+	b=Jc+ImEUCZmQcUNjfLzUJVrFKmMRnz34qylXvVi3NLJdoAHexkD5F0jrk2dItNIUi3b+F
+	 OxItFMMrtEhQPJVbxtzuXhFrU9HHAwZXPTwtzVBLUVzNG8wqh+3Xoen6A65nc5phYivFs
+	 FuJFbfQSzb9nN10rSwnNtKPi12PKpcPQtXbnHPuKlz3DLojiyV2weOrLzHpoZDWHyyri9
+	 37/3No3NWl8iXDswxzPYvB1rttI81WwYGxlF3gJU+iOWlMtvxiVXGw6GqOrYIgSCGhGNR
+	 KQpEtjMpp064q6Rd/v82W+zPiqXXZlN170cHrrWDCPAv/50jmyFZg9VTE6Mj2SiWLOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a45YS1Xc;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Hkv1ZqaG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D97CE607C0AA
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 20:09:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D97CE607C0AA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82471608078B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 20:12:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a45YS1Xc
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36d6765756fso1026023eec.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 12:09:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793822986; x=1794427786; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7PJM4PbhJHpLhbWOLitVKtM/DyGHKxiR5hSKnNJAjXU=;
-        b=a45YS1XcZYiSvN/+A0jIa3rWTLWJ/IzdfxjgeD9DUHE8RI1ig8G9b042/i5LxmkJrc
-         ePRtaEVDBQbEPe4UjVMYQYg45+/fX8F4w+AdddwlOc1vZWjJc2e+TlVcthwliZBLx04M
-         HCCnJttpgVSL6bzW8ECkMho1UciQkxFw8ZCWp6RM3b115fv7iSkWJkEG2Zak+k3oo3Yx
-         IY4h/I2pbdrlJJJHsCQpUOSKHoH0t4WnR+oTm51TT9Cd8xyGn1zSXYVhfvaifLVH4rf0
-         vdeRYsqcn3MqktNQR2vEcQk5FvZFlyS69S/a0oiE3bSsIqhADGPf2HrAwArqIKMOk9mS
-         WqlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793822986; x=1794427786;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7PJM4PbhJHpLhbWOLitVKtM/DyGHKxiR5hSKnNJAjXU=;
-        b=gUsbtpCmd7TpC4HvpobF0FDktv/nejBiqF33bJm2wDmL+kOAUSssI6JfnQGq6QO0b8
-         96oQutUcC58p8zwDfufcoFl60LSPohshVjLX5UaYq6rukuZ6PwjKuUQgql/o+KyPgiIz
-         UIkngcTM/+6UPEh+jxDZhnRCuu4tAjquIgR3nvYs/HSQZ5Rccfwa+VZqoqkpUYxsw5UA
-         Ah37ucGxkkWGXBuFV6M6j2kTNSoHjuqkAfJT4Q2HvNIABIlBEXfFziWELrJZmspSN/Yy
-         ao0fb8MBoviutCLVl9Ff8F3aTvp70avh7r/unhD6DEiPtKZw6pVG4dbhkmELMUrs77eg
-         2GGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxveTAAofWxHzwLGCE2Y0Zeko3zT0ae1J8UfeVbwkCIVqGtVufL4W+ttXwhzHpjCTE5y2z75PY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+l06P6xc6f4ohX4m2Qimn/hs2aFS8PzLLiWYH027jOp+WipltI
-	QQBX+DGt5RHiOCKiDaZgdgtR9Le9qxb/qqRFJsPrUZWDGcator9Kk6Eu
-X-Gm-Gg: AYBFou3s6hP1oZOsQzI39nl3sxcF2ql73xaJWMnzS3vqA/xVhoDcAzZ/IBDi7Do31cj
-	TgLGyA9tO5YOodJXzzIHnHOjvm8+J5N64/zelzW7NE0AhEh4/ujFG81EnXAzLxznAfRbiInIUWX
-	n4qQCd2r41QQf93rEcph6mUPO2s/vubQHclbMsxuOCAFAMinAkxRoBIUOrAdtuaavuO+H1p29AR
-	+ZN1OC0iXufO0tbfH/oLS6Q1kd2RaQQhTeAv6IJEEoRNBDNBLpulZ7VFCVvx52dJOD72MN5odKC
-	f+XsysEYv3smrtY+eS+dBqrr808WyrxlI3D/Aah0JlDmV3iuqBjyIUdTxRbi/Ifsdo+4q9NtHRS
-	ZRuP7DUpMW1E5ryJNlcK3nYWmKQbxEemmjH2LLCeiMgMHd6zvx2b0BR1wUz93tnA7ndSeK4jhlO
-	RbzpDqcYfJ9HHPyo0ReBn8yOQoXUSjxozmfSBLJGPmRw3lgysRoxNOSgow3E+vQ/qi+/His+1t/
-	3sRpjhNmZqCGJqAiiJ0t3O9cRIhF7eJyPGA3XpH9wjzXGBocMPAgJs7SkvhNeU8tDTnPudCb237
-	yMxMT66E6RQXLgtwuqoQEyLQYCUdWJcA6jiG7y9X2wDqSeAV+ZwZo2CLMrEYXcFxQxnSaw==
-X-Received: by 2002:a05:7022:3a8c:b0:14b:cf58:ce5e with SMTP id a92af1059eb24-1ac4fa14bc6mr29667079c88.0.1793822985762;
-        Wed, 04 Nov 2026 12:09:45 -0800 (PST)
-Received: from localhost ([2a00:79e0:2ebe:8:920a:44a8:6f02:232e])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c4706bsm12494370c88.15.2026.11.04.12.09.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 12:09:44 -0800 (PST)
-Date: Wed, 04 Nov 2026 12:09:43 -0800
-Message-ID: <14c52f5f176b8fc6aadaa31c9f4715c0@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Guanglei Zhu <zhugl3@xiaopeng.com>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	liuc63@xiaopeng.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] Input: cyapa_gen3 - clamp the reported finger count to the array
-In-Reply-To: <20261103084135.426629-8-zhugl3@xiaopeng.com>
-References: <20261103084135.426629-1-zhugl3@xiaopeng.com> <20261103084135.426629-8-zhugl3@xiaopeng.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Hkv1ZqaG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E01C1F000C1;
+	Wed,  4 Nov 2026 20:12:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793823147;
+	bh=m6Y2FrQYtywLWPdbNUCyj9ycOW3DW8gDUvjpTJ2uS2Q=;
+	h=Subject:To:Cc:From:Date;
+	b=Hkv1ZqaGSLbM2kut9pgkQ0rNfBst/VA5G0tjW0ifXaYXNmtxmukPAlKkeCKn5jX8B
+	 3KrTVTua/Y/Erk4E+8Nfw/jjqGwIjQ01IzUxnqIJaHlIACelSetBRzwV77hWHGW+mA
+	 gLFQJ+45J+adfmEjpuwvOcK+DHn+/KclGyw7310U=
+Subject: FAILED: patch "[PATCH] KVM: TDX: Set bits 31:16 to 0 and use UNDEFINED when" failed to apply to 6.18-stable tree
+To: xiaoyao.li@intel.com,binbin.wu@linux.intel.com,rick.p.edgecombe@intel.com,seanjc@google.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 15:12:15 -0500
+Message-ID: <2026110415-porous-slather-09d5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,65 +51,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Hi Guanglei,
 
-On Tue, Nov 03, 2026 at 04:41:35PM +0800, Guanglei Zhu wrote:
-> The finger count is taken from the top nibble of a status byte the
-> trackpad firmware fills in, and used to walk the touch array:
->
-> 	num_fingers = (data->finger_btn >> 4) & 0x0f;
-> 	for (i = 0; i < num_fingers; i++) {
-> 		const struct cyapa_touch *touch = &data->touches[i];
->
-> The nibble allows up to fifteen fingers, but the array holds the
-> five touches the chip is documented to report, so a firmware that
-> counts beyond that makes the driver report coordinates read from
-> the stack past the register block.
->
-> Clamp the finger count to the size of the array.
->
-> Fixes: 9f1cd857518f ("Input: cyapa - re-design driver to support multi-trackpad in one driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-> ---
->  drivers/input/mouse/cyapa_gen3.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/input/mouse/cyapa_gen3.c b/drivers/input/mouse/cyapa_gen3.c
-> index fc3fb954523b..fda807a4c141 100644
-> --- a/drivers/input/mouse/cyapa_gen3.c
-> +++ b/drivers/input/mouse/cyapa_gen3.c
-> @@ -1149,7 +1149,8 @@ static int cyapa_gen3_event_process(struct cyapa *cyapa,
->  	int num_fingers;
->  	int i;
->  
-> -	num_fingers = (data->finger_btn >> 4) & 0x0f;
-> +	num_fingers = min((data->finger_btn >> 4) & 0x0f,
-> +			  ARRAY_SIZE(data->touches));
->  	for (i = 0; i < num_fingers; i++) {
->  		const struct cyapa_touch *touch = &data->touches[i];
->  		/* Note: touch->id range is 1 to 15; slots are 0 to 14. */
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-If the packet reports more than 5 fingers (for example, if an I2C read
-glitches and returns 0xff bytes, which would otherwise pass the bit
-checks for OP_STATUS_SRC, CYAPA_DEV_NORMAL, and OP_DATA_VALID), the
-packet is corrupted and we should not clamp the count and report 5 bogus
-touches to userspace.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Instead, please reject packets reporting more than GEN3_MAX_FINGERS
-with -EINVAL during the header validation in cyapa_gen3_irq_handler()
-and cyapa_gen3_try_poll_handler() (or in cyapa_gen3_event_process()),
-so the driver treats it as an invalid state and reinitializes the
-device. While at it, please also use GEN3_MAX_FINGERS to size
-data->touches[] in struct cyapa_reg_data, and either fix
-GEN3_FINGER_NUM() to mask with 0x0f and use it, or drop the unused
-macro.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x b43c520b198ab70868307a489ef2117ed6d6c4cc
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110415-porous-slather-09d5@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
-Thanks.
+Possible dependencies:
 
--- 
-Dmitry
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From b43c520b198ab70868307a489ef2117ed6d6c4cc Mon Sep 17 00:00:00 2001
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+Date: Wed, 19 Aug 2026 17:48:57 +0800
+Subject: [PATCH] KVM: TDX: Set bits 31:16 to 0 and use UNDEFINED when
+ synthesizing exit reason
+
+Set bits 31:16 to 0 instead of all-1s when synthesizing an exit reason,
+e.g. if the TDX Module never attempted VM-Enter, or when stuffing the exit
+reason due to an unexpected "real" EPT Misconfig.  Opportunistically use
+VMX's KVM-defined EXIT_REASON_UNDEFINED (0xdead) instead of -1u.
+
+KVM is going to support Bus Lock VM exit for TDX, after which bit 26 of
+the Exit Reason becomes meaningful and indicates that a bus lock happened.
+The existing synthesized Exit Reason, -1u, will cause a false positive in
+that case.  Change the synthesized Exit Reason from -1u to U16_MAX, so that
+bits 31:16 are set to 0.  This also avoids the potential issues when other
+bits in 31:16 become valid in the future.
+
+As a bonus, the check for synthesized Exit Reason in tdx_failed_vmentry()
+becomes unnecessary.  Just drop it.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Link: https://patch.msgid.link/20260819094903.3060020-4-xiaoyao.li@intel.com
+[sean: use EXIT_REASON_UNDEFINED instead of another magic value]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index 1dead84e6077..2664123caf26 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -940,8 +940,13 @@ static __always_inline u32 tdx_to_vmx_exit_reason(struct kvm_vcpu *vcpu)
+ 	struct vcpu_tdx *tdx = to_tdx(vcpu);
+ 	u32 exit_reason;
+ 
++	/*
++	 * Return the synthesized invalid Exit Reason, as the TDX module
++	 * never attempted to run the vCPU, i.e. the Exit Reason is undefined,
++	 * but this is NOT a failed VM-Enter.
++	 */
+ 	if (!tdx_is_exit_reason_valid(tdx->vp_enter_ret))
+-		return -1u;
++		return EXIT_REASON_UNDEFINED;
+ 
+ 	exit_reason = tdx->vp_enter_ret;
+ 
+@@ -956,7 +961,7 @@ static __always_inline u32 tdx_to_vmx_exit_reason(struct kvm_vcpu *vcpu)
+ 		 * Defer KVM_BUG_ON() until tdx_handle_exit() because this is in
+ 		 * non-instrumentable code with interrupts disabled.
+ 		 */
+-		return -1u;
++		return EXIT_REASON_UNDEFINED;
+ 	default:
+ 		break;
+ 	}
+@@ -987,8 +992,7 @@ static noinstr void tdx_vcpu_enter_exit(struct kvm_vcpu *vcpu)
+ 
+ static bool tdx_failed_vmentry(struct kvm_vcpu *vcpu)
+ {
+-	return vmx_get_exit_reason(vcpu).failed_vmentry &&
+-	       vmx_get_exit_reason(vcpu).full != -1u;
++	return vmx_get_exit_reason(vcpu).failed_vmentry;
+ }
+ 
+ static fastpath_t tdx_exit_handlers_fastpath(struct kvm_vcpu *vcpu)
+
