@@ -1,89 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.61
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793816851;
-	b=R/pRB1o23aaFqgH4Hwwznj7ib8lxgEpcNFgkTBKxnv2muBh06MCYDBZi+wfhbJvFBzaL
-	 rog6h8+w+4xplRLJJe7glp08A3RZDy4nKON91HAKjPAwG4vay4jxh94niwhevbthA5lGX
-	 UIe6wLWKDDyE4UzZsUUE06KE8Qk4DE5nMG4tV7RhlQc6UPb+upykVJoMSn4Rr8V8Rx+ef
-	 lmJJ6aM0eA2bxHc7xB0Zp+immvDhFx5umaQD6hvYXhLs2HUU+9kiXxxq2rQ9E/MhD9qUB
-	 lZBIsYf9dsPC968mKEQ0Z6yh3K2snf8T2lJMFx4/tiGkGMYCFy1JcaelRDlW9gianWw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816851;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Content-Language:To:From:Subject:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=zb899icSw2jcraenfSf5c13LOWuS0QUsXFh671wWn9s=;
-	b=jovZFPivz/IkU6RN8h0r/Qe41ZzMwwDqePOJNT/pDtmSJyQwO/BW/4Kzz1R5qzpjlgOS
-	 4j5Q6e17O+/tX7qfriBFckxR7SmmMATZpiOclocgqIFlCkB4Go0Q1U8+IVvnATFo3GI1W
-	 i7H2v1bnHFufkBKObK55QLkMyl2pPgA2pIchDDsb6rfyHw5018X3z17mEQ01X2g0z2UH5
-	 DhYnsoU8x7gJkue1ohBTeC0cjo4BnI0My/jx1NNLlfNsG63bCTq1iPUSxti8vP9dCjfXf
-	 6WYngaxnpZO8l5kLUzER2y6xa1r0hcKss3khH9EC4vIkpn3iETJAOtq8cV+rRV/1qEA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Qvgj0GfF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.61
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010061.outbound.protection.outlook.com [52.101.193.61])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.188
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793816929;
+	b=3nH09Rn20OBmDbVhxjuANgwb7GZpU8pe15ijumA8sCN3/1ZJceHM5t8UTYW89m6y6Z06
+	 hQDfiYsIDzRgF/E0dHFBO5cC56VuH5QZjHfyJM7Z6iP2ZuArgwozJB0f4mWEaU+DI7dqf
+	 BzDVJ7BLje+qxDGnNIMPgeR6rs5iqA8dWs/91LihAFmjbWrdEm4w0Ijt3sQAtgeqlwzf8
+	 1K2CHvI+uaZ0crUR2zlaBBMXVMnGsgpxAW9wtNwpZiEtcY83KhJEhcCfLtAypTNDHJDi9
+	 T4ZgaTaIjsf6vof8Tvm+T6DWirX4+lv/ujSu0/Su57PJh2BbUblWEw3QXI3PG+bQlxA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816929;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8AMRBsRaVVrjH9DufOp64hCzIFx64y5T91ZTRdXBHRQ=;
+	b=sCQYndiwfMxK/0iA5QgWwX1EeBW91Yqx3mR2CLgF6Ek75sl+bot6JC1jLE+gnX3wD4Yy
+	 sBVCT9D1snbB/fCRLtoUTyReD5qLKlzviyWUGiDlvPUziSjJM9/Hj+ujkPDT0iDv4ZMod
+	 ES8q5G6A+XhSO8ay7X3N4OPeao64PmYV9F2NhS5gnOo5D9HtPgmZt0sPXsVx1r2ZWCEy/
+	 gqdD00tbyck61LXjAjdTIS2k18V1z4u2SCv4ZtgMGtsqnvqkhGKzIKHbjwpW0DWeyXzru
+	 Xzf+AlBj8V1mGiNBa8Up5oETq/8LLNRfxhQS8piF/N9oF1zhLk+rUk9cx9l8GLbrlzA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=q4HJidW4;
+	arc=none smtp.remote-ip=95.215.58.188
+Received: from mta1.migadu.com (out-188.mta1.migadu.com [95.215.58.188])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823E0606A32C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:27:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 823E0606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1ED4606A8C8
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:28:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1ED4606A8C8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Qvgj0GfF
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d863S3M/NKGYtqxHe4EZhkCOyMpLmqJRc/EfhPzfRoUU9jR5sDBLGGVVDFY2tTSDhlU1U09eMV56gngMr+rOk+KSBTd8AXGwW3LJjU102At0OWkP1wLMr0+G4bwDSjUADlYdkoLVjY6zi1YZ2BzaDLYqewcgQqDG0UbCT7zXOzoae8dK4J21UgL6zqJAwnfpgbFoCUvGFbu9vf5eVxkscsBK/g6nosC1+AzCJHkTojFPkXC8+F+j4R7vvHhVRwUgx4ZsqMjkBvcp+6EytzK8JovwIZMovZl+Q61Jpwz3Md2393gTzsOjXpe7M95QVmpZXkBp6DDNuiC5T/Ik1ywE8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zb899icSw2jcraenfSf5c13LOWuS0QUsXFh671wWn9s=;
- b=YfiZ33zR0i5ssYLkB51hRrWh3MVFLWR8CsiqBvdmtFb1/O4AV5LK+tzQbkLjGw/xcVSYBbtiF4+zIFWfTQNff5NG+nXgAMC4RFi/E57AlHlf7cL1zhhnLu7PO7yq4LYA1sbxoggMN09+w29ldKJkf4v3VfGJGaAWNH2q8LJcyZeuCK0q5+Z5JbdM4cZUOaHvCUZaPjx8vUp0WESTrWyDqXsUGt8GL+dl19wa62zT/NNYLwxBHkm0S8+bBNW/+1zt4Pe8VPNg7OwR8nfc6Td0mkw3seR47vYWqA9KdVPqhf17yLnmCMWBWjuovCNxUJOn+YJwBBI5/HWmfAv3ZSudjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zb899icSw2jcraenfSf5c13LOWuS0QUsXFh671wWn9s=;
- b=Qvgj0GfFKBcHicGRjCDRyGNJkOPNSjWfxra24XyqHNvb11FIsIyWTvC3wlE/Eimz4JnBsCNyDCE1bft5SSEvcaEVo3rL6t8N2MQf88s5Q8/3bQKbbLWTvKNGBBYiEL6V/DXfzzB3DxKYHiF74hdq1AnciAaj9YkfNftYmi3oWzU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB6234.namprd12.prod.outlook.com (2603:10b6:208:3e6::9)
- by CH4PR12MB590718.namprd12.prod.outlook.com (2603:10b6:610:50f::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
- 18:27:26 +0000
-Received: from IA1PR12MB6234.namprd12.prod.outlook.com
- ([fe80::6cf6:114a:ea31:153b]) by IA1PR12MB6234.namprd12.prod.outlook.com
- ([fe80::6cf6:114a:ea31:153b%3]) with mapi id 15.21.0569.011; Wed, 4 Nov 2026
- 18:27:26 +0000
-Message-ID: <a5659c47-3967-4a78-b0b8-2e31f188f773@amd.com>
-Date: Wed, 4 Nov 2026 12:27:24 -0600
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: stable@vger.kernel.org
-From: "Gong, Richard" <richard.gong@amd.com>
-Subject: Add commit "63e91c199789 accel/amdxdna: Add support for AIE2 revision
- 9" to kernel 7.3.y
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA9PR10CA0009.namprd10.prod.outlook.com
- (2603:10b6:806:a7::14) To IA1PR12MB6234.namprd12.prod.outlook.com
- (2603:10b6:208:3e6::9)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=q4HJidW4
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mrdhsCyYkgJCthcE9mwZdhKXoi0YwuzvcjVgzOgRLv8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793816925; v=1; x=1794421725;
+ b=q4HJidW4HJrNqiFBIHcbsJipJ2hJej+ltF1PWamu0xne+Xed0E5vOFgrYxsiM7Mk/cLRO0Cd
+ mQDxrG4cRPCdBoLfFjJAE1TL/NnuDUq0T1RrBM+K5gGsxUq+467GsBSKISbUQPXrkMyqMGtZkrm
+ Hib/cFoyMAjhnXZA3vZKnplc=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id fb19e5cc26c67389;
+	Wed, 04 Nov 2026 18:28:45 +0000
+X-Mizu-Trace-ID: fb19e5cc26c67389
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	James Morse <james.morse@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Doug Anderson <dianders@chromium.org>,
+	Breno Leitao <leitao@debian.org>,
+	Dawei Li <dawei.li@linux.dev>,
+	mrigendrachaubey <mrigendra.chaubey@gmail.com>,
+	kernel-team@meta.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] arm64: sdei: Run the event handler on the kernel vectors
+Date: Wed,  4 Nov 2026 10:28:41 -0800
+Message-ID: <20261104182842.3436759-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261104180936.2981070-2-kas@kernel.org>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,81 +78,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB6234:EE_|CH4PR12MB590718:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef718019-a22c-4f3b-92bf-08df3aa146a5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|10067099003|18002099003|11063799006|56012099006|261022105027099003|261026140227099003|261021123027099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	t/Jak7uGIf5uRr82Gdj/GQov4t05Vrq01vADhSqTz4g0IseNgXAhIpmvKqFFONPxlF/nd83e8ntoArSOgxU85gadPpDZyUYZ+/2jsrjGPaJ38NAZAIXLxhKesRFCjHZLXXEhfxK37jw1cTIyEzM3zhQ0FB6lmr65ixB4q6dG/VcDQrTRkStyOpa5gySyp4hCXYyQb4HXswfwzTkOXoDAnbMdcbkJqm4DU12dTHWjq/kxsr7VFOrKdUzaeZX3u8DsrJa+UhV5LbgnvNuHhFLpEgpXCbLSYuYvUyepwhAIrQ+AjkNi58SnDI9VaKo7oevIYef1ZxkIF9EQKCiumtMOpsvLwxvgpwG5+WlvQw8kiyYu3cEP3/ylvDWOxP1q2TxxQmLdEtyao40GgzGVtuX4TiYjF5Q/fYj9eRYLX1ezXXe+IQ7PP5w+phjqLZaAhsBTmhfH/XZm1Cms7pbohIsR5oUB81bLhh0BdA+tyMXSBMCnJ6dL7d0ZJROBk0Bs9fY7VAL97p31LkBhZM3aQPFNvFFM6Ds76wTfjyGxVg2vdYv4ZqeZC1blspaZNN5bqcXM0Sj648KlBcahQpiXgAyqjmxhqscvxz86+8Jj6rqZX5rhkfxVg09fAkkIEk5/3V7EcbMg1lOsyIirjOM8sHM9t/Biq+7s0v9wvA2Gh0eOLBE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB6234.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10067099003)(18002099003)(11063799006)(56012099006)(261022105027099003)(261026140227099003)(261021123027099003)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SzlPVU9CdCtkQnZ1QlBSbzFCdTZyRkwzZmhYRHR4TitJN3BnMGxjMFByczg4?=
- =?utf-8?B?YjVhaEtkWDBkTjJGL1VuZmxqWmZGSWNaaEtxQkF0dmJTTVpGb3ZyOVJ5NHI1?=
- =?utf-8?B?Nk16ajVveWpDWTFJV1FBM3ZDUlB6U3RQTjNqeFM2aUp4MnVMV0dhRnhrQmNB?=
- =?utf-8?B?ZnFUMW5wa1Z2TXZSa1lXdXJNOGFSUTVqUTArZU8yZGIvWDJCUmpZQ1E2eGYr?=
- =?utf-8?B?YktwSWZISTNTRnVpaVVPbVRPUHF5UERrZDVCY3ZPZWVaN1BBNVNNUlVLVmFF?=
- =?utf-8?B?SHJxcC8xNnluMzdtVThFczBDa0xLR2pKc3RLYkN3dTdsOVV6YjBtWHFKSy9L?=
- =?utf-8?B?T2c4RlJxZktpc0xuMkFLb1ZPM3hSZ2tFeTNCTm9TQnBBTHpxdHJraW84cDVk?=
- =?utf-8?B?cWh5MksxWlJWRTV3ZnY3dURZODY2d1MrRGxTSjlZelNVTFBBWFk5VCsyOW5P?=
- =?utf-8?B?MzZ3eGpIYVNkeXhZYnowcTlHNTZTY0hHL3Bsc25HTHJUeFlqZlNzR0JkRGZR?=
- =?utf-8?B?WFNRNEtGNC9HQUlLa2xzazlKaDJhc2lyUzFkaVpGTEg4Z0hMQnJpMU1KVUJS?=
- =?utf-8?B?ZFEzYUNDb1FvL0dKbDFjV0hnQXZhd1dPQ2QzWHR4L2lXNkM4N241RkUwa1JT?=
- =?utf-8?B?Q3BoazZzSFZ0TXltcDQ2THpvSlg3ZTI0WW9ndlF4RENEQVdaRnZIRWRua2Z2?=
- =?utf-8?B?L0RjUFlCa21zU2poQjVxNVF3aXc1OGk0THZvVG9jTWpmZExHNHJNaCtyLy9H?=
- =?utf-8?B?dDNLWCttSVpyUk03bDBNQXZtNGJFaEZ3dHA4TitNSUF0ZnhLMlJZcVRNNmJ1?=
- =?utf-8?B?V29JeUs1bFZKWkxkTXMxVkhGU3MxZWJYNWh0T2JKZVZ5cnNheVcvL0daeWN3?=
- =?utf-8?B?dTNxeWd2UHhjaW5PdFZYanRnbkQrU0tManhPOFFCOFdLRHh4ZVdFSEhsUGVv?=
- =?utf-8?B?VVpWZ2ZRdXc4QmorWFFndTRmQU9KR1E0VEE2K24zeG5rWDgzalRmLzhWdUVi?=
- =?utf-8?B?Wm5iVFpiMll6YXFRKzN1dmZMNmJDMTF3OUk4ZStTUzR2YTZpUVRYTzhYSW5B?=
- =?utf-8?B?c1J1eW5SVmswQll2NVBGcWRzMTZOSmNYMlFKOXBmbnFzSmJMZTlVMW5kSklH?=
- =?utf-8?B?T2d1S0hjcjJDS1ZYOFRDaDZXdS9BS0l1elA3bUxXQUZpU1VFRU5iVmcwZERF?=
- =?utf-8?B?LzA1N0FNM1NlMFg5dk1INXh1VjVpamQvVzdiazFZNnRyU3ZqemtuUVFFRk1P?=
- =?utf-8?B?eHNRYmYvR3BpdVBPeEhGTUxhemhldXl6SktoS2VoZlJpRks2RURQeHJLaHVw?=
- =?utf-8?B?NWJCaWlycmJvdkwrZWV6SjRVWG5LcmRUcUpQSTBIdlA1SDA0c2ZzSFo2bG5a?=
- =?utf-8?B?MFgzVm1UV29oVUltamN6YjRYNlMvYkczcTd0UHhaeXZWcnE0RGhOZVE2MnBM?=
- =?utf-8?B?SkdnMm9lcGZzT0J0YUIyV1kwMUV0L2prZGVQc05VSlJPOU9nTVZOTjNTZXV3?=
- =?utf-8?B?eDFHWDFjUTB4WTVlcm5BM0pNQkpGR2dyS3NYZ0tGTkxTak81anMyYnRrZkZl?=
- =?utf-8?B?a3VneThJQlU2eWs2Y0V6Ui9XY0czNEpwS2VnTUZBOU81YzBCelZjU2xPdVRW?=
- =?utf-8?B?MkRSaDlxUVJjeXN2Q015M0xPUlJNclRjUnBYVFJkRVBsaTVxZlhZc2RuQjc3?=
- =?utf-8?B?bzl0NUhFNkovdVZWTFdBbEZtZTIwc1NTWjh3ZHhjZHNnNko5K2ZNTC9NUmRj?=
- =?utf-8?B?WkdLanRTdGtmc2RwRnBmQ08zMmhmbGRYYnZyclBKVERNQWkzSDJneXVNK1Na?=
- =?utf-8?B?YWkvMjA5VHpsMXM1OUZmWkpwSXBFYmUrZ2pZNGxUZHMvYWl1dU9TZU9HRGtG?=
- =?utf-8?B?b1hSYjJUcEhRcnJnQlp3d29GS1R5SnVaelJibmRWR0NnSzJYRWRqcXc4UDJh?=
- =?utf-8?B?c1IzdTdlcUhVclJYdGxoMVkxUDF6TkpVYzJoL1lRNENWSHZaWlk0Si9SQnJV?=
- =?utf-8?B?UWxibXUwbWFIZ2hvQm9xTnYrTUJLWVI0cWM1aEFMQ2UrZ1gzblpRT2k4dGFY?=
- =?utf-8?B?S0d2SERtYlpzR3F6TVkwZS84WXl4cHVRWjZDL0t5eVVic1l3cFQzZlgxNmM2?=
- =?utf-8?B?a3UrMm8zK3o0akhYTnh5YzhUYWh3dE5ZTjFlandjQkI3N0M0cGl3L0dUNVk1?=
- =?utf-8?B?U21BdEJGMDNmcFJpWG1ZUTBJSXhnQzFXK24vMnhjOFR0dmVjS0tTc3gyN041?=
- =?utf-8?B?NFNKVzZyRlVTUnNRdUlLZ3NpOEZQWkkzOWtSQkVaTGtHY3BrVzRKSjZmSEh5?=
- =?utf-8?Q?6eJwVwGPdclSAWp8lw?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef718019-a22c-4f3b-92bf-08df3aa146a5
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6234.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 18:27:26.1019
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zxOpMbv4UYgTz2uEgbxKZ1bKXUZvyJXhVME35bjvhLlnSG3SSAMSFBW+6Q7LGeUHXlfi4wLPDqX6gY7XYa65TQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR12MB590718
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On Wed,  4 Nov 2026 18:09:33 +0000 "Kiryl Shutsemau (Meta)" <kas@kernel.org> wrote:
 
-The following commit addresses an issue where the amdxdna driver fails 
-to recognize AIE2 revision 9 hardware on AMD processor from family 1Ah 
-Models 70h.
+> With KPTI, VBAR_EL1 holds the trampoline vectors from the return to EL0
+> until the next exception from EL0 maps the kernel and installs the
+> kernel vectors. The trampoline vectors only handle exceptions from EL0;
+> their current-EL half is zero-filled.
+> 
+> An SDEI event is dispatched regardless of PSTATE.DAIF, so it lands there
+> whenever the CPU is in user space. The SDEI entry trampoline maps the
+> kernel but leaves VBAR_EL1 alone. An exception taken by the handler then
+> executes the zeros, takes an undefined instruction exception to the same
+> vector, and loops there forever. The event never completes and the CPU
+> is lost; RCU stall reports are the first sign of it.
+> 
+> RAS notifications land in user space whenever a task consumes the
+> error, and NMI backtraces land wherever the CPU happens to be. The GHES
+> handler takes no exception on its own, but any exception in the handler
+> path does it: a WARN, a kprobe hit, or a fault fixed up by a _nofault()
+> accessor.
+> 
+> Install the kernel vectors in do_sdei_event() when VBAR_EL1 holds the
+> trampoline vectors, and restore it before returning to firmware,
+> including when the handler fails. The IRQ-like resume into user space
+> keeps using the interrupted value, as it must go through the trampoline
+> to map the kernel.
+> 
+> Fixes: 79e9aa59dc29 ("arm64: sdei: Add trampoline code for remapping the kernel")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
+>  arch/arm64/kernel/sdei.c | 22 ++++++++++++++++++++--
+>  1 file changed, 20 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/kernel/sdei.c b/arch/arm64/kernel/sdei.c
+> index 778f2a1faac8..9fa2a3aeed48 100644
+> --- a/arch/arm64/kernel/sdei.c
+> +++ b/arch/arm64/kernel/sdei.c
+> @@ -18,6 +18,7 @@
+>  #include <asm/sections.h>
+>  #include <asm/stacktrace.h>
+>  #include <asm/sysreg.h>
+> +#include <asm/vectors.h>
+>  #include <asm/vmap_stack.h>
+>  
+>  unsigned long sdei_exit_mode;
+> @@ -214,6 +215,20 @@ unsigned long __kprobes do_sdei_event(struct pt_regs *regs,
+>  	if (arm64_kernel_unmapped_at_el0())
+>  		clobbered_registers++;
+>  
+> +	/*
+> +	 * With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
+> +	 * EL0 until the next exception from EL0 maps the kernel. They only
+> +	 * handle exceptions from EL0: an exception taken by the handler would
+> +	 * run their empty current-EL half and never come back. Run the handler
+> +	 * on the kernel vectors. The IRQ-like resume below keeps using the
+> +	 * interrupted VBAR, so it still goes through the trampoline.
+> +	 */
+> +	if (arm64_kernel_unmapped_at_el0() &&
+> +	    vbar == (unsigned long)this_cpu_read(this_cpu_vector)) {
+> +		write_sysreg((unsigned long)vectors, vbar_el1);
+> +		isb();
+> +	}
+> +
 
-     63e91c199789 accel/amdxdna: Add support for AIE2 revision 9
+Does this cover the whole path that can take an exception?  The
+swap is done inside do_sdei_event(), but __sdei_handler() calls
+irqentry_nmi_enter() before it and irqentry_nmi_exit() after it,
+and both of those still run with the trampoline vectors in
+VBAR_EL1 when the event interrupted user space.
 
-Please add this commit to stable kernel 7.3.y. Thanks!
+Both can take an exception.  ct_nmi_enter() opens with
+WARN_ON_ONCE(ct_nmi_nesting() < 0), and ct_nmi_exit() has
+WARN_ON_ONCE(ct_nmi_nesting() <= 0) and
+WARN_ON_ONCE(!rcu_is_watching_curr_cpu()).  A WARN is a BRK, so
+either would run the zero filled current-EL half and lose the CPU
+in the way the commit message describes.
 
-Regards,
+Would doing the swap in __sdei_handler(), around the whole NMI
+entry and exit pair, close that window?
 
-Richard
 
+>  	/* Retrieve the missing registers values */
+>  	for (i = 0; i < clobbered_registers; i++) {
+>  		/* from within the handler, this call always succeeds */
+> @@ -221,8 +236,6 @@ unsigned long __kprobes do_sdei_event(struct pt_regs *regs,
+>  	}
+>  
+>  	err = sdei_event_handler(regs, arg);
+> -	if (err)
+> -		return SDEI_EV_FAILED;
+>  
+>  	if (elr != read_sysreg(elr_el1)) {
+>  		/*
+> @@ -233,6 +246,11 @@ unsigned long __kprobes do_sdei_event(struct pt_regs *regs,
+>  		pr_warn("unsafe: exception during handler\n");
+>  	}
+>  
+> +	write_sysreg(vbar, vbar_el1);
+> +
+> +	if (err)
+> +		return SDEI_EV_FAILED;
+> +
+>  	mode = regs->pstate & (PSR_MODE32_BIT | PSR_MODE_MASK);
+>  
+>  	/*
+> -- 
+> 2.54.0
+> 
+> 
