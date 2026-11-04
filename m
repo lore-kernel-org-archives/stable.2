@@ -1,56 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827203;
-	b=0QJy2mzz4QdE7PZ1AdUC4bERuTcmEWTSixnl06oNCyk5jPa73AYElcRry+a204jax4Jn
-	 /Q8L7CVBR3Jd0Tp09a7qZCeB4VDWHBtpFm3si8zS4s5NitQS/ufCYIVyKG9eiQo4+9Xkl
-	 BKLbpiJO7ppCgyJszzF0Mn0n9VdFf7sGHcCqBLJ3lsNLV9nyltg0bV2ScnSiufeqYcNVX
-	 zUTXKuqLwH7USKC3IpGNkIaxnPQVDmFAnJtOHb/WCwKUFY1lR6MxqG6HHjhSy5zwgEbdo
-	 zu1/ndGLPbuf2FR+nJhhE7kVtXoCvuGiWCy6Hh0I/C11zT4A7L0wThh6EKmj7EJRnFw==
+	t=1793827198;
+	b=R+3i6Cer0Wpq1mfbgLmad278pbASVjOjEp+5ZTWhrG1ybLjf9duWHwgAMCi5fX5HNivZ
+	 LurTi2z7RuGHlECwOOWbpEOKjNjotRiil/8bX7ILPLBSDdNCCopuTd+BDc1MQXU3HhGNx
+	 BrfILeymSpjfDR7J+6NjTpJu8i0TKhjI9Gmvk5GS1Fz+rjFGzDXgxLMeVfuF8Ygz94Ynj
+	 /fMhCuJnYjBgKUhzrBQEqb7oojpciMBI3IwbdbV3OpowpxXJQTny/vU1QBT1usjPmA8Vy
+	 O1A31tg3HRFtYN3W80MIaJD6y4vakjEe7QdBotFbp/UhWIjsuu0gcilsDyCRcbYl8AQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827203;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827198;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=yTCCpahyJcFNWkarXZ+HkGI+XJ+Np7Vki5TqeXzmzBk=;
-	b=NNkq3AYgHf2xlZIQfEjn7Rnn79VZxVlb0izo7FBgPRvmc2oOyOShs6jiavJc4bbtI39T
-	 9JowePgHghfDJMWQ3ZXwaj3RHqisVSkPYhrSjg5moHbuNFqMb1fjAffW2bFWM0gZmMoVA
-	 zvZDMHei2FQNslxaMA0BYbIsvyylFvp2jlSw9qLCM5SA1Bmn6qUsb2SHod4ekkHMXW4tn
-	 PBKB6dqlxnaKCmDOEBtnZTcLI/VW1ZAz2Z/Ddqbmf6Vvh5tOs5btKlME345DmOkf9Zozm
-	 UHwotKUnNAVkha9SnS9mne6YHAFv1UcnYd1f+pvzhJ+ff6B7DAqZqn3XvqXeYPMGSlw==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=LS6I8kYwwXeICSNnHxDcQY1+x6EnknZ3oDw5SJvylYU=;
+	b=4BqwEDRq+B+2drHrQ4EfVweVW3Hly2IWv+qWhmn1cy+l8upHCpuk+FYBFAPE6rQmYiEs
+	 SqKthYHKNozK5KDDqm8RgQ/4wURUY/Gap4fVQjjMuU2vi6ZJqy4FcNZ7j5ctJjW4aeL3I
+	 9cSCRxYU/l1wgL/09UVh4UsFMbqny2Gxe5Uu/pWc1mEhK8PKKxtS1dL2XMWIdHPSlqRa9
+	 gOqhobbWyamOktLHfgV942MapHwJ2InBfBuE5tsy3gUcbanen4fKSiu9gOW979RYVl23X
+	 ytOUdcWl5MKqeEzL7u9VEudt0SdOOWKgRWKycHTKuVF9mWlVM3Sz9V9+iTElCvStr7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Qek0BuTO;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ecLjEneD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94DF606A843;
-	Wed,  4 Nov 2026 21:20:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AF76075DC3;
+	Wed,  4 Nov 2026 21:19:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Qek0BuTO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CCE81F00A02;
-	Wed,  4 Nov 2026 21:20:02 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ecLjEneD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A20591F00919;
+	Wed,  4 Nov 2026 21:19:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793827202;
-	bh=yTCCpahyJcFNWkarXZ+HkGI+XJ+Np7Vki5TqeXzmzBk=;
+	s=korg; t=1793827197;
+	bh=LS6I8kYwwXeICSNnHxDcQY1+x6EnknZ3oDw5SJvylYU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Qek0BuTOveR8mYLDMiX1aUOUjnB1/GoUu1y9++P7oKDMZVgppH4Ieb3iSyfPKZT0z
-	 HoyBb4WT5iCELriiEDoHXEahKASkm5sPgTRodB8O8tXjtYVNex5XiQXVweXfcs3U12
-	 r9ALzFf5S4MNT4WSHstlmWQoydZEL3z8ps94jzZY=
+	b=ecLjEneDVs8vZnt+A6y4O7EbqDd/JoiiU0ueucD2VAnUzrwkNPBbHK0B9rR+EkW9S
+	 cavcafUHju9XRZpk0rnre/YmkCyOwBDpNIGZ1/G/epBqSm8iLsXYdLZYEmU5aRJISZ
+	 X9RDwr3l5Z5YoYiWML6ddVPPloNliP6kUKxJkpxg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Tejun Heo <tj@kernel.org>,
-	Bradley Morgan <brads@mainlining.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Thierry Reding <treding@nvidia.com>
-Subject: [PATCH 7.3 255/547] resource: report a devm_request_resource() conflict under the lock
-Date: Wed,  4 Nov 2026 16:07:19 -0500
-Message-ID: <20261104211045.424631799@linuxfoundation.org>
+	syzbot+8496ab5e117502750445@syzkaller.appspotmail.com,
+	stable <stable@kernel.org>,
+	Nguyen Quang Le Kien <khiemtranzo532001@gmail.com>,
+	Alan Stern <stern@rowland.harvard.edu>
+Subject: [PATCH 7.3 252/547] usb: gadget: fix refcount underflow in gadgetfs_bind() error path
+Date: Wed,  4 Nov 2026 16:07:16 -0500
+Message-ID: <20261104211045.335358314@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -66,104 +63,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 7.3-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+From: Nguyen Quang Le Kien <khiemtranzo532001@gmail.com>
 
-commit d2f7bdfdeac8137e942b32e0badc40e181127d7b upstream.
+commit cb3b441f2698455a48e9a023d5f7f4e3fcb94c73 upstream.
 
-devm_request_resource() calls request_resource_conflict(), which takes
-resource_lock, tries to insert the new resource and returns a pointer to
-the conflicting resource after dropping the lock.  The error message is
-then formatted from that pointer: conflict->name and the %pR argument
-read the name, start, end, flags and desc of a resource that nothing
-pins any more.  The owner of the conflicting resource may call
-release_resource() and free it the moment the lock is dropped.
+gadgetfs_bind() calls get_dev() only on the success path, but
+gadgetfs_unbind() called from the enomem error label unconditionally
+calls put_dev().  When bind fails (e.g. ENOMEM), put_dev() fires
+without a matching get_dev(), leaving the refcount unbalanced.
 
-The conflicting resource normally belongs to another device.  With two
-devices whose drivers claim overlapping regions (two PCI host bridges
-whose "ranges" windows overlap, two instances of a controller on the
-same aperture, or a stale claim an administrator is replacing), the
-following interleaving reads freed memory:
+A subsequent close of the ep0 file descriptor calls dev_release() ->
+put_dev() which hits zero and frees the object; then gadgetfs_kill_sb()
+calls put_dev(the_device) again on the already-freed pointer, triggering
+a refcount underflow and use-after-free.
 
-  CPU 0: driver B probe                  CPU 1: driver A unbind
-  devm_request_resource(devB, root, resB)
-    request_resource_conflict()
-      write_lock(&resource_lock)
-      __request_resource() -> resA
-      write_unlock(&resource_lock)
-                                         devres_release_all(devA)
-                                           devm_resource_release()
-                                             release_resource(resA)
-                                         put_device() -> kfree(resA)
-    dev_err(..., resA->name, resA)        use after free
+Fix by calling get_dev() at the start of gadgetfs_bind(), before any
+error path that invokes gadgetfs_unbind(), so the reference is always
+balanced regardless of whether bind succeeds or fails.
 
-Both halves are reachable from userspace on any kernel: a write to the
-"unbind" file of the driver that holds the region and a write to the
-"bind" file of the driver that wants it.  One in-tree path is
-drivers/pci/bus.c devm_request_pci_bus_resources(), called from host
-bridge probe for every bridge window; the windows are the embedded
-struct resource of kzalloc'ed resource_entry objects that
-pci_free_resource_list() frees when the other bridge is released.
-In the common case the "resource collision" message is garbled; with
-the slab object poisoned (CONFIG_SLUB_DEBUG) or reused, formatting
-conflict->name oopses, and KASAN reports a slab-use-after-free read in
-devm_request_resource().  All of this happens in a probe that is
-already failing with -EBUSY.  The window is a few hundred instructions
-wide and exists only when two devices actually collide, so the race
-has not been observed outside of analysis.
-
-Do the same here: take resource_lock, insert with __request_resource()
-and print the diagnostic while the lock still keeps the conflicting
-resource in the tree, then drop the lock.  The return values and the
-devres handling are unchanged.
-
-The change was built for x86_64 and RISC-V; the resource KUnit tests
-pass on both.
-
-Found by formal verification of kernel/resource.c against the kernel
-binary.
-
-Link: https://lore.kernel.org/20261016140043.790048-1-nickolai@csail.mit.edu
-Fixes: 8d38821cbcf5 ("resources: Add device-managed request/release_resource()")
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Tejun Heo <tj@kernel.org>
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Assisted-by: LLM
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Cc: Thierry Reding <treding@nvidia.com>
-Cc: <stable@vger.kernel.org>
+Reported-by: syzbot+8496ab5e117502750445@syzkaller.appspotmail.com
+Cc: stable <stable@kernel.org>
+Closes: https://syzkaller.appspot.com/bug?extid=8496ab5e117502750445
+Signed-off-by: Nguyen Quang Le Kien <khiemtranzo532001@gmail.com>
+Reviewed-by: Alan Stern <stern@rowland.harvard.edu>
+Link: https://patch.msgid.link/20260811060810.295666-1-khiemtranzo532001@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- kernel/resource.c |    9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/usb/gadget/legacy/inode.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
---- a/kernel/resource.c
-+++ b/kernel/resource.c
-@@ -1695,10 +1695,15 @@ int devm_request_resource(struct device
+--- a/drivers/usb/gadget/legacy/inode.c
++++ b/drivers/usb/gadget/legacy/inode.c
+@@ -1692,6 +1692,8 @@ static int gadgetfs_bind(struct usb_gadg
+ 	dev->gadget = gadget;
+ 	gadget->ep0->driver_data = dev;
  
- 	*ptr = new;
- 
--	conflict = request_resource_conflict(root, new);
--	if (conflict) {
-+	/* Report a conflict while the lock still keeps it in the tree. */
-+	write_lock(&resource_lock);
-+	conflict = __request_resource(root, new);
-+	if (conflict)
- 		dev_err(dev, "resource collision: %pR conflicts with %s %pR\n",
- 			new, conflict->name, conflict);
-+	write_unlock(&resource_lock);
++	get_dev (dev);
 +
-+	if (conflict) {
- 		devres_free(ptr);
- 		return -EBUSY;
- 	}
+ 	/* preallocate control response and buffer */
+ 	dev->req = usb_ep_alloc_request (gadget->ep0, GFP_KERNEL);
+ 	if (!dev->req)
+@@ -1706,7 +1708,6 @@ static int gadgetfs_bind(struct usb_gadg
+ 	spin_lock_irq(&dev->lock);
+ 	dev->state = STATE_DEV_UNCONNECTED;
+ 	spin_unlock_irq(&dev->lock);
+-	get_dev (dev);
+ 	return 0;
+ 
+ enomem:
 
 
