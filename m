@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793830878;
-	b=0qyRvX7h9041nT3xnd83MsYIOJqqKd5U16B0/AnsognVxC8/vzBNe7+3ysGEcHh9yVCE
-	 4b4/J/jayNZRPEEOf7rnEDveTPQMewzxmdTVS8A/QYjerxVw2gia7dKIclPFxFXslAuz+
-	 21xUsMYBiIUqs2PqwFPsDkMf9oBI7QF4crMLGvuQg+3x81ONWsmLhEVs8axWpiFP79diN
-	 K9KRAoskljAjds0SSwNCSMU4MwjaB/TAdhhlvFZ7oww/GaJFHIc3sxIkAa2Rkg01HOme+
-	 n39Jknqm1LVpBROtbh5WJymJ25JvutOL75aTVpN7FXjtPjiZkOfOGjdlxakr5JtXSRQ==
+	t=1793830881;
+	b=4jeyVj5qyG7DqRtPGc8Qe3fxLiKOlPkjrqntgR+dEvtPCJmi3QqkhZ7G6knMGkOZo3zV
+	 Us4UJ4n5SjpXIBr89ZAyGyocJQFdYp+65EY4TH15pOeCgIBTRcmmiucNS/dvEmqx6I8Ph
+	 HT0MRQNTH6d8XH6tigw4bN+WXjs3dsI0VqJCQQsMmfDTPov0I6v9aKuebQjbHX0sVYnGy
+	 QIP8UdeE0ImuwSXK4ZtcCHDzkD+zkeOmHh2Ivep1Ff7RnpADjE+ZVPfuFRXxuK0IB7DTz
+	 DuBQMJC2QD3Si5upc4MWTcElLBUjoX1lNHR1w06+d/bWrTKBXE+jn3DmuOe9ePgVn4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830878;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830881;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=fZn9WFY6pIHhlB4y8pSFjSbTrfKfkwt07ZERodSBqOk=;
-	b=zXtWHcOTQcVIeiwMHM5MlrcwKf20DYFDnBk3xhRCBlh5FCXVekeFwu9pvdIHrZbnWmjK
-	 IlcjslhVTLa4RZQh9rKOyTwCbodrAeAADMeTfNrprrRmD+RT9TlsPlp35BfkT76l7to6+
-	 eCe1nK57SzltwI4GqIzJYk63zdo6iBcJLD0Fek3U7xP+DWw+KJnZhL+P/zeyYrp5xBwzr
-	 CwIcVmbgq3ZxBDgDeyFeiC15mKsCQSkUDNlisWy8fFJ1O6gnQnOPoVcIm9F4hGIqilz1b
-	 tLu/JUkNbRbEPZJPn4zWEeE1xVkqfaeA8y1x6/rnnyZLBqnBx+zCNUwPYEUrXsyw/Eg==
+	bh=DnyLQYgY+RSliOtRHzD8/ZD3dM9Pbc4pFxHYyG4OO9M=;
+	b=t+jvN8r9k5uAJ+IP6sWoaBIjZFPzlKUBKh3gO+TAh5ixrcWUFlisL+VheR6sLlIZt8Jj
+	 /xpgnI3JrWd2FHdf41BZf93l0eIpl/Zlrk7LpsR6BS9Q95LhfbV7i/kKTaDldsuJKWLhV
+	 ip2/Mxfs+yzQUS8ApOYzcxKZCurYU77zw0ECUcp3JeP+jSsEGOKDf4JRZQH46a+wqPAVa
+	 4rrkvFa+iGNkYcVI/qCfeTrGhZg9Yk7fOlNDv0K6L3hqgXBxnNlCvmy1RU08GQTllBO18
+	 hxtAqtQ7wwynTgTCAGVYhOh7P15xk+SfbFuPOLSz+ZGWs0C70nRGnjvh5e5nNPBzWUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zKh8NO6B;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XN2Nkkfr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D09606E82B;
-	Wed,  4 Nov 2026 22:21:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D219606E831;
+	Wed,  4 Nov 2026 22:21:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zKh8NO6B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B80011F00919;
-	Wed,  4 Nov 2026 22:21:17 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XN2Nkkfr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB7691F0093A;
+	Wed,  4 Nov 2026 22:21:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793830878;
-	bh=fZn9WFY6pIHhlB4y8pSFjSbTrfKfkwt07ZERodSBqOk=;
+	s=korg; t=1793830881;
+	bh=DnyLQYgY+RSliOtRHzD8/ZD3dM9Pbc4pFxHYyG4OO9M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zKh8NO6BigzfICaytyf2rSBoTOH5/t6lIBFy7hKPCdZylYz9kOUT66zepxVsi95Fb
-	 s40i5n+gAJqGkgiUbzBm2XTpDotT5ld9hgo6Aow9NaeWrI9I1PwU4bZpxPr34/Nw/2
-	 4K7T4Y+HLXGjf/4PHXJAixSwKUFHf8E6bFq3tT7M=
+	b=XN2NkkfrJ/nVY1X2ksUWLAEgAHsqqYRX1xhYFhnw65yICXvZ7K9p9HragNvzHTuqs
+	 zx+b2yuKrd+N79ap4bTyzYlZe9kDEEg1juqITFUmUOBr83MvmzWxkaTakXhb3rQYjp
+	 nLNvFTN4DU9pBjbru1dsFJBgqNod0fPAr8Ep+5cY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Simon Horman <horms@kernel.org>,
-	Brian Grech <bgrech@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Hannes Reinecke <hare@kernel.org>,
+	Geliang Tang <tanggeliang@kylinos.cn>,
+	Keith Busch <kbusch@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0375/1005] selftests/net: fin_ack_lat: fix latency threshold typo
-Date: Wed,  4 Nov 2026 16:01:48 -0500
-Message-ID: <20261104211054.596693811@linuxfoundation.org>
+Subject: [PATCH 6.18 0377/1005] nvme-tcp: look up host_iface in the current netns
+Date: Wed,  4 Nov 2026 16:01:50 -0500
+Message-ID: <20261104211054.654024296@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
 References: <20261104211043.516122098@linuxfoundation.org>
@@ -69,43 +69,46 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Brian Grech <bgrech@redhat.com>
+From: Geliang Tang <tanggeliang@kylinos.cn>
 
-[ Upstream commit 2373107782a98ba15931a37bbd9dd46d7213e5aa ]
+[ Upstream commit 58202950e39c127d593ec4f0624d8b8985a285b1 ]
 
-The commit message for af8c8a450bf4 ("selftests: net: Add FIN_ACK
-processing order related latency spike test") states: "if the latency
-is larger than 1 second (spike), print a message". However the code
-uses a threshold of 100000 us (100 ms), not 1000000 us (1 s).
+nvme_tcp_alloc_ctrl() looks opts->host_iface up in &init_net, the boot-time
+netns. When called from any other netns - e.g. the selftest's ns2, where
+ns2eth1 actually lives - the lookup misses and the controller setup fails
+with "invalid interface passed":
 
-The lower threshold causes false positives on slower hardware where
-normal connection latency occasionally exceeds 100 ms but never
-approaches the 1 s spike that indicates the actual FIN/ACK race bug.
+ nvmet: adding nsid 1 to subsystem nqn.2014-08.org.nvmexpress.mptcpdev
+ nvmet_tcp: enabling port 24660 (0.0.0.0:24099)
+ # nvme discover -a 10.1.1.1 --tos=0x10 --host-iface=ns2eth1
+ nvme_tcp: invalid interface passed: ns2eth1
+ # failed to add controller, error invalid interface
 
-Fix the threshold to match the documented intent.
+Look the device up in current->nsproxy->net_ns instead so the check sees
+the calling task's netns.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
-Signed-off-by: Brian Grech <bgrech@redhat.com>
-Link: https://patch.msgid.link/20260806151645.4172900-1-bgrech@redhat.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Signed-off-by: Geliang Tang <tanggeliang@kylinos.cn>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/testing/selftests/net/fin_ack_lat.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/nvme/host/tcp.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/net/fin_ack_lat.c b/tools/testing/selftests/net/fin_ack_lat.c
-index 70187494b57af..4117332eb1a9c 100644
---- a/tools/testing/selftests/net/fin_ack_lat.c
-+++ b/tools/testing/selftests/net/fin_ack_lat.c
-@@ -69,7 +69,7 @@ static void client(int port)
- 		lat = timediff(start, end);
- 		sum_lat += lat;
- 		nr_lat++;
--		if (lat < 100000)
-+		if (lat < 1000000)
- 			goto close;
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index beef2b576102a..1f26e35d7a99e 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -2999,7 +2999,8 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
+ 	}
  
- 		if (getsockname(sock, (struct sockaddr *)&laddr, &len) == -1)
+ 	if (opts->mask & NVMF_OPT_HOST_IFACE) {
+-		if (!__dev_get_by_name(&init_net, opts->host_iface)) {
++		if (!__dev_get_by_name(current->nsproxy->net_ns,
++				       opts->host_iface)) {
+ 			pr_err("invalid interface passed: %s\n",
+ 			       opts->host_iface);
+ 			ret = -ENODEV;
 -- 
 2.53.0
 
