@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803062;
-	b=iD0ottWD0eNaVqAEyWuGYReNuLwihzyu2djPFbmYm61wq3lV5sffaCfQDxfSow6qmlYU
-	 Rpm6KNfQPqutWpenRJZZFXzwvgagVPAYZWJdNVd/ZpZvd8oIuEv0vW6k/98suxIyMLAG/
-	 n8xpjd+AhbDnoyVVvCPfhtUGjRdsyQ0ZWhzaSu92oy9I5MzEYluNOW2uLsDyh3dybc1kF
-	 aJLfMgOEOjjn9pTxc6C/NwHJsXwtmwp1TvEs2o4omDfV7iXalgjka2EIrZc/BnqLt+jCr
-	 4j3U5Ws7DetCNojWpWWfin5ivjWPgAMPNRNqqw8qseCAoTGQ0gATD6c3QD0Tqwjun3A==
+	t=1793803063;
+	b=tXcP7dBtrnod/FvVBB2YR5yJS4QuRbFnW0u9tFnjENlCm+Kf92bHzK7KcqYYyJ6Zbs/y
+	 hjd9+ELpRMZRM1WNU/gSs7fJvAMaRp+WsT9FTnLu0iPNLVCdIIBgScN1ZMGU1tFg7UFR4
+	 LA8Yl0FqYCgU7vpAMKgf1u5oaNkgxXjJjoKXd1jYPpv7bCK7GUbaTOUuj+lJDpHI+fWDm
+	 q6WW9YrErREuNI6vHkXvolgRfvCGNz5gBnobOh71D8eiGCtveWeK39GLy8pRiZdZEgJ6b
+	 3h8s7DyWEJOSzgdgws5uq0uzHxgk3yNjmJisZovVlM/AEtVUEQHRXqHNNyI3hBB6ibg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803062;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803063;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fmEWIcBLmS0wjOJa7FofB9MGtYl7DqaVQp7bFYD3CrY=;
-	b=iccUZTdkDkGJaEK6TDEMJ6425rEW+4SFltHlOQW9Clu/vTUUG6dQGFWT8vOSrXG22MAm
-	 ylMOc7icCri6CNTnTo/Qukc9jfu0z+A3wgJaN525iwN6dRARaizXJ6dbUN6K7cbQmo4VK
-	 ZgYNdswEwQU0tXblDkLXHRF7zhT0RSPtFOem1DZ+q5PiLhH8ogy57z123tsbT6QT3CKx7
-	 nF/YkDThetu3J1cDSzLBgTFcARigMLMUhAGDK1EoIgVWEyMCGAU4kWLwHJNjUADPGka92
-	 xTCNDT17zKkqiZN/VJmeKiKXgzhdiQrDHh2eNomfr4HDBzg8A0S8gcFiUM3iaHRpiIw==
+	bh=+p7rRy8wRybhO/rr6seTtChXXNsCuX/vEGO4d6gjKJQ=;
+	b=ecf03rD2CPj7r/3Uib5QYEST+60TorzHsdi+KIqSuFZn5ewE1GIm50NYtlkbMJ266Vax
+	 VCaNYjiJyGqKyUkcbs/gozMfmF8CDe/NvPE40lvzI7zoSf/Sp+Yi2E5Eix5DOlc4H6F1f
+	 toUKODcGB5p5YZd+dazafjIOZDuD2Ic+vvBatE0JvKXNJYfR4qsNYUxbEDnnlDdccjqTM
+	 JBTa6n4ObqnnI4m8Q7J3ANPjC5A5S6WcUng7DdjF75iKMfRhhqiJQssVMu2m7gFS/Mbpl
+	 wpg+WPk4oVM8HI3BAbu6zYqkr6jI0kn6XyBxePRSw7sLTaHRBbU5mr86FnyDIIpNiZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MEugl9Z1;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hFrA43Qq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BACF606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:37:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F3E606A32E
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:37:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MEugl9Z1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFA0E1F000C1;
-	Wed,  4 Nov 2026 14:37:41 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hFrA43Qq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E23D1F00919;
+	Wed,  4 Nov 2026 14:37:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793803062;
-	bh=fmEWIcBLmS0wjOJa7FofB9MGtYl7DqaVQp7bFYD3CrY=;
+	s=korg; t=1793803063;
+	bh=+p7rRy8wRybhO/rr6seTtChXXNsCuX/vEGO4d6gjKJQ=;
 	h=Subject:To:Cc:From:Date;
-	b=MEugl9Z19RzvOT/ywk3xno1wdiM8IS6nER/hz7h0lwEYsOL2a1Hi79d3tXRKTfGkQ
-	 0NiNZH3oiPs6/CoUHuydW0e/ZSPmX3lOxN7ge+o5e0jpa9oUmqm9bYfj5oNaZ1Qmm1
-	 Dv9HZqR8gnStfOG8bkMZhX/+qC3PA6Up9Dv4EspU=
-Subject: FAILED: patch "[PATCH] ovl: set the revalidate flags after d_instantiate()" failed to apply to 5.15-stable tree
-To: mason@kernel.org,amir73il@gmail.com
+	b=hFrA43QqtgIEoOIg210zSkFktbKJIlinGQkOJDxdQQMMs1CdZayrcvQJDLv2DVodJ
+	 m/JLnBWiCl2RLzMb6owD1kZN725+VquWJKNaFzD8wg76u0Nhm5YaWhEqLhWysjD81B
+	 5T/QzKyL+AUTld/5DG5vUNBH+lEXtjVxBXSuZzNc=
+Subject: FAILED: patch "[PATCH] ovl: skip copy up of empty security.capability" failed to apply to 6.1-stable tree
+To: amir73il@gmail.com,josef@toxicpanda.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:37:30 +0100
-Message-ID: <2026110430-console-huddle-2e1b@gregkh>
+Date: Wed, 04 Nov 2026 15:37:41 +0100
+Message-ID: <2026110441-verbalize-sauna-b06f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 75e89c0055c1d7f7eeb462995f11253ca5864f79
+git cherry-pick -x 50912a1715b8a7c614b654011a0db750e372b43e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110430-console-huddle-2e1b@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110441-verbalize-sauna-b06f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,77 +79,69 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 75e89c0055c1d7f7eeb462995f11253ca5864f79 Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Fri, 16 Oct 2026 21:17:23 +0000
-Subject: [PATCH] ovl: set the revalidate flags after d_instantiate()
+From 50912a1715b8a7c614b654011a0db750e372b43e Mon Sep 17 00:00:00 2001
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Sun, 18 Oct 2026 11:52:52 +0200
+Subject: [PATCH] ovl: skip copy up of empty security.capability
 
-stat() of a file on an overlayfs mount triggers a kernel warning and
-fails with ECHILD if another task is creating that file at the same
-time. This happens on an overlay with a FUSE upper layer, which is the
-layer where overlayfs creates new files. Write access to a directory on
-such an overlay is all a user needs to run the two tasks.
+ovl_copy_xattr() gives up if it can't read an attribute that
+listxattr() has named.  An empty security.capability, which anybody has
+been able to store on any file for a long time, is such a case: it is
+listed, and getxattr() has nothing to return for it.  A file in a lower
+layer that carries one can't be copied up: it can't be written to,
+renamed or have its mode changed.
 
-The revalidate flags are DCACHE_OP_REVALIDATE and
-DCACHE_OP_WEAK_REVALIDATE. They tell path walk to call ->d_revalidate()
-or ->d_weak_revalidate() on a dentry, so that the filesystem can check
-that the cached dentry is still valid. An overlay dentry only has one of
-these flags if a dentry in one of its layers has it. FUSE dentries have
-the first one.
+There is nothing to copy if there are no data.  Go on with the next
+one.
 
-When a flag is set on an overlay dentry, path walk calls
-ovl_dentry_revalidate_common(). That function only expects a dentry
-without an inode in RCU walk, while the dentry is being destroyed. For
-such a dentry outside of RCU walk, it hits a WARN_ON() and
-returns -ECHILD. So a negative overlay dentry must never have the flags
-set.
-
-ovl_instantiate() breaks this rule. When a task creates a file, the
-overlay dentry for the new name is hashed but still negative.
-ovl_instantiate() then works in this order:
-
-- It copies the flags from the new upper dentry to the overlay dentry.
-- It calls ovl_get_inode(), which can sleep in a getxattr request to the
-  FUSE server.
-- Only then does it call d_instantiate().
-
-A second task that looks up the name between the first step and the last
-finds a negative dentry with the flags set and revalidates it.
-
-Reproduced with a FUSE server that delays its getxattr reply: stat() of
-a name that was being created hit the WARN_ON() and failed with ECHILD.
-
-Fix this by setting the flags after d_instantiate().
-
-Fixes: bccece1ead36 ("ovl: allow remote upper")
+Fixes: 8db6c34f1dbc ("Introduce v3 namespaced file capabilities")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[amir: treat -EINVAL as no capability too, and do the same in
+ ovl_copy_up_meta_inode_data()]
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 
-diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-index b3f6d4b82f68..f716ac13badf 100644
---- a/fs/overlayfs/dir.c
-+++ b/fs/overlayfs/dir.c
-@@ -304,7 +304,6 @@ static int ovl_instantiate(struct dentry *dentry, struct inode *inode,
- 	};
+diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
+index 286978d47ef7..0cd76ca5b8d7 100644
+--- a/fs/overlayfs/copy_up.c
++++ b/fs/overlayfs/copy_up.c
+@@ -75,6 +75,15 @@ static int ovl_copy_acl(struct ovl_fs *ofs, const struct path *path,
+ static ssize_t ovl_getxattr_value(const struct path *path, char *name,
+ 				  char **value, ssize_t *value_size);
  
- 	ovl_dentry_set_upper_alias(dentry);
--	ovl_dentry_init_reval(dentry, newdentry, NULL);
++/*
++ * Any user can store an empty security.capability, which fails to read with
++ * -EINVAL.  It grants no capability, so treat it as none, like no xattr.
++ */
++static bool ovl_no_fscap(ssize_t err)
++{
++	return err == -ENODATA || err == -EOPNOTSUPP || err == -EINVAL;
++}
++
+ int ovl_copy_xattr(struct super_block *sb, const struct path *oldpath, struct dentry *new)
+ {
+ 	struct dentry *old = oldpath->dentry;
+@@ -134,6 +143,10 @@ int ovl_copy_xattr(struct super_block *sb, const struct path *oldpath, struct de
  
- 	if (!hardlink) {
- 		/*
-@@ -335,6 +334,13 @@ static int ovl_instantiate(struct dentry *dentry, struct inode *inode,
- 		d_mark_tmpfile(tmpfile, inode);
+ 		size = ovl_getxattr_value(oldpath, name, &value, &value_size);
+ 		if (size < 0) {
++			if (!strcmp(name, XATTR_NAME_CAPS) && ovl_no_fscap(size)) {
++				error = 0;
++				continue;
++			}
+ 			error = size;
+ 			break;
+ 		}
+@@ -1099,9 +1112,9 @@ static int ovl_copy_up_meta_inode_data(struct ovl_copy_up_ctx *c)
+ 	if (c->stat.size) {
+ 		err = cap_size = ovl_getxattr_value(&upperpath, XATTR_NAME_CAPS,
+ 						    &capability, &cap_size);
+-		if (cap_size == -ENODATA || cap_size == -EOPNOTSUPP)
++		if (ovl_no_fscap(cap_size))
+ 			cap_size = 0;
+-		if (cap_size < 0)
++		else if (cap_size < 0)
+ 			goto out;
+ 	}
  
- 	d_instantiate(dentry, inode);
-+	/*
-+	 * Unless it is a tmpfile, the dentry is hashed and a path walk can find
-+	 * it at any time.  Set the revalidate flags only now, because
-+	 * ovl_dentry_revalidate_common() does not expect them on a negative
-+	 * dentry.
-+	 */
-+	ovl_dentry_init_reval(dentry, ovl_dentry_upper(dentry), NULL);
- 	if (inode != oip.newinode) {
- 		pr_warn_ratelimited("newly created inode found in cache (%pd2)\n",
- 				    dentry);
 
