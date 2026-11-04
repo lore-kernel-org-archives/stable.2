@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819253;
-	b=hxPJMXJyl0Ogvpb00//S1Lqj/TOyA2RvX09vnBheQwPn76MSqjDBS8nzM1Lf5yiK0u8Y
-	 vMMxGPFk10K6n15hBvl301sBiqlD1kz6oVKHs71hzPEqrvvAkTSz//aB64IwT7MdEuDFf
-	 VuQ4aQ/bl/VS6ekP8RCzvqU0ugdxrRIFUXofWSGmUYgTQDKJK6qK6/sGJ5OcVx2iw2aWH
-	 l1BW69epm+ahU2lmmFIm9RlrHu1kHVeVc6Ft/fUZ8Mc+guElNv7kkmmsfcIqJXkNOAz4D
-	 W/bmf0Ig3x4zjbkvtbw/tm3+wz3OeUbOWjWB2ciz2jln+pNNuxyrDUhWNdKAKWtzV7A==
+	t=1793819258;
+	b=oKvWMuhQOD2kcVzqYCNiy5On5T9AGj6/fVPPHUZUunVes/ekQGvCbsTHIKM3hLaQMgPB
+	 MxS3P/y+dQK1hvPXD4iCSrjNgESH206U69/ED9Pg8I+cy+FQlLZrPn53rkVBX7yfrj65X
+	 hvg2I8vOuLENIPhi8dLb4xT/LDqA2GHnMN19xHVI5cdUqP0qClZRx+Buju+pNVQ+uw/jE
+	 MidID3YaD7mB0aBUPCrMA06c2B+53CE1hJNKU1JLEwhNEy+lHgXAX21p3AgPy4pL3xmYh
+	 NsUctWoBbHa3haScThfZirZeXNp6q9JiXH6F8L5N9uDQVNppkTqu5TMC+Ab/opKA6lA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819253;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819258;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Y57aBDo0Lcp/sD6sIeS397UHboxmL2eb3Nll/0RuwX4=;
-	b=GHku8H6vMeukOQyTS+BJlyjjRgfCX/8xNC1g573IiAMDEqMjkxOcMKv/MpIbWi22RPKl
-	 nXLeMvVFsnJd0qSZcKXnK9beb7gloEhvFnqEjb8ZDgJseqw0Tvt/BdQ/vsdBrSmkmS6Pv
-	 q+bA42iPIKpNNRXUkNkX8OYaFI28Zc8U5CgQvrEOzd/afQ56H/lpj7m6BUMsnFdqJxHpE
-	 26ehoJVmgN673A2GrIZ5VegXubfNxsArBzytdL21R0zoo10gjFBxkjJs+V2FLAxja2gUb
-	 xLjyhA5AakrcGBOUB/460gjhDA6Gpv0TkzxdenK5XHN2IzRoYZD2ATqzDGAcosnuhHw==
+	bh=FZbvUKYBX+kOP8noIgkTTxEpZ4snzWmK0NaFTienGdU=;
+	b=rfStY+7DkySo/YIvOyOSPRJEZwy9fsiHJ1qZlI1Q2SABTo6yAfM2Zd6FTcs5jXxLtFpr
+	 /1IOq4gulMDiTd3DDN4q7B2TQ+dldi1Fg2T816/z78TrSTxHrDJOWmzsSHRx7ZeQvx9BF
+	 IOLqrzB/5Sld23yVwmW/1eTO8fMdiOi8OMmBXyrgpDPxzS6Tjd9Zt6zlRSw6YS96fcUSk
+	 LJCusKjw2TVUoqDWosZiuTVMyvR+xkCJw2kS/EqDRvVF5qVq90xb/YYhj61ebVVsapkER
+	 guLRPjegcV0D/X5lJSw6ZIVv7z2VcgShqieWnKAwhlGn6S82twEVwrd5DS/e9sUOqLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JrYUnRfv;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VboQMoCh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2C2606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:07:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E466D606A33B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:07:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JrYUnRfv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF7811F000C1;
-	Wed,  4 Nov 2026 19:07:32 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VboQMoCh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 845881F00A16;
+	Wed,  4 Nov 2026 19:07:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793819253;
-	bh=Y57aBDo0Lcp/sD6sIeS397UHboxmL2eb3Nll/0RuwX4=;
+	s=korg; t=1793819257;
+	bh=FZbvUKYBX+kOP8noIgkTTxEpZ4snzWmK0NaFTienGdU=;
 	h=Subject:To:Cc:From:Date;
-	b=JrYUnRfv+O9nrevfgsymIFDaaGhCkIHRPZMjhwAYyC/FJ9XDJi9nLixyhGNglMqP1
-	 QzllGjIs3q7WD6ZW7VhMNxRIhcoZuFkDVbxcZIHCIanSNJeiTuQyF1+iYN2pHq416R
-	 x3sTrVlYzA1QcIbofkPv1KSh7y6W+uOMNlr45xCM=
-Subject: FAILED: patch "[PATCH] SUNRPC: fix oversized GSS proxy token copy" failed to apply to 5.10-stable tree
-To: Jeremy.Jean@oss.cyber.gouv.fr,cel@kernel.org
+	b=VboQMoChsJbkPn20Q4lSdWXViJdBc5sxyNobMyn/3eocQzSS5Zs1em3a10zrCYJCc
+	 j6mrAj9Kn/EXTM8qolOLoo3VuhVYqOcdAGUebqMXY8fQ7Inq0ureT7uckdRimlw5G+
+	 YixItY5nHivBt63I1jWNCyean2ODC5OzD9U1Uy/4=
+Subject: FAILED: patch "[PATCH] SUNRPC: trace an accepted transport before publishing it" failed to apply to 5.10-stable tree
+To: zhilinz@nebusec.ai,cel@kernel.org,vega@nebusec.ai
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:06:01 -0500
-Message-ID: <2026110401-ranting-untimed-faa6@gregkh>
+Date: Wed, 04 Nov 2026 14:07:36 -0500
+Message-ID: <2026110436-footnote-extrovert-e489@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,7 +51,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 62319c2534b603b416fa2aa2f3ef18c311f75010
+git cherry-pick -x 06f90cf104fc21ee01e7ef1eb80e092173089b9f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110401-ranting-untimed-faa6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110436-footnote-extrovert-e489@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,46 +79,44 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 62319c2534b603b416fa2aa2f3ef18c311f75010 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Date: Thu, 10 Sep 2026 12:51:20 +0000
-Subject: [PATCH] SUNRPC: fix oversized GSS proxy token copy
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 06f90cf104fc21ee01e7ef1eb80e092173089b9f Mon Sep 17 00:00:00 2001
+From: Zhiling Zou <zhilinz@nebusec.ai>
+Date: Sat, 12 Sep 2026 21:56:09 +0800
+Subject: [PATCH] SUNRPC: trace an accepted transport before publishing it
 
-gss_read_proxy_verf() allocates one page per token chunk, but it copies the
-entire linear head of an RPC request into in_token->pages[0]. A UDP datagram
-can leave more than PAGE_SIZE bytes in the linear head, so a large
-RPCSEC_GSS INIT token overwrites following pages.
+svc_handle_xprt() publishes a newly accepted transport before tracing
+it. svc_add_new_temp_xprt() places the transport on sv_tempsocks and
+clears XPT_BUSY, so another nfsd thread can dequeue it at once. If the
+peer has already closed the connection, that thread runs
+svc_delete_xprt(), which drops the list reference, the only reference
+the new transport holds. trace_svc_xprt_accept() then reads the
+transport's addresses and network namespace from freed memory.
 
-Copy the linear head in page-sized chunks before switching to the request
-page array. The linear head itself can span multiple pages.
+Before publication the accepting thread owns the transport
+exclusively: XPT_BUSY is still set from svc_xprt_init() and the
+transport is on no list. Emit the tracepoint there.
 
-Fixes: 5866efa8cbfb ("SUNRPC: Fix svcauth_gss_proxy_init()")
+Fixes: 11bbb0f76e99 ("SUNRPC: Trace a few more generic svc_xprt events")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Assisted-by: Codex:gpt-5
-Link: https://patch.msgid.link/20260910125120.3798995-1-Jeremy.Jean@oss.cyber.gouv.fr
+Reported-by: VEGA <vega@nebusec.ai>
+Assisted-by: LLM
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Link: https://patch.msgid.link/d15495bff2247e3f9d4f9ef36df8e246a3898380.1789220778.git.zhilinz@nebusec.ai
+[ cel: trace before publication instead of taking an extra reference ]
 Signed-off-by: Chuck Lever <cel@kernel.org>
 
-diff --git a/net/sunrpc/auth_gss/svcauth_gss.c b/net/sunrpc/auth_gss/svcauth_gss.c
-index 563576764ca1..b319c4423d78 100644
---- a/net/sunrpc/auth_gss/svcauth_gss.c
-+++ b/net/sunrpc/auth_gss/svcauth_gss.c
-@@ -1085,10 +1085,11 @@ static int gss_read_proxy_verf(struct svc_rqst *rqstp,
- 	}
- 
- 	length = min_t(unsigned int, inlen, (char *)xdr->end - (char *)xdr->p);
--	if (length)
--		memcpy(page_address(in_token->pages[0]), xdr->p, length);
-+	for (to_offs = 0; to_offs < length; to_offs += PAGE_SIZE)
-+		memcpy(page_address(in_token->pages[to_offs >> PAGE_SHIFT]),
-+		       (char *)xdr->p + to_offs,
-+		       min_t(unsigned int, length - to_offs, PAGE_SIZE));
- 	inlen -= length;
--
- 	to_offs = length;
- 	from_offs = rqstp->rq_arg.page_base;
- 	while (inlen) {
+diff --git a/net/sunrpc/svc_xprt.c b/net/sunrpc/svc_xprt.c
+index d5634dd6d6cc..5e210bc68422 100644
+--- a/net/sunrpc/svc_xprt.c
++++ b/net/sunrpc/svc_xprt.c
+@@ -861,8 +861,8 @@ static void svc_handle_xprt(struct svc_rqst *rqstp, struct svc_xprt *xprt)
+ 		newxpt = xprt->xpt_ops->xpo_accept(xprt);
+ 		if (newxpt) {
+ 			newxpt->xpt_cred = get_cred(xprt->xpt_cred);
+-			svc_add_new_temp_xprt(serv, newxpt);
+ 			trace_svc_xprt_accept(newxpt, serv->sv_name);
++			svc_add_new_temp_xprt(serv, newxpt);
+ 		} else {
+ 			module_put(xprt->xpt_class->xcl_owner);
+ 		}
 
