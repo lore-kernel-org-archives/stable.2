@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799737;
-	b=fXk4T/7x9yssZYxEJxwIaqyxc9jNFx8tGnQLbph1ZTS5w1aFHfncPFxrk2vSL8e80D/2
-	 4tgm16otrVjZ7478elC7vcYnqgpOFPJ7rcwzMOYp0tpQsqa59MRPJHKaB2OVXrP5Zs1tW
-	 I8M4rFD4mnhtM0WbS0DHhBwryWZL4KsoAJkzJzkFhq5tDCzcnGf7cFqa1USAgJfHkzuwN
-	 5lDGmNmC4w/zzWMzMwC2YG8RMGBelrxmxzxIrwir3ZHtfxmr357kRCTQ6WonaJqzy4Dlq
-	 yrbNLSw8c8AQ09kr1mc8pjIaLnmgi4NLeTQT6c7HmfWoXIwh7cCHtCFXIIqimOcniNg==
+	t=1793799750;
+	b=YM/jweQ+qN22/Tp4Ix3yU1ouBxydUd1RiG2oBuomuPajBVjuUSDiPHZ0ZGK3y2IqzZAv
+	 J7Aa7r/m8vselxkULG6mHoKoQFDZapRWlKPexOTPMgqJT5V+t4sI9Ec0itsc2YZJr155P
+	 tuOvfkMMeY2VagJP7ceDEAp5bigsAUs7+QVbS39OeMqXzmJaLXf2EyuWdvXoDlvlaoWj/
+	 P44rZvtk8v9J33gJ/JBGLpqM3QrsTzUR7NsKRjRHKrDpTNuZ6uXVus6pZaoPSINBidvLB
+	 t52KT/ZDjtJUjO/ACVMc7zKG+k+wxJCHFT2yjzi0c1atNDhJP/HdwBjyJ8qDEItIsmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799737;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799750;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=OhtOr+/q2v/jXxyjMGOR0+teuSgwsB/rkd6Ix41jwNI=;
-	b=5d48LQ7KpjPKdJMZxA/xBwLCjExSBihUgVZQt08cqjBmPzQsT2aMIABW6jNzyz9kBkCI
-	 fnL6ET3roSaFZEYGz8nGwEjuaopwaWThrD7U8vYtgWZgsw1YP90fL/cKLy5zvuQOrd0aD
-	 d3YRkvfH+TDzDnJrTUS1gCA8Z1aL4FZGuOYhnfSTvuUCwvMs3ry8rvbP3lboKY5Pl7yKr
-	 2Uan8SZ82OMhuYctMrz0cQCqOG5nSeFco+20/7CEgFj3lhXC+W7p7zPrZsMk6WR1CcSLI
-	 j8R1sDvq0J7Xi/QTprMw4U6KgM+KGkw0BJEWQaDCX7rhoLmjCnBBEHBKl16uxz0JorQ==
+	bh=3s/G3eE2nw1Ncsllur/c0PcI7VgFNidvqKXFKEOU2Do=;
+	b=vUckXBYLO92xCAlnAQNuZyqQmWbQSrg4NEiJ9coZGV3hBFO8irufUwc3Zrm/g4sCBi6V
+	 n9+YIl0fr7coeGUhZxreRh6YNRm5lRTEC3fFkStQknanQ1N2jZbF9M6fefEJGwmE6cGKo
+	 ZAzr4jA73YxhJrAVeKzX1fN8GzqzeYWk4ZZ2vKQMhEoFBy/ef6701eEekBtyCLBsRD3Vg
+	 3RKV5w7O/keaCK1hERlQA8ogEhlHS14LGtO7wkPjjb3JtkM1sdUvSK4DwJkodtoQyf6Fv
+	 PhZZWrHm56fUrok19FxUg1MzNStDuLoBlj77dWKJy8TANNgq8foMfBDqZliz5T7OStg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=N56lSVtt;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EpbN3qtR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2798606A32D
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:42:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E765606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:42:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=N56lSVtt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5B91F00919;
-	Wed,  4 Nov 2026 13:42:15 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EpbN3qtR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BE1F1F000C1;
+	Wed,  4 Nov 2026 13:42:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793799736;
-	bh=OhtOr+/q2v/jXxyjMGOR0+teuSgwsB/rkd6Ix41jwNI=;
+	s=korg; t=1793799749;
+	bh=3s/G3eE2nw1Ncsllur/c0PcI7VgFNidvqKXFKEOU2Do=;
 	h=Subject:To:Cc:From:Date;
-	b=N56lSVtt6faic9R1gUVozH/9jjNfEN2wGHT8OyOsg9Z1wdDZOX30+1g2xmKqukBVM
-	 4XzUCOeirY9F2A4WKDaM0T5ilkzYe5gNlOWvtbXYyjohAxdxwYX1b3Hdc3fhWDiygu
-	 TaiP1nIlVOlx1WGdamEEHZNd0vmL4ISLtlK+ISZU=
-Subject: FAILED: patch "[PATCH] s390/zcrypt: Fix and improve zcrypt reply message" failed to apply to 5.10-stable tree
+	b=EpbN3qtRuxUnXvgJfOephPu0ClN4DvM7kHClTRjGvdayQIgURYPrLX96ZRtP5e/VP
+	 nvBlhZSZrmFQBTThWdZ6xzwmJ1x8+sk8YeviVj8mLLD3adI0hPGos/py8l306rfous
+	 PYSm8rDjzYRbohNCW6SOoPaFt+/mSQG4KKLhmZXA=
+Subject: FAILED: patch "[PATCH] s390/zcrypt: Guard domain index uses against speculative" failed to apply to 6.18-stable tree
 To: freude@linux.ibm.com,dengler@linux.ibm.com,hca@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:42:10 +0100
-Message-ID: <2026110410-clothes-comic-47a7@gregkh>
+Date: Wed, 04 Nov 2026 14:42:28 +0100
+Message-ID: <2026110428-afternoon-stunning-acbf@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5e9b339f323216d71f3ede8a0a427abf7859c486
+git cherry-pick -x 7b88e8b6d714cd1b2b6185e2963c8ec4d98542d0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110410-clothes-comic-47a7@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110428-afternoon-stunning-acbf@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,521 +79,108 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5e9b339f323216d71f3ede8a0a427abf7859c486 Mon Sep 17 00:00:00 2001
+From 7b88e8b6d714cd1b2b6185e2963c8ec4d98542d0 Mon Sep 17 00:00:00 2001
 From: Harald Freudenberger <freude@linux.ibm.com>
-Date: Fri, 2 Oct 2026 12:52:36 +0200
-Subject: [PATCH] s390/zcrypt: Fix and improve zcrypt reply message
- verification checks
+Date: Tue, 6 Oct 2026 17:46:02 +0200
+Subject: [PATCH] s390/zcrypt: Guard domain index uses against speculative
+ bypass
 
-Add or improve checks related to buffer sizes and reply sizes to the
-handling of replies from the crypto cards for CCA, EP11 (AP message
-type 6) and ICA (AP type 50) messages. The verification code related
-to reply field length was not designed well and thus firmware
-deficiencies could lead to unexpected behavior in the zcrypt device
-driver. Thus improve the code to more closely inspect especially
-length fields at message replies.
+The previous array_index_nospec() placement only covered the admin
+permission check, leaving ap_test_config_usage_domain() and
+ap_test_config_ctrl_domain() in the CCA path exposed to speculative
+execution.
 
-Add length validation before accessing reply message structures in
-zcrypt_msgtype6_receive(), zcrypt_msgtype6_receive_ep11(), and
-zcrypt_msgtype50_receive() to prevent out-of-bounds reads and
-potential kernel memory disclosure.
+Move the sanitization to before all permission and config checks in
+both the CCA and EP11 paths. Hold the sanitized domain value in
+another variable so that the later use can choose to use either the
+original value (subject to speculative execution) or the sanitized
+value (which may in case of AUTOSEL_DOM reflect the wrong
+value). Before that, check the domain value to be either AUTOSEL_DOM
+or in range 0...AP_DOMAINS-1 and return with -EINVAL in case this check
+does not pass.
 
-Also rework these three functions to validate reply lengths more
-carefully before copying data back into the request buffer. Use size_t
-for length calculations, reject inconsistent reply sizes, and add
-defensive handling for short invalid replies. For XCRB replies,
-validate both reply segments and derive the effective message length
-from the covered range instead of trusting only the second segment.
-
-Additionally improve some of the later invoked evaluation functions
-which further check the payload. Add comments about length assumptions
-and for the type50 processing rework the payload processing completely
-with removing a misplaced BUG_ON().
-
-Fixes: 5e55a488c87a ("s390/zcrypt: Separate msgtype implementation from card modules.")
+Fixes: e935cd525af4 ("s390/zcrypt: Close speculative mem read possibility")
 Signed-off-by: Harald Freudenberger <freude@linux.ibm.com>
 Cc: stable@vger.kernel.org
 Reviewed-by: Holger Dengler <dengler@linux.ibm.com>
 Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
 
-diff --git a/drivers/s390/crypto/zcrypt_msgtype50.c b/drivers/s390/crypto/zcrypt_msgtype50.c
-index d6fc2d8e7fad..5907fb2a6920 100644
---- a/drivers/s390/crypto/zcrypt_msgtype50.c
-+++ b/drivers/s390/crypto/zcrypt_msgtype50.c
-@@ -152,6 +152,11 @@ struct type80_hdr {
- 	unsigned char	reserved3[8];
- } __packed;
- 
-+struct type80_reply {
-+	struct type80_hdr hdr;
-+	char data[];
-+} __packed;
-+
- int get_rsa_modex_fc(struct ica_rsa_modexpo *mex, int *fcode)
+diff --git a/drivers/s390/crypto/zcrypt_api.c b/drivers/s390/crypto/zcrypt_api.c
+index ec6a4c2f9f04..80435fd8e6ad 100644
+--- a/drivers/s390/crypto/zcrypt_api.c
++++ b/drivers/s390/crypto/zcrypt_api.c
+@@ -854,7 +854,7 @@ static long _zcrypt_send_cprb(u32 xflags, struct ap_perms *perms,
+ 			      struct ica_xcRB *xcrb)
  {
- 	if (!mex->inputdatalength)
-@@ -340,32 +345,43 @@ static int ICACRT_msg_to_type50CRT_msg(struct zcrypt_queue *zq,
-  * @data: pointer to user output data
-  * @length: size of user output data
-  *
-- * Returns 0 on success or -EFAULT.
-+ * Returns 0 on success or neg. errno value on failure.
-  */
- static int convert_type80(struct zcrypt_queue *zq,
- 			  struct ap_message *reply,
- 			  char __user *outputdata,
- 			  unsigned int outputdatalength)
- {
--	struct type80_hdr *t80h = reply->msg;
--	unsigned char *data;
-+	struct type80_reply *msg = reply->msg;
-+	size_t payload_len;
+ 	bool userspace = xflags & ZCRYPT_XFLAG_USERSPACE;
+-	unsigned int card, domain, func_code = 0;
++	unsigned int card, domain, _dom, func_code = 0;
+ 	unsigned int wgt = 0, pref_wgt = 0;
+ 	struct zcrypt_queue *zq, *pref_zq;
+ 	struct zcrypt_card *zc, *pref_zc;
+@@ -877,10 +877,17 @@ static long _zcrypt_send_cprb(u32 xflags, struct ap_perms *perms,
+ 	print_hex_dump_debug("ccareq: ", DUMP_PREFIX_ADDRESS, 16, 1,
+ 			     ap_msg.msg, ap_msg.len, false);
  
--	if (t80h->len < sizeof(*t80h) + outputdatalength) {
--		/* The result is too short, the CEXxA card may not do that.. */
-+	/*
-+	 * reply->len is always >= sizeof(struct type80_reply) here and
-+	 * outputdatalength (the modulus size) is guaranteed to be equal to
-+	 * inputdatalength and 0 < outputdatalength <= CEX3A_MAX_MOD_SIZE,
-+	 * also payload size may be >= outputdatalength.
-+	 */
-+
-+	payload_len = reply->len - sizeof(msg->hdr);
-+
-+	if (outputdatalength > payload_len) {
-+		/* We expect at least outputdatalength bytes, broken card ? */
- 		zq->online = 0;
- 		pr_err("Crypto dev=%02x.%04x code=0x%02x => online=0 rc=EAGAIN\n",
- 		       AP_QID_CARD(zq->queue->qid),
--		       AP_QID_QUEUE(zq->queue->qid), t80h->code);
-+		       AP_QID_QUEUE(zq->queue->qid), msg->hdr.code);
- 		ZCRYPT_DBF_ERR("%s dev=%02x.%04x code=0x%02x => online=0 rc=EAGAIN\n",
- 			       __func__, AP_QID_CARD(zq->queue->qid),
--			       AP_QID_QUEUE(zq->queue->qid), t80h->code);
-+			       AP_QID_QUEUE(zq->queue->qid), msg->hdr.code);
- 		ap_send_online_uevent(&zq->queue->ap_dev, zq->online);
- 		return -EAGAIN;
- 	}
--	BUG_ON(t80h->len > CEX3A_MAX_RESPONSE_SIZE);
--	data = reply->msg + t80h->len - outputdatalength;
--	if (copy_to_user(outputdata, data, outputdatalength))
-+
-+	if (copy_to_user(outputdata,
-+			 msg->data + payload_len - outputdatalength,
-+			 outputdatalength))
- 		return -EFAULT;
-+
- 	return 0;
- }
- 
-@@ -374,14 +390,19 @@ static int convert_response(struct zcrypt_queue *zq,
- 			    char __user *outputdata,
- 			    unsigned int outputdatalength)
- {
--	/* Response type byte is the second byte in the response. */
--	unsigned char rtype = ((unsigned char *)reply->msg)[1];
-+	struct type80_reply *msg = reply->msg;
- 
--	switch (rtype) {
-+	/* reply->len is always >= sizeof(struct error_hdr) here */
-+
-+	switch (msg->hdr.type) {
- 	case TYPE82_RSP_CODE:
- 	case TYPE88_RSP_CODE:
- 		return convert_error(zq, reply);
- 	case TYPE80_RSP_CODE:
-+		if (msg->hdr.code)
-+			return convert_error(zq, reply);
-+		if (reply->len < sizeof(struct type80_reply))
-+			return -EINVAL;
- 		return convert_type80(zq, reply,
- 				      outputdata, outputdatalength);
- 	default: /* Unknown response type, this should NEVER EVER happen */
-@@ -389,11 +410,11 @@ static int convert_response(struct zcrypt_queue *zq,
- 		pr_err("Crypto dev=%02x.%04x unknown response type 0x%02x => online=0 rc=EAGAIN\n",
- 		       AP_QID_CARD(zq->queue->qid),
- 		       AP_QID_QUEUE(zq->queue->qid),
--		       (int)rtype);
-+		       (int)msg->hdr.type);
- 		ZCRYPT_DBF_ERR(
- 			"%s dev=%02x.%04x unknown response type 0x%02x => online=0 rc=EAGAIN\n",
- 			__func__, AP_QID_CARD(zq->queue->qid),
--			AP_QID_QUEUE(zq->queue->qid), (int)rtype);
-+			AP_QID_QUEUE(zq->queue->qid), (int)msg->hdr.type);
- 		ap_send_online_uevent(&zq->queue->ap_dev, zq->online);
- 		return -EAGAIN;
- 	}
-@@ -416,26 +437,46 @@ static void zcrypt_msgtype50_receive(struct ap_queue *aq,
- 		.reply_code = REP82_ERROR_MACHINE_FAILURE,
- 	};
- 	struct type80_hdr *t80h;
--	int len;
-+	size_t len;
- 
- 	/* Copy the reply message to the request message buffer. */
- 	if (!reply)
- 		goto out;	/* ap_msg->rc indicates the error */
-+
- 	t80h = reply->msg;
--	if (t80h->type == TYPE80_RSP_CODE) {
--		len = t80h->len;
--		if (len > reply->bufsize || len > msg->bufsize ||
--		    len != reply->len) {
--			pr_debug("len mismatch => EMSGSIZE\n");
--			msg->rc = -EMSGSIZE;
-+
-+	if (reply->len < sizeof(*t80h) ||
-+	    t80h->type != TYPE80_RSP_CODE) {
-+		if (reply->len < sizeof(error_reply)) {
-+			/* total broken reply, use static error reply instead */
-+			memcpy(msg->msg, &error_reply, sizeof(error_reply));
-+			msg->len = sizeof(error_reply);
- 			goto out;
-+		} else {
-+			/* malformed reply, convert function will handle this */
-+			len = reply->len;
-+			goto copy_len_and_out;
- 		}
--		memcpy(msg->msg, reply->msg, len);
--		msg->len = len;
--	} else {
--		memcpy(msg->msg, reply->msg, sizeof(error_reply));
--		msg->len = sizeof(error_reply);
- 	}
-+
-+	len = t80h->len;
-+
-+copy_len_and_out:
-+	if (len != reply->len) {
-+		msg->rc = -EMSGSIZE;
-+		pr_debug("len %zu rpl.len %zu mismatch, msg.rc=%d\n",
-+			 len, reply->len, msg->rc);
++	/* Check domain for either AUTOSEL_DOM or in range 0...AP_DOMAINS-1 */
++	if (domain != AUTOSEL_DOM && domain >= AP_DOMAINS) {
++		rc = -EINVAL;
 +		goto out;
 +	}
-+	if (len > reply->bufsize || len > msg->bufsize) {
-+		msg->rc = -EMSGSIZE;
-+		pr_debug("len %zu exceeds buf %zu/%zu, msg.rc=%d\n",
-+			 len, reply->bufsize, msg->bufsize, msg->rc);
-+		goto out;
-+	}
-+	memcpy(msg->msg, reply->msg, len);
-+	msg->len = len;
++	/* Spectre-v1: sanitize domain unconditionally for later use */
++	_dom = array_index_nospec(domain, AP_DOMAINS);
 +
- out:
- 	complete(&msg->response.work);
- }
-diff --git a/drivers/s390/crypto/zcrypt_msgtype6.c b/drivers/s390/crypto/zcrypt_msgtype6.c
-index 3df1d676de5d..5962224bfb8b 100644
---- a/drivers/s390/crypto/zcrypt_msgtype6.c
-+++ b/drivers/s390/crypto/zcrypt_msgtype6.c
-@@ -766,6 +766,15 @@ static int convert_type86_rng(struct zcrypt_queue *zq,
- 
- 	if (msg->cprbx.ccp_rtcode != 0 || msg->cprbx.ccp_rscode != 0)
- 		return -EINVAL;
-+	/*
-+	 * Note that offset2 and count2 have already been checked in
-+	 * zcrypt_msgtype6_receive(). So only check for valid count2
-+	 * and for not exceeding the hard coded rng buffer size.
-+	 */
-+	if (!msg->fmt2.count2)
-+		return -EINVAL;
-+	if (msg->fmt2.count2 > ZCRYPT_RNG_BUFFER_SIZE)
-+		return -EMSGSIZE;
- 	memcpy(buffer, data + msg->fmt2.offset2, msg->fmt2.count2);
- 	return msg->fmt2.count2;
- }
-@@ -777,11 +786,17 @@ static int convert_response_ica(struct zcrypt_queue *zq,
- {
- 	struct type86x_reply *msg = reply->msg;
- 
-+	/* reply->len is always >= sizeof(struct error_hdr) here */
-+
- 	switch (msg->hdr.type) {
- 	case TYPE82_RSP_CODE:
- 	case TYPE88_RSP_CODE:
- 		return convert_error(zq, reply);
- 	case TYPE86_RSP_CODE:
-+		if (msg->hdr.reply_code)
-+			return convert_error(zq, reply);
-+		if (reply->len < sizeof(struct type86x_reply))
-+			return -EINVAL;
- 		if (msg->cprbx.ccp_rtcode &&
- 		    msg->cprbx.ccp_rscode == 0x14f &&
- 		    outputdatalength > 256) {
-@@ -792,8 +807,6 @@ static int convert_response_ica(struct zcrypt_queue *zq,
- 				return -EINVAL;
+ 	if (perms != &ap_perms && domain < AP_DOMAINS) {
+ 		if (ap_msg.flags & AP_MSG_FLAG_ADMIN) {
+-			domain = array_index_nospec(domain, AP_DOMAINS);
+-			if (!test_bit_inv(domain, perms->adm)) {
++			if (!test_bit_inv(_dom, perms->adm)) {
+ 				rc = -ENODEV;
+ 				goto out;
  			}
- 		}
--		if (msg->hdr.reply_code)
--			return convert_error(zq, reply);
- 		if (msg->cprbx.cprb_ver_id == 0x02)
- 			return convert_type86_ica(zq, reply,
- 						  outputdata, outputdatalength);
-@@ -820,6 +833,8 @@ static int convert_response_xcrb(bool userspace, struct zcrypt_queue *zq,
- {
- 	struct type86x_reply *msg = reply->msg;
+@@ -893,10 +900,11 @@ static long _zcrypt_send_cprb(u32 xflags, struct ap_perms *perms,
+ 	 * If a valid target domain is set and this domain is NOT a usage
+ 	 * domain but a control only domain, autoselect target domain.
+ 	 */
+-	if (domain < AP_DOMAINS &&
+-	    !ap_test_config_usage_domain(domain) &&
+-	    ap_test_config_ctrl_domain(domain))
+-		domain = AUTOSEL_DOM;
++	if (domain < AP_DOMAINS) {
++		if (!ap_test_config_usage_domain(_dom) &&
++		    ap_test_config_ctrl_domain(_dom))
++			domain = AUTOSEL_DOM;
++	}
  
-+	/* reply->len is always >= sizeof(struct error_hdr) here */
-+
- 	switch (msg->hdr.type) {
- 	case TYPE82_RSP_CODE:
- 	case TYPE88_RSP_CODE:
-@@ -827,9 +842,16 @@ static int convert_response_xcrb(bool userspace, struct zcrypt_queue *zq,
- 		return convert_error(zq, reply);
- 	case TYPE86_RSP_CODE:
- 		if (msg->hdr.reply_code) {
--			xcrb->status = msg->fmt2.apfs;
-+			if (reply->len < sizeof(struct type86_fmt2_msg))
-+				xcrb->status = 0x0008044DL;
-+			else
-+				xcrb->status = msg->fmt2.apfs;
- 			return convert_error(zq, reply);
- 		}
-+		if (reply->len < sizeof(struct type86_fmt2_msg) +
-+		    offsetof(struct CPRBX, cprb_ver_id) +
-+		    sizeof(msg->cprbx.cprb_ver_id))
-+			return -EINVAL;
- 		if (msg->cprbx.cprb_ver_id == 0x02)
- 			return convert_type86_xcrb(userspace, zq, reply, xcrb);
- 		fallthrough;	/* wrong cprb version is an unknown response */
-@@ -854,6 +876,8 @@ static int convert_response_ep11_xcrb(bool userspace, struct zcrypt_queue *zq,
- {
- 	struct type86_ep11_reply *msg = reply->msg;
+ 	pref_zc = NULL;
+ 	pref_zq = NULL;
+@@ -1041,7 +1049,7 @@ static long _zcrypt_send_ep11_cprb(u32 xflags, struct ap_perms *perms,
+ 	struct ep11_target_dev *targets = NULL;
+ 	unsigned short target_num;
+ 	unsigned int wgt = 0, pref_wgt = 0;
+-	unsigned int func_code = 0, domain;
++	unsigned int func_code = 0, domain, _dom;
+ 	struct ap_message ap_msg;
+ 	int cpen, qpen, qid = 0, rc;
+ 	struct module *mod;
+@@ -1078,10 +1086,17 @@ static long _zcrypt_send_ep11_cprb(u32 xflags, struct ap_perms *perms,
+ 	print_hex_dump_debug("ep11req: ", DUMP_PREFIX_ADDRESS, 16, 1,
+ 			     ap_msg.msg, ap_msg.len, false);
  
-+	/* reply->len is always >= sizeof(struct error_hdr) here */
-+
- 	switch (msg->hdr.type) {
- 	case TYPE82_RSP_CODE:
- 	case TYPE87_RSP_CODE:
-@@ -861,6 +885,8 @@ static int convert_response_ep11_xcrb(bool userspace, struct zcrypt_queue *zq,
- 	case TYPE86_RSP_CODE:
- 		if (msg->hdr.reply_code)
- 			return convert_error(zq, reply);
-+		if (reply->len < sizeof(struct type86_ep11_reply))
-+			return -EINVAL;
- 		if (msg->cprbx.cprb_ver_id == 0x04)
- 			return convert_type86_ep11_xcrb(userspace, zq, reply, xcrb);
- 		fallthrough;	/* wrong cprb version is an unknown resp */
-@@ -885,6 +911,8 @@ static int convert_response_rng(struct zcrypt_queue *zq,
- {
- 	struct type86x_reply *msg = reply->msg;
- 
-+	/* reply->len is always >= sizeof(struct error_hdr) here */
-+
- 	switch (msg->hdr.type) {
- 	case TYPE82_RSP_CODE:
- 	case TYPE88_RSP_CODE:
-@@ -892,6 +920,8 @@ static int convert_response_rng(struct zcrypt_queue *zq,
- 	case TYPE86_RSP_CODE:
- 		if (msg->hdr.reply_code)
- 			return -EINVAL;
-+		if (reply->len < sizeof(struct type86x_reply))
-+			return -EINVAL;
- 		if (msg->cprbx.cprb_ver_id == 0x02)
- 			return convert_type86_rng(zq, reply, data);
- 		fallthrough;	/* wrong cprb version is an unknown response */
-@@ -928,48 +958,85 @@ static void zcrypt_msgtype6_receive(struct ap_queue *aq,
- 	};
- 	struct ap_response_type *resp_type = &msg->response;
- 	struct type86x_reply *t86r;
--	int len;
-+	size_t minlen, len;
- 
- 	/* Copy the reply message to the request message buffer. */
- 	if (!reply)
- 		goto out;	/* ap_msg->rc indicates the error */
-+
- 	t86r = reply->msg;
--	if (t86r->hdr.type == TYPE86_RSP_CODE &&
--	    t86r->cprbx.cprb_ver_id == 0x02) {
--		switch (resp_type->type) {
--		case CEXXC_RESPONSE_TYPE_ICA:
--			len = sizeof(struct type86x_reply) + t86r->length;
--			if (len > reply->bufsize || len > msg->bufsize ||
--			    len != reply->len) {
--				pr_debug("len mismatch => EMSGSIZE\n");
--				msg->rc = -EMSGSIZE;
--				goto out;
--			}
--			memcpy(msg->msg, reply->msg, len);
--			msg->len = len;
--			break;
--		case CEXXC_RESPONSE_TYPE_XCRB:
--			if (t86r->fmt2.count2)
--				len = t86r->fmt2.offset2 + t86r->fmt2.count2;
--			else
--				len = t86r->fmt2.offset1 + t86r->fmt2.count1;
--			if (len > reply->bufsize || len > msg->bufsize ||
--			    len != reply->len) {
--				pr_debug("len mismatch => EMSGSIZE\n");
--				msg->rc = -EMSGSIZE;
--				goto out;
--			}
--			memcpy(msg->msg, reply->msg, len);
--			msg->len = len;
--			break;
--		default:
-+	minlen = sizeof(t86r->hdr) + sizeof(t86r->fmt2) +
-+		offsetof(struct CPRBX, cprb_ver_id) +
-+		sizeof(t86r->cprbx.cprb_ver_id);
-+
-+	if (reply->len < minlen ||
-+	    t86r->hdr.type != TYPE86_RSP_CODE ||
-+	    t86r->cprbx.cprb_ver_id != 0x02) {
-+		if (reply->len < sizeof(error_reply)) {
-+			/* total broken reply, use static error reply instead */
- 			memcpy(msg->msg, &error_reply, sizeof(error_reply));
- 			msg->len = sizeof(error_reply);
-+			goto out;
-+		} else {
-+			/* malformed reply, convert function will handle this */
-+			len = reply->len;
-+			goto copy_len_and_out;
- 		}
--	} else {
--		memcpy(msg->msg, reply->msg, sizeof(error_reply));
--		msg->len = sizeof(error_reply);
- 	}
-+
-+	switch (resp_type->type) {
-+	case CEXXC_RESPONSE_TYPE_ICA:
-+		if (reply->len < sizeof(struct type86x_reply)) {
-+			msg->rc = -EMSGSIZE;
-+			pr_debug("rpl.len %zu < struct type86_reply, msg.rc=%d\n",
-+				 reply->len, msg->rc);
-+			goto out;
-+		}
-+		len = sizeof(struct type86x_reply) + (size_t)t86r->length;
-+		break;
-+	case CEXXC_RESPONSE_TYPE_XCRB:
-+		len = (size_t)t86r->fmt2.offset1 + (size_t)t86r->fmt2.count1;
-+		if (len > reply->len) {
-+			msg->rc = -EMSGSIZE;
-+			pr_debug("offset1 %u count1 %u rpl.len %zu mismatch, msg.rc=%d\n",
-+				 t86r->fmt2.offset1, t86r->fmt2.count1,
-+				 reply->len, msg->rc);
-+			goto out;
-+		}
-+		if (t86r->fmt2.count2) {
-+			len = (size_t)t86r->fmt2.offset2 +
-+				(size_t)t86r->fmt2.count2;
-+			if (len > reply->len) {
-+				msg->rc = -EMSGSIZE;
-+				pr_debug("offset2 %u count2 %u rpl.len %zu mismatch, msg.rc=%d\n",
-+					 t86r->fmt2.offset2, t86r->fmt2.count2,
-+					 reply->len, msg->rc);
-+				goto out;
-+			}
-+		}
-+		break;
-+	default:
-+		memcpy(msg->msg, &error_reply, sizeof(error_reply));
-+		msg->len = sizeof(error_reply);
++	/* Check domain for either AUTOSEL_DOM or in range 0...AP_DOMAINS-1 */
++	if (domain != AUTOSEL_DOM && domain >= AP_DOMAINS) {
++		rc = -EINVAL;
 +		goto out;
 +	}
++	/* Spectre-v1: sanitize domain unconditionally for later use */
++	_dom = array_index_nospec(domain, AP_DOMAINS);
 +
-+copy_len_and_out:
-+	if (len != reply->len) {
-+		msg->rc = -EMSGSIZE;
-+		pr_debug("len %zu rpl.len %zu mismatch, msg.rc=%d\n",
-+			 len, reply->len, msg->rc);
-+		goto out;
-+	}
-+	if (len > reply->bufsize || len > msg->bufsize) {
-+		msg->rc = -EMSGSIZE;
-+		pr_debug("len %zu exceeds buf %zu/%zu, msg.rc=%d\n",
-+			 len, reply->bufsize, msg->bufsize, msg->rc);
-+		goto out;
-+	}
-+	memcpy(msg->msg, reply->msg, len);
-+	msg->len = len;
-+
- out:
- 	complete(&resp_type->work);
- }
-@@ -992,34 +1059,65 @@ static void zcrypt_msgtype6_receive_ep11(struct ap_queue *aq,
- 	};
- 	struct ap_response_type *resp_type = &msg->response;
- 	struct type86_ep11_reply *t86r;
--	int len;
-+	size_t minlen, len;
- 
- 	/* Copy the reply message to the request message buffer. */
- 	if (!reply)
- 		goto out;	/* ap_msg->rc indicates the error */
-+
- 	t86r = reply->msg;
--	if (t86r->hdr.type == TYPE86_RSP_CODE &&
--	    t86r->cprbx.cprb_ver_id == 0x04) {
--		switch (resp_type->type) {
--		case CEXXC_RESPONSE_TYPE_EP11:
--			len = t86r->fmt2.offset1 + t86r->fmt2.count1;
--			if (len > reply->bufsize || len > msg->bufsize ||
--			    len != reply->len) {
--				pr_debug("len mismatch => EMSGSIZE\n");
--				msg->rc = -EMSGSIZE;
--				goto out;
--			}
--			memcpy(msg->msg, reply->msg, len);
--			msg->len = len;
--			break;
--		default:
-+	minlen = sizeof(t86r->hdr) + sizeof(t86r->fmt2) +
-+		offsetof(struct ep11_cprb, cprb_ver_id) +
-+		sizeof(t86r->cprbx.cprb_ver_id);
-+
-+	if (reply->len < minlen ||
-+	    t86r->hdr.type != TYPE86_RSP_CODE ||
-+	    t86r->cprbx.cprb_ver_id != 0x04) {
-+		if (reply->len < sizeof(error_reply)) {
-+			/* total broken reply, use static error reply instead */
- 			memcpy(msg->msg, &error_reply, sizeof(error_reply));
- 			msg->len = sizeof(error_reply);
-+			goto out;
-+		} else {
-+			/* malformed reply, convert function will handle this */
-+			len = reply->len;
-+			goto copy_len_and_out;
- 		}
--	} else {
--		memcpy(msg->msg, reply->msg, sizeof(error_reply));
--		msg->len = sizeof(error_reply);
- 	}
-+
-+	switch (resp_type->type) {
-+	case CEXXC_RESPONSE_TYPE_EP11:
-+		len = (size_t)t86r->fmt2.offset1 + (size_t)t86r->fmt2.count1;
-+		if (len > reply->len) {
-+			msg->rc = -EMSGSIZE;
-+			pr_debug("offset1 %u count1 %u rpl.len %zu mismatch, msg.rc=%d\n",
-+				 t86r->fmt2.offset1, t86r->fmt2.count1,
-+				 reply->len, msg->rc);
-+			goto out;
-+		}
-+		break;
-+	default:
-+		memcpy(msg->msg, &error_reply, sizeof(error_reply));
-+		msg->len = sizeof(error_reply);
-+		goto out;
-+	}
-+
-+copy_len_and_out:
-+	if (len != reply->len) {
-+		msg->rc = -EMSGSIZE;
-+		pr_debug("len %zu rpl.len %zu mismatch, msg.rc=%d\n",
-+			 len, reply->len, msg->rc);
-+		goto out;
-+	}
-+	if (len > reply->bufsize || len > msg->bufsize) {
-+		msg->rc = -EMSGSIZE;
-+		pr_debug("len %zu exceeds buf %zu/%zu, msg.rc=%d\n",
-+			 len, reply->bufsize, msg->bufsize, msg->rc);
-+		goto out;
-+	}
-+	memcpy(msg->msg, reply->msg, len);
-+	msg->len = len;
-+
- out:
- 	complete(&resp_type->work);
- }
+ 	if (perms != &ap_perms && domain < AP_DOMAINS) {
+ 		if (ap_msg.flags & AP_MSG_FLAG_ADMIN) {
+-			domain = array_index_nospec(domain, AP_DOMAINS);
+-			if (!test_bit_inv(domain, perms->adm)) {
++			if (!test_bit_inv(_dom, perms->adm)) {
+ 				rc = -ENODEV;
+ 				goto out;
+ 			}
 
