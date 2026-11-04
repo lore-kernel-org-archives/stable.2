@@ -1,122 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.152.16
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793760723;
-	b=3LldwSpXnc6p5cSYRWlQC2AP9odbnyiCDzuzptGD2qAUsw4xWieYlnbKXUxeO2RqDB8w
-	 n7tV2M5tyYIZJ3qImw2TiBFHCqGyfr/dXVAJrKnYyjsk2ZXTT5LXV8/FPfh5qmt7umWT+
-	 UOlWeCtp5/XId8K6jCu+cCpl7AKjn+G0TzMnuGmgNO+qkBW+vi5+KYRyMaTxva9eYMSZ5
-	 dRdoFx+4V4mz9+av6GnRnfDvzUXRBvk7gT+XujSnBXA3cRv2yXf7mnPRlG0Cg42oBU3/c
-	 lVMPtUyZgqNGtXp0rMM0N/tS68IRHyOT+edQWy4/oD3ufw4eTa+9rj8Pgz4j9OdpEow==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793760723;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=lAXkSs68EqPkMWGoE3m+CfzLQOhhK01OM2CR7g9/IfI=;
-	b=rZELyM6dtaYYY7LlY1G4Z0K1wawqDrRcoTmfE6BPv6GLiy0YN8yLUL/SHOdK3eG49W8j
-	 t1T4jXxIs6Bd0EvQMK20rZ8LQfQfaahpJ3qyLvz5gNZ2COVa5UPNvbh9VoOdS+AT2BQQd
-	 MRbE7ZBpyVfqPtqDVTrtZcOUAGYDJaB4zkfDQEyldzOKg6DrCqOtCUmr8ka//PHEf93L0
-	 5pYXTElEvisj+fqkspO3OBUxiaolusn8QFTBxPbUVbSS9df4xCOC0fXA1Ajngoqtxg2Dl
-	 c4Xd2dBVIg1huTHEtWBHU2ksbtIt7kN4gNPGYXjkZ0uNU8cZNEhpbe80Z13hVAQL/EA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crowdstrike.com;
-	spf=pass smtp.mailfrom=crowdstrike.com;
-	dkim=pass header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=default header.b=IWf156x5;
-	dkim=pass header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=google header.b=fZlWShPL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.152.16
-Received: from mx0b-00206402.pphosted.com (mx0b-00206402.pphosted.com [148.163.152.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793761316;
+	b=quKGAQvW2zCUu/fe0KtajZF6emTf4ILt2C3YXW46InnKcGw0+PziuJ4kGT3J12feP7s+
+	 Ygr6/e/Sul6dwe9TMMKtujooGUsz+P4GImceGS3tsXLuELTlxMEztJUJfi3tExYdftmuB
+	 At2dgbkuHAjs3DZYFDflL4IDa13+sStSmNZIb42PnSDyqblaBXhi76nHx0LqmNRZ3MfbN
+	 bsOUTCCDE3yelQXehEfBlHist6BcLvzVLLeqvqHlagekeBpEeRTssJ6rl+gPzd2bwtJo9
+	 L9QxKIXr2efDpGPu0TbVqmvNQLxsnZ8q7lmNIi5QEnI4t43BHnxDHPoViHV12HPU04w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793761316;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=YlterDeN6T+DiNtjdG/tEDnVKD1WZhlw9rJO8gzsf8k=;
+	b=F1GeRPh6ExkWO71UsAk4lm9h1CnD3t+ZSKEBs0wJfjogXXCb7HOz5E8kXRYnh1iJNt+R
+	 uDwCJwDVtytS7A7LUmEI0Aya+ipjcoccGEOsVjhrnApki8AuyYze6JGLRNqnk6KfB86wA
+	 crssvRsgn1kJRqZ4pf48ZgsJvI000xnqat6/BywjkUjX1YgQeRzxfuwDpocrQhi/7aqG0
+	 7MDUQ4LNm55AZTy/8XWj1SghP1yGT6jDgP+OvzApGoXzFdbnwyWHwYxMLXskCRhtyc1PZ
+	 /jLg+ab8rYRpLrd3nrY8qybSmDeCIFEvanWe2neE1P9HOHU+hmmtHO+7yJkwzHRyIsA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RIep7yVw;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8ABD606A32C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 02:52:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8ABD606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189DE606A329
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 03:01:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 189DE606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=default header.b=IWf156x5;
-	dkim=pass (2048-bit key, unprotected) header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=google header.b=fZlWShPL
-Received: from pps.filterd (m0354653.ppops.net [127.0.0.1])
-	by mx0b-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3LDuOL191586
-	for <stable@vger.kernel.org>; Wed, 4 Nov 2026 02:51:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	default; bh=lAXkSs68EqPkMWGoE3m+CfzLQOhhK01OM2CR7g9/IfI=; b=IWf1
-	56x5+qG7A3AQNpZx2CGF1BJ+3T3X85CNn28Mkd+EWaFAX/G0ejE2v/Jut9T0zqqY
-	NmJlgwJGA9eZASRIObxEdZhZ+mGhfJlenp5dP1dNgcnEuJtuDQSDCNJgNleaPGgs
-	VpKDxnOd7IbS8lvHRpeS3n/ArNLGJYWVHDvi5B4BiKe9IpXXVJ4XluDJRHVQzuYK
-	Z5RHcYDwqwqyhmhjdhgLN6ypNmOdbotzHC+FjDjebQyKHZ5YG6XA/qneS26Y0cfp
-	mNAdWfzt4K4yO+C64rq44UiOfRmYZy/DH9OxaFvlygXH38f3MiCgYQgjhALybw1J
-	of35AfqAZvN79RK0uA==
-Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
-	by mx0b-00206402.pphosted.com (PPS) with ESMTPS id 4hqqbk8wn8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Wed, 04 Nov 2026 02:51:55 +0000 (GMT)
-Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-67682d4d684so536703d50.2
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 18:51:55 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793760715; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QuC9fub/z0npMvO2TQFFnZwK/q1F/5cLNXjx7LssQBPLgDg/2Q3FpHvelEjIUFtcoC
-         1pqYKipjKhbE2Ue4E42F9erTjob1UWmMrl/kin2EbqMeCL/O0QlF4xEuu7Ir44wgxhXl
-         qnb9TmsvVeW96zb/REXRu4j1AG3M16ofxie9ANizS9jWB7isSb2WAkFPTLxzPrv36qMa
-         RQmIpe68rJu+gDJAEqqgGnVigluGGC6hwhP8+08RLG8X3EIbOoXZSlOTBZb7I+1xze/G
-         9g3xIQiAmZBbRu18bMLhF7eZT9AJkhFWvAWcN+o24aVpkTT/t7YDTqZodpOS0WpTEGr7
-         dT3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lAXkSs68EqPkMWGoE3m+CfzLQOhhK01OM2CR7g9/IfI=;
-        fh=j4pyd5kJ41tO/P9CjboVhr9bqIHwjRV2kXkKzuUuF+A=;
-        b=sn52N7wsORMi9Pb3sxwtXYqeAcG7LCeHXA5zA+QwVuPVaOolzrzUyGMKsl+KAwRDUl
-         2cPRuA65656BR102crMh25KN3P8a8/UZ0q9G5AwFFMN6Z8+WjVqR4dE6JYOpv5ksTD1h
-         +wlsUUn7ZXHrfVueyBu/FQc9+FfZqXiDb+Lk1bb1ASJjOQQgl8zqjCeKNRPa6qIlq2+3
-         ro6qDvgeEZ5jxXZMbqwtu6BHBwTYA3lfiEUv6hddPUCeLFS3GPiVIH0W6Bel9NJGQ4zf
-         2X/zM8bXUlDKeZ9IVIhA7VFxLs8o1rns0GTxNKd8Jk1nfW7QeJxyyHa0X/GN7rFcTYXo
-         sLzQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RIep7yVw
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3514b90bb89so409273eec.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 19:01:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crowdstrike.com; s=google; t=1793760715; x=1794365515; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lAXkSs68EqPkMWGoE3m+CfzLQOhhK01OM2CR7g9/IfI=;
-        b=fZlWShPLpSeOi4izx8yuxtp1u1XCZeta4anl1OgTlAd7/BeWHTYoiOS6xfKyyCJm2Z
-         z1rIJggCff5xusnb9M9Q8Y0FS4ibm8AjiB+DbN4DuV4YacNRRTH2OxHRB1iHS9AKCKaR
-         OjqYT0t6ToeplNCL5Wqp4dzSMAC2q9fNihUpy5vKnsGspi6bfjMaHeWOCCyOZslw4k90
-         hrYm5UjKrLPVmEbpLXKmZKnTQGvpn4LaKas76vcRoN4zg1MZCSeBX1t2d35Y4ciP9mGA
-         Ad5LLWzpbRGFVIpmMQBzI4kMGCs68/5AZXvHH3RuF5p9hgYcnCj99in8/c5nkAvK2Eau
-         /83w==
+        d=gmail.com; s=20260707; t=1793761315; x=1794366115; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YlterDeN6T+DiNtjdG/tEDnVKD1WZhlw9rJO8gzsf8k=;
+        b=RIep7yVwoDzeBBxgcbtGvwlWBpSX5H1e2N2jeaBtOEl6VxNxmOiZmizOCCtWQC0JIE
+         IuoP/hp4Gnb2kmcoZ/wFoHDoyEBvzHClcePOKyOxhypKzd035JTLc3Wf83BdO9XP+1Ye
+         L1Jpnaxbgb7gjNgN7fGBJiRKdbCx17YOmp6JQb3wj/UK75EJaMJ5J1AWrexy9/14u4m+
+         Gcy/xGPuXx5ZRA95ELCAL99ndeTPdkM7ka93/x/agtvz0NhWnogLby3KuV9azjVB145c
+         JLaQZ/2Qd4PVUE/5R3LcV8oWMBlU1XU9Cmp1duo7kiDQOvlbiv4hC1kJylHCmunDQFYo
+         EARQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793760715; x=1794365515;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lAXkSs68EqPkMWGoE3m+CfzLQOhhK01OM2CR7g9/IfI=;
-        b=Pz403AqABwoJkw7DZWAgU+yi/Avk6sUjt+2uI8J1Xih2vBRVBNk9e0huuCA/6cDwBN
-         jbQElpC5btSA0uR55EfycPrfoq4L59InQNlFUcnZLT5amuQIg6P9xAZV5S7KLoadZ0Va
-         CUw1ZvDrQTJLJlwUVXm92MZIkut0Z8G7H1DumUg2LLFsYBnWQ+adR3Kl7g1uxB/G1Oav
-         kBIetmDdaiGwYcp1DRtbgWC6wpZogA8xbr3LlCI0OOkiPhZYBJCdJ9Fd60k280Rwhq4V
-         YS+CJxXcJJ3w33UG//yIqew2myB21+uJxh97OMAyK06Dk9BC8xQamLT0MsrPIlx1cjSb
-         7sgQ==
-X-Gm-Message-State: APuU4Z+oiya9zsQJLv32Re5oHKecqTWzdLxVUwfvOjHCB5dWvmLldwgz
-	EHieMELi+uET5arVLt3lHVFTuhpCU/Jjkxwe0vGKlwMZg/EmdnbEefW6QUJiJaPGXmtvFS7oC4p
-	pXEYTc0PyaatM4x3yDKcY4Cakazk4cnbfVqcjF+0wmKnDmsZvNaxfiqvMao5VlrjCYrhYv9Tt7e
-	4ZaIsUo1hmIEW+W9NjwmP9zTZOnmiRxHVG
-X-Gm-Gg: AYBFou1SHBxaLBUVWH49jBPdaP2l0cpw4yKdYbeo/a2e36VzGT/vPvrOzQYZ6szrphH
-	EwSdN4SM8itPyhxMSANk3u+d/gCWIBqW3vMfRHQvlveeBvHlnNkwaeNlgWLF1UrpPIm1bGe9TgE
-	ODDkTAzK9rNBsiqN3o4GVBez0o6o6WWFjhgEYfV4tk5XEcSqWobv+haT/+
-X-Received: by 2002:a05:690e:1698:b0:67b:9051:e334 with SMTP id 956f58d0204a3-67bb304d942mr6953175d50.99.1793760715016;
-        Tue, 03 Nov 2026 18:51:55 -0800 (PST)
-X-Received: by 2002:a05:690e:1698:b0:67b:9051:e334 with SMTP id
- 956f58d0204a3-67bb304d942mr6953165d50.99.1793760714438; Tue, 03 Nov 2026
- 18:51:54 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793761315; x=1794366115;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YlterDeN6T+DiNtjdG/tEDnVKD1WZhlw9rJO8gzsf8k=;
+        b=TQh/+2DarcFvCffnrndvqWIvMn+8HCh8LB8myPr0/4ZZDeLmNTeG0vd1dEfcaxkNFl
+         icSwnpKoIcthV6+dETSl7Het24Vj/m1Z9tPZoGvlg+uktXv9/VBGFmJpywqLWe2qphAA
+         f3llvQfJym5JeN22Nn3uTVY34ISkfTH+tzwGCutAJLY0R5UfIkQ5wK92DUt0JcH3jA6q
+         3SmHjy6WFUavTmDNSZCKFkqKdWG4P4I+Z+empjNnYzkE/g+ohWZBMOKp9YDJ7heErprZ
+         kk+qKUfD6l3P4VOI9v5t+JZ/dDGxKU6pyZSJSMu1mTF/r1HojicAn/7SdAmjvIhh9vAP
+         Lq6w==
+X-Forwarded-Encrypted: i=1; AKwUvBw6vrjuPnRYHNxvgbyvqmQQCAQem3GXqxILm2PNOUs7L7R6BmunbvHDBqieDpyU/8xDrg4BXDo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8RVUFfh/JudAxUUe0IeQdzZMQdSQriBtS67CJoNyxlpRVNzvq5
+	MGFdNah27LcAwP55HBuRPIhdnB4zLUEWYGVWGxk0jvXgCqdQqlBGOptZ
+X-Gm-Gg: AYBFou3oiNP/ZQeuGFPOayoLv1ZrZpWyFRn+mJPxz8lXKzhnyp9LYLkcDjJLzMRqoo0
+	NKcq0wz+21TQPd+RZQKaiw76U5KYbquNJ3fSE9OkSlvXgqFMqbPKjge0Bm4T8ozwr0m1nB3OrXw
+	2L15zF7nanzkmjxx/IoNBADKjd/xOEWYyVn1aPpj21AP6cKkKuyX2Q2U97ge530r5ap8AGqYcon
+	pl7yi6FC4c1MfzzrwRmZgsjpsqxgdIZ9j4NeFvLqJuYGFsNTecljR9YIs2aMbSXtH9gBFsVnORr
+	NmQU/GJLq35d0Sf1g/dyP8oG6yVeovD8U6BV3N8NhhO6SNH9cp5qlEiLSfS0nRVqFthgJpwaBMp
+	dlWALHRtGwAcd7N2qNnYJyG9M8EtOE+HW9cAUYNdy68LpzMtPb/f1zA1XT8wOLNuVzDr+MSZ2vv
+	2iH+PEaFBVC10NVdMFcwM+ZX7Y3qQX0O1rtJaq3zCmKvgRvphjhX5cxiec8RMqanlSd/Js2Nrja
+	jDt8y3D3t+3mnw7rge3FPZttOndawqLYHvtd2zA9fD+RyQiSltHdeVx8nMYHdHdQJK20+i0kWUQ
+	ZzmwTD4xvYAIioadXMRnQTdaUs2IM1SyiwBUYFKgDLyBdXZOFE+Ecng=
+X-Received: by 2002:a05:7300:8813:b0:36c:49a7:86ac with SMTP id 5a478bee46e88-36c49a78c8cmr4600001eec.37.1793761314951;
+        Tue, 03 Nov 2026 19:01:54 -0800 (PST)
+Received: from arm-a100.. ([140.112.28.118])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca392abe4sm2951819eec.19.2026.11.03.19.01.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 19:01:54 -0800 (PST)
+From: Tzu-Ching Yang <shingekinocore@gmail.com>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	linux-mips@vger.kernel.org,
+	llvm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	kernel test robot <lkp@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] MIPS: Fix genex.S build with LLVM before 21
+Date: Wed,  4 Nov 2026 11:01:47 +0800
+Message-Id: <20261104030147.3117325-1-shingekinocore@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,131 +104,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAOu3gNgTSWE84fgdc1iUNKwes7E6u_X6b8pjZKBULEJWB=RAqQ@mail.gmail.com>
- <20260820182015.4272b7a4@fedora>
-In-Reply-To: <20260820182015.4272b7a4@fedora>
-From: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
-Date: Tue, 3 Nov 2026 21:51:42 -0500
-X-Gm-Features: AclHuK9IlTY1jg0NbCnejDWXv1EVQjqwEEUjX8rlKRSwsqn_FrN54rhZNNs5-9I
-Message-ID: <CAOu3gNgv91dq8jLShteRWphrSgNWQ1o1dkNxRr577ez7pMuv6g@mail.gmail.com>
-Subject: Re: [STABLE REQUEST] ftrace: deprecate the ftrace_enabled disable switch
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: stable@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
-        sashal@kernel.org,
-        DL Linux Open Source Team <linux-open-source@crowdstrike.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: MzMlCPt1bokt7c2ZagWK8VWpSoK3-sWH
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAxMCBTYWx0ZWRfX8M3O0WyKCTZK
- gfYla6Ti5Vgx2uHnzycnPCbC3cqaPiNPD0PoSZE8nUceOphV6rXYA48G3fV/qF4j/lN3oQzP4TJ
- qM+kDDoHk2janBpiqRN60lBUTEbCBzDY22sK1wLIvA+GNXfvMy8j
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAxMCBTYWx0ZWRfX0tC87Q+YY+ua
- enZX/JFFmK+DvmhamScIy3kES9E7CKklsFQiI5kt9++pZZD/d89DIWp7onJLE+Uh76auDPWJZJW
- atqfSKvnad7K3EqxqZlUj9IE5xN7ooA/K4yskBofw+k3/mA+RIsbnBNRQn/ieHpwJcdr81Y2gsy
- 4uY61MQv0IbNxV4JD2YbQ0fAgfNhQBjYOSkk7ciZMaOsclApVsSanVJaxPF6GUVeMsGJZbV8piA
- 5tPHV2vVmXK4z40BY1CExQbuRNMOsoDQuDZwU192O5tGtuHWsctGJKAhyVnrfEnAiKb6X000uA+
- 9CcMz5TO/d1GSnK9206QsKrkb4q719PFhB+ciDVCEgs0iwc9hd43YfB2SDJ3WgmOeTrANQXJmwx
- FMMSbo+obvB5ifGTGHizGK7k17qlhwKtBQPgD55OpJYnqrtmvaSqG1zSQD1gFQJFy/ll8TGE3Xo
- E2GXpGhGYe/P8NiinCg==
-X-Proofpoint-ORIG-GUID: MzMlCPt1bokt7c2ZagWK8VWpSoK3-sWH
-X-Authority-Analysis: v=2.4 cv=ffI4WEQF c=1 sm=1 tr=0 ts=6aea9dcb cx=c_pps
- a=J+5FMm3BkXb42VdG8aMU9w==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=KZhmPCYDdY0A:10 a=VkNPw1HP01LnGYTKEx00:22 a=T2KQ53IYiC3MXPrxx8bB:22
- a=GCXdLZfFv8EKBZhKOxZ5:22 a=e25ExAebAAAA:8 a=VwQbUJbxAAAA:8 a=pl6vuDidAAAA:8
- a=meVymXHHAAAA:8 a=o21ACTxphgsBks0dGJIA:9 a=QEXdDO2ut3YA:10
- a=Epx66wHExT0cjJnnR-oj:22 a=Fx-rEtueDibNKiZPBj-h:22 a=2JgSa4NbpEOStq-L5dxp:22
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11955
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 impostorscore=0 malwarescore=0 phishscore=0
- priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040010
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 20, 2026 at 6:20=E2=80=AFPM Steven Rostedt <rostedt@goodmis.org=
-> wrote:
->
-> On Thu, 20 Aug 2026 17:30:40 -0400
-> Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com> wrote:
->
-> > Hello stable team,
-> >
-> > Please consider backporting the following two commits to the stable tre=
-es:
-> >
-> >   - b0c857049153680e1b6ccb59abf359a4ca523561 ("ftrace: deprecate
-> > disabling via ftrace_enabled sysctl")
-> >   - 88b3e7fedc07d940c32eb5c0733a780e944b6b47 ("selftests/livepatch:
-> > update https://urldefense.com/v3/__http://test-ftrace.sh__;!!BmdzS3_lV9=
-HdKG8!1ja9D51Ex2VTTMdOEl4Eb-3ORL8CXBX1biYMPMLmT1iP3r8I8tfDE41DOth6sc54E3ODL=
-fRqYSaIdTR60lcLWOzKIOK6Jg$  for deprecated ftrace_enabled")
-> >
-> > Both commits were merged into mainline in v7.3 via the 'ftrace-v7.3' ta=
-g.
-> >
-> > This change addresses a long-standing issue: setting
-> > kernel.ftrace_enabled=3D0 silently disables BPF trampolines
-> > (fentry/fexit) and ftrace-based kprobes/kretprobes. The write succeeds
-> > and the hooks stop firing without error, while re-enabling silently
-> > restores them. Livepatch resolved this via FTRACE_OPS_FL_PERMANENT,
-> > which blocks disabling ftrace while a permanent ops is registered and
-> > blocks registration while ftrace is disabled. Trampolines had this
-> > same protection from 2019 to 2022 while sharing a global direct_ops
-> > marked permanent, but lost it during the 2022 per-trampoline-ops
-> > split. ftrace based Kprobes never had this protection.
-> >
-> > The breakage was introduced in commit 00963a2e75a8 ("bpf: Support
-> > bpf_trampoline on functions with IPMODIFY (e.g. livepatch)").
-> >
-> > With these commits, writing 0 is refused with -EOPNOTSUPP and a
-> > one-time warning is logged; reads and writing 1 are unaffected. Steven
-> > Rostedt requested and reviewed this change on the mailing list,
-> > including the follow-up selftest update.
-> >
-> > We would like to backport this to LTS branches starting with 6.1.y,
-> > where the breaking commit already exists.
-> >
-> > Mailing list threads for reference:
-> >
-> >   - RFC v1: https://urldefense.com/v3/__https://lore.kernel.org/bpf/202=
-60730163544.2042327-1-andrey.grodzovsky@crowdstrike.com/__;!!BmdzS3_lV9HdKG=
-8!1ja9D51Ex2VTTMdOEl4Eb-3ORL8CXBX1biYMPMLmT1iP3r8I8tfDE41DOth6sc54E3ODLfRqY=
-SaIdTR60lcLWOzV4jPY7w$
-> >   - RFC v3 (final):
-> > https://urldefense.com/v3/__https://lore.kernel.org/bpf/20260806153000.=
-4184871-1-andrey.grodzovsky@crowdstrike.com/__;!!BmdzS3_lV9HdKG8!1ja9D51Ex2=
-VTTMdOEl4Eb-3ORL8CXBX1biYMPMLmT1iP3r8I8tfDE41DOth6sc54E3ODLfRqYSaIdTR60lcLW=
-OxUSL-qOg$
-> >
-> > I can provide rebased backports for any trees where these commits do
-> > not apply cleanly.
->
-> I'm really nervous about backporting patches that may be reverted
-> upstream. These change user space API and if anything depends on the
-> old behavior, it will be reverted. That would also mean stable would
-> need to revert it too.
->
-> Instead, please post the first two patches of your original series:
->
->   https://urldefense.com/v3/__https://lore.kernel.org/all/20260729005959.=
-3853865-1-andrey.grodzovsky@crowdstrike.com/__;!!BmdzS3_lV9HdKG8!1ja9D51Ex2=
-VTTMdOEl4Eb-3ORL8CXBX1biYMPMLmT1iP3r8I8tfDE41DOth6sc54E3ODLfRqYSaIdTR60lcLW=
-Oyr231hEA$
->
-> I rather push these upstream even if they are not really needed. But
-> those are much safer to backport because it "fixes" the problem even if
-> the main fix gets reverted.
->
-> -- Steve
+Since commit 56651128e2fb ("MIPS: Fix idle VS timer enqueue"),
+BUILD_SKIPOVER_PROLOGUE uses label differences as the immediates of ORI
+and PTR_ADDIU. The LLVM integrated assembler accepts such an immediate
+only from LLVM 21 on, so LLVM=1 builds of every MIPS configuration fail
+with LLVM 17 to 20 unless LLVM_IAS=0 is set:
 
-Hi Steve, coming back to this topic (sorry it took me a while - other
-work related stuff kept me busy). Are you still willing to accept  [1]
- upstream ? If yes, can you also please clarify why only the first 2
-patches and not the third, selftest patch?
+  <instantiation>:7:11: error: expected an immediate
+   ori $26, r4k_wait_idle_size - 2
+            ^
+  <instantiation>:10:14: error: expected an immediate
+    addiu $26, r4k_wait_exit - r4k_wait_insn + 2
+               ^
 
-Andrey
+Wrap both expressions in %lo(). For that operator, LLVM 17 to 20
+emit a LO16 fixup instead of rejecting the operand, and resolve it when
+writing the object, since both expressions are constants by then; no
+relocation is left. Both values are between 2 and 30, so %lo() does
+not change them. GNU as and LLVM 21 to 23 emit the same code as
+before, except on microMIPS, where GNU as now uses the 32-bit ADDIU in
+the delay slot instead of the 16-bit one. With GCC, the 2 extra bytes
+replace the 16-bit NOP that padded the end of the prologue, so all
+symbols keep their addresses; with Clang and LLVM_IAS=0, except_vec_vi
+and the code after it, up to nmi_handler, move by 4 bytes.
 
-[1] - https://urldefense.com/v3/__https://lore.kernel.org/all/2026072900595=
-9.3853865-1-andrey.grodzovsky@crowdstrike.com/__;!!BmdzS3_lV9HdKG8!1ja9D51E=
-x2VTTMdOEl4Eb-3ORL8CXBX1biYMPMLmT1iP3r8I8tfDE41DOth6sc54E3ODLfRqYSaIdTR60lc=
-LWOyr231hEA$
+Fixes: 56651128e2fb ("MIPS: Fix idle VS timer enqueue")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202505071331.Z0N2eSkr-lkp@intel.com/
+Link: https://github.com/llvm/llvm-project/commit/b65e0947cade9bd39036a7700b54c1df4ec00756
+Cc: stable@vger.kernel.org # 6.18.x: 2b6d718c8dbe: MIPS: Fix whitespace damage in r4k_wait from VS timer fix
+Cc: stable@vger.kernel.org # 6.18.x
+Signed-off-by: Tzu-Ching Yang <shingekinocore@gmail.com>
+---
+No MIPS hardware here. Against mips-fixes (v7.4-rc1). All builds use
+W=1 and kernel.org toolchains.
+
+- genex.o, before and after, with GCC 8.1 to 16.2 and with LLVM 17 to
+  23, both with the integrated assembler and with LLVM_IAS=0. Configs:
+  64r6el, 32r6el, 64r2el, 32r2el, eyeq5, eyeq6, malta (little and big
+  endian, MIPS32r1, microMIPS little and big endian), ip22, ip27,
+  loongson3 and cavium_octeon.
+  - The objects are byte-identical before and after with GCC, with
+    LLVM_IAS=0 and with LLVM 21 to 23. The only exception is the
+    microMIPS ADDIU above. The 4-byte move with LLVM_IAS=0 is harmless:
+    set_vi_handler() computes the offsets and the length of the vectored
+    handler from symbols before copying it, and ejtag_debug_handler and
+    nmi_handler are only referenced through their symbols.
+  - LLVM 17 to 20 now assemble genex.o for all of these configs except
+    microMIPS and Octeon, which the integrated assembler rejects for
+    other reasons. For malta (little and big endian, MIPS32r1), ip22
+    and ip27, these objects are byte-identical to the LLVM 21 genex.o.
+- vmlinux of 64r2el, 32r2el and malta, built with GCC 8.1 and 16.2,
+  LLVM 17, 20, 21 and 23, and LLVM 17 with LLVM_IAS=0. Where both sides
+  build, vmlinux is byte-identical before and after. With LLVM 17 and
+  20, genex.o was the only object that failed before, and vmlinux links
+  after. No new warnings.
+- The malta kernels built with GCC 8.1 and 16.2, LLVM 17, 20 and 23, and
+  LLVM 17 with LLVM_IAS=0 boot under QEMU 6.2 -cpu 24Kf. That CPU uses
+  r4k_wait(), so interrupts go through skipover_handle_int. Each kernel
+  boots to an init that keeps the CPU going in and out of idle and then
+  reboots; a QEMU trace shows every interrupt that lands in the idle
+  region resuming at r4k_wait_exit. A microMIPS kernel does not boot
+  under QEMU -cpu M14Kc with or without this patch, so the microMIPS
+  change was not run.
+
+In the 2025 thread [2], Nathan suggested requiring LLVM 21 for MIPS in
+min-tool-version.sh, and Maciej an #error for older Clang. Both would
+also stop LLVM 17 to 20 builds with LLVM_IAS=0, which work today, and
+the stable trees would need the same change before 56651128e2fb could
+go back to them.
+
+On 6.18.y, which also allows LLVM 15 and 16, the patch applies after
+2b6d718c8dbe, and LLVM 15 and 16 fail and are fixed the same way.
+
+The 56651128e2fb backport was dropped from the 6.14, 6.12 and 6.6
+stable queues because of this build failure [1], so 6.12.y and 6.6.y
+still lack that fix.
+
+[1] https://lore.kernel.org/r/2025051415-unloader-likely-b0e6@gregkh/
+[2] https://lore.kernel.org/r/20250521224450.GA2412476@ax162/
+
+ arch/mips/kernel/genex.S | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/mips/kernel/genex.S b/arch/mips/kernel/genex.S
+index be1b049d856f..ef27965f6ad9 100644
+--- a/arch/mips/kernel/genex.S
++++ b/arch/mips/kernel/genex.S
+@@ -146,10 +146,10 @@ r4k_wait_exit:
+ 	MFC0	k0, CP0_EPC
+ 	/* Subtract/add 2 to let the ISA bit propagate through the mask.  */
+ 	PTR_LA	k1, r4k_wait_insn - 2
+-	ori	k0, r4k_wait_idle_size - 2
++	ori	k0, %lo(r4k_wait_idle_size - 2)	/* %lo() for LLVM < 21 */
+ 	.set	noreorder
+ 	bne	k0, k1, \handler
+-	 PTR_ADDIU	k0, r4k_wait_exit - r4k_wait_insn + 2
++	 PTR_ADDIU	k0, %lo(r4k_wait_exit - r4k_wait_insn + 2) /* ditto */
+ 	.set	reorder
+ 	MTC0	k0, CP0_EPC
+ 	.set pop
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.34.1
+
