@@ -1,58 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827245;
-	b=s0Lpx4O8LbLvbjMsjVNsSs/2aBDpKYMDEIy26WkW8tJNv3migLxvuOCqful69IiJk29m
-	 EC5yo7ONvr8eM7ebPJXV4XP4+9uXb9c+GSihoXk5uQJldf9JtmfSO1lwYpYgJGBT3iYqq
-	 TbP3Vkhjb0CWsTJC4AZNM1dInoA1mDKIqWvkwnVSrn2RGHaV4GbF9OpJkxY6Pjy/di/+C
-	 AuKDz5hg0k8h9hJx0rqdw4FgTe3ssM7FYLl+8YOKSQq2Z2cp5KLpISfevtIMpS9k9oz8s
-	 4/B66etuQ0V0NvGvqKTH6OQXUvhCIbxpEqhbm0XrDmqJAokEqgeTAU2Uy6/JW7CR2Sg==
+	t=1793827701;
+	b=1DGh/vyFm7Lo3Vve92IXWIpnb+ch53LbdarZRX/f1GGkIPGgBnUlHLj9AQeVELhJe/9Z
+	 +4jDcrhezCbHVTxBjIzvgAfFsBj1i6rzPj20wpZJV2eeEQ0rJMTNO6tfsfv+6AugLzQ6o
+	 fQpDSoj3Y+ELePxkh5OXIXmxARZvCilKwsMqVPVPfsNKS66mPasOFl9hvfO75uF6Dd32E
+	 +yvgLtjdv5LJFMrPnK8fKBVgGJWLIbr/FFuTh35ufNhBt6P7RRRNPnyLPhNPJWGddahsp
+	 4IqGAT1g+FG4F/dTIATqG6Q9rtVQrG5iw070eTQAPy1XPebPAvwqEW36ZDDJ4s51V9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827245;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8YMpBBFnC75fQxbW1bR4ozxfud1UODyYYWcu9Xi5/Mc=;
-	b=kFFFrtzIbjQL5ucPYc/WYf6iw/dwRLpxJoUv1RsvLN0vaqkSVgN2TabyVr7PCqeObcay
-	 KW08Ye6gpHZsw54rCGx+WsAW/Oq1hePxmXT5GD8/iapm6A6YuC2i1Qpj8/AeifApuohts
-	 8uW1UeBYKTHznj89NjE+oApogdoT0QPlfe5R6fXuSnq3qmCwgB/FIaSlpfjjCoZRueG03
-	 Auk2ZclscghVd/IAWLxtYwvdOl+NQciRqmfNSdrznwiWCpXFeDfGSxdyXLJ9A3D9ks1vB
-	 D2ITadjx/gxr3L4o+SEeVuDLsL+k986IEXzSjCd0DDby3o03Y4iUytsuMVZCTiHigAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827701;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=5bb5pZgvdlB0zwtIHxMXIpmN4q11PB8sTOikLkpnbGA=;
+	b=J8sEfU3HF8s17lsuh605iXYrUtzs3Mlp4EkHnDijdabDSn7w+sncQdMDKRCkXbXPTNTL
+	 VVopG7cDtxUJf7PofdTfV6NhOVUlLKGSO8UVkfDNVJevnGNGBaXdTDpufXgwTu5UYb7+t
+	 qmgUZdR5vQbFPPbH2KeTZBx4DKJTyCe/SCwZ43mdP/d6IvlS9OT4zeYFAK0f6Nrj6bUfH
+	 lIy8NY+kDRtXcIUHs6jbxBSppbH/MnpRKUIG4By3zMBtWaGP+MkfQyUzNCEM4Y2SFzpcD
+	 Js+N7GnMrxqAU26tsX1nEUiW2HrwkzSV6GKsT6Vy1LaNvSYNGoID2qb6Gvk2Z4jycVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TfTJ5vC7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=manguebit.org;
+	spf=pass smtp.mailfrom=manguebit.org;
+	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=TQgyHP+L;
+	arc=none smtp.remote-ip=143.255.12.172
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459C9606AC00;
-	Wed,  4 Nov 2026 21:20:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6F7606BA25;
+	Wed,  4 Nov 2026 21:28:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D6F7606BA25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TfTJ5vC7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5F691F00919;
-	Wed,  4 Nov 2026 21:20:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793827245;
-	bh=8YMpBBFnC75fQxbW1bR4ozxfud1UODyYYWcu9Xi5/Mc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TfTJ5vC7tkJjTk8hmH6BW7thcCqNK7BQbyw0RV1HjIjRA6rC9+dvreBU98gQoowGZ
-	 teiBKcKm0nLXL8AFIgWUyv17n/TYXRG/FLbCw6u4KLxC39tvhPbxgfXena22jvVZYh
-	 27Pj1rjYHaCFs0Ng4crBc5g8Jxk+G9f14D3I/R04=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Diego Oliva <diego@bynar.io>,
-	David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>
-Subject: [PATCH 7.3 279/547] smb: client: fix OOB last_entry pointer from unbounded LastNameOffset
-Date: Wed,  4 Nov 2026 16:07:43 -0500
-Message-ID: <20261104211046.128329579@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=TQgyHP+L
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
+	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
+	Content-ID:Content-Description;
+	bh=5bb5pZgvdlB0zwtIHxMXIpmN4q11PB8sTOikLkpnbGA=; b=TQgyHP+LkzWqNqZXayzh18rtWw
+	nBVVElZVUVHZQmOapMpwSk7qDsxP8IyNNpXYjpgko7XIpqyA6gyO4bl7gTz1iQlESpwfciC+rUydP
+	x6hGvkP+4L0QZSWyx2VBwknEzCb665p2uoI0aMP49eeewlbtK0lUOvCylCUYBUcG7Nywq3ZP8oplc
+	4BEdAnzrIrQFF8yIma82/uRKO+2Fef/J6Nnkdg8oR3D/cQICb7ggq6XepR+bNjSEErj9Hp/A4EefZ
+	FZavCUexoAMgXC0Is6tGHGqV9xM4macKhNkDDCTSPx2kbCr4jw+h0y7myspndEHpvQJWbDuzvumHq
+	XqXjPy7Q==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
+	id 1xOiWh-00000000rGF-27na;
+	Wed, 04 Nov 2026 18:28:12 -0300
+From: Paulo Alcantara <pc@manguebit.org>
+To: linux-cifs@vger.kernel.org,
+	netfs@lists.linux.dev,
+	David Howells <dhowells@redhat.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Christian Brauner <brauner@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 05/17] smb: client: don't give up writeback on the first replayable error
+Date: Wed,  4 Nov 2026 18:27:58 -0300
+Message-ID: <20261104212810.1935575-6-pc@manguebit.org>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
-References: <20261104211038.406938024@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+In-Reply-To: <20261104212810.1935575-1-pc@manguebit.org>
+References: <20261104212810.1935575-1-pc@manguebit.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,166 +74,122 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+Read and write retries follow the hard and retrans mount options, and
+mounts are soft with no retrans by default.  For writeback this means
+that a single replayable error, e.g. a reconnect while sending, fails
+the subrequest and netfs ends writeback with its folios clean: the data
+is gone, possibly long after write(2) succeeded, with only fsync(2) left
+to notice.  NFS soft mounts, by comparison, wait minutes for a server to
+answer before failing a request.
 
-------------------
+Keep retrying writeback on replayable errors, with exponential backoff:
+forever on hard mounts, and on soft mounts for max(3, retrans) echo
+intervals from the first failure - 3 minutes by default, the time after
+which a silent server is considered unresponsive.  The window applies to
+each write sent to the server, not to the whole writeback.  umount -f or
+a shutdown still stops it right away.  Direct and unbuffered writes,
+whose callers get the error, keep following the mount options.
 
-From: Diego Oliva <diego@bynar.io>
-
-commit 570c783a96f054dd3ac409a92772e9afb705d21c upstream.
-
-CIFSFindFirst() and CIFSFindNext() locate the last entry of a
-TRANS2_FIND_FIRST2 or TRANS2_FIND_NEXT2 response by adding the
-LastNameOffset of the response parameters to the start of the data
-area, and store the result in psrch_inf->last_entry. MS-CIFS 2.2.6.2.2
-defines that offset as the offset of the entry's file name; the client
-follows the reading of NT and Samba servers, which point it at the
-entry. LastNameOffset is only checked against CIFSMaxBufSize, which
-says nothing about the response actually received: validate_t2() lets
-the data area start up to 1024 bytes into the buffer, and SendReceive()
-copies at most CIFSMaxBufSize + MAX_CIFS_HDR_SIZE bytes of a response,
-16468 by default, into a cifs_request allocation of CIFSMaxBufSize +
-MAX_SMB2_HDR_SIZE bytes, 16588 by default. The pointer itself can
-therefore be placed anywhere from the end of the received data to 820
-bytes past the end of the allocation.
-
-The read through that pointer is far larger than its displacement.
-find_cifs_entry() hands last_entry to cifs_save_resume_key() after every
-FindNext and after the FindFirst of a search rewind, and
-cifs_fill_dirent() takes the length of the name from the entry itself: a
-__le32 FileNameLength for most levels, a __u8 for
-SMB_FIND_FILE_INFO_STANDARD, and for SMB_FIND_FILE_UNIX the result of a
-scan for the terminating NUL over up to PATH_MAX + 1 UTF-16 units. The
-name is recorded as the resume name of the search, and the next
-CIFSFindNext() rejects only a recorded length of PATH_MAX or more before
-copying the name into the ResumeFileName of its request and sending it
-with the resume key taken from the same entry: up to 4 KiB of memory
-from past the end of the allocation leaks to the server, and for
-SMB_FIND_FILE_UNIX the NUL scan runs about twice as far before the
-length is even known. The entry does not have to lie outside the
-response for that either: a maximal response ends about 120 bytes before
-the end of the allocation, so an entry in its last bytes with a name
-just under PATH_MAX has nearly all of that name copied from past the
-allocation.
-
-It needs nothing unusual from the client: a FindNext response that
-reports no entries and does not end the search makes find_cifs_entry()
-send the next FindNext at once, carrying whatever was parsed at
-LastNameOffset, and a search rewind can do the same after its
-FindFirst. SMB1 is not negotiated by default: this takes a malicious
-or compromised server, a mount of it with an explicit vers=1.0, which
-CONFIG_CIFS_ALLOW_INSECURE_LEGACY (default y) permits, and a directory
-listing on that mount.
-
-With KASAN enabled, a response that places the last entry past the
-buffer, with a large DataOffset and a LastNameOffset near the end of
-its range, gives:
-
- ==================================================================
- BUG: KASAN: slab-out-of-bounds in cifs_save_resume_key.isra.0+0x7aa/0x7f0
- Read of size 4 at addr ffff88807b55c33b by task ls/83
-
- CPU: 1 UID: 0 PID: 83 Comm: ls Not tainted 7.3.0-rc4-00457-gf14572c203d5 #69 PREEMPT(lazy)
- Call Trace:
-  <TASK>
-  kasan_report+0xdf/0x1a0
-  cifs_save_resume_key.isra.0+0x7aa/0x7f0
-  cifs_readdir+0x1ed6/0x29c0
-  iterate_dir+0x1c0/0x570
-  __x64_sys_getdents64+0x133/0x270
-  do_syscall_64+0x109/0x5d0
-  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  </TASK>
-
- Allocated by task 83 on cpu 0 at 19.317556s:
-  cifs_buf_get+0x36/0x90
-  smb_init+0x4f/0x110
-  CIFSFindNext+0xf7/0x14c0
-  cifs_readdir+0xf51/0x29c0
-
- The buggy address belongs to the object at ffff88807b558000
-  which belongs to the cache cifs_request of size 16588
- The buggy address is located 623 bytes to the right of
-  allocated 16588-byte region [ffff88807b558000, ffff88807b55c0cc)
- ==================================================================
-
-The four bytes read there are the FileNameLength of the entry, which
-cifs_fill_dirent() takes before anything checks where the entry lies.
-
-Ignore the last entry when it does not start inside the received
-response or the response holds no entries; for a response without
-entries, last_entry pointed into or past its empty data area and
-cifs_save_resume_key() parsed whatever the buffer held there. The
-entry is bounded by the response that was received, which is what the
-buffer holds, rather than by the data area the response declares,
-which a later patch checks against the received length. Record the
-search handle before the last entry is examined, since a response
-without a usable last entry still carries the handle that the search
-is continued and closed with; leaving the assignment in the else
-branch would drop the handle of every response without entries.
-
-This bounds where the last entry starts, not how far it is parsed: an
-entry that starts within the final bytes of the response still has
-its fixed part read past the end of the received data and its name,
-up to 4095 bytes, copied from past the end of the allocation, until
-the following patch bounds the parse itself. A response without a
-usable last entry continues the search with an empty resume name,
-since the preceding patch, "smb: client: fix use-after-free infoleak
-via the readdir resume name", drops the recorded name whenever a new
-response is installed. This patch applies on top of that one and
-relies on it: without it, every response rejected here would leave
-the previous name in place, pointing into a buffer that has been
-released.
-
-A conforming server is not affected: the last entry lies inside the
-data area of the response.
-
-Fixes: 0752f1522a91 ("[CIFS] make sure we have the right resume info before calling CIFSFindNext")
-Fixes: b77d753c413e ("[CIFS] Check that last search entry resume key is valid")
-Cc: stable@vger.kernel.org
-Assisted-by: Bynario AI
-Signed-off-by: Diego Oliva <diego@bynar.io>
-Reviewed-by: David Howells <dhowells@redhat.com>
+Fixes: 2c1238a7477a ("cifs: make retry logic in read/write path consistent with other paths")
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org
 ---
- fs/smb/client/cifssmb.c |   14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ fs/smb/client/cifsglob.h  |  1 +
+ fs/smb/client/file.c      | 21 +++++++++++++++++++++
+ fs/smb/client/smb2ops.c   |  9 +--------
+ fs/smb/client/smb2proto.h |  9 +++++++++
+ 4 files changed, 32 insertions(+), 8 deletions(-)
 
---- a/fs/smb/client/cifssmb.c
-+++ b/fs/smb/client/cifssmb.c
-@@ -4546,14 +4546,17 @@ findFirstRetry:
- 	psrch_inf->presume_name = NULL;
- 	psrch_inf->resume_name_len = 0;
- 	psrch_inf->resume_key = 0;
-+	if (pnetfid)
-+		*pnetfid = parms->SearchHandle;
- 	lnoff = le16_to_cpu(parms->LastNameOffset);
--	if (CIFSMaxBufSize < lnoff) {
-+	if (!psrch_inf->entries_in_buffer) {
-+		psrch_inf->last_entry = NULL;
-+	} else if (psrch_inf->srch_entries_start + lnoff >=
-+		   psrch_inf->ntwrk_buf_start + bytes_returned) {
- 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
- 		psrch_inf->last_entry = NULL;
- 	} else {
- 		psrch_inf->last_entry = psrch_inf->srch_entries_start + lnoff;
--		if (pnetfid)
--			*pnetfid = parms->SearchHandle;
- 	}
- 	return 0;
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index fb732c178e76..b6a993cc0245 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -1499,6 +1499,7 @@ struct cifs_io_subrequest {
+ 	bool				replay;
+ 	unsigned int			retries;	/* number of retries so far */
+ 	unsigned int			cur_sleep;	/* time to sleep before replay */
++	unsigned long			retry_deadline;
+ 	struct kvec			iov[2];
+ 	struct TCP_Server_Info		*server;
+ #ifdef CONFIG_CIFS_SMB_DIRECT
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index fdf918440a1d..e79eacacf625 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -49,12 +49,33 @@ bool cifs_io_stopped(struct cifs_io_subrequest *subreq)
+ 	       subreq->req->umount_aborts;
  }
-@@ -4672,7 +4675,10 @@ int CIFSFindNext(const unsigned int xid,
- 	psrch_inf->resume_name_len = 0;
- 	psrch_inf->resume_key = 0;
- 	lnoff = le16_to_cpu(parms->LastNameOffset);
--	if (CIFSMaxBufSize < lnoff) {
-+	if (!psrch_inf->entries_in_buffer) {
-+		psrch_inf->last_entry = NULL;
-+	} else if (psrch_inf->srch_entries_start + lnoff >=
-+		   psrch_inf->ntwrk_buf_start + bytes_returned) {
- 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
- 		psrch_inf->last_entry = NULL;
- 	} else {
-
+ 
++static bool cifs_writeback_retry_expired(struct cifs_io_subrequest *subreq,
++					 struct cifs_tcon *tcon)
++{
++	struct TCP_Server_Info *server = tcon->ses->server;
++	unsigned long window;
++
++	if (tcon->retry)
++		return false;
++	if (!subreq->retry_deadline) {
++		window = max(3U, server->retrans) * server->echo_interval;
++		subreq->retry_deadline = (jiffies + window) | 1;
++	}
++	return time_after(jiffies, subreq->retry_deadline);
++}
++
+ bool cifs_io_should_replay(struct cifs_io_subrequest *subreq)
+ {
+ 	struct cifs_tcon *tcon = tlink_tcon(subreq->req->cfile->tlink);
+ 
+ 	if (cifs_io_stopped(subreq))
+ 		return false;
++	if (subreq->rreq->origin == NETFS_WRITEBACK) {
++		if (cifs_writeback_retry_expired(subreq, tcon))
++			return false;
++		smb2_replay_backoff(&subreq->cur_sleep);
++		return true;
++	}
+ 	return smb2_should_replay(tcon, &subreq->retries, &subreq->cur_sleep);
+ }
+ 
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index dc55cd512616..457f18ce3245 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -2934,14 +2934,7 @@ bool smb2_should_replay(struct cifs_tcon *tcon,
+ 		return false;
+ 
+ 	if (tcon->retry || (*pretries)++ < tcon->ses->server->retrans) {
+-		/* Update sleep time for exponential backoff */
+-		if (!(*pcur_sleep))
+-			(*pcur_sleep) = 1;
+-		else {
+-			(*pcur_sleep) = ((*pcur_sleep) << 1);
+-			if ((*pcur_sleep) > CIFS_MAX_SLEEP)
+-				(*pcur_sleep) = CIFS_MAX_SLEEP;
+-		}
++		smb2_replay_backoff(pcur_sleep);
+ 		return true;
+ 	}
+ 
+diff --git a/fs/smb/client/smb2proto.h b/fs/smb/client/smb2proto.h
+index c79e5cb2ce26..b2acff8938f3 100644
+--- a/fs/smb/client/smb2proto.h
++++ b/fs/smb/client/smb2proto.h
+@@ -121,6 +121,15 @@ unsigned long smb_rqst_len(struct TCP_Server_Info *server,
+ void smb2_set_next_command(struct cifs_tcon *tcon, struct smb_rqst *rqst);
+ void smb2_set_related(struct smb_rqst *rqst);
+ void smb2_set_replay(struct TCP_Server_Info *server, struct smb_rqst *rqst);
++
++static inline void smb2_replay_backoff(int *pcur_sleep)
++{
++	if (!*pcur_sleep)
++		*pcur_sleep = 1;
++	else
++		*pcur_sleep = min(*pcur_sleep << 1, CIFS_MAX_SLEEP);
++}
++
+ bool smb2_should_replay(struct cifs_tcon *tcon, int *pretries,
+ 			int *pcur_sleep);
+ 
+-- 
+2.56.0
 
