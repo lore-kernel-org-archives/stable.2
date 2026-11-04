@@ -1,47 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814711;
-	b=VvgpeUdCN9bK80rUFQsOx5sXastDa1YKkAGCR3jFY3qy1/q0weAvXm72csx7PCplG59k
-	 O+oK6bxdJXKPc/XtG8Y4ZzdQGod0wywaWV3WzCMpuWVfVpGFfqbTHzVGW7Bv25BWAdHRf
-	 wxKuj7bYNlclskWqs1QNRnZabNzXF4avPgCK1nYD8T63BRRt5HRZ1qtqQ/BwLtAC3Z5z+
-	 pBHlSUawNYhmz5HcpY0+aZvaO7pvKhDT4xrB3N21mdRGMELikiEtnnlRLOxltrc+ZKJKM
-	 aWfbaVvpmcIWAEkySoeoS8ZMplgxBb3XN60tLDo8imV7isr/OGYaG1oSRMllG8/YXgg==
+	t=1793814727;
+	b=04psKz3oFnaw9KvvY31divS79/JyDGGJfLFkj67gCo0d6v+nO1Pc0ThqmdPBAm27UcBe
+	 /cR3RNli93JzKghmJexVloSN1vFlOH7XeFKXFjWEzuXUpn1pI1vCYU2rmpnigkcv+eLWH
+	 G/+76i/J4WA2YGNQRSXhmH/RSk2vorhELPXn3bBzv0y1ElZgN+QORXfS16vdXT30mlsD8
+	 KHvHWko3+GDGmrwuqT5e5TrupynbNprQcpvvV0SvLWlE7CCjqfBkMjuw9Sp30TwgxqilM
+	 DLJDjnnuKQFDWXS7uW6N6E91jNLOm7i64WNaGUMtGN1Y+DRXzvU0pY1ta+mvfnQz6Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814711;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fkrQJ3trz+wuq6XP+ogNVKpM1eojCRDeCVvEti9U9To=;
-	b=bTHlh8mpP2PX/YxAr7K1SapiaCz7FutzWMsIl/tbC/9IL4nWlBzKeftRgOUSk0X8/2HP
-	 m9WVARg8eeLD1J8u08lBEqTVbrUn1IgCQNTHD0Fb4Sco1h3pRURhv+VeAqg8Wq/zcLWAU
-	 /D2kPHR73GnWIDNoRMv9woeCBhZEKNp8zshmhkJamZZWR69L34dYGGDmDvO7LpmJcDojJ
-	 NrYxwEL2vKvX4yuwyyhyORYDjU/3BRpvazRDlF0s3+wm/57gKDqejrVBev1o2jdSK2tJ2
-	 IVJfmB6GdGF9lnAhXxrtxm2MVuo34EuonnuL0jA06YjxLU4rbt7cZ4m5heLs7eXoM/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814727;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=S8IXtzTL1USde6aV/lVKsFPWulIUW0ciUvC5Tm4lMm4=;
+	b=3dqbY6nkb2V/eu689wLaf84Wpe1M/x452PN++BEq1m9ihuiRnd8uN/+Elm3+EJWvYSeZ
+	 bgxlP+6JXPV7SsBrP+NbyqBNShzE8mhhaLxVgO6tYwiJr8Px8x+qh/jPW8a77NhH+vImb
+	 ap66JlLuEEO3uuJr88xuTuVzFW5pgoJCuzai6q7JbnP6WF2gRRZqZVk/qBXnteMQM+l0w
+	 X3yXjTaP3Kd1vcU/ChKfzl85JW6mM9AtRchHW4r+oKgr7iWcbTeEoAfbikfLfCwdwpN14
+	 7K14qkYng2vVUr+09A0IhoebFrs6/dUGM/qWOj3ipqulsAuqUoLbBgrB858CaV6JyUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RYV1Kzc8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mf50A7c4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C81606A68D
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:51:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4768360716A7;
+	Wed,  4 Nov 2026 17:52:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RYV1Kzc8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E35651F00A02;
-	Wed,  4 Nov 2026 17:51:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793814711;
-	bh=fkrQJ3trz+wuq6XP+ogNVKpM1eojCRDeCVvEti9U9To=;
-	h=Subject:To:Cc:From:Date;
-	b=RYV1Kzc8Whh08BWIUhl6HTP4muP7vaPITRA0olHP48NlsWSVR9Vso8O67GXeuscuR
-	 haZj2uH1I1D000/gyEOtfmWPHV+e8EiQTnhgGz3a7OYkEEfGubq3edjMWQju5+QTDR
-	 8DZNVm57++kWx2Pl4IZxjS3ahCqisAbj2+4syd1Q=
-Subject: FAILED: patch "[PATCH] xfs: improve dirent bounds checking in scrub and repair" failed to apply to 6.12-stable tree
-To: djwong@kernel.org,cem@kernel.org,hch@lst.de
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 12:51:39 -0500
-Message-ID: <2026110439-earlobe-retract-6b7b@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mf50A7c4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A12B1F00A15;
+	Wed,  4 Nov 2026 17:51:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793814727;
+	bh=S8IXtzTL1USde6aV/lVKsFPWulIUW0ciUvC5Tm4lMm4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Mf50A7c4fpaWARlrfltAJNXBhTSZuGrfKtFtGImZQJqXW3N9v7Y1OQFxFmkFkK5Ct
+	 bapsswn/j1rtyZQs4yPKDUvsPIf5PDmdksaztU62PPad3Jkbs8dRzSiZVJ+Ai4/9A7
+	 TOu/Cu4dvVAHo5CKEYiXGvTJnnQShxT00W42Aojf1ls84KBw0r2BVE/YpDekWmtN8L
+	 TKNaSWXmrlOTNpBzznkpl/BqVQ3rVQSmt0pyyR+1Vz/bjCdzyITaMgfaSUm99mamzI
+	 je3hQ99LqYBMj8gFmNEHVbqfHXEiVCfrmKNAjKbdNUHX9zYW2a8uoSL2qV2eT6wKro
+	 prddoqpdnGVCA==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 26/51] scsi: core: NUL-terminate what is written to the host proc files
+Date: Wed,  4 Nov 2026 18:47:12 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-26-bbf7d5546809@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,258 +115,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1011; i=brauner@kernel.org; h=from:subject:message-id; bh=jBwXVCCRpDjmnAajxR/zAvEvmAtZKAE0jCj6+Cnx3v0=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9zrv3a4XNr8e6d1tDr0b7KBzIWafbojAr+fDFhXfE9 vg02md3dpSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzk4g5Ghh8f/uzl4px+y8Ir 7Jr5ATWGvLtVV5S3nzBgvC4T9mgf8xtGhl0p83Un1Eie5LavWZ4U5lee5LyI7VCWQtVx3w8B4jw qjAA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
+proc_scsi_host_write() copies what is written into a page and hands it
+to ->write_info() without terminating it. ppa and imm parse it with
+strncmp() and simple_strtoul(), which read on past what was written into
+whatever the page held before. Terminate the copy. A write is at most
+PROC_BLOCK_SIZE bytes, so the page always has room for that.
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ drivers/scsi/scsi_proc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x 5d470234d04dae6fe2ca2cf4b9ef277b78c7e05a
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110439-earlobe-retract-6b7b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 5d470234d04dae6fe2ca2cf4b9ef277b78c7e05a Mon Sep 17 00:00:00 2001
-From: "Darrick J. Wong" <djwong@kernel.org>
-Date: Mon, 12 Oct 2026 23:10:09 -0700
-Subject: [PATCH] xfs: improve dirent bounds checking in scrub and repair
-
-LOLLM complains that we don't do enough bounds checking of the directory
-entries in directory blocks when we're looking for errors or trying to
-salvage entries.  Let's improve that with more detailed checks.
-
-Cc: stable@vger.kernel.org # v4.16
-Fixes: ce92d29ddf9908 ("xfs: directory scrubber must walk through data block to offset")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-
-diff --git a/fs/xfs/scrub/dir.c b/fs/xfs/scrub/dir.c
-index 8de593c5382d..d99e2a732723 100644
---- a/fs/xfs/scrub/dir.c
-+++ b/fs/xfs/scrub/dir.c
-@@ -325,11 +325,24 @@ xchk_dir_check_unused(
- 	struct xchk_da_btree		*ds,
- 	struct xfs_buf			*bp,
- 	unsigned int			iter_off,
--	unsigned int			end)
-+	unsigned int			end,
-+	xfs_dablk_t			rec_bno)
- {
- 	struct xfs_dir2_data_unused	*dup = bp->b_addr + iter_off;
-+	unsigned int			advance;
- 
--	return be16_to_cpu(dup->length);
-+	if (iter_off + sizeof(*dup) > end) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		return -1;
-+	}
-+
-+	advance = xfs_dir2_data_unusedsize(be16_to_cpu(dup->length));
-+	if (!advance || iter_off + advance > end) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		return -1;
-+	}
-+
-+	return advance;
- }
- 
- /*
-@@ -343,15 +356,31 @@ xchk_dir_check_entry(
- 	struct xfs_buf			*bp,
- 	unsigned int			iter_off,
- 	unsigned int			end,
--	struct xfs_dir2_data_entry	*dent)
-+	struct xfs_dir2_data_entry	*dent,
-+	xfs_dablk_t			rec_bno)
- {
- 	struct xfs_dir2_data_entry	*dep = bp->b_addr + iter_off;
- 	struct xfs_mount		*mp = ds->state->mp;
-+	unsigned int			advance;
-+
-+	/* must have namelen */
-+	advance = offsetof(typeof(*dep), name);
-+	if (iter_off + advance >= end) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		return -1;
-+	}
-+
-+	/* Don't walk off the end of the block. */
-+	advance = xfs_dir2_data_entsize(mp, dep->namelen);
-+	if (!advance || iter_off + advance > end) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		return -1;
-+	}
- 
- 	if (dep == dent)
- 		return 0;
- 
--	return xfs_dir2_data_entsize(mp, dep->namelen);
-+	return advance;
- }
- 
- /* Scrub a directory btree record. */
-@@ -379,6 +408,7 @@ xchk_dir_rec(
- 	xfs_dahash_t			hash;
- 	struct xfs_dir3_icleaf_hdr	hdr;
- 	unsigned int			tag;
-+	bool				foundit = false;
- 	int				error;
- 
- 	ASSERT(blk->magic == XFS_DIR2_LEAF1_MAGIC ||
-@@ -423,33 +453,44 @@ xchk_dir_rec(
- 	dent = bp->b_addr + off;
- 
- 	/* Make sure we got a real directory entry. */
--	iter_off = geo->data_entry_offset;
- 	end = xfs_dir3_data_end_offset(geo, bp->b_addr);
- 	if (!end) {
- 		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
- 		goto out_relse;
+diff --git a/drivers/scsi/scsi_proc.c b/drivers/scsi/scsi_proc.c
+index fdc355d783da..dbd03360b5a4 100644
+--- a/drivers/scsi/scsi_proc.c
++++ b/drivers/scsi/scsi_proc.c
+@@ -80,6 +80,7 @@ static ssize_t proc_scsi_host_write(struct file *file, const char __user *buf,
+ 		ret = -EFAULT;
+ 		if (copy_from_user(page, buf, count))
+ 			goto out;
++		page[count] = '\0';
+ 		ret = shost->hostt->write_info(shost, page, count);
  	}
--	for (;;) {
-+	iter_off = geo->data_entry_offset;
-+	while (iter_off < end) {
- 		struct xfs_dir2_data_unused	*dup = bp->b_addr + iter_off;
- 		int				advance;
- 
--		if (iter_off >= end) {
-+		/* must have freetag */
-+		advance = offsetof(typeof(*dup), length);
-+		if (iter_off + advance >= end) {
- 			xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
- 			goto out_relse;
- 		}
- 
- 		if (dup->freetag == cpu_to_be16(XFS_DIR2_DATA_FREE_TAG))
--			advance = xchk_dir_check_unused(ds, bp, iter_off, end);
-+			advance = xchk_dir_check_unused(ds, bp, iter_off, end,
-+					rec_bno);
- 		else
- 			advance = xchk_dir_check_entry(ds, bp, iter_off, end,
--					dent);
-+					dent, rec_bno);
- 		if (advance < 0)
- 			goto out_relse;
--		if (!advance)
-+		if (!advance) {
-+			foundit = true;
- 			break;
-+		}
- 		iter_off += advance;
- 	}
- 
-+	/* Hash tree must point to the exact dirent */
-+	if (!foundit) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		goto out_relse;
-+	}
-+
- 	/* Retrieve the entry, sanity check it, and compare hashes. */
- 	ino = be64_to_cpu(dent->inumber);
- 	hash = be32_to_cpu(ent->hashval);
-@@ -461,6 +502,13 @@ xchk_dir_rec(
- 		goto out_relse;
- 	}
- 
-+	/* Name must not overflow end of block */
-+	if ((char *)dent->name + dent->namelen >
-+	    (char *)bp->b_addr + BBTOB(bp->b_length)) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		goto out_relse;
-+	}
-+
- 	/* Does the directory hash match? */
- 	dname.name = dent->name;
- 	dname.len = dent->namelen;
-diff --git a/fs/xfs/scrub/dir_repair.c b/fs/xfs/scrub/dir_repair.c
-index ea4e729ec036..518e15d93d3b 100644
---- a/fs/xfs/scrub/dir_repair.c
-+++ b/fs/xfs/scrub/dir_repair.c
-@@ -473,8 +473,16 @@ xrep_dir_recover_unused(
- 	unsigned int			end)
- {
- 	struct xfs_dir2_data_unused	*dup = bp->b_addr + offset;
-+	unsigned int			advance;
- 
--	return be16_to_cpu(dup->length);
-+	if (offset + sizeof(*dup) > end)
-+		return 0;
-+
-+	advance = xfs_dir2_data_unusedsize(be16_to_cpu(dup->length));
-+	if (!advance || offset + advance > end)
-+		return 0;
-+
-+	return advance;
- }
- 
- /*
-@@ -492,11 +500,14 @@ xrep_dir_recover_entry(
- 	unsigned int			advance;
- 	int				error;
- 
-+	/* must have namelen */
-+	advance = offsetof(typeof(*dep), name);
-+	if (offset + advance >= end)
-+		return 0;
-+
- 	/* Don't walk off the end of the block. */
- 	advance = xfs_dir2_data_entsize(rd->sc->mp, dep->namelen);
--	if (!advance)
--		return 0;
--	if (offset + advance > end)
-+	if (!advance || offset + advance > end)
- 		return 0;
- 
- 	/* Ok, let's save this entry. */
-@@ -534,6 +545,11 @@ xrep_dir_recover_data(
- 		if (xchk_should_terminate(rd->sc, &error))
- 			return error;
- 
-+		/* must have freetag */
-+		advance = offsetof(typeof(*dup), length);
-+		if (offset + advance >= end)
-+			break;
-+
- 		if (dup->freetag == cpu_to_be16(XFS_DIR2_DATA_FREE_TAG))
- 			advance = xrep_dir_recover_unused(bp, offset, end);
- 		else
-@@ -565,6 +581,19 @@ xrep_dir_recover_sf(
- 	hdr = ifp->if_data;
- 	end = (unsigned char *)ifp->if_data + ifp->if_bytes;
- 
-+	/* sf header must be big enough for count/i8count */
-+	if (!hdr || ifp->if_bytes < 2)
-+		return 0;
-+
-+	/* and large enough for the parent inumber */
-+	if (hdr->i8count) {
-+		if (ifp->if_bytes < offsetof(struct xfs_dir2_sf_hdr, parent[8]))
-+			return 0;
-+	} else {
-+		if (ifp->if_bytes < offsetof(struct xfs_dir2_sf_hdr, parent[4]))
-+			return 0;
-+	}
-+
- 	ino = xfs_dir2_sf_get_parent_ino(hdr);
- 	trace_xrep_dir_salvaged_parent(rd->sc->ip, ino);
- 
+ out:
+
+-- 
+2.53.0
 
