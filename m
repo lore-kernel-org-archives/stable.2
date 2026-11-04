@@ -1,60 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783714;
-	b=QC61tCnQIf7jQFCSJEsH1GM7CvGGih0gpchBXaxS5yQI1vGklGpXIzDMlKYAEJmWZjD8
-	 yICg8jRpIG1gPyknZXl9kQl2rDlDwNOiJdwMkU0udOn2+If+OrCAP3zoTNuj2lZx+IQE1
-	 bCBK06kZmMqjrvfGteqUDLIpDUF4PiwzvHhmVcR2jQ0Vh5aT28Gab/Uloju0/umZj1qmJ
-	 lO2JWxU8lyvrTB0NpjrvjyqLGX2h3yZ048O1/gHDpydG9jrFwLUr8oxb/boYTtM6YEJDd
-	 soRWuWdVeW9p5QQhRsdKn7bQ49jx+3KG5DiZMhN/s71QbbSBqqwq/eqxFCnQY0KUTxg==
+	t=1793783736;
+	b=heY8DZfjs596eoeBD5Z2sDOUU9B1ozsiyIw9Ub5j5NN18cL3ACo/mUb+8fdUQxz5eknT
+	 AGHLKCBcM82NzD0fuSMaukcw6smbGvzmBLwxSSuq5fKTgnyFK3wIgZtHAwOfjsyOLGNUl
+	 EiCrjnO3XhFFGMySJ3xCOCLWogk3C1BrrMYba4ksBCT8888DurqYn6Vt6hFNjwvkESbOU
+	 /ilzQS+Bmzpgc8XaQVtUdl3qH0LHiLromofkdHAcDZgzYez5ObWIz+6D+m3kF3Mt6fzkT
+	 kzuU+alJ51HWmnUBCnfr72czmjbMxJZizh+ZFsMPXlAwFP7C4rrf0/Ct+Mu9O4f6a7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783714;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783736;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wozQOH0rL+df2ESKnkoR9U756io00+MftNixJAyhy9s=;
-	b=VnR4O7aCwwBMjjp9YP/QE8doJaqK31sXMFRbkDy9nOppAjv12jkSyLYFiiKt7CX10RYT
-	 2pDFOymbi2JfhzN2wnqr77O9G/8rPTJGYDc/vBNmgf920svl2rQN7mQMgE8NxvmpcSgsO
-	 YyX7XOFkOCiKXFVjG7Ok7EuXE42+tJKzVPbHd60UmnYZ8USfHxAA9D5C81g6xTU1KzwnQ
-	 Iiwy44cUveW+eYODF+4kCiQbN3OCFCDtfjfyGibiK+F0WNqXFGMxOuAPZmOZj0cKlxHCl
-	 yfhC6tWsuYKzIAKCuRvUn4fdt0ynpIZdGo6YRZbVmIznhnAF5q/+yODnqQJd3OiZzHw==
+	bh=tun3DxnivT6n8ykyvHDle1jgjloMyn9wMMyaVwUBJtE=;
+	b=xmcr7yec+WPhYpeNieSszKshZJXr/3jZlrcW8PLnr+8Zh4T2kyeXJvf1i/aGPlwa+qVS
+	 R6xPzgd1Ro2Z+SaMXtkyN6ZxEdLAAtVN6DqR2QjzGXvdlwahqdhv6qUOiaQl1kLdUMPPo
+	 svBQYusftCZ8mNsJ9Le9tpJsm1Jf6NSf+sX3zXiHp5gTlqJVORtB3x1oNI6PIm6r1kdGV
+	 PolVhj4xUkvFWlKwY7Lk1oM+acc8YBO0v7qi0n7xFCNGfHNKesXbXw7JqXVKcphP3VWel
+	 PHCWI5ukpuhM5nNOHoVBztxqRAXPCZbK895HWGrw28um8DVKOXnYgI8YqQOODf7vdeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UjA2xqeY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QF98rpjB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C101606A328;
-	Wed,  4 Nov 2026 09:15:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1070606A31B;
+	Wed,  4 Nov 2026 09:15:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UjA2xqeY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53D41F00919;
-	Wed,  4 Nov 2026 09:15:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QF98rpjB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 786C51F000C1;
+	Wed,  4 Nov 2026 09:15:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793783713;
-	bh=wozQOH0rL+df2ESKnkoR9U756io00+MftNixJAyhy9s=;
+	s=k20260515; t=1793783735;
+	bh=tun3DxnivT6n8ykyvHDle1jgjloMyn9wMMyaVwUBJtE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UjA2xqeYEK80i7Ppq03lQvL9aj7w7aCpnwjVlKlY4qACwWrO1xNZH7fqcg0/XQYXd
-	 0XIL1G57zMHPcLqouikUAlFkvwGNnm8TEe+24IPTE2jQRZRI+rAZV8LmaK1RNpS6CY
-	 VgMsB/z+HEkEgNNiR4S3FJ+IcrvX5Lhj9lHuDF3O1rEdd9gcSgRk2fkShoJcQeaK1R
-	 G8h5IWb1O1KAkMem6coEO1PTX2M3tQxZGkQyvjwPTBLfv46F0G9+q8RqQrcNpjeHNM
-	 I2ikync2oN5s0Hu/SoQvjlVGu0ChAoqqCFzQdaQFzUwb8DVF/4rYw9Mm9jkHtbz6Ug
-	 g1OvXpMbmC3ow==
-Date: Wed, 4 Nov 2026 09:15:06 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Rheinsberg <david@readahead.eu>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, stable@vger.kernel.org, 
-	Chris Mason <mason@kernel.org>
-Subject: Re: [PATCH 1/2] mm/memfd: handle GUP pins more reliably when
- write-sealing
-Message-ID: <aur3R_3_oz4Isjr4@gremlin>
-References: <20261103-fixes_core_2-v1-0-f332954f1df4@kernel.org>
- <20261103-fixes_core_2-v1-1-f332954f1df4@kernel.org>
+	b=QF98rpjBzH7nX1jmz4Zo8ykeu0WPbxz0HGt6XxCXrOQ4V4PB3P/wbn5sluIzZ3bgP
+	 woOpkCVq06Ek6V7bKkHEP2phdvrGGARxXAl1OBE0IhgkRUa/IQ935AFbXxh1YUY5bJ
+	 utfjbIjp7LtybAhtZNGHqFcIoDw2mhpfxaUaUe5IHuBCvHt5tgYAPu/YfrtEAf4jWd
+	 v5zbJS1rE1Hby/io2vM2SNwmccLVR3w7pjdFYCtf7rR4Wu4skeBeZ5GH0Q1ajKmHHR
+	 yetiYqpJqieJOdcKUSYdWCjNW5p22mqd+bHsoVYbOTO4y8Ft2ybe6f5kRc5h/hiSzc
+	 /PiiXfUYZ7Gcw==
+Date: Wed, 4 Nov 2026 10:15:18 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Florian Westphal <fw@strlen.de>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
+	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 03/38] netfilter: xt_recent: don't remove the proc
+ entries under a spinlock
+Message-ID: <20261104-entgangen-nettigkeiten-intuitiv-f39521735261@brauner>
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+ <20261102-work-procfs-bugfixes-v1-3-59422ed3e465@kernel.org>
+ <auig_zhd3L0HEis3@strlen.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,70 +79,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103-fixes_core_2-v1-1-f332954f1df4@kernel.org>
+In-Reply-To: <auig_zhd3L0HEis3@strlen.de>
 
-On Tue, Nov 03, 2026 at 07:31:44PM +0100, David Hildenbrand (Arm) wrote:
-> memfd_wait_for_pins() detects GUP references by comparing a folio's
-> actual refcount with its expected refcount. As spelled out by
-> folio_expected_ref_count(), obtaining the expected refcount when there
-> can be concurrent folio (un)mapping is racy.
->
-> So it is possible that a changing folio mapcount can race with our
-> check for GUP references, and F_SEAL_WRITE might succeed even if there
-> are some, allowing file contents to be modified after sealing.
->
-> For folios with a reliable pincount, detect FOLL_PIN references using
-> folio_maybe_dma_pinned() before falling back to the refcount comparison.
-> For small folios without that, the 1024 pinning BIAS makes it very hard
-> (although not impossible) to misguide the refcount comparison.
->
-> This improves FOLL_PIN detection for folios with a pincount. Handling
-> FOLL_GET and small folios requires a more fundamental change.
->
-> Fortunately, most interfaces that allow for GUP'ing such pages use
-> FOLL_PIN, in particular interfaces using FOLL_LONGTERM. However, we
-> still have some FOLL_GET leftovers ...
->
-> Fixes: 05f65b5c7090 ("shm: wait for pins to be released when sealing")
-> Cc: stable@vger.kernel.org
-> Cc: Chris Mason <mason@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+On Mon, Nov 02, 2026 at 03:41:03PM +0100, Florian Westphal wrote:
+> Yes, but note that this change is already part of a pending nf -> net
+> merge request.
 
-All very delicate stuff, I wonder if we could somehow make the logic here
-generalised in a follow-up?
-
-Anyway seems reasonable to me so:
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> ---
->  mm/memfd.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/mm/memfd.c b/mm/memfd.c
-> index 0f6fff004f5e4..9eda4c3eeaca5 100644
-> --- a/mm/memfd.c
-> +++ b/mm/memfd.c
-> @@ -32,6 +32,13 @@
->
->  static bool memfd_folio_has_extra_refs(struct folio *folio)
->  {
-> +	/*
-> +	 * Use the precise pincount where available to avoid racy refcount
-> +	 * comparisons.
-> +	 */
-> +	if (folio_has_pincount(folio) && folio_maybe_dma_pinned(folio))
-> +		return true;
-> +
->  	return folio_ref_count(folio) != folio_expected_ref_count(folio);
->  }
->
->
-> --
-> 2.43.0
->
-
---
-Cheers, Lorenzo
+Dropped.
