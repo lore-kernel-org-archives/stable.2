@@ -1,61 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793836020;
-	b=bnGEcB8WMWRdbHoxkxJzV1lgTX6U81Qf9YsOKFs0cA5lHRB0PRJWol1awEjAw8JTRxt5
-	 r9cZJECMP/Mz9rzxRVAYPRY02fLeFXxrb8jFN2OvMl994MUWwEBvxAXJDu+gwpTn8Jksw
-	 dgfPzZZofIyLbonLi2MHxC/wrc4cHe5FumQjLVWVH2CPArUBq8TzJkGJiKcTCdYnGpcKd
-	 5/+14YNF3NFwCpxF7ZptZjahT8gysf9zDcxckqkR6n0pQRlGWRlrG0QM76Jufahp2G1/C
-	 4NxDFIEAEGVZgsphBZCooZfBTkZQVHxOMRq3ozbUdyyXzFmvdcvKRE3fK76WzW4Np+g==
+	t=1793836112;
+	b=oFysri2e3OAaFa7VkxKw/AA8vfpcBpFIAvGarHaplCw7udmv5mUbE1UgKd4z4eFSN4ek
+	 oaJ/E4MMhZR2Juuguz71Xe61c+0fS/HycLFPKyLlaPyVovVtMSaaEpvKLjwOAoxsPa+A3
+	 MA1SJOo9/tcCxuP+p4ZXvWLkJ5pWJcP2HcvXanQUts+OnC2bDQTcY66xv84c6KEB1m7r2
+	 I/pBuxqgHW8FsHLYeEpXfaxzI5k6d6mlhxsZ3CXgZ9bTV9q2Xub7cYPQyAHD+ysYJE2M6
+	 1BVdiPwcLGbk5A1ZCLL/nN5Sy1BByycjTVthZC0fZtOXMndqKzJhnBot+YEtBAPxCGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793836020;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VNEjq4/w+nXPWNtsiCk268hY5L9pgMDjb8mSx4lyCJo=;
-	b=uv4LxfJNkZDYUDjiWUB6MCG/qz5L0ach/H1GinlSDgV0lAM1Tq4LvkDvMWhNXoR1Ubr+
-	 xbsAB34A/V/v7iWBhk4liy/nnP7qc84SbrW0sVyhLyMFS09pPjBmkr8X+LJGT0rXJww7K
-	 3noUfHlBlrUpi0fbnD4iz/+tKEIbSoFWHtzw1IAu7vQuySxM4DhdWGqgHRgU7MT64wIb+
-	 G2nXTOlUHgnNsVw5UPWIek5G5Sspmi8RShhwKqy2qE7j0d6oYe+m7mbHk1WKnaqb7fVO1
-	 h7zKs7ZEdil63jDpTGjbKRsPJ+hUoD1kQ7lDO/yo4woqiIindbVnSzAZbOB8ao98ZMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793836112;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=jLVIRJ1oNydBd8biicts5vct+iiNk9BFRv+VtPv5AgI=;
+	b=wt1iUw3m4ML1ldz7lJnUQa2Dis13h/WJy302VOZ+YQG6tRDDBvj0hgbgyImJU2Sov82/
+	 lC1EooS+gj2ZUIicZlM/TVygMtbIJcc82M+i3aema72Y+FzePLbGlZJQPIgAxcIcLYrFw
+	 wlufFFL10QorrkwRSgObi2pPuEd1bcCsvBHWSIfgIOOJIb9ZgY0WUHz/y2cQ/o8QHJXx6
+	 4sovWHFuJkstrtg/R8c7Tl68OQFortOmrCUhb7NnDltXx7YIYgJIVI2XcX8Ry8kUPQ7F6
+	 qoDEZhvaTDn4l6jabeXOr+Mg9msSQmyvzw81tcCErAQxxcMWftizV4v4JlKYG9WCuMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REwUoScE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oac7osK6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEF7606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:47:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 44226606A31B;
+	Wed,  4 Nov 2026 23:48:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REwUoScE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 059DC1F00A02;
-	Wed,  4 Nov 2026 23:46:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oac7osK6
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9646B1F000C1;
+	Wed,  4 Nov 2026 23:48:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793836020;
-	bh=VNEjq4/w+nXPWNtsiCk268hY5L9pgMDjb8mSx4lyCJo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=REwUoScERxI0jcRONC+rOlyju1u41/Hc2rE5h8vKFyCP6AkLEXrPAuJr+hFiPDqk3
-	 Reu2KRahNLpE/mz7m/vA/57agGXTwqIrGsiuMVL1DYtX0ZR4Ulo1wa3TET8rhq8RUg
-	 fFbPcCmtxA2qNyqXarM9hlUoug9amCver21suQk/J/P9h/CAfZGpmUOdy72gU31n3T
-	 Kk2OlMqiBzyvHLIF5R8jVXK2Bu1Rs3xCjdIzix6v/iPBB9SCKkXiY0dGu6LlJVcAwR
-	 6RZk95LHNGZyRupJSSFovmd2HOgdam0BWfsK05Ohyl4Igyk4qCdhB4Wsd6tiTfLpRM
-	 sv2evnDHbNXTA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ruide Cao <caoruide123@gmail.com>,
-	Kyle Zeng <kylebot@openai.com>,
-	David Lee <david.lee@trailofbits.com>,
-	Vega <vega@nebusec.ai>,
-	Ren Wei <weir@nebusec.ai>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] mptcp: hold MP_JOIN msk ref when cloning reqsk
-Date: Wed,  4 Nov 2026 18:46:56 -0500
-Message-ID: <20261104234539.930903-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104234539.930903-1-sashal@kernel.org>
-References: <2026110448-scrambler-renovate-a361@gregkh>
- <20261104234539.930903-1-sashal@kernel.org>
+	s=k20260515; t=1793836112;
+	bh=jLVIRJ1oNydBd8biicts5vct+iiNk9BFRv+VtPv5AgI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Oac7osK6wKEvSA9uXr9NkmREaRoznEJucas6/qO91klzhIbVtSWzY3hcojw79o7Ah
+	 67h9zLk6K1AYpIlvyyYM0ohbwQNicvpbw+qgWvmbneWzAEirKbSQ7WiAfeUGBoaHdf
+	 61aS0HEYOzLOUx9HpcpDorRj/32SLJb9elvwRaCSuuc+TpuS10GCIjl036Hx6O8QB5
+	 0/xddQibsa2PoSMRQTBlNQTbRcpSy1hQNu7C7zh84xQKPOSFY4BgyymjV5Ffjftwcj
+	 he7ChfHGXWXUuhJe6clS8RK8jl+R2hPs/NaTefGO/XZBVgZTAIbTSPE19n744Ono/K
+	 SVWDgEuODyblg==
+Date: Thu, 5 Nov 2026 01:48:28 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Keith Busch <kbusch@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, David Howells <dhowells@redhat.com>,
+	Eric Biggers <ebiggers@kernel.org>, linux-integrity@vger.kernel.org,
+	Mimi Zohar <zohar@linux.ibm.com>, keyrings@vger.kernel.org,
+	stable@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	"open list:NVM EXPRESS DRIVER" <linux-nvme@lists.infradead.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Subject: Re: [RFC PATCH v2 02/11] nvme-keyring: Add a missing key_put() call
+ to nvme_tls_key_lookup()
+Message-ID: <auvETMCZNpqJOX8L@kernel.org>
+References: <20261103030226.2685251-1-jarkko@kernel.org>
+ <20261103030226.2685251-3-jarkko@kernel.org>
+ <20261103053303.GA1382@lst.de>
+ <aunTlxXbRJ6ZP63h@kernel.org>
+ <20261104090440.GA30968@lst.de>
+ <autEfTlEWj_OrtB5@kernel.org>
+ <autU4LYsgtOy-Ywj@kbusch-mbp>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,193 +75,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <autU4LYsgtOy-Ywj@kbusch-mbp>
 
-From: Ruide Cao <caoruide123@gmail.com>
+On Wed, Nov 04, 2026 at 08:53:04AM -0700, Keith Busch wrote:
+> On Wed, Nov 04, 2026 at 04:43:09PM +0200, Jarkko Sakkinen wrote:
+> > On Wed, Nov 04, 2026 at 10:04:40AM +0100, Christoph Hellwig wrote:
+> > > On Tue, Nov 03, 2026 at 02:29:11PM +0200, Jarkko Sakkinen wrote:
+> > > > And essentially what I would want is key_type_dead not to exist.
+> > > > 
+> > > > This version is based on module pinning, and  thus not having that
+> > > > key_put() would keep key type module alive in that case. However, it
+> > > > turned out this approach will not fly as AF_RXRPC and DNS resolver will
+> > > > hit the wall given e.g., the remote pinnings.
+> > > > 
+> > > > The approach I'm going for next is to have a type registry instead,
+> > > > which is independent of the module system (to put story really short).
+> > > > I think I'm doing this with right process as this really needs a few
+> > > > trials in order to find patterns that stick.
+> > > 
+> > > So what's the plan here.  Should we merge this standalone as a fix,
+> > > or are you trying to get an entire series in?
+> > > 
+> > > If it's useful as a standalone fix, please resend it standalone.
+> > 
+> > I'll send this as a standalone patch.
+> 
+> I can just apply it as-is unless you plan to make any change from what
+> was submitted. Just future reference that the intention wasn't clear
+> when a series' recipients are split up this way.
 
-[ Upstream commit c9c90cf437a9e6597611b6d3aad6e255fad22867 ]
+Yeah, I 100% agree with this.
 
-TCP request migration clones pending request sockets with
-inet_reqsk_clone().  For MPTCP MP_JOIN requests this byte-copies
-subflow_req->msk, but the clone does not own a reference.
-
-The original and cloned requests can consequently drop the same msk
-reference, leaving one request with a dangling pointer.  This manifests as
-a KASAN slab-use-after-free in subflow_req_destructor():
-
-  BUG: KASAN: slab-use-after-free in subflow_req_destructor (net/mptcp/subflow.c:45)
-  Write of size 4 at addr ff1100010e008d40 by task swapper/0/0
-  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-rc5-00353-gc27e36054537 #10 PREEMPT(full)
-
-  Call Trace:
-   subflow_req_destructor (net/mptcp/subflow.c:45)
-   subflow_v4_req_destructor (net/mptcp/subflow.c:694)
-   __reqsk_free (net/ipv4/inet_connection_sock.c:906)
-   reqsk_timer_handler (include/net/request_sock.h:137 net/ipv4/inet_connection_sock.c:1147)
-
-  Allocated by task 10014:
-   sk_prot_alloc (net/core/sock.c:2246)
-   sk_clone (net/core/sock.c:2488)
-   mptcp_sk_clone_init (include/net/sock.h:1848 net/mptcp/protocol.c:3564)
-   subflow_syn_recv_sock (net/mptcp/subflow.c:883)
-   tcp_check_req (net/ipv4/tcp_minisocks.c:934)
-
-  Freed by task 0:
-   slab_free_after_rcu_debug (include/linux/kasan.h:235 mm/slub.c:2677 mm/slub.c:6439)
-   rcu_core (kernel/rcu/tree.c:2645 kernel/rcu/tree.c:2897)
-
-  Last potentially related work creation:
-   kmem_cache_free (mm/slub.c:2638 mm/slub.c:6377 mm/slub.c:6504)
-   __sk_destruct (net/core/sock.c:2289 net/core/sock.c:2391)
-   sk_destruct (net/core/sock.c:2419)
-   __sk_free (net/core/sock.c:2430)
-   sk_free (net/core/sock.c:2441)
-   mptcp_close (include/net/sock.h:2020 net/mptcp/protocol.c:3399)
-   inet_release (net/ipv4/af_inet.c:442)
-
-  The buggy address belongs to the cache MPTCP of size 2968
-  The buggy address is 128 bytes inside a freed 2968-byte region
-
-A non-NULL subflow_req->msk means that the request owns one reference. The
-third ACK can concurrently transfer the original request reference to the
-child and release it, so taking an unconditional hold on the copied pointer
-is unsafe.
-
-MPTCP sockets use SLAB_TYPESAFE_BY_RCU and all current inet_reqsk_clone()
-callers run in an RCU read-side critical section. Document and
-lockdep-check that calling-context requirement.  Read the pointer from the
-original request and acquire a reference only if it is still live.  Use
-refcount_inc_not_zero_acquire() so the subsequent ownership validation
-cannot be reordered before the try-get, then re-read the original request
-to verify that it still owns the same msk. If either check fails, clear the
-clone pointer; otherwise its normal destructor balances the new reference.
-Mark the ownership-transfer store with WRITE_ONCE() to match the lockless
-reads.
-
-The following patch completes the clone fixup for MP_CAPABLE token
-ownership. Both patches carry the same Fixes tag and are required for
-stable backports.
-
-Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
-Cc: stable@vger.kernel.org
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Reported-by: David Lee <david.lee@trailofbits.com>
-Reported-by: Vega <vega@nebusec.ai>
-Closes: https://lore.kernel.org/all/20260804095051.715355-1-david.lee@trailofbits.com/
-Signed-off-by: Ruide Cao <caoruide123@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-3-932c9b182fc7@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/net/mptcp.h             |  9 +++++++++
- net/ipv4/inet_connection_sock.c |  4 ++++
- net/mptcp/subflow.c             | 35 ++++++++++++++++++++++++++++++++-
- 3 files changed, 47 insertions(+), 1 deletion(-)
-
-diff --git a/include/net/mptcp.h b/include/net/mptcp.h
-index f7263fe2a2e40..a296f711e92f3 100644
---- a/include/net/mptcp.h
-+++ b/include/net/mptcp.h
-@@ -219,6 +219,9 @@ int mptcp_subflow_init_cookie_req(struct request_sock *req,
- struct request_sock *mptcp_subflow_reqsk_alloc(const struct request_sock_ops *ops,
- 					       struct sock *sk_listener,
- 					       bool attach_listener);
-+/* Caller must hold an RCU read-side lock. */
-+void mptcp_subflow_reqsk_clone(struct request_sock *req,
-+			       struct request_sock *new_req);
- 
- __be32 mptcp_get_reset_option(const struct sk_buff *skb);
- 
-@@ -314,6 +317,12 @@ static inline struct request_sock *mptcp_subflow_reqsk_alloc(const struct reques
- 	return NULL;
- }
- 
-+/* Caller must hold an RCU read-side lock. */
-+static inline void mptcp_subflow_reqsk_clone(struct request_sock *req,
-+					     struct request_sock *new_req)
-+{
-+}
-+
- static inline __be32 mptcp_reset_option(const struct sk_buff *skb)  { return htonl(0u); }
- 
- static inline void mptcp_active_detect_blackhole(struct sock *sk, bool expired) { }
-diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index 39d820cf55cb7..43528bcff5067 100644
---- a/net/ipv4/inet_connection_sock.c
-+++ b/net/ipv4/inet_connection_sock.c
-@@ -21,6 +21,7 @@
- #include <net/xfrm.h>
- #include <net/tcp.h>
- #include <net/tcp_ecn.h>
-+#include <net/mptcp.h>
- #include <net/sock_reuseport.h>
- #include <net/addrconf.h>
- 
-@@ -983,6 +984,9 @@ static struct request_sock *inet_reqsk_clone(struct request_sock *req,
- 		rcu_assign_pointer(tcp_sk(nreq->sk)->fastopen_rsk, nreq);
- 	}
- 
-+	if (rsk_is_mptcp(req))
-+		mptcp_subflow_reqsk_clone(req, nreq);
-+
- 	return nreq;
- }
- 
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index 1932fcf9f9252..e020960f093e0 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -47,6 +47,39 @@ static void subflow_req_destructor(struct request_sock *req)
- 	mptcp_token_destroy_request(req);
- }
- 
-+void mptcp_subflow_reqsk_clone(struct request_sock *req,
-+			       struct request_sock *new_req)
-+{
-+	struct mptcp_subflow_request_sock *subflow_req = mptcp_subflow_rsk(req);
-+	struct mptcp_subflow_request_sock *new_subflow_req;
-+	struct mptcp_sock *msk;
-+
-+	new_subflow_req = mptcp_subflow_rsk(new_req);
-+	RCU_LOCKDEP_WARN(!rcu_read_lock_any_held(),
-+			 "MPTCP reqsk clone called without RCU");
-+
-+	/* A non-NULL ->msk means the request owns one reference.  The clone
-+	 * copied only the pointer, while the original request can concurrently
-+	 * transfer its reference to the child.  Acquire a reference for the
-+	 * clone, then verify that the original request still owns the same msk.
-+	 * MPTCP sockets use SLAB_TYPESAFE_BY_RCU and all clone callers run in
-+	 * an RCU read-side critical section, keeping the memory stable here.
-+	 */
-+	msk = READ_ONCE(subflow_req->msk);
-+	if (msk) {
-+		struct sock *sk = (struct sock *)msk;
-+
-+		if (!refcount_inc_not_zero_acquire(&sk->sk_refcnt)) {
-+			msk = NULL;
-+		} else if (READ_ONCE(subflow_req->msk) != msk) {
-+			sock_put(sk);
-+			msk = NULL;
-+		}
-+	}
-+
-+	new_subflow_req->msk = msk;
-+}
-+
- static void subflow_generate_hmac(u64 key1, u64 key2, u32 nonce1, u32 nonce2,
- 				  void *hmac)
- {
-@@ -925,7 +958,7 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
- 			}
- 
- 			/* move the msk reference ownership to the subflow */
--			subflow_req->msk = NULL;
-+			WRITE_ONCE(subflow_req->msk, NULL);
- 			ctx->conn = (struct sock *)owner;
- 
- 			if (subflow_use_different_sport(owner, sk)) {
--- 
-2.53.0
-
+Br, Jarkko
