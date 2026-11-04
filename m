@@ -1,92 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793790209;
-	b=YZdOOZHzkhHWvaA6a0SjW9YIOiTKiD9at3VKVumWcbaGYwXH+ml8He0hyccb1CmUcOSb
-	 6HBP33CrhZdw0c2S39y8QZFIiCH1v2yUm0n956OAlKl5G1r7wvguzsyX0gy8MplLJbV9s
-	 UUJsCKWZTgQt4cOsDwwu152MVZ5QNDH5WydBspNzGM/FNeadx0LlNpndl8HcN4Li08Yxi
-	 Cf+Yzla/hsHVnhSz4ho/zF3LM/wzZGFzuFPrFPu4JYQJK0ViLGxwi4ujxqqcXRXN5ubbv
-	 KkBXUBRPBbSdYmZUcyw/N71R+rDqo7qd6D0bKwfHZo9aGAte2cBS3jPWZUJzG2ClB9A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793790209;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=qdhY1e8I9Jc14rbguEsTrJ/gz2O3WFLt1vbqMY/V0N4=;
-	b=QsYQ0Xa5gDPX7FGG38nmd1tl1ecQOCENYyTzwQF9OCwGUUKiJDXI9epM3j/pru6Snb2+
-	 ung89p3ZTc/WqLZKWbRvMQWdDRed1Ruhl/aDGZU7O+1jR9oJHsVraA3DCu/+5f60lxuue
-	 lVJdzohUCIxmzw7o1IOHP/1GcHrOSXYHKPLDqwlkFkG6S6vRDjAJV4tXHAI4842BRwSut
-	 U5kaBlE56793z435LEUCx/4He685Iao/GcUGo8bFs7AaICAoNYyLBpkuFpkMyKyb7jUuW
-	 ufUCQczvZvsgUOFZ7x9kvkomsepmbWmPtCaFsov+OZpc1iiHiRbeaJVkxuTl+Jmu9jA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=J8U3SKmW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793790252;
+	b=VrKNrxnYuHcwNxx+VxP+F2vJCfbA83deNpstvh+I8TINUR6znbpgiqZ1O0ZZv4CLZ0Ep
+	 hYFUHhsPeyS25Z/bvxY6KmH2yy1rO9LhvWzP0+gEF90wIxS/OG3M2TW7a5hxVewt/kZcc
+	 Kuy+2N9czWySW73NluqZELw9XpFMaFGMQWxKB4qmhhviI5W5WusHgiUSAeJqq1ZUmAHd5
+	 UvVDP7AdmoIKPwkK52R2tbtk+AFom7dRptXqD3qKa2RD+wuhgRsgl7M4Y/GKDFqAKpbMd
+	 9Sfs1J0Ap1ImAAsUC6p2UJnPFisuZslcsTF9Ruh5ZyK+qj9Ww/VSHbJjzZSI1uKOoAA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793790252;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=W8Tbj15l65wdrQ6nP1bdM5KDmeBZZQ0e1b03QxB4foY=;
+	b=dulHbMDpSbM/XVrXlrQzJgr279c/wjR+VJj4MN4o6j3jULyh+JHPEf7Cikq50xzJyVei
+	 i2J7lVyDWfsiWh+6CnaW7+sIpuVciCuyQjR5vyHkWpPQUs1TzZFp7jNj6SliEv1rpDZAK
+	 kSHshLgPlqCYKAu4Go+Unv0evxohMwvNFeA/X08ildKJ014ITUJvYax955EyXgrS821kk
+	 PNf83q/Zb2v51i/6PI/TKxoEU0zuZtn8rIYH+EMfkU1IQXUf6Us1gMFMBfHVxtoMi3oXd
+	 iZ8eaGdR1h9Xzi1mRpiQF6vRnD02JAc0j6fD1EFZ3FXCCLwSB8lcOCoodrUzx17SCDg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x6kxLp6+;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F085606A326;
-	Wed,  4 Nov 2026 11:03:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F085606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32E7606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 11:04:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F32E7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=J8U3SKmW
-Received: from [IPv6:::1] (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
-	(Authenticated sender: lst@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5AE0A2000A8;
-	Wed, 04 Nov 2026 12:03:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793790205;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qdhY1e8I9Jc14rbguEsTrJ/gz2O3WFLt1vbqMY/V0N4=;
-	b=J8U3SKmWWxVCZ9ri9MgTERn6+2G+RR+s/tg6Q9IZNrju32WRUDKt710/4LdzjX+CBOXV0t
-	jY1ooIwG53Dwn298lur7/fP0dnjKvzqf5VEK5VYB4icXGb5Mat5SEOjhVcA3wKiBoiNTtL
-	qXpZxmI021zJE1ED89itFtTUXMmHBiSDwjHoSYsmOKXOs0Mtl1LonK5qsvyJw1kC4qFY2y
-	x6DdpsVP0IE4tEEUiiiYiAVDt1pECwx2BUQ1he2pe1V/LxS8h6e39AK8DNHqkbifxdnyZ6
-	Z1Fte+FtHdojA8QYjKB/PShPtV3beWQvP/9t2Zyx5SmQN+roc+/YPWaClX100w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793790205;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qdhY1e8I9Jc14rbguEsTrJ/gz2O3WFLt1vbqMY/V0N4=;
-	b=Re5hC0QPlRzDDIn4XsPZF7CKDEs4ZEMdfq6s0nMc8BnbczBE60Dh1h45hOF9PU7m5bK+zJ
-	/4jF2oC39hcK3v3WqSVN7xbNwzREamMwCOpcBS/HyyCD7Zx54cmqu1SJRJwfat3L6leqUO
-	xeIAnMy1qqcCbcSiZX0SCh9enTSntpMkk/sDE5pnKGULm0vnOoWemhQbub4UZPfvBXE0/o
-	neC+703xUUuiM2CTN2887xtXir56eb2bJ1cmTOOmZCXn5ravuLb9HnXMToPCXrLu/O/Rj9
-	dFEWtN22qzho14EtO3jVAEStCkSmT9I1mS1vYWngN5AnYaF4YrJ/UIsIknVOOg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=lst@pengutronix.de smtp.mailfrom=l.stach@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793790205; a=rsa-sha256;
-	cv=none;
-	b=HTlahCmCz6KxpBbT3+fqOF29RC63BIcEg5TwpomsuD+FWXhFk75zagc4MHw1KsVlstXqzl
-	hRHbmpXzvNwgndiqw6wxWN/sp7oubj2nynypkc1OLLm04IlgDty9AGDmUbopssh38HSJax
-	ghD/7hhp6Vol9Owk6HYTKaSxsVsfRAeXwQAsU4vFP5tuQ02f7ihHY8Zu5FhRYle2RBr43s
-	J6TX3BOrGNPl3/uYZuzGqdPjyN94xKJqFbObLMHWO/hZBw4+r0KfPp1grLwh8eTk10azAE
-	m+1erqsZ/pzaebzGjhiiuiTzqDDPEX4WCAFEgdxnqLQmPOprJ0vsMEgydoSuXw==
-Message-ID: <bf6acbfabf47de84243495f564865db19d44e184.camel@pengutronix.de>
-Subject: Re: [PATCH] drm/etnaviv: Flush the tile status cache through both
- the PE and BLT
-From: Lucas Stach <l.stach@pengutronix.de>
-To: Christian Gmeiner <christian.gmeiner@gmail.com>, Russell King
-	 <linux+etnaviv@armlinux.org.uk>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>
-Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Christian Gmeiner <cgmeiner@igalia.com>, 
-	stable@vger.kernel.org
-Date: Wed, 04 Nov 2026 12:03:25 +0100
-In-Reply-To: <20261102-etna-pe-ts-flush-v1-1-e4454ed86f85@igalia.com>
-References: <20261102-etna-pe-ts-flush-v1-1-e4454ed86f85@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x6kxLp6+
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso3183085e9.0
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 03:04:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793790250; x=1794395050; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W8Tbj15l65wdrQ6nP1bdM5KDmeBZZQ0e1b03QxB4foY=;
+        b=x6kxLp6+6OdHly5ZjwbVKxcP5nNxoiBGXacIlAc0bItDupUMHNN3wxAKO/SK6wXwCv
+         ZS8bJuOyDtL/3ETRewTitB5b0bLZZrkIYmBtGfiaMr/Oe1fzEX6qhI8e5c+nEb8+aRMv
+         fg+JZuc2M6ooueTPGzkXHedrOHw+nOdusL1FhG++ekipJH7kjXjZs0zzZLisCBD424xv
+         tLooMNYvxFRoLV/CKo7KTneOEm2fE2H/TBcSDQVu1ewGGKpvyDo8geX54Zvv7a40I5z4
+         TyqkhgvcOfqRMaG4InFMSmGtqEO0ss2/15WUXwuW1yeG9Efa1TQ3q4jOfrIJeYUxFkva
+         6dpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793790250; x=1794395050;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=W8Tbj15l65wdrQ6nP1bdM5KDmeBZZQ0e1b03QxB4foY=;
+        b=PYK2SCmAHIY0xD6c89MiTrv34a4QCV4OhUncKaHuq9xUkKD/ansY1BZdibXeZPdoKb
+         RhGjOe/AeBmO0xm/IoDSZFONH0u+n4lNI/acMNjs2JewvUQoPaVu9eLWXx+1BhZTeCO6
+         DNz6TFAnNmxIrfePgkCMjQO5psDpyBYlhC7yCq6VO7C+htRgbHZs+cfjk8lwUwPuuqEr
+         GmluNKUu9PfzXU8QoVE50dhkU9mKqBqco+jInSXmZNgQl5yP/wU5peMcVZCtOLSo7pXZ
+         Hxx9WWtKFUwi6xL+VsJt7AEVdecObHevbXxz8WW042j0yfBMMRAgGJyheik7LUOaDZg1
+         lRxA==
+X-Forwarded-Encrypted: i=1; AKwUvBynPJrpR3EezJgv6tztjTx69iBRYRfhhZgk1pqz1HMDWqxR6FLmji9BtKnd9rxY4GY3vru47Nk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8aZGImwhcQhLF2MF9NMjbqYLEwNhNQFIpwZrT8QPCF8IQjiI1L
+	4W+ntyWpUglev5MGprY0rcTd6RZ1iiMhXZtgB5HT6+1xeBSnCrGy1B0=
+X-Gm-Gg: AYBFou2Tn6K8xoUR8IeuOMkTTmFLJqO7ya+Aq8eoxSvkXj0reictrogeBoYgPD/D4mg
+	/mWKWC4cZifrWu39ycCfDURuuyaNkOkEA+U/d01+KCNnTMEbNxSl1GYOvKs0r+gr2v5ntCDICGU
+	o6WhCA9SUdzMB7J6QkdFTwLY3l2tCF9sIk3NnwcWI18a7DaUVGRjxJuEDGXvj1GNs+52MKVRqTw
+	emKYhDhn6GeeyGqetpGPlGgf64AR/FmIvXSmIVh2UIybJ+VaRbQQDW3/lHcbrTaYpMbZ7ozqBMY
+	czANmmFOH+VuLJB0uEVxwCzZ46audXxlj+4de58VHsWyvccPedT2QKIa15K0dHcd0qwb7lMLYLs
+	Q9+LtEyVlAaaPH8r2dFIIPjhXruh3GE0TBnaN7GXHP6a+SBfwItaHU7rRULsa0tDK5waZFRamac
+	/OnAOMAolLyMD+3uLno87gphZrHMWQHPg+oQ+LsaK9PWqpwIG08QyBur4wx5vrVlZ89gXOAJsJ4
+	BMPyY7VRkh/bGe4hbvtwdfN2fKPuNqhNdwPHDxmB0ZhJ+qaFa+/CR9at1pfNbUnz5YV3Baya33i
+	2PZuv8BcQL4=
+X-Received: by 2002:a05:600c:674f:b0:4a2:1655:87db with SMTP id 5b1f17b1804b1-4ac1228a434mr377260735e9.0.1793790250163;
+        Wed, 04 Nov 2026 03:04:10 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43c748105sm43888435e9.6.2026.11.04.03.04.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 03:04:09 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Pouiller?= <jerome.pouiller@silabs.com>,
+	linux-wireless@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v2 wireless] wifi: wfx: validate num_tx_confs in rx_helper before use
+Date: Wed,  4 Nov 2026 11:04:08 +0000
+Message-ID: <20261104110408.986252-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,136 +99,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Am Montag, dem 02.11.2026 um 11:18 +0100 schrieb Christian Gmeiner:
-> From: Christian Gmeiner <cgmeiner@igalia.com>
->=20
-> Since commit f232d9ec029c ("drm/etnaviv: fix TS cache flushing on GPUs
-> with BLT engine"), jobs on GPUs with a BLT engine use a BLT command to
-> flush the tile status cache instead of TS_FLUSH_CACHE, which is broken
-> on most of these GPUs.
->=20
-> GC7000 r6008/r6009 and GC8200 r6401 are the other way around:
-> TS_FLUSH_CACHE works, but the BLT command does not flush the cache.
-> The vendor driver handles these GPUs using TS_FLUSH_CACHE, but the
-> etnaviv kernel driver has no way to identify them.
->=20
-> As a result, dirty tile status cache lines survive the end of a job.
-> They are written back by the next cache flush, using the page table of
-> the job issuing it. If that job belongs to another process, the write
-> goes to the wrong address space.
->=20
-> On GC7000 r6009 this causes MMU faults and GPU recoveries blamed on an
-> innocent process. I see around 1100 per run of a multisample
-> depth/stencil test running alongside two other GPU clients.
->=20
-> Emit both flushes at the end of every job on GPUs with a BLT engine.
-> Whichever does not work on a given GPU is a no-op. Since dirty lines
-> are only written back once, this costs one additional state load per
-> job.
->=20
-> Fixes: f232d9ec029c ("drm/etnaviv: fix TS cache flushing on GPUs with BLT=
- engine")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
+rx_helper() reads num_tx_confs from a firmware multi-transmit
+confirmation and uses it to update tx_buffers_used before the message
+is dispatched to wfx_hif_multi_tx_confirm(), which iterates over the
+tx_conf_payload flexible array.  Neither path checks that the message
+is large enough to hold the claimed number of entries.
 
-Reviewed-by: Lucas Stach <l.stach@pengutronix.de>
+Add a struct_size() check in rx_helper() before num_tx_confs is first
+used, so that both the buffer accounting and the subsequent iteration
+operate on validated data.
 
-> ---
->  drivers/gpu/drm/etnaviv/etnaviv_buffer.c | 40 ++++++++++++++------------=
-------
->  1 file changed, 18 insertions(+), 22 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_buffer.c b/drivers/gpu/drm/e=
-tnaviv/etnaviv_buffer.c
-> index 03b2576af67f..99c91a9eecf1 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_buffer.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_buffer.c
-> @@ -168,6 +168,17 @@ u16 etnaviv_buffer_config_pta(struct etnaviv_gpu *gp=
-u, unsigned short id)
->  	return buffer->user_size / 8;
->  }
-> =20
-> +static void etnaviv_cmd_flush_ts(struct etnaviv_cmdbuf *buffer, bool has=
-_blt)
-> +{
-> +	CMD_LOAD_STATE(buffer, VIVS_TS_FLUSH_CACHE, VIVS_TS_FLUSH_CACHE_FLUSH);
-> +
-> +	if (has_blt) {
-> +		CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x1);
-> +		CMD_LOAD_STATE(buffer, VIVS_BLT_SET_COMMAND, 0x1);
-> +		CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
-> +	}
-> +}
-> +
->  void etnaviv_buffer_end(struct etnaviv_gpu *gpu)
->  {
->  	struct etnaviv_cmdbuf *buffer =3D &gpu->buffer;
-> @@ -191,7 +202,7 @@ void etnaviv_buffer_end(struct etnaviv_gpu *gpu)
->  		unsigned int dwords =3D 7;
-> =20
->  		if (has_blt)
-> -			dwords +=3D 10;
-> +			dwords +=3D 11;
-> =20
->  		link_target =3D etnaviv_buffer_reserve(gpu, buffer, dwords);
-> =20
-> @@ -204,16 +215,8 @@ void etnaviv_buffer_end(struct etnaviv_gpu *gpu)
->  			CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
->  		}
->  		CMD_LOAD_STATE(buffer, VIVS_GL_FLUSH_CACHE, flush);
-> -		if (gpu->exec_state =3D=3D ETNA_PIPE_3D) {
-> -			if (has_blt) {
-> -				CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x1);
-> -				CMD_LOAD_STATE(buffer, VIVS_BLT_SET_COMMAND, 0x1);
-> -				CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
-> -			} else {
-> -				CMD_LOAD_STATE(buffer, VIVS_TS_FLUSH_CACHE,
-> -					       VIVS_TS_FLUSH_CACHE_FLUSH);
-> -			}
-> -		}
-> +		if (gpu->exec_state =3D=3D ETNA_PIPE_3D)
-> +			etnaviv_cmd_flush_ts(buffer, has_blt);
->  		CMD_SEM(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
->  		CMD_STALL(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
->  		if (has_blt) {
-> @@ -400,12 +403,12 @@ void etnaviv_buffer_queue(struct etnaviv_gpu *gpu, =
-u32 exec_state,
->  	return_dwords =3D 7;
-> =20
->  	/*
-> -	 * When the BLT engine is present we need 6 more dwords in the return
-> +	 * When the BLT engine is present we need 7 more dwords in the return
->  	 * target: 3 enable/flush/disable + 4 enable/semaphore stall/disable,
-> -	 * but we don't need the normal TS flush state.
-> +	 * on top of the normal TS flush state.
->  	 */
->  	if (has_blt)
-> -		return_dwords +=3D 6;
-> +		return_dwords +=3D 7;
-> =20
->  	return_target =3D etnaviv_buffer_reserve(gpu, buffer, return_dwords);
->  	CMD_LINK(cmdbuf, return_dwords, return_target);
-> @@ -422,14 +425,7 @@ void etnaviv_buffer_queue(struct etnaviv_gpu *gpu, u=
-32 exec_state,
->  				       VIVS_GL_FLUSH_CACHE_DEPTH |
->  				       VIVS_GL_FLUSH_CACHE_COLOR |
->  				       VIVS_GL_FLUSH_CACHE_SHADER_L1);
-> -		if (has_blt) {
-> -			CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x1);
-> -			CMD_LOAD_STATE(buffer, VIVS_BLT_SET_COMMAND, 0x1);
-> -			CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
-> -		} else {
-> -			CMD_LOAD_STATE(buffer, VIVS_TS_FLUSH_CACHE,
-> -					       VIVS_TS_FLUSH_CACHE_FLUSH);
-> -		}
-> +		etnaviv_cmd_flush_ts(buffer, has_blt);
->  	}
->  	CMD_SEM(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
->  	CMD_STALL(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
->=20
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261102-etna-pe-ts-flush-ffa01363b98c
->=20
-> Best regards,
+Fixes: 9bca45f3d692 ("staging: wfx: allow to send 802.11 frames")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+Changes in v2:
+- Moved validation from wfx_hif_multi_tx_confirm() in hif_rx.c to
+  rx_helper() in bh.c, where num_tx_confs is first used for buffer
+  accounting, so the check fires before any side effects (Jérôme Pouiller)
+- Used struct_size() for overflow-safe payload length computation
+
+ drivers/net/wireless/silabs/wfx/bh.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/wireless/silabs/wfx/bh.c b/drivers/net/wireless/silabs/wfx/bh.c
+index 0071659bc9c98..d4c904324edb7 100644
+--- a/drivers/net/wireless/silabs/wfx/bh.c
++++ b/drivers/net/wireless/silabs/wfx/bh.c
+@@ -99,11 +99,23 @@ static int rx_helper(struct wfx_dev *wdev, size_t read_len, int *is_cnf)
+ 
+ 	if (!(hif->id & HIF_ID_IS_INDICATION)) {
+ 		(*is_cnf)++;
+-		if (hif->id == HIF_CNF_ID_MULTI_TRANSMIT)
+-			release_count =
+-				((struct wfx_hif_cnf_multi_transmit *)hif->body)->num_tx_confs;
+-		else
++		if (hif->id == HIF_CNF_ID_MULTI_TRANSMIT) {
++			const struct wfx_hif_cnf_multi_transmit *body =
++				(const struct wfx_hif_cnf_multi_transmit *)hif->body;
++			size_t needed = struct_size(body, tx_conf_payload,
++						   body->num_tx_confs);
++
++			if (le16_to_cpu(hif->len) < sizeof(*hif) + needed) {
++				dev_err(wdev->dev,
++					"invalid num_tx_confs %d for msg len %d\n",
++					body->num_tx_confs,
++					le16_to_cpu(hif->len));
++				goto err;
++			}
++			release_count = body->num_tx_confs;
++		} else {
+ 			release_count = 1;
++		}
+ 		WARN(wdev->hif.tx_buffers_used < release_count, "corrupted buffer counter");
+ 		wdev->hif.tx_buffers_used -= release_count;
+ 	}
+-- 
+2.47.3
+
