@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802754;
-	b=vq4m2F3TZGL8jDfr59hyjGelWL4WonpHE7neHXLEqAkcYEfAYxgaxzGKTNshjmdE1y3+
-	 WMBherMlAsjE7VRlzihH6QMwm++QanxZoAoksSZ8TEBNoGIWFDS+9gatab/rGReHreg3n
-	 pn4cD3txk82QcC+GxiMzdDXgN3n4+TEuZGLBqvt8UXIxsnzV/NMMXN+JOoLks+TOMPudT
-	 CA8EvH7pSSyErkptHtDmF5xRk5SORcyioqCko/KIPfqxh4K/a1U9zaaYPIEqagYjOzuG9
-	 kMQQoL4jvocwDNW322P8c2nsOY5RMRNo/6pf8IAXtMYx8TrtA5X7/X5cIukSnEXBXCA==
+	t=1793802755;
+	b=qSUEbMpHyFKv8VBhu1vc04fs2zfbTLY57kWf8B8OREIVnxiERPdYnL0Y3yga3xXoh5Dd
+	 dAceRPzMyU/GruZSX2DpnsL364kTsMI9RrYzcVZeopL9kIh9Z/x6d7RtNSdcJltfZdlal
+	 KHzsbC0cPOR4H+DB3Z1f3LzcbNZlxoKURV+DkPtwgwM+ILQzbJNFGf5sKzInAjEIX4dwi
+	 XUJs3hGHDlyJKcGEqM6u7j0lCtoAKK86WGojPLYPEOywhlpbJOaKOMYDqO1wtNp76Lv1l
+	 8QlKxxsY1pUoUbOs/wl7LVyB6LVVvDIj/KjRFruIg4cdu+/9hReuGu9ioGTG3SApQIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802754;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802755;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=vOVo6JTEEKblPXgi2mRMRMVXp28hcG4YfBKrrKN6s/Q=;
-	b=rHYekcw48+3GviuQTF/BlV3tWvIc6VE0kCCto5oMrIT1MczicQsL0TiNetcWlXT4R+Ds
-	 NFxTVmg6JaRU7mR+7rBlIO8KecUybta8HSrwNCS4lFMGUTTR0JFHIVybtAYpBK7C2rzoU
-	 7ue1TLT/b8PjOKUpp8IcMdC5cJwoLhQxlIipmn9AiXIqb7seeM/A/amBOviCRqh9jL32D
-	 l2RFrbJjQzwOuJgQvcjs637IADOoTvuLEYf8Asb1jXTXRHWuk0mNOq9MGfEVsPdDyEty/
-	 rhGCn4oVJlk3oM16be1MUl7lC+v3lpRolLHYygQaGO+4+CCSz+7nfw7Nj493UX6GtyQ==
+	bh=z9boZHnNX+ZlqUbh/wtkC8Rm/FC3paJun7kMxgSOWCQ=;
+	b=E43U+mda5pFvkdzNnFXsJbJjQRtpTaDgHeUwyjKVAgbhWLwWG2wkvuw5jV2cuFasRSbz
+	 3cijY9am3pO4gDVlg7TYkmBMyZ1o9aFpvNM8B5u7uQrbHfkUtSMWPgQaoJ9bXTMJDPdt+
+	 dgw0/Gz85zCxnMsa7OQlDJ435BRDg8bJZw5C/GJSpWc/dgfx6pZb29hubVClwAAc50x9t
+	 DoDGhbdvlF1Q6AGJ/TwIUU6XTfJ+o5FjbkoZGF5cojNBYgSFbMRrsaZCfx2f6EaOrB9rI
+	 jXCgMbAT3c08aFC6XSFUWo7LlQPNuSYJ82sIUk4Ay/fBYZMSI1KOuErBCBIRPM/y10Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=t2nETOHU;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=V+VfSLZ4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209E2606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:32:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 496B2606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:32:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=t2nETOHU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7B981F00919;
-	Wed,  4 Nov 2026 14:32:33 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=V+VfSLZ4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0C551F000C1;
+	Wed,  4 Nov 2026 14:32:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802753;
-	bh=vOVo6JTEEKblPXgi2mRMRMVXp28hcG4YfBKrrKN6s/Q=;
+	s=korg; t=1793802755;
+	bh=z9boZHnNX+ZlqUbh/wtkC8Rm/FC3paJun7kMxgSOWCQ=;
 	h=Subject:To:Cc:From:Date;
-	b=t2nETOHUx6wsOQ1rFPBl/WRwd+jlKk8VsDus6eeV26ppf/Eu44VDuQqUulYLUY3cm
-	 8URacjTU7gOVljgMNsVgs5Po+Q61/YVdTg7JzXZrCY2abF+pzhqZ1v/YRChVDaAyjp
-	 6vziJVqD9OdoMkdwKMIGg0PyYK2WVnanPGUnO8D4=
-Subject: FAILED: patch "[PATCH] media: rc: Add missing locking for keymap" failed to apply to 7.3-stable tree
+	b=V+VfSLZ4Lb9yQNdrc8Pf8I7LjfOF7bEh5yqAN+hTrS+AM7bARSIx/lloJg7mY2Ctm
+	 r9O85AtlrEJ3bSkVNZ2gpmZ32fE1acyHpTRkqBQad1EfKsZRCsS2hv8CEB1LBYU0G+
+	 aSlBdV/jz0PmUo88u0nMpGoz7Oj8EnXVMJP1hhkk=
+Subject: FAILED: patch "[PATCH] media: rc: Add missing locking for keymap" failed to apply to 6.6-stable tree
 To: sean@mess.org,hverkuil+cisco@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:32:24 +0100
-Message-ID: <2026110424-pamperer-waltz-9ca3@gregkh>
+Date: Wed, 04 Nov 2026 15:32:25 +0100
+Message-ID: <2026110425-repossess-explode-fcf9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x ab9567336171e46ce9e03ee126902b3fd7901baa
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110424-pamperer-waltz-9ca3@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110425-repossess-explode-fcf9@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
