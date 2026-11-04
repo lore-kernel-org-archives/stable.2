@@ -1,56 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793776155;
-	b=k/v61v1g1Kj7mKjpxH/5IFDCVQVUlbIsJzEsXc6Tj7gROuSrs2rvAzXvjPYVDLrEg+zt
-	 HXtbfT/+ZmyvskPPy7NFtU+O+XsKXEH0xL/x+jGKeNtrJU9szDqvP7G/OptzmdUYumNmc
-	 dR57oMwzpnOXyTFFZGgLCozcBGEVboTKMUy9nK7mXDgUqvzU6ZOTcRvaSDQhnTJEAzVQK
-	 5PdvRmwlJolrYkxoGxg39ZBmbSKNlIHWgmRRdDuSfnPRtkx1PwfP8y2EojMfCofSboZ1V
-	 PjozFN9KuaSqfP3o4jcdULNQDsO70ZylpNq6pmnjVDHs818STRxcAV9ZWDess56ialA==
+	t=1793776215;
+	b=Sp5Tsncq0ZaBLIgyhmsqMZGDWN72wBie5ohbxOrYh/o3oRKNHm2hpR2MRfnLxo6OSo3W
+	 2tFlxqmsTZ+nZrSG5fZPtZsWssg2ZQ/nl0TTAGe4F8P3JrdITcpcCs8X/0TcT7k55R32V
+	 bhJf4yossL45ATtvCQsIL19Ohwcd6vGNYYyKnyVhIh6+Pg8iNZKcQlsYo123/ohSbRArP
+	 1yiSpTJrLEiQAeH+NAjqfcoFbfd+TF/0CMCqnHoc+kRwCNo0VaKd0QDF5DZrX3g43IpXz
+	 VdcQlb/M65VkfrZvvIzZfcU6tMu1etyWLIL7JwcdZSkWe9dHBbrKUtjBheRMfEnY9KQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776155;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776215;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=B+/q+3jqNq8N+fdXWKPQNteaKIvpaUaMzh/T5wohdh0=;
-	b=XSPOP32Q5rrXlBbwGODLHEgfYdMoZJcTi/lA494IELyYLEmKheuT1b4zHitlyWJv4GJ4
-	 8r0LLkbKHBaUSHGwTjBAVuJcDDfD3GYeK+1lT0JkXwBguvxX1n5pufuErH5RjQWfWhdHA
-	 07bQLTI7EDF5tREhkFBzu5D2jr6djow2uJU3pUq8aP1Z31WvbcunL1giHs1RLHfnqlCK2
-	 pBVG8yRkJzd4dXztYiw1M9BUnDXQ8Sz1pW1B68H9AOmVmJfdauil6V31qDlr5L+09QbIH
-	 0WSI1ThyX8StLXXo3Cc7u4FOUOicicRtnvlNP7CgJsR8jY5gFzybBtCKNnNWaygGVuw==
+	bh=JhcjK44jzqfwISimpbYLtHkEsfZ2sH/PIN1jlamuBwU=;
+	b=AP30uuJrAM4VvxrdWeLMBQL4jFSbjjFqv+VZdl8dTqOCIZd8ZSshTNHqWk9yveavsHSC
+	 TQRBNgpT56RMnUp0//cTlqpPJDuVukJxKjRRYOnXoizs7Z6CzmoyntXtn2CfvS0TtvN7e
+	 6PlEBd7kKFZ8MW5AB0glVTv2wO0vl/lvhs7lTK0l7M/md3b4OFBZUUUPz7X/nwe0BfK5T
+	 uQvgzWka/pCn44gLf+ukE/G0PnoatNRRUl5x9rQE3bvt/PuY0cmfk5TvPrdPpScHqi9NX
+	 2sz7x1+JYomYTSrM1RldQ6nvN2hBzAnR8vKAvCqGzOF2RS5D0Aa7+M9iFZjTny3IJuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=tM8DYMkh;
-	arc=none smtp.remote-ip=115.124.30.111
-Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="p3JF/d5q";
+	arc=none smtp.remote-ip=74.125.227.131
+Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9A6606A333
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 07:09:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C9A6606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F760606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 07:10:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F760606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=tM8DYMkh
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793776151; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=B+/q+3jqNq8N+fdXWKPQNteaKIvpaUaMzh/T5wohdh0=;
-	b=tM8DYMkh5YnvRB6BlncXVSj0Uaym6cmi9tf/R0gdavB7lvGLlEKJ1RfzrjkgxII3D4gyWONfCpBdUBtNzabo82P4LBOmpy95T4i+txrKDr4Ozr7e51yV64Nifvkb/241Sz4HDy0liBtCSSIi5o+6YJ9JHaX8PzR3mGbVg1NPcmQ=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R771e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=4;SR=0;TI=SMTPD_---0XE5.ISp_1793776150;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE5.ISp_1793776150 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 04 Nov 2026 15:09:11 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>,
-	stable@vger.kernel.org
-Subject: [PATCH 6.6.y] ufs: fix ufs_read_cylinder() failure handling
-Date: Wed,  4 Nov 2026 15:09:10 +0800
-Message-Id: <20261104070910.272012-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p3JF/d5q
+Received: by mail-pj2-f3.google.com with SMTP id 98e67ed59e1d1-3adc0ac3566so164105a91.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 23:10:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793776214; x=1794381014; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JhcjK44jzqfwISimpbYLtHkEsfZ2sH/PIN1jlamuBwU=;
+        b=p3JF/d5qISNlqFT8OHEBgICb3Nz4rS+wiVeNnS+hQx/BN++8gSH5sfDjH4SDdBMkRB
+         P72mhK4HcwoBvvTPGgp4OyotjrneiUBfr+wUwqbOKHlM7+8XXkC+Co2xwWP879/87T2G
+         /gO1TwrduiV6PJwI0iTyJSBEvpa+3FSkOWicE668nQljYiTT4rzOmOvMwO0DxMg9GQu+
+         FdhZXTa/U6ldQbVuBNJxuueELNJFDRtoVA8jYzKmo0J14558AaK26jhBJd5HT1CwAZDK
+         sJeP3IMXZYmPhfrMURq7GME+pP3ANCz171B9Ls2eWpnkb9026KJFtEvVURdySo6YyAg/
+         YwAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793776214; x=1794381014;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JhcjK44jzqfwISimpbYLtHkEsfZ2sH/PIN1jlamuBwU=;
+        b=Z3V2cQfg6dZj//xvwEALUN3SJsKZeZCoyn4JMnxYJqWTuZTLWXm5HtabIyjiqZ2dxm
+         EliNNy8Hsy3GtatuVIA053JbSTsS9vHp0LiR/uG6IZzhwdh3tJw3b1woerbUPodEzwdT
+         BQOtYu3LhqFdp2GPjE78U9IT0LKjHbibws3fahtDL9OB1c0kEyPf8zole09TThufpkOF
+         V7IRtSWo5eJlV//VNzyqaPiNiAtvo79asWxS7aDxfeGghyQIawe+x1CEUIJh0weSGPrt
+         Hj4NmO6nJ0bBXAEMFLDNf5MmDWFlhdJFy5z8fcNFKohzCUDeh6ULKnGXUO4WwMLOY7Jz
+         FyKA==
+X-Forwarded-Encrypted: i=1; AKwUvByZ+H/Gesujl1Wsyq2TFGGXd8JBeCyJ/HwDy/RKJSRb5/5K6pVu79+TkUvbcOq6NoD0tBep/w0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lVKD7LWmDkXi8Dx2pjvGw11bb9GdW90xz7W1sztqYXsZRIU/5
+	KAQ2HhP6flgXMWoa3APR7wIMpevF/AKMZ3lzTYiyIF0v3V/ykIMOAoM6
+X-Gm-Gg: AYBFou17WhLR8QSQrdFwtrFqwiHMA9EBzt0qEWXNfTUWe5tOtFJDnvD0qwuYAcT51Zx
+	QB6nBRladIAX7iK3lVT3JQh68nrGQO/Yi2ECLezY7Wtnw5+lPyB6O6cLQv/hMkijoaRNe6iOqbg
+	TyniPDEOOMpB8wt0t0+foZ/l5uiVMUb6ZGRYsA2NGMTQDV1545M2ZzbUCIHS+B7iEeIcdGVuJp5
+	dCJMTSDIy5jpvquE0UnkF3reGZkc8jMRyzo3gvYHolV1l8l65zkwzp7bHjQm6tT7t7bS9gfzlTy
+	+JLlEg71ZGAUYp3BDc2mVQ8RVRNEDmDegoPEiBdtZJzA90XRe86cRFsC+8Ls/4FZCw/jtcEQ7bK
+	EXjLcIzGfwtAVg+drnZ1GbUl3E0mqJOM87lS2uaeNUcSpdkYEKl6t6Y+OanqSX+JnBuDhErGUgy
+	kCEMNr5E53wgPb9N+41uesSIqa40O0T9QdzE2xMgevB+z5Es4ukETbz283OgVg1Rb1cy0kAgdNS
+	R98674byDATNfum3hSMEf1ADL3XVIF1/VagDFTcGesaaJE586Vr99ApdwRSZWrBNi6POEOG9tJN
+	3KEveRLGpcCMHIfvje8UhQ31COT5C8jI5C2qQ6fnwTd7pJkAkLgZiwWowHMlg1OM5n5mWbpMzQq
+	MV7Mkhtsh781BbwOiMZ8v7XxGQ4dI4q0ewmnnNg==
+X-Received: by 2002:a17:90b:2547:b0:3ab:9c73:12e with SMTP id 98e67ed59e1d1-3ae89536c0cmr12582654a91.6.1793776214401;
+        Tue, 03 Nov 2026 23:10:14 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b093d481a3sm2651997a91.1.2026.11.03.23.10.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 23:10:13 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: willy@infradead.org,
+	jack@suse.cz,
+	akpm@linux-foundation.org
+Cc: kas@kernel.org,
+	dave.hansen@linux.intel.com,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] filemap: prefault writes starting beyond EOF
+Date: Wed,  4 Nov 2026 07:10:02 +0000
+Message-ID: <20261104071002.49693-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,106 +104,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Al Viro <viro@zeniv.linux.org.uk>
+Since prefaulting moved to the slow write path, a buffered write can reach
+->write_begin() and ->write_end() before discovering that its source buffer
+is unreadable. Several filesystems can extend i_size in these callbacks
+even when no data was copied. For example, a one-byte pwrite() at offset
+4096 into an empty file can fail with EFAULT but leave a 4096-byte file.
 
-commit 0bfd3e1078c537cd66a8addb1c01835de4234a4c upstream.
+Prefault the source before ->write_begin() when the write position is
+beyond EOF, and return EFAULT if no source bytes can be made readable.
+Overwrites and appends continue to skip this prefault. Keep the existing
+slow-path faulting for forward progress after a failed atomic copy.
 
-1) ufs_load_cylinder() should return NULL on ufs_read_cylinder() failures.
-ufs_error() is not enough.  As it is, IO failure on attempt to read a part
-of cylinder group metadata is likely to end up with an oops.
+This also leaves intentional zero-length ->write_end() calls used by
+generic_cont_expand_simple() unchanged. As with the previous prefaulting
+behavior, a concurrent userspace unmap can still race with the later copy.
 
-2) we drop the wrong buffer heads when undoing sb_bread() on IO failure
-halfway through the read - we need to brelse() what we've got from
-sb_bread(), TYVM...
-
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
+Reported-by: Kiryl Shutsemau <kas@kernel.org>
+Closes: https://lore.kernel.org/linux-mm/at9xXRhD2xZhszEj@thinkstation/
+Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+Link: https://lore.kernel.org/all/at-XtWBQg3jv3H8Z@thinkstation/
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
-This is a prerequisite for commit 58c0c414b2b8 ("ufs: validate cylinder
-group metadata before caching it"). Otherwise the NULL check in caller
-is meaningless and will still use invalid ucpi.
 
- fs/ufs/cylinder.c | 31 ++++++++++++++++++-------------
- 1 file changed, 18 insertions(+), 13 deletions(-)
+ mm/filemap.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/fs/ufs/cylinder.c b/fs/ufs/cylinder.c
-index 5781c7db97276..b930ee1cf8530 100644
---- a/fs/ufs/cylinder.c
-+++ b/fs/ufs/cylinder.c
-@@ -26,7 +26,7 @@
-  * Read cylinder group into cache. The memory space for ufs_cg_private_info
-  * structure is already allocated during ufs_read_super.
-  */
--static void ufs_read_cylinder (struct super_block * sb,
-+static bool ufs_read_cylinder(struct super_block *sb,
- 	unsigned cgno, unsigned bitmap_nr)
- {
- 	struct ufs_sb_info * sbi = UFS_SB(sb);
-@@ -46,9 +46,11 @@ static void ufs_read_cylinder (struct super_block * sb,
- 	 * We have already the first fragment of cylinder group block in buffer
- 	 */
- 	UCPI_UBH(ucpi)->bh[0] = sbi->s_ucg[cgno];
--	for (i = 1; i < UCPI_UBH(ucpi)->count; i++)
--		if (!(UCPI_UBH(ucpi)->bh[i] = sb_bread(sb, UCPI_UBH(ucpi)->fragment + i)))
-+	for (i = 1; i < UCPI_UBH(ucpi)->count; i++) {
-+		UCPI_UBH(ucpi)->bh[i] = sb_bread(sb, UCPI_UBH(ucpi)->fragment + i);
-+		if (!UCPI_UBH(ucpi)->bh[i])
- 			goto failed;
-+	}
- 	sbi->s_cgno[bitmap_nr] = cgno;
- 			
- 	ucpi->c_cgx	= fs32_to_cpu(sb, ucg->cg_cgx);
-@@ -77,13 +79,14 @@ static void ufs_read_cylinder (struct super_block * sb,
- 		goto failed;
- 	}
- 	UFSD("EXIT\n");
--	return;	
-+	return true;
- 	
- failed:
- 	for (j = 1; j < i; j++)
--		brelse (sbi->s_ucg[j]);
-+		brelse(UCPI_UBH(ucpi)->bh[j]);
- 	sbi->s_cgno[bitmap_nr] = UFS_CGNO_EMPTY;
- 	ufs_error (sb, "ufs_read_cylinder", "can't read cylinder group block %u", cgno);
-+	return false;
- }
+diff --git a/mm/filemap.c b/mm/filemap.c
+index b74bc1e5015c6f318333427f223b9f42061a6213..30414d55412b84f11ebe98b8eea607ee8c04eef5 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -4389,6 +4389,16 @@ ssize_t generic_perform_write(struct kiocb *iocb, struct iov_iter *i)
+ 			break;
+ 		}
  
- /*
-@@ -166,15 +169,14 @@ struct ufs_cg_private_info * ufs_load_cylinder (
- 				UFSD("EXIT (FAILED)\n");
- 				return NULL;
- 			}
--			else {
--				UFSD("EXIT\n");
--				return sbi->s_ucpi[cgno];
--			}
- 		} else {
--			ufs_read_cylinder (sb, cgno, cgno);
--			UFSD("EXIT\n");
--			return sbi->s_ucpi[cgno];
-+			if (unlikely(!ufs_read_cylinder (sb, cgno, cgno))) {
-+				UFSD("EXIT (FAILED)\n");
-+				return NULL;
-+			}
- 		}
-+		UFSD("EXIT\n");
-+		return sbi->s_ucpi[cgno];
- 	}
- 	/*
- 	 * Cylinder group number cg is in cache but it was not last used, 
-@@ -205,7 +207,10 @@ struct ufs_cg_private_info * ufs_load_cylinder (
- 			sbi->s_ucpi[j] = sbi->s_ucpi[j-1];
- 		}
- 		sbi->s_ucpi[0] = ucpi;
--		ufs_read_cylinder (sb, cgno, 0);
-+		if (unlikely(!ufs_read_cylinder (sb, cgno, 0))) {
-+			UFSD("EXIT (FAILED)\n");
-+			return NULL;
++		/*
++		 * Some filesystems can extend i_size even when nothing was copied.
++		 * Prefault writes beyond EOF to catch unreadable source buffers.
++		 */
++		if (unlikely(pos > i_size_read(mapping->host)) &&
++		    fault_in_iov_iter_readable(i, bytes) == bytes) {
++			status = -EFAULT;
++			break;
 +		}
- 	}
- 	UFSD("EXIT\n");
- 	return sbi->s_ucpi[0];
++
+ 		status = a_ops->write_begin(iocb, mapping, pos, bytes,
+ 						&folio, &fsdata);
+ 		if (unlikely(status < 0))
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.39.3
+2.43.0
 
