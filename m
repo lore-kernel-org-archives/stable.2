@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826972;
-	b=PfKjIAUUeCFs54UzoXvBUaDBR7RoOEhIXn9mini7+w0+E+8QCJTFfS/Cp8HXH2enVUbd
-	 gBb1Zvejj8d+6ggJav/dAwEd+PE2B1GX+5bv44C39b8xpC+wzbaCLB8DCxTEQd8TAIEIb
-	 l/9hQgIg9tnF771GrOcKwkwcZnMhedDjhxfwAcUQYLMELCavV9rOXMy36en8VHtma0cSW
-	 u5vgobVryHdkwf9bc1LJkx7oL5aAdaHHUUMFPuaJeTHYkLMW3kp1OAjSbAB7mLTLyvBtD
-	 Lm4OdZN5dHovHBdyGDWRi4EDAWz5+Us/AnLpsNnpElrgvk5IbmYvApu0AToesOZcINw==
+	t=1793826975;
+	b=Ff+Rnomh4fPju7J6AAWWLDVtNDUM+Ez2hfb44N13uwieIbksRjSuLzStdUPW0zLRtOjX
+	 T/darKCUTsnB8r427MmrZxNE9ImfTkKdgr3ezMIQrCh7wb8KJAh1jkwoNoRnD5fZxexu6
+	 z9ikK6zdId6QDrhqnsqKEZDkNBgm6dbuYcJP+BuYQR7huWqyJutEJFdwFlCaEV4oVGKmv
+	 IXy06FVEATMAIBV4KT00cux37kxgVmbkFlh4rdyJxdeR9UpR92Al5zMdrfeSM8Z7HAS+D
+	 SJhApS/Z7ekQWhw7rARypWUtVHVGXzbWHsGXBmLt2S2vuHgL5A2p7KK97ETK4Td+BRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826972;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826975;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=MsefyVBaKb4i4u2BgQim8Ee3NMFW7Ux3RP3IMCl2hYA=;
-	b=CITktavDn54lxY+YTCbpZ9k0FhCiUEsfWTKKgu3wVjR9hWcYpzHbztwh/7gKcbqlQHff
-	 jCTaE4zfDmxYCovabSnVDCugkogsoT0z2X+C2nvk+3NkhdETQ2KxzR4xdv5CLd/5DOvjI
-	 gIJomCD/gQIsyyrRcIJpw2ujoZHAb1zabfvt/S5eMU2r68Z4A7zEN6hVBs4y46dQympov
-	 wcv8zuKxojC5LzCv1kyRSMPcoV8VxcJ7I2j3k/Sp609wJdewWLPfMy0ymI475AkIQn9uy
-	 TCMcj3fNvVbjfkZ4hMh0h5dI6tUJ3kxSe/WWaqsIJqduIei/qaRgAxeCMHbyZpzh8wQ==
+	bh=ZtB9Gl1/2QqhS40vdSRBMmazDXPZ2opYSHc1oPCsLtQ=;
+	b=E43PI0luO6OUctg+zWHpM56EjhG7VYGVOxY+5TeHPbY8uKILJOoSi3Pe7yHu/XzlVMsd
+	 ssHIjHeFNGjoAO29xjXUr2NOw1c3jdaZwklPFKC10N6J5PG5Z+FnqwlU19Jepc8JBInix
+	 YZytUWCt/VB0NeFBdDldcn9SEBjGMn/NRofIflFP+z2GkFaxnRgnR8GnLZHOPrq3UeaWx
+	 OfcOdkbNgAoedjkXFk8oc6YeEkRhxAaV3Y0pRFYhHdg1bAd8jO73NTVlYSrZVJeQuZc0p
+	 ZDAdQ7kTcZsbaN2YksnB4iotXq2SwLGL/qBf5aws9mMw8GsP4KA++dIQRw1kc3smmhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fv45iS9G;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OJFklqLU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E276070A96;
-	Wed,  4 Nov 2026 21:16:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864486070AAB;
+	Wed,  4 Nov 2026 21:16:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fv45iS9G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F5881F00A02;
-	Wed,  4 Nov 2026 21:16:11 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OJFklqLU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21ED21F000C1;
+	Wed,  4 Nov 2026 21:16:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793826971;
-	bh=MsefyVBaKb4i4u2BgQim8Ee3NMFW7Ux3RP3IMCl2hYA=;
+	s=korg; t=1793826975;
+	bh=ZtB9Gl1/2QqhS40vdSRBMmazDXPZ2opYSHc1oPCsLtQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Fv45iS9G68nNlauGRszGmOUOL1CwmW9adg/rYsHuTL1lVlsMgvryAWzBJdq2rYg18
-	 JnEu24mdB//zC6zN8tdBq6WNRIRPse1fXhebREBeYaT+wEGEUoa10r59Xk01KcgXpF
-	 9VyDEzDRapFx1e2q35F0LBPpjbn6I7+9Ec9n7uwI=
+	b=OJFklqLUaCWkF/XWNlR7UtxhgVIVnG2ZX0v/C6GWB1bFDs5uy8MuG5zXc4dRWVsy/
+	 bJEVCQqHXMF1LgGB/5RYRv5d6+kpd1dbMKr5utAIWDGcW9pd0CajNSw14hO4Tlxjbf
+	 VL44OxUDNlrx92E0KZCHyOhIOeGyToYosMz+9Qhg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Abdifatah Suruur <suruurism@gmail.com>,
+	Dairui Zhang <zhangdairui@gmail.com>,
 	Namjae Jeon <linkinjeon@kernel.org>
-Subject: [PATCH 7.3 117/547] ksmbd: drain session procfs readers before dropping table references
-Date: Wed,  4 Nov 2026 16:05:01 -0500
-Message-ID: <20261104211041.524903172@linuxfoundation.org>
+Subject: [PATCH 7.3 119/547] ksmbd: fix OOB read and cross-share confusion in ksmbd_validate_name_reconnect()
+Date: Wed,  4 Nov 2026 16:05:03 -0500
+Message-ID: <20261104211041.577122683@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -67,118 +67,64 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+From: Dairui Zhang <zhangdairui@gmail.com>
 
-commit 1c087cf7d5386c708d8984b263280b42b3daada0 upstream.
+commit 783a7fc454991544bf92268d8f2413af1a7c7eb8 upstream.
 
-Session registration failure and connection cleanup can drop the table
-reference while the per-session procfs entry is still accessible. If a
-reader holds the last remaining reference, its final put calls
-proc_remove() from its own callback and waits for that callback to
-finish.
+ksmbd_validate_name_reconnect() indexes
+ab_pathname[share->path_sz + 1] without checking that the path is
+longer than share->path_sz + 1 (d_path() fills the buffer from the
+end). A durable fp is not bound to its original share, so a client
+can preserve a file from a short-path share and reconnect it on a
+long-path share, making strcmp() read past the PATH_MAX buffer -
+with a long enough share path this oopses the kernel, and on a
+mapped page it also gives a byte-equality oracle on adjacent heap
+(the reconnect succeeds exactly when the out-of-bounds string
+equals the requested name). A same-share variant with the durable
+fp at the share root reads 1 byte past the buffer
+(strlen(ab_pathname) == share->path_sz).
 
-Remove the procfs entry before dropping the table reference in the
-registration failure path. Queue sessions removed during connection
-cleanup and drain their procfs readers after releasing both session
-locks, then return their table references. Keep the global hash node
-unhashed while a session is queued so a concurrent unregister cannot
-drop the reference again.
+Check before comparing: the path must be longer than share->path_sz,
+it must start with share->path, and the next character must be '/'.
+The share root itself is accepted only for an empty name.
 
-Previous-session replacement also destroys the file table before the
-session is finally freed. Detach the idr under the lock used by procfs
-file counters, and report zero files after it has been detached. This
-prevents a reader from accessing the idr during or after its
-destruction.
-
-Fixes: d7fd1f98607f ("ksmbd: follow SMB2 session expiration semantics")
+Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
+Reported-by: Dairui Zhang <zhangdairui@gmail.com>
+Assisted-by: LLM
 Cc: stable@vger.kernel.org
-Reported-by: Abdifatah Suruur <suruurism@gmail.com>
+Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/smb/server/mgmt/user_session.c |   15 +++++++++------
- fs/smb/server/vfs_cache.c         |    9 +++++++--
- 2 files changed, 16 insertions(+), 8 deletions(-)
+ fs/smb/server/vfs_cache.c |   18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
---- a/fs/smb/server/mgmt/user_session.c
-+++ b/fs/smb/server/mgmt/user_session.c
-@@ -95,8 +95,10 @@ static unsigned int session_open_file_co
- 	unsigned int id;
- 
- 	read_lock(&session->file_table.lock);
--	idr_for_each_entry(session->file_table.idr, fp, id)
--		count++;
-+	if (session->file_table.idr) {
-+		idr_for_each_entry(session->file_table.idr, fp, id)
-+			count++;
-+	}
- 	read_unlock(&session->file_table.lock);
- 	return count;
- }
-@@ -477,6 +479,7 @@ int ksmbd_session_register(struct ksmbd_
- 		down_write(&sessions_table_lock);
- 		ksmbd_session_remove_from_table(sess);
- 		up_write(&sessions_table_lock);
-+		delete_proc_session(sess);
- 		ksmbd_user_session_put(sess);
- 	}
- 
-@@ -604,6 +607,7 @@ static int ksmbd_chann_del(struct ksmbd_
- 
- void ksmbd_conn_sessions_cleanup(struct ksmbd_conn *conn)
- {
-+	LIST_HEAD(dispose);
- 	struct ksmbd_session *sess;
- 	unsigned long id;
- 	struct hlist_node *tmp;
-@@ -617,8 +621,7 @@ void ksmbd_conn_sessions_cleanup(struct
- 			down_write(&conn->session_lock);
- 			xa_erase(&conn->sessions, sess->id);
- 			up_write(&conn->session_lock);
--			if (atomic_dec_and_test(&sess->refcnt))
--				ksmbd_session_destroy(sess);
-+			list_add_tail(&sess->dispose_entry, &dispose);
- 		}
- 	}
- 
-@@ -628,12 +631,12 @@ void ksmbd_conn_sessions_cleanup(struct
- 		if (xa_empty(&sess->ksmbd_chann_list)) {
- 			xa_erase(&conn->sessions, sess->id);
- 			ksmbd_session_remove_from_table(sess);
--			if (atomic_dec_and_test(&sess->refcnt))
--				ksmbd_session_destroy(sess);
-+			list_add_tail(&sess->dispose_entry, &dispose);
- 		}
- 	}
- 	up_write(&conn->session_lock);
- 	up_write(&sessions_table_lock);
-+	ksmbd_dispose_sessions(&dispose);
- }
- 
- bool is_ksmbd_session_in_connection(struct ksmbd_conn *conn,
 --- a/fs/smb/server/vfs_cache.c
 +++ b/fs/smb/server/vfs_cache.c
-@@ -1975,14 +1975,19 @@ int ksmbd_init_file_table(struct ksmbd_f
- void ksmbd_destroy_file_table(struct ksmbd_session *sess)
- {
- 	struct ksmbd_file_table *ft = &sess->file_table;
-+	struct idr *idr;
+@@ -1877,9 +1877,21 @@ int ksmbd_validate_name_reconnect(struct
+ 		return -EACCES;
+ 	}
  
- 	if (!ft->idr)
- 		return;
+-	if (name && strcmp(&ab_pathname[share->path_sz + 1], name)) {
+-		ksmbd_debug(SMB, "invalid name reconnect %s\n", name);
+-		ret = -EINVAL;
++	if (name) {
++		size_t len = strlen(ab_pathname);
++
++		if (len == share->path_sz && !strncmp(ab_pathname, share->path, len)) {
++			/* the durable fp is the share root itself */
++			if (name[0])
++				ret = -EINVAL;
++		} else if (len <= share->path_sz ||
++			   strncmp(ab_pathname, share->path, share->path_sz) ||
++			   ab_pathname[share->path_sz] != '/' ||
++			   strcmp(&ab_pathname[share->path_sz + 1], name)) {
++			ret = -EINVAL;
++		}
++		if (ret)
++			ksmbd_debug(SMB, "invalid name reconnect %s\n", name);
+ 	}
  
- 	__close_file_table_ids(sess, NULL, session_fd_check, true);
--	idr_destroy(ft->idr);
--	kfree(ft->idr);
-+	/* Stop procfs readers before freeing the detached file table. */
-+	write_lock(&ft->lock);
-+	idr = ft->idr;
- 	ft->idr = NULL;
-+	write_unlock(&ft->lock);
-+	idr_destroy(idr);
-+	kfree(idr);
- }
- 
- int ksmbd_init_file_cache(void)
+ 	kfree(pathname);
 
 
