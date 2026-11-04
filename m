@@ -1,111 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793777662;
-	b=LWnzsSruiPA+TN04n7DgoROWqA3qPFG9hkc3+HBUQG//WIy/EUu4+y+ertjyHLB2O9za
-	 2iOH1GfIy/DOu3mlZ7FQg/M98QrkgV/VzeDMqTgO7pAN9JXJwwguGgV7m1yNvZg0EMCvk
-	 w02zCxKE5myu4TpvolQrrKzgNNGRjH4EY4FR9hZo4B4bt70HHTbWDRSST/JEZ5FqHF/9C
-	 mBVNYoObTT9Mya1f9PwBaBBL5az3FXzy0F2lB/W+3xT8WUddXileHIvQWHWjUX8tk7v63
-	 hcEOZtcV3uyz+8ge3qiGsubNZf4rLR62K/55JcBaCN2SRqrUFhTTuyzWXzhcWNQB9iQ==
+	t=1793777832;
+	b=U/DaC3KOuZt8rBIZvyQ+1RMP5RCuyNDFojmWv5Ri7dXBtfmmsyMS6ihI7CpuQ39E9fIR
+	 XZ5faIUmEISgvaRDrqKhvnb6JeGnk0fQNcI+G+D3LPvaXdIzKBGEaHCClYoPe3SU1hiZo
+	 zQxYYzT14gGHvDUoQhlP56qDnjf9s7nfyAb3M+OwGseSzSpjLr+0k2qAKjPTFyQXBp7qN
+	 nNlZ7RRvy1EkIM4oGNCbwjvyHwt24QqRkyTuXhHGWHSmeDrhT6pfaOqOtYLLBNrF6Hatv
+	 /+sRaWqkLaUomnBIaWso75Ckh4s+b1A6gNO/aHVgzcS+gXK8EOkUfL/t1BuYCGTzx8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793777662;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=n9WJmtjmaiG9H73C8oCIeI1tkQAyaNAnEi147NL4GLA=;
-	b=yY2J0UqSKpXngzjYNEhBZFq4wX2iW0O2C5C4QbyPsXqyZtMY7SI4CjOnNhGfOylogCr5
-	 27nmcO56UgAPc4ej1hGxOX0CxkIdaDJPnq90B7cdcrGNYIjffjmC5S/UgprAAXyLyXEYk
-	 ZrH0eAuEIvF8Rz7Jlh8tak0xTcEql6ko8VbmKY5u2J9dUFWluMN//TzuDGCgHjNhFtrty
-	 +CeJmLz+fYV3hhCRWOArLeyoht+V8C1IECOImDE44V5qTBdZ8CooGOBqm/DOlcqJvO/b2
-	 SndDjALwqWiWbY4Kr48TXvKAxr4VDyHRRDOrbw8fPDG3Ab0TAs5gG4pBCJMwbTFEp/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793777832;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=Fin16iwd8zeVB2XbqHtY/b1SBp98Yl5BOCuh6PYlXus=;
+	b=VuBfmz8Lkgv9z86bFKbtFXBTW9VNMYDhMq06N7SYRdls2B3wpnvGPzt3tpb2+P64qgTu
+	 s/wpbxUYFAx9x916W8vBbDgiKWT5YE3SOxn5mt0IuvPL0/gCBn8/Bmv/H7eixT+luM+iS
+	 7a259fsVf6RJs7NktcKP7VCSxskfuAqiu9Pb4ZqZxtctGNlkl0lJ02tdGxgbs6PCjj/8N
+	 aGpKjcmiBgE0j78uJpiKx37qnWoif9JY9yqKtR2x9wUUyRlzz8+EKsx96ELuZilf020dj
+	 BfEGtl3yrdIhlw3rZuxtvvudhVThEPxaL5r5YXEGKsyr3H7jPU/oQL+TQAyymOo8paA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=einSExJF;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=I2OgySH1;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=j7Hga9j8;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+kIlFVu8;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=oRsgo2d1;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FEE606A329;
-	Wed,  4 Nov 2026 07:34:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9FEE606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67000606A329
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 07:37:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67000606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=einSExJF;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=I2OgySH1;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=j7Hga9j8;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+kIlFVu8
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E2EFE1F7BA;
-	Wed,  4 Nov 2026 07:34:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793777660; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n9WJmtjmaiG9H73C8oCIeI1tkQAyaNAnEi147NL4GLA=;
-	b=einSExJFc7yKcZbI6vV/BouuaDJI7GbTlUr+FhamRfYL+jCiTJj8uTwbCUcO45Vvi4zXLA
-	GPbwKidkjOwXaHbIkTFAIz8J/xIZlFsXzNYfRhjMBY4wp7LqNGbz5Aff5tKjRgKcuOYO2v
-	KXXOlSMf+vbCjxOKgI0ne/nckY2X0ok=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793777660;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n9WJmtjmaiG9H73C8oCIeI1tkQAyaNAnEi147NL4GLA=;
-	b=I2OgySH1HUh3jlKvjk/42B4NlHH+p8k0rrx3LNYk/qRwxJKRwu5+PqyPkPwvZgDPfjDh0q
-	gH3DV1D+5cXiX6CQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=j7Hga9j8;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=+kIlFVu8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793777659; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n9WJmtjmaiG9H73C8oCIeI1tkQAyaNAnEi147NL4GLA=;
-	b=j7Hga9j8NF9UX49c9hpZ7IVWXNlMGVB4eMVnkA40cuOVEIBCV6t22PatZlnCbCbHEJS7B+
-	dKGgIHFXZnv7GEVUlkzihIdQC2BlZoflmbuZ56kvRQsHWFpNEzSzt1uyLvTBykjPJaSqnv
-	WBaDJ5ul1NBPvzlAlVmdxuxBptkPeNM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793777659;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n9WJmtjmaiG9H73C8oCIeI1tkQAyaNAnEi147NL4GLA=;
-	b=+kIlFVu8ahLNvacutHdv+O0GxNVlAGELWlvHKY2H5Csi35mImCQ/juBC5BWSPHPlaNSiwS
-	w950UX90Qs5YWGAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 93A1A134A5;
-	Wed,  4 Nov 2026 07:34:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 32qVGvvf6mqtPwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 04 Nov 2026 07:34:19 +0000
-Date: Wed, 04 Nov 2026 08:34:19 +0100
-Message-ID: <87h5hxuk1w.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sinan Turunc <enscrpt@pm.me>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] ALSA: usx2y: Reject buffers smaller than two packets
-In-Reply-To: <87se1hukq1.wl-tiwai@suse.de>
-References: <20261103132247.713-1-enscrpt@pm.me>
-	<87se1hukq1.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=oRsgo2d1
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261104073708euoutp029bc371e6b1f53da37187f2d638d26e10~kx25o47oF1174011740euoutp02R
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 07:37:08 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261104073708euoutp029bc371e6b1f53da37187f2d638d26e10~kx25o47oF1174011740euoutp02R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793777828;
+	bh=Fin16iwd8zeVB2XbqHtY/b1SBp98Yl5BOCuh6PYlXus=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=oRsgo2d10Xs5fjaGmy+g59SkBifdAXF8fkxLlnePByDdoW/aAWfyUWRP2EoMEdE9l
+	 L8MvDVD51dJP2anrj89xr1OGy69mAlXFjo19MkmQ2LYVmBFrNwQwyAVs9ONLmEyHdT
+	 D7O3O2ukNcvGMNrleLkax8SnrMZeGRblcHVcWqRE=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261104073707eucas1p26b354ea66e62c86c08bfcbf21fde04d2~kx25Dfbbl0248702487eucas1p2-;
+	Wed,  4 Nov 2026 07:37:07 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261104073707eusmtip22cc96a6645008d9040cea9d940ec6d4a~kx24dAqup0090700907eusmtip2r;
+	Wed,  4 Nov 2026 07:37:07 +0000 (GMT)
+Message-ID: <8276a107-7115-48e3-a40a-2660fe1beaa5@samsung.com>
+Date: Wed, 4 Nov 2026 08:37:06 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,85 +63,137 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: E2EFE1F7BA
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[pm.me:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -12.51
+MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] dma: swiotlb: Round restricted DMA pool size down to
+ IO_TLB_SEGSIZE
+To: Michael Kelley <mhklinux@outlook.com>, "iommu@lists.linux.dev"
+	<iommu@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>, Claire Chang
+	<tientzu@chromium.org>, Konrad Rzeszutek Wilk <konrad@kernel.org>, Giorgi
+	Kobakhia <gkobakhi@asu.edu>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <MN2PR02MB686381EADCEECF16B23214D0D4692@MN2PR02MB6863.namprd02.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261104073707eucas1p26b354ea66e62c86c08bfcbf21fde04d2
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862
+X-EPHeader: CA
+X-CMS-RootMailID: 20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862
+References: <CGME20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862@eucas1p1.samsung.com>
+	<20261103155016.1107958-1-m.szyprowski@samsung.com>
+	<MN2PR02MB686381EADCEECF16B23214D0D4692@MN2PR02MB6863.namprd02.prod.outlook.com>
 
-On Wed, 04 Nov 2026 08:19:50 +0100,
-Takashi Iwai wrote:
-> 
-> On Tue, 03 Nov 2026 14:23:03 +0100,
-> Sinan Turunc wrote:
-> > 
-> > usx2y_urb_capt_retire() splits the copy into the ALSA ring buffer once
-> > at the buffer end and wraps hwptr_done once, which is only correct when
-> > one packet holds at most buffer_size frames. The packet size is the
-> > endpoint's maxpacksize from usb_maxpacket(), while the hw constraints
-> > allow 64-byte periods with periods_min 2, so a packet can be larger than
-> > the whole buffer.
-> > 
-> > The endpoint is known at probe time, so constrain
-> > SNDRV_PCM_HW_PARAM_BUFFER_BYTES in snd_usx2y_pcm_open() to at least
-> > twice the endpoint's packet size. Two packets, matching the line6 fix.
-> > The bound makes the copy safe, but it does not make every larger buffer
-> > progress: the position is reported once per URB of 4 packets, so a
-> > buffer that divides one URB's data returns to the same position at every
-> > callback. That was already the case before this patch and is not changed
-> > here. Keep a guard in usx2y_urb_capt_retire() that drops an oversized
-> > packet with a ratelimited error, for the case that should no longer be
-> > reachable.
-> > 
-> > Reproduced on 7.3-rc7 with a USB/IP device presenting the US-122
-> > interface layout and 1024-byte packets into a 512-byte buffer:
-> > 
-> >   BUG: KASAN: out-of-bounds in i_usx2y_urb_complete+0x1285/0x1ac0
-> >   Read of size 18446744073709551104 at addr ffff88800e448800 by task vhci_rx/83
-> > 
-> > With this patch a 1024-byte buffer is refused at hw_params; a 2048-byte
-> > buffer is accepted and safe but barely advances (hw_ptr 9216 after 30 s,
-> > for the reason above); a 3072-byte buffer streams for 30 s with no
-> > report and with the position moving inside the buffer.
-> > 
-> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Sinan Turunc <enscrpt@pm.me>
-> 
-> Applied now.  thanks.
+On 03.11.2026 22:18, Michael Kelley wrote:
+> From: Marek Szyprowski <m.szyprowski@samsung.com> Sent: Tuesday, November 3, 2026 7:50 AM
+>> All other paths creating a swiotlb pool ensure that nslabs is a multiple
+>> of IO_TLB_SEGSIZE, and the swiotlb code relies on that. Since commit
+>> 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization") a
+>> restricted pool can have an arbitrary size taken from the device tree.
+>>
+>> If the pool size is not a multiple of IO_TLB_SEGSIZE, the last segment is
+>> partial and swiotlb_release_slots() reads mem->slots[index + nslabs],
+>> which is one past the end of the slots array when the freed buffer ends
+>> at the end of the pool:
+>>
+>>  BUG: KASAN: slab-out-of-bounds in swiotlb_release_slots
+>>  Read of size 2
+>>
+>> Round the pool size down to a multiple of IO_TLB_SEGSIZE, wasting a bit
+>> of memory, and warn about it.
+> I'm not familiar with the macro scenarios where a device has a
+> restricted pool specified in DT. But I wonder if it would be better to
+> round up instead of down. DT has specified that the device should
+> have a restricted DMA pool of a certain size, and rounding down gives
+> the device a smaller pool than was requested. Could DMA operations
+> then fail because of not having a large enough pool? Rounding down
+> also allows the pool to end up being size zero, which this patch
+> detects and results in a definite failure at device initialization time.
+>
+> What's the tradeoff in rounding up instead?The device restricted
+> pool at least as large as requested. Presumably, being larger than
+> requested doesn't cause any problems for the device or its driver.
+> The downside is using up to 256 KiB more system memory than
+> expected. In an embedded system with only a few MiB of system
+> memory, maybe that's a relatively big problem. I don't know the
+> scenarios well enough to judge whether using a bit more system
+> memory is better or worse than the device not having all the
+> restricted pool space it said it needed for DMA.
 
-... and I noticed Sashiko warnings now, so dropped again from the
-queue.  Could you verify whether those complaints are valid or not?
+The main problem with enlarging the restricted pool is that the memory
+has been already allocated (reserved) by the generic of_reserved_mem
+code before the rmem_swiotlb_device_init() is called. There might be
+even another reserved region just after the one being processed by
+rmem_swiotlb_device_init(). The reserved region might be specified in
+the device tree exactly, by pointing its base address and size. In
+such case the rmem_swiotlb_device_init() really cannot do anything
+else than using the provided already allocated region partially.
+The only thing that might be improved is freeing the 'wasted' part
+of the region back to the memory allocator if You think that
+printing a warning is not enough.
 
 
-thanks,
 
-Takashi
+>
+> Your commit message also mentions "wasting a bit of memory".
+> What is wasted in the round down case? The rounding down is
+> done before the pool memory is allocated. I would have thought
+> the wasting would occur in the round up case, where the restricted
+> pool is given more memory than the device said it needed.
+>
+> Michael
+>
+>> Reported-by: Giorgi Kobakhia <gkobakhi@asu.edu>
+>> Closes: https://lore.kernel.org/all/20261026032007.1957949-1-gkobakhi@asu.edu/
+>> Fixes: 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization")
+>> CC: stable@vger.kernel.org
+>> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+>> ---
+>>  kernel/dma/swiotlb.c | 15 ++++++++++++++-
+>>  1 file changed, 14 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+>> index 2c57b49ac7c0..a68f35192582 100644
+>> --- a/kernel/dma/swiotlb.c
+>> +++ b/kernel/dma/swiotlb.c
+>> @@ -2007,6 +2007,19 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
+>>  	 */
+>>  	if (!mem) {
+>>  		struct io_tlb_pool *pool;
+>> +		unsigned long aligned_nslabs = ALIGN_DOWN(nslabs, IO_TLB_SEGSIZE);
+>> +
+>> +		if (aligned_nslabs != nslabs) {
+>> +			dev_warn(dev, "Restricted DMA pool size %zu is not a multiple of %lu, rounding down to %lu bytes\n",
+>> +				 (size_t)rmem->size,
+>> +				 (unsigned long)IO_TLB_SEGSIZE << IO_TLB_SHIFT,
+>> +				 aligned_nslabs << IO_TLB_SHIFT);
+>> +			nslabs = aligned_nslabs;
+>> +		}
+>> +		if (!nslabs) {
+>> +			dev_err(dev, "Restricted DMA pool is too small\n");
+>> +			return -EINVAL;
+>> +		}
+>>
+>>  		mem = kzalloc_obj(*mem);
+>>  		if (!mem)
+>> @@ -2034,7 +2047,7 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
+>>
+>>  			mem->cc_shared = true;
+>>  			ret = set_memory_decrypted((unsigned long)phys_to_virt(rmem->base),
+>> -						   rmem->size >> PAGE_SHIFT);
+>> +						   (nslabs << IO_TLB_SHIFT) >> PAGE_SHIFT);
+>>  			if (ret) {
+>>  				dev_err(dev, "Failed to decrypt restricted DMA pool\n");
+>>  				kfree(pool->areas);
+>> --
+>> 2.43.0
+>
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
