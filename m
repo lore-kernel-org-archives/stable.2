@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793816574;
-	b=eT2jFw5mUjuDUmfJWowTeOLjfyHqULHVwYKAyPq+5mxsXQmVFvQDVgzoLUbFmFA4VupP
-	 uAuzULyx4EHWaNxlcvNtRe6LmUA+yTgI92tVepePwYAIXC1bsqAZ8GB7/l7AfeOfSNT9H
-	 ujOkTGSZ8sZe0iMIPDD4fUa0QR0jT1DZ7HB6/NiZpg0F4q6ruTiK5/fa2uHEWrqr28+IN
-	 vYNTwSjYZJD0WNNSdOk8SF9ge0KJmBEJaNbzhqgL8VHJoAEK5qokHyV0RTK0MoDI9e5MW
-	 1Rbu8z6RpXp1Lw13/o1iwlp3VWZtqKwoEzFpXPlzqfYAStqK8V7EPnx3IyhOeZYD4bg==
+	t=1793816580;
+	b=SrOdxphlmVb526S7YNdZOZGNuaI/N9EchQ1TX5V3G+sIzQQzBEAZIapiHRmN5zEUnNo4
+	 AIWaSGQXIOwurbIHhub5AZ7YteYdxRIToAFk03O1qfcKefcWAt2e6fyrYpaXxn2ZpH85s
+	 1pEH52EaFtO1sJmea98dOu3DRGNcIVCwPAE7fdRpYXX1FCvthEEWFSW2KFNmf6Mxv0LLw
+	 THydLbk8O+4LF7sGoRBsuK0v8j+vnokkQXozLyfGaQzjlY4y+s8+gwTHafyCwfj0nEIyR
+	 oBZnOghK1AULBC5s6Vjwc+xTwZCEPJ0OFHa6TrouIhxqEZnxT5myRs3JkP2+sTzPs8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793816574;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793816580;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jP1jFEmW2aDsf4+xHGpPsvP6TocZZfQ32bStrI+tP/g=;
-	b=C3+FX5ZWjHhtU7G+DwF0gUSEoYlNJv3VYsfuMR7wqoAMzcRx9VP+3iyM5AjZavoaktr1
-	 IpfXMnH+xgN2QCmQOtjRhn6J7bh+QEWAH9qThPgTrwhv8XQd2gIex2ZQI4vkbtoLVwYab
-	 6SXitW06KJ8R3k4VU/fxjlX9qDG4j2Te4Tym1f1ZD7yrT2Wg3UXxQjj3v5lJYIpj/roZ/
-	 tYXi61om3Mk7ZnoFD7cPPmX+sZE2t+xItVRZHnZcGT9z7Fl5clH4lPAwqf8OBWniv+4h6
-	 5Gxq94xIdcm8TxfXh1/ZOUfd99SY1cjV21dY/L0skR/FzstlLSNryOXTwui08iNE7jA==
+	bh=RPAdsIQY5Kx1joh+eUcsZRBucGrmF4dT+TKs44SKeg4=;
+	b=mCOSG62hJxQ0N0IjAKW0Gjo7yS3A0xSXgt4Wv6bYuigEYY78zfzTn2z8XyOVU8WqKNq3
+	 518a474LaMuRciTi6vrxKkupTb/GCmej4g+mXzVEDUz3Dx4muD6cYnCsWROOnK3TZU2Qv
+	 jEGjLirEsCcAtKP9EQpEFvd+lkOq5d4KOAKR+eekVDNH626cNbWaFI4z4h1vob4FrX9tf
+	 0f3/tJBe4hSwhRdEPucE7hJCnHXqJ+DlGt828sbR44SMzOQn6sCz0q06DzK22r6KsGaHd
+	 jIEsGsk3+8RA5bvXyd5kHUZPwIrE41UouNisK/5G50xLzSWm2hGSDCkYfmyAbnYkuGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l9uvSM0g;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=keoOPYw+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C93C606D2EF;
-	Wed,  4 Nov 2026 18:22:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB7C60702FA;
+	Wed,  4 Nov 2026 18:23:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l9uvSM0g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F4771F000C1;
-	Wed,  4 Nov 2026 18:22:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=keoOPYw+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5EBD1F000C1;
+	Wed,  4 Nov 2026 18:22:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793816573;
-	bh=jP1jFEmW2aDsf4+xHGpPsvP6TocZZfQ32bStrI+tP/g=;
+	s=k20260515; t=1793816580;
+	bh=RPAdsIQY5Kx1joh+eUcsZRBucGrmF4dT+TKs44SKeg4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l9uvSM0gpiiPrmTzkB5bbPaDneweWTcKSeQDSOGVhMzgbdfL+/BagVp8mBz3K1ghZ
-	 kc4ciUMjFAr0EP2mTzBm5Adq2b8+GW6gbF13v92BN7AXX59lDwOdQ6HwqbCTczCM9v
-	 hFrPvmeu9uYOweYcHyphVxp/+l4L877n+F7DD35EUW5fxOeCviiO6P25IYL8PI1mUt
-	 sfHeDV0BYwyQ8bmdFjLPWjoPvwxnl2kZ6ewG11FaR2uuW11+JYUkrvEJBrjo7NF/U0
-	 GmXRhv4UmaikORJRAvjNVyMRnlMIPpbBGx6iKefRzakGwE0o8VaPjn17y4WTmePdfc
-	 NsiDUNV2AJ8KA==
+	b=keoOPYw+pXkNi3pK6fSumYCt8ftAzuk/oHMIUnoUbbR/aI+OrWxxC9ANh1TwRzzFM
+	 bn/2hHBhE6AP0jOBqjiqjqC4YyqPQh7V170WyRi08qwRzCHiWEkHZKubD3meM1ivAg
+	 CTCNfNdq2oB6wc/zS7JJtUSa472Q3kEEBwxnjYIk8wtG5iqmQGRd+KzUO5vVtY02ow
+	 /jIMlTKjadGGkw7uZpkFeD3GYdksxYyae5C5eOLQDOMUofwXXTFNAw8FYFfy8XA7UR
+	 77SrEUnaep5tHulgSRsUuDCH6OPqqTXJzOcEnsyYYfNcDJwSPy3Rlu8g5pRGhhwLaX
+	 whcqecfo/vLHQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
-	Gyungoh Yoo <jack.yoo@maxim-ic.com>,
-	Graeme Gregory <gg@slimlogic.co.uk>,
-	Eduardo Candelaria <jedu@slimlogic.co.uk>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Stephen Warren <swarren@nvidia.com>,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	ChiYuan Huang <cy_huang@richtek.com>,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 09/10] regulator: max8907: Avoid NULL idata dereference in max8907_regulator_probe()
-Date: Wed,  4 Nov 2026 18:20:59 +0000
-Message-ID: <20261104182148.1176116-10-lee@kernel.org>
+Subject: [PATCH 10/10] regulator: rt6190: Check pm_runtime_resume_and_get() return value in rt6190_out_enable()
+Date: Wed,  4 Nov 2026 18:21:00 +0000
+Message-ID: <20261104182148.1176116-11-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
 In-Reply-To: <20261104182148.1176116-1-lee@kernel.org>
 References: <20261104182148.1176116-1-lee@kernel.org>
@@ -67,37 +64,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a board does not provide platform data or a Device Tree node for
-BBAT, SDBY, or VRTC, idata is NULL in max8907_regulator_probe().  Unlike
-the MAX8907_MBATT case above it, the BBAT/SDBY/VRTC case unconditionally
-dereferences idata to assign idata->supply_regulator, causing a NULL
-pointer dereference during probe.
+rt6190_out_enable() ignores the return value of pm_runtime_get_sync()
+and proceeds with register accesses even if runtime resume fails.
 
-Check that idata is non-NULL before dereferencing it.
+Use pm_runtime_resume_and_get() and return the error code on failure so
+the usage counter is not left elevated and registers are not accessed
+while the device is suspended.
 
-Fixes: ffee19091a4e ("regulator: add MAX8907 driver")
-Fixes: 5fc72f57e62e ("regulator: max8907: fix use of possibly NULL idata")
-Closes: https://sashiko.dev/#/bug/linux-372cd4b4-65df-47bd-8b31-5a7b416b2f91
+Fixes: e6999e7cca7e ("regulator: rt6190: Add support for Richtek RT6190 regulator")
+Closes: https://sashiko.dev/#/bug/linux-dcfab9b2-550f-4319-87a5-682c3f6cef75
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/regulator/max8907-regulator.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/regulator/rt6190-regulator.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/regulator/max8907-regulator.c b/drivers/regulator/max8907-regulator.c
-index e59aa7a3ee54..ee7d9b7ef7fc 100644
---- a/drivers/regulator/max8907-regulator.c
-+++ b/drivers/regulator/max8907-regulator.c
-@@ -331,7 +331,8 @@ static int max8907_regulator_probe(struct platform_device *pdev)
- 		case MAX8907_BBAT:
- 		case MAX8907_SDBY:
- 		case MAX8907_VRTC:
--			idata->supply_regulator = mbatt_rail_name;
-+			if (idata)
-+				idata->supply_regulator = mbatt_rail_name;
- 			break;
- 		}
+diff --git a/drivers/regulator/rt6190-regulator.c b/drivers/regulator/rt6190-regulator.c
+index 21ced348a2cf..973335a9178d 100644
+--- a/drivers/regulator/rt6190-regulator.c
++++ b/drivers/regulator/rt6190-regulator.c
+@@ -99,7 +99,9 @@ static int rt6190_out_enable(struct regulator_dev *rdev)
+ 	u8 out_cfg[4];
+ 	int ret;
  
+-	pm_runtime_get_sync(data->dev);
++	ret = pm_runtime_resume_and_get(data->dev);
++	if (ret)
++		return ret;
+ 
+ 	/*
+ 	 * From off to on, vout config will restore to IC default.
 -- 
 2.56.0.385.gac671c819a-goog
 
