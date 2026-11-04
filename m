@@ -1,108 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793776818;
-	b=FbVv02Us2DXszjBMPuETzvahvME3AfDLdWcKzx/pz/glFBT+zqr3q200dNLW5dTXdAUf
-	 6SUz+f7oBY4Duy9BsLvEDeccMfLWe38g9ZjMXxA2uMSiSwBvyfwlxQJzaF95oGzYogfBK
-	 sqSOskwdOFMdYyYbiuKo/156XUXQIJjRAMXB9Er+q6krQnXhEXZHBZ/nOLyAKO9nm0dEz
-	 CpwJypxR8U/HikqiqZru2KBDsP3quasqBqKqeayKWjG8tuDrL3TFnRvdOCkXFpAyShsFx
-	 cOorS/qvIJUZNgIjhMgfMZgbW0gbmAnmaJrPsyWoWoL8SF+q6nM3Xn7AEpSsS+K8vCA==
+	t=1793776867;
+	b=t9aRMgO8zJkXWNObosXOGT4F2QUQzCRbRcdRRL2z9JMFoyGfg8muMsPbbhrtdD/Zt04R
+	 R0sTZULYPM66lfCvZDJZKGucoM/0s76diVx0YBejryPwkae8RgBKtz1XZZlmGkLSlX099
+	 TnInN5iSVs+3nA0gCzbuHtdD5IZ0kJ9Bo1cUNvoSHtnTjQk2fTwoD1ypA/DmoPXkoi4KC
+	 fzoomPwnG93MCMY6xQq8V1w9W1qHGUfSkiaD7Or9GE26SNvmddp/K+vUxaOB2BmU+Y0Qa
+	 HOes8uKtb8plUab64VGwxNucFHq1K2XFR4muEA/gV5ApV6mRYg7QQYf0pHEywhMUrpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776818;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=Ujn0zESg817OmGm9nz5PRQbhLpqdayMti7SZ0+hOQZk=;
-	b=FbI+LXXyfTHTOkhAszOC9v0SOz3M0i8QsxVaTp+mdhVRZ83HnJRqLtYHbovyBCFoqI/G
-	 XrPn1W5LGENWsypXX2cnTsI9u3RwwaPRKk0PE9nUJGs7MQ0uBkaN+ahgD/1OlrICvtrjc
-	 +myPkcehC1sbiB1Cpo8TD7IzJnbFugKn9H4qBHaS0O+gMqVsIknT9ew9sUDZUklU/WwkC
-	 NyDdsol1yIyexnwfR+2LOGIYPp4QF6hAupy0uueJQJMns3FdRB+dUp0M4TS42hjSk2/Su
-	 os0UrXtR3j/7Spx8IP0Dvh1574yHQUaH3mqGaAL3lUCdYDmkdXtALqorV2V0O7w71eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776867;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=L0psWKRkASGm46CunD1oZXPWrrP9V2HqWj0pDQuxulg=;
+	b=5tjs0GM8EuIIBLRCddlxqM+1Xw5I2AeafhSEJLGk54XcESEzEhPSromehDnoWW0q74OM
+	 Uk64Tm6smQgQPTxceM6LMzELzz9ygEY2OKAwS0tL3sI0N6EHJXqB498HpQRcKsMYog0+u
+	 3q712RVorSuRz7ZN3Iqjcv4qY0gdYciyh9uIR5bOkbTRq3J8dB92RsvX8WHXRp1gV7lQ6
+	 qfYk9TdBUcitmPYCfYHlIroI2WmqFeT1HF/X76lE5kGG360TQdg613pskRtDvs1YVQ06r
+	 uTflRo04YfImjurXbsWk/g0AyLDhMfW+zVCpNgAIHq3b7d7uil3wLEt/JfJuuVEQhvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sWYZIoZ0;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FsxFcpgX;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sWYZIoZ0;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FsxFcpgX;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k9RCxh64;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 001F5606A31B;
-	Wed,  4 Nov 2026 07:20:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 001F5606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6842606A328;
+	Wed,  4 Nov 2026 07:21:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sWYZIoZ0;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FsxFcpgX;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sWYZIoZ0;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=FsxFcpgX
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 630AE21FDE;
-	Wed,  4 Nov 2026 07:20:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793776816; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ujn0zESg817OmGm9nz5PRQbhLpqdayMti7SZ0+hOQZk=;
-	b=sWYZIoZ0HPE9h9dB1dsiJ40svkvO2dWIhBi6yknCsAzBaCNPBowkXYqEJn3Q0oMeYrNu9Y
-	PoD/ahek9PfaD/Cu6FIVgf+ED787Q4SktB8FmCFcdUzLOjeVNXsrYW3s91onyHOTX2ow3u
-	NmF7GdyvaqerujYRgldi9FefyiZMhlU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793776816;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ujn0zESg817OmGm9nz5PRQbhLpqdayMti7SZ0+hOQZk=;
-	b=FsxFcpgXuOZZV0K/79PgGENrkhSJjTOidCi+nZadeJyiXxnpPZZgvD88zdANAoQSIdpUDO
-	pvj4slTDXTdlgqDg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793776816; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ujn0zESg817OmGm9nz5PRQbhLpqdayMti7SZ0+hOQZk=;
-	b=sWYZIoZ0HPE9h9dB1dsiJ40svkvO2dWIhBi6yknCsAzBaCNPBowkXYqEJn3Q0oMeYrNu9Y
-	PoD/ahek9PfaD/Cu6FIVgf+ED787Q4SktB8FmCFcdUzLOjeVNXsrYW3s91onyHOTX2ow3u
-	NmF7GdyvaqerujYRgldi9FefyiZMhlU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793776816;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ujn0zESg817OmGm9nz5PRQbhLpqdayMti7SZ0+hOQZk=;
-	b=FsxFcpgXuOZZV0K/79PgGENrkhSJjTOidCi+nZadeJyiXxnpPZZgvD88zdANAoQSIdpUDO
-	pvj4slTDXTdlgqDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0E6F3134A5;
-	Wed,  4 Nov 2026 07:20:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 1Kq3Na/c6mokMQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 04 Nov 2026 07:20:16 +0000
-Date: Wed, 04 Nov 2026 08:20:15 +0100
-Message-ID: <87qzh1ukpc.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sinan Turunc <enscrpt@pm.me>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] ALSA: line6: Reject capture buffers smaller than two packets
-In-Reply-To: <20261103132227.696-1-enscrpt@pm.me>
-References: <20261103132227.696-1-enscrpt@pm.me>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k9RCxh64
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0CD91F000C1;
+	Wed,  4 Nov 2026 07:21:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793776866;
+	bh=L0psWKRkASGm46CunD1oZXPWrrP9V2HqWj0pDQuxulg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=k9RCxh64i0WDXkNSfepE9eHTvVOorBjZpHTpacgODRluwSmtEoFSbunhpgyG54Q5U
+	 mFsURCkoO62yW411T+TN8trzrlaoZUQ/EuAkCXyQNfnmofEyAxEKcnTamRK07ss6Mh
+	 DNCJVniW1Ru1rLQCXMaG40FfpVrqIPyacSxEWoQUijK+HJJKXmPZ40iPFV/hqx172h
+	 q1aCqrVggefYeB57vDP91mLheS14+HwgsALAp/Bgn+830h7DScDGOA7Rlut8QMmLr2
+	 j+NVbh/fxdcDRqe+kZLyX9gsTHyMzaaempaf07LzQxCg00NdX5W/o9+nM8eLsk5V7y
+	 o2ht7P4ZCwZfw==
+Message-ID: <cf62f2f9-08e1-4f0c-820f-5e129e4c7de0@kernel.org>
+Date: Wed, 4 Nov 2026 08:21:00 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,64 +50,86 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,pm.me:email];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.30
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: exynos4-is: Free the control handler if
+ fimc_ctrls_create() fails
+To: Wentao Liang <vulab@iscas.ac.cn>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261103094612.1289226-1-vulab@iscas.ac.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261103094612.1289226-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 03 Nov 2026 14:22:44 +0100,
-Sinan Turunc wrote:
+On 03/11/2026 10:46, Wentao Liang wrote:
+> v4l2_ctrl_handler_init() allocates the handler's bucket array, and each
+> subsequent v4l2_ctrl_new_std() call allocates a control.  When one of
+> those calls fails it only records the error in handler->error.
+> fimc_ctrls_create() returns that error with ctrls->ready left false, so
+> neither caller calls fimc_ctrls_delete(), and that function would not
+> free the handler in that state anyway.  The bucket array and the
+> controls created so far are leaked.
 > 
-> line6_capture_copy() splits the copy into the ALSA ring buffer once at
-> the buffer end and wraps pos_done once, which is only correct when one
-> packet holds at most buffer_size frames. The packet size comes from the
-> device's endpoint, and the per-device hw structs allow 64-byte periods
-> with periods_min 1, so a packet can be larger than the whole buffer.
-> audio_in_callback() logs an oversized packet and then copies it anyway.
+> Free the handler before returning the error.
 > 
-> The packet size is known at probe time, so constrain
-> SNDRV_PCM_HW_PARAM_BUFFER_BYTES in snd_line6_capture_open() to at least
-> twice the larger of the two endpoints' packet sizes. Two rather than
-> one, because pos_done advances by the packet and wraps once, so a buffer
-> of exactly one packet leaves the position unchanged after every packet.
-> hw_params then rejects a buffer that cannot hold two packets, and the
-> single wrap is valid for every configuration that gets through. Keep a
-> guard in line6_capture_copy() that drops an oversized packet with a
-> ratelimited error, for the case that should no longer be reachable.
-> 
-> Reproduced on 7.3-rc7 with a USB/IP device presenting the GuitarPort
-> interface layout and 1024-byte packets into a 128-byte buffer: ALSA
-> logged "invalid position: pos = 224, buffer size = 32" and the driver
-> logged "driver bug: len" on every following packet. With this patch a
-> 1024-byte buffer is refused at hw_params, and a 2048-byte buffer streams
-> for 30 s with no report and with the position moving inside the buffer.
-> 
-> Fixes: 705ececd1c60 ("Staging: add line6 usb driver")
+> Fixes: 9448ab7dec30 ("[media] s5p-fimc: Add color effect control")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Sinan Turunc <enscrpt@pm.me>
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-Applied now.  Thanks.
+This is another posting of bot ignoring feedback and probably
+introducing vilnerabilities hidden in big spam posting.
 
-
-Takashi
+Best regards,
+Krzysztof
