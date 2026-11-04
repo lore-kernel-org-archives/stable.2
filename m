@@ -1,55 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793824215;
-	b=3u8lXhYVBnQJlx51DYtxykQOjboskl9reebCbsR2f/s7s/GXWYEHwzKQc/SW8kMQmWUe
-	 NGSAxag6Ck5t7+Zz5b42caGRlnu+fBSWBYEz8Lr4XItJof9S17+kO9JmCSQZg959gH5Lc
-	 smT/SlE67BizfsIoKm+OiK1Ke1LUSg2GeDymbLEN+lmeHRLtVyQqScuRmcBVpk3cGI1Mk
-	 sCnSpPekKnnom6e4oAfn0D69Q02S4vXsVMgj54eahXp5LPr2BsyMh3tDnt49/WECRA3Yj
-	 jWlXMRg9rgYj2eyQhOJV9x5Oqcui7X3f0FduHK03U5O69zRSgOpIVhF6UuFoOYR9Cjw==
+	t=1793824258;
+	b=ui5wtRMzQMl2QtIWgw1GKAaRXsTFnmzMoZJPxVCXDbvYefylL4y1pK4G0TTfysg2l4oo
+	 Lke4tbnb6ZvNvdnWVwuOLEd58nRQyIiKVqc6SGEOhwkvn2vyLZssikiN/MPrQ1yCJpqBC
+	 3ypuXQQ1fj8jbNddNQbxGjMYirhm5ysvf0OfD8dr4M2F3yNGY5wM9/qzBd91dKSLJcm2c
+	 rY0EVFYmEv9XWH29fENn2+qjbwECLqd1+SVcBa2/ihcryEgV1RAHl7sSd0LWGkcyFkgIe
+	 ctxOBVaZb/cmXIc290BY5nROBDyxBnHIJashc7g1d5RaRtHjU8r58TnX8mHYTG/m46g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793824215;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=MUqmEjQiDyXh4Fy1G1n8A/EyQ/xm3gIfckBPjkYh8nI=;
-	b=sADkBs97BqRE/euCxuiTsTPqoszV5hPu3yF5t45l6tsk/hR/Apdpy45gEEnyWfmJdBg5
-	 OKIs/ZxuzVvDW/ZTkBow0ERl05XCJ7XtnvcO+p5y6r1uMuJ7/PlytpIiXZzWNX9B19S0H
-	 CEGNKStXaqzSN374yZOkBee7p1AcVg3cuMLEOD+X5IRvagMVyenUaPhkK0qPeSCgSK3DI
-	 PSmvqB8nmViLi4cSvNNBCRaUwPEuBKyCmhoINuiB1ti5Akknk4nMvlhtSNE/Bb1wu9VcH
-	 /sh2ERnAQwjYn7/TgHHM3MxBGHzcD4l5yQ6qiu59MKdaG1RiARK/+7y/HJmY5lRZN6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793824258;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=huPVslj+kM9c+WtCioU3Ljzu+t0gbVdPL3W1oxXh1oM=;
+	b=iRWcQ8NiatsRWtegWXeScQMpoh50bqpvJDlSR/lTjjpgAwp67P2Z4AQwB+wDP2ECh2uy
+	 +NoJRS2vQy2AfwTBXWzhPsMNXzJ2Be/JH4cQHyCylslJJdKp7fOt94kLH2bLzJAs4nUuH
+	 65nwo95yZsxXwMq0j16jQM8UK8rPkTIPFx9f7MVDDTIz6JENTEkEeckDWoJBSChAC3adh
+	 SlLfxvg/9C0gIRcTEo7g60kSvIAxde+JdzsHDStGG26BDdQe4dtfheGPKQZOq5hZ75l9L
+	 f+yatZnW7Vr/LwNKJjBAMuqKmIcOWfN5v1Pt7sb9DFtFXloQcBhJyNi0YHRqKGknRnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pm1x6lUH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cloudlinux.com;
+	spf=pass smtp.mailfrom=cloudlinux.com;
+	dkim=pass header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=LXvS2106;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5846070324
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 20:30:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9298D606AE0E
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 20:30:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9298D606AE0E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cloudlinux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudlinux.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pm1x6lUH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 167C31F00A16
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 20:30:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793824215;
-	bh=MUqmEjQiDyXh4Fy1G1n8A/EyQ/xm3gIfckBPjkYh8nI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Pm1x6lUHePQLpQa12onR5NIh/2+wiooaqTTt9oK77hAQOqbhN2YkQbC1Z4Vpi6ihA
-	 BFQBmbXlx2u28Vvi+04sXCIkvOOtlu55jw4GfxjHH7bPGnZdR3p6sio2PPhwVX63KB
-	 e/y7IsICJdnHRXYHUuMqG1n2OBfT1pFB7b2VYYkyX1NPNi9A7/x6PVij5Q3Ung04HW
-	 A3Vf5TEWxMpXhzWuuen4/fnnBXpNQ/jk/IV9NUG9/S/UGGtBPm39fflpuJ1iiMxtB2
-	 9vIQ3bPbSNtc0aQQoqzT7GJmcBhOQTzoeTe7clz1mNvwrl7EX/gb9924C1Y3h8aVyu
-	 d1Fo7s7KakEDA==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5ba3ec92031so1315853e87.2
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 12:30:15 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBx6PRCYUv2CAj2InM1RCQRvwqXtwpFsEUPL+iHNhtaWE5DONptbgmDq9KRqjq8la0pDhnR4ios=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8rOXQ6zf0rPTICkTaRO8ZB1wGb5dq4mgtwGinCJ1h7BQZJpg59
-	44sAn9kqkuEscLDq2BEKhKKT6790pEp008aUZ/zpPYJPIE0js+D0hL9JV5JbUezuuF8NS6uVARa
-	QJtAUXKPPsM0z6otbvrwFCWZvFvse914=
-X-Received: by 2002:a05:6512:3a89:b0:5bf:a036:3e4b with SMTP id
- 2adb3069b0e04-5bfd954b85emr5964083e87.7.1793824213504; Wed, 04 Nov 2026
- 12:30:13 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=LXvS2106
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e47347279so694380f8f.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 12:30:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudlinux.com; s=google; t=1793824256; x=1794429056; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=huPVslj+kM9c+WtCioU3Ljzu+t0gbVdPL3W1oxXh1oM=;
+        b=LXvS2106f7G3x7PVtW2Uc/j2I076hzP3YOxsuP76p3ihKo81neXfgxoLSaWA0vp3h+
+         gWSdTzowhKTy6g5f0gIpElccxgYx8aRj2B7hEl6SVWOIyxPO6u5Ad1bTjKJlSelVHU3x
+         1uO7bI2o6Nsw4ANPDdQX3Utt9eLr9hwcEl5g0+AKoOGU69CtkbHqDU5D+jJBkGGTtpAx
+         jJz6OKIqx8DHqGm+vI1zjxRND6y1mwn9cbbb1xshHUv9acUPbjeh3EfMqM+CoXQS45ie
+         H1fqZgQhvXZRz6rU7Y0Ib9iPzdGBJJ+Q+Oz4BD1ENFyvEXZi26Ji2irgcfO8yioZbvnt
+         FtVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793824256; x=1794429056;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=huPVslj+kM9c+WtCioU3Ljzu+t0gbVdPL3W1oxXh1oM=;
+        b=ui5zHpwTs3Nx26xdfoP38bFpNqnO6Zl7Rzg6DvsevtNWIVBKcpWAAQnLJH/2EBGd2x
+         LmWF1IuA9musjO/QT7gE6/vuaJLimEnueQu37Z/AMSHzvGhQoZsnkaKzL5ZYNHiuU/kI
+         e1IWExFW2xxqBMyin/3h+pWTooR6efg3g9VIVDOrRRNpyJM/H3HTR5o2lfZWwvzCieNt
+         iydxcJydiMU5JNSZlXHYteJQ1xyAfF/7kiKGwOOLaaKbZI/gTyh67glb69SR36N4EXJI
+         CpmMrZU6a1w0mInqOLKhJJk8YRUkAeUsIlYixn7QnCo9ykhRC9c6Wff+qnRbD5apYskR
+         pS8A==
+X-Forwarded-Encrypted: i=1; AKwUvBwG/mumSryg3+0ys4yufPtnqO1ZP2vFACldtzs6Zv43wljOE8xrQdmKdrmyTtgQAC1xQyhZQKw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+aBs2BLc2dC8r5ReEhyLQtUw6ZJ/axTr8kW/7GB4ANeWYixvwD
+	hmkkT/83106fZaY8mN3EK183l8/7HaihmqIEtMUtAtej/O07uydueh4udZKWqR0Yw5jBC4kvCGx
+	xt71Rai0=
+X-Gm-Gg: AYBFou2/35QhhsIrZafZkg/pE33nJEj68tahYmH9cOD7FIxYdZ9rA5JBOyFTlvBEegX
+	Qn66cDmITsX+FDzW30g+aTrsmZDvkKvQo/VF0BZEVxI7o522ggoHKKa/tise7hq7bK79IxTTbCv
+	ULxVNLaWL6IzTEFPIhJfjLmnG/cf8gYnDZUM0Jr22jE4MY+RhSd3IbqViiMJXQ9IcAppVuzKZU1
+	3fzDpI6kGNoqLB6gPQ5+qbfctv+MYr79Q/RVG+gonpZJ/t6fbDZeLkSGjlKej6/JT/Uw+eLGDdZ
+	Qg/g5285U/J1BRiJP0ZDPQSqHJBgncOyoNWvMrbMyhXlX8f2Dqlje2ye0IUgskRxXotgBaaBd54
+	a6zOFoF7HzxIcq2hf9rzKAQKVSPpOrVLtub0bExSXmo5K5k3Q+WX9dqD68R2bbk+YY5MjazeU3k
+	ophcj1uIqmj9tR8KgSRQ+QK4+zvgh2VSeiMF02BCjiVGwYnE/msLEi/Cz/GEj2lTePwX5whaYU3
+	3BQAjWIrzbhNngQRR9cbd2OkEf4Ltxtun5DZnbX0dZoj1lhOIxX7Z5DgaYPCWGU6kU10TO4UMuW
+	xbcdveNNPCUuqmyX76PHPzMi
+X-Received: by 2002:a05:6000:40ca:b0:48c:5304:5e50 with SMTP id ffacd0b85a97d-48e6e2620d8mr39868997f8f.0.1793824256006;
+        Wed, 04 Nov 2026 12:30:56 -0800 (PST)
+Received: from dev1.kernelcare.com ([2a01:4f8:172:1c85::2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda207d8sm5431164f8f.52.2026.11.04.12.30.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 12:30:54 -0800 (PST)
+From: Andrey Misiurov <amisiurov@cloudlinux.com>
+To: Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>
+Cc: Michael Kelley <mhklinux@outlook.com>,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] Drivers: hv: util: Fix transport teardown on util_probe() failure
+Date: Wed,  4 Nov 2026 21:30:49 +0100
+Message-ID: <20261104203049.1031148-1-amisiurov@cloudlinux.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,81 +99,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030-ghes-hwerr-sev-v1-1-145ceb996c77@debian.org> <9a375554-57ee-4cf4-8d84-60511c96d8ea@linux.alibaba.com>
-In-Reply-To: <9a375554-57ee-4cf4-8d84-60511c96d8ea@linux.alibaba.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 4 Nov 2026 21:30:00 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0iXwVS8r67NV3KjcZtpHONYTQCF79TnXsNL-N4uiaaGGA@mail.gmail.com>
-X-Gm-Features: AclHuK-7kjHHiBpwTEf80kUIfdqsskeRw3vF-XeO5xJVCOs50HtHMmyFSu4uzU4
-Message-ID: <CAJZ5v0iXwVS8r67NV3KjcZtpHONYTQCF79TnXsNL-N4uiaaGGA@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: APEI: GHES: Fix severity check in ghes_log_hwerr()
-To: Shuai Xue <xueshuai@linux.alibaba.com>, Breno Leitao <leitao@debian.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	Borislav Petkov <bp@alien8.de>, Hanjun Guo <guohanjun@huawei.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 4, 2026 at 2:16=E2=80=AFAM Shuai Xue <xueshuai@linux.alibaba.co=
-m> wrote:
->
->
->
-> On 10/30/26 8:18 PM, Breno Leitao wrote:
-> > ghes_log_hwerr() is meant to count recoverable GHES errors in
-> > hwerror_data[], but it skips them and counts informational records
-> > instead. As a result, recoverable CPU, memory, CXL and vendor-specific
-> > errors reported through GHES never show up in a vmcore.
-> >
-> > ghes_do_proc() passes ghes_log_hwerr() the record severity after
-> > ghes_severity() has converted it to a GHES_SEV_* value.
-> > ghes_log_hwerr() compares it against CPER_SEV_RECOVERABLE, which is 0
-> > in the CPER enum and matches GHES_SEV_NO, so only informational records
-> > pass and GHES_SEV_RECOVERABLE ones return early.
-> >
-> > Compare against GHES_SEV_RECOVERABLE instead.
-> >
-> > Recoverable PCIe errors that ghes_handle_aer() hands to AER are also
-> > counted by pci_dev_aer_stats_incr(), so with the check fixed they are
-> > counted twice under HWERR_RECOV_PCI. That is not addressed here.
-> >
-> > Fixes: 3fa805c37dd4 ("vmcoreinfo: track and log recoverable hardware er=
-rors")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Breno Leitao <leitao@debian.org>
-> > ---
-> >   drivers/acpi/apei/ghes.c | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
-> > index 663dc2e601cf72..5d888c82efeaa3 100644
-> > --- a/drivers/acpi/apei/ghes.c
-> > +++ b/drivers/acpi/apei/ghes.c
-> > @@ -899,7 +899,7 @@ EXPORT_SYMBOL_NS_GPL(cxl_cper_kfifo_get, "CXL");
-> >
-> >   static void ghes_log_hwerr(int sev, guid_t *sec_type)
-> >   {
-> > -     if (sev !=3D CPER_SEV_RECOVERABLE)
-> > +     if (sev !=3D GHES_SEV_RECOVERABLE)
-> >               return;
-> >
-> >       if (guid_equal(sec_type, &CPER_SEC_PROC_ARM) ||
-> >
-> > ---
-> > base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
-> > base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-nex=
-t.git master
-> > change-id: 20261030-ghes-hwerr-sev-e440624108b6
-> >
-> > Best regards,
-> > --
-> > Breno Leitao <leitao@debian.org>
->
->
-> LGTM.
->
-> Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
+Commit 07a756a49f4b ("Drivers: hv: util: Avoid accessing a ringbuffer
+not initialized yet") moved the creation of the KVP and VSS transports
+after vmbus_open(). util_probe() still calls srv->util_deinit() when
+vmbus_open() or util_init_transport() fails, and hv_kvp_deinit() and
+hv_vss_deinit() destroy hvt unconditionally.
 
-Applied as 7.4-rc material, thanks!
+On the first probe, or when hvutil_transport_init() has failed, hvt is
+NULL and hvutil_transport_destroy() dereferences it.  After an unbind,
+hvt still points to the transport freed by util_remove(), so a failed
+re-probe frees it a second time.
+
+Skip the destroy when there is no transport and clear hvt after it.
+
+Found while reviewing a backport of commit 07a756a49f4b.
+Not reproduced at runtime.
+
+Fixes: 07a756a49f4b ("Drivers: hv: util: Avoid accessing a ringbuffer not initialized yet")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrey Misiurov <amisiurov@cloudlinux.com>
+---
+ drivers/hv/hv_kvp.c      | 5 ++++-
+ drivers/hv/hv_snapshot.c | 5 ++++-
+ 2 files changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hv/hv_kvp.c b/drivers/hv/hv_kvp.c
+index 336b278..813bec5 100644
+--- a/drivers/hv/hv_kvp.c
++++ b/drivers/hv/hv_kvp.c
+@@ -825,5 +825,8 @@ void hv_kvp_deinit(void)
+ 
+ 	hv_kvp_cancel_work();
+ 
+-	hvutil_transport_destroy(hvt);
++	if (hvt) {
++		hvutil_transport_destroy(hvt);
++		hvt = NULL;
++	}
+ }
+diff --git a/drivers/hv/hv_snapshot.c b/drivers/hv/hv_snapshot.c
+index 847dc69..a827cef 100644
+--- a/drivers/hv/hv_snapshot.c
++++ b/drivers/hv/hv_snapshot.c
+@@ -456,5 +456,8 @@ void hv_vss_deinit(void)
+ 
+ 	hv_vss_cancel_work();
+ 
+-	hvutil_transport_destroy(hvt);
++	if (hvt) {
++		hvutil_transport_destroy(hvt);
++		hvt = NULL;
++	}
+ }
+-- 
+2.43.7
+
