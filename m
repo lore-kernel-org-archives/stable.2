@@ -1,95 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.59
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793814907;
-	b=M1bwCI4ppXurR0CpBc1wqvkicNOKBLNo8Jwp0JeT0mhXDqqrQ0W9oNfOysR5OAHO7sKQ
-	 j4DJBBCFWsAZrxLQLAreWMcMTlsNvAhgcLCTJOWC70ijPhVXjLzcIPPgalPjYrOEHfbnC
-	 RJ4ihTV5RZ1ZQt4vLqThpmSSPWgh7uwT2nbQlTDjet0WPQ6o08227YxAmXnOXZu3NjhbX
-	 mNfvmcrcM4apec7X3JLrPx7YbA0AMyEqsSkvUWY3k5+sJ8X7x3eOaGgeLvaTBj2CBfAEo
-	 1bEObO/zGda5jIoD6sOOdY5TFxRVl3NeZdnlRtKzt7q6BPYbDpyhKfZbWlbBcKFCSzA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814907;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=XVIKCNpv5uq+g4VJYQBIAQ6hlHNAF13PHJoap8ZInlU=;
-	b=EaYMR97Qt5p0A6cQVxGGkY2VqIcHdwVxPCUSmmRteCWnK2qF7vuPbK/0cR6Kw8rkRGso
-	 q6yWCqRI30CMykg+ahVkM8ulRDlRhHFCznvlq5ChaWjFLHP9nkie1FxqqOvu8qcQhyh9X
-	 SBLOLR0wUIVEHdJo2b3yiyuR5ps6bcRSgPUZF66k+Pqxq6JfAreBFZHfT/5TbyHOcyasz
-	 5BRRbGYJZlheB1qXfWuerNXAoI5p29qmwKiOEjDbzvgz+y6L4cZaB65xPo0QjC7vU/E6b
-	 T8tymcebwK7MkL0IsHbSzf6rINDENELZbikXxpNDS7Srf1gQy3wuuImCNhqyXbP3EfQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ZaBj7L7l;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.59
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013059.outbound.protection.outlook.com [40.107.159.59])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793814961;
+	b=sMVo4F2hfAATDMPQebkaYzRLl6i8JAWiBRbt/guNKZ/MonyiPRRc9hTJqfYx9oHXU5dx
+	 X3RiIUzlE6HYtv+E+AVcjBqAiTrvknhqzQf5A7ngziZ+nRtV0BLM5SiiYJwgrai3q/2qB
+	 now7daNmLaL3s8Nf0+x2Cn+KUwhPHpfPljkb7vC3TLvRgyEG/bEIl/1ee6B9sCmd+IZFV
+	 0DHLE+WbE40fNj4JTVdDsKIBAgVYcA7vBB+KqWI6JRQ6XLgwvOvrcTDbb5DLAuDNyEMPP
+	 TXlx75YVWeAe7Ylw77vc7NNvVPgZAuH8q+WV4C4C8u00JAo6OEIaAcTZPLKAW5TrG8g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814961;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=x8nH5QJkKiZNUTowDxB/hMOFyVkHqFnuwosL7qreMAM=;
+	b=LuwhSFa1TDXq2oDB2sl6aLNWeMDt1BBtqJSxjWMEqgaL6C1DH7Z6uxSd02RRZAMYxgpn
+	 pG7IsA4ev9oDiVeOqVNsuU3AaDYlY7LJ8/dA4al2ki+gPpaCgZT1PX+rE0y9xNAPMS9Dv
+	 F/Lv8M8THx6d5qMaPBjLZmdnX+TYPd5tcs1vd4pj/g2V9ctQOs4J7AyqfY6zP0IqzA4Ce
+	 MsIRO/HccB/gFdDdpw5bbSEA+vVemK8grwJwI7kPUJMmxb7ePbJ1X7PirCIGWzZe2r5xy
+	 HGdAyApYSchPpet7LsUcDcerQrWGGa5sTRIHyoaEh5fPIYpHJZe+bzoeMTzbIm7PkNw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hoGLsylU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE658606D31B;
-	Wed,  4 Nov 2026 17:55:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE658606D31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 270F7606A32C;
+	Wed,  4 Nov 2026 17:56:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ZaBj7L7l
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mALgntKJJgmb6yZqP4LI5n++zovlNkX638t7+pGExGCkRBTmlOKjW/aU+2svlcVz0PGTIZIcvpEujLDw6Gy970ZWft1+K4WvRVB0qFu971GaZ/MFPlSRDZy0Su5nTKZbc1ghNIXGLEqFlANRCJPz1qoQYtVeEEiTsBLq9ZVAid7aFRhIDrGH/u1WVJy4Ae8s+/1+yGhJmzz1ayOz8w5cLAZT6itGcvKehPFxV08Lh59zylFcANmtOB2tvFu8k5kIw/7UXSNg2Q15OYycyY8/1GyWh3vF2DjObxaxsnfOQRIkGB3eJ1qk++ClsGLVUgC/BqsjPMiEnIo6dIZTFLSqlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XVIKCNpv5uq+g4VJYQBIAQ6hlHNAF13PHJoap8ZInlU=;
- b=p32wkY17sUeIgqq9OY7JFp5bZCfuBBNOWtqkTooSEMYzmAG+ntxonxcEg+NHecG1RrF6dkJXAbcws/cymSNeVxK5J3QR3xrja/VbQNDW6IXd6FOJ3SnbEzPobZEVL1LKJu4PTVYo09Mfbwy0J1Equ0ed0rVK3B/WvrZEa6xTyqaKhFkvaiP7f/VS6aLgMa7rwBP4+hx5WVAquZUzXvV/arOOPnuhWAoIjQ5lua6yaENBRH9IfFesprEjoGOuoDinEn/lMzf8aTDks1ZZoTkaY4yI2sWW1+LFUFTfGoTJQyDKD7bYnhdL1V4zsLsC+dq4FmHHuevj33F/kZkZUxxs/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XVIKCNpv5uq+g4VJYQBIAQ6hlHNAF13PHJoap8ZInlU=;
- b=ZaBj7L7lgoLYKlMANE4P4RUb2XJYMbXD+2lGb7VBRVVIzI5C8/n9XmLkG2mHihPrTUczsE01AnXA/Ku2McdlxIARefwNzw5eeKLZwXPxs0SNTgU0Ei4uRI2dyCTsa8taP5LJD2o2xGt1JfNe+XtpFUaglmSoC07yT1jt27HvZ9XjN8S8VEg3FnpXZ2Nf6IsqyHn8Xe3dlSxQvoVI2EeELRfvybdjY66DQs+wlP4eTw9AQcg4rrT1Fprd3ssz5N5fBiol35WdvArhlu+lyfpxebd/HyQ31KrFerWkwWknrOiZEnzPksFG/lKZmAYiodBaGZY11Y/a7nY0spHEkyKGhg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by WAWPR04MB489017.eurprd04.prod.outlook.com (2603:10a6:1d0:48::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
- 17:55:02 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
- 17:55:02 +0000
-Date: Wed, 4 Nov 2026 11:54:52 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Tony Lindgren <tony@atomide.com>, Daniel Mack <zonque@gmail.com>,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Julien Panis <jpanis@baylibre.com>, "Mendez, Judith" <jm@ti.com>,
-	"Francis, Sebin" <sebin.francis@ti.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 3/4] dmaengine: ti: cppi41: Restore QMGR_MEMCTRL in resume
-Message-ID: <autxbBcscD8YahBA@SMW015318>
-References: <20261103-v7-3-topic-am335lpm-cppi41-v1-0-d7213446c5f5@baylibre.com>
- <20261103-v7-3-topic-am335lpm-cppi41-v1-3-d7213446c5f5@baylibre.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103-v7-3-topic-am335lpm-cppi41-v1-3-d7213446c5f5@baylibre.com>
-X-ClientProxiedBy: PH8PR05CA0007.namprd05.prod.outlook.com
- (2603:10b6:510:2cc::18) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hoGLsylU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FAC61F000C1;
+	Wed,  4 Nov 2026 17:55:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793814960;
+	bh=x8nH5QJkKiZNUTowDxB/hMOFyVkHqFnuwosL7qreMAM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hoGLsylUTixNPsM6JjA8vEQ97GS0PU64B/S8mW42LCSUIEW0+Oup1fKeKwWKQdTUs
+	 7hA+IwbT8SOA6SNIASsjDmnoUBtHx7XyqRnT7bzWmyNx3XbQeq35t1VBobNh34XJek
+	 TdXWkSK6MqCihvsWYtZOw1/JX14O29VjTCo9F+UA4nJfcs4I9UbzXBW1IEI742yd39
+	 aSY2cFacXu9jS6PUQxhQcjsZmHKA5h2Hba77Wfcqi3vnGnQV+UzZn74wBpWJjO9vss
+	 WWfchnn/2CaHA/1giIf/i0HUORN8nxETI0UgTQa+bm9oE2krXPKY7Xy+xru556UT4i
+	 GtoMTdnZo42Nw==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 36/51] proc: don't let NOMMU map procfs files
+Date: Wed,  4 Nov 2026 18:47:22 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-36-bbf7d5546809@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,147 +115,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|WAWPR04MB489017:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3250e5d3-583e-44e6-ff29-08df3a9cbff3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|19092799006|376014|366016|23010399003|1800799024|10067099003|22082099003|18002099003|4143699003|11063799006|261102123227099003|261022105027099003|261026121527099003|261026140227099003|261022075727099003|261028144727099003|261021123027099003|261009223027099003|261021121427099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	kYTMjlHP/d0zzTn/oSQzP2WNmXIX9dDP4ViQE+7/h8IuQPlRpTIjth36RAa+YaNSxt3JM5YqtY0cB4AzRHYfQO0/yFK35dnMDNFiQ2uMP1pF5eRl/h+xmGa9KxxnzfVSsl9NDAcsum1Vqcsx8MLPvHphyV4TWoG+j6yW5Qm7/0yjoMlKjmsVKuu9AiI6j6tLuCdQCEW1j47ILCqFNudO9ulozeB03bG/p75wcU33Tanxc1bSxD9U683iXADMpqEpXBbM286nvdljoQXIJIQAWaUT7cPOFJkoIvNR/UrkYWrf4eOpRVuYlKkLGnFAaNiOjrDwFXwRRoQHugEkYDiu7HS9bqn3x+gwmhOWohRkWssXEEdKfsPide0xcSRHtz41d0ytchKJyF1GYuvUeZlFwMKfDGhQZnvXBvm/j96wvBsb+XJHrSPssiPy5u4rJi9o1jgqv7kx41LevOSVKdA0oMkyTRCYKaHrJUTVVS/vsHDPniHuNwlc8ItHBfCtAUamY/67zvYvXEmqTHa3Lk+F/xqpmL2Re7Irq7JvBPJcuow5hnxfEePZZFdPaB4anHo7skk9LwTWLjS7UOuJXKcL0jyC2jNXni2qPNfwLJ5+YIY6/Xv6G905+ri2zaFrumS+OP4D6TJOQ7rtSXoPzKJjtZm7kI3nKWoZRp6xEx1xVw0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(19092799006)(376014)(366016)(23010399003)(1800799024)(10067099003)(22082099003)(18002099003)(4143699003)(11063799006)(261102123227099003)(261022105027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261028144727099003)(261021123027099003)(261009223027099003)(261021121427099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?fJ8Gl9ZmbKYCUxhD3/PacdTrMovR3bj9GNt0a0cIBTpgDRcf+Y6dWth+vi/r?=
- =?us-ascii?Q?KfUoL9gQz08ud5BCKgkPdIcsQG+11Lhfo3AvNh6NhX/H0htS1/jYoxi2twCc?=
- =?us-ascii?Q?gEj2TkXgRHtJaouc1SpSFy+Pfa55he6tt+kfKebuGMcMGjlWkCDIpOrATmjo?=
- =?us-ascii?Q?Upj/56kyEvFpf15f8ZRDTxtSZuYZdkyShCs6EpVca9nn6r4SRbo0lsswFmtP?=
- =?us-ascii?Q?FnB4iesZD591SeM0MVtsLFLlu98sul5Am1bKICzfb6UglpAfRvtQdKrlRKps?=
- =?us-ascii?Q?OVxKvT8KOKPB4xpcyvtp+3PDWYNHEUyvGeiq48/li1AqvRMwtzgck8BJ9H57?=
- =?us-ascii?Q?K61hXGqLPD3qiiTlAK8UMounSzrp+avUOdoHeR4EngnQ6AQ3h782cUV8LzuM?=
- =?us-ascii?Q?1+xgJoqqfi17pxh6S9XnaEdLcxk0RyZqKIwsmstLip62N7/fszA0H2Twfts8?=
- =?us-ascii?Q?qjctJuIk21fAbnfAVUEzRcKeqmOIe4rNEGpiSOGJNBzCP1TLkPzzbsw+9e4/?=
- =?us-ascii?Q?idg6DOp2/8U6BMDQyKCVC6zKvZKM3g1G5VrBBmvfAXDtXnWPnfx1MWjeQocX?=
- =?us-ascii?Q?+VkYMnettLaol7vDtIkMU83OFh7Vi9L2mVeKS7U/qIs55FlnOKMiesKIj2CA?=
- =?us-ascii?Q?eEk+tBzmLJtLZCJv49OfVeLbbaOj4VNBr9CiC5r487A7fcVNlWjjk4z8Tpww?=
- =?us-ascii?Q?U0PeRE1hRnfzGytRu5qyoMCV4fSgmkqmOPkSI72wZDeZJA5oDtvE136pmrKD?=
- =?us-ascii?Q?ipTkuB66dcgtaZTE6Qt0h/S+4rTRE8T0Hr/lKtwapJTrEHlceEg2eS7o7Zwb?=
- =?us-ascii?Q?/jSHzTolYMxaVVcMOetUdhScziEL9U2ow4VSAJh9d614IvvrVbVQQOTFh3Op?=
- =?us-ascii?Q?Y6zwCGyMQ3inyR5CZu6kWDh64ryL0XOeKvPeiY6WavrXF+rSt+OZK97HGIjy?=
- =?us-ascii?Q?Ix2sWs19ezT2h/5nwocK2SSyhU4bG6raZwsi25iXH47DxGYyLUOy3EYSQkMK?=
- =?us-ascii?Q?Apsmd8dh+Z3FVbfqDPzC4RKfLChvnHcdb0EVb/M21giLPz4+VxTeGq5J9Zb5?=
- =?us-ascii?Q?JMvw9UwQ+7LZHUU49huhSM9qjgPp+IfZTk1WfUHhi6MnVvmTlCy6QrfX61+Z?=
- =?us-ascii?Q?UJwAwzJ2PI5p9mlO4oK8JizkyBkPOk+cMWtO57eLGT6gl7dgTOUR1wa/r851?=
- =?us-ascii?Q?bURO5Xn5zYof5khNZ8pbojEWFdL4dTSHia7F5CHsYKziLv+QguKAnfhWL7+p?=
- =?us-ascii?Q?nwB7twoSJyk5OU3rnQiIF+HKAowX97h3xtp2ienrr4KLGmW/Zw6jeyGkReLV?=
- =?us-ascii?Q?lt1p8VSbnhrU12zXkDfk4p0zIq3E7IEaCHdIxB2q7BUBjK7u5Pjv6I883DvR?=
- =?us-ascii?Q?JphXwi/Y3UnvN4ARyk284Diu5KrbvPSmcZos1u4qKaAFlisGjwD9gSXcHCSW?=
- =?us-ascii?Q?YqtKXi3x/wjz06ZDhN0qcWgyDGn2+jZ8hNYhe5XRq5A4OqkyvoGr/OuJVgF8?=
- =?us-ascii?Q?Yhq3N1DkdOtOdf6b7nol8Ag+liWyaIZcxj3OZCFablAcPbcKmphxxNJ8p8wZ?=
- =?us-ascii?Q?ivDKCvkWiJsZ472iyGae08R59FZmzPNcrmVKyxCSCSS880Q5z3j2OFCGeqQ+?=
- =?us-ascii?Q?L072xuIEobF4sPWuF95XMx1l4oPMiab+U/5l2VfSNiaDX+bLjQrdat9J2XWq?=
- =?us-ascii?Q?cjF8jDAWbgcPc0Tp3ebeVcFY5ATKFT0cPrvjL1dTkh7uO3BGigr1BskEHi/z?=
- =?us-ascii?Q?fG1dIoJexw4pzFN05AdFCUUcPlxyF3UybRkrpclEFwbhzcdOlWQ+?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3250e5d3-583e-44e6-ff29-08df3a9cbff3
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 17:55:02.1684
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /qLsfDm7BMiTPvWvJo1YkGQVs3BdvTasIlZQFJ0ks1tLfGGUiJOS4o6hXizhDcESb6/id7nC6Ji8NJCsB/m7mDbVbW4MpdjrLUu+x+a+BwHJXYNFWXlgcsbaGAPtI9Mr
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: WAWPR04MB489017
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3847; i=brauner@kernel.org; h=from:subject:message-id; bh=JTUUxaAv8g+OiylD/jB4kSfUdacg86Bjtrwx1fOwQ90=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9znst+bi3gVMj0u9q8/OL7/9NXaGRp93F4cL6Kpxd9 LWzfr9TRykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwEQ89Rn+WS/RVtYXufbh4oFN 2w/v2mu6PuPztYBDb9L+TapKvCWZJs3IsLjj1Za9+0LefPka4qY2Q+HryzrJUraItnPnOr5YHLr PxwcA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 08:37:30PM +0100, Markus Schneider-Pargmann (TI) wrote:
-> [You don't often get email from msp@baylibre.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> Currently only QMGR_MEMBASE is restored in resume, QMGR_MEMCTRL is left
-> at its default values.
->
-> Add a restore for QMGR_MEMCTRL. This introduces a helper function
-> cppi41_memctrl() to not duplicate this calcuation in init and resume.
->
-> Fixes: f97b98d6d02e ("dma: cppi41: add support for suspend and resume")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
-> ---
+Every procfs file has a ->mmap since commit 786d7e1612f0 ("Fix
+rmmod/read/write races in /proc entries"), whether the entry has a
+->proc_mmap or not. On NOMMU validate_mmap_request() takes that to mean
+the file can be mapped. procfs has no ->mmap_capabilities so a regular
+file gets NOMMU_MAP_COPY, and a private mapping never calls ->mmap at
+all. Instead do_mmap() takes nommu_region_sem for writing and
+do_mmap_private() reads the file into the copy with kernel_read().
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Reading /proc/maps takes nommu_region_sem as well:
 
->  drivers/dma/ti/cppi41.c | 27 +++++++++++++++------------
->  1 file changed, 15 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/dma/ti/cppi41.c b/drivers/dma/ti/cppi41.c
-> index f5a824418fe7..e2a089066c6d 100644
-> --- a/drivers/dma/ti/cppi41.c
-> +++ b/drivers/dma/ti/cppi41.c
-> @@ -842,13 +842,22 @@ static void deinit_cppi41(struct device *dev, struct cppi41_dd *cdd)
->                         cdd->scratch_phys);
->  }
->
-> +static u32 cppi41_memctrl(int area)
-> +{
-> +       u32 reg;
-> +
-> +       reg = (area * ALLOC_DECS_NUM) << QMGR_MEMCTRL_IDX_SH;
-> +       reg |= (ilog2(sizeof(struct cppi41_desc)) - 5) << QMGR_MEMCTRL_DESC_SH;
-> +       reg |= ilog2(ALLOC_DECS_NUM) - 5;
-> +
-> +       return reg;
-> +}
-> +
->  static int init_descs(struct device *dev, struct cppi41_dd *cdd)
->  {
->         unsigned int desc_size;
->         unsigned int mem_decs;
->         int i;
-> -       u32 reg;
-> -       u32 idx;
->
->         BUILD_BUG_ON(sizeof(struct cppi41_desc) &
->                         (sizeof(struct cppi41_desc) - 1));
-> @@ -858,13 +867,7 @@ static int init_descs(struct device *dev, struct cppi41_dd *cdd)
->         desc_size = sizeof(struct cppi41_desc);
->         mem_decs = ALLOC_DECS_NUM * desc_size;
->
-> -       idx = 0;
->         for (i = 0; i < DESCS_AREAS; i++) {
-> -
-> -               reg = idx << QMGR_MEMCTRL_IDX_SH;
-> -               reg |= (ilog2(desc_size) - 5) << QMGR_MEMCTRL_DESC_SH;
-> -               reg |= ilog2(ALLOC_DECS_NUM) - 5;
-> -
->                 BUILD_BUG_ON(DESCS_AREAS != 1);
->                 cdd->cd = dma_alloc_coherent(dev, mem_decs,
->                                 &cdd->descs_phys, GFP_KERNEL);
-> @@ -872,9 +875,7 @@ static int init_descs(struct device *dev, struct cppi41_dd *cdd)
->                         return -ENOMEM;
->
->                 cppi_writel(cdd->descs_phys, cdd->qmgr_mem + QMGR_MEMBASE(i));
-> -               cppi_writel(reg, cdd->qmgr_mem + QMGR_MEMCTRL(i));
-> -
-> -               idx += ALLOC_DECS_NUM;
-> +               cppi_writel(cppi41_memctrl(i), cdd->qmgr_mem + QMGR_MEMCTRL(i));
->         }
->         return 0;
->  }
-> @@ -1191,8 +1192,10 @@ static int __maybe_unused cppi41_resume(struct device *dev)
->         if (pm_runtime_status_suspended(dev))
->                 return 0;
->
-> -       for (i = 0; i < DESCS_AREAS; i++)
-> +       for (i = 0; i < DESCS_AREAS; i++) {
->                 cppi_writel(cdd->descs_phys, cdd->qmgr_mem + QMGR_MEMBASE(i));
-> +               cppi_writel(cppi41_memctrl(i), cdd->qmgr_mem + QMGR_MEMCTRL(i));
-> +       }
->
->         list_for_each_entry(c, &cdd->ddev.channels, chan.device_node)
->                 if (!c->is_tx)
->
-> --
-> 2.55.0
->
+  mmap(NULL, 4096, PROT_READ, MAP_PRIVATE, open("/proc/maps", O_RDONLY), 0)
+
+  do_mmap()                          // down_write(&nommu_region_sem)
+  -> do_mmap_private()
+     -> kernel_read()
+        -> seq_read_iter()
+           -> nommu_region_list_start()   // down_read()
+
+The task hangs for good, holding nommu_region_sem and its own mmap_lock,
+and every mmap(), munmap() and exit after that hangs behind it.
+/proc/maps is 0444 so any user can do that.
+
+Give the procfs files a ->mmap_capabilities on NOMMU that allows
+nothing. That covers every entry and not just /proc/maps, procfs can't
+know which entry's read takes nommu_region_sem. Mapping a procfs file
+then fails with -ENODEV, like mapping a file without ->mmap did before
+786d7e1612f0. NOMMU never called ->proc_mmap() for a regular file
+anyway, procfs never offered NOMMU_MAP_DIRECT.
+
+Reported-by: Chris Mason <mason@kernel.org>
+Fixes: 786d7e1612f0 ("Fix rmmod/read/write races in /proc entries")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ fs/proc/inode.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/fs/proc/inode.c b/fs/proc/inode.c
+index b7634f975d98..9933f03ab9fb 100644
+--- a/fs/proc/inode.c
++++ b/fs/proc/inode.c
+@@ -466,6 +466,18 @@ proc_reg_get_unmapped_area(struct file *file, unsigned long orig_addr,
+ 	return rv;
+ }
+ 
++#ifndef CONFIG_MMU
++/*
++ * NOMMU never calls ->proc_mmap() for a regular file. It reads the file into
++ * a private copy instead, with nommu_region_sem held for writing, which
++ * reading /proc/maps takes as well. Don't map procfs files at all.
++ */
++static unsigned int proc_reg_mmap_capabilities(struct file *file)
++{
++	return 0;
++}
++#endif
++
+ static int proc_reg_open(struct inode *inode, struct file *file)
+ {
+ 	struct proc_dir_entry *pde = PDE(inode);
+@@ -559,6 +571,9 @@ static const struct file_operations proc_reg_file_ops = {
+ 	.unlocked_ioctl	= proc_reg_unlocked_ioctl,
+ 	.mmap		= proc_reg_mmap,
+ 	.get_unmapped_area = proc_reg_get_unmapped_area,
++#ifndef CONFIG_MMU
++	.mmap_capabilities = proc_reg_mmap_capabilities,
++#endif
+ 	.open		= proc_reg_open,
+ 	.release	= proc_reg_release,
+ };
+@@ -572,6 +587,9 @@ static const struct file_operations proc_iter_file_ops = {
+ 	.unlocked_ioctl	= proc_reg_unlocked_ioctl,
+ 	.mmap		= proc_reg_mmap,
+ 	.get_unmapped_area = proc_reg_get_unmapped_area,
++#ifndef CONFIG_MMU
++	.mmap_capabilities = proc_reg_mmap_capabilities,
++#endif
+ 	.open		= proc_reg_open,
+ 	.release	= proc_reg_release,
+ };
+@@ -586,6 +604,9 @@ static const struct file_operations proc_reg_file_ops_compat = {
+ 	.compat_ioctl	= proc_reg_compat_ioctl,
+ 	.mmap		= proc_reg_mmap,
+ 	.get_unmapped_area = proc_reg_get_unmapped_area,
++#ifndef CONFIG_MMU
++	.mmap_capabilities = proc_reg_mmap_capabilities,
++#endif
+ 	.open		= proc_reg_open,
+ 	.release	= proc_reg_release,
+ };
+@@ -600,6 +621,9 @@ static const struct file_operations proc_iter_file_ops_compat = {
+ 	.compat_ioctl	= proc_reg_compat_ioctl,
+ 	.mmap		= proc_reg_mmap,
+ 	.get_unmapped_area = proc_reg_get_unmapped_area,
++#ifndef CONFIG_MMU
++	.mmap_capabilities = proc_reg_mmap_capabilities,
++#endif
+ 	.open		= proc_reg_open,
+ 	.release	= proc_reg_release,
+ };
+
+-- 
+2.53.0
+
