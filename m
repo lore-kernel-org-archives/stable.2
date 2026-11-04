@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804765;
-	b=idrIFJR+FgnGNdMjLQ2Y6vui6aWGNi4S1cp4TzlEFfVJcQEuFWRa0eYDZwKvT/dkgk/G
-	 chuqjCt7Lan2BDuTJumAvLqGbAH3k11yx1Xa+hirSh5PUzhbeuTq5IlUKcInroN27tj+z
-	 CH/loyfQKBVvkssSIpehMsbm2eizQQRCpFbwtfMcS6ruCIGVrg95twz3n+rfw3d6DM95E
-	 MZmQUoDofJwei34wKTN7tp14wQbjuada5uighR9VFKITqNi2bi282m7Z6MEg51LQwriMP
-	 gMv9gFPj5/Ouo3foHM+j5aObFB5MIyYzKvdrmafCajbG0A8TQ1iJY0uwQV2zq9gRtcg==
+	t=1793804774;
+	b=V+B9HKFXfKAnZwc9r4g/7xDiSHJA2lBGA4RhPQz3U/TqQGRH7rD1193THNn/MEubLhRs
+	 njgKNbQ6EPT4UnMIFDgKhXWYamySoGACVBjWeEu6KR8GLzFkhM1OuhIg7CyRYEpBUYdq4
+	 IVjPSWm5+dkidUj09DLaafkZG9AOeXllr1vDq+qXHKdhTN9HkD1Ti5my7TF56gVtouMq7
+	 uU2Va8RPFpy2LKU8QE3VbgrU7gouBUlw4uAz9vYwggJNrbQNkrizlAbtWbY8nOqCP4B/n
+	 R0Zil5YuWqim+6Ua4ZiM79S8T7KDNQTqvjQSdZ89o2LiE0ImZ8926VtBKeLqVNI63bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804765;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804774;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=9EajEXcJU3wX04xAb92gkG8x2pcZYsziAmTaXGodNwg=;
-	b=pssqZH5agt+NMWUvF9bMzUXM/Q7EnXlXK9nem9oJHmJGxjmO2QAYoOMGDJApfpv1eWNo
-	 iP3xSVkqDuTRgt/ahF+RtNlE7TLkyQxhUYLlZ/aKNWP+70p0Xo76VuOHfZmj0qB2LGTbQ
-	 F39BGYpxIgTx1P2FmYgUGzUtSZNeepHnrqFJek+6km97odc+5Ua+aJn8xe1wEa4MJ+Trh
-	 JHubDejDILJ9MZYmH8sgxHWVtU5N/vnrU0ssn4mzgDRQRVZG3hAwWXaqfbK2YAhmjrl+o
-	 mifCGo6+9w14X8i5y2gzskxcEiKfk4Cj4PFRuVPmevbJyF2rN0UlD0ufTsZRE462COA==
+	bh=mpjy4N7ju8WFAnWkyGbCF8Zve0rYLtgmlfwqrLPcOQM=;
+	b=33dp9+jJn/m6bBm1XUKX9w6+IbG1jgQYdM/sMVB5QMukThgg8GKS1cxBCABl91g9yG56
+	 /cRnECWJaA4a62YTCFvINe3/SU0XYL/lvkRDizIgsbIRfrOivTXdM9RzneVpXPYoQ648o
+	 3tBI2aoOqJS0Kuu+zKMcXkiqipe7FAxg/7HEvRyZDVucGbZSdaB/G7j18AFTFrJFGydoz
+	 0GUWTvwb+Nf/bIxF8YB6fvKh9xDkze571ASPfBroGSgLXmWVtKBhLeoOyjAtlKodAuqHR
+	 g8SzC42zJVf0n+mP/zdo5h7du2A67xYGvHBItjVPZnZOXYB5BTzLjukoPimjWNWmNPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JgONsgeL;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iX3Lf4eE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFCB3606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:06:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED69606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:06:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JgONsgeL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5DD1F000C1;
-	Wed,  4 Nov 2026 15:06:03 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iX3Lf4eE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30ADF1F000C1;
+	Wed,  4 Nov 2026 15:06:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793804764;
-	bh=9EajEXcJU3wX04xAb92gkG8x2pcZYsziAmTaXGodNwg=;
+	s=korg; t=1793804773;
+	bh=mpjy4N7ju8WFAnWkyGbCF8Zve0rYLtgmlfwqrLPcOQM=;
 	h=Subject:To:Cc:From:Date;
-	b=JgONsgeLFORVQv03ZVDWrMDhgspmh7PCCg/hN06dQfWhuN5+Cd6NKbWLLgSh668UQ
-	 LSypF0zrHiXLToF6FKDTG7aDHygNBDA9jpkrbgIOqRBTAOtvA/jIENoLgdvbaza6SB
-	 H6MiG/oaeaL56VCEv5l+OJeKyQAr/Mm8y52STPfg=
-Subject: FAILED: patch "[PATCH] ovl: do not take a name snapshot in RCU walk" failed to apply to 7.3-stable tree
+	b=iX3Lf4eEqz5B8l+DNEBCDq9j29btCNtZUBAlGBQHFz1MKJjbHvh3DlhRJrttqpwdv
+	 2F8/hejP6xDvJwxe6/rdOZJDinHOIFbC+SZ41/+K1q/C/sQdQjtHIWk/ZZGAgM3GVN
+	 P3PdzoB5VQciOsXZMVnCO2OrMFXORqUNYoNdhfgY=
+Subject: FAILED: patch "[PATCH] ovl: do not take a name snapshot in RCU walk" failed to apply to 6.18-stable tree
 To: mason@kernel.org,amir73il@gmail.com,josef@toxicpanda.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 16:06:02 +0100
-Message-ID: <2026110402-unmasked-crown-b7f9@gregkh>
+Date: Wed, 04 Nov 2026 16:06:03 +0100
+Message-ID: <2026110403-limeade-limit-5dd3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0b691c3c59a58aa6a2fc3f87c10cc1e399f1d33f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110402-unmasked-crown-b7f9@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110403-limeade-limit-5dd3@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
