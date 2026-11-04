@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802916;
-	b=mvQiyTb/htDw3kkjeiaw7lYhsJJGhBr1lSAEyk4lVgXhKxfJEU9gSaprS4IrqqO2o+2l
-	 gnPfFshcgPydbxQu7RnNvvN0BUbr/wtyIj/3Y+p9u0JDzPjJKWIPia5CxBpJ7Lj+tMbsF
-	 I+3AzFXXaoJTpGtotHTzvEBgCePeg4lYptJcGwI6OYtUMKTRKQMp2jXlsEFmzOtY/9dvc
-	 QqifaUkg4y8/ad3fiFA8ih0nFS/NC2roFq8PxYqUtNm2S1iHcYp81jU1QDzHpdBBy85d+
-	 Y3ZFYWuLMZOCL9UAjG7Mzpwz1UyIiYRGpz0sYP5mw5waQLaMfwpM4xIUByEtlHnnvig==
+	t=1793802919;
+	b=mGtdIUUAtx6OwsSuZutMe+wM/lTZx/prGKqiCliqpuiMnhLYZCdn9ThBG8e8qUSVYtU4
+	 +tjC1v8RukyufJJmJtfNTuhwrP6PoOvqUCRUP4GHSyIEEDSjmKkYYwAxtqE4U7Quj9+jp
+	 7W/HobTsZJsBvUOG1/EXJ14dcC8DC4bqOuUVNteCJdYgDQRdT8l8o/QrF/OCMQsL1PtLH
+	 UnqPt0bvDyRa50rLEu5RVMCtl365h2QA/RQ9PpbGQ7VVN56WY2iB/3dD01Qb3X9duCqTd
+	 lBDR0O6gkv+wLX9CBGPHfdy1avVlxjk6saVFYWpkSUGN8frV7HI9niCkRdQ0L8IY/Fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802916;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802919;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZJzRPIIoYzHeh/hFcxgjVYlQ4Zr3AOy8SynW9BTCo6g=;
-	b=kX0nmKroi16kSlT9Y7YtdVLPVKoBk2/Q39VIZ6dZmK8dS6EMrUwGUJieNBVgT2aPQ3it
-	 MGtA4QRV6be1M0VBSi2CVSPAFbY8Wmklo8uKHuBoI0UezapZocwJTMwywR4ECScAuf+3Q
-	 UE5ZJXN3uzd595YFY7bZGhD2QmmLJdAh64ZaedZdP+AablBoygSWMDvzRq4r2olrblEou
-	 ci18RzsAkSOxKgQeCou+oIM3fJUOvemmY2awbHrLJBNbdskHiT1NarT1gsBY8YAo5UyMV
-	 Q9vvZkdJ329dBCcYnsvzqLgs5zsRcyjXId77pwfdtq/5+j6V4fwv/gWkOjynOvzQ6lg==
+	bh=oXJPAZ4qH3N7NcYM/wUuygAVUbesWu+1r9O7pqLwVBk=;
+	b=OUv9ICiGOIpSoIzo0iKnEJybACUordn6FwX4NdCkY2B8kRgXnN35rpzmQLg2h3arMMHT
+	 2wZEKIdpj90a/NVut3a5FqWp1C9jb6XCT8jOsb9IeXFh4muVsSz4fj8sIaxvcdLvO1Btx
+	 OKbEJ6AFAgY7Pc+65pb9aYCSug88o+OjYcdYTr7E8ISg4sU1oXNX+RNFm58Y7w71zKSyD
+	 +44tl+F1vC2RRPeiQkOqs2o9Rka+JltDJax+xGT1cANxaVN0vBAcvY/diMssON52BSq8i
+	 R7xgaQJhVaDZ8QUcw9FprermMTmxYtiYwyX4hrcn5frFDSRHeJWR+jnFuGUOTykBBIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RZL13BM+;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HgQbRdCf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08ACC606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:35:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD79D606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:35:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RZL13BM+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAD7D1F000C1;
-	Wed,  4 Nov 2026 14:35:15 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HgQbRdCf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C9DA1F000C1;
+	Wed,  4 Nov 2026 14:35:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802915;
-	bh=ZJzRPIIoYzHeh/hFcxgjVYlQ4Zr3AOy8SynW9BTCo6g=;
+	s=korg; t=1793802918;
+	bh=oXJPAZ4qH3N7NcYM/wUuygAVUbesWu+1r9O7pqLwVBk=;
 	h=Subject:To:Cc:From:Date;
-	b=RZL13BM+61KYcvOJ+PczaHZgmxfHAunTGpfeP0LEfECrje96cyYc38MMg49C9Gq4g
-	 qIkpkvBvQ++m0sZav3y/7/m4q7izz4UMjqecnWT1JKp/1QCqmmIH3Qxr+xsnAMZ9cu
-	 VdN7DF4uCWYnxxMHxZlcyAmRAwcvcXJV+USMbDWM=
-Subject: FAILED: patch "[PATCH] ovl: take a snapshot of the name for copy up" failed to apply to 6.6-stable tree
+	b=HgQbRdCfZcH+fqsbEcamt6xbOiaR2rI/MlajkY5FIjmrHtfFKkxAU90gK3jvlGEYi
+	 FU7QLpytLDysefKGTmENlBt8ihKfYcLhMZs0IUwz+dqNDLpypLtV4aJRDtcEGDuudO
+	 OkGjYS0XPdrqtuImXa+WV1wmxT4eoGfe5RknS3kY=
+Subject: FAILED: patch "[PATCH] ovl: take a snapshot of the name for copy up" failed to apply to 5.15-stable tree
 To: mason@kernel.org,amir73il@gmail.com,josef@toxicpanda.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:35:14 +0100
-Message-ID: <2026110414-plexiglas-angelfish-3128@gregkh>
+Date: Wed, 04 Nov 2026 15:35:15 +0100
+Message-ID: <2026110415-paragraph-reproach-c827@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 65bf000962a33ec9d2488e4e1797b6cf630abcbb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110414-plexiglas-angelfish-3128@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110415-paragraph-reproach-c827@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
