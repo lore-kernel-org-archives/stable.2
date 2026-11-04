@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793830825;
-	b=vJv9XJeOp3d95TT1+Gmtur8FacvxwsgC/auZHGjLzCZbaUf0RUNcT+W/tsuJCoSI4tbO
-	 9QhMHIdTjPVDEzC7a419D0+Nz/7ekUxu9Prp4nN1fcrq1uUUfPqFmP5X6SFgj4erb+BOB
-	 cv7UVTQPzDKjllELtuFuMRJ/ccdLJSyAtIj1KtGp+GTW612Y4e+ApsAeWH/uk8W7NaY/W
-	 gTTPFq6zj0jd5Fd9udJo6Sxl087NMzamHfKwWZBpkNnfXTM6hrmemTnDpdMIHRUOHXTnF
-	 b/BF2v/et7XAukXb7FmaFT3zoKXaUkap5TLc57Nc/jBZkizW9ddq28QbGCj5d+lQdMg==
+	t=1793830827;
+	b=3/ta6IVI02+IxTHkPbFrSHe0PH8GCty3SyBhGi+nXBBb7pFfOVg91jxHdrcqrda89EfV
+	 kehxZR+RhtcMZAnkk2KDPE+Dc8jsBg60Vw3i0Gy9dNUZZlV9pthaWonkLMw4xIBGhr/L9
+	 zAmYELsFSiaXxKMNOQZmHPClUWA90uyQ79/VCqIpmO9CeB8E8G/HM7WcKJjdmbHOAoUqD
+	 kHorwB9p+cXAutOBkpW4Fp+JOlHqv+GoiXJWYsIv8aeTnigOakUNqiiLOutPsfmJPc3Dy
+	 mpFdH+NMeMc2cLE80K0kptcogpr6YSGwojmJCBnNH6jkn/2GVWr12sjVTv6CU6RgyPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830825;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830827;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=mLQNRBT4me249sGyybN1OAaHyTdeDeQKv5MIUBKt2FQ=;
-	b=eakcw3vUOs6L/M9WucYcz/GybC26x213jYzEiOT7iDvuX8769tE4mHcsZSFXr6QRaPiH
-	 0LCmPLfDXuF9XqqzaFaIUf6KS5bKNiRCE0bjzoa3qxgdTmizyGwyIw0lUyXeh9aZcQICg
-	 NKhnqcuydu2m8Fbe5G1n1wlk6aAV9bRlFTR6KHc1vPT/8EYLcRkEhSfCZsWRQWj8c9yVV
-	 hwixXJgXXHQ/50ysopggig4sJTD9qPHvDM4kksiGGqCC5hmw1vcl/EtbsdIK+xF3gfPXd
-	 T4u9tCxtDdcfn0FgNk4cT2xdboeCuWxpllQ7Uf7Q2k/3IZgRm6I6ijCg//vJpw/AvpA==
+	bh=A3MBBRVG22YsVonQY3co9MKgHW9XjtVemYIaGUPbFTI=;
+	b=crOoYd8GIDK3Zxm2C1q/kYp0qkoVukQvoWAIDhOIbyOLI7i0j3kBcziYyMF92kM5dxYh
+	 lM+/rxCpX0AOKl/VWgg+iJ1cOXEWBSD5lY3ge6fBboJmqY3EiUod2OkZ0+Kxyo0cDdLSt
+	 N9bOfFRmAWM4RzxZ/G7Tzz1OGKRHbClRnlu1Ck2ADLob0GzjpOF5+heKfmC8zGnZiiL0g
+	 C8lw0V+l778+sdHk8TLi1JgTXiTJa7gA0SnfT2hLZk8DniM0rjf9da/AHmWsjO7PeZME5
+	 LAyT2m+ANjSFFhXS4X4ylmh7gyLCFZlWCBIWxzZS4SsEHDVVZl+9YlX+u3qMp4beX0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Msyc2S/b";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vWa40NAX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607FE606B2D7;
-	Wed,  4 Nov 2026 22:20:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D0D606B2D5;
+	Wed,  4 Nov 2026 22:20:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Msyc2S/b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F28551F00919;
-	Wed,  4 Nov 2026 22:20:24 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vWa40NAX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80A511F00919;
+	Wed,  4 Nov 2026 22:20:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793830825;
-	bh=mLQNRBT4me249sGyybN1OAaHyTdeDeQKv5MIUBKt2FQ=;
+	s=korg; t=1793830826;
+	bh=A3MBBRVG22YsVonQY3co9MKgHW9XjtVemYIaGUPbFTI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Msyc2S/bVcOBQB4hroaokyqcAv6Go7Dz55uvWT7eNKMTcaEbgRtkL+eE3BhLjRdBj
-	 mVIhyZsuLZaX52P/IPfw9KNOXr8nq1R1S3QSf8EN5+4XDARdmFHIiubrRY4jRia5se
-	 3vhuYSBxSusM0tjJhg+uvAE+mSCBF6Ds6quS18gI=
+	b=vWa40NAXEmZlc3cl6H4SRpmksJj9QHD46OEF1r2ltiITXgDS4LEl6SX9Yqt3i9jkB
+	 XH4PM+C1obnwAceuEx05Iv1SiJtCgpveguaYGSZX4/mIzK8sdI4ArxYELbrrjpGPL4
+	 0VE1LgHKIHRksek5kJ6ZjqH9EzAswDf/cU3UsYxg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Mykola Marzhan <mykola@meshstor.io>,
+	Yunye Zhao <yunye.zhao@linux.alibaba.com>,
 	Yu Kuai <yukuai@fygo.io>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0341/1005] md: skip bitmap accounting for empty write ranges
-Date: Wed,  4 Nov 2026 16:01:14 -0500
-Message-ID: <20261104211053.511152315@linuxfoundation.org>
+Subject: [PATCH 6.18 0342/1005] md: add cond_resched() to md_do_sync()s skip path
+Date: Wed,  4 Nov 2026 16:01:15 -0500
+Message-ID: <20261104211053.541771243@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
 References: <20261104211043.516122098@linuxfoundation.org>
@@ -68,70 +68,58 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Yu Kuai <yukuai@fygo.io>
+From: Yunye Zhao <yunye.zhao@linux.alibaba.com>
 
-[ Upstream commit 87c10252e3d6c28769d93bea9e6a9b592e5809d1 ]
+[ Upstream commit 162eb5ba791f6260fdaabae75fa2df20134f67d8 ]
 
-mkfs.ext4 can submit zero-sector flush/FUA bios. These bios are WRITE
-bios for md_write_start() purposes, but they do not cover any data sector
-and must not dirty bitmap bits.
+When sync_request() reports a skipped region (*skipped == 1),
+md_do_sync()'s main loop advances the cursor and takes an early
+continue:
 
-md bitmap accounting currently passes such bios to bitmap start_write().
-For llbitmap this reaches llbitmap_start_write() with sectors == 0,
-which underflows the end chunk calculation.
+	j += sectors;
+	...
+	if (last_check + window > io_sectors || j == max_sectors)
+		continue;
 
-Personality bitmap mapping can also turn a non-empty bio into an empty
-bitmap range when the requested sectors are outside the active bitmap
-geometry. Treat both cases as not started, so the completion path will not
-call end_write() for an empty range.
+If the personality returns a small span per call (raid10 recovery
+returns only 128 sectors), syncing a large, mostly clean array iterates
+this branch an enormous number of times without ever yielding the CPU.
+On a non-preemptive kernel the resync thread then trips the soft-lockup
+watchdog:
 
-Tested-by: Mykola Marzhan <mykola@meshstor.io>
-Link: https://patch.msgid.link/20260802195038.164272-11-yukuai@kernel.org
+  watchdog: BUG: soft lockup - CPU#149 stuck for 313s! [mdX_resync]
+   md_bitmap_start_sync+0x6f/0xe0
+   raid10_sync_request+0x2c9/0x1530 [raid10]
+   md_do_sync+0x810/0x1030
+   md_thread+0xa7/0x150
+
+Add a cond_resched().  This does not reduce the wasted iterations; the
+excessive iteration count is a raid10 problem addressed separately.
+
+Signed-off-by: Yunye Zhao <yunye.zhao@linux.alibaba.com>
+Link: https://patch.msgid.link/20260723135535.101995-3-yunye.zhao@linux.alibaba.com
 Signed-off-by: Yu Kuai <yukuai@fygo.io>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/md.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/md/md.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 03d328506b285..ce3bd127e3bb3 100644
+index ce3bd127e3bb3..44f44219ed7fe 100644
 --- a/drivers/md/md.c
 +++ b/drivers/md/md.c
-@@ -9266,6 +9266,8 @@ static void md_bitmap_start(struct mddev *mddev,
- 		mddev->pers->bitmap_sector(mddev, &md_io_clone->offset,
- 					   &md_io_clone->sectors);
+@@ -9751,8 +9751,10 @@ void md_do_sync(struct md_thread *thread)
+ 			 */
+ 			md_new_event();
  
-+	if (!md_io_clone->sectors)
-+		return;
- 	fn(mddev, md_io_clone->offset, md_io_clone->sectors);
- }
+-		if (last_check + window > io_sectors || j == max_sectors)
++		if (last_check + window > io_sectors || j == max_sectors) {
++			cond_resched();
+ 			continue;
++		}
  
-@@ -9284,7 +9286,8 @@ static void md_end_clone_io(struct bio *bio)
- 	struct bio *orig_bio = md_io_clone->orig_bio;
- 	struct mddev *mddev = md_io_clone->mddev;
- 
--	if (bio_data_dir(orig_bio) == WRITE && md_bitmap_enabled(mddev, false))
-+	if (bio_data_dir(orig_bio) == WRITE && md_io_clone->sectors &&
-+	    md_bitmap_enabled(mddev, false))
- 		md_bitmap_end(mddev, md_io_clone);
- 
- 	if (bio->bi_status && !orig_bio->bi_status)
-@@ -9308,12 +9311,14 @@ static void md_clone_bio(struct mddev *mddev, struct bio **bio)
- 	md_io_clone = container_of(clone, struct md_io_clone, bio_clone);
- 	md_io_clone->orig_bio = *bio;
- 	md_io_clone->mddev = mddev;
-+	md_io_clone->sectors = 0;
- 	if (blk_queue_io_stat(bdev->bd_disk->queue))
- 		md_io_clone->start_time = bio_start_io_acct(*bio);
- 	else
- 		md_io_clone->start_time = 0;
- 
--	if (bio_data_dir(*bio) == WRITE && md_bitmap_enabled(mddev, false)) {
-+	if (bio_data_dir(*bio) == WRITE && bio_sectors(*bio) &&
-+	    md_bitmap_enabled(mddev, false)) {
- 		md_io_clone->offset = (*bio)->bi_iter.bi_sector;
- 		md_io_clone->sectors = bio_sectors(*bio);
- 		md_io_clone->rw = op_stat_group(bio_op(*bio));
+ 		last_check = io_sectors;
+ 	repeat:
 -- 
 2.53.0
 
