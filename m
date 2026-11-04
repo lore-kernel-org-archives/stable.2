@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799592;
-	b=PtpEEStHrkIekvebL6Y8MgWACwjG5TKvYmFurK5B0Ygh0blxNAyFDdWugSayVsgMn21I
-	 gv7/TSSXwTo87givzWQ3s7zxBD6wlJldhdQaT0Y/VqF0sxSq3A2JtoYjIPnGwFqP1cD4v
-	 mz+yN4fDOfjQ93wNlWebW/YpNx2GcFbv/98KblUWCpj7OCEc1tWSpQnn0XSNUW12MjJPt
-	 Ko0qM3fyCasDsci9zPKHuM0+ZMczu2kvh9xtBEQ1uNcCX62pCzBD99jozWl/mzTRCykt2
-	 wZIHjUw2+JA9/vzXP2pjHmZCyAw0WQ/Msv5OEZW3tAP6xAwPTxwGW4+KoGGStcQoxRA==
+	t=1793799588;
+	b=3vBfnDJAdlngbE/yj/yCSaCYzb5UqnQhUTrdepzz3Fg9euibV/IdzocakAbJnQXfxT6Q
+	 /I8864ntVRZyZ+W/Eaynqt9NqFpfgZYAIwACfdyq1UZYVjOMAXFPOsrgrmXcVMR84Lahi
+	 swyzJ7DlTWI5eVwM01hNURaJN0lWvQL1wL9EVX3S/kcon4tegMCe962DyAF28w2AZd7O+
+	 Gr9XGpzW8hcgakXDjaAJHw+4DA+aNCqetwyLlsoZl7hjVsM/NmQuBoZecQIc/xRUe5ZXw
+	 PNT3IGUhAzmSlv46p9y+pp9MGCNB865CvqMhSSscZwrb48kbQK2AWvUd1qPpWDR/o6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799592;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799588;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=syPoBAix4XxwMBomoAqnlw4NMZMm4SZGogSQFRrYNAE=;
-	b=ISCulxd1x1MUFha1etgWxz3t1bV4vVDbWIOyj/rmkB8ApO8QDlCQD0aEOgwsCsNgb9as
-	 WT6hVhpJYDUCQXXlq0KioaHxS1Ya1zgx3abp08upPxWQV+Yd/YljZmfbWNsrRgbDeJ4Mk
-	 JrYwtCENvSry1mphII4zuRmosbIck/8l4DJGe99KuA/qyqy6Ihn3ocYCic+7SNdHMP7j0
-	 44SqbpYu7HIfGuCyQ9auuoXhRp3K+2iganiy4ca/nGQsCO21CDo4G9reH5tGWsS9KZHNn
-	 86gpMRxWdb0RuL59P9OzoEwMYdhQvyEB0vPOkGdGV+RNCHIcDOtt0dZlU2a7QVTiWZw==
+	bh=yl/Gy08XKoe3mtrryXuqQZ/T9p9WbuTrQtwFRw93CUM=;
+	b=Nibqw8W2EblnIzMjFz1Umk3GyXtMj39Vs2bFZILoVDlDhbuZeogUEIXRlS13CjcAnx5b
+	 nKl8n7gjpwH+d8CYIaQ/wb0ALIrh/kPGHRu6s5YS7m9m85QFjtGNHz/eTV8UMQpDul9tJ
+	 73WpBLwrNblkSzd2VFM7O3uA17vKxDfjHlihZ0CZqT3Xn0bI8W3jrJCPgvDZLJq6yJqLY
+	 qx3yQxqVnowGBHvuxjdSuMsfV8jeYfMlbbbEdHqGUEwY45No7Wr2nCJ1xHdkPF9cVkB8p
+	 SdtMS9PuPzt8WL9w9+5E5L7dmFHSc7g8fd9eKADVnI5URjaH0UWm/IEvwG0JQ+5uccw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AzCPHnY2;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="qE3/mUd/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4696606A33A
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:39:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54813606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:39:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AzCPHnY2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450CD1F00A1A;
-	Wed,  4 Nov 2026 13:39:51 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qE3/mUd/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFC571F00A17;
+	Wed,  4 Nov 2026 13:39:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793799591;
-	bh=syPoBAix4XxwMBomoAqnlw4NMZMm4SZGogSQFRrYNAE=;
+	s=korg; t=1793799587;
+	bh=yl/Gy08XKoe3mtrryXuqQZ/T9p9WbuTrQtwFRw93CUM=;
 	h=Subject:To:Cc:From:Date;
-	b=AzCPHnY2cQS5NL40mgkidmlo5IwLvAvXGTO5o25uMyhrdiY90T4tQ9ShJCuLj1LGV
-	 HTNxMbSWHl18Orl3+y0YQ0zF83FEPkbExOlqavoN8NjTh5028+Dy40eB4l1b+1b+gN
-	 E0YDIV45qTcoPNehh8RSgFN9YPS6u0ZkmupDtiOY=
-Subject: FAILED: patch "[PATCH] mm/hugetlb: fix use-after-free in hugetlb_mfill_atomic_pte()" failed to apply to 5.15-stable tree
+	b=qE3/mUd/0fS47lTDhJ+UHAB3L9toD5JLrtuCB0a4sIOy2OXbxF8D2upCkJYjOMxsK
+	 HUzDs4LAof2esm3ba2uoknQhFVlghv2/2+9nnryCvPA5TOsh2r2tUw43HkFwAxHXQs
+	 5fqmcFvAB2u0vlZrJHFIVsJDpOdlvaqB6YmJ5URI=
+Subject: FAILED: patch "[PATCH] mm/hugetlb: fix use-after-free in hugetlb_mfill_atomic_pte()" failed to apply to 6.1-stable tree
 To: david@kernel.org,agl@us.ibm.com,akpm@linux-foundation.org,jannh@google.com,josef@toxicpanda.com,kas@kernel.org,lance.yang@linux.dev,liam@infradead.org,linmiaohe@huawei.com,ljs@kernel.org,mgorman@techsingularity.net,muchun.song@linux.dev,nao.horiguchi@gmail.com,osalvador@suse.de,peterx@redhat.com,pfalcato@suse.de,riel@surriel.com,rppt@kernel.org,stable@vger.kernel.org,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:39:47 +0100
-Message-ID: <2026110447-cucumber-tummy-2f42@gregkh>
+Date: Wed, 04 Nov 2026 14:39:46 +0100
+Message-ID: <2026110446-swimmer-stimulate-cc19@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x d8a9cd7fd2fb01211430c933932da58839b8ca65
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110447-cucumber-tummy-2f42@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110446-swimmer-stimulate-cc19@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
