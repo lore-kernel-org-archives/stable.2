@@ -1,61 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827210;
-	b=nyWg7dCajtur4XPirGorS7j6KJegxPQ/qtszZvZFKu/QxD6BNhespAgAMXznDHp/sLOV
-	 euXchQx7BdwWDQAI0j9sHW2d5O+vfLxwO6cDQD/tnccHDrCghLbF148SO5ycOR2iiD3uK
-	 qDWxmltOQHg5aH4LFsUbdadPCpYC5W7x3d74CIsSORoeYksl1fr0YcGE2vci6DXbaALlG
-	 5a6FLxLukGqLJwdbaWhi+zn8wTW3TuBivMMEOXMmgfwH2SiO7qNX+Nd0OuCPt+FlpT17P
-	 odSFXHSTuhqR/rCvPfGG+TFrD5sP2Y4HgUqRP+pWPxNWTKq81qr7Tf0fTfS+lhY/J/Q==
+	t=1793827206;
+	b=MN/bZTJmMUMA3tezfnpqxOd6oFRHmGl0WxRGXCswjeWEeZme8dCBw14/AbWeYP7T4fn+
+	 mfuiHxaoJUrtQv3OspXPxM7juEI9TnRal18yYAyTzrDgtzH559srsHszNdsBIDkKlGnx1
+	 mtX+POev2BYX3qPAzRD6OFtblymXAL7XgP7I/SYZy1wkobcnMUmzSbM5jvP2PMIiBpgRo
+	 l8mzd4SI62vvyghhydNdnizGN5HpnzK57RLsacFRQhkDLShCbbl9h6i7Rk0X6J1b9ndDs
+	 9wX72rYiYYFfUtMqTEFe5NTopKlrl9ZMsgzxMIjjiuYnk1pStUrXeMKd9rTG/tyX5qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827210;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=iaANhY+yD4ah89ykbbrEOtG3CXrG11C61CND8OkOv3U=;
-	b=YGSbm7LkUAMBvq2yJ/gTunIZAUsxNNPxUE0FNBPXSc0P1/bfEtwlr1T5iJ1s2PU8nOjV
-	 aKj5WcdQnk69qlSwsRRVC4KUn+cD7A5FSup1vlKYU5c4igsulDED7l74EUHqsMG30DCVd
-	 x2WyO04sxRShm2GJFmcXrnpbfRDZ/RiXYSsLTwf+F7UCzCoifc5izkDbzLmcuNOpkxDw4
-	 epHPszRBX1U9LT3eq3Bh2X6SqxFBXEAEcdVEj1VIANV/KDRd+rhI9vE37XRoB4c+BpXQr
-	 Vow07WvkDAkQTwk4BlpB1PN48w/x9uNT1JDGU2D/b05zdolzUYJXeDVn4E1YTeejOUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827206;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=UEo2NWoGyE8ES2/cBdC2d8fMHRdabnSxMHMTsK/eZ/c=;
+	b=U3PzhK72lcWOhjptUo0+nqgOGEc75jEqTKGCveUaCJB7GOh2uWDRhnVQCITB+MSycM/S
+	 J9Ca40Y44lhDoZ5RXR5GPw1WbhjHYzat5b1HC0PTzpp6ShyIJvu1hJI1CMntjnvYo/Rqp
+	 50nMD1NgnRJbakiQMVMu4bfoTIFhDSFqliE5AYlrhCyT+6YmQeGPsenIeTDdGWa3M2ahf
+	 pPnkKt3Dxqa9EVfZ9WXDi/KTI/V8mCZzyeqbCJfNVO7VtfDf9BFdF6sCalP4mw1nmcT3I
+	 F3x4rihSN8+j5EfDq7BL+T4/el1veYNn+IuDWKyisx3lcbk2jezxImADYvyYkjzvwaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uAAA9xA3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fOrx4Aa2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90338606B39A;
-	Wed,  4 Nov 2026 21:20:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC5B606B2C5;
+	Wed,  4 Nov 2026 21:20:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uAAA9xA3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392EF1F000C1;
-	Wed,  4 Nov 2026 21:20:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793827209;
-	bh=iaANhY+yD4ah89ykbbrEOtG3CXrG11C61CND8OkOv3U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=uAAA9xA3mMGlA2Y5wR6YaFDgSIoYmMEJE05sUHDRaYPiSjsXAauhaa7MR/czbA0iK
-	 svd9WXom/He2FhriSARetufRiIo3mlkuac4hqhGqiZ4U7i8ry1NcXhZxyrCEFZxIwj
-	 Zbmhgz1OxRvYKqXRZtGF2VHS6+sGzGdyNqUWaleg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sean Christopherson <seanjc@google.com>,
-	syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com,
-	syzbot+fb7c2dd166d3ea63df2a@syzkaller.appspotmail.com,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Paul Durrant <paul@xen.org>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: [PATCH 7.3 223/547] KVM: pfncache: use a dedicated invalidation sequence for cache refresh
-Date: Wed,  4 Nov 2026 16:06:47 -0500
-Message-ID: <20261104211044.493660396@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
-References: <20261104211038.406938024@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fOrx4Aa2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C78BE1F0093A;
+	Wed,  4 Nov 2026 21:20:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793827205;
+	bh=UEo2NWoGyE8ES2/cBdC2d8fMHRdabnSxMHMTsK/eZ/c=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=fOrx4Aa2LNpVlorhvzEapOUohcPAjK1dCYbxWzBtm+SkxS8CC2YYCh63Ug7ZihNXM
+	 H3qO0jOX4VmS3bHWCLIKIg5kQltwvhZgFvD51Qu6bbDYD/eyLxHr6T34OqK/rEnoUT
+	 WLgFgYAjCuc3x2T7PY+q5zx9CnzRGUAL5EzQnarxFBxstO0T0CsmIGUPNPwPT2cGKd
+	 1bAQ6KNac2QGwGGx+C2PIRP3JyWDekIAs0qMH+EAWaOfWg3K/8vFtaIfD1yhJRAiCG
+	 JSAHLWvOhIFCzqxkG6dljk7zfPJHXbRT+Drx3D50+07l3c7k8d/SnK0tShtqHm5O0h
+	 Lc1lv3w8nvc9Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA342380047F;
+	Wed,  4 Nov 2026 21:20:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,174 +54,48 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] l2tp: only return sessions of the given tunnel in
+ l2tp_session_get()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179382720463.3223324.16769779750927973517.git-patchwork-notify@kernel.org>
+Date: Wed, 04 Nov 2026 21:20:04 +0000
+References: <20261030032617.4065353-1-hengyul@cs.unc.edu>
+In-Reply-To: <20261030032617.4065353-1-hengyul@cs.unc.edu>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, netdev@vger.kernel.org, horms@kernel.org,
+ jchapman@katalix.com, tparkin@katalix.com, gnault@redhat.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+Hello:
 
-------------------
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+On Thu, 29 Oct 2026 23:26:17 -0400 you wrote:
+> Commit 5f77c18ea556 ("l2tp: use IDR for all session lookups") made
+> pppol2tp_connect() and the netlink session commands find sessions with
+> l2tp_session_get(), passing the socket of the tunnel they name.
+> 
+> L2TPv3 session IDs are unique per network namespace, except that
+> sessions carried over UDP are only unique per UDP socket, the socket of
+> their tunnel. However, l2tp_v3_session_get() only checks the socket when
+> another session has the same session ID. Otherwise it returns the
+> session, whichever tunnel it belongs to. As of now, a session command
+> that names the wrong tunnel acts on a session of another tunnel, and a
+> PPPoL2TP socket for a second L2TPv3 tunnel fails with EEXIST, because it
+> finds session 0 of the first tunnel.
+> 
+> [...]
 
-commit da260bcb56feeb6489a83f310308453a0a7de25e upstream.
+Here is the summary with links:
+  - [net,v2] l2tp: only return sessions of the given tunnel in l2tp_session_get()
+    https://git.kernel.org/netdev/net/c/a75facf4bb3e
 
-The gfn_to_pfn_cache refresh path guards against mmu notifier
-invalidations which complete while it has dropped gpc->lock for the
-HVA->PFN lookup: hva_to_pfn_retry() samples kvm->mmu_invalidate_seq
-and retries if it changed, or if mn_active_invalidate_count is still
-elevated.
-
-That is insufficient for HVA-based caches. mmu_invalidate_seq is only
-advanced by kvm_mmu_invalidate_end() when the invalidated range
-overlaps a memslot, and an HVA-based cache (e.g. the Xen shared_info
-page mapped with KVM_XEN_ATTR_TYPE_SHARED_INFO_HVA) need not be backed
-by any memslot at all. An invalidation of the cached HVA which starts
-and ends entirely within the lookup window is thus invisible to the
-retry check: mn_active_invalidate_count is back to zero and the
-sequence never moved. The refresh then publishes a mapping of a page
-which has already been freed, and the next reader dereferences it:
-
-  BUG: KASAN: use-after-free in kvm_xen_shared_info_init+0x3c6/0x440
-  Read of size 4 at addr ffff8880599c2900 by task syz.2.383/7257
-
-Since gfn_to_pfn_cache_invalidate_start() deliberately skips caches
-which are not currently valid (including one whose refresh is in
-progress, as the refresh clears the valid flag before dropping the
-lock), the retry check is the only line of defence, and it must fire
-for *any* invalidation, not just those hitting a memslot.
-
-Add a dedicated kvm->gpc_invalidate_seq, incremented by every
-kvm_mmu_notifier_invalidate_range_end() under mn_invalidate_lock
-before mn_active_invalidate_count is decremented, and check it in
-hva_to_pfn_retry() instead of mmu_invalidate_seq. Incrementing in
-range_end() in the same critical section as the in-progress count
-also closes the variant where the cache is activated with the
-contested HVA only after invalidate_range_start() has run.
-
-The same bug is also reachable through the per-vCPU vcpu_info cache
-(KVM_XEN_VCPU_ATTR_TYPE_VCPU_INFO_HVA), where the stale mapping is
-then dereferenced by kvm_setup_guest_pvclock() on the next KVM_RUN:
-
-  BUG: KASAN: use-after-free in kvm_setup_guest_pvclock+0x5bf/0x660
-
-This intentionally makes refresh retry on *unrelated* mmu notifier
-events; restoring precision (and reworking the GPC locking more
-generally) is left for a subsequent series.
-
-Reproducers: https://david.woodhou.se/xen_shinfo_race.c
-             https://david.woodhou.se/vcpu_info_race.c
-
-Suggested-by: Sean Christopherson <seanjc@google.com>
-Reported-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a0c5f2c.a00a0220.2c7954.0000.GAE@google.com/
-Tested-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
-Reported-by: syzbot+fb7c2dd166d3ea63df2a@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6a426dd2.854d4ab9.360e1d.0008.GAE@google.com/
-Fixes: b9220d32799a ("KVM: x86/xen: allow shared_info to be mapped by fixed HVA")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Assisted-by: Claude:claude-mythos-5
-Reviewed-by: Paul Durrant <paul@xen.org>
-Link: https://patch.msgid.link/20260831213632.81023-13-dwmw2@infradead.org
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- include/linux/kvm_host.h |    2 ++
- virt/kvm/kvm_main.c      |   10 ++++++++++
- virt/kvm/pfncache.c      |   18 +++++++++---------
- 3 files changed, 21 insertions(+), 9 deletions(-)
-
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -854,6 +854,8 @@ struct kvm {
- 	gfn_t mmu_invalidate_range_start;
- 	gfn_t mmu_invalidate_range_end;
- 
-+	unsigned long gpc_invalidate_seq;
-+
- 	struct list_head devices;
- 	u64 manual_dirty_log_protect;
- 	struct dentry *debugfs_dentry;
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -813,6 +813,16 @@ static void kvm_mmu_notifier_invalidate_
- 
- 	/* Pairs with the increment in range_start(). */
- 	spin_lock(&kvm->mn_invalidate_lock);
-+	kvm->gpc_invalidate_seq++;
-+
-+	/*
-+	 * As with the MMU sequence counter and mmu_invalidate_in_progress, the
-+	 * GPC sequence increase must be visible before the invalidate count
-+	 * goes to zero.  Pairs with the smp_rmb() in
-+	 * mmu_notifier_retry_cache().
-+	 */
-+	smp_wmb();
-+
- 	if (!WARN_ON_ONCE(!kvm->mn_active_invalidate_count))
- 		--kvm->mn_active_invalidate_count;
- 	wake = !kvm->mn_active_invalidate_count;
---- a/virt/kvm/pfncache.c
-+++ b/virt/kvm/pfncache.c
-@@ -124,7 +124,7 @@ static void gpc_unmap(kvm_pfn_t pfn, voi
- #endif
- }
- 
--static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long mmu_seq)
-+static inline bool mmu_notifier_retry_cache(struct kvm *kvm, unsigned long gpc_seq)
- {
- 	/*
- 	 * mn_active_invalidate_count acts for all intents and purposes
-@@ -136,20 +136,20 @@ static inline bool mmu_notifier_retry_ca
- 	 * Note, it does not matter that mn_active_invalidate_count
- 	 * is not protected by gpc->lock.  It is guaranteed to
- 	 * be elevated before the mmu_notifier acquires gpc->lock, and
--	 * isn't dropped until after mmu_invalidate_seq is updated.
-+	 * isn't dropped until after gpc_invalidate_seq is updated.
- 	 */
- 	if (kvm->mn_active_invalidate_count)
- 		return true;
- 
- 	/*
- 	 * Ensure mn_active_invalidate_count is read before
--	 * mmu_invalidate_seq.  This pairs with the smp_wmb() in
--	 * mmu_notifier_invalidate_range_end() to guarantee either the
-+	 * gpc_invalidate_seq.  This pairs with the smp_wmb() in
-+	 * kvm_mmu_notifier_invalidate_range_end() to guarantee either the
- 	 * old (non-zero) value of mn_active_invalidate_count or the
--	 * new (incremented) value of mmu_invalidate_seq is observed.
-+	 * new (incremented) value of gpc_invalidate_seq is observed.
- 	 */
- 	smp_rmb();
--	return kvm->mmu_invalidate_seq != mmu_seq;
-+	return kvm->gpc_invalidate_seq != gpc_seq;
- }
- 
- static kvm_pfn_t hva_to_pfn_retry(struct gfn_to_pfn_cache *gpc)
-@@ -158,7 +158,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct
- 	void *old_khva = (void *)PAGE_ALIGN_DOWN((uintptr_t)gpc->khva);
- 	kvm_pfn_t new_pfn = KVM_PFN_ERR_FAULT;
- 	void *new_khva = NULL;
--	unsigned long mmu_seq;
-+	unsigned long gpc_seq;
- 	struct page *page;
- 
- 	struct kvm_follow_pfn kfp = {
-@@ -181,7 +181,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct
- 	gpc->valid = false;
- 
- 	do {
--		mmu_seq = gpc->kvm->mmu_invalidate_seq;
-+		gpc_seq = gpc->kvm->gpc_invalidate_seq;
- 		smp_rmb();
- 
- 		write_unlock_irq(&gpc->lock);
-@@ -232,7 +232,7 @@ static kvm_pfn_t hva_to_pfn_retry(struct
- 		 * attempting to refresh.
- 		 */
- 		WARN_ON_ONCE(gpc->valid);
--	} while (mmu_notifier_retry_cache(gpc->kvm, mmu_seq));
-+	} while (mmu_notifier_retry_cache(gpc->kvm, gpc_seq));
- 
- 	gpc->valid = true;
- 	gpc->pfn = new_pfn;
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
