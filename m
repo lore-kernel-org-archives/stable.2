@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793779577;
-	b=q9DmL0HJZcUwW2TvItl/EScBhBxNjqEC8wCBU7LHQaVLvwvkF7XrAcwR2Q+oJG7xI8YV
-	 33SPXObj5Q/W81jlMsM4pL5e4SlanaUHfqatnaxwBMb6e+9j/Q/QzxZKrpN7X5gM0k7s6
-	 X3YHu/xz1SdOroy0EzZ3euh87AxpB8S9tqlVMyjQB8TQzOjI77WZ7NXy4u5cMTIhxGLk8
-	 TYVOdYmHGiBaqrpxXxcWf4IC5ui4R169eREeedx+EEWlUqckE0ePpeTlLIGo3w1ThFlhW
-	 g/kxVVSGI6nTrugztuplrXkPIAZDo0CA9GDDtOxXnZYfqJAfMjhve3CZIulkf3NYuIQ==
+	t=1793779585;
+	b=0k0YDWrovV2D4Cyps69d/DKheX+vCRzB2vT4zDKbhV7H43evgEARvazzV7l/koBKxzvF
+	 16voVQqXrYaQvvA1tpxpVSoIX0X4we4A3vpr3fve5f+h9OPoNiskFFZ0VLPFIpO41m4Oe
+	 r8jw5wpIr5cSk1bGDVEVi7qcPIjRiPj/VhBZwOEW1T2jhi1EDuArTCtViTRvgVWzDy0k/
+	 ClhzQEJhN1okMsQyI1PJjqCNT6u8ISta64ic73hApQO4XyWWAODC9nDP1HiM5vitCBHON
+	 RTqGC3uswetYhfoq585STlr+JiS5m4No2boVwbLKASgaGimud3vYf8wgE2ldkui0Cmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793779577;
-	h=DMARC-Filter:DKIM-Signature:Cc:Content-Transfer-Encoding:Message-Id:
-	 Received:User-Agent:X-Original-From:References:In-Reply-To:To:Date:
-	 Mime-Version:X-Lms-Return-Path:Content-Type:From:Subject:
-	 Content-Language;
-	bh=sduOP3VW/r6BpntDuFO0P9ijMJnVNglrHxEYHPAMFGs=;
-	b=rYbvPnpbIpJ5MqB9vUDA1hL67U9pLmxKr2Wk6XGJtp4D/Tag1JTc5h1Qfsl6GxJljkPl
-	 TA1zaEjav4EwWRePr2B2Zf1wheWES9IYY/YmCo91mm0MfvwSulXuEYJ2WKioIR8jumtG1
-	 pMN44YG6vN1xpbqAKw73VkwlyrZS0GGAQVVhPfURI0tMfImDgtu59tztYWXpZv2dElbYC
-	 5nYNdsm9MPaHVGgGblLYs4UICZIyLhfGL5sjc1rv6IATu4oFdwcTiSxgYjhJp/KH65qns
-	 R7eNCqVHw+cmGT4LOaCJAW54c6tCUmCDwcynd7hsPQ1JHxHqMMOnYx1iroe11J+kILA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793779585;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=WgxEiGMcAXeHim/OCpv0zMeF0d48h/zJZ1XH8xX5r4w=;
+	b=fW8KS9JDFNdGN4lxDNFmfL5FHEiYz7KsS8OFWlWj8jMHRnK9cz2Rz6TAbsYUxC7yJVDw
+	 fsfPn9i1Cjq8ZiEyhTCideEQDEo28fRKHKRAu3c9X0gsQCFutBgvBe7uMoeo8UJJnSMWW
+	 X6Mib0c2l3YQ/sBS8pn2g+aZgp9mqaRRn+9ZPMqh4fMfYZogtnGbMIcMHPmbju2F9FrGY
+	 /KrVrZuRWVXach1OWRAnCDcI29XpsVGlUtFvNa1vvH0rBOTEd8UUetnAyOuK3+SIyOReU
+	 /fbzAkGA9goxjfj37nciGGNjCzpuDdwGUb/r2HxdYqrYErBEdgEhWT9zPW4/AWtF+RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=picoheart.com;
-	spf=pass smtp.mailfrom=picoheart.com;
-	dkim=pass header.d=picoheart.com header.i=@picoheart.com header.a=rsa-sha256 header.s=feishu2604151535 header.b="W2/poyEC";
-	arc=none smtp.remote-ip=209.127.231.48
-Received: from va-2-48.ptr.blmpb.com (va-2-48.ptr.blmpb.com [209.127.231.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fOEj9ig5;
+	arc=none smtp.remote-ip=162.62.58.216
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CA15606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 08:06:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CA15606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809B5606A334;
+	Wed,  4 Nov 2026 08:06:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 809B5606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=picoheart.com header.i=@picoheart.com header.a=rsa-sha256 header.s=feishu2604151535 header.b=W2/poyEC
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604151535; d=picoheart.com; t=1793779571; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=sduOP3VW/r6BpntDuFO0P9ijMJnVNglrHxEYHPAMFGs=;
- b=W2/poyECXARfu9is4ZU+Li4KeWeaPximlH2D+qD/TtRq5pFs1hXguohrDoTv1QWajIW5bE
- bWHGMG3A38jijTz83NfkZL3Pjn0ZD8cxzuwiLiXl2U0dFvlBU+XcHz8qkl32oAvv3HfK60
- FUJnM3Zs4xMx6vor1GOKrQq/BBEGresZkX5H1vS8bbQQlIPpX8d9EvgcntG2PJuU+ikNTM
- ybnyQIulSG7ks+IUOMg/UM5P007X1Io74MBRw9ASOO5CKOFRVHUZ5PblRJ/Axi66s+I3Re
- zEyGK/bX70o+82tz7jD0IzEl+XJqRybW6elVag0fk5w6JHlWlEbDNnJ0+RMQOg==
-Cc: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, 
-	<alex@ghiti.fr>, <zong.li@sifive.com>, <wangruikang@iscas.ac.cn>, 
-	<debug@rivosinc.com>, <qirui.001@bytedance.com>, <guoziyi114@gmail.com>, 
-	<samuel.holland@sifive.com>, <ben.dooks@codethink.co.uk>, 
-	<cyrilbur@tenstorrent.com>, <linux-riscv@lists.infradead.org>, 
-	<linux-kernel@vger.kernel.org>, <yang.yicong@picoheart.com>, 
-	<stable@vger.kernel.org>
-Content-Transfer-Encoding: 7bit
-Message-Id: <b8f28bee-83d6-4566-889d-6119e2837ddb@picoheart.com>
-Received: from [100.86.223.207] ([61.141.241.106]) by smtp.feishu.cn with ESMTPS; Wed, 04 Nov 2026 16:05:58 +0800
-User-Agent: Mozilla Thunderbird
-X-Original-From: Yicong Yang <yang.yicong@picoheart.com>
-References: <20261022083212.84721-1-cuiyunhui@bytedance.com>
-In-Reply-To: <20261022083212.84721-1-cuiyunhui@bytedance.com>
-To: "Yunhui Cui" <cuiyunhui@bytedance.com>
-Date: Wed, 4 Nov 2026 16:05:55 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=fOEj9ig5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793779579; bh=WgxEiGMcAXeHim/OCpv0zMeF0d48h/zJZ1XH8xX5r4w=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=fOEj9ig5JXN09CLHqNfTNgbw330Bh/WIacL9+P9J5rKELZqrG/iX3nWAuCG41tSLn
+	 3v2RfVVwIiWX9HMUBlu8oX6dbosXWswYQ2tpi76OJJHbKygZRed3lrS1MI5Ic3xMoR
+	 7P5ESqp3MzxmK8aiNu8ZZuBBgwpvf5duWSzGefiE=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-XMAILINFO: Nze9Gsl2QAyr5RxeywbNGg6T5cysE3+3MmOq0TdLhgaEbwUJeN9vA51HWHzzUm
+	 8+OJbKEXn/feXKvOo/2TOKWuMMaZCIRy0UWsahrowRynnMa1jlpI0vfs9ZOmuX96Xaup7yVWAnGAv
+	 r6wM66C+1UYEho16kdBhDsLpHI+JddESc7SYXXmZFx+74oaXiw1W84KD1+73Doq2momM1ZyOLpLVm
+	 fV1uRXtsx6533qpYQG0c/4T9nSYawztosAet8uI+nIP0baYUxMTrZM6eK6ENU6GbdUALaUjqa0nRi
+	 JnOK5vl0RU0PdywsI/aetYv7E9OSBwmGX/iD5HmmDmiizWHdl/1TqbAd/oR/algyGG2OKdfBXDKKs
+	 HYqgTOgGjUruMQ4c8dzbqe2eny2nQmPRQJzS/PZl+J8H0qcVkrNQTuWxK9xo6H+CFbLfKBVfUZYbr
+	 YFzatZMYpuAeERkWN/EVm/6nx6H3BGOnp6RfaVyYhAG3R6IXVMAT0xrRZqUkHNvRb4f1imVoF9rs1
+	 AgJ4Nim5PyXcsyshlnwttdra7XpG5Ls3uNC36X5MeDQ1quwW6q3FR7XldERP8bD0LnpebQ6n0k6ut
+	 ckQyxhQSLVEBGkgDVS03MOpisqtOZEZUdkSTHf8r8nTSBNlw3vLQbj7qrPJUQH3T8fvb7f6ApkmI3
+	 oKSY3zzZhEtVBvUu+4Z8tkOqR6AxKoiFdFU5fJKc6g3r9j8J9HxW4uw65lrmt1oX2qWz9vD1R4MQi
+	 oGDAWCUPBoJDgw0g9uG7UTzINOwf29Qfz4hq2mV93CqttBx9jgEFeEU6VLR2o4ZoXtFvdhutAE9aM
+	 6x7HpA6IltYkk0VpbHrv7WyxWvTIyjGN1CVBT1rfTLKTEZQdeSZWj+r2UrpU9TxRd7GvadgTmsEpb
+	 gZhqcpqIdrU4vRN1thMDTweEEW5ZOrTmuoFywATQS6FxrleaLOG/Wpq6Ff2xANFsj9ceWelW2BxeQ
+	 rtkA9lMeex1XHsrHi3eRcpdnX2oz4zD+rIDRa/nMGR4jboJp0+BFH+GoAmUjwEwcQlLuusR5xtYtb
+	 JRCvoxORlO2iH+BN6Q7T2DXhPGw==
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?bmV0ZGV2LWJvdCtzYXNoaWtv?=" <netdev-bot+sashiko@kernel.org>
+Cc: "=?utf-8?B?bWts?=" <mkl@pengutronix.de>, "=?utf-8?B?bWFpbGhvbA==?=" <mailhol@kernel.org>, "=?utf-8?B?aGVpa28=?=" <heiko@sntech.de>, "=?utf-8?B?ZGF2ZW0=?=" <davem@davemloft.net>, "=?utf-8?B?d2c=?=" <wg@grandegger.com>, "=?utf-8?B?c29ja2V0Y2Fu?=" <socketcan@hartkopp.net>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?ZWR1bWF6ZXQ=?=" <edumazet@kernel.org>, "=?utf-8?B?a3ViYQ==?=" <kuba@kernel.org>, "=?utf-8?B?cGFiZW5p?=" <pabeni@redhat.com>, "=?utf-8?B?aG9ybXM=?=" <horms@kernel.org>, "=?utf-8?B?Y29yYmV0?=" <corbet@lwn.net>, "=?utf-8?B?c2toYW4=?=" <skhan@linuxfoundation.org>, "=?utf-8?B?cmR1bmxhcA==?=" <rdunlap@infradead.org>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, 
+	"=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?bGludXgtZG9j?=" <linux-doc@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: Re: [PATCH net v6 3/6] can: rockchip_canfd: cancel bus-off restart before closing the device
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,57 +69,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26aeae767+147470+vger.kernel.org+yang.yicong@picoheart.com>
-Content-Type: text/plain; charset=UTF-8
-From: "Yicong Yang" <yang.yicong@picoheart.com>
-Subject: Re: [PATCH] riscv: Fix SR_SUM leakage across context switches
-Content-Language: en-US
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Wed, 4 Nov 2026 16:06:17 +0800
+X-Priority: 3
+Message-ID: <tencent_2E7A44783FBE26011A7319CF849111D78007@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261017-rockchip-canfd-restart-close-v6-3-ed605feb4b6e@qq.com>
+	<179237864073.3135.8117104622491949177@kernel.org>
+In-Reply-To: <179237864073.3135.8117104622491949177@kernel.org>
+X-QQ-mid: xmsezb41-0t1793779577t7nbgj69z
 
-On 10/22/26 4:32 PM, Yunhui Cui wrote:
-> __switch_to() saves the sstatus value of prev and restores the SR_SUM bit
-> of next with csrs. However, csrs only sets bits. If prev has SR_SUM set
-> and next has SR_SUM clear in its saved state, the old SR_SUM bit remains
-> set in sstatus.
-> 
-> This lets next run with user memory access enabled even though its saved
-> SR_SUM state is clear.
-> 
-> Use csrrc to save the sstatus value of prev and clear SR_SUM from the
-> live CSR before restoring the saved SR_SUM state of next. This keeps
-> prev's SR_SUM state intact, while preventing it from leaking to next.
-> 
-> Fixes: 788aa64c01f1 ("riscv: save the SR_SUM status over switches")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+SGksCgo+IElzIHJrY2FuZmRfc3RhcnRfeG1pdCgpIHNlcmlhbGl6ZWQgYWdhaW5zdCB0aGlz
+IHJlaW5pdGlhbGl6YXRpb24gYXQgYWxsPwo+IFdvdWxkIHRoaXMgbGVhdmUgSU5UX01BU0sg
+dW5tYXNrZWQgYW5kIHRoZSBUWCBxdWV1ZSBhd2FrZSBvbiBhCj4gY29udHJvbGxlciB0aGF0
+IGlzIGluIHJlc2V0IHdpdGggdGhlIENBTiBzdGF0ZSBhdCBDQU5fU1RBVEVfQlVTX09GRj8K
+CkJvdGggd2luZG93cyBwcmVkYXRlIHRoaXMgcGF0Y2guIEl0cyBhZGRlZCB3YWl0cyBjYW4g
+ZXh0ZW5kIHRoZSBUWCByYWNlCmFmdGVyIHRoZSBjb3JlIHJlc3RvcmVzIGNhcnJpZXIuIFBh
+dGNoIDUgb2YgdjYgY2xvc2VzIGJvdGggd2luZG93cy4KSSB3aWxsIGZpeCB0aGlzIGlzc3Vl
+IGluIHY3IGJ5IGludHJvZHVjaW5nIHJlc3RhcnQgc3luY2hyb25pemF0aW9uIGFuZApUWCBw
+cm90ZWN0aW9uIHRvZ2V0aGVyLgoKSW4gdGhlIGNvbXBsZXRlIHY2IHNlcmllcywgYm90aCBy
+ZXN0YXJ0IGFuZCBvcGVuIHVzZQpya2NhbmZkX2NoaXBfc3RhcnRfZmluaXNoKCkuIEl0IGhv
+bGRzIHR4X2xvY2sgd2hpbGUgY2xlYXJpbmcgdGhlIElSUSBnYXRlLAp1bm1hc2tpbmcgaW50
+ZXJydXB0cyBhbmQgd2FraW5nIHRoZSBxdWV1ZS4gQSBuZXcgYnVzLW9mZiBtdXN0IGFjcXVp
+cmUgdGhlCnNhbWUgbG9jayBpbiBya2NhbmZkX3R4X2Rpc2FibGUoKSBiZWZvcmUgcHVibGlz
+aGluZyBCVVNfT0ZGIGFuZCBzdG9wcGluZwp0aGUgY29udHJvbGxlciwgc28gaXQgdGFrZXMg
+cHJlY2VkZW5jZSBvdmVyIHN0YXJ0dXAuIFRoZSBmbGFnIGlzIG5vdCB0aGUKb25seSBzeW5j
+aHJvbml6YXRpb24gaGVyZTsgYW4gYWRkaXRpb25hbCBsb2NrIGFyb3VuZCB0aGUgd2hvbGUg
+aGFuZGxlcgppcyBub3QgbmVlZGVkIGZvciB0aGUgcmVwb3J0ZWQgaW50ZXJsZWF2aW5nLgoK
+PiBDYW4gdGhlIGhhbmRsZXIgc2VlIGEgbmV3IGN5Y2xlX2xhc3QgdG9nZXRoZXIgd2l0aCBh
+biBvbGQgbnNlYz8KClllcywgYmVmb3JlIHBhdGNoIDYgb2YgdjYuIFRoYXQgcHJlLWV4aXN0
+aW5nIHJhY2UgaXMgZml4ZWQgYnkgdGFraW5nCnRpbWVzdGFtcF9sb2NrIGZvciBjb252ZXJz
+aW9uIGFzIHdlbGwgYXMgdGltZWNvdW50ZXIgdXBkYXRlcy4gSSB3aWxsCnJldGFpbiB0aGF0
+IGZpeCBpbiB2Ny4gVGhlIHdvcmtlciByZWFybWluZyBpc3N1ZSBpcyBhbHJlYWR5IGZpeGVk
+IGJ5IHRoZQpsb2NrZWQgYWN0aXZlIGNoZWNrIGluIHBhdGNoIDQgb2YgdjYgYW5kIHdpbGwg
+YWxzbyByZW1haW4gZml4ZWQuCgpCZXN0IHJlZ2FyZHMsCkN1bmhhbyBMdQoKcHctYm90OiBj
+cgo=
 
-a straightforward fix :)
-
-Reviewed-by: Yicong Yang <yang.yicong@picoheart.com>
-
-> ---
->  arch/riscv/kernel/entry.S | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/riscv/kernel/entry.S b/arch/riscv/kernel/entry.S
-> index 61b7a77166971..628b85e3915a7 100644
-> --- a/arch/riscv/kernel/entry.S
-> +++ b/arch/riscv/kernel/entry.S
-> @@ -443,15 +443,15 @@ SYM_FUNC_START(__switch_to)
->  	REG_S s10, TASK_THREAD_S10_RA(a3)
->  	REG_S s11, TASK_THREAD_S11_RA(a3)
->  
-> -	/* save the user space access flag */
-> -	csrr  s0, CSR_STATUS
-> +	/* Save and clear the user space access flag. */
-> +	li    s1, SR_SUM
-> +	csrrc s0, CSR_STATUS, s1
->  	REG_S s0, TASK_THREAD_SUM_RA(a3)
->  
->  	/* Save the kernel shadow call stack pointer */
->  	scs_save_current
->  	/* Restore context from next->thread */
->  	REG_L s0,  TASK_THREAD_SUM_RA(a4)
-> -	li    s1,  SR_SUM
->  	and   s0,  s0, s1
->  	csrs  CSR_STATUS, s0
->  	REG_L ra,  TASK_THREAD_RA_RA(a4)
