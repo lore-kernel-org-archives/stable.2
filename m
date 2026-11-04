@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826800;
-	b=CcCHvhqGD8i5oi5Dy7i8g3fsGghaZUc3hrv2jtVeF3J+VSzQzX7kwEAjoBlb3152j+g2
-	 Gn0RsvfA524aJPgabweIdKrqknlB3t1H6GqcqBd3Eoo8JuZ5R1crRZLonMjhGK3h+APyR
-	 54sY47SE0y5p7EkPZumrDOBy5Rs9vRVNWvE6DNQyf57i5tkcyAC76HP/J5KHF5/zvp+Xa
-	 JSE2ZE+3yqz8bvnO4CBT8cITPDQSclsHVmBEVdqXkKu4GBRuEp76AvWN2QByZMMiAL+/3
-	 njkSz6NEqWwPQV3V0nuptcTjH+6IQsLo16Q50nsucpGRbbOAVczkEkj+eLCVmqXEzTw==
+	t=1793826796;
+	b=vMk2BeP4BewYlsCo58YaI/Cc7cqGKknUl/k1QZQIqpos08EzYKXB9LmzrhVm6dTg1tGo
+	 d9as6Di1KZuMfy+24qB7p768Z6+qmw72C3D6QM/UIHTn3M/sWkdntCMv0Dr0qZ5keCMk8
+	 TCmL1KwARENasosUEeqzDV5DfYxOExnpwlHRiKwxVigOXKwLJFjxj0QRFDIuIF9tvzw4k
+	 bKOxG1rQooxvxCC3dpaH5dc1/9m1J7VCRds4wmJswMyv3f1iFWgFoU3YvL6NRY5GtgpqQ
+	 lfIOEBdRQNqnlq37aB0JGpTXOGxLOVmGhcHFW/xS0Rn2HAHcnJnGspENqE1fVlUw0sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826800;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826796;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=awC3hgdOAnA/1+QXcNNw9QWELoY/t9zewT6V+CMz/uI=;
-	b=C8aYJtqeAQE65vnRVXVNX6Qpkopr+tCAEYj0RCZH9ZrtTY1XbGBBMx7HhJVCNnutstsT
-	 Gf6kLKxUIJDRE7jH/CkWYCoGeeqjpNnXe0lQXuoWoFFwdPlOTK30mnrmnK7a3IgnHiUZe
-	 do5czvUu629VicvljDe+FnYUQOTI3lK8HdTklDqUiUWt/JGgwPlyitpIFtF03TN7US0u0
-	 SB90zqRXi1ABn2BMjrGYIr7mmzJYGPoTr5s2/qhvw/65ZSkTg/FTHuCjENNclFKtIuzsH
-	 4fNarCqrCuEVJIMflqW7F6NMSsx4I8bPzxzjIeGJW4A0CJqExUHBAyDapatpi1RM63w==
+	bh=htHNrrwC9UidU5IrS2/x+6IDwC52zh+HzcpeYuhTb9k=;
+	b=4dYO2Y679q/OgC6bd0OhBjm3Kn3/CJXaToD2DqMzUhAeoi/JWFoliK4DUrbtI7ZqDmjq
+	 wVvFIwKfDtVSyOJZuI1ezfSufT1xnrT0Cg/KXq61kXXvNQhwj8gk/kJy1M2qqoga+Khbi
+	 U1ae4p6IpLYKmthP1nVgVudjeNq17AQrvMFIxYg7NLETFgGzHVLWOJhKaDXPeyYX4Yz38
+	 3ydmyhm6EoolLviHmqzFnZ0ivsnX/W0upyCBL7nVVok44RIrAPcgMTmVfVb1ujUPGwfCr
+	 Y8fXDS2NAYWlAXf7GmqNYu3j7IiPFz/Gt4LmfU0mZkea0kCynvxQ+6LpM8Ziy3dPBeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="t/RXutzm";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C9XuxRnl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A3DD606D810;
-	Wed,  4 Nov 2026 21:13:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F10606D822;
+	Wed,  4 Nov 2026 21:13:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=t/RXutzm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24DAD1F0093A;
-	Wed,  4 Nov 2026 21:13:20 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C9XuxRnl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38AF61F00919;
+	Wed,  4 Nov 2026 21:13:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793826800;
-	bh=awC3hgdOAnA/1+QXcNNw9QWELoY/t9zewT6V+CMz/uI=;
+	s=korg; t=1793826795;
+	bh=htHNrrwC9UidU5IrS2/x+6IDwC52zh+HzcpeYuhTb9k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=t/RXutzmgpJOqUHRbFvxmJyAAFZFtuYh65PpKml7C59/WNLv7Jh07YGCwjhbf+tXL
-	 JMe0tRAVPEE8BrMi9fM4eLtj2YMcWD52yir5uktzAuIAZeSlP7YiorDheh31a3Xc00
-	 /C7vPQ5WVJOjL2HHrdn47BQRXnknwA2Yn47Slhhk=
+	b=C9XuxRnlMLst0iuOuEEXUtqPsf9QP5eKliVAKpcfo8EMcq3WKTHaTXOX3kx0jyrjz
+	 zERoAYOhD+IlXl+Te1JpRIf+HC3lN0kwxAHt3L8TW0XMxUgzQZcuaxh446DPg9TXtO
+	 s03kRPguo0tpIFHMWVeIGqlni0+wR6906r7THmd0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
-	Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 6.18 0014/1005] ALSA: line6: Clear prev_fbuf on capture buffer release
-Date: Wed,  4 Nov 2026 15:55:47 -0500
-Message-ID: <20261104211043.941133489@linuxfoundation.org>
+	Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 013/547] wifi: ath12k: convert DP_RX_RELEASE_RING_SIZE to inline helper
+Date: Wed,  4 Nov 2026 16:03:17 -0500
+Message-ID: <20261104211038.758230448@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
-References: <20261104211043.516122098@linuxfoundation.org>
+In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
+References: <20261104211038.406938024@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -65,81 +66,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+From: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
 
-commit aa118c8f61d59387961d58ffae831c5259a9f222 upstream.
+[ Upstream commit 897d2e0046f941d8956f655f5ffc5d75c788558d ]
 
-A KASAN slab-use-after-free read was reported in submit_audio_out_urb()
-when generating an impulse test signal:
+Replace DP_RX_RELEASE_RING_SIZE macro with ath12k_dp_rx_release_ring_size()
+static inline helper. Pass the DP profile parameters explicitly to
+improve type safety and make the interface explicit.
 
-  BUG: KASAN: slab-use-after-free in create_impulse_test_signal sound/usb/line6/playback.c:76 [inline]
-  BUG: KASAN: slab-use-after-free in submit_audio_out_urb+0x1848/0x1b20 sound/usb/line6/playback.c:249
-  Read of size 2 at addr ffff888008d74870 by task syz.2.3214/7785
+No functional change intended.
 
-  Allocated by task 11:
-   kmem_cache_alloc_noprof+0x2f0/0x390 mm/slub.c:4144
-   line6_buffer_acquire+0x1a1/0x220 sound/usb/line6/pcm.c:158
-   line6_pcm_acquire+0xb6/0x230 sound/usb/line6/pcm.c:329
-   line6_startup_work+0x3c/0x50 sound/usb/line6/driver.c:728
+Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
 
-  Freed by task 7785:
-   kfree+0xf8/0x390 mm/slub.c:6566
-   line6_buffer_release sound/usb/line6/pcm.c:176 [inline]
-   line6_buffer_release+0xa5/0xf0 sound/usb/line6/pcm.c:170
-   __line6_pcm_release sound/usb/line6/pcm.c:305 [inline]
-   line6_pcm_release+0x5a/0x80 sound/usb/line6/pcm.c:313
-   snd_toneport_monitor_put+0x11b/0x190 sound/usb/line6/toneport.c:183
-
-line6pcm->prev_fbuf points into the capture PCM stream buffer
-(line6pcm->in.buffer), which is updated during audio_in_callback() to
-feed rate synchronization, software monitoring, and impulse test signal
-generation on playback side.
-
-When all capture streams are closed, line6_buffer_release() frees
-pstr->buffer with kfree().  However, it does not clear line6pcm->prev_fbuf.
-If playback is subsequently started (e.g. via impulse test signal
-volume control snd_line6_impulse_volume_put()), submit_audio_out_urb()
-dereferences the stale pointer line6pcm->prev_fbuf under in.lock,
-resulting in a slab-use-after-free read.
-
-Clear prev_fbuf and prev_fsize in line6_buffer_release() when releasing
-the capture stream buffer under in.lock, ensuring that no stale buffer
-pointer can be accessed by submit_audio_out_urb().
-
-Fixes: 63e20df1e5b2 ("ALSA: line6: Reorganize PCM stream handling")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Link: https://patch.msgid.link/20261013063554.571-1-25031212351@stu.xidian.edu.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260820054804.3222296-8-aaradhana.sahu@oss.qualcomm.com
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/line6/pcm.c |    8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/net/wireless/ath/ath12k/dp.c | 2 +-
+ drivers/net/wireless/ath/ath12k/dp.h | 8 ++++++--
+ 2 files changed, 7 insertions(+), 3 deletions(-)
 
---- a/sound/usb/line6/pcm.c
-+++ b/sound/usb/line6/pcm.c
-@@ -173,6 +173,14 @@ static void line6_buffer_release(struct
- 	clear_bit(type, &pstr->opened);
- 	if (!pstr->opened) {
- 		line6_wait_clear_audio_urbs(line6pcm, pstr);
-+		if (pstr == &line6pcm->in) {
-+			/* prev_fbuf points into the capture buffer we are about
-+			 * to free; drop it while no capture URB is in flight.
-+			 */
-+			guard(spinlock_irqsave)(&line6pcm->in.lock);
-+			line6pcm->prev_fbuf = NULL;
-+			line6pcm->prev_fsize = 0;
-+		}
- 		kfree(pstr->buffer);
- 		pstr->buffer = NULL;
- 	}
+diff --git a/drivers/net/wireless/ath/ath12k/dp.c b/drivers/net/wireless/ath/ath12k/dp.c
+index 417d960bbd07d..779529d189f8a 100644
+--- a/drivers/net/wireless/ath/ath12k/dp.c
++++ b/drivers/net/wireless/ath/ath12k/dp.c
+@@ -488,7 +488,7 @@ static int ath12k_dp_srng_common_setup(struct ath12k_base *ab)
+ 
+ 	ret = ath12k_dp_srng_setup(ab, &dp->rx_rel_ring, HAL_WBM2SW_RELEASE,
+ 				   HAL_WBM2SW_REL_ERR_RING_NUM, 0,
+-				   DP_RX_RELEASE_RING_SIZE(ab));
++				   ath12k_dp_rx_release_ring_size(dp_params));
+ 	if (ret) {
+ 		ath12k_warn(ab, "failed to set up rx_rel ring :%d\n", ret);
+ 		goto err;
+diff --git a/drivers/net/wireless/ath/ath12k/dp.h b/drivers/net/wireless/ath/ath12k/dp.h
+index c8ca3ab4d5e1a..ff62773cfa9ab 100644
+--- a/drivers/net/wireless/ath/ath12k/dp.h
++++ b/drivers/net/wireless/ath/ath12k/dp.h
+@@ -206,8 +206,6 @@ struct ath12k_pdev_dp {
+ #define DP_REO_DST_RING_MAX		8
+ #define DP_REO_DST_RING_SIZE		2048
+ #define DP_REO_REINJECT_RING_SIZE	32
+-#define DP_RX_RELEASE_RING_SIZE(ab) \
+-	((ab)->profile_param->dp_params.rx_release_ring_size)
+ #define DP_REO_EXCEPTION_RING_SIZE	128
+ #define DP_REO_CMD_RING_SIZE		256
+ #define DP_REO_STATUS_RING_SIZE		2048
+@@ -716,6 +714,12 @@ ath12k_dp_num_rx_spt_pages(const struct ath12k_dp_profile_params *p)
+ 	return ath12k_dp_rx_desc_count(p) / ATH12K_MAX_SPT_ENTRIES;
+ }
+ 
++static inline u32
++ath12k_dp_rx_release_ring_size(const struct ath12k_dp_profile_params *p)
++{
++	return p->rx_release_ring_size;
++}
++
+ void ath12k_dp_vdev_tx_attach(struct ath12k *ar, struct ath12k_link_vif *arvif);
+ void ath12k_dp_partner_cc_init(struct ath12k_base *ab);
+ int ath12k_dp_pdev_alloc(struct ath12k_base *ab);
+-- 
+2.53.0
+
 
 
