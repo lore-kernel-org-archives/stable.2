@@ -1,47 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814542;
-	b=rom7Wx12WKaNnUJ4q8nry7eGZm6HPMb4Xx9q9pvmNQ+MziJniyT6DkzItiYGYHu77W2T
-	 pmoSrQnF55iSwo5kJFtlwtZZ+vt7hEaly43PcFWEZsihOaPHvqOgUHmWu/ii3OxL/LNfi
-	 oONVhih0bKuDeIjpnEuhc+tLpLNUx+oV3a5WG7eC5ISJDxsm8klXF9UATnFGNWMjE0Bo1
-	 PJBVgpAGQ3yvfxNXRCZGylgPBQLOrk7CPV5GQid1RsHRVN4C+ia5pxIpMJzAeS3Socc0q
-	 BFf01yhestcaROj9u8kzsESCbrqoiRc0EqAypzq+B4uRJTLqureu34zFpoRNF2knwCw==
+	t=1793814562;
+	b=cmYJkqflVGgsdb4aTyAm4/aeq5sq2OtBeuSI3vXXqkcektKj401MhCtVHbkydhQjoevj
+	 9FV6q8b3SrP2atG/G2z9gTxm+vppP88wyCqqC4BpkAbdabg/II2iBD3xEv9yOpo2q5gfo
+	 9SrIfDn63YjC9eptK+qI/JGdnosAO4WNADFhAo6VP5K4GlKZq6TsXoUOlzhUAIv54zrM6
+	 Frtgnb2T578Z9fC6vP/vVe6QrhqDRheIUj3pQNGPD+gMBT6N/7z0f6DWIcgbVraEaPMR0
+	 eJ25gkQ/oVZ52CKVoQ8UiQrEVowBTsw/wNzlKSUXO2+omY62pusW1yhPmQ/NHIz6m0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814542;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=yK/jOQueXDOAtkKlqT4t4kAjkVnT0u/J4DuQFmkUISU=;
-	b=wVQKf+twFOIUogMtR9wU8WHNHuOPTl5Yx0jgjsKRejCUnDt1si91P5a7zmxZXUolRwBm
-	 W00FANr57tWV3pocdVm4LDwufGVn3vYqm1R8qo2h4D6SmSWca+ggv6li7TQTuHLxAIEnJ
-	 qkwSDsYbW+TWqO/xPLPXPVa/hp228AF4zFuHWUSJrIs36ZiKvMeEv+zjxBJsBabp4w0ok
-	 +puf58iO9cqdso5FN6HICcj24OmMM4Apnh26IZZhMXO2P7+TSDIWIijWSOwL6LOjK6//M
-	 MEEbTWNKvMvIHnPDBclHpkGMmjO8wdfZCKSPOVpE5a6zpCR2qPABLHFcMwBXTAo+EQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814562;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=bDYBcNUn+VWuCpTwTZF6KvGO9475Dcj2RU9o+tvUNt0=;
+	b=5TLpe8cl+4HdsQng3lqVeffIXgdhFzTJk7RVbTHIFlkNQN9LYihNFWycA0IPL1fWBmCf
+	 32O7sqKxFpzzSiXnIcyrY9TZ52Ir01Jyjsb7eoxyMIu6Y40Eeozj8pILb/Yy+gPjfgyc4
+	 scGxy/P9NCAN3zl/CrVGbmPrpqP67XdlSKGKOZ5XnXGDSv7ZPf9FGu3/ARKVTbsRmA/RO
+	 DYF/pHwtH7c821XuFNOGSIoa40r39LO6oRgtW7ybBP7ozNUyKPVI9GmjmHNQ0C2/9um8/
+	 4dPe6Etd92dN1kGkb2XSa+xV+VfEDZ4mm47fL1oesvCV3sa5MqTCs1/CXFJ+knwyQOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cnP8MeuO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L4z066t7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B5360A5BC4
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:49:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87006606D80F;
+	Wed,  4 Nov 2026 17:49:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cnP8MeuO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C0C91F0093A;
-	Wed,  4 Nov 2026 17:48:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793814541;
-	bh=yK/jOQueXDOAtkKlqT4t4kAjkVnT0u/J4DuQFmkUISU=;
-	h=Subject:To:Cc:From:Date;
-	b=cnP8MeuOP0CL4XJujLR5RF2MprEvSzNz7sH/RoI7RsXlPbuL8vt4zUV1u8r+61IDG
-	 488lJECiANfQfcPptdM50TB+1kRz7b311CGrBwM1kFXX2Yo1xpkknqSZb/TWaMPYTN
-	 L9pzgqfaUa1xKaVHXF58SL0D9JzOOT5+a0YTtJd4=
-Subject: FAILED: patch "[PATCH] xfs: don't queue rmap update twice when reaping a fork" failed to apply to 6.12-stable tree
-To: djwong@kernel.org,cem@kernel.org,hch@lst.de
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 12:48:57 -0500
-Message-ID: <2026110457-depravity-unflawed-a6ca@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L4z066t7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11ADA1F000C1;
+	Wed,  4 Nov 2026 17:49:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793814562;
+	bh=bDYBcNUn+VWuCpTwTZF6KvGO9475Dcj2RU9o+tvUNt0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=L4z066t7qk8SNBZ3qr8F1Dv4FM+zeL5UMqbVPpZhgdQRsqgneSAYM0s8mSty+AN6F
+	 uOpJwVDXNMcIMJN/l4FNHGQgvK/QCR0cqApE4XNvTdD9heJSFssRxRma5MIWbLp5q7
+	 KuStqfVc5Mi7/uCEtKU/XidV25HekngkokdSavKrGmFA9IR6yxAQ/fT2R/UVEXUpOV
+	 JshYWFM1jRBiauogMI9LETcKUpSEg7rlt/XCrsDvHcIcKKrKf+Lfu9grpGXEUlOUBw
+	 il1cziT3er+LG8IbGUfsHyBhUl9fEmWujhzvys7fEbuJMHuqJFLv3DIRlBTxlslyyu
+	 1lR419jEJXKMw==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 17/51] s390/dasd: don't look in front of the buffer on an empty write
+Date: Wed,  4 Nov 2026 18:47:03 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-17-bbf7d5546809@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,71 +115,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=952; i=brauner@kernel.org; h=from:subject:message-id; bh=vNxDJDpmoyfXJahneUuQ9vEH9eL70g/8w71rNTJgUxc=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9zrsssUymaabA31Var5avOM5bfCJp4gvZaynZy78sz mbbvsPjXUcpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEJKczMuyYrr82Yt6rR8wV ngvXr6z7d1Hu7s13rzfk5t00zdb9H3OckeGStmp/GZ/E1KSXmfqdfP1HWkLun/hu9/dXSsq18Bl 8+mwA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
+dasd_get_user_string() strips a trailing newline by looking at the last
+byte that was written. For an empty write that's the byte in front of
+the buffer it just allocated. Only look if something was written.
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ drivers/s390/block/dasd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x 219ff8a734d8438e24eb346a847c9b1ad9b7ab5d
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110457-depravity-unflawed-a6ca@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 219ff8a734d8438e24eb346a847c9b1ad9b7ab5d Mon Sep 17 00:00:00 2001
-From: "Darrick J. Wong" <djwong@kernel.org>
-Date: Mon, 12 Oct 2026 23:06:30 -0700
-Subject: [PATCH] xfs: don't queue rmap update twice when reaping a fork
-
-LOLLM noticed that xrep_reap_bmapi_iter calls xfs_bmap_unmap_extent and
-xfs_rmap_unmap_extent to remove a mapping from a file fork and its
-reverse mapping.  However, xfs_bmap_del_extent_real also queues a
-deferred rmap removal log item, which means that we incorrectly queue
-two rmap removal operations.  Fix that by removing the extra call and
-updating the comment to mention this subtlety that I forgot, having
-written the code. :P
-
-Cc: stable@vger.kernel.org # v6.10
-Fixes: 5befb047b9f4de ("xfs: add the ability to reap entire inode forks")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-
-diff --git a/fs/xfs/scrub/reap.c b/fs/xfs/scrub/reap.c
-index 235e5e7e16c4..a0bee8c7abc0 100644
---- a/fs/xfs/scrub/reap.c
-+++ b/fs/xfs/scrub/reap.c
-@@ -1480,12 +1480,12 @@ xrep_reap_bmapi_iter(
- 		/*
- 		 * t0: Schedule removal of the mapping from the fork.  We use
- 		 * deferred log intents in this function to control the exact
--		 * sequence of metadata updates.
-+		 * sequence of metadata updates.  The BUI queues a RUI to
-+		 * remove the reverse mapping.
- 		 */
- 		xfs_bmap_unmap_extent(sc->tp, rs->ip, rs->whichfork, imap);
- 		xfs_trans_mod_dquot_byino(sc->tp, rs->ip, XFS_TRANS_DQ_BCOUNT,
- 				-(int64_t)imap->br_blockcount);
--		xfs_rmap_unmap_extent(sc->tp, rs->ip, rs->whichfork, imap);
- 		return 0;
+diff --git a/drivers/s390/block/dasd.c b/drivers/s390/block/dasd.c
+index 2ffe404b890f..e97891e58957 100644
+--- a/drivers/s390/block/dasd.c
++++ b/drivers/s390/block/dasd.c
+@@ -933,7 +933,7 @@ char *dasd_get_user_string(const char __user *user_buf, size_t user_len)
+ 		return ERR_PTR(-EFAULT);
  	}
- 
+ 	/* got the string, now strip linefeed. */
+-	if (buffer[user_len - 1] == '\n')
++	if (user_len && buffer[user_len - 1] == '\n')
+ 		buffer[user_len - 1] = 0;
+ 	else
+ 		buffer[user_len] = 0;
+
+-- 
+2.53.0
 
