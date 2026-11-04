@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802064;
-	b=IQqLhRAvlPPLxXrfeDscmmCsf91/zVUAYBkCWAuxWJKD8fmaq0OP0h2tx21643DXwcKq
-	 OqXMel7Sn5VhFB5lRONqioAxx19d1gCrsJdQMvYGCOxPJ16rALScbSNA9J4RdHL5Xy8Eu
-	 Tgwc3FwuV/54NNddH/3aFPXH6n78lvmJryrTpBaBnr11WeKDF7G/p07NblQ9pNtCSV0uG
-	 pjPsiDkbq6UB4hhUfFyyiVLrKukQ9LdOJKWQquLzCmGeu+lZ0mVzca9bm5qlbjvaPEPNR
-	 AnzToOZdTwFO5bMJDbS1mqgugMJTeCZbOffbcmPyaLSQeeiCvGuMtmZikIrYwni4BKQ==
+	t=1793802066;
+	b=vdRWl3nogha0f/So4nP8xvIsyDlOa7KgpTc5crVwJgPtKmIjHf/R5teCxesnryQeInvv
+	 1K5iiGHdNBsl+NDDFLI44dcfs2cUUc3boR9+L4zLhs+hZS8isAirJUGrznaixsaaXdWmA
+	 xozF0CWZBJFC2rLgeW7S2uSnZZ3GShKyiEXSGHXSwGzVRa4p8GUq+qggPEhyI7HYr6Shx
+	 qlU+eIhDX55p0w5Jgozr1M52DOlbG2Ywqmrgzifu9GZZ1KE8Q9dGZtd68vV1rrlQhNJWN
+	 54v0cJoPht4rVy4Qs6B9SWErIWsPOoJZnyb9mjgxayWEddXgtIeVShxwVdQjzcgTP6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802064;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802066;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5TqdAsohJ31BORasylPmoQEIIhqMVLuFGJn/C5twEpA=;
-	b=ARNhidlv/kIhzyUB0k7DjpEti61MNqDqfpcS1gYFs1tsZvqqLx4/Q2j2oY9dpIl2aXgJ
-	 E/NP/DVyp0O78v+qdhuZH0H/QfLMsB1AliAgoXPM59vi9jpFqfEfPNasD28FkpZsGJ+ee
-	 cT4RLswdpdWYndkcMpQ99KZ3hlHsoOAiP3IO8GDV2cGkbnWB7wou5yRMhCd5r4AhM+aLu
-	 sn171Nimd10msasaLOskwcZABbgHdfNHsjJayqYnMgLCk1yvn1xO6f7hqqanuMRhxKRPw
-	 dYUnNPhQ+51fREtuUc4d96tHOo5pB52KQGxPEIgvDuCSl1eXaQ6WG0Z2TOqJEOw7H3g==
+	bh=lJ6kgg9JNMYMQ23CLwPjn3Q4F/tBNrJKWc+LXtsQXlI=;
+	b=amCUeRQzQ6PjtbNvqWVzFCmtPXOcdGCu0cZ9rLUjOD4sHvc+bA8ZdISS/CDUvM1B/b3J
+	 uC3VA/wAUeWvDChBqHBoYwwySmlNcd041ORwYAR6/eFjCddDpQoS5z/W0uN392GMJHOfM
+	 cwhAuH288KJ5m1ewuZ6cLrkSVh8SJr+j7xd4hixhf7Tzp1h+TsqlvGunhGgm4dDBN6yVS
+	 n4E0HGugDy1rZpV7FtTIBbuSrd7it24XwXOw7O3q5XemiPhwReUM95ZAt7vrkbwXe/Vdn
+	 CdgMbm/vroxGj1Nv/YPCWtMZry4aag31/Am5IRrwngI4kBHwas5NXolwl+9DbTkPfvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=D8Tc2Mro;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ckCEmnzs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4282E606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:21:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF845606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:21:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=D8Tc2Mro
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3201F000C1;
-	Wed,  4 Nov 2026 14:21:03 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ckCEmnzs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EECB1F000C1;
+	Wed,  4 Nov 2026 14:21:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802064;
-	bh=5TqdAsohJ31BORasylPmoQEIIhqMVLuFGJn/C5twEpA=;
+	s=korg; t=1793802065;
+	bh=lJ6kgg9JNMYMQ23CLwPjn3Q4F/tBNrJKWc+LXtsQXlI=;
 	h=Subject:To:Cc:From:Date;
-	b=D8Tc2MroFwIGxtwlbjce+zGbUDF8EU8UgGk23B2eK49AdyuclzfwDbAEc4xu1x/OY
-	 dGruDW6RuPbhzg78aX7qUoiDCgjFsaYrRQQTcnGbTdmaE0CMQw874edLEsZIT4DJHV
-	 kot4gVZT7FqxI4pFCscE4A9kpzs1Drf0zBZRmYRI=
-Subject: FAILED: patch "[PATCH] xen-blkfront: unbind irq before tearing down ring and shadow" failed to apply to 5.15-stable tree
+	b=ckCEmnzs7tSs6h6uV4kUtUyo5s6hCPQNrXYFuZlM/h+7hxHwM59nFZYQvpMM0r92l
+	 qED9niediL+L9BugHwYU6qO22kREGelDIiu3xEn3CHKZJnhF/UPN3yX63KjwPyaa8r
+	 LdAEihE/VTqZDA3I8jEflYSIAx5vHbB5PuGu9MmY=
+Subject: FAILED: patch "[PATCH] xen-blkfront: unbind irq before tearing down ring and shadow" failed to apply to 5.10-stable tree
 To: ndaugoing@gmail.com,jgross@suse.com,roger@xenproject.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:21:02 +0100
-Message-ID: <2026110402-division-regulate-7540@gregkh>
+Date: Wed, 04 Nov 2026 15:21:03 +0100
+Message-ID: <2026110403-viper-verify-b61d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x f3e27b7955727a4d7c0e9264a2a209fbba788bdc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110402-division-regulate-7540@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110403-viper-verify-b61d@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
