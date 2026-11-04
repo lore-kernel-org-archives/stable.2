@@ -1,60 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793807917;
-	b=0LjV454z8/eqpNt4bcf4YrVJyqo2QXSlgD+RTs5kJZOR2Rox4QRYoh2jnkS0dQm9eZu5
-	 /umYLQUu2dqCxuuGGjp9eXqeXs4XOrxXDav1E63JsANZCWHbSI9kSUasHc63wcNMZgpaA
-	 ac2LRp4QrysBmwfpYWPjANdxEWQja3W+f1Wlwg7eB9Me7EQr6O0WJuZsnKB6J+Sn+2GHK
-	 pfBdcempShXV8BWWwiRi+Y2YWRfIojFnvYcKv1GGhDJUFFQ8t9iHC9mJmQgXok+qDlSUD
-	 XzVzHMkl3iba0yWMpJgeIj6ceb6Va/3y9JwSwFkkWPNfXAJfPtocb2esDLgmk6jgIIw==
+	t=1793807919;
+	b=oVpUyq8JzwNnetRlNJo5wYc0zIz3bQ8jsp1vIIs3tTBwzKvw3fRDBXioMKAOf7YL4b0r
+	 oCjOosKlBbwOqeBwKHF7U9Sax58mdd9+tdh4gx5FEF72kdqdFQQHJXH1HrYhWOaEJTqxw
+	 osbAm+Wa3Izpg/FtTvIfPMmBv7OhMt85Qwb6rrg2sk6/hWXFjVysKRw/8UrjM6Ie2iatV
+	 /pj8W51i9dd5trYBmFJniPvdxTxWWp8RdLm248tA7kSsnXfP9+HRPPHOVQT9dAxalcwAV
+	 GRxVdpSY3KEhf4kdyDMCRNpOABMFLdHjJXpG2L3thRnYw8jgwd5rWeEuAsWo+t669Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793807917;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793807919;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=YJSd5nozXFKcnmQqcUtBaa4adN9c17CYymV6XWMUijk=;
-	b=D1NBi6GjOeFXMar5d6ON3vzF1mhhPf/FrY2vg/ZWwORAXk2wNTH6g8J+Reo83czHVDkx
-	 i9KrFxFgFh3S6qbJC93j419xT6cZ5rD5v+klSCqB8oCaWBjjlQvvQks6gqOCFACpf8HWe
-	 KRlFpg0nd/sJlgsgPbPthypKznRIM6KX27J91V17CpXI9w3+bMxezQwDlvD4uUW3TxeVG
-	 gPOCngMASDxleprHNTRAFOhxIYl2zMCAuscJCvCY17UNXDmqmWzwLX5DyzHZmSEnitcAV
-	 DMr0e4lbUz67+ICVuJK4BaLEVLQLMJ5rh24YzIaM8h4XaQLCymZQZH2VzkhuhvwzaHQ==
+	bh=Ikw83QtSDYuHWtpHM0kqvbJSEtS0HlrumxKRSq3iUeU=;
+	b=rnHdZQ/vaOLtYhKbCmnY+t2khu2VLXHHHzOYDimPDIXcz8tbmuG/LiPSHsM4Fv6KvWLX
+	 8pDZFdX69uzubAerLrkom8pjW0ebjh0IuG9TgPfkc1iVx4WHYHT6L6W4LRrnPrgHPX1Zb
+	 w7qCvQVnYCXU4RrdqLPt2DPBPbzsB0n9oSl64p/jfHoO/mtxpnuIMbS9rkftFDvn0Z/UD
+	 CGCgKzj325/IZnVKSVffkuWu6Kq7UDQoKA2ZbTTml4R3rc8esLXSsSzqwcAJmn/cIUx0J
+	 b/nyZPt9LZ6U/7H9JTzQOYqfggg78yhX+ilRo8VNlcSrWV2Y9QBzySC5b/UvZA9ZOVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSb0EZsg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oiGFGArg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A99606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:58:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B24606D812
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:58:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSb0EZsg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADEC81F000C1;
-	Wed,  4 Nov 2026 15:58:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oiGFGArg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 605CE1F00A15;
+	Wed,  4 Nov 2026 15:58:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793807916;
-	bh=YJSd5nozXFKcnmQqcUtBaa4adN9c17CYymV6XWMUijk=;
+	s=k20260515; t=1793807918;
+	bh=Ikw83QtSDYuHWtpHM0kqvbJSEtS0HlrumxKRSq3iUeU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mSb0EZsgx4bU1yRpX2WrCkNMkdYe9b0teSCfibC96hakHVq3Am6drJgDdXUH3kC4/
-	 EbUn8gZAXV1wILUZIord9t0Hf+zYDE+eMRcv8ddYMfr0qR9n4u+wWxY4nBTURqLig0
-	 +vn02frFc1U0LemHR/wiU5Zk4lRh6ZEOI9x7e70XnDLSj3FFCiOtPS51jT4is3apQM
-	 lmfrGiAP64ZVpwt+UjlLlzJqLu+/U4VUxDkAUvR9YN995BCuOXBFLoA2NI3QuPx1eO
-	 SasT+1d0UPIgsrsm48iUK+Nzm6QLAAqk2sEyqvo9r7NjHF7QKUhxKSuG/cr8k72lcU
-	 afZXPc8OC3fEg==
+	b=oiGFGArgnVu8VnRjG1KndG4uSvZ1A+cNs7NE34hknxQ5Jg6ut/jzVdOUN23t+6N+t
+	 tp73X1L4yZmyeXEfw0TM63ZbFa2VAgcAYjWSKY+pJCWWezllsU4ifOk9a8kjn5Sakh
+	 r34luf4YT9IINj/4yrF1MWLvyiIzLoBBijfV0dxUOSEt0+VPkOUpvikw+fRmrCwSd2
+	 qIWBZFkD7+oAPus80M7MB77L7b0SSVfPl+wlIfHIEwpIaH/o9nM7BOyNKfxcyg6AwL
+	 uqRHj8GfLLOD4xDEs+zxKGpu1Lo3gcvBnsg2C+Ui7t9s7TNDs9dBws/wCFf9XZjSRS
+	 duf5w2Jsp1ngw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Oscar Salvador <osalvador@suse.de>,
-	Gavin Guo <gavinguo@igalia.com>,
-	Peter Xu <peterx@redhat.com>,
-	David Hildenbrand <david@redhat.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Lee Jones <lee@kernel.org>,
+	Ping Cheng <ping.cheng@wacom.com>,
+	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/5] mm,hugetlb: change mechanism to detect a COW on private mapping
-Date: Wed,  4 Nov 2026 10:58:29 -0500
-Message-ID: <20261104155731.3920547-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y] HID: wacom: Advertise SW_MUTE_DEVICE capability prior to registration
+Date: Wed,  4 Nov 2026 10:58:37 -0500
+Message-ID: <20261104155732.3922024-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104155731.3920547-1-sashal@kernel.org>
-References: <2026110456-remix-oversold-9ee1@gregkh>
- <20261104155731.3920547-1-sashal@kernel.org>
+In-Reply-To: <2026110416-undertone-chatter-7d31@gregkh>
+References: <2026110416-undertone-chatter-7d31@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,349 +62,191 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Oscar Salvador <osalvador@suse.de>
+From: Lee Jones <lee@kernel.org>
 
-[ Upstream commit 2ae1ab9934c785b855583e3eabd208d6f3ac91e1 ]
+[ Upstream commit ba16e5ffbaa10fde960918d69af5e49f2b3fdd5e ]
 
-Patch series "Misc rework on hugetlb faulting path", v4.
+Input subsystem guidelines require that device capabilities are advertised
+before the input device is registered.  The Wacom driver was violating
+this by advertising the SW_MUTE_DEVICE capability post-registration in
+wacom_set_shared_values() (and duplicating it in device-specific setup
+cases).
 
-This patchset aims to give some love to the hugetlb faulting path, doing
-so by removing obsolete comments that are no longer true, sorting out the
-folio lock, and changing the mechanism we use to determine whether we are
-COWing a private mapping already.
+Resolve this by moving the SW_MUTE_DEVICE capability setup to
+wacom_setup_touch_input_capabilities() for all touch devices that support
+it.
 
-The most important patch of the series is #1, as it fixes a deadlock that
-was described in [1], where two processes were holding the same lock for
-the folio in the pagecache, and then deadlocked in the mutex.  Note that
-this can also happen for anymous folios.  This has been tested using this
-reproducer, below
+For generic touch devices whose capabilities depend on mute switch
+usages parsed from a sibling Pen/Pad interface, defer registration
+with -EPROBE_DEFER until the sibling has parsed its descriptors and
+initialized shared capabilities.
 
-Looking up and locking the folio in the pagecache was done to check
-whether that folio was the same folio we had mapped in our pagetables,
-meaning that if it was different we knew that we already mapped that folio
-privately, so any further CoW would be made on a private mapping, which
-lead us to the question: __Was the reservation for that address
-consumed?__ That is all we care about, because if it was indeed consumed
-and we are the owner and we cannot allocate more folios, we need to unmap
-the folio from the processes pagetables and make it exclusive for us.
-
-We figured we do not need to look up the folio at all, and it is just
-enough to check whether the folio we have mapped is anonymous, which means
-we mapped it privately, so the reservation was indeed consumed.
-
-Patch#2 sorts out folio locking in the faulting path, reducing the scope
-of it ,only taking it when we are dealing with an anonymous folio and
-document it.  More details in the patch.
-
-Patch#3-5 are cleanups.
-
-Here is the reproducer:
-
- #include <stdio.h>
- #include <stdlib.h>
- #include <unistd.h>
- #include <sys/mman.h>
- #include <sys/wait.h>
-
- #define PROTECTION (PROT_READ | PROT_WRITE)
- #define LENGTH (2UL*1024*1024)
-
- #define ADDR (void *)(0x0UL)
- #define FLAGS (MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB)
-
- void __read(char *addr)
- {
- 	int i = 0;
-
- 	printf("a[%d]: %c\n", i, addr[i]);
- }
-
- void fill(char *addr)
- {
- 	addr[0] = 'd';
-
- 	printf("addr: %c\n", addr[0]);
- }
-
- int main(void)
- {
- 	void *addr;
- 	pid_t pid, wpid;
- 	int status;
-
- 	addr = mmap(ADDR, LENGTH, PROTECTION, FLAGS, -1, 0);
- 	if (addr == MAP_FAILED) {
- 		perror("mmap");
- 		return -1;
- 	}
-
- 	printf("Parent faulting in RO\n");
- 	__read(addr);
-
- 	sleep (10);
- 	printf("Forking\n");
-
- 	pid = fork();
- 	switch (pid) {
- 	case -1:
- 		perror("fork");
- 		break;
- 	case 0:
- 		sleep (4);
- 		printf("Child: Faulting in\n");
- 		fill(addr);
- 		exit(0);
- 		break;
- 	default:
- 		printf("Parent: Faulting in\n");
- 		fill(addr);
- 		while((wpid = wait(&status)) > 0);
- 		if (munmap(addr, LENGTH))
- 			perror("munmap");
- 	}
-
- 	return 0;
- }
-
-You will also have to add a delay in hugetlb_wp, after releasing the mutex
-and before unmapping, so the window is large enough to reproduce it
-reliably.
-
-:  --- a/mm/hugetlb.c
-:  +++ b/mm/hugetlb.c
-:  @@ -38,6 +38,7 @@
-:   #include <linux/memory.h>
-:   #include <linux/mm_inline.h>
-:   #include <linux/padata.h>
-:  +#include <linux/delay.h>
-:
-:   #include <asm/page.h>
-:   #include <asm/pgalloc.h>
-:  @@ -6261,6 +6262,8 @@ static vm_fault_t hugetlb_wp(struct vm_fault *vmf)
-:   			hugetlb_vma_unlock_read(vma);
-:   			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
-:
-:  +			mdelay(8000);
-:  +
-:   			unmap_ref_private(mm, vma, old_folio, vmf->address);
-:
-:   			mutex_lock(&hugetlb_fault_mutex_table[hash]);
-
-This patch (of 5):
-
-hugetlb_wp() checks whether the process is trying to COW on a private
-mapping in order to know whether the reservation for that address was
-already consumed.  If it was consumed and we are the ownner of the
-mapping, the folio will have to be unmapped from the other processes.
-
-Currently, that check is done by looking up the folio in the pagecache and
-compare it to the folio which is mapped in our pagetables.  If it differs,
-it means we already mapped it privately before, consuming a reservation on
-the way.  All we are interested in is whether the mapped folio is
-anonymous, so we can simplify and check for that instead.
-
-Link: https://lkml.kernel.org/r/20250630144212.156938-1-osalvador@suse.de
-Link: https://lkml.kernel.org/r/20250627102904.107202-1-osalvador@suse.de
-Link: https://lkml.kernel.org/r/20250627102904.107202-2-osalvador@suse.de
-Link: https://lore.kernel.org/lkml/20250513093448.592150-1-gavinguo@igalia.com/ [1]
-Link: https://lkml.kernel.org/r/20250630144212.156938-2-osalvador@suse.de
-Fixes: 40549ba8f8e0 ("hugetlb: use new vma_lock for pmd sharing synchronization")
-Signed-off-by: Oscar Salvador <osalvador@suse.de>
-Reported-by: Gavin Guo <gavinguo@igalia.com>
-Closes: https://lore.kernel.org/lkml/20250513093448.592150-1-gavinguo@igalia.com/
-Suggested-by: Peter Xu <peterx@redhat.com>
-Acked-by: David Hildenbrand <david@redhat.com>
-Cc: Muchun Song <muchun.song@linux.dev>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-:
-:   #include <asm/page.h>
-:   #include <asm/pgalloc.h>
-:  @@ -6261,6 +6262,8 @@ static vm_fault_t hugetlb_wp(struct vm_fault *vmf)
-:   			hugetlb_vma_unlock_read(vma);
-:   			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
-:
-:  +			mdelay(8000);
-:  +
-:   			unmap_ref_private(mm, vma, old_folio, vmf->address);
-:
-
-Stable-dep-of: 824cc56bf43c ("mm/hugetlb: fix use-after-free of a new anon folio")
+Cc: stable@vger.kernel.org
+Fixes: d2ec58aee8b1 ("HID: wacom: generic: support generic touch switch")
+Signed-off-by: Lee Jones <lee@kernel.org>
+Acked-by: Ping Cheng <ping.cheng@wacom.com>
+Tested-by: Ping Cheng <ping.cheng@wacom.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+[ sashal: retained devm_add_action() with explicit failure cleanup instead of devm_add_action_or_reset() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/hugetlb.c | 88 ++++++++++++++++++++--------------------------------
- 1 file changed, 34 insertions(+), 54 deletions(-)
+ drivers/hid/wacom_sys.c | 88 ++++++++++++++++++++++++++++++++++-------
+ drivers/hid/wacom_wac.c |  5 +++
+ 2 files changed, 78 insertions(+), 15 deletions(-)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 2805ddda5adeb..4d80b8497142a 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -5824,8 +5824,7 @@ static void unmap_ref_private(struct mm_struct *mm, struct vm_area_struct *vma,
-  * cannot race with other handlers or page migration.
-  * Keep the pte_same checks anyway to make transition from the mutex easier.
-  */
--static vm_fault_t hugetlb_wp(struct folio *pagecache_folio,
--		       struct vm_fault *vmf)
-+static vm_fault_t hugetlb_wp(struct vm_fault *vmf)
+diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
+index b5e6605a83753..4588bb153a93a 100644
+--- a/drivers/hid/wacom_sys.c
++++ b/drivers/hid/wacom_sys.c
+@@ -902,6 +902,9 @@ static int wacom_add_shared_data(struct hid_device *hdev)
+ 
+ 	wacom_wac->shared = &data->shared;
+ 
++	if (wacom_wac->has_mute_touch_switch)
++		WRITE_ONCE(wacom_wac->shared->has_mute_touch_switch, true);
++
+ 	retval = devm_add_action(&hdev->dev, wacom_remove_shared_data, wacom);
+ 	if (retval) {
+ 		mutex_unlock(&wacom_udev_list_lock);
+@@ -909,11 +912,6 @@ static int wacom_add_shared_data(struct hid_device *hdev)
+ 		return retval;
+ 	}
+ 
+-	if (wacom_wac->features.device_type & WACOM_DEVICETYPE_TOUCH)
+-		wacom_wac->shared->touch = hdev;
+-	else if (wacom_wac->features.device_type & WACOM_DEVICETYPE_PEN)
+-		wacom_wac->shared->pen = hdev;
+-
+ out:
+ 	mutex_unlock(&wacom_udev_list_lock);
+ 	return retval;
+@@ -2314,13 +2312,12 @@ static void wacom_release_resources(struct wacom *wacom)
+ 
+ static void wacom_set_shared_values(struct wacom_wac *wacom_wac)
  {
- 	struct vm_area_struct *vma = vmf->vma;
- 	struct mm_struct *mm = vma->vm_mm;
-@@ -5893,16 +5892,17 @@ static vm_fault_t hugetlb_wp(struct folio *pagecache_folio,
- 		       PageAnonExclusive(&old_folio->page), &old_folio->page);
- 
- 	/*
--	 * If the process that created a MAP_PRIVATE mapping is about to
--	 * perform a COW due to a shared page count, attempt to satisfy
--	 * the allocation without using the existing reserves. The pagecache
--	 * page is used to determine if the reserve at this address was
--	 * consumed or not. If reserves were used, a partial faulted mapping
--	 * at the time of fork() could consume its reserves on COW instead
--	 * of the full address range.
-+	 * If the process that created a MAP_PRIVATE mapping is about to perform
-+	 * a COW due to a shared page count, attempt to satisfy the allocation
-+	 * without using the existing reserves.
-+	 * In order to determine where this is a COW on a MAP_PRIVATE mapping it
-+	 * is enough to check whether the old_folio is anonymous. This means that
-+	 * the reserve for this address was consumed. If reserves were used, a
-+	 * partial faulted mapping at the fime of fork() could consume its reserves
-+	 * on COW instead of the full address range.
- 	 */
- 	if (is_vma_resv_set(vma, HPAGE_RESV_OWNER) &&
--			old_folio != pagecache_folio)
-+	    folio_test_anon(old_folio))
- 		cow_from_owner = true;
- 
- 	folio_get(old_folio);
-@@ -6283,7 +6283,7 @@ static vm_fault_t hugetlb_no_page(struct address_space *mapping,
- 	hugetlb_count_add(pages_per_huge_page(h), mm);
- 	if ((vmf->flags & FAULT_FLAG_WRITE) && !(vma->vm_flags & VM_SHARED)) {
- 		/* Optimization, do the COW without a second fault */
--		ret = hugetlb_wp(folio, vmf);
-+		ret = hugetlb_wp(vmf);
- 	}
- 
- 	spin_unlock(vmf->ptl);
-@@ -6351,10 +6351,9 @@ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
- 	vm_fault_t ret;
- 	u32 hash;
- 	struct folio *folio = NULL;
--	struct folio *pagecache_folio = NULL;
- 	struct hstate *h = hstate_vma(vma);
- 	struct address_space *mapping;
--	int need_wait_lock = 0;
-+	bool need_wait_lock = false;
- 	struct vm_fault vmf = {
- 		.vma = vma,
- 		.address = address & huge_page_mask(h),
-@@ -6445,8 +6444,7 @@ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
- 	 * If we are going to COW/unshare the mapping later, we examine the
- 	 * pending reservations for this page now. This will ensure that any
- 	 * allocations necessary to record that reservation occur outside the
--	 * spinlock. Also lookup the pagecache page now as it is used to
--	 * determine if a reservation has been consumed.
-+	 * spinlock.
- 	 */
- 	if ((flags & (FAULT_FLAG_WRITE|FAULT_FLAG_UNSHARE)) &&
- 	    !(vma->vm_flags & VM_MAYSHARE) && !huge_pte_write(vmf.orig_pte)) {
-@@ -6456,11 +6454,6 @@ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
- 		}
- 		/* Just decrements count, does not deallocate */
- 		vma_end_reservation(h, vma, vmf.address);
--
--		pagecache_folio = filemap_lock_hugetlb_folio(h, mapping,
--							     vmf.pgoff);
--		if (IS_ERR(pagecache_folio))
--			pagecache_folio = NULL;
- 	}
- 
- 	vmf.ptl = huge_pte_lock(h, mm, vmf.pte);
-@@ -6474,10 +6467,6 @@ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
- 	    (flags & FAULT_FLAG_WRITE) && !huge_pte_write(vmf.orig_pte)) {
- 		if (!userfaultfd_wp_async(vma)) {
- 			spin_unlock(vmf.ptl);
--			if (pagecache_folio) {
--				folio_unlock(pagecache_folio);
--				folio_put(pagecache_folio);
--			}
- 			hugetlb_vma_unlock_read(vma);
- 			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
- 			return handle_userfault(&vmf, VM_UFFD_WP);
-@@ -6489,24 +6478,19 @@ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
- 		/* Fallthrough to CoW */
- 	}
- 
--	/*
--	 * hugetlb_wp() requires page locks of pte_page(vmf.orig_pte) and
--	 * pagecache_folio, so here we need take the former one
--	 * when folio != pagecache_folio or !pagecache_folio.
--	 */
--	folio = page_folio(pte_page(vmf.orig_pte));
--	if (folio != pagecache_folio)
--		if (!folio_trylock(folio)) {
--			need_wait_lock = 1;
--			goto out_ptl;
--		}
--
--	folio_get(folio);
--
- 	if (flags & (FAULT_FLAG_WRITE|FAULT_FLAG_UNSHARE)) {
- 		if (!huge_pte_write(vmf.orig_pte)) {
--			ret = hugetlb_wp(pagecache_folio, &vmf);
--			goto out_put_page;
-+			/* hugetlb_wp() requires page locks of pte_page(vmf.orig_pte) */
-+			folio = page_folio(pte_page(vmf.orig_pte));
-+			if (!folio_trylock(folio)) {
-+				need_wait_lock = true;
-+				goto out_ptl;
-+			}
-+			folio_get(folio);
-+			ret = hugetlb_wp(&vmf);
-+			folio_unlock(folio);
-+			folio_put(folio);
-+			goto out_ptl;
- 		} else if (likely(flags & FAULT_FLAG_WRITE)) {
- 			vmf.orig_pte = huge_pte_mkdirty(vmf.orig_pte);
- 		}
-@@ -6515,17 +6499,8 @@ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
- 	if (huge_ptep_set_access_flags(vma, vmf.address, vmf.pte, vmf.orig_pte,
- 						flags & FAULT_FLAG_WRITE))
- 		update_mmu_cache(vma, vmf.address, vmf.pte);
--out_put_page:
--	if (folio != pagecache_folio)
--		folio_unlock(folio);
--	folio_put(folio);
- out_ptl:
- 	spin_unlock(vmf.ptl);
--
--	if (pagecache_folio) {
--		folio_unlock(pagecache_folio);
--		folio_put(pagecache_folio);
+-	if (wacom_wac->features.device_type & WACOM_DEVICETYPE_TOUCH) {
+-		wacom_wac->shared->type = wacom_wac->features.type;
+-		wacom_wac->shared->touch_input = wacom_wac->touch_input;
 -	}
- out_mutex:
- 	hugetlb_vma_unlock_read(vma);
++	struct wacom *wacom = container_of(wacom_wac, struct wacom, wacom_wac);
++
++	guard(mutex)(&wacom_udev_list_lock);
  
-@@ -6538,11 +6513,16 @@ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
+ 	if (wacom_wac->has_mute_touch_switch) {
+-		wacom_wac->shared->has_mute_touch_switch = true;
++		WRITE_ONCE(wacom_wac->shared->has_mute_touch_switch, true);
+ 		/* Hardware touch switch may be off. Wait until
+ 		 * we know the switch state to decide is_touch_on.
+ 		 * Softkey state should be initialized to "on" to
+@@ -2330,12 +2327,67 @@ static void wacom_set_shared_values(struct wacom_wac *wacom_wac)
+ 			WRITE_ONCE(wacom_wac->shared->is_touch_on, true);
+ 	}
  
- 	mutex_unlock(&hugetlb_fault_mutex_table[hash]);
- 	/*
--	 * Generally it's safe to hold refcount during waiting page lock. But
--	 * here we just wait to defer the next page fault to avoid busy loop and
--	 * the page is not used after unlocked before returning from the current
--	 * page fault. So we are safe from accessing freed page, even if we wait
--	 * here without taking refcount.
-+	 * hugetlb_wp drops all the locks, but the folio lock, before trying to
-+	 * unmap the folio from other processes. During that window, if another
-+	 * process mapping that folio faults in, it will take the mutex and then
-+	 * it will wait on folio_lock, causing an ABBA deadlock.
-+	 * Use trylock instead and bail out if we fail.
-+	 *
-+	 * Ideally, we should hold a refcount on the folio we wait for, but we do
-+	 * not want to use the folio after it becomes unlocked, but rather just
-+	 * wait for it to become unlocked, so hopefully next fault successes on
-+	 * the trylock.
- 	 */
- 	if (need_wait_lock)
- 		folio_wait_locked(folio);
+-	if (wacom_wac->shared->has_mute_touch_switch &&
+-	    wacom_wac->shared->touch_input) {
+-		set_bit(EV_SW, wacom_wac->shared->touch_input->evbit);
+-		input_set_capability(wacom_wac->shared->touch_input, EV_SW,
+-				     SW_MUTE_DEVICE);
++	if (wacom_wac->features.device_type & WACOM_DEVICETYPE_TOUCH) {
++		wacom_wac->shared->type = wacom_wac->features.type;
++		wacom_wac->shared->touch_input = wacom_wac->touch_input;
++		wacom_wac->shared->touch = wacom->hdev;
++	} else if (wacom_wac->features.device_type & WACOM_DEVICETYPE_PEN) {
++		/* Pairs with smp_load_acquire() in wacom_sibling_pending() */
++		smp_store_release(&wacom_wac->shared->pen, wacom->hdev);
++	}
++}
++
++static bool wacom_sibling_pending(struct wacom *wacom)
++{
++	const struct wacom_features *features = &wacom->wacom_wac.features;
++	struct hid_device *hdev = wacom->hdev;
++	struct usb_interface *sibling_intf;
++	int ifnum;
++
++	if (features->type != HID_GENERIC ||
++	    !(features->device_type & WACOM_DEVICETYPE_TOUCH))
++		return false;
++
++	if (wacom->wacom_wac.shared) {
++		/* Pairs with smp_store_release() in wacom_set_shared_values() */
++		if (smp_load_acquire(&wacom->wacom_wac.shared->pen))
++			return false;
+ 	}
++
++	if (!hid_is_usb(hdev) || !wacom->usbdev || !wacom->intf ||
++	    !wacom->intf->cur_altsetting)
++		return false;
++
++	ifnum = wacom->intf->cur_altsetting->desc.bInterfaceNumber;
++
++	/*
++	 * On composite Wacom devices, the Pen interface is always interface 0.
++	 * If the Touch interface is interface 0, there is no sibling Pen
++	 * interface on this device (standalone touch device).
++	 */
++	if (ifnum == 0)
++		return false;
++
++	/* Look for the sibling Pen interface at interface 0 */
++	sibling_intf = usb_ifnum_to_if(wacom->usbdev, 0);
++	if (!sibling_intf || !sibling_intf->cur_altsetting)
++		return false;
++
++	if (sibling_intf->cur_altsetting->desc.bInterfaceClass !=
++	    USB_INTERFACE_CLASS_HID)
++		return false;
++
++	if (sibling_intf->cur_altsetting->desc.bInterfaceSubClass == 1 &&
++	    (sibling_intf->cur_altsetting->desc.bInterfaceProtocol == 1 ||
++	     sibling_intf->cur_altsetting->desc.bInterfaceProtocol == 2))
++		return false;
++
++	/*
++	 * Interface 0 is a candidate HID interface on this composite device
++	 * whose probe has not completed yet (shared->pen is NULL). Defer until
++	 * interface 0 finishes probing and registers shared values.
++	 */
++	return true;
+ }
+ 
+ static int wacom_parse_and_register(struct wacom *wacom, bool wireless)
+@@ -2411,6 +2463,11 @@ static int wacom_parse_and_register(struct wacom *wacom, bool wireless)
+ 	if (error)
+ 		goto fail;
+ 
++	if (wacom_sibling_pending(wacom)) {
++		error = -EPROBE_DEFER;
++		goto fail;
++	}
++
+ 	if (!(features->device_type & WACOM_DEVICETYPE_WL_MONITOR) &&
+ 	     (features->quirks & WACOM_QUIRK_BATTERY)) {
+ 		error = wacom_initialize_battery(wacom);
+@@ -2475,6 +2532,7 @@ static int wacom_parse_and_register(struct wacom *wacom, bool wireless)
+ 
+ fail_hw_stop:
+ 	hid_hw_stop(hdev);
++	cancel_delayed_work_sync(&wacom->init_work);
+ fail:
+ 	wacom_release_resources(wacom);
+ 	return error;
+diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+index 96164a97ff9cd..b1fd91aa5e370 100644
+--- a/drivers/hid/wacom_wac.c
++++ b/drivers/hid/wacom_wac.c
+@@ -3912,6 +3912,11 @@ int wacom_setup_touch_input_capabilities(struct input_dev *input_dev,
+ 
+ 	if (features->type == HID_GENERIC) {
+ 		hid_dbg(hdev, "generic touch setup\n");
++		if (wacom_wac->has_mute_touch_switch ||
++		    (wacom_wac->shared && READ_ONCE(wacom_wac->shared->has_mute_touch_switch))) {
++			input_set_capability(input_dev, EV_SW, SW_MUTE_DEVICE);
++			wacom_wac->has_mute_touch_switch = true;
++		}
+ 		/* setup has already been done */
+ 		return 0;
+ 	}
 -- 
 2.53.0
 
