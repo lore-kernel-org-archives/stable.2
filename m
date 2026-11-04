@@ -1,79 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811204;
-	b=aGgWlTeP5Wo6PpgUrWVbWw6WwxAE18uzt9EMqxKjYQLWK7/Otdmg3s/vrWy2ygM2ixVJ
-	 WSBw41/PaB43qwmhEL8T9ZlxKtyKQ5qxjnN1Cgh8xzCz5UZIn8R1mn1c9iU/CW9SsD8Iy
-	 eDi7chsIvMKTsz++3Md4OWHQ57D0W33htSOgWY3qEa/GNvAXvwRq4uuLQIbLS6vO1MzLN
-	 nQngXTZ/d1WR8ePhvD/RLhRlUsSTbA4HZBzYA5S9K3FqmonYhjIhOgMTH5i0VefYEWXof
-	 0t9I+IDqCjeaJYtDKclzxpWTk3ej0Ibae/LJS1KxZMmn/5hnbkYMQyeUpWCGqKYVXIA==
+	t=1793811228;
+	b=ILu5cum2zx6OYqGsHF/Y91pSBUm+P/bviL30c0cS3hBcXJTFj+wUhkLg7O66Q+Whjais
+	 Y/yitvXvb7PrdKmiOxgstVV+wGqo8Wua5t2mBEmfXMkoe3jypdUzCj5wpwsU2Sfi61bFW
+	 vXTJkPjFG4ndjViv8s5mYMTE13mNVQ+tfGNfA9CjE5+up2QY2XpUmmcTpMnlXHTVE87wV
+	 I1QIcyJAJ5T87I+0nsXQL2CCKGNCei6XGByqe+YYN0k/vclHCHWr1LhZmkTNYvf+oTeo0
+	 Unno/cYv4He0SmlSVFDI32H8pLSXvl6dB5JHiwFtp5y50ZbvCr/YRQHLyesGLYEw5iA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811204;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=UQ1bDXYKGYdl2Og2jD+uXrW+t00qIxcQlDDGCIWN6fs=;
-	b=S1KYZiUkTH7XaL356A0H5vH1YWriWbh+6BjviZosrIFuCTZJb9AMYnUkoMrtL89tYSPI
-	 p68u/Z6XHtgVX77TifxLK2eb63fRWTgSPWogi0zSfB/sEWjJJsXS+W5HtBJy3YnFOMtL5
-	 qJ6/4KIopg7rIaT4MJVW+Eyf24FWG5wrs71dD6pNsiqrxOKb1kOtTedNOSfFs1MMhHh81
-	 zMWuSBzeTo7ZKJ5pzNsrX5hD72QjoF8oKG5vOEy/N/DW+HlAbrwmtjQ99mvsS6IU6VRDm
-	 MoCEqREhWzxPrwegcf1xSe+cR0CWUxQn1ZGw9xYwAA4QSSjz1exZImF2/cNu7zTwZ8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811228;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=4G+6DIPOVHtjtGmntgfDSVsJzFwPyFWDveLCz6VShN8=;
+	b=XgoKt5jh7lGhKCLjvhDYcnapaE6vm5Id86Cq3DoQMrHWgs6eyUKApIbDOOfi7Elc73ZJ
+	 rBphI7Qb80oUv7XcSGOoWTbwZap9oqDLpo1roBKkXlKVYULTvh2UIokSrFDf58KKVHvtp
+	 ++DQ5KMKvB6C16BTu/APNOvHQWfqY/pco1QG5pLMFBhAmD29FEhUHStnUZYj1AVfeotcH
+	 ilRvBNHvB/Gybc5Y7XLi71eflnAqGFL5S9Atnw+zj+b8+6SU5QwZHXzXH21RNpBLblU3L
+	 XFeDgfX7bLrRkFxJBR9YvSye2XczGoHaN8zxUYxZV7O8Z8uNkokmt94XlvpJ68+uM7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NfMVOP+W;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="LJ/z7pF0";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5b8uXr4t;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="LJ/z7pF0";
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5b8uXr4t;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE94C606D83E;
-	Wed,  4 Nov 2026 16:53:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE94C606D83E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7112E606A330;
+	Wed,  4 Nov 2026 16:53:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7112E606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NfMVOP+W
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793811203; x=1825347203;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=d/n2sCxEobfdrct2quWj6oFiwwBQ5P4rZozc4rIP7Xg=;
-  b=NfMVOP+WDrBJ7nmgbpQG5+3XcEqQ2mdGTwV0zfV8E8NFqwTuT+55sZOi
-   6DS1AeqcZUhNzUdvhMWdvc5Pw6U9Uk5bjuINrQtSjY86EPHHKTbAzVs10
-   YRyPP50OT/Tt+FEDJetAzd00RSQopW6hENKVMm9gKcfPt8YOwytin1+eu
-   BAte0R2fgd15ffuubGW9njyokpBO+rgQOjPovNAVC+G/SyFB+Ah5hJ784
-   SBqx/ClK0M8rfAO/lf48+ijxtSd2BSdrHm5XTlYXYkOVTydV6bp0WzaJX
-   AmEhKWI2LgAI1r011dxO8u/Em9TUOB6LrpIdY98IIm7SeEBEAl5B+Etkx
-   w==;
-X-CSE-ConnectionGUID: 5L10r3jAR5S44wbh4OdvFw==
-X-CSE-MsgGUID: oWvfOwmCThaqEtMzB22AVg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2570439"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2570439"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 08:53:23 -0800
-X-CSE-ConnectionGUID: NDo/dX6MRd6MKYnEtEiXrQ==
-X-CSE-MsgGUID: VEuzpK/CSRGIwueXMXEulg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7087603"
-Received: from spandruv-desk.jf.intel.com ([10.54.55.20])
-  by fmviesa008.fm.intel.com with ESMTP; 04 Nov 2026 08:53:23 -0800
-From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-To: jikos@kernel.org,
-	jic23@kernel.org,
-	bentiss@kernel.org
-Cc: linux-input@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	simeon@maryasin.name,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] iio: hid-sensors: fix fractional part for unit exponents -7 and -8
-Date: Wed,  4 Nov 2026 08:53:19 -0800
-Message-ID: <20261104165319.1890851-1-srinivas.pandruvada@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LJ/z7pF0;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5b8uXr4t;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=LJ/z7pF0;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=5b8uXr4t
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A833B1F388;
+	Wed,  4 Nov 2026 16:53:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793811225; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4G+6DIPOVHtjtGmntgfDSVsJzFwPyFWDveLCz6VShN8=;
+	b=LJ/z7pF0VqGEvjMGbdjtpFsaVmmxMIyEyeUH2Nsk+Ds6Y2YAqHhExUHzTLgBxLIU4obXoT
+	67bUTK8UA+1sfr+Qs7G3FsTWZCIFY6mp5ig3/ueQTq5RixgbpyngMO8qsTWflm06NoWwAa
+	oJY4tiq7lmZNPTJkbPbnkKP8LzG7f3Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793811225;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4G+6DIPOVHtjtGmntgfDSVsJzFwPyFWDveLCz6VShN8=;
+	b=5b8uXr4tMOajkwxeEPPuG50AWnf7Mq6lEWshBBU3mpyehhtlW3sJjk8yQqy9MGddjre/tv
+	Eh/KVn8pXEdPnZAQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b="LJ/z7pF0";
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=5b8uXr4t
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793811225; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4G+6DIPOVHtjtGmntgfDSVsJzFwPyFWDveLCz6VShN8=;
+	b=LJ/z7pF0VqGEvjMGbdjtpFsaVmmxMIyEyeUH2Nsk+Ds6Y2YAqHhExUHzTLgBxLIU4obXoT
+	67bUTK8UA+1sfr+Qs7G3FsTWZCIFY6mp5ig3/ueQTq5RixgbpyngMO8qsTWflm06NoWwAa
+	oJY4tiq7lmZNPTJkbPbnkKP8LzG7f3Y=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793811225;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4G+6DIPOVHtjtGmntgfDSVsJzFwPyFWDveLCz6VShN8=;
+	b=5b8uXr4tMOajkwxeEPPuG50AWnf7Mq6lEWshBBU3mpyehhtlW3sJjk8yQqy9MGddjre/tv
+	Eh/KVn8pXEdPnZAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 73A29134F0;
+	Wed,  4 Nov 2026 16:53:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id mImBDxlj62q9BwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 04 Nov 2026 16:53:45 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id E5A16B439; Wed, 04 Nov 2026 17:53:40 +0100 (CET)
+Date: Wed, 4 Nov 2026 17:53:40 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Jan Kara <jack@suse.cz>, 
+	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-ext4@vger.kernel.org, 
+	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Andreas Dilger <adilger.kernel@dilger.ca>, 
+	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Namjae Jeon <namjae.jeon@samsung.com>, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 2/9] ext2: don't read the inode block in
+ ext2_sync_inode_metadata()
+Message-ID: <rczezs5hk6alwpfpd3h3yevzbpc462lv2cgqxxgh7vfkro67u4@cmz3zcc3hjyj>
+References: <20261029-work-inode-metadata_writeback-v1-0-7d6c678a585d@kernel.org>
+ <20261029-work-inode-metadata_writeback-v1-2-7d6c678a585d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,50 +116,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-work-inode-metadata_writeback-v1-2-7d6c678a585d@kernel.org>
+X-Rspamd-Queue-Id: A833B1F388
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,suse.cz,toxicpanda.com,kernel.org,mail.parknet.co.jp,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,samsung.com];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Score: -11.51
 
-split_micro_fraction() scales the remainder to micro units by
-multiplying it by 10^(6 - exp). The unit exponent of a HID field goes
-down to -8, so exp can be 7 or 8 here. Then the argument of int_pow()
-is negative, which the unsigned parameter turns into a huge power of
-ten: 0 modulo 2^64. As a result, the fractional part of a value read
-from the hysteresis attributes is always reported as 0.
+On Thu 29-10-26 14:28:17, Christian Brauner wrote:
+> ext2_sync_inode_metadata() looks up the inode block with
+> ext2_get_inode() which reads it from disk if it isn't cached. But a
+> block that isn't in the buffer cache is neither dirty nor under
+> writeback. So there's nothing to write or to wait for and reading it in
+> is pointless.
+> 
+> It's also not something we can afford once inode eviction calls
+> ->sync_inode_metadata() from reclaim. So look the block up with
+> sb_find_get_block_nonatomic() instead, the same way
+> fat_sync_inode_metadata() already does.
+> 
+> Cc: stable@vger.kernel.org # v7.3
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Divide by 10^(exp - 6) in these two cases. This matches the reverse
-conversion in convert_to_vtf_format().
+Looks good. Feel free to add:
 
-Fixes: 73c6768b710a ("iio: hid-sensors: Common attribute and trigger")
-Cc: stable@vger.kernel.org
-Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
----
-v2:
-- Fix __udivdi3 link error on 32-bit by using a 32-bit divisor
-- Address Andy's comment:
-Keep no % divisor in a temporary variable next to no / divisor
+Reviewed-by: Jan Kara <jack@suse.cz>
 
- drivers/iio/common/hid-sensors/hid-sensor-attributes.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+								Honza
 
-diff --git a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
-index 9e7c26e37880..d44091faf122 100644
---- a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
-+++ b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
-@@ -96,9 +96,14 @@ static void simple_div(int dividend, int divisor, int *whole, int *micro_frac)
- static void split_micro_fraction(unsigned int no, int exp, int *val1, int *val2)
- {
- 	int divisor = int_pow(10, exp);
-+	unsigned int rem;
- 
- 	*val1 = no / divisor;
--	*val2 = no % divisor * int_pow(10, 6 - exp);
-+	rem = no % divisor;
-+	if (exp > 6)
-+		*val2 = rem / (unsigned int)int_pow(10, exp - 6);
-+	else
-+		*val2 = rem * int_pow(10, 6 - exp);
- }
- 
- /*
+
+> ---
+>  fs/ext2/inode.c | 12 +++++++-----
+>  1 file changed, 7 insertions(+), 5 deletions(-)
+> 
+> diff --git a/fs/ext2/inode.c b/fs/ext2/inode.c
+> index 940f61a4dde3..efb50cb48da3 100644
+> --- a/fs/ext2/inode.c
+> +++ b/fs/ext2/inode.c
+> @@ -1586,19 +1586,22 @@ int ext2_write_inode(struct inode *inode, struct writeback_control *wbc)
+>  int ext2_sync_inode_metadata(struct inode *inode, struct writeback_control *wbc)
+>  {
+>  	struct buffer_head *bh;
+> -	struct ext2_inode *raw_inode = ext2_get_inode(inode->i_sb, inode->i_ino,
+> -						      &bh);
+> +	unsigned long block, offset;
+>  	int err = 0;
+>  
+> -	if (IS_ERR(raw_inode))
+> +	if (ext2_inode_block(inode->i_sb, inode->i_ino, &block, &offset))
+>  		return -EIO;
+>  	err = mmb_sync(&EXT2_I(inode)->i_metadata_bhs);
+>  	if (err) {
+>  		ext2_error(inode->i_sb, __func__,
+>  			"Error syncing inode metadata ino=%lu\n",
+>  			(unsigned long)inode->i_ino);
+> -		goto out;
+> +		return err;
+>  	}
+> +	/* A block that isn't cached is neither dirty nor under writeback. */
+> +	bh = sb_find_get_block_nonatomic(inode->i_sb, block);
+> +	if (!bh)
+> +		return 0;
+>  	sync_dirty_buffer(bh);
+>  	if (buffer_write_io_error(bh)) {
+>  		ext2_error(inode->i_sb, __func__,
+> @@ -1606,7 +1609,6 @@ int ext2_sync_inode_metadata(struct inode *inode, struct writeback_control *wbc)
+>  			(unsigned long)inode->i_ino);
+>  		err = -EIO;
+>  	}
+> -out:
+>  	brelse(bh);
+>  	return err;
+>  }
+> 
+> -- 
+> 2.53.0
+> 
 -- 
-2.56.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
