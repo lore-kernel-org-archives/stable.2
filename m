@@ -1,111 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793815021;
-	b=1RtcZ4H7Yvmu7BNfpsOw5R8YNcCL817+lT4MYRI4mwVQ1BOJHjHgqto/jn3NPbKrkVqa
-	 pX1pryw8L1aGPyfITjnIow2nV8l5QWIonz+/3U7gnbHNCAtTCVhuFA8UEmOFHG9/2OslZ
-	 99r5faOy1kNFlSaAbaSPwMhnKfWNIiVobgBLuYi90YbTJWg+vbPiMFgOkq46jxHSKT6kl
-	 S7wxGq7id9JaFTzWxLv3UdplMmBtOEX1CBjUxXf8wbR729aaj926E0+O7nv1/+rezZFKB
-	 ESKUd9hGT8m1HVbvdj4/y3AQb1sTrX+spAcQcH5QNtnmIm9cJxRgZ7EYcsLMJE17Csw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793815021;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=qeQgphPdxdiWtw36JzKqWooMSgzPZU+EeD4NlyLVhDM=;
-	b=hLWmFrbPw7erilaLuXoiV/7HRrwEOrMVpup6UyLm8lHm7YmyiBt+xXFplhDYhCHP3LVS
-	 vynbqIoOhr4+ti6wXyLdyl5iiQHoNj866LJGWssg+f07Q9VHRPBsRyfeNg6QRec0rglK7
-	 mUv07lPvusXTYkekg8Rrtrdf2XIOduIzih/WU7whBaYgURp3v5CfbsTdcnlCenrm/OzXM
-	 27IcMkVM7UyNZ8dgd//cqwN3UXfC63F8vzFaY+V8YIrOQqs7p7tKlQLuNPk/fB/VtKwqi
-	 FzU6kiWXhyWsyBjkk6j7FEzbVcQkjo53dNE1NL3V5Swd+1AkIYQbIcbHOWm3RsPq/kQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jJ+YsSS1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793815030;
+	b=AVwNxijk+Gde5gVghjyH2pf57qWkQ/UKONLLBPBfHL1Sq6HFxHzsThON35DQae05P5hx
+	 J41UpyGizAlLeqDtzGZMnjoDIrCwUn+or0+LSvUrk5+GRAaCYNzYuqpbglU5cfDiiVCJE
+	 MufVhYcBKTZLAiqfcKMedotpO2PExuTxYCS3RlV/o5T33vdCJJxgBBnTaGSSizuq6LW0G
+	 9IfmZvzoZc1AVriYlrMpI5Pa4ohceoy7/q7zlBzN/YTfnUkj+Mv1IJMHDl/yN/EsDEdRB
+	 U0SXIrU34kc+Mgu9N4brevWZcD9gzydng+3JxhS4WBuCxVAclBUKKP5EZWY8CH2pIIw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793815030;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Fb3Zd3ut8454HotwPwPAYB7YyRUaA3GgbhwCbjm8lMI=;
+	b=EtV1sdvValhaNMhax5Wkczr+eBOozGcLXL1JtNiI8Dr/p4Mp3GIqsWRpI8QiMMJhmuts
+	 0PclAZ04t/u6KSUq8FK0Ak1Tu2tMYCijdeqYc1OHOrib9yVL6EpomB93jgj3D2VHCSli/
+	 N2K0xa7Tj6cCdOLXHJIpwnQ+yUTp2XucMXRKYmPhliTRANSBJdUkRiUfNcP7Lmzeomfab
+	 cquH7LtFvh4iBEa08ro2D3HwkaAO8a6wXk0kdehpYQhBuddoMl2fNsRch93kPBi/aALim
+	 HMBb9y1tlIGzdLH75rccZ7E3aoAnVEdR30zRVSnfDnMmq0oTIuhnvxbYuorMCo876Kw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="RQLgT/9/";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="mlAC/jFj";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E895607A3C1;
-	Wed,  4 Nov 2026 17:57:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15AF8607168A
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:57:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15AF8607168A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jJ+YsSS1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0110B1F000C1;
-	Wed,  4 Nov 2026 17:56:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793815020;
-	bh=qeQgphPdxdiWtw36JzKqWooMSgzPZU+EeD4NlyLVhDM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jJ+YsSS1mKgXVutXvIprPjWbk/f3EaiHLkE0iUZZAD8UlGdeiTsq37AMjiJ1LQO42
-	 s7IKloTcsbSWCr6Lc4020v768o++Pni3fgFkFO5tp1ySQmamfYyvOlYF89oN/AE0uz
-	 cDBLCJtKpTc2bEc32o8AER5NNVvUQIyxG/58XGRNwW4UebnC4TzH2w4THg6Y4IuZEE
-	 HY4QLlr1k8HjiamlPJYs4KZrW3+I6WmOXTXZ8NvkX2h2a4OGzF5wxpPCxFfmNGgkxC
-	 TEjrpd9SN8JK0f/Vf8mgRK+nlmhJ6yDeGzIC6DtBcVm6ZCj3+6Kd0iuDWQx/Ae1YSo
-	 KOmYuIt4jqdDw==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 39/51] powerpc/crash_dump: recover from a machine check in copy_oldmem_page()
-Date: Wed,  4 Nov 2026 18:47:25 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-39-bbf7d5546809@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
-References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RQLgT/9/;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=mlAC/jFj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793815029;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Fb3Zd3ut8454HotwPwPAYB7YyRUaA3GgbhwCbjm8lMI=;
+	b=RQLgT/9/LCYB2tLGWkjNAyspMrh4zk6ZGjOJ+fclDucidd5Wgxed5dVp9c1nL3M5UlkF4F
+	+OCuWUo01TVEFCek+Bw5vma3PEmhEEs0Brp3Y16g2Ta9CueoNqP/nuzlqJDlkc0vfqdnM/
+	giIkw4fq+vaxWDowTLP8ots0YbPkRQA=
+Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
+ [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-570-9mnRl_ElOtKgcr_h2XZp3A-1; Wed, 04 Nov 2026 12:57:07 -0500
+X-MC-Unique: 9mnRl_ElOtKgcr_h2XZp3A-1
+X-Mimecast-MFC-AGG-ID: 9mnRl_ElOtKgcr_h2XZp3A_1793815026
+Received: by mail-lj1-f200.google.com with SMTP id 38308e7fff4ca-3ab2027d661so1032121fa.2
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 09:57:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793815026; cv=none;
+        d=google.com; s=arc-20260327;
+        b=B2X+ITilCncmnQwgmuymGdb3egNLdpDWJRIy/CrA8Qrs9Qn2ncFUNkv+E5ov04i4c/
+         v4gC9FllNnmlR83H8Nz466lLsE0m+YmFAEKW01Thr5CAgJO2WLTAY+Yv3auS6F7iBrqG
+         1kFNoO909xSJtK4nXVZX4EXVSYF9DrV7cMlfDi7FzThoGpcnjKGJw2/bcxayW31G2/Ee
+         0BJ9C2M8cRE2LTaKQSPVfemLC1k7Mhducji7d938yxTW9w3Oe+9LAIscyuYOSGtSBhrU
+         YbEywgIDZ+ApVMWZvHWpG/cRZrXOKCJdrGYzIxNxbDMi/ZxavvOFaOHko/+QPn23UEDs
+         CK0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Fb3Zd3ut8454HotwPwPAYB7YyRUaA3GgbhwCbjm8lMI=;
+        fh=2bAHCm9PgDW75xL5/ErA8M6lJrEasOqQS9bGyzA3wtg=;
+        b=k27e9tSB9LmLYzpqz6u17KTyFOshIKxkvtWPwxt+FM30c1jkry/CxDEiVdbXILiw9W
+         dcsW/bjmAiL1OKZxwx1sw9TmOwKDpVIMQIocPGn5b4IZy1l2aHYnpXsWgel118wjeqyI
+         WzsuPnq9vULji/99EDD5Ab3+c2p0pTBGYKQKq9acBcmMo79LNQQJGI8DIyetXs6UZouT
+         w4OGjQHgjBe/2bJfFpDCEAeCdK7KTZJKim/LwDXdSA6qnflUGiXlhtx+WGL7Ap5hwXer
+         Hv3K5ECi/JslWnuhr0jVTWVcQqcSnRWy/43Gk9q2Mf54cG26CNmxO60ibrV2EUrHa4pV
+         i4Ug==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793815026; x=1794419826; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Fb3Zd3ut8454HotwPwPAYB7YyRUaA3GgbhwCbjm8lMI=;
+        b=mlAC/jFjz7oK817vV7DsYBvrbyux9dgwk6qV1AApQ/4L5OV0xk2T4pZBrepTZiT2gR
+         MggScLQmHF20PTh2VdRd4nFSOfIGL09xvuPV8v6httK+OlIZGqibynpX5DMCpc/ytxpm
+         rV7W2VKOcmevoZcngrouKLaIT185InHTR8ytAO/SmUcCz3ut2+4zOzJeRfwOK7DrwiQo
+         1EN6u8ogVIoyVMkqKz/vfZ1MZ49feChmZYgAwNu+USpBGUh8fPIexE6r/J6ZspvTuH46
+         WEbEnh3wFKroI0XHXAHX5ir5n2U/gR7F3Z/5r0q8WT/EJXVF9GSaqA9yOR/wF2lQn716
+         KZxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793815026; x=1794419826;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fb3Zd3ut8454HotwPwPAYB7YyRUaA3GgbhwCbjm8lMI=;
+        b=IgtCrHfISso1FPF57LNRhuU6ZtHkaNH5OlIOuDbMRbSRY/ZOLuAP0lWu9D0N/+wjiS
+         SFuHGJ3fdTUx22W8Ge4kscNhQP373FCli4ForyfywyORUsbby0SogeoFYfx6SAC1FQ17
+         jMhD2Dp0hy7qir/2MAX8bahVhWEAa+2iCE9Rs0kS83g4UvVUitPacjeYB0MwuDsU98cr
+         Uwe4ch6zrCM4Db9MXUBjDS/lY0pUWi9EQF5kadqJYQssKT6p88pSTgtUkQR76pvxL7qI
+         epx9EdoyzJ7YiExdoQSxxx6SczZ8I9/8f31/yIXUiqYdzDfsJGh81rOPs20J7k3HdAP7
+         v06g==
+X-Forwarded-Encrypted: i=1; AKwUvBzwtVBlT59j0L/2ZkGCl/7aQbo0N2Z5baY6No/O8mpTwQ9CJQBi3x343gSXVt8zRXfBL1EvTBQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8bwTomxFVDLMwQZsSz/OpfAx8LDnNLBRru9gL/zGyxcCGZBuMK
+	htfYZ2+g9ZIvDRiCwu847nbUIJY0QX3Fk1uwfevYgrx05nytZd7457uEF/ndusFRPJZaBmrOydv
+	3NFd1P8oo1Oomwz/PKkoLorYNK/ub7KP3nQCT6bTiyWgjoVQ//Qpil+WcG9CQyNILSlZntsfP5M
+	jbTo3Wmd4dJUrqqiB7RJh00ux50BqdPChP
+X-Gm-Gg: AYBFou25q11kg21sq3SyhrOiB5huHzzBnJctd8sGsPPTKB+zbgwzkIrA6xVVDyS2hgR
+	PbdLFvTEE/cKRe8qWeIuqrCZYGmq2ZPls5zF1yOZCr58BijKAEQPMdEA45ZuMYaLSPhpWRECan0
+	X1vL1ybsr2pahDYzLRB3HAUdlss7tRMJNxGBeoxF6T6mspuDUloyKXNwNu
+X-Received: by 2002:a2e:97c9:0:b0:3ac:ddd5:55ee with SMTP id 38308e7fff4ca-3acddd55907mr4690821fa.2.1793815026108;
+        Wed, 04 Nov 2026 09:57:06 -0800 (PST)
+X-Received: by 2002:a2e:97c9:0:b0:3ac:ddd5:55ee with SMTP id
+ 38308e7fff4ca-3acddd55907mr4690781fa.2.1793815025627; Wed, 04 Nov 2026
+ 09:57:05 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,63 +124,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2421; i=brauner@kernel.org; h=from:subject:message-id; bh=VIVKq8y+KdCJwnDd/z4L2OCrr1yqDfObdGoCOSjiCdM=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9znu/ZLFx05xpnp+TTtxLuaWnvKXR5q5SRcWM5RNFJ +7uuXKbraOUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAi0wIZ/nB7KCi471/L1Nq6 9n0/51Uea/Fd3qy9fnsOr1vwmcnr62yG/yWGkZU+VvatQgcYS97WRSfuKtivn95TcozLZv5XWWl eDgA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+References: <20261102-nxp-stm-fixes-v2-0-8ca2706f30ef@redhat.com> <20261103154246.S-8NqN99@linutronix.de>
+In-Reply-To: <20261103154246.S-8NqN99@linutronix.de>
+From: Enric Balletbo i Serra <eballetb@redhat.com>
+Date: Wed, 4 Nov 2026 18:56:53 +0100
+X-Gm-Features: AclHuK931Qz4UJ3O8Has-FEwEeK34WYcv8yPrDJgYS60eLd8ID20u55CvxuZARw
+Message-ID: <CALE0LRsLS9Hsr_vUZ7k6YA4DJB6Su=E9r-F-btpyOXSvv6cMZA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/3] Fix NXP STM clockevent bugs causing lockups
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-rt-devel@lists.linux.dev, 
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, NXP S32 Linux Team <s32@nxp.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A capture kernel reads the memory of the crashed kernel, and that memory
-may well have uncorrectable errors. On powerpc a machine check in the
-kernel is only recovered from if the instruction that took it has an
-exception table entry (cf. mce_common_process_ue()). copy_oldmem_page()
-copies with copy_to_iter(). For a read() of /proc/vmcore that is a user
-copy, all of whose loads have exception table entries, so the machine
-check turns into a short copy and read_from_oldmem() returns -EFAULT.
+Hi Sebastian,
 
-But since commit 4a22fd20379c ("vmcore: convert __read_vmcore to use an
-iov_iter") /proc/vmcore can be spliced too, and splice(), sendfile()
-and copy_file_range() copy into kernel pages with memcpy(), which has
-no exception table entries. A machine check there panics the capture
-kernel. The same goes for the reads of the ELF headers and notes that
-vmcore does itself, and those have been memcpy() for as long as
-copy_oldmem_page() has had its kernel buffer branch, since commit
-54c32021eb6f ("[PATCH] powerpc: Add arch-dependent copy_oldmem_page").
+Thank you for the review.
 
-Copy with _copy_mc_to_iter() instead. PPC64 selects ARCH_HAS_COPY_MC
-and there it uses copy_mc_generic() for kernel and user destinations
-alike, which has the exception table entries. Everywhere else it is
-_copy_to_iter().
+On Tue, Nov 3, 2026 at 4:42=E2=80=AFPM Sebastian Andrzej Siewior
+<bigeasy@linutronix.de> wrote:
+>
+> On 2026-11-02 22:16:19 [+0100], Enric Balletbo i Serra wrote:
+> > This series fixes three bugs in the NXP STM clocksource driver that can
+> > cause soft lockups and missed timer events, particularly visible on
+> > PREEMPT_RT kernels running on S32G platforms.
+> >
+> > The NXP STM generates an interrupt only on exact match between the
+> > counter and comparator registers. If the counter passes the programmed
+> > value, the match is missed and the hardware must count through all 2^32
+> > ticks (~32.2s at 133 MHz) before firing, causing soft lockups.
+> >
+> > Patch 1 fixes max_delta: on 64-bit platforms, ULONG_MAX exceeds the
+> > hardware's 32-bit compare register width, making it possible to program
+> > an unreachable compare value.
+>
+> This looks fine
+>
+> > Patch 2 fixes the overshoot detection in set_next_event: the existing
+> > check only detected counter wraps, not the normal case where the counte=
+r
+> > advances past the programmed value during the read-modify-write window.
+> > Replace it with a signed comparison following the pattern used by
+> > timer-imx-gpt.
+>
+> okay=E2=80=A6
+>
+> > Patch 3 increases min_delta from 2us to 20us: under bus contention on
+> > PREEMPT_RT, 2us is not enough margin and the counter frequently
+> > overshoots the programmed value, triggering repeated -ETIME retries.
+>
+> This all sounds like the hpet trouble on x86. I'm not sure what heavy
+> busy contention means and why the device is enabled/ disable during
+> setting. I would assume that the programmed value hits the HW after the
+> wrap so you wait until the counter wraps again for the equal match.
+> Worst case would be you read back the expected value but the HW sees it
+> later (after the wrap).
+> hpet_clkevt_set_next_event() does in principle the same check as you in
+> #2 except it compares against the "min" value instead <=3D0.
+> Would this make sense?
+>
 
-Reported-by: Chris Mason <mason@kernel.org>
-Fixes: 54c32021eb6f ("[PATCH] powerpc: Add arch-dependent copy_oldmem_page")
-Fixes: 4a22fd20379c ("vmcore: convert __read_vmcore to use an iov_iter")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- arch/powerpc/kernel/crash_dump.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Yes, it does make sense. I will look at the pattern used in hpet and
+send a new version.
 
-diff --git a/arch/powerpc/kernel/crash_dump.c b/arch/powerpc/kernel/crash_dump.c
-index 1543917bd3e1..ca7e019ae3e9 100644
---- a/arch/powerpc/kernel/crash_dump.c
-+++ b/arch/powerpc/kernel/crash_dump.c
-@@ -83,12 +83,12 @@ ssize_t copy_oldmem_page(struct iov_iter *iter, unsigned long pfn,
- 
- 	if (memblock_is_region_memory(paddr, csize)) {
- 		vaddr = __va(paddr);
--		csize = copy_to_iter(vaddr + offset, csize, iter);
-+		csize = _copy_mc_to_iter(vaddr + offset, csize, iter);
- 	} else {
- 		vaddr = ioremap_cache(paddr, PAGE_SIZE);
- 		if (!vaddr)
- 			return -ENOMEM;
--		csize = copy_to_iter(vaddr + offset, csize, iter);
-+		csize = _copy_mc_to_iter(vaddr + offset, csize, iter);
- 		iounmap(vaddr);
- 	}
- 
+Thanks,
+  Enric
 
--- 
-2.53.0
+> Sebastian
+>
 
