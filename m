@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.120
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.120
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793762660;
-	b=ZGko6rbTUGqRrJci5keN5qdLsFlDfUnTiQt7Gt8iX85/blWgasyyqkfdyiRtpMJkAxmq
-	 Rs+q9Vu5sQqb+GQOJKvAIN7WELGnORA7l51rgldF0FA/0FDa7AinNU0NhfKliCqo9XNgs
-	 xHn66krKdUDMisOt00yUy9NayPZtB4pJuf8/JtEbsSznQ2SxX9OegoRfL8L9CHB1TOjty
-	 nuwX8gGXDDb7cVxuK4okvlBFO8p7aFXR5lS87SLL/UHPJxHM0WamBQUzTHFkg4AkxWqBB
-	 /fi8Gx76oG1FfOgs/Y37zamHoHEgDcJ3WoO0e8XTv56NoudUKfXfdfEDfLhljykGy+Q==
+	t=1793762713;
+	b=2HVlSrGKw2svYnzp9aihR/1ZfhuLf6EfI/iaMD1BjKLanoqhbJ2AxACdOHwVIoRqjsJW
+	 u2TylI5btLH92jdGJXmhVlq2dYvHMXfpELWOh0u/MSZpfFQiPtSNIAedD4PPcyYXCTFw8
+	 90FKbv2toIAiMlGYS+tY5GFVYO9wBx9YcJFQssY30Mhr8WvzT1sECg3tp36JBQa7KOq+6
+	 FgCgMxeUOJDLxM4XmWm8EZqdsA+IgkeYZp7sgIfLOpaNxqdf7anYFiqcw8n7cJmVgCnQi
+	 ORxArzsd4uad/wjYQuN2Tu5LOjRDGTxuEan1JwiTt3Qjhrv/Q6N98eyLsWy/nGwL9TA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793762660;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793762713;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
 	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
 	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
@@ -25,67 +25,67 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
 	 X-MS-Exchange-CrossTenant-userprincipalname:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=xG1xMoAr1JJbivx8fnZFji9nR644SOufyH7NVYwdJB4=;
-	b=U9Ik8suP4fJc3ufLMfnsM3+XYPCgD1FnqsQVqMBF1lDND4pVJoBNgujVtN5VQ7YBbJXu
-	 EqE6V85vptpSjvEKxIlRKa4c+j8esKk5Ihbgdh/025H0msZavYpJ4UId8ZMNMhwnsYQsB
-	 7KTkJzpJRz6Z8ulnejcydO1piEA3h0ntI8+angkwnWEvFCS0lmKNKIliFykLB7IGmrfLI
-	 1O2W6NZcpaJplYE0bov5fvK5Q0x6Su2fP6RJ/h+vyELABtsHt/1Yh5fW20+m1bkW3B0ZR
-	 YeXpobgYJVrPyJJ6vcvPDAEzStGul6SaXU/eLJkn/oOqMYDK8GzbW3l2hZ8IWFQoTHg==
+	bh=z2uYIHlmzNrzc5a7IWdQARfhwpVScVopd3jFdrBLnrM=;
+	b=BUxmFnjR5ZBaalvkpoObq9XwzBtdsMeysav2SPUF1MDy4vOwrH1flP0ril92o87y6KxI
+	 QLMXGy2p0vEDXp0knDoy9PpCF8ng3IhsvCKdcs6w70+8dV+Vx+sC2+2J2qEkYB/4IlTzq
+	 Jf+YVKjXFQ2lwJVrJaIw75uzYuRFJ16vPc7wVIzpUqHTJPgXboZglySE6d2Q3fEWJxGtD
+	 3sb+RLLPvnxY5YtNYJQ9FU/TuNTg9o7fB2H8BDR/xNJJ4lQaAZHVvs++1LcUpfe2+uAwo
+	 2rSE18zsYM0CMYlynJTZQHWV4yrQWA3JmFsgnjI5p9gl39WzyBMPN4POJpV20Zv2Pvg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kuleuven.be;
 	spf=pass smtp.mailfrom=kuleuven.be;
-	dkim=pass header.d=kuleuven.be header.i=@kuleuven.be header.a=rsa-sha256 header.s=selector1 header.b=tPyZEvaz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.120
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11022120.outbound.protection.outlook.com [52.101.66.120])
+	dkim=pass header.d=kuleuven.be header.i=@kuleuven.be header.a=rsa-sha256 header.s=selector1 header.b="gVvOJHh/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.120
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11021120.outbound.protection.outlook.com [52.101.70.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B559606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 03:24:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B559606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02DEB606A336
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 03:25:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02DEB606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kuleuven.be
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kuleuven.be
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=kuleuven.be header.i=@kuleuven.be header.a=rsa-sha256 header.s=selector1 header.b=tPyZEvaz
+	dkim=pass (1024-bit key, unprotected) header.d=kuleuven.be header.i=@kuleuven.be header.a=rsa-sha256 header.s=selector1 header.b=gVvOJHh/
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iedGDC+iMty8PsS98sisOuWNGqPByYAmfKVndLqqB6mfNyiHI1rUzizbFWsRIweCbihaSxnNGc2JqphMj4jcYt9JqrPxgpeLbGoFztdMmu0rIe7389Yad64FTq47L/0BvyyHY/1oWWqtWT6itN/YlFSNQYHc1UYGUu85bMVxVRJSFb85HJaDdMxugGKGPz0pK1inlKqO63tMA4pb0Dg0NXDYgdX2vYc4BRVNlY594x0GRS0ATTcSk3dZFV3AutoQqNSAE81ZnZbCvenN2Nfue8YriMOfgBOpLizQJHvjn5S7M2nsQAzh6cED2/BDJObXBCf3V54jcsSFCABVMlF97Q==
+ b=Uf1h5kenNsRRwiJRJ2aMMfl/VWjiM/Tg3zBZuUUpZiP7ITGpkjPQIF5zAI/tO9TngZoN1uCJvcaAS2SxUqnzYFOUWeWomv6/z+7lMGc2WF08OFXBVqjHGLCeiVsjsTIczahGtmPHInhPek03buOCE3GyvKrfT0pmJi/lC2GuhhAo7a1+AjAqmrus1VFLshrEMECLgwke+16SAM9mGsgxcwwXwuKjMXnjjDm5tzRckJIasaVJZK/2BBr3Ue7N6AURV/ksD9TeI3SYbbHhYyQRgCEdlgIFUmfDLfThiq0iK36sirAMjWXoghta0rP6LzbYqAlBcfn/q2PCKb4T6cPvQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xG1xMoAr1JJbivx8fnZFji9nR644SOufyH7NVYwdJB4=;
- b=VZJdrEP6UF+OWxyJC5UPrL+1lCKW7K6UA1nDMZTnc2R96ExORjYGv/HQq3L0uxZ+vpPfCkez6fylQTok2GG6TWKEhDQwHe5phDXGGN0ZAWnwa7DBKwdhVMVnclNWCxJfomvK1UkjJUKx65ar6lK4Kx3a11JLyPUOYeu2R+OzhSmgzsBK+ylGOPy+fvlZTIH84UTfSTiXvSpcdBalNq7EktjSEaVfK6jn5AOYb/COF3KZ+lQqmeJfgDqE+lIrfGAIF+dCMiY9NlhtEqZJXa5Llb+HkGco9MMGn+4vorprvXt1avSrWVpBasaYK+9i3MBr0oN5rH8Ne1BA3divd5KKFg==
+ bh=z2uYIHlmzNrzc5a7IWdQARfhwpVScVopd3jFdrBLnrM=;
+ b=Uc0hTnh13y0aTSvUx02dbKbT4LQrZSakIvn4zxiT78W+0BrB2WUgauWy3/JQWg0EkarlVzg1qebohCmLIwvL7C17ApLHHeMVfXPBcMZYEMMzyiY7ysDu3ojgTuNiQBNr0os2HH8/gw8hSQjK47BFjVyBKRrGmlRSPbzLya22r5gtcakqPcoHSs9bdBb715fbHzwPYJxduIym4nq3tVYIKOX2rraQQ/wNx5scB14t0ag/ES3CDzNhOy74G8x9LxpGvGYzxrubFuhp4nm73NHIO/cbI5aszIxGUgTpVYHURbKbVWZ9H7LBywQLGJVnVOQnmT7nNp7Dilpm636c65vCYw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=kuleuven.be; dmarc=pass action=none header.from=kuleuven.be;
  dkim=pass header.d=kuleuven.be; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kuleuven.be;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xG1xMoAr1JJbivx8fnZFji9nR644SOufyH7NVYwdJB4=;
- b=tPyZEvazDxY8jrpDSXR63PSD0/dtKQ9MjBCH+akMbWFrqFzTqsjiDFDGFoQUi9GP5WGXWEf7WdQOin1lYepc6A4YuPMVvZscJoKbjauT7gKXwFUBRNoidQu7QIdA1q2hXV7GoZtqNoVTl0uhdHJlZvUKaFUYXsQLX9b2l7nAopU=
+ bh=z2uYIHlmzNrzc5a7IWdQARfhwpVScVopd3jFdrBLnrM=;
+ b=gVvOJHh/czKFx1LsxmzLLsR38h+ZGKYgswN9zN9y4WVzT3w3VYRl+5M3/sfaE91RMMOctq+llW2uf4oBUrn+Mozfktu7QwAAaI8QG7vs5XjCjSDPWsKfCUi0IevFCaavYL5pOoj2okNa1bvBPtwDAWzjvdn3E4HbH2Xoa3M2khY=
 Received: from DB5PR08MB10062.eurprd08.prod.outlook.com (2603:10a6:10:48f::10)
  by MI9PR08MB999879.eurprd08.prod.outlook.com (2603:10a6:290:ce::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
- 2026 03:24:14 +0000
+ 2026 03:25:09 +0000
 Received: from DB5PR08MB10062.eurprd08.prod.outlook.com
  ([fe80::cd17:89dc:ddbb:2f38]) by DB5PR08MB10062.eurprd08.prod.outlook.com
  ([fe80::cd17:89dc:ddbb:2f38%3]) with mapi id 15.21.0592.009; Wed, 4 Nov 2026
- 03:24:14 +0000
+ 03:25:07 +0000
 From: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
 To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
 	"linkinjeon@kernel.org" <linkinjeon@kernel.org>, Paulo Alcantara
 	<pc@manguebit.org>
 CC: "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: Backport: FAILED: patch "[PATCH] ksmbd: validate security
- descriptor offsets before pointer" failed to apply to 6.1-stable tree
-Thread-Topic: Backport: FAILED: patch "[PATCH] ksmbd: validate security
- descriptor offsets before pointer" failed to apply to 6.1-stable tree
-Thread-Index: AQHda3z80BCms7aQnEGevETDHCU0sbcdP8Wz
-Date: Wed, 4 Nov 2026 03:24:14 +0000
+Subject: Re: Backport:FAILED: patch "[PATCH] ksmbd: validate security
+ descriptor offsets before pointer" failed to apply to 5.15-stable tree
+Thread-Topic: Backport:FAILED: patch "[PATCH] ksmbd: validate security
+ descriptor offsets before pointer" failed to apply to 5.15-stable tree
+Thread-Index: AQHda3z+nnaxK4zPX0KhLuldbS1oBLcdQP4O
+Date: Wed, 4 Nov 2026 03:25:07 +0000
 Message-ID:
- <DB5PR08MB100620A5BE5A4EE2F978D001AFD682@DB5PR08MB10062.eurprd08.prod.outlook.com>
-References: <2026110319-default-yelp-9aa0@gregkh>
-In-Reply-To: <2026110319-default-yelp-9aa0@gregkh>
+ <DB5PR08MB10062A51C82290EEE2CE45203FD682@DB5PR08MB10062.eurprd08.prod.outlook.com>
+References: <2026110319-apple-willow-5e9e@gregkh>
+In-Reply-To: <2026110319-apple-willow-5e9e@gregkh>
 Accept-Language: en-BE, en-US
 Content-Language: aa
 X-MS-Has-Attach:
@@ -95,47 +95,47 @@ authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=kuleuven.be;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: DB5PR08MB10062:EE_|MI9PR08MB999879:EE_
-x-ms-office365-filtering-correlation-id: a0521fa4-e839-49f9-ca07-08df3a231a2f
+x-ms-office365-filtering-correlation-id: 56c9f6ba-c716-415c-d73b-08df3a2339ca
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
  BCL:0;ARA:13230040|376014|10070799003|1800799024|786006|366016|23010399003|22082099003|10067099003|261102123227099003|18002099003|38070700021|11063799006|56012099006|261022105027099003|261026121527099003|261028144727099003|261026140227099003|261009223027099003|261021121427099003|261021123027099003;
 x-microsoft-antispam-message-info:
- qNrHOTWTM+87gdjEoSQiaM8BttCjXr+iWAfqn9vX6u1GmaUb1molu2p2f7OOzDWfIRtxxHhxIJWLiF4yeLK/nmDdlGpa7OnTq6M+kXdgFRXRAiYuht3hVNh0MwVF+2axHa+xagjOV7vnyjKCR+w4n2so4BrDHbJIAMiw0D8+TwabTBuGNYyfq4ZnNnJ2CRzsWLCWOAfVQke166n747YYoLjyY4XznW5wUJIxyXwmG6MQcrfF7uLN7e/+qCmvPSQewc2zkUsPQEHMxkVYUr1kD++JhYu218J/u8bxXccUZ8e0N47gJ8C1eK2HtPygW518aVu9ec1/DyzvSCI+XzJK/PQ4QcXX5j4Nwx7Vx9yCFohxwf0j35JOkqgKkGT4irVjwPD9aHOvuEh+yxMijfD2HKwjNheRRU3M0kYI2Nmcpo47agDrsl3Up7dFRWkZ1MKXTMmD+t18TE0rP5xZIb3NUpLmxHndjJQyJezHrnSN2rPCDETd8VYZIHXu3wRFj9AKkDqIaSDkF+v12FH4cWDg82WGYuvJFavX9/NIDV9s5G42zBgsz/xSAhoSLp1EIRKT1ZQg5R15LYPMw9Lmo/igNaZTMqygtZMX5XVjfN6aVww39i+KH/kYRpClGjVeLsuugCkuZ7/2Vkp1E5Rzuy+lX1GSaEZTstBAQ29KnXH6MQEQf7R66SOj953TBJhJ14yervTo3h4CbjjSY4NIaumSkovlrLDYc0m/de4W2loTTlU=
+ 0xSCsznwYi/4heWReGjEdxeqbTVnIKEBBcQHrg8WoEKf7U+UFZCVGmQ5lYP3b+JR8J+rs0n7WiaqdGVC4Y9w+D0OuD2IpioLmonn3xmw19rBmM7eNXyphiE+vw/2VKEI8sFZ+e0G8160e5gKUhb3M0dmb5Kl8HlxVIWm3gStiWcZysIwT5FFbhbhXp+wmsMYyfnf5O79NIBmM4N/SUpw0v5yPMN0WZX20C6cEQV2cxkco/anW+E2M/m1YggeRZvpuJvKMUl/LBlTxHl2G/jP/Zo7g+9BNxTEDISciJCN+bDdLiMd/jQXAPKj40rTfWweSznnf+lUFR3GqqdxqRr4Cn8V5z5OHZAtjPZqiGkH30rIbGAnXFR9Yl+V/GCFhVONsDbS/o3r9DzDzNg8JWICm/hwS8PWyLs8vSrtsSYT4w4EJraQXRCMrdQcIPh2Hybs4SweRgzLSfWnsxBX3Uo3iGUq2LOHtGBHupOku1n0JCcb6+jbmrl+fSpbP9ljX9IMQMpMlAMRQg15DqKL2mQOuR3XzCSLuBNB9BMnRmxwMYCXiNs5a6MYDOT2ylGm/M313jlsG+gezeixNeMdku2F+WTJ3TRZFANkhCh4o/Eh6Du6K/Dc8ToyDG8GVocIJOXPEoKLkHBUOR2JN/HegTBI7GrNV28+NzGJfXlqUARL0c1kTZUc7d3a7udAV7ewDyz0KblLEqAeYiH8CpGlxX0OYZSJL4s4kbqbJKRxUCajNiY=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB5PR08MB10062.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(1800799024)(786006)(366016)(23010399003)(22082099003)(10067099003)(261102123227099003)(18002099003)(38070700021)(11063799006)(56012099006)(261022105027099003)(261026121527099003)(261028144727099003)(261026140227099003)(261009223027099003)(261021121427099003)(261021123027099003);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?TUfd1QtoiyvrLH+a295HIA+FdbrvkrMzCBX2N9U2xCR6aa/cKuy4Q/beOaQv?=
- =?us-ascii?Q?t4iv8BNuiLdHmCXIn0iDLcuwMtp0u9bNClKWu/dniTib75EESVfLCRwWEnQJ?=
- =?us-ascii?Q?XaIfxo+3jaEfk4xApQAhcbvR+s9Py9UbQCNVpnGBiX9Al2JWwXK4bPX5ldDV?=
- =?us-ascii?Q?H9EvJnc1/0Tul35n/UYDyLuPcOqYI2evFehnCxQqLeExW0b+Rng2Rup/MZv8?=
- =?us-ascii?Q?MhS0nGxr823V2PGA6ShgARnVmqbLNhERMsT1eggvfh9mY31KSKTMFPGSe9BB?=
- =?us-ascii?Q?dJ4Yed0UmQl+cIb63JP+Uk0CvffxXsPnMbwrP+lVYL0wev0s5+iJ/LZXkMWp?=
- =?us-ascii?Q?1pW2QTPkzLvoU/1zdftEyFpYtcQ85CBVDuWrnmfK9S2DFKJ1CcjWTFPdy4co?=
- =?us-ascii?Q?ipaYof4l09rNCx5S6oKMWXAGY7U1L9tUCV8xjah5KfHq44LfwqltP9wVByQu?=
- =?us-ascii?Q?w9Htqoxa6jE8ehZ6W27PTltP+vwPFWXcbSOzWc1qvjzx6X7nDTewgJb+m5ot?=
- =?us-ascii?Q?04N5HDbgtOMG/lVcYNlfNAchV56MyhcMpswYkR9p56sfm1tPkbMoIps00co7?=
- =?us-ascii?Q?Pmd8zddiuK3E44I0qYYTTt2d4cWtTw2IwPxFyAXnwR2BlsJ9gT/0jTFQVHjU?=
- =?us-ascii?Q?m0q87mScX8R1SvhRVTqJ0Uon2EO3xOQfpqu5vThIbKfjjP9x5VlZZi8R0CTS?=
- =?us-ascii?Q?TLVOHCKURR8IYk2NytPwVmac7B9xtTA2ADUz9f0JzYoMMN/+zXPux8McO2NW?=
- =?us-ascii?Q?MLeO/4qNvgELMDvhYDS0s1O9tFollBN/DmhCIFekANxwTUCzOn8Ls+GId0HM?=
- =?us-ascii?Q?rQMbkfnQ8SlN4AvW4I1DB1osys8C+lpvY0THG6UU5JNkHcjG/01UohLzlh95?=
- =?us-ascii?Q?qHPxZFcSRk6whf7+wFkvG4IO3Wv9asmut+FZWMvMAHmaMdssBL/28X9t0uN4?=
- =?us-ascii?Q?St840egETX+YzZfE0SnODsufmXnEQDqp2zrqKRemiMIqO+aXlcoeb6eNsk9j?=
- =?us-ascii?Q?jK5Y/g83hN7kM8MlrfzFe6usWZplHbBV4iG1+xnq6of1Mj62ui7eDfciZUBA?=
- =?us-ascii?Q?QsdF8pPkY/n/Lc9AWJ/6n+zc+aWPz2ks+MN82iKfBfAuk1Srjk5jr2csaRRk?=
- =?us-ascii?Q?sttQJSEsWPKuIwDSImb8G61p9M78qHn6+9yiK6JQkmcHJgv+QyjKPtLlQzfZ?=
- =?us-ascii?Q?S2HDUQfA2gZe2xyafuZ/hQMA29Qe1jSPuq0LHENmjIDAXjIOTdpJCWepO6ni?=
- =?us-ascii?Q?wy8rsfjoMeLcqStl1qiUe5q3AlmDt872ytMJqF6vZD2GY0xx1aS2G3pB0CAW?=
- =?us-ascii?Q?2yUpPduf9P3/J98dkR9pW1ABIjIoOs18uzIReTBana+xz9MNtzrmVyvEbApV?=
- =?us-ascii?Q?PaeHzxw+dlS1o3YZrUiv7Ftphx8tEB9F09rfQVYp9tR2OMPozFjgEHhXAyfJ?=
- =?us-ascii?Q?zPk8qoHlY2UpZ8SINe5N5b/9VaPcl8nKtpTLxGohIki1dTUeeU7kDs8vfwkP?=
- =?us-ascii?Q?cTiv+HuGocFWJCoCMMl9xLNju6DkPyo9LfIw7aGII7dEjzGP+dG5DMFytDer?=
- =?us-ascii?Q?yeyA4vvWblPZ88Hvyi9Ypkst7daKtbsYMMN2FD6Nq+dp51/Vf6/IfExkzddC?=
- =?us-ascii?Q?Calojt4NVtRPqcNz1d5XBwz8ZvRmKGx0Hl3CVN2pwmzxY2TSOOLQDe3VTdCm?=
- =?us-ascii?Q?dBFpISmzuxgAVXkbwW5S5EnPmgR3sZkOnrl5MwdTyhMzGR/WmKnKrnRlHm0G?=
- =?us-ascii?Q?hx3xZpQXk9hfI8cjCAF+cK+M3cW8BN0wh4vYPV7pwbzn5IUxA+pm?=
+ =?us-ascii?Q?VGdXQDLKTHiBAKg5Yig5+Wg8ac+b6OX0UuKjiDl9ugfdikhxFS97EQlQdGnM?=
+ =?us-ascii?Q?kKmMxrsb/53aUrpWBAakZc2n3fyoHUHukVMMZjTilEbFgNjveMdfI5uNf1cl?=
+ =?us-ascii?Q?LRMp0/kTP8muj2I72oCIYS5NV1kfpRkq1/djJAJBb8HMWGMeZw5QskCUpBdJ?=
+ =?us-ascii?Q?JWjIPUwawFEFaHzjzH7hlQNWMT4s9R+osxHXXaeOzj1GIeIPqb7af22emezb?=
+ =?us-ascii?Q?/HmqDDCRsz/w0KlLzH8Sx/y2X5EFgQi7U/gHMGrJubX3agtohThQbo8aAysQ?=
+ =?us-ascii?Q?lFABRIS1VcnoY6AfMpTaOtYhSp9CaJshZ9D6CSBhiBbgrcKZzXQwhLzFLMez?=
+ =?us-ascii?Q?p0uJtZ8NLr093752o+WIusmS+QzLQcJ1GKL0lJuVGQb9KDKxku1Ah9Y0+Fyp?=
+ =?us-ascii?Q?U1lPWLIUixsS81Z166S5n/MEj0ZEI7FayD4mnHOIAG/x61yrSAcZGArMSDtp?=
+ =?us-ascii?Q?fhm/UNKdoPUwRiJIYnturWqITyD/5rYyj9gPWnZrBSwxU8nG4appiktbzW8S?=
+ =?us-ascii?Q?Air89g6wUxQ/8tQsaoqODIv16/VPbSHYfCOnNViuiFHeW6AD9Ou1aHKAzyn0?=
+ =?us-ascii?Q?Ly8v6eoe5+uhS1384KN+yT0rLVo+9bly3r2ZHCNEfkufuNsjWkmhWi4UaE+J?=
+ =?us-ascii?Q?P3lAv8X5snr0eA8LeainbEMtOnfo3oa5bkEJAWHEsyNcaSImvKau6jf1Lhzf?=
+ =?us-ascii?Q?4NnL8D4TB7bEQ12aHZUYrGLzxIz4N5k6Lpu2vhIFu8Rr3D6mK69r9IG+e5XP?=
+ =?us-ascii?Q?5D+kmGTLk3RDKUTc9DvN/w6+4l4yqC67yT3Z6Q5cCfPyh7gzbr22eNniwyPi?=
+ =?us-ascii?Q?uPBYWC/v/6QLKeqD81k17r2nQ5AyWlH8ZSembmbjJdSS/gCwowsHIYKFm5Ij?=
+ =?us-ascii?Q?U3uVGJFBVsd8UEixagHJ+Pj3rECD8wTpcZpY+b8XVaqBJ0pN6ljbGBBRvoAd?=
+ =?us-ascii?Q?BD9CcXI/N2pxEklIIkexiHlTC2vfARTBbUwMYUZGd07yk4QNOpHWhtGdPANh?=
+ =?us-ascii?Q?pKzrXs3e2v3a7+VZDvOpY05E7VEdtpfsldjno4+R0J7D0Q+YsAA+1bo5BJaq?=
+ =?us-ascii?Q?n+LbNbzKlHX/0rGc7bY5XzfHHAqFWPtnsjsHOr7gVcwBP/KQtYr3wX6m9+fB?=
+ =?us-ascii?Q?8cb/SMtbtSX+0xM/6O0n+Ntj0DxUXbjN+x6NPIqROlx+O+jcMPmiAwyQ7kB5?=
+ =?us-ascii?Q?ZjW12VskHqaHeRKAMz/MIV0nESBPDmyBeLQOG0CMA6WkPB7pZMj3HqB7gvce?=
+ =?us-ascii?Q?fzLpbFdewCUTTTCtZuQLAQc3Cc3AiBL9fkNB36L8LVY7cuIZ/wLystx4xpYw?=
+ =?us-ascii?Q?VqvrHkVY+JVLgKDJY7YmZBq1usEDq/7k+bBSbL1jfgMY6d9bdkn3ArLN/ACp?=
+ =?us-ascii?Q?pM8M05oGyLxA2LKjb/e+PPxDC/lRg9MWUuWVLav8R0gv1UErlOPEX37FfTMR?=
+ =?us-ascii?Q?sIvNE2IV4BBEnMK8b0kaSVZvMw4Qac3cyXKAwpCS3dLkNbVy97J6p1KCFcl/?=
+ =?us-ascii?Q?O9vwrZv1Ycc+/utpGLXHLdrYN5UVkcZKSCxMg9Umuu4jkofciu28GbL242Vx?=
+ =?us-ascii?Q?/w3O6N8VpWdJQrYbfBqD7HEbpn7RL0qsB9twwfhY1LbOcNASCjtbGTWza0uw?=
+ =?us-ascii?Q?51SRXI8no+JCoEQakY0I078kJAgNKct7vO9jHNRc/vfaUSavAP0GL3gtX2sd?=
+ =?us-ascii?Q?u2tfSKsrZb+8shdMATzQ0tvg6JS5tLbwAfth+NRDeKnebG7gzZAVV5TcVH6b?=
+ =?us-ascii?Q?VAwHDZbR5rqOR/+ucNyLzemk6woCHWHHzabfq2Cmm0+Od5Iwhn0+?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: stable@vger.kernel.org
@@ -150,13 +150,13 @@ MIME-Version: 1.0
 X-OriginatorOrg: kuleuven.be
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DB5PR08MB10062.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0521fa4-e839-49f9-ca07-08df3a231a2f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2026 03:24:14.7085
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56c9f6ba-c716-415c-d73b-08df3a2339ca
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2026 03:25:07.7625
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3973589b-9e40-4eb5-800e-b0b6383d1621
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Tz7kEgjnhTSAKOmzsRi9PXKF1PRsMgpaOZN3iUYRV3M9NUw3/J9Q3E/Ol4m/36LmB7zx2Kwji0NtAkSn3sQxzV8F36VQmqBgciJEY0mtugY=
+X-MS-Exchange-CrossTenant-userprincipalname: 2L+9x/HPDA59sRQEkfLpBDXJr+LkyJWyKmRahCa8RtXAHu+2c2FjHlQLmhOFwRtn4N22uLM9cSVx0J3G7nwlYG4ciAd4Vnm9j3yl2VtjOgI=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR08MB999879
 
 From: Namjae Jeon <linkinjeon@kernel.org>=0A=
@@ -177,8 +177,8 @@ Check each nonzero offset against acl_len before constructing its=0A=
 pointer. Initialize the optional owner and group SID pointers to NULL=0A=
 so an omitted SID remains absent when parsing the DACL.=0A=
 =0A=
-The 6.1 tree uses a void parse_dacl(). Preserve that interface in this=0A=
-backport.=0A=
+The 5.15 tree keeps this code in fs/ksmbd/smbacl.c and uses a void=0A=
+parse_dacl(). Preserve those interfaces in this backport.=0A=
 =0A=
 Fixes: 0626e6641f6b ("cifsd: add server handler for central processing and =
 tranport layers")=0A=
@@ -188,14 +188,14 @@ Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>=0A=
 (cherry picked from commit 3474e1a304fbf9f7c996b24adcd519e031227a90)=0A=
 Signed-off-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>=0A=
 ---=0A=
- fs/smb/server/smbacl.c | 20 +++++++++++---------=0A=
- 1 file changed, 11 insertions(+), 9 deletions(-)=0A=
+ fs/ksmbd/smbacl.c | 23 +++++++++++++++++------=0A=
+ 1 file changed, 17 insertions(+), 6 deletions(-)=0A=
 =0A=
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c=0A=
-index b0bf27cab..4a8812336 100644=0A=
---- a/fs/smb/server/smbacl.c=0A=
-+++ b/fs/smb/server/smbacl.c=0A=
-@@ -885,7 +885,7 @@ int parse_sec_desc(struct user_namespace *user_ns, stru=
+diff --git a/fs/ksmbd/smbacl.c b/fs/ksmbd/smbacl.c=0A=
+index 05c768225..515830f75 100644=0A=
+--- a/fs/ksmbd/smbacl.c=0A=
++++ b/fs/ksmbd/smbacl.c=0A=
+@@ -830,7 +830,7 @@ int parse_sec_desc(struct user_namespace *user_ns, stru=
 ct smb_ntsd *pntsd,=0A=
                    int acl_len, struct smb_fattr *fattr)=0A=
  {=0A=
@@ -205,7 +205,7 @@ ct smb_ntsd *pntsd,=0A=
         struct smb_acl *dacl_ptr; /* no need for SACL ptr */=0A=
         char *end_of_acl =3D ((char *)pntsd) + acl_len;=0A=
         __u32 dacloffset;=0A=
-@@ -897,12 +897,7 @@ int parse_sec_desc(struct user_namespace *user_ns, str=
+@@ -842,12 +842,7 @@ int parse_sec_desc(struct user_namespace *user_ns, str=
 uct smb_ntsd *pntsd,=0A=
         if (acl_len < sizeof(struct smb_ntsd))=0A=
                 return -EINVAL;=0A=
@@ -221,52 +221,47 @@ uct smb_ntsd *pntsd,=0A=
 fset 0x%x dacloffset 0x%x\n",=0A=
                     pntsd->revision, pntsd->type, le32_to_cpu(pntsd->osidof=
 fset),=0A=
-@@ -918,9 +913,12 @@ int parse_sec_desc(struct user_namespace *user_ns, str=
+@@ -863,6 +858,12 @@ int parse_sec_desc(struct user_namespace *user_ns, str=
 uct smb_ntsd *pntsd,=0A=
         pntsd->type =3D cpu_to_le16(DACL_PRESENT);=0A=
 =0A=
         if (pntsd->osidoffset) {=0A=
--               if (le32_to_cpu(pntsd->osidoffset) < sizeof(struct smb_ntsd=
-))=0A=
 +               if (le32_to_cpu(pntsd->osidoffset) < sizeof(struct smb_ntsd=
 ) ||=0A=
 +                   le32_to_cpu(pntsd->osidoffset) >=3D acl_len)=0A=
-                        return -EINVAL;=0A=
-=0A=
++                       return -EINVAL;=0A=
++=0A=
 +               owner_sid_ptr =3D (struct smb_sid *)((char *)pntsd +=0A=
 +                               le32_to_cpu(pntsd->osidoffset));=0A=
                 rc =3D parse_sid(owner_sid_ptr, end_of_acl);=0A=
                 if (rc) {=0A=
                         pr_err("%s: Error %d parsing Owner SID\n", __func__=
 , rc);=0A=
-@@ -936,9 +934,12 @@ int parse_sec_desc(struct user_namespace *user_ns, str=
+@@ -878,6 +879,12 @@ int parse_sec_desc(struct user_namespace *user_ns, str=
 uct smb_ntsd *pntsd,=0A=
         }=0A=
 =0A=
         if (pntsd->gsidoffset) {=0A=
--               if (le32_to_cpu(pntsd->gsidoffset) < sizeof(struct smb_ntsd=
-))=0A=
 +               if (le32_to_cpu(pntsd->gsidoffset) < sizeof(struct smb_ntsd=
 ) ||=0A=
 +                   le32_to_cpu(pntsd->gsidoffset) >=3D acl_len)=0A=
-                        return -EINVAL;=0A=
-=0A=
++                       return -EINVAL;=0A=
++=0A=
 +               group_sid_ptr =3D (struct smb_sid *)((char *)pntsd +=0A=
 +                               le32_to_cpu(pntsd->gsidoffset));=0A=
                 rc =3D parse_sid(group_sid_ptr, end_of_acl);=0A=
                 if (rc) {=0A=
                         pr_err("%s: Error %d mapping Owner SID to gid\n",=
 =0A=
-@@ -960,9 +961,10 @@ int parse_sec_desc(struct user_namespace *user_ns, str=
+@@ -899,6 +906,10 @@ int parse_sec_desc(struct user_namespace *user_ns, str=
 uct smb_ntsd *pntsd,=0A=
                 pntsd->type |=3D cpu_to_le16(DACL_PROTECTED);=0A=
 =0A=
         if (dacloffset) {=0A=
--               if (dacloffset < sizeof(struct smb_ntsd))=0A=
 +               if (dacloffset < sizeof(struct smb_ntsd) || dacloffset >=3D=
  acl_len)=0A=
-                        return -EINVAL;=0A=
-=0A=
++                       return -EINVAL;=0A=
++=0A=
 +               dacl_ptr =3D (struct smb_acl *)((char *)pntsd + dacloffset)=
 ;=0A=
                 parse_dacl(user_ns, dacl_ptr, end_of_acl,=0A=
