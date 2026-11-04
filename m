@@ -1,47 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819626;
-	b=hiOR0p6neOHnrQtcPvBORmMyrc2zYy8f7/cAUT7icsWtf6AySm9o5XhIf5IDtVTVxhXH
-	 Jtvv49vxyiuuTkEZSJ7N6XwwA7UzUT5aWUVpuNsip3A54/qi2a6qaa+k68RCsPfCzzQLG
-	 YeiOqZtFEXDw3+o7wv3jaBlSLxbIQEIwwuZ84dv8fkMphePIkH635d25FegULlIqD+gJK
-	 E6cYSXmwAlt00FjxnKrlqta2I9RjmBLSiJN2UJV6VO/duOwCMS/+cBynRF0/wr90PbgmD
-	 Gmrvz+Y3nU7SXq19799Ds3srnDAX5QUpjdKuAKp4ZiHo09fhmW6iN8yZ0ZrXlbaDqTA==
+	t=1793819663;
+	b=1lGQiDgMLnEj3dqc1fWMcZ2OdMR3Qr4GaT7f84y+S+o+yipHiGxoSKFgwlj33YB4g/W8
+	 vbLNaha6VcVK5z4oM8OFsH0D/kkBTLDtp0vGWt/Ne5J58nGd/s9NQwGDLJp0jaNoy+W3O
+	 M4uXxlGSt+9ej1aPPRwe4g/17WbS3y1VLehR6JwE3Pdyl/uyk2JI9hxlhSv3GIrM6sXxQ
+	 Uk04o4x2TXoyvAx8+Gx4sO41jNNRO7r+yHkoDFI0J4924YCgaYH+JjTQO2UXYSlbkfYBy
+	 X4iqk22lj3ZYlhtLCNWmNmm6PBi1zqTHA/XzGx+AhsNF0FvpcYnDEgc7h+sSUfVZICA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819626;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=m09qgo0IlOdA1tvRjxDWFPEumgG1JweKLy2GaJdlaNI=;
-	b=O/Dk63rRoTKYcTFCtNtO7llzN4mp4sA6npAQoCZqHGuw7MJo9mHKt0V1+k5tHTudEdFi
-	 rirc3BkYFq18YrKKRORo9/CrQN9ZtVF53XP2zVsZDn//Fje/vVkfWAD9ZXvS3iS1fF9NM
-	 K13avCLqOB0PzDH9l6ZsnDMN19E95gh4GcW+LTi7ISa7EI6MfjlYXufPpKyHFjqru7rvS
-	 2sLArjLEm4P54/2SWiyIH6q3THDOfeC0/rM0P7DdOC3OvxDh/kBlQQ5gvrWLWZXC7Jrkg
-	 GqQ7GPn2JCL80shzkkfhltz/L+DdWrfaiQKRlQC92sE5F8zpskoPHe+yrRcMKgidZLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819663;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xITUvna++NkI/eBI/dmyMX8RAsKhHBfiqDAe3Yile2E=;
+	b=zzTdvcu3db3tCUm0HPOQLSDsPxT65RANOpSWZQidaFNCdesr736aKD49ZmZmo7OmegtJ
+	 nB0oGwfZ/QJKGDFwoExD1ZggkcyUYD3BwGh2d8YT63n2p61leXoTOJmv2y1dPyEXsBMTQ
+	 Z0wGge4cDP1UhqoqXZ6PDYw5p1ueX0GWk8ISaCzitqUfUTj9SauKBHx8jer0ZIBwPqsJd
+	 ZKFCCp7LCirlQI9drogJg1cv7dwPQPHYas3nJbXrnhQVRfwnjJ0X2VIPNvlRdue7GwfCj
+	 nnjDaLsi2ddAZ+BZcq7vCDBczZh8kD53AiYkVv6QGZef6WE7jBQytVD4W4G7lErbqzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oV5VTo+t;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qcfxRMy1;
+	arc=none smtp.remote-ip=74.125.229.4
+Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4101F606A329
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:13:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13C6606A32D
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:14:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B13C6606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oV5VTo+t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7CCB1F000C1;
-	Wed,  4 Nov 2026 19:13:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793819626;
-	bh=m09qgo0IlOdA1tvRjxDWFPEumgG1JweKLy2GaJdlaNI=;
-	h=Subject:To:Cc:From:Date;
-	b=oV5VTo+tNfYIlNskmiWmC2W7i4eZgv28+ZNvDp8fuCPogUDSv54h2UEUhKtelL2Om
-	 FkGOZFswikiKoBWN52sDncoDd9IMCR7B9KUP1puWBZSdzg4waCg72qaYuk7h5bAZV/
-	 kAR7E2WgWEcOV9QYRjKMAoaLAHMZ2UVOpjtONI8o=
-Subject: FAILED: patch "[PATCH] rxrpc: Fix return in rxrpc_recvmsg_data() for service calls" failed to apply to 5.15-stable tree
-To: dhowells@redhat.com,davem@davemloft.net,edumazet@google.com,horms@kernel.org,jaltman@auristor.com,kuba@kernel.org,marc.dionne@auristor.com,pabeni@redhat.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:13:41 -0500
-Message-ID: <2026110441-spectator-yonder-46d2@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qcfxRMy1
+Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-36e06480786so13458eec.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 11:14:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793819662; x=1794424462; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xITUvna++NkI/eBI/dmyMX8RAsKhHBfiqDAe3Yile2E=;
+        b=qcfxRMy1w09RryqXTW51hmWDlaOIQBBSRpMLN9d1F9lfCHcDP3GnDWzmpdHNb/1tvw
+         BBIvcndRsf9hqsfhSYOHR4TiJD2P4WEPRTp8YaG41eKfG2CReL5Up1YXdLXRlEGkMKMs
+         E0NAcm8YmnUKi2eln6RQ3TuOCrQai+bY20NLZJvtILd7aGT9L1+bplWyRIlF0VoIJGOg
+         qqso8LaJ9LCKdOOnmDlHV45q8u5VMF5DYUQ1EEwMIjpR0MY0hL/4/AqwZr8MWplcfvvk
+         bItWFr7ZjDZGig92HszanKDHuyAqv/NByHnN6ke7EqNlgrWC4OfGvek2DA7is7yjOtWa
+         kQqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793819662; x=1794424462;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xITUvna++NkI/eBI/dmyMX8RAsKhHBfiqDAe3Yile2E=;
+        b=fCm5QwmLLp2aP/Mvog3lNwxzzLuUGZnkW1FCePllXfcv8tZXykvbNcP0mdPDe3F620
+         3ik/jpQ/AKrC56kUd1aN3N7smKDE00TvWK/xfKgcOG/CSbMXybDGi8fc8zxSaowbacAv
+         SCZ/E9HYdUSqJj4xtZuy0/w2yMc25p9Pbz+Bc+nDwOGuzIg5AKco6T6oWfy5jTHtm5RT
+         SZXkZU8rnmSg3Pr7s788ffWzCLyLeJyAOZ4p2+fNonQMxasJPonDocKoFbhAYdY2gGf7
+         7o0IVIZrwIR+zOd6TU16mZYw+LBEedajuTxEnbI/v2OSiZu3oEBLoHzUAy0x9YOfE3q8
+         KIVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwbpq6AC82UWGAOhjHh17vw7/ZVTyBWJiIMoiZQMdxOAu/xDq1PcVf7GUcrDZoKUxhPv3p5Wwc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+EMWpUkaOGsnNs397H8jUHHxGtOaB710AGNEfJWXi6+xItEHr9
+	qSiGMCceMqXYVy4smQ/LjG0McHzXJUqU+9vCUVrnWnr7W7xSNbDcM12p
+X-Gm-Gg: AYBFou2G354qJHGIkyYekxks7rw8tDY7lKhCfOpXoWmVfPvaIVy0myAH2mgMd5pJaVw
+	mqFKuIAzGVNJEQ/zZ0PYew0TvLoenUmtbS5dKaz55TfspruZ0fOiRshy74U6ErNg5K7p77KMZ0F
+	Sdf2vGg2k0s8LjW8Wa4XbAETlPFzIGO8MZ25k+yE4uG63ouYrAxjAyhrRC8V+g752UdFaa4x2FZ
+	85fTbAF8sW07IEMZ4jf42zpbCXyRz90hyTVTTKj/FiKioKKKcQl2Qwhr9Z4p41JxV09vGHoLgbX
+	rKC7jREk2PvAx4UcYjFciEd8SCtgsMhKOT5PwG1ndaftWQJRQox+1aJz7411oADtqCt79vfVF4i
+	4IQu2f/4CbRPgeeZHp0dq9Lsxfe2UkMbGoLN5eH67PVBDmT0fY/maGGJXgktcZ6QRNI2DhooaI0
+	W1DV6yjcNM/zPci+ruPiZHNHdAY7KvehYo407HB/yQjiqfDHATsC1gPxC7s28gOgjWKSMGmH6kn
+	aN+XPbbA7eL2LyNkhlqenuCLAIfFxPGFxiQ2V1tD4FZ5T20GZ4Vx0LMpQQRHLDcspRgJ3876Enw
+	KIVbmvuhT6fxAd/OuzDbpXIwNOrDWHN2rNbGk02Y9jpeP96996xnLQTuw3dfuJE94C/KFqJqOud
+	t06r9lOjvyC1HIb3FoqdSq7z6saKUTB+SCMtzOw==
+X-Received: by 2002:a05:693c:8803:20b0:361:6884:78b1 with SMTP id 5a478bee46e88-36a423bf728mr26751356eec.28.1793819661646;
+        Wed, 04 Nov 2026 11:14:21 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a6d3dsm11367318eec.7.2026.11.04.11.14.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 11:14:21 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: jaharkes@cs.cmu.edu
+Cc: coda@cs.cmu.edu,
+	codalist@coda.cs.cmu.edu,
+	viro@zeniv.linux.org.uk,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] coda: honor the append state of each write
+Date: Wed,  4 Nov 2026 19:13:55 +0000
+Message-ID: <20261104191355.89544-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,174 +100,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+coda_open() adds O_APPEND to the container file's f_flags after it has
+been opened, without updating its cached f_iocb_flags. An O_APPEND write
+can therefore overwrite existing data instead of appending. For example,
+writing "Z" to a file containing "abc" produces "Zbc" rather than "abcZ".
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Pass RWF_APPEND or RWF_NOAPPEND to vfs_iter_write() according to the
+incoming IOCB_APPEND state. This also honors changes made with F_SETFL
+and per-write append overrides instead of relying on the container's
+open-time flags.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Fixes: 164f4064ca81 ("keep iocb_flags() result cached in struct file")
+Cc: stable@vger.kernel.org # 6.9+
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ fs/coda/file.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 18a71e111c7505e16c2de91480561fc491f41341
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110441-spectator-yonder-46d2@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 18a71e111c7505e16c2de91480561fc491f41341 Mon Sep 17 00:00:00 2001
-From: David Howells <dhowells@redhat.com>
-Date: Tue, 6 Oct 2026 14:30:01 +0100
-Subject: [PATCH] rxrpc: Fix return in rxrpc_recvmsg_data() for service calls
-
-When rxrpc_recvmsg_data() gets called on a service call that has received
-all of the request, RXRPC_CALL_RECVMSG_READ_ALL has been set, and this
-causes rxrpc_recvmsg_data() to jump straight out, indicating the end of the
-call (ie. rxrpc_kernel_recv_data() returns 1) without waiting for the call
-to be processed or the reply to be transmitted.
-
-rxperf_deliver_to_call() also has to be altered to call
-rxrpc_kernel_recv_data() to collect the final ACK on a service call as does
-afs_deliver_to_call().
-
-Fixes: d001648ec7cf ("rxrpc: Don't expose skbs to in-kernel users [ver #2]")
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914151340.3227501-1-dhowells%40redhat.com
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: Jeffrey Altman <jaltman@auristor.com>
-cc: Eric Dumazet <edumazet@google.com>
-cc: "David S. Miller" <davem@davemloft.net>
-cc: Jakub Kicinski <kuba@kernel.org>
-cc: Paolo Abeni <pabeni@redhat.com>
-cc: Simon Horman <horms@kernel.org>
-cc: linux-afs@lists.infradead.org
-cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261006133011.531806-10-dhowells@redhat.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-
-diff --git a/Documentation/networking/rxrpc.rst b/Documentation/networking/rxrpc.rst
-index 9239f7bd8885..eca055a536aa 100644
---- a/Documentation/networking/rxrpc.rst
-+++ b/Documentation/networking/rxrpc.rst
-@@ -909,10 +909,15 @@ The kernel interface functions are as follows:
-       want_more should be true if further data will be required after this is
-       satisfied and false if this is the last item of the receive phase.
+diff --git a/fs/coda/file.c b/fs/coda/file.c
+index 6ca8bfcb58f2..ae03f0b30d84 100644
+--- a/fs/coda/file.c
++++ b/fs/coda/file.c
+@@ -71,6 +71,7 @@ coda_file_write_iter(struct kiocb *iocb, struct iov_iter *to)
+ 	struct file *host_file = cfi->cfi_container;
+ 	loff_t ki_pos = iocb->ki_pos;
+ 	size_t count = iov_iter_count(to);
++	rwf_t flags = (iocb->ki_flags & IOCB_APPEND) ? RWF_APPEND : RWF_NOAPPEND;
+ 	ssize_t ret;
  
--      There are three normal returns: 0 if the buffer was filled and want_more
--      was true; 1 if the buffer was filled, the last DATA packet has been
--      emptied and want_more was false; and -EAGAIN if the function needs to be
--      called again.
-+      For client calls, there are three normal returns: 0 if the buffer was
-+      filled and want_more was true; 1 if the buffer was filled, the last DATA
-+      packet has been emptied and want_more was false; and -EAGAIN if the
-+      function needs to be called again.
-+
-+      For service calls, there are four normal returns: 0 and -EAGAIN are the
-+      same as for client calls; 2 indicates that the last DATA packet of the
-+      request has been received, want_more was false and the call is still in
-+      progress; and 1 indicates that the call is now successfully complete.
+ 	ret = venus_access_intent(coda_inode->i_sb, coda_i2f(coda_inode),
+@@ -80,7 +81,7 @@ coda_file_write_iter(struct kiocb *iocb, struct iov_iter *to)
+ 		goto finish_write;
  
-       If the last DATA packet is processed but the buffer contains less than
-       the amount requested, EBADMSG is returned.  If want_more wasn't set, but
-diff --git a/fs/afs/rxrpc.c b/fs/afs/rxrpc.c
-index 64dd32df8a34..768b26820dea 100644
---- a/fs/afs/rxrpc.c
-+++ b/fs/afs/rxrpc.c
-@@ -541,7 +541,7 @@ void afs_deliver_to_call(struct afs_call *call)
- 						     &call->service_id);
- 			trace_afs_receive_data(call, &call->def_iter, false, ret);
- 
--			if (ret == -EINPROGRESS || ret == -EAGAIN)
-+			if (ret == -EAGAIN || ret == 2)
- 				return;
- 			if (ret < 0 || ret == 1) {
- 				if (ret == 1)
-@@ -934,7 +934,7 @@ int afs_extract_data(struct afs_call *call, bool want_more)
- 		return ret;
- 
- 	state = READ_ONCE(call->state);
--	if (ret == 1) {
-+	if (ret == 1 || ret == 2) {
- 		switch (state) {
- 		case AFS_CALL_CL_AWAIT_REPLY:
- 			afs_set_call_state(call, state, AFS_CALL_CL_PROC_REPLY);
-diff --git a/net/rxrpc/recvmsg.c b/net/rxrpc/recvmsg.c
-index 56fa324d0962..0c960f13b5fc 100644
---- a/net/rxrpc/recvmsg.c
-+++ b/net/rxrpc/recvmsg.c
-@@ -638,9 +638,11 @@ int rxrpc_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
-  * Note that we may return %-EAGAIN to drain empty packets at the end
-  * of the data, even if we've already copied over the requested data.
-  *
-- * Return: %0 if got what was asked for and there's more available, %1
-- * if we got what was asked for and we're at the end of the data and
-- * %-EAGAIN if we need more data.
-+ * Return: %0 if got what was asked for and there's more available, %1 if we
-+ * got what was asked for and we're at the end of the call, %2 if a service
-+ * call received all of the request but is still in progress and %-EAGAIN if we
-+ * need more data.  A variety of other errors can be returned if the call
-+ * completed with failure.
-  */
- int rxrpc_kernel_recv_data(struct socket *sock, struct rxrpc_call *call,
- 			   struct iov_iter *iter, size_t *_len,
-@@ -679,6 +681,11 @@ int rxrpc_kernel_recv_data(struct socket *sock, struct rxrpc_call *call,
- 
- read_phase_complete:
- 	ret = 1;
-+	if (rxrpc_is_service_call(call)) {
-+		if (rxrpc_call_is_complete(call))
-+			goto call_failed;
-+		ret = 2;
-+	}
- out:
- 	if (_service)
- 		*_service = call->dest_srx.srx_service;
-diff --git a/net/rxrpc/rxperf.c b/net/rxrpc/rxperf.c
-index 823eedc5d16f..0bc3de061b93 100644
---- a/net/rxrpc/rxperf.c
-+++ b/net/rxrpc/rxperf.c
-@@ -293,8 +293,20 @@ static void rxperf_deliver_to_call(struct work_struct *work)
- 	       state == RXPERF_CALL_SV_AWAIT_ACK
- 	       ) {
- 		if (state == RXPERF_CALL_SV_AWAIT_ACK) {
--			if (!rxrpc_kernel_check_life(rxperf_socket, call->rxcall))
-+			size_t len = 0;
-+			iov_iter_kvec(&call->iter, ITER_DEST, NULL, 0, 0);
-+			ret = rxrpc_kernel_recv_data(rxperf_socket,
-+						     call->rxcall, &call->iter,
-+						     &len, false, &remote_abort,
-+						     &call->service_id);
-+
-+			if (ret == -EAGAIN || ret == 2)
-+				return;
-+			if (ret < 0 || ret == 1) {
-+				if (ret == 1)
-+					ret = 0;
- 				goto call_complete;
-+			}
- 			return;
- 		}
- 
-@@ -369,7 +381,7 @@ static int rxperf_extract_data(struct rxperf_call *call, bool want_more)
- 	if (ret == 0 || ret == -EAGAIN)
- 		return ret;
- 
--	if (ret == 1) {
-+	if (ret == 1 || ret == 2) {
- 		switch (call->state) {
- 		case RXPERF_CALL_SV_AWAIT_REQUEST:
- 			rxperf_set_call_state(call, RXPERF_CALL_SV_REPLYING);
+ 	inode_lock(coda_inode);
+-	ret = vfs_iter_write(cfi->cfi_container, to, &iocb->ki_pos, 0);
++	ret = vfs_iter_write(host_file, to, &iocb->ki_pos, flags);
+ 	coda_inode->i_size = file_inode(host_file)->i_size;
+ 	coda_inode->i_blocks = (coda_inode->i_size + 511) >> 9;
+ 	inode_set_mtime_to_ts(coda_inode, inode_set_ctime_current(coda_inode));
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.43.0
 
