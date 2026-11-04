@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817813;
-	b=Vc5dFGSxgMKI/fQXh2IwrxMUHtKranmCX7mvbgb1B5ySlADSGsnVeXXkJlg5QsSsZ7R+
-	 4Z3q+rNH2Ws2ti3VnSMWKIgov7JS1ulhRqwbV23uvbymDSJtINGZmVajSG+sLAx3m4V2t
-	 Qbz6791O0JNgwErfkLpkmuwV0YsNrOuOli8g/WJBxKZayeTlZgwkVUBBnsGGuQhkM+nfb
-	 a3Kkqp4vqZZ2DFnOEOsfCWPGrQpEkyZhsUYKGU5Z1IT5zYHOXv76SK0ouJwEoUPJRA/Lp
-	 gSR/TqOcOA08BS/DyCyNNB5q1DLcrBTH7OMhfC+i/NyuQwagX39EvZwAjhryTSqTHeg==
+	t=1793817820;
+	b=umUh7FH3VGA8UT5+y2fu5Stw/4StQR57CzLs+M58I4Kd2+d/5Hl/V5GnUQWJUNELdc2j
+	 L/Avi+3HjjPnTqaa7d6JhJuu8CK3PB1lCgyFuu6PTxtY4IgOwAw0KGq62xeUcNM/tye4B
+	 MK1ehkLeozq/P7beM+Eku+TXEafJtCp2llBxi8ebd7KqTYtGZuwtIdIe59SjXu5+snuTe
+	 A7y7vNEGL6r1f2JqGiw1lJ/3rO2XMF3tG4nXn+cvWJPTPUDSPcMzptgZEZgG5yVZFzKDO
+	 Wt6rkBxtaOURynqdhqQ9Pa3X8e0I0p8SGLfK04AaydLBdw6kO3eN5gpT6DU3xVnwkxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817813;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817820;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Wp0CE90G41jrqAKIR3rs0DMr5HgDqhlY9vi87vb0bPA=;
-	b=r4UJeQ0uVamcGAxWR7PkxsPlDjsq1/IBFBVdVOg0HwRwNcYa1GFSOgD+b0vQ1IzoxNz9
-	 SmC8jRlkzBp2FXuEkATQZ/8KvJVI/tOKAios862bxylKqpWimn1rbELYzXcVpTXpjW8gT
-	 0BDTZWuVj9NfHXavPkaf7EJdahZoktzDk6yXf8FwZ+YyvjT3qVn+kf+yqhZDs5n5pdsJV
-	 O4r6sQNQZWfABLqCeCc2hgN5dZEcOhH8EHIVF+WhkSmRsN5uBS7xKYMpa2Tu9/VBb7Mpz
-	 vpq4t/0Bqd+LmJFkr3q1DvURurvAOkRBKN/CIC6H2VNTmKQZ2GVxD+Wh5WkRR39Ps/A==
+	bh=5AxT1BpVeSrLCiMqkpS9d0F1mloMRuaOQf9qAIdtG2A=;
+	b=GbUgQF4ywwR3f7qwsiEzTVO2Y3vJGB3gud2AVuwDfVH7jt2bU5RndKu3YaCWqTI2daMI
+	 TyDviNwVr4ki+bM39kS4wPl5Tjg8RM2J36FRR/QEUMoNhmS458YYlKCelHP8w2p/T3wNg
+	 SrgF6K7KeUfEOttkJQgSx6PJeCkdEBnqOsWX9J+iLEkjk8iuhnaIJ4jG8kIdf27umU0a2
+	 t6HB6ITDTZODfvFJb7kJPLEAyQMA8ntuL4vFiDacFHA3J46VSmzyBFsKEX0Hh/o3Ig21X
+	 g5PVLWs+ICIZJBmPUDAzb1JQ1TmJTHPXfbjndtrGyxxx7Dlr0/Cobu43xLehfMKU6yQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=N64g5BL7;
-	arc=none smtp.remote-ip=209.85.210.50
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="q/SplfxA";
+	arc=none smtp.remote-ip=209.85.210.43
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765DB606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:43:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 765DB606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3EF2606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:43:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3EF2606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=N64g5BL7
-Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-84e513877a3so876685a34.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:43:32 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=q/SplfxA
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-854b6e2e41fso591702a34.3
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:43:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817811; x=1794422611; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817818; x=1794422618; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Wp0CE90G41jrqAKIR3rs0DMr5HgDqhlY9vi87vb0bPA=;
-        b=N64g5BL7zZIzS31k6jGLmlFqLdlZBCPfzDA4zfbYp9Gu1GITdQQP4UoItRje1J9JrJ
-         ao6LfC1TTmBELIZ2OdwXpGrixV0Yi2wmvxVkcuI8ZuHy+kJ4Py7wiNxlfGfHckngXBbb
-         EJfop/H5TUylYxK8H48YbkjurOr87xf+/mOjVskHLB6Vcv9a/LWbixuAK0JNi7XmnJAN
-         q63FiCTdCg8CdspYqe32lSUrQdOGrQEUaTlezcjHBcVD6x3RCC2WV4IvriBF73+2N7uJ
-         p2nydOMMOs8grEE1NEd272UvVBckEFHgLyh7LygnupSoutZG7scMv91MFwpdlpM/TIIo
-         dYpw==
+        bh=5AxT1BpVeSrLCiMqkpS9d0F1mloMRuaOQf9qAIdtG2A=;
+        b=q/SplfxAIei3hnuIiXFTAxtQmc9R5w5xYxC50hDiWHmXr0QxjqVBk/gXDxIR+GmgKu
+         MroPTES0NPVBDgp6a07Wd9sib3QqrCSLnx22nSUCLGwVH46kARreeOLUquaZy9VSuF6V
+         PKIM1ikeTBozrY0bprRurGbPo4kMz47jEH+cl3vphk8Keej29sNvmNjKeB2272yzHC17
+         iifyey8auxhYMnHxG8EYMoI7f8jkII3YlJdLANRreoPDtGjvmKv/vdoOD1kXob2+qOzA
+         FAT1xhUifPe6+AoZCb6LKjXDSh5wvpda8IBm6O+vvzPvsT5PFhDD+A/olS8oP/VkBFja
+         BzLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817811; x=1794422611;
+        d=1e100.net; s=20260707; t=1793817818; x=1794422618;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=Wp0CE90G41jrqAKIR3rs0DMr5HgDqhlY9vi87vb0bPA=;
-        b=NsYrX4+fTNBZIg9E+wry0J3TPexkQ7z+2q9zGldAuOdgYMssjmZg/1uWYqdAc/YmUR
-         D65AswS+WbuZ424UjEbJzs50DGEQOmJGOTnZdA3IofSpfVTYvhkvEkkesMhZBJmCI7zi
-         Y6R/bUYnVe6HDpNO0gmPp3dAAToC1b2TZalUAm0vGL64a5c4MRNcLT1HCj+hYeP94uPr
-         T5U3KbYinaexyRB4j4gilDwZje73OwYeWvuLXRMVsUqAxnw/rEq2yPQ/1QSEB/EqPJTH
-         XYakJ6WwyEujCDPntZVYj1DCi8mfJKQ5ncLNFG4qXT91P+wUzUI10DB+00jyQ/h7/N9B
-         7jrQ==
-X-Gm-Message-State: APuU4Z8Zo8STndyPVJay3f1NDecCfOv0VyRMeDczw4HN+X9tw3MCn2QU
-	2aW5JI57uuAsqfadjFN2ELjFhfNaThDkMUI68qfZ97PaJrxuGls5VpH0A99VnJWMZ4VwB97ar5a
-	Y6RZS8Os=
-X-Gm-Gg: AYBFou14Hb4Wr7P6nzwdJ5nMvcHgEABgbo/CmXdSVhNwHckokpss7i2xXb22qthWTy3
-	/kYX00QrOMcZeoYhnPjPFpLn1dHs1CK/9NkMDhVr7jGQC834YF+bJJA4gOo/0ZnWv223J13HCf8
-	NyXqTzvr6V4g/2GpheRFj2j0xuXGIJrDpEuJvLojPhYI1TOkgZQEs9qSpA5SOmKh+BDe6csptCA
-	zaCYWsr/qQTaQZLSeuriEKaOxPgfaIOYKTKSgFGJFxSQ4tHwczigIm0x6ozq41P/Ruu1/rDtKn4
-	YxYgNwqr/8y+k0syoWa2CzzPFnllaENbhw7uw67YGL9NRxvPeY63r3CC8lJtSSgDbp8WATby1vj
-	UhYDp3mxcyYfuoyP8Yddy/4deYdh8aZwh3v466ygdh2J3wFzn3x1yCTujIgFF0e2oUbd9w7mCBU
-	B78vsTeoth4CkhZBfYH/k/tGX/eAZl8Dz8Svz6ybw08VM87WLr5P5TjTFoGwmUL+pC3zKYWIRpn
-	54jhP4lWzSVLSV/iBaBLZ1pmiBARlZquaE4Ppr6iofzFNiG+QBKPyeeM+ovL+JBl9b3QvNF1le2
-	2SPAFmJ2nmgGIW6GaLoWfxiJIQ9mWhI+8W1hFDIIxcBkIoZuCNs4O/5q+doVlNEI/xB09pWoPw=
+        bh=5AxT1BpVeSrLCiMqkpS9d0F1mloMRuaOQf9qAIdtG2A=;
+        b=IMCLiAP0Bk26PV+VDB0x5RR3g/+y90Eow7cuQvnuVHbQ1RqZgtd3lIlhP1Is8l/WhU
+         tnhMI60nZVQ4lnpgIhmb3drl6eYYj2579Or/hvyZ0SbhmhO0jaYexD9nqq205EQ2W918
+         cOfJ/WUmiHQd9D8Rfe/JRjY25XdJ8qtY+gLD40EMPAFkSSU7hlGsl/ckNNeEZ+/oYyQk
+         CaWKzvRossfRRx7cwaCoFo6abSjgF3b27XySG/JGkDL1/3NTFbbPgOcJY+JiA9Dnsiyc
+         sO9MfjNNnyn9kLqmA0eLc1g4BjXiHVdbczvOh3eCgBxQFvFxUBijkFYofiXUvVro8v45
+         vPZA==
+X-Gm-Message-State: APuU4Z8uHM7LIpM6ERNMu+UChzaIP6MmTG7xm5h0+qxxIc5dSap3gtsp
+	o/r3BrfoRmeEs/HcoK2jKvl9l/V/OdMVpWmx4NXIrdjFFtE7HfC/PvM8gJt5cgnSlMlUwoIYKH3
+	1ewi+NaE=
+X-Gm-Gg: AYBFou2D30T9OdysOO0ohGOxxeXTSMhFZnpMc20tPMRLkeFVQAP1swMUUxgeNPDfrd6
+	qBMM2xHXdQGXBdTdFmZwSj5p/g/WyrFztcq+tL6Mckl0LyviasS6zi8fCPPittLKqNDaTJ6pqBW
+	DCpjK2b8YhzCMZg5CBcFz7SCsFnKJML6V4VQfnkFEEMXucmRBUYpa10fLmPb5ipzveNf3UQSc6P
+	BCDyn4tFqi7CV0Rs9/3k4zwTwIFjbVJx4Fe20R8+FL/FglKvJ7emI0xOvMyzTIqRZQus8T89CbV
+	50AJz99oCMY64G1F2SeFJrZardt7iS8lE6KYyyDrZ0tJ6QzUN+0K57p1qZ+YDejN1m54cUESpzZ
+	E7IQP0A93n7JcnLtwb+gzDKMmIxcGMn/B8tQdpUWtuIETg79oSwziQqgcoETnxHlvkuTEULQ3fO
+	YCEsKKucvvxy1yYnpnNkX2uMXzJAhCGZVPYbODG/10lwKvYUVepGD3hejDB/LXy05EjV9FWb2T4
+	590nEaO2YJ1CUJdwkhEFD8V1wZ+L5zASdVF0OBSoVvTEFMggRVHfLVM2ykvp1w8ScmDEnAdyCls
+	ZZ0hs3BwrpoSoCr+avY+5qX3yWZ8hg5QbRvO2K6uQWcPalC3NhHYECgmCp0aiUFWq941/iAQnw=
 	=
-X-Received: by 2002:a05:6830:270a:b0:844:53b7:9890 with SMTP id 46e09a7af769-85f0586542dmr197900a34.8.1793817811143;
-        Wed, 04 Nov 2026 10:43:31 -0800 (PST)
+X-Received: by 2002:a05:6830:4409:b0:80a:b8da:2792 with SMTP id 46e09a7af769-85d364ba53emr13727130a34.6.1793817818521;
+        Wed, 04 Nov 2026 10:43:38 -0800 (PST)
 Received: from xps16 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3d74959sm2578834a34.5.2026.11.04.10.43.30
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85ef3d74959sm2578834a34.5.2026.11.04.10.43.37
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:43:30 -0800 (PST)
+        Wed, 04 Nov 2026 10:43:37 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.1.y 1/8] io_uring/net: keep recvmsg buffer select length within MAX_RW_COUNT
-Date: Wed,  4 Nov 2026 11:43:21 -0700
-Message-ID: <20261104184328.516206-2-axboe@kernel.dk>
+Subject: [PATCH 6.1.y 7/8] io_uring/sqpoll: don't wait for the thread to exit
+Date: Wed,  4 Nov 2026 11:43:27 -0700
+Message-ID: <20261104184328.516206-8-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104184328.516206-1-axboe@kernel.dk>
 References: <20261104184328.516206-1-axboe@kernel.dk>
@@ -99,38 +99,133 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yichong Chen <chenyichong@uniontech.com>
+From: Chris Mason <mason@kernel.org>
 
-Commit 18d3f56eb6e6500a65d81cf265f0fe74fd9ecab6 upstream.
+Commit 360395e8dbf9d23579f74b84a1af11190813b0f8 upstream.
 
-io_recvmsg() takes the transfer length from the ring provided buffer when
-sqe->len is 0, and such a buffer can be up to 4G. min_ret is an int, so 2G
-or more makes it negative and the (ret < min_ret) block is skipped, and the
-oversized length reaches the socket layer unchanged: an empty socket then
-completes with 0 instead of arming poll, and a short read is reported as
-complete. Clamp the length to MAX_RW_COUNT, as io_recv() does.
+io_sq_thread_stop() wakes the SQPOLL thread and waits for it to exit.
+The thread belongs to the thread group that created the ring, so a
+SIGSTOP or the cgroup freezer holds it in get_signal(), and the wake up
+doesn't change that. io_ring_exit_work() then sleeps in that wait until
+someone continues or kills the process. iou_exit has 64 slots, so 64
+closed SQPOLL rings of a stopped process keep every other ring from
+being freed, for everyone.
 
-Fixes: c7fb19428d67 ("io_uring: add support for ring mapped supplied buffers")
-Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
-Link: https://patch.msgid.link/20261023112209.87979-1-chenyichong@uniontech.com
+Don't wait. Set the stop bit, wake the thread, and let it exit when it
+gets to run again. The sqd can now outlive its last ring, so give it a
+second refcount with one reference for the rings and one for the thread,
+and free it with the last one. The thread can't reach a freed ring,
+rings leave ctx_list before dropping their reference, and the io-wq hash
+is refcounted.
+
+Fixes: 16efa4fce3b7 ("io_uring: allow IO worker threads to be frozen")
+Signed-off-by: Chris Mason <mason@kernel.org>
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[axboe: 6.1 has the older io_buffer_select() interface]
+[axboe: 6.1 has a single exit path in io_sq_thread(), drop the thread's
+free_refs share there]
 ---
- io_uring/net.c | 1 +
- 1 file changed, 1 insertion(+)
+ io_uring/sqpoll.c | 28 +++++++++++++++++++++++-----
+ io_uring/sqpoll.h |  3 ++-
+ 2 files changed, 25 insertions(+), 6 deletions(-)
 
-diff --git a/io_uring/net.c b/io_uring/net.c
-index cc25cbb27e5d..86a18814c628 100644
---- a/io_uring/net.c
-+++ b/io_uring/net.c
-@@ -805,6 +805,7 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
- 		buf = io_buffer_select(req, &len, issue_flags);
- 		if (!buf)
- 			return -ENOBUFS;
-+		len = min_t(size_t, len, MAX_RW_COUNT);
+diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
+index adc01f65464b..2cbe580d76af 100644
+--- a/io_uring/sqpoll.c
++++ b/io_uring/sqpoll.c
+@@ -52,6 +52,24 @@ void io_sq_thread_park(struct io_sq_data *sqd)
+ 		wake_up_process(sqd->thread);
+ }
  
- 		if (req->flags & REQ_F_APOLL_MULTISHOT) {
- 			ret = io_recvmsg_prep_multishot(kmsg, sr, &buf, &len);
++/*
++ * The sqd has two holders: its rings, as one, and its thread. Neither waits
++ * for the other to let go. The one that lets go last frees the sqd.
++ */
++static void io_sq_data_release(struct io_sq_data *sqd)
++{
++	if (refcount_dec_and_test(&sqd->free_refs))
++		kfree(sqd);
++}
++
++/*
++ * Ask the thread to exit, and don't wait for it. A thread that is stopped or
++ * frozen exits only when a user lets it run again, and the exit work of the
++ * ring would keep its place in the workqueue until then. All rings have left
++ * ctx_list by now and have no request left, so the thread can reach none of
++ * them. What it still uses is its own or counted: the sqd by free_refs, the
++ * hash of its io-wq by hash->refs.
++ */
+ void io_sq_thread_stop(struct io_sq_data *sqd)
+ {
+ 	WARN_ON_ONCE(sqd->thread == current);
+@@ -62,7 +80,6 @@ void io_sq_thread_stop(struct io_sq_data *sqd)
+ 	if (sqd->thread)
+ 		wake_up_process(sqd->thread);
+ 	mutex_unlock(&sqd->lock);
+-	wait_for_completion(&sqd->exited);
+ }
+ 
+ void io_put_sq_data(struct io_sq_data *sqd)
+@@ -71,7 +88,7 @@ void io_put_sq_data(struct io_sq_data *sqd)
+ 		WARN_ON_ONCE(atomic_read(&sqd->park_pending));
+ 
+ 		io_sq_thread_stop(sqd);
+-		kfree(sqd);
++		io_sq_data_release(sqd);
+ 	}
+ }
+ 
+@@ -153,10 +170,10 @@ static struct io_sq_data *io_get_sq_data(struct io_uring_params *p,
+ 
+ 	atomic_set(&sqd->park_pending, 0);
+ 	refcount_set(&sqd->refs, 1);
++	refcount_set(&sqd->free_refs, 2);
+ 	INIT_LIST_HEAD(&sqd->ctx_list);
+ 	mutex_init(&sqd->lock);
+ 	init_waitqueue_head(&sqd->wait);
+-	init_completion(&sqd->exited);
+ 	return sqd;
+ }
+ 
+@@ -327,7 +344,7 @@ static int io_sq_thread(void *data)
+ 	io_run_task_work();
+ 	mutex_unlock(&sqd->lock);
+ 
+-	complete(&sqd->exited);
++	io_sq_data_release(sqd);
+ 	do_exit(0);
+ }
+ 
+@@ -448,7 +465,8 @@ __cold int io_sq_offload_create(struct io_ring_ctx *ctx,
+ 		put_task_struct(task_to_put);
+ 	return 0;
+ err_sqpoll:
+-	complete(&ctx->sq_data->exited);
++	/* no thread was made: let go of its share */
++	io_sq_data_release(ctx->sq_data);
+ err:
+ 	io_sq_thread_finish(ctx);
+ 	if (task_to_put)
+diff --git a/io_uring/sqpoll.h b/io_uring/sqpoll.h
+index 36245f1afa5e..3e41db84014b 100644
+--- a/io_uring/sqpoll.h
++++ b/io_uring/sqpoll.h
+@@ -2,6 +2,8 @@
+ 
+ struct io_sq_data {
+ 	refcount_t		refs;
++	/* one for all the rings, one for the thread: the last put frees */
++	refcount_t		free_refs;
+ 	atomic_t		park_pending;
+ 	struct mutex		lock;
+ 
+@@ -17,7 +19,6 @@ struct io_sq_data {
+ 	pid_t			task_tgid;
+ 
+ 	unsigned long		state;
+-	struct completion	exited;
+ };
+ 
+ int io_sq_offload_create(struct io_ring_ctx *ctx, struct io_uring_params *p);
 -- 
 2.56.0
 
