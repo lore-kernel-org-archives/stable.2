@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814716;
-	b=IvG1c1updAZbhLnOahy8x+Z+bws7OqUZ5qlizpFCeHhdNvBiJo/C+BsUghw3ftbspoXe
-	 dPJ40PRv7nzIN1d8JSgUAUpxapC3TvUdaMxnmEGWqJZzYFAhyb+I23eZT53B25WCZCVRh
-	 uG1CdYnabkuWbWqZTQ3HMqa8DrPUeWJtMZ4nYmqrS2y48PV+tj25DoDe2qpkMbD+XVbJq
-	 0M3kZp2ZbIP/ww0SP5BkyOvIUK8zzh5rxnMhluMmUzFA6d5f4YrOizSxaXd44bq24p/AX
-	 CW9XQa6TiSjTSswQwtga+vG/KMyk27bRqtVyDwUYQCykzp3jhNTSSk0VsL8mgKcZ8ag==
+	t=1793814711;
+	b=VvgpeUdCN9bK80rUFQsOx5sXastDa1YKkAGCR3jFY3qy1/q0weAvXm72csx7PCplG59k
+	 O+oK6bxdJXKPc/XtG8Y4ZzdQGod0wywaWV3WzCMpuWVfVpGFfqbTHzVGW7Bv25BWAdHRf
+	 wxKuj7bYNlclskWqs1QNRnZabNzXF4avPgCK1nYD8T63BRRt5HRZ1qtqQ/BwLtAC3Z5z+
+	 pBHlSUawNYhmz5HcpY0+aZvaO7pvKhDT4xrB3N21mdRGMELikiEtnnlRLOxltrc+ZKJKM
+	 aWfbaVvpmcIWAEkySoeoS8ZMplgxBb3XN60tLDo8imV7isr/OGYaG1oSRMllG8/YXgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814716;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814711;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=l0iF0FDcZIE9dcI51j7/s/6Zis6NR/Kl0/pmUP5PTI4=;
-	b=xlf96ylZM+sg6GqN+AJQ4bJ8Yqossa/xUdzd99TA6haRz/wS+bPGDCjE1lD2VftbBabQ
-	 IIPHacM30K2xh6XaKSmwKdrSmTYIFbsFWJ7rse2f0lnzAlxbSPrab8Gh4zUFDe8MYQj13
-	 Oumnl0juL2JyuA6kMpJvzCIXrvjXPSocQHaAJQ/AqbYkDI75/Dpl+fGqTUEwrnBOH7W43
-	 jm4f2O/901rsDHMChXJw7lRotdH+fZffUrSFIiEA4MgHx49Ub3WAjVzhuq2mY+ukBc5cg
-	 ux5X0Zdkoj75lur/ZIhjmTUvnqyCJuCIX1EJveqMD1kCgROdCxA/GysdwsKAx2ANz0Q==
+	bh=fkrQJ3trz+wuq6XP+ogNVKpM1eojCRDeCVvEti9U9To=;
+	b=bTHlh8mpP2PX/YxAr7K1SapiaCz7FutzWMsIl/tbC/9IL4nWlBzKeftRgOUSk0X8/2HP
+	 m9WVARg8eeLD1J8u08lBEqTVbrUn1IgCQNTHD0Fb4Sco1h3pRURhv+VeAqg8Wq/zcLWAU
+	 /D2kPHR73GnWIDNoRMv9woeCBhZEKNp8zshmhkJamZZWR69L34dYGGDmDvO7LpmJcDojJ
+	 NrYxwEL2vKvX4yuwyyhyORYDjU/3BRpvazRDlF0s3+wm/57gKDqejrVBev1o2jdSK2tJ2
+	 IVJfmB6GdGF9lnAhXxrtxm2MVuo34EuonnuL0jA06YjxLU4rbt7cZ4m5heLs7eXoM/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vQ9W+AgL;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RYV1Kzc8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15F8C606D812
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:51:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C81606A68D
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:51:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vQ9W+AgL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C062A1F00919;
-	Wed,  4 Nov 2026 17:51:55 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RYV1Kzc8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E35651F00A02;
+	Wed,  4 Nov 2026 17:51:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793814715;
-	bh=l0iF0FDcZIE9dcI51j7/s/6Zis6NR/Kl0/pmUP5PTI4=;
+	s=korg; t=1793814711;
+	bh=fkrQJ3trz+wuq6XP+ogNVKpM1eojCRDeCVvEti9U9To=;
 	h=Subject:To:Cc:From:Date;
-	b=vQ9W+AgLgeGNBXV3/ui3jRdYxF2RXZxJpXaThIb5xeDj/74JwJYQ/wU3cuJ5AalCP
-	 lwSlSWYb1YO+FqVwLQO6llklPCJZYKErn1j2bLXNBxPCuBU9YtXhgoODvVACaohonb
-	 c99eaL7NV0nSjaE1ye25PwoX6GQeJiHb8jptB92A=
-Subject: FAILED: patch "[PATCH] xfs: improve dirent bounds checking in scrub and repair" failed to apply to 6.1-stable tree
+	b=RYV1Kzc8Whh08BWIUhl6HTP4muP7vaPITRA0olHP48NlsWSVR9Vso8O67GXeuscuR
+	 haZj2uH1I1D000/gyEOtfmWPHV+e8EiQTnhgGz3a7OYkEEfGubq3edjMWQju5+QTDR
+	 8DZNVm57++kWx2Pl4IZxjS3ahCqisAbj2+4syd1Q=
+Subject: FAILED: patch "[PATCH] xfs: improve dirent bounds checking in scrub and repair" failed to apply to 6.12-stable tree
 To: djwong@kernel.org,cem@kernel.org,hch@lst.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 12:51:40 -0500
-Message-ID: <2026110440-scrambler-rants-fb16@gregkh>
+Date: Wed, 04 Nov 2026 12:51:39 -0500
+Message-ID: <2026110439-earlobe-retract-6b7b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 5d470234d04dae6fe2ca2cf4b9ef277b78c7e05a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110440-scrambler-rants-fb16@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110439-earlobe-retract-6b7b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
