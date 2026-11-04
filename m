@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814094;
-	b=bG/JuWlWdrZ1p5u+CS2A3OGuV3rnsrr/V19u5lVzwlUeV1tw279L2CwZ9KIhmhZ9r0w0
-	 I4VoOMUKKh0MD6srUA3NN2uWF6TcbuDR4gwnMHJmZwpwSUik2jEWyyXFVBk+1DViF4L9R
-	 uwiLeoKpG5U2OvbnCnwmHdM4AmIGL30ZvMNcBTpawGTFu5oMKAv4Figi9kT0jMwrpenLj
-	 fR4zFpF/rpNf+MLlAKt27ER/UjNNB+Mdv9Ww/Un5DjuTACWkJRDGwBaSmVs5TLTLZpVI0
-	 WrjuZhYvUmV6Xdl9srjwv36EmQWH6aMruG5v3ipt0gtT0VQ27lZ2qkm6tlHfmQ4lKBg==
+	t=1793814096;
+	b=SX22+n2+xtV4TIaJGKMBoO71VdoqYfI9/dvxUObd8aaT2qFGobZ3I8zNkf08zrL2Xs5E
+	 pJFU3wCHX2cId0iSS6Pj3mWeGTBTnIVymbAxBxB1noa+U7wRppvHfnEeXu1TGWZrIFmfq
+	 1RfDXcK1iz4s+5LHJEm3FfRXgcg71XH3BPotyOAeTYZwUUQRYUFvpjefnWcYr9g+w99ZT
+	 zmoHqcOB2FGy0hkqAp/RiFgBymg++Ug79weZdftvEjTVenqL17qPzjOv09fBe6iSLcriA
+	 saW5swrj4zUsNUJtNTHqlWuzUeXA1vJsWxzWhPKYTskB9eDnattbUn6ZJgTU2bRX3GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814094;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814096;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2Bn9FhU93BdgOrC5pVVG0zFQslWoaSReWKy3goxIbQ4=;
-	b=A18gVGKvZTEzijPNb1q8aZxgngZOZ5qRtElOx2HjDR33Svb0Ik+9uNka+m0NjU2Ge1lV
-	 R7pt1gGN1y0kXCL7Dnwv/1uGbw1XBGiA+1AZ8jioxtgpYTbutCSigihQ4CuKpnMEDyN2t
-	 rN8JyIdAPuZK/F5hYwQgkSCHmLiE6CSRLq/TKB2iIa5O3FUEAPu5ynvgkultWt2UUdZUh
-	 xu6O8suDeRlBLCrj/YSUzHxUz2rszWzfXFDJPRVKt8JY8yaCBEJpZKPaf5T9s1CXQrqev
-	 OG4ePwJF/j12ZsyZ5aAAArzML11PPJBFiQw/dQe0qOuOdFbP6mPtn8lkHgfex8J/GTw==
+	bh=LG8o7JxvWIxf7TmaafS3Bmpx+T9RJsN7zC1BzwTU9Zo=;
+	b=r6+5pVgMW53j2LXS3sIn+05XkARLhhImFSj4AzJe3VLiqYCDDxDqxbClUNhyKUtjV8Xu
+	 ph/wu1S0B/zpHM7jF67W85NfP/P/KiH7nAayyrYf6yIZwwUMBExRrhGNJ8TFoUaEwgHnB
+	 awzyQGGHDNxkGXAb3DxqvvCC6nIo7vTCbcM7dYCP2jMLrSIFHPgS6ehyNTCc5gN78Y4ex
+	 envahxgH1ENi+j0HRgdWZslNDV7sbA+B2yRuJzjOB2sHijqSCJhc8KmMkOmVKd2c4Bkhy
+	 kmEU2t9vAK26ANBHr09unzeDv+9fulVZKARmjtwd0RrGyhdrXPnellHt3DouxB+WHTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XdUKACYm;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=V90eHUvr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09970606A339
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:41:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD07C606A338
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:41:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XdUKACYm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EBF41F000C1;
-	Wed,  4 Nov 2026 17:41:33 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=V90eHUvr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E8BD1F000C1;
+	Wed,  4 Nov 2026 17:41:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793814093;
-	bh=2Bn9FhU93BdgOrC5pVVG0zFQslWoaSReWKy3goxIbQ4=;
+	s=korg; t=1793814095;
+	bh=LG8o7JxvWIxf7TmaafS3Bmpx+T9RJsN7zC1BzwTU9Zo=;
 	h=Subject:To:Cc:From:Date;
-	b=XdUKACYmtkR1+z2mFe3urE3JvwSLRsxMazNYkJ1Fc5SWacNTtcwxcSFUgabqqs206
-	 iTMRxooyqDUtLVTiX1RxxEJPTw3D5/fXiFID3nDqzEYC5p1NG100hV+pq5y95RAdPI
-	 tNyff4SBkY6EQGCmv9BZ/mrzIHo+mp9ZXVolc3d0=
-Subject: FAILED: patch "[PATCH] xfs: bound inode fork length against the fork size during log" failed to apply to 5.15-stable tree
+	b=V90eHUvrArafEwW6ByUuEQ/mstXmepH3djDvCdQqf+YR4WKzR/ASAn4fPHKHa0dIk
+	 nnf93rIXxJhH6+lBWzHeoWSDkGpiBwrzUnJI+lF8p7Dgx93Zi444xH4znl4hdVCsTi
+	 WhQBj/dOV110zSD+qX5VhxVt2mSxkbVhyXJt54hw=
+Subject: FAILED: patch "[PATCH] xfs: bound inode fork length against the fork size during log" failed to apply to 5.10-stable tree
 To: qwe.aldo@gmail.com,cem@kernel.org,djwong@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 12:41:24 -0500
-Message-ID: <2026110424-cure-criteria-18e5@gregkh>
+Date: Wed, 04 Nov 2026 12:41:25 -0500
+Message-ID: <2026110425-badly-feeble-d2e6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 9232301894a06e664d8de2da97175cf98419bd16
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110424-cure-criteria-18e5@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110425-badly-feeble-d2e6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
