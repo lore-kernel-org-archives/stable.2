@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818844;
-	b=y9Mz6E9fpjc2FPSU0V3hTbVaDXpBub3BUZ2RuuA68ZOoJommVDkyRsrr7pGX1W/fBv6O
-	 l5on75cFiyeMZOK0f4dS6MkjSxIIsHsP+iQUgsKtrXIOLyYwnWxjyl1p+mCqhOqSV2N15
-	 PqeUAsCUXB2KVrulHUpF6a3wZGVclWW4BW0tC2o/B6mv4BmIt+FQ6+FHlQ9OAnSwOk5HS
-	 Eliu1wvb4i6IldnnCCXKj0PYPqsDi5lomWjutT7nf3+X8xvLYFnbWhESkmlQ0kZn30IAr
-	 2RnIHAW/MmOphIPqX1/NprviuFPbC+gEkMjgNGMVh+gvY4P4buG3dpZ0hxLNPR2i4Bw==
+	t=1793818930;
+	b=P/dhZqYrVgXWxcyVKNYhtDTPW88RzGo3d4k7PlFSBRt+U3WV1G+Pvgn3EhgzEl9O8M6r
+	 OIqKIX3kv9N5EJQQhQPi5Rpp4q51wh2gJne4RcrZyXZK7IiBlQOgJ4GxDpw+NPR5YD4O+
+	 caw4a2RjZbyPxFojIHLVzuNKlx202n5V+MUO3ysa7eOYT4CdW+gnOloakSVVYTb/vRKQh
+	 VrkFc+mRN7ehqhPjoAUT09P0sUtk5uFjArEiZXBGwmqg5fiFrljrtE1RhRtiBvspl4y2C
+	 qD8ZJ80au2WjUNl888vClXJGp1Zfq+MYv+1FwJ8+oBXro7nMGThTvk9jRnYzq99pbkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818844;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818930;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fXU7fR0pZHJgNDkwNhECpM9FbUNxRYMTvWrB7UWnyfk=;
-	b=hj7OdhZBwwsi0Ro7tURPAKp+yh8arec8kQu2h2bNzKSFPJc62FOBS2qKwHC70dHDoEW7
-	 iUDPXg+dttAvSsa6MCFkAwB4OLMJUK/OjvkzjEfg6J6f7fOPV/P0H6IF8/hlbYBO3gNSL
-	 QoVnRUbc0Wxy/H2nSf/WjJs5bF4s8dOqBLhWqQ4+5FuV5snkTSiYmGFX3TtNjkkba+91d
-	 fEmUawf1zg+0oBF57212kZUYxK/Gw0cmpl+GNdeEUR0hDycf3iRQqZPRbiJ7pb8ZHmkIn
-	 c8rjTnNrlzQRmmeRMw1wwjIKx1V02KwR+iL/lIqWXIk8esbYyTMRd1rMGp9DFf3MjnA==
+	bh=CwpraSHP7xwJaAFAizFgeu18JTDLVqRiDYf3bGZfL88=;
+	b=5IpqBk5vkQtbJB7bUw86B0VpdO61xJq30kVNyLmAAtAI746IXatnU/D66zcjtwODBPZt
+	 HFRpIBfMSH/U+dcK7+cIL/4HeuSxY7N38xdjWjpT5hCtT+zpaI5ueaxKsQVE+hmDkEGio
+	 Y+KFuddHdOIZo+eD8Beo/wlWBNdGmozlxQZYKH993uFuhs8M35pTPiLTTHsEyOqsYmx8X
+	 N8Bm/MLTxboFdPpBQ1CiTJz8nImZf9qGCb03sescbG0AG458c+BDq7sf0Olt9iR7z24jO
+	 UXcvB6MknETKBp/scCNtBqwrJNvXpA7MDhTXgcKiMoCQ/rPbbNTehwW2CitfS/9U4Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U2xr24Wz;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BoE5srF8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA76E606A32E
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:00:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D60606D80B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:02:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U2xr24Wz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A561F00919;
-	Wed,  4 Nov 2026 19:00:43 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BoE5srF8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 052CC1F0093A;
+	Wed,  4 Nov 2026 19:02:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793818843;
-	bh=fXU7fR0pZHJgNDkwNhECpM9FbUNxRYMTvWrB7UWnyfk=;
+	s=korg; t=1793818929;
+	bh=CwpraSHP7xwJaAFAizFgeu18JTDLVqRiDYf3bGZfL88=;
 	h=Subject:To:Cc:From:Date;
-	b=U2xr24WzsYju5t3G9FO87ZiShptZQx6K8JyCmN9Ct298gc2ix5IbzmlPozPL8qBJt
-	 SUjMMWQcoK6kaEfRJnIObh9lbsuLpsoIpQY4S5EM/eLBScwQTbIOooXx3aRdzwnAZ6
-	 DDnyTEqka71glQKfxSVrpsMUfG+YJs2RVmxQxAg8=
-Subject: FAILED: patch "[PATCH] NFSD: Send a meaningful CB_RECALL_ANY keep count" failed to apply to 6.18-stable tree
-To: cel@kernel.org,jlayton@kernel.org
+	b=BoE5srF8DxwNDNS8W60c3wmXdPsgY1GESDk7lUXXh+ybb1y0OsteBL/m5ifVYpVM6
+	 dVFxxF/SHIcVQzynAQ3SExrUAZ8E2qtqEIzO8pXb8s3qYWQgUO0ARvnDzcczru7Kxz
+	 6Wu1q3igh0C2y49G6ZY4OMXzAN8ZisStC0jJxZhw=
+Subject: FAILED: patch "[PATCH] NFSD: Map flex file layout IDs through the request's user" failed to apply to 6.12-stable tree
+To: chuck.lever@oracle.com,cel@kernel.org,jlayton@kernel.org,sashiko-bot@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:00:28 -0500
-Message-ID: <2026110428-retention-sandfish-d9c2@gregkh>
+Date: Wed, 04 Nov 2026 14:02:07 -0500
+Message-ID: <2026110407-untrue-smuggler-1837@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9af39c0773ef956039e1ebe9c235532fe6ee1e50
+git cherry-pick -x f913d5d2130a584d1a027ffe3dfd88b6be2e0540
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110428-retention-sandfish-d9c2@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110407-untrue-smuggler-1837@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,84 +79,119 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9af39c0773ef956039e1ebe9c235532fe6ee1e50 Mon Sep 17 00:00:00 2001
-From: Chuck Lever <cel@kernel.org>
-Date: Mon, 17 Aug 2026 21:08:39 -0400
-Subject: [PATCH] NFSD: Send a meaningful CB_RECALL_ANY keep count
+From f913d5d2130a584d1a027ffe3dfd88b6be2e0540 Mon Sep 17 00:00:00 2001
+From: Chuck Lever <chuck.lever@oracle.com>
+Date: Mon, 20 Jul 2026 12:37:24 -0400
+Subject: [PATCH] NFSD: Map flex file layout IDs through the request's user
+ namespace
 
-deleg_reaper() sets craa_objects_to_keep to zero on every
-CB_RECALL_ANY. RFC 8881 Section 20.6.3 defines that field as the
-number of objects the client may keep, leaving the client to choose
-which of the excess to return, because the server cannot read lack
-of recent use as lack of usefulness. Zero asks for every delegation
-the client holds, including the ones backing files an application
-still has open.
+nfsd4_ff_proc_layoutget() and nfsd4_ff_encode_layoutget() translate
+the file's owner and group with init_user_ns, but every other identity
+nfsd places on the wire goes through nfsd_user_namespace(). When the
+transport carries a credential from a non-initial user namespace, the
+flex file layout reports host-global IDs. The client copies those IDs
+into the AUTH_SYS credential it presents to the data server, and
+svcauth_unix_accept() resolves that credential in the transport's
+namespace, so data server I/O runs under an identity unrelated to the
+file's owner.
 
-There is also no reason NFSD has to reclaim the entire delegation
-working set on the first sign of memory pressure.
+Switching to the request's namespace introduces a second hazard.
+from_kuid() returns (uid_t)-1 when the target namespace has no
+mapping for the owner, and the IOMODE_READ arm adds one to that
+result to derive an identity for which the data server denies
+writes. The addition would wrap to zero, handing the client uid 0
+instead of an identity distinct from the owner.
 
-Derive the keep count from cl_deleg_count so that each callback
-asks for one delegation. Both the shrinker and the laundromat re-arm
-while their condition lasts, so a client with more to give is asked
-again on the next pass.
+Translate both IDs in nfsd4_ff_proc_layoutget(), which has the
+svc_rqst, and carry the wire values in struct pnfs_ff_layout.
+from_kuid_munged() substitutes overflowuid for an unmapped owner and
+thus never returns (uid_t)-1, so the increment cannot wrap to zero.
 
-The Linux client ignores craa_objects_to_keep and returns unused
-delegations selected from the type mask alone, so the count changes
-nothing for it.
-
-Fixes: 44df6f439a17 ("NFSD: add delegation reaper to react to low memory condition")
+Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
 Cc: stable@vger.kernel.org
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260720141442.783935-1-cel@kernel.org?part=3
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260817-recall-any-keep-count-v5-4-3b2cffce701e@kernel.org
+Link: https://patch.msgid.link/20260720163724.810227-1-cel@kernel.org
 Signed-off-by: Chuck Lever <cel@kernel.org>
 
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index f6da74ce16a9..9d40b573a295 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -7959,6 +7959,7 @@ deleg_reaper(struct nfsd_net *nn)
+diff --git a/fs/nfsd/flexfilelayout.c b/fs/nfsd/flexfilelayout.c
+index 9f532418cac8..c6e6b9106a83 100644
+--- a/fs/nfsd/flexfilelayout.c
++++ b/fs/nfsd/flexfilelayout.c
+@@ -15,6 +15,7 @@
+ 
+ #include "nfserr.h"
+ #include "flexfilelayoutxdr.h"
++#include "auth.h"
+ #include "pnfs.h"
+ #include "vfs.h"
+ 
+@@ -24,10 +25,10 @@ static __be32
+ nfsd4_ff_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
+ 		const struct svc_fh *fhp, struct nfsd4_layoutget *args)
  {
- 	struct list_head *pos, *next;
- 	struct nfs4_client *clp;
-+	unsigned int count;
++	struct user_namespace *userns = nfsd_user_namespace(rqstp);
+ 	struct nfsd4_layout_seg *seg = &args->lg_seg;
+ 	u32 device_generation = 0;
+ 	int error;
+-	uid_t u;
  
- 	spin_lock(&nn->client_lock);
- 	list_for_each_safe(pos, next, &nn->client_lru) {
-@@ -7968,21 +7969,33 @@ deleg_reaper(struct nfsd_net *nn)
- 			continue;
- 		if (clp->cl_state != NFSD4_ACTIVE)
- 			continue;
--		if (list_empty(&clp->cl_delegations))
--			continue;
- 		if (atomic_read(&clp->cl_delegs_in_recall))
- 			continue;
- 		if (ktime_get_boottime_seconds() - clp->cl_ra_time < 5)
- 			continue;
- 		if (clp->cl_cb_state != NFSD4_CB_UP)
- 			continue;
-+		/*
-+		 * This read races with hash_delegation_locked() and
-+		 * unhash_delegation_locked() on other CPUs. A stale
-+		 * count only skews the keep value; the next
-+		 * laundromat pass sees a more current one.
-+		 */
-+		count = data_race(READ_ONCE(clp->cl_deleg_count));
-+		if (!count)
-+			continue;
- 		if (test_and_set_bit(NFSD4_CALLBACK_RUNNING, &clp->cl_ra->ra_cb.cb_flags))
- 			continue;
+ 	struct pnfs_ff_layout *fl;
  
- 		/* release in nfsd4_cb_recall_any_release */
- 		kref_get(&clp->cl_nfsdfs.cl_ref);
- 		clp->cl_ra_time = ktime_get_boottime_seconds();
--		clp->cl_ra->ra_keep = 0;
-+		/*
-+		 * Ask for a single delegation. Recalling one before it
-+		 * is needed costs the client an OPEN when it next
-+		 * touches the file.
-+		 */
-+		clp->cl_ra->ra_keep = count - 1;
- 		clp->cl_ra->ra_bmval[0] = BIT(RCA4_TYPE_MASK_RDATA_DLG) |
- 						BIT(RCA4_TYPE_MASK_WDATA_DLG) |
- 						BIT(RCA4_TYPE_MASK_DIR_DLG);
+@@ -50,13 +51,16 @@ nfsd4_ff_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
+ 	fl->flags = FF_FLAGS_NO_LAYOUTCOMMIT | FF_FLAGS_NO_IO_THRU_MDS |
+ 		    FF_FLAGS_NO_READ_IO;
+ 
+-	/* Do not allow a IOMODE_READ segment to have write pemissions */
+-	if (seg->iomode == IOMODE_READ) {
+-		u = from_kuid(&init_user_ns, inode->i_uid) + 1;
+-		fl->uid = make_kuid(&init_user_ns, u);
+-	} else
+-		fl->uid = inode->i_uid;
+-	fl->gid = inode->i_gid;
++	fl->uid = from_kuid_munged(userns, inode->i_uid);
++	fl->gid = from_kgid_munged(userns, inode->i_gid);
++
++	/*
++	 * Do not allow an IOMODE_READ segment to have write permissions.
++	 * The group is left intact so group-readable files stay readable;
++	 * nfsd_setuser() squashes an unmapped uid to the export's anon ID.
++	 */
++	if (seg->iomode == IOMODE_READ)
++		fl->uid++;
+ 
+ 	error = nfsd4_set_deviceid(&fl->deviceid, fhp, device_generation);
+ 	if (error)
+diff --git a/fs/nfsd/flexfilelayoutxdr.c b/fs/nfsd/flexfilelayoutxdr.c
+index 97d8a28dd3a0..c12bb7c371b0 100644
+--- a/fs/nfsd/flexfilelayoutxdr.c
++++ b/fs/nfsd/flexfilelayoutxdr.c
+@@ -33,8 +33,8 @@ nfsd4_ff_encode_layoutget(struct xdr_stream *xdr,
+ 
+ 	fh_len = 4 + xdr_align_size(fl->fh.size);
+ 
+-	uid.len = sprintf(uid.buf, "%u", from_kuid(&init_user_ns, fl->uid));
+-	gid.len = sprintf(gid.buf, "%u", from_kgid(&init_user_ns, fl->gid));
++	uid.len = sprintf(uid.buf, "%u", fl->uid);
++	gid.len = sprintf(gid.buf, "%u", fl->gid);
+ 
+ 	/* data server entry: deviceid + efficiency + stateid + fh list +
+ 	 * user + group + flags + stats_collect_hint
+diff --git a/fs/nfsd/flexfilelayoutxdr.h b/fs/nfsd/flexfilelayoutxdr.h
+index 6d5a1066a903..3e1876d49db2 100644
+--- a/fs/nfsd/flexfilelayoutxdr.h
++++ b/fs/nfsd/flexfilelayoutxdr.h
+@@ -35,8 +35,9 @@ struct pnfs_ff_device_addr {
+ struct pnfs_ff_layout {
+ 	u32				flags;
+ 	u32				stats_collect_hint;
+-	kuid_t				uid;
+-	kgid_t				gid;
++	/* Values to encode; nfsd4_ff_proc_layoutget() has mapped these */
++	u32				uid;
++	u32				gid;
+ 	struct nfsd4_deviceid		deviceid;
+ 	stateid_t			stateid;
+ 	struct nfs_fh			fh;
 
