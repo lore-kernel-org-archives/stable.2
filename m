@@ -1,80 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793784241;
-	b=1qVhRbkePFFyUIkZB1skoJazkVlQSG29L1/25SnRZ5M7Ih1+UoovAuciio591isjVjqR
-	 M5yk4vEDlvOU1EkD0W6tERL0c0K33iMGjJ+dpRxOemfiCcfcNmgOQ/fMP/GWoFSHA0sXH
-	 aDe+In7wsp2Noss1J+M11NQXYQ4C8iLsXVJdti8wbe8DfzeyklMirNB5htgD+iLco0mTw
-	 /jdqEvnRmHJ+qyVvtxF4lV2FzmECeIsCXJHIbQSHzOD3E2X97Jf0VZjaHDgOOkCf1iRzm
-	 yA8q7vhn+BzHWuzianXwn9lyfnLLlyF8bjIW4mU2Kk77SsSKCL7I9qlCiXGmgvFrzUA==
+	t=1793784234;
+	b=HbNrHBrH4nZfI3UvDIF5CN2Adq5/XxfKQ4ln2/Fb9giSVRlqZzjl8TOEs/iUtw5TGyw4
+	 A0DQv6OPtcygNMyyFyb03MV6SRof5HvRhntLUE97jN+d52Ny5w2SEtygdaU5oAezvN6FP
+	 h7R1k1G2V6CCWu/7HoOP2jBPWkF3J3S20yRhFsO0NS/pCmOj2IDwBaTCUw6t0FQpAwWUV
+	 UPGtvlfRoFG8UZD/G4EqVk0xrFpc7DI18zCMoCz9D4syYLyNU6hpcqhE0pQc+GuPwt09E
+	 At3rZqKvTuw4v4i/LFbdmZdmOjqE5QjBM4a+ntBnrg2npJ62hHQFa2TNoqfKwhZOWaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784241;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-MTK;
-	bh=Px5iYRExR1FUkSAwsUCyyip7Mo3PRTQrKEuMvrKDnRo=;
-	b=eClXVF+1kt7aNI3HCmNBC+VNR1BjFCvsSyMjjovgkhv/Vp5cVAShQF+HWPV2RdAoBlB0
-	 CuJMF6tmqkgIi/S8lLu5F22YrQi1fmlMxkbcCZThfPMSuQzAk2QVRLG9NjWyx2/702lEC
-	 b7H15q4pdCvDyKpi4eH6RGJT29NRcsWuXZqzcWWHRnf3UU9PWAlTOh2NWkDB1sDK5nt+v
-	 mNx/B1L+n+EAiHNBdq3x/3upTgGmPk4p532a8rmXwL8Sr1Az5TgMxPoGtd85cALPZgBco
-	 2YE0d499E7I90Kpeg3EZ9iZruBuFJ5ILKigTMYj0S8Yx0HyMxcAlDp5lklH6icmJqFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793784234;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=bmXVSSlN45L+rv4ubBxKKCnM10XnTPIhgH058pVIBqk=;
+	b=tKuSVqy8fSTLxqPrZHNQnWPQnwA9RoDYusZSphsXoI9t2wH5Mlu9bqU7hAfDurWIg6y2
+	 7hcoHz6k78bPyKAXxbVFf9wy1JZTMdlw5VVSzNZfI0eVKXBkGW8j86N4pyWl3nJxJwJ/j
+	 uM9nr87OJnwYEQJ2vtlO9UMPDiyz7Dzlz/hX9vOlaAbduGWyk0rcehePfmx5QUHPg6W/9
+	 VRvBHR6xf38Uifx375KhGmXWlmfKy/zeJndoQ7OxGWhrDwAzrzHPi1evWQmSDkvLhwvbi
+	 5Ti99Ck4uQIOm8PSoOhzyelqOmPUvKKXr7yOhxXtKzb5WfM+hUkAgMUF0cr41ENw9TQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=pIbJBTi+;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E48606A329;
-	Wed,  4 Nov 2026 09:23:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17E48606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Yuo2h5l8;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 581CC606A32C;
+	Wed,  4 Nov 2026 09:23:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 581CC606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=pIbJBTi+
-X-UUID: 73df8f02d83111f18dc8c9802ae25ab1-20261104
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=Px5iYRExR1FUkSAwsUCyyip7Mo3PRTQrKEuMvrKDnRo=;
-	b=pIbJBTi+AD7vk5U1tnuyvpxBDC39gIXu5CT+Dk0BrAT4nGWyFqF8P8A0br5r0Ej1AWXimdogJAm6ZFZh/zMEUfYMJMjVW2f2ZFuqwZpc4rCVya+v13yNLi0ZNdGB1D02GwQVHmzGEriBun/TIUJlvy+MG24Nj9cxe9NsOIpVJas=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.21,REQID:37760759-adbe-4dfa-90d4-ff1aa7054a97,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:b0318ac,CLOUDID:810925da-e88e-4ef1-b702-a0dba11ad564,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|136|836|865|888|898,TC:-5,Content:0|
-	15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:nil,CO
-	L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 73df8f02d83111f18dc8c9802ae25ab1-20261104
-Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw02.mediatek.com
-	(envelope-from <jb.tsai@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 515512279; Wed, 04 Nov 2026 17:23:53 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 4 Nov 2026 17:23:52 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Wed, 4 Nov 2026 17:23:52 +0800
-From: JB Tsai <jb.tsai@mediatek.com>
-To: <nbd@nbd.name>, <lorenzo@kernel.org>
-CC: <linux-wireless@vger.kernel.org>, <linux-mediatek@lists.infradead.org>,
-	<Sean.Wang@mediatek.com>, <James-LY.Huang@mediatek.com>,
-	<jb.tsai@mediatek.com>, Jacobs Wu <jacobs.wu@mediatek.com>,
-	<stable@vger.kernel.org>
-Subject: [PATCH 9/9] wifi: mt76: mt7925: send the common scan IEs and size the request
-Date: Wed, 4 Nov 2026 17:23:44 +0800
-Message-ID: <20261104092344.1932406-9-jb.tsai@mediatek.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20261104092344.1932406-1-jb.tsai@mediatek.com>
-References: <20261104092344.1932406-1-jb.tsai@mediatek.com>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Yuo2h5l8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=Yuo2h5l87UV4o0gWUa4o4VALrLc2KJegur7qOWc388cIJSMKpjFWL5lxnL+0VXf3JWNG5dqOQPsbB
+	 jWY8eVH1YouWxbIGPD9RMwFiNshML03+1XazcuXhLWjjGMMDTHNiY8FMzR5blCS7CpCEe7OYuPIPSY
+	 JU7RXOmrOnVkLqBk=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66aeaf9a7b38-69342;
+	Wed, 04 Nov 2026 17:23:52 +0800 (CST)
+X-RM-TRANSID:2ee66aeaf9a7b38-69342
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[223.108.79.97])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6aeaf9a699c-c8aff;
+	Wed, 04 Nov 2026 17:23:52 +0800 (CST)
+X-RM-TRANSID:2eea6aeaf9a699c-c8aff
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	willemdebruijn.kernel@gmail.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yana06070@163.com,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org,
+	willemb@google.com
+Subject: [PATCH net v2 2/2] selftests: net: exercise SO_MARK on connected sockets
+Date: Wed,  4 Nov 2026 17:23:38 +0800
+Message-ID: <20261104092252.15712-1-yanxia@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
+References: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,231 +82,130 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261104092338.XOrybbEKBLb6klfzqqsK6fd7HULA9jXrDYm2aPLiZuQ@z>
 
-From: Jacobs Wu <jacobs.wu@mediatek.com>
+cmsg_so_mark.sh sends to an explicit destination without connecting the
+socket, so it does not exercise the route cached by connect(). This left
+the IPv6 SO_MARK cache bug uncovered.
 
-mt7925_mcu_build_scan_ie_tlv() sends the per-band sets of
-struct ieee80211_scan_ies but not scan_ies->common_ies. mac80211 puts
-only the band capabilities, and the custom IEs that must precede them,
-into the per-band sets; every other custom IE of the request, the
-vendor specific elements (P2P, WPS, MBO, ...) included, goes to
-common_ies. Since commit 9f8f4a51f3c1 ("wifi: mt76: mt7925: fix
-incorrect scan probe IE handling for hw_scan") these IEs are missing
-from the probe requests.
+Add a cmsg_sender option to connect before sending and omit msg_name in
+that mode. Keep the existing cases and add connected IPv4 and IPv6 UDP,
+ping and raw sends with a per-message mark equal to the socket mark,
+prohibited by a policy rule, or explicitly zero.
 
-Send common_ies in a UNI_SCAN_IE TLV without a band: the firmware
-appends such a TLV to the probe requests of every band. It keeps up to
-MT76_CONNAC_SCAN_IE_LEN bytes of it, which max_scan_ie_len already
-guarantees for hw_scan; sched_scan shares the TLV, so give it the same
-limit instead of the IEEE80211_MAX_DATA_LEN of the connac devices that
-have a sched_scan command of their own. The per-band TLVs keep carrying
-the per-band sets; the firmware stores their length in a byte, so a
-longer set is left out instead of being truncated.
+On UML, the added IPv6 UDP and ping cases with the prohibited mark fail
+before the kernel fix. With the fix, all 54 cases pass.
 
-Size the request for the IEs it carries. hw_scan reserved a fixed
-sizeof(struct scan_ie_tlv) + MT76_CONNAC_SCAN_IE_LEN, which the
-per-band TLVs of a request can exceed, and sched_scan reserved nothing
-beyond the TLV header since struct scan_ie_tlv lost its ies[] array, so
-mt76_connac_mcu_add_tlv() put the TLVs past the end of the buffer,
-which skb_put() turns into a panic, whenever the kmalloc slack did not
-happen to cover them. The builder now checks the tailroom of the skb
-instead of a budget of its own.
-
-Fixes: 9f8f4a51f3c1 ("wifi: mt76: mt7925: fix incorrect scan probe IE handling for hw_scan")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jacobs Wu <jacobs.wu@mediatek.com>
+Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
 ---
- .../net/wireless/mediatek/mt76/mt7925/init.c  |   5 +
- .../net/wireless/mediatek/mt76/mt7925/mcu.c   | 107 ++++++++++++------
- 2 files changed, 79 insertions(+), 33 deletions(-)
+v2:
+  - New patch; add 18 connected-socket cases alongside the existing 36.
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/init.c b/drivers/net/wireless/mediatek/mt76/mt7925/init.c
-index 8c3049b66a85..05305f4e1db8 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7925/init.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7925/init.c
-@@ -301,6 +301,11 @@ int mt7925_register_device(struct mt792x_dev *dev)
- 	if (ret)
- 		return ret;
+The test gap was noted during automated review of v1:
+https://lore.kernel.org/netdev/179371875338.488856.4546363285391899557@kernel.org/
+
+Tested the same selftest on baseline, v1 and v2 UML kernels: baseline
+fails 2/54 cases; v1/v2 pass all 54. Both versions of cmsg_sender build
+with GCC 12.3.1. ShellCheck 0.11.0 reports the same 13 existing SC2086
+diagnostics before and after the change.
+
+ tools/testing/selftests/net/cmsg_sender.c   | 21 ++++++++++++++++++---
+ tools/testing/selftests/net/cmsg_so_mark.sh | 16 ++++++++++++++++
+ 2 files changed, 34 insertions(+), 3 deletions(-)
+
+diff --git a/tools/testing/selftests/net/cmsg_sender.c b/tools/testing/selftests/net/cmsg_sender.c
+--- a/tools/testing/selftests/net/cmsg_sender.c
++++ b/tools/testing/selftests/net/cmsg_sender.c
+@@ -34,6 +34,7 @@
+ 	ERN_CMSG_RD,
+ 	ERN_CMSG_RCV,
+ 	ERN_SEND_MORE,
++	ERN_CONNECT,
+ };
  
-+	/* hw_scan and sched_scan share the UNI_SCAN_IE TLV, and the firmware
-+	 * keeps at most MT76_CONNAC_SCAN_IE_LEN bytes of IEs for either.
-+	 */
-+	hw->wiphy->max_sched_scan_ie_len = MT76_CONNAC_SCAN_IE_LEN;
-+
- 	hw->wiphy->reg_notifier = mt7925_regd_notifier;
- 	dev->mphy.sband_2g.sband.ht_cap.cap |=
- 			IEEE80211_HT_CAP_LDPC_CODING |
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c
-index 24de2ff3a15d..22a6338acaf1 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7925/mcu.c
-@@ -3347,56 +3347,99 @@ int mt7925_mcu_set_dbdc(struct mt76_phy *phy, bool enable)
- }
- EXPORT_SYMBOL_GPL(mt7925_mcu_set_dbdc);
+ struct option_cmsg_u32 {
+@@ -48,6 +49,7 @@
+ 	unsigned int size;
+ 	unsigned int num_pkt;
+ 	bool msg_more;
++	bool connected;
+ 	struct {
+ 		unsigned int mark;
+ 		unsigned int dontfrag;
+@@ -93,6 +95,7 @@
+ 	printf("Usage: %s [opts] <dst host> <dst port / service>\n", bin);
+ 	printf("Options:\n"
+ 	       "\t\t-s      Silent send() failures\n"
++	       "\t\t-k      Connect before sending\n"
+ 	       "\t\t-S      send() size\n"
+ 	       "\t\t-4/-6   Force IPv4 / IPv6 only\n"
+ 	       "\t\t-p prot Socket protocol\n"
+@@ -121,8 +124,12 @@
+ {
+ 	int o;
  
-+/* Room for a UNI_SCAN_IE TLV carrying ies_len bytes of IEs */
-+static u32
-+mt7925_mcu_scan_ie_tlv_len(struct mt76_dev *mdev, u32 ies_len)
-+{
-+	u32 len = sizeof(struct scan_ie_tlv) + ies_len;
-+
-+	if (is_mt7928(mdev))
-+		len = ALIGN(len, 4);
-+
-+	return len;
-+}
-+
-+/* Room for the UNI_SCAN_IE TLVs of a scan request */
-+static u32
-+mt7925_mcu_scan_ies_len(struct mt76_dev *mdev,
-+			struct ieee80211_scan_ies *scan_ies)
-+{
-+	enum nl80211_band i;
-+	u32 len = 0;
-+
-+	if (scan_ies->common_ie_len)
-+		len += mt7925_mcu_scan_ie_tlv_len(mdev, scan_ies->common_ie_len);
-+
-+	for (i = 0; i <= NL80211_BAND_6GHZ; i++) {
-+		if (i == NL80211_BAND_60GHZ || !scan_ies->len[i])
-+			continue;
-+
-+		len += mt7925_mcu_scan_ie_tlv_len(mdev, scan_ies->len[i]);
+-	while ((o = getopt(argc, argv, "46sS:p:P:m:M:n:d:tf:F:c:C:l:L:H:Q:")) != -1) {
++	while ((o = getopt(argc, argv,
++			   "46ksS:p:P:m:M:n:d:tf:F:c:C:l:L:H:Q:")) != -1) {
+ 		switch (o) {
++		case 'k':
++			opt.connected = true;
++			break;
+ 		case 's':
+ 			opt.silent_send = true;
+ 			break;
+@@ -521,6 +528,12 @@
+ 
+ 	ca_set_sockopts(fd);
+ 
++	if (opt.connected && connect(fd, ai->ai_addr, ai->ai_addrlen)) {
++		fprintf(stderr, "Can't connect socket: %s\n", strerror(errno));
++		err = ERN_CONNECT;
++		goto err_out;
 +	}
 +
-+	return len;
-+}
+ 	if (clock_gettime(CLOCK_REALTIME, &time_start_real))
+ 		error(ERN_GETTIME, errno, "gettime REALTIME");
+ 	if (clock_gettime(CLOCK_MONOTONIC, &time_start_mono))
+@@ -530,8 +543,10 @@
+ 	iov[0].iov_len = opt.size;
+ 
+ 	memset(&msg, 0, sizeof(msg));
+-	msg.msg_name = ai->ai_addr;
+-	msg.msg_namelen = ai->ai_addrlen;
++	if (!opt.connected) {
++		msg.msg_name = ai->ai_addr;
++		msg.msg_namelen = ai->ai_addrlen;
++	}
+ 	msg.msg_iov = iov;
+ 	msg.msg_iovlen = 1;
+ 
+diff --git a/tools/testing/selftests/net/cmsg_so_mark.sh b/tools/testing/selftests/net/cmsg_so_mark.sh
+--- a/tools/testing/selftests/net/cmsg_so_mark.sh
++++ b/tools/testing/selftests/net/cmsg_so_mark.sh
+@@ -68,6 +68,22 @@
+     done
+ done
+ 
++# Check per-message marks after connect() has populated the route cache.
++for i in 4 6; do
++    [ "$i" = 4 ] && TGT=$TGT4 || TGT=$TGT6
 +
-+static void
-+mt7925_mcu_add_scan_ie_tlv(struct mt76_dev *mdev, struct sk_buff *skb,
-+			   u8 band, const u8 *ies, u32 ies_len)
-+{
-+	u32 alloc_len = mt7925_mcu_scan_ie_tlv_len(mdev, ies_len);
-+	struct scan_ie_tlv *ie;
-+	struct tlv *tlv;
++    for p in u i r; do
++	for mark in "$((MARK + 1))" "$MARK" 0; do
++	    expected=0
++	    [ "$mark" -eq "$MARK" ] && expected=1
 +
-+	if (alloc_len > skb_tailroom(skb))
-+		return;
++	    ip netns exec "$NS" ./cmsg_sender -"$i" -p "$p" -k \
++		-M "$((MARK + 1))" -m "$mark" -s "$TGT" 1234
++	    check_result "$?" "$expected" "IPv$i $p connected mark $mark"
++	done
++    done
++done
 +
-+	tlv = mt76_connac_mcu_add_tlv(skb, UNI_SCAN_IE, alloc_len);
-+	ie = (struct scan_ie_tlv *)tlv;
-+
-+	memcpy(ie->ies, ies, ies_len);
-+	ie->ies_len = cpu_to_le16(ies_len);
-+	ie->band = band;
-+}
-+
- static void
- mt7925_mcu_build_scan_ie_tlv(struct mt76_dev *mdev,
- 			     struct sk_buff *skb,
- 			     struct ieee80211_scan_ies *scan_ies)
- {
--	u32 max_len = sizeof(struct scan_ie_tlv) + MT76_CONNAC_SCAN_IE_LEN;
--	u32 ies_len, alloc_len;
--	struct scan_ie_tlv *ie;
- 	enum nl80211_band i;
--	struct tlv *tlv;
--	const u8 *ies;
-+
-+	/* The firmware appends a TLV without a band to the probe requests
-+	 * of every band: that is where the common IEs of the request go.
-+	 */
-+	if (scan_ies->common_ie_len)
-+		mt7925_mcu_add_scan_ie_tlv(mdev, skb, 0, scan_ies->common_ies,
-+					   scan_ies->common_ie_len);
- 
- 	for (i = 0; i <= NL80211_BAND_6GHZ; i++) {
-+		u8 band;
-+
- 		if (i == NL80211_BAND_60GHZ)
- 			continue;
- 
--		ies = scan_ies->ies[i];
--		ies_len = scan_ies->len[i];
--
--		if (!ies || !ies_len)
-+		if (!scan_ies->ies[i] || !scan_ies->len[i])
- 			continue;
- 
--		if (is_mt7928(mdev))
--			alloc_len = ALIGN(sizeof(*ie) + ies_len, 4);
--		else
--			alloc_len = sizeof(*ie) + ies_len;
--
--		if (alloc_len > max_len)
--			return;
--
--		tlv = mt76_connac_mcu_add_tlv(skb, UNI_SCAN_IE,
--					      alloc_len);
--		ie = (struct scan_ie_tlv *)tlv;
--
--		memcpy(ie->ies, ies, ies_len);
--		ie->ies_len = cpu_to_le16(ies_len);
-+		/* The firmware keeps the length of a per-band set in a byte */
-+		if (scan_ies->len[i] > U8_MAX)
-+			continue;
- 
- 		switch (i) {
- 		case NL80211_BAND_2GHZ:
--			ie->band = 1;
-+			band = 1;
- 			break;
- 		case NL80211_BAND_6GHZ:
--			ie->band = 3;
-+			band = 3;
- 			break;
- 		default:
--			ie->band = 2;
-+			band = 2;
- 			break;
- 		}
- 
--		max_len -= alloc_len;
-+		mt7925_mcu_add_scan_ie_tlv(mdev, skb, band, scan_ies->ies[i],
-+					   scan_ies->len[i]);
- 	}
- }
- 
-@@ -3415,7 +3458,6 @@ int mt7925_mcu_hw_scan(struct mt76_phy *phy, struct ieee80211_vif *vif,
- 	struct scan_ssid_tlv *ssid;
- 	struct scan_bssid_tlv *bssid;
- 	struct scan_chan_info_tlv *chan_info;
--	struct scan_ie_tlv *ie;
- 	struct scan_misc_tlv *misc;
- 	struct tlv *tlv;
- 	int max_len;
-@@ -3425,8 +3467,8 @@ int mt7925_mcu_hw_scan(struct mt76_phy *phy, struct ieee80211_vif *vif,
- 
- 	max_len = sizeof(*hdr) + sizeof(*req) + sizeof(*ssid) +
- 		  sizeof(*bssid) * MT7925_RNR_SCAN_MAX_BSSIDS +
--		  sizeof(*chan_info) + sizeof(*misc) + sizeof(*ie) +
--		  MT76_CONNAC_SCAN_IE_LEN;
-+		  sizeof(*chan_info) + sizeof(*misc) +
-+		  mt7925_mcu_scan_ies_len(mdev, &scan_req->ies);
- 
- 	skb = mt76_mcu_msg_alloc(mdev, NULL, max_len);
- 	if (!skb)
-@@ -3546,15 +3588,14 @@ int mt7925_mcu_sched_scan_req(struct mt76_phy *phy,
- 	struct scan_sched_req *req;
- 	struct scan_ssid_tlv *ssid;
- 	struct scan_chan_info_tlv *chan_info;
--	struct scan_ie_tlv *ie;
- 	struct scan_sched_ssid_match_sets *match;
- 	struct sk_buff *skb;
- 	struct tlv *tlv;
- 	int i, max_len;
- 
- 	max_len = sizeof(*hdr) + sizeof(*req) + sizeof(*ssid) +
--		  sizeof(*chan_info) + sizeof(*ie) +
--		  sizeof(*match);
-+		  sizeof(*chan_info) + sizeof(*match) +
-+		  mt7925_mcu_scan_ies_len(mdev, ies);
- 
- 	skb = mt76_mcu_msg_alloc(mdev, NULL, max_len);
- 	if (!skb)
--- 
-2.45.2
+ # Summary
+ if [ $BAD -ne 0 ]; then
+     echo "FAIL - $BAD/$TOTAL cases failed"
+
 
