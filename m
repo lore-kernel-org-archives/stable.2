@@ -1,126 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.159
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817443;
-	b=fre/j69pG7mNm/TALE9l2cUmzPJ/QYEJlD+1otpGiJ25EFCswOkI7qRZqeFVyAeX19SF
-	 0qkKBscTrUicFmbU/57HhZlKP5bngC67VJNr3Iq7G2bS4GLUnne8RcubVOeozXCIduVer
-	 LsLOS38Wncfmn8FRbqM3LRw3RrNS5mlcL4ETJgi0zlkvQUBVcSrkZYRWJ51bxV8kxhx2Z
-	 9vJJXzrdYvdyUrut6HaklHrW+mq1z5Ss9p8m6Vej2b8XjlHFSPG6hrkvztbPbUQBEuXij
-	 efm5+3TYJwILppSQivYl++jpiean82cjB2S/X+HpYMrFwniVDnLUqEEq/bl72ipDxCA==
+	t=1793817517;
+	b=TaaxI56G+lgedCcOYLprHdriNK/z759szsl3E8v7L/ggbPM1PSXbvI7L63k9/YEuXZRI
+	 hinozPdN9FK00ZPpAamfmjpjnfikXsUbVwCo6aLXHuqwKlJyf/Sy5+DSHIfwVKwMw4qRB
+	 9EUA/xA3tzFUPjmbers6RcYNvmawHAv/38en5ZC8D/nmjVHM5SZOImfBj2wagxFsZnXYI
+	 ZCHCxUCe1dGHWHf7XQ0nMLhMrASKTYJyYUE+mbyjeXA7UpBTTjSWFNsQ1cv8r4CkzIdJ2
+	 i6VvWgoAm0voynr9ADpmwdYWdeo7rxWwbiwdmZyZg2R5PWh9xMbRciV8xCGfOKtDl/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817443;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=J9RSXne5mLK1TsmXaxxPwH99U6Wphh2WvdDqDFwp/+A=;
-	b=CNZQ2v9Sk5PRRW9E3nkqgR/Ib9ag2mbtfIy4Hqd6tdn18mRfDsOlzTzBfkGS0H+9beup
-	 G3JT4APEHab3na0eZYoFVUvUAJt9NY1iS4lcSz2Hl4SLN1FX5U2KxsohVEH/TGQ2xjVYw
-	 NgdSYpFkw6qWpVw8NA1bstP1zk7QUeaNv8gxe/QNidVWF5QV5Yh7czEkHdD20RkRnyEA7
-	 zPUeGQl+tI6wxzFQ6KlscoRWr/T2rRfnmLBjn/JWvM0vo59wGAiCUv88xXl5gvRhOLpk+
-	 iYKKKyxOI59o5+/iksPUekf+Nw0nAwkcYyU9a1OCs4wn47YOHp0BH1y9FSzk47BcFoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817517;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=LiNRxltvzl0xllwwkUuhN/TMTQEyAsaNOxq4oKnwNn4=;
+	b=ioL4Mm3OYwlgcNT4gBd9y22UZLI/xidejO/bAoCuOmG4ir+NoByk9NCZgBy/ZVSifHxv
+	 9IzlAvrm+VJ3xo311pwKfTp+rbEkNAaDLPst6BhHlbl16d1z7+pNzikA0ePwA2JbnwngX
+	 8OfYJEeBiG7gru/ZLwart/f7EsTfg7ShA+1ytRzIQTAupvkFCUDzdou49Qbl36/Ty48pV
+	 2qnU/Sh+2n8SD50AZ9ddrnb4t4FSSM7D36uCHKJ32PBY69fl7QlyZu2xkp+dYvMhd8HH+
+	 yKkNeszTxUQy43RheWbMnQuYswOvcX+UrXRYjTIZfA4CQA1am3eILb5ONUXyOQfa6nA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=Z1E7dbGH;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=t+dM3ONG;
-	arc=none smtp.remote-ip=103.168.172.159
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=W1chFljq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B8C9606D808
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:37:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B8C9606D808
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE43606D813
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:38:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=Z1E7dbGH;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=t+dM3ONG
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 879E11400182
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:37:21 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-08.internal (MEProxy); Wed, 04 Nov 2026 13:37:21 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1793817441; x=
-	1793903841; bh=J9RSXne5mLK1TsmXaxxPwH99U6Wphh2WvdDqDFwp/+A=; b=Z
-	1E7dbGHEkJKjjTe2uywmmc5sXNbyz5Ni7LmjFP8T2ZZc77eD9rKR/v/xRlx/yD0D
-	PurQHgEQsVjOKHoeVQXCtODAJIEFnUJyueO1xD82EUCa3cl8t/fNvjjrXvvsAT6a
-	y+6kmBr936ENImxmJ+MObXixe+MnCzQDbxt72nDba3ChvJmHj8KZPR4SJjaz8DO4
-	u6Ah3YFNpfnsZzNca8wL+ZHql5PUZUzGd4WWOUCvovrU7mIHLwlrS6HyAj7J5N0A
-	48Brdbc4NBSvT/eSXANWm0ItnnLeyHX31o0jNLXneCDZzMl1nmC03hhZTWmDFVrs
-	MQ3YM31cndx0qY/NJ/6Bg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1793817441; x=1793903841; bh=J
-	9RSXne5mLK1TsmXaxxPwH99U6Wphh2WvdDqDFwp/+A=; b=t+dM3ONGhd14lWLFc
-	KTxh8B9cLrz95Q7rTiUwkaN00Sy3oQ9aMQgNo1FsyIN5MyU93Nh2SK3SOXYDFmJy
-	BEuwtoAKq0ruTm5JdLovXDKAAmr6x7LogA8laHevQCF+uErdU/33YKgWLL7iZe8h
-	hMQGhicxOG6j/vD+dYmHAqAvdHNyiKEaZmOphJyRINa9cMtzgTCxwzlpQ6ypeP3r
-	IzSQhF6iI4twKarrDkArYvwjkpEmRNOcPd36gG/VWt+Q9iv26mn8VVa4b8I+otgP
-	wht1zaHVKlANEhgEleP+s5zhQc+Jdq4HpSkypGZXg/5X7y5eqCCvF1qe4LTba/tT
-	uXpuQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793817441; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:q1HQ8BVjKBt8f1JErVTyWC3DMA89A9SvzkL3y2PMEpYei1D
-	AT/LJ8uxUayzXUHz91Pr7S+yOH8g74K1JEGvbd17L+PsSFzMvBKzOdUuEx1NItdo
-	utUDDj+RAd6/LFqT9vye2Z7Dg90LDhHAmth7vXz1YaZNGFBJgj/uJ5+SFl8bFNcr
-	ZDfbvf7scj4EOSDaapYDCphESaQpqv5VaNcYvsODNnzUMn3Nv32yYDfIr4WFsPZE
-	Cp+jbA50Wz6m8T7DvsgCInn5MD6TwOn8kR15VX/9DLjXGsA7y/IoUGSlLuCwPxRN
-	Nux+yTuWWc70hs8v+tJR62o4pRSMwg45a12qsIQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:F+6qjIEd6VQ/JrTiN5yG1kQt/KiBbigczAc75l3FW1A=:aUKlz7v0EWMN5zj3K3EOmXyHVqbh4eHhIKm69NLQ6e4=;
-X-ME-Sender: <xms:YXvrammCeGRcEidaAddy9DQWiXcxIRMRsqWysn9WuIaTxs7K29Ec4Q>
-    <xme:YXvrap3a_TPjDXU355vJuZO6buwMeqdV2rtG_bwSy7uEIjstNr2dEr7-q_MBWNKV_
-    3M_JCS0ms08QblzZbaqk8NLSuPHtsI0k5VPOJFOBTi6vnicugMzYWM>
-X-ME-Received: <xmr:YXvram1z_mYZw7_dRWtLw3S21xP3RI6MkWAlnnWIUyx5g7R5yrRAHg5LgoSMye4T>
-X-ME-Proxy-Cause: dmFkZTEblcHx/HDxFYlMFcbymSWqyds+9SvV1QaPrW0QEo3CjxLejIUk7IoZMnIcIcK09t
-    Sf2DPWxDNGVGfZTEvJSbeR6vwwpsAEP6dBoZF+eYZB/kBLgv+8+qbCiKM2Nje78vp3KEHx
-    wF6XnfC0SMLcn/gNeYt8cZ1zXEu/47jXRWfqT7uBEZOGVFQ9t3lywBMwd8cUYUPfmVOucN
-    pQJBumNoS4lDaYUyss/ZCJHxCr55seI2WewamYMIvpaIRnjWBWAiUYQ3QsSpYCsWmmQ4Pf
-    YC9iNbxaAMc9qav/iJNwWsZnOcuojuf1PmKSHkIfmC9QentwYhBT71RjRhruw5g9bsfdjy
-    9dlm0GVELcIoZ75ZAAf76OzkdELKfHNDGY1ZxUibWkjXOuf++4owZXDkAAkFuBxeoZX4Z/
-    0EdhPdI5rF29+Y/PQk5AzOfb6nEJEsFaXLX9iDfL5BHosuINkCWkOIQnXakn/R0LCiJK/P
-    /JuwTuEzVIogQBCf4R9YhoE/WhPBMxS4yra49FjvOw15Pw65Ktz/jgXmPWtFYLKLyoAfHR
-    xRorRugjQwOzbO1IcPpl75Rzuptks28hcLy/daWkI1qYw2bOyWo4uwgjFj/eEnlBwxXK4x
-    aeOWlZsjnIgeon8jZVeChdL9XxYCDFa9ETsxSmemFul849q94gep9B0cTGaw
-X-ME-Proxy: <xmx:YXvrarrzOpcdpnO59r61ITRZjD5BqL15hYvCYKQjm2M4p4CAxEuEVw>
-    <xmx:YXvraii3qN3HPoy9EfU-UVRzwNtGrg6ntNeO04nuERo8_WoFQR0pGg>
-    <xmx:YXvran-h0IucBhPoIVbrWRoBqo2IC4xvljApoSTmQo4lUfoH_07Zzg>
-    <xmx:YXvrauUMgX0rDjgfgzXlZ5FFk8FDpF1qjHxDkRZ8IS1_EFSkyGqsSg>
-    <xmx:YXvraqt9lMOvpMg9jzKM2UmOu5LTsIip99rs9MpD-hAf60dkW915nVOa>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 13:37:20 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] ksmbd: skip metadata-only stream opens in the delete check
-Date: Wed,  4 Nov 2026 12:37:02 -0600
-Message-ID: <20261104183702.192452-3-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261104183702.192452-1-icb@fastmail.org>
-References: <20261104183702.192452-1-icb@fastmail.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=W1chFljq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 532051F00A1E;
+	Wed,  4 Nov 2026 18:38:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793817516;
+	bh=LiNRxltvzl0xllwwkUuhN/TMTQEyAsaNOxq4oKnwNn4=;
+	h=Subject:To:Cc:From:Date;
+	b=W1chFljqYlpIMI3IFPlSHTVU3ajuzZyNGD2Vo7zQt7/m5B51zY8AfnoOfaLXyuCqb
+	 L3WT3+1JjNEvWMNQq1V3tR3kSwqmyzC5SN698nVVCL3BgFs1Fr1eLAPbOvUmNx3q7T
+	 earJdIoK6y96vNFT3UHG6/imSOtz+y6ZD6LdoTDo=
+Subject: FAILED: patch "[PATCH] smb: client: fix OOB read of the resume name sent in" failed to apply to 6.18-stable tree
+To: diego@bynar.io,dhowells@redhat.com,pc@manguebit.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 13:38:35 -0500
+Message-ID: <2026110435-maternity-atlantic-ccce@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -130,58 +51,238 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-A READ_CONTROL open of a named stream without FILE_SHARE_DELETE makes a
-DELETE open of the file fail with STATUS_SHARING_VIOLATION. Setting the
-file delete pending fails the same way.
 
-ksmbd_has_stream_without_delete_share() counts every stream open without
-FILE_SHARE_DELETE, whatever access it holds.
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Count a stream open only when it holds FILE_EXECUTE, FILE_READ_DATA,
-FILE_WRITE_DATA, FILE_APPEND_DATA or DELETE.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Fixes: 19043971c947 ("ksmbd: honor stream delete sharing for base file")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
----
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x f8171804a39ee89a11cd462f67862899de9c6b10
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110435-maternity-atlantic-ccce@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
-Notes:
-    Any share with "vfs objects = streams_xattr" is affected. A READ_CONTROL
-    stream open without FILE_SHARE_DELETE blocks every DELETE open of the
-    file and setting it delete pending.
-    
-    Tested on ksmbd-for-next e49296d51ccb with KASAN, with no reports or
-    warnings. In targeted stream tests and a KUnit matrix every changed
-    result removes a sharing violation that MS-FSA does not make.
-    smbtorture gives the same results as on the base.
-    
-    A reproducer is available on request.
-    
-    This fix was developed with LLM assistance.
+Possible dependencies:
 
- fs/smb/server/vfs_cache.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index f9079c529d07..6675c6652c13 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -420,7 +420,12 @@ bool ksmbd_has_stream_without_delete_share(struct ksmbd_file *fp)
- 		if (file_inode(fp->filp) != file_inode(prev_fp->filp))
- 			continue;
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From f8171804a39ee89a11cd462f67862899de9c6b10 Mon Sep 17 00:00:00 2001
+From: Diego Oliva <diego@bynar.io>
+Date: Tue, 29 Sep 2026 10:16:32 +0100
+Subject: [PATCH] smb: client: fix OOB read of the resume name sent in
+ TRANS2_FIND_NEXT2
+
+cifs_fill_dirent() reads the fixed part of a directory entry and the
+name length it holds, or for SMB_FIND_FILE_UNIX scans the name for its
+terminating NUL, without knowing where the response ends.
+cifs_save_resume_key() calls it for the entry at the LastNameOffset the
+server chose, after every FindNext and after the FindFirst of a search
+rewind, and records the name it returns as the resume name of the
+search without bounding it; the next CIFSFindNext() copies up to
+PATH_MAX - 1 bytes from that name into its request and sends them to
+the server. cifs_filldir() bounds
+the name against the end of the response since
+commit f8cf09a53a0d ("smb: client: bound dirent name against end of
+SMB response in cifs_filldir"), but only after cifs_fill_dirent() has
+read the entry, and nxt_dir_entry() checks the entries it walks only
+against sizeof(FILE_DIRECTORY_INFO), for every level but
+SMB_FIND_FILE_INFO_STANDARD, and never sees the first entry of a
+response.
+
+Bounding where last_entry starts, as the preceding patch does, does
+not bound the read. A last entry that starts within the final bytes of
+the response still has its fixed part read past the end of the
+received data, and the name length it declares, a __le32 for every
+level but SMB_FIND_FILE_INFO_STANDARD and SMB_FIND_FILE_UNIX, is
+recorded without being checked against anything. CIFSFindNext()
+rejects only a length of PATH_MAX or more, then copies the name, up to
+4095 bytes, into its request and sends it, and as the report below
+shows that copy can run past the end of the cifs_request allocation
+that holds the response. For SMB_FIND_FILE_UNIX the name is in
+addition scanned for its terminating NUL over up to PATH_MAX + 1
+UTF-16 units, or PATH_MAX bytes, before any check. The FindNext that
+carries the name is only sent by the SMB1 dialect, which is not
+negotiated by default; reaching it requires an explicit vers=1.0
+mount.
+
+With KASAN enabled, a response whose last entry declares a name
+longer than the bytes that follow it gives:
+
+ ==================================================================
+ BUG: KASAN: slab-out-of-bounds in CIFSFindNext+0x8ca/0x14c0
+ Read of size 4080 at addr ffff88807c823f98 by task ls/83
+
+ CPU: 0 UID: 0 PID: 83 Comm: ls Not tainted 7.3.0-rc4-00457-gf14572c203d5 #69 PREEMPT(lazy)
+ Call Trace:
+  <TASK>
+  kasan_report+0xdf/0x1a0
+  kasan_check_range+0x10f/0x1e0
+  __asan_memcpy+0x23/0x60
+  CIFSFindNext+0x8ca/0x14c0
+  cifs_readdir+0xf51/0x29c0
+  iterate_dir+0x1c0/0x570
+  __x64_sys_getdents64+0x133/0x270
+  do_syscall_64+0x109/0x5d0
+  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  </TASK>
+
+ Allocated by task 83 on cpu 1 at 13.497119s:
+  cifs_buf_get+0x36/0x90
+  smb_init+0x4f/0x110
+  CIFSFindNext+0xf7/0x14c0
+  cifs_readdir+0xf51/0x29c0
+
+ The buggy address belongs to the object at ffff88807c820000
+  which belongs to the cache cifs_request of size 16588
+ The buggy address is located 16280 bytes inside of
+  allocated 16588-byte region [ffff88807c820000, ffff88807c8240cc)
+ ==================================================================
+
+The read is the memcpy() that copies the recorded name into the next
+request, so those bytes go to the server.
+
+Pass the end of the response to cifs_fill_dirent() and have it reject
+an entry whose fixed part does not fit or whose name extends past the
+end, before either is used, so that both callers are covered;
+cifs_save_resume_key() computes the end the same way cifs_readdir()
+does. The name bound compares the bytes left between the name and the
+end with the name length rather than adding the length to the name
+pointer, since the length is a 32-bit value taken from the entry and
+the sum could wrap on 32-bit systems. cifs_fill_dirent() is also used
+on the SMB2 readdir path; there smb2_parse_query_directory() has
+already checked every entry against the end of the response, so a
+valid SMB2 response is not rejected by the new checks. The check
+cifs_filldir() applies after the parse is left in place. The NUL scan
+for SMB_FIND_FILE_UNIX names is capped by a separate patch.
+
+An entry and its name lie inside the data area of the response, so a
+server that points LastNameOffset at the entry is not affected. One
+that points it at the file name, as MS-CIFS 2.2.6.2.2 describes, has
+its last entry rejected here; the listing is unaffected, because
+cifs_readdir() records the resume name from an entry it emitted, and
+before this series such a response could instead end the listing early,
+since a name length read from the wrong place is usually PATH_MAX or
+more, which CIFSFindNext() rejects with -EINVAL.
+
+On trees before v6.19 the type for the level 0x105 fixed part is
+spelled SEARCH_ID_FULL_DIR_INFO; adjust when backporting.
+
+Fixes: 0752f1522a91 ("[CIFS] make sure we have the right resume info before calling CIFSFindNext")
+Cc: stable@vger.kernel.org # 6.1.x: f8cf09a53a0d: smb: client: bound dirent name against end of SMB response in cifs_filldir
+Assisted-by: Bynario AI
+Signed-off-by: Diego Oliva <diego@bynar.io>
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+
+diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
+index 6ab4e687c3e4..441cafcdc889 100644
+--- a/fs/smb/client/readdir.c
++++ b/fs/smb/client/readdir.c
+@@ -586,30 +586,46 @@ static void cifs_fill_dirent_std(struct cifs_dirent *de,
+ }
  
--		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE)) {
-+		/*
-+		 * A stream open with no right in FILE_SHARE_CHECKED_ACCESS_LE
-+		 * never conflicts
-+		 */
-+		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE) &&
-+		    prev_fp->daccess & FILE_SHARE_CHECKED_ACCESS_LE) {
- 			ret = true;
- 			break;
- 		}
--- 
-2.47.3
+ static int cifs_fill_dirent(struct cifs_dirent *de, const void *info,
+-		u16 level, bool is_unicode)
++			    const char *end, u16 level, bool is_unicode)
+ {
++	size_t len = end > (const char *)info ? end - (const char *)info : 0;
++
+ 	memset(de, 0, sizeof(*de));
+ 
+ 	switch (level) {
+ 	case SMB_FIND_FILE_POSIX_INFO:
++		if (len < sizeof(struct smb2_posix_info))
++			goto too_short;
+ 		cifs_fill_dirent_posix(de, info);
+ 		break;
+ 	case SMB_FIND_FILE_UNIX:
++		if (len < offsetof(FILE_UNIX_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_unix(de, info, is_unicode);
+ 		break;
+ 	case SMB_FIND_FILE_DIRECTORY_INFO:
++		if (len < offsetof(FILE_DIRECTORY_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_dir(de, info);
+ 		break;
+ 	case SMB_FIND_FILE_FULL_DIRECTORY_INFO:
++		if (len < offsetof(FILE_FULL_DIRECTORY_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_full(de, info);
+ 		break;
+ 	case SMB_FIND_FILE_ID_FULL_DIR_INFO:
++		if (len < offsetof(FILE_ID_FULL_DIR_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_search(de, info);
+ 		break;
+ 	case SMB_FIND_FILE_BOTH_DIRECTORY_INFO:
++		if (len < offsetof(FILE_BOTH_DIRECTORY_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_both(de, info);
+ 		break;
+ 	case SMB_FIND_FILE_INFO_STANDARD:
++		if (len < offsetof(FIND_FILE_STANDARD_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_std(de, info);
+ 		break;
+ 	default:
+@@ -617,7 +633,19 @@ static int cifs_fill_dirent(struct cifs_dirent *de, const void *info,
+ 		return -EINVAL;
+ 	}
+ 
++	if (de->name &&
++	    (end < de->name || (size_t)(end - de->name) < de->namelen)) {
++		cifs_dbg(VFS, "%s: search entry name extends past end of SMB\n",
++			 __func__);
++		return -EINVAL;
++	}
++
+ 	return 0;
++
++too_short:
++	cifs_dbg(VFS, "%s: search entry extends past end of SMB\n",
++		 __func__);
++	return -EINVAL;
+ }
+ 
+ #define UNICODE_DOT cpu_to_le16(0x2e)
+@@ -672,10 +700,14 @@ static int is_dir_changed(struct file *file)
+ static int cifs_save_resume_key(const char *current_entry,
+ 	struct cifsFileInfo *file_info)
+ {
++	struct TCP_Server_Info *server = tlink_tcon(file_info->tlink)->ses->server;
++	char *buf = file_info->srch_inf.ntwrk_buf_start;
++	const char *end = buf + server->ops->calc_smb_size(buf);
+ 	struct cifs_dirent de;
+ 	int rc;
+ 
+-	rc = cifs_fill_dirent(&de, current_entry, file_info->srch_inf.info_level,
++	rc = cifs_fill_dirent(&de, current_entry, end,
++			      file_info->srch_inf.info_level,
+ 			      file_info->srch_inf.unicode);
+ 	if (!rc) {
+ 		file_info->srch_inf.presume_name = de.name;
+@@ -977,7 +1009,8 @@ static int cifs_filldir(char *find_entry, struct file *file,
+ 	struct qstr name;
+ 	int rc = 0;
+ 
+-	rc = cifs_fill_dirent(&de, find_entry, file_info->srch_inf.info_level,
++	rc = cifs_fill_dirent(&de, find_entry, end_of_smb,
++			      file_info->srch_inf.info_level,
+ 			      file_info->srch_inf.unicode);
+ 	if (rc)
+ 		return rc;
 
