@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801767;
-	b=cEtH8omPmiZtXSjZrub3vjPtXSiYUWAfGSQLLe8RtpSKYst9/eZfPzj6AofXMXSWJN78
-	 2lQZtiBI2v/pVBrlu1BnzkDYI0FNZ+Fb9rZjVK09K4yCa4ax1ZrLZ8QnVo21YOOTNhfpZ
-	 YNMaH4nfsIz2SB9m2czCL0Uu4jOk52d5NeCQ67zBMW6aXwCtyldYeCcAe3ybZZ6Y6ysaz
-	 E0fQpNMsQFvODWKjbrmjoT993RL+XRM0re3t8rDh6muMYesPVIO77IhJ7X5ReDI2maGqv
-	 CDSOFgSyfRrtHr0dq4TA//KViICxeUwF7Q4x56QbYKD/qc20m/NPErTmM6MTLqaO0lw==
+	t=1793801769;
+	b=m3XoRLbQ23hYHT0cYrWn7FyjzOJEiVKSQq1ZYHJbyxQe58o8VJPS5f3ZhglnnJJI//mh
+	 jg6c0whksVKhks4jkvZX0Lovg379QqFBuNYEKT5qulyeLoZzp7O/Tm+1RkCJ/zn8KWpEs
+	 skBxEXyk7MkEwr8yFi+FnDGyjx6SokDlphop9mmHMyfx9Gh/6OHIBYBKCt7ht82jAPXTC
+	 l8N/NYwU8MWIIq7XJbWm0hr1FMYKaE+1hFWJsb8vf6P5bK9opjpq7VQ6Y6Vf3ZSPcwa2O
+	 jFnzDzISbka55M67Xg0urvcOpcZi71N+Z9/8Q+u3H8ibfaNDKGXfCCnyniYiHtYP/SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801767;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801769;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0ZdCuYGJsoJXYb2wb8goPrJt+ZwvaT4xOxJmKSDGBoI=;
-	b=Cq7x75qllldQM3NQniQuH5xQ43wHd33K5XGdk01Kx8ydqo1szDAWKB0yitZ/X/Nn08+C
-	 ZAnrWuvrFAQLpzdIO+dvdow4QNt+lJBKkVOjwwoavdf2XRV8nlTBF9qHwxDSCHeoH5h9t
-	 ENvLCvRlJFaZPxdzskhXbA9okOwXqnljWxoK/rrjE3Cce16+3HRt5wUpW/+32u8iqY7KT
-	 jkdpAvGHHjGH+iAR9H71Id15VGyexmP1iH4i6TJMu1vEVaKr/IJXb7vvZy48YtFlbucMp
-	 P9i/OIz8iKF+SUpzHo6ab+A2MsIw4ws1Kb5DhzC5PfJAwLwAgpqIp4ubg0NOqzT7qew==
+	bh=Fn7JvIBkevh5+OL9t0pwI1m6sS6qIqSZsaHbyJrbqAs=;
+	b=TNbkJbzLyuvQaYCmLDZmQ1odvOs29F54jcQQiHLWwD2YzWE4GWvoYmtszq3gal0MofYO
+	 uj3j+lk7nUVbpqUflvZpShZdpioCq7fGLz5XQ4oo3Tk07ZLkDjRKcINteZSVeHRefrGDf
+	 44PLd0qaNkRlbBqBQizw8TMhLD3BTXqaUOz26nd5o+yBEoEbqxbjDQWnQN+DOIFI+8bWi
+	 FWgZnD/iRWBrNnpCyOOGCt+mY7LY1iavtU+2+AEF5Y6l0IKsLslJL/ojFk2ODSDkSA+yE
+	 l3TFCqL0hT6UwVwFstnMyhTNJg/jieDQ9LmMzzl529zK7Sz+/ktehtmWXdqCpIo9dGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=r6dQtT0h;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ipYfsnRT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60CC606EEBB
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:16:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2CEF606EE8D
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:16:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=r6dQtT0h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10B041F00A02;
-	Wed,  4 Nov 2026 14:16:01 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ipYfsnRT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44BE61F00919;
+	Wed,  4 Nov 2026 14:16:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801762;
-	bh=0ZdCuYGJsoJXYb2wb8goPrJt+ZwvaT4xOxJmKSDGBoI=;
+	s=korg; t=1793801763;
+	bh=Fn7JvIBkevh5+OL9t0pwI1m6sS6qIqSZsaHbyJrbqAs=;
 	h=Subject:To:Cc:From:Date;
-	b=r6dQtT0hNYlb7GDVyYjIESIzrzClM6R3RE40Uywqjs0k+IvTRXixclFznJvYZ3oCM
-	 9XzoEnZVmi5UsjbIBMnV15r0oKePfSmu6B7zZpe6cqs3N9bW5CCc6gh335bd1Ppj3h
-	 V5CdnZzm6qJJvyxKGXtv8xAFIyfuHU9IysYzlpqs=
-Subject: FAILED: patch "[PATCH] genirq: Defer kfree(irqaction) until irq_thread_dtor()" failed to apply to 5.15-stable tree
+	b=ipYfsnRTqxiSTJ7RpNxTVL2rd1NXEsO2Bl4pYaBM0MXXi5fvuI2m6y2E5JW2jmD1W
+	 5QSDJAdMe5bCwRPOwq3SheW9dQIXXn+07zy+pBXBvcm4jIZBXCeTxgtoHqqTLLfzet
+	 czrzmmVEQcT0IHPQUisAp1r8t6y353ev3NOSxJh8=
+Subject: FAILED: patch "[PATCH] genirq: Defer kfree(irqaction) until irq_thread_dtor()" failed to apply to 5.10-stable tree
 To: ripatel@wii.dev,tglx@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:15:52 +0100
-Message-ID: <2026110452-king-quizzical-51bf@gregkh>
+Date: Wed, 04 Nov 2026 15:15:53 +0100
+Message-ID: <2026110453-reactive-cytoplasm-f801@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x d04adff6860587e843948b0c31174f8ae11b8dfe
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110452-king-quizzical-51bf@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110453-reactive-cytoplasm-f801@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
