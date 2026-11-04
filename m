@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793836011;
-	b=zRvHo6X7xA4ZvDCvREc6FdV0u+nhbOUsRrVbjN+/G/lVPE79DoxHyIDS/d7m7D/GkKiA
-	 +ULe+KBcI8rj2UxL2/0e5+6kTUXOpU1m2Gjb+xDWR+pY8oQFUffW318uxLdDxRnu/Qt93
-	 +rA/8+UK/QMzTL1fw2hEM1aJZPEzHw7at0TH10/HCofBnLI2mlo+zHfuYWrKFbNOX+VHV
-	 Evl2jYiq74cnaWwMn2zTry+ac5krmnC/bZTmyjrhTpBHqLyKiB9XrTO/msIu3+dbPX+vr
-	 yKhd9EI2iFvyaSSgHuxO2yZ0rQ8u98TwTUMxsQF2IUSiXieWTulskphfnua1EQ3qR4Q==
+	t=1793836018;
+	b=gJaxKHbZtGB4P2SGvACjjdyFT/sKRedxneXPo/nh2YbWCk3bBu12mYSld9eZJHWy0GlV
+	 OLcpPfGHdto1qgpZMqU0f+9ZhLLN7NkymcTFuU6AHyZC/Ez4+i4/UFKYigppXa1/uYK4B
+	 MLd9Hh1SOnfKOOUv9QIcIHEndZVRDAQgFu9+7JGJbZdAJBXE4wlCZUjzfW5F5BThcbctb
+	 LcBsYuV38cBqIV+xMVzjckLIIcqRY46zUk8RI6M16jIA2FCjJo73OqLh6S3LfokIGsANP
+	 w64xQ4Ij9H9oIeltXRKBL8aH2MAavTPQx06q7qXU2ckHZsFDlt6+gJaRhTuRUjD7WyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793836011;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793836018;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=59z3hyIrDVF05gcn5ObtBN19eD0iiIezfodWuj5Z1Cw=;
-	b=qbjRq237LVTWgt0CcqbfwjTgTO8O7hgeGfbY4JTU3PHnTWPXKfaPHKLTXn3UMPBhPRgf
-	 HGAQT3IyoEMC4oSt/1XY4ty4tf9PsCekTDRWcyVmPY5tfWi7Q3RcFXnAxC4RB/rkS1Ufp
-	 dmaOnj5t+LUbd9Cwo989BFUYYMT9ZKK59wbcaH+5irwiEj+x5NfAwM3k4Y84LA9b1uvkD
-	 MD7aVruvbqJ+1jsVLZlcGoEiPFY5tOYxGPFouV8wfdJIG7A/u7gTSPz/4LP5JxscCRjOB
-	 xqLhbtds9F8xleeoTq4TCvvnTkmV5BxlBI8DlQLnW6QCqK1UeoCeNFQsdnBrRp3t38w==
+	bh=TEnzAffImc57zq8JSRKUgE0i0XHfJv+0p9Oa119x/dY=;
+	b=qeWDjQXtIQx+cAwPOKbBC5Ou2cY32W4fgOEg42cYnpi3bN+O3QRNRoC07GLOa4kdkEqr
+	 i+drVTqDRzP2G7DsxKTZ85wIBpM+wQxVp9hIy521jv32uveQH1RGCCXd3oYR2hVgZTYs4
+	 q3PiGeNdEvzylxH0jPIxCVeKCieHputaRSErZn0+yfQHDmEcESa9Lvi7j3e67SnPnXBpf
+	 jNG0DQbvi1uwJRFQj6H6UFvMzRzxzSpxZvf+OpK0QqhfbaauGB1W+P/LVPTf2H45VMbgN
+	 7Y84HPYKmm9DUuUxnt109nI3tJuLo4kLYIP1NTGpTZ6dnIoZ8J9j9UujZbPoHixbivg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gjnR0HmT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OpUyPK6a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F433606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:46:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5F4606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:46:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gjnR0HmT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5710C1F000C1;
-	Wed,  4 Nov 2026 23:46:42 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OpUyPK6a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53D211F000C1;
+	Wed,  4 Nov 2026 23:46:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793836002;
-	bh=59z3hyIrDVF05gcn5ObtBN19eD0iiIezfodWuj5Z1Cw=;
+	s=k20260515; t=1793836017;
+	bh=TEnzAffImc57zq8JSRKUgE0i0XHfJv+0p9Oa119x/dY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gjnR0HmTsw2jvOHBGSJ/nbxYW43qLYExLYNVnH/4T3X6q8SjT1ymxIY01eFMjPocv
-	 S65Cdjjlb/TTRMQQA/knN7TuUS6xwrbgdgDsv2eRz3E0hsaIbBcPhEOrwC8hD2pbId
-	 3YkkDQGAG2W3BvUNonv8Nbl6J5Z6Cmw9AMkQRUGcCfMJUqfl6BHE94nQo+D+QodJZz
-	 XoKZW9FIDrMeP+yPsPiOoAxUYS49//hjnzwi7L+bsGMut2JW0XsSuUI9fRpJzIOPyg
-	 u2eoYJN+4m6p833H4wP/bTSJJugiP7jjA3ZuPjVb9KlE16J0AKHwcYXshxE4v/2ad1
-	 rN5VYt+7zC9kw==
+	b=OpUyPK6ai76YF4jOOJ2/rJXmsyOFHQMKD5kjQCUTCYpMpTiEAQwzl8juZPyGd+j8r
+	 Tqlr3Niae8M5jc2MkXU3l8CxNxZ3nkmo6wKon3BEeWw/s4eNards4Eaj2ZfhtXj/YJ
+	 T3ZTyA1Ny8VAQdhtPvu8rDXMF/hBp56Royz11L6gAdGvG5SvABonH2uu0AiQQTr82J
+	 TWwp+QVLYuG7dR1AgbUjx7sWei+KTWfIXULZoHIDzh05XhiygzLdK3mkqDBkP6hdNp
+	 hcNm0ZWICMtKmBdoXa7odadsZ94p8qKQSUatMtKKyGBlP9taZFVcgyd5NIdmc7BWts
+	 4AnMB8qsU45Pg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Richard Patel <ripatel@wii.dev>,
-	Thomas Gleixner <tglx@kernel.org>,
+Cc: Kuniyuki Iwashima <kuniyu@google.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] genirq: Defer kfree(irqaction) until irq_thread_dtor() finishes
-Date: Wed,  4 Nov 2026 18:46:41 -0500
-Message-ID: <20261104234540.889354-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/3] tcp: Remove timeout arg from reqsk_timeout().
+Date: Wed,  4 Nov 2026 18:46:54 -0500
+Message-ID: <20261104234539.930903-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110452-king-quizzical-51bf@gregkh>
-References: <2026110452-king-quizzical-51bf@gregkh>
+In-Reply-To: <2026110448-scrambler-renovate-a361@gregkh>
+References: <2026110448-scrambler-renovate-a361@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,158 +62,103 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Richard Patel <ripatel@wii.dev>
+From: Kuniyuki Iwashima <kuniyu@google.com>
 
-[ Upstream commit d04adff6860587e843948b0c31174f8ae11b8dfe ]
+[ Upstream commit 207ce0f6bc131812c96cf4f6db328af5396cebac ]
 
-When an interrupt thread exits abnormally via do_exit() (e.g. the interrupt
-handler oopses) without returning from irq_thread(), a concurrent call to
-free_irq() could free the irqaction before the irq_thread_dtor() exit task
-work runs.
+reqsk_timeout() is always called with @timeout being TCP_RTO_MAX.
 
-  irq thread (oopsed)                 free_irq()
-  -------------------                 ----------
-  do_exit()
-    exit_mm()
-      complete_vfork_done()  -------> kthread_stop() returns
-    exit_files() ...                  kfree(action)
-    exit_task_work()
-      irq_thread_dtor()
-        action->...                   <- use-after-free
+Let's remove the arg.
 
-Track the pending exit work with the IRQTF_EXIT_WORK thread flag, and have
-__free_irq() wait for the bit to clear before kfree().
+As a prep for the next patch, reqsk_timeout() is moved to tcp.h
+and renamed to tcp_reqsk_timeout().
 
-irq_thread_dtor() only runs on irq_thread abnormal exit. If that dtor also
-faults, free_irq() will hang indefinitely, but double IRQ thread faults
-require a reboot anyways.
-
-[ tglx: Add missing include ]
-
-Fixes: ed3e694d78cc ("move exit_task_work() past exit_files() et.al.")
-Signed-off-by: Richard Patel <ripatel@wii.dev>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261009145842.1616117-2-ripatel@wii.dev
-[ sashal: Replaced kthread_stop_put() with separate kthread_stop() and put_task_struct() calls. ]
+Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20251106003357.273403-5-kuniyu@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: c9c90cf437a9 ("mptcp: hold MP_JOIN msk ref when cloning reqsk")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/irq/internals.h |  2 ++
- kernel/irq/manage.c    | 32 ++++++++++++++++++++++----------
- 2 files changed, 24 insertions(+), 10 deletions(-)
+ include/net/inet_connection_sock.h | 8 --------
+ include/net/tcp.h                  | 7 +++++++
+ net/ipv4/inet_connection_sock.c    | 2 +-
+ net/ipv4/tcp_minisocks.c           | 5 +++--
+ 4 files changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
-index da1f282d5a1d1..e9531706a91ae 100644
---- a/kernel/irq/internals.h
-+++ b/kernel/irq/internals.h
-@@ -30,6 +30,7 @@ extern struct irqaction chained_action;
-  * IRQTF_AFFINITY  - irq thread is requested to adjust affinity
-  * IRQTF_FORCED_THREAD  - irq action is force threaded
-  * IRQTF_READY     - signals that irq thread is ready
-+ * IRQTF_EXIT_WORK - irq thread exit task_work is pending
-  */
- enum {
- 	IRQTF_RUNTHREAD,
-@@ -37,6 +38,7 @@ enum {
- 	IRQTF_AFFINITY,
- 	IRQTF_FORCED_THREAD,
- 	IRQTF_READY,
-+	IRQTF_EXIT_WORK,
- };
+diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
+index d50e0afc3193f..39ccb785dd4c1 100644
+--- a/include/net/inet_connection_sock.h
++++ b/include/net/inet_connection_sock.h
+@@ -297,14 +297,6 @@ static inline int inet_csk_reqsk_queue_is_full(const struct sock *sk)
+ bool inet_csk_reqsk_queue_drop(struct sock *sk, struct request_sock *req);
+ void inet_csk_reqsk_queue_drop_and_put(struct sock *sk, struct request_sock *req);
  
- /*
-diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
-index ce0433446a8ed..87f8ed44ca870 100644
---- a/kernel/irq/manage.c
-+++ b/kernel/irq/manage.c
-@@ -21,6 +21,7 @@
- #include <linux/sched/isolation.h>
- #include <uapi/linux/sched/types.h>
- #include <linux/task_work.h>
-+#include <linux/wait_bit.h>
- 
- #include "internals.h"
- 
-@@ -1224,17 +1225,14 @@ static void wake_threads_waitq(struct irq_desc *desc)
- 		wake_up(&desc->wait_for_threads);
- }
- 
--static void irq_thread_dtor(struct callback_head *unused)
-+static void __irq_thread_dtor(struct irqaction *action)
- {
- 	struct task_struct *tsk = current;
- 	struct irq_desc *desc;
--	struct irqaction *action;
- 
- 	if (WARN_ON_ONCE(!(current->flags & PF_EXITING)))
- 		return;
- 
--	action = kthread_data(tsk);
+-static inline unsigned long
+-reqsk_timeout(struct request_sock *req, unsigned long max_timeout)
+-{
+-	u64 timeout = (u64)req->timeout << req->num_timeout;
 -
- 	pr_err("exiting task \"%s\" (%d) is an active IRQ thread (irq %d)\n",
- 	       tsk->comm, tsk->pid, action->irq);
- 
-@@ -1251,6 +1249,14 @@ static void irq_thread_dtor(struct callback_head *unused)
- 	irq_finalize_oneshot(desc, action);
+-	return (unsigned long)min_t(u64, timeout, max_timeout);
+-}
+-
+ void inet_csk_destroy_sock(struct sock *sk);
+ void inet_csk_prepare_for_destroy_sock(struct sock *sk);
+ void inet_csk_prepare_forced_close(struct sock *sk);
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index e40bad5606486..f9bcfa8773a3a 100644
+--- a/include/net/tcp.h
++++ b/include/net/tcp.h
+@@ -838,6 +838,13 @@ static inline u32 __tcp_set_rto(const struct tcp_sock *tp)
+ 	return usecs_to_jiffies((tp->srtt_us >> 3) + tp->rttvar_us);
  }
  
-+static void irq_thread_dtor(struct callback_head *unused)
++static inline unsigned long tcp_reqsk_timeout(struct request_sock *req)
 +{
-+	struct irqaction *action = kthread_data(current);
++	u64 timeout = (u64)req->timeout << req->num_timeout;
 +
-+	__irq_thread_dtor(action);
-+	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
++	return (unsigned long)min_t(u64, timeout, TCP_RTO_MAX);
 +}
 +
- static void irq_wake_secondary(struct irq_desc *desc, struct irqaction *action)
- {
- 	struct irqaction *secondary = action->secondary;
-@@ -1307,6 +1313,7 @@ static int irq_thread(void *data)
- 	else
- 		handler_fn = irq_thread_fn;
+ u32 tcp_delack_max(const struct sock *sk);
  
-+	set_bit(IRQTF_EXIT_WORK, &action->thread_flags);
- 	init_task_work(&on_exit_work, irq_thread_dtor);
- 	task_work_add(current, &on_exit_work, TWA_NONE);
+ /* Compute the actual rto_min value */
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index 6b36652d6bb9d..772964048cda0 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -1128,7 +1128,7 @@ static void reqsk_timer_handler(struct timer_list *t)
+ 	     inet_rsk(req)->acked)) {
+ 		if (req->num_timeout++ == 0)
+ 			atomic_dec(&queue->young);
+-		mod_timer(&req->rsk_timer, jiffies + reqsk_timeout(req, TCP_RTO_MAX));
++		mod_timer(&req->rsk_timer, jiffies + tcp_reqsk_timeout(req));
  
-@@ -1331,6 +1338,7 @@ static int irq_thread(void *data)
- 	 * oneshot mask bit can be set.
- 	 */
- 	task_work_cancel_func(current, irq_thread_dtor);
-+	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
- 	return 0;
- }
- 
-@@ -1867,6 +1875,13 @@ __setup_irq(unsigned int irq, struct irq_desc *desc, struct irqaction *new)
- 	return ret;
- }
- 
-+static void irq_stop_thread(struct irqaction *action)
-+{
-+	kthread_stop(action->thread);
-+	put_task_struct(action->thread);
-+	wait_on_bit(&action->thread_flags, IRQTF_EXIT_WORK, TASK_UNINTERRUPTIBLE);
-+}
-+
- /*
-  * Internal function to unregister an irqaction - used to free
-  * regular and special interrupts that are part of the architecture.
-@@ -1971,12 +1986,9 @@ static struct irqaction *__free_irq(struct irq_desc *desc, void *dev_id)
- 	 * the same bit to a newly requested action.
- 	 */
- 	if (action->thread) {
--		kthread_stop(action->thread);
--		put_task_struct(action->thread);
--		if (action->secondary && action->secondary->thread) {
--			kthread_stop(action->secondary->thread);
--			put_task_struct(action->secondary->thread);
--		}
-+		irq_stop_thread(action);
-+		if (action->secondary && action->secondary->thread)
-+			irq_stop_thread(action->secondary);
+ 		if (!nreq)
+ 			return;
+diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
+index d05009f985afc..2d78801866396 100644
+--- a/net/ipv4/tcp_minisocks.c
++++ b/net/ipv4/tcp_minisocks.c
+@@ -717,7 +717,8 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
+ 			 * it can be estimated (approximately)
+ 			 * from another data.
+ 			 */
+-			tmp_opt.ts_recent_stamp = ktime_get_seconds() - reqsk_timeout(req, TCP_RTO_MAX) / HZ;
++			tmp_opt.ts_recent_stamp = ktime_get_seconds() -
++				tcp_reqsk_timeout(req) / HZ;
+ 			paws_reject = tcp_paws_reject(&tmp_opt, th->rst);
+ 		}
  	}
+@@ -756,7 +757,7 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
+ 		    !tcp_rtx_synack(sk, req)) {
+ 			unsigned long expires = jiffies;
  
- 	/* Last action releases resources */
+-			expires += reqsk_timeout(req, TCP_RTO_MAX);
++			expires += tcp_reqsk_timeout(req);
+ 			if (!fastopen)
+ 				mod_timer_pending(&req->rsk_timer, expires);
+ 			else
 -- 
 2.53.0
 
