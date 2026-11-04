@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826989;
-	b=07WAVxEWaB1IK0RuQjgKwXa5xt1CPkgtnIVQhQ4rIonQIaqAoFA/6o6EjtVw52YrToiH
-	 J/5nnyH1Hla0nbF/WNKLzZf0UwQJXZVp3OMpVyWm9NbxgM1bKokMZ0fUDYNjb5j4outuj
-	 nbFKkRKLb6ChCCKGuIr/ufTtwGhU3nyywoUFk1j7kPbFPVqxVsGhqEelmv25T7+gD5muY
-	 ptPHFdikvRhOvfaxGwDWUtM2TUYMxLgO5l6/OX8VX2MvD9rPWaLvw55kbr3vs5/cF3Df7
-	 0cr1P7avcBG3ePIMHr2gZ/fxQjoBGDQSgqysdljqUSMaHsLgROBCOclB9Tww0q768Cw==
+	t=1793826974;
+	b=dn+hiU4gwrxZZI/Umay/IW8pqdOpAa7STmZIkxCF6cMhdsDgQyZk+7y70zdPkJu9W0Bb
+	 x5wt/xzJ3lsvBwYPRhJQ18GEXMeyouYi2Yd6lC7lPyHeKZbmvpmA5bLKJ9TMHG+5CbiZH
+	 DHs3Tp0Pg9rJ7APi66nfCEjo9yVmiXQM6zEGsCDoiWSmH3AtGDuQW9SSTTTWibqy99q/P
+	 ZAhSWxlNWynwBxOXXHpqvfrTo/NjIyv4plP1J5Q3XsuwRvgqvL2ty/qC6tlgGsBU0cTHl
+	 HuOzV+RMRZjfB1WQqp90eiFdGMJd3U1JN6QBjPzeXqYubzWAUgDpjY6tbmLgqajsacQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826989;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826974;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=+VmnO6X2RK97Xa3zjb0i12pVSXXY6a/wqH4nx3EEtp8=;
-	b=c5gZMX+oWrkqSIWcffFJ6OTbmgTtXm4i1jB2cxPKNz6cIx026ywjctzilvm7yjAXWKHV
-	 crzqdy8fg05Wegl1Dr3nRtcYA4P+gysR0QWvM4eib4itKkezU2kbKWdru0VH0Nx2raaTV
-	 INSxe/o4JWkcGALSFwCF03D9Na0AQz7Cge49DUK/P8MPtEVhQGdvMvZHGpRlIWfLH0Vcc
-	 hy8Hm5kZ2sH8mA/0HKOVm9/fyUAKAuyVT8EEUXzbBSXcF9DSjqMnbTL3VhTOaVIjwjI6P
-	 aPffWcFpxNPfQnaWemfC0nS33kgFVKRRkc2D3QfH7Xfo2olBly8QhH/BPY/PWuMh2zg==
+	bh=jOORKYyTRJ69x0DsKmtN8GksqPGeGNmAh2sA/2UeKoc=;
+	b=g4o3xkktHvKxucrdJEDc6Ej/8JAyRdUbj9k9kv/jJ6r+/jEwoCOZHfg0xxrKyTFLgy7z
+	 7QaGR9YFpVCT/d4khaOwhPsgNL1wVoWt4dStN2HnNATLYIg7u3Eo5FtqDWo43Fqug3Gnl
+	 3HpdBiWRUB3Jho61fZ6BEFDmJTGauRgrXtfxzSjPOkDCvXtLntNtbh0qqGLrBprncP9nN
+	 pRlbQQF3q/Fx8k7ZRd4q2es2967W4zG2J1gYZbRlGBuCC1TNGYDhy+rlnGlMP5ypp97K+
+	 wT+Yv5NQ1wWwGpnMVQFf4+4v7wDPeRmj3YgiUZrzPTzZDVEuDch2fPxCGU3MchsWF7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tw6LF9t5;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yNwEgEZT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C8F6070AA2;
-	Wed,  4 Nov 2026 21:16:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E76D60BC560;
+	Wed,  4 Nov 2026 21:16:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tw6LF9t5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 710211F00919;
-	Wed,  4 Nov 2026 21:16:28 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yNwEgEZT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6315C1F00A18;
+	Wed,  4 Nov 2026 21:16:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793826988;
-	bh=+VmnO6X2RK97Xa3zjb0i12pVSXXY6a/wqH4nx3EEtp8=;
+	s=korg; t=1793826973;
+	bh=jOORKYyTRJ69x0DsKmtN8GksqPGeGNmAh2sA/2UeKoc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=tw6LF9t5/KyhljtFdN4leJKVeVkpTbn4jsnvdqvpnDXupBWQEGiPrr4T61exAtwHb
-	 qzLzlCRysglWtBjDJ5O8+SD96ZNzA0G3SeONU7vgi1s86Pp7OnS5ZneBpKK8o0FBeG
-	 NqDXrOcZHQ6kbynW+Td1JdChcGGUfr/tsvrDajvc=
+	b=yNwEgEZT3Fssrr7pIjPHKsRxEa51Kkou4oSXogfkqCyCju2C9FHN9xLs8X0PpJF8C
+	 w/9q0XBBedAmBcw2jH192vvltzMpabYRZ2SpXjT0GWYviydX3rF7cFpvnpOcg4KHk6
+	 /5+goRnpIhwHBB4uKN7UDrJLPNX0NlHMR5eOKtMY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	DaeMyung Kang <charsyam@gmail.com>,
+	Tea La Forgia <tealaforgia+alias@gmail.com>,
 	Namjae Jeon <linkinjeon@kernel.org>
-Subject: [PATCH 7.3 126/547] ksmbd: preserve unreadable named streams on open
-Date: Wed,  4 Nov 2026 16:05:10 -0500
-Message-ID: <20261104211041.765318776@linuxfoundation.org>
+Subject: [PATCH 7.3 118/547] ksmbd: fix extended session security negotiation for raw NTLMSSP
+Date: Wed,  4 Nov 2026 16:05:02 -0500
+Message-ID: <20261104211041.551194130@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -67,64 +67,45 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: DaeMyung Kang <charsyam@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-commit 80c816c047f7cae3c99cc75740c1f5d2c4d97b45 upstream.
+commit 6868f857514bbfd2ed10b9b566664dc4a8ca039d upstream.
 
-A write-only client can open an existing named stream with FILE_OPEN_IF
-without permission to read the underlying file. The case-insensitive
-lookup finds the xattr name, but querying its value length then fails
-with -EACCES. smb2_set_stream_name_xattr() treats every negative result
-as a missing stream and replaces the existing xattr with an empty value.
+ksmbd_build_ntlmssp_challenge_blob() only advertises extended session
+security when conn->use_spnego is true. As a result, raw NTLMSSP
+negotiation drops NTLMSSP_NEGOTIATE_EXTENDED_SEC from the challenge even
+when the client requested it.
 
-A failed xattr list is not proof that the stream is absent either:
-for example, -ENOMEM can lead to the same empty replacement. Preserve
-listing errors and create a stream only for -ENOENT or -ENODATA. The
-latter can occur if the xattr is removed between listing its name and
-querying its value. Return other lookup errors without changing the
-stream.
+A Windows capture shows an initial SPNEGO authentication succeeding,
+followed by a raw NTLMSSP negotiation on the same TCP connection. The raw
+challenge omits extended session security, and the client does not send
+an AUTHENTICATE message. The unfinished session then occupies the pending
+session slot, causing subsequent SESSION_SETUP requests to fail with
+STATUS_INSUFFICIENT_RESOURCES.
 
-A write-only FILE_OPEN now reports access denied instead of name not
-found. FILE_OVERWRITE_IF and FILE_SUPERSEDE on an unreadable stream
-also fail instead of appearing to replace it. Stream writes and EOF
-changes already need to read the old value, so such handles cannot
-update the stream after opening either.
+Set NTLMSSP_NEGOTIATE_EXTENDED_SEC whenever the client requests it,
+independently of the SPNEGO wrapper, as required by [MS-NLMP].
 
 Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Cc: stable@vger.kernel.org
-Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
+Reported-by: Tea La Forgia <tealaforgia+alias@gmail.com>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/smb/server/smb2pdu.c |    2 ++
- fs/smb/server/vfs.c     |    6 +++++-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ fs/smb/server/auth.c |    3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -3428,6 +3428,8 @@ static noinline int smb2_set_stream_name
- 				     xattr_stream_size);
- 	if (rc >= 0)
- 		return 0;
-+	if (rc != -ENOENT && rc != -ENODATA)
-+		return rc;
+--- a/fs/smb/server/auth.c
++++ b/fs/smb/server/auth.c
+@@ -336,8 +336,7 @@ ksmbd_build_ntlmssp_challenge_blob(struc
+ 	if (cflags & NTLMSSP_REQUEST_TARGET)
+ 		flags |= NTLMSSP_REQUEST_TARGET;
  
- 	if (fp->cdoption == FILE_OPEN_LE) {
- 		if (!strcmp(stream_name, "AFP_AfpInfo") &&
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -1912,7 +1912,11 @@ ssize_t ksmbd_vfs_casexattr_len(struct m
- 	ssize_t value_len = -ENOENT, xattr_list_len;
+-	if (conn->use_spnego &&
+-	    (cflags & NTLMSSP_NEGOTIATE_EXTENDED_SEC))
++	if (cflags & NTLMSSP_NEGOTIATE_EXTENDED_SEC)
+ 		flags |= NTLMSSP_NEGOTIATE_EXTENDED_SEC;
  
- 	xattr_list_len = ksmbd_vfs_listxattr(dentry, &xattr_list);
--	if (xattr_list_len <= 0)
-+	if (xattr_list_len < 0) {
-+		value_len = xattr_list_len;
-+		goto out;
-+	}
-+	if (!xattr_list_len)
- 		goto out;
- 
- 	for (name = xattr_list; name - xattr_list < xattr_list_len;
+ 	if (cflags & NTLMSSP_NEGOTIATE_KEY_XCH)
 
 
