@@ -1,51 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793814506;
-	b=rqHdU0DIL+aJUTKS2PTTipl2vs6/Zx7u/XyLrw/YVqIi4e12uPKcN3422hop6KjvWxAn
-	 ASAU3zpvXtlRsdlkL5mZpuOsw0Cuu8cJXvj4+t3i4F1oMf10bduIfigh5BKsWAxF/NM+9
-	 Nf2toZ5Vgv2Emx+yoKUiVU5DPjT/m7xeDqiCtCYAorxj64cWNYv8IBy/A/dIHMDNsoCWM
-	 aCk3y09SRXPanxjm+naSfNMRc85trPC9yHI7ayRKylZkpMuSXIshi4UZLXleZPlIQ2arg
-	 2TcuNG/g8nIlBZNN4qqm0JlDNY7+9wBCXpiSQTm/z7ebWapQsENTmIHw/sEms2J1roQ==
+	b=pm4xKwn3QUpfAceciU7WuvGFkI6T/b5qioYsOs6Z223B9sEjK+oObwVoKvaeqMpipkJg
+	 6kyAYB1BYoQ0VvexMNRzovyIDbL+O3p3X4dVIs46HBcQ0yzpsyB//AzP7YtQRII0A1FPB
+	 Y7+GrTMEGWml6+EMWdCIng28xqAeRKDXTkIcbROu2MMMJL/7kgHes4vySYgqhGtVcyQrf
+	 H/I8XojQDd9PiiSVjTdmeJlf8y/rpZQKlaK15H/CzINn22HcRGqdIgYdY1hUJLwkJWdKX
+	 jYMtTQLoLXu55/kC3LubFA3I6hgIipgdlbl/FV+hAmhVsz3Xq+aeCePHtVggvM5wspg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793814506;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=5mDmVcyfUCeEAX8H66OPCvcSV/Zj8eOdzhf6RFoRR/s=;
-	b=cZYgHCIawxshIVFNdcaitsmBUEGP+EMvTOX2UonuvM2p9ydiYucOBt9Fix1k3et1x2pg
-	 iI/wbAOtHWFhuuSi5fuQgfzEeK7yl5/6mbomz+DOiETo/OScLKemIEyVDh6PR7e+EapO6
-	 iMPcUD8nrk7kKkx9ZnDzvGf/yWxOhI8Dfu1Gh/8R/RJJnZUCFMH3BUn/w+qE9MMjXUpFc
-	 Uc2juJTIyDytS31gEB0qSnUmOPrnCBIJXhA57GNmqQTcQpurs9uqM+5AsP6Ucm86P5yeI
-	 +XpnYz2RGZnKtiMnH8dkzVP/khpIATnHIoyiu4UDRrRk4FTmP3Iph0avOItPqoTSa+Q==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=3ZyIQLij17XFBIkY/FnNnjbp2RgAs/rkMBTgRuVD6WA=;
+	b=jn1mKPcBhY79Jlk/ENvULyjTiunlzZ9P0u9IyXPmLjKakP4q6vyyYSgX2w4gZM9Ry2c+
+	 3axsnJyEgIb++k8v5/NOeuyC+xofjtF5b/869Rz73j+ZrG7GKrCGBKIBarvr6m0OnatIG
+	 y8MVgFBTNpC46Pfa7stZkpoGlUAdXJ7KMF57aV4iZCnEbf4HL17UGz9plJ1j99SgczAk3
+	 watZInjoo5nx5qj02cy/uDRFoZIUmBkurDoK6DxSQZM5CUM7HmWshEocfWYogMcSq/TzE
+	 awTScXrbynm7o4QmMq1G7qL1B7hPB2f4teqZHr81e8VOoNg8unV6gNguxBpZlObtryg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YjKyDO0M;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 77B56606A32E;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jRm+kuQX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D57D606D822;
 	Wed,  4 Nov 2026 17:48:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77B56606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YjKyDO0M
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C7D711F91;
-	Wed,  4 Nov 2026 09:48:22 -0800 (PST)
-Received: from e133894.arm.com (e133894.arm.com [10.2.80.62])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 74D473F673;
-	Wed,  4 Nov 2026 09:48:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793814505; bh=rtHBnwtVq7g8hs8r3SVgFVZrZGzkMLR5iSHNEjAFp9Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=YjKyDO0M4UEGryr6fyL6FBYC6HZ6eECnV3V+dxb5ODIgwnY3mebUd21YeLEU1TtSe
-	 rAVvji1D/DD+l1pUmuO2P8FVfcf1XM2G+XjZim4HHiGReUxiwdSzJesyNhlq2ApjfF
-	 mRZ32i4fTeOM6h/djSfu9/l0VO/ebe7nLZn/42IE=
-From: Sascha Bischoff <sascha.bischoff@arm.com>
-Date: Wed, 04 Nov 2026 17:47:57 +0000
-Subject: [PATCH v2 03/10] irqchip/gic-v5: Serialise IRS synchronisation
- requests
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jRm+kuQX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 512051F000C1;
+	Wed,  4 Nov 2026 17:48:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793814506;
+	bh=3ZyIQLij17XFBIkY/FnNnjbp2RgAs/rkMBTgRuVD6WA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jRm+kuQXLx3HxqJQ/pjoWlYGnOb5R2cVrI0BxZjs1H9Bw8isgylYtekF6fzwCYam0
+	 GpULB5lXQbyTK/Edh9b2eC4kps+uu7bCEsyidT0bHm7H2HfmOVOP/JWR98p8XKggDV
+	 gbR+sBOa4/o7t63orB3vACnwFADp+bNRfAOdtU2Yc/wWPiuGQBbek9DZxI+EgwmNgG
+	 KWLc3uoF26LdC4oCj9qcMJD06sucvBwbhfn2X8BjLVTXyfWCytbRIvS8esUEF/ocEj
+	 eFEobff+fM/wQhcYScZQ5sJRBVHN2AlsYRDXbqaRDoezJ+0bPS0RQxOsMA9AvIN8D2
+	 a7u52gum9t5KQ==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 14/51] proc: sysctl: don't stop readdir at an entry that is being unregistered
+Date: Wed,  4 Nov 2026 18:47:00 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-14-bbf7d5546809@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,79 +116,51 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-host_gicv5_fixes-v2-3-e47ad20ea3c8@arm.com>
-References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
-In-Reply-To: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
-To: Marc Zyngier <maz@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
- Timothy Hayes <timothy.hayes@arm.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Jonathan Cameron <jic23@kernel.org>, 
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Sascha Bischoff <sascha.bischoff@arm.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1722; i=brauner@kernel.org; h=from:subject:message-id; bh=6hLGzd3ohIjIvoG2NrLKRAR6DerSlran3UFG44ON0F0=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9zrvAWu/kaD6x96PK3okTN85e99fjn1Pl3U3bGJtnN F1XMW6+3lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRfk9GhqVlT3f9k3gTlZE2 2Sl7qnRP89Frq6PEfR/pxi6YuOo16wdGhrWT5lf5PEid/zYw+uqn/MXSBi/y5i736erf2r1Ls/F ABg8A
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-IRS_SYNCR writes are ignored while IRS_SYNC_STATUSR.IDLE is clear.
-Calls to gicv5_irs_syncr() for different IRQs can overlap, allowing
-the second request to be dropped. Its caller can then observe the
-first request completing and assume that its own events have been
-processed.
+proc_sys_fill_cache() creates the inode of an entry that has no dentry
+yet. Since ace0c791e6c3 ("proc/sysctl: Don't grab i_lock under
+sysctl_lock.") proc_sys_make_inode() refuses to do that once the table
+is being unregistered and fails with -ENOENT. readdir takes every table
+it lists into use and unregister_sysctl_table() marks the table as
+being unregistered before it waits for readdir to let go of it. So an
+entry that is unregistered right then makes proc_sys_fill_cache() fail,
+proc_sys_readdir() stops there and returns 0. If that getdents64() call
+hadn't emitted anything before that entry userspace sees the end of the
+directory and never gets the entries behind it. A listing of
+/proc/sys/net/ipv6/conf can end early that way while a device goes
+away.
 
-With GICv5 ITS KVM support, gicv5_irs_syncr() is also called while
-restoring the host ITTE in gicv5_its_set_vcpu_affinity(). The callback
-runs under the IRQ descriptor lock via irq_set_vcpu_affinity(), so it
-cannot sleep.
+So skip an entry whose table is being unregistered, like readdir
+already skips a link it can't follow. Lookup treats such an entry as
+gone too since ea5751ccd665 ("proc/sysctl: don't return ENOMEM on
+lookup when a table is unregistering").
 
-Serialise the request and completion poll with a raw spinlock, and use
-atomic polling because the synchronisation runs while holding the IRQ
-descriptor lock.
-
-Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
+Fixes: ace0c791e6c3 ("proc/sysctl: Don't grab i_lock under sysctl_lock.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/irqchip/irq-gic-v5-irs.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ fs/proc/proc_sysctl.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/irqchip/irq-gic-v5-irs.c b/drivers/irqchip/irq-gic-v5-irs.c
-index 4edf787f3f97f..ead76560ea08f 100644
---- a/drivers/irqchip/irq-gic-v5-irs.c
-+++ b/drivers/irqchip/irq-gic-v5-irs.c
-@@ -10,6 +10,7 @@
- #include <linux/log2.h>
- #include <linux/of.h>
- #include <linux/of_address.h>
-+#include <linux/spinlock.h>
+diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
+index 6c0859c66563..b4a309d49698 100644
+--- a/fs/proc/proc_sysctl.c
++++ b/fs/proc/proc_sysctl.c
+@@ -704,6 +704,9 @@ static bool proc_sys_fill_cache(struct file *file,
+ 			if (unlikely(res)) {
+ 				dput(child);
  
- #include <linux/irqchip.h>
- #include <linux/irqchip/arm-gic-v5.h>
-@@ -22,6 +23,8 @@
- #define LPI_ID_BITS_LINEAR		12
++				/* skip an entry whose table is being unregistered */
++				if (res == ERR_PTR(-ENOENT))
++					return true;
+ 				if (IS_ERR(res))
+ 					return false;
  
- static DEFINE_PER_CPU_READ_MOSTLY(struct gicv5_irs_chip_data *, per_cpu_irs_data);
-+/* Synchronization requests must not overlap in an IRS Domain. */
-+static DEFINE_RAW_SPINLOCK(irs_sync_lock);
- static LIST_HEAD(irs_nodes);
- 
- static u32 irs_readl_relaxed(struct gicv5_irs_chip_data *irs_data,
-@@ -507,10 +510,11 @@ void gicv5_irs_syncr(void)
- 		return;
- 
- 	syncr = FIELD_PREP(GICV5_IRS_SYNCR_SYNC, 1);
-+	guard(raw_spinlock_irqsave)(&irs_sync_lock);
- 	irs_writel_relaxed(irs_data, syncr, GICV5_IRS_SYNCR);
- 
--	gicv5_wait_for_op(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
--			  GICV5_IRS_SYNC_STATUSR_IDLE);
-+	gicv5_wait_for_op_atomic(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
-+				 GICV5_IRS_SYNC_STATUSR_IDLE, NULL);
- }
- 
- int gicv5_irs_register_cpu(int cpuid)
 
 -- 
-2.34.1
+2.53.0
 
