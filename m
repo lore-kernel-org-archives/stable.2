@@ -1,61 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826367;
-	b=L7w9fV1YNo8F+mINtYSdZZ6T5G4aS2ELKlgIncAReO1BD1wFFSi20gOrJu4XCHrOETZI
-	 TWglONj09dI6pe34SfxkwE6QGtDQjvv5Xqxend525pzInkI6d3tr06LV+ky5ARqOz7WUG
-	 61TrnppinFfqHEmUeoHJPXis2jdcpXkhYPV28VlbQWbSgQgyaS3vim3kl4maGo1HEYg24
-	 DHmVTGKr8rZQXz5QHayHJOusfT9iwqPU53Xhwk+on+mJ2lFIEQoKa4iFMRGvELVrEORYw
-	 RYzRwmBB8C7S8sSc6Y2qcda7EFX+FNJq8dntPSgDibT9CBjujg1CnNYWrGYlTkdx6Fg==
+	t=1793826528;
+	b=OjZA3hvo8dfb06IngpcHRxLbQoL8AwxSmc5NsoVnLGoRcAsAJFyYN5uFycNNqRdByc0X
+	 JdDnUSUTkESDSfDYaM/IOxil9fKEIcpjirn/bzxNY6jO96ogO75mzOHbepCsXzNI73mG8
+	 BlaVODgdzNqcXnnjRVbiwgWzaxRhsGEUNuG9XAaToJxiLEWOa44QgwcCAB+A1gVRZCBUq
+	 faWKpyN74c8uCbyKzsWOLtGlOLm2hxCf8doT3+bdBTXaVdbBt2VFJdTrVzSe8925Tgj+H
+	 CBmnsZt13wJrvQTSwzbqE+JtwAFoVjekzVnm4KearGad2njYrCwh1oMz92/Y2100POw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826367;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=YaJIToSCTk3wATVpVFceyT5vak8F0V2qG7IxMxnA4+E=;
-	b=41r4k0AXmraVHBpEMTHUl65ZkyZh6FObHaeJBlg+uY1ZC/024MnjRsFTLFX7Ij/vWBIT
-	 l2euC1q+bKisoFG7UK/KvSLi6yU2dIdWZqoMlxgrk1XysLWFOwnds2tylELLUncvaqyJw
-	 juxZ3lFhe1KHCgval7XOj/npaNy38AsHyHrxKPBuZ/ZucTbIk6N3GuXwyn799peeTGWDP
-	 NhqO7awYLYrrXNU1z3fOufGWXArt8RmmitA4UJwRaGeqj+i7Owcq9LA2hH7WkdhBdvb4J
-	 lNgjGsr+/pmFmvW52NHDsseIO/KJXYN7ewj0wPl3gz8Y8PLnYUtoZ8zLmRqJPKEaxwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826528;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:CC:Subject:User-Agent:In-Reply-To:References:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=6PFd3kI83AuIA1Y6h+p+v4Y/1puo2Ts/ZISrLgCUH7s=;
+	b=HM/f7MIBgTEnJ4LB9h6gKZVTiAaSVCT5CujABkCZJtAmMeIFg7VsKuB/u3D1XRs+GXPU
+	 My+cJjl72nYs44AuqIIF4V9Vgr6aziYsOLTf3yL+mYyPPjVPry+Pv+hKmSB7lAMm6vT7x
+	 QbAhobAYsjGyKm6UurgTEeOvLhOHRistlObGnJ31R9kNtpYBxGEq1C8YozaPLpzwdLazO
+	 YHTXdpL/abMjYz9RtxhQHPLjmQzYLybUe466WpAxJbnvy9gwaXToidnHI/J0lHxJDzwl3
+	 vfiAVFdPfi1Svs+x10N65jyEi5zz7mfUfeAGWfrxa8g7GVPgf2Ae8NTVr9b2qjjDo9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=HwhqP+rm;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=NSlodPk7;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=VgiaAp6p;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5406606BA3A;
-	Wed,  4 Nov 2026 21:06:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5406606BA3A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F166070F1F
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 21:08:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96F166070F1F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=HwhqP+rm;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=NSlodPk7
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793826321; bh=YaJIToSCTk3wATVpVFceyT5
-	vak8F0V2qG7IxMxnA4+E=; b=HwhqP+rmvez/IxMdWnnu0uFCWepIcV7DAZ+uyJR7/KXTKoYE9t
-	CRZzagyC34XWD5KQBHk0MLK/1z2vzKBeOttu0GVaVl0xWhU2HFo4RLWQ5Av+h1nTRRQ2k+3Bb00
-	CtGNSIN3aQpCbt2RT/o9csssZf012bN6qSB+efxUD4I/9OznWICY9taaIYvlha2qRhMXgxOf5me
-	KY49yD2hsW09uGNpwMSGIXJC9OzHYOtIeO+txRhBUxzbj949cXIX7BASfoT9FIg2YRLX2aFJJca
-	tU+9h9huWDV7yWZZh7vaoEs/6Tc+OZRgcXZHh05XpteFUGjMx7hZA43Ha0bNiVp9Zww==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793826321; bh=YaJIToSCTk3wATVpVFceyT5
-	vak8F0V2qG7IxMxnA4+E=; b=NSlodPk75kfPWeiyfuy+p10Rs1WxGPFhXuX+wVB7MikD98/ai+
-	p4fNC8hbRP3Cp2p2lnVyM67hEJda/bMRzUDQ==;
-Date: Wed, 04 Nov 2026 21:05:21 +0000
-From: Bradley Morgan <brads@mainlining.org>
-To: Paul Moore <paul@paul-moore.com>,
- =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
- Eric Paris <eparis@redhat.com>
-CC: audit@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] audit: fix UAF in kauditd_send_queue()
-In-Reply-To: <b446cedf8a7977337389f8cdc1e5acce@paul-moore.com>
-References: <20261031211258.1626829-2-Jeremy.Jean@oss.cyber.gouv.fr> <b446cedf8a7977337389f8cdc1e5acce@paul-moore.com>
-Message-ID: <D413CA1F-670E-4169-9DE8-CD8D9F630BDC@mainlining.org>
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=VgiaAp6p
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2B9A140E0497;
+	Wed,  4 Nov 2026 21:08:44 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id qFmQ2mC_Y4NG; Wed,  4 Nov 2026 21:08:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793826519; bh=6PFd3kI83AuIA1Y6h+p+v4Y/1puo2Ts/ZISrLgCUH7s=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=VgiaAp6p5G5W2EUwpiLcvxOlobm2N3zO1bgUldQpcI2bGKIciigWfmPd/6BL3bKIA
+	 qroJNhSlwopS8lrCKH/EVrZR+XgvKrwBDyqN8/p7zbAnkPZlrU3ehUfzAdeYeXxeWS
+	 3kBdXnmb6KwMk2sN9m2EmNSnEO5olXe5G2It3u1jvlDZngNoQV/lsI139QvwB3w/LB
+	 Ldq2kr+oW8bvuLEJUN6znHnnFtuzojrbnamr3NZ33AVRollm+E82hGA0kWHZ/3iZ4Q
+	 v87fqcIn0x5F+5P5wm1Bq7QlOCEAwwQCPBYvxRVptSXp33TjUkdo+MvokgFH14dVZ9
+	 FozqRPjxM3+DkR7Z0zkKkn8wAVuUUzNLd9I+0VXxq/zWt6YAqIXeJG0axGH8dJ7CZe
+	 IrHt6UFBPNzXKiCcr6794yrDK4W5JF0On1s4SCVzJ8ywhqyMFuBTSwWE2Y2lDoozl4
+	 jPU6RwrhQemZb6PrDJtAfSfIZhaWK6NFe5zi93Cb+YKqEQTwcPEIXlz6YyMXJ7rhYa
+	 iJqvAJrj9+2eM62UHGRHsCwgLn4KaD3Ro95OfYCFywaRy/knLbiY1qobzvbpYBUUVo
+	 pqeGcWhnZk05AgPXa4IS/QJrZ5rNimtcjDIa8srl/MfbyYnoWCXMKT/8kkSH1z/XGx
+	 vlwHo9Y9wptOx4y7VW+wtvYk=
+Received: from ehlo.thunderbird.net (mobile-166-137-178-199.mycingular.net [166.137.178.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6D21140E0184;
+	Wed,  4 Nov 2026 21:08:35 +0000 (UTC)
+Date: Wed, 04 Nov 2026 21:08:29 +0000
+From: Borislav Petkov <bp@alien8.de>
+To: Greg KH <gregkh@linuxfoundation.org>,
+ "S Shaiju (AMD)" <sshaiju.lkml@gmail.com>
+CC: stable@vger.kernel.org
+Subject: Re: [PATCH 6.18] x86/bugs: Adapt SRSO mitigation to Zen6
+User-Agent: K-9 Mail for Android
+In-Reply-To: <2026110405-exporter-surfacing-9624@gregkh>
+References: <20261103182143.27403-1-sshaiju.lkml@gmail.com> <2026110405-exporter-surfacing-9624@gregkh>
+Message-ID: <A286426C-2D2B-4CC2-B113-7212B62CB03F@alien8.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,95 +83,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain;
  charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-On 4 November 2026 20:36:12 GMT, Paul Moore <paul@paul-moore.com> wrote:
->On Oct 31, 2026 Bradley Morgan <brads@mainlining.org> wrote:
->> 
->> kauditd_send_queue() grabs an extra reference to the skb header before
->> netlink_unicast() since it may need to retry a failed send. If unicast
->> delivery reuses that same header, the receive path stores the
->> destination socket in skb->sk without taking a socket reference.
->> Consequently, after the receiver consumes the skb and closes the
->> socket, the extra reference taken on the skb header makes kauditd
->> release a header whose skb->sk points to freed socket storage.
->> 
->> KASAN reports a UAF as:
->> 
->>   BUG: KASAN: slab-use-after-free in sock_rfree+0x44/0x140
->>   Write of size 4 at addr ffff888004f94140 by task kauditd/31
->> 
->> Clone the header before netlink_unicast(), then use the clone for
->> delivery and keep the original skb only for retries. If cloning fails,
->> handle it as -EAGAIN so the send can be retried.
->> 
->> Fixes: f3d357b09295 ("Audit: save audit_backlog_limit audit messages in
->case auditd comes back")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+On November 4, 2026 5:58:23 PM UTC, Greg KH <gregkh@linuxfoundation=2Eorg> =
+wrote:
+>On Tue, Nov 03, 2026 at 10:21:43AM -0800, S Shaiju (AMD) wrote:
+>> From: "Borislav Petkov (AMD)" <bp@alien8=2Ede>
+>>=20
+>> commit ae1d2082d93bc04604dc08e9b7f9cdba5e0c28e6 upstream=2E
+>>=20
+>> Zen6 has BTB protection which isolates the different contexts
+>> (user/kernel, guest/host) from one another=2E This makes the SafeRET
+>> mitigation there unnecessary leaving the user/user and guest/guest
+>> attack vectors open, whose protection is handled by the Spectre v2
+>> mitigation setting to do IBPB on a context switch=2E
+>>=20
+>> Detect that setting and report it with a new mitigation string=2E
+>>=20
+>> Signed-off-by: Borislav Petkov (AMD) <bp@alien8=2Ede>
+>> Link: https://patch=2Emsgid=2Elink/20260822013231=2E1109255-1-bp@kernel=
+=2Eorg
+>> Signed-off-by: S Shaiju (AMD) <sshaiju=2Elkml@gmail=2Ecom>
 >> ---
->>  kernel/audit.c | 11 +++++++----
->>  1 file changed, 7 insertions(+), 4 deletions(-)
->> 
->> diff --git a/kernel/audit.c b/kernel/audit.c
->> index 9412af9144bc..5e739fa606be 100644
->> --- a/kernel/audit.c
->> +++ b/kernel/audit.c
->> @@ -790,6 +790,7 @@ static int kauditd_send_queue(struct sock *sk, u32
->portid,
->>  {
->>  	int rc = 0;
->>  	struct sk_buff *skb = NULL;
->> +	struct sk_buff *skb_to_send;
->>  	struct sk_buff *skb_tail;
->>  	unsigned int failed = 0;
->>  
->> @@ -810,9 +811,11 @@ static int kauditd_send_queue(struct sock *sk, u32
->portid,
->>  		}
->>  
->>  retry:
->> -		/* grab an extra skb reference in case of error */
->> -		skb_get(skb);
->> -		rc = netlink_unicast(sk, skb, portid, 0);
->> +		/* Keep the original header unowned for retries. */
->> +		skb_to_send = skb_clone(skb, GFP_KERNEL);
+>>  arch/x86/include/asm/cpufeatures=2Eh |  1 +
+>>  arch/x86/kernel/cpu/bugs=2Ec         | 18 ++++++++++++++++--
+>>  arch/x86/kernel/cpu/scattered=2Ec    |  1 +
+>>  3 files changed, 18 insertions(+), 2 deletions(-)
 >
->As Bradley pointed out, this appears a little confusing as the existing
->approach of skb_get()+netlink_unicast() should end up doing something
->very similar to what you are proposing due to netlink_unicast() calling
->into netlink_trim() which in this case should always end up doing a
->skb_clone().  I'm sure I'm missing something, can you help me understand
->why this proposed patch is different and solves the problem?
+>You forgot to mention this needs to go to 7=2E3=2Ey too=2E
+>
+>Now queued up, thanks=2E
+>
+>greg k-h
 
-From what I recall from review, sorry, crappy head. This does fix a *bug*
-of some sort, but I don't remember what it fixes, kasan does report the
-UAF, and this fix would be a good approach, but just things are messed up
-at the moment 
-
->
->Also, do you have a reproducer for this?
->
->> +		/* Preserve the connection on a temporary allocation failure. */
->> +		rc = skb_to_send ?
->> +			netlink_unicast(sk, skb_to_send, portid, 0) : -EAGAIN;
->>  		if (rc < 0) {
->>  			/* send failed - try a few times unless fatal error */
->>  			if (++failed >= retry_limit ||
->> @@ -827,7 +830,7 @@ retry:
->>  			} else
->>  				goto retry;
->>  		} else {
->> -			/* skb sent - drop the extra reference and continue */
->> +			/* skb sent - consume the original and continue */
->>  			consume_skb(skb);
->>  			failed = 0;
->>  		}
->> -- 
->> 2.47.3
->
->--
->paul-moore.com
->
-
---- Thanks!
+Ah, thanks=2E You guys are opening and closing non-LTS branches waay to fa=
+st for me :-)
+--=20
+Small device=2E Typos and formatting crap
