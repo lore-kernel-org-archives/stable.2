@@ -1,111 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814652;
-	b=hSyto3vjbkrR1tYFiT+pLVj6orb9ci85nBvXdyjYWovkVI0aAvsl0p7rRdYVV4zksUgO
-	 g1JzrTPMywU+Gbv629UZU7B7wVqwwoYasQ64yIX7a1rDgJUqQmNr5MS01kBfUVPngLR9m
-	 WIq/27GnOh4yK268DHogHXql83GzDC937JmmbkcjXBl2A78hYKNDs9ymsr5B5EebFw1J7
-	 urEbzWiSBiiH+Y6b6tc59WklwmGXmGdWJKa7EClkP+UD6WK+RryKtNKYDKBKw84WXWPNw
-	 yhXxW9HZsSYOyJg3rH5srUh0VnWIU+MOmmSYCEZNNYe/ud/tvflK06IfUDmj6ZnvHXg==
+	t=1793814670;
+	b=t57KPZYIcYEZWyXeLQJlN0DtmHV0TvDsSaqtk40NDYN4qsqYQe10Vw/k241Uw4L08pXF
+	 HjbFmfo4w0xxDalnjsmCkoTZXhgBlXI9WP9STtk9tgVTV/8IJMk1T2mO2WLpuAp6BTA7C
+	 Tvn+2CQTf2GxgqyUersMaHRIcStb5H3SY+UrxlPX3PcwSJyCmcZIZ6uPJdN5tRRMDMVQ0
+	 rhy5obNEFhrBPdx5113P22th86T2Hd5ZkDWhmW8HqsRVBhCGR9xiOCb3RBadTqRalUos7
+	 3g9i4frC6NqhJDawBPZdVIt9fiisED6Ew+TXcSHjfNCEFoEg8xNickV5EXZNHWJsn1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814652;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=ih8EKkL3fEFrmnOibnSg6zuDA24U9CpFmMUb1+ThTQI=;
-	b=OVwHA3KJCOHcrj7kZvh4Hc0DX4ss2PohPlrVhpPn8f5pENdrDEiSUgkDEh/XYkKRm9yE
-	 7l6qnBS52Uv9RFX6PHrw4YCMNWGWxrDR2bl9/gssKcpzQL+XzLjdcI4MEC9YI+rchRc3t
-	 6KWpF6IR+5FqqX5oTCAIcZouFJJeZ28+3scTNiAyiNC9DSoJUVcnlgxwBX89/eE8gorig
-	 AUWj6Wrwh7r7QzUBoPCm1OBy7uBdHXQ+RPu6y4IMYnlSPPBS634s/l7ntYlySqbYIvfXu
-	 Nu6QGuiJ3WWmS7Z5SpYk1xC0b5ca/RGbwDIcGt+7aj1tUyvuBm6tl/03Wwjgt5bcrxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814670;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=v9EERdz7FeQU5qDvjo2VMSYsswzTNu+LjHkVAyhwpi4=;
+	b=DH13jk7HX2EeJ+kYgPKqxr7nZT1qgNi4FuOVdXKgQ9YarumqGiK4XHpkrx5pbNcT22mO
+	 /tWufBrA0GHsXUSzUDbnABsPcuG8U/Id6CfWRTX0ZV2BOEwhTYm1y11MECa2rO5UJxXCI
+	 wvqmOudYwZFbkCcZ9JC+SE2jofIRG9AutHCK1Ex1rlS/8auTcY4D4H8r7sBXu4aEezomW
+	 TkqmS7zG6LIsgvTQnLcqerZZ/diz9kcFkQjEPleXttbkFFZoHJ3WW38+Qv/5RmdU+v3m+
+	 xRNJ+6GwxgNfCCM8yRLRk4eG+ljWRD36KNjgNy7pfMSmxmdKt/aVmB7+DS9rzGSL43Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Rs900pf/";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LzwYUTx2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B21A60A3811;
-	Wed,  4 Nov 2026 17:50:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B0E0606A33B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:51:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rs900pf/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9A5D1F00919;
-	Wed,  4 Nov 2026 17:50:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793814652;
-	bh=ih8EKkL3fEFrmnOibnSg6zuDA24U9CpFmMUb1+ThTQI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Rs900pf/e96en+TLGDsSEaZDMSU5oZQyH5nZF7UwPtKKPbnRGVFWZ00+YoXP6F4Is
-	 q0FuLwKaUF4nN3gz2xJIMC1lUGMhu05g4EQmKbrK+q0N8NJzLb9mePMfp7AcDBYc10
-	 x61YX33cPuH/8i8ufX0WghhS/B3zq07hwoKbuiqX72KPAMBcVqLQvk07L0+V7P/Tdr
-	 40YtyYcMx0U/wZ/Yjv8DvJGoDR8zXAMEeTQuW2MXE0nFHOsHJCtQqwc7JWZq4qZj7/
-	 4xvxSNCcWgEK4gFORKmZhaLtRdAL9biaxJIFwBQ3BbvkWhj9sqmIOkeZP6BWLhtYp2
-	 6TwkPAQH74hwA==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 22/51] ALSA: info: don't write past the end of a data entry
-Date: Wed,  4 Nov 2026 18:47:08 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-22-bbf7d5546809@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
-References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LzwYUTx2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB1611F00A02;
+	Wed,  4 Nov 2026 17:51:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793814670;
+	bh=v9EERdz7FeQU5qDvjo2VMSYsswzTNu+LjHkVAyhwpi4=;
+	h=Subject:To:Cc:From:Date;
+	b=LzwYUTx2APDtUjZjRlYMMA2MWzQVG+Lpzohd6OmiA+KWXomCq7y14nKqwY/5ZQ2fu
+	 k9wla9RfSe3TC9iVBcnNTCksoUUSWX7K1Wfq99nc68hWDrnwpgodX+TDA+8O2Q5iB/
+	 kYJJalDtMOb0D5PcYZDVGXJrXbUJ2gaxx8OOHaHQ=
+Subject: FAILED: patch "[PATCH] xfs: reattach dquots after changing inode ids" failed to apply to 6.12-stable tree
+To: djwong@kernel.org,cem@kernel.org,hch@lst.de
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 12:51:07 -0500
+Message-ID: <2026110407-plot-stainable-802b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,43 +51,211 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1329; i=brauner@kernel.org; h=from:subject:message-id; bh=/wIh+WZXKaFyyFYwMjXKmLvFs42DoCHjOzS3J0v96D0=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9zrsptH6O04ab9YvmrtGx55O9VOyReez3z/NfPx/vP bHVeEsQV0cpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEvhsyMqz6Zx61me86u+1+ Z73TMTGbvt9IUwoxnH1ZvumySeeKiAeMDJPbtrXoiO+Y8M60S/DOI8mwolZ5lkfT2EO5qks1+iT vcwIA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-snd_info_entry_write() clamps the count to what is left of the entry
-by computing entry->size - pos as a size_t. For a position past the end
-that wraps and the write goes to the driver unclamped, for opl4 into
-sample memory outside of what the entry covers. At the end of the entry
-the driver gets a count of 0 and vmalloc(0) warns. Before the clamp
-moved into the common code the driver ignored such writes. Fail them
-with -ENOSPC instead, like a block device does at the end of the
-device. Returning 0 would make writers that use stdio retry forever.
 
-Fixes: d97e1b78239c ("ALSA: info - Check file position validity in common layer")
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- sound/core/info.c | 2 ++
- 1 file changed, 2 insertions(+)
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-diff --git a/sound/core/info.c b/sound/core/info.c
-index 023b4736aa6d..f608d335b6c9 100644
---- a/sound/core/info.c
-+++ b/sound/core/info.c
-@@ -171,6 +171,8 @@ static ssize_t snd_info_entry_write(struct file *file, const char __user *buffer
- 	pos = *offset;
- 	if (!valid_pos(pos, count))
- 		return -EIO;
-+	if (pos >= entry->size)
-+		return count ? -ENOSPC : 0;
- 	if (count > 0) {
- 		size_t maxsize = entry->size - pos;
- 		count = min(count, maxsize);
+To reproduce the conflict and resubmit, you may use the following commands:
 
--- 
-2.53.0
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 2f528e4a8f89daa6d0cc64b044f6f94c018fe9ae
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110407-plot-stainable-802b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 2f528e4a8f89daa6d0cc64b044f6f94c018fe9ae Mon Sep 17 00:00:00 2001
+From: "Darrick J. Wong" <djwong@kernel.org>
+Date: Mon, 12 Oct 2026 08:21:22 -0700
+Subject: [PATCH] xfs: reattach dquots after changing inode ids
+
+LOLLM noticed that xrep_inode_ids can change the user, group, or project
+id of any given file.  When this happens, we need to detach any existing
+incore dquot and attach the correct ones.
+
+Cc: stable@vger.kernel.org # v6.8
+Fixes: 2d295fe65776d1 ("xfs: repair inode records")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+
+diff --git a/fs/xfs/scrub/inode_repair.c b/fs/xfs/scrub/inode_repair.c
+index e1a7a2729b47..c81dfb0485e2 100644
+--- a/fs/xfs/scrub/inode_repair.c
++++ b/fs/xfs/scrub/inode_repair.c
+@@ -41,6 +41,8 @@
+ #include "xfs_rtgroup.h"
+ #include "xfs_rtrmap_btree.h"
+ #include "xfs_rtrefcount_btree.h"
++#include "xfs_dquot_item.h"
++#include "xfs_dquot.h"
+ #include "scrub/xfs_scrub.h"
+ #include "scrub/scrub.h"
+ #include "scrub/common.h"
+@@ -1757,6 +1759,20 @@ xrep_inode_ids(
+ 
+ 	trace_xrep_inode_ids(sc);
+ 
++	/*
++	 * We changed one of the file IDs, so we must detach the dquots to
++	 * prevent further changes from being accounted to them, and try to
++	 * attach the dquot for the new id to absorb any other block usage
++	 * changes.  We can't do that right now because the existing dquots
++	 * might be attached to the scrub transaction and we're in the middle
++	 * of fixing the inode, so we'll switch the incore dquot pointers
++	 * later.
++	 *
++	 * Schedule a quotacheck so the accounting discrepancies will get fixed
++	 * eventually.  We'll have to repeat this later when we do the actual
++	 * switch.
++	 */
++
+ 	if (!uid_valid(VFS_I(sc->ip)->i_uid)) {
+ 		i_uid_write(VFS_I(sc->ip), 0);
+ 		dirty = true;
+@@ -2066,6 +2082,113 @@ xrep_inode_unlinked(
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_XFS_QUOTA
++static inline bool
++xrep_inode_need_reset_dquots(
++	struct xfs_scrub	*sc)
++{
++	struct xfs_mount	*mp = sc->mp;
++	struct xfs_inode	*ip = sc->ip;
++
++	if (!XFS_IS_QUOTA_ON(mp))
++		return false;
++	if (xfs_is_quota_inode(&mp->m_sb, I_INO(ip)))
++		return false;
++	if (xfs_is_metadir_inode(ip))
++		return false;
++
++	if (XFS_IS_UQUOTA_ON(sc->mp) &&
++	    (!ip->i_udquot || ip->i_udquot->q_id != i_uid_read(VFS_I(ip))))
++		return true;
++	if (XFS_IS_GQUOTA_ON(sc->mp) &&
++	    (!ip->i_gdquot || ip->i_gdquot->q_id != i_gid_read(VFS_I(ip))))
++		return true;
++	if (XFS_IS_PQUOTA_ON(sc->mp) &&
++	    (!ip->i_pdquot || ip->i_pdquot->q_id != ip->i_projid))
++		return true;
++
++	return false;
++}
++
++/* Switch dquot, return dqtype if we need quotacheck */
++static xfs_dqtype_t
++xrep_inode_switch_dquot(
++	struct xfs_scrub	*sc,
++	xfs_dqtype_t		type,
++	struct xfs_dquot	**dqp)
++{
++	xfs_dqtype_t		ret = 0;
++	xfs_dqid_t		id = xfs_qm_id_for_quotatype(sc->ip, type);
++
++	if (*dqp != NULL && (*dqp)->q_id != id) {
++		xfs_qm_dqrele(*dqp);
++		*dqp = NULL;
++	}
++
++	if (!*dqp) {
++		xfs_qm_dqget_inode(sc->ip, type, true, dqp);
++		ret = type;
++	}
++	return ret;
++}
++
++static int
++xrep_inode_reset_dquots(
++	struct xfs_scrub	*sc)
++{
++	xfs_dqtype_t		need = 0;
++	int			error;
++
++	/*
++	 * If we changed the file IDs, then we need to drop the transaction so
++	 * that we can detach the dquots and attach new ones.
++	 *
++	 * Commit the scrub transaction so that there are no dangling
++	 * references to any dquots that might get detached, and retain the
++	 * ILOCK, as required by the dqattach code.
++	 *
++	 * Note that dqattach can cycle the ILOCK when creating a new dquot, so
++	 * this must be the very last thing that the repair function does.
++	 */
++	error = xrep_trans_commit(sc);
++	if (error)
++		return error;
++
++	if (XFS_IS_UQUOTA_ON(sc->mp))
++		need |= xrep_inode_switch_dquot(sc, XFS_DQTYPE_USER,
++				&sc->ip->i_udquot);
++	if (XFS_IS_GQUOTA_ON(sc->mp))
++		need |= xrep_inode_switch_dquot(sc, XFS_DQTYPE_GROUP,
++				&sc->ip->i_gdquot);
++	if (XFS_IS_PQUOTA_ON(sc->mp))
++		need |= xrep_inode_switch_dquot(sc, XFS_DQTYPE_PROJ,
++				&sc->ip->i_pdquot);
++
++	xchk_iunlock(sc, XFS_ILOCK_EXCL);
++
++	/*
++	 * Now that we've updated the dquots, force quotacheck once again.
++	 * In theory we could be racing against a concurrent quotacheck.
++	 * Note that we can't hold the ILOCK when allocating a transaction.
++	 */
++	error = xchk_trans_alloc(sc, 0);
++	if (error)
++		return error;
++
++	if (need & XFS_DQTYPE_USER)
++		xrep_force_quotacheck(sc, XFS_DQTYPE_USER);
++	if (need & XFS_DQTYPE_GROUP)
++		xrep_force_quotacheck(sc, XFS_DQTYPE_GROUP);
++	if (need & XFS_DQTYPE_PROJ)
++		xrep_force_quotacheck(sc, XFS_DQTYPE_PROJ);
++
++	return 0;
++}
++#else
++# define xrep_inode_need_reset_dquots(sc)	(false)
++# define xrep_inode_reset_dquots(sc)		(0)
++#endif
++
+ /* Repair an inode's fields. */
+ int
+ xrep_inode(
+@@ -2120,5 +2243,13 @@ xrep_inode(
+ 	if (error)
+ 		return error;
+ 
+-	return xrep_defer_finish(sc);
++	error = xrep_defer_finish(sc);
++	if (error)
++		return error;
++
++	/* Must come last */
++	if (xrep_inode_need_reset_dquots(sc))
++		return xrep_inode_reset_dquots(sc);
++
++	return 0;
+ }
 
