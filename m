@@ -1,57 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793822090;
-	b=Hu/Ohncr/Fe/klAxCtD1zUsWnq7QCPmY4p3AaYWrnFlL445P7g4fKasvVrORqmF6qNcu
-	 MxAASzhIXVRjq6NcV/r6kTO4d4xJEPa5pli+AsvpKAsmSe/gMm2M4ZcH2rY9mbvPVQkGH
-	 hZiNT0K7S7P8AD/Jo8GN/YoQ8HDjD2CgnkcpqJ4jAu2tOB2y6caPJf2OK7NiJv+SwzLtq
-	 IUuxsq9cYypVdfYTDvBx5JjF1kVGpmLsICqtwC9SSsCqwrwOcjM8AikLC2zmmipshw2Fd
-	 Hpf/oFAUvBd5VawZY7qHaL0ftYSqgluTNzKCwGdpvZrmnY3JkmhzlZ885bzWpSnQxtg==
+	t=1793822198;
+	b=vhdc9T4zFUzCKS1+5+ZMI1aF3F6ctHLraDvRM2Y5u0Ra0GAVYUu0xk7WrqM6zYzNJvxQ
+	 JZJVklKXDtxeE5QTVhswPnTlHoKnZxHh+W9hrJP5OFCi5ZakkjBuAEVv3TpyXBYTxSlhT
+	 yE/PKrVyBG56BFB3SO19B/sYxyPLKx6Fuquv/s/rkrOJKX/qZUY2r+8mpdTbX70EAboGn
+	 UgxtyR6HuPqOEXRNdWJkmWUDncGmHgEGDTRSghjb48nJ+NqUXXm9msORW97W1RJNowg0D
+	 N8h3g/OuOGI/lVOUfDzTrhEVUFWYICP+IAVzYLMNTA2wg7iXgYe3SB1zVUi61DWAxqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793822090;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BE+w62NRPHyJ8tRdn1GuDNMJzwi0nKBDdFGcX9mWqik=;
-	b=zustBmEl+teYUF57dgcCSbEXnTLO7CSY71umiG4bh6TB2bW6OTDWY4W6EW+vDOQHx/da
-	 DaxEVQT1U3arpun/zTKLAqsCRkU1eym/hzVaBvssdI6JH1RyJSYbdyoIogAKr7u6yk1fx
-	 rUnAv1OPKwUurSXKOCOMQ3DDrslQ2gIGOD3ENPGjRl+dIJw9MOBHpO5OiPXlyt6wW7r7Q
-	 T3oyXjmrgtwmzTak5CBfDY4PE7vu/v1Ou6QZnSe5H4ZiKlMOAkzns2vdtekWsC8sykbHx
-	 R8TbtvaHI8cbg11yR7gW/fDiRI8iwRvTNMC9mOChDIILkbNvZIhEixopuXsneFVlNZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793822198;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zR7X7uE7v/00IVsZHFoE++N3oXIHliCA4DwI/o747n8=;
+	b=HkWi5OtCK6YhCXX2ARepGXd5DDXW7EFoZ20PuHqcjeu/fcjBzrehJZYyBw6HNGdvFqh6
+	 ztR2cuDCyaeZApuW7G6vGvlzoqce9PquzzRHxClg8CixARdczOUE/uzhGtd/b8BVDKY4v
+	 T1kVdL9rNxkL6N4ShQZmJ44nkf3A3LmYH8Jm7FoQoEF6cz6J0Xi94g64wIt4oRg/4EEGB
+	 l7JOqZHmP2qFIkfiBjavVhFJJ6ZhmLblLRbvMLlyHmqs1qOIo4tLWQyMAsoJzgZtIuf8O
+	 ZNTyTTBA71yqr5yIvyARX5nMtphEvsIiomBP8BXj2CtpIWxOg3jmxQDsdE/ubS+nd7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QEpBtidp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=is.s.u-tokyo.ac.jp;
+	spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp;
+	dkim=pass header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=EJyYJZ3F;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32D16099A06
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:54:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6979A609CACC
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:56:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6979A609CACC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=is.s.u-tokyo.ac.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QEpBtidp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295661F00A1A;
-	Wed,  4 Nov 2026 19:54:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793822089;
-	bh=BE+w62NRPHyJ8tRdn1GuDNMJzwi0nKBDdFGcX9mWqik=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QEpBtidpHIBA6iLiZWZWb3puewynrAJn8/FQwFmT36+yW7WDVKUCuaO/9ZUBnO0SO
-	 XGyrw1xp4NQBYs33mzm0K7tTw7pM6NAJmRKwp1Gw+e8/dgJPev+NxuF0oDOk38VOMc
-	 et3hnfU+kt69DwxvYW/aLNT8ahF85fXl9AO5Poxf8agHAO4WwtQxckY+I2gfltA8uo
-	 Mb/Xag2Vwhj7vvDI/Bii58OY2pB+8KTqfmDm5MxUJAPwGgBGkixY5Cr3vQm/2ci8nU
-	 q//3RYFWeTJztx6MiwiLqeQDn45JN6hMhWeytmag+y2G6DdS2IABy0LWtsbgMagRdi
-	 Kw0f1veZkz/GQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Diego Oliva <diego@bynar.io>,
-	David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] smb: client: fix use-after-free infoleak via the readdir resume name
-Date: Wed,  4 Nov 2026 14:54:46 -0500
-Message-ID: <20261104195419.360475-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104195419.360475-1-sashal@kernel.org>
-References: <2026110404-moonrise-gnarly-7268@gregkh>
- <20261104195419.360475-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=EJyYJZ3F
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3535a54bed9so1470750eec.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 11:56:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=is.s.u-tokyo.ac.jp; s=google; t=1793822196; x=1794426996; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zR7X7uE7v/00IVsZHFoE++N3oXIHliCA4DwI/o747n8=;
+        b=EJyYJZ3F9bdEpJPsWZ1wOgAovQVI8RhP6tOVyDAbvbsEE7x+2DxJELYyLCbGXVsL9+
+         fwezr07zwokQMgCBVmHdQIB008dsErvaHtRXGzLBKNlFsRV/29If/S5taAQeohdCORYO
+         epvtV+A0sNnWIBK2qALa1ySzZgX1RPfQyAdwSelGlO7KxQzu1X23+8iFYmUJZhVaR03b
+         bdp27EQnquqqdb25C4hHt/IRMkogBJOzu4gYQ2BlAuhfFzHf5ZjzFAUeBxGznIMGpbbs
+         fzbXhaMIZ/PGcGOV0ULoeVWUePBfHM8cdTSSpMZI/mLqEaPFWRBlITAXV4Wqw1jLL+n5
+         DiPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793822196; x=1794426996;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zR7X7uE7v/00IVsZHFoE++N3oXIHliCA4DwI/o747n8=;
+        b=m7996eaeO9ZN4LsjAp2nE8E6ToDANiPzO2D8FFv1JftZzM/wnR68ueKBxzqT7oPkyW
+         LRJowAhdXVreU1MSHMgiuJuGloHV0OZBSVYK7UI53W7dG8q35Ith9DZNeVsOnzMJCZ2T
+         bdaHZVyzXlMHCjKXPSbUIt4p7T9n7/sr34CRTiL10Uha8SpaLsio64VtkINtKI057EtN
+         TGzCWLOFpz5Wdac7EKHLR78+b3Qe0UxmmHGB8h6crNaD9AY/pB2PViL6zXC2lqT1zP8i
+         ri9p+c0Wagh+5/l2o7KSUsxTtotqW1vCoT4G8XEeXcCCO7m0rfETNw8AQ0rsVTNJPHcM
+         z9wQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzOG8Vf7knUN2q8wENjK3DwI4jZkzM/XTc+AI+q4WMu9Y58gEkFUXNh9Rq38s0TZ6g23lpl0A4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z97QGwRFdEgAltCXrGhPzE9BH74xNpWxexyQ2x4hM9/V3JK/b2n
+	nGl1VJ+QGOx0gZmfa/QQa9GxRS+hYs4BrPkwWXZg58VI5OoUteVF6Qd3fncy11WQOw==
+X-Gm-Gg: AYBFou2MAz0TnlmYwsqruPCX0V27FXXQaxHz20pzBF02HnnKfWZ1y+Fh6BRVKRiQFXT
+	4UZ9Yl03nBaiWRUvatS/tfDKKBOMrLpLQ2xrxJfJBurTbtYBiLPy1ma543GJ+rtQG5lW1dlWrI3
+	zlwHUyOsyBVVhwyVIjVpPIlO7z9VfgZMVPzzp0Aa2V1SOaXGvBtdq8zxrNqYs+9+D4I1r1T7NzD
+	GFDDD4bPcsXku0TEGtOJll7WEJEx6vn0uvdFE+54lqjfASZhBYH+WHxzkVS6eJ9W5QVVRFYSE5/
+	lBmrt7Yj7HB54/9NzpbALPZxqBKOC8poEx7JrWMWLVjyhMEYPoxQJxtPNIB4qIlI83UXqy9KWLX
+	/QyBGs0YMomW8CVdJ7TFRCKOEDojPit9iFQMAPOP1DOxdLXQdG0yhk/SoIGVFuHrq22FEnNodtE
+	WqUJz8AG/P4e8GSHGdSdFILJBTKk2OE+HbN6V7xdVaE7ZeNfgdGyZe9l+8Wb1myrtNO8Hm5nwA4
+	ldA9SmTkSpRMHMZsPsICUb1r9p4fZL1JFIxSxiUovohxVYyqwPl/dSXMqPslRv6fE8EE7m5CMvK
+	NOIygM5heGcSSyYDcustwMqDt/sCJD65c1r4eQ==
+X-Received: by 2002:a05:7301:152e:b0:366:83dd:4713 with SMTP id 5a478bee46e88-36a4249ba39mr22383337eec.30.1793822196328;
+        Wed, 04 Nov 2026 11:56:36 -0800 (PST)
+Received: from wang0.localdomain ([133.11.33.33])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38f53a6sm8941712eec.15.2026.11.04.11.56.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 11:56:35 -0800 (PST)
+From: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
+To: "Enrico Weigelt, metux IT consult" <info@metux.net>,
+	Viresh Kumar <vireshk@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>,
+	linux-gpio@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Takahiro Shinagawa <shina@is.s.u-tokyo.ac.jp>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] gpio: virtio: bound the line names block by its configured size
+Date: Thu,  5 Nov 2026 04:56:31 +0900
+Message-ID: <20261104195632.1702765-1-lian@is.s.u-tokyo.ac.jp>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,152 +103,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Diego Oliva <diego@bynar.io>
+virtio_gpio_get_names() walks the line names that the device returns in
+a block of gpio_names_size bytes, which the driver ends with a NUL, and
+checks each name only after stepping past it. If the block holds fewer
+than ngpio names, the walk reaches the end of the block after the last
+name, and the next iteration starts strlen() at the byte after the
+allocation. With a block that holds one name for four lines, KASAN
+reports:
 
-[ Upstream commit 59131dd72f62b198fc9ea1489ad9d3573154f684 ]
+  BUG: KASAN: slab-out-of-bounds in strlen+0x57/0x70
+  Read of size 1 at addr ffff8880026687c0 by task swapper/0/1
+  Call Trace:
+   strlen+0x57/0x70
+   virtio_gpio_probe+0xcb4/0xfc0
+   virtio_dev_probe+0xa7a/0xc50
+  Allocated by task 1:
+   devm_kmalloc+0x6e/0x280
+   virtio_gpio_probe+0xc06/0xfc0
+  The buggy address is located 0 bytes to the right of
+   allocated 64-byte region [ffff888002668780, ffff8880026687c0)
 
-CIFSFindNext() copies the resume name that cifs_save_resume_key()
-recorded from the last entry of the previous response into its request;
-psrch_inf->presume_name points into the response buffer that entry came
-from, and nothing ever clears it. find_cifs_entry() records a new
-name only from a response with a usable last entry, and cifs_readdir()
-only from an entry it walks to, so a response that carries no entries
-and leaves last_entry NULL, because CIFSFindFirst() or CIFSFindNext()
-rejected LastNameOffset, refreshes neither and presume_name keeps
-pointing into the previous response. That buffer has already been
-released: by CIFSFindNext() before it installs the new response, or by
-find_cifs_entry() when it rewinds the search, which does not drop the
-name either and can then fail in initiate_cifs_search() before a new
-response replaces it. The next CIFSFindNext() then copies up to
-PATH_MAX - 1 bytes of the resume name out of the released buffer into
-its request and sends them to the server: a use-after-free read
-that leaks kernel memory to a malicious or compromised server, which
-can provoke it with a single FindNext response that carries no entries
-and a LastNameOffset above CIFSMaxBufSize, which is all the existing
-check rejects.
+Check that a name starts inside the block before reading it.
 
-With KASAN enabled, a server that answers a listing that way gives:
+This patch is assisted by Claude Opus 5.5.
 
- CIFS: VFS: ignoring corrupt resume name
- ==================================================================
- BUG: KASAN: slab-use-after-free in CIFSFindNext+0x8ca/0x14c0
- Read of size 4080 at addr ffff88807c823f98 by task ls/83
-
- CPU: 0 UID: 0 PID: 83 Comm: ls Tainted: G    B               7.3.0-rc4-00457-gf14572c203d5 #69 PREEMPT(lazy)
- Tainted: [B]=BAD_PAGE
- Call Trace:
-  <TASK>
-  kasan_report+0xdf/0x1a0
-  kasan_check_range+0x10f/0x1e0
-  __asan_memcpy+0x23/0x60
-  CIFSFindNext+0x8ca/0x14c0
-  cifs_readdir+0xf51/0x29c0
-  iterate_dir+0x1c0/0x570
-  __x64_sys_getdents64+0x133/0x270
-  do_syscall_64+0x109/0x5d0
-  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  </TASK>
-
- Allocated by task 83 on cpu 1 at 13.497119s:
-  cifs_buf_get+0x36/0x90
-  smb_init+0x4f/0x110
-  CIFSFindNext+0xf7/0x14c0
-  cifs_readdir+0xf51/0x29c0
-
- Freed by task 83 on cpu 0 at 13.584018s:
-  cifs_buf_release+0x41/0x80
-  CIFSFindNext+0xfce/0x14c0
-  cifs_readdir+0xf51/0x29c0
-
- The buggy address is located 16280 bytes inside of
-  freed 16588-byte region [ffff88807c820000, ffff88807c8240cc)
- ==================================================================
-
-The same memcpy() first reads past the end of that object while it is
-still live, a slab-out-of-bounds read that the following patches
-bound; that is the taint the report above carries.
-
-SMB1 is not negotiated by default; reaching this code requires an
-explicit vers=1.0 mount.
-
-Clear presume_name and resume_name_len whenever a new response is
-installed and when the rewind path releases the search buffer, so that
-the name never outlives the buffer it points into, and reset
-resume_key with them, since it was taken from the same entry and would
-otherwise be sent with an empty name. A response without a usable
-last entry then continues the search with an empty resume name rather
-than a stale one; CIFSFindNext() skips the copy of a zero-length name
-so that it never runs on the NULL pointer.
-
-The next patch in the series leaves last_entry NULL for a response
-that carries no entries, and bounds LastNameOffset against the
-received response rather than against CIFSMaxBufSize. Responses that
-are given a last entry today then take the path fixed here, so that
-patch must not be applied without this one.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: b77d753c413e ("[CIFS] Check that last search entry resume key is valid")
+Fixes: 3a29355a22c0 ("gpio: Add virtio-gpio driver")
 Cc: stable@vger.kernel.org
-Assisted-by: Bynario AI
-Signed-off-by: Diego Oliva <diego@bynar.io>
-Reviewed-by: David Howells <dhowells@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
 ---
- fs/cifs/cifssmb.c | 11 ++++++++++-
- fs/cifs/readdir.c |  3 +++
- 2 files changed, 13 insertions(+), 1 deletion(-)
+ drivers/gpio/gpio-virtio.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/fs/cifs/cifssmb.c b/fs/cifs/cifssmb.c
-index 7f0839d5c6db7..b823231e53ab5 100644
---- a/fs/cifs/cifssmb.c
-+++ b/fs/cifs/cifssmb.c
-@@ -4573,6 +4573,9 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
- 	psrch_inf->entries_in_buffer = le16_to_cpu(parms->SearchCount);
- 	psrch_inf->index_of_last_entry = 2 /* skip . and .. */ +
- 		psrch_inf->entries_in_buffer;
-+	psrch_inf->presume_name = NULL;
-+	psrch_inf->resume_name_len = 0;
-+	psrch_inf->resume_key = 0;
- 	lnoff = le16_to_cpu(parms->LastNameOffset);
- 	if (CIFSMaxBufSize < lnoff) {
- 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
-@@ -4636,7 +4639,10 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
- 	name_len = psrch_inf->resume_name_len;
- 	params += name_len;
- 	if (name_len < PATH_MAX) {
--		memcpy(pSMB->ResumeFileName, psrch_inf->presume_name, name_len);
-+		if (name_len) {
-+			memcpy(pSMB->ResumeFileName,
-+			       psrch_inf->presume_name, name_len);
-+		}
- 		byte_count += name_len;
- 		/* 14 byte parm len above enough for 2 byte null terminator */
- 		pSMB->ResumeFileName[name_len] = 0;
-@@ -4691,6 +4697,9 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
- 	psrch_inf->endOfSearch = !!parms->EndofSearch;
- 	psrch_inf->entries_in_buffer = le16_to_cpu(parms->SearchCount);
- 	psrch_inf->index_of_last_entry += psrch_inf->entries_in_buffer;
-+	psrch_inf->presume_name = NULL;
-+	psrch_inf->resume_name_len = 0;
-+	psrch_inf->resume_key = 0;
- 	lnoff = le16_to_cpu(parms->LastNameOffset);
- 	if (CIFSMaxBufSize < lnoff) {
- 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
-diff --git a/fs/cifs/readdir.c b/fs/cifs/readdir.c
-index 9a7315aa24e0d..40005e7da5771 100644
---- a/fs/cifs/readdir.c
-+++ b/fs/cifs/readdir.c
-@@ -759,6 +759,9 @@ find_cifs_entry(const unsigned int xid, struct cifs_tcon *tcon, loff_t pos,
- 			cfile->srch_inf.ntwrk_buf_start = NULL;
- 			cfile->srch_inf.srch_entries_start = NULL;
- 			cfile->srch_inf.last_entry = NULL;
-+			cfile->srch_inf.presume_name = NULL;
-+			cfile->srch_inf.resume_name_len = 0;
-+			cfile->srch_inf.resume_key = 0;
+diff --git a/drivers/gpio/gpio-virtio.c b/drivers/gpio/gpio-virtio.c
+index ed6e0e90fa8aa..32326d91f33d6 100644
+--- a/drivers/gpio/gpio-virtio.c
++++ b/drivers/gpio/gpio-virtio.c
+@@ -520,13 +520,13 @@ static const char **virtio_gpio_get_names(struct virtio_gpio *vgpio,
+ 	gpio_names[gpio_names_size - 1] = '\0';
+ 
+ 	for (i = 0, str = gpio_names; i < ngpio; i++) {
+-		names[i] = str;
+-		str += strlen(str) + 1; /* zero-length strings are allowed */
+-
+-		if (str > gpio_names + gpio_names_size) {
++		if (str >= gpio_names + gpio_names_size) {
+ 			dev_err(dev, "gpio_names block is too short (%d)\n", i);
+ 			return NULL;
  		}
- 		rc = initiate_cifs_search(xid, file, full_path);
- 		if (rc) {
++
++		names[i] = str;
++		str += strlen(str) + 1; /* zero-length strings are allowed */
+ 	}
+ 
+ 	return names;
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.53.0
+2.56.0
 
