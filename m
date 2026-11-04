@@ -1,55 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793755840;
-	b=et0k+UA91GBspyQqBICwqstSEttWv8afi5kwM2aI1lol7EYPsjhTbexhkMxb8HCoWK9y
-	 LpeXoa3E1IUwNoKtvQH733/B8i6Xg7S7/vn7iwSjIbBLFY1JQixT3cSN40lsQvnedpCx1
-	 TRn5vBVD7fTdqGZ4fWs4zshE2KlGdfYaPrIZMWAYF8sgwD+eo5nQZV9cncCXy6z24butn
-	 t8+WNUoSLr3M0msTlpzjsq5g8+d3lYD30TXiAWo85gZ5bocgP9TJ+t7u9c2+vRLEv53Xi
-	 Elj1xWqDu4/3vCCc+VG/v1NAmP9UUSQDH/A16NmEGTDM0uHQ3ICVL90BEwkz+Yfs4Hw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793755840;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2d9EUj3hgwJSmD9sEGS282bstb+oUD2mB3t7WELOXZQ=;
-	b=KB5ooc27BrYDuY2OwGh3K/9B6ZjI5QxnBU1zheZgPmqZb57PPp76eWvNvzyXgZS9OhLC
-	 0v6CT4QxhigG4vlGaIdRLpTSIYbcgTIDaT14GJPCj0vcBIgWfSICQxarDmczdP88TC8Qg
-	 G/+Q1GBc8hb/a+UZ3t24ZFbqikrnYVf05KYqx3S8Td+rHyVgPA6BoK8ZEaKBLgKt30xzK
-	 YfcOGxYxN5jLM4kgkOcwIMUoQdxtz8c2v+Fcq1qTifVsjpy2iBqjRq/N6mcF8tknk6wPS
-	 xxNG+1GvTmRzVAdfYCUJ3Af90D+2qCV7qijFihrVWIatKXS1gtJNDecu/I8wEyUL5dA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q/3CXa/M";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.40
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793755842;
+	b=qxQGv7aAdJ8aqHezu5AGvytcv/p81XPwRQa1tAIWVMomwYwYO5/Akq90au5F4pRfPi1t
+	 sA6pbACv84kgCqk4bK6qdEoppkUGu5en3F5lvmnXr5GiadHHZ2Kz+L6X8YcEQitsfHcf5
+	 2Vf9yg+1VPoqaxwxMHfL+FtNQLA/2QmaHu5ezSittb4uYXA6jxrEqJHbJ/UnZXTjGaroS
+	 SVogpp/TcEmtpKMIGF+WI/xcglGIUqHVR1eZIfWQarCVIjczrSJYeeC3DuwofaWDwJOWW
+	 vLg0yVjehCiTy6ptW+/c++bti577uTCswiamKLv6Vrupyt3QaOgg1oNjZYweuA+k6rw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793755842;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=/4KkTE7RABblzwjhCGZMtm25YJM2v5qVGKmwGQAa0Hk=;
+	b=iTbDpOJ1EGpB9tP6YWviYRmu4vrT9mzoaiRf7Bh2gLlF4PgnoUIF8qumNW+hs4sJ9zeg
+	 C9KQiFA/HkX/pUSaO3sH9nNRb/RWxAjzg4Ow+dn9GG2ExPAY8w1VFaiWXmRIkLW64GpNw
+	 tdGzSmBbCtkzELdJ0aUtDPmvtDTvbOpYuLHfZm3UZI46H9gdOawYLfm//tbsUJ8b++v0C
+	 bSAH4O53SOc3GPkaSZf8BvISSPvk7moab1D9lBk94OldsS8HRILhB7Sy25dYFZZvm+8Zu
+	 Bnk0MWugOdIM9wbjYf+NR2Af06HXYbOscCbRSPtsEDCltI+vj/3rpgmJdrJ8ElkIerA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=L6hvkqOu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.40
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010040.outbound.protection.outlook.com [52.101.85.40])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6473A606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 01:30:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA04606A326;
+	Wed,  4 Nov 2026 01:30:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABA04606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q/3CXa/M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB72B1F000C1;
-	Wed,  4 Nov 2026 01:30:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793755840;
-	bh=2d9EUj3hgwJSmD9sEGS282bstb+oUD2mB3t7WELOXZQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q/3CXa/MxWk7jlsthw+Xbyw62JlNPFlG91wVwaOKb13HHP9aGWinWtNJR0K5QV2dw
-	 0lC++fIG5IpSi0sqT4FT+O+HGflqhtaYnDes+RA0yIrET+F/XSrVPwLFjAXlfVv1Ma
-	 x3Yktb8VGN1/XWvYEIHTDxZK565hEQ5/018C8b8AT3wbqsYs2QFj5lUuWUuBNBXLRH
-	 x2XO7JlalSLARXmuEdGuA1BoyDbx0caYotSz+1afI9SxA8dvMTErbLH9leofs8XIyK
-	 EL9IBAgANwDjpwG72fQteY/ky+djKM/Rc8tGkuy9u1Mcx+IE4UfIHyesVNDHm8tBxR
-	 yOpB/O2GRVLYA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: DaeMyung Kang <charsyam@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ksmbd: fix named stream write and EOF handling
-Date: Tue,  3 Nov 2026 20:30:38 -0500
-Message-ID: <20261104012839.1954511-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110334-operative-heavily-7efb@gregkh>
-References: <2026110334-operative-heavily-7efb@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=L6hvkqOu
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WgJJvbUANbTAy4+TSZzaKbVBdTGvE/9DLfak1GD6iKQ6vx1tJwx3/NnYUT4tlHO8bgtu4lSBlRa/R97+HQ+/0b5fU1IzJ163g2bO8+/le+F7Alz6gCMVVWYKi7Ie0Go4PxYsmfupsO3y8cmjguwPpD/CbLkjEURas1C5DpgKUMqrQUVIpQPEmtoe6drV0B1O0Zk9vC2CmJPAycc3ZNUNj6/shxCSQnX5dXrS0AGpKDUgxSplDMz22qEop9yEvBS7bdQ6epao1PLVSLyc1PYf0x1cBmICzBuQ+S64uzXUUSx5c9VteyQHthjigpHHTWpFk+uAjClaUN+QKMX+TsdOIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/4KkTE7RABblzwjhCGZMtm25YJM2v5qVGKmwGQAa0Hk=;
+ b=uvdp2/sXe7D4iirwyUcbNVuBam0bz+m9e1nfIBp4PePCTlhnIinMvQhnF+be+CywYaN2wtr3V/cdO9i/yWeflyPUtahABpFjilsCm8gtPSldC06l6YXaGkDNh6PufTVxYJ0W8KXzhexGNeiMl4D7a9VRQseo1cCV0vW4yY0iUbUzCzvXaIfZ2it6YUfElLQuSaVosNLeZfS/z5ywjYQn55QgoKKRQ+c1P2vz9JA7etNdWVGOblxZJ2CgFU8MX/Or/bK7CMq0Z4JrY5YsSFEnMefVOGuCgINpYCw3TJMMWB3LJqaH28n47Sorw2MychJoR+M0yZI+sJYn7krRmvU2Wg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/4KkTE7RABblzwjhCGZMtm25YJM2v5qVGKmwGQAa0Hk=;
+ b=L6hvkqOujIbeHLqnz5TrQTkpnW23XDvGS3MmCgON+ckYs1LYVqB9MiXqZI6sI3pxwstXqp4B51Ac2h0J2B6CbKkQWHy2XpJhAUJeusCPqKOFhjCzxx226Hz3YfmFbFs3fXSLFLWdw5kq/4Exy7xkbw6QEWVXFB4qmQPNDIUm1ss=
+Received: from CH5PR05CA0016.namprd05.prod.outlook.com (2603:10b6:610:1f0::21)
+ by CH1PR12MB9600.namprd12.prod.outlook.com (2603:10b6:610:2ae::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Wed, 4 Nov
+ 2026 01:30:35 +0000
+Received: from CH3PEPF00000010.namprd04.prod.outlook.com
+ (2603:10b6:610:1f0:cafe::a2) by CH5PR05CA0016.outlook.office365.com
+ (2603:10b6:610:1f0::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.8 via Frontend Transport; Wed, 4
+ Nov 2026 01:30:35 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH3PEPF00000010.mail.protection.outlook.com (10.167.244.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 01:30:34 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 19:30:34 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 3 Nov
+ 2026 19:30:34 -0600
+Received: from amd-BIRMANPLUS.mshome.net (10.180.168.240) by
+ satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53
+ via Frontend Transport; Tue, 3 Nov 2026 19:30:33 -0600
+From: Jason Andryuk <jason.andryuk@amd.com>
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+	<x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, Mario Limonciello
+	<mario.limonciello@amd.com>, Yazen Ghannam <yazen.ghannam@amd.com>
+CC: <xen-devel@lists.xenproject.org>, Ariadne Conill <ariadne@ariadne.space>,
+	Sean Christopherson <seanjc@google.com>, Juergen Gross <jgross@suse.com>,
+	Jason Andryuk <jason.andryuk@amd.com>, <stable@vger.kernel.org>, Ingo Molnar
+	<mingo@kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH] x86/CPU/AMD: Don't print reset reason in VMs
+Date: Tue, 3 Nov 2026 20:30:25 -0500
+Message-ID: <20261104013026.185392-1-jason.andryuk@amd.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,174 +117,80 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000010:EE_|CH1PR12MB9600:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4ef121e-7884-49d3-90fd-08df3a13394f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|7416014|376014|1800799024|36860700016|23010399003|260925022911599003|18002099003|260925021311599003|260925021911599003|261102123227099003|56012099006|10067099003|261009223027099003|261022105027099003|261021121427099003|261021123027099003|5023799004|11063799006|261028144727099003|261026121527099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	jswD/zhYDvaAX6T7oc88dlTbW69uUHve8rVrdA/duX9Rk8HzotcVPQ/2mztIehNEJykfecovpzNMNm66evQX2RqYDz5v70ekyhu0tvs7n77rhaK5b+uK+PSJci5PFL7x6K+5tD+abqAk+SVnP6FqKOCbkD1LsnQxO09R3/5nCnkb3gzISrJdhsMxNDFU71XalucSirXoYdVBcGWrIun4/PyUKbXhQRjtQ3PfJeGQ8pw5sAUIRpVY7hBh0q67WTCiyEPNQUf7ektlhIjrusKytZ0DvqbyiVJEYDszQ+A/0zK/Can112A8+vK/gFoiMt3+8gUwIJH6omYsRd1gIO+mhMFEkkef+BTZKseQAR8mJcqn6x42atOK5B4W6z4zIe31LY7s4JtMK6XlnvAQEpdpX6ducO7f+g9g/jrxfNY/ctuwgKO32NZNAfdfWxDaIaJllkOBjS+054yBauFRQ3cWQGuRDKuvVkqxVm5lAwXYblBFhbvW/NVfp3r4QbT1vfIC8pC4Hcgg8lIXQMq1ySQKmXwVhWsQXsFAcnXQBSUvq2/r68qH3kWOj/oOsUUob1wdaUBxaN3XDhmBov9Lce6q/M4NSqFyNVIBvGHiT5ybFyMLUmbJkTN1V3XsIMuASIcNMGFRxgr8zc9Cy0FEETAJiIO9ggH4jMMYgZ9Aui1IWRe1U06mfe1WtAqJWBO/xvYt3q56rsoklb2+w1GPig7K1w==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(376014)(1800799024)(36860700016)(23010399003)(260925022911599003)(18002099003)(260925021311599003)(260925021911599003)(261102123227099003)(56012099006)(10067099003)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(5023799004)(11063799006)(261028144727099003)(261026121527099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	OjS/bccuQx9CI8q/cnb9g62Faud4TSmnaxBwSmUzvSC1q/TMf1wZ4OkFAnyn72KPYCJHVArTRUm+RMzjqvgjkvyIpnuYMggmWPOhHB0JhVk6NwzpB/3zNGu2A9Ev/x6DF6JGUQRJ/VAiFrmXFu7UquRlE//OMbPGBlnP3Xox25x7rl6jLowngiIIyZnXq53zWUIZwOsKyTCuxHWz8JXzEsBfL63gGCNX6MYHvDcQO45MR31O0ppGlIhi+RDfLer6n3sZsfJ8vX9czrQXOoRd7lbJcbUMEoRVtBjkjrsMsqjkng77m5OKocDUzhqjQxkEVv9qck0XKJGcIgvMMnb4AO+1e9hwu977rk7jJwud3rlZAbM8XZvShvJHZgwkv2r2kU/tWYIE0lVP6SeemlVwVTJU5XvlZScZg+ea9VR/PoYpVDbL5pNhfHsL7PCMxWZ5
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 01:30:34.9625
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4ef121e-7884-49d3-90fd-08df3a13394f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF00000010.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9600
 
-From: DaeMyung Kang <charsyam@gmail.com>
+print_s5_reset_status_mmio() expects to read FCH MMIO on baremetal.  VMs
+don't have emulated FCH registers, so there is nothing to check.  Add an
+early exit when running on a hypervisor.
 
-[ Upstream commit 02165c8d402392278a5cd2cf97645ed73a7ad4a1 ]
+The real motivation is Xen PV domUs can't boot on Zen CPUs.  PV domUs
+PTE contain system physical addresses - they don't have concept of guest
+physical addresses.  domUs can only map physical addresses they are
+assigned, so a domU fails to map the FCH MMIO addresses.  However
+set_pte() does not return failure, so ioremap() returns a pointer while
+the PTEs are unpopulated.  print_s5_reset_status_mmio() faults when
+reading through the pointer, breaking the boot.  This change fixes Xen
+PV domUs booting on Zen CPUs.
 
-An SMB WRITE to an existing named stream can silently discard data after
-its written range. ksmbd stores streams as xattr values, but the write
-path passes offset + count as the length of the replacement xattr even
-when the old stream is longer. Writing 26 bytes at offset 0 to a 60-byte
-stream reports 26 bytes written while discarding the remaining 34 bytes.
+dom0 can map the FCH MMIO, but it has X86_FEATURE_HYPERVISOR set.  With
+this change, it no longer prints the reset reason.
 
-Keep the existing xattr length when an in-place write ends before EOF.
-Reject writes that cross XATTR_SIZE_MAX rather than storing only the
-portion that fits while reporting the full requested count.
-
-Commit 4ea0bb8aaedf ("ksmbd: handle set/get info file for streamed file")
-intentionally skipped ordinary inode truncation for stream handles: an
-EOF SetInfo on an ADS had truncated the base file. That fixed the base
-file corruption but left stream EOF changes reporting success without
-resizing the stream. Handle these requests by resizing only the stream
-xattr; the base file size remains untouched. Zero-fill stream extensions.
-This is needed alongside the write fix: a short write's accidental
-truncation previously masked an ignored explicit EOF change. The stream
-resize helper returns xattr errors directly rather than using the
-base-file truncate path's EBADF conversion.
-
-Fixes: f44158485826 ("cifsd: add file operations")
-Fixes: 4ea0bb8aaedf ("ksmbd: handle set/get info file for streamed file")
+Fixes: ab8131028710 ("x86/CPU/AMD: Print the reason for the last reset")
 Cc: stable@vger.kernel.org
-Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: adapted xattr calls to use user_namespace and file_mnt_user_ns() instead of the newer mount ID mapping API ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Suggested-by: Borislav Petkov <bp@alien8.de>
+Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 ---
- fs/ksmbd/smb2pdu.c |  2 ++
- fs/ksmbd/vfs.c     | 71 ++++++++++++++++++++++++++++++++++++++++++----
- fs/ksmbd/vfs.h     |  1 +
- 3 files changed, 69 insertions(+), 5 deletions(-)
+dom0 could work, but that would require a xen_initial_domain() check.
 
-diff --git a/fs/ksmbd/smb2pdu.c b/fs/ksmbd/smb2pdu.c
-index 4c42205fe5261..8f7977f7d9c41 100644
---- a/fs/ksmbd/smb2pdu.c
-+++ b/fs/ksmbd/smb2pdu.c
-@@ -5921,6 +5921,8 @@ static int set_end_of_file_info(struct ksmbd_work *work, struct ksmbd_file *fp,
+I've wondered about a different approach:  We can't directly check for a
+device for the FCH_PM_BASE memory, but maybe we could check for a PCI
+ISA Bridge with PCI_VENDOR_ID_AMD.  That might be close enough to
+indicate real hardware?  But it would still be a heuristic, so I'm not
+sure how much better that would be.
+---
+ arch/x86/kernel/cpu/amd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
+index 40463bad1078..580ccc2ce5fc 100644
+--- a/arch/x86/kernel/cpu/amd.c
++++ b/arch/x86/kernel/cpu/amd.c
+@@ -1357,7 +1357,8 @@ static __init int print_s5_reset_status_mmio(void)
+ 	u32 value;
+ 	int i;
  
- 	newsize = le64_to_cpu(file_eof_info->EndOfFile);
- 	inode = file_inode(fp->filp);
-+	if (ksmbd_stream_fd(fp))
-+		return ksmbd_vfs_stream_truncate(fp, newsize);
+-	if (!cpu_feature_enabled(X86_FEATURE_ZEN))
++	if (!cpu_feature_enabled(X86_FEATURE_ZEN) ||
++	    cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
+ 		return 0;
  
- 	/*
- 	 * If FILE_END_OF_FILE_INFORMATION of set_info_file is called
-diff --git a/fs/ksmbd/vfs.c b/fs/ksmbd/vfs.c
-index aff2d0f22c8fb..074adefa8c919 100644
---- a/fs/ksmbd/vfs.c
-+++ b/fs/ksmbd/vfs.c
-@@ -415,19 +415,22 @@ static int ksmbd_vfs_stream_write(struct ksmbd_file *fp, char *buf, loff_t *pos,
- {
- 	char *stream_buf = NULL, *wbuf;
- 	struct user_namespace *user_ns = file_mnt_user_ns(fp->filp);
--	size_t size;
-+	size_t size, write_end;
- 	ssize_t v_len;
- 	int err = 0;
- 
- 	ksmbd_debug(VFS, "write stream data pos : %llu, count : %zd\n",
- 		    *pos, count);
- 
--	size = *pos + count;
--	if (size > XATTR_SIZE_MAX) {
--		size = XATTR_SIZE_MAX;
--		count = (*pos + count) - XATTR_SIZE_MAX;
-+	if (*pos < 0 || *pos >= XATTR_SIZE_MAX) {
-+		pr_err("stream write position %lld is out of bounds\n",	*pos);
-+		return -EINVAL;
- 	}
- 
-+	if (count > XATTR_SIZE_MAX - *pos)
-+		return -EFBIG;
-+	write_end = *pos + count;
-+
- 	v_len = ksmbd_vfs_getcasexattr(user_ns,
- 				       fp->filp->f_path.dentry,
- 				       fp->stream.name,
-@@ -438,6 +441,8 @@ static int ksmbd_vfs_stream_write(struct ksmbd_file *fp, char *buf, loff_t *pos,
- 		err = v_len;
- 		goto out;
- 	}
-+	/* Preserve the tail of an existing stream on an in-place write. */
-+	size = max_t(size_t, v_len, write_end);
- 
- 	if (v_len < size) {
- 		wbuf = kvzalloc(size, GFP_KERNEL);
-@@ -471,6 +476,62 @@ static int ksmbd_vfs_stream_write(struct ksmbd_file *fp, char *buf, loff_t *pos,
- 	return err;
- }
- 
-+/**
-+ * ksmbd_vfs_stream_truncate() - change the length of a named stream
-+ * @fp:		stream file handle
-+ * @newsize:	new stream length
-+ *
-+ * Resize the stream xattr without changing the base inode size.
-+ *
-+ * Return: 0 on success, otherwise a negative error code
-+ */
-+int ksmbd_vfs_stream_truncate(struct ksmbd_file *fp, loff_t newsize)
-+{
-+	const struct cred *saved_cred;
-+	struct user_namespace *user_ns = file_mnt_user_ns(fp->filp);
-+	char *stream_buf = NULL, *new_buf = NULL;
-+	ssize_t v_len;
-+	int err;
-+
-+	if (newsize < 0)
-+		return -EINVAL;
-+	if (newsize > XATTR_SIZE_MAX)
-+		return -EFBIG;
-+
-+	saved_cred = override_creds(fp->filp->f_cred);
-+	v_len = ksmbd_vfs_getcasexattr(user_ns, fp->filp->f_path.dentry,
-+				       fp->stream.name, fp->stream.size,
-+				       &stream_buf);
-+	if (v_len < 0) {
-+		err = v_len;
-+		goto out;
-+	}
-+	if (v_len == newsize) {
-+		err = 0;
-+		goto out;
-+	}
-+
-+	new_buf = stream_buf;
-+	if (newsize > v_len) {
-+		new_buf = kvzalloc(newsize, GFP_KERNEL);
-+		if (!new_buf) {
-+			err = -ENOMEM;
-+			goto out;
-+		}
-+		if (v_len)
-+			memcpy(new_buf, stream_buf, v_len);
-+	}
-+
-+	err = ksmbd_vfs_setxattr(user_ns, &fp->filp->f_path, fp->stream.name,
-+				 new_buf, newsize, 0, true);
-+	if (new_buf != stream_buf)
-+		kvfree(new_buf);
-+out:
-+	kvfree(stream_buf);
-+	revert_creds(saved_cred);
-+	return err;
-+}
-+
- /**
-  * ksmbd_vfs_write() - vfs helper for smb file write
-  * @work:	work
-diff --git a/fs/ksmbd/vfs.h b/fs/ksmbd/vfs.h
-index 6d108cba7e0cc..c9b1e4de44f02 100644
---- a/fs/ksmbd/vfs.h
-+++ b/fs/ksmbd/vfs.h
-@@ -120,6 +120,7 @@ int ksmbd_vfs_read(struct ksmbd_work *work, struct ksmbd_file *fp, size_t count,
- int ksmbd_vfs_write(struct ksmbd_work *work, struct ksmbd_file *fp,
- 		    char *buf, size_t count, loff_t *pos, bool sync,
- 		    ssize_t *written);
-+int ksmbd_vfs_stream_truncate(struct ksmbd_file *fp, loff_t newsize);
- int ksmbd_vfs_fsync(struct ksmbd_work *work, u64 fid, u64 p_id);
- int ksmbd_vfs_remove_file(struct ksmbd_work *work, const struct path *path);
- int ksmbd_vfs_link(struct ksmbd_work *work,
+ 	addr = ioremap(FCH_PM_BASE + FCH_PM_S5_RESET_STATUS, sizeof(value));
 -- 
-2.53.0
+2.34.1
 
