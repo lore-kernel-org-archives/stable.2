@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817274;
-	b=F4dIF5UVu7VmRTFMB5QiLxay4fFfcI0jsO4ghDAqowB6A/prB8PmUjwhE21p8VsmTDB+
-	 BhjWNYZ2vuGv++JztzGYLNXQmL6xfjYFUEwOCIDs86ZM5hnKCKUDarKgMbAb8Yej1afQm
-	 yt7dtnPk6uFS06gUUa4W4qYYMnxAlngEZHaWAlrbBhhaWfGu88fN/Dvqs+ZjAtSJbxnml
-	 Rqk3ybUH6NM9MheG3+PWHZMKSnjV+S5ecJcjL0S4jvjv+AV/kkt6rb4G9HTsFH6ZkXmSd
-	 TxgVmqdGCN70NZmo4Ylf/nynK2Ipg2jUOxqqaAx2MOMwHUVhEWQLJlmKyq1vgsBABrA==
+	t=1793817275;
+	b=bSIFdX4SAbiX9s/SDveFVZoX2lKPQAecBVU2cjHz/vqaY6DuEx0O8WvWl19drAYzykud
+	 zbZI1r174f+ARfuAh9CL0CsrpAuUD60sBDshClfr2tyMR00S1Y0UWLaj3CSwlZ8WyHvx1
+	 G3rL2h8Ob8rSLjsHgl1ee9FutlT8pdQyo5wH2j6Gdm4aYygsn0UIHyyHP9xrW3GPKbO6J
+	 6u3ToQdRyxePy2sX8H4C5qH5fAGgOi+cUUowWeux9aHwWzEvX4+T0YN9Oau9E/dPq8DDl
+	 eP6LqQsKqF+vyYsk8t4SavvEnYd7YmPzZZd9MeEDwd3pgBGKyy1iMuhOBPzIh8G39qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817274;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817275;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=t09q5pdSAmBxILD8L0IkajHE5r4TqtgQzsgk3z+t6Ms=;
-	b=Xbo9go+oUkzVFeITl0mhnG2WI5W8f0tRyMSeJm2A7RgjnW0SU10ARpQwB4LQpeQdMA+N
-	 UXpO5qeTQwCIku2TzvGpp7KgBFLcWTYAnIzzubUVpIOtedSE6bDvthxyfIW/GYt6x9JZH
-	 1K/pbvloJzodIZQryeTmRJiHhev3zqMZsKO0bPgSXen6Q3KRojnhAWzvGa0tgtsUxQ2c+
-	 BinetTvCDCx/XmFUylyfk7GYcb+MJzw62P012eOgAQUCHIXDhThcrOef+qmyPTg3yOdjv
-	 3V1DwBbRGolLgj5dVM0ORMQzJnGFbBQvOliUkAG7vKaZsvtE1A2ud9iMz4y9dQKEhRw==
+	bh=tNTQxeOCHOh1nbga9jCyaHHrlSRGGGYS3YxdlMZbyc0=;
+	b=RiFFc31CR8lca3lKv7qo/E8CdOnRb/myNRQS3FRRZYWp6rEljuixFn+rB06BWvFzItZz
+	 VOZUhkIOlJ7yb+TY+LkQ3zI8IKNVvqKpcv1p4bWLY09xeruejt2yoqi/MXdLCqpOzGufg
+	 7gDYjatyEphFaHWSrT6jBQ12+JXTcLUK6Tq/c0gZWcyoUcCQbtBvQOEPaGV57OYWfsWSj
+	 7eHkCuj4Hirap5pRmazz+OI2SywncOBQ3Ukw1wtFcxcyl991yK3WRpy0lZMW/R7UxHHlo
+	 n++533NJfywyw/b0kEh5O9pgK1oBC+4Eo/6gdYt7vfQEtBsnuDFhdx4/7rX6gPXyjnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ak8d+Zqd;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ddpYCJsS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C5F0606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:34:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B85C606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:34:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ak8d+Zqd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9693D1F000C1;
-	Wed,  4 Nov 2026 18:34:33 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ddpYCJsS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23B4B1F000C1;
+	Wed,  4 Nov 2026 18:34:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793817273;
-	bh=t09q5pdSAmBxILD8L0IkajHE5r4TqtgQzsgk3z+t6Ms=;
+	s=korg; t=1793817275;
+	bh=tNTQxeOCHOh1nbga9jCyaHHrlSRGGGYS3YxdlMZbyc0=;
 	h=Subject:To:Cc:From:Date;
-	b=ak8d+ZqdsaJVPNeba60ct9QYOi9Ig8oEARmxgFlbe0yDd1WUJmLtgyFiGEf9BQhwl
-	 tQ1NTBwdqlvECusRsto0ABRQ3sdMkgZ66pBEruZBtE8BM6kuG4dL6ZCMmOkan6WgKs
-	 kYhUxIj8L4D5CfyABzm8Jm+pokEY14COSKeRGQ+Q=
-Subject: FAILED: patch "[PATCH] smb: client: reject short SESSION_SETUP responses" failed to apply to 6.1-stable tree
+	b=ddpYCJsSUMD+bWSyZzf5FDt0RtFAoYD6eNWa83CDcrRS2IbliGp638Za3gfu9iY99
+	 on/bK8Pw+gQXH/EUrZ60M+IxwhNnllmDcYaPtapAqNNI/ETuAZw0WgSKmPVgOGaWTX
+	 D4ebGIqTTpKNSHrhPbRIwc+eqfoUXAVNAe4ivbhA=
+Subject: FAILED: patch "[PATCH] smb: client: reject short SESSION_SETUP responses" failed to apply to 6.6-stable tree
 To: suruurism@gmail.com,linkinjeon@kernel.org,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 13:34:30 -0500
-Message-ID: <2026110430-till-wrongdoer-01d8@gregkh>
+Message-ID: <2026110430-unearned-antennae-d4ee@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 4d8930afa3446041358a7db33e7b23a0bb9459b5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110430-till-wrongdoer-01d8@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110430-unearned-antennae-d4ee@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
