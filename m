@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819252;
-	b=mtTUIVwGRsRTuP+aBuv0NcZogwYHXcuk0gxYUAY52/vpJqLs5KgVW1kTK1/I86gp3XDS
-	 H8RBlQ/NnDEWP9G4yeg8eUh7JUbOEaW0bzmBz9+WC2chq4NqN21NEy1L3GiWDb+cU0U6J
-	 agFHLpcQ1fQObTilLSyJvIba5pw4YHtxc4FjQXYMcCaSpU+KY65tmOwNPNE6p+aorD0dw
-	 xjR+IRgRVq+lz8At4Kxv3chd7SaI+8H2ZKjkzrFPUmcyvS3Q5SoKZjN1piP5s36fDek4y
-	 6/yxp2qMPOnX1yyq9l2tSI6xqob3ZxGWckpTJBjE1fOZJiLq7VgdWi9K6XvMKZFylXQ==
+	t=1793819253;
+	b=hxPJMXJyl0Ogvpb00//S1Lqj/TOyA2RvX09vnBheQwPn76MSqjDBS8nzM1Lf5yiK0u8Y
+	 vMMxGPFk10K6n15hBvl301sBiqlD1kz6oVKHs71hzPEqrvvAkTSz//aB64IwT7MdEuDFf
+	 VuQ4aQ/bl/VS6ekP8RCzvqU0ugdxrRIFUXofWSGmUYgTQDKJK6qK6/sGJ5OcVx2iw2aWH
+	 l1BW69epm+ahU2lmmFIm9RlrHu1kHVeVc6Ft/fUZ8Mc+guElNv7kkmmsfcIqJXkNOAz4D
+	 W/bmf0Ig3x4zjbkvtbw/tm3+wz3OeUbOWjWB2ciz2jln+pNNuxyrDUhWNdKAKWtzV7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819252;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819253;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=SY0CXH5xQDRXBxXhU6hHF34lNSoNbi3SnpQN2a3h8o8=;
-	b=5IHf/HgISqTN/D1nBBegJdPSY+iCmM32NVNuUZfSGB+AC3agJNGWpXwe/yXTqFcB4aMj
-	 HeQS4K8YnhBvqMWYorMw1pvafETlenGv1unOJTch+0P+9ki0tOhGB8pme/PDhl7XblPv9
-	 Igyq1BR/oHrUnYxGV5uvjybpNyeMF3tSEWjZVmFzdIE9jwJ1ObRG6PNBPFjkxsFzYES8y
-	 bg3YZkFcdmbdsEi1tQxhPTiBrM1yELqm03bKpGWI2jV5k5PGvZdjCjsYWdjda48R5PR3M
-	 WSXdhqXT8hRk3seOa9hWjBP2dxiLX5ehiT02NBkNaf9cXgTlEYwh5Th/JqdLrwGWOzg==
+	bh=Y57aBDo0Lcp/sD6sIeS397UHboxmL2eb3Nll/0RuwX4=;
+	b=GHku8H6vMeukOQyTS+BJlyjjRgfCX/8xNC1g573IiAMDEqMjkxOcMKv/MpIbWi22RPKl
+	 nXLeMvVFsnJd0qSZcKXnK9beb7gloEhvFnqEjb8ZDgJseqw0Tvt/BdQ/vsdBrSmkmS6Pv
+	 q+bA42iPIKpNNRXUkNkX8OYaFI28Zc8U5CgQvrEOzd/afQ56H/lpj7m6BUMsnFdqJxHpE
+	 26ehoJVmgN673A2GrIZ5VegXubfNxsArBzytdL21R0zoo10gjFBxkjJs+V2FLAxja2gUb
+	 xLjyhA5AakrcGBOUB/460gjhDA6Gpv0TkzxdenK5XHN2IzRoYZD2ATqzDGAcosnuhHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bVhqqXA2;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JrYUnRfv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9697606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:07:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2C2606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:07:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bVhqqXA2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 881FF1F000C1;
-	Wed,  4 Nov 2026 19:07:31 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JrYUnRfv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF7811F000C1;
+	Wed,  4 Nov 2026 19:07:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793819251;
-	bh=SY0CXH5xQDRXBxXhU6hHF34lNSoNbi3SnpQN2a3h8o8=;
+	s=korg; t=1793819253;
+	bh=Y57aBDo0Lcp/sD6sIeS397UHboxmL2eb3Nll/0RuwX4=;
 	h=Subject:To:Cc:From:Date;
-	b=bVhqqXA2yv1MJlr1hBuWw9j0zAWP/i4aOJ2+2+CbhvWYPisxGrw2tb6hByadL7ZmS
-	 HUPTAIkpxMh0Dfg7DD9XRPrHLJmsyZC9gWVk9EV5izav5jgEWGrJQTQvwXfV1JaCEa
-	 JhRkSoMyvDvq3FE+763kdOMEYKm9ivApBhAOVSec=
-Subject: FAILED: patch "[PATCH] SUNRPC: fix oversized GSS proxy token copy" failed to apply to 6.1-stable tree
+	b=JrYUnRfv+O9nrevfgsymIFDaaGhCkIHRPZMjhwAYyC/FJ9XDJi9nLixyhGNglMqP1
+	 QzllGjIs3q7WD6ZW7VhMNxRIhcoZuFkDVbxcZIHCIanSNJeiTuQyF1+iYN2pHq416R
+	 x3sTrVlYzA1QcIbofkPv1KSh7y6W+uOMNlr45xCM=
+Subject: FAILED: patch "[PATCH] SUNRPC: fix oversized GSS proxy token copy" failed to apply to 5.10-stable tree
 To: Jeremy.Jean@oss.cyber.gouv.fr,cel@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:06:00 -0500
-Message-ID: <2026110459-ammonia-provoking-6551@gregkh>
+Date: Wed, 04 Nov 2026 14:06:01 -0500
+Message-ID: <2026110401-ranting-untimed-faa6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 62319c2534b603b416fa2aa2f3ef18c311f75010
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110459-ammonia-provoking-6551@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110401-ranting-untimed-faa6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
