@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814692;
-	b=CWaKp0DbvJgD/rbo0VAJk/yP7i51M4i7WDQ/rAfa7LWRGXIkAR0H4QXtqZTHOdnvYmzX
-	 dzQS1cPVluQwnP4v5H3dWsvwfTZak15PTXyce2CsXV/QAYlX9dldokqsi6bWw50JQsHIx
-	 FvEJKK7oXQimQU90jtlu5r34LCT2qcMufOnRfuXbea+OozatAKgcDyJ3IsxTQxzFdqY5P
-	 311bx9fKAC2j7ncn/aeibPuetin/HXAaG4/zKgwtaOnHX9cku38kwCbgT2d9RGvt3zvGZ
-	 8ExmQ+ZlHwfatK3+assqzvTMBP5gj+5By8AlmDLE/1K632wvU1IfsYlgAVsuRXK1iew==
+	t=1793814693;
+	b=1xhnnbBdpXYWwbsgNsYiVIRoU9DdGDnFNDcZy5x7ycjtSmjrxoiK4alrErtzfLefpIaD
+	 J7n/TRE4fgsrF0IWkdw09pa6Vb9oj8yLCubKwUwGr/QStkLyAZ63wJSyalh75bUNPj2RZ
+	 ijhziTCLdO2zm9sYquctCRegtp74JipdnvTYHXp9iO676X9bFdy6rET/bbYVlCKsMgskg
+	 u4EE7+XAardTzKvJsH85GOSSdKvdQHdeIyksLAzs3CdNZEHaTYM5YV4q33QyWkXcXM0pR
+	 /S/QliBgQRhVm3pydIUjdfaKhFXUrYzKjm2Ac3FzdB2e/bKjQAsmSMokf5v6g7KP4lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814692;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814693;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2H/B4dkayvMgA1UuD/KEghcgJghWFX0eOcVzCB+fB9I=;
-	b=kGxlZlYIlouYOnswRltgixQ8o8+bJVE0ZKpH1lLl5tydKzOqXqYi5JGJjEuEMYRrxbRQ
-	 EsofkwHE70uqW2xNR/087Yv6nf1epCbBPfwT80hCy3HUo3togJc59GZz8AYRqnt7hO3tI
-	 cwB41/6F2wTBqZvgsGpJP7ud7kH+atx+RBEk5WVYW2m52RJjuQYPmJ6pNcqc0dYkHvmKa
-	 PnRU19q19dLoFfoMK0nmOBbJLnRp+qljn3MOxvQ6VHVMyR5tiM1XLNrSQa1hOgBYR/DyH
-	 Zkd3XVS8JgORFBL4orGDE0okfSzNulYLf17XhCu4q/VbzBQHSe1/I6xjELNnXzsm8Gw==
+	bh=qNbEGOObgMYbtoV9GDCf30QolToDeEd7Y9PGfTNjB7k=;
+	b=THdG2iy9NBG4mFUKdNXETnj+pFjJOAbC+1xEfyJ4BG4z88TiPlnFqGbHVlA+uM+s8rxk
+	 8zP6RBHcRhmliVfuMsIXE48VoNBNIC85sqVimAoduyi2Vg8ixfOFU26NHc3ZvBmwhZVo7
+	 bD/xGbN2FMqsTk7LLDoXjZ1I0EMRz91tWuBLxwe2o5w8tNlTj0PpevFw+kwD3I8k6iltT
+	 +GErNxDWLprKtU5VHwCbjyjIZc4YwTYqU1G4oKFx3WX0XEA24QDlFQ0GkO14TLePeGMbF
+	 C9RCQ1Y7CwyZSLzc+sKseMjgBjX80P/enIoW72yQYYwAUaR5yRPIWn3qM630BsE71zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C4QxqX2R;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uQ2GstOn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0D460A5BD0
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:51:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9829E606F68F
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:51:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C4QxqX2R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 916381F000C1;
-	Wed,  4 Nov 2026 17:51:31 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uQ2GstOn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 361E81F00A15;
+	Wed,  4 Nov 2026 17:51:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793814691;
-	bh=2H/B4dkayvMgA1UuD/KEghcgJghWFX0eOcVzCB+fB9I=;
+	s=korg; t=1793814693;
+	bh=qNbEGOObgMYbtoV9GDCf30QolToDeEd7Y9PGfTNjB7k=;
 	h=Subject:To:Cc:From:Date;
-	b=C4QxqX2Rpxzhq2dcYPc2mwesPrqwh3TapyuxMX7vk2FXBO9K1wkwybT35n4UuR+st
-	 ELRQYWU8tGM/Nc2mEygXdH/FeeAxPmMtjTduLZeMbBBPl2jW6Xe3JP+NEgL/BU7EGX
-	 BzG9PO8TxJ+xmkp4Tx7daHypUjpycpJIwmWe5DLc=
-Subject: FAILED: patch "[PATCH] xfs: check for buffer overruns when examining local/remote" failed to apply to 6.18-stable tree
+	b=uQ2GstOnHd0LARzk61ylU9gHtZXk0lbM85Wb80RjM2SkOkbRKvZODedWFvDLevDZA
+	 NCZuJGF3c2O4Ah/GvCdHMajpRQuhZjQwPr0VSyWayG/mCdQKlOxgSqBo46K8/wxIzF
+	 bm5W0eKVYfzekRVbFq0mohMgkV4SNm0mw0DZN+pQ=
+Subject: FAILED: patch "[PATCH] xfs: check for buffer overruns when examining local/remote" failed to apply to 6.6-stable tree
 To: djwong@kernel.org,cem@kernel.org,hch@lst.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 12:51:27 -0500
-Message-ID: <2026110427-crawlers-unlighted-eb26@gregkh>
+Date: Wed, 04 Nov 2026 12:51:28 -0500
+Message-ID: <2026110428-companion-surround-cdb4@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 91c41f9524906a8ebd2ae68c98a07b4bd5255ddb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110427-crawlers-unlighted-eb26@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110428-companion-surround-cdb4@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
