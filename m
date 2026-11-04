@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811014;
-	b=3RQyRCP6+W42lFGPZoFug9e9DPgR/H7vypX7v0RFLx8B5pZbhoVyWRKjHuNDw7SFGCfo
-	 Xf7mHRdYPIDBF6zwtfqWXG3jVdcD842QsWud7qyXmC8rDVGhQc/QKoacVmGHFfmQAyQ88
-	 arXjHeMiu4GoK1i2a8AWve0sd8iGs2gjm2pGCrYSwvTpZxVXjktL/vOnPDtqRy5y3yRLq
-	 wPKykQh1mNPUPsE02uYzXlLnaaBiNDON+CFAcyNPtF95lQNhmS48mH0Bq9/e4TL4xF6lV
-	 ggHZQ4GFR5ucMHdNv7VAkGA9aKvPc1PMt4i5YkP4N3fkExQZ61OfcplCHZVSf026dgw==
+	t=1793811015;
+	b=PnxoxMeIMehIUUXHL0slAx9UT6aSWjNKQNV0dBqfTnRQrbfgxrjl91No5tZvScDgwIuq
+	 TETRbO/8SqGpCcjK97SyQmr6AHAqJ0DddWKKXG4vLvxq8ndHbQWmb20D2TNGv7Q0Uhs9v
+	 jCgi6V4XJdGAWgkGmxs5l7hRFMhpBgN9ry3Y40TdBBdTMzmnJAZ1lJoZ1K3OEvCVCHnzH
+	 roIuazBf/bOJFjFXnnsGcX6vy3KY7eAZt3qMf0ilk2x9AZmIjHdhh1lYPejwHH2vKaMHL
+	 h5C+v1wSf8dsgH6IgVH6lcA81N5efHvkP5KNnrRro8O7eeQpqGj0RkOmRL69GbOPalQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811014;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811015;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0IvJZwkYRkjowWdOfk5UzcP3OmDYpkQM2vYYuRYBg2Q=;
-	b=kEaT7ztQwGjZJwHIREvbmmR3C3wBiV2XIvNpS+mUSEiWhNVzk1dEuyQhR5s3RP+tGkw5
-	 2eV6WsyAwV+9//RUASBP8HugsbYyqGvgWf/e1NVn0bD/MCu4EPusxKDjRArMK29E+g6LE
-	 N9nWbMyA/ahhaoy6+aN50JBKYVxRuclb5AAIRQgV5a23BpsmMpUnRal9svtOXPojnYq8P
-	 h/tD3EA3tTiA2d+FEOCO4IrclPDs66BDCKwaLamCRhV5SX915whmPIsMdLFu/fZEMSnEW
-	 9JVq3e2our0+6O/slCJ3A7j6EuLAufBrnVmoWXwIy6Aw4KWecuQIma5N8CVurm+k+EQ==
+	bh=uiSjP+BTuksMkec7AVdl1nYjNc/cgROfN2EFIUc6DsM=;
+	b=cia8fKdtezT4wgY8Cff8lvL5FhRHxAAVwnFqzeOdXQaQM9wzNwtAPsB4Whkz/ee+Xg1J
+	 xJE5sqeoRcxSnJaNWM49FIgLlSufTw5gYnzW4sKFvakjzNuxtVSXcoGOwAMdn0UQEqV4Q
+	 e780ovvL/qD9cYrHki19cxusDCWLxeOw+sO0tZxPE1ImcVveiUAPDLJnoVt34cI2sCY+m
+	 gUFPhBuJEXvDHi4VDoxDLwDQONmCG8FrWgLR3DsGZahU8WKB+2nOKRDRp8jv0osDNWJYP
+	 EcRy4VIjHVLziJTkwy/2XykWDU+FESTHKXlLcSA+Pjtc6NxYjCzsqSou08XrSCTZWiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OU+lsNBI;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sPELOxF4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C09606EE8C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:50:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5631C606EE8C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:50:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OU+lsNBI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 541CD1F00919;
-	Wed,  4 Nov 2026 16:50:13 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sPELOxF4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A2FE1F00919;
+	Wed,  4 Nov 2026 16:50:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793811013;
-	bh=0IvJZwkYRkjowWdOfk5UzcP3OmDYpkQM2vYYuRYBg2Q=;
+	s=korg; t=1793811014;
+	bh=uiSjP+BTuksMkec7AVdl1nYjNc/cgROfN2EFIUc6DsM=;
 	h=Subject:To:Cc:From:Date;
-	b=OU+lsNBI6gcULCs3na+AiWhI0vOlFbIO59c3a/wE3AoTMBvvXA9+1V9Te0q5bD9qV
-	 /xSz1hNKHp/UURJkBKbJAINSeTuJxt+I+to9WD8n8j45HJO5qj9jsckCsWrqOCookg
-	 8CG7t/oNLur+Z3r07moW2/FQBq0I0JCDOrD5Y1sM=
-Subject: FAILED: patch "[PATCH] xfs: rescan the AGs if incore delalloc counter is negative" failed to apply to 5.10-stable tree
+	b=sPELOxF4O2mv6QqFYRhei/C+CmfDiAYMpHJN9Cz+KBF9nDnbunGVmEyyQa0LDFqK0
+	 +mNHUCoDR6LfhgyestTj+pjRdoElNiinBVyH0mdbS7idK2ERHNvzTgJCrRBueq7HXo
+	 laWxA8vMiBe0rLunPBpsAiB6NECsCf7icrHGGIcQ=
+Subject: FAILED: patch "[PATCH] xfs: rescan the AGs if incore delalloc counter is negative" failed to apply to 5.15-stable tree
 To: djwong@kernel.org,cem@kernel.org,hch@lst.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 11:50:09 -0500
-Message-ID: <2026110409-dental-lend-b1b3@gregkh>
+Message-ID: <2026110409-willow-coastline-1f7d@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 47b1e941bb55f735d82ba2649412260da78b98f8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110409-dental-lend-b1b3@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110409-willow-coastline-1f7d@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
