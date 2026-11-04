@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826957;
-	b=rEshAa8aJM99UFUDGUn4BCzNraDkv3cfl2K1rrwFTdbXL0HmaVxrsXe8QczQ/42AhoLJ
-	 /eUNDw3ebOUgFhymzh4vJp3Qsdkrni/HlT07/EBEeDlBs9l6kpLB6X9ea+z4+1FwqH51y
-	 7/lWDYCu9mfKX7Bk1IpS3CrWFwD+bip9IjUUSVdZkafPQ3KVnz2k6DfIL2PTZCTwgcZM6
-	 opANt6YiMwRebZBnJlxwFDL7KWDnqWdqSJnCrxBiQeSYATNbYCqQc9MfcKsMcGW6OL+NF
-	 CjyvUhyesBWAeaegfRrXFUWl3njTrpuEokzEOm5MherqDt/fpgqYNPfbysiCiUgzFrg==
+	t=1793826964;
+	b=VlZmx/okD2MUBUgRQ2ZPWVW2i/Ty7p/IrKk0fRZYzQ9UAP2+n0RfekBPmOAMdtr/OtEN
+	 oRKUtwh6Qg340eG9y56CRUoC5qEt5KzqR02XbB8sJXB/7s3HXfZbgRxMrtU4Er81+IK1g
+	 TjRwShJ2W6fGIvl/4BzugD8CQNPbz8p1/HTWbvyPKP5+mH+tWqqtDhP/E36oXrIjJztPj
+	 ReH3veIR9VqrMg3/JxkdcyIxRKx8dY/k7IjFfsEEUvjU6ELZelGOfDau2wLf1flk7flSl
+	 ZJDmDSU9mV+WcTCMSVNW3xDQ4x93nujWwNGCmkE/N0YcxjDeUj58aFAJfiChZbp2xww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826957;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826964;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=O/pNUG2Gts9LkOcDgIz49Ilg2yU/IKcFvInCIcfaoZA=;
-	b=gTH+zJJMPgqKqHhWGoD6BXxh3RtRTY/lQayjRqf1p1GJ15cgl2c93wj7+0eucsWcHcy1
-	 e4F3ATpFJJYX7BHo8oVqCu8g4cn7NJOO9AgmWfP6RU7kwOGgkzP66yojI9VUgSSj0r4Da
-	 kyDGCyalrtMk7Ezg4GbL1sM2u7PHHGxv7NqEjJdGigkYJqgfIjwpeP1mwQE/tK/TfKoKr
-	 lR6SVRxQ5MKlPHNwDvQz72seJb2vJ3WePGyyNxzHWmHyVJin0MPHPgyZLcXcazdqoD3un
-	 l0uh2OZ21HJEyMoamyc1Q3IMD7S0Xn/F/RucYmGFf148QTuakEyGjst1PEmqJmkcmtQ==
+	bh=gF/qiCw3ewFdXLBxi0Zmh22mFHH2ofoUcu4p5jmap8g=;
+	b=Cif6Dq1T2MmcDrp7iFcy+/gLqxhRwBlFISw8xboaY/VF+QqkySBvylqbKuypTbup+6Ln
+	 B2ZgJqGvJOWdxYmu5TYJzyHMMoNvFH+FFINXuConeMcJ/w8rH3NFtPT9rgE+WObaUflm0
+	 LeWrHFjwqEddnJLch/nj3CWsh4nwZ28pNltTQ8IZ4t58fmPup0e+buP2ThUcDrgAMtOg2
+	 y+EnpVq+lPf3YGfT6Pu27K05W2FuodyASyMmMvkkrAeEZjNsezS2FVulHwyfEXYmVbf1h
+	 XXUAKBEbKqCsE5f9XfEKFi9+8CCfw8ykGG3WyqUzClD+oZ1KRhfWBTjgqLkMoyMvhTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2FtsXg8Q;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LO6Mzov9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3705060709A1;
-	Wed,  4 Nov 2026 21:15:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291EB607031C;
+	Wed,  4 Nov 2026 21:16:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2FtsXg8Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1C6D1F000C1;
-	Wed,  4 Nov 2026 21:15:56 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LO6Mzov9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73A231F000C1;
+	Wed,  4 Nov 2026 21:16:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793826957;
-	bh=O/pNUG2Gts9LkOcDgIz49Ilg2yU/IKcFvInCIcfaoZA=;
+	s=korg; t=1793826963;
+	bh=gF/qiCw3ewFdXLBxi0Zmh22mFHH2ofoUcu4p5jmap8g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=2FtsXg8QjpbH+RCMBqpOd/d0kHt3hRzlD3zX66eVtmwGUn4mkNZ+TvdQZCs3VWa14
-	 d/Ea5KBI6xeSFsFnemntMNi9E21e08sr5SqH8FWX9/NgXVBU0wV59p2NQ7eEBDCx1a
-	 5y7dskX6lRMfbzpvrBjotuM7IKjMBzkODqsxUsXM=
+	b=LO6Mzov9O1/hpvS6pxswUs661cF4k8rHbXetr6lUguQSiBpUODXppa8bNFoEmnctF
+	 I0+IDon3rSiCZ0uo+BTR/nDaKfGK2nqB8ytonMaMkNMk5jj77e9fLUClOHp9h+ingA
+	 ZXkzaF8kcFtNb2WJAM5thZenlZrD1HYzx7ZNePLE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Ijae Kim <ae878000@gmail.com>,
-	Myeonghun Pak <mhun512@gmail.com>,
-	"Daniel Thompson (RISCstar)" <danielt@kernel.org>,
-	Lee Jones <lee@kernel.org>
-Subject: [PATCH 7.3 109/547] backlight: lm3630a: Cancel delayed work before destroying workqueue
-Date: Wed,  4 Nov 2026 16:04:53 -0500
-Message-ID: <20261104211041.307248041@linuxfoundation.org>
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Sascha Bischoff <sascha.bischoff@arm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 095/547] dt-bindings: interrupt-controller: gicv5: Relax IRS properties constraints
+Date: Wed,  4 Nov 2026 16:04:39 -0500
+Message-ID: <20261104211040.926872762@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -69,46 +69,65 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Myeonghun Pak <mhun512@gmail.com>
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
 
-commit 2cf184caab8b406fdd9db126ee40d62418237456 upstream.
+[ Upstream commit 1d77e79d62cfe46ad3619d42ee0d1ebd3f0f79f4 ]
 
-The interrupt handler queues delayed work to read the interrupt status.
-After free_irq() stops the producer, this work can still be waiting on its
-timer. destroy_workqueue() cannot drain delayed work that has not yet been
-queued by its timer, so the timer can outlive both the workqueue and the
-devm-allocated chip containing the work.
+An IRS is architecturally allowed to be stand-alone (ie with no direct
+CPU connection).
 
-Cancel the delayed work synchronously after freeing the IRQ and before
-destroying the workqueue. This also waits for any running status read to
-finish before the chip's resources are released.
+Relax "cpus" and "arm,iaffids" properties constraints allowing a standalone
+IRS configuration.
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
-
-Fixes: 0c2a665a648e ("backlight: add Backlight driver for lm3630 chip")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
-Link: https://patch.msgid.link/20261003030439.599330-1-mhun512@gmail.com
-Signed-off-by: Lee Jones <lee@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 7d7299bd07c6 ("dt-bindings: interrupt-controller: Add Arm GICv5")
+Signed-off-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Sascha Bischoff <sascha.bischoff@arm.com>
+Link: https://patch.msgid.link/20261015-gicv5-irs-no-cpus-v1-1-d4b337b7f000@kernel.org
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/video/backlight/lm3630a_bl.c |    1 +
- 1 file changed, 1 insertion(+)
+ .../bindings/interrupt-controller/arm,gic-v5.yaml        | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
---- a/drivers/video/backlight/lm3630a_bl.c
-+++ b/drivers/video/backlight/lm3630a_bl.c
-@@ -591,6 +591,7 @@ static void lm3630a_remove(struct i2c_cl
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/arm,gic-v5.yaml b/Documentation/devicetree/bindings/interrupt-controller/arm,gic-v5.yaml
+index 86ca7f3ac2810..b901e4288816a 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/arm,gic-v5.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/arm,gic-v5.yaml
+@@ -120,13 +120,14 @@ patternProperties:
  
- 	if (pchip->irq) {
- 		free_irq(pchip->irq, pchip);
-+		cancel_delayed_work_sync(&pchip->work);
- 		destroy_workqueue(pchip->irqthread);
- 	}
- }
+       cpus:
+         description:
+-          CPUs managed by the IRS.
++          CPUs managed by the IRS. Omit it if the IRS has no associated CPUs.
+ 
+       arm,iaffids:
+         $ref: /schemas/types.yaml#/definitions/uint16-array
+         description:
+           Interrupt AFFinity ID (IAFFID) associated with the CPU whose
+           CPU node phandle is at the same index in the cpus array.
++          Omit it if the IRS has no associated CPUs.
+ 
+     patternProperties:
+       "^its@[0-9a-f]+$":
+@@ -210,12 +211,14 @@ patternProperties:
+           - reg
+           - reg-names
+ 
++    dependencies:
++      cpus: [ "arm,iaffids" ]
++      arm,iaffids: [ cpus ]
++
+     required:
+       - compatible
+       - reg
+       - reg-names
+-      - cpus
+-      - arm,iaffids
+ 
+ additionalProperties: false
+ 
+-- 
+2.53.0
+
 
 
