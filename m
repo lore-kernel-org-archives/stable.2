@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793807888;
-	b=QYhEXHpPRj382VZ7HDAKllx8GP7Rb9ch3360VmlNp7EdEdE4L+s74QgYOAbRqE/fSFG6
-	 wje9Z7OpycI7DMYJdQb4CBil3eVe5F8cWDB8/iD9bnvokYlUVYSr1gd2XjzPAqx0jA1ja
-	 9vyrQMTse8onv5+8dlCbhGf2PDuTGE4RM0gYAr/jI54hAVSFztotiN5wPcm7ILmCM0vqm
-	 9OH9QK3qqWsQi/aMIw1ntu5nPiv/eSxv8K2KMOXFqz+1LgOmSxqDg/4LOrBPdNyYYl472
-	 638IGi4izD6zM204FkpJ8lgbjLnFDbLREdvO0dgY2XOpjJbZcvzyEQgW+bJkT/yybEw==
+	t=1793807906;
+	b=iuAcu4fqMGun9Fq0fbtkrRxGOWd9K6hvCVJ9zTgyww5ZDbZFaGgEARFWxkQU+uXeo6Js
+	 84EePAJorwlWBDN/uTINc8CAP5hLgSdxuz8u2Cf96Nv2RKv4PaCc3tnDtdJ0NiS5QYfUL
+	 quTL3XfY6dnSOIqwDD4jEDEytOJ8TwKrgfWwUoU/IPyuSgRXKyqox5YBvUu0vuEOSAE/n
+	 0AJpSFd+s34Nx1ZzwuUbzitSzL1qdSGCioLr7SNjfQVHUeZgosuhel1IDm2BGYKlDnmTk
+	 lPmKOyC0KCQK6FH5yWsNtw4X7nmLpXgSir0R2dKAaHb3sRYkjmqeTcf9w41J+PwQB+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793807888;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793807906;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=CobIDIgBpZYtO1bIvi1qP1oCrjRP4ucdUu/eXRQ04v4=;
-	b=o3UXxaHLEW32h8YVmTOFz/vjduV1duGuUdRjxTWcNPMTl8w6eX2Me12h2h2ZfTb15YGd
-	 236PboEs/a5tja7gAToCMZDzlWSCSKyxvRTxokHjoEM1wqZfkgiCXcGUBn60Z2kkGfMJM
-	 judL/w4/xuVP+GdYTMZfTeDdrq9ijdm00kRB633pUlBFcEOTHzghz503YBCvnuTiSKmEA
-	 prTpGWWlCYQzlQlvszPtaGzZws0kFxjBVAXoqfiFbdx2xlrs08FIS5VkjCJROaZ/cTvIh
-	 uIekQYPnv0pxIciFKIg32W+lhAfFaJntMZmixha+2KAL4NXx+ztlfkNzIQB/wYTohMw==
+	bh=3QbZH7irDf/PQ11+cahlSP9+Bmain9c/0kalJfMpADU=;
+	b=B6cgkJ21scMnRDheDqq4T4Pg3uCNqwt9snbjNPPPDJAzU4yYZzh42TpWi7n+Zs7mcFvn
+	 Wy/pKkVJ+psxhIa8N4mLf4jGWnKJHnOH5LToLQcukmV/LcXx1uS5upuw1VI0cj/OUlTyG
+	 HTQls7kdKl9P2P+E7o6OUeOSDs2iLJ9iVqy4jtYkLrAAm3ihFES58B0x3Rvd3dDtYJApF
+	 VS09V4Mz6aRKwEFdWCGTVydwzFXLmQb6xkWPil8WIzgyQIMuBntR3fxJZnPHKlxIc7OVh
+	 g25//DyxGT68j9WZm3a8s8PxgFeuCnhAAipDI9tI2donH9HrjBaz/iVf+YIpgJRNtAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gTlnoSDv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L3DqXb7E;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC6E3606A9DD
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:58:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D85AA606A332
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:58:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gTlnoSDv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3FF1F0093A;
-	Wed,  4 Nov 2026 15:58:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L3DqXb7E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEF081F000C1;
+	Wed,  4 Nov 2026 15:58:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793807887;
-	bh=CobIDIgBpZYtO1bIvi1qP1oCrjRP4ucdUu/eXRQ04v4=;
+	s=k20260515; t=1793807905;
+	bh=3QbZH7irDf/PQ11+cahlSP9+Bmain9c/0kalJfMpADU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gTlnoSDv9hq+BvBKJxNVPR3KVb8hqFKYrthJ07HnyLHfcsLyyngxdKxR/lwjWiyZm
-	 5vU1e6cVVJ3mufxebhLX6gIfB9TWLBT7NejV2PoaqyTxiH/YT5SvLe7tYzJBIr/FpU
-	 Oq9ZJd5AFFw7iNpzuvpn5eBM0yA699m11tkP8duTQgQiCXvga9Ex+wv5PzKCgyOVSh
-	 9ITKQempBfw2WDCRsXNNkZ2BZtMuYdm1ssy0IKLSTNSr2T9YMnLRuVyah3aAkB44mR
-	 TgE6577v5EJ7cYvyVer/uYypEsdo8BF2yZv6EOoA8yC/WUEHEtzxvXizKVJT3oBLax
-	 SVTwhBZ1q9efQ==
+	b=L3DqXb7EX/DCE8ViXX3uEqcxsXf1xoLtIET0x3FjQ3Qzp5IPuVaKmZEQ4saU7S7uK
+	 +jr+gpAVkuy0m5CSMfzSPJTNrBybpjGz3Hp+T1bQjnMTjQvBTjUX+XakUIUh90MDx9
+	 a0DfHOp9x4r5mj54QkB4LPI1y4ny22ivGukl3Dp0dmEjNUhlATnSNHPNZQxkd0WeEO
+	 oysH7HHYS675JPYhYLMFh8O1Ul3PPkCIR1tYl0nQL5upDpMS5p/5hDZCB576XENXz1
+	 aaGDdOQtxVEpeyh8mI3WfgzS/0nVe9FvKpVxg1OazVt5j918YCAY7vzkolYuEnKvXG
+	 D3+J5RAZwl7ww==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sumanth Korikkar <sumanthk@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
+Cc: Jori Koolstra <jkoolstra@xs4all.nl>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rodolfo Giometti <giometti@enneenne.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] s390/cpum_cf: Check session mask before cpu offline
-Date: Wed,  4 Nov 2026 10:58:05 -0500
-Message-ID: <20261104155732.3921147-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] pps: change pps_gen_class to a const struct
+Date: Wed,  4 Nov 2026 10:58:22 -0500
+Message-ID: <20261104155729.3918440-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110414-reliable-bonded-7e4b@gregkh>
-References: <2026110414-reliable-bonded-7e4b@gregkh>
+In-Reply-To: <2026110401-glitch-riveting-80d2@gregkh>
+References: <2026110401-glitch-riveting-80d2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,60 +62,95 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sumanth Korikkar <sumanthk@linux.ibm.com>
+From: Jori Koolstra <jkoolstra@xs4all.nl>
 
-[ Upstream commit 99a95985dfc85eecad97f0991a2401d2fcef294c ]
+[ Upstream commit 4dc0c899b14c3ea2c9b5f42b523301040d1c8100 ]
 
-cfset_offline_cpu() stops counter sets for every active session without
-checking whether the outgoing cpu belongs to the session mask.
+The class_create() call has been deprecated in favor of class_register()
+as the driver core now allows for a struct class to be in read-only
+memory. Change pps_gen_class to be a const struct class and drop the
+class_create() call.
 
-For example, run an hwctr session on cpu0 and a cpu bound perf event on
-cpu1:
-
-lshwc -l 9999 -i 5 0:b
-perf stat -C 1 -e cpum_cf/CPU_CYCLES/ sleep 120
-chcpu -d 1
-chcpu -e 1
-
-Although the hwctr session does not include cpu1, cfset_offline_cpu()
-decrements its counter set reference count. The subsequent perf teardown
-decrements it again, causing it to underflow.
-
-The perf event keeps the percpu state alive across hotplug. When cpu1
-comes online, the hwctr session is started there and the reference count
-moves from -1 to 0. Stopping the hwctr session then decrements it to -1
-again, so the zero triggered counter set disable path is skipped.
-
-Check the session mask before stopping counter sets on the outgoing cpu.
-This prevents the unmatched decrement and the resulting reference count
-underflow.
-
-Fixes: a029a4eab39e ("s390/cpumf: Allow concurrent access for CPU Measurement Counter Facility")
-Reported-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-Cc: stable@vger.kernel.org # v5.14+
-Signed-off-by: Sumanth Korikkar <sumanthk@linux.ibm.com>
-Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
-[ sashal: adapted the per-session CPU-mask check to the existing if condition for the single global cfset_request. ]
+Signed-off-by: Jori Koolstra <jkoolstra@xs4all.nl>
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Acked-by: Rodolfo Giometti <giometti@enneenne.com>
+Link: https://patch.msgid.link/20260302142436.3292766-1-jkoolstra@xs4all.nl
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: d19552611cb2 ("pps: generators: fix use-after-free when closing a removed device")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/s390/kernel/perf_cpum_cf.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/pps/generators/pps_gen.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
-diff --git a/arch/s390/kernel/perf_cpum_cf.c b/arch/s390/kernel/perf_cpum_cf.c
-index d2a2a18b55808..f7b270d2404cc 100644
---- a/arch/s390/kernel/perf_cpum_cf.c
-+++ b/arch/s390/kernel/perf_cpum_cf.c
-@@ -1223,7 +1223,8 @@ int cfset_offline_cpu(unsigned int cpu)
- 	struct cfset_call_on_cpu_parm p;
+diff --git a/drivers/pps/generators/pps_gen.c b/drivers/pps/generators/pps_gen.c
+index 5b8bb454913cd..e064ff32c9cd9 100644
+--- a/drivers/pps/generators/pps_gen.c
++++ b/drivers/pps/generators/pps_gen.c
+@@ -26,7 +26,10 @@
+  */
  
- 	mutex_lock(&cfset_ctrset_mutex);
--	if (cfset_request.ctrset) {
-+	if (cfset_request.ctrset &&
-+	    cpumask_test_cpu(cpu, &cfset_request.mask)) {
- 		p.sets = cfset_request.ctrset;
- 		cfset_ioctl_off(&p);
- 		cpumask_clear_cpu(cpu, &cfset_request.mask);
+ static dev_t pps_gen_devt;
+-static struct class *pps_gen_class;
++static const struct class pps_gen_class = {
++	.name		= "pps-gen",
++	.dev_groups	= pps_gen_groups
++};
+ 
+ static DEFINE_IDA(pps_gen_ida);
+ 
+@@ -183,7 +186,7 @@ static int pps_gen_register_cdev(struct pps_gen_device *pps_gen)
+ 				MAJOR(pps_gen_devt), pps_gen->id);
+ 		goto free_ida;
+ 	}
+-	pps_gen->dev = device_create(pps_gen_class, pps_gen->info->parent, devt,
++	pps_gen->dev = device_create(&pps_gen_class, pps_gen->info->parent, devt,
+ 				     pps_gen, "pps-gen%d", pps_gen->id);
+ 	if (IS_ERR(pps_gen->dev)) {
+ 		err = PTR_ERR(pps_gen->dev);
+@@ -207,7 +210,7 @@ static int pps_gen_register_cdev(struct pps_gen_device *pps_gen)
+ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
+ {
+ 	pr_debug("unregistering pps-gen%d\n", pps_gen->id);
+-	device_destroy(pps_gen_class, pps_gen->dev->devt);
++	device_destroy(&pps_gen_class, pps_gen->dev->devt);
+ }
+ 
+ /*
+@@ -307,7 +310,7 @@ EXPORT_SYMBOL(pps_gen_event);
+ 
+ static void __exit pps_gen_exit(void)
+ {
+-	class_destroy(pps_gen_class);
++	class_unregister(&pps_gen_class);
+ 	unregister_chrdev_region(pps_gen_devt, PPS_GEN_MAX_SOURCES);
+ }
+ 
+@@ -315,12 +318,11 @@ static int __init pps_gen_init(void)
+ {
+ 	int err;
+ 
+-	pps_gen_class = class_create("pps-gen");
+-	if (IS_ERR(pps_gen_class)) {
+-		pr_err("failed to allocate class\n");
+-		return PTR_ERR(pps_gen_class);
++	err = class_register(&pps_gen_class);
++	if (err) {
++		pr_err("failed to register class\n");
++		return err;
+ 	}
+-	pps_gen_class->dev_groups = pps_gen_groups;
+ 
+ 	err = alloc_chrdev_region(&pps_gen_devt, 0,
+ 					PPS_GEN_MAX_SOURCES, "pps-gen");
+@@ -332,7 +334,7 @@ static int __init pps_gen_init(void)
+ 	return 0;
+ 
+ remove_class:
+-	class_destroy(pps_gen_class);
++	class_unregister(&pps_gen_class);
+ 	return err;
+ }
+ 
 -- 
 2.53.0
 
