@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799590;
-	b=UAJRXflctB3H76/I2klug9DhFRzIgFZGr6cSVFN2gKOLTTCTuNOL3bQHIKdtprobR2WQ
-	 7ijkDQp0k53jLmtw869Sm7Qs+ZqltJlnTbca2ISrF8A3ICgTeX/tW81x32Mu8q8HYuIZN
-	 rpymHcq1HF1CshDWpsx/NQaV/l/e2vfu48fSvVgkYPuflFSXewbrsdjh7FSL6G3HKZwfY
-	 H40HcVnAvvgqLy51jF0eHrFq75lH35qIBDX3bZIZiFj7PxKS3rVgw5oaNk8zY5jGr/34J
-	 nw6HfigFx7wGECjXZ3xESrMCSIuMx2RiO9aRpAcX2/YBMAs0cFItlrXTQriQoad13Pg==
+	t=1793799592;
+	b=PtpEEStHrkIekvebL6Y8MgWACwjG5TKvYmFurK5B0Ygh0blxNAyFDdWugSayVsgMn21I
+	 gv7/TSSXwTo87givzWQ3s7zxBD6wlJldhdQaT0Y/VqF0sxSq3A2JtoYjIPnGwFqP1cD4v
+	 mz+yN4fDOfjQ93wNlWebW/YpNx2GcFbv/98KblUWCpj7OCEc1tWSpQnn0XSNUW12MjJPt
+	 Ko0qM3fyCasDsci9zPKHuM0+ZMczu2kvh9xtBEQ1uNcCX62pCzBD99jozWl/mzTRCykt2
+	 wZIHjUw2+JA9/vzXP2pjHmZCyAw0WQ/Msv5OEZW3tAP6xAwPTxwGW4+KoGGStcQoxRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799590;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799592;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2Qa7U71mlguyrpXCasNA+lj5xSQoEoKSz+jEmi4VtQ4=;
-	b=SkVbUtGTlE31jZfoA47o/bTJL/6cab9Dm63j9Xl3YKAkNS249w4Kk+uPbgZBdO4H0sid
-	 cFupMA/kcToQ5PeelZ1XMe0zwwqPmVIU0sVLP8qYhfGH+fcbTyQy/OQYLdmFLOctiO4Uy
-	 17QiZGP2l85UxAWttCL6AKTN4ZpJmUyqpxagz0mzVw39ejcPtyXaUFLG+SIGx94MEZzSe
-	 W1ThsHS+xHSqFMeC9v4+XVdGWC5trXTbttTP8eadDmz4ZIeUkFHvwf+nNWgLQASgCBNbn
-	 9ahXJOan7hJ2oJykxlVLM8e0abw5890woq0+POO881GPlYzyAgQs5qBm22Oy3YQj99w==
+	bh=syPoBAix4XxwMBomoAqnlw4NMZMm4SZGogSQFRrYNAE=;
+	b=ISCulxd1x1MUFha1etgWxz3t1bV4vVDbWIOyj/rmkB8ApO8QDlCQD0aEOgwsCsNgb9as
+	 WT6hVhpJYDUCQXXlq0KioaHxS1Ya1zgx3abp08upPxWQV+Yd/YljZmfbWNsrRgbDeJ4Mk
+	 JrYwtCENvSry1mphII4zuRmosbIck/8l4DJGe99KuA/qyqy6Ihn3ocYCic+7SNdHMP7j0
+	 44SqbpYu7HIfGuCyQ9auuoXhRp3K+2iganiy4ca/nGQsCO21CDo4G9reH5tGWsS9KZHNn
+	 86gpMRxWdb0RuL59P9OzoEwMYdhQvyEB0vPOkGdGV+RNCHIcDOtt0dZlU2a7QVTiWZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1nxSOa5b;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AzCPHnY2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68540606A337
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:39:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4696606A33A
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:39:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1nxSOa5b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E1041F00919;
-	Wed,  4 Nov 2026 13:39:50 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AzCPHnY2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450CD1F00A1A;
+	Wed,  4 Nov 2026 13:39:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793799590;
-	bh=2Qa7U71mlguyrpXCasNA+lj5xSQoEoKSz+jEmi4VtQ4=;
+	s=korg; t=1793799591;
+	bh=syPoBAix4XxwMBomoAqnlw4NMZMm4SZGogSQFRrYNAE=;
 	h=Subject:To:Cc:From:Date;
-	b=1nxSOa5bbYpczu9ei9Iy29os/5f/TJmDY7PJdhB9jllo0oi7YZxIJy8UWfo3pNHed
-	 pA9x6UXu+YCpqTlnOeWAGHQ9tjPv+mcVm1m9NkcQI736LQnSrlJVwE+Y4v7PyVtbZA
-	 cR9NkhIYFkdGmBEtvexAgGictRzjj5D3PIe1GfXI=
-Subject: FAILED: patch "[PATCH] mm/hugetlb: fix use-after-free in hugetlb_mfill_atomic_pte()" failed to apply to 5.10-stable tree
+	b=AzCPHnY2cQS5NL40mgkidmlo5IwLvAvXGTO5o25uMyhrdiY90T4tQ9ShJCuLj1LGV
+	 HTNxMbSWHl18Orl3+y0YQ0zF83FEPkbExOlqavoN8NjTh5028+Dy40eB4l1b+1b+gN
+	 E0YDIV45qTcoPNehh8RSgFN9YPS6u0ZkmupDtiOY=
+Subject: FAILED: patch "[PATCH] mm/hugetlb: fix use-after-free in hugetlb_mfill_atomic_pte()" failed to apply to 5.15-stable tree
 To: david@kernel.org,agl@us.ibm.com,akpm@linux-foundation.org,jannh@google.com,josef@toxicpanda.com,kas@kernel.org,lance.yang@linux.dev,liam@infradead.org,linmiaohe@huawei.com,ljs@kernel.org,mgorman@techsingularity.net,muchun.song@linux.dev,nao.horiguchi@gmail.com,osalvador@suse.de,peterx@redhat.com,pfalcato@suse.de,riel@surriel.com,rppt@kernel.org,stable@vger.kernel.org,vbabka@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 14:39:47 +0100
-Message-ID: <2026110447-friend-unmanaged-5374@gregkh>
+Message-ID: <2026110447-cucumber-tummy-2f42@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x d8a9cd7fd2fb01211430c933932da58839b8ca65
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110447-friend-unmanaged-5374@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110447-cucumber-tummy-2f42@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
