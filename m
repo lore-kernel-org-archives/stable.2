@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802675;
-	b=okewO1N1i23I8x6J+wS+f2s1XleqkFP7iCHLRpIW8cb2x+7KbAWl4FY8qGnBYxfX0ZbE
-	 9WrvdPmmwiMkx+V6Kd4fwzlBg7XPD/Bt5wAsc3Zvl8wq2A2Bymd/sRlaOeempATEHe9tM
-	 LmX5fPIZAX8wJTlclZH2jsidgFgZe+bPBO2qRb0pplWE3fUd1sHgE613iS8MTgxc3BiSq
-	 KQ2lrAdFeDAYaM1gaMUhXpQhVEPsS5qeHSVu/GqID0qZXq3YfDS5E8JLRXPUVd9o02joZ
-	 X9t+zqjDLXMOJV90aDmFSJOIZpzNKHKtcy8icIZYlhoWX3pbOuN2BgfrBkypn/YAutQ==
+	t=1793802736;
+	b=ZszYzm+5DnIIVgiZUAXvw3v3DqbQOT1nZMjbXorGt3+qUF2+VO1oWLszJHPtwq8BNa2j
+	 o6IRncnY7Tr3x2FndvmDsSiWm+fwqah3gfvYe19fcEdmGe0orM+GZnRjiz8BMFURCie7i
+	 OwNpdQ+U0RP0UY/yRPe/x7JOlF3j1Lu5B5Nz/TNTDZEVVqg1P5Fi75wHXOnnQmPiWc+jz
+	 aQghKKswUlLHpmhCYGVBYU1q3PqCL8yRRBh3B83V4pNkQYDzpk3aXvzYj6exEz+53pziI
+	 MjipemXhygy1KUQR17ZoYuh8pRgEfPK4qJnL/Sm3dH0bTyMLkNlazIUzxwM4SO17gWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802675;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802736;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RIcTLXyK4N2zGic5HZdXt0WvDyMGHth4BRk0q7VqJho=;
-	b=1wN60m1S+nO4DYrkGDcvxOqDrVt5T+ImDxTr2dWV6FihRfygmO+2rTb1KeuDfcapctol
-	 QW/Fi2wGDt2Yliz2+qeX1iEGUNFbHGJy/zWSrFginQv1wnB06ETiSGD22GfcSn0byrk0m
-	 CtfsGawzdxr0VbxtozvFPkjQKHfvV8N/WwuyRsK91r+DxQC+iqYwuclOQvgj3A+A3KDUI
-	 uZ3soUFUSfAnr219CDzIc781r4bxdqddhc7oAI04UJlKWn64C65dTww6JZPD83XMEOVrW
-	 VM8kULmyAWGdrFXpgpDPoGkEmVvf0dOR6pXghRPJbI1qhNaZpZzaHeMwlc1Wj6N8SzA==
+	bh=nYJHjcvU3C8ufKKarGHA8plCjwV6/fU4TEXnnxEEFBA=;
+	b=qWp7J3K5e50dcolWn7G1aRDcpyh8oujmzolFHUiEgiTu4WbsADiI7UqpTuw7B+8dkoEI
+	 0n5qQZKlRPN/C3lEiYeXIhdElMoHeQr4MP2a8Aq6P1USJzb9gHqJCet0xX5FGVUceCUKi
+	 IfAJWG6wXkWfKEZVqCE7zA68quzZXcX9NwyNWOCA5sDyoszN2wST5ersM/qxjrMTb7FDK
+	 DhzA+uyBYxNYKUOFnnf7pxV7DZl7hoOn14Fgh+FL3BNRvGOcc8Nmqqvx702or8cExi63J
+	 Qk29048taRpAHKHvpLwUGtx4bAVBdTAgPE4ofjBAPSgWe4YrgeaBwyvJ1XVkV3EYiag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TiVa7pV9;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hBEOsepj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E37B9606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:31:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 699E4606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:32:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TiVa7pV9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5258E1F000C1;
-	Wed,  4 Nov 2026 14:31:14 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hBEOsepj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E78581F000C1;
+	Wed,  4 Nov 2026 14:32:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802674;
-	bh=RIcTLXyK4N2zGic5HZdXt0WvDyMGHth4BRk0q7VqJho=;
+	s=korg; t=1793802736;
+	bh=nYJHjcvU3C8ufKKarGHA8plCjwV6/fU4TEXnnxEEFBA=;
 	h=Subject:To:Cc:From:Date;
-	b=TiVa7pV9jOeWeuoDaZpL+hL7S2pBGGh2kH5d+mASLW0341uPHhH5ukKzODqltRR8S
-	 dmBdKo5gMGkYYG4P0AE6yOhxJJb2I8qk6uZ5qIiakIzFHgzDA/y9ABu2VANsw/FiPV
-	 7Eqd3o2o2sfJg1kY2U5G5ofTZxqm83rU++VVTBPs=
-Subject: FAILED: patch "[PATCH] media: rc: Fix race condition during rc_register_device()" failed to apply to 5.10-stable tree
+	b=hBEOsepjoSYmKQI8Te5HuOzIlHAAPFlh5AazY5FoDhFBrSzwyK404wbr7ECV/dxXo
+	 vCEmS2g+Ou3Kxo1ovjQp6zo7OieQCGM+l96PeZPVOI7lLta+TA8XZ/i3Wf9V4kCPj/
+	 BzRAvu/WpPmn3r1SNJplX6Y8P0lhBA1/ccHUNq+g=
+Subject: FAILED: patch "[PATCH] media: rc: Fix ABBA deadlock by making locks more fine" failed to apply to 6.1-stable tree
 To: sean@mess.org,hverkuil+cisco@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:31:06 +0100
-Message-ID: <2026110406-streak-snorkel-cd41@gregkh>
+Date: Wed, 04 Nov 2026 15:32:15 +0100
+Message-ID: <2026110414-outsource-laxative-3178@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x ec7cb49871e5c4f85d57290320c50ee0bae4db84
+git cherry-pick -x c6d68866ad8aa1e957a3e5a6ede971148f1e3d59
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110406-streak-snorkel-cd41@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110414-outsource-laxative-3178@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,158 +79,125 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ec7cb49871e5c4f85d57290320c50ee0bae4db84 Mon Sep 17 00:00:00 2001
+From c6d68866ad8aa1e957a3e5a6ede971148f1e3d59 Mon Sep 17 00:00:00 2001
 From: Sean Young <sean@mess.org>
-Date: Fri, 17 Jul 2026 13:36:31 +0100
-Subject: [PATCH] media: rc: Fix race condition during rc_register_device()
+Date: Wed, 12 Aug 2026 15:46:42 +0100
+Subject: [PATCH] media: rc: Fix ABBA deadlock by making locks more fine
+ grained
 
-Device drivers can call ir_raw_event_store() or ir_raw_event_handle()
-right after rc_allocate_device(). This means that while
-rc_register_device() is being called, those functions can be called
-from e.g. interrupt handlers.
+The ir_raw_event_unregister() function takes the ir_raw_handler_lock
+first and then the rc_dev->lock. Other functions like change_protocol
+do this in the reverse order.
 
-Currently dev->raw is being allocated and populated by
-ir_raw_event_prepare() which is called from rc_register_device(). This
-is not done in a safe way, e.g. dev->raw is being set before the
-raw members are populated.
+This means that an ir decoder module unload and writing to the protocol
+sysfs file can cause a deadlock.
 
-Call ir_raw_event_prepare() from rc_allocate_device() instead.
+ir_raw_handler_lock protects the client list, amongst other things.
+Split this out into a separate lock so we can ensure the locking
+order is always the same.
 
-Fixes: a3572c34da8d ("V4L/DVB: ir-core: Add logic to decode IR protocols at the IR core")
+Fixes: 93cffffc18f6 ("[media] media: rc: fix decoder module unloading")
 Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
-Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
 diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
-index ba24c2f22d39..46c50f423798 100644
+index 54b323becb1f..75dee4a483d4 100644
 --- a/drivers/media/rc/rc-ir-raw.c
 +++ b/drivers/media/rc/rc-ir-raw.c
-@@ -71,9 +71,6 @@ static int ir_raw_event_thread(void *data)
-  */
- int ir_raw_event_store(struct rc_dev *dev, struct ir_raw_event *ev)
- {
--	if (!dev->raw)
--		return -EINVAL;
--
- 	dev_dbg(&dev->dev, "sample: (%05dus %s)\n",
- 		ev->duration, TO_STR(ev->pulse));
+@@ -10,7 +10,8 @@
+ #include <linux/sched.h>
+ #include "rc-core-priv.h"
  
-@@ -102,9 +99,6 @@ int ir_raw_event_store_edge(struct rc_dev *dev, bool pulse)
- 	ktime_t			now;
- 	struct ir_raw_event	ev = {};
+-/* Used to keep track of IR raw clients, protected by ir_raw_handler_lock */
++/* Used to keep track of IR raw clients, protected by ir_raw_client_lock */
++static DEFINE_MUTEX(ir_raw_client_lock);
+ static LIST_HEAD(ir_raw_client_list);
  
--	if (!dev->raw)
--		return -EINVAL;
--
- 	now = ktime_get();
- 	ev.duration = ktime_to_us(ktime_sub(now, dev->raw->last_event));
- 	ev.pulse = !pulse;
-@@ -129,9 +123,6 @@ int ir_raw_event_store_with_timeout(struct rc_dev *dev, struct ir_raw_event *ev)
- 	ktime_t		now;
- 	int		rc = 0;
- 
--	if (!dev->raw)
--		return -EINVAL;
--
- 	now = ktime_get();
- 
- 	spin_lock(&dev->raw->edge_spinlock);
-@@ -166,9 +157,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_timeout);
-  */
- int ir_raw_event_store_with_filter(struct rc_dev *dev, struct ir_raw_event *ev)
- {
--	if (!dev->raw)
--		return -EINVAL;
--
- 	/* Ignore spaces in idle mode */
- 	if (dev->idle && !ev->pulse)
- 		return 0;
-@@ -200,9 +188,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_filter);
-  */
- void ir_raw_event_set_idle(struct rc_dev *dev, bool idle)
- {
--	if (!dev->raw)
--		return;
--
- 	dev_dbg(&dev->dev, "%s idle mode\n", idle ? "enter" : "leave");
- 
- 	if (idle) {
-@@ -226,7 +211,7 @@ EXPORT_SYMBOL_GPL(ir_raw_event_set_idle);
-  */
- void ir_raw_event_handle(struct rc_dev *dev)
- {
--	if (!dev->raw || !dev->raw->thread)
-+	if (!dev->raw->thread)
- 		return;
- 
- 	wake_up_process(dev->raw->thread);
-@@ -612,9 +597,6 @@ EXPORT_SYMBOL(ir_raw_encode_carrier);
-  */
- int ir_raw_event_prepare(struct rc_dev *dev)
- {
--	if (!dev)
--		return -EINVAL;
--
- 	dev->raw = kzalloc_obj(*dev->raw);
- 	if (!dev->raw)
- 		return -ENOMEM;
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index dda3479ea3ad..d93e98189c1a 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -1701,14 +1701,24 @@ static const struct device_type rc_dev_type = {
- struct rc_dev *rc_allocate_device(enum rc_driver_type type)
- {
- 	struct rc_dev *dev;
-+	int ret;
- 
- 	dev = kzalloc_obj(*dev);
- 	if (!dev)
- 		return NULL;
- 
-+	if (type == RC_DRIVER_IR_RAW) {
-+		ret = ir_raw_event_prepare(dev);
-+		if (ret < 0) {
-+			kfree(dev);
-+			return NULL;
-+		}
-+	}
-+
- 	if (type != RC_DRIVER_IR_RAW_TX) {
- 		dev->input_dev = input_allocate_device();
- 		if (!dev->input_dev) {
-+			ir_raw_event_free(dev);
- 			kfree(dev);
- 			return NULL;
- 		}
-@@ -1724,6 +1734,7 @@ struct rc_dev *rc_allocate_device(enum rc_driver_type type)
- 		spin_lock_init(&dev->rc_map.lock);
- 		spin_lock_init(&dev->keylock);
- 	}
-+
- 	mutex_init(&dev->lock);
- 
- 	dev->dev.type = &rc_dev_type;
-@@ -1917,12 +1928,6 @@ int rc_register_device(struct rc_dev *dev)
- 		dev->sysfs_groups[attr++] = &rc_dev_wakeup_filter_attr_grp;
- 	dev->sysfs_groups[attr++] = NULL;
- 
--	if (dev->driver_type == RC_DRIVER_IR_RAW) {
--		rc = ir_raw_event_prepare(dev);
--		if (rc < 0)
--			goto out_minor;
--	}
--
- 	if (dev->driver_type != RC_DRIVER_IR_RAW_TX) {
- 		rc = rc_prepare_rx_device(dev);
- 		if (rc)
-@@ -1979,8 +1984,6 @@ out_dev:
- out_rx_free:
- 	ir_free_table(&dev->rc_map);
- out_raw:
--	ir_raw_event_free(dev);
--out_minor:
- 	ida_free(&rc_ida, minor);
- 	return rc;
+ /* Used to handle IR raw handler extensions */
+@@ -273,13 +274,6 @@ static int change_protocol(struct rc_dev *dev, u64 *rc_proto)
+ 	return 0;
  }
+ 
+-static void ir_raw_disable_protocols(struct rc_dev *dev, u64 protocols)
+-{
+-	mutex_lock(&dev->lock);
+-	dev->enabled_protocols &= ~protocols;
+-	mutex_unlock(&dev->lock);
+-}
+-
+ /**
+  * ir_raw_gen_manchester() - Encode data with Manchester (bi-phase) modulation.
+  * @ev:		Pointer to pointer to next free event. *@ev is incremented for
+@@ -615,15 +609,18 @@ int ir_raw_event_register(struct rc_dev *dev)
+ {
+ 	struct task_struct *thread;
+ 
++	/* Holding dev->lock could result in a dead-lock */
++	lockdep_assert_not_held(&dev->lock);
++
+ 	thread = kthread_run(ir_raw_event_thread, dev->raw, "rc%u", dev->minor);
+ 	if (IS_ERR(thread))
+ 		return PTR_ERR(thread);
+ 
+ 	dev->raw->thread = thread;
+ 
+-	mutex_lock(&ir_raw_handler_lock);
++	mutex_lock(&ir_raw_client_lock);
+ 	list_add_tail(&dev->raw->list, &ir_raw_client_list);
+-	mutex_unlock(&ir_raw_handler_lock);
++	mutex_unlock(&ir_raw_client_lock);
+ 
+ 	return 0;
+ }
+@@ -656,16 +653,19 @@ void ir_raw_event_unregister(struct rc_dev *dev)
+ 	kthread_stop(dev->raw->thread);
+ 	timer_delete_sync(&dev->raw->edge_handle);
+ 
+-	mutex_lock(&ir_raw_handler_lock);
++	mutex_lock(&ir_raw_client_lock);
+ 	list_del(&dev->raw->list);
++
++	mutex_lock(&ir_raw_handler_lock);
+ 	list_for_each_entry(handler, &ir_raw_handler_list, list)
+ 		if (handler->raw_unregister &&
+ 		    (handler->protocols & dev->enabled_protocols))
+ 			handler->raw_unregister(dev);
+ 
+ 	lirc_bpf_free(dev);
+-
+ 	mutex_unlock(&ir_raw_handler_lock);
++
++	mutex_unlock(&ir_raw_client_lock);
+ }
+ 
+ /*
+@@ -688,15 +688,24 @@ void ir_raw_handler_unregister(struct ir_raw_handler *ir_raw_handler)
+ 	struct ir_raw_event_ctrl *raw;
+ 	u64 protocols = ir_raw_handler->protocols;
+ 
++	mutex_lock(&ir_raw_client_lock);
++
+ 	mutex_lock(&ir_raw_handler_lock);
+ 	list_del(&ir_raw_handler->list);
++	atomic64_andnot(protocols, &available_protocols);
++	mutex_unlock(&ir_raw_handler_lock);
++
+ 	list_for_each_entry(raw, &ir_raw_client_list, list) {
++		mutex_lock(&raw->dev->lock);
++		mutex_lock(&ir_raw_handler_lock);
+ 		if (ir_raw_handler->raw_unregister &&
+ 		    (raw->dev->enabled_protocols & protocols))
+ 			ir_raw_handler->raw_unregister(raw->dev);
+-		ir_raw_disable_protocols(raw->dev, protocols);
++		raw->dev->enabled_protocols &= ~protocols;
++		mutex_unlock(&ir_raw_handler_lock);
++		mutex_unlock(&raw->dev->lock);
+ 	}
+-	atomic64_andnot(protocols, &available_protocols);
+-	mutex_unlock(&ir_raw_handler_lock);
++
++	mutex_unlock(&ir_raw_client_lock);
+ }
+ EXPORT_SYMBOL(ir_raw_handler_unregister);
 
