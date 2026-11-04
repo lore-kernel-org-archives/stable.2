@@ -1,47 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826298;
-	b=0jGPe4UHi6cfVvJfOUG5aqZY1y70CBFwhjZVtYXZUduspl5igYQ2d6idwNIEF7tUVATz
-	 14fUWomwCB6It+0JuucYVQm8wcqM/EBHf1qXLUsOGp0vYuh7jhZVODpPP5JA6ylMjAvrc
-	 o1eIDeN//wxJQJgj5kafCezkajUcINIsUvLOeEXN3vN+coylSBcJjTmV5X8hT0khgYJkX
-	 /KQ/HXC0Qa3/gk1GIrCUVDd36n46uJyiA8Ig8XXaeihkFU0QFxkg0IyDMoHsHei/GiSQG
-	 e8tGJxI1OMd4p6vhdD+CQ3lu6xW6KwKuhYm9lyqNxAg7X/qTkClGs4ZAZRldBbpvTMQ==
+	t=1793826367;
+	b=L7w9fV1YNo8F+mINtYSdZZ6T5G4aS2ELKlgIncAReO1BD1wFFSi20gOrJu4XCHrOETZI
+	 TWglONj09dI6pe34SfxkwE6QGtDQjvv5Xqxend525pzInkI6d3tr06LV+ky5ARqOz7WUG
+	 61TrnppinFfqHEmUeoHJPXis2jdcpXkhYPV28VlbQWbSgQgyaS3vim3kl4maGo1HEYg24
+	 DHmVTGKr8rZQXz5QHayHJOusfT9iwqPU53Xhwk+on+mJ2lFIEQoKa4iFMRGvELVrEORYw
+	 RYzRwmBB8C7S8sSc6Y2qcda7EFX+FNJq8dntPSgDibT9CBjujg1CnNYWrGYlTkdx6Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826298;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4Ut9rj3j0uva36Cvif+dYnMzQWKQyPSkcJ7XkVDB+Jo=;
-	b=lgrY91g4gSlg6LjMyr5Wcvzdr+oEYLCdBw7IL/FqecLYr33AfYJuaq2O1zTdJe4J1Bk7
-	 drxktHH44pABM16KsITD0NjkiQnWEXLq3hAgYNpJguV4crjoQdd0aCsyG9bGKIt8UpTbT
-	 PEPxQEY2VAUhofVgR0I6pQUYPm3fEQvVoVMDSqIMGbJBjMrXnZ1PQtkvNmRKq2pER3ehr
-	 rTkdUBt/9Rv6qP98FwPbWOdptGKkdQeBIxn5BVZNLVICMiwB4jK9/lePU4YYHpIfMKlfO
-	 kpKP9NCJZ/K3Y/Zj3IcV8eVnYDIgaVJKi0utKvdBI1PjHscIujtLz5PoXM0fknBKx4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826367;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=YaJIToSCTk3wATVpVFceyT5vak8F0V2qG7IxMxnA4+E=;
+	b=41r4k0AXmraVHBpEMTHUl65ZkyZh6FObHaeJBlg+uY1ZC/024MnjRsFTLFX7Ij/vWBIT
+	 l2euC1q+bKisoFG7UK/KvSLi6yU2dIdWZqoMlxgrk1XysLWFOwnds2tylELLUncvaqyJw
+	 juxZ3lFhe1KHCgval7XOj/npaNy38AsHyHrxKPBuZ/ZucTbIk6N3GuXwyn799peeTGWDP
+	 NhqO7awYLYrrXNU1z3fOufGWXArt8RmmitA4UJwRaGeqj+i7Owcq9LA2hH7WkdhBdvb4J
+	 lNgjGsr+/pmFmvW52NHDsseIO/KJXYN7ewj0wPl3gz8Y8PLnYUtoZ8zLmRqJPKEaxwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NIhr1AqF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=HwhqP+rm;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=NSlodPk7;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2416606D4E0
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 21:04:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5406606BA3A;
+	Wed,  4 Nov 2026 21:06:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5406606BA3A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NIhr1AqF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F8161F000C1;
-	Wed,  4 Nov 2026 21:04:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793826297;
-	bh=4Ut9rj3j0uva36Cvif+dYnMzQWKQyPSkcJ7XkVDB+Jo=;
-	h=Subject:To:Cc:From:Date;
-	b=NIhr1AqFIPzjZfQnpwmPgsgee7BfjU7fgI7X24tKmiYfuDTB/8VecXl6K6yhDS/gy
-	 ly/F9LqwR2YfKeif4/aMzNMldRqp2y5B7Yfd7aAkm3OEXhA9DCNiN+6cA4XmYPEuqs
-	 yyQ1czFKnORfnBDXMqBE4HJxI/gYyTHSqefwPx8o=
-Subject: FAILED: patch "[PATCH] ksmbd: look up stream size by exact xattr name" failed to apply to 6.12-stable tree
-To: gael.blivet@gmail.com,linkinjeon@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 16:04:45 -0500
-Message-ID: <2026110444-overfull-uniformed-0087@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=HwhqP+rm;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=NSlodPk7
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793826321; bh=YaJIToSCTk3wATVpVFceyT5
+	vak8F0V2qG7IxMxnA4+E=; b=HwhqP+rmvez/IxMdWnnu0uFCWepIcV7DAZ+uyJR7/KXTKoYE9t
+	CRZzagyC34XWD5KQBHk0MLK/1z2vzKBeOttu0GVaVl0xWhU2HFo4RLWQ5Av+h1nTRRQ2k+3Bb00
+	CtGNSIN3aQpCbt2RT/o9csssZf012bN6qSB+efxUD4I/9OznWICY9taaIYvlha2qRhMXgxOf5me
+	KY49yD2hsW09uGNpwMSGIXJC9OzHYOtIeO+txRhBUxzbj949cXIX7BASfoT9FIg2YRLX2aFJJca
+	tU+9h9huWDV7yWZZh7vaoEs/6Tc+OZRgcXZHh05XpteFUGjMx7hZA43Ha0bNiVp9Zww==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793826321; bh=YaJIToSCTk3wATVpVFceyT5
+	vak8F0V2qG7IxMxnA4+E=; b=NSlodPk75kfPWeiyfuy+p10Rs1WxGPFhXuX+wVB7MikD98/ai+
+	p4fNC8hbRP3Cp2p2lnVyM67hEJda/bMRzUDQ==;
+Date: Wed, 04 Nov 2026 21:05:21 +0000
+From: Bradley Morgan <brads@mainlining.org>
+To: Paul Moore <paul@paul-moore.com>,
+ =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+ Eric Paris <eparis@redhat.com>
+CC: audit@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] audit: fix UAF in kauditd_send_queue()
+In-Reply-To: <b446cedf8a7977337389f8cdc1e5acce@paul-moore.com>
+References: <20261031211258.1626829-2-Jeremy.Jean@oss.cyber.gouv.fr> <b446cedf8a7977337389f8cdc1e5acce@paul-moore.com>
+Message-ID: <D413CA1F-670E-4169-9DE8-CD8D9F630BDC@mainlining.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,110 +65,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
+On 4 November 2026 20:36:12 GMT, Paul Moore <paul@paul-moore.com> wrote:
+>On Oct 31, 2026 Bradley Morgan <brads@mainlining.org> wrote:
+>> 
+>> kauditd_send_queue() grabs an extra reference to the skb header before
+>> netlink_unicast() since it may need to retry a failed send. If unicast
+>> delivery reuses that same header, the receive path stores the
+>> destination socket in skb->sk without taking a socket reference.
+>> Consequently, after the receiver consumes the skb and closes the
+>> socket, the extra reference taken on the skb header makes kauditd
+>> release a header whose skb->sk points to freed socket storage.
+>> 
+>> KASAN reports a UAF as:
+>> 
+>>   BUG: KASAN: slab-use-after-free in sock_rfree+0x44/0x140
+>>   Write of size 4 at addr ffff888004f94140 by task kauditd/31
+>> 
+>> Clone the header before netlink_unicast(), then use the clone for
+>> delivery and keep the original skb only for retries. If cloning fails,
+>> handle it as -EAGAIN so the send can be retried.
+>> 
+>> Fixes: f3d357b09295 ("Audit: save audit_backlog_limit audit messages in
+>case auditd comes back")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+>> ---
+>>  kernel/audit.c | 11 +++++++----
+>>  1 file changed, 7 insertions(+), 4 deletions(-)
+>> 
+>> diff --git a/kernel/audit.c b/kernel/audit.c
+>> index 9412af9144bc..5e739fa606be 100644
+>> --- a/kernel/audit.c
+>> +++ b/kernel/audit.c
+>> @@ -790,6 +790,7 @@ static int kauditd_send_queue(struct sock *sk, u32
+>portid,
+>>  {
+>>  	int rc = 0;
+>>  	struct sk_buff *skb = NULL;
+>> +	struct sk_buff *skb_to_send;
+>>  	struct sk_buff *skb_tail;
+>>  	unsigned int failed = 0;
+>>  
+>> @@ -810,9 +811,11 @@ static int kauditd_send_queue(struct sock *sk, u32
+>portid,
+>>  		}
+>>  
+>>  retry:
+>> -		/* grab an extra skb reference in case of error */
+>> -		skb_get(skb);
+>> -		rc = netlink_unicast(sk, skb, portid, 0);
+>> +		/* Keep the original header unowned for retries. */
+>> +		skb_to_send = skb_clone(skb, GFP_KERNEL);
+>
+>As Bradley pointed out, this appears a little confusing as the existing
+>approach of skb_get()+netlink_unicast() should end up doing something
+>very similar to what you are proposing due to netlink_unicast() calling
+>into netlink_trim() which in this case should always end up doing a
+>skb_clone().  I'm sure I'm missing something, can you help me understand
+>why this proposed patch is different and solves the problem?
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+From what I recall from review, sorry, crappy head. This does fix a *bug*
+of some sort, but I don't remember what it fixes, kasan does report the
+UAF, and this fix would be a good approach, but just things are messed up
+at the moment 
 
-To reproduce the conflict and resubmit, you may use the following commands:
+>
+>Also, do you have a reproducer for this?
+>
+>> +		/* Preserve the connection on a temporary allocation failure. */
+>> +		rc = skb_to_send ?
+>> +			netlink_unicast(sk, skb_to_send, portid, 0) : -EAGAIN;
+>>  		if (rc < 0) {
+>>  			/* send failed - try a few times unless fatal error */
+>>  			if (++failed >= retry_limit ||
+>> @@ -827,7 +830,7 @@ retry:
+>>  			} else
+>>  				goto retry;
+>>  		} else {
+>> -			/* skb sent - drop the extra reference and continue */
+>> +			/* skb sent - consume the original and continue */
+>>  			consume_skb(skb);
+>>  			failed = 0;
+>>  		}
+>> -- 
+>> 2.47.3
+>
+>--
+>paul-moore.com
+>
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x 10ea20d6584ecdaf2f7505855412a856a88d8934
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110444-overfull-uniformed-0087@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 10ea20d6584ecdaf2f7505855412a856a88d8934 Mon Sep 17 00:00:00 2001
-From: Gael Blivet <gael.blivet@gmail.com>
-Date: Mon, 14 Sep 2026 01:26:36 +0200
-Subject: [PATCH] ksmbd: look up stream size by exact xattr name
-
-get_file_stream_info() walks the xattr list from a single
-ksmbd_vfs_listxattr() and sizes each stream it finds with
-ksmbd_vfs_casexattr_len(), which matches with strncasecmp(). Linux
-xattr names are case-sensitive, so two streams differing only in case
-report each other's size.
-
-The loop already holds the exact name, so query it directly with
-ksmbd_vfs_xattr_len(), which is what casexattr_len() calls once its
-search succeeds. Make it non-static and declare it in vfs.h, and drop
-the comment above it, which describes a different bug and no longer
-matches the code.
-
-This also drops a full listing per stream: casexattr_len() runs its own
-listxattr on every call, so enumerating a file with N xattrs cost N
-listings instead of one.
-
-Fixes: 689f1eb3719d ("ksmbd: report actual xattr value length in stream enumeration")
-Signed-off-by: Gael Blivet <gael.blivet@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index f46a29ce118f..10bcd724343c 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -6948,17 +6948,8 @@ static int get_file_stream_info(struct ksmbd_work *work,
- 		streamlen *= 2;
- 		kfree(stream_buf);
- 		file_info->StreamNameLength = cpu_to_le32(streamlen);
--		/*
--		 * stream_name_len is the byte length of the xattr's *name*,
--		 * not its value -- same class of bug ksmbd_stream_eof()
--		 * (smb2pdu.c) already fixes for EndOfFile/AllocationSize on
--		 * a stream handle; this enumeration path needs the same
--		 * real xattr value length, not the name length reused as a
--		 * size.
--		 */
--		slen = ksmbd_vfs_casexattr_len(file_mnt_idmap(fp->filp),
--						path->dentry, stream_name,
--						strlen(stream_name) + 1);
-+		slen = ksmbd_vfs_xattr_len(file_mnt_idmap(fp->filp),
-+					   path->dentry, stream_name);
- 		ssize = slen < 0 ? 0 : (loff_t)slen;
- 		file_info->StreamSize = cpu_to_le64(ssize);
- 		file_info->StreamAllocationSize = cpu_to_le64(ssize);
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 0b03e0eec0a8..2e2c554bc2c1 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -842,8 +842,8 @@ ssize_t ksmbd_vfs_listxattr(struct dentry *dentry, char **list)
- 	return size;
- }
- 
--static ssize_t ksmbd_vfs_xattr_len(const struct mnt_idmap *idmap,
--				   struct dentry *dentry, char *xattr_name)
-+ssize_t ksmbd_vfs_xattr_len(const struct mnt_idmap *idmap,
-+			    struct dentry *dentry, char *xattr_name)
- {
- 	return vfs_getxattr(idmap, dentry, xattr_name, NULL, 0);
- }
-diff --git a/fs/smb/server/vfs.h b/fs/smb/server/vfs.h
-index 12f3ce79b3c5..216c76291fc1 100644
---- a/fs/smb/server/vfs.h
-+++ b/fs/smb/server/vfs.h
-@@ -108,6 +108,8 @@ ssize_t ksmbd_vfs_getxattr(const struct mnt_idmap *idmap,
- 			   struct dentry *dentry,
- 			   char *xattr_name,
- 			   char **xattr_buf);
-+ssize_t ksmbd_vfs_xattr_len(const struct mnt_idmap *idmap,
-+			    struct dentry *dentry, char *xattr_name);
- ssize_t ksmbd_vfs_getcasexattr(const struct mnt_idmap *idmap,
- 			       struct dentry *dentry, char *attr_name,
- 			       int attr_name_len, char **attr_value);
-
+--- Thanks!
