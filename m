@@ -1,76 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793825731;
-	b=qmxdVdorS8CJWiU1mv6V/LbwS2jUOon8lc1vOm+Y4PVxVcqeXAgI05FB2j5eiGdSBwGp
-	 9PHm4aKuBYRaDzAKQQUVd6PqROMBZEWu3vqu3pARX9EEAYawbwjijoWY1f0mUTnxwmrRb
-	 IcVPE+FJK1QUg9aCLkVafsNLin6q4hvNI6aq/5pAOV0qTj5is3lU5Drg70XRIXvLCRoop
-	 Wl+aIqm84Dgc1m4zOB6CIe+84xtkgnt/6/94HF5zXdCMAityfcfw2ev5LpK4hgbYWPiYm
-	 II6Vbsl01GIs3gxQ3Qx2jUvizkT8VVkF9qSr6XEj2a63PDEm2/powuydks28gfSo2Ag==
+	t=1793826061;
+	b=A4rVt53lA4Ym1guKmwXleQPPmaG+S6psjj2JqDarXhJK7NgO5/J+aP5hYSddHoOs6X+o
+	 u79LDrtmzbjccGvHWXB9EiP9QfyopEBxhi/McqUSMTwuXHfHU/RBW+3unf9pNCzY5Tlfe
+	 Rn/PGgF5z+NtyqZsdD1hKPj0zidnAtnTjscl1xl5yPVeUiFtlYw2E79x4hR1JTk39p9ch
+	 U9lqaHaNyvDvqwX5PrlExxurOB7aoogFfvR2pwNi1Rdu4JZZqK1PQ/epeMLhgw+Z7vvR6
+	 JdSmXkRsCaW2k+wWJ7HTP4xq8HG4IxbrWnuKN7UQcpzFjQVHlHr0n79c4hHisxSXJQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793825731;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=nqmtpTylBeemZ9sXvm4RoTldTKYD0S9LlWDnxIkCY/A=;
-	b=JRFc+eOpH1ARm8V9w9rVN0Y4n1ZqE2Bjh2UoahQ6FMbPDaKpXDxl0qcvsamM41Sqc/mf
-	 Y/3dxCrFIaGm2Nxw9d4oz5PJy5cKR1cEjM9zmXugz6Dn7lEm6SJewRynkBjjIHNbFJd8y
-	 4NKOtjUa2c5UWCdTy84oe1gbSIwhrGbx18PiBus28QgTwgIZumbdPuFuCh4mWBAWXbPH8
-	 j+xJiQEluiVFnovSAxD0lE7zLPSYSsSrzO37JVzSyPwMS6s/OYsMqXfOEuONx5BsiFdBR
-	 HQs4JucX75tSVmS9bCrDHwvFg9IgGoqnMF7L5Eh87njJcA0rLD88yYXswLwt9YJP8gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826061;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=jpFGPpxJvsWc+yR1AATTEDOFFhYrkMd+aw5etP91id8=;
+	b=JB6Guw5KxQbwuTkNIRc0G/x7ZhSVmO2XOSn8SCza0n9tXGHxrs6hMouaPH6Il3jwEsox
+	 xWWZbvymlrjW5puHZPyLJ+jq4Vzy/Dk/AFidzUsCn7KzmlYnv3tjtNOTpAvlZtBpeUia7
+	 LS+yCJzb6Yjuzobw1sgdMJ3p5Czvi5NNQlTKqlbp0duXH2ocpk8k4sfIxd1SUfy5Pfimw
+	 fJGfZya+dqZGiz7RvpJzsaz6ZP3Z3QEURb77wwhF4fH6gmXmYDa3hCE5tngos1pHMrrdv
+	 XPdufq5A64NaECnR0BQ3CzKQUE/X+2pRzdRy8Q2nJUr8LSF/G0nMzOFFeoyY78aQYEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nv00Ezch;
-	arc=none smtp.remote-ip=209.85.214.198
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=kroah.com;
+	spf=pass smtp.mailfrom=kroah.com;
+	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=i75XyGoj;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=RgR317EW;
+	arc=none smtp.remote-ip=103.168.172.153
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F01B607870E
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 20:55:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F01B607870E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5BC606C926
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 21:00:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E5BC606C926
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nv00Ezch
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ed08be1c84so16794935ad.3
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 12:55:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793825730; x=1794430530; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nqmtpTylBeemZ9sXvm4RoTldTKYD0S9LlWDnxIkCY/A=;
-        b=nv00EzchfADywfLnw8bnPJd54ZSCE5AZp4mq5J7FWO1xpj1EZQPpBgHX56dUDJN2Bq
-         qkGS/iTTaluJq8BvapCO89KLhmGQLgMDho93pxTv6ImxamjecdigipmSJ1SzdLt6WU2h
-         sTlA8mQxSh1p39MoKb/Rw1NGU9nViRsWHViqVqUN7nyiYeOAE1b3bQYXWrzdIgnWbSS6
-         lQG1NFsVQWiCQPZQokw7njfp6NOFZh8kM7AVJLpUV1Wf8gZchQkM21H0VdBgGgsLdHWK
-         zW6aozP+k0Sw+Mv8UsPLrXy7VcBTEwJXCk07KWF1cmU9LEPVLyTIPVaWjLP1Klkv/3cU
-         c0Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793825730; x=1794430530;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nqmtpTylBeemZ9sXvm4RoTldTKYD0S9LlWDnxIkCY/A=;
-        b=iPhvEybyVC+PFBFk+P8qv41ahgpCuVzCnEDE0HQtuKhZcyOGvZQMQrfnIZl+sVyz/U
-         +1SldwR0PwoGfeEWelkxLT+cL2bbfqpAgKFGmLgmWHik9wP/zrWSRJxMLkklsFDg0BNo
-         UgDvnn2TX1EUZBeR8Fm3aLErAMnRRYh2RpMADHc0A+GdhsMpvFL96Y2SC++3f4rZJsgd
-         TuZU3Q3bG4bGdjsXyCp061mtfH5xsLoGjzP95GiWr5Ocrduacw5mar5gR0oDJXOMk+eG
-         PjvYh8PPbp7BOS80qfw0wIFY8+NkC7bhrMycSUi/tUNqXddKz9xRATmWZJW9pTHqCXMh
-         +mzA==
-X-Forwarded-Encrypted: i=1; AKwUvBzq8z/R1FtVk0zy8M7rJBPBMq6InziHzh91743rDaGQLPC9Jh1gXY58Zb2YEsplXQE0sHBllyk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xjdCaDTnz8k3sNy/UYBjb9AKmaugeDNh6tYC9CXMzZY1k4K63
-	MbEwtaMeJrvgRxVP/zuXE8cLOM+WpHsR143XWZQLH8IDgaMUku7xyP2wjf1/ButsnELmsHSU3tS
-	u1RzxyQ==
-X-Received: from plbbf12.prod.google.com ([2002:a17:902:b90c:b0:2e9:5442:b91a])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:26cf:b0:2e9:b7ca:cd5e
- with SMTP id d9443c01a7336-2eb36523137mr166930145ad.62.1793825730369; Wed, 04
- Nov 2026 12:55:30 -0800 (PST)
-Date: Wed, 4 Nov 2026 12:55:29 -0800
-In-Reply-To: <CAO9r8zNy+r=dZFYthHQzOprD2xnMZ0OuC1SG_xJt10fs5iMjmw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=i75XyGoj;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=RgR317EW
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 8FFF2140014F
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:00:56 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-09.internal (MEProxy); Wed, 04 Nov 2026 16:00:56 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1793826056; x=1793912456; bh=jpFGPpxJvs
+	Wc+yR1AATTEDOFFhYrkMd+aw5etP91id8=; b=i75XyGoj6VKVeT6DMuCR2vusJo
+	iDowfA4cxpA2HOXvd36rwN+OhoWBPNDm1GyjupuyQimueyW5YnCHfenNNMHYB0LZ
+	I8Xkp4D0iOGBPKj/HylD/wWviQKlICQa3jpXzfpxSmERBM3eX+9qZZKqzyl1WaCl
+	CmTN5aD2AYsVPvjL4P9TzV82Z7bpDhiTwoS1HvPkuyCZdirapHnvBgwU5edQZ7zn
+	vLrhuuHHfl9lDKX+Jw5iUuY6e1L5fxI3X3A9OAfJ2D+F58wALvDESb0IROddUGN9
+	V338ttmZNNXdqdVE3ziwD1rlcED0qvaA2kKZYHQD63rjkB0Uv3oMga/dkACw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1793826056; x=1793912456; bh=jpFGPpxJvsWc+yR1AATTEDOFFhYrkMd+aw5
+	etP91id8=; b=RgR317EWL0EhshEjn8Vp5rJUvCNKwdZnhHN8z4KSuNoKRZ4/PDj
+	0vWmK5mLB9QH7ncZomXvwDBBD3DkX7waSzk9Xine5z3D7HFY7Ryk5S0I+8kY19Im
+	dPwv3WDbsFm3yeKFqN+AhjfqaPTuahYYegKYQ6bVL7CNTjrO0h7tLP3wJdYVchmn
+	zgYl3umI/pUEy+vupiXAsMuMpEBd9rdf5nRfsPpdNndLK/z5JVaBHT3ywChHtvO+
+	qQvMoaguUJgIxJfH4cbBp/axj/D+o1qskwF66zN016CFTGu3tKO39Vj1202ZT1YN
+	B4gVNluGzSzciPSVwApxWug58/Uh68qHJYA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793826056; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:dzBOKk+XMNojvw+DsezJMQ7Oa4jyd5W5h4EX4W9NDka3DNJ
+	2Gk8KRBxJAObm7U/2h7MzD4q9Ud46BfRVMFPTKuR4EovsXpM/edixXpDUE72hYEb
+	BAaYGFAF747pL6ym2+NEN8jpsSLJpxw2VSnVztCftoyFjjP/xl5Kkt66er8avSR3
+	vZWDgyn0Fey0pK0CgrYI6+GrVIUlA3xU4qf3phI0rknS5YILifX5/faBy7Lpz4/2
+	TpRnKzr9dGMy79PIVLSk6NrxjsT/sfPn2opOa3P0VJwUMxp0cc294FvhUQkKDDPR
+	PMaLmbKPAyc2suZH5wBxneiouMh8yUbAx9c5eZg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:8WZNkkGG5Qqq12FckfQ8thyVO6Z7Lv2kHlf7aFARYis=:YBMGAioFGNqULhmRoXA3q4SHKoH5gsRvqIvsSdfu49I=;
+X-ME-Sender: <xms:CJ3raqPcDXs-wf0H4XG4fPf2hwCcxomnDu-2RWFzTbJvXeIbpSOCnQ>
+    <xme:CJ3ramxxhXIt94UD3yciKENt0GeoabE1Lbqtalej-TjV3DYG-ErsYhuVjMklBicz7
+    kFBQWXYvz5qH2HboNd2pxcAWu4RLhKMKjbQaD-nyzCpvzHrDlw>
+X-ME-Received: <xmr:CJ3raruIiYsm9NqS8xPucfkfkiG1ekHlQNwcILiU4UhnsfuL2lEm3_JIp2d9TQ>
+X-ME-Proxy-Cause: dmFkZTG4wD77Kx/23uOAGmGprp4Q8UYI3jJjx2sYBbrtc7PmICrXUHYSOqK4AJ155Ot8pk
+    D0gdj86/FgxC6bUDMBgRqbLXmRaGkQEXM/oGGPFdTJQRJ1BmFyOceu5CdEsCoYZ215OLT7
+    yRG9EQ5yc0pQ6ykUWbVLmd/eHbA6qDb+NP6ASorVAnau2s/13XrHJAQfcQDIuEJtOytwk5
+    8WhUs89Sbq2nI+5pIrs7pYrMrp43iW1LiBbfC5egtCDOysCEZS/0BSU3A4HXiURZsvZFcv
+    LIElw+P9oD7aDL8KPB9p1fno4dS9hsmiWmO8xaznckONAItRpF+LbH1GFkmTUynePLH5Ri
+    nsGNWkHl2WGXWKD1AbDPOTsqt/kht5e3GowW8BNgcZjQe1OzY2ZsZMhnbKEmxxmPzMBsIM
+    6xVhAlLl6z/evteoJ+Cyv1Ukidm5D9DS/XtgiU1Dr7UKQKudXeSgKGeA0Ed3bGLmLCJ93+
+    c+Fok+prVpSsXdxKUrlLJg3q4gsEmmnDYUPKFITZWNW554riieHWA+yD8Mr1api9M6eX1Y
+    zhKAn0JnKNcSUYPNPmtwLPHIi7O1R7sJ8XSNxs9EXRaV/f5ltKHPzdrRJcwRsK33v+gG48
+    lPmK+9d9Rfi/xWZMGzI69oinmpxt+6oCBjoRqiB+/aZKmwfrndWqQX328y9A
+X-ME-Proxy: <xmx:CJ3ran6HYX-ip6uDDngUJHH2d2PZfo7YO8Kvhhbi4GWeQekn0kV32A>
+    <xmx:CJ3raiT4VJDPPN8ZGIxZBUI6nPhNZTFpp75Hw8R-q0hof1GS240osA>
+    <xmx:CJ3raurlet-QpEmtJUKtQSsGiARRnHJJEi541Kjti8vyMLLUKUXp-Q>
+    <xmx:CJ3raoKzrhTvNRfkaR3OrJbQ7zdBdHRx2LJLK7j70SGes-gySOmyvw>
+    <xmx:CJ3rauafrfQCeYG6ABRNYJ36y89mWuuQIKmgZBZBeUnDDxHvokeBIwNH>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 4 Nov 2026 16:00:55 -0500 (EST)
+Date: Wed, 4 Nov 2026 16:00:55 -0500
+From: Greg KH <greg@kroah.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: stable@vger.kernel.org
+Subject: Re: [PATCH 6.1.y 0/8] io_uring fixes for 6.1-stable
+Message-ID: <2026110423-brick-bulginess-0f8a@gregkh>
+References: <20261104184328.516206-1-axboe@kernel.dk>
+ <2026110410-coasting-snowplow-6509@gregkh>
+ <0503e43c-5a26-4ee2-9781-083f16ce5cb4@kernel.dk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,129 +121,34 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261020234535.3182385-1-jmattson@google.com> <20261020234535.3182385-2-jmattson@google.com>
- <CAO9r8zNy+r=dZFYthHQzOprD2xnMZ0OuC1SG_xJt10fs5iMjmw@mail.gmail.com>
-Message-ID: <auubwbLDZLy8ZkjR@google.com>
-Subject: Re: [PATCH 1/4] KVM: SVM: Always update LBR MSR intercepts on full
- MSR intercept recalc
-From: Sean Christopherson <seanjc@google.com>
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Jim Mattson <jmattson@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Like Xu <likexu@tencent.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0503e43c-5a26-4ee2-9781-083f16ce5cb4@kernel.dk>
 
-On Tue, Oct 20, 2026, Yosry Ahmed wrote:
-> On Tue, Oct 20, 2026 at 4:45=E2=80=AFPM Jim Mattson <jmattson@google.com>=
- wrote:
-> > diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-> > index fe0cba4731b2..55b3ee840365 100644
-> > --- a/arch/x86/kvm/svm/svm.c
-> > +++ b/arch/x86/kvm/svm/svm.c
-> > @@ -721,14 +721,11 @@ void *svm_alloc_permissions_map(unsigned long siz=
-e, gfp_t gfp_mask)
-> >         return pm;
-> >  }
-> >
-> > -static void svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
-> > +static void svm_set_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
-> >  {
-> >         struct vcpu_svm *svm =3D to_svm(vcpu);
-> >         bool intercept =3D !(svm->vmcb->control.misc_ctl2 & SVM_MISC2_E=
-NABLE_V_LBR);
-> >
-> > -       if (intercept =3D=3D svm->lbr_msrs_intercepted)
-> > -               return;
-> > -
-> >         svm_set_intercept_for_msr(vcpu, MSR_IA32_LASTBRANCHFROMIP, MSR_=
-TYPE_RW, intercept);
-> >         svm_set_intercept_for_msr(vcpu, MSR_IA32_LASTBRANCHTOIP, MSR_TY=
-PE_RW, intercept);
-> >         svm_set_intercept_for_msr(vcpu, MSR_IA32_LASTINTFROMIP, MSR_TYP=
-E_RW, intercept);
-> > @@ -740,6 +737,22 @@ static void svm_recalc_lbr_msr_intercepts(struct k=
-vm_vcpu *vcpu)
-> >         svm->lbr_msrs_intercepted =3D intercept;
->=20
-> Hmm I was going to ask if we can set svm->lbr_msrs_intercepted based
-> on whether or not svm_set_intercept_for_msr() actually set the
-> intercept, so that it also captures intercepts due to MSR filtering. I
-> assume that we didn't do this because MSR filters can result in
-> different interception status for different LBR MSRs, and we don't
-> want to track them individually?
+On Wed, Nov 04, 2026 at 01:53:15PM -0700, Jens Axboe wrote:
+> On 11/4/26 1:51 PM, Greg KH wrote:
+> > On Wed, Nov 04, 2026 at 11:43:20AM -0700, Jens Axboe wrote:
+> >> Hi Greg,
+> >>
+> >> Here are io_uring fixes for 6.1-stable.
+> > 
+> > Thanks for all of these different series, all now queued up!
+> 
+> Let's thank my tireless virtual assistant. Have the entire
+> process dialed in now, we'll never miss another stable
+> patch again and may even proactively backport things that
+> are in the "good to have" bucket in terms of behavior or
+> fixes.
 
-NAK.  In the past, KVM had a bitmap to do exactly that, and it was a trainw=
-reck.
+Nice!
 
-> Hmm even if we do track them individually (e.g. as a bitmap), it would
-> add a bit of complexity here because we'll need to plumb that into
-> svm_set_intercept_for_msr(), right?
->=20
-> I suppose if we go with "lbr_msrs_intercepted just means KVM wants to
-> intercept", then we should probably rename it accordingly?
+> Which makes me ponder if I should just switch the io_uring
+> side to be entirely self-provided, rather than have any kind
+> of automatic picking?
 
-Probably, but that can be done on top.  And I'd like to change all of these=
- flags
-(all two of them?) to be consistent.
+That's your call, I'll do whatever you want here.
 
-> >  }
-> >
-> > +static void svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
-> > +{
-> > +       struct vcpu_svm *svm =3D to_svm(vcpu);
-> > +       bool intercept =3D !(svm->vmcb->control.misc_ctl2 & SVM_MISC2_E=
-NABLE_V_LBR);
+thanks,
 
-Eww.  The naming is all kinda of funky, and I strongly dislike the duplicat=
-e code.
-E.g. svm_set_lbr_msr_intercepts() recalcs, it's not a pure "set".  I'd much=
- rather
-pass a @force param, e.g.
-
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index e6b8c0423813..2d70fb37103e 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -728,12 +728,12 @@ void *svm_alloc_permissions_map(unsigned long size, g=
-fp_t gfp_mask)
- 	return pm;
- }
-=20
--static void svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
-+static void __svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu, bool fo=
-rce)
- {
- 	struct vcpu_svm *svm =3D to_svm(vcpu);
- 	bool intercept =3D !(svm->vmcb->control.misc_ctl2 & SVM_MISC2_ENABLE_V_LB=
-R);
-=20
--	if (intercept =3D=3D svm->lbr_msrs_intercepted)
-+	if (intercept =3D=3D svm->lbr_msrs_intercepted && !force)
- 		return;
-=20
- 	svm_set_intercept_for_msr(vcpu, MSR_IA32_LASTBRANCHFROMIP, MSR_TYPE_RW, i=
-ntercept);
-@@ -747,6 +747,11 @@ static void svm_recalc_lbr_msr_intercepts(struct kvm_v=
-cpu *vcpu)
- 	svm->lbr_msrs_intercepted =3D intercept;
- }
-=20
-+static void svm_recalc_lbr_msr_intercepts(struct kvm_vcpu *vcpu)
-+{
-+	__svm_recalc_lbr_msr_intercepts(vcpu, false);
-+}
-+
- void svm_vcpu_free_msrpm(void *msrpm)
- {
- 	__free_pages(virt_to_page(msrpm), get_order(MSRPM_SIZE));
-@@ -803,7 +808,7 @@ static void svm_recalc_msr_intercepts(struct kvm_vcpu *=
-vcpu)
- #endif
-=20
- 	if (lbrv)
--		svm_recalc_lbr_msr_intercepts(vcpu);
-+		__svm_recalc_lbr_msr_intercepts(vcpu, true);
-=20
- 	if (cpu_feature_enabled(X86_FEATURE_IBPB))
- 		svm_set_intercept_for_msr(vcpu, MSR_IA32_PRED_CMD, MSR_TYPE_W,
+greg k-h
