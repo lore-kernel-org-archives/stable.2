@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793823147;
-	b=YrTRAiTGWEnKxeWLCTRSoRBOAaFGx37o8wU4PzVty6gg37ap2zoB/fBDQXkRwiFCqVE3
-	 BWK9KZLn/AvBwDVHZ7mc4vt3PsCrkct1YdhfmAvdg/t2J0ygJJUB6ocYZb+YHX2TmMTPl
-	 YTtxYfuSdhuSGFc6opledSwlmWMCHjTw056SYxT0u9wv/8ZYNT24YLGugwRMkXpRLdstw
-	 V4o43U0quUklpj52tRdBEP/gEkImOqBMQg2CcAbL27KAuPxwA/get3ZgIeZqVvAN+xWlO
-	 kSLfSYZUvLhUyMngMiFwdZajkfd8LfMU2M45oCSEnZ33VQlt2ANT6Bt5uuHuEkqw6kg==
+	t=1793823160;
+	b=yr2717giCPH3wQxKkrlCn0ALeWblHHaabK5OWi8NxaViSdJoOsotU28jlSoMcX8Anw2Q
+	 fDI5Y8UUrhcAKaUNWeySIThs0LioO6df4Vj7YD/IFD+ZyyyeRfMqLXORegcwOmMF/NaN0
+	 Fzt+tfip5v9FT/HPb3+4RurhOXWKxaPrMGpJaTe25CQcmRGxtLu73VZLbfalguNnnXU8Y
+	 Kg/YkbeTGfDVAPbAAUDjfd2jMc5DCMWmKef6qFqgBoVOkqirhBli4ffTanTrEYF/B5f/6
+	 kLh7rWyPRGdBEuEuZqvr63PUFE4btbIcAdg07Bi5julYfB4d4q1MbQxJtp4r3iUJ2Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793823147;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=m6Y2FrQYtywLWPdbNUCyj9ycOW3DW8gDUvjpTJ2uS2Q=;
-	b=Jc+ImEUCZmQcUNjfLzUJVrFKmMRnz34qylXvVi3NLJdoAHexkD5F0jrk2dItNIUi3b+F
-	 OxItFMMrtEhQPJVbxtzuXhFrU9HHAwZXPTwtzVBLUVzNG8wqh+3Xoen6A65nc5phYivFs
-	 FuJFbfQSzb9nN10rSwnNtKPi12PKpcPQtXbnHPuKlz3DLojiyV2weOrLzHpoZDWHyyri9
-	 37/3No3NWl8iXDswxzPYvB1rttI81WwYGxlF3gJU+iOWlMtvxiVXGw6GqOrYIgSCGhGNR
-	 KQpEtjMpp064q6Rd/v82W+zPiqXXZlN170cHrrWDCPAv/50jmyFZg9VTE6Mj2SiWLOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793823160;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=PBwpP/cO9H/vvJng9gxC2fGVBaG4d32dILLs8aXqHd0=;
+	b=pxtWW8tql4ev9kymDhREqooxuk5ThDoicl4yFztLKkTrml3xDvWwAhsRLUFPgny8Ujpz
+	 gc0dPrLAzHhdlTgmKB0w0Yaf4T1VVfPkzn1qpAmkxX0Vt2efIF8/zBcGRDWvusDcC8g3I
+	 y8X9aR1MHcarYQY7GxGGzzH8H9EWDwDNIesusx6iMy0R37fZLKSt7+3UIgER0h4EsNY+E
+	 G69lQFuqM0vZFMLgWwrIF23QqO65+rOxsyMJVuTyMFxueSN29sUCdqfi+HA+0aVlLEX2z
+	 EvbMxcJzo7Hmr/HTbZyeYEUZN2/cqMUWvg1icmAfMS8tPT0wezt5UgD5+l+iGOaqDUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Hkv1ZqaG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YQH1CV6n;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82471608078B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 20:12:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CCD46080791
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 20:12:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Hkv1ZqaG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E01C1F000C1;
-	Wed,  4 Nov 2026 20:12:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793823147;
-	bh=m6Y2FrQYtywLWPdbNUCyj9ycOW3DW8gDUvjpTJ2uS2Q=;
-	h=Subject:To:Cc:From:Date;
-	b=Hkv1ZqaGSLbM2kut9pgkQ0rNfBst/VA5G0tjW0ifXaYXNmtxmukPAlKkeCKn5jX8B
-	 3KrTVTua/Y/Erk4E+8Nfw/jjqGwIjQ01IzUxnqIJaHlIACelSetBRzwV77hWHGW+mA
-	 gLFQJ+45J+adfmEjpuwvOcK+DHn+/KclGyw7310U=
-Subject: FAILED: patch "[PATCH] KVM: TDX: Set bits 31:16 to 0 and use UNDEFINED when" failed to apply to 6.18-stable tree
-To: xiaoyao.li@intel.com,binbin.wu@linux.intel.com,rick.p.edgecombe@intel.com,seanjc@google.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:12:15 -0500
-Message-ID: <2026110415-porous-slather-09d5@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YQH1CV6n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8013F1F000C1;
+	Wed,  4 Nov 2026 20:12:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793823160;
+	bh=PBwpP/cO9H/vvJng9gxC2fGVBaG4d32dILLs8aXqHd0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YQH1CV6nxUZMBOJd7n/0EVxe9pI9ZfmM/xp5Vhoj5gK/OusMa1A2I9JQI8n8tnLL/
+	 z/Qn6Us9vnpf5SIZR5NueeM/PUTwaYcwz28ENUm71G/7Qkb9u9LJ0+N4aH7Qe4Qegu
+	 07/aGzZjD83GXk2SR8RKi2M6ecI28G3FDGtqh5NULFWeQdGROhhHehoSZd/LxiwcYU
+	 Esw9Mq+6XjFRYn81jD8xwyhlN2GQvSL8murWYkmLlqXhlXNNhs7Hp0U/aldb6awfkC
+	 UuJ5eMBFlp86XbGmhemi4vwWTFNqJXJV07Pu9fsF9wxLxgpV/4LlEbaic7j4dmaSSS
+	 UE/CcE9HpmkpA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Alice Ryhl <aliceryhl@google.com>,
+	stable@kernel.org,
+	Poil Zero <poilandgginchi@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y] rust_binder: wake epoll on self-work queued to poll thread
+Date: Wed,  4 Nov 2026 15:12:38 -0500
+Message-ID: <20261104201229.343904-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110457-captive-licking-323f@gregkh>
+References: <2026110457-captive-licking-323f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,99 +61,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Alice Ryhl <aliceryhl@google.com>
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 985955d8e6b2b15cfd65b7ac6893e3a5a90c5870 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+When a thread pushes work to its own todo list, InnerThread::push_work()
+returns PushWorkRes::OkNotifyPoll if the thread uses epoll, but four
+call sites in thread.rs discard this return value. As a result, a
+non-blocking BC_* write that enqueues work onto the calling thread's
+todo list without also reading will not wake epoll. Check the return
+value and call self.process.notify_poll(false) when
+PushWorkRes::OkNotifyPoll is returned.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x b43c520b198ab70868307a489ef2117ed6d6c4cc
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110415-porous-slather-09d5@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+This is similar to commit 97830f3c3088 ("binder: signal epoll threads of
+self-work"), but in C Binder pending thread work also prevented
+subsequent process work from waking epoll, causing a permanent hang,
+which is not the case in Rust Binder. This means that in practice, it
+merely delays notifications rather than completely failing to send them.
 
-Possible dependencies:
+Cc: stable@kernel.org
+Fixes: dbb17c9ea756 ("rust_binder: move (e)poll wait queue to Process")
+Reported-by: Poil Zero <poilandgginchi@gmail.com>
+Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+Link: https://patch.msgid.link/20261016-binder-poll-self-work-v1-1-c29c87d99abb@google.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: adapted reply_inner() to unconditional immediate completion because TransactionFlag::DeferComplete is absent ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/android/binder/thread.rs | 38 +++++++++++++++++++++++---------
+ 1 file changed, 27 insertions(+), 11 deletions(-)
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From b43c520b198ab70868307a489ef2117ed6d6c4cc Mon Sep 17 00:00:00 2001
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-Date: Wed, 19 Aug 2026 17:48:57 +0800
-Subject: [PATCH] KVM: TDX: Set bits 31:16 to 0 and use UNDEFINED when
- synthesizing exit reason
-
-Set bits 31:16 to 0 instead of all-1s when synthesizing an exit reason,
-e.g. if the TDX Module never attempted VM-Enter, or when stuffing the exit
-reason due to an unexpected "real" EPT Misconfig.  Opportunistically use
-VMX's KVM-defined EXIT_REASON_UNDEFINED (0xdead) instead of -1u.
-
-KVM is going to support Bus Lock VM exit for TDX, after which bit 26 of
-the Exit Reason becomes meaningful and indicates that a bus lock happened.
-The existing synthesized Exit Reason, -1u, will cause a false positive in
-that case.  Change the synthesized Exit Reason from -1u to U16_MAX, so that
-bits 31:16 are set to 0.  This also avoids the potential issues when other
-bits in 31:16 become valid in the future.
-
-As a bonus, the check for synthesized Exit Reason in tdx_failed_vmentry()
-becomes unnecessary.  Just drop it.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
-Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Link: https://patch.msgid.link/20260819094903.3060020-4-xiaoyao.li@intel.com
-[sean: use EXIT_REASON_UNDEFINED instead of another magic value]
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index 1dead84e6077..2664123caf26 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -940,8 +940,13 @@ static __always_inline u32 tdx_to_vmx_exit_reason(struct kvm_vcpu *vcpu)
- 	struct vcpu_tdx *tdx = to_tdx(vcpu);
- 	u32 exit_reason;
+diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+index 24f7b5be1b0ec..a1bef151c2c59 100644
+--- a/drivers/android/binder/thread.rs
++++ b/drivers/android/binder/thread.rs
+@@ -344,13 +344,13 @@ fn push_reply_work(&mut self, code: u32) -> PushWorkRes {
+         }
+     }
  
-+	/*
-+	 * Return the synthesized invalid Exit Reason, as the TDX module
-+	 * never attempted to run the vCPU, i.e. the Exit Reason is undefined,
-+	 * but this is NOT a failed VM-Enter.
-+	 */
- 	if (!tdx_is_exit_reason_valid(tdx->vp_enter_ret))
--		return -1u;
-+		return EXIT_REASON_UNDEFINED;
+-    fn push_return_work(&mut self, reply: u32) {
++    fn push_return_work(&mut self, reply: u32) -> PushWorkRes {
+         if let Ok(work) = ListArc::try_from_arc(self.return_work.clone()) {
+             work.set_error_code(reply);
+-            // Not notifying: Reply to current thread.
+-            let _ = self.push_work(work);
++            self.push_work(work)
+         } else {
+             pr_warn!("Thread return work is already in use.");
++            PushWorkRes::Ok
+         }
+     }
  
- 	exit_reason = tdx->vp_enter_ret;
+@@ -669,8 +669,12 @@ pub(crate) fn push_work_inner(
+     pub(crate) fn push_work_if_looper(&self, work: DLArc<dyn DeliverToRead>) -> BinderResult {
+         let mut inner = self.inner.lock();
+         if inner.is_looper() && !inner.is_dead {
+-            // Not notifying: Reply to current thread.
+-            let _ = inner.push_work(work);
++            // Not notifying work_condvar: Reply to current thread.
++            let res = inner.push_work(work);
++            drop(inner);
++            if matches!(res, PushWorkRes::OkNotifyPoll) {
++                self.process.notify_poll(false);
++            }
+             Ok(())
+         } else {
+             drop(inner);
+@@ -683,7 +687,11 @@ pub(crate) fn push_work_deferred(&self, work: DLArc<dyn DeliverToRead>) {
+     }
  
-@@ -956,7 +961,7 @@ static __always_inline u32 tdx_to_vmx_exit_reason(struct kvm_vcpu *vcpu)
- 		 * Defer KVM_BUG_ON() until tdx_handle_exit() because this is in
- 		 * non-instrumentable code with interrupts disabled.
- 		 */
--		return -1u;
-+		return EXIT_REASON_UNDEFINED;
- 	default:
- 		break;
- 	}
-@@ -987,8 +992,7 @@ static noinstr void tdx_vcpu_enter_exit(struct kvm_vcpu *vcpu)
+     pub(crate) fn push_return_work(&self, reply: u32) {
+-        self.inner.lock().push_return_work(reply);
++        // Not notifying work_condvar: Reply to current thread.
++        let res = self.inner.lock().push_return_work(reply);
++        if matches!(res, PushWorkRes::OkNotifyPoll) {
++            self.process.notify_poll(false);
++        }
+     }
  
- static bool tdx_failed_vmentry(struct kvm_vcpu *vcpu)
- {
--	return vmx_get_exit_reason(vcpu).failed_vmentry &&
--	       vmx_get_exit_reason(vcpu).full != -1u;
-+	return vmx_get_exit_reason(vcpu).failed_vmentry;
- }
- 
- static fastpath_t tdx_exit_handlers_fastpath(struct kvm_vcpu *vcpu)
+     pub(crate) fn pop_work_even_if_deferred(&self) -> Option<DLArc<dyn DeliverToRead>> {
+@@ -1416,8 +1424,11 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
+             let process = orig.from.process.clone();
+             let allow_fds = orig.flags.contains(TransactionFlag::AcceptFds);
+             let reply = Transaction::new_reply(self, process, info, allow_fds)?;
+-            // Not notifying: Reply to current thread.
+-            let _ = self.inner.lock().push_work(completion);
++            // Not notifying work_condvar: Reply to current thread.
++            let res = self.inner.lock().push_work(completion);
++            if matches!(res, PushWorkRes::OkNotifyPoll) {
++                self.process.notify_poll(false);
++            }
+             orig.from.deliver_reply(Ok(reply), &orig, None);
+             Ok(())
+         })()
+@@ -1456,10 +1467,15 @@ fn oneway_transaction_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> Bin
+         let list_completion =
+             DTRWrap::arc_try_new(DeliverCode::new(code, self.process.task.pid()))?;
+         let completion = list_completion.clone_arc();
+-        // Not notifying: Reply to current thread.
+-        let _ = self.inner.lock().push_work(list_completion);
++        // Not notifying work_condvar: Reply to current thread.
++        let res = self.inner.lock().push_work(list_completion);
+         match transaction.submit(info) {
+-            Ok(()) => Ok(()),
++            Ok(()) => {
++                if matches!(res, PushWorkRes::OkNotifyPoll) {
++                    self.process.notify_poll(false);
++                }
++                Ok(())
++            }
+             Err(err) => {
+                 completion.skip();
+                 Err(err)
+-- 
+2.53.0
 
