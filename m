@@ -1,109 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793812036;
-	b=l0o4u/cu2rUS4xtCxgn7hAJG0sClJDZ3var4slqiwT6IJnvh1Z8YTX1KlKbN5TI7+9eD
-	 7wqCkv9d2KGxajLdz2ikZ3KACXLC/X+FnnSFrJgcScXqY5solUsW4AVQ/QGqPEqAMQyu/
-	 Ma+oxO5g4qhEBGXYlKQkBFemD+T7E21f/jYkHBMbxapqeQ1tVss//cjtm7WJ/WqWpmytw
-	 a5GYWrvgHAhdjVFhUnJ2N2gpyoZwnKgFM1Te5QmwAI7ACYMds8vK9mWYcWcZsKdvOT9qO
-	 PehW58+10ad0kAgxXSaTsuraNRuCgBz8HDKYouWJ8+PgFzDgJimtivQmg8Wc/QJLc1A==
+	t=1793812131;
+	b=jG9BFaOdNUpZwQixPRAfHUQuNI7HJEod/cJi0xIZotlZCA9PPcOf98z434hi15529yrj
+	 +m0HCKgLWu6IO7Q4rrhjc1ns+vemoouxA3uRJpilP9IinPyBZWmK4Pj4F+OHCFUFOhcqE
+	 yp6Kzq/p7uEG9ExSSjBVcIfr2cTq5LzT8bfaqgqt/CQ1JUtWTT+69s1ZYW9529NHdqJ26
+	 9o082zEud7wT39dXinW5xnptOM4OWsVPHeidh92ZZvVZFEPNF3gFOtaAfHaWv+CSWAlAk
+	 fh/5n6wql1j7E26V6YpwzR67rcn+VojBY7bxZ9kZIbiIGnJEsLkb3UDTlVBrpnRH7cA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793812036;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=aNDPKOPejKWaDge59K9+Y4zvO9k5lOGA3Jkf04Pk/QY=;
-	b=yDFjcQdHQ921nyr66Gr4P7766EttcmXFigqFtuF9uxrBS7lgdgbczV3tZC6hhSQYvm7M
-	 e3WJULPSgZTjsPA7CKaNnWtLSDtot0o9bOAF57OTjHaIm4bIkdkeVKAOaCVHinnObhSop
-	 ZMjBemLGjsH3tl4VzRZonTXC9naeLPYWI/e7SoXfKT8bxGNY7qq+akiXkkHPhJjomF1RU
-	 DZ171mjkREcO9lv6qVRDXcLG/etPUAgMerP7ZaAUtSFHO09vMIVW1Ue2bjFsNwo13wNHE
-	 mMMYctUFI/2qD01EwGa0kWWHmCohvtriA1/CqapY6Qywbl2Q6RkvxYRoqg+FavmdybA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793812131;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Content-Disposition;
+	bh=BggNDxA9KgGk5xDWclBWYSnVWHuMCkK7nhX4rgf+QMg=;
+	b=YJsB6y+Sw/tMiazX7Gm+jGSiedpLyUq7OlgCjap3gI+o9oak7dGwAd+MkG24MZQn9ayQ
+	 HsC3/CTGd1kRak5fcbd59KIuk1sIk9yM1FDYPaLiM6LgoFnPPwmP9kSo7yOVF3FcfwwXy
+	 WETCdPRckKokGncWzcRgnFpnNweAxOStDIUvnU29xzKKrkcmM58DsbsqQbsj+bb60og+C
+	 BKtgYCG62d3fQlkSUwL8LCMA/2E808g0+JkfeCNBiBamrzWVmN6DWvN81YHuxkdI5hIR0
+	 KWyRweS1x0Od5Pkhmo9XcMm0083LAHvvAjn9ptEgWWpEbRrh/ghkvWEBshpbrG8ijmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ItA2E3p4;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=62553P6V;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ItA2E3p4;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=62553P6V;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cMiaVy+p;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F714606A326;
-	Wed,  4 Nov 2026 17:07:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F714606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B8F606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:08:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4B8F606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ItA2E3p4;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=62553P6V;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ItA2E3p4;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=62553P6V
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 751B41F388;
-	Wed,  4 Nov 2026 17:07:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793812033; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aNDPKOPejKWaDge59K9+Y4zvO9k5lOGA3Jkf04Pk/QY=;
-	b=ItA2E3p4o9qbG5LaRFWOhTqNeU0Eepe+Uw9UgIjt6b6Sjip5Y4p9tHm/9X8/t1R1i+8eIP
-	FEV+OgrvYzbajR/JvwqIIzwsP9w5xHJRCsufbKzpjWMLjaq/5NsigMIy2aKQN9C9yj/tSU
-	0kKHX4DD7Na5zDWrJLylYZ8tcPeGBpU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793812033;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aNDPKOPejKWaDge59K9+Y4zvO9k5lOGA3Jkf04Pk/QY=;
-	b=62553P6V5yueYuV+re3HE/rB6ZrmSUnWEJrrN9vhf8JEM6mhbguBY5lKWKeAXis2KR7WGb
-	Yt7PrhNIxt7fMXAQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793812033; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aNDPKOPejKWaDge59K9+Y4zvO9k5lOGA3Jkf04Pk/QY=;
-	b=ItA2E3p4o9qbG5LaRFWOhTqNeU0Eepe+Uw9UgIjt6b6Sjip5Y4p9tHm/9X8/t1R1i+8eIP
-	FEV+OgrvYzbajR/JvwqIIzwsP9w5xHJRCsufbKzpjWMLjaq/5NsigMIy2aKQN9C9yj/tSU
-	0kKHX4DD7Na5zDWrJLylYZ8tcPeGBpU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793812033;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aNDPKOPejKWaDge59K9+Y4zvO9k5lOGA3Jkf04Pk/QY=;
-	b=62553P6V5yueYuV+re3HE/rB6ZrmSUnWEJrrN9vhf8JEM6mhbguBY5lKWKeAXis2KR7WGb
-	Yt7PrhNIxt7fMXAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4B3B0134A5;
-	Wed,  4 Nov 2026 17:07:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id hB+FCUFm62p4FQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 04 Nov 2026 17:07:13 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id C5AD4B445; Wed, 04 Nov 2026 18:07:04 +0100 (CET)
-Date: Wed, 4 Nov 2026 18:07:04 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Jan Kara <jack@suse.cz>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-ext4@vger.kernel.org, 
-	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Andreas Dilger <adilger.kernel@dilger.ca>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Namjae Jeon <namjae.jeon@samsung.com>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 3/9] ext4: add ext4_inode_loc_block() helper
-Message-ID: <lqhym4n6vu46kretnwfstfutik4vl4l5imhnf6pi3aranjpryx@bgtxuzuha2zs>
-References: <20261029-work-inode-metadata_writeback-v1-0-7d6c678a585d@kernel.org>
- <20261029-work-inode-metadata_writeback-v1-3-7d6c678a585d@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cMiaVy+p
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-353804b591eso1760406eec.0
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 09:08:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793812130; x=1794416930; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BggNDxA9KgGk5xDWclBWYSnVWHuMCkK7nhX4rgf+QMg=;
+        b=cMiaVy+pSe19pMljL1uhjFq4kEbCEUt/o/Iz6C2dTV176m5rucfND0PEf2SEpbbZxc
+         PlE025Nm9PTscRp/p6IR7dB+llIsWQ/RxTRQ9DMb3zak2OfQIiH4AzmBia7njqIOqfv7
+         +6UkapzksH/qN5zgpwwEDIiJP5Zra4K5wMOpP9dnw6Ut8jFNBtafU9CP3+QcghOfWyuS
+         VRs1slNBsFhglrZ5hpyjHicvAlB1cY4yMXpAHrE91rIxMDuYxleL7z7x1/StDrDduXTF
+         /8oMWy7fE10gZwzPJXEvuhfC6tma6uCe3q0HDDPSHNL+iHzw782M8oIMqk9jJLuN1MeJ
+         mURA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793812130; x=1794416930;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BggNDxA9KgGk5xDWclBWYSnVWHuMCkK7nhX4rgf+QMg=;
+        b=zhnX5tblMhWtVZKVuiMmCkEJMlI/TXc5wlJ9zGQkDa2aTHiIQzocF2JCzNhRxe+nDt
+         lsHXCsFI7HSFjrv6Cit4yb2mzob1rO2pdRRblgJrySa8/cplPvqY7da+ZMi6PcFwveLP
+         q7EiYpQb0m+76UkC1QaCx8TWN6GZotDAmPRhZf3VcmfHq1UmS1C+oXFRvPRvD+C1O1hH
+         KDYrkIciwWsk36yPGuegFpIGfPZHV11b9Xto2tWmDE3tlsp+d8U1HUUW9udo7+6P9MT5
+         DF3m7ITSI++Yfq//K3DHWQDbSC5rHvY7/VP2rhegblGVnIJm2aDbgTj4y25vq+WIdgBd
+         sg8g==
+X-Forwarded-Encrypted: i=1; AKwUvBzgnJb25NF/8nxWRR+ImxnnaYA1JPR4SLxeRPjm0DhsXvwvHqaVVVxELLoVNJ22sAYZpcs5XdU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+RZ0C5aoiWNF6FD6BwF3FsFiocNT039j1BjgeQs+G5/5+SgN4C
+	tZ7W7x8zIZ1lrkMryjpipEqn3c5GF7zcXUfTMQWZK/90TRbaGoEH8AVa
+X-Gm-Gg: AYBFou3WcuWhnfwtePMEUvCNUqhvzMb3LpTbZcv3nGCfdZ2NZk3wHB1wgO+SU4EE4yl
+	cQ9dHzdtqub90tS4RZgViziu8vhalIxuir5wXo85nLRwxczOSgzaKyITJSb++HWfpa7ZEW1KP9Y
+	bwTDnLqp3WZ1+oju7JgOVWksxAWFp+b3NjrZl+xXr9l80spRWXjp/MBUj5TdyV+e+jczLX/NWaZ
+	QP90W9d/xSa4jgHm7F642CPyC4YfdsMUcTt+GqLZXcf07MiOSTn4+e4s9jq5QL9MPEBSYIR/dvi
+	ouijeDwAtjOcEj8jrylI5IFrmM7ixNZHiBvfheirRD6NbRVjX9h/zWLUQuAV1XYrjho2jwz5ThA
+	1vVhoH5VoVdaohfxpT2jezu+HE4eDh6PohFIs23IVazYrRkMD8E01n18+492VfWvSsebexIwEar
+	LaeFoqvLpFltDJ+YvbyZv2Uyr0/8KWwo3eHrDXJVwApv3DTB5k9DqRrGrxVdR3qF7ldBE0qrbZf
+	CE2SjKJDmDuxtf5IjZxIG+FRLcS2y6HtagY3q7wDdIdQwr7zAj5ufI0yLe9BmCdk/aelAFEc14F
+	TSmJxLBgsslpZm1IFcDTpY7BRc53dXVHSWZwqS9hm3vU7PyC4eGFzx0mJ9+2VA1eHJUd
+X-Received: by 2002:a05:7022:b0c8:b0:1ab:6b10:461 with SMTP id a92af1059eb24-1ac5e3231demr21369464c88.45.1793812128406;
+        Wed, 04 Nov 2026 09:08:48 -0800 (PST)
+Received: from localhost ([2a00:79e0:2ebe:8:88b4:22ec:d621:c1b])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c290sm9034336c88.5.2026.11.04.09.08.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 09:08:47 -0800 (PST)
+Date: Wed, 04 Nov 2026 09:08:46 -0800
+Message-ID: <219a70bd93416777ae88becb34d8cb72@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Guanglei Zhu <zhugl3@xiaopeng.com>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liuc63@xiaopeng.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] Input: tegra-kbc - check the pin numbers from the device tree
+In-Reply-To: <20261103084135.426629-7-zhugl3@xiaopeng.com>
+References: <20261103084135.426629-1-zhugl3@xiaopeng.com> <20261103084135.426629-7-zhugl3@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,128 +101,72 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
-In-Reply-To: <20261029-work-inode-metadata_writeback-v1-3-7d6c678a585d@kernel.org>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	TAGGED_RCPT(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,suse.cz,toxicpanda.com,kernel.org,mail.parknet.co.jp,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,samsung.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Score: -11.30
 
-On Thu 29-10-26 14:28:18, Christian Brauner wrote:
-> Move the lookup of the inode table block out of
-> ext4_get_inode_loc_noio() into a helper. ext4_sync_inode_metadata() is
-> going to use it to find the block without reading it from disk.
+Hi Guanglei,
+
+On Tue, Nov 03, 2026 at 04:41:34PM +0800, Guanglei Zhu wrote:
+> The row and column pin lists are read straight from the device tree
+> and used to index the fixed pin configuration array:
 > 
-> No functional changes.
+> 	num_rows = of_property_read_variable_u32_array(np, "nvidia,kbc-row-pins",
+> 				rows_cfg, 1, KBC_MAX_GPIO);
+> 	...
+> 	for (i = 0; i < num_rows; i++) {
+> 		kbc->pin_cfg[rows_cfg[i]].type = PIN_CFG_ROW;
+> 		kbc->pin_cfg[rows_cfg[i]].num = i;
+> 	}
 > 
-> Cc: stable@vger.kernel.org # v7.3
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-
-So I don't think this patch is really needed. ext4_get_inode_loc_noio()
-does exactly what you need so you can use it in the next patch. If you
-really wanted to use sb_find_get_block_nonatomic() instead of
-sb_find_get_block(), you can actually switch ext4_get_inode_loc_noio() to
-use it.  ext4_get_inode_loc_noio() has only a single caller in ext4 -
-ext4_fc_snapshot_inode() - that is actually fine to take the folio lock.
-But that is mostly unrelated improvement to ext4.
-
-								Honza
-
+> The helper only limits how many entries it reads, not what they
+> contain, and the pin_cfg array holds KBC_MAX_GPIO entries, so a pin
+> number from the device tree indexes past the array into the rest
+> of the driver data. The later configuration check validates the
+> row and column counts stored this way, not the index itself, so it
+> cannot undo the write.
+> 
+> Reject pin numbers the array does not have.
+> 
+> Fixes: 88390243a993 ("Input: tegra-kbc - add support for rows/columns configuration from dt")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 > ---
->  fs/ext4/inode.c | 38 +++++++++++++++++++++++++++-----------
->  1 file changed, 27 insertions(+), 11 deletions(-)
+>  drivers/input/keyboard/tegra-kbc.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 > 
-> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-> index b4d581aa5ee1..b34b99d15db6 100644
-> --- a/fs/ext4/inode.c
-> +++ b/fs/ext4/inode.c
-> @@ -5874,16 +5874,14 @@ int ext4_get_inode_loc(struct inode *inode, struct ext4_iloc *iloc)
->  }
->  
->  /*
-> - * ext4_get_inode_loc_noio() is a best-effort variant of ext4_get_inode_loc().
-> - * It looks up the inode table block in the buffer cache and returns -EAGAIN if
-> - * the block is not present or not uptodate, without starting any I/O.
-> + * Find the inode table block that holds @inode without looking at the block
-> + * itself. Fills in iloc->block_group and iloc->offset.
->   */
-> -int ext4_get_inode_loc_noio(struct inode *inode, struct ext4_iloc *iloc)
-> +static int ext4_inode_loc_block(struct inode *inode, struct ext4_iloc *iloc,
-> +				ext4_fsblk_t *block)
->  {
->  	struct super_block *sb = inode->i_sb;
->  	struct ext4_group_desc *gdp;
-> -	struct buffer_head *bh;
-> -	ext4_fsblk_t block;
->  	int inodes_per_block, inode_offset;
->  	unsigned long ino = inode->i_ino;
->  
-> @@ -5902,15 +5900,33 @@ int ext4_get_inode_loc_noio(struct inode *inode, struct ext4_iloc *iloc)
->  	inode_offset = ((ino - 1) % EXT4_INODES_PER_GROUP(sb));
->  	iloc->offset = (inode_offset % inodes_per_block) * EXT4_INODE_SIZE(sb);
->  
-> -	block = ext4_inode_table(sb, gdp);
-> -	if (block <= le32_to_cpu(EXT4_SB(sb)->s_es->s_first_data_block) ||
-> -	    block >= ext4_blocks_count(EXT4_SB(sb)->s_es)) {
-> +	*block = ext4_inode_table(sb, gdp);
-> +	if (*block <= le32_to_cpu(EXT4_SB(sb)->s_es->s_first_data_block) ||
-> +	    *block >= ext4_blocks_count(EXT4_SB(sb)->s_es)) {
->  		ext4_error(sb,
->  			   "Invalid inode table block %llu in block_group %u",
-> -			   block, iloc->block_group);
-> +			   *block, iloc->block_group);
->  		return -EFSCORRUPTED;
+> diff --git a/drivers/input/keyboard/tegra-kbc.c b/drivers/input/keyboard/tegra-kbc.c
+> index e6177f2bdf8d..f086ccf1a075 100644
+> --- a/drivers/input/keyboard/tegra-kbc.c
+> +++ b/drivers/input/keyboard/tegra-kbc.c
+> @@ -522,6 +522,10 @@ static int tegra_kbc_parse_dt(struct tegra_kbc *kbc)
 >  	}
-> -	block += inode_offset / inodes_per_block;
-> +	*block += inode_offset / inodes_per_block;
-> +	return 0;
-> +}
-> +
-> +/*
-> + * ext4_get_inode_loc_noio() is a best-effort variant of ext4_get_inode_loc().
-> + * It looks up the inode table block in the buffer cache and returns -EAGAIN if
-> + * the block is not present or not uptodate, without starting any I/O.
-> + */
-> +int ext4_get_inode_loc_noio(struct inode *inode, struct ext4_iloc *iloc)
-> +{
-> +	struct super_block *sb = inode->i_sb;
-> +	struct buffer_head *bh;
-> +	ext4_fsblk_t block;
-> +	int err;
-> +
-> +	err = ext4_inode_loc_block(inode, iloc, &block);
-> +	if (err)
-> +		return err;
 >  
->  	bh = sb_find_get_block(sb, block);
->  	if (!bh)
-> 
-> -- 
-> 2.53.0
-> 
+>  	for (i = 0; i < num_rows; i++) {
+> +		if (rows_cfg[i] >= KBC_MAX_GPIO) {
+> +			dev_err(kbc->dev, "invalid row pin %u\n", rows_cfg[i]);
+> +			return -EINVAL;
+> +		}
+>  		kbc->pin_cfg[rows_cfg[i]].type = PIN_CFG_ROW;
+>  		kbc->pin_cfg[rows_cfg[i]].num = i;
+>  	}
+> @@ -538,6 +542,10 @@ static int tegra_kbc_parse_dt(struct tegra_kbc *kbc)
+>  	}
+>  
+>  	for (i = 0; i < num_cols; i++) {
+> +		if (cols_cfg[i] >= KBC_MAX_GPIO) {
+> +			dev_err(kbc->dev, "invalid col pin %u\n", cols_cfg[i]);
+> +			return -EINVAL;
+> +		}
+>  		kbc->pin_cfg[cols_cfg[i]].type = PIN_CFG_COL;
+>  		kbc->pin_cfg[cols_cfg[i]].num = i;
+>  	}
+
+Could you please check against kbc->num_rows_and_columns instead of
+KBC_MAX_GPIO? Not all Tegra variants have 24 KBC pins (for example,
+Tegra114 only has 11 rows + 8 columns = 19 pins), and the loop right
+above only initializes kbc->pin_cfg[] up to kbc->num_rows_and_columns.
+
+Thanks.
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Dmitry
