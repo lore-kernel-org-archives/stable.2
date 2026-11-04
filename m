@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793776867;
-	b=t9aRMgO8zJkXWNObosXOGT4F2QUQzCRbRcdRRL2z9JMFoyGfg8muMsPbbhrtdD/Zt04R
-	 R0sTZULYPM66lfCvZDJZKGucoM/0s76diVx0YBejryPwkae8RgBKtz1XZZlmGkLSlX099
-	 TnInN5iSVs+3nA0gCzbuHtdD5IZ0kJ9Bo1cUNvoSHtnTjQk2fTwoD1ypA/DmoPXkoi4KC
-	 fzoomPwnG93MCMY6xQq8V1w9W1qHGUfSkiaD7Or9GE26SNvmddp/K+vUxaOB2BmU+Y0Qa
-	 HOes8uKtb8plUab64VGwxNucFHq1K2XFR4muEA/gV5ApV6mRYg7QQYf0pHEywhMUrpQ==
+	t=1793776872;
+	b=MLzi/BNOzj3bRDGD8U/zuGw1o2uy8UML+tnXjR8ujbCiuryOaMjH+IE8wwCqgW+kcFg5
+	 L8mF8zj5FF01VXRPKSxGVEb5FLv1822GCFzTKGrOSuAtdBK/aJ2hJFsNDgMcJ04P6CA0N
+	 fqyZBGDMKuz0C4VGlgq+OO77BCm33DQFfszq9d33SauEfMQZnm/RtG2NxTzXA7f4eIji7
+	 rpAnftYhtZhYzEeKCydy8aTBo6OFFyNp4Q4pN1dTHp6l2n19xfkUribZ3otDldFJbulBs
+	 LSa8lPZcH2DwuRq99WPEgXm8F9PCX0rVLeqiJU4s0TeTlZl9QQ5tsmVjEeef3MorZLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776867;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776872;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=L0psWKRkASGm46CunD1oZXPWrrP9V2HqWj0pDQuxulg=;
-	b=5tjs0GM8EuIIBLRCddlxqM+1Xw5I2AeafhSEJLGk54XcESEzEhPSromehDnoWW0q74OM
-	 Uk64Tm6smQgQPTxceM6LMzELzz9ygEY2OKAwS0tL3sI0N6EHJXqB498HpQRcKsMYog0+u
-	 3q712RVorSuRz7ZN3Iqjcv4qY0gdYciyh9uIR5bOkbTRq3J8dB92RsvX8WHXRp1gV7lQ6
-	 qfYk9TdBUcitmPYCfYHlIroI2WmqFeT1HF/X76lE5kGG360TQdg613pskRtDvs1YVQ06r
-	 uTflRo04YfImjurXbsWk/g0AyLDhMfW+zVCpNgAIHq3b7d7uil3wLEt/JfJuuVEQhvA==
+	bh=P2nVUZgbkko0fSVzH+RCHTPFIPIPFR9Bvrfp4msS4Ts=;
+	b=0+GTB+J6exh71UJ8OGmgDh2r3gU8w+k+o7IWLS3pk0/Kz+xavVq8kXZsZ9liONnHh9Yt
+	 FBTz1f6cXwhOB/HFibmGNKROFt5iiRXbwOdQPenZzwKzg1oiovmDsyWyfvrIbcbjiTM9g
+	 LYVAIp/v6yHS44kkKLd4odYawm6kCffU/JjCFLcZxCVCjhtoYMV8+lRLgv+STCzYr6Kp5
+	 VTpvtaFqI/JAy1fhEo78bLI/tPoeezscm8JHRE9P/Hh3943d81y1SG1FHFH6EYE2S4ZT5
+	 GgxgCQfk5GJVe2VQMvS258jZAgRRX16JbbPiNxJaLha482tuVrHBRa0qfs2DV5M5E4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k9RCxh64;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=acW0eaVv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6842606A328;
-	Wed,  4 Nov 2026 07:21:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EAF5606D815;
+	Wed,  4 Nov 2026 07:21:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k9RCxh64
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0CD91F000C1;
-	Wed,  4 Nov 2026 07:21:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=acW0eaVv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 172A81F00A25;
+	Wed,  4 Nov 2026 07:21:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793776866;
-	bh=L0psWKRkASGm46CunD1oZXPWrrP9V2HqWj0pDQuxulg=;
+	s=k20260515; t=1793776872;
+	bh=P2nVUZgbkko0fSVzH+RCHTPFIPIPFR9Bvrfp4msS4Ts=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=k9RCxh64i0WDXkNSfepE9eHTvVOorBjZpHTpacgODRluwSmtEoFSbunhpgyG54Q5U
-	 mFsURCkoO62yW411T+TN8trzrlaoZUQ/EuAkCXyQNfnmofEyAxEKcnTamRK07ss6Mh
-	 DNCJVniW1Ru1rLQCXMaG40FfpVrqIPyacSxEWoQUijK+HJJKXmPZ40iPFV/hqx172h
-	 q1aCqrVggefYeB57vDP91mLheS14+HwgsALAp/Bgn+830h7DScDGOA7Rlut8QMmLr2
-	 j+NVbh/fxdcDRqe+kZLyX9gsTHyMzaaempaf07LzQxCg00NdX5W/o9+nM8eLsk5V7y
-	 o2ht7P4ZCwZfw==
-Message-ID: <cf62f2f9-08e1-4f0c-820f-5e129e4c7de0@kernel.org>
-Date: Wed, 4 Nov 2026 08:21:00 +0100
+	b=acW0eaVv29f8/vEHVW3ogKW6SYjiSGqDTiwnu8MiiQn3/Z8gZCRIWrF3tFbxSF8S3
+	 auEGwRcMbPXlECMkUImCCImJuVvM1q+vM4X880Ab14NNm+QDKCBEHk0CM00A9N5Nxv
+	 7PwdFD8H5rOCRkLQHseT5Ga3SWp/dmokn4XGEsWGyRUKyyclSsI9i1A3+nv7rWfyzR
+	 1cS7y0MwO1//cwzACEPqK1nLYshjNh0tmQeZcMKmc8dmOl17Krb2roJjQ0au4pv8vY
+	 Lfnn5wldrYV0Lj7iR7upSdhM/qUG6rva60Y+Sw9/kRHQS1+s01QLC5GZQTqRrvlxXH
+	 +ySTRLLBF6LXw==
+Message-ID: <94c560c1-b292-417f-adec-700923ebe726@kernel.org>
+Date: Wed, 4 Nov 2026 08:21:08 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,8 +52,8 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: exynos4-is: Free the control handler if
- fimc_ctrls_create() fails
+Subject: Re: [PATCH] media: exynos4-is: Free control handler if ISP subdev
+ init fails
 To: Wentao Liang <vulab@iscas.ac.cn>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -62,7 +62,7 @@ To: Wentao Liang <vulab@iscas.ac.cn>,
 Cc: linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
-References: <20261103094612.1289226-1-vulab@iscas.ac.cn>
+References: <20261103094616.1289357-1-vulab@iscas.ac.cn>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -108,22 +108,22 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261103094612.1289226-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103094616.1289357-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 03/11/2026 10:46, Wentao Liang wrote:
-> v4l2_ctrl_handler_init() allocates the handler's bucket array, and each
-> subsequent v4l2_ctrl_new_std() call allocates a control.  When one of
-> those calls fails it only records the error in handler->error.
-> fimc_ctrls_create() returns that error with ctrls->ready left false, so
-> neither caller calls fimc_ctrls_delete(), and that function would not
-> free the handler in that state anyway.  The bucket array and the
-> controls created so far are leaked.
+> fimc_isp_subdev_create() initializes isp->ctrls.handler and creates a
+> number of standard controls. If any of them cannot be created,
+> handler->error is set and the function returns after cleaning up the
+> media entity only. The control handler still owns the memory allocated
+> for its buckets and for the controls created before the failure, and
+> neither fimc_isp_subdev_destroy() nor the caller's cleanup runs on this
+> error path, so that memory is leaked.
 > 
-> Free the handler before returning the error.
+> Free the control handler before returning the error.
 > 
-> Fixes: 9448ab7dec30 ("[media] s5p-fimc: Add color effect control")
+> Fixes: 9a761e436843 ("[media] exynos4-is: Add Exynos4x12 FIMC-IS driver")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
