@@ -1,69 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.210.215.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793773777;
-	b=kc99F/KTITY6uH/bQplTfDawc9QfE+E9U4Zmmk/lVlGrNIqM1neH82Ls9MsD08eF/pE+
-	 EL20y1PzDHAHAC7pDRNGcOvinVctIDHpawiNkQcTD/3xXxzyTWxGJB8wM1dOMRcF3LB+k
-	 5drZcllFhfaH0X3ONgHmhwJDvrURLaLXC6tTDPX1HoS5HvBfreVghxseDnOurta1rewzX
-	 Saeo9yTObmmmwTTgb8tU8MImFHP/ajP+IIQr5K0p2LEpxhZd2FfVBg3CV8RuOvLRP//Br
-	 U6FxUt4Z6Rc6B7KZf5zpxtxJuUL20aO8IYxqMSf7T/6Pe1Kly+udbDnzien+rF0MNIQ==
+	t=1793773796;
+	b=xZU/oEw1n2TX/HdOuAqADyK81BohJNIHN2uMuE86fLH0QwMGDXCNSXI5a/8GVy2zokom
+	 fmxeo0KsFK7fbPnhciUbd6/spvJH/0wUZwes2mo7eZfSYHovaRfu3l/IiYq4fdcTxkYGw
+	 qpTbnTtGdaEL2W6mR+rCXNzjGHpHkfu81cXu8fpU6bKZ/fDwlRd5otJFUu7rPWzlD/YHf
+	 dIYaWm37tJU3MfSiXzWl0RoMVYDwL6HNLJzasd9VzBP0qb6c12nOzgueDINQZSrOlbq4B
+	 t3Z4zmVHKM06KWA1cVRa3YOfCeAg5ewK+nmwW1wNbRVcKVos7EhHZo07SiBbwAPPJFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793773777;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=/EDAekvv6SOFhSAiVUCZAuo8sFPKNNrY39scEMWh7v0=;
-	b=cRls6eCWyvq2AsYsy/d64Yu/HnAFXl28UJLiUCjkKuUjqXUat5QzRkOY0YNOIwqJ2TYt
-	 t+ShbeeTrB4YIOKcC2mKsvTtTTaDEyt24k2Dtr3ZIeyp/0o5PYPgK/Tlh5aTtCw3zT8JX
-	 h2JXLqgkb2/Z4r+YTrVB886S4kpCFVYFs/kNNHVgsR7TW93JmLn/AD6cpjuyiG25hr4TF
-	 v6+kuXVU/xFyO1cMTrf4+8x0qkdGtFQJEouXWIfg0oUt9MvLX6lNyeiE0ZWF7GL4YhUo/
-	 tDTGmDqXF5SWat0Co7gDHm/e70Q0ffSd21Z5zkf43G41EHVfSYbnLZpzFmch0mkTyKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793773796;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=LYqHWc9enpWzBJsB2s2CtrAxbT9hLLqSyoYr6qLlZlE=;
+	b=qkQpXHcUsgckuUE69rlv3xEwJIYl1s/f8h0X8Avtv63bVOqTkMOy7meqgykdF0wr+ALy
+	 0IjtEw7qbEtPK5hfOjvaEeEduU7cLWt/hVqKrS1QTUpLJ7PCF+pQfy/hHc/ukYeRqtv7U
+	 F1Rkt5zbIiZypSc1y7bAoIDpj4yXmKOv+kW1EGhvLa8H0MvKnRwFm2AUEtGPq9loHk0eK
+	 fi8vxBWupKeRcJzAmaeS0tuBwWKR4xPv8P45d3AmdgQcmSmDL2vgsmVuqs3szdbONqfeb
+	 l6wrjL8Z3k1vSCiCAX5x4doVCvRbguuE0a4UqYQNj1w24Bjdbw/R5/1468z5P3pkIpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ugreen.com;
-	spf=pass smtp.mailfrom=ugreen.com;
-	dkim=pass header.d=ugreen.com header.i=@ugreen.com header.a=rsa-sha256 header.s=pkvm2402 header.b=gsM6ZAgl;
-	arc=none smtp.remote-ip=54.206.34.216
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=miraclelinux.com;
+	spf=pass smtp.mailfrom=miraclelinux.com;
+	arc=none smtp.remote-ip=202.210.215.66
+Received: from smtp.priv.miraclelinux.com (202x210x215x66.ap202.ftth.ucom.ne.jp [202.210.215.66])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC260606A31B;
-	Wed,  4 Nov 2026 06:29:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC260606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ugreen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ugreen.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ugreen.com header.i=@ugreen.com header.a=rsa-sha256 header.s=pkvm2402 header.b=gsM6ZAgl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
-	s=pkvm2402; t=1793773653;
-	bh=/EDAekvv6SOFhSAiVUCZAuo8sFPKNNrY39scEMWh7v0=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=gsM6ZAgleoRJo3Ebm96DHPoRuYnvEil06UrL2RmXz82fPPEDJsUQ/tHY5d4MtunQC
-	 cu23k14WPmqS+TJ/qcSdq9H7P2BOtHwvFeHg3zw3Y6Nl1z/KDiHeJNqfuWJ5UJt7I5
-	 izwoNpbZTTBbsm8lFbZjyig0r8Gyv5EPg+o8KUyA=
-X-QQ-mid: zesmtpsz9t1793773647td70dc338
-X-QQ-Originating-IP: hz8DxLdlYCmbVq+n8DsgpkSivBYcU4dslfPbInxqbOc=
-Received: from exmail.qq.com ( [113.89.160.251])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 04 Nov 2026 14:27:19 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 13180092541732606942
-From: Hanson Wang <hanson.wang@ugreen.com>
-To: netdev@vger.kernel.org
-Cc: Sukhdeep Singh <sukhdeeps@marvell.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1969606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 06:29:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1969606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miraclelinux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miraclelinux.com
+Received: from iot-shnota-vm.. (iot-shnota-vm.priv.miraclelinux.com [10.2.1.238])
+	by smtp.priv.miraclelinux.com (Postfix) with ESMTP id 566C8140097;
+	Wed,  4 Nov 2026 15:29:48 +0900 (JST)
+From: Shun Ota <shun.ota@miraclelinux.com>
+To: stable@vger.kernel.org
+Cc: Ido Schimmel <idosch@nvidia.com>,
 	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net: atlantic: stop TX again before freeing rings
-Date: Wed,  4 Nov 2026 14:27:16 +0800
-Message-Id: <20261104062716.4096311-1-hanson.wang@ugreen.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261031032308.2991494-1-hanson.wang@ugreen.com>
-References: <20261031032308.2991494-1-hanson.wang@ugreen.com>
+	Jianqi Ren <jianqi.ren.cn@windriver.com>,
+	He Zhe <zhe.he@windriver.com>,
+	Shun Ota <shun.ota@miraclelinux.com>
+Subject: [PATCH 5.15.y RESEND] net/sched: flower: Fix chain template offload
+Date: Wed,  4 Nov 2026 15:29:41 +0900
+Message-ID: <20261104062941.129880-1-shun.ota@miraclelinux.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,151 +53,205 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: Mn6sU2dhbGGPRr29PgdKsq836CaJmhNFvQytNHLWO3P3YpM6UvdclIvl
-	clHfHounljqlsYZEgYlVHN7TTu+nyboq/LP2ivRVAzLsJHARrciWPUB47ILu3/BMwpWn+1y
-	ZqiyBmMdr/soqXiwlxHy2C5AdC4x4PkTY5ZF2pwzs1TYDoffUsZAP/3fL8ak3NhSRE1yvkp
-	aS5zDlys0ntVwk2xRKgNnAAe8Nz9gYeVKyjELpI7C7EL5178XNdJU3LB201xApw0fTpFLg6
-	y6S9SUtC8MGf4cMLulqbFFUL6IEX29HUgIebdatRUsCdeK4mC6J3sWP2p0ty/jrxw7BLvRb
-	U7GyIrBKO6ACyEHsyuZlaZ5rEJxSfoXHLVRRYEp7WPch/SL6noAatevi+fDk/zSnApvuFfZ
-	COTIhnMr8552ikzS+s9BimF3p6MIqGZ9/fjhm6hSBFJAgkCbkBP4FJsDTRl3A2PRf9TvxHV
-	NuehKtQw+ta/UIOmMsX7KqYcDfTWQQbk92hWB1CNi7hVoN7CVJZhNcxN9Z++UGbMLPD3Fbq
-	wKVQUY+oHuTCJNOefXqGEmSyDTcyl//5Rx3s9VZbXP8gECikZO8oRFkp3MrOPkOBCIMMF3l
-	/hfs5DZim7KGp2YTqsOro4JyYR3Lzw+u99JqlGAHtfXtydNgQSMZTZA1Di8kas2zavCrIhJ
-	T9mNIsx3MDlyzaNnjWcn3SVQrqfIsR/FmJ8XEOn8q9DHt5zCffL02ExMRo7DsgmUOcGf/dy
-	fQY8BunKYEFqIGLS2cfz/cGdI7GswBOEIiIcjfoOu+bBwlURmnP1UtyGRjkyHEcSQx8aNfX
-	jD41KAk5GrYWAfly49wUubYCNPHtCCDBJu4rJEzrdjyADAOldyNT2G/GobaSOWYJuI7mLKH
-	bQMsaW4GY/Ay/e9XS22nARfjSu96whbVsjY2etxy7mA4v2ntuQAkgrnExcB8oAd9FwrGUCf
-	HamChj5Cu9ZA5fiaWxnEANc36C6e7HtMl4F6mlhgCc8sBGmK39LUnMPMzBReZWInZHPcj6g
-	fBnpEqMbLCdfnIsU9j
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
 
-aq_nic_stop() disables TX before it cancels the service work, frees
-the link IRQ and disables NAPI. Those paths can wake the queues again.
-ndo_set_features, ethtool ring changes and XDP setup call
-aq_ndev_close() directly, without dev_deactivate(), so a re-woken
-queue is still reached from ndo_start_xmit while aq_nic_deinit() frees
-buff_ring. An IGMP transmit on a UGREEN DXP2800 then oopses in
-aq_nic_map_skb() with buff_ring NULL and a non-zero sw_tail.
+From: Ido Schimmel <idosch@nvidia.com>
 
-ndo_xdp_xmit can clear that stopped bit. aq_nic_xmit_xdpf() updates
-the queue state, and a drained ring has enough free descriptors to
-wake the subqueue. The device stays IFF_UP across this internal
-close, so a redirected frame can wake the queue after it was stopped
-and a later SKB transmit can hit the freed ring. aq_set_ringparam()
-then frees the aq_vec that embeds those rings while aq_ring_tx[]
-still points at them.
+[ Upstream commit 32f2a0afa95fae0d1ceec2ff06e0e816939964b8 ]
 
-Close an admission gate before the first queue stop, and publish it
-with smp_store_release() only after the rings are initialized.
-ndo_xdp_xmit holds rcu_read_lock() across the ring lookup and the
-transmit, and returns -ENETDOWN while the gate is closed.
-synchronize_net() runs after NAPI is disabled and waits out
-transmitters that already passed the gate, including those that woke
-a queue. A second netif_tx_disable() then drains SKB transmit before
-hw_stop() and the ring free.
+When a qdisc is deleted from a net device the stack instructs the
+underlying driver to remove its flow offload callback from the
+associated filter block using the 'FLOW_BLOCK_UNBIND' command. The stack
+then continues to replay the removal of the filters in the block for
+this driver by iterating over the chains in the block and invoking the
+'reoffload' operation of the classifier being used. In turn, the
+classifier in its 'reoffload' operation prepares and emits a
+'FLOW_CLS_DESTROY' command for each filter.
 
-Fixes: 3aec6412e007 ("aquantia: Fix Tx queue hangups")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hanson Wang <hanson.wang@ugreen.com>
+However, the stack does not do the same for chain templates and the
+underlying driver never receives a 'FLOW_CLS_TMPLT_DESTROY' command when
+a qdisc is deleted. This results in a memory leak [1] which can be
+reproduced using [2].
+
+Fix by introducing a 'tmplt_reoffload' operation and have the stack
+invoke it with the appropriate arguments as part of the replay.
+Implement the operation in the sole classifier that supports chain
+templates (flower) by emitting the 'FLOW_CLS_TMPLT_{CREATE,DESTROY}'
+command based on whether a flow offload callback is being bound to a
+filter block or being unbound from one.
+
+As far as I can tell, the issue happens since cited commit which
+reordered tcf_block_offload_unbind() before tcf_block_flush_all_chains()
+in __tcf_block_put(). The order cannot be reversed as the filter block
+is expected to be freed after flushing all the chains.
+
+[1]
+unreferenced object 0xffff888107e28800 (size 2048):
+  comm "tc", pid 1079, jiffies 4294958525 (age 3074.287s)
+  hex dump (first 32 bytes):
+    b1 a6 7c 11 81 88 ff ff e0 5b b3 10 81 88 ff ff  ..|......[......
+    01 00 00 00 00 00 00 00 e0 aa b0 84 ff ff ff ff  ................
+  backtrace:
+    [<ffffffff81c06a68>] __kmem_cache_alloc_node+0x1e8/0x320
+    [<ffffffff81ab374e>] __kmalloc+0x4e/0x90
+    [<ffffffff832aec6d>] mlxsw_sp_acl_ruleset_get+0x34d/0x7a0
+    [<ffffffff832bc195>] mlxsw_sp_flower_tmplt_create+0x145/0x180
+    [<ffffffff832b2e1a>] mlxsw_sp_flow_block_cb+0x1ea/0x280
+    [<ffffffff83a10613>] tc_setup_cb_call+0x183/0x340
+    [<ffffffff83a9f85a>] fl_tmplt_create+0x3da/0x4c0
+    [<ffffffff83a22435>] tc_ctl_chain+0xa15/0x1170
+    [<ffffffff838a863c>] rtnetlink_rcv_msg+0x3cc/0xed0
+    [<ffffffff83ac87f0>] netlink_rcv_skb+0x170/0x440
+    [<ffffffff83ac6270>] netlink_unicast+0x540/0x820
+    [<ffffffff83ac6e28>] netlink_sendmsg+0x8d8/0xda0
+    [<ffffffff83793def>] ____sys_sendmsg+0x30f/0xa80
+    [<ffffffff8379d29a>] ___sys_sendmsg+0x13a/0x1e0
+    [<ffffffff8379d50c>] __sys_sendmsg+0x11c/0x1f0
+    [<ffffffff843b9ce0>] do_syscall_64+0x40/0xe0
+unreferenced object 0xffff88816d2c0400 (size 1024):
+  comm "tc", pid 1079, jiffies 4294958525 (age 3074.287s)
+  hex dump (first 32 bytes):
+    40 00 00 00 00 00 00 00 57 f6 38 be 00 00 00 00  @.......W.8.....
+    10 04 2c 6d 81 88 ff ff 10 04 2c 6d 81 88 ff ff  ..,m......,m....
+  backtrace:
+    [<ffffffff81c06a68>] __kmem_cache_alloc_node+0x1e8/0x320
+    [<ffffffff81ab36c1>] __kmalloc_node+0x51/0x90
+    [<ffffffff81a8ed96>] kvmalloc_node+0xa6/0x1f0
+    [<ffffffff82827d03>] bucket_table_alloc.isra.0+0x83/0x460
+    [<ffffffff82828d2b>] rhashtable_init+0x43b/0x7c0
+    [<ffffffff832aed48>] mlxsw_sp_acl_ruleset_get+0x428/0x7a0
+    [<ffffffff832bc195>] mlxsw_sp_flower_tmplt_create+0x145/0x180
+    [<ffffffff832b2e1a>] mlxsw_sp_flow_block_cb+0x1ea/0x280
+    [<ffffffff83a10613>] tc_setup_cb_call+0x183/0x340
+    [<ffffffff83a9f85a>] fl_tmplt_create+0x3da/0x4c0
+    [<ffffffff83a22435>] tc_ctl_chain+0xa15/0x1170
+    [<ffffffff838a863c>] rtnetlink_rcv_msg+0x3cc/0xed0
+    [<ffffffff83ac87f0>] netlink_rcv_skb+0x170/0x440
+    [<ffffffff83ac6270>] netlink_unicast+0x540/0x820
+    [<ffffffff83ac6e28>] netlink_sendmsg+0x8d8/0xda0
+    [<ffffffff83793def>] ____sys_sendmsg+0x30f/0xa80
+
+[2]
+ # tc qdisc add dev swp1 clsact
+ # tc chain add dev swp1 ingress proto ip chain 1 flower dst_ip 0.0.0.0/32
+ # tc qdisc del dev swp1 clsact
+ # devlink dev reload pci/0000:06:00.0
+
+Fixes: bbf73830cd48 ("net: sched: traverse chains in block with tcf_get_next_chain()")
+Signed-off-by: Ido Schimmel <idosch@nvidia.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+[Minor conflict resolved due to code context change.]
+Signed-off-by: Jianqi Ren <jianqi.ren.cn@windriver.com>
+Signed-off-by: He Zhe <zhe.he@windriver.com>
+Signed-off-by: Shun Ota <shun.ota@miraclelinux.com>
 ---
-v2:
-- Gate ndo_xdp_xmit and synchronize_net() before the second
-  netif_tx_disable(). A drained ring otherwise wakes the queue from
-  aq_nic_xmit_xdpf() after that stop.
-- The same gate keeps ndo_xdp_xmit out of aq_ring_tx[] while
-  aq_set_ringparam() frees the aq_vec that embeds the rings.
+This is a resend of the following backport:
+https://lore.kernel.org/all/20250515004905.3611889-1-jianqi.ren.cn@windriver.com/
 
-pw-bot: cr
+This backport was previously submitted for 5.15.y but seems to have been
+dropped. The diff is identical.
 
-diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_nic.c b/drivers/net/ethernet/aquantia/atlantic/aq_nic.c
-index 42e0fe9248f288fb052fc0372f8907e4b7ebf501..e791ed18f1cd69ff7d0ca6fb0efcd6396a541415 100644
---- a/drivers/net/ethernet/aquantia/atlantic/aq_nic.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/aq_nic.c
-@@ -597,6 +597,8 @@ int aq_nic_start(struct aq_nic_s *self)
+The conflict was just a context conflict in include/net/sch_generic.h
+as get_exts is absent in 5.15.y.
+
+Verified with the reproducer from the upstream commit (using a minimal
+kernel module in place of mlxsw) that this cleanly fixes the memory leak
+on 5.15.y.
+
+ include/net/sch_generic.h |  4 ++++
+ net/sched/cls_api.c       |  9 ++++++++-
+ net/sched/cls_flower.c    | 23 +++++++++++++++++++++++
+ 3 files changed, 35 insertions(+), 1 deletion(-)
+
+diff --git a/include/net/sch_generic.h b/include/net/sch_generic.h
+index 7ec1f5aa6ada..b694d27f4171 100644
+--- a/include/net/sch_generic.h
++++ b/include/net/sch_generic.h
+@@ -378,6 +378,10 @@ struct tcf_proto_ops {
+ 						struct nlattr **tca,
+ 						struct netlink_ext_ack *extack);
+ 	void			(*tmplt_destroy)(void *tmplt_priv);
++	void			(*tmplt_reoffload)(struct tcf_chain *chain,
++						   bool add,
++						   flow_setup_cb_t *cb,
++						   void *cb_priv);
  
- 		netdev_set_tc_queue(self->ndev, i, self->aq_vecs, offset);
- 	}
-+	/* Publish the initialized rings to external XDP transmitters. */
-+	smp_store_release(&self->xdp_tx_enabled, true);
- 	netif_tx_start_all_queues(self->ndev);
- 
- err_exit:
-@@ -1428,6 +1430,8 @@ int aq_nic_stop(struct aq_nic_s *self)
- {
- 	unsigned int i = 0U;
- 
-+	WRITE_ONCE(self->xdp_tx_enabled, false);
-+
- 	netif_tx_disable(self->ndev);
- 	netif_carrier_off(self->ndev);
- 
-@@ -1448,6 +1452,17 @@ int aq_nic_stop(struct aq_nic_s *self)
- 
- 	aq_ptp_ring_stop(self);
- 
-+	/* Drain external XDP transmitters that passed the admission gate.
-+	 * They can wake TX queues, so wait before the final queue stop.
-+	 */
-+	synchronize_net();
-+
-+	/* Service work, IRQs, NAPI and external XDP can no longer wake
-+	 * queues. Drain SKB transmit before aq_nic_deinit() frees rings.
-+	 */
-+	netif_tx_disable(self->ndev);
-+	netif_carrier_off(self->ndev);
-+
- 	return self->aq_hw_ops->hw_stop(self->aq_hw);
- }
- 
-diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_nic.h b/drivers/net/ethernet/aquantia/atlantic/aq_nic.h
-index ad33f8586532b859215cc996aeaf1d662babd97a..84ac097ba12405ee257759cfa2241ec8a5ffb37c 100644
---- a/drivers/net/ethernet/aquantia/atlantic/aq_nic.h
-+++ b/drivers/net/ethernet/aquantia/atlantic/aq_nic.h
-@@ -136,6 +136,8 @@ struct aq_nic_s {
- 	unsigned int packet_filter;
- 	unsigned int power_state;
- 	u8 port;
-+	/* Admission gate for ndo_xdp_xmit, drained with synchronize_net(). */
-+	bool xdp_tx_enabled;
- 	const struct aq_hw_ops *aq_hw_ops;
- 	const struct aq_fw_ops *aq_fw_ops;
- 	struct aq_nic_cfg_s aq_nic_cfg;
-diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_ring.c b/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
-index e1193c6719d9d6e01ad95e3b80950b70a88d510f..6ff916fe25e424a2e0da44f11504e53e48005d47 100644
---- a/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/aq_ring.c
-@@ -19,6 +19,7 @@
- #include <linux/bpf_trace.h>
- #include <linux/netdevice.h>
- #include <linux/etherdevice.h>
-+#include <linux/rcupdate.h>
- 
- static void aq_get_rxpages_xdp(struct aq_ring_buff_s *buff,
- 			       struct xdp_buff *xdp)
-@@ -422,6 +423,14 @@ int aq_xdp_xmit(struct net_device *dev, int num_frames,
- 	struct aq_nic_cfg_s *aq_cfg;
- 	struct aq_ring_s *ring;
- 
-+	/* Cover configuration and ring lookups as well as transmission. */
-+	rcu_read_lock();
-+	/* Pair with aq_nic_start() to observe initialized rings. */
-+	if (unlikely(!smp_load_acquire(&aq_nic->xdp_tx_enabled))) {
-+		rcu_read_unlock();
-+		return -ENETDOWN;
-+	}
-+
- 	aq_cfg = aq_nic_get_cfg(aq_nic);
- 	vec = cpu % aq_cfg->vecs;
- 	ring = aq_nic->aq_ring_tx[AQ_NIC_CFG_TCVEC2RING(aq_cfg, 0, vec)];
-@@ -433,6 +442,8 @@ int aq_xdp_xmit(struct net_device *dev, int num_frames,
- 			drop++;
+ 	/* rtnetlink specific */
+ 	int			(*dump)(struct net*, struct tcf_proto*, void *,
+diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
+index 341128a00420..b958edbfe1a2 100644
+--- a/net/sched/cls_api.c
++++ b/net/sched/cls_api.c
+@@ -1431,6 +1431,9 @@ tcf_block_playback_offloads(struct tcf_block *block, flow_setup_cb_t *cb,
+ 	     chain_prev = chain,
+ 		     chain = __tcf_get_next_chain(block, chain),
+ 		     tcf_chain_put(chain_prev)) {
++		if (chain->tmplt_ops && add)
++			chain->tmplt_ops->tmplt_reoffload(chain, true, cb,
++							  cb_priv);
+ 		for (tp = __tcf_get_next_proto(chain, NULL); tp;
+ 		     tp_prev = tp,
+ 			     tp = __tcf_get_next_proto(chain, tp),
+@@ -1446,6 +1449,9 @@ tcf_block_playback_offloads(struct tcf_block *block, flow_setup_cb_t *cb,
+ 				goto err_playback_remove;
+ 			}
+ 		}
++		if (chain->tmplt_ops && !add)
++			chain->tmplt_ops->tmplt_reoffload(chain, false, cb,
++							  cb_priv);
  	}
  
-+	rcu_read_unlock();
-+
- 	return num_frames - drop;
+ 	return 0;
+@@ -2848,7 +2854,8 @@ static int tc_chain_tmplt_add(struct tcf_chain *chain, struct net *net,
+ 	ops = tcf_proto_lookup_ops(name, true, extack);
+ 	if (IS_ERR(ops))
+ 		return PTR_ERR(ops);
+-	if (!ops->tmplt_create || !ops->tmplt_destroy || !ops->tmplt_dump) {
++	if (!ops->tmplt_create || !ops->tmplt_destroy || !ops->tmplt_dump ||
++	    !ops->tmplt_reoffload) {
+ 		NL_SET_ERR_MSG(extack, "Chain templates are not supported with specified classifier");
+ 		module_put(ops->owner);
+ 		return -EOPNOTSUPP;
+diff --git a/net/sched/cls_flower.c b/net/sched/cls_flower.c
+index a40a9e84c75f..42234a0101e7 100644
+--- a/net/sched/cls_flower.c
++++ b/net/sched/cls_flower.c
+@@ -2596,6 +2596,28 @@ static void fl_tmplt_destroy(void *tmplt_priv)
+ 	kfree(tmplt);
  }
  
++static void fl_tmplt_reoffload(struct tcf_chain *chain, bool add,
++			       flow_setup_cb_t *cb, void *cb_priv)
++{
++	struct fl_flow_tmplt *tmplt = chain->tmplt_priv;
++	struct flow_cls_offload cls_flower = {};
++
++	cls_flower.rule = flow_rule_alloc(0);
++	if (!cls_flower.rule)
++		return;
++
++	cls_flower.common.chain_index = chain->index;
++	cls_flower.command = add ? FLOW_CLS_TMPLT_CREATE :
++				   FLOW_CLS_TMPLT_DESTROY;
++	cls_flower.cookie = (unsigned long) tmplt;
++	cls_flower.rule->match.dissector = &tmplt->dissector;
++	cls_flower.rule->match.mask = &tmplt->mask;
++	cls_flower.rule->match.key = &tmplt->dummy_key;
++
++	cb(TC_SETUP_CLSFLOWER, &cls_flower, cb_priv);
++	kfree(cls_flower.rule);
++}
++
+ static int fl_dump_key_val(struct sk_buff *skb,
+ 			   void *val, int val_type,
+ 			   void *mask, int mask_type, int len)
+@@ -3452,6 +3474,7 @@ static struct tcf_proto_ops cls_fl_ops __read_mostly = {
+ 	.bind_class	= fl_bind_class,
+ 	.tmplt_create	= fl_tmplt_create,
+ 	.tmplt_destroy	= fl_tmplt_destroy,
++	.tmplt_reoffload = fl_tmplt_reoffload,
+ 	.tmplt_dump	= fl_tmplt_dump,
+ 	.owner		= THIS_MODULE,
+ 	.flags		= TCF_PROTO_OPS_DOIT_UNLOCKED,
+-- 
+2.43.0
+
