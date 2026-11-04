@@ -1,47 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805357;
-	b=d/S4aTUlDYB3QfOf2V8mllWQ7QbzFCdM6QEZ7sP48Q6eN+sDiamvGRCZ1Xkm9FOlkmf+
-	 OssVgJ9cu7lA3f+8MDzS1Y1UBu9HibX8FL1L5nQfyq57/T5q+LhauDUYHRQbrZPybqTmj
-	 h1bqie+UNDv9vxCjIhU3izGdPbWv44wxcAIhSx5wt1iadM7hDVMOAnjzUfkfZqS/JX0tn
-	 4WR84I9kFnmpE56aOdyAsPps81181iWsQgbrZs6x9Dn873groiCbtR5IrmJLPdM8U+psx
-	 A8I+4vcAfIxTW+9+oXHT9nNf81bAvHtsZggTxRXFsPqOD1Erp3YqJK1owi7T2FbLwFg==
+	t=1793805360;
+	b=sVklJOFl0xHtYLFR8oH975vwCRoZftaF5gEGlv0PCbol09tJeL2h2pwwNBgz9/yYzk+c
+	 9WtNiiKbDP41wJeUQgSPRp81vDW1S2iZ9+vGVDjDvNLWs1BoAOo4kp0Sh+YvmvMAjfv3m
+	 awYetG2I6JNejUXX4SOk33Tabwvhu/Eq98h+cLSvP1oGEcWOsAuzSOcK4ZnG0/BY7rj6M
+	 y/nxIBJvQyJc2p+woRuLsoY+4oVKtJlQH0iumzSxtXYtPoiH2a27859QG64WgBLboGj2M
+	 m2G4YOPRzJdDqE/Buam/LXIh9pREoJ/tpgyhl7u6H9L4XBccY7xB8X98eKTRjORUyTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805357;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gr/4tSJp50JTZttJQylxC8/JrEPDFy7ZvBuxyEIHMng=;
-	b=2VOLEa+fqcO0afYAtVCiYsBuqlhvYR2KvCHBecTFN1vuaZumC4PcFU4WjEjoz4cFIn+w
-	 WtdW6g+0iZCjB7A6SzAYDrGTGZxz4c7H7NyqGZ8E0/mht27ahiJqSo9DmPa1Am8n3OMI6
-	 hxqz/B7Qe9noLK3D72SDYlZXdzSVj+5m057b9B8g5xB6zKXOVNYrO4pRqwML0Q3ReQkY0
-	 yJd+FLSjsyXD400aH1QdOcOzEUp7iojLCUnWi9C+tw3wpYXcDEPkcx7VqHWu6bBYM/qiN
-	 449KuX0eU+Lj6XYmBtw3Rjmdx1Kx2xY2XVxifCq5D31rHFc9VoieERJomKrmveIXl+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805360;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=ljsjPYwaUQfrGLBIfF8l1JYTpP0ds7LDpqQWZ8STY7E=;
+	b=su7h8n5CXPjFkHJZRzJnSUO3oZQSS+Z60C6FfDnLebRHiib/qOBTl4UUrEb7ZfMc4eKs
+	 yOOguoggOK3zieUe589SOVHyUn5PIRbVORY+eySFeZEJc5GtJTyFeKYqszUjO3Uh6ujUl
+	 CsXti+pQUBDVHsVPy6SOb5z7gQOsJy0Aa+JC/uFwFw+F0jsSnPOngeJyFhyc90uiv3nKg
+	 pOlD1KdHP/Q75bJDLXOAeIzTqPwLyRe45xuKielHI5wMUO9oxa+MTODJiUb4HkDGUMvLn
+	 8IxFTpexLvvJFYsvlY2290SnR0x0BWwhuaWhO4VNjxtlPP+kxtDTeczHNOyetCE4Q4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Cytp2eNA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078FF606A331
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:15:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Cytp2eNA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799DF1F000C1;
-	Wed,  4 Nov 2026 15:15:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793805356;
-	bh=gr/4tSJp50JTZttJQylxC8/JrEPDFy7ZvBuxyEIHMng=;
-	h=Subject:To:Cc:From:Date;
-	b=Cytp2eNATYc0pBbbU6l8Ss9WIiMm/aix0lgcWrXUBZy1Ph0O9SUgKyg3E+mQUOT85
-	 LhJW1AY0PcbSQLrwRe6OGJ6u2YUt/bnRbsi0xXqTeGnxY3HnuZ8a/JTV+fIljkUaAr
-	 vHscpuVa0HYFj5XKN2Beqetcj12wiZuY1FZiNiko=
-Subject: FAILED: patch "[PATCH] xfs: allow softlimit with no hardlimit in quota scrub" failed to apply to 5.15-stable tree
-To: djwong@kernel.org,cem@kernel.org,hch@lst.de
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 16:15:43 +0100
-Message-ID: <2026110443-flammable-slimy-0f35@gregkh>
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 58E96606A338;
+	Wed,  4 Nov 2026 15:15:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58E96606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=ljsjPYwaUQfrGLBIfF8l1JYTpP0ds7LDpq
+	QWZ8STY7E=; b=YrVml1CgC8ptwnvyJldjTuCMEM9Rf5FV6otzo4pXYH9K/Hbt4i
+	gVxVPoVOTFyfPwZz6cJ96mCGdrTH1Fcvbpv/n8ANAJapltzTxdh8Bs//A/nVL2Te
+	YQwMHWwIdgYblGvmDQUIqyfUs7H6d3zv7kfE96ZOpjCsCv1AA5xdWpVwY=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.59])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkCWm_4gTOtqMzskAQ--.48211S2;
+	Wed, 04 Nov 2026 23:15:45 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Michal Pecio <michal.pecio@gmail.com>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH v5] usb: xhci: Fix use-after-free race in xhci_stop_device()
+Date: Wed,  4 Nov 2026 23:15:44 +0800
+Message-Id: <20261104151544.26672-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261104035637.3325-1-25031212351@stu.xidian.edu.cn>
+References: <20261104000031.679944e7.michal.pecio@gmail.com> <20261104035637.3325-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,102 +63,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkCWm_4gTOtqMzskAQ--.48211S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw4kZr18Zr1rWw1rZryDtrb_yoW8Gw4rpF
+	W3XFW5GFykGw43Wwn7Zw1UJa4rJw4fZF93uwn7Z3yUA398GryFyr10kFWYv3W3Crs7Xa4j
+	yF9Yq3s7Was8AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Sb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26F4UJVW0owAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x0
+	82IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGw
+	Av7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48J
+	MxkF7I0En4kS14v26r1q6r43MxkIecxEwVAFwVW5WwCF04k20xvY0x0EwIxGrwCFx2IqxV
+	CFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r10
+	6r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxV
+	WUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG
+	6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr
+	1UYxBIdaVFxhVjvjDU0xZFpf9x07jzHqcUUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUHD2rp+NX6FAABsN
 
+Alan,
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Thanks - that is a fair point, and I agree that the generic exposure is in
+the core: usbfs can drive port state on a hub whose driver is being
+unbound, and usb core does not serialize the two.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+The awkward part is where the lock would go.  do_proc_control() releases
+usb_lock_device() around usbfs_start_wait_urb(), so the control request to
+the hub runs without the device lock, while usb_unbind_interface() ->
+hub_disconnect() holds it.  Making those two exclude each other on that
+mutex would mean holding it across a synchronous URB, which I do not think
+is acceptable.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 342c2e00b3a99099a7088f7b8c8f075670c603a9
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110443-flammable-slimy-0f35@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+Two shapes I can see on the core side:
 
-Possible dependencies:
+ - refuse or queue hub class requests to a hub while its driver is being
+   unbound, or
+ - make usb_disconnect() of that hub's children wait for in-flight
+   port-state requests on that hub first.
 
+I am happy to prototype either one; tell me which you would prefer.
 
+What is xhci-specific is that xhci_hub_control() is the only one of these
+paths that walks per-device state: xhci_stop_device() looks up
+xhci->devs[slot_id] and drops xhci->lock while sending the stop endpoint
+commands.  ehci/ohci/uhci only write port registers there, so the same
+interleaving does not give them a use-after-free.
 
-thanks,
+So I would like to keep the xhci hunk as well, as memory-safety hardening
+for the case where the core does not catch it.  If you would rather see
+the core change first, I can send that separately and rebase this on top
+of it.
 
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 342c2e00b3a99099a7088f7b8c8f075670c603a9 Mon Sep 17 00:00:00 2001
-From: "Darrick J. Wong" <djwong@kernel.org>
-Date: Sun, 27 Sep 2026 23:17:38 -0700
-Subject: [PATCH] xfs: allow softlimit with no hardlimit in quota scrub
-
-LOLLM observes that the sysadmin can set a user's soft limit to a
-nonzero value and the hard limit to zero, so those aren't corruptions.
-
-Cc: stable@vger.kernel.org # v4.15
-Fixes: c2fc338c87a31f ("xfs: scrub quota information")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-
-diff --git a/fs/xfs/scrub/quota.c b/fs/xfs/scrub/quota.c
-index 8c6ba1240fd5..83092181b30d 100644
---- a/fs/xfs/scrub/quota.c
-+++ b/fs/xfs/scrub/quota.c
-@@ -182,21 +182,21 @@ xchk_quota_item(
- 	 * suspect, which is why we flag it for review.
- 	 *
- 	 * Complain about corruption if the soft limit is greater than
--	 * the hard limit.
-+	 * the hard limit and there's a hard limit set.
- 	 */
- 	if (dq->q_blk.hardlimit > mp->m_sb.sb_dblocks)
- 		xchk_fblock_set_warning(sc, XFS_DATA_FORK, offset);
--	if (dq->q_blk.softlimit > dq->q_blk.hardlimit)
-+	if (dq->q_blk.hardlimit && dq->q_blk.softlimit > dq->q_blk.hardlimit)
- 		xchk_fblock_set_corrupt(sc, XFS_DATA_FORK, offset);
- 
- 	if (dq->q_ino.hardlimit > M_IGEO(mp)->maxicount)
- 		xchk_fblock_set_warning(sc, XFS_DATA_FORK, offset);
--	if (dq->q_ino.softlimit > dq->q_ino.hardlimit)
-+	if (dq->q_ino.hardlimit && dq->q_ino.softlimit > dq->q_ino.hardlimit)
- 		xchk_fblock_set_corrupt(sc, XFS_DATA_FORK, offset);
- 
- 	if (dq->q_rtb.hardlimit > mp->m_sb.sb_rblocks)
- 		xchk_fblock_set_warning(sc, XFS_DATA_FORK, offset);
--	if (dq->q_rtb.softlimit > dq->q_rtb.hardlimit)
-+	if (dq->q_rtb.hardlimit && dq->q_rtb.softlimit > dq->q_rtb.hardlimit)
- 		xchk_fblock_set_corrupt(sc, XFS_DATA_FORK, offset);
- 
- 	/* Check the resource counts. */
-diff --git a/fs/xfs/scrub/quota_repair.c b/fs/xfs/scrub/quota_repair.c
-index 74eb66f9b890..6a2b3271264c 100644
---- a/fs/xfs/scrub/quota_repair.c
-+++ b/fs/xfs/scrub/quota_repair.c
-@@ -193,17 +193,17 @@ xrep_quota_item(
- 		goto out_unlock_dquot;
- 
- 	/* Check the limits. */
--	if (dq->q_blk.softlimit > dq->q_blk.hardlimit) {
-+	if (dq->q_blk.hardlimit && dq->q_blk.softlimit > dq->q_blk.hardlimit) {
- 		dq->q_blk.softlimit = dq->q_blk.hardlimit;
- 		dirty = true;
- 	}
- 
--	if (dq->q_ino.softlimit > dq->q_ino.hardlimit) {
-+	if (dq->q_ino.hardlimit && dq->q_ino.softlimit > dq->q_ino.hardlimit) {
- 		dq->q_ino.softlimit = dq->q_ino.hardlimit;
- 		dirty = true;
- 	}
- 
--	if (dq->q_rtb.softlimit > dq->q_rtb.hardlimit) {
-+	if (dq->q_rtb.hardlimit && dq->q_rtb.softlimit > dq->q_rtb.hardlimit) {
- 		dq->q_rtb.softlimit = dq->q_rtb.hardlimit;
- 		dirty = true;
- 	}
+YuanZhe
 
