@@ -1,67 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.33.167.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793770820;
-	b=z/3e+iUj0YZUoCTVkRQFBFfQ7BilJglaAH6YPG23kn1BgQuIbuhIZoEae+oalivvMwo9
-	 k7QwqzbG5UgfJ4pvfZcrxnNT/+Qnd9MIQYDIEejQQj2Nn8skwZtRflu/gWE3GPpVSp5TU
-	 0KV0sAezrzhoAWeFH8UCFbJ0yJTXEK83fVn2wgSOrPplkC/xzkFSO+dHXbYOOzkGnUnko
-	 Ywfaaszs2zV1Tnz8KZJU61MaTGvII+ZHtYi0WJp27oYqxwhXEq68ETIz4Hrxxv0Uwit26
-	 W7PSuJ1KxQPRwBRQyj0tLgGs+BHgMgrQJY3dusvt+Q8rCMl0QthgOB1SMiy42FGxXTA==
+	t=1793771108;
+	b=DiroxIdWmouZzV7sRZzKymas1jQig6LGoZ2WYRf6StFMoUup3d9mXhjKVMunh2s95YCf
+	 hGUgksBB+MU3xG+Gc82vhuviSQr11SROKOGiO/Gplb9IzCQ6xN4mOvTlkqn1T/Eqir2RD
+	 OrVMAxR5rKc8PMMqLA4FgF9BzgcwlX1a/agGMOZ0xOVKG22brUKyJYiCHczDLt8DYInTD
+	 9bD7W3IxurWplEsyrhkieI8BmcPkAli/CP3KT0WB/U2gtVgvrWyTHeGTAYCdMQHenc+aN
+	 H4sihmijuUl/NimsIC6GNymY59ouwBgQMTOUPxUTySPfIlKTNg1+3LjNRi/HfNxHgyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793770820;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=XK14gn3afGjQO93vtxOK4rX2+8gn13HtO8JN2/VQ3Cw=;
-	b=mYgORunCVymX1h3RYmEB6goRfCdkoOAudzlVGgAFsyn6SQyv6gPeJXo6lunTzjbdW0a0
-	 rPZEFBWf/KarslnUVrNgf7L2y+Wr50lpUEjtYuJEmPDKCsxaOIDzqZVP95NOULz/ub3Gb
-	 7SsPD6HA7yyR/FcktnJLOHOaK0TYfH9IGEp/B/Zdf2VPXBDC7RsnPfozQWxdY/He5Vt16
-	 lcWOW3KIz3MBNqEeWdBeYjFskYRda/+NELrsAZwlCWqSidq6pnN7yhtPzzTPDem5CTrhG
-	 owpMk7JKOvMhg/3+ISI5iPb87dEVFy6vJFT1czC4uMW80GsqvmNQypg6x6oCC/EiwZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793771108;
+	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=BKwR6wvLjW+5B9gDrCBFJwkCFubqlk8mVerXTeFaIhI=;
+	b=B4391pdGaUzMeNr1DaV34AG+w3gb9+KAqHHyJ6p6YR2Z2Xee4J8zqKBew0nxb3FEGWJK
+	 75lRqsteERE3uwsDjo65X/Ig2SdkCiFhhnHOYNBh4a96aKgV9auC/Oo3Lp3Fg/o6qqFDp
+	 vdlWz2Ry+05afA15mzLIibLvvLgA9NIq/55w4QQmXWP02iScVWxtwPtMPWcK/gEF2IuRj
+	 Gh2rrag15Yyn+RkWG81CXtM2ihvS2EWIcfjZMvrEIg7+6ip5+w+TVSlu+y2PyrwUnMr89
+	 OFIIqEqAOnGgiS0uzaxlNdHQ+tz2Cd0gLxHLrMAADjBwBS0DFAzcdF6zoikIz2d8Ybg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=oEvwo11g;
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=picomail.one;
+	spf=pass smtp.mailfrom=picomail.one;
+	dkim=fail reason="signature verification failed" header.d=picomail.one header.i=@picomail.one header.a=rsa-sha256 header.s=mail header.b=d+61l2ol;
+	arc=none smtp.remote-ip=193.33.167.51
+Received: from mail.picomail.one (mail.picomail.one [193.33.167.51])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FA9606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 05:40:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3FA9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE488606A33D;
+	Wed,  4 Nov 2026 05:45:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE488606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picomail.one
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picomail.one
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=oEvwo11g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1793770776;
-	bh=XK14gn3afGjQO93vtxOK4rX2+8gn13HtO8JN2/VQ3Cw=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=oEvwo11gNhv/l82eQawvMsHRYC9BobHE95QfaRZn3cZ6gRzaZBdD66/M22mRPfY9z
-	 /OzKUGJkvaGZDrjxgpL8tt2ftayfREkAb7N10oTD2fnOynmGhqS3+T3MkrX+1blRHt
-	 I9OC369Wq8yLcOrov/W3iIyLrSYtN0VnC8zQQIrs=
-X-QQ-mid: zesmtpsz8t1793770758t3d36a38e
-X-QQ-Originating-IP: i2/274j8W+IzMMKT+4D6S+IUbWiQBGVsl/7IIyWqb4A=
-Received: from localhost.localdomain ( [61.183.83.60])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 04 Nov 2026 13:39:16 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 337138461145264766
-EX-QQ-RecipientCnt: 7
-From: Wentao Guan <guanwentao@uniontech.com>
-To: joonas.lahtinen@linux.intel.com,
-	imre.deak@intel.com,
-	jouni.hogander@intel.com
-Cc: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	Wentao Guan <guanwentao@uniontech.com>,
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=picomail.one header.i=@picomail.one header.a=rsa-sha256 header.s=mail header.b=d+61l2ol
+From: Jonathan Schmid <kernel@picomail.one>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=picomail.one;
+	s=mail; t=1793771106;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BKwR6wvLjW+5B9gDrCBFJwkCFubqlk8mVerXTeFaIhI=;
+	b=d+61l2olWB0XxVu6JA5e2MrmWLSIq+bNnbeMPLslKEPY1ZTspfAQvV5yFJzSofqHjCbBff
+	mXCGliaPjhwBBjptk+6MfeIzxyRhQWqaZdsfNjVzQxsjksWP/ejPSXJhfYjp+KbHqeBHRb
+	0BtYB4djvZGMB4LviodqbMtcazVCfJfl31hptHY0JfGDow/frzZxFn4G3geFwKBmuHrc0n
+	j5vb+b9DwEam1sOBO1y89b1stcvTK3KBdIBvz+Z9HOFH1su2iz5VAkHFDHyqGZ1/oDOeh5
+	Kw+8tjtpZ1tKoelxaoWiEQXFlEqve6wGAQof1evIH98j6rEB/FLd+63byFptmA==
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jonathan Schmid <kernel@picomail.one>,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/i915/display: Don't drop the async-put delay on self-requeue
-Date: Wed,  4 Nov 2026 13:39:10 +0800
-Message-ID: <134A26B6BCDD3C9C+20261104053910.1065103-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.47.3
+Subject: [PATCH v2] mmc: core: clear MQRQ_XFER_SINGLE_BLOCK for new requests
+Date: Wed,  4 Nov 2026 06:44:12 +0100
+Message-ID: <20261104054412.8310-1-kernel@picomail.one>
+In-Reply-To: <20261103192345.647483-1-kernel@picomail.one>
+References: <20261103192345.647483-1-kernel@picomail.one>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,69 +66,44 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: No4GWyI4cWt6Kjo7qRlUDJvLUFRLYgvhJadss/tsQS75ID9ohL0hTa9z
-	/DXUWU2zg34ePTZA5xKfrdMtA0U75LIW2PC0mwjG2zd4t+ARAKhX86MozyXkPubWHyYifYQ
-	FZgh4+bVuK8OUMXik+xh+ISxd+k6NS9yFDrhG5/TzW4v9E95pCBJAEjURkxqsOePpggSNdo
-	Elwv0XUQFW6KPdO//S1eIAeyhH6gQnrEqWj6IR3HVdU68lLX7z9N3Y1f14ufLnbhYVa+qNC
-	+EeorAKFIoHzetuduPsGp1RDsljjzgJWUPOuJ0Cj9P68Sb99y29f0kOWQkNLhemmYhe3bN4
-	3JpwTjBtvFDeMbD7gaSAJJ0BqEx2HA3OuvN8AYdBM1it3zbu4CxTKnyHb1Dmis6T5+oHsbi
-	YQEYjHU3FkaNQ/pxRQ6TwEs7NhGaRY32z5mNhPodiGd7shIyzztzyNdM4j8NY06J39/EF7B
-	8uCbwxILxR110wjU1gOqEStRKOLD2nE7T+Mn8LdePp7MJgRrSQ+QfnpiPainH9Z9yabY+UN
-	N8o5b2ZfNyzjJK168PPTjtT+S4HnaGJ2BKOi24R7GwRY4TPfkgC44IhF+9XBbqqwgDg2V8R
-	0XJX13qeATa0JihbbAno/uem+tPdnRV9c4ZbCaXQY0tEHP9dpYszBKjM/elrKwrSMIyV3BP
-	kCFzauAKrbEzETgaMpiYtV/1ovjgFKeij+izw1XU2RTIx7QaIO5aQavTYB+9MgZ6991CgN2
-	SdStpPa7Evql0wV64J8TBw72qJK+jzcP7FK1cT1mmWwXlv7YOzhxUNKYQOlstQL8tfmt7Hq
-	jiCq3k9CNheUb9OxPTwsp7s/MUf91OO/VCWefwmFUarn30DayODAbJdD2KP6AkGFdgQeHo7
-	8STwGqwSR7exNVz+JKWKmMEGZkGLwpRYzKmvwFT7t5+dNLb+NEMyWIBqQhFciVfryGkNm1j
-	73aJ7b/LIZUBTLhEi88l+6v+ybhy1plqIhfAUnS2k8gx/RaU51OfUSMrNZA6p9YqZf32KSE
-	6xKnsJafkbjy3Y6dUejvyQXZSIX6GZ3LQD4nq6+w==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
 
-cancel_async_put_work() also clears async_put_next_delay, so moving it
-ahead of the requeue in intel_display_power_put_async_work() makes the
-requeue always use a zero delay. That discards the delay accumulated by
-concurrent async puts, including the 17 ms DC-state anti-toggle delay
-requested for POWER_DOMAIN_DC_OFF.
+mmc_blk_mq_complete_rq() and mmc_blk_cqe_complete_rq() set
+MQRQ_XFER_SINGLE_BLOCK in the request PDU when a transfer fails, so the
+retry is done one block at a time. Nothing ever clears the flag again.
 
-Use cancel_delayed_work() directly to cancel the stale instance without
-clearing the delay, and clear the delay only after the requeue has
-consumed it.
+The PDU belongs to the blk-mq tag and is reused for later requests, while
+mmc_mq_queue_rq() only resets ->retries for a new request. Every tag that
+has seen a single transfer error therefore keeps issuing single-block
+transfers (CMD17/CMD24) for the rest of the uptime.
 
-Fixes: 30ca6365bb42 ("drm/i915: Fix assert on pending async-put power domain work when it requeues itself")
-Cc: <stable@vger.kernel.org> # v6.11+
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+On an RK3576 board (HS400ES eMMC) with occasional data CRC errors, which
+are recovered correctly, sequential direct reads dropped from ~200 MB/s
+after boot to 3-10 MB/s within minutes and never recovered. The host
+registers showed only CMD17 with a 512 byte block size. With this change
+the read throughput stays at ~200 MB/s and writes at 60-90 MB/s while the
+data CRC errors continue to be retried.
+
+Reset the flags together with the retry counter when a request is
+prepared for the first time. Requeued requests keep RQF_DONTPREP, so the
+single-block retry of the failing request itself is unchanged.
+
+Fixes: d34124edffdb ("mmc: block: Use MQRQ_XFER_SINGLE_BLOCK for both read and write recovery")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jonathan Schmid <kernel@picomail.one>
 ---
- drivers/gpu/drm/i915/display/intel_display_power.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+v2: use my real name in From and Signed-off-by (Greg)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index b000ec001ccfc..7da6eda46e9e0 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -873,7 +873,7 @@ intel_display_power_put_async_work(struct work_struct *work)
- 	 * Cancel the work that got queued after this one got dequeued,
- 	 * since here we released the corresponding async-put reference.
- 	 */
--	cancel_async_put_work(power_domains, false);
-+	cancel_delayed_work(&power_domains->async_put_work);
- 
- 	/* Requeue the work if more domains were async put meanwhile. */
- 	if (!bitmap_empty(power_domains->async_put_domains[1].bits, POWER_DOMAIN_NUM)) {
-@@ -885,9 +885,10 @@ intel_display_power_put_async_work(struct work_struct *work)
- 		queue_async_put_domains_work(power_domains,
- 					     fetch_and_zero(&new_work_wakeref),
- 					     power_domains->async_put_next_delay);
--		power_domains->async_put_next_delay = 0;
+ drivers/mmc/core/queue.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+--- a/drivers/mmc/core/queue.c
++++ b/drivers/mmc/core/queue.c
+@@ -301,6 +301,8 @@
+
+ 	if (!(req->rq_flags & RQF_DONTPREP)) {
+ 		req_to_mmc_queue_req(req)->retries = 0;
++		/* the request PDU is reused: don't inherit single-block recovery */
++		req_to_mmc_queue_req(req)->flags = 0;
+ 		req->rq_flags |= RQF_DONTPREP;
  	}
- 
-+	power_domains->async_put_next_delay = 0;
-+
- out_verify:
- 	verify_async_put_domains_state(power_domains);
- 
--- 
-2.47.3
 
