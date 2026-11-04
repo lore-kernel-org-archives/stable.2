@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819579;
-	b=Fv7BDA4sjxEc6lnMoz0XocGARrAljtXB1oshIZrkVAbz/o1X962A9Oth26bz045PoljG
-	 GFq+G83m5RaqtVt0XxKX4G5xoExlmc+iYGalBUJ5fmOAPwQPMamurHqa9yXqgSRVvxPjT
-	 lxnTcUg5V6ZTiqOSvXVVxI3KZXWzcplZtmDOntcKatPPAbUujOtVRd3v5e7UGUXfImzCB
-	 Sh/SrGqryM6q8SAnShMnyunD0PX5ysmU5l8bwNYEUn5DKdfcOMI4r8LXq+JH5FtSlIWxz
-	 WPTzuKrabbM1bqsR1dUPyaHRwRarRUXxW1D7VY6V7b3dg3bh5xRl4Ua54VbICKH4hEg==
+	t=1793819581;
+	b=M+QA1AHvJUPZtVx5xYe4HXxUdSEtjkSRH9UGNqobEZM5PyTF0fZP0c2yF9XG5PjDKZcw
+	 sl8eDAfISoh8b/7jPgdMGnbePm8vsd7v1u4n1XDwesp7GpGocZtcAvJjb/+c3V/r9gApz
+	 OE3Y34sHzmG+TimNUQqV52J8zE6+ZYijY6ShR9UVvay4tm2fPme0zdFLbC0t5V5Xf0XKJ
+	 jNU5GUcuUMLLOqzndH+ENZ9FF+cUlHnuTzgp9NFZayIiwkU/dLzjdYkMhU3rO/zhBzc0w
+	 eMvC38KKbsV+XV925KFfQ47SxtpiKTkgN3jAdhkk7lD3vsRcvawIvxEsoG3lQYdY/eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819579;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819581;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tOuwChh3n2i/CCKIOn0rBoN6siFRe7vr7ZpJubyvfrI=;
-	b=GTFeZO5vtLe4wnzGmFtAViuXMuDSdi7EwV08iGECILNhk61NNhDRdVkLP47OITIEQLjI
-	 k2jvVHvZPKD6svtrgZRHZHG0Hm/K4PccEGR5O0AnryglCRs55jI+OZ6eK9+cOTMAtrdjM
-	 Lyhah0m1ErupFsPN251Rt8BBFk/c6IM/Ny/6AuRfFfg3ukHmgqeyoXJ4nM5WBhDgIs9wT
-	 KVOobX5NA/nydCgkKGAdBjImTtf4j6Vw2BEoYLrTvXYrGpf/wZBJgYv4u517/2thWpcbP
-	 9JPRrCooShX+0MwWdgG5oTXwe20eKn68Q3YZ+iaEKk4/VnGcIN3J9WCJqEANv9dZlpw==
+	bh=eqNGA4CYuj7O1vvRr1HTTNtW8xWQuTV/GN8bXO6GlXo=;
+	b=uLav6n0eezctPXG/d4JX9B/EYUT/tJ9cR92+MGA2OiVvI8G4Wuey/phqn02MBsgyZDyL
+	 9X6Db7U9CLG34k7MVW1xlQcJ6WWnGS0WN4rHo78hhi2uBM4QpdsoJJEJcnliqshL1kUUE
+	 liuFJJ4zbbeA9/9JtmC6TLz0Ya2pQyJmQmZE0ZZJuZXEDq4tuAbTLLx41+y70Ts4jwGgs
+	 HQRgdnrUhLoHJDsSLCuxleEI7zLHJ1mDJ5RpdFlA557ROqIc4chRA1Q8ZvuzhwkEAhyfg
+	 NMrstt5goyn0gm4VtQpLbBoO5nuRxL4KvDwaEhshbZ+KcNDgXnNYOM92TNOu1I/PckQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=isFLt6HI;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oExmRapN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953C5606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:12:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07AE0606A32C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:13:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=isFLt6HI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D28C41F000C1;
-	Wed,  4 Nov 2026 19:12:58 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oExmRapN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E6C31F000C1;
+	Wed,  4 Nov 2026 19:13:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793819579;
-	bh=tOuwChh3n2i/CCKIOn0rBoN6siFRe7vr7ZpJubyvfrI=;
+	s=korg; t=1793819580;
+	bh=eqNGA4CYuj7O1vvRr1HTTNtW8xWQuTV/GN8bXO6GlXo=;
 	h=Subject:To:Cc:From:Date;
-	b=isFLt6HIZ/qFxesz9z0wvYPWEm4/n8bInbMMMN7Y9DCY47ImWVWi98oCj5G82RIHh
-	 cpaV29gf2DrQIrxdOpueqU9tlkpgbbjschnkIGZFFLjgnf59eA+QB4D4p3xd+kZktg
-	 AnLBbVzljr7yLkkOEUTO4sZKfhDOiQjRkgskpf4E=
-Subject: FAILED: patch "[PATCH] rxrpc: Fix lack of short-send handling in" failed to apply to 6.6-stable tree
+	b=oExmRapNnagwoUzurLa5X2sjZlL5yg9S+mSHR4GIJidf8MQ2BHR3ceMj2s/wpcE6D
+	 X8CAG2MID0ndzilQkvIykMocSgcr3eW+8FIRdMGgiEG2rYqPal3VdoHLGM7lO84hW9
+	 qgsPrptfHIpkL3RnSwmYkd//S8WxuaWnVcf5S19M=
+Subject: FAILED: patch "[PATCH] rxrpc: Fix lack of short-send handling in" failed to apply to 5.15-stable tree
 To: dhowells@redhat.com,davem@davemloft.net,david.laight.linux@gmail.com,edumazet@google.com,horms@kernel.org,kuba@kernel.org,marc.dionne@auristor.com,pabeni@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:12:56 -0500
-Message-ID: <2026110456-reptilian-nutcase-5df7@gregkh>
+Date: Wed, 04 Nov 2026 14:12:57 -0500
+Message-ID: <2026110457-omnivore-causation-3731@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x af208f36ae22440cf6011a43cb3064fd525d85b4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110456-reptilian-nutcase-5df7@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110457-omnivore-causation-3731@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
