@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817105;
-	b=0BEyxFY9ECCKgEyJxlF9e/nXauXHOoruIJUM3q+Mff0SXbK6fRrGdrT/5DA2sFCAeQnh
-	 tZv93yw2guUHoZNsYdOFkLGP/3DTzLNfl24I0vUjrotcSG9S4nlGYbDMmDlG13SM+ROa1
-	 Z0GmCH/AL957SHVU2RNlmXrZ9Y18Fm/4fDTC3dv3l/gvyDhTA3EuJGmYOunV2dAKChN0C
-	 TyE6Esl2AwzgYl71S9kSRPteGDcRBjLxikrgbgIcfsuOx8W0s/Lp+bnQLsQkYfbMiA+Nj
-	 yfpJfmwBLngSHYNFiUpGAXrIAIqwen+wI1VpP/15xZrL4HzCgT6mZ7b8FwF6WBFr9qA==
+	t=1793817106;
+	b=ctwIbQM5lMRXsVu9yHt7G/8gIk+rNqNT0Y62OChPHcoq+ZK+srXXqipt6FaIrRwf54Vg
+	 BmnXfHHm7YsBJ1gzrDNxmYvpQVwJFebYkxHag8t956lVVGUE8q594/05JhxXeQDwvc9JY
+	 t733uVk+MoWHOwyW5ag3nVvN8gI6mu/iq3pR48v1NELN+5z+agC8/YqYJVlNQ1en1VPIv
+	 w6PHlCD5beLmprNlXD8s215Hx6/zD1gQgoWGB3lP537eKSOydPXMtTXTyPBJ/6b23ix3E
+	 RZz5h9jhlGQ2ZpZgR9dUORBdND5njTc+gLz2OS+VtS1HerJYhu6T2Z+GUcr0oa39BNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817105;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817106;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=sWf3cYtTPY5eG3fGpO84ehBGNjdfonIHa6TUM/ypILE=;
-	b=3L/u+XOKt21zZ9TALNjlHpLHDShFaMJKqhtKaaWy11MC9o2HhxT476qBY6/rOAYTteWg
-	 AHkJzLSHUmsJ2yTtlH4/q5W8F9wV3fYK5UPFa3DdHe/tWpGpPTiu1ZqmIe7LKKt09EgOW
-	 Mu6l88NzSW52uGQLYOAsJxrsaTIB+uF+3fvuvQrj6PYz4yn2Mw9oWnzr10nASgYOUFv23
-	 DsA4z9On/+c1qk6a5jyDjKnBSXC/MnEZVKax3nZsTRgcfad28wuTL8Q1JoNMabSQNwGoz
-	 cQKsJu+08kpZhTZxjozqhT2Kp3/v/4vv/RjN/Ei/8o1CQ5+Ql9GsLbtMPWdndy1Uh2A==
+	bh=kuOQPJNaCZ+bc4l7qS7ZYHU/7VAqXHEK0xhmM6+JD/Q=;
+	b=EkbZIh7hoHOkq/bNQXtBvoEMR9nj86oc6HB7AzPFq1COk0uR8sN/RGpO7dysVZcQJUaK
+	 9VMITfKXjJOmeYK6Y83qvy2vz+HRaJqR4oCU/8qPM8rNhCLs96Cg74GLqaGGl0vXSevuc
+	 LT5LTF7emBaHBXiMqOpaDTjBKNj9zMbjjpPg8tEP0IaDEAGxSpPnu9H38uD4hX2wPZzS3
+	 eGiuBFaOaRJlFHjHd//Eis6xLsFCCLlKuKNtqsAZJaTWlibImv8LJi4uHbjamQ8f7EqH6
+	 n3wSnqiMe0rt5UOmZlsdhiHWz4x1rX8oxOcGt4ct+5jNtubnWNL57/15playCoFP1og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oFz78RJy;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tannaRRT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC238606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:31:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9800F606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:31:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oFz78RJy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 573021F000C1;
-	Wed,  4 Nov 2026 18:31:44 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tannaRRT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D998A1F000C1;
+	Wed,  4 Nov 2026 18:31:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793817104;
-	bh=sWf3cYtTPY5eG3fGpO84ehBGNjdfonIHa6TUM/ypILE=;
+	s=korg; t=1793817106;
+	bh=kuOQPJNaCZ+bc4l7qS7ZYHU/7VAqXHEK0xhmM6+JD/Q=;
 	h=Subject:To:Cc:From:Date;
-	b=oFz78RJykzkrrqJ4neZxLJQWYu3xs2ubAXW9KtgvFTTG8t74kld003zQMg5bmA/wN
-	 0jKikXAZ7LjxnB5EZoxyaBywR9QCwFYnwITXk9Hjk5aiS1bqIsLolcjNwYdukY2XHk
-	 Q3xFF8Y2UrR4e1p0umo6yfVgmsrqI57tKamVcmkQ=
-Subject: FAILED: patch "[PATCH] smb: client: fix slab-out-of-bounds write in" failed to apply to 5.15-stable tree
+	b=tannaRRT70h4lOrsLBpafj85xNXeSye6Y7qSYOewWEeztNB6Ogbk6EgFmvA+wBdP4
+	 ADN6FWjnVpKCtiEymp79QD7URs0bNl8OcY/XACQ6TGGT4eQV2g6Q2dpDT6sy/KNqWQ
+	 gDpFBXPrcjdagntEeGbmgbnGQ1UHNpi90L+jc390=
+Subject: FAILED: patch "[PATCH] smb: client: fix slab-out-of-bounds write in" failed to apply to 5.10-stable tree
 To: dmnk@google.com,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:31:41 -0500
-Message-ID: <2026110441-marital-prelaunch-5744@gregkh>
+Date: Wed, 04 Nov 2026 13:31:43 -0500
+Message-ID: <2026110443-name-around-1b66@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x a377a3645c7d0246af0bc4ef24db94bb2670bdde
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110441-marital-prelaunch-5744@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110443-name-around-1b66@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
