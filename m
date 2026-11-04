@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802601;
-	b=eqdB1slXJ6eTs0KlsCmhMDMdi/wZKwH9cRzzTbuPF+URDPJUEmGb3EH4qN+HxmAJz7Fs
-	 59y7V0AcZ0aQATlRu9zGHPQdLeuTjursw2Qz/AmK0mmdzRYV3eUSOArsu3MxLwIUuyGN8
-	 DJ7osmMrQ0/o+DlQ8yFzRAbPpHa92L0g5UYI+1OlzpFtwKfx+aRCVsYuLGWAkRKvJFKEx
-	 4dOR0dSMnGK03I3JLH27OKFnjXLjnBBKc5irJvlA+9/UyqFgOkoH6t5epPHDT3nGG62lG
-	 zY9JA+l5yBiq0dDdnnj0cMw1qXFdJTqaFykU9aL+pXLDPygdbvlR/qmSJ/xq0ulqELQ==
+	t=1793802605;
+	b=2buZx03HL9s02gpisdJDx9Lyo+qje5WUuSRcFiMtEkYnAJA7vZJlfkkan2GUcQs8e/V8
+	 VUZRss75m0PJu0I7Y4rvu0neAf9DiLXxUz0c9hNL7RGuUNP9l0I5t95kZgfz/vqH9Qv8g
+	 oa0MspgDz2sV2MKXWcfncI0RYE8SEOJIAWQlRfD/Pt/2zw+PblqSCJv4ShuPmm1WNjSvE
+	 Xfkgk3BvWsiN7B23/Y1Hy8HHF/Gvt+4D5hLVGlDTds/uQEZFvmK386Zd/4QOECHHNsKhI
+	 Q8Cyrwuc8UmzOp4DSAKYDOL14VJfc/QHgA7fOImZ29wbSNjWTF6GUdGJ++ooKGq1iQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802601;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802605;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=aisc/z7fwZc5IsSoEe4hbxfQEFnhFlkifQDVnoVzTNU=;
-	b=pWdoOvRe+9S1cGTXbtIPVb16YB+ck598XNuMSaZX16VND51QWZY7Xjzp01Ty+Jwk23rz
-	 NBSV3lWT7ZJxTHSGzqRTmZqMQSb/dh6XgQA98iSYfMpSWjnL4rGtTQFkt8fNy/nHDvuCo
-	 tElyBQciS2SD0uwZCcjg9iOPbHurZ2h6+xVgopGy2G2QEDdFfhBF/0G5ePKz6eFlJHrVe
-	 M9EA9fU+nadouQILv/E6LD9K8l4FvCOExwfaQh7lz5B1D/OwQAdB3OC6bcF3bDsjWmBAD
-	 NTCmAqaAfi0hS1ZNYz7/JPTU6HJLhp5Lm5VD/o1JlHolej/Q6vjjT/KZSqxhg6W3M+g==
+	bh=FZuSJn45mgYe82S2uf1Ywk3pYrqOlV4CT/q9HmmryAY=;
+	b=1oNUt9Zu7ToRZ8XW/IvkcySHsCVLBVsT4cH5y7CYU9EedcXJFRi7QBngR3wpuXsRC3S9
+	 Qw6crxdwo/a0XfNtPMGWAvGnPTuZ42h3Z5jsdAS3bVXZHKE4uOUF+cojxmlY/6GuJQWrk
+	 jaNflgI8LeuI2PFXb0u+aTEZ5/HCqFTvvPVm23NeJ+OIJ69Vnpk5l8NprQ3Ky4CPa9ovT
+	 yhZ+QkxFFgl4fuxbeJbH2IUwb2CDFSFWWmNHPDGCdwy7a056iMxWNizApiuE4OrxGvGb4
+	 CdUFaR+Q58+V6uXYlMk+ZWEr7l5Ux7I3LTPkCdz2EgUVcC0boz5FoLUttx7CE4nlfdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=j1roFFif;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hymvPimB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC3B8606A330
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:30:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C9E606A331
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:30:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=j1roFFif
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 803EF1F000C1;
-	Wed,  4 Nov 2026 14:30:00 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hymvPimB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B3491F00919;
+	Wed,  4 Nov 2026 14:30:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802600;
-	bh=aisc/z7fwZc5IsSoEe4hbxfQEFnhFlkifQDVnoVzTNU=;
+	s=korg; t=1793802604;
+	bh=FZuSJn45mgYe82S2uf1Ywk3pYrqOlV4CT/q9HmmryAY=;
 	h=Subject:To:Cc:From:Date;
-	b=j1roFFifRsAi/po51/roFpdSr+A0F/8D8akc3QH2coy+xTcWQkTEzqLXvzR1jjbSD
-	 LCR9NH0wJOzIidakYgx0fq6Gi5bh5XySmgnHX7NoE+E9s9nj63bNy9eidLyyBPcDQZ
-	 RxBmAaKMrp9Nkg/cH0xKBTsJWVTVaZq452/C0+2A=
-Subject: FAILED: patch "[PATCH] nvmet-auth: serialize access to DH-HMAC-CHAP state to fix UAF" failed to apply to 6.6-stable tree
+	b=hymvPimB106pu59G6LK+LppqTLRtSVFJ/wI4FNKu2s41h+8ky0XXo+p+23N3f9wft
+	 /EmwEjgu9gGSNe9e17/F2Jd0ItBQ7Ppz25qtzKs8C4t37PbFiCyTtg7GKvSrAg8AgE
+	 pgseP1XQhHlfhrlzXzdLtSToaFDWuumnS28srBQo=
+Subject: FAILED: patch "[PATCH] nvmet-auth: serialize access to DH-HMAC-CHAP state to fix UAF" failed to apply to 6.1-stable tree
 To: Jeremy.Jean@oss.cyber.gouv.fr,hch@lst.de,kbusch@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:29:58 +0100
-Message-ID: <2026110458-chariot-kinfolk-545d@gregkh>
+Message-ID: <2026110458-unstylish-quit-5401@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 53f6efe00cea0c0cf7bd99debe3cdac8567170b5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110458-chariot-kinfolk-545d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110458-unstylish-quit-5401@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
