@@ -1,92 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817963;
-	b=XqRX+5ZR0zIK/X7D9XUY+JJY7ZS1pUUQscoVHXfUu6KK/gb2eUTRl+b8YUrsELZ1SHrK
-	 eXrns7ywuSds7Qzm9TgkwdM/dQHAPmIF02TrSJdgnIwsNpp3vj8f8ntkY/GaXxr0JhwUv
-	 cRqTzqtoAA5HsYLf+Vx0aAXlS5yHy+Cwc9g2ACbWwqYWzSx/dqVlgQ75fJ38pw0wT5ekI
-	 qqGUC+9xd3kL6pglHkg5IBUQfCYnYRSU/+VcM5x+zy56ZKAPQ3daMxZciJpB8N9OehVwI
-	 G/VT9DRGLQ6qUpJyDfOo56XDi80i1fmhgJqTBmpp9ZZ6p/fqYBUmt27DuCcX6FqrRHw==
+	t=1793817964;
+	b=d+Mqr0h2qb+JVSTXL9h/hMJQ7DTFgwAcHs+dSlVxmN0283L5m+hpLA053ENSk0TyA57A
+	 ttmp1k6pzrxHp7ZQKuCLPEynprUYlBHsZWt8CBaG3RZw90J6yC8zJ7QqLlLWLb9Cwn7e7
+	 ufUJfhfCXfvOmgbKRRVtbSLlfIBhBwDd1AiT8gUyiH2yNJT7x3D9tqa1gyZZDMJ/mtWUh
+	 8Af3g7bC+lVpdicqLjNQJxwHS3+hGwUR7uBzKHnwBJbj0DUFUGErlh2kjOvsb49AkRuKq
+	 j9hHmRA0W/1rwFxRhSR3KQI5k9gkaz2rVCMQU+hpp78w2yzaBnN4lFLw3WgUa1m7L0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817963;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nqWygjB4JG7NSBHpOz713BnlMKlP4sfn/CuveiDDwh8=;
-	b=ebmOrSnLhDZkmBNNcVGFlz2Fh/nLd3hbTSokikokMSLxofomaGgDZ5nSjdQy8trOkbEq
-	 YqcZX0PmX4MTSqUBGoEy47OewknleObXeIN9cWwfpoHVs6MvBI8NsMmv89PhODPLhkNvU
-	 +xGwZ/RH4/dSEzVpQ6ERPj2UZQcUnW+ws5GVBmmxR+QHLdt0WFrYwIIx2jhu4eds2iPSm
-	 4T7MELtA3rS7DbYwzDOqFldmTHE181Zk8dQqamWI7aZ6x5+ZaAxQ1uW0OfQihZ/sWeHdY
-	 FNkxDt+SWF6aaKKIcWr/9koP5EaDDbDt5gYQ12OYS2iWNydXq3YyO2AYlpENKAxKMNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817964;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=NLJi6rN8hlut36Aw8vg6qfBkeXYMUAR3++hw4H28h4E=;
+	b=HkHyma2JEINsgvbdi857fSAsRv0sy4tMG0BQJCC4RBoLqBnj0N5frNNA5VjXoBE1tfdj
+	 15snHV07z5s91IuMdAlVGJe5yAmxgLloGm/H/fD0uu0uWa3o4gl2yDMVJMIb10TvIiWTw
+	 TC3m9ilPgLn6sgNdLb04PiqjB471KI6RYYn7QvqHFNAjSTWb6OqSnK477+fyWz/r6B4ub
+	 K843aZZYp4XQnx/xz5rdPm5fts31X71k554bqw0YOTgqeCS5aSDd4ayuq1DX0FyLcBbt7
+	 t8w6WyEQ9D6G40veT95v0E/c8uRKvmRkFRmtCyraziIfCvaRqrg9S/mJgYIQQtdgvkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PyNF8nNd;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=crLZvi0A;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980ED606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:46:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 980ED606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B4C606A332
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:46:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PyNF8nNd
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso7279525e9.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:46:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793817961; x=1794422761; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nqWygjB4JG7NSBHpOz713BnlMKlP4sfn/CuveiDDwh8=;
-        b=PyNF8nNd39XownyPdNwIKIUCUGOPxzGbsjTctjyXhGR2i4UGM25iCo3E9Ne8a08AfL
-         QeTvblDtWqmAfM4rz8Gd/mGl9/BZ22yI5fPc4fyqHBoySSs2zY51Mx6f/kMqABgYYk0m
-         Rh4ni1wWjQlfqE4pKmLFkXnpqLa1/b7EgFpExrQ083RUam3BYabWNW8O6Ejqh9tOAAJU
-         eWjm/dI3GRLkIn4LTDZ2RDnPI2cmuNuP8Q9RlCjK2+gPXs73w9UaSh+RD99xggPnjgSL
-         GTkCln7N/ej4HVG3cmpixClwdCCU8JEgLJX2gTH9Rx0aEqi8I7EOoSWQ7JCE9eU2ThlT
-         O/Ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817961; x=1794422761;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nqWygjB4JG7NSBHpOz713BnlMKlP4sfn/CuveiDDwh8=;
-        b=Xiu5sFVZfylQg+oev5wFnt+lvbpmQM1n/kEki+MP2ChIdGM5FSsWrCEdfTWdi4v5lI
-         StRi/EqMB8+FYWFjs5cZPqNlEyG2aVMo5yMjix/yGU6TAQyX1kimR7GZjaI0zuf/pask
-         f9Iq5So2cjph8HwlmwoDpztm5dsSUX5GP6Aws7mFSZbduvC07kLZXRFjnMaI8uTCr1BP
-         etIf56fh4Seac4ty43Kdx5QUVv14PehA4NhxDDzoGya5yeXt+n7eJVz5shrU8qxTE6Ax
-         x2zFvf1zkihMHHQo++ii/AhHqIyXootd+wNuHbrE9yY6wuGsYJwb3LrwQflYlv/T9ETy
-         0zUw==
-X-Forwarded-Encrypted: i=1; AKwUvBxeTC2XOawSok4hYs2DSHm9bQRWYvGeNL8szoj2mluJ5NiXwBxDLoqVmFXWH4GPT/X+QskB6tw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ZniccXjUS+4+MVJfqi4m061jSx/Cky/ZE2eTBaQVq7Yx/FS/V
-	zl9Vd41fav/1g7iMvdC6qHtZeENBam9y+ktw4BvBbEWRT0E/TbJT+Nmd
-X-Gm-Gg: AYBFou2eHGNSfYlICGFGkX+vpj4c1xzJwjw5498BZiE84YrN53onXvPvWgnWskPHcIg
-	o8OzFu1opO0G5vZYut9v8ccib9G2CsR+7Mw2AjtmDDyDqhwWn0VenK5VVbuXsWkXgODtppISMRd
-	7WyL50nB16OCKYMUvAx3kABHSxISDzyYDpxh/mNbuE1pkDTp8W5sqe+l275yKLwnHixDyGRoigN
-	VJZVAy7BHujNFUBSJXQ/7joOglDPqJTCE8ti/oKuxy9c2q5xoOmQo9BgSZgocQr4H0AJlOyHac6
-	TYXf0IQcWz4XY1+D5mLZN5cbYhYj3gzz+SDswsRHTnHpoaMu0YsMPZvmeosK5zz14JD4RgYIVQo
-	0cZg2trIDofvKfoqvgBJLGTr97wfGtulAxAg1Okcll3AwdMWBPfW1a5b3RFoDDkTs2d5DJIOa7B
-	UAVgGsojcbPya+Xxd2hzGlTKg1G59AQEHKoZTMA9RRvL23dv0CoBPA5i6WdHoWdzgT370bWlDGw
-	QqNQqLzqFU1nVnfpRjZnvh6OrCUwd/aL6yOgDI3IFiFoM8W0LGLpHzLlxWE//BCmzzxDfcZ4f0d
-	5ZxtHZZHOxDBgmvVoU1PXjn73lSevbHT6Ef9ff7kDmFpIIqaZxpLBFXCr+t8WY55xxbUdWuyqZy
-	Pl1Iz6upA4Rb6dg==
-X-Received: by 2002:a05:600c:3f14:b0:4a3:59ee:86b with SMTP id 5b1f17b1804b1-4ac14ec873emr370310855e9.4.1793817960966;
-        Wed, 04 Nov 2026 10:46:00 -0800 (PST)
-Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba0f3sm3126655e9.9.2026.11.04.10.46.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:46:00 -0800 (PST)
-From: Amir Goldstein <amir73il@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Miklos Szeredi <miklos@szeredi.hu>,
-	stable@vger.kernel.org,
-	linux-unionfs@vger.kernel.org
-Subject: [PATCH 6.6 0/2] ovl: backports of fixes that failed to apply
-Date: Wed,  4 Nov 2026 19:45:57 +0100
-Message-ID: <20261104184559.3630145-1-amir73il@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=crLZvi0A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 471531F0093A;
+	Wed,  4 Nov 2026 18:46:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793817963;
+	bh=NLJi6rN8hlut36Aw8vg6qfBkeXYMUAR3++hw4H28h4E=;
+	h=Subject:To:Cc:From:Date;
+	b=crLZvi0Aufj1pEva4tQhlXgKsvfQ3EmltrFsP7b6duVjZ3D4Gq9E2CiHmyyyuZ6Qt
+	 WhagzJaqYZQTnSRokmcfEtjkhU+L1g4CRnI4WVnfrXoUqq8RaajgsFaq0F8S02Bo2w
+	 PcPZy+FMPwODFl81bGhf14A8NVHcJjv2eyMXyxgU=
+Subject: FAILED: patch "[PATCH] NFSv4/pnfs: bound the CB_NOTIFY_DEVICEID array count before" failed to apply to 6.1-stable tree
+To: ben.coddington@hammerspace.com,anna.schumaker@hammerspace.com,bcodding@hammerspace.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 13:45:59 -0500
+Message-ID: <2026110459-venomous-panoramic-8040@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,33 +51,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-Greg,
 
-These are backports of two overlayfs fixes from ovl-fixes-7.3 that
-failed to apply to the 6.6 and 6.1 stable trees:
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-  65bf000962a3 ("ovl: take a snapshot of the name for copy up")
-  4f61ff2ebfb3 ("ovl: use the pinned upper dir in ovl_fix_origin()")
+To reproduce the conflict and resubmit, you may use the following commands:
 
-The same backports are expected to apply cleanly to 6.6 and 6.1, so
-please apply this series to both trees. The upstream commits are
-already queued for 6.18 and 6.12.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x 32f0967ea296d447925465c98e7eec71d4e2f755
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110459-venomous-panoramic-8040@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
-The patches do not depend on each other and can be applied in any order.
+Possible dependencies:
 
-Thanks,
-Amir.
 
-Chris Mason (2):
-  ovl: take a snapshot of the name for copy up
-  ovl: use the pinned upper dir in ovl_fix_origin()
 
- fs/overlayfs/copy_up.c   | 16 ++++++++++++++--
- fs/overlayfs/namei.c     |  6 ++++--
- fs/overlayfs/overlayfs.h |  6 ++++++
- 3 files changed, 24 insertions(+), 4 deletions(-)
+thanks,
 
--- 
-backport
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 32f0967ea296d447925465c98e7eec71d4e2f755 Mon Sep 17 00:00:00 2001
+From: Benjamin Coddington <ben.coddington@hammerspace.com>
+Date: Tue, 15 Sep 2026 08:22:05 -0400
+Subject: [PATCH] NFSv4/pnfs: bound the CB_NOTIFY_DEVICEID array count before
+ allocating
+
+decode_devicenotify_args() hands the server's notification count
+straight to kmalloc_objs() as the array length, without checking it
+against the message that carried it.  Bound it the way nfs4xdr.c bounds
+an attribute length, against xdr_stream_remaining().
+
+Fixes: 1be5683b03a7 ("pnfs: CB_NOTIFY_DEVICEID")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Benjamin Coddington <bcodding@hammerspace.com>
+Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
+
+diff --git a/fs/nfs/callback_xdr.c b/fs/nfs/callback_xdr.c
+index 88e1af0fda01..b1bc2c02b5a6 100644
+--- a/fs/nfs/callback_xdr.c
++++ b/fs/nfs/callback_xdr.c
+@@ -271,6 +271,13 @@ __be32 decode_devicenotify_args(struct svc_rqst *rqstp,
+ 	if (n == 0)
+ 		goto out;
+ 
++	/* sanity check the count against the remaining stream */
++	if (n > xdr_stream_remaining(xdr) /
++		((4 * sizeof(uint32_t)) + NFS4_DEVICEID4_SIZE)) {
++		status = htonl(NFS4ERR_BADXDR);
++		goto out;
++	}
++
+ 	args->devs = kmalloc_objs(*args->devs, n);
+ 	if (!args->devs) {
+ 		status = htonl(NFS4ERR_DELAY);
+
