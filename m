@@ -1,47 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818225;
-	b=5As8OeQGxKQJ9Rj3BT9vA8vCrOw4JBsdCX7fYk3RcKIRnk6tfYk5LLDwQXcQ1159paQf
-	 ff4rppYxwJZTf9Fu9upGhbUzpkIz0tIseRnU8itvLx8zEWgXck1WowuByqoGCn6VaYNaD
-	 pf0TgzqBAyFdVwiC+L/9TX2tTrr8hbaG/q96RHljTdjThr5MnYJU9kD/Ev9k/Vk4EytRl
-	 tEY48JY18XOioPSw1i8WstH/b5QRToAswcTVNJAb76SiKbgGs4h1j39hWXTj3i3EIUIZa
-	 EuMaY+p8nah4XLugNMFF0zDYh6MP3Nbl/rAY4bIhBoupHsk+Voq/yxm2pDwv/A55XKA==
+	t=1793818297;
+	b=OwQtsr8ymmPKtrOG3KuU/U6a0WueIBB2IwR+NsBg9xMdVDBPdDcA1Foyewyfk+f/ADwr
+	 7Pim8pcA2s/fHP2gUuueYUbj9pEYoiTq6GS9Sg1A3igpiqJUNhvbCAaixoPs7kwiC+7f6
+	 32ugbPBqQY9c0Xf3mG2w1mBJRPw7QhqtdvSUBaGgWAW6HOnmy1ZtxtaZT37fE54dQ6zU5
+	 5q5kXiDefzgUnqzY3qLiak1Guv3CzmWPP+838e1kCGHUDJADUqLfjt7YDWubdduKf1PDh
+	 Lxz3gM+YkLgk4dkBTQHnr4x7zjPUzHeq7bF7Szk/7UXfdKjKbqt2BUgq9/DnSzj1q9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818225;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6Zv+BT3bE22RbVUhD5Qgxs2OoIkBURnybnRIVyokLkQ=;
-	b=wbsFTFBOhUeuGH7Xkgtq83KSUb87hjeE6gT5oSpBQMXh10CzC5EZZUoYAnndmtVeWNFs
-	 PikTExLCrybzHOIlny/FqiyboRZFwq4UJY0SiNzqoYw8qu9DQ+JcqQ+y+53/R0o0OYtFn
-	 svtop32naV+XQTCW2/swfQAafidQRjgUPVQvOU37irH9tTUHflbzXYEA4Oy8NGARlnEU2
-	 ry3bi+1It5NktZ5pQGK6ML1u6Sub+Wf0HGVxpW3NlQy5XyoF7pbR178D3I/PKRvl4o5Q8
-	 lofdu5gY65W2Qmq7pisuRNrCf0FPcNy761auJPKUd9V/UheXaL1NS93yRlk2jjAfTMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818297;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Mrr2SsBpmVWLOIEOT48PyurnC8zgreuJ7g0fGQKuitk=;
+	b=X0KTGz/1QkuN87gqFOccUkxaeYVEGV2ooHbcxzEJv3ie/p1swYUbymSQMafuP9dfPEVL
+	 +Rd+0t7o3fcPDQnqQ7q0Mhx6CgjWv1kGeogruNE6gdnGg6fgKWrNZd6Co2cee4TnuTCpl
+	 lXuiuTUs+ci0poOy7NSWYqq1oGgn39DHiahct/gs/vLyhWV46tyyXKikhAXj//6SBUsx5
+	 vvXQ6dzCdUNwNzmETJ9p8DerTmkXvfs2QPtS5ww8D9tQgE/oCQk3IO2iKvwHX2duHzk7U
+	 Z4E07uaXcZUbLylutLN5f7hBNPD3fO8V0ko7qF7wl1tLqPEOzcO7Jqea7o4XEH/E1sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tXvpOumX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ADtGWJte;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0416082BC5
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:50:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5B7F606A330
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:51:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5B7F606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tXvpOumX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69C901F00A16;
-	Wed,  4 Nov 2026 18:50:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793818224;
-	bh=6Zv+BT3bE22RbVUhD5Qgxs2OoIkBURnybnRIVyokLkQ=;
-	h=Subject:To:Cc:From:Date;
-	b=tXvpOumX/CLBKdv4a82dYMOrr4+Gwc3jtR4bLzCKFs9iTfyQVMBFZ5Iqkg5CdOeRN
-	 h0pfUbhPiPiffJyOhshSzhyPtFEZix1t2rf0ZFlagaz6VJzTgWlXJpauqWM53AFbtz
-	 vm5IdnUCfe59vLPybVA1kJ003lurbK2lUzqYJfyA=
-Subject: FAILED: patch "[PATCH] nfsd: don't offer flexfiles layouts when NFSv3 isn't being" failed to apply to 5.15-stable tree
-To: jlayton@kernel.org,cel@kernel.org,itsme@benjiwiebe.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:50:12 -0500
-Message-ID: <2026110412-uncounted-lung-91bb@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ADtGWJte
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-490c1d337d8so347778f8f.2
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:51:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793818295; x=1794423095; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Mrr2SsBpmVWLOIEOT48PyurnC8zgreuJ7g0fGQKuitk=;
+        b=ADtGWJteQDh2VteElVOy14wb2gFHPj3Mm9n8h3zsZWRf8CWRjkRjONjOovYUtYFXD3
+         Z7TebCe5RyRIrUY5mkugRCGMAU4o+hgmtIarAHORPJUfdOtJIz2r1A9qkzqO/VqIrYw2
+         eGprSue4r7uiNBOk4oPBP9+pzVJGEyRit4WvLdC0/Hs/a72YVrXtjBPUCAb1Rmg3mTFr
+         CPV84Vg9KbwgUm90m6uGSLVXCTMuyjLZGT+fFRHNMH/FvX1eMnQ0SoH9+z6gquOVBUMS
+         CVVdFOc0poBJc5iyGZHgBkoFvlvckdoo1cD7ai0GNyg/FKycjvVZJQDiSx6LgdF+7sN2
+         zm2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793818295; x=1794423095;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Mrr2SsBpmVWLOIEOT48PyurnC8zgreuJ7g0fGQKuitk=;
+        b=oAJv67etD2I8LHNPWZT9ha+FGrKe6OBiRQtOJoafNQuaDZJf+huuSzO6VKPn5Qzd/k
+         mdvXeHbv/R/+EtH2FPpFz3Rzrdi3vFNc8YI4mX/ojs0v3f+q6RC3IPV1pYFww/eGRFTs
+         VK0x3LWMyyexQkkPKo0/wxbFzP+q8uXnPhZb3FuLsPkEl4ttoQ6wMASh8b914/TKmuVE
+         MUC4OSOgxP1cT3gXdTOQoo4p3f2A/LwNpDRiZCKC4/AihhttBgJxa2XAQARBAOVuNxZ4
+         Msy0vfdFikkjfLRxVKfB1CScfaWp/qybPcLGOQrUrsRlSIY/bjusgLYmKnecwO2TNf3r
+         RSAA==
+X-Forwarded-Encrypted: i=1; AKwUvBxNa9V4DkQIVrnJlbQWZSo9SqlwTZqYVIMgqTg2KvMMApGQPJ3cJZ1bRX6+m8cB8mvxjzYMnhk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9kxlYGhztsUG+ExNgfrILfmVEk/07+kKOYgJ57KnqFTzDpN7PJ
+	n9Fnh0CcfjowxDNj+X/ap3ur7hFjCWv9HRxfohZkoCDF7OdCqa6kJuOW
+X-Gm-Gg: AYBFou0mqHwC7DtSr9yfYt2vSftn9n65BFgphDh71bKPNHUDdThq1LdHivSe6AKxH4W
+	XAqPLo5aax37eudROGQI+ZI5o6NUWGdB+uGLFQhEboEdd6M71suHtYeWHmUCeBYVL4+7JFe/utd
+	sjGdGtBElhZLuag0wLaquEY2jEyO8Dw0g0r8H/04lXk1XZOaVYDKFQhWmIp7hOgZxzGEv6pb1iY
+	C42pUtOMpiQi/z16U/wXvS/GCEGiGTwdYblsYoAUJpgsdKTPsUBf2I2JafuFtUQTQHpsFILQ+Yu
+	FdalMj11Vveq2cDI9oDzNNysogs+9PtZQPrSfe6eWQCn9bx2hO5EVCY+Tbr4lCfL5CpMpk+Tziw
+	iQpJpUf9w+FGBV7PmXq8WhHuZPDqRL0/JU7O9HqqnDX1jJQJHFT1w/kosmGuymJWVuMY+KUp61C
+	Hq83kT8vt1iHYn2bwCguxQ9zB7lCbJ3PRTOZLxeLB4Dfdm/KuykKQ+NXrtFOt9LVhxbuIHXIZu0
+	bFnAheL22nTBUyqsvEOib9c+Vyushm4vdnye5hIkrYJEwKJ1EBP8zme0LwaFU2LHkXvmZSUD3ta
+	GOxZl0eVCFXm1hFJYy5YM6gkF3k/L/EYSInz4Nlv2MHJ9Pa6s+ZcsZ6IpPfpffL55tZ4gR2GJgD
+	VMq2deeP+mMvL
+X-Received: by 2002:a05:6000:4a07:b0:48e:68d5:81a6 with SMTP id ffacd0b85a97d-48e6e4f53fbmr42068564f8f.34.1793818294901;
+        Wed, 04 Nov 2026 10:51:34 -0800 (PST)
+Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fea180e7csm5380394f8f.5.2026.11.04.10.51.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:51:34 -0800 (PST)
+From: Amir Goldstein <amir73il@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Miklos Szeredi <miklos@szeredi.hu>,
+	stable@vger.kernel.org,
+	linux-unionfs@vger.kernel.org,
+	Chris Mason <mason@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>
+Subject: [PATCH 6.1] ovl: set OVL_WHITEOUTS before publishing the upper dir
+Date: Wed,  4 Nov 2026 19:51:31 +0100
+Message-ID: <20261104185133.3630642-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,72 +98,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Chris Mason <mason@kernel.org>
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+commit cbec8610ec5aaf35df50094ff639febc23f20773 upstream.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Listing a directory while it is copied up causes a use-after-free of
+the readdir cache.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 5d28b2c920d9d9d3c45b41769342ad785eb372a7
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110412-uncounted-lung-91bb@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+A merge directory must never be iterated as a real upper directory:
+that mode frees the cache in OVL_I(inode)->cache without looking at
+its refcount, while files opened in merged mode still use it.
+ovl_copy_up_workdir() publishes the upper dentry before it sets
+OVL_WHITEOUTS, and ovl_dir_open() samples both without a lock, so an
+open between the two stores finds the upper directory and takes it
+for a real one.
 
-Possible dependencies:
+With a delay between the two stores, an unprivileged process that
+listed a directory during its copy-up saw only "." and "..", and its
+next getdents freed the readdir cache of another descriptor.
 
+Fix this by setting OVL_WHITEOUTS before ovl_inode_update(), so that
+ovl_dir_reset() agrees with ovl_dir_open(), and by testing
+OVL_TYPE_MERGE() of the path type in ovl_dir_open(), so that an open
+that observes the upper dentry never iterates a merge dir as a real
+dir, regardless of the order in which it observes the flag.
 
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 5d28b2c920d9d9d3c45b41769342ad785eb372a7 Mon Sep 17 00:00:00 2001
-From: Jeff Layton <jlayton@kernel.org>
-Date: Fri, 4 Sep 2026 12:11:37 -0400
-Subject: [PATCH] nfsd: don't offer flexfiles layouts when NFSv3 isn't being
- served
-
-The flexfiles layout driver hands out a deviceinfo that names this server
-as an NFSv3 DS (flexfilelayout.c hardcodes da->version = 3). With v3
-disabled, the client can't talk to the DS: it loops on v3 NULL calls that
-the server answers with PROG_MISMATCH, and I/O hangs in D state.
-
-Skip LAYOUT_FLEX_FILES in nfsd4_setup_layout_type() unless v3 is enabled.
-
-Reported-by: Benji Wiebe <itsme@benjiwiebe.com>
-Closes: https://lore.kernel.org/linux-nfs/c734eeb8-8486-4491-bb4d-b9656cbaffbe@app.fastmail.com/
-Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
+Fixes: b79e05aaa166 ("ovl: no direct iteration for dir with origin xattr")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260904-pnfs-ff-v1-1-5f502cf25401@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[amir: test OVL_TYPE_MERGE() instead of smp_rmb() in ovl_dir_open()]
+Link: https://lore.kernel.org/linux-unionfs/CAOQ4uxh-1J2OBjnDVbrrrjy1puSOW0kABvghN85ih6dtKUBTyA@mail.gmail.com/
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+---
+[ backport: context: the store is followed by the unlock: label, and the
+  replaced line calls ovl_dir_is_real(file->f_path.dentry) ]
 
-diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
-index 4187202f9acc..12acb68cbc3b 100644
---- a/fs/nfsd/nfs4layouts.c
-+++ b/fs/nfsd/nfs4layouts.c
-@@ -128,10 +128,12 @@ nfsd4_set_deviceid(struct nfsd4_deviceid *id, const struct svc_fh *fhp,
- 
- void nfsd4_setup_layout_type(struct svc_export *exp)
- {
-+	struct nfsd_net *nn = net_generic(exp->cd->net, nfsd_net_id);
- 	struct super_block *sb = exp->ex_path.mnt->mnt_sb;
- 	expfs_block_layouts_t block_supported = exportfs_layouts_supported(sb);
- 
--	if (IS_ENABLED(CONFIG_NFSD_FLEXFILELAYOUT))
-+	if (IS_ENABLED(CONFIG_NFSD_FLEXFILELAYOUT) &&
-+	    nfsd_vers(nn, 3, NFSD_TEST))
- 		exp->ex_layout_types |= 1 << LAYOUT_FLEX_FILES;
- 	if (IS_ENABLED(CONFIG_NFSD_BLOCKLAYOUT) &&
- 	    (block_supported & EXPFS_BLOCK_IN_BAND_ID))
+ fs/overlayfs/copy_up.c | 2 +-
+ fs/overlayfs/readdir.c | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
+diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
+--- a/fs/overlayfs/copy_up.c
++++ b/fs/overlayfs/copy_up.c
+@@ -717,8 +717,8 @@ static int ovl_copy_up_workdir(struct ovl_copy_up_ctx *c)
+ 	if (!c->metacopy)
+ 		ovl_set_upperdata(d_inode(c->dentry));
+ 	inode = d_inode(c->dentry);
+-	ovl_inode_update(inode, temp);
+ 	if (S_ISDIR(inode->i_mode))
+ 		ovl_set_flag(OVL_WHITEOUTS, inode);
++	ovl_inode_update(inode, temp);
+ unlock:
+ 	unlock_rename(c->workdir, c->destdir);
+diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+--- a/fs/overlayfs/readdir.c
++++ b/fs/overlayfs/readdir.c
+@@ -942,7 +942,8 @@ static int ovl_dir_open(struct inode *inode, struct file *file)
+ 		return PTR_ERR(realfile);
+ 	}
+ 	od->realfile = realfile;
+-	od->is_real = ovl_dir_is_real(file->f_path.dentry);
++	od->is_real = !OVL_TYPE_MERGE(type) &&
++		      !ovl_test_flag(OVL_WHITEOUTS, inode);
+ 	od->is_upper = OVL_TYPE_UPPER(type);
+ 	file->private_data = od;
+ 
+-- 
+backport
