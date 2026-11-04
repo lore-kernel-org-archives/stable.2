@@ -1,78 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805499;
-	b=XtsNoPhSLv16pim+gHrPtmvrq3YwLajoL3tZyn/i4idTBNYxi+kgcpF9BX8db1DA92R1
-	 w6s/QKrdFkvRxtdXG6n0PoZJhrj8kDlipw5UoeJtKLRI3F63DAYvt+qaIUL2PTGpOhmrx
-	 NMDr51B4vxdWuc7uxq3PW+xVuQWFrsVXKbetzdV7ypNZ63WJOiAJJiQe65C9Eul5ye54a
-	 sLzpE3d9pJ3qiikl5vPyBxmDHjP2DKlIBpWtox+b/y1fQz8x03ogBvlWaGpCIpM0kyGBR
-	 NXX98IVlyGKZT2Bty5oz8CiY/NBCQR/XdwpIFzQizpUQYfCaWmvsJtXq0x46ntMgBxA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805499;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Patchwork-Hint:Organization;
-	bh=yBZLvlIQ8z70a2Wr1ymf4FFDCT+5HoGOnnRPNF17kG0=;
-	b=d4eNki77Ja8+Ya/Pb5GR2wWyN/y4FGtEl8c8pTenPJDhIXxbtL3DvO7iwGtjkM7c0vfz
-	 uMez9cgJ3VYp5Ckby1KwwxlHpS7PfeVKGCjKr+WjjvadsbPYPqqDNrKsTFCCdZSqEr1+J
-	 vFGIM+FzVjC7P+M/+BAaIPH5F1raf4P22XF6g4EJOY6dfGovP8InNZG162QeiNzbZ1bI6
-	 +rFSGtAs8Ln3uazx2rYPqr4l2CEkgQEzQQVLa6k9GOxd+krozMB3pgBM1vAbOEj87bYBC
-	 uXN3XKuG7Jx8QTDYfW0Bge3sXKjwLOFBzNkhDcfDiNptI/rIDj7TBLRILStQmUwH7iA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mAvO84X+;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.58
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793805513;
+	b=w0kb/j+OIofgDU7WNxmzRewPOc/OBwg+up+N0dadBpqIpXtMr/gq5GR64NkSsh7KQrpq
+	 aGqU4345fkYoaM6xbIyW7iqEDGpNBVikfc+h1sTzFGRdcOb/bp+luPswXuQZfoaFe7qKd
+	 sJFvN4/nMBKbQej9sC0rjB1yhB1Ul6iQyHgrOuL5o0yRQq+wwxOzdBlEB4ri5LHi+wjmX
+	 rQcz9a4vvfydxRbFdXb5QglQpD7KMYcT6syZ8sTMc6fS1FhyS6LxPhVPXtSx4WybHyK87
+	 Lxly3QQnVx+hnoANZ6Q+9J1Y01A5X5n/UY/uPVeyUt95BSzaiCtpGK06cCkzgYnym+w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805513;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=85b4qb0k5l+wxRsvgF3PPoa9EpZeNI2UjIuR5x0lcTI=;
+	b=WNiRg03PyDQz7lYbE4Rbu4e9bz8rai0iavypz8wq1RX4y7GahO+a6pdJ+FSzKOS8tBry
+	 Z/TMV+6PboccC/RueMBRb0yEzdjxKuU/uiB2QJHVsq3iSVNOOtU0pL4bpi5vKB1EJ8i9K
+	 LRaQHWdUZkeaFVyiE7R4fVxFuTbVYqnm/MyVhx5oMjeS9AgccddBKqhG4GEtej8oqxGno
+	 nAqw/oTgoneQ0HhCovD5F/LlIS+qAMTRdd1dTyJRHjhhVDowVbiirtecSfOcTgSd+oIdz
+	 PqsWIfluSsKQssuRzhbJWhCa6sLQ5n71Q4AyMms94jdlSRctQ8DwpsHUU2wQ0naP8Bg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=NlBAKukB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.58
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010058.outbound.protection.outlook.com [52.101.201.58])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB858606A33E
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:18:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB858606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770AC606A7CD;
+	Wed,  4 Nov 2026 15:18:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 770AC606A7CD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mAvO84X+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793805497; x=1825341497;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=aZNTFXwM/wcgpwxafNC8PNs4ZQ3LDaLEX0ahb1iRUVk=;
-  b=mAvO84X+GOctPX7IWfjxG8HfXEDVS5qhhQ0tffRWW80kMNW6E2xihE2G
-   CiTSpPJI41YqO29RhZ1zq6WjbVrlWBUYX9SMRcBkp/neUiur+rY8xEScW
-   +MOroiSZfSpneT72EtuUsnM+lk/oVj4mawWF7DEc6y/HMvVvx1qnbVGcy
-   fj/gLdlimPPrjAN7XP3v0FlessOp1n9hL/POQDb2HreNFIcs/iYDcS5WO
-   hkSzSrvN86vXNrYTYKZ87EAwCUGOIr+bYcA68cOKBF4BsP1wcSKwvpEnm
-   JgH1jyQcqhmieV3+jsD8zNsZPSh/UnTm3RpWV+XBwAVVE6DRjd6X2aHnw
-   A==;
-X-CSE-ConnectionGUID: GrqGxl8oRzOzmsfoVzJP2w==
-X-CSE-MsgGUID: bRiqpspkQBOLiWEToW/7Nw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2577016"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2577016"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 07:18:12 -0800
-X-CSE-ConnectionGUID: GQe38O66SFqTMGlAkUZJIA==
-X-CSE-MsgGUID: o4n7ANsfRAuUtGmOVChJmw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="6877305"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.86])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 07:18:09 -0800
-Date: Wed, 4 Nov 2026 17:18:05 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Chengyu Liu <lui2012qwq@gmail.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
-	rodrigo.vivi@intel.com, tursulin@ursulin.net,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] i915/gt: tolerate ERR_PTR pd in gen6_ppgtt teardown
-Message-ID: <autMrRaeVWRtBlMP@intel.com>
-References: <20261104073311.1617823-1-lui2012qwq@gmail.com>
- <20261104073311.1617823-2-lui2012qwq@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=NlBAKukB
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ivtVQsckVY/Ug2gDv3HWA8A4T3+mysyRF+ZUaThjFmgXOZs2tWerQ2eR6XIY+VTZHQn5UlsUDHjWAKXUcfdkCXuDQ94RkOwvA11JUomcPcNIx4w7YbZAQK6PXccWGcK251YYdLeLD1CbtvoaHgeV7y+D0nW+MrFPctDxC+yCUYY+jRntPNp9kCt1NAeDUkcLF5vwOblFyezEW9TXQrUBop/UgAc1LeHnKqSwGbM1x62qYtr6TPEVk8+/cjj5//w/pcyMuCtxjXE2rf+j/OgaDKS2F4aaJKaXEQmTgAuQgppK894J5oxUp7w8Z7dbfqQBiq/h5g0v7UVBRsGxsv01jg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=85b4qb0k5l+wxRsvgF3PPoa9EpZeNI2UjIuR5x0lcTI=;
+ b=qTRDazYoFLR8itJp0M84kEqSfFBfXrSEcd+ymeoihTggUdYG5MIaRVb160KRXcrADQsgf7WPRuogEyotlbFokh5eaQols4EG+HE+CyNho/Sa2TBVXzAyQWev9SZmBcTlAKw+L9EXALLSVami2ziORKF06NCO10SYtoBBiEMm+is6/KQ2B9oJtYhv4HOBHIeY6j50Hp5Cnh7BUYDFmjcWgSqKSbiD78DkDBeQPi+W3nRtoqTDI2R+vW3DYetQW3nJSZQMoH/jaEck/Ny2PLX3gf/iBY/+hJZrx7faJ/jcA/gHpynJkUhrGzeSP6JxPGywpOZa11wAWE6AbMQvBGGAMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=85b4qb0k5l+wxRsvgF3PPoa9EpZeNI2UjIuR5x0lcTI=;
+ b=NlBAKukBI1RHl2BBbAwm1L3NKzNuBH8QVTqUsNNdox5maGKiKWfdor+YiobAvlLLPTz5Jtj8/vY7gZh8NcwkUZDYIe421+1O6A+TnaNQiSxP9ErWRurbkmm7ZfSEv2VWKymeYLi8drNY0+aS9XjTNytNxmjVpST16hbPpiLpuFg=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
+ SA3PR12MB8024.namprd12.prod.outlook.com (2603:10b6:806:312::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 15:18:29 +0000
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf%5]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 15:18:29 +0000
+Date: Wed, 4 Nov 2026 10:18:20 -0500
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	xen-devel@lists.xenproject.org,
+	Ariadne Conill <ariadne@ariadne.space>,
+	Sean Christopherson <seanjc@google.com>,
+	Juergen Gross <jgross@suse.com>, stable@vger.kernel.org,
+	Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] x86/CPU/AMD: Don't print reset reason in VMs
+Message-ID: <20261104151820.GA716491@yaz-khff2.amd.com>
+References: <20261104013026.185392-1-jason.andryuk@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104013026.185392-1-jason.andryuk@amd.com>
+X-ClientProxiedBy: BL1P222CA0026.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:208:2c7::31) To DM4PR12MB6374.namprd12.prod.outlook.com
+ (2603:10b6:8:a3::18)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,73 +102,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261104073311.1617823-2-lui2012qwq@gmail.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|SA3PR12MB8024:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4438fe91-8b9b-4d76-1a14-08df3a86e140
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|366016|260925022911599003|260925021911599003|260925021311599003|5023799004|11063799006|56012099006|261021121427099003|261009223027099003|261021123027099003|261026121527099003|261022105027099003|261026140227099003|261028144727099003|261102123227099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	NG8Zcjr3DlrYJxWdftLf/y3xgxeNkk7BQUqr749vA/LCUfgy5h8aLYSuShhfedQK0nwyi4WcEtPUpOUurIUml39IWtDwivou3lxDSJzWllcAcOSBOJnnhvqviowR1rKlrZBUM9Nmt1TWl6nsT2pcqASWc/MPWHtkZPL+NK1JIOTSFJ6I9VoDKGLcDQjh2o7qedPq0prrm4LB4FL9e9zEFRJ8DkkL28j9v1wo3vILII6zm1FCuRTDal7pCKjvrRJ7mqUYRQPMCeBfwC8cZsNSbGVjjrNIz2AWGUrZK/TJ9nMu1H1AaumGzRqciN3L86iHyHanj2CzVDEYncgbCZMRS8zAeynCmMAHB2sZp7VvRIFH3gT1lpcu9ABcwTFchEBKzJxqA4DBpgWyMYFXLbwN62nm42nQMQe5KuDhQUcrF7o5/cZ14kk0XQLReKcTnvIFbhUaFF4yDgN2F33QgWQq8b4QO4pwiAYY3oaIUrwWByewCCy0U2I8iMg0+lpJbmuNioIsHfQNCKV12Q/y62ABqnmViKuqzEmGH1nJhCvgGCyh1HmBebIXTvaBhYOOfzsEA6LQmA3Bx3RrXfq3gzc6qvPdhZ1HeP6naHJsa4vzTHqjTg84J4GRSYN0Z2gITlqp
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(260925022911599003)(260925021911599003)(260925021311599003)(5023799004)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(261021123027099003)(261026121527099003)(261022105027099003)(261026140227099003)(261028144727099003)(261102123227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?3MDBuWWJLJGXBrgI7+auT3MsPGkkA8FjIHqKBQYnVdz4Gb4Dz1ePvjt/Gd7w?=
+ =?us-ascii?Q?P1k930asaXEo3pstXTLx75ifsu02gSF4CvwhMn/XGbbhZ4y/LKXIDIjdXREB?=
+ =?us-ascii?Q?QfD4kHp7S1wiwKwXqWjcAsMu2sORNcvQc2XxM0EDtGpAgUk5UT4zhfa/MwN/?=
+ =?us-ascii?Q?sygPalz13gB6haoG4znhWcg/cp0yHqFgccFdplu/3CQEY2/uKatwQxAQ2vg2?=
+ =?us-ascii?Q?brttvUsmxfpOOAPYR+VP3yT3/Ayq1ONqZjq/J2ybaD7Q6yEcyJpgBrcCWNeW?=
+ =?us-ascii?Q?G+Br3OhcV8LM8cg80qz6Gzim/8tL6osjQJUQPCsbWLmzlZw3wYEk0MvgWdYJ?=
+ =?us-ascii?Q?o1BOOx/49iSTsg4zFQfz5bFnLjkPZTQpy/V1B/fOEaYBTkwaVXSLEOhSJacu?=
+ =?us-ascii?Q?aOFi7ZFRBFHA3rTZBsBF+xKm4Q9A7GZU3SqcHTf12izSNSmnuolFuZKOPtl1?=
+ =?us-ascii?Q?vrl243SBtA5ophqrhDsfJDmRkKDSMtK2BR+VbSlxUNHZbJC+73UbVhferoJP?=
+ =?us-ascii?Q?nDHPSBp8LZnuijbPHOVmPyGBfiZM4gXTURPeUrr9HttxFu5gYki7V8eshb9Y?=
+ =?us-ascii?Q?atYzKUSPfA20eP/cGN78mvC1wahRLT8YX/afi6DDXzVFyHgSsE+RRW3d8xD4?=
+ =?us-ascii?Q?zxdae3lHk85b0Q1YwFOlesIUJOgU1fNfj1lj6EYIwSe1bByGPwa+207j4W0O?=
+ =?us-ascii?Q?LJRpZzQdJFnBeHl0qnQRzTt9ieuSITUGzxvxWrb8T78h7V8HTBuduvCO7ZkK?=
+ =?us-ascii?Q?kDnh7n+L4D8OBezLvcmlOIWrFidjZ2AJHxqoWdhQwAh5m44qWYCvP0wrRHbU?=
+ =?us-ascii?Q?4S1C4EAGe0MUKtbOSvBUog7MoT7xYVsYkQqEVf5nRM0bITHBiGg/+0oWZY9d?=
+ =?us-ascii?Q?MLdKdho/0s85VJTZMpl2tzz1i0RftRN0Zxd9OyK8vHaPdVBPlPXWw/32Jz4c?=
+ =?us-ascii?Q?iYJXk3chPMo55bkgya4l9dSKrtgGDydvhObF0YLpkd729nc3LDxZBleppBhx?=
+ =?us-ascii?Q?eSl/VE9oAeRhgl5xO5c6JKXSCT3HdR/bXYQbYu/SNRfrI89OkdSow8oOckPo?=
+ =?us-ascii?Q?eoOlJi2bGyg3BFMAKWLX+w1ayNXB3KV1qyxZ74JI5l4we6OHaz6O/KCaKNJH?=
+ =?us-ascii?Q?Pw6xef5Ys/Osb1+xKN09mQhMMxTY1RvZf2u4/l1nKUY51Yy1sc65P8LmGQ6k?=
+ =?us-ascii?Q?W5GIK5AWowSTl0Osxzlpd6oVj1suNamLI2VZq+WukXSYlbBOlLc7+eEftA8V?=
+ =?us-ascii?Q?m+i+UDVy9kewxNVQY0UAAAZXYdsb9wP3azc7OVqUemvSCKoaTEsUXHC8Ubds?=
+ =?us-ascii?Q?P7d/uQtdj4hVSjx0yVFpBn7acHHX/v6J0hJa++p41tZqSZCD+xzkAEYk4PWI?=
+ =?us-ascii?Q?A4m7OaC1oKwBjiSbY+kPD90JqwCgRE58fFsaR/nbOuqsjZ7P6L41dOb55o3c?=
+ =?us-ascii?Q?7qHm+xT5eF9G9FjvBGtEDJ7vDBtMRj8U/g8uIivj7BcPqBEV1A4TjmX624iG?=
+ =?us-ascii?Q?ujlxo/TJR5txNXOfyojC/1KAMVFFkTSvKav8xJUXd+oSKz6kxVbiCLLTumt+?=
+ =?us-ascii?Q?FMHXYVsIPbHpkeHeBP/mKymPrYxaKWSR1+tH00ia94e62eJs1Oz1pSkRJq4Y?=
+ =?us-ascii?Q?jWUx8BcT2ChDYCXcUIeXR8pmgT5JGV5QrsWnPZmn7h8mTopy+i8vZnf42m9v?=
+ =?us-ascii?Q?fSGXPl2STDKO8Jdox+YYhkdq6z/qH+zofZUQJyR5Wlmg/fSbsNeW9dL1q4Vq?=
+ =?us-ascii?Q?Im0X5buSLQ=3D=3D?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4438fe91-8b9b-4d76-1a14-08df3a86e140
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 15:18:29.1360
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TwwsL6Tcf3AXpqaPorpMG7ITn5VaGJOIMHt0mlryfOeownrBXNepE4ArkvpmTD1AC2xZvTkB70sGy0ywmKyQjA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8024
 
-On Wed, Nov 04, 2026 at 03:33:10PM +0800, Chengyu Liu wrote:
-> gen6_ppgtt_create() stores the result of gen6_alloc_top_pd() into
-> ppgtt->base.pd and, on failure, jumps to err_put with the ERR_PTR still
-> in the field.  i915_vm_put() runs vm->cleanup = gen6_ppgtt_cleanup(),
-> which calls gen6_ppgtt_free_pd(), where gen6_for_all_pdes() immediately
-> dereferences pd - with an ERR_PTR that is an invalid dereference and a
-> crash (in the async release worker).  The free_pd() right after is only
-> guarded against NULL, not ERR_PTR.
+On Tue, Nov 03, 2026 at 08:30:25PM -0500, Jason Andryuk wrote:
+> print_s5_reset_status_mmio() expects to read FCH MMIO on baremetal.  VMs
+> don't have emulated FCH registers, so there is nothing to check.  Add an
+> early exit when running on a hypervisor.
 > 
-> Bail out of gen6_ppgtt_free_pd() for an invalid pd and skip free_pd()
-> likewise, so an allocation failure under memory pressure stays a plain
-> -ENOMEM instead of an oops.
-
-The correct fix would be to not assign the error pointer
-into ppgtt->base.pd in the first place.
-
-Looks like a somwhat common bad pattern in this code that
-received pointers are assigned directly into their final
-location, and if the pointer is an error then the pointer is
-cleared. IMO one should never do that because it's very easy
-to forget the clearing part. Instead one should always use 
-local variable first, and only assign the final pointer after
-having checked that the pointer is valid.
-
+> The real motivation is Xen PV domUs can't boot on Zen CPUs.  PV domUs
+> PTE contain system physical addresses - they don't have concept of guest
+> physical addresses.  domUs can only map physical addresses they are
+> assigned, so a domU fails to map the FCH MMIO addresses.  However
+> set_pte() does not return failure, so ioremap() returns a pointer while
+> the PTEs are unpopulated.  print_s5_reset_status_mmio() faults when
+> reading through the pointer, breaking the boot.  This change fixes Xen
+> PV domUs booting on Zen CPUs.
 > 
-> Found by static analysis.
+> dom0 can map the FCH MMIO, but it has X86_FEATURE_HYPERVISOR set.  With
+> this change, it no longer prints the reset reason.
 > 
+> Fixes: ab8131028710 ("x86/CPU/AMD: Print the reason for the last reset")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+> Suggested-by: Borislav Petkov <bp@alien8.de>
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 > ---
->  drivers/gpu/drm/i915/gt/gen6_ppgtt.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+> dom0 could work, but that would require a xen_initial_domain() check.
 > 
-> diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-> index 438cd4724a..72a9ad4642 100644
-> --- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-> +++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-> @@ -259,6 +259,9 @@ static void gen6_ppgtt_free_pd(struct gen6_ppgtt *ppgtt)
->  	struct i915_page_table *pt;
->  	u32 pde;
->  
-> +	if (IS_ERR_OR_NULL(pd))
-> +		return;
-> +
->  	gen6_for_all_pdes(pt, pd, pde)
->  		if (pt)
->  			free_pt(&ppgtt->base.vm, pt);
-> @@ -271,7 +274,7 @@ static void gen6_ppgtt_cleanup(struct i915_address_space *vm)
->  	gen6_ppgtt_free_pd(ppgtt);
->  	free_scratch(vm);
->  
-> -	if (ppgtt->base.pd)
-> +	if (!IS_ERR_OR_NULL(ppgtt->base.pd))
->  		free_pd(&ppgtt->base.vm, ppgtt->base.pd);
->  
->  	mutex_destroy(&ppgtt->flush);
-> -- 
-> 2.25.1
+> I've wondered about a different approach:  We can't directly check for a
+> device for the FCH_PM_BASE memory, but maybe we could check for a PCI
+> ISA Bridge with PCI_VENDOR_ID_AMD.  That might be close enough to
+> indicate real hardware?  But it would still be a heuristic, so I'm not
+> sure how much better that would be.
 
--- 
-Ville Syrjälä
-Intel
+Maybe, I had an older version that used the smbus device / i2c driver.
+https://lore.kernel.org/all/20230407203720.18184-1-yazen.ghannam@amd.com/
+
+Is this available in dom0?
+
+> ---
+>  arch/x86/kernel/cpu/amd.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
+> index 40463bad1078..580ccc2ce5fc 100644
+> --- a/arch/x86/kernel/cpu/amd.c
+> +++ b/arch/x86/kernel/cpu/amd.c
+> @@ -1357,7 +1357,8 @@ static __init int print_s5_reset_status_mmio(void)
+>  	u32 value;
+>  	int i;
+>  
+> -	if (!cpu_feature_enabled(X86_FEATURE_ZEN))
+> +	if (!cpu_feature_enabled(X86_FEATURE_ZEN) ||
+> +	    cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
+>  		return 0;
+>  
+>  	addr = ioremap(FCH_PM_BASE + FCH_PM_S5_RESET_STATUS, sizeof(value));
+> -- 
+
+Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+
+Thanks,
+Yazen
