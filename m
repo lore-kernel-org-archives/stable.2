@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829113;
-	b=lqyE5Q1ss/VUuwQ7OhGWaKJhdxpZptufwxWwMW5/bYR13CWKR3keCKrqL8ZU7W92xciF
-	 pDbNN6/m44iIP/o10GkcITqOegOKDVgmPzvoX2N8jVEISvnJbiGCal6YyhWAc1uhqckai
-	 pCsKgrKBp/e13DEXK6QVmEU6PFbbd8R6Yu2equhJ564Lu6/pWm4Hf1MhxLwEI8NjQqTEo
-	 rtuZ8nBq85CFMjvorQIC5wdSnzV0/uzWwRk6eaMqScwKvP5Y6y6ouLM2yU0FWwDUuNayn
-	 q872ynXDEqYoMiLRG1mvx1X5hCjRaLOFqdgqeZAYW7OaO+97fKJU5shEYiwIPTWf6Rg==
+	t=1793829116;
+	b=dUDhExYto1dfoEPilyEKyhlSzN6rxIy2uaoiZ51uoESCwJUo7sid6elh70+eU0D2TdQD
+	 z7xUOdR7so8PODcnzMgV5rjWFw8ufGvgd7Gjhx9yNrf2zfEgMEgFEJlho5F50a+7hryvJ
+	 XywlS6Y8o9a+ZM2PYYEgFRYhx73uSl5tEii6FPFmZo0f0rjiVsLlK1xJ0Ugm8H32Sw5rX
+	 H40/TuMb7gMs3WMHLE4hClMg+tR+FkZEJzfb0f7iop9uTTHCSUm597Tc09fe0oKeUv6UM
+	 Zl+glWBQu0189U8NFD6ilZ2lbvPdGvP9Tj70Dg7ztya9Uc3qgDYtZG1vMCHqbVcGRkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829113;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829116;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=HhPzwLiZBjZUs9EiBcAPHoU6d6305AgkUB12D3zu4zU=;
-	b=VFWsOZmPH9iHGiCZwQlURn6bsWxjRwyVE/qy52ERN6As0rWcLz8i3KCjRXxguW4SiD5T
-	 ICXGoBJQHhY8tmQEVk9co/5TbsFpv1+JLj1aTtPe2Edz/p91eXoU6rVwPh5zUrLYbmoQU
-	 JDpGPt5gcxnDxwCd7OUzRDBKUIFEtxQ5z0P8U5ELj0oHLCfeZ4NBBZ6ylQ9cndJXp398u
-	 wwHLoA/Iw25gTD5A8GeXJWyLxOfJD37kGLmC2Wx+f0jB0l/fBj1BAblfwJU8IHcqNSOoT
-	 Aa0Iz3UPFwYXbk9xkjt36ELR6EhW5ex1OJzcyrOnxe4EoYhWeQErMN/jJar/Mcq4IHA==
+	bh=xDTDgWtO7XZWYcWSYzM3mC5d6jCM4YyvOjTxO+mfFi0=;
+	b=PSESsLcztQqnkVLUTtFRiyMzL0omH9dVj3YIritGVY1aZTBQS+JfjbK4AU8+RmPFsbcI
+	 8mSZTIG7MvBkfwpBDXWCV4uu46tT2vmskVmtlJ6QfcY9jded/zPYeivIIodQILISLVhYm
+	 gq/F6ibMsfbimcasfa3UE52+Y3PfFWd34zmveMeuKLJyUqK3MklJqgbmvnsa0uPfwzbXK
+	 JuswyFyX224cmJr8yJUHHFofcONGtp/lOO49LpDb1xRra37bwN49Ccl9nOrgpZKTtRhNd
+	 ZXEoNuFdXXcuBK7C5QZWl3TmUCah4v1neLLCGCOFGt+wcO5Vdg1ykBoPeII7NsQnRrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jjXVIG79;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=quRtcgLq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805926073504;
-	Wed,  4 Nov 2026 21:51:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808266082BCA;
+	Wed,  4 Nov 2026 21:51:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jjXVIG79
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE001F00919;
-	Wed,  4 Nov 2026 21:51:53 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=quRtcgLq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C4541F000C1;
+	Wed,  4 Nov 2026 21:51:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793829113;
-	bh=HhPzwLiZBjZUs9EiBcAPHoU6d6305AgkUB12D3zu4zU=;
+	s=korg; t=1793829116;
+	bh=xDTDgWtO7XZWYcWSYzM3mC5d6jCM4YyvOjTxO+mfFi0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jjXVIG7997k5LI4lWVm1CqmLqAkhk4bHptIEtKePVnizR1Dv1mpIVQAh5LtA0SfaK
-	 pS8T4tqUK57uOiXz6e1ThuEBSw9ACv+amuUwl1NCNLRM21jlDF4yyZ5aI7OpV1P0KO
-	 MXJLThqZj6roibvVKWaXcMiXo8VRqQwOWIxgJMyU=
+	b=quRtcgLq66sk/w88kq2n6xKEmn7dzQC/hsKuSvoTTMXPDBktR25ug1OCniAbS5L2O
+	 87MPYqlNGRLoNxxrP95AkxvLsOAmxE7rU+b7WyKtBvxv6CiUJgctNVo+kSTZtdFkjv
+	 Pw36qsa0NoPujzaEuJWb/kmIgIViqI7JkP6L086Q=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Stefan Teodorescu <fane@google.com>,
 	Sean Christopherson <seanjc@google.com>
-Subject: [PATCH 7.3 454/547] KVM: Only bind memslot to guest_memfd instance for CREATE operations
-Date: Wed,  4 Nov 2026 16:10:38 -0500
-Message-ID: <20261104211051.252213766@linuxfoundation.org>
+Subject: [PATCH 7.3 456/547] KVM: nSVM: Reject KVM_SET_NESTED_STATE if L1 has EFER.LMA=1 && EFER.LME=0
+Date: Wed,  4 Nov 2026 16:10:40 -0500
+Message-ID: <20261104211051.306433566@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -69,64 +70,47 @@ Content-Transfer-Encoding: 8bit
 
 From: Sean Christopherson <seanjc@google.com>
 
-commit 513333a5546017da2a4a6173bfb70372f83733b3 upstream.
+commit 5dc500a354cc8e109df678076ae3488094649468 upstream.
 
-For additional defense-in-depth, and to avoid having to handle impossible
-unwind scenarios when binding to a memslot fails, bind a memslot to a gmem
-instance only for CREATE operations, i.e. don't attempt to establish a
-binding for MOVE and FLAGS_ONLY operations.  And when FLAGS_ONLY operations
-are eventually supported (this is currently all dead code), creating a new
-binding would be incorrect; KVM instead needs to do a 1:1 replacement of
-the existing binding, i.e. FLAGS_ONLY will need its own dedicated handling.
+Reject KVM_SET_NESTED_STATE if the incoming L1 host state has what is
+effectively an impossible EFER combination of LMA=1 but LME=0, i.e. if the
+state says long mode is active but not enabled.  Unlike VMX, SVM doesn't
+have an explicit consistent check for the illegal combination; presumably
+hardware simply ignores EFER.LMA if EFER.LME=0.
 
-Update the relevant TODO to make a better guess as to what needs to be done
-to support toggling dirty logging for guest_memfd memslots.
+Unfortunately, KVM doesn't ignore EFER.LMA in this case and consumes the
+illegal state when constructing the shadow MMU for L2.  E.g. if userspace
+also clears CR4.PAE, then kvm_calc_cpu_role() will compute a role with 4 or
+5 levels of paging, but shadow_mmu_init_context() will wire up the MMU to
+use the paging32 template, which maxes out its levels at 2.
 
-Because it's dead code, no functional change intended.
+Note, the "real badness" is effectively the same as what happened with the
+nVMX bug fixed by commit 112e66017bff ("KVM: nVMX: add missing consistency
+checks for CR0 and CR4").  Unfortunately, the sanity check added by commit
+72e2fb24a0b0 ("KVM: x86/mmu: Bug the VM if a vCPU ends up in long mode
+without PAE enabled") doesn't work for this case, since L2 state is active
+at the time of the page fault, but it's L1 that has the bad state.
 
+Fixes: cc440cdad5b7 ("KVM: nSVM: implement KVM_GET_NESTED_STATE and KVM_SET_NESTED_STATE")
 Cc: stable@vger.kernel.org
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Link: https://patch.msgid.link/20260922001332.1121266-4-seanjc@google.com
+Cc: Yosry Ahmed <yosry@kernel.org>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Link: https://patch.msgid.link/20260902232028.2767071-2-seanjc@google.com
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- virt/kvm/kvm_main.c |   12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ arch/x86/kvm/svm/nested.c |    1 +
+ 1 file changed, 1 insertion(+)
 
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -1758,10 +1758,10 @@ static void kvm_commit_memory_region(str
- 			kvm_destroy_dirty_bitmap(old);
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -2029,6 +2029,7 @@ static int svm_set_nested_state(struct k
+ 	if (!(save->cr0 & X86_CR0_PG) ||
+ 	    !(save->cr0 & X86_CR0_PE) ||
+ 	    (save->rflags & X86_EFLAGS_VM) ||
++	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)) ||
+ 	    !nested_vmcb_check_save(vcpu, &save_cached, false))
+ 		goto out_free;
  
- 		/*
--		 * Unbind the guest_memfd instance as needed; the @new slot has
--		 * already created its own binding.  TODO: Drop the WARN when
--		 * dirty logging guest_memfd memslots is supported.  Until then,
--		 * flags-only changes on guest_memfd slots should be impossible.
-+		 * TODO: Drop the WARN and do the unbind() call only for MOVE
-+		 * when dirty logging guest_memfd memslots is supported.  Until
-+		 * then, flags-only changes on guest_memfd slots should also be
-+		 * impossible; unbind the old memslot for defense-in-depth.
- 		 */
- 		if (WARN_ON_ONCE(old->flags & KVM_MEM_GUEST_MEMFD))
- 			kvm_gmem_unbind(old);
-@@ -2121,7 +2121,7 @@ static int kvm_set_memory_region(struct
- 	new->npages = npages;
- 	new->flags = mem->flags;
- 	new->userspace_addr = mem->userspace_addr;
--	if (mem->flags & KVM_MEM_GUEST_MEMFD) {
-+	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD)) {
- 		r = kvm_gmem_bind(kvm, new, mem->guest_memfd, mem->guest_memfd_offset);
- 		if (r)
- 			goto out;
-@@ -2134,7 +2134,7 @@ static int kvm_set_memory_region(struct
- 	return 0;
- 
- out_unbind:
--	if (mem->flags & KVM_MEM_GUEST_MEMFD)
-+	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD))
- 		kvm_gmem_unbind(new);
- out:
- 	kfree(new);
 
 
