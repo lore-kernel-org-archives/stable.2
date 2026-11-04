@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817929;
-	b=HgwX+euQfd4s6TSun4PN4OVp8KSPUMz2aiYXvMMP5XKpheqD9fT6d6c7aDyN4H7eQwAa
-	 TWHOVGF5NdZzdPXatXpn4BXKx31Ys5I9zqEDtb2KemGOqUQymHh3kUOoLF7GNZwjJZs+A
-	 PB/+HiNNcFIjhsbf23MRh4EWW5QZh79aUcISBsgdkgOoyNyF6bmnFGflDxqVMiQ93FloT
-	 w7QAKWkdmQVd+x/gS9sf7MMEH2YFrgxLaC+Qz459WlfChFlZXmsH17RflIkxMlAvXaVR7
-	 FWe70MqJjLyH3yxJNnVxUsvhK2cqsacjFsagPZZDMK+tl6buItZSeGzwP3+SU588WLA==
+	t=1793817931;
+	b=EtynVl5ZR5YnyCzpAD8oUqCGdpmzIQdkRg63WO6tOECgXJAf58USrX8gakPpaSNrBadj
+	 JUfq0m5kEK7ByEFrunMr9FjHM7ACvR3TnOLw7XaQKQvgBFiYXD3LJqOHw8Wrp3MeEgMyk
+	 sx1ACcL0UPEfoztUH6GQH+jTKzIECfe1LxZ4v9rlCOMddVZt8P3RK1zC+4ThHKLKWqY8u
+	 Q8vn0cFe3QcUu2rTyphaP56p0UyuaRvN8dfYlWmuq5C0hrzYULFpjI+1flkXKab3wp68Y
+	 se4cmKcTQu3s2RhrouBMPyG9SONv++79fVUWIUIfg7Ejmr876DINGFHsn2KHQ8q3B0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817929;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817931;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=JTqdFZGZVuVBeRPFocqcr918byeGzTtOW6Ly7O72eFU=;
-	b=HHNz01jI5YADKI9t+4tJQwhetA6DpOhCoLO5z673SrB0TzkO+rUEO4I+7qj/yxsqugtC
-	 5CIkMAj9weZG3p9Ru++88nKF+alrJXIVymewbJGZD7AKANVVQY0YO2oojsgv3QE35IRy2
-	 433Dw+9X4CCE+zQ1q57yrIhzYC/B4BfmWi+/T7O7h6jK5lTKNbBeF/5JlRHgpxctpBOie
-	 JFnQBYPpLj4MBYjHAw4zaWY5KPxpV2HMJEwtFeq52njCMVFiE0vdqUQQlHkMWynYdNdjN
-	 64HBVAkmnvTWz2PDVJUclmA03aaVIHv7zxK+ZU6IMHLjCh/PCFZ3wSklYUrxUpKOgfQ==
+	bh=tBDgrg+DjfdtZk05lWBRK5LeS/PhlQeolKcogeU5s4c=;
+	b=0HvDsuPipbLXrN2LIUFPThhE94ZqtE+SyPNv06q20YhWWHuKymYhfMI03zebgiBBkJHG
+	 RO9GzoRREstND7tmNgW5mpcAn9Y7waMvRdmGklQuua7LQgCnDr3h6AhjAzyf19hZVnbM2
+	 I89TqKioEfm3+IFQRa372gyf1J38E5hWw9jXpbLy1DzZqjuE8S9Xh2oCi6kMMXiuMUEc5
+	 MqXgvxjbGJgdnAC9PEsz5PB5ZMaMp185DPVH96F73anZITp9qwycm4u5+PsiLIno1sp2L
+	 9EtDK1fOgAucEOV3Rv1HfjoBhZynHc6EOuo6h+rWU3rqJvuWQ5rUoRKaa51OFYFU2lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=fYIn9Ivx;
-	arc=none smtp.remote-ip=209.85.160.54
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Dpnye4Fi;
+	arc=none smtp.remote-ip=209.85.167.174
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94693606A33D
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:45:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94693606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D85606A329
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:45:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35D85606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=fYIn9Ivx
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-4a75171af39so282415fac.2
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:45:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Dpnye4Fi
+Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-539a57a0b1fso454847b6e.2
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:45:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817927; x=1794422727; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817930; x=1794422730; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=JTqdFZGZVuVBeRPFocqcr918byeGzTtOW6Ly7O72eFU=;
-        b=fYIn9Ivxa3pigvXUonZhWUfAqygxCTixEiSa3+9/8FnCN2b+dxkUIMYtI9TAPJ26IY
-         lSA7KeFBldhyfQO/TkcJ/xW2TGAbx3xG+TWTevEM2A9mmuDB1O3aJQH4Drl9siGYIyef
-         2/EPIHVaGqDXgc+T+DV18mhu+twbQ6cSke+Rn4JqjnRCzo9aBMow10e+9eE8M/5qp4uc
-         vWExXXr7lKNtFqnbuoQUcTYLRvCptMUPXSBN5B40gP00hTP8vuv5Ax2jxyWzPnuvmSYg
-         KuqcCTmznJZSIQH78P06+Fj8YMhWpwEI+qc/8+OJybN0l/Eiq6SALE/uaVeRRlqPkuzS
-         T91A==
+        bh=tBDgrg+DjfdtZk05lWBRK5LeS/PhlQeolKcogeU5s4c=;
+        b=Dpnye4FiPbjBqrP5Zwpln7mxjrx/7kepTCxq6tZGwoHmTgBw8ktcqOZKkBz38/T1Ve
+         ZebplEk1iZS2VoV5S2X/BJbTRPDo7GK3tvbeiDFppz7MaAK010fIvxr2PHybAdJCrEvK
+         mZxqdh8boNKAIDMexJ5ZTEjQqFjSn8A1M79ynL80PoISEG/Bq3kKRmx8QLPzOOUGrg9m
+         8eK3tKz9Q5whUcQbEKU+jIaVnbCzFdiGBIReoQ4OWSG6xmdzLAQITdHsGICArbxnGoWj
+         EGIKN2K4qVXGQeRgAmZP84J0t0gfv0dcjpyW/O90sS3rrQk8Lp/uav3zh08yBQS3igIa
+         5zEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817927; x=1794422727;
+        d=1e100.net; s=20260707; t=1793817930; x=1794422730;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=JTqdFZGZVuVBeRPFocqcr918byeGzTtOW6Ly7O72eFU=;
-        b=VHoCLG82IhNQHTLUL6ibSlfGqS819h4j91aNLvqdPnhioxkITkxPQMAFr1BWU2atkf
-         G8IUW2E83qzSKOHnmg7UM8TaXcQ0iMZIf0r56A6i5W7Nk1UI9fAMBturzsWhoXc3qRWJ
-         ntUupdUP27OOITflLgw+/+APd0FdlRAZcxQXBvz3uiUDdvCI2LK4CROiACcslM1OhBE6
-         /U048D1sO80JoWoRFsvZ2/7mHtK4P4sexRVz75Tu5PxN96AEiqXnKWnU8VMZNPhwMKcs
-         Z57KoxM8h1bDYyhIAgCWEHcYGXyd74ZQgCC3+rIyeKgRFrLWqIYqfq+1xFkpcidMf0+B
-         dxVA==
-X-Gm-Message-State: APuU4Z8vRnx1dArCj8lh5Nc9KLnKbzAsZK0x65wUwj71GnuRszmleo8B
-	lGOY8gKRz1Jp1xbOXxRXKZKeLpqOtSvNNm2Z8g3+m90Ka4ONpzVrAWeWT9f/KtDDuwJRohxwPEI
-	8vAG8euY=
-X-Gm-Gg: AYBFou0uOB2XscCUhgtL4vq9WCadTYIoXyuparLsMZ2cI7/roNDp7dqknvaepIt9qKX
-	H9D+utvi0GKSL9/GZ1MZUJYWzski/6EeurqZKXPJ6/CjceUm0kDZZdnAjmrKFW5VaAKM3xIMpdp
-	/XCk64qPipkcVMFOO9nhMkyO0a9kGNR6nSoLqtvA3HskZnrFU3ACP47awmzdZU1kB91rva3zW32
-	umP7snoVSDjug8tLf2TeWlvtTH/xx4aq1xPlzVuTWqbkLqgGchVIHAamWuwkqsniwJDFmdmErt6
-	WF5SC+yaXCniiN+5cCbNzfERMa5HkrY+yt/qCWV7Bdy7XI+GdxHgir4lfK6pLVf3H14F7BFtvPY
-	uwHTuaWhwPMOPLz3nG+n0XKPD47ATVwFp/5okiNUjUkjVWLk2OQTe0lkctPQfBiuhKNwId5yxtN
-	otz2CRP+C31FennZz6J62GbdlVw4fN3HQTgHk0QxC/StPdNTEQw/hCKhQbFKEaHZMjR+8quFohq
-	B4kCC89O8KgxsEYiLntRQ44yqMou9JRNSaYk4f9o/OEb1JNyc9NXnb1uiMmtuH0zbw4+lL7qkDi
-	ZwlidxrUttNv/hBSO7WJfFM/CXyXTFn1ZqeU12RZWeEMsZ/RIAUtHRNLQDCAHXscqWVUalNqLW4
-	ACKS4JmzJR4g3DbLZNdI=
-X-Received: by 2002:a05:6870:2dca:b0:490:105e:16f5 with SMTP id 586e51a60fabf-4a9075faa3amr13382281fac.14.1793817927232;
-        Wed, 04 Nov 2026 10:45:27 -0800 (PST)
+        bh=tBDgrg+DjfdtZk05lWBRK5LeS/PhlQeolKcogeU5s4c=;
+        b=BaZr3c5rm33YoIVx1XYcAxkynhbIJ9DUPEKpH/Yvi2B511qtBmaop1G81tyn4OgOPM
+         7ZRr42uYhq4vzsjzVeVAmKE7tAT+yhZDyzQYe2Lc8qFH+fnkJTqBuSdRGKNdCoW+w56Z
+         4OKwvmfvi8dsiPcN31Ec4u6hlGqKNP/kQz8YfN/c4Wmfzsl37abmQFSFW/iBSyr0eYSy
+         LLI9ZuyDEJOFd6ptd6HWQSHF1MvvmC6HQnVo6JiYdL5oKcp1Rwor5wV1ViuQEDcbWrba
+         rBpqW5LOv39UjExPBIkDtBFRuFb+xtwbJmFVtVz0KJA/r/cYO6WJpUh9G/BSAHgK9jG3
+         HqDQ==
+X-Gm-Message-State: APuU4Z/pGaF/2wvj6TFHDdCOCf9Y8xjhnjjiDD+E0h0EdWPoYPRLYmjz
+	sG04kLl5xxreQBEXbHIdbaI7GU1qQu9LmcUti+MDr85ArjkHkFB/654TjGFx5qZYSe/pL1owAij
+	NwOYZdGk=
+X-Gm-Gg: AYBFou3KdiNJsl6sd9cLQp8rAbRKeZw74pRYW2pwaoU5R7lJCRdXteOpsGMCg0GFEnR
+	1tArnmgh/YcBMvrJvTXVTWmEQA6+ZK6beF6hS6aJf4D4A4S721jDDHZT1MowR9rhb7S1tUR4yJ4
+	poJx/5yavt7DPs2N24zXCUYpkG+czFFwLHrzhCUjbgNnrXj6kgdO5IrkcEKhdFSU0NzFo/35X1P
+	Jh8fpUHcF5vWQbcmT4bbxmNFJW9cV/S/0R5sEHPXuvxyT7vrwURoywyRBiwlUKjbjcrac3zNZwy
+	QoNZlgPbl1aXyJRdU6RJgcIzdksbSSAo/003FTc4lHxAqY5b9qbTSNOTvRGvJAR9WiXaH8OeM0G
+	e9lXwWKXaWgNPB9ap40tHQ0uNJG1SWZyrr64Qgz7ZDg46JW/Up5KrTLxx5eW1/uboJi/smdiNde
+	iET6+Kp0vzNwh36Eiob1AMVEy13KcKf0UK76SGMJYGUDE/vVygO4X3/wRT4bm1Jfh25GXVsWWFy
+	8V8lXeECXIADY+3gMvnDoYf3zLHCXC1NpBF9g1MoDsh/NP7LTU4Clf8r7wu7WlIQi78o6eAWBQV
+	KGZ2Uv08U+NHnbSnEiTuwXX1EZA4QHquxzyt3a/TroRK6eYAP2BcdKwlEPIArb6zOkaoXa5xmQ=
+	=
+X-Received: by 2002:a05:6808:1902:b0:53a:3533:10d7 with SMTP id 5614622812f47-5640dce893cmr12176434b6e.14.1793817930010;
+        Wed, 04 Nov 2026 10:45:30 -0800 (PST)
 Received: from xps16 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea4903e9sm2590963fac.3.2026.11.04.10.45.24
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea4903e9sm2590963fac.3.2026.11.04.10.45.27
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:45:24 -0800 (PST)
+        Wed, 04 Nov 2026 10:45:27 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 7.3.y 11/16] io_uring/bpf-ops: clear bpf_ctx while submitting SQEs
-Date: Wed,  4 Nov 2026 11:44:42 -0700
-Message-ID: <20261104184447.516768-12-axboe@kernel.dk>
+Subject: [PATCH 7.3.y 12/16] io_uring: free the task context after a grace period
+Date: Wed,  4 Nov 2026 11:44:43 -0700
+Message-ID: <20261104184447.516768-13-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104184447.516768-1-axboe@kernel.dk>
 References: <20261104184447.516768-1-axboe@kernel.dk>
@@ -101,62 +101,77 @@ Content-Transfer-Encoding: 8bit
 
 From: Chris Mason <mason@kernel.org>
 
-Commit 8543a39f03db8816a2d80d0c92c132a19f2afb48 upstream.
+Commit 9f5315d3f4368590c9fe06d4313b7247470bcf15 upstream.
 
-bpf_io_uring_submit_sqes() calls io_submit_sqes() from inside the loop
-program, with current->bpf_ctx set, and requests issued inline run with
-it set too. The socket code uses has_current_bpf_ctx() to recognize
-calls from bpf_setsockopt() and friends, where the caller holds the
-socket lock and has already been vetted, and skips both.
+A task other than the owner can free a request, io_ring_exit_work()
+running the local task_work of a DEFER_TASKRUN ring for example, or
+io_do_iopoll() reaping completions. io_put_task() then takes the else
+branch:
 
-So a SOCKET_URING_OP_SETSOCKOPT from the SQ passes sockopt_capable()
-without the capability, and runs without lock_sock(). A task with no
-capability can set SO_MARK, IP_TRANSPARENT or TCP_REPAIR, and two
-threads changing IP_OPTIONS on one socket, one through the ring, double
-free in no time. SOCK_DESTROY via IORING_OP_SENDMSG ends up in
-tcp_abort() without the lock the same way.
+    percpu_counter_sub(&tctx->inflight, 1);
+    if (unlikely(atomic_read(&tctx->in_cancel)))
+            wake_up(&tctx->wait);
+    put_task_struct(tctx->task);
 
-Clear the run context around io_submit_sqes(). The SQEs come from
-userspace and must be issued like those of any other ring. They still
-run inside the program's RCU tasks trace read section, so a request
-that sleeps there holds up that grace period, but other request types
-do that already.
+The first line is what lets the owner leave io_uring_cancel_generic(),
+and on exec it frees the tctx right after. Nothing holds that off for
+the remaining three lines, the task reference only covers a tctx freed
+along with the task_struct. It used to work out because
+io_uring_del_tctx_node() took the uring_lock that the freeing side holds
+across io_put_task(), until that moved to tctx_lock.
 
-Fixes: 890819248a86 ("io_uring/bpf-ops: add kfunc helpers")
+Free the tctx with kfree_rcu(), and enter an RCU read section in
+io_put_task() before the count is dropped.
+
+Fixes: 5623eb1ed035 ("io_uring/tctx: add separate lock for list of tctx's in ctx")
 Signed-off-by: Chris Mason <mason@kernel.org>
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- io_uring/bpf-ops.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
+ include/linux/io_uring_types.h | 3 +++
+ io_uring/io_uring.c            | 2 ++
+ io_uring/tctx.c                | 2 +-
+ 3 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/io_uring/bpf-ops.c b/io_uring/bpf-ops.c
-index cf2bd068e331..6c2a587fb1bf 100644
---- a/io_uring/bpf-ops.c
-+++ b/io_uring/bpf-ops.c
-@@ -17,8 +17,22 @@ __bpf_kfunc_start_defs();
- __bpf_kfunc int bpf_io_uring_submit_sqes(struct iou_ctx *loop_ctx, u32 nr)
- {
- 	struct io_ring_ctx *ctx = io_loop_demangle_ctx(loop_ctx);
-+	struct bpf_run_ctx *old_run_ctx;
-+	int ret;
+diff --git a/include/linux/io_uring_types.h b/include/linux/io_uring_types.h
+index c5edf6246a4b..1c85ce0e471d 100644
+--- a/include/linux/io_uring_types.h
++++ b/include/linux/io_uring_types.h
+@@ -161,6 +161,9 @@ struct io_uring_task {
+ 	/* drains ->task_list once the task can no longer run task_work */
+ 	struct work_struct		fallback_work;
  
--	return io_submit_sqes(ctx, nr);
-+	/*
-+	 * The requests come from the SQ, which user space can write, so they
-+	 * are issued for the task and not for the BPF program. Hide the run
-+	 * context of the program from them. The users of has_current_bpf_ctx(),
-+	 * such as sockopt_lock_sock() and sockopt_capable(), take a context for
-+	 * a call from a BPF helper, whose caller holds the socket lock already
-+	 * and needs no capability.
-+	 */
-+	old_run_ctx = bpf_set_run_ctx(NULL);
-+	ret = io_submit_sqes(ctx, nr);
-+	bpf_reset_run_ctx(old_run_ctx);
++	/* the tctx is freed after a grace period, see io_put_task() */
++	struct rcu_head			rcu;
 +
-+	return ret;
- }
+ 	struct { /* task_work */
+ 		struct mpscq		task_list;
+ 		struct callback_head	task_work;
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 880be1fed3a6..c8aa6ca4a7cc 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -634,6 +634,8 @@ static inline void io_put_task(struct io_kiocb *req)
+ 	if (likely(tctx->task == current)) {
+ 		tctx->cached_refs++;
+ 	} else {
++		guard(rcu)();
++
+ 		percpu_counter_sub(&tctx->inflight, 1);
+ 		if (unlikely(atomic_read(&tctx->in_cancel)))
+ 			wake_up(&tctx->wait);
+diff --git a/io_uring/tctx.c b/io_uring/tctx.c
+index 291e30e00e45..b4fecea3ea47 100644
+--- a/io_uring/tctx.c
++++ b/io_uring/tctx.c
+@@ -64,7 +64,7 @@ void io_uring_free_tctx(struct task_struct *tsk)
+ 		WARN_ON_ONCE(tctx->cached_refs);
  
- __bpf_kfunc
+ 		percpu_counter_destroy(&tctx->inflight);
+-		kfree(tctx);
++		kfree_rcu(tctx, rcu);
+ 		tsk->io_uring = NULL;
+ 	}
+ }
 -- 
 2.56.0
 
