@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819763;
-	b=ttb/i97Wk/iEguJ7HwH0Ytas2T+KOVWsMdyNeZGOmtIZiVaIsQfL3fPmy5rRMcAPvxOI
-	 vPYFfFgR57OogCe1BKiZmBmX10R0ySP9h4jFqtAdXGDCwbKXYO3XPZ/PrPwJD2ILeogyn
-	 h7LoOfWZP8Am57IYPMwWTLgj5GZ80nHHOTwRjhF4ZiA0mezkiH7PtuJ6Gg9ENPiCpo2LU
-	 XyxbT5xrIXKV6jC45HRQSRZJPaYg4MJgIxDJq/1c2SZut1FSbLaincB/tNloK3tEmt07M
-	 2sN8Y18ic7QBIx3Njl91TNsuoDiE/aihiFG4qVc6Uh3i7562xvHqalMjo37Cai6e83w==
+	t=1793819765;
+	b=bqkVKJFe9Jh/GbfEZjPnPrqnzgZcC8uvznWXss7ZxmfcL0lAtHlnHTaooFS8yK0wTptz
+	 m3PVMKBj0BVRfPGN1Z5guLWg8/cPngFCs/AmrXa+6CegcOp9LygLcUjkg5qiDNdcB/0iB
+	 cTRvIYb321AMi9xmOg0zns6fCOYyj39xslQrrVGkJVbTrkDWLtlKSNb2zY13jzT87lThx
+	 NIVyW0RNy6jPpW3T++cAD6J7ly8/19+98DtVRxH/G++SPmCPI0JOYEpjOMczBVv15KwQX
+	 LVczOrVb2d28Ok/mVwxqjvI7HSnBTOvEPplTDC4nMSBaUSYVXY3VIU5ETjX25hu1gXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819763;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819765;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1mTD4EO0wR/rewXIa6NCGX6KdOrUdylbqvxrfsQrgJE=;
-	b=gFDlXFRoymsIYrJJPLt541t+Bmwdl+ZiwNdDMq2ht2r+0NevF7lxqzq+KxaYoYIODoOt
-	 WCLpzZRI3yhJamVJNpXL6659W5Ir5o3PW7WIl4d/TajGzwMl+mr4QdzBDCGedm6Ml77zZ
-	 LRR9q4RJ9EoDL9Cqc+pdEZpwgZlAvpBMh1MnxXhPNbyhd2STq09ejpxtR8poGbrjDIh3C
-	 3Fa45ggyPlUTbp6vJV3qg/lTiQhqF768PwI4cbZQd9LLjhaIJVPs6AyAQYdQKxxIFRs8j
-	 uRdbDNhn1xtxfhGZ1EXisOW8gwLp2PiBBsJWUtOP68kzIObHz1CCXBlYB7X/o8ZEyYg==
+	bh=DWYU8s1zLubmvo/8J2TNlovbCxvIyqqt6jQX2xCbl/c=;
+	b=d6smPQS8g15YTlNcCgwqvYG5aRgZbe9H9+/45V7zYoKfRi88by0FvXXdTdg/ho5hP5QQ
+	 EZpV2vFXurv+cPyKpoOu/qjshDRDmpXVCgFb2FfHV82z45JEdBaRhalg39B9x0LOhDg2D
+	 zse9f24ZAngo4SBzdwpjPFh+/NK9c1GFJL5pzd3iDR9BhJWyaU5lH5SBZfeblc6/kEo/X
+	 6zJfXxTqRScuBmc41aBtPPT3UdLHnmtcUh+eonm1zaLSlqRu6nHIcSq5LmNXyPCaKlxQt
+	 u8XFmO8TXg5LTY6cDcYsgNO+vdH/NpoVVqoEE8n0nAg/gvGQ6FB0uSASDTyB+nkrF3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1eCMRQUv;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zoSyQrH4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8166B606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:16:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2ED606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:16:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1eCMRQUv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2EDD1F00919;
-	Wed,  4 Nov 2026 19:16:02 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zoSyQrH4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8649B1F000C1;
+	Wed,  4 Nov 2026 19:16:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793819763;
-	bh=1mTD4EO0wR/rewXIa6NCGX6KdOrUdylbqvxrfsQrgJE=;
+	s=korg; t=1793819764;
+	bh=DWYU8s1zLubmvo/8J2TNlovbCxvIyqqt6jQX2xCbl/c=;
 	h=Subject:To:Cc:From:Date;
-	b=1eCMRQUvJCNnZrXmLBaOo3jxv/XFcGPZd1Hv2CBHx00PgUtDhwBVIZocwArSNC9Xj
-	 alCTsftasn/fR4/KVxQ+dLNHvis3EMSU7cgwpWQQUtw006j+nfEpPxcWg6sE3YOTYx
-	 i8Mfn5FxrxWTEXMEvDV9NIcKfK2ajfWnZJnVQP6I=
-Subject: FAILED: patch "[PATCH] ALSA: x86: hdmi: fix chmap array missing terminator entry" failed to apply to 6.6-stable tree
+	b=zoSyQrH4GHwxzrPGxxuaEySiLlkPx/TuQDcCK2H7RRs3ZtShB2YeKrYf7devJ6bd1
+	 HPZVQLzg0W2hXj6rnApf07VCqONDEyopsM5Zmp76WBJp4yN+W1rpTilag3EDH+YTb3
+	 M19+pWFT7tfvLmjz/p4gqI+fyUlNcN29f39/rojo=
+Subject: FAILED: patch "[PATCH] ALSA: x86: hdmi: fix chmap array missing terminator entry" failed to apply to 6.1-stable tree
 To: peter.ujfalusi@linux.intel.com,tiwai@suse.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:16:01 -0500
-Message-ID: <2026110401-reverence-patriarch-006f@gregkh>
+Date: Wed, 04 Nov 2026 14:16:03 -0500
+Message-ID: <2026110403-postbox-magenta-0986@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x f5e1a9a3fddab8421416b68bb132ae9626d07156
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110401-reverence-patriarch-006f@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110403-postbox-magenta-0986@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
