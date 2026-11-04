@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799876;
-	b=HnU8gQrU5Gt2RM2gtgxSMi7MnJMi4gw8YCaYMap545821ZMd5elcC/odxV8mMj81hz3a
-	 ALlYKsr+o52mNQcUzIZ+0wUkuMuOw5lrPqGo8Xvh6HY1pjSM0Se1CNnTSyO0HfD43gosI
-	 aRh16GBfMwy1DaADbXqh7ZjLS51/D2I7pPPqUGfA/XEejro40MCNfTZnB8rTGaue5xqce
-	 8F4bjsyEmP5W5N2kKhOq6UfaIPYNYdaDFPKmiftyuaim0PN+3KzmjxinFoPVLYtvhWGkr
-	 2zQ6SygaqS0Wu807trA9VCtqAD+eJQE7/t66wrJWjbVdCGLXWi4/n+ffL3Ru7C4HwGw==
+	t=1793799881;
+	b=TJO4bTObd8B0qXS7vswpMLz/byg6prKnl7eoF5y5FCci2xJC0G/ef1x0+y5zzXVNoaNz
+	 yhsAhu4xwdZMcbuiXL9t+pstUVVM5ylnpQwqDhr+7IzlImNheTxyGP6SSV4BUeBC7eGkx
+	 Y609w7yS/RbFkbBgF/D5lR4FPsCWEHk6iiGhZ7Vw1NOTbUeUlbXr0bUTAmUtWTj1/Gg+D
+	 xche0JO5rvwXBUo77H3bNf/PYWnauzZO0HM8rhhQSqjpeTA8wyWRf+GdvrrMeuEsm9j6L
+	 sWbYzDyeoOcawV5f2IBaZPZN29F/mQ81czDnwpCxx+o+287+J30JqRmDAyfx0Riy1qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799876;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799881;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pmpDY+bbZacgr+GpSVebdKeSwOS1svToB+DIT97wJCc=;
-	b=1AI/jxp5pSgbk2FSiCu1Iw8BTgpQ5hpN+d9s29YjXINUQ2zNyLAABQ80Z/70sWsJR+5w
-	 6ZHrZiJ0UVettgYztGtmd45F413XZZ7AmANCiK8n9BtFBbrCgwhqyOSf0CzB2NetPLjBc
-	 UvC9C4B+ka9zLTs2stb6+75yiluoshLq65LUOKyg1cN440i/8nfUhjHcVc+FRsax0K0v6
-	 IDK4IeDJncj3Gg++Ket67aktkg24StoDrE+5ucb3d4WSVF0X1erBLDUES28UG+rIZHAYq
-	 m+85ctBAwE/m4nuS0v93d2ZnDDLiMBsN1rtWXZlUse8uMzzRVbxM1j05S9vM4J/uBGA==
+	bh=haQveJfmTqpt8tNfzWBuQ95IRx/Z56KrtXuIwDInVmk=;
+	b=5QVpXkvcAp//4NneAf7E9D5jKh8ktVei1J9naklUQ63yCvcOxcoYauYEsB51PpuNWd7W
+	 e6VmKhHaG5dpDL4weK4Wzrsd7ajvb8qlfm4oTAPiScuKY8GlhJpERUuPWjD0I5xPQEzuj
+	 hxvxcbJxjI7ZKKXkJx8GeHqDrdPV2euslug+gck9xtibvdhVj7qRQHW+9KlQbL5hh0cp9
+	 7KFoYDjIPOxIewpWaZcVGJSpMRafF1w9gs6NPRwQID8DOTAi2KQ0p2KNZZfuHjcW1V/he
+	 HKO5hLmEnTlaQ/qcOu78/aqTd/YYY4JybdEXbYn7VoCPx746e0rYqiq30Q1QGCOKK+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QTPVhbXC;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="ujBv/qBh";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1987D606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:44:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59FB6606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:44:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QTPVhbXC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9E2F1F00919;
-	Wed,  4 Nov 2026 13:44:35 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ujBv/qBh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1FA51F000C1;
+	Wed,  4 Nov 2026 13:44:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793799876;
-	bh=pmpDY+bbZacgr+GpSVebdKeSwOS1svToB+DIT97wJCc=;
+	s=korg; t=1793799881;
+	bh=haQveJfmTqpt8tNfzWBuQ95IRx/Z56KrtXuIwDInVmk=;
 	h=Subject:To:Cc:From:Date;
-	b=QTPVhbXCN+SnK6/kj6o44PguaapDbqFeS76GNrVgmcGtz/+DgL2fUeKFy98Y8D1rq
-	 wCn7FOBp+1Ia+sv3tPpt20BkN4SvI1F3v/wLVjXMoHM1DmihJQmwI+c4F7dJanB33I
-	 1UE15a5vwtGrwREA7JxjN1oCmDS8xty9wkyK+A7U=
-Subject: FAILED: patch "[PATCH] HID: wacom: Setup SW_MUTE_DEVICE according to the order of" failed to apply to 5.10-stable tree
+	b=ujBv/qBhHTlZxCE0JxORpmouQi9n9PXZ2nZcf7tVhjfuAwLmUsh3EKPNmCe3IWMxd
+	 pczKjwVqNlOmHJuB4e03CSAvPkge5kzg5s3FSSV8W7PiPROPodFZuDMqWhgFZX653s
+	 XH77CAvoOPVvEhYJD5wRdsb1ik2UTjyKhvovizHU=
+Subject: FAILED: patch "[PATCH] HID: wacom: Write shared touch initial status only once" failed to apply to 5.10-stable tree
 To: ping.cheng@wacom.com,jkosina@suse.com,lee@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:44:26 +0100
-Message-ID: <2026110426-partner-wildcard-01e9@gregkh>
+Date: Wed, 04 Nov 2026 14:44:38 +0100
+Message-ID: <2026110438-reexamine-jubilant-7940@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 97ce491bcef2d231b8d51cee8e579183319a5ba4
+git cherry-pick -x cae3031c691dff0be61a26bc64e31a6939010d5c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110426-partner-wildcard-01e9@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110438-reexamine-jubilant-7940@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,17 +79,13 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 97ce491bcef2d231b8d51cee8e579183319a5ba4 Mon Sep 17 00:00:00 2001
+From cae3031c691dff0be61a26bc64e31a6939010d5c Mon Sep 17 00:00:00 2001
 From: Ping Cheng <ping.cheng@wacom.com>
-Date: Wed, 7 Oct 2026 15:03:35 -0700
-Subject: [PATCH] HID: wacom: Setup SW_MUTE_DEVICE according to the order of
- input registration
+Date: Wed, 7 Oct 2026 15:00:27 -0700
+Subject: [PATCH] HID: wacom: Write shared touch initial status only once
 
-The refactored SW_MUTE_DEVICE code assumed that stylus will be
-the first regiestered input. In reality, touch can be registered
-before stylus, such as the Wacom Cintiq Pro 13 and 16.
-
-This patch covers both touch-first and stylus-first cases.
+For consistency with how the shared has_mute_touch_switch is handled
+during registration, let's apply WRITE_ONCE to is_touch_on too.
 
 Cc: stable@vger.kernel.org
 Fixes: ba16e5ffbaa1 ("HID: wacom: Advertise SW_MUTE_DEVICE capability prior to registration")
@@ -97,57 +93,17 @@ Reviewed-by: Lee Jones <lee@kernel.org>
 Signed-off-by: Ping Cheng <ping.cheng@wacom.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
 
-diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index c4cd87b781c4..cf459c16b39a 100644
---- a/drivers/hid/wacom_wac.c
-+++ b/drivers/hid/wacom_wac.c
-@@ -3977,10 +3977,18 @@ int wacom_setup_touch_input_capabilities(struct input_dev *input_dev,
+diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
+index 8dc7aa1c0a26..33fa491fba92 100644
+--- a/drivers/hid/wacom_sys.c
++++ b/drivers/hid/wacom_sys.c
+@@ -2386,7 +2386,7 @@ static void wacom_set_shared_values(struct wacom_wac *wacom_wac)
+ 		 * match historic default.
+ 		 */
+ 		if (wacom_wac->is_soft_touch_switch)
+-			wacom_wac->shared->is_touch_on = true;
++			WRITE_ONCE(wacom_wac->shared->is_touch_on, true);
+ 	}
  
- 	if (features->type == HID_GENERIC) {
- 		hid_dbg(hdev, "generic touch setup\n");
--		if (wacom_wac->has_mute_touch_switch ||
--		    (wacom_wac->shared && READ_ONCE(wacom_wac->shared->has_mute_touch_switch))) {
-+
-+		/*
-+		 * This is to setup the touch switch for those devices that report
-+		 * pen interface first. The setup can only be done here since this
-+		 * routine is only called once. When we are here, the shared
-+		 * has_mute_touch_switch has been set by the pad.
-+
-+		 * There are two ways of reporting inputs from firmware: stylus first
-+		 * or touch first. This path covers the stylus input first case.
-+		 */
-+		if (wacom_wac->shared && READ_ONCE(wacom_wac->shared->has_mute_touch_switch)) {
- 			input_set_capability(input_dev, EV_SW, SW_MUTE_DEVICE);
--			wacom_wac->has_mute_touch_switch = true;
- 		}
- 		/* setup has already been done */
- 		return 0;
-@@ -4403,7 +4411,26 @@ int wacom_setup_pad_input_capabilities(struct input_dev *input_dev,
- 		break;
- 
- 	case INTUOSHT3_BT:
-+		break;
-+
- 	case HID_GENERIC:
-+		if (wacom_wac->shared) {
-+			/*
-+			 * The setup of touch switch capability can only be done
-+			 * here for those devices, such as Cintiq Pro 13 and 16,
-+			 * that have touch input registered before stylus and pad
-+			 * inputs.
-+			 *
-+			 * There are two ways of reporting inputs from firmware:
-+			 * stylus first or touch first. This path covers the touch
-+			 * input first case.
-+			 */
-+			if (wacom_wac->has_mute_touch_switch &&
-+			    wacom_wac->shared->touch_input) {
-+				input_set_capability(wacom_wac->shared->touch_input,
-+				    EV_SW, SW_MUTE_DEVICE);
-+			}
-+		}
- 		break;
- 
- 	default:
+ 	if (wacom_wac->features.device_type & WACOM_DEVICETYPE_TOUCH) {
 
