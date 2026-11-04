@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793830824;
-	b=GFmx7S+0sHRzV3lgPXe7lVD07emi8UrmPXVFRzJeGzQVq9VNHxi++i5SycmROG9H02PE
-	 w1VVbxp48EP5pVd5Z0pPmIEmag0ke3zI/sMvAKMt70tqK+GY8AjlIBYtRWfzOmWp58hv0
-	 KMY0HGFQeD6xh7I3+la5BB01zppy4KkYOXWBcPkdQOG0PNml3nUPkCbkgxeneAsW2CoTf
-	 D6rnxNKvcrBua65dCiizMTb/QZjhb5ip++vqh6/dcP0REc4AD01kqJIoFpKvGFyRoascR
-	 vjFrebYVfNczYpX6ZhnBrPVLA2VlMW9c64OpljMc6mO4Cdqw91AmmqHO1cXFydySonQ==
+	t=1793830825;
+	b=vJv9XJeOp3d95TT1+Gmtur8FacvxwsgC/auZHGjLzCZbaUf0RUNcT+W/tsuJCoSI4tbO
+	 9QhMHIdTjPVDEzC7a419D0+Nz/7ekUxu9Prp4nN1fcrq1uUUfPqFmP5X6SFgj4erb+BOB
+	 cv7UVTQPzDKjllELtuFuMRJ/ccdLJSyAtIj1KtGp+GTW612Y4e+ApsAeWH/uk8W7NaY/W
+	 gTTPFq6zj0jd5Fd9udJo6Sxl087NMzamHfKwWZBpkNnfXTM6hrmemTnDpdMIHRUOHXTnF
+	 b/BF2v/et7XAukXb7FmaFT3zoKXaUkap5TLc57Nc/jBZkizW9ddq28QbGCj5d+lQdMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830824;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830825;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=RkzGhh3ffF8+CtVzJH0eYQvRrmPYjEfCZ9XLTUz3kt4=;
-	b=r+8fMgDavcdktUWGxtJYrPOlZntSvtsoUhM8bDk9+xsUyqQfF11bNBRzU9Cr+ibKGN21
-	 69UFZeYfqgQ9kcI/CHCRr90+Mz34fB0ZqtRYv9xYBC8+saXfOviuUdOPSHVgEszKNBFTi
-	 NzfkP+NVC2UqWiJwz0QZGN5tpLPZWlO2bwmYZ+RkXqdMWWr6gbxPNsn4miZX3UOUVh5n1
-	 mJoA/AbbqlDPNif4tEphMQbe+ZgzFrzEKF3qv3DA9h0CWMNbYjjNp4lWL6Q7IytBG5Ysi
-	 iW7UHv/MQDkgNbRwt2Hp9zfoLcA3JKBY/uvcBg6IPD0gycw9+63K8pdfQOG7sbidd6w==
+	bh=mLQNRBT4me249sGyybN1OAaHyTdeDeQKv5MIUBKt2FQ=;
+	b=eakcw3vUOs6L/M9WucYcz/GybC26x213jYzEiOT7iDvuX8769tE4mHcsZSFXr6QRaPiH
+	 0LCmPLfDXuF9XqqzaFaIUf6KS5bKNiRCE0bjzoa3qxgdTmizyGwyIw0lUyXeh9aZcQICg
+	 NKhnqcuydu2m8Fbe5G1n1wlk6aAV9bRlFTR6KHc1vPT/8EYLcRkEhSfCZsWRQWj8c9yVV
+	 hwixXJgXXHQ/50ysopggig4sJTD9qPHvDM4kksiGGqCC5hmw1vcl/EtbsdIK+xF3gfPXd
+	 T4u9tCxtDdcfn0FgNk4cT2xdboeCuWxpllQ7Uf7Q2k/3IZgRm6I6ijCg//vJpw/AvpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=P1bzsU2r;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Msyc2S/b";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C536C606A326;
-	Wed,  4 Nov 2026 22:20:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607FE606B2D7;
+	Wed,  4 Nov 2026 22:20:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=P1bzsU2r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CBB61F00919;
-	Wed,  4 Nov 2026 22:20:23 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Msyc2S/b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F28551F00919;
+	Wed,  4 Nov 2026 22:20:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793830823;
-	bh=RkzGhh3ffF8+CtVzJH0eYQvRrmPYjEfCZ9XLTUz3kt4=;
+	s=korg; t=1793830825;
+	bh=mLQNRBT4me249sGyybN1OAaHyTdeDeQKv5MIUBKt2FQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P1bzsU2rgO8I5zBhXyC16aqksl+t3VQkoxBKhtfYPZT/x4swxGJR7diaHGssu73y+
-	 Wd7H4ugJDmmC9LKxkRtxym8tj8ftZc0OunrbnP75pYu98JfRUt/IT3eCAAG6wOGJQb
-	 0eVL5WFC8u+REnLiV35Ot0esuQxAH8aMRJs/JpnE=
+	b=Msyc2S/bVcOBQB4hroaokyqcAv6Go7Dz55uvWT7eNKMTcaEbgRtkL+eE3BhLjRdBj
+	 mVIhyZsuLZaX52P/IPfw9KNOXr8nq1R1S3QSf8EN5+4XDARdmFHIiubrRY4jRia5se
+	 3vhuYSBxSusM0tjJhg+uvAE+mSCBF6Ds6quS18gI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@intel.com>,
-	Mark Brown <broonie@kernel.org>,
+	Mykola Marzhan <mykola@meshstor.io>,
+	Yu Kuai <yukuai@fygo.io>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0305/1005] ASoC: SOF: Intel: mtl: Power down DSP if it is left enabled in pre_fw_run()
-Date: Wed,  4 Nov 2026 16:00:38 -0500
-Message-ID: <20261104211052.469262059@linuxfoundation.org>
+Subject: [PATCH 6.18 0341/1005] md: skip bitmap accounting for empty write ranges
+Date: Wed,  4 Nov 2026 16:01:14 -0500
+Message-ID: <20261104211053.511152315@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
 References: <20261104211043.516122098@linuxfoundation.org>
@@ -70,68 +68,70 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+From: Yu Kuai <yukuai@fygo.io>
 
-[ Upstream commit 31fd7a0bbfa4b7e8aff11f278e817664c6a5f68b ]
+[ Upstream commit 87c10252e3d6c28769d93bea9e6a9b592e5809d1 ]
 
-It is expected that the DSP is in power down state when the firmware boot
-is attempted.
-If the DSP for any reason was left powered up then the DSP boot will
-fail since the ROM boot sequence might not be able to run.
+mkfs.ext4 can submit zero-sector flush/FUA bios. These bios are WRITE
+bios for md_write_start() purposes, but they do not cover any data sector
+and must not dirty bitmap bits.
 
-Make sure that the DSP is off before proceeding to boot it up.
+md bitmap accounting currently passes such bios to bitmap start_write().
+For llbitmap this reaches llbitmap_start_write() with sectors == 0,
+which underflows the end chunk calculation.
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Liam Girdwood <liam.r.girdwood@intel.com>
-Link: https://patch.msgid.link/20260730122857.5294-3-peter.ujfalusi@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Personality bitmap mapping can also turn a non-empty bio into an empty
+bitmap range when the requested sectors are outside the active bitmap
+geometry. Treat both cases as not started, so the completion path will not
+call end_write() for an empty range.
+
+Tested-by: Mykola Marzhan <mykola@meshstor.io>
+Link: https://patch.msgid.link/20260802195038.164272-11-yukuai@kernel.org
+Signed-off-by: Yu Kuai <yukuai@fygo.io>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/intel/mtl.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ drivers/md/md.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/intel/mtl.c b/sound/soc/sof/intel/mtl.c
-index 2242c96bfa519..f119e0e0651a2 100644
---- a/sound/soc/sof/intel/mtl.c
-+++ b/sound/soc/sof/intel/mtl.c
-@@ -236,6 +236,17 @@ int mtl_enable_interrupts(struct snd_sof_dev *sdev, bool enable)
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 03d328506b285..ce3bd127e3bb3 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -9266,6 +9266,8 @@ static void md_bitmap_start(struct mddev *mddev,
+ 		mddev->pers->bitmap_sector(mddev, &md_io_clone->offset,
+ 					   &md_io_clone->sectors);
+ 
++	if (!md_io_clone->sectors)
++		return;
+ 	fn(mddev, md_io_clone->offset, md_io_clone->sectors);
  }
- EXPORT_SYMBOL_NS(mtl_enable_interrupts, "SND_SOC_SOF_INTEL_MTL");
  
-+static bool mtl_dsp_is_enabled(struct snd_sof_dev *sdev)
-+{
-+	int val;
-+
-+	val = snd_sof_dsp_read(sdev, HDA_DSP_BAR, MTL_HFDSSCS);
-+	if (val & MTL_HFDSSCS_CPA_MASK)
-+		return true;
-+
-+	return false;
-+}
-+
- /* pre fw run operations */
- static int mtl_dsp_pre_fw_run(struct snd_sof_dev *sdev)
- {
-@@ -249,6 +260,18 @@ static int mtl_dsp_pre_fw_run(struct snd_sof_dev *sdev)
- 	u32 dsppwrsts;
- 	const struct sof_intel_dsp_desc *chip;
+@@ -9284,7 +9286,8 @@ static void md_end_clone_io(struct bio *bio)
+ 	struct bio *orig_bio = md_io_clone->orig_bio;
+ 	struct mddev *mddev = md_io_clone->mddev;
  
-+	/* Power down the DSP if it is left enabled to ensure clean boot state */
-+	if (mtl_dsp_is_enabled(sdev)) {
-+		dev_dbg(sdev->dev, "powering down DSP first\n");
-+
-+		ret = mtl_power_down_dsp(sdev);
-+		if (ret < 0) {
-+			dev_warn(sdev->dev,
-+				 "%s: failed to power down already-enabled DSP\n", __func__);
-+			/* Continue anyway to attempt recovery */
-+		}
-+	}
-+
- 	chip = get_chip_info(sdev->pdata);
- 	if (chip->hw_ip_version > SOF_INTEL_ACE_2_0) {
- 		dsppwrctl = PTL_HFPWRCTL2;
+-	if (bio_data_dir(orig_bio) == WRITE && md_bitmap_enabled(mddev, false))
++	if (bio_data_dir(orig_bio) == WRITE && md_io_clone->sectors &&
++	    md_bitmap_enabled(mddev, false))
+ 		md_bitmap_end(mddev, md_io_clone);
+ 
+ 	if (bio->bi_status && !orig_bio->bi_status)
+@@ -9308,12 +9311,14 @@ static void md_clone_bio(struct mddev *mddev, struct bio **bio)
+ 	md_io_clone = container_of(clone, struct md_io_clone, bio_clone);
+ 	md_io_clone->orig_bio = *bio;
+ 	md_io_clone->mddev = mddev;
++	md_io_clone->sectors = 0;
+ 	if (blk_queue_io_stat(bdev->bd_disk->queue))
+ 		md_io_clone->start_time = bio_start_io_acct(*bio);
+ 	else
+ 		md_io_clone->start_time = 0;
+ 
+-	if (bio_data_dir(*bio) == WRITE && md_bitmap_enabled(mddev, false)) {
++	if (bio_data_dir(*bio) == WRITE && bio_sectors(*bio) &&
++	    md_bitmap_enabled(mddev, false)) {
+ 		md_io_clone->offset = (*bio)->bi_iter.bi_sector;
+ 		md_io_clone->sectors = bio_sectors(*bio);
+ 		md_io_clone->rw = op_stat_group(bio_op(*bio));
 -- 
 2.53.0
 
