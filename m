@@ -1,61 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.75
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793770634;
-	b=k6Ng1hEramHHwW/oN4Hz0KTECShKwApyi1haY2WICOQUP3KoaMt9BcHRGQSi4NmnQWDe
-	 Cfmy4qlO1QR8c/5njVblW/YfPpbJaoUvIHyyqaeGYl10HlEAEZPoNgIGuVZUF0FS/tQl+
-	 pAoD6DOdRC/mZa5rCqjoJejKbo2Dy1VgUS15DRMmakD51cj7AXL6ZrsH4C/H9dCsEbe4x
-	 boznc9Ww2MrApfM+uRGQk2W2+Pknl6knAiZbrBdkQ07EYUtEf2YME50HFpLSLdxknTh7u
-	 FDb+MmRph3dNFYlQu9NAwd+GXSkaoi5g5miIj8BuiURrF3PyyfURtkNHMUjsOGouSRQ==
+	t=1793770820;
+	b=z/3e+iUj0YZUoCTVkRQFBFfQ7BilJglaAH6YPG23kn1BgQuIbuhIZoEae+oalivvMwo9
+	 k7QwqzbG5UgfJ4pvfZcrxnNT/+Qnd9MIQYDIEejQQj2Nn8skwZtRflu/gWE3GPpVSp5TU
+	 0KV0sAezrzhoAWeFH8UCFbJ0yJTXEK83fVn2wgSOrPplkC/xzkFSO+dHXbYOOzkGnUnko
+	 Ywfaaszs2zV1Tnz8KZJU61MaTGvII+ZHtYi0WJp27oYqxwhXEq68ETIz4Hrxxv0Uwit26
+	 W7PSuJ1KxQPRwBRQyj0tLgGs+BHgMgrQJY3dusvt+Q8rCMl0QthgOB1SMiy42FGxXTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793770634;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793770820;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nDRNxsDnkcgSBTFbAhj7C2jtia/Fnvvda25FOYiDmms=;
-	b=Prio/taKXELJ7FbRuVVDX67kDPWYELZgaigAQEpwurS5YXAQyOx51z+sLinK4SU+iqdz
-	 Ei5KQOGOSIm0iWcBF1JIp+7FTgdR2QfkQlvb3mV2+Adk0XnNcy4ZgDU9l/ZXGtrZiMj2S
-	 sHJUK1EvJOaqUkLbVdrBbmxYETFXG7UonJqReG6R7AIn83oJKzVm60j14co5Tjr+2nnxM
-	 mBxzNDMon+qZ5W1QmX0x8ZlqaZha1i6j+Dj/Y2sVZ+yVMuao83me9eHYnvhYxPdA5Y9lg
-	 wwYD/gc9ql17aJmZed2wM34t6EDGhfNwShRGGtUgPdbGaeZnmKglZ9RuNHHu+xVVrhg==
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=XK14gn3afGjQO93vtxOK4rX2+8gn13HtO8JN2/VQ3Cw=;
+	b=mYgORunCVymX1h3RYmEB6goRfCdkoOAudzlVGgAFsyn6SQyv6gPeJXo6lunTzjbdW0a0
+	 rPZEFBWf/KarslnUVrNgf7L2y+Wr50lpUEjtYuJEmPDKCsxaOIDzqZVP95NOULz/ub3Gb
+	 7SsPD6HA7yyR/FcktnJLOHOaK0TYfH9IGEp/B/Zdf2VPXBDC7RsnPfozQWxdY/He5Vt16
+	 lcWOW3KIz3MBNqEeWdBeYjFskYRda/+NELrsAZwlCWqSidq6pnN7yhtPzzTPDem5CTrhG
+	 owpMk7JKOvMhg/3+ISI5iPb87dEVFy6vJFT1czC4uMW80GsqvmNQypg6x6oCC/EiwZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=VXCY1mMc;
-	arc=none smtp.remote-ip=115.124.28.75
-Received: from out28-75.mail.aliyun.com (out28-75.mail.aliyun.com [115.124.28.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=oEvwo11g;
+	arc=none smtp.remote-ip=52.59.177.22
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D0F606A31B;
-	Wed,  4 Nov 2026 05:37:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6D0F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FA9606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 05:40:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3FA9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=VXCY1mMc
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1793770627; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=nDRNxsDnkcgSBTFbAhj7C2jtia/Fnvvda25FOYiDmms=;
-	b=VXCY1mMcCuJTwcHW1IdvuaG0dkO9A/sG4kDNsYTOsESwODTsmHCxM0zu7HH9HdQnp4+jxaOMNudrToz7W20YPvtaLDdLEcCSP0zUIC6zp4PyGt2xkROt4QnrKJRjS9CURM08GNWUAysUq/UzNH1oICLYBO/PTvCbsEORgd312AQ=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436352|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.142451-0.00490227-0.852647;FP=9066074887955760626|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.jwHy6qj_1793770625;
-Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.jwHy6qj_1793770625 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 04 Nov 2026 13:37:06 +0800
-From: Weibin Liu <liuwb@xiaopeng.com>
-To: linux-integrity@vger.kernel.org
-Cc: linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zohar@linux.ibm.com,
-	roberto.sassu@huawei.com,
-	dmitry.kasatkin@gmail.com,
-	Weibin Liu <liuwb@xiaopeng.com>,
-	stable@vger.kernel.org,
-	Zhu Guanglei <zhugl3@xiaopeng.com>
-Subject: [PATCH] ima: hold ima_extend_list_mutex while locating the trim position
-Date: Wed,  4 Nov 2026 13:37:05 +0800
-Message-ID: <20261104053705.3967228-1-liuwb@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=oEvwo11g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1793770776;
+	bh=XK14gn3afGjQO93vtxOK4rX2+8gn13HtO8JN2/VQ3Cw=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=oEvwo11gNhv/l82eQawvMsHRYC9BobHE95QfaRZn3cZ6gRzaZBdD66/M22mRPfY9z
+	 /OzKUGJkvaGZDrjxgpL8tt2ftayfREkAb7N10oTD2fnOynmGhqS3+T3MkrX+1blRHt
+	 I9OC369Wq8yLcOrov/W3iIyLrSYtN0VnC8zQQIrs=
+X-QQ-mid: zesmtpsz8t1793770758t3d36a38e
+X-QQ-Originating-IP: i2/274j8W+IzMMKT+4D6S+IUbWiQBGVsl/7IIyWqb4A=
+Received: from localhost.localdomain ( [61.183.83.60])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 04 Nov 2026 13:39:16 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 337138461145264766
+EX-QQ-RecipientCnt: 7
+From: Wentao Guan <guanwentao@uniontech.com>
+To: joonas.lahtinen@linux.intel.com,
+	imre.deak@intel.com,
+	jouni.hogander@intel.com
+Cc: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	Wentao Guan <guanwentao@uniontech.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/i915/display: Don't drop the async-put delay on self-requeue
+Date: Wed,  4 Nov 2026 13:39:10 +0800
+Message-ID: <134A26B6BCDD3C9C+20261104053910.1065103-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,99 +72,69 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: No4GWyI4cWt6Kjo7qRlUDJvLUFRLYgvhJadss/tsQS75ID9ohL0hTa9z
+	/DXUWU2zg34ePTZA5xKfrdMtA0U75LIW2PC0mwjG2zd4t+ARAKhX86MozyXkPubWHyYifYQ
+	FZgh4+bVuK8OUMXik+xh+ISxd+k6NS9yFDrhG5/TzW4v9E95pCBJAEjURkxqsOePpggSNdo
+	Elwv0XUQFW6KPdO//S1eIAeyhH6gQnrEqWj6IR3HVdU68lLX7z9N3Y1f14ufLnbhYVa+qNC
+	+EeorAKFIoHzetuduPsGp1RDsljjzgJWUPOuJ0Cj9P68Sb99y29f0kOWQkNLhemmYhe3bN4
+	3JpwTjBtvFDeMbD7gaSAJJ0BqEx2HA3OuvN8AYdBM1it3zbu4CxTKnyHb1Dmis6T5+oHsbi
+	YQEYjHU3FkaNQ/pxRQ6TwEs7NhGaRY32z5mNhPodiGd7shIyzztzyNdM4j8NY06J39/EF7B
+	8uCbwxILxR110wjU1gOqEStRKOLD2nE7T+Mn8LdePp7MJgRrSQ+QfnpiPainH9Z9yabY+UN
+	N8o5b2ZfNyzjJK168PPTjtT+S4HnaGJ2BKOi24R7GwRY4TPfkgC44IhF+9XBbqqwgDg2V8R
+	0XJX13qeATa0JihbbAno/uem+tPdnRV9c4ZbCaXQY0tEHP9dpYszBKjM/elrKwrSMIyV3BP
+	kCFzauAKrbEzETgaMpiYtV/1ovjgFKeij+izw1XU2RTIx7QaIO5aQavTYB+9MgZ6991CgN2
+	SdStpPa7Evql0wV64J8TBw72qJK+jzcP7FK1cT1mmWwXlv7YOzhxUNKYQOlstQL8tfmt7Hq
+	jiCq3k9CNheUb9OxPTwsp7s/MUf91OO/VCWefwmFUarn30DayODAbJdD2KP6AkGFdgQeHo7
+	8STwGqwSR7exNVz+JKWKmMEGZkGLwpRYzKmvwFT7t5+dNLb+NEMyWIBqQhFciVfryGkNm1j
+	73aJ7b/LIZUBTLhEi88l+6v+ybhy1plqIhfAUnS2k8gx/RaU51OfUSMrNZA6p9YqZf32KSE
+	6xKnsJafkbjy3Y6dUejvyQXZSIX6GZ3LQD4nq6+w==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-ima_queue_delete_partial() looks up the queue entry at which the
-measurement list has to be cut without holding ima_extend_list_mutex,
-and only takes the mutex afterwards for __list_cut_position().  The
-comment above the cut justifies this with "ima_fs.c enforces
-single-writer exclusion".
+cancel_async_put_work() also clears async_put_next_delay, so moving it
+ahead of the requeue in intel_display_power_put_async_work() makes the
+requeue always use a zero delay. That discards the delay accumulated by
+concurrent async puts, including the 17 ms DC-state anti-toggle delay
+requested for POWER_DOMAIN_DC_OFF.
 
-That exclusion does not cover the write() path.  ima_measure_lock()
-registers measure_writer at open() time and even lets the same task
-open the file again by incrementing measure_writer_extra_writes, while
-_ima_measurements_write() never checks the caller's identity.  A
-privileged task can therefore open several descriptors for the
-measurement list and use them concurrently from its own threads.  Each
-open() creates a separate struct file, so the f_pos_lock taken by
-fdget_pos() does not serialize these writers (sharing a single
-descriptor would be serialized there).
+Use cancel_delayed_work() directly to cancel the stale instance without
+clearing the delay, and clear the delay only after the requeue has
+consumed it.
 
-Two racing writers can then resolve the same, or an overlapping, trim
-position, and the second one dereferences a queue entry that the first
-one has already detached and handed to ima_queue_delete().  Depending
-on the interleaving this corrupts the measurement list, reads freed
-memory in __list_cut_position(), or frees the same entry twice.
-
-Reproducer: generate some tens of thousands of measurement records,
-open() the measurement list for writing several times from one task,
-then write "20000\n" from that many threads using one descriptor each.
-KASAN reports a stack-out-of-bounds access in ima_queue_delete(),
-called from ima_queue_delete_partial().
-
-Move the lookup into the same critical section as the cut, so that the
-entry stays valid until it has been detached.  Holding
-ima_extend_list_mutex also excludes ima_extend_list(), so the plain
-list_for_each_entry() is sufficient and the RCU variant is no longer
-needed.  Keep the existing error precedence (a short list returns
--ENOENT before the suspended check) and keep ima_queue_delete()
-outside the mutex, since the trimmed list is already private.
-
-Fixes: fcb0318a2969 ("ima: Support staging and deleting N measurements records")
-Cc: stable@vger.kernel.org # v7.2+
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
-Reviewed-by: Zhu Guanglei <zhugl3@xiaopeng.com>
-Assisted-by: LLM
+Fixes: 30ca6365bb42 ("drm/i915: Fix assert on pending async-put power domain work when it requeues itself")
+Cc: <stable@vger.kernel.org> # v6.11+
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- security/integrity/ima/ima_queue.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_power.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/security/integrity/ima/ima_queue.c b/security/integrity/ima/ima_queue.c
-index 0f1b7e4113c4..cf8c164eea13 100644
---- a/security/integrity/ima/ima_queue.c
-+++ b/security/integrity/ima/ima_queue.c
-@@ -427,12 +427,16 @@ int ima_queue_delete_partial(unsigned long req_value)
- 	struct ima_queue_entry *qe;
- 	int ret = 0;
- 
-+	mutex_lock(&ima_extend_list_mutex);
-+
- 	/*
--	 * list_for_each_entry_rcu() without rcu_read_lock() is fine because
--	 * only list append can happen concurrently. No list replace due to the
--	 * staging/delete writers mutual exclusion.
-+	 * The lookup and the cut have to be atomic with respect to other
-+	 * writers: ima_fs.c serializes open(), but write() can run
-+	 * concurrently on independently opened descriptors. Holding
-+	 * ima_extend_list_mutex also excludes ima_extend_list(), so the
-+	 * plain list traversal is sufficient.
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index b000ec001ccfc..7da6eda46e9e0 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -873,7 +873,7 @@ intel_display_power_put_async_work(struct work_struct *work)
+ 	 * Cancel the work that got queued after this one got dequeued,
+ 	 * since here we released the corresponding async-put reference.
  	 */
--	list_for_each_entry_rcu(qe, &ima_measurements, later, true) {
-+	list_for_each_entry(qe, &ima_measurements, later) {
- 		size_to_remove += get_binary_runtime_size(qe->entry);
- 		num_to_remove++;
+-	cancel_async_put_work(power_domains, false);
++	cancel_delayed_work(&power_domains->async_put_work);
  
-@@ -441,18 +445,16 @@ int ima_queue_delete_partial(unsigned long req_value)
+ 	/* Requeue the work if more domains were async put meanwhile. */
+ 	if (!bitmap_empty(power_domains->async_put_domains[1].bits, POWER_DOMAIN_NUM)) {
+@@ -885,9 +885,10 @@ intel_display_power_put_async_work(struct work_struct *work)
+ 		queue_async_put_domains_work(power_domains,
+ 					     fetch_and_zero(&new_work_wakeref),
+ 					     power_domains->async_put_next_delay);
+-		power_domains->async_put_next_delay = 0;
  	}
  
- 	/* Not enough records to delete. */
--	if (req_value_copy > 0)
-+	if (req_value_copy > 0) {
-+		mutex_unlock(&ima_extend_list_mutex);
- 		return -ENOENT;
-+	}
- 
--	mutex_lock(&ima_extend_list_mutex);
- 	if (ima_measurements_suspended) {
- 		mutex_unlock(&ima_extend_list_mutex);
- 		return -ESTALE;
- 	}
- 
--	/*
--	 * qe remains valid because ima_fs.c enforces single-writer exclusion.
--	 */
- 	__list_cut_position(&ima_measurements_trim, &ima_measurements,
- 			    &qe->later);
++	power_domains->async_put_next_delay = 0;
++
+ out_verify:
+ 	verify_async_put_domains_state(power_domains);
  
 -- 
-2.50.1
+2.47.3
 
