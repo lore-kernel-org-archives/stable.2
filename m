@@ -1,58 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793834629;
-	b=g4/61xf9q4I8v8dGjOhVNiZqneV9osQXeRi+cw8zfp2HBNe7E0v/Y9tqdT6UnAVASnro
-	 XlGb4NJkgBOgYuNOcM8xtLsfmnXBLqJC9zjNGhKqrMsI5YA/z7R6axmJvhLx+4XSgf9fg
-	 ijyd9qKeqVcWy4VdewxJug6PIFb7qe6ymEcn5WjqOdwECUsjlbhUFXaqdxkFXMvbUy/XG
-	 k4AGMXu1Ov1anlHp09XR8K7rHQjKs4j51a5PF25srultFV9YXH5yEcsIxj+pKEuiiUcex
-	 ZL0pAHmQQV24RYydgJr0ZlztuE1jdeCZk3RxuY3blfSs4LkRfPMW5BqgvCZLn36jdlg==
+	t=1793834653;
+	b=rod+pr/1WdrbVhNOwY6n6aqbBUbohzwyNifQ2zTFMtqDJT+vR6C8BHvZWYbYEPApSqI2
+	 dC+H4EPUWvDNxGVrrB8ldgNoRzXRffm3bj/egooeSLA2tuW/dxLZjv+0EIS9T0u6jYR2Y
+	 7XqNvqN+s+hWe1GHJw1bkg/KyDgZ78f/CKK7D1H/ScRsEihbCQD4uL0iKz5z9xQfVIbpO
+	 fhwww4AL+gOf/hXF+4t+a4RGLm5Nyn3vLqXCwGfH4tX9HQxrZlkMB2Z0icjpKJt3550jo
+	 Nf3WcqM8hNqcAUuO/V7XdBRXwFz9koPwfMaTGRaqKqdjfSMvV15XeoHrbTXCzQ3Z5gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793834629;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793834653;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KfVheouHi+1GThaJVmkKTNEYMohg4ChJ8TYrxBe+kFU=;
-	b=GswhUzNUmQrm2pvuI9LxcEmCLtLhhBM6Q+tt0fFU+jYQvgmpych79sPh6B5IliFxY16L
-	 +987v4ETiXiPZiCOLtEl6U9PEB9yEAiKY6J3Lw9aWNFb7BSmQ1M7EoW+WyAAXXqLHt2OS
-	 tHsCiWaEhvRWIhIh88WfG+jqjRDHkXjXk3FCAMgcI8woakUxds8I/AJGltOjRwHcxYRR8
-	 eEzrOAwbEkkWI5Z9jZt06oLWaUgKVm9yQ1eRr4NP201+Ko0NiJaPsy9OZPJeH7NaVMQAx
-	 QGKbwi5QQOre29AaUhbp7JayvS79XLp7/Z5Z4QYhLySmuBglyxJ05T52R+7wL+SLFpw==
+	bh=HwVF3DNHZD4A3EFj8867gK9RIhk2o9tBhFNVHKFjgmg=;
+	b=oD/TEikTtQ/MqkPuacpsTH0sQNCOn5SHbnURTZW71EMLjt3kE7zDkP/jIhw1TNEhEmzM
+	 9/3+NWZQsMe4EsDyH7DQ8sZIGqyUJa+/Q02efDlQa9Xe4bBoYLe6T3izjZy7xLf0DDFRi
+	 +VUz4lGWQJKftWeu9/w0kL0LEA5Z2ZpgwfVA1tX33Adg2V7W5VxzCz+dE5DKRpk5BSNP0
+	 LbCGWcEbh3Jhzjhc13JGtZd+FEVrfmcDLE96se7xLUfHlohmSgKUcXeHL6v1javG3iyaF
+	 PiS14iTyDVQHfHWZx4x1W2FOUmbX5twhZXjkT8uhC8fGRkW3YdFJDOJvMls+EbhFflw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uv1wTyY0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hbod3PAK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F498606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:23:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230A3606A32F
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:24:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uv1wTyY0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E42951F000C1;
-	Wed,  4 Nov 2026 23:23:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hbod3PAK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AD6D1F00919;
+	Wed,  4 Nov 2026 23:24:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793834628;
-	bh=KfVheouHi+1GThaJVmkKTNEYMohg4ChJ8TYrxBe+kFU=;
+	s=k20260515; t=1793834652;
+	bh=HwVF3DNHZD4A3EFj8867gK9RIhk2o9tBhFNVHKFjgmg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Uv1wTyY0M70fWEkndmoyrDUEWp/gtcv5Z11FhSM5dq+8SVFpS/VcBL+01URXB8FOs
-	 dWnuuIzXgqAo99ETNTwvmFzW/OB0oZS0oL63ILxlKXn75qDkbO4h/7yH1KZw07DWj5
-	 ol2lPSdzXt9wavm5gyO5Adpx9+iGTcakGQtBvapOUa3ev4FnRIz2fkvNoK0H0LrjUl
-	 FDxmGeCpoSr1xi+ayDNwvU2qGzUgH1yFiS2Rc2IAiIYCGB7tl/CxeNlGzAstFwKOsL
-	 IpAvPtt+kEzg74hqk2PUVLceiuIHbdmH3PAGiGSB+dC8ujbHbyJnTV/q6nDESOdt69
-	 SqCwPNqcUOnug==
+	b=Hbod3PAKlCnwAU4lnMRBl27hNtwSCgYklX1w7FgESI+IXK5VP1YdaJ3noEHMt+j53
+	 Yg+CJ0Er7saTx58JyubIqVKs+QpLGH+2hs5xu4oIWOuQctJ8R2TGxGKGyrZY4WC7fu
+	 HbXhXfjH51sgm5aJW1mtnbSVxq8CP9ASClilQFptI/rsLYNb72TND7dnG920WmqImx
+	 8dZcLiXnaE0hTMZSjesURCFnzBxt2oR2MacdvQs9DhRwO9963eYMaYBguARgqQIQ0e
+	 mMcrr3M7AYj8aMHOMmWxoKEp48/wKFzlfV5C8IcoemB2jMru1434EZ3VRt74jil18d
+	 sZhF+2xIomjeA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Zhang Yi <yi.zhang@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Zi Yan <ziy@nvidia.com>,
+	Brian Foster <bfoster@redhat.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Joanne Koong <joannelkoong@gmail.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	yizhang089@gmail.com,
+	Yang Erkun <yangerkun@huawei.com>,
+	Zhihao Cheng <chengzhihao1@huawei.com>,
+	Kefeng Wang <wangkefeng.wang@huawei.com>,
+	yukuai@fnnas.com,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] media: s5p-mfc: use timer_shutdown_sync() for the self-rearming watchdog
-Date: Wed,  4 Nov 2026 18:23:46 -0500
-Message-ID: <20261104232324.887984-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/truncate: look up the end-edge straddler by index
+Date: Wed,  4 Nov 2026 18:24:09 -0500
+Message-ID: <20261104232343.890460-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110425-turkey-reissue-e353@gregkh>
-References: <2026110425-turkey-reissue-e353@gregkh>
+In-Reply-To: <2026110400-reenact-degraded-eaf5@gregkh>
+References: <2026110400-reenact-degraded-eaf5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,62 +82,119 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Zhang Yi <yi.zhang@huawei.com>
 
-[ Upstream commit 63069b5917cba2e15b1a78b3f4ff99e45102c56f ]
+[ Upstream commit f47dee903b9f0f1e4e7181e8a398a7678cabf0a5 ]
 
-The MFC watchdog timer (s5p_mfc_watchdog) is self-rearming: every
-callback re-arms itself with add_timer() and, on a timeout, schedules
-watchdog_work. s5p_mfc_remove() tears this down with timer_delete_sync()
-followed by flush_work().
+In truncate_inode_partial_folio(), after the first split at the start
+edge, folio_split() unlocks and drops the refcount of the after-split
+sub-folios.  The sub-folio straddling the end of the truncation range is
+therefore unlocked and only transiently ref'd in the page cache while the
+code still derives it from a page pointer inside the original folio.
 
-timer_delete_sync() dequeues the timer and waits for a callback that is
-already running, but it does not prevent a subsequent re-arm. Because the
-watchdog callback re-arms via add_timer(), this is the wrong shutdown
-primitive: once the wait returns nothing guarantees a just-queued re-arm
-will not fire later, dereferencing dev (clock on/off, deinit_hw,
-load_firmware, init_hw) after video_unregister_device(), DMA teardown and
-s5p_mfc_final_pm() have run, a potential use-after-free.
+Between the first split finishing and page_folio() resolving split_at2,
+that tail page can be reclaimed, freed and reallocated as a new large
+folio in the same mapping at a different file offset.  folio2 then points
+at a folio that does not cover the end boundary, yet folio2->mapping ==
+folio->mapping still holds, so the stale pointer passes the mapping check
+and folio_split_or_unmap() splits a folio at a wrong position (or, with a
+transient refcount, a use-after-free window opens between try_get and the
+split).  __folio_split()'s own folio != page_folio(split_at) check cannot
+catch this either since split_at2 has been reallocated as part of the new
+folio, so page_folio(split_at2) resolves back to folio2.
 
-Use timer_shutdown_sync(), which puts the timer into a shutdown state so
-that any add_timer()/mod_timer() from the callback becomes a no-op and no
-later firing is possible. Switch flush_work() to cancel_work_sync() so any
-watchdog_work that was already queued before the timer was stopped is
-cancelled rather than allowed to run to completion against the torn-down
-device.
+Look the straddler up by its page index instead.  __filemap_get_folio()
+returns the folio currently covering the boundary, ref'd and locked, with
+the mapping validated under the lock, so the split target is always the
+real folio at the end edge.
 
-This issue was found by an in-house static analysis tool. No runtime
-reproducer is available.
-
-Fixes: af9357467810 ("[media] MFC: Add MFC 5.1 V4L2 driver")
-Cc: stable@vger.kernel.org
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Reviewed-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: adapted the timer replacement to remove del_timer_sync() instead of timer_delete_sync() ]
+Link: https://lore.kernel.org/20260928120833.3440834-3-yi.zhang@huaweicloud.com
+Link: https://lore.kernel.org/linux-mm/DLGXT0ERY79Z.3C5DYVJVX6S9Z@nvidia.com/
+Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operation")
+Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/message/20260916094500.C30061F00893%40smtp.kernel.org
+Suggested-by: Jan Kara <jack@suse.cz>
+Suggested-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Brian Foster <bfoster@redhat.com>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Joanne Koong <joannelkoong@gmail.com>
+Cc: Darrick J. Wong <djwong@kernel.org>
+Cc: <yizhang089@gmail.com>
+Cc: Yang Erkun <yangerkun@huawei.com>
+Cc: Zhihao Cheng <chengzhihao1@huawei.com>
+Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
+Cc: <yukuai@fnnas.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: Retained try_folio_split_or_unmap() instead of folio_split_or_unmap() to preserve the uniform-split fallback. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ mm/truncate.c | 30 ++++++++++++++++--------------
+ 1 file changed, 16 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
-index 50451984d59f7..eb844ddfd8a2d 100644
---- a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
-+++ b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
-@@ -1458,8 +1458,8 @@ static void s5p_mfc_remove(struct platform_device *pdev)
- 	}
- 	mutex_unlock(&dev->mfc_mutex);
+diff --git a/mm/truncate.c b/mm/truncate.c
+index 4bf64fd610c94..9b1baa688a104 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -259,30 +259,32 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t start, loff_t end)
+ 		 * for shmem truncate
+ 		 */
+ 		struct folio *folio2;
++		pgoff_t end_idx;
  
--	del_timer_sync(&dev->watchdog_timer);
--	flush_work(&dev->watchdog_work);
-+	timer_shutdown_sync(&dev->watchdog_timer);
-+	cancel_work_sync(&dev->watchdog_work);
+ 		if (offset + length == size)
+ 			goto no_split;
  
- 	video_unregister_device(dev->vfd_enc);
- 	video_unregister_device(dev->vfd_dec);
+-		split_at2 = folio_page(folio,
+-				PAGE_ALIGN_DOWN(offset + length) / PAGE_SIZE);
+-		folio2 = page_folio(split_at2);
+-
+-		if (!folio_try_get(folio2))
++		/*
++		 * After the first split at the start edge, the folio at the
++		 * end edge may be freed and reused concurrently.
++		 * __filemap_get_folio() looks up the straddler at end_idx
++		 * and returns it locked and ref'd with the mapping
++		 * validated.
++		 */
++		end_idx = (pos + offset + length) >> PAGE_SHIFT;
++		folio2 = __filemap_get_folio(folio->mapping, end_idx,
++					     FGP_LOCK | FGP_NOWAIT, 0);
++		if (IS_ERR(folio2))
+ 			goto no_split;
+ 
++		/* make sure folio2 is large */
+ 		if (!folio_test_large(folio2))
+ 			goto out;
+ 
+-		if (!folio_trylock(folio2))
+-			goto out;
+-
+-		/* make sure folio2 is large and does not change its mapping */
+-		if (folio_test_large(folio2) &&
+-		    folio2->mapping == folio->mapping)
+-			try_folio_split_or_unmap(folio2, split_at2, min_order);
+-
+-		folio_unlock(folio2);
++		split_at2 = folio_page(folio2, (end_idx - folio2->index));
++		try_folio_split_or_unmap(folio2, split_at2, min_order);
+ out:
++		folio_unlock(folio2);
+ 		folio_put(folio2);
+ no_split:
+ 		return true;
 -- 
 2.53.0
 
