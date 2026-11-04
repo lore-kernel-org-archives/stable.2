@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801697;
-	b=mDCd2QVqiA/HDbFCijebXpULegmcAt5Gjrp4EqQPQV4YfAFt76qq8UMfHKAoyQkr+zIm
-	 FeKbxNP9qWpbHfJ5ttDhLxcuUHbfKZ4/wGm38mGQaht1JIFO8q2wT3kdkVbBuCGItF/hi
-	 czDR6hCk3rHqRjMZIJ4Efopfn8DP/c/urywGNSKQcBSeJU9wEWQY3vt7F3Z0GTNUcCboo
-	 7cIpshPqovIOkKWZh7oZczZeqd6T0T3r84XU+ozRwAa1VmHHBd8hnL5xNRYZ+DqN97Zvj
-	 N6lEaS6ipNAFXaMNCb9iCvZqdh+b1blueqA6AHHOaTO1NQ7D6/ODN/Nin//op9a/EJg==
+	t=1793801760;
+	b=AgdzF43ZG/ATenwx08YhUkozTizDqgVCypIINGJIeg4VHa9Yhh0TPCY1dhwK6aLr53K+
+	 P509+WYdKhKw4+R6Q2jk1XqKeA3JMtRiZeMpjz0Euwl5SWlpR8j/j4tQeVHs7BFKo8VJc
+	 moYKkfu21+EeMbku95Df1D2JQVnPi6xOSqvdsSBJIdOZyJioBbhai+VcKQAgSn2lP6brZ
+	 VDN7zycQVSkMe1hE9bwSvGOaliIALgaljvK4B4tKsyMY6ocCF9zM0Ma9dJmiNoJslTXvJ
+	 bYYEYMBDnt0IZIeoHc1jalp5bS7YhLEXZ1uJBPDqhXdsm/DVSvpB8+Mph/3iRcv0Vyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801697;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801760;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=p2jFi1+oVL5KDbjie1pBWMfP8RrBdGUj5vd1USLrnC4=;
-	b=ZA89IbTX9zTPulHbeWLjxBCaR3G4axcADCvtE6++fogqBwyHDSqXqdN/XHcVH4PMRBrS
-	 +QriZ0ffsb+dcBOHjfqiXOFZqurGLwjzeTtR1CGCiyi4wxOMgiVqMp9EHs40ZXGVuuIrw
-	 Mqm/C7kaGrvVjf51Nue7tqW0igxcRlIT5pLZsoeSMMRtOcDuT294uZrbCrGxcDCZCOl6x
-	 6O7viJMofTzPga/nQSTxPFCFPENlkIMVwHGj++r7WYNNlhZhsj0yXzLUlqOtC/mb+wW5R
-	 lD8bhU2p32zAPdHtqpKdwTAsEnecoiZqSHohPbKxVIOS1+FJ1+esuP3SCzyh0ocwwqQ==
+	bh=/SfxAW4uTG4PUUBRybfLveA+kxE3vorK9UPwIbmWSUg=;
+	b=ZgqTz/lHKwsy7arG7sK0i/lmwXU4Aem8ibXGHpbPWA813mnTZuRyL0DLuZW9bN4+80AV
+	 +ONwW58DZrS/SoIFXmCDZDGJS3IzcfitRX0bmzGCVcXCWKe8uRXIJvBJqfv5IOnVOc8AY
+	 XsUxQIFSPlWynphbwAtcj6XUvgZYuNG7UNuzuin13Lc5v2xVxGbj/8e9WBPbKPepoUXv3
+	 ha9xN0IPtHMqAQPnFvJqcnHHBGhXfRbL5uOC8ZuSryLh9MTNkvpWrejFNeFnKN9VmYWhA
+	 KrCu7Oy4AphYpcdWT4Cx7zOiVcHaK97hv1ZM767KABFxXa0yJSpQCi9x5+nF1+021zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VoKF4U5D;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1u1TqKc5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBF7606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:14:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B92606EE89
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:15:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VoKF4U5D
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFEE91F000C1;
-	Wed,  4 Nov 2026 14:14:56 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1u1TqKc5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61BB91F01577;
+	Wed,  4 Nov 2026 14:15:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801697;
-	bh=p2jFi1+oVL5KDbjie1pBWMfP8RrBdGUj5vd1USLrnC4=;
+	s=korg; t=1793801754;
+	bh=/SfxAW4uTG4PUUBRybfLveA+kxE3vorK9UPwIbmWSUg=;
 	h=Subject:To:Cc:From:Date;
-	b=VoKF4U5DrAa82ZtpN5BH0x/RNHvAnxx8qYkRVmXFB0xiyrgj2b2R0qZFxn9pnkbbl
-	 WHLYrw0JE5jszrlJMY8tI6ZksjlPzqgF01UsPin2/6tvnQOIwRyNHbiIrjphAnT2L3
-	 j/topCvJAk31fawOxhOYr0+u/ArMFKSacQRibaj0=
-Subject: FAILED: patch "[PATCH] ASoC: amd: ps: fix snd_acp63_remove() teardown ordering" failed to apply to 6.12-stable tree
-To: fanwu01@zju.edu.cn,Vijendar.Mukunda@amd.com,broonie@kernel.org,songl@zju.edu.cn
+	b=1u1TqKc5DxjgAek6WKXM/uvp6Bf73dk0qkiuU69MJfy+V2JF1jpvTjABszxQAp2X7
+	 9n4X4+anHhBupqQevFI7BnLzddcMkiBQspsMsKJ7Uc7/wcMufsmfqxxE9GU9irUPVT
+	 nxfHCEC3QgcODNHsZptS65c64Xq9ayDUVhTuHEpU=
+Subject: FAILED: patch "[PATCH] genirq: Defer kfree(irqaction) until irq_thread_dtor()" failed to apply to 6.1-stable tree
+To: ripatel@wii.dev,tglx@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:14:55 +0100
-Message-ID: <2026110455-remark-unbuckled-2216@gregkh>
+Date: Wed, 04 Nov 2026 15:15:52 +0100
+Message-ID: <2026110452-liability-uncooked-f75f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x c53791d673ed4da6759d276078627ec4d0c6536b
+git cherry-pick -x d04adff6860587e843948b0c31174f8ae11b8dfe
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110455-remark-unbuckled-2216@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110452-liability-uncooked-f75f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,105 +79,147 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c53791d673ed4da6759d276078627ec4d0c6536b Mon Sep 17 00:00:00 2001
-From: Fan Wu <fanwu01@zju.edu.cn>
-Date: Tue, 29 Sep 2026 06:13:49 +0000
-Subject: [PATCH] ASoC: amd: ps: fix snd_acp63_remove() teardown ordering
+From d04adff6860587e843948b0c31174f8ae11b8dfe Mon Sep 17 00:00:00 2001
+From: Richard Patel <ripatel@wii.dev>
+Date: Fri, 9 Oct 2026 14:58:41 +0000
+Subject: [PATCH] genirq: Defer kfree(irqaction) until irq_thread_dtor()
+ finishes
 
-The ACP IRQ handlers dereference the SoundWire, SoundWire DMA, and PDM
-child platform devices, but snd_acp63_remove() unregisters them while
-the interrupt is still held by devres, which frees it only after remove
-returns. An interrupt in this window is a use-after-free.
+When an interrupt thread exits abnormally via do_exit() (e.g. the interrupt
+handler oopses) without returning from irq_thread(), a concurrent call to
+free_irq() could free the irqaction before the irq_thread_dtor() exit task
+work runs.
 
-Mask the ACP interrupt sources and call devm_free_irq() before the
-first child device is unregistered. The masking goes through the new
-acp_hw_ops->disable_interrupts callback, keeping the remove path
-platform-agnostic. The interrupt line is shared, and acp_hw_deinit()
-clears the sources only after the children are gone, which would
-leave the line raised with no handler left to ack it. The window
-predates the tagged refactor, which only reshaped the dereferences.
+  irq thread (oopsed)                 free_irq()
+  -------------------                 ----------
+  do_exit()
+    exit_mm()
+      complete_vfork_done()  -------> kthread_stop() returns
+    exit_files() ...                  kfree(action)
+    exit_task_work()
+      irq_thread_dtor()
+        action->...                   <- use-after-free
 
-devm_free_irq() waits for in-flight handlers, but not for work the
-hardirq has already queued: acp63_irq_handler() schedules
-amd_sdw_irq_thread on the SoundWire manager. Draining that work in
-the manager's remove path is a soundwire-side change and follows
-separately.
+Track the pending exit work with the IRQTF_EXIT_WORK thread flag, and have
+__free_irq() wait for the bit to clear before kfree().
 
-This issue was found by an in-house static analysis tool.
+irq_thread_dtor() only runs on irq_thread abnormal exit. If that dtor also
+faults, free_irq() will hang indefinitely, but double IRQ thread faults
+require a reboot anyways.
 
-Fixes: eaf825037d6d ("ASoC: amd: ps: refactor acp child platform device creation code")
+[ tglx: Add missing include ]
+
+Fixes: ed3e694d78cc ("move exit_task_work() past exit_files() et.al.")
+Signed-off-by: Richard Patel <ripatel@wii.dev>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Link: https://patch.msgid.link/20260929061349.3879-1-fanwu01@zju.edu.cn
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Link: https://patch.msgid.link/20261009145842.1616117-2-ripatel@wii.dev
 
-diff --git a/sound/soc/amd/ps/acp63.h b/sound/soc/amd/ps/acp63.h
-index 62cb6bef17ab..d0cfbd4dafc1 100644
---- a/sound/soc/amd/ps/acp63.h
-+++ b/sound/soc/amd/ps/acp63.h
-@@ -294,6 +294,7 @@ struct acp63_dev_data;
-  * struct acp_hw_ops - ACP PCI driver platform specific ops
-  * @acp_init: ACP initialization
-  * @acp_deinit: ACP de-initialization
-+ * @disable_interrupts: disable ACP interrupt sources
-  * @acp_get_config: function to read the acp pin configuration
-  * @acp_sdw_dma_irq_thread: ACP SoundWire DMA interrupt thread
-  * acp_suspend: ACP system level suspend callback
-@@ -304,6 +305,7 @@ struct acp63_dev_data;
- struct acp_hw_ops {
- 	int (*acp_init)(void __iomem *acp_base, struct device *dev);
- 	int (*acp_deinit)(void __iomem *acp_base, struct device *dev);
-+	void (*disable_interrupts)(void __iomem *acp_base);
- 	void (*acp_get_config)(struct pci_dev *pci, struct acp63_dev_data *acp_data);
- 	void (*acp_sdw_dma_irq_thread)(struct acp63_dev_data *acp_data);
- 	int (*acp_suspend)(struct device *dev);
-@@ -397,6 +399,12 @@ static inline int acp_hw_deinit(struct acp63_dev_data *adata, struct device *dev
- 	return -EOPNOTSUPP;
+diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
+index 0ce21dd45404..2c30e7537987 100644
+--- a/kernel/irq/internals.h
++++ b/kernel/irq/internals.h
+@@ -36,6 +36,7 @@ extern struct irqaction chained_action;
+  * IRQTF_AFFINITY  - irq thread is requested to adjust affinity
+  * IRQTF_FORCED_THREAD  - irq action is force threaded
+  * IRQTF_READY     - signals that irq thread is ready
++ * IRQTF_EXIT_WORK - irq thread exit task_work is pending
+  */
+ enum {
+ 	IRQTF_RUNTHREAD,
+@@ -43,6 +44,7 @@ enum {
+ 	IRQTF_AFFINITY,
+ 	IRQTF_FORCED_THREAD,
+ 	IRQTF_READY,
++	IRQTF_EXIT_WORK,
+ };
+ 
+ /*
+diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
+index 57eff26fa646..87a2476ea259 100644
+--- a/kernel/irq/manage.c
++++ b/kernel/irq/manage.c
+@@ -21,6 +21,7 @@
+ #include <linux/sched/isolation.h>
+ #include <uapi/linux/sched/types.h>
+ #include <linux/task_work.h>
++#include <linux/wait_bit.h>
+ 
+ #include "internals.h"
+ 
+@@ -1176,17 +1177,14 @@ void wake_threads_waitq(struct irq_desc *desc)
+ 		wake_up(&desc->wait_for_threads);
  }
  
-+static inline void acp_hw_disable_interrupts(struct acp63_dev_data *adata)
+-static void irq_thread_dtor(struct callback_head *unused)
++static void __irq_thread_dtor(struct irqaction *action)
+ {
+ 	struct task_struct *tsk = current;
+ 	struct irq_desc *desc;
+-	struct irqaction *action;
+ 
+ 	if (WARN_ON_ONCE(!(current->flags & PF_EXITING)))
+ 		return;
+ 
+-	action = kthread_data(tsk);
+-
+ 	pr_err("exiting task \"%s\" (%d) is an active IRQ thread (irq %d)\n",
+ 	       tsk->comm, tsk->pid, action->irq);
+ 
+@@ -1203,6 +1201,14 @@ static void irq_thread_dtor(struct callback_head *unused)
+ 	irq_finalize_oneshot(desc, action);
+ }
+ 
++static void irq_thread_dtor(struct callback_head *unused)
 +{
-+	if (adata && adata->hw_ops && adata->hw_ops->disable_interrupts)
-+		ACP_HW_OPS(adata, disable_interrupts)(adata->acp63_base);
++	struct irqaction *action = kthread_data(current);
++
++	__irq_thread_dtor(action);
++	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
 +}
 +
- static inline void acp_hw_get_config(struct pci_dev *pci, struct acp63_dev_data *adata)
+ static void irq_wake_secondary(struct irq_desc *desc, struct irqaction *action)
  {
- 	if (adata && adata->hw_ops && adata->hw_ops->acp_get_config)
-diff --git a/sound/soc/amd/ps/pci-ps.c b/sound/soc/amd/ps/pci-ps.c
-index 729f9aaba69e..b604db4942dd 100644
---- a/sound/soc/amd/ps/pci-ps.c
-+++ b/sound/soc/amd/ps/pci-ps.c
-@@ -738,6 +738,8 @@ static void snd_acp63_remove(struct pci_dev *pci)
- 	int ret;
+ 	struct irqaction *secondary = action->secondary;
+@@ -1263,6 +1269,7 @@ static int irq_thread(void *data)
+ 	else
+ 		handler_fn = irq_thread_fn;
  
- 	adata = pci_get_drvdata(pci);
-+	acp_hw_disable_interrupts(adata);
-+	devm_free_irq(&pci->dev, pci->irq, adata);
- 	if (adata->sdw) {
- 		amd_sdw_exit(adata);
- 		platform_device_unregister(adata->sdw_dma_dev);
-diff --git a/sound/soc/amd/ps/ps-common.c b/sound/soc/amd/ps/ps-common.c
-index 7b4966b75dc6..ea71cdf19c1e 100644
---- a/sound/soc/amd/ps/ps-common.c
-+++ b/sound/soc/amd/ps/ps-common.c
-@@ -248,6 +248,7 @@ void acp63_hw_init_ops(struct acp_hw_ops *hw_ops)
- {
- 	hw_ops->acp_init = acp63_init;
- 	hw_ops->acp_deinit = acp63_deinit;
-+	hw_ops->disable_interrupts = acp63_disable_interrupts;
- 	hw_ops->acp_get_config = acp63_get_config;
- 	hw_ops->acp_sdw_dma_irq_thread = acp63_sdw_dma_irq_thread;
- 	hw_ops->acp_suspend = snd_acp63_suspend;
-@@ -484,6 +485,7 @@ void acp70_hw_init_ops(struct acp_hw_ops *hw_ops)
- {
- 	hw_ops->acp_init = acp70_init;
- 	hw_ops->acp_deinit = acp70_deinit;
-+	hw_ops->disable_interrupts = acp70_disable_interrupts;
- 	hw_ops->acp_get_config = acp70_get_config;
- 	hw_ops->acp_sdw_dma_irq_thread = acp70_sdw_dma_irq_thread;
- 	hw_ops->acp_suspend = snd_acp70_suspend;
++	set_bit(IRQTF_EXIT_WORK, &action->thread_flags);
+ 	init_task_work(&on_exit_work, irq_thread_dtor);
+ 	task_work_add(current, &on_exit_work, TWA_NONE);
+ 
+@@ -1283,6 +1290,7 @@ static int irq_thread(void *data)
+ 	 * oneshot mask bit can be set.
+ 	 */
+ 	task_work_cancel_func(current, irq_thread_dtor);
++	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
+ 	return 0;
+ }
+ 
+@@ -1853,6 +1861,12 @@ __setup_irq(unsigned int irq, struct irq_desc *desc, struct irqaction *new)
+ 	return ret;
+ }
+ 
++static void irq_stop_thread(struct irqaction *action)
++{
++	kthread_stop_put(action->thread);
++	wait_on_bit(&action->thread_flags, IRQTF_EXIT_WORK, TASK_UNINTERRUPTIBLE);
++}
++
+ /*
+  * Internal function to unregister an irqaction - used to free
+  * regular and special interrupts that are part of the architecture.
+@@ -1958,9 +1972,9 @@ static struct irqaction *__free_irq(struct irq_desc *desc, void *dev_id)
+ 	 * the same bit to a newly requested action.
+ 	 */
+ 	if (action->thread) {
+-		kthread_stop_put(action->thread);
++		irq_stop_thread(action);
+ 		if (action->secondary && action->secondary->thread)
+-			kthread_stop_put(action->secondary->thread);
++			irq_stop_thread(action->secondary);
+ 	}
+ 
+ 	/* Last action releases resources */
 
