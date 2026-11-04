@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802975;
-	b=GBCvggZL+/MbzV0d/OnxsZy3hChDnvx+dqHelDN6jCBCCKeDKARyZ7aVGl9+1fuz/TUy
-	 fOlforVYkLfDQ1N6faljoewDc3TkufLwK52PWJ0TowDkqR7mHNMvBkAH1S6Jf9FxdXMV6
-	 +x/opftvaJuohLVWFUO/+DJS5SEWv2HYVKXK+qgz+Y9x/fRIa6pMGzkyN1Exd/xSDsGjd
-	 oGsGiOjjE7i9rLO1Dx30wez4sB4PLy/V5QlHBHy7Oj9V+QdBmr0JR2fmgtuFlCn5y5DcS
-	 QcIkRGrzotYYIJddiW1FXnIiZksS6u1GBj8h1sJMdZI5GlNyctcrEmvjyhG99sKigRw==
+	t=1793802977;
+	b=vmF0wU4Q4sOJTkcKZqRI16ArkrCIQn3Rd8jE0FnolWpP1Kh6qP8I0AY5Pmlfqq9RYSWP
+	 tSI6YAXp1rFCv67PF3LkOIfldrLg2E7uGImkohLYl8fFlgRNs5UC24SHNBxWMErROpmYt
+	 EpjA1AD8CgGDa3PEJJ7GqGXtUIx2b17Rv+Uz4MFM2YiL0f6acn1qUzFKRMw5xPKzMlrcQ
+	 uY2pMk3zWZSUCcuNYr/zf30xQNDUtifhidUJG3NY/V6JaRmSMOk8V0LhwonrkzltODUgC
+	 fLFfCm3afcRTkpyY7MNusUCO6swZDQJbNWs7il30DdTDI5KSEMU/X8qNaYcrFb1AoYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802975;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802977;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pa6AJxSMEit2x6uX3ojN2aGkeCN5lXzU+iqjN/NPdIQ=;
-	b=KpShwpQrEQg/oXqcSQcKDThAxuazdJaCEmk9sx7nic0bV4z8+hpaMfgNpOfWeewcdKmQ
-	 lqZZb76zZzzzSrXlNRDAWuWdTkdnuiy5rYwA3pT7iY0/k4c/SyEaR+LesRDRMcAZ8OrZ1
-	 VEgq2wN0xqtEKoLeM2VxW3QlLH7/Y4Iy/+esXbyq0dkFGzS2WTN7qvk1UOq1TLPdz0SEF
-	 bILC6EFd4imkQPh2jx7aCsIeSPkuFyOfIa6jFx8ZK+voVoshnoUjqwmNR63X9TUs/aDTs
-	 L96hvQFZFwCR6HdkJzwz2SbhtAFuPSKxkbThRimWpGfBZLQjp0AU5tnln5bWpHLF0DQ==
+	bh=LSyuf8/r1VgQbKvGUo3ALhynlWRjFGCRqRJJmb+CQiw=;
+	b=Z+iXwLv3bB+5Yxa1Zzby7XjqLkVb+DZOff2R0/rzOhU+6+64rDHJLeWHzvJJwMiuaL98
+	 1+jhi2b13XZhb5NKtfjV6sUOe9u3Yjg+vOjJcCDIBVGaSIB2UDKVqCCOmg1eYMLa0E/Lp
+	 5aCnJ6Krs1QJCX6AAMasPtcO2NW7/HmiRFwCvBe6rZfJzoCt4TJc7pCZJhXfBnhdyJkBU
+	 zO3hgCf2TywPcOqKRg5s9Rie7+QoYtBBXwNxEHaGew37bn568aaSaAtRZKgWJdTOrP3ft
+	 5GMQLAkZlGR5bXpVJc0JjGs8jbTNuP4to3HMSbwU4O9dGaUzWN0jn2xbWSaFbg+BHgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JPQ4DGsL;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oaVeT25C;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55685606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:36:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE20606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:36:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JPQ4DGsL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8D9E1F00919;
-	Wed,  4 Nov 2026 14:36:14 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oaVeT25C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A5D1F00919;
+	Wed,  4 Nov 2026 14:36:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802974;
-	bh=pa6AJxSMEit2x6uX3ojN2aGkeCN5lXzU+iqjN/NPdIQ=;
+	s=korg; t=1793802976;
+	bh=LSyuf8/r1VgQbKvGUo3ALhynlWRjFGCRqRJJmb+CQiw=;
 	h=Subject:To:Cc:From:Date;
-	b=JPQ4DGsL/jQxjBr4xjLPSGEhfM+fNnRdNbmMHq5kaNpRkcsKgir1TjdhaqgknqSJ+
-	 XJoGAbfAR+BxyB2fmt0uvzXQ38wjgjl7UpRpzlpjg1zRou5tOt4UWKy3Q8JPeBFGnX
-	 /8ufn00BeQt0FHbl9i4dc7ApMg0K9wy6o9gbjj0I=
-Subject: FAILED: patch "[PATCH] ovl: do not copy up a dentry that was removed" failed to apply to 5.15-stable tree
+	b=oaVeT25CD2wmaYR4iPf5+XlpBmeMtEvNdba1ufZD7n/Sh3tmXuqmg3uUSNgysAZEq
+	 u/+l1q+eJXlQMXwFnjeSS6HdmpW2PTMLUTB90zd53QM1RnXvXeSUl6BNUjQgo/0y2T
+	 t4h4Hw6J7csgg3y5vudDgXjoC8vh1Xrd0wYQOafI=
+Subject: FAILED: patch "[PATCH] ovl: do not copy up a dentry that was removed" failed to apply to 5.10-stable tree
 To: mason@kernel.org,amir73il@gmail.com,josef@toxicpanda.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:36:09 +0100
-Message-ID: <2026110408-mummified-purposely-6cef@gregkh>
+Message-ID: <2026110409-shorts-resilient-2f0f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x f635192ad223d2009ee640b63adf5ce3198aa338
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110408-mummified-purposely-6cef@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110409-shorts-resilient-2f0f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
