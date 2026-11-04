@@ -1,47 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793811358;
-	b=DXpW3YL/3QmNMJLYXliridxX3/gM5j0iBqWyMMn6WZb8Q2h1KCIqez9RKdMciNMYozXj
-	 OjwuZh/c5DTKkUetVbhsPNN/YpKsFpfeSkUEHqbZMWKhI2tiBQ2Ss6R3L4cfBB+ZIKlDU
-	 i3SOCMvAoNEfrl4OyYZr+AjFkBtwCC/OzK0revxkmBu184mbzgexvqUMnLdREm4jjmPeL
-	 1CQjDk/cXb6bXNFjFsD4fwNNGkyaubvrwPVZ89Kjq4qSN1q3gx42kVpgkeeV3zCDkDT48
-	 slZxzXUrxGzdQK8z8ZsKMHJGA52NsPct+T6FCdcg0kVqLKDmkp0QhSAQHKL8WZ/Q8uw==
+	t=1793811421;
+	b=rqx2jXlZLcBQAymfceysu8T8vpFtyxThYmxWuVUdobvphqXy80ffdgtvDJDGlwo9wbYU
+	 XT0Uq0oD5AVfcPJqSfGtJ8+GXlglDFoYcWf8RV1eUeIhH1KZ37YwiP3jx1inRqif1/xrO
+	 KSlwUlHurRQzJW7kZqS9oAGgL1LewqUyO5eJYjQaqCQiZ9iGrYdjGTD+fzXNA/o+g3UGH
+	 4CIzruSmyjz71Kj34MlByijwlCiCqr/fUWYowdRc1UFPW9z8sArp8bIx4iDR0DS+QRqlF
+	 31BPazlnO7fx7W+E1t9Cdr3IgL19DxWBv43cKT01vZ1BIOg6e4m4/hRQHRK41tqvVbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793811358;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1BvpXtgo/6d9OinL5TFQe0p+d+h5ApdfOg0iLtZt2oI=;
-	b=UkXWFHXxQA5EctPXcBMuh961douI9EXUooCsnSxEPNBrWNK1+fQ0ijqb3pVRWmSut5WD
-	 YUeO1j/qu5foEWqDbhQ/+6mBgRtPhPIItuv0v4a3MbkdlyahjSUsLWEJTKTBvJ490m6J7
-	 yjIL56D/QMC+JZXwNkWSy2Rg72462MpCQxBm6Q2CO8JmBOcuXNSAwGW+SF2Iae1MuXZ2T
-	 MDErKkMNxLiJ96gAFPigKk4o2K72J5iBn9c5UH3jvJglwVVvuwh27HKuARlOT7N0SWHZw
-	 PVIkBe17Mw5eeO0a35bu+kU8YPoVGezulsMU7i+Fvu3cTJ1vmOJMXzxJzxHpUg+nnUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793811421;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=Q0SU5qa8XjkjTtbCwcsvIub6I6ugYQ/ytk/yzSfRIXo=;
+	b=WIiel+2r9Ab/5DmMsAEQjvN1ti59Vi94ct8+tjUd6RAEeUMlqD66YZZj+nDS5+wSoM/g
+	 nT0mmgv09wfh3P5s6CnhVfRzrmknlymf7F6iCIH8nLgGiWCkIKnU/4SbvYHwt3zXQTz2F
+	 /o3nroq1sAODOlrpBdRtJ+zGO/ugx+BWno3jV7grfDNMUUO34syMrA1xU6NmJ7q4FhYgM
+	 PvNHkUptwkIokTBMRCaGYeKMPL5YOKmhBkQigudCdeywxkJQnOS0sa6ul6aBsGWTwl1Al
+	 jwdUT46K+ti8mw8ZMpEaQFf4Nre3V7MgPaG4fvwS2tTHsCWPk5badOldEN5ce3q8rAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=peZMUHz1;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1hxo+iut;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48483606A329
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:55:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F63C606A335;
+	Wed,  4 Nov 2026 16:57:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=peZMUHz1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B97F61F000C1;
-	Wed,  4 Nov 2026 16:55:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793811358;
-	bh=1BvpXtgo/6d9OinL5TFQe0p+d+h5ApdfOg0iLtZt2oI=;
-	h=Subject:To:Cc:From:Date;
-	b=peZMUHz1LMpk74TUoALhnXaWIILQCdECu+nNz9tqgb/jRG/u6oLxeEWjhbFshK9xQ
-	 aUctJsTODsP7Xe4ictyu44i6Mt4VrtppIgzz9kYyLMdRqC1kbhJChIJH4BGbCYroZ1
-	 lOmUeFHBAizilGzmGSbe909jboLHjdm/NDC3s5Eo=
-Subject: FAILED: patch "[PATCH] xfs: bound da-node entry count against the correct geometry" failed to apply to 6.1-stable tree
-To: qwe.aldo@gmail.com,cem@kernel.org,djwong@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 11:55:06 -0500
-Message-ID: <2026110406-crummy-perfectly-a5a4@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1hxo+iut
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B9151F000C1;
+	Wed,  4 Nov 2026 16:57:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793811421;
+	bh=Q0SU5qa8XjkjTtbCwcsvIub6I6ugYQ/ytk/yzSfRIXo=;
+	h=Date:To:From:Subject;
+	b=1hxo+iutKJ312bOBznBd0g2+iEzycMpnoJjuN/Zv8aO4BWfDNo2wRQR6B4R4UEADk
+	 2jl4FGtgRpGT34owuCvj1EysXw33u8qTEa6adsoxzp13fb3+DlcGONsBjswTd0YI+n
+	 xCPJwS2EFjLc0PiL/KozpS5bm2HoeWeBZApfs9bQ=
+Date: Wed, 04 Nov 2026 08:57:00 -0800
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
+	stable@vger.kernel.org,rppt@kernel.org,peterx@redhat.com,mhocko@suse.com,
+	ljs@kernel.org,liam@infradead.org,david@kernel.org,umangpokhriyall@gmail.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + userfaultfd-validate-the-whole-range-before-changing-write-protection.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261104165701.0B9151F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,89 +51,107 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+The patch titled
+     Subject: userfaultfd: validate the whole range before changing write protection
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     userfaultfd-validate-the-whole-range-before-changing-write-protection.patch
 
-To reproduce the conflict and resubmit, you may use the following commands:
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/userfaultfd-validate-the-whole-range-before-changing-write-protection.patch
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 3df5e5aaa3bc0913236c48ab29b7df3a785aa29f
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110406-crummy-perfectly-a5a4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Possible dependencies:
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-thanks,
+------------------------------------------------------
+From: Umang Pokhriyal <umangpokhriyall@gmail.com>
+Subject: userfaultfd: validate the whole range before changing write protection
+Date: Wed, 04 Nov 2026 15:04:57 +0530
 
-greg k-h
+mwriteprotect_range() checks each VMA as it walks the range.  When a later
+VMA is not registered for write protection, or is a hugetlb VMA the range
+is not aligned to, the call fails after the earlier VMAs were already
+changed.  When unprotecting, userfaultfd_writeprotect() then skips
+wake_userfault(), so threads blocked on those pages are not woken although
+the pages are writable again.
 
------------------- original commit in Linus's tree ------------------
+An unprivileged process can trigger this with a range that spans an
+unregistered VMA.  It hasn't been seen in practice; it was found while
+reviewing the userfaultfd range ioctls with an LLM.
 
-From 3df5e5aaa3bc0913236c48ab29b7df3a785aa29f Mon Sep 17 00:00:00 2001
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Date: Wed, 23 Sep 2026 08:57:54 -0300
-Subject: [PATCH] xfs: bound da-node entry count against the correct geometry
+Validate the whole range first, as mrwprotect_range() already does.
 
-xfs_da3_node_verify() bounds the node entry count against the larger of
-the directory and attribute geometries because, as a buffer verifier, it
-cannot tell whether the block belongs to the directory or the attribute
-tree. When the directory block size exceeds the fs block size (e.g.
-mkfs.xfs -n size=64k -b size=4k), an attribute node buffer is a single fs
-block that holds only m_attr_geo->node_ents entries, yet a crafted attr
-node may claim a count up to m_dir_geo->node_ents and still pass the
-verifier.
+Link: https://lore.kernel.org/20261104093457.152245-1-umangpokhriyall@gmail.com
+Fixes: a1b92a3f1498 ("mm/userfaultfd: support WP on multiple VMAs")
+Signed-off-by: Umang Pokhriyal <umangpokhriyall@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: <stable@vger.kernel.org>
+---
 
-xfs_da3_node_lookup_int() then indexes btree[] up to that count during
-its binary search -- an out-of-bounds read via getxattr/listxattr on a
-mounted crafted image.
+ mm/userfaultfd.c |   21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
 
-The buffer verifier is the wrong place to tighten this: it has no fork
-context, and the transaction-less read path used by getxattr does not run
-xfs_da3_node_set_type() either. xfs_da3_node_lookup_int(), on the other
-hand, always runs on that path and holds args->geo, the geometry of the
-fork actually being searched. Bound the entry count against
-args->geo->node_ents there, before walking the entries.
-
-Fixes: 7ab610f9e0f1 ("xfs: move node entry counts to xfs_da_geometry")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-
-diff --git a/fs/xfs/libxfs/xfs_da_btree.c b/fs/xfs/libxfs/xfs_da_btree.c
-index 3d02a0d7ba44..faf88488265c 100644
---- a/fs/xfs/libxfs/xfs_da_btree.c
-+++ b/fs/xfs/libxfs/xfs_da_btree.c
-@@ -1787,6 +1787,20 @@ xfs_da3_node_lookup_int(
- 		} else
- 			expected_level--;
+--- a/mm/userfaultfd.c~userfaultfd-validate-the-whole-range-before-changing-write-protection
++++ a/mm/userfaultfd.c
+@@ -1105,21 +1105,26 @@ static int mwriteprotect_range(struct us
+ 	if (atomic_read(&ctx->mmap_changing))
+ 		goto out_unlock;
  
-+		/*
-+		 * The node verifier cannot tell whether this block belongs to
-+		 * the directory or the attribute tree, so it only bounds the
-+		 * entry count against the larger of the two geometries.  Here
-+		 * args->geo is the geometry of the fork we are actually
-+		 * searching, so reject a count that would walk btree[] off the
-+		 * end of this node buffer.
-+		 */
-+		if (nodehdr.count > args->geo->node_ents) {
-+			xfs_buf_mark_corrupt(blk->bp);
-+			xfs_da_mark_sick(args);
-+			return -EFSCORRUPTED;
-+		}
-+
- 		max = nodehdr.count;
- 		blk->hashval = be32_to_cpu(btree[max - 1].hashval);
++	/*
++	 * Validate every spanned VMA before changing any of them, so an
++	 * invalid range is rejected without changing part of it.
++	 */
+ 	err = -ENOENT;
+ 	for_each_vma_range(vmi, dst_vma, end) {
+-
+-		if (!userfaultfd_wp(dst_vma)) {
+-			err = -ENOENT;
+-			break;
+-		}
++		if (!userfaultfd_wp(dst_vma))
++			goto out_unlock;
  
+ 		if (vma_is_hugetlb(dst_vma)) {
+-			err = -EINVAL;
+ 			page_mask = vma_kernel_pagesize(dst_vma) - 1;
+-			if ((start & page_mask) || (len & page_mask))
+-				break;
++			if ((start & page_mask) || (len & page_mask)) {
++				err = -EINVAL;
++				goto out_unlock;
++			}
+ 		}
++	}
+ 
++	vma_iter_set(&vmi, start);
++	for_each_vma_range(vmi, dst_vma, end) {
+ 		_start = max(dst_vma->vm_start, start);
+ 		_end = min(dst_vma->vm_end, end);
+ 
+_
+
+Patches currently in -mm which might be from umangpokhriyall@gmail.com are
+
+userfaultfd-validate-the-whole-range-before-changing-write-protection.patch
 
