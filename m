@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801523;
-	b=cqDizWoVt1sFkuszSNW3IA7FC1eWmvUQTr5xtGm8x2CsqnUV4Wpz7rRURHdQxMA2aMnl
-	 A43lTpEj7GpIlnD3LVi0W0jUQDPxGs0k3eedb6pLGHXmW3LWH1N5qyyFy0Qkf0k94vJJ0
-	 XMq7mvMCAQod5RK3Bf7/CJBb8/7QIafqJNTEI2UmvgZzGbF4kJSWt3sxrWxLj/scCwORO
-	 ZHfUHuvyy2o91UWLBG7pWXgZT9fv4oHyI7lVuxDviTPwgooi654fBR6x/cnVj1WrHGH6B
-	 C9IuaPNkuRvrlFwls0NT4yfjEZ0L2Mei38CnirgWG2W5VVu8NTNmMNctxAsUlch7PCQ==
+	t=1793801569;
+	b=J6qCvn3LEd+pMLlf8QeD/uZxzhuCeTk0yMWJd8vuh+BOOY+aNl3pxNcPgsYt8W8RQU2O
+	 C6cJ4lPTt5OtG0dM6FGXQAHg3QWSK2W83P6yEEj1yHd8tR+LmCH88hEIyzhLw070WGuHu
+	 fu8khJdmZ+qyHfqmusWa/GvcYSLK/9tV1EasQa+wk5Tlg/Bo7/+XkarozheZoqfGYRcUQ
+	 1Hd3mhQi/dL0cjXDAWozbyFIKOSf2XgZ6UiWONdBOrn65BeFmOooTwMQEi1EsWbrk03fV
+	 t7NySHI9Fp7Jdtx1THNcFpgKpfHg6WKgp3mb3LioncGxWr7kxcjXHzmPKcfD55EnShw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801523;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801569;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Y39eLwKBh7+YdyJTBtoEtPlQiCtjp6Ze/lxCmmYNeDM=;
-	b=RYDU2QTfQ57J4hqplkE50UP8x4YEv+0mrKM7V+fS/CeA4FHYXqqKYBcnDIcBvQgkNKX4
-	 y2+ey7apyYHwvZLAAdTngeVQQvefH8g8ffzBtP0hEnx24qomY2NYELDjVFyqWth8yYh+S
-	 Kyp8EV+wg5PT43NpWDI9Y5FmT5QM7zo3yEVCFo64M+wlabLZpw67M8PDTsQ4v2qZ2O4Rf
-	 LDX2SxvU0Mdx68tEj5DNpO4A0+topL7Hh9MSuqR4ldfSIY6Vo4dK5L6coLuuSe6zU7ueJ
-	 XyRO5pYb1TFvmpQps/KspMdblBRu0PeGhEw25V1oFyihKNUMXiTqOF1xE92w7h9H1+w==
+	bh=jtm/9zPdFyj68CuHfrjmnEMaK/H5sEE0hoFMnrN2JLo=;
+	b=enAapJLg5YAZrJDEYFh3sJCzRw20XaEuJPERJb9h4eXZCjYRZj/MwuIKQRZgg0I7Y2Tc
+	 W3QuLMzB2rMF1Z4rX+rNxgpPaiw3r7Nzj2DquMBdqw796buph0z4ZVZYjRKXWP7vn18df
+	 Mm5fU5mgluwQvMyi53Nj1rQGgH4BXJ2RKRzKjXWneaBumOHxBw/9ItuAnsiFj25Y9Yh2+
+	 ocfWyDcqDJgXJV69jWSgFX/4oX/7JBLsN6s5HxGvsIfk225LKt7BaEcapZgiwSZomrNiQ
+	 5f4ehN10eDfkDWxp0vL6sL6N8c3Me1dtWCWtpndjpg2+szTM8Sg7pCpNUpNBB+pcRzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WRpvTe61;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=i2pllzWP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03A6606D809
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:12:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA95C606D806
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:12:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WRpvTe61
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 702751F000C1;
-	Wed,  4 Nov 2026 14:12:02 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=i2pllzWP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3407C1F0093A;
+	Wed,  4 Nov 2026 14:12:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801522;
-	bh=Y39eLwKBh7+YdyJTBtoEtPlQiCtjp6Ze/lxCmmYNeDM=;
+	s=korg; t=1793801568;
+	bh=jtm/9zPdFyj68CuHfrjmnEMaK/H5sEE0hoFMnrN2JLo=;
 	h=Subject:To:Cc:From:Date;
-	b=WRpvTe61f+E0Ka2Uv4XVOAPzWhqT7jPVlGckh4AlifbnJKtXNoG+GLebRWdIdN6nO
-	 5hLtgS1++uI2WN366imrt1FqKRqoszMAre1NWSP/5lBBXNrSUU0qbkDZDktVXIi4k2
-	 eZjdHrrGYzPljOhXsaZiltVx4GhuJkxZi8bitjyY=
-Subject: FAILED: patch "[PATCH] rust_binderfs: add transaction_report feature entry" failed to apply to 7.3-stable tree
-To: cmllamas@google.com,aliceryhl@google.com,gregkh@linuxfoundation.org
+	b=i2pllzWPZIypfk+gKtLKHiHgS+XIN4FOZRJgI7lz5a56Xw2WUV4vMCoWQdJA3YTPF
+	 97BxU0am/tUpvWf6GMJqzHZqyayynn4bsckmSX5r9A+rNR/8W4mrKehEJDZ6s1OOar
+	 VcrSeaW910TkAnu0w+B+90pmyVinqTiFpB7CnxjE=
+Subject: FAILED: patch "[PATCH] rust: bug: pass TAINT_WARN to warn_slowpath_fmt() on UML" failed to apply to 6.18-stable tree
+To: fujita.tomonori@gmail.com,ojeda@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:12:01 +0100
-Message-ID: <2026110401-lure-unmoving-2038@gregkh>
+Date: Wed, 04 Nov 2026 15:12:47 +0100
+Message-ID: <2026110447-anything-wildcard-f4e0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2fcc8b9687af998b74ce6b0d349167eae7931558
+git cherry-pick -x 951d09ca450ca76a695016ea76c3fa653bd20439
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110401-lure-unmoving-2038@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110447-anything-wildcard-f4e0@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,54 +79,46 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2fcc8b9687af998b74ce6b0d349167eae7931558 Mon Sep 17 00:00:00 2001
-From: Carlos Llamas <cmllamas@google.com>
-Date: Wed, 16 Sep 2026 12:08:32 +0000
-Subject: [PATCH] rust_binderfs: add transaction_report feature entry
+From 951d09ca450ca76a695016ea76c3fa653bd20439 Mon Sep 17 00:00:00 2001
+From: FUJITA Tomonori <fujita.tomonori@gmail.com>
+Date: Thu, 1 Oct 2026 21:31:03 +0900
+Subject: [PATCH] rust: bug: pass TAINT_WARN to warn_slowpath_fmt() on UML
 
-rust_binderfs is missing the equivalent of commit f37b55ded8ed ("binder:
-add transaction_report feature entry"), which adds "transaction_report"
-to the binderfs feature list. This helps userspace determine if the
-BINDER_CMD_REPORT from the generic netlink API is supported.
+On UML, `warn_flags!` calls `warn_slowpath_fmt()` directly. Its third
+argument is a taint number, but `warn_on!` passes its bug flags there.
+
+As a result, `add_taint()` gets 2304 instead of 9 (`TAINT_WARN`). The
+warning is not recorded: `/proc/sys/kernel/tainted` stays 0 after
+`warn_on!` fires, where it should be 512. It also causes an
+out-of-bounds write in `add_taint()`.
+
+Pass `TAINT_WARN` directly, as C does on UML.
 
 Cc: stable@vger.kernel.org
-Fixes: f14e0c8183bc ("rust_binder: report netlink transactions")
-Signed-off-by: Carlos Llamas <cmllamas@google.com>
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Link: https://patch.msgid.link/20260916120833.593407-1-cmllamas@google.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: dff64b072708 ("rust: Add warn_on macro")
+Signed-off-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+Link: https://patch.msgid.link/20261001123103.2198104-1-tomo@flapping.org
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 
-diff --git a/drivers/android/binder/rust_binderfs.c b/drivers/android/binder/rust_binderfs.c
-index 7ad3ea6d8087..acc83a179f38 100644
---- a/drivers/android/binder/rust_binderfs.c
-+++ b/drivers/android/binder/rust_binderfs.c
-@@ -72,6 +72,7 @@ struct binder_features {
- 	bool oneway_spam_detection;
- 	bool extended_error;
- 	bool freeze_notification;
-+	bool transaction_report;
- };
+diff --git a/rust/kernel/bug.rs b/rust/kernel/bug.rs
+index 3566f0234ca4..af8eba4563de 100644
+--- a/rust/kernel/bug.rs
++++ b/rust/kernel/bug.rs
+@@ -85,6 +85,7 @@ macro_rules! warn_flags {
+     ($file:expr, $flags:expr) => {
+         if false {
+             _ = $file;
++            _ = $flags;
+         }
  
- static const struct constant_table binderfs_param_stats[] = {
-@@ -89,6 +90,7 @@ static struct binder_features binder_features = {
- 	.oneway_spam_detection = true,
- 	.extended_error = true,
- 	.freeze_notification = true,
-+	.transaction_report = true,
- };
- 
- static inline struct binderfs_info *BINDERFS_SB(const struct super_block *sb)
-@@ -566,6 +568,12 @@ static int init_binder_features(struct super_block *sb)
- 	if (IS_ERR(dentry))
- 		return PTR_ERR(dentry);
- 
-+	dentry = rust_binderfs_create_file(dir, "transaction_report",
-+				      &binder_features_fops,
-+				      &binder_features.transaction_report);
-+	if (IS_ERR(dentry))
-+		return PTR_ERR(dentry);
-+
- 	return 0;
- }
- 
+         // SAFETY: It is always safe to call `warn_slowpath_fmt()`
+@@ -93,7 +94,7 @@ macro_rules! warn_flags {
+             $crate::bindings::warn_slowpath_fmt(
+                 $crate::str::CStrExt::as_char_ptr($crate::c_str!(::core::file!())),
+                 line!() as $crate::ffi::c_int,
+-                $flags as $crate::ffi::c_uint,
++                $crate::bindings::TAINT_WARN,
+                 ::core::ptr::null(),
+             );
+         }
 
