@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793831810;
-	b=4pfItg9f6X1m8Hy5hqUUyEK5CZ0HduKTnMfckdTdzT26xM2q+pneeJFr+6BA/K6NS0XJ
-	 F1n0YzHu7j3D0srdK8bKp/6uC7fw+I3eC7zpGhyxqMH/bGWYLnHx9vOhi3/pZuOToDsAK
-	 dOVOzOXG+acR+Yj88yF0XEa5We0287j+H8+ia0CS6qDEynBpX0PFH+UH77fWb3kUi/t5L
-	 zm4iZUG7GRRSnX6EDC7jC9hLg9TQVTmp7dt/apnK2agQ50ck0D34vbwz+hNbQ/Kgu/cch
-	 N2kqKdd0B1ogATUgFRI2Mn74K19GEOMDN1LZVGMeJIaNADjcC+swmwVS5q2Kalf/VWw==
+	t=1793831811;
+	b=G8Rtgv+7aGfd12z5IWjjswxGqahn6D4pLGir0f4rJ1d/zLtnDOWKhIrZ7BndRfXJZya2
+	 6ljz96DULt2175e0gnQZa3/HghX+LG5JGS+L180bvLjUqjL+lO8Tg6B+2Z7UhiqdCeu3g
+	 G3Wye4OmnQIOPtoMSYp1ma0A/5Kb3ddEjFLNfalZITy+WqaiJjKWCp2FqVTlUO+KcfEpd
+	 NTdOBDtc5GT8uGfITqeVn1EtW5eq8/oIlsH707hwVZiYMYSLmR9+Je1k0vayVIpRVZyhR
+	 e9wBCn5kkMAnnDVcYA8pgls+T1tjoEpxnxEGw/HjzEqXe5ZNpmYSHNMoDJzIWa9lbfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793831810;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793831811;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=iJ+B+lRT15iaj5dOaUM14RuspvgUFx4l/miAKyRASUw=;
-	b=pTmyOe9kykZ907sAm81KIP44JbbOZBcFRJzxfbYdnCbbXBY4ZXnW5Q/NMTk4h8jm+Usf
-	 Byk14K4K5yX3q1ThfZbFV+ZGWaWqJeQ3vGFLxrXb7I2h8SIrD+ud/vahFu2mNt80BSAwD
-	 aH1u1QCyAGq59v7oRYXOQQnlpWEZY9oLjH59HG58P+R87o6oi6qm4Ut1d+wCT5e8oMFPJ
-	 TmgU253OP8hX9ntIQ0HCPzLQZexi/+L+9Oq+M3y7fbsOWaPORWxfcHyh446IOSjvdXYiq
-	 ptsRmmtQzTGz2enycoLtHxLFYJoOg0zhfFsMhZ6D7HVGG/2QBomgxvMzdv/xSyVCNrQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=zX++9I2DfscRQXteGt7QPsKvk0K+ejOj2VW52nYgAes=;
+	b=4R5ZwIg5GswCB4Vygn7SAJ0TTVlrQiRgXAg/i/guz1z5h329SUU5GNLChkC0NBinkWyW
+	 MIGave8yQqpRaG3x5FYcwvNffSbGMf0XE5Ks8kdV/qHsYoRoovl1IlZUcXJYoOu2AEG5r
+	 +81n6g7LshEMjeOmhBAB4rUzfOUhNdLhMOdiN1a+nWguaFduYqfsPFIehqLhXVbznH5qm
+	 E6mxTNEiZuXF9z5mk/E7SRBqrsZv/APtGpVLr+g+XRJnOZMnKK3+0rCTxgKXYyQMM9HxF
+	 uOGJG/9hKbEK/ea5ezrkNkqHB9CUZ3XxBqFT/+Fi3XpoNo8RAxUqGlhHhi6fpxl+53A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kqUyQ1no;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S7KzrwKZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31666606A860;
-	Wed,  4 Nov 2026 22:36:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEED606A863
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 22:36:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kqUyQ1no
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B83801F00919;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S7KzrwKZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61CA71F000C1;
 	Wed,  4 Nov 2026 22:36:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793831810;
-	bh=iJ+B+lRT15iaj5dOaUM14RuspvgUFx4l/miAKyRASUw=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793831810;
+	bh=zX++9I2DfscRQXteGt7QPsKvk0K+ejOj2VW52nYgAes=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kqUyQ1noAh5YUG+usWe6AIbnKqTI84znd610CS76Y1hnEY/W1UjYyhJKS8xnjzeb5
-	 slL0qNbW2rCqFWztaKrcSyih0cTdYVVgRoH0bEspRBBEwptpZ/FqNmPDOx9PCFKGrh
-	 s1/quG73jPhWkdHqCcBTG+Uq18cReSwh3YW1tK6w=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=S7KzrwKZqbCpQnwAqf6DZ8ck2wesQrG2FfPfmM/TC9dvIrSIW9ZP37GeWvUwzEbow
+	 rLrGsuyIhYF77wcr0LKEh0bZLqAD75gXZGMSKnuYyF0l1kNpsCtcw/HL0O2E2HUpVk
+	 aATqFdG0QKM/+x8kxp3Hr0KXLsvpUKn3IxUobAuj/2nHty9szZ/LTsjukJCNOLfwCh
+	 onqB6aCUIPoaWiMnbXsTn7CdXBw1PDi43mJoJMYqi1239AVHQrnbMHHGVMKYGO7ES2
+	 x4Zixk6MSZTPai8RUvx1UbBuMgg9hmQm2HLx46CMX+PKkOwLi1bqSRomSu/lqyv2hK
+	 XMMaIEtXQkt5A==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Stefan Teodorescu <fane@google.com>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nikunj A Dadhania <nikunj@amd.com>,
-	Sean Christopherson <seanjc@google.com>
-Subject: [PATCH 6.18 0925/1005] KVM: SVM: Trigger new ASID allocation in both VMCBs on pCPU switch
-Date: Wed,  4 Nov 2026 16:10:58 -0500
-Message-ID: <20261104211109.051255670@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
-References: <20261104211043.516122098@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: Sami Tolvanen <samitolvanen@google.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Gary Guo <gary@garyguo.net>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] rust: irq: declare cfi_encoding for irqreturn
+Date: Wed,  4 Nov 2026 17:36:48 -0500
+Message-ID: <20261104223318.627233-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110407-hydrated-decipher-a8a9@gregkh>
+References: <2026110407-hydrated-decipher-a8a9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,110 +64,161 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Sami Tolvanen <samitolvanen@google.com>
 
-------------------
+[ Upstream commit 01f3e6b4b1c8c1748e59ba53631ab1f5d9ad0ea4 ]
 
-From: Yosry Ahmed <yosry@kernel.org>
+The IRQ callbacks return c_uint. C calls them through irq_handler_t,
+which returns enum irqreturn. kCFI encodes enum types by name even with
+integer normalization, so the type ids never match and every call fails
+the CFI check.
 
-commit bf260dc9e7b8bfcd06c1a8e739797b1cf0917c72 upstream.
+Generate irqreturn as a newtype with a cfi_encoding, as is done for
+lru_status, and return bindings::irqreturn_t from the callbacks.
 
-When the pCPU where the VMCB was most recently used is switched, reset
-the ASID generation in both VMCBs, triggering new ASID allocation for
-the immediate VMRUN as well as the next VMRUN on the other VMCB.
-
-The ASID is shared between vmcb01 and vmcb02, and gets flushed on every
-nested transition. However, since pCPU tracking is done per VMCB, it is
-possible for one VMCB to allocate a new ASID when migrated to a new
-pCPU, and then the other VMCB reuses that ASID on the old pCPU. This can
-result in the same ASID being used by multiple vCPUs on the old pCPU.
-
-Example scenario:
-- vCPU runs on pCPU A, vmcb01 is active, asid=1.
-- vCPU migrates to pCPU B, vmcb01 pCPU changes, new asid=2.
-- Another vCPU runs on pCPU A and allocates asid=2 as well.
-- vCPU migrates back to pCPU A, and then switches to vmcb02 before it
-  runs again with vmcb01.
-- No pCPU switch is detected for vmcb02, so VMRUN is done with asid=2.
-- Two vCPUs end up using asid=2 on the same pCPU.
-
-Keep the VMCB dirtying to the active VMCB only. Clean bits are tracked
-by a pCPU for each VMCB, so do not unnecessarily dirty a VMCB if its
-pCPU does not change.
-
-Additionally, initialize the tracked pCPU for vmcb02 to -1 on nested
-enablement as hardening, so that a new ASID allocation is always
-triggered when nested is disabled and re-enabled.
-
-No performance regression was noticed when overcommitting L1 vCPUs in L0
-(to force rescheduling), pinning L1 <-> L2 vCPUs, and running CPUID in a
-tight loop bouncing between 2 vCPUs in L2.
-
-An alternative (and perhaps more proper) fix would be tracking the ASID
-per-VMCB instead (e.g. [1]). However, that's a more involved change, and
-it would result in having different ASIDs for L1 and L2 without actually
-properly maintaining them. It would probably work because all TLB
-flushes target the current VMCB, and the other VMCB is always flushed on
-nested transitions, but the code ends up in an arguably more fragile
-state. Punt a proper clean fix to an incoming (and overdue) overhaul of
-SVM's ASID usage [2].
-
-[1] https://lore.kernel.org/lkml/20250205182402.2147495-2-yosry.ahmed@linux.dev
-[2] https://lore.kernel.org/kvm/20260728003557.1136583-1-yosry@kernel.org
-
+Fixes: 0851d34a8cc3 ("rust: irq: add support for non-threaded IRQs and handlers")
+Fixes: 135d40523244 ("rust: irq: add support for threaded IRQs and handlers")
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Acked-by: Danilo Krummrich <dakr@kernel.org>
 Cc: stable@vger.kernel.org
-Reported-by: Stefan Teodorescu <fane@google.com>
-Signed-off-by: Yosry Ahmed <yosry@kernel.org>
-Reviewed-by: Nikunj A Dadhania <nikunj@amd.com>
-Link: https://patch.msgid.link/20260903223258.486034-1-yosry@kernel.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://patch.msgid.link/20261019-rust-cfi-fixes-v1-1-9503472ba738@google.com
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+[ sashal: replaced bindgen's custom enum attribute option with sed post-processing to support older bindgen ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/svm/nested.c |    1 +
- arch/x86/kvm/svm/svm.c    |   19 +++++++++++++++----
- 2 files changed, 16 insertions(+), 4 deletions(-)
+ rust/Makefile              |  3 ++-
+ rust/bindgen_parameters    |  3 +++
+ rust/bindings/lib.rs       |  1 +
+ rust/kernel/irq/request.rs | 22 +++++++++++-----------
+ 4 files changed, 17 insertions(+), 12 deletions(-)
 
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -1346,6 +1346,7 @@ int svm_allocate_nested(struct vcpu_svm
- 	if (!svm->nested.msrpm)
- 		goto err_free_vmcb02;
+diff --git a/rust/Makefile b/rust/Makefile
+index d4618f646b05b..3867ff14fbdec 100644
+--- a/rust/Makefile
++++ b/rust/Makefile
+@@ -367,7 +367,8 @@ quiet_cmd_bindgen = BINDGEN $@
+ $(obj)/bindings/bindings_generated.rs: private bindgen_target_flags = \
+     $(shell grep -Ev '^#|^$$' $(src)/bindgen_parameters)
+ $(obj)/bindings/bindings_generated.rs: private bindgen_target_extra = ; \
+-    sed -Ei 's/pub const RUST_CONST_HELPER_([a-zA-Z0-9_]*)/pub const \1/g' $@
++    sed -Ei 's/pub const RUST_CONST_HELPER_([a-zA-Z0-9_]*)/pub const \1/g' $@; \
++    sed -Ei 's/^pub struct irqreturn\(/#[cfi_encoding="9irqreturn"]\n&/' $@
+ $(obj)/bindings/bindings_generated.rs: $(src)/bindings/bindings_helper.h \
+     $(src)/bindgen_parameters FORCE
+ 	$(call if_changed_dep,bindgen)
+diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
+index e13c6f9dd17b2..9e02500dc9792 100644
+--- a/rust/bindgen_parameters
++++ b/rust/bindgen_parameters
+@@ -23,6 +23,9 @@
+ # warning. We don't need to peek into it anyway.
+ --opaque-type spinlock
  
-+	svm->nested.vmcb02.cpu = -1;
- 	svm->nested.initialized = true;
- 	return 0;
++# enums that appear in indirect function calls should specify a cfi type
++--newtype-enum irqreturn
++
+ # `seccomp`'s comment gets understood as a doctest
+ --no-doc-comments
  
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -3613,14 +3613,25 @@ static int pre_svm_run(struct kvm_vcpu *
- 	struct vcpu_svm *svm = to_svm(vcpu);
+diff --git a/rust/bindings/lib.rs b/rust/bindings/lib.rs
+index 8305adbdf8cbf..37f584727eba1 100644
+--- a/rust/bindings/lib.rs
++++ b/rust/bindings/lib.rs
+@@ -23,6 +23,7 @@
+     unreachable_pub,
+     unsafe_op_in_unsafe_fn
+ )]
++#![feature(cfi_encoding)]
  
- 	/*
--	 * If the previous vmrun of the vmcb occurred on a different physical
--	 * cpu, then mark the vmcb dirty and assign a new asid.  Hardware's
--	 * vmcb clean bits are per logical CPU, as are KVM's asid assignments.
-+	 * If the previous VMRUN of the VMCB occurred on a different physical
-+	 * cpu, then mark the VMCB dirty as hardware's clean bits are per pCPU.
-+	 *
-+	 * Reset the ASID generation in both VMCBs. This will lead to assigning
-+	 * a new ASID now, and then again when switching to the other VMCB.
-+	 * However, this is needed as the ASID is shared between the VMCBs, and
-+	 * otherwise it would be possible to use an ASID allocated on one pCPU
-+	 * on another, for example:
-+	 * - vCPU migrates from pCPU A to pCPU B, allocates a new ASID.
-+	 * - vCPU migrates back to pCPU A, and then switches the VMCB.
-+	 * - The new VMCB does not detect a pCPU change and runs on pCPU A with
-+	 *   the new ASID allocated on pCPU B, which is potentially used by
-+	 *   another vCPU/VM.
- 	 */
- 	if (unlikely(svm->current_vmcb->cpu != vcpu->cpu)) {
--		svm->current_vmcb->asid_generation = 0;
- 		vmcb_mark_all_dirty(svm->vmcb);
- 		svm->current_vmcb->cpu = vcpu->cpu;
-+		svm->vmcb01.asid_generation = 0;
-+		svm->nested.vmcb02.asid_generation = 0;
-         }
+ #[allow(dead_code)]
+ #[allow(clippy::as_underscore)]
+diff --git a/rust/kernel/irq/request.rs b/rust/kernel/irq/request.rs
+index 70700f43ddd37..4f2b315856b9b 100644
+--- a/rust/kernel/irq/request.rs
++++ b/rust/kernel/irq/request.rs
+@@ -20,10 +20,10 @@
+ #[repr(u32)]
+ pub enum IrqReturn {
+     /// The interrupt was not from this device or was not handled.
+-    None = bindings::irqreturn_IRQ_NONE,
++    None = bindings::irqreturn::IRQ_NONE.0,
  
- 	if (sev_guest(vcpu->kvm))
-
+     /// The interrupt was handled by this device.
+-    Handled = bindings::irqreturn_IRQ_HANDLED,
++    Handled = bindings::irqreturn::IRQ_HANDLED.0,
+ }
+ 
+ /// Callbacks for an IRQ handler.
+@@ -275,7 +275,7 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
+ unsafe extern "C" fn handle_irq_callback<T: Handler + 'static>(
+     _irq: i32,
+     ptr: *mut c_void,
+-) -> c_uint {
++) -> bindings::irqreturn_t {
+     // SAFETY: `ptr` is a pointer to `RegistrationInner` set in `Registration::new`
+     let inner = unsafe { &*(ptr as *const RegistrationInner) };
+     // SAFETY: `inner.handler` is a pointer to `T` set in `Registration::new`
+@@ -284,20 +284,20 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
+     // callback is running implies that the device has not yet been unbound.
+     let device = unsafe { inner.dev.as_bound() };
+ 
+-    T::handle(handler, device) as c_uint
++    bindings::irqreturn_t(T::handle(handler, device) as c_uint)
+ }
+ 
+ /// The value that can be returned from [`ThreadedHandler::handle`].
+ #[repr(u32)]
+ pub enum ThreadedIrqReturn {
+     /// The interrupt was not from this device or was not handled.
+-    None = bindings::irqreturn_IRQ_NONE,
++    None = bindings::irqreturn::IRQ_NONE.0,
+ 
+     /// The interrupt was handled by this device.
+-    Handled = bindings::irqreturn_IRQ_HANDLED,
++    Handled = bindings::irqreturn::IRQ_HANDLED.0,
+ 
+     /// The handler wants the handler thread to wake up.
+-    WakeThread = bindings::irqreturn_IRQ_WAKE_THREAD,
++    WakeThread = bindings::irqreturn::IRQ_WAKE_THREAD.0,
+ }
+ 
+ /// Callbacks for a threaded IRQ handler.
+@@ -501,7 +501,7 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
+ unsafe extern "C" fn handle_threaded_irq_callback<T: ThreadedHandler + 'static>(
+     _irq: i32,
+     ptr: *mut c_void,
+-) -> c_uint {
++) -> bindings::irqreturn_t {
+     // SAFETY: `ptr` is a pointer to `RegistrationInner` set in `ThreadedRegistration::new`
+     let inner = unsafe { &*(ptr as *const RegistrationInner) };
+     // SAFETY: `inner.handler` is a pointer to `T` set in `ThreadedRegistration::new`
+@@ -510,7 +510,7 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
+     // callback is running implies that the device has not yet been unbound.
+     let device = unsafe { inner.dev.as_bound() };
+ 
+-    T::handle(handler, device) as c_uint
++    bindings::irqreturn_t(T::handle(handler, device) as c_uint)
+ }
+ 
+ /// # Safety
+@@ -519,7 +519,7 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
+ unsafe extern "C" fn thread_fn_callback<T: ThreadedHandler + 'static>(
+     _irq: i32,
+     ptr: *mut c_void,
+-) -> c_uint {
++) -> bindings::irqreturn_t {
+     // SAFETY: `ptr` is a pointer to `RegistrationInner` set in `ThreadedRegistration::new`
+     let inner = unsafe { &*(ptr as *const RegistrationInner) };
+     // SAFETY: `inner.handler` is a pointer to `T` set in `ThreadedRegistration::new`
+@@ -528,5 +528,5 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
+     // callback is running implies that the device has not yet been unbound.
+     let device = unsafe { inner.dev.as_bound() };
+ 
+-    T::handle_threaded(handler, device) as c_uint
++    bindings::irqreturn_t(T::handle_threaded(handler, device) as c_uint)
+ }
+-- 
+2.53.0
 
