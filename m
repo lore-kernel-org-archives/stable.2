@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801964;
-	b=tix4+1CHVM4HFmGmIOLXQVJhtTf5OFNT4Noo99RVCXczMuu1XooBMCuTCXT469Jm23iU
-	 3VM9AMRqnVW+Q+6bak0zJ2GMA/zyLl4S6OSd4VeczY5frLzAJqFfWr0NmqnayNfbPspbf
-	 fiiVtQD5TwHRQXjoUdVa9BMn8MfAYvZ017kmwuhzA7Bo0QZqpBUswXQ3v10ha5eNfk3ej
-	 /UfGLGz22aWiFoLFi8H7QCXrbraRqQUs6DJNOwzzODW5qIfoTtfni1DkzGhyhSTgpAvwX
-	 qpeV4z+DpeqTrXkkPUDpMw2niWgNKmbEZnv7F0oiO3liYM8tFsMxY9vxZY2gWc454CA==
+	t=1793801972;
+	b=KHrBsLUqGTilvVilQcvPCrwXbfdY/JPtUfvTW37isG/UEULG1oAx3+3c9QSbzlDhPTl/
+	 H0jGwT1rQ47q1fg9/OgFDRnVvXEoZEMQjlltECncYHzIk2wsIOeXWuBpD2MkoUlFBtNei
+	 jmuS1FUIYGIwEctaL6MD/PLxlTZ9YOUcSJ19SDtVVfbhl/U07We9OO1zVDGd8OLOtvOsV
+	 m6Zx4LIHX9dViBPow/WfNROGrgTaaJgcuWAtAnoNBbLcydxFqb8jDUOhR/cSw7yRoGv6p
+	 VnRXDs231tSp3AghT0Ft0zEozEel1xfLnOrKOb7sQ+JF2UyjmJZE/+RVtb9B3bOoABA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801964;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801972;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=8xcDca6mJItPuPDHgx1fF1/QUq5oHLjMGaqPwTDXb+I=;
-	b=boOcgGJ0oaOyzcDWDfRk4SsbJ6ifXdpdiIBEcrxjYbDB0BBAj1dN0mFNiSEXfrKokRt0
-	 dnCQ/dvi0xNyMm3Wll5Y9myfpolC/jBlahsObN5yX1Db7qo8cbDaa4Rpe3LDtE1EtXva6
-	 qiP9p7FiqPLAOqf4K65QeM7cd8PUN104JqVfCbitOymLxYIhCXFSE//hT1C+b7lQgG5YA
-	 2X/dN0GNvbzjfsqXeLGkGurwgwegTezqST3M8RcQv+C0VLIZq5447l+l+saB1Nsu0IlqX
-	 aI6c3A3X7TSj51o/UHJ7fl0Gi3HcIohgx8bC6jH5GRAWV+wcAyyXmnmJoya9z/bHseA==
+	bh=5MQFrJGfi9Tv7yhThg1bGsuryKX8fMc6arVroYbsv/U=;
+	b=2HKkTPOB4uGvmtdVfDGVUKF7Q04q5p2xTgUK+VhpZFwNvuIvN3R0/7bNH6lj3ZBh9g9D
+	 aYo8rreHECDlfNbj+QVjJ7ER6P2kQPvlK/oA11BtWHgdSRwEP1+YF80vXBeYbjW4vaKW4
+	 7hX+jODDO1wKIV3G4lK6eX9IxnAwXpIFOeXYyTi3zcXDxmCfJfsVBSZCiwSYUdssHgG41
+	 zuATAnC06CQ3cR8D8icsObOhhaWgUwRlXYSSD4LfcsDjzIEsO7urMZXR4hNY4oCKkWj3j
+	 ARczUFC2ek0IMFl08rO1ct+OSfRHAPDWSbkXXs39z4c2zy4IV1ytzeoixuoEWw8M/TQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lYZKEDyc;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WRLKv4TD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F288C606A329
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:19:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5429606A332
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:19:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lYZKEDyc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 886EC1F00919;
-	Wed,  4 Nov 2026 14:19:23 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WRLKv4TD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F8E61F00A15;
+	Wed,  4 Nov 2026 14:19:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801963;
-	bh=8xcDca6mJItPuPDHgx1fF1/QUq5oHLjMGaqPwTDXb+I=;
+	s=korg; t=1793801971;
+	bh=5MQFrJGfi9Tv7yhThg1bGsuryKX8fMc6arVroYbsv/U=;
 	h=Subject:To:Cc:From:Date;
-	b=lYZKEDycWDhSnHf6tDxo3q7R/VM6aVkdez2sWxuUQwQjcsunzoWdD75kaWWYKnzfC
-	 ffzd2dg5gFVBjmzaVCx3Q/OUc4K8FkTbi8FcJ/bAneT7FJ5T/2COl5XBcxJCSZruyw
-	 lj/06DGradSqaTIs8BHrg11KRB7RWjoQ0pycB/tY=
-Subject: FAILED: patch "[PATCH] mm: khugepaged: fix folio is used after pte_unmap_unlock()" failed to apply to 6.18-stable tree
+	b=WRLKv4TDC79d3JnJOBhx6PZ4tXslETwSJghOBGqJr2WxUucNpWhO5RdDFVl7bI9Jl
+	 UDqTuKyq/almoXkH4HPSE0iclh0Kkr8cO4TpThHYdU6ZR5BbH8efKZs4n1bOEiI3gd
+	 Ai0biqiXe1k6i4tCSD5i8tVHk6o1G9GDkySNf7Ck=
+Subject: FAILED: patch "[PATCH] mm: khugepaged: fix folio is used after pte_unmap_unlock()" failed to apply to 5.15-stable tree
 To: yanglincheng@kylinos.cn,akpm@linux-foundation.org,baohua@kernel.org,david@kernel.org,dev.jain@arm.com,lance.yang@linux.dev,ljs@kernel.org,ryan.roberts@arm.com,stable@vger.kernel.org,zokeefe@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:19:21 +0100
-Message-ID: <2026110421-scratch-semester-c068@gregkh>
+Date: Wed, 04 Nov 2026 15:19:23 +0100
+Message-ID: <2026110423-curtly-bountiful-d3b5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x ba2f1f92ddfabd340c9248fd2380104f717ee8b1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110421-scratch-semester-c068@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110423-curtly-bountiful-d3b5@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
