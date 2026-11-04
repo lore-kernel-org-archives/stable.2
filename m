@@ -1,57 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793832849;
-	b=aS+r+FJGcNQpwH8xRJfSWZ8MLwsVcfS1trg5IiA/X7EpbcWj8l/gyAdqR4UAKyvYki+i
-	 vaKUgbg4a9lyxHjy49c84w12/N7lu1q9+v/MrqQueB18c5eLi6h60qQgfndbFDZJu8TU2
-	 T3kZBmowauSiJWHOzVVEUVHkIDYxCdNGCp/AejXSW058lBzuchWTu8fy1OqvXfoHxunq/
-	 NTmGRV0Z8/arJ9EqB3ggBjZ5Gh8rPHcWDAbrgDpvkUGy45je1uhs8UVGEJLV6Zlk1Y45+
-	 V+GdusCGLLvXGgvmwDWavqeA90Jb82CNA3vsVbBksqooLRtbML2nOsb0gz180RL0n1A==
+	t=1793832854;
+	b=sd/Ltasc3oNnpDT/eaT/HAyOAS+gfmHIiA68BWuIKxQdPyZlPoJjAb6bUXO4BLc9VMaL
+	 aP2Hp02yofHw3VgllLqA/yMNG2+XjkHLj0Dcw9cKihirh52YMmdHqD0WN+UTsB//+asZY
+	 AibS0sA4ROAvZFJ8+X3zHtgfVDsMUVb8oIp+um444RgOzykTHMItz2Fo+SvmDK77GCAJN
+	 j6vNAo+MqxCUGKfverK4m+epUo/1UHNj2swpmZbuetXVoqDjC0VFy/pteSybvSjqJmVuu
+	 4+qHjc6/JyhIR3dmE1br917zbdekGHhDJdG+KBB1ulY+qQEWVCkGGpyALldkKHxDQ9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793832849;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793832854;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uTaT3wRcFq0+4WYOVXfukVbFadHbxV3B4vLdLjzA3i0=;
-	b=p9JAW94fSPB1reHo8TyEGEetR6GT0rsY63exJybsZeOdUD5AIK3pXircyLtbVi6XFzbb
-	 Dqm23AoBtUOIVErajQE+K1fPiOywIOGcn1QYICGZwKiqa9j9a8Pc/84ntkbmbSNtlqSJ+
-	 w5vLk29DBNWu0azrgJrfA90ZO2WAdyoqVUnxZkFHzV1ktR2orWzTQqY1CTOqGE59o4w9r
-	 wrqtUFJW9nUxlnxRnzHzUdIyZnffnFXbhlAkpVKfGhNPp/419enkbeEKqEu3JjJIKXbLO
-	 gbXfj3iPcdxpfNFo6cJix/X/JAkTAOJAkhehsw6xKM+kO8e5jq3IJsF8bI80PZtJeuQ==
+	bh=AJxJW64brnfqY5WaIVwBzjPhZWOifxw1Ma+QZJjvFYs=;
+	b=KHXkJx8T7h9JHTt5npjlqlmPVPyfG7lvjdbBMY+NQvhQB2H3djIxYJ5VEdQQgnvkCrN3
+	 y0Oy2y1xVa4vKD0pu8cQFmJvJ1VsNpH3aUnRFrvts5YTaDLYaBX71dQQ8r9KHH4VT4M85
+	 NzTtSTQy8HXQAsJYuXM/jYv4dypuOX6NmH4JvHrTEnsjYHsb5IOqT0kh2Hn1vH7MC5Z69
+	 7oqc41rQ0Mns8lAKxuKV8OnHQ3FjrxypbhR8tsxi7gRpDYUFhqYI4gUfPxCApX5aY9eC0
+	 c4/B3AHOXpdyjtbL6AOcHfoIaEMcEFFVN7i9GSwMjVP75wyuCpRHTbbwtw0esCnMnKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OGjQ5EzP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I7gXEs4H;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF8E7606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 22:54:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F94E606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 22:54:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OGjQ5EzP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1428B1F00919;
-	Wed,  4 Nov 2026 22:54:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I7gXEs4H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C5091F000C1;
+	Wed,  4 Nov 2026 22:54:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793832848;
-	bh=uTaT3wRcFq0+4WYOVXfukVbFadHbxV3B4vLdLjzA3i0=;
+	s=k20260515; t=1793832854;
+	bh=AJxJW64brnfqY5WaIVwBzjPhZWOifxw1Ma+QZJjvFYs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OGjQ5EzPfmwiznrASoG5IcoyvQlryH2zWmEnrP4ld+eqqbkyCPpkKf0TY5m/YdwhQ
-	 lcChPHSj86LRHAx0vhMh/w8lDlNSbGsms4Lt704kWbTkBPOEk+T7iWFQS4yrjQ1Rg4
-	 LeITRMkkQcbVERh5SGrrFJB2lglw2X2gvH94d1gbXm6zq5BzgSSDOFfeVPbDKnGXWe
-	 +1ew+YOUtV4FgBhiklPSNUgh+r36aekNSO8muVatnB/PiSMxsblZkKfq7ErZ/nY8cH
-	 o+XGH8vkXBYo29HD2qu16ej99HYxPug4iakFf0QCLYKxIaNXWKRIhSUBYgv68jlHtQ
-	 FhOt/Yx1wClZg==
+	b=I7gXEs4HICnhDKUEkgp0Vshz6QWWwsxLdgquopwIOI6oJ22zKLg8MPZP9fbJRZ5bR
+	 FUw8Nh/jncmPvFJ6sjIxFKlTuRyNNAuwvNeUQoFb1VN7dc69VoIvMYNk1oufx577Ma
+	 tkDLawiiKh/B0LBwvQjHc5yEsMCwlGKsemeBujaD22TAv17XrFkE8kwiPB9UJpMUPQ
+	 d4d4cy3kmYxLMC3wzOmyCT/lXGspew7UcpdD72l4h2QKYQmsAA3svQFUclcY1/vlYm
+	 YVTQqgMtRwwM7SJ23K59+Rlnji4K89zh5+bPcvty+eU2U6+ssmMHQTg+BQxPPjkW7z
+	 xUUv77Y9wJfPQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
-	Eugen Hristev <ehristev@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Oscar Salvador <osalvador@suse.de>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Adam Litke <agl@us.ibm.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Rik van Riel <riel@surriel.com>,
+	Peter Xu <peterx@redhat.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] media: microchip-isc: take a reference on the parsed endpoints
-Date: Wed,  4 Nov 2026 17:54:06 -0500
-Message-ID: <20261104225337.851869-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] mm/hugetlb: fix use-after-free in hugetlb_mfill_atomic_pte()
+Date: Wed,  4 Nov 2026 17:54:11 -0500
+Message-ID: <20261104225336.846864-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104225337.851869-1-sashal@kernel.org>
-References: <2026110457-outflank-doorway-6469@gregkh>
- <20261104225337.851869-1-sashal@kernel.org>
+In-Reply-To: <2026110447-friend-unmanaged-5374@gregkh>
+References: <2026110447-friend-unmanaged-5374@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,157 +78,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit f2eb2fd388bf3f1959556a326e797cacca341c86 ]
+[ Upstream commit d8a9cd7fd2fb01211430c933932da58839b8ca65 ]
 
-for_each_endpoint_of_node() drops the reference on the current node as
-it advances. xisc_parse_dt() and isc_parse_dt() store the node in
-subdev_entity->epn and release it later with of_node_put(), but never
-took their own reference, so the stored pointer refers to an
-already-released node. This underflows the refcount and can
-use-after-free, reachable through the camera device tree overlay.
+Let's fix another instance where we use a folio after dropping the PTL,
+where someone else could e.g., MADV_DONTNEED it once we drop the PTL,
+making us trigger a use-after-free on the folio.
 
-Take a reference with of_node_get() when storing the node, and drop it
-in microchip_isc_subdev_cleanup() so the entities the bind loop never
-reaches on an early exit do not leak it.
-
-Fixes: c9aa973884a1 ("media: atmel: atmel-isc: add microchip-xisc driver")
-Fixes: d6701f13bd07 ("media: atmel: Use v4l2_async_notifier_add_fwnode_remote_subdev")
-Cc: stable@vger.kernel.org
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-3-42796911043b@kernel.org
+Fixes: cb6acd01e2e4 ("hugetlbfs: fix races and page leaks during migration")
+Fixes: 1c9e8def43a3 ("userfaultfd: hugetlbfs: add UFFDIO_COPY support for shared mappings")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Adam Litke <agl@us.ibm.com>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Josef Bacik <josef@toxicpanda.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: Adapted folio-based hugetlb_mfill_atomic_pte() logic to page-based hugetlb_mcopy_atomic_pte() without continue support. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../platform/microchip/microchip-isc-base.c     |  6 ++++++
- .../platform/microchip/microchip-sama5d2-isc.c  | 17 ++++++++++++-----
- .../platform/microchip/microchip-sama7g5-isc.c  | 17 ++++++++++++-----
- 3 files changed, 30 insertions(+), 10 deletions(-)
+ mm/hugetlb.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-index 8dbf7bc1e863b..78a26babf3894 100644
---- a/drivers/media/platform/microchip/microchip-isc-base.c
-+++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -1902,6 +1902,12 @@ void microchip_isc_subdev_cleanup(struct isc_device *isc)
- 	list_for_each_entry(subdev_entity, &isc->subdev_entities, list) {
- 		v4l2_async_nf_unregister(&subdev_entity->notifier);
- 		v4l2_async_nf_cleanup(&subdev_entity->notifier);
-+		/*
-+		 * Release the endpoint reference taken while parsing. It is
-+		 * NULL for entities the bind loop already consumed, so this
-+		 * only drops the ones left over on an early exit.
-+		 */
-+		of_node_put(subdev_entity->epn);
- 	}
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index b23c8b2699b58..da47b6d218e01 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -4806,10 +4806,15 @@ int hugetlb_mcopy_atomic_pte(struct mm_struct *dst_mm,
+ 	/* No need to invalidate - it was non-present before */
+ 	update_mmu_cache(dst_vma, dst_addr, dst_pte);
  
- 	INIT_LIST_HEAD(&isc->subdev_entities);
-diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-index 60b6d922d764e..4033bfc96bb77 100644
---- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-@@ -356,28 +356,30 @@ static int isc_parse_dt(struct device *dev, struct isc_device *isc)
- 	struct device_node *epn;
- 	struct isc_subdev_entity *subdev_entity;
- 	unsigned int flags;
-+	int ret;
- 
- 	INIT_LIST_HEAD(&isc->subdev_entities);
- 
- 	for_each_endpoint_of_node(np, epn) {
- 		struct v4l2_fwnode_endpoint v4l2_epn = { .bus_type = 0 };
--		int ret;
- 
- 		ret = v4l2_fwnode_endpoint_parse(of_fwnode_handle(epn),
- 						 &v4l2_epn);
- 		if (ret) {
--			of_node_put(epn);
- 			dev_err(dev, "Could not parse the endpoint\n");
--			return -EINVAL;
-+			of_node_put(epn);
-+			ret = -EINVAL;
-+			goto err_cleanup;
- 		}
- 
- 		subdev_entity = devm_kzalloc(dev, sizeof(*subdev_entity),
- 					     GFP_KERNEL);
- 		if (!subdev_entity) {
- 			of_node_put(epn);
--			return -ENOMEM;
-+			ret = -ENOMEM;
-+			goto err_cleanup;
- 		}
--		subdev_entity->epn = epn;
-+		subdev_entity->epn = of_node_get(epn);
- 
- 		flags = v4l2_epn.bus.parallel.flags;
- 
-@@ -398,6 +400,11 @@ static int isc_parse_dt(struct device *dev, struct isc_device *isc)
- 	}
- 
- 	return 0;
+-	spin_unlock(ptl);
+ 	set_page_huge_active(page);
+ 	if (vm_shared)
+ 		unlock_page(page);
 +
-+err_cleanup:
-+	list_for_each_entry(subdev_entity, &isc->subdev_entities, list)
-+		of_node_put(subdev_entity->epn);
-+	return ret;
- }
- 
- static int microchip_isc_probe(struct platform_device *pdev)
-diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-index e97abe3e35af0..58cfbf6fcd668 100644
---- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-@@ -340,6 +340,7 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
- 	struct isc_subdev_entity *subdev_entity;
- 	unsigned int flags;
- 	bool mipi_mode;
-+	int ret;
- 
- 	INIT_LIST_HEAD(&isc->subdev_entities);
- 
-@@ -347,23 +348,24 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
- 
- 	for_each_endpoint_of_node(np, epn) {
- 		struct v4l2_fwnode_endpoint v4l2_epn = { .bus_type = 0 };
--		int ret;
- 
- 		ret = v4l2_fwnode_endpoint_parse(of_fwnode_handle(epn),
- 						 &v4l2_epn);
- 		if (ret) {
--			of_node_put(epn);
- 			dev_err(dev, "Could not parse the endpoint\n");
--			return -EINVAL;
-+			of_node_put(epn);
-+			ret = -EINVAL;
-+			goto err_cleanup;
- 		}
- 
- 		subdev_entity = devm_kzalloc(dev, sizeof(*subdev_entity),
- 					     GFP_KERNEL);
- 		if (!subdev_entity) {
- 			of_node_put(epn);
--			return -ENOMEM;
-+			ret = -ENOMEM;
-+			goto err_cleanup;
- 		}
--		subdev_entity->epn = epn;
-+		subdev_entity->epn = of_node_get(epn);
- 
- 		flags = v4l2_epn.bus.parallel.flags;
- 
-@@ -387,6 +389,11 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
- 	}
- 
- 	return 0;
-+
-+err_cleanup:
-+	list_for_each_entry(subdev_entity, &isc->subdev_entities, list)
-+		of_node_put(subdev_entity->epn);
-+	return ret;
- }
- 
- static int microchip_xisc_probe(struct platform_device *pdev)
++	/*
++	 * Hold the PTL until we're done with the page: the page table owns the
++	 * page reference now.
++	 */
++	spin_unlock(ptl);
+ 	ret = 0;
+ out:
+ 	return ret;
 -- 
 2.53.0
 
