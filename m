@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819562;
-	b=27VDAtqUUIQhXRHK/UA+RbwOOwh3ucikJIuhKmZMfBRS/7eWevlKI608x068Euwd4Geo
-	 3Ryaag4T2oO8/17GzAyLiVB8sb9ib1n/wMSvSh4qXhNzOFJHzQFEN8JBzcRr4OhDAAxFT
-	 XCveb7f+JHV5ltZ+OR9ADQ6QN09CriABtgeO8YFtif+IuGq/cad0fN6PMUQZ8Soh4ymXd
-	 EDzpQSw+HmjtWcKjiOb16xEROA7dJbWGmtIAFQJe2vdywnwc8PAyqVPRZHIaqVsw5HspS
-	 Ee14OjpwtPeTe11lZB27MBty9MRXikHX/x+iEW3GwJCBwnhHMfUulHgtsDlSYsRPZuA==
+	t=1793819563;
+	b=31XwHeTaJrDUXjNABpa01y/dZ61+AvJKEyec9eUATE/9rihpbpO0zPHVIYZMlUflKRq4
+	 68WPJRhF0nVjOe5KBj/usaMrKTKc7AP7qDVr+MGB0zOt9ikoadoSu9iYDxGN6xhAnLzRD
+	 hYgvLqNklDJ4th0NJ8cZSCXbqHoOhVWITC5GnMGwpQqSeaTwGEzXQYzlaAlAKRENdQYni
+	 VOUWWNFsnwBTC1wzuaLXDTV/a3CPvPqZHgvMgvONMtjBZIUWy3bA9ZF0TgptuxKpGa9dC
+	 5+bbTtKSjWSd3Vcq8BQKTNCj1TiKhnTC553oo5KSXzs0AU4wbSw7KCtQvVgjNoHdIeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819562;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819563;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=FWTTKUo+A159pFBnJ+edwS9+GRPYY2Bbk34rQISTbr4=;
-	b=bfWdg/HrwFm9dD594MYb3G53q1zyH2gnKC6/qN1YTOGVFc93fBLQ21OlYScejppvIylh
-	 /MJYNGP01pG9V54I0dLWhC+on4H85eo89uj4p4DurpU2cESbmmCulps9avYjClVi7GePI
-	 +fzUWQ2bvDS1YucZu5fFehYPTKtB3+e2qrLLYOP2ysFOs/SzcR5a0YVgJfZ9sRi9FYYp9
-	 t0neKRvyR2hqZRziPo721ztw6W4+SePoDINvFZJZgLJtpxp7CIAWeFrVVKrBJPk8beo8S
-	 870uTyV6WfkPaCT5a/4V0S3hJOuTJqUMmYcFzb7rSQi4REUMw2PZH5rsqwKvPN3PvfA==
+	bh=P32jlC7A1yPEKrebDKo2boa83ALpnYtPbTKYqqXdo/g=;
+	b=J776WEmLT1ht5/K4YS0z0niNWKOHwX5vFHPPqa1DzbEys9YoVUiRAajgRUg86+glL+y6
+	 pJqLdU59nxdCC5nmAJI7355JS6pvOXiuAzcz7lGEc4/R5Vf5LxSyGWdbHzGZMVfF98I29
+	 ZEzsEN5YWv7Z1JV7MGNM+cfAk7Ob6jI/IFJRoGAd0NgmKc62aJX1Lg8Gtb1HYvjjqg0Fz
+	 1UHO9tc8y0y9dfRXRc0uIsIveOdZ75+wIs0zLDYe5I8ITjR9mZuOrPH09/HyZ0aEhUQfH
+	 t0lcDRdZXzWJHRJ6wjTULHevJHCyZFVaS5fo2Wh+jV5KGusz3f/9yRukc/rMaXBtJzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NILpna9L;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YznVLvrc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA236606A337
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:12:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE34606A33D
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:12:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NILpna9L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2D4A1F00A15;
-	Wed,  4 Nov 2026 19:12:40 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YznVLvrc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B3CB1F00A18;
+	Wed,  4 Nov 2026 19:12:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793819561;
-	bh=FWTTKUo+A159pFBnJ+edwS9+GRPYY2Bbk34rQISTbr4=;
+	s=korg; t=1793819562;
+	bh=P32jlC7A1yPEKrebDKo2boa83ALpnYtPbTKYqqXdo/g=;
 	h=Subject:To:Cc:From:Date;
-	b=NILpna9LKVpyjESsc83ryEPIcOLk01/a4OrJgOSw5FiW9Qtl0waS3FgWJ3kZkwZxp
-	 CBNaEidr8OmYrvqHZboCAxUOg8qVoiXqhgMliG68DJV6jYRmLLRuTpn/IC3FWwJNB7
-	 w5QYSAqRahv3FYzbg7QHLW7XT6sKYLQU0GBy0co0=
-Subject: FAILED: patch "[PATCH] rxrpc: Fix update of call->tx_pending without holding lock" failed to apply to 6.6-stable tree
+	b=YznVLvrcWAhWnc7qUlBz9gkxc9ZmttG0gWkZISJQKM1byDH0xNEY0Z9vORPyKi92C
+	 g2HC659Y7f0x4t8hhpGC4WZ65zrT1i4INxL0ZF/0Pf9en+pnxDrDWhtMRtiwxyYMdG
+	 GqK0KbDG71j8ELnJC1IsQP7IK4C182BM/YWj8JEk=
+Subject: FAILED: patch "[PATCH] rxrpc: Fix update of call->tx_pending without holding lock" failed to apply to 6.1-stable tree
 To: dhowells@redhat.com,davem@davemloft.net,edumazet@google.com,horms@kernel.org,kuba@kernel.org,marc.dionne@auristor.com,pabeni@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:12:38 -0500
-Message-ID: <2026110438-unified-reanalyze-a2ce@gregkh>
+Date: Wed, 04 Nov 2026 14:12:39 -0500
+Message-ID: <2026110439-morale-coleslaw-379f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7801c42c3bb737cfb06194a383873fcad8daacf5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110438-unified-reanalyze-a2ce@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110439-morale-coleslaw-379f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
