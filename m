@@ -1,53 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793781239;
-	b=t1CsEolTvYfqMdQkq4jbD3n1BvKdi23LkYF1mmU4eBGouh56tvnDBLZQlE+j3xGhmtUq
-	 1IwaOMZNx+G/lnw2PDX2No9bSMurV5z83MEhIWIlMjT7bHI4HdL8lQkVyD6YLETBDQaal
-	 HZaQixheVmmod7eBxuLKcqLVZ8udkraRbFyX30HC6oYorRa47UOmqSsTGlabaub0oFfng
-	 IRPmYlNkPn8WR6xAjAhEgFEi1NjBmoXAODJhJ1y59MIbyjWvcUyjQMvPHTcDKJUMsSST5
-	 LJs3oZiJMuBV3ys9SKxTFLAeJGuNqY+i5pNdrLAfMV80AhiK9rbxMhcM9IRcd1Z3gVA==
+	t=1793781878;
+	b=0VTv9p09avIv6cWaalAqhBREtD9xDkwpYQaUR9xtPSwU+RVUD2Upjy+hqWXU6W2o2q+i
+	 HW3KK/2Eqd2/Raz1NY0HCAf4icJtw86C50G0JX88/Mkmu1Jr2Lwf/YChTk3uNpx1yZ+/T
+	 GBDP0Op86E+QeI6zh6mFou4xNLC0tgc4360goFRjLnpRfsSR+Q1iHgLOnZ8Ee3FqYdewZ
+	 iaauvV4vm09cHm8I1dk6RXfJuikjKaEyohkrKYjE+d4FUbWYSx9ez0owiKuxQHO7dbb6H
+	 ilMDFDBdVp45dcNK5xz8Dy8++ARYUJuMu0yl7n19p8smsJIqqEuqywUPyXAfXCCyOpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793781239;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=OjgfVkz7I6aaeDs/niXGQ9dYXWbLr1dkB1rbziP/69o=;
-	b=lKqaycPDsUPUvg9YM+0uU6p7Inr5+4MzbpWTCJQ/oLDJReUA7OqFYSZBZzBMfGvDZeCI
-	 Yh9a4HY2m6L47cG45wvLxyJI3gGG2gB2CWTYDoV8GqoaB+yt56EROvbj9oOoNvgnzWF92
-	 vwbiRz294WGn1k1qSRomXFxNaUNb7mAuT2Do1KSfKY4l3nvDVnXLtFtONLsBkHMwlxFtH
-	 4icnehHV/f67145eFaza/UX3cNg1ZCwQNVMT8EDeAZFpS6uyGg27WIRZjxsQmOpHMK2ci
-	 Q71789XeodJ8EOHm+sfExGcBjj0nv9qFmktulqYLy340G5u9s+Zv3KdNqOpYAlCpypA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793781878;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=cxrCkQFSuOyT2sjaoiQVObpyFNJLzTlcWOT51iAX9JU=;
+	b=R2q3562LZB9WRUlxyMZRBd3PbDXRhALbGXYYweGrIMac2UfES+/49ZmUkuGokZJvylOR
+	 h57wJepz6m6Hj/qCOeXARlRpMCpv3LKzoOMrINYRsqVtAIh08samF8XcOGQnsqSBo8xpZ
+	 qRigHYOZqzdnTeyXQTfrVpLGvnMg17DqoPKUgIcgLDUj4C4KfRWhOeklLC6AVbM2vY2VC
+	 RUmGcBxYdEKGlOCyvJBkyW6bC+2G+jPEhozhokYWg46T+fmy7xfsjqF8UyTinAwYSXWGZ
+	 z6mcFPZIaTcLBdRs7V55VwocNSJNrNKTgUyK7yWoQy9TwuGdd0CpjILNk4c6Sm0bdQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=JySAjbcG;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kYLOlPsd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B6C606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 08:33:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9B6C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C263606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 08:44:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=JySAjbcG
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=OjgfVkz7I6aaeDs/niXGQ9dYXWbLr1dkB1rbziP/69o=; t=1793781237; x=2109141237; 
-	b=JySAjbcGi4pZ+yE+c1cVnaXo5899SFiC5cd9rPuFLPMfxBzi6NC5i+EVJtz30nH9OVXl6CHE2YN
-	cFFRggX6NKswo/xFbTYtqYgArO8Mf3X1aw41Owc/EXExskWtUZbVANozlloShRKmB8tz11L8EWz0J
-	QzNXRPMTdIyzn0JaHjoly6uX2G8dKoPQHoEGRWMQ5bpE/rzGlVZ+SJJEpfY+wySu+r0bOWR+uqSe4
-	AOTw5JqK1OiDGPEEf4tpoghQaG1UTzrzneS1GDocclbwrImNBuc0ErWTzQ9fqXZauRIz/iVYp7RWz
-	meZKBku5SUiV+zGdMt+qtki3DHzDG7CeaUZw==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xOWRF-0024QM-Ow; Wed, 04 Nov 2026 09:33:45 +0100
-Message-ID: <64e2b65e-afe3-4fc0-8201-03cb72ae5d32@igalia.com>
-Date: Wed, 4 Nov 2026 08:33:44 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kYLOlPsd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAAC41F00A02
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 08:44:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793781877;
+	bh=cxrCkQFSuOyT2sjaoiQVObpyFNJLzTlcWOT51iAX9JU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kYLOlPsduBjpIXnoNusXVF/cXOEOFqqKNv9+1VSUd4RD8x6bk5a1K8x8z2gGjc1VZ
+	 cizbM0P0cK2PKYSVlgWcm/rp181SBKz5GnuM86soqg8vsDvhE7z3nbs2zADxdp9a5e
+	 OwMvQQza7UO2zF2uhqdNpcdumUIExnKjfyKWozC+GFnsiPTwr0V1rPgAGTFL0/5c7/
+	 ifnAu2Vxw75WJ/vsfEMRHheJ0yP+2R/ocsUoDU6SgmitE9pACSkwJwyF3wFlPb9QbX
+	 2a1qxNkf+q1NIsYn8Avi6Lwn9v7mnEF7DZFgmkFD0+TYsinXc7d+DoqhH7/uZFrOjj
+	 SlF4IzZLxEHxA==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c38ac26cc5dso70631066b.2
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 00:44:37 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByf11d8/7JIhd9+Q3nkL5uIDdCtqbQ9wjLKj7cQ82hqVwLVpXO9W8cqnkg2R+9FV1zmC3Dq+fs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qDMZL/Kqejgb05FZS4ZdCLp+XXSH3JyM09eNg9kTIamXSwwe3
+	4y0dHJnah88FAck8Utowkm9DvzFqU7akqE78QWzOKPqWZErlJZY+AX01XWLCV3qOBdN/WgqzBPI
+	wEW1KPg4zi1NjWUElwPvHDPG5T59pz5U=
+X-Received: by 2002:a17:907:fdcb:b0:c41:f29:72b1 with SMTP id
+ a640c23a62f3a-c4ca7aeb21bmr1310103866b.47.1793781876535; Wed, 04 Nov 2026
+ 00:44:36 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,48 +59,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/sched: Adjust run-queue when changing priority
- at runtime
-To: phasta@kernel.org, dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- stable@vger.kernel.org
-References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
- <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
- <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
- <6e113935-f303-4f49-bc27-e1d85abffa70@igalia.com>
- <72cba5d23a977185696db12ac547174708652bcc.camel@mailbox.org>
- <dd6e0f86-67e8-40c0-bf8a-1948623d0646@igalia.com>
- <6e9a32c633eec28b9d5e539b9e35c00a26ea5bd4.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <6e9a32c633eec28b9d5e539b9e35c00a26ea5bd4.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261103150458.11591-1-icb@fastmail.org>
+In-Reply-To: <20261103150458.11591-1-icb@fastmail.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 4 Nov 2026 17:44:24 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9xNLn1Nk1QzD_Kep1TcgJmGNsT+UTg6Ed0DjjmRRW4+Q@mail.gmail.com>
+X-Gm-Features: AclHuK-JcfuZ648DJ94l5sf55_9ZhNmAEUfsKztm_X1MvB-PgWT_Vi8TDrhO1D0
+Message-ID: <CAKYAXd9xNLn1Nk1QzD_Kep1TcgJmGNsT+UTg6Ed0DjjmRRW4+Q@mail.gmail.com>
+Subject: Re: [PATCH v3] ksmbd: grant a caller what its groups and OWNER RIGHTS
+ ACEs allow
+To: Ian Bridges <icb@fastmail.org>
+Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Aamir Ahmed <elb12345@hotmail.co.uk>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+> @@ -1531,7 +1557,12 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+>                 goto err_out;
+>         }
+>
+> -       if (*pdaccess & FILE_MAXIMAL_ACCESS_LE) {
+> +       /*
+> +        * Evaluate the DACL in order (MS-DTYP 2.5.3.2). MAXIMUM_ALLOWED takes
+> +        * its result, and so does a caller that only group or OWNER RIGHTS
+> +        * ACEs name.
+> +        */
+> +       {
+Please remove the redundant braces and unindent this block, as there
+are no local declarations requiring a separate scope.
+The rest looks good.
+Thanks.
 
-On 04/11/2026 08:18, Philipp Stanner wrote:
-> On Tue, 2026-11-03 at 16:03 +0000, Tvrtko Ursulin wrote:
->> I'd like to get the fixes in so I can mentally focus on the continuation
->> of the bigger story. Not least that not fixing it causes sashiko to flag
->> the bugs, either when touching the neighbouring code, or possibly even
->> just the logical functionality.
-> 
-> 
-> Fine by me, no major objections :)
-> 
-> The only thing that makes me a bit uneasy is
-> drm_sched_entity_set_priority()'s semantic. I know it's only used by
-> amdgpu, but nevertheless the reader might be tempted to think it should
-> only change the priority of an entity within a runqueue.
-> Could you add some sort of code or doc comment hinting at there being a
-> TODO for the future rework? Good to have that in case any of us is
-> assigned to work on different projects in 2 months.
-
-I lost you here - what should the comment say?
-
-Regards,
-
-Tvrtko
+>                 ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
+>                 aces_size = pdacl_size - sizeof(struct smb_acl);
+>                 for (i = 0; i < le16_to_cpu(pdacl->num_aces); i++) {
