@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817969;
-	b=xplPw/CxlRJUYCmP2q5rg0UyctclJT0Xztiy8wqK6knko7YUcXWzqCTvpZpnktNavnBV
-	 t5/+47UmftWJygK6aTuxLcUcLlYuF/D3cEcBxPcH++xqZ610wxZmDhBq2k+SGo0Xv/rDg
-	 HCloACwMJSSnuVYfw8l/pq0p42VjjqWeK67RF6ZoZLmLHVHKrq0LyNIRv/o3rnAMsYz59
-	 ifcyIc19g6EdFVeZtoF9fLpBKWuNWqSs1j92q1jbkdz0A32q29kcyLUx9iaFPVCIt1Keo
-	 LY7Uv2RGyWQdaZms344yxM5XQKtxKtWQUKCz+8f0A2ah1odkVjbTLpYIKxLHmdjdj9Q==
+	t=1793817974;
+	b=Zvg+2t6zv6zDKKnp7U3xeXWX/2c4w5FZr4EEV7EWfPGsY2qCLsX+dTT2mW69X8tmxhXs
+	 Z/JpJyjNISorOOHYn8n77BkWHDcTM9wU/P3O9aAWQbB7dT/WR0Pleo9v4QiMuUSe5G2DU
+	 toTDg3mucOzGHafoR9K7F7lifWzxBYzsLmGJ0YxKrATAl4C3BGz3z6gyp3Wxx08tkV2yZ
+	 YQ7JpOaM+qGdThEL7xdIJY099VXC2KosP07O+wBTfaOVVCbGBkZj6kcKOAMAhtN7KWM6i
+	 UK7tdXO/7Y0Wf+eUrv0HuQM4FYyvOKaIiOWA5y/frE/qHcXBpGZfGMn0lkKUWD+Vi5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817969;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817974;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7KLXcGUkGwXOqLbbuWyBvOa0T7K9za+kQ+0ti+yN5tM=;
-	b=r2wAdHCS8c7P0ZTR57h1mTpYdh9wI6lJagmiwxHzFCn6Pm1bysvMfP7qJb3lGtxET4d/
-	 1K6zanXQPOo47/1fXNmMIAdRH8vWaArmCKACd+gFgmqKf2RaabeNHqaK0+UN4un7fjAOp
-	 8smQCyvwugEu035P5Ntu5YTZrAIjpfKZSY7/KrAJjtbHpEIj0YLAxd7MzCqzLrRrD2qnd
-	 0NK4oqWV7QaAUK/+pDoh0+TOEiEYUea85RSYbBXozs4B8TTzbaZXPJmUHHdJAAhKocqGm
-	 GHeviA3yvJSYmvWwfm6zSe7p5QarLzitR4J3r32TTCmKL6S/B5V1w6aYxZtpnUr62XQ==
+	bh=gs5p9UfmjMeZHxOkcYGa/ciyubgjbdKQXkEANYCOOPY=;
+	b=MSW+gc0ErkboRpcWkiG6LjvYW/IPQVLOSmM54yhK8IMSDM9gEqAoZ4LlmDqkZUupQniQ
+	 XC8418C079ipd0tT4GXdgroZwBjhsS8aOASkVH4D8FHNfeDs5YbufXUNVwBFEufbCRM0A
+	 puEk2V9RTfrVgBJ2Qub0wtnJ9weu+JOMX08333XUF+xHLhGqKnX4QfdK5S0AOE26RQgba
+	 c7d3q7oR/pOMcx4pSUIuSAp0wqEZDQUXauZbBIFjvmPp3dQBQ46FWqzLsx6YJBARIyZdT
+	 utVALKYQCCSEaVRvaTxXlgPKcHh7PQ6alQL3bSemoTbkf0BYGYLF7BWu2DK81V0pxYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jV8q3vRd;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=X86tV4CC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94C2606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:46:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1B7606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:46:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jV8q3vRd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61F811F000C1;
-	Wed,  4 Nov 2026 18:46:08 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=X86tV4CC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22CF01F000C1;
+	Wed,  4 Nov 2026 18:46:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793817968;
-	bh=7KLXcGUkGwXOqLbbuWyBvOa0T7K9za+kQ+0ti+yN5tM=;
+	s=korg; t=1793817974;
+	bh=gs5p9UfmjMeZHxOkcYGa/ciyubgjbdKQXkEANYCOOPY=;
 	h=Subject:To:Cc:From:Date;
-	b=jV8q3vRdF2nR6sM7yKVlMe2uOmB5rVK4Lor9iMPzeXBP7iS+izGfo5CzL3Ih2Xy1R
-	 4W2Js8gFlMYbTz6NinrM8dYJASAvGmHa71RPd4IXCzzgpiXDSx9qZ3pJiluYLSou/Z
-	 dhADIToyM3xAQlZ7GG2bEd5LTTc3QVBNLWo7oL0s=
-Subject: FAILED: patch "[PATCH] NFSv4/pnfs: bound the CB_NOTIFY_DEVICEID array count before" failed to apply to 5.10-stable tree
+	b=X86tV4CCwbMJAICTntyG9bJMIr9yBUnbS/a2vtPuH7oxCHLgvuWz+NcM74L7gv7MF
+	 er88Pc9IMX2Ueoa8viQhm0MxX7rVXtzGCrntpjeE5RzXL33QUj8KnqK13PLR+j1Oy+
+	 hbilf0vyciBETXpQvdo/NJKeEdTZTTxNLHoZCE0w=
+Subject: FAILED: patch "[PATCH] NFSv4/pnfs: Free the netid when draining a data-server" failed to apply to 6.12-stable tree
 To: ben.coddington@hammerspace.com,anna.schumaker@hammerspace.com,bcodding@hammerspace.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:46:00 -0500
-Message-ID: <2026110400-luminance-syndrome-19a6@gregkh>
+Date: Wed, 04 Nov 2026 13:46:12 -0500
+Message-ID: <2026110412-compost-spending-c7bf@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 32f0967ea296d447925465c98e7eec71d4e2f755
+git cherry-pick -x a7c8e96d1b9fa327cbdea514d047c8295b28d49a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110400-luminance-syndrome-19a6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110412-compost-spending-c7bf@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,39 +79,147 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 32f0967ea296d447925465c98e7eec71d4e2f755 Mon Sep 17 00:00:00 2001
+From a7c8e96d1b9fa327cbdea514d047c8295b28d49a Mon Sep 17 00:00:00 2001
 From: Benjamin Coddington <ben.coddington@hammerspace.com>
-Date: Tue, 15 Sep 2026 08:22:05 -0400
-Subject: [PATCH] NFSv4/pnfs: bound the CB_NOTIFY_DEVICEID array count before
- allocating
+Date: Tue, 15 Sep 2026 08:22:03 -0400
+Subject: [PATCH] NFSv4/pnfs: Free the netid when draining a data-server
+ address list
 
-decode_devicenotify_args() hands the server's notification count
-straight to kmalloc_objs() as the array length, without checking it
-against the message that carried it.  Bound it the way nfs4xdr.c bounds
-an attribute length, against xdr_stream_remaining().
+nfs4_pnfs_ds_addr_free() releases all three of an address entry's
+allocations, but the four sites that drain a decoded list before it
+reaches a data server open-code the loop and free only da_remotestr and
+the entry, leaking da_netid.  Both layout drivers drain that list when
+nfs4_pnfs_ds_add() returned a data server already in the cache, and
+again on their error exits.
 
-Fixes: 1be5683b03a7 ("pnfs: CB_NOTIFY_DEVICEID")
+Lift the drain into nfs4_pnfs_ds_addr_list_free() so an address list has
+one owner.  A striping mount reaches the cached case on nearly every
+GETDEVICEINFO, since many deviceIDs name the same data servers.
+
+Fixes: 4be78d26810b ("NFSv4/pNFS: Store the transport type in struct nfs4_pnfs_ds_addr")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
+Assisted-by: Claude:claude-opus-5
 Signed-off-by: Benjamin Coddington <bcodding@hammerspace.com>
 Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
 
-diff --git a/fs/nfs/callback_xdr.c b/fs/nfs/callback_xdr.c
-index 88e1af0fda01..b1bc2c02b5a6 100644
---- a/fs/nfs/callback_xdr.c
-+++ b/fs/nfs/callback_xdr.c
-@@ -271,6 +271,13 @@ __be32 decode_devicenotify_args(struct svc_rqst *rqstp,
- 	if (n == 0)
- 		goto out;
+diff --git a/fs/nfs/filelayout/filelayoutdev.c b/fs/nfs/filelayout/filelayoutdev.c
+index 88bc79ec3459..57e0654cd98c 100644
+--- a/fs/nfs/filelayout/filelayoutdev.c
++++ b/fs/nfs/filelayout/filelayoutdev.c
+@@ -177,27 +177,14 @@ nfs4_fl_alloc_deviceid_node(struct nfs_server *server, struct pnfs_device *pdev,
+ 		trace_fl_getdevinfo(server, &pdev->dev_id, dsaddr->ds_list[i]->ds_remotestr);
  
-+	/* sanity check the count against the remaining stream */
-+	if (n > xdr_stream_remaining(xdr) /
-+		((4 * sizeof(uint32_t)) + NFS4_DEVICEID4_SIZE)) {
-+		status = htonl(NFS4ERR_BADXDR);
-+		goto out;
+ 		/* If DS was already in cache, free ds addrs */
+-		while (!list_empty(&dsaddrs)) {
+-			da = list_first_entry(&dsaddrs,
+-					      struct nfs4_pnfs_ds_addr,
+-					      da_node);
+-			list_del_init(&da->da_node);
+-			kfree(da->da_remotestr);
+-			kfree(da);
+-		}
++		nfs4_pnfs_ds_addr_list_free(&dsaddrs);
+ 	}
+ 
+ 	folio_put(scratch);
+ 	return dsaddr;
+ 
+ out_err_drain_dsaddrs:
+-	while (!list_empty(&dsaddrs)) {
+-		da = list_first_entry(&dsaddrs, struct nfs4_pnfs_ds_addr,
+-				      da_node);
+-		list_del_init(&da->da_node);
+-		kfree(da->da_remotestr);
+-		kfree(da);
+-	}
++	nfs4_pnfs_ds_addr_list_free(&dsaddrs);
+ out_err_free_deviceid:
+ 	nfs4_fl_free_deviceid(dsaddr);
+ 	/* stripe_indicies was part of dsaddr */
+diff --git a/fs/nfs/flexfilelayout/flexfilelayoutdev.c b/fs/nfs/flexfilelayout/flexfilelayoutdev.c
+index 5c0216bd5fce..6cd3859d4a24 100644
+--- a/fs/nfs/flexfilelayout/flexfilelayoutdev.c
++++ b/fs/nfs/flexfilelayout/flexfilelayoutdev.c
+@@ -159,26 +159,13 @@ nfs4_ff_alloc_deviceid_node(struct nfs_server *server, struct pnfs_device *pdev,
+ 		goto out_err_drain_dsaddrs;
+ 
+ 	/* If DS was already in cache, free ds addrs */
+-	while (!list_empty(&dsaddrs)) {
+-		da = list_first_entry(&dsaddrs,
+-				      struct nfs4_pnfs_ds_addr,
+-				      da_node);
+-		list_del_init(&da->da_node);
+-		kfree(da->da_remotestr);
+-		kfree(da);
+-	}
++	nfs4_pnfs_ds_addr_list_free(&dsaddrs);
+ 
+ 	folio_put(scratch);
+ 	return new_ds;
+ 
+ out_err_drain_dsaddrs:
+-	while (!list_empty(&dsaddrs)) {
+-		da = list_first_entry(&dsaddrs, struct nfs4_pnfs_ds_addr,
+-				      da_node);
+-		list_del_init(&da->da_node);
+-		kfree(da->da_remotestr);
+-		kfree(da);
+-	}
++	nfs4_pnfs_ds_addr_list_free(&dsaddrs);
+ 
+ 	kfree(ds_versions);
+ out_scratch:
+diff --git a/fs/nfs/pnfs.h b/fs/nfs/pnfs.h
+index 70d20f779678..5725ea06efc2 100644
+--- a/fs/nfs/pnfs.h
++++ b/fs/nfs/pnfs.h
+@@ -427,6 +427,7 @@ int nfs4_pnfs_ds_connect(struct nfs_server *mds_srv, struct nfs4_pnfs_ds *ds,
+ struct nfs4_pnfs_ds_addr *nfs4_decode_mp_ds_addr(struct net *net,
+ 						 struct xdr_stream *xdr,
+ 						 gfp_t gfp_flags);
++void nfs4_pnfs_ds_addr_list_free(struct list_head *dsaddrs);
+ void pnfs_layout_mark_request_commit(struct nfs_page *req,
+ 				     struct pnfs_layout_segment *lseg,
+ 				     struct nfs_commit_info *cinfo,
+diff --git a/fs/nfs/pnfs_nfs.c b/fs/nfs/pnfs_nfs.c
+index 93d63f75a355..5bd014b981bf 100644
+--- a/fs/nfs/pnfs_nfs.c
++++ b/fs/nfs/pnfs_nfs.c
+@@ -633,23 +633,28 @@ static void nfs4_pnfs_ds_addr_free(struct nfs4_pnfs_ds_addr *da)
+ 	kfree(da);
+ }
+ 
+-static void destroy_ds(struct nfs4_pnfs_ds *ds)
++void nfs4_pnfs_ds_addr_list_free(struct list_head *dsaddrs)
+ {
+ 	struct nfs4_pnfs_ds_addr *da;
+ 
++	while (!list_empty(dsaddrs)) {
++		da = list_first_entry(dsaddrs, struct nfs4_pnfs_ds_addr,
++				      da_node);
++		list_del_init(&da->da_node);
++		nfs4_pnfs_ds_addr_free(da);
 +	}
++}
++EXPORT_SYMBOL_GPL(nfs4_pnfs_ds_addr_list_free);
 +
- 	args->devs = kmalloc_objs(*args->devs, n);
- 	if (!args->devs) {
- 		status = htonl(NFS4ERR_DELAY);
++static void destroy_ds(struct nfs4_pnfs_ds *ds)
++{
+ 	dprintk("--> %s\n", __func__);
+ 	ifdebug(FACILITY)
+ 		print_ds(ds);
+ 
+ 	nfs_put_client(ds->ds_clp);
+ 
+-	while (!list_empty(&ds->ds_addrs)) {
+-		da = list_first_entry(&ds->ds_addrs,
+-				      struct nfs4_pnfs_ds_addr,
+-				      da_node);
+-		list_del_init(&da->da_node);
+-		nfs4_pnfs_ds_addr_free(da);
+-	}
++	nfs4_pnfs_ds_addr_list_free(&ds->ds_addrs);
+ 
+ 	kfree(ds->ds_remotestr);
+ 	kfree(ds);
 
