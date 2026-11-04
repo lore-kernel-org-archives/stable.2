@@ -1,86 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793784115;
-	b=a9i98C8wtIiBJLkw/hCD2pJf0O/mwAaDh8BsPK/n6WNqw0lIdzsZISJZSgPgDGI3X9lA
-	 tRkNl6/8/tF4RA5AGvj/xB4/sc9XmEb1ychmboah++0XR8kcTgunTb726AsMFDAgI84sl
-	 AEYz+0GhjI4Tkxa6ejaUctPaOayEDahqk0VOF9w2u28BMpGUlNf34vzR4WSANnLikTkpQ
-	 rFyTCUVy3IBuQTGPMvZwQJB6PfFb5ZDzKKIuuQrw2PPorUWPWg5XmIPHlv3+56ce7/0Sx
-	 hR2btVYWa2jcYRkFUk9g8mWhCD7dyYKg00X4yMs6SVZSmrjcmyX5UVztqt4tr5Dq2tg==
+	t=1793784177;
+	b=wH4x6vsQq8QgGS4sLxfde1PF7rI+j757Aea1noZpsSXifZrSeyK0OEUMNg6fAu1J2E4D
+	 3jH3SR+nysJfErMgKtophqPmGhstD2b8XcR8NYvHXpv//2RXr3JRUjfOmrK7RUKiGzewt
+	 JOruGMepk+12X/S5LTqRJFwTYJWK/i4b9DgK17CsTR++bHMYFoVQnMeR9yL6YQrLxj6om
+	 p+dEYx0nzWiKo8kLRAA2z8gKieZ/f/YvepyvJcLNCLAuoAKjg/cv5tziVUNLK8g5112IY
+	 aKwDNdV0gpBwaVvbcE/bLcYXNl3vYhpUu6z2qZ8h6QjpqQw94Xe9X15OV5SNJDS0zNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784115;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793784177;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=FPknVUZzK855S9yI8MClCScYyQIbXuE8HJCc9PdRG3U=;
-	b=Odz7cX3BRe4KTDThzw8bwh7cgtuyA/BdGeL9l0l/w0GpMW4CNPKygu59Dszpne0skqWy
-	 jxeUyv2zmTyK8HVQ+dQAzh8SkB5z8TNw6OY9WIntaQpjrkLNQAFCVednQCEWU2DtzWZW+
-	 0shpEVLAF8okMc7oANfWGEy8R9fXmKXxax9ala3LayjC4WkxaQ4/T0ewG7dfe2m8Mfuue
-	 ik/YmZy4LcjQ73PRxRi9cohWXf52IQVVwTMllhhMDrmz2RcMcGXcj/K+lhHDPW985nYcA
-	 aS+5ERXX72UZmK2XPsB3S+l2x+G8RySHt8OYoQ/8fU5zP7kEshSmtxz966KIiq0h4Fw==
+	bh=XyxQL7N3jJ1+AgX+vuqyEXAXQ6bEZTTPu9AIW39S+SA=;
+	b=h0p52qBkvIRtOsnLbYSzWsH1RUm2AWO/9Xjpbk9cRHK5qMdlXjaywCErQf3qILd+YN05
+	 TpfSF2wd7RpsMbXZUrSZcqC6K7YP0tsoDfizHj5J/gUWwIE/7s5QGnBxP3nNJnCir71MJ
+	 as22a4PWZRvAZMFQrI966g8HWGP8YJP5pkoIYV9jE0ZSf6HrXbe/JHaALnqjAT5M7N8/A
+	 ppJMERgL0vH/Gph4MlU7HHIdpEbc9MBZ4OIWCtXu75KeRahWee6qkoEn1/XHVB+DYyfun
+	 WIIP9kSqDpLyBOrbOeiQccsaRx1VD55xI+dkr7Ab+uky2Xxe/lRroWdHAWW8fhUZRxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=rFk12Nm1;
-	arc=none smtp.remote-ip=203.205.221.236
-Received: from out203-205-221-236.mail.qq.com (out203-205-221-236.mail.qq.com [203.205.221.236])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB83A606A33A
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 09:21:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB83A606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=paNFTQjM;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 732FA606A31B;
+	Wed,  4 Nov 2026 09:22:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 732FA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=rFk12Nm1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793784105; bh=FPknVUZzK855S9yI8MClCScYyQIbXuE8HJCc9PdRG3U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=rFk12Nm1f+vFblw78VXrH/eLb7uWoC+1X5XLwP+h+c5xXLvAtvOWU43sggOZm5EmN
-	 kN71QB5oNlU+zvJIVv60CaqrcKRr7knRtFWIi4m4gCSv2pK0MPRdGq/NGlQ5NNeNPr
-	 jTqwPGKXO82w81e9Ao5IgJapRXpbXMLkWxwiRhW8=
-Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 56998ADA; Wed, 04 Nov 2026 17:21:41 +0800
-X-QQ-mid: xmsmtpt1793784101tjhggwlnf
-Message-ID: <tencent_8E52FEA6C91DD754CC6282C41D4DFA95E505@qq.com>
-X-QQ-XMAILINFO: ONXjbYTFhCz0/J0Xyv3rdUzwB8RdVBk8NhRjXndzEyFva+U/hiLGHZ/klARgaQ
-	 3rhTelFTWkw+JjDE5Il6TA22cBOvIvTBA7ZFBPp3BwTEMNlcQn9HnPUpZpmDtIp5vwttXRI0qIAD
-	 Epv+10TZznVNFL3UBkPaVsl7DVoNhCaoGI7EkhFVyrGy0eg+VLr2wZP/oUNnbFVe8IRAOEwp3NZr
-	 B/4s2z09vSbOEx4rOMaYpzF1WY7Rn+3JudR+JyuygdYj3+SxZ7TvBbwza4AjColD/X0WiIwA1wSe
-	 IO7cR/w9VneOBHxBha0Fe6YWZJuB/zQTOktyfLNM+AWL/f7lpSkRCPoHPNN/YNN8d1lSgTwRIjRh
-	 7jKygNOv6P+YqUXmu7AoWcl0xsM4QYMEwC/By+q7vVkX3rWURTgVqnjUqIvaSVEPmGMWej+Fyq7g
-	 m2u7WSZnxgiBmjyj2l/sVGg2fCgP4kJUDvr4Or62meJBJN+XOGlG+SuAV76lyDmvK6GkaR9VchbR
-	 JilZiH2t8A2dkg79pN4khQYMJ3wc2MeNyugFRmjJSuqVVSMFst5cbrTx0OGIOIpjqCJ8xl9b/7u3
-	 wRL0psRR/kw2L7F9dPtaWDmR/GpXuY65XqgaepGiBRjACcB7EvqjZsc93TNaqGWCZLeKbQPogqPv
-	 W7rvsuStWFxntOUdYQz9Ms/RBLgkX6EdLgDkAok5mH34MHzNvVaezEMe8We25YFrMuBouDoZQ/M4
-	 YJHt3HmIVCOwiGbzm6teZiuQSKE66HPDsxK1c8IcZDMUNC7TO+h5EFLwZ7/N0ScowqLlBpP3thiU
-	 R8QBpZdqoSkbY5/vtzcGLEU6MmEWf5cWPIioPvqvrrKpIiun/TxxkblCsf90GH/eoV61EJiZqtN3
-	 rWAmL0K6X3SqgLXUu+WlZHGATZ8GmIyUJnPB5qjseZT5hXPg1msNRtcDlbmpcmOYuNF3mkf/2LSu
-	 bhXT3kql6wFl4YbIjoUsaTAX7LqqdeFLSJDOQr7RnlKOr+iyrx9HmvqAAwbSMqpXkHZlQKOmnaeS
-	 msXTqROk9sFRxdcMDOMz2SdH7H05qGJiquLK9/7YyCRhTqZb2a4xSY1h+RDE0lOVi0Hx7MSrFm3h
-	 cHBaNmOEe1DJgZwNNdBgl6pmaZ1w==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-ext4@vger.kernel.org
-Cc: tytso@mit.edu,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=paNFTQjM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=paNFTQjM8M3uck52rWaW+viXtG/Lh6l03F2y4sXG99km1CIN10GXx1rARn58l/w4AW4Psv3vqMOzx
+	 1+h2o2iSZMQp3M6e98z7fMoVZdboHNxHV3mYDQ2q1IhltMefhnxFY6An27bTYvN0deXb8jDoexcC3n
+	 4v1k9Dyn1eEUu4U0=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16aeaf96e3b3-7848b;
+	Wed, 04 Nov 2026 17:22:54 +0800 (CST)
+X-RM-TRANSID:2ee16aeaf96e3b3-7848b
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[223.108.79.97])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6aeaf96b915-c8a78;
+	Wed, 04 Nov 2026 17:22:54 +0800 (CST)
+X-RM-TRANSID:2eea6aeaf96b915-c8a78
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	willemdebruijn.kernel@gmail.com,
 	linux-kernel@vger.kernel.org,
-	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com,
-	sashiko-bot@kernel.org,
-	Shuai Liu <847807867@qq.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] ext4: fix slab-use-after-free in do_split()
-Date: Wed,  4 Nov 2026 17:21:41 +0800
-X-OQ-MSGID: <20261104092141.727845-1-847807867@qq.com>
+	stable@vger.kernel.org,
+	yana06070@163.com,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org,
+	willemb@google.com
+Subject: [PATCH net v2 1/2] ipv6: fix cached route reuse for SO_MARK control messages
+Date: Wed,  4 Nov 2026 17:22:40 +0800
+Message-ID: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <sashiko-outbox-196913@kernel.org>
-References: <sashiko-outbox-196913@kernel.org>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,89 +80,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-do_split() allocates a new directory block with ext4_append() to hold
-the second half of the entries of the leaf block being split, then
-dx_move_dirents() copies entries from the old block (*bh) into the new
-one (bh2).  Nothing verifies that the newly allocated block differs
-from the block being split.
+A connected IPv6 UDP or ping socket can reuse a route selected for the
+socket mark when an SO_MARK control message supplies a different mark. A
+packet can then bypass a prohibit rule for its per-message mark instead
+of failing with EACCES.
 
-On a filesystem whose block bitmap is inconsistent with the directory
-tree, a block already referenced as a directory leaf can still be
-marked free, so ext4_append() can return that same block.  With
-concurrent operations on such a filesystem (as exercised by the
-syzbot reproducer), the block can even be freed between allocations,
-resulting in bh2 aliasing *bh.  dx_move_dirents() then copies the
-block onto itself, corrupting directory entries mid-copy: a rec_len
-field can be overwritten with name bytes, so the subsequent wipe of
-the stale entry memset()s a bogus length, causing the slab-use-
-after-free reported by syzbot.
+ip6_sk_dst_lookup_flow() consults the socket dst cache even when
+connected is false. That argument only controls whether a new route is
+cached. The cache check does not compare the mark used for the lookup.
 
-Fix this by checking for bh2 == *bh right after ext4_append() and
-bailing out with -EFSCORRUPTED before any directory block contents
-are modified, reporting the corruption via ext4_error_inode_block().
+Record whether SO_MARK was supplied by the control messages, including
+an explicit zero. For UDP and ping sends with that flag, call
+ip6_dst_lookup_flow() directly. Keep the cache handling for sends
+without SO_MARK unchanged.
 
-Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+The concurrent SO_MARK case was identified in the review of v1.
+
+The issue was reproduced on UML with connected sockets and mark-based
+routing. A separate test kernel paused the sender after it acquired a
+cached dst reference; another thread then changed the socket mark to the
+per-message mark. The old code still sent the packet. The fix bypasses
+that cache path and returns EACCES. The 50 UDP/ping route checks and all
+54 cmsg_so_mark.sh cases pass with the fix.
+
+Fixes: c6af0c227a22 ("ip: support SO_MARK cmsg")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shuai Liu <847807867@qq.com>
+Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
 ---
+v2:
+  - Replace the current sk_mark comparison with a flag recording whether
+    SO_MARK was supplied, and bypass the cache for those UDP/ping sends.
+  - Add connected-socket regression coverage in patch 2.
 
-Changes in v3:
-  - Also check for aliasing with the htree index block, as requested
-    by Sashiko: check *bh == frame->bh before the allocation and
-    bh2 == frame->bh after it.  An aliased index block would be
-    overwritten by dx_move_dirents() / dx_pack_dirents(), letting
-    dx_insert_block() memmove() out of bounds with a corrupted count
-    and dx_release() brelse() garbage frames read past the stack
-    array.
+v1: https://lore.kernel.org/netdev/20261030141435.779302-1-yanxia@cmss.chinamobile.com/T/
+Review: https://lore.kernel.org/netdev/179371875338.488856.4546363285391899557@kernel.org/
 
- fs/ext4/namei.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+Tested on net cb284914e749388eef402938bdb3115fe1f6d337 with GCC 12.3.1:
+  - UML normal: baseline 41/50, v1 and v2 50/50; the same extended
+    cmsg_so_mark.sh has 2/54 failures on baseline and passes on v1/v2.
+  - Test-only pause: baseline/v1 retain the old cached dst and send after
+    the socket mark changes; v2 skips the cache helper and gets EACCES.
+  - x86_64 W=1: full vmlinux, bzImage and modules builds pass on baseline
+    and v2 using configs derived from allmodconfig and allyesconfig.
+    WERROR, KASAN and KCSAN are disabled; KUNIT_ALL_TESTS is also disabled
+    for allyesconfig. The unmodified configs fail on the same existing
+    GCC 12.3.1 Werror diagnostics on both sides. Derived-build diagnostics
+    are identical on both sides, including their occurrence counts.
 
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 354fc2d22df1..25bea69ab246 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -1922,12 +1922,36 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
- 	if (ext4_has_feature_metadata_csum(dir->i_sb))
- 		csum_size = sizeof(struct ext4_dir_entry_tail);
+
+ include/net/ipv6.h  | 1 +
+ net/ipv6/datagram.c | 2 ++
+ net/ipv6/ping.c     | 5 ++++-
+ net/ipv6/udp.c      | 5 ++++-
+ 4 files changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/include/net/ipv6.h b/include/net/ipv6.h
+--- a/include/net/ipv6.h
++++ b/include/net/ipv6.h
+@@ -353,6 +353,7 @@
+ 	__s16 tclass;
+ 	__u16 gso_size;
+ 	__s8  dontfrag;
++	bool mark_set;
+ 	struct ipv6_txoptions *opt;
+ };
  
-+	if (*bh == frame->bh) {
-+		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
-+				       "leaf block aliased with index block");
-+		brelse(*bh);
-+		*bh = NULL;
-+		return ERR_PTR(-EFSCORRUPTED);
-+	}
-+
- 	bh2 = ext4_append(handle, dir, &newblock);
- 	if (IS_ERR(bh2)) {
- 		brelse(*bh);
- 		*bh = NULL;
- 		return ERR_CAST(bh2);
- 	}
-+	if (bh2 == *bh) {
-+		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
-+				       "cannot split aliased directory block");
-+		brelse(bh2);
-+		brelse(*bh);
-+		*bh = NULL;
-+		return ERR_PTR(-EFSCORRUPTED);
-+	}
-+	if (bh2 == frame->bh) {
-+		ext4_error_inode_block(dir, bh2->b_blocknr, EFSCORRUPTED,
-+				       "leaf block aliased with index block");
-+		brelse(bh2);
-+		brelse(*bh);
-+		*bh = NULL;
-+		return ERR_PTR(-EFSCORRUPTED);
-+	}
+diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
+--- a/net/ipv6/datagram.c
++++ b/net/ipv6/datagram.c
+@@ -819,6 +819,8 @@
+ 			err = __sock_cmsg_send(sk, cmsg, &ipc6->sockc);
+ 			if (err)
+ 				return err;
++			if (cmsg->cmsg_type == SO_MARK)
++				ipc6->mark_set = true;
+ 			continue;
+ 		}
  
- 	BUFFER_TRACE(*bh, "get_write_access");
- 	err = ext4_journal_get_write_access(handle, dir->i_sb, *bh,
--- 
-2.43.0
+diff --git a/net/ipv6/udp.c b/net/ipv6/udp.c
+--- a/net/ipv6/udp.c
++++ b/net/ipv6/udp.c
+@@ -1693,7 +1693,10 @@
+ 
+ 	fl6->flowlabel = ip6_make_flowinfo(ipc6.tclass, fl6->flowlabel);
+ 
+-	dst = ip6_sk_dst_lookup_flow(sk, fl6, final_p, connected);
++	if (ipc6.mark_set)
++		dst = ip6_dst_lookup_flow(sock_net(sk), sk, fl6, final_p);
++	else
++		dst = ip6_sk_dst_lookup_flow(sk, fl6, final_p, connected);
+ 	if (IS_ERR(dst)) {
+ 		err = PTR_ERR(dst);
+ 		dst = NULL;
+diff --git a/net/ipv6/ping.c b/net/ipv6/ping.c
+--- a/net/ipv6/ping.c
++++ b/net/ipv6/ping.c
+@@ -148,7 +148,10 @@
+ 
+ 	fl6.flowlabel = ip6_make_flowinfo(ipc6.tclass, fl6.flowlabel);
+ 
+-	dst = ip6_sk_dst_lookup_flow(sk, &fl6, daddr, false);
++	if (ipc6.mark_set)
++		dst = ip6_dst_lookup_flow(sock_net(sk), sk, &fl6, daddr);
++	else
++		dst = ip6_sk_dst_lookup_flow(sk, &fl6, daddr, false);
+ 	if (IS_ERR(dst))
+ 		return PTR_ERR(dst);
+ 	rt = dst_rt6_info(dst);
+
 
