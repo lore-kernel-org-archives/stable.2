@@ -1,81 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793798373;
-	b=pTnRw971KtEDbAaSHweVNLuTbBxZmT+zr9//QWu50WQQXy2H19kjsm49z2aarpFygbSI
-	 2iL8dSW6qltMnTyjml0j61i8Jr9vqK1ZkL45UYN898u/8W4kvCnL741zAI7rZ9YJml/Ym
-	 9J9D+mk4xn0Kx4p4kI/rz2gvSTZkndkM5Z6OTBiCk2sntUo2/pFLCRmB0DUAd3lsW6Zj5
-	 QdulFIuzyrrh8nAC1TYr5sxA8tZO+wgCDdW8F02xLsRGjKPrUATjUARgvvJsR5SOzCAZp
-	 sceKJP0RZsj+OHtu6niZBRvshLRBtU/SHN/Sje9R3okEVKOrmzUFgFLaQgRy2xodh7w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793798373;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=4+D72ZGnOYeg3JgvyKRWjG246AMTaMP3Wh33QlUCGLc=;
-	b=0OdYpzP3sVy2JZfEcOsFciH8tYm7xyPMGKYQDvsjqM+YytbZWMbf9X6jM4BPRtS6zmxY
-	 QKP0bGrBT58KyxDPf0pgKzw5zB+owH3+VBHDTXK1oQ+FIsKbHTLDwBR++VzNAcaqPQeyF
-	 9umdSocriPg7i2LMlqIkD7EKPp7Z3s8l8nsx/GsnzBrjzu4cvqsPp7WGZQQKYnSMa3H3E
-	 WYa5bHASYvykqwBtBilj9qt3qUrR+Lq+rpoQbgJpVITke8Ma4tAlVHYoBhWFo+84EVIcQ
-	 wAj+uXCeooHooNyAMwk9pafxXOYPNGUDSHOi4BvSKyzkUJhMlmJp5jN3xJR6whVVy3Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=i33jluZm;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.68
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793798481;
+	b=WCfW+aPQt1C9AHtaDhghK+KnvIE2fwq4Ljq9q4E3av1/89RTQz0V5h35kyC4MLc/xZtv
+	 g6zqtQ+NiY3Oo2gXpY9GjcsqpDlgKdkiXOVttRjxDlCdnXJoUmlWOE8CyaDpZY6YlbK2I
+	 vCJLnaN1BtMZqMRHKMk12q2xsiJwBibR2Gpdt+7YK7Y14cnlCUmgfMaSAnQMYtnTB4RBR
+	 nMKWilS4LXxa7nwDe8c/ImkIeiiUE/iV4cVoEXT5nlILV8zJu/fuz1tCqOlg0kLkpPKA8
+	 w1WCmKaKgQd+PEyCquNZ50qCrkkOuwXoNllABgq5At9qJSbKjYP2ekzh40YlAOFS/xA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793798481;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
+	 X-Mailer:X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=EI+Y4hM0Y2Uxn0QanIh97nJB176vQx71JD9cvBfdBtk=;
+	b=TIYiA58rWFbQ/UybCKXZydPimtNrhXS7gJWshP8iLyitxnjsfrjTbrEjyEXE8MXqoFvg
+	 Au+ufllq4IvE+35s90AhNiS13++sXzDRzBl3qDU870AVFnuMtVJkg2ZOk3nDM1T4v9xcK
+	 L06DSWeF7GlteEFHHQ0yBldELjwLfra/JOCyuHfGhMljM8mGED0fQNadMtZBANB/zDzVe
+	 5WySr9v2S7MIR/U7kYATlCGj9rd7eZRth/U4K/pXFHUNBhMZupYxsmeenF+YWm6sitrP3
+	 /4zcwZNI+S3kWeZZvsRQz3fcEk95sERwL6isouOUSirJa+xvVUvOsGKdsRkG3uiR1VQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=FaZVh6Kr;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.68
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011068.outbound.protection.outlook.com [40.107.130.68])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B99606A328;
-	Wed,  4 Nov 2026 13:19:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54B99606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FD5B606A330;
+	Wed,  4 Nov 2026 13:21:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FD5B606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=i33jluZm
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BiAQD387941;
-	Wed, 4 Nov 2026 13:19:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=4+D72Z
-	GnOYeg3JgvyKRWjG246AMTaMP3Wh33QlUCGLc=; b=i33jluZmtwJp8XECYN6lRQ
-	2zS9E9taWmUtBs5nUmNz/XrEKY68DPgqkcvxTkbBjj/FXkvfUaikq/fxK7UBt+NN
-	6KnY1jFP4F155GPBJ1vXaiAwrwlsXZgV+xh1zuDkYvzw57s9OknzcAaGDsK44OiN
-	5ItPbe1mPJPnBBqk4MKrm4WWQok7SM+bAflsdsOnIZNGenYfQdVp36wQxo/xXitQ
-	2Ut6TdPHro6HN+eDB2x4WsjgFDX8FQE8sAHEDvrHlnc8dBpxKQ30EeTlurLyzP2C
-	Ha2RHi005HFzpikfxLjiXZOTq3C0Xj3fV31YmjE8L46IY8EKH1lQdYsoi2/kh3UA
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn5rhuv7j-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 13:19:22 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Balm84062157;
-	Wed, 4 Nov 2026 13:19:21 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hqbqkefy0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 13:19:21 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A4DJL3s21889762
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 4 Nov 2026 13:19:21 GMT
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 404AE58062;
-	Wed,  4 Nov 2026 13:19:21 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 644ED58059;
-	Wed,  4 Nov 2026 13:19:17 +0000 (GMT)
-Received: from [9.123.7.57] (unknown [9.123.7.57])
-	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  4 Nov 2026 13:19:17 +0000 (GMT)
-Message-ID: <b7d03393-79a1-4457-8ddf-e0d141e4b3e9@linux.ibm.com>
-Date: Wed, 4 Nov 2026 18:49:15 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=FaZVh6Kr
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l1d+02ynqyJqXGUy42M1QLYbTXlM+QTPQPVi5BlvIjS4DH+ydTrPMm5+N6raRqTDYxGUZRyHurHCERHNkIylSJlnjW7NOtGMknbXyq5IkQwIw6CmTgBrm1BIk/XeoMOSqSWLEr4nGFNT04XOrUDw2Xf3lXUZIy6wbHEJR04B0umM52ma0R2+TLlJZNo8nMzgN12ANUvBrI3ebu+OSzd9t1W0eptd7KqWWaWeOT8bWEY65jaXU6pNXIFW3Dhy1TQ1k8X6rekDaPdSd3nt9Pl/73izG+WgI7wUd5wHcYZkJK10KGv7hK+LbF549iePUgp6yOfgRuD/Kgx4v9lyZlMCtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EI+Y4hM0Y2Uxn0QanIh97nJB176vQx71JD9cvBfdBtk=;
+ b=AhXug/ROZe8v8ja8eSVjS8M+Akwc8RqY61GwI5Hk29oOYhjKYEb67p5sN6v8+ZZecyD/2k1LdoEQylLllSeB7p1hKeTp34ZMzwhsmRbDsX4wRfkYbaLyYHlniyHGLyU9ukDVJzM+qwfnlpwO2BW4MiRXsBPyGiAznOj3Gr0Xc/GfaqXR5LTs2GhNhD2ixVlVCFaM8xdB00DuMmQ4bD9IHOet2n125Itx9T40N+a6FkSc+0QNLrpVG2FzznXHK+hywVWzpW8FMQT7ndFeZTtKb5kG8kruHOYXvYH50zpCu5VzvrUpkkIu0e9YMTg77fKPLBvTUNkEaW+nTyGuCWauvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=synopsys.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EI+Y4hM0Y2Uxn0QanIh97nJB176vQx71JD9cvBfdBtk=;
+ b=FaZVh6KrsRgkuEdu9dXPUpVh8rfwVknukAU7txuO1qcjQH/yPqlPinEDBIpXMCBj97oMXBg4qydK4ltJjZM6ingcJLMx+c9SmHUGSsJPv9nvaQhA6F7VZQJhremkJRqqB2BqILsR9yh6C+ZNq9vomgtc/A8R9JxzqdxnYOZg1FEUkeD9xOLlOVUsvZL37JO1B3/WrZcmLkm90PG/L4+wcry+Ro39PTzaW+fdJuVZXSoxwmqEBHmdqlHNBOMiS/9tYyx3AzKSP5HH2UPJLuoZvVszgUf+Ek9PLaT52VQNZLCwom5EFMnW0KizaPzEaFD8rY/UrYGYCxfU93vWYYl9RA==
+Received: from CPBP307CA0003.DNKP307.PROD.OUTLOOK.COM (2603:10a6:380:1::15) by
+ AM0PR10MB059815.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:7f9::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 13:21:14 +0000
+Received: from CPH1EPF0000051C.eurprd04.prod.outlook.com
+ (2603:10a6:380:1:cafe::66) by CPBP307CA0003.outlook.office365.com
+ (2603:10a6:380:1::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Wed, 4
+ Nov 2026 13:21:14 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ CPH1EPF0000051C.mail.protection.outlook.com (10.167.241.231) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Wed, 4 Nov 2026 13:21:13 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 4 Nov
+ 2026 14:21:42 +0100
+Received: from localhost (10.252.2.138) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 4 Nov
+ 2026 14:21:13 +0100
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Date: Wed, 4 Nov 2026 14:20:16 +0100
+Subject: [PATCH v2 2/2] usb: dwc2: wa for isoc packet tx fifo flush at
+ periodic frame boundary
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,77 +105,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] blk-mq: take quiesce_lock when removing a queue from the
- tag set
-To: mt4022@columbia.edu, Jens Axboe <axboe@kernel.dk>
-Cc: Mohamed Khalfella <mkhalfella@purestorage.com>,
-        Keith Busch <kbusch@kernel.org>, Ming Lei <tom.leiming@gmail.com>,
-        Bart Van Assche <bvanassche@acm.org>, Christoph Hellwig <hch@lst.de>,
-        Josef Bacik <josef@toxicpanda.com>, linux-block@vger.kernel.org,
-        linux-kernel@vger.kernel.org, tz2294@columbia.edu,
-        stable@vger.kernel.org
-References: <20261103-blk-mq-del-quiesce-lock-v1-1-04aa29a481f6@columbia.edu>
-Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <20261103-blk-mq-del-quiesce-lock-v1-1-04aa29a481f6@columbia.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: yHopyXxG2KnqN6PjutsKsE1_p2on7WHV
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1MiBTYWx0ZWRfXx2fpEmoNN6xp
- 1qdrW7KCZA7vcH9Zkk1fZy5meBlUD/o9ogSbTIKauInuBzHHoZoleN6GOf4VT0JE+kstOaQOt87
- Z9H6JE1fatrYpShmUXyQH99LxP1FRBM=
-X-Authority-Analysis: v=2.4 cv=LokHWXdc c=1 sm=1 tr=0 ts=6aeb30da cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=FgAr1SJcMogouSPLcIcA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1MiBTYWx0ZWRfX91SMM+KJLtSN
- krkm9/h6fySwsNIzJkPdki/YeAkmQFb37Hn/m799UenZxx5A7/xaPYTN+9DDJdAnBWcSxN2izw9
- 67OlIIadb0IUFAcnTu9PJt3RVzGaXiCVVdJZR+WPqOHz+k7j/PP5TiC2+BH9eSB3G8BAXYt3LA8
- l0PEp5zs5cw1bA620V3sWqoDaQDAySJKWiwlEoBrdDT3koB4Je3Xpc5pJtxK+xIU+hYdaz6YteE
- lWVIFYFQRDuMduCKQ9XnqzBiuvh7FkdA44VKMF3YNgflfBSYLoLX6iy+10VLWtNpZmU7NNlP7oz
- 1fS8pjrSco10GJsdWMdYueuwWKW9ziWCT7megbTtif50uplIKly2sjW1JmjntoW+ylFq+dD/sVy
- 0xoy7dEyDYBDpanhdDo3ESAZFF5KalsIsxhhlyaqbQGvucRTZvPTTFZsJ+JoCID7h4oGrRqPey4
- LIyC94HWm3ZnuQta7zw==
-X-Proofpoint-GUID: UmIB34rF3dfuLEJNp3TqAXQpd7ra9AZz
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 clxscore=1011 impostorscore=0
- priorityscore=1501 suspectscore=0 phishscore=0 malwarescore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040052
+Message-ID: <20261104-dwc2-fifo-fixes-v2-v2-2-2bb13820f662@foss.st.com>
+References: <20261104-dwc2-fifo-fixes-v2-v2-0-2bb13820f662@foss.st.com>
+In-Reply-To: <20261104-dwc2-fifo-fixes-v2-v2-0-2bb13820f662@foss.st.com>
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>
+CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>, <stable@vger.kernel.org>,
+	"Fabrice Gasnier" <fabrice.gasnier@foss.st.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CPH1EPF0000051C:EE_|AM0PR10MB059815:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8cf7ef56-b21d-4764-0097-08df3a768010
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|6133799003|10067099003|18002099003|22082099003|3023799007|11063799006|261102123227099003|261009223027099003|261021121427099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	ujt90ZG8Y/+F+v+1PqyKZzrt8yjDOZCy4ewjKa3ep50SBeQlS0iooSVO+7Y8RSfKMTj1m+ThHOjW3I+lWs4ZxunKXehSN+lTyOQ5fM8jwGuuh30p/Qajxad+2gd8a2XodL4+8MpvG514zAA2YTafoPG5Ay473v0r7Efwxg6T529oUp3Hfa9HjW8RWSIUCtGLByqGQN/UPVpprkEpCQfjcSa7l6FzhBLu2sD0rkn3FkZlitq/BOqpcU/hIxvjbGoJ8Ndw3OiNnP4Yeo1WrnJ+gjw4n0Vw6hj7ZnQ7ZtcHX1mRErbw8/4Xhi2Tgy8syLfNJvOhqwrA/1e6bv6xhq+VmPV1d0ekYmIW11BCzIU3/X6uK0vkFK4S5C446IWU0J5RVQUq8Z+8xwcsdreexB7Z68I+NSz9zsPZWXrA6nuVeBBydlJWSJELAXMVsS+keW7E2eNNRqhLlWQDPwOoQ3yItzbMNUVIsoGFxF9GX8ePDpLOYJRxlFhHJaqBdMUYEr2tCTd6+i7VSI8oTNyfLVbaPFuxMEhrU0sCXkfeG9H3E9c3taG3pnfpsHDeJwsED7QmE7d+NOZRwXCevKi3DPmuzMKQ9xev0YXGJvFg9Vo3aiBX3nAPzPpxl9s4m6unl4BJqrAczpja5R4Y0bsmnmmxYd7FgB7KcAt90FTNWRVuP1cC1sCAMp1HjpM/IADlS6ed8YqabgQ2yXC+Wz70CKPdAQ==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(11063799006)(261102123227099003)(261009223027099003)(261021121427099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ee/Kr1qzReRMph6LjcnnOWfNLYY9euw815j8nbVzispuGOIrz2ILYRaMgdninsct1dDzN+N/R5Dh5bO2cfmyyfzq7ysU0d/EAUUzA6tjtzfPTE9W9j7D6kkkRNgP0iQrBRFfyjhlCVbmasYuISetR8zl/GXLuGpN41iPQrwbBaZfhPjsgElhh8aw5+8qzGN20mXnTWvwhH8HDaH0JgMcW6YE74T3kRUKmMVigEgkZaZ+aLDu4FIeaLWeJIEi+Cf3s6g/uCUY3+SJePr4GwuV6sU5JHJktNi3lfkihuKnrPrKqA9Gv+nKrwL07N7HKYXeyQrsaRB1pJVKxj1yftDK7jdXtPnC2UnIkNp5BOEtqQoOwGXduHM/wizcsn80YtdNvtsF+HLPfGaoYZJ3rTui5KtXN/cVKqnSA3dYEiFgfJPE/sBjCbZj9O5LDQ8ub6sl
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 13:21:13.8052
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8cf7ef56-b21d-4764-0097-08df3a768010
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CPH1EPF0000051C.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR10MB059815
 
-On 11/4/26 12:34 AM, Mani Tofigh via B4 Relay wrote:
-> diff --git a/block/blk-mq.c b/block/blk-mq.c
-> index 5ae22d556540..54ccfc43c27c 100644
-> --- a/block/blk-mq.c
-> +++ b/block/blk-mq.c
-> @@ -4354,7 +4354,10 @@ static void blk_mq_del_queue_tag_set(struct request_queue *q)
->   
->   	lockdep_assert_held(&set->tag_list_lock);
->   
-> +	/* blk_mq_unquiesce_tagset() runs the hctxs, which are not RCU freed */
-> +	spin_lock(&set->quiesce_lock);
->   	list_del_rcu(&q->tag_set_list);
-> +	spin_unlock(&set->quiesce_lock);
->   	if (list_is_singular(&set->tag_list)) {
->   		/* just transitioned to unshared */
->   		set->flags &= ~BLK_MQ_F_TAG_QUEUE_SHARED;
+If an isochronous packet is still being transmitted, when the end of
+periodic frame interval elapses, using dma desc on dwc2 controller,
+the device wrongly flushes the pending packets from the tx fifo.
+This can lead to a huge packet is sent on the bus, leading to the host
+finally reset the bus, and re-enumerate it.
 
-Now that set->quiesce_lock serializes both traversal of set->tag_list
-in blk_mq_[un]quiesce_tagset() as well as modifications in
-blk_mq_[add|del]_queue_tag_set(), do we still need RCU protection for
-this list?
+Workaround it by tuning the periodic frame interval limit from 80% to 95%,
+on the affected cores (2.70a to 4.00a). It makes the issue very unlikely
+to occur.
 
-Assuming there are no other lockless readers of set->tag_list, could we
-use regular list operations in blk_mq_[add|del]_queue_tag_set() and remove
-the RCU read-side critical sections from blk_mq_[un]quiesce_tagset()?
+Fixes: 540ccba08599 ("usb: dwc2: gadget: Start and complete DDMA isoc transfers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+---
+Changes in v2:
+- Thinh review comments:
+- Fix a typo 'flushes'
+- Use DCFG_PERFRINT() macro
+- Add DWC2_HS_IOT_REV_1_00a and DWC2_FS_IOT_REV_1_00a core revisions.
+- Add a Fixes tag, and Cc stable
+---
+ drivers/usb/dwc2/core.h   |  1 +
+ drivers/usb/dwc2/gadget.c | 15 +++++++++++++++
+ 2 files changed, 16 insertions(+)
 
-Thanks,
---Nilay
+diff --git a/drivers/usb/dwc2/core.h b/drivers/usb/dwc2/core.h
+index 015a5fb7842d..54c040da0cae 100644
+--- a/drivers/usb/dwc2/core.h
++++ b/drivers/usb/dwc2/core.h
+@@ -1108,6 +1108,7 @@ struct dwc2_hsotg {
+ 
+ 	/* DWC OTG HW Release versions */
+ #define DWC2_CORE_REV_4_30a	0x4f54430a
++#define DWC2_CORE_REV_2_70a	0x4f54270a
+ #define DWC2_CORE_REV_2_71a	0x4f54271a
+ #define DWC2_CORE_REV_2_72a     0x4f54272a
+ #define DWC2_CORE_REV_2_80a	0x4f54280a
+diff --git a/drivers/usb/dwc2/gadget.c b/drivers/usb/dwc2/gadget.c
+index bdabf3c39da1..b84cb6b2cefa 100644
+--- a/drivers/usb/dwc2/gadget.c
++++ b/drivers/usb/dwc2/gadget.c
+@@ -3511,6 +3511,21 @@ void dwc2_hsotg_core_init_disconnected(struct dwc2_hsotg *hsotg,
+ 	if (hsotg->params.ipg_isoc_en)
+ 		dcfg |= DCFG_IPG_ISOC_SUPPORDED;
+ 
++	/*
++	 * WA for Device Flushes Ongoing ISOC IN Packet at End-of-Periodic-Frame Boundary.
++	 * Once passed the end of periodic frame, and the controller is transmitting an
++	 * ISOC IN packet, the device flushes the transmit FIFO. Tune periodic frame
++	 * interval to 95% instead of 80% to avoid it.
++	 */
++	if (using_desc_dma(hsotg) &&
++	    ((hsotg->hw_params.snpsid >= DWC2_CORE_REV_2_70a &&
++	      hsotg->hw_params.snpsid <= DWC2_CORE_REV_4_00a) ||
++	     hsotg->hw_params.snpsid == DWC2_FS_IOT_REV_1_00a ||
++	     hsotg->hw_params.snpsid == DWC2_HS_IOT_REV_1_00a)) {
++		dcfg &= ~DCFG_PERFRINT_MASK;
++		dcfg |= DCFG_PERFRINT(DCFG_PERFRINT_LIMIT);
++	}
++
+ 	dwc2_writel(hsotg, dcfg,  DCFG);
+ 
+ 	dwc2_hsotg_init_fifo(hsotg);
+
+-- 
+2.43.0
+
