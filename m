@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802956;
-	b=EPVkL8r3YKZLZfmaXHhwpAG+cnpxLxTFL8SunsTYWo8ta6MOZmsfT+1uVe0zdTongGIM
-	 e/WGndZs9yYrB8dSJ1/gBNGDbcsIeW99uLRMyKe+hKV5tCkKLDMHkRulMFj1W85BQznWY
-	 L1upg3nijJeX/xo/BGwfrhtw/X4yo0B8ATW8U776QVUmC4X4oTShE4OvcYsQ6+wCNErHn
-	 GIutC/PvcGVr8nDqwdfZUahcpPsOWuLGOzPwseHv2CcpuAPcNi9o11LUyMtL4ofisJcCT
-	 SEScQmWy6hwje2otR5oClreGOmtW1NXYPtinH0JI/vz0bXLwcVVW5KM3RFIm2ayiiFQ==
+	t=1793802958;
+	b=XIho+zOMHM/HsYiz/bRP6+fNuyFzqU3zP46611EtRIHRtx7sqJn2xMo4+MV5Ww2N+thj
+	 /Fo0iNevCAT2NyDsey9V7HJvgEVYdPVPLUuCb1m7FxvYG5nOMZvCDBoK5uQ8Z2sbTYGyl
+	 WlyC2UJGRbV+SqwJ4XV4vRc4ciaxTcFuiAM8PSDLRWUByMTmscU5kuA5kzsB6yVXMPHgz
+	 DiP6qCI9i8MGGPDsTXZ1k2VCGQuAD1SOfI1ZTkAFo4QwQp9v6NYgAF1bg/QjPlPaB67DF
+	 7P03R4RphR9gQ83Dhj3g3AAk75K0dc9k0AMRiV0S3AHWBwg+p1r2g5mySNST8X0mX2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802956;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802958;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tC8oLPRueYzaLQRpeypVDCls/xOaTxfcryDUfA7ESW8=;
-	b=n9NDFE0u2kAGorJYndyRxCrFm1SALxD6CAdTI8H7LwWFjqAtphpJXVgoygYke2PARKOS
-	 UFY3/aY1gtUWiEEwbApI+4+YJ03g530wlJz3BPWhqi+yQr/rmWoIKx5vJ1fPk+OFhtMX3
-	 yna75bPNGMgIuvcvv7xyycUC8P6Km5sYZ4EVTti/UEqiF7cXBsnrTdoFAoi8CwdIRNddm
-	 gAMWLfyGCuuRpyFrXQYOeeovD9F7UpLJYZxTefXRjelaE4y4+LqD34SUkkAZ4niUxtLKh
-	 DxmAfVaFjKn3b708U9fgwC1ASMW4/E4zkrfa27SKatRB9Q/YnohhS5rBAX96ZAUkobg==
+	bh=nJsCLrDSyvo2XsvNXLsN+p408ivsrueD/lkp5Xhlc/A=;
+	b=A1/+ioJFtN67iGEmyFM42BjJQMrJh5C4qkn+wnNOEarnuyngZaMj6IRwcYKZn7fua222
+	 G8X0aJ5Qhhu1OE6HRhhKFajj51JfIG/+vu3KaisfdiJzqxYwpRKtwy6P27lHXXcCvR6WV
+	 G9+aJdzPtTN8PdUwKmjhAi+a9quzMq2tpoZn5vmdfu8CH0IWGvZ8daqDp+enlkpi8dQI+
+	 9L1iAyCGbvJap552Z7VnTsmK0vohRx/A49K4Vs8d5rViye0ZfQR4xU6+VuowyosDxw0U0
+	 Ju34A3Gm+RkGL4DP9fGkwIqJO4bG0DbbyG7XGDJaqewTQxmnN8E5iNw9Yu9nAQjvppw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=t0azw3st;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rqdORTvL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556D2606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:35:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28CB606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:35:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=t0azw3st
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A69151F00919;
-	Wed,  4 Nov 2026 14:35:55 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rqdORTvL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 611FD1F00919;
+	Wed,  4 Nov 2026 14:35:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802955;
-	bh=tC8oLPRueYzaLQRpeypVDCls/xOaTxfcryDUfA7ESW8=;
+	s=korg; t=1793802957;
+	bh=nJsCLrDSyvo2XsvNXLsN+p408ivsrueD/lkp5Xhlc/A=;
 	h=Subject:To:Cc:From:Date;
-	b=t0azw3stI0dc1xhnbx7Xr3gOfmeszRqkoaK2yDZK37Yi+cAROiSKuwAqbDnnDKLUF
-	 lVfIp3/WD244MpfqOJxMZosqGaQjJsFOS7DcAh7yQ+BXu0nAMwbXbuJjrLGdC/LQDH
-	 jzXrsMw4dKC9sGI+lEwc7CkoNPewQYY/oaaoM2fE=
-Subject: FAILED: patch "[PATCH] ovl: check that the parents of volatile/dirty are dirs" failed to apply to 6.6-stable tree
+	b=rqdORTvLmxW/Xz8C2MjrhWUCrPAof2KToVks+FgYsVH4RiJ6hlDITItWmE2JOhErT
+	 gGYQnPx1ETe2EHXSQvykykDVyLkRro3Gq+VEl6tBUlkYHj4tReDy/54UAsrQ55kupN
+	 H+ksdUUf3w+09IVMa2LW7lJJjBgPb2RxtFMPHhTA=
+Subject: FAILED: patch "[PATCH] ovl: check that the parents of volatile/dirty are dirs" failed to apply to 6.12-stable tree
 To: mason@kernel.org,amir73il@gmail.com,josef@toxicpanda.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:35:52 +0100
-Message-ID: <2026110452-detonator-keep-c227@gregkh>
+Message-ID: <2026110452-attic-confusion-b886@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x e34d2ef818e4c7676d8d8e1bf43e6a1ed39efb2a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110452-detonator-keep-c227@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110452-attic-confusion-b886@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
