@@ -1,99 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793755457;
-	b=pOqv06xbX1HLiBPPU8gMU8mDVfNv+2poJEvyQMEfKhUEJ8qmq3aMQ4tDkP3q0Nwyxu+V
-	 8EPzbIq3/3GpW90kDq0pIx9oD+BK3SN7X3UnUR45+uAd7mWHd8uQeAMtuAObCU8MflJ5E
-	 L8p+Nt4GCSQqE2ugc1D4i1D8iCRWQJ3Hc8l8QQIEInWJJPaaAm5KOTm6SeB2J1ZV+HDVD
-	 9avMb0AFfYnnKbv5FwtmjuqhefHFDRPf5KJ2pSfT6xgvMCJ0yN+j6sNjQ/QvGRwHSq1Px
-	 GrjiwkOBh2TuMbddXLN4s2Tb/K/Q3M/lAIM+hkWcTIOE55yjDpBSy4m+ifTKoIjT/HA==
+	t=1793755706;
+	b=Brof8YX0J3o/8miOPKPMUb8WVnTslHn4mJ6JrbmRGFI9tmqIWlh1wlTupoV1xXyuKyex
+	 JGkfqfNRZsPHgg4Dpi9/7d3P8pGb+Fr0WqiY9hDPqlNTsWm7TVNG8mjvIsMURI3RVkNIu
+	 0A4hln6MYN2sc8qEd+7y7rlQFuVt9LHYd2rNHUDgXV8+IT70OvXyDv8DmF94qkmrcK7W5
+	 5oWJw1PCz0pVZW7bSwXPDBKBlRyWu6RAz7aWv365Moal5QWvEFLG2y4yliNZhFZ37441F
+	 ucOulg0hvsGBJRt44HkqWpK215MYUake/47h71sMdDYRd7iHStswmOhCdoW1mZEO+hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793755457;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793755706;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=XU8v5l3j1NJaqJxqv+9h3ZaBWo1SvrTb91gs/U4dLXE=;
-	b=0W/M9Fx+nCjK6t1cYGvhSCjOFF5Y7m7Z+XaAcvM7Ii3vHExW3F1/huMZ+gt8YdMyezXo
-	 wKKAXBI7zYjvsu63opNr5/gAo5eHfT8V1gVatQUXr6dlww4jiff6GFn7yBOsnm/VgZPAp
-	 WnIiaWr7gxEVFZqK71qG9IBaQLuZterCJ3gklhfNh9Xwfw5sy+XXsWyuskn/DHznAjj17
-	 N/ml7paghbhUcOFEJn/KW8iedR1ZpmdmjDciilFdJSqyKAQc7P+3LZOgS1IWDys+ebIVI
-	 kduU5dsA1GeeKPaZOHB6h0F8rtUsuFsTMU2UQEOa4WRUDT0tfxSVGklN6lr32YFhrVw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=CEWS5O6NICxLw6C5QXAFqTMWmsO+xhOgA5e6wxAsh5I=;
+	b=i8sFL29Kx/RNQExVfjH9/4iY04hCvXmMW3gWQn7LpJbl+oMt1UNuJBIJhiTzNcUtS+n0
+	 ZN0HLduowgaPK/jvzGrcipaY+gtTRCP7+BLXVMeeER3YaCGjHp5N3iClGRpXb0bbeMSSz
+	 KxuCrcK2ajFkAH53z2E8hOpauxLfe4efCMjx48WeOvmnIkUmEpLnT9IqgblX8jk90z8DE
+	 /KX9x00FG/T3HQaBzEJBxPl+xzP1YqocgN+XQT9cEZcfS2ilXpQsg6mWMz9DBI7eMCPdf
+	 uMKiLKitSuH9Yiijd+PLcva+jc/jFThzlGFK4dXi/SQg7ETzYL27knvtYY1SIJLGQFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=waAzsuNI;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HJhMxTyc;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB18B606A329
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 01:24:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB18B606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B69606A32F
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 01:28:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70B69606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=waAzsuNI
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35829219da8so1449981eec.0
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 17:24:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HJhMxTyc
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e10a70540so87750f8f.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 17:28:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793755456; x=1794360256; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XU8v5l3j1NJaqJxqv+9h3ZaBWo1SvrTb91gs/U4dLXE=;
-        b=waAzsuNIow2jqOdqdB7euB21RrbldHH85o2R1JoeadLJjWkhIdBgr2T3S0zCyYh4q9
-         a+WKgiuJavwofUwI0WvHi9B+q8oLHpL1XmYsJFxXUrwbKC2emI46itAKD5wma1Rf+rbQ
-         dYNjrUvjb8y4UIdUuxn3q8B4cfoNAnonCAZgPG7FJ8Bk26biQcSKNQ7lQt9V1JoyZpNU
-         +OJHQYhnh0ORNvGca7doJCPdddBk9WZqdEYyvgF5rXHU/MAuJaBDUi6lTczXlek/bxHO
-         AS3LboUF73MSBysnsrrSkZ6FjSvCevLi8ODTOuAwTh3lyNAJqegbzBCFv/aE81Y3Zau9
-         vgDg==
+        d=gmail.com; s=20260707; t=1793755705; x=1794360505; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CEWS5O6NICxLw6C5QXAFqTMWmsO+xhOgA5e6wxAsh5I=;
+        b=HJhMxTycCUfqPBAbNdRZq0fbvxLcBFVmpm5hNmv4XI85OBDknpn28HOhjyn6y+wipA
+         7ZaleVLYsbr/Q3fg8neLy8Wg/iPAKLxTRUr6Akl9CY8JgJ8YdrZX2tpVyILH66KhQUDJ
+         v7fw3y9y4flULZb3UJ+zvN7Pr9mH5UNIylfOsVNm5gUfoekVspPGrVbyquiLfqp1gkbm
+         xxE6PjWSQWBpZfQm3eZ9RhEehwjYoZhYIC7mgyQnLRk8ZmziAWC2FcC3rV5e26YXNtT2
+         fEddyhh6+d0MYJLF5GWE9ngWw7oEAW7+uMOaYUEZSK82fsJO8rsWgUa0hEK36NRW1Pdb
+         t45w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793755456; x=1794360256;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XU8v5l3j1NJaqJxqv+9h3ZaBWo1SvrTb91gs/U4dLXE=;
-        b=e0csXHFVMP55xNNa9SohmgGhpqIFQBrluObWz4UZob/tfvChxtuXppp4EqRMxDUQ0A
-         FhPz7mj1FrEz1gGuW/krlCi9GIsWdfWFXv6RQf5INNkMXi3GGuLD2+TGp+mddNQQCYxG
-         02mzpqJ2LJvIenY+3I8b/BQ1XspWRfNfEo5YT6kahT/atUPFW+NqeWN9wYdA30j33MQO
-         2Hf5019ysvkxCcS/y6GtqJ4iRhHAW9skh/CK2BJF4PrLjPFCh9cJ1HtM0M1qoYckodM4
-         NHfwCt5vYBruxyz4hgIEVeIausHtyZVHNeEpWnhrPBm/KUyz7/kVEI8RQ7zlFxA/uf2E
-         YWkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzEh8RCWY99hGzdQWbKNnfAPqutQh4QTNElF8iq1GYoudjCe9nyEO1+1h0kqeYNuZ+79UfL1uY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/87mPO04IQTTFx12eQwyP8cdLzZ2E80jX3Lv8VuX9P0j2+5Bt9
-	P5a9PAElLPHDfcuMaallQOcBUxU1Uu5c+SKBrItJV/mD6I6zqm7dBEiy
-X-Gm-Gg: AYBFou30f/oVnSE+O8pWxaGc4M/E+XvLI/7oJgwNAUUAy92N8Vjo3yn/c1o6TonsxgH
-	CeeowHwOei2IORpQXrUeIwuGJn/bz8X1tF78C0nSBAPCv0fK4XWXb6IlSJbhwCfNcNBJK41AVdQ
-	aBbn4GqGxoofKoA3GB1BuK3wYbA7BIIQVkObzhelvwCS//PRn1dPb5a3LT0Z0fPOaXDfFDKDa/i
-	yJwPnVobBu3sBE36e4IveIvxp4nLuM9DpUbDy/aut+LbRH4ethMCdCU/I9YcbldFQKFex+uMZhw
-	K3I5JJq8RK3AhC5ONUMtKJSzj5fCUxt5kHLS9LOHg7MT2B9+7A4tFLHXuv6cBAEUWSVeiNaRBc1
-	d+A7f5S1AgVH5lz10M3EjTqNHdkYGbT3xOMnJZ16/9+kQRDaAx/jPK7JASHtIj8AAp95/I4Ylg6
-	HShAiRqJlLthaGy++65KNtBIQP4fm9+OHnL496nZ6n0EFN0nfj3ofF6rppGvZW7LFkDBKzqbn2h
-	mvDDoVfAjL3ecE584G9uAA9F+QGfG/cHiHHCZ9wv0cyb+JoUivjq63fPryv7VxM41O3dDictqcL
-	tKN+JTJ3y3wnrl8ye4GQc586iVgUTIGvCK/hag7xl0CnaWc=
-X-Received: by 2002:a05:693c:41ce:20b0:359:27e6:b684 with SMTP id 5a478bee46e88-36a2fd486a2mr25765748eec.3.1793755455764;
-        Tue, 03 Nov 2026 17:24:15 -0800 (PST)
-Received: from v4bel ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a54ccsm2373254eec.4.2026.11.03.17.24.12
+        d=1e100.net; s=20260707; t=1793755705; x=1794360505;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CEWS5O6NICxLw6C5QXAFqTMWmsO+xhOgA5e6wxAsh5I=;
+        b=TKH68dc8b0maueFjlEjFh2LIsV/6cozGYMQ9mI+3/7a2d6ww1ws8EvhXOmLbJxQH6a
+         qQw8clOSpTVU6YerPRHvvI8RAzbLumkj0ShVW3b9reOrrbDXAAvTwdNZSoEtJpcubgXf
+         QJz/5bYkPA0hFVvjVuiHoZmWgQKwrHfSCarPPf/Y6rdYqvSLOYRyBM5UVaicY1ItDaym
+         I+O2QZb8HBvCEcP9W2swQehXEYKFmE14KvyKMQU5uBDmgrbW+Ub7pFs7PRcF63i6Obr0
+         KgKrWyhAyIB4Z1Jsjzfh1SSCQZLUaCIeaqjD6nUtpN6yc2bpD82eCvZp9b94DhstWiPV
+         pVcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw9JM8tNFpZjpjtj22DX8iGsUrF/I4EytdW0ru61XTkkKeOWEHJX3zSLQzv7mXUKQPfG5MUWXg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8yZDZRtz9wJH+5PdJepf5ePC6u/jeoe95MnvhM02vWtT4II8Fl
+	CComeVapA/JOvW2V0JNqQYNL+UZdfiNPRNzyQqvdzfC46/ECpoq/ddA=
+X-Gm-Gg: AYBFou0JGi0+UJIC5Jfoh9CUPbLDCWdH8XmicHgAKxIUP2/q5fGFiOeN1DQ0KakaeCn
+	vFl6xLSyD0g8S5TKhTVcjvXNZ0Rp1UZQgGj7Wg2zFEn4aJX11iVSKiRBBPrE2hsm1ZD3tuwjwCm
+	k5mN8RdPW3xMOrZaEztbAm9FxdlNOUSEu6KR7vPX3nU+GJXaCIo8MJDwOeB+pUG0XmhqrFs08t9
+	UhXaVf6GSXRK//nEgdsgMbI8444Mmy9xJoTF6Zk7/v9s8MXVkLdcUzmELWus9eb5VaHnV7ZJsId
+	yi340WeK/pBuZd0NLVf/Aa5T79BjiTiB6efjSX5bgSTMKmCEcaCzrFJhHTQ6hIn58TM7zmzWN8R
+	td7Wz89tUL1k+3lk9cHCcO7D6w0Ka+AiAVy0I2gtN3fRcA4lHBghOqCr4byx0dMUeRgh++Cs/CG
+	g6bbvn8gf+lUnMacAIo5O5KmbyxDSfXw88E/Z7pGgqbBux6KC1uBXx4QdH8fBPmC4bX7xONEalg
+	LNo5Igh5wiJwJ6siw9QcgDmqsYFelGXgPvChe3hopJA4QoJIKfY+bQLqEDhGCtkUE8HTvqMQw==
+X-Received: by 2002:a05:6000:41c8:b0:48d:faa6:cedf with SMTP id ffacd0b85a97d-48e6e50645dmr33085390f8f.56.1793755704707;
+        Tue, 03 Nov 2026 17:28:24 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda2007esm898557f8f.47.2026.11.03.17.28.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 17:24:14 -0800 (PST)
-Date: Wed, 4 Nov 2026 10:24:10 +0900
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: Eric Dumazet <edumazet@kernel.org>
-Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	martin.lau@linux.dev, john.fastabend@gmail.com, weiwan@google.com,
-	sd@queasysnail.net, jiayuan.chen@linux.dev, netdev@vger.kernel.org,
-	stable@vger.kernel.org, imv4bel@gmail.com
-Subject: Re: [PATCH net v5 2/2] net: restore refcount ordering for lockless
- socket access
-Message-ID: <auqJOj7RVCWn7Ucl@v4bel>
-References: <20261029214219.1035176-1-imv4bel@gmail.com>
- <20261029214219.1035176-3-imv4bel@gmail.com>
- <CAL4WiioDoAT-50wStYDOy0b7f972QivB=Zk_7TCDrVPfOY665A@mail.gmail.com>
+        Tue, 03 Nov 2026 17:28:23 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: Neill Kapron <nkapron@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Bryan Wu <cooloney@kernel.org>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v2] usb: gadget: f_uac1_legacy: cancel playback_work and drain buffers on free
+Date: Wed,  4 Nov 2026 01:28:21 +0000
+Message-ID: <20261104012821.3253258-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,42 +97,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAL4WiioDoAT-50wStYDOy0b7f972QivB=Zk_7TCDrVPfOY665A@mail.gmail.com>
 
-On Tue, Nov 03, 2026 at 03:49:40PM +0100, Eric Dumazet wrote:
-> Le jeu. 29 oct. 2026 à 22:42, Hyunwoo Kim <imv4bel@gmail.com> a écrit :
-> >
-> > Before commit fb041bb7c0a9 ("locking/refcount: Consolidate implementations
-> > of refcount_t"), default builds implemented refcount_inc_not_zero() using
-> > atomic_add_unless(), which provided full memory ordering on success. The
-> > commit removed that ordering on weakly ordered architectures, allowing
-> > accesses after a successful reference acquisition to be reordered before
-> > it.
-> >
-> > Use refcount_inc_not_zero_acquire() in the IPv4 and IPv6 established
-> > lookups and in inet_twsk_purge(), where the socket is validated again
-> > after taking a reference.
-> >
-> > bpf_sk_assign() can receive a socket pointer obtained through BTF
-> > without a reference. Use acquire ordering when it takes its own reference
-> > for a refcounted socket.
-> >
-> > Use refcount_set_release() when setting refcounts in the SYN cookie,
-> > TCP Fast Open, request migration, and TIME_WAIT paths. Keep the existing
-> > TIME_WAIT smp_wmb(), which separately orders the refcount store before
-> > ehash publication.
-> >
-> > Fixes: fb041bb7c0a9 ("locking/refcount: Consolidate implementations of refcount_t")
-> > Fixes: 27e5203bd9c5 ("bpf: Change bpf_sk_assign to accept ARG_PTR_TO_BTF_ID_SOCK_COMMON")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-> > ---
-> 
-> Lack of links to prior versions is rather annoying.
+From: Tristan Madani <tristan@talencesecurity.com>
 
-Is the cover letter alone insufficient?
+f_audio_free() calls kfree(audio) without cancelling playback_work or
+freeing the queued audio buffers.  If a playback work item is pending
+or running when the function is freed, the work handler references
+the already-freed audio structure via container_of.  Additionally, any
+f_audio_buf entries remaining on play_queue and the partially filled
+copy_buf are not freed.
 
-Should the changelog be in each patch?
+Cancel the pending work, drain all queued buffers from play_queue, and
+free copy_buf before cleaning up the ALSA card and freeing the audio
+structure.
+
+Fixes: c6994e6f067c ("USB: gadget: add USB Audio Gadget driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+Changes in v2:
+- Drain queued f_audio_buf entries from play_queue and free copy_buf
+  before kfree, addressing sashiko-bot [Medium] buffer leak concern
+
+ drivers/usb/gadget/function/f_uac1_legacy.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/usb/gadget/function/f_uac1_legacy.c b/drivers/usb/gadget/function/f_uac1_legacy.c
+index 7c8d60c7e87d1..9fab3f9c8b9d6 100644
+--- a/drivers/usb/gadget/function/f_uac1_legacy.c
++++ b/drivers/usb/gadget/function/f_uac1_legacy.c
+@@ -942,7 +942,15 @@ static void f_audio_free(struct usb_function *f)
+ {
+ 	struct f_audio *audio = func_to_audio(f);
+ 	struct f_uac1_legacy_opts *opts;
++	struct f_audio_buf *buf, *tmp;
+ 
++	cancel_work_sync(&audio->playback_work);
++	list_for_each_entry_safe(buf, tmp, &audio->play_queue, list) {
++		list_del(&buf->list);
++		f_audio_buffer_free(buf);
++	}
++	if (audio->copy_buf)
++		f_audio_buffer_free(audio->copy_buf);
+ 	gaudio_cleanup(&audio->card);
+ 	opts = container_of(f->fi, struct f_uac1_legacy_opts, func_inst);
+ 	kfree(audio);
+-- 
+2.47.3
+
