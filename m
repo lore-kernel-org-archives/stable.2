@@ -1,63 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810439;
-	b=YUPZ9s+G+JfEEh8d9REoNSOuucAjzfCl6pEmcii/K3LnFWDOsbv2gvLVFQwAgX57JGXK
-	 Bh+OhHkgKKTb7qM/d/0aBJgj6essyh8dMfyFQdxGmDkXCsB231bXoy+r91waB3iebX5xn
-	 5TZ1IJJcnXzkOaAtx96D2Q/BBqM6EovWXMQpDg39vpiHOaYPhy8r3HnZMR+aROd0srs8A
-	 5lwYr1GXONcLwDO/DfWweiW7bAUVYIK9gtxCQykwXKSiRLHww1ZHlFnfdR9gK+yvRRQKZ
-	 ZZiiLo59H61Vpxuq4VLL9c7i5LeWSPNq3qQxz9pmJtwIV5NiTQjusJnMm0jLIOC+4iA==
+	t=1793810445;
+	b=dx9KcfmPdT35PSJN/vVAcPWbhczoyuqFf0B0WR0QrfaiDZy4rv7/rQmaCujfn4wUmtEG
+	 PJYq99OQ0UTeoh8OnVuSesO7J9FIYIxpsmm2vaC2Ykx/tjYxepD4d3J3JXK/dTRHHaeBS
+	 fzBKmbna399BOdat84cDXXLq8ZTmJeNIHEWH6nyx/XbDToQaZhJgfMeYETwo/X+VWacxC
+	 JmehmPPQm4ROVdgjZYirig+fVb9BweHimoOtgBtAkL+q77MnByp0JkZaddsO15BG966Aq
+	 arKfqTK3aQy+gw3hZEjleRskgaILefnsLOWZ5xBYkK1xtvYu4w1tvpzW6b0aTNDeyfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810439;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-MBO-RS-META:X-MBO-RS-ID;
-	bh=jhH1JhvZf62cYFTFXCoTDRK4dg1x0ip0prOKCSKui5Y=;
-	b=GnVegrztCSnR5+41HFBBplbeAC5m6hBGUaZbJ2G9UkTn9wiOy1YCu2mX713zDR+XjF5/
-	 ol+g8gyAeb47JhhAakW0Cfhya6gjdu9YEkWvm+HNE3Hs5q+N+92Gy5iAn9VU0HViA8X2T
-	 T/gxBdidWWPeohARxKwWPGqdLw/jUlcM1k7bgsHwUhhB6M5xhDu1Br2cNta8izXnutsTE
-	 qqzCykoXe4+P0as+xrPoDRRUccCgfwpR0Bukcg396EVPF9R+u3c1/8LTFqAHuSms/jqgV
-	 mewBlt2tXrbQrh62zuWBnQFAvcar/YlmviyUD1I/c1kTWBqYDKO85RqcLu3zvUY/Jvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810445;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=whZk+5U0IpKR83qFbEVlR0PotzEDhK1VrQ467+d9wH8=;
+	b=jZ6FM3nPtjxqdxPsScemCMAZ6263suj7UD831q+MTeURsgKDyT7P5bhqayMGy4BFllru
+	 lDAqFNvllsh5xW3pUXGs63ZjXI7Ng8HciHhEUlpw30+3MrQZAj5ukB6UBCuZh5xGM+OzN
+	 4w8WFBfiu77O5tfqb4gnLvpv/TUhbz1cG1hPdBxRYXoNTfkd3+ZcC88Hb2BAxoPVfTecM
+	 7jR+WkJjIyocFTXGgxFY4mdd7EO80dSuSBIhHlYXWO9bbnMDfby8edYFXN96CcP2143at
+	 m5jYjcI8YEnulhlO6WoymPvcaprM/3pGi/NpvJjW4wAE7tkONw58823/NI6ceAH8Q6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=GOIucMt6;
-	arc=none smtp.remote-ip=80.241.56.171
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b="VPjh/r3+";
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFCF606A31B;
-	Wed,  4 Nov 2026 16:40:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DFCF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E7C606A32F
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:40:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22E7C606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=GOIucMt6
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=VPjh/r3+
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2807840E02CC;
+	Wed,  4 Nov 2026 16:40:42 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id H_IiZZlUFf1M; Wed,  4 Nov 2026 16:40:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793810436; bh=whZk+5U0IpKR83qFbEVlR0PotzEDhK1VrQ467+d9wH8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=VPjh/r3+d2c3EQqX/g0JjvkmtKa2pZGJkERnnpGalXeEXWkSWlli9w0LRKZzrS8ZX
+	 pOaH/2RJakCHNwA27IAt/GOAmHgyXvhk+qqv37WNJrwDgGCJRSzgvBg3J4K2+cT2GL
+	 b64WBjeBdtlDp634yWJ+s3mSqjkHiUOJYD+RMiKQkfQi6uUDFqTkdqQVMJWvkoAxxM
+	 SqWcR9uxkkAzW0rb/FjLbbw1zGnPadYpZmCWrKVd9+NpVbM/9+RxWRxv9qqhKs+JbR
+	 THig0JOrmN7LbjJ3VCKZzLYbgN06ZWzZo4CtTreEVCsXu3JiBNVt0DO3T8NvrKMp2+
+	 P27YmfcVyJ64wV/DNs4oX5cdlIKsKTcvpaOwRHcZEHEoBJcMwOpSjwW3E14/QMgFDZ
+	 8gZveAjFnPVNrdlBAI+r7nppMAi6Agj46N/ws/M7S1/Td0CSf8YucDePjbzFTyQjjg
+	 KBRkXW0Lj9dXu8+nK4Oh2HwRyNo4CVpabWGdeGQP5n3uFPMvGLOJ22GBYltwDz1pcq
+	 d9AoAs+0wFxGl5PQ0xFJSRFQ/2r1EEMB69FQfrzEz41P1DhReI4q9B4ElPY+vA96ld
+	 +jR3Mn8LERne8Xy64PDriagZW62mBr+uGRl8zBkwIRqTmW7N2DkqPS7xCK2Flpas6E
+	 /6j4AuZGGXwdbLQNoT/swX0k=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jKWQV66KHzMlHW;
-	Wed, 04 Nov 2026 17:40:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793810434;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=jhH1JhvZf62cYFTFXCoTDRK4dg1x0ip0prOKCSKui5Y=;
-	b=GOIucMt6mrIjYtwYtSDYo0btU84g6w2DC1L8ehWSTkXzKZhL7X2B4m+WBcgyDmnMw36Pjm
-	zjqCK1OpWsUbirVfx+41qaf/aOD9VGSmYuEtdMSY/+JcgR58ohywmCD8i32ScCECUE1cIW
-	rspzOmQBzxc9czchLI/j2OHXbFnRClx+zDuimNNEC1T18lbzpP+ABkMLMWvgNwL0EnGzJe
-	xmM5v1xFLudpqL8weNfLbx6sWKn3X4oz0OeN29dIwuLLi5DcXiajFKgFT8RG8+VR9f49YX
-	czF5QYG+C0XfMdcVe+BCX6ijYpX5d9FXuNYq+1WcfTtd4WZ0UzpeA6YYtxE1Ww==
-From: Daniel Quolke <daniel.quolke@mailbox.org>
-To: gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] USB: core: Add RESET_RESUME quirk for Keychron Ultra-Link 8K receiver
-Date: Wed,  4 Nov 2026 17:40:18 +0100
-Message-ID: <20261104164020.69235-1-daniel.quolke@mailbox.org>
-X-Mailer: git-send-email 2.56.0
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id EAEE640E015B;
+	Wed,  4 Nov 2026 16:40:32 +0000 (UTC)
+Date: Wed, 4 Nov 2026 08:40:29 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, sshaiju.lkml@gmail.com
+Subject: Re: [PATCH 6.18] x86/bugs: Adapt SRSO mitigation to Zen6
+Message-ID: <20261104164029.GBautf_X-KzjRfCSSf@fat_crate.local>
+References: <20261103182143.27403-1-sshaiju.lkml@gmail.com>
+ <2026-11-04-1-daily-reply-0003-re-x86-srso-zen6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,39 +79,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: 34wxurkbb6crsr8b4ke419f4t34n7h5o
-X-MBO-RS-ID: 9d079c054e61ebde3e0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <2026-11-04-1-daily-reply-0003-re-x86-srso-zen6@kernel.org>
 
-The Keychron Ultra-Link 8K wireless receiver (3434:d028, firmware 1.06)
-disconnects from the bus on its own a few minutes after every system
-resume. No error is logged before the disconnect; the mouse freezes
-briefly while the receiver re-enumerates.
+On Wed, Nov 04, 2026 at 10:03:12AM -0500, Sasha Levin wrote:
+> On 2026-11-03, "S Shaiju (AMD)" <sshaiju.lkml@gmail.com> wrote:
+> > Zen6 has BTB protection which isolates the different contexts
+> > (user/kernel, guest/host) from one another. This makes the SafeRET
+> > mitigation there unnecessary
+> 
+> This is Zen6 enablement (a new cpufeature bit, a new mitigation state and a new
+> sysfs string), not a fix. It has no Fixes: tag and no Cc: stable, and Zen6
+> already gets the correct SafeRET mitigation on 6.18 without it. 7.3 doesn't
+> have it either, so I won't queue it.
+> 
+> If it fixes a user-visible problem, please point me at it and I'll look again.
 
-Resetting the device on resume instead of resuming it normally avoids
-this. Booting with usbcore.quirks=3434:d028:b has kept it stable across
-suspend/resume cycles.
+It gives back a big pile of performance and this will practically get
+backported everywhere. So I thought we should preempt all that work by doing
+it ourselves in stable and people can pick it up.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Daniel Quolke <daniel.quolke@mailbox.org>
----
- drivers/usb/core/quirks.c | 3 +++
- 1 file changed, 3 insertions(+)
+So yeah, perhaps the stable rules do not apply, or maybe this one:
 
-diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
-index a4bcbe9c9..3878078cc 100644
---- a/drivers/usb/core/quirks.c
-+++ b/drivers/usb/core/quirks.c
-@@ -612,6 +612,9 @@ static const struct usb_device_id usb_quirk_list[] = {
- 	/* ezcap401 - BOS descriptor fetch hangs at SuperSpeed Plus */
- 	{ USB_DEVICE(0x32ed, 0x0401), .driver_info = USB_QUIRK_NO_BOS },
- 
-+	/* Keychron Ultra-Link 8K receiver - disconnects after resume */
-+	{ USB_DEVICE(0x3434, 0xd028), .driver_info = USB_QUIRK_RESET_RESUME },
-+
- 	/* GameSir G7 SE */
- 	{ USB_DEVICE(0x3537, 0x10a0), .driver_info = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE },
- 
+  - Serious issues as reported by a user of a distribution kernel may also
+    be considered if they fix a notable performance or interactivity issue.
+    				^^^^^^^^^^^^^^^^^^^
+
+Thx.
+
 -- 
-2.56.0
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
