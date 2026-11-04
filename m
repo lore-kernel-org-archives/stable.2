@@ -1,57 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.242
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793785879;
-	b=2QWFBzyVq8H+QqcTbaVnR9lMxWI87EVKwqnoJw/Qo5l+JsVInZAsKqwkjd81L+sn/jAc
-	 LpJ7Hxvr2Dd3K1hE4+l+BK9El9akLj+rZGD8f4JRO5o3u29sY2iLIautSAW/vm1TRHx6G
-	 DbAB707RKWt0DZ+KAd78aMXfHZBJqS8Hr2lZ+Nq0t8g1tu1UxRTf011uNoM+6aqkyYMhd
-	 gdOYuF/TB13MdgPtV6kKMxKJbluXZu8NNcLtaHCQ7fJ9iMzVXCHKsidfzDd61/tnbg1hz
-	 W35lf7US9L7onE6OckpgEo6UvFwFht4NbVwP6Vm7V5WR6aiQB+5EL/ln5DCFPaa8idQ==
+	t=1793785924;
+	b=uvyDv/dgSGU/ytOHgANrE4Sk3Dk5DeCz/sm8f0TmteQGxX/P/4eIfmwloN3e2tcbeHC/
+	 Ovfcs4rS/RF99fEwdgBawJgOhNKHv1jk1Fjnwp7f0iGXN6mwASepzE7SaENVoHBIwYcxB
+	 sMljCixwS6jZeJJk8aApxmKBOvC1qSd/Yp4xEsPyK+QZ5112N1dXAut6/EeTTza6jWL09
+	 am/pjcuR73Vm3/QoPj+IlN82TAwNo1I9XBaw9WOcNBy8dhwY2OLxZa7SEPf52Mu/s5CVv
+	 Z7tEofTf0wk6KZdB41WyqV9d8AIhp9atCRnAPmOX+5o4ORjfrQvMkl1B8wsEsDMaEHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785879;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=dIJPIwpES90xQ7z49M+pmvTQt1ecupVvISf5T2Czb5Y=;
-	b=sMtX64GqZrF0zBMLESmqNKHBURCFUzZWn8QsP42dF3gHHnjvVxRdXSEpLho7HIIP9zF6
-	 7+e7ctfgQk0omW4iw3x75pEtJBo0Qj+hr+MuEuUtlJGd+Tuwq22kYwAOCngXwRQ8KaZIm
-	 KxRaUmDThfJQSKwB3hxjIecrG68AZdbC+vMQ4ru5zQ5wRvnRgTHxXSRNonjsk2a2zW93R
-	 q9WQ2ruqBYb7qGCV53FZJUHNOMasbGfSjDiVkkZLI4axfQ/VhYgt5jeoA7381Yqfpdzm4
-	 v/84yhs+fySdaVQaYJf+YqF+GcevZJCMTGUUzRMmC6X5enFnY+xMKNidfuA+Zmz3DRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785924;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RtlB2RV4gJxPXr+Y3wQBEnh9Djwm2pqXP4DUAG2yukY=;
+	b=Tg65JV7yWTjAMdznm85rKMcfmBvokDiSrnvIvh2XBD/qPVaANWMQc7x8jzNmsw+Ccnul
+	 OinY5CVZIfi+1Z0k7Sdxl+vRY0Og0H4oaXsQys3XsjCNVt0Ehg/HC5lVGDg7GYV7MacQR
+	 qcUksRH9Xw4bEVXPI1dV3duNylV2T4YOm02USZujXWUJnFtGgsUvJ7d0oZlYreZIrrGUp
+	 fxFvFqzschV0PUidrtITNwQRweZ8qLCDssEGc296zqK1G6Jgfk0zmmzWiGsnOFgqrY7Au
+	 OaDqGyUnj8/B1tZtgPgFtsuFUxbej2NDlL94kYHlXRoJMkisiiBN9YYR+yfjy8UzSSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OV74+N7H;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=gB4lqPQd;
+	arc=none smtp.remote-ip=203.205.221.242
+Received: from out203-205-221-242.mail.qq.com (out203-205-221-242.mail.qq.com [203.205.221.242])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3713A606A329;
-	Wed,  4 Nov 2026 09:51:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05785606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 09:52:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05785606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OV74+N7H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 030221F000C1;
-	Wed,  4 Nov 2026 09:51:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793785878;
-	bh=dIJPIwpES90xQ7z49M+pmvTQt1ecupVvISf5T2Czb5Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OV74+N7H0RV2l2wsoUAH0hCrWXUHCfKreWP48tvbQPx5krnWLkNRFmGq6HeXtLrZz
-	 yR3BzbghqIX4566t5bCxLuRxIg/uq7vMAD5cNyWjQmzOZS2yZhAiua7INoEo7oZloa
-	 tSBWnwa8z+ICXq1T2Nbe3RrgGOhZGd+Hq5syEZfmNhW3pmLe1iXXYJ6UJ9vW3XeHuo
-	 6+5gCVlnDltXroozfOIoT+jGmW1Hbc5jENTOn/yvEqmyG8bWPh5IOtVUnZndHKjNwS
-	 xwdRj39CtRts1OXiS4soxkVPvGAdHE7xMQiw5/ah03tn526gU92MunaLWKNRul3c3V
-	 +uzQGb96nABGQ==
-Date: Wed, 4 Nov 2026 11:51:14 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Yuqiang Sun <izaiahsun@gmail.com>
-Cc: haris.iqbal@ionos.com, jinpu.wang@ionos.com, jgg@ziepe.ca,
-	guoqing.jiang@linux.dev, lgs201920130244@gmail.com,
-	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=gB4lqPQd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793785918; bh=RtlB2RV4gJxPXr+Y3wQBEnh9Djwm2pqXP4DUAG2yukY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gB4lqPQdr+MDkMM4KcJDS+tf4orXxiB0uIvHcCaBdZUlKYBYCsxexSPqC9wtR0Qyn
+	 47sUPDDi4zluk483PdYz7igvRZm+CRsRQ1bHnNQo2i7vBmM5NpMmP4MU7Th8M8Pib0
+	 6Arh2pjT2wsTcOcY4wWqUIG4VwngXxiWwmNtTToE=
+Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id CF794E9A; Wed, 04 Nov 2026 17:51:55 +0800
+X-QQ-mid: xmsmtpt1793785915ty3h95k9l
+Message-ID: <tencent_540C64A2D2BD5D3A8FC54C9EB80917F75305@qq.com>
+X-QQ-XMAILINFO: NbgegmlEc3JuH/YWZVHtIvPZDrszXB4hB1yN2O9ZvlIOq1JRDwM+w8+nmIObf0
+	 UCCJcyY8j3lw1d5cW2qTVqNJE758T2fIeQwgroxe+ZdE9VE0q+4l9wUDbw8YQtvhNo0/HpqbE5ak
+	 0crKRHJ55Cox/dqmynK/Xx42HM2m3ee+2ZGTnEskB5QXUjPca/BmsHYgxgKWuhdI+0smTAWaad8D
+	 vZoIumJ9PQrqJJFGuy61mIGdxShIETQixVjfV6jaf/zj9dt6q17fYJbGADbp67AwmNaCNek9GkY6
+	 r3QquXotoEQ3PEv/aizv9kmADOU42Fz1zuxyWxJwZdmwEDMO64ISdo4hJptLocGQlc+ZHXirqUko
+	 Sgd4INCfnFxxVlZ4ibcis3jsUz53jXKIG7g7ReMSnJ4r0oW7efahNJXQnaAMBQF4V8il2AL2a0TK
+	 SL6OGv+7/HUb21FG6/439zUTmODhI29PcAP4kxrE98xEzjNtQ6TIYbRwyidzNdxugYWrDaP9NxRJ
+	 9G681A0rzTukyOqkJE5Es5ryeHnWo+qYoa8YYQM2kqJ+1Aciz8bEAN5IFyoprx+NRbL3M82Kv8ML
+	 5hKn2o5UvS8R1cJ+hMoZBqFts++U7Y1FVBXORUluNlMzBwgwQmV+nGmdHnFUSn4JC2BoTqKoF6tb
+	 RsCkfJ8mfKzaDsdtQmlX5SFdv0WFCYRUbtMeYPmYFvsaJDDP7IbabgSLkU5Lz4y/XsGGODCa684O
+	 beINbDIfX845skrKQAQImgDE4Izz7mr0Qx5l30F3Lv+zNHmdSM/fXdzHzuPX2ad64pLp2CguNTMY
+	 yt5PDGXxmbKaG5qJkahA9p/kVL9AycNtjJWiZEsAE1EWInlKocmnWvwwGHey4z0PDgMpbTTSJjKT
+	 WR6dYmbAx4mVKeFitQO6eNh4dG0CeNb+ju1rkmBy+HTvmoQBuCHIrVKogUEiDCdmBPwPVu+1AO+h
+	 MajnGEgnDcrqONs5iFZnkmy6bF4ALGIHfq6f07WaLjPLBQqamBF1iFowZ2jz5e/lHDE1Ve2g50A4
+	 4BIZQKgqO3te0Xus6FsJLj2dvE3pyKyiXOuwUH1v2LScQOgic30j13SqOSEIJSRKEVdu1a1AWvld
+	 0EnBrzDCvCYBDIFEX8XluEx++6icLO/PEbCS3h7XY39/WatypdC4IKo+k2cUNhSdxbS0cy
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Shuai Liu <847807867@qq.com>
+To: linux-ext4@vger.kernel.org
+Cc: tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	linux-kernel@vger.kernel.org,
+	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com,
+	sashiko-bot@kernel.org,
+	Shuai Liu <847807867@qq.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] RDMA/rtrs-srv: Do not free the path on path file
- creation failure
-Message-ID: <20261104095114.GB478286@unreal>
-References: <20261103122024.GG264423@unreal>
- <20261103134939.55513-1-izaiahsun@gmail.com>
+Subject: [PATCH v4] ext4: fix slab-use-after-free in do_split()
+Date: Wed,  4 Nov 2026 17:51:55 +0800
+X-OQ-MSGID: <20261104095155.738649-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-196970@kernel.org>
+References: <sashiko-outbox-196970@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,74 +90,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261103134939.55513-1-izaiahsun@gmail.com>
 
-On Tue, Nov 03, 2026 at 09:49:39PM +0800, Yuqiang Sun wrote:
-> On Tue, Nov 03, 2026 at 02:20:24PM +0200, Leon Romanovsky wrote:
-> > Interesting claim. How did you trigger the KASAN warning in the RDMA ULP?
-> 
-> With soft-RoCE in a KVM guest, with both ends of rtrs in the same guest,
-> and failslab standing in for an allocation failure:
-> 
-> - Kernel: rdma for-next c3e8e9451e6f, x86_64, with KASAN, RDMA_RXE,
->   INFINIBAND_RTRS_CLIENT/SERVER, BLK_DEV_RNBD_CLIENT/SERVER, BLK_DEV_RAM,
->   FAILSLAB and FAULT_INJECTION_STACKTRACE_FILTER, all built in.
-> - In the guest: "rdma link add rxe0 type rxe netdev eth0", then failslab
->   is limited to call stacks through rtrs_srv_create_path_files()
->   (require-start/require-end set to its range from /proc/kallsyms,
->   stacktrace-depth 32, probability 100, times 1, interval N), and /dev/ram0
->   is mapped through the rnbd client:
->   echo "sessname=s1 path=ip:10.0.2.15 device_path=/dev/ram0" \
->        > /sys/class/rnbd-client/ctl/map_device
-> - The server handles the client's info request in its completion worker,
->   in rtrs_srv_info_req_done(). With N chosen so that the failing
->   allocation is the one in kobject_init_and_add() of srv_path->kobj,
->   rtrs_srv_create_path_files() fails, its kobject_put() frees srv_path
->   through rtrs_srv_release(), and process_info_req() and
->   rtrs_srv_info_req_done() go on using it: that is the KASAN report in
->   the changelog, followed by more in rtrs_srv_close_work() and a general
->   protection fault. Failing the stats kobject instead gives reports of
->   the same kind.
-> 
-> The steps in the guest, after boot:
-> 
->   ip link set eth0 up
->   ip addr add 10.0.2.15/24 dev eth0
->   rdma link add rxe0 type rxe netdev eth0
->   f=rtrs_srv_create_path_files
->   start=$(awk -v f=$f '$3 == f {print $1; exit}' /proc/kallsyms)
->   end=$(sort /proc/kallsyms |
->         awk -v s=$start 'found && $1 != s {print $1; exit} $1 == s {found=1}')
->   F=/sys/kernel/debug/failslab
->   echo 0x$start > $F/require-start
->   echo 0x$end > $F/require-end
->   echo 32 > $F/stacktrace-depth
->   echo N > $F/task-filter
->   echo N > $F/ignore-gfp-wait
->   echo $N > $F/interval
->   echo 1 > $F/times
->   echo 2 > $F/verbose
->   echo 100 > $F/probability
->   echo "sessname=s1 path=ip:10.0.2.15 device_path=/dev/ram0" \
->        > /sys/class/rnbd-client/ctl/map_device
-> 
-> With verbose=2 failslab prints the stack of the allocation it fails, so
-> N is found by trying N=1, 2, ... until it is the one in
-> kobject_init_and_add() for srv_path->kobj (21 in our build).
-> 
-> So it needs an allocation failure while a client connects; nothing else
-> is unusual. I can send the full KASAN log, the init script and the
-> kernel config if that helps. The client that triggers patch 2's
-> use-after-free from the network by sending an empty pathname (fixed by
-> patch 3) is not public; I can send it to you privately if you want it.
+do_split() allocates a new directory block with ext4_append() to hold
+the second half of the entries of the leaf block being split, then
+dx_move_dirents() copies entries from the old block (*bh) into the new
+one (bh2).  Nothing verifies that the newly allocated block differs
+from the block being split.
 
-No, I don't need it. I was just curious what “no RDMA hardware” means.
+On a filesystem whose block bitmap is inconsistent with the directory
+tree, a block already referenced as a directory leaf or as an htree
+index block can still be marked free, so ext4_append() can return that
+same block.  With concurrent operations on such a filesystem (as
+exercised by the syzbot reproducer), the block can even be freed
+between allocations, resulting in bh2 aliasing *bh.  dx_move_dirents()
+then copies the block onto itself, corrupting directory entries
+mid-copy: a rec_len field can be overwritten with name bytes, so the
+subsequent wipe of the stale entry memset()s a bogus length, causing
+the slab-use-after-free reported by syzbot.
 
-Thanks
+The same aliasing applies to the htree index blocks: if the leaf block
+or the new block aliases any index frame (the parent index block
+frame->bh or one of its ancestors in the frames[] array),
+dx_move_dirents() and dx_pack_dirents() overwrite the index header,
+dx_insert_block() then memmove()s with a corrupted count and writes
+out of bounds, and dx_release() can loop past the frames[] array (or
+leak frames) with a corrupted indirect_levels.
 
-> 
-> Thanks,
-> Yuqiang
+Fix this by checking for all of these aliases in do_split() and
+bailing out with -EFSCORRUPTED before any directory block contents are
+modified, reporting the corruption via ext4_error_inode_block().
+
+Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuai Liu <847807867@qq.com>
+Changes in v4:
+  - Extend the aliasing checks to all htree index frames: do_split()
+    now takes the frames[] array and compares *bh and bh2 against
+    frames[0..level], not just the parent frame.  An alias with an
+    ancestor index block would overwrite its header, letting
+    dx_insert_block() memmove() out of bounds and dx_release() loop
+    past the frames[] array or leak frames (Sashiko)
+  - Mention the index block aliasing checks in the commit message
+    (Sashiko)
+---
+ fs/ext4/namei.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+index 354fc2d22df1..25bea69ab246 100644
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -1922,12 +1922,36 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+ 	if (ext4_has_feature_metadata_csum(dir->i_sb))
+ 		csum_size = sizeof(struct ext4_dir_entry_tail);
+ 
++	if (*bh == frame->bh) {
++		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
++				       "leaf block aliased with index block");
++		brelse(*bh);
++		*bh = NULL;
++		return ERR_PTR(-EFSCORRUPTED);
++	}
++
+ 	bh2 = ext4_append(handle, dir, &newblock);
+ 	if (IS_ERR(bh2)) {
+ 		brelse(*bh);
+ 		*bh = NULL;
+ 		return ERR_CAST(bh2);
+ 	}
++	if (bh2 == *bh) {
++		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
++				       "cannot split aliased directory block");
++		brelse(bh2);
++		brelse(*bh);
++		*bh = NULL;
++		return ERR_PTR(-EFSCORRUPTED);
++	}
++	if (bh2 == frame->bh) {
++		ext4_error_inode_block(dir, bh2->b_blocknr, EFSCORRUPTED,
++				       "leaf block aliased with index block");
++		brelse(bh2);
++		brelse(*bh);
++		*bh = NULL;
++		return ERR_PTR(-EFSCORRUPTED);
++	}
+ 
+ 	BUFFER_TRACE(*bh, "get_write_access");
+ 	err = ext4_journal_get_write_access(handle, dir->i_sb, *bh,
+-- 
+2.43.0
+
