@@ -1,79 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793774408;
-	b=hGuRSigldrI95fErSNnv7pfkLeW/rZlQrSxoNJLKDf7TkWtB+BhrhnCimYys8YoWsU9W
-	 kyJ921CzwNxdbzC4f8PuKyHKnBWae3RoJQ75RygPSANXBiv8B5+xVh6odQwLpQcP09JsX
-	 iQF5dBvxyErHHYPR0Ydn/rhUHfiO9yoMHKmtjXiudxeenarElTpgauzYCEJMynMO955NC
-	 V+3IIfAJesA6F4ZP6jk3O0gd5rzYXrz86PYByKD01SNvjkMntMt2ODdEEAgIFAPVzEt5+
-	 fZXEX5BcmfCDrSvfnzY2JaBu1nAXJeivQzyjDe3M7LzenzZeAUQGgAs+r4xG/QUyXtg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793774408;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=B5lc3vSTvHKXLgI0M+yJbkfam8NaeVMw9GKGtY5G8xg=;
-	b=lsCiIHmdgJTs4+ok8r07ZK0MhiIuj4EV+eFBvkWVOnATpKs26hbOGds/2oHECaZU+OTa
-	 E4iy9mfXtSlml8wPq62vNH3h89yty17U8UKbU6O/0YjJRXfHaE0cZUof/KBjRkKQyHLma
-	 feXJKl9bm7hHvVk5Q+BtoWy7QeB/H4hL/8j3MoeMOd/Az9E4VbuLoTbdevNCJ74opIqKv
-	 ytU5fb+/f/rM9i0XiKxjixGcPYaw+Tn0SNVTrJXfIB6/9JWGagnakx0yiQt9BCvtUfHwl
-	 mr17K8ldXAxXT8/PwXU865baKyfS8Db0X9BNUPG9ZfgIVG+d3Oh2+zrLgQJus440KoA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AuwkN1h8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1DED606A326;
-	Wed,  4 Nov 2026 06:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AuwkN1h8
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793774407;
-	b=nsI+UOE/UQs62ynO0bisYKpy9SU2/nOnBYX5ZitZgKsFyja5n4Gjd0V3vlVtB9AkMPZK
-	 GeAyqphkylstJ690ZQm4/k2DYEI70sqZQH3RoW+IJ6PdGTcoziI34jfeHbKpmVLIBHX0T
-	 +pc9aEJQePpVV5ZlcEe5dZZ2nONB8yx+BHfOL5/cTH81S/fKYiOocL0LPw/C0N2ijGDq6
-	 dSv6B5+OrmM0gAjtG6P/TAN0F1dlwlpESSTSmxRm1Az0K1j6mH0exZFCwftLPp83XRTHx
-	 cUcUfw+5f/ES0UGLZhdeGp5QbYGwoeGGxwk5Lc/1D219Yb9xiGNOiS0DiMU4nmE97hQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793774407;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=B5lc3vSTvHKXLgI0M+yJbkfam8NaeVMw9GKGtY5G8xg=;
-	b=FSGuCXzLFc1XsTSMaCi3jMOlJ7BhDNaDkhT+qVBsjyfLFC2SBBYo1oT7RWqiLugDrl3M
-	 nhSHJejFyznriIwLakbgGlKaXhEKYKtHJIKWYmGwAZILA8VEKB7WHbgphQnz+tznn4Ho1
-	 70/tgckRa7Iu+Qoe+SfmezlGk9l/Qn79JRPQ0VYPBIKcvUGwKxLBDP7tsi/LJSqPB710l
-	 1a7ZOgbf6AU7I8gz93MlsMZnvyYYWq9uRI6AtdLZdKaSeCji9F4ytWEU5wcf3hjYZH+7w
-	 eaTT1L7ipMOJi571uzObpS+fX2rnzE0RMtFsPglC6/3rtGtkUYC15UcvD3fNXO6NouQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793775664;
+	b=5TUL4ZJs+oXwiWEt4fvKpPIXTyh5xpOTd2oHb9OcqGxJ3aQ2lMDzUkWAVHLLa/guk1i7
+	 Dt9p4PhNwsuPtcd2I8SG+27dTGKov7dVCEVh4kTyvCRX4Qd1ERyzJGnCvlaoKPb1HsKdZ
+	 ikJsbnlPS+SuHvaKonl6g5VSgNVfmn6arypmUFXEkHCo5UfnzmBDgWCi84l/wl4b2O6kS
+	 0It/NP7491yKCDtP2yIDiZSAKuno+/gMejA+RFHatQKeCVMOERk38vqOmVT2RaHvdVoAf
+	 E6GEyfJBYcdKVeutVpXDMgQPMpO2wW7Y6L6fVH8J76E/G+sHHBjp2bD3Bzgfbiid+Hw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793775664;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fvN+dcV9w8TnHuirEmYVFgOgx64649rstTkDzgki1m0=;
+	b=R9l6O1d66lSyA1kMRbZ+VklEp/9zxfW18BcBZQT8vPMcaxw7+haQE65nm/JtVRD1R0sy
+	 T95UC9y7PtHpnxJJbEYtkNaCYVeDsg2ThdfTK/DBMKusARAk1EMEBrufsByTN1tQq4vn2
+	 kVd+7UorCIY/PBZIhntwoUBeKYRsOeGrYIkMybcJVFEiV/O0jkwyIMqGDVm55RaONYvb/
+	 jl7aO4byTPGgjMWYQLc/l7Uq/JJ6uvL7AyY36dWMha3vqaCnJGXVHZD5C1GDCOZIegK9v
+	 oVlatQT0HmUxtVhyKLgkdPBNa3dfMMzRr3j8sQ5c34IjMMpdMO2NXib2JGhVdJNyhyA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="Fw/djtjq";
+	arc=none smtp.remote-ip=209.85.210.176
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 454A81F00919;
-	Wed,  4 Nov 2026 06:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793774407;
-	bh=B5lc3vSTvHKXLgI0M+yJbkfam8NaeVMw9GKGtY5G8xg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=AuwkN1h85EQBcyb7gL/bz8Gjizuj091A+yqhV8lAAc/RNlJYv9DSvy7u0bMluYO3R
-	 7Pf6mSVVh3qfpUlIT9Zsb74ml4+BPgWVVMX0wakEaAOXn1FUpijz8hC4jgRXLn06sI
-	 eKLnzLvP3rlmjABOBdeyX0PLMEVBMThIqqW4ldm5iBwWC/M2AMFdAkpmMICnDquB2q
-	 YmMP1l5KVMGxxNq+getW+hajRfF4JjjChuOLwXc8I8uNtV2F9WF0+v/txfOnykjFQ4
-	 fUylGvIa5PiubA7roDgjDlQUH+c0ji+IujwzRNfApvUoAhaHhUwh98QHQQne9KybEU
-	 k7aGo7dpPOGyg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C964446CBA;
-	Wed,  4 Nov 2026 06:40:05 +0000 (UTC)
-From: Tjerk Kusters via B4 Relay <devnull+tkusters.aweta.nl@kernel.org>
-Date: Wed, 04 Nov 2026 07:40:02 +0100
-Subject: [PATCH net v5 1/4] igb: do not let XDP frames span more than one
- Rx buffer
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985F5606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 07:01:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 985F5606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Fw/djtjq
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a070781f63so191891b3a.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 23:01:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1793775663; x=1794380463; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fvN+dcV9w8TnHuirEmYVFgOgx64649rstTkDzgki1m0=;
+        b=Fw/djtjqRmw1tpISTMyV28bXOmetSUSNu6T1F3N7pPdsg5Aa1gXwe30pN2ihU87Q2u
+         emOIVInbyEc0UdABQ0ZQbb4omffhEeou2LzuXEaNcSnguEjXAdB8ZLn7R3AWP9EwJe+Q
+         EzqpYFmvt6abMgX7MZW1b5KZhzkvY2o/zWMHmGhJr1+lNpPCp5MGvS/qs6NYWeDPRqu3
+         SvIhEw55HOSuP7eCZgSEs5QILjiQwImr6qLESxARISF30fww1ZY1n0dGtcI87jX5oohl
+         ipgBA28QHQHlz8ZNbV0y36W4UtrITE9St0fIyvaZzNLVrWr+1s/PxLCa2CQvF4hzpjQL
+         vvPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793775663; x=1794380463;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fvN+dcV9w8TnHuirEmYVFgOgx64649rstTkDzgki1m0=;
+        b=upHDqxUH9wH78SUm5CAlrgn/9MQ3Miwa46Dd+E9YbgzXjpB21B3pC70G0HSloRzcEq
+         pV7lmKXS3q4TMmkdZDAWm+uwbcf9r609NM3SnpOZTi2XElDQFeCENfGz+popLQbLIy5T
+         yxZb8yrJSjJQWB7IftEiTR/HRN73AcMlCAlwA8v/lEsoZJIBOeY6V+w3jeURohlQSui1
+         I7lqqQVd6qQXyNIEHexah1zobmegSttA9x1aCU3CKZu+vR8hqEQsEErH27PUipjnlURE
+         pj/uRlfHkJ6AANSgE7fJ/cjlRx/WwhYuR4y7jkDUC83tNF8NTYq8yFa86DTtII1om519
+         TYew==
+X-Forwarded-Encrypted: i=1; AKwUvBxDY9XHCeR+TDa+j7SwpEBPLTRGWSL+enU++MnAP2PTYyx1+BzWNFw6yCALDLp98FjhgpqTdaA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qfZQ7nyC1JAjhkja/XTTUdeP+VEbXklPq0qBQvjStDcifDGEv
+	csAWnyUkC6apaxzTu91Lyiv6/BHp4cTt1mp6Y0tU0AICRxMcx0gx8ENPJJ05Vu3RTfc=
+X-Gm-Gg: AYBFou20g/Vtvt0Rnj9qQVCVxlq0YB3iQmKPLGJ3pNeXvFl8dmEsx2UVi49SYizsIeb
+	tmC567xgBmsJ9p7rKCzZzccfUj0ywvTOB+z7Ua321m4KGJpV5eFL2jG5OH/d/2Y7ISjFYR/9brY
+	lhy9dC+/BR5zDyGBhxi9JyHwOv7zd4N/VvoVolqB1HNu6/jOA+OAAHw42sHmCvw7DfqwmJi+UdO
+	lC939hcobeSNo3VMiySqLLYizY/FdAd/yH1Wp5SGdw6e9alyOv+D6aXqFJjb/7OF11kf27OTW46
+	BBDTT75yVUy7vMvvHVtA9DXh/QDJ8myZ5H9TY1LummrPp8qG1xW8r5HEf8hQvkmC8CeZs7sHx14
+	1HjVLM80HdBx8v8auPOslw18cPsUIAtw/4fFalllnuQpSTbNseVb16Sg3UOwrzJlmiBv3OxiQ3/
+	iTKD43q3rMAlgyemXcBcN9C65GsGtaIqkQXPvDoxd2J/1e4KBwFF9F7gph80lL5NjyDN88Wwb2C
+	wT8975nbs7Xow4mB6LDVubFwU3GxJONxesSr8Cj/ONdYOMAVbjmKoNiktAzoDv7rxNunaiRVO6d
+	9PKQBI1SchOM81PtkAy2mPdOJGnwOCdwVvblxJNp3decOjF3E83rgBUxzY6a6HAJa9vBGbgyvRK
+	b3KecbV53joKFOvWP1KtzAv55kOBJS5SLzfph
+X-Received: by 2002:a05:6a21:1518:b0:3dd:85aa:4526 with SMTP id adf61e73a8af0-3e928db96fdmr13453369637.33.1793775662546;
+        Tue, 03 Nov 2026 23:01:02 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:744:cf40:a7b2:e78f])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09a7cc8ffsm495181b3a.14.2026.11.03.23.00.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 23:01:01 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Joshua Washington <joshwash@google.com>,
+	Harshitha Ramamurthy <hramamurthy@google.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Willem de Bruijn <willemb@google.com>,
+	Praveen Kaligineedi <pkaligineedi@google.com>,
+	Hariprasad Kelam <hkelam@marvell.com>,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH net] gve: bound the device reported RSS sizes in the RSS query
+Date: Wed,  4 Nov 2026 16:00:41 +0900
+Message-ID: <20261104070041.1902653-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,376 +106,153 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-igb-rx-ts-fix-v5-1-bf4b4367129a@aweta.nl>
-References: <20261104-igb-rx-ts-fix-v5-0-bf4b4367129a@aweta.nl>
-In-Reply-To: <20261104-igb-rx-ts-fix-v5-0-bf4b4367129a@aweta.nl>
-To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Jesper Dangaard Brouer <hawk@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, 
- Sven Auhagen <sven.auhagen@voleatech.de>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Kurt Kanzenbach <kurt@linutronix.de>, 
- Sriram Yagnaraman <sriram.yagnaraman@ericsson.com>
-Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Paul Moses <p@1g4.org>, 
- stable@vger.kernel.org, Tjerk Kusters <tkusters@aweta.nl>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793774404; l=13985;
- i=tkusters@aweta.nl; s=20260619; h=from:subject:message-id;
- bh=fRCfOfr/7aojxs01zFpAF9Pls2KaBRj14KhPc+FAN/o=;
- b=TgdC5jA3XN178qHtf9M7JUzw2jOsPZYBXi3Fhum7jDfc0YzUyug5oOA78Q3nGWHFpMUXQAe6B
- 6ZTBFL0/k39BbaQ/vvfjE9DJYaSkQKCX7E6FJI944KPLUISwnf/z5ws
-X-Developer-Key: i=tkusters@aweta.nl; a=ed25519;
- pk=JYRpYQ3+LrphEabgnxcbiOUpwvNP8WDDMcLzz+cwKsk=
-X-Endpoint-Received: by B4 Relay for tkusters@aweta.nl/20260619 with
- auth_id=831
-X-Original-From: Tjerk Kusters <tkusters@aweta.nl>
-Reply-To: tkusters@aweta.nl
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Tjerk Kusters <tkusters@aweta.nl>
+gve_adminq_process_rss_query() copies priv->rss_key_size bytes and
+priv->rss_lut_size words out of the admin queue buffer.  Both sizes come
+from the device: gve_parse_device_option() takes them from the RSS device
+option with no validation, and gve_adminq_describe_device() stores them.
+They are 16 bit fields, so either can be up to 65535.
 
-igb does not support XDP multi-buffer: igb_xdp_setup() only accepts an
-MTU whose frame fits in one Rx buffer, and the XDP program only sees
-the first buffer of a frame. The maximum receive length is not limited
-accordingly, though. RLPML is only lowered when the frame fits a
-build_skb buffer on systems with PAGE_SIZE < 8192 and no VFs. Otherwise
-the MAC still accepts frames of up to MAX_JUMBO_FRAME_SIZE while XDP is
-attached, for example at MTU 3000 on 3 KiB buffers, and at any MTU when
-PAGE_SIZE >= 8192. With VFs allocated, RLPML always stays at
-MAX_JUMBO_FRAME_SIZE and the PF pool limit in VMOLR is only lowered for
-frames that fit a build_skb buffer, so the same happens at MTU 3000.
+The source is one GVE_ADMINQ_BUFFER_SIZE block and the payload starts
+after the descriptor, so it holds at most 4088 bytes.  The only length
+test compares the sum with descriptor->total_length, which the same device
+wrote, and it is computed into a u16:
 
-Such frames span several descriptors. When the program does not return
-XDP_PASS for the first buffer, no skb is built, and igb_clean_rx_irq()
-handles the next buffer of the same frame as the start of a new frame:
-it runs the program on it and may pass it to the stack as a bogus frame
-made from the middle of the original payload.
+	u16 hash_lut_length;
+	...
+	hash_lut_length = priv->rss_lut_size * sizeof(*rxfh->indir);
 
-Limit the receive length to the configured maximum frame size while XDP
-is attached: in RLPML when no VFs are allocated, and in the PF pool's
-VMOLR otherwise, as RLPML then has to stay large for the VFs. Larger
-frames are dropped by the MAC.
+	if (sizeof(*descriptor) + priv->rss_key_size + hash_lut_length !=
+	    total_memory_length) {
 
-Also make sure that the limit holds:
+A lut size of 16384 makes that product 65536, which truncates to zero, so
+the device only has to report a total_length of 48 to pass.  The loop then
+reads 16384 words, 65536 bytes, out of a 4096 byte block, and the walk
+lands in rxfh->indir, which the ethtool core sized from the same device
+value.  ETHTOOL_GRSSH and ETHTOOL_GRXFHINDIR hand that to the caller and
+neither needs CAP_NET_ADMIN, net/ethtool/ioctl.c exempts them.
 
-- Leave room for the inline Rx timestamp header when checking that the
-  frame fits in one Rx buffer, on XDP setup and on MTU change, where the
-  limit is the hardware buffer size. This lowers the largest MTU
-  accepted with XDP by 16 bytes: from 3046 to 3030 on 3 KiB buffers,
-  and from 2022 to 2006 with legacy-rx or PAGE_SIZE >= 8192. Setups that
-  use XDP at those MTUs will have to lower the MTU. The build_skb frame
-  limit used with 2 KiB buffers is kept, so XDP still attaches up to MTU
-  1510 on x86. The header is only prepended by 82580 and later MACs; the
-  room is reserved on all MACs for simplicity.
-- Base that check on the buffer size that igb_set_rx_buffer_len() will
-  select, not on the ring flags, which are only updated when the rings
-  are configured and can be stale on an interface that is down. As a
-  result, an MTU change with XDP attached can now also move from 2 KiB
-  to 3 KiB buffers. The check is skipped when XDP is removed.
-- Refuse XDP while rx-all is enabled, and keep rx-all off while XDP is
-  attached, as the MAC then also stores frames longer than RLPML. If
-  rx-all was requested meanwhile, it is turned on when XDP is removed.
-- Refuse to change the legacy-rx private flag while XDP is attached, as
-  that changes the Rx buffer size without checking it against the MTU.
-- Program both limits from igb_configure(), which only runs while Rx is
-  stopped, and no longer from igb_set_rx_mode(), which can also run
-  without RTNL, for example on an IPv6 multicast join or a VF mailbox
-  request. Otherwise such a call during an XDP removal or an MTU change
-  could apply the new limit while the rings still use the old buffers.
-  Attaching or removing an XDP program on a running interface goes
-  through igb_close() and igb_open(), and an MTU change through
-  igb_down() and igb_up(), so igb_configure() runs in both cases.
-  igb_set_rx_mode() still updates other bits of the PF pool's VMOLR, so
-  the limit there is changed under the address lock.
+Reject sizes that do not fit the buffer, and compute the lut length in a
+type that cannot truncate.
 
-This follows the same approach as the igc fix that limits RLPML while
-XDP is attached. As before, the PF pool's VMOLR is not written on i354.
+In the driver the block is dma_pool memory, so KASAN does not annotate it
+and the contents of the neighbouring blocks leak with no report at all;
+the report below comes from a KUnit harness that hands the handler a
+kmalloc block of the same size, injects the device reply, and is not part
+of this patch.  Unpatched, a lut of 16384 and a lut of 1022 both read past
+the block; with the patch both are rejected with -EINVAL, and the sizes
+the driver itself defaults to, 40 and 128, still work.
 
-Tested on an I350 at MTU 3000 with Rx timestamping on and xdp-filter
-dropping all IPv4 from the peer: 8242-byte frames are now dropped by the
-MAC (rx_long_length_errors), instead of their last two buffers being
-delivered as a separate frame. XDP attach at MTU 1500 and 3030 still
-works, at MTU 3046 it is refused, as is an MTU change from 3030 to 3046
-with XDP attached; an MTU change from 1500 to 3000 with XDP attached
-now works. With XDP attached, rx-all stays off and the legacy-rx flag
-cannot be changed. XDP attach is refused with rx-all on, and at MTU
-3000 with legacy-rx on, also when the flag was set while the interface
-was down. MTU changes between 1500 and 3000 with XDP attached, while
-the peer sent 3000-byte zero-payload frames, let no frame through as a
-separate frame.
+  BUG: KASAN: slab-out-of-bounds in gve_adminq_process_rss_query+0x3da/0x4a0
+  Read of size 4 at addr ffff888002845000 by task kunit_try_catch/54
 
-With two VFs allocated, the same frames are counted by the MAC but
-dropped by the PF pool limit in VMOLR before they reach the Rx queue;
-without this patch their last two buffers are again delivered as a
-separate frame. Read back from the registers, RLPML then stays at 9728
-and the PF pool limit is 3026 at MTU 3000 and 1526 at MTU 1500 with XDP
-attached, also after each of about 200 MTU changes.
+  CPU: 0 UID: 0 PID: 54 Comm: kunit_try_catch Tainted: G                 N  7.3.0-dirty #11 PREEMPT(lazy)
+  Tainted: [N]=TEST
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x3f/0x50
+   print_report+0xcd/0x620
+   ? gve_adminq_process_rss_query+0x3da/0x4a0
+   kasan_report+0xde/0x110
+   ? gve_adminq_process_rss_query+0x3da/0x4a0
+   gve_adminq_process_rss_query+0x3da/0x4a0
+   gve_rss_run.constprop.0+0xa7/0x1a0
+   ? __pfx_gve_rss_run.constprop.0+0x10/0x10
+   ? __pfx_read_tsc+0x10/0x10
+   ? ktime_get_ts64+0x192/0x250
+   kunit_try_run_case+0x1ca/0x4b0
+   ? __pfx_kunit_try_run_case+0x10/0x10
+   ? kthread_affine_node+0x247/0x360
+   ? __pfx_kthread_affine_node+0x10/0x10
+   ? __pfx_kunit_try_run_case+0x10/0x10
+   ? __pfx_kunit_generic_run_threadfn_adapter+0x10/0x10
+   kunit_generic_run_threadfn_adapter+0x7b/0xe0
+   kthread+0x36a/0x4f0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork+0x34d/0x620
+   ? __pfx_ret_from_fork+0x10/0x10
+   ? __switch_to+0x22/0xde0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork_asm+0x19/0x30
+   </TASK>
 
-Link: https://lore.kernel.org/all/20261028083344.3047350-3-p@1g4.org/
-Fixes: 9cbc948b5a20 ("igb: add XDP support")
+  Allocated by task 54:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   __kasan_kmalloc+0x8f/0xa0
+   __kmalloc_noprof+0x19b/0x3e0
+   kunit_kmalloc_array+0x1b/0x50
+   gve_rss_ctx_init+0x40a/0x910
+   gve_rss_run.constprop.0+0x93/0x1a0
+   kunit_try_run_case+0x1ca/0x4b0
+   kunit_generic_run_threadfn_adapter+0x7b/0xe0
+   kthread+0x36a/0x4f0
+   ret_from_fork+0x34d/0x620
+   ret_from_fork_asm+0x19/0x30
+
+  The buggy address belongs to the object at ffff888002844000
+   which belongs to the cache kmalloc-4k of size 4096
+  The buggy address is located 0 bytes to the right of
+   allocated 4096-byte region [ffff888002844000, ffff888002845000)
+
+  The buggy address belongs to the physical page:
+  page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2840
+  head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+  flags: 0x4000000000000040(head|zone=1)
+  page_type: f5(slab)
+  raw: 4000000000000040 ffff888001042140 dead000000000122 0000000000000000
+  raw: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
+  head: 4000000000000040 ffff888001042140 dead000000000122 0000000000000000
+  head: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
+  head: 4000000000000003 ffffea00000a1001 00000000ffffffff 00000000ffffffff
+  head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
+  page dumped because: kasan: bad access detected
+
+  Memory state around the buggy address:
+   ffff888002844f00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+   ffff888002844f80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  >ffff888002845000: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+                     ^
+   ffff888002845080: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+   ffff888002845100: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+Fixes: fa46c456fa6e ("gve: Add RSS adminq commands and ethtool support")
 Cc: stable@vger.kernel.org
-Suggested-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Signed-off-by: Tjerk Kusters <tkusters@aweta.nl>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/net/ethernet/intel/igb/igb_ethtool.c |   9 ++
- drivers/net/ethernet/intel/igb/igb_main.c    | 146 +++++++++++++++++++--------
- 2 files changed, 113 insertions(+), 42 deletions(-)
+ drivers/net/ethernet/google/gve/gve_adminq.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/intel/igb/igb_ethtool.c b/drivers/net/ethernet/intel/igb/igb_ethtool.c
-index f7938c1da835..4f2891fca282 100644
---- a/drivers/net/ethernet/intel/igb/igb_ethtool.c
-+++ b/drivers/net/ethernet/intel/igb/igb_ethtool.c
-@@ -3438,6 +3438,15 @@ static int igb_set_priv_flags(struct net_device *netdev, u32 priv_flags)
- 		flags |= IGB_FLAG_RX_LEGACY;
- 
- 	if (flags != adapter->flags) {
-+		/* the Rx buffer size depends on this flag, see
-+		 * igb_xdp_setup()
-+		 */
-+		if (igb_xdp_is_enabled(adapter)) {
-+			netdev_warn(netdev,
-+				    "Cannot change legacy-rx while XDP is attached\n");
-+			return -EOPNOTSUPP;
-+		}
-+
- 		adapter->flags = flags;
- 
- 		/* reset interface to repopulate queues */
-diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-index ce91dda00ec0..8abdd4e58550 100644
---- a/drivers/net/ethernet/intel/igb/igb_main.c
-+++ b/drivers/net/ethernet/intel/igb/igb_main.c
-@@ -1964,6 +1964,54 @@ static void igb_setup_tx_mode(struct igb_adapter *adapter)
- 		   "enabled" : "disabled");
- }
- 
-+/**
-+ *  igb_set_rlpml - set the receive length limits
-+ *  @adapter: private board structure
-+ *
-+ *  Called from igb_configure() while Rx is stopped. igb_set_rx_mode() can
-+ *  also run without RTNL, so it does not change these limits.
-+ **/
-+static void igb_set_rlpml(struct igb_adapter *adapter)
-+{
-+	u32 rlpml = MAX_JUMBO_FRAME_SIZE, pool_rlpml = MAX_JUMBO_FRAME_SIZE;
-+	unsigned int vfn = adapter->vfs_allocated_count;
-+	struct e1000_hw *hw = &adapter->hw;
-+	u32 vmolr;
-+
-+#if (PAGE_SIZE < 8192)
-+	/* restrict as needed to support build_skb */
-+	if (adapter->max_frame_size <= IGB_MAX_FRAME_BUILD_SKB) {
-+		pool_rlpml = IGB_MAX_FRAME_BUILD_SKB;
-+		if (!vfn)
-+			rlpml = IGB_MAX_FRAME_BUILD_SKB;
-+	}
-+#endif
-+	/* XDP does not support frames that span more than one Rx buffer.
-+	 * With VFs the global limit stays large and the PF pool is limited
-+	 * through VMOLR.
-+	 */
-+	if (igb_xdp_is_enabled(adapter)) {
-+		pool_rlpml = min(pool_rlpml, adapter->max_frame_size);
-+		if (!vfn)
-+			rlpml = min(rlpml, adapter->max_frame_size);
-+	}
-+	wr32(E1000_RLPML, rlpml);
-+
-+	/* the PF pool's VMOLR is used on these MACs, see igb_set_rx_mode() */
-+	if (hw->mac.type < e1000_82576 || hw->mac.type > e1000_i350)
-+		return;
-+
-+	/* igb_set_rx_mode() also updates this register, and the core calls
-+	 * it under the address lock
-+	 */
-+	netif_addr_lock_bh(adapter->netdev);
-+	vmolr = rd32(E1000_VMOLR(vfn));
-+	vmolr &= ~E1000_VMOLR_RLPML_MASK;
-+	vmolr |= pool_rlpml | E1000_VMOLR_LPE;
-+	wr32(E1000_VMOLR(vfn), vmolr);
-+	netif_addr_unlock_bh(adapter->netdev);
-+}
-+
- /**
-  *  igb_configure - configure the hardware for RX and TX
-  *  @adapter: private board structure
-@@ -1981,6 +2029,7 @@ static void igb_configure(struct igb_adapter *adapter)
- 
- 	igb_setup_tctl(adapter);
- 	igb_setup_mrqc(adapter);
-+	igb_set_rlpml(adapter);
- 	igb_setup_rctl(adapter);
- 
- 	igb_nfc_filter_restore(adapter);
-@@ -2468,6 +2517,14 @@ void igb_reset(struct igb_adapter *adapter)
- static netdev_features_t igb_fix_features(struct net_device *netdev,
- 	netdev_features_t features)
+diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
+index 8b215fca9c1b63..1ba658cb2942be 100644
+--- a/drivers/net/ethernet/google/gve/gve_adminq.c
++++ b/drivers/net/ethernet/google/gve/gve_adminq.c
+@@ -1615,7 +1615,7 @@ static int gve_adminq_process_rss_query(struct gve_priv *priv,
+ 					struct ethtool_rxfh_param *rxfh)
  {
-+	struct igb_adapter *adapter = netdev_priv(netdev);
-+
-+	/* with rx-all the MAC also stores frames longer than RLPML, which
-+	 * XDP cannot handle
-+	 */
-+	if (igb_xdp_is_enabled(adapter))
-+		features &= ~NETIF_F_RXALL;
-+
- 	/* Since there is no support for separate Rx/Tx vlan accel
- 	 * enable/disable make sure Tx flag is always in same state as Rx.
- 	 */
-@@ -2886,6 +2943,27 @@ static int igb_setup_tc(struct net_device *dev, enum tc_setup_type type,
- 	}
- }
+ 	u32 total_memory_length;
+-	u16 hash_lut_length;
++	u32 hash_lut_length;
+ 	void *rss_info_addr;
+ 	__be32 *lut;
+ 	u16 i;
+@@ -1623,6 +1623,14 @@ static int gve_adminq_process_rss_query(struct gve_priv *priv,
+ 	total_memory_length = be32_to_cpu(descriptor->total_length);
+ 	hash_lut_length = priv->rss_lut_size * sizeof(*rxfh->indir);
  
-+/* Check that a frame fits in one Rx buffer together with the inline Rx
-+ * timestamp header, for the buffer size igb_set_rx_buffer_len() selects.
-+ * The ring flags are only updated when the rings are configured, so they
-+ * are not used here. For build_skb rings the frame is limited to
-+ * IGB_MAX_FRAME_BUILD_SKB, which is below the 2 KiB hardware buffer size
-+ * even with the header.
-+ */
-+static bool igb_xdp_frame_fits(struct igb_adapter *adapter, int max_frame)
-+{
-+#if (PAGE_SIZE < 8192)
-+	if (!(adapter->flags & IGB_FLAG_RX_LEGACY)) {
-+		if (max_frame <= IGB_MAX_FRAME_BUILD_SKB &&
-+		    !IGB_2K_TOO_SMALL_WITH_PADDING)
-+			return true;
-+
-+		return max_frame + IGB_TS_HDR_LEN <= IGB_RXBUFFER_3072;
-+	}
-+#endif
-+	return max_frame + IGB_TS_HDR_LEN <= IGB_RXBUFFER_2048;
-+}
-+
- static int igb_xdp_setup(struct net_device *dev, struct netdev_bpf *bpf)
- {
- 	int i, frame_size = dev->mtu + IGB_ETH_PKT_HDR_PAD;
-@@ -2894,17 +2972,21 @@ static int igb_xdp_setup(struct net_device *dev, struct netdev_bpf *bpf)
- 	bool running = netif_running(dev);
- 	bool need_reset;
- 
--	/* verify igb ring attributes are sufficient for XDP */
--	for (i = 0; i < adapter->num_rx_queues; i++) {
--		struct igb_ring *ring = adapter->rx_ring[i];
-+	/* with rx-all the MAC also stores frames longer than RLPML */
-+	if (prog && (dev->features & NETIF_F_RXALL)) {
-+		NL_SET_ERR_MSG_MOD(bpf->extack, "XDP is not supported with rx-all");
-+		return -EOPNOTSUPP;
-+	}
- 
--		if (frame_size > igb_rx_bufsz(ring)) {
--			NL_SET_ERR_MSG_MOD(bpf->extack,
--					   "The RX buffer size is too small for the frame size");
--			netdev_warn(dev, "XDP RX buffer size %d is too small for the frame size %d\n",
--				    igb_rx_bufsz(ring), frame_size);
--			return -EINVAL;
--		}
-+	/* verify igb ring attributes are sufficient for XDP, leaving room
-+	 * for the inline Rx timestamp header
-+	 */
-+	if (prog && !igb_xdp_frame_fits(adapter, frame_size)) {
-+		NL_SET_ERR_MSG_MOD(bpf->extack,
-+				   "The RX buffer size is too small for the frame size");
-+		netdev_warn(dev, "XDP RX buffer size is too small for the frame size %d\n",
-+			    frame_size);
++	if (sizeof(*descriptor) + priv->rss_key_size + hash_lut_length >
++	    GVE_ADMINQ_BUFFER_SIZE) {
++		dev_err(&priv->dev->dev,
++			"rss sizes from device do not fit the adminq buffer: key %u lut %u\n",
++			priv->rss_key_size, priv->rss_lut_size);
 +		return -EINVAL;
- 	}
- 
- 	old_prog = xchg(&adapter->xdp_prog, prog);
-@@ -2935,6 +3017,10 @@ static int igb_xdp_setup(struct net_device *dev, struct netdev_bpf *bpf)
- 	if (running)
- 		igb_open(dev);
- 
-+	/* rx-all may have been requested while XDP was attached */
-+	if (!prog && (dev->wanted_features & NETIF_F_RXALL))
-+		netdev_update_features(dev);
++	}
 +
- 	return 0;
- }
- 
-@@ -5323,7 +5409,7 @@ static void igb_set_rx_mode(struct net_device *netdev)
- 	struct igb_adapter *adapter = netdev_priv(netdev);
- 	struct e1000_hw *hw = &adapter->hw;
- 	unsigned int vfn = adapter->vfs_allocated_count;
--	u32 rctl = 0, vmolr = 0, rlpml = MAX_JUMBO_FRAME_SIZE;
-+	u32 rctl = 0, vmolr = 0;
- 	int count;
- 
- 	/* Check for Promiscuous and All Multicast modes */
-@@ -5380,14 +5466,6 @@ static void igb_set_rx_mode(struct net_device *netdev)
- 				     E1000_RCTL_VFE);
- 	wr32(E1000_RCTL, rctl);
- 
--#if (PAGE_SIZE < 8192)
--	if (!adapter->vfs_allocated_count) {
--		if (adapter->max_frame_size <= IGB_MAX_FRAME_BUILD_SKB)
--			rlpml = IGB_MAX_FRAME_BUILD_SKB;
--	}
--#endif
--	wr32(E1000_RLPML, rlpml);
--
- 	/* In order to support SR-IOV and eventually VMDq it is necessary to set
- 	 * the VMOLR to enable the appropriate modes.  Without this workaround
- 	 * we will have issues with VLAN tag stripping not being done for frames
-@@ -5399,19 +5477,10 @@ static void igb_set_rx_mode(struct net_device *netdev)
- 	/* set UTA to appropriate mode */
- 	igb_set_uta(adapter, !!(vmolr & E1000_VMOLR_ROPE));
- 
-+	/* keep the receive length limit set by igb_set_rlpml() */
- 	vmolr |= rd32(E1000_VMOLR(vfn)) &
- 		 ~(E1000_VMOLR_ROPE | E1000_VMOLR_MPME | E1000_VMOLR_ROMPE);
- 
--	/* enable Rx jumbo frames, restrict as needed to support build_skb */
--	vmolr &= ~E1000_VMOLR_RLPML_MASK;
--#if (PAGE_SIZE < 8192)
--	if (adapter->max_frame_size <= IGB_MAX_FRAME_BUILD_SKB)
--		vmolr |= IGB_MAX_FRAME_BUILD_SKB;
--	else
--#endif
--		vmolr |= MAX_JUMBO_FRAME_SIZE;
--	vmolr |= E1000_VMOLR_LPE;
--
- 	wr32(E1000_VMOLR(vfn), vmolr);
- 
- 	igb_restore_vf_multicasts(adapter);
-@@ -6707,19 +6776,12 @@ static int igb_change_mtu(struct net_device *netdev, int new_mtu)
- 	struct igb_adapter *adapter = netdev_priv(netdev);
- 	int max_frame = new_mtu + IGB_ETH_PKT_HDR_PAD;
- 
--	if (igb_xdp_is_enabled(adapter)) {
--		int i;
--
--		for (i = 0; i < adapter->num_rx_queues; i++) {
--			struct igb_ring *ring = adapter->rx_ring[i];
--
--			if (max_frame > igb_rx_bufsz(ring)) {
--				netdev_warn(adapter->netdev,
--					    "Requested MTU size is not supported with XDP. Max frame size is %d\n",
--					    max_frame);
--				return -EINVAL;
--			}
--		}
-+	if (igb_xdp_is_enabled(adapter) &&
-+	    !igb_xdp_frame_fits(adapter, max_frame)) {
-+		netdev_warn(adapter->netdev,
-+			    "Requested MTU size is not supported with XDP. Frame size is %d\n",
-+			    max_frame);
-+		return -EINVAL;
- 	}
- 
- 	/* adjust max frame to be at least the size of a standard frame */
+ 	if (sizeof(*descriptor) + priv->rss_key_size + hash_lut_length != total_memory_length) {
+ 		dev_err(&priv->dev->dev,
+ 			"rss query desc from device has invalid length parameter.\n");
 
+base-commit: 787268686c64be60023743b527645a907e38ccca
 -- 
-2.27.0
-
+2.43.0
 
