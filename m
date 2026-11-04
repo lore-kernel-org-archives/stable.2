@@ -1,55 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793796048;
-	b=PoNElHJNHdKSTxHXJV8esbZRJccI+2wdGTCKgQ6k8TpaYlme+sk1VCkQ+gGsgD4hhVoe
-	 11itwJKIbkTOPB8HhYG/mcCsMSJuf4PngU4TVjh1fv1HI4leYWqIlWadDGybEjejMHcbY
-	 q3SsvYkSJCDQ6a5q4dbnHFWxKvPyDRy0ov1jl8PyewmCpGnOznQEEhn8zMzpxaQpr0p+f
-	 dcBg43Rh4Hzv7rmEW2NsQ2+HlAKUJ11cj4xeG0yTR3T4n/RL/IlWPATWAKzgrkVSQsW50
-	 wYbeXYdAIPpyVhJX3qqwV7WZIFtY0L/BIXZhcsRP5Bbj4fA915XXuk/6QP9JdDspsvQ==
+	t=1793796055;
+	b=wCnt9nzHa1LXN4n1Bv1P62e4xEa4kM3aeh+6wG+Q1naT/AnHiy3RPdQymLfIR3+9kRiZ
+	 Lnum0c3W70UkfNu9GaZzXsW6MU35gwoQpEufh2D1jsqXWDlmOyxwLqFK6Jt8ZipVRLVYt
+	 SYkg/ciGSqJgPUt0zGvmIwfu2im2pUvJzETqNUwltcgdFGQT+TAdwywpDMXP0OtKYzV44
+	 IknAkEnkN++dIDi/s7l+SO74HNsA1YrqIbAYAiWQokxrSJQuKyJCuO7H3ZnurjzSQcsHi
+	 qzAaCmCzQhSgmhZpIu0WfKHCMUdmwi5xdl4Nds2wKWgVWNA5oKztbffF70zjmYUQU5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793796048;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=alfWwL6/FuueZbwen1V8hepkvtjYNfPuDnxUgf69IeQ=;
-	b=1NMSZKmrnqLRfHpTFOJ+ZTR7+Y6JS1notPELewSn41E6LHKmWaE1K4TGz65GBr6KIUzA
-	 f85GZMaZpda0Vrh/egwlr00ymQ3v9gnvzfkJE8K9lvwTvOYX02bqzOTZDEdeBeZxw77mf
-	 dAkUhcAjAluMyfE+O5tjD2Oi6jvutH4+eBwGfFZ5HKtmSADbiopMZKHdlKCLEIrp8XW0g
-	 5KEkEt6eN4phyVWp5Ho3LsUQWJBi3Hxl7G6Z8HCZ3M4TCFReH9Kf5heaunxH7kLfn0Kdb
-	 Bko7tEdtsGa+U7Ye4n+PPLriGhvJsoGPRg+PPy3cHQN2eTcqPEOz5Y470XFSxlgiRag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793796055;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Qu7Yw+WD0W+wi9N7j2myB2cji10J5fDY+ApcA841Sz0=;
+	b=UQHZMRNFxbFa2q1G5Zjx/LP3GHwv+7RaoUOeJ+1fpuxjks3zaAvobyjAC1W4h0D9pYQ6
+	 pXLlIOC7aBOpQCVxolUCM6s0BZ5ZBMzrz1C3UCrgEWLAs9KBTTTbswN9HO21c4P3+fsu3
+	 81+nvW/m++OktjkBWb2nYYQn2nBPgKSYzhdUuUxHVvHpw9YwGTpe9GY6PihnIjaLHl3W+
+	 Y7oC/xuHAyEim91LWfeCj3+Cd6LDy38GpoWVYzvLy6su2/IF38+SSVsZML9gpc3bkVUbG
+	 UDagzaUiGVGrcktnnWS/X9c1gzY2WeolIKE5IP7TUEN6maiSzUkFjDQKgF9L8aVeZ5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gySUN7DJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CCA606A33F
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 12:40:48 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="Z8d/Rftc";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CA6AF606A33C;
+	Wed,  4 Nov 2026 12:40:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA6AF606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gySUN7DJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35C551F00A28
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 12:40:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793796048;
-	bh=alfWwL6/FuueZbwen1V8hepkvtjYNfPuDnxUgf69IeQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=gySUN7DJaGHHwlysYEGpIJF47dle3J4s3We53JvzRKIDu50gj5a2wkGJPwbEx3KbN
-	 IolmNtz1cKv7hu/lS9yd/VIv00HU/99J6FN9TsvQYw+RaR/BtNAWRh7Bk3A/jITpFQ
-	 LAhrZAU4d/9wTkkWUQlC+kp0c+J0rfZAE/BbDjZyXfZtUe8qeeCnX4TdGiq47gbBn9
-	 kREQQfm2F5xX7pCSvnulapabG89v1ZJqZxwn6RlDM/FE+D42KVOaN8mQtxZm/gFRy/
-	 jupooXjF333Ngy3s9Iful/ZC4eLNa/SpQae1jkG5FEhWTY2xARIL7ztxwwWP8Ewoll
-	 /ffreyaOzjyhA==
-Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-48e9476e26aso257577fac.3
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 04:40:48 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzdV3xwIToaG902++N3TdeWHxfgc1OWi5ZsLfM9xC/5b7QgBhhn9HDgLWuK6YN+PgLWi7vUcpI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+KzMN9H9gWtTnpQv2H/cPe9bt1ROoRoIyin3XpPXZYsTuDXHJW
-	7a5+tfc9RxlMB7z1fMB3vvCF6GbRzTKx1o6mU4vnFQpSzjb39fqwwDa6+PjQzUZMASJBcpSUg9Z
-	xxr0uGP7UdXF4DEhKJxh/w6ZUi0WVJk0=
-X-Received: by 2002:a05:6870:d609:b0:49e:d4c:e6f0 with SMTP id
- 586e51a60fabf-4a90772c1b0mr10331737fac.46.1793796047403; Wed, 04 Nov 2026
- 04:40:47 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Z8d/Rftc
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B39E42247;
+	Wed,  4 Nov 2026 04:40:43 -0800 (PST)
+Received: from [10.57.15.10] (unknown [10.57.15.10])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9316B3F628;
+	Wed,  4 Nov 2026 04:40:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793796046; bh=5+mieZXs7MNZ6sx1ZeGlRyjEfTaZXcaiheHN4KGpcWE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Z8d/Rftc+Q2HeWZuWw7ukw5Gdmi0vl/xhp9ZizZjw5lfOEn+oQcL441mnR/5kg0cu
+	 i0U6AgxBZee+rjErsMfHAv0kHpCQqkVphcjRBIaN0pzAIt1E+1oN8jIAqoF6V/1Cv6
+	 SbR4JSBoLZVfaYUjz0XVmjAKT71XZPO4aLqMw0cs=
+Message-ID: <d7135fe4-5e92-4c42-8d6b-3afbc3b1bb33@arm.com>
+Date: Wed, 4 Nov 2026 12:40:42 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,137 +53,138 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <38fa9f2cc476502e9b1c1fef09ebba1df5dd5901.1793795528.git.x-professor@outlook.com>
-In-Reply-To: <38fa9f2cc476502e9b1c1fef09ebba1df5dd5901.1793795528.git.x-professor@outlook.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Wed, 4 Nov 2026 13:40:35 +0100
-X-Gmail-Original-Message-ID: <CAL4Wiiqen5n7i2Wa_YxJLYOr32aj4dgknPnjbVpi-xPOcMAd7Q@mail.gmail.com>
-X-Gm-Features: AclHuK8GZXD43O-lNJEKnJiywNAx6AQFktc6lK1CpovXsWvfdozbKRYapn5LGpk
-Message-ID: <CAL4Wiiqen5n7i2Wa_YxJLYOr32aj4dgknPnjbVpi-xPOcMAd7Q@mail.gmail.com>
-Subject: Re: [PATCH net v3] tcp: free saved_syn after an RCU grace period
-To: Yingjie Wang <x-professor@outlook.com>
-Cc: Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma: swiotlb: Round restricted DMA pool size down to
+ IO_TLB_SEGSIZE
+To: Marek Szyprowski <m.szyprowski@samsung.com>,
+ Michael Kelley <mhklinux@outlook.com>,
+ "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: Claire Chang <tientzu@chromium.org>,
+ Konrad Rzeszutek Wilk <konrad@kernel.org>, Giorgi Kobakhia
+ <gkobakhi@asu.edu>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+References: <CGME20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862@eucas1p1.samsung.com>
+ <20261103155016.1107958-1-m.szyprowski@samsung.com>
+ <MN2PR02MB686381EADCEECF16B23214D0D4692@MN2PR02MB6863.namprd02.prod.outlook.com>
+ <8276a107-7115-48e3-a40a-2660fe1beaa5@samsung.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <8276a107-7115-48e3-a40a-2660fe1beaa5@samsung.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Le mer. 4 nov. 2026 =C3=A0 13:32, Yingjie Wang <x-professor@outlook.com> a =
-=C3=A9crit :
->
-> tcp_reqsk_record_syn() allocates saved_syn separately from its request
-> socket. bpf_sock_ops_get_syn() can load that pointer while processing a
-> retransmitted SYN under RCU.
->
-> There are two ownership transfers which can let another CPU reclaim the
-> allocation while such a reader is still using it.
->
-> First, tcp_move_syn() transfers req->saved_syn to a newly created child
-> socket. The child can be closed and tcp_saved_syn_free() can reclaim the
-> allocation before a reader of the old request finishes.
->
-> Second, inet_reqsk_clone() shallow-copies request_sock during request
-> migration. After reqsk_migrate_reset() clears the old request pointer, th=
-e
-> migrated clone owns it. However, a reader which already loaded the pointe=
-r
-> from the old request can still be using it when the clone is released.
->
-> I found this through LLM-assisted concurrency fuzzing.
->
-> Mark the request-socket saved_syn pointer as RCU protected and use RCU
-> accessors for its reads and updates. Keep the full-socket pointer plain
-> because all of its accesses hold the socket lock. Embed an rcu_head in
-> struct saved_syn and use kfree_rcu() in both teardown paths. This lets a
-> request-side reader which loaded the object before an ownership transfer
-> finish.
->
-> This follows commit e3f33b0a1d89 ("ipv4: free inet_opt and ireq_opt
-> after an RCU grace period"), which fixed the same ownership-transfer
-> pattern for IPv4 options.
->
-> The issue was confirmed with KASAN on v7.3-16007-g36aad21d50d1 using
-> temporary kernel instrumentation to widen the reader and request-migratio=
-n
-> window. KASAN reported a slab-use-after-free read in
-> bpf_sock_ops_get_syn(), with the allocation freed by __reqsk_free() from
-> reqsk_timer_handler(). The same explicit migration test completed without
-> a report with deferred reclamation. A patched kernel without the delay
-> instrumentation also completed a successful migration and seven saved-SYN
-> reads without a KASAN report.
->
-> Fixes: 0813a841566f ("bpf: tcp: Allow bpf prog to write and parse TCP hea=
-der option")
-> Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmi=
-tting SYN+ACKs.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
-> ---
-> Changes in v3:
-> - Keep tcp_sock::saved_syn under the socket lock and apply RCU protection
->   only to request_sock::saved_syn, as suggested by Eric Dumazet.
-> - Use unrcu_pointer() when transferring or reclaiming the request-side
->   pointer.
-> - Describe the discovery as LLM-assisted concurrency fuzzing.
-> - Rebase onto net/main commit 241dec6f9ab7.
->
-> v2: https://lore.kernel.org/r/3dd45a687afdd0213ee82685c52777e5b0855e20.17=
-93704772.git.x-professor@outlook.com
-> - Add RCU annotations and accessors following Kuniyuki Iwashima's review.
->
-> v1: https://lore.kernel.org/r/34f32e63b803f9f7faf0b0a5754219e48a986136.17=
-93616950.git.x-professor@outlook.com
->
->  include/linux/tcp.h             | 6 +++---
->  include/net/request_sock.h      | 4 +++-
->  net/core/filter.c               | 2 +-
->  net/ipv4/inet_connection_sock.c | 6 +++---
->  net/ipv4/tcp_input.c            | 2 +-
->  5 files changed, 11 insertions(+), 9 deletions(-)
->
-> diff --git a/include/linux/tcp.h b/include/linux/tcp.h
-> index d18f7bc1e5d0..3ae57ae65ec4 100644
-> --- a/include/linux/tcp.h
-> +++ b/include/linux/tcp.h
-> @@ -618,13 +618,13 @@ static inline void fastopen_queue_tune(struct sock =
-*sk, int backlog)
->  static inline void tcp_move_syn(struct tcp_sock *tp,
->                                 struct request_sock *req)
->  {
-> -       tp->saved_syn =3D req->saved_syn;
-> -       req->saved_syn =3D NULL;
-> +       tp->saved_syn =3D unrcu_pointer(req->saved_syn);
-> +       RCU_INIT_POINTER(req->saved_syn, NULL);
->  }
->
->  static inline void tcp_saved_syn_free(struct tcp_sock *tp)
->  {
-> -       kfree(tp->saved_syn);
-> +       kfree_rcu(tp->saved_syn, rcu);
->         tp->saved_syn =3D NULL;
->  }
->
-> diff --git a/include/net/request_sock.h b/include/net/request_sock.h
-> index 5a9c826a7092..ddc134f1d15d 100644
-> --- a/include/net/request_sock.h
-> +++ b/include/net/request_sock.h
-> @@ -16,6 +16,7 @@
->  #include <linux/types.h>
->  #include <linux/bug.h>
->  #include <linux/refcount.h>
-> +#include <linux/rcupdate.h>
+On 2026-11-04 7:37 am, Marek Szyprowski wrote:
+> On 03.11.2026 22:18, Michael Kelley wrote:
+>> From: Marek Szyprowski <m.szyprowski@samsung.com> Sent: Tuesday, November 3, 2026 7:50 AM
+>>> All other paths creating a swiotlb pool ensure that nslabs is a multiple
+>>> of IO_TLB_SEGSIZE, and the swiotlb code relies on that. Since commit
+>>> 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization") a
+>>> restricted pool can have an arbitrary size taken from the device tree.
+>>>
+>>> If the pool size is not a multiple of IO_TLB_SEGSIZE, the last segment is
+>>> partial and swiotlb_release_slots() reads mem->slots[index + nslabs],
+>>> which is one past the end of the slots array when the freed buffer ends
+>>> at the end of the pool:
+>>>
+>>>   BUG: KASAN: slab-out-of-bounds in swiotlb_release_slots
+>>>   Read of size 2
+>>>
+>>> Round the pool size down to a multiple of IO_TLB_SEGSIZE, wasting a bit
+>>> of memory, and warn about it.
+>> I'm not familiar with the macro scenarios where a device has a
+>> restricted pool specified in DT. But I wonder if it would be better to
+>> round up instead of down. DT has specified that the device should
+>> have a restricted DMA pool of a certain size, and rounding down gives
+>> the device a smaller pool than was requested. Could DMA operations
+>> then fail because of not having a large enough pool? Rounding down
+>> also allows the pool to end up being size zero, which this patch
+>> detects and results in a definite failure at device initialization time.
+>>
+>> What's the tradeoff in rounding up instead?The device restricted
+>> pool at least as large as requested. Presumably, being larger than
+>> requested doesn't cause any problems for the device or its driver.
+>> The downside is using up to 256 KiB more system memory than
+>> expected. In an embedded system with only a few MiB of system
+>> memory, maybe that's a relatively big problem. I don't know the
+>> scenarios well enough to judge whether using a bit more system
+>> memory is better or worse than the device not having all the
+>> restricted pool space it said it needed for DMA.
+> 
+> The main problem with enlarging the restricted pool is that the memory
+> has been already allocated (reserved) by the generic of_reserved_mem
+> code before the rmem_swiotlb_device_init() is called. There might be
+> even another reserved region just after the one being processed by
+> rmem_swiotlb_device_init(). The reserved region might be specified in
+> the device tree exactly, by pointing its base address and size. In
+> such case the rmem_swiotlb_device_init() really cannot do anything
+> else than using the provided already allocated region partially.
+> The only thing that might be improved is freeing the 'wasted' part
+> of the region back to the memory allocator if You think that
+> printing a warning is not enough.
 
-nit: this include is not needed.
+Realistically, the granularity of any physical memory protection system 
+is going to be based on at least 4KB pages, so I don't see much excuse 
+for any restricted pool not being aligned to at least the current 2KB 
+segment size - if anything I reckon we could just consider it a DT error 
+and fail the init rather than worry about rounding either way.
 
-Not worth a new version though.
+Note that freeing parts of a restricted pool for any other use would not 
+be a thing anyway, as they are by definition not a "reusable" region.
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Thanks,
+Robin.
+>> Your commit message also mentions "wasting a bit of memory".
+>> What is wasted in the round down case? The rounding down is
+>> done before the pool memory is allocated. I would have thought
+>> the wasting would occur in the round up case, where the restricted
+>> pool is given more memory than the device said it needed.
+>>
+>> Michael
+>>
+>>> Reported-by: Giorgi Kobakhia <gkobakhi@asu.edu>
+>>> Closes: https://lore.kernel.org/all/20261026032007.1957949-1-gkobakhi@asu.edu/
+>>> Fixes: 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization")
+>>> CC: stable@vger.kernel.org
+>>> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+>>> ---
+>>>   kernel/dma/swiotlb.c | 15 ++++++++++++++-
+>>>   1 file changed, 14 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+>>> index 2c57b49ac7c0..a68f35192582 100644
+>>> --- a/kernel/dma/swiotlb.c
+>>> +++ b/kernel/dma/swiotlb.c
+>>> @@ -2007,6 +2007,19 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
+>>>   	 */
+>>>   	if (!mem) {
+>>>   		struct io_tlb_pool *pool;
+>>> +		unsigned long aligned_nslabs = ALIGN_DOWN(nslabs, IO_TLB_SEGSIZE);
+>>> +
+>>> +		if (aligned_nslabs != nslabs) {
+>>> +			dev_warn(dev, "Restricted DMA pool size %zu is not a multiple of %lu, rounding down to %lu bytes\n",
+>>> +				 (size_t)rmem->size,
+>>> +				 (unsigned long)IO_TLB_SEGSIZE << IO_TLB_SHIFT,
+>>> +				 aligned_nslabs << IO_TLB_SHIFT);
+>>> +			nslabs = aligned_nslabs;
+>>> +		}
+>>> +		if (!nslabs) {
+>>> +			dev_err(dev, "Restricted DMA pool is too small\n");
+>>> +			return -EINVAL;
+>>> +		}
+>>>
+>>>   		mem = kzalloc_obj(*mem);
+>>>   		if (!mem)
+>>> @@ -2034,7 +2047,7 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
+>>>
+>>>   			mem->cc_shared = true;
+>>>   			ret = set_memory_decrypted((unsigned long)phys_to_virt(rmem->base),
+>>> -						   rmem->size >> PAGE_SHIFT);
+>>> +						   (nslabs << IO_TLB_SHIFT) >> PAGE_SHIFT);
+>>>   			if (ret) {
+>>>   				dev_err(dev, "Failed to decrypt restricted DMA pool\n");
+>>>   				kfree(pool->areas);
+>>> --
+>>> 2.43.0
+>>
+> Best regards
+
