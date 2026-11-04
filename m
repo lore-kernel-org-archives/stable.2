@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793819942;
-	b=WH5+CpZ5xN/sWX09pLpIijQakWmrn9a4wVJ8LE+u7MuVBNnwFN3zQpiit5tOUGT6Dc6Y
-	 ae9Y0GLt3Pu5oDU8mDBRPMt2u7t+pW0nEprvRJ9j/y7h5oGqceoN2QCxjkwhNvXhH3JZX
-	 n7R+sCLiksjbuZFO1ZhS9/sxC+MAZro2PHip8p3Jm8+ClpCRnNti7sonQUw2j7sRbqWoP
-	 kQZve8YQpz9WRGq0DrTD5oeEAVCQtgVhnvnNqEgk4KAYwxu3/CkYrW8bMpbQRCfIpiClP
-	 DnoNWOiseu/WpxSiPuuUeYAWOm0z+tjBEvzYHIGm5xBNDpu1oEF12vuF84Lcmtcry/Q==
+	t=1793819949;
+	b=M08pg9RvZrA0Hy+LsL5/DCPiiz+RXxss08iWEJsJqsb+S+97kMb+naVsGoCA0y/vv6N0
+	 +oJT5WJWN0QMMzK2LQ0xlDO44FAaVkfAQ818fHyMpXx5LLx18xxev6CfYKalm8aA0go2t
+	 r+c7F7jfrhmkJpm6uz8K92ikgphaZKEBW/QH1W80GvfSoaOGl1tKdCJajSOtzhFoMcJit
+	 h/uj84XfKEwe6B/Jl2hJpyJiUfzldMfe9IUaJlZkRO5mYwxTdF0zu7BkGKCp5UGTbjZas
+	 0qBCWH8WnQIW/JefjSllJ61t2oyEbz//RKhVRMMFHSDRPkvu8by2kqfTxBF2L/8yusQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793819942;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819949;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=FImMb0kIPgASpceybk9nk6oXRW/+cB0mBlfyCk7aVcQ=;
-	b=TL1i6fyZJ7MX5VM5rIYKAxDd05ghEc6inBFgAFa1laiM52fPDKm3TzBucDaqbWUXHJKZ
-	 Z6NED3wb9z4WxJLpHZzbMd0IjTpVzwZkL5dlkf1DCW2pUmmPthIbNLAP69xyZwALgQkPQ
-	 AP1N4XouZW9QY2RyZcVZ8PgxgRsqrGH5WMSWsM+oOfLjQz/r4BfmrOkR/sZkUvK49LfAz
-	 HcL+y++SoR4fNx8AiAigsHWMwnM3zCwMBz/Vdgu9tnlK7mS6DcoBioXKKjbRzy4mTbxt/
-	 qIO0rM/ed5SSZEI179thMFCqPyaCXl1/jIYWS1hbRr/MHBfvK9FIOFsGAUIwJI2rvWQ==
+	bh=fDwu3RlqltL21YJuQdXr8NkYMNQALIYTFQ0agRnzuPw=;
+	b=qhhTaStuZMb9ALSRhJskjZ5564R2ZWn6BaKMlCZwp8l4h1c8bChbjFMeSyFK8ceNlTcn
+	 BnU13bzX3heBpeRbhjuaL6jeXKjFMaVrEo2f/yb2tYCq9uOGrE7USgFpTthz9eHkV8+pb
+	 xIza6y/T9WH+DnzKHsQiRIio6EsGWYQGBSOrbYr1y9TKAjahRiOAcfXfDnZziVHUD136A
+	 hAJfM6iWTQ18AGq/3u+wuAx31AMGsgb/hgRJS6yo813b9LfaNsGNPgPIfy3g1NoU1hoa5
+	 pKDDvRe54b6T+nZLVbOwA/ru1OLozKvfWfw4S5fiihZNG0+piljhYTTuYi1LrpN0pmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kaTx9WeM;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="M7SXnxh/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF0F606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:19:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206C6606A32C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:19:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kaTx9WeM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B84C1F00919;
-	Wed,  4 Nov 2026 19:19:01 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=M7SXnxh/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E92E1F00919;
+	Wed,  4 Nov 2026 19:19:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793819941;
-	bh=FImMb0kIPgASpceybk9nk6oXRW/+cB0mBlfyCk7aVcQ=;
+	s=korg; t=1793819948;
+	bh=fDwu3RlqltL21YJuQdXr8NkYMNQALIYTFQ0agRnzuPw=;
 	h=Subject:To:Cc:From:Date;
-	b=kaTx9WeM/CfrAyXv3VuCLAvX2zrHDlrrLHI0qUAbgYrlzWjlIg7VBxDqcDCJvBia9
-	 seoMMsonn3POQpY5LnDZVA1kZqFgffjOW9UNBinF9QfUqOXdpe0aJ0GcQhvqc4QPXl
-	 54052puIJ04lKoZsC7Eul/ZVA64xoeJvOQd0DJK8=
-Subject: FAILED: patch "[PATCH] KVM: VMX: Preserve negative return value in vmx_handle_exit()" failed to apply to 6.1-stable tree
+	b=M7SXnxh/BbbTLiMefthOovnMZfk4GK6GL45j5dOSi9/Z2QmkQdzcizGf8lvnhFCMm
+	 Z/HevVYOh59GflVJKvAqh2JtTi3W7LuOvbGk2FBIzpp9At4hxVyD83j89KiFCudLVi
+	 cF3tv/y/bMWK5PFvKYLQfQChhAxPlgVS1phjU0Io=
+Subject: FAILED: patch "[PATCH] KVM: VMX: Preserve negative return value in vmx_handle_exit()" failed to apply to 5.10-stable tree
 To: xiaoyao.li@intel.com,seanjc@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:18:59 -0500
-Message-ID: <2026110459-dismiss-purse-35a5@gregkh>
+Date: Wed, 04 Nov 2026 14:19:01 -0500
+Message-ID: <2026110401-siren-occupancy-2a61@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x cef48693da1e964e9f192bfc16cd0ed287c48337
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110459-dismiss-purse-35a5@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110401-siren-occupancy-2a61@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
