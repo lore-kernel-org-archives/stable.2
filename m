@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817009;
-	b=uoRA3DnNztn6haGhMFRsSMwPsb1HeENSLE61/BpoeUPSCtIQPGypC28jWHrFx4T3fP02
-	 RSuUWaruNm6y1zOIsTWTqUzPmYoQEyEs43EdnBziyVeI9+n/57u4b8gQFOPGLf44FjYjz
-	 R9wq7AggIVPP34NmVcNSzG3XKB5kqmNAAiC6nhnWnp+FtQAdqAOh7VVXZRde2loDIfq4S
-	 QJOY2jJrvZUQb8IvcFtm28i65WlEBvoV+pAvPj8OO1LDHr8sKvAgaoo+7IL2BqxRtFYvk
-	 zv9fk228Wa2nMQaFKDwcfg/4aN7ZMLC/9mPLVEa+aU4Cw1YTQxAOldBMI4PI33ilokA==
+	t=1793817011;
+	b=iAKT5EazEmkPg4wv5nZVjcB2lGbDyLUGuT69cGDgQUAHzeQMtvHSzTZYlLpooh1TESzf
+	 lc+Dgc6iUE2uXJT2KV+w4Ti+X4GwYQXoA5Ku3nPGKxKDEUQlwM+EkosBkK8msGyzqFpdE
+	 h9O2A4ihMPzEBXj6ngnrV+DAcmfpfS5cbLaYrqtAQVNBUeb/hycbk0bCbrhnpCTAapW9a
+	 n6kUtSEapMNrm4okozVkXswIYRqvgX/ZATpSbmx2Y+/xwcxdF1B5NFYsZvVnOlqCwVMER
+	 c7yhyqFzTWaCjuazvOiPDD9p+IJgouKWE17YoCmCPhwnUsyQOudCJbGZmlHPxeVW6rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817009;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817011;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=POdaj+WpDN+EaJ8YQ7ozstUE7Mlpj3zGRbWTwSh+la0=;
-	b=WhGDkMwbpvlaXpOITUnaUsZWV6X3UZKffUukR51ypoPkXjyoYlJNnTPUphycmSxk7a5X
-	 lj4JqC4/nQgDJVoAhEO3dewpZk9YOraPcjtUfOSF/xK2xFEwgnjzJjoWggK6hFW2BaNXq
-	 +9bM/MR/sdjFB7iPKRhaxwNBYxfUb82bFPOMB98ZCwHpP+tOWMa6uoky2VHFisFtMxgyO
-	 IUG5U9Gr6u9EUWved4fNGf3U0hBv0+LIJUK67s6h9HCRPoXOsjf/G6ZJ4+RZc7CJ6ABeg
-	 TzkgTtGh+txbPyTcgBLIlbhj9/GF/TvGXO5X4KQZSjnPVr1VrQ/9+ExOcgIL03lLh8A==
+	bh=cKlNzkOfzumkaZWhTiSm0M4X1k/+APdwq0GFdhI6+g4=;
+	b=c7NyITsgM8NOH61mfu3isuBIXAnizatWlVjjO9pwK7HTK1tblS/GgGLKFFt9ENQwRA6x
+	 HzRGbzj6naKbDoBt/JTeKNgjRcW3T3Szb9Z21vMY2FeLdMTxggyhUKxRm8OwanePJ/tjv
+	 Yt6mHBSRXAn+blCh9sImtLP0JJBlDI+rsKSnDcNI139DsSJcnBpfrs/RmJlYVnRLo2SZl
+	 ny+C0sYdtDoPszZFi2JYt9vLkPoN/1TQ5RTPZqZsERgyOeV6Q+Dit4fLZqE2x0+RCiIr6
+	 ZxC6iz6jOyjBLChlLIHTVxW707gBG9O02GcAsj641rWMGjW/IGECt1+DWFAkxB3nMDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wN25CQwT;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="sG/k0qt4";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E98B2606A32D
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:30:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9999C606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:30:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wN25CQwT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 826B71F000C1;
-	Wed,  4 Nov 2026 18:30:08 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sG/k0qt4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 312E11F000C1;
+	Wed,  4 Nov 2026 18:30:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793817008;
-	bh=POdaj+WpDN+EaJ8YQ7ozstUE7Mlpj3zGRbWTwSh+la0=;
+	s=korg; t=1793817010;
+	bh=cKlNzkOfzumkaZWhTiSm0M4X1k/+APdwq0GFdhI6+g4=;
 	h=Subject:To:Cc:From:Date;
-	b=wN25CQwTXE1BmRPNHbRTdf+4TOxd0rCkXJkoV/2FrIVMZwWxBo3V6aPW3vy9t71Sa
-	 grRtfq3+CDOena+ggSkYv/E5FxTRlXd+7UvpfTw68SKNjoAGNmnn5pRn0X8/31vrbY
-	 hxXxv4SPTxJWaA+VWZhUSvUQwNerxob1lzECQIrI=
-Subject: FAILED: patch "[PATCH] smb: client: bound POSIX lock data area by response length" failed to apply to 6.6-stable tree
+	b=sG/k0qt4P5LAHTIB3+guBm7QiiOJ1ygX4kjogFHT+DdCxHTRv0J+O1u6ji+CTQD87
+	 8sobiw8CQGZt4cg7GzFxDvAwe/dOQCI66TZJrIBv91VeL2DbTjbPYUC8LRoEOuxx6x
+	 LtBvW7keszlCv+FCidnN0pbTPlb2pwmJpNVd21pY=
+Subject: FAILED: patch "[PATCH] smb: client: bound POSIX lock data area by response length" failed to apply to 6.12-stable tree
 To: ratnaker.gautam@kuleuven.be,linkinjeon@kernel.org,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 13:30:06 -0500
-Message-ID: <2026110406-dismantle-scariness-905f@gregkh>
+Message-ID: <2026110405-prankster-arguably-a837@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 8fc9af68c57156ff64769f30e831553cd03b3000
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110406-dismantle-scariness-905f@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110405-prankster-arguably-a837@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
