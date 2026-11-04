@@ -1,110 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793813830;
-	b=YO+Fv0ZUSZWT/oEr9Mu6+dPz86cJJUeOs/RTPeZ1otWiBDZaqqN+vPAKsDPyjmx1bc3P
-	 3DQHCkgpkwncEwDvPfFMUoAikTWXmzdhomPwB/OHImufUkXnfrI1QrtyCAUb6tlPUO7mM
-	 cwiVpGP0nJqlLE/lGxtwLp/qMHP6BioaJfWXBwjBxKKT9VHYG4h6roDJlVKMTq9z+Ia7+
-	 50KMu37xhYgmTFfvel946OmuQTG1kzDJZ/f5rMpFevGc0mlW5pB/XobSjSzzWKpSb1xRT
-	 1ma/v5IsuhQ9c5eTRxnH4RN9HEEwfxpBhBhCXSpAjsjN7s9xWx79VY4lWCVCAATm52A==
+	t=1793813922;
+	b=hglVZpIirpdBdj+4Y6ZxUtIwvRjoAH8Ad+HGnqCo5d4Bf2a96kBVWCqsL1ZF7meNzPw7
+	 A3SyPnb4WgBUH4jhfE3RKcqYvrme7VUFwKlBDmhYt1hYWxzEscn8BzwpPWjXvyIieZWPX
+	 VDVW0z/aZhzLr/7IN21g6p2XTiKc8x8/VLT7Al8n46NXungpNFY5AKSCXKed4nOwnP5Is
+	 uo5XF92EBULUIu3mvzJowpRGb8X6DuBnBAC1ahOhpCk3A0RUuROGL0GTX79fd4bPURL6G
+	 QbBGPJjktK6Yuf66t4T1DtCwUvxTbkcs8JaOGHqVD4hfi2xmNsZhtUY/J36zA49TdpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793813830;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=j2LrEMhUN0qSGqiDRYF06jsyACnmwPOUcMnf7oZ+Qik=;
-	b=X/xlCXCNfQtD8wUPcZqZMeBdr1nJlcLxIbWgJMA69XwLdaisfliZ1d1x5Eh0zlbaVVKK
-	 eaBtAFXfu2JAP8y/Xj4IYqqlmm5A1zH2oH6xRLEa9gnblD4w3K1ChAd1plW+oxREycuC/
-	 zB0A8Fe/l+sgNd6NjNKnneZKiYBqbnSwx65MHPyW81aW55QxOxHytgPShqxl3VxEqwvxl
-	 aZCxirIWNFsahIaYmrxxCtL6XAAgSYKJGs2cAg1Vh1rRZnsxL72HsK4Hvgd4Ds7rgfMFM
-	 4GP2rtjk/NCm7qk9yHNwTLrqf9c/hx094TT6OGzhLdAGucMtt9UsQJsWSE7eedeKo6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793813922;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=yl3p6kivD+pbgaW7MJkK3w3sK9j5Q+Oatf9YNzkPHuQ=;
+	b=UyrTxCZicaN0c8EfnCsPc2Iio9SSsW94tLbTYc5BcpyVywrYGGfnv/jEiRCLQ/snVuXS
+	 avO2lRZ8GEyyxNOTLbBR0RgjF2OaGrZuhr4feFL5d3YrAwpsUf2FAqmBuQ0lwGxZI5Rsk
+	 cTMCJ8/x4h0M0re08sbGDcwQr+Gxzlr/a7L1j21cirRpW8qjGTM+pdtOZcHh9E+7xjA8K
+	 hVksdzM9MlZolO6/zJ/Tn1mldwHxpf1VugfimqQMuXxRwgLzwdfTb+T5h60+Aybkx71W/
+	 BloTzGjQJsl+pCjoVDCmtXETXUMUpuTphtl+ugmeo2rw1BJ26wJ5vnZyUBrCXYsDhTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=OKEnd3j1;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=me1iPhyF;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=OKEnd3j1;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=me1iPhyF;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=ziepe.ca;
+	spf=pass smtp.mailfrom=ziepe.ca;
+	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=mrY8ROdm;
+	arc=none smtp.remote-ip=209.85.222.172
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED335606A328;
-	Wed,  4 Nov 2026 17:37:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED335606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC1D606A330
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 17:38:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CC1D606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=OKEnd3j1;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=me1iPhyF;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=OKEnd3j1;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=me1iPhyF
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A2E9021DFD;
-	Wed,  4 Nov 2026 17:37:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793813827; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=j2LrEMhUN0qSGqiDRYF06jsyACnmwPOUcMnf7oZ+Qik=;
-	b=OKEnd3j1r0hOztImTIrV0bOxJy3A8jr6x0oBl2ZPkQhzsGZfRG+olgjCmOxgS1jOu4I2/X
-	72Md7uROdd/JCOsp1x9T4ZwgSsblDqLZPF1/nPldXGiRbELYl9A7cjVgTzXyeOQm1DDLX9
-	IGzOXuCtd0aeX+rM6J8VkXa86B7L9KQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793813827;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=j2LrEMhUN0qSGqiDRYF06jsyACnmwPOUcMnf7oZ+Qik=;
-	b=me1iPhyFrrE8t83SaH4ITwiyhxdL3aL38LllkVxYyR7MaLyE9arZ5X8+b7yngwd1/JP6AE
-	XqPUw/JG2s+hfsAg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793813827; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=j2LrEMhUN0qSGqiDRYF06jsyACnmwPOUcMnf7oZ+Qik=;
-	b=OKEnd3j1r0hOztImTIrV0bOxJy3A8jr6x0oBl2ZPkQhzsGZfRG+olgjCmOxgS1jOu4I2/X
-	72Md7uROdd/JCOsp1x9T4ZwgSsblDqLZPF1/nPldXGiRbELYl9A7cjVgTzXyeOQm1DDLX9
-	IGzOXuCtd0aeX+rM6J8VkXa86B7L9KQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793813827;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=j2LrEMhUN0qSGqiDRYF06jsyACnmwPOUcMnf7oZ+Qik=;
-	b=me1iPhyFrrE8t83SaH4ITwiyhxdL3aL38LllkVxYyR7MaLyE9arZ5X8+b7yngwd1/JP6AE
-	XqPUw/JG2s+hfsAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 76C38134A5;
-	Wed,  4 Nov 2026 17:37:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id +d5IFENt62rFMwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 04 Nov 2026 17:37:07 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 04F84B459; Wed, 04 Nov 2026 18:37:02 +0100 (CET)
-Date: Wed, 4 Nov 2026 18:37:02 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Jan Kara <jack@suse.cz>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, linux-ext4@vger.kernel.org, 
-	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Andreas Dilger <adilger.kernel@dilger.ca>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Namjae Jeon <namjae.jeon@samsung.com>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 9/9] fs: don't strand I_METADATA_WRITEBACK inodes
- outside the LRU
-Message-ID: <xgy547oy47dzwxygezwnhea2am37yqyvf226jtwaw7nrgwujbo@q3fsxucfkipa>
-References: <20261029-work-inode-metadata_writeback-v1-0-7d6c678a585d@kernel.org>
- <20261029-work-inode-metadata_writeback-v1-9-7d6c678a585d@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=mrY8ROdm
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93a40a9a01aso256023585a.0
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 09:38:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1793813921; x=1794418721; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yl3p6kivD+pbgaW7MJkK3w3sK9j5Q+Oatf9YNzkPHuQ=;
+        b=mrY8ROdmQ1U8qG1WVkHwFlUc3uGFi+mfdwhSWPL3i9Jp9h8f89iHmTdDBHaGoSb9fV
+         Qf9rVp7RKUT19nXLbySXsX1HX9ejTq1RkMbi9uctb50nDdYeaJxGrg0TKGC3n5LuHDCN
+         s/MNCqdyz7OsSy5/Xj4hUz7Xx9K8J+nT+Rgtz/TEx7hQSBym/uHrT0083IL7OdGOVSoW
+         QWTluEuJP2tc6R56IYPlBHffsnVWwQA6M5o6QgL6HcwG3w2leCaMPqVjEYBQupV7hAqq
+         SD6IF6/nTL+K1g1CWe1MCWd4YJ9zVV8/dLg6SmJyJNXdrhSgMr1A+M+/81J0lXd5xQmn
+         obNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793813921; x=1794418721;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yl3p6kivD+pbgaW7MJkK3w3sK9j5Q+Oatf9YNzkPHuQ=;
+        b=evccE/DqCQ0M51TeNRaEeqRMZPY0RxfOaoXMrRMzFQO2DKHb5j2tQWsGfBfsPrjtAD
+         HvwR2zN+cNGtqpPaB4J6Pmqnx/V8SNVXQUi5htC42FLm5QLr+zDZiZUD5LEVoBlHB/zW
+         v2KBjAc+NU8dKeHC1vn0V+eXbbO68y1Df2YhqFxKiBnhhpnnHCTIc0Rxhwx05aKJsUxj
+         XfkcBfleIQuvv+2Hac99R0O9DWZiSpAwn5I+B3meFRRi+6byS+ys3icS5hen49UJK4Xv
+         qzKOiV1xdy40QVnXlF+gw4bUnxodNS0s7JYGIQDVx+aB8DdMy3GsKT5yMOdmfbLMYYgf
+         NyBA==
+X-Forwarded-Encrypted: i=1; AKwUvBxYZTCNBE2xbEPof20PziP43Md+YWa+VcASvPYhmD2lauLmKULxVmp0ACOfsxXhHaeuWE+WtMw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z80g+LnSPniCve9U7gkF8RPMH1IlDU8N7Yng443bjQU+e2EPx/C
+	gRufoPgCeWtQAbtTQePepOHDFcNL1RaPkeIfa5ByL8s0hWO6VMHVBBFjZu33slvqZDQ=
+X-Gm-Gg: AYBFou2f+opka7Y68UaGnO5rbWSbOfRRKoTgU9MQuCXk4FyEjimKw5Q1HxU3pztW6EL
+	pljdpOXI4nU1vHwYUWkYPD2jDpLuFtij2XaO7CI2WrCe7bZYrmef82nYnu4FGIrMcotMya48vnT
+	HgZ+W61Nd3tscb7SWQhhCSliiTJ9rk4DaEKeHX9W51IG8yuzGPYFcF22+G/mAh+aCWX0l1JyBzM
+	4O0TKDcn2+6+6UDZFA/XU1w/55c/vmcjbJ6LCI7TeG/3GtSoMKJlCqbJ+16TM3yFclbTYFURNVE
+	EyiUxilAmbKlEPnhw3Ajhh9m01yfVp9PhHOurvZRzcfmzT4akLPxqcBXdta5vYKcW32DWUAhLiL
+	1G+eg2mePQC8yVV/WKkiL2CltgLLBzUDGlVTjHSGQcyPEYjtBOqbTIpbX4WLe+32gcYLSKibKmF
+	7j87b4lxtIarChILu/265gb91a0eisDYcNc4HcI+sb6SBihWmon5ktszZdefctdXyONxkTiaXeu
+	dYdsj07EPCB+AQpZ090uI19W7/kpNkhBTA7hc0y5Y1Yf5ThvcN/kFdPvDGzp2J6Zz97SGDrAwBc
+	th225w6uq/jJ0R9U9fHTG6yeE5P84mR3D+uy1sshFgquRw9AFjGf6uPTnsUkKtvKS5uQ7Q8oUCR
+	dfLSNNtWm1Q==
+X-Received: by 2002:a05:620a:258b:b0:93c:3863:ff7f with SMTP id af79cd13be357-945e1231638mr47030585a.0.1793813921165;
+        Wed, 04 Nov 2026 09:38:41 -0800 (PST)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d479ddb7sm249464685a.9.2026.11.04.09.38.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 09:38:40 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xOewa-0000000Gz0A-0aRN;
+	Wed, 04 Nov 2026 13:38:40 -0400
+Date: Wed, 4 Nov 2026 13:38:40 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: 0z5a <dezhen.lu@student.uni-tuebingen.de>
+Cc: leon@kernel.org, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH rdma-rc] RDMA/mlx5: Fix DevX umem page size truncation
+ for pages >= 4G
+Message-ID: <20261104173840.GX3889730@ziepe.ca>
+References: <20261103142804.67210-1-dezhen.lu@student.uni-tuebingen.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -116,106 +104,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261029-work-inode-metadata_writeback-v1-9-7d6c678a585d@kernel.org>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	TAGGED_RCPT(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,suse.cz,toxicpanda.com,kernel.org,mail.parknet.co.jp,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,samsung.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.30
+In-Reply-To: <20261103142804.67210-1-dezhen.lu@student.uni-tuebingen.de>
 
-On Thu 29-10-26 14:28:24, Christian Brauner wrote:
-> Since commit c474bc56b6d1 ("fs: Provide way for filesystem to wait for
-> metadata writeback") ext2, ext4 without a journal, fat, udf and minix
-> set I_METADATA_WRITEBACK on an inode whose metadata was copied into a
-> buffer that might not have reached the disk yet. Only data integrity
-> writeback, i.e. fsync() and friends, clears it again. The flusher and
-> sync(2) leave it alone. So a clean, unused inode keeps the bit around.
+On Tue, Nov 03, 2026 at 03:28:04PM +0100, 0z5a wrote:
+> From: Dezhen Lu <dezhen.lu@student.uni-tuebingen.de>
 > 
-> inode_lru_isolate() treats every state bit other than I_REFERENCED as a
-> reason not to reclaim the inode right now. It takes the inode off the
-> LRU and relies on iput(), writeback completion or the removal of the
-> last page from the page cache to put it back once the reason is gone.
+> devx_umem_find_best_pgsize() computes the page size in an unsigned long
+> but returns it as unsigned int, and devx_umem_reg_cmd_alloc() stores it
+> in an unsigned int. When the DMA mapping of the umem is contiguous and
+> aligned to 4 GiB or more, and the umem length is a multiple of that
+> size, ib_umem_find_best_pgoff() selects a page size >= 2^32. Since the
+> value is a power of two, the truncation turns it into 0 and the
+> registration fails with -EINVAL.
 > 
-> But I_METADATA_WRITEBACK doesn't go away on its own. Using the inode
-> again puts it back on the LRU with the bit still set and the next scan
-> takes it off again. So neither memory pressure nor drop_caches can free
-> these inodes. Only fsync() and friends or unmounting the filesystem get
-> rid of them.
+> The umem log_page_size field is 5 bits wide on top of
+> MLX5_ADAPTER_PAGE_SHIFT, so the command can encode these page sizes.
 > 
-> On ext4 without a journal this is especially bad because
-> ext4_mark_iloc_dirty() sets the bit on every ext4_mark_inode_dirty().
-> So even an atime update is enough. An unprivileged user creating or
-> touching lots of files grows the inode cache without bound until the
-> OOM killer comes along.
+> Seen on two GH200 nodes (ConnectX-7, firmware 32.38.3056 and
+> 32.43.1014) with a dma-buf exported from cudaMalloc memory: registering
+> 4 GiB or 8 GiB umems at 4 GiB-aligned offsets of the dma-buf fails with
+> EINVAL every time, while 2 GiB umems at the same offsets and
+> ibv_reg_dmabuf_mr() of the same ranges succeed. Restricting the user
+> pgsz_bitmap to <= 2 GiB makes all of them succeed.
 > 
-> The inode can't just be thrown away though. An fsync() after the inode
-> was read back in wouldn't know that its metadata still has to be
-> written out. But writing it out on eviction is exactly what these
-> filesystems already do for the metadata buffers they track in their
-> mapping_metadata_bhs.
+> Other large physically contiguous buffers, such as a 16 GiB hugetlb
+> page on an arm64 kernel with 64K base pages, should hit the same path.
 > 
-> ext2, ext4, fat, udf and minix all call mmb_sync() from ->evict_inode()
-> and that is what allowed commit 972b9dd4e418 ("fs: Ignore inode metadata
-> buffers in inode_lru_isolate()") to take metadata buffers out of
-> inode_lru_isolate().
+> Use unsigned long for the page size, as commit f0c2427412b4
+> ("RDMA/mlx5: Fix page_size variable overflow") already did for the MR
+> paths.
 > 
-> So let the shrinker reclaim inodes with I_METADATA_WRITEBACK like any
-> other clean inode and make evict() call sync_inode_metadata() for them
-> unless they are being deleted. With the previous patches
-> ->sync_inode_metadata() doesn't read anything from disk anymore. It
-> writes and waits for whatever is still dirty or under writeback and
-> usually the flusher has long taken care of that by the time an unused
-> inode reaches the end of the LRU.
+> The bug was found by an AI coding assistant (Claude Opus 5.5, Anthropic)
+> during an audit of 32-bit truncations of page sizes and offsets in
+> drivers/infiniband/core and drivers/infiniband/hw/mlx5. The assistant
+> also wrote the reproducer and this patch. The reproducer was run on the
+> GH200 nodes described above.
+> 
+> Fixes: 7610ab57de56 ("RDMA/mlx5: Allow larger pages in DevX umem")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dezhen Lu <dezhen.lu@student.uni-tuebingen.de>
+> ---
 
-I don't think we want to call sync_inode_metadata() from evict. As you
-explain above filesystems that use I_METADATA_WRITEBACK call mmb_sync()
-from their ->evict callbacks when needed. If they want to flush something
-else, they can do that from ->evict as well. So I don't see a need for the
-below hunk in the generic code unless I miss something...
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 
-> diff --git a/fs/inode.c b/fs/inode.c
-> index 1cb6293b237a..332108961df6 100644
-> --- a/fs/inode.c
-> +++ b/fs/inode.c
-> @@ -818,6 +818,14 @@ static void evict(struct inode *inode)
->  	inode_wait_for_writeback(inode);
->  	spin_unlock(&inode->i_lock);
->  
-> +	/*
-> +	 * fsync() can't find what I_METADATA_WRITEBACK tracks anymore once the
-> +	 * inode is gone, so write it out unless the inode is being deleted.
-> +	 */
-> +	if (inode->i_nlink &&
-> +	    (inode_state_read_once(inode) & I_METADATA_WRITEBACK))
-> +		sync_inode_metadata(inode, 1);
-> +
->  	if (op->evict_inode) {
->  		op->evict_inode(inode);
->  	} else {
+>     - So I have not verified that CREATE_UMEM accepts log_page_size values
+>       for pages >= 4 GiB. If it does not, capping pgsz_bitmap at 2^31 in
+>       devx_umem_find_best_pgsize() is the alternative fix.
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+It is userspace's problem to provide a correct bitmap in
+MLX5_IB_ATTR_DEVX_UMEM_REG_PGSZ_BITMAP
+for whatever it is doing. FW can reject large sizes outside what it
+supports if userspace sends the incorrect bitmap.
+
+Jason
