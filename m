@@ -1,101 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793763337;
-	b=z+syjadLoDCZMTVJyQK5od5xY1kzTuOByb4IYP4M+sGuyvd3vjSCt/NPv2eGzk+7keyB
-	 tIVKafyBx2NNwS6rZB984nNtEJVd9LiLNgCDFIMLq1A3VZKJBsrL5LRlHMIKjUueCSKDH
-	 WtBjdEdjEfqWlls/B0opgYhy2Rld81oZLCdOx9TZNnEeBPwlKSnS0owxGkk+EMaTCxUn7
-	 svFQ45E5nF+71k9Wjs2SZcL6LkMc3lOpwauDO2uIKO/ZLW/Ij61pMqr1hpzPy7JdjnmZE
-	 ZqoRksexOrsxs2rnk8heeKyV6KbkTCE9sZORShNgkAMx4zuGrQCkCsGTP9qh5y5RJLA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793763337;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793763535;
+	b=wMr82O//a1wBTMHhoUZG/RULERsx8Jaqxp1z1cXuu/89KM/xrGpsfQmHBSFMkCj1+JLv
+	 OMXV31E4MEOowDjbhnDXZTr3rHcvgbNQ3ngw1xgHEygPHrsKoUapzDafFORcgUjUJ8I4s
+	 iAOVYBAK752AP3wknNl/CEG9ocrlrclGk/jylJbBHFzdqGJ0tIwy4GdWzH95Isr/HksWt
+	 O0VxMBNb7lLlbD0x/t5ao8AUW4tQRGHnhs5fhzonues8Y0W+u0XncIsfoqQt52fYNM+aT
+	 0Hmxl4dvk8D4Y1T7Cfftb7EqGQ3lkKf3CaaOEE/oWWaIKS9+v9cx8Ah/DDy/Rd8KmjQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793763535;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=T2FWaVlgG8DlrEVsmGNjQ+m7wefa9FtjIViJ89iIUCc=;
-	b=5CSDhsq/y0gkahsjBVU7T4rfg5V/7hw/1a+2N/nQCONIpxgrbDarh+LZOyej6RVPwLN7
-	 0YbClAj5Un1v5b2iOk4C2/hxp/SuziDTSIkIyg6uDmp8yVze+VfXCHGkNH3sIQb4Y/u0O
-	 j43RKnTjF97O+KY38trEigbLXHltuE0wV97Yf+CTDhZLG0Nw6XLkrBIVMjmVNsOpOX6L8
-	 cVxsaf40B8gQPV53UklXQkrTiphKgSPhpe6od9XlYOI2kQb9Hm2ilGzdRnHFPg+yoLWL8
-	 Vs9sBzSXgfPd8uv7riMYFQ2QnQ8Jpjfx/XGBiDw+leofkV3alBVPe67TKbDCBbcKGgQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Content-Disposition;
+	bh=rvyyEItMjhpjcCiR5G2iyawMRAc8IGNvunoyBM1eU1k=;
+	b=z/OpPEM8ColdQwtpldmOFD0USIYhbhaGEWgRgLP8s++ENc6ehYFDgYhC5DchTTmc8+hn
+	 hGtLMeC4hMnf/l7Z7TovIgYNuhEMMBlS4ncd2TFH2N8jegDU4VyQ+krOKMh2lD4/5wKAe
+	 Dh2Gexdr9Q8qcZETp4Y1WDLw+nrSOdyCrxepsvc3U52/0WRMPCuevBC+UWkzFtLREqWNN
+	 7s82mrClibWI7Bqdgu8mkygWfgrDoFqQLI0yZlTk0cnrA6bR5rKTshhaYQq0RghJQHjkM
+	 /NsCpgF0Yyel2qgG/xRAQ+nHV4aGO6atKddCcyH6r1O875hPUJ3nC+zRSwUsQHd49hw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ZM+Bo/NL";
-	arc=fail smtp.remote-ip=209.85.208.43
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IMnGGHbZ;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83F7606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 03:35:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B83F7606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194A0606A32C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 03:38:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 194A0606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZM+Bo/NL
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b1aa377c61so212948a12.3
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 19:35:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793763335; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VIa15zx0FGTDWW0JOoO4cElP0el0CadJM83D/1rkpqmsfNFw3colMCaO+ENAvVvMMj
-         Pmhkzlr5REdBzK7Jw5HP95BsCVFOheWuoY7Q1LAAwpZ9DM/THX0wTu5X2X+2zx7MtnXk
-         E5/9RMN8J4Hf9eoS+SI5lJwnz0cICXcjWt59B5ixWyWjOvL0PmMAHQ4nPviTBgEXqmZ3
-         U7NiPx8wIcZ6FwVPAMRbi1zHRzlnCUwXRK3Yq3FzgVCiA9X8H1AypwTuWhwLbiJ0o+1F
-         FsG9aRLT2UbATsWPrAtR/IVxlrZvqSJ/K4j4knGC9EIngga6od96j09td/+Dcm9TVOJ4
-         iCkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=T2FWaVlgG8DlrEVsmGNjQ+m7wefa9FtjIViJ89iIUCc=;
-        fh=HMo5LlUEu2epieyJUxZ5RmecUdrErMg+1EKhMHGdK8Y=;
-        b=qQ6zElQBOy6ZT5sLP+ZcuHsfp0c6hWsszLuuzaUF4i729MjjMe76M1yNCWgEMRZ0YN
-         kbwPZu+D8DR3uoFdB2KvYC2NMXb0cVqYOJ7u29vJ1utf/0OjoErVKnPsVNKFqlKv3bXr
-         Xt4zcGF5Oxg4P+NO36zIfSfCxM9o47eqRgmWrRa8ySKifEDYEdzyxPz77Td0m4cgLLf6
-         x2Fi77GwnIuluhgJj95b2B+0JghhSIUMsDuW4OmrVDaEs13L46x+PSZxZx5o99wgRct6
-         rNNu1w08OX1g5BdOW+ZX7RMp3j7hA/3tWM4oEhRyummAHLGOZejOJGe70B4SoCtIrZvv
-         a89g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IMnGGHbZ
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35829219da8so1525195eec.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 19:38:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793763335; x=1794368135; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=T2FWaVlgG8DlrEVsmGNjQ+m7wefa9FtjIViJ89iIUCc=;
-        b=ZM+Bo/NLHVAIGud/SRt1S82BHSV4Dy3O/1v/XhWAygF4W6LC8LJ4zz5tAHv0DKZISK
-         y99m2Vzu9GwsILtdlsp1jaTwouR/2MYaZmRoQEYGjyc1l9qj+unLS29lF5agI8+M5HLG
-         0zc9jcPKe0IbDIAMcl9xB1IndX3PyX1CtpGmg1HJxmIsKGflGof4vnHMxAw55W1f/Wcy
-         TbkSyTfpug2hmzKDyMDSQkiLuVmmUM8//uoc5GY4fuYPaFwMt86KGBfg6K5Vec6Rgfxj
-         N6E6our0/WG7Rd0Xd5gyJ6hair+/K9LSmfSxXKasKFEs4nwWUykQmzxp5ANZSCoa5RCb
-         IoBg==
+        d=gmail.com; s=20260707; t=1793763534; x=1794368334; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rvyyEItMjhpjcCiR5G2iyawMRAc8IGNvunoyBM1eU1k=;
+        b=IMnGGHbZfzS4ZMXl77G8FzBSzJN04aU4eLBtXEhq2+SM14tDfaYWKhh4FUKDjtRN1m
+         8pUDfwsP/9AEG+JbxPf7bWMErkI8kLMWHa6yJqshjWAjwwoOkWajG5XMDxrXrs1xbF3r
+         dgcH9WRjJ+Ls85cyHl8GjtuQw+we8F0IOvFL67s/MVpuRJ5Tq7QwYJ6GWKzGTYYBrnh2
+         QpL+mk1HCYGFhnhPXf3sPUWhs/FbqLyVStAk4oGTEyfH2DMGI7KrFY4BHXscStSUB5P5
+         2sFhgObS9Qru4z9ZkapYnlJo1FaEmHXb36SAUivo6oEGOWOrIB/vE0HVinok4jg5WfXW
+         62vQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793763335; x=1794368135;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T2FWaVlgG8DlrEVsmGNjQ+m7wefa9FtjIViJ89iIUCc=;
-        b=oFKQjJd8bksBzRqCMpI7zfglePT4Lf6lcP6E7uKor93uYWMOdQ2d6gERuMmi2Z9tqr
-         ijNZT3IywL444zsuhtPMn0+CodaUEhcdQSj9kWMEQa8elqlcKvvfBFl+uPwVauAUEPPl
-         J6qMuz0O6PBGIP5uER+PbARzndjfEUO+mmJeo16vb2+EmldcTiPa7FJApB/vZAdn7sEd
-         I80X3iu4rCWYyahEcZQzbMsy6OYseX1t/3zZulMr7fD8jKZ9yvIbDzUGh4qvQXJovKnT
-         iZAu4IbVCwKwUs2JLJovviTiXEKSLf7ra7Mn9kpsOWrTChY+KMTbKjA8D8L9h1Cfez+A
-         QJhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzxl/zqs0tFA1gD9mjIuOSK0uKayVGLSMs7rthC+x/8QIAxjVG6ewgZXMTikCUog38H7lDH9ss=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9v3cTAE/5Weo9LMX8HGge+kbfOIHRtbfFXN99y5JPK8pVXxoJb
-	7GjMBN1zNGsPyYpUrdW16OXHtyfZuhBuGPnL1iuAK3KcXgVWPNgGYPaH5dOP62UH8Ccn2soOv8Z
-	UySkX2PXYdYvI4F0DoYrWAZ42RPUfKDc=
-X-Gm-Gg: AYBFou3+nRZuHnwCYNBvF5CcK5d2GiKWQjQC97/G0+qqh/EBztRrrnKgcj1Loe9zaDJ
-	dFiS2nrWSAZ4yp8Hi/Dc4ylpcwPtUGU/15iyhE+9kN/Y7jNi38LAmhPItapsDrTgkd/K7y2RJku
-	fJkPcbUiajb5MXcaiD5OlV1lzmEYTkaBxZtbcw3M3ZIEdIzrhRy7XO3duRYR7i0Mfon3QXEcXKc
-	ETNYiyCGvoF20yh1m3MOdhK1CxNoWdi78dYOIlZPEJAeRkIySKHcV49gaEapVJcUUIOGmkF4O1L
-	a4upJTYs/YqS/WX6wu2tCTlx9QhCTLIzWqPnT3xiDdZ49sjI/O7sqqj0qtcBLQriqqIFtSEMysy
-	qVV4zbjMnasTkwC7wxx8g/cpTY01mgedz+VWXkA/X7hbwSR5CHZHrF5Km+1wUwVQNvajRQd/zD6
-	M=
-X-Received: by 2002:a17:907:a890:b0:c46:9ca9:f522 with SMTP id
- a640c23a62f3a-c4ca7a69782mr1214812566b.26.1793763334986; Tue, 03 Nov 2026
- 19:35:34 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793763534; x=1794368334;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rvyyEItMjhpjcCiR5G2iyawMRAc8IGNvunoyBM1eU1k=;
+        b=WMnW5EqFr/WsP+vMrEtOCWhvV6k3dMasECgPRciXA6NhRv0JzaKqm+kOCHCODFSiRz
+         2aewxm3PEvttD7YEZylDFuhzjKJINQn+7J0fvQ38Xdl1IA7AfiEt8MIzB1b9LWJ8ZYkT
+         4KkntoyKGE1RO146KXJdj/AKlnnorYs+fBFgz25Dwct+1u2kxg9wDpI9sFpapz79VMZJ
+         yOKThcIBcFrGgxDvNZ1hvgHiZelhAuPtqC1Ke+v7XEZqdL07vhsMJbWuRC7Cdof0SNb3
+         0L18tbWs1yKCpjZqRIK51r4ZS99DcdgMWIdWS77JIuPT+Lugv42uYbtMG7T6biQCZ586
+         FAQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBykknBD2o8Bm4p4uy4IaErFXWNcmqfKSXtjx8F7rp6xeGJr6SwccrgFpesZNi6WeIguHqChuT4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LCMf5/O3UjCkoV9UGhRCWZex++eztAtfOQKfgvwgz1/jrZWmb
+	/To96n1I7m/jxz0W61/ox6l8TBpi2pMhg/Mr296gkeDqz/3j0r4Gaoi2xlyi6sHh
+X-Gm-Gg: AYBFou1AkKUiRgrp8NZq0zo0VDDXNMiYvIX4qKxtnKYeW7ATkR/p0I8e4XHztq0fPBN
+	HvLh5h4ik57ipBNPDobOC30N0EDFHtOmcbW+R1146bIAqhB2kcRhSybuuFZZFI3cM1Uu10e965I
+	wmnAJpos2DjkUXww6TmVYtfDa8cJ8eGoO9UfFalB6A4GWYyj6zSZ5MgT2kZpnPkz9SgmkcNqvE0
+	ILVNNVHa/ECb2ZD7nJ0hTwqPFBDIGa4NqKooxdvAhmsgUqmyTQ5YoYUtYTp8KybFCmrwlgg/Ubx
+	jQnYpLq1tze0ZNdCNwUqdW/iw95JrYnosuXuxSvne5GLqDr0ZuPOFKtWJGGUoipi/QjwpkjjV1Q
+	88y7JGOophmsUMvp/5gonRqP7QLI3fyS30M3meghMzDiBn+4r1rMxNumQpADvD7BlDmCgm+J1Vg
+	DCmwRhm2hnQWZnV8mzQ5rGlQ4mkMfFP9kNhm4BuMWqIQJN1DcTHGEQMlfr7J9xQEQe7nr745Mic
+	urW6EiUepsUE/v4jGV11NTx22qMt2o0X1GSQWsYBYmuOe0i/oCxRBFObfehnBK4DIurjWAWlkWB
+	UWeJOtYXt27ALi/j97ocrEcJ+n2+90jlwVt+tSllHylgM/cIzjOr0/EIyHbepkU7TwmR
+X-Received: by 2002:a05:7300:f80e:b0:36c:98e5:a6c1 with SMTP id 5a478bee46e88-36c98e5ad0dmr4158661eec.19.1793763534132;
+        Tue, 03 Nov 2026 19:38:54 -0800 (PST)
+Received: from localhost ([2a00:79e0:2ebe:8:88b4:22ec:d621:c1b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3981ff0sm3310812eec.24.2026.11.03.19.38.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 19:38:53 -0800 (PST)
+Date: Tue, 03 Nov 2026 19:38:52 -0800
+Message-ID: <8063a24bb9f75bb9096c947d8ffa7123@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Guanglei Zhu <zhugl3@xiaopeng.com>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liuc63@xiaopeng.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] Input: joydev - avoid signed overflow in the broken-axis correction
+In-Reply-To: <20261103085514.431010-1-zhugl3@xiaopeng.com>
+References: <20261103084135.426629-2-zhugl3@xiaopeng.com> <20261103085514.431010-1-zhugl3@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,57 +100,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <179374297269.488856.7749172366095110113@kernel.org> <20261103225321.19288-1-federico@rimpianto.com>
-In-Reply-To: <20261103225321.19288-1-federico@rimpianto.com>
-From: Chris Snook <chris.snook@gmail.com>
-Date: Tue, 3 Nov 2026 22:35:40 -0500
-X-Gm-Features: AclHuK8pgXDdUe8VVPBSwoSm2Xv7dqRRsi3A56cCZ8EmMNgChDd3Wu0uj8DEEoU
-Message-ID: <CAMXMK6uS4-4aq4A3pUMghkt5v3U+NekcCfDa7ytbjLD5ZwG+8g@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: atl1c: free the RX buffer when the descriptor
- reports an error
-To: Federico Musto <federico@rimpianto.com>
-Cc: netdev-bot+sashiko@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-On Tue, Nov 3, 2026 at 5:53=E2=80=AFPM Federico Musto <federico@rimpianto.c=
-om> wrote:
->
-> Thank you for the detailed review. The findings on endian decoding,
-> multi-RFD error handling, stale RRDs after reset and missing error-path
-> work accounting were valid and have been addressed in v3.
->
-> The v3 now:
-> - decodes rrs->word0 once in CPU byte order and passes the decoded RFD
->   index to both the unmap and cleanup paths;
-> - unmaps, frees and recycles every RFD of an errored multi-RFD frame,
->   with ring wrap;
-> - counts errored descriptors as work so the RX refill runs;
-> - clears the RRD ring on reset, preventing stale error descriptors from
->   freeing newly reposted buffers.
->
-> The memory-ordering and link-reset/NAPI issues are pre-existing and are
-> left to separate patches rather than expanding this fix.
->
-> Validation on netdev/net:
-> - scripts/checkpatch.pl: 0 errors, 0 warnings, 0 checks;
-> - baseline and patched W=3D1 + Sparse builds both succeeded;
-> - no new warnings; three endian-related Sparse warnings removed;
-> - git apply --check and git diff --check passed.
->
-> The issues were found by code inspection; no hardware test has been
-> performed.
->
-> pw-bot: cr
+Hi Guanglei,
 
-I no longer have working test hardware for atl1c, so I'm unable to
-test this on real hardware. The same is also true of atl1e. There have
-been patches somewhat recently for atl1e that suggested some people
-are still doing work on real hardware for that one, but as far as I
-can tell no one has made new hardware for atl1, atl2, or atl1c in over
-a decade. If anyone is willing to help test patches on this hardware,
-please let me know.
+On Tue, Nov 03, 2026 at 04:55:14PM +0800, Guanglei Zhu wrote:
+> The JS_CORR_BROKEN correction multiplies two user-controlled 32-bit
+> values before shifting and clamping the result:
+...
+> -	case JS_CORR_BROKEN:
+> -		value = value > corr->coef[0] ? (value < corr->coef[1] ? 0 :
+> -			((corr->coef[3] * (value - corr->coef[1])) >> 14)) :
+> -			((corr->coef[2] * (value - corr->coef[0])) >> 14);
+> +	case JS_CORR_BROKEN: {
+> +		s64 tmp = value > corr->coef[0] ?
+> +			(value < corr->coef[1] ? 0 :
+> +			 (s64)corr->coef[3] * ((s64)value - corr->coef[1])) :
+> +			(s64)corr->coef[2] * ((s64)value - corr->coef[0]);
+> +
+> +		value = clamp_t(s64, tmp >> 14, -32767, 32767);
+>  		break;
+> +	}
 
-- Chris
+Assigning to value and breaking out of the switch causes value to be
+clamped a second time at the end of joydev_correct(). Also, pre-converting
+value to s64 and replacing the nested ternary with if/else statements
+avoids all the explicit (s64) casts and returns 0 immediately when the
+input is in the deadzone:
+
+static int joydev_correct(int value, struct js_corr *corr)
+{
+	s64 v64;
+
+	switch (corr->type) {
+	case JS_CORR_NONE:
+		return clamp(value, -32767, 32767);
+
+	case JS_CORR_BROKEN:
+		v64 = value;
+		if (value < corr->coef[0])
+			v64 = (v64 - corr->coef[0]) * corr->coef[2];
+		else if (value > corr->coef[0] && value > corr->coef[1])
+			v64 = (v64 - corr->coef[1]) * corr->coef[3];
+		else
+			return 0;
+
+		return clamp_val(v64 >> 14, -32767, 32767);
+
+	default:
+		return 0;
+	}
+}
+
+Also, please note that the kernel builds with -fno-strict-overflow, so
+signed overflow is defined as two's-complement wraparound rather than
+compiler undefined behavior, and please drop Fixes and Cc: stable as
+this only affects synthetic coefficients passed via JSIOCSCORR.
+
+Thanks.
+
+-- 
+Dmitry
