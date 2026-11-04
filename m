@@ -1,100 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787817;
-	b=Mw0Gv9Kc3tx+GlzOF6rwTTNQ8bKNQsiTnYKuBseM7HwoGd6+QRgzQs0JPb7EDSlHEWiw
-	 mixh6wmcLX18S6ZAd9jdj+U4my/1W4a0lgihGZ/ix5ZXYvT43NgPX6XMTxoH4rWvvu0R8
-	 PvAycBiKbyUOpk58A7NjolqdBS1WlCqIHUyDfLoImnQhRde2IoY2vqGHZE7xEAsUkJ28e
-	 Pv6vX46uVD1gT04OzumyE4SMSNHgOwcJChan93qJxVnm56TcYsO4vSxjwfWFkexW4E01f
-	 TJKaTpjH4aWbAqJvn/th4WKgyfFJ56qWE1Uztuu2NLQDS7w5yIfZxmgymH3zR2h1VGg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787817;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=m3d/wzGNwOwiGd7h6SwYhY1GxTniyAmLrkyjp/DieEQ=;
-	b=GmSundv5w2XrGBZ7ftLrFaNUHM09967gvAgRM8+XhWgAs0lloQ10PVOxiaKCZypuwLJF
-	 T+cqdKlISyLQIyUB7ZNIS53Q15fzNfmy4yx6E8LrE57SNtbRQzmRms56RHonoQTirvylD
-	 PTYk1w2/74VB5VESdUnN89QYz1caQr80PCzR1nZx7OSOYHJHfAKDgNx43hfQm/Sh1e/cY
-	 m7KTlawTjU6mmQP8FJyzgn5VV9J7Zx/znGy61FqQ/vzARs0IT3I533q54kHUZ9ailB9Q5
-	 a5AU+f2OZDlPHIxOLl0iz6lY9/d/Rp+KcSdlwI5PqDa3UT4yYKafQYCbVb5GieKIggg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=asu.edu;
-	spf=pass smtp.mailfrom=asu.edu;
-	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=Rw6J6PVY;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.113
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793788051;
+	b=yG8ORfBy6A0m1bTnuDRLHUTVr4kbz1AxGC5/fqq+brNGnKjunVkuQTdxTSeF5Fx6VwAG
+	 x2jxUIXUGsfD2tlzzRkRh4tKga8qxqVZ/RVp8NjFV1UeAoPG3lTzHQ3HBoySVkASDCVyz
+	 UxTLBHczYYOW2NMsmewOvC78CkEGXOSc5NM6Ull2pQ+IrpJ5DPJiIAPUf977oeR7YVneY
+	 mBfbvh0pt7Lut1ScSrhIl9POokeSdmviDjehlntwsfugq2KKkX91Ew8aqX85dKFXxgz96
+	 SQZWOrK3BoBW8jm9Fb5bLbJ1BVNYoyWrmZV1frY6KsCzQ0NX9PmTC6/yTtLDjZiqH9Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793788051;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=vS1czoyGGGoc88HdrSqOob64iun8K6WqkOKRA5EMS64=;
+	b=j9OVkbyR5zUxj/fgXiyq3nf+aV2iqTXciYMXO/RZzYe7rZSeE7xipIgzdWXan3aKL/yp
+	 xPFdjujbxHhcCp7o3CgG1CvKstbxebbIyCj5TRyYGUZQp0xinK51BMVm/Xq2+gJahsSDt
+	 /3VKVS9FuFFXbz2sDDhcydfpXL1/npr89e8TDaW5f9NiUjAgaiTQgps4QuElNQccfJTdQ
+	 /0DFb4N5C0vKrBZRd8htgLoCW8UgVHsHii9+qpIOvliYfOeuLzR3NtTn4MTPNTKJXbxBK
+	 oo3ja/bnCsdPkwofVd5zXrYi3bPcsNcA0YGOAg7vS8b+TmMTryo1kpIRqDaE+Wg640A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=vaisala.com;
+	spf=pass smtp.mailfrom=vaisala.com;
+	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b="ywPLa/b4";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.113
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11023113.outbound.protection.outlook.com [52.101.72.113])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC485606A33C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 10:23:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC485606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203BA606A328;
+	Wed,  4 Nov 2026 10:27:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 203BA606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=Rw6J6PVY
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3535a54bed9so682782eec.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 02:23:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1793787811; x=1794392611; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m3d/wzGNwOwiGd7h6SwYhY1GxTniyAmLrkyjp/DieEQ=;
-        b=Rw6J6PVY5JuXf3efAuBwBkmOqE0fmQT6ehKVaHVqWMSFdzWr3DEFzWO6B/0eRMq08u
-         ONefvo1rdhn7rgB995tA3v7K+u/xhWlegbSUAw2Gu4gEQh5+mu95QpX8EndSqFHSyagB
-         I8liLFX5toT/OAMZGtwBx44EytCBpHrGkKFYd9PrUBnBddNrUt6nnlymi1akZ/XaFuUm
-         o46JgYh/cpcE0isJGA0kdD0qoC2CtlECn2+4q53WBkC8T9QJoaT0W/ZPdpkRtZYouNJv
-         Hmg/cjIfslmaOowC76NHERWGt85a7PTcSNE6nVvOeKDQJYb6Db2RCMZsQ7X4ApIptDCM
-         rlQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793787811; x=1794392611;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m3d/wzGNwOwiGd7h6SwYhY1GxTniyAmLrkyjp/DieEQ=;
-        b=JQ3wkjDtp/ypqNUR6T5uaKiG+od79I6wZbEyLZe/BrgtTLe2Ar3qKY7XsgBk3d3O/Q
-         HQPWxcgDaLxKZWe4eosnjx77sO7PhsJV8lkQBms79v0A6vC93lFkfzNAw0k17JrRQgq6
-         yB+YuIKqbLaIihzx6d/XdGzI+Kg4Jywdh+SMLt8BcaRbW/MIJh2AJnH5tO8ImNlGi3iE
-         zemb0pRi6NfQ5OzulZKLDBQUVHTMXbGErt/UKqB/11jKew9aoy3Fe4+FzCkx3i199aep
-         iGJDuxTywcK1EjCM4cJYRSx0sT2iGlTozRFA2jUNk9z++2mNCl8zbYZ8RIRDfw1Ni5PS
-         DF1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx1g/BjxLsS4t1N/ZZeJh35fLwtcCkwimYKB35jy0jU3GfAHNgEFtlukO/I/dVTLMl2f3iAcB0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9fHwuw16/VdBqmF59549s3neGV0gdZnQTZAS+6AllygVlIOwCh
-	v6FkpubjuEsblrzFB+j5liVSjn7wGHOKlMbM3Um6SGJ+cnioqD/GdIH4tBf2tzWJtw==
-X-Gm-Gg: AYBFou3ZtX6kigTzd/fE90mybFLLvIMqxM2ucjBpBjm0oSX8aSeergYFF4+5QjNBLjV
-	ghlvl0wqU55E573D+VNqJdmkKDfO0GcywMPREz6ulJZFKmpUfMUNfVBI8mO4Tuarq+zr6R5vre4
-	vSrfWIDFVJtieEo2tGIP71j//1TV7YfDRWzvpN/8zYHYMyDQcKDzFPhaafgo0UE0LQyuhbVgI+Q
-	K9jYCsg4+R5lzKI62x8cx/kQT6JWU1oXQlN3lHccva2Y6Ru1r4PXIoSD26vbWlLYMxDhuNRfflv
-	dFUgmrZZnrUE5C/k1SEOzAOnKBSOfex+D38/+ketM07yDOB1Bz1Gx/ERS6WciQ+qr1wZDdHCV6a
-	XulQE7GfB6A8n6efgDIoabMdXZgzVS0GgjyMWoEB4T96HvN9yQSKYSeIX3Cc7RYPEcd5wzEnqaI
-	WNr8ogeMmRCKT3YlVpgTxhQK5IdMZ2TpyhiS2obMzr3KDAaiqEGyBmYV0B5zwZzroVgF2YXSRtF
-	9UlwidsH5gediaI0KiC8vvWqKY3jABbfb9TYMjjTkI2C8RhQUugN7ubsGY7grgrr/Tz/4D1iV5G
-	tdInBYnWCJ/uLI3fdEVyDZSN2Ez2XkxPCW4MzVdaLg==
-X-Received: by 2002:a05:693c:88c8:20b0:369:f2d6:4108 with SMTP id 5a478bee46e88-36a42401233mr23215503eec.10.1793787810538;
-        Wed, 04 Nov 2026 02:23:30 -0800 (PST)
-Received: from localhost.localdomain ([2600:8800:1e00:25f0:ff01:97fc:f9e5:d7e1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a6160sm5749086eec.9.2026.11.04.02.23.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 02:23:29 -0800 (PST)
-From: Siddharth Mishra <smish149@asu.edu>
-To: dsterba@suse.com
-Cc: wqu@suse.com,
-	boris@bur.io,
-	josef@toxicpanda.com,
-	fdmanana@suse.com,
-	mason@kernel.org,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Siddharth Mishra <smish149@asu.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/5] btrfs: skip tree blocks in btrfs_get_extent_owner_root()
-Date: Wed,  4 Nov 2026 03:23:19 -0700
-Message-ID: <20261104102323.4090290-2-smish149@asu.edu>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261104102323.4090290-1-smish149@asu.edu>
-References: <20261104102323.4090290-1-smish149@asu.edu>
+	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=ywPLa/b4
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hGo34JwTTgQqoGrnkNaBHqgmcg6FZUsWuPjC/0tAjEr3Fem+1/2aoSbzth6HxtPcxpqawkxgbkLvWwLObfpKd2/eE0xPcu/vVXLU4JJ1Jxj6wu5qLYCOIkz6jOVCb38HB7F+HcWS0baFDpubM2B/5sQKwJp6RF+AVP9Ti7wjf6Cuk0WJ6IxRhNymnH5mLvPMgUboP35O44fmPOMKv9f5rt8PyfU10oat3DxqQahaeTpTdNsMtIQPoYPWCk0FGoKU2zg9y6aoeTAJ3s7Pdna5d/wsTq7fxMEGq8WJKJUjcq9BLCpBDmWm2VNRJEtNmSFJnhTc+qoW1827b6mGR32yYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vS1czoyGGGoc88HdrSqOob64iun8K6WqkOKRA5EMS64=;
+ b=kFwXTncTH2vwiZjY4MGBu0FIT4oRISXdf8sBoIeQBPLMsviyPJn+tylOLhE/5TPPICqi5psOv3Ks1sSx57O+mRUJzMo4w3kncfoTRZXA0fGiNMxG6bJrCZ++7PH7A+S6ZeB5nmXezCqPFOjeBWbvlfGGDZ5Z/qKNNmAUfSMxXFej1SiUkG60t6oFlouWat32XUijYT8NU2OQJkjw4dyMFaIU9N3UIbNmRah0f7atj4NAHFEhBoK9IIMUad39RqL3CSJVerWsqC6ZL5RnJiIOpUPCXJHdOkYNBAoVtWkjBm/JeTj1Zb/mCrb6Oj7fKtxsl2N+uZXGwGp1WETNv5X3vg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
+ dkim=pass header.d=vaisala.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vS1czoyGGGoc88HdrSqOob64iun8K6WqkOKRA5EMS64=;
+ b=ywPLa/b47R9KoTtoq947OvOXDeowf0z2EJcCmZCJrRQWE8wknV4gsL+HP1aqv8pSYdboZmZ+j6bFl1olNkJ/ULscYlsO4lweZzqQj1NizwhPtoXVKQhF+5vyqkkdn+/6igM+F8skQJxw7NJ+G6MtoIdcXkQsk4LwtZ6+b9iOdwxdv2J+MjQOX8JhXtqflBVbScH5UUBljQGQl1x6UH3eM6FQvHhcaHcK0ZED7pCNQ6Bv9rGvUBnBygoZckVSZxEr1qG+/TjgYQjSdecAIbQfremP49Tx2gp9atqXgG3eNMWeOgVYVf/X69DdoOjafhkBQq0BpwKlMfwb7Rj+jej6rA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vaisala.com;
+Received: from PA2PR06MB9176.eurprd06.prod.outlook.com (2603:10a6:102:407::17)
+ by PA4PR06MB7199.eurprd06.prod.outlook.com (2603:10a6:102:f7::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Wed, 4 Nov
+ 2026 10:27:24 +0000
+Received: from PA2PR06MB9176.eurprd06.prod.outlook.com
+ ([fe80::b6d:8160:d324:3bfc]) by PA2PR06MB9176.eurprd06.prod.outlook.com
+ ([fe80::b6d:8160:d324:3bfc%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 10:27:24 +0000
+From: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Date: Wed, 04 Nov 2026 10:27:15 +0000
+Subject: [PATCH 1/2] serial: core: do not hold the port mutex while waiting
+ for references
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-serial-core-remove-deadlock-v1-1-6a30597adcbf@vaisala.com>
+References: <20261104-serial-core-remove-deadlock-v1-0-6a30597adcbf@vaisala.com>
+In-Reply-To: <20261104-serial-core-remove-deadlock-v1-0-6a30597adcbf@vaisala.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: Johan Hovold <johan@kernel.org>, stable@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ Tapio Reijonen <tapio.reijonen@vaisala.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793788042; l=2860;
+ i=tapio.reijonen@vaisala.com; s=20250903; h=from:subject:message-id;
+ bh=ZFIVMlJMVMfNye467SURZK6vIPx9Z8n4vYwpeSfFFIk=;
+ b=Fl1/fgMR0e0u3Ukg6/gZFDY7ykUPS3NAbF2UU46chgHIP5tGDEDALweU9qSSLYE1KadTq6TOS
+ ip2odSS4w+DCQ1esnR7PucnnIHpux4twt6sp6x74KAMH+m5SgasUD/z
+X-Developer-Key: i=tapio.reijonen@vaisala.com; a=ed25519;
+ pk=jWBz3VD84WbWgfEgIqB5iFFiyVIHZr52zVBPOm7qiGo=
+X-ClientProxiedBy: GVYP280CA0042.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:150:f9::23) To PA2PR06MB9176.eurprd06.prod.outlook.com
+ (2603:10a6:102:407::17)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,95 +107,133 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA2PR06MB9176:EE_|PA4PR06MB7199:EE_
+X-MS-Office365-Filtering-Correlation-Id: c04252bd-486c-4ca7-a7e4-08df3a5e376e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|52116014|23010399003|366016|1800799024|38350700014|10067099003|18002099003|22082099003|261102123227099003|261026140227099003|11063799006|261026121527099003|261022075727099003|261009221227099003|261028144727099003|261009223027099003|261022105027099003|261021123027099003|56012099006|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	uYw0KPoVhL+B2LxPxLV5ZbB1rvE4VrE/Ka/Kzwrt4psS5n28ZD50QttyprYky3aWm61FexRNgelHLuG2jNUyujYI45MkSbIN9/sKvO7DD05sVUIS5s6opri+TMni7ljihFrmhj5/CKZcasl8QFkB6aDfymCpq0108bECUN+m834aFH0N08l9Eu2KQJ8FGgVa5JZtkYwnZQ4hE/cSD+Lvoe3AZDb5EgliW6/Awedqps2VS24Cm+mNv03WKVC8xEvalKQNL3nnb8zPTEd43RzB7jLpmHOo4B79/apZAHUlhUe2X/5gfjaLfaTMe4cyCNjUf4S3CqrBaN1ay+T3ddxz/tjqMQRPeOAIa/0tSk8RkM9ZYDnuKEH9cccZgsxq7uZoEpylWgjmwltSePZcW8XGSoPU5M8JoIbK97PS/jIYDuTHpLyQv22dAT0y0hZ83VVhElL9Sapt9FlL3fsQ4cZltJyBDCjaGyuXs1d1xicZIxN9LUYEeGszrzIYeKjCUt1waBm5Il+0AdHU1fSdp0CbSQI31ncClVlJVuzLv6q0CTj2QUqox5fqNmzD9G6r9ChGYkNpIkZnapqPEBQgeQhuoEb6+twOvHtOszt4S5YHcY9qrxp9eUXJlTiozaJsmc9dlq+yIE0gZIrJPs8Ua4KxLglUWF8USlhhhs6jRvaSsw80X6Y8C7vAx+BSNDOO6Dn41aDRgkZE7uqk+YjKGXAk312250A9q3LUEAwuU5Zaaok=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(23010399003)(366016)(1800799024)(38350700014)(10067099003)(18002099003)(22082099003)(261102123227099003)(261026140227099003)(11063799006)(261026121527099003)(261022075727099003)(261009221227099003)(261028144727099003)(261009223027099003)(261022105027099003)(261021123027099003)(56012099006)(261021121427099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VE9zOUt3S2Z4dXNndzJaSkNITzZyRFg3QTJzOUc4TGIzbzVNdmFWcFk0Q0Yr?=
+ =?utf-8?B?QVI3WWRHVVJjcmpIZWE5ZEgwVjVYN0hJUUFlcFhwYXB5RlBieC96d2NYbmpj?=
+ =?utf-8?B?bUI0c0Z4SGhqVVBMYk5tbmhFM0hUbmxja3UrRHE3QWdCbUZpSlVFZUs5WEhI?=
+ =?utf-8?B?TTN0cTYvK2V6WmtkUVhmY1J5TXlhYjJHMWJMT0FMNFc2ZFdacGJIU3F0ZFlo?=
+ =?utf-8?B?L01uV2R6REQ4aThvQ2kwY1JBZ2I4Z1B6THBIK2lIOVN1cFRnNnNWeWdXdUpr?=
+ =?utf-8?B?Q3MwYmduZDdORmw1bUVuTFRtakljK1plSmRvdFlIenFub2JWZDFtMEdIZkg5?=
+ =?utf-8?B?NDc3S1g4c2Jsb2FMYitCRUttcHgvcGZGVDI0aHRuby9EdlE0TzBCdzExcVJ3?=
+ =?utf-8?B?cGc5UkdtQ0RSQWw3TFpKNCtMakFaaURqd25IUUt5dWJLcTJVNkJ5MnRLdWhO?=
+ =?utf-8?B?T1FjeU53SnZBR1BJMHUvQWpMaGcwdWx5NVJjd1Q0MEdxQk0vcEJQVVB6R2NK?=
+ =?utf-8?B?eml4aXhQRUg3ZHVOYkxKdmN6OWYvTHNlUFJCRjZ0TnpmekF6UTBoMFNQUzFl?=
+ =?utf-8?B?Y1FmTDRsYlhQd0ZFWmthQVIrOWJqVld4eHl5VWNhamhXallXdSsyMFJXaUl3?=
+ =?utf-8?B?bmk0QnpsTzFERUFOdXZUNnNHcHdmSGw2eEVRRUo3MSszTlpLRWxxVUlLaC9w?=
+ =?utf-8?B?ZjdwMDdGSmVCOUFMMXdsWG45SnZiMXRIYzhFNDYxQml2TXVpZFJBR1ZRUTBV?=
+ =?utf-8?B?Ky9XMm9sY3BzaC9UcER3d1JvVUlUQkllSEdOOTVHUWhzeEpoQUV6MXN5QXFa?=
+ =?utf-8?B?ekRvaEFIN3hhU2N4V1FuNnlXRlp4WmhpL091amttV0MwY1hBZkp4R3BYa3U2?=
+ =?utf-8?B?L1ZnVm40Q3RnMGx1SWtjWHF6RHNSRmZIdTIxcUhUQ052dnY4b2U1ZW5uRHZ0?=
+ =?utf-8?B?dTl5ckk5a0ZZNjA5NnZwTmZCUnhSWm5lZ1F4enB5aS94WTcyQ29XRzd0U3ZX?=
+ =?utf-8?B?Mm40dERuS0ZPcWlLNm5qLytrM2F4bWJsRVZQMGZlbVB3ZTU2RS9MbXdxcjhY?=
+ =?utf-8?B?MWJyY2xGMTduV2lzZU4wa0pXNjhWVmt1dXJMZmUzbnh2Ym15NkQ0ZzgzM3B4?=
+ =?utf-8?B?WGdBZFRiSWJXYnpiTWp1QWo5YWg3ZTF1Y2RRWnNtZXhEZWF6WFZUeDVCMkZm?=
+ =?utf-8?B?RUgxazdCNVN0SUwwRFZBbWxDQ05ZcE5mdXlwTytURWttR3lpOEk1RC93cmRy?=
+ =?utf-8?B?bFlpcThpL3BvTCtiZVNobzBGV1BsWVpTY1AwVks5eThhOFppRlhpbkxkVHFv?=
+ =?utf-8?B?ZVhjeEJ5Vng2OFdOVU85L0daSHZSeXF2S3AxOTI3WXpXbFRYYWN4ODJvZkNx?=
+ =?utf-8?B?RkN1c1hsWHNyakRkNStTcWRhQlFFWEI4QUFoVlhuNzJZZTV1bnZ4U3NVUkY4?=
+ =?utf-8?B?YUZqYmhxYVAvWGQ1eTdkSzRuQncrNGh2ZkljTW1ZL3ovK3RIbzdTdCs1UzQy?=
+ =?utf-8?B?UExleDJYWU9Vb2d5d3hxbWJBRjlJQytQRlQzYTVpSjNwMldzUHQ5V0pkeWJh?=
+ =?utf-8?B?L0xjR2hCeHU4S0dub00yWHJmcEY5Y2tuK0ZoNGtrTVJnTlpXN29ITHdPZ3Fh?=
+ =?utf-8?B?UWhJRVpzdjErWWthTEJBTXgvMmphMnVNcUhhN0JWWit4OTY1anJ0MXQwVkpq?=
+ =?utf-8?B?M2dKajJMWnhKekYwU2x5VCtLZmE4NERJSlY3WEFYVHY2b0o1RWRMek9tUnNn?=
+ =?utf-8?B?OXhPblNGdFlpcWo1ZmtkTzB6R01SSGx0NUhOQTFBV3R5QlRaakRsNW5BOGtY?=
+ =?utf-8?B?dGYvb3dkOHB5UDkxQ3dSWUZqYlh2WFVzMGVWUUZzWWpRTDV2SUZZdlFkdk9t?=
+ =?utf-8?B?Qi9WM281SGVtQkh0VnVVd3ZlVlgwalJpTDNOMHVqQTJLc050N2xTcjd4WStY?=
+ =?utf-8?B?K2N6ZTRrSXE1dDlibCtyNUp0b3ZDME9wYWRiTmt5Qkc5SFVTWm4rcnNveWlG?=
+ =?utf-8?B?ZDJhaXdlS09LNE0xNHFHOUNWeXQ3VlRQTzJYZ2kxY0t3RTNLUXVYYWc3b05y?=
+ =?utf-8?B?MVlVVG41VXVQTS9TTmxORlNqR1ZtMy9ZZWpkc2tIMUVxRWNGbWpVNlNDdkYz?=
+ =?utf-8?B?d0RwSVlYUFY3YXdBV21ZaEhDZktJRzV0Qys2RFZBcEd1d0ZNR0ViZ1lkbE9I?=
+ =?utf-8?B?RytaTE4yM2JtaVc3ZkI2ZmJINTVxYUVwYTBBeERPYUpwWHEwaGU4UGtoRVVw?=
+ =?utf-8?B?VjdMWkpSWFhuY0tQWVF1TysxTnFTcUFJMUpsakdJU2tvZElwWnI4VTh6Wlh2?=
+ =?utf-8?B?c0FOd0NCVGlTMktKUVRleTFXUFZzZ3hQSGtQeEJtcWFQOTQ3Q1hCZFpHa20v?=
+ =?utf-8?Q?HvqefTQqXb9PYBQo=3D?=
+X-OriginatorOrg: vaisala.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c04252bd-486c-4ca7-a7e4-08df3a5e376e
+X-MS-Exchange-CrossTenant-AuthSource: PA2PR06MB9176.eurprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 10:27:24.2203
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RA4WzSmLZDm6wZaFR/5wwu3saN2JhuyiHwrpCGyMEH4uHmyFvI4BY8xmRK8mh0VEovatuYqodrfpGZPXXeTKwA7ZGxdAjeUohRX896ruS0w=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR06MB7199
 
-[BUG]
-With simple quotas enabled on a filesystem without the skinny-metadata
-feature, deleting a subvolume triggers the following warning:
+serial_core_remove_one_port() takes the port mutex and then waits for
+the uart_port_ref() holders to drop their references. Since commit
+8ca59f7baee7 ("serial: fix ioctl hangup race") uart_wait_until_sent()
+takes the port mutex on every poll iteration to check for the hangup
+before it touches the hardware, while holding its reference for the
+whole wait. A tcdrain() in flight when the port is removed therefore
+deadlocks: the removal holds the mutex and waits for the reference,
+the drain holds the reference and waits for the mutex. Both tasks sit
+uninterruptible, and the port is unusable until a reboot.
 
- ------------[ cut here ]------------
- WARNING: fs/btrfs/extent-tree.c:393 at
-   btrfs_get_extent_inline_ref_type+0x1b9/0x2d0, CPU#1: btrfs-cleaner/84
- RIP: 0010:btrfs_get_extent_inline_ref_type (fs/btrfs/extent-tree.c:393)
- Call Trace:
-  <TASK>
-  btrfs_get_extent_owner_root (fs/btrfs/extent-tree.c:3128)
-  btrfs_lookup_extent_info (fs/btrfs/extent-tree.c:187)
-  walk_down_proc (fs/btrfs/extent-tree.c:5647)
-  walk_down_tree (fs/btrfs/extent-tree.c:6170)
-  btrfs_drop_snapshot (fs/btrfs/extent-tree.c:6392)
-  btrfs_clean_one_deleted_snapshot (fs/btrfs/transaction.c:2728)
-  cleaner_kthread (fs/btrfs/disk-io.c:1553)
-  kthread (kernel/kthread.c:436)
-  ret_from_fork (arch/x86/kernel/process.c:158)
-  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-  </TASK>
- ---[ end trace 0000000000000000 ]---
- BTRFS error (device vda): eb 30720000 iref 0x3ee6 invalid extent
-   inline ref type 0
+Reproduced by unbinding a UART driver while a process drains a few
+kilobytes at 300 baud: the unbind blocks in wait_event() under the
+mutex, the drain in mutex_lock(), and reading the driver's proc file
+blocks on the same mutex.
 
-Writing to a snapshot (update_ref_for_cow()) or a metadata balance
-(relocate_block_group()) trigger the same warning.
+Drop the mutex around the decrement and the wait. The decrement is an
+atomic paired with uart_port_ref() and uart_port_deref(), which never
+take the mutex; the clearing of the port pointer stays under it, where
+uart_port_check() readers expect it. Between the hangup and this wait
+the removal already runs without the mutex, so a mutex holder seeing
+the released port is not a new state.
+uart_wait_modem_status() takes a reference and then the mutex in the
+same way, with a smaller window, and is covered by the same change.
 
-[CAUSE]
-Without skinny-metadata, the extent item of a tree block is an
-EXTENT_ITEM with the TREE_BLOCK flag, and a btrfs_tree_block_info sits
-between the btrfs_extent_item and the first inline ref:
+Stable trees before the guard() conversion of this function need the
+same change with explicit calls: mutex_unlock() before the
+wait_event(), mutex_lock() around the store of the port pointer.
+7.3.y has the guard() form and takes the patch with a three-way
+merge.
 
-	item 3 key (30441472 EXTENT_ITEM 16384) itemoff 16079 itemsize 51
-		refs 1 gen 5 flags TREE_BLOCK
-		tree block key (256 INODE_ITEM 0) level 0
-		^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-		(176 0x5) tree block backref root FS_TREE
-
-But btrfs_get_extent_owner_root() always takes the first inline ref
-right after the btrfs_extent_item:
-
-	ptr = (unsigned long)(ei + 1);
-
-So for such a tree block it reads the lowest byte of the first key
-objectid as the inline ref type. For the key above that byte is 0, and
-btrfs_get_extent_inline_ref_type() warns. If the byte happens to be
-BTRFS_EXTENT_OWNER_REF_KEY (172), the key bytes are returned as the
-owner root.
-
-The filesystem is valid. It can be reproduced with:
-
-  mkfs.btrfs -f -O ^skinny-metadata $dev
-  mount $dev $mnt
-  btrfs quota enable --simple $mnt
-  btrfs subvolume create $mnt/sv
-  btrfs subvolume delete $mnt/sv
-  btrfs subvolume sync $mnt
-
-[FIX]
-Owner refs are only added to data extents, never to tree blocks, so
-return 0 for an extent item with the TREE_BLOCK flag before looking at
-its inline refs. This covers both the EXTENT_ITEM and the METADATA_ITEM
-layouts, and gives the same result as on a skinny-metadata filesystem,
-where the first inline ref of a tree block is never an owner ref.
-
-Fixes: 8d2990914073 ("btrfs: add helper for inline owner ref lookup")
-Cc: stable@vger.kernel.org # 6.7+
-Signed-off-by: Siddharth Mishra <smish149@asu.edu>
+Fixes: 8ca59f7baee7 ("serial: fix ioctl hangup race")
+Cc: <stable@vger.kernel.org> # 6.18.y and older need the open-coded form, see below
+Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
 ---
- fs/btrfs/extent-tree.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/tty/serial/serial_core.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
-index 9b0a5c6b9..3ab4f2696 100644
---- a/fs/btrfs/extent-tree.c
-+++ b/fs/btrfs/extent-tree.c
-@@ -3117,6 +3117,9 @@ u64 btrfs_get_extent_owner_root(struct btrfs_fs_info *fs_info,
- 		return 0;
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index c0deec0e6af41db10de15ccca4169c603d9cebf6..2e53d194ecfe853ade1ac6f33e047eb8ff11e283 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -3266,10 +3266,17 @@ static void serial_core_remove_one_port(struct uart_driver *drv,
+ 	uport->type = PORT_UNKNOWN;
+ 	uport->port_dev = NULL;
  
- 	ei = btrfs_item_ptr(leaf, slot, struct btrfs_extent_item);
-+	if (btrfs_extent_flags(leaf, ei) & BTRFS_EXTENT_FLAG_TREE_BLOCK)
-+		return 0;
+-	guard(mutex)(&port->mutex);
+ 	WARN_ON(atomic_dec_return(&state->refcount) < 0);
 +
- 	ptr = (unsigned long)(ei + 1);
- 	end = (unsigned long)ei + btrfs_item_size(leaf, slot);
++	/*
++	 * A reference holder may need the port mutex to see the hangup
++	 * (uart_wait_until_sent() does), so wait for the references
++	 * without holding it.
++	 */
+ 	wait_event(state->remove_wait, !atomic_read(&state->refcount));
+-	state->uart_port = NULL;
++
++	scoped_guard(mutex, &port->mutex)
++		state->uart_port = NULL;
+ }
  
+ static struct serial_ctrl_device *
+
 -- 
-2.54.0
+2.47.3
 
