@@ -1,94 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817828;
-	b=ZlHQnq7wfYmL0wW5RgTa3UT/9dbCPV3srkIXGd6m/dSGAauESKH0JstLZOtXUL0HC7sm
-	 iRss2pceDlFzGIMtVqOTcDbjO1cJttp4AcIVFTs2OQAfObJM3WFF6k6/lC7gJjhGomz2l
-	 kWAYRyPA44a/UxVeKpqOY9zoiAo5QkTHyIqgazznOzobZ/ERG4GJlsEpd3XH1fX33RazL
-	 SK8a3ophyC14ZE6jMHvjbQMUmzitB81vio2CWyi0zAfwEL1CowXRqq3AgEOtO1LmJ00Qi
-	 yZ6COwAQlERMX0Lf5yAJfMeBhWtLdMW0IZQBQG6JPpwTCUD3NQzV9CK602QtrlR6E3A==
+	t=1793817829;
+	b=OwCgFHCw3NPjFgbNZzMyonkVAzqZeMvR5S40JNCG8+uWaqg8fdnaN8UkwcqijZw2tR+a
+	 PP3Zs4GSHCZ5XX0WJp1gcQU1IzQHOFltdeQcB72/ufUA7afvCcPW1zYND7ulimUEo9m67
+	 79izXUksqvRiqb0vf12iHbwFTrIvLYBgcf4+kAJRjS+OfkJ5UCM8aYzXPjrOCFnFQ2UTA
+	 vmULUjkADo0ZktzKtKiB8tGiL9FfcP+oGQWkxQJZwEkG69AYkR4SIg4XrMNgrRXMUViwD
+	 JdpTpADU2u0DF2WYGLcHDlG4jg18Hm6sEQT/c1F4hZRDIVOXdOVeJQXdid12tmFFcxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817828;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817829;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition;
-	bh=3mQu+xhKOfrx/Y3Mf7/3+aL+zZ+r3DgrMalP1w3JA9k=;
-	b=RWCbQ/uqh9Sw3UJw1K0qrGVBjlCfix7HgQA99VFg6q2XaSCC9yyFQ7q0n8JgPHor/Uer
-	 jhnwiY3usU7CxbxkmDv9sLkw7Jds3klH9NN4kv0DoSD7KSIt3egZJEv6UvPlR7QQDk7Qt
-	 HCtnpC4rrWljRpoOeJreb9fpgmBGKJobF/vldEhIYq3jQpX4KJMvJnzhjHLH1e5rmRp3E
-	 F8lNDhGjArh9AZvCM9P957kI9iJIj9rHoOJCHfV0MvURpLVwSpbPNZDaKwkMuknvIDz8L
-	 451LTd1HnvhzTAVEr8kZXF4km1P1ZsojJzcA3SBKIKJIFV3XUpPYjkleW+c/FmFBlMw==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=5rUuT2Ox7AGTeK1wtvtXLQ1ZYyD4xDxrJBv33i6AqKg=;
+	b=4Kcb8AOOTlSPYQTkkFZ89mt4wZkniaPZoyV+m7HsT+36aC5yQ9wsU6WNj8PZgCvCNk/A
+	 jA85ldCji3AU69Se468y4AWLCjusf+TVkc+N7eavebT/m90cqSze8xtnZ6x1su8E2pq42
+	 G07uFZ9Rg8M0cruvv2OP+UrwufBBmIIB9kuwSbZgyDWs0jOvFk6sq9UJpDDLOlb1ZKmbZ
+	 QYOFr6CyB6Up6js8Wf2c+TEHskc9Nevp/PhJpMa+6AD5ufHgrLQag8NsLiXHUmzwZPYyi
+	 SjXW7f6uF1jrZ+LQ0qmbhJNrbqMbQra7fosH4pUSwzTcPdJKleDwUq+WEhXkg/j6imQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k30JlQ6o;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="T/M7W6Yg";
+	arc=none smtp.remote-ip=209.85.160.42
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6067606D80C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:43:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6067606D80C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C4E606A32F
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:43:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59C4E606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k30JlQ6o
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so11238805e9.2
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:43:47 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=T/M7W6Yg
+Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-499f20c7054so622870fac.0
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:43:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793817826; x=1794422626; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3mQu+xhKOfrx/Y3Mf7/3+aL+zZ+r3DgrMalP1w3JA9k=;
-        b=k30JlQ6o7repyugxA9okX1WWvW6FN3Y4mpdmzV+MGsTzBfy1md0wkJiqBfaFhJQURl
-         FPHzitUXV8s8533Fr9N0pYiIPkywsqJKruic30k7FjbCgSU//FVm/XcJ1jGjZ+NH4Ne+
-         SAYUaE6aeRgyWb2OpIhhH5493oL2UgWIgEpT34XZNaZ2+CuxKMN0zB8j/nXrzuH3/kGB
-         6xWN8+ZyL6SySKGXH5J+vL4ImsKy+7SUK2I4orbXlmYwjw+9veZiHToJQDfvIChz10oQ
-         BD9Ly6JywQbVg5LoekOehym4uYx3pFxXWW14Ka/xum7980kpSXVffYlyoiaBRmEYyJmX
-         Bu+Q==
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817827; x=1794422627; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5rUuT2Ox7AGTeK1wtvtXLQ1ZYyD4xDxrJBv33i6AqKg=;
+        b=T/M7W6YgabFaMR7kxF/1D7E8UpSxFo9i0Wfaq0fxejEAOhPJuOkLB+wpxy/KQayT8u
+         0eW6/zWrPD8V792tAIlnZceBtxI2HPPZKtPFAxo94V+I1TTJZBTDRROjdlGdDdXIh8n6
+         dmKLlJx9ehFND1uBr9dR2Hqcas8p1N+mL3hSIkpNIERX9NDMiW1+rIeDRFSe0oN43/0S
+         GlEpblNxZ/wV7iKhY0alA4xbhxa8H09gAfUcw4PqOUy7HFCTfe7js20lA7jEut1ejlgG
+         rIbr+ScV2yQDDUpx/4e72Y7Cxvh7Qt4b3TKd3UauQxOOrYHMRbP4zx078YAladHC59zI
+         j/tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817826; x=1794422626;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3mQu+xhKOfrx/Y3Mf7/3+aL+zZ+r3DgrMalP1w3JA9k=;
-        b=wgWnp/MgLvpXHUR3Jweh6qZEGHKq1CV0aICl+uPof0RaQT6fNKMzSOa7etr/G0K8Qv
-         HLj+1JQvgbRA9a91ZlOwK19AHFK0fmYBQ/AZNLm77GAwwapnVj62EKv9DnhEDJwboaKA
-         7hZZ1b+Q4wkMUTUXEExLlzTN9jj4acGFEPvuGv5/gkeN0r/EpOSJ4dE4aNEvqXE7a+zt
-         PBMnsb6tTB4P+bXlnVhal3qTS/5/R+x7+5px6Mk/wVhIHEP0i2aO505XYr1MnMwD7g0J
-         3kqbhwNFiNPM4EOcDkBg5T0Bs5gNxj5ejWRl/joOqmCiutU+vG+A2ZJX48C/bNUAWTrn
-         T/3g==
-X-Forwarded-Encrypted: i=1; AKwUvByO3fSbWa5G/jxeRJsu0gM1QMu9BAR8JtnrAxsVdRBmPkXNAt+35fXCf1MSx2u/Zx229RCwsqo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91tsD0ofuPZMFJUugWYNRSlpKYyVsoIHNqRyRhZWKnbMRI6+9E
-	TKSZ5cSNTuMA0YFBeckCe/enFSIksc8zQR7ettnqsdMSjj/9UoX7IZA=
-X-Gm-Gg: AYBFou0dVjza+JWf+8pclm9gNiNdSraswE8Wsc0FaOXA58rT62oK3Xo7GiquiNggC51
-	1AHCwZRvqki/y5WlPySztUfIU6kPtGDsrlfDn2T+g1NcYD1kdU6D3lwqctCra+x8F7tKOXpuKLm
-	wqrsAv9Zw1yXVyICWgMCiMsaShBdklIsyodZ7Ztc/uB+tsQE/yTMeZnkLC/2SFlt64j4PfcOxjL
-	oOkKWwZAa+hWDwpXQuCQCFk6hA0vY98h6ioCOLssspSgsZ3/fX8LD0ofDKJUZgydMbfpEJbupkW
-	nLMAKzHsLNCMJMewF4mBopOPBEeHqLD4qTXmhYCJrL9IdlIffu1L8ZEFD3iycy5yP855IFtIV4b
-	rq+rtwgk1U5IsD5ZL/3i3jVqSg5ZxctndRjAgCxj3PBPH58QlGu4F96LT5DqztePpmIyULaAQ72
-	Ejcc4MKJscSVtvIjiuIEyh5Kql92Suh/eqRTCGjxAz5u/TeRg1jj8EV2oz/ve8jGL69e911iM7I
-	7fiPETS/M8IxbOvtEgNEfu03ivxZX2Inym+rd+gqfNsOWQclHwX8p46HvUh3limVJZdbcPJ88LQ
-	UcAu+ULQP53gukM=
-X-Received: by 2002:a05:600c:19c9:b0:4a1:f377:5c68 with SMTP id 5b1f17b1804b1-4ac18a8911amr379507765e9.34.1793817826186;
-        Wed, 04 Nov 2026 10:43:46 -0800 (PST)
-Received: from p183 ([178.172.146.10])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed552afcsm5320098f8f.41.2026.11.04.10.43.45
+        d=1e100.net; s=20260707; t=1793817827; x=1794422627;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=5rUuT2Ox7AGTeK1wtvtXLQ1ZYyD4xDxrJBv33i6AqKg=;
+        b=bj2D/RiBpQPDbyHImvTe0HnikP94nlbOfJBwUNCgDp/M5iWS7J+aWZRR1ttjYLFcAd
+         PgmsFsEVkZCSALjrWyMdHHPYR2fXijvL0pMQo1N0myIx+UWBXVIRHfquny96BUCMz0KS
+         v4+Aw/pcztugp7zibOjScAmyJafHjeZdA3DU4Y4qdNFScQ7HDHYo/M5CzfjRFoIxoM4l
+         b2dqkAG5lYrksLtTv/dnwBswC8oLugDU/s3jEY/2JA55OHBRTRittVPGqeOLMo4MyHJi
+         +N7QNpsB7Eqx01tbjaZ9zDl+WRWvBYkaJpzrq3FZzV1oRtla2MxQaJ0hL+Fl57V34ciQ
+         goWw==
+X-Gm-Message-State: APuU4Z/EFHICAa2qMYEZCtZmZknFBwJ5BSmgYDCnOW9ZOzeGEiDiQ5S6
+	mHx2Fs3VioUuHnjxQb5Rx3FH693w6tUEhfgiMBgTFP8+J+QVUgfIj75SyHdqb+Dk53pZUphAFMd
+	r/8WAieU=
+X-Gm-Gg: AYBFou0ZnpedwbJi4wpbz6kX9gI2LW1A8T8HEgoKbUUU2C/k+osv4atFtQoXBGZunYS
+	RfqP2W/gch9BlQw/GZfRY/+QE1R7Hqlu59uCRgTuvskS7rnrPMNwoXpy8CBtzBzzILnYyUF4TwL
+	n68+XvZxMNKwlsC4krwioen9tcw8DK0Rwac29fMggZknfePqZIT1v28CkH0wPCFXSaAndEO1DSx
+	SQsd4KjGO6w4ReFSqvyvnMz/s19zmx9896fktF8/0sjGQFi0MnkQKe1g4pmMUAaEvCXrvS775pL
+	tHHQ8mX/7GfM/JTqBBV3SoLR4MRS8oQ13wiN8ejWiQwjHjfErK06DUfIRqtR46tyh+53bBoHlou
+	9OvRQjYo6gieOGAk9Lr6oo7bSU3Yz5VrWtitQNrFGCQzi0gBZgRtbe0KBJgj05wRr8pl003lfZg
+	Z3ojIXMj98XafBXV3/dGW3etIHH7LKkMZNRuzOlPOp747gVRk+9uuSN2OEhD5fJT1Bsto8SWtAm
+	1JdWpLMkAua0rU3/0uLaffDUB4AiyP4ry90Fgyd51tv1W8FkXy3lJ+CMkB2H07qZNp3a/JiuaXV
+	aUGbqwC5xSa39vQ09YcqgF4Ox+g3+ogbHLeniRx0n4qPSkJCf/wIBQ4C2LJDAtRHflFMPPi8Pg=
+	=
+X-Received: by 2002:a05:6870:d40b:b0:4a7:4263:4079 with SMTP id 586e51a60fabf-4a9072d4033mr11873644fac.5.1793817827104;
+        Wed, 04 Nov 2026 10:43:47 -0800 (PST)
+Received: from xps16 ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea61d382sm2595770fac.13.2026.11.04.10.43.45
+        for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:43:45 -0800 (PST)
-Date: Wed, 4 Nov 2026 21:43:43 +0300
-From: Alexey Dobriyan <adobriyan@gmail.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Chris Mason <mason@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
-	Christoph Hellwig <hch@lst.de>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, akpm@linux-foundation.org
-Subject: Re: [PATCH RFC 18/38] proc: don't WARN about a name that is already
- registered
-Message-ID: <9cb48eaf-72f2-4e9f-b979-1ead58deb22f@p183>
+        Wed, 04 Nov 2026 10:43:46 -0800 (PST)
+From: Jens Axboe <axboe@kernel.dk>
+To: stable@vger.kernel.org
+Subject: [PATCH 6.6.y 3/8] io_uring/io-wq: no new workers once the exit has begun
+Date: Wed,  4 Nov 2026 11:43:36 -0700
+Message-ID: <20261104184341.516297-4-axboe@kernel.dk>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261104184341.516297-1-axboe@kernel.dk>
+References: <20261104184341.516297-1-axboe@kernel.dk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,36 +97,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-> --- a/fs/proc/generic.c
-> +++ b/fs/proc/generic.c
-> @@ -401,9 +401,10 @@ struct proc_dir_entry *proc_register(struct proc_dir_entry *dir,
->  	write_lock(&proc_subdir_lock);
->  	dp->parent = dir;
->  	if (pde_subdir_insert(dir, dp) == false) {
-> -		WARN(1, "proc_dir_entry '%s/%s' already registered\n",
-> -		     dir->name, dp->name);
->  		write_unlock(&proc_subdir_lock);
-> +		pr_warn("proc_dir_entry '%s/%s' already registered\n",
-> +			dir->name, dp->name);
-> +		dump_stack();
->  		goto out_free_inum;
->  	}
->  	write_unlock(&proc_subdir_lock);
+From: Josef Bacik <josef@toxicpanda.com>
 
-I don't like this patch.
+Commit 47c68f925062a6013235d06add85a59f7d91e0fb upstream.
 
-WARN is there to make bugs noticeable, /proc entries aren't supposed to be
-created randomly unlike regular files so deleting non-existent name or
-registering twice is probably a bug.
+io_wq_exit_start() sets IO_WQ_BIT_EXIT, but worker creation task_work
+queued before that stays queued until io_wq_exit_workers() cancels it.
+In between the task runs its task_work while canceling requests, and a
+worker can still get created.
 
-Now, some names do come from userspace but it is up to subsystems to
-find duplicates and return errors (and sanitize for dots/slashes!).
+That's a problem for exec. begin_new_exec() calls io_uring_task_cancel()
+after de_thread(), when it's supposedly the only thread left, and
+io_wq_exit_workers() only waits for ->worker_done, which a worker
+completes before do_exit(). So the exiting worker is still in the thread
+group, using the mm, files and sighand, while exec replaces them. Easy
+to hit with a signal pending when create_io_thread() fails and the retry
+gets queued right before execve().
 
-In userspace mkdir;mkdir returns error second time, as well as
-unlink;unlink. In kernel error is BUG/WARN (like it is now) and it is up
-to subsystem to evade it.
+Cancel the queued creation task_work as soon as the exit bit is set.
+Pending work that isn't otherwise canceled now ends with -ECANCELED when
+the io-wq is destroyed, rather than depending on whether the task
+happened to run its task_work first.
 
-	/proc/alexey
+Fixes: 685fe7feedb9 ("io-wq: eliminate the need for a manager thread")
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[axboe: the barrier is already upstream, see 0e5663856b69, only the
+ cancel is new]
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+---
+ io_uring/io-wq.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
+index b3547e30200e..1a5f6ef2dbe1 100644
+--- a/io_uring/io-wq.c
++++ b/io_uring/io-wq.c
+@@ -1318,6 +1318,12 @@ void io_wq_exit_start(struct io_wq *wq)
+ 	set_bit(IO_WQ_BIT_EXIT, &wq->state);
+ 	/* Pairs with task_work_add() in io_queue_worker_create(). */
+ 	smp_mb__after_atomic();
++	/*
++	 * No more workers from here on. The caller is going to run its task
++	 * work, and on exec a thread that is created now would still be
++	 * around, exiting, by the time that the caller must be on its own.
++	 */
++	io_wq_cancel_tw_create(wq);
+ }
+ 
+ static void io_wq_cancel_tw_create(struct io_wq *wq)
+-- 
+2.56.0
+
