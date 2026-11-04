@@ -1,48 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.210.215.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793773796;
-	b=xZU/oEw1n2TX/HdOuAqADyK81BohJNIHN2uMuE86fLH0QwMGDXCNSXI5a/8GVy2zokom
-	 fmxeo0KsFK7fbPnhciUbd6/spvJH/0wUZwes2mo7eZfSYHovaRfu3l/IiYq4fdcTxkYGw
-	 qpTbnTtGdaEL2W6mR+rCXNzjGHpHkfu81cXu8fpU6bKZ/fDwlRd5otJFUu7rPWzlD/YHf
-	 dIYaWm37tJU3MfSiXzWl0RoMVYDwL6HNLJzasd9VzBP0qb6c12nOzgueDINQZSrOlbq4B
-	 t3Z4zmVHKM06KWA1cVRa3YOfCeAg5ewK+nmwW1wNbRVcKVos7EhHZo07SiBbwAPPJFQ==
+	t=1793773850;
+	b=oVwAmvTU3v61go4d4looXzCIJjK/37zgDuUQD0L9vu/j0cOVaEcjGQXVAOI2G4M+93Pf
+	 PuKM54nA3tUCOV3pPaivMRFVmsVYCuEX0QiRIDpiU68vcRDZXkfXjA7ea8YTVwpF0pUON
+	 JgNoQ3DFRtRvM6VtSnVhmX2zqw2ut9iKEUGXNJtrUHAniEn4SjBXj75U5GqrL2c1jHNxK
+	 7ZFYiuBv/1KpbeB0vOIsDPP3w8BhNgVzaahTLR/wsK4HChAMBARpJRgGz09IBwTCAuEhI
+	 FsZNBJmGrjonkgvzkOilpPRrSSfvxcBffghzie534G7U+/Mwndmex+3m684e+7iM58A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793773796;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=LYqHWc9enpWzBJsB2s2CtrAxbT9hLLqSyoYr6qLlZlE=;
-	b=qkQpXHcUsgckuUE69rlv3xEwJIYl1s/f8h0X8Avtv63bVOqTkMOy7meqgykdF0wr+ALy
-	 0IjtEw7qbEtPK5hfOjvaEeEduU7cLWt/hVqKrS1QTUpLJ7PCF+pQfy/hHc/ukYeRqtv7U
-	 F1Rkt5zbIiZypSc1y7bAoIDpj4yXmKOv+kW1EGhvLa8H0MvKnRwFm2AUEtGPq9loHk0eK
-	 fi8vxBWupKeRcJzAmaeS0tuBwWKR4xPv8P45d3AmdgQcmSmDL2vgsmVuqs3szdbONqfeb
-	 l6wrjL8Z3k1vSCiCAX5x4doVCvRbguuE0a4UqYQNj1w24Bjdbw/R5/1468z5P3pkIpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793773850;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer;
+	bh=Mw7VJYnNekK0b04jd3U00XO5v3TzXJogPpVwvYNW6MM=;
+	b=X0G74Gqod+QVpVsHWBE+X8VE6I1YGjnhhp31Mct+uv+X5q72J2qc/60QN1+2tzwH0NEJ
+	 6XygPNMDQW93Efk4OTWmWcc9UcyP7q4s0hukWd7BM8TZZ8E27q8hA1qY+boYlMElv6s0r
+	 /+MTsI/5Pfrxpw49OMULYAIQ6iXOMi7EiwcTWLL7KBifqGQfbt9Dj9QsIFQCbggdwD9Cv
+	 IHNEhModgXAElFIyAsmqLp4A+WiyIPXZ0Wl3N8njM366vAqd0jlpZCHQU7MWq7da9BgRF
+	 sqpJH5I+EIwE7owigafkMhmdIvEWQo+yxC78uk5gcs5rdf00IFpG9MNC00g5x6cDCtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=miraclelinux.com;
-	spf=pass smtp.mailfrom=miraclelinux.com;
-	arc=none smtp.remote-ip=202.210.215.66
-Received: from smtp.priv.miraclelinux.com (202x210x215x66.ap202.ftth.ucom.ne.jp [202.210.215.66])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ge4DWC8p;
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1969606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 06:29:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1969606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miraclelinux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miraclelinux.com
-Received: from iot-shnota-vm.. (iot-shnota-vm.priv.miraclelinux.com [10.2.1.238])
-	by smtp.priv.miraclelinux.com (Postfix) with ESMTP id 566C8140097;
-	Wed,  4 Nov 2026 15:29:48 +0900 (JST)
-From: Shun Ota <shun.ota@miraclelinux.com>
-To: stable@vger.kernel.org
-Cc: Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jianqi Ren <jianqi.ren.cn@windriver.com>,
-	He Zhe <zhe.he@windriver.com>,
-	Shun Ota <shun.ota@miraclelinux.com>
-Subject: [PATCH 5.15.y RESEND] net/sched: flower: Fix chain template offload
-Date: Wed,  4 Nov 2026 15:29:41 +0900
-Message-ID: <20261104062941.129880-1-shun.ota@miraclelinux.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F09E606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 06:30:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F09E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ge4DWC8p
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b1ce85287aso363017c88.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 22:30:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793773849; x=1794378649; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Mw7VJYnNekK0b04jd3U00XO5v3TzXJogPpVwvYNW6MM=;
+        b=Ge4DWC8p50yuM6BE+AoH2DbZIelL+VUSCXwsaeYpNMsz+PTDS5TIsx+Ou5S/TgXiVh
+         6D1P5MbAyNcBV/bo2HUR2y0Z2ydBXauksnTzGC4WhxPaQnLcKMmyBGjQ5ZioZiZwuNHj
+         4fTdv6uegGxFf6rKf1KgtgcPTKrMsqB+91iNX0TORH+nTrFBoxsWLGRnTqWPh66cEMIY
+         VcewTJ3nBkopOLEfJa5O66Jd0tDdAcIpxqQdbD76B+5sST3paZaHiMlMNqZRRXjreAcs
+         6NsKlfG57u+AzUzzqLvdXv74xIlgnbYpc7EgvHfRGjn2ILvxfoD23xNW0LCUBbnwwMgW
+         zk8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793773849; x=1794378649;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Mw7VJYnNekK0b04jd3U00XO5v3TzXJogPpVwvYNW6MM=;
+        b=WfJeoICtBqFnibpcD5k90Xe4a2PpeIbLhTxvLUVeO6dSO6zr549/YMgvtTN/QnMwu0
+         c/Ewh/R82HbhD3fF7Ao8RVL8t+NgKwTI4vZ1HJea8JmJ9avnPAxUNPzLBhjLoBVilu+2
+         ccn7GrlZqUO4iUVDCrlCcYZurkSPqSiR9xIesYAnONUoVsWifqpTA1GhU85Ymu48Ho5u
+         49SmjFO5fY60fTJRMoaQDHlx07eD+S/rEM4hy/61FQvtCqnEjtbbuffF2HDGqORkyd/+
+         zIFx3giqcX7ypt99ibKlGQXzDQHjhfkqy8qiNWxRbRMLa8yzqjm1joecdRiH+ofvXtR/
+         jz9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwdzCVQCPLfO8VgtJHP3PEBdiMb/Ari0CA+lulKM1G1gDP28phQw01pCiMGTQMFTy85K2S0xxw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8gZjObr2J7MEQ56jALo1hP9K233Of+ajHKkknUtA+f71FwVaJR
+	9xgl0oshDSG5dW7uhtVJ6fPKZ1NdoOMyzErV9IDSzssoPdHEppxLk74a
+X-Gm-Gg: AYBFou0DFX60V34EDGf4SZ9Z1jQa7YPWz1Zu1cHhqNf863RRE6a2zsi7R9uS++8vg8b
+	bXSG5YfZPQRlR0dgIaGD9RH/tJtuP0V5Ekw5xJbYoC90Z5vxN7CXeCY6e59ctFGfPmIrtZO98qB
+	KB0MEJ4NJIJpgOR9ZuPfNySmLzigumCLmXMX4oqK2Rl3zNhs2VOEcvim5K7NqDegr4yqHfBMD27
+	Ulr88TYC3w+NXahhfKLIyomgffovU7ksqTJjCk8yN1Bz1AYtms0vIN0HuS2HiH57c+8XE2+aenp
+	nkLNSZRm4ggP+Zzkhg1BlbZHDhJUQoDRwSg4ZVo6HhnBe2R0ualHaFQKCI1oJBC4q66rLSpaUm2
+	kzSfMRp7lSBp5NU8K5laUHj7IXXDj41hQRm0K1MVjOKXU6SAhSiwAbkXYV6HsR324378Pstq9Sx
+	mJhpMmywNd6KfgnauxlBkcHqjOmwzk5Zq4UVpvHCaUnq0w2LuOa1SPcO5vg5YBFUv9osibKbmaW
+	JtO6PeN0Al+xhDRsFDQmrGZF+k1HkS82NbbKn2vFRqO0PHLhPcfZFHbH3hy9qpClZVHJq05Wp7X
+	+M0gGUCk/fxZLc1efhdVbSdF
+X-Received: by 2002:a05:7022:158a:b0:185:869a:8c64 with SMTP id a92af1059eb24-1ac56ca0239mr24721522c88.1.1793773849198;
+        Tue, 03 Nov 2026 22:30:49 -0800 (PST)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c65194sm4454290c88.19.2026.11.03.22.30.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 22:30:48 -0800 (PST)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Subject: [PATCH v2 0/2] nvme: fix removing namespaces under SRCU readers
+Date: Wed, 04 Nov 2026 01:30:38 -0500
+Message-Id: <20261104-bug-nvme-remove-ns-srcu-v2-0-feb64ecb96ca@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,206 +91,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAA7R6moC/3WNywrCMBBFf6XM2pEmwT5c+R/SRZqO7YBJJLFBK
+ fl3Y8Gly3PgnrtBpMAU4VxtEChxZO8KyEMFZtFuJuSpMMhaNkLUEsd1RpcsYSDrE6GLGINZsVd
+ Tp9uT7kcxQlk/At34tZevQ+GF49OH936UxNf+mupvMwkUSFL1dddOjdLmMlvN96PxFoac8wcuk
+ 0/JvgAAAA==
+To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>, 
+ "Paul E. McKenney" <paulmck@kernel.org>, 
+ Josh Triplett <josh@joshtriplett.org>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ rcu@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.13.0
 
-From: Ido Schimmel <idosch@nvidia.com>
+nvme_remove_namespaces() splices the namespace list with
+list_splice_init_rcu() and synchronize_rcu(), but the list is read
+under SRCU. A reader still on the last namespace can then walk onto the
+on-stack list head, which KASAN reports as a stack-out-of-bounds read.
 
-[ Upstream commit 32f2a0afa95fae0d1ceec2ff06e0e816939964b8 ]
+Patch 1 adds list_splice_init_srcu() for lists read under SRCU, and
+patch 2 uses it in nvme. Both are needed for the fix.
 
-When a qdisc is deleted from a net device the stack instructs the
-underlying driver to remove its flow offload callback from the
-associated filter block using the 'FLOW_BLOCK_UNBIND' command. The stack
-then continues to replay the removal of the filters in the block for
-this driver by iterating over the chains in the block and invoking the
-'reoffload' operation of the classifier being used. In turn, the
-classifier in its 'reoffload' operation prepares and emits a
-'FLOW_CLS_DESTROY' command for each filter.
-
-However, the stack does not do the same for chain templates and the
-underlying driver never receives a 'FLOW_CLS_TMPLT_DESTROY' command when
-a qdisc is deleted. This results in a memory leak [1] which can be
-reproduced using [2].
-
-Fix by introducing a 'tmplt_reoffload' operation and have the stack
-invoke it with the appropriate arguments as part of the replay.
-Implement the operation in the sole classifier that supports chain
-templates (flower) by emitting the 'FLOW_CLS_TMPLT_{CREATE,DESTROY}'
-command based on whether a flow offload callback is being bound to a
-filter block or being unbound from one.
-
-As far as I can tell, the issue happens since cited commit which
-reordered tcf_block_offload_unbind() before tcf_block_flush_all_chains()
-in __tcf_block_put(). The order cannot be reversed as the filter block
-is expected to be freed after flushing all the chains.
-
-[1]
-unreferenced object 0xffff888107e28800 (size 2048):
-  comm "tc", pid 1079, jiffies 4294958525 (age 3074.287s)
-  hex dump (first 32 bytes):
-    b1 a6 7c 11 81 88 ff ff e0 5b b3 10 81 88 ff ff  ..|......[......
-    01 00 00 00 00 00 00 00 e0 aa b0 84 ff ff ff ff  ................
-  backtrace:
-    [<ffffffff81c06a68>] __kmem_cache_alloc_node+0x1e8/0x320
-    [<ffffffff81ab374e>] __kmalloc+0x4e/0x90
-    [<ffffffff832aec6d>] mlxsw_sp_acl_ruleset_get+0x34d/0x7a0
-    [<ffffffff832bc195>] mlxsw_sp_flower_tmplt_create+0x145/0x180
-    [<ffffffff832b2e1a>] mlxsw_sp_flow_block_cb+0x1ea/0x280
-    [<ffffffff83a10613>] tc_setup_cb_call+0x183/0x340
-    [<ffffffff83a9f85a>] fl_tmplt_create+0x3da/0x4c0
-    [<ffffffff83a22435>] tc_ctl_chain+0xa15/0x1170
-    [<ffffffff838a863c>] rtnetlink_rcv_msg+0x3cc/0xed0
-    [<ffffffff83ac87f0>] netlink_rcv_skb+0x170/0x440
-    [<ffffffff83ac6270>] netlink_unicast+0x540/0x820
-    [<ffffffff83ac6e28>] netlink_sendmsg+0x8d8/0xda0
-    [<ffffffff83793def>] ____sys_sendmsg+0x30f/0xa80
-    [<ffffffff8379d29a>] ___sys_sendmsg+0x13a/0x1e0
-    [<ffffffff8379d50c>] __sys_sendmsg+0x11c/0x1f0
-    [<ffffffff843b9ce0>] do_syscall_64+0x40/0xe0
-unreferenced object 0xffff88816d2c0400 (size 1024):
-  comm "tc", pid 1079, jiffies 4294958525 (age 3074.287s)
-  hex dump (first 32 bytes):
-    40 00 00 00 00 00 00 00 57 f6 38 be 00 00 00 00  @.......W.8.....
-    10 04 2c 6d 81 88 ff ff 10 04 2c 6d 81 88 ff ff  ..,m......,m....
-  backtrace:
-    [<ffffffff81c06a68>] __kmem_cache_alloc_node+0x1e8/0x320
-    [<ffffffff81ab36c1>] __kmalloc_node+0x51/0x90
-    [<ffffffff81a8ed96>] kvmalloc_node+0xa6/0x1f0
-    [<ffffffff82827d03>] bucket_table_alloc.isra.0+0x83/0x460
-    [<ffffffff82828d2b>] rhashtable_init+0x43b/0x7c0
-    [<ffffffff832aed48>] mlxsw_sp_acl_ruleset_get+0x428/0x7a0
-    [<ffffffff832bc195>] mlxsw_sp_flower_tmplt_create+0x145/0x180
-    [<ffffffff832b2e1a>] mlxsw_sp_flow_block_cb+0x1ea/0x280
-    [<ffffffff83a10613>] tc_setup_cb_call+0x183/0x340
-    [<ffffffff83a9f85a>] fl_tmplt_create+0x3da/0x4c0
-    [<ffffffff83a22435>] tc_ctl_chain+0xa15/0x1170
-    [<ffffffff838a863c>] rtnetlink_rcv_msg+0x3cc/0xed0
-    [<ffffffff83ac87f0>] netlink_rcv_skb+0x170/0x440
-    [<ffffffff83ac6270>] netlink_unicast+0x540/0x820
-    [<ffffffff83ac6e28>] netlink_sendmsg+0x8d8/0xda0
-    [<ffffffff83793def>] ____sys_sendmsg+0x30f/0xa80
-
-[2]
- # tc qdisc add dev swp1 clsact
- # tc chain add dev swp1 ingress proto ip chain 1 flower dst_ip 0.0.0.0/32
- # tc qdisc del dev swp1 clsact
- # devlink dev reload pci/0000:06:00.0
-
-Fixes: bbf73830cd48 ("net: sched: traverse chains in block with tcf_get_next_chain()")
-Signed-off-by: Ido Schimmel <idosch@nvidia.com>
-Signed-off-by: David S. Miller <davem@davemloft.net>
-[Minor conflict resolved due to code context change.]
-Signed-off-by: Jianqi Ren <jianqi.ren.cn@windriver.com>
-Signed-off-by: He Zhe <zhe.he@windriver.com>
-Signed-off-by: Shun Ota <shun.ota@miraclelinux.com>
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
-This is a resend of the following backport:
-https://lore.kernel.org/all/20250515004905.3611889-1-jianqi.ren.cn@windriver.com/
+V1 -> V2:
+- Add list_splice_init_srcu() instead of open-coding the splice in nvme
+- Put it in srcu.h, as rculist.h doesn't include srcu.h
+- Update the numbers from a new run, median of 3 runs per boot
 
-This backport was previously submitted for 5.15.y but seems to have been
-dropped. The diff is identical.
+v1: https://lore.kernel.org/r/20261103-bug-nvme-remove-ns-srcu-v1-1-e239087d63ac@gmail.com
 
-The conflict was just a context conflict in include/net/sch_generic.h
-as get_exts is absent in 5.15.y.
+---
+Qiliang Yuan (2):
+      srcu: Add list_splice_init_srcu()
+      nvme: wait for SRCU readers before splicing the namespace list
 
-Verified with the reproducer from the upstream commit (using a minimal
-kernel module in place of mlxsw) that this cleanly fixes the memory leak
-on 5.15.y.
+ drivers/nvme/host/core.c |  3 +--
+ include/linux/srcu.h     | 36 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 37 insertions(+), 2 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-bug-nvme-remove-ns-srcu-93d8a75a9b1b
 
- include/net/sch_generic.h |  4 ++++
- net/sched/cls_api.c       |  9 ++++++++-
- net/sched/cls_flower.c    | 23 +++++++++++++++++++++++
- 3 files changed, 35 insertions(+), 1 deletion(-)
-
-diff --git a/include/net/sch_generic.h b/include/net/sch_generic.h
-index 7ec1f5aa6ada..b694d27f4171 100644
---- a/include/net/sch_generic.h
-+++ b/include/net/sch_generic.h
-@@ -378,6 +378,10 @@ struct tcf_proto_ops {
- 						struct nlattr **tca,
- 						struct netlink_ext_ack *extack);
- 	void			(*tmplt_destroy)(void *tmplt_priv);
-+	void			(*tmplt_reoffload)(struct tcf_chain *chain,
-+						   bool add,
-+						   flow_setup_cb_t *cb,
-+						   void *cb_priv);
- 
- 	/* rtnetlink specific */
- 	int			(*dump)(struct net*, struct tcf_proto*, void *,
-diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
-index 341128a00420..b958edbfe1a2 100644
---- a/net/sched/cls_api.c
-+++ b/net/sched/cls_api.c
-@@ -1431,6 +1431,9 @@ tcf_block_playback_offloads(struct tcf_block *block, flow_setup_cb_t *cb,
- 	     chain_prev = chain,
- 		     chain = __tcf_get_next_chain(block, chain),
- 		     tcf_chain_put(chain_prev)) {
-+		if (chain->tmplt_ops && add)
-+			chain->tmplt_ops->tmplt_reoffload(chain, true, cb,
-+							  cb_priv);
- 		for (tp = __tcf_get_next_proto(chain, NULL); tp;
- 		     tp_prev = tp,
- 			     tp = __tcf_get_next_proto(chain, tp),
-@@ -1446,6 +1449,9 @@ tcf_block_playback_offloads(struct tcf_block *block, flow_setup_cb_t *cb,
- 				goto err_playback_remove;
- 			}
- 		}
-+		if (chain->tmplt_ops && !add)
-+			chain->tmplt_ops->tmplt_reoffload(chain, false, cb,
-+							  cb_priv);
- 	}
- 
- 	return 0;
-@@ -2848,7 +2854,8 @@ static int tc_chain_tmplt_add(struct tcf_chain *chain, struct net *net,
- 	ops = tcf_proto_lookup_ops(name, true, extack);
- 	if (IS_ERR(ops))
- 		return PTR_ERR(ops);
--	if (!ops->tmplt_create || !ops->tmplt_destroy || !ops->tmplt_dump) {
-+	if (!ops->tmplt_create || !ops->tmplt_destroy || !ops->tmplt_dump ||
-+	    !ops->tmplt_reoffload) {
- 		NL_SET_ERR_MSG(extack, "Chain templates are not supported with specified classifier");
- 		module_put(ops->owner);
- 		return -EOPNOTSUPP;
-diff --git a/net/sched/cls_flower.c b/net/sched/cls_flower.c
-index a40a9e84c75f..42234a0101e7 100644
---- a/net/sched/cls_flower.c
-+++ b/net/sched/cls_flower.c
-@@ -2596,6 +2596,28 @@ static void fl_tmplt_destroy(void *tmplt_priv)
- 	kfree(tmplt);
- }
- 
-+static void fl_tmplt_reoffload(struct tcf_chain *chain, bool add,
-+			       flow_setup_cb_t *cb, void *cb_priv)
-+{
-+	struct fl_flow_tmplt *tmplt = chain->tmplt_priv;
-+	struct flow_cls_offload cls_flower = {};
-+
-+	cls_flower.rule = flow_rule_alloc(0);
-+	if (!cls_flower.rule)
-+		return;
-+
-+	cls_flower.common.chain_index = chain->index;
-+	cls_flower.command = add ? FLOW_CLS_TMPLT_CREATE :
-+				   FLOW_CLS_TMPLT_DESTROY;
-+	cls_flower.cookie = (unsigned long) tmplt;
-+	cls_flower.rule->match.dissector = &tmplt->dissector;
-+	cls_flower.rule->match.mask = &tmplt->mask;
-+	cls_flower.rule->match.key = &tmplt->dummy_key;
-+
-+	cb(TC_SETUP_CLSFLOWER, &cls_flower, cb_priv);
-+	kfree(cls_flower.rule);
-+}
-+
- static int fl_dump_key_val(struct sk_buff *skb,
- 			   void *val, int val_type,
- 			   void *mask, int mask_type, int len)
-@@ -3452,6 +3474,7 @@ static struct tcf_proto_ops cls_fl_ops __read_mostly = {
- 	.bind_class	= fl_bind_class,
- 	.tmplt_create	= fl_tmplt_create,
- 	.tmplt_destroy	= fl_tmplt_destroy,
-+	.tmplt_reoffload = fl_tmplt_reoffload,
- 	.tmplt_dump	= fl_tmplt_dump,
- 	.owner		= THIS_MODULE,
- 	.flags		= TCF_PROTO_OPS_DOIT_UNLOCKED,
+Best regards,
 -- 
-2.43.0
+Qiliang Yuan <odys.yuan@gmail.com>
 
