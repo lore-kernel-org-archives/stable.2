@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793769689;
-	b=kq+8OKnj/Dx2dJ2Bpr9XSJV3X7YOKkhoDjZBGe3/tBOXx2yr+/aRJf01yPDco8VyOizD
-	 8H5LVkv6ND9cChJUkVPmBXGpKVsPsOLCSwlklHDQ3aaIKtvFWdTmJFb+99XEhRXcRidkx
-	 gxZHJZjnC5vOwC7TepmCDl1iXpDdmtwUJrQQAKlRny2p5keKjIqIf5U39ILsCeZaeLD/2
-	 7K9cvsEwMNfIMhaDcLIu9P7wqX8JIxLMPELxek1RGp3IUsVOHmQLWp1eNF4myLA0WBkNS
-	 CG/mSmuEX7RKqD2x+iXTafCfW/rxvbZQ2V7US4iScKrqK7fzg/9SU4KNAR0iVIcdBLw==
+	t=1793769836;
+	b=mKgrXJn2utrw4hx/w5iYaFt6e2q2KQa0CKE7FKqcB0xAnaLGSAudd1LAeSI9f1i8Tvzd
+	 rfyTOXfAcGBo9e7p8ZTxTLpdE2iEnMTXoSdM0f7q3jzHHRCI2k/AupEQeKNYjML2f3MQn
+	 3wE5K21ne/zBFiOhd55tAE/2+JvtCzrH11ODgd7uB1Na8iMj9p7sHVQOqFqslJvENUUOp
+	 vqyZAq+YmLkhafhLeguDhs8+KZOULjuzA9PrE05x5Awp6RZFH865vjHc9aQHQHraafTLq
+	 UhYxqtGbNL73yZuJcNLOBpS78IjLHxDzNvOtuoDY6rkX+Y9e255kYpKmDzuXUma3wmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793769689;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=S3sZXHpAcPchFFTmYmyd75A+OImYl038QKcmLNpDQcM=;
-	b=jdl1uq1a2z2JrUle2T9OC9Oyc9Wn8m/5mj70eWFYazixGGbxCztf3prBdUM2J/B6iQai
-	 cBsBYBFuiuMTVkMqtMr/K1cLG6j2cGcBvqOjC0U5JGESY4LOLsLWxe/uVrURb0bRbIRe3
-	 w8UGVlXe39hDTc2aRllARZ/Nf/msjbx1v5l/tA3Ck70PPrMEX+ALoSvYgFzx/wiyy6r14
-	 wQwv4Qp2t87gEUfTyFZuwbk9mjItb6mzGHLYqj9VBcBxRlCXO1yu/HuwKnnYyXkXY4adK
-	 yeKCkOIO+Mrdtc8qDTtbTRxvmMiUtCL0eNGDG52FlhCNtFUrUcpZ7jBa8dsB4QmueuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793769836;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=e5mp3Z7Qbkp1AkYD1SY+os+264ojHvYErT5DxrRr9Dc=;
+	b=N30uUSeJPT+oaDfGtTgBmg6CGDL1n83HIakZAzh+m9m95ucYQC89HIAOhz8cKsOrKgCt
+	 /AVFEdTEwSsUYu85FsgYjGxTvSuFAdp+4I92aJdx/BwMa0HIWQoZB21FA+ngOxpt9sc25
+	 v3hMKk9h07xUP7nGli3eGK4mtubKPwS6n2ZMWFtqHdBu3TctCYUDAlNlRPjTDCeQdfAWb
+	 5wdTbVfRLrWiE2Hz+/PXO/fZHwRfJ7jIv/tFhKNQxfuUbjLoBMNcgL63B97Zei/zXt0bv
+	 GNbj4s4afWPu9y2zHbaiFCB4eRBEorcbnykiytmu9Gs4+ovRGwtNSA2owq4rY9gegKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=YzLPmqXY;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mftOCp9g;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEE4606A31B;
-	Wed,  4 Nov 2026 05:21:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDEE4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB172606A32D;
+	Wed,  4 Nov 2026 05:23:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB172606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=YzLPmqXY
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=S3sZXHpAcPchFFTmYmyd75A+OImYl038QKcmLNpDQcM=; 
-	b=YzLPmqXY0MxXcC9TMOXwtUj7onQ5u6uagUGMGvdjIpVkTP0Dv23rLhmSumxfZZn9cA6gKZRTLLB
-	zUUP6RRaHjDRbnuMAMqEcuo7nQHB9PsSZBPM0FnxE9Q98mO389RY3/dWKz1C958KgOmh16HLIOKtc
-	x8cUnVMgGtq+BggapJkv2Bn36/SFC076gxdVbV5Jq6XjHbUfxzsEdgrOXRaPt+v+zCSF5MuA7lv1C
-	rmHeiyTOMCaynQwEazXm1jotf54Q72+cISoQelnRNRnE5jqXHmklBVLsl7GiCJ8J9VmVwxH5IB5KO
-	iBPhK7SfwtoU/iY7fhPYXRvyuSnkjDLm697A==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xOTQr-0000000Ajf4-0KeO;
-	Wed, 04 Nov 2026 13:21:10 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 04 Nov 2026 13:21:09 +0800
-Date: Wed, 4 Nov 2026 13:21:09 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: "Liam R. Howlett (Google)" <liam@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Uladzislau Rezki <urezki@gmail.com>, Michal Hocko <mhocko@suse.com>,
-	Baoquan He <bhe@redhat.com>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
-	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
-Message-ID: <aurAxRpCwzeyXeVj@gondor.apana.org.au>
-References: <20261028154218.1668182-1-liam@infradead.org>
- <20261028154218.1668182-5-liam@infradead.org>
- <auKshDXKQXt1kvjy@gondor.apana.org.au>
- <auMbCuecFeRmBFSK@pc636>
- <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
- <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
- <auaFhOa5EBz4gJwK@gondor.apana.org.au>
- <xdzcyoou73blpfdlgy47i2ktrcsffnclerzojpgrxphid54gjc@nicdcvzqx447>
- <auqtTjXhD8is-y9f@gondor.apana.org.au>
- <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mftOCp9g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793769835; x=1825305835;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=V26M15SyhQuylMRXls4jCtp9KIu0E6K7iC6rdNtr+mA=;
+  b=mftOCp9g2c2dFlF2/Gmu75QHNWIrVQXLa08f9WXMnUqTWC3TWjzvYmgp
+   TvvJkncP/B+OS5mu/+crfRTJlAQC/7pR9/1z2Ov/mv4a52lVugL40qqYP
+   0XXEN27vDotPp4G1TzsSHU6MZa03oKqMPW78OZZnr6f+b4noyDU+lqUk0
+   ZmLBlFWy6d5XpKmC4x2BFolOskE5YFFPIy1D/MigYOCwYaCPIMf5KiO6i
+   jc60ESWVXem3y2b65lhEcI69zr0Jry9VsAhrfQTInV3lvYVBgRIpt/N5q
+   Gtso9P+gjbzFHDpuUmqyqCAnYP53bD7YCNjPXeEsR/5WfquJb3Eeu66Bx
+   g==;
+X-CSE-ConnectionGUID: egyLlPpUQBiPLnQclrYABg==
+X-CSE-MsgGUID: GgQEp3PRRBGIubyv86c0xQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2414132"
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="2414132"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 21:23:55 -0800
+X-CSE-ConnectionGUID: LYQNRniRSC6FZ8VF5vuJPg==
+X-CSE-MsgGUID: 2YnP1nSHSEyWQhLQlempeQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
+   d="scan'208";a="6777204"
+Received: from allen-box.sh.intel.com ([10.239.48.101])
+  by fmviesa002.fm.intel.com with ESMTP; 03 Nov 2026 21:23:52 -0800
+From: Lu Baolu <baolu.lu@linux.intel.com>
+To: Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>
+Cc: iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] iommu/vt-d: Set FPD when tearing down a PASID entry with fault_ignore
+Date: Wed,  4 Nov 2026 13:10:57 +0800
+Message-ID: <20261104051059.1345010-2-baolu.lu@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104051059.1345010-1-baolu.lu@linux.intel.com>
+References: <20261104051059.1345010-1-baolu.lu@linux.intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,26 +86,136 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 08:28:36PM -0800, Linus Torvalds wrote:
->
-> Sadly, the commit you point to doesn't talk about *why* that
-> braindamage was done. Looking at the original thread it seems like it
-> was for kmsan.
+When an SVA process exits, intel_mm_release() tears down its PASID entry
+with fault_ignore=true. It does not drain the PRQ at that point. Instead,
+it is supposed to leave the FPD bit set. Later, when the device is
+unbound, the driver checks for this bit and drains the PRQ.
 
-Here is the link to the whole series that was applied (v4):
+Commit 75ed00055c05 ("iommu/vt-d: Clear Present bit before tearing down
+PASID entry") changed the teardown order. It clears the Present bit
+before calling intel_pasid_clear_entry(), which sets the FPD bit only
+if the entry is still present. As a result, FPD is not set and the
+entire entry is cleared, so the PRQ is not drained for that PASID
+during unbind:
 
-https://lore.kernel.org/all/20251007122035.56347-11-urezki@gmail.com/T/#m50cf87c3f12015a56abe5a6359525019851f1b97
+  intel_mm_release()
+    intel_pasid_tear_down_entry(fault_ignore=true)
+      pasid_clear_present()
+      intel_pasid_clear_entry()       <- P=0, so FPD is not set
+  ...
+  iommu_sva_unbind_device()
+    iommu_detach_device_pasid()
+      blocking_domain_set_dev_pasid()
+        intel_pasid_tear_down_entry(fault_ignore=false)
+          !present && !FPD            <- return, no PRQ drain
+        intel_iommu_disable_iopf()
+          iopf_queue_remove_device()  <- groups still queued
+  kfree(handle)                       <- handle still used by iopf work
 
-This is the original RFC:
+Page requests queued before process exit may later be handled by
+iommu_sva_handle_iopf() after the SVA attach handle has been freed,
+causing a use-after-free. Fix this by setting FPD in the same write
+that clears the Present bit when fault_ignore is requested.
 
-https://lore.kernel.org/all/20250704152537.55724-1-urezki@gmail.com/
+Fixes: 75ed00055c05 ("iommu/vt-d: Clear Present bit before tearing down PASID entry")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lu Baolu <baolu.lu@linux.intel.com>
+---
+ drivers/iommu/intel/pasid.h | 11 +++++++++++
+ drivers/iommu/intel/pasid.c | 28 ++++++++++------------------
+ 2 files changed, 21 insertions(+), 18 deletions(-)
 
-Thanks,
+diff --git a/drivers/iommu/intel/pasid.h b/drivers/iommu/intel/pasid.h
+index 48d3bb6b68de..af798a6ee121 100644
+--- a/drivers/iommu/intel/pasid.h
++++ b/drivers/iommu/intel/pasid.h
+@@ -251,6 +251,17 @@ static inline void pasid_clear_present(struct pasid_entry *pe)
+ 	dma_wmb();
+ }
+ 
++/*
++ * Clear the Present bit and set the FPD bit in a single write, so that
++ * hardware never sees the entry non-present without FPD.
++ */
++static inline void pasid_clear_present_set_fpd(struct pasid_entry *pe)
++{
++	pasid_set_bits(&pe->val[0], PASID_PTE_PRESENT | PASID_PTE_FPD,
++		       PASID_PTE_FPD);
++	dma_wmb();
++}
++
+ /*
+  * Setup Page Walk Snoop bit (Bit 87) of a scalable mode PASID
+  * entry.
+diff --git a/drivers/iommu/intel/pasid.c b/drivers/iommu/intel/pasid.c
+index e4f24d3f19a6..d1c08d180788 100644
+--- a/drivers/iommu/intel/pasid.c
++++ b/drivers/iommu/intel/pasid.c
+@@ -178,21 +178,6 @@ static struct pasid_entry *intel_pasid_get_entry(struct device *dev, u32 pasid)
+ /*
+  * Interfaces for PASID table entry manipulation:
+  */
+-static void
+-intel_pasid_clear_entry(struct device *dev, u32 pasid, bool fault_ignore)
+-{
+-	struct pasid_entry *pe;
+-
+-	pe = intel_pasid_get_entry(dev, pasid);
+-	if (WARN_ON(!pe))
+-		return;
+-
+-	if (fault_ignore && pasid_pte_is_present(pe))
+-		pasid_clear_entry_with_fpd(pe);
+-	else
+-		pasid_clear_entry(pe);
+-}
+-
+ static void
+ pasid_cache_invalidation_with_pasid(struct intel_iommu *iommu,
+ 				    u16 did, u32 pasid)
+@@ -253,7 +238,6 @@ void intel_pasid_tear_down_entry(struct intel_iommu *iommu, struct device *dev,
+ 
+ 	if (!pasid_pte_is_present(pte)) {
+ 		if (!pasid_pte_is_fault_disabled(pte)) {
+-			WARN_ON(READ_ONCE(pte->val[0]) != 0);
+ 			spin_unlock(&iommu->lock);
+ 			return;
+ 		}
+@@ -266,6 +250,8 @@ void intel_pasid_tear_down_entry(struct intel_iommu *iommu, struct device *dev,
+ 		 */
+ 		pasid_clear_entry(pte);
+ 		spin_unlock(&iommu->lock);
++		if (!ecap_coherent(iommu->ecap))
++			clflush_cache_range(pte, sizeof(*pte));
+ 		intel_iommu_drain_pasid_prq(dev, pasid);
+ 
+ 		return;
+@@ -273,7 +259,10 @@ void intel_pasid_tear_down_entry(struct intel_iommu *iommu, struct device *dev,
+ 
+ 	did = pasid_get_domain_id(pte);
+ 	pgtt = pasid_pte_get_pgtt(pte);
+-	pasid_clear_present(pte);
++	if (fault_ignore)
++		pasid_clear_present_set_fpd(pte);
++	else
++		pasid_clear_present(pte);
+ 	spin_unlock(&iommu->lock);
+ 
+ 	if (!ecap_coherent(iommu->ecap))
+@@ -287,7 +276,10 @@ void intel_pasid_tear_down_entry(struct intel_iommu *iommu, struct device *dev,
+ 		iommu->flush.flush_iotlb(iommu, did, 0, 0, DMA_TLB_DSI_FLUSH);
+ 
+ 	devtlb_invalidation_with_pasid(iommu, dev, pasid);
+-	intel_pasid_clear_entry(dev, pasid, fault_ignore);
++	if (fault_ignore)
++		pasid_clear_entry_with_fpd(pte);
++	else
++		pasid_clear_entry(pte);
+ 	if (!ecap_coherent(iommu->ecap))
+ 		clflush_cache_range(pte, sizeof(*pte));
+ 
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.43.0
+
