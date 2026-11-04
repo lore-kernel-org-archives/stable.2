@@ -1,88 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793773905;
-	b=JTFQdPU8VQlakbC3YWHfmmvwkqyjwMe8d2kjhpheuo3R7uoR7Z/32tIqlXvXOrH8n/k/
-	 nhh+sPYgX6TllUG+oFM5cS231rYf7m5gUDJAkKAXpxUqrGWmPQR9gt73kbSr75dLQDkAY
-	 fONTEOD3zosnZobuiR698eIvzx5r7NJBIn14vAnwK/vpG2KZGzSVIqdqxYojM4zj5aUtc
-	 vh02wezQNTIAOofU0rQTIglw0E6ehjuAHV+i3to3EqPCM7TdRR1R0c3QLJlBJyc9AP+NA
-	 HmJ+QQPDz4EBKG8R4GeGhI1xSXhtPsUslK2Z1WfE6nl0Sq/lfhsl71A2wm8jez+k+VA==
+	t=1793773977;
+	b=rjHCdLawdMz7o6iswTeoLhZm7jJTwbybsA9+z2Lb4QU91IsIajcccQCUTH84gwmHrzre
+	 mEqprol8LbrCP/RWNyx2BWwWhWNq2wu2sA94V/BiFVYDHs2yBEENDn6nWOpBY/O6+9prv
+	 ImCSK4VqeNKpyabLXzlIJOsbrYf6ae51HJLMKk/WqgqyonQrjA/mmoRSGfYP8IlDNdf5c
+	 516rA4fazdVa2AT+CPhI4/+GfguMRouRnAkpICtrpmq0Nei6nNrFkcWhfxQ5hISVDPfxx
+	 FhrQLAsvIzL6h1eRrd+EvOlcyLgMLEUz+ShWCDV+UdKbxSBqBZFf9Vn4kwqMmpFZ0Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793773905;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793773977;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=5SBRMVpxoMRkm0sntL7ZW3fIy24tGYRHmBWm6wUW0LM=;
-	b=SEjeiSrWCJYnhQMz/rjqoxqaM2aOvpO3IEjVL9dAtciZIqRnJK9RWqYLZfzhY69Iw/dq
-	 /EN7LppxBWqknfrAj5ifqsERn5oljHC126ka4s9KZd31SniIFrdDvSS30wsiSyIM7DEnJ
-	 +/JdWSIWUEe2808qyzet8Pva9gq2Tqz3w9Jv3TsLOZuGfG6jJDEhYUtNkudqGmGDl81l0
-	 DGv7p96vEfp6yvYTY0lNGHdKg8mzTqcpWUAuXV/ZKYZxSK0aBWuztJK1Mbehv6T/7BoZK
-	 beogoc/E0ypbUyJinvbHJIxgc/xGfH6qvdg1Z3XmheI/iEv9vKTLZkiroCRjl7lrFxw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3aaNxA+Y80f5W2oIEWGHyfzyjcTvu4C9UEPW1tV6LQE=;
+	b=ZldKr6npNgpbkGI4a5rUKWGcC4v79Xh8tHE0uynBeJcIvCS2fwEQlwiMrxa9/3F5Zj/v
+	 OAZERSJXDssjOZb6Sa6KldBL/B8WnTt93u8BoEWx28jthhPNInO4W67Kqs2CrTARpi1Ac
+	 kpNWyptMjyF70usoRWes7wKoxGtmp9kk6N/nKcOoH5el7/2mmjWzJbz91cUtHKcL0pgzB
+	 AxyAbsMeW3dn+Vam7nxW9z2M/cLtGoiK8Vgpo4BlYa3K7eR0o1Vunv4/+ndcUkqnalmjc
+	 WXmiMP4IXldIOK8asZ2lwu3H1IlEMkJwE5FJcOu5jJ0AfVZYCHORXIoa/TDGieRh2/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KlMohCMN;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ox44oH8m;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4DCD606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 06:31:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4DCD606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5332606A32C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 06:32:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5332606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KlMohCMN
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1adbf62dd31so579483c88.0
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 22:31:44 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ox44oH8m
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so279537a91.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 22:32:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793773904; x=1794378704; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793773976; x=1794378776; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5SBRMVpxoMRkm0sntL7ZW3fIy24tGYRHmBWm6wUW0LM=;
-        b=KlMohCMNQP7aBc5dV1ONhQAxlzwBbvcHzvktszAMwHgePmd6cpqQQs1cCdvdz8zCM/
-         orn99X5r5zcG7mWOzyoQOwycfney61nVn1pwV0aBiIJrbIFVdFGUgjfMJlqYOobmX8S1
-         +px9i7yd0z1sxxXddC75kLl4GrPDjeUBF413dLRnxFL/WOCAKzOG0TADlIrSnn6t3pZJ
-         MONALX8uX8ZVcGqmvnQtXQOCQ2PPv32ptawboY2t+bzBAPvxcivSUwAmhwLMBZIGUO3c
-         K/PX6EYqY/zz5cGcD7VJR+b31i8GJt4gwMd7i39mK2e11Gc0ty7SssZkfYszfe+xz1+i
-         1Pog==
+        bh=3aaNxA+Y80f5W2oIEWGHyfzyjcTvu4C9UEPW1tV6LQE=;
+        b=ox44oH8mr058i0miWerj3EmnZjHQtouQjtG/I2FLwO27N5lEpBV2MNi850DLMHzvoh
+         Ln0uwPXCoEHhGW/db4tWmAa4FhQUaMg7WLyM0JzW11IfELPrvxa5gg81vYXHNSw93ZuV
+         3NmrD5TyL/i1ptZ5Jc3/4eBx4Y7szq+jeDndIMTkhdwMn6OYVdc76+U8N6d35QOMgRqW
+         ZgF8lZGyb3ObO/eMf91JRd/9b6Dlmxx2Mqc1A9I+Xy9qeVSrSYYlZduxkeX0WckNrOYu
+         DwS0bTgNbjNcRJWONoT089aJcBL414fGZOwTwncYVr6MDVyj3FooJGV82E++YrV57lHM
+         a3/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793773904; x=1794378704;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5SBRMVpxoMRkm0sntL7ZW3fIy24tGYRHmBWm6wUW0LM=;
-        b=SKT2UA0HOUbKF5wHlI+vwR8dv6MGsjrun/3YpAFa54QadirJBglxw0bfbFsml6lQgm
-         vUOSGjR4OaURCIt1271GB/1EOZuL2CDldFutjgv2+p722YHy5shvOFYQ8WMTOw76I0Sz
-         H51oxp4+PrxQkoQ8aPjCH3r5Mq1YlywVRoUuDwpwFqLVnkeFiJK/fAp0sN3UA7VbwSTa
-         OpTUKQZuMuylRXPCQs6djL6a3TW61KjY2E6eV5phwO4jXOfrgZ8CmS/HaunTaJyxzx+O
-         BPk93ZxPi7qCymK7qvJ5BWOz/JLwnoZwbuJ4jvsYM+ZEGhogZNtQjL5ZHlJkt22AZqC4
-         jBBw==
-X-Forwarded-Encrypted: i=1; AKwUvBzwKILkEiJAsQBRlcw3R8yShed1/uG+izOlaZ0WJ1yYZrSRo/HfideS89ehBwuGNEsau5gKQ5U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/f7mw9K7ei1hvx3Z4b8KMCac3OIfLuJ4RDbqklrtTo9XPaiV1A
-	zUtFLKbxentdSuuGyzfHCf+66wlijbeVmHfBVEr9IS6ka5e7es0sz/l0
-X-Gm-Gg: AYBFou240I7ymhX++M/DVRYCk72ffrgtpbV3Zf3duLKGUMy52tfsxm1Gd6R0c5s1jJR
-	tuzYIasgCwvLLIH2F830xoJvWvhSXP9J+iHE/R83gGnuyMnR2iPyb+vU12gjQPf8NXdDcj6y7t3
-	fR/n1FDCn/sQL5knaLrgNrWePh8n+ojSjTdUoc3Yx6V32MefN5XH+5Sta7U6W7IS7hT2l1hZany
-	mW/eqr6r5AD/XXkeUTGOPOO9jyEfpcN458K9gZVjWapo7WB67xgnMEHnuBCO5lt1A0ONpqOLrpW
-	KIQ2u/q/RmCxW1Fm1gNPCzS5CzFN8lc7AreftNODe3I56ct3aqG+if9R6TKu662FZLnKTsWRjh0
-	Cxb7KKFoZc1Q+Ivct89jY/yq7Jw4/LR8sMyV+EYdr2/BCRYqvmgGEylCgPSd7AayUB0k9w5QWNa
-	sG72+nQBs7nWXJTjgKlCvubjv28vuo9bUm7BsxFI96ZEHFZ0geCg3FxzvdR9JTuV3eFVdUI/ZNW
-	dMQLmPx+WKoNz8YCak/IEyKtw1zkCdfaCYl0l4pg2O4AecxgFzu55HEW6S75cjvhF8yU9TitO2Q
-	VGbgAA9dVor6snl450E7KRHe
-X-Received: by 2002:a05:7022:ea46:20b0:1a6:53cc:7454 with SMTP id a92af1059eb24-1ac5d4b2ad9mr25380347c88.27.1793773903877;
-        Tue, 03 Nov 2026 22:31:43 -0800 (PST)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c65194sm4454290c88.19.2026.11.03.22.30.53
+        d=1e100.net; s=20260707; t=1793773976; x=1794378776;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3aaNxA+Y80f5W2oIEWGHyfzyjcTvu4C9UEPW1tV6LQE=;
+        b=Sm3pVlgbTXLTM7EzmHSZ5cP38b+PplF/gJ61/d9fe7qu5lhv3j6Go4LrCS4Q9uaE79
+         8LYhLxN03yyxi9p4gC5jFJmGrNdJD9ZXfUWIYgDbBOzljBQqTjyU2r/Y7Db10WcP+1q6
+         YKSRDn9sAE0SxliiIRIM3/0ONmugsmY4kCeU5mzWrkSPkMkmOz/g6KpX5AB9wXPWnWPw
+         5dRtcqGHxiFC139bPIn6PC1KFmWW8tLSw+/wOt16J8tSIq29AZ8rTln/k8ttEW1vbque
+         NdgEmHxTtuWzZH2r7LYL4YwlgSHgc5UqqD0PRxC2RTUS3Dt7pqlifK+5KZDwe2z4mfp4
+         kHNw==
+X-Forwarded-Encrypted: i=1; AKwUvByVE8qSgxDvcRjkXe4HGrJ3YmpoDmd7N8Z1W2J6+FINM0XMGJBZXycocmZDgpJ0ng9IoC51KxE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+t8I8mfKvzl/txrL5szOiP8qvaqay1mD79CyNkJNvtovxHaGe/
+	webmR9qT3xDjS9r9I0slL4LsIhk06tj+sLnm4KKwUGOYaBlHOMHBZp8S
+X-Gm-Gg: AYBFou2DKb573D0vJ2H8LXEkCtE5CXlyVVW6GGK7idVvmE3n7LvSE8c1dHvEehIubvx
+	/2tiwPwP8e5Z7Xka9BqrTRWuexp8ixelh2WDxeyyT3X9mIyG1sZqu0qY6JGNIJF3QT2VXPj/Zqj
+	TzMZhDOI0uiNOZZul4d7ka4LkVSe8lnQj1QJkL+JdBGMF0m/3n9e4QH+pnFyiSs6SDmTylauWYI
+	bLoGJhpeS1dCOyNqxkVxOKg4fB5lAz/yd/irqqX/PvkMugsSNjae/hCN5Xnj7KFrn6nCEgh0Kej
+	dmatXHwGmScobdVbaaqNceEZGzUMhuYxFGrbRVmt7kNRjMIr6TKlvOVFflzoDlKBNjL7SLzEVq1
+	ngVPmDGphHq23D5VSenZJ4C3W7IiIpu7W4is5/YMo6+OlegTUKxPg3236B+G2cgV4JbTO9/LdVS
+	D5X3Exyh+bGnsXs3F9sQRgJZRt1t5dhuA52tfUmHscUkKI7RYKZDhmxlsTke3sMDf2Y35I8QYNk
+	pcjBxg1fe4i/doua6O+nULuV0B5v9ZDDrfzuXyZoim8KQNGrwurtpccD5CQSboUmnL7arxMA30O
+	WRiH1iFADyFlMGpKn2Jbb+uDPhwOQVkaeasVQVoPAUxbMUgyS1VnCKqb
+X-Received: by 2002:a17:90b:1b08:b0:3ab:884b:65ab with SMTP id 98e67ed59e1d1-3ae89857dadmr12874069a91.55.1793773976084;
+        Tue, 03 Nov 2026 22:32:56 -0800 (PST)
+Received: from ubuntu24.localdomain ([124.77.157.93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0945104dasm2583207a91.17.2026.11.03.22.32.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 22:31:43 -0800 (PST)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Wed, 04 Nov 2026 01:30:40 -0500
-Subject: [PATCH v2 2/2] nvme: wait for SRCU readers before splicing the
- namespace list
+        Tue, 03 Nov 2026 22:32:55 -0800 (PST)
+From: BeaCox <0xbeac@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chris Snook <chris.snook@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net 1/3] net: atl1: disable work before freeing the netdev
+Date: Wed,  4 Nov 2026 14:32:43 +0800
+Message-ID: <20261104063245.23402-2-0xbeac@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261104063245.23402-1-0xbeac@gmail.com>
+References: <20261104063245.23402-1-0xbeac@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,76 +103,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-bug-nvme-remove-ns-srcu-v2-2-feb64ecb96ca@gmail.com>
-References: <20261104-bug-nvme-remove-ns-srcu-v2-0-feb64ecb96ca@gmail.com>
-In-Reply-To: <20261104-bug-nvme-remove-ns-srcu-v2-0-feb64ecb96ca@gmail.com>
-To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
- Lai Jiangshan <jiangshanlai@gmail.com>, 
- "Paul E. McKenney" <paulmck@kernel.org>, 
- Josh Triplett <josh@joshtriplett.org>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
- rcu@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.13.0
+Content-Transfer-Encoding: 8bit
 
-Readers walk ctrl->namespaces under ctrl->srcu, and some of them sleep
-there, e.g. nvme_wait_freeze() waiting for I/O to drain.
+atl1_remove() frees the netdev without disabling reset_dev_task or
+link_chg_task.  reset_dev_task is queued from the interrupt handler for
+link-down and DMA errors and from atlx_tx_timeout(); link_chg_task is
+queued from the interrupt handler when ISR_GPHY reports a link event.
+Both callbacks dereference the adapter and the netdev, so a work that is
+still pending or running after free_netdev() touches freed memory.
 
-nvme_remove_namespaces() moves the list onto its on-stack ns_list with
-list_splice_init_rcu(), which only waits for RCU readers before
-relinking the entries. A reader still on the last namespace then follows
-its next pointer to ns_list instead of ctrl->namespaces and treats the
-stack as a namespace. Deleting a controller while a Format NVM
-passthrough waits for a delayed read on the last namespace gives:
+The original driver never cancelled these works, and the current
+reset_dev_task was introduced when the two reset tasks were merged in
+03662e41c7cf ("atl1: fix kernel panic in case of DMA errors").
 
-  BUG: KASAN: stack-out-of-bounds in nvme_wait_freeze+0x102/0x120
-  Read of size 8 at addr ff110001d2f3fc38 by task nvme/4413
-  Call Trace:
-   nvme_wait_freeze
-   nvme_passthru_start
-   nvme_submit_user_cmd
-   nvme_user_cmd
-   nvme_dev_ioctl
-  BUG: unable to handle page fault for address: ffffffff8af04850
+Disable both works synchronously before unregistering the interface,
+then delete the PHY configuration timer.  disable_work_sync() drains a
+queued or running instance and rejects a later queue_work(), which a
+plain cancel_work_sync() would not.  Deleting the timer after the works
+have stopped also prevents a running link work from rearming it.
+atl2_remove() cancels both works and deletes the timer before
+unregistering for the same reason.
 
-Use list_splice_init_srcu() instead, which waits for the SRCU readers.
-This also takes the RCU grace period out of every controller deletion.
-Deleting 64 tcp controllers with one namespace each, median of 3 runs on
-each of two boots per kernel:
-
-                                      before        after
-  nvme disconnect-all (ms)            3491 / 3509   2996 / 3165
-  nvme_remove_namespaces() avg (ms)   39.0 / 40.5   31.9 / 34.7
-
-Fixes: be647e2c76b2 ("nvme: use srcu for iterating namespace list")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Fixes: f3cc28c79760 ("Add Attansic L1 ethernet driver.")
+Cc: Chris Snook <chris.snook@gmail.com>
+Cc: stable@vger.kernel.org # 6.10+
+Signed-off-by: BeaCox <0xbeac@gmail.com>
 ---
- drivers/nvme/host/core.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/net/ethernet/atheros/atlx/atl1.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index a7a4d09644c13..cdb576db23809 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -4755,9 +4755,8 @@ void nvme_remove_namespaces(struct nvme_ctrl *ctrl)
- 	nvme_change_ctrl_state(ctrl, NVME_CTRL_DELETING_NOIO);
+diff --git a/drivers/net/ethernet/atheros/atlx/atl1.c b/drivers/net/ethernet/atheros/atlx/atl1.c
+index 2883e9462f..2bd35c3cfc 100644
+--- a/drivers/net/ethernet/atheros/atlx/atl1.c
++++ b/drivers/net/ethernet/atheros/atlx/atl1.c
+@@ -3132,6 +3132,18 @@ static void atl1_remove(struct pci_dev *pdev)
  
- 	mutex_lock(&ctrl->namespaces_lock);
--	list_splice_init_rcu(&ctrl->namespaces, &ns_list, synchronize_rcu);
-+	list_splice_init_srcu(&ctrl->namespaces, &ns_list, &ctrl->srcu);
- 	mutex_unlock(&ctrl->namespaces_lock);
--	synchronize_srcu(&ctrl->srcu);
+ 	adapter = netdev_priv(netdev);
  
- 	list_for_each_entry_safe(ns, next, &ns_list, list)
- 		nvme_ns_remove(ns);
-
++	/*
++	 * reset_dev_task is queued from the interrupt handler and from the
++	 * tx watchdog; link_chg_task is queued from the interrupt handler
++	 * when ISR_GPHY reports a link event.  Disable both before
++	 * unregistering the interface so that neither a pending nor a late
++	 * queue attempt can run after free_netdev().
++	 */
++	disable_work_sync(&adapter->reset_dev_task);
++	disable_work_sync(&adapter->link_chg_task);
++	timer_delete_sync(&adapter->phy_config_timer);
++	adapter->phy_timer_pending = false;
++
+ 	/*
+ 	 * Some atl1 boards lack persistent storage for their MAC, and get it
+ 	 * from the BIOS during POST.  If we've been messing with the MAC
 -- 
 2.43.0
 
