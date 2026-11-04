@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817826;
-	b=DmgYu9UDFPgkC4CJlxR6WYu0tJMB3JhxRut/XAzXC6D2V5FwyV1tG3OT18NBJS9skBm2
-	 ZXfKU5eXgjyqxknzXXGiTGc3U79x0GkSfz+5c4nWFLx9n1HL6PIDd0UpthJQ69WFaJYTG
-	 EjR5xnTk4JSRtc9n039jJL7u/4wD5LAG6Jwer7iTXditqj0GO9eZQPfwB+lsPDOoZT0uT
-	 AV3Sxd+vij8GvnbDwlMpYc++sk85BMFBp3ZuT+nEBeJspBnXyqPPtSdF01p4yZD+W1YOE
-	 9bXDdPc7Xy31G0O+na5Tyj7TVBd1UqT5NMS7rz21N756e1+ADT3lTApcmkf2eCx8QXA==
+	t=1793817827;
+	b=IkSYUNLmcSuIYI0rQP6y5PaQ1wlYATLC1g36yZ+Qm3F8Xv5Bstzyf8eALIlBb+VpQ0tt
+	 swu7BrhHyHzQsCjBSZgC22GGqzvh1CMipMAKJan5YfpvsuMnxmLtS6D9Fz+mVh3Y5KPss
+	 y+hW6oQl07iwSMpzBQhzFJz26HWUAv/4Pn3X8xdGQ/vueVZ4PfPmRBhwaH9B8/3C0c1Yi
+	 9jBB9k02bfhB3Ji7+9ZfFAelsITZyaEF7FBQF/MS1d1+P8OESuvELVJUXUuV9L0OUvaum
+	 bqkfhFnhRgtGRyoIPdPY8fy9/OzQWZ33N8UBMHwN5sL6LHJOVeL/2o0jt9UT9/K43VQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817826;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817827;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=W9CV8nbEdr92gXoeTWDjDC0tg+tmLqzWnVdbsIztbpw=;
-	b=lhGv+XmONCSN4tbhp6LpCTolBYRXqW7WmaIa3hM8X8Rew79EC+IPN4nhTp67CWOJZWKn
-	 M5jJeswlZFAiuyIYdhQLZsSFEDrLznA6haBRY/3dJDE5pf4/VsrSqdtPInTzeyKQd0nSK
-	 R6E18xD9fnCszNoZ/yBX+azVeTZVSMySl67YsQPhxHmt/bokHgNZeBG+WDt2y6YqmZ8OH
-	 QTsIRY8fQ1WKpX9OKWMjVeseUfXIMPfOwAn6syOrRNPKduJXN2hncDLRWAcZ1HXrI4Tlc
-	 AW3Fi2OLnQq4+Q1f78C7MUv2HUcEJsGv0lpHQj8/JRAvA1Hdq1RzW14B9hXEszIlNtw==
+	bh=u0AXXfcqrxPIDV3H42pcRHxW2tMgCwJ2gAOzkHwZdCA=;
+	b=G67MB0LIbqxpNztdB1Gh0luSryV+vLNMTc3n/2ohX52ZkalWdRYhwweGQYTeKD4TTc1F
+	 EVT8cyj8WCya7H9YA+eYddfH63e+azjZF1I/+/SavkZJ3FLA8QPUBvIdYIM7zBc+mF9pJ
+	 5B7d0WB6t8z37Je3Y5RkhKjswlpN5whqa2iT74CuZDUvtBdS6rr5k+EGD/wDgXOd7g81N
+	 QoHnS28UzsDYLzL1b3Z7X9g5ivg6r6rFBuU/fjlJZvtB3igHkCDVnN7S5dxI2TJQ6tQYT
+	 OxMRv3i2rRPXrDYWv+zmhOAo2mmhsAejuD2fiWWviV8eTruxmB/Xbv6MUKSIvmoM3XQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=H6BvCkGt;
-	arc=none smtp.remote-ip=209.85.160.43
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Otahwcao;
+	arc=none smtp.remote-ip=209.85.160.49
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D93D606A33E
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:43:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D93D606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B9B606D811
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:43:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2B9B606D811
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=H6BvCkGt
-Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-483d290f398so686374fac.2
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:43:45 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Otahwcao
+Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-4911df1e196so703810fac.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:43:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817824; x=1794422624; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817826; x=1794422626; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=W9CV8nbEdr92gXoeTWDjDC0tg+tmLqzWnVdbsIztbpw=;
-        b=H6BvCkGt/LkwLIoup8aW1Y2vnTyIXBq4dFPOt1S60/fClsAibMzhugVlheJV5mcu4K
-         PWXLYfmhx6YTX3KjriLQE6u3mMZ9F4B1scKrS1yHIsEWZeVGdALX+DtorrAInmB/dT2C
-         fUkKDg4Ioi+gu7aJmPzzQ6aESJGMq3h+M7+bfWYANczVHpe0cgz+Yco8fSnM8tLiC9E4
-         1y9TNuZEKLDiAsEezRSQ6wEfX5ayot07ycChsAKMPLb6d6CMLipZfPy1kq0OJKMsgJ8i
-         WB2FW8Ek98hXZAacL78stLYMlk8CbB35nPjItMtMUR9VjU3Jagg2weePsDE6Iqdd+ExI
-         6s5Q==
+        bh=u0AXXfcqrxPIDV3H42pcRHxW2tMgCwJ2gAOzkHwZdCA=;
+        b=OtahwcaoyjqsiNFvq7vTvzIqT8ZARgBFXYseipvRN4xyT7O61flraQoCU4YGXpUMha
+         45IgUw7YYcLAtCMU8DhdiP0qRfaMQoL5/pRPEF1/CFEhv845Kn7XWwh9NZrDIhSyeH14
+         8vS/BshRXt4XPEXCH4a1UGMikyklbw+9QIL9GMRt4GrNZSLmpQ+orchlcob5okmBz1Vv
+         tmBgd0Y6wwEmE+3XvshlUERnWowu7gW3lYnWb8iahkKNUlEJJoY1Y6g9VZZMVbQz6DM9
+         okN76iewZRThLp7RzBJrKTpmG7BMF/7PrMIF9XKTojJANLqvR7YaFG5lw9ht0kKgM82r
+         cRZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817824; x=1794422624;
+        d=1e100.net; s=20260707; t=1793817826; x=1794422626;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=W9CV8nbEdr92gXoeTWDjDC0tg+tmLqzWnVdbsIztbpw=;
-        b=ClEFuYZznXDeDPFm9e3HxEXRlrSR8ipEippKiyv6wVAFHjrKf478cdoKRHs4NDhGTv
-         F2NxKUFwWt0iVFHA1IjVkmKVFiXG2CsxcIZWWljux9OBJXpaw2RizoCzfSh0xUeCSDFF
-         YFxhyCRSkeJydsFowZWZXrA/shC6pSBCYL+iDLNNOccWZFPxDglZli6RkxkUIgHdpnfY
-         lY36sBoBFyZqszMHhXIWPiUHHidqrQd6Qp/4jFQBEBvCZfDX0zDIu8pTx2FSelYSAOEB
-         4G78tA80LzZuMwP4Am+kFwy8rYysOjTL/D7Q+VQyLKfqdzzrb2nyF175yzdKlHzXDppg
-         SwAA==
-X-Gm-Message-State: APuU4Z9SG/RkW2aBJJsloVDG4ojMTakyqGFUbY33QYLAx+O5Btcgu2Ut
-	yQlu50soNebivNBIvipPpJiSDeTukL+kcDdG9Us9ygmz++09yc8gqwPVGNHp0qJq8PZ1MfwdZpg
-	jUdkXc/k=
-X-Gm-Gg: AYBFou0AX6KyV+I11LhTbAvutR6PpM77mt0N+IYxrc5nLugfICoePiBe5uKGkcJCbC9
-	mP5k+djwGM5QbCpYujXo0tsrsADTB3+gDxgyi6sQ5WBOhUy7DrYDYgQuyq2iO8fxRu8pI8TfsY/
-	tDB6wYUPepXD+QqRNyOS3VZUo8JOvc2fVVIWVcjA8C1opDTkQUyd3hPuflI6B/xf8IwDbO+N3uY
-	eJLkO6jVRwVscQKjXBOuK7ooM/dTzDG4LkvgqYRRU9Hqs2AAYXv0e/ivl5qwo3kUHrV9YlTLICp
-	/LXKi29es/BVGSeQJ4m5ll2xEYqJS1hqAhbG6P/yjAw6c7ufam9vVXKY9K4g5OIb19e0lbQc7VS
-	xAeouXrnxSEjnjZ0/ALPd5H0fcyALgECrQp1139cQVlngEJjvagb4Ow9dFXm190uHyLlRJP2V2X
-	uPjQ1Rpllb50o1eLXpPYRkoEpOxqTchYUdv57u3kFUbLpELL37mct0xoPfq00eSZDdSlKf1TWtQ
-	ceeGtSyDU3PvV/3LWnE3eG+DtGBPU9KT84yAJBTlNbfUVibBkyZfut4RUZXcVr92TZFZ8hMEUzE
-	myiJB50uqT39S/oTNQt4boq3tVWqDXOqKvvEfde37kTfPycOHqwdIO5ZCf4N//S+zDKpOH1UBA=
+        bh=u0AXXfcqrxPIDV3H42pcRHxW2tMgCwJ2gAOzkHwZdCA=;
+        b=caQgeu2OQtmWBWWLCAw5Da0S28b+7SYqLyS2SL5PpT1S/FGLM7XhLa+w0XvumYjb2H
+         pXFbcEjcYHo+7FTfpq+F7n37yVCk6GvSh5gzZxs0M0e6LvaYHlblJ486ycSV+Q5N7cEX
+         aALzORMqvipwPtd/pKYOqiSiDiPWQFPlDZZ52qszUKmQ+GN5dBc7wALzADhP0c0kVi8U
+         3T8dHEig+pnDTFBYgbs1bGZgwaPPB+jbdFwdboqnVeSTlxeSiITeQRPMahcf+TQDCo4x
+         ZSlDVKJc97C6GzUne6++xgrDqnpyuBLOeYc9mWxcQUenkXlgc66R5pDdRCx7iVNU4As5
+         4vkw==
+X-Gm-Message-State: APuU4Z/LC9VMISV8meHwM9cprHZL6uX5dJMqsCXc6RKx1sJ+DV7ROsGf
+	hFwQJBzthXJYoWw4O2xjds+Xz/HkAbJBlTKx261cRY9OiI42GzLXNy1wakzS4dIFzJFfxd/rHH6
+	OBZIs6H4=
+X-Gm-Gg: AYBFou3U8GDMIIg0mexJjgW9sQdtiMTAxX08Lscco2zkvE1bXZVo+zG4Rcx/wrJgUtT
+	mrfquAU3ZPEO+A5ubrnzuf8Pl+ujicGRPfj0q9TVWBmDldrx1X1crRSHNOmalKGNcYUIMVMZ8Kk
+	MU7r60vW3RZ7idn81ULUe7Ikp43pcpPPItnJKxttkUMXG1fkXacD7YhW5XxzBGjmLMF2s5FTcdE
+	DHv93EZLQGLQ1BqHNdSzNGPZj20+IP9eJVE0dsY4CU5XD9dUZnxmsdEvBAT464iqto/Cda91NoG
+	uIfnWMDFW3wNMULX11+YVMCNetdPXbOTYipE435gK91yjjgzCuE/UgeCTTI8QF2xSPfHrYXoI53
+	wcIGXh3bHO6aXPI2dD+bmeqjurMSmqc2cMQwnGUGh2aERgdqN+j8sF+Y47YmmyCZO8v/wJI7XJr
+	2O829jwbjJf+zub6vqWF4Wd95eeZU9imNGKMSelL6a/tQRDCHI0UVD1pjkY1516+CF6hYVYVmHq
+	Ek5KAs7j26p9kUabfZSHLXwWG04IQrU6A5kfDlTil6uNaY+fh0CWGZkR1rmhlhPxNXd2lErOJOB
+	gC+SWrawUu3XxIl46KTZrOsnVtYRaIAjqjb6NON2tg6ZiMvE2f5qSrKkarSdMDeSH2VunwgHeg=
 	=
-X-Received: by 2002:a05:6870:1d14:b0:47b:df9f:6c0 with SMTP id 586e51a60fabf-4a90729b9demr11296325fac.4.1793817824481;
-        Wed, 04 Nov 2026 10:43:44 -0800 (PST)
+X-Received: by 2002:a05:6870:2494:b0:493:d7c8:c71f with SMTP id 586e51a60fabf-4a9076716c5mr11489119fac.27.1793817825587;
+        Wed, 04 Nov 2026 10:43:45 -0800 (PST)
 Received: from xps16 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea61d382sm2595770fac.13.2026.11.04.10.43.43
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea61d382sm2595770fac.13.2026.11.04.10.43.44
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 04 Nov 2026 10:43:44 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.6.y 1/8] io_uring/net: keep recvmsg buffer select length within MAX_RW_COUNT
-Date: Wed,  4 Nov 2026 11:43:34 -0700
-Message-ID: <20261104184341.516297-2-axboe@kernel.dk>
+Subject: [PATCH 6.6.y 2/8] io_uring/net: don't retry a non-blocking connect() that fails with -EAGAIN
+Date: Wed,  4 Nov 2026 11:43:35 -0700
+Message-ID: <20261104184341.516297-3-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104184341.516297-1-axboe@kernel.dk>
 References: <20261104184341.516297-1-axboe@kernel.dk>
@@ -99,37 +99,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yichong Chen <chenyichong@uniontech.com>
+From: Daan De Meyer <daan@amutable.com>
 
-Commit 18d3f56eb6e6500a65d81cf265f0fe74fd9ecab6 upstream.
+Commit 71537ed811107c514c0342e98902d489d6d2b7cd upstream.
 
-io_recvmsg() takes the transfer length from the ring provided buffer when
-sqe->len is 0, and such a buffer can be up to 4G. min_ret is an int, so 2G
-or more makes it negative and the (ret < min_ret) block is skipped, and the
-oversized length reaches the socket layer unchanged: an empty socket then
-completes with 0 instead of arming poll, and a short read is reported as
-complete. Clamp the length to MAX_RW_COUNT, as io_recv() does.
+IORING_OP_CONNECT on an O_NONBLOCK AF_UNIX stream socket retries a
+connect that fails with -EAGAIN because the listener's backlog is full.
+Polling the client socket doesn't help: an unconnected stream socket
+reports EPOLLOUT and EPOLLHUP right away, before the backlog drains. So
+io_uring retries the connect until the apoll retry limit is hit, then
+punts the request to io-wq. With a full backlog, io_connect() runs 128
+times in the submitting task and once more in a new io-wq worker. That
+worker stays in the task's thread group, so a later
+unshare(CLONE_NEWUSER) fails with -EINVAL.
 
-Fixes: c7fb19428d67 ("io_uring: add support for ring mapped supplied buffers")
-Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
-Link: https://patch.msgid.link/20261023112209.87979-1-chenyichong@uniontech.com
+None of this changes the result. __sys_connect_file() adds the socket's
+own O_NONBLOCK to every attempt, so the attempt from io-wq fails with
+-EAGAIN as well. That -EAGAIN becomes the CQE result, and connect(2)
+returns the same -EAGAIN.
+
+Let's complete the request with -EAGAIN right away when the socket has
+O_NONBLOCK set, like connect(2) does. io_accept() already completes
+-EAGAIN this way for IORING_ACCEPT_DONTWAIT. -EINPROGRESS still waits
+for the connection to complete. A blocking socket still ends up in
+io-wq, where the connect sleeps until the listener accepts.
+
+Fixes: f8e85cf255ad ("io_uring: add support for IORING_OP_CONNECT")
+Signed-off-by: Daan De Meyer <daan@amutable.com>
+Link: https://patch.msgid.link/20261027-b4-io-uring-connect-eagain-v1-1-f4e3aaaa49ee@amutable.com
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- io_uring/net.c | 1 +
- 1 file changed, 1 insertion(+)
+ io_uring/net.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/io_uring/net.c b/io_uring/net.c
-index e7f8a79e049c..bfb128ff2333 100644
+index bfb128ff2333..d944b0466b41 100644
 --- a/io_uring/net.c
 +++ b/io_uring/net.c
-@@ -857,6 +857,7 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
- 		buf = io_buffer_select(req, &len, issue_flags);
- 		if (!buf)
- 			return -ENOBUFS;
-+		len = min_t(size_t, len, MAX_RW_COUNT);
- 
- 		if (req->flags & REQ_F_APOLL_MULTISHOT) {
- 			ret = io_recvmsg_prep_multishot(kmsg, sr, &buf, &len);
+@@ -1564,6 +1564,17 @@ int io_connect(struct io_kiocb *req, unsigned int issue_flags)
+ 			if (connect->seen_econnaborted)
+ 				goto out;
+ 			connect->seen_econnaborted = true;
++		} else if (req->file->f_flags & O_NONBLOCK) {
++			/*
++			 * __sys_connect_file() adds O_NONBLOCK from the socket
++			 * to every attempt, so a retry from io-wq fails with
++			 * -EAGAIN as well. A poll on the socket doesn't wait
++			 * until a retry can succeed. For example, an AF_UNIX
++			 * client reports EPOLLOUT right away while the
++			 * listener's backlog is full. Complete the request
++			 * with -EAGAIN, like connect(2) does.
++			 */
++			goto out;
+ 		}
+ 		if (req_has_async_data(req))
+ 			return -EAGAIN;
 -- 
 2.56.0
 
