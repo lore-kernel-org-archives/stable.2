@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817324;
-	b=xzWyBPUSJzi9LFIervcRAFhRm0xkWdylcbf8spPP4lhMo9QV3LIzvtIL3RqRLepqo5SZ
-	 KCtKMAvFGzPmmeuAuDC+OHFUJ6d3eedAlrhDQUqhboDPgRsYWBOZsx/p5S/9AIEs03ZCi
-	 sVmR5K89P0/n9p0zjohvf62bdWByGwNfDd7slThgLMGjJ0NLUfUEDg/aTsfovWDEN+U5v
-	 Bo1htOteW7I8tQcrPiW7n0cfgI9Sw+C6iEkb8sa08VbvDLNtNbolEayr7skqb8s+szwTJ
-	 kq9oRe4t3tKXP/8rNjq/Fv+h5BRiC5o+3iia5Mm5kMf6ReNqjR2ZOyYcE2og5ZyUbJg==
+	t=1793817326;
+	b=m6Zb3TafztskAOGaODlxKJu/glp2I9t8N2S5rSGqBAbdQUkm9LhacZkvv/MGp6jTKWe0
+	 wY6miAtxsE5Icf2QTPgBl3cu2V8TvaNTlAEWbwo6gHrkfc7q1A15qG6aQpI0oL3E4KI4S
+	 +lPj4lNcIeJwVHvYszpRT+JTloHC83U6VYDps4nYQvUAJ2WkvsvEeCV6/lOz2fGkFpboe
+	 /FRKRP00Ahy1JvG30Sle08ANXg/zTVmLe9W4JoIBrs/wLeJCLSPo4mbmK9ofX8COU+UDW
+	 6WzaXKz1SFnHzw7M2dPILYjoD3ns7UqHY5jwO7RjMPjfWWtOEg/EBoaQeLmhXOnyjuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817324;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817326;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=3+gBBAQ6Sy0t579WklehmMND5ptrRZYJw2z73iwKN0A=;
-	b=pFMqHbxkWHb+C15nObJSEWQMN/z+ep63d4n7jVHaCXcRRFFOb0XG1l7oLjKH026tyHqe
-	 rG2jAJhuDDK2qIyJxBivAJ0c8qnuqg+9rZ4zq0QJYYSsor4rmGrM770yFGSTkJQ8yA132
-	 DaHNIxaWKtTChqyRXF7nRuEc6wEVzJwYxOOptv53kMEcix6MVQ+W47LUyqvZM/rfyJz4U
-	 f4+FlCBqlVUkcxUhMpwnV+rSyW1awVQgORTKez1fCRAswztLHRmrhecnQmwih3jiWmPEq
-	 IDGu0HguvMI2nbi+u4xEEUSfRLBSJtQTiJGk46R+oTfuBzzN4wb0mRcVL7a24P2k8Dw==
+	bh=y7M3RSPjUifRNVTXmZKOFk3xi/6P04JvNl0d527hG98=;
+	b=ixrUv1IwHYs3Ui2OhwDBAMiUmENUWadRTrXuTya0aA/HaZ9+z+aY3cRoEnMq1Ov55/Wp
+	 /S9ba0cpQPuV5TFlF+JW0zXw4Jsr5Rgx/tk7vH41aVOoxhs9balW3wzqymBUboP2MWsF5
+	 +jdS37aBLKnlwDuEeayF4NQUCnazmFb9z5dqQLa5xgv9P3tYTxdu76LaDspu9v5D3PVmp
+	 Y4vlNohQ0jXoA+aZTGyBqqxnO6Jpo2GAGmjraFGeM26GvR/+ryfIi5jR1KLCNY6RtJyrF
+	 cWPO8siBH9ypMR8GHccVqbe0As+oZuWmEW/e30iQDZ/XiL7DfW4umqZ6NcwPiCjzDLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YbeYEtoM;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="mgurKyR/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D5A1606D80C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:35:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70217606A32D
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:35:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YbeYEtoM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 786D31F0093A;
-	Wed,  4 Nov 2026 18:35:23 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mgurKyR/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CF6E1F00919;
+	Wed,  4 Nov 2026 18:35:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793817323;
-	bh=3+gBBAQ6Sy0t579WklehmMND5ptrRZYJw2z73iwKN0A=;
+	s=korg; t=1793817326;
+	bh=y7M3RSPjUifRNVTXmZKOFk3xi/6P04JvNl0d527hG98=;
 	h=Subject:To:Cc:From:Date;
-	b=YbeYEtoMtvB78dtWoedseRz1L0Wgpi0jHzZCtlXikyadjNDIemjLIrn8DruHh4SqZ
-	 vIJ6nmDGcJ0+SvGS/7lB7W7EGCOns2x4OkKF0hQiLWokt82hu+boULcEBM/d7eX+Af
-	 jST9yds0QKs3NunATjkM81ABf6LZu0RAD2pNfpbo=
-Subject: FAILED: patch "[PATCH] smb: client: validate the data area in SMB2_read()" failed to apply to 5.15-stable tree
+	b=mgurKyR/B8n4RIfugE9hZuGA7Rh2UgQ7LQeduQQrAuwtEWJxW7ED/Pnmyw4JTjuRi
+	 SN5ojLHnDAKPXzKQYgD2hDxdrC13GufhWWkdDPAxFSGzTL/n4cuplzNeQgFFzxUaF4
+	 j+L1rHmRr1JYcwpOF6pa5IpJhyeC9sjHHWUe3Zjw=
+Subject: FAILED: patch "[PATCH] smb: client: validate the data area in SMB2_read()" failed to apply to 5.10-stable tree
 To: suruurism@gmail.com,linkinjeon@kernel.org,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:35:22 -0500
-Message-ID: <2026110422-kitty-unlocking-dd52@gregkh>
+Date: Wed, 04 Nov 2026 13:35:23 -0500
+Message-ID: <2026110422-santa-book-618b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2ec9cdf469dd32bcf33073aeb30c08e9356e0ca1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110422-kitty-unlocking-dd52@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110422-santa-book-618b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
