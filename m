@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818471;
-	b=iogT+7paB3mDMicTuiFEEj56163eYJrS03s+MdIbZrTR4cCc0uRQnXt3vL7EFIIFwFkz
-	 KrKaYB9+u/PlQI/PkcKk85DGfiMevezsNrc3Vngodng+dgPGKXfVySQzPzrzudVzEv5xE
-	 rJpFTubi1kBN7WgZfJhQ8JNFwyBU+rVg72FA5QAuC3dopp6yiLrcf/eJeFYEs8zHQfdr6
-	 bPUNMK7NjWeFT2J6VWNNJYppeuKsm7pQ5x2G6OU5AkCrAX4DLxa5rAguktoIznQ3qxQxO
-	 g9hmDzHkmGb0jW33DU4alRtR5fbrVwF2q/XqFqyrdsL52K7oo+tMtssMSBQhzZyRdEQ==
+	t=1793818473;
+	b=QfoFO/Ez9HLMm51PH9qDIlpHvOLg/KZCWaRwAcZeuDmJFsWtYYJ4pjFF7H9416KSeJRZ
+	 Axw6P5mDSXMa+S78Q2xrlgEiiOVD+FivJOSI5FhPimPaAD4Yk10NHiiR2jhjOD3ogzVfw
+	 6iBRPU4CWbSnSfQ8eCjzmreKrhkAnBFvle9C1vSDqOmq7EIRGmmKVhT6bPoR481gpotp1
+	 Fwk/sfG5wmg6b1uIWvcbw9JsnBpoZZG/1LfVE5wUCftkIaHr9ZGK2zUg/dNSaIOFtDGSk
+	 lLfcyr513+ylRTe9lLA8624W72J11UR54M9gQbk0D2vYhWMuHfw9Wwm0FQsra3j4e3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818471;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818473;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=N/JOldBUjDJuFY1X+uV7b2Rx2DrfpedS0OcnuxKOvII=;
-	b=zgHWm1JBLnKstcdijSUmOdxlI7LL16TGq3OvaFhDnfaqnvZP6m4amd4QNRQH8Bh8ZzD2
-	 JiqN96iXDByScJpIHJOJbQLxGQgA+ojJTl4Qau5Z1ttF0JHvB+bRFeOXqaYHxOkcqjmu9
-	 jBhk4JOLKP9Q3YPHud0J82n9D2Kvc5io7mLbEp5M4rFZykZO/ORHYGmKvau+MS7aF90Nd
-	 16c3cHwI7RdZk8Cnewzdc+wuYJ5Z6qCJRr0AB3w04oPiXChWiK9pu5v+viCBzdtXpWe9i
-	 JwnSoArcsgls71UV9Nc3WPwVWXIjAjEEB5XctE5pWcNDkomnwdTqkq6AIlltqHWzA3A==
+	bh=V8h6GmAKTc8z4U+KPI5cd5X6qeIHfBNbKkx2u7PvJ6o=;
+	b=tb5jVKXS+TbwQDzqVu0TcADcX+m6ROmMSpFZ3G55VUKxSVK8kWq23nCYThHa54AYvsZn
+	 Odtd+VLeJt+NnGlr72ChR42T8vsVWy223vZn7C2d+QJLJeaA7qMQmo/IxANqd8aVsKiz6
+	 LOYJUO2AnQos4VYg+yf+aAt6xmFLddnm+NSmHgDDURanX5KgRWCcQMmbB6rXwz8iaRZqz
+	 eVE3tzkikkWQoce2GAEkJAWrtcCxOtjkOd8JX6rVXinIjGMjVxAUOD90Px5ffIsrOB2Ui
+	 8HrVlsi/o386spc2NXWnznXAqaLnheT1Bgih5G9TKgWI39yiSadxaraS6V2Pdi7HGzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lMsGLiZH;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QlAzY9cT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21156083630
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:54:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC046083630
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:54:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lMsGLiZH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 731CF1F00A1C;
-	Wed,  4 Nov 2026 18:54:30 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QlAzY9cT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A4B1F00A25;
+	Wed,  4 Nov 2026 18:54:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793818470;
-	bh=N/JOldBUjDJuFY1X+uV7b2Rx2DrfpedS0OcnuxKOvII=;
+	s=korg; t=1793818472;
+	bh=V8h6GmAKTc8z4U+KPI5cd5X6qeIHfBNbKkx2u7PvJ6o=;
 	h=Subject:To:Cc:From:Date;
-	b=lMsGLiZHmduAtFYkC+MOSDDIGhVpV4QospaCT71Lqn0ShOUOrZWSUWw/UgKOm8Y3q
-	 vkHa7DCNT+REp/M/UH8lz98KK5c6Tr/Q5dIXspRYnIBbxxo5bMieOCSNFg0bplbvyO
-	 dt9TUZdQTiuRPAeUQBFh8nSeYTRMA0yywfcRP/dc=
-Subject: FAILED: patch "[PATCH] NFSD: stop registering with rpcbind after a failure in" failed to apply to 6.12-stable tree
+	b=QlAzY9cTX8fjDWRuDipzSBGZiG1uhpW2AGrMjZRv5vmhdoOZL6kUK4+l5mu3MEIS7
+	 BHfNPAHPuJjGFusOKw2ECi2vM32AHO0mWScjVYlLA6Zy1zX40pPs0+ocy2khc1BKmE
+	 mSdF+yH5wpkg1nm01MSZWGtfRS/I9NAs+E5Zf2AM=
+Subject: FAILED: patch "[PATCH] NFSD: stop registering with rpcbind after a failure in" failed to apply to 6.18-stable tree
 To: jlayton@kernel.org,cel@kernel.org,okorniev@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 13:54:24 -0500
-Message-ID: <2026110424-grieving-monetary-d10b@gregkh>
+Message-ID: <2026110424-scope-designed-5ca1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x bf0f3a37e6ccb78ae80cc6eb2edde4f033c7574c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110424-grieving-monetary-d10b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110424-scope-designed-5ca1@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
