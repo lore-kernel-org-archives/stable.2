@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817283;
-	b=b1KVyCDQuxY3txptNanUwJyU44aAJKYgysT9PxdHiFXNktz5SWia3a1CKJS3i7t4LMzI
-	 3/+yvxaM4VVzJ2C1p6NIXAKHvUvTx+IL7jbLKJ1KgxyhvCWFnGWlI1jp2NxsNhVfMmOMn
-	 0NrYFKJ9cRwKUpB7YhM0hXIlMs1pvpNa2srdLengQjttje7al0iEUdLrdzfMEq2KdJhPJ
-	 dJmzv2y6Becc5FT9Q6DN3GC2QodmjQeEjq3Cxi0OzEQryl5I8ae9Fef46fqra+c+hg6TC
-	 0JbCxM1a1bU+lmVzQ4gnYKmIBGx4ayEIHN6GIO/rQjr0l/rEXtNFpYJ1VIdRv4Deebw==
+	t=1793817287;
+	b=sstSgqcgSbP/1KwggkRivE87IA+jj2lxTO28SlW6weeGezEh8KZVcczWiwoLhnnObs6l
+	 ugdhr+uIP3H49HFZRegmwnwmfXuynBVv34BMFQ2lRCTU6msnUusWkLziXf3yGzY9jIB59
+	 d4VQ1Ef7nSpj8oVrwlChSbLV69dEX1IKIfjQrKvZZtJxIxcFD+rUw3JrLjI1M0ZrEuxuB
+	 +8cliFIdaLEKvZLyazhLQvHd6FJFVJzblb9RH8Rkadvf615pxTU8nTMofEHjos8iFUCL0
+	 0dxWN+de1zTTQMYo9yBWmXnz4FzpvPnTsRt9dMZf7QeZqzUDOavf2eJEXlTrJKPT4kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817283;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817287;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=lHdZ1u7tO6g0FdLvGarVQ5q1/SAGeq7Fs8cFtp3xxeU=;
-	b=oOIjwmBquB5L0meftWNPM/uckp2a1xNIk1NykMhWk8ybaQXhXh8ngGIm/EqKcMKo4jbU
-	 ZLiHHTiTTeiK0zcZE7cXhefc0WhlFHMRVOUEu0haQxviJaOqqn1o4WUhNxP0H9qE/cQ9c
-	 KWIqtt49v26C8LAQH2YdujHpnF1ZjIySYCgrrHEwURurJaIsiSYJ/sncGhB3MOf+OuCC4
-	 p8+WuhrLUhBw4zfcloT6Acjn4m4bv4uIO9+9A6ntQipXDhmJyRMaPb4h1tNZx6DjVSyLp
-	 9WQjHFB83Qp4oX+YqSvnn2rnIyp1TyPXsjI8M+sLEmdjIFFLjVQ3giI/4nIar3SEWIg==
+	bh=0h/gAJNDvzkk5NSFXmyhTJES9vgDz3Ri9s1YuoJI7KM=;
+	b=MUTp4KZ78Nwbqcrr3ZGjq9MkZyRC3S7Hycf1ZyHTLQNVW34DBWsd63T0m43ZDuwy/uNC
+	 eYLl/AI5k9YcDb4ApIiSq5S0lTWRpvx9V8VZeBYXeRF/blCNJC9v+TTW2Kl+TzM8bjkez
+	 Gm3E6cSYrQ/IXyM0t4J+wiTP6YLCWD/tO+Cfyzc97mLvS2BFK3nsM/d3CtVotn0OSbmtV
+	 t4rJe3hazhp3nPDmrmPBHQ/Rop0bFK/xcMp31mP/KUNyyfwSbjoyyXM84R/4VNdH0piVN
+	 yxH8TSd4S3HiHWWvbUXwzBWNl0hrASv1nBfXPa1N+fPlK9jSYYzjNoYAaIvS/YDHdCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bj0le5NM;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uelxDLw9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58FF606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:34:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A35D7606A32E
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:34:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bj0le5NM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81D0B1F000C1;
-	Wed,  4 Nov 2026 18:34:42 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uelxDLw9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4576B1F00A02;
+	Wed,  4 Nov 2026 18:34:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793817282;
-	bh=lHdZ1u7tO6g0FdLvGarVQ5q1/SAGeq7Fs8cFtp3xxeU=;
+	s=korg; t=1793817287;
+	bh=0h/gAJNDvzkk5NSFXmyhTJES9vgDz3Ri9s1YuoJI7KM=;
 	h=Subject:To:Cc:From:Date;
-	b=bj0le5NMNvJ+gel24qn4BAsjCx42nTvMd0yr1ajg4kCoqFgNx9iVxsuS6ZgFfKqk7
-	 V4lTIo6MIc1rNQPd44FY+f9NnwpJ2GMJU32mfhmxgQSysppw0MeT8nfPsO08gt4E2e
-	 xWUpTQ2EfiTyao6r1DQwXmgOrjXWjr5u2xFlgRCY=
-Subject: FAILED: patch "[PATCH] smb: client: require stable pages for SMB compression" failed to apply to 6.18-stable tree
+	b=uelxDLw9zm9QD9roFeNWG9u1mJpy+0OcLwRg6MRUbUMuBsZNE6cMEfB+dmIxAZtfy
+	 AH7Br5JCiwO5J4liMH0KQRvqJ+636rWvPi/pbEqDgTHNoMJe9k1ine5gcc5KMYT2Wc
+	 WcyRd8klGdkG9gD7UGpakiEKA/+2NOFPg3G6mYEw=
+Subject: FAILED: patch "[PATCH] smb: client: require stable pages for SMB compression" failed to apply to 6.12-stable tree
 To: pc@manguebit.org,bharathsm@microsoft.com,dhowells@redhat.com,linkinjeon@kernel.org,ronniesahlberg@gmail.com,sprasad@microsoft.com,tom@talpey.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:34:41 -0500
-Message-ID: <2026110441-ethically-speech-8e44@gregkh>
+Date: Wed, 04 Nov 2026 13:34:42 -0500
+Message-ID: <2026110441-macaw-surround-30fa@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 8667061cf99394526dd9c0ea2662e6bbc7ae7848
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110441-ethically-speech-8e44@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110441-macaw-surround-30fa@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
