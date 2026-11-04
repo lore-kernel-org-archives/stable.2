@@ -1,69 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.74.67.63
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793794451;
-	b=3kxvFPjcpXTQ5+PmkrM/Fi108uLexQFuTtPmUef2PeUsUA44h/YUsR9in7oOJjuHbYD3
-	 zg5FaKbrxv/RrZo5FkeBBoVPrQam+csYbwf3jskVnR9QUxfVt2rSiWatYo+c3fB7yGRpc
-	 8UNwkutVmd+2m+TE56VNKkL8SKWRTcm4OjUzgqOMrjBMTDuWvIqKpg4VOUA+MQUIxQXmx
-	 hYd3hZY+stF99h/vzEGc4sIyFLh+fa2N+UuDwVTul8vvbHsObYRn3OO0MIGqdS/3OymD2
-	 faCneG1kKJ2WmRBVhSzi7lJliCVbbkptIahcHUO+/tM8TrfcCcjEQlvRfJDTPw+xkng==
+	t=1793794699;
+	b=AXh99auZ3sC/YGDVD1RF5u8MGc2rCMs3ZvTcyNnfbDtUyWFjode4e77tvuV01GpE9pZp
+	 il1ddaMZW1ZLfMNcgpR102uw/Pixr9nDiJcsqbNWhEIcr9+97CcrN45qO7hFriG0hAzsz
+	 V5dDvm7aigzp8rnVVSHA74DB0HOg9KVwNl4rzoWcjDEAKEQmP/EG7dwgDjbvRVdgLYUfv
+	 bTfZA/OuIHfDQt1CYT1hXNC9U+4JgHMUrbnAfbB/fhH6fLTuBCrYYuW8Ia6hqUZxfXTfj
+	 IVp/ENP+yi4tCbKE0oFLmwL8Y7k6CzFWnockNgS1R+xC64DVPVWHJLHOgOzAu7DZP7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793794451;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 DKIM-Signature;
-	bh=I0SvXnnBFzW/xvbEzHzlb1uvVM4j+mzr2uJqd0jseEE=;
-	b=xSBr2gQpQIMqoA6YVPSic1kpIF1XxCLI47OQqnyp8B6s8sLCAU8bqRWcnfP9t+yh2o18
-	 GwxUcJGiz/SdkV9Uew03TDhDlCXmdi5vK1GA2vZ7P5JBsWSZh0zO/AP1kG4HzBr6K6cBX
-	 nI3+9fnBfgtTZgfbGPJm+1ddHh+qkwiN1rRAFNUoagVYBXOGiXfj3Bf5JBULjWNLl3h8d
-	 WPPVx5u01Ebob/Y02GAbbX2U+FH77o0Xfpz+C7Le94xcyLheXCo1eRQAf7iSDI/rKQMmi
-	 3hXN20azQsr9vkOoaJKH1WOcFagDSWwlc6RLw+1FtCbQXOM2XdqRaL2wbRZITe2kEZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793794699;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Vq0SiGMeLJwIenodVgGZUYIiDAMpKcytjEsIEBfNJlE=;
+	b=43xaOx+1KzQlQPRgMtN0ysc9Z3vNiFVT2fKy3o0xVb+xRJyI2TIsbbeL1gDkEQYwKtT1
+	 Spx3iBV7Bq5LgIJo3HYvJcwiWvg98i4FuSJhYrJEttU3qndxWxrt9xCcsgf/A4+KSiOGk
+	 6sAqFeaxWZuZnVFBLhWuHvB2sWJcY6gsquhRkgAVdyIqbYT+jDxnVXXVbuBlz5PfJeY8+
+	 PC/ASTy7l/Gfa09HKTVQkYWBSnxhneYXdAGVSb+7NXxLYaJjHkgRIEXwU+s3QH2S+E2lY
+	 6PPLfvSre8KtNshwvj9SckQUMO/PQfzCb593n1lXVhCLMMQiBuYajUWPZkIXkiYIEcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=poczta.fm;
-	spf=pass smtp.mailfrom=poczta.fm;
-	dkim=pass header.d=poczta.fm header.i=@poczta.fm header.a=rsa-sha256 header.s=dk header.b=HxwDk1MU;
-	arc=none smtp.remote-ip=217.74.67.63
-Received: from smtpo63.interia.pl (smtpo63.interia.pl [217.74.67.63])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B9F606A328
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 12:14:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73B9F606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=poczta.fm
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=poczta.fm header.i=@poczta.fm header.a=rsa-sha256 header.s=dk header.b=HxwDk1MU
-Received: from localhost (unknown [80.68.231.31])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZLi471CA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
-	Wed,  4 Nov 2026 13:14:05 +0100 (CET)
-From: Slawomir Stepien <sst@poczta.fm>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	hawk@kernel.org,
-	john.fastabend@gmail.com,
-	sdf@fomichev.me
-Cc: netdev@vger.kernel.org,
-	bpf@vger.kernel.org,
-	magnus.karlsson@intel.com,
-	aleksander.lobakin@intel.com,
-	ilias.apalodimas@linaro.org,
-	toke@redhat.com,
-	lorenzo@kernel.org,
-	ihor.solodrai@linux.dev,
-	tavip@google.com,
-	maciej.fijalkowski@intel.com,
-	sst@poczta.fm,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32068606A31B;
+	Wed,  4 Nov 2026 12:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZLi471CA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1E7B1F0093A;
+	Wed,  4 Nov 2026 12:18:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793794698;
+	bh=Vq0SiGMeLJwIenodVgGZUYIiDAMpKcytjEsIEBfNJlE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZLi471CACiKnTdCvn08B7kqta0aEBj2VvHclvkQKyiUocHvz4Wy7xYoK9+WsLhKG/
+	 B3g9IWEPBCU4acr3ZWe2bENLCo3Xg+mGBXi7TgardIyGNb3FGqC/IUEn3+4IQfEICh
+	 fJFuF5OSfEgkl68Bh+l7tWF7vaitas/L11YQoZ1aKqACgh6cy788XHGrQPRPAHVFoV
+	 8zN/vGXtBPPdarcTmZd3eqWBH7qx2y7tcLg7Zu/VZc4o3qxSq09XOvF2zyddDzTYkI
+	 CCyDgOz5vdI863KmZH05i8IJpPJlrxeFmHS4gvo9XkD6IkT46ng1ObrfTkC2wIqc0w
+	 3MMAJuHYyKMSg==
+From: Sasha Levin <sashal@kernel.org>
+To: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Sasha Levin <sashal@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v6 bpf 3/3] veth: update mem type in xdp_buff
-Date: Wed,  4 Nov 2026 13:13:16 +0100
-Message-ID: <20261104121316.1155680-4-sst@poczta.fm>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104121316.1155680-1-sst@poczta.fm>
-References: <20261104121316.1155680-1-sst@poczta.fm>
+Subject: [PATCH v2] nvme-pci: add NVME_QUIRK_DMAPOOL_ALIGN_512 for KIOXIA XG10d
+Date: Wed,  4 Nov 2026 07:18:16 -0500
+Message-ID: <20261104121816.3726177-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261104090332.GB30750@lst.de>
+References: <20261104090332.GB30750@lst.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,206 +64,41 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
-	t=1793794447; bh=I0SvXnnBFzW/xvbEzHzlb1uvVM4j+mzr2uJqd0jseEE=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=HxwDk1MUYVcIj9/PcQINoL7JSFd+5oA97Tacp2i2pnaOfhNuRfGscuBf6LUofiXfO
-	 RLW3yzX5CFJh9kKkqakTw2vAIZAsoPd9ij0GGWYPGzI834UEadNSMvKMiIFAc9QZI3
-	 JQXHgSUojrTInfyi/2tLw6ULa3zk0BLCrkGz1hUI=
 
-From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+The KIOXIA XG10d reads past the end of a PRP list that completely fills
+a 256 byte small pool block. When that block is the last one in its
+dmapool page, the read lands on the next page, which usually isn't
+mapped. The IOMMU faults it and the controller craps itself:
 
-When skb's headroom is not sufficient for XDP purposes,
-skb_pp_cow_data() returns new skb with requested headroom space. This
-skb was provided by page_pool.
+  arm-smmu-v3 arm-smmu-v3.0.auto: event: F_TRANSLATION client: 0001:09:00.0 sid: 0x20900 ssid: 0x0 iova: 0xff7fe000 ipa: 0x0
+  nvme nvme0: controller is down; will reset: CSTS=0xffffffff, PCI_STATUS=0xffff
 
-For CONFIG_DEBUG_VM=y and XDP program that uses bpf_xdp_adjust_tail()
-against a skb with frags, and mentioned helper consumed enough amount of
-bytes that in turn released the page, following splat was observed:
+Filling the block requires a slightly larger write, and those became common
+with commit 2e8e30b3cf9f ("Revert "nvme-pci: clamp max_hw_sectors based on
+DMA optimized limitation"").
 
-[   32.204881] BUG: Bad page state in process test_progs  pfn:11c98b
-[   32.207167] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x11c98b
-[   32.210084] flags: 0x1fffe0000000000(node=0|zone=1|lastcpupid=0x7fff)
-[   32.212493] raw: 01fffe0000000000 dead000000000040 ff11000123c9b000 0000000000000000
-[   32.218056] raw: 0000000000000000 0000000000000001 00000000ffffffff 0000000000000000
-[   32.220900] page dumped because: page_pool leak
-[   32.222636] Modules linked in: bpf_testmod(O) bpf_preload
-[   32.224632] CPU: 6 UID: 0 PID: 3612 Comm: test_progs Tainted: G O        6.17.0-rc5-gfec474d29325 #6969 PREEMPT
-[   32.224638] Tainted: [O]=OOT_MODULE
-[   32.224639] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.14.0-0-g155821a1990b-prebuilt.qemu.org 04/01/2014
-[   32.224641] Call Trace:
-[   32.224644]  <IRQ>
-[   32.224646]  dump_stack_lvl+0x4b/0x70
-[   32.224653]  bad_page.cold+0xbd/0xe0
-[   32.224657]  __free_frozen_pages+0x838/0x10b0
-[   32.224660]  ? skb_pp_cow_data+0x782/0xc30
-[   32.224665]  bpf_xdp_shrink_data+0x221/0x530
-[   32.224668]  ? skb_pp_cow_data+0x6d1/0xc30
-[   32.224671]  bpf_xdp_adjust_tail+0x598/0x810
-[   32.224673]  ? xsk_destruct_skb+0x321/0x800
-[   32.224678]  bpf_prog_004ac6bb21de57a7_xsk_xdp_adjust_tail+0x52/0xd6
-[   32.224681]  veth_xdp_rcv_skb+0x45d/0x15a0
-[   32.224684]  ? get_stack_info_noinstr+0x16/0xe0
-[   32.224688]  ? veth_set_channels+0x920/0x920
-[   32.224691]  ? get_stack_info+0x2f/0x80
-[   32.224693]  ? unwind_next_frame+0x3af/0x1df0
-[   32.224697]  veth_xdp_rcv.constprop.0+0x38a/0xbe0
-[   32.224700]  ? common_startup_64+0x13e/0x148
-[   32.224703]  ? veth_xdp_rcv_one+0xcd0/0xcd0
-[   32.224706]  ? stack_trace_save+0x84/0xa0
-[   32.224709]  ? stack_depot_save_flags+0x28/0x820
-[   32.224713]  ? __resched_curr.constprop.0+0x332/0x3b0
-[   32.224716]  ? timerqueue_add+0x217/0x320
-[   32.224719]  veth_poll+0x115/0x5e0
-[   32.224722]  ? veth_xdp_rcv.constprop.0+0xbe0/0xbe0
-[   32.224726]  ? update_load_avg+0x1cb/0x12d0
-[   32.224730]  ? update_cfs_group+0x121/0x2c0
-[   32.224733]  __napi_poll+0xa0/0x420
-[   32.224736]  net_rx_action+0x901/0xe90
-[   32.224740]  ? run_backlog_napi+0x50/0x50
-[   32.224743]  ? clockevents_program_event+0x1cc/0x280
-[   32.224746]  ? hrtimer_interrupt+0x31e/0x7c0
-[   32.224749]  handle_softirqs+0x151/0x430
-[   32.224752]  do_softirq+0x3f/0x60
-[   32.224755]  </IRQ>
+Do what we do for other disks and use 512 byte aligned small pool blocks
+for this controller.
 
-It's because xdp_rxq with mem model set to MEM_TYPE_PAGE_SHARED was used
-when initializing xdp_buff.
-
-Fix this by using new helper xdp_convert_skb_to_buff(). Unlike generic
-XDP, veth turns the xdp_buff into an xdp_frame on XDP_{TX,REDIRECT}, so
-the head is later released through the mem type as well and the
-helper's frags-only reasoning is not enough here. Advertise
-MEM_TYPE_PAGE_POOL only when the whole buffer was just copied into
-rq->page_pool by skb_pp_cow_data(); otherwise keep the queue's original
-MEM_TYPE_PAGE_SHARED model. An skb that skips the CoW has no frags, so
-nothing can be released through the mem type while the program runs.
-
-XDP_{TX,REDIRECT} no longer reset the mem type to the queue's original
-model before the buff is converted to a frame, as the frame has to
-carry the type chosen above. Nothing needs to be restored afterwards
-either: the previous patch makes the frame path set its own mem type
-and every skb sets it here. Add a page_pool variant of veth_xdp_get()
-so that we avoid refcount underflow when draining page frag.
-
-Frames redirected out of veth can now be MEM_TYPE_PAGE_POOL. A devmap
-egress program only releases their frags correctly since commit
-b3ca872947ef ("bpf: Use the frame mem type in devmap egress XDP"), so
-that commit has to come first when backporting.
-
-Fixes: 0ebab78cbcbf ("net: veth: add page_pool for page recycling")
-Reported-by: Alexei Starovoitov <ast@kernel.org>
-Closes: https://lore.kernel.org/bpf/CAADnVQ+bBofJDfieyOYzSmSujSfJwDTQhiz3aJw7hE+4E2_iPA@mail.gmail.com/
-Cc: <stable@vger.kernel.org> # 6.4.x: b3ca872947ef: bpf: Use the frame mem type in devmap egress XDP
-Cc: <stable@vger.kernel.org> # 6.4.x
-Signed-off-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-[sst: rebased onto bpf/master; claim MEM_TYPE_PAGE_POOL only after CoW into
- rq->page_pool; take page_pool refs on compound heads via netmem helpers;
- drop the rq mem model restores as every path sets its own mem type now;
- dropped Reviewed-by as the code changed]
-Signed-off-by: Slawomir Stepien <sst@poczta.fm>
+Cc: stable@vger.kernel.org # 6.4.x
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/veth.c | 52 +++++++++++++++++++++++++++++++---------------
- 1 file changed, 35 insertions(+), 17 deletions(-)
+ drivers/nvme/host/pci.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index afae2c6533b9..e159f0e00ddb 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -741,7 +741,7 @@ static void veth_xdp_rcv_bulk_skb(struct veth_rq *rq, void **frames,
- 	}
- }
- 
--static void veth_xdp_get(struct xdp_buff *xdp)
-+static void veth_xdp_get_shared(struct xdp_buff *xdp)
- {
- 	struct skb_shared_info *sinfo = xdp_get_shared_info_from_buff(xdp);
- 	int i;
-@@ -754,12 +754,36 @@ static void veth_xdp_get(struct xdp_buff *xdp)
- 		netmem_inc_ref(skb_frag_netmem(&sinfo->frags[i]));
- }
- 
-+static void veth_xdp_get_pp(struct xdp_buff *xdp)
-+{
-+	struct skb_shared_info *sinfo = xdp_get_shared_info_from_buff(xdp);
-+	int i;
-+
-+	page_pool_ref_netmem(netmem_compound_head(virt_to_netmem(xdp->data)));
-+	if (likely(!xdp_buff_has_frags(xdp)))
-+		return;
-+
-+	for (i = 0; i < sinfo->nr_frags; i++) {
-+		netmem_ref netmem = skb_frag_netmem(&sinfo->frags[i]);
-+
-+		page_pool_ref_netmem(netmem_compound_head(netmem));
-+	}
-+}
-+
-+static void veth_xdp_get(struct xdp_buff *xdp)
-+{
-+	if (xdp->rxq->mem.type == MEM_TYPE_PAGE_POOL)
-+		veth_xdp_get_pp(xdp);
-+	else
-+		veth_xdp_get_shared(xdp);
-+}
-+
- static int veth_convert_skb_to_xdp_buff(struct veth_rq *rq,
- 					struct xdp_buff *xdp,
- 					struct sk_buff **pskb)
- {
- 	struct sk_buff *skb = *pskb;
--	u32 frame_sz;
-+	bool pp_cow = false;
- 
- 	if (skb_shared(skb) || skb_head_is_locked(skb) ||
- 	    skb_is_nonlinear(skb) ||
-@@ -768,21 +792,17 @@ static int veth_convert_skb_to_xdp_buff(struct veth_rq *rq,
- 			goto drop;
- 
- 		skb = *pskb;
-+		pp_cow = true;
- 	}
- 
--	/* SKB "head" area always have tailroom for skb_shared_info */
--	frame_sz = skb_end_pointer(skb) - skb->head;
--	frame_sz += SKB_DATA_ALIGN(sizeof(struct skb_shared_info));
--	xdp_init_buff(xdp, frame_sz, &rq->xdp_rxq);
--	xdp_prepare_buff(xdp, skb->head, skb_headroom(skb),
--			 skb_headlen(skb), true);
--
--	if (skb_shinfo(skb)->nr_frags) {
--		skb_shinfo(skb)->xdp_frags_size = skb->data_len;
--		xdp_buff_set_frags_flag(xdp);
--	} else {
--		xdp_buff_clear_frags_flag(xdp);
--	}
-+	xdp_convert_skb_to_buff(skb, xdp, &rq->xdp_rxq);
-+	/* Unlike generic XDP, XDP_{TX,REDIRECT} turn the buff into an
-+	 * xdp_frame, which later releases the head via mem.type as well.
-+	 * Only claim page_pool memory when the whole buffer was copied into
-+	 * rq->page_pool above; an skb that skipped the CoW is linear.
-+	 */
-+	if (!pp_cow)
-+		rq->xdp_rxq.mem = rq->xdp_mem;
- 	*pskb = skb;
- 
- 	return 0;
-@@ -830,7 +850,6 @@ static struct sk_buff *veth_xdp_rcv_skb(struct veth_rq *rq,
- 	case XDP_TX:
- 		veth_xdp_get(xdp);
- 		consume_skb(skb);
--		xdp->rxq->mem = rq->xdp_mem;
- 		if (unlikely(veth_xdp_tx(rq, xdp, bq) < 0)) {
- 			trace_xdp_exception(rq->dev, xdp_prog, act);
- 			stats->rx_drops++;
-@@ -842,7 +861,6 @@ static struct sk_buff *veth_xdp_rcv_skb(struct veth_rq *rq,
- 	case XDP_REDIRECT:
- 		veth_xdp_get(xdp);
- 		consume_skb(skb);
--		xdp->rxq->mem = rq->xdp_mem;
- 		if (xdp_do_redirect(rq->dev, xdp, xdp_prog)) {
- 			stats->rx_drops++;
- 			goto err_xdp;
+diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
+index 019a1e3cc0a2..2be6d1a9ad4d 100644
+--- a/drivers/nvme/host/pci.c
++++ b/drivers/nvme/host/pci.c
+@@ -4430,6 +4430,8 @@ static const struct pci_device_id nvme_id_table[] = {
+ 		 .driver_data = NVME_QUIRK_BOGUS_NID, },
+ 	{ PCI_DEVICE(0x1344, 0x6004),	/* Micron 4100AT */
+ 		.driver_data = NVME_QUIRK_DMAPOOL_ALIGN_512, },
++	{ PCI_DEVICE(0x1e0f, 0x0032),	/* KIOXIA XG10d */
++		.driver_data = NVME_QUIRK_DMAPOOL_ALIGN_512, },
+ 	{ PCI_DEVICE(0x1c5c, 0x1504),   /* SK Hynix PC400 */
+ 		.driver_data = NVME_QUIRK_DISABLE_WRITE_ZEROES, },
+ 	{ PCI_DEVICE(0x1c5c, 0x174a),   /* SK Hynix P31 SSD */
 -- 
-2.56.0
+2.43.0
 
