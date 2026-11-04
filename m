@@ -1,98 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793777610;
-	b=2BVjJjctkCJD3Y5WytvkAEhpYdxzFlUo+fMxC+z7brphgYaDVYT8irXYBAveMlhRZ7h5
-	 LxiOAPwdAWoOtfN4HVtbPyPJfWWNKwPOJEOoRrPoHhXdj0Qy0rQeExfu7COHC55ckwBlm
-	 OMcyyTlJdfbNXeUQhI4EEisNjI0JnrwoXS1ONrrtmEqu3LjBbwtXBHsmRVIpq7wIEaB/W
-	 RJ4TCg0LGfmEeTWQtzWIDmDs0hRjmFmoCDkEU8QAMgAzDlIeQUoHXiI4KEyZ9uNZ68NKZ
-	 x4g0uEgJ+rc6xoYaRj7yhnYmJuwyQh9FqnlzdA7LRvT50Xu9EWeN+ICfAxnwy+ICmrA==
+	t=1793777662;
+	b=LWnzsSruiPA+TN04n7DgoROWqA3qPFG9hkc3+HBUQG//WIy/EUu4+y+ertjyHLB2O9za
+	 2iOH1GfIy/DOu3mlZ7FQg/M98QrkgV/VzeDMqTgO7pAN9JXJwwguGgV7m1yNvZg0EMCvk
+	 w02zCxKE5myu4TpvolQrrKzgNNGRjH4EY4FR9hZo4B4bt70HHTbWDRSST/JEZ5FqHF/9C
+	 mBVNYoObTT9Mya1f9PwBaBBL5az3FXzy0F2lB/W+3xT8WUddXileHIvQWHWjUX8tk7v63
+	 hcEOZtcV3uyz+8ge3qiGsubNZf4rLR62K/55JcBaCN2SRqrUFhTTuyzWXzhcWNQB9iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793777610;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=E1F87bb525awAof1JLFi6O+XOwtmrtsukGBHxsxN3uE=;
-	b=x6NtBAuObDOGp59shnKNXE9KqQh37EUpu4P23ucuMu5mQZrboYOfKdTPgDJ2/PK51IJ6
-	 5NG1DiVzH0PasbyWsm8RghGJuZImUk6rCVpRMhKL/KWkUCTFGqTYyuKpuDTy+BP1sMOOp
-	 Lm0SeEYEIbIy1xnk84ai23cZZqOdtA30wVqJX3oNC2ZOT6Mr09DbroJZjkQ1nwuckXg6D
-	 cx8l3lWEDz3v4A5Ah741NEutleU5s1HxUQr7zaP0lh4xc8Mt5DviRpTpIVAmEcRgF6umJ
-	 91nuh966EqNs21/3KL+oV06kzVOrYdWTCZApPbhPAkYgMfgdsXRVeUmTVNo7x90czCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793777662;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=n9WJmtjmaiG9H73C8oCIeI1tkQAyaNAnEi147NL4GLA=;
+	b=yY2J0UqSKpXngzjYNEhBZFq4wX2iW0O2C5C4QbyPsXqyZtMY7SI4CjOnNhGfOylogCr5
+	 27nmcO56UgAPc4ej1hGxOX0CxkIdaDJPnq90B7cdcrGNYIjffjmC5S/UgprAAXyLyXEYk
+	 ZrH0eAuEIvF8Rz7Jlh8tak0xTcEql6ko8VbmKY5u2J9dUFWluMN//TzuDGCgHjNhFtrty
+	 +CeJmLz+fYV3hhCRWOArLeyoht+V8C1IECOImDE44V5qTBdZ8CooGOBqm/DOlcqJvO/b2
+	 SndDjALwqWiWbY4Kr48TXvKAxr4VDyHRRDOrbw8fPDG3Ab0TAs5gG4pBCJMwbTFEp/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Gt/4I8z4";
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=einSExJF;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=I2OgySH1;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=j7Hga9j8;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+kIlFVu8;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308C3606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 07:33:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 308C3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FEE606A329;
+	Wed,  4 Nov 2026 07:34:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9FEE606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gt/4I8z4
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3646e6de3e8so26145eec.1
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 23:33:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793777609; x=1794382409; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E1F87bb525awAof1JLFi6O+XOwtmrtsukGBHxsxN3uE=;
-        b=Gt/4I8z4BSlic72N/8E0Ckwx7OXL1NvxPPHtA+V5oWsY7RaJME/QH9HwmazDXXZC6X
-         CesABgwnS84rKoO5RUuefLl6ggQqY/ziJGI1aq8+f4SuVmYIJY3KGzxu4j5j1nWZEKGI
-         OGtS5q2/fFomrT+fnKQrvmplc2uLzQ/YYLyjRXc1V53yA6RP/3O730kWs5pj/fQaRcS7
-         kmUzPK14dAmM0S6axnoABAq3uRWNw/rawxXLFQl1zYjjKeg2tEeAZEis1AIroX6f4Via
-         uS86Gvkw1E+CJJfS0AbTRGphxkHGtibfqBYWPbSgeTPXJeExq67P1m6+qFkx8EFI+U22
-         5qsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793777609; x=1794382409;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E1F87bb525awAof1JLFi6O+XOwtmrtsukGBHxsxN3uE=;
-        b=oO/LQK3iy2g0Hgp/BeWhcOXFzJSZQJwuyOImVztRZQqNr9vwfImRz/Q7vwZO9VOYLq
-         OcUNLrw67Chm3ZxoqO+JXLMcBju9VFKWdqlG9OKzzOncyfjSd2HNgyGeKfKFPizimTQH
-         R78uE4hek3vxNDT/DAw57LluesSqqSNtCyBXLrQzOz8kwX6PHEGo0uEZ9Z43gnsLFzNh
-         4b7XNgy1T8xjiEK9BVy3kldP40EORascMPdukDD5TnJKtSJT10d3nSXMr8+UtFGJ4Cyu
-         sJvFnz6mLsRr7aBQnsJhS03GF1nP9mvCMS4rETFIAKiwi3O+Bvv4A5pbSWiwXc3dPjDP
-         48ug==
-X-Forwarded-Encrypted: i=1; AKwUvBz5ctf3kDIMakCQaj6N7CHh7BlPnwsMK6pICY1/5pnDzsBWvRwzpN6bTI/HoaGMT3U6aWsuUBA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+DM54laYwrKfBQu6Asytmt8YODS95J6f0J98WkbMwgSQO7nWzv
-	7IX2qQQm4ZknGzERnGJLAEsGQRPuzfD8ycl/LQ4FnrykwaoWb3eOtLAb
-X-Gm-Gg: AYBFou2ArMTciWfU6tZgL0WGK6teIIXzvB0wP3oe1uoYnKoqcK5K4BAK3sA0OKm9ByY
-	utbgkk71jxI+PEGNeq6zbpBznAHITxtJlij0GYXKcVLm1+9Ay+cr8EBvpxbxuKR3dyTCAl/mDez
-	b2ppV6NUOX2uu2m8UbnmVl2YlmlSrcJsJPlXUHFcz9bQPtC3k0IANqNwtKFywaoCJp6ATCFh/BP
-	DuMQ8TAAnTKQ5Dq5oGHU/Pvv6hx+igZS3aIQPuPfbiAI/8WSc5uXAcp0W7dwPZzd2zb99S1Nx4X
-	VwfJ7rMnetvI87EyapXXGLDvBRzM3tb9X/lrXtpWcCQZ4AmJFwGVroYoxKnWW88R36LsSOgGw8X
-	+20VjjM7XVnw9wizlZjJBLl9zaoAlNAQgsU305XHg3qkqAP2N0y6zU7TCuLNYBY67K+m6QfF/pk
-	WCcdyle9JtEoSXy3a6F9Dg1M43B9iPjcjr2CkxvMubSsoCErngpOOPl3Ig4NxsUUNmrqzXZBuzp
-	JpVfmnjG61/yjD1FIqY+txSR/VK6AWsiHheNkwBr/ryho/Hp/dNXFuh3Rs/4qrkgDb14BN8xu//
-	arZiiAXP7M/It7ispTuGGufQd4P81pLly/F/KSHIqg==
-X-Received: by 2002:a05:693c:8099:b0:35f:ea17:d171 with SMTP id 5a478bee46e88-36a42236aa1mr34685392eec.2.1793777609165;
-        Tue, 03 Nov 2026 23:33:29 -0800 (PST)
-Received: from CRASHEDROM.localdomain ([142.249.36.161])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d3754sm6295359eec.14.2026.11.03.23.33.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 23:33:28 -0800 (PST)
-From: Chengyu Liu <lui2012qwq@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	jani.nikula@linux.intel.com,
-	joonas.lahtinen@linux.intel.com,
-	rodrigo.vivi@intel.com,
-	tursulin@ursulin.net,
-	Chengyu Liu <lui2012qwq@gmail.com>,
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=einSExJF;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=I2OgySH1;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=j7Hga9j8;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+kIlFVu8
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E2EFE1F7BA;
+	Wed,  4 Nov 2026 07:34:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793777660; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n9WJmtjmaiG9H73C8oCIeI1tkQAyaNAnEi147NL4GLA=;
+	b=einSExJFc7yKcZbI6vV/BouuaDJI7GbTlUr+FhamRfYL+jCiTJj8uTwbCUcO45Vvi4zXLA
+	GPbwKidkjOwXaHbIkTFAIz8J/xIZlFsXzNYfRhjMBY4wp7LqNGbz5Aff5tKjRgKcuOYO2v
+	KXXOlSMf+vbCjxOKgI0ne/nckY2X0ok=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793777660;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n9WJmtjmaiG9H73C8oCIeI1tkQAyaNAnEi147NL4GLA=;
+	b=I2OgySH1HUh3jlKvjk/42B4NlHH+p8k0rrx3LNYk/qRwxJKRwu5+PqyPkPwvZgDPfjDh0q
+	gH3DV1D+5cXiX6CQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=j7Hga9j8;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=+kIlFVu8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793777659; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n9WJmtjmaiG9H73C8oCIeI1tkQAyaNAnEi147NL4GLA=;
+	b=j7Hga9j8NF9UX49c9hpZ7IVWXNlMGVB4eMVnkA40cuOVEIBCV6t22PatZlnCbCbHEJS7B+
+	dKGgIHFXZnv7GEVUlkzihIdQC2BlZoflmbuZ56kvRQsHWFpNEzSzt1uyLvTBykjPJaSqnv
+	WBaDJ5ul1NBPvzlAlVmdxuxBptkPeNM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793777659;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=n9WJmtjmaiG9H73C8oCIeI1tkQAyaNAnEi147NL4GLA=;
+	b=+kIlFVu8ahLNvacutHdv+O0GxNVlAGELWlvHKY2H5Csi35mImCQ/juBC5BWSPHPlaNSiwS
+	w950UX90Qs5YWGAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 93A1A134A5;
+	Wed,  4 Nov 2026 07:34:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 32qVGvvf6mqtPwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 04 Nov 2026 07:34:19 +0000
+Date: Wed, 04 Nov 2026 08:34:19 +0100
+Message-ID: <87h5hxuk1w.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sinan Turunc <enscrpt@pm.me>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/2] i915/perf: remove sysfs entry if idr_alloc() fails in add_config
-Date: Wed,  4 Nov 2026 15:33:11 +0800
-Message-Id: <20261104073311.1617823-3-lui2012qwq@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261104073311.1617823-1-lui2012qwq@gmail.com>
-References: <20261104073311.1617823-1-lui2012qwq@gmail.com>
+Subject: Re: [PATCH v2] ALSA: usx2y: Reject buffers smaller than two packets
+In-Reply-To: <87se1hukq1.wl-tiwai@suse.de>
+References: <20261103132247.713-1-enscrpt@pm.me>
+	<87se1hukq1.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,42 +114,85 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: E2EFE1F7BA
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[pm.me:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -12.51
 
-i915_perf_add_config_ioctl() creates the dynamic sysfs entry for the OA
-config before allocating its id.  If idr_alloc() fails, the error path
-drops the config reference via reg_err: without removing the sysfs
-entry - unlike the normal remove path, which does sysfs_remove_group()
-first.  The leftover attributes point into the freed oa_config; kernfs
-only stores the attribute pointer, and show_dynamic_id() reaches the
-freed object via container_of (including the show() callback itself),
-so reading /sys/class/drm/cardX/metrics/<uuid>/id afterwards is a
-use-after-free.
+On Wed, 04 Nov 2026 08:19:50 +0100,
+Takashi Iwai wrote:
+> 
+> On Tue, 03 Nov 2026 14:23:03 +0100,
+> Sinan Turunc wrote:
+> > 
+> > usx2y_urb_capt_retire() splits the copy into the ALSA ring buffer once
+> > at the buffer end and wraps hwptr_done once, which is only correct when
+> > one packet holds at most buffer_size frames. The packet size is the
+> > endpoint's maxpacksize from usb_maxpacket(), while the hw constraints
+> > allow 64-byte periods with periods_min 2, so a packet can be larger than
+> > the whole buffer.
+> > 
+> > The endpoint is known at probe time, so constrain
+> > SNDRV_PCM_HW_PARAM_BUFFER_BYTES in snd_usx2y_pcm_open() to at least
+> > twice the endpoint's packet size. Two packets, matching the line6 fix.
+> > The bound makes the copy safe, but it does not make every larger buffer
+> > progress: the position is reported once per URB of 4 packets, so a
+> > buffer that divides one URB's data returns to the same position at every
+> > callback. That was already the case before this patch and is not changed
+> > here. Keep a guard in usx2y_urb_capt_retire() that drops an oversized
+> > packet with a ratelimited error, for the case that should no longer be
+> > reachable.
+> > 
+> > Reproduced on 7.3-rc7 with a USB/IP device presenting the US-122
+> > interface layout and 1024-byte packets into a 512-byte buffer:
+> > 
+> >   BUG: KASAN: out-of-bounds in i_usx2y_urb_complete+0x1285/0x1ac0
+> >   Read of size 18446744073709551104 at addr ffff88800e448800 by task vhci_rx/83
+> > 
+> > With this patch a 1024-byte buffer is refused at hw_params; a 2048-byte
+> > buffer is accepted and safe but barely advances (hw_ptr 9216 after 30 s,
+> > for the reason above); a 3072-byte buffer streams for 30 s with no
+> > report and with the position moving inside the buffer.
+> > 
+> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Sinan Turunc <enscrpt@pm.me>
+> 
+> Applied now.  thanks.
 
-Remove the sysfs group on the idr_alloc() failure path, mirroring the
-remove ioctl's ordering (under metrics_lock).
+... and I noticed Sashiko warnings now, so dropped again from the
+queue.  Could you verify whether those complaints are valid or not?
 
-Found by static analysis.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
----
- drivers/gpu/drm/i915/i915_perf.c | 1 +
- 1 file changed, 1 insertion(+)
+thanks,
 
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 19b82427aa..40385f991a 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -4716,6 +4716,7 @@ int i915_perf_add_config_ioctl(struct drm_device *dev, void *data,
- 		drm_dbg(&perf->i915->drm,
- 			"Failed to create sysfs entry for OA config\n");
- 		err = oa_config->id;
-+		sysfs_remove_group(perf->metrics_kobj, &oa_config->sysfs_metric);
- 		goto sysfs_err;
- 	}
- 	id = oa_config->id;
--- 
-2.25.1
-
+Takashi
