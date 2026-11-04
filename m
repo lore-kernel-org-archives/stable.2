@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826286;
-	b=Bh8d8Tzbz+ZPNQRTNqbCOzB7+HdlzKyDcSTR9Ncrg7pt40eZDyyAz+BcfyXE8OXAiYPv
-	 lWhicGo9mQ9Y2ZCg3H/R2BR9CYJxSK28YXePLdrFpeK+4McBm8VgQ58JlHtHWckReCmg0
-	 eyo/YDUjrg8beGZlLBXqWtF4pTpu8OW48oOMTxDJDKJlmq6oNHfK1rFS36aJbz8/C2goJ
-	 KvpiCO03O7UW5IVPcDKq0p/49H0Y8/AN7gN5K/4GOOnRiwX7P4npvXrhxdhv06x3I8kdx
-	 ZGg72lOPrjHcibqvoGprvaWWf0wKzM1gOcdN6yg+bw18dwujz9Wde0g7qfpJL0AlG0g==
+	t=1793826295;
+	b=DFPTpUbin31KbcO+e6x3zL80BPGUQ8xkjNs4WYSNI9n2S4bHoIgg0+GP2RaoiaV/Af0Z
+	 fViSvM9W/62CAvgH/QK+QVnOACQDjDyu08WpydYu4qPiUQ3GgLFM2oBwDM2AKyjzCbh9j
+	 AS9k+M9OQd4N3QuVLvqErMJtJ9QjR9+rHtxUSdS4t6SdSJ3qKmFKqYlUrlu3342EG0EOg
+	 025p8OwajIkLtO+zz0GengEMxrffyfGBrp8IxRBfO4W8X63DDFhyBY8H+eQNoloRj5gTF
+	 8hh2ALGSBnkFYEhMBml8lhCo8BhKOVPwRXeHvbYQ3cVDbptYNjfP2qSresAthQezl9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826286;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826295;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RsihQdT4egIDZrzmcCZO6haUhy9KDf27AGdG/nP+mGw=;
-	b=oYsz/CP7/f4qgr51c8tYSXaghCQgFG0+jRCegi6NHIt1T/lExwa9W58JTOIimGToV0aj
-	 IBEOY4oOyHuW0Q4k9qumNo3TJsxh/j3445pOMY7eqBS2ezynVEMUYM4+UStide9SonnLO
-	 tGhkVgdRNXYMW9EzS9nLCJKbrxXqp3TRQRtp7nU5fAIMPl4dj+FSOLosVfJlSV5By0jok
-	 9ivsLmf+HdGZgq8cDiF7tqsq9zEGHvSbTnotu+jc5IKOURSx4Hejyogn7iFSgy2GW3MXZ
-	 wcoQfb94QlR12dubnEG3euFKolhTqqK45taCJUG7EPoheLsaUGQMo0MKX0Ca+/iFdkw==
+	bh=9YyaYpG5Bv+3e6SPkfHYAXDDq2PxdCZEQjKLfpdVehA=;
+	b=NOUX2WQTX7DflfXy+p3/qezYT/CxTnUWmnHfTv6llde6B1rEOaeBzpTVDtZIn1IIzKHK
+	 HCcK6s9wVKVodkivENWqd/3P8OmtFKOsmMM0Ew85NfJuTRhaRXPxVOE2wxuY/WHurrapn
+	 DiAEQ80A4KRiezT421YTsar+Ji3pArTkoq7A4rH7QzSY8pudb/Jwww6WLVzo/mLec3KTz
+	 LNvC31IAA6PaARzROdbhrE9XNDCSYX6A8ma3VpyleY55i9F3Vi/F2+02gCwj1Iqb46nbR
+	 C0YKoHlV6BPjwThZ+Btj3ud1ZcFMol1w7V4rGwPlVFfoq/0bsqfQ2KDNzV5NP3+VaEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KvfPq5Mr;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xcGWogjJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B49606D4C2
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 21:04:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FAE7606D4DE
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 21:04:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KvfPq5Mr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA2341F000C1;
-	Wed,  4 Nov 2026 21:04:45 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xcGWogjJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C31781F0093A;
+	Wed,  4 Nov 2026 21:04:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793826286;
-	bh=RsihQdT4egIDZrzmcCZO6haUhy9KDf27AGdG/nP+mGw=;
+	s=korg; t=1793826295;
+	bh=9YyaYpG5Bv+3e6SPkfHYAXDDq2PxdCZEQjKLfpdVehA=;
 	h=Subject:To:Cc:From:Date;
-	b=KvfPq5MrVfR0Iu3qR4H2lBPbv0xtPHCJNQsKIjuycuL2MTU5ZB/Itj0+2BAie+9wZ
-	 k9pXPI6d2/HAGMQMrTO4eBbfkOV6i2ohLMEbCs/l07eQykeoZGYMmmBELJp/s9H53M
-	 1ZixQIVx73RRlbMEcwkol0AJzLaysHl6RKzs4dNg=
-Subject: FAILED: patch "[PATCH] ksmbd: look up stream size by exact xattr name" failed to apply to 6.18-stable tree
+	b=xcGWogjJdCzzuiFlSlUqh+84YkQZ8rGiheIQmcHgDvnBkAiY2gMuQ9b4s5wj1Ciyl
+	 rwYM2nap4/elj3IJSvZ3NmCTleIb2h9t2z8vOSe6ohFcpwKEnfhurDXWAyvdLZ+hKq
+	 YWwoDEZzosQiSZ0XJZN9r3rw/KFaZCtczmkpaYeo=
+Subject: FAILED: patch "[PATCH] ksmbd: look up stream size by exact xattr name" failed to apply to 6.6-stable tree
 To: gael.blivet@gmail.com,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 16:04:44 -0500
-Message-ID: <2026110444-union-header-f23a@gregkh>
+Date: Wed, 04 Nov 2026 16:04:45 -0500
+Message-ID: <2026110445-either-jimmy-6232@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 10ea20d6584ecdaf2f7505855412a856a88d8934
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110444-union-header-f23a@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110445-either-jimmy-6232@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
