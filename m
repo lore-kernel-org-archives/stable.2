@@ -1,77 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826528;
-	b=OjZA3hvo8dfb06IngpcHRxLbQoL8AwxSmc5NsoVnLGoRcAsAJFyYN5uFycNNqRdByc0X
-	 JdDnUSUTkESDSfDYaM/IOxil9fKEIcpjirn/bzxNY6jO96ogO75mzOHbepCsXzNI73mG8
-	 BlaVODgdzNqcXnnjRVbiwgWzaxRhsGEUNuG9XAaToJxiLEWOa44QgwcCAB+A1gVRZCBUq
-	 faWKpyN74c8uCbyKzsWOLtGlOLm2hxCf8doT3+bdBTXaVdbBt2VFJdTrVzSe8925Tgj+H
-	 CBmnsZt13wJrvQTSwzbqE+JtwAFoVjekzVnm4KearGad2njYrCwh1oMz92/Y2100POw==
+	t=1793826548;
+	b=xnhdxLN9lCmW4W7GnU2tLsafXxGgi2LFBlut2DuMYSISy15NLg+1jcAXFW8SeF3nhoxt
+	 4jaOhuJy0QoDZjnxBy4pgfhFev8M6kLOLbvRKwhJG7H3TthmmlA0t5hygR3+KX9vVZcTr
+	 co8kvnN1WrAOvTZqoFwH18VJmbHdocdic8JnV3Q+pZmvh8d4TEFUrT8aOjRGJhvFBnKXZ
+	 7n9Z4L3TZD6Vgx1qofo4P41PUVZ+VaBlWS81+u3H9QCQvwgRj66iX/NsyLiSqOUbbSaxW
+	 a8SYASvLS251cIniK3Ri++1o+iyScmqP57/qNNXLOhRpTPy2DXaedzp+ysrG7a3kKAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826528;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:CC:Subject:User-Agent:In-Reply-To:References:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6PFd3kI83AuIA1Y6h+p+v4Y/1puo2Ts/ZISrLgCUH7s=;
-	b=HM/f7MIBgTEnJ4LB9h6gKZVTiAaSVCT5CujABkCZJtAmMeIFg7VsKuB/u3D1XRs+GXPU
-	 My+cJjl72nYs44AuqIIF4V9Vgr6aziYsOLTf3yL+mYyPPjVPry+Pv+hKmSB7lAMm6vT7x
-	 QbAhobAYsjGyKm6UurgTEeOvLhOHRistlObGnJ31R9kNtpYBxGEq1C8YozaPLpzwdLazO
-	 YHTXdpL/abMjYz9RtxhQHPLjmQzYLybUe466WpAxJbnvy9gwaXToidnHI/J0lHxJDzwl3
-	 vfiAVFdPfi1Svs+x10N65jyEi5zz7mfUfeAGWfrxa8g7GVPgf2Ae8NTVr9b2qjjDo9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826548;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=JoLaVO0t2M4whSRJ4oFfITG85nuCxR3a2DUqsaJwp/U=;
+	b=rnXox+3uY4tZO/QgqjbeMypUMyJAkpH8MFZvW5SI6iJPSvqxcEd7Y/wfd6atR0rXWbAx
+	 6eynpFk/b+JHozxj/l4Q/oM4ydwVT+zOKScjvH8RyNAjYCPtOALTiS4OS4aiuNiURi9pb
+	 C+6AQqusFCC4qeUQC0U4d2bhHteVYFRuzhlwLEg1Jy+maHS6lu1e8qafhb2QE8M2JDE3E
+	 YHXyK6+k5iD3+gAFvT+xb5A3/zJUHtpLiQMlUzbyVUsstVtxNsihl0JiXyliCCSJ3vyFw
+	 fEZ74Htw1YwrblxXOoaR/PXkm1GDFMvCaXSwwlwOmFTHNOUS4WsZ+EEOfqK3LV7qOrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=VgiaAp6p;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bM+Y4qli;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F166070F1F
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 21:08:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96F166070F1F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE417607E723;
+	Wed,  4 Nov 2026 21:09:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=VgiaAp6p
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2B9A140E0497;
-	Wed,  4 Nov 2026 21:08:44 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id qFmQ2mC_Y4NG; Wed,  4 Nov 2026 21:08:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793826519; bh=6PFd3kI83AuIA1Y6h+p+v4Y/1puo2Ts/ZISrLgCUH7s=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=VgiaAp6p5G5W2EUwpiLcvxOlobm2N3zO1bgUldQpcI2bGKIciigWfmPd/6BL3bKIA
-	 qroJNhSlwopS8lrCKH/EVrZR+XgvKrwBDyqN8/p7zbAnkPZlrU3ehUfzAdeYeXxeWS
-	 3kBdXnmb6KwMk2sN9m2EmNSnEO5olXe5G2It3u1jvlDZngNoQV/lsI139QvwB3w/LB
-	 Ldq2kr+oW8bvuLEJUN6znHnnFtuzojrbnamr3NZ33AVRollm+E82hGA0kWHZ/3iZ4Q
-	 v87fqcIn0x5F+5P5wm1Bq7QlOCEAwwQCPBYvxRVptSXp33TjUkdo+MvokgFH14dVZ9
-	 FozqRPjxM3+DkR7Z0zkKkn8wAVuUUzNLd9I+0VXxq/zWt6YAqIXeJG0axGH8dJ7CZe
-	 IrHt6UFBPNzXKiCcr6794yrDK4W5JF0On1s4SCVzJ8ywhqyMFuBTSwWE2Y2lDoozl4
-	 jPU6RwrhQemZb6PrDJtAfSfIZhaWK6NFe5zi93Cb+YKqEQTwcPEIXlz6YyMXJ7rhYa
-	 iJqvAJrj9+2eM62UHGRHsCwgLn4KaD3Ro95OfYCFywaRy/knLbiY1qobzvbpYBUUVo
-	 pqeGcWhnZk05AgPXa4IS/QJrZ5rNimtcjDIa8srl/MfbyYnoWCXMKT/8kkSH1z/XGx
-	 vlwHo9Y9wptOx4y7VW+wtvYk=
-Received: from ehlo.thunderbird.net (mobile-166-137-178-199.mycingular.net [166.137.178.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6D21140E0184;
-	Wed,  4 Nov 2026 21:08:35 +0000 (UTC)
-Date: Wed, 04 Nov 2026 21:08:29 +0000
-From: Borislav Petkov <bp@alien8.de>
-To: Greg KH <gregkh@linuxfoundation.org>,
- "S Shaiju (AMD)" <sshaiju.lkml@gmail.com>
-CC: stable@vger.kernel.org
-Subject: Re: [PATCH 6.18] x86/bugs: Adapt SRSO mitigation to Zen6
-User-Agent: K-9 Mail for Android
-In-Reply-To: <2026110405-exporter-surfacing-9624@gregkh>
-References: <20261103182143.27403-1-sshaiju.lkml@gmail.com> <2026110405-exporter-surfacing-9624@gregkh>
-Message-ID: <A286426C-2D2B-4CC2-B113-7212B62CB03F@alien8.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bM+Y4qli
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 909FF1F00A16;
+	Wed,  4 Nov 2026 21:09:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793826547;
+	bh=JoLaVO0t2M4whSRJ4oFfITG85nuCxR3a2DUqsaJwp/U=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=bM+Y4qlivWXD/hbfUoQSOt6jdxvDIO6vVwYBUAaJcXZWGokJR9RMVEqU+eeSbz7fF
+	 hnfFB7Cx3gT3WkY8xzaq/MCyhCJkV5UJGtdTkTkh1nrmWsQdMxjOQKNLV03ezcTScE
+	 EBTyPlSpWX6nZUZnU4EdS8yJ05D0YPHiv7Hv/QQQ3ekdPm1e8WAwNCCwl88A/78S0j
+	 py+1+NpkcoBS45ikGR8nZZWI2/S0j7QuoKlp6Wj37uZsciPsY8Rlj1iA35502NnDzA
+	 iyjhQ9TFmgqpttvWp2BLes5zSmzGdMnwzfJpr+N+wi0ae+TcS5tYlV2QuS5mjybTLB
+	 x9ljrlBzgibzg==
+Subject: Re: [PATCH net v3] gve: leave refcount headroom in the RX page bias
+From: netdev-bot+sashiko@kernel.org
+To: amaan.cheval@gmail.com
+Cc: netdev@vger.kernel.org, joshwash@google.com, hramamurthy@google.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, bcf@google.com, jordanrhee@google.com,
+ przemyslaw.kitszel@intel.com, pkaligineedi@google.com, maolson@google.com,
+ csully@google.com, willemb@google.com, yangchun@google.com, npl@google.com,
+ awogbemila@google.com, shailend@google.com, nktgrg@google.com,
+ maxyuan@google.com, bpf@vger.kernel.org, john.fastabend@gmail.com,
+ hawk@kernel.org, sdf@fomichev.me, daniel@iogearbox.net, ast@kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 04 Nov 2026 21:09:05 +0000
+Message-ID: <179382654505.488856.2284543045939069308@kernel.org>
+In-Reply-To: <20261103090651.35399-1-amaan.cheval@gmail.com>
+References: <20261103090651.35399-1-amaan.cheval@gmail.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,42 +68,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On November 4, 2026 5:58:23 PM UTC, Greg KH <gregkh@linuxfoundation=2Eorg> =
-wrote:
->On Tue, Nov 03, 2026 at 10:21:43AM -0800, S Shaiju (AMD) wrote:
->> From: "Borislav Petkov (AMD)" <bp@alien8=2Ede>
->>=20
->> commit ae1d2082d93bc04604dc08e9b7f9cdba5e0c28e6 upstream=2E
->>=20
->> Zen6 has BTB protection which isolates the different contexts
->> (user/kernel, guest/host) from one another=2E This makes the SafeRET
->> mitigation there unnecessary leaving the user/user and guest/guest
->> attack vectors open, whose protection is handled by the Spectre v2
->> mitigation setting to do IBPB on a context switch=2E
->>=20
->> Detect that setting and report it with a new mitigation string=2E
->>=20
->> Signed-off-by: Borislav Petkov (AMD) <bp@alien8=2Ede>
->> Link: https://patch=2Emsgid=2Elink/20260822013231=2E1109255-1-bp@kernel=
-=2Eorg
->> Signed-off-by: S Shaiju (AMD) <sshaiju=2Elkml@gmail=2Ecom>
->> ---
->>  arch/x86/include/asm/cpufeatures=2Eh |  1 +
->>  arch/x86/kernel/cpu/bugs=2Ec         | 18 ++++++++++++++++--
->>  arch/x86/kernel/cpu/scattered=2Ec    |  1 +
->>  3 files changed, 18 insertions(+), 2 deletions(-)
->
->You forgot to mention this needs to go to 7=2E3=2Ey too=2E
->
->Now queued up, thanks=2E
->
->greg k-h
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Ah, thanks=2E You guys are opening and closing non-LTS branches waay to fa=
-st for me :-)
---=20
-Small device=2E Typos and formatting crap
+Critical: 1 · High: 0 · Medium: 0 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Critical] This patch refills the bias only after
+  gve_dec_pagecnt_bias() reaches 0, and it lowers the per-page bias from…
+
+--
+
+gve: leave refcount headroom in the RX page bias
+
+This patch lowers the gve RX page refcount bias from INT_MAX to USHRT_MAX
+and stores it in a u16. This leaves page_count() room for references the
+stack takes with get_page(), such as splice() and tee(). When the bias
+reaches 0, it is refilled with a fixed batch of GVE_PAGECNT_BIAS.
+
+Link: https://github.com/amaanc/kernel-bias
+
+> diff --git a/drivers/net/ethernet/google/gve/gve_utils.c b/drivers/net/ethernet/google/gve/gve_utils.c
+> index caed38cd5f2b3..cb6fba3122d5b 100644
+> --- a/drivers/net/ethernet/google/gve/gve_utils.c
+> +++ b/drivers/net/ethernet/google/gve/gve_utils.c
+> @@ -93,15 +93,9 @@ void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info)
+>  {
+>  	page_info->pagecnt_bias--;
+>  	if (page_info->pagecnt_bias == 0) {
+> -		int pagecount = page_count(page_info->page);
+> -
+> -		/* If we have run out of bias - set it back up to INT_MAX
+> -		 * minus the existing refs.
+> -		 */
+> -		page_info->pagecnt_bias = INT_MAX - pagecount;
+> -
+> -		/* Set pagecount back up to max. */
+> -		page_ref_add(page_info->page, INT_MAX - pagecount);
+> +		/* Out of bias: take another batch of references. */
+> +		page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
+> +		page_ref_add(page_info->page, GVE_PAGECNT_BIAS);
+>  	}
+>  }
+
+[Severity: Critical]
+
+Can this free a DQO-QPL RX page that is still registered with the device?
+
+Because the refill happens only at 0, the 1 -> 0 transition hands the
+driver's last reference to the consumer. With INT_MAX a page needed about
+2^31 handoffs to get there. With GVE_PAGECNT_BIAS it happens every 65534
+handoffs.
+
+On DQO-QPL, gve_xdp_done_dqo() redirects the buffer before it touches the
+bias:
+
+	case XDP_REDIRECT:
+		err = xdp_do_redirect(priv->dev, xdp, xprog);
+		if (unlikely(err))
+			goto err;
+		gve_reuse_buffer(rx, buf_state);
+
+gve_reg_xdp_info() registers QPL rings as MEM_TYPE_PAGE_SHARED. If the
+redirect target is an AF_XDP socket in copy mode, the page is released
+synchronously:
+
+xdp_do_redirect()
+  xsk_rcv()
+    xdp_return_buff()
+      __xdp_return()
+        page_frag_free()
+          put_page_testzero()
+          free_frozen_pages()
+
+Suppose the page is at pagecnt_bias == 1 and page_count == 1. That is the
+normal recyclable state once all earlier consumers have released their
+references. The QPL page then goes back to the buddy allocator while it is
+still DMA mapped, registered in the QPL and owned by the buf_state.
+
+After that, gve_reuse_buffer()->gve_dec_pagecnt_bias() calls
+page_ref_add(page, GVE_PAGECNT_BIAS) on the freed page.
+gve_try_recycle_buf() then sees page_count - bias == 0 and posts the page
+back to the NIC. Could the device then DMA packet data into memory that
+has already been handed to another user?
+
+The v3 notes say XDP on DQO-QPL "will be blocked explicitly in a separate
+patch". In this tree, gve_xdp(), gve_verify_xdp_configuration() and
+gve_set_xdp() do not check queue_format.
+
+gve_set_netdev_xdp_features() sets xdp_features = 0 for DQO-QPL, but
+nothing on the attach path enforces it. xp_assign_dev() also falls back to
+copy mode when NETDEV_XDP_ACT_XSK is missing.
+
+That note is below the --- line, so it will not be in the applied commit.
+The patch is also tagged for stable without naming the prerequisite.
+
+The commit message also says:
+
+  Use USHRT_MAX in a u16, as igb, igc, ixgbe, i40e and hns3 do
+
+Those drivers refill at bias == 1, so they always keep a reference. For
+example, igb_can_reuse_rx_page() does:
+
+	if (unlikely(pagecnt_bias == 1)) {
+		page_ref_add(page, USHRT_MAX - 1);
+		rx_buffer->pagecnt_bias = USHRT_MAX;
+	}
+
+Would it be safer to refill at 1 here, as v2 did, so the driver never
+gives up its last reference on a QPL page?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103090651.35399-1-amaan.cheval%40gmail.com
