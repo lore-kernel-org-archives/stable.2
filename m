@@ -1,57 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793783393;
-	b=WFN3kQP5g0pfYioKQRFRtxSTHvbi/JREs+1LHy2Rt1nrjKqRHRTwcTE6YeGVwyypF7q0
-	 HeRDjgEpresEHiqKcBU8zO7b53ORlVmgsWLmQ3uempAs9uToOnXFLIn6ZhinTg9avVKLh
-	 LVCQ5IFpYj/GdtV4YmSjn4IqPJs4V1q+EmU01649EsyFdn5RlqHr90GVmabQgMsQryL+I
-	 dqzUCx6+vDpazNpHKZTwS5hjhy1THY52kYe5tAkwyMQkb37CrV6i+agMwbkqMGW4FUAS6
-	 mwBfYZj050LE079ZJhV03ESaWZSq3cqhezN8MOR5LS6xwSw1sYiPi5rIQfmM4fEH0Jw==
+	t=1793783492;
+	b=fRZXoheOCRvhYj9b/t/d7vQOWskxL87xJ4z7PgZCrOeXpDYGnFFPEzUEDuf/HsOOFc5M
+	 jCVAysWsF4zcZA8Aw1+cj8m3S4HRkbB5KIeA1lV4bRONPUnurfl9t4gVKiQ+QEz+5UCwm
+	 Ny/5CXI3JbvU18NJjN2WHJ8q2D9R+5BK2klRsSslZhgPpA8mzxv54LfMxyCNliVo9njbh
+	 TUmhKWECVMEoGdWOfZ+WEi142ANIqfgtbE1BWG1t+LU4qPYymu/GuSuu8M2uio1tY/npv
+	 nt/yQhUS3m53VnkaBBC7m+ewkba6g72xnuqNOwqgZ4t+T13xNoZjGxyoBt+q7MPq8Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793783393;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PhJXxZjl8atL8PR+6e4yHQuvKFdTDoSNus6/fp0TAmI=;
-	b=VOIJSnZy8W3newJKvJzOwnhiabl3aNUKv9YNJ31LpYyyAiFrIpofDhXQZsQI0QI3Om8/
-	 Kx6ybbWLnJpehMHqFh+GZ9078uGheP1F55s39/ouu4ZYP5xoBWyLP5qQ0I+kqN69lRlMx
-	 yEZ2wDbawvd4HEBz8eeFUt6LlG94tQ66fPdgIvbfnI/FafKYoCqT03TlYtUk0bVYtGTcw
-	 NRdF4PAQb/+5buln3+JDrNZ88SmRxiJf9EKUKMf7TEZMYYACPrC0IHVNV9lbjyowDQK8K
-	 kO0noRI0NX0UwsEGoWhEmcKKJMbKuEfinAhmQeJNj1BSh5EwPJsSqVEQI6VArKBtcAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793783492;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+BWGMpp+CGdBx3er7fkKiPSgFKGZi9UN3j89ZX4ZK/I=;
+	b=Joq1/chdARA1ty3rD8etgIYg6mYecRUhWn1aPZZxhAKiOkVuasJpM7CGZPkZUaKK01br
+	 giD+tW2aCy85xf4Z8R3fXE584NifvFgZ6WJr31uMILCaW0WVjCrIBvIv+7sORyI/1qW39
+	 5Afm9yffyLIH33Dd5DNUxS7QMEdOuEh6kx6LUOuMlJYwJ1ivxXnU623fpjeMShORDSYLq
+	 yQe+mlcEIkMK7CfoKE1MUeayaN549OnF3zQIGXuX7CykaezNWLx/du1Gj3ZFGo9n+IjPg
+	 hGov1DZuahEyz/6SJvxJeiYmyFqNogyAkcIaGL75izERgGcslgnBD1TRI1rdnVbV7sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=ffQ9dJKs;
-	arc=none smtp.remote-ip=115.124.30.97
-Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bPUGyJe8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D35606A326;
-	Wed,  4 Nov 2026 09:09:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02D35606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFFC606A33D;
+	Wed,  4 Nov 2026 09:11:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=ffQ9dJKs
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793783384; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=PhJXxZjl8atL8PR+6e4yHQuvKFdTDoSNus6/fp0TAmI=;
-	b=ffQ9dJKscjx3sn4WNlsQhOCn6rHcmOXqO6zP1knncadcwBslOoTHs2snb3KHK0udW3nbTZIgJTliGOwzHAeS8wZU4rASjKi+7DZyjFYItezgZE+UXX2GeAaSOXr9naKMD7Cr45WO1Q7DTOJJrn4FV0ONKN5ARbbpC5pw6or2qs8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0XE5PlFA_1793783383;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE5PlFA_1793783383 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 04 Nov 2026 17:09:43 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Jan Kara <jack@suse.cz>,
-	Christian Brauner <brauner@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ufs: free cylinder group structures on late mount failure
-Date: Wed,  4 Nov 2026 17:09:23 +0800
-Message-Id: <20261104090923.540863-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bPUGyJe8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD4141F00A16;
+	Wed,  4 Nov 2026 09:11:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793783492;
+	bh=+BWGMpp+CGdBx3er7fkKiPSgFKGZi9UN3j89ZX4ZK/I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bPUGyJe8jTsIlbF1xVTN5nX4l/yeQqqr6KUSLqOk5CwA8zaane6up/uXHy/A6ETFN
+	 8GMdYQkC/9pvmhBP2zcSqtRvRTHOksDMwvx7gtNR3V/dSa5XbcrFjusMb5bbHlPAqY
+	 FtbHm8MMjkmKP//Sey/LKddohMLPyRf4C7s+5IntPmGQ+G5m0rp18ZxLjCBmoTbsqX
+	 6+sBf9cofe3crMJ9E65oq/xyI3vlQ9WK8JdqiYXb7nE+wHWgrx4QfKgjh+C53e4xEw
+	 hQtZGro3VXx5kNioH4KUnh6d9IwsWjAmh0kD1m7YN8VI3LyBQcu4wnCHz5d6QOS+Jm
+	 8qsGDtkKaCKQw==
+Message-ID: <45508a75-7549-40e2-a71a-807a824ea026@kernel.org>
+Date: Wed, 4 Nov 2026 10:11:14 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,114 +51,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 43/47] mm/huge_memory: split huge PUDs when adjusting
+ VMA boundaries
+To: Lance Yang <lance.yang@linux.dev>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, mhocko@kernel.org,
+ qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org,
+ kasong@tencent.com, baohua@kernel.org, axelrasmussen@google.com,
+ yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
+ baolin.wang@linux.alibaba.com, liam@infradead.org, vbabka@kernel.org,
+ rppt@kernel.org, surenb@google.com, mhocko@suse.com, kees@kernel.org,
+ peterz@infradead.org, jannh@google.com, pfalcato@suse.de, hughd@google.com,
+ pasha.tatashin@soleen.com, pratyush@kernel.org, willy@infradead.org,
+ jack@suse.cz, ziy@nvidia.com, riel@surriel.com, harry@kernel.org,
+ apopple@nvidia.com, nico.pache@linux.dev, ryan.roberts@arm.com,
+ dev.jain@arm.com, usama.arif@linux.dev, kas@kernel.org,
+ matthew.brost@intel.com, jhubbard@nvidia.com, peterx@redhat.com,
+ will@kernel.org, aneesh.kumar@kernel.org, npiggin@gmail.com,
+ osalvador@suse.de, minchan@kernel.org, muchun.song@linux.dev,
+ xu.xin@linux.dev, chengming.zhou@linux.dev, chrisl@kernel.org,
+ shikemeng@huaweicloud.com, nphamcs@gmail.com, youngjun.park@lge.com,
+ gourry@gourry.net, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+ ying.huang@linux.alibaba.com, jgg@ziepe.ca, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-cxl@vger.kernel.org, stable@vger.kernel.org, usama.anjum@arm.com
+References: <20261031-fixes_core-v3-43-d6437171ecc3@kernel.org>
+ <20261104031245.9524-1-lance.yang@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261104031245.9524-1-lance.yang@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-ufs_fill_super() reads the cylinder group structures before it creates
-the root dentry, so that a failure there no longer publishes a
-superblock whose s_fs_info has already been freed.  The two failures
-that remain after the read, a failed ufs_iget() and a failed
-d_make_root(), still jump to the label that only frees the in-core
-superblock information.
+On 11/4/26 04:12, Lance Yang wrote:
+> 
+> On Sat, Oct 31, 2026 at 10:40:12AM +0100, David Hildenbrand (Arm) wrote:
+>> PFN mappings such as VFIO PCI BAR mappings can use PUD leaves while
+>> allowing VMA splits at page granularity. However, vma_adjust_trans_huge()
+>> only handles PMDs.
+>>
+>> After faulting a writable PUD-sized VFIO BAR mapping, changing its first
+>> page to read-only with mprotect() makes the PMD walk treat the PUD leaf
+>> as a PMD table. Applying MADV_DONTFORK to the first PMD-sized chunk leaves
+>> the PUD spanning two VMAs: the PMD-aligned boundary skips splitting.
+>>
+>> Walk the page tables once at each adjusted boundary and split a huge
+>> PUD or PMD leaf as needed. Handle PUD leaves even when the boundary is
+>> PMD-aligned.
+>>
+>> Fixes: f9e54c3a2f5b7 ("vfio/pci: implement huge_fault support")
+>> Cc: stable@vger.kernel.org
+>> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+>> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+> 
+> Nice work!
+> 
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
 
-Everything ufs_read_cylinder_structures() allocated is released by
-ufs_put_super_internal(), which runs from ufs_put_super(), and
-generic_shutdown_super() calls that only inside its if (sb->s_root)
-block.  With s_root left NULL, the s_cssize allocation behind s_csp, the
-s_ncg buffer heads behind s_ucg[] and the UFS_MAX_GROUP_LOADED s_ucpi[]
-entries are leaked, once per mount attempt.
+Thanks for the review! Please do keep reviewing, but note that more trailers
+(including this one) will likely not make it upstream as I am about to prepare
+the PR to get most of these things here upstream.
 
-Neither failure needs an I/O error to happen: ufs_iget() rejects a root
-inode number that falls outside the s_ncg * s_ipg range the image
-claims, and s_ipg is not validated.
-
-Give those two paths their own label, and move the unwind that
-ufs_read_cylinder_structures() already performs on its own failure into
-a helper that both call.  The helper also clears the pointers it
-releases.
-
-Fixes: 55a4c98abb96 ("ufs: create the root dentry after loading cylinder metadata")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/ufs/super.c | 42 +++++++++++++++++++++++++++++++-----------
- 1 file changed, 31 insertions(+), 11 deletions(-)
-
-diff --git a/fs/ufs/super.c b/fs/ufs/super.c
-index 3569ac92b065b..50adfef5f2aa9 100644
---- a/fs/ufs/super.c
-+++ b/fs/ufs/super.c
-@@ -448,6 +448,32 @@ static void ufs_setup_cstotal(struct super_block *sb)
- 	UFSD("EXIT\n");
- }
- 
-+/*
-+ * Release everything ufs_read_cylinder_structures() allocated.  Besides its
-+ * own error path this is needed when a mount fails after the cylinder groups
-+ * have been read: s_root is still NULL then, so generic_shutdown_super() never
-+ * calls put_super and ufs_put_super_internal() does not run.
-+ */
-+static void ufs_free_cylinder_structures(struct super_block *sb)
-+{
-+	struct ufs_sb_info *sbi = UFS_SB(sb);
-+	struct ufs_sb_private_info *uspi = sbi->s_uspi;
-+	unsigned int i;
-+
-+	if (sbi->s_ucg) {
-+		for (i = 0; i < uspi->s_ncg; i++)
-+			brelse(sbi->s_ucg[i]);
-+		kfree(sbi->s_ucg);
-+		sbi->s_ucg = NULL;
-+		for (i = 0; i < UFS_MAX_GROUP_LOADED; i++) {
-+			kfree(sbi->s_ucpi[i]);
-+			sbi->s_ucpi[i] = NULL;
-+		}
-+	}
-+	kfree(sbi->s_csp);
-+	sbi->s_csp = NULL;
-+}
-+
- /*
-  * Read on-disk structures associated with cylinder groups
-  */
-@@ -511,15 +537,7 @@ static int ufs_read_cylinder_structures(struct super_block *sb)
- 	return 1;
- 
- failed:
--	kfree (base);
--	if (sbi->s_ucg) {
--		for (i = 0; i < uspi->s_ncg; i++)
--			if (sbi->s_ucg[i])
--				brelse (sbi->s_ucg[i]);
--		kfree (sbi->s_ucg);
--		for (i = 0; i < UFS_MAX_GROUP_LOADED; i++)
--			kfree (sbi->s_ucpi[i]);
--	}
-+	ufs_free_cylinder_structures(sb);
- 	UFSD("EXIT (FAILED)\n");
- 	return 0;
- }
-@@ -1211,17 +1229,19 @@ static int ufs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	inode = ufs_iget(sb, UFS_ROOTINO);
- 	if (IS_ERR(inode)) {
- 		ret = PTR_ERR(inode);
--		goto failed;
-+		goto failed_cg;
- 	}
- 	sb->s_root = d_make_root(inode);
- 	if (!sb->s_root) {
- 		ret = -ENOMEM;
--		goto failed;
-+		goto failed_cg;
- 	}
- 
- 	UFSD("EXIT\n");
- 	return 0;
- 
-+failed_cg:
-+	ufs_free_cylinder_structures(sb);
- failed:
- 	if (ubh)
- 		ubh_brelse_uspi (uspi);
 -- 
-2.39.3
+Cheers,
 
+David
