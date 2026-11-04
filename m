@@ -1,48 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810760;
-	b=WgtN8FE5yzHqjFAq4qbF/jg+Jd66trpV6jYxyX8TFDYo6l/twR+cWUv41xSgW5ChCmBq
-	 qvDhOPSQDkhxGIaJEmb6+GEQ8i7fQn6io2Fr/emur6mrHVv/JPBC+r/J6ZOoH2VZfSjLO
-	 8XXaqf2kXkhNNa02A2IApDqnD2fDt8TLIHQ+IeQeYo+mBveDSrT7AuTfPEslfET/CCqkq
-	 9GPdFgCEvA/jMnfPu7JQakGbRVWZy4OTI4JwdPc0azW+l5tmbPTpGfpAy1N5DsP2wOj/Q
-	 sXGzqZP8Tr8bo2YcRTU+LHQ/tAr6IqA4Ul3EfTgoyFIWO4A4bhotX0Xd4lwct/KYIGA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810760;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=1FSm8Gv9bwuRlSD/vabxSLZgWODES4Hxzg8A0KwQyec=;
-	b=dKB+L+lgFlsAEQgey0COs6XubhL2KBsPpEFuYwWvnImntVpNANIdLx0ofYkVyaRELoHg
-	 rok1lxJJKtLEDtvJjAZhMVxGhYeU8NPTcGXgALeB721T3d15uz6PZNw5EFAvIaZAJE9ex
-	 vYWy3p/hwdL1QvZSzPbrewUMzHKRrGyP1q4jr8eDjChEfqWTo3lACLUdFvPdKKMnkC2vK
-	 c8P5LY7z5qFUA/ip/u9cLoSSflocXePjfoGze9EG9dDtK4XnLeg6KgLeyoqekI2pg4TtK
-	 TeUCKQ0hSd13S2wbjxD51BYtwSIrotPXMIdE+BP+X6xoPLqgh3wQPNxwRsNaI4guEjg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=csolbHwH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.161
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793810937;
+	b=v2kyz7Vi4xtVmeM8Mdxu6eFwelOGDmePKYOaDH/UdLhT/SGQpbCN4DvsOKduu5pjqAgl
+	 ypc2cfi38DYS1+o2S45JYOjC0Lb4eL5fA1FrVGYJgpjCsOvhrPZP10/R5nGHIMZp+1wOE
+	 hhjlTeCcQHj/iqp7piCPrWb5My19DNcE/dOptGeyQQufUJncx2q6XQmDebpbvNQoo1pcf
+	 cjc5H5YFff3CzmcqbvKWmoJk0GIcWwTWJ492pBe2JuSsgD4VbMKdA9Dg1O71Qz50zQ0R1
+	 6ASPMtAJ/FtyqVnu/uTCEscn2nS+pJWaZ+5hXpWcgDO13epS5IV9N4z/5qampdmmTyw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810937;
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
+	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
+	 X-SimpleLogin-Want-Signing;
+	bh=+6NWrTkD19j6pXo7fX9iBIpL0RSF2GXs9ygbR1u2JBY=;
+	b=ZE2NzAv2taYOMojX7fb4zehQVQDj44Okng3NcbBdoFnzq/9uRB7SDYeuW+i0aMR0B9Lb
+	 aGBPFuZ/B6rZBlp3FvcBf6/I1L6TfnL0talWeDZ5WIv04JP7ipC9Rt9qecps7O2yw5Lam
+	 DoHVv5VeUYiiHkHREQPOH7mRuo1sf457TjzA6lni/m+ZbDh/5miT6naeWdqdwyIL6XBao
+	 hOD0RUOUr6R4f+ySf7J5sEUC0pb5XDkV6+tUBHZtt3xG6gyaMsegB+fLIui3hgEEqpypX
+	 DyzJVTspSAOEZt5r4K1gLkVw9F/oVmRrFfqvC0dUqUUb/5jUs1/cZxITCDr9QkFFBmA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=eldare.de;
+	spf=pass smtp.mailfrom=eldare.de;
+	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=vFIzAH37;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.161
+Received: from mail-200161.simplelogin.co (mail-200161.simplelogin.co [176.119.200.161])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F22A606A328;
-	Wed,  4 Nov 2026 16:46:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54215606D81C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:48:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54215606D81C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=csolbHwH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3ED1F000C1;
-	Wed,  4 Nov 2026 16:45:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793810759;
-	bh=1FSm8Gv9bwuRlSD/vabxSLZgWODES4Hxzg8A0KwQyec=;
-	h=Date:To:From:Subject;
-	b=csolbHwHo1Vzev+HxRLDXJw67cJXcgIcdGqS29dkyoHW+4ckChuEHZd5afwrgwBy9
-	 YkrGGb8dBIOGF5HVz+faGfgJEuuIwXYwv+8NAAWlhcw5HKllsHmBA14UuA6wFVAJFb
-	 4+M1zVnzUpCygRRyhgXXAhfSTtJMj2Ji0+6lPb3s=
-Date: Wed, 04 Nov 2026 08:45:59 -0800
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,
-	joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,
-	heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + ocfs2-serialize-inode-journal-access-with-shutdown.patch added to mm-nonmm-hotfixes-unstable branch
-Message-Id: <20261104164559.BC3ED1F000C1@smtp.kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=vFIzAH37
+ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793810930;
+	cv=none; b=N0D8eoC8N93Rzw2s/p7ne8H5Qo2NehM3SEUus6xtEEucCRWTSTU4odUMAFcI5UgFsSaXgy7q8sFmjfyjhzVy/bVYpcv8KINQ1zgrEAzyJgnWJhvfoFnVcY/YkKR90hMp+cjtJZgMoQN3BP+s1/JlwGC7zMSmI1HIoeCklN15Rgruqi/MyluW/hFq/dJzp/jcAnpASpYBtVanaxzv2Yi7pNQDoM3d8jODdAvEFBMQEHnajDRVyzm2U16z/GoMlCcpzJofXjdaYu9CxLhtx8Cr09nA1Dsd+zhk6W66iN7p0QyqKL9uID9MEjkDQzL8W10gq7mYlpqy/RnxOUnluRAomg==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
+	t=1793810930; c=relaxed/simple;
+	bh=NZfHjc8GabK+5fWc9xU1eIPV8ar6IHlihuK1W6X9Wrk=;
+	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=2iqJnhFf4VrmHikqBv0PQ8K5NOhbaMGatWwyMimu1PLix+Qs5J94WbChyvcux0x3SAH+WAUU1qJ4ofY8vNqpZoR7Ov3H6ri3IPULnDIs9WCd0LeR5veg/OTMKEuuTmj5CEy0r4qr5nlZvIqv6ewEgvlUAqTd0E2EZjRJ5oDg8yrBkPm3tcbf05cNKCq789u7YsfAvW/8f/8Cape1+ghk7cbmrMHPm9Yflf4u2AWUkr7YqEXGqBtuDND7BR+ZrfS9X08NeBv9QkKVaf7IRV3fic2hXeymLXQAKaoxqYOLk1PziXzCz7cYG1wRrpGd35cQ0OpREoyyG8NEBtfrPsgsSA==
+ARC-Authentication-Results: i=1; mail.protonmail.ch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
+	t=1793810930;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+6NWrTkD19j6pXo7fX9iBIpL0RSF2GXs9ygbR1u2JBY=;
+	b=vFIzAH37Cw5VrNpmVFx3zCpuY0HMvAs8h3OdcAiJwMmK75wgnH+SUsX+0FMbLZK3Wt7ACv
+	Uj6m29AHzV6CsBGkDlTCceU5UIchtfrK/FYZPU9/OH9o9Xh4JhkfGAdDtShlx4eVXFVUDG
+	uVG2UKdHELMjqEsMSpM8siiqPJxdJJw=
+Date: Wed, 04 Nov 2026 16:48:44 +0000
+Subject: Re: [PATCH net v3 1/2] vsock/bpf: release sock lock while waiting for
+ data in recvmsg
+In-Reply-To: <auSkQOU6qmj0NPEt@sgarzare-redhat>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,338 +63,86 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: jrmmhm.kernel@eldare.de
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: Bobby Eshleman <bobbyeshleman@meta.com>,"David S. Miller"
+ <davem@davemloft.net>,Eric Dumazet <edumazet@kernel.org>,Jakub Kicinski
+ <kuba@kernel.org>,Paolo Abeni <pabeni@redhat.com>,Simon Horman
+ <horms@kernel.org>,"Michael S. Tsirkin" <mst@redhat.com>,Michal Luczaj
+ <mhal@rbox.co>,virtualization@lists.linux.dev,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,stable@vger.kernel.org
+Message-ID: <179381093020.9.4719932034061956856.1746278795@eldare.de>
+References: <20261028-kbh3-1-022-fix-v2-v3-0-bc0752b2d3db@eldare.de>
+ <20261028-kbh3-1-022-fix-v2-v3-1-bc0752b2d3db@eldare.de>
+ <auSkQOU6qmj0NPEt@sgarzare-redhat>
+X-SimpleLogin-Type: Reply
+X-SimpleLogin-EmailLog-ID: 1746278795
+X-SimpleLogin-Want-Signing: yes
 
+On Fri, Oct 30, 2026 at 03:18:10PM +0100, Stefano Garzarella wrote:
+> Ditto about commit message, please put more effort on writing something
+> readable by a human.
 
-The patch titled
-     Subject: ocfs2: serialize inode journal access with shutdown
-has been added to the -mm mm-nonmm-hotfixes-unstable branch.  Its filename is
-     ocfs2-serialize-inode-journal-access-with-shutdown.patch
+Agreed, I'll rewrite both messages myself for v4, much shorter.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-serialize-inode-journal-access-with-shutdown.patch
+> >+            if (sk->sk_err) {
+> >+                    ret =3D -sk->sk_err;
+>
+> Why?
 
-This patch will later appear in the mm-nonmm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Same as vsock_connectible_wait_data(): an error that arrives during the
+wait is returned to recv(). Without the check the loop still ends, since
+every path that sets sk_err also closes the socket or sets peer_shutdown,
+but recv() then returns 0 or -ENOTCONN instead of the error.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+> >+            if (sk->sk_state !=3D TCP_ESTABLISHED) {
+> >+                    ret =3D sock_flag(sk, SOCK_DONE) ? 0 : -ENOTCONN;
+> >+                    break;
+> >+            }
+>
+> I'm thinking if we should split this in multiple patches.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+From reading the code, it can be split without breaking bisect: first
+loop on all exit conditions with the lock still held, then drop the lock
+around wait_woken(). The order is fixed, since dropping the lock alone
+brings back the early -EAGAIN, and the loop alone does not fix the
+deadlock, so both would carry the Fixes tag. That is why I kept it as one
+patch, but I'm fine either way. Split it like that for v4, with the
+current 2/2 on top, or keep it as one?
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+> >+            if (!timeo) {
+> >+                    ret =3D -EAGAIN;
+> >+                    break;
+> >+            }
+>
+> Is the move of this check changing some user visible error?
+> I mean before this patch it was one of the first checks, is this okay?
 
-------------------------------------------------------
-From: Cen Zhang <zzzccc427@gmail.com>
-Subject: ocfs2: serialize inode journal access with shutdown
-Date: Fri, 30 Oct 2026 12:48:56 +0800
+Yes, for non-blocking reads, intentionally: -sk_err, 0 on peer shutdown
+and the not-connected result now come before -EAGAIN, as on the native
+recvmsg path. I'll say so in the commit message.
 
-The downconvert thread can run inode cleanup until ocfs2_dlm_shutdown()
-stops it, but unmount shuts down the journal earlier. A final dentry
-post-unlock put can therefore enter ocfs2_clear_inode() while the journal
-is being destroyed.
+> >+            if (signal_pending(current)) {
+> >+                    ret =3D sock_intr_errno(timeo);
+> >+                    break;
+> >+            }
+>
+> Why? Should be a separate patch?
 
-ocfs2_ci_fully_checkpointed() loads osb->journal before taking
-trans_inc_lock. Journal shutdown neither takes that lock for removal
-nor waits for the downconvert thread before freeing the journal:
+No, the loop needs it: with a pending signal wait_woken() returns at
+once, so without the check the loop spins until SO_RCVTIMEO expires, or
+forever if none is set. I checked it by removing the check: a signalled
+reader without SO_RCVTIMEO never returned and used a full CPU. The
+native path does the same.
 
-  Downconvert thread                    Unmount
-  ------------------                    -------
-  dentry post-unlock; final iput()
-    ocfs2_checkpoint_inode()
-      load osb->journal
-                                        ocfs2_journal_shutdown()
-                                          free journal; clear pointer
-      read the transaction ID
+> >+            if (data < 0) {
+>
+> Why not data <=3D 0  and void the other if?
 
-The checkpoint wait queue is embedded in that journal, and the final
-jbd2_journal_release_jbd_inode() also needs its JBD2 journal to remain
-alive for the whole call. Protecting only the pointer load would leave
-those longer uses unprotected.
+Right, will do in v4.
 
-Read and clear osb->journal under trans_inc_lock when checking checkpoint
-progress. Treat a removed journal as checkpointed. Move checkpoint
-waiters to the existing mount-owned checkpoint_event and wake it after
-checkpoint progress and journal removal, so the queue outlives the
-journal. The commit thread also waits there and rechecks its condition
-when woken.
-
-Serialize the final JBD2 inode release against JBD2 destruction and the
-journal free with a mount-owned rw_semaphore. Take the write side only
-after stopping the commit thread, and drop it before the journal inode's
-final iput(), whose cleanup can take the read side. Inode cleanup holds
-the read side only around the JBD2 release, outside checkpoint waits and
-DLM lock teardown.
-
-KASAN report as below:
-
-    Oops: general protection fault, probably for non-canonical address 0xdffffc000000000e: 0000 [#1] SMP KASAN NOPTI
-    KASAN: null-ptr-deref in range [0x0000000000000070-0x0000000000000077]
-    CPU: 0 UID: 0 PID: 587 Comm: ocfs2dc-33CAF04 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy) 
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    RIP: 0010:ocfs2_clear_inode+0x8ae/0x1630
-    Code: fc ff df 48 c1 ea 03 80 3c 02 00 0f 85 27 0c 00 00 49 8d 7d 70 48 8b 43 c8 48 ba 00 00 00 00 00 fc ff df 48 89 f9 48 c1 e9 03 <80> 3c 11 00 0f 85 f0 0b 00 00 49 3b 45 70 0f 88 62 03 00 00 e8 49
-    RSP: 0018:ffff888118d3f878 EFLAGS: 00010212
-    RAX: 0000000000000001 RBX: ffff88811a5edc60 RCX: 000000000000000e
-    RDX: dffffc0000000000 RSI: 0000000000000001 RDI: 0000000000000070
-    RBP: ffff888116134000 R08: 0000000000000001 R09: 0000000000000001
-    R10: ffffffff8965765f R11: 0000000000000001 R12: ffff88811a5ed400
-    R13: 0000000000000000 R14: ffff88811a5edbf8 R15: ffff88811a5ed408
-    FS:  0000000000000000(0000) GS:ffff8881fd4dc000(0000) knlGS:0000000000000000
-    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-    CR2: 00007ff35b66f2c0 CR3: 00000001092ae005 CR4: 0000000000770ef0
-    PKRU: 55555554
-    Call Trace:
-     <TASK>
-     ? __pfx_ocfs2_clear_inode+0x10/0x10
-     ? __pfx_ocfs2_inode_is_valid_to_delete+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __lock_acquire+0x5a3/0x2140
-     ocfs2_evict_inode+0x1ed/0x11e0
-     ? inode_wait_for_writeback+0x14c/0x330
-     ? __pfx_ocfs2_evict_inode+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? find_held_lock+0x2b/0x80
-     ? evict+0x347/0x9f0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     ? _raw_spin_unlock+0x23/0x40
-     ? __pfx_ocfs2_evict_inode+0x10/0x10
-     evict+0x38b/0x9f0
-     ? __pfx_evict+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     ? __pfx_inode_just_drop+0x10/0x10
-     iput+0x680/0xb80
-     ocfs2_dentry_lock_put+0xc2/0x110
-     ? __pfx_ocfs2_dentry_post_unlock+0x10/0x10
-     ocfs2_process_blocked_lock+0x1fb/0x420
-     ? __pfx_ocfs2_process_blocked_lock+0x10/0x10
-     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
-     ? lock_release+0xc8/0x290
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lockdep_hardirqs_on_prepare+0xeb/0x1a0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ocfs2_downconvert_thread+0x32b/0x780
-     ? do_raw_spin_lock+0x130/0x270
-     ? __pfx_ocfs2_downconvert_thread+0x10/0x10
-     ? __kthread_parkme+0xc1/0x220
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     ? __pfx_autoremove_wake_function+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kthread_parkme+0x177/0x220
-     ? __pfx_ocfs2_downconvert_thread+0x10/0x10
-     kthread+0x351/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf70
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-    Modules linked in:
-    ---[ end trace 0000000000000000 ]---
-
-Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0004-v8-dbcb8f80b8df476084d6@gmail.com
-Fixes: da5e7c87827e ("ocfs2: cleanup journal init and shutdown")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com> 
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
-Cc: <jjzuming@gmail.com>
-Cc: <stable@vger.kernel.org>
----
-
- fs/ocfs2/inode.c   |   17 +++++++++--------
- fs/ocfs2/journal.c |   30 ++++++++++++++++++++++--------
- fs/ocfs2/journal.h |   17 +++++++++--------
- fs/ocfs2/ocfs2.h   |    1 +
- fs/ocfs2/super.c   |    1 +
- 5 files changed, 42 insertions(+), 24 deletions(-)
-
---- a/fs/ocfs2/inode.c~ocfs2-serialize-inode-journal-access-with-shutdown
-+++ a/fs/ocfs2/inode.c
-@@ -1318,15 +1318,16 @@ static void ocfs2_clear_inode(struct ino
- 	oi->ip_blkno = 0ULL;
- 
- 	/*
--	 * ip_jinode is used to track txns against this inode. We ensure that
--	 * the journal is flushed before journal shutdown. Thus it is safe to
--	 * have inodes get cleaned up after journal shutdown.
-+	 * ip_jinode is used to track txns against this inode. The journal is
-+	 * flushed before it is shut down, so an inode cleaned up after that
-+	 * has nothing left to release. Hold the shutdown lock so a journal
-+	 * found here stays allocated until the release has finished.
- 	 */
--	if (!osb->journal)
--		return;
--
--	jbd2_journal_release_jbd_inode(osb->journal->j_journal,
--				       &oi->ip_jinode);
-+	down_read(&osb->journal_shutdown_sem);
-+	if (osb->journal)
-+		jbd2_journal_release_jbd_inode(osb->journal->j_journal,
-+					       &oi->ip_jinode);
-+	up_read(&osb->journal_shutdown_sem);
- }
- 
- void ocfs2_evict_inode(struct inode *inode)
---- a/fs/ocfs2/journal.c~ocfs2-serialize-inode-journal-access-with-shutdown
-+++ a/fs/ocfs2/journal.c
-@@ -352,7 +352,7 @@ static int ocfs2_commit_cache(struct ocf
- 	trace_ocfs2_commit_cache_end(journal->j_trans_id, flushed);
- 
- 	ocfs2_wake_downconvert_thread(osb);
--	wake_up(&journal->j_checkpointed);
-+	wake_up(&osb->checkpoint_event);
- finally:
- 	return status;
- }
-@@ -901,7 +901,6 @@ int ocfs2_journal_alloc(struct ocfs2_sup
- 
- 	atomic_set(&journal->j_num_trans, 0);
- 	init_rwsem(&journal->j_trans_barrier);
--	init_waitqueue_head(&journal->j_checkpointed);
- 	spin_lock_init(&journal->j_lock);
- 	journal->j_trans_id = 1UL;
- 	INIT_LIST_HEAD(&journal->j_la_cleanups);
-@@ -1073,12 +1072,14 @@ void ocfs2_journal_shutdown(struct ocfs2
- 
- 	journal = osb->journal;
- 	if (!journal)
--		goto done;
-+		return;
- 
- 	inode = journal->j_inode;
- 
--	if (journal->j_state != OCFS2_JOURNAL_LOADED)
--		goto done;
-+	if (journal->j_state != OCFS2_JOURNAL_LOADED) {
-+		down_write(&osb->journal_shutdown_sem);
-+		goto free;
-+	}
- 
- 	/* need to inc inode use count - jbd2_journal_destroy will iput. */
- 	if (!igrab(inode))
-@@ -1114,6 +1115,12 @@ void ocfs2_journal_shutdown(struct ocfs2
- 			mlog_errno(status);
- 	}
- 
-+	/*
-+	 * Exclude the final JBD2 inode cleanup in ocfs2_clear_inode() while
-+	 * the journal is destroyed and freed.
-+	 */
-+	down_write(&osb->journal_shutdown_sem);
-+
- 	/* Shutdown the kernel journal system */
- 	if (!jbd2_journal_destroy(journal->j_journal) && !status) {
- 		/*
-@@ -1136,10 +1143,17 @@ void ocfs2_journal_shutdown(struct ocfs2
- 
- 	journal->j_state = OCFS2_JOURNAL_FREE;
- 
--done:
--	iput(inode);
--	kfree(journal);
-+free:
-+	/* Serialize the removal with ocfs2_ci_fully_checkpointed(). */
-+	spin_lock(&trans_inc_lock);
- 	osb->journal = NULL;
-+	spin_unlock(&trans_inc_lock);
-+	wake_up(&osb->checkpoint_event);
-+	kfree(journal);
-+	up_write(&osb->journal_shutdown_sem);
-+
-+	/* The journal inode's own cleanup takes the read side. */
-+	iput(inode);
- }
- 
- static void ocfs2_clear_journal_error(struct super_block *sb,
---- a/fs/ocfs2/journal.h~ocfs2-serialize-inode-journal-access-with-shutdown
-+++ a/fs/ocfs2/journal.h
-@@ -54,7 +54,6 @@ struct ocfs2_journal {
- 	spinlock_t                j_lock;
- 	unsigned long             j_trans_id;
- 	struct rw_semaphore       j_trans_barrier;
--	wait_queue_head_t         j_checkpointed;
- 
- 	/* both fields protected by j_lock*/
- 	struct list_head          j_la_cleanups;
-@@ -91,11 +90,15 @@ static inline void ocfs2_set_ci_lock_tra
- static inline int ocfs2_ci_fully_checkpointed(struct ocfs2_caching_info *ci)
- {
- 	int ret;
--	struct ocfs2_journal *journal =
--		OCFS2_SB(ocfs2_metadata_cache_get_super(ci))->journal;
-+	struct ocfs2_super *osb =
-+		OCFS2_SB(ocfs2_metadata_cache_get_super(ci));
-+	struct ocfs2_journal *journal;
- 
- 	spin_lock(&trans_inc_lock);
--	ret = time_after(journal->j_trans_id, ci->ci_last_trans);
-+	journal = osb->journal;
-+	/* A NULL journal has already completed checkpointing. */
-+	ret = !journal ||
-+		time_after(journal->j_trans_id, ci->ci_last_trans);
- 	spin_unlock(&trans_inc_lock);
- 	return ret;
- }
-@@ -196,9 +199,6 @@ static inline void ocfs2_checkpoint_inod
- 	if (ocfs2_mount_local(osb))
- 		return;
- 
--	if (!osb->journal)
--		return;
--
- 	if (!ocfs2_ci_fully_checkpointed(INODE_CACHE(inode))) {
- 		/* WARNING: This only kicks off a single
- 		 * checkpoint. If someone races you and adds more
-@@ -208,7 +208,8 @@ static inline void ocfs2_checkpoint_inod
- 		 * OK. */
- 		ocfs2_start_checkpoint(osb);
- 
--		wait_event(osb->journal->j_checkpointed,
-+		/* The wait queue must outlive journal shutdown. */
-+		wait_event(osb->checkpoint_event,
- 			   ocfs2_ci_fully_checkpointed(INODE_CACHE(inode)));
- 	}
- }
---- a/fs/ocfs2/ocfs2.h~ocfs2-serialize-inode-journal-access-with-shutdown
-+++ a/fs/ocfs2/ocfs2.h
-@@ -388,6 +388,7 @@ struct ocfs2_super
- 	enum ocfs2_recovery_state recovery_state;
- 	wait_queue_head_t checkpoint_event;
- 	struct ocfs2_journal *journal;
-+	struct rw_semaphore journal_shutdown_sem;
- 	unsigned long osb_commit_interval;
- 
- 	/* Journal triggers for checksum */
---- a/fs/ocfs2/super.c~ocfs2-serialize-inode-journal-access-with-shutdown
-+++ a/fs/ocfs2/super.c
-@@ -2048,6 +2048,7 @@ static int ocfs2_initialize_super(struct
- 	}
- 
- 	init_waitqueue_head(&osb->checkpoint_event);
-+	init_rwsem(&osb->journal_shutdown_sem);
- 
- 	osb->s_atime_quantum = OCFS2_DEFAULT_ATIME_QUANTUM;
- 
-_
-
-Patches currently in -mm which might be from zzzccc427@gmail.com are
-
-ocfs2-serialize-inode-journal-access-with-shutdown.patch
+Thanks,
+Jerome
 
