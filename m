@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802573;
-	b=ZG+hSNh1kU5YXVvt40SH/77u77ql0zGPFd6fBxgFFFzQfdlPwBuVT70n95M4PoknfIz1
-	 c/cDdILUvSVKovuHOWOrzEDrJ6b5+3eJG9j63j+lKHpsOo6TCI7Iw/J+mXtVp6uydrRTI
-	 PyssQP5VtDCNgw/I+UuyzB8KNnTI9XxVP0oXVrbQHlFHiJEo635glSUPA5Zi1HGrgS+Z6
-	 Lrwex4ZZKyayY1TTWjkksbpRTolDlneMn0Dk9FeHpR9SlR/ng2sXLCe+nfYK4yd/BEQ/g
-	 RVa2w69mk71VX6j1xwyIkCskZAmbM7nIO5N75VHDEuoYY6jQTqHxzCx+gBtJsjTSnoQ==
+	t=1793802597;
+	b=wZpboUyoBcWZ+8ZEnApZvEiysiK0zE4a1iPawLYb4MQSfmM7U59I2s1qerADeJVRyLmI
+	 bFhVa6MBjwBHAGBuSk4no4YRvgHkqvBw+GctAQaPqqYw5EHywZLcAG5c8sJTAgotmwPZT
+	 HZygafCKnNtZe+mAEnKZVEXgCHLh1U2ahIyx/hpyPleqJQ3DDZekzaAOEHows3i3xMegM
+	 5xP2H+O+Sx1NbZuEDj+xXPVfkwtfD+3WTBRpTixL3prGClZSV7zfdFEppgGFkrt69xLIz
+	 AsVfHRoCdxQOVkdsEmyXp0QkIvdUFgBzvGX9suUaZ0pjBs1+U1WxkG0ITpguOu+QhIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802573;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802597;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=jUe+bQ//Dydq7H8+YOMxEInguf/SKCN2aBbYSiy7MvI=;
-	b=g//3YaBwEear8iIdV4gwHJDCTCyELDdPjjj605WKNtnl5QRfdizZ/2MKEiGygJcjeVEY
-	 1eGSrwiwppwHxP+UpivJyIa/9actLrF29kDsaun+5UFUiDI44dQq2S/7uKougwsVZNnJZ
-	 hfeuLavcFQYU5zzO7nEgaLd8FzB2NdvTZcmdKsprpIK8aZzBDosDIHcW7pDbCqluaB2Y/
-	 ShmkqJz6+l3xCmog1fFAfjyk5IIWu+2fHgFIeFY2thtkXXAKv+leVGiBmhEf4BP5d5ca+
-	 QOqkI00E4orWiMButk00aOjsIAG2UdNu46z+T2thyDTMwiLwIRBpWzaYbP9zvgXwWsw==
+	bh=RZVC6oOAN5/u1Rpu9100GhT7XqwpsWsVY0cbOBcGWzY=;
+	b=G0SH8e/IZCL05xdo9HzlzM60zQjBS4I2AQHiaz7eK0o2hnkkTJoSP1rtvHMS7jHRFWWa
+	 zNWWZHC0J9VL7T2Rd+wuoKWXF6h0YHlnAFNT7uCN5LH8880vlQLjbao9OTL07kIkiAdT0
+	 kd9zS/DSDc9hPJ9nysag4v8oLmwPyNjoe3/iJajbv3dGuuU8XkqtStq2SPEbFobf5qLyW
+	 AJnkIngbgcv0LMfERahswpvYvtN/44fAC+X/SrLAwhiX0ZAAcmukrqNTCor7G4jEAaoDS
+	 SLNQFW3K2ZwbWfHmMZFUxP7Uz08nd8VLGW1sL+x/bLegfvbIMydh/7RhMvfErzHO8mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Dzu/RE0p";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=f3wgsTvo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5886B606A333
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:29:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BDDF606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:29:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Dzu/RE0p
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B57FC1F0093A;
-	Wed,  4 Nov 2026 14:29:32 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=f3wgsTvo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5016A1F000C1;
+	Wed,  4 Nov 2026 14:29:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802572;
-	bh=jUe+bQ//Dydq7H8+YOMxEInguf/SKCN2aBbYSiy7MvI=;
+	s=korg; t=1793802596;
+	bh=RZVC6oOAN5/u1Rpu9100GhT7XqwpsWsVY0cbOBcGWzY=;
 	h=Subject:To:Cc:From:Date;
-	b=Dzu/RE0pNjZ/+7GcREKnqOaCz7y9Nd7EMsHLA7DT01kxlNw70pa3fiXbP7py8namY
-	 VDhV5TnKFaUX7ZLgcLzIhRZEUhQhFYzycASSGdoHcmLue7jYhNcVfTht4qQ/FHX4V9
-	 i12ZFBv6xTr5Iv21Rs1xodqhWbo6AWdt95MV/fLA=
-Subject: FAILED: patch "[PATCH] pps: generators: don't use the driver's info after unregister" failed to apply to 6.18-stable tree
-To: danishkhateeb03@gmail.com,giometti@enneenne.com,gregkh@linuxfoundation.org
+	b=f3wgsTvorI7wwzJpoJJRZr0jpxuW9bKcULL7JXXoGbERns58KWIrjmZBq+v7JuNet
+	 okFxtLmuFDnz2sN04gD+l1dBkappyr9UNksGNtIdS/W4gNnMi/5V/qnEMVPKKYmZja
+	 hefnexAMMaMKU5c6fTFU2YtIZmJiEwlBhqm2Go2w=
+Subject: FAILED: patch "[PATCH] nvmet-auth: serialize access to DH-HMAC-CHAP state to fix UAF" failed to apply to 6.18-stable tree
+To: Jeremy.Jean@oss.cyber.gouv.fr,hch@lst.de,kbusch@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:29:31 +0100
-Message-ID: <2026110431-imminent-guts-a847@gregkh>
+Date: Wed, 04 Nov 2026 15:29:54 +0100
+Message-ID: <2026110454-fasting-overlaid-def6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,7 +51,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4e8063cae337cb7328e6856235cf4de5d165516e
+git cherry-pick -x 53f6efe00cea0c0cf7bd99debe3cdac8567170b5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110431-imminent-guts-a847@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110454-fasting-overlaid-def6@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,141 +79,175 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4e8063cae337cb7328e6856235cf4de5d165516e Mon Sep 17 00:00:00 2001
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-Date: Tue, 29 Sep 2026 07:49:35 -0500
-Subject: [PATCH] pps: generators: don't use the driver's info after unregister
+From 53f6efe00cea0c0cf7bd99debe3cdac8567170b5 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Date: Sat, 3 Oct 2026 21:01:55 +0000
+Subject: [PATCH] nvmet-auth: serialize access to DH-HMAC-CHAP state to fix UAF
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-A file that was opened before pps_gen_unregister_source() keeps
-pps_gen, and with it the pointer to the driver's pps_gen_source_info.
-PPS_GEN_SETENABLE and PPS_GEN_USESYSTEMCLOCK keep using that pointer
-after the driver has gone:
+A REPLY AUTH_SEND command can derive a dhchap_skey key while a
+concurrent AUTH_RECEIVE command observing this REPLY state executes
+the failure path and frees that key. The REPLY command then continues
+and writes into freed memory, causing a use-after-free. KASAN reports
+it as:
 
- - pps_gen_tio allocates its info with devm_kzalloc(), so after an
-   unbind both ioctls read freed memory, and SETENABLE calls the
-   driver's enable() with its freed private data.
-
- - pps_gen-dummy does not set info->owner, so it can be unloaded while
-   the file is open, and the ioctls then read the unloaded module's
-   data and call its code.
-
-TIO can't probe in a VM, as it needs ART. A test driver that registers
-its info in devm memory like TIO does, unbound while /dev/pps-gen0 is
-open, gives:
-
-  BUG: KASAN: slab-use-after-free in pps_gen_cdev_ioctl+0x4c1/0x580
-  Read of size 1 at addr ffff88800e647f38 by task ppsgen64/145
+  BUG: KASAN: slab-use-after-free in __sha256_final
+  Write of size 4 at addr ffff88800359c540
   ...
-  Freed by task 146:
-   kfree+0x25a/0x6d0
-   release_nodes+0xd1/0x140
-   devres_release_all+0x10e/0x1a0
-   device_unbind_cleanup+0x71/0x250
-   device_release_driver_internal+0x41b/0x570
-   unbind_store+0xd9/0x100
+  nvmet_auth_sq_free (drivers/nvme/target/auth.c:237)
+  nvmet_execute_auth_receive (drivers/nvme/target/fabrics-cmd-auth.c:621)
 
-and unloading pps_gen-dummy while its file is open oopses:
+Add a mutex to each submission queue to serialize authentication
+commands and timeout handling. Unlock the mutex before completing
+requests and ignore outdated timeout callbacks. Limit timeout delays
+to prevent immediate expiry on 32-bit kernels.
 
-  BUG: unable to handle page fault for address: ffffffffa0203040
-  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:pps_gen_cdev_ioctl+0x372/0x580
-
-Protect info in the ioctl handler with a mutex, and clear it under the
-mutex on unregister, so that unregister waits for the ioctls using it
-and later ones fail with -ENODEV. PPS_KC_BIND does the same for a
-removed PPS device since commit 3649f9a6b897 ("pps: don't allow
-PPS_KC_BIND on removed devices"). The sysfs attributes need nothing
-new: they are removed, and their callbacks drained, before info is
-cleared.
-
-Fixes: 86b525bed275 ("drivers pps: add PPS generators support")
+Fixes: 7a277c37d352 ("nvmet-auth: Diffie-Hellman key exchange support")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
-Acked-by: Rodolfo Giometti <giometti@enneenne.com>
-Link: https://patch.msgid.link/20260929124937.51114-3-danishkhateeb03@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
 
-diff --git a/drivers/pps/generators/pps_gen.c b/drivers/pps/generators/pps_gen.c
-index 059f4fe6c9b4..d80e28dc31dc 100644
---- a/drivers/pps/generators/pps_gen.c
-+++ b/drivers/pps/generators/pps_gen.c
-@@ -69,17 +69,28 @@ static long pps_gen_cdev_ioctl(struct file *file,
- 		if (ret)
- 			return -EFAULT;
+diff --git a/drivers/nvme/target/auth.c b/drivers/nvme/target/auth.c
+index a55319bcdbd1..1680e5e6839c 100644
+--- a/drivers/nvme/target/auth.c
++++ b/drivers/nvme/target/auth.c
+@@ -229,6 +229,7 @@ out_unlock:
  
--		ret = pps_gen->info->enable(pps_gen, status);
--		if (ret)
--			return ret;
--		pps_gen->enabled = status;
-+		scoped_guard(mutex, &pps_gen->info_lock) {
-+			if (!pps_gen->info)
-+				return -ENODEV;
-+
-+			ret = pps_gen->info->enable(pps_gen, status);
-+			if (ret)
-+				return ret;
-+			pps_gen->enabled = status;
-+		}
- 
- 		break;
- 
- 	case PPS_GEN_USESYSTEMCLOCK:
- 		dev_dbg(&pps_gen->dev, "PPS_GEN_USESYSTEMCLOCK\n");
- 
--		ret = put_user(pps_gen->info->use_system_clock, uiuarg);
-+		scoped_guard(mutex, &pps_gen->info_lock) {
-+			if (!pps_gen->info)
-+				return -ENODEV;
-+			status = pps_gen->info->use_system_clock;
-+		}
-+
-+		ret = put_user(status, uiuarg);
- 		if (ret)
- 			return -EFAULT;
- 
-@@ -212,6 +223,15 @@ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
+ void nvmet_auth_sq_free(struct nvmet_sq *sq)
  {
- 	pr_debug("unregistering pps-gen%d\n", pps_gen->id);
- 	cdev_device_del(&pps_gen->cdev, &pps_gen->dev);
++	sq->auth_expiry_active = false;
+ 	cancel_delayed_work(&sq->auth_expired_work);
+ 	kfree(sq->dhchap_c1);
+ 	sq->dhchap_c1 = NULL;
+diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
+index 92f8a76f10ff..e94d8bb8a934 100644
+--- a/drivers/nvme/target/fabrics-cmd-auth.c
++++ b/drivers/nvme/target/fabrics-cmd-auth.c
+@@ -6,6 +6,7 @@
+  */
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ #include <linux/blkdev.h>
++#include <linux/jiffies.h>
+ #include <linux/random.h>
+ #include <linux/nvme-auth.h>
+ #include <crypto/kpp.h>
+@@ -17,16 +18,27 @@ static void nvmet_auth_expired_work(struct work_struct *work)
+ 	struct nvmet_sq *sq = container_of(to_delayed_work(work),
+ 			struct nvmet_sq, auth_expired_work);
+ 
++	mutex_lock(&sq->auth_lock);
++	/* A command may have cancelled or rearmed this timeout. */
++	if (!sq->auth_expiry_active ||
++	    delayed_work_pending(&sq->auth_expired_work))
++		goto out_unlock;
++	sq->auth_expiry_active = false;
 +
-+	/*
-+	 * An open file keeps pps_gen around, but the driver may free info as
-+	 * soon as we return. The sysfs files are gone now, so wait for the
-+	 * ioctls using info and make later ones fail.
-+	 */
-+	scoped_guard(mutex, &pps_gen->info_lock)
-+		pps_gen->info = NULL;
-+
- 	put_device(&pps_gen->dev);
+ 	pr_debug("%s: ctrl %d qid %d transaction %u expired, resetting\n",
+ 		 __func__, sq->ctrl->cntlid, sq->qid, sq->dhchap_tid);
+ 	sq->dhchap_step = NVME_AUTH_DHCHAP_MESSAGE_NEGOTIATE;
+ 	sq->dhchap_tid = -1;
++out_unlock:
++	mutex_unlock(&sq->auth_lock);
  }
  
-@@ -243,6 +263,7 @@ struct pps_gen_device *pps_gen_register_source(const struct pps_gen_source_info
- 	pps_gen->info = info;
- 	pps_gen->enabled = false;
+ void nvmet_auth_sq_init(struct nvmet_sq *sq)
+ {
+ 	/* Initialize in-band authentication */
++	mutex_init(&sq->auth_lock);
+ 	INIT_DELAYED_WORK(&sq->auth_expired_work, nvmet_auth_expired_work);
++	sq->auth_expiry_active = false;
+ 	sq->authenticated = false;
+ 	sq->dhchap_step = NVME_AUTH_DHCHAP_MESSAGE_NEGOTIATE;
+ }
+@@ -256,6 +268,8 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
+ 	u16 status = 0;
+ 	u8 dhchap_status;
  
-+	mutex_init(&pps_gen->info_lock);
- 	init_waitqueue_head(&pps_gen->queue);
- 	spin_lock_init(&pps_gen->lock);
++	mutex_lock(&req->sq->auth_lock);
++
+ 	if (req->cmd->auth_send.secp != NVME_AUTH_DHCHAP_PROTOCOL_IDENTIFIER) {
+ 		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
+ 		req->error_loc =
+@@ -281,8 +295,10 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
+ 			offsetof(struct nvmf_auth_send_command, tl);
+ 		goto done;
+ 	}
+-	if (!nvmet_check_transfer_len(req, tl)) {
++	if (unlikely(tl != req->transfer_len)) {
+ 		pr_debug("%s: transfer length mismatch (%u)\n", __func__, tl);
++		mutex_unlock(&req->sq->auth_lock);
++		nvmet_check_transfer_len(req, tl);
+ 		return;
+ 	}
  
-diff --git a/include/linux/pps_gen_kernel.h b/include/linux/pps_gen_kernel.h
-index f26f6aac000d..c4d22b1af118 100644
---- a/include/linux/pps_gen_kernel.h
-+++ b/include/linux/pps_gen_kernel.h
-@@ -11,6 +11,7 @@
- #include <linux/pps_gen.h>
- #include <linux/cdev.h>
- #include <linux/device.h>
-+#include <linux/mutex.h>
+@@ -406,10 +422,12 @@ done:
+ 			 status, req->error_loc);
+ 	if (req->sq->dhchap_step != NVME_AUTH_DHCHAP_MESSAGE_SUCCESS2 &&
+ 	    req->sq->dhchap_step != NVME_AUTH_DHCHAP_MESSAGE_FAILURE2) {
+-		unsigned long auth_expire_secs = ctrl->kato ? ctrl->kato : 120;
++		unsigned long auth_expire = min_t(u64, MAX_JIFFY_OFFSET,
++			(u64)(ctrl->kato ? ctrl->kato : 120) * HZ);
  
- /*
-  * Global defines
-@@ -44,6 +45,7 @@ struct pps_gen_source_info {
- /* The main struct */
- struct pps_gen_device {
- 	const struct pps_gen_source_info *info;	/* PSS generator info */
-+	struct mutex info_lock;			/* protects info */
- 	bool enabled;				/* PSS generator status */
++		req->sq->auth_expiry_active = true;
+ 		mod_delayed_work(system_percpu_wq, &req->sq->auth_expired_work,
+-				 auth_expire_secs * HZ);
++				 auth_expire);
+ 		goto complete;
+ 	}
+ 	/* Final states, clear up variables */
+@@ -418,6 +436,7 @@ done:
+ 		nvmet_ctrl_fatal_error(ctrl);
  
- 	unsigned int event;
+ complete:
++	mutex_unlock(&req->sq->auth_lock);
+ 	nvmet_req_complete(req, status);
+ }
+ 
+@@ -536,6 +555,8 @@ void nvmet_execute_auth_receive(struct nvmet_req *req)
+ 	u32 al;
+ 	u16 status = 0;
+ 
++	mutex_lock(&req->sq->auth_lock);
++
+ 	if (req->cmd->auth_receive.secp != NVME_AUTH_DHCHAP_PROTOCOL_IDENTIFIER) {
+ 		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
+ 		req->error_loc =
+@@ -561,8 +582,10 @@ void nvmet_execute_auth_receive(struct nvmet_req *req)
+ 			offsetof(struct nvmf_auth_receive_command, al);
+ 		goto done;
+ 	}
+-	if (!nvmet_check_transfer_len(req, al)) {
++	if (unlikely(al != req->transfer_len)) {
+ 		pr_debug("%s: transfer length mismatch (%u)\n", __func__, al);
++		mutex_unlock(&req->sq->auth_lock);
++		nvmet_check_transfer_len(req, al);
+ 		return;
+ 	}
+ 
+@@ -621,5 +644,6 @@ done:
+ 		nvmet_auth_sq_free(req->sq);
+ 		nvmet_ctrl_fatal_error(ctrl);
+ 	}
++	mutex_unlock(&req->sq->auth_lock);
+ 	nvmet_req_complete(req, status);
+ }
+diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
+index a0bd05603271..e315f1c24e73 100644
+--- a/drivers/nvme/target/nvmet.h
++++ b/drivers/nvme/target/nvmet.h
+@@ -159,8 +159,10 @@ struct nvmet_sq {
+ 	u32			sqhd;
+ 	bool			sqhd_disabled;
+ #ifdef CONFIG_NVME_TARGET_AUTH
++	struct mutex		auth_lock;
+ 	bool			authenticated;
+ 	struct delayed_work	auth_expired_work;
++	bool			auth_expiry_active;
+ 	u16			dhchap_tid;
+ 	u8			sc_c;
+ 	u8			dhchap_status;
 
