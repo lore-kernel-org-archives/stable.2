@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817915;
-	b=SdPXaxyUp2Jf77RgopsNC6ruc6UAxIdCdILail0LOGA0mStTOOvsuQOT0zbpVnWxFeim
-	 8V9KqU8wqPIQCBXHI8LtrUEaQ1ZLjhUOlUrJKsTDa8miat6Lfd7XAOxv5pECAJANcpH/d
-	 o0uC4lRDdAMEhQofHHbJuJ/CAzgJ53MxRBfgEdRDQOxL9Y5gSzyIM4Jt42WwO4di3nE6C
-	 s6iJRZHMCrLJWq229XYhdFXLFrTAl9Rsrd66kVlpS3JtB1at1vMYLHMAKyf48q3966Y28
-	 EW5KYx5oGEZjiYSeI3ezuuV+vwG1ZuWKCaVtqTombhi3U+bgoGt7s83lppJvKxnEFdQ==
+	t=1793817904;
+	b=b2csSd9Y/lH+zx4UQ9s8EWedwpfgp5+5G9wkgF+nazaYRqnEyocSQ37z8KpXtuknscq1
+	 sQ0E8NgIwIwQ3aU5RoH+qIZflISsY+JWxaoKWZBjCfBdb1j5B+zjAA8GFR1r/Flj2YGc0
+	 GeEiRizC7XTzlukj45nKmNtQQuC2TM4OGGrzDwuD0PXbTvNi+CVr6ihcJyry8J4cSsUxu
+	 3LBlE1KqKkBoQTZvpn1na7tJgc1+iSdDT7Yl8806VBN8cgUpNP6jGWotOX0xtTELJcbLD
+	 +WLMqMz3Zyl6qzEnSLkFS9vaimJ2IcYHclq2hOg/mcSVn26SnWCkb0wRpJMl9RHBslQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817915;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817904;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=9CB+uPj6XGfVY2ImJfWHGnXjPQvdTprxe8YxT6UoYSQ=;
-	b=euu3vHMLiBAOppqgBTIVRf1/lcapm5Ml846T9FwpKJbP8BaQ6zSsk2D3fMvwXljCsJmm
-	 ATuwwWjacGJV5wWR3sD9PXS7KSEJtw4MdSqREyOV9jgivAbbB/fKkpHtGGdYNHspFAVlA
-	 zoW255p6PXU/HgkV69w7Y8zke1cWMhEfWRFdG1YnLyMo4S4E2BzNuYCsp+fA9xy4oDTry
-	 AWud1TI+HrwbLeSg7JQ4LsMdoe/0ONbAnTS/rktSimxirnfGDiAML8faz0PMAbRbe1wil
-	 bCRjJyyw76BZBvw5pRt6amnA6xeVtLGMiJLne2tTyF3bHsdjCKjKN/qv0kXdFv4Y7oA==
+	bh=vp0Z7a9ktgRDwfTXrMwjxF9dH+4yaNzLINKGFx7d6oE=;
+	b=aSQ2Q66Ko+cfDkxWX4EruHi3wTkd6bifM74u93+gYDD0b9zevc0ni5tZRedTohjVd9oM
+	 p2U2b3OHmAdI4vk11ziCfhLRJeHGtE5d7nlnfHrcWqeaU7m/2VDOAL0ELTRzIW7iOEO53
+	 AMIqmgzOlL4CO6AIQE+pjJk+F/WvRwU2vBoRdOhvUEqAqoW1/INNLpOM0JCMenax+JWcb
+	 xqqqIAXO8S/PvDHH4um4Pah1ZZd7VK5Lym5Eu6vX/gxp4d1nLMMrj4ELVssgrvX3hKvWK
+	 HuGfKUtXEVrrI7qmcyf2+oBYOQaf4IJbcGC3ouOFRT1ZuzlqCjVlQVQJpS3HTi6l8oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Vce+YXlN;
-	arc=none smtp.remote-ip=209.85.161.48
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Gy+KT2Nm;
+	arc=none smtp.remote-ip=209.85.160.49
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B566606A332
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:45:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B566606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435A2606D801
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:45:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 435A2606D801
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Vce+YXlN
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-716d052dc23so160362eaf.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:45:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Gy+KT2Nm
+Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-4932b13c4ccso596603fac.3
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:45:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817914; x=1794422714; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817903; x=1794422703; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=9CB+uPj6XGfVY2ImJfWHGnXjPQvdTprxe8YxT6UoYSQ=;
-        b=Vce+YXlNaZBjRwreHO2+BSyg4VzpRivdh24FI3+ou1HIjU+Y6ulS+z7Im5VJNv20Tx
-         Z1ComTtmJRlWmx5svV1dmmcan0LK1wjFyrdeJuxMj+VIWWzaUePPlUBW9t0uK7VB+byI
-         Pe6PrROGGf4oyOZ1XUBJA4LyF+tCtCx9aN5qBPWnzd5ZFK6vSJr9m2a1IkHOJAbLoZGm
-         RRZgB9yTgul3JqI/r2fhvLRybGm6yaaR6ba3UQrbpiJlxt99lXPoVYAsJcG5FvsH2QTt
-         U3NRX27MS/gF6eQWs/jUedyjWcSURWdaU322qY3Io0PoGod91GYhj+JA1NxWDx2JGkUQ
-         oNMg==
+        bh=vp0Z7a9ktgRDwfTXrMwjxF9dH+4yaNzLINKGFx7d6oE=;
+        b=Gy+KT2NmccNCFrgOhV2XRrtCJze18tPzG3Hi+1zez3z81JlmcBDMopcL5H/oRs0fSm
+         nIgKNrPBSC6opodH4xy4Q3xm5Yae05enR5rF12baQadatFBt8SuvmxVaquy5nEmiNb+H
+         TDzb9RaUpVASI9WiZaDWh2D9aYye0EQQk1Ieiq8rBqgMwLT8Zez0O6RM9zYLjrzJYW0R
+         WGq45PbWKsZgLzVFTr5vd7xZF7a/CULjjGg/JHTpMfo0XEEf+L0LUwxZ6oJdRalRTeXT
+         dMVwVigKErNzbG9+4xthygAQ2JC3MlbO/t55DdvaXYlkeSt7DzA7lpKfMffKIVnF+TFE
+         nJpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817914; x=1794422714;
+        d=1e100.net; s=20260707; t=1793817903; x=1794422703;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=9CB+uPj6XGfVY2ImJfWHGnXjPQvdTprxe8YxT6UoYSQ=;
-        b=u2FvgU/sp/kdvTtGHC0MgT5jy6dKoP/o1Eu9bQNmBVuGR7Cm238EGPVv+8USCrDwQF
-         Dq8z1/9jsXvnDc9lnOixqD9FnOal8a0KUZP+0V8N4fdJdSRZw3up6xp5SpHJZAAVrfyA
-         bxu7t2+DlY4+QT/hS1GNXv0IAluU0UX4wQMfhiTpbCtTxnWMunVXpISxwOaJdwYTE8cI
-         jb9ejtN88/WQ+J9GePwVwSVRJnN9t6j+BZi+6QRIS2CQeFDYcaTv2SDuVUl75yklmLfL
-         ewusGc523XhHb6qiyLjujwgyOegkh8FEG8kn525ymnjUTClPI2vtjIA7AhgFoLI+LQBa
-         MzjA==
-X-Gm-Message-State: APuU4Z+QghnEB8B9HSxBWv5fSx1pSYseFQ88P2VcArfK3kuVjI70InJm
-	n0H6pOOCAvK/+2Fvktp4MGoXjUao9JXIIVzGRmtCJored99BiRAgchq09P0nfouO57dMjzLuPBz
-	q2CLG28Y=
-X-Gm-Gg: AYBFou252i0tuZ4Cayb9pRdVijP82OejUrn6fWdypkz/njrbzdgoLO9MX5BSS00BOn7
-	Rj/fI9F36vl6+QP7Tjm9GuNMqD49MkHtQuHm10Brp3a/PPoGG3+HTl5kT46C2RSy0WqkcNOknov
-	4xCnI3+rXFvqShPTtcH7ZXR5CmNDWn7nCqrH3mhqognyvc7I/6ECEfiZO2vq+8DVgKxpq//cFwL
-	7pMAuIKZPzXF1X/15SRT8d1CVNjV8H6/pS+MsOJuk1S1AbFmdO1g2iyvMPfnk6UuDyq1hz4siEY
-	4uWbF/LEQQPr/1nrMY3+8Z+RiCdENgrE0lIrkRgRM1Y0vxYodKT6+0NkCt1AmI2vDSmLpSfIdlS
-	QqZiPRNZuKXJEyhVSp07gRw2EVA8kfgHobecqFlOWrjpvI6YGax8mgD7B0kNprK9quwqKqUv9We
-	9ytvkNQfPatSkolE5gpgU2gIWbtvYseNX6gaGImFEb5t5+Tth1jHfLP4H1llS+5Cnlsm8BkNTUm
-	l64PyjuXa2YEsbnzoiUabhHnGsvH2zayY9GzIGjGoEh2TpKVjkc7AmU5RKZTgEH35sMi2HmKMsU
-	CCvUM1I/UeO/NvKKr+MsJ9TNnwEWYip68rLafZnTkSfx01quz8cBwc5ITNBZw3QoVhuHAzgF2g=
+        bh=vp0Z7a9ktgRDwfTXrMwjxF9dH+4yaNzLINKGFx7d6oE=;
+        b=zwsSTL0DjKeLdom18HMFePzEcbaqyFuYNi9P0lz8vYKhTyL5hdn646PlRprlP/uF/r
+         i8magR7AnQD8XJtddCyq4JgDyMxptCEYg/B2qgNuWAFEtSniVrJYpnU9bShrLWRYTFum
+         BLMtMQN4ny6uWHBXZuttjsqh0lnLs30IyLBwmIqOtw8xoQaYOS9iuzRjpfCV5znLoQAR
+         jZwxOXBIeW5JUxgYAwuQkTRpCwcMu6p5+oy8sFqnTnnr/t71OkxUZS/inV3w1ccFDJu4
+         s7DMmhmW39YFuDRO8LDXF1x0dzY+Ha5TiWQQIG1MgOuD+lymT1Ilk04L80j7ErxS6AdS
+         hZSA==
+X-Gm-Message-State: APuU4Z8HPRvvIqltR373qYLV5CTwWDv/ANXTZI62mtErb8UjspNb9mUv
+	95bLt859VS4cYag/8pgxyy6Bfp/OEFr+hmGPW5mf4nzg86d7+L0CBGmRFXX1qQuyR0PmB5fLGeW
+	REa52gSQ=
+X-Gm-Gg: AYBFou36N8B6vFiXvxrGUMLRxx3CDi5iuiEpFE1GjFXGHXLE3iHMjk525C2xR5UIfYP
+	7GBOWxMdTLHfkSNGZ38mvXzvU5dRuWvrplTwcloQG9zowLpsaq2X98xhfGItJ6vo1hYWn/3NVGw
+	ppdt3FARvwwivqz59j4Rs/UFKOIQ0Xwc85+rN+JGgC/70ddX81ibVFyLmgDgwjFpswhLCXjikep
+	gkORsDfDrws3mTOQjzeGcCN4dwMVSTbOlCaMMgMXF1U8nix0W16Uih6mFZLFKFvt3cXUL/OJ4+x
+	9EWH57it4fxmN+sN2gDPLV+sH8fkKbIApDOG9eHFdE3bvL5yz0mkU7ffVfzqIgAC1690RMPBBt3
+	RqwRE5o9YkC7nXo1tt0Ur6Lbx/jWiPOLeAkKWx6IDSlt7SoyCL/+ijaPHGO6Jvl6B0aCyD4lrSS
+	J0azaqNTHXnXZRyNjWz6ORrJxcwW3hE0EyCWd3cveArySxZrM88XkLH8HMj3fUJTz6QmsmEGQMm
+	2DXCM0bT6uN/A/lnOifleLfAcX+bCO6/9DuPP+KnXmoD142vBcMv907YNWfCDvHrHPkQhLbRrxW
+	7ROo2kP7QMmkXJZVMduRwkNwulqilmtlXwj5kM1uny2YbureFHEV8+kIssOdIgj8UX4SsMbnAw=
 	=
-X-Received: by 2002:a05:6820:351a:10b0:70b:af3d:2b2b with SMTP id 006d021491bc7-714f29ec710mr6899564eaf.67.1793817914203;
-        Wed, 04 Nov 2026 10:45:14 -0800 (PST)
+X-Received: by 2002:a05:6870:e98:b0:47a:c7e7:51b9 with SMTP id 586e51a60fabf-4a906c5c770mr10423826fac.0.1793817903075;
+        Wed, 04 Nov 2026 10:45:03 -0800 (PST)
 Received: from xps16 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea4903e9sm2590963fac.3.2026.11.04.10.45.11
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea4903e9sm2590963fac.3.2026.11.04.10.45.01
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:45:12 -0800 (PST)
+        Wed, 04 Nov 2026 10:45:01 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 7.3.y 07/16] io_uring/io-wq: no new workers once the exit has begun
-Date: Wed,  4 Nov 2026 11:44:38 -0700
-Message-ID: <20261104184447.516768-8-axboe@kernel.dk>
+Subject: [PATCH 7.3.y 04/16] io_uring/register: enforce per-task restrictions in io_uring_register_blind()
+Date: Wed,  4 Nov 2026 11:44:35 -0700
+Message-ID: <20261104184447.516768-5-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104184447.516768-1-axboe@kernel.dk>
 References: <20261104184447.516768-1-axboe@kernel.dk>
@@ -99,54 +99,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Dominik Maier <dmnk@google.com>
 
-Commit 47c68f925062a6013235d06add85a59f7d91e0fb upstream.
+Commit 4a93427e99a8524f3612f29ec8bc0da5f8435a51 upstream.
 
-io_wq_exit_start() sets IO_WQ_BIT_EXIT, but worker creation task_work
-queued before that stays queued until io_wq_exit_workers() cancels it.
-In between the task runs its task_work while canceling requests, and a
-worker can still get created.
+When io_uring_register(2) is invoked with fd == -1, it dispatches
+directly to io_uring_register_blind() without checking
+current->io_uring_restrict.
 
-That's a problem for exec. begin_new_exec() calls io_uring_task_cancel()
-after de_thread(), when it's supposedly the only thread left, and
-io_wq_exit_workers() only waits for ->worker_done, which a worker
-completes before do_exit(). So the exiting worker is still in the thread
-group, using the mm, files and sighand, while exec replaces them. Easy
-to hit with a signal pending when create_io_thread() fails and the retry
-gets queued right before execve().
+As a result, a task with per-task register restrictions installed via
+IORING_REGISTER_RESTRICTIONS can still invoke blind registration opcodes
+such as IORING_REGISTER_SEND_MSG_RING even when those opcodes are not in
+the task's allowed register_op bitmap.
 
-Cancel the queued creation task_work as soon as the exit bit is set.
-Pending work that isn't otherwise canceled now ends with -ECANCELED when
-the io-wq is destroyed, rather than depending on whether the task
-happened to run its task_work first.
+Check current->io_uring_restrict->register_op in
+io_uring_register_blind() before dispatching blind registration opcodes.
 
-Fixes: 685fe7feedb9 ("io-wq: eliminate the need for a manager thread")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[axboe: the barrier is already upstream, see 0e5663856b69, only the
- cancel is new]
+Fixes: ed82f35b926b ("io_uring: allow registration of per-task restrictions")
+Assisted-by: ARTIST LLM
+Signed-off-by: Dominik Maier <dmnk@google.com>
+Link: https://patch.msgid.link/20261022232121.2538616-1-dmnk@google.com
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- io_uring/io-wq.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ io_uring/register.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index c48f2475d03c..6b9395060262 100644
---- a/io_uring/io-wq.c
-+++ b/io_uring/io-wq.c
-@@ -1416,6 +1416,12 @@ void io_wq_exit_start(struct io_wq *wq)
- 	set_bit(IO_WQ_BIT_EXIT, &wq->state);
- 	/* Pairs with task_work_add() in io_queue_worker_create(). */
- 	smp_mb__after_atomic();
-+	/*
-+	 * No more workers from here on. The caller is going to run its task
-+	 * work, and on exec a thread that is created now would still be
-+	 * around, exiting, by the time that the caller must be on its own.
-+	 */
-+	io_wq_cancel_tw_create(wq);
- }
- 
- static void io_wq_cancel_tw_create(struct io_wq *wq)
+diff --git a/io_uring/register.c b/io_uring/register.c
+index 2ce36623e25a..62f492e6472f 100644
+--- a/io_uring/register.c
++++ b/io_uring/register.c
+@@ -1058,6 +1058,13 @@ static int io_uring_register_send_msg_ring(void __user *arg, unsigned int nr_arg
+ static int io_uring_register_blind(unsigned int opcode, void __user *arg,
+ 				   unsigned int nr_args)
+ {
++	if (current->io_uring_restrict &&
++	    current->io_uring_restrict->reg_registered) {
++		opcode = array_index_nospec(opcode, IORING_REGISTER_LAST);
++		if (!test_bit(opcode, current->io_uring_restrict->register_op))
++			return -EACCES;
++	}
++
+ 	switch (opcode) {
+ 	case IORING_REGISTER_SEND_MSG_RING:
+ 		return io_uring_register_send_msg_ring(arg, nr_args);
 -- 
 2.56.0
 
