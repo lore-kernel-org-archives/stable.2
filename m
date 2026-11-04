@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801519;
-	b=3zdebMrKvIeaR4e+SGVYy9/Ee8r/grvR4zjHqXCs+M3gQt2LQpkrAFTqG2oU3EzRv69k
-	 y69wizbLurs4XnRFm5PdBPbztvZubxxGCFFGr4dCFEy8lF9Dvbd7hApZeQYEzEjMeSYE0
-	 mnFT+av70nV9OMFhD2Pphve4fJhumXrtquZV6Jei+aqT82q/QDYg0ylnv/MUli3c638yD
-	 bA9b4HdcxYmFUS0zwliRH6AwiuHJY2QPsWIKPATk3aRVUUUz1Nk0GM1QYxoG2/IIiISi0
-	 k1xYVa42Vy925s9ipJtQuV+rAwRQ+EJ7Q2iBcmAV6Aa/Q5vKQQsNcg3IUK2gS/iwM2g==
+	t=1793801523;
+	b=cqDizWoVt1sFkuszSNW3IA7FC1eWmvUQTr5xtGm8x2CsqnUV4Wpz7rRURHdQxMA2aMnl
+	 A43lTpEj7GpIlnD3LVi0W0jUQDPxGs0k3eedb6pLGHXmW3LWH1N5qyyFy0Qkf0k94vJJ0
+	 XMq7mvMCAQod5RK3Bf7/CJBb8/7QIafqJNTEI2UmvgZzGbF4kJSWt3sxrWxLj/scCwORO
+	 ZHfUHuvyy2o91UWLBG7pWXgZT9fv4oHyI7lVuxDviTPwgooi654fBR6x/cnVj1WrHGH6B
+	 C9IuaPNkuRvrlFwls0NT4yfjEZ0L2Mei38CnirgWG2W5VVu8NTNmMNctxAsUlch7PCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801519;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801523;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=WRK8jHvllaNp6Ir29lnuG1zuvxsKZpygoUfR0J0GLW4=;
-	b=xBHsBYcMpaJo1zANLZ0gWQJWZ04vwYHUkY8T3J5+FojbniN2m9MInvlam0jPkEvPqJGy
-	 SfpmMjZKCJQ7yJm8kt3k8NvJy1mocIrI8kD1dsuy/RWmkdTd+fvUjY5vPKO5950a96t+n
-	 /WKWQ14e9l1x9+yKndQoEIv4DSCouEtcDlPqF+Vk+KjZ8R76RQoMGVzlqgeIPWf00RgfR
-	 vhG9Wq9HsMkSdC8qAbO2y6DhQBUcqAdaNVmDEdt0qoEFStq0TQsa+U94d9ekbU3pGlwMe
-	 xs9fXUAO0Rqpr0Nvo419hE+3hjo6eJxn9omAZs9drSBVQrWYBGNGKk/DdwPqBSZbjAw==
+	bh=Y39eLwKBh7+YdyJTBtoEtPlQiCtjp6Ze/lxCmmYNeDM=;
+	b=RYDU2QTfQ57J4hqplkE50UP8x4YEv+0mrKM7V+fS/CeA4FHYXqqKYBcnDIcBvQgkNKX4
+	 y2+ey7apyYHwvZLAAdTngeVQQvefH8g8ffzBtP0hEnx24qomY2NYELDjVFyqWth8yYh+S
+	 Kyp8EV+wg5PT43NpWDI9Y5FmT5QM7zo3yEVCFo64M+wlabLZpw67M8PDTsQ4v2qZ2O4Rf
+	 LDX2SxvU0Mdx68tEj5DNpO4A0+topL7Hh9MSuqR4ldfSIY6Vo4dK5L6coLuuSe6zU7ueJ
+	 XyRO5pYb1TFvmpQps/KspMdblBRu0PeGhEw25V1oFyihKNUMXiTqOF1xE92w7h9H1+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bDfGRTQR;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WRpvTe61;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2E0606A337
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:11:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03A6606D809
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:12:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bDfGRTQR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2EEA1F000C1;
-	Wed,  4 Nov 2026 14:11:58 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WRpvTe61
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 702751F000C1;
+	Wed,  4 Nov 2026 14:12:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801518;
-	bh=WRK8jHvllaNp6Ir29lnuG1zuvxsKZpygoUfR0J0GLW4=;
+	s=korg; t=1793801522;
+	bh=Y39eLwKBh7+YdyJTBtoEtPlQiCtjp6Ze/lxCmmYNeDM=;
 	h=Subject:To:Cc:From:Date;
-	b=bDfGRTQRqhlsdVDltTEU/u1r3lgqQltUwh8rxmOsYaWgo+NQY4lMMZBBREjJtDSdi
-	 +TRwk6DIl7wscGOwZHca6sKsxZ5mssH6I3BVNa15zo1RwfDo4Vw5xGdEvRrQ4f0GJj
-	 34QxRm+ZdC0R6tQoLMOAry88gS+RdequL6GqTIuI=
-Subject: FAILED: patch "[PATCH] rust_binder: wake epoll on self-work queued to poll thread" failed to apply to 7.3-stable tree
-To: aliceryhl@google.com,gregkh@linuxfoundation.org,poilandgginchi@gmail.com
+	b=WRpvTe61f+E0Ka2Uv4XVOAPzWhqT7jPVlGckh4AlifbnJKtXNoG+GLebRWdIdN6nO
+	 5hLtgS1++uI2WN366imrt1FqKRqoszMAre1NWSP/5lBBXNrSUU0qbkDZDktVXIi4k2
+	 eZjdHrrGYzPljOhXsaZiltVx4GhuJkxZi8bitjyY=
+Subject: FAILED: patch "[PATCH] rust_binderfs: add transaction_report feature entry" failed to apply to 7.3-stable tree
+To: cmllamas@google.com,aliceryhl@google.com,gregkh@linuxfoundation.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:11:57 +0100
-Message-ID: <2026110457-captive-licking-323f@gregkh>
+Date: Wed, 04 Nov 2026 15:12:01 +0100
+Message-ID: <2026110401-lure-unmoving-2038@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 985955d8e6b2b15cfd65b7ac6893e3a5a90c5870
+git cherry-pick -x 2fcc8b9687af998b74ce6b0d349167eae7931558
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110457-captive-licking-323f@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110401-lure-unmoving-2038@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,122 +79,54 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 985955d8e6b2b15cfd65b7ac6893e3a5a90c5870 Mon Sep 17 00:00:00 2001
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Fri, 16 Oct 2026 14:11:04 +0000
-Subject: [PATCH] rust_binder: wake epoll on self-work queued to poll thread
+From 2fcc8b9687af998b74ce6b0d349167eae7931558 Mon Sep 17 00:00:00 2001
+From: Carlos Llamas <cmllamas@google.com>
+Date: Wed, 16 Sep 2026 12:08:32 +0000
+Subject: [PATCH] rust_binderfs: add transaction_report feature entry
 
-When a thread pushes work to its own todo list, InnerThread::push_work()
-returns PushWorkRes::OkNotifyPoll if the thread uses epoll, but four
-call sites in thread.rs discard this return value. As a result, a
-non-blocking BC_* write that enqueues work onto the calling thread's
-todo list without also reading will not wake epoll. Check the return
-value and call self.process.notify_poll(false) when
-PushWorkRes::OkNotifyPoll is returned.
+rust_binderfs is missing the equivalent of commit f37b55ded8ed ("binder:
+add transaction_report feature entry"), which adds "transaction_report"
+to the binderfs feature list. This helps userspace determine if the
+BINDER_CMD_REPORT from the generic netlink API is supported.
 
-This is similar to commit 97830f3c3088 ("binder: signal epoll threads of
-self-work"), but in C Binder pending thread work also prevented
-subsequent process work from waking epoll, causing a permanent hang,
-which is not the case in Rust Binder. This means that in practice, it
-merely delays notifications rather than completely failing to send them.
-
-Cc: stable@kernel.org
-Fixes: dbb17c9ea756 ("rust_binder: move (e)poll wait queue to Process")
-Reported-by: Poil Zero <poilandgginchi@gmail.com>
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
-Link: https://patch.msgid.link/20261016-binder-poll-self-work-v1-1-c29c87d99abb@google.com
+Cc: stable@vger.kernel.org
+Fixes: f14e0c8183bc ("rust_binder: report netlink transactions")
+Signed-off-by: Carlos Llamas <cmllamas@google.com>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Link: https://patch.msgid.link/20260916120833.593407-1-cmllamas@google.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
-index bcb2038b7550..177e90a1e5a3 100644
---- a/drivers/android/binder/thread.rs
-+++ b/drivers/android/binder/thread.rs
-@@ -345,13 +345,13 @@ fn push_reply_work(&mut self, code: u32) -> PushWorkRes {
-         }
-     }
+diff --git a/drivers/android/binder/rust_binderfs.c b/drivers/android/binder/rust_binderfs.c
+index 7ad3ea6d8087..acc83a179f38 100644
+--- a/drivers/android/binder/rust_binderfs.c
++++ b/drivers/android/binder/rust_binderfs.c
+@@ -72,6 +72,7 @@ struct binder_features {
+ 	bool oneway_spam_detection;
+ 	bool extended_error;
+ 	bool freeze_notification;
++	bool transaction_report;
+ };
  
--    fn push_return_work(&mut self, reply: u32) {
-+    fn push_return_work(&mut self, reply: u32) -> PushWorkRes {
-         if let Ok(work) = ListArc::try_from_arc(self.return_work.clone()) {
-             work.set_error_code(reply);
--            // Not notifying: Reply to current thread.
--            let _ = self.push_work(work);
-+            self.push_work(work)
-         } else {
-             pr_warn!("Thread return work is already in use.");
-+            PushWorkRes::Ok
-         }
-     }
+ static const struct constant_table binderfs_param_stats[] = {
+@@ -89,6 +90,7 @@ static struct binder_features binder_features = {
+ 	.oneway_spam_detection = true,
+ 	.extended_error = true,
+ 	.freeze_notification = true,
++	.transaction_report = true,
+ };
  
-@@ -694,8 +694,12 @@ pub(crate) fn push_work_inner(
-     pub(crate) fn push_work_if_looper(&self, work: DLArc<dyn DeliverToRead>) -> BinderResult {
-         let mut inner = self.inner.lock();
-         if inner.is_looper() && !inner.is_dead {
--            // Not notifying: Reply to current thread.
--            let _ = inner.push_work(work);
-+            // Not notifying work_condvar: Reply to current thread.
-+            let res = inner.push_work(work);
-+            drop(inner);
-+            if matches!(res, PushWorkRes::OkNotifyPoll) {
-+                self.process.notify_poll(false);
-+            }
-             Ok(())
-         } else {
-             drop(inner);
-@@ -708,7 +712,11 @@ pub(crate) fn push_work_deferred(&self, work: DLArc<dyn DeliverToRead>) {
-     }
+ static inline struct binderfs_info *BINDERFS_SB(const struct super_block *sb)
+@@ -566,6 +568,12 @@ static int init_binder_features(struct super_block *sb)
+ 	if (IS_ERR(dentry))
+ 		return PTR_ERR(dentry);
  
-     pub(crate) fn push_return_work(&self, reply: u32) {
--        self.inner.lock().push_return_work(reply);
-+        // Not notifying work_condvar: Reply to current thread.
-+        let res = self.inner.lock().push_return_work(reply);
-+        if matches!(res, PushWorkRes::OkNotifyPoll) {
-+            self.process.notify_poll(false);
-+        }
-     }
++	dentry = rust_binderfs_create_file(dir, "transaction_report",
++				      &binder_features_fops,
++				      &binder_features.transaction_report);
++	if (IS_ERR(dentry))
++		return PTR_ERR(dentry);
++
+ 	return 0;
+ }
  
-     pub(crate) fn pop_work_even_if_deferred(&self) -> Option<DLArc<dyn DeliverToRead>> {
-@@ -1444,14 +1452,15 @@ fn reply_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResult {
-             let process = orig.from.process.clone();
-             let allow_fds = orig.flags.contains(TransactionFlag::AcceptFds);
-             let reply = Transaction::new_reply(self, process, info, allow_fds)?;
--            {
--                let mut inner = self.inner.lock();
--                if info.flags.contains(TransactionFlag::DeferComplete) {
--                    // The flag is set. Perform a deferred push so that `read` can wait for the
--                    // next incoming transaction without a userspace roundtrip.
--                    inner.push_work_deferred(completion);
--                } else {
--                    let _ = inner.push_work(completion);
-+            if info.flags.contains(TransactionFlag::DeferComplete) {
-+                // The flag is set. Perform a deferred push so that `read` can wait for the
-+                // next incoming transaction without a userspace roundtrip.
-+                self.inner.lock().push_work_deferred(completion);
-+            } else {
-+                // Not notifying work_condvar: Reply to current thread.
-+                let res = self.inner.lock().push_work(completion);
-+                if matches!(res, PushWorkRes::OkNotifyPoll) {
-+                    self.process.notify_poll(false);
-                 }
-             }
-             orig.from.deliver_reply(Ok(reply), &orig, None);
-@@ -1489,10 +1498,15 @@ fn oneway_transaction_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> Bin
-         let list_completion =
-             DTRWrap::arc_try_new(DeliverCode::new(code, self.process.task.pid()))?;
-         let completion = list_completion.clone_arc();
--        // Not notifying: Reply to current thread.
--        let _ = self.inner.lock().push_work(list_completion);
-+        // Not notifying work_condvar: Reply to current thread.
-+        let res = self.inner.lock().push_work(list_completion);
-         match transaction.submit(info) {
--            Ok(()) => Ok(()),
-+            Ok(()) => {
-+                if matches!(res, PushWorkRes::OkNotifyPoll) {
-+                    self.process.notify_poll(false);
-+                }
-+                Ok(())
-+            }
-             Err(err) => {
-                 completion.skip();
-                 Err(err)
 
