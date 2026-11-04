@@ -1,86 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.242
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793785924;
-	b=uvyDv/dgSGU/ytOHgANrE4Sk3Dk5DeCz/sm8f0TmteQGxX/P/4eIfmwloN3e2tcbeHC/
-	 Ovfcs4rS/RF99fEwdgBawJgOhNKHv1jk1Fjnwp7f0iGXN6mwASepzE7SaENVoHBIwYcxB
-	 sMljCixwS6jZeJJk8aApxmKBOvC1qSd/Yp4xEsPyK+QZ5112N1dXAut6/EeTTza6jWL09
-	 am/pjcuR73Vm3/QoPj+IlN82TAwNo1I9XBaw9WOcNBy8dhwY2OLxZa7SEPf52Mu/s5CVv
-	 Z7tEofTf0wk6KZdB41WyqV9d8AIhp9atCRnAPmOX+5o4ORjfrQvMkl1B8wsEsDMaEHg==
+	t=1793786231;
+	b=i5JRjOUWPkoDN8bpPgwNbKPLfhvDbJsKxo6R4hnuMFwLMs+9q85Irxte/u4F+bxKqeyW
+	 YumI9GRUW6Qe7mp51Zv71Jv6/JWjcMbVXCd//4mj+ocbABYcZbi9zoc2hwApHYH2ZteKf
+	 xIIAmfQ2WXlnvlQOfIlpQ/A525+s4EBFZzZQGZevTI8WYWlw+3i5ZKwwsZT/QgJ5MS4pZ
+	 G+kRRaaQh5wGxB7wKJp9CTN2BXrxF/r0CRG+2NfsSza33rP6Id/q0CdVh5Mzb0NWIgvcu
+	 2fAdntsERPgAQ/Oc4uVordg69ic/muuJ9qPeRvqhg+12ZI0k4I63ea/NbUOyC8ndnyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785924;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=RtlB2RV4gJxPXr+Y3wQBEnh9Djwm2pqXP4DUAG2yukY=;
-	b=Tg65JV7yWTjAMdznm85rKMcfmBvokDiSrnvIvh2XBD/qPVaANWMQc7x8jzNmsw+Ccnul
-	 OinY5CVZIfi+1Z0k7Sdxl+vRY0Og0H4oaXsQys3XsjCNVt0Ehg/HC5lVGDg7GYV7MacQR
-	 qcUksRH9Xw4bEVXPI1dV3duNylV2T4YOm02USZujXWUJnFtGgsUvJ7d0oZlYreZIrrGUp
-	 fxFvFqzschV0PUidrtITNwQRweZ8qLCDssEGc296zqK1G6Jgfk0zmmzWiGsnOFgqrY7Au
-	 OaDqGyUnj8/B1tZtgPgFtsuFUxbej2NDlL94kYHlXRoJMkisiiBN9YYR+yfjy8UzSSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793786231;
+	h=DMARC-Filter:Received:From:To:Cc:Date:Message-ID:Subject:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=a6xsRKL+cULQrPCgB872GUO7WGH3fVoHR5W/L6Dktxc=;
+	b=nvYU4DnlYrg5D69fTlY3P1mVpNqN4MV4a0UB/2pIgRKX7xmpRZS1MYT/4Y7JOpshVVZe
+	 NkxtANZBPeOP8etaK98HGxokuOZ3ISBOpa1317VDQqpK+QgX/EO8y2fGv8FzvrcGPNsoD
+	 Ll09sg5aJSvS0XlfFjIVOc6pS/FCCb0dnD7J+5fOpC5VC+aCRrRuFm0NXj0ikD4d7X5UJ
+	 NZkk7UR2nzjH2Jo6m/YluNksadWRVz4c94bck2HfllDAsFW7bdH+iMgaHSN9Zdqf9ggB2
+	 a7TqPw6zMWBVmr95ilh8OVm0z9M35JbHM9frq8vLNS5EQlydR0W34ku5N3s5chXelZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=gB4lqPQd;
-	arc=none smtp.remote-ip=203.205.221.242
-Received: from out203-205-221-242.mail.qq.com (out203-205-221-242.mail.qq.com [203.205.221.242])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=stu.pku.edu.cn;
+	spf=pass smtp.mailfrom=stu.pku.edu.cn;
+	arc=none smtp.remote-ip=45.254.49.197
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05785606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 09:52:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05785606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=gB4lqPQd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793785918; bh=RtlB2RV4gJxPXr+Y3wQBEnh9Djwm2pqXP4DUAG2yukY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gB4lqPQdr+MDkMM4KcJDS+tf4orXxiB0uIvHcCaBdZUlKYBYCsxexSPqC9wtR0Qyn
-	 47sUPDDi4zluk483PdYz7igvRZm+CRsRQ1bHnNQo2i7vBmM5NpMmP4MU7Th8M8Pib0
-	 6Arh2pjT2wsTcOcY4wWqUIG4VwngXxiWwmNtTToE=
-Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id CF794E9A; Wed, 04 Nov 2026 17:51:55 +0800
-X-QQ-mid: xmsmtpt1793785915ty3h95k9l
-Message-ID: <tencent_540C64A2D2BD5D3A8FC54C9EB80917F75305@qq.com>
-X-QQ-XMAILINFO: NbgegmlEc3JuH/YWZVHtIvPZDrszXB4hB1yN2O9ZvlIOq1JRDwM+w8+nmIObf0
-	 UCCJcyY8j3lw1d5cW2qTVqNJE758T2fIeQwgroxe+ZdE9VE0q+4l9wUDbw8YQtvhNo0/HpqbE5ak
-	 0crKRHJ55Cox/dqmynK/Xx42HM2m3ee+2ZGTnEskB5QXUjPca/BmsHYgxgKWuhdI+0smTAWaad8D
-	 vZoIumJ9PQrqJJFGuy61mIGdxShIETQixVjfV6jaf/zj9dt6q17fYJbGADbp67AwmNaCNek9GkY6
-	 r3QquXotoEQ3PEv/aizv9kmADOU42Fz1zuxyWxJwZdmwEDMO64ISdo4hJptLocGQlc+ZHXirqUko
-	 Sgd4INCfnFxxVlZ4ibcis3jsUz53jXKIG7g7ReMSnJ4r0oW7efahNJXQnaAMBQF4V8il2AL2a0TK
-	 SL6OGv+7/HUb21FG6/439zUTmODhI29PcAP4kxrE98xEzjNtQ6TIYbRwyidzNdxugYWrDaP9NxRJ
-	 9G681A0rzTukyOqkJE5Es5ryeHnWo+qYoa8YYQM2kqJ+1Aciz8bEAN5IFyoprx+NRbL3M82Kv8ML
-	 5hKn2o5UvS8R1cJ+hMoZBqFts++U7Y1FVBXORUluNlMzBwgwQmV+nGmdHnFUSn4JC2BoTqKoF6tb
-	 RsCkfJ8mfKzaDsdtQmlX5SFdv0WFCYRUbtMeYPmYFvsaJDDP7IbabgSLkU5Lz4y/XsGGODCa684O
-	 beINbDIfX845skrKQAQImgDE4Izz7mr0Qx5l30F3Lv+zNHmdSM/fXdzHzuPX2ad64pLp2CguNTMY
-	 yt5PDGXxmbKaG5qJkahA9p/kVL9AycNtjJWiZEsAE1EWInlKocmnWvwwGHey4z0PDgMpbTTSJjKT
-	 WR6dYmbAx4mVKeFitQO6eNh4dG0CeNb+ju1rkmBy+HTvmoQBuCHIrVKogUEiDCdmBPwPVu+1AO+h
-	 MajnGEgnDcrqONs5iFZnkmy6bF4ALGIHfq6f07WaLjPLBQqamBF1iFowZ2jz5e/lHDE1Ve2g50A4
-	 4BIZQKgqO3te0Xus6FsJLj2dvE3pyKyiXOuwUH1v2LScQOgic30j13SqOSEIJSRKEVdu1a1AWvld
-	 0EnBrzDCvCYBDIFEX8XluEx++6icLO/PEbCS3h7XY39/WatypdC4IKo+k2cUNhSdxbS0cy
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-ext4@vger.kernel.org
-Cc: tytso@mit.edu,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-kernel@vger.kernel.org,
-	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com,
-	sashiko-bot@kernel.org,
-	Shuai Liu <847807867@qq.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v4] ext4: fix slab-use-after-free in do_split()
-Date: Wed,  4 Nov 2026 17:51:55 +0800
-X-OQ-MSGID: <20261104095155.738649-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <sashiko-outbox-196970@kernel.org>
-References: <sashiko-outbox-196970@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC5D606A31B;
+	Wed,  4 Nov 2026 09:57:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBC5D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
+Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa (unknown [1.202.162.49])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5378c9734;
+	Wed, 4 Nov 2026 17:56:53 +0800 (GMT+08:00)
+From: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
+To: linux-wpan@vger.kernel.org, netdev@vger.kernel.org
+Cc: alex.aring@gmail.com, stefan@datenfreihafen.org, miquel.raynal@bootlin.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, zihanx@nebusec.ai, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 04 Nov 2026 17:56:53 +0800
+Message-ID: <179378621331.55520.8126896786309171541@stu.pku.edu.cn>
+Subject: [PATCH net v3] mac802154: validate pinned interface before beacon
+ transmission
+In-Reply-To: <179337523079.51423.6573078122047317758@stu.pku.edu.cn>
+References: <179337523079.51423.6573078122047317758@stu.pku.edu.cn>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,96 +56,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1a5fd751103a2kunm548c819715b7c9
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHUlIVh9JGR9DTRhNQxhIT1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKVUlLSVVKTUlVT0JZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0
+	xVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=HcdXRJRLjUqPKYOJ0DTRm0wpGM7p/u9thhdHqcbdpobq3OHTLTnharDfUguXFM3WSHSrheVMNd2Z9i71r0NWL9gTS+uf+2ruRkRIeYGWCZt+5CqEOxQARhOjNWSP1ud2QRSbEZtGCX3QRN68ZYZkiY1Dc8+gcE1pX4ZfmLCpQYQ=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
+	bh=a6xsRKL+cULQrPCgB872GUO7WGH3fVoHR5W/L6Dktxc=;
+	h=date:mime-version:subject:message-id:from;
 
-do_split() allocates a new directory block with ext4_append() to hold
-the second half of the entries of the leaf block being split, then
-dx_move_dirents() copies entries from the old block (*bh) into the new
-one (bh2).  Nothing verifies that the newly allocated block differs
-from the block being split.
+mac802154_beacon_worker() selects a beacon request under RCU and pins
+the corresponding netdev before dropping the read lock.  The transmit
+helper used to read the request again, so a concurrent interface switch
+could make it dereference an unpinned netdev.
 
-On a filesystem whose block bitmap is inconsistent with the directory
-tree, a block already referenced as a directory leaf or as an htree
-index block can still be marked free, so ext4_append() can return that
-same block.  With concurrent operations on such a filesystem (as
-exercised by the syzbot reproducer), the block can even be freed
-between allocations, resulting in bh2 aliasing *bh.  dx_move_dirents()
-then copies the block onto itself, corrupting directory entries
-mid-copy: a rec_len field can be overwritten with name bytes, so the
-subsequent wipe of the stale entry memset()s a bogus length, causing
-the slab-use-after-free reported by syzbot.
+Use the pinned wpan_dev throughout transmission.  Under RTNL, verify that
+the request still belongs to that interface and that the interface is
+running.  Build the beacon from the protected template while still
+holding RTNL, then hand it to the locked MLME transmit helper.  Free the
+skb only on errors before that handoff.
 
-The same aliasing applies to the htree index blocks: if the leaf block
-or the new block aliases any index frame (the parent index block
-frame->bh or one of its ancestors in the frames[] array),
-dx_move_dirents() and dx_pack_dirents() overwrite the index header,
-dx_insert_block() then memmove()s with a corrupted count and writes
-out of bounds, and dx_release() can loop past the frames[] array (or
-leak frames) with a corrupted indirect_levels.
+This closes the interface-switch use-after-free without transmitting
+through a stopped interface or leaking the skb on the stopped-device
+path.
 
-Fix this by checking for all of these aliases in do_split() and
-bailing out with -EFSCORRUPTED before any directory block contents are
-modified, reporting the corruption via ext4_error_inode_block().
-
-Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 5f26a690e8ef ("mac802154: fix netdev use-after-free in beacon worker")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shuai Liu <847807867@qq.com>
-Changes in v4:
-  - Extend the aliasing checks to all htree index frames: do_split()
-    now takes the frames[] array and compares *bh and bh2 against
-    frames[0..level], not just the parent frame.  An alias with an
-    ancestor index block would overwrite its header, letting
-    dx_insert_block() memmove() out of bounds and dx_release() loop
-    past the frames[] array or leak frames (Sashiko)
-  - Mention the index block aliasing checks in the commit message
-    (Sashiko)
+Signed-off-by: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
 ---
- fs/ext4/namei.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+Changes in v3:
+- revalidate the request and pinned interface under RTNL
+- serialize beacon template access with request replacement
+- free the skb on every failure before the transmit-path handoff
 
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 354fc2d22df1..25bea69ab246 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -1922,12 +1922,36 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
- 	if (ext4_has_feature_metadata_csum(dir->i_sb))
- 		csum_size = sizeof(struct ext4_dir_entry_tail);
+ net/mac802154/scan.c | 41 +++++++++++++++++++++++------------------
+ 1 file changed, 23 insertions(+), 18 deletions(-)
+
+diff --git a/net/mac802154/scan.c b/net/mac802154/scan.c
+index d393b1f4e74e4..b3c8076b8057a 100644
+--- a/net/mac802154/scan.c
++++ b/net/mac802154/scan.c
+@@ -354,35 +354,31 @@ static int mac802154_transmit_beacon(struct ieee802154_local *local,
+ 				     struct wpan_dev *wpan_dev)
+ {
+ 	struct cfg802154_beacon_request *beacon_req;
+-	struct ieee802154_sub_if_data *sdata;
++	struct ieee802154_sub_if_data *sdata =
++		IEEE802154_WPAN_DEV_TO_SUB_IF(wpan_dev);
+ 	struct sk_buff *skb;
+ 	int ret;
  
-+	if (*bh == frame->bh) {
-+		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
-+				       "leaf block aliased with index block");
-+		brelse(*bh);
-+		*bh = NULL;
-+		return ERR_PTR(-EFSCORRUPTED);
-+	}
-+
- 	bh2 = ext4_append(handle, dir, &newblock);
- 	if (IS_ERR(bh2)) {
- 		brelse(*bh);
- 		*bh = NULL;
- 		return ERR_CAST(bh2);
+-	/* Update the sequence number */
+-	local->beacon.mhr.seq = atomic_inc_return(&wpan_dev->bsn) & 0xFF;
+-
+ 	skb = alloc_skb(IEEE802154_BEACON_SKB_SZ, GFP_KERNEL);
+ 	if (!skb)
+ 		return -ENOBUFS;
+ 
+-	rcu_read_lock();
+-	beacon_req = rcu_dereference(local->beacon_req);
+-	if (unlikely(!beacon_req)) {
+-		rcu_read_unlock();
+-		kfree_skb(skb);
+-		return -EINVAL;
++	rtnl_lock();
++	beacon_req = rtnl_dereference(local->beacon_req);
++	if (unlikely(!beacon_req || beacon_req->wpan_dev != wpan_dev ||
++		     !ieee802154_sdata_running(sdata) ||
++		     !netif_running(sdata->dev))) {
++		ret = -ECANCELED;
++		goto out_free;
  	}
-+	if (bh2 == *bh) {
-+		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
-+				       "cannot split aliased directory block");
-+		brelse(bh2);
-+		brelse(*bh);
-+		*bh = NULL;
-+		return ERR_PTR(-EFSCORRUPTED);
-+	}
-+	if (bh2 == frame->bh) {
-+		ext4_error_inode_block(dir, bh2->b_blocknr, EFSCORRUPTED,
-+				       "leaf block aliased with index block");
-+		brelse(bh2);
-+		brelse(*bh);
-+		*bh = NULL;
-+		return ERR_PTR(-EFSCORRUPTED);
-+	}
  
- 	BUFFER_TRACE(*bh, "get_write_access");
- 	err = ext4_journal_get_write_access(handle, dir->i_sb, *bh,
+-	sdata = IEEE802154_WPAN_DEV_TO_SUB_IF(beacon_req->wpan_dev);
++	/* Update the sequence number */
++	local->beacon.mhr.seq = atomic_inc_return(&wpan_dev->bsn) & 0xFF;
+ 	skb->dev = sdata->dev;
+ 
+-	rcu_read_unlock();
+-
+ 	ret = ieee802154_beacon_push(skb, &local->beacon);
+-	if (ret) {
+-		kfree_skb(skb);
+-		return ret;
+-	}
++	if (ret)
++		goto out_free;
+ 
+ 	/* Using the MLME transmission helper for sending beacons is a bit
+ 	 * overkill because we do not really care about the final outcome.
+@@ -402,7 +398,16 @@ static int mac802154_transmit_beacon(struct ieee802154_local *local,
+ 	 * transmissions, wich anyway does not have a huge impact on the
+ 	 * performances given the current design of the stack.
+ 	 */
+-	return ieee802154_mlme_tx(local, sdata, skb);
++	ret = ieee802154_mlme_tx_locked(local, sdata, skb);
++	rtnl_unlock();
++
++	return ret;
++
++out_free:
++	rtnl_unlock();
++	kfree_skb(skb);
++
++	return ret;
+ }
+ 
+ void mac802154_beacon_worker(struct work_struct *work)
 -- 
-2.43.0
-
+2.39.5 (Apple Git-154)
