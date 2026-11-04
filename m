@@ -1,47 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820057;
-	b=q1fvKR8i4zOFoOAZNdNWnRDNFMb2nLp8nLEmtiwCiRUy1N9bq+DjdXAf5gyAcxUGJXh+
-	 az6+Voud9EA4zeysiMZ5xeITKwzmJAIa8hoCgcjcHKrGDrFC5sYFSOdZEAbjL5wGYqsrL
-	 27Y1xGdLnilsRlbBOdr8o0iJcqaM1K8LMfpPsm4PiTTNXXwxN7bPe3GAo8ae+A7MBMdCQ
-	 mw6uADz3yF1sCPZh/CbMJNcqVTBTCRdkD3926R4YvnQa63ietIqrwsKdv2ho6T4iFMnbL
-	 doIyBYQcHbqaNV83PEq1PlJpL5NF6vRDf2dJTgpxxKdv8RvJhgtmOC1z19BPfgLFX9g==
+	t=1793820051;
+	b=XjJ9mkuOaLVYpbqba57I4oGy90vhbz22Gj+BFkYBzGgneIIgydNTYOdxEPD8c1+weuI2
+	 4jCbIuYFxA9CHb1QCwbPH4BxRkRc5ZhFgpHOl3w7ESi20zHGoHSx0KvMbaUsG1+Amc21m
+	 GC7ZmmpX7Mi3Vgj3DOpwVX5qIibnmaCiLjctsHy3PhThosWcbrkE7iJD2J+9Xr19pr2H2
+	 TVIh6Fzhz+PU1c2ZK1hzjOEV1D+oqBZjRX88z1DBnt1R1T2gGz2bs0TA+9KijF9jfnAE5
+	 imBUYhQwyCGLhhUeEgAYNXLUQRnZHJeP7xQP0zy7PxzeIr7izdN0bjbu2jd6WKiZv/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820057;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=mt+UUm3y2oan2oD/2A690AyzCRNZWOSBfMT2dIr/MRQ=;
-	b=jUNEbE8j9lKW5rr3JjX7Qsqk63ZHlk33vU5X66VKvBX5zxFxNcsTAYcjeNmFkAVJFYfl
-	 mcbiQF86b1XSghzcqA2zQNWv6fYdotOauRe2FdRDtXtJhpc6Bs8xRZlGUDDwBgmDpGfAl
-	 3Jlh2ycTK48AzgoFwe3LGsoQ0YwuZ46MhcbYs/prkf7FLPRRT+VCLMUUVVBBR2W66z/AR
-	 QC69M8bmbsBwuXJdFYfibZPtQCyaWMqVVwLI16AfMrAMYPPAkHlCUjXciixTF4SCS+i6U
-	 Tc+W8Sbevg3nPMwb4VPumzlJi7YPwuIMZ95PJHXN10PXhHol4kh53aQNdwsP4MTHqbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820051;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=weMUCFn2uihXk/tOxGBDEw27Pws++kgwJ6Tcia3ltcw=;
+	b=d4TZ9EA5ac/vKq7YzMwa8eBrW/BER6lUvPd/qXpRs8szPRLreuKG1JAUPWRJdFChi/cf
+	 Aatc0JxO6AHqoC0jQ/Chg/Gpvr/VOQL7GpauuA8E7NuWcuYgb0HchmPcOTrw0QQUpIuw6
+	 ZWfCBj2/dzZ0FKPsWpgnBLyEEdDqqQT8ceVob3hB7oRgcgf+mBJyrN0O7i7dYehs8I/h0
+	 hXB27+X4JJ04oEvkclb0xQ6UAdpJSke4Scmd5lQfChE4bc5QRAEsSlXHa+md85mSYTFp0
+	 cOUXe4d/7WKzAja5APBphUbwAAz6wzWrc6eims3VUBw13GIGtMpHLQKYPHAVR7ZZmLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e4aQ0FRP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRxCl+Bf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18CB760A6F76
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:20:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D5E6070314;
+	Wed,  4 Nov 2026 19:20:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e4aQ0FRP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B7B41F00919;
-	Wed,  4 Nov 2026 19:20:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793820056;
-	bh=mt+UUm3y2oan2oD/2A690AyzCRNZWOSBfMT2dIr/MRQ=;
-	h=Subject:To:Cc:From:Date;
-	b=e4aQ0FRPu4wegVbcMLpa2/C47nEI6+srM+XEqYOeXUqwNL5jV6v6tS79W8wmV77bh
-	 nHte5Tt5deL9rr3MkVcN39G/JQlh5V9N15sAE2C0tWDf3vQAxICmWGlP07nZxKHazQ
-	 koUVpuGum7eQ6q14IasNrJFc6R1NRj85zmfKEDCI=
-Subject: FAILED: patch "[PATCH] KVM: x86: Preserve DR6.BLD (Bus Lock Detect) when delivering" failed to apply to 5.15-stable tree
-To: seanjc@google.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:20:55 -0500
-Message-ID: <2026110455-refreeze-failing-83c2@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HRxCl+Bf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9ED11F0093A;
+	Wed,  4 Nov 2026 19:20:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793820051;
+	bh=weMUCFn2uihXk/tOxGBDEw27Pws++kgwJ6Tcia3ltcw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HRxCl+Bf2TmTIdvOsOeyzhK8jV+Bfm/AfD9cI3ivj92Dd3pOYsACEhtqy21kBrGn/
+	 w5dZIxEHBlkGPyiksDR2eeyKB2QwqkCs8BxVbPOrva8f8+0RyiF4g2ftBS4+38Deq2
+	 ECW+IMt2f5f3W9mcjTW+c3CS4ThGnFOYG1d7M9XEv+5D9eIa8f3cQr1EJ+w9iQ/rUC
+	 XqEw7LR3pXX6IXRIprFLgivWh1G2NDVohugAan8ecdIvDwRxpUYWViMOW6AbNVUMfk
+	 FUYGNVRL6tdh+iW8t1JOxMZYVBhZSDKN5vzmr7c/IALhlwuE9VxTB484IK+SvnVk+v
+	 mX/CkL30zPq5w==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH RESEND v2 19/51] xtensa: simdisk: don't read the file name without the lock
+Date: Wed,  4 Nov 2026 20:20:36 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-19-021c84d852e0@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,135 +115,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1811; i=brauner@kernel.org; h=from:subject:message-id; bh=wpJfI2N0Y4TYbGny8B/EWcsaN47/8hdz2WKuRaZg6Os=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bny056pefW1bw+0G9QWxvIVyC3XrvoZ2bGCV5J46b YcBi0tqRykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwETc3jIyPJ21usJ4wx/59rrj 73oYXwhfmLvodau6v+vZpyZ2wYlGEowMHzItDeUOXp9h3ywj4N1/bRkvB++3BTNNjTf/8um/cn0 /OwA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
+proc_read_simdisk() looks at dev->filename without holding dev->lock. A
+write to the same file detaches the disk and frees the name under the
+lock, so a concurrent reader can copy out freed memory. Copy the name
+with the lock held.
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 719a1d58bf43edd03b271df90b67c58c1e9a7da4
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110455-refreeze-failing-83c2@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 719a1d58bf43edd03b271df90b67c58c1e9a7da4 Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Wed, 30 Sep 2026 12:36:23 -0700
-Subject: [PATCH] KVM: x86: Preserve DR6.BLD (Bus Lock Detect) when delivering
- #DB payload
-
-Preserve Bus Lock Detect if it isn't present in the payload.  Unlike RTM,
-which is explicitly modified on every #DB,  DR6.BLD is modified if and only
-if the #DB is due to a (coincident) Bus Lock Detect.
-
-Per Intel's SDM:
-
-  Other debug exceptions do not modify this bit.
-
-And AMD's APM
-
-  All other #DB exceptions leave DR6[BLD] unmodified,
-
-Restore the explicit RTM handling that was clobbered by commit
-9a3ecd5e2aa1 ("KVM: X86: Rename DR6_INIT to DR6_ACTIVE_LOW"), as the
-semantics of any given bit are feature specific, i.e. are obviously not
-consistent for active-high versus active-low.  In other words, while the
-bug was technically introduced when support for Bus Lock Detect was added,
-it's really that attempt to genericize handling of active-low bits that set
-KVM up to fail.
-
-Fixes: e8ea85fb280e ("KVM: X86: Add support for the emulation of DR6_BUS_LOCK bit")
+Fixes: b6c7e873daf7 ("xtensa: ISS: add host file-based simulated disk")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260930193634.3415089-2-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ arch/xtensa/platforms/iss/simdisk.c | 25 ++++++++++++-------------
+ 1 file changed, 12 insertions(+), 13 deletions(-)
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index de77b222870e..997a6b79c03c 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -399,30 +399,37 @@ void kvm_deliver_exception_payload(struct kvm_vcpu *vcpu,
- 	switch (ex->vector) {
- 	case DB_VECTOR:
- 		/*
--		 * "Certain debug exceptions may clear bit 0-3.  The
--		 * remaining contents of the DR6 register are never
--		 * cleared by the processor".
-+		 * DR6 is a mess.  Reserved/unused bits are fixed-to-1, and so
-+		 * to maintain backwards compatibility with existing software,
-+		 * features that use previously-reserved bits have active-low
-+		 * semantics, i.e. clear the bit when the feature is present in
-+		 * the payload.
-+		 *
-+		 * Further complicating matters, some DR6 bits are preserved by
-+		 * hardware, while others are explicitly modified on every #DB.
-+		 * The trap bits are always set based on the payload, as is the
-+		 * RTM flag (but it's active low).  All other bits are modified
-+		 * if and only if a relevant debug exception occurs, e.g. BD,
-+		 * BS, and BT are never cleared by hardware, and BLD is never
-+		 * set by hardware (when supported, excepting RESET).
-+		 *
-+		 * Lastly, the payload does NOT have active-low semantics, e.g.
-+		 * so that it's compatible VMX's pending debug exceptions and
-+		 * qualification fields, and to avoid bleeding the DR6 madness
-+		 * into other KVM code.
-+		 *
-+		 * To compute DR6:
-+		 *
-+		 *  1. "Reset" the bits that are modified on all #DBs
-+		 *  2. Clear active-low bits that are present in the payload.
-+		 *  3. Set active-high bits that are present in the payload.
-+		 *  4. Clear fixed-0 bits.
-+		 *  5. Set fixed-1 bits.
- 		 */
- 		vcpu->arch.dr6 &= ~DR_TRAP_BITS;
--		/*
--		 * In order to reflect the #DB exception payload in guest
--		 * dr6, three components need to be considered: active low
--		 * bit, FIXED_1 bits and active high bits (e.g. DR6_BD,
--		 * DR6_BS and DR6_BT)
--		 * DR6_ACTIVE_LOW contains the FIXED_1 and active low bits.
--		 * In the target guest dr6:
--		 * FIXED_1 bits should always be set.
--		 * Active low bits should be cleared if 1-setting in payload.
--		 * Active high bits should be set if 1-setting in payload.
--		 *
--		 * Note, the payload is compatible with the pending debug
--		 * exceptions/exit qualification under VMX, that active_low bits
--		 * are active high in payload.
--		 * So they need to be flipped for DR6.
--		 */
--		vcpu->arch.dr6 |= DR6_ACTIVE_LOW;
--		vcpu->arch.dr6 |= ex->payload;
--		vcpu->arch.dr6 ^= ex->payload & DR6_ACTIVE_LOW;
-+		vcpu->arch.dr6 |= DR6_RTM;
-+		vcpu->arch.dr6 &= ~(ex->payload & DR6_ACTIVE_LOW);
-+		vcpu->arch.dr6 |= (ex->payload & ~DR6_ACTIVE_LOW);
+diff --git a/arch/xtensa/platforms/iss/simdisk.c b/arch/xtensa/platforms/iss/simdisk.c
+index e51edb8cf872..1248d960e5d3 100644
+--- a/arch/xtensa/platforms/iss/simdisk.c
++++ b/arch/xtensa/platforms/iss/simdisk.c
+@@ -238,22 +238,21 @@ static ssize_t proc_read_simdisk(struct file *file, char __user *buf,
+ 			size_t size, loff_t *ppos)
+ {
+ 	struct simdisk *dev = pde_data(file_inode(file));
+-	const char *s = dev->filename;
+-	if (s) {
+-		ssize_t len = strlen(s);
+-		char *temp = kmalloc(len + 2, GFP_KERNEL);
++	ssize_t len;
++	char *temp;
  
- 		/*
- 		 * The #DB payload is defined as compatible with the 'pending
-@@ -431,6 +438,7 @@ void kvm_deliver_exception_payload(struct kvm_vcpu *vcpu,
- 		 * breakpoint), it is reserved and must be zero in DR6.
- 		 */
- 		vcpu->arch.dr6 &= ~BIT(12);
-+		vcpu->arch.dr6 |= DR6_FIXED_1;
- 		break;
- 	case PF_VECTOR:
- 		vcpu->arch.cr2 = ex->payload;
+-		if (!temp)
+-			return -ENOMEM;
++	/* a write sets at most a page, see proc_write_simdisk() */
++	temp = kmalloc(PAGE_SIZE + 2, GFP_KERNEL);
++	if (!temp)
++		return -ENOMEM;
+ 
+-		len = scnprintf(temp, len + 2, "%s\n", s);
+-		len = simple_read_from_buffer(buf, size, ppos,
+-					      temp, len);
++	spin_lock(&dev->lock);
++	len = scnprintf(temp, PAGE_SIZE + 2, "%s\n", dev->filename ?: "");
++	spin_unlock(&dev->lock);
+ 
+-		kfree(temp);
+-		return len;
+-	}
+-	return simple_read_from_buffer(buf, size, ppos, "\n", 1);
++	len = simple_read_from_buffer(buf, size, ppos, temp, len);
++	kfree(temp);
++	return len;
+ }
+ 
+ static ssize_t proc_write_simdisk(struct file *file, const char __user *buf,
+
+-- 
+2.53.0
 
