@@ -1,109 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810739;
-	b=jThiw819lhx3EKHvVJA4vPOB55t1gdx1J1KXhJW1Y0nCUvk0JXTZDikm3zBWePO1nrdX
-	 N3vmhNF+AEupLZ2QlDJJQsoWAPnqygHYPq5cKF27rZE/7Aex+yuMSi+m5h8xRys7Gq6X4
-	 Cg07kS13riHgPKAAPOe/aY3uiSudu6RTbiNmNaHjzAPODmCvjVyImoRykEMKOx1l1Kzuw
-	 QlYlJJFiCVoGPL1CkA06+5VBpcvAa8uJobBliqFqdepE3vZE0IzoT38vHhBJGThJQqpMD
-	 14OYhfnZxnTGngYZoTixQ1xZb3pZCe3O78K/G1eTJ/ZBBIqMAa0IjqFEXAL5lAYmBdg==
+	t=1793810760;
+	b=WgtN8FE5yzHqjFAq4qbF/jg+Jd66trpV6jYxyX8TFDYo6l/twR+cWUv41xSgW5ChCmBq
+	 qvDhOPSQDkhxGIaJEmb6+GEQ8i7fQn6io2Fr/emur6mrHVv/JPBC+r/J6ZOoH2VZfSjLO
+	 8XXaqf2kXkhNNa02A2IApDqnD2fDt8TLIHQ+IeQeYo+mBveDSrT7AuTfPEslfET/CCqkq
+	 9GPdFgCEvA/jMnfPu7JQakGbRVWZy4OTI4JwdPc0azW+l5tmbPTpGfpAy1N5DsP2wOj/Q
+	 sXGzqZP8Tr8bo2YcRTU+LHQ/tAr6IqA4Ul3EfTgoyFIWO4A4bhotX0Xd4lwct/KYIGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810739;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ubnY4McmoFrrH8E8woK0Dx2b09gWWGMhkGbARjItHnU=;
-	b=JC5VxbvY68Cahn3JaUEAtmpowV99LQ2sEnodIqvB2vQ6u6p1zo72LbIzqZzpG2ebfvVK
-	 QyLFW7V6npWEAzg8UO2VKhm7iStamoihzWaNK0bx5hIYmiT1fvjEZMjrNme9kSOQUOSX/
-	 Y8Xa7UoD/sqMAjsdoMtICJxTX7e51ZjxS/qsl5+Xyowy2bCRVc7RgXBg5HMB3+j625dmT
-	 kzsZ9o8O8POKaUhHKx1PinGUwFMekh4BCZlJpAgiX8WDTDDU7k/7BNK3NZE/clIvk9MHv
-	 8CYppIjaDKY0p84Sp32BaRxI9a5BkYwDTU/vKrglzstwierIlP6/VhOEDYhFGmuky6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810760;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=1FSm8Gv9bwuRlSD/vabxSLZgWODES4Hxzg8A0KwQyec=;
+	b=dKB+L+lgFlsAEQgey0COs6XubhL2KBsPpEFuYwWvnImntVpNANIdLx0ofYkVyaRELoHg
+	 rok1lxJJKtLEDtvJjAZhMVxGhYeU8NPTcGXgALeB721T3d15uz6PZNw5EFAvIaZAJE9ex
+	 vYWy3p/hwdL1QvZSzPbrewUMzHKRrGyP1q4jr8eDjChEfqWTo3lACLUdFvPdKKMnkC2vK
+	 c8P5LY7z5qFUA/ip/u9cLoSSflocXePjfoGze9EG9dDtK4XnLeg6KgLeyoqekI2pg4TtK
+	 TeUCKQ0hSd13S2wbjxD51BYtwSIrotPXMIdE+BP+X6xoPLqgh3wQPNxwRsNaI4guEjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uv3ybTOG;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=csolbHwH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518F6606A33F
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:45:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 518F6606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F22A606A328;
+	Wed,  4 Nov 2026 16:46:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uv3ybTOG
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36d6e342f98so847319eec.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 08:45:39 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=csolbHwH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3ED1F000C1;
+	Wed,  4 Nov 2026 16:45:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793810738; x=1794415538; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ubnY4McmoFrrH8E8woK0Dx2b09gWWGMhkGbARjItHnU=;
-        b=Uv3ybTOGXwY8Lox7OZJ0Ofmp4Gi2o3uTLQ9p+FZtDRp0V+yPofXQ2BEVufCAdMbgdo
-         yStRALcgk5v7iM4wln+y3fSbnUYRZ2nkhg6nKQdKAvFpEu38xUn/oI7OQPsKlODwLevT
-         Dc0KiyEGbBq3sd4zs/i8E6fpsrhZd35evsZLUE3jKaFbGhv0S4aA0lRfuyJHcdpvIHi7
-         3zueXs50v4mOgsKJ86nwk8c1lrbJc55ha7CRgc3ApKr+KNHN9C8sXmXij4G0D/CTYLqr
-         8Q1RM7WBtjksi+mQbvMdp9gKH1xUPGUXeOA2Ktkr9YUzm6cK3pD5mfM53xuG+6VtHTse
-         jF4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793810738; x=1794415538;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ubnY4McmoFrrH8E8woK0Dx2b09gWWGMhkGbARjItHnU=;
-        b=tUAD1CGKwdq+vxGeB989W7lcmXTmrSa+BBpj4Ium/dwTWqXgcUX6/YlJrjTPyDnhQH
-         AM0krYQUuZXZm67T+F0usi9ZTviSISU8Rdrr2d4bS6feprrDOPcT6Yyg981H6KixwKS3
-         uhsHmsZqaTzIvpxj9ZTqCkky4CzTGLPvgayyKTRU1xc6cA+A0f+I3zIyzHGIrC1ONI0C
-         hj301YLjrZH2epbRjjhtq93Wm3rLR6UbwwbtQbhJsU4UQyqPpZ7ZiN+ZZsgeNmd0JoVU
-         8BLb0OApUlMAuCSMICI9fYZEmK9RaO/0zw1dH657PYgTUa3UrwS420PMb1CihpuQUUe6
-         7Wbg==
-X-Forwarded-Encrypted: i=1; AKwUvBwkCDv3pNMsHfSO7qNhABMN4R3NKhQv5mkTlA0yohm3crXmiN28wzVgzE3xKJUHr1OVO4jzRo4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Pn67APE9rQ+tUP+lAEXwQmKRfu3LYi69s+BIIIqwEN+F6iVxn
-	R3590PfcH/N7wT6u8n+0t84Wynhv0sfwlLC6hEiDj4Gse3A/EiZ8VhZ/
-X-Gm-Gg: AYBFou3Oi0ZvESuVajpdHMBjY3grI6Rh+DHNXu1qGlEtAH6ZHJ7gIIz9czB4EQVwNG+
-	KHQOC4QOM6Unj+kkbZgRNuAKhXaL+ZNdL7saC3Gx8uHB7nQnYmXKiCVXJDA/vmRQTDhUK21hkDS
-	W/NtcLLx8xfOeQnJQ0BEUe6t7+WWsjJWRL7LiUckccNjzNh6tAZ62OjbY2/o3gQb1DN/jywLJ7a
-	ezlP8Fk1eZa3snsU3yEcenGHQtc0W/zlGsE6lsn67g7YmIqWJxgxvxM6oSdobB4pRJ1N2OEL7rn
-	C8Q0LarQqfYiSzDi4czAxLLRS+/TpAMCZl/CY4TTheEZKvjNKYuPtuzEZ8t5k3obqcrgqBLeXID
-	y6m4ePqb4uVHiUlw+AQry/QOyzSNtEDsg7MFrcmUm+vrhigRQqYnUolDR5hPW4aWudD6IXdC03A
-	jmyH0JYoCeR3fxnIxgiegnV+4KctqmSeoZuazoXC09EhMe6nIhES7l/cBic06fw4bDBNhdiXuHI
-	nd8HP26mPxLKRXsnT7TnVdxiHX7kJjUNlVnp9RcXTiWC5/Acm9h/KtDlZh+X0mJpI8kXokliUDU
-	hpNsAT0j1hVyCcSqdCCk75i0VMPoCHItQaVj/0qLodH3xUICoOrWM7RnngBr5susAPBIGY+ngrP
-	g3leR3N6/2vc4YRTtrNmT0YIRAiZWcsNR5CxB9j7xWcjBn1RuQz/p1g2zJxVuysNlUM9HfAbo0s
-	L/rTMktnHFlWRz/s81n0aK0zylY4CSGX5Ow9URR9pa2g==
-X-Received: by 2002:a05:693c:88cb:20b0:36a:1e50:e45 with SMTP id 5a478bee46e88-36a423624d5mr23360620eec.9.1793810738064;
-        Wed, 04 Nov 2026 08:45:38 -0800 (PST)
-Received: from kapoor.iiserb.ac.in ([203.18.51.212])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d36a1sm10368825eec.12.2026.11.04.08.45.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 08:45:37 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	Conall O'Griofa <conall.ogriofa@amd.com>,
-	Jonathan Cameron <jic23@kernel.org>
-Cc: Salih Erim <salih.erim@amd.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	stable@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] iio: adc: xilinx-ams: fix out-of-bounds accesses when parsing channels
-Date: Wed,  4 Nov 2026 22:15:01 +0530
-Message-ID: <20261104164510.105359-3-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104164510.105359-1-kapoorarnav43@gmail.com>
-References: <20261104164510.105359-1-kapoorarnav43@gmail.com>
+	d=linux-foundation.org; s=korg; t=1793810759;
+	bh=1FSm8Gv9bwuRlSD/vabxSLZgWODES4Hxzg8A0KwQyec=;
+	h=Date:To:From:Subject;
+	b=csolbHwHo1Vzev+HxRLDXJw67cJXcgIcdGqS29dkyoHW+4ckChuEHZd5afwrgwBy9
+	 YkrGGb8dBIOGF5HVz+faGfgJEuuIwXYwv+8NAAWlhcw5HKllsHmBA14UuA6wFVAJFb
+	 4+M1zVnzUpCygRRyhgXXAhfSTtJMj2Ji0+6lPb3s=
+Date: Wed, 04 Nov 2026 08:45:59 -0800
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,
+	joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,
+	heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-serialize-inode-journal-access-with-shutdown.patch added to mm-nonmm-hotfixes-unstable branch
+Message-Id: <20261104164559.BC3ED1F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,174 +51,338 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-ams_parse_firmware() allocates room for ARRAY_SIZE(ams_ps_channels) +
-ARRAY_SIZE(ams_pl_channels) + ARRAY_SIZE(ams_ctrl_channels) = 51
-channel specs and lets ams_init_module() fill them for the AMS node and
-each of its children, without telling it how much room is left.
 
-For the PL-SYSMON node, ams_init_module() always adds the 10 fixed PL
-channels, numbered 20 to 29, and ams_get_ext_chan() then appends one
-channel per "channel@N" child as ams_pl_channels[N - 20]. Only channels
-30 to 50 are external ones, but any N from 20 to 50 is accepted, so a
-child numbered 20 to 29 duplicates a fixed channel. A PL node can then
-have up to 41 channels while only 31 are budgeted for it, and together
-with the 13 PS and 7 AMS control channels this writes past the end of
-the buffer. Since the modules are filled in device tree order, the fixed
-channel blocks copied after the PL node can overflow as well.
+The patch titled
+     Subject: ocfs2: serialize inode journal access with shutdown
+has been added to the -mm mm-nonmm-hotfixes-unstable branch.  Its filename is
+     ocfs2-serialize-inode-journal-access-with-shutdown.patch
 
-ams_get_ext_chan() also only checks the upper bound of reg. ext_chan is
-unsigned, so a reg below 20 makes it wrap and ams_pl_channels[] is read
-far out of bounds.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-serialize-inode-journal-access-with-shutdown.patch
 
-Only accept the external channels 30 to 50. Also pass the remaining
-capacity down to ams_init_module() and ams_get_ext_chan() and fail with
--ENOSPC when a module does not fit, so that a device tree repeating a
-reg value can't write past the buffer either.
+This patch will later appear in the mm-nonmm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Fixes: d5c70627a794 ("iio: adc: Add Xilinx AMS driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Cen Zhang <zzzccc427@gmail.com>
+Subject: ocfs2: serialize inode journal access with shutdown
+Date: Fri, 30 Oct 2026 12:48:56 +0800
+
+The downconvert thread can run inode cleanup until ocfs2_dlm_shutdown()
+stops it, but unmount shuts down the journal earlier. A final dentry
+post-unlock put can therefore enter ocfs2_clear_inode() while the journal
+is being destroyed.
+
+ocfs2_ci_fully_checkpointed() loads osb->journal before taking
+trans_inc_lock. Journal shutdown neither takes that lock for removal
+nor waits for the downconvert thread before freeing the journal:
+
+  Downconvert thread                    Unmount
+  ------------------                    -------
+  dentry post-unlock; final iput()
+    ocfs2_checkpoint_inode()
+      load osb->journal
+                                        ocfs2_journal_shutdown()
+                                          free journal; clear pointer
+      read the transaction ID
+
+The checkpoint wait queue is embedded in that journal, and the final
+jbd2_journal_release_jbd_inode() also needs its JBD2 journal to remain
+alive for the whole call. Protecting only the pointer load would leave
+those longer uses unprotected.
+
+Read and clear osb->journal under trans_inc_lock when checking checkpoint
+progress. Treat a removed journal as checkpointed. Move checkpoint
+waiters to the existing mount-owned checkpoint_event and wake it after
+checkpoint progress and journal removal, so the queue outlives the
+journal. The commit thread also waits there and rechecks its condition
+when woken.
+
+Serialize the final JBD2 inode release against JBD2 destruction and the
+journal free with a mount-owned rw_semaphore. Take the write side only
+after stopping the commit thread, and drop it before the journal inode's
+final iput(), whose cleanup can take the read side. Inode cleanup holds
+the read side only around the JBD2 release, outside checkpoint waits and
+DLM lock teardown.
+
+KASAN report as below:
+
+    Oops: general protection fault, probably for non-canonical address 0xdffffc000000000e: 0000 [#1] SMP KASAN NOPTI
+    KASAN: null-ptr-deref in range [0x0000000000000070-0x0000000000000077]
+    CPU: 0 UID: 0 PID: 587 Comm: ocfs2dc-33CAF04 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy) 
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    RIP: 0010:ocfs2_clear_inode+0x8ae/0x1630
+    Code: fc ff df 48 c1 ea 03 80 3c 02 00 0f 85 27 0c 00 00 49 8d 7d 70 48 8b 43 c8 48 ba 00 00 00 00 00 fc ff df 48 89 f9 48 c1 e9 03 <80> 3c 11 00 0f 85 f0 0b 00 00 49 3b 45 70 0f 88 62 03 00 00 e8 49
+    RSP: 0018:ffff888118d3f878 EFLAGS: 00010212
+    RAX: 0000000000000001 RBX: ffff88811a5edc60 RCX: 000000000000000e
+    RDX: dffffc0000000000 RSI: 0000000000000001 RDI: 0000000000000070
+    RBP: ffff888116134000 R08: 0000000000000001 R09: 0000000000000001
+    R10: ffffffff8965765f R11: 0000000000000001 R12: ffff88811a5ed400
+    R13: 0000000000000000 R14: ffff88811a5edbf8 R15: ffff88811a5ed408
+    FS:  0000000000000000(0000) GS:ffff8881fd4dc000(0000) knlGS:0000000000000000
+    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    CR2: 00007ff35b66f2c0 CR3: 00000001092ae005 CR4: 0000000000770ef0
+    PKRU: 55555554
+    Call Trace:
+     <TASK>
+     ? __pfx_ocfs2_clear_inode+0x10/0x10
+     ? __pfx_ocfs2_inode_is_valid_to_delete+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __lock_acquire+0x5a3/0x2140
+     ocfs2_evict_inode+0x1ed/0x11e0
+     ? inode_wait_for_writeback+0x14c/0x330
+     ? __pfx_ocfs2_evict_inode+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? find_held_lock+0x2b/0x80
+     ? evict+0x347/0x9f0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     ? _raw_spin_unlock+0x23/0x40
+     ? __pfx_ocfs2_evict_inode+0x10/0x10
+     evict+0x38b/0x9f0
+     ? __pfx_evict+0x10/0x10
+     ? lock_acquire+0x190/0x300
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     ? __pfx_inode_just_drop+0x10/0x10
+     iput+0x680/0xb80
+     ocfs2_dentry_lock_put+0xc2/0x110
+     ? __pfx_ocfs2_dentry_post_unlock+0x10/0x10
+     ocfs2_process_blocked_lock+0x1fb/0x420
+     ? __pfx_ocfs2_process_blocked_lock+0x10/0x10
+     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+     ? lock_release+0xc8/0x290
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lockdep_hardirqs_on_prepare+0xeb/0x1a0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ocfs2_downconvert_thread+0x32b/0x780
+     ? do_raw_spin_lock+0x130/0x270
+     ? __pfx_ocfs2_downconvert_thread+0x10/0x10
+     ? __kthread_parkme+0xc1/0x220
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_release+0xc8/0x290
+     ? __pfx_autoremove_wake_function+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __kthread_parkme+0x177/0x220
+     ? __pfx_ocfs2_downconvert_thread+0x10/0x10
+     kthread+0x351/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf70
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+    Modules linked in:
+    ---[ end trace 0000000000000000 ]---
+
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0004-v8-dbcb8f80b8df476084d6@gmail.com
+Fixes: da5e7c87827e ("ocfs2: cleanup journal init and shutdown")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com> 
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/iio/adc/xilinx-ams.c | 57 +++++++++++++++++++++++++++++-------
- 1 file changed, 46 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/iio/adc/xilinx-ams.c b/drivers/iio/adc/xilinx-ams.c
-index 158e6133abf5..745edcf7c735 100644
---- a/drivers/iio/adc/xilinx-ams.c
-+++ b/drivers/iio/adc/xilinx-ams.c
-@@ -144,7 +144,14 @@
- #define AMS_PL_CSTS_ACCESS_MASK		BIT(1)
+ fs/ocfs2/inode.c   |   17 +++++++++--------
+ fs/ocfs2/journal.c |   30 ++++++++++++++++++++++--------
+ fs/ocfs2/journal.h |   17 +++++++++--------
+ fs/ocfs2/ocfs2.h   |    1 +
+ fs/ocfs2/super.c   |    1 +
+ 5 files changed, 42 insertions(+), 24 deletions(-)
+
+--- a/fs/ocfs2/inode.c~ocfs2-serialize-inode-journal-access-with-shutdown
++++ a/fs/ocfs2/inode.c
+@@ -1318,15 +1318,16 @@ static void ocfs2_clear_inode(struct ino
+ 	oi->ip_blkno = 0ULL;
  
- #define AMS_PL_MAX_FIXED_CHANNEL	10
--#define AMS_PL_MAX_EXT_CHANNEL		20
-+/*
-+ * The PL channels are numbered from 20 in the binding. The first
-+ * AMS_PL_MAX_FIXED_CHANNEL of them are always present, the external ones
-+ * from AMS_PL_EXT_CHANNEL_MIN to AMS_PL_EXT_CHANNEL_MAX follow them in
-+ * ams_pl_channels[].
-+ */
-+#define AMS_PL_EXT_CHANNEL_MIN		30
-+#define AMS_PL_EXT_CHANNEL_MAX		50
+ 	/*
+-	 * ip_jinode is used to track txns against this inode. We ensure that
+-	 * the journal is flushed before journal shutdown. Thus it is safe to
+-	 * have inodes get cleaned up after journal shutdown.
++	 * ip_jinode is used to track txns against this inode. The journal is
++	 * flushed before it is shut down, so an inode cleaned up after that
++	 * has nothing left to release. Hold the shutdown lock so a journal
++	 * found here stays allocated until the release has finished.
+ 	 */
+-	if (!osb->journal)
+-		return;
+-
+-	jbd2_journal_release_jbd_inode(osb->journal->j_journal,
+-				       &oi->ip_jinode);
++	down_read(&osb->journal_shutdown_sem);
++	if (osb->journal)
++		jbd2_journal_release_jbd_inode(osb->journal->j_journal,
++					       &oi->ip_jinode);
++	up_read(&osb->journal_shutdown_sem);
+ }
  
- #define AMS_INIT_POLL_TIME_US		200
- #define AMS_INIT_TIMEOUT_US		10000
-@@ -1131,6 +1138,9 @@ static const struct iio_chan_spec ams_pl_channels[] = {
- 	AMS_PL_AUX_CHAN_VOLTAGE(15),
- };
+ void ocfs2_evict_inode(struct inode *inode)
+--- a/fs/ocfs2/journal.c~ocfs2-serialize-inode-journal-access-with-shutdown
++++ a/fs/ocfs2/journal.c
+@@ -352,7 +352,7 @@ static int ocfs2_commit_cache(struct ocf
+ 	trace_ocfs2_commit_cache_end(journal->j_trans_id, flushed);
  
-+static_assert(ARRAY_SIZE(ams_pl_channels) ==
-+	      AMS_PL_MAX_FIXED_CHANNEL + AMS_PL_EXT_CHANNEL_MAX - AMS_PL_EXT_CHANNEL_MIN + 1);
-+
- static const struct iio_chan_spec ams_ctrl_channels[] = {
- 	AMS_CTRL_CHAN_VOLTAGE(AMS_SEQ_VCC_PSPLL, AMS_VCC_PSPLL0, "VCC_PSPLL"),
- 	AMS_CTRL_CHAN_VOLTAGE(AMS_SEQ_VCC_PSBATT, AMS_VCC_PSPLL3, "VCC_PSBATT"),
-@@ -1142,20 +1152,31 @@ static const struct iio_chan_spec ams_ctrl_channels[] = {
- };
+ 	ocfs2_wake_downconvert_thread(osb);
+-	wake_up(&journal->j_checkpointed);
++	wake_up(&osb->checkpoint_event);
+ finally:
+ 	return status;
+ }
+@@ -901,7 +901,6 @@ int ocfs2_journal_alloc(struct ocfs2_sup
  
- static int ams_get_ext_chan(struct fwnode_handle *chan_node,
--			    struct iio_chan_spec *channels, int num_channels)
-+			    struct iio_chan_spec *channels, int num_channels,
-+			    unsigned int max_channels)
- {
- 	struct iio_chan_spec *chan;
--	struct fwnode_handle *child;
- 	unsigned int reg, ext_chan;
- 	int ret;
+ 	atomic_set(&journal->j_num_trans, 0);
+ 	init_rwsem(&journal->j_trans_barrier);
+-	init_waitqueue_head(&journal->j_checkpointed);
+ 	spin_lock_init(&journal->j_lock);
+ 	journal->j_trans_id = 1UL;
+ 	INIT_LIST_HEAD(&journal->j_la_cleanups);
+@@ -1073,12 +1072,14 @@ void ocfs2_journal_shutdown(struct ocfs2
  
--	fwnode_for_each_child_node(chan_node, child) {
-+	fwnode_for_each_child_node_scoped(chan_node, child) {
- 		ret = fwnode_property_read_u32(child, "reg", &reg);
--		if (ret || reg > AMS_PL_MAX_EXT_CHANNEL + 30)
-+		if (ret)
-+			continue;
-+
-+		/*
-+		 * The fixed channels have been added already, anything else
-+		 * outside of the external range is not a valid channel.
-+		 */
-+		if (reg < AMS_PL_EXT_CHANNEL_MIN ||
-+		    reg > AMS_PL_EXT_CHANNEL_MAX)
- 			continue;
+ 	journal = osb->journal;
+ 	if (!journal)
+-		goto done;
++		return;
  
-+		if (num_channels >= max_channels)
-+			return -ENOSPC;
-+
- 		chan = &channels[num_channels];
--		ext_chan = reg + AMS_PL_MAX_FIXED_CHANNEL - 30;
-+		ext_chan = reg - AMS_PL_EXT_CHANNEL_MIN + AMS_PL_MAX_FIXED_CHANNEL;
- 		memcpy(chan, &ams_pl_channels[ext_chan], sizeof(*channels));
+ 	inode = journal->j_inode;
  
- 		if (fwnode_property_read_bool(child, "xlnx,bipolar"))
-@@ -1183,7 +1204,8 @@ static void ams_iounmap_pl(void *data)
+-	if (journal->j_state != OCFS2_JOURNAL_LOADED)
+-		goto done;
++	if (journal->j_state != OCFS2_JOURNAL_LOADED) {
++		down_write(&osb->journal_shutdown_sem);
++		goto free;
++	}
  
- static int ams_init_module(struct iio_dev *indio_dev,
- 			   struct fwnode_handle *fwnode,
--			   struct iio_chan_spec *channels)
-+			   struct iio_chan_spec *channels,
-+			   unsigned int max_channels)
- {
- 	struct device *dev = indio_dev->dev.parent;
- 	struct ams *ams = iio_priv(indio_dev);
-@@ -1191,6 +1213,9 @@ static int ams_init_module(struct iio_dev *indio_dev,
- 	int ret;
- 
- 	if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-ps")) {
-+		if (max_channels < ARRAY_SIZE(ams_ps_channels))
-+			return -ENOSPC;
-+
- 		ams->ps_base = fwnode_iomap(fwnode, 0);
- 		if (!ams->ps_base)
- 			return -ENXIO;
-@@ -1202,6 +1227,9 @@ static int ams_init_module(struct iio_dev *indio_dev,
- 		memcpy(channels, ams_ps_channels, sizeof(ams_ps_channels));
- 		num_channels = ARRAY_SIZE(ams_ps_channels);
- 	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-pl")) {
-+		if (max_channels < AMS_PL_MAX_FIXED_CHANNEL)
-+			return -ENOSPC;
-+
- 		ams->pl_base = fwnode_iomap(fwnode, 0);
- 		if (!ams->pl_base)
- 			return -ENXIO;
-@@ -1213,9 +1241,14 @@ static int ams_init_module(struct iio_dev *indio_dev,
- 		/* Copy only first 10 fix channels */
- 		memcpy(channels, ams_pl_channels, AMS_PL_MAX_FIXED_CHANNEL * sizeof(*channels));
- 		num_channels += AMS_PL_MAX_FIXED_CHANNEL;
--		num_channels = ams_get_ext_chan(fwnode, channels,
--						num_channels);
-+		ret = ams_get_ext_chan(fwnode, channels, num_channels, max_channels);
-+		if (ret < 0)
-+			return ret;
-+		num_channels = ret;
- 	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams")) {
-+		if (max_channels < ARRAY_SIZE(ams_ctrl_channels))
-+			return -ENOSPC;
-+
- 		/* add AMS channels to iio device channels */
- 		memcpy(channels, ams_ctrl_channels, sizeof(ams_ctrl_channels));
- 		num_channels += ARRAY_SIZE(ams_ctrl_channels);
-@@ -1245,7 +1278,7 @@ static int ams_parse_firmware(struct iio_dev *indio_dev)
- 		return -ENOMEM;
- 
- 	if (fwnode_device_is_available(fwnode)) {
--		ret = ams_init_module(indio_dev, fwnode, ams_channels);
-+		ret = ams_init_module(indio_dev, fwnode, ams_channels, ams_size);
- 		if (ret < 0)
- 			return ret;
- 
-@@ -1253,7 +1286,9 @@ static int ams_parse_firmware(struct iio_dev *indio_dev)
+ 	/* need to inc inode use count - jbd2_journal_destroy will iput. */
+ 	if (!igrab(inode))
+@@ -1114,6 +1115,12 @@ void ocfs2_journal_shutdown(struct ocfs2
+ 			mlog_errno(status);
  	}
  
- 	device_for_each_child_node_scoped(dev, child) {
--		ret = ams_init_module(indio_dev, child, ams_channels + num_channels);
-+		ret = ams_init_module(indio_dev, child,
-+				      ams_channels + num_channels,
-+				      ams_size - num_channels);
- 		if (ret < 0)
- 			return ret;
++	/*
++	 * Exclude the final JBD2 inode cleanup in ocfs2_clear_inode() while
++	 * the journal is destroyed and freed.
++	 */
++	down_write(&osb->journal_shutdown_sem);
++
+ 	/* Shutdown the kernel journal system */
+ 	if (!jbd2_journal_destroy(journal->j_journal) && !status) {
+ 		/*
+@@ -1136,10 +1143,17 @@ void ocfs2_journal_shutdown(struct ocfs2
  
--- 
-2.53.0
+ 	journal->j_state = OCFS2_JOURNAL_FREE;
+ 
+-done:
+-	iput(inode);
+-	kfree(journal);
++free:
++	/* Serialize the removal with ocfs2_ci_fully_checkpointed(). */
++	spin_lock(&trans_inc_lock);
+ 	osb->journal = NULL;
++	spin_unlock(&trans_inc_lock);
++	wake_up(&osb->checkpoint_event);
++	kfree(journal);
++	up_write(&osb->journal_shutdown_sem);
++
++	/* The journal inode's own cleanup takes the read side. */
++	iput(inode);
+ }
+ 
+ static void ocfs2_clear_journal_error(struct super_block *sb,
+--- a/fs/ocfs2/journal.h~ocfs2-serialize-inode-journal-access-with-shutdown
++++ a/fs/ocfs2/journal.h
+@@ -54,7 +54,6 @@ struct ocfs2_journal {
+ 	spinlock_t                j_lock;
+ 	unsigned long             j_trans_id;
+ 	struct rw_semaphore       j_trans_barrier;
+-	wait_queue_head_t         j_checkpointed;
+ 
+ 	/* both fields protected by j_lock*/
+ 	struct list_head          j_la_cleanups;
+@@ -91,11 +90,15 @@ static inline void ocfs2_set_ci_lock_tra
+ static inline int ocfs2_ci_fully_checkpointed(struct ocfs2_caching_info *ci)
+ {
+ 	int ret;
+-	struct ocfs2_journal *journal =
+-		OCFS2_SB(ocfs2_metadata_cache_get_super(ci))->journal;
++	struct ocfs2_super *osb =
++		OCFS2_SB(ocfs2_metadata_cache_get_super(ci));
++	struct ocfs2_journal *journal;
+ 
+ 	spin_lock(&trans_inc_lock);
+-	ret = time_after(journal->j_trans_id, ci->ci_last_trans);
++	journal = osb->journal;
++	/* A NULL journal has already completed checkpointing. */
++	ret = !journal ||
++		time_after(journal->j_trans_id, ci->ci_last_trans);
+ 	spin_unlock(&trans_inc_lock);
+ 	return ret;
+ }
+@@ -196,9 +199,6 @@ static inline void ocfs2_checkpoint_inod
+ 	if (ocfs2_mount_local(osb))
+ 		return;
+ 
+-	if (!osb->journal)
+-		return;
+-
+ 	if (!ocfs2_ci_fully_checkpointed(INODE_CACHE(inode))) {
+ 		/* WARNING: This only kicks off a single
+ 		 * checkpoint. If someone races you and adds more
+@@ -208,7 +208,8 @@ static inline void ocfs2_checkpoint_inod
+ 		 * OK. */
+ 		ocfs2_start_checkpoint(osb);
+ 
+-		wait_event(osb->journal->j_checkpointed,
++		/* The wait queue must outlive journal shutdown. */
++		wait_event(osb->checkpoint_event,
+ 			   ocfs2_ci_fully_checkpointed(INODE_CACHE(inode)));
+ 	}
+ }
+--- a/fs/ocfs2/ocfs2.h~ocfs2-serialize-inode-journal-access-with-shutdown
++++ a/fs/ocfs2/ocfs2.h
+@@ -388,6 +388,7 @@ struct ocfs2_super
+ 	enum ocfs2_recovery_state recovery_state;
+ 	wait_queue_head_t checkpoint_event;
+ 	struct ocfs2_journal *journal;
++	struct rw_semaphore journal_shutdown_sem;
+ 	unsigned long osb_commit_interval;
+ 
+ 	/* Journal triggers for checksum */
+--- a/fs/ocfs2/super.c~ocfs2-serialize-inode-journal-access-with-shutdown
++++ a/fs/ocfs2/super.c
+@@ -2048,6 +2048,7 @@ static int ocfs2_initialize_super(struct
+ 	}
+ 
+ 	init_waitqueue_head(&osb->checkpoint_event);
++	init_rwsem(&osb->journal_shutdown_sem);
+ 
+ 	osb->s_atime_quantum = OCFS2_DEFAULT_ATIME_QUANTUM;
+ 
+_
+
+Patches currently in -mm which might be from zzzccc427@gmail.com are
+
+ocfs2-serialize-inode-journal-access-with-shutdown.patch
 
