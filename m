@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802850;
-	b=Lw83blXAm/f4wTSeb4iUk0G99VkXwcyoPfzg/3PeWMjUUn582N3BZkPXNo/SJjmjjlQT
-	 BcAKd4+ctjAiEfKYhMOeYdRyb2ikazZQz216Gn8YHoDMuLn1lb5cvkytA/gjWZNY1s/kI
-	 RSi23H3MjUKM3JKfwRMVWQBoUG9rlblfRunY7GF28CZFHPjFj6dr9/BCpBhnoUojoSJ9+
-	 aL0CVaHB4pWytM4hsMcHNKK8h1mVdn1e3DZZ5Y6gNZnlOAZ4fA7xsqjCAN1IvuF8CQqZD
-	 IW5rCXdAYmIaoeYuTbyT2ZIBb8h/sTPbwnE6GQvrjgb7RXxArxbA2SfRttfTnri+Qbw==
+	t=1793802852;
+	b=YiIzX58jvnJWW/hg0jU7NdbBf0BH04dQ7dda4mqoQTWCzI19g0dAtcR/ZR5Jb2IKAoaR
+	 n5bg8wnXjsyy7hOSUemaJel24dYcL42JqlsNMwjRTnCNen9iYmeircPTOSe2dayJLdEg2
+	 7Cdkz+zkMQa9/OScHPRej02Si9HcTXAIzsOqNbHFBXiEQ+Z+r0mxXb/MrBpVLf7E6kmag
+	 bkWgliQhePQQCYdWULfOZ6xzPrWRsKs676M4gYsbNpVxZd31iSF1d8KT8jrsO6MdNON+y
+	 +ttLkPFlLTVa4zw+9bl53qQpJ/8pK4gQQ3npSu1hgV+zT2bsZiBFHQ61qUTuxX7WaXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802850;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802852;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Y/tjqz1Q2L4tLJZcXJKAzB+HQ/nk7hEE2Qo3IPqpgeM=;
-	b=ER9p+ZgajezTfCkRGBIhy0Q4rcymx3dJnxyTOELJfj53ZT0i146vNV3V3WpXKSQYUe4h
-	 ZdzECzXClAls0i1Y2jvuEKrCMGb3ocLwMuv6j8gdozKpqztC85pqe2hYpzpauaA/2D6c5
-	 1f4Q5KyrH88K3DKIpn814i0pczXRmkk/g8Y4tXFRDsYqyLgyBgNZTB5B0jjZWao19mXqK
-	 XYuzGUHnrXqRKBrXs6MxSswLSRwqajWUXNxdMO0nTKqsiUQrkoW3i8CQsH7u5qWYeJef6
-	 VBXfSW3mSDGRmgIRPrYL4gsoYkOoqQqdeW8ccVBPeHsPY0x2IcuQPx6S1a6pA3DKRJQ==
+	bh=TyxJJdmhTXl4CAvBL2Iqll4gjoDEig5SRTifTX9/piw=;
+	b=cKvs9Zp2vGUVD/K6cncdtMJE23zM2buro3DLPnDmarqTU5gGwfJZP01VUW9IQgoX8yGZ
+	 2nJJsNb0uBsnlaOlZridAT31nQYemX8LOoljHwwJbvQ+thwvfPJiX7qE1iFhUOtGhDu0N
+	 XzZToHOvDAao6yvdRhaQkyP9DlKFomu7e0Q8ht2HYZD9x2XSe6wZHF3Q9oLuYvgQXTS3X
+	 hj1qfZhUgQyaeAkS6O4fKJSQUJqQrcSDQ9TMHKzjcxrCgekQ4SNc5HgiJdqJ/CPwGl/oY
+	 V0UKK4Nt8qxTusO/ITpvwYbe8poTXCVk0E0dHWLeCFk8RrEsxf2PJOXOQIZS+0tp4Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WVe+3bNH;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=quZgAAL8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B6D7606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:34:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89549606A326
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:34:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=WVe+3bNH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30BF91F000C1;
-	Wed,  4 Nov 2026 14:34:10 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=quZgAAL8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 270341F000C1;
+	Wed,  4 Nov 2026 14:34:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802850;
-	bh=Y/tjqz1Q2L4tLJZcXJKAzB+HQ/nk7hEE2Qo3IPqpgeM=;
+	s=korg; t=1793802852;
+	bh=TyxJJdmhTXl4CAvBL2Iqll4gjoDEig5SRTifTX9/piw=;
 	h=Subject:To:Cc:From:Date;
-	b=WVe+3bNHlAjWfga3fKbE1BXxXZelvtNTSnu11IV9wS/yP8v9llrr8D4jDwtolbrB3
-	 +Uao7ovnJ+D2c1lyI+sF48eMnjRulYjIfmEMFzBibdijlpSgRqwpYcm9kCaE0HgUo+
-	 wHxLFaaM/EarYoDAi79C0wRXfluLaXy0HTRyLn2c=
-Subject: FAILED: patch "[PATCH] smb: client: fix OOB last_entry pointer from unbounded" failed to apply to 5.15-stable tree
+	b=quZgAAL8dwIEP6xbDbDj22FR3UIe+WoaKAIrUgn4jSW5CSHALFuaUEzq6uxwUq3xh
+	 AXLN5J8vnvOITSCrgIoFKHKUr2P75XIq/DFozedLRfUDmYGQnOPXs8igf16BTFkaoU
+	 QQLJDNSYnY17TyTrrPGcc+TrSGEhjoF+ZBIVOKZ4=
+Subject: FAILED: patch "[PATCH] smb: client: fix OOB last_entry pointer from unbounded" failed to apply to 5.10-stable tree
 To: diego@bynar.io,dhowells@redhat.com,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:34:06 +0100
-Message-ID: <2026110406-relatable-lilly-bbff@gregkh>
+Date: Wed, 04 Nov 2026 15:34:08 +0100
+Message-ID: <2026110408-steadily-clubbed-ce70@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 570c783a96f054dd3ac409a92772e9afb705d21c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110406-relatable-lilly-bbff@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110408-steadily-clubbed-ce70@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
