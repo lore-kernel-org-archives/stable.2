@@ -1,47 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818500;
-	b=vBXQ+D+I/q+/0qjeD4I6xB37x8Wonv9wKVNQSbocOhwaKFouwqyB6fWqck4NsZxhTqLT
-	 JWyoyhSlloSq/pZzKaOHE88SyNwBjk1Sd47AXy1oMFc15g9debwU1+dSlizpVvrNuSI/y
-	 ZR2fJ/xCqCyFPnJq0eg0ImBBRvLPkAJbw+RaWx7/ciolFqHFxaQB5vmZJbyC77YHCtY2S
-	 XXsX8X1pg7+4Fl6iaA+YY7xn3vGV327cZCw5g733cJzb3UFnYNAkZ6B8U4q+fHWnzk6cS
-	 sk2clay4FZv38SChmxMCCIx8eq38JTwFWsULb7AgWZg5xpXd33UPng8r4whRTNbL52Q==
+	t=1793818540;
+	b=BK5vAvjKzA9Rj0PGKKLKTX6tMD8T6elu/YOTEovtPc/AXZe/qYpbdFsJzXAV1Tg6SmML
+	 o65aLJ8etUsPbhv9Dsjtfm5BCqK3jG5KDjSL7mfi2Bcd/RvyJw4lNf5Dm4qqsts5xusGA
+	 uzPTw9ZKPFutD1urnoV/luBLXXCkZOXhhBgGhADYgn45usWr3ux4yycrSZDCu0OuoXijQ
+	 5H316c1EeubR8YKORHDNWOvnqhjM1LRsMB3T/J6RQrDipXUQ1pYZuLvB38SBMYY3H6y6Y
+	 VQjx04OXzpX+v6JJYD3lVe4RhEz31q1lXFiKeO3XtolZW56z80KzMtZSwxumEdDW6gQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818500;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=caxoY3H4Kl4uMOmsCep8iCz3VP5lNQye4rUNwGHOUDk=;
-	b=ttmZwb1Zing+AYOCGAKMwOZEiDWcmGzpPDjWQMUeJAiUW08lQaRLMCGh595hqpIrTL9L
-	 CahPnfjFIMwJb5oUDv4flxr2aasSm32A8kxfaBKrcTDjo2EPV3YVj0daQuDbl5awAR380
-	 du/fNkkVS1IWXgcMLTsZw/1rJp0wE+BDUHicPJ/u6FfTz2ritbU2Njvbn4CiZ3kl/XUBk
-	 a13lYelmgDweDbN3m25WM7OIT+tTAXc6AzaLCRJF+7EDTStsE9exExCAOJTgcK2NKiTDz
-	 FsJoBMllh8f8sB//ap1w+vxpSB4SnRdIF+MegSEoeGXhaHmi8E+6VI1LkbxvfONVN+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818540;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lJ9oFY2f4SSxHAugcTyJowGx3KfjwtaAECBMXqE4R2o=;
+	b=Y5xKyHoyqlMLrLutQBDjICS0bb/abC5golLCE633PgdMa+5pzz5fDQUUGxexY2fMbclB
+	 1a5V2TVGFZ0q9u5Xud+s8IoU4YSik0QGTFsazqAFKUM6d7jJTXnDfhTt9UBUdlu+UEFyC
+	 AEcSsuFGRnetOug6giwmLKL1F1fkzZkrzz8WRw/q2Un8fr6LNWLE6/J6yb8e7Pt3BDrET
+	 My1Oz04GO54xAvgg7QuM9atKsChhjspBgw/3Y31AZDhu9VwsVoLk5qQG8Iz7UStjYdAZQ
+	 MHAeHc8HLKkHrVum4B1IukLiQqik04c/dvaHR27bKt1vyhs8Z+denQr32h9+UEfKCkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ONXPNdFG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m8BXgpez;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75471606A33D
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:55:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A089A606A32F
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:55:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A089A606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ONXPNdFG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D51B11F000C1;
-	Wed,  4 Nov 2026 18:54:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793818500;
-	bh=caxoY3H4Kl4uMOmsCep8iCz3VP5lNQye4rUNwGHOUDk=;
-	h=Subject:To:Cc:From:Date;
-	b=ONXPNdFG5+wmiU8Hdz5Hr1KGNFmc1y1X1Q0O2Sj/WG+CpzZ4hpLDnwUn0Ozb9EmRi
-	 ghJJj4REaTy9rYVBeN+wZkzqjx3sLDLYfs5Yeu7/+IAqofojla9nV5Lg5j3YHTRhnL
-	 kCwaxZoAVMmciNgdxU/wBoUYFnps+KmkZfeVIX5A=
-Subject: FAILED: patch "[PATCH] SUNRPC: Copy the deferred RPC Call from the head buffer" failed to apply to 5.10-stable tree
-To: cel@kernel.org,bug-report@moonshot.ai,yilinzhang@moonshot.ai
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:54:58 -0500
-Message-ID: <2026110458-walnut-distant-f403@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m8BXgpez
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a215e64962so10256545e9.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:55:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793818538; x=1794423338; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lJ9oFY2f4SSxHAugcTyJowGx3KfjwtaAECBMXqE4R2o=;
+        b=m8BXgpezTv3Wd1N0PQZlR95qtaN6nSFi4sYXFhljOYLto4MiT5wuHpPnUHdxtUYYp2
+         n9Ob1kQsyslCDkr1MonzSRLtMVd3SuaTGdBe9lK/AAz5czYcI0Vl/OAbmBK8kx/To8ZN
+         j0hrpFSMeY/u4azd5DkFs7U35AXXwM1bSsI1CWKrowIaezSc0E+RmEpw4F5WlM4YEEkG
+         SpWxbLGZvee8KrcH/ZRyM7qPIIIJpshy5H2+boSxIJeV2dyju20tvlUz+MWCS59fxkNE
+         UgbXfS4FUAHS8C+NtrS/iLvC/yH3CRyiqnrvt9dEa0xpyL0pg+D/zL/cqwAn4dzB4F9l
+         LrRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793818538; x=1794423338;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lJ9oFY2f4SSxHAugcTyJowGx3KfjwtaAECBMXqE4R2o=;
+        b=Qctcp63kk8LlTw3OBGkcaK+xG1LP6Ttv06zOuKaTgh+O9/QxRWTaHDBUNk639aHZLo
+         vgrA7sb13L0z3vPnKeRmC0XFqSswbH028PtyDaU/4B2KREZjxHwod7DGd8yA79uFYxqt
+         BmVu3htEh/CDIIGo7Pr1PFjhqoD+v8T60zH3Eou0hCoqVnnPoNI3oGxvQDI7lAyGgDap
+         yH9fApWF0pPmFJF9SLfOVKVq/ST5ZYK6rqV5erCyu9r5xYNUr4mQQuIAPYxlijPN9P6X
+         UpipZARrbVjKIFeCnHLZV0TQzlpVAJf6kyzwM2swIAv49uOT3nsvkMdVqoNl6Qq49xJw
+         HKvg==
+X-Forwarded-Encrypted: i=1; AKwUvBzjXz7dl14GdmBAzi7YNRGcpoFjmr9AJ52POw48qr6Ht3KqSk1pkAzLGJ2RpQJZ3uKfUOWsIp0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NsueCiMJ3iIsMLckAOu4y5ODJ90dw9ssKf0RLz7VSDGGjGE51
+	XzQUwQSj9s3OJgtE9iBVS2SI0n2jeonUKtzSdT5SOiDT5YR4TtEynsmKZdBoiScr
+X-Gm-Gg: AYBFou1RPKoKn84xMTvHWgzuFYi6pBEB2cGcqPISTKRb9PbS39XLJzF2vx3ZcY25ZNI
+	bRCLu2w1aAw5yJWJAi90fZMY9SDhT9Xd1N3/nnFJ49CZxoX7mkPJhoYC8ko2VweKJCOmTNgw0f5
+	SRhuiIpv03CQqvfCmQoW6ZCB5QWVWfFrBGorpW2FfQbeelM/a02l+dYwiOcvZdGJ1bOYRgl3r67
+	e/BpN33m3hTkRDG6q6kPoZ4/TZI9Qz7lyUbH7WkdXe3C6FYd8nbaJupgvjKFMwh6MsLGLNPaFKH
+	QM4W6Lg7MCTO/tqph8jHSFhDWvnyCk/aFWu/sELDBYB6UIXtwD53dLx7ZzJWfHMdqayif0llrxI
+	g1miA9hRmOnwQAFR3jbwF9cCIPOnNDGFhffQCCZ950hj8lR4iQeOe271M3xuqo1CVQ1rpe3vwFm
+	EUZtfhu08v2YMKr7gF1oMol1mHZx71GBRmNkF9YOTcs4TSFCxzzwUNwBeCnY3XHMH0J596GTjx2
+	R+nCikXJHyCOXo3TK60V315PNQpbA0qaszJ3ttLppWmf0tIuXKOMqiT8WZAtS9dLRqQCTqs1zFD
+	KLsoxD+2IP61dEN0Swukz7L23T3bdQnUtVS2OCxGVIxg5F0qQTaZX0CRLziW5NMuk5hsmRGfd3V
+	lBoHLBivNapzm
+X-Received: by 2002:a05:600c:8b5c:b0:4a1:fe55:88ef with SMTP id 5b1f17b1804b1-4ac1889c4b9mr405197805e9.20.1793818537981;
+        Wed, 04 Nov 2026 10:55:37 -0800 (PST)
+Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b57317cb8esm3831625e9.13.2026.11.04.10.55.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 10:55:37 -0800 (PST)
+From: Amir Goldstein <amir73il@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Miklos Szeredi <miklos@szeredi.hu>,
+	stable@vger.kernel.org,
+	linux-unionfs@vger.kernel.org,
+	Josef Bacik <josef@toxicpanda.com>
+Subject: [PATCH 6.1 2/3] ovl: skip copy up of empty security.capability
+Date: Wed,  4 Nov 2026 19:55:35 +0100
+Message-ID: <20261104185536.3631167-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,130 +97,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+commit 50912a1715b8a7c614b654011a0db750e372b43e upstream.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+ovl_copy_xattr() gives up if it can't read an attribute that
+listxattr() has named.  An empty security.capability, which anybody has
+been able to store on any file for a long time, is such a case: it is
+listed, and getxattr() has nothing to return for it.  A file in a lower
+layer that carries one can't be copied up: it can't be written to,
+renamed or have its mode changed.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+There is nothing to copy if there are no data.  Go on with the next
+one.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 2192a56b0686599358909c3e12e9a366f5b5d452
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110458-walnut-distant-f403@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 2192a56b0686599358909c3e12e9a366f5b5d452 Mon Sep 17 00:00:00 2001
-From: Chuck Lever <cel@kernel.org>
-Date: Wed, 2 Sep 2026 09:31:01 -0400
-Subject: [PATCH] SUNRPC: Copy the deferred RPC Call from the head buffer
-
-svc_defer() snapshots the RPC Call for replay once a pending cache
-upcall resolves. It copies the Call starting (rq_arg.len -
-head[0].iov_len) bytes before head[0].iov_base, a back-up that once
-covered a transport header. No transport has had one since commit
-983084b2672c ("SUNRPC: Remove svc_rqst::rq_xprt_hlen"), so the two
-lengths are meant to be equal.
-
-An RPCSEC_GSS Call breaks that assumption. Unwrapping the integrity
-service truncates rq_arg.len by the length of the trailing checksum,
-and unwrapping the privacy service leaves rq_arg.len short by an
-amount the client sets with trailing bytes after the wrap token.
-Neither adjusts head[0].iov_len. Both lengths are size_t, so the
-subtraction underflows and the copy starts past head[0].iov_base.
-Every deferred integrity Call replays a shifted snapshot.
-
-A deferred replay skips GSS verification, so a shifted snapshot runs
-as an authenticated Call. With the privacy service the offset is
-client-chosen. A forged Call placed in that window, naming another
-user's GSS context handle, runs under that identity.
-
-Copy the Call from head[0].iov_base. Refuse to defer a Call whose
-length runs past the head buffer, so the copy cannot read out of
-bounds.
-
-Fixes: 260c1d1298f6 ("svc: Add transport hdr size for defer/revisit")
+Fixes: 8db6c34f1dbc ("Introduce v3 namespaced file capabilities")
 Cc: stable@vger.kernel.org
-Reported-by: Kimi Security Team <bug-report@moonshot.ai>
-Reported-by: Yilin Zhang <yilinzhang@moonshot.ai>
-Link: https://patch.msgid.link/20260902133101.48914-1-cel@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[amir: treat -EINVAL as no capability too, and do the same in
+ ovl_copy_up_meta_inode_data()]
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+---
+[ backport: context: no blank line before the ovl_getxattr_value() call;
+  depends on e6b9117076fb ("ovl: fortify ovl_copy_xattr() against
+  underlying layer modifications") ]
 
-diff --git a/net/sunrpc/svc_xprt.c b/net/sunrpc/svc_xprt.c
-index 68310521ddb9..d5634dd6d6cc 100644
---- a/net/sunrpc/svc_xprt.c
-+++ b/net/sunrpc/svc_xprt.c
-@@ -1299,13 +1299,8 @@ static void svc_revisit(struct cache_deferred_req *dreq, int too_many)
- }
+ fs/overlayfs/copy_up.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
+--- a/fs/overlayfs/copy_up.c
++++ b/fs/overlayfs/copy_up.c
+@@ -47,6 +47,15 @@ static bool ovl_must_copy_xattr(const char *name)
+ static ssize_t ovl_getxattr_value(const struct path *path, char *name,
+ 				  char **value, ssize_t *value_size);
  
- /*
-- * Save the request off for later processing. The request buffer looks
-- * like this:
-- *
-- * <xprt-header><rpc-header><rpc-pagelist><rpc-tail>
-- *
-- * This code can only handle requests that consist of an xprt-header
-- * and rpc-header.
-+ * Save the request off for later processing. Only a Call that fits
-+ * entirely in rq_arg.head[0] can be deferred.
-  */
- static struct cache_deferred_req *svc_defer(struct cache_req *req)
++/*
++ * Any user can store an empty security.capability, which fails to read with
++ * -EINVAL.  It grants no capability, so treat it as none, like no xattr.
++ */
++static bool ovl_no_fscap(ssize_t err)
++{
++	return err == -ENODATA || err == -EOPNOTSUPP || err == -EINVAL;
++}
++
+ int ovl_copy_xattr(struct super_block *sb, const struct path *oldpath, struct dentry *new)
  {
-@@ -1318,8 +1313,11 @@ static struct cache_deferred_req *svc_defer(struct cache_req *req)
- 		dr = rqstp->rq_deferred;
- 		rqstp->rq_deferred = NULL;
- 	} else {
--		size_t skip;
- 		size_t size;
-+
-+		if (rqstp->rq_arg.len > rqstp->rq_arg.head[0].iov_len)
-+			return NULL;
-+
- 		/* FIXME maybe discard if size too large */
- 		size = sizeof(struct svc_deferred_req) + rqstp->rq_arg.len;
- 		dr = kmalloc(size, GFP_KERNEL);
-@@ -1333,9 +1331,7 @@ static struct cache_deferred_req *svc_defer(struct cache_req *req)
- 		dr->daddr = rqstp->rq_daddr;
- 		dr->argslen = rqstp->rq_arg.len >> 2;
- 
--		/* back up head to the start of the buffer and copy */
--		skip = rqstp->rq_arg.len - rqstp->rq_arg.head[0].iov_len;
--		memcpy(dr->args, rqstp->rq_arg.head[0].iov_base - skip,
-+		memcpy(dr->args, rqstp->rq_arg.head[0].iov_base,
- 		       dr->argslen << 2);
+ 	struct dentry *old = oldpath->dentry;
+@@ -98,6 +107,10 @@ int ovl_copy_xattr(struct super_block *sb, const struct path *oldpath, struct de
+ 		}
+ 		size = ovl_getxattr_value(oldpath, name, &value, &value_size);
+ 		if (size < 0) {
++			if (!strcmp(name, XATTR_NAME_CAPS) && ovl_no_fscap(size)) {
++				error = 0;
++				continue;
++			}
+ 			error = size;
+ 			break;
+ 		}
+@@ -947,9 +960,9 @@ static int ovl_copy_up_meta_inode_data(struct ovl_copy_up_ctx *c)
+ 	if (c->stat.size) {
+ 		err = cap_size = ovl_getxattr_value(&upperpath, XATTR_NAME_CAPS,
+ 						    &capability, &cap_size);
+-		if (cap_size == -ENODATA || cap_size == -EOPNOTSUPP)
++		if (ovl_no_fscap(cap_size))
+ 			cap_size = 0;
+-		if (cap_size < 0)
++		else if (cap_size < 0)
+ 			goto out;
  	}
- 	dr->xprt_ctxt = rqstp->rq_xprt_ctxt;
-@@ -1358,17 +1354,13 @@ static noinline int svc_deferred_recv(struct svc_rqst *rqstp)
  
- 	trace_svc_defer_recv(dr);
- 
--	/* setup iov_base past transport header */
- 	rqstp->rq_arg.head[0].iov_base = dr->args;
--	/* The iov_len does not include the transport header bytes */
- 	rqstp->rq_arg.head[0].iov_len = dr->argslen << 2;
- 	rqstp->rq_arg.page_len = 0;
--	/* The rq_arg.len includes the transport header bytes */
- 	rqstp->rq_arg.len     = dr->argslen << 2;
- 	rqstp->rq_prot        = dr->prot;
- 	memcpy(&rqstp->rq_addr, &dr->addr, dr->addrlen);
- 	rqstp->rq_addrlen     = dr->addrlen;
--	/* Save off transport header len in case we get deferred again */
- 	rqstp->rq_daddr       = dr->daddr;
- 	rqstp->rq_xprt_ctxt   = dr->xprt_ctxt;
- 
-
+-- 
+backport
