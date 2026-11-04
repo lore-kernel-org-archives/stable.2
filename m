@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801800;
-	b=eMvNechfcf7Lke2qmSoJPHOkQLmzhD/omoP1ADlsgR36GRe6PMU5pRDdr0QOe2/ozICZ
-	 2PQbSVe82is3C4sNO1qPJ7HKTbnoIfm1mcdmXJuzhakhGikf6lQVKbKMLWv351IXUPNne
-	 zVYmCWPb6H53XEwpTVRR4N0hQtfdy6cKzj404nyCZQb8hjroRXFNctocccy6rWjlBgslu
-	 45bondr6z531Jqc/yrjgHcL9aIYCYwbC6sxVMGnClk9VWnT1q5CqGnMyxrALcU65uB8oo
-	 ueoP56kjoVeSPCB/u5wXsNovC5jzRu8QNZasxKcp5wze763LLD0tGO15N6Xi99oTv5w==
+	t=1793801807;
+	b=Dp2d71cgtuNwbfiS/9ZowaVEqJtdi2JhRLvx8IRoip5QBG7yYgJIGAj1fAAhCfqz6uQx
+	 4/tqJSawDAFwAKgXP1Lj5PQ7CGbCZT0CtcYELuhEPK92VV5Xuefx+UzePDLudMstYI+I7
+	 xT0GsqVaWVXpksXO0OHI8FD5ZuwmM90X80Tts7Um6N/jkzQ0TIJZkFoVdMbAxcG3DF4l0
+	 qcfVgc2rzjnqaIxV9OLO5wzcOkRHbQ7nqyVqn1tC+pG0cV/hO7ThUBF/aDGTCkGaB6Nnf
+	 eH73eNV3Pcq45l0KiA0zmkd2e2UFX/jtNLZEBQRniQ1y2JgRlT5a0qxshUar3UiShIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801800;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801807;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6vhh8d7LmXkPbUIdWeeFVCQWN9kkOoFbFS6ReDcu/bs=;
-	b=UVVHGLWXuCPf4cSMpmquWRJpvDKreoTiyOgcY9AIpyXxa5WQBGlhHvO1K/4/ED2OSz2B
-	 bt0fhuAsTwLVZddruEkq9wM0wSi52G4eqJiqaXTUkruL9vyY657l4xAHrvf0f2rNeSowJ
-	 odJkli8Hr8c3yX9TUP/IbIVQbFXkx/kscIBlx9l66+BVZIEltew13I4om6cme7cJ2uMt4
-	 JDdPjzmjcGY2nXCx3zL8Acnq4j2xeVgUwV7QoTJlHKFI9qT5+H38ZSZ4xgnXDOtpAUo8J
-	 81yBhgPJ/znT6tWcOefwyI2Ut/tsxRLDQj6Yrez/z8jiWOnlhpD5DJWwCKwXiyT12gw==
+	bh=FHGfNk0yZptQopCLDcFDSPPnYNGtrLmf5K6Nx8XMSuo=;
+	b=XJfj9Gnholoj0HHOceJYdoj7gCAKYMeQiQqc9t4jeTuHPGcgyeEA8sB4BrDnq+/0WPcG
+	 aChVSaWtjZTjHIYBZjtPNQHr/JLWrUXu34IfDEuPjGSpMuI7cfwMIhLzIg4mDDneMxpJK
+	 7tJ9GETwTD+muPyfDKn95+0W1XAIoN5ie2tQNsAYs5cQ/ZL1qPplBlKFWKuB9DEyDX2yg
+	 8wEm6TexxKn7yYPKgljTKBZ5bviRbgiiMNWyh3CIbu2AwlUq/RCDP1Gbv41s4By1Dr62x
+	 JP/iO3oafCW4y+JikQOuRiGILvBL6VXhHdrfFz7cIieGFb4syims/VFvgA9i8Au0UxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gkoipYpI;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=j6cotRsJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A87ED606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:16:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6571C606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:16:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gkoipYpI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 309031F000C1;
-	Wed,  4 Nov 2026 14:16:39 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=j6cotRsJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C09D11F000C1;
+	Wed,  4 Nov 2026 14:16:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801799;
-	bh=6vhh8d7LmXkPbUIdWeeFVCQWN9kkOoFbFS6ReDcu/bs=;
+	s=korg; t=1793801807;
+	bh=FHGfNk0yZptQopCLDcFDSPPnYNGtrLmf5K6Nx8XMSuo=;
 	h=Subject:To:Cc:From:Date;
-	b=gkoipYpI6KTblY0KewcRT8yyVxEMOh4TiebTum6Ap8soV7SOVx/QilXGMD0oTgaeG
-	 30eLoutfKKyU+kUY2jR3qkxhBZqLTLjps7YUZGlxkHx46R4yvG1WXsRF7A/98teQRf
-	 d0zmGG594fPum2J+qLzghNmLv9qcnKU0nIigDqzQ=
-Subject: FAILED: patch "[PATCH] KVM: guest_memfd: Gracefully handle xarray errors when" failed to apply to 6.18-stable tree
+	b=j6cotRsJUJQ/wjs5rdT2h6+QgSekswcEV03ukAUa507J+yGpPdYtt04j3dCrX4Cc5
+	 SVIjz5jfO9CKCjsrB52VP2YejZClVVql+fh4KfkHKbLLxewmQf9PYRCUMosiBsztYu
+	 iM7vRdit+u37ecc87H1DxP/WKP8ZYqMQZR9XKBUE=
+Subject: FAILED: patch "[PATCH] KVM: guest_memfd: Gracefully handle xarray errors when" failed to apply to 6.12-stable tree
 To: seanjc@google.com,ackerleytng@google.com,david@kernel.org,dtighe@google.com,fane@google.com,sashiko-bot@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:16:37 +0100
-Message-ID: <2026110437-amusable-desecrate-4962@gregkh>
+Date: Wed, 04 Nov 2026 15:16:38 +0100
+Message-ID: <2026110438-crown-brisket-9c6b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x e6ecb88711d93b9e014532f17d3d29b57e80932c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110437-amusable-desecrate-4962@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110438-crown-brisket-9c6b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
