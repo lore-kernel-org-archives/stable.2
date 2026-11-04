@@ -1,57 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793821006;
-	b=agoKQf+CLyw/mQbQayshzeRhstJKFBB73lqQT73LGHL/essMVfIg8KsK++kempcAXNMq
-	 9+FkcjD7sNU4MBwdrm97cONxBDNgGnx70CprqQC1ErUcQkjfPFnRXbE5wsnaHoV6WoszF
-	 BaYdVk0AJrq6lwcLkptFXzyvJPj2qvOVnHcY7fPfvJnzKGzCmasmJ+eR0xHoWtW6DKQlK
-	 RXr0nKkWFWtsO/nhsM9THjPRCQJoqiRnuW95hNZ9ya3KrXC5fRs6p71P37YrjeulQ+dew
-	 05gwq36zELJ9t+BhBhomrAMUxPZs6q1z+t28WMPX2tRr9UdmyTpDhFTNElRq1C5V1Aw==
+	t=1793821020;
+	b=Ssj979BkdMoZPFne84DgjUNfOtYtwTSJOTNufuZk/VgbERNNczgyCPjVTWgUO6xvdAkG
+	 3gu2MOOwz0dx/C9mIe0mbwWVxaW0AVx1nyp+1ffNgif71ywJHWF3mdvcQxOnnJZrlrHkv
+	 xrC5/wTIXVoUhEkxVwpY8GC5QPzqxU6UIhF1sQNxFIPAOkpeTdhBRhuCPLeMyxKmJ3AjL
+	 5DiGZMcrhMb6uLH1O8yFmbB3NQTbgl38LrXA4VsJE+K/Le2nOs+5rMWXWG/F2Flp9vC+7
+	 pl5ykVxi0VsjFa1L3GGZO7FbN5ELwV7SjYqeNuHtmoF6FhhQJG3c3pvWUrsGVX5swWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821006;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821020;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vacJc3kgmqQDDu3IMHAaeJ9Xr9kKhJgkeRjQXGhVwCI=;
-	b=tSWF3Qyh8bD3jFdg7h84+WggyDMmZ74/CfvzOtIsy+d5yzEtqlFS30w7dClYQGQVDeRN
-	 VvgOsDjml64SBw50ncmEWWgpWQbLcoYuThsjsAul6LxFLEQiLHOAn+h/rQ7A4WLA1/mic
-	 N4EnKpth67ZDbxEDHAJkj/qi4F81gBg2G3VuJZKY7eb8KV7r++QR+3Yp1DXQYIfkIJyg8
-	 ltdgEoKq83isZA+PO8GVCORblZtyEObZ+xbn7+6zkLeILpg5JDEAkUW4G0e06zUJg4slg
-	 VW73dcfucKIFC5oURl6CPZLG0/o1kL2DeDCIzlhJZJGefz9XUdHz4tI/oIitcgS/XIQ==
+	bh=To/xl9v7xcWup0Loez0F4lUXpRo5jhRHVz/le/5qwK0=;
+	b=KMnNlXOYRE4849uUsgeBlFWbo+Nik3lTsgdw4UpKpRGu37vVosYulplEJrviB4XRY/zw
+	 qWNLHcZgY/5IiiJ5SNhLU2IBV/wRUwnpHix7nBb8S5blFj2XFLZzFaOXC0FFMJ/6vVlg1
+	 wpv+TIo1E70W8vqtBR0nPZWmrJdF4smtD+S6HhxDcO29af0REStMkb83hy5q4QzNLe2IC
+	 F+I3bSYiyHBFKEU9APuRoSXnKDN5h8Yj1SCjm8t19JJplCDcuQlWfG4Sa+80IBR7N+0nu
+	 bSkCn6q3V5wbFU2M/WCtj7j+nPQ49xqroF+0cTrHDpEnqjuMxg1xqRunzuSfkY1FDIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L1lg7cn7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e4HFMy8H;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E6A607026F
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:36:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4AD6606FAD8
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:36:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L1lg7cn7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F8F51F0093A;
-	Wed,  4 Nov 2026 19:36:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e4HFMy8H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80DD1F00919;
+	Wed,  4 Nov 2026 19:36:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793821006;
-	bh=vacJc3kgmqQDDu3IMHAaeJ9Xr9kKhJgkeRjQXGhVwCI=;
+	s=k20260515; t=1793821019;
+	bh=To/xl9v7xcWup0Loez0F4lUXpRo5jhRHVz/le/5qwK0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L1lg7cn7hfQ488gydL9xeiP1vif7zTHRSESrJ2oGOe514W8DJT+f3TV3hnXI+iTHU
-	 aEERm51/nXREIZ9VHr+YVL+79sHoKR9HxXJiuPIx+FxKI7qlkh/cnFgx1aMRbkIXFV
-	 +3sWHawSrTS3uCaZdzZKzhWvV/3n7ywXFdl1f8MdjpKzeDQUxOcC2k3dPNsFynkWph
-	 IeStpXF6gTOVFVpX6qM5RXS4JYJB5vzX8Xq6FeUuKodXDzPEJ9JQ4gCCmi2hxeKo08
-	 VFTai7/7oJu8j4AYy2pmIADwfZTeLTwylm8A59qyTnxR06vg3HoKJy9HlEy3PMtYic
-	 EcuDee5hWI4Eg==
+	b=e4HFMy8HAvcpXUJ7VJeohH7pl+71v31z8B5Diz83ynGvCxY2X9Cppj/xPofKoVjfX
+	 AwjAhzY1eIpr4pBOxMB3bdoM3pWwbjKkawE9qSpo64Bm8+uRU9vTDgcPRVSPLgjVLV
+	 nLyXtOp5Gu05TWaaapA7mslgxOpz4/+C4LCV4QsiPGFHSd1iwBA4XVdWBGmx5g5LJR
+	 XQ5WJWnUFtri01SOZzbcFCO/ZgEG8vH/PNzdfEqdsJjDBxIa54UTzbfD/cL/C+hjBr
+	 0045rpNwK/7McUpGao6Phlj+nqZ1UacsTpjq3ZPJExoGdKQEff9AnNgHvvpTAv3tj2
+	 0z5Qwy2d4aNgQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Diego Oliva <diego@bynar.io>,
-	David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Oscar Salvador <osalvador@suse.de>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Adam Litke <agl@us.ibm.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Rik van Riel <riel@surriel.com>,
+	Peter Xu <peterx@redhat.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] smb: client: fix use-after-free infoleak via the readdir resume name
-Date: Wed,  4 Nov 2026 14:36:42 -0500
-Message-ID: <20261104155725.3917936-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/hugetlb: fix use-after-free of a new anon folio
+Date: Wed,  4 Nov 2026 14:36:56 -0500
+Message-ID: <20261104193644.3973734-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104155725.3917936-1-sashal@kernel.org>
-References: <2026110402-earlobe-scanner-01d6@gregkh>
- <20261104155725.3917936-1-sashal@kernel.org>
+In-Reply-To: <2026110457-showroom-renewed-cc95@gregkh>
+References: <2026110457-showroom-renewed-cc95@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,152 +78,109 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Diego Oliva <diego@bynar.io>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit 59131dd72f62b198fc9ea1489ad9d3573154f684 ]
+[ Upstream commit 824cc56bf43c714319992bad3558803cac6e77c0 ]
 
-CIFSFindNext() copies the resume name that cifs_save_resume_key()
-recorded from the last entry of the previous response into its request;
-psrch_inf->presume_name points into the response buffer that entry came
-from, and nothing ever clears it. find_cifs_entry() records a new
-name only from a response with a usable last entry, and cifs_readdir()
-only from an entry it walks to, so a response that carries no entries
-and leaves last_entry NULL, because CIFSFindFirst() or CIFSFindNext()
-rejected LastNameOffset, refreshes neither and presume_name keeps
-pointing into the previous response. That buffer has already been
-released: by CIFSFindNext() before it installs the new response, or by
-find_cifs_entry() when it rewinds the search, which does not drop the
-name either and can then fail in initiate_cifs_search() before a new
-response replaces it. The next CIFSFindNext() then copies up to
-PATH_MAX - 1 bytes of the resume name out of the released buffer into
-its request and sends them to the server: a use-after-free read
-that leaks kernel memory to a malicious or compromised server, which
-can provoke it with a single FindNext response that carries no entries
-and a LastNameOffset above CIFSMaxBufSize, which is all the existing
-check rejects.
+For a fault in a private mapping with nothing in the page cache,
+hugetlb_no_page() allocates a folio, locks it and maps it.  The folio has
+one reference, which belongs to the page table entry from then on.  After
+dropping the page table lock the function still sets the migratable flag
+of the folio and unlocks it.
 
-With KASAN enabled, a server that answers a listing that way gives:
+Whoever zaps the entry in between frees the folio.  The fault holds the
+fault mutex and the lock of the vma.  MADV_DONTNEED and the first unmap of
+a hole punch, hugetlb_vmdelete_list(), do not take the fault mutex, and a
+private vma only has a lock if it owns a reservation map: not with
+MAP_NORESERVE, and not in the child after fork().
 
- CIFS: VFS: ignoring corrupt resume name
- ==================================================================
- BUG: KASAN: slab-use-after-free in CIFSFindNext+0x8ca/0x14c0
- Read of size 4080 at addr ffff88807c823f98 by task ls/83
+Then the flag is set in, and folio_unlock() is called on, a folio that is
+free or has a new owner.  A surplus page goes back to the page allocator
+while it is locked:
 
- CPU: 0 UID: 0 PID: 83 Comm: ls Tainted: G    B               7.3.0-rc4-00457-gf14572c203d5 #69 PREEMPT(lazy)
- Tainted: [B]=BAD_PAGE
- Call Trace:
-  <TASK>
-  kasan_report+0xdf/0x1a0
-  kasan_check_range+0x10f/0x1e0
-  __asan_memcpy+0x23/0x60
-  CIFSFindNext+0x8ca/0x14c0
-  cifs_readdir+0xf51/0x29c0
-  iterate_dir+0x1c0/0x570
-  __x64_sys_getdents64+0x133/0x270
-  do_syscall_64+0x109/0x5d0
-  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  </TASK>
+  BUG: Bad page state in process init  pfn:108e00
+  flags: 0x200000000000059(locked|uptodate|dirty|head|node=0|zone=2)
+  page dumped because: PAGE_FLAGS_CHECK_AT_FREE flag(s) set
 
- Allocated by task 83 on cpu 1 at 13.497119s:
-  cifs_buf_get+0x36/0x90
-  smb_init+0x4f/0x110
-  CIFSFindNext+0xf7/0x14c0
-  cifs_readdir+0xf51/0x29c0
+A page of the pool can be given to the next user, of any file, who locks
+it and loses the lock to the late folio_unlock():
 
- Freed by task 83 on cpu 0 at 13.584018s:
-  cifs_buf_release+0x41/0x80
-  CIFSFindNext+0xfce/0x14c0
-  cifs_readdir+0xf51/0x29c0
+  kernel BUG at mm/filemap.c:1532!
+   hugetlb_no_page+0x111b/0x23e0
+   hugetlb_fault+0x3a9/0x14a0
 
- The buggy address is located 16280 bytes inside of
-  freed 16588-byte region [ffff88807c820000, ffff88807c8240cc)
- ==================================================================
+An unprivileged process is enough: threads that write to a MAP_PRIVATE |
+MAP_NORESERVE hugetlb mapping, threads that call MADV_DONTNEED on it, and
+one that takes the freed pages for another file.
 
-The same memcpy() first reads past the end of that object while it is
-still live, a slab-out-of-bounds read that the following patches
-bound; that is the taint the report above carries.
+Until commit 3a47c54f09c4 ("hugetlbfs: revert use i_mmap_rwsem for more
+pmd sharing synchronization") the fault held i_mmap_rwsem for reading,
+which everybody who zaps takes for writing.  The lock that commit
+bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs") gave
+to private vmas closed the window again, but only for those with a
+reservation map.
 
-SMB1 is not negotiated by default; reaching this code requires an
-explicit vers=1.0 mount.
+Be done with the folio before the page table lock is dropped, as
+hugetlb_wp() is with its copy.  The function already unlocks page cache
+folios under that lock.
 
-Clear presume_name and resume_name_len whenever a new response is
-installed and when the rewind path releases the search buffer, so that
-the name never outlives the buffer it points into, and reset
-resume_key with them, since it was taken from the same entry and would
-otherwise be sent with an empty name. A response without a usable
-last entry then continues the search with an empty resume name rather
-than a stale one; CIFSFindNext() skips the copy of a zero-length name
-so that it never runs on the NULL pointer.
+Original fix generated by an LLM and sent in private by Josef.
 
-The next patch in the series leaves last_entry NULL for a response
-that carries no entries, and bounds LastNameOffset against the
-received response rather than against CIFSMaxBufSize. Responses that
-are given a last entry today then take the path fixed here, so that
-patch must not be applied without this one.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: b77d753c413e ("[CIFS] Check that last search entry resume key is valid")
-Cc: stable@vger.kernel.org
-Assisted-by: Bynario AI
-Signed-off-by: Diego Oliva <diego@bynar.io>
-Reviewed-by: David Howells <dhowells@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[david@kernel.org: simplify+move comment]
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-2-42796911043b@kernel.org
+Fixes: 3a47c54f09c4 ("hugetlbfs: revert use i_mmap_rwsem for more pmd sharing synchronization")
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Adam Litke <agl@us.ibm.com>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: <stable@vger.kernel.org>
+[ sashal: Adapted locking to use local ptl in place of vmf->ptl while retaining unconditional folio_unlock(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifssmb.c | 11 ++++++++++-
- fs/smb/client/readdir.c |  3 +++
- 2 files changed, 13 insertions(+), 1 deletion(-)
+ mm/hugetlb.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index 0c06b79f540b2..44128457a87bd 100644
---- a/fs/smb/client/cifssmb.c
-+++ b/fs/smb/client/cifssmb.c
-@@ -4036,6 +4036,9 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
- 	psrch_inf->entries_in_buffer = le16_to_cpu(parms->SearchCount);
- 	psrch_inf->index_of_last_entry = 2 /* skip . and .. */ +
- 		psrch_inf->entries_in_buffer;
-+	psrch_inf->presume_name = NULL;
-+	psrch_inf->resume_name_len = 0;
-+	psrch_inf->resume_key = 0;
- 	lnoff = le16_to_cpu(parms->LastNameOffset);
- 	if (CIFSMaxBufSize < lnoff) {
- 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
-@@ -4099,7 +4102,10 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
- 	name_len = psrch_inf->resume_name_len;
- 	params += name_len;
- 	if (name_len < PATH_MAX) {
--		memcpy(pSMB->ResumeFileName, psrch_inf->presume_name, name_len);
-+		if (name_len) {
-+			memcpy(pSMB->ResumeFileName,
-+			       psrch_inf->presume_name, name_len);
-+		}
- 		byte_count += name_len;
- 		/* 14 byte parm len above enough for 2 byte null terminator */
- 		pSMB->ResumeFileName[name_len] = 0;
-@@ -4154,6 +4160,9 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
- 	psrch_inf->endOfSearch = !!parms->EndofSearch;
- 	psrch_inf->entries_in_buffer = le16_to_cpu(parms->SearchCount);
- 	psrch_inf->index_of_last_entry += psrch_inf->entries_in_buffer;
-+	psrch_inf->presume_name = NULL;
-+	psrch_inf->resume_name_len = 0;
-+	psrch_inf->resume_key = 0;
- 	lnoff = le16_to_cpu(parms->LastNameOffset);
- 	if (CIFSMaxBufSize < lnoff) {
- 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
-diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
-index 1ba176a690cc3..58121bb8c3367 100644
---- a/fs/smb/client/readdir.c
-+++ b/fs/smb/client/readdir.c
-@@ -780,6 +780,9 @@ find_cifs_entry(const unsigned int xid, struct cifs_tcon *tcon, loff_t pos,
- 			cfile->srch_inf.ntwrk_buf_start = NULL;
- 			cfile->srch_inf.srch_entries_start = NULL;
- 			cfile->srch_inf.last_entry = NULL;
-+			cfile->srch_inf.presume_name = NULL;
-+			cfile->srch_inf.resume_name_len = 0;
-+			cfile->srch_inf.resume_key = 0;
- 		}
- 		rc = initiate_cifs_search(xid, file, full_path);
- 		if (rc) {
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 985c39edb7ea3..30e2531cc8568 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -6041,8 +6041,6 @@ static vm_fault_t hugetlb_no_page(struct mm_struct *mm,
+ 		ret = hugetlb_wp(mm, vma, address, ptep, flags, folio, ptl);
+ 	}
+ 
+-	spin_unlock(ptl);
+-
+ 	/*
+ 	 * Only set hugetlb_migratable in newly allocated pages.  Existing pages
+ 	 * found in the pagecache may not have hugetlb_migratable if they have
+@@ -6052,6 +6050,12 @@ static vm_fault_t hugetlb_no_page(struct mm_struct *mm,
+ 		folio_set_hugetlb_migratable(folio);
+ 
+ 	folio_unlock(folio);
++
++	/*
++	 * Hold the PTL until we're done with the folio: the page table owns the
++	 * folio reference now.
++	 */
++	spin_unlock(ptl);
+ out:
+ 	hugetlb_vma_unlock_read(vma);
+ 	mutex_unlock(&hugetlb_fault_mutex_table[hash]);
 -- 
 2.53.0
 
