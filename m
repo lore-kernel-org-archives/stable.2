@@ -1,101 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793821674;
-	b=dRuUDRCVFxhWwLmkzND6H2SF5eo99PYv3dzvV+r1duHcOUW2ARz4NLBdr8ZfgA8X+lXQ
-	 qaTZO2z8pN+pfSEZF5Uu/wjGC83F+6xCwaIWL3+Mk/fs7+bJ+6EcHAG/QYPf9P52KuuPy
-	 s7PhaqOaE3aclRl5jI+I98FY6skT7t6mcCfY3g5Y1w5VUSiAS5TwY+drbKohh0DTH1ANP
-	 FO7K9EATheufr2Ik0l88noUnlSqgd4nb2TDhvEpymY7xr+6TblvVGdRIqdcoUDuPVw40S
-	 nHPBq++6FvRBsdkvy7rWlIYvW+AayOx0SmZb5vreVpg+BI6yPfMjlDe47em+WBqd4HQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793821674;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793821823;
+	b=pQ2RAP2BUiXihbV+sboQR8KtbwhQ9+6dMgpuInpdpnrR8TFUKAvxIpBvLBzg8Mlunts/
+	 X+l5RaHGDsgpHW+vG6TcYKMwvyYcIIN3skeG3cvnk5tEqH3tBTMYHavqDDp32OIcnCwqP
+	 8mrVkkCFv5RqFhzMxVP3qRCkOX8fussvt8ME30JpXnyuQQBHv69/1xL25AVcx63heGIHL
+	 UV+6DO9sdP9QtO2QjqXgLvnfqhvxYQDQwaU7O7uFkJmW6CSdDksu5ukyRzBuWjLf/TOBd
+	 mZv8kLP6ZUNd/rNQveVSRiGoLwQzhj1HiKAR3fuJ5VUkXk4UWM1gqb5JFIIn5r+DgTg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793821823;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Jrd32+YJEVParF9gDYjq1VptNJioJAFlM7MtJqO7Iqw=;
-	b=TdDCBT2GlXoDi/B/DRs61DOBj0Ndig3zgtvhR4azK6kkp6F1fC3DdQ8FY/3/aVGByMJE
-	 HsTAES815pnAWak/G/rhemZxXUsWvNArJCBZCrqkjKGxI3LXyUn31pvRshLG7tHiTxA8d
-	 oZni1q7NImBprVmUOUlx38wEXtKnq7WlDd7sLEQQ/7aEigUun3GOLA1Io39PZ2m9hcEBL
-	 aV7s/V/8D3I0CK2rWDjSEY+4/qEJLQ2ZaSH+VTqw5O3bxWRTgDAVdji42GDQpcvwEgvrN
-	 lQhutyuwg3D9jn0IIgCHL/TPJ5SJ6ArPKdEh8aZSlCzlS1WmZxSQMoE73c6QaEY97TQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=OT/io50s2GTf++6usH4VAdftnCA55S4d8sAF74Ec5zI=;
+	b=il13nId4lnj14tbCCKobkAWX6hnxWmMcwJzZAumXCBWFSOx9qGo+dre2o4BK0txOpYNQ
+	 E76UtR9U8ciEjTbMdk+Cnjd/sX7bb/vM3mdlen5Hp+kBI3qzc5CA4azqeyhFdYleKEZ7h
+	 0ORp9sm6EVvcJRqomQCVG8kbyWew3jpY0mBxQi5NFdQ/PQh1zLNIdVxiTp/1sqY4m2qL1
+	 VOnk7aHlK8Rphm5yTAYmhG+fci42a+GL/ocZrfQhtDdRsFi6lPmNTpf9AczTeNhFKpPuv
+	 79w3lkBH8zNiTZSGJWYrS5grwvUkfQgAJE4GVB4F9W6GXVz5sVnC2B0Yk/DdUu9ThSg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P2nVfXQS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bGHNw1OC;
+	arc=none smtp.remote-ip=209.85.161.53
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30FA608F3CF
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:47:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F30FA608F3CF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD7E6091770
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:50:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AD7E6091770
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P2nVfXQS
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b570ff3dfdso580634a12.3
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 11:47:53 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793821672; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RiIWpP/Uajxjp034ILNF5P3wOTsQ2Ix/EToKRAJabgVjv08FSBHVYGVJ8wr4U9VbFJ
-         fu/RKU0mFg1c9mz35JVkvGhNsl8+MN5KV0n22IzMYacAf1BNGz/lxDOvNLG0Eb2TT7AS
-         INwvM1MDNfMz+oNZ2BEgMLOx43UjVBEXcWcdi+fo6nph+k0n/dfBJMEc2JRoMqQBaxSi
-         HMc6yGIxXnKiR9SC2gmcLk35wEIYWUp7HpsuGGgQS94ZSj2bg4JsxLQdX/BN4atx5Ihp
-         9b4bV903Ml1lwY2Ay4/SWvftUJ+R8QDxq/xk9eExWP+KS1QoRXqyp8vGP8WZY2m4ksvS
-         ypzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Jrd32+YJEVParF9gDYjq1VptNJioJAFlM7MtJqO7Iqw=;
-        fh=7kmjs9FObO2UHtTZJSngSztZdI+Pe5+FR4hhvIIYS24=;
-        b=BcgUO2Lco2HqmUBGyUPIf4VidaZPRGEsHJNAFo+LyaId+0hHFv2D/1yQQKVUzA0LJl
-         QDgNuycBZV4wEnMpAzWFg4xl71imze8R/SfW5JAYXGTxGPoN/CKTt6uuMWCHMg2N+lxp
-         QmsBA2bQwNo0T6MOOhOUjwR3EM2r6LpcTugLTbpuaRCLutmwirP5lizDJrwwLg4TCIao
-         WJ59rmV5ACQ4d+MHMPimUhNzR2xZbXGhAcsySUXlY53cySMdlD06WZSGn6CAXRlwNU20
-         yF1sIeGTBc5xAJ4Jzxlk9uikHnRPxaw01l4x0z72Dqk3V7T4jo5LLS11QikT/Kc4xW9Q
-         A05w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bGHNw1OC
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-702dedeb70dso645101eaf.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 11:50:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793821672; x=1794426472; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Jrd32+YJEVParF9gDYjq1VptNJioJAFlM7MtJqO7Iqw=;
-        b=P2nVfXQSoEWDSx+ehrVF2CrwruKgd6BRzwSUsBTyRf+Q4jqPVn147nDPJwF+wf6i5n
-         PVEVgKQcNUC1G0iClbLZ0uOPeBo5Wvy30G5Q0KY0Cz+zwTTgBTdPW4VsqUQMkRueRNiC
-         JgmMB05I2CSg5RqRT+i8WjqqB5MDVcLcv1+28C7/x5vYMqN3Pqjy7JCIJfWvS2NGNAFP
-         rGzICRf7g7x/wcJi4A24Hd8tZLxK7IjrH0N9w7djtu//3UtIV045oNmcCosFNmbhLNad
-         edesHS1IOw9tK8qO8AwNrAMP4mA2wJi9fWcVRejnsdBewx3aYmdS5hvLS5SJcz+Jx1zr
-         GCeg==
+        d=gmail.com; s=20260707; t=1793821821; x=1794426621; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OT/io50s2GTf++6usH4VAdftnCA55S4d8sAF74Ec5zI=;
+        b=bGHNw1OCkJP67JAUat0ugoirxrIwnORV+zMh8qw/ehxwkL7zFaV3h3/Pdto5xKTkpc
+         QQIhjFOHJSCK1Wxqn5C7OkIsjbcySL1CCMA9fX1p2I5+TtNDsgeOIC171X6rWMtX+Cs1
+         RiVGD0rasx0GLquN8O4dNoZ9xYlmDpKR25znSLWEGDM2cUctzkvvfa4dQcH3QVDOYB0n
+         Xz449sJTLf8U8bOy/dgbqCQyKkzcwoHPHDMb6pMd8XNLrTrjoxZZX7Bv1Zx6QbRNFJoC
+         zOFQpoix31ylJ9jDeEcoFaafFtL1gmQZ83gd7v1HYhSHSRDm2hm4PfctEFppx91/Qgzw
+         CDOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793821672; x=1794426472;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Jrd32+YJEVParF9gDYjq1VptNJioJAFlM7MtJqO7Iqw=;
-        b=pFGPIHIB7Hw4a9TRI+2eJBIwew5Vu01j4uNXWkTW6dLdwL9tYkEA1YoMtSZwbod8AG
-         8gWvDhRmFeEfN3rMJ70SHZ8RJ3ueUioNvxHnjDfgY260D8yNJNEiKkK112AiLHPMzOkJ
-         m3ekJfIZhwMWLAt+HKQXyHE8PT+XkRBL3yq1eLa7Rg1XkqrWrlG7N5tkFdc+92zwua3F
-         kakMdITp3E+g7ZhTXukrA7xYR+9Bd+AzSkdJouRxRil3NpiyXqulMMQSLbM2GGCQfINB
-         uyXbEkFYfMZkCocdKkXr4Qr0XbutniOsnXlNHUJLRH6V36nphPVWBuJFJ/l2f699PPhd
-         ro7A==
-X-Forwarded-Encrypted: i=1; AKwUvBx/zwHJGNuh9oqSq48gm0QSR1GLYUvceq+UyBRLeRkGhtRBm0QDhFbLrCbVg0O9F6foymi7Dc4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8bo+mrcaMvfljE0B5j+oFRBkuWItQMwzm+cgeHuREuDWWg99fH
-	iGqJDp9ycL5QfVxDzWCX4876XYqafjwZxP7N/4zV4o20lpCJ5tsFemGfAe30JXpVmBfIwZnmW5G
-	TfMuPAhWuyRJpNIpIzKB7ejMEYgd3qppUoU5pncg=
-X-Gm-Gg: AYBFou07a0RiSfNxpI42hLeBwYy0i+k7ly4QTWF0vDNuLjoS46Nyn19hz7QM4adqLn/
-	xPOr4qND9YcxkcEaS9jcRJFOH10n+MaWXJjk8mqHMhOFMvGzlg5bfBwELWPd62Iw7hUkw+lMVye
-	BISSwg5Mmv3HchQm56Nmcd/+2j4IfDbyEz+eT3FmNNax5ZnMDO7E1Woess2shRUBaEaYFu0q8/5
-	B08P4SaaO5lnjp6gFHkh2k/s9FKrHMUKqj9gngcaiGVC4jVVFPalxS6HZiSnM83Qm7Ayu3Yp87e
-	M0DGWmO7dLS0LEjEw2o/Gyg9gKYFXh0qg/LH6ON6lDe80PdrCIKPVZ4WD9NpfbZbYRNJIwwWa2Z
-	IEnIKIns9a1JdYyKT1wNty2SewgfQJj91LbNzAaM7QK5St36sMzZwK68aFZxuZvgwMBhfSH+Cbe
-	/QBiDJiY2uNQhUV6M=
-X-Received: by 2002:a05:6402:4008:b0:6b4:208d:21f2 with SMTP id
- 4fb4d7f45d1cf-6b4d3392226mr12668210a12.2.1793821672207; Wed, 04 Nov 2026
- 11:47:52 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793821821; x=1794426621;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=OT/io50s2GTf++6usH4VAdftnCA55S4d8sAF74Ec5zI=;
+        b=id4SagncWWqktF2mXjkr7LekJw7vRnwTSfLSjchrdWRqtjTsKwhOhJraX5bRPB7kbo
+         DQjucmmtEWOv3+20qp/hy31u0sl5m2S6N4TzZGn+me8hvUvLpbkUPhsSUxB+c6IoHfSV
+         pDxbrZIFFjN3Jb1S3OCXylKskESvpoQ+u/h7+DI/VKT9lL1kMPkqu91BTMeb69rC4yL8
+         dLts+UHjAQDQvbiTAFL4lUirTr8WFH3SMdnpxQBmYlskt8ZnIZiHpjPsN7mRIbvWCpwq
+         wKi++PISVhH2SfMprLOHhgrFXbGJORcb7+agM1Wsps4zfiHRnYo6918eS4HDulBVltv7
+         Ohng==
+X-Forwarded-Encrypted: i=1; AKwUvBw5wLcFRBHWQIDf0d4wOv/ekSYVujbY7Qm4Q47+LIWP/LUS01CnBRBiBKVJUwanK9xfcLA46h4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Wo4hzCcwKeuQ3nmb7loAh+6ZFwvnWd63FxwThBIWKlRv4boAd
+	V9s5znaggwQfrRNRGdRVb57p4XPSlLNsFgHtyeHzcVV78HvTHJonvZEm
+X-Gm-Gg: AYBFou1IQR8JHYY2oyKUpf8h+c9EkvtmeY4z2SRkPO9aAK1c3D+ty1ui7Qg0NmOBOoA
+	RoOOv126+fSqaU/eceMGbMJD4zOSRwZpe/8Me4AG6cJBJxlFEGCP32VV84V1SGwLY+7nlFKp3mO
+	Tiq5u59Z/6Npa3Ypj+FbiEpBK5SvpLBqf6TqvlR4Xcl9b4hzD1ye4X1k9vbwtlhHoZi3QZD6F0q
+	SOzfIDelhhOI6dpQVweV9VbPn7PoIiK2Fhrqu+adyBw6tv1PwH8zXlp/MpWqmvZHJf2LR6vXR+s
+	jLyN0i0RWLNpPTFKRHaDn9NjAKQEqS+UVviCOnf4fPPeXH+07da/fC975QlG8M3UYhN1sMF67xP
+	Vtp4chqa708GsGbefrbSOQPaJNEgjACYx8kAj1K2m7I9z2dZVvpVNkujCCQPArMJFRddvW47Sj8
+	VqutFSzjBNUEImcb5zJwe85x+aKT+x4fPp1hYOjmyhGbTuZgvW9WRluHe1hfdlFzxGoINjajY/H
+	lUH2icKx2t9JJV7rWtCK7sgygyEdoi06LMbC9MIDqimj6gyTwb6ppqK25thVEW1yUq33klClTQd
+	s4w8UoI/wkg4XJNDPCtZAStNNUvVu3a8kKDqxvdftBjT+CMmKJUC7LEgPkRAl3uVBQcVaU9d9fD
+	bBcqUMydZV6wEp9SaWn2RSKpv4ER4fEUhuzHMUfMlAIW+bhiwoYOIEUDGCa6SezMmHDA9liT3F9
+	Hf671hc9Ikoktb71anfzayZbZSxqfOxRMbjShcB8zCsnVms+VruTM=
+X-Received: by 2002:a05:6820:55c6:20b0:716:bf0b:f804 with SMTP id 006d021491bc7-716bf0bfc08mr1741495eaf.79.1793821821491;
+        Wed, 04 Nov 2026 11:50:21 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-716c12eb1b9sm2504522eaf.10.2026.11.04.11.50.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 11:50:21 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Wed, 04 Nov 2026 12:50:19 -0700
+Subject: [PATCH] mtd: core: reject OOB transfers starting at the device end
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,111 +92,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104185536.3631167-1-amir73il@gmail.com>
-In-Reply-To: <20261104185536.3631167-1-amir73il@gmail.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Wed, 4 Nov 2026 20:47:40 +0100
-X-Gm-Features: AclHuK_IaB2NZ5LjJ5ygkT3wi1DynfRtq14s9J0eq9PWgeIQdcdCkasqWVkNTxI
-Message-ID: <CAOQ4uxhi3aM57BrXmM238TO3baeN75JduY4fQ8km8bLOx_SXyQ@mail.gmail.com>
-Subject: Re: [PATCH 6.1 2/3] ovl: skip copy up of empty security.capability
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, stable@vger.kernel.org, 
-	linux-unionfs@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261104-submit-mtd-oob-end-v1-v1-1-5cb8ad921cb0@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqEMAxA0atI1gasiIu5iszCpokTwXZoqwji3
+ a26fIv/D0gclRN8qgMib5o0+AJTV0C/0U+M6oqhbdremKbDtNpFMy7ZYQgW2TvcDErnqBcrJDR
+ Caf+RRffnO3xfl3BmyvcMzvMC9n0lXXkAAAA=
+X-Change-ID: 20261104-submit-mtd-oob-end-v1-f4dc6fbfcfca
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Boris Brezillon <bbrezillon@kernel.org>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On Wed, Nov 4, 2026 at 7:55=E2=80=AFPM Amir Goldstein <amir73il@gmail.com> =
-wrote:
->
-> commit 50912a1715b8a7c614b654011a0db750e372b43e upstream.
->
-> ovl_copy_xattr() gives up if it can't read an attribute that
-> listxattr() has named.  An empty security.capability, which anybody has
-> been able to store on any file for a long time, is such a case: it is
-> listed, and getxattr() has nothing to return for it.  A file in a lower
-> layer that carries one can't be copied up: it can't be written to,
-> renamed or have its mode changed.
->
-> There is nothing to copy if there are no data.  Go on with the next
-> one.
->
-> Fixes: 8db6c34f1dbc ("Introduce v3 namespaced file capabilities")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [amir: treat -EINVAL as no capability too, and do the same in
->  ovl_copy_up_meta_inode_data()]
-> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-> ---
-> [ backport: context: no blank line before the ovl_getxattr_value() call;
->   depends on e6b9117076fb ("ovl: fortify ovl_copy_xattr() against
->   underlying layer modifications") ]
+mtd_check_oob_ops() permits offs == mtd->size when the data length is
+zero. For an OOB-only request with a nonzero ooboffs, maxooblen then
+underflows because there are no pages remaining. The wrapped value lets
+the request pass the OOB length check.
 
-Greg,
+The OOB ioctls can reach this case by encoding the OOB offset in the low
+bits of start. On a partition ending before its master device, the
+subsequent address translation allows the request to read or write OOB
+in the page immediately following the partition.
 
-Sorry for messing up the send of this series.
+Reject nonempty OOB transfers starting at or beyond the end of the MTD
+device before calculating the remaining OOB capacity. Keep empty
+requests and data-only operations unchanged.
 
-This one depends on patch 1/3 from Message-ID
-<20261104185356.3631002-1-amir73il@gmail.com>
+Fixes: d82c36821684 ("mtd: Fix mtd_check_oob_ops()")
+Cc: stable@vger.kernel.org
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ drivers/mtd/mtdcore.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Thanks,
-Amir.
+diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
+index 491a27d0315f..b82fd7ccd111 100644
+--- a/drivers/mtd/mtdcore.c
++++ b/drivers/mtd/mtdcore.c
+@@ -1676,6 +1676,9 @@ static int mtd_check_oob_ops(struct mtd_info *mtd, loff_t offs,
+ 	if (ops->ooblen) {
+ 		size_t maxooblen;
+ 
++		if (offs >= mtd->size)
++			return -EINVAL;
++
+ 		if (ops->ooboffs >= mtd_oobavail(mtd, ops))
+ 			return -EINVAL;
+ 
 
->
->  fs/overlayfs/copy_up.c | 17 +++++++++++++++--
->  1 file changed, 15 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
-> --- a/fs/overlayfs/copy_up.c
-> +++ b/fs/overlayfs/copy_up.c
-> @@ -47,6 +47,15 @@ static bool ovl_must_copy_xattr(const char *name)
->  static ssize_t ovl_getxattr_value(const struct path *path, char *name,
->                                   char **value, ssize_t *value_size);
->
-> +/*
-> + * Any user can store an empty security.capability, which fails to read =
-with
-> + * -EINVAL.  It grants no capability, so treat it as none, like no xattr=
-.
-> + */
-> +static bool ovl_no_fscap(ssize_t err)
-> +{
-> +       return err =3D=3D -ENODATA || err =3D=3D -EOPNOTSUPP || err =3D=
-=3D -EINVAL;
-> +}
-> +
->  int ovl_copy_xattr(struct super_block *sb, const struct path *oldpath, s=
-truct dentry *new)
->  {
->         struct dentry *old =3D oldpath->dentry;
-> @@ -98,6 +107,10 @@ int ovl_copy_xattr(struct super_block *sb, const stru=
-ct path *oldpath, struct de
->                 }
->                 size =3D ovl_getxattr_value(oldpath, name, &value, &value=
-_size);
->                 if (size < 0) {
-> +                       if (!strcmp(name, XATTR_NAME_CAPS) && ovl_no_fsca=
-p(size)) {
-> +                               error =3D 0;
-> +                               continue;
-> +                       }
->                         error =3D size;
->                         break;
->                 }
-> @@ -947,9 +960,9 @@ static int ovl_copy_up_meta_inode_data(struct ovl_cop=
-y_up_ctx *c)
->         if (c->stat.size) {
->                 err =3D cap_size =3D ovl_getxattr_value(&upperpath, XATTR=
-_NAME_CAPS,
->                                                     &capability, &cap_siz=
-e);
-> -               if (cap_size =3D=3D -ENODATA || cap_size =3D=3D -EOPNOTSU=
-PP)
-> +               if (ovl_no_fscap(cap_size))
->                         cap_size =3D 0;
-> -               if (cap_size < 0)
-> +               else if (cap_size < 0)
->                         goto out;
->         }
->
-> --
-> backport
+---
+base-commit: 1c1a342aceec79528b3ba51f376eca2be5928fe7
+change-id: 20261104-submit-mtd-oob-end-v1-f4dc6fbfcfca
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
