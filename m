@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827196;
-	b=lo3sj6cVLL4UCx0q1ZBEACef74VtYMMs66urgBGL7XrvyqDQAgXE91PkI+v90o/zuCLQ
-	 PPZmh0qvG5BiwzkA/9YcRMWY14jfxJPUPIe0d6bgIg5XTaPzOyDJNqs9JOYiNJETCxpDI
-	 +HqGEe9rICoSRFAzvtrQLToGNdK8fgQ6Irptq8uSd2WTgQSRB1ht3woZlhK5VJalUpAwA
-	 XipELVOrMK8xXRfhZdkhb9JW2ja9FvIcE3fCG5CIVr/pSmNmo19gdBMH1UsMuhg5gOtW4
-	 u193qLLdivmo5je3t68XYGgjqkRVEi5FfP8mNT6woScG7QwAJ3aVO//4/duNmffi5cQ==
+	t=1793827200;
+	b=yh0saQjasi2qi+SiK/z7QYqa511ucOULyGBtYUMXIim9uGb2ZP9bzTXKAxtPTl+SYR5Q
+	 AZKswIpWOY3cbDqOQvJugEx8aN3PYDhjHMMItJCQKDNrr0V7aXHMxgoqGysv35/kQ9zmG
+	 at/KhYnagqN00ZFUbcLqkp868tv7BZaAL+9yxkFHqQk9GYzdbNJrm56pVPIlHhGoZ7J/7
+	 +48WM0bm/yb9YDydNWPgPjQWU4Ad3v0s9xgjzP93BV4TmYS+bK9t0edwaoGeUT7uWjGN7
+	 jqOzYLihsW5yzaxagxUEa52WVwbUfChqECehTny31D6/IAdiX33sSpkYUPn82RNWuTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827196;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827200;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=T9ApCYWHBVDrqzvYCMis/TDfgoQvwLZTbugwLvvBtI8=;
-	b=dQHNPzVPAyHhwfI+tsgHIg6zlml/6MhYLG1X4OKw168Ein5jjB+0M0ZtKvhQtAOUsn3K
-	 wN0Cj4quFnJuCxmgRPRaoUf/amVeHRoxUTHz33pIJLKqeDThS9rVYE4Df0obLDZENjCa8
-	 4XakSy5uYvjq2dIk+4lv3xMbZKUsWLNhtibgWdWwy1KQXCAXHsOapxGuiI6ja6bBvCxK5
-	 E6ianXJPEVNQQ3shsFjidyqT6QYn/ExMSCVW54YDo/BZyxWt4Ln4U1QA3exmzbbCqPsKO
-	 qf+wJX/mKcD6hfsnED2XjHZsi7X/2zL5XsOXIt4OSLqTZ5jqnP7vyoqtTafLZg4yayA==
+	bh=5l8183xYRnQab2E4QFshCWCQJV9ypQVs1flh3Cz29xY=;
+	b=1KpyKVWrmLNaKGFnj4pwqUPAP+1HgcX7MK2L976PaK13A9/4O58lsH14u/qykqzFL+ZG
+	 aMCr2kqQKTnB+bfY5/vLcamp6nylZzF6V+zVlbRYdGuYnqhSGA71s7bEzh+3KOzmhMtnD
+	 rTBY9BHf177k1wCmjfU8o5NApVO3TsHVartD+/990f5zOqbSFUT6rf1JMHAKswZsO4Z02
+	 EYV2l4F2JRNXBuS42cC40v++660XkCNq9fHmO4kh8uVx/56k48llbwYy2Av1WSKG9dWpx
+	 KkGsHxs3EdAWe28/WrR8/EwOIptGi+/rxotIqivTWJPGn0wzrKeu3CJQ3E3Ub9jqyEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iZfkuaMV;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EFL6P3+m;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82582606B387;
-	Wed,  4 Nov 2026 21:19:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E466D606B387;
+	Wed,  4 Nov 2026 21:19:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iZfkuaMV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F2C21F00919;
-	Wed,  4 Nov 2026 21:19:56 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EFL6P3+m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46AEB1F00919;
+	Wed,  4 Nov 2026 21:19:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793827196;
-	bh=T9ApCYWHBVDrqzvYCMis/TDfgoQvwLZTbugwLvvBtI8=;
+	s=korg; t=1793827199;
+	bh=5l8183xYRnQab2E4QFshCWCQJV9ypQVs1flh3Cz29xY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iZfkuaMVX8yLcvxKkFjzq6udytcizUfY4BiojxM1gMO4+gL8qhr/jdRTk2c1XMicl
-	 9i6I56JOBYliOmZIs4uwaVdLcSlHjIabzg1APRpNk7mKjvwYhX3kG24rEip10bfswm
-	 B1CUychIAgbEw45IYAlGx85WGeG51aCnSBSBvKXM=
+	b=EFL6P3+mxoHXKheEEcMjUZ1CuslyHx1fwHXtb07XfT/6QzkD1roLpnVaERguXsM/g
+	 Ja6UJSSNHxG/MEaeowBrylDlI5HNYqoLU4wY2ol6+cN8HeEcb4CYeMTpzyoEK4C8+I
+	 GO69p+Ic4RUktLIXVOhJ9cscYKB/mPqNJT5Wdro0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Alex Williamson <alex@shazbot.org>,
-	Andrea Parri <parri.andrea@gmail.com>,
-	Ankit Agrawal <ankita@nvidia.com>
-Subject: [PATCH 7.3 251/547] vfio/nvgrace-gpu: Use a core-only open_device in fallback mode
-Date: Wed,  4 Nov 2026 16:07:15 -0500
-Message-ID: <20261104211045.308222840@linuxfoundation.org>
+	YANXIN LI <fadouse@pm.me>,
+	Jan Kara <jack@suse.cz>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: [PATCH 7.3 253/547] ufs: use u64 for directory size in ufs_last_byte
+Date: Wed,  4 Nov 2026 16:07:17 -0500
+Message-ID: <20261104211045.364871851@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -68,113 +68,76 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Andrea Parri <parri.andrea@gmail.com>
+From: YANXIN LI <fadouse@pm.me>
 
-commit 9c48b994b66d7b585698f9aaee8ff559a7755c0a upstream.
+commit 1eff23433e73d7da4f9e3529d2701e34962b161f upstream.
 
-When the ACPI memory properties are missing or the C2C link is down, the
-device is exposed through nvgrace_gpu_pci_core_ops.  That table opens
-through nvgrace_gpu_open_device() but closes through
-vfio_pci_core_close_device(), so open and close are not symmetric.
+ufs1_read_inode() and ufs2_read_inode() copy the untrusted 64-bit
+on-disk size into inode->i_size.  ufs_last_byte() then truncates that
+value to an unsigned int before calculating the valid extent of a
+directory folio.
 
-nvgrace_gpu_open_device() registers nvdev->usemem for poison handling
-unconditionally.  In fallback mode usemem.memlength is zero, and
-register_pfn_address_space() inserts a node covering [0, ULONG_MAX].
-Nothing removes it: a second open fails with -EBUSY, and once the device
-is unbound the node outlives the nvdev that contains it.  The next open
-after a rebind reports:
+A directory size of exactly 4 GiB is truncated to zero.  In
+ufs_find_entry(), subtracting the requested record length from that zero
+forms an endpoint almost 4 GiB beyond the mapped folio.  A crafted UFS2
+image produces:
 
-  BUG: KASAN: slab-use-after-free in interval_tree_iter_first+0x209/0x310
-  Read of size 8 at addr ffff88800894aa30 by task nvgrace_repro/203
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x5d/0x80
-   print_report+0x153/0x4c6
-   kasan_report+0xe4/0x1a0
-   interval_tree_iter_first+0x209/0x310
-   register_pfn_address_space+0x97/0x100
-   nvgrace_gpu_open_device+0x21c/0x730
-   vfio_df_open+0x213/0x520
-   vfio_df_ioctl_bind_iommufd+0x3e8/0x6e0
-   vfio_device_fops_unl_ioctl+0x782/0x1570
-   __x64_sys_ioctl+0x13c/0x1c0
-   do_syscall_64+0x106/0x630
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
+  BUG: KASAN: use-after-free in ufs_find_entry+0x583/0x6e0 [ufs]
+  Read of size 1
+  ...
+  ufs_find_entry
+  ufs_inode_by_name
+  ufs_lookup
+  __lookup_slow
+  path_lookupat
 
-  Allocated by task 188:
-   ...
-   _vfio_alloc_device+0x3a/0x500
-   nvgrace_gpu_probe+0xcb/0x660
-   local_pci_probe+0xcf/0x170
-   ...
+The KASAN classification reflects that the adjacent physical page was
+free; the source-level operation is an out-of-folio read.  A controlled
+UFS1 test with CONFIG_UFS_FS_WRITE enabled also made ufs_find_entry()
+return a directory entry from an adjacent anonymous page.  unlink() then
+passed that pointer to ufs_delete_entry(), which cleared the adjacent
+page's 3
+2-bit d_ino.  This write result reproduced three out of three
+times.
 
-  Freed by task 188:
-   ...
-   kfree+0x20d/0x600
-   device_release+0xcf/0x250
-   kobject_put+0x152/0x2f0
-   pci_device_remove+0xb0/0x1c0
-   device_release_driver_internal+0x38d/0x540
-   unbind_store+0xde/0x100
-   ...
+UFS normally requires a privileged mount path.  A relevant boundary is
+a privileged automounter or image-processing service handling an
+attacker-supplied filesystem.  The write primitive additionally requires
+UFS1 to be mounted read-write with CONFIG_UFS_FS_WRITE enabled; the read
+is reachable with read-only UFS2.
 
-Give the fallback table its own open_device that only calls
-vfio_pci_core_enable() and vfio_pci_core_finish_enable(), the
-counterpart of vfio_pci_core_close_device().  Fallback mode then never
-touches the nvgrace memory regions, as Alex suggested.
+Keep the intermediate size arithmetic at 64 bits so non-final pages are
+bounded at PAGE_SIZE.  With this change, the same controlled tests reach
+the real on-disk directory entry and produce no adjacent-page write or
+KASAN report.  A reproducer and full validation logs are available on
+request.
 
-This should be safe because the fallback table uses the vfio-pci core
-read, write and mmap handlers, so nothing there uses the state
-nvgrace_gpu_open_device() sets up.  The one visible difference is that a
-fallback open no longer fails when BAR0 cannot be mapped, which matches
-vfio-pci.
+The vulnerable helper is present in v7.2-rc3, v7.1, v6.18.38, v6.12.95,
+v6.6.111, and upstream master at 1229e2e57a5c.  Runtime reproduction and
+fix validation were performed in an x86-64 QEMU guest running v7.2-rc3
+with generic KASAN.
 
-Fixes: e5f19b619fa0 ("vfio/nvgrace-gpu: register device memory for poison handling")
+Fixes: b71034e5e67d ("[PATCH] ufs: directory and page cache:  from blocks to pages")
 Cc: stable@vger.kernel.org
-Suggested-by: Alex Williamson <alex@shazbot.org>
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-Reviewed-by: Ankit Agrawal <ankita@nvidia.com>
-Link: https://lore.kernel.org/r/20261015081937.405320-2-parri.andrea@gmail.com
-Signed-off-by: Alex Williamson <alex@shazbot.org>
+Signed-off-by: YANXIN LI <fadouse@pm.me>
+Link: https://patch.msgid.link/20260718190300.867109-1-fadouse@pm.me
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/vfio/pci/nvgrace-gpu/main.c |   17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ fs/ufs/dir.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/drivers/vfio/pci/nvgrace-gpu/main.c
-+++ b/drivers/vfio/pci/nvgrace-gpu/main.c
-@@ -1083,6 +1083,21 @@ static const struct vfio_device_ops nvgr
- 	.detach_ioas	= vfio_iommufd_physical_detach_ioas,
- };
+--- a/fs/ufs/dir.c
++++ b/fs/ufs/dir.c
+@@ -213,7 +213,7 @@ fail:
+ static unsigned
+ ufs_last_byte(struct inode *inode, unsigned long page_nr)
+ {
+-	unsigned last_byte = inode->i_size;
++	u64 last_byte = inode->i_size;
  
-+static int nvgrace_gpu_core_open_device(struct vfio_device *core_vdev)
-+{
-+	struct vfio_pci_core_device *vdev =
-+		container_of(core_vdev, struct vfio_pci_core_device, vdev);
-+	int ret;
-+
-+	ret = vfio_pci_core_enable(vdev);
-+	if (ret)
-+		return ret;
-+
-+	vfio_pci_core_finish_enable(vdev);
-+
-+	return 0;
-+}
-+
- static const struct vfio_pci_device_ops nvgrace_gpu_pci_dev_core_ops = {
- 	.get_dmabuf_phys = vfio_pci_core_get_dmabuf_phys,
- };
-@@ -1091,7 +1106,7 @@ static const struct vfio_device_ops nvgr
- 	.name		= "nvgrace-gpu-vfio-pci-core",
- 	.init		= vfio_pci_core_init_dev,
- 	.release	= vfio_pci_core_release_dev,
--	.open_device	= nvgrace_gpu_open_device,
-+	.open_device	= nvgrace_gpu_core_open_device,
- 	.close_device	= vfio_pci_core_close_device,
- 	.ioctl		= vfio_pci_core_ioctl,
- 	.get_region_info_caps = vfio_pci_ioctl_get_region_info,
+ 	last_byte -= page_nr << PAGE_SHIFT;
+ 	if (last_byte > PAGE_SIZE)
 
 
