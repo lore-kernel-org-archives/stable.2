@@ -1,47 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818940;
-	b=zt+MBPYtbp27/nJL7xUPUlwDiqs1Obh+L2CMIs4ijaYv627xI6gl0aw9hjzi+oDMvA5r
-	 z8CTkZl7MuCYJ9bSJPeO6pxF3x+bEMuQRxerUMosW9ozuZ/XXJRY2pcLIpEvCntYwR8DB
-	 IdBosL6XX41PCRGvFqv6rw3Gi8iwOWPsSLpX9yqq6D58iXwb/Cz5PGwEoLhM5i1M33Cmj
-	 FYz36HaYnG4DuXGO1wQpZBymCq3AccoW/m077vdOiLD2bguotLuVwer/go7uppIYi5dHA
-	 v5hvMUapEuSz22GYDxM0i/Lxx07y//E6ZhZQu1sl86kgmDpxguA10IjSeWL9zR3BhRQ==
+	t=1793819062;
+	b=jOCNxr8xpt3PPXV2YRD7DqNhDqwFutJpBMLNnk4Sxsdp/WIrFGXfiKbpy9ud91vovl3z
+	 sKDJnW67Y8XSJj9be3jfdQVEErveTP8Fy62FR56oC8aB2YfF41MDOmeYw7pSmWEaJobXo
+	 j7RVj3xMLuwLrLmkbDRfC5pJXIrFUjowlOVAURshxd1mg7PTtiTY5uAxLTucd/BHHBNt4
+	 3bdvXPI2rvE2gMxpT5+RZkQj42DZAchmJFxw0CzkrGPxHiD9dXV1crryRz8oJbdYFTgI0
+	 fzJ2tKZnpwWNf4DXkWzDbHwZ/jebXQm0G8sE8RS+2P2umY0KMqhLUNLfX5txLhqDw1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818940;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pFp3TmuucBCO6cwBWK7xdjKtfPMrn+5knkWA2LFr79U=;
-	b=CUwEAVie5ybZk2sWSBl02yCBW69HOPAiq3wt3b/WqqH/Gw4+GNdVUYC/WxLfQ9pmox9W
-	 gYYXlT7nWnesEMHgwitDujU8/LvLenTnMRUrvkJx70q0iR3kBxSBBrKN+m5EyEbkAmm7U
-	 3CNJsBgBadpIaEph4A6ET8ubJPtSKERkmVmmQYKaTc+QdvA/k1/msvsXLDDamDN8fw2gp
-	 aqyWJ8p+/OOgstbRSAND/q2zjMGV+dczbuufChRtCUAVAija5MrrsShbKKJaAD3K60QqF
-	 7ATCw3cVZyrwUBupwbczbnkIS8S192HSwMGrsdxpell1ok8zZnC1G7LuPMLUPfeaqWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793819062;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ZcNOKAF+btuKJx3uZSf5CmZcmaTrqP39Exdfb20KUT8=;
+	b=ha4cu5uh5TB6eCuC/o0/R/2z1ZofwlwctrhuMuRethyz3KxWN924djDgZNHN5XuLILWs
+	 U1NHntTxMxRzLK2IVyqG4HnbD9M/JTK5IDRaAn2ASVAlPE+1L4jFX0RUyLD3R3aos3aUk
+	 GXlGaZnQiszRdqUd2uL6t8LjRyvAMquTi7L7d68jKFu0vjWBkoiDBTPd24nkQsEsAlIVi
+	 xRjcGpmyDqByTs870c3eR2Gg2H+hA2N2oA1EaK5M2vKwZ3pnvvd2uKVcF23yqq8D2iI0C
+	 nNhsINvSW9IFbArXslbDx4XawGQXS9nYdhOsAbiHNve0SojqIjhZ83kLFDn2ieGrnvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x0iB4i04;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB12606A338
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:02:19 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=grj8sXve;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D380C606D817;
+	Wed,  4 Nov 2026 19:04:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D380C606D817
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x0iB4i04
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A6471F0093A;
-	Wed,  4 Nov 2026 19:02:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793818939;
-	bh=pFp3TmuucBCO6cwBWK7xdjKtfPMrn+5knkWA2LFr79U=;
-	h=Subject:To:Cc:From:Date;
-	b=x0iB4i04k4UaXhpmxcuMBk5xuZli0Ff6eAvYWd2yEjnV8hwtmltdFMY+VtmQ3qQ7Q
-	 x1W43r2QLvAAkNivEZxZH+lbjFE2jI2XxAHVtstiCAHLfX5pvL7CxlfNYUIFQd5OM8
-	 WwgqKVmV5/Zqzz13pqhwos385ZGrJhf4zpBvosrM=
-Subject: FAILED: patch "[PATCH] NFSD: Map flex file layout IDs through the request's user" failed to apply to 5.10-stable tree
-To: chuck.lever@oracle.com,cel@kernel.org,jlayton@kernel.org,sashiko-bot@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:02:11 -0500
-Message-ID: <2026110411-clothing-unskilled-c8ce@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=grj8sXve
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F18351650;
+	Wed,  4 Nov 2026 11:04:17 -0800 (PST)
+Received: from gaia.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 595593F673;
+	Wed,  4 Nov 2026 11:04:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793819061; bh=e2/cEutB6rP6H6O7LKfGlCjcwtFZrdduOluWtjmZmwI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=grj8sXve4ropMy7ygQPr2l6wjWitIEPyVLFfoW9Tu3DIk8YJl/gFHn2IoMuw8iKVj
+	 87zso7OeaDaUNTYLa+241oL835Zu/mTCsfAql26dP0WpCynBURr3nSRGfqU9MWLZK4
+	 lEB7Jvb8UpNbLv4Is68eGeg7Blz86t2SaSvT7+ck=
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: will@kernel.org,
+	Wei Wang <wvw@google.com>
+Cc: broonie@kernel.org,
+	mark.rutland@arm.com,
+	rafael@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	wei.vince.wang@gmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: suspend: Save and restore TPIDR2_EL0 across CPU suspend
+Date: Wed,  4 Nov 2026 19:04:11 +0000
+Message-ID: <179381905166.1379866.18383747064499399879.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261103175941.1349818-1-wvw@google.com>
+References: <20261103175941.1349818-1-wvw@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,147 +68,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
+On Tue, 03 Nov 2026 17:59:41 +0000, Wei Wang wrote:
+> TPIDR2_EL0 is a live EL0 register on systems with SME, but
+> cpu_do_suspend()/cpu_do_resume() don't preserve it. Its value is
+> UNKNOWN after a warm reset, so the task that initiates suspend can
+> return to userspace with a corrupted TPIDR2_EL0.
+> 
+> Save and restore it alongside TPIDR_EL0 and TPIDRRO_EL0. The new slot
+> fits in existing padding, so sizeof(struct cpu_suspend_ctx) is
+> unchanged.
+> 
+> [...]
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Applied to arm64 (for-next/fixes), thanks!
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x f913d5d2130a584d1a027ffe3dfd88b6be2e0540
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110411-clothing-unskilled-c8ce@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From f913d5d2130a584d1a027ffe3dfd88b6be2e0540 Mon Sep 17 00:00:00 2001
-From: Chuck Lever <chuck.lever@oracle.com>
-Date: Mon, 20 Jul 2026 12:37:24 -0400
-Subject: [PATCH] NFSD: Map flex file layout IDs through the request's user
- namespace
-
-nfsd4_ff_proc_layoutget() and nfsd4_ff_encode_layoutget() translate
-the file's owner and group with init_user_ns, but every other identity
-nfsd places on the wire goes through nfsd_user_namespace(). When the
-transport carries a credential from a non-initial user namespace, the
-flex file layout reports host-global IDs. The client copies those IDs
-into the AUTH_SYS credential it presents to the data server, and
-svcauth_unix_accept() resolves that credential in the transport's
-namespace, so data server I/O runs under an identity unrelated to the
-file's owner.
-
-Switching to the request's namespace introduces a second hazard.
-from_kuid() returns (uid_t)-1 when the target namespace has no
-mapping for the owner, and the IOMODE_READ arm adds one to that
-result to derive an identity for which the data server denies
-writes. The addition would wrap to zero, handing the client uid 0
-instead of an identity distinct from the owner.
-
-Translate both IDs in nfsd4_ff_proc_layoutget(), which has the
-svc_rqst, and carry the wire values in struct pnfs_ff_layout.
-from_kuid_munged() substitutes overflowuid for an unmapped owner and
-thus never returns (uid_t)-1, so the increment cannot wrap to zero.
-
-Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
-Cc: stable@vger.kernel.org
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260720141442.783935-1-cel@kernel.org?part=3
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260720163724.810227-1-cel@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-
-diff --git a/fs/nfsd/flexfilelayout.c b/fs/nfsd/flexfilelayout.c
-index 9f532418cac8..c6e6b9106a83 100644
---- a/fs/nfsd/flexfilelayout.c
-+++ b/fs/nfsd/flexfilelayout.c
-@@ -15,6 +15,7 @@
- 
- #include "nfserr.h"
- #include "flexfilelayoutxdr.h"
-+#include "auth.h"
- #include "pnfs.h"
- #include "vfs.h"
- 
-@@ -24,10 +25,10 @@ static __be32
- nfsd4_ff_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
- 		const struct svc_fh *fhp, struct nfsd4_layoutget *args)
- {
-+	struct user_namespace *userns = nfsd_user_namespace(rqstp);
- 	struct nfsd4_layout_seg *seg = &args->lg_seg;
- 	u32 device_generation = 0;
- 	int error;
--	uid_t u;
- 
- 	struct pnfs_ff_layout *fl;
- 
-@@ -50,13 +51,16 @@ nfsd4_ff_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
- 	fl->flags = FF_FLAGS_NO_LAYOUTCOMMIT | FF_FLAGS_NO_IO_THRU_MDS |
- 		    FF_FLAGS_NO_READ_IO;
- 
--	/* Do not allow a IOMODE_READ segment to have write pemissions */
--	if (seg->iomode == IOMODE_READ) {
--		u = from_kuid(&init_user_ns, inode->i_uid) + 1;
--		fl->uid = make_kuid(&init_user_ns, u);
--	} else
--		fl->uid = inode->i_uid;
--	fl->gid = inode->i_gid;
-+	fl->uid = from_kuid_munged(userns, inode->i_uid);
-+	fl->gid = from_kgid_munged(userns, inode->i_gid);
-+
-+	/*
-+	 * Do not allow an IOMODE_READ segment to have write permissions.
-+	 * The group is left intact so group-readable files stay readable;
-+	 * nfsd_setuser() squashes an unmapped uid to the export's anon ID.
-+	 */
-+	if (seg->iomode == IOMODE_READ)
-+		fl->uid++;
- 
- 	error = nfsd4_set_deviceid(&fl->deviceid, fhp, device_generation);
- 	if (error)
-diff --git a/fs/nfsd/flexfilelayoutxdr.c b/fs/nfsd/flexfilelayoutxdr.c
-index 97d8a28dd3a0..c12bb7c371b0 100644
---- a/fs/nfsd/flexfilelayoutxdr.c
-+++ b/fs/nfsd/flexfilelayoutxdr.c
-@@ -33,8 +33,8 @@ nfsd4_ff_encode_layoutget(struct xdr_stream *xdr,
- 
- 	fh_len = 4 + xdr_align_size(fl->fh.size);
- 
--	uid.len = sprintf(uid.buf, "%u", from_kuid(&init_user_ns, fl->uid));
--	gid.len = sprintf(gid.buf, "%u", from_kgid(&init_user_ns, fl->gid));
-+	uid.len = sprintf(uid.buf, "%u", fl->uid);
-+	gid.len = sprintf(gid.buf, "%u", fl->gid);
- 
- 	/* data server entry: deviceid + efficiency + stateid + fh list +
- 	 * user + group + flags + stats_collect_hint
-diff --git a/fs/nfsd/flexfilelayoutxdr.h b/fs/nfsd/flexfilelayoutxdr.h
-index 6d5a1066a903..3e1876d49db2 100644
---- a/fs/nfsd/flexfilelayoutxdr.h
-+++ b/fs/nfsd/flexfilelayoutxdr.h
-@@ -35,8 +35,9 @@ struct pnfs_ff_device_addr {
- struct pnfs_ff_layout {
- 	u32				flags;
- 	u32				stats_collect_hint;
--	kuid_t				uid;
--	kgid_t				gid;
-+	/* Values to encode; nfsd4_ff_proc_layoutget() has mapped these */
-+	u32				uid;
-+	u32				gid;
- 	struct nfsd4_deviceid		deviceid;
- 	stateid_t			stateid;
- 	struct nfs_fh			fh;
-
+[1/1] arm64: suspend: Save and restore TPIDR2_EL0 across CPU suspend
+      https://git.kernel.org/arm64/c/beeec0404622
