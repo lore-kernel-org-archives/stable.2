@@ -1,111 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820199;
-	b=XqYkNtuWLhoucNIT9XxuXD7TxDlrmARcHyr9F+I/BGynmH4f0mkOtgSyMa8O+V74GXTE
-	 o8uJTtKNzn3GGHkJ7Oq5QCHRMYgg68csCtd4heX9WFRyWYdAC3GEwYC3YcrG18hREYvCF
-	 nwFrbCBtdmpngBa/YuWPBVB2sYMwF+MX/EqUlkZwwlQSg9Dq7owFJCdm/7TkGK2HmgHsg
-	 hHDveDKgJO+un2YPAXupy9VTXbcL6xJZY7JH4cJWUKOgCN21KvxmBG0VJ1AwCAHZAmrOF
-	 FmmeXFvKLzwMHfBTAb0hX0wnGC1+E5vvv7z3y7YgbJpcaGtD4zLKxftG1mKQ3l3jTpQ==
+	t=1793820224;
+	b=H6cHpvt99v+EHhnSX/mlApkabWtA075FPJKG+pc+WIL/ng4lLah4/zpTLd0MAQGPTZgl
+	 ucBr570Mdy7q0ZvrC+oVsCQd0v8oUQTRBrxm663VZuLCR/CaaMbkfHM0lZR8k9vwrUBTD
+	 NkTgXZdcWM++5ReyfsAZlZibZ+Wsys6hESbxXi3RoCSW1jUodCtNvU6O/UeiApPcPsaze
+	 OhWlKLKhCaGjXyCwWqP7T7oqGcuwZHe0FN381Nuh8ZTKp7JU8ZvumJ5KF/aetU4LJZC/3
+	 wValLJtNsncq2qvbGgG+/ydtI3a7QH/YCTkSfnKHTKPQGFDuS+4qwEied4Nvu3dGH2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820199;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=9dtN9D2ek/PODLB9eXKISWT+1DyRVltUAnsYO5R4w7M=;
-	b=Wn6SAoyN+gCMLwcht4HwN61zLd0DNzJ9jqr7KEgQOc6Pwv0jADHb5P0axAJATZtwNFM6
-	 MG8mIqn9+gehkc7zKk+yLCxTdeIBBNJp4UEoVaw7lKmPta3BXRt2MDQGdbdVayI+DFpYd
-	 ARkvwxXgo/wNFbpxTyOLFu2H1w4MDWIuWY76vwOW0UdKc+zeAhn4DZi0J7p7uD5PtEG/p
-	 a2B/b8rylRgGJm/PxyiQ57iH/K7VmbRrJXDr/8cfxxRlOtd/D6nw7xix7xuppDhbPz/V+
-	 qx7HvKiK/ALvKemS/MiN7EV0MiIMc+1aKz3XYHpdF3zCJc7tqvKKNy0Zb8jU4E6Hq8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820224;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=46TgEEpU2cLyOA8VrjeroVXP2AzZevlXDET/sZONzQA=;
+	b=ieU3HMFOz+T1ky2+6btp+Fs6u5CveDo/2ADchBOghVBVS83CcD6OxvgEQjb99fx8skPP
+	 mmUzrbdqe3un1Yhss/HPjqASKpv1T65xUc0BHWtQwsBCmCGaqCVOgo4aRwk0bY38zj243
+	 L/cL+w4Iy+EuXHDXSV0neDJH77lHDkFyyWBkw5oWFtC3VK1V0XS5FDTcIRHSxbPjSnGHd
+	 iHwY37T90DECp1GW8uuDzDcQcpspybJJqqFmsLsriaDipyAuWqHUvjFs18w6CG/xkZ2my
+	 t1HXYFiXiQ2u3Oe2iB4DczOjPu7Lv6t9iDdriNejHzxr98pM/da3hsfIHYeHyBWj3Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WUjVvSgY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="EZLjO5/d";
+	arc=none smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD2E606C900;
-	Wed,  4 Nov 2026 19:23:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE31606D4FC
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:23:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BE31606D4FC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WUjVvSgY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 055C01F000C1;
-	Wed,  4 Nov 2026 19:23:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793820199;
-	bh=9dtN9D2ek/PODLB9eXKISWT+1DyRVltUAnsYO5R4w7M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WUjVvSgYe5Hj7+VHJxqGCdVuPZtH9TtLIRIu84V4WAA6vFP1AvkW+oSj/edLc2ck/
-	 AAJWe21jGN66rAVWXOLHwrW3BkgJ7C5MMC9kqPjYIm9KMsBUn46oa0vCJA/TU5q6rX
-	 iH5MZ7/d6lbSeiP9AbR9i30r2ap/96zzZx+nemJvi6mhYtlWM8sEF2UUpZwV40I+z3
-	 +txyiwalAfhoSb0jj4BJxzYGfVLI7LPAybYz/+TrWrBDGQ0NUDbS+hRxwxJlmPbijJ
-	 EE86e3tlHpNNL7Pmd5DKa/IXf1VMJPtPlvfcVaYXoetHk9VmlRKFC3n8SLFdRpRElE
-	 JRmL7ZtyfUvGw==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH RESEND v2 29/51] proc: don't walk through a non-directory when resolving a name
-Date: Wed,  4 Nov 2026 20:23:04 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-29-021c84d852e0@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
-References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EZLjO5/d
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so9275ad.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 11:23:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793820224; x=1794425024; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=46TgEEpU2cLyOA8VrjeroVXP2AzZevlXDET/sZONzQA=;
+        b=EZLjO5/dHhZww1BHBnX4Wc8ofH+0qETmUEMKT1ZmWbRgkbJPb62CYdGFMCH/MUXNWL
+         l9MSavtdpo5QPPGVy+0ijqvvbAROu6+NIgD7i8PmUZqVWw7YJD6OI+rGAGvt5jG+DRT6
+         tTI3xF+nYr3tXSjQyB9Lp+giNMgxWdqjrbT3tKAaNjm/RPVbDrMsizFEHRBDHWBCxTQ0
+         PC8iA+UdadAI+viNpE9x9R9BK4rARxktrG9nA0PN/P5MB4RnSQzEzK83OB2nCAnUGueh
+         sJiRRAYCcuCPOiXMR3aK6vrr+k3IL3GBjO/fBxuORJMh9uvD8YK76UAIiHwl/JWVTkBp
+         wcAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793820224; x=1794425024;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=46TgEEpU2cLyOA8VrjeroVXP2AzZevlXDET/sZONzQA=;
+        b=FD/9h2kY16cjFdp5p9m3jKSUPygHyWglD5PProxByOTD+ZJu4fOZkVNyHv6aODT2kY
+         YVjOH00njwLSXuWeRw+xDmlIQiw521HldS92eMvqwcEDaGzSBkW2YHjUCTehIoVz2+Zb
+         kt7x30GxiatQlmlezIGk3FRbfJ/L4Zr9wUCePjAHCPMGK/ekk8JMDUO5eD4k7NoPFlpB
+         YxvT4wVjl5neTBDweSmlbAxGuSQN9MMuFzi/+8q4qmZ03tdkzpEseCVp0pzDZhWvleAV
+         YEbgJndHtxPoaJKbV1tz3gfLc+kYgdyl75gpqHIsV3AIPfgPWn24D4XbVkaI9vr7q3BN
+         Fsrw==
+X-Forwarded-Encrypted: i=1; AKwUvBwjg8VKMVvTNwTmBlbaND0JVF+5u7f/BVy6h64KdZ4900c6v+XWlV7NvY3agB8V5pLRIlcPuEU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+wyWZq+4Hk7xYcjuO+yHnLDtwcjb3t1ZqmA/ZBPMGW4hhCxvGG
+	J4NOFvEZreKQZWHWwIkk6LxTA8WdwXsPwGQf/ToLEPvdVnW9UxXHH0AlgBWdzRaIEralNhzRqYT
+	ntRsvaA==
+X-Gm-Gg: AYBFou2VulpVLQ1DRelvb9WrniO9yH5e9wO7TfsN/I66ZlOeCKXyLtXDX8ibIzarJwV
+	BbRRczlS67ikOkSYWhDuTiwSPl8ymTkZPGLz4eRv9SVmj38MT/G7PHrqhkFiHdWM17M/kyP4dGY
+	bSCd62CHTKfOjCewAdXasPmKnGluebvNA7t7Zr0Yd3wIobBsQPhUfBLe3iH7UF5/SIMF3wnvzfW
+	zQUKquWWwRFGe+r7LH7Bsen2U+Dj7YEalYK3qtpwavFJYlbYcteXhvmMsSriSiPwztVQagLARbJ
+	c0E/lirqJOvmeiHtZ7D7DSsrE6Eg1LBi/HwlPE4Y8CEgAsXGO9Cfnmg/8dwpOHNn8yKlIwl6WzR
+	OPutPj8B32xwnfJ7+poOrLNzcw0f/v+DTuesJvuurpA3YzTcnkk1rO+TddFQG1U1xvldBqgrRBH
+	oexC0Ynt2vPZIYsaO80v2GxuSD7uAXqMLrk6B27JDYq3t5vwgK8vTQ7ZlNRCLx/rPGT8pymLCeX
+	E0jl/xwU/BPK0tqLS7KOMSrugtMnaVrhr6L8p6C1nTmRGsPDXw/WYrnl1J1XwOVxCvan4XM0A7s
+	UvK3P4H6qk8LFCESz57EelGUE6TedmK0ADEj4YUbTuAgBkJyUB3lGLvqZkeBcgemR1gMtYzWIa/
+	aYkt4VFpCtedcXVIhBq2dia7o83vfmbQL48QqO4TeOxfqP4pdgnaztEXhrD6Dukh0DWYqbi9BNz
+	A1CONO0CYxlic+sCSYmDF9xqigh0gV652hq0s2jRT53MT7zzXVluZGFLCJF1/GXA==
+X-Received: by 2002:a17:902:cecf:b0:2e6:f400:5655 with SMTP id d9443c01a7336-2ed2613a591mr493935ad.3.1793820223025;
+        Wed, 04 Nov 2026 11:23:43 -0800 (PST)
+Received: from google.com (20.131.16.34.bc.googleusercontent.com. [34.16.131.20])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09b6634cesm1282834b3a.39.2026.11.04.11.23.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 11:23:42 -0800 (PST)
+Date: Wed, 4 Nov 2026 19:23:38 +0000
+From: Carlos Llamas <cmllamas@google.com>
+To: gregkh@linuxfoundation.org
+Cc: aliceryhl@google.com, stable@vger.kernel.org
+Subject: Re: FAILED: patch "[PATCH] rust_binderfs: add transaction_report
+ feature entry" failed to apply to 7.3-stable tree
+Message-ID: <auuGOvKNKpJ1saa0@google.com>
+References: <2026110401-lure-unmoving-2038@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,71 +99,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2403; i=brauner@kernel.org; h=from:subject:message-id; bh=syoXv99Xi8HZbn/gUZHMWCnjRlLtpR5bAeJLx/CLQI8=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bnzfyJTJaHMu41dep952AaYXinG37t+WyDPu5f08x dN5TvXxjlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgImwHGP4n7qS/1/T39mfA+ez nur5I3X/0v1ZE26+TomYpu8oNvN10zOG/0VzMx60c//Q3nGn5Li21/MFnmxuVnN23S5+YyFT+l7 1HzMA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026110401-lure-unmoving-2038@gregkh>
 
-__xlate_proc_name() walks the components of a name like "a/b/c" and
-takes whatever it finds for "a" and "b" as the directory to go on in.
-It never checks that they actually are directories. So
-proc_create("file/x") hangs x into the subdir tree of the regular file
-"file". Nobody can look x up there, but remove_proc_subtree() on the
-file removes and frees x along with it, behind the back of whoever
-registered x.
+On Wed, Nov 04, 2026 at 03:12:01PM +0100, gregkh@linuxfoundation.org wrote:
+> 
+> The patch below does not apply to the 7.3-stable tree.
+> If someone wants it applied there, or to any other stable or longterm
+> tree, then please email the backport, including the original git commit
+> id to <stable@vger.kernel.org>.
+> 
+> To reproduce the conflict and resubmit, you may use the following commands:
+> 
+> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+> git checkout FETCH_HEAD
+> git cherry-pick -x 2fcc8b9687af998b74ce6b0d349167eae7931558
+> # <resolve conflicts, build, test, etc.>
+> git commit -s
+> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110401-lure-unmoving-2038@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+> 
+> Possible dependencies:
+> 
+> 
+> 
+> thanks,
+> 
+> greg k-h
+> 
+> ------------------ original commit in Linus's tree ------------------
+> 
+> From 2fcc8b9687af998b74ce6b0d349167eae7931558 Mon Sep 17 00:00:00 2001
+> From: Carlos Llamas <cmllamas@google.com>
+> Date: Wed, 16 Sep 2026 12:08:32 +0000
+> Subject: [PATCH] rust_binderfs: add transaction_report feature entry
+> 
+> rust_binderfs is missing the equivalent of commit f37b55ded8ed ("binder:
+> add transaction_report feature entry"), which adds "transaction_report"
+> to the binderfs feature list. This helps userspace determine if the
+> BINDER_CMD_REPORT from the generic netlink API is supported.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: f14e0c8183bc ("rust_binder: report netlink transactions")
+> Signed-off-by: Carlos Llamas <cmllamas@google.com>
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> Link: https://patch.msgid.link/20260916120833.593407-1-cmllamas@google.com
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-pktgen passes the name the writer of "add_device" picks to
-proc_create_data(), and only the part in front of the '@' has to name
-a network device:
+This might have been my fault because I added the Cc: stable tag.
+However, no backport is needed. The patch is already applied to the 7.3
+tree as commit 137d6ccf0ec8 ("rust_binderfs: add transaction_report
+feature entry").
 
-  echo "add_device lo@"   > /proc/net/pktgen/kpktgend_0
-  echo "add_device lo@/x" > /proc/net/pktgen/kpktgend_1
-  echo "rem_device_all"   > /proc/net/pktgen/kpktgend_0
-  echo "rem_device_all"   > /proc/net/pktgen/kpktgend_1
-
-The third write frees both entries and the fourth one makes kpktgend_1
-call proc_remove() on the freed second one:
-
-  BUG: KASAN: slab-use-after-free in proc_remove+0x8f/0xa0
-  Read of size 8 at addr ff110001134c8e70 by task kpktgend_1/243
-  Call Trace:
-   proc_remove+0x8f/0xa0
-   pktgen_remove_device.isra.0+0x118/0x500
-   pktgen_rem_all_ifs+0xeb/0x1a0
-   pktgen_thread_worker+0x1b42/0x7280
-
-The files of a network namespace belong to the root of its user
-namespace and these writes don't require a capability. So once pktgen
-is loaded an unprivileged user can do this in namespaces of its own.
-
-Treat a component that isn't a directory like one that doesn't exist.
-All names with a '/' that the tree passes in as literals only walk
-through directories. pktgen is fixed separately to not pass such names
-in the first place.
-
-Reported-by: Chris Mason <mason@kernel.org>
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/proc/generic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/proc/generic.c b/fs/proc/generic.c
-index 4c3fcaf68ef4..6ac9c4c13897 100644
---- a/fs/proc/generic.c
-+++ b/fs/proc/generic.c
-@@ -170,7 +170,7 @@ static int __xlate_proc_name(const char *name, struct proc_dir_entry **ret,
- 	de = *ret ?: &proc_root;
- 	while ((next = strchr(cp, '/')) != NULL) {
- 		de = pde_subdir_find(de, cp, next - cp);
--		if (!de) {
-+		if (!de || !S_ISDIR(de->mode)) {
- 			WARN(1, "name '%s'\n", name);
- 			return -ENOENT;
- 		}
-
--- 
-2.53.0
-
+--
+Carlos Llamas
