@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793826888;
-	b=jXpSVr7BibKVLzn+OnDl2XpOb688yMhtnVHg/3jkJoOVR1o7d0e7/QKBHT0QdV6whxj2
-	 Nfl7CwKyXlNsSiX8i3bBYmLa1TGIScBJOlU/jViPxfEzOkFEnphcsD25lvgCJ856fU9c5
-	 1Q1rRP9bApxSx89keK/UlLhRxMBCRpQ6hVLGQPzvZzRJ1bPn0EBarXdUADCcKZn5AIdeW
-	 3ZXKDOyAvHnbioYj7nRIn37l4oIPguZN/0hG1jvne7hFlx0201U1QQdovZXRT+tdEVu4c
-	 iniO1qaRh7ltWHAu749qvTE4HueSDIWrvSDsXtNTprfNZlqYw76bfy3e1aU+lvYfljA==
+	t=1793826895;
+	b=MdrLgOpsPEZ0Tvo9CYx73/09VYnUvHfJ1BZrEJ3htNa4ZqYVL5Tgggg7OZdHYeQ5kh+x
+	 FfAH8gSJI5K0iBwwohd2Frw/UDW4gTU4MREDiBo8je3Bqm3OdHYlpep5nxoaohWTdhkSS
+	 dygfD5NruUaMcHX/C22EK7EJhVDsUvF9DTquF1/HL0/veuVJsZCbyfhgzcdwXKJxUjdSg
+	 8TvDQ7rSmbUcNk50BoPmvRblcdgPK4M6noLJZ0vud7fZwv4FK3BIkojubRgX8wJAG8ikH
+	 66CkFDgKkrzonxrU2TpGoAf1R898eZ5KSQ5X6+TU+9kW0dWqCmNuYCcAPlA+I7gNInw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793826888;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793826895;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=DjWiQoIz3qDeBmS+rH/fg8mnE2gELOFWS+DORs3t4GE=;
-	b=n1naWiOXm5M1WsZTUQydG8na7K89t4CPOwP0ke3GFSW5NryYdcbtIlHpxfoh0EyouWKN
-	 jrg1DS7N/T7Jj6DKQ5pKmKWpmgTdgzneDyUnRkZKYxzGsbzEAMD7wxl5l/2Kn87JcvVkE
-	 CrjwoBYn9Bk73KMtXLxhm2/JnJabJTb0Xe/UZuUNDLzVONuGp1+7kFTgwx3wZfRsMrb0Q
-	 ZDwbDg0/wLdE55qh6U7ATXPDpuTLP6/YqKC9628xQj8nr+e68+h/hIH3EXg2gTPVg56Bb
-	 vfcZ7GMNAPns5iDZWb9v+iDlLLvUzI2eqOpyC/T9vLDUUQsPQZiN6uqvimeMptwqprA==
+	bh=YbGIlWdmYkGEDpfICqQOJW5WMvkgPcJvVhBIt4tn5gQ=;
+	b=A9F88PjQZdn6OpPIg42looXBK04J7KCdOay/Z+VXeTvYStKum4bYKIPinRCtCG9MC4bJ
+	 lat+qKA/UC8xHKfuUFmPetOA/KSk/Pu/2sZNHpGhqVK0WNWPTxsdv1tmKZNIKLQDgM6G7
+	 S5KE03HfYVXxvEIdbRZx+nztAXMYYr69ahVF/yfwVyyjREX8gD1nUD+qay4to22y/oK8p
+	 GeQiOA9SFsDMaWOjnVi2bycVYmGL8Rk/rME1OJrYaxCh3kb9Xv3obiMyaOGtG6GapxrMc
+	 I6hFuh9Ipi5irRbVegBOWf/95hc137aa8j5xpswZKdAB5S3p8aptQZsgCnvIsnanhaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=s+0uzY5A;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dCtieBlm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2086082FDF;
-	Wed,  4 Nov 2026 21:14:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57736070761;
+	Wed,  4 Nov 2026 21:14:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=s+0uzY5A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D76C41F00919;
-	Wed,  4 Nov 2026 21:14:47 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dCtieBlm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FAF91F000C1;
+	Wed,  4 Nov 2026 21:14:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793826888;
-	bh=DjWiQoIz3qDeBmS+rH/fg8mnE2gELOFWS+DORs3t4GE=;
+	s=korg; t=1793826894;
+	bh=YbGIlWdmYkGEDpfICqQOJW5WMvkgPcJvVhBIt4tn5gQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=s+0uzY5AKcKJidWW6JwFBAS3Ii54uLevvXbjQ9mFvHOPtORk8Wzum1kieOhDVVJQN
-	 SqG17aPUC/LzDKdnEp1PMiTofu+imIeYA9JRP0p39RlHDJunprr8hBqXXxq6eFsYV+
-	 6fld/N0prNKi8oBa0H2Gr/u33oAYtoDVEBGX9ZQU=
+	b=dCtieBlmxYCNCF8+nxZd4AxavHihvu08qLbiLsWBo5Nw4cfIFe6ZaiGHatb2jwpPL
+	 UYZLvnn+G3MjO/E9hiumsCTHSv7A1CO5Db5kLtmHq8KrHtjdsEuo/vSwt02d1ZLbr7
+	 3LdSot6dQD9CZ6OvrUJ0TgdhKxlLXupSJmpzrS6M=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
-	Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 7.3 067/547] ALSA: line6: Clear prev_fbuf on capture buffer release
-Date: Wed,  4 Nov 2026 16:04:11 -0500
-Message-ID: <20261104211040.172322839@linuxfoundation.org>
+	Josef Bacik <josef@toxicpanda.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 053/547] io_uring/sqpoll: let the thread sleep on disabled rings
+Date: Wed,  4 Nov 2026 16:03:57 -0500
+Message-ID: <20261104211039.803624522@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -69,77 +68,53 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+From: Josef Bacik <josef@toxicpanda.com>
 
-commit aa118c8f61d59387961d58ffae831c5259a9f222 upstream.
+[ Upstream commit d492dcbb3b81c1c2d0aabef41fa1307093f3a556 ]
 
-A KASAN slab-use-after-free read was reported in submit_audio_out_urb()
-when generating an impulse test signal:
+__io_sq_thread() doesn't submit anything as long as the ring has
+IORING_SETUP_R_DISABLED set. The check that keeps the SQPOLL thread from
+going to sleep while the SQ ring holds entries doesn't know about that.
+If an application fills in SQEs first and enables the ring later, the
+thread finds that there is work each time it is about to sleep, goes
+around, doesn't submit it, and so on. It uses up a CPU until the ring
+gets enabled.
 
-  BUG: KASAN: slab-use-after-free in create_impulse_test_signal sound/usb/line6/playback.c:76 [inline]
-  BUG: KASAN: slab-use-after-free in submit_audio_out_urb+0x1848/0x1b20 sound/usb/line6/playback.c:249
-  Read of size 2 at addr ffff888008d74870 by task syz.2.3214/7785
+Entries in the SQ ring of a disabled ring are no reason to stay awake.
+io_register_enable_rings() clears the flag and then wakes the thread, and
+the flag is looked at after prepare_to_wait(), so the thread can't miss
+that.
 
-  Allocated by task 11:
-   kmem_cache_alloc_noprof+0x2f0/0x390 mm/slub.c:4144
-   line6_buffer_acquire+0x1a1/0x220 sound/usb/line6/pcm.c:158
-   line6_pcm_acquire+0xb6/0x230 sound/usb/line6/pcm.c:329
-   line6_startup_work+0x3c/0x50 sound/usb/line6/driver.c:728
-
-  Freed by task 7785:
-   kfree+0xf8/0x390 mm/slub.c:6566
-   line6_buffer_release sound/usb/line6/pcm.c:176 [inline]
-   line6_buffer_release+0xa5/0xf0 sound/usb/line6/pcm.c:170
-   __line6_pcm_release sound/usb/line6/pcm.c:305 [inline]
-   line6_pcm_release+0x5a/0x80 sound/usb/line6/pcm.c:313
-   snd_toneport_monitor_put+0x11b/0x190 sound/usb/line6/toneport.c:183
-
-line6pcm->prev_fbuf points into the capture PCM stream buffer
-(line6pcm->in.buffer), which is updated during audio_in_callback() to
-feed rate synchronization, software monitoring, and impulse test signal
-generation on playback side.
-
-When all capture streams are closed, line6_buffer_release() frees
-pstr->buffer with kfree().  However, it does not clear line6pcm->prev_fbuf.
-If playback is subsequently started (e.g. via impulse test signal
-volume control snd_line6_impulse_volume_put()), submit_audio_out_urb()
-dereferences the stale pointer line6pcm->prev_fbuf under in.lock,
-resulting in a slab-use-after-free read.
-
-Clear prev_fbuf and prev_fsize in line6_buffer_release() when releasing
-the capture stream buffer under in.lock, ensuring that no stale buffer
-pointer can be accessed by submit_audio_out_urb().
-
-Fixes: 63e20df1e5b2 ("ALSA: line6: Reorganize PCM stream handling")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Link: https://patch.msgid.link/20261013063554.571-1-25031212351@stu.xidian.edu.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 0298ef969a11 ("io_uring: clean R_DISABLED startup mess")
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Link: https://patch.msgid.link/20261015-b4-io-uring-fixes-v1-37-c1556f5d7bf5@toxicpanda.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/line6/pcm.c |    8 ++++++++
- 1 file changed, 8 insertions(+)
+ io_uring/sqpoll.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
---- a/sound/usb/line6/pcm.c
-+++ b/sound/usb/line6/pcm.c
-@@ -173,6 +173,14 @@ static void line6_buffer_release(struct
- 	clear_bit(type, &pstr->opened);
- 	if (!pstr->opened) {
- 		line6_wait_clear_audio_urbs(line6pcm, pstr);
-+		if (pstr == &line6pcm->in) {
-+			/* prev_fbuf points into the capture buffer we are about
-+			 * to free; drop it while no capture URB is in flight.
-+			 */
-+			guard(spinlock_irqsave)(&line6pcm->in.lock);
-+			line6pcm->prev_fbuf = NULL;
-+			line6pcm->prev_fsize = 0;
-+		}
- 		kfree(pstr->buffer);
- 		pstr->buffer = NULL;
- 	}
+diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
+index ad42e8eb10029..ee97808a065a9 100644
+--- a/io_uring/sqpoll.c
++++ b/io_uring/sqpoll.c
+@@ -385,6 +385,13 @@ static int io_sq_thread(void *data)
+ 				 */
+ 				smp_mb__after_atomic();
+ 
++				/*
++				 * Nothing gets submitted before the ring is
++				 * enabled, which comes with a wake up.
++				 */
++				if (READ_ONCE(ctx->flags) & IORING_SETUP_R_DISABLED)
++					continue;
++
+ 				if (io_sqring_entries(ctx)) {
+ 					needs_sched = false;
+ 					break;
+-- 
+2.53.0
+
 
 
