@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793827214;
-	b=gAAjbxFfz+F9GOke3zJPmSpw5J2R83B2C91eqBgmyyUMiaBHsDcMQ52aoaOw/enaWXGv
-	 rPr8FbM2R9KcxzZklWP/LkqGH8UlhrJzUlMUVcSZuru4dZRPNqbhPZsnzw8r9QjmD1zK4
-	 qfInqMEcHmijabey8VnAZNy20aFqNqlZUcAFOu6X+xvfLXhYgdE62ATKFp5ZSPgVtpcWG
-	 LyWpCJsIrVNzAS/0oOxNV6dOampng4D8eoG09wSQ/wkIG0aHFOTcVi8KeSr8uyz7LK33B
-	 Y/f0yDQD8yCl1sx8L6wI98TZS0ZmKr+sU9zb9rOyAobsBHG3BR8oD1SYWveEeUUbxow==
+	t=1793827219;
+	b=BckXyxiFdOKZ0/h0jbBtkVfQ3jobQvWognZdYhzoyXD+hvxUHgJebAYfxtRJ7RFLLAAa
+	 Ip2YHO7Dc09sgg013KMdSZ+GtWSnfuJXXHt949ghgSpRLyEV0A2SxfBQ0iynXPHV+JbQ2
+	 WQpmrX/qiiLyN2PJSqN4R1+BN2Eh4+rGKElqILcWER6SWSBKEkmKS+ur2ulpl6+NtlYUN
+	 oprb6N8SCjdkOimqGh9ODevWI/RVAd9sXXhWpNdAiXqR8c1ovAJKX34EtDyNVqto/etKL
+	 gj52N/XQYSXr+QxgNO0GINsI9HMMUn3IZEs8VyxWSVbaFV6qF4r4JEXSrgdbzp8MOUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793827214;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793827219;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xX1GIC4ADiihQuO/xEP+PuoyZYz3T50mRAqRI4+VRCk=;
-	b=xhc0lTh+G22A9lrKCtIDtfy4HgrciGBWxVewTnKWmdERikGBsuh6Ad1vREsrBrRYoWEB
-	 49d8LkdEnRN+kT4PtaTotby1EbdbSoIRmefcWTsThvGEhqZBgcPDrFQq63LxFIsszeIOT
-	 EhhHjkqA3kN+VEO10p+SbYecvy6Vnsd5j8tDtOsUCo2/pX9H6byVbnw7vKCgrW2IJOhst
-	 vJXZ6b6yenhBV4HabUm3Ey4KendqOXnK+35Shh3IP+C/E5McZVnE669tQeZLsXz54gG33
-	 HtIAG9FsPRLp8sEZqEhYVqdnaq0eLp6F4a5vfKxQd3QJIIhyJZE+fkSsiSNtUwYWxgg==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=+ZpOXSh1yJN3rCYqTwD4ku7+X2/vPAH348X3wqjzbFY=;
+	b=YVDuLrDKzvYsnKWeIAE9Cr9zw89ad7zJ2ZAjRrdEuHe76BWXG5JwN1sA+DpoP7cz0coy
+	 R7CjngjshKEWlIm/duIgPIle9aua6MgHhFndfPZxr7IjPOesdFQ8RilkqNLK5slSrDv+/
+	 NLkzi7V6G4+3lwHFtVzx6jmB9D1BFnZUMGu1Zx8YivEhIHo3E7JTVkiNJVls/zFWJporI
+	 AY7Z5cFAKNc1mWOkcBi+jcoEG2Vw9jlXKoCRZSZiwrqU5D2bn8gu4vyS8NZX3LORdpOCs
+	 SDBUhhbStZuAsqjid/YXKBynG8K5puDwV7YphM2WXXp7Ce09trLzbIyHiSsN1pESyHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FCx3jDfU;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=smnprCfg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4768E606B3B1;
-	Wed,  4 Nov 2026 21:20:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564DA608C9B7;
+	Wed,  4 Nov 2026 21:20:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FCx3jDfU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA121F00A02;
-	Wed,  4 Nov 2026 21:20:13 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=smnprCfg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C67041F000C1;
+	Wed,  4 Nov 2026 21:20:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793827214;
-	bh=xX1GIC4ADiihQuO/xEP+PuoyZYz3T50mRAqRI4+VRCk=;
+	s=korg; t=1793827219;
+	bh=+ZpOXSh1yJN3rCYqTwD4ku7+X2/vPAH348X3wqjzbFY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FCx3jDfUsBZUB4/oDLH3fnmtq7wJKUnJaugC81K+/cAvJL5GI9pc+bJx05FUHmltI
-	 +/6ypWaoYPcdC+1IcOOOs9YuWMdjHYLGwLs3ZwwCJ1EWApmQDpFJbhsE5BuZtc4kIw
-	 IRvUllXKxRGAa+csL4bPrZJxdYZi6q7prxz7FeEw=
+	b=smnprCfgC7v8OJO3AisGnHBmMReL0GRLQEvZvQePXjzYI5Eu/HS+2GJIXDIAq4Sqj
+	 f60+vtCuET5prkLkrFtvqJ3XSnvu9B/2BLAUuhpXswvKl0ljrdr9YBOjZ+TPXUvz2O
+	 0eHm3eHyTVMdLJ9b29NUll2vKeQDSdllJMLHc6Nw=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Amit Machhiwal <amachhiw@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>
-Subject: [PATCH 7.3 224/547] KVM: PPC: Book3S HV: Add SRCU protection for virtual-mode HPT hcalls
-Date: Wed,  4 Nov 2026 16:06:48 -0500
-Message-ID: <20261104211044.518629694@linuxfoundation.org>
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Ming Qian <ming.qian@oss.nxp.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: [PATCH 7.3 227/547] media: imx-jpeg: cancel timeout worker when streaming stops
+Date: Wed,  4 Nov 2026 16:06:51 -0500
+Message-ID: <20261104211044.605617646@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -62,149 +63,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 7.3-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-commit 61a39797bb136243c48b46e2586d8a9e2cea6a89 upstream.
+commit 78fdfbf117c409273eecbfa7a528ef42358a0e38 upstream.
 
-The virtual-mode HPT hcall handlers (H_ENTER, H_REMOVE, H_BULK_REMOVE,
-H_CLEAR_REF, H_CLEAR_MOD) call into book3s_hv_rm_mmu.c, which accesses
-memslots via kvm_memslots_raw().  kvm_memslots_raw() uses
-rcu_dereference_raw_check() to bypass SRCU lockdep annotation checking.
-This is safe in real mode because the entire guest entry/exit is wrapped
-in srcu_read_lock/unlock inside kvmppc_run_core() and
-kvmhv_run_single_vcpu().
+Each per-fd context ctx owns a delayed_work (ctx->task_timer, callback
+mxc_jpeg_device_run_timeout) armed via schedule_delayed_work() at the end
+of mxc_jpeg_device_run() to recover a stalled encode/decode job. The only
+existing cancellation is cancel_delayed_work() in the frame-done IRQ
+handler, which de-queues a pending work item but does not wait for a
+callback that has already started, and it only runs when a frame completes.
 
-However, since commit 6165d5dd99db ("KVM: PPC: Book3S HV: add virtual
-mode handlers for HPT hcalls and page faults"), these same handlers are
-also executed in virtual mode via kvmppc_pseries_do_hcall(), which runs
-after SRCU has already been released on guest exit.
+When the fd is closed while a job is in flight (the frame-done IRQ has not
+fired yet), nothing syncs the worker before mxc_jpeg_release() frees ctx
+with kfree() after v4l2_m2m_ctx_release(). A queued or executing
+mxc_jpeg_device_run_timeout() can then recover ctx through
+container_of(&ctx->task_timer) and dereference it (ctx->mxc_jpeg,
+slot_data, dev_warn) after ctx has been freed.
 
-A concurrent KVM_SET_USER_MEMORY_REGION deletion or move can therefore
-call synchronize_srcu_expedited() — which does not wait for this thread —
-and then kfree(slot) and vfree(slot->arch.rmap) while the hcall handler
-still holds a raw pointer to the memslot.  lock_rmap() then writes to
-freed vmalloc memory, leading to use-after-free and memory corruption.
-Because kvm_memslots_raw() suppresses lockdep checks, this race is
-entirely silent.
+Cancel the worker from mxc_jpeg_stop_streaming(). The cancel cannot live
+in mxc_jpeg_release(): mxc_jpeg_device_run() arms the timer while holding
+only hw_lock, not the mxc_jpeg->lock mutex that release holds, so a cancel
+in release could still race a concurrent mxc_jpeg_device_run() that
+re-arms the timer afterwards. mxc_jpeg_stop_streaming() instead runs inside
+v4l2_m2m_ctx_release() -> vb2_queue_release(), i.e. after
+v4l2_m2m_cancel_job() has set TRANS_ABORT and waited for any in-flight job
+to finish (so __v4l2_m2m_try_queue() will not queue and v4l2_m2m_try_run()
+will not run any further job for this context, which prevents
+mxc_jpeg_device_run() from re-arming the timer) and before the m2m context
+is freed. cancel_delayed_work_sync() removes a pending work item and waits
+for a running callback, so the worker can no longer race with the
+subsequent kfree(). The cancel is placed before the buffer-release loop so
+a concurrently running timeout callback cannot race with it over the same
+buffers. If the frame-done IRQ canceled a still-pending timer, this cancel
+is a no-op; if the timeout callback has already started, it waits for the
+callback to finish. The same mxc_jpeg_stop_streaming() call is also
+reached from VIDIOC_STREAMOFF, which drains the worker early, although
+STREAMOFF itself does not free ctx -- the use-after-free arises only
+when the fd is later closed.
 
-Fix this by factoring out the 7 HPT hcall handlers (H_REMOVE, H_ENTER,
-H_READ, H_CLEAR_MOD, H_CLEAR_REF, H_PROTECT, H_BULK_REMOVE) into a
-helper function, kvmppc_pseries_do_hpt_hcall(), and wrapping its call
-site in srcu_read_lock(&kvm->srcu) / srcu_read_unlock(&kvm->srcu, idx).
-Targeting only the HPT hcalls avoids wrapping non-HPT hcalls that sleep
-(such as H_CONFER, H_REGISTER_VPA, H_PAGE_INIT) or handlers that already
-acquire SRCU internally (such as H_RTAS).
+This bug was found by static analysis.
 
-Fixes: 6165d5dd99db ("KVM: PPC: Book3S HV: add virtual mode handlers for HPT hcalls and page faults")
-Cc: stable@vger.kernel.org # v5.14+
-Suggested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Link: https://patch.msgid.link/20260928122837.8782-2-amachhiw@linux.ibm.com
+Fixes: cfed9632ca8e ("media: imx-jpeg: Add a timeout mechanism for each frame")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Ming Qian <ming.qian@oss.nxp.com>
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- arch/powerpc/kvm/book3s_hv.c |   70 +++++++++++++++++++++----------------------
- 1 file changed, 35 insertions(+), 35 deletions(-)
+ drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
---- a/arch/powerpc/kvm/book3s_hv.c
-+++ b/arch/powerpc/kvm/book3s_hv.c
-@@ -1159,6 +1159,38 @@ static long kvmppc_h_rpt_invalidate(stru
- 	return H_SUCCESS;
- }
+--- a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
++++ b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
+@@ -1798,6 +1798,8 @@ static void mxc_jpeg_stop_streaming(stru
  
-+static long kvmppc_pseries_do_hpt_hcall(struct kvm_vcpu *vcpu, unsigned long req)
-+{
-+	switch (req) {
-+	case H_REMOVE:
-+		return kvmppc_h_remove(vcpu, kvmppc_get_gpr(vcpu, 4),
-+				       kvmppc_get_gpr(vcpu, 5),
-+				       kvmppc_get_gpr(vcpu, 6));
-+	case H_ENTER:
-+		return kvmppc_h_enter(vcpu, kvmppc_get_gpr(vcpu, 4),
-+				      kvmppc_get_gpr(vcpu, 5),
-+				      kvmppc_get_gpr(vcpu, 6),
-+				      kvmppc_get_gpr(vcpu, 7));
-+	case H_READ:
-+		return kvmppc_h_read(vcpu, kvmppc_get_gpr(vcpu, 4),
-+				     kvmppc_get_gpr(vcpu, 5));
-+	case H_CLEAR_MOD:
-+		return kvmppc_h_clear_mod(vcpu, kvmppc_get_gpr(vcpu, 4),
-+					  kvmppc_get_gpr(vcpu, 5));
-+	case H_CLEAR_REF:
-+		return kvmppc_h_clear_ref(vcpu, kvmppc_get_gpr(vcpu, 4),
-+					  kvmppc_get_gpr(vcpu, 5));
-+	case H_PROTECT:
-+		return kvmppc_h_protect(vcpu, kvmppc_get_gpr(vcpu, 4),
-+					kvmppc_get_gpr(vcpu, 5),
-+					kvmppc_get_gpr(vcpu, 6));
-+	case H_BULK_REMOVE:
-+		return kvmppc_h_bulk_remove(vcpu);
-+	}
-+
-+	return H_FUNCTION;
-+}
-+
- int kvmppc_pseries_do_hcall(struct kvm_vcpu *vcpu)
- {
- 	struct kvm *kvm = vcpu->kvm;
-@@ -1174,47 +1206,15 @@ int kvmppc_pseries_do_hcall(struct kvm_v
+ 	dev_dbg(ctx->mxc_jpeg->dev, "Stop streaming ctx=%p", ctx);
  
- 	switch (req) {
- 	case H_REMOVE:
--		ret = kvmppc_h_remove(vcpu, kvmppc_get_gpr(vcpu, 4),
--					kvmppc_get_gpr(vcpu, 5),
--					kvmppc_get_gpr(vcpu, 6));
--		if (ret == H_TOO_HARD)
--			return RESUME_HOST;
--		break;
- 	case H_ENTER:
--		ret = kvmppc_h_enter(vcpu, kvmppc_get_gpr(vcpu, 4),
--					kvmppc_get_gpr(vcpu, 5),
--					kvmppc_get_gpr(vcpu, 6),
--					kvmppc_get_gpr(vcpu, 7));
--		if (ret == H_TOO_HARD)
--			return RESUME_HOST;
--		break;
- 	case H_READ:
--		ret = kvmppc_h_read(vcpu, kvmppc_get_gpr(vcpu, 4),
--					kvmppc_get_gpr(vcpu, 5));
--		if (ret == H_TOO_HARD)
--			return RESUME_HOST;
--		break;
- 	case H_CLEAR_MOD:
--		ret = kvmppc_h_clear_mod(vcpu, kvmppc_get_gpr(vcpu, 4),
--					kvmppc_get_gpr(vcpu, 5));
--		if (ret == H_TOO_HARD)
--			return RESUME_HOST;
--		break;
- 	case H_CLEAR_REF:
--		ret = kvmppc_h_clear_ref(vcpu, kvmppc_get_gpr(vcpu, 4),
--					kvmppc_get_gpr(vcpu, 5));
--		if (ret == H_TOO_HARD)
--			return RESUME_HOST;
--		break;
- 	case H_PROTECT:
--		ret = kvmppc_h_protect(vcpu, kvmppc_get_gpr(vcpu, 4),
--					kvmppc_get_gpr(vcpu, 5),
--					kvmppc_get_gpr(vcpu, 6));
--		if (ret == H_TOO_HARD)
--			return RESUME_HOST;
--		break;
- 	case H_BULK_REMOVE:
--		ret = kvmppc_h_bulk_remove(vcpu);
-+		idx = srcu_read_lock(&kvm->srcu);
-+		ret = kvmppc_pseries_do_hpt_hcall(vcpu, req);
-+		srcu_read_unlock(&kvm->srcu, idx);
- 		if (ret == H_TOO_HARD)
- 			return RESUME_HOST;
- 		break;
++	cancel_delayed_work_sync(&ctx->task_timer);
++
+ 	/* Release all active buffers */
+ 	for (;;) {
+ 		if (V4L2_TYPE_IS_OUTPUT(q->type))
 
 
