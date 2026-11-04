@@ -1,47 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820183;
-	b=E2K+SOFZWH+h04TtdcLBC2WxHMYxUu+u2vLhPSzxvnm/QNZeee+1jfIp3uv77V0VrARQ
-	 emR/QmKlrTV7Y+QU11SAeTac8GcB8ZhSLk/SmOx1Gswpg9+Rmbavifjxzke9u6PkOmRqL
-	 Dq0oscZd5QsjO61jsZEezqGIC7zv3zeZNBbOdZwi9QHtdytbkfZL918BBJa52VywYbpdG
-	 Oh4A3ulsmrmqD/wx1DTAhERPTorpLmKkpXmVNFMmjXaR7An6ndh8Nsct4TPKDTBFICOn2
-	 ovYZEy1bzUgUBUSC6s//2L4pj+9n338uzEPPq+odVER3NsWTSnvGHeO3qOMjkecOlmg==
+	t=1793820184;
+	b=zEHpdiAy2iXAFqsMPPpXLImBSJd4fU+8cnythsLHcnXDQgI/A8JrN3RQ1jODG+C1ivul
+	 HeCwEuOh5wz0x60mUIdmKpE+1COzC75rfQRkV0JEa4Gbf1jwf/LJZmQOGChY92iGS1vpn
+	 0t3Zu8p1T7vZ5MJjP4m91evb9xkQRV5BN5PzTTm1x5vzrCYkFp6+peRpOeuDDB05orO1n
+	 jt1bbHBNA/0y0jaetIGWUcs7HY5vbmu+88TtSsx3RGlbvFH/1J/zlfjCKlbO7wTaHEP6z
+	 bAHPS9yERgT8JiUkVBHGr6fYKib59aA5ZmWpWi3qu5iv96dG7JVaLH+eoQHhgF9PsPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820183;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Q1W7xIyJgzvyxHQ7v4UpUK7+MJZk2+B4nUAl1mhe8FY=;
-	b=2WlPq64QEh3zi7Nky3SXpJiehmIxyDwjDh/39XHI/6mRTrZjTlaD7FFBaj9n2k4S7kB+
-	 TQSu+SyFAL6Hg2gBlTXm94l+uevYoTbFwk+VSPuRAdUheu5xnb+lNMBaLNlst3NOXFVjt
-	 furWBh6K+kvzongrECPj7jXeHBGlvh2nYkvmJhVSxxDJo64/LqEtOagN6MJm7mNRaDYPS
-	 cumcUoIxLLlJ45U2zkaQsSWPO26dig9Oif0ObxCoTQDp73GJUxv05hvlL6lM87ESNK9XT
-	 cuty2DK4JzdksVR6t1YVjfH/bBfx0NtIaCPGp/qVVhyM+krq3DnHykqkVhK0gHz5qOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820184;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=LkQzylMBPw/rjuFeKsFyNpbMkN4WRhLixyhJUzJNoRI=;
+	b=gGsDmW0brNhffMD3BaoHbAzstTWuJHPgjg/PGKEFVCkd/agODJOQJNyNiEXMfNIfCzeB
+	 sA3otoO/At+SNjpE/9XoHwXZSNfefxAff6LbPcuGhM3efsvD4vYCIYFMSLduGnleCpzYM
+	 tczIKeyxkFfiXrSTdf/7TNmv1lo21r0DdTd3hN1Mi04+raakzjFvEP78icuCaSbLp07zh
+	 Of3Zy84XTjQYTxUm4x7BwBIRInOh19LjDWB93FciZMYGSP++9nUFttTQFC31/nMrwAxs9
+	 bvqi3R14RmoYcTjapSxOxBStdP+zf+VKObbeTlCedLP6fixgPXlDsMK4MlF0RFuQEsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Wvx8167t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSonnJ4f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FBCE606C938
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:23:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F64606C938;
+	Wed,  4 Nov 2026 19:23:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Wvx8167t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992801F00919;
-	Wed,  4 Nov 2026 19:23:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793820182;
-	bh=Q1W7xIyJgzvyxHQ7v4UpUK7+MJZk2+B4nUAl1mhe8FY=;
-	h=Subject:To:Cc:From:Date;
-	b=Wvx8167t9O7E4METpEIHDjRf2fGv8szObzNX47sc5vjZ0LWqbiAYXarB6pEqsGjSJ
-	 VnymfwoDnsiAwbCeoz2VJPiaXvD5if6LXK9hHFJY/01l6rqabHHDTQ0xEstS/BPOx4
-	 NT5w25/OjCYjiIFksS52Iwg2/cjFU5SuixKjxKHw=
-Subject: FAILED: patch "[PATCH] KVM: guest_memfd: Establish memslot<=>guest_memfd bindings" failed to apply to 6.12-stable tree
-To: seanjc@google.com,sashiko-bot@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 14:22:52 -0500
-Message-ID: <2026110452-straddle-void-d182@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSonnJ4f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CF251F000C1;
+	Wed,  4 Nov 2026 19:22:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793820184;
+	bh=LkQzylMBPw/rjuFeKsFyNpbMkN4WRhLixyhJUzJNoRI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BSonnJ4f7yMH1lOXY4xKOkMixSuWwienI9M9D7I6GKt/5EQqTgA/iQ2QAehjV234u
+	 YFAT2O6XmzTeX9l9nI78c+OuI+vrlyGDMu28/cFZIebS7LVWB5yQYSIHuBROdXKmV/
+	 POjWxbi8h52DJlKnFdWShCkvORSC+wER9+m5Nc5I6YVlHAPNaszz5jWURsoc99UxNe
+	 HtvfWbnrw5mLr/fLV64EYTb0o/e2FYPIZl4AGyyNRZpEiF3Dc+H3TPm7clGTz3Hei1
+	 RJrKLHUu/lKQlBjZQXWIB8Dd4bHzwpk5JakS/D+nuaTqJL6rz4xnryqSZJ8XfbWmNB
+	 KVSx5DWPRFPdg==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH RESEND v2 28/51] ntfs3: don't warn when a huge label is written
+Date: Wed,  4 Nov 2026 20:22:49 +0100
+Message-ID: <20261104-work-procfs-bugfixes-v2-28-021c84d852e0@kernel.org>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,118 +115,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1211; i=brauner@kernel.org; h=from:subject:message-id; bh=CQmQXvWqu+qpRxwX3Ai9kAzqqtrenD8xJsc3ckb17sQ=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bnz7K1goQOfBzlUZyTmXuaJF8js/Rb7//OzHk6rr7 JYtL5/6d5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAExEvIKRYcP67G2i6Wf/B2W2 7txs3neapZ43c+rjv8+u3w5s27n+2X+Gv2LPNsjtr59gXDV90xsjczOOh182+JoIeRm6VIqkhV3 i5wQA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
+ntfs3_label_write() allocates as many bytes as are written with plain
+kmalloc(). A write that is larger than what kmalloc() can hand out then
+trips the page allocator's warning, which panics a panic_on_warn kernel.
+Use memdup_user(), which fails such an allocation quietly with -ENOMEM
+like before.
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x 3fe5d2944e5ac3fc5073344b0982c73703332e18
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110452-straddle-void-d182@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 3fe5d2944e5ac3fc5073344b0982c73703332e18 Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Mon, 21 Sep 2026 17:13:31 -0700
-Subject: [PATCH] KVM: guest_memfd: Establish memslot<=>guest_memfd bindings
- *after* memslot is ready
-
-Wait to bind a memslot to a guest_memfd instance until *after* the memslot
-is fully prepared, as creating the binding in guest_memfd will effectively
-expose the memslot to readers.  As pointed out by Sashiko, binding the
-memslot before it's ready to be exposed to the rest of the world can break
-various memslot assumption and rules.  E.g. x86 could observe a NULL rmap
-pointer if a PUNCH_HOLE hit the guest_memfd after the binding was created,
-but before KVM made it through kvm_prepare_memory_region().
-
-Fixes: a7800aa80ea4 ("KVM: Add KVM_CREATE_GUEST_MEMFD ioctl() for guest-specific backing memory")
+Fixes: 7832e123490a ("fs/ntfs3: Add support /proc/fs/ntfs3/<dev>/volinfo and /proc/fs/ntfs3/<dev>/label")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260826170551.BEF801F000E9@smtp.kernel.org
-Link: https://patch.msgid.link/20260922001332.1121266-6-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ fs/ntfs3/super.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index c7526c1617f7..f26986136bc6 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -1934,6 +1934,15 @@ static int kvm_set_memslot(struct kvm *kvm,
- 	if (r)
- 		goto err;
+diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
+index 29aabdc8a801..37e27b73b7a5 100644
+--- a/fs/ntfs3/super.c
++++ b/fs/ntfs3/super.c
+@@ -576,15 +576,10 @@ static ssize_t ntfs3_label_write(struct file *file, const char __user *buffer,
+ 	if (sb_rdonly(sb))
+ 		return -EROFS;
  
-+	if (change == KVM_MR_CREATE && (new->flags & KVM_MEM_GUEST_MEMFD)) {
-+		r = kvm_gmem_commit_memory_region(kvm, new);
-+		if (r) {
-+			kvm_arch_free_memslot(kvm, new);
-+			kvm_destroy_dirty_bitmap(new);
-+			goto err;
-+		}
-+	}
-+
- 	/*
- 	 * For DELETE and MOVE, the working slot is now active as the INVALID
- 	 * version of the old slot.  MOVE is particularly special as it reuses
-@@ -2111,32 +2120,25 @@ static int kvm_set_memory_region(struct kvm *kvm,
- 						   mem->guest_memfd_offset);
- 		if (r)
- 			goto out;
+-	label = kmalloc(count, GFP_NOFS);
++	label = memdup_user(buffer, count);
++	if (IS_ERR(label))
++		return PTR_ERR(label);
+ 
+-	if (!label)
+-		return -ENOMEM;
 -
--		r = kvm_gmem_commit_memory_region(kvm, new);
--
--		/*
--		 * Drop the reference to the file, even on success.  The file
--		 * pins KVM, not the other way 'round.  Active bindings are
--		 * invalidated if the file is closed before memslots are
--		 * destroyed.
--		 */
--#ifdef CONFIG_KVM_GUEST_MEMFD
--		 fput(new->gmem.file);
--#endif
--
--		if (r)
--			goto out;
- 	}
+-	if (copy_from_user(label, buffer, ret)) {
+-		ret = -EFAULT;
+-		goto out;
+-	}
+ 	while (ret > 0 && label[ret - 1] == '\n')
+ 		ret -= 1;
  
- 	r = kvm_set_memslot(kvm, old, new, change);
-+
-+	/*
-+	 * Drop the reference to the gmem file, even on success.  The file pins
-+	 * KVM, not the other way 'round.  Active bindings are invalidated if
-+	 * the file is closed before memslots are destroyed.
-+	 */
-+#ifdef CONFIG_KVM_GUEST_MEMFD
-+	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD))
-+		fput(new->gmem.file);
-+#endif
-+
- 	if (r)
--		goto out_unbind;
-+		goto out;
- 
- 	return 0;
- 
--out_unbind:
--	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD))
--		kvm_gmem_unbind(new);
- out:
- 	kfree(new);
- 	return r;
+
+-- 
+2.53.0
 
