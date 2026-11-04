@@ -1,82 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793798798;
-	b=WddtrIDp1Sv07G1u/2zAtJz+lP6tzONXcJPClTllD2/STQqzl4TitNZnLJAmu1QMsfU+
-	 +Oz0rFsJLvJxlNHdpx5DoJ/O0STpqr/7CrRZX8UUi1IqYEoBOilqyCAPxSzm6GLVX2Xep
-	 pr5WMUTFoqAvNqYCNvxNen6UPzd8GRZr9HqiTSYOFvkG3uZiplDNAEDxsliHgY2ehalL5
-	 Cb0kzoesMQtQYT/Gubzf2KOlGj4dz5wEQBybxlkVnyAom9P2pcGRf9menvSwvZsdpXJjp
-	 xKm7l2FfZAECp97r4cK5jlE4aJNUVPq0ljwHSOQPdwzYtnajxhd0USqXnIrG8jqU7kQ==
+	t=1793798835;
+	b=GrCI9rnHjZiXLJUB3/OFp5fhGbxvA0BYMpeY0vpBrWZ8BvSrTux7WMkvKVrojtBsBrU4
+	 oEjIaM1ALW3CRlTGP4JNFYPsvXc9wAwbkfTuwpgW334stpok0FQIHs5bSvZ3hgiK6Mt7M
+	 2pcPwGFkoqNiOfiQJ0HyooOyy6HN3CG8jjAwe5qt28RoBI41MvGv4smkJsgOdQc+gzVlw
+	 d8AFNdJOsuk/MrB6hW8wQ1q29aGhljOF3hWpbZaJE+/eqnaDg2TL/bndZdGh8JAj22NvC
+	 94f//zI0TUmVe+sAwW6iVAMeG4pMaY63IOCWX/5RNTsDRiPRWmBHaH1k1vPOhY9accQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793798798;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=yjmwql2Q0/WWj7I5rUoCbaZQ81/0rY7QHc3z6oUDgjE=;
-	b=cEPetTQvzuan5vv/yVjm5W8yARj79YeGLOx3aPJZkScARqvR+qqglUDxC5ne8AJmsjPt
-	 Yt4f5gCzCL1QjpYJLNYmDb+8nbbuDnSuiMv4er1FllJmCej7EqBSpdMdThctvqjFd/mnW
-	 61TU1aYKygjNJpu3KXhWgr6j+iXpOpfv6K6gqhyO72oIyZQVirG07woUrJccVSSSqMSvP
-	 rzOE5prXQR0YnNEL0g1Bp5l1vxzGJmBnGOsx9jw38AtKC6ZeCOEh0rFR5WI3XTtwBCL0f
-	 hkBJ4Ox/HefSrknKGgjuMFdvYzutIHYwwyES99bEcusQvRzudnSANQNQlbfH2p37Lyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793798835;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=hhq5EOa6Odz+K2vaBaOuOYmvWaBTRJ+kEF4fefMeYnQ=;
+	b=ImZqE1xlzyUT7WXcb66Oq2Uzta4kmUjz4/4qLCg3eVT8Q2KwcFAYJAwBxpZUkemGeN/U
+	 WlNjqapEc7W4vWLlUxQuBbDy/GdhyUZd17L2M0wTk9fwSfqv0vqrQMzOcrqO3xHelZww8
+	 WEN488s8pmKDnqxG5zH1FQbmP5MrD02YgdAMpsbnstQ4nS9Vy6O7U095VBzvM5BnMGAvf
+	 CrSdri6+VRoUEIoJryynZUggjY/lR0s4plA5IqKCrA288O9AeUnJK89OFng7s2Ok/ZFX/
+	 k2B/qWhoISIw7AyOuYSKqMvYL7LBXbGxUebrEOMWrANqacy2vr/JzjXnsZ+Hbj48t3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=JHY6z7vu;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dmarc=pass header.from=1g4.org;
+	spf=pass smtp.mailfrom=1g4.org;
+	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=LokHz1aa;
+	arc=none smtp.remote-ip=79.135.106.100
+Received: from mail-106100.protonmail.ch (mail-106100.protonmail.ch [79.135.106.100])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902C3606A33A;
-	Wed,  4 Nov 2026 13:26:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 902C3606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C095B606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:27:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C095B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=JHY6z7vu
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BiAgQ3026253;
-	Wed, 4 Nov 2026 13:26:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=yjmwql
-	2Q0/WWj7I5rUoCbaZQ81/0rY7QHc3z6oUDgjE=; b=JHY6z7vuCDPfVgknKa7b8y
-	Bx9eZ7LN23WYxB/7Hd+1hi+4+s1R61V2JYJE8WCqJ1pmN7+SZ/fRvWFUrt0sXzNb
-	BR4bVKUXTeFUCrD8JrHS1tnwAWSASYdECHSSR2EhLIVod4+Dh1WKHo5EiRBVG7Rj
-	edEE7CTcsIIo13GgtrAJ0yahYTQgE3yAwCD/jQODWHn6aJZE4ub4tOf0GOCiqNRw
-	slQ3zbcextdUzlyyjoTKlN/CjDvcRjJVP27xfikiA+Fww0l12E+LSyMh9xMETuff
-	sZTHcmtss8XB/xmeh6LrN259nSJ4KQils7ioMlBs15o1VcWE3YAUBtUccW0pF6nw
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn80sv0m8-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 13:26:14 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Baj9w3997539;
-	Wed, 4 Nov 2026 13:26:13 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hqcrce8v1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 04 Nov 2026 13:26:13 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A4DQD0Q14942870
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 4 Nov 2026 13:26:13 GMT
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E42C558061;
-	Wed,  4 Nov 2026 13:26:12 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 12C1158057;
-	Wed,  4 Nov 2026 13:26:09 +0000 (GMT)
-Received: from [9.123.7.57] (unknown [9.123.7.57])
-	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  4 Nov 2026 13:26:08 +0000 (GMT)
-Message-ID: <c172b7a8-bea1-4004-83be-af6dfe921df0@linux.ibm.com>
-Date: Wed, 4 Nov 2026 18:56:07 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=LokHz1aa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
+	s=protonmail; t=1793798828; x=1794058028;
+	bh=hhq5EOa6Odz+K2vaBaOuOYmvWaBTRJ+kEF4fefMeYnQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=LokHz1aag6PaSNFE8C27kBJ0WZ6M+UPGHXO+rQSR0cNM/2otH80f1ijoMEGuR55gW
+	 b4QL7QYt40r1A8rSZ8mzFMAVGBkEd24hvQwLCMm6b9DUZ6oO38XXyaeHg/Zqg/w9Mr
+	 Xuzjd10Gz32YbH9HD3+dR2GhiETXDW2tWFiKkRse7s5HA+nLsh+tlNfkFT6xTRz7OH
+	 B7Of+E4TFuHrasbBSkEP4d0F18omzemN55swOa82ZMF3ORRlcHiCmy96DQ2IPNw7RB
+	 /58u7U5RPNRi7lV3nvfCIDzzkKizj1Kur0hi39lOpH+lVckEaQkoQjOVtZalGAswbE
+	 M2/BI/0Nr6GVQ==
+Date: Wed, 04 Nov 2026 13:26:56 +0000
+To: "Michael S. Tsirkin" <mst@redhat.com>
+From: Paul Moses <p@1g4.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, kvm@vger.kernel.org, virtualization@lists.linux-foundation.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 2312891301@qq.com, blum@kernel.org, co+6dcbccedc9ec6452@bugs.sh, eperezma@redhat.com, fangxy@xiaopeng.com, jasowangio@gmail.com, kmehltretter@gmail.com, linfeng.sun.dev@gmail.com, lirongqing@baidu.com, longpareto@gmail.com, oss.patchbox@gmail.com, phx0fer@gmail.com, physicalmtea@gmail.com, sergiiushakov@google.com, shubham@octane.security, stable@vger.kernel.org, stjepan.poljak@gmail.com, syzbot+13df72e0dc4be5c62215@syzkaller.appspotmail.com, tavhadia@gmail.com, tjdqudcks0424@naver.com, tz2294@columbia.edu, xieyongji@bytedance.com, xmei5@asu.edu, yuz08559@gmail.com, zenghui.yu@linux.dev, zhaimingbing@cmss.chinamobile.com, zhangjiao2@cmss.chinamobile.com
+Subject: Re: [GIT PULL] vhost,virtio,vdpa: bugfixes
+Message-ID: <boz9jnakQM6uAhZfWbN75Fy90K5NZ8XCEXBRlhjkqDryEgBVXwJzIPrq1giWoitEnsZPiK4FyKlYBVHioGorKSw4JzSVd8kxw9RIhEz0-kE=@1g4.org>
+In-Reply-To: <20261104081535-mutt-send-email-mst@kernel.org>
+References: <20261104081535-mutt-send-email-mst@kernel.org>
+Feedback-ID: 8253658:user:proton
+X-Pm-Message-ID: e60a96041563db78786d8f092c9f5e833f03cb84
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,78 +64,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] blk-mq: take quiesce_lock when removing a queue from the
- tag set
-To: Christoph Hellwig <hch@lst.de>, mt4022@columbia.edu
-Cc: Jens Axboe <axboe@kernel.dk>,
-        Mohamed Khalfella <mkhalfella@purestorage.com>,
-        Keith Busch <kbusch@kernel.org>, Ming Lei <tom.leiming@gmail.com>,
-        Bart Van Assche <bvanassche@acm.org>,
-        Josef Bacik <josef@toxicpanda.com>, linux-block@vger.kernel.org,
-        linux-kernel@vger.kernel.org, tz2294@columbia.edu,
-        stable@vger.kernel.org
-References: <20261103-blk-mq-del-quiesce-lock-v1-1-04aa29a481f6@columbia.edu>
- <20261104071926.GA29136@lst.de>
-Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <20261104071926.GA29136@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: OL6bJ6XdGfIfN-IE_2nKDKeceYmhD930
-X-Proofpoint-ORIG-GUID: kjX0ct8-6NHIu3_iWyRCWMcwoDsr-7ZW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1MiBTYWx0ZWRfXwKFBVFCEePT5
- rNCc8CexrDkmhuZK7SJRXcM5SUHKI8IS/QLv/GNZWkGrkpgK6GjzwFLeSu+eGaOiMAz0RDQOAXz
- lydGC02v0dE+dpONYcrH51O8K/N7zMYszUcWGfnUa3wFJKv7jRt2FpgyTJvnblXrj3mDj6sQHmB
- 4IMG02DYwsP5v8gXlEf5UpOM4oGqYT5EpAw7PH9qMDN1oZRkSytUlojNbWzQUnftz697NyiTcQN
- e+Mev6zQ1u87scFqLGKfkNz5NZuJNn9PSEgVlDZc6HGW/tsRypf0H2vgXcxkrciqteRAr+4/DGw
- M/nSyuTyeqSdMFmDPh2i19ZEboF5vDIOdFb2pAwsf17iTgEg0uszuqyO3N1pzuWUCGDXXe+rTaO
- 6ckxnRMjo2YWwKGLC88Q9WyyrqvLuT8S5xCzemyFqbyF50bcpmb9kDilTp53vh9c0lqqIDLVJqn
- GH5uLipbFU/Jhi++T/A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1MiBTYWx0ZWRfX/ccD5SVabaSY
- kTLhYnJYNUHqla6dpbi/r8suZKJaxfLjJ1MjA1bUijRJQD7fsPWs/A/81jG8CzSFEx0hgIQwgZq
- 3awMjGIASlt6K01/6QjjkqNTOrMspfI=
-X-Authority-Analysis: v=2.4 cv=FIqOVOos c=1 sm=1 tr=0 ts=6aeb3276 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=DfyN0UfllRvmPPNdMxQA:9
- a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 malwarescore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
- bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040052
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 11/4/26 12:49 PM, Christoph Hellwig wrote:
-> Looks good, but the note from Mohamed should be taken into account.
-> 
-> Or even better add a guarded_by so that clang catches this (requires
-> actualy compile testing with clang, though).
-> 
-Yeah agreed! I also recommend adding __guarded_by() annotation around
-set->tag_list and set->quiesce_depth.
+On Thu, Mar 12, 2026 at 06:56:40AM +0000, Paul Moses wrote:
+> > On Wed, Mar 11, 2026 at 08:00:45PM -0400, Michael S. Tsirkin wrote:
+> > > On Wed, Mar 11, 2026 at 02:12:17PM +0000, Paul Moses wrote:
+> > > > >
+> > > > > Indeed, seems legit, thanks!
+> > > > >
+> > > > > The only thing is that I dislike two error handling paths here.
+> > > > > So I wonder why isn't this as simple as fixing the double free
+> > > > > directly:
+> > > > >
+> > > >
+> > > > That works for me, should I send it out?
+> > > >
+> > > > Thanks,
+> > > > Paul
+> > >
+> > >
+> > > Please do.
+> > >
+> > > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> >
+> > Oh and I forgot
+> >
+> > Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
+> >
+> >
+> > >
+> > > --
+> > > MST
+> >
+> >
+>
+> Considering that this pattern has occurred in multiple independent source=
+ files,
+> maybe it is worth it to make intent more clear? What about this?
+>
+> >From c3b9431dc736cec60c0b288b13d9fa718341f46a Mon Sep 17 00:00:00 2001
+> From: Paul Moses <p@1g4.org>
+> Date: Tue, 10 Mar 2026 15:23:58 -0500
+> Subject: [PATCH] vdpa: don't free reply skb after genlmsg_reply()
+>
+> genlmsg_reply() hands the reply skb to netlink, and
+> netlink_unicast() consumes it on all return paths, whether the
+> skb is queued successfully or freed on an error path.
+>
+> vdpa_nl_cmd_dev_config_get_doit() currently jumps to nlmsg_free(msg)
+> after genlmsg_reply() fails, which can hit the same skb twice.
+>
+> Return the genlmsg_reply() error directly and keep nlmsg_free()
+> only for pre-reply failures.
+>
+> Fixes: ad69dd0bf26b ("vdpa: Introduce query of device config layout")
+> Cc: stable@vger.kernel.org
+>
+> Signed-off-by: Paul Moses <p@1g4.org>
 
-With this change, I have sorted following locking pattern:
+I like crediting people for their work.  Let's do this. Pls post as a
+proper patch starting a new thread, so all 0day tooling catches this,
+and I'll apply. I'll then apply a rework removing the duplication, on
+top.  Thanks!
 
-1. Every set->tag_list mutation holds both set->tag_list_lock and set->quiesce_lock.
-2. Every set->tag_list traversal holds at least one of set->tag_list_lock or set->quiesce_lock.
-3. The set->tag_list_lock and set->quiesce_lock order is preserved.
 
-So the above scheme fits really well in the context annotations.
+> ---
+>  drivers/vdpa/vdpa.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/vdpa/vdpa.c b/drivers/vdpa/vdpa.c
+> index 34874beb0152e..702d3a7772219 100644
+> --- a/drivers/vdpa/vdpa.c
+> +++ b/drivers/vdpa/vdpa.c
+> @@ -1352,15 +1352,19 @@ static int vdpa_nl_cmd_dev_config_get_doit(struct=
+ sk_buff *skb, struct genl_info
+>  =09}
+>  =09err =3D vdpa_dev_config_fill(vdev, msg, info->snd_portid, info->snd_s=
+eq,
+>  =09=09=09=09   0, info->extack);
+> -=09if (!err)
+> -=09=09err =3D genlmsg_reply(msg, info);
+> +=09if (err)
+> +=09=09goto mdev_err;
+> +
+> +=09put_device(dev);
+> +=09up_read(&vdpa_dev_lock);
+> +
+> +=09return genlmsg_reply(msg, info);
+>
+>  mdev_err:
+>  =09put_device(dev);
+>  dev_err:
+>  =09up_read(&vdpa_dev_lock);
+> -=09if (err)
+> -=09=09nlmsg_free(msg);
+> +=09nlmsg_free(msg);
+>  =09return err;
+>  }
+>
+> --
+> 2.53.GIT
+>
 
-We can define context annotation as follows:
 
-struct blk_mq_tag_set {
-     ...
-     struct list_head    tag_list __guarded_by(&tag_list_lock, &quiesce_lock);
-     unsigned int        quiesce_depth __guarded_by(&quiesce_lock);
-     ...
-}
+It's obvious now your intention was always to diminish my=20
+contribution. This really only reflects negatively on you.
 
-Thanks,
---Nilay
+You or claude didn't even disassemble it. It's slop. My
+patch is objectively superior both in human readability
+and performance.
