@@ -1,78 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793784234;
-	b=HbNrHBrH4nZfI3UvDIF5CN2Adq5/XxfKQ4ln2/Fb9giSVRlqZzjl8TOEs/iUtw5TGyw4
-	 A0DQv6OPtcygNMyyFyb03MV6SRof5HvRhntLUE97jN+d52Ny5w2SEtygdaU5oAezvN6FP
-	 h7R1k1G2V6CCWu/7HoOP2jBPWkF3J3S20yRhFsO0NS/pCmOj2IDwBaTCUw6t0FQpAwWUV
-	 UPGtvlfRoFG8UZD/G4EqVk0xrFpc7DI18zCMoCz9D4syYLyNU6hpcqhE0pQc+GuPwt09E
-	 At3rZqKvTuw4v4i/LFbdmZdmOjqE5QjBM4a+ntBnrg2npJ62hHQFa2TNoqfKwhZOWaw==
+	t=1793784546;
+	b=zo8CoAVqoGAFMoNbLMwVtXY/hxpdPfprtEGiZSmv7rDek7/vADIgEjK4kTfKOr5B3lD/
+	 VRLAO6BxCj3gZXPh6cyvvW1MtnNI2mzEHAH6Y/AVM4BvDCbW6x0QIRM0lpE5nioU9Kvye
+	 Gkgs5yoeSE51fOTW0sF+19XjUqfwC4HuTMpZC0LtI+NDvEYDRm7TXDD07/Fht2c1sRyUK
+	 ysfzUQ+h6lXv3QlxgwlZQ7IX6ACKVxLA8Pr+MPKKfKAtVV5GJEgT3IaEgPaRc4D+YbOb6
+	 YiW4jkJ381FcWfvxTzhm+QokMgMKdpIFME2ZqBe4KqQ/ke8Cd5dI41vXeRnZJXkxDuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784234;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=bmXVSSlN45L+rv4ubBxKKCnM10XnTPIhgH058pVIBqk=;
-	b=tKuSVqy8fSTLxqPrZHNQnWPQnwA9RoDYusZSphsXoI9t2wH5Mlu9bqU7hAfDurWIg6y2
-	 7hcoHz6k78bPyKAXxbVFf9wy1JZTMdlw5VVSzNZfI0eVKXBkGW8j86N4pyWl3nJxJwJ/j
-	 uM9nr87OJnwYEQJ2vtlO9UMPDiyz7Dzlz/hX9vOlaAbduGWyk0rcehePfmx5QUHPg6W/9
-	 VRvBHR6xf38Uifx375KhGmXWlmfKy/zeJndoQ7OxGWhrDwAzrzHPi1evWQmSDkvLhwvbi
-	 5Ti99Ck4uQIOm8PSoOhzyelqOmPUvKKXr7yOhxXtKzb5WfM+hUkAgMUF0cr41ENw9TQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793784546;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	b=4ACIkhkQW7T3X+SA95bOde21cWy0wYaHuRYzPg7ld5okwUOfcDPmjvZEHqAzraGm9rxN
+	 wGEEiphiDwn7NjQ3MW6r1RlxwSL2XNP/ikONJEAO3RuLYimneRfo3698mojLpaRWQbLYx
+	 9pRay7vzyjVuEBSyK0F+siE8DOx72omigoRICyi9WA21XHoDImxsxC6QwXNVVXf3EaQYV
+	 RPPvC+ZTD8bpN9AYFN45uPvA7SGcgd214XG930dWjGgF7Gds+4TQxQFlMR4kLy0oylero
+	 nNprjWU0qIte16FdRdru1Celh0EwRNAYGdN1NWjt2/gyClIJE6Ly1WpL5qFpJ6awaCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Yuo2h5l8;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 581CC606A32C;
-	Wed,  4 Nov 2026 09:23:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 581CC606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oTIhGWX+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B55606A31B;
+	Wed,  4 Nov 2026 09:29:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Yuo2h5l8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=Yuo2h5l87UV4o0gWUa4o4VALrLc2KJegur7qOWc388cIJSMKpjFWL5lxnL+0VXf3JWNG5dqOQPsbB
-	 jWY8eVH1YouWxbIGPD9RMwFiNshML03+1XazcuXhLWjjGMMDTHNiY8FMzR5blCS7CpCEe7OYuPIPSY
-	 JU7RXOmrOnVkLqBk=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66aeaf9a7b38-69342;
-	Wed, 04 Nov 2026 17:23:52 +0800 (CST)
-X-RM-TRANSID:2ee66aeaf9a7b38-69342
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6aeaf9a699c-c8aff;
-	Wed, 04 Nov 2026 17:23:52 +0800 (CST)
-X-RM-TRANSID:2eea6aeaf9a699c-c8aff
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	willemdebruijn.kernel@gmail.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yana06070@163.com,
-	shuah@kernel.org,
-	linux-kselftest@vger.kernel.org,
-	willemb@google.com
-Subject: [PATCH net v2 2/2] selftests: net: exercise SO_MARK on connected sockets
-Date: Wed,  4 Nov 2026 17:23:38 +0800
-Message-ID: <20261104092252.15712-1-yanxia@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oTIhGWX+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25F5C1F00A18;
+	Wed,  4 Nov 2026 09:29:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793784546;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oTIhGWX+ZczREnIsePV8Wtug/whCSotDQdP6E559D4aWu76zTm5aM9ZmfMmkPTGkV
+	 lCKM0iudTVLOl/q/W1PYNKka1zU0uqBjVXoe1OdQf9O7oyC+8KMm8Qf7T/rF1YrwS/
+	 +WAxBmHm6CTACtTNjmNLy1rSwBKTpimwn/NUKwE87cV7LOqfz2dcxcsEr1wlixwJIZ
+	 7LQ4MzE2lfIZxov0/N+e7uUGMIVJjDMbkHuKmwOeOplAV5D59GFYaSzaIN2T4GeCN/
+	 ikCqj7e/VIZd6XoSVbFa+rBTWZW2NAQ7CyLWqxabfFvtG+jxRqX13XccWiVXwXRamu
+	 8o8syFax+uzRA==
+From: netdev-bot+sinfo@kernel.org
+To: Xia Yan <yanxia@cmss.chinamobile.com>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, willemdebruijn.kernel@gmail.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, yana06070@163.com,
+ shuah@kernel.org, linux-kselftest@vger.kernel.org, willemb@google.com
+Subject: Re: [PATCH net v2 1/2] ipv6: fix cached route reuse for SO_MARK
+ control messages
+Date: Wed, 04 Nov 2026 09:29:04 +0000
+Message-ID: <179378454460.488859.3601103924224875787@kernel.org>
 In-Reply-To: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
 References: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,130 +65,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261104092338.XOrybbEKBLb6klfzqqsK6fd7HULA9jXrDYm2aPLiZuQ@z>
 
-cmsg_so_mark.sh sends to an explicit destination without connecting the
-socket, so it does not exercise the route cached by connect(). This left
-the IPv6 SO_MARK cache bug uncovered.
+Hi!
 
-Add a cmsg_sender option to connect before sending and omit msg_name in
-that mode. Keep the existing cases and add connected IPv4 and IPv6 UDP,
-ping and raw sends with a per-message mark equal to the socket mark,
-prohibited by a policy rule, or explicitly zero.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-On UML, the added IPv6 UDP and ping cases with the prohibited mark fail
-before the kernel fix. With the fix, all 54 cases pass.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
----
-v2:
-  - New patch; add 18 connected-socket cases alongside the existing 36.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-The test gap was noted during automated review of v1:
-https://lore.kernel.org/netdev/179371875338.488856.4546363285391899557@kernel.org/
-
-Tested the same selftest on baseline, v1 and v2 UML kernels: baseline
-fails 2/54 cases; v1/v2 pass all 54. Both versions of cmsg_sender build
-with GCC 12.3.1. ShellCheck 0.11.0 reports the same 13 existing SC2086
-diagnostics before and after the change.
-
- tools/testing/selftests/net/cmsg_sender.c   | 21 ++++++++++++++++++---
- tools/testing/selftests/net/cmsg_so_mark.sh | 16 ++++++++++++++++
- 2 files changed, 34 insertions(+), 3 deletions(-)
-
-diff --git a/tools/testing/selftests/net/cmsg_sender.c b/tools/testing/selftests/net/cmsg_sender.c
---- a/tools/testing/selftests/net/cmsg_sender.c
-+++ b/tools/testing/selftests/net/cmsg_sender.c
-@@ -34,6 +34,7 @@
- 	ERN_CMSG_RD,
- 	ERN_CMSG_RCV,
- 	ERN_SEND_MORE,
-+	ERN_CONNECT,
- };
- 
- struct option_cmsg_u32 {
-@@ -48,6 +49,7 @@
- 	unsigned int size;
- 	unsigned int num_pkt;
- 	bool msg_more;
-+	bool connected;
- 	struct {
- 		unsigned int mark;
- 		unsigned int dontfrag;
-@@ -93,6 +95,7 @@
- 	printf("Usage: %s [opts] <dst host> <dst port / service>\n", bin);
- 	printf("Options:\n"
- 	       "\t\t-s      Silent send() failures\n"
-+	       "\t\t-k      Connect before sending\n"
- 	       "\t\t-S      send() size\n"
- 	       "\t\t-4/-6   Force IPv4 / IPv6 only\n"
- 	       "\t\t-p prot Socket protocol\n"
-@@ -121,8 +124,12 @@
- {
- 	int o;
- 
--	while ((o = getopt(argc, argv, "46sS:p:P:m:M:n:d:tf:F:c:C:l:L:H:Q:")) != -1) {
-+	while ((o = getopt(argc, argv,
-+			   "46ksS:p:P:m:M:n:d:tf:F:c:C:l:L:H:Q:")) != -1) {
- 		switch (o) {
-+		case 'k':
-+			opt.connected = true;
-+			break;
- 		case 's':
- 			opt.silent_send = true;
- 			break;
-@@ -521,6 +528,12 @@
- 
- 	ca_set_sockopts(fd);
- 
-+	if (opt.connected && connect(fd, ai->ai_addr, ai->ai_addrlen)) {
-+		fprintf(stderr, "Can't connect socket: %s\n", strerror(errno));
-+		err = ERN_CONNECT;
-+		goto err_out;
-+	}
-+
- 	if (clock_gettime(CLOCK_REALTIME, &time_start_real))
- 		error(ERN_GETTIME, errno, "gettime REALTIME");
- 	if (clock_gettime(CLOCK_MONOTONIC, &time_start_mono))
-@@ -530,8 +543,10 @@
- 	iov[0].iov_len = opt.size;
- 
- 	memset(&msg, 0, sizeof(msg));
--	msg.msg_name = ai->ai_addr;
--	msg.msg_namelen = ai->ai_addrlen;
-+	if (!opt.connected) {
-+		msg.msg_name = ai->ai_addr;
-+		msg.msg_namelen = ai->ai_addrlen;
-+	}
- 	msg.msg_iov = iov;
- 	msg.msg_iovlen = 1;
- 
-diff --git a/tools/testing/selftests/net/cmsg_so_mark.sh b/tools/testing/selftests/net/cmsg_so_mark.sh
---- a/tools/testing/selftests/net/cmsg_so_mark.sh
-+++ b/tools/testing/selftests/net/cmsg_so_mark.sh
-@@ -68,6 +68,22 @@
-     done
- done
- 
-+# Check per-message marks after connect() has populated the route cache.
-+for i in 4 6; do
-+    [ "$i" = 4 ] && TGT=$TGT4 || TGT=$TGT6
-+
-+    for p in u i r; do
-+	for mark in "$((MARK + 1))" "$MARK" 0; do
-+	    expected=0
-+	    [ "$mark" -eq "$MARK" ] && expected=1
-+
-+	    ip netns exec "$NS" ./cmsg_sender -"$i" -p "$p" -k \
-+		-M "$((MARK + 1))" -m "$mark" -s "$TGT" 1234
-+	    check_result "$?" "$expected" "IPv$i $p connected mark $mark"
-+	done
-+    done
-+done
-+
- # Summary
- if [ $BAD -ne 0 ]; then
-     echo "FAIL - $BAD/$TOTAL cases failed"
-
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
