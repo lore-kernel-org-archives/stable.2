@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801908;
-	b=OBF6636ssEGGdkzPlM2YFZ+eV7xT1WsQGGvidR6SO8i0BxvAg3fC1TTOjvP7XBKB6l52
-	 SJfO4Lx+hSMqgzU67UaUO/wLNxODF4NmLlux2I6KopIlD7mrsU0blvjcCC00h/qXvygI3
-	 NZBPkhbWho0iP9ZRDSNOK8zk9QVPG9qGUFk8kXjPDybDY004mx854/3F3nPgXdDf9IrUt
-	 9yYOkSNhUwXxTd+RB0nW7d0nqTach+Ol6m3esxk9rGnMb9EcBcp9JCisAuUpYnr9vO3iL
-	 6y0332yY7Hor0XD0J5ppV50MQyKmuQIzIZ35ZlTnTVF2bNPBSaMGLaKyG8xu9z59Umw==
+	t=1793801909;
+	b=f/9vO3Za6tdN0GWeYc1gXi38G0JvZ/8t+1HaYG+sfjPjVW0KKQwco6dBvTUnS5xmJcbO
+	 KNQYAXX1p6h2mzU5Swal6P4JOJ8HBG+PBthk1234Zepp9QrDudfpuvKpizNDAlupiaQil
+	 w0IlLUcF92RTor9xA1JZ29f4ptmp9k+wpobl1oSuJWuuEk+eCEUrGlQh35Uen08byjMgS
+	 7aC5knPJgOQ2S1SCaaGY+20g12C28EOhXHQF+tKAjkPc2PPa/K1QUSciuVtB86X6lRvk3
+	 RAr7fKBnBlruygHhy4mB9X4A9O+jcCiqJDNYmhGC2N4ZIo5Bvt91fR5p1AHwxbPAc1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801908;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801909;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=SLvSV9jTfS9V3D4Y+FDOruATfFsKs+TB7/XjPaqNI1Y=;
-	b=R12tlMRzZyfwpj3h7Rp7HdQjr6XbnhXiDduepp54vE5cUtNM4Sjft21PsLyrHMG/YwgJ
-	 BsmnGtnCKnXDTWJV64wQTo2+DzA+WDyxP1IBXMo0YsOyXCl2+vZoT+THWRsO5OLKdFmx/
-	 +V8mZ5xuv2Y4UjWV73LymZQDmG+uGYVIlZZUDVJi0a4VDvFrqJrvwAX+UYZWDZyWeXTYQ
-	 ckVt1aNohA3ZDwOKXkWqbafpEynrIQAza9kyBDhkAjIGQ19z8ohTFbvWYPpbw61jg/DqD
-	 MJ/JNTvqXibumCvr8qh8C0M3UWtlI9Xqv87m+1GqTpttn17xdCAtLN8ucEEA3xY8FjA==
+	bh=GI4s7DtBPoxPkJQxFbdyvv36VlEwOhCR2AV2g5VL3Zg=;
+	b=tUs3jsufSh72IAdslfShmBlJEFKm5PCzpFxfJco9IpSoO5bmiEp4AWTNdILPpd25hYbH
+	 f1yb828HvkD+PZEkl+LKCwPd6Srr+0XFkiKzYHhhiskszrMi6HNys0lsrTZnch6wlCBql
+	 JA+FelhuLVtuFYJ297YgysFNjPUxTYSVIk3m7cXzd8etPZt59RB89quQ+QTHmz7b/yZR3
+	 PUtJF057DtH7lCpt2aVHE6o6eoTtGAtNP4qHFbFaGbWd0LvczVfdTZH6wz9226GSkc1c4
+	 Hzu+kkYnHDRSR5OStatBBT3+k54tsPSVBtEAu5FFcrg5byUdTwV16+StQCioIjs6iLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Yd54948b;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Vt4l/pIb";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B30C606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:18:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF7C606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:18:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Yd54948b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A975E1F000C1;
-	Wed,  4 Nov 2026 14:18:27 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Vt4l/pIb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CFBD1F000C1;
+	Wed,  4 Nov 2026 14:18:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801907;
-	bh=SLvSV9jTfS9V3D4Y+FDOruATfFsKs+TB7/XjPaqNI1Y=;
+	s=korg; t=1793801909;
+	bh=GI4s7DtBPoxPkJQxFbdyvv36VlEwOhCR2AV2g5VL3Zg=;
 	h=Subject:To:Cc:From:Date;
-	b=Yd54948bz9/3925m7u8fjmdAxnQbB37Fs6aQ94x2FnUkcEeuiYOVz8XMrRrjbqoXv
-	 ettj+8DMNhZbh6fEGDHa7vygYk6ypZrGHk9cBDR4vFTkRDrp9zo4H+fYZAef4SFjIq
-	 BCLtdBx59Dy8UP04NkjBp++mXaamGbe3hRhDm+BU=
-Subject: FAILED: patch "[PATCH] media: s5p-mfc: use timer_shutdown_sync() for the" failed to apply to 6.12-stable tree
+	b=Vt4l/pIb0Dn2V+peazq7xOw00DF+fC0IG81lgmeiT33D3GKEws24mrx/baRCBcXal
+	 NVvKume+rQC5aytmPckunFwCRpqcG9inq+YQkOvyBVjlkeqknRwdyhl/ahSqcO2UUn
+	 3kcgdsGj5dv7Yuz6dISvFtDAIVRagJZqS90Owolo=
+Subject: FAILED: patch "[PATCH] media: s5p-mfc: use timer_shutdown_sync() for the" failed to apply to 6.1-stable tree
 To: fanwu01@zju.edu.cn,andrzej.hajda@intel.com,hverkuil+cisco@kernel.org,m.szyprowski@samsung.com,nicolas.dufresne@collabora.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:18:25 +0100
-Message-ID: <2026110425-turkey-reissue-e353@gregkh>
+Date: Wed, 04 Nov 2026 15:18:26 +0100
+Message-ID: <2026110426-pessimist-footing-003c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 63069b5917cba2e15b1a78b3f4ff99e45102c56f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110425-turkey-reissue-e353@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110426-pessimist-footing-003c@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
