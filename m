@@ -1,93 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793836004;
-	b=kHi0joVUQwPEQMpwrdwaqlFx3izEIynQAVsoPtSNy2nUOILtGhPBW/lorLvKwF3BOX5R
-	 5XXJ4RDmUaiS/zaxDHJm86A9IImayutB7uKASSi6fUsAgFA2rwqHKpzZCtwIi3HTBt4Z3
-	 TlgAdUck+31XffJ9owlDiEnLAxAa7+3bVQhnwcR+hbtDNMJt7zprW4VW736C3+thC9Rvz
-	 l1lhvGxirSRMJWzkqvrh9Zw0QRiC5KJ3KU/HWpBno1nfs+5jaJwDUfHNwFDcNY5wcx4Zn
-	 YgMSAO9pihcbYXgUBSheP7YWEsg+34ZStSzTIPJwF9YqKzWcukjqnJJWA340h3JbWvg==
+	t=1793836005;
+	b=IJFFRU43rrCo0bBJiSjr40kDXR3648XE+RJxljPO6/nvxnEQ2+lnuQQ7uPbFQ0wneojQ
+	 Y4T5Ot27G5NYXxiJJMHbvg2lMIjjeWfTCTrzmaVk9r2EoCzFnKu+meT6d2RvS8UICCMdA
+	 WPlZTfuiJxoVkYRJlwxKX0t/nvFbVnf1CzljI55pJoqYt9cFpmpPpMNo6SL0qQz14LNDc
+	 vi8cP7jhWZyQEnTDFvOrsaOBYOipJvO1GknRow0kTD9DZQxJ4gbmdMWJxN+ypybS17Pru
+	 WyNawSDISltBLeheDgoRctIzrXJZnvh0V4PtIFqkbREAKC2e6pe9I43NaHQf8j7dSQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793836004;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=rKToFDzUi6qhaHyBZmmLDL7zVXQz7iwmFV5QQTYo7qQ=;
-	b=KGt0ueMIRkMCTO4jVNUgxnp08DMinL7ClVN7AOc/D4FOx+mkmuZ/nvBS5fulHlmBUPuN
-	 IndetLXGR6hAjL5caT7IIorV4OP9DUiCFSTGN76CCWwipPecLn3Pz6ZL7dh00IQkkOULu
-	 1qspjioZtlTlv85tL0Un7cR3OoUuPK21pUb4lMrxrzTLHkuyOhht6Dyp1N0ajHmNnQhRt
-	 Nm31FK4Tf0+PPjvLKFJA1dznvaxelT+3ezBC0ha3RcQk1RRgFqIORnapcGiGcAb37mjHI
-	 /EcPigs2cM+LOXa4VoXGXYMcmhelFOQ/SyoEMI5XjBA3i9p6f0/Mv2kHsaZipcVRGdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793836005;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=6e2BydUkhErauFs848R7eef9kvwIdSIObZdXSJmz2uA=;
+	b=zcnXW5T8xahQm22V4AxM6iY7/qoKtjIIgCQUbbc863cHhQsu4u3hCqvZKyeGkv2j3Sv6
+	 f7ZQC04afDrwtwUZqeFRgUjM+zWBueJvebIQOjjGuDdwm16jF8V+9A0wDDNNFplOMZO7E
+	 exNM5vaTulbiAygbnV2fdWfvMwZUtvy4duu1j+OdpHJn5nv1vkFjiwDG4pwpR2ORgaTo3
+	 5ugawDdaWQis3prU+M0RBEtrlVssgxG3MM4NMSvD8Fe4+zd/axvq2A0OnP4yMC7LJj1co
+	 YIoPDbtByyRYAViaxdg1sfPiZGXolRgpuhmxfjYTwIQ5j1/NEGbKNSU44ltxGzI1EzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v4qTVCCb;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQ6RV0tz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE63606A329
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:46:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BE63606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992E9606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:46:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v4qTVCCb
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3514b90bb89so2435391eec.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 15:46:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793836003; x=1794440803; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rKToFDzUi6qhaHyBZmmLDL7zVXQz7iwmFV5QQTYo7qQ=;
-        b=v4qTVCCb7VVhal+oXEIMin9L6U8kT6Yq4/927OR1/wzDyR0v3HuXZSR2FHrMyKaSX/
-         ivFqQMctHdPU8OUU9Eu8c1vow2qmhP8IvkXOstT5ait5IWGPdcTK5G+YFV+HRl2/9BKS
-         CWTSW7yjW3d/J9mRK4ps5gOToHcdSsfzXBjHHgTS33iOC8jJes4c+rW+6mVpjdhvUuUV
-         xysT08LZGEYTQHR6X6wiROX+YZMmlnvq0EV65Irq5uyTRs0B34WY0FKNKPzaHyKkOPOz
-         zcLR5TuJ52uS6UxKQW532KJPui7tjFGg3ilYtOkQuDwE4VNcEnOYQ5zfW3YdTNS85Tgo
-         dwBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793836003; x=1794440803;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rKToFDzUi6qhaHyBZmmLDL7zVXQz7iwmFV5QQTYo7qQ=;
-        b=xypIJ6KvDUi28/hM70XcDtsRwIqYCxjGSapghyr+jkMeRgX7bA2J7KujQq990oK4n6
-         4fLuFqYV9SdbZmV+aR6VvRDPARTUr5UECr6pFQ+Ch8uWg8s+xRdqpPCAaUpKzh7YJhcw
-         HYqlYc19maid/M3cvFYl+qYXjl/HkhEiDvYzcIC0K/EHEqs0PI0h9ehKMGkW1vufhxsc
-         zQI0m5z3/1C+I9Vxog7ZSwZWerYX10S+nOugPnMtHkLTQtU2f/6mSPmKfXbRbGcdj8Ps
-         HXiVbRGBNSb4PA05Xsvxn+GHhBD5+QmFtMHKqqA8p0fdPAPp6R6AuuQNjQX4K+69yLQ8
-         gdNg==
-X-Forwarded-Encrypted: i=1; AKwUvBxSw1DhsL7NmJumZaE6TB/r1+iJS8e2/ZTnpxwrmz6K4JA0jbVE74s1fGDVHE7VQ4+FTaQmQaQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/CeTAK1BEVrof0sR2aoTkm6kdlHlcHtxKvbRK2+lAurr9xG46c
-	vtdqJCL5JpIqVLPz7OI77aKYiahtSSItVFXcVPyy0SF2cdT13Hrwg2XT
-X-Gm-Gg: AYBFou2VM/FkVP7jnEKriAQseor+QUk9lcQCZHUWA8dqDMSuEGl4K/BC03vRQaNVgPj
-	s2+zeMi4k9wYClKiZ4sfF7MWh0r2BzQ4n+8l2l6B/QPL34bAxsQF83Jam+wNIAkd6XJ3xtC9s5J
-	AXEJLG7NGjj07oa4nSmugNw2r9R2RUVx96zLK9XyRMYYgl5GnKWVbEs/YHxA9WwD7g+1ccvq2/e
-	jQodyA4MVBXh6+ZzVrM2mCgG7rHMPlkgdFpowY3e/Wxju7t/cQCAKqTLZJvJfTmde32RTjqNGG/
-	A7lYua0D+fuyubP9ovGjkE1kiRPswjW8wMFEXFSJuAWfcPQQWonx69TcmBqBrUE/4TTr5gIQUQj
-	oBECQ2okdfl9/+WsPR/3nIAp5AMtyQI/32Q/1mBOOHxXpZQFMGXy2EAOHCpX6S/AHECaajgmz5p
-	r3MqYq2aTUhVDQVc2YtJkJog3MqK2MREiEoOH91VbNySMxLZFhJdaHIiwY29KOhuYRSkZ4/LVBK
-	LmBKBA2xXkIiMiVobtS580dAvxexLlyg0fNCwAEegJmJbahbC8XBOWU/rUJrBmVteTFJSjiZv1K
-	2ng0CsPRLPFOTyJl7TCLEZS0QwxpKNEFwrJQSurPhgYsI44koTm34lt22Jji7G56WitaGA==
-X-Received: by 2002:a05:7300:7a83:b0:35e:2c6:d46c with SMTP id 5a478bee46e88-36a42362460mr24871452eec.10.1793836003085;
-        Wed, 04 Nov 2026 15:46:43 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:c8f4:b7d9:252f:4483])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a6160sm9855784eec.9.2026.11.04.15.46.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 15:46:42 -0800 (PST)
-Date: Wed, 4 Nov 2026 15:46:39 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Guanglei Zhu <zhugl3@xiaopeng.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	liuc63@xiaopeng.com, stable@vger.kernel.org
-Subject: Re: [PATCH] Input: db9 - enlarge the Saturn multitap packet buffer
-Message-ID: <auvD3ISOJKoQv0cZ@google.com>
-References: <20261103084135.426629-1-zhugl3@xiaopeng.com>
- <20261103084135.426629-4-zhugl3@xiaopeng.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQ6RV0tz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE8F41F0093A;
+	Wed,  4 Nov 2026 23:46:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793836005;
+	bh=6e2BydUkhErauFs848R7eef9kvwIdSIObZdXSJmz2uA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VQ6RV0tzQoYvI0xGKBVN1RNV7PDEX2XdRzGOz1IiFVJb0ekeI8hG5vFMMQ5Vs4mKB
+	 9F2TBG2SgT+ZlaAagfTsr/L3xsdi+nXqB0l3s2/Ytb92qi+ZjOSBJ7XKb5vwDcJy1p
+	 IDDYJzah6wk7t0J2+xxWaiiSJv8OGEEf0gV+aRLNEOpXnhrb7hprM6Rxzi3svm6UpN
+	 5M6CC8UKFvTGVgWM2iKuZvUA9RWAaov/IiCplLKid8vnhEIyS+FbAjwrEOSPoD8Zrm
+	 kkpbJHOQPhsIlUpVKmAh/s66WTmkT/kA5TmVWDJopE+vTOZU4XASKF0K+oHBe6j/V8
+	 FcvXCp24s+hkQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Zhao Li <enderaoelyther@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] wifi: mt76: mt7996: unlink TWT flow if the MCU rejects the agreement
+Date: Wed,  4 Nov 2026 18:46:43 -0500
+Message-ID: <20261104234540.934421-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110425-drowsily-humbly-15e5@gregkh>
+References: <2026110425-drowsily-humbly-15e5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,34 +59,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103084135.426629-4-zhugl3@xiaopeng.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 04:41:31PM +0800, Guanglei Zhu wrote:
-> The Saturn multitap path fills the packet buffer block by block:
-> 
-> 	for (i = 0; i < 60; i += 10) {
-> 		data[i] = db9_saturn_read_analog(port, type, powered);
-> 		if (data[i] != 0xff)
-> 			/* read each pad */
-> 			for (j = 0; j < (data[i] & 0x0f); j++)
-> 				data[i + j + 1] = db9_saturn_read_analog(port, type, powered);
-> 	}
-> 
-> Each block is ten bytes apart, and the low nibble of the block
-> header - taken from the device - allows up to fifteen more bytes,
-> so the last block can write up to data[65]. The buffer, however,
-> is sixty bytes, and the six bytes past it belong to the rest of
-> the stack frame.
-> 
-> Give the buffer the size the protocol layout actually requires.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+From: Zhao Li <enderaoelyther@gmail.com>
 
-Applied, thank you.
+[ Upstream commit 022f5f8b7a0580da50fcbc34da853d03d4321fe2 ]
 
+mt7996_mac_add_twt_setup() links a new flow into dev->twt_list before
+asking the MCU to add the agreement, but exits without unlinking the flow
+if the request fails. The flow-ID and table masks are only committed
+after MCU success, so the still-linked flow is invisible to the
+mask-gated teardown paths.
+
+If the station retries the setup, the same slot is cleared and its
+embedded list node reinitialized while it is still linked, corrupting
+dev->twt_list. If the station disassociates instead, teardown skips the
+flow and station storage can be freed while the node remains linked. A
+later scheduling or debugfs twt_stats walk can then dereference the
+freed flow, resulting in a use-after-free.
+
+Unlink the flow when the MCU rejects the agreement. This restores the
+list to its pre-request state while leaving the unchanged mask and
+agreement accounting untouched.
+
+Fixes: 98686cd21624 ("wifi: mt76: mt7996: add driver for MediaTek Wi-Fi 7 (802.11be) devices")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/20260729173632.14387-3-enderaoelyther@gmail.com/
+Assisted-by: Codex:gpt-5.6-sol
+Assisted-by: Kimi:K3
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Link: https://patch.msgid.link/20260825112620.97568-1-enderaoelyther@gmail.com
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+[ sashal: Changed the MCU helper argument from &msta->vif->deflink to msta->vif to match the existing interface. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/wireless/mediatek/mt76/mt7996/mac.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c b/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
+index 89d8a22e967c3..5b12f152b0acb 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
+@@ -2654,8 +2654,10 @@ void mt7996_mac_add_twt_setup(struct ieee80211_hw *hw,
+ 	}
+ 	flow->tsf = le64_to_cpu(twt_agrt->twt);
+ 
+-	if (mt7996_mcu_twt_agrt_update(dev, msta->vif, flow, MCU_TWT_AGRT_ADD))
++	if (mt7996_mcu_twt_agrt_update(dev, msta->vif, flow, MCU_TWT_AGRT_ADD)) {
++		list_del(&flow->list);
+ 		goto unlock;
++	}
+ 
+ 	setup_cmd = TWT_SETUP_CMD_ACCEPT;
+ 	dev->twt.table_mask |= BIT(table_id);
 -- 
-Dmitry
+2.53.0
+
