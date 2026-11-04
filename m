@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802673;
-	b=l8OEpim0RFXFbe9vK1hSXpj7/RnYY7JAjqwTa7uUlCRw3CJdTdOaF/a2HQW0qM3pCIbs
-	 9MbTCMSuXAh6uxY3Jk+ojaj3QJ2kiaIVe/YjzsmDEZXPCtmfsjlXBVoAyOFTujJL0c0w8
-	 RdmHdzt5YywcapRmN+MuGrrnpmlqfAeF3BzaLkWeU6+eBGIUaMGK7W42QijeYOLfpK1zr
-	 OtfijQjIoP+3/SbGqhBSnob3q1JEu+i+zYcQiywcgkefXhKqlB3VOyE+Gv2r1Hp2U35ia
-	 pSHmvF0ZdDk+k8ullCI+ml2O+6I7gzvq7q6nyfPOosatkh32o242iLayw/CJ+FKRpZg==
+	t=1793802675;
+	b=okewO1N1i23I8x6J+wS+f2s1XleqkFP7iCHLRpIW8cb2x+7KbAWl4FY8qGnBYxfX0ZbE
+	 9WrvdPmmwiMkx+V6Kd4fwzlBg7XPD/Bt5wAsc3Zvl8wq2A2Bymd/sRlaOeempATEHe9tM
+	 LmX5fPIZAX8wJTlclZH2jsidgFgZe+bPBO2qRb0pplWE3fUd1sHgE613iS8MTgxc3BiSq
+	 KQ2lrAdFeDAYaM1gaMUhXpQhVEPsS5qeHSVu/GqID0qZXq3YfDS5E8JLRXPUVd9o02joZ
+	 X9t+zqjDLXMOJV90aDmFSJOIZpzNKHKtcy8icIZYlhoWX3pbOuN2BgfrBkypn/YAutQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802673;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802675;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=O3Ea0EbSxATq/9MZHAhAHSEyKzuPfl9jT4+rY4C1vao=;
-	b=21ZZPAdwFmWMcp4wZfxOYFQ5f85xmjwr/naUBnYrS1qGlHeZUJ9coeUPkg4kDmcLWvzV
-	 I5TzgGZVbyEJY+WHaYfBXTiNEvL9bXDlyuRJAA/lgDFgoENUXXac37oylUNsBu2LQJ8g8
-	 qPR8rGA6+c/bGw6p+6qJzAYxxoTwGCES96c5LGDpkzKuJ9yxIyLpEmdRWGdOsYglMaOt9
-	 eUac4niIFu0r6Un4QaCsz1YGNI0fQVxYa3jBhyOq6zFco/iwsTjGqom0R/In4z7ys/yK8
-	 WvSv/QmAPxAoO3wPFNsXUXfa7/zLClMemO+CABEWMPFvjuoLGd5h+sqAgBEot9XZC1Q==
+	bh=RIcTLXyK4N2zGic5HZdXt0WvDyMGHth4BRk0q7VqJho=;
+	b=1wN60m1S+nO4DYrkGDcvxOqDrVt5T+ImDxTr2dWV6FihRfygmO+2rTb1KeuDfcapctol
+	 QW/Fi2wGDt2Yliz2+qeX1iEGUNFbHGJy/zWSrFginQv1wnB06ETiSGD22GfcSn0byrk0m
+	 CtfsGawzdxr0VbxtozvFPkjQKHfvV8N/WwuyRsK91r+DxQC+iqYwuclOQvgj3A+A3KDUI
+	 uZ3soUFUSfAnr219CDzIc781r4bxdqddhc7oAI04UJlKWn64C65dTww6JZPD83XMEOVrW
+	 VM8kULmyAWGdrFXpgpDPoGkEmVvf0dOR6pXghRPJbI1qhNaZpZzaHeMwlc1Wj6N8SzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K82bEbnL;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TiVa7pV9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69482606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E37B9606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:31:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K82bEbnL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18EE61F000C1;
-	Wed,  4 Nov 2026 14:31:13 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TiVa7pV9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5258E1F000C1;
+	Wed,  4 Nov 2026 14:31:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802673;
-	bh=O3Ea0EbSxATq/9MZHAhAHSEyKzuPfl9jT4+rY4C1vao=;
+	s=korg; t=1793802674;
+	bh=RIcTLXyK4N2zGic5HZdXt0WvDyMGHth4BRk0q7VqJho=;
 	h=Subject:To:Cc:From:Date;
-	b=K82bEbnL0pBIF9aAShkddDACdDfDNmYE1U5GlFMTqPgy3Hu7v0yDEiA805g9rxgi8
-	 3Bo/2ml4HhX9/cReL4m1SFMI43cdDzIdFxx+/0Rv4t8fBd594/ON3oA5tYP4B5zXvr
-	 Rh7+ut1mSxJES/otaImZiGXsV4nUVbyT863fKHgY=
-Subject: FAILED: patch "[PATCH] media: rc: Fix race condition during rc_register_device()" failed to apply to 5.15-stable tree
+	b=TiVa7pV9jOeWeuoDaZpL+hL7S2pBGGh2kH5d+mASLW0341uPHhH5ukKzODqltRR8S
+	 dmBdKo5gMGkYYG4P0AE6yOhxJJb2I8qk6uZ5qIiakIzFHgzDA/y9ABu2VANsw/FiPV
+	 7Eqd3o2o2sfJg1kY2U5G5ofTZxqm83rU++VVTBPs=
+Subject: FAILED: patch "[PATCH] media: rc: Fix race condition during rc_register_device()" failed to apply to 5.10-stable tree
 To: sean@mess.org,hverkuil+cisco@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:31:06 +0100
-Message-ID: <2026110406-staple-sheet-b1c6@gregkh>
+Message-ID: <2026110406-streak-snorkel-cd41@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x ec7cb49871e5c4f85d57290320c50ee0bae4db84
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110406-staple-sheet-b1c6@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110406-streak-snorkel-cd41@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
