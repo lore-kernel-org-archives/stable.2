@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801879;
-	b=swj6YcpL7qsW5+pBTgMQq0+zskFY06UHu3nJ/WXD1JnEU2P7qZwo1sAkjtEumz7W+Ory
-	 Kp1RD48SUHgr/HdbcoNuyYSAlSTrsXLcn7vWv9G4J0WOBwSrwmoAP73IAGPj3uPhytUlg
-	 aT54f9hgTlbGKKxkhAhMuUq4sAkMAczHxB4OS5nvh+KZSN/dRrt64rtlZpA8pWgDkcprG
-	 krcQrBcSOrMiQQO2GHlFwe78qJ80urkHv3qSKSF953XJ8pob8zDCPpdl2+Dlx4h2b2L5C
-	 rfJNU66DekiawuEYS4X7vJ+4jwJHtDuSHyB+lk5MY4Nr3MYFNBGwQVbn2hPHx7hAlEg==
+	t=1793801889;
+	b=TWWI1Iw4BmEAaxVBvYk3d2SNlkpRPjj4CUUcwpQ+jQsVn/GwCBqPs+CPzkQoviQI/35G
+	 T0oOsVTG85oHCRau1+UkUjUDGZva5UI8wQNwH8tPs2BQa/37pK/ac2H8c3MHI4oAYoPRj
+	 kkvGloqJiLYthozisxO5k0TZ3pI7+Q/5QVHafjJAGW5RvqZKz06kLwynmPxiNfyakZmWP
+	 5SGwSkVRNFtMen1e/DMfXZLddznQV/gCqaDeJ1OQaxHx78bQp5z5uGeAyt0srDapL+S3t
+	 wMbDLi+/Z6mWEhomKVKL7zZJ6TAHHvPLt9cakD1QUPv/xwq+SGPNw8UlKBEk/8fs8sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801879;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801889;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=MyZrj42L8jrwyQSRGCl3GivBbElz89p/F5V3do/GXmA=;
-	b=ZT49fkVM2G5X8Yvd3BH+TT9udW3ig7YrQ+47xgDGpqYfL7x8ZhaBC3/DF3H7i4n3f3iX
-	 nSBHo6iMV/tH4pZpsJ8CZEaCLhLyqXPH00fHlyFWhFc0H1gm/BCHAvrgIeGxOlMM4i9aG
-	 pfV7kmcdH9upcGNnBjMleY+i8EBrTC/+r5jMjCnhL5oHY/X0QeeWDEu2EtZtUH9/V2b3P
-	 1h2p12xT/77o7kEYY7lyUgWqGVK1rnnhCSjifGRdAu89eA0BFQiATfAIAV9UOLlY8rrJL
-	 hp3hWUaWr8X+FZvQ6PsnIHKDuM/baZigk1MqO3VLmYQmTkFI57VAF1RAD0tq90mK4oQ==
+	bh=8zdxlzzQ/HNwnZn8aeUjwlLuB2cfmRbuxdoxKnVBhgk=;
+	b=e3KfJ0rVROGDg/iMcYT82/Yt881/2netny++Su6fXc+L7XP2NiNjk9gB2MB9wRECNWZt
+	 l7uBkqHoUwYqwS6W9XoLaYcZR1Z9bxMvYBfkurKE1sOCHgpchRFiXukbCsEHpkTK3UUX0
+	 ZYk2sR1FWg3LnbXs+18Djf/XX/f1C3zzOpktAs7M9cjrhr9NMR+faFIwRC2DRNWP082pI
+	 RoD9LL0yQ61BjL8uy/wWI3GBpCjpLJUndBH+8jNV3rS98SiYqHtq+9g3zWjtAPvrjMbxt
+	 OAsz0pEsj2br9Ccf3jm7yqpKf5HMjIT57fthDr6jlE92/dz9HzmI5J4Us1Br9rgC0uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="CPR/Y69+";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LBrlPVNm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA850606A33C
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:17:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51C1606A32D
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:18:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CPR/Y69+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9A61F00919;
-	Wed,  4 Nov 2026 14:17:58 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LBrlPVNm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E5A21F000C1;
+	Wed,  4 Nov 2026 14:18:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793801878;
-	bh=MyZrj42L8jrwyQSRGCl3GivBbElz89p/F5V3do/GXmA=;
+	s=korg; t=1793801888;
+	bh=8zdxlzzQ/HNwnZn8aeUjwlLuB2cfmRbuxdoxKnVBhgk=;
 	h=Subject:To:Cc:From:Date;
-	b=CPR/Y69+zSk73C7oua3Zjj3A4A4eCuWbRDpoNxRa6hTSfcmnG6ZszE3x6Qne3gJVl
-	 YkC2M5Eo4pz48QAwSTwiyUgF0XO/wQmYbU31m74jwY1OcjuqgkYUirj+71+qhqUomq
-	 KzzZQmpBRElyhjfj6jwA45NQ8ziNf688lSk8wuaA=
-Subject: FAILED: patch "[PATCH] media: microchip-isc: take a reference on the parsed" failed to apply to 6.6-stable tree
+	b=LBrlPVNm1dqTlhqIy1hCXjACr5E56hUuUkyEB8s7f0QlAPRc0ipFWqgrSpx+vWy41
+	 5zWR6cS2OpyNV+NU6q9LfbPQ66M7yrfOhzjjV8P9hTC2friueb4ssnuf4i5ooRfaFF
+	 SP0x6FJWDAemhKsLQ/Slj486jIc06iQTarIjNaX0=
+Subject: FAILED: patch "[PATCH] media: microchip-isc: take a reference on the parsed" failed to apply to 6.1-stable tree
 To: balakrishnan.s@microchip.com,ehristev@kernel.org,hverkuil+cisco@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:17:57 +0100
-Message-ID: <2026110457-outflank-doorway-6469@gregkh>
+Message-ID: <2026110457-banking-figurine-e1c2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x f2eb2fd388bf3f1959556a326e797cacca341c86
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110457-outflank-doorway-6469@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110457-banking-figurine-e1c2@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
