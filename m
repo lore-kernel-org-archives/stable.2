@@ -1,111 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793820155;
-	b=CHEt9g1icK8vVjPxOVY+nEMNX/SXPBM35tVayMsgBd+9H69YvrpU0KAwzXWIibb5p8OC
-	 9sOZttKJJ51qPxT2Zbrhwam6Q6HHdOLHaCC20BZogNaWF320HomotlCbbgwJt0cME/AjR
-	 vHIYtXPuuxjG4dwqEAW2jUq+vPCxryg/g3zOwGjYeXWfL3iPpYvus0oJeQXE2HDof2J/i
-	 YCZEevPQXhsCVsIHWGKlgQRRekvxQdi0m3nU6483WZgGUUrDLiv6F0v2Ct2HnFwtvszGf
-	 iGh2Pd+DTiBcsNpE8/7ILQUKgjwy1qWUFmb6EFLEB/ThrAynMQ8HW1I6riVu0cVAJJQ==
+	t=1793820164;
+	b=a4bz1Bwy8GMxsMdU9158/e249D8qpzM9ddacSyqsQg0lFGP77sr684+Wj721xPTv0r2X
+	 7OujQOl3DJwWtH8XHzUyi0IVWfAJRF//nCD+7kiiApCYPH71PFW3eN6Rlqzudvn2XWmsA
+	 ERZZGQRluDLWe5TWARNtUDPkO857wb29ctTOON3XJav5xOe6Ht30idfbcil4ZJ4CLuExQ
+	 71hAS8j8L+x26EFvecIttzYYEloeJ0r67fBFTpZnMbcLXwf1YUO2iRJ0QPrLEwl7F+d7F
+	 ijON1f6+qSdF7QYCevvMR+95IXE/RwrjZAKayNfvZBwoYwluTmhe+6MxN/66T13AHZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793820155;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=S8IXtzTL1USde6aV/lVKsFPWulIUW0ciUvC5Tm4lMm4=;
-	b=XJ15B8FzHF5BDyyi+xGH3yAdY4ad0DHNboydyBgtTEOvsDKdAJiV1DChezH66QEMKxR4
-	 LY6qaLDc3LrOxuAz+aLDamPUhIlyN8RZpLUjGxWx53JV8Ycg0p8Vor+vvzvlcO7Hny4sm
-	 9T1U73uNqxOMrBMDd+d9zkbvQwL7IdsyL/56jPpyhUROBaaGCuEuOfuXdrcBQLTs2XJzi
-	 HfQDeZwSLTq/g5cIMuV/qiR0r6/5Uj6vv7UcdGZfDherSHi41B/hHJDAQ5Ga2goUQSONs
-	 GLMQ7hutX/H0eHPBl+ZaruxQk3pSO/zeUU8D+vkGQ4pMke2eXNEVKUmIHM3yncFIGRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793820164;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=xSHPRMwgYvv87BhKRb1F8Oqc/A4sbUaGTYI2VwdCY1Q=;
+	b=uDQ5jPwutqX69gIo/1xTk4hajkbdPJfdGnvwRa0J/s16cJLgzH70Uvc7xtbX10z9c0TD
+	 X3uWYYpsCIKh7FJJtXvFwoyJcMRQ7fLTMmqaMSUFcJdGSxpwSbhymVBrzI/ynC6lo9zp8
+	 myKm8u40qrBTeNq11CuNMvRL2tVZCBXFfKbk2vihXSjm28Fn3/JwIYrGQVP4xBvVXd429
+	 NMjquJ9fyNnsiKjE8tCHhmfhB9kNddf1BWhjh1IlyQjiQcprmY5+uwvOZ0quGEb2eNqsN
+	 /w8KHDuT5Gmc/jG4Djk3gokJlkHKvEE/sANWAOGOJiNqUTNmeQNaAsjdh+/WeZQQWQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mXEJh7D8;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uyu7lO7P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F2F606C599;
-	Wed,  4 Nov 2026 19:22:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C342A606C90E
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 19:22:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mXEJh7D8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 293831F000C1;
-	Wed,  4 Nov 2026 19:22:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793820154;
-	bh=S8IXtzTL1USde6aV/lVKsFPWulIUW0ciUvC5Tm4lMm4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mXEJh7D86UeSEY8jNu82u3NLmId2OsI/Nv9nh3XWpLINGlBuLP5Nz+YiwtOsAqIVJ
-	 oVeO2qxhNxAYSigqHIpjEKTcnXIbhPS7yHKiS4GRdJ9UYEuLBunN2o2SvnznlXI6BM
-	 F5O9M7fZaaFETXY9Ej5mVQrFRkhRZM5mDYAGBCUg69fzwRq+8JjZKWRp58tNqeKTw9
-	 Mus1vHfCqkTiD6xzM+KlO6h9c7TF92UrHaTiLn5L+jl6joxLiUSdcubt7/4SNRaTm5
-	 vJlimOOsTIbLAxnLoArtNJAZUqCCnnAwocr+VwIzPakK1nD/ZdjgCu3EIbAcmKwTRk
-	 HrfU9Pt62XfOQ==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH RESEND v2 26/51] scsi: core: NUL-terminate what is written to the host proc files
-Date: Wed,  4 Nov 2026 20:22:19 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-26-021c84d852e0@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
-References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uyu7lO7P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 544FC1F00919;
+	Wed,  4 Nov 2026 19:22:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793820163;
+	bh=xSHPRMwgYvv87BhKRb1F8Oqc/A4sbUaGTYI2VwdCY1Q=;
+	h=Subject:To:Cc:From:Date;
+	b=uyu7lO7Pb+Avj+pRANXplHu6TWO0nds/HQItrCwOxzDZbZfLPj9kP/ER5qkOJ1AS+
+	 0lN3fPdb+C9JugHTd6XRMQJCBPnGyy1zpV31WdK1giZROkG9hXV3aTKY++AM4340qU
+	 2Ot4NcDumZIOauYtU19b+ANKdWv0vpcVmLEhkb/0=
+Subject: FAILED: patch "[PATCH] KVM: guest_memfd: take the invalidate lock when unbinding a" failed to apply to 6.18-stable tree
+To: shivankg@amd.com,david@kernel.org,sashiko-bot@kernel.org,seanjc@google.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 04 Nov 2026 14:22:42 -0500
+Message-ID: <2026110442-recast-sequel-2c6a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,38 +51,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1011; i=brauner@kernel.org; h=from:subject:message-id; bh=jBwXVCCRpDjmnAajxR/zAvEvmAtZKAE0jCj6+Cnx3v0=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9bnztk+R5Surix3hvm7CKvXpyq57/KmExl721cvVL/ tOc37nndZSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzkuw7DXxHBqOn8F95zMNyd M6k2rOaLgMESqZzyjQvM9reKiH4XkGX4X/ewceXxBbldmy+3PQ+Iunxzrnshe95/o/05vCxbvk/ mZwMA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-proc_scsi_host_write() copies what is written into a page and hands it
-to ->write_info() without terminating it. ppa and imm parse it with
-strncmp() and simple_strtoul(), which read on past what was written into
-whatever the page held before. Terminate the copy. A write is at most
-PROC_BLOCK_SIZE bytes, so the page always has room for that.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 0ee2c883b62deb74d8c43007e8049dc006d3a2fb
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110442-recast-sequel-2c6a@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 0ee2c883b62deb74d8c43007e8049dc006d3a2fb Mon Sep 17 00:00:00 2001
+From: Shivank Garg <shivankg@amd.com>
+Date: Tue, 1 Sep 2026 07:20:38 +0000
+Subject: [PATCH] KVM: guest_memfd: take the invalidate lock when unbinding a
+ dying file
+
+kvm_gmem_unbind() takes mapping->invalidate_lock only if the
+get_file_active() succeeds. When the guest_memfd file is dying, its
+reference count is already zero so get_file_active fails and the binding
+is removed without holding the invalidate lock.
+
+kvm_gmem_invalidate_{start,end}() checks f->bindings independently to
+decide whether to begin or end KVM MMU invalidation. So, the bindings
+must therefore remain stable between the two calls. Otherwise, unbind
+can remove a binding after start increments mmu_invalidate_in_progress,
+but before end finds the binding and decrements it.
+Example, unbind race with memory failure:
+
+  CPU 0: memory failure               CPU 1: memslot delete
+  ----------------------------------  ---------------------------
+                                      (guest_memfd file is dying)
+  kvm_gmem_error_folio()
+    kvm_gmem_invalidate_start()
+      finds binding
+      mmu_invalidate_in_progress++
+                                      kvm_gmem_unbind()
+                                        get_file_active() fails
+                                        removes binding
+    kvm_gmem_invalidate_end()
+      no binding found
+      counter stays elevated
+
+mmu_invalidate_retry() then returns 1 forever, so guest page faults
+retry without ever installing a mapping and the guest hangs.
+
+Remove the distinction between live and dying files in the unbind path.
+Always use slot->gmem.file and take the invalidate lock when it's non-NULL.
+Normal unbind callers hold slots_lock, which prevents release from clearing
+the pointer or freeing the file state until unbind completes. Final VM
+teardown can only see a NULL pointer because guest_memfd pins the KVM until
+release has cleared all bindings.
+
+Fixes: ae431059e75d ("KVM: guest_memfd: Remove bindings on memslot deletion when gmem is dying")
 Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- drivers/scsi/scsi_proc.c | 1 +
- 1 file changed, 1 insertion(+)
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260728092027.225CF1F000E9@smtp.kernel.org
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Shivank Garg <shivankg@amd.com>
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Link: https://patch.msgid.link/20260901-gmem-unbind-fix-v2-1-12febe1d2216@amd.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-diff --git a/drivers/scsi/scsi_proc.c b/drivers/scsi/scsi_proc.c
-index fdc355d783da..dbd03360b5a4 100644
---- a/drivers/scsi/scsi_proc.c
-+++ b/drivers/scsi/scsi_proc.c
-@@ -80,6 +80,7 @@ static ssize_t proc_scsi_host_write(struct file *file, const char __user *buf,
- 		ret = -EFAULT;
- 		if (copy_from_user(page, buf, count))
- 			goto out;
-+		page[count] = '\0';
- 		ret = shost->hostt->write_info(shost, page, count);
- 	}
- out:
-
--- 
-2.53.0
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index 625e62e1a031..21bb3710edfe 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -668,11 +668,33 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	return r;
+ }
+ 
+-static void __kvm_gmem_unbind(struct kvm_memory_slot *slot, struct gmem_file *f)
++void kvm_gmem_unbind(struct kvm_memory_slot *slot)
+ {
++	struct file *file = slot->gmem.file;
+ 	unsigned long start = slot->gmem.pgoff;
+ 	unsigned long end = start + slot->npages;
++	struct gmem_file *f;
+ 
++	/*
++	 * Nothing to do if the underlying file was _already_ closed, as
++	 * kvm_gmem_release() invalidates and nullifies all bindings.
++	 */
++	if (!file)
++		return;
++
++	/*
++	 * However, if the file is _being_ closed, then the bindings need to be
++	 * removed as kvm_gmem_release() might not run until after the memslot
++	 * is freed.  Modifying the bindings is safe even if the file is dying
++	 * as kvm_gmem_release() nullifies slot->gmem.file under slots_lock,
++	 * and only puts its reference to KVM after destroying all bindings.
++	 * I.e. reaching this point means kvm_gmem_release() hasn't destroyed
++	 * the bindings or freed the gmem_file and can't do so until the caller
++	 * drops slots_lock, so there's no need to verify the file is live.
++	 */
++	f = file->private_data;
++
++	filemap_invalidate_lock(file->f_mapping);
+ 	xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
+ 
+ 	/*
+@@ -680,36 +702,6 @@ static void __kvm_gmem_unbind(struct kvm_memory_slot *slot, struct gmem_file *f)
+ 	 * cannot see this memslot.
+ 	 */
+ 	WRITE_ONCE(slot->gmem.file, NULL);
+-}
+-
+-void kvm_gmem_unbind(struct kvm_memory_slot *slot)
+-{
+-	/*
+-	 * Nothing to do if the underlying file was _already_ closed, as
+-	 * kvm_gmem_release() invalidates and nullifies all bindings.
+-	 */
+-	if (!slot->gmem.file)
+-		return;
+-
+-	CLASS(gmem_get_file, file)(slot);
+-
+-	/*
+-	 * However, if the file is _being_ closed, then the bindings need to be
+-	 * removed as kvm_gmem_release() might not run until after the memslot
+-	 * is freed.  Note, modifying the bindings is safe even though the file
+-	 * is dying as kvm_gmem_release() nullifies slot->gmem.file under
+-	 * slots_lock, and only puts its reference to KVM after destroying all
+-	 * bindings.  I.e. reaching this point means kvm_gmem_release() hasn't
+-	 * yet destroyed the bindings or freed the gmem_file, and can't do so
+-	 * until the caller drops slots_lock.
+-	 */
+-	if (!file) {
+-		__kvm_gmem_unbind(slot, slot->gmem.file->private_data);
+-		return;
+-	}
+-
+-	filemap_invalidate_lock(file->f_mapping);
+-	__kvm_gmem_unbind(slot, file->private_data);
+ 	filemap_invalidate_unlock(file->f_mapping);
+ }
+ 
 
