@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802937;
-	b=4rV127kuHqxU6ADBWKzv9LHgmzr3R4dYIzItDp1ZBytWWJdmqkpw4l7Su38QEiTKgvXG
-	 +EQSM1PB2pjPp5V96opfBcaCDAnJS1LHZSp4BTktL2zn9EAng1+bu6Y3vDGLWxhrittGL
-	 UijiLarUlyLd98T+IyrI+EuS6Xxg0xBBuyx/tKElejW/iuf2q90JRI8gFtdFBYa4ER00+
-	 hpqQDVB3uc4i+Xnq9vuLtrdqDs5mSRY8aFVTfuooPyl653fzTgvtFf9F1PcaxZkwcqAqU
-	 k55cuL7uD33j8dK+Cma4lRfTjdFs6pHz3fnx9M9/DpOPBsDpi7LQ/4h53Iai+O0dDrw==
+	t=1793802939;
+	b=krQg83Xs+kZchCKgPJsKjf0bpGqmvRjpYs1OIKH8+S1immBeeD7/X3t97weJ7LtZPcjo
+	 sGPUxntssU3nQJ7qH5wUTxaOo7jBTwYQ+u+h6By9g/juVwiLlOGkrc/H2jZQU87WwyWy7
+	 IAaRY8lgc78p8HIIj3Yg4cNZkmDbf75XNdBv7iTH1VAEiWXoR7GVKpPZ0+eofkW+RfDfa
+	 68R8crhvlqFlAR/LFLWRYQ7ApfDGGJh/9srE9FmPOHsz5DnDP5Ut6DbJAqvR1i2XBb+rm
+	 xqefK4EgnjfBrq9seojc8/N+YkrzuJtxzyu8PefdOOQATULqpzqkHcB/Ma2ywNsoInw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802937;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802939;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ttVPAZI5fMP2BBuSfLAoP/vRq9CVlJ4IMQL9qIy5A1w=;
-	b=lPPxqTn5Z6cURiL7GCrlkSg5en9xt/feomvui4NQYoO0KqevdefKTKWnB+nbJGNIwO2y
-	 hiSIHmdEJ+9sx3yWZjn2PxM1vxf2Mm2o0QFVG/wa+3d6d9847Zu3vocZs4hssTyhGj+uc
-	 5fA3tU+NEU8VSCVcCixc9GDtJug+zm2ZziWZQ3i9fMef+B296gTbRoPcLC9E60VqA0qfG
-	 Ys/FqCIgnPEHzVPFOZkdwDn8u/edMHhEupodygDg8r5HZOZPAi75ZI1eQZpXUZnPwSaKE
-	 7cJ+IVtU5dBv/Zx+XagJykJigBRjE20DhuVBaYck0KWSciay8BJ9fvOUP73+Ovu4pMA==
+	bh=munQ4GdZWEHA+aIL8Bmr8vK5MrxF7ZP+9PmAs6jdb9Y=;
+	b=mUtE0lmJCMcdOh9mAdKPvXn1VWZVWWtEI8D/TQ5VAV/2mnDRJhKKe8Dihmhj0LAS4Npf
+	 nrm8/GVUdBzPig5qc8i7nwEZx5sCEWRRqBU0q9BKblulVAO/0WNn1wuqcT7k2hjOgZie0
+	 t6dp4LndVkDm3lpfxOs2pZqCaIpWiZmNNPW9RX8HRQrPJ6rULExqIv+3kVXTvw1d2d8D9
+	 0HXI3odZgOjs8g63lNHBOvB2mQXKTDL5ohIjOf5S1Sh9T7m0wkpmcPLxtGZ/OKukipGgJ
+	 ChU/+PCz2NH8Yn/pK/8pSWPxS7gA7nEVm1naWNXiA3Plev7ubkopWSOUi4uILnt9bHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oxsKSufg;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BrwJCWCb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC300606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:35:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2569A606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:35:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oxsKSufg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B1451F00919;
-	Wed,  4 Nov 2026 14:35:36 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BrwJCWCb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8314A1F00919;
+	Wed,  4 Nov 2026 14:35:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802936;
-	bh=ttVPAZI5fMP2BBuSfLAoP/vRq9CVlJ4IMQL9qIy5A1w=;
+	s=korg; t=1793802938;
+	bh=munQ4GdZWEHA+aIL8Bmr8vK5MrxF7ZP+9PmAs6jdb9Y=;
 	h=Subject:To:Cc:From:Date;
-	b=oxsKSufgnIuSspqcTqOiAWaDOB6bQTeysw8PlJlBc4tHARG+KOSAaA+ki0EsZLLMN
-	 RZQ3vCLycBGInW8QPeLjnweTdV5qwevRkehvjxJ1by+q4JJi8xT+E8kIazVNo1Cavk
-	 0l7TaYQn6DZKxEuBORRQ6uOmdRrmx/C4cPV3Ph1A=
-Subject: FAILED: patch "[PATCH] ovl: use the pinned upper dir in ovl_fix_origin()" failed to apply to 6.1-stable tree
+	b=BrwJCWCbnbkR+eaoNfwOlzySumgu1EKFgp7VXQjuJYbK3GtF5sLU7A+Rh6Wwjxj+f
+	 Gjjasvb5zbWpd0XPRvyTILjzZsCQlKQUBX3NsjOZ9s0Mc6rOac4fhDnjz6RkcbLX95
+	 kDH6HeEXtXVoCEhjvywh7CYTa5ErlVNkVh49X1YU=
+Subject: FAILED: patch "[PATCH] ovl: use the pinned upper dir in ovl_fix_origin()" failed to apply to 5.15-stable tree
 To: mason@kernel.org,amir73il@gmail.com,josef@toxicpanda.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:35:27 +0100
-Message-ID: <2026110427-yam-conjoined-4ce6@gregkh>
+Message-ID: <2026110427-caddy-nimbly-6a47@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 4f61ff2ebfb3d2967b83b6a4d456242244d5a61f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110427-yam-conjoined-4ce6@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110427-caddy-nimbly-6a47@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
