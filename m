@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793803201;
-	b=N+gdQZ94oovxzOK+XbfV3rhYZUUoTwoHPalDKNPszPedW7MqGwwmq13Tp/ODmxCmA6Ei
-	 tVem81Flw323mWPMyckzurhgOKXY8X5j0T8u+n0++AQaf4H/KaFQ3iT1E9n5K2kSTWWso
-	 ZppLhaRMBD+eM91raa8ZqRDQMD5GCW+4Znp6I7prFrG/zw9cEhEDwwhX2kHm9bWnVbtMJ
-	 U9fyYpOPc3QVLm2cs2v80hPEwKa7zh4Qshi8wx5QoX1lbjk0NNKxNMEELuQ7L1/UEXzyU
-	 79YEZVw1vhVeoJ1UfKK7x5m3kmTvHONOD8nKnboHPlYHjJqfUDLdBia0HZKME1E8JgQ==
+	t=1793803212;
+	b=IvXWHQ0cx5+YvabAG7Ao2jBLvt4oUiO7772bDUNqlXkEhtA2WYyhw5g7LDAoQnVN09Fo
+	 PqXXB8OL8hZqeLiAHjNix1Ze8/4kRKyg8j/51+805cYJ2Dm46j0oKJt9S4ibbIX7J0/ZS
+	 N++cM4wSW9UOXuXa8zfhU8YXd1G87ACPH6bYXlCJfJFHOTZksE5vSYsmwMDz13BnAIbWC
+	 3K9WCArOcQYvlGmXC2c+mxg80e6MRuvWSVUCNZq58Qhj1t2dtNznOvB70O1C7NNLZ2hN/
+	 lf9/Ly1HXCbpqul7KGWFueljP1BzCapISoIPW87ciIuQBa5ZXRjPOjH2IXxqdEgF9qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793803201;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793803212;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Iv4STDTwjSbcPZ7tdIoiu8WqPht2hfBHjjQiA65MwfE=;
-	b=KqvmFM2Z8JxWBnuXO1A4vMH6KAmMrCXacYtEHHgdrzVmBIUx5vYLQsAqmpETAlMisxuw
-	 5NiKZTmVnSHkcXgRr8QRjgvzz9rUE8I2ZBGMTZ8ta2ztc96mn+OJt9bJh3thvwaptBjph
-	 tcFtVVPytKops0UXF58Ub7qZhfhJ8Sb+AJLqW7NcuaiQ95mprNBMiWtV/u2sRe4Dt54M6
-	 m/4B5MrpNyhejbpqavNre7rowQs2WTONPlFIIfQnBLySTMIh5KpQvp/CKctwv+Uh8vjFq
-	 NjqHtXA9+XTOVpPIsCoYswEh5ZADO0bE38DFoouq7r+7ruXiMZ/QYc1sWXKSYl0bItQ==
+	bh=ylRvma0PNW4DXbtPX7FJu+DVe8kiO8yXzKptJ/vhwsc=;
+	b=rDGz/+MoXyolu2/T9y07GJ6kha2iYKRPzdT0/zF5BWFrS4uHSAyl9z2chCn0hr37LKwu
+	 Pq0n2DPSMYYSgtgS91bA44QYoeyW20waHrSO2Osv4c6Py0ushoPX2+T4ecTMVYK+stLv/
+	 t7LHkGpqvDdgfwGo3pD1cOSrVIesbOfRNFfTfFT/64lzKKEmEBHz7PJRgKMU6IYsZRwM1
+	 d34rFblgaq92KhvozoTHliZAqdJMQZmIp3wdfzoonaMUesG5Skm4hVSBlWr5TFvNkJKAr
+	 w5eiEe07RTPJI3lv3PTc8H3GEnakxZylzk5FGB1NgB1VIwbefWFL2cWVtvfoQX0NJSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=twueK7Wv;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZsySYynO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57ED7606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:40:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118DC606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:40:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=twueK7Wv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABF291F00919;
-	Wed,  4 Nov 2026 14:40:00 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZsySYynO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BEFC1F000C1;
+	Wed,  4 Nov 2026 14:40:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793803200;
-	bh=Iv4STDTwjSbcPZ7tdIoiu8WqPht2hfBHjjQiA65MwfE=;
+	s=korg; t=1793803211;
+	bh=ylRvma0PNW4DXbtPX7FJu+DVe8kiO8yXzKptJ/vhwsc=;
 	h=Subject:To:Cc:From:Date;
-	b=twueK7WvqhRT5rnh2F21tqt+93I9kHA8zyxAeZBSRnA5TN+0S3wx3QsEpG+ARrBKm
-	 WFE4UXA9ZNJ0QeZvAMCDmjqX5CXJu1RlwpstHHMhoPa8XaO+PPAHseiALkAaRvVHGR
-	 FDA34f1xqSNMWdNjf4EM55WNYPMrPqE2QliDnBqM=
-Subject: FAILED: patch "[PATCH] power: supply: sbs-battery: disable polling before supply" failed to apply to 6.6-stable tree
+	b=ZsySYynOkCLSZixiN5sLWktJdxxTNBNXfmZwnTn4pIDuUX1kojNwKOxQrkLWL9PoN
+	 RC9GvO4hfQf2rr2o71+9gtDSHBLsBUzKi7whvcd4MUI+puHMr1XCn8g933aHM8qUDG
+	 ZHCSMaKUo5HsqqqjFDa0TIlJC3dbvZNePyTIndxc=
+Subject: FAILED: patch "[PATCH] power: supply: sbs-battery: disable polling before supply" failed to apply to 6.1-stable tree
 To: mhun512@gmail.com,ae878000@gmail.com,sebastian.reichel@collabora.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:39:59 +0100
-Message-ID: <2026110459-old-quarrel-7ee6@gregkh>
+Date: Wed, 04 Nov 2026 15:40:00 +0100
+Message-ID: <2026110400-companion-hate-de89@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 5c1c602463d597c5189ddc5a73dece588ba2c57a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110459-old-quarrel-7ee6@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110400-companion-hate-de89@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
