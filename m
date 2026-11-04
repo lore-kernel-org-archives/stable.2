@@ -1,47 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793776878;
-	b=Dfx1JQAHW/GnxxBgUqfMoaK76DasIp99m7ImnRLJ795CQ+HyRfSzsuoXfL8V88XqalNU
-	 WdRW8lqyxLN1FK9zTnLiutKDWEBhlQDjOhT/S1Q8bre8ZyYpv/0DfiGwTCeGhNIK4vjQK
-	 nW1PncDzFFR+DbttnFbKau6jbxfDMo8Mn5eaVuGVUGRAcwzFYsYfXgjquLqQqzkSmjMP7
-	 xhnYPIrmS599TRC9SZ4JEU3gd1TjkFXxhUG6dTakGEBWznF1V1NZaFQIuRnYM7FWKN1Kz
-	 E5INUawjMMpZmRKRu7Bn3DxTTEDERPTpOxUXia5yMhYRQAW5tORFy8c4HZSLYzjL1/w==
+	t=1793776946;
+	b=vE0Hb5d/DINd3KXX80HXsJ7buhobNcCTbbIMTWp54t63RJHhjMuokH8MLORdRgUm5+OM
+	 Uty2Rpq5e22Hh+WebS6ukCNxif1KHJtGmPT9HelooMDI+tjeC6kSwt8aa5FDX78P7F9Rp
+	 RN2VRhhBL7yfEU6So4x6zdCrjJaUstITPdj9llpO9WnftCO+vGfF3d8FaEGhrMCVY416C
+	 7wVARQJv6nOkd3cOvTOcaPx/KHCJmt8aRtpL+dJvu7GEftoscLZstADA3Di2EMdQtG3ID
+	 lwN/11xunqt/thxMGili2AH1hUKijuFfXdKhP5MQvyOxbhiDlpntLGcg9tb/18dapxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776878;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=rZwszdc84eriJd4ZO7DbKvYJxYBtwYicHhgWXewMqDs=;
-	b=zj27XGUb+KYPB+t8gmiH9O73L85mGUzqYKqyh0Q+zXxszqwLcv+VK1UfCZ2ltZ6YyAcg
-	 NfS4u3ml597uJOBhjMUTSnYSyHNlkvpHQPNSJW+h0lZhja5rCiQpysxIS0CJFIAwIOz3X
-	 HTea4zIi1RivoLOo+pZYfJ06gEdBJl87OPGUvy7fD0GLrD3QPgjiai5iOI5u4u0d+0roi
-	 lEYwFR+Qd2CrpKlVGYcT+3nBBjIqN5nyT/PAal41/P9XACjJ5a2DYeT864M0v6Qi5AAua
-	 acDQknt6uNZh+oirtraRe3vYsZqkAWqeURf3A4zytDdGrcsf24NvL3W4TI8S561pG/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776946;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=+H1Cs3HEyvTi0DffUo23ljDUGdJ2HE+qMvgJ+s00WfY=;
+	b=377u1uxX+IwRVG09da2QO+t7PIwK12haJ2/YcS23VDvEUTKL6bha5ConQutDBKFWTWFl
+	 AsNdN7lh9oGyVSWQl+TYoBLn+WTRG17/mDFz6rovF1177wSkcct8w3FkM1QRvi1jQCtJd
+	 OCs0pVmn7PCQXGyyPHZ0auhIk/mIQct2tTyQd+pnI2lrWpxIrJD9Hrfsxvpg2gOzXC5zT
+	 tf4nxOokf5tROqVc+YzoF6R08wqsn83hIPZaRdl2W6KCnUjfll35xquxPEM66Ojvv1OnF
+	 W/adylJXxt8L0ADIOLuqtaT/7lGTg6Wwp+Rtc+i4e4aaewtlH1sZzDqJJ+iVLLDtwCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AZ85mUpT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aVIeYbJr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RyR2Wjy7;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SCvLAOdw;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LXTAZYF8;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F48606A326;
-	Wed,  4 Nov 2026 07:21:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9696082BD7
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 07:22:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB9696082BD7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AZ85mUpT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 183D71F00A2B;
-	Wed,  4 Nov 2026 07:21:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793776877;
-	bh=rZwszdc84eriJd4ZO7DbKvYJxYBtwYicHhgWXewMqDs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AZ85mUpTl7AZO0VzzIeRDMJ+1jZQa0dNVLHjbEIoqAKsnPYhMNuzA3CU48uwEZ7Sk
-	 jYAlHJKF7giI4fGMU9yp+os83ZQ7m/mR0QdiOAoEs3YB3WIMERCd46PkgX/cYF1Qkd
-	 KgVRsnf7CqeQ/AhW1Ib088yZ2C2eSzIwTeNaxJkST1xNIm1U21iCFTeb/tt8vE8LKv
-	 z3Rxzyeib1rNzuq0r77494Vc5FAONi72KcxbRHmM1ti6L3q0YI9XueeSco+VzXtQsh
-	 DG9/cnijtCRMwvqCdNugvmjnvl/P1kxhGo8vzIPJhw0I9WpCPXmwpO75nXtl9BY2lx
-	 Y4kriwI51Rqng==
-Message-ID: <794a43d2-74be-46ce-a779-f7227a82516e@kernel.org>
-Date: Wed, 4 Nov 2026 08:21:14 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=aVIeYbJr;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RyR2Wjy7;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SCvLAOdw;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LXTAZYF8
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B65481F7A7;
+	Wed,  4 Nov 2026 07:22:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793776937; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+H1Cs3HEyvTi0DffUo23ljDUGdJ2HE+qMvgJ+s00WfY=;
+	b=aVIeYbJrplvCL5G6I/2q8kHt3LGCWu8wmC+u0EaWRLuOTuk+Hfna/vv2a9h3T4L6Mup8Dg
+	+Mm2g8SvyGVcFxB+plgOYZP9btw34qvmj9d+I80h5NmKU+AJ5Un/GOYTDILubpxSXTRM+x
+	5sN1jblXblTXl/jyEyYtR0AiDVXKDHo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793776937;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+H1Cs3HEyvTi0DffUo23ljDUGdJ2HE+qMvgJ+s00WfY=;
+	b=RyR2Wjy7SWm0bZMtg7L98LfqYJ4PkxNMIFIqktPNjN2N5eVf8Qhs7GEVP1ueK4tA5ze7Z/
+	dOCsG4kdCiuHnZAQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=SCvLAOdw;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=LXTAZYF8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793776936; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+H1Cs3HEyvTi0DffUo23ljDUGdJ2HE+qMvgJ+s00WfY=;
+	b=SCvLAOdwIhb+0Jj74xa6aMeE6P7C9VY9wVcjf2Pai/IvonOVTa/qJrfDKupdy7NEgSN7yJ
+	KDCQIiOGdsy2IG49u3k3AXz1ufppdH+eZQ92dx/jzVMsser69IAort/VTXg8P+q14DkYgI
+	JBhGk7KEAwzWHCs2TbjRFrMJst9Lpww=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793776936;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+H1Cs3HEyvTi0DffUo23ljDUGdJ2HE+qMvgJ+s00WfY=;
+	b=LXTAZYF8b+NWDtflu8zU1wbKqEVy7QpLhTCB12urZ7gWrEm7XAVsW5UOQ3RrJpro6ACwJW
+	XL0m6n5hJwsDQQAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4BC6A134A5;
+	Wed,  4 Nov 2026 07:22:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id OHNwCSjd6mpeMwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Wed, 04 Nov 2026 07:22:16 +0000
+Date: Wed, 04 Nov 2026 08:22:15 +0100
+Message-ID: <87pkwlukm0.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: med.jebabli@gmail.com
+Cc: regressions@lists.linux.dev,
+	Cristian Castellano <cristian.castellano@icloud.com>,
+	stable@vger.kernel.org,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thorsten Leemhuis <regressions@leemhuis.info>,
+	Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	Sen Wang <sen@ti.com>
+Subject: Re: [PATCH] ALSA: hda/tas2781: Only accept CRC-less V1 data if all entries are valid
+In-Reply-To: <20261103-tas2781-v1-nocrc-fix-v1-1-a769c27f21ce@gmail.com>
+References: <20261103-tas2781-v1-nocrc-fix-v1-1-a769c27f21ce@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,86 +120,82 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: exynos4-is: Free control handler if fimc-lite
- subdev init fails
-To: Wentao Liang <vulab@iscas.ac.cn>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261103094617.1289377-1-vulab@iscas.ac.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261103094617.1289377-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: B65481F7A7
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-11.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FREEMAIL_TO(0.00)[gmail.com];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,icloud.com:email];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,icloud.com];
+	FREEMAIL_CC(0.00)[lists.linux.dev,icloud.com,vger.kernel.org,suse.com,perex.cz,leemhuis.info,ti.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	TAGGED_RCPT(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim]
+X-Spam-Score: -11.01
 
-On 03/11/2026 10:46, Wentao Liang wrote:
-> fimc_lite_create_capture_subdev() initializes fimc->ctrl_handler and adds
-> a control to it. If the control cannot be created, handler->error is set
-> and the function returns after cleaning up the media entity only. The
-> control handler still owns the memory allocated for its buckets and for
-> any control created before the failure, and fimc_lite_probe() does not
-> call fimc_lite_unregister_capture_subdev() on this error, so that memory
-> is leaked.
+On Tue, 03 Nov 2026 10:27:12 +0100,
+Mohamed Yassine Jebabli via B4 Relay wrote:
 > 
-> Free the control handler before returning the error.
+> From: Mohamed Yassine Jebabli <med.jebabli@gmail.com>
 > 
-> Fixes: 4af813108b88 ("[media] s5p-fimc: Add support for Exynos4x12 FIMC-LITE")
+> Commit 408249089c48 ("ALSA: hda/tas2781: Accept V1 calibration data
+> without CRC") only checked the first device entry. On machines where
+> the BIOS populates fewer entries than p->ndev, the remaining all-zero
+> entries are applied and tas2781_cali_preproc() divides by zero on
+> playback open.
+> 
+> Accept CRC-less V1 data only if every expected entry is non-zero and
+> self-consistent (R0 * 1/R0 close to 1.0), otherwise reject it as
+> before.
+> 
+> Fixes: 408249089c48 ("ALSA: hda/tas2781: Accept V1 calibration data without CRC")
+> Reported-by: Cristian Castellano <cristian.castellano@icloud.com>
+> Closes: https://lore.kernel.org/all/4e500063-d985-46b6-a0a1-3feaa77c4b2f@leemhuis.info/
 > Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> Signed-off-by: Mohamed Yassine Jebabli <med.jebabli@gmail.com>
+> ---
+> Cristian, could you test this on the Yoga Pro 9 16IRP8? With the fix,
+> the driver should log "V1 CRC error" again and fall back to default
+> parameters, as it did before 408249089c48. If it still logs
+> "accepting", p->ndev is 2 on your machine and the root cause is
+> elsewhere, so please send the full "dmesg | grep -i tas2781".
+> 
+> Takashi's re_cal check in tas2781_cali_preproc() is complementary
+> and still worth applying as a safeguard.
 
-This is another posting of bot ignoring feedback and probably
-introducing vilnerabilities hidden in big spam posting.
+As the code looks safe enough, I applied now.
+Let me know if the problem still happens.
 
-Best regards,
-Krzysztof
+I'm going to submit my zero-check patch as a further hardening, too.
+
+
+thanks,
+
+Takashi
