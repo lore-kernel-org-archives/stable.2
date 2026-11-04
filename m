@@ -1,84 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793800735;
-	b=pY2HH38cpUlMr3N33RiRbNP76QA8xspFQI7Eov+qh/fAN4mFDO59l1mcKC1USVGek+6A
-	 SKMffYXUZoityfFk1XttXCnt7cff5rwp+RGNklHGePFCrlE8JpikDQCtGaPmUw16krn+X
-	 PbvnDN0cBuB8UT71PFHtGEEqeer4uNHqFNaw+7JKi22hZor418szWzR8oXyhlxLuphCKQ
-	 9x+YbH5CDFyfu7K5aOhY+k2jDVkznx2wQZj5+qPxDY+JNUy5QISzF4KnjnQCqE6UKg6g9
-	 T219xPMgoJDJ9NXa07HcWZv0zSUV8ok22SKBgZ5hMON+c2jMWksxvJrgPDWynHGWPMw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793800735;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=o4EIHpxl57I6a94RuHg0e1sZQ5iF0hUORfBXfBn7tP4=;
-	b=tg0ayZKDYdU1wtKvSpQqSmk5RP8uFb8XyuWI/mSMFInoX18uxSxc7WdfT5EPXy1qq34r
-	 fw+lmJqrLM3F7HH6OGTQfyQlf/BNyUKrAaKSsXeCX3G5stJAcjZACqnBYjwPGL3YGyX8C
-	 J7NeepM101FICaG88fRnTzUtZol69Udwpt46j6VZuGLEKT9XzrZmtxR1eu2tBLxSiAvru
-	 12ojffRSoI+CLIMtnE4G/47HGcZdlXld27RNqM3c/fXLhp+2k6Gq6Ka3LZiRXm4p8fd7s
-	 sB0DD4L1AelBER96TJ0OQy+99ZAC5rztOE0OWIeMC+Dmm05gyr/sXwO7gp5O9kiny+A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=grische.xyz;
-	spf=pass smtp.mailfrom=grische.xyz;
-	arc=fail smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793800838;
+	b=GY0LakL4KeZynJEsamA8LchU4V4zNNqZ9LoluCH7WBQyGhYC5/Ljk5nhbtSjUfd7ooob
+	 o8i0r57/fKFanfLjjHzR4emi6Y7tSw+e1yU1vgycv5vhKzYVu0wgxrOUYvZKROLdY5noa
+	 jCkAabhBGdqfRKeWtdSqAHPN0gwfmDOY31ygj7JJ71XqGRBSzuannpUe5aruf58sh9sOQ
+	 rDq7mNyqWeLElBM/pEgKYLThnTpqXmc9p7KdX4BMkXz7SHVWDUsXCtAkyP0CfD/QztbJ9
+	 C8RyPZEyqrstxk+ltvXvJOuNvgsSZ1y2ARhLaimHVHgrdP8iUJ2e/KC1ePZ9H1qyTjg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793800838;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=jHf3Xpco4UtrYw/n950IRJNyaPDQngxGO8tXn67B/bo=;
+	b=d6n1TT1S+LG9L+ZbTdk9OXxSMUq5m2qhxhqxgHOzckvvVEX8U4i/X/zjqLC1BZEnaHhe
+	 L9nD/+hkKuGoIyeTLrYyW2uUusZ1ydNi0OxkHUQqANnR/0SurHLR/ONmVFkjAzVakKHLk
+	 9Y4sKpxVgLmfZiUyUeg8OWodtydYaDcw338QuEbD2NnheonD9JoAAkd2o3Hjr6rGrlQt8
+	 s7fFYxALpW+JEP0pKSad/5grtcdzrsBik/K24MNjCVzTBMcjBOuQ59fDh6ErGfib3W7Fp
+	 CXSAEQumxKry43U0MUNWoDgd/NhJJi87p5OEZ+g9QldHWbJvVp3Z1U+g9BJoSd0jGyw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBIlYe9W;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A3B606D80A
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:58:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1A3B606D80A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grische.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grische.xyz
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso893503a12.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 05:58:54 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793800733; cv=none;
-        d=google.com; s=arc-20260327;
-        b=geyPKzJXQEiJrjQ6yf5EHkkhYwhoHMSDGMDd0lNDeXjRzy5vV/Y+GAIj8h6a70aj9d
-         E32uofCqhw1mTkG3AHtUCLx7w1xDEQdGy864hZIwG2yPsmO3Tfdhq2yWJwrRukaNzPdG
-         8PbQF0m91hAWv5QEEAaEyKCp5Z7yiLf6qRJGqV9idXZhav+/nh95C7TZa4cNnyiqF3bk
-         hSzkT0LI2+L2SziIPnh9mheRXx+yPyBSsPXz2qUlvOkDgWCbcmqe8d1uH3ZL5uA8E11z
-         j2dD0h2oZ0bS5nf4T3oWY4uYbGEvlbcldkQXsoWIo0yiARNL4RLseI/qecnV5NzKgvxn
-         KBfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version;
-        bh=o4EIHpxl57I6a94RuHg0e1sZQ5iF0hUORfBXfBn7tP4=;
-        fh=b6h05p42ZqjKiJNDhU6ogjiKvoXPKIvENxxpw5GcRCY=;
-        b=iDT3s9GPsHkOFpI+6cMI6j2HGZzbdFkIBUe1qDKjmQ11/jpunnOqFVN/HXCLlLp3cd
-         HYGvXalIQg2X77WQLsbHAcZZEL78dDSNQf9/NKQcE0YSHC6jCk5LNg7nr04olxvewmj+
-         NpXuhpBJdebtpom+vd5KLprzEdILc1wWBVZJAGaZ+y+fOZcxrUT96xf3GX5Kuz9TBYty
-         m1HMhFf/0HW0l/9xpugoMxsEOq8zF7W2ASnOCOkHTeUi+Z4dhgccRKBcg4jfDzAr/Nwy
-         CgD+0YV9QaTNfCzLVw6Xm3figkNDZH50JACLZutu4ugY1ES92usmrM5d64qNRm24FRLJ
-         1pHA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793800733; x=1794405533;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=o4EIHpxl57I6a94RuHg0e1sZQ5iF0hUORfBXfBn7tP4=;
-        b=E6o5k6AePLBO1aFwfZsbJoLwUuktFbhntfePBcSl45Pu4TjeDjpYNI6bQ6YFcS06Wi
-         557bfVBCcBP+zJFawIKowUKNUE8KXDvRToU0UT1txbI2zpJNRB1fk/7zbY4QpZCxQ5qm
-         fu0dyOt7zsypu8w4MGpRni7N01VBwFayZgoPqyqOOTxXBFa23zpN+wnFSN0rWt/nbxkB
-         HiSdan/SHr+vscN1bLdtk40nkdnQqjSgfwavj8/cHrw4ZL+cULBCi5wiwoHA0Xl6T7w6
-         DCnSgWcaUApbE7uJxPc74MxpL1BDPE1DSWfVMcZqVb7DLSFQWylEAON1nd+NlRpTikMZ
-         tJnw==
-X-Forwarded-Encrypted: i=1; AKwUvBy4+t+gws7Zu5ePccuRUSGUmXNfQPzhlSRLfkvZVhWgYej8EMmjXJQ6yPVP6SKWeDvF9ApUKms=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8wY89VLUljSW4JiqYPt6ddpr8dPWb9Pl+EeS0HzQMuVy4dAiVE
-	9M2RIyApvbgHWzeHD7/+40xNqxZICBOKD8vsyMjWyvUCdY5UhtYw53HaTKCNNKqag8zAS0bYsnl
-	UJt2AW+NrS4/BlQmZAkESVVYXI6Bwf1YH8bN5S3XeBg==
-X-Gm-Gg: AYBFou2wLYFyKoifXy1W41U0MXsP8HF50wNXv6kOt4GSVJSRtTX2ad6RmZLWc3VsWLG
-	VYGZmEpDRzod4zob5dN4eXJJ4383dp8hhlzZbx/IovQ5wXiiG+FG/3oHds+xnJp0HXEJw4ftUJv
-	1uEz6nJwUOKuAlwQ52S484IQMCU5wEzC0wLfyUiOf8h6n1ARohhlJ865DJDPD5vh9oAdfd52GHv
-	+MXR/Zxm+LGlM7Sznk5fEGvns1hEc6hGEBOWwRetRLrcI2Gdlhq9N+ExUerqdFBvQ2bhbTnDyof
-	JnUof19eODr6i/3gnOSXDBmFs0CYVBYaZHNo/AqSBkmLXmcJlIZfbvXON3YCPKfUMge/Q70GhoG
-	E+5E/fTzW0jW3cUS5r+UTAznVqc4GmSx5p2JO
-X-Received: by 2002:a05:6402:10c4:b0:6b1:d439:5c5 with SMTP id
- 4fb4d7f45d1cf-6b4d3374024mr8489250a12.3.1793800733137; Wed, 04 Nov 2026
- 05:58:53 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA38606A33A;
+	Wed,  4 Nov 2026 14:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBIlYe9W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD60A1F00A15;
+	Wed,  4 Nov 2026 14:00:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793800837;
+	bh=jHf3Xpco4UtrYw/n950IRJNyaPDQngxGO8tXn67B/bo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UBIlYe9WZW6WQSRq1tDbj4Cux0iiG7SHjnWHYVL3hXXP52fWc1mzzbXKEArcwp64b
+	 5YfnqSQj2ST7eiBG9d4m1Q/wdBApJDwWazd8ICozy5gxcv8JvFNMtJ+kz2DwZjYy7r
+	 3TzARF4+lhysG1efYZiEhVZuLuRUBn5FhcB/eX/tM6U4X018A5RfuPxoDuGmamn2HH
+	 tWAYmofCZdTf4R5cDWO6XjRMW21z8BLETkPV1j/cUb0IJYXweo5bfUt5Kx7ZbpFgLX
+	 ZsFYDdZ5PfB7NIBvcet9Z9QtHrGx3pq6psP1HSSADzDPL0/aMhKV04EHdm9ktA9Z3g
+	 dvsF//hyFTm4g==
+Subject: Re: [PATCH net v3 1/2] net: gro: do not undo remote checksum offload
+ on merged packets
+From: netdev-bot+sashiko@kernel.org
+To: edumazet@kernel.org
+Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, willemb@google.com, steffen.klassert@secunet.com,
+ tom@herbertland.com, cenzhang@linux.microsoft.com,
+ AutonomousCodeSecurity@microsoft.com, stable@vger.kernel.org,
+ tsgatesv@gmail.com
+Date: Wed, 04 Nov 2026 14:00:36 +0000
+Message-ID: <179380083642.488856.12336059973220391773@kernel.org>
+In-Reply-To: <20261103105752.49542-2-edumazet@kernel.org>
+References: <20261103105752.49542-2-edumazet@kernel.org>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,29 +65,134 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020190319.884375-4-opensource@grische.xyz> <179279532482.3134.8732796861806998047@kernel.org>
-In-Reply-To: <179279532482.3134.8732796861806998047@kernel.org>
-From: opensource@grische.xyz
-Date: Wed, 4 Nov 2026 14:58:25 +0100
-X-Gm-Features: AclHuK_IvwAzwzvaVvW3vcX9pBmkxBHmo3ddDOqECYjDXhAMhYt-2sOn-aUE7ys
-Message-ID: <CALsH2cwoB3P5Td3SgZ7ARTcGRLhCANSDU9dXake6ty1XAf38Tw@mail.gmail.com>
-Subject: Re: [PATCH net 3/3] net: stmmac: dwmac1000: stop hardware from
- dropping checksum-error packets
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, maxime.chevallier@bootlin.com, 
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
-	kuba@kernel.org, pabeni@redhat.com, o.rempel@pengutronix.de, 
-	stable@vger.kernel.org, mcoquelin.stm32@gmail.com, 
-	alexandre.torgue@foss.st.com, aaro.koskinen@nokia.com, 
-	linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-> Does this work on dwmac1000 cores that use normal descriptors?
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-No, this only works on enhanced descriptors.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-> Would it make sense to set DT only when enhanced descriptors are in use,
-> or to make ndesc_get_rx_status() report csum_none for checksum errors?
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-v2 will set DT only with enhanced descriptors.
+- [High] For VXLAN, the new fraglist branch in skb_gro_remcsum_cleanup()
+  (include/net/gro.h) breaks inner checksums when the VXLAN packet is…
+
+--
+
+net: gro: do not undo remote checksum offload on merged packets
+
+This patch changes skb_gro_remcsum_cleanup() so it no longer undoes the
+remote checksum adjustment on packets that GRO merged. Fraglist members
+are the exception: their original inner checksum is restored in the
+headers pulled by skb_gro_receive_list(). The goal is to avoid stray
+writes into payload, or into a freed frag0 page.
+
+> diff --git a/include/net/gro.h b/include/net/gro.h
+> index 2300b6da05b27..13a8ef217a1d7 100644
+> --- a/include/net/gro.h
+> +++ b/include/net/gro.h
+> @@ -354,6 +354,23 @@ static inline void skb_gro_remcsum_cleanup(struct sk_buff *skb,
+>  	if (!grc->delta)
+>  		return;
+>  
+> +	if (NAPI_GRO_CB(skb)->same_flow) {
+> +		/* skb_segment_list() keeps the inner headers of fraglist
+> +		 * members: restore their checksum. skb_gro_receive_list()
+> +		 * pulled these headers, then moved skb->data past them.
+> +		 * A valid remote checksum offset points to the inner
+> +		 * transport header, which is part of these headers.
+> +		 * Headers of other merged skbs are not used anymore.
+> +		 */
+> +		if (NAPI_GRO_CB(skb)->is_flist &&
+> +		    grc->offset + sizeof(u16) <= skb_gro_offset(skb))
+> +			remcsum_unadjust((__sum16 *)(skb->data -
+> +						     skb_gro_offset(skb) +
+> +						     grc->offset),
+> +					 grc->delta);
+
+[Severity: High]
+Restoring the sender's checksum on fraglist members is correct when the
+outer VXLAN packet is forwarded unchanged. Is it also correct when the
+packet is decapsulated locally by VXLAN?
+
+The VXLAN socket accepts fraglist GSO packets:
+
+drivers/net/vxlan/vxlan_core.c:vxlan_create_sock() {
+    ...
+	udp_allow_gso(sock->sk);
+	return sock->sk;
+}
+
+Because of this, udp_unexpected_gso() returns false for the
+UDP_TUNNEL|FRAGLIST|TCPV4 aggregate. udp_queue_rcv_skb() then passes the
+whole aggregate to vxlan_rcv() without segmenting it.
+
+The decap side then adjusts the checksum only once, through a pointer
+into the head skb's linear data:
+
+drivers/net/vxlan/vxlan_core.c:vxlan_remcsum() {
+    ...
+	skb_remcsum_process(skb, (void *)(vxlan_hdr(skb) + 1), start, offset,
+			    !!(vxflags & VXLAN_F_REMCSUM_NOPARTIAL));
+    ...
+}
+
+include/linux/skbuff.h:skb_remcsum_process() {
+    ...
+	delta = remcsum_adjust(ptr, skb->csum, start, offset);
+    ...
+}
+
+Nothing walks skb_shinfo(skb)->frag_list. So after this patch, each
+fraglist member keeps the restored sender checksum, which is not a valid
+final checksum under RCO.
+
+iptunnel_pull_offloads() removes only the encap GSO bits, which leaves
+SKB_GSO_FRAGLIST|SKB_GSO_TCPV4. Suppose the decapsulated inner packet is
+then bridged or routed out a device without FRAGLIST support. In that
+case skb_segment_list() reuses each member's own inner TCP/UDP header.
+__tcpv4_gso_segment_list_csum() also leaves the checksum alone when the
+addresses and ports match:
+
+net/ipv4/tcp_offload.c:__tcpv4_gso_segment_list_csum() {
+    ...
+	if (!(*(const u32 *)&th->source ^ *(const u32 *)&th2->source) &&
+	    iph->daddr == iph2->daddr && iph->saddr == iph2->saddr)
+		return segs;
+    ...
+}
+
+Would every segment except the head then leave with an invalid inner L4
+checksum? This path needs:
+
+- a remote sender setting VXLAN_HF_RCO
+- REMCSUM_RX and REMCSUM_NOPARTIAL on the VXLAN device
+- rx-gro-list on the lower device
+- no local socket for the inner flow, so is_flist gets set
+
+Before this patch, with frag0-based drivers, the member's linear header
+kept the adjusted checksum, which is valid for this path. The stray write
+went to the stale frag0 page instead. The commit message does not mention
+the local decap case.
+
+GUE does not seem to be affected. FOU/GUE sockets do not call
+udp_allow_gso(), so the aggregate is segmented before gue_remcsum() runs
+on each segment. The follow-up patch "net: gro: invalidate frag0 after a
+pull" does not change this logic either.
+
+Could fraglist GRO be refused or flushed once a NOPARTIAL remote
+checksum adjustment has been made? Alternatively, could the VXLAN decap
+path adjust the frag_list members too?
+
+> +		return;
+> +	}
+> +
+>  	ptr = skb_gro_header(skb, plen, grc->offset);
+>  	if (!ptr)
+>  		return;
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103105752.49542-1-edumazet%40kernel.org
