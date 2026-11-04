@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817978;
-	b=t8BZic+G71t9pRp9YRjuIMDaHm/0UR4XHFOg+sHaR/ZyJMJEHq5y3JZofYQoWqwOTEFt
-	 pFG7Y/9puuSrnL2NreLiEK1jItkrc2U1hFPzkMfwNptt4dBOrAYPXtFQJ8h9CqAid30A3
-	 VWPxJjCiySd27lPLx2eexmlV/CzwArtK3p22cUQD4Xih4FTSTa0lKnbhu3lQHBNOt5bRb
-	 CIrfm324qEsAgGW1loM2lKu3aQmMBpMQHuqdZ4CG7r57sbwgQ4HAasxNYr4iwlr/J9x3L
-	 lTeX7m1s4Ws/4XQhVvzS3UGiCp01l3LIBlddQPx8nrmFcpqcPd7kJFzzY6OygSOt7xA==
+	t=1793817979;
+	b=Cv+WD4CiDDKke32jv1BhChfGKREq9t3b1BNNol0jlgOe0RBHobTyzeZkoCaGOL1ZWsBj
+	 bXox4wrWscT0YrLW7L0HLhpfV2TzptTG9UQcnyWzsU0MgGl8LNo8hxESQ0mu/yWrlSIyC
+	 6C+dzR7NfpHSlYPjhYngr+6gU02c9EC28jNWjR7oqpeGtE4a0E2gaaAw9ARfVTY902YUO
+	 3b3sSmnDl/rH2qSMSJWuLeOvZscvK1R2kRQIWaW1sOpLoB7L7QU7VNmgXiyEipvEd1xpw
+	 YBMvrSLd3OKWwjjbYpwGkrOcjP0NZ0iE0gydGBLrXnGosvfrpiJsFBJr3jSHjESuivQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817978;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817979;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4YBzK/Um0RlJy7I73vm1S0smGy27WbGWCgc/6NnYLVU=;
-	b=hSqVuXrU/5dhaRz7eLbfuOjOvshP2QI2l/Twkdsiogh3UrZPkdFz9MkJEL/xxP+qpICF
-	 NYovXdUGZlm+0pohGfTd572oz+VQAHGNasknO/9NZS49lmmL9cjvS8u09k/cvmcZcMORL
-	 TR3cOvibdPJZIObOcTZxoVWoFey6fiNltNdYmSUvRhU5ECRuHLxeNcXKRnt4v7ZgYlaHZ
-	 aeZkdsGm82AH/yCQn6qj6yUpDpF23RDXlobp6T/cupRym0IpIQnRB9NqBntOG8MR2Cc03
-	 7XgUGWIxm8WBAErb3gD6q7kFSPlySjPakbkI2x/ejocPYIjhSfa81M/0LGVnMMucdhQ==
+	bh=gMUXEqrGi98hyEA75f816YNEcUE+F6gmUtOb5I+cbW4=;
+	b=IU6jIASWiGdyZmVOQB9iSmVoj2Fhr+hqriGJ00/SU9HzaSgsb3EVb+EraXM6Sgc5WQWU
+	 IcSCKy6+adFoLSVYsDp7E4aZyX6/1VO2dYmp4exp/oNOeZtbWrOsZ2zIQAmzCnn7z1x9R
+	 ZfFscKRdz0XEwpVsHHDPXPQCM0GjEZrlXQkRytfHIdANDIGfrWCvLu2hH4OxjNlB2Z/EG
+	 Fs9XC7SSMvt7+DRTlTgL5VldjaTD//LEdpTbBj6J5BweY/7m0x70KRmJncFZDY6qZ7avs
+	 rE9VTSoHrlmjMTG4zRxKly7TVWrjVW3fobi2Wcv+FiV+ndpB4WTmGqiEHHNR5yDM5aA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NRhgs0LT;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e6yMBgaS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0830606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:46:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8209B606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:46:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NRhgs0LT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CD1E1F000C1;
-	Wed,  4 Nov 2026 18:46:17 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e6yMBgaS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AAB21F000C1;
+	Wed,  4 Nov 2026 18:46:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793817977;
-	bh=4YBzK/Um0RlJy7I73vm1S0smGy27WbGWCgc/6NnYLVU=;
+	s=korg; t=1793817979;
+	bh=gMUXEqrGi98hyEA75f816YNEcUE+F6gmUtOb5I+cbW4=;
 	h=Subject:To:Cc:From:Date;
-	b=NRhgs0LTjls0ENIM4v+e0vZgPu0ywt1XUN0Ck94mEWFkQxzNE6VUFCLjOK2dbGW+N
-	 iPcyTBxxG0k3eac6q2B/vxNbulEJ1faFb/nuYK+lYQcTJrInkm+hcJmvt0QI/Y+Fpd
-	 9Ahs9+1Hn53qcKRjN3P2rZkObOFhNOSmYgaGlUkU=
-Subject: FAILED: patch "[PATCH] NFSv4/pnfs: Free the netid when draining a data-server" failed to apply to 5.15-stable tree
+	b=e6yMBgaSHRzIDpB5pM/IeeVk1fYUFyzbPD2AT+HV497iLbiV1IPbZ22rWEzi9vZWa
+	 m3d/ngJ8qOOb4mOd7Uz3d5AENSzId4SqOepHhKYOG9883gFyZvsD9IJzAGMu3zA8bx
+	 E28U4YBctYr2WyfycMwhEYTuSSWa71tYXN3xISyA=
+Subject: FAILED: patch "[PATCH] NFSv4/pnfs: Free the netid when draining a data-server" failed to apply to 6.1-stable tree
 To: ben.coddington@hammerspace.com,anna.schumaker@hammerspace.com,bcodding@hammerspace.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 13:46:14 -0500
-Message-ID: <2026110414-pebble-stimulus-c18a@gregkh>
+Message-ID: <2026110414-bogus-guidance-c8b0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x a7c8e96d1b9fa327cbdea514d047c8295b28d49a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110414-pebble-stimulus-c18a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110414-bogus-guidance-c8b0@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
