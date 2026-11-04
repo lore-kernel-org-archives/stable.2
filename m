@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817239;
-	b=H6gSHmRrMiyOSqVbs3vgYaW4J0DIw58/IzrhVmwG//QhyAuLK2+Da/ZUOZQXK/8X0/0B
-	 G0puN3A4Y7yYM6KAFnvQt+YrGnqdZ0F9u4/5FWSul6sZClcMc+zbdIe51tf4jnMVwtBRz
-	 72s3uREca2Vde/y1erw0VTMznYr6IpkuCFYDwq7rm/7ImmxKhl09yZU+iJEMOP+0Qz7lD
-	 KLhAW25vdKleeiLDIyuCOS2H04hI9AKvOaXbMqw/NO6CVgqK6i1x175DCm1glWPy7bdky
-	 7o6RYdI5BjjTm1el8IVHfil55tji8n/ucz9jnIyXFvU7jswBHZeNE1FIlYI7bzvjY7w==
+	t=1793817241;
+	b=cS5GAjTXdls1ub+shzoAMH8ohjuLpNijoqh/hvhMcM9bsPeQ/GehCpMk96nmNDPJfCoO
+	 lByuYbvgiY+EyhaOeI1xg3CgmertKB46t3k/cllvxgTlhkSgzlKo485X6lqVeyv69ROI3
+	 gauy2gcIe2ZFBx/l0cPE7xu0KVPJoAYnFjZPf70gLV1okI7k+d7dyRglPFV2sS0h1eUgs
+	 AGvAMMG/G/MjS7hLocgx/f91+5IMA91dCvXbT6TDADz001M2oZEfQ5nqWFl8U09Tr+nKt
+	 No2vfEbDsBuAVmQlil4TlJPssvehdydLJeSp3ihjKofXK2Cn7qjbJfWds6Sd4eaO/zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817239;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817241;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=jhzmn3+iWiZEm6lodzCMn5g48S7/asW6vMtfRqjd3Pc=;
-	b=BOIKiI+hn7z2xyCgqCO09yedKcO3dbQ0q0hOW2lbblMlL0/AnP6MoX4xqVLY+m5nGBRG
-	 Le9MJ9sYr8+efXQEsbzTpEyVL+NELuDnkptnJOASFoRkTDk9GVYkFaMomzT7auzEfZ5v0
-	 kM0QN83u0uyOOwvMuSVIzwP7I5XT9gQldbzFh/+5OrWqRDwT9Ue6/v2eEyi+zqtxrF4T0
-	 ciTNT5vBITkXSdSG3crENKwQyZLfXcapTZCVm/fjgne4rKCSuwNTO5uu0rds0DE7SUitT
-	 7ATYYpLeEfvki4FLO/Igx55GMWTh1HpTiKbCy8JiFllCdqqHqfTJIuYq0xrsq4USanA==
+	bh=h/jVu1zd1v4b5xHYdVMgO0uA9PXzsFcMGdsnWjm3pg0=;
+	b=yV/l+20x6e0UgmbdLfwO4o4mTmw22P+B76WHRFfW+2nwECcMSvEsaS1BRmThopO+yMnm
+	 QiXDEUaxfDlpeZA5LDLWV17BMZuwuyC5m/Et8tylfndhx71xXXnJjBgrrz9xV0+12dcJG
+	 xCP9FKj8C4D6V44kZA3Z9SuQJ4Mbw8yT2CITPF9qomnPMqcQJLLob3lHnlOlI3LAbYP1h
+	 aMCPwQJ07iR9aDoSOoIfGVaPJ+YeFuRRmK5vwZO45TCoVvfSldsnmK1Faq+ds3R30SqMh
+	 4GyoPNE82qusRuVOwfFCFtEM31tK8p9tvswac1Y/H8ao4sfB4CiStOT//UFnzMNulVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qtBnFq4L;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sG0NWy8U;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 365BC606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:33:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F3D606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:34:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qtBnFq4L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0E311F000C1;
-	Wed,  4 Nov 2026 18:33:58 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sG0NWy8U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EDEB1F000C1;
+	Wed,  4 Nov 2026 18:34:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793817239;
-	bh=jhzmn3+iWiZEm6lodzCMn5g48S7/asW6vMtfRqjd3Pc=;
+	s=korg; t=1793817240;
+	bh=h/jVu1zd1v4b5xHYdVMgO0uA9PXzsFcMGdsnWjm3pg0=;
 	h=Subject:To:Cc:From:Date;
-	b=qtBnFq4LY9qKwb+XGDeNj6wVr3qS10V3tBQVpwIUWD3ZR8DWZm14xzskBZ/IITqym
-	 c0dbPRoOaMn06lHWUQj7j591wr5sI57oTwJfGEDBBLeuzpgsjkMLTI9fh3t/Swg7VH
-	 zC8S4zr7638IwieOyUBCsvopF3BbVVnqE2NUC+WY=
-Subject: FAILED: patch "[PATCH] smb: client: reject FIND data areas that run past the" failed to apply to 6.12-stable tree
+	b=sG0NWy8UlgIn15sleUAJrtZ9l+OHS0yougCP0mUgTbLPnanmu7dU/AGM/W/CJtiwM
+	 sdqjgQy/6IVy0wxQumruYhSOIjNtg7msz8Gc7zKXaMAb8LNIfR6JOnPu//He2DKZXI
+	 Q3O/GkMq80EJc54JzG6ytk1r+kkL60WI2tUV4Nfk=
+Subject: FAILED: patch "[PATCH] smb: client: reject FIND data areas that run past the" failed to apply to 6.6-stable tree
 To: diego@bynar.io,dhowells@redhat.com,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 13:33:56 -0500
-Message-ID: <2026110456-awry-fastness-1fdf@gregkh>
+Date: Wed, 04 Nov 2026 13:33:57 -0500
+Message-ID: <2026110457-pulsate-oil-dbd1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 29bd6773187cb5c1bbbdf90d677c6add7d58af26
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110456-awry-fastness-1fdf@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110457-pulsate-oil-dbd1@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
