@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802103;
-	b=tvgv8p5ZAPmd2w+j27OK5dAlBQwr9R5YDi6onOrNL2G6PbykEA4lo7Unv6n1BY/X+BPg
-	 UukNx+AI4gNUWAo4SflxgqFRNiprMjkOhkXAZdbAN5Il8vB1Zro3PngSr9RGydxLT1Ap9
-	 WUIEWj1CoD7M8nyvSNpIJp5cJV6RhvepNFLNml7lkMXJJTm3pXF3/WiGxF25ykqlOpL51
-	 W4xuFg6CkIPGypZ03lI2xedKbWTAgMSHg3/Hd68NrRxAiMYZClzCr7BPyuCz1YSNoaF22
-	 pLTG8x86taQ+57kh2ahwRXY7rvkcwOyBHY0/B6QY3yQGbO6RhxGUUxocMJNVjaX3vLw==
+	t=1793802111;
+	b=DDUPjmk5ahpxDraini3R8hM2DcbvzcNxALO3SN5xa91DzuO2LnsGNvDqHQM7Ymb2VzV2
+	 Vi6B4kS7ymeNjMzbRow5/OBQD3H1BOHAiq/S8npzeO1jBsRNvTCqmmiAToApurgnBY2tu
+	 oiCZkqoX4drdsDKJnWW2X1gIoXEb/NDfwV3ireqNinq4HDJlxlTgKb9zxF0x5DYyORSeB
+	 YVv36178d5Iyd/8eTJrYr877cvQ4Ubv6suJGmdvBZtfDqw+dQlekIwaoZQcF1IQib8t1O
+	 pSXMW4RVWJbgaTmoqWNdVD1shNZ4eEuXa+JURt/wVSwp2oFReQdiUj3mSwYvYjSA9ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802103;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802111;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=OFwLMaf4Aqk9pxojo31sP5NDjv1vzfsLzCaNJ8Dg9FU=;
-	b=aJkbEGjiogNcpT0m4yvjxzuW2AodM9F8+khuW8Voz9+C3E7BimTKAWgPwsfnN44z3rfv
-	 qlOVc8CACbY8u7jsKPticpzckqdaNkjv6KcZMEok649/Q2dQXsIIVlffFjCtD8HitnmIV
-	 HGGoz+nqF3aCCXRDvgNZMxrX3p2H9beOjakrXQbMDR3V+Lq/vGoYvBEc+Q9qYi/5d8iOh
-	 rDJ8DrpDJ7YNh3XcnTmnR6npU+GvFEf0vqOmuwnleiUjzPSOWqAktPWnplsk/eMxpQ24Q
-	 5qk1+0zUGJCWLSFq6thSKWN4He0OQ6CWVUjk8m73ExJOF8uJLP+7OsyjjDKgOcr5R1g==
+	bh=mnXy25wPIeSR51Nmn9G4wXgqLJ66F3Kd6VJ6/6zvm0w=;
+	b=rfRYN5iqR2nj2qMFzA5wnw9xZxdoT1pTcPu5NgMt1urIoobyuoQFpRYkjFYxPmvutZp1
+	 mKfG20rwCmrOxVZpCp88YC9FGmtBUu3q61irs2weT4yOPUPzRBdjaL873j9YiJBgFYu/f
+	 VqeQjOZRibeR6LZwasQlShuKOnk/1RMUbbf1srqStzVpm7gneslbHe3iiWy0BU+b+J3OR
+	 OkevXpfv/QGE8MXSe997OCd5KPu/lSLAXLNwWAyv+MnCPUd6VZVutoUW0Ej5YzAy0K1Tp
+	 bXMDe2in3CQtsohDMWqgbUjAe0u2XSTYQ7mWDLgiiSItS/zvp9L+7FCiP85sUx9OUxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OslH0ZuJ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zSKQ143f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04284606A331
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:21:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5776606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:21:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OslH0ZuJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432891F000C1;
-	Wed,  4 Nov 2026 14:21:42 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zSKQ143f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712DA1F00919;
+	Wed,  4 Nov 2026 14:21:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802102;
-	bh=OFwLMaf4Aqk9pxojo31sP5NDjv1vzfsLzCaNJ8Dg9FU=;
+	s=korg; t=1793802110;
+	bh=mnXy25wPIeSR51Nmn9G4wXgqLJ66F3Kd6VJ6/6zvm0w=;
 	h=Subject:To:Cc:From:Date;
-	b=OslH0ZuJdsu2v3OZpwapus0D5X63mAvj+Itqjn5JrJ8PxCrjOvYIxKvPl0BSzDWKy
-	 UFp5p2dZHDrkQ4sdsjQg/Stulch6F+IGdT45GKqf11+fkrH2yl93sK/84Vmbk/FWzW
-	 e1IAxU0taZUZz1hPwSPDbkYZIYAIGdE1y382zZrA=
-Subject: FAILED: patch "[PATCH] virtio_net: atomically disable rx mode work" failed to apply to 6.18-stable tree
+	b=zSKQ143fFZm0MxgtD6BoyPRaB8e/rsEneb9PGCdtNPoA+h+wd4h5koVR/bWbygeJg
+	 RD4Ntj2fIMasgLCO2JE6eAL82gVioD8A39QLzJJ+Z1DHYmFJnEoxBDpjUhnjtZEVZe
+	 69T46xijWer6WP55irY5rtpV6hfrzUjt3YoRv9Pc=
+Subject: FAILED: patch "[PATCH] virtio_net: atomically disable rx mode work" failed to apply to 6.12-stable tree
 To: bestswngs@gmail.com,co+d17c2bc750a9cbbb@bugs.sh,pabeni@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 15:21:40 +0100
-Message-ID: <2026110440-steam-gleeful-8fc6@gregkh>
+Message-ID: <2026110440-coastline-slimness-7973@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 1234707482053f1d1ac7c5756207d2c29057974c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110440-steam-gleeful-8fc6@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110440-coastline-slimness-7973@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
