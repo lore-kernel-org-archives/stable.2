@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793802657;
-	b=QOLM8g31n6UOeGW0Lgm3+32LaaIGbOjcXW719wGFWB54aV3ou+nSSTlSSFETMBttqslV
-	 xXAmqXixt0IUWWlhzVzFsiEapeVkH8J3KbR3TkxzZ4dh6K7Jkn1Va1r+m8k29FKwbH21V
-	 J+SP+hzcRwzb5OC1mp989hHtu9M8x74awh9JZsyGoOa5NAQvlrpB7gCBxAC34zEbnNUgk
-	 /rHAv4NQTKAn3I26bzLxJbKHzbJy/FUvoAcNskHNuqVsprXN1dsVFZLwXTQKXnK5T/Zzi
-	 2dbF7CHLHO3XFHKwJ16CqbndA7ALzIN1kNeTRojxrMIJxSxxXBklIs09Zsz/k/MpJMA==
+	t=1793802664;
+	b=cofk/D3qJieQTcu0Doag4WUSmobOIVMuoAXOdClu5lNQtFjBlqSS9nz/+o5vEnSynoj+
+	 v2N6EbZoZmcZQFXCXC48XAqAatiu7bTLx7g3+s2Ujh1FFD83TZd5LW6ddyT8ETAxKxekn
+	 7B1l00XtbFFOoqC5dkJRx1jWy4dBDZLIDv7rODM8CZoeXfzxNTtOdpSxgkGJgpvd38oYp
+	 zm59NQQ0NxOpY+AKTnA+Na2uYRXAIzgBHf8LGdiAOa91r6u7R7nNPeuWmsYpFdnEi1N3c
+	 iS1ny3kfX64RrQmO8yFLdT2nBLXglrxtuQkWiycLCsfx2vCWr5rDsMRxdBK9ECbMs9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793802657;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802664;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XD/EXMUB/EGI1a48n6a7147ztIb3wZLeNSRxH8aHF68=;
-	b=BvZCzcLrEHTJxPLMullIaM3JJa92dIXOdm5kyKF7tkgoUxS0y3ZJMRPGQ8Ud2zKgnnbf
-	 I7+YrRWCLstQHywHXF25EriBrwDgLBgsdgohMo/G0CKPQGeQJst3+mW7mgMsRJ78NygfN
-	 Y0hvfEDPcx1R5+pL3R9QkX/6b+XJB+K42n0XOot9CmU7rq9LLCrkBP7w6B7+NPNkmkj1P
-	 4XDw8U35bmxuEvDUEIERef+E0XFX7io+lXclCvCOsbP9mUBafBWbU1M8V8L8ip2P6s+SA
-	 zlmAU+e+FEmJGK6t29rm63LF5JI5OhMKii9QwJ+/G8TWFMiTG1M/2F2J6U3GqdxvwoA==
+	bh=T9isEb6lb/KAN+sVxkOnpq+g7t6DUc3iEPBhCVKM7D8=;
+	b=F2d6i3gWPc3OHgHSqxTheoU2NSdYdvqE6JH+7WxrEZZTe1Gp5Rg5Yz2WVnekHxyAtxLA
+	 iyPQhXUDF/X3rzgbWLxHK3VZ3oDDjxpJQVJog2h3HiGi5r3z680EqH/R22B8/LlSkAqSv
+	 qhe3sBSJwIf6B2IiLQYIu2P/MutbLc8SW5YoDEcF537m5xkk7lYCETYYVRMbyhxjlw6hc
+	 OjbmYlHkEuS68Pc+f0NbXEirScoKy1JAeY1L9GMKHRgu8zJuZZ/jxn1rELm+TYuOP97i0
+	 g+4JyOfRCtGQ8i7zTI6IUwCTrX7OAfa0lHr1Ps4wvd2pZv8nFwASeM2BAJINgBv0ePw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FJ0lTSmo;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EIVtuUJr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF3B606A338
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:30:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72028606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 14:31:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FJ0lTSmo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 598AB1F00A15;
-	Wed,  4 Nov 2026 14:30:56 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EIVtuUJr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0413F1F000C1;
+	Wed,  4 Nov 2026 14:31:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793802656;
-	bh=XD/EXMUB/EGI1a48n6a7147ztIb3wZLeNSRxH8aHF68=;
+	s=korg; t=1793802664;
+	bh=T9isEb6lb/KAN+sVxkOnpq+g7t6DUc3iEPBhCVKM7D8=;
 	h=Subject:To:Cc:From:Date;
-	b=FJ0lTSmoQhy4Idm937uRR6GX4Wv+LjrJ2lcVs0UFZNYjQSpudsgKSNJODYOO/zbK8
-	 pKzUDlleq0oMbS+fW/NIdkxWMkexBf20EHaxyBe7//2QlaeikcHz5KUAyK8dWlY+II
-	 e9AfjphII0DPyPT1DFhbIKFG6jZ1v7nvUJntjyrM=
-Subject: FAILED: patch "[PATCH] media: rc: Fix race between bpf(BPG_PROG_ATTACH) and device" failed to apply to 6.12-stable tree
+	b=EIVtuUJrhF7dmHHsljnGNwNvbZrHa7+pj4iC12jTLVi9YobG2iHViPSJ0HK2hwYF5
+	 YValEuJsoEP9L6CvwrSSGtx4z1BjXn9f5J4gTsaG/NXVumX8j/tz5dIbzBNmLo8J/S
+	 lHvEu89xN3j17OFJRqiTkSN+2kPRU28lPfxAzYIs=
+Subject: FAILED: patch "[PATCH] media: rc: Fix race between bpf(BPG_PROG_ATTACH) and device" failed to apply to 6.6-stable tree
 To: sean@mess.org,hverkuil+cisco@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 15:30:54 +0100
-Message-ID: <2026110454-prepaid-repulsion-f27a@gregkh>
+Date: Wed, 04 Nov 2026 15:30:55 +0100
+Message-ID: <2026110455-abacus-sitting-9c3b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x b3f5daf3222999d3f92f606a4eb5e35ab90fd0e4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110454-prepaid-repulsion-f27a@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110455-abacus-sitting-9c3b@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
