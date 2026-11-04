@@ -1,23 +1,23 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793801574;
-	b=NtwG8jN4RyMDRFWYqSzZ+z8wW/2LPmqeJ0k0OEgomDFp7kpqt1hWq5e0mIYlYZF3r6MP
-	 RFmFI24I6UIc+d9YOzX/XY0/LtFh/c/PzAjQ3KY+XT7UUk2pH3bKTlIQtNVaLIQFhwl8q
-	 vh7gFsvAXXJxmQpGl0H9HiMfJcdpnVqjtKFbllORZ0SP5qmC8v71XqxMOLiWNueELDW9o
-	 +qn9fwWtjolViPvvZuuQWdKN81fkel7gv2a0IDQiwmuB8rknYovbuz4gYu8APEzTAYpuA
-	 o1S+5ib8N6vwMcG1b4zi5QdZvlIC/idW+wDwCnjInJyFwUNtwcktNn7QNCRk0whcmaA==
+	t=1793801606;
+	b=lKWQcaZJkkInR8KvRbjcBNjpp8c7Awr9ogwU9Bs9caWCIOKEVFurzO8JJKfS3n8GT8ps
+	 mCo+YTk/NnXnqtWpyNA9zu70CUzbL0WW0Kdg/1CmaMtOcjjCWRBPhIwz4Qd+Kgy/+5AAo
+	 YOWsG9rykUqG/Zsxsb++sJFhyeImyogre64BYD91n10NKnQLU+IzhrqcgVD2IsyO2RSJv
+	 8zm9xFia34Lk+OgXs8MNi9luRN97/rI9OsesTRfmF04cWuAVYA1eII92Cgo/LqhL2O70p
+	 /hOqI07nkLuUV2Q6nYzLKiN2nfgXgTjV3XB2By69LDEBvVTOjJhx90/iOCO2V7vaXXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801574;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801606;
 	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
 	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
 	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
 	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=6AJSYYW5ZAgrqBGJS0OC9W3bPQi0BhlyPP+rFdFD3pI=;
-	b=OBd+sDly22rspCxlR7hmjMgcY8k3tv1U+LwplY1dtzPt+ZO/UvqFRDOFEVxrJz0U/nYf
-	 kguMJuvfSe30vug9Kthok/RVv85ppi6GYIwHfpAvOKvSmNqm/OPAuJs1ZjnacJzH3h6Mj
-	 OJANNXRx8OYdOClh+XDcqev59yjwQQjPw6vPveoFVWF9FAzSM3N3DOODangdFsw9mpmm4
-	 ytW9s6b3HnMjI3YHq5d0jG7L1mrY3cNOarV2nH96KRsaKapRLQUcDG80Ku35Ym/5Ms6BU
-	 XU/f0bir4QrMNo4n9LSJK4l7lJ/0COY/43XVHLHGF+/b/KJbnB6aZ0BfqIXfz75Elog==
+	bh=XvVsoqH4aYRulmv3Tk9hWzl8BuWOdg69iluKd5EZjE8=;
+	b=N7462jZOFWsPeU7rHKwKrkd/gzsjylLsF1P/Xxo8QbFkLB5LzpBNWGR5CLzYet6KEmXe
+	 ViTDtfQS8QIb6VdhjL9j/wfKSbLt6p6pe3yzan8RWeXfbvc+d5prBz4Q0ZoZi0ZCydzgt
+	 LfGfF51loPo0PzbykV6vQ77qjTb3ooRGW3kLcoBGCPoF1GVyJDqrzsE8DCG+ImmEY6KJh
+	 o6ndffqlc1Bo1CqsEbsf4MfbO1H001gZnkxLAAYKBkP86A+kOhoEM1mR28sx3MgfD5C82
+	 Vdn4JxPv5rwMXTZsNi9vD8EoBFVPLC7IzHAve5Ow5kB0uF6bqNMMfk0gud39fWZjt1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
@@ -26,28 +26,28 @@ Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E1C606A33B;
-	Wed,  4 Nov 2026 14:12:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58E1C606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E66E606D82A;
+	Wed,  4 Nov 2026 14:13:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E66E606D82A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jKS7y5jVyz5B15L;
-	Wed, 04 Nov 2026 22:12:46 +0800 (CST)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jKS8Z6Rlzz5B15L;
+	Wed, 04 Nov 2026 22:13:18 +0800 (CST)
 Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl1.zte.com.cn with SMTP id 6A4ECj8P034143;
-	Wed, 4 Nov 2026 22:12:45 +0800 (+08)
+	by mse-fl2.zte.com.cn with SMTP id 6A4EDFIV080065;
+	Wed, 4 Nov 2026 22:13:15 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
+Received: from mapi (xaxapp04[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Wed, 4 Nov 2026 22:12:49 +0800 (CST)
-X-Zmail-TransId: 2afc6aeb3d61529-2e41a
+	Wed, 4 Nov 2026 22:13:18 +0800 (CST)
+X-Zmail-TransId: 2afb6aeb3d7e4ee-363d7
 X-Mailer: Zmail v1.0
-Message-ID: <20261104221249196PEndOlhSBLk0FozQ1xnab@zte.com.cn>
-Date: Wed, 4 Nov 2026 22:12:49 +0800 (CST)
+Message-ID: <20261104221318841yKO89PGcSNeaV4KutBOUJ@zte.com.cn>
+Date: Wed, 4 Nov 2026 22:13:18 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,63 +60,58 @@ Mime-Version: 1.0
 From: <shao.mingyin@zte.com.cn>
 To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
 Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIXSBhdGE6IGxpYmF0YS1hY3BpOiBjaGVjayB0aGUgX0dUTSByZXR1cm4gb2JqZWN0IGJlZm9yZSB1c2luZyBpdA==?=
+Subject: =?UTF-8?B?W1BBVENIXSBhdGE6IGFoY2lfZHdjOiByZWplY3QgaW52YWxpZCBkZXZpY2UgdHJlZSBwb3J0IG51bWJlcnM=?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A4ECj8P034143
+X-MAIL:mse-fl2.zte.com.cn 6A4EDFIV080065
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 04 Nov 2026 22:12:46 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Wed, 04 Nov 2026 22:13:18 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEB3D5E.000/4jKS7y5jVyz5B15L
+X-Fangmail-MID-QID: 6AEB3D7E.000/4jKS8Z6Rlzz5B15L
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-ata_acpi_gtm() evaluates _GTM with acpi_evaluate_object() and, after
-checking the status, dereferences output.pointer without checking it.
+ahci_dwc_init_dmacr() reads the "reg" property of every available child
+node and uses it directly as a port number, both to compute the port
+MMIO base and as an index into dpriv->dmacr[], which has AHCI_MAX_PORTS
+entries.  ahci_platform_get_resources(), which runs earlier, checks the
+same property against hpriv->nports and skips invalid child nodes, but
+this second walk does not.
 
-acpi_evaluate_object() can return AE_OK with a zero-length result and a
-NULL output.pointer.  A _GTM method returning a reference to a method
-local does exactly that: ACPICA clears the reference when the method
-terminates, so the caller ends up with no object.  ata_acpi_gtm() then
-dereferences the NULL pointer while probing the ATA port.
+A device tree that describes one valid port and one port with a "reg"
+value above AHCI_MAX_PORTS therefore makes the driver write past
+dpriv->dmacr[] and access MMIO beyond the mapped region.  Apply the same
+check as the resource loop and skip invalid child nodes with a warning.
 
-ata_dev_get_GTF(), the sibling function in this file, already checks both
-output.length and output.pointer before using the result.  Add the same
-check to ata_acpi_gtm().
-
-Fixes: 64578a3de723 ("libata-acpi: implement _GTM/_STM support")
+Fixes: 33629d35090f ("ata: ahci: Add DWC AHCI SATA controller support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with a PIIX3 IDE
-controller.  A TEST-ONLY SSDT, loaded with -acpitable on both kernels,
-adds a _GTM method that returns a reference to a method local.  ACPICA
-clears that reference when the method terminates, so
-acpi_evaluate_object() returns AE_OK with a NULL object.
+Tested on 7.3.0-next-20261030 (QEMU/TCG arm64 guest, KASAN) with a
+TEST-ONLY device tree.  The DT adds a snps,dwc-ahci node with port@0
+and port@100; the TEST-ONLY printk hook in ahci_dwc_init_dmacr() is
+applied to both kernels.  mem=512M keeps the fake MMIO window outside
+System RAM.
 
   unpatched                            patched
-  BUG: kernel NULL pointer             no panic; ata1/ata2 probe
-  dereference in ata_acpi_gtm          /dev/sda probes
-  Kernel panic - not syncing
+  KASAN: slab-out-of-bounds            no KASAN report
+  in ahci_dwc_probe                    port 100 skipped, boot
 
-The diagnostic is emitted with ata_port_dbg(): a _GTM method that keeps
-returning no object is a permanent firmware deviation and the check runs
-on every reset, so a KERN_ERR would spam the log indefinitely.
-diff --git a/drivers/ata/libata-acpi.c b/drivers/ata/libata-acpi.c
-index 4433f626246b..a0b85f74eabb 100644
---- a/drivers/ata/libata-acpi.c
-+++ b/drivers/ata/libata-acpi.c
-@@ -376,6 +376,11 @@ int ata_acpi_gtm(struct ata_port *ap, struct ata_acpi_gtm *gtm)
- 	}
+diff --git a/drivers/ata/ahci_dwc.c b/drivers/ata/ahci_dwc.c
+index feb8a8539b8e..9094eb19e19f 100644
+--- a/drivers/ata/ahci_dwc.c
++++ b/drivers/ata/ahci_dwc.c
+@@ -225,6 +225,12 @@ static int ahci_dwc_init_dmacr(struct ahci_host_priv *hpriv)
+ 		if (of_property_read_u32(child, "reg", &port))
+ 			return -EINVAL;
  
- 	out_obj = output.pointer;
-+	if (!out_obj || !output.length) {
-+		ata_port_dbg(ap, "_GTM returned no object\n");
-+		goto out_free;
-+	}
++		if (port >= hpriv->nports) {
++			dev_warn(&dpriv->pdev->dev,
++				 "invalid port number %u\n", port);
++			continue;
++		}
 +
- 	if (out_obj->type != ACPI_TYPE_BUFFER) {
- 		ata_port_warn(ap, "_GTM returned unexpected object type 0x%x\n",
- 			      out_obj->type);
+ 		port_mmio = __ahci_port_base(hpriv, port);
+ 		dmacr = readl(port_mmio + AHCI_DWC_PORT_DMACR);
