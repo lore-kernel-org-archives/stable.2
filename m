@@ -1,94 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793759194;
-	b=YdDm5aHseFtjTPYSTdJRQM8G4wvoFevYEzgCw/JX+x/Z2uXFVtZQTOokX65fywepM0Zi
-	 y/DqcCoYWRPCsBG3rsb0/K4ZdP0jcHYmLUp0JbY1D6w93FCt9HlYkDFe7C93vxoyaNSf7
-	 6orc0BtebJ3BazMo3svHsDhydWVDJwezDeKjme1KHsmVTt+47+mCGVua1rWpjinxJsIV2
-	 YccvDi6lqU/fuR+UEUCsvslhJfMy7I38E1yXU+0n3/C297RUHGwaTRmguLpSaEOze1ya/
-	 HkXH0rs2sRgr2qWHlsITwAvb+F1Kj+FOuzjqSGV1k6H5eGQ/z8kk0BGmUTwahYI0Lgw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793759194;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=zf8chmK4lYlJ/gNkcnvQsrfL5BsaQxeLGVbue6it71g=;
-	b=tcf1tU9mgBG7Qp2p6SxaHdApW68/2ie1ORF6Kk3SGNjZ/iFhf1vbT1S2sA/NCKK8rDp0
-	 1EwdiUOA/XDbmTl8lKlrq+DZOlmDfVwehJsyjji9b2SrCogKd0jFzZnH6ZYBmkiBfWHxu
-	 H8oWCYKS5d6E78Xyk62vLsw5h3hp7c5KKcBISkV6hBAGiU2UB/CPLl4mDShC6LUanXuSN
-	 ePDk4NCIA9K8oXFeM+phpoghsEVAt7YNHoM9swlT42yN9TADGF2QRSyZ5Mnw50Ab8QcjT
-	 TMRH449ahw3FWU8mn+93Ok/Jt9cdkA1noNakbYoXjuFpeZ2Wk7NXF5NUGCnZdFQth4A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GdmC8yqS;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.152.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793760723;
+	b=3LldwSpXnc6p5cSYRWlQC2AP9odbnyiCDzuzptGD2qAUsw4xWieYlnbKXUxeO2RqDB8w
+	 n7tV2M5tyYIZJ3qImw2TiBFHCqGyfr/dXVAJrKnYyjsk2ZXTT5LXV8/FPfh5qmt7umWT+
+	 UOlWeCtp5/XId8K6jCu+cCpl7AKjn+G0TzMnuGmgNO+qkBW+vi5+KYRyMaTxva9eYMSZ5
+	 dRdoFx+4V4mz9+av6GnRnfDvzUXRBvk7gT+XujSnBXA3cRv2yXf7mnPRlG0Cg42oBU3/c
+	 lVMPtUyZgqNGtXp0rMM0N/tS68IRHyOT+edQWy4/oD3ufw4eTa+9rj8Pgz4j9OdpEow==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793760723;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=lAXkSs68EqPkMWGoE3m+CfzLQOhhK01OM2CR7g9/IfI=;
+	b=rZELyM6dtaYYY7LlY1G4Z0K1wawqDrRcoTmfE6BPv6GLiy0YN8yLUL/SHOdK3eG49W8j
+	 t1T4jXxIs6Bd0EvQMK20rZ8LQfQfaahpJ3qyLvz5gNZ2COVa5UPNvbh9VoOdS+AT2BQQd
+	 MRbE7ZBpyVfqPtqDVTrtZcOUAGYDJaB4zkfDQEyldzOKg6DrCqOtCUmr8ka//PHEf93L0
+	 5pYXTElEvisj+fqkspO3OBUxiaolusn8QFTBxPbUVbSS9df4xCOC0fXA1Ajngoqtxg2Dl
+	 c4Xd2dBVIg1huTHEtWBHU2ksbtIt7kN4gNPGYXjkZ0uNU8cZNEhpbe80Z13hVAQL/EA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=crowdstrike.com;
+	spf=pass smtp.mailfrom=crowdstrike.com;
+	dkim=pass header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=default header.b=IWf156x5;
+	dkim=pass header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=google header.b=fZlWShPL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.152.16
+Received: from mx0b-00206402.pphosted.com (mx0b-00206402.pphosted.com [148.163.152.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8117C606A326
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 02:26:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8117C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8ABD606A32C
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 02:52:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8ABD606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GdmC8yqS
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-353804b591eso356492eec.0
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 18:26:34 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=default header.b=IWf156x5;
+	dkim=pass (2048-bit key, unprotected) header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=google header.b=fZlWShPL
+Received: from pps.filterd (m0354653.ppops.net [127.0.0.1])
+	by mx0b-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3LDuOL191586
+	for <stable@vger.kernel.org>; Wed, 4 Nov 2026 02:51:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	default; bh=lAXkSs68EqPkMWGoE3m+CfzLQOhhK01OM2CR7g9/IfI=; b=IWf1
+	56x5+qG7A3AQNpZx2CGF1BJ+3T3X85CNn28Mkd+EWaFAX/G0ejE2v/Jut9T0zqqY
+	NmJlgwJGA9eZASRIObxEdZhZ+mGhfJlenp5dP1dNgcnEuJtuDQSDCNJgNleaPGgs
+	VpKDxnOd7IbS8lvHRpeS3n/ArNLGJYWVHDvi5B4BiKe9IpXXVJ4XluDJRHVQzuYK
+	Z5RHcYDwqwqyhmhjdhgLN6ypNmOdbotzHC+FjDjebQyKHZ5YG6XA/qneS26Y0cfp
+	mNAdWfzt4K4yO+C64rq44UiOfRmYZy/DH9OxaFvlygXH38f3MiCgYQgjhALybw1J
+	of35AfqAZvN79RK0uA==
+Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
+	by mx0b-00206402.pphosted.com (PPS) with ESMTPS id 4hqqbk8wn8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 04 Nov 2026 02:51:55 +0000 (GMT)
+Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-67682d4d684so536703d50.2
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 18:51:55 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793760715; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QuC9fub/z0npMvO2TQFFnZwK/q1F/5cLNXjx7LssQBPLgDg/2Q3FpHvelEjIUFtcoC
+         1pqYKipjKhbE2Ue4E42F9erTjob1UWmMrl/kin2EbqMeCL/O0QlF4xEuu7Ir44wgxhXl
+         qnb9TmsvVeW96zb/REXRu4j1AG3M16ofxie9ANizS9jWB7isSb2WAkFPTLxzPrv36qMa
+         RQmIpe68rJu+gDJAEqqgGnVigluGGC6hwhP8+08RLG8X3EIbOoXZSlOTBZb7I+1xze/G
+         9g3xIQiAmZBbRu18bMLhF7eZT9AJkhFWvAWcN+o24aVpkTT/t7YDTqZodpOS0WpTEGr7
+         dT3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lAXkSs68EqPkMWGoE3m+CfzLQOhhK01OM2CR7g9/IfI=;
+        fh=j4pyd5kJ41tO/P9CjboVhr9bqIHwjRV2kXkKzuUuF+A=;
+        b=sn52N7wsORMi9Pb3sxwtXYqeAcG7LCeHXA5zA+QwVuPVaOolzrzUyGMKsl+KAwRDUl
+         2cPRuA65656BR102crMh25KN3P8a8/UZ0q9G5AwFFMN6Z8+WjVqR4dE6JYOpv5ksTD1h
+         +wlsUUn7ZXHrfVueyBu/FQc9+FfZqXiDb+Lk1bb1ASJjOQQgl8zqjCeKNRPa6qIlq2+3
+         ro6qDvgeEZ5jxXZMbqwtu6BHBwTYA3lfiEUv6hddPUCeLFS3GPiVIH0W6Bel9NJGQ4zf
+         2X/zM8bXUlDKeZ9IVIhA7VFxLs8o1rns0GTxNKd8Jk1nfW7QeJxyyHa0X/GN7rFcTYXo
+         sLzQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793759193; x=1794363993; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=crowdstrike.com; s=google; t=1793760715; x=1794365515; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=zf8chmK4lYlJ/gNkcnvQsrfL5BsaQxeLGVbue6it71g=;
-        b=GdmC8yqSzAfFyseLZkRaMIA67KXc6CcQ2kk97I0FutswHdfmKvOEVcRaKrlIGGqS9r
-         JjiEkO5zGhAGm0zYWviqNrnlXYVQ7aqPqAwJiS/rE9kglVBVz+eWpiMVCRWYbhxrCrFu
-         vWEkO0yCNt4xi9tF4aDZMVxpNmmB0QJKERu9H7wu0PUhhlJWyndSnGrqH9v65qCl21DE
-         Gz9+68YWYIGV2s6pQ/x7M5P5M8qo1Wo5XQz0r0XE5WoMotCCJOoeNLtvUDynT+6h66Eo
-         q/9LsiszrGwUaixfx8P7CizSxTEMveDmK+MXN4sVqVGaT7nuC5QYSTtM1/hgihe9lQxe
-         ibCg==
+        bh=lAXkSs68EqPkMWGoE3m+CfzLQOhhK01OM2CR7g9/IfI=;
+        b=fZlWShPLpSeOi4izx8yuxtp1u1XCZeta4anl1OgTlAd7/BeWHTYoiOS6xfKyyCJm2Z
+         z1rIJggCff5xusnb9M9Q8Y0FS4ibm8AjiB+DbN4DuV4YacNRRTH2OxHRB1iHS9AKCKaR
+         OjqYT0t6ToeplNCL5Wqp4dzSMAC2q9fNihUpy5vKnsGspi6bfjMaHeWOCCyOZslw4k90
+         hrYm5UjKrLPVmEbpLXKmZKnTQGvpn4LaKas76vcRoN4zg1MZCSeBX1t2d35Y4ciP9mGA
+         Ad5LLWzpbRGFVIpmMQBzI4kMGCs68/5AZXvHH3RuF5p9hgYcnCj99in8/c5nkAvK2Eau
+         /83w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793759193; x=1794363993;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793760715; x=1794365515;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zf8chmK4lYlJ/gNkcnvQsrfL5BsaQxeLGVbue6it71g=;
-        b=Z+GC6rQScJd0XaXLd6mJS2ft9lQOLS9Qhyn+N63S7L9n6d89B9O9xYhoBWf/N7P42g
-         /PqMy5dwFubFHaW6Zr4YnYiiv7K6BxcmwDuMPbxyIYtbhipbaSmahpDwZyKW3jRcplpV
-         OEhCSBuI2gV/t9pCQBPAfpJgXqbMtDV/FqKFu8S896jDlV76atxiZqLunpcgsSgWKwho
-         XJmkO2pTlWKrC4JCEOhLZRkL+miKc5rfjNOsvHFawUV+9+Sj404hBpuvlmJwbRB/F73y
-         xXCVAXajdI3ZYYkHH0RvGn45ZgCmSNq6g+6G8SQ88cvRHPyoRXnBzv1LuM31PFyGV2HX
-         NedQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxnj3a0HhkflIROhmyIqEXH5/M70ibv2V+dcMU7oBMcGYMJw6NERl0WBCd247PDIiY/IKsESPA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+p4ovT7MjLT4rCCaIePhfw5ghQoBUJcxOLeXWDMyShFrgNtQtx
-	HtXk3+yIWDnzUFXBvUXW2p3+KcXLl2Ka4ztJVuThNy+9jzNGvXpB2a2R
-X-Gm-Gg: AYBFou05Ox3weysZorBgpAXp0ChpHV/fwrK8R2EKmVWn5l/dA8kuAQQ4kKf7IpmIgAl
-	RmqACRYsIsbiJ3VQOywbvXyol3+zALqiB/6W2YN6nPUIEUKKomLk/DkGCTnjht6klSERiZQRWo6
-	lMBbw5wSQysK82ujg9hNIQmgoAmVOyRJGwtgLqv0P5TnZuBp1sUJlknm/zRSNnNT1Ol7kSZFPRe
-	k2NYlElU7dMJtUZOGEgptPOWeutNnwqMSqVCnktBq2Cc7sxhSv/J9bZUCfhAsKSwaoBjiwPe8Wz
-	di/GXH+bq8tZPA8BTh+FnbQRljIoaNQ6AWSMiML/6a/1yQT9HKxKItcdfuVEFXaoAl9fd8d8aSq
-	ASvtMwjEHXPhwy5HCoud4K6eYkSVVSUR2VqYyyeuX2Uu09djd4h33b3+CNEMmzTR8XVME6UiNjz
-	aRa5Ld1QJeJYl7xwL6cbaJNC3H++fWqZSGLWgXl46CJYHJZHoY8Y4WJuI6U5rsoZxZPxIW/tB6r
-	nyJbsQjwxeGUfCzUZda4koLJy9cRQP5Fw5JbrhchoIxKxxmUXB2VYlMBlUGSSUo0Eu+vNVZr2q9
-	G5xqyyMbMfs6fA3Ow7L3ON+58BAk7zY3MBYLNfBcvvRlQilK50930CELVDsDMvtSrDbp
-X-Received: by 2002:a05:693c:4142:20b0:36a:6106:4f63 with SMTP id 5a478bee46e88-36a6106506dmr15884374eec.16.1793759193308;
-        Tue, 03 Nov 2026 18:26:33 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:88b4:22ec:d621:c1b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3981ff0sm2818065eec.24.2026.11.03.18.26.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 18:26:32 -0800 (PST)
-Date: Tue, 3 Nov 2026 18:26:29 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Ping Cheng <pinglinux@gmail.com>
-Cc: jikos@kernel.org, bentiss@kernel.org, linux-input@vger.kernel.org, 
-	stable@vger.kernel.org, Ping Cheng <ping.cheng@wacom.com>, 
-	kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] HID: wacom: Access shared touch input by
- rcu_dereference()
-Message-ID: <auqXxlGTgwoAqmdL@google.com>
-References: <20261104010108.21895-1-ping.cheng@wacom.com>
+        bh=lAXkSs68EqPkMWGoE3m+CfzLQOhhK01OM2CR7g9/IfI=;
+        b=Pz403AqABwoJkw7DZWAgU+yi/Avk6sUjt+2uI8J1Xih2vBRVBNk9e0huuCA/6cDwBN
+         jbQElpC5btSA0uR55EfycPrfoq4L59InQNlFUcnZLT5amuQIg6P9xAZV5S7KLoadZ0Va
+         CUw1ZvDrQTJLJlwUVXm92MZIkut0Z8G7H1DumUg2LLFsYBnWQ+adR3Kl7g1uxB/G1Oav
+         kBIetmDdaiGwYcp1DRtbgWC6wpZogA8xbr3LlCI0OOkiPhZYBJCdJ9Fd60k280Rwhq4V
+         YS+CJxXcJJ3w33UG//yIqew2myB21+uJxh97OMAyK06Dk9BC8xQamLT0MsrPIlx1cjSb
+         7sgQ==
+X-Gm-Message-State: APuU4Z+oiya9zsQJLv32Re5oHKecqTWzdLxVUwfvOjHCB5dWvmLldwgz
+	EHieMELi+uET5arVLt3lHVFTuhpCU/Jjkxwe0vGKlwMZg/EmdnbEefW6QUJiJaPGXmtvFS7oC4p
+	pXEYTc0PyaatM4x3yDKcY4Cakazk4cnbfVqcjF+0wmKnDmsZvNaxfiqvMao5VlrjCYrhYv9Tt7e
+	4ZaIsUo1hmIEW+W9NjwmP9zTZOnmiRxHVG
+X-Gm-Gg: AYBFou1SHBxaLBUVWH49jBPdaP2l0cpw4yKdYbeo/a2e36VzGT/vPvrOzQYZ6szrphH
+	EwSdN4SM8itPyhxMSANk3u+d/gCWIBqW3vMfRHQvlveeBvHlnNkwaeNlgWLF1UrpPIm1bGe9TgE
+	ODDkTAzK9rNBsiqN3o4GVBez0o6o6WWFjhgEYfV4tk5XEcSqWobv+haT/+
+X-Received: by 2002:a05:690e:1698:b0:67b:9051:e334 with SMTP id 956f58d0204a3-67bb304d942mr6953175d50.99.1793760715016;
+        Tue, 03 Nov 2026 18:51:55 -0800 (PST)
+X-Received: by 2002:a05:690e:1698:b0:67b:9051:e334 with SMTP id
+ 956f58d0204a3-67bb304d942mr6953165d50.99.1793760714438; Tue, 03 Nov 2026
+ 18:51:54 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,24 +126,131 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104010108.21895-1-ping.cheng@wacom.com>
+References: <CAOu3gNgTSWE84fgdc1iUNKwes7E6u_X6b8pjZKBULEJWB=RAqQ@mail.gmail.com>
+ <20260820182015.4272b7a4@fedora>
+In-Reply-To: <20260820182015.4272b7a4@fedora>
+From: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
+Date: Tue, 3 Nov 2026 21:51:42 -0500
+X-Gm-Features: AclHuK9IlTY1jg0NbCnejDWXv1EVQjqwEEUjX8rlKRSwsqn_FrN54rhZNNs5-9I
+Message-ID: <CAOu3gNgv91dq8jLShteRWphrSgNWQ1o1dkNxRr577ez7pMuv6g@mail.gmail.com>
+Subject: Re: [STABLE REQUEST] ftrace: deprecate the ftrace_enabled disable switch
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: stable@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
+        sashal@kernel.org,
+        DL Linux Open Source Team <linux-open-source@crowdstrike.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: MzMlCPt1bokt7c2ZagWK8VWpSoK3-sWH
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDAxMCBTYWx0ZWRfX8M3O0WyKCTZK
+ gfYla6Ti5Vgx2uHnzycnPCbC3cqaPiNPD0PoSZE8nUceOphV6rXYA48G3fV/qF4j/lN3oQzP4TJ
+ qM+kDDoHk2janBpiqRN60lBUTEbCBzDY22sK1wLIvA+GNXfvMy8j
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDAxMCBTYWx0ZWRfX0tC87Q+YY+ua
+ enZX/JFFmK+DvmhamScIy3kES9E7CKklsFQiI5kt9++pZZD/d89DIWp7onJLE+Uh76auDPWJZJW
+ atqfSKvnad7K3EqxqZlUj9IE5xN7ooA/K4yskBofw+k3/mA+RIsbnBNRQn/ieHpwJcdr81Y2gsy
+ 4uY61MQv0IbNxV4JD2YbQ0fAgfNhQBjYOSkk7ciZMaOsclApVsSanVJaxPF6GUVeMsGJZbV8piA
+ 5tPHV2vVmXK4z40BY1CExQbuRNMOsoDQuDZwU192O5tGtuHWsctGJKAhyVnrfEnAiKb6X000uA+
+ 9CcMz5TO/d1GSnK9206QsKrkb4q719PFhB+ciDVCEgs0iwc9hd43YfB2SDJ3WgmOeTrANQXJmwx
+ FMMSbo+obvB5ifGTGHizGK7k17qlhwKtBQPgD55OpJYnqrtmvaSqG1zSQD1gFQJFy/ll8TGE3Xo
+ E2GXpGhGYe/P8NiinCg==
+X-Proofpoint-ORIG-GUID: MzMlCPt1bokt7c2ZagWK8VWpSoK3-sWH
+X-Authority-Analysis: v=2.4 cv=ffI4WEQF c=1 sm=1 tr=0 ts=6aea9dcb cx=c_pps
+ a=J+5FMm3BkXb42VdG8aMU9w==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=KZhmPCYDdY0A:10 a=VkNPw1HP01LnGYTKEx00:22 a=T2KQ53IYiC3MXPrxx8bB:22
+ a=GCXdLZfFv8EKBZhKOxZ5:22 a=e25ExAebAAAA:8 a=VwQbUJbxAAAA:8 a=pl6vuDidAAAA:8
+ a=meVymXHHAAAA:8 a=o21ACTxphgsBks0dGJIA:9 a=QEXdDO2ut3YA:10
+ a=Epx66wHExT0cjJnnR-oj:22 a=Fx-rEtueDibNKiZPBj-h:22 a=2JgSa4NbpEOStq-L5dxp:22
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11955
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 impostorscore=0 malwarescore=0 phishscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040010
 
-On Tue, Nov 03, 2026 at 06:01:08PM -0700, Ping Cheng wrote:
-> Allow the __rcu-annotated wacom_wac->shared->touch_input to be accessed
-> inside an RCU read-side critical section by using rcu_dereference().
-> 
-> Cc: stable@vger.kernel.org
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202610180015.KsRqmoTE-lkp@intel.com/
-> Fixes: 9183319a5ba4 ("Input: wacom - Setup SW_MUTE_DEVICE according to the order of input registration")
-> Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> Signed-off-by: Ping Cheng <ping.cheng@wacom.com>
+On Thu, Aug 20, 2026 at 6:20=E2=80=AFPM Steven Rostedt <rostedt@goodmis.org=
+> wrote:
+>
+> On Thu, 20 Aug 2026 17:30:40 -0400
+> Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com> wrote:
+>
+> > Hello stable team,
+> >
+> > Please consider backporting the following two commits to the stable tre=
+es:
+> >
+> >   - b0c857049153680e1b6ccb59abf359a4ca523561 ("ftrace: deprecate
+> > disabling via ftrace_enabled sysctl")
+> >   - 88b3e7fedc07d940c32eb5c0733a780e944b6b47 ("selftests/livepatch:
+> > update https://urldefense.com/v3/__http://test-ftrace.sh__;!!BmdzS3_lV9=
+HdKG8!1ja9D51Ex2VTTMdOEl4Eb-3ORL8CXBX1biYMPMLmT1iP3r8I8tfDE41DOth6sc54E3ODL=
+fRqYSaIdTR60lcLWOzKIOK6Jg$  for deprecated ftrace_enabled")
+> >
+> > Both commits were merged into mainline in v7.3 via the 'ftrace-v7.3' ta=
+g.
+> >
+> > This change addresses a long-standing issue: setting
+> > kernel.ftrace_enabled=3D0 silently disables BPF trampolines
+> > (fentry/fexit) and ftrace-based kprobes/kretprobes. The write succeeds
+> > and the hooks stop firing without error, while re-enabling silently
+> > restores them. Livepatch resolved this via FTRACE_OPS_FL_PERMANENT,
+> > which blocks disabling ftrace while a permanent ops is registered and
+> > blocks registration while ftrace is disabled. Trampolines had this
+> > same protection from 2019 to 2022 while sharing a global direct_ops
+> > marked permanent, but lost it during the 2022 per-trampoline-ops
+> > split. ftrace based Kprobes never had this protection.
+> >
+> > The breakage was introduced in commit 00963a2e75a8 ("bpf: Support
+> > bpf_trampoline on functions with IPMODIFY (e.g. livepatch)").
+> >
+> > With these commits, writing 0 is refused with -EOPNOTSUPP and a
+> > one-time warning is logged; reads and writing 1 are unaffected. Steven
+> > Rostedt requested and reviewed this change on the mailing list,
+> > including the follow-up selftest update.
+> >
+> > We would like to backport this to LTS branches starting with 6.1.y,
+> > where the breaking commit already exists.
+> >
+> > Mailing list threads for reference:
+> >
+> >   - RFC v1: https://urldefense.com/v3/__https://lore.kernel.org/bpf/202=
+60730163544.2042327-1-andrey.grodzovsky@crowdstrike.com/__;!!BmdzS3_lV9HdKG=
+8!1ja9D51Ex2VTTMdOEl4Eb-3ORL8CXBX1biYMPMLmT1iP3r8I8tfDE41DOth6sc54E3ODLfRqY=
+SaIdTR60lcLWOzV4jPY7w$
+> >   - RFC v3 (final):
+> > https://urldefense.com/v3/__https://lore.kernel.org/bpf/20260806153000.=
+4184871-1-andrey.grodzovsky@crowdstrike.com/__;!!BmdzS3_lV9HdKG8!1ja9D51Ex2=
+VTTMdOEl4Eb-3ORL8CXBX1biYMPMLmT1iP3r8I8tfDE41DOth6sc54E3ODLfRqYSaIdTR60lcLW=
+OxUSL-qOg$
+> >
+> > I can provide rebased backports for any trees where these commits do
+> > not apply cleanly.
+>
+> I'm really nervous about backporting patches that may be reverted
+> upstream. These change user space API and if anything depends on the
+> old behavior, it will be reverted. That would also mean stable would
+> need to revert it too.
+>
+> Instead, please post the first two patches of your original series:
+>
+>   https://urldefense.com/v3/__https://lore.kernel.org/all/20260729005959.=
+3853865-1-andrey.grodzovsky@crowdstrike.com/__;!!BmdzS3_lV9HdKG8!1ja9D51Ex2=
+VTTMdOEl4Eb-3ORL8CXBX1biYMPMLmT1iP3r8I8tfDE41DOth6sc54E3ODLfRqYSaIdTR60lcLW=
+Oyr231hEA$
+>
+> I rather push these upstream even if they are not really needed. But
+> those are much safer to backport because it "fixes" the problem even if
+> the main fix gets reverted.
+>
+> -- Steve
 
-Reviewed-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Hi Steve, coming back to this topic (sorry it took me a while - other
+work related stuff kept me busy). Are you still willing to accept  [1]
+ upstream ? If yes, can you also please clarify why only the first 2
+patches and not the third, selftest patch?
 
-Thanks.
+Andrey
 
--- 
-Dmitry
+[1] - https://urldefense.com/v3/__https://lore.kernel.org/all/2026072900595=
+9.3853865-1-andrey.grodzovsky@crowdstrike.com/__;!!BmdzS3_lV9HdKG8!1ja9D51E=
+x2VTTMdOEl4Eb-3ORL8CXBX1biYMPMLmT1iP3r8I8tfDE41DOth6sc54E3ODLfRqYSaIdTR60lc=
+LWOyr231hEA$
