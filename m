@@ -1,91 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805575;
-	b=uP5++hZpYlN8UOBH1v9EPyj8jrmyXGT/5c65JW6c4LQH8HV+ACnN2f9YtFFvr/LLW0Q/
-	 l6g3CqU9ihIg05/LSFltwrH2EuOWOAwypgTVRQmyq+vDfsvE4r1AgTHx4FnrCed5YrEdX
-	 GIpKZ4/23NAdrPOrobVhSm5DCpr9w+XAha0bT4X83gB67CgFQ0BH5+dKemNCUrnjgtsLZ
-	 gtFSLBs2u2RZ+sd11WyaMWV0zZOtgGbcm8vfS+JBsSiD8T3JpDKQAXHwFsJveDWEJxfOD
-	 taocsBoHpIjCspPOvQk7zUguRAwCyEl97HtYSpwq4AVHTP8NEl2t3t/1kRwZtt9Jblg==
+	t=1793806043;
+	b=v4QWYjvTufSTFaZ2YOVzWZzMVWGhLd93Z7kblrKMTMIc96sUzt3eMbpPPktgRxvr4pbi
+	 TMus+qvE8A/ecoyehqx5ZFU5jSAgEKFAaIz4Ae+CNUj58eSoslIKfYkh5MFz9QPTrM+WX
+	 PQjR+BW1l9PN194hNCMEMdAI+KLkbE2eXnKxbVU/3t5RC2//kHoMF9CVEL+/BuHpxPg4w
+	 XowBuJn4kiZZvuvL0QosRK4xOPXNQxmWE1edNTrg3GMN9H8fRfp3qepaoF6IrMhBoCTrg
+	 R33eD4oytjvttO6wBldL9oivh/w9ahFo4uXJdLb4vu3ggmHC8YXx5EfBr46EpZf/H/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805575;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793806043;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=bLOJZaXgrljjby6d2ZZG7h7GGo4k7OpcvIB3L0adEqA=;
-	b=JGK/xdnmnJbqaA16v+C0mHtBosKqjMkFrcIDzSom2MPbcXsFyt6B/Sp/YaMb8SxprXsT
-	 QxxXll/+LalNz56vSASSfmx0b2hprcr1dz1AKjvnRnk5lbXIxozd6K3Qgp6SndkTI7vPV
-	 CqQKjFSq4hTrkp3352j/Xv8JR98sDmPCkbcgTA3S5L2fE/C4CSXOa3E04n/uHQyuEsEv8
-	 XYIH/2uWRADIy7W9ZQ6wMkS6tYAga5t+Nc3WNxhsAJ6GkBRNLA9UZiRzUYuakhBXpbe/i
-	 hhl8Gey/OZXr4cE1V5uKsodvmw9ICgx0Ci6maAW3t3NM2KqY2VVyE7yvS6KatlWU+GA==
+	bh=SHiodlaN/47Q9sQElac/FcGmKIxlHSOhqHHn7r3qETE=;
+	b=HyHmF27qcES01i0okrNUs+xoPdHSyqY8q+iQKJqyVnXmChkuPeWV59Y5d4S7/wYl++zS
+	 HllGWq+7uvioVEJnuJt2EwAd/OxqmoblEZpZU4EgtoqVtiWFP/5Q8WnbE28ukxF/IwW8Y
+	 AktGUUA7alaunjAzel9kL0OMOUWgBXO5d64whoGYxaZvCUhTHz+A1xj5bNgkJ/vcVaITt
+	 axmPVhJbddjOxNjnuOAfNpNnJh/Br+65oTJXMP98PqnW+jFygM4KR59YFHSuegVeEfvNJ
+	 6ps9SYSxiGwXJFOzOx4dm/3BzXzasOLVlXxNDYxmCV/9N6+lmaXfD9NaMvXu9/RBwYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=grische.xyz;
-	spf=pass smtp.mailfrom=grische.xyz;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=posteo.net;
+	spf=pass smtp.mailfrom=posteo.net;
+	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b="I9KYYC/e";
+	arc=none smtp.remote-ip=185.67.36.66
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9AC2607475B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:19:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9AC2607475B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grische.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grische.xyz
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48c5358fc28so752704f8f.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 07:19:34 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793805573; x=1794410373;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bLOJZaXgrljjby6d2ZZG7h7GGo4k7OpcvIB3L0adEqA=;
-        b=tp5cwFdWD3LhsJmpCYFvyDZvXrcDhGcj6v8YKzBD2FIuiF/KcFSMdMgxz60BeZFEzh
-         y8i2BzrBjFMGLKthCf2HXtC4Rh5Onmf+npX1w4XDOzxZUAExSyHB6PCiYzHzIoSCCceh
-         21ps7baqSr8Z4vF7WU3VjIjyOAJT0DFcS8slHbtdZJttyyLoEEu/zfYdQi0Cc1s38lwJ
-         dXZaCghyKt/PwF1Z7nzjNPfaqtsc4De0bqwWRTOR+L2pSMqGVwDv1GIdI73rBXlJOEzf
-         i90+phmABOKldt23V77t/uZCUbIb4G+qeDp/zHLtDPa0vWrLJSZkmhLiU56Cw9nqzgoi
-         2HIw==
-X-Forwarded-Encrypted: i=1; AKwUvByP2/bVuToTcN4eeVPOEzaIvnJwmiyzHiQ50JTHRdtalwkHwfrF5Sold76mEjhHP/M3//5W0vk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8NFBwL5EF483l/ByIBFyGpiJXWACfx6/fG6gY6o4aqOhZuCgMl
-	kUV0J8RjhENC8uE16MhtUTVTeowjWaY5WKp4e961pUclafgvHAQAuCbGKMR8dxSgtig=
-X-Gm-Gg: AYBFou3rqPw96QnvPy3toFSRnWn+qzUfMJ+dqaYliushOzdMln8uMZWGB/ry/4YHUM5
-	5jOGrza/jLBPHAS/Xd0na98ox5I01bbZ9FOf0yeLSLy5Ep+ge0IiqkwbW2JHOUrt7BOm+CWJixV
-	rveWNPQz91tr4WPWXy3aPfBf+nQvqKnd06CA3lTw0LKQYr7Po1IwOoOKHZxJLlBRNoshvnWP2uC
-	8HKQG5oaKwyb3vQsyD6CsoCmBBw67W0pn+0l3cr9K4YCXRykrYn3vL4LLWp78XRZhm4X/1fC0RO
-	YlvOyFxfbwBNC+jWa5go5kZYckIhcEndBcV+U9MHfQEZXC62diKjepLUv2EAqeYga2zhCyquMym
-	YW9cuysDQe3K7TuLuf5Vy3Y3nBgykNFJGtIxscvJSk9QU4NMjkaaY0bxrp7QcGYXi1Rcb06b85U
-	Zefhzg3tkuFbERPQLIfkeZqr12KaXfTLwe30u3tVA8kgCiwIp2hOkwwUaysUW9smybJppaf0f3Q
-	R02nntv6zOc2FEkyigX3Mb9l0kUJPgVP2/Vw0G8+I2KJhgdJlsP8laBngvnJ35kEFIB6BF1bnsw
-	2ct/EOYs8Y1DUkNMHeWNLk4bDnTndemCKaJgSkWlsKnOo3U=
-X-Received: by 2002:a5d:6950:0:b0:48e:3bc4:a367 with SMTP id ffacd0b85a97d-48e6e2fab84mr28602707f8f.33.1793805573103;
-        Wed, 04 Nov 2026 07:19:33 -0800 (PST)
-Received: from lake ([2a02:810d:d09:1b65:4366:70cb:bf82:f8ac])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fec8d8e29sm4639812f8f.19.2026.11.04.07.19.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 07:19:31 -0800 (PST)
-From: Christian Schmidbauer <opensource@grische.xyz>
-To: netdev@vger.kernel.org
-Cc: maxime.chevallier@bootlin.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Christian Schmidbauer <opensource@grische.xyz>,
-	stable@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06FE606A33D
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:27:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B06FE606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=I9KYYC/e
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 2E364240106
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 16:27:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
+	s=1984.8680eb; t=1793806039;
+	bh=SHiodlaN/47Q9sQElac/FcGmKIxlHSOhqHHn7r3qETE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:From;
+	b=I9KYYC/e+KLAWDoaHEhgolVvi1RNgS3YAtdQC1WfLWpWwGGVnGU0c2hYOiR/F3zUh
+	 c6wNGyd1wRwKpM0m9UKXbwbk77qsbe6Y3oeWs4fhQu3r7PkWn1Zt5TvljjXmKT9B3L
+	 E5mMDG6V41ORNoxGI+1NelvQ2ciXpdj4QyU7T/V2Xr1am7iMQl2TjfYNzcXHotOe+v
+	 m3Zi8U7TMlGuSKJvr7G8PATKXSWubrPD0HT9dkgORmbY++ozHnYhpHh++TAOF0Zv4W
+	 SrI/w9jp2u6VV8FUxirkB9wr146WqFAohsjQkPPc+uDhnO/iL3mh16IFb6rzU59hNT
+	 sKeTXVvEIn+ng==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4jKTnw7557z9rxV;
+	Wed,  4 Nov 2026 16:27:16 +0100 (CET)
+From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+To: Ulf Hansson <ulfh@kernel.org>,
+	linux-mmc@vger.kernel.org
+Cc: Mateusz Nowicki <mateusz.nowicki@posteo.net>,
+	Russell King <linux@armlinux.org.uk>,
+	Linus Walleij <linusw@kernel.org>,
+	Yann Gautier <yann.gautier@foss.st.com>,
+	Christophe Kerello <christophe.kerello@foss.st.com>,
 	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
 	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2 3/3] net: stmmac: dwmac1000: stop hardware from dropping checksum-error packets
-Date: Wed,  4 Nov 2026 16:19:13 +0100
-Message-ID: <20261104151914.2651241-4-opensource@grische.xyz>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261104151914.2651241-1-opensource@grische.xyz>
-References: <20261104151914.2651241-1-opensource@grische.xyz>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/5] mmc: mmci: do not count a data CRC error as a complete transfer
+Date: Wed, 04 Nov 2026 15:27:18 +0000
+Message-ID: <20261104152657.14909-2-mateusz.nowicki@posteo.net>
+In-Reply-To: <20261104152657.14909-1-mateusz.nowicki@posteo.net>
+References: <20261104152657.14909-1-mateusz.nowicki@posteo.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,83 +84,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When the checksum offload engine (CoE) is enabled, the dwmac1000 MAC
-silently drops any frame for which the engine detects a checksum error,
-before the driver sees it.
+With datacnt_useless (STM32 variants) success is 0 on a data error and
+a CRC error subtracts one from it. bytes_xfered becomes 0xfffffe00 and
+mmc_blk completes the whole request as successful, although the
+controller stopped at the failing block. Reads return stale data and
+writes are lost without any error.
 
-This breaks VXLAN over IPv6 with zero UDP checksums, which RFC 6935 and
-RFC 6936 allow for tunnels.
+Tested on the STM32MP257F-DK eMMC in HS200 with a forced bad tuning:
+without this change 5 of 14 reads returned zeros, with it all 10 reads
+were correct.
 
-Set DMA_CONTROL_DT so that such frames are delivered instead of dropped,
-as commit fe4042797651 ("net: stmmac: dwmac4: stop hardware from
-dropping checksum-error packets") did for dwmac4. CoE remains enabled,
-so the driver still sees the error status and marks the skb
-CHECKSUM_NONE for the stack to verify.
-
-Set the bit only with enhanced descriptors. The normal descriptor parser
-does not report a checksum-only error to the stack, so cores that use
-it keep dropping such frames in hardware anyway.
-
-Tested on an Aruba AP-325 (ipq806x-gmac-dwmac) with Rx checksum offload
-on.
-
-Link: https://lore.kernel.org/all/20250625132117.1b3264e8@kernel.org/
-Link: https://github.com/freifunk-gluon/gluon/issues/3783
-Fixes: 47dd7a540b8a ("net: add support for STMicroelectronics Ethernet controllers.")
-Cc: <stable@vger.kernel.org> # 6.6.x: ee0aace5f844: net: stmmac: Correctly handle Rx checksum offload errors
-Cc: <stable@vger.kernel.org> # 6.6.x
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Christian Schmidbauer <opensource@grische.xyz>
+Fixes: b79220b3e0af ("mmc: mmci: add variant property to not read datacnt")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 ---
-Depends on patches 1 and 2 of this series.
+ drivers/mmc/host/mmci.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-v2:
-- Set DMA_CONTROL_DT only with enhanced descriptors. The normal
-  descriptor parser does not report a checksum-only error, so cores
-  with normal descriptors and Type 2 CoE keep the hardware drop.
-v1: https://lore.kernel.org/netdev/20261020190319.884375-1-opensource@grische.xyz/
- drivers/net/ethernet/stmicro/stmmac/dwmac1000.h     | 1 +
- drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c | 8 ++++++++
- 2 files changed, 9 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h b/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h
-index 1de1f929d61c..004e6e30a68b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000.h
-@@ -163,6 +163,7 @@ enum rx_tx_priority_ratio {
- 
- /* DMA operation mode defines (start/stop tx/rx are placed in common header)*/
- /* Disable Drop TCP/IP csum error */
-+#define DMA_CONTROL_DT		0x04000000
- #define DMA_CONTROL_RSF		0x02000000	/* Receive Store and Forward */
- #define DMA_CONTROL_DFF		0x01000000	/* Disaable flushing */
- /* Threshold for Activating the FC */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-index 3ac7a7949529..31d5f79ef560 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-@@ -15,6 +15,7 @@
- #include <linux/io.h>
- #include "dwmac1000.h"
- #include "dwmac_dma.h"
-+#include "stmmac.h"
- 
- static void dwmac1000_dma_axi(void __iomem *ioaddr, struct stmmac_axi *axi)
- {
-@@ -129,6 +130,13 @@ static void dwmac1000_dma_operation_mode_rx(struct stmmac_priv *priv,
- {
- 	u32 csr6 = readl(ioaddr + DMA_CHAN_CONTROL(channel));
- 
-+	/* Deliver checksum-error frames only with enhanced
-+	 * descriptors, because the normal descriptor parser does not
-+	 * report a checksum-only error.
-+	 */
-+	if (priv->plat->enh_desc)
-+		csr6 |= DMA_CONTROL_DT;
-+
- 	if (mode == SF_DMA_MODE) {
- 		pr_debug("GMAC: enable RX store and forward mode\n");
- 		csr6 |= DMA_CONTROL_RSF | DMA_CONTROL_DFF;
+diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
+index 416bdb184ed4..10eb0439fc52 100644
+--- a/drivers/mmc/host/mmci.c
++++ b/drivers/mmc/host/mmci.c
+@@ -1422,8 +1422,9 @@ mmci_data_irq(struct mmci_host *host, struct mmc_data *data,
+ 		dev_dbg(mmc_dev(host->mmc), "MCI ERROR IRQ, status 0x%08x at 0x%08x\n",
+ 			status_err, success);
+ 		if (status_err & MCI_DATACRCFAIL) {
+-			/* Last block was not successful */
+-			success -= 1;
++			/* Last block was not successful, nothing counted when DATACNT is useless */
++			if (success)
++				success -= 1;
+ 			data->error = -EILSEQ;
+ 		} else if (status_err & MCI_DATATIMEOUT) {
+ 			data->error = -ETIMEDOUT;
 -- 
-2.54.0
+2.56.0
 
