@@ -1,93 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793817833;
-	b=QKjPq94RrWgd61Dj8feOFIuZVFcFYKGOlDOYCeMrsoIs04A3FbKDZaqfHwABI6D9w2on
-	 9o8SE0nVkMFZpXGqxM7EjL5mih+UbfkcCTH8i9gckGPGf4oxWLWpcLR/Rgc8DWMauOe6a
-	 MknTDsKFc2ubvJO0g7Y044fWDACb3b+brZXySvMB/A+dj4ctgqhDrNsQOeT0QXlFEIvtb
-	 Y6CNuRLmWiFsYDbpzGb4wt2gXqy93c7pmWwe72f6nLF/wfyCUUVF8HeH9a9O+FNCHsvwd
-	 BeFNoqba+DR4HuB10TGw6lGYEUdniAmc0Qbd7TnpVh/IFynQv+s/QIOybvCwODFon2Q==
+	t=1793817838;
+	b=KXi8YlbEC9hQPcvi6X3bqTLkJb2fSl+KMK4XdRWd1AXCcgHQDxWIR1tDiMfahhGRiXBN
+	 FvEr0bKbAqaGp6slBMvnGw6JxxU+4MFYgfQopvSWsXK+y2V5cyQ0Zgs2j3tIznHLPglFz
+	 it8eSOVty9qjs15nRE509BQ2IKu8Qy9go1dM65eKt4cbsTjtiM3BhG/t8Y9MFai/ASNVK
+	 W9+drN/Z8iCuFvoMKt/O0XwFbh1GqegLhXAYC9IdqqeprzQ4QvnR2FVp4Wzs12gGpeaTO
+	 IiQU+eoheVzc3rAWAsj2aQYfDgb1JpaQ2qL0qOYEy+QOnJfLXygwFrX7dQ0StHr3a2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793817833;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793817838;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=aBwQbZTBcE+5vEX+EIhf+kgyy7Q/EWlwgs+L+/bLmaI=;
-	b=ZcAQNlitB4Hc9ygadb09gM/u09xP6EnlCyVTO0Gj6FmHLIimkz+THjvilcyQrDGV1yj5
-	 Zswudsoq09ZWoE7VK5BtF2zbC3utBF0liN/Tukq0CqpP9X5Wa8Re+UZAYYxboHj94JK1v
-	 6Zxp43DdLlXB0lh0UOljWVMNBoS3vqLxywUub1lIFBw0B8DnTTJDOR/xEV7/ycBoJ4yoF
-	 eMUFSHCxoIjyUH2CxD2I2xPInqtq7+/bnXuTMpM+WjN6fLDjJE4xDKOtC7KO+DraiW+4w
-	 briaYVQbRJrRnqNNf27qhlkg4tmsWmh4IOkup0Rhi98tdeNpU+d9uX0iq1KBJV9y2Rw==
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=rzIBNmtnhQAizDMO0mckPBbuZE2/wV82lsxH5xvEbjw=;
+	b=uQ9VPiAU22uB/XYObMN8t0jpuK/Bo2xVDCnDxAX/N3pkAQhXz8GOJCOE8k3x8SGexEZY
+	 Ipgn8wP7RxRhSUy+cUHH+fIfT7SYiCBur/MKD0GS4M2itiK0++JKCKCGbANuK57d5hbBN
+	 b6w7Fsxpg+FkwXSiqRGMui03WMKLwdR2r0XogBmY8GB2vUPTMeCSalrkOw+Xin+PN3pby
+	 yHBCTwofqD9T/gi7mgZvK8cZhjBKFijByTQlp1zi2xyWBAGdj6mTpVDvHDKqFGt1Yyr7x
+	 VEwJncEzOV3B7P6SEeqcztIG0DANCUUh04xcwN1BvJkhwEoXVoK0t9PGxjOD6W4pQ6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=grwOwoSe;
-	arc=none smtp.remote-ip=209.85.160.51
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=R9lb5qma;
+	arc=none smtp.remote-ip=209.85.167.177
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F0A606D82A
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:43:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0F0A606D82A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B7A606D809
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 18:43:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84B7A606D809
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=grwOwoSe
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-48e9476e26aso431186fac.3
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:43:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=R9lb5qma
+Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-51f2e9e6987so1496493b6e.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 10:43:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817832; x=1794422632; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=aBwQbZTBcE+5vEX+EIhf+kgyy7Q/EWlwgs+L+/bLmaI=;
-        b=grwOwoSeWax4QFyLQEopsD8dKZuVl8XNg3dW9DwY0j3ym574n6llGfchwGHvnX7CUV
-         o6LXcWS9GOdNUaTxwLAqatxp1xmfC1GEykuuwMYRTrUB1V8EfsS1uRoNPHjaomRpk1fx
-         YN6rFxfXoQfS17qhsGX6R93bMD5O8IiDsfUagi6rEVblt41uccMkCYXoaKKCrw8g36LZ
-         reaqnmgA9h8b32Y6mKQAhISeK888033o/w8GLiUElkRr6BzCyWQ91m6wo/fpp0LWPmAl
-         YP51S9C1yvqkqjZwulfQZsaKXQXHqUMKESwRgiZQ0WnkWUHPdLu6tvZsBNvgfYaTxAqC
-         aUCw==
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793817836; x=1794422636; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rzIBNmtnhQAizDMO0mckPBbuZE2/wV82lsxH5xvEbjw=;
+        b=R9lb5qmauQQBtZAMFbx/a76627NxV/+CPELBBWU9Qziyf4YzXZ1tBWio6yMcR0F4BS
+         ANTNvznSPceWfFwtwLdmujhenEWhMgz3Hu9LKII3CzetR8P2Y1U2h39Dqq6XE9Rdr0ya
+         lgC0LH6lgt/v/qTk1SQbFNoXkuJnNYvar/4iTAYaXuaLlEWCHOkJQAq07vGifJZQCupz
+         skGMNhRaIeQ6xPB1DD/YszWZvmdtaHgVBKZI39ui8yniXIH/qYNJlnjjFqxiJ7rLcZ+P
+         /7cVcvWVTUC8UfhEuYCUHtYaY5LyLZ7Cmo0lN5o/xiESAZg/IolUc8y/K9RJL9ue7kNL
+         ziXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793817832; x=1794422632;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=aBwQbZTBcE+5vEX+EIhf+kgyy7Q/EWlwgs+L+/bLmaI=;
-        b=htsFDf/pU4P/WLI2nmktyiHDoWBpJf8EniwBKNW4+hnU+anwDW2ksgOUym4rJHX1vX
-         cEdjSLwZTT9VcV9IVk04jFlv8Vf3gAqFzXm8z0HXUA00CpsNHDU1IUWXAhpfBeLqQLbj
-         XQ3fCU/6IiguHqX33W4wB3M8rJS09WcL+fGJJ7S+5dLNMK6loTvONtnG8V8uhquq5O2y
-         rIPCQnJBIptXK3POYiI1avUBHmVdCfAtFEtlRki7nbmnZRW1BrdmaN2lKEvj+vjvFxbJ
-         psmk/4JZC0QgYYaeRM6lK3ms3M0MalXsY3G2utMW9pdOY3ZVtxVRAaoPvZN4tzjIp0Sl
-         4Fng==
-X-Gm-Message-State: APuU4Z+gXMEGj3ksCMXZyPkEx1KtGaae66tW/59UulswaXEjHbVp/oBV
-	ISqKXB2bFpB1MZSQOGiF+Js/6K7CFQ9BViKvIgBUs1jJ8Tt0M0p+HtRCPH60LIgqV+1t8aBAoWx
-	pHRT2KMY=
-X-Gm-Gg: AYBFou3T5ntlwqrRlR44VItvbYAFG4oQmt3bZGf7Nh0gZARnH12RWIeIsDFlpnHNESH
-	9V9NRVfACA1sXKT+tdA0Ew7Rs7eQeq12oQ94BfY+MwTmRDrD1fmGYXzol6aX8wBf1wuWzGv64ge
-	8U1cytUWexOCdjcNRLxIQlpl0eK8eXCFN9VLT4Tv4UDpU9P3UGEASkhUGd2d/8aaGiSGfE4jcr1
-	7ahEFeZoQr3c4kC+qjy2XSVkgv9SLjzXFTMsHLhJqQq7Puo1/bGS2kirAJFEHKxDxZ9NImAdKAh
-	AeiPSzHyGGMu/pT30+OZ9M9+itRI1/uN7lt6eXR7OOrjWeC2mHKAr6P41LM+ujQYSYecOtk3ORE
-	Fg1KIe/NXtjU1Z81lc6K9grhlLVskQ0nauzuoPtZIsUAxYS3d0OYYe0Scyjsy4xoi5gSGh3vGXZ
-	RjuGflxBFl9uM0mNYl4az0TowpAnPA4bJ1DU4NZkz4xceMbKtYRt5INqSljy/WBdewWVfKYemOm
-	CX7cNw9S866yusWgWD2DSqSV9zjt3XZBcscMTvypLcAsZl700WL36dEtBhE++NqrGoyB3xs+wbr
-	n2BgOwKSfnPzSnDmZXoofLWVyvArZxdkhxNBcvRiJog09PYDfwyRV2Ro0QjIG1s5lc1MOIIZFQ=
+        d=1e100.net; s=20260707; t=1793817836; x=1794422636;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rzIBNmtnhQAizDMO0mckPBbuZE2/wV82lsxH5xvEbjw=;
+        b=B0cjDjzRhVeDGVpxTqFbbFfuzcozvxrEEjXgaZvztINGM/kDkPBCQAYQtkhsP1X32y
+         u73vjwbGMfTR7VOhrGrUQP142xNnhMmEmAorCGKjV3m+UZLr1/wXwRB8oEUw9LNyUh+P
+         Lg0vRaWaIvvHBCp0kMyhKWBvbkYEiDl6DsEv2GbSP28CJLY7ob3zKB70XO1R3dAiOxso
+         shYYCAPoj4zrrLR1jRCbQRi6XhMmMpXYTTQAL/BHy0uoGS8szs3mdkQ2jzv0LnNE2LL1
+         YotW6qhIh4HO7rG0vQqXMQnsX8bb4HN4lVBPjXNG0FVmbvMr3HSNsoFosokRIw9wODMw
+         WEeQ==
+X-Gm-Message-State: APuU4Z+RMRGVBEgEcpA/AYszPoF4+0u/FTOl9gNX5JaE+rNmDXyfWtEl
+	doeBi92rbxZ9YpNt3WVY066KJ8MZe4WwQlIYoZn2fAroB0U/Vn5T+VtuzJfR6OAzXawWiac7e9F
+	Mqr/gOyE=
+X-Gm-Gg: AYBFou3A0K2u3F5TxW66J3ajQ96iuafxBR5VHSZHqWbc1td3x0ac3HltwIjLrR8aqx9
+	1mfLDZ+qXJB0yV901/fPVJyVLpS1Rl7NjT2GWzVGr0ExEBhdb5VxRx0GhdGjZ9xJO9GlZRjp+bv
+	TF/lB6/a2GRON9mMnIvcwf5KQqrYqCgdXiyR7o1S9vAAJ8/WovoQbveFXMdcamTzdRXEDrEJQvz
+	xRYIEG1FHm8V7uKoVzWyHjkFuBzZK1cSHER4Q/pdK+/Qadk4YRqqqTUQQup3CV+nBYIszoaPZct
+	GdVyVV9TQx57PhAGFA+qyba0eeHTTRKQGnbgxi7YGBGUy8q2qXLjv2LxVHwqYzyCaMmvybITd+j
+	u4Vt7r8QQJK3jqUY+OFpKiJ/Fy+pBw00tOXsXALHWwsAPO3M7MAzS5e8+wiMfFX2ZjOEnOhWJ2J
+	J9saE12R0ut5TOaEq0fovubQgROguN41+J81t+km+tbqJbt8S15xv8qVZQOOrMTAKU9nKhl97u+
+	clylWOyitXpJKWmpL2B5ZrEXMlB0pLCVcqOEauiX5dH/bu2nkOOZTY99mqLWiPN0cjxTibslNY7
+	xY3A9U+RuiEpMPpf2l0NdVOj3K/k8nonB+ucc2pJlErZvTqlkQQR5kByhTosEq+Ey9BlDbuEJg=
 	=
-X-Received: by 2002:a05:6870:21ca:b0:4a6:9798:7733 with SMTP id 586e51a60fabf-4a90772706cmr10789294fac.48.1793817831782;
-        Wed, 04 Nov 2026 10:43:51 -0800 (PST)
+X-Received: by 2002:a05:6808:2391:b0:567:baa0:39a3 with SMTP id 5614622812f47-567be4360damr237078b6e.32.1793817836415;
+        Wed, 04 Nov 2026 10:43:56 -0800 (PST)
 Received: from xps16 ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea61d382sm2595770fac.13.2026.11.04.10.43.51
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9fdfa53sm2199007b6e.15.2026.11.04.10.43.54
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:43:51 -0800 (PST)
+        Wed, 04 Nov 2026 10:43:55 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.6.y 8/8] io_uring/timeout: count cancelled timeouts in cq_timeouts
-Date: Wed,  4 Nov 2026 11:43:41 -0700
-Message-ID: <20261104184341.516297-9-axboe@kernel.dk>
+Subject: [PATCH 6.12.y 0/9] io_uring fixes for 6.12-stable
+Date: Wed,  4 Nov 2026 11:43:44 -0700
+Message-ID: <20261104184353.516403-1-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261104184341.516297-1-axboe@kernel.dk>
-References: <20261104184341.516297-1-axboe@kernel.dk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,59 +95,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Cheng Yongkang <teel4res@gmail.com>
+Hi Greg,
 
-Commit 1c8b49851543f41fc8bb18bcd1f15cc93d14b530 upstream.
+Here are io_uring fixes for 6.12-stable.
 
-io_timeout_cancel() posts the cancelled timeout's -ECANCELED CQE without
-advancing ctx->cq_timeouts.  io_timeout_fn() and io_kill_timeout()
-advance it for every timeout CQE they post, and io_flush_timeouts()
-computes the number of non-timeout completions as
+They apply on top of v6.12.115 with the current queue-6.12 applied
+(stable-queue 6575ff04f2fd). They don't depend on anything in the queue,
+and apply to v6.12.115 alone as well.
 
-    seq = cached_cq_tail - cq_timeouts
+"io_uring/io-wq: save worker type before dropping its reference" is
+already in queue-6.12, so it's not included here.
 
-to compare against each off timeout's target_seq.  The cancelled
-timeout's CQE is therefore counted as a regular completion, so every
-cancellation makes an already armed off timeout fire one completion
-early.
+Patches 5, 6, 7 and 9 needed changes to apply to 6.12, the [axboe: ...]
+note in each says what was changed.
 
-A ring with a keep-alive timeout of off=4 completes it after two NOPs
-when one off=100 victim is cancelled through IORING_OP_ASYNC_CANCEL, and
-before any NOP when two victims are cancelled.  The cancel CQE should
-count, but the cancelled timeouts' -ECANCELED CQEs must not: the
-expected counts are three and two NOPs respectively.
+Cheng Yongkang (1):
+  io_uring/timeout: count cancelled timeouts in cq_timeouts
 
-Advance cq_timeouts when io_timeout_extract() succeeds, under
-timeout_lock and before the -ECANCELED completion is queued, matching
-io_timeout_fn() and io_kill_timeout().  The -ENOENT and -EALREADY paths
-post no new timeout CQE and keep their accounting.  Both the
-ASYNC_CANCEL and the TIMEOUT_REMOVE path go through io_timeout_cancel().
+Chris Mason (4):
+  io_uring/rsrc: charge buffer arrays and nodes to memcg
+  io_uring: charge tctx nodes and personalities
+  io_uring: free XArray nodes left by a failed store
+  io_uring/sqpoll: don't wait for the thread to exit
 
-Fixes: bfe68a221905 ("io_uring: off timeouts based only on completions")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
-Link: https://patch.msgid.link/179328314078.648427.13761781546953594668@gmail.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[axboe: 6.6 uses a regular spinlock for ->timeout_lock]
----
- io_uring/timeout.c | 3 +++
- 1 file changed, 3 insertions(+)
+Daan De Meyer (1):
+  io_uring/net: don't retry a non-blocking connect() that fails with
+    -EAGAIN
 
-diff --git a/io_uring/timeout.c b/io_uring/timeout.c
-index 71f28e92affd..df9ef01ebf19 100644
---- a/io_uring/timeout.c
-+++ b/io_uring/timeout.c
-@@ -306,6 +306,9 @@ int io_timeout_cancel(struct io_ring_ctx *ctx, struct io_cancel_data *cd)
- 
- 	spin_lock_irq(&ctx->timeout_lock);
- 	req = io_timeout_extract(ctx, cd);
-+	if (!IS_ERR(req))
-+		atomic_set(&ctx->cq_timeouts,
-+			   atomic_read(&ctx->cq_timeouts) + 1);
- 	spin_unlock_irq(&ctx->timeout_lock);
- 
- 	if (IS_ERR(req))
+Josef Bacik (1):
+  io_uring/io-wq: no new workers once the exit has begun
+
+Yichong Chen (2):
+  io_uring/kbuf: advance head when a pickup empties the buffer ring
+  io_uring/net: keep recvmsg buffer select length within MAX_RW_COUNT
+
+ io_uring/io-wq.c    |  6 ++++++
+ io_uring/io_uring.c |  3 ++-
+ io_uring/kbuf.c     |  4 +++-
+ io_uring/net.c      | 12 ++++++++++++
+ io_uring/rsrc.c     |  4 ++--
+ io_uring/sqpoll.c   | 28 +++++++++++++++++++++++-----
+ io_uring/sqpoll.h   |  3 ++-
+ io_uring/tctx.c     |  6 ++++--
+ io_uring/timeout.c  |  3 +++
+ 9 files changed, 57 insertions(+), 12 deletions(-)
+
 -- 
 2.56.0
 
