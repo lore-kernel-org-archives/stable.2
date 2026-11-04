@@ -1,122 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.148.77
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793807032;
-	b=M4Noa4AlxDyKzBTceQqaM81JFlVfYxsUQBc7aIYn0GnhqGqh3xC0uBS8b/i6ghfp0I3o
-	 6SoLHc5gufhIUWtcPT30V5mOrWaoMXk/GCgqkNnjVe4f+FTsVuExQVx/8QCk3pHJPevsk
-	 ER/JKgjeRjca8QycZ8uIHBU+lqhV0jqZ7QpC6MqflH1HtOsu/AiWyzX5a6MMAvGPSePoe
-	 zBK84Hy8X24hVSbwVlxi89FIFUkGFrxhnruSTsCukoOx6faXoGQJNLxH+oaHd5Wtmhvey
-	 ui96dA7YJL1RZCfGc3K5F92KSr20t2W0nEJ0M4DjAGbaETFnLaHTCphWTk0fPr3d3aA==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793807208;
+	b=2hjyqXrZ/Uc13fn7gcapsSnM49ulaA+qyBYmiXF7Pnu1Os0lef0BN8Ooyi7HIug06VxJ
+	 5lHyBPQ4f0hqFbA6wckwPJJ9KyqawIMhYnOLXxrh+kIK22FdvOJa4EZ+rxLsrXM+iv7J1
+	 m97wB547xtSEGy+8KqK8PZYqX5b9KXcYGnaeNzEzkOAX85sEjpEacjVz242lhYdPDsyoQ
+	 jhQjqxI3OSkkrzVJ1AuPB/6JxKcc4uvKygFVwcOqVGYc0zPWSI/YT3789k4DyIUjVRRd3
+	 708ub6qVXj8mSFCry+hSl+2M/ERm2UNq8iXxqQEbXbfQUWWVNoqN4TJiSYEKVGMJh5w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793807032;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=UZrB/X8fytlaHPkClRgCuTJNsvMfYV/hLg3NLdrS2hs=;
-	b=sSoB4Xb1sTzkUfxX/jR02o5e0lOTwRPreAQswdojfQkcQPC+QAgaQsV6pTq3OnTipflV
-	 r5L0wC0wPakK4I1bo+kyq95K2cHiAXjrGmLiQtsdHwH3Rc6mTaPancVsK0QNU15TwTtVs
-	 TYm/cRfnda8RlfMNPQ8r79nxB8FhKJjHMXxZyChfOL0jBaPXxsgG0XdG//FLeje4Qd8QK
-	 2iWezP3n78IYSJyO2d/9CY47H3DAB+ewbRrYo+UAluQQErkyYPjs7qhCqqw+pI4F+g5AP
-	 y9ZQCM7pC/rYqU7ygghRS7cHiYoJf2B88mqGzWoLXkl11x/eZCGgdiMOtSIsBmg7nfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793807208;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=ZJ2/rVNtURlV7ldn17YCCZdp3As7pNSpHGRrsfh6lx4=;
+	b=oTPCOj72VXXnO3srUqTL+2LyNWy2OtPeSics5duJ7KFDVPN/hLxn5xeC2GW8ryek4rEz
+	 1HawfiUSD+eTVyoI1LVYsImOdaBUhaAutXSsYyRE+p2H4T++pAW/3D+M+uforAeSVUQuP
+	 Xy7Tz+HLT+AtocfbUYfN1MwFeQeJVYFbh+V7nyLYF1rOPHL9qRKZJJEl6hg//LnwrRgCL
+	 yVn8MRNsn+G31cYTfImSeDajIyzpFFAEGU+oX/UlvTikiZMwIUvNBt9KUVVpJO/hdLGZd
+	 QXwOSXiyfbf9E8VMgDHoTjwwElUvx5eokCQoYQskix5USfIsNEuB/WKT5ecLbrLJ56g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crowdstrike.com;
-	spf=pass smtp.mailfrom=crowdstrike.com;
-	dkim=pass header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=default header.b=fLSljIxA;
-	dkim=pass header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=google header.b=cY3nvhTJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.148.77
-Received: from mx0a-00206402.pphosted.com (mx0a-00206402.pphosted.com [148.163.148.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="b/5rD0qp";
+	arc=fail smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71533606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:43:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71533606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB046606A326;
+	Wed,  4 Nov 2026 15:46:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB046606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=default header.b=fLSljIxA;
-	dkim=pass (2048-bit key, unprotected) header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=google header.b=cY3nvhTJ
-Received: from pps.filterd (m0354652.ppops.net [127.0.0.1])
-	by mx0a-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4F7V3G138928
-	for <stable@vger.kernel.org>; Wed, 4 Nov 2026 15:43:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	default; bh=UZrB/X8fytlaHPkClRgCuTJNsvMfYV/hLg3NLdrS2hs=; b=fLSl
-	jIxAkl14wVTyWaozGslLqf6KXVAVCJyAgl8Kj/70qw6x0oWyXAhR/XDJBS/P/pOb
-	xmldL2ExI6JxG0OH66b2xO4Pzv8D05Dd4cw+v9buCwLYl0pK7Ve804X4nBW/xeIW
-	QSmHzokQEY0ZMChRllV3ay7CfbDcRq07PxYbi5QNzu326uZ+ma5Q1tcD9wmCYRT6
-	kp4DMyioiURlEvOljAMOkaaOOgxc8VrMMhpprJhPmxB/+WOA1T9RtEVV1tu2ArXk
-	YgcwAnGFtPR1dSudyVHZ1P8/lI8iTdvgWl6mVrVvMzWv5Zkl4cvzWYJCypZOcHH4
-	0hV8p7S6cYbxEcReQg==
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
-	by mx0a-00206402.pphosted.com (PPS) with ESMTPS id 4hqths2hhc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Wed, 04 Nov 2026 15:43:50 +0000 (GMT)
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8b0bf2140b7so13425007b3.3
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 07:43:50 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793807029; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nRv37WtzFVJCQz5YS2ZJYG855ZwWY3noOSDEh3pO52LhMt22eM1778OwQAtkEf08U4
-         6yc7huHdWSFqjf7T15N8lN3Lh7X5wk+wb9BcqAvxJ8O5F669hDBd9/UCFR4F3Krq++L9
-         0QU5YjCPlamPzDIoMCpf6S4pr9T7xhzkE1vDVSrGSnR1xcvco0a0gum+m3cbvjxJdQrW
-         HfQn8TlQ6PSweFIsR/sn4HcXJyjr9AFq0AwlNJhl/9d06yz9D7r/bUUesf425AZrNTlp
-         k6a1OUjbCrma90dt57jWWLYDaREGc/TKxozWc+63fWCjvQ8Kn2ft/WNuoThJ9hgGkm43
-         PNnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UZrB/X8fytlaHPkClRgCuTJNsvMfYV/hLg3NLdrS2hs=;
-        fh=Aiufc48Pg5t40AHsnNOj32gTvKej6yNOe0jh6uJeZfU=;
-        b=NMUHlK6BdXJ+NMTpo2jF4cEaH2uo8e26N0m75i2MJgMFucpSvHRrjdeyzhy4n72MJ8
-         arA9TrBFIG5WWvzi7UE/BrU/zt4YvxqtOBCpG2dpb2Lan5o5BI516ErjQBTLYtpsiibx
-         cUoat6ZUN5VlVigT8iCccmCUTFzeS09Ea9Pt9DNxksrrbmAapec7F3LLbpa4yFZ273WJ
-         Eo+4sBICWvK37qr/IhYI0GxIC9280E+OmBHZ0XdXlGIq2EZ12lNQyqsLH0kVnOHRMCJn
-         HtXR6gVkXfgC4jfdClWaF6G7ug49uRA3RkOyiQjdYuIwZMPNERsabGjdBXIwTqsqx8+0
-         zPmw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crowdstrike.com; s=google; t=1793807029; x=1794411829; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UZrB/X8fytlaHPkClRgCuTJNsvMfYV/hLg3NLdrS2hs=;
-        b=cY3nvhTJ5nHJQektWLH8s8XzAcuB/DfAO42jwao+O6nXqWNv9lkU0EtHP9K+b3we76
-         7/hiTadJ/z/1gdXHGUQugHrAm3ck1RMZd2wfuViKl2kJMScfyyB/76lVpUxP5ecS9BJQ
-         NZ+LKO9mxQnaBhcdYk+kJk7Hp2nXMIKKcjQRhzn+ZR+iITPHCe9itgXobCLeo+KIm9Wq
-         5MgM0srDZh9DNB0SE0mU+UL9NoEc8cAEll7vLZuA0xhItrfeLyiKlnQ/OVcXxg078dhp
-         3AVSZCpg6io7JTJs1AT9ydo5O0YsZxFV8LOt/4HKCex2XtXIkHfyEhcgUAPfYqEQEwSv
-         Z90Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793807029; x=1794411829;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UZrB/X8fytlaHPkClRgCuTJNsvMfYV/hLg3NLdrS2hs=;
-        b=Vcsk9kpP8cS6rYIQXluKNZS1Yh7tYI9ZXs8qKQqWqrKipuOTz6vf7rRbh7tNeDW2vH
-         esg71AFX8sQNXPhD3b3eMAKIhPzn1eyJTYNStF3joWfSYJIFNFdbYDifW30Lj9HxC7Zr
-         hAVUiLttb0VDB/p6lcpZKneDfXjjdNZjZBKLaNkgMdRa3ruWnZGO3HVwpAKXNrOMEwqA
-         T9E39ugK/LsV7J1WBkkaZrDWy27PC2/rKhy26FS+knzUiw0whM1+gmdHdQU8IRrQenXJ
-         MGZGBq5QXlAJRipNJ7jCqmup97bpkx5BdeNWfvTecOsW07LHZel2WU2kjEtu9pcnqBRU
-         MCPQ==
-X-Gm-Message-State: APuU4Z/pwGvb0fMDms03Q1e29sNqpa/wO8PnUA1UuAiWj8tbvkpFSC8Z
-	zoGaaH1nD94UZjlXyA08zcqfRfmXT7IGM7hLk38Up6k0ne5Vw0fPGSsqWR8CBWAN9083UnJ0Dq+
-	BHSaM/l5W+CJx43rODFRK1ml3GCEyJTlR2fRbI4KfXwDwvvUoOc8LCklvUrGjNgBe9xeaGFil3u
-	0Yb8tauyjzbDwBLy03NjQHCN3ILGBtqG8k
-X-Gm-Gg: AYBFou2+42nfO5T1Yq77qMfBElulQrjGcw1w50LufMFCbts3piaAFeIBoQS4Qh3QGMp
-	/nYK8ClwXRM1Lm98XLj0fYTgaxajwgGd1EvN3z+8puk2pStjGeIU9p4ev8c+3L2VytlI8BxUIfi
-	WtZKte00XnrS0AnxJX3LoBnAMucLekS9lDge2Lg7OtMqOqJDvPRFC+xU4iFg==
-X-Received: by 2002:a05:690e:144d:b0:67b:f249:5820 with SMTP id 956f58d0204a3-67bf259a5dfmr1510267d50.41.1793807029577;
-        Wed, 04 Nov 2026 07:43:49 -0800 (PST)
-X-Received: by 2002:a05:690e:144d:b0:67b:f249:5820 with SMTP id
- 956f58d0204a3-67bf259a5dfmr1510259d50.41.1793807029056; Wed, 04 Nov 2026
- 07:43:49 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b/5rD0qp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793807207; x=1825343207;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=tFvVod+OeE37fMp+WTbQgNpCsb8E5m7TN/J9+gjJepk=;
+  b=b/5rD0qpiygq8uMF7+6RanpZRnqQVeeEiqrhtc2lu7CKSofvLuwt0m0d
+   7U0PN3tv/9S+r/xSNNUTQK/0YI/Ffo6Imp0INHzQG/x0K+Km8F15T8l+/
+   jL7vzvqdrK121xh1KJNw5fg/Y+T/EiXXl5ONSX2sH+GIUVRP+nDaE5xYu
+   MxpPVGFPFsrqbFej7ZaxPxNfZGn4LWSUjBYigdP0pbY8hPg8lsmEyC2lr
+   iIm2lt19tGv/h/cw/Djo+yC9CtS/oU/NEbECKtgNzM5iKc1lXbNsELge8
+   5ylZDeYuk593XzG7gwcWEiwWI2/LIWplvLszv5omE/fOtdNGQiFqUspQQ
+   g==;
+X-CSE-ConnectionGUID: /erzkgi1Qqa4+hsf8BUYKQ==
+X-CSE-MsgGUID: S0BrUTlhQ4imKL+fYhlZ1g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2562657"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2562657"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 07:46:46 -0800
+X-CSE-ConnectionGUID: JMcADKXoS2+SmVBNUxy8Dw==
+X-CSE-MsgGUID: AE3geQuaRt+Ubd9HAFxSZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="6851483"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 07:46:45 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 07:46:42 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 4 Nov 2026 07:46:42 -0800
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.51) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 4 Nov 2026 07:46:41 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oOBmQe6AtXFnSO6t9e3z7LmLaPAMrfWsA4aQ3DMGid1kSchf2jHnCvY9DSXh1Y0Z4lVRj5uDakzgQnKCDx4nM3yLkorB8n+W/pKjN6joJ+jrRXSF2U8MLB8fk7kAzA8JE/9aWkqHOXCF9Wwm13lidT3MAP8/FD7duy+x27BW0LVV6REb1ylEx+vxP9YY29ASPS6KbalgKIShWp1z55sosN3IWuZ1SSYDNbRsRmSGGd+jFU7SSdcokXNDox3Jo7wuTf2AaFHmwGGCcYPcmrtdAdDWcd/EcTqXmcR/nfYUs/Fm5/zbrpTuuFUB1X1YefV1vJbTd/CceRKst8eKaLWIxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZJ2/rVNtURlV7ldn17YCCZdp3As7pNSpHGRrsfh6lx4=;
+ b=HgCuZKAmrqAP7yQS6EvWgK8d9ou7EhjOmWACt5h96K6a5FyxFNg1QCQ3vvfIt2wdNfSj4Le0bJPi6+fONW4bizkB8eqSLrSQA4zYZaEG0fxkrlE/SKrkpKi4YCmA3QFmsydxHm7N4rYekUY9usm37YHrAri/qo+uaFXiix1lzid8KVwzRRVt1LwEZxn7lkJNMlkF/Xja4FWphuf8rWIfFru3ls7VEiro7aGsMYPXMHEyKbL7aCtHSsgtk69BSbFwtxBEzkS1kXWZV/twUrFTCqQX51E9sSZxPVj8hBUnp+csc0GvMMtAkwUQorXU9H6Y2BZR3XgInjMMk61oCIn0Hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from LV2PR11MB868673.namprd11.prod.outlook.com
+ (2603:10b6:408:422::13) by MW4PR11MB6619.namprd11.prod.outlook.com
+ (2603:10b6:303:1eb::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Wed, 4 Nov 2026
+ 15:46:36 +0000
+Received: from LV2PR11MB868673.namprd11.prod.outlook.com
+ ([fe80::5bfd:6afe:a9db:b7de]) by LV2PR11MB868673.namprd11.prod.outlook.com
+ ([fe80::5bfd:6afe:a9db:b7de%4]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 15:46:35 +0000
+Date: Wed, 4 Nov 2026 16:46:23 +0100
+From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+To: Amaan Cheval <amaan.cheval@gmail.com>
+CC: <netdev@vger.kernel.org>, <joshwash@google.com>, <hramamurthy@google.com>,
+	<andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@kernel.org>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <bcf@google.com>,
+	<jordanrhee@google.com>, <przemyslaw.kitszel@intel.com>,
+	<pkaligineedi@google.com>, <maolson@google.com>, <csully@google.com>,
+	<willemb@google.com>, <yangchun@google.com>, <npl@google.com>,
+	<awogbemila@google.com>, <shailend@google.com>, <nktgrg@google.com>,
+	<maxyuan@google.com>, <bpf@vger.kernel.org>, <john.fastabend@gmail.com>,
+	<hawk@kernel.org>, <sdf@fomichev.me>, <daniel@iogearbox.net>,
+	<ast@kernel.org>, <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH net v3] gve: leave refcount headroom in the RX page bias
+Message-ID: <autTTxuRQFF00PCy@boxer>
+References: <20261103090651.35399-1-amaan.cheval@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261103090651.35399-1-amaan.cheval@gmail.com>
+X-ClientProxiedBy: TL2P290CA0021.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:3::15) To LV2PR11MB868673.namprd11.prod.outlook.com
+ (2603:10b6:408:422::13)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,72 +139,248 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAOu3gNgTSWE84fgdc1iUNKwes7E6u_X6b8pjZKBULEJWB=RAqQ@mail.gmail.com>
- <20260820182015.4272b7a4@fedora> <CAOu3gNgv91dq8jLShteRWphrSgNWQ1o1dkNxRr577ez7pMuv6g@mail.gmail.com>
- <20261104083903.0d7cdb06@gandalf.local.home>
-In-Reply-To: <20261104083903.0d7cdb06@gandalf.local.home>
-From: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
-Date: Wed, 4 Nov 2026 10:43:37 -0500
-X-Gm-Features: AclHuK-GzGaSMqWmXOhCGZrUgluo223XGW2okEANRweuImUmkPWzhv2fiSeOqs8
-Message-ID: <CAOu3gNiggAdifeAUpycoO-zGKb0k2-nZqWrtDXMXm_HXT8L1Vw@mail.gmail.com>
-Subject: Re: [STABLE REQUEST] ftrace: deprecate the ftrace_enabled disable switch
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: stable@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
-        sashal@kernel.org,
-        DL Linux Open Source Team <linux-open-source@crowdstrike.com>,
-        Jiri Olsa <olsajiri@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2MiBTYWx0ZWRfXyDcF5Km83kwq
- hpTnJwDP7N5nXT7PTyEi/zwxIiPSl95q2QnxhiU3HNUFgsQD4tOJb669ZOwPcxslAi1L2pO06Wz
- GrPjWmZZUFofGl22+FZ8Fm+QBh9DSuAaBDs7M7iFgwgcUnD/9VRB
-X-Proofpoint-GUID: 9urCiQXYEeaNHAK4kgX8epmn1sIdJ2a8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2MiBTYWx0ZWRfXwQdsXcoGd8kH
- Emnqgu9/jCn/mcwXq7pkI2qSe6YjVBLWw6QPybsAnrNwlOMgDmzhNjEIbJILwlPbNvPHQvGGlkI
- 7Cpr0emogD5snDYna0fg5Uhsl4JUqx9DnKHka1aRrgzk9TO/mmvZbXHh2Wfvgg9+U2CDmlmXtXG
- vS4cYmOglFF3OJYxiQHOx9gEB/iTENW6EpDr9a7ifZ5uOQE4zwsLpkNHpOzlbfNqBEE4HYmICSx
- ngvzjKb7+XEMBfKQtxppLfgJpvcrGFnQU440ki/wf37bRPGnomkXqywVT8MZuB61Hg+dh9IafQ2
- /WCKFmlY9hX1VnCn4GI031eL2y7B2eSRMHpY0H95gwKQsp6RJMYXkdFXX95xi7IdygLpXZhVRqe
- aE3eBl86xn5pYfPgzeUHIjtDJCk+ld2YwSZrl4Ek20gksN+2L/WswxhZSMskA+FY+X2If/TOz1l
- gA7/uFfFj0gDHsxqBLA==
-X-Authority-Analysis: v=2.4 cv=CIC/zhrD c=1 sm=1 tr=0 ts=6aeb52b6 cx=c_pps
- a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=KZhmPCYDdY0A:10 a=VkNPw1HP01LnGYTKEx00:22 a=T2KQ53IYiC3MXPrxx8bB:22
- a=2KvRFfd_T_-xjmS8C1aD:22 a=VwQbUJbxAAAA:8 a=meVymXHHAAAA:8 a=pl6vuDidAAAA:8
- a=BsxYfD___z3CQAnts2gA:9 a=QEXdDO2ut3YA:10 a=kLokIza1BN8a-hAJ3hfR:22
- a=2JgSa4NbpEOStq-L5dxp:22
-X-Proofpoint-ORIG-GUID: 9urCiQXYEeaNHAK4kgX8epmn1sIdJ2a8
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11956
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0 adultscore=0
- bulkscore=0 clxscore=1011 impostorscore=0 suspectscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611040062
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV2PR11MB868673:EE_|MW4PR11MB6619:EE_
+X-MS-Office365-Filtering-Correlation-Id: 876e6556-cc83-4b37-d42a-08df3a8aceac
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|6133799003|10067099003|22082099003|18002099003|261022105027099003|56012099006|261021133027099003|11063799006|5023799004|261022113327099003|261021130227099003|261021121427099003|261021135927099003|261028144727099003|261102123227099003|261022115727099003|261026121527099003|261026130827099003|261026135527099003|261026140227099003|261021123027099003|261009223027099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info: fTGTytTVtkUdrQ8TvOeGN3tIuQOjMjpmH/iHNkOpFpt5dsmbhbyc6xeo4L8otvR1c+yO1KgmbdGV1DE4MO4LxXHAhbPMyp1RrHNwXZzvOVzqrpdHj8j9f7ljaYp8UaBkJhzC0NA4MjsIgvfL3Pu+de3uOFIVfq0nXzTgwGNr6CEmyQ1otTyo/+UM6GSmMcIMTtRD5aSUhEFyCwfObucyz6ZfX+ib14+vWiqFKroZv86ekFlAna0wfjNqfl3S+SX15bbLP5PnK1LlpydDc4zLosRkXKfJRN2Q8wc2mE7e9Puhnzi7pTfN8jdSora5sr2M8VCNrn7F8+RRQeUoaPoTfOEHSznp+wJTST3enFmt64Ae6DdH+IoAjado2yzUCmrGShtK3Bal+TGnjEi7rUOhrmX2hCvKPMXua8ag5C0hfzPvJY2x70vgGhHbesJru6muoGshQgkpX0ujE+iNDpNxcqH3zSuyWlwmRz7Ql2LnaoQNyQL36zO9+gCxlDRTEDnOCGfNU39fvrb6t6PruCAgmQ6cHnLIRV3kSvzYAA3r0sWzzJKU1CDzhkNx/2reMF+9ODT6lJfGInzMMiM3B4V7wXgfigekvGkbzrpT5OcxJXqeDA+YEhNk00UuKMTAcWOC
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV2PR11MB868673.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(6133799003)(10067099003)(22082099003)(18002099003)(261022105027099003)(56012099006)(261021133027099003)(11063799006)(5023799004)(261022113327099003)(261021130227099003)(261021121427099003)(261021135927099003)(261028144727099003)(261102123227099003)(261022115727099003)(261026121527099003)(261026130827099003)(261026135527099003)(261026140227099003)(261021123027099003)(261009223027099003)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?73EHhllHN0OPTbvno0iLZP1sM6mi2R03QrBvkoHY7YqEK064Z05T3AnQ+CKR?=
+ =?us-ascii?Q?l9idbRxPQQk2XQDMvNwLE8adYzBt1DgW8uB/PY6J6/uUgTy5founJcDC6CwQ?=
+ =?us-ascii?Q?v6+lgifYblBEck5wlN1IMtIx2tGN1DpJaBrvDVokKmSI+Oyg82gBAnu5+RT5?=
+ =?us-ascii?Q?czqZ5lirkbM6DZods2YP/5eMLgy9lCh1pSmfB9Vi3MR84BtTBygZfREc63sb?=
+ =?us-ascii?Q?ShjS3ZR4BPpxd6BpxfnuacLHqGHT9/up8vGqO6ZK9xCPjSzDPC8hkTw0YV32?=
+ =?us-ascii?Q?4sBuGxKpYLeISPTmrrYAwUTek0b2dfMmS8stU/dctZG16rD+9l0cB2ZZlZcr?=
+ =?us-ascii?Q?4mSr091ThiANBhF6sMw9XDzzSHyc/BfnPPLecFuNsxJt9p1UqBA+4m0C4Xpe?=
+ =?us-ascii?Q?47bLLHm42U+hKxC65ujZeyUWw5QR0UyF08ei6GBEWeMn8U9BEZLwoa6tnNgu?=
+ =?us-ascii?Q?bF+5uRXnqz6jtJmiKEALMHPOVehNG/wBWw0jdDYFRmc2xZClm+5fdVJhAAYP?=
+ =?us-ascii?Q?jIN5l/Gs1m7rrvYswT4FfPojH4GR78suE7trbv3fb2AXBfTi8BLcWGEICP5W?=
+ =?us-ascii?Q?J6lhPxfyDUA+uEESBQKiTACFnAmY+r3QlX2zEj7akgCkHruZoqBh/jVMh49K?=
+ =?us-ascii?Q?oeeJGmHF4+BW6oI8HlaHvuV6r3cN8iu/8cjli/0ylanApc6MdPjgPdIQt9os?=
+ =?us-ascii?Q?d7KQUynbplBFQsUoVxT2SqxTfcELzsMws7hcuHsphklO0AAmev4nOWLKGIqd?=
+ =?us-ascii?Q?Ivi1D2r6HwH+gDcIKkUG8343UhwRP2D2E0vYBzy5E5zlTp2qRgqMQE3j8+4m?=
+ =?us-ascii?Q?Wh9RkfNSfedU9K+qK8ysfMHeCsCOMO7L1AX34c9zgxsKzxClkjCzGjvcpssi?=
+ =?us-ascii?Q?oLEMpPI6tR2bsCqqHhqaI0g2BLkdfW9mcCLFKdfcE5C9SxmKTBxJYwq9m3Lw?=
+ =?us-ascii?Q?oa7sqMmC1L9G4U0y6xX2n5YkQxKzp6Xa8GJKQxXFYOV8AgK0DbZV5L0TCvsY?=
+ =?us-ascii?Q?R9cDUWdD8Nacjc3reaBwJxzS5xzufnfnmIXcZ59BXHBKJuknOUaejYQsHixD?=
+ =?us-ascii?Q?+Jmdcd7gTxKxQdPmKI0+FVHp3kl3UenVdz3A/AAy3p7grwszwVrsxx1KwYuB?=
+ =?us-ascii?Q?jODxX+QtYSpe+oF1LikLcvV6329LuZ5gxNuN2KV22+ZgZBE19Mc1zKIAx9Hr?=
+ =?us-ascii?Q?KTWCp2oqxKOjQpxLj/KNai+ULKZxSpE/KD+F3+xvc9rZ+28qQmi5zXN5y25D?=
+ =?us-ascii?Q?Z1IlwMmBeZ/hu6mK96ygZDPmDgS1TwnY5Ib3o2wgEmp5X2pZhYLY9v5hEmEf?=
+ =?us-ascii?Q?xJTrpD9/rsenYMJ3GSan/RhJz/GKTbXUYyhxpGASsIaGvdt+tPL4GENtQNOh?=
+ =?us-ascii?Q?yx1eHIF1W+X3QiIumXrLYl3arh0sUZ1b4EsAAEHEACutXtwpw1FJANzT/XS5?=
+ =?us-ascii?Q?H8JDaumd8UedDk4SnGgrBuSBueP0jZcMtSLpZTe3MpUTSlr4R4dRUAWvLC9w?=
+ =?us-ascii?Q?ug+M/9+mm6uFYSwkO2PSpy+ywVnZvaqQpXMIl+WgBiAI8PycxPXXZmFzOyJL?=
+ =?us-ascii?Q?Xs2zBQJDvDZl2eUSP4vkwp8YKE6aJTgSQ2dhcO5GKjD7+YecI0T1T3bYSeyB?=
+ =?us-ascii?Q?YDMV9vftZiUuIcwzXqo5NtySbj9rMYAchVI/XgCXYrZfFtA41O2lhTgCN7ZY?=
+ =?us-ascii?Q?aOB4BEOvNbliUXhpdejGQTusHktQCggfPFiGCy73ZlOqB0MYGUuh4r4A4uUq?=
+ =?us-ascii?Q?1lUh3YEeLqIjdPVVR9JWeRVQ2+xlqSg=3D?=
+X-Exchange-RoutingPolicyChecked: RTAqwb7YaRzrMPnCmgiWtij9m0zGWdIUdHtW5pxVmVXqIjzfluGng78nkOELi0TPaWmKVjzv1eTPAPphodn6nDQdtJHAs7blbt/4j3LaUiXhZ1z/13g0JVuX+dhDfXK8rrJqP39I7chDI5YJL/B0rThANkgUKTDtb80VRfrtST7tp39jPXVZoAgwZLsHCiB5l3h2HGwtHrf8Kg0xQqeEq/JBCuhFaleQgOq2FCCTZI4RB1c/d+57MM4hIya0cIAnSH+TaqisbzcpPy8TSN+FmI0OWD7HCDcuOoVW+A0stqUw3ritNbG6uBXoALj6ilExJGq8HCKO+X7NJi2HMIW8GA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 876e6556-cc83-4b37-d42a-08df3a8aceac
+X-MS-Exchange-CrossTenant-AuthSource: LV2PR11MB868673.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 15:46:35.8052
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TFSUCKmfAQoznR/Z1yrDEolahq4DY+bLYvzJQg0VXwmo0lK5bIO3I6eIfmWufBavweihpWNJqSZo4jYd45ztIcraITuOXKEAPLGj0YaURa4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB6619
+X-OriginatorOrg: intel.com
 
-On Wed, Nov 4, 2026 at 8:39=E2=80=AFAM Steven Rostedt <rostedt@goodmis.org>=
- wrote:
->
-> On Tue, 3 Nov 2026 21:51:42 -0500
-> Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com> wrote:
->
-> > Hi Steve, coming back to this topic (sorry it took me a while - other
-> > work related stuff kept me busy). Are you still willing to accept  [1]
-> >  upstream ? If yes, can you also please clarify why only the first 2
-> > patches and not the third, selftest patch?
->
-> I was thinking for backporting purposes. The selftest patch is fine, but
-> not something that needs to be backported.
->
-> -- Steve
+On Tue, Nov 03, 2026 at 02:36:48PM +0530, Amaan Cheval wrote:
+> gve's GQI and DQO-QPL RX paths set every RX page's refcount to INT_MAX and
+> hand references to the stack by decrementing page_info->pagecnt_bias, to
+> avoid an atomic op per packet. This leaves the page no headroom: while a
+> fresh page's buffer sits in an skb its refcount is already INT_MAX, so a
+> single get_page() from the stack wraps it negative.
 
-Ok, so just to clear my own confusion: do we want to directly present
-this to stable as a backport fixing a bug, or go through merge to
-mainline first and then only backport? If we do want to take it into
-mainline then I think the selftest patch is beneficial especially
-because Jiri found some case that breaks there that needs furhter
-invistigation [1].
+Hi Amaan,
 
-Andrey
+by headroom you mean here the space for additional refcount bumps? A bit
+confusing as my head tends to correlate 'headroom' with packet layout ;)
 
-[1] - https://lore.kernel.org/all/amn-vbX6AitcIcC0@krava/
+one minor comment below.
+
+> 
+> splice() of received TCP data into a pipe takes such a reference, and the
+> onward splice into a socket then fails: skb_splice_from_iter() sees
+> page_count() < 1, sendpage_ok() fails and the send returns -EIO (since
+> commit 2e910b95329c ("net: Add a function to splice pages into an
+> skbuff for MSG_SPLICE_PAGES")). tee() of the pipe fails with -EFAULT via
+> try_get_page(). On GQI the reuse check gve_rx_can_recycle_buffer() also
+> sees page_count() < pagecnt_bias, WARNs and calls gve_schedule_reset(),
+> so a task that merely pins a fresh RX page (e.g. holds spliced data in
+> an undrained tee() pipe) can reset the NIC.
+> 
+> Use USHRT_MAX in a u16, as igb, igc, ixgbe, i40e and hns3 do: the bias
+> only has to make the per-packet atomic rare, so a small value leaves
+> page_count() ample headroom below INT_MAX for the stack's references.
+> Refill by adding a fixed batch and setting the bias to it, which keeps
+> the rule `references = page_count() - bias` intact.
+> 
+> Reproduced on gVNIC in GQI-QPL mode (GCE n2-standard-8, 6.12) and in
+> DQO-RDA mode (GCE c3-standard-8, 6.12, where DQO-RDA still uses the
+> bias) with the help of relay.py -- a small splice(2) TCP proxy --
+> relaying a download while the RX ring is refilled with fresh pages:
+> 
+>   ethtool -G eth0 rx 512 && ethtool -G eth0 rx 1024   # fresh RX pages
+>   ./relay.py $HOST 8080 &                             # splice()s both ways
+>   for i in $(seq 200); do curl -so /dev/null \
+>       --connect-to $HOST:80:127.0.0.1:8080 http://$HOST/file; done
+> 
+> Most downloads failed with EIO before the fix (tee() with EFAULT) and
+> all completed after it. relay.py is at the Link below.
+> 
+> This bug was found and fixed with the help of an AI coding assistant
+> (Claude Code) over an interactive session; it read the driver and
+> splice/pipe code and ran the tests above.
+> 
+> Link: https://github.com/amaanc/kernel-bias
+> Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
+> Fixes: 58401b2a46e7 ("gve: Add rx buffer pagecnt bias")
+> Fixes: 82fd151d38d9 ("gve: Reduce alloc and copy costs in the GQ rx path")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Harshitha Ramamurthy <hramamurthy@google.com>
+> Tested-by: Harshitha Ramamurthy <hramamurthy@google.com>
+> Signed-off-by: Amaan Cheval <amaan.cheval@gmail.com>
+> ---
+> v3:
+>  - Refill when the bias reaches 0 again, as in v1. DQO-QPL is not
+>    supposed to support XDP at all, and it will be blocked explicitly in
+>    a separate patch, so the v2 refill-at-1 change is not needed.
+>  - Added Reviewed-by and Tested-by from Harshitha Ramamurthy.
+> v2: https://lore.kernel.org/netdev/20261102112613.18334-1-amaan.cheval@gmail.com/
+>  - Refill when the bias reaches 1 instead of 0 so the driver keeps a
+>    reference of its own across every handoff. At bias 0 a consumer that
+>    returns its reference synchronously, such as an AF_XDP socket in copy
+>    mode on an XDP_REDIRECT from DQO-QPL, freed a page still registered in
+>    the QPL.
+>  - Commit message: explain the refill point, drop the build notes.
+>  - Re-tested on 6.12.113 (c3-standard-8, DQO-RDA, which still uses the
+>    bias on 6.12): no EIO/EFAULT from splice/tee and no NIC reset after
+>    applying the patch. DQO-QPL is untested; I have no access to that
+>    hardware.
+> v1: https://lore.kernel.org/netdev/20261031173449.2439047-1-amaan.cheval@gmail.com/
+> 
+> Built allmodconfig W=1, no new warnings.
+> 
+>  drivers/net/ethernet/google/gve/gve.h                |  2 +-
+>  .../net/ethernet/google/gve/gve_buffer_mgmt_dqo.c    |  4 ++--
+>  drivers/net/ethernet/google/gve/gve_rx.c             |  8 ++++----
+>  drivers/net/ethernet/google/gve/gve_utils.c          | 12 +++---------
+>  drivers/net/ethernet/google/gve/gve_utils.h          |  8 +++++++-
+>  5 files changed, 17 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
+> index b7ce6e8632db..18d7edbf4b3b 100644
+> --- a/drivers/net/ethernet/google/gve/gve.h
+> +++ b/drivers/net/ethernet/google/gve/gve.h
+> @@ -119,7 +119,7 @@ struct gve_rx_slot_page_info {
+>  	void *page_address;
+>  	u32 page_offset; /* offset to write to in page */
+>  	unsigned int buf_size;
+> -	int pagecnt_bias; /* expected pagecnt if only the driver has a ref */
+> +	u16 pagecnt_bias; /* expected pagecnt if only the driver has a ref */
+>  	u16 pad; /* adjustment for rx padding */
+>  	u8 can_flip; /* tracks if the networking stack is using the page */
+>  };
+> diff --git a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c b/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
+> index 6880d1531ba5..571f851d6dcd 100644
+> --- a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
+> +++ b/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
+> @@ -149,8 +149,8 @@ int gve_alloc_qpl_page_dqo(struct gve_rx_ring *rx,
+>  	buf_state->last_single_ref_offset = 0;
+>  
+>  	/* The page already has 1 ref. */
+> -	page_ref_add(buf_state->page_info.page, INT_MAX - 1);
+> -	buf_state->page_info.pagecnt_bias = INT_MAX;
+> +	page_ref_add(buf_state->page_info.page, GVE_PAGECNT_BIAS - 1);
+> +	buf_state->page_info.pagecnt_bias = GVE_PAGECNT_BIAS;
+>  
+>  	return 0;
+>  }
+> diff --git a/drivers/net/ethernet/google/gve/gve_rx.c b/drivers/net/ethernet/google/gve/gve_rx.c
+> index 81ea800e66e9..6533fff06155 100644
+> --- a/drivers/net/ethernet/google/gve/gve_rx.c
+> +++ b/drivers/net/ethernet/google/gve/gve_rx.c
+> @@ -152,8 +152,8 @@ static void gve_setup_rx_buffer(struct gve_rx_ring *rx,
+>  	page_info->buf_size = rx->packet_buffer_size;
+>  	*slot_addr = cpu_to_be64(addr);
+>  	/* The page already has 1 ref */
+> -	page_ref_add(page, INT_MAX - 1);
+> -	page_info->pagecnt_bias = INT_MAX;
+> +	page_ref_add(page, GVE_PAGECNT_BIAS - 1);
+> +	page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
+>  }
+>  
+>  static int gve_rx_alloc_buffer(struct gve_priv *priv, struct device *dev,
+> @@ -230,8 +230,8 @@ static int gve_rx_prefill_pages(struct gve_rx_ring *rx,
+>  			rx->qpl_copy_pool[j].buf_size = rx->packet_buffer_size;
+>  
+>  			/* The page already has 1 ref. */
+> -			page_ref_add(page, INT_MAX - 1);
+> -			rx->qpl_copy_pool[j].pagecnt_bias = INT_MAX;
+> +			page_ref_add(page, GVE_PAGECNT_BIAS - 1);
+> +			rx->qpl_copy_pool[j].pagecnt_bias = GVE_PAGECNT_BIAS;
+>  		}
+>  	}
+>  
+> diff --git a/drivers/net/ethernet/google/gve/gve_utils.c b/drivers/net/ethernet/google/gve/gve_utils.c
+> index caed38cd5f2b..cb6fba3122d5 100644
+> --- a/drivers/net/ethernet/google/gve/gve_utils.c
+> +++ b/drivers/net/ethernet/google/gve/gve_utils.c
+> @@ -93,15 +93,9 @@ void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info)
+>  {
+>  	page_info->pagecnt_bias--;
+>  	if (page_info->pagecnt_bias == 0) {
+> -		int pagecount = page_count(page_info->page);
+> -
+> -		/* If we have run out of bias - set it back up to INT_MAX
+> -		 * minus the existing refs.
+> -		 */
+> -		page_info->pagecnt_bias = INT_MAX - pagecount;
+> -
+> -		/* Set pagecount back up to max. */
+> -		page_ref_add(page_info->page, INT_MAX - pagecount);
+> +		/* Out of bias: take another batch of references. */
+> +		page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
+> +		page_ref_add(page_info->page, GVE_PAGECNT_BIAS);
+>  	}
+>  }
+>  
+> diff --git a/drivers/net/ethernet/google/gve/gve_utils.h b/drivers/net/ethernet/google/gve/gve_utils.h
+> index bf2e9a0adb36..316f97607351 100644
+> --- a/drivers/net/ethernet/google/gve/gve_utils.h
+> +++ b/drivers/net/ethernet/google/gve/gve_utils.h
+> @@ -25,7 +25,13 @@ struct sk_buff *gve_rx_copy_data(struct net_device *dev, struct napi_struct *nap
+>  struct sk_buff *gve_rx_copy(struct net_device *dev, struct napi_struct *napi,
+>  			    struct gve_rx_slot_page_info *page_info, u16 len);
+>  
+> -/* Decrement pagecnt_bias. Set it back to INT_MAX if it reached zero. */
+> +/* Up-front references gve holds on an RX page, so handing a buffer to the
+> + * stack is a pagecnt_bias decrement, not a get_page(). Keep it in a u16 so
+> + * the 32-bit page refcount keeps the headroom every page needs below INT_MAX.
+> + */
+> +#define GVE_PAGECNT_BIAS USHRT_MAX
+
+IMHO code would be more readable with plain USHRT_MAX usage then you know
+immediately what value is being used. Other drivers do so at least.
+
+Reviewed-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+
+> +
+> +/* Decrement pagecnt_bias. Top it up by GVE_PAGECNT_BIAS if it reached zero. */
+>  void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info);
+>  
+>  void gve_add_napi(struct gve_priv *priv, int ntfy_idx,
+> 
+> base-commit: 21f57ec673a1917547c808cfa81890485fffa03b
+> -- 
+> 2.47.3
+> 
+> 
