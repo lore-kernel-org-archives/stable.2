@@ -1,66 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793756798;
-	b=WnWaaPVdel02taxW6EJ4KizQBq5aG5l8D9pNuEPQhqtzbjQljx8BJ/bPhyc+nT4Unv60
-	 kMaSUbZRaTc2/0VzpKQFBiKGkeqMBkPS0rWIe2qfM3TgPkm3Q/WWDe4YbQGSLNwMge1Sr
-	 YrNFEweQRxHl3kYtXzu4+5YhY7Mhiqulw4Px1PsOmKy1WN7XhwD6qx+7iFf12fe4jwnGp
-	 P45+7RoJ/W9ktuH1dXOlzSjcCOzVyNHf4CziGwI8F8Sg9dLLr+tELS6u1Obk9asPwzRmR
-	 nkxRbcykZ8x5B8X8WTWCUTu9/5Ewhvde5s4jnZlBgaF15IAvfX53pvFn4j/tFVjUNLA==
+	t=1793757183;
+	b=0dULgoHY66FpcyP4LJ8gi41ioUxxRwdMgxhF3kvgwxy0iTSMbHVVV7HtG/RPWUtVKxpz
+	 f+0qiqy6N4sUTE3klA2/GvTFER3LWciua9sSorC4sKvi1AgTxi8lHOxSTrffAwEYYkQc3
+	 SdL3kV8Lkyru/cQZ23h4gjtjAwd2p2hnJzpFH+pSJ48xlPPGjYY7P1iierqsewPwuo25w
+	 lGZRj0rNTPidX1XOrsLxUSCwCAlUlkhRJFNzEmfxgHtIRx2gcwb3gjbP3Kl7hgfi2rHR3
+	 i1WINsMILGvGfV1j03xIYC1CIJjWEQ9/tIVzTXYqHo7yz8Kl6AvC1qvbruOcZal+C6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793756798;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RXOjzv2ekKXMhRrGDhixdimxSCblG2FyP7f/BYRRsGo=;
-	b=lKDvcvAIXCoVXeSmdgZ+9G4603r68LeIW8XZJ81hDMBu9P8snLSRRuY2xQDGqYIHFaEa
-	 yu803P81Sj3lvhBKd6ieBlNJ9cISjckICs3EKwvtFnj7QdeCz140stllg7vGDikjFCu4O
-	 cwKZ3rTmvEVaMvcwIGWDg5mbYyuu5k3o+hiukWg3EBJQO/S92la9W6ilptv7Cwbeb04GO
-	 a/JiODjgguzuJOboQhAkur/MKt5ebWey0r3EPxIaFwBwtlpqPZFErLDvGzL7gxrCTqLfl
-	 LhoQ0RCywwM2LnF36zct1ZfINYeaI+OD4MZgF8/rASqrxysphA49u/lDnWfgfb0qYSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793757183;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GQ4mEHI7sQjBBaEIricpvMN6RFFxM9rPq7clRjSmwKg=;
+	b=ohQ74+oUEt2uoizpglGyyKQ97QdhjoH2EPoe7jJI4hytfMMwNgEnV2FzLwXZ3cV8mHmP
+	 +CNqgDMNXa96Eo3NdXMAFew9v7Xzy9BiUOPM4VTOz8+jas5hgFA75JbXcqIbrWR/DHoqc
+	 9BVSFW7QCecua2TEydvEPXg8vBhLYr2XXeIAMSKau9bp5pn4AhGSrY0nBYdDLKMbJ4K/W
+	 sRt23+Loy5E7yFUyf0pUiGurey2vRLrqXdw0dDYJvZE3l9dY1ltblvJCACL8hSng9FMx1
+	 tzJKRdmNjU3ybQBSmFUi5lilaXqc2KTYPgvw2m85jWreFE1evLK4LVRNEIau043OzNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=aZpBjDda;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NMKkVY3s;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BEB0606A326;
-	Wed,  4 Nov 2026 01:46:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BEB0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21274606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 01:53:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=aZpBjDda
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jK7b12Jh4zljKMQ;
-	Wed,  4 Nov 2026 01:46:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793756795; x=1796348796; bh=RXOjzv2ekKXMhRrGDhixdimx
-	SCblG2FyP7f/BYRRsGo=; b=aZpBjDdak5Ql9CoGeSJUEyupksMrvDe8XjeMyPXa
-	SshmvpFs+WINcchIU4NoS/0LmMaUgrtUpG/jP7tB4Z77Gd5XDMECXusGsClfCKkT
-	kwYs0zGlk0CaYmelyWX6yO2FEcTPhjD/GzN58C3SxJoBaks4y/7GHQ5kQIobmKXr
-	wJ9wheVYLCuWK6q/F1k/61j6Futb0sgz21ksDQECbc0i7DycJoo3rcWyJrX1Ph2z
-	aL+biQ/rsOtn4PkkyUN9dhzcQs+uVfEOM54pEQu8bYn4afM2DVlb5a9+1YWe2SKc
-	dEf8jaQHEk2U/eyzJFhRK5dRa9CjiaOeCZbTrCQGcP5hyQ==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id 1DqThOFT3LrU; Wed,  4 Nov 2026 01:46:35 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jK7Zy6YGlzlffvQ;
-	Wed,  4 Nov 2026 01:46:34 +0000 (UTC)
-Message-ID: <703c41b5-537f-4897-b852-fed4097a0193@acm.org>
-Date: Tue, 3 Nov 2026 17:46:32 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NMKkVY3s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61581F00A18
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 01:53:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793757182;
+	bh=GQ4mEHI7sQjBBaEIricpvMN6RFFxM9rPq7clRjSmwKg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NMKkVY3sFk5NieJ/HJQbEnMH0jt5LRjMXJGu/Nhi1+qt6+Hiepsyn1pZcY9uBWNnb
+	 29IF4NE8GU83KH5MZHx6nKGUfU9kP8Fch30m6xVAEbZH2gsEP5CLltbd73u9lG8nMN
+	 6hNpTQRUKxx2EQoi0Hv6xBsq+/35qz047oSuv5jE+jbH4GL/oCuJYt9MnkvVMQ8XG8
+	 BN1Lj4xrS3De06nISJmQ24Uu/5lFqYk3WisKQU4YifirKKVmC45qFYvNVH7fRG6uDJ
+	 kfDPyem7anvLkd7BsoB3ByY2Op0KyD7LvdYPTcj5W6TdsPieLxY/ENOp+yiQOTnGNs
+	 EdfsJ6K2mc1/A==
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2e8c710847so34706366b.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 17:53:02 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxAENOXTnex14GLzVajkcOsqwgsdLUDQ3vnv9ovS1ooI4FVqWR/5oWmobNTCKUBW4ECwJ7Anro=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8vbSCklbOXA5thxXE/xyBSVNMtQWYx3PVZlRuLsz2aMQS8jXiS
+	gDvIJliZqKcU/kmHI1oOsiItv+zZ9sM0O901ZKAYZauzB/aK0Ehk3t/QVRkO9cuabVm7ltBznwT
+	lNVwm7yaK0CTEXx2RdPDABVc2AcDo1Tw=
+X-Received: by 2002:a17:906:ef06:b0:c41:1e13:8891 with SMTP id
+ a640c23a62f3a-c4ca7a43c0fmr1236027766b.9.1793757181430; Tue, 03 Nov 2026
+ 17:53:01 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,52 +59,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] ufs: mcq: poll OCS after sq cleanup for device
- management commands
-To: Kiwoong Kim <kwmad.kim@samsung.com>, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, alim.akhtar@samsung.com, jejb@linux.ibm.com,
- martin.petersen@oracle.com, kwangwon.min@samsung.com, hy50.seo@samsung.com,
- cpgs@samsung.com, h10.kim@samsung.com
-Cc: stable@vger.kernel.org, stanleyjhu@google.com
-References: <cover.1793598099.git.kwmad.kim@samsung.com>
- <CGME20261102055317epcas2p48b638d0c25fd024ce01960afd1e6dee6@epcas2p4.samsung.com>
- <8c4bbbd746e7fc1d8c27b6b87b2d684abb74a3b3.1793598099.git.kwmad.kim@samsung.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <8c4bbbd746e7fc1d8c27b6b87b2d684abb74a3b3.1793598099.git.kwmad.kim@samsung.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261103110803.2517085-1-joseph.qi@linux.alibaba.com> <2026-11-03-1-daily-reply-0014-re-ksmbd-breaking-cnt-leak@kernel.org>
+In-Reply-To: <2026-11-03-1-daily-reply-0014-re-ksmbd-breaking-cnt-leak@kernel.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 4 Nov 2026 10:52:49 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd__FvF-bCzzq_JHFqCF===_qrVZC8RLjrp4nh1s8sXq_Q@mail.gmail.com>
+X-Gm-Features: AclHuK8LuxqZ51cFZaXEAg-WEfk--Vr4t3lFrt9KWk0uDBpkuGwjwHPpOGXYZf0
+Message-ID: <CAKYAXd__FvF-bCzzq_JHFqCF===_qrVZC8RLjrp4nh1s8sXq_Q@mail.gmail.com>
+Subject: Re: [PATCH 6.6.y] ksmbd: fix breaking_cnt leak on early return in oplock_break()
+To: Sasha Levin <sashal@kernel.org>
+Cc: Paulo Alcantara <pc@manguebit.org>, Steve French <stfrench@microsoft.com>, stable@vger.kernel.org, 
+	linux-cifs@vger.kernel.org, Joseph Qi <joseph.qi@linux.alibaba.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/1/26 9:52 PM, Kiwoong Kim wrote:
-> +static enum utp_ocs ufshcd_mcq_read_ocs(struct ufs_hw_queue *hwq,
-> +					struct ufshcd_lrb *lrbp)
-> +{
-> +	guard(spinlock_irqsave)(&hwq->cq_lock);
-> +	return READ_ONCE(lrbp->utr_descriptor_ptr->header.ocs);
-> +}
+On Tue, Nov 3, 2026 at 11:52=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
+te:
+>
+> > For leases, oplock_break() increments breaking_cnt before calling
+> > oplock_break_pending(), and returns early when the pending check
+> > reports nothing to break
+>
+> This is a stable-only fix, so I need an ack from Namjae Jeon on the list =
+before
+> queueing it. 6.18 and 6.12 have the identical bug and this patch applies =
+there
+> unchanged, so once it is acked I will queue it for 6.18, 6.12 and 6.6 tog=
+ether.
+I agree this fix should be queued for all three stable branches.
+Acked-by: Namjae Jeon <linkinjeon@kernel.org>
 
-READ_ONCE() is sufficient. I don't think that the spinlock helps here. 
-Additionally, if the spinlock operations are left out, the function
-ufshcd_mcq_read_ocs() is no longer necessary and can be inlined in its
-only caller.
-
-> +	/*
-> +	 * For device management commands, there is no order guaranteed between
-> +	 * OCS update and CUS update, which is why we need to wait here. SCSI
-> +	 * commands are excluded because the OCS in their UTRD is not updated
-> +	 * from the CQE.
-> +	 */
-> +	if (!err && blk_mq_is_reserved_rq(rq)) {
-> +		enum utp_ocs ocs;
-> +
-> +		err = read_poll_timeout(ufshcd_mcq_read_ocs, ocs,
-> +					ocs != OCS_INVALID_COMMAND_STATUS, 20,
-> +					MCQ_POLL_US, false, hwq, lrbp);
-> +	}
-
-An error message should be reported if the above loop times out.
-
-Thanks,
-
-Bart.
+Thanks!
+>
+> --
+> Thanks,
+> Sasha
