@@ -1,53 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793836019;
-	b=nNj1C4u62hnR/+1Qgv6iqtoeIb/jUKUkaNg/z2siGxgmOii605tNkliJupXe7QxFvK5v
-	 35gfVg/N1NrbWb7ssXxxIcIXEItAQKOnKeTwG0n/Kg4zFPH6BXvAUUbY9ZQxbkzWbLSz3
-	 mf+3EFEIAUVtoPyb9lH8/BhNDGaymYPShuLgNQVLBmsHuTDrL0i7+4OvasAQBXsk9IVId
-	 oCeVPsTQx7trGBU6iahfXOsfhUymLzMfVIGEALyYsvXzVkSoXQ/5jm7ZhXLO9TouWnZvX
-	 Mr2EjHk4DBI9mcgl6Bf4jFlSgR+Ot72qSLyR4A+Kpe5F6KYi9XfPHymiLYX4PRI9cCw==
+	t=1793836020;
+	b=bnGEcB8WMWRdbHoxkxJzV1lgTX6U81Qf9YsOKFs0cA5lHRB0PRJWol1awEjAw8JTRxt5
+	 r9cZJECMP/Mz9rzxRVAYPRY02fLeFXxrb8jFN2OvMl994MUWwEBvxAXJDu+gwpTn8Jksw
+	 dgfPzZZofIyLbonLi2MHxC/wrc4cHe5FumQjLVWVH2CPArUBq8TzJkGJiKcTCdYnGpcKd
+	 5/+14YNF3NFwCpxF7ZptZjahT8gysf9zDcxckqkR6n0pQRlGWRlrG0QM76Jufahp2G1/C
+	 4NxDFIEAEGVZgsphBZCooZfBTkZQVHxOMRq3ozbUdyyXzFmvdcvKRE3fK76WzW4Np+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793836019;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793836020;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qB8U7MIbFQnp5cSDzSncyowIqNpG68P1w/OWumtoiEg=;
-	b=jxznTx+KLXjYLYPhBXSrgjcyxiD1JFtPpJSukD3UmrWTPEtZKZr1wWhF1G8FaAH8vM4/
-	 tyfGsaJPqhFWSFJHkUd890vIaaHZTXr881i3aDCGSm7uni7RWE/L09AmoiYgY3vzK3jyj
-	 HKzu9k6EPbsdR7D7IINkl5q/P6v+7gIN8mCKDHTSWQm/U4/llkRpZcuJq6Zwbo+jiGr7B
-	 d1HMh6QS95H8tSx5EJSKPp46XUR56qYOqiTyfN/av4FIp1E985sRIxurYY4V7NY5KDnc8
-	 0Z22xV3lAytgD7qZ1hQqyD6UiyUB2R56Zk3iEjL7s9btPcJnjTkRAepKF/klHYUuejw==
+	bh=VNEjq4/w+nXPWNtsiCk268hY5L9pgMDjb8mSx4lyCJo=;
+	b=uv4LxfJNkZDYUDjiWUB6MCG/qz5L0ach/H1GinlSDgV0lAM1Tq4LvkDvMWhNXoR1Ubr+
+	 xbsAB34A/V/v7iWBhk4liy/nnP7qc84SbrW0sVyhLyMFS09pPjBmkr8X+LJGT0rXJww7K
+	 3noUfHlBlrUpi0fbnD4iz/+tKEIbSoFWHtzw1IAu7vQuySxM4DhdWGqgHRgU7MT64wIb+
+	 G2nXTOlUHgnNsVw5UPWIek5G5Sspmi8RShhwKqy2qE7j0d6oYe+m7mbHk1WKnaqb7fVO1
+	 h7zKs7ZEdil63jDpTGjbKRsPJ+hUoD1kQ7lDO/yo4woqiIindbVnSzAZbOB8ao98ZMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fbmKCM2G;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REwUoScE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4D9606A31B
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:46:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEF7606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 23:47:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fbmKCM2G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DD8B1F00919;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REwUoScE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 059DC1F00A02;
 	Wed,  4 Nov 2026 23:46:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793836018;
-	bh=qB8U7MIbFQnp5cSDzSncyowIqNpG68P1w/OWumtoiEg=;
+	s=k20260515; t=1793836020;
+	bh=VNEjq4/w+nXPWNtsiCk268hY5L9pgMDjb8mSx4lyCJo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fbmKCM2GmfsimI0KuokPgePSkIELUbDoB7Gg5zeRWfyOv3WFoMTYWKCw1Gvm66jVZ
-	 4eQ8jkE+C3Kg1oRVUsXOEEvfOvqAe2PVZOu28pr9SSg6ZCZ6wHUXTgz1p9AVLF8G21
-	 Qt5nsW6d6Y5bJsml1qzpoFsHv8odFuw3S0Dkazz0fSpk8xrPlrOJpWJdsOOvKwVRGY
-	 rkAhB1zXbpfvmTKCzLAneh1XixZPTa+4U0lppPDq9X69ObDAmuQlj1/BUUePfWvMYg
-	 AfKlOZJT5Ky5Vecy385AhOjAMf7OkXOGMxND+IZkueV232naUmW1qXOyCkYVBHPf6z
-	 00kquACO6KoZg==
+	b=REwUoScERxI0jcRONC+rOlyju1u41/Hc2rE5h8vKFyCP6AkLEXrPAuJr+hFiPDqk3
+	 Reu2KRahNLpE/mz7m/vA/57agGXTwqIrGsiuMVL1DYtX0ZR4Ulo1wa3TET8rhq8RUg
+	 fFbPcCmtxA2qNyqXarM9hlUoug9amCver21suQk/J/P9h/CAfZGpmUOdy72gU31n3T
+	 Kk2OlMqiBzyvHLIF5R8jVXK2Bu1Rs3xCjdIzix6v/iPBB9SCKkXiY0dGu6LlJVcAwR
+	 6RZk95LHNGZyRupJSSFovmd2HOgdam0BWfsK05Ohyl4Igyk4qCdhB4Wsd6tiTfLpRM
+	 sv2evnDHbNXTA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Ruide Cao <caoruide123@gmail.com>,
+	Kyle Zeng <kylebot@openai.com>,
+	David Lee <david.lee@trailofbits.com>,
+	Vega <vega@nebusec.ai>,
+	Ren Wei <weir@nebusec.ai>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/3] tcp: accecn: unset ECT if receive or send ACE=0 in AccECN negotiaion
-Date: Wed,  4 Nov 2026 18:46:55 -0500
-Message-ID: <20261104234539.930903-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/3] mptcp: hold MP_JOIN msk ref when cloning reqsk
+Date: Wed,  4 Nov 2026 18:46:56 -0500
+Message-ID: <20261104234539.930903-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261104234539.930903-1-sashal@kernel.org>
 References: <2026110448-scrambler-renovate-a361@gregkh>
@@ -63,162 +67,191 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
+From: Ruide Cao <caoruide123@gmail.com>
 
-[ Upstream commit 4024081feb87fb11ac7bd36d8c397ccdd81ed302 ]
+[ Upstream commit c9c90cf437a9e6597611b6d3aad6e255fad22867 ]
 
-Based on specification:
-  https://tools.ietf.org/id/draft-ietf-tcpm-accurate-ecn-28.txt
+TCP request migration clones pending request sockets with
+inet_reqsk_clone().  For MPTCP MP_JOIN requests this byte-copies
+subflow_req->msk, but the clone does not own a reference.
 
-Based on Section 3.1.5 of AccECN spec (RFC9768), a TCP Server in
-AccECN mode MUST NOT set ECT on any packet for the rest of the connection,
-if it has received or sent at least one valid SYN or Acceptable SYN/ACK
-with (AE,CWR,ECE) = (0,0,0) during the handshake.
+The original and cloned requests can consequently drop the same msk
+reference, leaving one request with a dangling pointer.  This manifests as
+a KASAN slab-use-after-free in subflow_req_destructor():
 
-In addition, a host in AccECN mode that is feeding back the IP-ECN
-field on a SYN or SYN/ACK MUST feed back the IP-ECN field on the
-latest valid SYN or acceptable SYN/ACK to arrive.
+  BUG: KASAN: slab-use-after-free in subflow_req_destructor (net/mptcp/subflow.c:45)
+  Write of size 4 at addr ff1100010e008d40 by task swapper/0/0
+  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-rc5-00353-gc27e36054537 #10 PREEMPT(full)
 
-Signed-off-by: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260131222515.8485-11-chia-yu.chang@nokia-bell-labs.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Stable-dep-of: c9c90cf437a9 ("mptcp: hold MP_JOIN msk ref when cloning reqsk")
+  Call Trace:
+   subflow_req_destructor (net/mptcp/subflow.c:45)
+   subflow_v4_req_destructor (net/mptcp/subflow.c:694)
+   __reqsk_free (net/ipv4/inet_connection_sock.c:906)
+   reqsk_timer_handler (include/net/request_sock.h:137 net/ipv4/inet_connection_sock.c:1147)
+
+  Allocated by task 10014:
+   sk_prot_alloc (net/core/sock.c:2246)
+   sk_clone (net/core/sock.c:2488)
+   mptcp_sk_clone_init (include/net/sock.h:1848 net/mptcp/protocol.c:3564)
+   subflow_syn_recv_sock (net/mptcp/subflow.c:883)
+   tcp_check_req (net/ipv4/tcp_minisocks.c:934)
+
+  Freed by task 0:
+   slab_free_after_rcu_debug (include/linux/kasan.h:235 mm/slub.c:2677 mm/slub.c:6439)
+   rcu_core (kernel/rcu/tree.c:2645 kernel/rcu/tree.c:2897)
+
+  Last potentially related work creation:
+   kmem_cache_free (mm/slub.c:2638 mm/slub.c:6377 mm/slub.c:6504)
+   __sk_destruct (net/core/sock.c:2289 net/core/sock.c:2391)
+   sk_destruct (net/core/sock.c:2419)
+   __sk_free (net/core/sock.c:2430)
+   sk_free (net/core/sock.c:2441)
+   mptcp_close (include/net/sock.h:2020 net/mptcp/protocol.c:3399)
+   inet_release (net/ipv4/af_inet.c:442)
+
+  The buggy address belongs to the cache MPTCP of size 2968
+  The buggy address is 128 bytes inside a freed 2968-byte region
+
+A non-NULL subflow_req->msk means that the request owns one reference. The
+third ACK can concurrently transfer the original request reference to the
+child and release it, so taking an unconditional hold on the copied pointer
+is unsafe.
+
+MPTCP sockets use SLAB_TYPESAFE_BY_RCU and all current inet_reqsk_clone()
+callers run in an RCU read-side critical section. Document and
+lockdep-check that calling-context requirement.  Read the pointer from the
+original request and acquire a reference only if it is still live.  Use
+refcount_inc_not_zero_acquire() so the subsequent ownership validation
+cannot be reordered before the try-get, then re-read the original request
+to verify that it still owns the same msk. If either check fails, clear the
+clone pointer; otherwise its normal destructor balances the new reference.
+Mark the ownership-transfer store with WRITE_ONCE() to match the lockless
+reads.
+
+The following patch completes the clone fixup for MP_CAPABLE token
+ownership. Both patches carry the same Fixes tag and are required for
+stable backports.
+
+Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
+Cc: stable@vger.kernel.org
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Reported-by: David Lee <david.lee@trailofbits.com>
+Reported-by: Vega <vega@nebusec.ai>
+Closes: https://lore.kernel.org/all/20260804095051.715355-1-david.lee@trailofbits.com/
+Signed-off-by: Ruide Cao <caoruide123@gmail.com>
+Signed-off-by: Ren Wei <weir@nebusec.ai>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-3-932c9b182fc7@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/inet_connection_sock.c |  3 +++
- net/ipv4/tcp_input.c            |  2 ++
- net/ipv4/tcp_minisocks.c        | 36 ++++++++++++++++++++++++---------
- net/ipv4/tcp_output.c           |  5 ++++-
- net/ipv4/tcp_timer.c            |  3 +++
- 5 files changed, 38 insertions(+), 11 deletions(-)
+ include/net/mptcp.h             |  9 +++++++++
+ net/ipv4/inet_connection_sock.c |  4 ++++
+ net/mptcp/subflow.c             | 35 ++++++++++++++++++++++++++++++++-
+ 3 files changed, 47 insertions(+), 1 deletion(-)
 
+diff --git a/include/net/mptcp.h b/include/net/mptcp.h
+index f7263fe2a2e40..a296f711e92f3 100644
+--- a/include/net/mptcp.h
++++ b/include/net/mptcp.h
+@@ -219,6 +219,9 @@ int mptcp_subflow_init_cookie_req(struct request_sock *req,
+ struct request_sock *mptcp_subflow_reqsk_alloc(const struct request_sock_ops *ops,
+ 					       struct sock *sk_listener,
+ 					       bool attach_listener);
++/* Caller must hold an RCU read-side lock. */
++void mptcp_subflow_reqsk_clone(struct request_sock *req,
++			       struct request_sock *new_req);
+ 
+ __be32 mptcp_get_reset_option(const struct sk_buff *skb);
+ 
+@@ -314,6 +317,12 @@ static inline struct request_sock *mptcp_subflow_reqsk_alloc(const struct reques
+ 	return NULL;
+ }
+ 
++/* Caller must hold an RCU read-side lock. */
++static inline void mptcp_subflow_reqsk_clone(struct request_sock *req,
++					     struct request_sock *new_req)
++{
++}
++
+ static inline __be32 mptcp_reset_option(const struct sk_buff *skb)  { return htonl(0u); }
+ 
+ static inline void mptcp_active_detect_blackhole(struct sock *sk, bool expired) { }
 diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index 772964048cda0..39d820cf55cb7 100644
+index 39d820cf55cb7..43528bcff5067 100644
 --- a/net/ipv4/inet_connection_sock.c
 +++ b/net/ipv4/inet_connection_sock.c
-@@ -20,6 +20,7 @@
- #include <net/tcp_states.h>
+@@ -21,6 +21,7 @@
  #include <net/xfrm.h>
  #include <net/tcp.h>
-+#include <net/tcp_ecn.h>
+ #include <net/tcp_ecn.h>
++#include <net/mptcp.h>
  #include <net/sock_reuseport.h>
  #include <net/addrconf.h>
  
-@@ -1126,6 +1127,8 @@ static void reqsk_timer_handler(struct timer_list *t)
- 	    (!resend ||
- 	     !tcp_rtx_synack(sk_listener, req) ||
- 	     inet_rsk(req)->acked)) {
-+		if (req->num_retrans > 1 && tcp_rsk(req)->accecn_ok)
-+			tcp_rsk(req)->accecn_fail_mode |= TCP_ACCECN_ACE_FAIL_SEND;
- 		if (req->num_timeout++ == 0)
- 			atomic_dec(&queue->young);
- 		mod_timer(&req->rsk_timer, jiffies + tcp_reqsk_timeout(req));
-diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-index e1785140bf9b1..54618365c5a74 100644
---- a/net/ipv4/tcp_input.c
-+++ b/net/ipv4/tcp_input.c
-@@ -6236,6 +6236,8 @@ static bool tcp_validate_incoming(struct sock *sk, struct sk_buff *skb,
- 	if (th->syn) {
- 		if (tcp_ecn_mode_accecn(tp)) {
- 			accecn_reflector = true;
-+			tp->syn_ect_rcv = TCP_SKB_CB(skb)->ip_dsfield &
-+					  INET_ECN_MASK;
- 			if (tp->rx_opt.accecn &&
- 			    tp->saw_accecn_opt < TCP_ACCECN_OPT_COUNTER_SEEN) {
- 				u8 saw_opt = tcp_accecn_option_init(skb, tp->rx_opt.accecn);
-diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
-index 2d78801866396..ebcd78ad13efa 100644
---- a/net/ipv4/tcp_minisocks.c
-+++ b/net/ipv4/tcp_minisocks.c
-@@ -484,6 +484,10 @@ static void tcp_ecn_openreq_child(struct sock *sk,
- 		tp->syn_ect_snt = treq->syn_ect_snt;
- 		tcp_accecn_third_ack(sk, skb, treq->syn_ect_snt);
- 		tp->saw_accecn_opt = treq->saw_accecn_opt;
-+		if (treq->accecn_fail_mode & TCP_ACCECN_ACE_FAIL_SEND)
-+			tcp_accecn_fail_mode_set(tp, TCP_ACCECN_ACE_FAIL_SEND);
-+		if (treq->accecn_fail_mode & TCP_ACCECN_ACE_FAIL_RECV)
-+			tcp_accecn_fail_mode_set(tp, TCP_ACCECN_ACE_FAIL_RECV);
- 		tp->prev_ecnfield = treq->syn_ect_rcv;
- 		tp->accecn_opt_demand = 1;
- 		tcp_ecn_received_counters_payload(sk, skb);
-@@ -752,16 +756,28 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
- 		 */
- 		if (!tcp_oow_rate_limited(sock_net(sk), skb,
- 					  LINUX_MIB_TCPACKSKIPPEDSYNRECV,
--					  &tcp_rsk(req)->last_oow_ack_time) &&
--
--		    !tcp_rtx_synack(sk, req)) {
--			unsigned long expires = jiffies;
--
--			expires += tcp_reqsk_timeout(req);
--			if (!fastopen)
--				mod_timer_pending(&req->rsk_timer, expires);
--			else
--				req->rsk_timer.expires = expires;
-+					  &tcp_rsk(req)->last_oow_ack_time)) {
-+			if (tcp_rsk(req)->accecn_ok) {
-+				u8 ect_rcv = TCP_SKB_CB(skb)->ip_dsfield &
-+					     INET_ECN_MASK;
-+
-+				tcp_rsk(req)->syn_ect_rcv = ect_rcv;
-+				if (tcp_accecn_ace(tcp_hdr(skb)) == 0x0)
-+					tcp_rsk(req)->accecn_fail_mode |= TCP_ACCECN_ACE_FAIL_RECV;
-+			}
-+			if (!tcp_rtx_synack(sk, req)) {
-+				unsigned long expires = jiffies;
-+
-+				if (req->num_retrans > 1 && tcp_rsk(req)->accecn_ok)
-+					tcp_rsk(req)->accecn_fail_mode |= TCP_ACCECN_ACE_FAIL_SEND;
-+
-+				expires += tcp_reqsk_timeout(req);
-+				if (!fastopen)
-+					mod_timer_pending(&req->rsk_timer,
-+							  expires);
-+				else
-+					req->rsk_timer.expires = expires;
-+			}
- 		}
- 		return NULL;
+@@ -983,6 +984,9 @@ static struct request_sock *inet_reqsk_clone(struct request_sock *req,
+ 		rcu_assign_pointer(tcp_sk(nreq->sk)->fastopen_rsk, nreq);
  	}
-diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
-index ddcc7e53f2e34..f6210d4a3408f 100644
---- a/net/ipv4/tcp_output.c
-+++ b/net/ipv4/tcp_output.c
-@@ -333,8 +333,11 @@ static void tcp_ecn_send(struct sock *sk, struct sk_buff *skb,
- 		return;
  
- 	if (tcp_ecn_mode_accecn(tp)) {
--		if (!tcp_accecn_ace_fail_recv(tp))
-+		if (!tcp_accecn_ace_fail_recv(tp) &&
-+		    !tcp_accecn_ace_fail_send(tp))
- 			INET_ECN_xmit(sk);
-+		else
-+			INET_ECN_dontxmit(sk);
- 		tcp_accecn_set_ace(tp, skb, th);
- 		skb_shinfo(skb)->gso_type |= SKB_GSO_TCP_ACCECN;
- 	} else {
-diff --git a/net/ipv4/tcp_timer.c b/net/ipv4/tcp_timer.c
-index eb549fea8fdd9..017a52022a1a2 100644
---- a/net/ipv4/tcp_timer.c
-+++ b/net/ipv4/tcp_timer.c
-@@ -22,6 +22,7 @@
- #include <linux/module.h>
- #include <linux/gfp.h>
- #include <net/tcp.h>
-+#include <net/tcp_ecn.h>
- #include <net/rstreason.h>
++	if (rsk_is_mptcp(req))
++		mptcp_subflow_reqsk_clone(req, nreq);
++
+ 	return nreq;
+ }
  
- static u32 tcp_clamp_rto_to_user_timeout(const struct sock *sk)
-@@ -482,6 +483,8 @@ static void tcp_fastopen_synack_timer(struct sock *sk, struct request_sock *req)
- 	 * it's not good to give up too easily.
- 	 */
- 	tcp_rtx_synack(sk, req);
-+	if (req->num_retrans > 1 && tcp_rsk(req)->accecn_ok)
-+		tcp_rsk(req)->accecn_fail_mode |= TCP_ACCECN_ACE_FAIL_SEND;
- 	req->num_timeout++;
- 	tcp_update_rto_stats(sk);
- 	if (!tp->retrans_stamp)
+diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
+index 1932fcf9f9252..e020960f093e0 100644
+--- a/net/mptcp/subflow.c
++++ b/net/mptcp/subflow.c
+@@ -47,6 +47,39 @@ static void subflow_req_destructor(struct request_sock *req)
+ 	mptcp_token_destroy_request(req);
+ }
+ 
++void mptcp_subflow_reqsk_clone(struct request_sock *req,
++			       struct request_sock *new_req)
++{
++	struct mptcp_subflow_request_sock *subflow_req = mptcp_subflow_rsk(req);
++	struct mptcp_subflow_request_sock *new_subflow_req;
++	struct mptcp_sock *msk;
++
++	new_subflow_req = mptcp_subflow_rsk(new_req);
++	RCU_LOCKDEP_WARN(!rcu_read_lock_any_held(),
++			 "MPTCP reqsk clone called without RCU");
++
++	/* A non-NULL ->msk means the request owns one reference.  The clone
++	 * copied only the pointer, while the original request can concurrently
++	 * transfer its reference to the child.  Acquire a reference for the
++	 * clone, then verify that the original request still owns the same msk.
++	 * MPTCP sockets use SLAB_TYPESAFE_BY_RCU and all clone callers run in
++	 * an RCU read-side critical section, keeping the memory stable here.
++	 */
++	msk = READ_ONCE(subflow_req->msk);
++	if (msk) {
++		struct sock *sk = (struct sock *)msk;
++
++		if (!refcount_inc_not_zero_acquire(&sk->sk_refcnt)) {
++			msk = NULL;
++		} else if (READ_ONCE(subflow_req->msk) != msk) {
++			sock_put(sk);
++			msk = NULL;
++		}
++	}
++
++	new_subflow_req->msk = msk;
++}
++
+ static void subflow_generate_hmac(u64 key1, u64 key2, u32 nonce1, u32 nonce2,
+ 				  void *hmac)
+ {
+@@ -925,7 +958,7 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
+ 			}
+ 
+ 			/* move the msk reference ownership to the subflow */
+-			subflow_req->msk = NULL;
++			WRITE_ONCE(subflow_req->msk, NULL);
+ 			ctx->conn = (struct sock *)owner;
+ 
+ 			if (subflow_use_different_sport(owner, sk)) {
 -- 
 2.53.0
 
