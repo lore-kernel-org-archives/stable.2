@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799403;
-	b=FyFXjFxbRusg7kYq72l7efPOn7TSWFUw66bjHFdH0hvPPE3tpKYzhKbD0TuWjt+QYr5w
-	 ihN2teeFXJsK2FD64kk5KAbasbJVzpmN0aVd+9R/KmN81/FWU8pmnfTJmR0sdZTkfL9PQ
-	 y+SjJdrF0ksNE5cEbTDgN+NsU70MAvqubI7iNlJ19ksaF10+h0fm+tOvM/+HyU6FeVbif
-	 fOsQEoGCpjpKMYI0huXyHIJez7lp9LyRKh2w3zF4PoD0S4ggYy9+Vn9R0rZltw2g87ohg
-	 n117bu3MmnLOURJTthDo0krcwwj/zgm7ZUbS6jBITLaVOJuUkQRtfaOwTW9O/2STBFA==
+	t=1793799411;
+	b=SBjNtWFQRL8CmsYUxfzM3vgDW9qi9O2PuMR0RM84MbSv7z8FrOKnXT4Cuzg0kerJ6xi6
+	 HMZumt+wR9rARdMkTkkL4SFCj1F+119woEUJEIKIwrp++YDzm+wC+gYcb1CwdHi+FN6SC
+	 rihOLDLuIxTmovTF7xv7p90xb9V1n6NZZ/kmCMcMhJYSVqJHiWUbSdTurwCRnqGn4bGzi
+	 Huf+4Qt0OXpSi6qoIcjrpJ1UV/ntVA+EEuiZSG+oMaVqcL0LwGsg79745h4OeivcS/Dja
+	 A/17l6bxaaBE5YuIEA5xww85u4HKCNezWtAZytC6yrOPGJewu7FYJtnfjxl9XGHmluA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799403;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799411;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tC2bnNsNtwJjmtFvORseFMqwvgtojtmWycjii4zGGxY=;
-	b=hjSHSRhD/wEgg4124+jn+M/VHfKcTtAeBLWIfVl3cn4OhGN7PLNLIaLEUL20Bol/rwBD
-	 7cGh/7a1iNtrJCDaqrJej+aq9sHJQsnw2iAnd5vrXJbrHQ7EsMqfJzwxfQWS9vxBZhhqp
-	 ethcNfYp6rTNAKQzDNrWIA4PEXWSZNIpXSiLqAMpe278bihpf+M7WaCDVfI0eHcLmQsio
-	 ahqsvIY4VnFPRZI5gXUPVstNyk4XI6hHXjepJn01SPEHHx74FcmWY0JRHJ9kmc/ciF7aF
-	 csZ0tVV0Lz0ZRLHt21qP16AY2TjvJGs40AD6VXtX6sR72k+sOdSbu8f4sWxWkvpN9LQ==
+	bh=YmtqeCkRts4Ky/sZcsf6ZoQhhdKeOztbOz5WgcZQ+6s=;
+	b=TRXw3262+wxw18v+DF05eUdJ30Dfbwdsu8mYugvfp3zBksJ3UkjbE44O7gULPDb+sRAl
+	 xg5A/QgHpi08lRq7RtX/piEhePgorTrd1RVI5k3P5KgLbf+gIprI32OKtrQ+h1PJJbFLh
+	 FAbElZBwUEgsVZikr88a8R1LpHziOUll0s009n+vdZcmNO1Lp7k2ejDW/2P5I74csUzHq
+	 QOk2OAgi/q224GxGyOHxWgxnPFGcSAzJYI5VNO+0U8RxgpFhS4tT2GjIe+0iAfhTzl3Zs
+	 vwDaMeZPp9vFv92Lw4VceOtKHjRGHPYAjazyBNpmVbrjZdb8U8EmTwau+RZ3LaZTIGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=A1nWN0wd;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="I0fr/Hna";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589D6606A338
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:36:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F728606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:36:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=A1nWN0wd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17661F00919;
-	Wed,  4 Nov 2026 13:36:42 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=I0fr/Hna
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E27281F000C1;
+	Wed,  4 Nov 2026 13:36:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793799402;
-	bh=tC2bnNsNtwJjmtFvORseFMqwvgtojtmWycjii4zGGxY=;
+	s=korg; t=1793799411;
+	bh=YmtqeCkRts4Ky/sZcsf6ZoQhhdKeOztbOz5WgcZQ+6s=;
 	h=Subject:To:Cc:From:Date;
-	b=A1nWN0wdFAKcvbO9epLqdAUmwT2xBjBK8e5Lh3uQNxnHfF2r3aFREOwmpZHQUOHLK
-	 wa/fdOdV3EHkylQVECUdTJDL8zQXoT5bCRujdjJ+bIsgGN4IBJ+7da3WBpjsAFwrFb
-	 PhcsOr9XgVOyuY/qInrBizc4wvN8moCHp6iLkT20=
-Subject: FAILED: patch "[PATCH] RDMA/irdma: avoid use-after-free in icrdma_remove" failed to apply to 6.12-stable tree
+	b=I0fr/HnaNfviMIBQzAbSyikzRfNABj7bGKF9l2dTvrR/uKiT/p1xJyhZpiytYYD2R
+	 7pIRL017sQ9+4RblhrJIU5L3Dx+/+BM1Xk3hpifEEBZ2iRauWdEUGUv9Gbe0Y/ba3a
+	 yCTDilFxyhes9zfqSxUlVtBBdwPbDEsgvd5kayfo=
+Subject: FAILED: patch "[PATCH] RDMA/irdma: avoid use-after-free in icrdma_remove" failed to apply to 6.6-stable tree
 To: lgs201920130244@gmail.com,leon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 04 Nov 2026 14:36:41 +0100
-Message-ID: <2026110441-support-onboard-d0bb@gregkh>
+Message-ID: <2026110441-rockband-engraver-fd34@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 8a8088b899e4cdfe558428cd6113d45df81625be
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110441-support-onboard-d0bb@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110441-rockband-engraver-fd34@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
