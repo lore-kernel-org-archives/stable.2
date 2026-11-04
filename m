@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829175;
-	b=17Xz8gyjvM/yb+6UMQcMleJxZqzcgYPlEwi7oEg3C7i3xOQKn4HuLA/Anv7RtFKyn/q2
-	 EDpEGC4Rr8IN5JNIgZBegEhcakXEEn092F3aldO5Gu0bVolnDsFLZiq4/gORXpQcXhtuH
-	 hEjw+bdqw/tJmIzmVG5X+di/DlboR4BBnIUUHaq+whcCF9IwaelxpMm2XOp2caB1RxhtN
-	 ysCdgimNOLdhclNIeHf2vlt4/2OJnqCSHUBePDx4/7BBxherZjbVnZ5XlyOl6roYfcVXv
-	 40gH+VsH1u4NP0oO4RfgDH2MejhUOlkJLWXijWK2AAcUVDYD0k+OlIMjQmtjpfjgYrQ==
+	t=1793829177;
+	b=BnHY7Lo8kWffhrw6R6NflaOEX+B5uoZD3EL+6q2oT9vuif6vY+eR2csjw9KMYqzkBjhk
+	 OznWMOekrNwjxDJ2hZHUsi926Yqdcn2uZy8AIH/plnxHxqmnO2Z47GEJlNXNcUuyhCCC8
+	 xuaeh0YBi2D+ncNbQjVmM0NZ24HbbBXnTUyhaQsnyH9lhzNW7YvDPMU24RlNmhsO+QK4i
+	 3/E8bqi/IbJg7U3X/K4PJz5Idgxi8F5hkqBri6DulcmEHcusYh1CWcqMP0dX4zKPPpKbo
+	 6cgDO9mk3iXa14STaQ/8BRYzpDZ735si8+sr6vhnWhhTOuexeP5pHFu0t4wktfvWw1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829175;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829177;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=RTo2t/5Tn2tNK1oNIEzGxfImJhTEjsCpU+Qv30i8MT4=;
-	b=Zc44lLSDslM2MSPAH2AzMtI6uUbaZ5Dud/mrT/v04igxcI6BKhuUtm8QPvNaU9M4ENI6
-	 i/+nSYyQXHNlynW6W+zCmwNF2PlrcuhPfWAMeJ61SZP7aORCIiBOVFpMGP/Jen4TdbxJz
-	 Rx61MdSON77BsExAfprS1aQyeIYYQ1YUWhxlnyqPtgvv+vimcuirw8Rfl1cAPtxgr0ivk
-	 uOSJjtZ7I1CIKJz+2G6P6viHFr80dlqMpk1HAZWa+WUv4tLWYfJB4ScIG7qo/p+w/xvjr
-	 pJkkqlHHJQmaSxz5wd2hXJIg2cYg1Zswk3DywbQ0g108jO7vV+bQ1whEOCOJ+1r81gQ==
+	bh=zkTWgouLLPnDh5S8ROkuJUHL/tNkqCBpF/RpN/CqQWg=;
+	b=twd6mxFf+EXGpOH9RGeRFrpsOHTTDjUZltm/r+3GHZEf6iqUQgzV6emXHP1x8+CTrxf7
+	 CShYxROnGEpIXLgfpb8cWyzDFITRWc3WVaSStVa/4ABglBmy/fU8/QYoB1WXfeRcLjEEK
+	 CnfPqnAJA1r4n3FfJ3HTdgnobUWRW3oI2wv+oI3ZdqMX+Gg1xrDRfCgsNyjE3cTcv9RQU
+	 gLyg4DDuK569eLMJGlDOC17Avr2t+ErOtHgCOnH+7eou1dNO6zinvgTTa84DZRxIz62Qc
+	 JQtJ6edApa4kqcs4bmmTMN5aKNzvG7UnTBgihAzGW19u90/hLvkY1UROaVleNqwMUeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EBgPdO7T;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Zf6Db2fv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F6F660709B5;
-	Wed,  4 Nov 2026 21:52:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C8C606D806;
+	Wed,  4 Nov 2026 21:52:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EBgPdO7T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE3FE1F0093A;
-	Wed,  4 Nov 2026 21:52:54 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Zf6Db2fv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B12F1F000C1;
+	Wed,  4 Nov 2026 21:52:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793829175;
-	bh=RTo2t/5Tn2tNK1oNIEzGxfImJhTEjsCpU+Qv30i8MT4=;
+	s=korg; t=1793829176;
+	bh=zkTWgouLLPnDh5S8ROkuJUHL/tNkqCBpF/RpN/CqQWg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EBgPdO7Tar42NTDlXUVtTYLh884nZ8o00R7xF/dXbGvUqgkCLi3MtO6mWZVhM/Ljt
-	 muo8VBk0JgmwUwnEsXEV47tFfp52BXbdM1q+kxAmb0qQVEYn/qS1IHttw2H1CJmrNt
-	 UIORAYDJdaMoV9ZkSHy8A9cTlYsJx8QKvcCq2JSc=
+	b=Zf6Db2fvWT/2OtB6IckV1uId7HezakSIJpTcOzmFqus4NvnPb+gMU5LcL6iJegW+E
+	 VraLuGm5sC2xSOyww0r+UTg7gcrShvMxRI/e7NLr7Ske4EyCx6Lgmi3rqd6VvoYEhw
+	 9aZC7/6U0r0T3+X5oSV3fke1J1Gzi/IBXgzhsaP8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Jiale Yao <yaojiale02@163.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Myeonghun Pak <mhun512@gmail.com>,
 	Jiri Kosina <jkosina@suse.com>
-Subject: [PATCH 7.3 493/547] HID: mcp2200: validate READ_ALL response length
-Date: Wed,  4 Nov 2026 16:11:17 -0500
-Message-ID: <20261104211052.381842958@linuxfoundation.org>
+Subject: [PATCH 7.3 494/547] HID: mcp2221: always initialize and cancel init_work
+Date: Wed,  4 Nov 2026 16:11:18 -0500
+Message-ID: <20261104211052.408239093@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 References: <20261104211038.406938024@linuxfoundation.org>
@@ -67,52 +68,66 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Jiale Yao <yaojiale02@163.com>
+From: Myeonghun Pak <mhun512@gmail.com>
 
-commit 26ce0e6bf0b27fc6a2f490f38555dfd0a27c9605 upstream.
+commit 6a006ff898b459e0bd10375d7fbe0ea7f7a132b9 upstream.
 
-The HID core invokes raw_event callbacks before validating the report
-length.  mcp2200_raw_event() casts a READ_ALL response to struct
-mcp_read_all_resp and reads fields through offset ten without checking that
-the response contains the structure.
+The writable gpio_mode_enforce parameter can change between probe and
+remove.
 
-A one-byte READ_ALL response reproduced the issue under KASAN:
+If it changes from false to true after probe, remove skips cancellation
+of init_work. Pending or running work can then access devm-managed
+driver state after teardown. Changing it from true to false can make
+remove cancel an uninitialized delayed work item.
 
-  BUG: KASAN: slab-out-of-bounds in mcp2200_raw_event+0x24b/0x3a0
-  Read of size 1 by task hidtrigger/89
-  Call Trace:
-   mcp2200_raw_event+0x24b/0x3a0
-   kasan_report+0x139/0x170
+Initialize init_work whenever IIO is reachable and cancel it
+unconditionally on remove. Keep the parameter check only for scheduling
+the initialization.
 
-Reject an incomplete READ_ALL response with a protocol error before reading
-its fields.  The common completion path then wakes the command waiter with
-the error instead of leaving it to time out.
+The false-to-true cancellation gap was previously reported by Sashiko.
+We also encountered this issue during our static-analysis research.
 
-Commit 47669bec44fe ("HID: asus: refactor the two workqueues and init
-sequence") added the same kind of raw_event length validation to hid-asus.
-
-Fixes: 740329d7120f ("HID: mcp2200: added driver for GPIOs of MCP2200")
+Fixes: 200e6c6e94fa ("HID: mcp2221: Add module parameter to enfoce GPIO mode")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/linux-input/20260715143415.916A21F00A3A@smtp.kernel.org/
+Assisted-by: LLM
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/hid/hid-mcp2200.c |    5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/hid/hid-mcp2221.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
---- a/drivers/hid/hid-mcp2200.c
-+++ b/drivers/hid/hid-mcp2200.c
-@@ -301,6 +301,11 @@ static int mcp2200_raw_event(struct hid_
+diff --git a/drivers/hid/hid-mcp2221.c b/drivers/hid/hid-mcp2221.c
+index db0b15622c39..053377dbced2 100644
+--- a/drivers/hid/hid-mcp2221.c
++++ b/drivers/hid/hid-mcp2221.c
+@@ -1072,8 +1072,7 @@ static void mcp2221_remove(struct hid_device *hdev)
+ #if IS_REACHABLE(CONFIG_IIO)
+ 	struct mcp2221 *mcp = hid_get_drvdata(hdev);
  
- 	switch (data[0]) {
- 	case READ_ALL:
-+		if (size < sizeof(*all_resp)) {
-+			mcp->status = -EPROTO;
-+			break;
-+		}
-+
- 		all_resp = (struct mcp_read_all_resp *) data;
- 		mcp->status = 0;
- 		mcp->gpio_inval = all_resp->io_port_val_bmap;
+-	if (!gpio_mode_enforce)
+-		cancel_delayed_work_sync(&mcp->init_work);
++	cancel_delayed_work_sync(&mcp->init_work);
+ #endif
+ }
+ 
+@@ -1347,10 +1346,9 @@ static int mcp2221_probe(struct hid_device *hdev,
+ #endif
+ 
+ #if IS_REACHABLE(CONFIG_IIO)
+-	if (!gpio_mode_enforce) {
+-		INIT_DELAYED_WORK(&mcp->init_work, mcp_init_work);
++	INIT_DELAYED_WORK(&mcp->init_work, mcp_init_work);
++	if (!gpio_mode_enforce)
+ 		schedule_delayed_work(&mcp->init_work, msecs_to_jiffies(100));
+-	}
+ #endif
+ 
+ 	return 0;
+-- 
+2.56.0
+
 
 
