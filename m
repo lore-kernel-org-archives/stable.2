@@ -1,111 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793814861;
-	b=OZtgKm6Gju5kx8kEIIYD9XBUgCfITDhwTXEtpqTr/Li5vYSSbF8tb28qM6Ho4IB9XebX
-	 bZisKI+nJiauY640J18cS8T1FckxLrT2a6501aD33oJ7jweE90scio+YS8OnCjGH1B3VR
-	 lqKRvbjk/D3KxQRTCOXZA/WxOSu19RmgsCnfgA+5B5qTyDHRFnCEqV2uYGqPWPzqMxrz1
-	 DAdiwz4fmNzSmm4KRqmlzyFYrY4U5KBWebdI4EmXiAVLIJnNnpl97GxKeuIVIQI7HKaCz
-	 a1ANejnOg8sF/EDuslEfFSgBcKiSdGIHal6ScfVZVcSaxxzHK7MrmrdBzk6ENmGIZyg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793814861;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=H7K5JcYwiEwa4eeL0B3OVYVYuE4eo7ZLheZ5n77rVhE=;
-	b=qZHt/OfediYBo+W9M0UnH5cpkpLf4OJN3VhXx16uWRKvVK9PeTqPSHRxpHr4kQi8I07P
-	 RZufIfmutdmj7nx7dbOYUvfoCAeFiG9Nr14fvMr+Nn6vZxmyw6q+K4nU98uLxunAMu4fh
-	 3GJxXcLYFkRlKoj4eIwBlNrTXVX+bXBTiiEcGDJLicShalklkDpZh4NpTk3f9z4hbi2RW
-	 iLkHn0g/hGvr4F5nHVvSquvaoZVOEd2BoQykn0X+n3BQ6/qDuq37OsjEKMdsEXadgpk3C
-	 aFCwLV5VMLzO3JdalcK5eJpvJ9vAJqFq3CmW7vJ67A2GxFGq+Zx+EFIiRtNqpOwURDA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gUDkAH9h;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.59
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793814907;
+	b=M1bwCI4ppXurR0CpBc1wqvkicNOKBLNo8Jwp0JeT0mhXDqqrQ0W9oNfOysR5OAHO7sKQ
+	 j4DJBBCFWsAZrxLQLAreWMcMTlsNvAhgcLCTJOWC70ijPhVXjLzcIPPgalPjYrOEHfbnC
+	 RJ4ihTV5RZ1ZQt4vLqThpmSSPWgh7uwT2nbQlTDjet0WPQ6o08227YxAmXnOXZu3NjhbX
+	 mNfvmcrcM4apec7X3JLrPx7YbA0AMyEqsSkvUWY3k5+sJ8X7x3eOaGgeLvaTBj2CBfAEo
+	 1bEObO/zGda5jIoD6sOOdY5TFxRVl3NeZdnlRtKzt7q6BPYbDpyhKfZbWlbBcKFCSzA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793814907;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=XVIKCNpv5uq+g4VJYQBIAQ6hlHNAF13PHJoap8ZInlU=;
+	b=EaYMR97Qt5p0A6cQVxGGkY2VqIcHdwVxPCUSmmRteCWnK2qF7vuPbK/0cR6Kw8rkRGso
+	 q6yWCqRI30CMykg+ahVkM8ulRDlRhHFCznvlq5ChaWjFLHP9nkie1FxqqOvu8qcQhyh9X
+	 SBLOLR0wUIVEHdJo2b3yiyuR5ps6bcRSgPUZF66k+Pqxq6JfAreBFZHfT/5TbyHOcyasz
+	 5BRRbGYJZlheB1qXfWuerNXAoI5p29qmwKiOEjDbzvgz+y6L4cZaB65xPo0QjC7vU/E6b
+	 T8tymcebwK7MkL0IsHbSzf6rINDENELZbikXxpNDS7Srf1gQy3wuuImCNhqyXbP3EfQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ZaBj7L7l;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.59
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013059.outbound.protection.outlook.com [40.107.159.59])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD9660A2635;
-	Wed,  4 Nov 2026 17:54:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE658606D31B;
+	Wed,  4 Nov 2026 17:55:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE658606D31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gUDkAH9h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8733C1F0093A;
-	Wed,  4 Nov 2026 17:53:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793814860;
-	bh=H7K5JcYwiEwa4eeL0B3OVYVYuE4eo7ZLheZ5n77rVhE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gUDkAH9hpixlTIrc1lAucmE9ZhKlc7XWxWd4DDhcdwFUJqzy8FwQhm+hoL7kcO3O+
-	 RFW1GEL8HQaBMrGiferCsPCqYUlXou+gvzGu4IX4HRx9V47q5H5Dy4zlhWXpqmoUoJ
-	 ZbFGJac761mGP0G3hLH5Ve7YID4YoCZy4QRhHJziLwMGdPgWDN8OLmN5CvuAjRItqt
-	 FxUnjdAYq+9UGEzAU2CF2VDwQF+6RqiKbX723YfYbIY+UWDsqwqezxTL7uJJluOW/n
-	 dZu2BESdSyN02AdM7En6UZsFz47eKhz+EwC1fAA8Gk3fO3348SkTJhZqxuXZXOgTqJ
-	 kaGoySTY4rXaw==
-From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Jann Horn <jannh@google.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Chris Mason <mason@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Christoph Hellwig <hch@lst.de>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	Joel Granados <joel.granados@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jan Kara <jack@suse.com>,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	netdev@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	coreteam@netfilter.org,
-	kexec@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	jfs-discussion@lists.sourceforge.net,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sh@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	sparclinux@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-doc@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-atm-general@lists.sourceforge.net,
-	Takashi Iwai <tiwai@suse.de>,
-	linux-input@vger.kernel.org,
-	linux-raid@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-debuggers@vger.kernel.org,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 32/51] proc: resume readdir after the last name it returned
-Date: Wed,  4 Nov 2026 18:47:18 +0100
-Message-ID: <20261104-work-procfs-bugfixes-v2-32-bbf7d5546809@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
-References: <20261104-work-procfs-bugfixes-v2-0-bbf7d5546809@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ZaBj7L7l
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mALgntKJJgmb6yZqP4LI5n++zovlNkX638t7+pGExGCkRBTmlOKjW/aU+2svlcVz0PGTIZIcvpEujLDw6Gy970ZWft1+K4WvRVB0qFu971GaZ/MFPlSRDZy0Su5nTKZbc1ghNIXGLEqFlANRCJPz1qoQYtVeEEiTsBLq9ZVAid7aFRhIDrGH/u1WVJy4Ae8s+/1+yGhJmzz1ayOz8w5cLAZT6itGcvKehPFxV08Lh59zylFcANmtOB2tvFu8k5kIw/7UXSNg2Q15OYycyY8/1GyWh3vF2DjObxaxsnfOQRIkGB3eJ1qk++ClsGLVUgC/BqsjPMiEnIo6dIZTFLSqlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XVIKCNpv5uq+g4VJYQBIAQ6hlHNAF13PHJoap8ZInlU=;
+ b=p32wkY17sUeIgqq9OY7JFp5bZCfuBBNOWtqkTooSEMYzmAG+ntxonxcEg+NHecG1RrF6dkJXAbcws/cymSNeVxK5J3QR3xrja/VbQNDW6IXd6FOJ3SnbEzPobZEVL1LKJu4PTVYo09Mfbwy0J1Equ0ed0rVK3B/WvrZEa6xTyqaKhFkvaiP7f/VS6aLgMa7rwBP4+hx5WVAquZUzXvV/arOOPnuhWAoIjQ5lua6yaENBRH9IfFesprEjoGOuoDinEn/lMzf8aTDks1ZZoTkaY4yI2sWW1+LFUFTfGoTJQyDKD7bYnhdL1V4zsLsC+dq4FmHHuevj33F/kZkZUxxs/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XVIKCNpv5uq+g4VJYQBIAQ6hlHNAF13PHJoap8ZInlU=;
+ b=ZaBj7L7lgoLYKlMANE4P4RUb2XJYMbXD+2lGb7VBRVVIzI5C8/n9XmLkG2mHihPrTUczsE01AnXA/Ku2McdlxIARefwNzw5eeKLZwXPxs0SNTgU0Ei4uRI2dyCTsa8taP5LJD2o2xGt1JfNe+XtpFUaglmSoC07yT1jt27HvZ9XjN8S8VEg3FnpXZ2Nf6IsqyHn8Xe3dlSxQvoVI2EeELRfvybdjY66DQs+wlP4eTw9AQcg4rrT1Fprd3ssz5N5fBiol35WdvArhlu+lyfpxebd/HyQ31KrFerWkwWknrOiZEnzPksFG/lKZmAYiodBaGZY11Y/a7nY0spHEkyKGhg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by WAWPR04MB489017.eurprd04.prod.outlook.com (2603:10a6:1d0:48::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Wed, 4 Nov 2026
+ 17:55:02 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Wed, 4 Nov 2026
+ 17:55:02 +0000
+Date: Wed, 4 Nov 2026 11:54:52 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Tony Lindgren <tony@atomide.com>, Daniel Mack <zonque@gmail.com>,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Julien Panis <jpanis@baylibre.com>, "Mendez, Judith" <jm@ti.com>,
+	"Francis, Sebin" <sebin.francis@ti.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 3/4] dmaengine: ti: cppi41: Restore QMGR_MEMCTRL in resume
+Message-ID: <autxbBcscD8YahBA@SMW015318>
+References: <20261103-v7-3-topic-am335lpm-cppi41-v1-0-d7213446c5f5@baylibre.com>
+ <20261103-v7-3-topic-am335lpm-cppi41-v1-3-d7213446c5f5@baylibre.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-v7-3-topic-am335lpm-cppi41-v1-3-d7213446c5f5@baylibre.com>
+X-ClientProxiedBy: PH8PR05CA0007.namprd05.prod.outlook.com
+ (2603:10b6:510:2cc::18) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,219 +99,147 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7297; i=brauner@kernel.org; h=from:subject:message-id; bh=ZNOmyzOFl2t4htw30uUhDwZ021Jq9cqPFYbiLU1C/ng=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9znvGFeo7KZFrt7y3q93GbQueJ3GmplyuPXWtrYrNf 03Xg9zrHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABNxncfIsGDHgXa9Oa/KT8Vy Ts9W/H/J+rDbm96+a88SC4zLNDX6+hkZ9s7786wqahFbYqkFX8cU0b2f9XJT2Pf+rPGtuHZXQYm THQA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|WAWPR04MB489017:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3250e5d3-583e-44e6-ff29-08df3a9cbff3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|19092799006|376014|366016|23010399003|1800799024|10067099003|22082099003|18002099003|4143699003|11063799006|261102123227099003|261022105027099003|261026121527099003|261026140227099003|261022075727099003|261028144727099003|261021123027099003|261009223027099003|261021121427099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	kYTMjlHP/d0zzTn/oSQzP2WNmXIX9dDP4ViQE+7/h8IuQPlRpTIjth36RAa+YaNSxt3JM5YqtY0cB4AzRHYfQO0/yFK35dnMDNFiQ2uMP1pF5eRl/h+xmGa9KxxnzfVSsl9NDAcsum1Vqcsx8MLPvHphyV4TWoG+j6yW5Qm7/0yjoMlKjmsVKuu9AiI6j6tLuCdQCEW1j47ILCqFNudO9ulozeB03bG/p75wcU33Tanxc1bSxD9U683iXADMpqEpXBbM286nvdljoQXIJIQAWaUT7cPOFJkoIvNR/UrkYWrf4eOpRVuYlKkLGnFAaNiOjrDwFXwRRoQHugEkYDiu7HS9bqn3x+gwmhOWohRkWssXEEdKfsPide0xcSRHtz41d0ytchKJyF1GYuvUeZlFwMKfDGhQZnvXBvm/j96wvBsb+XJHrSPssiPy5u4rJi9o1jgqv7kx41LevOSVKdA0oMkyTRCYKaHrJUTVVS/vsHDPniHuNwlc8ItHBfCtAUamY/67zvYvXEmqTHa3Lk+F/xqpmL2Re7Irq7JvBPJcuow5hnxfEePZZFdPaB4anHo7skk9LwTWLjS7UOuJXKcL0jyC2jNXni2qPNfwLJ5+YIY6/Xv6G905+ri2zaFrumS+OP4D6TJOQ7rtSXoPzKJjtZm7kI3nKWoZRp6xEx1xVw0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(19092799006)(376014)(366016)(23010399003)(1800799024)(10067099003)(22082099003)(18002099003)(4143699003)(11063799006)(261102123227099003)(261022105027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261028144727099003)(261021123027099003)(261009223027099003)(261021121427099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?fJ8Gl9ZmbKYCUxhD3/PacdTrMovR3bj9GNt0a0cIBTpgDRcf+Y6dWth+vi/r?=
+ =?us-ascii?Q?KfUoL9gQz08ud5BCKgkPdIcsQG+11Lhfo3AvNh6NhX/H0htS1/jYoxi2twCc?=
+ =?us-ascii?Q?gEj2TkXgRHtJaouc1SpSFy+Pfa55he6tt+kfKebuGMcMGjlWkCDIpOrATmjo?=
+ =?us-ascii?Q?Upj/56kyEvFpf15f8ZRDTxtSZuYZdkyShCs6EpVca9nn6r4SRbo0lsswFmtP?=
+ =?us-ascii?Q?FnB4iesZD591SeM0MVtsLFLlu98sul5Am1bKICzfb6UglpAfRvtQdKrlRKps?=
+ =?us-ascii?Q?OVxKvT8KOKPB4xpcyvtp+3PDWYNHEUyvGeiq48/li1AqvRMwtzgck8BJ9H57?=
+ =?us-ascii?Q?K61hXGqLPD3qiiTlAK8UMounSzrp+avUOdoHeR4EngnQ6AQ3h782cUV8LzuM?=
+ =?us-ascii?Q?1+xgJoqqfi17pxh6S9XnaEdLcxk0RyZqKIwsmstLip62N7/fszA0H2Twfts8?=
+ =?us-ascii?Q?qjctJuIk21fAbnfAVUEzRcKeqmOIe4rNEGpiSOGJNBzCP1TLkPzzbsw+9e4/?=
+ =?us-ascii?Q?idg6DOp2/8U6BMDQyKCVC6zKvZKM3g1G5VrBBmvfAXDtXnWPnfx1MWjeQocX?=
+ =?us-ascii?Q?+VkYMnettLaol7vDtIkMU83OFh7Vi9L2mVeKS7U/qIs55FlnOKMiesKIj2CA?=
+ =?us-ascii?Q?eEk+tBzmLJtLZCJv49OfVeLbbaOj4VNBr9CiC5r487A7fcVNlWjjk4z8Tpww?=
+ =?us-ascii?Q?U0PeRE1hRnfzGytRu5qyoMCV4fSgmkqmOPkSI72wZDeZJA5oDtvE136pmrKD?=
+ =?us-ascii?Q?ipTkuB66dcgtaZTE6Qt0h/S+4rTRE8T0Hr/lKtwapJTrEHlceEg2eS7o7Zwb?=
+ =?us-ascii?Q?/jSHzTolYMxaVVcMOetUdhScziEL9U2ow4VSAJh9d614IvvrVbVQQOTFh3Op?=
+ =?us-ascii?Q?Y6zwCGyMQ3inyR5CZu6kWDh64ryL0XOeKvPeiY6WavrXF+rSt+OZK97HGIjy?=
+ =?us-ascii?Q?Ix2sWs19ezT2h/5nwocK2SSyhU4bG6raZwsi25iXH47DxGYyLUOy3EYSQkMK?=
+ =?us-ascii?Q?Apsmd8dh+Z3FVbfqDPzC4RKfLChvnHcdb0EVb/M21giLPz4+VxTeGq5J9Zb5?=
+ =?us-ascii?Q?JMvw9UwQ+7LZHUU49huhSM9qjgPp+IfZTk1WfUHhi6MnVvmTlCy6QrfX61+Z?=
+ =?us-ascii?Q?UJwAwzJ2PI5p9mlO4oK8JizkyBkPOk+cMWtO57eLGT6gl7dgTOUR1wa/r851?=
+ =?us-ascii?Q?bURO5Xn5zYof5khNZ8pbojEWFdL4dTSHia7F5CHsYKziLv+QguKAnfhWL7+p?=
+ =?us-ascii?Q?nwB7twoSJyk5OU3rnQiIF+HKAowX97h3xtp2ienrr4KLGmW/Zw6jeyGkReLV?=
+ =?us-ascii?Q?lt1p8VSbnhrU12zXkDfk4p0zIq3E7IEaCHdIxB2q7BUBjK7u5Pjv6I883DvR?=
+ =?us-ascii?Q?JphXwi/Y3UnvN4ARyk284Diu5KrbvPSmcZos1u4qKaAFlisGjwD9gSXcHCSW?=
+ =?us-ascii?Q?YqtKXi3x/wjz06ZDhN0qcWgyDGn2+jZ8hNYhe5XRq5A4OqkyvoGr/OuJVgF8?=
+ =?us-ascii?Q?Yhq3N1DkdOtOdf6b7nol8Ag+liWyaIZcxj3OZCFablAcPbcKmphxxNJ8p8wZ?=
+ =?us-ascii?Q?ivDKCvkWiJsZ472iyGae08R59FZmzPNcrmVKyxCSCSS880Q5z3j2OFCGeqQ+?=
+ =?us-ascii?Q?L072xuIEobF4sPWuF95XMx1l4oPMiab+U/5l2VfSNiaDX+bLjQrdat9J2XWq?=
+ =?us-ascii?Q?cjF8jDAWbgcPc0Tp3ebeVcFY5ATKFT0cPrvjL1dTkh7uO3BGigr1BskEHi/z?=
+ =?us-ascii?Q?fG1dIoJexw4pzFN05AdFCUUcPlxyF3UybRkrpclEFwbhzcdOlWQ+?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3250e5d3-583e-44e6-ff29-08df3a9cbff3
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2026 17:55:02.1684
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /qLsfDm7BMiTPvWvJo1YkGQVs3BdvTasIlZQFJ0ks1tLfGGUiJOS4o6hXizhDcESb6/id7nC6Ji8NJCsB/m7mDbVbW4MpdjrLUu+x+a+BwHJXYNFWXlgcsbaGAPtI9Mr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: WAWPR04MB489017
 
-proc_readdir_de() counts the entries of a directory and resumes a
-listing at the number getdents64() stopped at. The entries are sorted
-by name, so one that is added or removed in between shifts everything
-behind it by one. Listing /proc/net/dev_snmp6 with a buffer that holds
-".", ".." and "lo" and adding a device whose name sorts before "lo"
-makes the next call return "lo" a second time. Removing one that sorted
-before the position makes the next call skip an entry instead.
+On Tue, Nov 03, 2026 at 08:37:30PM +0100, Markus Schneider-Pargmann (TI) wrote:
+> [You don't often get email from msp@baylibre.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> Currently only QMGR_MEMBASE is restored in resume, QMGR_MEMCTRL is left
+> at its default values.
+>
+> Add a restore for QMGR_MEMCTRL. This introduces a helper function
+> cppi41_memctrl() to not duplicate this calcuation in init and resume.
+>
+> Fixes: f97b98d6d02e ("dma: cppi41: add support for suspend and resume")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+> ---
 
-Since commit 895b4c0c79b0 ("fs/proc: fix uaf in proc_readdir_de()") an
-entry that is removed while it is being emitted also ends the listing
-right there. pde_subdir_next() finds nothing after an erased entry, so
-proc_readdir_de() reports the end of the directory and the next call
-resumes by number, skipping another entry. For /proc itself
-proc_root_readdir() takes that as the end of the static entries and
-moves on to the pids, so the rest of the static entries is missing.
-And if the position is behind the last entry when a call starts
-proc_readdir_de() returns 0, so /proc then lists no pids at all.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-So remember the name of the last entry a call emitted in the file and
-resume at the first entry after it, like kernfs resumes after the node
-it stopped at. An entry that was removed while it was emitted is
-continued after by its name as well. If the position was moved by a
-seek in between the listing counts from the start like before.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: 895b4c0c79b0 ("fs/proc: fix uaf in proc_readdir_de()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/proc/generic.c  | 89 ++++++++++++++++++++++++++++++++++++++++++++++--------
- fs/proc/internal.h |  1 +
- fs/proc/proc_net.c |  1 +
- fs/proc/root.c     |  1 +
- 4 files changed, 80 insertions(+), 12 deletions(-)
-
-diff --git a/fs/proc/generic.c b/fs/proc/generic.c
-index 9e59796349e1..588999058e66 100644
---- a/fs/proc/generic.c
-+++ b/fs/proc/generic.c
-@@ -87,6 +87,28 @@ static struct proc_dir_entry *pde_subdir_find(struct proc_dir_entry *dir,
- 	return NULL;
- }
- 
-+/* The first entry of @dir that sorts after @name. */
-+static struct proc_dir_entry *pde_subdir_after(struct proc_dir_entry *dir,
-+					       const char *name,
-+					       unsigned int len)
-+{
-+	struct rb_node *node = dir->subdir.rb_node, *after = NULL;
-+
-+	while (node) {
-+		struct proc_dir_entry *de = rb_entry(node,
-+						     struct proc_dir_entry,
-+						     subdir_node);
-+
-+		if (proc_match(name, de, len) < 0) {
-+			after = node;
-+			node = node->rb_left;
-+		} else {
-+			node = node->rb_right;
-+		}
-+	}
-+	return rb_entry_safe(after, struct proc_dir_entry, subdir_node);
-+}
-+
- static bool pde_subdir_insert(struct proc_dir_entry *dir,
- 			      struct proc_dir_entry *de)
- {
-@@ -278,6 +300,40 @@ struct dentry *proc_lookup(struct inode *dir, struct dentry *dentry,
- 	return proc_lookup_de(dir, dentry, PDE(dir));
- }
- 
-+/*
-+ * Where the next readdir resumes. The entries are counted, so one that is
-+ * added or removed in front of the position would shift what the next call
-+ * returns. The name of the last entry emitted doesn't move.
-+ */
-+struct proc_dir_cursor {
-+	loff_t pos;			/* the position behind the entry */
-+	unsigned int len;
-+	char name[NAME_MAX + 1];
-+};
-+
-+/* If this can't remember the entry the next call counts from the start. */
-+static void proc_dir_cursor_set(struct file *file, struct proc_dir_entry *de,
-+				loff_t pos)
-+{
-+	struct proc_dir_cursor *cursor = file->private_data;
-+
-+	if (!cursor) {
-+		cursor = kmalloc(sizeof(*cursor), GFP_KERNEL);
-+		if (!cursor)
-+			return;
-+		file->private_data = cursor;
-+	}
-+	cursor->pos = pos;
-+	cursor->len = de->namelen;
-+	memcpy(cursor->name, de->name, de->namelen);
-+}
-+
-+int proc_dir_release(struct inode *inode, struct file *file)
-+{
-+	kfree(file->private_data);
-+	return 0;
-+}
-+
- /*
-  * This returns non-zero if at EOF, so that the /proc
-  * root directory can use this and check if it should
-@@ -290,23 +346,26 @@ struct dentry *proc_lookup(struct inode *dir, struct dentry *dentry,
- int proc_readdir_de(struct file *file, struct dir_context *ctx,
- 		    struct proc_dir_entry *de)
- {
-+	struct proc_dir_cursor *cursor = file->private_data;
-+	struct proc_dir_entry *dir = de;
- 	int i;
- 
- 	if (!dir_emit_dots(file, ctx))
- 		return 0;
- 
--	i = ctx->pos - 2;
- 	read_lock(&proc_subdir_lock);
--	de = pde_subdir_first(de);
--	for (;;) {
--		if (!de) {
--			read_unlock(&proc_subdir_lock);
--			return 0;
--		}
--		if (!i)
--			break;
--		de = pde_subdir_next(de);
--		i--;
-+	if (cursor && cursor->pos == ctx->pos) {
-+		/* Resume after the last entry emitted, wherever it is now. */
-+		de = pde_subdir_after(dir, cursor->name, cursor->len);
-+	} else {
-+		/* Moved by a seek, count from the start like always. */
-+		de = pde_subdir_first(dir);
-+		for (i = ctx->pos - 2; de && i; i--)
-+			de = pde_subdir_next(de);
-+	}
-+	if (!de) {
-+		read_unlock(&proc_subdir_lock);
-+		return 1;
- 	}
- 
- 	do {
-@@ -319,8 +378,13 @@ int proc_readdir_de(struct file *file, struct dir_context *ctx,
- 			return 0;
- 		}
- 		ctx->pos++;
-+		proc_dir_cursor_set(file, de, ctx->pos);
- 		read_lock(&proc_subdir_lock);
--		next = pde_subdir_next(de);
-+		/* Removed in the meantime, go on after its name. */
-+		if (RB_EMPTY_NODE(&de->subdir_node))
-+			next = pde_subdir_after(dir, de->name, de->namelen);
-+		else
-+			next = pde_subdir_next(de);
- 		pde_put(de);
- 		de = next;
- 	} while (de);
-@@ -348,6 +412,7 @@ static const struct file_operations proc_dir_operations = {
- 	.llseek			= generic_file_llseek,
- 	.read			= generic_read_dir,
- 	.iterate_shared		= proc_readdir,
-+	.release		= proc_dir_release,
- };
- 
- static int proc_net_d_revalidate(struct inode *dir, const struct qstr *name,
-diff --git a/fs/proc/internal.h b/fs/proc/internal.h
-index df873df9afc5..04f7ce2b24ed 100644
---- a/fs/proc/internal.h
-+++ b/fs/proc/internal.h
-@@ -287,6 +287,7 @@ extern struct dentry *proc_lookup(struct inode *, struct dentry *, unsigned int)
- struct dentry *proc_lookup_de(struct inode *, struct dentry *, struct proc_dir_entry *);
- extern int proc_readdir(struct file *, struct dir_context *);
- int proc_readdir_de(struct file *, struct dir_context *, struct proc_dir_entry *);
-+int proc_dir_release(struct inode *, struct file *);
- 
- static inline void pde_get(struct proc_dir_entry *pde)
- {
-diff --git a/fs/proc/proc_net.c b/fs/proc/proc_net.c
-index b1f5eafb069a..dbcf87a257e1 100644
---- a/fs/proc/proc_net.c
-+++ b/fs/proc/proc_net.c
-@@ -351,6 +351,7 @@ const struct file_operations proc_net_operations = {
- 	.llseek		= generic_file_llseek,
- 	.read		= generic_read_dir,
- 	.iterate_shared	= proc_tgid_net_readdir,
-+	.release	= proc_dir_release,
- };
- 
- static __net_init int proc_net_ns_init(struct net *net)
-diff --git a/fs/proc/root.c b/fs/proc/root.c
-index 7fbbe92bf73a..dfee1caa26f7 100644
---- a/fs/proc/root.c
-+++ b/fs/proc/root.c
-@@ -441,6 +441,7 @@ static const struct file_operations proc_root_operations = {
- 	.read		 = generic_read_dir,
- 	.iterate_shared	 = proc_root_readdir,
- 	.llseek		= generic_file_llseek,
-+	.release	= proc_dir_release,
- };
- 
- /*
-
--- 
-2.53.0
-
+>  drivers/dma/ti/cppi41.c | 27 +++++++++++++++------------
+>  1 file changed, 15 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/dma/ti/cppi41.c b/drivers/dma/ti/cppi41.c
+> index f5a824418fe7..e2a089066c6d 100644
+> --- a/drivers/dma/ti/cppi41.c
+> +++ b/drivers/dma/ti/cppi41.c
+> @@ -842,13 +842,22 @@ static void deinit_cppi41(struct device *dev, struct cppi41_dd *cdd)
+>                         cdd->scratch_phys);
+>  }
+>
+> +static u32 cppi41_memctrl(int area)
+> +{
+> +       u32 reg;
+> +
+> +       reg = (area * ALLOC_DECS_NUM) << QMGR_MEMCTRL_IDX_SH;
+> +       reg |= (ilog2(sizeof(struct cppi41_desc)) - 5) << QMGR_MEMCTRL_DESC_SH;
+> +       reg |= ilog2(ALLOC_DECS_NUM) - 5;
+> +
+> +       return reg;
+> +}
+> +
+>  static int init_descs(struct device *dev, struct cppi41_dd *cdd)
+>  {
+>         unsigned int desc_size;
+>         unsigned int mem_decs;
+>         int i;
+> -       u32 reg;
+> -       u32 idx;
+>
+>         BUILD_BUG_ON(sizeof(struct cppi41_desc) &
+>                         (sizeof(struct cppi41_desc) - 1));
+> @@ -858,13 +867,7 @@ static int init_descs(struct device *dev, struct cppi41_dd *cdd)
+>         desc_size = sizeof(struct cppi41_desc);
+>         mem_decs = ALLOC_DECS_NUM * desc_size;
+>
+> -       idx = 0;
+>         for (i = 0; i < DESCS_AREAS; i++) {
+> -
+> -               reg = idx << QMGR_MEMCTRL_IDX_SH;
+> -               reg |= (ilog2(desc_size) - 5) << QMGR_MEMCTRL_DESC_SH;
+> -               reg |= ilog2(ALLOC_DECS_NUM) - 5;
+> -
+>                 BUILD_BUG_ON(DESCS_AREAS != 1);
+>                 cdd->cd = dma_alloc_coherent(dev, mem_decs,
+>                                 &cdd->descs_phys, GFP_KERNEL);
+> @@ -872,9 +875,7 @@ static int init_descs(struct device *dev, struct cppi41_dd *cdd)
+>                         return -ENOMEM;
+>
+>                 cppi_writel(cdd->descs_phys, cdd->qmgr_mem + QMGR_MEMBASE(i));
+> -               cppi_writel(reg, cdd->qmgr_mem + QMGR_MEMCTRL(i));
+> -
+> -               idx += ALLOC_DECS_NUM;
+> +               cppi_writel(cppi41_memctrl(i), cdd->qmgr_mem + QMGR_MEMCTRL(i));
+>         }
+>         return 0;
+>  }
+> @@ -1191,8 +1192,10 @@ static int __maybe_unused cppi41_resume(struct device *dev)
+>         if (pm_runtime_status_suspended(dev))
+>                 return 0;
+>
+> -       for (i = 0; i < DESCS_AREAS; i++)
+> +       for (i = 0; i < DESCS_AREAS; i++) {
+>                 cppi_writel(cdd->descs_phys, cdd->qmgr_mem + QMGR_MEMBASE(i));
+> +               cppi_writel(cppi41_memctrl(i), cdd->qmgr_mem + QMGR_MEMCTRL(i));
+> +       }
+>
+>         list_for_each_entry(c, &cdd->ddev.channels, chan.device_node)
+>                 if (!c->is_tx)
+>
+> --
+> 2.55.0
+>
