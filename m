@@ -1,123 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.114
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793798506;
-	b=KdcfKa+FnQIFqrR0tl4KiFkjNbSnOut/jyamWkz3wsnDhcfEVLG/IlHs7jedi5UIJ87R
-	 Ffh6OjAVObGFY2xAOjnJqTvwMtQbjjbIFk7iLXgAhtJ9E16RoCAF8izfBe9jcdAvCq7Nf
-	 LSLzLw0tbaP0ne4UEYKMU3G2gY3WzQqHrpuvlyYvjG8bbgT09OenSNEB74toL1qPJiCTx
-	 IJyVMptKmlAA8uZs5/QvQ/meVNGTyZNA5P/YcR4CyJa9+H8YlwZBmrVM3N1lovJgKz7IT
-	 MaJr2LghNjQsCwOfM66QAwRTjgwi4/k8vDhJoTMjSOD4TFGGDAZyNeCA8G0fQEX6xoA==
+	t=1793798723;
+	b=VHGRr/JWK48nVrj0DyFAG+dQDwiFSmE5vhbeWzXWOvmAaiwzzYLWbfSnHzP8LLdcklO5
+	 luTUxfCsKQ3PY1rfowIsaqfRy6l/aVcha/jU9zzVvQpQqBVF9sZXpa1iOKaVVuKwZOkDr
+	 CDd33ri2wZz6LRL5V0QoWqlKWJ8bk3TnsdKMIh9GRNCdaBeV3NQ9A3MQ0eLf0iTkN7GMD
+	 TOA/m9GiOGyY5rYGaaNm+EBOiehYRkkO0xWwNeRh6T8djIvas6gPKi073sqKmbVvASJcf
+	 pR95pKCeHUqMzJY6hToL8JfBtQ2mvpayQuDT8Hc7E/gzD2dNsnxvuF+k/VyXrMZd2jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793798506;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=bdDbdezahsnwvvodBAeZroZhoHCyGDtmjwh7kWkAIGA=;
-	b=TQGFoYFS8YXXdwF8DAegiAIXkOHcuVLIEVqnCl3aBpYBMegvabeS6+tb46CvMMMyWBgJ
-	 wN6b15QR6bVhRzP+zhErIndjwHUUz/E2J6d05GgHkQ3pQupOmNjd5VnSeLLG4DPNRfVzv
-	 hJv+ox0bEExBEdu+gbeV3ZTBYj4szOK8OhKyNZ3ZihAcX9r5rAF2X3vUsLJcBd8DC/SPA
-	 bGXRwS+XwEuOdBFyvgLGZF9PQdqFeQ2f9ycWtc5MdfYBUhn4r8sbPUZaGSDsXftlMYvoI
-	 +PlYMQGxXRlxIuCrpaAeDi5O9J81aigM5hnMthh+k96wo8hhctBb3fwlZwtXGnPo0+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793798723;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=WewCNuo8YovPY2dmGEGeXhtwDfjeK4b5OhGvtgGhTF0=;
+	b=y0p5MZ//4SyVfCdAnI5XnM5o+jQ6Z2F+v9DwHROZx22/CFT+ha0+QmUzHE1xLT2wGm0Q
+	 2NSF3I89w+R99/ykQ+5HiCSzEkrIXK1gYDTPmgUVJUYH62dHikcPb4WxaSr7xDJj9nLTy
+	 nAgvUluUH7MuAxkwMlD0b3B5BEjVomYzdR9w89W0RiKIhTrPO60AAqIMovAn182GK8KZb
+	 iSgq22RVBfqjV8HYpHiWpR07UiRJlLp9MzlDfyXDJjA9bOgxYlnbGRtByOLtcfWwemgiK
+	 S/cH3fRvyoQ0+jP5IZiRXqEiW9aLdUzYw4/vFjcAtexj3yk7u/qEBe+GqAZYpcoa9Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hMkwn1Cn;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Sjyo6MDD;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="YhT7a/p1";
+	arc=none smtp.remote-ip=95.215.58.114
+Received: from mta1.migadu.com (out-114.mta1.migadu.com [95.215.58.114])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2F7606A32D
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:21:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD2F7606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712A4606A328
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 13:25:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 712A4606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hMkwn1Cn;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Sjyo6MDD
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4BZs3Q2284172
-	for <stable@vger.kernel.org>; Wed, 4 Nov 2026 13:21:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=bdDbdezahsnwvvodBAeZroZh
-	oHCyGDtmjwh7kWkAIGA=; b=hMkwn1CndJq7dLbOzHFcp/c7/7+LQmnU4IIeYXhl
-	eD9flXMfO5OaxwvR6zf96TNocN2EPwyBHfrQvx5gGEzZmRspTRMI/3FRyLn5T0nO
-	qO41sHImGEHld9GwuCDhB6F99fvCiDuFm1TlIQYNaaFdRjFO/x+usFvPgSkxXyA4
-	ID2fD9HRzGcPw54pAVPqmi+DrqNoJ8e4HpPBIeci+lzWMD7y/2DAhp4K7eupSWlq
-	EqE0hb/9UOAHrXtqnuGvWtK69xBgP1n+U+SX3wIbITKHiuTT3c5NfNUqCY1eXeGF
-	eJuVaTRqZ+2CTMIVbZ0oA4nhv2JbtD0c0Fu/ehoTXiLj4A==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr284ru09-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Wed, 04 Nov 2026 13:21:44 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-98a829c43f3so251391241.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 05:21:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793798504; x=1794403304; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bdDbdezahsnwvvodBAeZroZhoHCyGDtmjwh7kWkAIGA=;
-        b=Sjyo6MDDWJLQeMVjSqSGKWmDG7H4krUMB6ZdNQ5m9dHjyBt99Q8CwA1wQmlVRMbUGH
-         rqI24qbrTRoJYiBfJapCIziabzEdgSXvOo1qIr3Wzhc+dCZ2D/9ILiY7/WyKx+/Bh/hQ
-         cC6ySuikCJVLMiVtU6wpQwTY9+blH9La1pQzJei/mFiaWyT49WTABmY+n/nZjX3QyYBz
-         FIh8XQnMyHW6NhnIjVTUEJI+mcj/Q21U6nZf7RK0QfVvOqGGHGIVAhpwPJ4UdysQ30jF
-         7sr8+/TUObuNDX2AIMW8KUcMqf56HmUxk5m8Y5ev1wWhdP4C2xYAxl1PsfFaEGO2pqhw
-         KZGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793798504; x=1794403304;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bdDbdezahsnwvvodBAeZroZhoHCyGDtmjwh7kWkAIGA=;
-        b=BjxB8CiwnUWBxfoaz3D3v6hAqIxbTnCvCnQxGb2p0yRBZ+hhZIQf6oG/Q6+O8O1H2M
-         mKv2H5pfRmtHiBuazOZnvNp7YRV1yvFWajyKEL+w9ssmwJ4y2tc+lcGoR2Uf4f+DYWXA
-         yaIQuRumB9tSLovayWvgkh6rdtbPFKOnfaWiWy7nKBoX4uI4v0qeJaG81XRm2u6QTlkW
-         hkyKUw3OVkTSU5d88PG1RlGyI/K5gpimcozLecMNAzBzsBfZczQTpt4s2ddbIxaeq7n+
-         xrplY/nW5SS9OqERNGiZ1tsvHoscBZgGCqs1nu6jqYRM+yKE8m7b8FwDqomRIbQ12EYS
-         Pijg==
-X-Forwarded-Encrypted: i=1; AKwUvBySnmGThclU8PejzyHvu8gB1iYyxIJzoW0z2Mtub4D5j8+5zp1tSXoimiZ4zfy+hBZ2M0QiGP4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8gI/mQYfGBSs9r9Aohy8sR4QtbS6NGfj0Hn3kQPzEK9ugR6LlY
-	pXEZVNc0TlmuDe/3yeHRYz1bC/Bo8BWy3MyDWg4TKqhDKOIFlIMasWlrch2U2rJsDUE+Dj8YzW/
-	UPfLXCUsMK9ei8TkkvmY3IGMBUnYa3bYqXwES1c0MD7Vp9aqNbpTWxOV667E=
-X-Gm-Gg: AYBFou2cGWg4fynQtNcrKlVJD0QfxIqHX/zlT7EPa3Kmo6l2FRt2+PZLqMdGUG/sdqJ
-	Ldh+ea8VBC6+aMZ7hGp56Kf/7ek1ZzxkcvMAKmAMiR3RgA5t0xOejx3DEN3Y87P43aGtCcOLvvB
-	XiogfyPNMKcjZn6Vy+6338o47ksUPAP4QPtLZ6G3jEn2U/1MyjmA2V8XUIDM38JY5nBR/XeOJuR
-	ubLEQI4ZW/AH+IFUetdmK8I3lzhuzMop0PWWkDWlbrMOgODG3uhwLIOOrNymOFDq2r0SDTNIE+T
-	uoxuOhZCdQS9fr1UOUTqkExvUOc8bVjEAdWjzvT/dnvnYlXohE8NnW+uBWmAGEAhvaY/jgkYSf1
-	/o46AO1rQHD83Fav9dH5hakwFSTz37Gvxdt1r0otIardJ8zqWwqDEoQXu2uvhQBc=
-X-Received: by 2002:a05:6102:5712:b0:7c3:881f:b620 with SMTP id ada2fe7eead31-7d072c56c97mr5830337137.21.1793798503852;
-        Wed, 04 Nov 2026 05:21:43 -0800 (PST)
-X-Received: by 2002:a05:6102:5712:b0:7c3:881f:b620 with SMTP id ada2fe7eead31-7d072c56c97mr5830327137.21.1793798503118;
-        Wed, 04 Nov 2026 05:21:43 -0800 (PST)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b412e48fd8sm51175065e9.1.2026.11.04.05.21.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 05:21:41 -0800 (PST)
-Date: Wed, 4 Nov 2026 15:21:40 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Andy Gross <andy.gross@linaro.org>,
-        Mark Brown <broonie@kernel.org>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
-        stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] soc: qcom: apr: Fix theoretical use-after-free of
- GPR port on concurrent RX callback
-Message-ID: <xqvbybeyrp5fgortzu7pkq2ge4hshhsma2nu4ag5isjsekmitr@66erhrmbpega>
-References: <20261103145635.309032-4-krzysztof.kozlowski@oss.qualcomm.com>
- <20261103145635.309032-5-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YhT7a/p1
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BNLoTZcqlZkdyN8nI/N/fiKEzBgCvrjgOnls62w/d7g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793798720; v=1; x=1794403520;
+ b=YhT7a/p1dfsL/eIlLPBtQDmuzjGr03JYM2Gxa5WMRSSPpTLxzmO3W1fKHTFQjo8AgVngvNSc
+ JzwxYKxyMMo1od4tWhMEmYiw96VQeFm440m2HOBGqSOificvFPUSbqBUSjWMAYGFKzVYngYH6Ni
+ liDZR52RlRNsexBbDOBBvHsw=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id eca819494a8d83eb;
+	Wed, 04 Nov 2026 13:25:19 +0000
+X-Mizu-Trace-ID: eca819494a8d83eb
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <57f4dd69-a326-4802-b9b3-f715568b8ea4@linux.dev>
+Date: Wed, 4 Nov 2026 21:25:10 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -127,64 +58,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103145635.309032-5-krzysztof.kozlowski@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=JdQpPkKV c=1 sm=1 tr=0 ts=6aeb3168 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Fpy8J9LNTvDAPkKIS1gA:9
- a=CjuIK1q_8ugA:10 a=TD8TdBvy0hsOASGTdmB-:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: pVXymomMjqGHCzEIufgJRpCbPYwAlnAo
-X-Proofpoint-GUID: pVXymomMjqGHCzEIufgJRpCbPYwAlnAo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA1MyBTYWx0ZWRfX12MiMp24KD1J
- sWGM06dnzdEYfz2aYKGUUuYa6CqC6wvAGURpvngIWJRNCNsXNYCc9QDjlENkFva3/QkDaDzFYhx
- yUTQhm/m0+tTgiF9xp95/kHuajA7iBCEbl0Y1iNm2jNt7AKbXEV8Hye2Gb5W6Gm3uU+91UHJZzv
- +Z5srXIWFDdFISxAKRdkQNlLfDu8khep5RFy4Pdnwi5Eo1aD1iAAHMqVQCy/SGsmgJ9FSWyj+/l
- Rlyym1kzysMMCUYbgIlwOpdyysjgu8CKRiuDQ9+HD70auRwBhugbDTdgmomd666Vqbe6l3MTN/r
- QMAoRpef6YcYrF5iVmhZDjW4qhhrebTGffd/fH/e5+ZkXSGCeMEzX5P2+tn/BBukmfvM8tGylmw
- x05L5QXFHcHmulRQdEHhA6yNC411hL037T+TFJ3FFdgiIzO8DrbIrS6JFzB7DOaZQmZ3HMPbze7
- FagKmtiHVbpVdZs0rvg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA1MyBTYWx0ZWRfX3rUS0weBLasJ
- 5KpONw6P/ECj64ILLiBC+7ZgcqMzhQ7tKX5t3tqY9vKL46ILOuvH3dGzyebqL4c4zOG17cNth7e
- R+TG2Ix22ri2cdhM1DtRj4yYdg9nZb8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_04,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
- priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0 clxscore=1015
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040053
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] cgroup/freezer: walk exiting tasks in the v1 freezer
+To: mt4022@columbia.edu, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>
+References: <20261103-cgroup-freezer-exiting-v1-1-00d43b443747@columbia.edu>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <20261103-cgroup-freezer-exiting-v1-1-00d43b443747@columbia.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 26-11-03 15:56:37, Krzysztof Kozlowski wrote:
-> gpr_do_rx_callback(), executed from the RX workqueue, looks up the
-> destination port in the IDR under svcs_lock, but then drops the lock to
-> call port's callback.
+Hi Mani,
+
+在 2026/11/4 02:09, Mani Tofigh via B4 Relay 写道:
+> From: Mani Tofigh <mt4022@columbia.edu>
 > 
-> Concurrently closing a graph calls gpr_free_port(), which frees the port
-> after removing it from IDR, thus a theoretical scenario (not reproduced)
-> is possible:
+> An exiting task can stay frozen after its v1 freezer cgroup is thawed.
+> Since commit a72f73c4dd9b ("cgroup: Don't expose dead tasks in cgroup")
+> the css task walk hides an exiting task once its process has no live
+> threads left.  That count drops when another thread of the process
+> exits, which can happen between the freeze and the thaw walk.  A pid
+> namespace init hits this easily since it waits freezably in
+> zap_pid_ns_processes() after commit 81933038f5e2 ("pid_namespace: make
+> zap_pid_ns_processes() freezable"):
 > 
->   CPU0 (RX worker)                  CPU1 (teardown)
->   ----------------                  ---------------
->   gpr_do_rx_callback()
->     lock(svcs_lock)
->     svc = idr_find()
->     unlock(svcs_lock)
->                                     q6apm_graph_close()
->                                       gpr_free_port()
->                                         idr_remove()
->                                         kfree(port)
->                                       kfree(graph)
->     svc->callback(..., svc->priv)   <- use-after-free
+>   Task A (pid ns init)      Task B (A's thread)      Task C
+>                             do_exit()
+>                               exit_signals()
+>   do_exit()
+>     zap_pid_ns_processes()
+>                                                      write FROZEN
+>                                                        /* A frozen */
+>                               /* live count 0 */
+>                                                      write THAWED
+>                                                        /* A skipped */
 > 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/bug/linux-1ebe255f-a874-46dc-b7cc-455e7bce402f
-> Fixes: ec1471a898cc ("soc: qcom: apr: Add GPR support")
+> A then stays frozen even after SIGKILL:
+> 
+>   [   10.775155] task:fz-init         state:D stack:28152 pid:65    tgid:65    ppid:1      task_flags:0xc0004c flags:0x00080000
+>   [   10.775176] Call Trace:
+>   [   10.775180]  <TASK>
+>   [   10.775188]  __schedule+0x10f1/0x4760
+>   [   10.775252]  schedule+0xd7/0x2c0
+>   [   10.775265]  zap_pid_ns_processes+0x2c7/0x5f0
+>   [   10.775346]  do_exit+0x1bf4/0x2560
+>   [   10.775403]  __x64_sys_exit+0x3d/0x50
+>   [   10.775414]  x64_sys_call+0x156c/0x1570
+>   [   10.775425]  do_syscall_64+0xfb/0x590
+>   [   10.775450]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>   [   10.775529]  </TASK>
+> 
+> Use CSS_TASK_ITER_WITH_DEAD in the three v1 freezer walks so they all
+> see the same tasks, as commit 60f21a264930 ("cgroup, sched_ext: Include
+> exiting tasks in cgroup iter") did for sched_ext.  With the fix, A is
+> thawed and exits.
+> 
+
+Thanks for the clear writeup and reproducer. Ran freezev1.c against
+next-20261103 on a 2-vCPU VM. Base reproduced the hang on round 1
+(5.1s), with the patch 600s / 6124 rounds ran clean.
+
+Reviewed-by: Tao Cui <cuitao@kylinos.cn>
+Tested-by: Tao Cui <cuitao@kylinos.cn>
+
+Thanks,
+Tao
+> This bug was identified and confirmed with the help of a deterministic
+> hypervisor currently under development.  The C reproducer below however
+> hits it within about 10s.
+> 
+> Fixes: a72f73c4dd9b ("cgroup: Don't expose dead tasks in cgroup")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+> ---
+> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/freezev1.c
+> ---
+>  kernel/cgroup/legacy_freezer.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/kernel/cgroup/legacy_freezer.c b/kernel/cgroup/legacy_freezer.c
+> index 8545e0d1ba3d..bd11047f2311 100644
+> --- a/kernel/cgroup/legacy_freezer.c
+> +++ b/kernel/cgroup/legacy_freezer.c
+> @@ -265,7 +265,7 @@ static void update_if_frozen(struct cgroup_subsys_state *css)
+>  	rcu_read_unlock();
+>  
+>  	/* are all tasks frozen? */
+> -	css_task_iter_start(css, 0, &it);
+> +	css_task_iter_start(css, CSS_TASK_ITER_WITH_DEAD, &it);
+>  
+>  	while ((task = css_task_iter_next(&it))) {
+>  		if (freezing(task) && !frozen(task))
+> @@ -309,7 +309,7 @@ static void freeze_cgroup(struct freezer *freezer)
+>  	struct css_task_iter it;
+>  	struct task_struct *task;
+>  
+> -	css_task_iter_start(&freezer->css, 0, &it);
+> +	css_task_iter_start(&freezer->css, CSS_TASK_ITER_WITH_DEAD, &it);
+>  	while ((task = css_task_iter_next(&it)))
+>  		freeze_task(task);
+>  	css_task_iter_end(&it);
+> @@ -320,7 +320,7 @@ static void unfreeze_cgroup(struct freezer *freezer)
+>  	struct css_task_iter it;
+>  	struct task_struct *task;
+>  
+> -	css_task_iter_start(&freezer->css, 0, &it);
+> +	css_task_iter_start(&freezer->css, CSS_TASK_ITER_WITH_DEAD, &it);
+>  	while ((task = css_task_iter_next(&it)))
+>  		__thaw_task(task);
+>  	css_task_iter_end(&it);
+> 
+> ---
+> base-commit: fffbdad76a57eed26cff1be19f4cbb407f0b6e7c
+> change-id: 20261102-cgroup-freezer-exiting-c7f60e4c3200
+> 
+> Best regards,
+> --  
+> Mani Tofigh <mt4022@columbia.edu>
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
