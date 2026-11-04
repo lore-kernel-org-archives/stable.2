@@ -1,49 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793804407;
-	b=lXJqZesWWEpRknyVwfDWdMnIuCrGoTjK5QFIta1iHdUBaApbhGOpsTkegIwqq5LeZkIc
-	 7MVir3HSsYvDAvbCmCqVtsdtiTtTaGjuoTgvgt7VjvtTMAS0FHNcwt6Aay1YjsQmXDq3J
-	 4ZedB20NIVO3hlrSf7Qv+ZRp6TvQn4SsWBUnOagU0qD+y46qvQ3QvtWRKdknRqFtCMghK
-	 tkd3uqW1dms+60LPn88bRL0fJXP5Oi3sQSZWMxz6LP6yiufutSUzgSyWOnBwl1ZOvcWmZ
-	 IurWkQLP2gqI2H4JE2umjI5bulYOR5jJIz057kHsIQgJkM7vZP6HZ73rLmY96TvK6Fw==
+	t=1793804462;
+	b=gs40mCmgBX2EuEdHZaVfKeVyUcs6J36WkZGw0S5om/tAd2RWoJmToTLVDVEEVzRLPW9g
+	 ys/F/icGBOvL5lu9I4p2aEOAYFs27DWXgX2XWvY6HaswBezKGJhuCGD8oOm7N8Hl04G/1
+	 jjW3r2Epu47JoGoyeeEaaRzREX/qjjPO+/Ekj4mAQHiFIplC6I0wW4+FPK0XLoMBktUne
+	 dyTp0RlCnlgHtQGDtVLdBgK5BAlrdyumF4s+DX1fAf02dkZbCnLqa3ysiV+xnQUm1PNwM
+	 UNxPnSejcJ6Wu7JtNze4zAByCWvuaCOs7OlT6cnx4zQZLzIyGcixN6xOpr3CE5ZgSxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793804407;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=H3zrIwsM5Od3j/ojrupK60k2PACGT3gOchQyhe+f38Y=;
-	b=vu3AVgxTjNOtJQtjW5evpghxL4Nl5Ry/BQn/D6Ie5ZL6DqvI72dGi/soHruFYaNP25ak
-	 8KKUDoWt4vom5AAB+5vdZmm41wl+AeF/ZSy6yyBe8d9+NbZ5/wAjdHnCpQMJgB0GgPsYC
-	 h2vCFRStKB28py5hyu+i8tBwRBN05srv5yXsXi9cpPb9sftsukArwvgmeJ73iLplpr+uy
-	 d9O08qqWzV7PE6TgMH2j6gbskFQWUdhc9eIc18AowXdwik6PY+NhTl4osae5cYnse6j3N
-	 GalPHwrtj75baznD7iUlsL8eY45jM2tkTr8umDMgZGLOjn0O61lPfsJwNbg5GvnIo0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793804462;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=q/g0jSRA0tpJ07tlLDQp7RalSmitHJ2ympqEL/aS1gY=;
+	b=peCk0sLCbkNaZfhTygRLQZ4NnSml6pg/ewvq7s1LSNMGEM7uvB+dT30tT0/TwpWCuDtp
+	 0ZV3e2VwzyGT6DRdUmw4w+G38jo3FddR5AXElsiLHiljcgV+EYta1TOsJWpxUti8lxhkI
+	 ieZPixAIBvV4aIG+o4Jg4il/Du9fQx9/tzmS5RYgpFyT5Jubro1lr2tj5HOuhR1ViMVjR
+	 olZjrBcjpTrtEKNsaVUFrwhJwM4qlPHYqPzJCYY7nbwb8MIxOv65cX7w/nTYfekm9NTqV
+	 mpoikg6ghCh8QUj61v1MBK/sEedDSUFSR9sZy/cAwH1nCzzz6VCghRDLwwxv7iQy3jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HdkH4MMI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IkzEMOdu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F9C606A330;
-	Wed,  4 Nov 2026 15:00:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444DD606A32E;
+	Wed,  4 Nov 2026 15:01:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HdkH4MMI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 573E91F00A16;
-	Wed,  4 Nov 2026 15:00:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IkzEMOdu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C99C1F000C1;
+	Wed,  4 Nov 2026 15:00:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793804406;
-	bh=H3zrIwsM5Od3j/ojrupK60k2PACGT3gOchQyhe+f38Y=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=HdkH4MMIbxzv2hIRAOO9odLEbDeDKHSz8toPVfBNt1MtbFLccnBUgKS8Eq20/HQA1
-	 4Y7srQbYuqddoczaHFJ1k1UIvoHYRu70CPfsT6KQ2LHzzn29vgpRbQlyyRRQhLcGsl
-	 xFD8ZBnO3DvI1kS8Ox5+wRMsn8hsljEKlGwm8IfQmLbLkC4mjZev/0HT5bgzhB5tgR
-	 2CF61pon1h59Ach8QJhhfr4WbSD94esGYG0F+SGbgVKeal+NChOj3AW9PvnZw5hvD1
-	 JZGvmk/thfPinS0TNzuhcJmz+Vnxgqo6/EKzMUFt4q88JPGzTAG0+l47aHhjI44C3H
-	 oeIpyAO6n+xWg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 4024E39E8A48;
-	Wed,  4 Nov 2026 15:00:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1793804461;
+	bh=q/g0jSRA0tpJ07tlLDQp7RalSmitHJ2ympqEL/aS1gY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IkzEMOdu/cBdyzp1oI8OIrJ59Rh1DPOC3qGh5+l7zyb0KLfYnGDVxL2W18r5uUkrI
+	 Fcaf9S/0akTsJn4y7seVhly0S0WUZGtXC39Apf2LG7g4u6ZJot/2v7LAAlLrIPnK62
+	 yv4/2RJeWP8BrNz6uLwyP3reKF8KzD7yroH6NbLYNr7kIP4JmRgazlMqLCec4JAuww
+	 9bJD5b/XlSXMibSYY+qgcMLiQNGTmoBK5ogz5g5778QHQvB+r8AO/pa8mobFqsvBmb
+	 ahF37C3kM+SETKLcRKXONQk8/hL8Iam+vMlrBzjCo4fLMH8QKlgb0C1423CA7Ziicx
+	 Ej+eEK0Zz2uZw==
+Date: Wed, 4 Nov 2026 16:00:54 +0100
+From: Carlos Maiolino <cem@kernel.org>
+To: Jianyun Gao <jianyungao89@gmail.com>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	"Darrick J. Wong" <djwong@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Eric Sandeen <sandeen@redhat.com>, Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>, 
+	Yuzuki Ishiyama <ishiyama@hpc.is.uec.ac.jp>, Dave Chinner <dchinner@redhat.com>, 
+	"open list:XFS FILESYSTEM" <linux-xfs@vger.kernel.org>
+Subject: Re: [PATCH] xfs: fix spurious len double-counting in rmap three-way
+ merge check
+Message-ID: <autIEIDr0097CaNS@nidhogg.toxiclabs.cc>
+References: <20261103144148.14430-1-jianyungao89@gmail.com>
+ <aun6-mywXYg2VTL4@nidhogg.toxiclabs.cc>
+ <CAHP3+4ChRtv5OCoRrF9-D2GYXJnu0kS4_3O7kXqYRbTtLAt8mA@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,44 +63,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v4] mptcp: do not use Fast Open on MP_JOIN subflows
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179380440480.2875940.5423974447556647917.git-patchwork-notify@kernel.org>
-Date: Wed, 04 Nov 2026 15:00:04 +0000
-References: <20261030-mptcp-tfo-mpj-v4-1-e6eff2027342@kernel.org>
-In-Reply-To: <20261030-mptcp-tfo-mpj-v4-1-e6eff2027342@kernel.org>
-To: Matthieu Baerts <matttbe@kernel.org>
-Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- cpaasch@openai.com, mason@kernel.org, netdev@vger.kernel.org,
- mptcp@lists.linux.dev, linux-kernel@vger.kernel.org, yilinzhang@moonshot.ai,
- stable@vger.kernel.org, bug-report@moonshot.ai, jiayuan.chen@linux.dev
+In-Reply-To: <CAHP3+4ChRtv5OCoRrF9-D2GYXJnu0kS4_3O7kXqYRbTtLAt8mA@mail.gmail.com>
 
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Fri, 30 Oct 2026 23:03:51 +0100 you wrote:
-> From: Yilin Zhang <yilinzhang@moonshot.ai>
+On Wed, Nov 04, 2026 at 11:27:54AM +0800, Jianyun Gao wrote:
+> Hi Carlos,
 > 
-> tcp_fastopen_create_child() hands the SYN packet itself to
-> subflow_syn_recv_sock(). For an MP_JOIN request this takes the
-> fatal fallback: the cloned child is destroyed and handed back with
-> drop_req flagged, but tcp_fastopen_create_child() does not check
-> the flag and queues it, so accept() can expose the freed child.
+> Thanks for the review. To answer your questions:
 > 
-> [...]
+> How I found it: I found this while reviewing the merge logic in
+> xfs_rmap_map. After tracing the left-edge merge path, I noticed that
+> ltrec.rm_blockcount is already updated at line 1119
+> (ltrec.rm_blockcount += len), so adding len again in the overflow check
+> is redundant. When the real merged length is still within
+> XFS_RMAP_LEN_MAX but the inflated value exceeds it, the three-way merge
+> is incorrectly rejected, leaving the right record unmerged.
+> 
+> Testing: I ran the rmap-specific regression tests with this patch
+> applied, using kvm-xfstests on a 4k-block XFS configuration with
+> rmapbt=1 and reflink=1:
+> 
+>   kvm-xfstests -c xfs/4k xfs/236 xfs/578
+> 
+> Results:
+>   xfs/236      Pass     6s
+>   xfs/578      Pass     34s
+> Totals: 2 tests, 0 skipped, 0 failures, 0 errors
+> 
+> xfs/236 directly exercises the rmap btree grow/shrink paths affected by
+> this change. I did not observe any regressions or warnings.
+> If there are specific test cases you'd like me to run, please let me know.
 
-Here is the summary with links:
-  - [net,v4] mptcp: do not use Fast Open on MP_JOIN subflows
-    https://git.kernel.org/netdev/net/c/6d2cf411aba2
+Ok, I'd expect the tests to be a bit more thorough than two test cases,
+ie. I'd expect this to be ran against at least the auto group too. But
+nevertheless I'm glad you at did at least some of the homework.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+The patch also seems fine to me, so
 
+Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
 
+> 
+> Thanks,
+> Jianyun
+> 
+> On Tue, Nov 3, 2026 at 11:33 PM Carlos Maiolino <cem@kernel.org> wrote:
+> >
+> > On Tue, Nov 03, 2026 at 10:41:44PM +0800, jianyungao89@gmail.com wrote:
+> > > From: Jianyun Gao <jianyungao89@gmail.com>
+> > >
+> > > In xfs_rmap_map, the left-edge merge path already executes
+> > > ltrec.rm_blockcount += len at line 1119 before checking whether the
+> > > right record is also contiguous and can be merged.  The subsequent
+> > > overflow guard therefore must compare the already-incremented
+> > > ltrec.rm_blockcount plus gtrec.rm_blockcount against XFS_RMAP_LEN_MAX,
+> > > but it incorrectly adds len a second time:
+> > >
+> > > (unsigned long)ltrec.rm_blockcount + len +
+> > >    gtrec.rm_blockcount <= XFS_RMAP_LEN_MAX
+> > >
+> > > The extra len makes the check too strict: when the real merged length
+> > > does not overflow but the inflated value exceeds XFS_RMAP_LEN_MAX, the
+> > > three-way merge is rejected and the code falls back to a two-way merge,
+> > > leaving the right record unmerged.  This produces rmap btree
+> > > fragmentation but does not corrupt on-disk metadata.
+> > >
+> > > Remove the spurious len from the overflow check.
+> > >
+> > > Fixes: 0a1b0b3855cf7 ("xfs: add an extent to the rmap btree")
+> > > Cc: <stable@vger.kernel.org>
+> > > Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+> >
+> > Hi, even though this looks reasonably correct, how did you find this
+> > issue?
+> > Did you test this at all against any regressions (i.e. running it
+> > against xfstests)? This is touching critical logic on the rmap trees
+> > which can potentially end really bad.
+> >
+> > Cheers.
+> >
+> > > ---
+> > >  fs/xfs/libxfs/xfs_rmap.c | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > >
+> > > diff --git a/fs/xfs/libxfs/xfs_rmap.c b/fs/xfs/libxfs/xfs_rmap.c
+> > > index 14aef87837a9..c2b2f8e7502d 100644
+> > > --- a/fs/xfs/libxfs/xfs_rmap.c
+> > > +++ b/fs/xfs/libxfs/xfs_rmap.c
+> > > @@ -1120,7 +1120,7 @@ xfs_rmap_map(
+> > >               if (have_gt &&
+> > >                   bno + len == gtrec.rm_startblock &&
+> > >                   (ignore_off || offset + len == gtrec.rm_offset) &&
+> > > -                 (unsigned long)ltrec.rm_blockcount + len +
+> > > +                 (unsigned long)ltrec.rm_blockcount +
+> > >                               gtrec.rm_blockcount <= XFS_RMAP_LEN_MAX) {
+> > >                       /*
+> > >                        * right edge also contiguous, delete right record
+> > > --
+> > > 2.34.1
+> > >
+> > >
+> 
