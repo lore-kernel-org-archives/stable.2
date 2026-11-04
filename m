@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793805259;
-	b=Y/ocgDj2p7HBsTAmfUTSIfpql9DKIvcneUn93c11zWv3M6Y93itIo3cVgyFyo8XaLRd+
-	 c3F9S5FXYbH9cgiue3NMJ30+AVLUT49vrQBujc/S9Dw4jrGgq8ZT/3nfFPKHtND+yfqlp
-	 WITfPp82D4yId69momgi1cibd/1a6ePdflf1fugldji6H/ho6RF+D864HHukg/LqIgIhG
-	 ndXL+7Akn03NRq1FWgyI4lXSNIw2aCb3VVf6DB+CLzFs5ctxHLRispSJz741jhrSzinGP
-	 hCI7CLkQzsUagkuTyPAYUc1wU4mc/9r6+84ev5xoXKNWj8S+hLlKb0HEIren6BTPJog==
+	t=1793805300;
+	b=wAmLWm5ZaUlYsaREHmS0Mt254GIvqQznUwIDqZaKQFDn2xJk5+x+O3fvJ3r6I4du5wWa
+	 jsnUWRv6ud+jD7oBlGSGrrKgV2dEK/NCqxGHcwA+GSD2AUyua+251/Kc1wQYhFgn+tRtK
+	 gB8LJ41NKb3fMSiV1V2R6fwUu5AG5UdZ2awpTZpxKjgt+T6FYagItYfwDj55ljZGZZMOy
+	 Oe9q4sgc6KsUKIVt7Fm2EPAtU0LL/MnrLCDVFAcouMIirpD9exFcQcfquk+r4AWWyeSxn
+	 5o6Bc2AqyaW2dLKvQs36N2SoE/5jT3qdzOWTtQ2T/j1mmljWFx9wubTtzTOOBJVfSyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793805259;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793805300;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=se8s3Tc9eo1CJENnJrSsOe8hXSnKGw8Gm2VfumSIrzM=;
-	b=BNv9FZMrgPSwNZ2NKqeeKPcfHPApV1wsht/fEnrXIZB6NJ7KcZmn50pY39oEdK06ln3/
-	 n4sepWCr7ND4dibt21dzR+ojV2YGTJ/XxsCvYCIp61KQBTh1V+Vnoi1yksXFcjKozSaqU
-	 y0IEncRA89pTsLZsoQP0ZxXSMFY5xLG+lXlK0ajYUUjtkduZRHpfXXmWWeA0sRROYgrQ+
-	 qUdZDyV6vVPdsEp62KIfPMqdkQ61ib433PmqSoXsnBWNnTsRM/7jspmuUGDZmm0e4gfh+
-	 suW9UYu2pwAlW6y2CCKUoQmYl2mRxg/qjzQeVebVGOLEefBFEWNgU4qAk43jDJmfO5Q==
+	bh=gLxpnyM0SnEh3UIGban/eeydY8HiaYDGEkOdDjoNAw8=;
+	b=xWYKzl6Uqd0yBN4IycnjgS0VZ9uh7W3fB4GxG7GbJ8inpC1w9HlU3wHOMqSLlY5XpIse
+	 Gyaeo/XyTW0d6T0CIfHPm42jhC7/loWN6hQD9SxQmLiuXzof3D//WOZk67lvRTmaxsvoo
+	 GMDR+vSbCxwO2fyZa5qdxJ9O5B7s94X7jLMw9pgG+5SJq9fLleoyv0ci6Wy9MVUsbtePA
+	 tRV2ByEMcGrdardDwygbu3n+5CbdYhF6BRKVVDei8zj5jTR3EPmi+WLWdzgJvCfmwag4U
+	 JcL5FSykX/gmq2EgRSC65eueU0git/Pc8dnY3lCxc0mBhrWmm1Y4/L6PxPD1+reWMEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bG3sOV6g;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cjQhCkhy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3557D606A339
-	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:14:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0305606A31B
+	for <stable@vger.kernel.org>; Wed,  4 Nov 2026 15:15:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bG3sOV6g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BEA61F00A1D;
-	Wed,  4 Nov 2026 15:14:18 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cjQhCkhy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4F5F1F000C1;
+	Wed,  4 Nov 2026 15:14:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793805258;
-	bh=se8s3Tc9eo1CJENnJrSsOe8hXSnKGw8Gm2VfumSIrzM=;
+	s=korg; t=1793805300;
+	bh=gLxpnyM0SnEh3UIGban/eeydY8HiaYDGEkOdDjoNAw8=;
 	h=Subject:To:Cc:From:Date;
-	b=bG3sOV6ggZY7Dlj/7AtzAPg5CZg3P847S8trkxdZkHEXYBJjLap+KTC5nZ1bBnxFZ
-	 kCCleGOG1nqVOsAdDPPRl4gvhznI6K/XcfCNw4yEArR8YJpkU9p8yRMLQNFT/U69Wo
-	 mIUUDvuhdlsQeFlkfplbqUq8nXbHaEqU5Dcaryac=
-Subject: FAILED: patch "[PATCH] xfs: fix buffer overflow in corrupt inline attr structure" failed to apply to 6.6-stable tree
+	b=cjQhCkhy6k0nlYRVS4JW4eK+ql57VkTe6x0SaCGn61m33dIcpCAKX7UHPYtIewr2D
+	 fXpDSPle1s9zb+lVgBZa8OmwoNOAP/f2qZ0aBjJmz7sWvVaA1d4C0kdfD6QAe4lM21
+	 DOtgxQZQFPo3YdfNQZGnkGZPLtweyM/HYa2/8WQM=
+Subject: FAILED: patch "[PATCH] xfs: flag excessive delalloc rt extents as corruption" failed to apply to 6.12-stable tree
 To: djwong@kernel.org,cem@kernel.org,hch@lst.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 04 Nov 2026 16:14:17 +0100
-Message-ID: <2026110417-filth-stumbling-5b3b@gregkh>
+Date: Wed, 04 Nov 2026 16:14:58 +0100
+Message-ID: <2026110458-culprit-afar-aadb@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 017dd7a84ff4cd2275eb62f4ee6d63c705bac107
+git cherry-pick -x 2b47be015a5e54f4a3d62afa636ba593de9b67f6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110417-filth-stumbling-5b3b@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110458-culprit-afar-aadb@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,77 +79,40 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 017dd7a84ff4cd2275eb62f4ee6d63c705bac107 Mon Sep 17 00:00:00 2001
+From 2b47be015a5e54f4a3d62afa636ba593de9b67f6 Mon Sep 17 00:00:00 2001
 From: "Darrick J. Wong" <djwong@kernel.org>
-Date: Tue, 22 Sep 2026 23:02:34 -0700
-Subject: [PATCH] xfs: fix buffer overflow in corrupt inline attr structure
+Date: Sun, 4 Oct 2026 22:55:33 -0700
+Subject: [PATCH] xfs: flag excessive delalloc rt extents as corruption
 
-LOLLM noticed a buffer overrun if the xattr scrubber encounters a file
-with a shortform attr fork with sf->count > 0 but if_bytes ==
-sizeof(struct xfs_attr_sf_hdr).  Basically, we have enough data to have
-a header with a nonzero count, but no space for any of those shortform
-entries.  In this case, the xfs_attr_sf_nextentry() call will run off
-the end of if_data and blow up.
+LOLLM observed that we should not allow repairs to proceed if the count
+of delayed-allocation realtime extents exceeds the number of free rt
+extents because we can't install negative numbers into the superblock.
+It's unclear how we could end up in that state in real life, but let's
+at least complain loudly about it if we ever encounter it.
 
-Cc: stable@vger.kernel.org # v6.4
-Fixes: ae0506eba78fd1 ("xfs: check used space of shortform xattr structures")
+Cc: stable@vger.kernel.org # v6.2
+Fixes: e74331d6fa2c21 ("xfs: online checking of the free rt extent count")
 Signed-off-by: Darrick J. Wong <djwong@kernel.org>
 Assisted-by: LOLLM # finding obvious bugs
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
 
-diff --git a/fs/xfs/scrub/attr.c b/fs/xfs/scrub/attr.c
-index d5226939c810..7600c7113625 100644
---- a/fs/xfs/scrub/attr.c
-+++ b/fs/xfs/scrub/attr.c
-@@ -590,12 +590,17 @@ xchk_xattr_check_sf(
+diff --git a/fs/xfs/scrub/fscounters.c b/fs/xfs/scrub/fscounters.c
+index b3fb1b422765..eb1a095a0fa9 100644
+--- a/fs/xfs/scrub/fscounters.c
++++ b/fs/xfs/scrub/fscounters.c
+@@ -609,6 +609,13 @@ xchk_fscounters(
+ 			try_again = true;
  	}
  
- 	for (i = 0; i < sf->count; i++) {
--		unsigned char		*name = sfe->nameval;
--		unsigned char		*value = &sfe->nameval[sfe->namelen];
-+		unsigned char		*name;
-+		unsigned char		*value;
- 
- 		if (xchk_should_terminate(sc, &error))
- 			return error;
- 
-+		if ((unsigned char *)(sfe + 1) >= end) {
-+			xchk_fblock_set_corrupt(sc, XFS_ATTR_FORK, 0);
-+			break;
-+		}
++	if (!xfs_has_zoned(mp) && fsc->frextents < fsc->frextents_delayed) {
++		if (fsc->frozen)
++			xchk_set_incomplete(sc);
++		else
++			try_again = true;
++	}
 +
- 		next = xfs_attr_sf_nextentry(sfe);
- 		if ((unsigned char *)next > end) {
- 			xchk_fblock_set_corrupt(sc, XFS_ATTR_FORK, 0);
-@@ -618,6 +623,7 @@ xchk_xattr_check_sf(
- 			break;
- 		}
- 
-+		name = sfe->nameval;
- 		if (!xchk_xattr_set_map(sc, ab->usedmap,
- 				(char *)name - (char *)sf,
- 				sfe->namelen)) {
-@@ -625,6 +631,7 @@ xchk_xattr_check_sf(
- 			break;
- 		}
- 
-+		value = &sfe->nameval[sfe->namelen];
- 		if (!xchk_xattr_set_map(sc, ab->usedmap,
- 				(char *)value - (char *)sf,
- 				sfe->valuelen)) {
-diff --git a/fs/xfs/scrub/attr_repair.c b/fs/xfs/scrub/attr_repair.c
-index 28f92e9ba72b..ac433a546751 100644
---- a/fs/xfs/scrub/attr_repair.c
-+++ b/fs/xfs/scrub/attr_repair.c
-@@ -477,6 +477,9 @@ xrep_xattr_recover_sf(
- 		if (xchk_should_terminate(sc, &error))
- 			return error;
- 
-+		if ((unsigned char *)(sfe + 1) >= end)
-+			break;
-+
- 		next = xfs_attr_sf_nextentry(sfe);
- 		if ((unsigned char *)next > end)
- 			break;
+ 	if (!xfs_has_zoned(mp) &&
+ 	    !xchk_fscount_within_range(sc, frextents,
+ 			&mp->m_free[XC_FREE_RTEXTENTS].count,
 
