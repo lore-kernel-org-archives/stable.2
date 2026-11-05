@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883699;
-	b=aEwHQTgRwISXx4FDlsG7xdov4TC49Am8TipVTKmQWB6gRL3g1XprETOxmCqLF1CihSo2
-	 BLOx5x/pYinhQUw9a+3bIQ88/CvV7BoQw17jN4G0pPXzd8v2MQDRz2mgbaVnwYbHI1Xhs
-	 FrLdnZIg28nEgDlY2VwjfkmOtWe6FnaNu4rSBBjxJbW+JWaFktiTD7GNPkg+ezlgC6UO+
-	 YAh8zHJx2PkBHvqzRsnELRsaJu9XRzPzhek+dAGd3rGQ/03PLdnJBoJLL+byVnFysHOPp
-	 avfp+gHwaBPCL77EFFA7rOdJ3bIgMl8CM/mm5JpWBDpK3kc6eNdeCVMJ0D8uLFVSIZw==
+	t=1793883707;
+	b=AzWtKodgIoI4KtwUD+L1l9U+Vs0V/2Ezhz2JYqT+9QAqVKALQhtGAbPkZsMk3iG1+yYI
+	 gC/AddPgbUSxRlIBOqIqAZMKNr8oWVoy/Ygu8TyIjvuRHnMlYiThMqwAnBRzCWdIAvUAz
+	 TKGqt5tTLtx/J/D+5KQF2PiULCahP5Za/2FzUILXNigIfa5/6fW5fXwrICi/jmaDUu5Fc
+	 TL/0hFi+GllZ1apTpCspq9UPUr2nO31U/zaj7UZ0P+XKZjBz1Ff1J1UbzyD9HpcRFG4aZ
+	 5+rlGHdwdT2pmEhVnWHY0feAEdXpLgJ3Eij3gJlPiADrHbu5qmrQzKaiU5XyjR+U2TQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883699;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883707;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PH1VawWD3ygc4tBNHCXSLnld+rwlMiLOAvBRw3K76cQ=;
-	b=X4nXnWt6TlV6Kz4/spJ4BfpSGBb2Jj9+m8uGhEFDut9JtbyrmBKWQAavL43qp8RcC69i
-	 Foh8b8dM/PyKaEdhPJERHfi6D67w8Gr7pCkpbmu2QMSieLhmG6KHSmGEy+Q1O3JS6mXtv
-	 yMjprMVfdbrn95I3vXv05HbY2gvMd7tqyWMZL61ZbBpfK/+WO/jdCqyy/YrZxFzy/vh28
-	 co8B5QDNIOWQeT4XWppQ5lXJPmLXLWY7ESNQchRpVcd0VqhLU1bhsnaCau+V9SbF0h6Lf
-	 QfaCDy9pffaJ0YLXI3Hpi3yQnAtxV+u0p7d2bFum57O8QxLHv4/QTwJnZIPE+Mt/3Ag==
+	bh=38a//q+ANZLBgvyVpc8wPmP/KtnzWsCjQ4Rj3Ayci1o=;
+	b=cLT9R3FGhT5vKaPXCYishKw8wFsFlI57PB/FoUJdoVUPK0NbuQnLcQrBuAnqS5XaBK2q
+	 HyJunl/evC3QDjuWYIOVm8lOFfRfm3egFua/NsDZ0hmwES385sQxDDcVlPZMQqDK2DIsC
+	 hgBBtKfh2K7SBl1ynUhwmXUglyiJuTg9GRGToLp8HZugditODul56JkdpkjDS+Ro22zbK
+	 rIAKzhN1G03vWLu2NRUdVco1+MgjhuNTF9iheTS3UXEI4/BK/KYFtBc6Odu7TLWgOHsCJ
+	 BOCmzdJB8pbW9EmsFQPUE9B3z9mnmIWv+S3TENBQ1cUU2Ej0KyLgPsVePTEnKvpKi8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OjorwE7j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TLkHFwo2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39071606A332
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 13:01:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036A2606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 13:01:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OjorwE7j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C2231F000C1;
-	Thu,  5 Nov 2026 13:01:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TLkHFwo2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CC291F00A02;
+	Thu,  5 Nov 2026 13:01:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793883698;
-	bh=PH1VawWD3ygc4tBNHCXSLnld+rwlMiLOAvBRw3K76cQ=;
+	s=k20260515; t=1793883706;
+	bh=38a//q+ANZLBgvyVpc8wPmP/KtnzWsCjQ4Rj3Ayci1o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OjorwE7j+QkOqPbdb0twRv+x1yeGrq6OEISSo55si1aDluZwyzLZbVFeyMej8+ap2
-	 qMhp4NhWVRLl4DlW81MNykK07o4JpdHokDTA+Kr9bKQD9ckh8yCDJ2kSL/4ncHBWGU
-	 mUT8isNjqmE0fomqbBVXjFyFFZY/ZiLZf86kG4ovTmCsyeiMONuc5B3dFC6Nb04GzB
-	 ixSohmyxebyfI7hlT0jllU3UpK1C4HU8fyaCl1j0FuQ3+bsaG/Ih3pY4YrJ7XE1ESs
-	 /ERL89HfHQtti92lUl86KYn17xwbdJv4k2uBj96gPNU/o/jDaIojXEsKHb57Ctcm3B
-	 mfCWEomQY7XkQ==
+	b=TLkHFwo2wPrgX+dUhrVIctgotGaNi7jyQnwUgh7jl4FUOM5qNmkg/6Ckr+yvw0hHS
+	 2eRDuzNc8uE33wy32IA9wX78fCdgeLWZSWY8nFvXrdXL1GNnDXSE/KZNAme1LYYHr0
+	 WZzp13jWpeizlAlAMpRK0pZ56vbI3czLgkkVu6BSAfCM5F9oq7Ke9vnesE5ZZmjso/
+	 cNyrLI967mDS7KouY9y8LESagwsIxw8FR1LVqdVo4yB1XaeeAGf9UAj2G/HiaxekfR
+	 BWCLE4Ltk4fjLVyryAp5D5HXEpz8/6463sUQuYNKj2I5SWMlSII7n3h1M4OZamOdY6
+	 wUj+SjQo+dBoA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>,
+Cc: Chris Mason <mason@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Amir Goldstein <amir73il@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] xfs: allow softlimit with no hardlimit in quota scrub
-Date: Thu,  5 Nov 2026 08:01:37 -0500
-Message-ID: <20261105130124.1399455-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ovl: do not copy up a dentry that was removed
+Date: Thu,  5 Nov 2026 08:01:45 -0500
+Message-ID: <20261105130123.1518592-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110442-disdain-studied-1f00@gregkh>
-References: <2026110442-disdain-studied-1f00@gregkh>
+In-Reply-To: <2026110408-flashing-erased-c7ec@gregkh>
+References: <2026110408-flashing-erased-c7ec@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,55 +62,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Darrick J. Wong" <djwong@kernel.org>
+From: Chris Mason <mason@kernel.org>
 
-[ Upstream commit 342c2e00b3a99099a7088f7b8c8f075670c603a9 ]
+[ Upstream commit f635192ad223d2009ee640b63adf5ce3198aa338 ]
 
-LOLLM observes that the sysadmin can set a user's soft limit to a
-nonzero value and the hard limit to zero, so those aren't corruptions.
+A change to a removed file through an open descriptor replaces whatever
+has its old name in the upper layer.
 
-Cc: stable@vger.kernel.org # v4.15
-Fixes: c2fc338c87a31f ("xfs: scrub quota information")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ sashal: Omitted quota repair changes because quota repair support is absent. ]
+Copy up must only create a name in the upper directory, never replace
+one. After an unlink, an rmdir or a rename over a lower dentry, a
+dentry that an open file keeps alive still has its old parent and name,
+but in the upper directory that name is now a whiteout or a new object.
+ovl_copy_up_workdir() renames the copy over it, which brings back the
+removed object and destroys whatever took its name.
+
+An unprivileged user opened a lower FIFO and unlinked it, root created
+a file at that name, and fchmod on the old descriptor replaced the file
+of root with the FIFO.
+
+Fix this by looking up the target name of the rename in
+ovl_copy_up_workdir() with LOOKUP_EXCL, so that copy up fails with
+-EEXIST if the name is taken, as copy up with O_TMPFILE already does
+when it links the copy to the name.
+
+Fixes: e9be9d5e76e3 ("overlay filesystem")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[amir: use LOOKUP_EXCL instead of relying on d_unhashed()]
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+[ sashal: replaced LOOKUP_EXCL in start_renaming_dentry() with a d_is_positive() check before ovl_do_rename() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/quota.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ fs/overlayfs/copy_up.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/fs/xfs/scrub/quota.c b/fs/xfs/scrub/quota.c
-index 5671c81534335..a2eb19ef72218 100644
---- a/fs/xfs/scrub/quota.c
-+++ b/fs/xfs/scrub/quota.c
-@@ -109,21 +109,21 @@ xchk_quota_item(
- 	 * suspect, which is why we flag it for review.
- 	 *
- 	 * Complain about corruption if the soft limit is greater than
--	 * the hard limit.
-+	 * the hard limit and there's a hard limit set.
- 	 */
- 	if (dq->q_blk.hardlimit > mp->m_sb.sb_dblocks)
- 		xchk_fblock_set_warning(sc, XFS_DATA_FORK, offset);
--	if (dq->q_blk.softlimit > dq->q_blk.hardlimit)
-+	if (dq->q_blk.hardlimit && dq->q_blk.softlimit > dq->q_blk.hardlimit)
- 		xchk_fblock_set_corrupt(sc, XFS_DATA_FORK, offset);
+diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
+index 0f0c02121936e..4ac2c0e93aacc 100644
+--- a/fs/overlayfs/copy_up.c
++++ b/fs/overlayfs/copy_up.c
+@@ -707,7 +707,10 @@ static int ovl_copy_up_workdir(struct ovl_copy_up_ctx *c)
+ 	if (IS_ERR(upper))
+ 		goto cleanup;
  
- 	if (dq->q_ino.hardlimit > M_IGEO(mp)->maxicount)
- 		xchk_fblock_set_warning(sc, XFS_DATA_FORK, offset);
--	if (dq->q_ino.softlimit > dq->q_ino.hardlimit)
-+	if (dq->q_ino.hardlimit && dq->q_ino.softlimit > dq->q_ino.hardlimit)
- 		xchk_fblock_set_corrupt(sc, XFS_DATA_FORK, offset);
- 
- 	if (dq->q_rtb.hardlimit > mp->m_sb.sb_rblocks)
- 		xchk_fblock_set_warning(sc, XFS_DATA_FORK, offset);
--	if (dq->q_rtb.softlimit > dq->q_rtb.hardlimit)
-+	if (dq->q_rtb.hardlimit && dq->q_rtb.softlimit > dq->q_rtb.hardlimit)
- 		xchk_fblock_set_corrupt(sc, XFS_DATA_FORK, offset);
- 
- 	/* Check the resource counts. */
+-	err = ovl_do_rename(ofs, wdir, temp, udir, upper, 0);
++	/* The name may have been taken since lookup, never replace it */
++	err = -EEXIST;
++	if (!d_is_positive(upper))
++		err = ovl_do_rename(ofs, wdir, temp, udir, upper, 0);
+ 	dput(upper);
+ 	if (err)
+ 		goto cleanup;
 -- 
 2.53.0
 
