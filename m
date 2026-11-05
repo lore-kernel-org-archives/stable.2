@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793849376;
-	b=LlGIuldZNmqyLAs8fDsKbOAcv6VqwonqDpgowYgC5u0lql0nE0pglfeeoToa7bRcV/xj
-	 It90X52mq9cXl/0JG3yB0odPJuNqnAmSweBXFuf0CNbmRnDHuJRq+Hp4YwGSxdKE02dpa
-	 nG/MercK5sIWUGtSHmaXmjkmvPIpjHmpKBLZ3rXaJkpMRu09RleQB4pGjrJOh29eWhziA
-	 4+l+tbVr9RPmVqWbj/qlkGV6JOPwK1aApWsg5vGERKBV4/HbVPHSRv9Vc+KH24ZMAkXD8
-	 Oc7KUPz++RrptX0U5dKNJjC3ax7nFEFTbruf/vGLLIKnkamTwXz7ulPdVSGcTtUts2g==
+	t=1793849671;
+	b=aJzXGO0yqV6tNeY03BstyVkOOy/ilLArB8svF6aHaMx1XPpLJXyjPwPVSjWMz9YceAn6
+	 nNgsgVIKihA6V5OWDPZpRCzEYOcUcarW8vEoM4+Y+VF95vS3Axb09FXa05yX3bLNR0ULF
+	 ruv6xgB3kxOc/4VdZL1qDFaWT2FkWjaNiaXUh29bmojF/Ac34jWfjS774qTCcR7/Oc0sn
+	 xlZ75Ai3M4SiX1Jpk09yu1LqunmCgB+OO4OZ/4ITndM5bGu9/7ccvGtpYg1VZbvyIq3Xg
+	 974dkAYbfyF2RyC6HjvSKIqKu+94KE4bsSUzy0EfpqVMa+WegdIUvQhY62rtvWQzwIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793849376;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=xgusUtW1HEDu0ocyP4YnpPOOX8nPhs+UJDFn8UI/yDI=;
-	b=tLtQOQKtB5GfNHh/39CAQ+pAKacI/yo4xufX302xIAu/cTGQEzgp7Yko9UQs6wU5LuQ3
-	 4LLdQPwWOQJLT907hsXmqY8b778k1c6ipA8fZH4AVzB48nVquKtooyXVW/v3fO/Fz91x2
-	 PcknrvN50bO0LUoSLmh2vvWWPRGxwD+EJZi3KIKhaRg8jErS2x9UTkFPhBP1vKJ2I37B0
-	 lWzJYf3dkYMTBzHjaPYQTNcj4DclmCsj2A8VWGEQJgU1IniKTTrYjDKlYd2jW+NzMWLv6
-	 44zRmfg7JTpshrcEmLkRkOUfaOT7dkHkyipGtLApBTPRuR4J/euQFiTlQglr2iXrllQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793849671;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:X-Mailer:Thread-Index:
+	 Content-Language:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
+	 X-CMS-RootMailID:References;
+	bh=wqQeqShnEFAGPe29OtG3KFou809AHeH9DP4h7PajO7A=;
+	b=1BOfn1Ik8JvHrmB6AvG3FscCYkAomKF82fSmqpvS8EHpmr8wtAD5zE4Skv64cLp9Qzu5
+	 CDg1TY4FOoiu91OTY0YqP22qEZhvsj30Yn3aS8a4372oEa5SWUh31GUN+N/D83wStB4s/
+	 JHhMXth5Mu8a0HurZN1/6P678VBNAIOtTzqxWbq8+0f2IqdrxeEiolVmhrbhyPO/VMy1U
+	 Km9wu3E6UNc2NPl488HSI75V8ChkGaOmMBKpB0Ym6ZxSZVOawQ2p4fVChFvrZTZs2sJ+Y
+	 L+GtKi/ayCk1KhCZQ7xmod/s3C5NNqvbFCM5EW+HhWCfRRCcMAueCmF+E5/gXRNroNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GopbOTyB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=cKaGZeuH;
+	arc=none smtp.remote-ip=203.254.224.34
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04096606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 03:29:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC8BA606A329
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 03:34:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC8BA606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GopbOTyB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECF431F000C1;
-	Thu,  5 Nov 2026 03:29:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793849375;
-	bh=xgusUtW1HEDu0ocyP4YnpPOOX8nPhs+UJDFn8UI/yDI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GopbOTyBWY9yjuwmsvZvOeaTjnq/34GNukYTLcfZZhKUoXWlXwEPRe+wKA3TJhd30
-	 5YlWK32mPbcMrTthz2wn6vFLhQrVrdqEneGCWCoJvlv0pB04TGzu29P5nmliuQXLVg
-	 Jln++AThN7QeodI7pT1Y6LQez+/oWrPjlDKPUatZ6IGC6lELjd3+2G0PKGuniId63u
-	 bGeOR6jqRegqmzBzqClkaG+63uFFXO93kSbiJPTNFGjLI8QlKZv0MlRzLGDTFgTi0F
-	 yjXF88nWDutJ+1jVxJI8voz5HV5RDdqG74kWXEHRehfVpdiEefqPgPn0C9T9GKXAoC
-	 4KvW9a4jjp9Gg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ruide Cao <caoruide123@gmail.com>,
-	Kyle Zeng <kylebot@openai.com>,
-	David Lee <david.lee@trailofbits.com>,
-	Vega <vega@nebusec.ai>,
-	Ren Wei <weir@nebusec.ai>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] mptcp: hold MP_JOIN msk ref when cloning reqsk
-Date: Wed,  4 Nov 2026 22:29:33 -0500
-Message-ID: <20261105032900.1214671-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110451-unrushed-payable-d703@gregkh>
-References: <2026110451-unrushed-payable-d703@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=cKaGZeuH
+Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261105033427epoutp0439d4610134014eb78baa2d7f724adb4c~lCMS78f890958009580epoutp04m
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 03:34:27 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261105033427epoutp0439d4610134014eb78baa2d7f724adb4c~lCMS78f890958009580epoutp04m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793849667;
+	bh=wqQeqShnEFAGPe29OtG3KFou809AHeH9DP4h7PajO7A=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=cKaGZeuH++WTRTs78MzlTCZrEoKIqK4UQN8KS7Sa/0IQqWDbRw1DM1IaOymQtYTiz
+	 LBaImINUP3R7KhV3AF42HdoZiGx4ZvIsRurJ3WOPbu29Fnizwd8RA8lymqLxOnZIWB
+	 0bLNjyWcWGJFvjdMWD7/IvMDsCRyOlWHryCBHkKo=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261105033426epcas2p1d2160ff091330c7e6922ab88a2ff03ed~lCMSINNn13146231462epcas2p1r;
+	Thu,  5 Nov 2026 03:34:26 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.200]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4jKnwy2wmfz6B9mB; Thu,  5 Nov
+	2026 03:34:26 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261105033425epcas2p48e03f124a57ef06e37671dcdafa2cfeb~lCMRN5V-Z3116631166epcas2p4B;
+	Thu,  5 Nov 2026 03:34:25 +0000 (GMT)
+Received: from KORCO164647 (unknown [12.80.211.160]) by epsmtip1.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20261105033425epsmtip1076a61c25b744bbe3c6462f4fca4508b~lCMRHBO1x3255132551epsmtip1J;
+	Thu,  5 Nov 2026 03:34:25 +0000 (GMT)
+From: "Kiwoong Kim" <kwmad.kim@samsung.com>
+To: "'Bart Van Assche'" <bvanassche@acm.org>, <linux-scsi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <alim.akhtar@samsung.com>,
+	<jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
+	<kwangwon.min@samsung.com>, <hy50.seo@samsung.com>, <cpgs@samsung.com>,
+	<h10.kim@samsung.com>
+Cc: <stable@vger.kernel.org>, <stanleyjhu@google.com>, "'Bean Huo'"
+	<beanhuo@micron.com>
+In-Reply-To: <8446dc27-9518-4b0c-b9e9-116458210616@acm.org>
+Subject: RE: [PATCH v6 1/2] ufs: core: skip ABORT TASK for device management
+ commands
+Date: Thu, 5 Nov 2026 12:34:25 +0900
+Message-ID: <002101dd6cd6$8e510b20$aaf32160$@samsung.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,197 +83,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQH4JEezrlrww6xOutvb1msxx9OBXQK0O2N1AUyogGgCjTU/mba088Fg
+Content-Language: ko
+X-CMS-MailID: 20261105033425epcas2p48e03f124a57ef06e37671dcdafa2cfeb
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261105004352epcas2p307ea40aadb636015545cee6e79470a03
+References: <20261105004333.1097899-1-kwmad.kim@samsung.com>
+	<CGME20261105004352epcas2p307ea40aadb636015545cee6e79470a03@epcas2p3.samsung.com>
+	<20261105004333.1097899-2-kwmad.kim@samsung.com>
+	<8446dc27-9518-4b0c-b9e9-116458210616@acm.org>
 
-From: Ruide Cao <caoruide123@gmail.com>
 
-[ Upstream commit c9c90cf437a9e6597611b6d3aad6e255fad22867 ]
 
-TCP request migration clones pending request sockets with
-inet_reqsk_clone().  For MPTCP MP_JOIN requests this byte-copies
-subflow_req->msk, but the clone does not own a reference.
 
-The original and cloned requests can consequently drop the same msk
-reference, leaving one request with a dangling pointer.  This manifests as
-a KASAN slab-use-after-free in subflow_req_destructor():
+Kiwoong Kim
+BRs.
 
-  BUG: KASAN: slab-use-after-free in subflow_req_destructor (net/mptcp/subflow.c:45)
-  Write of size 4 at addr ff1100010e008d40 by task swapper/0/0
-  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-rc5-00353-gc27e36054537 #10 PREEMPT(full)
+> -----Original Message-----
+> From: Bart Van Assche <bvanassche@acm.org>
+> Sent: Thursday, November 5, 2026 10:28 AM
+> To: Kiwoong Kim <kwmad.kim@samsung.com>; linux-scsi@vger.kernel.org;
+> linux-kernel@vger.kernel.org; alim.akhtar@samsung.com; jejb@linux.ibm.com;
+> martin.petersen@oracle.com; kwangwon.min@samsung.com; hy50.seo@samsung.com;
+> cpgs@samsung.com; h10.kim@samsung.com
+> Cc: stable@vger.kernel.org; stanleyjhu@google.com; Bean Huo
+> <beanhuo@micron.com>
+> Subject: Re: [PATCH v6 1/2] ufs: core: skip ABORT TASK for device
+> management commands
+> 
+> On 11/4/26 4:43 PM, Kiwoong Kim wrote:
+>  > @@ -8046,6 +8046,9 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba,
+> int tag)  >
+>  >  	lrbp = scsi_cmd_priv(cmd);
+>  >
+>  > +	if (!ufshcd_is_scsi_cmd(cmd))
+>  > +		goto clear_cmd;
+>  > +
+> 
+> ufshcd_abort() already has the following code for the SDB path:
+> 
+> 	if (blk_mq_is_reserved_rq(rq))
+> 		err = ufshcd_clear_cmd(hba, tag);
+> 	else
+> 		err = ufshcd_try_to_abort_task(hba, tag);
+> 
+> and ufshcd_abort_one() skips reserved requests. Hence, ufshcd_mcq_abort()
+> is the only caller that can pass a device management command to
+> ufshcd_try_to_abort_task(). Please handle this the same way for both paths.
+> Either add the check in ufshcd_mcq_abort(), similar to the SDB path, or
+> keep it in ufshcd_try_to_abort_task() and remove the now redundant check
+> from ufshcd_abort().
+> 
+> If the check stays in ufshcd_try_to_abort_task(), please also update its
+> kernel-doc header. That header says that UFS_QUERY_TASK and UFS_ABORT_TASK
+> are sent unconditionally.
+> 
+>  > Fixes: 08b12cda6c44 ("scsi: ufs: core: Switch to
+> scsi_get_internal_cmd()")
+>  > Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>  > Reviewed-by: Bean
+> Huo <beanhuo@micron.com>  > Reported-by: Bart Van Assche
+> <bvanassche@acm.org>
+> 
+> Please move the Reported-by: tag above the Signed-off-by: tag.
+> checkpatch also expects a Closes: tag after Reported-by:.
+> 
+> Thanks,
+> 
+> Bart.
 
-  Call Trace:
-   subflow_req_destructor (net/mptcp/subflow.c:45)
-   subflow_v4_req_destructor (net/mptcp/subflow.c:694)
-   __reqsk_free (net/ipv4/inet_connection_sock.c:906)
-   reqsk_timer_handler (include/net/request_sock.h:137 net/ipv4/inet_connection_sock.c:1147)
-
-  Allocated by task 10014:
-   sk_prot_alloc (net/core/sock.c:2246)
-   sk_clone (net/core/sock.c:2488)
-   mptcp_sk_clone_init (include/net/sock.h:1848 net/mptcp/protocol.c:3564)
-   subflow_syn_recv_sock (net/mptcp/subflow.c:883)
-   tcp_check_req (net/ipv4/tcp_minisocks.c:934)
-
-  Freed by task 0:
-   slab_free_after_rcu_debug (include/linux/kasan.h:235 mm/slub.c:2677 mm/slub.c:6439)
-   rcu_core (kernel/rcu/tree.c:2645 kernel/rcu/tree.c:2897)
-
-  Last potentially related work creation:
-   kmem_cache_free (mm/slub.c:2638 mm/slub.c:6377 mm/slub.c:6504)
-   __sk_destruct (net/core/sock.c:2289 net/core/sock.c:2391)
-   sk_destruct (net/core/sock.c:2419)
-   __sk_free (net/core/sock.c:2430)
-   sk_free (net/core/sock.c:2441)
-   mptcp_close (include/net/sock.h:2020 net/mptcp/protocol.c:3399)
-   inet_release (net/ipv4/af_inet.c:442)
-
-  The buggy address belongs to the cache MPTCP of size 2968
-  The buggy address is 128 bytes inside a freed 2968-byte region
-
-A non-NULL subflow_req->msk means that the request owns one reference. The
-third ACK can concurrently transfer the original request reference to the
-child and release it, so taking an unconditional hold on the copied pointer
-is unsafe.
-
-MPTCP sockets use SLAB_TYPESAFE_BY_RCU and all current inet_reqsk_clone()
-callers run in an RCU read-side critical section. Document and
-lockdep-check that calling-context requirement.  Read the pointer from the
-original request and acquire a reference only if it is still live.  Use
-refcount_inc_not_zero_acquire() so the subsequent ownership validation
-cannot be reordered before the try-get, then re-read the original request
-to verify that it still owns the same msk. If either check fails, clear the
-clone pointer; otherwise its normal destructor balances the new reference.
-Mark the ownership-transfer store with WRITE_ONCE() to match the lockless
-reads.
-
-The following patch completes the clone fixup for MP_CAPABLE token
-ownership. Both patches carry the same Fixes tag and are required for
-stable backports.
-
-Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
-Cc: stable@vger.kernel.org
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Reported-by: David Lee <david.lee@trailofbits.com>
-Reported-by: Vega <vega@nebusec.ai>
-Closes: https://lore.kernel.org/all/20260804095051.715355-1-david.lee@trailofbits.com/
-Signed-off-by: Ruide Cao <caoruide123@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-3-932c9b182fc7@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: replaced refcount_inc_not_zero_acquire() with refcount_inc_not_zero() followed by smp_acquire__after_ctrl_dep() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/net/mptcp.h             |  9 ++++++++
- net/ipv4/inet_connection_sock.c |  4 ++++
- net/mptcp/subflow.c             | 38 ++++++++++++++++++++++++++++++++-
- 3 files changed, 50 insertions(+), 1 deletion(-)
-
-diff --git a/include/net/mptcp.h b/include/net/mptcp.h
-index 1120363987d05..bcde90d8d9168 100644
---- a/include/net/mptcp.h
-+++ b/include/net/mptcp.h
-@@ -183,6 +183,9 @@ int mptcp_subflow_init_cookie_req(struct request_sock *req,
- struct request_sock *mptcp_subflow_reqsk_alloc(const struct request_sock_ops *ops,
- 					       struct sock *sk_listener,
- 					       bool attach_listener);
-+/* Caller must hold an RCU read-side lock. */
-+void mptcp_subflow_reqsk_clone(struct request_sock *req,
-+			       struct request_sock *new_req);
- 
- __be32 mptcp_get_reset_option(const struct sk_buff *skb);
- 
-@@ -282,6 +285,12 @@ static inline struct request_sock *mptcp_subflow_reqsk_alloc(const struct reques
- 	return NULL;
- }
- 
-+/* Caller must hold an RCU read-side lock. */
-+static inline void mptcp_subflow_reqsk_clone(struct request_sock *req,
-+					     struct request_sock *new_req)
-+{
-+}
-+
- static inline __be32 mptcp_reset_option(const struct sk_buff *skb)  { return htonl(0u); }
- #endif /* CONFIG_MPTCP */
- 
-diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index 73d884df1e6e3..f77066fcdda6c 100644
---- a/net/ipv4/inet_connection_sock.c
-+++ b/net/ipv4/inet_connection_sock.c
-@@ -20,6 +20,7 @@
- #include <net/tcp_states.h>
- #include <net/xfrm.h>
- #include <net/tcp.h>
-+#include <net/mptcp.h>
- #include <net/sock_reuseport.h>
- #include <net/addrconf.h>
- 
-@@ -768,6 +769,9 @@ static struct request_sock *inet_reqsk_clone(struct request_sock *req,
- 		rcu_assign_pointer(tcp_sk(nreq->sk)->fastopen_rsk, nreq);
- 	}
- 
-+	if (rsk_is_mptcp(req))
-+		mptcp_subflow_reqsk_clone(req, nreq);
-+
- 	return nreq;
- }
- 
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index 5ee090b74fa45..73580bf40aca8 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -47,6 +47,42 @@ static void subflow_req_destructor(struct request_sock *req)
- 	mptcp_token_destroy_request(req);
- }
- 
-+void mptcp_subflow_reqsk_clone(struct request_sock *req,
-+			       struct request_sock *new_req)
-+{
-+	struct mptcp_subflow_request_sock *subflow_req = mptcp_subflow_rsk(req);
-+	struct mptcp_subflow_request_sock *new_subflow_req;
-+	struct mptcp_sock *msk;
-+
-+	new_subflow_req = mptcp_subflow_rsk(new_req);
-+	RCU_LOCKDEP_WARN(!rcu_read_lock_any_held(),
-+			 "MPTCP reqsk clone called without RCU");
-+
-+	/* A non-NULL ->msk means the request owns one reference.  The clone
-+	 * copied only the pointer, while the original request can concurrently
-+	 * transfer its reference to the child.  Acquire a reference for the
-+	 * clone, then verify that the original request still owns the same msk.
-+	 * MPTCP sockets use SLAB_TYPESAFE_BY_RCU and all clone callers run in
-+	 * an RCU read-side critical section, keeping the memory stable here.
-+	 */
-+	msk = READ_ONCE(subflow_req->msk);
-+	if (msk) {
-+		struct sock *sk = (struct sock *)msk;
-+
-+		if (!refcount_inc_not_zero(&sk->sk_refcnt)) {
-+			msk = NULL;
-+		} else {
-+			smp_acquire__after_ctrl_dep();
-+			if (READ_ONCE(subflow_req->msk) != msk) {
-+				sock_put(sk);
-+				msk = NULL;
-+			}
-+		}
-+	}
-+
-+	new_subflow_req->msk = msk;
-+}
-+
- static void subflow_generate_hmac(u64 key1, u64 key2, u32 nonce1, u32 nonce2,
- 				  void *hmac)
- {
-@@ -803,7 +839,7 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
- 			}
- 
- 			/* move the msk reference ownership to the subflow */
--			subflow_req->msk = NULL;
-+			WRITE_ONCE(subflow_req->msk, NULL);
- 			ctx->conn = (struct sock *)owner;
- 
- 			if (subflow_use_different_sport(owner, sk)) {
--- 
-2.53.0
 
