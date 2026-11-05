@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907260;
-	b=eJ2PPq9UEn37fZFfdPhH6FWY8lFrK+JrKeRJVQxDVCbSc83VA0iqXj+PDAiYrTfzMY/T
-	 TW6JLYN2bs8qfUpnqbRXItA5hrT+J5NQhgeoHjR3BejRFhrk+TN1I2HyOE0VJXZo4oosw
-	 B6CQXxrDzQ1wsme+3C++pbotMGQOvszQkuh2gmImhpzlmph0hSYe7Kt0ED4oKCDXEbzlV
-	 Lm3AcoVBwoJZivLUDNrRJJ9KeH5zGihatW3EFDYqXuPk+Ai0+xJfSk4083XRHiZegPmZa
-	 4LcYh0x/lLGonI/DXLxwwVCvcsgBiR54UPCcvSJe+EfjEIpv3HULl1dL9qeOTfdBxMg==
+	t=1793907264;
+	b=rsg/4xqhwsx7sK3/KR2j4/iiWBIe8/56HC4edA2c0q1BFupA39h0XPI1Rjddl/PFajeH
+	 Y/J7TUE59TzsQMTNPDis+sJkE6X7ovnf1x0KmbAEK9xPV5zan9XKsa1kAvjfGGnn03FOh
+	 KmW6EZJbtm/OW0cJbTCkPE2YcEW8wpZDup9tlJomql5+wLbMfZnGYkChAOidrYF74V2bk
+	 kU/CrmxxJc3nmv44LaLT583MmV9Yghx2xuvX7qbAdarMSODZwOD9z436wKO9ZCLXtW4HT
+	 9+5n5iso7sClaCNKDd3z0x2U01CWYyWpVAga0Rnr7urk/SF1EtpV0IfTVf0MLd4n31A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907260;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907264;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=5I0MGRfIHb9a31QQO7f1KWRo5HJ6SKe48VAjGg842FU=;
-	b=HneLIL62ypmTFI99iMd9tfer9+/pSrBYvxhmx/nTZDrHc2suWBnjSIOAU3s17ktutUDO
-	 7eDai02NhSAjPbyAUc2tp/f0vc60t/ONt+zGWhcCUV0PLFuutXxmNX60mYVy8Ur/LAUJJ
-	 OlVUR8mIrV0QndEXjL5ZN/Dg/9j+4LIJ/r4qVQsbKazXSab3p+SPQW5XFcpz85lkt+yDL
-	 lGSIzLPTgL3UvuZx73iqDW943jvTc5CzIYtD65uxdzUz4VssO/rWNdNdYkddsfbxa8/Hy
-	 F/l0eVB3IyVz/ZzWKlNctzM9CztfsyD0mszdr3a4Ll+MoCDsx7u3BP/6lDTD1M9O6Zw==
+	bh=af+4ajGlgtX+ITY+QAIEdN5bCJZjAJgGwtyaF8TMBHU=;
+	b=nG3D5xSMlrvnEEvCiG30jH2VvvrQXUnzbGIn+ETiCROpI3cn2KnpaljnJLH3zM89e80J
+	 waQKGPcPC9EetjY7T6WccGgWFadSBdPaOUc41FzdiwRs/LYe6dVpkiDYNxIObdikcRmcM
+	 pT66Hgtug27sNiGJnvXfzZpdMAejiBVtVNVzzqcK+l6FVD/ScRYUKKTMZFZ/J3wxgwLSE
+	 7OBoM0V0PaJJg4F6uLmEh+ZzvhKEA7KqVNCzatspn4eFuo41eTmw2QcipjZZ6QbScYxjQ
+	 nD3505JBEPJvIihesIPUqgi1kNOLZGUQJeJof5E5TURv4/QmGVwV39jQu7p/Sj0JNXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=fBuASQXa;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=OQLVdqta;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8E36083608;
-	Thu,  5 Nov 2026 19:34:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D8E36083608
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDDFF6082BD6;
+	Thu,  5 Nov 2026 19:34:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDDFF6082BD6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=fBuASQXa
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=OQLVdqta
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1793907252;
-	bh=5I0MGRfIHb9a31QQO7f1KWRo5HJ6SKe48VAjGg842FU=;
+	s=smtpout1; t=1793907251;
+	bh=af+4ajGlgtX+ITY+QAIEdN5bCJZjAJgGwtyaF8TMBHU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=fBuASQXa+cu0lkhuIDH0kHTgwChAGk5nuYh2cNfGaomxKalLMniTuouGl3webBsg5
-	 MhdsjOUuSCmbTmGx8p0wtWt61kWDsShc6qFZ3fbz68CkBo7IO/AqVp+rAd0PhiTd/x
-	 pc2/ODuvtQLkJZnDbH0YRqvIvmTFwPge/OkQJbWhxG/AYX0kBL8Yzav5DS5Nrgq2Kr
-	 6PANfRJm1Huzm1/nMMYB9eGHJ1ZcXTxgfk0PpB7tUlu30DPmqUox7BCLmTM8ocembn
-	 89O8meXb31DpNpGg5z8h1nEKd56x8a07EO4H8IB1IOWAIhLtQ8L9XnyaN7UH+pTLI0
-	 Rl+RazyQPLiYw==
+	b=OQLVdqtawSXJY1GnRjdy1hBUsjTfNYsg6Mf9B3zNX9pkhLhbNZuRr3HvRN6I1VG+/
+	 CZbej3v5BYhj06exYBPCc1MlBDplBuTh+o8Ru47xnV5Y7J5LbsxpdBr7TE2BnBAs84
+	 fqw0ltBEnZkvu3/S45eG+eN4AJCKNL2fedvETi1hAT0geMKpNmWoviUtg+Sa0LFWht
+	 1nl6T0vWePw3YvioHw3Y6Wc+4fs9d8Dov8L93XITj3/aogx9fxSMkSOcpR3uTcB38j
+	 08jZ1QGNtXxleCWhDW4Ub9CfmlBzBFpj/hber+Zynj1cYZ+rAH1ZOCycsOlfEYHPEp
+	 sqnxrvIgyby4w==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLCDN0G5hzKVG;
-	Thu, 05 Nov 2026 14:34:12 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLCDM3kywzLPT;
+	Thu, 05 Nov 2026 14:34:11 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -77,9 +77,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v3 19/24] sched/deadline: Cancel the replenishment timer with the parameters
-Date: Thu,  5 Nov 2026 14:33:54 -0500
-Message-Id: <20261105193359.1450487-20-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v3 16/24] cgroup/cpuset: Wait for an attach before rebuilding the sched domains
+Date: Thu,  5 Nov 2026 14:33:51 -0500
+Message-Id: <20261105193359.1450487-17-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
 References: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
@@ -94,73 +94,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The replenishment timer of a throttled task is armed for its next
-period, which can come after its 0-lag time: a task that yielded keeps
-runtime, and a constrained-deadline task that overruns by little
-reaches its 0-lag time within the same period. Leaving SCHED_DEADLINE,
-such a task has its parameters cleared at the 0-lag time with that
-timer still armed.
+cpuset_can_attach() sets aside, in the root domain of the destination,
+the bandwidth of the deadline tasks it is about to move, and drops
+cpuset_mutex until cpuset_attach() moves them. A rebuild of the sched
+domains in between, rebuild_sched_domains() from a write of
+sched_rt_runtime_us or from the energy model, takes cpuset_mutex and
+runs: dl_rebuild_rd_accounting() clears the root domains and counts
+each task where its cpuset says, and the reservation is gone. The
+attach then moves the bandwidth of each task out of the root domain it
+left, on the strength of a reservation that is no longer there, and the
+destination's total_bw ends short of what its tasks hold: it admits
+deadline tasks beyond its capacity, and underflows when they leave.
 
-Back in the class before it fires, the task throttles again, and
-start_dl_timer() leaves the armed timer where it is:
+The writes of a cpuset's files wait for an attach in progress before
+taking cpuset_mutex, wait_attach_done_lock(), since
+commit 75f7a25ec6bb ("cgroup/cpuset: Prevent race between task attach
+and cpuset state change"), and CPU hotplug holds cpus_write_lock, which
+an attach holds for reading throughout. Wait in
+rebuild_sched_domains_cpuslocked() as well: a rebuild from the hotplug
+path finds no attach in progress, and one from the sysctl or the energy
+model lets the attach complete first.
 
-	if (!hrtimer_is_queued(timer)) {
-		if (!dl_server(dl_se))
-			get_task_struct(dl_task_of(dl_se));
-		hrtimer_start(timer, act, HRTIMER_MODE_ABS_HARD);
-	}
+The deadline_bw_test selftest added later in this series has the case,
+move_vs_rebuild: a process of 2049 threads, one of them a deadline task
+asleep, moved in and out of a one-CPU partition root while a writer of
+sched_rt_runtime_us rebuilds the sched domains 20 times, six rounds.
+With the patches of this series before this one, a round leaves a root
+domain short of the task's bandwidth, the root domain of the other CPUs
+admitting 3 more tasks of 10% in three 8-CPU VMs and the partition root
+none at all in a fourth, in 4 VMs of 4; with this change the six rounds
+pass, in 2 VMs of 2.
 
-so the replenishment comes at the period of the reservation the task
-left: too early, which hands it runtime it has not earned, or up to a
-period too late.
+Found by the Sashiko AI review of the second posting of this series.
 
-Commit a649f237db18 ("sched,dl: Fix sched class hopping CBS hole") left
-that timer armed on purpose, as what reset a task that stayed out of
-the class. The 0-lag time took that over and left the timer behind:
-cancel it where the parameters go, and where switched_from_dl()
-releases the bandwidth of a task that leaves asleep past its 0-lag
-time, a constrained task that overran as it blocked having the timer
-armed there too.
-
-Fixes: 209a0cbda7a0 ("sched/deadline: Improve the tracking of active utilization")
+Fixes: 2ef269ef1ac0 ("cgroup/cpuset: Free DL BW in case can_attach() fails")
 Cc: stable@vger.kernel.org
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- kernel/sched/deadline.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ kernel/cgroup/cpuset.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index bcf7f88b204a..f772a944a3e5 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -562,6 +562,7 @@ static void task_non_contending(struct sched_dl_entity *dl_se, bool dl_task)
- 				if (READ_ONCE(p->__state) == TASK_DEAD)
- 					sub_rq_bw(dl_se, &rq->dl);
- 				dl_task_release_bw(p);
-+				cancel_replenish_timer(dl_se);
- 				__dl_clear_params(dl_se);
- 			}
- 		}
-@@ -2325,6 +2326,7 @@ static enum hrtimer_restart inactive_task_timer(struct hrtimer *timer)
- 		}
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 5b8f1d9552a6..aa946baeb4b9 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -1067,7 +1067,13 @@ void rebuild_sched_domains_locked(void)
  
- 		dl_task_release_bw(p);
-+		cancel_replenish_timer(dl_se);
- 		__dl_clear_params(dl_se);
- 
- 		goto unlock;
-@@ -3920,8 +3922,10 @@ static void switched_from_dl(struct rq *rq, struct task_struct *p)
- 		 * boosted owner would never leave its loop over a dl_period
- 		 * and a dl_runtime of 0.
- 		 */
--		if (released)
-+		if (released) {
-+			cancel_replenish_timer(&p->dl);
- 			__dl_clear_state(&p->dl);
-+		}
- 	}
- 
- 	/*
+ static void rebuild_sched_domains_cpuslocked(void)
+ {
+-	mutex_lock(&cpuset_mutex);
++	/*
++	 * An attach in progress has set aside, in the root domain its tasks
++	 * move to, the deadline bandwidth it moves once it takes
++	 * cpuset_mutex again: the rebuild of the accounting would drop that
++	 * reservation, and the move would go through on its strength.
++	 */
++	wait_attach_done_lock();
+ 	rebuild_sched_domains_locked();
+ 	mutex_unlock(&cpuset_mutex);
+ }
 -- 
 2.47.3
 
