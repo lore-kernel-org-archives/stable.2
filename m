@@ -1,78 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793920956;
-	b=e2TUjQ+wdiuwqvBdDBFKfhx+A8q7Sf/mm9aduCq5XKtwPTdZAUojem9wBXbr0H074rnc
-	 Ft2tY33hJZh0wDD53FwFiGgED6ftLr7O2Dg64kLOhK66EeV4boWLD/7rllKrSHOw6gPJp
-	 sUU0QptsczuHsnv+a4B3M0VqNpZ4xdTHdwmY8qeqouV6pXJvXVwfGRz5lHi3BejHTvy8k
-	 m1WdGjZOMXYI2eZBFPrw1pUPXgSwA9usqA3mGrV6kTm71aV21JrgCyj64cAbO605VdQ4A
-	 9U4F71YhDXYn1NeDnBDrjuIH7/Eya4kRb3pm3sj19sWA8p+Ac/F9ReuXTYrdOq+Fd/w==
+	t=1793920970;
+	b=Ga6exo5gu9b8S2lJhiri8wnWIEODDJh06lEiExMGzoExuGGDITQz9P8IFfkKD+YI2AkU
+	 sOy7HrAUjlil6WvNFVDvMHuxtCxGMEjRiEJsAI8amQTHs6AE2P+scv9eKTixwJVwOKu+y
+	 EaKvi3TspUyfdECbD1+wui8bEzAvtjJ/PlguLlwuiplPwPTCLzvunMMB7vRbxpbezpW1S
+	 hngI+lxwZ5N2nxZ6EWyGOvN3Z8fi/Oxe8aHB9SI8cO6k2wASa/qN/5FKBsev37ZosJpoY
+	 H/ISznCopLSM0MFV/dfPOXuDzq3zseKL3/HHBm0PFrlZ6w3V14TXsv/O5npt3av71DA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793920956;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:CC:Subject:In-Reply-To:References:Date:Message-ID:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-FB-Internal:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version;
-	bh=F+KcKhR5CnH65kxRNvl8LH+QFZdieMym2Jst7zi2+xw=;
-	b=srsBBTTLe9Z8Jj6fgQfwf39P+hFKPkt/ApiPQdPLKaqBxcwPaJ2zvHge1DSGFlOAiJEI
-	 WE1MTpRo51pE2iGK2ec8uBRPmV8Z7xJBjANyRjyyJMfxY7wz3+ahjy84TsqXqJsAhpdSw
-	 84EIQDqK6dqSlhBhVjHRK0Ah2jykHvqAAuQLfxzlURRST9dXqj7gdf1CZE/ui9e2tboWG
-	 mYDU93v4Ft092gV7aJgHJVkIlwSqa+M4kTrQKoaJqBtV5k4qC/g8ewbSQUpgEUxD5djGG
-	 MBqMe0J9nQCw3fzmuCKWnkafUG480FU2i6kP+8aWK+o53SYWhXKkWjwwQXiNopKLTLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793920970;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=H3H7UT4Tn3COQJGrzcVKHJgk9QoJZBEP6lc08YTHFng=;
+	b=INWPLzLmyMvf7Xq9xZueaJ1bb3NnuD4/qU9x0BGf1ln3Cp1XpMpTdRGkLkox5khbzQ9W
+	 wggkzJqrPO/jssF7L/nb8GKfppdpnADJLQD4Xu9oo9d7ZehmgY+Qi0/jQOWT23Gl1GiS+
+	 e9PIG8BPbAlmC5Kvvppk6UqDv+2B0BqeUMzbOQ3ZP0n8XV9BXVLHYB/JIKZZT//5Uhkse
+	 EDdTVNfBKXnvGZFuI2WuZfB6zetcWxnW/OLv5ry9TjmEtwtVGbnsCIDlUEAGoAQMnBNGL
+	 O5QhwdLrUPOSOSXFgAwZ1g892kYgeOKDBqUbK78vUmLK9ek4RVbV3UXzVO0JOqBgS2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ORyJur++;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1c3gaekP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36166606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 23:22:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36166606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34BF6606A31B;
+	Thu,  5 Nov 2026 23:22:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ORyJur++
-Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5N3Hbl1244789
-	for <stable@vger.kernel.org>; Thu, 5 Nov 2026 15:22:34 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=F+KcKhR5CnH65kxRNvl8LH+QFZdieMym2Jst7
-	zi2+xw=; b=ORyJur++WYpP5A8LFnqWIwPQpzCvgVbRDMbbdRfItLuC+pvEjEx2d
-	1UFJ2BhiFf7YTmqkq+8oEwAtgYESHPE5VVK3z4aC7JTNYR/1kjwnOq485x7agFgf
-	TXcKrb3rMQuzQCa0VgztXqUtcbXQjHiudQqa0tBF3UthgToh/mnTOZyjy7UACd5l
-	gW65iQ2eMoTd8G6XQWOqdeLqCCkU0VVCj2JWdQvDKZuaO1BDdshzsiiygSJPDHJ+
-	mmXMBgdUOOpjlL+R6H8zJJxwyhcv6pq6bNopJrAkhwXTXXtq8a7ywd9MiqbFRO/S
-	sDxd5xfUevvYvK25BD3+RrktkH0SMEsTA==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hrbcj27dq-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 05 Nov 2026 15:22:34 -0800 (PST)
-Received: from twshared14956.51.prn1.facebook.com (2620:10d:c0a8:1b::30) by
- mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Thu, 5 Nov 2026 23:22:32 +0000
-Received: by devvm9890.eag0.facebook.com (Postfix, from userid 139328)
-	id A434B55781A3; Thu,  5 Nov 2026 15:22:19 -0800 (PST)
-From: Jennifer Chan <jenniferchan@meta.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-CC: <bhelgaas@google.com>, <linux-pci@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
-        Lukas Wunner
-	<lukas@wunner.de>, Jason Gunthorpe <jgg@nvidia.com>
-Subject: Re: [PATCH] PCI: Add d3cold delay quirk for NVIDIA LR10 NVSwitch
-In-Reply-To: <20261105215148.GA1566818@bhelgaas>
-References: <20261105201010.2297078-1-jenniferchan@meta.com>
- <20261105215148.GA1566818@bhelgaas>
-Date: Thu, 5 Nov 2026 15:21:33 -0800
-Message-ID: <179392089371.3269676.8761425999098988375@meta.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1c3gaekP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E45B1F008A2;
+	Thu,  5 Nov 2026 23:22:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793920969;
+	bh=H3H7UT4Tn3COQJGrzcVKHJgk9QoJZBEP6lc08YTHFng=;
+	h=Date:To:From:Subject;
+	b=1c3gaekP6OPEjledXniFOpTKvfWGMgNDUpRSwtPGVjMS9oOAMjYvQnI3UwT0m+Cb9
+	 bDOYBaMZfj04jhgjSpnGuuxzkjmO7m0iJ5qDi0YorP/TEoyK7z+qcxkpq+d/gDvKxX
+	 wN5ienSFhnLfFA52rWu4sRh4e6fxPlUpmMKYeUbM=
+Date: Thu, 05 Nov 2026 15:22:49 -0800
+To: mm-commits@vger.kernel.org,youngjun.park@lge.com,vbabka@kernel.org,
+	tz2294@columbia.edu,surenb@google.com,stable@vger.kernel.org,
+	shikemeng@huaweicloud.com,ryncsn@gmail.com,rppt@kernel.org,nphamcs@gmail.com,
+	mhocko@suse.com,ljs@kernel.org,liam@infradead.org,kasong@tencent.com,
+	david@kernel.org,chrisl@kernel.org,baoquan.he@linux.dev,baohua@kernel.org,
+	mt4022@columbia.edu,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-swapfile-drop-a-large-unmapped-swap-in-folio-in-unuse_pte.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261105232249.8E45B1F008A2@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,53 +53,170 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-FB-Internal: Safe
-X-Authority-Analysis: v=2.4 cv=PYtqFShd c=1 sm=1 tr=0 ts=6aed0fba cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=7x6HtfJdh03M6CCDgxCd:22 a=crHB47gyY4rKiduisYu9:22 a=6_OcV_819t3UPtOCXZEA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: WSTsdRfpLFNqXUedHU7Mg_jRnqHUYVhG
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA5MiBTYWx0ZWRfX8I+U5GEn36Lh
- CjhkJVyG7aja7ysfYbLC0NaI91gMXBXMRLNCtWUEAc2Gw/7TKvv6LOaLbQfZakT6mDQF8xLiqVr
- POcq1+v5JaP7G2Rxt09XYjdB4pXz+/M=
-X-Proofpoint-ORIG-GUID: WSTsdRfpLFNqXUedHU7Mg_jRnqHUYVhG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA5MiBTYWx0ZWRfX7DKxvwb+ddYg
- HZm3aYbg/xhv4sdvKonwWuDczP1wAqi8dGJ4xU8T0C5UNQ+gWhXSjEU3YJGkAK7wHwLLPuGiONo
- DQ5zsgY62F7IyzA6m+qlbQmaNRxPfI+KT4DRX7d6uRxX0diU47Kn7X+nJXOjmsK6JcQh2wLpkx1
- u8cJ7prdkNtopdtU1kg7f7nva4RKqanN5pKpN5YlZc/INeYkfjRHRUl2Mnm+JqXKSWlzV0nhcTW
- E6wGmP0ShoaH5frbpPjbo+kwpinpIiTxN5F5ZtZFR8jKBqsKtFfwwcuIGfrxjXeaEE5nUY+YwPw
- 3QwukGNnw1oL3pEgRtyFOwpuZll7OMQ7IVRc2fgUhK2DC+CNd0h39fYQcM41DudpzHZ3sl0+KcF
- 8PfsSAX68jmttNgy1vo54a9sO6nj9u8dcvPteFoPaboueRV+QU9iRM45sXycSAIew9KCwgtMWjL
- SurPitUUn3pDVK8Hp1g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_06,2026-11-04_01,2025-10-01_01
 
-On Thu, Nov 05, 2026, Bjorn Helgaas wrote:
-> Do you know where the -EIO is from?
 
-My mistake in the changelog, sorry: it isn't -EIO.  The four switches
-fail in nvidia-nvswitch chip init, which logs "Failed to initialize
-device : -5".  That -5 is the driver's own status code
-(NVL_INITIALIZATION_TOTAL_FAILURE), not an errno, and probe then returns
--ENODEV.  Before that the driver warns while reading its engine
-discovery table from BAR0, which looks like MMIO not returning real data
-yet.  My logs cut off the driver's error text, so I can't say which
-access failed.
+The patch titled
+     Subject: mm/swapfile: drop a large unmapped swap-in folio in unuse_pte()
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-swapfile-drop-a-large-unmapped-swap-in-folio-in-unuse_pte.patch
 
-> Ugh, a second is a long time to wait.  Does the kernel you're testing
-> include e8df1d194c39 ("PCI: Don't treat ~0 as ready in pci_dev_wait()
-> with RRS SV"), by chance?  It only appeared in v7.3, so it's pretty
-> new.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-swapfile-drop-a-large-unmapped-swap-in-folio-in-unuse_pte.patch
 
-No, both kernels are v7.1-based without it.  The fifth switch fails
-because PM_CTRL reads ~0 in pci_power_up(), so the device may well be
-returning ~0 after pci_dev_wait() declares it ready.  I haven't yet
-checked whether the Root Port has RRS SV enabled.  I'll check that and
-test v7.1 with e8df1d194c39 backported and without this quirk, logging
-what pci_dev_wait() reads.  If that fixes it, I'll drop this patch.
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Thanks,
-Jennifer
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Mani Tofigh <mt4022@columbia.edu>
+Subject: mm/swapfile: drop a large unmapped swap-in folio in unuse_pte()
+Date: Thu, 05 Nov 2026 12:19:27 -0500
+
+Since commit f1879e8a0c60 ("mm, swap: never bypass the swap cache even for
+SWP_SYNCHRONOUS_IO"), a fault can read a swapped-out mTHP range into one
+large folio in the swap cache.  The folio only becomes anon once
+do_swap_page() maps all of it, so if the faulting PTE changes in the
+meantime the folio stays in the swap cache while not being mapped or anon:
+
+  Task A (fault)                       Task B
+  do_swap_page()
+    /* swaps in large folio F */
+                                       madvise(MADV_DONTNEED)
+                                         /* zaps the faulting PTE */
+    /* PTE changed (F not mapped) */
+
+swapoff then maps it, which marks all of its pages as mapped and
+exclusive, and the next fault on one of the other PTEs crashes in
+do_swap_page():
+
+  [    6.424485] kernel BUG at mm/memory.c:5195!
+  [    6.424503] Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+  [    6.427654] CPU: 0 UID: 0 PID: 67 Comm: swapmthp Tainted: G        W            7.3.0-17087-gd865f2677c44 #1 PREEMPT
+  [    6.432665] RIP: 0010:do_swap_page+0x24eb/0x2fa0
+  [    6.451035] Call Trace:
+  [    6.451567]  <TASK>
+  [    6.453841]  __handle_mm_fault+0x13b5/0x3b40
+  [    6.458525]  handle_mm_fault+0x16f/0x480
+  [    6.461143]  do_user_addr_fault+0x312/0xa30
+  [    6.462044]  exc_page_fault+0x66/0xc0
+  [    6.462846]  asm_exc_page_fault+0x26/0x30
+  [    6.476708]  </TASK>
+
+do_swap_page() already drops such a folio from the swap cache when it
+can't map all of it.  We move that check into a helper and use it in
+unuse_pte() too, so swapoff drops the folio and swaps the entries in again
+as small folios.  With the fix, the next fault doesn't crash anymore.
+
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development.  The C reproducer below however
+hits it within about 1s.
+
+Link: https://lore.kernel.org/20261105-swapin-large-unmapped-v3-1-d5906e4cf18d@columbia.edu
+Fixes: f1879e8a0c60 ("mm, swap: never bypass the swap cache even for SWP_SYNCHRONOUS_IO")
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Youngjun Park <youngjun.park@lge.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Tal Zussman <tz2294@columbia.edu>
+Cc: Kairui Song <ryncsn@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ mm/memory.c   |   13 ++++---------
+ mm/swap.h     |   10 ++++++++++
+ mm/swapfile.c |    9 +++++++++
+ 3 files changed, 23 insertions(+), 9 deletions(-)
+
+--- a/mm/memory.c~mm-swapfile-drop-a-large-unmapped-swap-in-folio-in-unuse_pte
++++ a/mm/memory.c
+@@ -5198,18 +5198,13 @@ check_folio:
+ 	 * If a large folio already belongs to anon mapping, then we
+ 	 * can just go on and map it partially.
+ 	 * If not, with the large swapin check above failing, the page table
+-	 * have changed, so sub pages might got charged to the wrong cgroup,
+-	 * or even should be shmem. So we have to free it and fallback.
++	 * have changed, so some folio pages might be charged to the wrong
++	 * cgroup, or even should be shmem. So we have to free it and fallback.
+ 	 * Nothing should have touched it, both anon and shmem checks if a
+ 	 * large folio is fully applicable before use.
+-	 *
+-	 * This will be removed once we unify folio allocation in the swap cache
+-	 * layer, where allocation of a folio stabilizes the swap entries.
+ 	 */
+-	if (!folio_test_anon(folio) && folio_test_large(folio) &&
+-	    nr_pages != folio_nr_pages(folio)) {
+-		if (!WARN_ON_ONCE(folio_test_dirty(folio)))
+-			swap_cache_del_folio(folio);
++	if (!swap_cache_folio_mappable(folio, nr_pages)) {
++		swap_cache_del_folio(folio);
+ 		goto out_nomap;
+ 	}
+ 
+--- a/mm/swapfile.c~mm-swapfile-drop-a-large-unmapped-swap-in-folio-in-unuse_pte
++++ a/mm/swapfile.c
+@@ -2518,6 +2518,15 @@ static int unuse_pte(struct vm_area_stru
+ 	if (!folio_matches_swap_entry(folio, entry))
+ 		return 0;
+ 
++	/*
++	 * A large folio that a fault didn't map can't be mapped one PTE at a
++	 * time here, so drop it and swap in small folios instead.
++	 */
++	if (unlikely(!swap_cache_folio_mappable(folio, 1))) {
++		swap_cache_del_folio(folio);
++		return 0;
++	}
++
+ 	swapcache = folio;
+ 	folio = ksm_might_need_to_copy(folio, vma, addr);
+ 	if (unlikely(!folio))
+--- a/mm/swap.h~mm-swapfile-drop-a-large-unmapped-swap-in-folio-in-unuse_pte
++++ a/mm/swap.h
+@@ -464,6 +464,16 @@ static inline void __swap_cache_replace_
+ }
+ #endif /* CONFIG_SWAP */
+ 
++static inline bool swap_cache_folio_mappable(struct folio *folio,
++		unsigned int nr_pages)
++{
++	if (folio_test_anon(folio) || !folio_test_large(folio) ||
++	    nr_pages == folio_nr_pages(folio))
++		return true;
++	VM_WARN_ON_ONCE_FOLIO(folio_test_dirty(folio), folio);
++	return false;
++}
++
+ extern const struct swap_ops swap_bdev_ops;
+ 
+ int shmem_writeout(struct swap_io_ctx *ctx, struct folio *folio,
+_
+
+Patches currently in -mm which might be from mt4022@columbia.edu are
+
+mm-swap-stop-cluster-list-scans-once-swapoff-clears-swp_writeok.patch
+mm-shmem-fix-swapin-livelock-on-a-mismatched-large-swap-cache-folio.patch
+mm-swapfile-drop-a-large-unmapped-swap-in-folio-in-unuse_pte.patch
+
