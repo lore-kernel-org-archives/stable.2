@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793850270;
-	b=GmL5Y5XtXTbyosRJDh59o910fLFZZwrBRWZjkwTMUVawwF6T/mFQBScpWyxk3LIyMU3s
-	 JvExpvHQLREcERQITBkUi1Ogtg3CiUv5YUBw1N5PZ45zdfJnbICJL50tmkatURxlTgN0m
-	 McfKEJzgx2ewmr5tt+evSAUQWNm8jFYsVcuuF5SQhAfUzAJIfplJ8dgYkPwh+zi8b00/0
-	 MO0FifmAdpVOHT6UagwrtRT/wQP0OC4Lr8xCkv+DVXEpu5LGD9pUeOY7egXqJlGu2ZQbe
-	 acgVvmcW4o0xcH99zPb1BNcXZ0iDgRxQtxEA89viFUFjBHtdR3TtNTR03FGzCk9UH+g==
+	t=1793850277;
+	b=vBM5xVxTHlneI0QfD3aXG81z9RkDhy19su6cGVQC7ws18sH3hPbCciFz/ZgJ/MwgDdpF
+	 6PoAhto1Xy/mQNmD0WI19RCSMJW1xuFtEFCkLDiPKiOT5oCUXlTcri/uPUlnwuXTpB5R7
+	 jj4qRocr82hkYJu4DvLd9IoC2FWADt4z8/PVnyJ/gpRSaNm9xRvLKa71XD2DpdY529yC8
+	 WUqO9neLGzqqwGzGfUbdkMvoNx4a5jZ1rRUG+8dPR6Q7aRL9fMGXzXhKeTBcjHK3WqxAq
+	 h6YNwQMWF42Dbei4ibmP+cFBwsjcLB/fRpWMTG/kIGwCltlrk1/jGNRxSVkPPzkjzcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793850270;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793850277;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2XvspcOknGrdd2gw9AAEEtDDPv/FcVq8g+18OSpL428=;
-	b=qQrafVhn03bfV4M8xesG5BV3YRi3baAnWnYdnUol/WmpKlpaelUtC1c5S53+BF+Vh57F
-	 VuEEsONY4Fp9trRBBrslB20thfcA/7oTxK9ln1uZec5LI1FSQPkGhCzG/gF5EwtIlXOVg
-	 uRPzNrxQqptvIUnpd+FiM8kPWohjCScomylMeA1ecOPgo4mXPFaCeNNCLsjIzShp/R3+3
-	 ISsJz7zLTxw9VExO67n6rPnU0JJrZm5MqgGEP6F3X9WlDAw72QX2xbszH48wf4jyAbnhJ
-	 nGc/TXHrXwxvPcrkoop8b5JH2ktzFZ9HTxS7alAbo1MhosEvPgEzUlNsICQ40nTmExg==
+	bh=VhCoXRLISf5qLbd2bCiTyRaD0N3wArRphuphyOVP1GI=;
+	b=VRztU1YT0LyYctAywSExa8LzIjLT5dBnM2SMF8frMcCowA+SnC2hGPa5MnDXQGwAHhaB
+	 Jxinc/bYfeYsR+h93rr74N1tIlP/yZHCyz3mY6EKjaxNjDD235daUVPjPNGs5uCYl8u3e
+	 sEFD2dgZjT9NU4VUL7Q9DjrK2KcuBtdshHLRRHkRQPe7WODBqdk2sMw0IJNBsXuIrxuKp
+	 a6u+tPsVvXVyHJP+A32NBXUkuk2l3BL3yhMKT+rR/x17l9ejR4Soji2/LN4IwX2Z/cIYg
+	 5lN1e6lHioeaDSb4Iqruqdj3SA8lcPrYXuXNBFjV5XCjJJc/O20kEWW+ZW4TVR2fsCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ACB2w+Fp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nqETm99Y;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43E4606A328
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 03:44:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC847606A336
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 03:44:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ACB2w+Fp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 951D61F000C1;
-	Thu,  5 Nov 2026 03:44:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nqETm99Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C72EE1F000C1;
+	Thu,  5 Nov 2026 03:44:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793850269;
-	bh=2XvspcOknGrdd2gw9AAEEtDDPv/FcVq8g+18OSpL428=;
+	s=k20260515; t=1793850276;
+	bh=VhCoXRLISf5qLbd2bCiTyRaD0N3wArRphuphyOVP1GI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ACB2w+FpZcGS6e+2DHI0B2BeUQ6iYF+eUR7xlxMw4EDnlWpJgYsTGLiyB6J7vpRbd
-	 d/IuM1phgJ7k5OSlm+9vQ4mljaKpSJ1/B7E3Ywjt5swy0vBaCTxAZLx7TTfdNYWSeO
-	 wUt6XuhXULPxeAUjpMG223z5wg+waRepJiERDxjmhLoMJwIYZfoOjs1bJrqbEN6jK/
-	 QPBblb+ianAduUAT3xX49u3MRDEajQ69XwRFUCcRTg0+l39xRAS+nAI0wzGj/NJulX
-	 Mv1JV0PKpt8mAcZLsY6wQUtPAb2woA6WLl7agG9WaCrAj2h9/r6ePcLibMzgkgSr51
-	 YY4sbYnoOjLoQ==
+	b=nqETm99YK00rmYXLKM2AfUBFOEYFdy5j/7ulvFsIA/ViJptF3Zl8SWROVDOay6fMP
+	 XeYVSdm70IZPNOAeWwTnCMjd3/RR9meEhsLS9AdL1zEucPhx5lAymGXzjKNsG0r7W0
+	 bQXLCzSVFfe0J3rp8o2R0zz9eQC2FPv+vmlJwXqJuf4obv1ovp7u4Q7HKAXNKh1fli
+	 Q+QkZ/Jh+m48tJinfnuC+fplYXZCqBjHGJmVmQLxP7Bcgf2QV+te2HV5MOEDh0NLqE
+	 1S4sirLusxaTDe5ffpNZuwJfhhz71pT0cS/MBYnra39JWcwwOUiaEyvZdcESnSN3TU
+	 PRaQfA+NR525g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eduard Zateev <hackerowskiy@gmail.com>,
-	syzbot+5c3ed2a0de3270efc921@syzkaller.appspotmail.com,
-	syzbot+c2ec61adfbcb24e5ec20@syzkaller.appspotmail.com,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Chris Mason <mason@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Amir Goldstein <amir73il@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] smb: client: hold server info until cifsd exits
-Date: Wed,  4 Nov 2026 22:44:27 -0500
-Message-ID: <20261105034400.1240316-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ovl: hold a reference on the parent in readdir
+Date: Wed,  4 Nov 2026 22:44:34 -0500
+Message-ID: <20261105034401.1253832-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110421-bullring-earplugs-c9a8@gregkh>
-References: <2026110421-bullring-earplugs-c9a8@gregkh>
+In-Reply-To: <2026110448-running-steadfast-67b5@gregkh>
+References: <2026110448-running-steadfast-67b5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,148 +62,116 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eduard Zateev <hackerowskiy@gmail.com>
+From: Chris Mason <mason@kernel.org>
 
-[ Upstream commit 482c117c6dbeee382790168af10959810450ab09 ]
+[ Upstream commit 16d319e12328acafeafd3eecdf09c46d7fb43452 ]
 
-The last session reference can be dropped while the cifsd demultiplex
-thread is still running clean_demultiplex_info(). That thread frees
-TCP_Server_Info there, racing with cifs_put_tcp_session() as it releases
-the server crypto state. syzbot reported a KASAN use-after-free in
-cifs_crypto_secmech_release().
+Listing a directory on an overlay uses a freed dentry and crashes the
+kernel when a lookup moves the directory at the same time.
 
-Keep an object reference for the cifsd thread. Defer final crypto,
-session-key, network namespace, string, and structure cleanup until both
-the last session reference and the thread reference are dropped. Drop the
-thread reference after clean_demultiplex_info() has finished using the
-server.
+Code that can sleep may only use d_parent without a reference while
+something stops a move of the dentry. ovl_iterate_real(),
+ovl_need_adjust_d_ino() and ovl_cache_update() use the d_parent of the
+listed directory and hold only the lock of that directory. When a
+lookup finds the directory under another parent after a change to a
+layer, d_splice_alias() moves it without that lock and drops its
+reference on the old parent.
 
-Build-tested with ARCH=arm64 and W=1 for
-fs/smb/client/connect.o. The KASAN reproducer was not run on the patched
-kernel.
+With a delay in ovl_iterate_real(), getdents64 on an overlay directory
+raced a rename in the lower layer and a lookup that moved its dentry,
+and after an rmdir of the old parent KASAN reported a use-after-free in
+security_inode_getattr().
 
-Fixes: a5c3e1c725af ("Revert "cifs: No need to send SIGKILL to demux_thread during umount"")
-Reported-by: syzbot+5c3ed2a0de3270efc921@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5c3ed2a0de3270efc921
-Reported-by: syzbot+c2ec61adfbcb24e5ec20@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=c2ec61adfbcb24e5ec20
-Assisted-by: LLM OpenAI Codex
-Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
+Fix this by using dget_parent() in the three functions.
+
+Fixes: b5efccbe0a12 ("ovl: constant d_ino across copy up")
 Cc: stable@vger.kernel.org
-Tested-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: adjusted cleanup context for kfree() instead of kfree_sensitive() ]
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[amir: fix comments in ovl_need_adjust_d_ino()]
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+[ sashal: adapted ovl_need_adjust_d_ino() changes to the existing inline checks in ovl_iterate() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifsglob.h |  2 ++
- fs/smb/client/connect.c  | 33 +++++++++++++++++++++------------
- 2 files changed, 23 insertions(+), 12 deletions(-)
+ fs/overlayfs/readdir.c | 24 ++++++++++++++++++------
+ 1 file changed, 18 insertions(+), 6 deletions(-)
 
-diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
-index 126cd0e31704e..6ff12e9e3417c 100644
---- a/fs/smb/client/cifsglob.h
-+++ b/fs/smb/client/cifsglob.h
-@@ -16,6 +16,7 @@
- #include <linux/scatterlist.h>
- #include <linux/mm.h>
- #include <linux/mempool.h>
-+#include <linux/refcount.h>
- #include <linux/workqueue.h>
- #include <linux/utsname.h>
- #include <linux/sched/mm.h>
-@@ -647,6 +648,7 @@ struct TCP_Server_Info {
- 	spinlock_t srv_lock;  /* protect anything here that is not protected */
- 	__u64 conn_id; /* connection identifier (useful for debugging) */
- 	int srv_count; /* reference counter */
-+	refcount_t obj_refs; /* struct lifetime: srv_count users + cifsd */
- 	/* 15 character server name + 0x20 16th byte indicating type = srv */
- 	char server_RFC1001_name[RFC1001_NAME_LEN_WITH_NULL];
- 	struct smb_version_operations	*ops;
-diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
-index 3d0fd8bf8f352..419ded50b2457 100644
---- a/fs/smb/client/connect.c
-+++ b/fs/smb/client/connect.c
-@@ -993,6 +993,19 @@ cifs_enable_signing(struct TCP_Server_Info *server, bool mnt_sign_required)
- 	return 0;
- }
+diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+index 36a26a0ec966f..8eacf0e7625a0 100644
+--- a/fs/overlayfs/readdir.c
++++ b/fs/overlayfs/readdir.c
+@@ -474,8 +474,8 @@ static int ovl_cache_update_ino(const struct path *path, struct ovl_cache_entry
+ 			goto get;
+ 		}
+ 		if (p->len == 2 && p->name[1] == '.') {
+-			/* we shall not be moved */
+-			this = dget(dir->d_parent);
++			/* d_splice_alias() can move even a locked dir */
++			this = dget_parent(dir);
+ 			goto get;
+ 		}
+ 	}
+@@ -693,6 +693,7 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
+ 	struct ovl_dir_file *od = file->private_data;
+ 	struct dentry *dir = file->f_path.dentry;
+ 	const struct ovl_layer *lower_layer = ovl_layer_lower(dir);
++	struct dentry *parent;
+ 	struct ovl_readdir_translate rdt = {
+ 		.ctx.actor = ovl_fill_real,
+ 		.orig_ctx = ctx,
+@@ -703,18 +704,26 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
+ 	if (rdt.xinobits && lower_layer)
+ 		rdt.fsid = lower_layer->fsid;
  
-+static void cifs_tcp_server_put(struct TCP_Server_Info *server)
-+{
-+	if (!refcount_dec_and_test(&server->obj_refs))
-+		return;
+-	if (OVL_TYPE_MERGE(ovl_path_type(dir->d_parent))) {
++	/*
++	 * The lock on dir does not stop d_splice_alias() from moving it to
++	 * another parent, which drops the reference dir holds on this one.
++	 */
++	parent = dget_parent(dir);
++	if (OVL_TYPE_MERGE(ovl_path_type(parent))) {
+ 		struct kstat stat;
+ 		struct path statpath = file->f_path;
+ 
+-		statpath.dentry = dir->d_parent;
++		statpath.dentry = parent;
+ 		err = vfs_getattr(&statpath, &stat, STATX_INO, 0);
+-		if (err)
++		if (err) {
++			dput(parent);
+ 			return err;
++		}
+ 
+ 		WARN_ON_ONCE(dir->d_sb->s_dev != stat.dev);
+ 		rdt.parent_ino = stat.ino;
+ 	}
++	dput(parent);
+ 
+ 	if (ovl_is_impure_dir(file)) {
+ 		rdt.cache = ovl_cache_get_impure(&file->f_path);
+@@ -742,6 +751,8 @@ static int ovl_iterate(struct file *file, struct dir_context *ctx)
+ 		ovl_dir_reset(file);
+ 
+ 	if (od->is_real) {
++		struct dentry *parent = dget_parent(dentry);
 +
-+	cifs_crypto_secmech_release(server);
-+	kfree_sensitive(server->session_key.response);
-+	put_net(cifs_net_ns(server));
-+	kfree(server->leaf_fullpath);
-+	kfree(server->hostname);
-+	kfree_sensitive(server);
-+}
-+
- static noinline_for_stack void
- clean_demultiplex_info(struct TCP_Server_Info *server)
- {
-@@ -1079,14 +1092,11 @@ clean_demultiplex_info(struct TCP_Server_Info *server)
- 		 */
+ 		/*
+ 		 * If parent is merge, then need to adjust d_ino for '..', if
+ 		 * dir is impure then need to adjust d_ino for copied up
+@@ -750,11 +761,12 @@ static int ovl_iterate(struct file *file, struct dir_context *ctx)
+ 		if (ovl_xino_bits(dentry->d_sb) ||
+ 		    (ovl_same_fs(dentry->d_sb) &&
+ 		     (ovl_is_impure_dir(file) ||
+-		      OVL_TYPE_MERGE(ovl_path_type(dentry->d_parent))))) {
++		      OVL_TYPE_MERGE(ovl_path_type(parent))))) {
+ 			err = ovl_iterate_real(file, ctx);
+ 		} else {
+ 			err = iterate_dir(od->realfile, ctx);
+ 		}
++		dput(parent);
+ 		goto out;
  	}
  
--	put_net(cifs_net_ns(server));
--	kfree(server->leaf_fullpath);
--	kfree(server->hostname);
--	kfree(server);
--
- 	length = atomic_dec_return(&tcpSesAllocCount);
- 	if (length > 0)
- 		mempool_resize(cifs_req_poolp, length + cifs_min_rcv);
-+
-+	cifs_tcp_server_put(server);
- }
- 
- static int
-@@ -1695,7 +1705,7 @@ cifs_put_tcp_session(struct TCP_Server_Info *server, int from_reconnect)
- 	else
- 		cancel_delayed_work_sync(&server->reconnect);
- 
--	/* For secondary channels, we pick up ref-count on the primary server */
-+	/* For secondary channels, drop the reference on the primary server */
- 	if (SERVER_IS_CHAN(server))
- 		cifs_put_tcp_session(server->primary_server, from_reconnect);
- 
-@@ -1703,15 +1713,11 @@ cifs_put_tcp_session(struct TCP_Server_Info *server, int from_reconnect)
- 	server->tcpStatus = CifsExiting;
- 	spin_unlock(&server->srv_lock);
- 
--	cifs_crypto_secmech_release(server);
--
--	kfree_sensitive(server->session_key.response);
--	server->session_key.response = NULL;
--	server->session_key.len = 0;
--
- 	task = xchg(&server->tsk, NULL);
- 	if (task)
- 		send_sig(SIGKILL, task, 1);
-+
-+	cifs_tcp_server_put(server);
- }
- 
- struct TCP_Server_Info *
-@@ -1733,6 +1739,7 @@ cifs_get_tcp_session(struct smb3_fs_context *ctx,
- 		rc = -ENOMEM;
- 		goto out_err;
- 	}
-+	refcount_set(&tcp_ses->obj_refs, 1);
- 
- 	tcp_ses->hostname = kstrdup(ctx->server_hostname, GFP_KERNEL);
- 	if (!tcp_ses->hostname) {
-@@ -1872,6 +1879,8 @@ cifs_get_tcp_session(struct smb3_fs_context *ctx,
- 		module_put(THIS_MODULE);
- 		goto out_err_crypto_release;
- 	}
-+	/* Keep the server alive until the demultiplex thread has exited */
-+	refcount_inc(&tcp_ses->obj_refs);
- 	/* thread created, put it on the list */
- 	spin_lock(&cifs_tcp_ses_lock);
- 	list_add(&tcp_ses->tcp_ses_list, &cifs_tcp_ses_list);
 -- 
 2.53.0
 
