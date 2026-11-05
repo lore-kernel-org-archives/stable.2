@@ -1,21 +1,21 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793864768;
-	b=rx49ny3uOoJJjWfqgqS8cdliD50bxFzCIn/YDVbv2eTFBrMJ9Ikmti6qdqydxLXM1+oc
-	 +svURG8bQ/Hjvpn2RmlMCeA9C4Q4DaPNvppsz9oC+Ao5eq2uejPZ6qbMo4SC/hhN+i3qb
-	 3wtPir2TBxB/nnpsWbjYh0vBAF7hp/JOMblHZSIv/yOB7i2NhKGxhaDqCu+rl68vTdHfE
-	 xtrZfExJ1u1mUZCAPOOY2Py+Jdux+nNUdOB/i28dzu724ylHwmwOoWR6Zd5NbGJG2VdeI
-	 ACbHLMVMzErT3ZyMkiICIbtIr3StdoHtSwknBK859sPNh2E20Qh1b21ai7DJeigcctw==
+	t=1793864788;
+	b=y6SAAcQPJwAqg8sx1KM09UxuQKwkwABDQkHF0jmhp6dtXI0LOQITa7Julft+1CXKHhCU
+	 kz6ILR9gySo5NW2S+YfLh3ILKt6OT6LyzC7Oy+HST552HvMeCsAE4n8aWp2wwHSuN0QpL
+	 Tma/A1QHCH+9BWVgqaLyRGFh3lcWXI4vy9DttEDeyDeP05wBQ8ZfkP4XzxhOrMO6og5IK
+	 fDT6qhSHW3P6m25/NASGeG5W+d9fxITUaEhwehUwJWr0ZxQfccoZ07cTgbzbnRvKIb7f+
+	 3uDFuxWkVf9WL6IPJGx33c3fRqwnMkbpCUs8dcEFG1tIgpg+aFKo0MUMHovaNOm1JEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793864768;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793864788;
 	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
 	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=ekv8nZV2KRWXLq55UMkFX2h8AsIUilC5jxcfXsbLa8w=;
-	b=d6ePkq/LL4FOcT4rwM1Y3FdogB59LnBELnwQcQpyOijAaaSCbM4G7YG9GvkD9blLwAST
-	 n+GxlAGmInYU1ThUuproUTkXMU9JSR7YjpgDB+Qek+GaEh+r0efQxS421ckFMV/wYQJAU
-	 Hjk56UUyahJZtK9z00JimjPpe7wtC9Py4Xq1xPxLa8oGMCAWW2XMOtKI081p303PQ2Cfv
-	 vuITjGRtDCoSvDVzDVaEbS6KaxT8OkDa/ljlKpC8vYOvnt3hR2e8hwoNyCOWxXtQCzUDw
-	 FOwSGevrUOUVtSHOq5cC7FBlwFJkrq/3RSrUEM4mIcE6OWG75OEf+4RB0OI9kNNRXHw==
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
+	b=mXJce5vEAzGUl2Ybd8o69nN9IdF7nrmIhQ9qLRJcNQBYyFgh3BSeoEkFG+vN1gbST6v8
+	 DY7BedT0JfRPS84JYCDwCvNg74Hep/132GoU1JTT3BxNOS+W56NtkuShgp7aOHRHj6JB3
+	 +VDZUv4AxLGaaeHZGXWYNBo1SD1cJ9VLvn1m9kv1u2v/gdnAQz6Ifjd3LVcmtOKiE1mAg
+	 tR43wFye/7ydsZoN6iT4OUYblpbNfshjURcKRAqezeLNnhLVaBC+/0RnUPrXniRUeHJGu
+	 KM9kSLKACZeaVrHFPry+nvpIHQKAzhwpacsgkU/mpmqqKpUD4Wzna9eSrGPlKOBN83w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=lst.de;
 	spf=pass smtp.mailfrom=lst.de;
@@ -23,20 +23,20 @@ ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71C4606A31B;
-	Thu,  5 Nov 2026 07:46:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D71C4606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E50D606A338;
+	Thu,  5 Nov 2026 07:46:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E50D606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
 Received: by verein.lst.de (Postfix, from userid 2407)
-	id 2517868B05; Thu,  5 Nov 2026 08:45:55 +0100 (CET)
-Date: Thu, 5 Nov 2026 08:45:54 +0100
+	id A08D568BEB; Thu,  5 Nov 2026 08:46:22 +0100 (CET)
+Date: Thu, 5 Nov 2026 08:46:21 +0100
 From: Christoph Hellwig <hch@lst.de>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: Qiliang Yuan <odys.yuan@gmail.com>, Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
 	Lai Jiangshan <jiangshanlai@gmail.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
 	Josh Triplett <josh@joshtriplett.org>,
 	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
 	Steven Rostedt <rostedt@goodmis.org>,
@@ -44,8 +44,8 @@ Cc: Qiliang Yuan <odys.yuan@gmail.com>, Keith Busch <kbusch@kernel.org>,
 	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
 	rcu@vger.kernel.org, stable@vger.kernel.org
 Subject: Re: [PATCH v2 1/2] srcu: Add list_splice_init_srcu()
-Message-ID: <20261105074554.GA17781@lst.de>
-References: <20261104-bug-nvme-remove-ns-srcu-v2-0-feb64ecb96ca@gmail.com> <20261104-bug-nvme-remove-ns-srcu-v2-1-feb64ecb96ca@gmail.com> <9f8c94ff-29e3-4ea5-b9ec-b04b2bc21b1c@paulmck-laptop> <5b0e7c55-72b1-410a-982c-a62138b9e44c@paulmck-laptop>
+Message-ID: <20261105074621.GB17781@lst.de>
+References: <20261104-bug-nvme-remove-ns-srcu-v2-0-feb64ecb96ca@gmail.com> <20261104-bug-nvme-remove-ns-srcu-v2-1-feb64ecb96ca@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,13 +57,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <5b0e7c55-72b1-410a-982c-a62138b9e44c@paulmck-laptop>
+In-Reply-To: <20261104-bug-nvme-remove-ns-srcu-v2-1-feb64ecb96ca@gmail.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Wed, Nov 04, 2026 at 05:46:45PM -0800, Paul E. McKenney wrote:
-> Given Qiliang's response:
-> 
-> Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+Looks good:
 
-Thanks.  I assume you're fine if we carry this in the nvme tree?
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
