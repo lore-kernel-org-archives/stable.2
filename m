@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793871246;
-	b=B9TsxyZ6fbBBy/BccInZaD2AZdlVzApXvZtusABLSjt0/d4ERHAzhNmEe/p2/D6puuRC
-	 Viz5Noo4nub/Yi9qOn7X4I8K+GegvVLf1hHp25Wi6dH64+y35lz4I0xGK0MVGWcypUi0h
-	 tHa3yrCRm6RKOLFVlrbtG+Hij6G07HVK/zuN1BvcZvLMwX1yv83aN60YRkAffH/51Xvxp
-	 +1krKFLSOAyfap0WmbRypKOjlPXPs+4VYSZ5OpjJF6/dlkCIImDEJi44MWP5cJTuczulH
-	 jK20nIIDHlARz7ItBiOndVoy/GxuoDwPB6yxZGpcvlEo/+C3q4gnA6LCfX0BYW7h6BQ==
+	t=1793871427;
+	b=HHfNVkSs+vVKDO3f4oRTEjMKFJqdDo8cXVAoVDdfcytqtjHFb6tfqsyNrpd55E14o8A1
+	 aKfVotGwpT7wEVo32/DViCyzbduJs362CLm+HCpLvcBf/LN0RoXyN3IP5eikKGFY8CVDd
+	 DetC8d6v6ZRy1K9kZO5+JdIEpDnfqW/LBoPQ9jqM+btavkfch38WHVyRQVFIXwiaWSSHF
+	 HQpkh5Ql+kenPw5hxQcpfnNbV+bUmTfL6SxBS0PZ7QZJnt+xln0GaExU8iiQiREHn0mGy
+	 sbqEuajtA3AzJa9ar3OoITDJ8tAYOLG9GVrjKho0OkyLnPl5aSGAtqKbXgqgU/XlbOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793871246;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=iBOfy5O+0eohQ89wWM3JHoeRMFw720CvWts9Mtt94kg=;
-	b=zJC5oiDLmOHQcA8niyuLOd4hgPIXk3bOGQ55TUlzPEKTyxU3iCTFPNgm6hWFayVbk79x
-	 wJea4C8oe7+5cb/u7iP1jegB37qBf8rBAIojvFiw4l9hBrHQvDfC38yV/pAi3ojX1wiYj
-	 Et+iGUJq+s34OVNVYL1UafDaZ5p5LLCA4IdMiGQslVwZkFzMO+4tR5wW8xbNqu32Wifow
-	 DCy9C7hLQcrSSzUv6JCbkfWWi8k7VXGBf41W+oN6FPIQQ23bSApxlhcBOJB8gmZhji+b2
-	 sGH0cPYS0JjMIdWhuLaWuoz5vkIZOBmsjOfMER2O3yVS7uBfzNnx3ohNxUo4GHN/ROw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793871427;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7K/3UYmHmYqyZ4dedHvbD3/glGO/i1xPnHZWZAvi/hU=;
+	b=hYOZYFD4NpINGyhGqqpJW1uo3MuRSeJBLEzBS5jteJEEf8s5ZbpzeQzZHmzukbL0JgUz
+	 oJniLFeRwavUq/BnTK5npfOvuGkES+7RU2NhNAqjRZmFYhqN6rV5kNLv65A8BNqcvorPx
+	 gR2PIB/WlTa43uAEu8HpnKqJRBIQBmq++0QiXIdQ1TjnZ1B5iHOAZKY4XdqGb8Nd6DzF3
+	 tNeClZjST0JpavEOonAw3Ah3KCU9AhzfqVb5dYHddF9STbvm9qV40wp587+WGyCGjfisN
+	 YWhGujqP9SLuzPAlocb0JykPpiS5Pen19Ie/AH1hCYFkzYXEtYKywGC7HkYGUkKJ14w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kH2/2Thm";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c2bSiclw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05139606A328
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 09:34:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56512606A31B;
+	Thu,  5 Nov 2026 09:37:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kH2/2Thm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CECE1F00A18
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 09:34:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c2bSiclw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5550D1F000C1;
+	Thu,  5 Nov 2026 09:37:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793871245;
-	bh=iBOfy5O+0eohQ89wWM3JHoeRMFw720CvWts9Mtt94kg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kH2/2ThmSmTuYrAqoZWP06MhveGLpQ7yH69j1W0W9ppNRp+veQPUYmrYbLA36ZTcg
-	 WMl3HawM8b5g2sErObcuoxuM8NQh815V9gVHjcRldAhHfoIbEe7KFWivmcSNEyeMM/
-	 LKEFyiNriYRJkjHYFRraLKVcylAXHuGcEfOM6rX1q1kG2IV3MLva53Y9EFyufrRxSK
-	 0jpgU/jBiVxYQ51Tq5ggzdG1uOS9V4Sjv2PJ8yseTBprRQOWFqwTyLG1m74YoaoEuM
-	 qw4dBMz2DrF6UJzKbgzI/HYamSx7XtcwlATncpgEjIBq65UrIngq8Zhl9v3QRkHYVy
-	 5UHyZyi6r9zjw==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5bcdae234ecso1190697e87.3
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 01:34:05 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzwy5WT8Ikto+GMwq7l34umUVy+zX2ToiLb7cI3OClCbiKFYOxQ+tOfZ2WsgwlqL9ayBmBeRc0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9DoaWe0NoTkX5norL/FTg0EQIF48/4M324yLHoiFuQpdECfuNM
-	U/oMjudx/kWxThHnHwyG+uDZSpGhFefZv45Ve4TXOIIlAg4rmGUbIq4x0cyF+KWFbloY1nHuDqv
-	bmjLXr+i6GquGWFKdLCo02ZDyQk0/42c=
-X-Received: by 2002:a05:6512:3c8e:b0:5bf:a5c1:d11 with SMTP id
- 2adb3069b0e04-5bfd957cd9amr6465740e87.64.1793871244374; Thu, 05 Nov 2026
- 01:34:04 -0800 (PST)
+	s=k20260515; t=1793871427;
+	bh=7K/3UYmHmYqyZ4dedHvbD3/glGO/i1xPnHZWZAvi/hU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c2bSiclwFvsOddDtNdBAGgue40cuAASBAriHF4ShMSnAH+dj5VoZ54/+FhXWYPl8+
+	 oGTmZ8+y0aZU1aGjpnG7PSNmLbrbHYBDtRkHAazRnTRaKM7kFb1gWrF4MgOONLKn6A
+	 D2g12W0/aSEoOEuqtKS+lZMd28/Pr0BAO8/hqM+XQ06Tn/zM0G4nP7gRYzQBGI8gDb
+	 NiFAE3FpUff/5JW8M6gm899fXTDENHW+NvBDvfaMy6A6GVA7US5GfJYie8tO9D2ot0
+	 3bnnWozdI7NLkK3bt+hwaq3bUOwgoV+63mfnaC86dYVSR7/ECeqqyJT/2JhMDDaHKE
+	 5J3D+4peA5HLA==
+Date: Thu, 5 Nov 2026 10:37:01 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Jan Kara <jack@suse.cz>
+Cc: linux-fsdevel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+	Chris Mason <mason@kernel.org>, linux-ext4@vger.kernel.org, 
+	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Andreas Dilger <adilger.kernel@dilger.ca>, 
+	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Namjae Jeon <namjae.jeon@samsung.com>, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 3/9] ext4: add ext4_inode_loc_block() helper
+Message-ID: <20261105-eurer-wimpel-gierig-935915475d98@brauner>
+References: <20261029-work-inode-metadata_writeback-v1-0-7d6c678a585d@kernel.org>
+ <20261029-work-inode-metadata_writeback-v1-3-7d6c678a585d@kernel.org>
+ <lqhym4n6vu46kretnwfstfutik4vl4l5imhnf6pi3aranjpryx@bgtxuzuha2zs>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,43 +61,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103213002.1673560-1-lee@kernel.org> <20261103213002.1673560-11-lee@kernel.org>
-In-Reply-To: <20261103213002.1673560-11-lee@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 5 Nov 2026 10:33:52 +0100
-X-Gmail-Original-Message-ID: <CAD++jLmREn-duxqZyLmY97DR_TKiDLRgxiJiy=cno6rdosa8YQ@mail.gmail.com>
-X-Gm-Features: AclHuK_c9EDZKaN1V7Dk_kEOYVVIT2evfGZYSvNiUvKlEjAfXzbR3MVATtMhYcI
-Message-ID: <CAD++jLmREn-duxqZyLmY97DR_TKiDLRgxiJiy=cno6rdosa8YQ@mail.gmail.com>
-Subject: Re: [PATCH 10/10] pinctrl: qcom: Check qcom_scm_io_readl() return
- value in msm_gpio_irq_set_type()
-To: Lee Jones <lee@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Ajay Kishore <akisho@codeaurora.org>, Christian Marangi <ansuelsmth@gmail.com>, 
-	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <lqhym4n6vu46kretnwfstfutik4vl4l5imhnf6pi3aranjpryx@bgtxuzuha2zs>
 
-On Tue, Nov 3, 2026 at 10:31=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
+On Wed, Nov 04, 2026 at 06:07:04PM +0100, Jan Kara wrote:
+> So I don't think this patch is really needed. ext4_get_inode_loc_noio()
+> does exactly what you need so you can use it in the next patch. If you
+> really wanted to use sb_find_get_block_nonatomic() instead of
+> sb_find_get_block(), you can actually switch ext4_get_inode_loc_noio() to
+> use it.  ext4_get_inode_loc_noio() has only a single caller in ext4 -
+> ext4_fc_snapshot_inode() - that is actually fine to take the folio lock.
+> But that is mostly unrelated improvement to ext4.
 
-> In msm_gpio_irq_set_type(), when pctrl->intr_target_use_scm is set, the
-> return value of qcom_scm_io_readl(addr, &val) is ignored.  If the SCM rea=
-d
-> fails, val remains uninitialised and its stack contents are modified and
-> written back to the hardware register via qcom_scm_io_writel().
->
-> Check the return value of qcom_scm_io_readl() before modifying and writin=
-g
-> back val.
->
-> Fixes: 13bec8d49bdf ("pinctrl: qcom: use scm_call to route GPIO irq to Ap=
-ps")
-> Closes: https://sashiko.dev/#/bug/linux-a5545ffd-48cc-4856-94cc-4b2dd7968=
-f50
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+Ok, I'll drop this and use ext4_get_inode_loc_noio().
 
-This patch 10/10 applied for fixes.
+Hm, the nonatomic lookup isn't optional though. Afaict, the atomic one
+bails when the folio is being migrated. So for the fast commit snapshot
+this now means we fall back to a full commit.
 
-Yours,
-Linus Walleij
+So in ->sync_inode_metadata() we now skip a dirty inode block and
+fsync() returns before it's on disk. So we need to switch
+ext4_get_inode_loc_noio() over to atomic as well, no?
+
+-- 
