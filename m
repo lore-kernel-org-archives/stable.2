@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793886343;
-	b=rXfSHj4JJ9UMxoEpdG4M2KrWw6BVFW4ejmNrzHCu6kwMfXxdI8xn/MfVoHAehHUo3U77
-	 +L4MW4TGnv+68i7mRYM+3+f8p7Gz//iVlXwYzpAQS2DBjsIIkl9ngDn1JboC6l57bnQb/
-	 dyWBn28knF8KNKXhdzmv1yd5h7BuELXOEqijYvitjzDTNYtk/ViEWWLXeNq3SOcYvKP7B
-	 r6FPMq61UxpaPncoGqtmyacYsZValO3tBMUP/JHKBoUnmySmmkjFWE9VDqHFOq/uEbXPb
-	 nq/dArvvhdmKWP+EL3TRUqu+EtS3135eNOEVes3MkTyNHmbjFwkGyukHpb2wu3iNCsw==
+	t=1793886351;
+	b=34rFUkAhmrULnva+FL231ygtsIPNcfAEqe0IKMxUxVn5zXAf2+sbdg0S+64khyMspWLI
+	 eZK06Jw64tWjaERf4zRsOXIl1RXSCM0fLAlrrcsXYdQqaydkSxx3ZoDjA0UcBEuObGHZT
+	 MN4Nb8YYrjySlMc6ciM0R5MD6bpHo4rQ8ZVK3v/xwcsmTllZMYq6Sv+Ir2G6Hlg1vYeHJ
+	 IhCtg60/fyXW/F/7vprQgBOdDAkLnw6bBikeL3n0PS0WrsUveXTRCGq/1ik3T7ZX213be
+	 6QxX0pBaeNJ4nnHv9mfhyN+HLcsEVdZxpGhsUEHVCHlEIW6/qpupDu9DVm6ivz4QpDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793886343;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793886351;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=JBalqB0TL8XclNERINIw3LBJBg7jgmpQsD9i6TTPrOU=;
-	b=lVDTh7mBmJoChaU8g1uAIt3PRbBSd41llNkYf/g/rFTlsspplTBMPRBk7dxLepM2zrOW
-	 azj9v1gUs6cBsmrCOKHRKI/ej0xRv9/1c3P//L9zB5/zRcYz1az0B+mixUnIgOoJS5ih6
-	 +6msKXdInG1yUNOYVwX0UM1p9A3bn1/6EepgVu5sYtBUdK+DQbd9GciUwRjQNJZe/eW3z
-	 sWsj7ckXIRGmhDdgts01xhbacWvPEU7VlbfnqUGcxNiAGXu8jEES97E/bZz/qevQ2UBMf
-	 q5ZeeH188nXf1JOzfzDRBdQYdhn3EBiPiYP67FGA8q85NvNsAGLs5Peg1C9mbAUXUjg==
+	bh=aDxwNnamTB2guzN5LWk6DLnQ/2JczE/NR0RE6NFGj/k=;
+	b=vNgtcYIFBLCj5mQ2Ti8DdyV/yoyZVdbALdVTipwlqqiyxR/g/aUQepuyP0Qqe23x4ioW
+	 PvkOPC4CmB62B3kwl7QBuRDppxeAw/TaKel/BS/i81B4t14waBvoRwgKP/obBHT08B6hn
+	 2y+LyCNzz+zpv3kHZp5FKvYp5tjn8W594SnCHsGxMwfId9SukoxdPbHJS9HP3JUUpKfDL
+	 hSm/qjyfLS1yIe5KCwJkYrjiQyMYT9EqtLbSVCxIkwOL2bcUxlV3yENPyMJ/pRcrqEvfe
+	 1LJ281FTqwfpUgBhBRiaNXowVRb2IBXWIjt7ofU13xKS+4KAReGdUxGQTty0u2r6rdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nX8maf/e";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lqie8vnv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D9FA606A328
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 13:45:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE147606A328
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 13:45:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nX8maf/e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80D461F000C1;
-	Thu,  5 Nov 2026 13:45:42 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lqie8vnv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C1991F000C1;
+	Thu,  5 Nov 2026 13:45:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793886343;
-	bh=JBalqB0TL8XclNERINIw3LBJBg7jgmpQsD9i6TTPrOU=;
+	s=k20260515; t=1793886350;
+	bh=aDxwNnamTB2guzN5LWk6DLnQ/2JczE/NR0RE6NFGj/k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nX8maf/e+L3arew88jdG6wbw4rXlXzTdGKOgPomx99buJqLO582EEOI3fx27pvo7V
-	 BfBj7QzRVXVJ4baV7IZaEuekJEQL0yBnflrGyplyNzJgqQgapPZM4AUU1NaMHYfGtg
-	 Fia2oRQ/3LSdNr8LgLZZhzQkq/9KjRRaAUJl//Gq+TlOg8ulp3jMfV0oeNIY8zbr1L
-	 vMD6WHW/DVszofDTKSxXtxZCpFJhAcG7Zpb+8wLhiio5atdojSiXHYUlDSqBctzlyu
-	 LJHHh4YiKnQZdcxLe4q9VCiaNN82dCnMiP0LMhrWydnEw0qpRhJg2WqyZ4tebOOsZJ
-	 LLb+EWoYkqAkg==
+	b=lqie8vnv3QeyeSTc5pWJyomobO85DpS9oZjnc6caoTrpPXKFP/OK9CeMbprV7Ek6S
+	 tHY9clpwJgh9aDyoe3pMm6l4NBVBKSs215mfXBazou6OdbTHuIkOoWhdxKwwJNsGev
+	 djw4RqN8rK6hi29MRYJANuUWW1kKctI5pzT8PKCw9AClI5rS4Qi3rRqC8PzBrV6DKw
+	 zLIOXXjF0+NmYEPQRUgo+8p/gLx215HF6cmJD52nPgk64NIPSO0zN7oOv41NTVyqmD
+	 Gd59hv/BCqZ1LUN1mdHTXYxsVethZCBr0xCaSaeCucHKYR05KFbkMQbbzpdoDfvqtA
+	 O90mO6HN3OoKA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chris Mason <mason@kernel.org>,
-	Fahad Alharbi <fahad@codepure.com>,
 	Josef Bacik <josef@toxicpanda.com>,
 	Amir Goldstein <amir73il@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ovl: do not copy up an xattr value that was never read
-Date: Thu,  5 Nov 2026 08:45:41 -0500
-Message-ID: <20261105134508.1391302-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ovl: take a snapshot of the name for copy up
+Date: Thu,  5 Nov 2026 08:45:48 -0500
+Message-ID: <20261105134357.1389692-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110420-outage-visor-9527@gregkh>
-References: <2026110420-outage-visor-9527@gregkh>
+In-Reply-To: <2026110415-exemplify-juvenile-57b8@gregkh>
+References: <2026110415-exemplify-juvenile-57b8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,56 +64,90 @@ Content-Transfer-Encoding: 8bit
 
 From: Chris Mason <mason@kernel.org>
 
-[ Upstream commit 755b5c5c9277be251a51623d6065abab948c61bc ]
+[ Upstream commit 65bf000962a33ec9d2488e4e1797b6cf630abcbb ]
 
-Copy-up stores uninitialized kernel memory in an xattr of the upper
-file, where the user can read it.
+The copy up of a directory reads a freed dentry name when a lookup
+moves the directory at the same time.
 
-ovl_copy_xattr() may only pass bytes to ovl_do_setxattr() that
-ovl_do_getxattr() has read. When the read fails with -ERANGE the
-function asks for the size again, and if the new size fits the buffer
-it stores the buffer although nothing was read into it. The buffer
-comes from kvmalloc(), or it still holds the value of the previous
-xattr.
+A pointer to the name of a dentry is only valid while something stops
+a move of the dentry. ovl_do_copy_up() keeps a plain copy of
+c->dentry->d_name in c->destname, and ovl_copy_up_start() only keeps
+ovl_rename() away. When a lookup finds the same directory under another
+name after a change to the lower layer, d_splice_alias() moves the
+dentry and frees its external name.
 
-A FUSE lower layer that answers every sized GETXATTR with -ERANGE made
-copy-up store 4096 bytes that the server never sent, with a kernel
-pointer in them, as an xattr of the upper file.
+With a delay in ovl_do_copy_up(), a chmod of a lower-only directory with
+a 60 byte name raced with a rename of that directory in the lower layer
+and a stat of the new name, and KASAN reported a use-after-free in
+lookup_noperm_common().
 
-Fix this by failing the copy-up with -EIO when the size that follows
--ERANGE fits the buffer.
+Fix this by using take_dentry_name_snapshot() for c->destname.
 
-Reported-by: Fahad Alharbi <fahad@codepure.com>
-Closes: https://lore.kernel.org/linux-fsdevel/CAOQ4uxjhfpNVvoVrTayj46H2CViTOc3oxzM6xdb8+E7ikE2CSA@mail.gmail.com/
-Fixes: e4ad29fa0d22 ("ovl: use a minimal buffer in ovl_copy_xattr")
+Fixes: 829c28be9bb9 ("ovl: use d_splice_alias() in place of d_add() in lookup")
 Cc: stable@vger.kernel.org
 Signed-off-by: Chris Mason <mason@kernel.org>
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: Adjusted context to retain vfs_getxattr(old, ...) calls instead of upstream ovl_do_getxattr(oldpath, ...). ]
+[ sashal: adapted snapshot handling to caller-side destination-name initialization and direct-return error paths ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/overlayfs/copy_up.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ fs/overlayfs/copy_up.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
-index 018867303a93a..cb89a96561da4 100644
+index 018867303a93a..bd5526904eea6 100644
 --- a/fs/overlayfs/copy_up.c
 +++ b/fs/overlayfs/copy_up.c
-@@ -94,8 +94,12 @@ int ovl_copy_xattr(struct super_block *sb, struct dentry *old,
- 		}
- retry:
- 		size = vfs_getxattr(old, name, value, value_size);
--		if (size == -ERANGE)
-+		if (size == -ERANGE) {
- 			size = vfs_getxattr(old, name, NULL, 0);
-+			/* Nothing was read into value, so it must not be used */
-+			if (size >= 0 && size <= value_size)
-+				size = -EIO;
-+		}
+@@ -709,6 +709,7 @@ static int ovl_do_copy_up(struct ovl_copy_up_ctx *c)
+ {
+ 	int err;
+ 	struct ovl_fs *ofs = c->dentry->d_sb->s_fs_info;
++	struct name_snapshot name;
+ 	bool to_index = false;
  
- 		if (size < 0) {
- 			error = size;
+ 	/*
+@@ -737,13 +738,23 @@ static int ovl_do_copy_up(struct ovl_copy_up_ctx *c)
+ 		/* Disconnected dentry must be copied up to index dir */
+ 		return -EIO;
+ 	} else {
++		/*
++		 * ovl_copy_up_start() keeps ovl_rename() away from c->dentry,
++		 * because ovl_rename() calls ovl_copy_up() on source and target
++		 * dentry.  It does not stop d_splice_alias() from moving a
++		 * directory that a lookup found under another name after a
++		 * change to the lower layer.  That move frees an external name,
++		 * so take a snapshot.
++		 */
++		take_dentry_name_snapshot(&name, c->dentry);
++		c->destname = name.name;
+ 		/*
+ 		 * Mark parent "impure" because it may now contain non-pure
+ 		 * upper
+ 		 */
+ 		err = ovl_set_impure(c->parent, c->destdir);
+ 		if (err)
+-			return err;
++			goto out;
+ 	}
+ 
+ 	/* Should we copyup with O_TMPFILE or with workdir? */
+@@ -775,6 +786,8 @@ static int ovl_do_copy_up(struct ovl_copy_up_ctx *c)
+ out:
+ 	if (to_index)
+ 		kfree(c->destname.name);
++	else
++		release_dentry_name_snapshot(&name);
+ 	return err;
+ }
+ 
+@@ -895,7 +908,6 @@ static int ovl_copy_up_one(struct dentry *parent, struct dentry *dentry,
+ 	if (parent) {
+ 		ovl_path_upper(parent, &parentpath);
+ 		ctx.destdir = parentpath.dentry;
+-		ctx.destname = dentry->d_name;
+ 
+ 		err = vfs_getattr(&parentpath, &ctx.pstat,
+ 				  STATX_ATIME | STATX_MTIME,
 -- 
 2.53.0
 
