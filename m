@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903975;
-	b=PAnBq63dlNiYrifmmEJzjzfeWaHdALSu1t54JBB8z7O0ITRg2N56lBPkkupP3+oASdU+
-	 LdkCmCVKnC+zBveQ0f50mgUPc5JUW5Dv/A73PNkdaILRL5dC9y3zSrSG4H/VO56ergshI
-	 uL2eSKjYq7cUhdT/XX3dKvk6EDcl+MeAwiizOnUuL4uhJhBXXCjKn6AV+EQEOQZ5TjkX8
-	 4cXCjDSSX/1V+7Vn/v9gBiCoWUIEGHUyUj/vW0wqty7AGdNYM6bYgW8OzVsGtiwbRKsfM
-	 LJL1SFl6XIqV2cpa1HadHK9uTNc115gXCS45r7n/8CxQzsotl23DB+ayCX5WTMQ8TBQ==
+	t=1793903970;
+	b=3t5QfWtqC819Hdk8Lk5kQQXj4/ytWKOBEQC99j22WyHvP8pzltJFntCfTDxazxDy3rgk
+	 3nA1tWt2uNjuxT1xoK9YTb2OLq+YKghakarrFaym/DOAejxT1S9G573in3sHgAOYl/CHf
+	 UJ9N9o1ogjo1DW+HD9MmNEd+gXDvf68Op363KN9CMq0kOpflziywxwUpPT6CqccmGSxPv
+	 res/WMbdeDeTKCJ9qwsi9Z96KXJ6x9evAnHrbN4AB/XMWbB14OgY4MZbxJ9SMnVuZrs5n
+	 qhAkx053dUCVSlq2DHWw3gYg00SWF35mIdGd5SSaLy4+aYMtG0nVQQfVUan9R1ot0ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903975;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903970;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=YwbnbRhHmCfVoQcY2gvOMp4PY56dbeFZ+Y8zAcnCGdw=;
-	b=115BtruaTgzb7F2wHNGL1VTgFA8CZ6GuFELBgsQONMl9etlY2Lzyym9+9S8uzmAp9s5m
-	 njQ6DJGXQdAOTX/rr1OvwLS7v5MMt69fHvfO/Jaiad3GznAHGdAU7MlOpUZ+RHx2HUGjI
-	 VH0qHh2s/U4V5p7vdY1TI9WL3YjUfkJuePuGlcJoG+zZsHcDNPLl6RXbJbWpNu45sSjCK
-	 3szhJvmqIyXuxcvRszPVIFQinevbC1hMwhq6soPhM35JNsQw4ZXWBfpSmTFBDifv2OnWd
-	 rJGKyBe12oVp4imN6/UahcFZcSPzNL22Apum1Ta/gkTpIBVW1y2KJ8U8ktfjR4+nuFA==
+	bh=WIttHt8MLH2jTSzYQheQYAwliFTwRr5jOJrAPBStUTY=;
+	b=x/Zr8NDIofNAkJtArmODnbSiE5PEUmumkgk41jKybADTnjjYqiFVdOiXQ2tW0V+fzRpY
+	 tEdkMM8s/S4VOQ1g7UjZM4crPEhWCzHVBwGqVOIghj5fCRA/OZBU7v8UvgDObcIHCuRle
+	 e9QNxJpyG1UZmq1sntUiy2R4rSke7W3fhkaZJTD6myO2VZVBuF+JLMTnpx7Ed3QYBrKZI
+	 1P+1Bb0E1tGlpgJjqFGZakQ3IPyOnK7oFcxErEmStDHHcATOjZzW2qwRfU6h1+tSOqFZj
+	 C+oZYiYlID5625jGwGYWT3oX+yYeadjuDJku3ZddylPl7urBTRScprv+YUp++mWzQ0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMnvZfBB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fYlPkkl1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4DF606A33E
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:39:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF38606A32C
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:39:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMnvZfBB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38B1D1F000C1;
-	Thu,  5 Nov 2026 18:39:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fYlPkkl1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D83F1F00919;
+	Thu,  5 Nov 2026 18:39:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793903974;
-	bh=YwbnbRhHmCfVoQcY2gvOMp4PY56dbeFZ+Y8zAcnCGdw=;
+	s=k20260515; t=1793903970;
+	bh=WIttHt8MLH2jTSzYQheQYAwliFTwRr5jOJrAPBStUTY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZMnvZfBBwlEjQkfoRssOh2n8T7p5d8jMSpnDo0P9WKGyCsxCnZeCNjDGm6YyavwJp
-	 fz48+8GxrL0hrNXQEx4VtjfKp/XGwKZ+Nyl1yY2F/3F2/ism0k4ihP8l3LCmHazMMX
-	 YEB/JG7jfdQBX3eNpVInlb8cP+H6dPecQU3wGQEDgco+kV17RME8RSoDNrq0snWsdR
-	 XrB8jpibHp7iVOEAFtm0MtETS9yVn3/OVYw780SRNT7uiuUT8/NJpv/KYCclnTtIHf
-	 qXjCr5ODJXXTQDp8brQG/GIApsSD801YqeR0dZ+vkR7Z9g1zQgARZkHwCStdZRb/VQ
-	 whvZMhbN/8mNQ==
+	b=fYlPkkl1UWp59eaHviUuKF0kvPT5meJXMhgf5goGnST46E1uOji7Gbhn4sF7UTOj7
+	 j0iFaO8HEq/rX7rvs4CYGBP1EyFnNtMAaMkD2BRzpeiC2hj9KuuIbDWco4OeNG3gKJ
+	 zojeAc6iRaQokNryQGrs8UZQRH3nc4ml9ukaP/4x6/NS89DnuS+9+YAAlVZqkBi6qy
+	 XorXmPg7njmlU55bYAMcyMqkrzZNvuRGRYyph4Fk5Hz9/WMRuz0e0tC64q2OQgCNi1
+	 DzKripSPhOsXSZH5wp74mJkvhdleSEj9wo1wnHzA9hakbGaCoaz6IeISIf1T/3pKsB
+	 X8ojoJJMasX2w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	xiaoyao.li@intel.com,
-	sashiko-bot@kernel.org,
-	Sean Christopherson <seanjc@google.com>
-Subject: Re: [PATCH 6.12.y] KVM: VMX: Preserve negative return value in vmx_handle_exit() with bus lock detected
-Date: Thu,  5 Nov 2026 13:39:17 -0500
-Message-ID: <2026-11-05-1-daily-reply-0012-kvm-vmx-bus-lock@kernel.org>
+	gregkh@linuxfoundation.org,
+	amd-gfx@lists.freedesktop.org,
+	alexander.deucher@amd.com,
+	nicholas.kazlauskas@amd.com,
+	Rodrigo.Siqueira@amd.com,
+	harry.wentland@amd.com,
+	Wang Jiang <jiangwang@kylinos.cn>
+Subject: Re: [PATCH 5.15] drm/amd/display: skip pre-flip post_update on DCE
+Date: Thu,  5 Nov 2026 13:39:13 -0500
+Message-ID: <2026-11-05-1-daily-reply-0008-dce-post-update@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105121320.2093899-1-xiaoyao.li@intel.com>
-References: <2026110458-starch-scroll-7508@gregkh> <20261105121320.2093899-1-xiaoyao.li@intel.com>
+In-Reply-To: <20261105090543.930342-1-jiangwang@kylinos.cn>
+References: None<20261105090543.930342-1-jiangwang@kylinos.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,10 +66,14 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Preserve the negative return value from __vmx_handle_exit() when a bus
-> lock is detected, instead of always overwriting it with 0.
+> Restrict the pre-update call to DCN, matching mainline behaviour.  The
+> full mainline rework does not backport cleanly; this is the minimal
+> equivalent for 5.15.y.
 
-Queued for 6.12, 6.6, 6.1 and 5.15, thanks.
+This is a stable-only fix with no mainline equivalent, so I need an ack from
+the AMD display maintainers before I can queue it for 5.15.
+
+Alex, Nicholas, could you take a look?
 
 -- 
 Thanks,
