@@ -1,88 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878138;
-	b=rGbvg4cqOOGFBzJ8ukCiP1XJLdSFb4xG3wMQea95dt2MsnEoIevX0JRrwfLSIv+y5O+P
-	 eRrI6+qKSn+SlSqlbZqNmA7gZWqyX29fvziGAhXzhA84hz6IvZpOt+e8Cu10I2kDfPii3
-	 MWHrXWkgZyeRgBOG9gIck9yV1NP0WBZJtO8nCV8ZmR047XS/y9nvTEafJ+yY8/LiwXtlH
-	 CSKAL5krQLQa1aWoupxEyU2x3FIamc0Gpnx3mlp+IgjlXkd6QkiB1MyKSGBpx2DxuE5+8
-	 Ln890KdYYoNVWz7hbjvRQqqeGrhBBMqcoP0mCDYVH7BIPIL4TBQAlpQOXz2npETl8WA==
+	t=1793878695;
+	b=LDb1SPHXxVEoPxOVosJWxQ/0FyfgieTRUYm8JogrsJRzC7NmEoNvlGmHqftW6CeNs1Am
+	 auFcqmVt0VxSpqpPgg4ezF99rJAiuZ5Ca8S9JwJrERh+9exv0FEAMPPsgYCq6Igp9ZmSt
+	 aOOKbtT8af6kWOckYrGNmC4umGW5ZdmDuVMHoNbEChXkC4B7rfPh+Xp84qZWrvGJzdd0U
+	 xvh/uwqbXR51S+BHgf6vo7HNlrh63nZAp281uxUkctvBz8BIq5tSXp4953eaXlH/aPRSW
+	 VGhq9xW8eanhiyObI5/G8+QiE75F0XEBqTDL3LK0kP5WxRg+H28yaPgMkS6YwDVLZEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878138;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KYuAf/nYjeBNHG1mG8AOx1BUbgAUnA1j6gAMCPYxxlM=;
-	b=HsZXSHq43Wtz7UY7A5+iuWI+H2982aBFtystnkKCL3Hs6WweE4EJT7OEB1r6N+jna0Gg
-	 rIzx8M8bqZ3FTcZ2xqu0SUdxDKEZ9cmZmj7AY5jognKHJr9DSWA1xg7lbt+XhYmOJNOW7
-	 M9F0zSjHOOmk/Ii7bIS6mQ1BdVNfLRtWBUEg94tVJndlEWhJcCmfaZv0R15cDs1khuMXr
-	 bug/59p/UkT0JCb4IJpvUbk2te+uQP0Dr0QqtNlKDhcem12ChDvLxhBwATh7/pxmW3ity
-	 fl1OkFKoqBhBLbZPO2wJoMbYhuXk1DU9Zr1ir74iDlwUR3+2siyC+WHTQWlchLxFSiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878695;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=tbsBhorpX5/hg11/oBkLoGN5x3wli6X3ebAisCWgK2c=;
+	b=S4i99eNGdatGOkC+PE2eayBtyy/ISTPkT3RHus/5SvRZZQwAW1sMux2IIBiAjbH0KE8t
+	 uj7IqeY3oS99SqP8e+Fgm3hOZRIvuuHoVYFolDLYi2DZ9VK0vA+DjXARf07vXxs2DtSCE
+	 c4YeeL2kJ8bjpk2ptHGVL90BaTSJN2hgEgW+4+AmY43hpU98dLt3C0O9Y0+OBFb8qkVEL
+	 P7AGSlZNcTxudL86FX9Pt4m68Z6rHvEu9GqTFa//LnGzafrTaQdRCnNqWUngXtRgQ/wnn
+	 6T31ma/EIA2Y1a17/nl4PAYxf+5AH1xadOzB8yWTH8xk5nP4YLhMwxN5qhy08EWL4yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="gqx8gRD/";
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fSBKd+Qv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8E4606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 11:28:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C8E4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BAFB606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 11:38:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gqx8gRD/
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a4dc547987so9581245e9.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 03:28:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793878137; x=1794482937; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KYuAf/nYjeBNHG1mG8AOx1BUbgAUnA1j6gAMCPYxxlM=;
-        b=gqx8gRD/xAb7RuPGcePdw5i58wmVjCmdROs5keeVRsQ+e2FiKoCw2xe2wLD6r0eLTr
-         KHS62rHjipUJbgzcUJm0UJJFNQH84tknqVP1NKhf4RrRFF0DXKC495rhGra20vqL+SdZ
-         LPTESJdsXY1i33d532BzUnFcBlAmWFrNnRDtv2wQRyNyyZNqQZugtCwz5tbgS2jC+Qaj
-         e3JFtJuxOUhYudTFkFTRmFe7anxpOOIsHbtyG91/iDvDN20qSNsgdH2698O0wM0D1HpP
-         7o8G2JvBXOIrHelgOM/7oTsIOraf5Ocdxxsv8+jwMP45cwBaHf0ao90s4qrt04njJ+8W
-         JV/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793878137; x=1794482937;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KYuAf/nYjeBNHG1mG8AOx1BUbgAUnA1j6gAMCPYxxlM=;
-        b=BkKMl/A8gSb9ZLekZjhZm5JXnW3cXDxj+1js1bBs9Bc85oKBpkUcx5PpRBZozxUgW6
-         uLZY03P5H1LfYbRWi15bSCYw92mlZvZCvHkj16QrzOTVD8hdoCu1IOZqvcgGYZWXdZzV
-         hGMd5/nkBUNsMONDN3xYUkC0m+eLJEAYXIpc4iFJ4nxrxkzf+WD7eWBuJNVzZz2x6VDL
-         XvGzvC/lQ0e+xOz6dM2PlNenLPDSNKVd6J/Gu+ABpH1FsKvNbaCB7R8hV6A5nBpib3np
-         FGwk0liDT0vVXtFvZxzZDvCY6h3LhUU/f9Rkd7/HdbGYpnr2y21hCp60XcntJS0eVT7a
-         ltIw==
-X-Forwarded-Encrypted: i=1; AKwUvBwX+p0RDEKjFyYWiL9ApfO/1eKZ4J5K25Gp/WhWW+uEDKvpcKCoWdbxWOP8Pqd6HbNUSq49G9Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+z3hfSYzkUEqQHVz+KMi3PAOMGxITIym8ZTdjdDgZ6waawULad
-	ecsoKY8uHnfq3O4y4P4LkElZPqbonIq09Qm4o/PYVjFzjKBnTdz1k3TV
-X-Gm-Gg: AYBFou1N6UtDusix/OwMTSG+T8c3AUzoMtt/RJYkbgReswksEx5/S2hPoXLWoS7V+aB
-	Q/Hq7l2Ir/j9wXIsnGbshTq5omkrAGJLsFmPWyuLG2xGAT1R9mfJSRqaINy8BjehR1VaYNcaqOi
-	/gblCdjTqvBRzIuCZ2LozZngIonHVfvkoH8otY1DUv02Q2WyqkyP6HQdQSdkqIhUmPE0AJqpki9
-	TPSL7BjfFkNr7wqVT/8ckM7+mpZyEBjT14UpMnFpIa4UX2zKOaV073AUDd6WvACz2JqP9nkGWmK
-	I/2bRqVND+ZpUXouzdgNFJQ1ZnUxZef4g/F7vHQrT6lKznF25pTyZhpcghfXIWMpGv5zTPxjl+B
-	S40w84+CU12MRoUZp0H05JsOAmuSEnug2HubiwjDZyKdVJC801q8U1P4FbP2jaihuSOAWNJSx+9
-	hBE/B/2rSTZIoTBwI6GPMUgqn1xY1h9s1dhxGqHrNv2SobL/Rc6rbaZ7LJPQ9+6tApT11Z4KYT0
-	vkpKtI1rI6xjte5GNuNJaT3RmH1+U3TPoQGMndXrUkeOvMGFnF6JLI7H1fJjWMugiPIEKmq81Bh
-	TxGIYYQ0v5qow1KXelmmKw4=
-X-Received: by 2002:a05:600c:840e:b0:4a1:813f:2a60 with SMTP id 5b1f17b1804b1-4ac17d168b1mr461927035e9.11.1793878136849;
-        Thu, 05 Nov 2026 03:28:56 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56e2ae72dsm102176495e9.3.2026.11.05.03.28.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 03:28:56 -0800 (PST)
-Message-ID: <4f63ce1d-4e74-4fed-aa97-e00cd30781a5@gmail.com>
-Date: Thu, 5 Nov 2026 12:28:55 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fSBKd+Qv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 206221F0093A;
+	Thu,  5 Nov 2026 11:38:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793878695;
+	bh=tbsBhorpX5/hg11/oBkLoGN5x3wli6X3ebAisCWgK2c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fSBKd+Qv9jpEqzpBaAREyG8s2z42IgL1Glo07+CfdW3vbfmgOhKIrXtU0j2mg0Glc
+	 MnL+E0KHDIEYrIu8hBNFlpV/zeObvBuh/GlYNWLRfhm/KdhzZvOsJie96zNO3YRQNa
+	 ekNk6j7jQuKLlL5CSZ+sZ2nS9TiNLib3g7VW3YID+9RmGGCLmvxwyXs6cuxzCsB61V
+	 SbMW+MD36sss6mQJ+6XhVaQcPsTxx0MZmbtlqcD+3xVPkLhL9wE19M2kNRTZK69VPI
+	 Y7f3vfXlRUpZeDpXy6mH3NQZkp/CFUthmzY1xPyPTzFLRZWH81fDJxBnl7XzUwTkXR
+	 o0XCqSBloEJQQ==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 6D272198003A;
+	Thu,  5 Nov 2026 06:38:10 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Thu, 05 Nov 2026 06:38:12 -0500
+X-ME-Sender: <xms:oWrsakkGlgKpR4wSm4ye8vv5csIAo86ksnI3CRCrKjaIAGWH7p4RZQ>
+    <xme:oWrsajYtjeGUs_u_kIuefPOf_AzTPUtWXK-DrRSGYCrQpC4L5EcIZyN7-INXKLOrj
+    UGT8w0Zod-RsEbrQCenUDhV7iSUy-tD9bftu208ILE03j7t44SYUg>
+X-ME-Received: <xmr:oWrsasBHzt1eXTYkDr6ygg5y9ro_Ytj9FkIMPtFlnndtttzqxgzJyhCDHMo>
+X-ME-Proxy-Cause: dmFkZTFgCBY0H5ERCpEWHMWeRovHwsuqR+Zb+dTNF6i0Wx6f7bDy0HWpqxM/ilEd3SmjwZ
+    vjJAUFeZ/zBNEC3KI2YM+ad6PmkKx4ukR8n5J8nEiKNFWVXyvayr0881g5/mna2LEZcqam
+    I8+YZ6HPM1KFewLEYnolCm4NMYZG7n/P92+sSLWoLbVmG9/cM8ddAdCMCI/zzzsvgYhWH/
+    U0/un/WLwaEnnvjrs8TM7ghH3lFOprirTdMYV8lQR2O11uKvbkktYbVoKk6QpJLoKDlpMF
+    htE8GiRINFSaJ74JopyvAxB/OOc/3hMfEeCHd9+w/qJ7P2Stp8TOD//K8G5YrP+v/+gaSn
+    rqCy4qK4skVM4GvMeNcty2X+jEl/W9vNjpmQZj7NSp3HcqiH2ME/3kKmcO4vdSZxh38I7J
+    hm8EEkedoYry5QczVgTb4gK5JbJXByKI9E/D12mIdar2rGXlzoLvqb04B6flvcbpWOUqwa
+    xWodXioGRteUh8SVPRSz+jSe33SB4Q/D/xWYp5buKmkf/K7DPwLQz3JakHyyAf5XP2v2k0
+    ypce1ZV2IEOqx+byeARzy6zXkHBuMXRBPo8mflhhICtYm4kEfDGfscjBvW7nHL41WdHa5c
+    0QTbN74SZIEmIktDxDq1ZWXtR6RQcPexInTsmSlhYzkCOES6HqFBvU3HrZ1g
+X-ME-Proxy: <xmx:oWrsapZ0sJZPaTLJohiTbQH0GBzNwIUuyVsQjhPFgXtwhGjHo0Ovuw>
+    <xmx:oWrsaghIMK7D5dEeDwAHlTtyLk2v7kb6ZDy0SBbzNCAnWqhCAjKzVQ>
+    <xmx:oWrsapw5fN2OQzBsVBeThBvK9xYPabwzuGCdda-JmTfst2VqD70-FQ>
+    <xmx:oWrsar7ua-Gcqusx-0RQROs1qZszuYf6_HFQ7zjrPjym7UOkp0fL0Q>
+    <xmx:omrsai0JtSjuBIAGCYf8dN5F2ipy5pl5kQbKYWQ6nBG8-gYebIvfqvyX>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 5 Nov 2026 06:38:09 -0500 (EST)
+Date: Thu, 5 Nov 2026 11:38:08 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	James Morse <james.morse@arm.com>, Marc Zyngier <maz@kernel.org>, 
+	Doug Anderson <dianders@chromium.org>, Breno Leitao <leitao@debian.org>, Dawei Li <dawei.li@linux.dev>, 
+	mrigendrachaubey <mrigendra.chaubey@gmail.com>, kernel-team@meta.com, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] arm64: sdei: Run the event handler on the kernel
+ vectors
+Message-ID: <auxqaslfm5t3FAPL@thinkstation>
+References: <20261104180936.2981070-2-kas@kernel.org>
+ <20261104182842.3436759-1-usama.arif@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,38 +91,25 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] mm: hugetlb: fix GFP mask propagation to CMA
-To: Qi Zheng <qi.zheng@linux.dev>, muchun.song@linux.dev, osalvador@suse.de,
- david@kernel.org, akpm@linux-foundation.org, lance.yang@linux.dev
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
-References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
- <ac2de9b321f68c1025333e92e3ce94beadcb0b6c.1793850539.git.zhengqi.arch@bytedance.com>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <ac2de9b321f68c1025333e92e3ce94beadcb0b6c.1793850539.git.zhengqi.arch@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104182842.3436759-1-usama.arif@linux.dev>
 
-On 11/5/26 5:07 AM, Qi Zheng wrote:
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
-> 
-> cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
-> during the first MPOL_PREFERRED_MANY allocation attempt even though
-> the caller clears __GFP_DIRECT_RECLAIM.
-> 
-> Pass the caller's GFP mask through the helper so CMA respects its
-> reclaim constraints when trying the preferred nodes.
-> 
-> Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+On Wed, Nov 04, 2026 at 10:28:41AM -0800, Usama Arif wrote:
+> Would doing the swap in __sdei_handler(), around the whole NMI
+> entry and exit pair, close that window?
 
-LGTM:
+Yes. The WARNs you point at only fire when context tracking is already
+broken, but the same window has tracepoints: trace_hardirqs_off_finish()
+fires irq_disable exactly when the event lands in user space, and a BPF
+program attached there can fault.
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+It applies to 2/2 too: anything that traps in irqentry_nmi_enter()
+overwrites ELR, ESR and FAR before do_sdei_event() saves them.
+
+I'll move both into __sdei_handler(), around irqentry_nmi_enter() and
+irqentry_nmi_exit(), in v2. do_sdei_event() still needs the interrupted
+VBAR for the IRQ-like resume, so it will get it as an argument.
 
 -- 
-cheers,
-jose a. p-a
+  Kiryl Shutsemau / Kirill A. Shutemov
