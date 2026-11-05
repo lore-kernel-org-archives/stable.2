@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840335;
-	b=4Y+of/hSCJbRORFRcjyw1vluK++7LfiFBSRzzgKXBrEtvGf2xh50R67qiVnR3QaKwe2I
-	 doqWLnI4nwFNCaHevu19zYZhH0ltJbv2T3gGtR9C6rHn4vIJwUrFADlIAseKUI7Usu3W7
-	 dBenoVfzg5yWLNquaFNF8zhyd0/ENdROmiirtIXs2Kjnwado1FKAOfBS/eQhpFc2w2LHk
-	 DmvK6QTxf3MQuHL1d7Y9HZ5iC71vtXv3ioenF+Nt/eyoGIkWGBRywqIIy3jX6fR99fQ+s
-	 adSZ5c429W2FKkJOREaC6vIoxNIOJ+UDJQ6Ldc08e343NxMvTFZklUMnVamLv5SZCGQ==
+	t=1793840341;
+	b=xDv695Jsabr2wTjzBZc28gEm2iQvbM48T8YCXTn0AKvzihJTUb8ndH8wlV570ho9eArN
+	 AhsvdciOFPLJmIH4Q0BuhaXblgfO6ByRZ7UMbVkj2l5zGubqyeeMSA29GTu4x5lH/QOKO
+	 bNEva+CJbxx4/ZUGUIdEEyfDZDlxtOq94JuleDb/wvPpZ8ye0lPC+LCVoXObYrfNu1htN
+	 +f2/LBuEpxqpZTQ+pm4RtYLMd1tqqwr5RwRCkXHy10idiG9jpQ0gi3lIY8s+HgMVk//nc
+	 y1AytHroawYPjaH9KfI/9p/ITYYsPs4+83XFDVML8tAMtuXXl1eDhYEmG4bAgOpvlUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840335;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840341;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=E0KD7sIRBBStP7RwymxXXksRx9Y/l87eJmkf8YUIm/s=;
-	b=sBXotRuXG/XQcM+KXp1nBV4AeIEZQL2L4BqfWkpLI0Gn5f76EcmjES1hatSE+/rpROxt
-	 A2SIsQInit7NqyERZZ5MX8eIZGbjvh1AU6QXtPGCTrUXGEUrkcqtYL1UoHb9bhaAihY20
-	 aA3SO3eUeVA6XpEJB9WQKlIELn0y+dSxaIDxZQDd7FK/KpGKYxFKpO2EaHmM51CSKg1XP
-	 KHiwk0LhINJwiOIQDJlet53GX3171QfC6ROKi4rpGUOVpQhpzs2Nzp0ntWxcpE0KoJokJ
-	 D/VXhCWFbs2SkTP1vpR7pRsnf/GeGlYopn1cBjFhgDREIAN+4xr0qD8Xs7F3dors6pg==
+	bh=ketT6ZDmiKHVFAGhVkr2NeYUq3ygqUz1KT6Jlh9+2mg=;
+	b=PpNf6UhCxepLIWXoIVa83nOuP0jneB3/DU48tnMATigutAHvkSBcBk4/6n6xWThqnNof
+	 MPyDM/CpgZSS32Qz8lLMBjNnUREPpknZbODIhu6NP8PDw+DFsAvoRvftCSCugBOavf1+2
+	 PW9RYbHJs+mrFaW+wC5JO3KzaqhMJK6JBdoqJifTY0I59kbA3zcnPtZ0hEldPi2yPguTz
+	 WWHJd6ih+q6mS6TxWqQrVI8ojWSFys1XSw+ZqEhJmSPfdBrRWJ2tZtmcaDoRaqmSsCcfQ
+	 Arr3yj4L+6pzcZefUW8FWe7IwUXs5AljJMrQAlkC7kmOGtl1xoj8CQLobW0ik+0E45g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="i/KV48Au";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="InYO/Mq7";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC03606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:58:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC253606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:59:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i/KV48Au
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FAD41F000C1;
-	Thu,  5 Nov 2026 00:58:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=InYO/Mq7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7E811F000C1;
+	Thu,  5 Nov 2026 00:58:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793840335;
-	bh=E0KD7sIRBBStP7RwymxXXksRx9Y/l87eJmkf8YUIm/s=;
+	s=k20260515; t=1793840340;
+	bh=ketT6ZDmiKHVFAGhVkr2NeYUq3ygqUz1KT6Jlh9+2mg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i/KV48AuY3F8DyCBB1sd+1dh9WSwKgXJD9H8ZTQ7SkFjUzcsAXJrkHuaIyVcRqP+q
-	 Q+2KEQqekkWPB49LspsF8CwscDLTQ4ggrtCWkQ3snrEsqR/yzzfehTUoa58UlMwkYZ
-	 +FYqqWgQQ0GhxRq2BSNnpkRnHpKVnjg0R8XVz5IY31JfRXIVLZ593Uw4YWsCS84+Zz
-	 cTAmH5457GQdetPCIZwQeUxtJs43WgLjS9CtsomzxqThr+g5yCRGcPtsaKsPnWHQHx
-	 NM/3hc7elwkLueWQmjQgQAfgxdCGHIH79bDwq9AEf22yLu8v5ZN2VFlRN9H8uAtNL1
-	 5VDID88Nqc+2A==
+	b=InYO/Mq784uPSHHwYX88WV0nmEWD5hos1ArC3jiyRbL+HRSmnDSQsXQrciBz9i2Ii
+	 aypCSJDSaphE7puvpIG22Za65G0FWcYbxSp8Se+5Kvn9xiLz4JwR+fr0gDA+HK7z33
+	 RxEqG70FLGKYODfOKM4LU9YvzyijLsIeHWPm+9rABBAjLEx+CrW69hdcU6hoIUh31F
+	 3M/JGsTM5DjeylSWXZBkC5Z/tY1TQ1X88aDiLrO2bTTrD8FG5QY8qyafQZEQCI57Tk
+	 cWHXwxHADUvfeyZQGggHWsjeFikjRbfEK2kxjlfHjzESF9Y4ivopwHJIFRhZuRYpFU
+	 0Bgh24IJwTrqw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Young <sean@mess.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Marco Crivellari <marco.crivellari@suse.com>,
+	Tejun Heo <tj@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] media: rc: Fix race between bpf(BPG_PROG_ATTACH) and device unregister
-Date: Wed,  4 Nov 2026 19:58:53 -0500
-Message-ID: <20261105005847.1080650-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] nvmet: replace use of system_wq with system_percpu_wq
+Date: Wed,  4 Nov 2026 19:58:57 -0500
+Message-ID: <20261105005847.1079856-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110454-prepaid-repulsion-f27a@gregkh>
-References: <2026110454-prepaid-repulsion-f27a@gregkh>
+In-Reply-To: <2026110455-poet-brute-7114@gregkh>
+References: <2026110455-poet-brute-7114@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,53 +63,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Young <sean@mess.org>
+From: Marco Crivellari <marco.crivellari@suse.com>
 
-[ Upstream commit b3f5daf3222999d3f92f606a4eb5e35ab90fd0e4 ]
+[ Upstream commit 3d553be6d295b6cca8fd35cb673fd13934ac4cbc ]
 
-Mark the device as unregistered before tearing down raw IR/bpf
-state, so that racing bpf(BPF_PROG_{ATTACH,DETACH,QUERY}) calls
-cannot slip in between ir_raw_event_unregister() completing and
-dev->registered being cleared.
+This patch continues the effort to refactor workqueue APIs, which has begun
+with the changes introducing new workqueues and a new alloc_workqueue flag:
 
-Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
-Signed-off-by: Sean Young <sean@mess.org>
-Cc: stable@vger.kernel.org
-Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+   commit 128ea9f6ccfb ("workqueue: Add system_percpu_wq and system_dfl_wq")
+   commit 930c2ea566af ("workqueue: Add new WQ_PERCPU flag")
+
+The point of the refactoring is to eventually alter the default behavior of
+workqueues to become unbound by default so that their workload placement is
+optimized by the scheduler.
+
+Before that to happen, workqueue users must be converted to the better named
+new workqueues with no intended behaviour changes:
+
+   system_wq -> system_percpu_wq
+   system_unbound_wq -> system_dfl_wq
+
+This way the old obsolete workqueues (system_wq, system_unbound_wq) can be
+removed in the future.
+
+Link: https://lore.kernel.org/all/20250221112003.1dSuoGyc@linutronix.de/
+Suggested-by: Tejun Heo <tj@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+Stable-dep-of: 53f6efe00cea ("nvmet-auth: serialize access to DH-HMAC-CHAP state to fix UAF")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/rc/rc-main.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/nvme/target/admin-cmd.c        | 2 +-
+ drivers/nvme/target/fabrics-cmd-auth.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index fb52ed2d4ef6b..eb19ee6765dfb 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -2030,18 +2030,18 @@ void rc_unregister_device(struct rc_dev *dev)
- 	if (!dev)
- 		return;
+diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
+index 72a5de1f8252d..c8ff53faddbc3 100644
+--- a/drivers/nvme/target/admin-cmd.c
++++ b/drivers/nvme/target/admin-cmd.c
+@@ -1003,7 +1003,7 @@ void nvmet_execute_keep_alive(struct nvmet_req *req)
  
-+	mutex_lock(&dev->lock);
-+	dev->registered = false;
-+	if (dev->users && dev->close)
-+		dev->close(dev);
-+	mutex_unlock(&dev->lock);
-+
- 	if (dev->driver_type == RC_DRIVER_IR_RAW)
- 		ir_raw_event_unregister(dev);
+ 	pr_debug("ctrl %d update keep-alive timer for %d secs\n",
+ 		ctrl->cntlid, ctrl->kato);
+-	mod_delayed_work(system_wq, &ctrl->ka_work, ctrl->kato * HZ);
++	mod_delayed_work(system_percpu_wq, &ctrl->ka_work, ctrl->kato * HZ);
+ out:
+ 	nvmet_req_complete(req, status);
+ }
+diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
+index 83571f5a50d99..92e75ebe7a173 100644
+--- a/drivers/nvme/target/fabrics-cmd-auth.c
++++ b/drivers/nvme/target/fabrics-cmd-auth.c
+@@ -360,7 +360,7 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
+ 	    req->sq->dhchap_step != NVME_AUTH_DHCHAP_MESSAGE_FAILURE2) {
+ 		unsigned long auth_expire_secs = ctrl->kato ? ctrl->kato : 120;
  
- 	del_timer_sync(&dev->timer_keyup);
- 	del_timer_sync(&dev->timer_repeat);
- 
--	mutex_lock(&dev->lock);
--	if (dev->users && dev->close)
--		dev->close(dev);
--	dev->registered = false;
--	mutex_unlock(&dev->lock);
--
- 	rc_free_rx_device(dev);
- 
- 	/*
+-		mod_delayed_work(system_wq, &req->sq->auth_expired_work,
++		mod_delayed_work(system_percpu_wq, &req->sq->auth_expired_work,
+ 				 auth_expire_secs * HZ);
+ 		goto complete;
+ 	}
 -- 
 2.53.0
 
