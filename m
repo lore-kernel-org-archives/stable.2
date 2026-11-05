@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793863591;
-	b=os/dls/Glwce0dGBCwLvwz/UkY3XJ3jQxR9tYeoJjfo6Ojy9PXjNhuJJt9Ax39TLzu3n
-	 bVt/ckE0zDPReTzVCbqigRC3HIimrD+/apmNn30+oWtZ7O1IxlB2+VSficmBDLC6g3syp
-	 1oyG+zPWsfqZPHQ42D366sJJ8U97BTSpmryamazG9V/CalA+qOrFO4V7VPKW5koGseetb
-	 lHD3rQgS9JhXkf7vywPUUFxzpcHhu816f3th3uqdSRSnYJivTLQaujVNOqAQrRV0qf7Km
-	 mn/ZSJeis6dI2B64Cw41OGmtowCbxpeLn5f0VlxA9A6wXdWOlPJiBQD5wgRGZwLf+fg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793863591;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793863641;
+	b=DUW2wheGipuTCISMAo+6imboY0BKVVNwDXUig7Wb/Q1Gn2IHqfuWVv2i8nXAoFISq+IQ
+	 WDAazJ0WL3A5P9QR2BAvLzbhxhe6h3JVBHEvkp/Y6gJrhXtcz/Bkh1gWcxd0Ww5iG17ch
+	 pgOiDbjhFRAQtjjdN28fsSQ555fCQOOUyHbsaRUENSxoOcQxcnqKSmIT1UN3tRsmFVcqE
+	 HcoCY54V5pxxrx7jDFz3yI0+vRpiX90RV9LzlAYH3pTQgjvoKN5bF9xwsuB+CQv24wTH3
+	 VeqYH2sKhKrC83gbrqxl6ycLMl1OQBDh2BNHIXq961W7QgrNcC1RvlgnOszrK2MineQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793863641;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=l4oCbF0RbaHHtiZIalM4ySOOTntPpyyx7ghry7R/7uo=;
-	b=g4XGL1agP2fIJBPo5afR3juuVcglVbiIDtBNklz3CvvLUpUY0Kb2LnCwO/mamJJu7ViC
-	 PveJzizLbv1Snqb+aASAgnsvRCdZRDtlfJ1GKzRoCrsv+wR1FOQDxelZ8xxHSpmc6y5Gh
-	 hL7Xhd/NcAQCDu+nsYri1PmLWOZE8aZC+lCGOrSU4HpNllg8EPPYyiEAwBeFG4+ZJ06ja
-	 CiOswg0hgmWavCKukwRg6udKG5mWNhythmKsKBH90HqSKCwRQ9i41Cjuqi49hzbi/g7U6
-	 rropedK3mXDVMNuKt/RjDiOGERhnpMyjJP6hdjmecK8MhNM71sz5ZuNMtbsbWxXXwnw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=y8GAjCpq+HU/Y8vWHx3dnsVw82gvuCD3uIlkSHruyoA=;
+	b=0g7jDJ406tahLBcq7+8XVS6qmkBKzNeCzV9dL9yqdrZqbnsAAFvApkOz1CQNqS203PEY
+	 r+32JjZw6oZ9hBtB50O8menzqJCxIdIPgMntzouxRVOE5wDHkil64xZvolCxVq1+mCu/6
+	 PtND6NTUSQu+BAUp4ap6tN2rYY26s3gqZxBYcEZ05G6VE7e2n0Pjw/85ITJaEsB01h+k5
+	 bCPzF9SleO5ZWPh0SIDhNGsT/XRu2ybqaKhp8ah3ngdl+lhZOUs7s/IL5+o+xpqmAyobr
+	 dX2tAgicpW6Qj0Kw/31dWG5pBePQdzXRVc7UQC+Sdv4j5431jsW+aaS2cmKzW5Ne7gA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ZsyjWv/f";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hA0a9KV9;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8D3606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 07:26:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A8D3606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16B8606A334
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 07:27:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E16B8606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZsyjWv/f
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b5766b2986so846211a12.2
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 23:26:31 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793863590; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PbgqluoOaa1d3a4yYiP3T5OpxnQ6vJRC0sLYSSFxP3Ibab6M19BmJ+ZYBTi25+kQMs
-         /VOjqPw16PEhNJKkpxsyh9qzLf3kgxZlfNYHVtgwHMR4Cbb/5lxjXLg852hOwXAwx0CC
-         6fTbHyLlSaDtfy58/vpZfNoauuTWpxjI6lZtfwL7LnabY/0R6+1CsDJdrHqvOS5KRCEJ
-         SBshklFsxiSWeBF8JASGS8fTe8pK8T/Y6jY51O/XuD2Q91l6Q/zrGnrG2KQ1Fz0n7aFy
-         CO++rWVA7XofoTGNGyTZZ0G9dy/iKNzeiKvz4m07wMN8Dp2yHa5SrCQMzrRDBJB9gs3w
-         BmMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=l4oCbF0RbaHHtiZIalM4ySOOTntPpyyx7ghry7R/7uo=;
-        fh=AyXSkeU9HVBcX7SG2HGSOY+lAeZoeo7v+u2a3Zb0UJs=;
-        b=agw5NVFlK4mDIDIHTX1yuEG5cpmq7P2960tqzP/zIA4BIEte5mYoNqk9eNDUzKztGS
-         lRwe5BVdHwJkQAAvpKUr09P5RDfFNkvJKFIhiqlN5vxEl9Hiak2vzf2i4XLZJO+ONACc
-         ZyqqdDpcEP3g1UaPPi+j316MXdlzo2b2OcWUsJB2zuTrHjV/qbRZ+1TJxZN5akHnE4Cq
-         zPNxE1uSzZmOUFKhhVhfTvP3jDlHVtIk/9kt3OTB8ztot8CFReziTQlgwRJ9i3Qs/VuJ
-         WEvZWqDRaows76CPgX4tygjkKTclqMRepNu5xcG0qiORWbvseWR23w49LPIqkS7Nz149
-         Nkzg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hA0a9KV9
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a210470b49so10871625e9.2
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 23:27:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793863590; x=1794468390; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=l4oCbF0RbaHHtiZIalM4ySOOTntPpyyx7ghry7R/7uo=;
-        b=ZsyjWv/frC6yJIsrE2LB6jf8L0cRWnf+J5uE4HmoTPitpJJkkA/YUblEKI5GTnQOVR
-         6knf1V2AKXn8VNsw/pRPiDhyoUQDrCknXRCPShWPwdttazINCov/24QEB7+K8c3VQ/wo
-         WDNbuo7VGiombK2Cg9o8SoV57YAeAGsFXKy2pZRrLmGXfC6SgwzCSV4aC5UodHgXE9KI
-         NCAZ0JJf1lEJN3QZI53JMaUKTFkxgoEq9pVm4Ra2qD5APwsYqsWQmtzMC00FK6rKDtNo
-         yJyrESOwHWroZEa8Nqtmf/V5fCuv/EXEtieO5gZpcYJGnl2WVfOlTNEVy/xo1IO6Q8Ow
-         2i1g==
+        d=gmail.com; s=20260707; t=1793863639; x=1794468439; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y8GAjCpq+HU/Y8vWHx3dnsVw82gvuCD3uIlkSHruyoA=;
+        b=hA0a9KV9Qr4jhL3UGmYyTKaQPtGz9lTuuVLsKi+X12UyQ3+IYssaBMkm4o9eAebnV3
+         ZlatrnHOLxUj4iAjUk1qFnZdzJBUIFsKlw3l2eQLQlSuEjCbzl+b+K+ehVM842rZKDFM
+         f7FOLd/XyzcJnoiZKolMTH/1WvSx/lby2snfPBYwSp85rA1EKMGqkxmXyuGC4lLWsx45
+         F60355Jusv+QEe5fyswVR/HRZsblKzOTIPok1juV2WS5090hiaLu/CA60ibmx36ohYgO
+         dp3YopHnFFQTqV4NnGHdVJER6Xmol+yywbYOkhtBDToXyNAinMd1/XnK2PWpiA4f5tgv
+         XAfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793863590; x=1794468390;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l4oCbF0RbaHHtiZIalM4ySOOTntPpyyx7ghry7R/7uo=;
-        b=2bGXK92v2Yz7p98c395EzxSVPpx4FtYg/QcFsd97Uoi+8VDC4pcz8eV1bhLCadY2AV
-         1xRR4KubQe/WZ9PnBgcmp1ucbKf554OKDowGzIznVcNUytAzF10OJhRjKUFBNMtcJcaQ
-         K7PpVFcebaeIEs477eAoShSt/4jtrq9wDQfUn8fhCb7Lv65qlUmhEnXTUhQegU/YkNrE
-         gmSo5gD+AeGOTk4eKpCXAekuaHx028+dQ4cCGYqPxreXzdAPXEeUmStlbrRG0voLfuHr
-         KrkkxtwqfqXyUezpa5J7EWEzBxMNLazLEv3kKR0lXTvnJPNdNOYyhjW+ONi35OLp5oTX
-         KbcA==
-X-Gm-Message-State: APuU4Z8yIYobrpqE11U5rVFJnlH7MiGxOK9qa5PihQz85OknJ/SOiJm/
-	NjBDq54JEp9EYcQNVxOU8KJRcR3Kau5P0inv3ycs79snhJXCIBJAAMXG5008M5fyV0Mex5aS0UI
-	tHHKSegCTcLFN8u+pTbaNXyzr2cyw7pM=
-X-Gm-Gg: AYBFou1JX+PFLusjQgDyM43D+dsfXQZpU//W0h4keXsM8nDddr2SKKAZNetNv6xuNtE
-	ozy7RAzBUfFP2i8L6g/3fHwsH1ffW8eaFTvhCt/9T72nsOi7kLJOHivfWiJCiou5eEeBA9Lu+sM
-	CkTfZoMw6H/DusHyUd6W3he5DpjWXp+JQSWv5oiHiIpoOH5s4f/VGIoIF+3pw56XMzS5nn58A/O
-	fGln8M+s7EyeiZJPkcqNYr+Iwn59rRFOy3qyMpXhBNJ1baTaDgeY40KwVisO5I8L77ZWlfXCGyL
-	x8EyzzaARbOXkMHTPgVkKelQB0OfjhPC8Gn8iUA51QkNMP8nh/HgJ+XLfISgWlTjZJKBbcv5j2I
-	6AXL9tlh+rOZp1A9F6gJrBY7yH7X+ea8NcM2idzr02QFPBUea3bedk4Qzt5VdTbVGE1Z8HA==
-X-Received: by 2002:a05:6402:2410:b0:6b5:646d:be3b with SMTP id
- 4fb4d7f45d1cf-6b5646dc0c6mr3176332a12.18.1793863589451; Wed, 04 Nov 2026
- 23:26:29 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793863639; x=1794468439;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y8GAjCpq+HU/Y8vWHx3dnsVw82gvuCD3uIlkSHruyoA=;
+        b=bx5EOCtBOBh5Yn15P/qSvUa7dG77dnTNd54PyHVxoK5ufKFGNRGpHMIC8iBZAuR+J4
+         DDIuhpaIq2m0/mZFHoVQmTOxOXkJIkmcCp5gLzIdSFh1cxqP85rlYKg9uoI8FbZLf5EN
+         zXieafcmohkPwtbWWDcrTgkuWTNHmtdBXp/aUrMWeLKW+azLP4DzDUxnYcFbwYioEe1D
+         3jQd/9lH4A/PEpN5VNToR0+yYV69H74Oquf9Y42WGZM756K9kR/H2uHtixS4yO+Ynqb4
+         pg/EsV70XV7iV0kGrIm9mRwbL8WTervGrC6qh9/dbv4Gj0CYqLxdbzznR4yaJUUwHBZz
+         gcfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx8+t3iAiHI/ub6JydCr+ZSO2dYKuRQSWBq/f+C39tDotsEvagq/MVpNSdUAcEbTJlrGPNadLE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8+Xtacu20NDtBvbbhKtIQY5B/th04jwvxzba1UdMKftGA9B/wU
+	sYeLUIsN0xrpRQSjhXPdwGl3n10+GIRqDufLXmb+REzVCNSYrPDVBP+4
+X-Gm-Gg: AYBFou3eG4qgs7RPsqKqd6iITgb/80fs/Q/E2WxPxSjSIfOjbUYs4lMvoB+cbnu+cZN
+	pEb/Tp2QbqF5PeEpHZzVEanfsr6/zvh2pGtPYb4QV6UmJjsL/nGz2llveWA8+2h+xSZ8p288dUg
+	XrO0gD7N5VcghIhM8NZXqJuvpP4q4OA0lOKwk7URvC14ejGc7+A1s5M5V4t76TLrYCThMcdMvJw
+	jucQwzdUInt+DRYQ96aFyqkn2vtIgZPZWjDVMUpF6SG6TSu567BxBpEZ8PjQdLAF1MucbTGMxgp
+	eJR1tuTUixZ8173tBI+x9qTHywhLLnnOjIpoWpjOXSXF+SOxhjj5rJRlxecYAEJ/bPgXrmP15py
+	uRBviAw6Vv1B9+RoCzvA+txUCRrkIYOJL/qzXAtO/E7H2DMK9oz92Jbx7e+x7rZbZWVoWUF6EAY
+	Ib7JAcerM/WqxlC18sehbUSy76NdpkMgtX46UVoWUDfRi1jY7X5VqbQzUUz6GJPrINEJdYbJBI8
+	DOScn18NXSwxD5hmnbeodKiq53lcQRfbSDWpnplHVYTEjTk0UjGrJosd6h89NbBv1cFojrlkCSW
+	F/YdobV6NG/JdxwQgaT2/prid/HBiHTR69DNu2N1dEjPESR4ienvMq/l7mfHhbS5yohk+IR8bzA
+	PLyMlgi0aLnNCStfVpKzlYmiD6rT8g9Mqg8adyysPI8fyEr+talYMTEWoA/WDg6EvAZj12aI0s4
+	VNSVhhsxx7Hd0mLc23VOIeX+xaKNO9HL/BaFT9NJdhtkP2HHnzCq+ZPg==
+X-Received: by 2002:a05:600c:4708:b0:4a2:167a:c93b with SMTP id 5b1f17b1804b1-4ac19234ad8mr404040655e9.30.1793863639149;
+        Wed, 04 Nov 2026 23:27:19 -0800 (PST)
+Received: from localhost.localdomain (dynamic-2a00-1028-8388-a84e-947d-5f15-1dc3-a8b4.ipv6.o2.cz. [2a00:1028:8388:a84e:947d:5f15:1dc3:a8b4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56ef2e968sm51013815e9.8.2026.11.04.23.27.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 04 Nov 2026 23:27:18 -0800 (PST)
+From: Josef Schlehofer <pepe.schlehofer@gmail.com>
+To: Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>
+Cc: dm-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ignat Korchagin <ignat@linux.win>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Milan Broz <gmazyland@gmail.com>
+Subject: [PATCH] dm-crypt: defer async write submission to write thread
+Date: Thu,  5 Nov 2026 08:27:08 +0100
+Message-ID: <20261105072708.30722-1-pepe.schlehofer@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,155 +103,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <2026110447-widen-reunite-2c7b@gregkh> <20261105025023.1204346-1-sashal@kernel.org>
-In-Reply-To: <20261105025023.1204346-1-sashal@kernel.org>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Thu, 5 Nov 2026 08:26:18 +0100
-X-Gm-Features: AclHuK-N2vqUHaGh2565_9Fm-doPUNa8MNNiQ_4OpkRI17ScR-Byj60E0tjTmwM
-Message-ID: <CAOQ4uxghyqkUkabY5-rcwUrUq190Mvh36zgQBJ6EwYsnAiDtrA@mail.gmail.com>
-Subject: Re: [PATCH 6.12.y] ovl: hold a reference on the parent in readdir
-To: Sasha Levin <sashal@kernel.org>, Greg KH <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, Chris Mason <mason@kernel.org>, 
-	Josef Bacik <josef@toxicpanda.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 5, 2026 at 3:50=E2=80=AFAM Sasha Levin <sashal@kernel.org> wrot=
-e:
->
-> From: Chris Mason <mason@kernel.org>
->
-> [ Upstream commit 16d319e12328acafeafd3eecdf09c46d7fb43452 ]
->
-> Listing a directory on an overlay uses a freed dentry and crashes the
-> kernel when a lookup moves the directory at the same time.
->
-> Code that can sleep may only use d_parent without a reference while
-> something stops a move of the dentry. ovl_iterate_real(),
-> ovl_need_adjust_d_ino() and ovl_cache_update() use the d_parent of the
-> listed directory and hold only the lock of that directory. When a
-> lookup finds the directory under another parent after a change to a
-> layer, d_splice_alias() moves it without that lock and drops its
-> reference on the old parent.
->
-> With a delay in ovl_iterate_real(), getdents64 on an overlay directory
-> raced a rename in the lower layer and a lookup that moved its dentry,
-> and after an rmdir of the old parent KASAN reported a use-after-free in
-> security_inode_getattr().
->
-> Fix this by using dget_parent() in the three functions.
->
-> Fixes: b5efccbe0a12 ("ovl: constant d_ino across copy up")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [amir: fix comments in ovl_need_adjust_d_ino()]
-> Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-> [ sashal: Applied the changes for the absent ovl_need_adjust_d_ino() help=
-er directly to the inline logic in ovl_iterate(). ]
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+With no_write_workqueue, kcryptd_crypt_write_io_submit() submits the
+bio directly, even when called from kcryptd_async_done(). An async
+cipher may run this callback in softirq or with BH disabled, where
+submit_bio_noacct() must not be called because it can sleep.
 
-I had already asked Greg to take my 6.18 backport to 6.12..6.1:
+Submit inline only when async is false. Async completions are sent to
+the write thread, as is already done for submit_from_crypt_cpus. Use
+the async flag rather than in_interrupt(), since callback context
+depends on the cipher driver. Sync ciphers still submit inline.
 
-https://lore.kernel.org/stable/20261104184517.3630089-1-amir73il@gmail.com/
+Tested with cryptd in QEMU (x86_64 and arm64) with
+CONFIG_DEBUG_ATOMIC_SLEEP, and on a P2020 running 6.18.55 without it.
 
-It'd be a shame to have different backports when we can use the same
-version to all.
+In QEMU:
 
-Should have posted the patches separately :-/
+- 4k writes logging "sleeping function called from invalid context":
+  100/100 unpatched, 0/155 patched.
+- nr_requests=4 on a loop device: 0/6 unpatched runs completed,
+  4/4 patched runs completed.
 
-Thanks,
-Amir.
+On the P2020, a warning in blk_mq_run_hw_queue() appeared in the
+6th unpatched run and did not appear in 30 patched runs.
 
-> ---
->  fs/overlayfs/readdir.c | 24 ++++++++++++++++++------
->  1 file changed, 18 insertions(+), 6 deletions(-)
->
-> diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
-> index 6931cbc1042c3..56425b369560d 100644
-> --- a/fs/overlayfs/readdir.c
-> +++ b/fs/overlayfs/readdir.c
-> @@ -486,8 +486,8 @@ static int ovl_cache_update(const struct path *path, =
-struct ovl_cache_entry *p,
->                         goto get;
->                 }
->                 if (p->len =3D=3D 2 && p->name[1] =3D=3D '.') {
-> -                       /* we shall not be moved */
-> -                       this =3D dget(dir->d_parent);
-> +                       /* d_splice_alias() can move even a locked dir */
-> +                       this =3D dget_parent(dir);
->                         goto get;
->                 }
->         }
-> @@ -711,6 +711,7 @@ static int ovl_iterate_real(struct file *file, struct=
- dir_context *ctx)
->         struct dentry *dir =3D file->f_path.dentry;
->         struct ovl_fs *ofs =3D OVL_FS(dir->d_sb);
->         const struct ovl_layer *lower_layer =3D ovl_layer_lower(dir);
-> +       struct dentry *parent;
->         struct ovl_readdir_translate rdt =3D {
->                 .ctx.actor =3D ovl_fill_real,
->                 .orig_ctx =3D ctx,
-> @@ -721,18 +722,26 @@ static int ovl_iterate_real(struct file *file, stru=
-ct dir_context *ctx)
->         if (rdt.xinobits && lower_layer)
->                 rdt.fsid =3D lower_layer->fsid;
->
-> -       if (OVL_TYPE_MERGE(ovl_path_type(dir->d_parent))) {
-> +       /*
-> +        * The lock on dir does not stop d_splice_alias() from moving it =
-to
-> +        * another parent, which drops the reference dir holds on this on=
-e.
-> +        */
-> +       parent =3D dget_parent(dir);
-> +       if (OVL_TYPE_MERGE(ovl_path_type(parent))) {
->                 struct kstat stat;
->                 struct path statpath =3D file->f_path;
->
-> -               statpath.dentry =3D dir->d_parent;
-> +               statpath.dentry =3D parent;
->                 err =3D vfs_getattr(&statpath, &stat, STATX_INO, 0);
-> -               if (err)
-> +               if (err) {
-> +                       dput(parent);
->                         return err;
-> +               }
->
->                 WARN_ON_ONCE(dir->d_sb->s_dev !=3D stat.dev);
->                 rdt.parent_ino =3D stat.ino;
->         }
-> +       dput(parent);
->
->         if (ovl_is_impure_dir(file)) {
->                 rdt.cache =3D ovl_cache_get_impure(&file->f_path);
-> @@ -761,6 +770,8 @@ static int ovl_iterate(struct file *file, struct dir_=
-context *ctx)
->                 ovl_dir_reset(file);
->
->         if (od->is_real) {
-> +               struct dentry *parent =3D dget_parent(dentry);
-> +
->                 /*
->                  * If parent is merge, then need to adjust d_ino for '..'=
-, if
->                  * dir is impure then need to adjust d_ino for copied up
-> @@ -769,11 +780,12 @@ static int ovl_iterate(struct file *file, struct di=
-r_context *ctx)
->                 if (ovl_xino_bits(ofs) ||
->                     (ovl_same_fs(ofs) &&
->                      (ovl_is_impure_dir(file) ||
-> -                     OVL_TYPE_MERGE(ovl_path_type(dentry->d_parent))))) =
-{
-> +                     OVL_TYPE_MERGE(ovl_path_type(parent))))) {
->                         err =3D ovl_iterate_real(file, ctx);
->                 } else {
->                         err =3D iterate_dir(od->realfile, ctx);
->                 }
-> +               dput(parent);
->                 goto out;
->         }
->
-> --
-> 2.53.0
->
+Fixes: 39d42fa96ba1 ("dm crypt: add flags to optionally bypass kcryptd workqueues")
+Cc: stable@vger.kernel.org
+Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+---
+Based on dm-7.4 (dab527d83462).
+
+To reproduce, with CONFIG_DEBUG_ATOMIC_SLEEP, DM_CRYPT, BLK_DEV_LOOP,
+CRYPTO_CRYPTD, CRYPTO_XTS and CRYPTO_AES:
+
+  modprobe -a cryptd dm_crypt loop
+  truncate -s 256M /dev/shm/nowq.img
+  L=$(losetup -f)
+  losetup "$L" /dev/shm/nowq.img
+  KEY=$(od -An -v -tx1 -N64 /dev/urandom | tr -d ' \n')
+  dmsetup create nowq --table "0 $((256 * 2048)) crypt capi:cryptd(xts-aes-lib)-plain64 $KEY 0 $L 0 2 no_read_workqueue no_write_workqueue"
+  D=/dev/dm-$(dmsetup info -c --noheadings -o minor nowq)
+  dd if=/dev/urandom of="$D" bs=4k count=1 conv=fsync
+  dmesg | grep 'sleeping function called'
+
+For the nr_requests=4 case, run this instead of the dd. The writes did
+not finish without this patch:
+
+  echo 4 > /sys/block/${L##*/}/queue/nr_requests
+  for i in 1 2 3 4; do dd if=/dev/urandom of="$D" bs=64k count=512 seek=$((i * 512)) conv=fsync & done; wait
+
+ drivers/md/dm-crypt.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
+index 8853e9af1c3d..c0552a300e62 100644
+--- a/drivers/md/dm-crypt.c
++++ b/drivers/md/dm-crypt.c
+@@ -1982,8 +1982,9 @@ static void kcryptd_crypt_write_io_submit(struct dm_crypt_io *io, int async)
+ 	/* crypt_convert should have filled the clone bio */
+ 	BUG_ON(io->ctx.iter_out.bi_size);
+ 
+-	if ((likely(!async) && test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags)) ||
+-	    test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags)) {
++	if (likely(!async) &&
++	    (test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags) ||
++	     test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags))) {
+ 		dm_submit_bio_remap(io->base_bio, clone);
+ 		return;
+ 	}
+-- 
+2.54.0 (Apple Git-157)
+
