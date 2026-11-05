@@ -1,55 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793847228;
-	b=xskt0qUdVL7WrYpOQ6zRfnmK3i1uxQduDcbU0i37yajczgvcTI82rL7T003/oHJptdL1
-	 lRClJwiuWErIQZtp2xG5ewuYtLCL0qqLotKs4PCZIOkyG+m7QrPhYuIPN8TaKWhHbSKTV
-	 vkpCf9eqwV+2te5Ev+1qnYZDEOrqrIlVohqwrQakSKc16fyX/Bfgz8kt1mnSgeJ12UbuE
-	 Xt3vKdy3X+HZaTXTy7qZb+OSQTwEir3Xe/uX2Wa9qPtnYHS9ZSl1QeVOK8JhVz1MCAoZ/
-	 CJrx79twM2OALzqWqSpDLKtwbyqYtIpNsyRoFBdYUDo6uWWw4PjlafyCu7jEtSbhhYw==
+	t=1793847439;
+	b=l6XxHMjY7ax7o+4i7XJyJno4Np3NL7j7jdxIqIcYAe89fBv0dvTzsJZjb0xmLuzUZ0+E
+	 RlsApM0cGDivVLcvlrutwa4xpxFUsp5vMU/fwU7DxC6J0fjAjpMj/FP7f67OBrDUQmVTM
+	 BWVgZDsMkxSizaXhZFlA6i7FcJiejFxaugShoMRsx8rQ3LQXXYcIkbqdJD8VJ/MEYAZhb
+	 RUzWyqhPyNtCqWEodA3Qqa2hpavQW7A2KPRO3LSneVxToezmny5bvbUEbHmFXiT1pHkp2
+	 7yajw8dLnRFIHoJz0UYlnqMtt7oQ+SFdjiWGxNOXglSLwAsSLg5dWalIr2ZOttIUXaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793847228;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=xcT5tiixZNHCrX+aTAltCReAjjb1g0dELGZX+pJHXSQ=;
-	b=vsM3miC9z5xWtay8PC73bPfLD/OgxBX4y4E1k8FiroLqmXqOKALYswo1v01uzoSBxKdT
-	 /N1AgOVBtjCbHj+Y5Ts9EEBArxAEe5U0W/5PmIJFQFAaBrUX7lEkZdAqypDX5T/LRu/AR
-	 tvH6RO+QljJGMT3dM/M7/PrOpkKBdewZzUmEHy2AvZVgm38ThI3lqs0LAo427+w0R8Tcy
-	 LrBddHvwjWvrHF02QjvOGuS72X5fKQqDOU4y0wxwxDA8TmmvMXgzqryJiXbPV2BlE7RbV
-	 gGcymR5Ae5pbggesSBaTFLdxfcwGdTflCS94f9k46MCXntXOZ1en2l+ZMc3eTs7p3Og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793847439;
+	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=jq9t4i4p9xF2mSol4zZx3RitgWvrWh8XynSKXKryK9o=;
+	b=nWNs9hdNPRGEYethIl/yUMpX+Xrz07mpx/5RwEPpn+e00/wDbioxI879fKQOdIFtlNgg
+	 bu7QbB50Gfrgy4izd6lbIIZVTKS+IBS3lQzTaHLJK1DhlgNoXTC8YpHRoYHxi/8TTc8AR
+	 7WZHZb8XszUPU7l4oDWwqI30rY3zLFUt1dzheqO/UY976QPZJ03XbKhZaRL+WpVFnksdv
+	 jUZQo1TgcG1wVED5DVPIAHegPJbEI7RPjxpjUMq7vgbpC2D0vxFfce8LSpxnu07sC7oqF
+	 7ecVGmqwFpcuOY3psVRGfn0Ns064TdEw9MzDJBm/PlBbt1Njnz82MQ5YzV8dMsiifzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iI5ArQ5F;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=d-silva.org;
+	spf=pass smtp.mailfrom=d-silva.org;
+	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=RpmkdZsZ;
+	arc=none smtp.remote-ip=119.15.109.137
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86DEF606A329
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:53:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2A8606A328;
+	Thu,  5 Nov 2026 02:57:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA2A8606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iI5ArQ5F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3D521F00919;
-	Thu,  5 Nov 2026 02:53:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793847228;
-	bh=xcT5tiixZNHCrX+aTAltCReAjjb1g0dELGZX+pJHXSQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iI5ArQ5FVFb+6uiySAXuhQ9LQ4f5ACn5oX6AIeEwyhIlrY9zaBhqKmiMez6y2NjyX
-	 +myJXy+Y9MAFSSPo6tvOYdELRkCbBjM9hVjdPAHB2+6tgui7H56w+n/z6dD47mRjAs
-	 F873nhyjEpTOrJ6uJXEqqxikFV9abmiC1nlasArn08a7GxMdD8U9KsEsp7mH4sA8QZ
-	 dk7eQqyKGMOIYUrcn8RDDNeYhfOi2JYl+C6D8aW1dk31xZmAgHRkMps8/fX7XvBn5X
-	 5hhraQiCTDh+79RFGdeMOx8Xcb/ZkD4/ZaPUnp/1sDlFgTKsb5tr5HMNl2Dv56nCRt
-	 7Cx9OcnpmGwDQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Tianchu Chen <flynnnchen@tencent.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] staging: rtl8723bs: fix protected RX frame validation in decrypt path
-Date: Wed,  4 Nov 2026 21:53:46 -0500
-Message-ID: <20261105025323.1174871-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=RpmkdZsZ
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id B2C4C41A1E;
+	Thu,  5 Nov 2026 13:57:08 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1793847428;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jq9t4i4p9xF2mSol4zZx3RitgWvrWh8XynSKXKryK9o=;
+	b=RpmkdZsZgbcqwmyzDPOHCYuMU0SBv/jUzTl1QoMHcQVeo0u/j6SGGCqv+w/ndAa13kSVAA
+	wo6WG8mTHMZG74TD2ywRBD3jGdpSMVQrhsFyD8F+t0NxR/0xBn6bkv0XOij2z5Qx9WvqvO
+	9WhaIKy8AkqL6NBL8xJN92IVkOaOYfpz3l2dUaIA0aVQWOtlldR6aIdg1T2H35mfznO9FT
+	lCx2BAR2LN2km3Xa2GYIw3X2F7wlT603IOdoJa0kFWsmh6fs6UYXkCLhv7ekwlmESQXeiN
+	Woma5LxrMLM2EUHmpQGEoqkhl/6ZqiHZ7pcAIgWErjpBbJgIdInm0tjQPbWDSQ==
+X-GPT-Reason: This email is classified as legitimate personal/professional
+	communication. The content is a technical kernel patch description
+	regarding a wifi driver (rtw88), which aligns perfectly with the
+	personal mailbox of alastair@d-silva.org. The sender domain (d-silva.org)
+	matches the recipient domain, the "Cc" and "Reviewed-by" headers
+	reference known Linux kernel development entities (vger.kernel.org,
+	linux.dev), and there are no indicators of marketing, phishing, or
+	urgency.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: linux-wireless@vger.kernel.org,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>
+Cc: Luka Gejak <luka.gejak@linux.dev>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Alastair D'Silva <alastair@d-silva.org>,
+	stable@vger.kernel.org
+Subject: [PATCH rtw-next v8 1/4] wifi: rtw88: sdio: Handle allocation and read errors in rtw_sdio_rxfifo_recv
+Date: Thu,  5 Nov 2026 13:56:57 +1100
+Message-ID: <20261105025700.1655219-2-alastair@d-silva.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110449-rekindle-unhappily-b3bd@gregkh>
-References: <2026110449-rekindle-unhappily-b3bd@gregkh>
+In-Reply-To: <20261105025700.1655219-1-alastair@d-silva.org>
+References: <20261105025700.1655219-1-alastair@d-silva.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,103 +84,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tianchu Chen <flynnnchen@tencent.com>
+When dev_alloc_skb() or rtw_sdio_read_port() fails, rtw_sdio_rxfifo_recv()
+returns without reading data. Because it returned void, the caller still
+counted rx_len against the loop budget while leaving data stranded in the
+FIFO.
 
-[ Upstream commit 495cb31c791bdf3f9efef255a9587b05b0526c9d ]
+Return an error code from rtw_sdio_rxfifo_recv() on failure and break out
+of the receive loop in the caller immediately.
 
-The RX software decrypt path mishandles crafted protected frames from a
-malicious AP in two ways:
-
-1) decryptor() never checks that a protected frame is long enough to
-hold the 802.11 header plus the per-cipher trailer.  All of
-rtw_wep_decrypt(), rtw_tkip_decrypt() and rtw_aes_decrypt() compute
-
-	length = hdr.len - hdrlen - iv_len;
-
-and act on the result, and recvframe_chkmic() similarly computes
-
-	datalen = hdr.len - hdrlen - iv_len - icv_len - 8;
-
-for TKIP (the 8-byte Michael MIC is not accounted for in icv_len).
-A frame shorter than hdrlen + iv_len + icv_len (+ 8 for TKIP) underflows
-these unsigned subtractions, turning into a ~4 GiB iteration count in
-aes_decipher()/arc4_crypt()/rtw_seccalctkipmic() or a ~4 GiB crc32_le()
-length, causing out-of-bounds reads/writes of up to ~4 GiB starting from
-the rx skb.  Reject such frames in decryptor() before touching the IV;
-this covers all three ciphers and the TKIP MIC check, and also keeps the
-unconditional iv[3] access within the frame.
-
-2) validate_80211w_mgmt() keeps using the frame - two memcpys through
-the stale rx_data pointer and a pkt_len update - before checking
-whether decryptor() returned NULL.  On decrypt failure (e.g. a unicast
-protected deauth/disassoc/action frame with a bad MIC, which this path
-always software-decrypts) the skb has already been freed, so this is a
-use-after-free read/write, and the caller's error path frees the frame
-a second time, drifting free_recvframe_cnt.  Bail out immediately when
-decryptor() fails, freeing the temporary mgmt_DATA buffer first.
-
-Discovered by Atuin - Automated Vulnerability Discovery Engine.
-
-Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
-Assisted-by: LLM
+Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
-Link: https://patch.msgid.link/8ee3bdd1c45034200cb1aa9a7e9b575b9584643a@linux.dev
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Adjusted context for older syntax while preserving IS_MCAST() and rtw_zmalloc(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Assisted-by: LLM
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
 ---
- drivers/staging/rtl8723bs/core/rtw_recv.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+ drivers/net/wireless/realtek/rtw88/sdio.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/rtl8723bs/core/rtw_recv.c
-index 5b0a596eefb77..f6585c034a902 100644
---- a/drivers/staging/rtl8723bs/core/rtw_recv.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
-@@ -392,7 +392,21 @@ static union recv_frame *decryptor(struct adapter *padapter, union recv_frame *p
- 	u32  res = _SUCCESS;
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index ecd4d751c05a5..172aa7ad4732a 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -1348,7 +1348,7 @@ static void rtw_sdio_rx_skb(struct rtw_dev *rtwdev, struct sk_buff *skb,
+ 	ieee80211_rx_irqsafe(rtwdev->hw, skb);
+ }
  
- 	if (prxattrib->encrypt > 0) {
--		u8 *iv = precv_frame->u.hdr.rx_data+prxattrib->hdrlen;
-+		u8 *iv;
-+		u32 min_len = prxattrib->hdrlen + prxattrib->iv_len + prxattrib->icv_len;
-+
-+		/* TKIP appends an 8-byte Michael MIC that icv_len doesn't account for */
-+		if (prxattrib->encrypt == _TKIP_)
-+			min_len += 8;
-+
-+		/* a protected frame must be long enough to hold the IV and ICV/MIC */
-+		if (precv_frame->u.hdr.len < min_len) {
-+			rtw_free_recvframe(precv_frame,
-+					   &padapter->recvpriv.free_recv_queue);
-+			return NULL;
-+		}
-+
-+		iv = precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
- 		prxattrib->key_index = (((iv[3])>>6)&0x3);
+-static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
++static int rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ {
+ 	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
+ 	const struct rtw_chip_info *chip = rtwdev->chip;
+@@ -1365,12 +1365,12 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
  
- 		if (prxattrib->key_index > WEP_KEYS) {
-@@ -1374,6 +1388,10 @@ static signed int validate_80211w_mgmt(struct adapter *adapter, union recv_frame
- 				goto validate_80211w_fail;
- 			}
- 			precv_frame = decryptor(adapter, precv_frame);
-+			if (!precv_frame) {
-+				kfree(mgmt_DATA);
-+				goto validate_80211w_fail;
-+			}
- 			/* save actual management data frame body */
- 			memcpy(mgmt_DATA, ptr+pattrib->hdrlen+pattrib->iv_len, data_len);
- 			/* overwrite the iv field */
-@@ -1381,9 +1399,6 @@ static signed int validate_80211w_mgmt(struct adapter *adapter, union recv_frame
- 			/* remove the iv and icv length */
- 			pattrib->pkt_len = pattrib->pkt_len - pattrib->iv_len - pattrib->icv_len;
- 			kfree(mgmt_DATA);
--			if (!precv_frame) {
--				goto validate_80211w_fail;
--			}
- 		} else if (IS_MCAST(GetAddr1Ptr(ptr)) &&
- 			(subtype == WIFI_DEAUTH || subtype == WIFI_DISASSOC)) {
- 			signed int BIP_ret = _SUCCESS;
+ 	skb = dev_alloc_skb(bufsz);
+ 	if (!skb)
+-		return;
++		return -ENOMEM;
+ 
+ 	ret = rtw_sdio_read_port(rtwdev, skb->data, bufsz);
+ 	if (ret) {
+ 		dev_kfree_skb_any(skb);
+-		return;
++		return ret;
+ 	}
+ 
+ 	while (true) {
+@@ -1379,7 +1379,7 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 					   &pkt_stat, &rx_status);
+ 		if (ret) {
+ 			dev_kfree_skb_any(skb);
+-			return;
++			return ret;
+ 		}
+ 
+ 		pkt_offset = pkt_desc_sz + pkt_stat.drv_info_sz +
+@@ -1393,7 +1393,7 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 				"oversized RX packet: %u, %u bytes left\n",
+ 				pkt_offset + pkt_stat.pkt_len, rx_len);
+ 			dev_kfree_skb_any(skb);
+-			return;
++			return -EINVAL;
+ 		}
+ 
+ 		if ((curr_pkt_len + pkt_desc_sz) >= rx_len) {
+@@ -1423,11 +1423,14 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
+ 		skb_reserve(skb, curr_pkt_len);
+ 		rx_len -= curr_pkt_len;
+ 	}
++
++	return 0;
+ }
+ 
+ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ {
+ 	u32 rx_len, hisr, total_rx_bytes = 0;
++	int ret;
+ 
+ 	do {
+ 		if (rtw_chip_wcpu_8051(rtwdev))
+@@ -1438,7 +1441,9 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
+ 		if (!rx_len)
+ 			break;
+ 
+-		rtw_sdio_rxfifo_recv(rtwdev, rx_len);
++		ret = rtw_sdio_rxfifo_recv(rtwdev, rx_len);
++		if (ret)
++			break;
+ 
+ 		total_rx_bytes += rx_len;
+ 
 -- 
 2.53.0
 
