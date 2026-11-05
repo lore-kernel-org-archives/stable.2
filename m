@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844111;
-	b=H0/gJVnqksjPwKIpiH4/LLiKDtF0NFtxWpPJno7CzCSFyj6TFtsdUDGlwZyUvJsF+LxU
-	 Pos2ikBSHD/JDhCCZ6tUsY+GrV7yF40MJoRqSPjTcL0EVOdGk1LE41dhvMQx9sBEJZ9zR
-	 7RAeGkz24Pm7C30AMt/biXHC1n+Zcmqlxiu+IRUzjRz9m4UH1hzOq/YzYdNK1IUpNXwtP
-	 noG4zhC52qUW633epaMJ+Amt1e1iiQSh+x9iGlgX+GlRaaVqnZLkgzuT74Yz1sa9CzQni
-	 z/9YRE4PGrU4svPqXk4of2vbDBOQ3zRtGAtn79355py6IPZYsQQ3wOscQSYT1i+6f5A==
+	t=1793844118;
+	b=gdxOtFa/v6Fwg9jv+3Epr40uUhZDshmm4OHREOQTgA2Uogfld39J33aQLMqb5dNULXgj
+	 WUuIxSOm65DiblVVWYUNis8ZaWsjQm9/tQeG9gjfy7uQx/MlfKmYKUcpiBlrC2GPPt8kc
+	 tsVmusgYuZzinE/zpMW7IXfVU875lbDFnAAms+J3IQTotPYtn1nMgLQQUXPvOw8Y6wmRv
+	 wTn3QzV9qH/XcieSacucsTYNgKTYtYw6gyFbE0uCy/zbXmrggevgPb5I+BhpOM5PHa0gJ
+	 d+EI+T5QfZN7doWQ85AaTZ2t1UpqXjbUOkNpOyMY15PqibnM2Gf2u6xrIGr0pCuu7Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844111;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844118;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=W+58/eJYAEOdpebyKZhpejKCIvBBjMslhdPrEgFQ83Y=;
-	b=szBhwxnlkbJsu0hT4qhbQ5iFbEesWR5EuGT3fIVDgtSygJlWI/YeclncAAGYlFIaDLGU
-	 Wp2wT8NvVDd+g3HLVk5xF/e8k9VSooKHrjlXYiSSNeP8da4PVUGOAvuoTUYCzghSsbqw0
-	 LP/vzMxR6xCxqL8heK8VMcYJtfH/w1H5fmA5moISTV8zu6h2XKB8rtOFLOG4iUfykVFhp
-	 mVgGobCqJDwvB14cd5StHt9qp96/xbrVes3ptk/j8iwT20B+XCWTGWMCBjlzO2xnIu7m1
-	 GFW+UQNNGlXJWcfIr1YIm9w8dVJGBk5KANoSap86rI3ESnqbM5/We9K4Wpofa3nB5jQ==
+	bh=ELcgfz6ChtNwW6CDjkwXPF2lAOc+SLg0gHzUsi9Fyqw=;
+	b=hfCL1NQw4co+ByvUMkbBDEdhwLHqjWo87KDmA5GW+iu3wUlR+wUr/Nrlm4IkHnEvGQm2
+	 VdtzRIF1zHGsVVJ16e3Px5gHiriyqoozfy7YOhIVexooQXeD8eQ9CtQaQlxL42JwISW4p
+	 6TFMpwvuB/HQ+oTFy0Un3VeepwHkYxJa14s3KFdQn4tJ2TE0ne7moiaiasfi+bJa0dHbG
+	 2GtI11Q73WhcSZT3xFxAU22jNx8Mx7PyrD3gcYY0pjAEOHvU63e0SKFPpi94RlXYCEb8f
+	 D5sUexYvY8HcN+9eNjv4UgHenYEG/r6Pms6M7BSAw4xpLGDFuNM1JVixVJq2+/eqinQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mlm4gKtA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qer+Jy3K;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8415D606CC09
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:01:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24AEE606CC09
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:01:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mlm4gKtA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7261F000C1;
-	Thu,  5 Nov 2026 02:01:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qer+Jy3K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F7361F000C1;
+	Thu,  5 Nov 2026 02:01:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793844111;
-	bh=W+58/eJYAEOdpebyKZhpejKCIvBBjMslhdPrEgFQ83Y=;
+	s=k20260515; t=1793844117;
+	bh=ELcgfz6ChtNwW6CDjkwXPF2lAOc+SLg0gHzUsi9Fyqw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Mlm4gKtATsG53loqG3aLmlshVkXm57k39Wbff4OdU9fD0Yr2/hGuIWzMzZYuIBQWd
-	 T3MDaxF/oiW1SxhuP57DupRCVkR8srP9ibiIGDafAgSgXkLo2zH8gKG3L0pFIOy+1R
-	 zp7xcmdQVWbvEaw1t6lezrG4CAsQU6In1YBjIk89lA7MDd/CvEx2WYfo/cs9tkexxH
-	 s/fiQQUFPLtvGxJAVRbNfracIK4CTKR/rqG+QNnrrfVxeKne1lezEtGZtYBhAww8cL
-	 mp5zEST3S0DO3G1WprD6dhM4/Xg+0Y9nfjp2UwK8IALhLmJZgt3rA5IDT69QI98B5e
-	 S3/v/Xcl19NgQ==
+	b=Qer+Jy3KORxPBJgDrzsVtsIfgjHZayB8yRGCHNTThfE+zz8vVMi0XgnzHLT0j4Iia
+	 Tl1wALkFo00sDWDWvUtilY/pegZgEa9OcGvZO7OOt/R6j7OLNLAqnEaxOIyRMzcvPv
+	 zLn2wjcDtmTQF7wTAxtVlNadr2I9+CIeok9BicOJ6AqWvgODUlJ0SBg4p5zJp/Xqd+
+	 NlnzUgO0ArufdO4oE2Frts+0QVkJDgtqCcsNTOuGqWmserrSHxGeGv5CySuWDiyL0T
+	 RCR9UKgn5iOOUjiEW1IWX/wPvHtRRS4ihxQj+7ibGH9fRKu416M53bbGO5sDjgJzUY
+	 7sBCpofY2trEg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Oleg Keri <okerixx@gmail.com>,
-	Vinod Koul <vkoul@kernel.org>,
+Cc: Sean Young <sean@mess.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] phy: core: Fix race-condition between _of_phy_get() and try_module_get()
-Date: Wed,  4 Nov 2026 21:01:49 -0500
-Message-ID: <20261105020042.1032242-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] media: rc: Fix ABBA deadlock by making locks more fine grained
+Date: Wed,  4 Nov 2026 21:01:56 -0500
+Message-ID: <20261105020044.1081944-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110412-deskbound-splashy-7b2b@gregkh>
-References: <2026110412-deskbound-splashy-7b2b@gregkh>
+In-Reply-To: <2026110414-outsource-laxative-3178@gregkh>
+References: <2026110414-outsource-laxative-3178@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,181 +61,129 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+From: Sean Young <sean@mess.org>
 
-[ Upstream commit 090055ee629523092688da42428558ba56d4272f ]
+[ Upstream commit c6d68866ad8aa1e957a3e5a6ede971148f1e3d59 ]
 
-Sashiko asked during a patch review if the existing usage pattern had a
-race condition; specifically in of_phy_get() if it was possible between
-returning from _of_phy_get() and running try_module_get() that a module
-might be unbound leading to use-after-free.
+The ir_raw_event_unregister() function takes the ir_raw_handler_lock
+first and then the rc_dev->lock. Other functions like change_protocol
+do this in the reverse order.
 
-Looking at the code this appears to be so, there is no linkage between the
-phy and module under a synchronisation primitive.
+This means that an ir decoder module unload and writing to the protocol
+sysfs file can cause a deadlock.
 
-Using the phy_provider_mutex in phy_get() will ensure there is a link between
-the returned phy pointer and the module_get() bumping the module reference
-count.
+ir_raw_handler_lock protects the client list, amongst other things.
+Split this out into a separate lock so we can ensure the locking
+order is always the same.
 
-Amend phy_get(), of_phy_get() and devm_of_phy_get_by_index() to fix the
-same usage pattern.
-
-phy_provider_unregister() must take the phy_provider_mutex so amending
-phy_get()/of_phy_get() to take that same mutex guarantees there is no
-use-after-free.
-
-Fixes: ff764963479a1 ("drivers: phy: add generic PHY framework")
+Fixes: 93cffffc18f6 ("[media] media: rc: fix decoder module unloading")
+Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11 (Glymur)
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Link: https://patch.msgid.link/20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-1-dc244e124e71@linaro.org
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-[ sashal: Placed mutex acquisition after the existing NULL-name rejection in phy_get(), preserving its direct error return. ]
+Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: Retained ir_raw_event_free(dev) before releasing ir_raw_handler_lock to preserve the existing cleanup layout. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/phy/phy-core.c | 42 ++++++++++++++++++++++++++++--------------
- 1 file changed, 28 insertions(+), 14 deletions(-)
+ drivers/media/rc/rc-ir-raw.c | 38 +++++++++++++++++++++++-------------
+ 1 file changed, 24 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-index dac0f7f4f3d3d..5bd96f11bb467 100644
---- a/drivers/phy/phy-core.c
-+++ b/drivers/phy/phy-core.c
-@@ -117,13 +117,13 @@ static struct phy *phy_find(struct device *dev, const char *con_id)
- 	const char *dev_id = dev_name(dev);
- 	struct phy_lookup *p, *pl = NULL;
+diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
+index 16e33d7eaaa2d..d1c551aec63ca 100644
+--- a/drivers/media/rc/rc-ir-raw.c
++++ b/drivers/media/rc/rc-ir-raw.c
+@@ -10,7 +10,8 @@
+ #include <linux/sched.h>
+ #include "rc-core-priv.h"
  
--	mutex_lock(&phy_provider_mutex);
-+	lockdep_assert_held(&phy_provider_mutex);
+-/* Used to keep track of IR raw clients, protected by ir_raw_handler_lock */
++/* Used to keep track of IR raw clients, protected by ir_raw_client_lock */
++static DEFINE_MUTEX(ir_raw_client_lock);
+ static LIST_HEAD(ir_raw_client_list);
+ 
+ /* Used to handle IR raw handler extensions */
+@@ -288,13 +289,6 @@ static int change_protocol(struct rc_dev *dev, u64 *rc_proto)
+ 	return 0;
+ }
+ 
+-static void ir_raw_disable_protocols(struct rc_dev *dev, u64 protocols)
+-{
+-	mutex_lock(&dev->lock);
+-	dev->enabled_protocols &= ~protocols;
+-	mutex_unlock(&dev->lock);
+-}
+-
+ /**
+  * ir_raw_gen_manchester() - Encode data with Manchester (bi-phase) modulation.
+  * @ev:		Pointer to pointer to next free event. *@ev is incremented for
+@@ -632,15 +626,18 @@ int ir_raw_event_register(struct rc_dev *dev)
+ {
+ 	struct task_struct *thread;
+ 
++	/* Holding dev->lock could result in a dead-lock */
++	lockdep_assert_not_held(&dev->lock);
 +
- 	list_for_each_entry(p, &phys, node)
- 		if (!strcmp(p->dev_id, dev_id) && !strcmp(p->con_id, con_id)) {
- 			pl = p;
- 			break;
- 		}
--	mutex_unlock(&phy_provider_mutex);
+ 	thread = kthread_run(ir_raw_event_thread, dev->raw, "rc%u", dev->minor);
+ 	if (IS_ERR(thread))
+ 		return PTR_ERR(thread);
  
- 	return pl ? pl->phy : ERR_PTR(-ENODEV);
+ 	dev->raw->thread = thread;
+ 
+-	mutex_lock(&ir_raw_handler_lock);
++	mutex_lock(&ir_raw_client_lock);
+ 	list_add_tail(&dev->raw->list, &ir_raw_client_list);
+-	mutex_unlock(&ir_raw_handler_lock);
++	mutex_unlock(&ir_raw_client_lock);
+ 
+ 	return 0;
  }
-@@ -504,6 +504,8 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
- 	struct phy *phy = NULL;
- 	struct of_phandle_args args;
+@@ -664,8 +661,10 @@ void ir_raw_event_unregister(struct rc_dev *dev)
+ 	kthread_stop(dev->raw->thread);
+ 	del_timer_sync(&dev->raw->edge_handle);
  
-+	lockdep_assert_held(&phy_provider_mutex);
+-	mutex_lock(&ir_raw_handler_lock);
++	mutex_lock(&ir_raw_client_lock);
+ 	list_del(&dev->raw->list);
 +
- 	ret = of_parse_phandle_with_args(np, "phys", "#phy-cells",
- 		index, &args);
- 	if (ret)
-@@ -515,11 +517,10 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
- 		goto out_put_node;
- 	}
- 
--	mutex_lock(&phy_provider_mutex);
- 	phy_provider = of_phy_provider_lookup(args.np);
- 	if (IS_ERR(phy_provider) || !try_module_get(phy_provider->owner)) {
- 		phy = ERR_PTR(-EPROBE_DEFER);
--		goto out_unlock;
-+		goto out_put_node;
- 	}
- 
- 	if (!of_device_is_available(args.np)) {
-@@ -533,8 +534,6 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
- out_put_module:
- 	module_put(phy_provider->owner);
- 
--out_unlock:
--	mutex_unlock(&phy_provider_mutex);
- out_put_node:
- 	of_node_put(args.np);
- 
-@@ -558,15 +557,21 @@ struct phy *of_phy_get(struct device_node *np, const char *con_id)
- 	if (con_id)
- 		index = of_property_match_string(np, "phy-names", con_id);
- 
-+	mutex_lock(&phy_provider_mutex);
++	mutex_lock(&ir_raw_handler_lock);
+ 	list_for_each_entry(handler, &ir_raw_handler_list, list)
+ 		if (handler->raw_unregister &&
+ 		    (handler->protocols & dev->enabled_protocols))
+@@ -681,6 +680,8 @@ void ir_raw_event_unregister(struct rc_dev *dev)
+ 	 * "device gone" is checked.
+ 	 */
+ 	mutex_unlock(&ir_raw_handler_lock);
 +
- 	phy = _of_phy_get(np, index);
- 	if (IS_ERR(phy))
--		return phy;
-+		goto out_unlock;
- 
--	if (!try_module_get(phy->ops->owner))
--		return ERR_PTR(-EPROBE_DEFER);
-+	if (!try_module_get(phy->ops->owner)) {
-+		phy = ERR_PTR(-EPROBE_DEFER);
-+		goto out_unlock;
-+	}
- 
- 	get_device(&phy->dev);
- 
-+out_unlock:
-+	mutex_unlock(&phy_provider_mutex);
- 	return phy;
++	mutex_unlock(&ir_raw_client_lock);
  }
- EXPORT_SYMBOL_GPL(of_phy_get);
-@@ -678,6 +683,7 @@ struct phy *phy_get(struct device *dev, const char *string)
- 		return ERR_PTR(-EINVAL);
+ 
+ /*
+@@ -703,15 +704,24 @@ void ir_raw_handler_unregister(struct ir_raw_handler *ir_raw_handler)
+ 	struct ir_raw_event_ctrl *raw;
+ 	u64 protocols = ir_raw_handler->protocols;
+ 
++	mutex_lock(&ir_raw_client_lock);
++
+ 	mutex_lock(&ir_raw_handler_lock);
+ 	list_del(&ir_raw_handler->list);
++	atomic64_andnot(protocols, &available_protocols);
++	mutex_unlock(&ir_raw_handler_lock);
++
+ 	list_for_each_entry(raw, &ir_raw_client_list, list) {
++		mutex_lock(&raw->dev->lock);
++		mutex_lock(&ir_raw_handler_lock);
+ 		if (ir_raw_handler->raw_unregister &&
+ 		    (raw->dev->enabled_protocols & protocols))
+ 			ir_raw_handler->raw_unregister(raw->dev);
+-		ir_raw_disable_protocols(raw->dev, protocols);
++		raw->dev->enabled_protocols &= ~protocols;
++		mutex_unlock(&ir_raw_handler_lock);
++		mutex_unlock(&raw->dev->lock);
  	}
- 
-+	mutex_lock(&phy_provider_mutex);
- 	if (dev->of_node) {
- 		index = of_property_match_string(dev->of_node, "phy-names",
- 			string);
-@@ -686,10 +692,12 @@ struct phy *phy_get(struct device *dev, const char *string)
- 		phy = phy_find(dev, string);
- 	}
- 	if (IS_ERR(phy))
--		return phy;
-+		goto out_unlock;
- 
--	if (!try_module_get(phy->ops->owner))
--		return ERR_PTR(-EPROBE_DEFER);
-+	if (!try_module_get(phy->ops->owner)) {
-+		phy = ERR_PTR(-EPROBE_DEFER);
-+		goto out_unlock;
-+	}
- 
- 	get_device(&phy->dev);
- 
-@@ -698,6 +706,8 @@ struct phy *phy_get(struct device *dev, const char *string)
- 		dev_dbg(dev, "failed to create device link to %s\n",
- 			dev_name(phy->dev.parent));
- 
-+out_unlock:
-+	mutex_unlock(&phy_provider_mutex);
- 	return phy;
+-	atomic64_andnot(protocols, &available_protocols);
+-	mutex_unlock(&ir_raw_handler_lock);
++
++	mutex_unlock(&ir_raw_client_lock);
  }
- EXPORT_SYMBOL_GPL(phy_get);
-@@ -837,15 +847,17 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
- 	if (!ptr)
- 		return ERR_PTR(-ENOMEM);
- 
-+	mutex_lock(&phy_provider_mutex);
- 	phy = _of_phy_get(np, index);
- 	if (IS_ERR(phy)) {
- 		devres_free(ptr);
--		return phy;
-+		goto out_unlock;
- 	}
- 
- 	if (!try_module_get(phy->ops->owner)) {
- 		devres_free(ptr);
--		return ERR_PTR(-EPROBE_DEFER);
-+		phy = ERR_PTR(-EPROBE_DEFER);
-+		goto out_unlock;
- 	}
- 
- 	get_device(&phy->dev);
-@@ -858,6 +870,8 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
- 		dev_dbg(dev, "failed to create device link to %s\n",
- 			dev_name(phy->dev.parent));
- 
-+out_unlock:
-+	mutex_unlock(&phy_provider_mutex);
- 	return phy;
- }
- EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
+ EXPORT_SYMBOL(ir_raw_handler_unregister);
 -- 
 2.53.0
 
