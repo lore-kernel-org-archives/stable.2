@@ -1,59 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793838499;
-	b=fj2ydyvxAdDuN11EUBYXzcQ/1lJhxu7D1tmZ7D6yYdJQpqe/aE1MK1Ugtqn1JgsEFIHq
-	 ptopyOg+2/A9cPpavHULHS89jVYYhucm03fOyRLJdQyE0H7bzxxhFqGS+Ar5ksPw0Al8R
-	 bbYAwR5gIxxhqZO5Itzg2N1sIYRAsSxc2+PvhhU/MpDHxFUbKrdkgZSjcifhChV9IwdgN
-	 iKbplVQxkH15y1vDHJrqPUqm45BGJurJEEG51LjGppAx8C8va7dfbpLO8TzGJtiU3o8yT
-	 rSOu5KXQwZHH5CQvMnzttIQT7tNbnUxJyAR+hPS6tCl+kqAIVhnLH53H5vwWdmJ3p/w==
+	t=1793839093;
+	b=TW2kgKfKQ9JpUSLZWHgRwrsapCmgO2iG9dNkhCx4HODzj3wZIo5hxfimMzMayPhHOmze
+	 8CvXHWsP5mKAnM/2wXQhCuAaxDySLLodFO3iBXUviks5N0ndzLGtcHHfoR7HmO/EfoB18
+	 oZHbZBy0kCtsNkik+nLtRzZ4y4D1XWxrZTOStCqMGwdwFZaaigIDj57friZnaeXRUczMs
+	 zCMVzKNmkrrUr9EflfUob9elACiP/ern5UDSrb7+ulhJuLqwHoWQE/51tXBKeP+BnQPb7
+	 9nZQzWgfffM8y3Cnof7tM3cCdOqQAY0kEr2kgV9YMNJ0hUdeUPub+xXJ68PrJZVzFrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793838499;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=+fcZSr/8DIicfjiJFn4Q5iadDvBffA+oE/j8iUxjfSg=;
-	b=Hk/kmkXMVB+YcgdgnGSccxojSVFmJqd7dntb6m0bRyLepTmFf/LGBuGtFcAteD+Ny6hl
-	 710S43ZrJHfttY1Pm3EUZVs/779W9kShcQSWf0IJK0B7Kkd1oqmdaJD9NIpkf0AUxHaOv
-	 q8WcazsYFKhYh9xdwwHbPwK4BCerS0tfoDGweBz0y5mizMJ/DjBAUfU6BKcYhfZuO9SWz
-	 xri8XVYsZS6O6BXowQ54s9tEc3rS7O83NYEemUYxE6ODg8FVT68qClNXlXtzFbR5ak2lw
-	 FisCyB9vKtrKjq7kb+fezUNr9kFaow9S3zIHQgieBBV9M3s7IhXF7HJtbvy65/JKHjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793839093;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=hrAvguoF5hZGOcIOkWctsnR8n697FrD5ft7156fooRc=;
+	b=CRGhJuJwevj7g2nL5+t9hMBEsaQO+DVQ5g7R0O546Mb6p0nPMtyK+n8GEq7xCSxypSfs
+	 SVHy6xbRkF9rgOSSNUoIcmHtgNi4oy3zYubBT1oqmh/47ZfcfiFntaJt0D71xsZotwUzV
+	 //ZO9DV8CQ8XHk6AEmoTm1bXErgweN8+bNymBHgBF9N8RRM0aQtjAR4m32Ah7sx70sHOT
+	 j/nG5QZd148cPaZGz6AridJzcuKZFHUbYQ3sOulPMfLqZX2z/FgS6AYi0CO49Z/O9dQse
+	 puc589RHKnXytNhsrgq1M48b0esOi+be9n3gzWf6w9TgJ8MYWfroT3v34sJafOjpQLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.de;
-	spf=pass smtp.mailfrom=gmx.de;
-	dkim=pass header.d=gmx.de header.i=rwarsow@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=MjZDejx3;
-	arc=none smtp.remote-ip=212.227.15.18
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Kc6aW/Dh";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B10606A31B;
-	Thu,  5 Nov 2026 00:28:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27B10606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2584C606A329
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:38:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmx.de header.i=rwarsow@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=MjZDejx3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1793838473; x=1794443273; i=rwarsow@gmx.de;
-	bh=+fcZSr/8DIicfjiJFn4Q5iadDvBffA+oE/j8iUxjfSg=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=MjZDejx3y57evfJnJ/JAzd7db24iDM52WjEMDqGHefeHRkaLL9s4HmkdQ0/I4Us1
-	 J7HD8YYj98vfSfMeVypGcKBT2iidQDIUTFkPJWLSSMCaOf5OE4ZHNe9CL6FM/ANmJ
-	 6Fe2S747hApQ95t6Xk0xdZ7/R9V0BRQhSJYxUdmonBgOGvz6dYt7s7xbM0GGj+uDY
-	 xlo0H5YPYkJAh45b1lO93J1EgAfR38KSHNwQwKpbUBU47n+e9ifbeTO8gOuJWw7yI
-	 +wtzOtYsbDcL1gfEo7Vm8r9sNGaWdgtKSAJFUFyccAIysPBJM0d2L+h+gEMZP2uAw
-	 kYAaE7Mf0oN2qk6DGA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MgeoI-1wsjMz146W-00ifw4; Thu, 05
- Nov 2026 01:27:53 +0100
-Message-ID: <3dfb9b8d-3bf7-4fa2-89ec-6561c1b7b70e@gmx.de>
-Date: Thu, 5 Nov 2026 01:27:50 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kc6aW/Dh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 461281F000C1;
+	Thu,  5 Nov 2026 00:38:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793839092;
+	bh=hrAvguoF5hZGOcIOkWctsnR8n697FrD5ft7156fooRc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Kc6aW/DhSFikjv2u4XVFjmp57/3Vs+jNaPOIkXXLKIBmPaq/ryWi4ju/GL1IZu+9M
+	 ok1qG7lzgH2L7G67FreevCnL3TuF+Xp8008O1fUTyrpVJWd9z59auLfPp4ELpFLJji
+	 BEIjNR6vjXaZvFMdnhI4SW2wa2gRNIDL3toaLQZMzo4wKzCN1r0FapKcyUY/xvG5Bu
+	 JmAvAcav8pBGp0lFGZg99MfuqjfLZ/ducFZ8MEyjR39YpY5QfRd/5l0bw7goHCP1F3
+	 YU3M+pxlQQNImAFSwvOTNQYuWZZMyHkbA9Qskxah4k611HKLZ141pj5VmwwYDLy2G1
+	 oq+DcStEEU2+Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Danish Khateeb <danishkhateeb03@gmail.com>,
+	Rodolfo Giometti <giometti@enneenne.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] pps: generators: don't use the driver's info after unregister
+Date: Wed,  4 Nov 2026 19:38:10 -0500
+Message-ID: <20261105003742.1032816-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110431-imminent-guts-a847@gregkh>
+References: <2026110431-imminent-guts-a847@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,192 +60,149 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261104211038.406938024@linuxfoundation.org>
-From: Ronald Warsow <rwarsow@gmx.de>
-Content-Language: de-DE, en-US
-In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:WhRlFt5N/0ILcCHR8OZIwNhPz0rCLzI4eb4Qu5n2tLkP/GNTJeW
- sTNlFuHN9DpfowWwfflJ3q+sNzRYjZNtivqNXE62rzxj9yHPlJyymAnJMLGByUGk/nkdPG5
- o40j2T7XEuVO10WyVdykKG6Cuh+LtwKBS4JtScEeMdmqmhGc2h8H+ImGJafetw+IXnaQZd/
- J1ImNPu93L+fO4c2YWzww==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:fpL7rYvL7Og=;+QPVLqQa+Ymxl6slPZF/C4dPuxk
- 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
+Content-Transfer-Encoding: 8bit
 
-Hi
+From: Danish Khateeb <danishkhateeb03@gmail.com>
 
-kernel build / boot test on x86_64 (11th Gen Intel Core i5-11400).
+[ Upstream commit 4e8063cae337cb7328e6856235cf4de5d165516e ]
 
+A file that was opened before pps_gen_unregister_source() keeps
+pps_gen, and with it the pointer to the driver's pps_gen_source_info.
+PPS_GEN_SETENABLE and PPS_GEN_USESYSTEMCLOCK keep using that pointer
+after the driver has gone:
 
-not bisected, just "visual grepped" on the linux-stable-rc.git log !
+ - pps_gen_tio allocates its info with devm_kzalloc(), so after an
+   unbind both ioctls read freed memory, and SETENABLE calls the
+   driver's enable() with its freed private data.
 
-I need to revert:
+ - pps_gen-dummy does not set info->owner, so it can be unloaded while
+   the file is open, and the ioctls then read the unloaded module's
+   data and call its code.
 
-"x86/mm/pat: Fix effective RW computation in lookup_address_in_pgd_attr()"
+TIO can't probe in a VM, as it needs ART. A test driver that registers
+its info in devm memory like TIO does, unbound while /dev/pps-gen0 is
+open, gives:
 
-commit 7f85bfd44bcccf315eb30145e9c2a2fd9f6f8a87
+  BUG: KASAN: slab-use-after-free in pps_gen_cdev_ioctl+0x4c1/0x580
+  Read of size 1 at addr ffff88800e647f38 by task ppsgen64/145
+  ...
+  Freed by task 146:
+   kfree+0x25a/0x6d0
+   release_nodes+0xd1/0x140
+   devres_release_all+0x10e/0x1a0
+   device_unbind_cleanup+0x71/0x250
+   device_release_driver_internal+0x41b/0x570
+   unbind_store+0xd9/0x100
 
+and unloading pps_gen-dummy while its file is open oopses:
 
-otherwise I get:
+  BUG: unable to handle page fault for address: ffffffffa0203040
+  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:pps_gen_cdev_ioctl+0x372/0x580
 
-[    0.105981] x86/fpu: Enabled xstate features 0x2ff, context size is=20
-2568 bytes, using 'compacted' format.
-[    0.108036] ------------[ cut here ]------------
-[    0.108037] CPA detected W^X violation: 8000000000000123 ->=20
-0000000000000123 range: 0xffffffffc0400000 - 0xffffffffc0400fff PFN 101000
-[    0.108039] WARNING: arch/x86/mm/pat/set_memory.c:722 at=20
-__change_page_attr_set_clr+0xc4c/0x11f0, CPU#0: swapper/0/0
-[    0.108043] Modules linked in:
-[    0.108045] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted=20
-7.3.2-rc1_MY-g75eaee7a6465 #1 PREEMPT(lazy)
-[    0.108047] Hardware name: ASUS System Product Name/ROG STRIX B560-G=20
-GAMING WIFI, BIOS 2501 05/22/2026
-[    0.108048] RIP: 0010:__change_page_attr_set_clr+0xc65/0x11f0
-[    0.108050] Code: 7c 24 4c 00 0f 85 e9 03 00 00 48 8d 3d a4 78 01 03=20
-48 8b 34 24 4d 89 e9 4d 8d 84 24 ff 0f 00 00 4c 89 e1 48 89 c2 48 89 04=20
-24 <67> 48 0f b9 3a 48 8b 04 24 48 ba 00 f0 ff ff ff ff 0f 00 48 21 d3
-[    0.108052] RSP: 0000:ffffffff85203c40 EFLAGS: 00010246
-[    0.108053] RAX: 0000000000000123 RBX: 8000000101000123 RCX:=20
-ffffffffc0400000
-[    0.108054] RDX: 0000000000000123 RSI: 8000000000000123 RDI:=20
-ffffffff857c8f70
-[    0.108055] RBP: 8000000101000123 R08: ffffffffc0400fff R09:=20
-0000000000101000
-[    0.108056] R10: 0000000000000123 R11: 0000000000000000 R12:=20
-ffffffffc0400000
-[    0.108056] R13: 0000000000101000 R14: 000ffffffffff000 R15:=20
-ffffffff85203d40
-[    0.108057] FS:  0000000000000000(0000) GS:ffff97940910f000(0000)=20
-knlGS:0000000000000000
-[    0.108058] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    0.108059] CR2: ffff979067570000 CR3: 0000000126238001 CR4:=20
-0000000000770ef0
-[    0.108060] PKRU: 55555554
-[    0.108061] Call Trace:
-[    0.108062]  <TASK>
-[    0.108064]  ? _vm_unmap_aliases+0x229/0x2a0
-[    0.108067]  change_page_attr_set_clr+0x154/0x5a0
-[    0.108070]  ? perf_get_hw_event_config+0x28/0x30
-[    0.108072]  set_memory_x+0x39/0x50
-[    0.108073]  apply_retpolines+0x695/0x710
-[    0.108077]  ? perf_get_hw_event_config+0x28/0x30
-[    0.108078]  ? __pfx_x86_pmu_filter+0x7/0x10
-[    0.108080]  ? perf_get_hw_event_config+0x2d/0x30
-[    0.108081]  alternative_instructions+0x37/0xc0
-[    0.108086]  arch_cpu_finalize_init+0x11b/0x170
-[    0.108087]  start_kernel+0x9ae/0xa50
-[    0.108089]  x86_64_start_reservations+0x24/0x30
-[    0.108091]  x86_64_start_kernel+0x121/0x130
-[    0.108092]  common_startup_64+0x13e/0x158
-[    0.108095]  </TASK>
-[    0.108095] ---[ end trace 0000000000000000 ]---
+Protect info in the ioctl handler with a mutex, and clear it under the
+mutex on unregister, so that unregister waits for the ioctls using it
+and later ones fail with -ENODEV. PPS_KC_BIND does the same for a
+removed PPS device since commit 3649f9a6b897 ("pps: don't allow
+PPS_KC_BIND on removed devices"). The sysfs attributes need nothing
+new: they are removed, and their callbacks drained, before info is
+cleared.
 
+Fixes: 86b525bed275 ("drivers pps: add PPS generators support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+Acked-by: Rodolfo Giometti <giometti@enneenne.com>
+Link: https://patch.msgid.link/20260929124937.51114-3-danishkhateeb03@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/pps/generators/pps_gen.c | 31 ++++++++++++++++++++++++++-----
+ include/linux/pps_gen_kernel.h   |  2 ++
+ 2 files changed, 28 insertions(+), 5 deletions(-)
 
-Thanks
+diff --git a/drivers/pps/generators/pps_gen.c b/drivers/pps/generators/pps_gen.c
+index 69a470fa164d6..630a8804d63e7 100644
+--- a/drivers/pps/generators/pps_gen.c
++++ b/drivers/pps/generators/pps_gen.c
+@@ -69,17 +69,28 @@ static long pps_gen_cdev_ioctl(struct file *file,
+ 		if (ret)
+ 			return -EFAULT;
+ 
+-		ret = pps_gen->info->enable(pps_gen, status);
+-		if (ret)
+-			return ret;
+-		pps_gen->enabled = status;
++		scoped_guard(mutex, &pps_gen->info_lock) {
++			if (!pps_gen->info)
++				return -ENODEV;
++
++			ret = pps_gen->info->enable(pps_gen, status);
++			if (ret)
++				return ret;
++			pps_gen->enabled = status;
++		}
+ 
+ 		break;
+ 
+ 	case PPS_GEN_USESYSTEMCLOCK:
+ 		dev_dbg(&pps_gen->dev, "PPS_GEN_USESYSTEMCLOCK\n");
+ 
+-		ret = put_user(pps_gen->info->use_system_clock, uiuarg);
++		scoped_guard(mutex, &pps_gen->info_lock) {
++			if (!pps_gen->info)
++				return -ENODEV;
++			status = pps_gen->info->use_system_clock;
++		}
++
++		ret = put_user(status, uiuarg);
+ 		if (ret)
+ 			return -EFAULT;
+ 
+@@ -212,6 +223,15 @@ static void pps_gen_unregister_cdev(struct pps_gen_device *pps_gen)
+ {
+ 	pr_debug("unregistering pps-gen%d\n", pps_gen->id);
+ 	cdev_device_del(&pps_gen->cdev, &pps_gen->dev);
++
++	/*
++	 * An open file keeps pps_gen around, but the driver may free info as
++	 * soon as we return. The sysfs files are gone now, so wait for the
++	 * ioctls using info and make later ones fail.
++	 */
++	scoped_guard(mutex, &pps_gen->info_lock)
++		pps_gen->info = NULL;
++
+ 	put_device(&pps_gen->dev);
+ }
+ 
+@@ -243,6 +263,7 @@ struct pps_gen_device *pps_gen_register_source(const struct pps_gen_source_info
+ 	pps_gen->info = info;
+ 	pps_gen->enabled = false;
+ 
++	mutex_init(&pps_gen->info_lock);
+ 	init_waitqueue_head(&pps_gen->queue);
+ 	spin_lock_init(&pps_gen->lock);
+ 
+diff --git a/include/linux/pps_gen_kernel.h b/include/linux/pps_gen_kernel.h
+index f26f6aac000dc..c4d22b1af1186 100644
+--- a/include/linux/pps_gen_kernel.h
++++ b/include/linux/pps_gen_kernel.h
+@@ -11,6 +11,7 @@
+ #include <linux/pps_gen.h>
+ #include <linux/cdev.h>
+ #include <linux/device.h>
++#include <linux/mutex.h>
+ 
+ /*
+  * Global defines
+@@ -44,6 +45,7 @@ struct pps_gen_source_info {
+ /* The main struct */
+ struct pps_gen_device {
+ 	const struct pps_gen_source_info *info;	/* PSS generator info */
++	struct mutex info_lock;			/* protects info */
+ 	bool enabled;				/* PSS generator status */
+ 
+ 	unsigned int event;
+-- 
+2.53.0
 
-Tested-by: Ronald Warsow <rwarsow@gmx.de>
