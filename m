@@ -1,56 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893000;
-	b=GrYVQYP51e6BaplItE9bVojX8ite5M6N4JlnDCOm/Kjb11Cj7CvlY0ATQYu66Pw+FMmk
-	 65sOT6WKmFsBRAes8l5FWjwfihkBvtp55kSKJgW7oNvpBMnEWlRAEQ2tj4C5OVkvEdCDm
-	 RfUrPknkxXAvkliR6VFQ6k5E2W4JWhkFoBn79nOP1U4i64+lpS0fsJwbssUXaTkIaVKDQ
-	 75gpTsyRFwnUWyBNb9XFuofKY3niZfnQeO5T3U0/85Mo2/aaeRi/J/0Bx+K0AwMSuQyUo
-	 Hvzx796JhdAOIsjPAxZhQGsvvj9ui7WKGppxnaJPMpBWva9FiozEZ+0ZuesDj3C3K6g==
+	t=1793893060;
+	b=idO+PT8PgUuu5xy4wDxJIlBgCEL4Q1wO+cZt1r1d+lq+9Evw2pd0XGOZMOy5Eb+K6nN7
+	 S7wermlNu3C0nN4/h6wQBhNcv/BkvECA+I5aeICa8/q/dz1pBsUtXgVT4ElG9Uw3JaefU
+	 1Dpiq792cF0f6qtA5cRZ83HNoqPEFsmgprHlRn0vuvifKwATSA35tcrZHE5F+5tSkwlE9
+	 qhTv5ysHNxE/0fTQ4lSuF7S0g369a7xlcABRT45hiwbKeM+7N1foMoX7imcRUFSlfJrK4
+	 08XjxG3pb6U/qGEb3+cq8xoKTn4IHbSvt6Wm+jxpDSP2QSRha3oInf5A9l++ixUlChA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893000;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ky4beK/+hw3wcss1LWJTT1jnjng8gAoXEtFn4/aSbAA=;
-	b=tkixjQC3f70GwlRujOMEhJePCxwCF2KNl5RBS3f07NeA6zAK0c7S0ydgNinWTo6S1paO
-	 rK2BlEP8yezWFw+WOO6KFpFz3cvXpM1ctsdbDq+NFTJsU6KwbOSSF31Xrk+LF8QnzOds9
-	 aRq2IcQkAizsOid3bOKMM0RHBLOoZ1KolwF/SKwwjuwE2ee5TWonR6qcgNZLCA13aFewp
-	 5cR2G3TSX8Kvv3g4rC5635M5uIUedKhOUqCeSqhksIYI1eJClmaKCzPsIYwHZxyXOqjar
-	 G2d0qpMl5IHWYMO2EqCOzsIt0lKCEz0FfcQlnNsPOzEhMFcvbIjxfAIbk/5FeMwcGIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893060;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=BFU1+E9mcNhWQlXfE/O5YpbQsBrKf3zNJRBD64s14aA=;
+	b=cVO6O68HvBn0x+iJIhA9AlKHZsDK1gCjj1oczskUrih7aab2GLpQGQ1Io3VzJCffnJCD
+	 4/Rz/16n0r+AwYK97BcYML2FFM2X4QeTryFOuSi6+8QS7zhMYuVtdNHuLB27DaOY1WEWu
+	 juf4Oh98N9oRhycN6YB8JzfVxKJdMDoRbgs53WuyldT4BUEyRCjZ4QHJFAGj2zzbAfbNG
+	 KqxVM/UUVeBzIlnDHzRG0ojKaTi0b3/ad6szXb9daBjTyDfwRTArJH+LrB5DdR4zhNuTc
+	 /jo+ekbnyDuqJD3s/rDRwcGPqvRH8c4fSQdp5A77xTRw2bBl1WcYwEz6gezx8WpU7iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eD9ygtKe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=dkY2KMYZ;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF38606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:36:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E1C606A328;
+	Thu,  5 Nov 2026 15:37:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25E1C606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eD9ygtKe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6EFE1F000C1;
-	Thu,  5 Nov 2026 15:36:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793892999;
-	bh=ky4beK/+hw3wcss1LWJTT1jnjng8gAoXEtFn4/aSbAA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eD9ygtKeLJvTaJl2tKms9FowN73/DEF2p6RFS5kBjjzQAV2SNiOLsIP7Aky1rZ8XY
-	 JlQSTrjOUiGpb5Pif7zwEfyJHki6+obPBCyk3Xd1ztRvc6kHb/Vqy9hILg1F1QKpBn
-	 4O1LYdxLZihZV+qEQ9tmSj9zR4Pzu4dIHihtF0mg1bLuJNmpK/8P/BPjt7iZrW5/sS
-	 9eU1ekX9YN5XzZWKwks6ljMqbyuDp41jU9hlACFgUPdWidgz+pKeLjgF/5NJssJ13H
-	 cgHeZyFPL0RVH6EoQHm2KxxKOSNR/KAcJSFsNwTF5F+XmT3m3obMKm7VqLTg776g7a
-	 z61V4pf0UOy5w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] xfs: reject absurdly large xattr value lengths in xchk_xattr_actor
-Date: Thu,  5 Nov 2026 10:36:37 -0500
-Message-ID: <20261105153541.1981487-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110433-lubricate-ovary-6900@gregkh>
-References: <2026110433-lubricate-ovary-6900@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=dkY2KMYZ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=BFU1+E9mcNhWQlXfE/O5YpbQsBrKf3zNJRBD64s14aA=; b=dkY2KMYZBK3Uybj8OTII/JQrQK
+	SbS4k55YVkFvOY2qqXA2n1IDCLHioGpn6djci+mVulAfSoVBNHxBkVCaABDwYOP3LvLjWEEyT5AwP
+	gnXo5GWb4ESORE8+7B0thK6KF9ntyUiOBLQCX8cKVWmvxnHJjChfh1xZcz/FDiZIMuuZtPSNz7Dsh
+	SYwaYw78/re4N+0FyYt2HLQF5tBOZVL7HH3VsLmwL0zK+2aypec/A5FIGyAdin2SWciIIwcS951Lz
+	JehVzPvSzbLu7bN/PcZgRZzuGofxDVIyA4Tc6Lxl8NUxQylXcSUgHVa7+n8nTak0cfNBUgRb2JfYn
+	23ABZTLg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xOzWr-008bES-0Q;
+	Thu, 05 Nov 2026 15:37:29 +0000
+Date: Thu, 5 Nov 2026 07:37:24 -0800
+From: Breno Leitao <leitao@debian.org>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Petr Mladek <pmladek@suse.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	linux-kernel@vger.kernel.org, printk@lists.linux.dev, gustavold@gmail.com, 
+	samuelcrossley@gmail.com, ryan.roberts@arm.com, brads@mainlining.org, x86@kernel.org, 
+	kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] printk: nbcon: Flush unsafe consoles from printk()
+ in panic
+Message-ID: <auyh6TzbqTj0Xkvx@gmail.com>
+References: <20261102-panic_unsafe_flush-v1-0-12d1e22fd6d8@debian.org>
+ <20261102-panic_unsafe_flush-v1-1-12d1e22fd6d8@debian.org>
+ <87v76bz6rq.fsf@jogness.linutronix.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,47 +71,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87v76bz6rq.fsf@jogness.linutronix.de>
+X-Debian-User: leitao
 
-From: "Darrick J. Wong" <djwong@kernel.org>
+On Thu, Nov 05, 2026 at 03:40:33PM +0106, John Ogness wrote:
+> I am happy to code up a full implementation if you think this has merit
+> or you want to see the patch to decide.
 
-[ Upstream commit fd012955641881169a9f01a00f656f6ca73842ec ]
+Yes, please go ahead. I was only trying to move quickly and close the
+netconsole lack of messages gap we have right now, but if you can take
+this over, you are much better placed than I am in this area.
 
-LOLLM suggests that we shouldn't try to allocate absurdly large buffers
-for xattr value checks because that will push reclaim very hard, never
-succeed, and is pointless because nobody can create xattrs that large.
-Since the xattr repair code ignores values larger than XATTR_SIZE_MAX,
-we can flag the corruption and return early.
-
-Cc: stable@vger.kernel.org # v5.3
-Fixes: 6d6ccedd76823c ("xfs: only allocate memory for scrubbing attributes when we need it")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ sashal: adapted the check to xchk_xattr_listent(), using sx->sc and goto fail_xref instead of returning -ECANCELED ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/xfs/scrub/attr.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/fs/xfs/scrub/attr.c b/fs/xfs/scrub/attr.c
-index 601e02d749881..278a13cb6a22a 100644
---- a/fs/xfs/scrub/attr.c
-+++ b/fs/xfs/scrub/attr.c
-@@ -133,6 +133,12 @@ xchk_xattr_listent(
- 		return;
- 	}
- 
-+	/* Don't even try to handle a bizarrely large xattr. */
-+	if (valuelen > XATTR_SIZE_MAX) {
-+		xchk_fblock_set_corrupt(sx->sc, XFS_ATTR_FORK, args.blkno);
-+		goto fail_xref;
-+	}
-+
- 	/*
- 	 * Try to allocate enough memory to extrat the attr value.  If that
- 	 * doesn't work, we overload the seen_enough variable to convey
--- 
-2.53.0
-
+Thanks,
+--breno
