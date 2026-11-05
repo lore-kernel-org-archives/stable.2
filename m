@@ -1,98 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793836896;
-	b=BMBiNvvP7vI9VdZPVaOWTpC/T0Y3Fo1Tdr+5RYGcij/aa0M7pEpFYFqH7nNCVxG2ZX20
-	 QrP3W680C8Ri+tF3Dagy2tkKY8UojSFYcXvP1mPyx08gsKtJh7Cl6gF9rNZzWF83X+5XV
-	 k+Sr6hFJR6tKNgE0tgsUXFQ853ApbYmOubYHLTdtEVQTAmpNczv0+PaZd/54EuzvrypVQ
-	 M2MDxxx7HouizFKdn5D5XBxQunLU5BVZQrMg0McMkRgoi5sG1okCxEpLoBPupCrVs07Mn
-	 2KHUnQfogdVkLBfOtCMyXj8JrGSgS4ZJ3GaXvVi8daUv0jymBUrnRdWsoZH1bzt2Ghg==
+	t=1793837326;
+	b=ZCDWeFxnv9GBoYjzJ0kT8ux+WbEDybDT3V7pgweb7fcJO6daSR9pMJF1rJoy7JDwt6Ub
+	 z2NoRI+gmSBh2+riL5xBp4haK+D6QHmRiDR1JNkgau6kTX3y77saRa/wDJehdC4iJli2y
+	 yhr5w+p3qAG1+4z6b5k2kXa2IalGi9qiLd8vywaDJC5fS4A4E50EQuR37eptBsQOeEV/0
+	 JrE7VHZs2rKY9frXpns3bHBz9auMSAsxWkpBTdZ/v2RjwSnU8deZxvnhmFcMvQi/oOGdu
+	 Cajd7igFsE0r9Tj5X3hcYvNrf2iL4LSzgGshTHcha1DU+MqLdIj71OCPtPB1liNTflA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793836896;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=gm/vDnlTuFKVMqL/TZnaqXKn5wezgntxiqdLKGHEK7Q=;
-	b=beRM6t5guci+0VMKxchzAk82ug3qmzV3KCoshqzzQSD29oKNsSwHXtSsk/ODnp4x2Cra
-	 vCbqg41mWoPxSxHr9sfCF0O1Y62LFL+FS/1rYY5wetNmzA5Yz7VySupM0TMsxQ1VtZUqT
-	 a6rvFvVpHWq60RR6vI99Dx09amYVyS9KtuoFCEJzvhN+Kv8XXH217WG+maU619KLDFKik
-	 DVKxtXkrZ3jj+SGLXKiHvGoM6vfbEZFpoBOZEQDTbE/5r7xX4mLl7hBBgGzWbA+vFvH0n
-	 oSRQVTzToCknmRuWg1JG1byxs0BzF82L5jsrVfeavBoV/H9bC3o7ZSwd8SEDhNktE9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793837326;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=AoyI8+js6CBTlPGFphhIf16cjOV74ltgmCtIRebKI5E=;
+	b=n9APBfLtAR0mNP5HAOOrE1SW2wrOwNR15MruqSlGz5zUV3mzJe/0IoftvsQKHfF58tuJ
+	 TeGyQUAKCkHsIlFA35UaAHNQa+/QWtsT4/ZLgBcz7AHabSXvyyIi8rENQ+xdlJFyxbWBr
+	 YPIClGca77L6lQQU1ewRyQOFKZehDHvWsajuOEQH3atdFR46NuU3w8S48DYpsKChBmfbS
+	 QtjvbFkw9X+O6ICJ71Vu71R4QdYRrLbxMEAGZYZOidUO32u7DV5HJM09pt4EIPVc02XYp
+	 UszvcR09D51/pAYrasoj7Wu2ZjcTA/a3jQ9/FBQi9iLWNdNEz5a6I1E2q7itUE5xnEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=everpuredata.com;
-	spf=pass smtp.mailfrom=everpuredata.com;
-	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=VEOkF4in;
-	arc=none smtp.remote-ip=209.85.208.97
-Received: from mail-ed1-f97.google.com (mail-ed1-f97.google.com [209.85.208.97])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XzWPfN87;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9648606A336
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:01:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9648606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B92FE606A329
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:08:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=VEOkF4in
-Received: by mail-ed1-f97.google.com with SMTP id 4fb4d7f45d1cf-6b4b7dee316so339301a12.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 16:01:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1793836893; x=1794441693; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gm/vDnlTuFKVMqL/TZnaqXKn5wezgntxiqdLKGHEK7Q=;
-        b=VEOkF4inkPh8PvmCzWkhTF6gsH5LTk6ABZ3caXemnHl/vTA7F+i+F/gPLE1EkH9gZq
-         gfXpSTEP5SvZesmtMEPiNvrHCinzSzd6e+Q6aspzUyH0RJ8wgJMmeEgdg+4zsO5qgUpr
-         NfggPGOqFFnSLj8YdC6iHWrOxd+o92VbaKr+XyjNJAOv9ii7w3DkLu4z1LQ3SeSC0ixM
-         GaaB+WYh48Y7Ft3W/y4HpASfe0kiLkFIrCTW91IzMjt6sBNp3Ik5JpNMWDeaGGLPrDU8
-         by40Qyxl6xeJqIEBqjq1farP+Qn9YkhxJ+fTKneYFh7erYcIkN02lsA51wLS7djIVgKD
-         Pgfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793836893; x=1794441693;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gm/vDnlTuFKVMqL/TZnaqXKn5wezgntxiqdLKGHEK7Q=;
-        b=bHvnvxgseJOu1h10RNx29TBHHWcLNVtPOhv/nOkDMnbnzglRIMWAB3SF+A8AiT6eet
-         tpJuMYhfZxsJZaAcKXDp8FJ9tM+eyJdK3dd6VdBDQus+k/DwqhOi+ATS0AcrPOIGeNTD
-         VNG77WJ2tO2KqEpE6Dg+YXGiuygF1xtRSk/MAYivnpX8LnVnLMwVZCQ8uRcuvPSgGwYp
-         NUq0mdIAkAI9eOVpfgpsUMHDFIJ1W7s/shcg+6XgCAyg9xcH/260C6V+dsw/tAbHCR8l
-         eGx/TwD5mVEGZD5Ry/Cm73B4eiIF3GnM95q2btoSv5hf3xXppuT8plw8xhRBBlpc8Yqo
-         wEWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx6yOSiPYqTAvSfRNPI5O55pQy6i33ej8WM0YN8NeW0GzBWGYf7TIYhwROZqkuhDSs02jeNjxo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/LuZPZedCN548lKBzY/UgG780n5vtPIrPiLw1fllmSYacHH4HO
-	zeuY4YqxzkisYq7RntvYWf2jnedzTBwX49hAcsAm3fYUqyX2FILXRPLAK+AlqJalzs+Oqq7ZNoN
-	/+6p8txvRWWKJ3CXF7H0v40Me4ZhJARGa2RAK
-X-Gm-Gg: AYBFou26VncP3Y1IaTKtbvbVmIHZXjbU+GM9OBYOHQN6Rw7rByJTGhLQnWhNDoyDdga
-	otdxP/fOp8TD42KaI4GMRzLKJlRL6bIjNO1G7m9xsS8X19j4EIa95mqYKFX9+Yx8jNdw/7CV5GI
-	c1B2ybLmQn0w1diGbiUzMOOPCKxLojfusZ0XUTWl8e7LG+HRfpUUn4LMu+Os7CLZAXZ0TwiKe5C
-	C0K+UNDLOgdIuB4GgGhYXlu81h7r0vYNFnkI3LW9Z14shKWVjRWv7qvL+wrvwndOFYuITIVnWc5
-	n+vOPQbOvjQ/F1VVPYFVQuXyDZJbkaL5Pp/UpVDA8F5g39FNfXIoDPXJ0KgEGImascaRHg0ilRF
-	XwDzeULn/RLuShGfR39sOgGm5tZOfDDeLON9aWw8=
-X-Received: by 2002:a05:6402:223c:b0:6b4:2806:b057 with SMTP id 4fb4d7f45d1cf-6b4d4d80570mr8548816a12.35.1793836893130;
-        Wed, 04 Nov 2026 16:01:33 -0800 (PST)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
-        by smtp-relay.gmail.com with ESMTPS id 4fb4d7f45d1cf-6b55acdf034sm713224a12.16.2026.11.04.16.01.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 16:01:33 -0800 (PST)
-X-Relaying-Domain: everpuredata.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 5FAA8341883;
-	Wed,  4 Nov 2026 16:01:31 -0800 (PST)
-From: Tim Menninger <tmenninger@everpuredata.com>
-To: trondmy@kernel.org,
-	anna@kernel.org
-Cc: bcodding@hammerspace.com,
-	Eric Badger <ebadger@everpuredata.com>,
-	Jon Curley <jcurley@everpuredata.com>,
-	Prabhakar Pujeri <prabhakar.pujeri@dell.com>,
-	linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] pNFS: avoid repeatedly cancelling I/O for the same lseg
-Date: Thu,  5 Nov 2026 00:01:31 +0000
-Message-ID: <20261105000131.2512336-1-tmenninger@everpuredata.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XzWPfN87
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 416981F000C1;
+	Thu,  5 Nov 2026 00:08:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793837325;
+	bh=AoyI8+js6CBTlPGFphhIf16cjOV74ltgmCtIRebKI5E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XzWPfN87P1BOvgfZziYNKMrXR2hmzSY5/DJ3vJH9LivWaRPtH9yqbEeR4TOtgdyUb
+	 4B/FcMcCWwi5zjRlx8ipjj83lNmQkW8mpaOvNwhHAdL1XB8qqN8DXtQ/hKYFKzLESy
+	 fjG+i56tXN12VeV5rZ2mN3po47vy1X4C9c7eiNba/D4TimQAAoLGIR/f9E2dnCUQzM
+	 muhHpiXgU6hW5pfrQIHdcaZ50nZ8ugRdGROtMlqc2Td2czmuiOuXWIJOtbwanzBcBO
+	 MQl04+a28/ZMFTEBvujIE6tCL+o3PJKYEPU06t6udh1GU+YAtEr27RTW3UoC2vouNP
+	 uwzxU001zrTAA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Vernon Yang <yanglincheng@kylinos.cn>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Zach O'Keefe <zokeefe@google.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm: khugepaged: fix swap entry value to folio_pfn()
+Date: Wed,  4 Nov 2026 19:08:42 -0500
+Message-ID: <20261105000826.927011-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110434-getup-ongoing-7464@gregkh>
+References: <2026110434-getup-ongoing-7464@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,110 +68,141 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is
-recalled or revoked") added I/O cancellation when a layout segment is
-invalidated while outstanding references remain.
+From: Vernon Yang <yanglincheng@kylinos.cn>
 
-The invalid segment stays on the layout's segment list until those
-references drain. Subsequent scans can find it again and repeatedly
-invoke the layout driver's cancel_io() callback. For flexfiles, this
-cancels matching RPC tasks and disconnects data server RPC clients.
-During RPC/RDMA data server recovery, repeated cancellation can cause a
-reconnect loop that consumes essentially all client CPU and prevents
-forward progress.
+[ Upstream commit 942c8ec27aa4ffc587511650718349964e1696e6 ]
 
-Record cancellation requests per mirror stripe in the flexfiles layout
-segment. Each stripe is cancelled at most once, regardless of how many
-times the invalid segment is encountered. A per-stripe bitmap rather
-than a single per-segment bit preserves the ability to cancel I/O to a
-different device after an earlier device-specific cancellation.
+Patch series "mm: khugepaged: fix tracepoint UAF", v5.
 
-Cancellation is best-effort. An RPC that has already passed the
-layout-validity check may not yet be visible to the cancellation
-scan. Such I/O retains its lseg reference and remains subject to
-the normal RPC completion and recovery paths. Suppress repeated
-cancellation and disconnect requests without changing the existing
-lseg lifetime and deferred layout-return accounting.
+The khugepaged tracepoints take a folio pointer and call folio_pfn(), but
+by then the folio may no longer be valid: freed after folio_put(),
+folio_unlock() or pte_unmap_unlock(), or not a folio at all but an
+xarray-encoded swap entry.  On classic SPARSEMEM, dereferencing it oopses
+khugepaged as soon as the trace event is enabled; on other memory models
+it merely prints a bogus pfn.
 
-This reproduced on 6.8.0, 7.0.0, and 7.4.0-rc1. It was tested on
-7.4.0-rc1 with sustained pNFS/flexfiles I/O over RPC/RDMA while
-restarting the NFS service on a data server. Without it, repeated
-cancellation led to a reconnect loop and no workload recovery. With it,
-the client recovered after the data server returned.
+Pass the pfn to the tracepoints directly, captured while the folio is
+still pinned, closing the use-after-free windows in
+mm_khugepaged_scan_file(), mm_khugepaged_scan_pmd() and
+mm_khugepaged_collapse_file().
 
-Fixes: b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is recalled or revoked")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
+This patch (of 3):
+
+When the swap entries found exceed max_ptes_swap, the loop is left via
+break with folio still holding the xarray value that encodes the swap
+entry, not valid folio pointer.
+
+That value is passed to trace_mm_khugepaged_scan_file(), which feeds it to
+folio_pfn().  On FLATMEM and SPARSEMEM_VMEMMAP, the page_to_pfn() is plain
+pointer arithmetic, so the trace event merely prints bogus scan_pfn.  On
+classic SPARSEMEM, the page_to_pfn() reads page->flags, dereferencing the
+tiny encoded integer and oopsing khugepaged whenever the trace event is
+enabled.
+
+So when folio is the swap entry value, simply set pfn to -1, just like
+exhausted scan naturally.
+
+And the folio_put() has maybe dropped the last reference of folio.  The
+trace_mm_khugepaged_scan_file() is left with a dangling folio pointer.  so
+using the folio_pfn() before dropping the reference, closing
+use-after-free window.
+
+Link: https://lore.kernel.org/20260909025804.3233645-1-vernon2gm@gmail.com
+Link: https://lore.kernel.org/20260909025804.3233645-2-vernon2gm@gmail.com
+Fixes: d41fd2016ed0 ("mm/khugepaged: add tracepoint to hpage_collapse_scan_file()")
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Zach O'Keefe <zokeefe@google.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: adjusted PFN capture context for the existing scanner, which lacks temporary folio references and corresponding folio_put() calls ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2:
-- Rework cancellation tracking to accommodate per-device cancellation.
-- Track cancellation per stripe rather than per layout segment.
-- Clarify that cancellation is best-effort.
-- Document the data-server restart reproducer.
-- Drop Reviewed-by tag due to substantial implementation changes.
+ include/trace/events/huge_memory.h | 6 +++---
+ mm/khugepaged.c                    | 7 ++++++-
+ 2 files changed, 9 insertions(+), 4 deletions(-)
 
-v1: https://lore.kernel.org/all/20260916232906.4101987-1-tmenninger@everpuredata.com/
-
- fs/nfs/flexfilelayout/flexfilelayout.c | 12 ++++++++++++
- fs/nfs/flexfilelayout/flexfilelayout.h |  1 +
- 2 files changed, 13 insertions(+)
-
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
-index 9492d6bc1d1a7..4419ded8fe586 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.c
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.c
-@@ -11,6 +11,7 @@
- #include <linux/nfs_mount.h>
- #include <linux/nfs_page.h>
- #include <linux/module.h>
-+#include <linux/bitmap.h>
- #include <linux/file.h>
- #include <linux/sched/mm.h>
+diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
+index 61967625c53d7..8f63af61c3ccb 100644
+--- a/include/trace/events/huge_memory.h
++++ b/include/trace/events/huge_memory.h
+@@ -174,10 +174,10 @@ TRACE_EVENT(mm_collapse_huge_page_swapin,
  
-@@ -340,6 +341,7 @@ static void _ff_layout_free_lseg(struct nfs4_ff_layout_segment *fls)
- {
- 	if (fls) {
- 		ff_layout_free_mirror_array(fls);
-+		bitmap_free(fls->cancelled_stripes);
- 		kfree(fls);
+ TRACE_EVENT(mm_khugepaged_scan_file,
+ 
+-	TP_PROTO(struct mm_struct *mm, struct folio *folio, struct file *file,
++	TP_PROTO(struct mm_struct *mm, unsigned long pfn, struct file *file,
+ 		 int present, int swap, int result),
+ 
+-	TP_ARGS(mm, folio, file, present, swap, result),
++	TP_ARGS(mm, pfn, file, present, swap, result),
+ 
+ 	TP_STRUCT__entry(
+ 		__field(struct mm_struct *, mm)
+@@ -190,7 +190,7 @@ TRACE_EVENT(mm_khugepaged_scan_file,
+ 
+ 	TP_fast_assign(
+ 		__entry->mm = mm;
+-		__entry->pfn = folio ? folio_pfn(folio) : -1;
++		__entry->pfn = pfn;
+ 		__assign_str(filename);
+ 		__entry->present = present;
+ 		__entry->swap = swap;
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 0c111142e1e4d..7a54ce0f126bc 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2258,6 +2258,7 @@ static int hpage_collapse_scan_file(struct mm_struct *mm, unsigned long addr,
+ 	int present, swap;
+ 	int node = NUMA_NO_NODE;
+ 	int result = SCAN_SUCCEED;
++	unsigned long failed_pfn = -1;
+ 
+ 	present = 0;
+ 	swap = 0;
+@@ -2283,6 +2284,7 @@ static int hpage_collapse_scan_file(struct mm_struct *mm, unsigned long addr,
+ 		    folio->index == start) {
+ 			/* Maybe PMD-mapped */
+ 			result = SCAN_PTE_MAPPED_HUGEPAGE;
++			failed_pfn = folio_pfn(folio);
+ 			/*
+ 			 * For SCAN_PTE_MAPPED_HUGEPAGE, further processing
+ 			 * by the caller won't touch the page cache, and so
+@@ -2295,17 +2297,20 @@ static int hpage_collapse_scan_file(struct mm_struct *mm, unsigned long addr,
+ 		node = folio_nid(folio);
+ 		if (hpage_collapse_scan_abort(node, cc)) {
+ 			result = SCAN_SCAN_ABORT;
++			failed_pfn = folio_pfn(folio);
+ 			break;
+ 		}
+ 		cc->node_load[node]++;
+ 
+ 		if (!folio_test_lru(folio)) {
+ 			result = SCAN_PAGE_LRU;
++			failed_pfn = folio_pfn(folio);
+ 			break;
+ 		}
+ 
+ 		if (!is_refcount_suitable(folio)) {
+ 			result = SCAN_PAGE_COUNT;
++			failed_pfn = folio_pfn(folio);
+ 			break;
+ 		}
+ 
+@@ -2335,7 +2340,7 @@ static int hpage_collapse_scan_file(struct mm_struct *mm, unsigned long addr,
+ 		}
  	}
+ 
+-	trace_mm_khugepaged_scan_file(mm, folio, file, present, swap, result);
++	trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present, swap, result);
+ 	return result;
  }
-@@ -653,6 +655,12 @@ ff_layout_alloc_lseg(struct pnfs_layout_hdr *lh,
- 		fls->mirror_array[i]->report_interval = be32_to_cpup(p);
- 
- out_sort_mirrors:
-+	fls->cancelled_stripes = bitmap_zalloc(
-+		fls->mirror_array_cnt * dss_count, gfp_flags);
-+	if (!fls->cancelled_stripes) {
-+		rc = -ENOMEM;
-+		goto out_err_free;
-+	}
- 	ff_layout_sort_mirrors(fls);
- 	ret = &fls->generic_hdr;
- 	dprintk("<-- %s (success)\n", __func__);
-@@ -2582,6 +2590,10 @@ static void ff_layout_cancel_io(struct pnfs_layout_segment *lseg,
- 			if (devid && memcmp(&mirror->dss[dss_id].devid, devid,
- 					    sizeof(*devid)) != 0)
- 				continue;
-+			/* Do not cancel a stripe again while this lseg drains. */
-+			if (test_and_set_bit(idx * mirror->dss_count + dss_id,
-+					     flseg->cancelled_stripes))
-+				continue;
- 			rcu_read_lock();
- 			mirror_ds = rcu_dereference(mirror->dss[dss_id].mirror_ds);
- 			if (IS_ERR_OR_NULL(mirror_ds) ||
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.h b/fs/nfs/flexfilelayout/flexfilelayout.h
-index 09c3cd6964fd6..5d5587fded76f 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.h
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.h
-@@ -109,6 +109,7 @@ struct nfs4_ff_layout_segment {
- 	u64				stripe_unit;
- 	u32				flags;
- 	u32				mirror_array_cnt;
-+	unsigned long			*cancelled_stripes;
- 	struct nfs4_ff_layout_mirror	*mirror_array[] __counted_by(mirror_array_cnt);
- };
- 
+ #else
 -- 
 2.53.0
 
