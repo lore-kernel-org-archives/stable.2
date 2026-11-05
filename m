@@ -1,118 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793874171;
-	b=MFV39kpR9sOlwSMEj09NoAiECUasH5GbGkpqJJ/p7FxlGRTUjYsi+1cdjqKn7eQJ1kdQ
-	 /PlrFo8mfT3P+fcXo2IyVq102Efjx3wigNOyOMUw9DU094S3Mtx1pkhiDo+pXWld0gnMD
-	 8mtLYbz+JUZR4ieCFirZQzt9frAkHvuE2YJG1EabH7mJhrGQpMq81tH2PDhXUcBX6jPdC
-	 4UM557BZ9Z3OYTvcoiljcuNTJFlqJlAIXgUGxoRbxp5F4YT2auz/EYwd5v/yySW6Wygi5
-	 IhEcZja1CSyMUqFMXgqnI/f1H5H0xeK0BKtJzihKktaISX/TJK2LuPK0PI3E2LI+INg==
+	t=1793874545;
+	b=ntezZ9WGaqJbEg/1NtJAcMhkyv5VnZZK05ChZWTpgxo1keH+K8jftarUAoN2Ba3tPs87
+	 OMUV5w0UPTpxCl8r0zxWLwY4kYuA5ZG5y3T85OIvRCtzbtw70T+xoadT2Tb0YEXgWbH8a
+	 9wenkevVeqi2zUA/DT+v1K9iZ/WUMR4lSbY0759ykn2oy8y/2+AzVS/kuhZ0gDPOZLZO5
+	 5JIm0h4WWv4MjWbgLghMCWJK9yVkxmKhD0BJJh9Z+RDBmit1nznZB8cNU13M+BBBuxqf1
+	 HDHM0vC3LX/KyF2jSxtrkA99MCYn/kKazYl4y9i1CJYHVTweOya+Wd6beP0WGZ9LoOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793874171;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=mA0JUWIMJDLe3trqouiE/a4ohypc9UC+FqDIAXVqBsQ=;
-	b=KrPIfpu1v1pUe2WwHmEN10wCBZfWtf45+6nEobcqaBMzQ7hlqwKBBiP0k+5dfWMLKEkJ
-	 xS0NAY8VKajcToN/KsQbPK4TpsSN+zMzp87AyGSCQGrkLV84OiXu6MuIfJHKWJG3+pU1j
-	 dugWXbpohWd8dggaFG9nJsm9TnSArHARZCb/3dLkjCBWEB7vf68hxYSSGm/3cMZnNMdgm
-	 RlVkDGSjHigNAPzCd6CtQ2f+g7pJ+rugmlWHFuMSs8gUX8oMnVz6BhMR5W6C++Kc0jQGw
-	 szm/z6YzecuxdmFg5rUNJBLYce9w4A76RIeZr6O8P8+TMpB+exX+4qO2t8BOfMTN7lA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793874545;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=ajLIzQVCgaI7n9OILj8/6lpTK+AiVXchsMOmXAlkCEA=;
+	b=4xGnGW03A9pd2Ygauiua4eNGfXUlVA14R5yYsUJEyUK9CrimpNR6aExYrq8Rko2ny+62
+	 sz1iKWh3M9Tee+JxMAvvgyKB4x5A0TBxB8pj08dCTcKLenobKThAyrLiTDbjdURrbVGUb
+	 YkSSXDSuuZonDcCgKV9XHmjYoeUlUgVeIx+fEBLMK1iNcEHa2159/4V3XMXjCZFo3BScD
+	 3Vw3io1R7vBzCaR23aV8FaLYydvUph1KCSvQFeX/jREzt2I15PVjAuwBWVYJ+26KkCdi0
+	 uegvEUhO3pzwcumtUWigAE8Bx+yLYJVOWheh2uHutAxxdBT/Q00kuZzVW2TchI2A1SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=temperror header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UeONTUv0;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="qC/e/HgG";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=uGKlzRZe;
+	arc=none smtp.remote-ip=209.85.208.53
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 977C8606A328
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 10:22:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 977C8606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC70606A32C
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 10:29:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AC70606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UeONTUv0;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qC/e/HgG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793874164;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mA0JUWIMJDLe3trqouiE/a4ohypc9UC+FqDIAXVqBsQ=;
-	b=UeONTUv0UgbS5IUIOd2M8qcgqpI9bup4ehO2VCa6ewq4x1MYJAwx6ft01Ive/vgQPmNKGi
-	B51756vtLbZspiZcqvueGLxArHlu9yOJClOBjaLP6vE4o1QQ0BOzwHKW5U1uCH7Pzjg5H8
-	g0ToCWbB9ajtcd6wwt8VLJXy45ul9hk=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-141-P0bEnvF6PyKHqmAJAM-s9w-1; Thu, 05 Nov 2026 05:22:43 -0500
-X-MC-Unique: P0bEnvF6PyKHqmAJAM-s9w-1
-X-Mimecast-MFC-AGG-ID: P0bEnvF6PyKHqmAJAM-s9w_1793874162
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-490d2ac331bso969477f8f.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 02:22:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=uGKlzRZe
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so1180979a12.1
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 02:29:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793874162; x=1794478962; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mA0JUWIMJDLe3trqouiE/a4ohypc9UC+FqDIAXVqBsQ=;
-        b=qC/e/HgGDYx/2Lh64K+89w43sgmoFIHWuFrBEhX60rDYwVSNtChRz09WqDqoa22QP3
-         e+RVTc/axkWchbGnZ3bhlpNKuPgym35DUljxtawDPCmFsmx777kOCV+ov8IzqAcZ/zCj
-         +m61HPAOhT4aaK+kunQ9lvKI9eb7DRq/zTkCF88XFdg8MfS59WYJv2wsJlIs17ttGDlZ
-         l04iU5g3LWp2lj1xaCjSfMW21OaWaWKSyNo/7BhXdOUfvHKpt/gxvo16mpMSe4BDPBED
-         6KeLgf6F0gh81FV1kkef3Co93QjgWMlUFqLJ2atYtMmUIreGL0IogeUNiQdWbznpjUJa
-         UwOQ==
+        d=fairphone.com; s=fair; t=1793874542; x=1794479342; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ajLIzQVCgaI7n9OILj8/6lpTK+AiVXchsMOmXAlkCEA=;
+        b=uGKlzRZeKSBB7pbWNgXhCMnH9fIP+HhOcCeqRDYbF6gB1fzwZDQM11K0HHL13OoMdV
+         IGZV5O8TUCjILvLNde50AKTfCEans1P9/TwPZmsR/VDfB4NdNmgk112k/F4/tuh5ung+
+         Vw+BZNNhY/FE0qOH+R7fI9lo4i/gy4J01CjnfEBB46iZBuTmGNrQDyJnMLgS0GcVRdPv
+         bzsOyxOyqVlDrIVXxYjBK2wKMPAMvsH3q3d9R5jbi4xhDSsHsQKVA/HCAPRiMP/3dQjO
+         FZ/yiaMR9Pz6QKYTfLlu/Xg0/MrmZURk4B6CzDcGtlvTbVUL7qA4xZQ/QNE72quwZiNb
+         pWCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793874162; x=1794478962;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mA0JUWIMJDLe3trqouiE/a4ohypc9UC+FqDIAXVqBsQ=;
-        b=o2bhLKMduXbibsgLRL4IelsGnMhzyTOPVcJo1DD9QULloaUajmj9oyXZ5jrUVnyrs3
-         WAvHeMfQwhJuqh7n0tHmhnPY3AGGzKRLtEfjq4/DQYsK+bHlJhPQJBHFHWvrtqi8WgTK
-         DdHkn/IInIQ1F73nsNGs/nn/wGoxjG5IH4FoDo865H0i6IeW94K6DXZZfc5ppEaJhnPp
-         QDInqFuFZN0qoEHUuB1cMoHYpBm5pa9TF+NlDM+cRngZnT5wPlaZt+qtJ5pZXMBy4d/6
-         UF3HCqp7pTrgRy3UrSx/lx+BIkMu0Z2bLznVrnORhr8jgq1cL7irtqUiegICQOGFZb49
-         m8Nw==
-X-Forwarded-Encrypted: i=1; AKwUvBxsRHMsbmDbn7xqrG6SbRfgWt0ZHj6ffTreOrhqdfTwbSEk71R8IBQErKe6lgtKDGQWWG5tKgo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+5UT7UngNIw9+jBe6jF2zRjbYZ/5K1w/Tl9VnTuCjr115qxYPT
-	/pztKk78j+r95xjsgzBNR7sXByUoXH2IwOI4bO6AQpofkUccluwgaf26kYszE7yGhSfWIZ/DVme
-	WQdTvSyEzraUsmBzxM5pquSbr2RWnW/PTj3IJ2r4eGvxe8HuwtfP4MPYz8A==
-X-Gm-Gg: AYBFou3koRWa79+jy2geZ1gEWTLfqYWfa0FyH5ya3pw2CtnGNJf025qDteHLMz6bLhZ
-	I7c1o1BMBOLdH5SO5XO6ohwyidG+yPnL6BPnjrJnqWeS40J+5NaX9bcP/+XMM74dNvoNWQYT8rR
-	CXxl2SmjyScAnlspnZ8E6YyalDm70+m7qgkvEms5Vd43IcqsdHBwHCtuALXEVigMfDJdH/qjlfD
-	1kCuPzL4f+h1SeIOoCnBQVIxg6TqKrHVvc9uIZ2xcdNG/V7WU1De0aEOmDzX4+U+Dvekp0ocZFY
-	ZvEarUSEW63wLHgBhdPi6XvmpMWZoGpvy0YtU7Kt26MDOcPvYepvkfRnRUZUhnHVU6Wbq2+tzZ9
-	H42qRylhixT7MJ6ttb/aF2kgwol9Lrf1fe5e7pHNYFvKGTLQ0Ckzn
-X-Received: by 2002:a05:600c:c87:b0:4a8:cb23:f71b with SMTP id 5b1f17b1804b1-4ac186b1a2amr423568345e9.18.1793874162253;
-        Thu, 05 Nov 2026 02:22:42 -0800 (PST)
-X-Received: by 2002:a05:600c:c87:b0:4a8:cb23:f71b with SMTP id 5b1f17b1804b1-4ac186b1a2amr423567735e9.18.1793874161708;
-        Thu, 05 Nov 2026 02:22:41 -0800 (PST)
-Received: from sgarzare-redhat ([80.116.143.202])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f0237aesm56586085e9.9.2026.11.05.02.22.40
+        d=1e100.net; s=20260707; t=1793874542; x=1794479342;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ajLIzQVCgaI7n9OILj8/6lpTK+AiVXchsMOmXAlkCEA=;
+        b=WFB4SKfpJ9I5l97+uoD+vY5F7KbkY9JeM3Q+oEkbToRTa9WmG2Pfg15EQUdf/3xoaX
+         GK5D/TALPZYYx16FAyJz9B6W/uxYuuiPA1tMfvOgBb/u1+Pr4SmqrKpn0A+NReezq8aL
+         Y4hClrzLgV3v0r0kuzGQ9h+yIB+6eCaRxiFlG49auHHAadfnyEq1d5R4nNfLqrQsagqd
+         saT2iwvh41LRD9nkIdgDb+WWzCo3BND8YMG4fbcGD+i8g1HouL9d0zZkvRvKcHg7+Sds
+         wDTNm07prx/2eepiohu1D47BV2RZAC2TkAclflnxcQqrx4TRbhUosFv3ricV42myu5uy
+         KBPA==
+X-Forwarded-Encrypted: i=1; AKwUvBxu+FQdS+f9PeNTOLzAt+ZiZnKL/WJo22kDrZweQvbbk2FQqMj+bRQtWB+a2AJ60AAZn9z/mlk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8IL5TXUX7qstqWgKo5h5yo65JLjxznAq6/vFusoQq24q48WvJ/
+	owx4XA4xfzsPOUhBOmBEaOeP++FRiZj+NpafRThH5ywAqkNhx/QKSpyIc3hxncd7OzI=
+X-Gm-Gg: AYBFou183ocWpimv15gJA6+g/46A+Im92WwE72y+RVl/4crfXE1FhIEHcmMssmaDM0m
+	s639CvZ90THXTjG6C0IcZTijJHjlHFrPrAyLfk7nmYf0UaDbjziLWZiYkiFMnVGjvrcwnb5olrB
+	B1q91tCt8h2+U55hOqZyfbPoz4GhSSdgzMkqZJ6eppHLZgG0yf8nDFXS0Ndg85An/0L05FoaOMn
+	4lHow97uk4/lvNYXW/15xonRM6XibW8lqB2o/e1vyUqJdJ43E/MI9tBbaCrkojcGoNQ9VSar86T
+	NTb1U+a/4Y5HtXh6bReeYbOpdQlY9QdwInt4AnRmxnqq2pI2R1Pu5GUOhSqmFmIfjdX0DJ3wZ6i
+	HKn0PZJjiz1HwrSFF1HTTjHJJ4J0gJO+XoXHklgvt+gQMrMA2odwx0v2Uk493DNeBgW5oAe/cLF
+	0XHBT5CCJ9iwQpkc7ESG6L0MFBEvViTPGXqm8m+w/5GwCU1DkfvUo5hTKsX/U/zPaK7xXjtHeQs
+	amJUqdyj/CzCg54x4llV1v6jDRUvjyG2StHioKcfhBKpP3MLQ+wUai1EBfNLxjX92iANu1WZHJS
+	hfrFQjlzKVT8f1sFjwKQ0AQYCAjQkfgGTHc3UQSPDS0fZUGeGQHbVCgI81Va4w9AggcnM86zZT8
+	quw6RLwMlgtsx6JiH5lapmK/kBG3uVWlz
+X-Received: by 2002:a05:6402:274d:b0:6b5:5ad6:2ff4 with SMTP id 4fb4d7f45d1cf-6b55ad63471mr4129137a12.28.1793874541906;
+        Thu, 05 Nov 2026 02:29:01 -0800 (PST)
+Received: from [172.16.220.224] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b5864a87c1sm278665a12.2.2026.11.05.02.29.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 02:22:41 -0800 (PST)
-Date: Thu, 5 Nov 2026 11:22:36 +0100
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: jrmmhm.kernel@eldare.de
-Cc: Bobby Eshleman <bobbyeshleman@meta.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v3 1/2] vsock/bpf: release sock lock while waiting
- for data in recvmsg
-Message-ID: <auxYWGV4l-xEAajy@sgarzare-redhat>
-References: <20261028-kbh3-1-022-fix-v2-v3-0-bc0752b2d3db@eldare.de>
- <20261028-kbh3-1-022-fix-v2-v3-1-bc0752b2d3db@eldare.de>
- <auSkQOU6qmj0NPEt@sgarzare-redhat>
- <179381093020.9.4719932034061956856.1746278795@eldare.de>
+        Thu, 05 Nov 2026 02:29:01 -0800 (PST)
+From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Subject: [PATCH v3 0/3] Dongwoon DW9800K update patchset
+Date: Thu, 05 Nov 2026 11:28:59 +0100
+Message-Id: <20261105-b4-dw9800k_cleanup-v3-0-6850ee6a5a5a@fairphone.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -122,90 +93,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <179381093020.9.4719932034061956856.1746278795@eldare.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGta7GoC/22Pyw6CMBBFf4V0bUlpeVhW/ochZloGqcrDFlBD+
+ HcLxJ3Lmzn3nsxMHFqDjuTBTCxOxpmu9UEcAqJraK9ITekz4YynTEaMqpiWL3lk7H7RD4R27Cl
+ TEjJIIoxiSXyxt1iZ9zZ6LvbsRnVDPaxLK1EbN3T2s1knvnI/QfxPMHHKaJokgmcCAIQ4VWBsX
+ 3cthrprSLHsFovP0X8w7GqiwCH198YMeTBlYUytjjy8fAEH5U4r9gAAAA==
+X-Change-ID: 20260910-b4-dw9800k_cleanup-0b9a7a51e149
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ stable@vger.kernel.org, Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793874541; l=1675;
+ i=griffin.kroah@fairphone.com; s=20250804; h=from:subject:message-id;
+ bh=zYExRqYQL9Fc6YcansLrZhaOHhoc55JMwPP4XAEEjC0=;
+ b=NMqoBXeKooo51DzMpMUBdJJltOpoY1I5G43h9htz6lWJ4sYgqEHve0DhWTrVM/Fd8WFpF6xne
+ TW7IVn8hTfiBGFbmz5R0FwOiH0rghv7/vJyqvxu2p/8pxyLngfTY2aB
+X-Developer-Key: i=griffin.kroah@fairphone.com; a=ed25519;
+ pk=drSBvqKFiR+xucmLWONHSq/wGrW+YvcVtBXFYnYzn8U=
 
-On Wed, Nov 04, 2026 at 04:48:44PM +0000, jrmmhm.kernel@eldare.de wrote:
->On Fri, Oct 30, 2026 at 03:18:10PM +0100, Stefano Garzarella wrote:
->> Ditto about commit message, please put more effort on writing something
->> readable by a human.
->
->Agreed, I'll rewrite both messages myself for v4, much shorter.
->
->> >+            if (sk->sk_err) {
->> >+                    ret = -sk->sk_err;
->>
->> Why?
->
->Same as vsock_connectible_wait_data(): an error that arrives during the
->wait is returned to recv(). Without the check the loop still ends, since
->every path that sets sk_err also closes the socket or sets peer_shutdown,
->but recv() then returns 0 or -ENOTCONN instead of the error.
+This patchset edits the dw9800k driver and related files, to properly
+match previously mismatched register writes, variables, and logic now
+that we have the datasheet for the dongwoon dw98900k.
 
-Please add a comment with the reason.
+This is a breaking change, but is necessary to ensure proper bindings
+and driver behavior. The previous naive approach did not ensure proper
+functionality with different device tree properties.
 
->
->> >+            if (sk->sk_state != TCP_ESTABLISHED) {
->> >+                    ret = sock_flag(sk, SOCK_DONE) ? 0 : -ENOTCONN;
->> >+                    break;
->> >+            }
->>
->> I'm thinking if we should split this in multiple patches.
->
->From reading the code, it can be split without breaking bisect: first
->loop on all exit conditions with the lock still held, then drop the lock
->around wait_woken(). The order is fixed, since dropping the lock alone
->brings back the early -EAGAIN, and the loop alone does not fix the
->deadlock, so both would carry the Fixes tag. That is why I kept it as one
->patch, but I'm fine either way. Split it like that for v4, with the
->current 2/2 on top, or keep it as one?
+Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+---
+Changes in v3:
+- Added more detailed descriptions of the changes actually made
+  to the driver.
+- Reverted to using vcm-prescale attribute to avoid unneeded breaking
+  with dtb.
+- Link to v2: https://lore.kernel.org/r/20260914-b4-dw9800k_cleanup-v2-0-6553273aaa33@fairphone.com
 
-Okay, if the entire change is needed to fix the deadlock, then it makes 
-sense to have a single patch. Please make it clear in the commit 
-description.
+Changes in v2:
+- Expanded commit messages to be more verbose with their changes.
+- Link to v1: https://lore.kernel.org/all/20260910-b4-dw9800k_cleanup-v1-0-608255ea61ab@fairphone.com
 
->
->> >+            if (!timeo) {
->> >+                    ret = -EAGAIN;
->> >+                    break;
->> >+            }
->>
->> Is the move of this check changing some user visible error?
->> I mean before this patch it was one of the first checks, is this okay?
->
->Yes, for non-blocking reads, intentionally: -sk_err, 0 on peer shutdown
->and the not-connected result now come before -EAGAIN, as on the native
->recvmsg path. I'll say so in the commit message.
+---
+Griffin Kroah-Hartman (3):
+      dt-bindings: media: i2c: dw9800: Redocument DW9800K
+      media: i2c: dw9719: Update DW9800K driver
+      arm64: dts: qcom: qcm6490-fairphone-fp5: Fix DW9800K support
 
-Yes, please.
+ .../bindings/media/i2c/dongwoon,dw9719.yaml        |  1 -
+ .../bindings/media/i2c/dongwoon,dw9800k.yaml       | 91 ++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts |  5 +-
+ drivers/media/i2c/dw9719.c                         | 65 +++++++++++++---
+ 4 files changed, 150 insertions(+), 12 deletions(-)
+---
+base-commit: bc71431221f5ba8bb33918399552636e059c2c45
+change-id: 20260910-b4-dw9800k_cleanup-0b9a7a51e149
 
->
->> >+            if (signal_pending(current)) {
->> >+                    ret = sock_intr_errno(timeo);
->> >+                    break;
->> >+            }
->>
->> Why? Should be a separate patch?
->
->No, the loop needs it: with a pending signal wait_woken() returns at
->once, so without the check the loop spins until SO_RCVTIMEO expires, or
->forever if none is set. I checked it by removing the check: a signalled
->reader without SO_RCVTIMEO never returned and used a full CPU. The
->native path does the same.
-
-Okay, please explain this in the commit description or in a comment on 
-top of that check.
-
->
->> >+            if (data < 0) {
->>
->> Why not data <= 0  and void the other if?
->
->Right, will do in v4.
->
->Thanks,
->Jerome
->
->
+Best regards,
+-- 
+Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
 
