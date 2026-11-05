@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904299;
-	b=s8bQ+j4cqG6KfRGHJofjF/8XPPWXhs10CbALzHinJ+a9JaY2pM2Jzq3tmvv96wjCXUwY
-	 Z+gSLttxruhmuy7BbnCzx+4C4jTu2bYlNsDWM7llet56EOLYZ9faRby+zui/kdxTEJBEN
-	 6cUX02yLw/SbPu/WrIGOfM9FECFx0mOLdl7/6uAKQDkuBPEPmKzPasFF0I/PcZY/NQJZ1
-	 RorOQnRNSN02XpQQSe9AOMcMEBHOFJYasn21uo2V8YQIrFTDr1OFgq5R5FGK7aLOICYjx
-	 25pb9/riNNnzkSPUFd0sT8I5FwvtUNawGTj/ZmbtbLLfYiuFGZ9EEfvgVr9yIcyjgpg==
+	t=1793904296;
+	b=Bz2SMaGwgd+Umx+rX3ZBVj05n1pQrfh2BgWLXVbfJWCbKfZvC1quyNWpSiuCU+NIC3X4
+	 2J5HkG9ITZ53ALHlCIwaeXH6vTZoWSgUacFgoJ/BqFyFq18VdhajpCSLHcqrgZxHIR/xa
+	 wusLXeJ46i95P4bjSqXCf9qiHJAWHv9qUJVE3LbAH8fcMUdhLhXpnbJjQMG6nBdZMpQZK
+	 7RhLZKi3xpYtjHEocngUmA1CfWk8zAzZ4hOj7fCXmM++9FhnkeX3uSXMTYsaXOD/UKTe/
+	 YoUHcXwjQ3es1D+b1YBHHLTBhpPb3/YRB6xyoayPueUeSOMLqSHQ5Zy1AXLspGa6Jrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904299;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793904296;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ylAdIH9jPkE/KQlVEvMIxI394y6bbrs0wONXvFJYkxA=;
-	b=IGsQvrY4vFJsrjSp4H4F5Ej7In02WvuO62P6eUNfLnJQ9kLAbtJATUDe0HJA5aMgKcQr
-	 BfJVazIV7tok6Sk1stj6ZJHCBj84EQswa+jJEeGG/dD5FsVI1TQRcO7Xv93DM0bSNVOya
-	 08ULHfqqTDDRPMZfjBR9weqezvQSuL0wLU5lqdfmaYnIPFP14b0nTLmu0mpIRvHqqsx7C
-	 9TmwP/pSQXbBvRZAFDhDSsjI4ZF34jZ8rvlvkfWYtALb+icCJirBkE0xcpZ2TGEOxreMS
-	 nqTmOk8U3uuURTMfApp1c0w56OUqtE3rWD5zzHgFX5gIu3sceHqL144URgHMPp7U/CA==
+	bh=Wn0y+rpzG/RYbacRdX6P7QnhoYr75y7u27kXM0fM0SM=;
+	b=q9weScvqVRTfd2q5sp/JUbC0H/42D/h06PVyuwahUqqHiQFqh4e+mSWTBvov3z0HZ0Go
+	 fIkLi8JFvFqm3Fcpqc5hZWsJqDIaRT85yfSF0SlG78KkjYL0pUazSlQP+atXn4DP5BIpI
+	 +iIOd+PPrlTC382HS/nuc3rkz5x0jaFjlnY/ugmzIkb2b41pIz+UXvhdgOIZYz7YUgk4S
+	 5JlcD0N8GRSijPRIp8Hqclod/mqB5l896vnqaiOiGqwgC7o8yqSrgCfraMQ7HbNUln1bn
+	 WpgZS6bRLm+/nTOKOBHAf7U9lvCVCrNvihsf6OFu7rKbjjPaHBoGHRisKJ26Mgix9Rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0TDaFV1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=La1EhBQl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9379606D813
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:44:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D69B6606A338
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:44:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0TDaFV1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC5861F0093A;
-	Thu,  5 Nov 2026 18:44:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=La1EhBQl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D68E41F00A18;
+	Thu,  5 Nov 2026 18:44:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793904298;
-	bh=ylAdIH9jPkE/KQlVEvMIxI394y6bbrs0wONXvFJYkxA=;
+	s=k20260515; t=1793904295;
+	bh=Wn0y+rpzG/RYbacRdX6P7QnhoYr75y7u27kXM0fM0SM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V0TDaFV1TYSaAJcLwTmdewhSVTZC9JA5H39FwWZdbsm7oAe0lvsqOiB4eKhvHExHI
-	 BO58vyiKDtAWUB+ec0vzsify7T9+oJtu5ETx9eZtjUDuFUA2kUDwtjQ8x/XJWJl8Fl
-	 YTD2VgrRQHBedv1v4z1fCRYdTSoLAoPGpAIsFRrliCBQZF/kGdOMXwgavG5guQR310
-	 CiF569NfY33iFBMMAD9hM8vP+GFUUYD81Cs9OSceGsg63JiyjlfnY1SKg953ubU3Im
-	 eETWdtKrA8JO/ntIIUHjhQZnYTUoA3pplDn+9C1R+GOLSpfVXqB3pVOj6Xnux8TJf4
-	 /F9QuSHBFXA1A==
+	b=La1EhBQlfFZu1XeaCcXc2mWpgQ5GSKaKZ4rIldZrlAyvv480Dak/Ff6bX0/FMz37u
+	 ze9DT0O0pFeTTI1rqrkFgQIe1TAdw+co2srU0x4n2gp4s5M/QsbmeSBvRlU3b9Pial
+	 UoRcTa37rbFW8L6iWjR8Jcf/ZObSq/mkr2py0TuuNGxkIQlWVFHzA0vknVKFc130tt
+	 NLAAV5MLWFzGsOVwGOxDXfCNIJ2rfD4B/QdJnYF3d1YtpRkraaHDiGFAdLnMwAESTv
+	 UPVxToQPmJSqkJapjcSTpAgOXYbwXKSwNB8QHiIWwI/5vvcPcfQUpnj2RbMHoKIUxv
+	 iWPJ3g2T2bLdg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Luxiao Xu <rakukuip@gmail.com>,
-	Xin Liu <bird@lzu.edu.cn>,
+Cc: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Paulo Alcantara <pc@manguebit.org>,
-	Ren Wei <n05ec@lzu.edu.cn>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] smb: client: fix buffer overflow in SMB2_tcon()
-Date: Thu,  5 Nov 2026 13:44:56 -0500
-Message-ID: <20261105184239.2191076-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] smb: client: bound POSIX lock data area by response length
+Date: Thu,  5 Nov 2026 13:44:53 -0500
+Message-ID: <20261105184241.2313303-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110431-residence-starfish-1a10@gregkh>
-References: <2026110431-residence-starfish-1a10@gregkh>
+In-Reply-To: <2026110407-custody-treadmill-c8a2@gregkh>
+References: <2026110407-custody-treadmill-c8a2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,76 +62,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Luxiao Xu <rakukuip@gmail.com>
+From: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
 
-[ Upstream commit 73cc469b0ff7551f8537ea919709973e6dc4f514 ]
+[ Upstream commit 8fc9af68c57156ff64769f30e831553cd03b3000 ]
 
-In SMB2_tcon(), unc_path is allocated with a fixed buffer size of
-MAX_SHARENAME_LENGTH * 2 bytes (672 bytes). However, the user-controlled
-UNC path (tree) length is passed to cifs_strtoUTF16(), which assumes the
-destination buffer is large enough and writes strlen(tree) + 1 UTF-16 code
-units.
+CIFSSMBPosixLock() receives a TRANS2 response whose server-provided
+DataOffset and DataCount are not required by validate_t2() to describe an
+interval inside the response. A server can therefore make the client read a
+cifs_posix_lock beyond the response buffer and return those kernel bytes
+through F_GETLK.
 
-Commit 62a1a439e0fd ("cifs: clean up handling of unc= option") removed the
-length check on UNC mount options, allowing mount paths to exceed
-MAX_SHARENAME_LENGTH while retaining the fixed-size buffer allocation in
-SMB2_tcon(). Consequently, an oversized UNC string causes cifs_strtoUTF16()
-to write past the end of the heap object, resulting in a slab-out-of-bounds
-write. Furthermore, if a tree exceeds MAX_TREE_SIZE characters, strscpy()
-truncates it in cifs_tcon::tree_name, causing subsequent reconnects or
-failovers to fail.
+Use smbCalcSize() to obtain the full response length after any multipart
+TRANS2 reassembly, then reject data areas that extend past it before
+dereferencing them.
 
-Fix this by first verifying that the length of tree does not exceed
-MAX_TREE_SIZE, returning -EINVAL if it does. Then, dynamically allocate
-unc_path based on the length of tree so that it safely accommodates all
-UTF-16 code units for paths within MAX_TREE_SIZE.
-
-Fixes: 62a1a439e0fd ("cifs: clean up handling of unc= option")
+Fixes: fc94cdb94462 ("[CIFS] Fix new POSIX Locking for setting lock_type correctly on unlock")
+Reported-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
 Cc: stable@vger.kernel.org
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Closes: https://bugtracker.nebusec.ai/f/3292
-Assisted-by: LLM
-Suggested-by: Paulo Alcantara <pc@manguebit.org>
-Signed-off-by: Luxiao Xu <rakukuip@gmail.com>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-[pc: remove unused MAX_SHARENAME_LENGTH]
+Signed-off-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: Adjusted context to preserve the existing cifs_stats_fail_inc() helper. ]
+[ sashal: subtracted 4 bytes from smbCalcSize() and replaced smb_EIO2() tracing with plain -EIO ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/smb2pdu.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ fs/smb/client/cifssmb.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/fs/cifs/smb2pdu.c b/fs/cifs/smb2pdu.c
-index 2c7bcb768a64f..d2d8d643c4f7e 100644
---- a/fs/cifs/smb2pdu.c
-+++ b/fs/cifs/smb2pdu.c
-@@ -1769,8 +1769,6 @@ static inline void cifs_stats_fail_inc(struct cifs_tcon *tcon, uint16_t code)
- 	cifs_stats_inc(&tcon->stats.smb2_stats.smb2_com_failed[code]);
- }
- 
--#define MAX_SHARENAME_LENGTH (255 /* server */ + 80 /* share */ + 1 /* NULL */)
--
- /* These are similar values to what Windows uses */
- static inline void init_copy_chunk_defaults(struct cifs_tcon *tcon)
- {
-@@ -1804,7 +1802,15 @@ SMB2_tcon(const unsigned int xid, struct cifs_ses *ses, const char *tree,
- 	if (!server || !tree)
- 		return -EIO;
- 
--	unc_path = kmalloc(MAX_SHARENAME_LENGTH * 2, GFP_KERNEL);
-+	total_len = strlen(tree);
-+	if (total_len > MAX_TREE_SIZE) {
-+		cifs_server_dbg(VFS | ONCE,
-+				"%s: tree name exceeded %u characters\n",
-+				__func__, MAX_TREE_SIZE);
-+		return -EINVAL;
-+	}
-+
-+	unc_path = kmalloc((total_len + 1) * sizeof(*unc_path), GFP_KERNEL);
- 	if (unc_path == NULL)
- 		return -ENOMEM;
- 
+diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+index 499385445cfb9..6f599c6eaf4ab 100644
+--- a/fs/smb/client/cifssmb.c
++++ b/fs/smb/client/cifssmb.c
+@@ -2052,6 +2052,7 @@ CIFSSMBPosixLock(const unsigned int xid, struct cifs_tcon *tcon,
+ 		cifs_dbg(FYI, "Send error in Posix Lock = %d\n", rc);
+ 	} else if (pLockData) {
+ 		/* lock structure can be returned on get */
++		unsigned int rsp_len;
+ 		__u16 data_offset;
+ 		__u16 data_count;
+ 		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
+@@ -2062,10 +2063,16 @@ CIFSSMBPosixLock(const unsigned int xid, struct cifs_tcon *tcon,
+ 		}
+ 		data_offset = le16_to_cpu(pSMBr->t2.DataOffset);
+ 		data_count  = le16_to_cpu(pSMBr->t2.DataCount);
++		rsp_len = smbCalcSize(&pSMBr->hdr) - 4;
+ 		if (data_count < sizeof(struct cifs_posix_lock)) {
+ 			rc = -EIO;
+ 			goto plk_err_exit;
+ 		}
++		if (data_offset > rsp_len ||
++		    data_count > rsp_len - data_offset) {
++			rc = -EIO;
++			goto plk_err_exit;
++		}
+ 		parm_data = (struct cifs_posix_lock *)
+ 			((char *)&pSMBr->hdr.Protocol + data_offset);
+ 		if (parm_data->lock_type == cpu_to_le16(CIFS_UNLCK))
 -- 
 2.53.0
 
