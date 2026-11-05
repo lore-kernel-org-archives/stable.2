@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793898837;
-	b=tDPZ1jmIgH9foheUnlIijsi4P3v1OEZTZAN588+KwL8d2MV0dbdzH2wE/WfvlOkS0PrH
-	 AVBfBWfl6BGfYGUo6uPVhaDsTA2cgUBhyG+obsOsi16RtHlRPRaDIOLOHxGjPzMmh/9eA
-	 sY/cpe5+wtMoQEy6VdMYfYmh7dyBhuxYBdBgHhywsbbmtBc7sBH12M8wIa/I5wmPxPaa5
-	 q4eQ1u+w6h4/9ROoiuYA4rvdZjL7uXppUuucRSLDMKzu2uovmaQbF5gUDmR27tWYOY5Kn
-	 dff0ukPbKnZuDTByLji6AVZRow2omt+yhBT49+S1bUD9vKkSO7UR1Y1jFFczaCanv3w==
+	t=1793898838;
+	b=Z4MeboNXwgTQZ4psHXovqKpwEM/EOAgtFm2gshBOjvW0L1UcrG9ZUXlGTI4NfaJ9vCfc
+	 H3Vr0ZQzdht0OoOIEHCcLYU9wonlvBbxJrnQvkXjpYFXQv7pfR3OIrkHF6c5godTz3n2k
+	 eRJJHFu7hC0HWj43LvDHV/1/vWjy4rdAtTCa7VG/YEqF2koRNFoBQIxwY2yNCmOemzTCs
+	 /tqFQjD2WLZ7VZqZ0+xan0gjNJVUfasLmIzgo9w/dZiKeU0nVd7k/lxJF1tQEnSOIAjyC
+	 U/E8wVfcQNz2IKdh37NxEfQxoiuFvKZX80c/P60pm+HrecRw8PZbezgu6AuX02RjWTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793898837;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793898838;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=eNA0USDL3lQ0+LX0uHo+mtnYCDUR2u4stH5L/5FmRaI=;
-	b=yEqbycmX7i1dfpgmw3CQB22C7yi0RU6yzjIGnoGJxgzXfIdVv7jJDtIx1kzwTC2C1bcR
-	 5R4ubyq7Oow0vNVCw6aot/og43njUSzxx7hgQbpzKpAacpyuW2twOOYYTatWcx54x64IU
-	 /IFjjcKk3tHzgdItSbBRCTF51ShLG5UR9Qq2Pgi8nrV8f8CfCAQs4m+Cx3zBggcFRL9eE
-	 SZ0QhOhpcNxblhOppoPX/XXuuruVnfyWxTRZHK7MiIuaiMyqyWJ/ZDtzINnifdnf83reI
-	 Zu/YVZ36EinU3mRM9fO8uh88i8etNOlIkod0e7vUamnYiLorjyYRMl3Fgqs2WVv63ZQ==
+	bh=VNCOQAfPgfzkXrVK/ffiaYOG8YpIzXi0nU0JVRSHl4g=;
+	b=Bi+Je4P7Ku1HlRk6SoncDHVhjrlfKpxP3e28qBNr+/jJgyy8melzmH+p+E7IR1HXPc3w
+	 TunYTfTvzngXKcSl3nIA1wJYQmUjySwMXFIBohgS1r2XyCbD8W43scvewDrlqAEXDLEjV
+	 XYSU1hfLz+bEWOTWCnEq6RZm/aqTiLBCKdqmMrBZTGGdaCQuVjrSoliaGX8yviZDWEf+R
+	 lyy6ncpjTdjAk5LAVYhtNWhNVfBmqDTLU1sWuyrl7nmk2H2mU430Wa5F8hUEHVqGV/JSS
+	 H2Z31rzOfy9tOah0OjrdSW4mmSnwuyBv3ihecfDOyxosWTYYNSvUrWL9C1+YjbuZeZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WVxgtaJu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C+tSRwTg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358FB606A334
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 17:13:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BCB606D826
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 17:13:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WVxgtaJu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F66D1F000C1;
-	Thu,  5 Nov 2026 17:13:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C+tSRwTg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 148B81F00A15;
+	Thu,  5 Nov 2026 17:13:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793898836;
-	bh=eNA0USDL3lQ0+LX0uHo+mtnYCDUR2u4stH5L/5FmRaI=;
+	s=k20260515; t=1793898837;
+	bh=VNCOQAfPgfzkXrVK/ffiaYOG8YpIzXi0nU0JVRSHl4g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WVxgtaJujuMHpjRqXSELRh9x3YAKnQLQar2xJaU504Vu2W7GVCfN5O5vrSZtCk1By
-	 NqB2oCIPS8rbWvD7BNf5tUjLTxqJHwCo+YtyU0fgqJ9ekfPWc89Us/Tk1laoOrKIb4
-	 F+iDH8p4ZJBiassnZ7PU39OOalwFAUOvc29AsQT0OEW2JBXGlq8KCZnoJ1V0Tto0qp
-	 ghPE8VGtyDSrwzlE7CD/A6NLeTEsWJGRJJEBvIdQGEQPshEYVzZGK6N04N/b07Cs7J
-	 /6RyQMej8hAohgPasRoEuFSNGNdCrD+X0hGwh+07YvsJs+MohovrQayxIRbmGBN4T+
-	 Yeoh4YpJ6TwrQ==
+	b=C+tSRwTgJmfMlw2g+x52EzEbOWumkAVBOyqS9ucZgHHEfsCsCBO/6OqneR9s6XCI0
+	 CG6FQv3XQS+QkYLZJZGb0b1sPE8DESj6s3L2AdrRA7iJMfBWCm5yfbnmts3TDWLgg9
+	 OH6gG0sqh6hylU7kNivuKur6d899ov0elRJFpHd+l0F6+HOSOHaeMNbYYUKgtaoqd4
+	 u7J8coByGNK+0UsBmqyHoND/2US7iTQyWMKytRLG3eyx0g0y/94763dRPgbb18kmyB
+	 IyVzAI822sxaSyUVB481FVsTZ1wPX937Lv9LTVWMYS+4VWnZvbX/z3GL+BqJfu2tcs
+	 2yCYauMgRv9yA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Darrick J. Wong" <djwong@kernel.org>,
 	Christoph Hellwig <hch@lst.de>,
 	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] xfs: refactor directory data block walking loops in scrub
-Date: Thu,  5 Nov 2026 12:13:54 -0500
-Message-ID: <20261105171319.2146310-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] xfs: improve dirent bounds checking in scrub and repair
+Date: Thu,  5 Nov 2026 12:13:55 -0500
+Message-ID: <20261105171319.2146310-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110439-earlobe-retract-6b7b@gregkh>
+In-Reply-To: <20261105171319.2146310-1-sashal@kernel.org>
 References: <2026110439-earlobe-retract-6b7b@gregkh>
+ <20261105171319.2146310-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,202 +65,234 @@ Content-Transfer-Encoding: 8bit
 
 From: "Darrick J. Wong" <djwong@kernel.org>
 
-[ Upstream commit 19b5653cc870788df71e7fcf2dd7b6131d8868dc ]
+[ Upstream commit 5d470234d04dae6fe2ca2cf4b9ef277b78c7e05a ]
 
-Hoist the inner loop code of the directory data block walking code in
-the directory scrub and repair code to separate functions in preparation
-for strengthening the validation in a subsequent patch.
+LOLLM complains that we don't do enough bounds checking of the directory
+entries in directory blocks when we're looking for errors or trying to
+salvage entries.  Let's improve that with more detailed checks.
 
+Cc: stable@vger.kernel.org # v4.16
+Fixes: ce92d29ddf9908 ("xfs: directory scrubber must walk through data block to offset")
 Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Stable-dep-of: 5d470234d04d ("xfs: improve dirent bounds checking in scrub and repair")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/dir.c        | 56 ++++++++++++++++++++++++++----
- fs/xfs/scrub/dir_repair.c | 73 ++++++++++++++++++++++++++++-----------
- 2 files changed, 102 insertions(+), 27 deletions(-)
+ fs/xfs/scrub/dir.c        | 68 +++++++++++++++++++++++++++++++++------
+ fs/xfs/scrub/dir_repair.c | 37 ++++++++++++++++++---
+ 2 files changed, 91 insertions(+), 14 deletions(-)
 
 diff --git a/fs/xfs/scrub/dir.c b/fs/xfs/scrub/dir.c
-index 284f72ef2b584..7928dbe221d58 100644
+index 7928dbe221d58..2bb5ead7cffd0 100644
 --- a/fs/xfs/scrub/dir.c
 +++ b/fs/xfs/scrub/dir.c
-@@ -305,6 +305,45 @@ xchk_dir_actor(
- 	return error;
+@@ -315,11 +315,24 @@ xchk_dir_check_unused(
+ 	struct xchk_da_btree		*ds,
+ 	struct xfs_buf			*bp,
+ 	unsigned int			iter_off,
+-	unsigned int			end)
++	unsigned int			end,
++	xfs_dablk_t			rec_bno)
+ {
+ 	struct xfs_dir2_data_unused	*dup = bp->b_addr + iter_off;
++	unsigned int			advance;
++
++	if (iter_off + sizeof(*dup) > end) {
++		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++		return -1;
++	}
++
++	advance = xfs_dir2_data_unusedsize(be16_to_cpu(dup->length));
++	if (!advance || iter_off + advance > end) {
++		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++		return -1;
++	}
+ 
+-	return be16_to_cpu(dup->length);
++	return advance;
  }
  
-+/*
-+ * Deal with an unused directory entry.  Returns a positive number of bytes to
-+ * advance in the directory block, zero to stop processing, or -1 if corruption
-+ * was found.
-+ */
-+static int
-+xchk_dir_check_unused(
-+	struct xchk_da_btree		*ds,
-+	struct xfs_buf			*bp,
-+	unsigned int			iter_off,
-+	unsigned int			end)
-+{
-+	struct xfs_dir2_data_unused	*dup = bp->b_addr + iter_off;
+ /*
+@@ -333,15 +346,31 @@ xchk_dir_check_entry(
+ 	struct xfs_buf			*bp,
+ 	unsigned int			iter_off,
+ 	unsigned int			end,
+-	struct xfs_dir2_data_entry	*dent)
++	struct xfs_dir2_data_entry	*dent,
++	xfs_dablk_t			rec_bno)
+ {
+ 	struct xfs_dir2_data_entry	*dep = bp->b_addr + iter_off;
+ 	struct xfs_mount		*mp = ds->state->mp;
++	unsigned int			advance;
 +
-+	return be16_to_cpu(dup->length);
-+}
++	/* must have namelen */
++	advance = offsetof(typeof(*dep), name);
++	if (iter_off + advance >= end) {
++		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++		return -1;
++	}
 +
-+/*
-+ * Check a directory entry.  Returns a positive number of bytes to advance
-+ * in the directory block, zero to stop processing, or -1 if corruption was
-+ * found.
-+ */
-+static int
-+xchk_dir_check_entry(
-+	struct xchk_da_btree		*ds,
-+	struct xfs_buf			*bp,
-+	unsigned int			iter_off,
-+	unsigned int			end,
-+	struct xfs_dir2_data_entry	*dent)
-+{
-+	struct xfs_dir2_data_entry	*dep = bp->b_addr + iter_off;
-+	struct xfs_mount		*mp = ds->state->mp;
-+
-+	if (dep == dent)
-+		return 0;
-+
-+	return xfs_dir2_data_entsize(mp, dep->namelen);
-+}
-+
++	/* Don't walk off the end of the block. */
++	advance = xfs_dir2_data_entsize(mp, dep->namelen);
++	if (!advance || iter_off + advance > end) {
++		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++		return -1;
++	}
+ 
+ 	if (dep == dent)
+ 		return 0;
+ 
+-	return xfs_dir2_data_entsize(mp, dep->namelen);
++	return advance;
+ }
+ 
  /* Scrub a directory btree record. */
- STATIC int
- xchk_dir_rec(
-@@ -381,21 +420,24 @@ xchk_dir_rec(
+@@ -369,6 +398,7 @@ xchk_dir_rec(
+ 	xfs_dahash_t			hash;
+ 	struct xfs_dir3_icleaf_hdr	hdr;
+ 	unsigned int			tag;
++	bool				foundit = false;
+ 	int				error;
+ 
+ 	ASSERT(blk->magic == XFS_DIR2_LEAF1_MAGIC ||
+@@ -413,33 +443,44 @@ xchk_dir_rec(
+ 	dent = bp->b_addr + off;
+ 
+ 	/* Make sure we got a real directory entry. */
+-	iter_off = geo->data_entry_offset;
+ 	end = xfs_dir3_data_end_offset(geo, bp->b_addr);
+ 	if (!end) {
+ 		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
  		goto out_relse;
  	}
- 	for (;;) {
--		struct xfs_dir2_data_entry	*dep = bp->b_addr + iter_off;
+-	for (;;) {
++	iter_off = geo->data_entry_offset;
++	while (iter_off < end) {
  		struct xfs_dir2_data_unused	*dup = bp->b_addr + iter_off;
-+		int				advance;
+ 		int				advance;
  
- 		if (iter_off >= end) {
+-		if (iter_off >= end) {
++		/* must have freetag */
++		advance = offsetof(typeof(*dup), length);
++		if (iter_off + advance >= end) {
  			xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
  			goto out_relse;
  		}
  
--		if (be16_to_cpu(dup->freetag) == XFS_DIR2_DATA_FREE_TAG) {
--			iter_off += be16_to_cpu(dup->length);
--			continue;
--		}
--		if (dep == dent)
-+		if (dup->freetag == cpu_to_be16(XFS_DIR2_DATA_FREE_TAG))
-+			advance = xchk_dir_check_unused(ds, bp, iter_off, end);
-+		else
-+			advance = xchk_dir_check_entry(ds, bp, iter_off, end,
-+					dent);
-+		if (advance < 0)
-+			goto out_relse;
-+		if (!advance)
+ 		if (dup->freetag == cpu_to_be16(XFS_DIR2_DATA_FREE_TAG))
+-			advance = xchk_dir_check_unused(ds, bp, iter_off, end);
++			advance = xchk_dir_check_unused(ds, bp, iter_off, end,
++					rec_bno);
+ 		else
+ 			advance = xchk_dir_check_entry(ds, bp, iter_off, end,
+-					dent);
++					dent, rec_bno);
+ 		if (advance < 0)
+ 			goto out_relse;
+-		if (!advance)
++		if (!advance) {
++			foundit = true;
  			break;
--		iter_off += xfs_dir2_data_entsize(mp, dep->namelen);
-+		iter_off += advance;
++		}
+ 		iter_off += advance;
  	}
  
++	/* Hash tree must point to the exact dirent */
++	if (!foundit) {
++		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++		goto out_relse;
++	}
++
  	/* Retrieve the entry, sanity check it, and compare hashes. */
+ 	ino = be64_to_cpu(dent->inumber);
+ 	hash = be32_to_cpu(ent->hashval);
+@@ -451,6 +492,13 @@ xchk_dir_rec(
+ 		goto out_relse;
+ 	}
+ 
++	/* Name must not overflow end of block */
++	if ((char *)dent->name + dent->namelen >
++	    (char *)bp->b_addr + BBTOB(bp->b_length)) {
++		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++		goto out_relse;
++	}
++
+ 	/* Does the directory hash match? */
+ 	dname.name = dent->name;
+ 	dname.len = dent->namelen;
 diff --git a/fs/xfs/scrub/dir_repair.c b/fs/xfs/scrub/dir_repair.c
-index 2bc2354cd85d4..4c565f7bcd290 100644
+index 4c565f7bcd290..72fe0ae3e18de 100644
 --- a/fs/xfs/scrub/dir_repair.c
 +++ b/fs/xfs/scrub/dir_repair.c
-@@ -456,6 +456,52 @@ xrep_dir_salvage_data_entry(
- 	return xrep_dir_salvage_entry(rd, dep->name, dep->namelen, ino);
+@@ -467,8 +467,16 @@ xrep_dir_recover_unused(
+ 	unsigned int			end)
+ {
+ 	struct xfs_dir2_data_unused	*dup = bp->b_addr + offset;
++	unsigned int			advance;
++
++	if (offset + sizeof(*dup) > end)
++		return 0;
++
++	advance = xfs_dir2_data_unusedsize(be16_to_cpu(dup->length));
++	if (!advance || offset + advance > end)
++		return 0;
+ 
+-	return be16_to_cpu(dup->length);
++	return advance;
  }
  
-+/*
-+ * Deal with an unused directory entry.  Returns a positive number of bytes to
-+ * advance in the directory block, or zero to stop processing.
-+ */
-+static int
-+xrep_dir_recover_unused(
-+	struct xfs_buf			*bp,
-+	unsigned int			offset,
-+	unsigned int			end)
-+{
-+	struct xfs_dir2_data_unused	*dup = bp->b_addr + offset;
-+
-+	return be16_to_cpu(dup->length);
-+}
-+
-+/*
-+ * Salvage a directory entry.  Returns a positive number of bytes to advance
-+ * in the directory block, zero to stop processing, or a negative errno.
-+ */
-+static int
-+xrep_dir_recover_entry(
-+	struct xrep_dir			*rd,
-+	struct xfs_buf			*bp,
-+	unsigned int			offset,
-+	unsigned int			end)
-+{
-+	struct xfs_dir2_data_entry	*dep = bp->b_addr + offset;
-+	unsigned int			advance;
-+	int				error;
-+
-+	/* Don't walk off the end of the block. */
-+	advance = xfs_dir2_data_entsize(rd->sc->mp, dep->namelen);
-+	if (!advance)
-+		return 0;
-+	if (offset + advance > end)
+ /*
+@@ -486,11 +494,14 @@ xrep_dir_recover_entry(
+ 	unsigned int			advance;
+ 	int				error;
+ 
++	/* must have namelen */
++	advance = offsetof(typeof(*dep), name);
++	if (offset + advance >= end)
 +		return 0;
 +
-+	/* Ok, let's save this entry. */
-+	error = xrep_dir_salvage_data_entry(rd, dep);
-+	if (error < 0)
-+		return error;
-+
-+	return advance;
-+}
-+
-+
- /* Try to recover block/data format directory entries. */
- STATIC int
- xrep_dir_recover_data(
-@@ -477,33 +523,20 @@ xrep_dir_recover_data(
+ 	/* Don't walk off the end of the block. */
+ 	advance = xfs_dir2_data_entsize(rd->sc->mp, dep->namelen);
+-	if (!advance)
+-		return 0;
+-	if (offset + advance > end)
++	if (!advance || offset + advance > end)
+ 		return 0;
  
- 	while (offset < end) {
- 		struct xfs_dir2_data_unused	*dup = bp->b_addr + offset;
--		struct xfs_dir2_data_entry	*dep = bp->b_addr + offset;
--		unsigned int			advance;
-+		int				advance;
- 
+ 	/* Ok, let's save this entry. */
+@@ -528,6 +539,11 @@ xrep_dir_recover_data(
  		if (xchk_should_terminate(rd->sc, &error))
  			return error;
  
--		/* Skip unused entries. */
--		if (be16_to_cpu(dup->freetag) == XFS_DIR2_DATA_FREE_TAG) {
--			if (!dup->length)
--				break;
--			offset += be16_to_cpu(dup->length);
--			continue;
--		}
--
--		/* Don't walk off the end of the block. */
--		advance = xfs_dir2_data_entsize(rd->sc->mp, dep->namelen);
-+		if (dup->freetag == cpu_to_be16(XFS_DIR2_DATA_FREE_TAG))
-+			advance = xrep_dir_recover_unused(bp, offset, end);
-+		else
-+			advance = xrep_dir_recover_entry(rd, bp, offset, end);
-+		if (advance < 0)
-+			return advance;
- 		if (!advance)
- 			break;
- 		offset += advance;
--		if (offset > end)
--			break;
--
--		/* Ok, let's save this entry. */
--		error = xrep_dir_salvage_data_entry(rd, dep);
--		if (error)
--			return error;
--
- 	}
++		/* must have freetag */
++		advance = offsetof(typeof(*dup), length);
++		if (offset + advance >= end)
++			break;
++
+ 		if (dup->freetag == cpu_to_be16(XFS_DIR2_DATA_FREE_TAG))
+ 			advance = xrep_dir_recover_unused(bp, offset, end);
+ 		else
+@@ -559,6 +575,19 @@ xrep_dir_recover_sf(
+ 	hdr = ifp->if_data;
+ 	end = (unsigned char *)ifp->if_data + ifp->if_bytes;
  
- 	return 0;
++	/* sf header must be big enough for count/i8count */
++	if (!hdr || ifp->if_bytes < 2)
++		return 0;
++
++	/* and large enough for the parent inumber */
++	if (hdr->i8count) {
++		if (ifp->if_bytes < offsetof(struct xfs_dir2_sf_hdr, parent[8]))
++			return 0;
++	} else {
++		if (ifp->if_bytes < offsetof(struct xfs_dir2_sf_hdr, parent[4]))
++			return 0;
++	}
++
+ 	ino = xfs_dir2_sf_get_parent_ino(hdr);
+ 	trace_xrep_dir_salvaged_parent(rd->sc->ip, ino);
+ 
 -- 
 2.53.0
 
