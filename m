@@ -1,84 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793853983;
-	b=wOn6FwLufLKWBxOMVju6hElLzbExbwlUkfVn8sPBq9atB85PqjhFiGL3Jg+pLLNHUnUJ
-	 LUyjgENXozJyPhKuq4BbvHvHNP+iBRU24GjHFyEL8ALoObpIWsighO5qoQTzGetKnO6B9
-	 z8jkLmuB3Uz6CKXWM9WlAvd4ZwAwXANOKMQ9T7ghpuEWk4f5/YpRWwXMmXHI6eQcFG1w7
-	 ZDShBwKzhP0lrDaKIns/+UXXvnugyG/B1KDpsUbv1ycmbpLoHIoegIKfkTnCKW/A8SjZp
-	 JGfPxG58G+x1HgX97DaWMGgyVLQCPpGuOo9Kaxt5CtE+9P8qBgvpa1vXB/yJay9bP9w==
+	t=1793854096;
+	b=ZBJZg5FZhbwMqZFbK4aiwPsyT4x0ku4UEbiH1FIkLSZuZGRfaSY8aR7/Ou1DoGcyhc4B
+	 1IQnwhCd4Vgb7E9LK2Qn9NLaF5BHrDmu/Q355GLgj3yQ2ESWOPrRoj2AnsniSHNSWo33Q
+	 FHGWz2M3aUz+88KE3SJ7wLlAsqCoAUdhgJw639Ts+RdJ9N7Z+UH8YgUVFQcqzy3wvWtPd
+	 fnyweVrXcLNuZPycJD4zpkKBEt0q7Ev0nfj+p6g+eOt9pMBRvnbFGfiYybZ7QKkLg4oIt
+	 SWqP40NvzGHKXc2xglGytRONdS3KKC0ycbvh5dxaASzAp+FiJ1c0GXOwfOCK3WhL0mQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793853983;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 User-Agent:MIME-Version:Content-Type;
-	bh=UEhvz5qnVJcOEvOQ5Tc4seJIA3lfMk/hJ4EDh4hKsfI=;
-	b=qO4LVN/YCjeuNt5fiUjLFb+eMDhjno5PKFPnRNENTiNGJfM8gCRJyErlYda67JGa054d
-	 ll2wKckZuYx1rKWhTqBrNIB6T706/8aV+Lv+2NxFLwdAJJun5phZDj8s+7WsONkbGtybH
-	 AGvxtG8msZtUo4pnOdMNMFgpin9JOQmq1+2/A2h1+8ahAVCeWCSN3PUC+z2EL75TbhKt6
-	 21R3BpR81KOtRmiQO6A+Q8uOzaYxSkJgOUPVURvwI9Zn1SmBYNleu/eAHYESV4U4BgHiv
-	 t2oip2bOjsRNNKUEW/SYD3VdvH5tdF+tmgyrCXcGkMTQvn0FuML+v5v/qRZWnKLXRiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793854096;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=ajZPwFVzN830Y+IPPsz+0JezqAnRFXAuGFeEvLV37Dc=;
+	b=0reXu2gjvKuOH+qEKUwXWlIKVQjQglbymRe8xEEzlja8oj1hiJgROmqcYwaLbnvavp8j
+	 AYdgWhFMquA01QyX7MUsGXi6Zmtk+DEM3JLwU4M1VbEJ50vWsYUBr3thOSv3wlg7Zchq1
+	 GrXMHJSDrI79Zi21aEclbSSm9aPwOs99kLwuOQ5PqROZ1xrXhQNZ3s+lWzQXFUv0+Up5N
+	 MynE85QkqBQoJ7GEbHTb3RVEQ1BY9d0RCP9ZaeRmbOu5oYrv4GmP1r8WBhGvr8Z9rSmgJ
+	 DZpMZpWQsOeo6I1eOQA8BXuH9xm9E4AskWVJv+FWRSI5rUmfHyTdq3GPSRXBLjsYBYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.parknet.co.jp;
-	spf=pass smtp.mailfrom=parknet.co.jp;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=AzU3k0xM;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=Rdc2RTcK;
-	arc=none smtp.remote-ip=210.171.160.6
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dszmkarj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67471606A32D;
-	Thu,  5 Nov 2026 04:46:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67471606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7D8606A326;
+	Thu,  5 Nov 2026 04:48:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=AzU3k0xM;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=Rdc2RTcK
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id 45A6026F765F;
-	Thu,  5 Nov 2026 13:46:18 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1793853978;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UEhvz5qnVJcOEvOQ5Tc4seJIA3lfMk/hJ4EDh4hKsfI=;
-	b=AzU3k0xMre3huuujnXb7O4iBaA+saDtxcD7ekZ22W1lV3TiIKDuxQjyYtO8mGqP8zXW3UF
-	wT9t7n8DAB7OP6dCtKzlYJfljlkrJbF9yvxu/1RDX/0dk6qY2R5+No1FHtBFzKxVsCDMrj
-	+34FkgcEYX5f+cBLPS4RSyRf1tzYa9zMGz4CnCyPQ9/eeExlYtW2ryEZFMPXrNBbdjg+gG
-	mXMmaZh3g5I+7meqAEFe8LMp4IAarAdZFkLBo+/Fo7cBVaZJJ63P10000vh4gi1Tp32OPL
-	uar2Db9B8PthiFsPJ0cqHghWU2DvyYgUHJxENnE+xnegBbTWYd7wNGJsso3AUA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1793853978;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UEhvz5qnVJcOEvOQ5Tc4seJIA3lfMk/hJ4EDh4hKsfI=;
-	b=Rdc2RTcKOFkoTJP+bE9GoCYl8pWdaetk4ehiCYgpPSFQO91vWdH8Wuk96iVyVO6r7X4cME
-	V1oP1w0KC4m4BhBw==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id B7E87E000B0;
-	Thu, 05 Nov 2026 13:46:17 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id AD4F722000AE; Thu, 05 Nov 2026 13:46:17 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Jan Kara <jack@suse.cz>
-Cc: Christian Brauner <brauner@kernel.org>,  linux-fsdevel@vger.kernel.org,
-  Josef Bacik <josef@toxicpanda.com>,  Chris Mason <mason@kernel.org>,
-  linux-ext4@vger.kernel.org,  Andreas Dilger <adilger.kernel@dilger.ca>,
-  Baokun Li <libaokun@linux.alibaba.com>,  Ojaswin Mujoo
- <ojaswin@linux.ibm.com>,  "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-  Namjae Jeon <namjae.jeon@samsung.com>,  stable@vger.kernel.org
-Subject: Re: [PATCH RFC 8/9] fat: sync the inode in fat_free_eofblocks()
-In-Reply-To: <3xsybk6czpjtovswdd46bvoug73ojrzshh5hkdjkfszyjl3x5h@j2l7dqxoorhi>
-References: <20261029-work-inode-metadata_writeback-v1-0-7d6c678a585d@kernel.org>
-	<20261029-work-inode-metadata_writeback-v1-8-7d6c678a585d@kernel.org>
-	<oilqmzo3vpddohxp46x3pjzf3wtoebahirtjqmt3izdw6ua5iq@ghdbk27wuf5f>
-	<87v76co5dv.fsf@mail.parknet.co.jp>
-	<3xsybk6czpjtovswdd46bvoug73ojrzshh5hkdjkfszyjl3x5h@j2l7dqxoorhi>
-Date: Thu, 05 Nov 2026 13:46:17 +0900
-Message-ID: <87pkwjopgm.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dszmkarj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A302F1F00919;
+	Thu,  5 Nov 2026 04:48:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793854095;
+	bh=ajZPwFVzN830Y+IPPsz+0JezqAnRFXAuGFeEvLV37Dc=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=dszmkarjYufbSUsjZvExyyUp/ZDL2EvsCN+bSF9Mb/PO6o07gIcpBDWQsgQ/tk+Mc
+	 3nSzOeTS5JyCttdqKWoyIFs3afhglZIOuWmVTaeJIbxDcvuT9QUKEjLetq6RtORiTI
+	 X8JMWZt2onC5Z2NfV0f/mAffSF1ktXxxhIGPk9mjLe+AGI0Z54z1oKG1iBrwGtvNR8
+	 bzWgb8jUC1QDzXLeh4sSfhqKaP4Mka1S9FdMsHw1nYkMr6R6DQt55CC7tYGBYL6/I2
+	 LVqRgzJf7PPyZAiT+JMPDpNb5XZRDs4iVfcZb64WFW8f0PGwtl6EDSMA0f1pbPnH8x
+	 r8pmP+20UBkaQ==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,23 +49,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3] kbuild: Makefile.lib: fix offsets generation with
+ debug info
+From: Nathan Chancellor <nathan@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261026074733.11777-1-d.kandybka@gmail.com>
+References: <20260928105330.25427-1-d.kandybka@gmail.com>
+ <20261015210149.78470-1-d.kandybka@gmail.com>
+ <20261026074733.11777-1-d.kandybka@gmail.com>
+Date: Wed, 04 Nov 2026 21:48:00 -0700
+Message-Id: <179385408066.826739.6575864914757012196.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1627; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=Q/Og4CeqvsVSOybsczxrTVCOHwDIbbWQniM0T9BChsA=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFlvuLqr7dlvPmt/E3d7IvPTowuv/ZgziTd0Uu5Mz7V3f
+ Q3bg5aKd5SyMIhxMciKKbJUP1Y9bmg45yzjjVOTYOawMoEMYeDiFICJ9E9nZPizmXWH/KXyv+5P
+ XvvsTblaPdtI8XPs0qjn6mEWuy0Psl9gZNity7fj1432jYv1+s5YznIpeVFwfMO/vonMN+a0qn9
+ 6k8sCAA==
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-Jan Kara <jack@suse.cz> writes:
+> When debug information is enabled (e.g. -ggdb3), the assembler
+> output file (e.g. kernel/sched/rq-offsets.s) contains additional
+> directives such as .ascii with offset info and debug metadata.
+> 
+> For example:
+> 
+>    .ascii "->RQ_nr_pinned $3048 offsetof(struct rq, nr_pinned)"  #
+>    ...
+>    .ascii "->func); __data = (it_func_ptr)->data; ((void(*)(void *, pro"
+> 
+> The current sed-offsets macro uses [^ ]* to match constant names,
+> which is too permissive and can match unexpected characters when
+> debug directives are present. Additionally, the fallback command
+> 's:->::; p;' strips '->' from any unmatched line and prints it,
+> which causes debug metadata to leak into the generated header
+> file (include/generated/rq-offsets.h), breaking the build.
+> 
+> Replace [^ ]* with [[:alnum:]_]* to match only valid C identifiers,
+> and remove the fallback 's:->::' command so that only successfully
+> transformed lines are emitted into the generated header.
+> 
+> v2:
+> - Add BLANK() macro for better readability of generated headers
+> (suggested by Nathan Chancellor).
+> v3:
+> - Check for ->BLANK() at the beginning of a line
+> (suggested by Nathan Chancellor).
 
->> In my understand, the result of this change only affect to crash case
->> (FAT has no guarantee about it with non-sync mode). And this doesn't
->> lost data actually - lost some free blocks (maybe fsck would be
->> recoverable).
->
-> The result won't be lost free blocks but rather reference from inode to
-> already freed blocks after a crash (and thus possibility of a block used by
-> two inodes). So it is definitely an unpleasant filesystem corruption after
-> a crash but as you say there are really no guarantees without fsck...
+For the future, please include this changelog underneath the '---' below
+your signoff so that it is not included when we apply the patch.
+Nicolas, would you mind snipping that during application?
 
-Ah, sure. Possible if the block is reused and flushed without flushing
-EOF mark. However, broken parts usually would be outside of i_size.
+> Fixes: 7dd47b95b0f5 ("kbuild: consolidate redundant sed script ASM offset generation")
+> Signed-off-by: Dmitry Kandybka <d.kandybka@gmail.com>
 
-Thanks.
+Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+
 -- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Cheers,
+Nathan
+
