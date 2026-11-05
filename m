@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793837333;
-	b=DflycjGdJGk7HUZd5w4ja439T9rFcI09CyPkD2S+d6PdzK/3rgw4GMGmIOMrb5Ss7cf5
-	 nto/ThL8+UUBFAACGu2TwGAGkGlaD0gjmEY39ZX0rCD86V7i6+4ob/Mohh70ZaqnAbch9
-	 bZHZDTAVcn2brHQHWm8d1kLWxP4KmRiZnkmck8Lgu1pnJx/3+PTZI48R1/DNziBXTD/+9
-	 iVcUchpbXxPfjCrWP/nyaeHuk6PTcMlmb5jG//q2yRWOZRIazLM2559IbantssruRB3Xu
-	 JDO+sWcC/R93Z/u2HoUuPxiUh2kWDrvln5m8hSb3VnzQg5Sqfg1q/fXzP1o+hAebbfQ==
+	t=1793837334;
+	b=nLSHfVdQOS0EloGs0yhcYPd0Z8ErtbRgV+Ylquuvvs3P8udV6S7TKD/m0CLWoy4029DY
+	 i1haKgtXVxotQ5No9yBB2n4itGQHIgqwQo+25wbdfRqCSZtRVQTc8bzS+IgsPoyKEJ7Za
+	 V1Woa0eeO3Dp8appRpaITZBhrRdV5VykqaG8ZgqJqNFRQ3jt1eVcuF4m0YIK93lxBVuSD
+	 okqIgHn0jWeieXB01pMtoZMqflEUXtneCr2W+LBLlrLe97xeJixW5H7qb/Xh5IFqFXw0P
+	 7DfeTyLYCa8DedhfRYI/iFuRLLkLqjO24FN3NXUXsuu6yTfFgXyGN5Mx+pUh57OQCrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793837333;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793837334;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uIdmmtHkujtBlsSpAhv26JBU5DPI8V15zUmW1A657/Q=;
-	b=YDJk7GU73n5BBNYjUqvyQ5P9zdlww8Imkw/ftYUeIiL6Duw1v4sAg9IjdfyS+8JFKn3K
-	 hI0O/FSLiJ2oXxVjQXIVpHHD5DgWQWko17lbHPaNn2qCgykVkMZYEKARwuQCMh6xNlF44
-	 JuC09X2PZpMGUAFckfcKWINZKfAM7rUmX+ZhO5kmgbyw1uRbMQLe/t84ZGVRlssRsrIc1
-	 IduJUdZNd96iMtL5jfnrr6gdu1pd46kLhZnBs7g5WMmgWIu5utm+EthldOevs9FhkF9sn
-	 3b0l3158/D9WftSdNKhR52ud+8CV/opeLccfewxR9UWnokyGDFROBzXDu35SJwd9A+g==
+	bh=DHOsPfwMPXjjycy8WXwJXoG5dDnIpwtuH511PMYcgjU=;
+	b=XSTi5O5U8pXlxlX3YdZ3cPBmgj9l2u8SkLUJGcbj6nrvJ9Xn0NmbQGWZCh1u81gVBo43
+	 O/UFFAY/oQSXZ3EThko8rEWWHL7pbbOFd63L8SuDc3fwCMTfoCuPFZz1OLHcmf5Bxurh9
+	 Buz/JZ1Jn7pn/tvC4dcb7+FamayMy6+CvQvV0MSuziMTuweX1p/o3mnHMAYlNuVx7tWq2
+	 Sm6h3D7sUusE9xJJs3wyBGtwMuoA3yEPgZEFdoa+tQDcYJH9hYBCM4fSJkjPvIAlQlvn7
+	 zP0NHf6AYcJU7hCaFDKPM6fHCeo3rP19xKKqsXiz3ODOBoGNNEk7jQoo6o1bV+9EPiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=meyP615X;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KD2JhNbh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F673606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:08:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5A9606A329
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:08:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=meyP615X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A06A1F000C1;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KD2JhNbh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BCE31F00919;
 	Thu,  5 Nov 2026 00:08:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793837332;
-	bh=uIdmmtHkujtBlsSpAhv26JBU5DPI8V15zUmW1A657/Q=;
+	s=k20260515; t=1793837333;
+	bh=DHOsPfwMPXjjycy8WXwJXoG5dDnIpwtuH511PMYcgjU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=meyP615XuwmIG/LjmPuiz2aivLQu7n9ULks9XAnFzrygOvQI5Bxxgfzwgufbi2MWv
-	 QD+yZsv01n+U9+cuWy+2RCxmL1o1R58+0fe/UO2JJXmlijWcbyvM5LQ5YtkhgtExBT
-	 YkCzxmr37fCY88wSiw8LV9BhZ7CTZmFnLewWOW6GqHwv1fCaX3ogP9drB9BG3ceCVO
-	 xbrwm8wuXLlBOs3noyL2AFnZkHjW7RSN8Q8BuM+sIGT8BbgGbldkKqhGbE2aayN6LE
-	 KKQecOZGVXlZ9jTGW1w5pAYolI9vJ3txJoIc6fUUKOa5D2JnjoAAQN/tZ/NsjNG+jL
-	 ROihr1ad1xENg==
+	b=KD2JhNbhDZpFmAYfqdb3aicCHfrwaxh+cieb+lHRRkwFMYSh2nE2eWckijPhkc1M4
+	 8fvXZXspRrzclljqD1Dw28A4C/5OfqiYoNV6lOTEXgOVbKcKVoy/YYxu8PaAv+VCqX
+	 nK/OJFEXrKnV6nfpuNwNwdQKnlHHxssF/cg5Ce6jVTwfTh8nrqMIM/F+epF9Z/m0vo
+	 lTdS0SrqfDFD93x+9kc6+uug5K9lLBrbRLHT/DwdzL9icKB4WLWhZC5IWbbYqfsRj/
+	 qzQp+tAdTs2NMqTBJnHABQuuP4Wqmg8xp4wa3AQb2LRYhF6jfgizgBGRYz0bHjjy0F
+	 TpI70r+mmM7AA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Khasar Munkh-Erdene <02khasar@gmail.com>,
+Cc: Tianchu Chen <flynnnchen@tencent.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] staging: rtl8723bs: fix spacing around operators in rtw_recv.c
-Date: Wed,  4 Nov 2026 19:08:50 -0500
-Message-ID: <20261105000819.977798-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] staging: rtl8723bs: fix protected RX frame validation in decrypt path
+Date: Wed,  4 Nov 2026 19:08:51 -0500
+Message-ID: <20261105000819.977798-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110447-latch-gala-c5d3@gregkh>
+In-Reply-To: <20261105000819.977798-1-sashal@kernel.org>
 References: <2026110447-latch-gala-c5d3@gregkh>
+ <20261105000819.977798-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,297 +62,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Khasar Munkh-Erdene <02khasar@gmail.com>
+From: Tianchu Chen <flynnnchen@tencent.com>
 
-[ Upstream commit 393b267e6f04a11d4b18b7dc1423fa59f173f72b ]
+[ Upstream commit 495cb31c791bdf3f9efef255a9587b05b0526c9d ]
 
-Fix coding style issues by adding missing spaces around binary and
-ternary operators, as reported by checkpatch.pl.
+The RX software decrypt path mishandles crafted protected frames from a
+malicious AP in two ways:
 
-Signed-off-by: Khasar Munkh-Erdene <02khasar@gmail.com>
-Link: https://patch.msgid.link/20260225032909.72799-1-02khasar@gmail.com
+1) decryptor() never checks that a protected frame is long enough to
+hold the 802.11 header plus the per-cipher trailer.  All of
+rtw_wep_decrypt(), rtw_tkip_decrypt() and rtw_aes_decrypt() compute
+
+	length = hdr.len - hdrlen - iv_len;
+
+and act on the result, and recvframe_chkmic() similarly computes
+
+	datalen = hdr.len - hdrlen - iv_len - icv_len - 8;
+
+for TKIP (the 8-byte Michael MIC is not accounted for in icv_len).
+A frame shorter than hdrlen + iv_len + icv_len (+ 8 for TKIP) underflows
+these unsigned subtractions, turning into a ~4 GiB iteration count in
+aes_decipher()/arc4_crypt()/rtw_seccalctkipmic() or a ~4 GiB crc32_le()
+length, causing out-of-bounds reads/writes of up to ~4 GiB starting from
+the rx skb.  Reject such frames in decryptor() before touching the IV;
+this covers all three ciphers and the TKIP MIC check, and also keeps the
+unconditional iv[3] access within the frame.
+
+2) validate_80211w_mgmt() keeps using the frame - two memcpys through
+the stale rx_data pointer and a pkt_len update - before checking
+whether decryptor() returned NULL.  On decrypt failure (e.g. a unicast
+protected deauth/disassoc/action frame with a bad MIC, which this path
+always software-decrypts) the skb has already been freed, so this is a
+use-after-free read/write, and the caller's error path frees the frame
+a second time, drifting free_recvframe_cnt.  Bail out immediately when
+decryptor() fails, freeing the temporary mgmt_DATA buffer first.
+
+Discovered by Atuin - Automated Vulnerability Discovery Engine.
+
+Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
+Link: https://patch.msgid.link/8ee3bdd1c45034200cb1aa9a7e9b575b9584643a@linux.dev
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-Omit the spacing change in rtw_handle_tkip_mic_err(), which remains
-in the receive OS glue. Keep the other operator-spacing fixes,
-including the decrypt and management-frame contexts required by
-the protected RX frame validation fix.
-
-Stable-dep-of: 495cb31c791b ("staging: rtl8723bs: fix protected RX frame validation in decrypt path")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/rtl8723bs/core/rtw_recv.c | 82 +++++++++++------------
- 1 file changed, 41 insertions(+), 41 deletions(-)
+ drivers/staging/rtl8723bs/core/rtw_recv.c | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/rtl8723bs/core/rtw_recv.c
-index a389ba5ecc6f6..f43429c72298e 100644
+index f43429c72298e..96630315d46a7 100644
 --- a/drivers/staging/rtl8723bs/core/rtw_recv.c
 +++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
-@@ -332,13 +332,13 @@ static signed int recvframe_chkmic(struct adapter *adapter,  union recv_frame *p
- 				mickey = &stainfo->dot11tkiprxmickey.skey[0];
- 			}
- 
--			datalen = precvframe->u.hdr.len-prxattrib->hdrlen-prxattrib->iv_len-prxattrib->icv_len-8;/* icv_len included the mic code */
-+			datalen = precvframe->u.hdr.len - prxattrib->hdrlen - prxattrib->iv_len - prxattrib->icv_len - 8;/* icv_len included the mic code */
- 			pframe = precvframe->u.hdr.rx_data;
--			payload = pframe+prxattrib->hdrlen+prxattrib->iv_len;
-+			payload = pframe + prxattrib->hdrlen + prxattrib->iv_len;
- 
- 			rtw_seccalctkipmic(mickey, pframe, payload, datalen, &miccode[0], (unsigned char)prxattrib->priority); /* care the length of the data */
- 
--			pframemic = payload+datalen;
-+			pframemic = payload + datalen;
- 
- 			bmic_err = false;
- 
-@@ -386,9 +386,9 @@ static union recv_frame *decryptor(struct adapter *padapter, union recv_frame *p
+@@ -386,8 +386,21 @@ static union recv_frame *decryptor(struct adapter *padapter, union recv_frame *p
  	u32  res = _SUCCESS;
  
  	if (prxattrib->encrypt > 0) {
--		u8 *iv = precv_frame->u.hdr.rx_data+prxattrib->hdrlen;
-+		u8 *iv = precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
+-		u8 *iv = precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
++		u8 *iv;
++		u32 min_len = prxattrib->hdrlen + prxattrib->iv_len + prxattrib->icv_len;
  
--		prxattrib->key_index = (((iv[3])>>6)&0x3);
-+		prxattrib->key_index = (((iv[3]) >> 6) & 0x3);
++		/* TKIP appends an 8-byte Michael MIC that icv_len doesn't account for */
++		if (prxattrib->encrypt == _TKIP_)
++			min_len += 8;
++
++		/* a protected frame must be long enough to hold the IV and ICV/MIC */
++		if (precv_frame->u.hdr.len < min_len) {
++			rtw_free_recvframe(precv_frame,
++					   &padapter->recvpriv.free_recv_queue);
++			return NULL;
++		}
++
++		iv = precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
+ 		prxattrib->key_index = (((iv[3]) >> 6) & 0x3);
  
  		if (prxattrib->key_index > WEP_KEYS) {
- 			switch (prxattrib->encrypt) {
-@@ -510,7 +510,7 @@ static signed int recv_decache(union recv_frame *precv_frame, u8 bretry, struct
- {
- 	signed int tid = precv_frame->u.hdr.attrib.priority;
- 
--	u16 seq_ctrl = ((precv_frame->u.hdr.attrib.seq_num&0xffff) << 4) |
-+	u16 seq_ctrl = ((precv_frame->u.hdr.attrib.seq_num & 0xffff) << 4) |
- 		(precv_frame->u.hdr.attrib.frag_num & 0xf);
- 
- 	if (tid > 15)
-@@ -574,29 +574,29 @@ static void process_wmmps_data(struct adapter *padapter, union recv_frame *precv
- 	if (!psta->qos_option)
- 		return;
- 
--	if (!(psta->qos_info&0xf))
-+	if (!(psta->qos_info & 0xf))
- 		return;
- 
--	if (psta->state&WIFI_SLEEP_STATE) {
-+	if (psta->state & WIFI_SLEEP_STATE) {
- 		u8 wmmps_ac = 0;
- 
- 		switch (pattrib->priority) {
- 		case 1:
- 		case 2:
--			wmmps_ac = psta->uapsd_bk&BIT(1);
-+			wmmps_ac = psta->uapsd_bk & BIT(1);
- 			break;
- 		case 4:
- 		case 5:
--			wmmps_ac = psta->uapsd_vi&BIT(1);
-+			wmmps_ac = psta->uapsd_vi & BIT(1);
- 			break;
- 		case 6:
- 		case 7:
--			wmmps_ac = psta->uapsd_vo&BIT(1);
-+			wmmps_ac = psta->uapsd_vo & BIT(1);
- 			break;
- 		case 0:
- 		case 3:
- 		default:
--			wmmps_ac = psta->uapsd_be&BIT(1);
-+			wmmps_ac = psta->uapsd_be & BIT(1);
- 			break;
- 		}
- 
-@@ -921,20 +921,20 @@ static signed int validate_recv_ctrl_frame(struct adapter *padapter, union recv_
- 		switch (pattrib->priority) {
- 		case 1:
- 		case 2:
--			wmmps_ac = psta->uapsd_bk&BIT(0);
-+			wmmps_ac = psta->uapsd_bk & BIT(0);
- 			break;
- 		case 4:
- 		case 5:
--			wmmps_ac = psta->uapsd_vi&BIT(0);
-+			wmmps_ac = psta->uapsd_vi & BIT(0);
- 			break;
- 		case 6:
- 		case 7:
--			wmmps_ac = psta->uapsd_vo&BIT(0);
-+			wmmps_ac = psta->uapsd_vo & BIT(0);
- 			break;
- 		case 0:
- 		case 3:
- 		default:
--			wmmps_ac = psta->uapsd_be&BIT(0);
-+			wmmps_ac = psta->uapsd_be & BIT(0);
- 			break;
- 		}
- 
-@@ -946,7 +946,7 @@ static signed int validate_recv_ctrl_frame(struct adapter *padapter, union recv_
- 			psta->state ^= WIFI_STA_ALIVE_CHK_STATE;
- 		}
- 
--		if ((psta->state&WIFI_SLEEP_STATE) && (pstapriv->sta_dz_bitmap&BIT(psta->aid))) {
-+		if ((psta->state & WIFI_SLEEP_STATE) && (pstapriv->sta_dz_bitmap & BIT(psta->aid))) {
- 			struct list_head	*xmitframe_plist, *xmitframe_phead;
- 			struct xmit_frame *pxmitframe = NULL;
- 			struct xmit_priv *pxmitpriv = &padapter->xmitpriv;
-@@ -990,7 +990,7 @@ static signed int validate_recv_ctrl_frame(struct adapter *padapter, union recv_
- 				/* spin_unlock_bh(&psta->sleep_q.lock); */
- 				spin_unlock_bh(&pxmitpriv->lock);
- 
--				if (pstapriv->tim_bitmap&BIT(psta->aid)) {
-+				if (pstapriv->tim_bitmap & BIT(psta->aid)) {
- 					if (psta->sleepq_len == 0) {
- 						/* issue nulldata with More data bit = 0 to indicate we have no buffered packets */
- 						issue_nulldata_in_interrupt(padapter, psta->hwaddr);
-@@ -1372,9 +1372,9 @@ static signed int validate_80211w_mgmt(struct adapter *adapter, union recv_frame
+@@ -1371,6 +1384,10 @@ static signed int validate_80211w_mgmt(struct adapter *adapter, union recv_frame
+ 			if (!mgmt_DATA)
  				goto validate_80211w_fail;
  			precv_frame = decryptor(adapter, precv_frame);
++			if (!precv_frame) {
++				kfree(mgmt_DATA);
++				goto validate_80211w_fail;
++			}
  			/* save actual management data frame body */
--			memcpy(mgmt_DATA, ptr+pattrib->hdrlen+pattrib->iv_len, data_len);
-+			memcpy(mgmt_DATA, ptr + pattrib->hdrlen + pattrib->iv_len, data_len);
+ 			memcpy(mgmt_DATA, ptr + pattrib->hdrlen + pattrib->iv_len, data_len);
  			/* overwrite the iv field */
--			memcpy(ptr+pattrib->hdrlen, mgmt_DATA, data_len);
-+			memcpy(ptr + pattrib->hdrlen, mgmt_DATA, data_len);
+@@ -1378,8 +1395,6 @@ static signed int validate_80211w_mgmt(struct adapter *adapter, union recv_frame
  			/* remove the iv and icv length */
  			pattrib->pkt_len = pattrib->pkt_len - pattrib->iv_len - pattrib->icv_len;
  			kfree(mgmt_DATA);
-@@ -1430,7 +1430,7 @@ static signed int validate_recv_frame(struct adapter *adapter, union recv_frame
- 	struct rx_pkt_attrib *pattrib = &precv_frame->u.hdr.attrib;
- 
- 	u8 *ptr = precv_frame->u.hdr.rx_data;
--	u8  ver = (unsigned char) (*ptr)&0x3;
-+	u8  ver = (unsigned char) (*ptr) & 0x3;
- 
- 	/* add version chk */
- 	if (ver != 0) {
-@@ -1468,7 +1468,7 @@ static signed int validate_recv_frame(struct adapter *adapter, union recv_frame
- 		retval = _FAIL; /*  only data frame return _SUCCESS */
- 		break;
- 	case WIFI_DATA_TYPE: /* data */
--		pattrib->qos = (subtype & BIT(7)) ? 1:0;
-+		pattrib->qos = (subtype & BIT(7)) ? 1 : 0;
- 		retval = validate_recv_data_frame(adapter, precv_frame);
- 		if (retval == _FAIL) {
- 			struct recv_priv *precvpriv = &adapter->recvpriv;
-@@ -1513,8 +1513,8 @@ static signed int wlanhdr_to_ethhdr(union recv_frame *precvframe)
- 	if (pattrib->encrypt)
- 		recvframe_pull_tail(precvframe, pattrib->icv_len);
- 
--	psnap = (struct ieee80211_snap_hdr	*)(ptr+pattrib->hdrlen + pattrib->iv_len);
--	psnap_type = ptr+pattrib->hdrlen + pattrib->iv_len+SNAP_SIZE;
-+	psnap = (struct ieee80211_snap_hdr	*)(ptr + pattrib->hdrlen + pattrib->iv_len);
-+	psnap_type = ptr + pattrib->hdrlen + pattrib->iv_len + SNAP_SIZE;
- 	/* convert hdr + possible LLC headers into Ethernet header */
- 	/* eth_type = (psnap_type[0] << 8) | psnap_type[1]; */
- 	if ((!memcmp(psnap, rfc1042_header, SNAP_SIZE) &&
-@@ -1528,37 +1528,37 @@ static signed int wlanhdr_to_ethhdr(union recv_frame *precvframe)
- 		/* Leave Ethernet header part of hdr and full payload */
- 		bsnaphdr = false;
- 
--	rmv_len = pattrib->hdrlen + pattrib->iv_len + (bsnaphdr?SNAP_SIZE:0);
-+	rmv_len = pattrib->hdrlen + pattrib->iv_len + (bsnaphdr ? SNAP_SIZE : 0);
- 	len = precvframe->u.hdr.len - rmv_len;
- 
--	memcpy(&be_tmp, ptr+rmv_len, 2);
-+	memcpy(&be_tmp, ptr + rmv_len, 2);
- 	eth_type = ntohs(be_tmp); /* pattrib->ether_type */
- 	pattrib->eth_type = eth_type;
- 
- 	if ((check_fwstate(pmlmepriv, WIFI_MP_STATE) == true)) {
- 		ptr += rmv_len;
- 		*ptr = 0x87;
--		*(ptr+1) = 0x12;
-+		*(ptr + 1) = 0x12;
- 
- 		eth_type = 0x8712;
- 		/*  append rx status for mp test packets */
--		ptr = recvframe_pull(precvframe, (rmv_len-sizeof(struct ethhdr)+2)-24);
-+		ptr = recvframe_pull(precvframe, (rmv_len - sizeof(struct ethhdr) + 2) - 24);
- 		if (!ptr)
- 			return _FAIL;
- 		memcpy(ptr, get_rxmem(precvframe), 24);
- 		ptr += 24;
- 	} else {
--		ptr = recvframe_pull(precvframe, (rmv_len-sizeof(struct ethhdr) + (bsnaphdr?2:0)));
-+		ptr = recvframe_pull(precvframe, (rmv_len - sizeof(struct ethhdr) + (bsnaphdr ? 2 : 0)));
- 		if (!ptr)
- 			return _FAIL;
- 	}
- 
- 	memcpy(ptr, pattrib->dst, ETH_ALEN);
--	memcpy(ptr+ETH_ALEN, pattrib->src, ETH_ALEN);
-+	memcpy(ptr + ETH_ALEN, pattrib->src, ETH_ALEN);
- 
- 	if (!bsnaphdr) {
- 		be_tmp = htons(len);
--		memcpy(ptr+12, &be_tmp, 2);
-+		memcpy(ptr + 12, &be_tmp, 2);
- 	}
- 
- 	return _SUCCESS;
-@@ -1609,7 +1609,7 @@ static int amsdu_to_msdu(struct adapter *padapter, union recv_frame *prframe)
- 		pdata += nSubframe_Length;
- 		a_len -= nSubframe_Length;
- 		if (a_len != 0) {
--			padding_len = 4 - ((nSubframe_Length + ETH_HLEN) & (4-1));
-+			padding_len = 4 - ((nSubframe_Length + ETH_HLEN) & (4 - 1));
- 			if (padding_len == 4)
- 				padding_len = 0;
- 
-@@ -1841,7 +1841,7 @@ static int recv_indicatepkt_reorder(struct adapter *padapter, union recv_frame *
- 
- 			rtw_recv_indicatepkt(padapter, prframe);
- 
--			preorder_ctrl->indicate_seq = (preorder_ctrl->indicate_seq + 1)%4096;
-+			preorder_ctrl->indicate_seq = (preorder_ctrl->indicate_seq + 1) % 4096;
- 
- 			return _SUCCESS;
- 		}
-@@ -1851,7 +1851,7 @@ static int recv_indicatepkt_reorder(struct adapter *padapter, union recv_frame *
- 
- 			retval = amsdu_to_msdu(padapter, prframe);
- 
--			preorder_ctrl->indicate_seq = (preorder_ctrl->indicate_seq + 1)%4096;
-+			preorder_ctrl->indicate_seq = (preorder_ctrl->indicate_seq + 1) % 4096;
- 
- 			if (retval != _SUCCESS) {
- 			}
-@@ -2043,7 +2043,7 @@ static int recv_func(struct adapter *padapter, union recv_frame *rframe)
- 			!psecuritypriv->busetkipkey) {
- 			rtw_enqueue_recvframe(rframe, &padapter->recvpriv.uc_swdec_pending_queue);
- 
--			if (recvpriv->free_recvframe_cnt < NR_RECVFRAME/4) {
-+			if (recvpriv->free_recvframe_cnt < NR_RECVFRAME / 4) {
- 				/* to prevent from recvframe starvation, get recvframe from uc_swdec_pending_queue to free_recvframe_cnt  */
- 				rframe = rtw_alloc_recvframe(&padapter->recvpriv.uc_swdec_pending_queue);
- 				if (rframe)
-@@ -2132,19 +2132,19 @@ static void rtw_signal_stat_timer_hdl(struct timer_list *t)
- 		}
- 
- 		/* update value of signal_strength, rssi, signal_qual */
--		tmp_s = (avg_signal_strength+(_alpha-1)*recvpriv->signal_strength);
-+		tmp_s = (avg_signal_strength + (_alpha - 1) * recvpriv->signal_strength);
- 		if (tmp_s % _alpha)
--			tmp_s = tmp_s/_alpha + 1;
-+			tmp_s = tmp_s / _alpha + 1;
- 		else
--			tmp_s = tmp_s/_alpha;
-+			tmp_s = tmp_s / _alpha;
- 		if (tmp_s > 100)
- 			tmp_s = 100;
- 
--		tmp_q = (avg_signal_qual+(_alpha-1)*recvpriv->signal_qual);
-+		tmp_q = (avg_signal_qual + (_alpha - 1) * recvpriv->signal_qual);
- 		if (tmp_q % _alpha)
--			tmp_q = tmp_q/_alpha + 1;
-+			tmp_q = tmp_q / _alpha + 1;
- 		else
--			tmp_q = tmp_q/_alpha;
-+			tmp_q = tmp_q / _alpha;
- 		if (tmp_q > 100)
- 			tmp_q = 100;
- 
+-			if (!precv_frame)
+-				goto validate_80211w_fail;
+ 		} else if (is_multicast_ether_addr(GetAddr1Ptr(ptr)) &&
+ 			(subtype == WIFI_DEAUTH || subtype == WIFI_DISASSOC)) {
+ 			signed int BIP_ret = _SUCCESS;
 -- 
 2.53.0
 
