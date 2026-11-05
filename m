@@ -1,59 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793877179;
-	b=BguUkvE/zuNhkkkIn6uHL1Wq2nhzdx6hrks/8050BfkATPyoUtJzFggONTpAgopYrdfa
-	 KSh4paF4he6y8Bvh0X/QDrgo/jh9CSxdu0dWoJc/1DbDCEth+ArmOcVOKPcgee9WYyZ8R
-	 oibFM3qQy5Wpi3aDHWKXphKXbEXYBbc7FyiOR8J8KkJoAJAdDYrLYp0kv8LNLfO4E4fKy
-	 7DpjfF/VFVIWCOMcXXLQdvCflyHzLiFXRK9bO1ojVw5uW+slO8p/xHQk7VYHCyAx/J/MQ
-	 SizKxMDx/FlF9rUJNI4j6+0DC+yNYgxIzn+eCQm4ypd6oyDtSnICuw1ARDeXrn5daew==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877179;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=6vjyiGIRoP6f/zO9hxEixZrq8kzu9uZMm6qA66eptAg=;
-	b=zuXh7veWl1wh9Mhrs348s13gwuXayHxYEPqjPSumO2SQIFNE4/xskcXGYN6lH5PfJxhQ
-	 +an6szQubQFGjOSA/N03RfnaKW/8UK2ScTwEgW4swHgRP8skNxsICBhLYZSeFFUW8HOe8
-	 O+DEesoAb6MdV+Lp6AfLnQJU3koHnFbw5GuHGlRZOiFDRYe5UK3eAJHeC6NDekNEnO6jJ
-	 zuO+i4yhbg7ZrszCPj8BevK0P2eMyV/YWnqQNoBpxyqKDydjfjkhKOG6uYOHI57KtK8+i
-	 GDn8vOl5I48yTkwdAu96z3+dlS4AE6VRCbRXbE2B5NzbvdyO8/kb2ruXPtbcc9SqznQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vjRST9MO;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.138
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793877342;
+	b=C+Da12N7sVs3HPl8tq8hVAo1KRz5/GOt4NvIjHhKLTjI9FvCJcBcmd7K9ZCPesce+TKM
+	 rTbzoCO6Y8ByfcABHIhAr0gyRZKLkyyxEGa21gfxfziWSKwm7OJsojnW0RCfiyO/9SbU1
+	 2Q7mZHdLQcCU4dmN33GHC/nZCKvevOwbIJ+xbancGlENmO8ZTllDN69H/ziqTOsyCUb+t
+	 VAJ++xtHZmlSC8FSoO++pzA4QEakYIPMFKNx+wrDstUR65cUHP/3bUn+20q7+gx65y5eR
+	 xIFO3RlfkqLWFXWQvfv8Pz7h5/fa5T+zEzPC3emPmBNWo6XiB1iw9R2q8xN6liH4rng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793877342;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=nF1NbnWux934O0IIsujFl9xGbyeeKPnw5llJQ+nZFxA=;
+	b=U9Rcp+HLUL/XqayKRWiT32M8GkWtAoW673CxjkwjskRWwcZyGjsLyM41ufFC/zBiT8OG
+	 Y8yayCuDmOZGqoLt1NEsZhEA9MW1HUcRziKfgmyBD2a7eojZ5YIH09vlE9xo5KQhfJqbA
+	 PgsYNlk29fjzuDR4HSjVp8UJU8VoEtKKRTi1H3a0Yg+a/mH3yvq+kceSwiqIoC55rjbLf
+	 BkIAGbhBXGo6C9EnSggIwLCY8QCTdWvdKcYzEsFYqpCVNyUmWFQXPMMohUpEXnZhEKXMq
+	 7LyOxQCR1yVyfbuGvgSGDkPDLDcPandqooZC8oX6GIQOBvG6d4l5i3qcj935JCjrW8Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.138
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022138.outbound.protection.outlook.com [40.107.75.138])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD09F606A328;
-	Thu,  5 Nov 2026 11:12:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD09F606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vjRST9MO
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=6vjyiGIRoP6f/zO9hxEixZrq8kzu9uZMm6qA66eptAg=; b=vjRST9MOrlSiEWOiB/CtbC0Sc/
-	K/8EuJFSfxZs6xtaHWs/GJlfmv20pA7Ag6k+ul1JS5973LQEYXofJTnYtdtqeMfBUiew3b9I4UXzk
-	F8eQil00FQU8Rsg95sAnSuf3KzJXhqcDOW9WosL6dpBe7QwykR7eJECXhah5pfdPx7a52Xc7YuHBD
-	In5+BxW3SWkaWtkm8VaYpfIqsXOaDv/jy/MUdIAN+SxNiFmLbBf9YYr9/qJLLyEZEXL9V0ZtyJso8
-	9Ci1KpuaRUeI9UlHxiEcpXIWU9YlUrv37Bp4SKwlT1LIcoAOoalHhQPDsRGqMnYk9kbdhQvZ5GwQv
-	nOyWRolA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xOvOi-008SOs-1X;
-	Thu, 05 Nov 2026 11:12:49 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Thu, 05 Nov 2026 03:12:42 -0800
-Subject: [PATCH v2] ring-buffer: Handle a reader taking the new head in
- rb_handle_head_page()
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89D3606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 11:15:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D89D3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X3PJH8nmpNuY1hryyEI0UwAWUQHIkOx0pDUzGMvSIOVzS2OoaxAWIulIkJxEZ/CLLZFmeaR8eGGK8TpN6n5y6XE5xZMoMJwRZviAT4MHkPHJYN9avvYd6p2j7gEsjKdtMt2gcj8xtkWSyNXqZmWfX+6C7yML6FA4ae35+dwY4YW16lJz0jolfCUJBxvOU7Ce0GI2ix/7xyqBHJV9S8vU0QJeGpS8OKSU/J7I8IhSKki8uQn3GJlje3HlWkpmcZnMSmQh4m4LZgeHAqNjK8yspb8hAoqZbZjX13kr7BGyUQsYamAyycVHpezks7kr5XmUzB+1B1aGHS33sFvDPm+wXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nF1NbnWux934O0IIsujFl9xGbyeeKPnw5llJQ+nZFxA=;
+ b=PVmfXnvdLXIbISGsSaWdi1Qhkcg1+oMdC5mh/7+/59wW50Trrbwaxgtj3M2NN8DRWfDxE10OTfmJXGxELoHla1jkZGyCyeSxStys3yaTM9k3ApRkqBxNsCIiOA2W1xlsBx/cMhluNuh84rt78afIa67O0r3v5dbBPS7DrIEmQU8eQKDKFYVS4JSIJxEyG0XAsDAsUiXrDCvLvdY69OVMBiVaNAw/PBLdvOAD4veAod0IFGDGoSwlFdtb5iMPJ18x3d6iQlce4L+eFA+Q01UcZ0YeF0q0VlRRVKO+tHe3o7RPyegqCBnhxdPILUzUdASeDuiEeq6UzVYXY3Btnw7YWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI1PR02CA0015.apcprd02.prod.outlook.com (2603:1096:4:1f7::18)
+ by TY0PR06MB5458.apcprd06.prod.outlook.com (2603:1096:400:329::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Thu, 5 Nov 2026
+ 11:15:37 +0000
+Received: from SG1PEPF000082E5.apcprd02.prod.outlook.com
+ (2603:1096:4:1f7:cafe::9d) by SI1PR02CA0015.outlook.office365.com
+ (2603:1096:4:1f7::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
+ Nov 2026 11:15:36 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG1PEPF000082E5.mail.protection.outlook.com (10.167.240.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Thu, 5 Nov 2026 11:15:35 +0000
+Received: from gary-System-Product-Name (unknown [172.16.64.55])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id C431F40920E2;
+	Thu,  5 Nov 2026 19:15:34 +0800 (CST)
+From: Gary Yang <gary.yang@cixtech.com>
+To: Fugang Duan <fugang.duan@cixtech.com>
+Cc: CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
+	Gary Yang <gary.yang@cixtech.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 3/4] arm64: dts: cix: fix I2C bus address and size cells on Sky1
+Date: Thu,  5 Nov 2026 19:15:33 +0800
+Message-ID: <20261105111534.3290756-4-gary.yang@cixtech.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261105111534.3290756-1-gary.yang@cixtech.com>
+References: <20261105111534.3290756-1-gary.yang@cixtech.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,127 +98,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-ring-buffer-head-moved-v2-1-05da40cebccc@debian.org>
-X-B4-Tracking: v=1; b=H4sIAKlk7GoC/4WNQQ6DIBREr2JYl0Yoauiq92hcgHz0Nyk0HyVtj
- Hcv2gM0s3rJzLyVJSCExK7VyggyJoyhgDxVbJhMGIGjK8xkLVshaskJw8jt4j0Qn8A4/owZHPd
- 6ML5xRiulWBm/CDy+j+N7/+O02AcM8/62NyZMc6TPYc5i7/2VZMFL2kZ3l07XFtTNgUUTzpFG1
- m/b9gWHOcTvzwAAAA==
-X-Change-ID: 20261102-ring-buffer-head-moved-f9caf5da9444
-To: Steven Rostedt <rostedt@goodmis.org>, 
- Vincent Donnefort <vdonnefort@google.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- Steven Rostedt <srostedt@redhat.com>, kernel-team@meta.com, 
- stable@vger.kernel.org, Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3440; i=leitao@debian.org;
- h=from:subject:message-id; bh=CJmlLfCQU+JeiPNpiR+gSThux8Q0K3xWUmTQdi3OLi8=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq7GStplCZ9lWp2lJaCVcItVooZnYKcgn9Y4hNj
- lp7XJ4MKEKJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCauxkrQAKCRA1o5Of/Hh3
- bb6zEACvFPFsZMGjfPubQhe6PSzlJ/wMshG3uRAjRWYaE10CIhstCACQc9tlenOGppOrg/beyD0
- m+6VTDr77efUmfTKxx1kq3C44sl+V4FZaEfjW8EwLT6k1CfVcNRi8nrSWRFXKWFonTaYkFC8/fe
- BbihCpZh1wXj+Z+KJ9uPY4bYn1+KnzmdGTyMN+WbX53uwk+J7Q8v34KaaoFMMLypw4jazdXKTmy
- qV+QwHjLA2/zEeRoqlmkeDBp8xdN4VJwHcQKZMuAL8KcO2ZCpmySt0YCqtKq6iHln7JhtVB4+uw
- NeoPBVm696fLf3n8GkPCav4kzMHY+OqhoiBGvDwuJ4Udoe0tg/ngX5C9o4JjpuKz7L6tOcckDgi
- z1Es21hPDe+LbEuv+aPSlH2upupqrfkvw36pAKSRJL/CRhti40h3Qb7Kt8hHazFv9eS9FWAL/ug
- 6CoN4Ua/ZHCTU5SOK/SQzeXtG6xV2zv9FDkWE4EltNNsCvCDN8IjYGRNgnoy+PDwBAVpPiqnX/2
- 0dHSLSC4SVXtErMYLVdiorbQBiDXuOfc+PrEw6ElWjwy6b1XQdIPfRgXvubOlSkrEzsOrHme8fG
- 22nxZoSCVEM/QPmbZ2pboXNN9UeI3TYByEeAgcLjj5WVMYUa8afNdkeBlnoElIBP8xoamzzV1KK
- 28M8Uj/s7sO9xGw==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG1PEPF000082E5:EE_|TY0PR06MB5458:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: c9b168a9-8931-4dce-16ca-08df3b2e1da2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|36860700016|82310400026|376014|56012099006|261021121427099003|261009223027099003|261102123227099003|261026121527099003|18002099003|22082099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	8leWPw2tOXdlYsd1VFbrK3XJIz7AZ8kGeYmfg7SOf6tc2/LZWz8DlrgVgbrWWWIm/RZWA8fXmBYd2AX6T3smCjpwnhSWx4s/TE+V5nZaycajmouSyUF5vaQqxBA++5GJvKvw4XFYonvY6b+mnwwJjSmWCwRo7Rk+ZV4kk+IWyJ/70POLwyvJqcGDQloZZmwWsanyZ5q7hmZ1+CTIgjWcdF2OLJkRjdX2l37aWUcLQBT4TTqKJTuydOOHUMz//7iaLVNdWNZEHiQbyC4D8O9toQRQ7rUk47vE+iZ8sycUkfH+LwKIPhwyhGcbqZ5sEkPUzrLKAPz1qsQp/yul8A6yYLCEckeIaKVQ8gI8en59lzWy8CyQD+R0QjhefxinPTrpru3nK49f2vFvW8LxNMT5txJOVnBLBVfp0Kcv58vHH6165L5GmB1VcjkhudcQzoqzfsyolVl6mZg9hhXLUJ9XaLK5f1MVoGnhU44Mn7KrfqA0EZ+BDlyc9Nt/CulbsFkk9//lLYpEKBmG0MiGfVFGzE8mmPz5UsMMGBfiNE+gQb1Mt46WmQ4V/C7AfwrqSTHM/MQEFt/OvawDjUbqMYLgQO0Ix05zI3N2J9Ch21sPKrTgYlIF72oGz3+1/rnAzg6a4We2hMaCVl+COSN6MD5a1apCPFKDXlu+emJH5JHuoAs6iyJuwh11oxUEQl/N+0fO
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(36860700016)(82310400026)(376014)(56012099006)(261021121427099003)(261009223027099003)(261102123227099003)(261026121527099003)(18002099003)(22082099003)(6133799003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	lGsRwv4vuKYA/Bl7xPH7/Qirm+t5zB9B59DDyoXRJbAgdySidlD9G2tYVh3BMIDxC5An3bqVQ0nrSDm6Bt8JapFHKXQHgCDMSxaZ84MaY+wsHuCy7yRe9f9H8hNI2UbjXVokHDfe7lAFScNZg2FJUYrJELAKStmKwkzT64sRcn95yJ3oMlDndZZnY7rp2iSrwnsXjjLKJombAsy/nBpbc9Bi7fkKWOKwmlTNkVLRasu5SGejlYhBDt0Zfa9J/vIW4PQvO9ojpLoligQv7x1ahgJHnt9ftqD8C9t4906cdYRk7kYX8dwdxQ6/o1VuDIdZG8OKEX8iC7uzU0tGZt8nomrMguhWsX0YmDsUrB+kqKnJpRpbAF93hBvR6KLzmV3KIvri34G0A7PfY6ZNrWrrgK9BIKTXnFGZhWI8ZmgWHuOIfxiBkVfJ1S0dW7sNGPqA
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 11:15:35.9920
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9b168a9-8931-4dce-16ca-08df3b2e1da2
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG1PEPF000082E5.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY0PR06MB5458
 
-The following warning occasionally fires on a KASAN-enabled debug
-kernel in Meta's fleet:
+The I2C controller nodes inherit #address-cells = <2> and #size-cells
+= <2> from the soc@0 bus, but I2C child devices always use a
+single-cell address and no size. With the inherited values every
+child node triggers a reg_format warning, and a device described on
+the bus would be decoded with the wrong address layout.
 
-  WARNING: kernel/trace/ring_buffer.c:3793 at rb_move_tail+0xf78/0x1050
-  Call trace:
-   rb_move_tail+0xf78/0x1050 (P)
-   __rb_reserve_next+0x648/0xac0
-   ring_buffer_lock_reserve+0xd00/0xf00
-   trace_buffer_lock_reserve+0x28/0x188
-   trace_graph_return+0x220/0x3e8
-   ftrace_return_to_handler+0x2bc/0x5a8
-   return_to_handler+0x20/0x48
-   __arm64_sys_sched_yield+0x18/0x30 (F)
+Set #address-cells = <1> and #size-cells = <0> on all eight I2C
+controllers, matching the I3C nodes that already do so.
 
-rb_handle_head_page() moves the head page forward in two steps: it marks
-the pointer to the old head page UPDATE, then marks the pointer to the
-page after it (new_head) HEAD. The second cmpxchg is assumed to return
-only HEAD or NORMAL, but it can also return RB_PAGE_MOVED:
-
-  CPU 0 (writer)                        CPU 1 (reader)
-  ------------------------------------  --------------------------------
-  rb_handle_head_page()
-    old head ptr: HEAD -> UPDATE
-    new_head = page after old head
-    <interrupt: nested write>
-      sees UPDATE, marks new_head
-      HEAD and moves the tail page
-    </interrupt>
-                                        rb_get_reader_page()
-                                          swaps new_head out for the
-                                          reader page
-    cmpxchg(new_head|NORMAL ->
-            new_head|HEAD) -> MOVED
-    RB_WARN_ON()
-
-A nested writer that interrupts the outer one after the second cmpxchg
-still sees the old head pointer UPDATE and repeats the second step. If
-the reader swaps new_head out just before that cmpxchg, it returns
-RB_PAGE_MOVED too.
-
-RB_WARN_ON() permanently disables recording on the whole ring buffer,
-and the outer writer returns without clearing its UPDATE flag.
-
-In both cases another writer has already moved the head off the old
-head page, as when the cmpxchg returns HEAD. Treat RB_PAGE_MOVED the
-same way and fall through: the outer writer still clears its UPDATE
-flag, and the caller updates the tail page as usual.
-
-Fixes: 77ae365eca89 ("ring-buffer: make lockless")
+Fixes: fad32e8ac460 ("arm64: dts: cix: add DT nodes for all I2C and I3C ports for sky1")
 Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Gary Yang <gary.yang@cixtech.com>
 ---
-Changes in v2:
-- Fall through on RB_PAGE_MOVED instead of returning 1, so a nested
-  writer still moves the tail page (Vincent)
-- Drop the duplicated UPDATE clear (Vincent)
-- Document RB_PAGE_MOVED in the "Valid returns" comment (Vincent)
-- Commit message improvements
-- Link to v1: https://patch.msgid.link/20261102-ring-buffer-head-moved-v1-1-165973790be4@debian.org
----
- kernel/trace/ring_buffer.c | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/arm64/boot/dts/cix/sky1.dtsi | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 1fd28a72e6ee13..44782b71664722 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -3783,10 +3783,13 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_buffer,
- 	 *            1) We really set it.
- 	 *            2) A bunch of interrupts came in and moved
- 	 *               the page forward again.
-+	 *  MOVED  - another writer set it, then a reader on
-+	 *           another CPU swapped it for its reader page.
- 	 */
- 	switch (ret) {
- 	case RB_PAGE_HEAD:
- 	case RB_PAGE_NORMAL:
-+	case RB_PAGE_MOVED:
- 		/* OK */
- 		break;
- 	default:
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261102-ring-buffer-head-moved-f9caf5da9444
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
+index 0a820f45feb9..a18e8fd43fcf 100644
+--- a/arch/arm64/boot/dts/cix/sky1.dtsi
++++ b/arch/arm64/boot/dts/cix/sky1.dtsi
+@@ -290,6 +290,8 @@ soc@0 {
+ 		i2c0: i2c@4010000 {
+ 			compatible = "cdns,i2c-r1p14";
+ 			reg = <0x0 0x04010000 0x0 0x10000>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 			clock-frequency = <400000>;
+ 			clocks = <&scmi_clk CLK_TREE_FCH_I2C0_APB>;
+ 			interrupts = <GIC_SPI 286 IRQ_TYPE_LEVEL_HIGH 0>;
+@@ -299,6 +301,8 @@ i2c0: i2c@4010000 {
+ 		i2c1: i2c@4020000 {
+ 			compatible = "cdns,i2c-r1p14";
+ 			reg = <0x0 0x04020000 0x0 0x10000>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 			clock-frequency = <400000>;
+ 			clocks = <&scmi_clk CLK_TREE_FCH_I2C1_APB>;
+ 			interrupts = <GIC_SPI 287 IRQ_TYPE_LEVEL_HIGH 0>;
+@@ -308,6 +312,8 @@ i2c1: i2c@4020000 {
+ 		i2c2: i2c@4030000 {
+ 			compatible = "cdns,i2c-r1p14";
+ 			reg = <0x0 0x04030000 0x0 0x10000>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 			clock-frequency = <400000>;
+ 			clocks = <&scmi_clk CLK_TREE_FCH_I2C2_APB>;
+ 			interrupts = <GIC_SPI 288 IRQ_TYPE_LEVEL_HIGH 0>;
+@@ -317,6 +323,8 @@ i2c2: i2c@4030000 {
+ 		i2c3: i2c@4040000 {
+ 			compatible = "cdns,i2c-r1p14";
+ 			reg = <0x0 0x04040000 0x0 0x10000>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 			clock-frequency = <400000>;
+ 			clocks = <&scmi_clk CLK_TREE_FCH_I2C3_APB>;
+ 			interrupts = <GIC_SPI 289 IRQ_TYPE_LEVEL_HIGH 0>;
+@@ -326,6 +334,8 @@ i2c3: i2c@4040000 {
+ 		i2c4: i2c@4050000 {
+ 			compatible = "cdns,i2c-r1p14";
+ 			reg = <0x0 0x04050000 0x0 0x10000>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 			clock-frequency = <400000>;
+ 			clocks = <&scmi_clk CLK_TREE_FCH_I2C4_APB>;
+ 			interrupts = <GIC_SPI 290 IRQ_TYPE_LEVEL_HIGH 0>;
+@@ -335,6 +345,8 @@ i2c4: i2c@4050000 {
+ 		i2c5: i2c@4060000 {
+ 			compatible = "cdns,i2c-r1p14";
+ 			reg = <0x0 0x04060000 0x0 0x10000>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 			clock-frequency = <400000>;
+ 			clocks = <&scmi_clk CLK_TREE_FCH_I2C5_APB>;
+ 			interrupts = <GIC_SPI 291 IRQ_TYPE_LEVEL_HIGH 0>;
+@@ -344,6 +356,8 @@ i2c5: i2c@4060000 {
+ 		i2c6: i2c@4070000 {
+ 			compatible = "cdns,i2c-r1p14";
+ 			reg = <0x0 0x04070000 0x0 0x10000>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 			clock-frequency = <400000>;
+ 			clocks = <&scmi_clk CLK_TREE_FCH_I2C6_APB>;
+ 			interrupts = <GIC_SPI 292 IRQ_TYPE_LEVEL_HIGH 0>;
+@@ -353,6 +367,8 @@ i2c6: i2c@4070000 {
+ 		i2c7: i2c@4080000 {
+ 			compatible = "cdns,i2c-r1p14";
+ 			reg = <0x0 0x04080000 0x0 0x10000>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 			clock-frequency = <400000>;
+ 			clocks = <&scmi_clk CLK_TREE_FCH_I2C7_APB>;
+ 			interrupts = <GIC_SPI 293 IRQ_TYPE_LEVEL_HIGH 0>;
+-- 
+2.50.1
 
