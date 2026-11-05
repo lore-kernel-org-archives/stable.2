@@ -1,58 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907259;
-	b=MVddJpxUTqwbQotYRLrMFmnrZ0NaIWV369xVXIflvUmfUoD+uV1Ox6VQ6Wt9WKmgIB5t
-	 qtxYtPnZCkNcVDauVBCBYFFdiNW4GU0+fcmQ9QuE18ryTUDcTygdFQaQ8Uzy5DlboGumI
-	 DXIv+h+THUg8j1eLwlpZwEXjhHZRJ9gwkqbBvOIJy3uGIzyvBSZh170237O4ImnFItqbf
-	 jRQS+9XYn/AcHsH11na4DNXJqZ4BL/9BEsF4SwQi37AJlAJyQGtpsikYOluAQmZL/k+wy
-	 aqXdrv7DE2j2SpVqYXUjTNNdsh1tJcLnsom5Fpb46eOZoWmxtrQNVRoEIrGn9mld2Dw==
+	t=1793907260;
+	b=QyBQ7zsqEtR3y+HUCW1kWflie//YmZZJgP64KNnRcF+YZPy8NWXTN9GKR+FGD0ONDA8u
+	 niZu2w6uXQuEZAttGfxr2rzwvNWy4mfe53Gt6k9RJ5QkzXwzW4JuJhgKgWOjeRtVqQKM3
+	 dKV2sv1qSX5bl2qWw+KcUfS3yHUSYYR23zS6OWVs85Ou/+ckr38dQAAS/F7CuZRUve+uC
+	 9MKzZ0d0kyOrOQu+5c0jMphIT3fzRfbKZpIQx1F8xSva+CDVmFMRAFngBjtGVi8/dC3pg
+	 MkH4alcsSuQ3YfAs7QCcfU9xANJktWEd8InwvHnYJQ8e4D+b49Kj2bzAUEUXFtPmWfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907259;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=MDJ1ZuofLgVrpfv3I4TcFcX00mth3LkloBGTNtx3eGs=;
-	b=ETuPDj/hY1pYWqyJ5/MwbJZhW+hfK0Hkxyx3dXCl9BFrJ+g7ftMmBDlMFFPNzAf5OL3D
-	 XR3jF3vrNvWtvCwIR87Z90Vrcc0K7qv0x+sXSb4Du98iexD3E6yJmrXOCyp6OeAoFZJVx
-	 DGTADWTAESNFqBuKTMrNKLmEU+QnGLAyfJsdIVNoiuZR1Gj5IaLur0ZVrT4cBD8XgYN4k
-	 Kn08WYPobkSvwV5XCQP7CZS9C0VGjKhRJ5HBC9HtTtjLhRxQMANmhaiOi/OrC2uIFA72x
-	 aZpe7woHHtv5T/fFkJjTSvq5Q/NFdIgvogse/14e5/9gtEcvvvnPNXFqrRHSnXZm+vQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907260;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZDauTg8gKMEyI5TlSf5nU88RVwmY9xMl46WsxT/Kql0=;
+	b=g+p2bCGXyVP8vvXI34ApqIv0WjImNwrpGiGYSThyHEiTLsU/8zTlSI8+imGJ7vJHtwrr
+	 abaVg5BnCSw7myGcGymXCoQrJ2t6wKOlRrwy5lNFm3PvRG5gRekTtCxmuprHWJB9NdQXw
+	 i9Rc3hzpmBguhZD/91CBo/gbVJ8/QbGfIF0spoFp78aII+qWubGDbR8meQNU8n3tRDr4d
+	 0EkB3lYXpEnetmGlXP7bmmxoLPtleEI9TtBh8GmYXhLR2kM84p6gEBhFMiYHeHjo02j3W
+	 IYj2Eywy/SyAGXXX7hjXd5OZXQUdA8fViX9sBtmxctDznik50q6MvpQCVOYZ1bZcbBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iHQiqgNV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=MxUMWdVd;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FCC0608361A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585A36082BFB;
 	Thu,  5 Nov 2026 19:34:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 585A36082BFB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iHQiqgNV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4A051F0089E;
-	Thu,  5 Nov 2026 19:34:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793907259;
-	bh=MDJ1ZuofLgVrpfv3I4TcFcX00mth3LkloBGTNtx3eGs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iHQiqgNVDF6AO/Z9+xmHNYJq09sECOJ/V1ouMhJqojtr1X2lJdIRL1IYYXP1RAJCt
-	 Wu+CnpR0hPTdGkb3X1/WjYeL/32yOdGH+PAP/eOvqaAFSsJpD22pEg0uyGpaT6+gom
-	 gF0bg2MI/d5sHtDIiu8RRs9aHcei0IP77Zmebbu7PK4yDcZUqq6YP6mxN3lsspiek7
-	 cCK5oxm5ovZn+oyouQ4HciyjLYzwyWVRUfskUtb5rb8sGPnHSqaPbTm3z/eEl9tqsV
-	 +1672ZPVSu99Q4WD3xyK+mLzz2UsWbX7T0lij2m3pPMEEB3yFttZ/T3qPisBsl47pm
-	 1+a3ge+2jqcnQ==
-Date: Thu, 5 Nov 2026 19:34:13 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Hugh Dickins <hughd@google.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Zach O'Keefe <zokeefe@google.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate in
- MADV_COLLAPSE
-Message-ID: <auzZF4cGOeHH5upi@gremlin>
-References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=MxUMWdVd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1793907252;
+	bh=ZDauTg8gKMEyI5TlSf5nU88RVwmY9xMl46WsxT/Kql0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=MxUMWdVd6/pklGok+d+2pr8LCG7Da1OkwGinGCiulCKd2hIdDh9TYu869i232OIsm
+	 QdKAOQmhoUCNREpVKOM0ou8rcvk9vdRxSPl98kMQp3XrcLIZcZ90q5jBl1w0NsPgRO
+	 to4ktXfkemmarOGDrXL7JxL/2QPnKEeOoiEoXRI+CBL94il8CDG7nmBEQabTEYsVXK
+	 L1igVVVzrBrAhUujjYwEDOf+HFvCXsU6Zv/5F+zTRcioAjncQYQDjjVOLnK3xIijMB
+	 KHzk1RICiwEueDWTftboNrNr/G1CFucBXhPFLPKWuVgjYBBHpYDjVaEddru2vaDTr0
+	 ll+ugCNo1C7VA==
+Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLCDN1NXpzKVJ;
+	Thu, 05 Nov 2026 14:34:12 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: juri.lelli@redhat.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org,
+	longman@redhat.com,
+	ridong.chen@linux.dev,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	parri.andrea@gmail.com,
+	m.szyprowski@samsung.com,
+	kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH v3 20/24] sched/deadline: Count the bandwidth a boosted task is given
+Date: Thu,  5 Nov 2026 14:33:55 -0500
+Message-Id: <20261105193359.1450487-21-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
+References: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,69 +92,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 07:16:44PM +0100, David Hildenbrand (Arm) wrote:
-> madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
-> uptodate. For example, shmem fallocate() can put such folios into the
-> page cache.
->
-> collapse_file() already refuses to proceed with folios that are not
-> uptodate. Let's just do the same in try_collapse_pte_mapped_thp() and skip
-> such folios, leaving handling to the page faults.
->
-> Note that collapse_file() effectively clears shmem folios through
-> shmem_get_folio(); let's keep this fix simple and simply let the page
-> fault path deal with that.
->
-> Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
-> Reported-by: Chris Mason <mason@kernel.org>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+The runqueue a sleeping deadline task is on counts the bandwidth of
+that task in this_bw, which switched_to_dl() hands it as the task
+enters the class. A task that priority inheritance boosted into the
+class is in it already: __sched_setscheduler() neither dequeues it nor
+enqueues it back, so switched_to_dl() does not run, and sched_setattr()
+of SCHED_DEADLINE on such a task leaves this_bw without the bandwidth
+the task now has. Its wake-up gives that bandwidth to running_bw alone:
 
-Looks reasonable to me, there's no reason we should be dealing with non-uptodate
-folios there.
+	WARN_ON_ONCE(dl_rq->running_bw > dl_rq->this_bw);
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+and the two sums GRUB reclaims from disagree by the bandwidth of the
+task until it migrates, where the enqueue adds it (add_rq_bw()).
 
-> ---
-> Once reviewed, I will pick this up in a timely manner.
-> ---
->  mm/khugepaged.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> index 8d9f05a39afb3..db135b3c44ef1 100644
-> --- a/mm/khugepaged.c
-> +++ b/mm/khugepaged.c
-> @@ -1900,6 +1900,12 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
->  		goto drop_folio;
->  	}
->
-> +	/* Leave any uninitialized folios to the page fault path. */
-> +	if (!folio_test_uptodate(folio)) {
-> +		result = SCAN_FAIL;
-> +		goto drop_folio;
-> +	}
-> +
->  	result = find_pmd_or_thp_or_none(mm, haddr, &pmd);
->  	switch (result) {
->  	case SCAN_SUCCEED:
->
-> ---
->
-> base-commit: f44fd601f72e09e44c667b9234c9cd469856679c
->
-> change-id: 20261105-set_huge_pmd_uptodate-9b9820307f30
->
-> --
->
-> Cheers,
->
-> David
->
+Change the bandwidth the runqueue counts where the parameters change,
+in __setparam_dl(), which every task that gains deadline parameters
+goes through, rather than in sched_dl_overflow(), which only a task of
+the class reaches that way. A runqueue that counts nothing of the task
+takes the new bandwidth, where the previous patch left it to the
+enqueue to come: that enqueue finds the bandwidth there and leaves it
+(add_rq_bw() of a task a runqueue counts), and a task waking up has
+task_cpu() pointing at the runqueue it wakes on. The bandwidth of a
+special entity stays counted nowhere, and the request tells one, since
+the flags of the entity are those of the parameters it had: a sugov
+kthread given a reservation of its own gets that one counted.
 
---
-Cheers, Lorenzo
+Fixes: 8fd27231c330 ("sched/deadline: Track the "total rq utilization" too")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+---
+ kernel/sched/deadline.c | 37 ++++++++++++++++++++++++++++++-------
+ 1 file changed, 30 insertions(+), 7 deletions(-)
+
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index f772a944a3e5..746bffb03b7c 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -440,22 +440,32 @@ void cancel_inactive_timer(struct sched_dl_entity *dl_se)
+ 	cancel_dl_timer(dl_se, &dl_se->inactive_timer);
+ }
+ 
++/*
++ * The runqueue a sleeping task is on counts the bandwidth the task has:
++ * give it @new_bw in place of what it counts of the task's.
++ */
+ static void dl_change_utilization(struct task_struct *p, u64 new_bw)
+ {
+-	WARN_ON_ONCE(p->dl.flags & SCHED_FLAG_SUGOV);
++	struct sched_dl_entity *dl_se = &p->dl;
++	struct rq *rq = task_rq(p);
+ 
+ 	if (task_on_rq_queued(p))
+ 		return;
+ 
+ 	/*
+-	 * Waking up on another CPU, the task has its bandwidth on no
+-	 * runqueue: the enqueue to come charges the new one, with the new
+-	 * parameters, which __setparam_dl() sets right after this.
++	 * No runqueue counts bandwidth of the task's: this one takes the
++	 * new one, and the enqueue to come leaves it there (add_rq_bw() of
++	 * a task a runqueue counts). A task waking up on another CPU has
++	 * none of its bandwidth on a runqueue, and task_cpu() points at the
++	 * one it wakes on.
+ 	 */
+-	if (!p->dl.dl_bw_oncpu)
++	if (!dl_se->dl_bw_oncpu) {
++		__add_rq_bw(new_bw, &rq->dl);
++		dl_se->dl_bw_oncpu = 1;
+ 		return;
++	}
+ 
+-	dl_rq_change_utilization(task_rq(p), &p->dl, new_bw);
++	dl_rq_change_utilization(rq, dl_se, new_bw);
+ }
+ 
+ static void __dl_clear_state(struct sched_dl_entity *dl_se);
+@@ -4234,7 +4244,6 @@ int sched_dl_overflow(struct task_struct *p, int policy,
+ 		if (counted)
+ 			__dl_sub(dl_b, p->dl.dl_bw, cpus);
+ 		__dl_add(dl_b, new_bw, cpus);
+-		dl_change_utilization(p, new_bw);
+ 		err = 0;
+ 	} else if (!dl_policy(policy) && task_has_dl_policy(p)) {
+ 		/*
+@@ -4283,6 +4292,20 @@ int sched_dl_overflow(struct task_struct *p, int policy,
+ void __setparam_dl(struct task_struct *p, const struct sched_attr *attr)
+ {
+ 	struct sched_dl_entity *dl_se = &p->dl;
++	u64 period = attr->sched_period ?: attr->sched_deadline;
++
++	/*
++	 * The bandwidth of a special entity is counted on no runqueue, and
++	 * the request tells one, the flags of the entity being those of the
++	 * parameters it had. The rest have theirs changed here, where their
++	 * parameters are:
++	 * switched_to_dl() hands it to the runqueue of a task that enters
++	 * the class, and a task that priority inheritance boosted into the
++	 * class is in it already, so nothing dequeues it and enqueues it
++	 * back for that.
++	 */
++	if (!(attr->sched_flags & SCHED_FLAG_SUGOV))
++		dl_change_utilization(p, to_ratio(period, attr->sched_runtime));
+ 
+ 	dl_se->dl_runtime = attr->sched_runtime;
+ 	dl_se->dl_deadline = attr->sched_deadline;
+-- 
+2.47.3
+
