@@ -1,97 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793916053;
-	b=fHWQBrtx89C2qAf3nTVXM30W1InAXcaHJKTlnBPU8ND09Ak/QFP+EDW9XpHsSlliVI6g
-	 h0oXMSGGZqA50gdFs0SxRw2HwmKoVZLI/2QoBN0M37y/e0MBgrdQyd3mapsYzkdy8w8YH
-	 jEe0PwsmrVgqeBpcaMAETWdDr2Nk8Y9ABWKRM1T/Nkuq7OFmWCp35L6Y6yxpC+oZCqGyn
-	 r5KdrPdy+aP7ggsn5vTocUgUDtNF0l98OzQbdzCg/JxlPFRWz2TD7NtZk/zHTfrr7AnkU
-	 DEOmOZ23HF7JAgOkdZ85nYycgbB2Q6qtd2l0QsDec5dUu338oij8u7JbWcRWvCRybOQ==
+	t=1793916078;
+	b=pZsckyvnyj4LT0nqaW1v/Yk39u05cx/D3OZIKuJwPPKUESyYa3u90c6gqWTYwLnGQsiz
+	 1KfMBngEmSk/Ai0BrUGRmOoplBfgDy3KUczVZhsQjJ5htPTlGjPlShMp/QyBwt6f7R3rN
+	 Mwt2Ne3bPSvYcdEN+VF+VCIpYQ8Be31+lanujudMslkNfMpH3c/mrc8Kyjm/xF0kGVtpn
+	 KseM5X0uxhlOhYb4jQ3fzVxBD3QFbRvT83PJbEq2bRFpCOdSMJdz2J7rCY3pany4q1KKo
+	 N8mSVrBUEX7aOE2Gk4Xd8wzuqzry3uK2NBb3q7701XdKdJ7Fiy4FvBJOExlFX+vncOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793916053;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793916078;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=EfUxS4j8KiqdcDZ0OsuVJwqrTRdeU5cL78NKs2afAZ0=;
-	b=hoFSM0tepu3gMhMbxWq+9KK4sYNSQFaWruXLHedLcT2zpGhTA7YcsOCZNgQXvnqujmFc
-	 Z1TPKjbph/6/CTfQr/hc8c5pTAM2E1LDaPKT/4du9iyhPf+gcVxWKttSYN8rv9plHupSg
-	 zIxDaAt4hwzLey8cOSuX/nhIeBawlQxRtfX5e2fPv1FHkkI4vkBidS0MszoJPg2IcRYdt
-	 ucEWCb7gTqW+E/21FdDPXaSf8m535poO0HHQpRc94f7NIimVqq08myYbzeeheSxUkDWTt
-	 D0tIKj7Rv23vqBqUUmSqv7gEoCfV6jDRN26fllo3Glc77acWRLFXTYmBkc91nhDU+5w==
+	bh=Cgy5DVilFM6CzFnBGEzM5eRHWtTZeelbHEfIqvrPH2w=;
+	b=5pdWY0xVqjG+oO66zGeKk2i98di1ye3ThlhehIIIXr+9X2X5YUQICsiHKrNl6e+MKsT+
+	 7LGidzIx18POUaFzkDpFdJwJvYjMODjJUCw6hd0kAIO0rRr0tU27TBL4kXwkBGGg2yqTH
+	 0+6gLI3uAKpDnWFG4wygm6MzfNLFqjNVVLKX0EX41F9vjpYjpy0iTBZti9UDWVDM4cI/J
+	 TNGrV3O5b4uAAPUYxMC/LeW59nls8q1ZSpMc7vy/riEK96pK4cBo/VB0WmfULNDz/Ezdq
+	 nv+99d+nIksn/zUGRhxsd8Wf+M/rmP8dfENVGXS7imZdc+pUUrD0hRp56b0S+/L9D4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ci0DxVVh;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WieLlrYp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49C3606A328
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 22:00:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E49C3606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9D56C606A328;
+	Thu,  5 Nov 2026 22:01:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ci0DxVVh
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-490f38e9688so16416f8f.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 14:00:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793916051; x=1794520851; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EfUxS4j8KiqdcDZ0OsuVJwqrTRdeU5cL78NKs2afAZ0=;
-        b=Ci0DxVVhIjk0x1XyRoJcwvBseRlqz1xvafs6sCvRiPLpQARiLsJFPHkI3EDBdodKz/
-         DjzQLHV3CN8suhVV9m4KRHqcS01fppqIql32A6Ng5k1c4EsNLHTycykHsDkN86gIJ75J
-         nE2QDGuYYoEqVepJ90qiemWmoJw4vYrhNC4pAyVnm6n6c55G9398ilZKFWO0bvT1PMCk
-         MC3y1gqkGALUrvae3c71/KJ/x5Ra7XozlWhh9h+jvSjfYaqYnZ+gdW4LDmBwOOmce883
-         GLqRaOTpN1tYjDpIodENv/evo22s30xxwQSJYNXJN9zRMTXVZKr0xYOGz2Wa3DD/qA3n
-         2YyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793916051; x=1794520851;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EfUxS4j8KiqdcDZ0OsuVJwqrTRdeU5cL78NKs2afAZ0=;
-        b=O2gvUVXsHIMBhp1XQy+0cU6HwCeYFN2tLn4wtqUJjjrm5nf4YBEs7iEy7WLsxGXUA5
-         VYk2kOGM99Jz3MjHlOeJZ93ZFDrtfftDsZ7FiRhX56D7mCUcAqkexW0c2SnMpvc0KHo7
-         nirLKjvmTS06NwlqYaXafE1d4SbhY8u+1n2D767zc+yaesn1LeUE3uU5tVHV+0+RodVI
-         9ghYtSrZ6Be0+Vph52OI5fmuFiFmJnmI1wr6ra8gCVoKKw8m1rjOzNVVUmbDDBlHlllA
-         VWgoWk8i6XRlcwYunyoomDP2jWKtE/N2WHA1eFQ7wY0AGJku9/tlNJ4tGDhoIMvP80IX
-         20ew==
-X-Forwarded-Encrypted: i=1; AKwUvBwYCkNW50V6kJrjgjxAFouSRPgL4fCqLdzT/0j6PRsvbXKI2eckm54TsyyqlZ13MuNVMsdCCLM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+zaHvOGQFDGFOdCdv9SQodln/5lGaXmeGbWfomHaydp2ktmSgG
-	BK5ZvrYT2oTe9nwTkGeMYhOhjo6sviB2kUovRKjUt9qQZwct9pqiQ3VX
-X-Gm-Gg: AYBFou32co+pau7g8UOdzBMJ1TRs9DWwnCI9jskZ9o5U5pwWz8zc3LSWYV+JPni7xOX
-	zj4BdBGoEsDXc6d940ec4auhnYOf1CaJbCvywVtu6jxIyE6Djn2hC6PuaWx+ExTffCiwLPa0DMF
-	GfuDJPwXfonXBWcUN3M823La8Oexmsb0X79PbZYypK8TnaWd7nAKF1hiDDR0ErZ/4QvVV1eGylG
-	EHEpXXIPhDAS2m6JRf5EQcGsIkYaqhIKvLKJpZzviDUQMF15UNxuq/N8Bpegbc59pV8g16wN0Xb
-	y62wGCOcSJSsIj6fDSNX2gHswccU5ONjVRT7IwmSsPxibAxioXtKuBguj0CleVrV77MlBxHofRy
-	hIEqFYBE9pCVNnFiDk9EQ95vL1aR/jg0zP1wIvkH3zpEXtFikrcehQA5gLoJ5FA2BNvaE82fzTP
-	qwyzBDBnRaWdKw9WLpY9RAtz+s+HN3fUsmiirX83eyaT4MTgmjNkCz7x/2Uo1qY4mQUL9gv+WuQ
-	50K06MKh71rHxSI//fwItcGaCVpIuD9eKh60uUsagsbJEoy7JiQTYHsV7tINbcFGgFxOPArid+H
-	baD53an7pndKanJs55q83pds+Y7BXKP5WhglGGti/JqivODo7g0DCNzEOAlqUgrEHCDNFfH6SlL
-	bnbQ/W9Dm
-X-Received: by 2002:a05:6000:40de:b0:491:1468:a504 with SMTP id ffacd0b85a97d-4927997a35emr1710921f8f.21.1793916051004;
-        Thu, 05 Nov 2026 14:00:51 -0800 (PST)
-Received: from soeren-MS-7A32.tail37253f.ts.net ([2001:a61:13ae:e301:329c:23ff:fea4:379])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda203b6sm11922212f8f.48.2026.11.05.14.00.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 14:00:50 -0800 (PST)
-From: Soeren Coremans <sorencoremans@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: arend.vanspriel@broadcom.com,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	Soeren Coremans <sorencoremans@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH wireless-next 1/3] wifi: brcmfmac: pcie: stop console read on invalid write index
-Date: Thu,  5 Nov 2026 22:59:52 +0100
-Message-ID: <20261105215954.184290-2-sorencoremans@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105215954.184290-1-sorencoremans@gmail.com>
-References: <20261105215954.184290-1-sorencoremans@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WieLlrYp
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B60B61F0089F;
+	Thu,  5 Nov 2026 22:01:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793916077;
+	bh=Cgy5DVilFM6CzFnBGEzM5eRHWtTZeelbHEfIqvrPH2w=;
+	h=From:To:Cc:Subject:Date;
+	b=WieLlrYpj6+/bEFJYfS1yZhcO+5c9zQePcf6xFYXBujXL9SxObOqW8ynbGFIvLrh7
+	 kwumTlytIdkTabqBjsvGiu/LjEqze+sE9/NX5dWotEcEgaLWM5r7IuRWrnQwFr6dLU
+	 Uq8KW6FntZ+xYDHg6TflPiA1ycHdmaAnRuCfcI2zfZJR7mR/0Kf22FXX27PwUPbNVv
+	 YrP5u9NbVfivcdkJzenMEe2e20T4In/SJJqfsMUM8WGn74tu6WSWuPJTZlpIVpZGn9
+	 oFm/vhwTWqjJfSg0vPSDfPESFaJDZGippf3IhTrpTv4aIFhYU1Zap3I4h5cPIQ8zez
+	 NMfAjS1SZRU1w==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+	keyrings@vger.kernel.org,
+	linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Eric Biggers <ebiggers@kernel.org>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	stable@vger.kernel.org,
+	Jann Horn <jannh@google.com>
+Subject: [PATCH v3 1/2] KEYS: Return user session keyring on lookup
+Date: Fri,  6 Nov 2026 00:00:49 +0200
+Message-ID: <20261105220050.1421842-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,46 +66,150 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When the device drops off the bus, MMIO reads return all ones. The
-console write index then never matches read_idx, which wraps at
-bufsize, so brcmf_pcie_bus_console_read() loops forever and floods the
-kernel log with 0xff characters at several thousand lines per second.
+A process without a session keyring looking up KEY_SPEC_SESSION_KEYRING
+without KEY_LOOKUP_CREATE mutates the credentials. This causes struct creds
+instances shared with other subsystems to become stale.
 
-Seen on a BCM4366 after a firmware trap followed by a fatal PCIe error
-(FCP): the reset path and the failed dongle setup both entered the loop
-and never reached device_release_driver().
+Address this by returning the resolved user session keyring directly
+without installing it into credentials.
 
-Return early when the write index lies outside the console buffer.
-
-Found and written with the help of an AI coding assistant (Claude Opus
-5.5); the cover letter describes how.
-
-Fixes: 9e37f045d5e7 ("brcmfmac: Adding PCIe bus layer support.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Soeren Coremans <sorencoremans@gmail.com>
+Cc: keyrings@vger.kernel.org
+Cc: linux-integrity@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org
+Cc: Eric Biggers <ebiggers@kernel.org>
+Cc: James Morris <jmorris@namei.org>
+Cc: "Serge E. Hallyn" <serge@hallyn.com>
+Cc: stable@vger.kernel.org # v5.10+
+Fixes: d84f4f992cbd ("CRED: Inaugurate COW credentials")
+Suggested-by: Jann Horn <jannh@google.com>
+Closes: https://lore.kernel.org/keyrings/CAG48ez0XjVSR=M--UBauTm8sJuc+ZbhKzaPa3a6wrSVHyoKevw@mail.gmail.com/
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 ---
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+v3:
+In keyctl_session_to_parent(), check the resolved cred->session_keyring
+instead of mycred->session_keyring.
+v2:
+- Added mandatory tags.
+- No code changes.
+- Link: https://lore.kernel.org/keyrings/20261019145624.309790-1-jarkko@kernel.org/
+ Documentation/security/keys/core.rst |  6 ++--
+ security/keys/keyctl.c               |  5 ++--
+ security/keys/process_keys.c         | 44 +++++++---------------------
+ 3 files changed, 16 insertions(+), 39 deletions(-)
+---
+ Documentation/security/keys/core.rst |  6 ++--
+ security/keys/keyctl.c               |  5 ++--
+ security/keys/process_keys.c         | 44 +++++++---------------------
+ 3 files changed, 16 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-index eca5f5f63bce..02c58de67b82 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
-@@ -992,6 +992,14 @@ static void brcmf_pcie_bus_console_read(struct brcmf_pciedev_info *devinfo,
- 		return;
- 	addr = console->base_addr + BRCMF_CONSOLE_WRITEIDX_OFFSET;
- 	newidx = brcmf_pcie_read_tcm32(devinfo, addr);
-+	/* A dead device reads back as all ones, an index read_idx never
-+	 * reaches; without this check the loop below never terminates.
-+	 */
-+	if (newidx >= console->bufsize) {
-+		brcmf_dbg(PCIE, "invalid console write index %u (bufsize %u)\n",
-+			  newidx, console->bufsize);
-+		return;
-+	}
- 	while (newidx != console->read_idx) {
- 		addr = console->buf_addr + console->read_idx;
- 		ch = brcmf_pcie_read_tcm8(devinfo, addr);
+diff --git a/Documentation/security/keys/core.rst b/Documentation/security/keys/core.rst
+index 37ed42382f16..e3a215e55f81 100644
+--- a/Documentation/security/keys/core.rst
++++ b/Documentation/security/keys/core.rst
+@@ -165,8 +165,10 @@ The key service provides a number of features besides keys:
+      When a process changes its real UID, if it used to have no session key, it
+      will be subscribed to the default session key for the new UID.
+ 
+-     If a process attempts to access its session key when it doesn't have one,
+-     it will be subscribed to the default for its current UID.
++     If a process attempts to access its session keyring when it doesn't have
++     one, the default user session keyring for its current UID is returned
++     without being installed into its credentials.  If creation is requested,
++     an anonymous session keyring is installed.
+ 
+   *  Each user has two quotas against which the keys they own are tracked. One
+      limits the total number of keys and keyrings, the other limits the total
+diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
+index d6b10fd67627..b11716f88ded 100644
+--- a/security/keys/keyctl.c
++++ b/security/keys/keyctl.c
+@@ -1682,8 +1682,7 @@ long keyctl_session_to_parent(void)
+ 	 * there's no point */
+ 	mycred = current_cred();
+ 	pcred = __task_cred(parent);
+-	if (mycred == pcred ||
+-	    mycred->session_keyring == pcred->session_keyring) {
++	if (cred->session_keyring == pcred->session_keyring) {
+ 		ret = 0;
+ 		goto unlock;
+ 	}
+@@ -1701,7 +1700,7 @@ long keyctl_session_to_parent(void)
+ 	/* the keyrings must have the same UID */
+ 	if ((pcred->session_keyring &&
+ 	     !uid_eq(pcred->session_keyring->uid, mycred->euid)) ||
+-	    !uid_eq(mycred->session_keyring->uid, mycred->euid))
++	    !uid_eq(cred->session_keyring->uid, mycred->euid))
+ 		goto unlock;
+ 
+ 	/* cancel an already pending keyring replacement */
+diff --git a/security/keys/process_keys.c b/security/keys/process_keys.c
+index 3af71c6322af..cdf03b8124d0 100644
+--- a/security/keys/process_keys.c
++++ b/security/keys/process_keys.c
+@@ -356,31 +356,6 @@ int install_session_keyring_to_cred(struct cred *cred, struct key *keyring)
+ 	return 0;
+ }
+ 
+-/*
+- * Install the given keyring as the session keyring of the current task,
+- * replacing the existing one if any.  If the given keyring is NULL, then
+- * install a new anonymous session keyring.
+- *
+- * Return: 0 on success; -errno on failure.
+- */
+-static int install_session_keyring(struct key *keyring)
+-{
+-	struct cred *new;
+-	int ret;
+-
+-	new = prepare_creds();
+-	if (!new)
+-		return -ENOMEM;
+-
+-	ret = install_session_keyring_to_cred(new, keyring);
+-	if (ret < 0) {
+-		abort_creds(new);
+-		return ret;
+-	}
+-
+-	return commit_creds(new);
+-}
+-
+ /*
+  * Handle the fsuid changing.
+  */
+@@ -720,20 +695,21 @@ key_ref_t lookup_user_key(key_serial_t id, unsigned long lflags,
+ 
+ 	case KEY_SPEC_SESSION_KEYRING:
+ 		if (!ctx.cred->session_keyring) {
+-			/* always install a session keyring upon access if one
+-			 * doesn't exist yet */
+ 			ret = look_up_user_keyrings(NULL, &user_session);
+ 			if (ret < 0)
+ 				goto error;
+-			if (lflags & KEY_LOOKUP_CREATE)
++
++			if (lflags & KEY_LOOKUP_CREATE) {
++				key_put(user_session);
+ 				ret = join_session_keyring(NULL);
+-			else
+-				ret = install_session_keyring(user_session);
++				if (ret < 0)
++					goto error;
++				goto reget_creds;
++			}
+ 
+-			key_put(user_session);
+-			if (ret < 0)
+-				goto error;
+-			goto reget_creds;
++			key = user_session;
++			key_ref = make_key_ref(key, 1);
++			break;
+ 		} else if (test_bit(KEY_FLAG_UID_KEYRING,
+ 				    &ctx.cred->session_keyring->flags) &&
+ 			   lflags & KEY_LOOKUP_CREATE) {
 -- 
-2.53.0
+2.47.3
 
