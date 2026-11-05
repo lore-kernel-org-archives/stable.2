@@ -1,111 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793882791;
-	b=dGSnoaUANpeiIBPno6aKodeov55Ifii0m6JKCR9p/1Uj0zl8EvEgku0s21O8hrBfsHdr
-	 XWbNSfGtAxo5CuVrgmCroJL2JcxU6P2lEw1GfIkEueJBhA/LTyop9fQEcUxn78fErdePd
-	 AdrXccrJqhfw71R2fTXMkzgEXe/SVplrkDTmJLmN+2wi+G+Qf+Y6qr5iuiZX9HZJ5GF7c
-	 /UufyYbqm5WeZil6TtrLlguqEYwehCHPuOVxOTnI+2nrt7O32F5+DWDeWqESDJIrFvlqI
-	 zkwzfMw92E3qi4rm7PlvkhFrvskBlbaULLTkTNPf0a3lo1jiaC5giMAAC8sva1xMlKg==
+	t=1793882864;
+	b=N0JAFg8no8GyETl3Q0S/srTSIk4TY7zKHfCnN0pPngjJRew1N6E5HQR1DRSlHME98DSa
+	 FsXH3OrjlHmpBuL2aO+I6XN1A5lWcsYD2cIJmhs999xBlV011uKSCQ1uBBXMl9IZcODtt
+	 PdqKPK6oNf9FnjsRwbBwKrpiwSfHu95xsgFPxAu9hAEtrFBTzaUtgYKx04U8Omjz6KNAN
+	 MWtnkWPyq9YyY56KvoAWkwejZfLQkOB9nqWhY87i5vyKD6SsQSI7aCuXi4m7hLNArLpsr
+	 Ywxppdk3YvybxaUzuLeR/D01a8xvupMRupOFaF9Ij1ZuxWCxCBZ30SUt1tnB3/c2Zvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882791;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=IMSAIlQUHxsrVwK1rBDy4tctUKgRwlHxS9iZdXXuxeo=;
-	b=31dG6uuI9649kiT0Okcz5TW01Wf2VntvAI66bXsgUf2GWIHu/ahFZEbDNM3OW6ar41tT
-	 uQCNTdX1IrjkPsw8g57FOJXWrYPmqGfGKFAzl1+zYV7hqhiFqd2XxMBd/VfTVjiMMVOPO
-	 64MUSQLlov4nrOwF7mM+5fIwNCnLjoFSNQTd9TcXO25sqin4gym0R+ppJE8Ef2GfvKZUA
-	 beN1yvZjvQ4cdRSvvxSvfnyRATh6fIDsaPExMDgLYj2JEYwSNAB0C6EnR2zG8b8qQcEek
-	 f6JgMRsu9ZEQt9koxY+WNwGUa2TOesd9/VUPhNiyfqeYKahv6xjOhbn5HQloffcJ12A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882864;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:Organization:
+	 Content-Transfer-Encoding;
+	bh=+CdIoUC6SO9infTBGNxfj2iPfMXtBw1qIQTeTVf1PyE=;
+	b=VNa8AuZQp1AwNlGjpavRrdM/DwJjVKnH5d0i+bV7dPJJl5HbW42ox3c42hPkj9WKP7f6
+	 7n832RWV4OkebXNcOfVXhopTvqzb5XndKXrJp1YaVhA46WRcBiZ3jHzBZ5m3X1S4a+Uui
+	 tEt3BsdQfrFFUCfzlMhDXXkMRX54RgphdVwNByx6pqKbJudpS0eqNWMKdLH2ibcb5kykm
+	 zNgtgFjtgPMbN+Br1DiupvxgZh6Fb94J/49qOo203ijsAiPgrHEkWO+/lcFx3950VRwpL
+	 ksp8r7g5qbL2REH7GudgiQVbsiZTM7p8Xv0KCpvSE/1fIg7dIhoxtgOKiz3kGXFsaQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KakxBheD;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DBFEwhYQ;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AbYeOOSN;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17FE7606D80F
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:46:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17FE7606D80F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50FD606A329
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:47:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A50FD606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KakxBheD;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DBFEwhYQ
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A59tTdo4084601
-	for <stable@vger.kernel.org>; Thu, 5 Nov 2026 12:46:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=IMSAIlQUHxsrVwK1rBDy4t
-	ctUKgRwlHxS9iZdXXuxeo=; b=KakxBheDcKi0eSX8X0QgILgx/oy+IDQeMbXDyC
-	IKj/cju94VVixNo447OpBo0NJXqy71GLgnW4FVYeLpChjmDXgc/g4I06sA6FbSiN
-	ioaKTk6SE8PUXSJdUXdw5eGiano7K1Fba8PmgNzxXwaJxDKfmDE2MrShkl1syXjP
-	ypnn7uwCAic5+bzKqu43ggl1me69+YhjYuA47EQ7t3W9xArQA8VS7yWJbA59VHiH
-	x0a4waxb6v96/Nk22xrHG/g6lW4PjCPpVTRNOlOkzJ8x7Q0ha0lwPFds6mrmj39A
-	7pxmn3TlF69L1fkclZaiapEb5x3pCsEzoAF0fhc+1INgKd9A==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrqhkrpcg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 05 Nov 2026 12:46:30 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7bf45382794so1358528137.1
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 04:46:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793882789; x=1794487589; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IMSAIlQUHxsrVwK1rBDy4tctUKgRwlHxS9iZdXXuxeo=;
-        b=DBFEwhYQ3QnsmGBJgXrgpcMOInVpZbC/i39GYhfjlzbiXAMEz8gW9+RE6Gtt+veLwM
-         Go4BKuUKJ4dRaR+XrRWCnZIMAe/AbzvZRGNzWNKQchQiWecXnZTiW1hq+gjeULHtU1+9
-         sRTnDRmVTKEMBlQJ95NmS9VvpetPXv3ga1/Rul6AEjWMC+tqRAH62Bx05m3hLa2nkNCR
-         LYNh6BfBRS1rkunrdo37eUZtE96ki4qc2R4zit5TU/lGEhxths2nhIjo0l5Og6phN8wY
-         +MlDeV18pYxxNYJiajoBXOH89j9lJx5qoOfAQjZn6y+NJ6mqpaeF+xbL4oE3vXeKUw/D
-         MOcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793882789; x=1794487589;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=IMSAIlQUHxsrVwK1rBDy4tctUKgRwlHxS9iZdXXuxeo=;
-        b=luEIvgKC3NO5YeYFNNSuFr6lC9f1N9lwI/a9GeRfNUD6DZGE/SxOE8w2i8u5at2iNE
-         tHTwUDDDLX0OyuC1gvJYxDlagUvfurdmgj3pLK6VGGmg1Ie9vLHizWY08W50fLKqODVu
-         0q6xSfUnE/awd/l1QR20UYmnA7tBN6dsizhKHtCi1bpsMJvd81ZbEtps14AuZP/TAImT
-         vh+eDALAkTufiRRagxM5ZbEGRod2z+Ai+mQyE+mpOkC3AtW0dqaoG/BQp9Trzi5/SQBa
-         OUMBxbz+hyBwbgrjTC/a2adWfxodvsY8ZG42qCRufgQgl9UDu+5Q1j82jfP95QTtt4Rh
-         6X7g==
-X-Forwarded-Encrypted: i=1; AKwUvBwMARDeCPIVYesgtOPYRRyYVlyo/TkRTj6lSAD5RSNcDEQ3dAcIaprQ+gfPllkSg0OXTEXksBc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/isvOeVbDTbqaF7RB+xoxn8PBbHi6hHVSCmGVPkGV+qnxXBSNY
-	JU0QzG2U+c51Jbu8IoqMy/8kOppuFgdafJW2Qxv1VlU/QVJY0ACI8WRRXXD8tvOiz8nvoys3gP+
-	jjUBb/jHnsYM3eGFZ5RoRaIdfdEgFOigZuxtBp+tNGKBVz492Yt3jVTVvcJw=
-X-Gm-Gg: AYBFou3SkdwTn+YBE7ZqPs29nqQhAmaa4R4vM3HQvHkqbNoSiQwlrwxM0wcOZQtiCxu
-	Ayk4GGlFCF1IulNIztRjQ4UVDodzWpErOd8XrbtDu4CUjxyyyFAV/8UIYOZgGy9isO198KaP7/N
-	ikb9UsVIEnWLMZcqbmCCRScwJo2dLJNuYM5ViUDn0RPNN8VEvZCXMLbVWArKxwZDobpnjgcDEdO
-	ZQD4HOaNLDXY72NXmPbkz+Mx7kInKoqXfrSxt/NKDBtz1RI0DG3IHU+9noKC/H0K41TOKCe4EaF
-	tZU3a6CMrHaOYxpzhPT7LdEJNQoIAQs6i4+KwBvVNe5xYD92AUZYx2d1P66IJJ7NEAoNPH/3vwH
-	cjZyEgXjxwU/Ief87gAd/fqmRnMpz0fy8+VybqSXajlYaCzO+N8NU81bCCelihsLdh3C4/hzjv/
-	8G0w==
-X-Received: by 2002:a05:6102:548c:b0:7c1:ce61:19b3 with SMTP id ada2fe7eead31-7d0727a7ccfmr8528573137.33.1793882789173;
-        Thu, 05 Nov 2026 04:46:29 -0800 (PST)
-X-Received: by 2002:a05:6102:548c:b0:7c1:ce61:19b3 with SMTP id ada2fe7eead31-7d0727a7ccfmr8528559137.33.1793882788694;
-        Thu, 05 Nov 2026 04:46:28 -0800 (PST)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fec8d8748sm9959225f8f.16.2026.11.05.04.46.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 04:46:27 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 05 Nov 2026 13:46:25 +0100
-Subject: [PATCH] gpio: mvebu: fix sleeping-while-atomic in
- mvebu_gpio_level_irq_mask()
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AbYeOOSN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793882862; x=1825418862;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=pYe+wLI5gTUZba/OWS1Wy2JNJrM2m6qK+Vsq6PudyqI=;
+  b=AbYeOOSNE8nOcaPhHv+BzI6MjPcHUSl3AqY2DDpVTGn34c5MEzl8SLp2
+   RCble5kBz1YhtmumXLUUriOkyyfGYire7p+zhPbL5P/Wg1jvnA3uz+SuI
+   aaoTSgMXBqptffQxcy55PxsRLTAM/mNVK4zK0GQwJs0BFVEpa0naS9k8N
+   P2RriaET0bSN/NaQjLSnKhu4il8NHbU55T02ZedsONZzB1PuN3m04tkGt
+   Wc9d+rWr/iCKFoGYe4GRB/bynZrm2ZdlnjyqjyWC1KY/5CcfZXvgXMfAi
+   nuN5wBkUXNb+l4OvWz5BQuHhLvM+3SWDjqkhBSi4eccibeZOePpELXO16
+   A==;
+X-CSE-ConnectionGUID: eYp3PL0MQZSYtXpLWl0n9w==
+X-CSE-MsgGUID: BgpFQER5QEmhBp/yGPCqFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2688346"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2688346"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 04:47:42 -0800
+X-CSE-ConnectionGUID: ScNAL6dcR1WSeMVjAkR+bQ==
+X-CSE-MsgGUID: WanBHScDT6q6UxjkjwnofQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="6991678"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.198])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 04:47:41 -0800
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/i915/cdclk: Ignore SWF18 in SKL CDCLK sanitization
+Date: Thu,  5 Nov 2026 14:47:37 +0200
+Message-ID: <20261105124737.24456-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,96 +78,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-gpio-mvebu-sleeping-while-atomic-v1-1-3ad7bb1c9e36@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAKB67GoC/x3NQQqDMBBG4avIrB1IIq3YqxQXRv/EAU1C0tqCe
- PeGLr/NeycVZEGhR3NSxiFFYqjQbUPzOgUPlqWajDJ3rdWNfZLI+wH75rIBSYLnzyobeHrFXWb
- ubOewKDO43lLNpAwn3//iOV7XD7dxMMhyAAAA
-X-Change-ID: 20261105-gpio-mvebu-sleeping-while-atomic-3b3fed029f7b
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        Andrew Lunn <andrew@lunn.ch>, Baruch Siach <baruch@tkos.co.il>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1258;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=thivSyhkwpeE/0FZmc6W5zleYdMpqoRl93RZ1WSCQVc=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq7HqiifQg40GMX16lT6teUzPc0u3oUdyXsj9dF
- wDmzN5ickSJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCaux6ogAKCRAFnS7L/zaE
- w/alEACbroycZMlQKHJe0TJrLeYzLJ8SrgrjXvU83S46LOPs6KpCf41Y3ZGsvi1Q4PuV8Pli0WJ
- epUBxYkmv6rA4S5AKU0chaySwy8VlGtFSSUpneOZzdD6mPTYAQoaLsCKg651U49dRlTHF8UcS/Y
- 9QGNl3liGJqIcC2V/3OeIHhk+sEMaqHWoZaAn7CuajoORKZMU9ztEaQw4uoXYZbnTRE9AnNQrmG
- TMXdhKg1Xy5DMTi/Z8Or6xupStm4cPiSgCcHa3M96NM6csd3z+7n8kNAqEdAFvewjcphGB8WjMt
- Yk6eATZb3vOK2woKOQsoeSPND7PUBBpf/z0vMZqNFeeEwqH7jw+uOg+2jjMuWoV/HIUeHgfvUE0
- Q+lIQLGPdNr0A2QjK4uwYNaobw98aOOg066DOmfa16S8i/AM0hskbfKQJqXt2cvBlbczC+b1WAu
- sZC1SudrHEeaklPx8aDoK5I6ZC1PEsGozWKRLpIzUAM+OXdqOjoT/H6jgA/iO/JVfGQ06SXV4aT
- WX+u9asDoi8JD1ohLWq2oNMu07FnzcspSWHJFENnaFt478qpJvkoznve6nXTi1eNn5IBDSGyIWG
- COJ+TtkNQ5iuUUxt+aXOhjmhhNBu5CHMH6csCxiMA83EuS3kIU4YGEg8ApA5eFNYI0wwC38jRWJ
- hjHQKq+2m0ZQYAA==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1MCBTYWx0ZWRfXznXYAQ3fdXdT
- lP68gcjPGCPE8Epiv+i1nSjkxYSiye1btC6N7/5HP7cQFlRVIyd3h45OyTM5keRnUTZZpXnEE2d
- zNghSUWUowTmcIpqxxyggIImu1FonyjDQ1wt5vLb8orEWU9ghLgBRhQgLb0dpQGU5Z2KVGlPvER
- T5wmFw8E7Q/XZDq5XYkDQPt7tqoTI8pX5TZGPAxPQ3hS6pg8aPSyd7MyF5XSeydMnYQmpT5UH2g
- 4tIlf0U7mqghiSwCcu8Z91uPgIP/awKlwTc8Ovj/E1CTOH8XotSh5JXtO5wA1c50PsRpKnqlOZf
- xLt3K+W6WpJn9HY+GZCZUXO5XV2MYWKax0+goYwYzF3iAiBq0L6J2kAzljZYyFSzsmjC8hF6S7S
- xAL5k8zcBekVj9ZP0z/G1h2nVUMZRV9VKgPsGv/JHInh7FcBNvPOUTDDQswDzwsZzDD5ZFNWaFj
- M8vKPJNgXC6dXZs90MQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1MCBTYWx0ZWRfX6vXNndR3aIRs
- pHPkIepKdPBs7Nu86tbyuet4w8XGplZoaCBQ5VHMT8OHMkZRgPmdDYbYTpyEqZVhJ0GzfBxCYMJ
- TyF/T0qYGMsM2Q0r7aSfS4Fz45eGpk4=
-X-Proofpoint-ORIG-GUID: uXC4I4AZEiAExrj_un1-lpxgRvWCOH_3
-X-Authority-Analysis: v=2.4 cv=a4+lZkSF c=1 sm=1 tr=0 ts=6aec7aa6 cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=lusAeXgTHze1FH2-YeIA:9 a=QEXdDO2ut3YA:10
- a=ODZdjJIeia2B_SHc_B0f:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-GUID: uXC4I4AZEiAExrj_un1-lpxgRvWCOH_3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 lowpriorityscore=0 impostorscore=0
- phishscore=0 spamscore=0 suspectscore=0 adultscore=0 clxscore=1015
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050050
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 
-mvebu_gpio_write_level_mask() is called with a raw spinlock taken but
-the underlying regmap uses a standard spinlock which can sleep on
-RT_PREEMPT kernels. Add the .use_raw_spinlock attribute to the
-appropriate regmap config.
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+
+Currently on SKL/derivatives we are checking whether
+the VBIOS/GOP programmed the SWF18 scratch register
+appropriately. Based on the original commit, and the
+set of bits checked, the code actually wanted to check
+SWF06 instead. Looks like it's just completely confused
+whether the register offset should be 0x6*4 vs. 0x18 vs.
+0x18*4. SWF06 is where the VBIOS/GOP should stuff some
+information about what outputs it enabled. SWF18 is
+where the VBIOS/GOP is supposed to stuff the maximum
+CDCLK frequency.
+
+I suppose either of these scratch registers are part
+of the expected protocol between the VBIOS/GOP and
+driver, but it looks like at least some coreboot
+based systems don't set them up.
+
+SWF18 not being populated leads us to reprogram the
+CDCLK PLL during driver initialization, while the
+display pipes are still potentially active. We also
+set CDCLK to its minimum frequency, under the
+assumption that nothing actually needs a higher
+CDCLK frequency when it hasn't even been correctly
+initialized.
+
+Due to some other changes in the code we may no longer
+force a full CDCLK recalculation and reprogramming upon
+the first atomic commit, so CDCLK can remain at a
+potentially too low a frequency indefinitely.
+
+To fix this let's just stop looking at SWF18 completely.
+The code is anyway confused about which register
+it's actually looking at, and we don't look at that
+register on any other platform either. We also do an
+actual readout of the CDCLK state from the hardware
+so we should be able to spot if anything is wrong
+enough to need reprogramming.
 
 Cc: stable@vger.kernel.org
-Fixes: 48f32a835373 ("gpio: mvebu: switch pwm duration registers to regmap")
-Closes: https://sashiko.dev/#/bug/linux-6bee0c4f-384c-494c-868e-07c420195d13
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Fixes: ba91b9eecb47 ("drm/i915/cdclk: Decouple cdclk from state->modeset")
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16595
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17423
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpio/gpio-mvebu.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 13 +------------
+ 1 file changed, 1 insertion(+), 12 deletions(-)
 
-diff --git a/drivers/gpio/gpio-mvebu.c b/drivers/gpio/gpio-mvebu.c
-index 267e6d5bacd0d1c9de0ebb7e21233bc9e2cd3bad..02d9ae5869d75ccc9ac78c41650b9f21b18ffdaa 100644
---- a/drivers/gpio/gpio-mvebu.c
-+++ b/drivers/gpio/gpio-mvebu.c
-@@ -603,6 +603,7 @@ static const struct regmap_config mvebu_gpio_regmap_config = {
- 	.reg_bits = 32,
- 	.reg_stride = 4,
- 	.val_bits = 32,
-+	.use_raw_spinlock = true,
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 92e6fca861f6..0f2f693c78d4 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -1269,18 +1269,7 @@ static void skl_set_cdclk(struct intel_display *display,
  
- static const struct regmap_config mvebu_gpio_percpu_regmap_config = {
-
----
-base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
-change-id: 20261105-gpio-mvebu-sleeping-while-atomic-3b3fed029f7b
-
-Best regards,
+ static void skl_sanitize_cdclk(struct intel_display *display)
+ {
+-	u32 cdctl, expected, swf18;
+-
+-	/*
+-	 * check if the pre-os initialized the display
+-	 * There is SWF18 scratchpad register defined which is set by the
+-	 * pre-os which can be used by the OS drivers to check the status
+-	 */
+-	swf18 = intel_de_read(display, SWF_ILK(0x18));
+-	if ((swf18 & 0x00FFFFFF) == 0) {
+-		drm_dbg_kms(display->drm, "Sanitizing CDCLK due to SWF18 0x%x\n", swf18);
+-		goto sanitize;
+-	}
++	u32 cdctl, expected;
+ 
+ 	intel_update_cdclk(display);
+ 	intel_cdclk_dump_config(display, &display->cdclk.hw, "Current CDCLK");
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.56.0
 
