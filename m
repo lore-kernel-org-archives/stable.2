@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903966;
-	b=guXsNDP84PGEqIpra1mxjPm67A9YxgQRJS2QQn91YVWQg+t24+h7U2VTZ0SxSQFr7u2H
-	 2xqHk7oHbF7EHhJTuLJDxqbyry9yvQMhyIMRWlQZbtsC52ViuK+epc+gBGMNulQmTjDKS
-	 5GbU0QTDYup3EsNptCuHf3MtnjqEfAgEoT1vZGs5G4QdJM2Lx3cv98+KhlIVREYKrpzQu
-	 /uhhxPLP+SRsvFbj6TFDO0glXzDJVg5PFw6Pdo++tWOhGberM+Hv8R93S+SzVwT0bI6sC
-	 FHGRyI4eHgzI0AV4/VPSX7YIMLzCq9LlF8LnS0Wis903gqFxnXqyjFUe8EPTIuc0wvQ==
+	t=1793903967;
+	b=E/N2Y4mY+kOaMWWcNkxVEknLuRqwaGFov4RNNYVIYE/5Csb7eK++a2dOlB/+5jnf9K6f
+	 f/IsIvSjck7rNfaGznwNFkEkLO3cebeuxk/L0k7ojL6lqIPKctdZrflGLZz5xs8+GDjn8
+	 UbIrSmBU6WHPAJS1VCtg41a75zY5qcW4ZCO83y/c+KWwoEx7R1nNyf5m+265vN9ajHlyE
+	 tvylt3Jf7L1idDUQq7bGp3dE5Hg9yu7u9Uxb67ci2AQ4KV+bge7W4m8VkCDcZrJUl0AXn
+	 sozRJGhe9t5+pe2ROpo0LLo6pxh0cazRXRA5qo7U0b10cMjsge/3/gVxCE0mGdceh/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903966;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903967;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GoohItUOO5zf4oFiIvz6JhAxH1uPXDxOuR3GAhYqZCs=;
-	b=oPORUIKi5VGTajBE3psc7nponfyJfZ2ETLoj7w/yqOhPz2SVQ8oy7eoof6CvRaswoKfR
-	 FFmTIZ2xJvT39YZMjyco67MuKtqtWDdj7Cg5ihv648JZVWKzVyxn6GIRHlQhwQIY159P4
-	 FKARlkuxu3Xd1uOkFENj6leOlgUZUH/NsPon64VU8kl9e/xxnVRI8T3XkbWF+SyI2YDh2
-	 5jEd+g/aNRapnaaMPLtN2sm6DTK8Kb6rYdEq7d42vA5VB+cEcGTwkBL1lv/UI+ryIi4l6
-	 +2W7h5iU+v1O63RLWZnj/w2vYPr4ncTqkTl72kZMhl9KZBQyMvp2EQ4zl1mrgvs30aw==
+	bh=fRRdVoP5JTvm20m30RWihnQilDQOdRSbu7u3cc7HpKs=;
+	b=h0Vzh6XGaPeg4VA7bBBuvhUn8S5+LJbgRFvzDJSYCy7EfefRKyyKHhKC9tZ6u+ykN1Qc
+	 fOAJuDbQAfCf8LgFfqPi0X3UOTMt+iL35bM6RazMMCQ/mwng8naooLuYVGn2NhAPGj6U0
+	 oFBpyklxWgJApi1auw6bMIdJAND2GsQDnlQ7Em7mwh1Em1a0b2UfN4R5hWgJNUMZIB2lu
+	 JRmqkBLZyFGIV2PTpTisJClf56N7SB936/nqMt11ziqUvmsQljWYocqpXBvX5LyC0uLXi
+	 I4/UozbdGk84XnV9ywrGMiqBpp7S5AuXGYZlaPzbGayFtZ3axJ6l4iYRmL8Vsd232Fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GlunmwIv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kE64j65T;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD77C606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:39:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B518D606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:39:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GlunmwIv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE5601F000C1;
-	Thu,  5 Nov 2026 18:39:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kE64j65T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1C431F00919;
+	Thu,  5 Nov 2026 18:39:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793903965;
-	bh=GoohItUOO5zf4oFiIvz6JhAxH1uPXDxOuR3GAhYqZCs=;
+	s=k20260515; t=1793903966;
+	bh=fRRdVoP5JTvm20m30RWihnQilDQOdRSbu7u3cc7HpKs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GlunmwIvahAV5D/tOJ6ggOv1UKPHWyiuvZSfOA8vhF1bp397An/HH6A2xG3YY9poi
-	 MXpwubHa6vk+4yfAK4DdlgD9TZ8oxMlPWeglNOKLkVdHQ9uHi9nlic6KcvcDozoUcb
-	 XuVGPJ8zIcJomHmYi555IAiT0O7MSZFm/tbpD7wqDxRTvURSDT5XrDIABJRDmc2eir
-	 kyden8duTviAQV71AKrmEqAuqq9O9lz+ffk+c2NffQtXA2zjETfLOndwoqO7CYNB94
-	 E5lMHAiKlMokP09w97F/9/xeWVfiRQ5euYi1jMWCWLSUAItT6NNu3xzRXly12vG9Bd
-	 E714lHDgfHs1w==
+	b=kE64j65T45h6kR3BstsvqVvWfD44l6gxT3qDoPaSvy4Yl8NWGwSkiqZtzJJ9utiw/
+	 XMqEJi3MELbNSy4eTCaHuIqmyBARwHkwSvzQ2E9ILFF3KiF9eu9hfSvZLyCSr7PJP8
+	 Imm0gzqpUgAu7989YW20clQqu7AONCfdUp3sleJau+vDoHtwAKVaFgtk7qIyn6wARZ
+	 UbFU1dKr7FTGU5zR+vqAJt7LPkwTfJIJxdfbNTK3V8Roh6hrWuCXMxAinx9qVLgiJM
+	 EibID6Uyh5ul6OecYZMKzNcnoidmvm3ey2EaWIipoeXHXwjSVLIxpwAaKGeJUcN8j+
+	 TzOuLO05mM6xw==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
+To: Claudio Imbrenda <imbrenda@linux.ibm.com>
 Cc: Sasha Levin <sashal@kernel.org>,
 	stable@vger.kernel.org,
-	Chris Mason <mason@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Amir Goldstein <amir73il@gmail.com>
-Subject: Re: [PATCH 6.12.y] ovl: hold a reference on the parent in readdir
-Date: Thu,  5 Nov 2026 13:39:10 -0500
-Message-ID: <2026-11-05-1-daily-reply-0005-ovl-readdir-parent@kernel.org>
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Christoph Schlameuss <schlameuss@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>
+Subject: Re: [PATCH 6.18.y 2/4] KVM: s390: Enable KVM_GENERIC_MMU_NOTIFIER
+Date: Thu,  5 Nov 2026 13:39:11 -0500
+Message-ID: <2026-11-05-1-daily-reply-0006-kvm-s390-mmu-notifier@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAOQ4uxghyqkUkabY5-rcwUrUq190Mvh36zgQBJ6EwYsnAiDtrA@mail.gmail.com>
-References: <2026110447-widen-reunite-2c7b@gregkh> <20261105025023.1204346-1-sashal@kernel.org> <CAOQ4uxghyqkUkabY5-rcwUrUq190Mvh36zgQBJ6EwYsnAiDtrA@mail.gmail.com>
+In-Reply-To: <20261105134924.4e417448@p-imbrenda>
+References: <2026110445-lividly-gratified-dd5f@gregkh> <20261104231214.887398-1-sashal@kernel.org> <20261104231214.887398-2-sashal@kernel.org> <20261105134924.4e417448@p-imbrenda>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,17 +64,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> I had already asked Greg to take my 6.18 backport to 6.12..6.1:
+> I'm a little confused, why is this being backported to 6.18?
 >
-> It'd be a shame to have different backports when we can use the same
-> version to all.
+> KVM_GENERIC_MMU_NOTIFIER should not be enabled on s390; s390 will not
+> use mmu_notifiers for KVM until 7.0
 
-Agreed, but your 6.18 series does not apply to 6.12, 6.6 or 6.1 as sent:
-patches 1 and 3 fail on all three, and patch 2 only applies with reduced
-context on 6.12 and 6.6 and fails on 6.1.
-
-Could you send per-tree backports for 6.12, 6.6 and 6.1? I am not applying my
-6.12 version.
+Thanks for catching this. I am dropping the series from 6.18.
 
 -- 
 Thanks,
