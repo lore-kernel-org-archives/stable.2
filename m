@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793889571;
-	b=SgKGO2+Q3WMecuyfFtZW4CgKSlH8VfVGmr8p4xFp4WXmQFVmnP2D243hSXuMh7b79tRu
-	 qBrohpG3QqW1otr9Lwsg3sSsm5c/o3VZgpUfgZBc6cjULjy3f9Gwyx2BVRup5PeD0W7DS
-	 tUGXc7QZGXo09R6urr32gNkXnvV+lmifCBW7i7sy7N/kJj9DBrZ20hQGFDbRP70Ji3jPb
-	 CeTWdJZd8Xs3BF884xIqk8JoomMu6UUqX8lVaBVFgJElvVTz43tnTXDlyQwiODb2juIrh
-	 Ptsjl/n1SfzR1KEtlel9YjtVlj0lGblXKVVcbrw5SLLWlkBageP4JxWkMVvvwg1uQdA==
+	t=1793889577;
+	b=DEtg/b/uIYuNiC/ihr5X5VuPdedUv+lWsAFWMrdCOp9+jLWoLKpZVf33asD23LSCgwS6
+	 1W8DgHnyhkiTugykBjdBTErRi41ybBnlSnVWtcwg89CI7mmBXejSGvazkaPxiK7vsVX34
+	 /wUEYxqlItgBltLAIR5vkzFBzr3coUHAM4HDNY+Mrpzaipk4Gh3HA7+fJA52mvQCmuuGf
+	 NdXtCSxUMa3cG1dThLPxQhsEdUXJpMODtZOUiiPXRiSnbIEn4DGXvvfo2EQo6HohJtgNd
+	 Gj6+PK1taGK76o1q1IS7tu9SUU63e9Rsm+GXJfqZHCpA7e/847FZWw9xN+Ev8Rt87zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793889571;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793889577;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PSyN1YHPWqlEh6KBlb3S3Qwl9gNrCashcBnZD9ISPHc=;
-	b=ki/xFpw/oaGF3u7GpyOKEaUZBhvqrkZU+Hf6kltHIOakcQcZMCedP8T/jF05XaKGFfgX
-	 g3tXBK3HlSVKdXq0yU7Es5lheFQRO+aXYz8FSxzW/DU6cewlVornQSilplnwmqx2uyYrJ
-	 EvT5kP3oP1sin0ZD0fF2BbPF/M2fWIWDAufZ+CidObFKW+RXu71wm2WhqRWNMKMiSGuDe
-	 eKy9NzJtkPnOpYx3KslVybyA11BNLRolcCloqUDAp+Ia1mxqH9tUCcw71ElRoA/3ta160
-	 hqGRaxCNPSF05gFqdJ5ckUFO2cG/GbIPFZRTikM5uLPs/WAWCSeHHeE/NCQOjnKDyeg==
+	bh=njgf5UPHo8Faorvq6/FKdPgFNJJSzJEgyKnAWBFh7GM=;
+	b=n/1EHBPhfzA4kOOSLEemBqLvaIBMvcvaWqtlE5m4u/j6GapHh/CXRgpGRlyKP/Ax7+CF
+	 C8J8YmzrsuaHi+0qUdHhZDGJ8avvOQ/hmP9IIqTCFsiioEwGDYNi/1MPCfTQjPiriUf0g
+	 QJCLa07jVrPJ3lPnkbIXHAUyoOEJpNF8Vinn0GVV4rr62NqdwR98eESEzMWlZrnnj0LMh
+	 hHXFCErM4e981/01ZM8I/WvEcIbFA5Is4HJemDHhxy1jQ+oXap8mjsg5QOPXL54y0YuIa
+	 58GxdNzXtOerQqccw6JxKYXpfK+JU8YgsSazcVM13/ugUApYrZ6IUoHIz8rStQOvF2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSmzGqIK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DzD1YAW9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A586B606A33C;
-	Thu,  5 Nov 2026 14:39:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79685606A329;
+	Thu,  5 Nov 2026 14:39:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSmzGqIK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF4C61F000C1;
-	Thu,  5 Nov 2026 14:39:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DzD1YAW9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 483D91F000C1;
+	Thu,  5 Nov 2026 14:39:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793889570;
-	bh=PSyN1YHPWqlEh6KBlb3S3Qwl9gNrCashcBnZD9ISPHc=;
+	s=k20260515; t=1793889577;
+	bh=njgf5UPHo8Faorvq6/FKdPgFNJJSzJEgyKnAWBFh7GM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jSmzGqIKPUpLZZpX+iRhptsPPasIPHu0Htw6mu/9YR9pa1keWpXD5iVGK7+QR3xZg
-	 oOrGhKnuBWEkdEKmvc06gyubXv6cx6sUW34F6gDFC0KJ63NTwkbySIyokOeeMutAfe
-	 M/uRfUg7sfqwgWeGc5by5g5Po3ujzORTbphiVRU57ZohbTtjq5ZDtWkydRJt7NXpXs
-	 y2PW0wXCOYLK8m1ltju0sl5aYNvIETsaS3kFjDnA3JAio2Nljg8PdutwN4oeW+8BLG
-	 WDoD65VWWV2jkTwpdXp8GIJXZ05o4untu8tIDxRuad5YDZ6AiX72NUTVniookGTMUW
-	 +Q0lDX8lXpLBw==
+	b=DzD1YAW9uCjWYYmjVIX+iMXDNfWjxtBB/0Kzw60zW5x3QU0ZvTGp/QuQb+qJ12DHN
+	 l+vHP8r6o8kPuSeJ8Hdi/AXNWj4nJ9KLWST36jTWpdcKrbmNKgaqva+1j5Af3GYvaY
+	 t91ixKpMoRSEhdU0+yNeNT2VxadIq0H6uKmSAnlU6qjLj++XAvTFZthbcY9S/pyI9O
+	 5x+Cm4Z+PBN3qEwKuZuLukR0/cco0TPYvlN5F4PKBrzrcK9pZHWk6EwaMcSgy64xr6
+	 BFj5NsJxZQiQY/R2rgdgcd8OPyOxp+1gFs3nfL91t8FUogdcl0ial5IEPJKKDjnSl6
+	 qfdCOf2OQLvUg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Xiubo Li <Li.Xiubo@freescale.com>,
-	"shenwei.wang@nxp.com" <shenwei.wang@nxp.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Joachim Eastwood <manabian@gmail.com>,
+	NeilBrown <neil@brown.name>,
+	Grant Erickson <marathon96@gmail.com>,
 	Thierry Reding <thierry.reding@gmail.com>,
+	Lokesh Vutla <lokeshvutla@ti.com>,
 	linux-pwm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 5/8] pwm: fsl-ftm: Enable ipg_clk around regcache_sync() during resume
-Date: Thu,  5 Nov 2026 14:38:07 +0000
-Message-ID: <20261105143847.2559586-6-lee@kernel.org>
+Subject: [PATCH 6/8] pwm: omap-dmtimer: Handle negative error codes from get_pwm_status()
+Date: Thu,  5 Nov 2026 14:38:08 +0000
+Message-ID: <20261105143847.2559586-7-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
 In-Reply-To: <20261105143847.2559586-1-lee@kernel.org>
 References: <20261105143847.2559586-1-lee@kernel.org>
@@ -65,52 +68,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On SoCs with a dedicated IP interface clock (ipg_clk), register accesses
-require ipg_clk to be enabled in addition to the ftm_sys clock managed
-by regmap_mmio.  In fsl_pwm_resume(), ipg_clk is only enabled inside the
-channel loop for channels with PWMF_REQUESTED set, so if no channels are
-currently requested, regcache_sync() writes to the hardware registers
-while ipg_clk is disabled.
+omap->pdata->get_pwm_status() returns a signed int that can be a
+negative error code on runtime PM failure or invalid timer cookie.
+pwm_omap_dmtimer_is_enabled() and pwm_omap_dmtimer_polarity() store the
+return value in an unsigned u32 and test OMAP_TIMER_CTRL_ST (BIT(0)) and
+OMAP_TIMER_CTRL_SCPWM (BIT(7)), misinterpreting negative error codes
+(such as -EINVAL or -EACCES) as an enabled or inverted timer.
 
-Enable ipg_clk across fsl_pwm_resume() around regcache_sync(), matching
-fsl_pwm_init().
+Store the return value in a signed int and check for negative error
+codes before testing register bits.
 
-Fixes: 82a9c55a2bb0 ("pwm: fsl-ftm: Added a dedicated IP interface clock")
-Closes: https://sashiko.dev/#/bug/linux-858851cf-55a9-4776-883c-69c05f3961f2
+Fixes: 6b28fb6f3ca3 ("pwm: omap-dmtimer: Implement .apply callback")
+Closes: https://sashiko.dev/#/bug/linux-f4782faa-466d-43a8-85d8-6d6181ee2243
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/pwm/pwm-fsl-ftm.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/pwm/pwm-omap-dmtimer.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pwm/pwm-fsl-ftm.c b/drivers/pwm/pwm-fsl-ftm.c
-index 35406b2e1925..9e5470e2efe6 100644
---- a/drivers/pwm/pwm-fsl-ftm.c
-+++ b/drivers/pwm/pwm-fsl-ftm.c
-@@ -501,8 +501,13 @@ static int fsl_pwm_resume(struct device *dev)
+diff --git a/drivers/pwm/pwm-omap-dmtimer.c b/drivers/pwm/pwm-omap-dmtimer.c
+index 51830a87275c..1e4d8b9e224f 100644
+--- a/drivers/pwm/pwm-omap-dmtimer.c
++++ b/drivers/pwm/pwm-omap-dmtimer.c
+@@ -111,9 +111,11 @@ static void pwm_omap_dmtimer_start(struct pwm_omap_dmtimer_chip *omap)
+  */
+ static bool pwm_omap_dmtimer_is_enabled(struct pwm_omap_dmtimer_chip *omap)
  {
- 	struct pwm_chip *chip = dev_get_drvdata(dev);
- 	struct fsl_pwm_chip *fpc = to_fsl_chip(chip);
-+	int ret;
- 	int i;
+-	u32 status;
++	int status;
  
-+	ret = clk_prepare_enable(fpc->ipg_clk);
-+	if (ret)
-+		return ret;
-+
- 	for (i = 0; i < chip->npwm; i++) {
- 		struct pwm_device *pwm = &chip->pwms[i];
+ 	status = omap->pdata->get_pwm_status(omap->dm_timer);
++	if (status < 0)
++		return false;
  
-@@ -522,6 +527,8 @@ static int fsl_pwm_resume(struct device *dev)
- 	regcache_cache_only(fpc->regmap, false);
- 	regcache_sync(fpc->regmap);
- 
-+	clk_disable_unprepare(fpc->ipg_clk);
-+
- 	return 0;
+ 	return !!(status & OMAP_TIMER_CTRL_ST);
  }
- #endif
-Cc: shenwei.wang@nxp.com
+@@ -126,9 +128,11 @@ static bool pwm_omap_dmtimer_is_enabled(struct pwm_omap_dmtimer_chip *omap)
+  */
+ static int pwm_omap_dmtimer_polarity(struct pwm_omap_dmtimer_chip *omap)
+ {
+-	u32 status;
++	int status;
+ 
+ 	status = omap->pdata->get_pwm_status(omap->dm_timer);
++	if (status < 0)
++		return PWM_POLARITY_NORMAL;
+ 
+ 	return !!(status & OMAP_TIMER_CTRL_SCPWM);
+ }
+Cc: Lokesh Vutla <lokeshvutla@ti.com>
 -- 
 2.56.0.398.g882cbad275-goog
 
