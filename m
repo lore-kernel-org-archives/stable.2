@@ -1,88 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793855032;
-	b=SCYtlzjJDCh6OnjAuv025ZCQckJoocOMNniffZ3b0eX8YxwmuUgm854WcUZ0Xk+Pg3SX
-	 LxuSAQttiVGXmc/ByFQyAs6V6w1Yt+vw4jTcBs4DI43IjmooyZXrLpmddiSNUFrU2ub32
-	 8SjsBpnCBv4kWzp/WgCA+eglEZxX+fWRKsCt18HbmGdJBvIZN/L/DinzF4XIpQx44RhRo
-	 oV7cd2Fqkun7z/u4K+TSmKAR8OtzMSi2bu7y0kG8BG6HVVYnmL4rzm9HmoSMWKMdCc/1G
-	 6dmRj0GYXfxmln/ivRmfn6OZD/MP/lsLIEHB0Y3LIbV9iH+ScHraEdUR8FcWEIqSyrw==
+	t=1793855189;
+	b=hCjlMqN5OZcMM3GoO429fI1sl3z8UjAK8vsS8cC5ChzSJqhvXTWeKEc838VsW8c6x73G
+	 O2n/DFB3UqVdRrJ+H4dx26Kw7OdzRAt27wHZlyeFO/36WpFu0pNh0kNmxBzRVL/n8F0hD
+	 PxNInCz9UG1uZceTTjt6uwiZmwCEIJzsWfRgzMsEoUhTrkMTrbkB5zZhTQPHYHgPbVFDq
+	 xiQIL0I7TdNHUD3ivTfHfgSAN10Tb1HPDeT8/XQzY6y0xRDoR7voRA7IPyib3fdVtnS8F
+	 ntrclh/BUaCt7wYjlh1PVvjkNUzK1kbxdw5cXbk48L8kBBBNX+YpnTvp6urJgBXxz5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793855032;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793855189;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=9/MyriLLIFlAEHMufWPIWBvD7cPvXwMz6qb27EKImvY=;
-	b=WZle0IUCiPnFuQ2hfztzbQoFgAhrjG0y46Y9b7WUfMxb26vP1PSRCyAqPhuM1S6sOntI
-	 0cNebIY5GSx/kALHv4SK3sLKUkE1+HbKND8HN4Yk7dvv5UbO7GV5KtrhLhLn4qwGPbdmN
-	 aI51s31gBpmTpfpSdsezQFQWNnjBkbSiGyu46e958NxpoyhCZrBRnxGEqEMzoSgeGL+4A
-	 iQOwKPw0YlNm6+lAo2RBjybKrB3ESvvW1FwTwa4SPjzshLqNCmCovx63KUPhao4GbfgMy
-	 Fd9HEfiYuZ+SRbeAIX9azRmdLi9zTPQ7dgbqr5mmY3MLB023yFFSmYRg+AvxFaRPuOA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=WJXyrXeadAPpp1EgKOr4nzDbu8SHuoj6JH23Y/l65FE=;
+	b=sEJuXNY9Y041RIG6XIjydb4qNBO8axcJutaebNgW1PUfUCgVdTfaKSQpkTDI82vrILDx
+	 cj10AMJ+0+v8jPU0T4DoK2iZJLuX/Oxp0NMRvajQxBiA2Mq9/Tt59jAbw1XBgC5dD2LA4
+	 grFirT+7lG1M21+XgT1NG+w6KhDAw2jN9VFjBtRSjBkoBcQEkIEfmGKquNeOuBuGkxJCD
+	 y0WWZgpDfD0sco+kXOwtubX2vwWLinzozTFVKW3g+f2ZxvQ/ihgCrh9C3g/ACA8tkQT5d
+	 bxwuUAq/k7sfotwRvqYzjEMTct1Pu9HTBkFZ30RoQn5cZIplUHobboSpsEI3AhvKCGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eK4UPpiE;
-	arc=none smtp.remote-ip=209.85.210.49
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=u1vps6FB;
+	arc=none smtp.remote-ip=209.85.219.51
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63AB1606A328
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 05:03:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63AB1606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D411606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 05:06:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D411606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eK4UPpiE
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-8490a7d6696so921949a34.3
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 21:03:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=u1vps6FB
+Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-91e7fc8265aso17333866d6.0
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 21:06:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793855031; x=1794459831; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9/MyriLLIFlAEHMufWPIWBvD7cPvXwMz6qb27EKImvY=;
-        b=eK4UPpiErrl4l7SqxayZeQBSeqp3a0aHy162SBx8mFLn3ae6nYQqS0pc5V4jrsEc2r
-         7HE0+xrI49crfF4O5Nq8OCOEs8/acn00YPGbekFh0OzhyCbdlKFy2FMWYdw/iw9pRy0o
-         ODcHSOYabbt6Lmecs5rJwELO3wx/K3s4zvje7jEOWigRTM4OCDjZSpnNLBHJsOlMxhqM
-         8cyebKBsIG6Gny7B8TQajdEPwFlM4Lyge36404Zq+eaLQKnX9Deiem+56DFTVPuJCKLf
-         hgu6TnJQOGonG5TkncsLTn9THdEb2AQKidAfOlqo2ntcUrJy2ZVHcH91el5wdz8jwVcr
-         fXLg==
+        d=rowland.harvard.edu; s=google; t=1793855188; x=1794459988; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WJXyrXeadAPpp1EgKOr4nzDbu8SHuoj6JH23Y/l65FE=;
+        b=u1vps6FB9frxf/5wIeIkT79W6+qKBcnHUXgZFA3lxyIcYMxWBSmuscItg+LvtzCPt4
+         wBr1/mtJY/KdPwSIYKiqNB7nr/GC5kN1g6ESuFk5sivSG+oM1NZS9EzeiYbFdXLDLnJg
+         R2P4a9eqHvR/8bAAY7C/e8ag0fUqd68EswHYUgY5F3qh8yTG09z43B71PnaptvlwZjQi
+         zS69FjHsGpaGz/m6gfwNcRf1iwYvtxvw3HKv+CwvysJR2kNza/Q5lGXCV1+6fI4TEX0t
+         h79lQrcPeWwS7dFc+ta2AHIO9VxrEiNfI34Egr3aWtmJCvctnWKRi/7MqfEHpYhsm2qP
+         bjTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793855031; x=1794459831;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=9/MyriLLIFlAEHMufWPIWBvD7cPvXwMz6qb27EKImvY=;
-        b=kGtY5g9rTS0tv3n8epZ+ekHTv11t+zDZURYPiP515sFG4e2HyWtEKrG8iIu8VGspP0
-         QY4boay7ByC8d/nN9ksfwOPi+ayZM0mkVDsgLHgKyj6B8H/RVnvCaMNLj6SjS+uACacy
-         yGJvXU+M9nzyleiLeP3abFxpq3lGI++WYmgPAQXkMGINrmka9EUmnb3ozxyPtyTI0Mym
-         86SsQ7kdluxeCWdyDgbcQhrMLJHV9ZSvY3rmd/6nFJyLBzQ60OX0wEHZZ2/709ebQ9eK
-         gqTR/QBx1WUhm/Zfvwj9vTQIB/E41QH8MDqxjaqpoOWwPQ/2qK66ueC10+qIu6LGOzcr
-         Mcqw==
-X-Forwarded-Encrypted: i=1; AKwUvBxh7bIKn6cq3bCTfghiPg+GAI2S41TbV8se63kelPyLHkzhkAMqO7MqNyICnHFyWKcnF76NSEo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/E3Crcp6BSP6bw/RIbKuqDN1eG7GoNGXZZm3ndfyR0yInmvK4+
-	JLnQWwnV4dICT5SZxHJeZPvr2TNAMgcmqFlBkOQCToqDeBH8pNkn4e6cpNKm6y5D
-X-Gm-Gg: AYBFou3+jWIvT0+kEcivCQYdQOotx7jied9G8JM3v0vHK9Q4O/ODNJ/oM7Pxv/jNgyj
-	lO05GMOQ9O6mVMV015BgzyaiYZbqrO8sZU6GIoctDJlRhM9jKFIk//R4XmsJulnYaDmr1/lB9bG
-	T9CBlPYDRdICT6JMCXGjpwsP9EpCIj2vUU3iE+NNBQsa68BwPkdmFARGX4xK20V2DtW7Vb49Bqy
-	1WGLj2dudG7mgLWcFDufMhAO1sIl2uxZEZOc1ntQdoC+sROhE36KLJCm77FEKZhiH7iEXmzFp3P
-	7VwL15jA4NtFgR4wVnNY9irxL4J/rpFnhTu3Ll9vE+lCFTqVmpH+9Z8nBts8VNzprzlmwJM2PAd
-	jUduWI/oVVRHI7eYykJvbJInCq9MGNb214BdF9jjttfbemFGEjTwiMbvxxMPfiLmSdeIRc6V5+G
-	4kEizA7Ufw1VUDAtWXVqgNvLJregicxVSYyI8m4a/ekmYwTreVK4KBs8nezaeRAujB+UE+b/8T4
-	izCJ4Y3cLo0ySM1ZYhRmEHMtziX/Z8GnZRyUoX5UyOW5jD1DvVy5A0BFB1h97c11BjW4NieqEL7
-	Ud/KlKHLZWDsGN+dtzbLoHu5daRHuLO7RpfEa5rTTEEU7ttVSQ5AdStX79XmJK9RWfZ2Tvm33NE
-	oWWMLtsh/E8LltpT82Fsweaxc65UPz4ICgfdP1WCyzKZUQEcxjJ+rL1B54VVdaTbadHABOBks41
-	6QQDcg4ssE7dBBpYZByCrPRnl+ZCI3+pquFbYQnAYxAKheq2bL0sE=
-X-Received: by 2002:a05:6808:191f:b0:556:82f5:5aaf with SMTP id 5614622812f47-5640ddca454mr13902714b6e.49.1793855031069;
-        Wed, 04 Nov 2026 21:03:51 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9fdfa53sm3256982b6e.15.2026.11.04.21.03.50
+        d=1e100.net; s=20260707; t=1793855188; x=1794459988;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WJXyrXeadAPpp1EgKOr4nzDbu8SHuoj6JH23Y/l65FE=;
+        b=j6PmRAzzaUKEX/7p1JQ/83JY/0FbcDgJcPDR0cZaySmyU+8xqJnQrUlYNIw1t48IPA
+         KZ9hLmCt3Fc8uhC95Xr+fM04BYJAl4vMadtcIay503YipTTNRfUDPySx1zip4MZ9gPjH
+         hHR0iKi9obFUg2gxdquLS+PM1XHizb+sLX1dQzTRdhi50gcWta8i9S/gYNIkmSA0OPU1
+         bdcX4w+UCHVWF/tbApHymibvNfLO2H15XacgLhkek/PAeUbErLtIeXl6C4ZoNWJKQNli
+         uuaKYkqx2Qjajm3R8Wx6a4P0LVmTWwNXa8ahA7Pc1DRM4bf9UjizyUUiA5l/wlbpXVnV
+         GNAw==
+X-Forwarded-Encrypted: i=1; AKwUvBz5EG05b/6kcLGlRVxmhXoeqtNipXXoEBvnDMirpCeP1wscAFypHt4sy2COf5CuafBNtng/Qkg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ptMuDqmFm/VKl5XfNZzj/Zi/BDRPEatV5FYxiy62hAFYhNJWR
+	k794j0sBMBbzVQIgH2RHbVdIPP7lQdTIXaNc6FISVjV4s2HIr2Qql054FgzZGbj24A==
+X-Gm-Gg: AYBFou3x4neZ87xVGM0Shdwd5w7z3cWcZ9mbOZ3pP6avuJSLNEmIKneUr527Mid5jPE
+	rkwepWuDO3crH1K8BKJzHztgSAmdU+cKVBSmyJrvva3o62yYb+Q4us0euto2nZGl6GjOgcasBlb
+	Q1n9EaGqH7cNWHLSwW17DnPhq4G0HilecAM31UwtIYvUetQ/3AzrZmKoxLk5nSHzqc2LZMN0YOb
+	hNzY1Rs9L4vWqYBFD65gCgE0108jymecrB8GxeFtzJ4OEUgKq+9u8LVlqkvmRBrLhLPK67Ir2Z4
+	KwapSKTN9urqpSdGgMcLjveUhmv9160SwMbQLv9S3KisFTfONQHwXqsKRe65EfpoIL6VtQ959zp
+	d+mbWlMhTo+Ww4P7J3iunBMteW9KAlTV4IRwEdbzeXrW+btrQHxtm3WAsHlOpp1r5y3UsmRtZNw
+	Q/Civ5vQ/fBvnEUfwfGmhBAmdnRZ0tdc0Vhih+bY69cIDfWgiA/YZgtEChNWiUUElAQuK8Gjpzo
+	NROSk2umEtaFbnY/iPtyoM7aRsQG4uXDhod2gFIbks/akk+Xv45tNesvLjB4K34+X54glquLYDS
+	fSMfIkYKGNJQui5ZB9UMHMQUjge3
+X-Received: by 2002:a05:6214:2263:b0:91c:7a7c:4491 with SMTP id 6a1803df08f44-91ca4bbd308mr298429816d6.43.1793855187833;
+        Wed, 04 Nov 2026 21:06:27 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e7e01a3f5sm38061886d6.30.2026.11.04.21.06.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 21:03:50 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 04 Nov 2026 22:03:38 -0700
-Subject: [PATCH] mtd: core: skip empty read and write requests
+        Wed, 04 Nov 2026 21:06:27 -0800 (PST)
+Date: Thu, 5 Nov 2026 00:06:24 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Pengfei Lv <lvpengfei20@huawei.com>, gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, xuhaiyang5@hisilicon.com,
+	xuetao09@huawei.com, caiyadong@huawei.com,
+	suzhuangluan@hisilicon.com
+Subject: Re: [PATCH] usb: core: hub: Re-guess ep0 maxpacket size on reset
+Message-ID: <59b0cc88-9ac2-453b-bd68-56aa356c0fc0@rowland.harvard.edu>
+References: <20261104124402.1269650-1-lvpengfei20@huawei.com>
+ <b9ac3c8f-7ce5-43d1-bcf1-d2ce9877d914@rowland.harvard.edu>
+ <20261104183603.17d663ce.michal.pecio@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,73 +101,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-submit-mtd-empty-io-v1-v1-1-3f6bcf474e2a@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5FMBBA0V+RWZukgzTyfkUs0MFIirQlRPy7P
- pZnce8Fnp2wh19ygeNdvCxzBKUJdGMzD4xioiFTmSZSBfqttRLQBoNs13CiLLgT6kZp05a6oJw
- gxqvjXo53XNWfYzlxF/43uO8HzgQKvnoAAAA=
-X-Change-ID: 20261104-submit-mtd-empty-io-v1-6a06db864131
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Boris Brezillon <bbrezillon@kernel.org>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104183603.17d663ce.michal.pecio@gmail.com>
 
-Converting mtd_read() and mtd_write() to wrappers around the OOB helpers
-removed their zero-length checks. Neither mtd_read_oob() nor
-mtd_write_oob() stops an empty request from reaching the driver.
+On Wed, Nov 04, 2026 at 06:36:03PM +0100, Michal Pecio wrote:
+> On Wed, 4 Nov 2026 09:59:24 -0500, Alan Stern wrote:
+> > On Wed, Nov 04, 2026 at 08:44:02PM +0800, Pengfei Lv wrote:
+> > > When the subsequent re-enumeration then uses the "new scheme" and
+> > > issues a 64-byte GET_DESCRIPTOR (get_bMaxPacketSize0 with size=64),
+> > > xhci_check_maxpacket() sees hw==sw==8 and does not issue an Evaluate
+> > > Context command.  The xHC queues a Data TRB of length 64 but applies
+> > > ep0 max_packet=8 for short-packet detection.  
+> > 
+> > That's exactly what we want it to do.
+> 
+> Should we want it, though?
+> 
+> Were there known devices with bMaxPacketSize0 <= 16 which required the
+> whole transfer to complete before they are reset?
+> 
+> That's not what happens in the initial iteration, so it seems any such
+> devices would always take two iterations to begin working.
+> 
+> Is this what the only correct Proprietary Operating System does?
 
-For example, the raw NAND read paths select a target and can read a page
-or its OOB area before checking the remaining length. An empty request
-at the end of the device can therefore select a target past the last
-available one.
+I don't know offhand of any positive or negative examples.  But if a 
+device was going to hang if it was asked for the remaining part of 
+the device descriptor after a non-initial reset, how would it ever get 
+through initialization?  The procedure does two resets, and after the 
+second reset the device has to send the full descriptor.
 
-Return success from the common helpers when both lengths are zero,
-after mtd_check_oob_ops() has normalized lengths for absent buffers.
-Keep the existing range, write-protection and operation-support checks,
-and clear the per-request read statistics before returning. Both return
-lengths have already been initialized to zero.
+I don't know what other OSes do about this.
 
-Fixes: 2431c4f5b46c ("mtd: Implement mtd_{read,write}() as wrappers around mtd_{read,write}_oob()")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/sashiko-outbox-198544@kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/mtd/mtdcore.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
-index 491a27d0315f..93e7ff3ba8a0 100644
---- a/drivers/mtd/mtdcore.c
-+++ b/drivers/mtd/mtdcore.c
-@@ -1805,6 +1805,9 @@ int mtd_read_oob(struct mtd_info *mtd, loff_t from, struct mtd_oob_ops *ops)
- 	if (ops->stats)
- 		memset(ops->stats, 0, sizeof(*ops->stats));
- 
-+	if (!ops->len && !ops->ooblen)
-+		return 0;
-+
- 	if (mtd->flags & MTD_SLC_ON_MLC_EMULATION)
- 		ret_code = mtd_io_emulated_slc(mtd, from, true, ops);
- 	else
-@@ -1849,6 +1852,9 @@ int mtd_write_oob(struct mtd_info *mtd, loff_t to,
- 	if (!master->_write_oob && (!master->_write || ops->oobbuf))
- 		return -EOPNOTSUPP;
- 
-+	if (!ops->len && !ops->ooblen)
-+		return 0;
-+
- 	if (mtd->flags & MTD_SLC_ON_MLC_EMULATION)
- 		return mtd_io_emulated_slc(mtd, to, false, ops);
- 
-
----
-base-commit: 1c1a342aceec79528b3ba51f376eca2be5928fe7
-change-id: 20261104-submit-mtd-empty-io-v1-6a06db864131
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
-
+Alan Stern
