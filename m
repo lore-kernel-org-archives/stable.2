@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907579;
-	b=sTAITf+aBwc5bvoCj34ORxB6kKZr+vAV9HlLM5XS7I/7KuvsbYCUc2pS7BKQpvNwM1mT
-	 cTVJWpSEZT99XL4uQDrbZbJYTWb+qG9EtQKOwPJTVlyFe7nqbWU4wUrH/dJUSjXzkbVO4
-	 ketEVP7yjmxaroKhdIEsR/lclQC9XWDB/XI7gyet/kzwGsdrEqJXvG16dZLEUKX5fQqJ7
-	 6BUiC0uOqphjK62O/J2mtjVQJuY+b13Onvm1oZp5dkejMrnNijMuEGo9mFFppw2j93b5K
-	 n0ZQja6+pQ7TKNPwGYTQC5TyiP/jwSqFx+g8F6Z29L4RNvvVSoDNoGOfc8LcnFMnZHA==
+	t=1793907603;
+	b=4SQ+GVqwTedPTtwSvVyXKt/COy8ejvvmU4alkNM16VzMO4CIqBB+PHNkITIaRkfohlTg
+	 bZUIItOA1q/YYXEPB0tT7RngVZBNUB4ieDVce1T21+LoSRYYoduZ26loY2FzHONEHRedg
+	 4HKw58V8oemtLqwSIJRZ/KQqkYJFI9F4JjRlo0yc2HhoX2OLY6LKV6PKppg4kLCcvdhLO
+	 JF42cEC/7z1jRET27rMPpQDQ6tB6p8OiN5As5fJ6+i0V1YB+XLAAPrSwgg5FPYUSsScmG
+	 0IIcFEalPJmNYuhpdXzUFjQm8JewRsr0kC1m0PbIIxr8zkuP8u9WOMVi/ciKmmsT/sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907579;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907603;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lFlbRgvyGo/ACoQo4M/CMATt8ojZGtm6zxlOMxYeXAg=;
-	b=KZOa1pWBjdCXmJuEXJ46lXHz11NoZ6MYydHk8p2JsWBZS9oMG/r+WkwRTkmYU3atitzX
-	 nX0wznc26JGXQCx2vcaMMNh137zSajmZdOa+tTj+ZMPY8V6UC5jtY6zSgsFShTrf5uiau
-	 Hebdy38IiAJC1VB+i3rrw8j7hpz9AD4l0tQchw4v8i6JvXowpP2+Bi1wNyIVrTFR+kW3w
-	 wMrWuQ7H1QkP2jcQ3JkpgfdzLcwX0YqljAj6wAzPKgGfsimc4TSZw4r03Q19DCV0DLG7c
-	 YOsQDHXHWSX3mpPm9zu7kcGs1CQWKng9mDz5ZEZCtByrFDvKHPeheV6EEOwfmmCwZ6w==
+	bh=6ytWN8M47eqCMypL8fB3AZ55O+IpXJQ/QmtHb+pqhDo=;
+	b=EcNddrs/NSbFhFz5LAQVTvJYWdZukf5RXUhZjKtYDDn+6EhfyhXsgTKxMR9UaYarooe4
+	 wc07rx+mfS6rzkf1aMc+VaC6VxWZ0/JaShHaNO+oc4wIRuS6WTOsEe8oYEWfTmGT70pru
+	 VO+2htbFIHvaqWQbFSOcpVx2FRLUvLnaAmTjrtZ8LYfoTwLbBqrRvPysySJ0cVZFns6zy
+	 AIMyuVKgCk7OTGg0m2+WXz6vTrBu5/li6TtIJ+Xwuzfe1j+rABrH8iUi82DFoifRtv1XO
+	 wq1Xte2ZiQUOsJM0LXgCXDN6Nvi2uOZvK8RhUAsZaTNCHnNDRat/yg2wcJRvy45Xzaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RPLx3mZg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ArXWzHAX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37D9607112F
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 19:39:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B83606D50B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 19:40:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RPLx3mZg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 230E61F0089F;
-	Thu,  5 Nov 2026 19:39:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ArXWzHAX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A58781F0089F;
+	Thu,  5 Nov 2026 19:40:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793907578;
-	bh=lFlbRgvyGo/ACoQo4M/CMATt8ojZGtm6zxlOMxYeXAg=;
+	s=k20260515; t=1793907603;
+	bh=6ytWN8M47eqCMypL8fB3AZ55O+IpXJQ/QmtHb+pqhDo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RPLx3mZg/06xtlXlEgxli+YFXX+U1hZFD0Iir+t7fb8hpiTq8xmpLg1u3riy+NaeO
-	 /sk62ThAgnnp89iCyWmazng+8aeG1fM4gr+NIqwObey35jdfGxVr7qzwddzvFqEhWZ
-	 DNXqsLsTrpm2ixTh5HrXegnkkyJtULKQmA7rHR6St9aF1KxZOcv3n0SvZCLkpwMbV2
-	 uiGzuuGNw/4zoqLAR8O1c6LzviVIf98/bNcBd4cpehfeiV/P72y5mo/6lxWV0Jd+tK
-	 cFmja7ZbN7nKiBac6b0f10KAbOlPisWzCUBwJKR+ECKPbwZRrjV67xvz1LXUm01vle
-	 yoJseGx/KzeGg==
+	b=ArXWzHAXq2C1NL+gwPgMQggWgl2SxYxhdUHaVyKzYTkqLGuEz61ybtcO5qtBZUQTV
+	 ikLVFQL1Z1B4hOd3b8RpbxfXkJ8Pf46xVOLSLH/Rt9RyZCPMmPulb/MB1BzquCPqvK
+	 O6oKQ6jO1ZKDF9xqgUyh2rU4uLVpJSoL9HdV50pSnrV717gZcgaa2IABmAnW265PnH
+	 OEdvcBg4fWTD46qgazcG5FFFgq3vNWrwwXx3Kx5gQZZQ6GXq+MgfgN6Kb/IoYQsDyX
+	 eDTrfm00rutpq2z7EPHrpPhmtboSDAyb7jC94WLxTjGsvug2Ztt6hUL7zELvfoe7lX
+	 XIp6KhA+/5VlA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Diego Oliva <diego@bynar.io>,
-	David Howells <dhowells@redhat.com>,
+Cc: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>,
 	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] smb: client: reject FIND data areas that run past the received response
-Date: Thu,  5 Nov 2026 14:39:36 -0500
-Message-ID: <20261105190314.2629909-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] smb: client: validate SMB1 EA list bounds before parsing
+Date: Thu,  5 Nov 2026 14:40:01 -0500
+Message-ID: <20261105193920.2642443-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110456-awry-fastness-1fdf@gregkh>
-References: <2026110456-awry-fastness-1fdf@gregkh>
+In-Reply-To: <2026110406-sturdy-reptilian-fde1@gregkh>
+References: <2026110406-sturdy-reptilian-fde1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,133 +61,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Diego Oliva <diego@bynar.io>
+From: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
 
-[ Upstream commit 29bd6773187cb5c1bbbdf90d677c6add7d58af26 ]
+[ Upstream commit ddc7a7e1eeb116ccaf010a6f1fb6ab927f3f888d ]
 
-CIFSFindFirst() and CIFSFindNext() take the directory entries of a
-TRANS2_FIND_FIRST2 or TRANS2_FIND_NEXT2 response from DataOffset for
-DataCount bytes. validate_t2() bounds DataOffset at 1024 and
-ParameterCount + DataCount by the byte count, and nothing compares
-DataOffset + DataCount with the number of bytes SendReceive() copied
-into the buffer.
+CIFSSMBQAllEAs() checks the server-provided EA list length by adding it
+to the response pointer. On 32-bit systems, a positive length can wrap
+the pointer and pass the comparison. The parser then walks outside the
+received response while reading the next FEA header.
 
-smb_init() places the request and the response in the same
-cifs_request allocation and cifs_buf_get() clears only the start of
-it, so a short response whose data area extends past its end has
-srch_entries_start point at bytes of the request that was just sent,
-or at whatever the allocation held before, and those bytes are parsed
-as directory entries. cifs_readdir() and find_cifs_entry() walk the
-entries with nxt_dir_entry(), which checks every entry but the first
-of a response against the end of the SMB; cifs_query_path_info() and
-cifs_backup_query_path_info() read the first entry with no check at
-all. Those reads stay inside the allocation, but what they return is
-not part of the response. The last entry, which LastNameOffset locates
-relative to the data area, is bounded against the received response
-by an earlier patch of this series, as is every entry that
-cifs_fill_dirent() parses; the walk itself and the two query functions
-are not.
+A response with a list length of 0x40000000 reproduces this as a native
+i386 page fault and kernel panic from listxattr() against an SMB1
+server.
 
-SMB1 is not negotiated by default; reaching this code requires an
-explicit vers=1.0 mount.
+Check that the EA list starts within the SMB byte area before reading
+its header. Keep its length unsigned and compare it with the bytes left
+in the response without pointer addition.
 
-Reject a response whose data area extends past the received length,
-with the -EINVAL that validate_t2() returns for the other malformed
-transaction responses. cifs_query_path_info() and
-cifs_backup_query_path_info() still read a whole entry from a data
-area that may be smaller than one; that is not changed here.
-
-A conforming server is not affected. The data block of a transaction
-response is part of the SMB, so DataOffset + DataCount cannot exceed
-the smbCalcSize() bytes that SendReceive() copies; coalesce_t2()
-appends each secondary response to the data area and adds its length
-to both DataCount and the byte count, which keeps that relation.
+SMB1 is not negotiated by default and requires an explicit vers=1.0
+mount.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Assisted-by: Bynario AI
-Signed-off-by: Diego Oliva <diego@bynar.io>
-Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: adjusted declaration context to account for the missing in_len variable ]
+[ sashal: adjusted the CIFSSMBQAllEAs() hunk for plain -EIO where upstream already used smb_EIO2() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifssmb.c | 31 +++++++++++++++++++++++++------
- 1 file changed, 25 insertions(+), 6 deletions(-)
+ fs/smb/client/cifssmb.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
 diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index 3795fdfebb519..603a9f6f22179 100644
+index 6e4b845a4078c..14d5c1924ae2b 100644
 --- a/fs/smb/client/cifssmb.c
 +++ b/fs/smb/client/cifssmb.c
-@@ -4004,8 +4004,9 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
- /* level 257 SMB_ */
- 	TRANSACTION2_FFIRST_REQ *pSMB = NULL;
- 	TRANSACTION2_FFIRST_RSP *pSMBr = NULL;
--	T2_FFIRST_RSP_PARMS *parms;
-+	unsigned int data_off, data_count;
- 	struct nls_table *nls_codepage;
-+	T2_FFIRST_RSP_PARMS *parms;
- 	unsigned int lnoff;
- 	__u16 params, byte_count;
- 	int bytes_returned = 0;
-@@ -4124,11 +4125,19 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
- 		return rc;
- 	}
+@@ -6082,9 +6082,11 @@ CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
+ 	int rc = 0;
+ 	int bytes_returned;
+ 	int list_len;
++	u32 ea_list_len;
+ 	struct fealist *ea_response_data;
+ 	struct fea *temp_fea;
+ 	char *temp_ptr;
++	char *byte_area;
+ 	char *end_of_smb;
+ 	__u16 params, byte_count, data_offset;
+ 	unsigned int ea_name_len = ea_name ? strlen(ea_name) : 0;
+@@ -6161,9 +6163,19 @@ CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
+ 	ea_response_data = (struct fealist *)
+ 				(((char *) &pSMBr->hdr.Protocol) + data_offset);
  
-+	data_off = le16_to_cpu(pSMBr->t2.DataOffset);
-+	data_count = le16_to_cpu(pSMBr->t2.DataCount);
-+	if (data_off + data_count > (unsigned int)bytes_returned) {
-+		cifs_dbg(VFS, "%s: data area offset %u count %u past response length %d\n",
-+			 __func__, data_off, data_count, bytes_returned);
-+		cifs_buf_release(pSMB);
-+		return -EINVAL;
+-	list_len = le32_to_cpu(ea_response_data->list_len);
+-	cifs_dbg(FYI, "ea length %d\n", list_len);
+-	if (list_len <= 8) {
++	byte_area = pByteArea(&pSMBr->hdr);
++	end_of_smb = byte_area + get_bcc(&pSMBr->hdr);
++	if ((char *)ea_response_data < byte_area ||
++	    (char *)ea_response_data >
++	    end_of_smb - sizeof(ea_response_data->list_len)) {
++		rc = smb_EIO2(smb_eio_trace_qalleas_overlong,
++			      data_offset, get_bcc(&pSMBr->hdr));
++		goto QAllEAsOut;
 +	}
 +
- 	psrch_inf->unicode = !!(pSMBr->hdr.Flags2 & SMBFLG2_UNICODE);
- 	psrch_inf->ntwrk_buf_start = (char *)pSMBr;
- 	psrch_inf->smallBuf = false;
--	psrch_inf->srch_entries_start = (char *)&pSMBr->hdr.Protocol +
--		le16_to_cpu(pSMBr->t2.DataOffset);
-+	psrch_inf->srch_entries_start = (char *)&pSMBr->hdr.Protocol + data_off;
- 
- 	parms = (T2_FFIRST_RSP_PARMS *)((char *)&pSMBr->hdr.Protocol +
- 					le16_to_cpu(pSMBr->t2.ParameterOffset));
-@@ -4161,8 +4170,9 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
- {
- 	TRANSACTION2_FNEXT_REQ *pSMB = NULL;
- 	TRANSACTION2_FNEXT_RSP *pSMBr = NULL;
--	T2_FNEXT_RSP_PARMS *parms;
-+	unsigned int data_off, data_count;
- 	unsigned int name_len;
-+	T2_FNEXT_RSP_PARMS *parms;
- 	unsigned int lnoff;
- 	__u16 params, byte_count;
- 	char *response_data;
-@@ -4245,13 +4255,22 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
- 		cifs_buf_release(pSMB);
- 		return rc;
++	ea_list_len = le32_to_cpu(ea_response_data->list_len);
++	cifs_dbg(FYI, "%s: ea length: %u\n", __func__, ea_list_len);
++	if (ea_list_len <= 8) {
+ 		cifs_dbg(FYI, "empty EA list returned from server\n");
+ 		/* didn't find the named attribute */
+ 		if (ea_name)
+@@ -6172,12 +6184,14 @@ CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
  	}
-+
-+	data_off = le16_to_cpu(pSMBr->t2.DataOffset);
-+	data_count = le16_to_cpu(pSMBr->t2.DataCount);
-+	if (data_off + data_count > (unsigned int)bytes_returned) {
-+		cifs_dbg(VFS, "%s: data area offset %u count %u past response length %d\n",
-+			 __func__, data_off, data_count, bytes_returned);
-+		cifs_buf_release(pSMB);
-+		return -EINVAL;
-+	}
-+
- 	/* BB fixme add lock for file (srch_info) struct here */
- 	psrch_inf->unicode = !!(pSMBr->hdr.Flags2 & SMBFLG2_UNICODE);
- 	response_data = (char *)&pSMBr->hdr.Protocol +
- 		le16_to_cpu(pSMBr->t2.ParameterOffset);
- 	parms = (T2_FNEXT_RSP_PARMS *)response_data;
--	response_data = (char *)&pSMBr->hdr.Protocol +
--		le16_to_cpu(pSMBr->t2.DataOffset);
-+	response_data = (char *)&pSMBr->hdr.Protocol + data_off;
  
- 	if (psrch_inf->smallBuf)
- 		cifs_small_buf_release(psrch_inf->ntwrk_buf_start);
+ 	/* make sure list_len doesn't go past end of SMB */
+-	end_of_smb = (char *)pByteArea(&pSMBr->hdr) + get_bcc(&pSMBr->hdr);
+-	if ((char *)ea_response_data + list_len > end_of_smb) {
++	if (ea_list_len > end_of_smb - (char *)ea_response_data) {
+ 		cifs_dbg(FYI, "EA list appears to go beyond SMB\n");
+-		rc = -EIO;
++		rc = smb_EIO2(smb_eio_trace_qalleas_overlong,
++			      ea_list_len,
++			      end_of_smb - (char *)ea_response_data);
+ 		goto QAllEAsOut;
+ 	}
++	list_len = ea_list_len;
+ 
+ 	/* account for ea list len */
+ 	list_len -= 4;
 -- 
 2.53.0
 
