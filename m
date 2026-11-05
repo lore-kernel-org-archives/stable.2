@@ -1,64 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876027;
-	b=qHZJQ6rInju1DLcw9kyOQ8hVtyTVYwYxtkMqkbA5uUpEo1EXEPooud5RSVmURQxdGCLW
-	 5vHHFNP3QWS0kzN84aq2zxRr81UQm8qR7x8tuscrjhAAwHI4Zly+cU0BJos/9Jr/Sa8O5
-	 rLDAXg8uFr0J2Ja4qDuWRTob+LrYsl9L9P9CY6CiAoHcux00pyrHZPKu64QiYKcrABGYk
-	 q3jOrBJp8TcLP2Qa2kbKYiu4eLcYqt/4HSni8+ja6+rB2AGJR66Y1ojs/m64BgL+D68TC
-	 XmCqm4TWOdG+mjN2SA8yx3AFgqOjXm8ZQndpy1Zj2FovuDhkZIcXkARMy/qxna5J5Mg==
+	t=1793876625;
+	b=l6Gzwfl1/qFilyeCe49jrQa071kZp6zvniZ6bG6g2UCE3R1z1QHZhxcfn4zFGskTOCxM
+	 rh4yKCWMyHtdVU1MABBABl77fuzeEJiiZwhp3qsP7SF8ufWnKjkBYi7A++I91NXa3eo2v
+	 xA6+e4Qjin7lj7xjqRpz8YRBP7CAZ89sVAwWEChSMTvklxegt51rrnAyDbYAft0BncJG0
+	 ZbHDlI3qwKu9KmNvhVdhgp/OBKWGuSNMc6rF5zwL2XKK8n1v2k7+EZEJUjZqKllYFhz+I
+	 kD6WYlJmq3gOEWfvF/ktH6YO8JLZYnublqR7ToZxxVmxz5QptPWZzbColRAMiQj37QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876027;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=xXR60u8P/JzdVcE1JiWVcB2i68AunH9ExxgZ3/2aEs0=;
-	b=PApdgSlxxuHfPV+dX48/xzseC1irzjVdHaqpAjP9lVWa78iEz7NengN/7hK6pPLSS+y4
-	 45K/mwz5aEHVv4S7ZX9REF50COe6vxCQgLBCnq2oFhUWFjdhvSTIWhW4nkbeXho7RrxZj
-	 PhlCTSk5q/HV++O0wSduYmYZsbx7i0kIwkHO4/UFQLoE8zDth69g7JbhFbNc6iS9n7K/K
-	 rAfZwhwTPhVzkrdkHanF8ne0KNrL+ivbqfG/gBeGHhUIYDiIjXSFT+io6KZahACzWures
-	 Gb5Q1HFCJzS6Zu0U/owjtYuZlFuVyEbRf2p9SIxQ6OFMSvmuU4tKVSBcXrEAdMEk+Vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876625;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LvA7KEH6yP+f436RwxVH7W63a6lypb6pYWkMfhLxpI0=;
+	b=3m8aiLiFNMDcnUvf33u8Zd3R7l0FZWC/fNOfgQCjiHYlLstVBFL4aKntKtOvOLMQU3aO
+	 VN8vkwr+pkE0V/tRJt7t0vrvf9iyroONrx2KrTwxcCE65wLMeB6+FhQawKPC3z9ph5rdW
+	 Yb/NFOAqpNePprEpraWtdptI3R6vpbOo3NFvbx3ooIUB5R05IApr1tERbrciYqDaLl/95
+	 ll+Lu6METyOvJYKVtYSwsf5OUGdDSbdv1K1B+KwlQqyDt296YjtKJL7c0GCwoZG+PMXOz
+	 h2WTz+FwJwX44CTV6DLLaWOY1c/fswJhJ70IyPiN7nP115+SznmjuI7AXt+IQCgufkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=IOiyvv+V;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B8A55606A31B;
-	Thu,  5 Nov 2026 10:53:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8A55606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J6Y05fdc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0ED606A326;
+	Thu,  5 Nov 2026 11:03:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=IOiyvv+V
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9AE2F1516;
-	Thu,  5 Nov 2026 02:53:42 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A76103F673;
-	Thu,  5 Nov 2026 02:53:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793876025; bh=KkBPEsNue1fKQaofoCh3LGcr31D++n/sVcyzCD79kGI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IOiyvv+VwnwkNBeglnvXW8PD3DxxS8OCvAWDO/fSx3kfzgqFdExu2S4/VOltTziDS
-	 1MRx+WopdQ4wRgjQJbYP6a8SAAtMfKBr4N65RbXV2dgm5SEycwbtmhdpnY2IiMyT+E
-	 CZwSgeW6BrA5nRSZUdmHZdiSScpU86JzRlbnx7Vg=
-Date: Thu, 5 Nov 2026 10:53:40 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Darren Hart <dvhart@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	=?iso-8859-1?Q?Andr=E9?= Almeida <andrealmeid@igalia.com>,
-	Shuah Khan <shuah@kernel.org>, Kees Cook <kees@kernel.org>,
-	Shubhang Kaushik <shubhang@os.amperecomputing.com>,
-	"Christoph Lameter (Ampere)" <cl@gentwo.org>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Will Deacon <will@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] futex: Canonicalize arm64 tagged user addresses
-Message-ID: <auxgNACRQVqTuqd3@arm.com>
-References: <20261030-futex-tagged-uaddr-v2-prep-v2-1-131eb7414bda@gentwo.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J6Y05fdc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AAB31F0093A;
+	Thu,  5 Nov 2026 11:03:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793876625;
+	bh=LvA7KEH6yP+f436RwxVH7W63a6lypb6pYWkMfhLxpI0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J6Y05fdcHjlvz9xbOvt9aO2hDEJypsE+JMGEgDQflQxInnU6ttxEEo2YIsuDhCwAo
+	 phYH6Ub8+S/Wr5NbUOCDr7XV9+LAVxdv2C0iG7i7AJWPNkClSjMFy2+Pe0clgH0oGw
+	 dXMiD8bAGPG9TBSCbmCPTwy0bP5ZjsK3Vv/jEXfT2KvU+a1cE0UQ+EGxFnwga+mQaO
+	 pUUMSSCh4ohXnxlWB35a6gtTke6IbKsyjCIKD/9huKH/mcpSPkxiJdX2kTuMuz/44i
+	 FYEibOT29v+b6hiROp4++oqn2xNaKPOHKuWA4W1kQRegR47f0KUQP8TN9K5MwBYhv6
+	 QuOmOwgwRut1Q==
+Date: Thu, 5 Nov 2026 11:03:40 +0000
+From: Lee Jones <lee@kernel.org>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 01/10] pinctrl: sunxi: Fix out-of-bounds irq_bank index
+ when first bank has no IRQs
+Message-ID: <20261105110340.GH1650678@google.com>
+References: <20261103213002.1673560-1-lee@kernel.org>
+ <20261103213002.1673560-2-lee@kernel.org>
+ <e7cd2bf6-f9db-4a90-b11a-665f8219f7ce@arm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,52 +64,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261030-futex-tagged-uaddr-v2-prep-v2-1-131eb7414bda@gentwo.org>
+In-Reply-To: <e7cd2bf6-f9db-4a90-b11a-665f8219f7ce@arm.com>
 
-On Fri, Oct 30, 2026 at 03:39:59PM -0700, Shubhang Kaushik (Ampere) wrote:
-> On arm64, a thread that enables the tagged address ABI can pass valid
-> top-byte-tagged user pointers to futex syscalls. Such a pointer must
-> have the same syscall behaviour as its untagged form.
-> 
-> get_futex_key() validates the user address with access_ok(), but uses
-> the raw address when constructing private and shared-anonymous futex
-> keys. A waiter using a tagged address and a waker using the untagged
-> form can therefore access the same futex word while hashing to distinct
-> keys, causing FUTEX_WAKE to miss the waiter.
-> 
-> Keep access_ok() on the original pointer so that arm64 retains its
-> per-thread tagged-address ABI enforcement. Canonicalize the address
-> afterwards, before it is used for futex key construction and shared
-> mapping lookup.
-> 
-> Add an arm64 64-bit selftest for a tagged private waiter woken through
-> the corresponding untagged address.
-> 
-> Fixes: 63f0c6037965 ("arm64: Introduce prctl() options to control the tagged user addresses ABI")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
-> ---
-> Changes in v2:
-> - Add the generated tagged-address test binary to .gitignore.
-> - Compile the arm64-specific test implementation only for arm64 64-bit
->   builds.
-> - Avoid relying on /proc/<tid>/wchan to detect that the waiter has
->   queued; retry the untagged wake for a bounded interval instead.
-> 
-> Link to v1: https://lore.kernel.org/r/20261022-futex-arm64-tagged-uaddr-v1-1-84d8afbe7668@gentwo.org
-> ---
->  kernel/futex/core.c                                |  2 +
->  .../testing/selftests/futex/functional/.gitignore  |  1 +
->  tools/testing/selftests/futex/functional/Makefile  |  1 +
->  .../selftests/futex/functional/futex_tagged_addr.c | 61 ++++++++++++++++++++++
->  tools/testing/selftests/futex/functional/run.sh    |  3 ++
->  5 files changed, 68 insertions(+)
+On Thu, 05 Nov 2026, Andre Przywara wrote:
 
-Since this is a cc stable, I'd separate the actual fix from the
-kselftest with the latter not cc'ed to stable.
+> Hi Lee,
+> 
+> On 11/3/26 22:29, Lee Jones wrote:
+> > In prepare_function_table(), irq_bank and last_bank are initialised to 0
+> > and last_bank is updated on every bank regardless of whether it supports
+> > interrupts.  On SoCs where bank 0 (PA) has no pins or does not support
+> > interrupts (such as Allwinner A523 and A733), the first IRQ-capable bank
+> > has bank > 0, which causes irq_bank to be incremented to 1 instead of
+> > starting at 0.  As a result, the final IRQ bank receives irq_bank equal
+> > to desc->irq_banks and writes out-of-bounds past pctl->irq_array during
+> > sunxi_pinctrl_build_state().
+> > 
+> > Initialise irq_bank and last_bank to -1 and only update last_bank when
+> > processing an IRQ-capable bank so that irq_bank always starts at 0 and
+> > increments sequentially across IRQ-capable banks.
+> 
+> Can we please hold back this patch for now? There are more issues around the
+> IRQ bank usage on recent Allwinner SoCs, patches for which [1] are on the
+> list. They should solve the out-of-bounds access, I think, though we might
+> want to add explicit checks, maybe.
+> 
+> But taking just this patch here would torpedo the efforts in fixing the
+> correctness issues that we see.
 
-Thanks.
+Sure, no problem.
 
 -- 
-Catalin
+Lee Jones
