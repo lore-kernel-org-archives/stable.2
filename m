@@ -1,73 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888982;
-	b=4X6b6d2ATVPE786nbaBQnqXd5FUZIDHbKZWSGTm+M1tYNk5rd6UFNWwR722K2top0MET
-	 egWk60/1EsqtLwetnNZ9HPIcfe9ZzOzvyhzZRw4DDn4CcsAS/jbJWtxv+dBfW8SIVMKnZ
-	 XbwID5wqrAyHvML1Oln2ynNf3PQEyowMGbB+LUGBXZwp5YKDVrbJKz+YQrHxegwOSL3Qm
-	 Xvp+ZEi6L/VQ1BUNjTFJRzuJUJ2hz6beagCJjt6eD+VgWypth2icx5i2Vaf+pot71mz4t
-	 nPmhtrWtF5UPPA11MfaP0WesAfgFLZJfSEearNBP2dMU2JLwr3GVElEzP4Bg5gLXR4w==
+	t=1793889277;
+	b=HDSN5c8Z693aCjOsYS2K79inwhZb6/1VtFZ5XcUc8J/ujhc6nAVnk9mfkR4guGDPDv/S
+	 WtHv6bwIbrz1IoqDZ6J6SJdwSUihb7wb2ckbO1u+Fmwgab/oUzjvawh5ypepNwzUJRVCN
+	 hJAyAX1yf5wwefbD1nkZZA8tS+ll80NjZdEPFdIN+RcCBS2LZ4qaDhZVLrKZOtPvCymEo
+	 85f4RjYAJQ3dkCplw2grYC89dHcCPSZRFqoJ8lc9ZkDU/pO+yckUChG6pB/ihY2oeKyPV
+	 g6v1DKXbgrbWUyScI1Y5MognTVWwVBLDZe7GtCCzFQcwTu6kSfenwdCEb+knFV7X5uQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888982;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Pqwo9iamWbv2wKXM8/6RAcS6fQgXjlRbD/dt3H8kjGI=;
-	b=w28+fyfQYmaKRgLkHjIJJnxL4A+d5aJE9cZpSyBoGzw96EA9yedTXzt6HYMtFdjXKVDc
-	 4wGeJwM4ZEuLEBjoBPwpVgaHYX+41rjwStVF9NnpgtD1agM36JAE41axla7lcj62BCxeG
-	 kyY1eFskp/0tgFuJDKfCxsr8JZB0NYX3W2LD40hNG86bWAaav7Bw0BPNq49oNMpVV1hGt
-	 mrUnzNacHprMt8flzaMTP5aSawk97gJC2701oWBkyRX/xQQPtccx9CTgD2RTQpofeJMP/
-	 yCYOF/p+1HxH5/wqNC6nwqsgFzcylO/yJm/zUf0v2gh4t0vM6KzILdBfgJMWWjInY5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793889277;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=c/yt9uFPnjvQM+fiEYYJRoCxuqKFimMZvvZyEcVri54=;
+	b=fUdg7eNJQlPoL37C/4MI5Y5zr2FQ2FILc291hY6mCa+zpKglzads1gEYHRl4byBY1QN1
+	 Kspsvu8xnqHGV+tip+EZe6AELNF/vyCxag4P8mVlmOGpLweRYcIsT5RRDFKRcw2WnG1bU
+	 Y+vq5WgvDY0KCALIxegqSB9anWy3Rmd7WqM48H7DBGFoBUH2RIigWYXWcctbOQwd7lsLX
+	 tKBdC6I4LViaadyRWPFLAOGysp5TtNbUkAToQVinkHIZYG5w319zYYuTWxLBpoVgI5c03
+	 ShmQSwDbSrolwiMg0bnINT83JR8FcMiUST9exedcAqqBLqMh2F4EC6HZWaz116wIxtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WYafryWE;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=y8kPvgpB;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ubYMg+wD;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70633606A329
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 14:29:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70633606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7BB606A338;
+	Thu,  5 Nov 2026 14:34:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C7BB606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WYafryWE
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2eaf3f829b3so17531445ad.3
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 06:29:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793888982; x=1794493782; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pqwo9iamWbv2wKXM8/6RAcS6fQgXjlRbD/dt3H8kjGI=;
-        b=WYafryWE6q7TMP1IYAgEd6jl/xpGzwNOJ2ruh0xUgQX+IKfw9BjOyowDwE/vzQsRof
-         gyrRCDi1Swxir9ZoZwuTYqM1UxM/9EC/DDNUw4lsAeipeDqwqhgSmY+TQkNxFMdEeAzQ
-         4ini0j9S9VpZp2Rjhs/Hrk/ZZQxwxQrUymXjRqeNzP1Nf9bw1/vLyEU2piLoYoS9etPU
-         7Mz0+8wUf5orLvl5RanmsR7S3AxmArDgPoeqirt7/nhO1oO+j0oTAsVz7YHl2ePkvHiY
-         IxbneyvTfK1srjLyRS66HbCwZbE2YG3XbtgeeLOA7B29aDbRyb0akcFGHJymsD4okYyH
-         1TqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793888982; x=1794493782;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Pqwo9iamWbv2wKXM8/6RAcS6fQgXjlRbD/dt3H8kjGI=;
-        b=FHdf31oTofz6zZjueNQdz9ElXwdWhfxD1Yl1dOxToMVGBQv907PpOOfb8o9LSOU75h
-         d41RpnWLUEN7zyvEbSTYW31HgnsqmbHxJoiWcF/4r4ewEF08f3PDjAakjGnYTZgNzB3R
-         kGViTHtQrhzt31IUN9Ei2oQXIaOSUa5tXz+E0issWWCb2YSvu28Ab/kciUj974s3d1gW
-         nDGbR9Oj6bP8OnuEsc68Azkc2xeFRnmvYDs9VuUauc+zdHPIaC/w2uqUKptOo5zh69Bu
-         yjUfIAStfTX7meghaSzr3i3s8b2qX4DyH8LlUwR4CvTFX4iF4giHvN6dBP3gXN+cUECp
-         +fNw==
-X-Gm-Message-State: APuU4Z/dp/hHtBYR4DQtwj8Zq4JFnVbJJff2CpinPDrlsGcF/uAAEVF+
-	bQcOnk1AT0nazWjhN02PgeZRAsrVJTGN1nTpA8wLBUEupWPE5ATMG1BAc0M79tRKntEgVnJD7hR
-	B/PujGA==
-X-Received: from plof6.prod.google.com ([2002:a17:902:8606:b0:2e2:f305:e980])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e84a:b0:2e9:7dda:bfc7
- with SMTP id d9443c01a7336-2eb3648eea3mr161939385ad.66.1793888981541; Thu, 05
- Nov 2026 06:29:41 -0800 (PST)
-Date: Thu, 5 Nov 2026 06:29:40 -0800
-In-Reply-To: <20261105120812.2037884-1-xiaoyao.li@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=y8kPvgpB;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ubYMg+wD
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793889273;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c/yt9uFPnjvQM+fiEYYJRoCxuqKFimMZvvZyEcVri54=;
+	b=y8kPvgpBm6pcjhdgIt6MKI76n7YcCOMGFSUhP56keDoTBkv1upezh7+RoupfxlbIzWo9MY
+	Unw2CSO8NPpzqepNUn0jsjs9WcYUBaapCiLMxl2kobyF4M4282CnrnaGAHQF1r7h101McP
+	yDAQ6N/qmHvCX7eBTW2RiMzX42wyfp9q+53te74H1Xgl4QYfI2cRt2G6rzCAGbIBmrG3/z
+	dHujzGKFRQP4pZqPhy6gcCRcXQAtU0IOtxVxrtN2Wm9wxgxBDxSsPwOvtYc/9ZCLmPRaML
+	bOMJc2Y5DPMNiFz/2GHR8CQ8XGoPRluEQEVAZdVOUEH3ZcedwchkzPfxkFLTkw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793889273;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c/yt9uFPnjvQM+fiEYYJRoCxuqKFimMZvvZyEcVri54=;
+	b=ubYMg+wDtIygfUyemhGW8eaVqxZ9fn6Uuvfta99Fo2lhXCI58yM9flSvWKtHzOodlNSpBE
+	fSGJHxVrI1fE/5BQ==
+To: Breno Leitao <leitao@debian.org>, Petr Mladek <pmladek@suse.com>, Kiryl
+ Shutsemau <kas@kernel.org>
+Cc: linux-kernel@vger.kernel.org, printk@lists.linux.dev,
+ gustavold@gmail.com, samuelcrossley@gmail.com, ryan.roberts@arm.com,
+ brads@mainlining.org, x86@kernel.org, Breno Leitao <leitao@debian.org>,
+ kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] printk: nbcon: Flush unsafe consoles from printk()
+ in panic
+In-Reply-To: <20261102-panic_unsafe_flush-v1-1-12d1e22fd6d8@debian.org>
+References: <20261102-panic_unsafe_flush-v1-0-12d1e22fd6d8@debian.org>
+ <20261102-panic_unsafe_flush-v1-1-12d1e22fd6d8@debian.org>
+Date: Thu, 05 Nov 2026 15:40:33 +0106
+Message-ID: <87v76bz6rq.fsf@jogness.linutronix.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,47 +75,89 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <2026110439-makeshift-acting-834f@gregkh> <20261105120812.2037884-1-xiaoyao.li@intel.com>
-Message-ID: <auyS1P0cK7UC8e4l@google.com>
-Subject: Re: [PATCH 6.12.y] KVM: VMX: Formally define KVM's "0xdead" exit
- reason used for failed VM-Enter
-From: Sean Christopherson <seanjc@google.com>
-To: Xiaoyao Li <xiaoyao.li@intel.com>
-Cc: stable@vger.kernel.org, Yan Zhao <yan.y.zhao@intel.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain
 
-On Thu, Nov 05, 2026, Xiaoyao Li wrote:
-> From: Sean Christopherson <seanjc@google.com>
-> 
-> [ Upstream commit d85f7dc8cf3c91a131946dae4c3aa8d9c97322d7 ]
-> 
-> Add EXIT_REASON_UNDEFINED to track KVM's magic "0xdead" value that's used
-> to stuff the exit reason on a failed VM-Enter so that the magic can be
-> reused by TDX, and to make it more obvious that it's an arbitrary, KVM-
-> defined value (though the whole "dead" thing makes it pretty darn obvious).
-> 
-> Opportunistically add a compile-time assert to ensure the KVM-defined exit
-> reason never collides with a "real" exit reason.
-> 
-> No functional change intended.
-> 
-> Cc: Xiaoyao Li <xiaoyao.li@intel.com>
-> Cc: Yan Zhao <yan.y.zhao@intel.com>
-> Cc: Binbin Wu <binbin.wu@linux.intel.com>
-> Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
-> Link: https://patch.msgid.link/20260921235656.1107929-1-seanjc@google.com
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
-> ---
+On 2026-11-02, Breno Leitao <leitao@debian.org> wrote:
+> --- a/kernel/printk/nbcon.c
+> +++ b/kernel/printk/nbcon.c
+> @@ -1688,7 +1692,15 @@ static void __nbcon_atomic_flush_pending(u64 stop_seq)
+>   */
+>  void nbcon_atomic_flush_pending(void)
+>  {
+> -	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb));
+> +	u64 stop_seq = prb_next_reserve_seq(prb);
+> +
+> +	__nbcon_atomic_flush_pending(stop_seq, false);
+> +
+> +	if (panic_on_this_cpu() && oops_in_progress) {
+> +		panic_nbcon_allow_unsafe_takeover = true;
+> +		__nbcon_atomic_flush_pending(stop_seq, true);
+> +		panic_nbcon_allow_unsafe_takeover = false;
+> +	}
+>  }
+>  
+>  /**
 
-Superficial conflict due to lack of upstream commit 3c75e6a5da3c0 ("KVM: VMX: Move
-architectural "vmcs" and "vmcs_hdr" structures to public vmx.h"), and there's no
-intermediate vcpu_vmx.vt field due to lack of upstream commit 7172c753c26a5 ("KVM:
-VMX: Move common fields of struct vcpu_{vmx,tdx} to a struct").
+This part of the patch gave me some ideas. First, I like the idea of
+putting the policy handling code inside
+nbcon_atomic_flush_pending(). This keeps the code outside of
+kernel/printk fairly simple:
 
-Acked-by: Sean Christopherson <seanjc@google.com>
+1. In emergency sections, printk() is calling
+nbcon_atomic_flush_pending(), which always skips
+CON_NBCON_ATOMIC_UNSAFE.
+
+2. During panic, printk() is calling nbcon_atomic_flush_pending(), which
+via policy could include CON_NBCON_ATOMIC_UNSAFE (in a 2nd internal
+loop, after all safe atomic consoles are attempted).
+
+3. After kthreads are shutdown, printk() is calling
+nbcon_atomic_flush_pending(), which via policy could include
+CON_NBCON_ATOMIC_UNSAFE (in a 2nd internal loop, after all safe atomic
+consoles are attempted).
+
+For the above situations, no new flushing calls are needed. But there is
+another scenario for CON_NBCON_ATOMIC_UNSAFE (and unsafe printing in
+general):
+
+4. If the kernel ends in a way other than the final panic() loop, (for
+example kexec, sysrq-r, panic+reboot), the above scenarios do not allow
+unsafe printing. For the related code points we could call
+nbcon_atomic_flush_unsafe() and it could handle the policy of unsafe
+flushing depending on the context, which would allow
+CON_NBCON_ATOMIC_UNSAFE to flush here as well.
+
+The unsafe policy flags could be something like:
+
+PANIC_PRINTK
+- panic: all printk() calls during panic
+- checked in nbcon_atomic_flush_pending() of #2
+- if ((policy & PANIC_PRINTK) && panic_in_progress())
+
+NORMAL_FLUSH
+- non-panic: atomic flush calls: shutdown, reboot, kexec
+- checked in nbcon_atomic_flush_pending() of #3
+- checked in nbcon_atomic_flush_unsafe() of #4
+- if ((policy & NORMAL_FLUSH) && !panic_in_progress())
+
+PANIC_FLUSH
+- panic: unsafe atomic flush calls: reboot, kexec
+- checked in nbcon_atomic_flush_unsafe() of #4
+- if ((policy & PANIC_FLUSH) && panic_in_progress())
+
+Netconsole originally wanted by default:
+
+    .policy = NORMAL_FLUSH | PANIC_FLUSH,
+
+But this last series shows that netconsole actually wants:
+
+    .policy = NORMAL_FLUSH | PANIC_FLUSH | PANIC_PRINTK,
+
+These are slightly different policies. But as long as printk supports
+all 3 policy flags, we do not care which policies are chosen.
+
+I am happy to code up a full implementation if you think this has merit
+or you want to see the patch to decide.
+
+John
