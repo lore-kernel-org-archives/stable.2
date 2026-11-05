@@ -1,86 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793920844;
-	b=AnmAcwjGDUIPw28brB8c7DB3HvstNFvQSramG42iem2xb87/tAhy9wMze6QpT+y/6BLk
-	 8qldtZUneCekB+LqmXr3PcDbLxOFRoTSaMnnHj8K6qbJvzbitqKC9PO057TgXja+vUsio
-	 v1w9BHeaoF31zIc7CLhrZxsU0KQrQ4dnm44gEYynWpd+FXM2dRn8V7HYgET3MVu8IUUoJ
-	 rm7pVlClnWM2UcOjvnhRb+5d+H2BKgr02fAUofI+5MliWjCmhJLkqarSWEJ138GXLdn7s
-	 fdK5t6buWeNZ44k7UijrwvHprCCsA26oCy/pqdj43Y4Xed0/N3LyHJaxJYdMLgq5IPw==
+	t=1793920956;
+	b=e2TUjQ+wdiuwqvBdDBFKfhx+A8q7Sf/mm9aduCq5XKtwPTdZAUojem9wBXbr0H074rnc
+	 Ft2tY33hJZh0wDD53FwFiGgED6ftLr7O2Dg64kLOhK66EeV4boWLD/7rllKrSHOw6gPJp
+	 sUU0QptsczuHsnv+a4B3M0VqNpZ4xdTHdwmY8qeqouV6pXJvXVwfGRz5lHi3BejHTvy8k
+	 m1WdGjZOMXYI2eZBFPrw1pUPXgSwA9usqA3mGrV6kTm71aV21JrgCyj64cAbO605VdQ4A
+	 9U4F71YhDXYn1NeDnBDrjuIH7/Eya4kRb3pm3sj19sWA8p+Ac/F9ReuXTYrdOq+Fd/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793920844;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=7TboJa7vOyFx21F/S29MlnKjYaribdRj3iyzdvB38D4=;
-	b=PVVdgEbSvcKjfMTGs9dyPqlibCv7W8ZIUK6VOcymZcwB7amnlb6eTZbiJEpokYo9Aq++
-	 ZchxvZDMlYqRivYBtRI+zVeXMNexkdBuYid5p/DDNeP/Fp0Uz2v0CnZ75qSLBTyurCTjv
-	 /leSDnX0ZSP3JLxFWz5t/puFaqy4dzER/sbvoxN9r33BwDPXHe2xBEjW9jiBUd1g6MDCy
-	 zMTAn2VFTaV/lQRUXMZhbyC2sOPO/Iza6vageO02QG21BY9JFSR/P1PTOXZWY9vyhOByq
-	 6oE4To0yzkEtuHExjDuB30TqShh4d/HPVoZiv5P+/R0UFnUMQsBJvUMjfTH3onz537w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793920956;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
+	 To:CC:Subject:In-Reply-To:References:Date:Message-ID:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-FB-Internal:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version;
+	bh=F+KcKhR5CnH65kxRNvl8LH+QFZdieMym2Jst7zi2+xw=;
+	b=srsBBTTLe9Z8Jj6fgQfwf39P+hFKPkt/ApiPQdPLKaqBxcwPaJ2zvHge1DSGFlOAiJEI
+	 WE1MTpRo51pE2iGK2ec8uBRPmV8Z7xJBjANyRjyyJMfxY7wz3+ahjy84TsqXqJsAhpdSw
+	 84EIQDqK6dqSlhBhVjHRK0Ah2jykHvqAAuQLfxzlURRST9dXqj7gdf1CZE/ui9e2tboWG
+	 mYDU93v4Ft092gV7aJgHJVkIlwSqa+M4kTrQKoaJqBtV5k4qC/g8ewbSQUpgEUxD5djGG
+	 MBqMe0J9nQCw3fzmuCKWnkafUG480FU2i6kP+8aWK+o53SYWhXKkWjwwQXiNopKLTLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=Sbhi7Bem;
-	arc=none smtp.remote-ip=209.85.161.50
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ORyJur++;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75DE0606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 23:20:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75DE0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36166606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 23:22:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36166606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=Sbhi7Bem
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-70059e4dab6so60130eaf.3
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 15:20:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1793920842; x=1794525642; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7TboJa7vOyFx21F/S29MlnKjYaribdRj3iyzdvB38D4=;
-        b=Sbhi7Bemt5Hc8toMS4S0rRJ2XTLFzyPGH0jI1PTygk48WLjylo+FnbXK1IKakGxOxa
-         ysCaCsIDBg3jc9KZFgVQKQNQTeREXL3dBvj8/r+a6+JUq0qMliQPfsLkoq7sKv7iq7xJ
-         l1HbBcWLbFLq4djDTy744RksTIjLGJBbQ3sSQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793920842; x=1794525642;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7TboJa7vOyFx21F/S29MlnKjYaribdRj3iyzdvB38D4=;
-        b=ZSk026U/6PaqFMLKioamuquDwgXr1js3dgA7+2UKFnGvFLGYtqmRWh2JDUzOZe5ydY
-         zcLlj2s+/h/C+f+fYrCYK2epIhagxY0i2LwuvDTVsCdZgzDotzdbQRUyWZWABaKLBfCk
-         K0U7az+SzCL6/LSLrwmC7oG0Crh4plCxpXZIwBUcuTcsb+P2IMmKAiU6yfjSPi3dWqS6
-         aK9SmlzEBM8k2GTRtq67xpVOZHYilWjfm/wXvFZppYetDxi+Ub1poA8nhVMqbUQXDJSJ
-         6dMf3ANyGxLIWKZGNczGYcUvM8jOYc8D95kSTnQ/8TSVAZg6GYFc5SGdT++RgQlW6at0
-         owNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwCs9jM6n6c2eGIUmHE7CPFqNnV+CrZnS5hayoDdjeWxGmADvGmreDD1nOfvhRtSnJ+n/Z+PZM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/r2Sh57dnjIgOjqBjQQIrysCmr4sO099X9O5DNuB7cc4sfw84h
-	Y5aSBL/nN9d4U4ykiXsr2t6cKmJQ+Q+vQIdXsUYkbi4wwpzGD1EF5GXI1zFj0xE5NBStmp33ZiW
-	vJjZLNpQ=
-X-Gm-Gg: AYBFou1RWqf0B1d4iHXPRAfAIfZ4uid5u7TArL+KjTAi6BJkoTf16iP77+1MfVpa2p+
-	Ga8+Wx5EodfGm5L1X1kyXhjTKXqF0T/YTAWkAdQTnLJQEXeHxnPIDGEZ2niXaOzmjt+OjAoiLIw
-	OCGTa596ueG26SmiQJLIAXMCTUrNHTM4OhV8BL/0tTfC7Z56s7qwfvd3CYiGRLThDW8fbmBnmvZ
-	dYw0qIfx7kQx2lgIjwcdT8dZSyo3hV62/PEAQ9hEc32y+sv/rM5yeIwwdzHWOK8+LteSzkYkB1+
-	S8x+jcHXdnxbswreIFVHnTBj6ykgaiR1Yb/KvKHPJjsyu21ZIqAx3etwik1voHQW1Ghj+DA4JtI
-	SrEfpu/qvBKmPcF+oCTTho4jHClk8VzQozP9hpMA63wyK94WdZ4j1lAMm6AHYmbO6YzzdVjL8uQ
-	IJjV1ZETi5F3BLIiw/osxRTpwC0luimkW7EKc9PDPdO0FhQgEH3VnIQeu08nIiz+hxN9SxbH4LA
-	wLjqIcwYIDZ5rC7uDiMcNvO28EJLi1y6bwH7CpsHVqEaeFkJjIYCOzOtgv2gHPgBnzrja7M+xm3
-	rBojI2JOa2rwx6jnLkGn7wpEvkDXLSrM62EVmAEGFg==
-X-Received: by 2002:a05:6820:1346:b0:6fd:4277:16e7 with SMTP id 006d021491bc7-716e78e3963mr715043eaf.23.1793920842324;
-        Thu, 05 Nov 2026 15:20:42 -0800 (PST)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-716ea18a791sm484293eaf.14.2026.11.05.15.20.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 15:20:41 -0800 (PST)
-Message-ID: <76fbb257-cbe6-465d-97f4-f8ca51df01c1@linuxfoundation.org>
-Date: Thu, 5 Nov 2026 16:20:39 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ORyJur++
+Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5N3Hbl1244789
+	for <stable@vger.kernel.org>; Thu, 5 Nov 2026 15:22:34 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=F+KcKhR5CnH65kxRNvl8LH+QFZdieMym2Jst7
+	zi2+xw=; b=ORyJur++WYpP5A8LFnqWIwPQpzCvgVbRDMbbdRfItLuC+pvEjEx2d
+	1UFJ2BhiFf7YTmqkq+8oEwAtgYESHPE5VVK3z4aC7JTNYR/1kjwnOq485x7agFgf
+	TXcKrb3rMQuzQCa0VgztXqUtcbXQjHiudQqa0tBF3UthgToh/mnTOZyjy7UACd5l
+	gW65iQ2eMoTd8G6XQWOqdeLqCCkU0VVCj2JWdQvDKZuaO1BDdshzsiiygSJPDHJ+
+	mmXMBgdUOOpjlL+R6H8zJJxwyhcv6pq6bNopJrAkhwXTXXtq8a7ywd9MiqbFRO/S
+	sDxd5xfUevvYvK25BD3+RrktkH0SMEsTA==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hrbcj27dq-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 05 Nov 2026 15:22:34 -0800 (PST)
+Received: from twshared14956.51.prn1.facebook.com (2620:10d:c0a8:1b::30) by
+ mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Thu, 5 Nov 2026 23:22:32 +0000
+Received: by devvm9890.eag0.facebook.com (Postfix, from userid 139328)
+	id A434B55781A3; Thu,  5 Nov 2026 15:22:19 -0800 (PST)
+From: Jennifer Chan <jenniferchan@meta.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+CC: <bhelgaas@google.com>, <linux-pci@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
+        Lukas Wunner
+	<lukas@wunner.de>, Jason Gunthorpe <jgg@nvidia.com>
+Subject: Re: [PATCH] PCI: Add d3cold delay quirk for NVIDIA LR10 NVSwitch
+In-Reply-To: <20261105215148.GA1566818@bhelgaas>
+References: <20261105201010.2297078-1-jenniferchan@meta.com>
+ <20261105215148.GA1566818@bhelgaas>
+Date: Thu, 5 Nov 2026 15:21:33 -0800
+Message-ID: <179392089371.3269676.8761425999098988375@meta.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,47 +82,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 0000/1005] 6.18.61-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20261104211043.516122098@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-FB-Internal: Safe
+X-Authority-Analysis: v=2.4 cv=PYtqFShd c=1 sm=1 tr=0 ts=6aed0fba cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=crHB47gyY4rKiduisYu9:22 a=6_OcV_819t3UPtOCXZEA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: WSTsdRfpLFNqXUedHU7Mg_jRnqHUYVhG
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA5MiBTYWx0ZWRfX8I+U5GEn36Lh
+ CjhkJVyG7aja7ysfYbLC0NaI91gMXBXMRLNCtWUEAc2Gw/7TKvv6LOaLbQfZakT6mDQF8xLiqVr
+ POcq1+v5JaP7G2Rxt09XYjdB4pXz+/M=
+X-Proofpoint-ORIG-GUID: WSTsdRfpLFNqXUedHU7Mg_jRnqHUYVhG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA5MiBTYWx0ZWRfX7DKxvwb+ddYg
+ HZm3aYbg/xhv4sdvKonwWuDczP1wAqi8dGJ4xU8T0C5UNQ+gWhXSjEU3YJGkAK7wHwLLPuGiONo
+ DQ5zsgY62F7IyzA6m+qlbQmaNRxPfI+KT4DRX7d6uRxX0diU47Kn7X+nJXOjmsK6JcQh2wLpkx1
+ u8cJ7prdkNtopdtU1kg7f7nva4RKqanN5pKpN5YlZc/INeYkfjRHRUl2Mnm+JqXKSWlzV0nhcTW
+ E6wGmP0ShoaH5frbpPjbo+kwpinpIiTxN5F5ZtZFR8jKBqsKtFfwwcuIGfrxjXeaEE5nUY+YwPw
+ 3QwukGNnw1oL3pEgRtyFOwpuZll7OMQ7IVRc2fgUhK2DC+CNd0h39fYQcM41DudpzHZ3sl0+KcF
+ 8PfsSAX68jmttNgy1vo54a9sO6nj9u8dcvPteFoPaboueRV+QU9iRM45sXycSAIew9KCwgtMWjL
+ SurPitUUn3pDVK8Hp1g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_06,2026-11-04_01,2025-10-01_01
 
-On 11/4/26 13:55, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.61 release.
-> There are 1005 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 06 Nov 2026 21:07:23 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.61-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
+On Thu, Nov 05, 2026, Bjorn Helgaas wrote:
+> Do you know where the -EIO is from?
 
-Compiled and booted on my test system. No dmesg regressions.
+My mistake in the changelog, sorry: it isn't -EIO.  The four switches
+fail in nvidia-nvswitch chip init, which logs "Failed to initialize
+device : -5".  That -5 is the driver's own status code
+(NVL_INITIALIZATION_TOTAL_FAILURE), not an errno, and probe then returns
+-ENODEV.  Before that the driver warns while reading its engine
+discovery table from BAR0, which looks like MMIO not returning real data
+yet.  My logs cut off the driver's error text, so I can't say which
+access failed.
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+> Ugh, a second is a long time to wait.  Does the kernel you're testing
+> include e8df1d194c39 ("PCI: Don't treat ~0 as ready in pci_dev_wait()
+> with RRS SV"), by chance?  It only appeared in v7.3, so it's pretty
+> new.
 
-thanks,
--- Shuah
+No, both kernels are v7.1-based without it.  The fifth switch fails
+because PM_CTRL reads ~0 in pci_power_up(), so the device may well be
+returning ~0 after pci_dev_wait() declares it ready.  I haven't yet
+checked whether the Root Port has RRS SV enabled.  I'll check that and
+test v7.1 with e8df1d194c39 backported and without this quirk, logging
+what pci_dev_wait() reads.  If that fixes it, I'll drop this patch.
+
+Thanks,
+Jennifer
