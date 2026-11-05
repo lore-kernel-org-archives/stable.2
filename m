@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793868220;
-	b=N133EYYz7Q7Kl8uMVKmj64GXvEhEsofvAHpPvAfyoNOISk7GP+Ip3O8/NquFUwmK4MbZ
-	 FtjBZTWGpLj3raP/A3uahsnrws3wB+Vgy00omDkQ6ElVviC1cXaTC6XOEf3qzvYOMq2HD
-	 stum84Apcs/5TRfRvGYbqurbQtgT9zJb6fKlakKohnERfFju4DHtqfLD68HfN+5AA3mVD
-	 W7IcEVxolc+xARN4EDZBfkoFuk3td4qkDdOfa6da04hGlyT4ifs7R6Ul2rF2Q/2w6PYXg
-	 n/MFA0+XDs7hpx/VW9H19Nm8x4CiaiLLm98uWjO3/TSPU+mKegwUFMuYJZTCzdJIpnQ==
+	t=1793868591;
+	b=Vd/kinwTVwOTJyeV9yKrVc0W47A1wl28jjlm4DiRCaS4i20sph971OG553pRFuK6+oWF
+	 MJufwHSI3jZo5F8Ncy5At6/Y1a7LHJggcfJbckj2YlWBcy3/RGf14OhLVt/kBlrLU96+y
+	 Rr5Xy5CFziqzGdtp3KVR7TVcm/lbBOQSYyPqKRmWvbiwV2aj//9BywXT+1ns3sCGSIipK
+	 0VzFjDw3F3mwAMjW1UIv6FMkawRhs8SCPN6iX/EcVv/KJ0XDholHSspWBntpymh/zrMoz
+	 ZzXn8I12tlUeqcx8bJUYQnUNdpLWUUW6bdIhTgkC7QYNzUEuYtxkAdAMJ/aphJgBa7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793868220;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xWnyYpFT7Bt2vRXs3GHe7hfE5MPlPmLDrw7MPpPpCg0=;
-	b=o3BznYqwp3ruVjgbt6Pqm1eHD1ULzaNAc1k4tZzQUJuwhX/rxpUL6RlHZ66ixhsjlhBu
-	 hhsLOXpwLLPNrUrrbhSFMiMHYmBJNNxkxHYWDCupUa9Km/fqFhv4+mZbBiJmJV/ITIg54
-	 C0iPVpCVJIp3mv6bvkXdlzYNm4WpHcpPffJ918BUGi190AnEekJTVbGJuS71TgR7LnzI1
-	 gPyuepCSvhTKSRafXsouiys6iaPZ3h6UBwqLfeUy2+LM38eKnwIlASaI0yf7Kt3kkVwJi
-	 +KMQRcOydozMPrWHqeWrwdSCJYmR7rf6//fbB/TdwcaNUYuZwUIEzNVFz88++nZE9yA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793868591;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=iXIfKUGJGkEnqn9QRpsp+DcwEv6yTAPnOh0Ju3Orv/4=;
+	b=VgBKB6xdDOx4wDPB7VqUCuxoK/0vvQuiOkskKA5O3sf8ihNThbB+dvWPP70d32f7ARcK
+	 E4JHaa1Qwl4LmeGyk/SvrCWNfaLxRcaMQU17E4rhhL/pwhwI2JsX3oXkxOLtn/v9DS6Tp
+	 n1Su0pYOoEIVj2r6wyAODiWbebtrxLgRqVjv1nw5o2PSl1Y6Z4SM6GZXrUh6GA6slVeqS
+	 2VBfkHEKEzSrzVbwb35lspHTAMAbTHmIGEIAFMY9/Q7xrrEDWOtlxsNwD/wV91wh0i5mL
+	 deXM8uMinfWkhBKJJ1QlVzORb6JvEU1hCu1Tl/FD16NoB2RSkmwnXNwIfwt36PXvs9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c78s14ly;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ReL2UJWm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D35606A31B;
-	Thu,  5 Nov 2026 08:43:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A39A8606A328
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 08:49:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c78s14ly
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 020201F000C1;
-	Thu,  5 Nov 2026 08:43:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ReL2UJWm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59AC71F00A15
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 08:49:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793868219;
-	bh=xWnyYpFT7Bt2vRXs3GHe7hfE5MPlPmLDrw7MPpPpCg0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c78s14lyh/2KA/ZR+ROW9j+lhtL9TK/sW/DGZGAOW3EkLU/0MoWHjI54jQZ0SqEq1
-	 YshYj72q4DFMVZv/Lwfu03FDjwgZ3wL9S7VRFiQUVrzrInCgoYg1JfAIJiiyNAORpg
-	 4IZ5/JOWtM0cVQPxkLrsv2jTTJfb8zce0lWnAk7ix6e6IHiu0iT5L8XefOM2O9I+wI
-	 m7riPX4x+vCLquJlFZzgwzC8W0BUdrdgGovF2Y0pFIf9z7dqCgShdQIMPuSqpWNJnp
-	 jV95L/L/vPR7Q9YQbtS8YfwqARC1KLSroRc0BrQJMh4mPy/JGx+8h1w0DmLlfN9Ayj
-	 dH2nMJZzp+1gQ==
-Date: Thu, 5 Nov 2026 09:43:35 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Jann Horn <jannh@google.com>
-Cc: Al Viro <viro@zeniv.linux.org.uk>, Kees Cook <kees@kernel.org>, 
-	Joel Granados <joel.granados@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH RESEND v2 44/51] proc: sysctl: resume readdir after the
- last name it returned
-Message-ID: <20261105-unteilbar-entnommen-urzeiten-0d501a3aa396@brauner>
-References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
- <20261104-work-procfs-bugfixes-v2-44-021c84d852e0@kernel.org>
- <CAG48ez3=6q6hqMcN-=q6qNrghHjbpXr+i-Su_s0siw25reBkWA@mail.gmail.com>
+	s=k20260515; t=1793868591;
+	bh=iXIfKUGJGkEnqn9QRpsp+DcwEv6yTAPnOh0Ju3Orv/4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ReL2UJWmNZ5TxcrGIpbnhGyNp15nEgfXjZNsOeS5W6sHxs5USw7+ZVbdKsZy09F1z
+	 pRSB/TuMSFPtsXMNDG1SsTLvPYkJZ0TsGP4FO5x1zVQgyB2mNOZu7nHyRKg0r2l9TI
+	 tWfYU/iKpxdFgbSDSfiBjvDXCoGYUKXe3cLUsYxx61v/U6cVmrY6/2l4dA2FZIfWZA
+	 0sjsdkJ/VvgkEU84ZRXCtJkq2gbT7exadCn5Pv9/lT9A3S8Hxv+7GKSMPeOLtyqz+z
+	 uJWk4bJnyJP7sadqT0trgPRv3UduGH/blDEYxmEGmQwQ9nqXW/rBCNws/cuGIrKTyi
+	 7URlnRPbQGTVQ==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bccb867d6fso1283321e87.0
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 00:49:51 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzbKnMsB6S3QBMOIijGKMQvVmEHRdcw8h/t4BYMNl/SeKRHyaSgXhXVuWnL9I5fdjMAqiFiaHk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/zLeNyBqT+v1nRt+STqUmZta56daAboW+J8zRZzBxEZeaDgeq3
+	RNVftNCjUzPKgjnv3Yk8RSe0UVwRsHKuBCmc1v4GWvHDmRVjKbHbDzkJuusmO1+YFYrS7c7HxaV
+	cuBO/cwgFxemVTcySe5WHxaEtDOzNeAA=
+X-Received: by 2002:a05:6512:688b:20b0:5bf:e4e6:7f78 with SMTP id
+ 2adb3069b0e04-5bfe4e68c03mr2745563e87.39.1793868590127; Thu, 05 Nov 2026
+ 00:49:50 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,27 +59,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAG48ez3=6q6hqMcN-=q6qNrghHjbpXr+i-Su_s0siw25reBkWA@mail.gmail.com>
+References: <20261103104242.1373883-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104242.1373883-1-vulab@iscas.ac.cn>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 5 Nov 2026 09:49:38 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=YuYS85WFBv-dHJLqMW1VMgoTo3YSnDU8Yqg1Tp3Vd=g@mail.gmail.com>
+X-Gm-Features: AclHuK-DqpeWMThWze48WguFPTy5w3muiNn0JsxnoY0aN27dGfjAgVQWa0g9Prk
+Message-ID: <CAD++jL=YuYS85WFBv-dHJLqMW1VMgoTo3YSnDU8Yqg1Tp3Vd=g@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: bcm: release the NS2 pinmux controller on detach
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 5 Nov 2026 01:08:36 +0100, Jann Horn wrote:
-> sysctl_cursor_set() is called here, when the output buffer is too
-> small; but not if the proc_sys_readdir() loop ends because the end of
-> the table was reached and "h" is NULL?
+Hi Wentao,
 
-It's the other way around. res is true when the entry went into the
-buffer. The cursor moves with every entry that was emitted. That
-includes the last entry of the table.
+On Tue, Nov 3, 2026 at 11:42=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
+ote:
 
-When the buffer is full, res is false, we stop, and the cursor leads us
-to the last entry that we sent.
+> ns2_pinmux_probe() registers the pin controller with pinctrl_register()
+> and stores the returned pinctrl_dev in the driver data, but the driver
+> has no remove callback and never calls pinctrl_unregister().  The
+> controller is therefore never unregistered and its memory is leaked
+> when the platform device is unbound.
+>
+> Use devm_pinctrl_register() instead so that the controller is released
+> automatically when the device is detached.
+>
+> Fixes: b5aa1006e4a9 ("pinctrl: ns2: add pinmux driver support for Broadco=
+m NS2 SoC")
+> Cc: stable@vger.kernel.org
 
-> Doesn't that mean that another getdents() after reaching end of the
-> file would observe the last entries again?
+??????
 
-No. After the last entry, cursor->pos == ctx->pos. So the next getdents
-does entry_after(last_name). That doens't find anything. So h is NULL,
-the loop doesn't run and it returns zero.
+What is regressing due to this?
 
-If an entry registered behind the name it would show up.
+Don't add stable-tags like you add sugar to cereals.
+
+Yours,
+Linus Walleij
