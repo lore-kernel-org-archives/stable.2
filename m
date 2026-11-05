@@ -1,61 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793846214;
-	b=dD742YlG2FC/e/t/QP8rk1sWfApv5Sz1Df634II+486mVHgWzuD9vEWR/uNUGJQDCRwM
-	 51+HfBcF3JuPKTy1Cij6m6zZ9If5WFzCD4FiWEJjfs9jGXOo3FhCYp6lC5Ob0+PkZuyqI
-	 Wj7SF1ix0yF7DXMek8F0xqjCbV7iCFsAAE+1QruDvgDymHaReplgstzKl3rTC/R0MBNTJ
-	 S8h6HsaVGyFUi3tQpQXJDcHYJhtvAZuYvF/k6+Xsh7c3uauD3HMM388grpEu2qOqW6yXP
-	 KtH2cArWB6XhOuPZPCtqi1LSbOMweZKtedSv3fi2mHXCJGjJuXQU25+QwuPKzGoghJA==
+	t=1793846224;
+	b=bAYw2boMfCxvS0M868jswET/8dApqqDfdMjVyCSqnTjXts3J1lAcVsGWhRoBPQWaDp0D
+	 zcLl94dVqHCks53VYsbJt+Z+Hiav0oLiVekJ/G4JCzGbpNyL4+5ioTtiVa9JjiK70BO/w
+	 5Ez1/ybYqMdeeNzA5RjRdcoSZiNbL9yr/Xhsn9KyliYgYswKkOZokppXzWJKYtW4cvU5M
+	 +G/zdr8zMr8brSEscR/yM+mKifan8ztLeb63UdUobMnPeIArJa2VFMWsnJ83eRLEswzxD
+	 7BJl/ARqlosc81ivXP4I/mZo+QfWVGnADq798QcDZeMUaXx8HAofyP+r7SO43U1EHVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793846214;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793846224;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ovlFKgPccfbLmr8Zqua+kkM8x4hwULlrstOJBaYY3Ro=;
-	b=YGrzF4keKZG9hurcUrFFar6a+72nbVKrlJVJ0OQJUsXypIZNHjqpGQqJk7NPbhEp4mwI
-	 t4l/KAPENvTHaclpp1IrIcWkPICZIUSjgR0Yi2INCRX0RMwXWDYXvWwIsaOJPSzXlnq7t
-	 m2DWceCD1XtcZZEAGPTtMLhGSu2kXn3sZAiQwERq88nXkza8vpf03OiE/QfBN8cJRZrHm
-	 AEuNY5zf8UK7mpXlriJ8bkRJfxeeR6VvljjPQ3meuZxNjXG6C2W0s+4U09qflzkNupK6y
-	 iN5ODQuXmzgU2M4K4Jj+n2ExfTVXMfGfHSymyAtEnBp4SGCqYq4moHA+g0riY+Un3vw==
+	bh=o2Sbakd/p+dyG/BnhT/68otDQiDWdFKLLdFe8usA7Ko=;
+	b=p2Ln/RVrI/523JVqCxYHUiFWD/0J8vOgUFj162sz7e9++n6K4/fdrwmKo/0bFWxX/8rt
+	 NBVpn4DvEcMXu0RE1WOq5RJ//5UwkEjvUTIKhpGVa+xfnP17Ga5WGtjK6b+/7RXXmS4Ot
+	 JzMa90HN7/IYFhXiJEnklcDxOYnjBPAE4+bemzu+eBHhPOUtstzuakO9hnIBKQ2D0lUDi
+	 XXt5Cc+hFp4MlYP8hHFepEmvFPWvXMpJIITTzwCz2AwQN8ffQQ2AnF0WipL8eIIGvkSUK
+	 6tvT0//xowSmp/8G6PevgLfSDjNoFm6qpWbCOXzMuZqz7v0ecof13H/4QvVZbXNGZBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IzvMzucY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOKr7ESP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DEE606A32C
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:36:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7FE606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:37:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IzvMzucY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C1981F000C1;
-	Thu,  5 Nov 2026 02:36:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOKr7ESP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44E931F000C1;
+	Thu,  5 Nov 2026 02:37:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793846214;
-	bh=ovlFKgPccfbLmr8Zqua+kkM8x4hwULlrstOJBaYY3Ro=;
+	s=k20260515; t=1793846223;
+	bh=o2Sbakd/p+dyG/BnhT/68otDQiDWdFKLLdFe8usA7Ko=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IzvMzucYbSsO0OQoUxXYLaQQ/VtxnWSBwKnpjdXPkQIDVAskbZlEmjJoFs40TVCsl
-	 RfrySLrQDxvqptfZD3kjtWVjkPJ2jrT1ggg3e55A8VZ8c5y9nDcx+TP+yhZq2eZ6G5
-	 y3jT89gRwDcPcpLFAjyn6WfaINCfpnTXJvhvCcSY2R3k7IAfgpNXKz665uaQxCTeN8
-	 g4NO4RQYNGWTrCELfMwweLjrWOdQtNIELGiWDRUy8STBIUpe9BDv26Xfxf0vIQEBkB
-	 mmPwOQH9N5FPv1Y5+tWlS3IYfHKblsmEgs2c5XGx0LMv5ysIxvE/E2LwkeMb6xC2qy
-	 MpnYwrw+2YOIA==
+	b=DOKr7ESPq5l5ne3d8yXT7ByF85MMuf5bb4GIKZftp0IvMuSq6DhfqZoy7IKlYiAzl
+	 /uu7E78+WHaEEEaQwpQC+STsq+v7N3Z4e47s0EuzeN89YigRzPq8M5GYO6wvl5byt7
+	 9egOPoElvnXIMkh9/HHVaDgseBMtuqd+UvHCyXZmQC6CMAUV/1SBnGijWWYlXGp7Nl
+	 uGpl3aS9IE9sENZ+nmNgaZC4OwkKZ2T11IArW2WKAxIwpfxoo4qUQBVP7vglVBCZGu
+	 bKiwVQ9aVrIZyV5EqpUFpOk0HqJtbKSRdr/Wg+MGXY81vEiSpDB2f0JD0UpSExHWDv
+	 f/c0s10wvNvZw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Cen Zhang <zzzccc427@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Jia-Ju Bai <baijiaju1990@gmail.com>,
-	jjzuming@gmail.com,
+Cc: Ruide Cao <caoruide123@gmail.com>,
+	Kyle Zeng <kylebot@openai.com>,
+	David Lee <david.lee@trailofbits.com>,
+	Vega <vega@nebusec.ai>,
+	Ren Wei <weir@nebusec.ai>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] ocfs2: snapshot dentry names in file and setattr traces
-Date: Wed,  4 Nov 2026 21:36:51 -0500
-Message-ID: <20261105023629.1170861-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mptcp: hold MP_JOIN msk ref when cloning reqsk
+Date: Wed,  4 Nov 2026 21:37:00 -0500
+Message-ID: <20261105023629.1173783-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110443-bakeshop-rush-4984@gregkh>
-References: <2026110443-bakeshop-rush-4984@gregkh>
+In-Reply-To: <2026110450-quickstep-hasty-b937@gregkh>
+References: <2026110450-quickstep-hasty-b937@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,279 +66,195 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Cen Zhang <zzzccc427@gmail.com>
+From: Ruide Cao <caoruide123@gmail.com>
 
-[ Upstream commit 8cd3ff30659775a6831c66687a69d2b83d163591 ]
+[ Upstream commit c9c90cf437a9e6597611b6d3aad6e255fad22867 ]
 
-Patch series "ocfs2: stabilize dentry names in file and setattr traces",
-v4.
+TCP request migration clones pending request sockets with
+inet_reqsk_clone().  For MPTCP MP_JOIN requests this byte-copies
+subflow_req->msk, but the clone does not own a reference.
 
-Snapshot names at all six users of ocfs2__file_ops and at the separate
-setattr event. Patch 1 handles the five ordinary file-operation callers
-and setattr. Patch 2 handles release separately to preserve its locked
-open-count sample and take the snapshot outside that critical section.
+The original and cloned requests can consequently drop the same msk
+reference, leaving one request with a dangling pointer.  This manifests as
+a KASAN slab-use-after-free in subflow_req_destructor():
 
-The release explanation distinguishes its existing RCU lifetime coverage
-from name/length consistency. It does not claim that the ordinary
-callers' external-name UAF interleaving crosses the held inode spinlock.
-The release source change is unchanged from v3.
+  BUG: KASAN: slab-use-after-free in subflow_req_destructor (net/mptcp/subflow.c:45)
+  Write of size 4 at addr ff1100010e008d40 by task swapper/0/0
+  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-rc5-00353-gc27e36054537 #10 PREEMPT(full)
 
-Patch 1 also removes the read callback's redundant NULL-inode check.
-The two patches apply independently and leave trace formats unchanged.
+  Call Trace:
+   subflow_req_destructor (net/mptcp/subflow.c:45)
+   subflow_v4_req_destructor (net/mptcp/subflow.c:694)
+   __reqsk_free (net/ipv4/inet_connection_sock.c:906)
+   reqsk_timer_handler (include/net/request_sock.h:137 net/ipv4/inet_connection_sock.c:1147)
 
-This patch (of 2):
+  Allocated by task 10014:
+   sk_prot_alloc (net/core/sock.c:2246)
+   sk_clone (net/core/sock.c:2488)
+   mptcp_sk_clone_init (include/net/sock.h:1848 net/mptcp/protocol.c:3564)
+   subflow_syn_recv_sock (net/mptcp/subflow.c:883)
+   tcp_check_req (net/ipv4/tcp_minisocks.c:934)
 
-The open, fsync, read, write and splice-read trace calls pass the live
-dentry name and length to the shared ocfs2__file_ops event class.
-ocfs2_setattr() passes the same unprotected arguments to its own event.
-Both events size and copy a __string field separately. A reference to
-the dentry does not pin the external storage backing an individual name.
+  Freed by task 0:
+   slab_free_after_rcu_debug (include/linux/kasan.h:235 mm/slub.c:2677 mm/slub.c:6439)
+   rcu_core (kernel/rcu/tree.c:2645 kernel/rcu/tree.c:2897)
 
-With an event enabled, a caller can be preempted after loading the name
-pointer. A long-to-short rename can then replace the name and reclaim its
-old external allocation before the trace callback sizes or copies it,
-provided no other snapshot retains that allocation.
+  Last potentially related work creation:
+   kmem_cache_free (mm/slub.c:2638 mm/slub.c:6377 mm/slub.c:6504)
+   __sk_destruct (net/core/sock.c:2289 net/core/sock.c:2391)
+   sk_destruct (net/core/sock.c:2419)
+   __sk_free (net/core/sock.c:2430)
+   sk_free (net/core/sock.c:2441)
+   mptcp_close (include/net/sock.h:2020 net/mptcp/protocol.c:3399)
+   inet_release (net/ipv4/af_inet.c:442)
 
-The setattr inode lock does not exclude every rename: a same-directory
-rename of a source directory need not take that directory's inode lock.
-It can therefore change the dentry name while setattr records its event.
-Inline names and separately loaded lengths can also change during trace
-record sizing and copying.
+  The buggy address belongs to the cache MPTCP of size 2968
+  The buggy address is 128 bytes inside a freed 2968-byte region
 
-Take a dentry name snapshot around each of these six trace calls and
-pass both the string and length from the snapshot. Check event enablement
-before taking a snapshot. Keep the event classes and formats unchanged.
+A non-NULL subflow_req->msk means that the request owns one reference. The
+third ACK can concurrently transfer the original request reference to the
+child and release it, so taking an unconditional hold on the copied pointer
+is unsafe.
 
-Also remove the redundant NULL-inode check in the read callback.
-file_inode() returns the open file's inode, which is already used by the
-trace call above the check.
+MPTCP sockets use SLAB_TYPESAFE_BY_RCU and all current inet_reqsk_clone()
+callers run in an RCU read-side critical section. Document and
+lockdep-check that calling-context requirement.  Read the pointer from the
+original request and acquire a reference only if it is still live.  Use
+refcount_inc_not_zero_acquire() so the subsequent ownership validation
+cannot be reordered before the try-get, then re-read the original request
+to verify that it still owns the same msk. If either check fails, clear the
+clone pointer; otherwise its normal destructor balances the new reference.
+Mark the ownership-transfer store with WRITE_ONCE() to match the lockless
+reads.
 
-The historical report below is from the read path.
+The following patch completes the clone fixup for MP_CAPABLE token
+ownership. Both patches carry the same Fixes tag and are required for
+stable backports.
 
-KASAN report as below:
-
-    BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
-    Read of size 1 at addr ffff88810a5b2b18 by task python3/496
-
-    [CPU and host details omitted.]
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? strlen+0x85/0xa0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? strlen+0x85/0xa0
-     kasan_report+0xe0/0x110
-     ? strlen+0x85/0xa0
-     strlen+0x85/0xa0
-     trace_event_raw_event_ocfs2__file_ops+0xf0/0x480
-     ? __pfx_trace_event_raw_event_ocfs2__file_ops+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? pmbd_probe_hit_cookie+0xe7/0x1c0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
-     ocfs2_file_read_iter+0x6cd/0xb30
-     ? __pfx_ocfs2_file_read_iter+0x10/0x10
-     ? selinux_file_permission+0x11d/0x540
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? security_file_permission+0x26/0x80
-     vfs_read+0x7d2/0xc20
-     ? __pfx_vfs_read+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_do_sys_openat2+0x10/0x10
-     ksys_read+0x111/0x200
-     ? __pfx_ksys_read+0x10/0x10
-     ? irqentry_exit+0xbe/0x820
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? trace_hardirqs_on_prepare+0x11d/0x150
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    [User register dump omitted.]
-     </TASK>
-
-    Allocated by task 489:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_noprof+0x2de/0x780
-     __d_alloc+0x5fc/0x8c0
-     d_alloc_parallel+0x106/0x11d0
-     lookup_open+0x3ff/0x13e0
-     path_openat+0x95e/0x2020
-     do_file_open+0x21e/0x470
-     do_sys_openat2+0xf4/0x1b0
-     __x64_sys_openat+0x136/0x1e0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    Freed by task 0:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     __rcu_free_sheaf_prepare+0x65/0x2a0
-     rcu_free_sheaf_nobarn+0x1d/0x50
-     rcu_core+0x6be/0x1ed0
-     handle_softirqs+0x1fa/0x8d0
-     __irq_exit_rcu+0x113/0x1e0
-     irq_exit_rcu+0xe/0x20
-     sysvec_apic_timer_interrupt+0x6c/0x80
-     asm_sysvec_apic_timer_interrupt+0x1a/0x20
-
-    The buggy address belongs to the object at ffff88810a5b2b00
-     which belongs to the cache kmalloc-rcl-192 of size 192
-    The buggy address is located 24 bytes inside of
-     freed 192-byte region [ffff88810a5b2b00, ffff88810a5b2bc0)
-
-    [Page and shadow-memory dumps omitted.]
-
-Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-0@gmail.com
-Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-1@gmail.com
-Fixes: 468eedde23d6 ("ocfs2: Remove mlog(0) from fs/ocfs2/file.c")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Assisted-by: LLM
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
-Cc: <jjzuming@gmail.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: Omitted the ocfs2_file_splice_read() hunk because the function is absent. ]
+Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
+Cc: stable@vger.kernel.org
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Reported-by: David Lee <david.lee@trailofbits.com>
+Reported-by: Vega <vega@nebusec.ai>
+Closes: https://lore.kernel.org/all/20260804095051.715355-1-david.lee@trailofbits.com/
+Signed-off-by: Ruide Cao <caoruide123@gmail.com>
+Signed-off-by: Ren Wei <weir@nebusec.ai>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-3-932c9b182fc7@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: replaced refcount_inc_not_zero_acquire() with refcount_inc_not_zero() followed by an explicit smp_acquire__after_ctrl_dep() barrier. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ocfs2/file.c | 84 +++++++++++++++++++++++++++++++------------------
- 1 file changed, 53 insertions(+), 31 deletions(-)
+ include/net/mptcp.h             |  9 ++++++++
+ net/ipv4/inet_connection_sock.c |  4 ++++
+ net/mptcp/subflow.c             | 38 ++++++++++++++++++++++++++++++++-
+ 3 files changed, 50 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ocfs2/file.c b/fs/ocfs2/file.c
-index e29e267472bf8..571d7d34965bb 100644
---- a/fs/ocfs2/file.c
-+++ b/fs/ocfs2/file.c
-@@ -84,10 +84,17 @@ static int ocfs2_file_open(struct inode *inode, struct file *file)
- 	int mode = file->f_flags;
- 	struct ocfs2_inode_info *oi = OCFS2_I(inode);
+diff --git a/include/net/mptcp.h b/include/net/mptcp.h
+index 3c5c68618fcc5..32c5878f51175 100644
+--- a/include/net/mptcp.h
++++ b/include/net/mptcp.h
+@@ -189,6 +189,9 @@ int mptcp_subflow_init_cookie_req(struct request_sock *req,
+ struct request_sock *mptcp_subflow_reqsk_alloc(const struct request_sock_ops *ops,
+ 					       struct sock *sk_listener,
+ 					       bool attach_listener);
++/* Caller must hold an RCU read-side lock. */
++void mptcp_subflow_reqsk_clone(struct request_sock *req,
++			       struct request_sock *new_req);
  
--	trace_ocfs2_file_open(inode, file, file->f_path.dentry,
--			      (unsigned long long)oi->ip_blkno,
--			      file->f_path.dentry->d_name.len,
--			      file->f_path.dentry->d_name.name, mode);
-+	if (trace_ocfs2_file_open_enabled()) {
-+		struct dentry *dentry = file->f_path.dentry;
-+		struct name_snapshot name;
+ __be32 mptcp_get_reset_option(const struct sk_buff *skb);
+ 
+@@ -282,6 +285,12 @@ static inline struct request_sock *mptcp_subflow_reqsk_alloc(const struct reques
+ 	return NULL;
+ }
+ 
++/* Caller must hold an RCU read-side lock. */
++static inline void mptcp_subflow_reqsk_clone(struct request_sock *req,
++					     struct request_sock *new_req)
++{
++}
 +
-+		take_dentry_name_snapshot(&name, dentry);
-+		trace_ocfs2_file_open(inode, file, dentry,
-+				      oi->ip_blkno,
-+				      name.name.len, name.name.name,
-+				      mode);
-+		release_dentry_name_snapshot(&name);
-+	}
+ static inline __be32 mptcp_reset_option(const struct sk_buff *skb)  { return htonl(0u); }
+ #endif /* CONFIG_MPTCP */
  
- 	if (file->f_mode & FMODE_WRITE) {
- 		status = dquot_initialize(inode);
-@@ -173,11 +180,17 @@ static int ocfs2_sync_file(struct file *file, loff_t start, loff_t end,
- 	tid_t commit_tid;
- 	bool needs_barrier = false;
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index 9d000c2cf9b69..10b25cbabac07 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -20,6 +20,7 @@
+ #include <net/tcp_states.h>
+ #include <net/xfrm.h>
+ #include <net/tcp.h>
++#include <net/mptcp.h>
+ #include <net/sock_reuseport.h>
+ #include <net/addrconf.h>
  
--	trace_ocfs2_sync_file(inode, file, file->f_path.dentry,
--			      oi->ip_blkno,
--			      file->f_path.dentry->d_name.len,
--			      file->f_path.dentry->d_name.name,
--			      (unsigned long long)datasync);
-+	if (trace_ocfs2_sync_file_enabled()) {
-+		struct dentry *dentry = file->f_path.dentry;
-+		struct name_snapshot name;
-+
-+		take_dentry_name_snapshot(&name, dentry);
-+		trace_ocfs2_sync_file(inode, file, dentry,
-+				      oi->ip_blkno,
-+				      name.name.len, name.name.name,
-+				      (unsigned long long)datasync);
-+		release_dentry_name_snapshot(&name);
-+	}
- 
- 	if (ocfs2_is_hard_readonly(osb) || ocfs2_is_soft_readonly(osb))
- 		return -EROFS;
-@@ -1126,15 +1139,19 @@ int ocfs2_setattr(struct user_namespace *mnt_userns, struct dentry *dentry,
- 	int had_lock;
- 	struct ocfs2_lock_holder oh;
- 
--	trace_ocfs2_setattr(inode, dentry,
--			    (unsigned long long)OCFS2_I(inode)->ip_blkno,
--			    dentry->d_name.len, dentry->d_name.name,
--			    attr->ia_valid,
--				attr->ia_valid & ATTR_MODE ? attr->ia_mode : 0,
--				attr->ia_valid & ATTR_UID ?
-+	if (trace_ocfs2_setattr_enabled()) {
-+		struct name_snapshot name;
-+
-+		take_dentry_name_snapshot(&name, dentry);
-+		trace_ocfs2_setattr(inode, dentry, OCFS2_I(inode)->ip_blkno,
-+				    name.name.len, name.name.name, attr->ia_valid,
-+				    attr->ia_valid & ATTR_MODE ? attr->ia_mode : 0,
-+				    attr->ia_valid & ATTR_UID ?
- 					from_kuid(&init_user_ns, attr->ia_uid) : 0,
--				attr->ia_valid & ATTR_GID ?
-+				    attr->ia_valid & ATTR_GID ?
- 					from_kgid(&init_user_ns, attr->ia_gid) : 0);
-+		release_dentry_name_snapshot(&name);
-+	}
- 
- 	/* ensuring we don't even attempt to truncate a symlink */
- 	if (S_ISLNK(inode->i_mode))
-@@ -2380,11 +2397,17 @@ static ssize_t ocfs2_file_write_iter(struct kiocb *iocb,
- 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
- 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
- 
--	trace_ocfs2_file_write_iter(inode, file, file->f_path.dentry,
--		(unsigned long long)OCFS2_I(inode)->ip_blkno,
--		file->f_path.dentry->d_name.len,
--		file->f_path.dentry->d_name.name,
--		(unsigned int)from->nr_segs);	/* GRRRRR */
-+	if (trace_ocfs2_file_write_iter_enabled()) {
-+		struct dentry *dentry = file->f_path.dentry;
-+		struct name_snapshot name;
-+
-+		take_dentry_name_snapshot(&name, dentry);
-+		trace_ocfs2_file_write_iter(inode, file, dentry,
-+					    OCFS2_I(inode)->ip_blkno,
-+					    name.name.len, name.name.name,
-+					    (unsigned int)from->nr_segs);
-+		release_dentry_name_snapshot(&name);
-+	}
- 
- 	if (!direct_io && nowait)
- 		return -EOPNOTSUPP;
-@@ -2530,17 +2553,16 @@ static ssize_t ocfs2_file_read_iter(struct kiocb *iocb,
- 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
- 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
- 
--	trace_ocfs2_file_read_iter(inode, filp, filp->f_path.dentry,
--			(unsigned long long)OCFS2_I(inode)->ip_blkno,
--			filp->f_path.dentry->d_name.len,
--			filp->f_path.dentry->d_name.name,
--			to->nr_segs);	/* GRRRRR */
--
-+	if (trace_ocfs2_file_read_iter_enabled()) {
-+		struct dentry *dentry = filp->f_path.dentry;
-+		struct name_snapshot name;
- 
--	if (!inode) {
--		ret = -EINVAL;
--		mlog_errno(ret);
--		goto bail;
-+		take_dentry_name_snapshot(&name, dentry);
-+		trace_ocfs2_file_read_iter(inode, filp, dentry,
-+					   OCFS2_I(inode)->ip_blkno,
-+					   name.name.len, name.name.name,
-+					   to->nr_segs);
-+		release_dentry_name_snapshot(&name);
+@@ -945,6 +946,9 @@ static struct request_sock *inet_reqsk_clone(struct request_sock *req,
+ 		rcu_assign_pointer(tcp_sk(nreq->sk)->fastopen_rsk, nreq);
  	}
  
- 	if (!direct_io && nowait)
++	if (rsk_is_mptcp(req))
++		mptcp_subflow_reqsk_clone(req, nreq);
++
+ 	return nreq;
+ }
+ 
+diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
+index cc62681d6ea8e..df85e8ac0d3d1 100644
+--- a/net/mptcp/subflow.c
++++ b/net/mptcp/subflow.c
+@@ -47,6 +47,42 @@ static void subflow_req_destructor(struct request_sock *req)
+ 	mptcp_token_destroy_request(req);
+ }
+ 
++void mptcp_subflow_reqsk_clone(struct request_sock *req,
++			       struct request_sock *new_req)
++{
++	struct mptcp_subflow_request_sock *subflow_req = mptcp_subflow_rsk(req);
++	struct mptcp_subflow_request_sock *new_subflow_req;
++	struct mptcp_sock *msk;
++
++	new_subflow_req = mptcp_subflow_rsk(new_req);
++	RCU_LOCKDEP_WARN(!rcu_read_lock_any_held(),
++			 "MPTCP reqsk clone called without RCU");
++
++	/* A non-NULL ->msk means the request owns one reference.  The clone
++	 * copied only the pointer, while the original request can concurrently
++	 * transfer its reference to the child.  Acquire a reference for the
++	 * clone, then verify that the original request still owns the same msk.
++	 * MPTCP sockets use SLAB_TYPESAFE_BY_RCU and all clone callers run in
++	 * an RCU read-side critical section, keeping the memory stable here.
++	 */
++	msk = READ_ONCE(subflow_req->msk);
++	if (msk) {
++		struct sock *sk = (struct sock *)msk;
++
++		if (!refcount_inc_not_zero(&sk->sk_refcnt)) {
++			msk = NULL;
++		} else {
++			smp_acquire__after_ctrl_dep();
++			if (READ_ONCE(subflow_req->msk) != msk) {
++				sock_put(sk);
++				msk = NULL;
++			}
++		}
++	}
++
++	new_subflow_req->msk = msk;
++}
++
+ static void subflow_generate_hmac(u64 key1, u64 key2, u32 nonce1, u32 nonce2,
+ 				  void *hmac)
+ {
+@@ -812,7 +848,7 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
+ 			}
+ 
+ 			/* move the msk reference ownership to the subflow */
+-			subflow_req->msk = NULL;
++			WRITE_ONCE(subflow_req->msk, NULL);
+ 			ctx->conn = (struct sock *)owner;
+ 
+ 			if (subflow_use_different_sport(owner, sk)) {
 -- 
 2.53.0
 
