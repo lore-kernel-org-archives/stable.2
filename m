@@ -1,47 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793894087;
-	b=NuUQoEMI3enEG/zy3wiQt0EDcYODu+apL38vb2+d3W8gvX80trbwltZqjGXxSeBlOROK
-	 XfVcH32c5gxP3ZqLoJ5MNbD9bi3d7322sOH2LVdcC+qdHD0gEJ1menx+zbOOKmhk+KYdo
-	 PJqGrI07+goVVcunqsxEh0q4+srtM1UlePGenV6Rxjz38AyT5nV5wC/r2sGCmune6GXWC
-	 D9N2suaZNXtKtbtQRBCG7vvsVqvS3gfVURCp1w0CkFe0R0XOsxwhn18zv6zDk9iqK76i0
-	 tGIgeAJn3VDKwJ9xRTpIPJZu+T/P3Rwt/1BDps44Y76ltUpu3wp09V1FKvXYCpBKOkw==
+	t=1793894552;
+	b=P7DfLh5EsVDpMqTuG3bGL6g/CceSznHP6rOvbjtNuhHV1GZxqjAagtvH1oaxmpSDx0Th
+	 1tvObpBpsh3Btocl2OkkbOCUMj+CEu55Z9QG7PZyFqKe2mOaXs3LE4mNRy99RuMUiCZwY
+	 YL8VySQR5+izszumnjpxodmgEsDIfHvG+inFlvKnheRdA1sN5a7NX7eccd0lXRI5kxvAV
+	 2nDoM83s/7guQgpkPlun2Wl2LTWwB2hKMugxX4Il+Zfs/Ad2YOKqea3W3vqFmj2cx6RnE
+	 0wm4vHK0jAwlqDZ+BpPKkCIpQlAMQn4G7Bw3dHSVN5LxNdaMYeRQUf9ggB3fcvB3YfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894087;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ylOj/sHLM/J8LsUi+7lfY/iGOYIA2kXtXExHrYGKdI0=;
-	b=4usUpCyKqBfAgv5BwqxCs0lJyBoym8smhbVBiu3/3vqscbHnjXiPsgT19zDXk0OjGHBj
-	 SkryZvC92OajvfHSABTx2fuf3WHlir36w9aNvo32Vo1wzr3bz2iI3ae7/zbPt9uM/yODp
-	 vRsSKjRYYsx9abkouXJNjs6EFL12jTeQVlci0wTcycxZ8UCERIOyT1jqgLLI2z09E2g+c
-	 vTrxEENAYWGuQCsdASOVjJSg9u0EcW+HhfJh3qPcQJkh7OESwVy3pagpo7zL2xOgLC0lr
-	 iT5JHRBTuo+PppXGwPgVeJ10nEcuupNqLVQ/pu7O2LFuvpLtZe7nY7iizaGskUzy+tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894552;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lEpyyp3Nh2lMfQuU5TyDvWhNl/GQMG+KamM310H/GGU=;
+	b=rgLzPGr+xM5uZEhOjA0K7mqTxXnlG6kyHxQTwBDAPB8QRGIwBfq4AnDLr/mHtp0Tcb1/
+	 HRMfBPls+CIn82QoJPAcJKU2o1VhgQg5pkglLkPq7y9AyYkXu/0Hye++P65VKDHNAibEu
+	 KtZ/IOmdYAnYxkfXZyXN8vWPVZQIRkL4Q5TWLTiAVLGqNj15YQAasprDVPxxUS5+XwMyr
+	 fAWWAoo4vW592q2T0FT1FDpdS73RWTLqIcXlQNqW4RwSCB8vyMYNXxDbd6fwhIWiT4BoC
+	 7Sc9vsUxwIMmXEu84HG5pDXNglJ1LWD9nNUKADA/JdqlNPzGYTXhyYpnN35kpjKNYQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kuAc3Ioi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gH7Sh0gR;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AADBD606BE8F;
-	Thu,  5 Nov 2026 15:54:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE9EF6070795
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 16:02:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE9EF6070795
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kuAc3Ioi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27BE21F00A1A;
-	Thu,  5 Nov 2026 15:54:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793894087;
-	bh=ylOj/sHLM/J8LsUi+7lfY/iGOYIA2kXtXExHrYGKdI0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=kuAc3Ioi/qwDnV15Z9C4aP62dVQFe+TuOpqiRxJnyC2rmCo8+4hvpGzigjEUGeqhk
-	 6Eh3nbCcJ7Emyc/isrygR+z6bKIlNdRis4XZL+B1xH+CDudtI85iXDi0oS3JNC4LHx
-	 IMAav9xQFTEPeAqSXBCDu2pYUOXk3lZNIhaMtTX85QMSn/exiSdUJqWmTXkMSFMJQK
-	 vBGT+NotVD+sufMIYZwu+fxhaUXXO8Y1+A6Q+JAANLI6boLtY9IYKV7kiliy8G3757
-	 ZZzfsyn1nJgUops01v1xFiARUCYU6dGtbAACrHrSrsjrS1EvgLgX5dQveajOdg9EZK
-	 w0M6+vFfb3/tQ==
-Message-ID: <bc91b6e5-ae31-4403-aee9-34b60ac83631@kernel.org>
-Date: Thu, 5 Nov 2026 16:54:41 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gH7Sh0gR
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1a3c08d6928so3035227c88.0
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 08:02:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793894551; x=1794499351; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lEpyyp3Nh2lMfQuU5TyDvWhNl/GQMG+KamM310H/GGU=;
+        b=gH7Sh0gRaGfLw8Ky8OZtzEnWNrQJsN4tGHcUt4pViK15ULx+i4cv66rQ/bPaNwjRmC
+         HjTin+z/heJEuVMWK5BIX/gxkiSDxLQ02Ub2+/467o6vWA1mQT4TmZqG9FS1BFmNb3/y
+         hqvT3TXxHB4KcXf5IZ6KN3/DmWIiDVjelt1uUZdriViKVQjbTWjKeyAjkTCusy1QpW1Z
+         1yLwliRZPJQTywXXWdlaa6DP+Rw+pUVL0vpHRGNW2SVZpKNUxLdGOqQODzReOmRAb1y+
+         x3p+1w0FixdLzi/htremDyYbPYtlNTBAk1SDiW8uquW2/Ar8a2PzfahXxKNukHKqqG+P
+         VDNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793894551; x=1794499351;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lEpyyp3Nh2lMfQuU5TyDvWhNl/GQMG+KamM310H/GGU=;
+        b=ilAmDGyw6z0Yj2P7ywFj6OHNLZMg/KXyfWlboPPSAxwOtqocOC1hzER2bWuAzShczh
+         r8DJ8xXe3BgKq/ryAklQEP5W/xPz4JdFhxtMFgKjGMnNRCyTzGXzw1mbbYOeAIes9cKB
+         IEQlmrLAHumhFOz4XQnxaBlfCNBVbt61YPCZ37KnAxLH+Ti34muUK9JeeaMk3FqijAs8
+         Et2TY0YWK17iW/XmjhQN4ov2tP0w0LNMoRhWkEwxNcVPpbhO0/46YQxHYXi3fn1jRvwL
+         SST70DDMSFp7cd+FCybY5ntMdCZ5A9TNr0ctUnf9EbhybvQZPm8FFgrNQi82fiKlc7Vr
+         2YJA==
+X-Forwarded-Encrypted: i=1; AKwUvByvBznA3lyIY5l48VAt2+5j2U7VxAuZGoHqWjtGaE5d1nO6yz6AfUm2kMK9trSDXnwdteMKVEk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JniVK1KPl9kzSpWm5vXxlarQsXn9jn7hzNPwe/8/BcRpUUduF
+	IhqQA5Ll3YeO3hlLNaZDI9DQWhAuLYZdG6Bkfo/rgtqv1QZb4TtvIiyG
+X-Gm-Gg: AYBFou31/oLCymqhdD+5JVwbOWi+Nay+oV8ChizIYm1cXQ1QUyLLPNqvyqm56SPM6zG
+	pS/+ZdOkAq/YjagFsGIpwoUqtOESIfvhZ38dRIPkxZKsxnn8tr+anO8cHM8ZEusnLBe4tMNHTmS
+	OBO0sYujKIoAIZJFV43xsz4U307n6Iur8bR3W+2SSzhkKoX0w6/aLyr8SjkcGMAmHa8iXaLj86X
+	zVGU5d+Ygq3CmNDbIaXaHoERAviCbx27zN13ePpXZwt3LGA7LcLV2NZtC0r4UFbeqBFf/vymroA
+	DCdWr4lcqQ5tHg8PcWl70C/IKXiydr8MUQHFETDWWgJSGKML93BVF+0GAw5uFF45Bw4mQkE/We7
+	KXhvswOePNKr43Nl68kceMLdmdT3BbZst5DEbJ8bW+yM/AW2tY6s8iPVlzVZctek8501APSCN7W
+	5kPVQY52KCmHW3Wt9cGBNK7yjvuUU9h1YfeVMnduVIb9K+VZhOR2tNWLe3u4SaDaPn+yR5XEVun
+	kK/m9AW3mZFdoceVYoOQ8iMb1+y6EJE09bP58KKBstC7wCbytCN/gydFjhfyCZim67DNBmc35CL
+	SzGlXfag7JPGIJ7tNFZe+ZMIVEC5RO6fPIKGgeEo1AYkHzL0qoTY
+X-Received: by 2002:a05:7023:904:b0:168:3243:c907 with SMTP id a92af1059eb24-1ad85de518fmr33710895c88.24.1793894550537;
+        Thu, 05 Nov 2026 08:02:30 -0800 (PST)
+Received: from ubuntu ([110.9.142.4])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c2de58sm16414126c88.12.2026.11.05.08.02.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 08:02:30 -0800 (PST)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Akinobu Mita <akinobu.mita@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] fault-inject: fix boot failure with fault injection boot parameters
+Date: Fri,  6 Nov 2026 01:01:58 +0900
+Message-ID: <20261105160209.1504867-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,82 +95,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm/huge_memory: take a reference on a folio PUD
- copied by fork
-To: Konstantin Khorenko <khorenko@virtuozzo.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Dan Williams <djbw@kernel.org>
-Cc: linux-mm@kvack.org, nvdimm@lists.linux.dev,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261021-vstor-150143-copy_huge_pud-folio-refcount-v1-0-8bd88551f9be@virtuozzo.com>
- <20261021-vstor-150143-copy_huge_pud-folio-refcount-v1-1-8bd88551f9be@virtuozzo.com>
- <26862633-c3d1-4b82-8ca2-346cb78570d7@kernel.org>
- <cfd786eb-4ae5-4dcc-a9f2-3eb4b7e7962c@virtuozzo.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <cfd786eb-4ae5-4dcc-a9f2-3eb4b7e7962c@virtuozzo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/5/26 15:19, Konstantin Khorenko wrote:
->> Introducing folio_dup_file_rmap_pud() is better. But please see how I move
->> the comment and how passing mm+vma to the helper is not really reasonable.
-> 
-> Thanks, agreed on both. v2 will pass only the VMAs, with the mms taken
-> from them as in your patch, drop src_mm from copy_pud_range() and move
-> the TODO next to the rmap duplication. folio_dup_file_rmap_pud() stays.
-> 
-> Could v2 then replace your 01/36, so you can drop it from your series?
+Since commit e9bc360b105c ("fault-inject: use prandom where
+cryptographically secure randomness is not needed"), setup_fault_attr()
+calls prandom_init_once(), which calls kmalloc() and schedule_work().
 
-I dropped my version already, so please resend and I'll queue that one.
+But setup_fault_attr() can be called from __setup handlers before slab
+and workqueues are initialized, so any fault injection boot parameter
+leads to boot failure.
 
+So use DO_ONCE_LITE() instead.
+
+Fixes: e9bc360b105c ("fault-inject: use prandom where cryptographically secure randomness is not needed")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+---
+QEMU-based test results
+- build with gcc 16.2 + x86_64, booted with "failslab=1,0,-1,0"
+
+1) AS-IS (before fix) 
+[    0.090415] BUG: kernel NULL pointer dereference, address: 0000000000000018
+[    0.091661] #PF: supervisor read access in kernel mode
+[    0.092639] #PF: error_code(0x0000) - not-present page
+[    0.093593] PGD 0 P4D 0 
+[    0.094051] Oops: Oops: 0000 [#1] SMP NOPTI
+[    0.094800] CPU: 0 UID: 0 PID: 0 Comm: swapper Not tainted 7.3.0 #2 PREEMPT(undef) 
+[    0.096178] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
+[    0.098046] RIP: 0010:__kmalloc_cache_noprof+0x142/0x370
+[    0.099024] Code: ea c1 ea 08 41 89 d5 41 83 e5 01 8b 53 1c 0f 1f 44 00 00 45 84 ed 74 12 4d 85 d2 74 0d 4c 89 d7 31 f6 e8 e1 2d e1 00 49 89 c2 <44> 8b 43 18 48 8b 74 24 50 0f 1fb
+[    0.102388] RSP: 0000:ffffffff82c03d50 EFLAGS: 00010046
+[    0.103326] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+[    0.104604] RDX: 0000000000000001 RSI: 0000000000000020 RDI: 0000000000000000
+[    0.105883] RBP: 0000000000000820 R08: ffff88807dda6c70 R09: 46ad46184e3f2c64
+[    0.107194] R10: 0000000000000000 R11: 46ad46184e3f2c64 R12: 0000000000000030
+[    0.108472] R13: 0000000000000001 R14: 0000000000000008 R15: ffff88807ffd3ab1
+[    0.109832] FS:  0000000000000000(0000) GS:ffff8880fa4ac000(0000) knlGS:0000000000000000
+[    0.111284] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    0.112311] CR2: 0000000000000018 CR3: 0000000002c30000 CR4: 00000000000000b0
+[    0.113616] Call Trace:
+[    0.114059]  <TASK>
+[    0.114462]  ? once_disable_jump+0x20/0x80
+[    0.115202]  once_disable_jump+0x20/0x80
+[    0.115905]  setup_fault_attr+0xe6/0xf0
+[    0.116597]  unknown_bootoption+0x111/0x210
+[    0.117352]  parse_args+0x14f/0x3c0
+[    0.117983]  ? __pfx_unknown_bootoption+0x10/0x10
+[    0.118839]  start_kernel+0x3b8/0x7c0
+[    0.119539]  ? __pfx_unknown_bootoption+0x10/0x10
+[    0.120435]  x86_64_start_reservations+0x24/0x30
+[    0.121310]  x86_64_start_kernel+0xd1/0xe0
+[    0.122278]  common_startup_64+0x13e/0x158
+[    0.124133]  </TASK>
+[    0.124756] Modules linked in:
+[    0.125309] CR2: 0000000000000018
+[    0.125905] ---[ end trace 0000000000000000 ]---
+[    0.126741] RIP: 0010:__kmalloc_cache_noprof+0x142/0x370
+[    0.127704] Code: ea c1 ea 08 41 89 d5 41 83 e5 01 8b 53 1c 0f 1f 44 00 00 45 84 ed 74 12 4d 85 d2 74 0d 4c 89 d7 31 f6 e8 e1 2d e1 00 49 89 c2 <44> 8b 43 18 48 8b 74 24 50 0f 1fb
+[    0.131129] RSP: 0000:ffffffff82c03d50 EFLAGS: 00010046
+[    0.132126] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+[    0.133483] RDX: 0000000000000001 RSI: 0000000000000020 RDI: 0000000000000000
+[    0.134843] RBP: 0000000000000820 R08: ffff88807dda6c70 R09: 46ad46184e3f2c64
+[    0.136206] R10: 0000000000000000 R11: 46ad46184e3f2c64 R12: 0000000000000030
+[    0.137565] R13: 0000000000000001 R14: 0000000000000008 R15: ffff88807ffd3ab1
+[    0.138928] FS:  0000000000000000(0000) GS:ffff8880fa4ac000(0000) knlGS:0000000000000000
+[    0.142705] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    0.143741] CR2: 0000000000000018 CR3: 0000000002c30000 CR4: 00000000000000b0
+[    0.145037] Kernel panic - not syncing: Attempted to kill the idle task!
+[    0.146284] ---[ end Kernel panic - not syncing: Attempted to kill the idle task! ]---2) TO-BE (after fix)
+
+2) TO-BE (after fix)
+- boot succeeded
+
+---
+ lib/fault-inject.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/lib/fault-inject.c b/lib/fault-inject.c
+index 02916ef2761c..9182d457baf5 100644
+--- a/lib/fault-inject.c
++++ b/lib/fault-inject.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ #include <linux/kernel.h>
+ #include <linux/init.h>
++#include <linux/once_lite.h>
+ #include <linux/prandom.h>
+ #include <linux/debugfs.h>
+ #include <linux/sched.h>
+@@ -50,7 +51,12 @@ int setup_fault_attr(struct fault_attr *attr, char *str)
+ 		return 0;
+ 	}
+ 
+-	prandom_init_once(&fault_rnd_state);
++	/*
++	 * __setup handlers run before slab and workqueues are initialized,
++	 * but prandom_init_once() calls kmalloc() and schedule_work(). So use
++	 * DO_ONCE_LITE() instead.
++	 */
++	DO_ONCE_LITE(prandom_seed_full_state, &fault_rnd_state);
+ 
+ 	attr->probability = probability;
+ 	attr->interval = interval;
+
+base-commit: c2366a2edc886a5a02d2a43de8b1c6ec09bab840
 -- 
-Cheers,
+2.53.0
 
-David
