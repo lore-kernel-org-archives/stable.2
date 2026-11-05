@@ -1,53 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793868926;
-	b=rGxiKGdg1vxbwsmC4sH0HC9ES8eoKmZz3bYbWXL8OsxMUgHz7py4XA2Wke/hvl4Iq/W1
-	 WkXZIkWDXmZp/jNR7fBKffyx1QTZ1KJeUK0x7tAcv8erikg6zpQ67rKoqwW9QCposxHfq
-	 Yfjx8UkSuX+n9CHtNj/rO4s0ys10sOq9W7ucM7tTDwNwmtlmIt9LMZYHEAu9L4x+Gxvzs
-	 WkDwSkqED9QQB1o0WroVXGfAEFOZoDsnMEWeFo+PxL+pkNKBsUisM2LeTuy6ZeGWBe1am
-	 /xxnnsLzqtbl7JXowh/WdW7l5+UGkcAcjakUchU3c5SRzR3e3A02Cw9OiBcMIU7dvdw==
+	t=1793869556;
+	b=C8DewTY2m17d2yXwrMi+SziZowCUFAxZNMK4JFb/Ccrlav6e3mWfRMA633x4aiEXPy1+
+	 5OzPx2S9bLgMOgMSLNoeN/Kf8VEQaIqBfEC7KxH82mjtBlxvwj6Ea4Ycs/5ni91TiqmUV
+	 3Xdh65BqQBrmEeMLuuSBJk5DJSsIm3pMYY4mu/1DEXInRLlQxMgt+9KcXsxlSjKyuD5fh
+	 FN675rJiybOqabX6w0fBTtKmNVCUF2+wEUhbmCCWJvKjRwgZSMacSLTd9YO0Sj4vTzKe6
+	 UaplttUvTTDKqCzOAw7woCJzUSFq8yyvYFHV2tymG6rFn7xNC/ITy1gBZ0LulkTAPlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793868926;
-	h=DMARC-Filter:Received:Subject:From:To:Cc:In-Reply-To:References:Date:
-	 Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=e4d6LbZwiMMDmNdoTGrrJaaz6TI7Gu1U+/P7GqUpsu4=;
-	b=Q+MNOEIVcow5+R1cR4TxA5trjdPyEoHSDNeek5ibYc0G+soiNl7ZZdg3FfPdSFP+AKWt
-	 eKHOzYczkr+oU1oMiQebOIwVcJ7zAD57f8Z1KYto+jIXYSBA3WeaIK98+CiKAlFbEUW+R
-	 of/d3KbL7onKWThawilCITWRJ362jxJghgsgv0IQT9IOVRSaIZ/7WKCFu5hf7F1UOD2dW
-	 dXIGwKc4hRnY54aCAcrihzNDqdk10R28Ms+oCuWE+dVgNI4177QuYzAMz7DXvjUD0wb1r
-	 U6Vnf3vJpX66lGtGznk3pd6VEP+zARywwXD3YGYT1A97GugtFnz+9d6uqZPjWHXV7Sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793869556;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vuFECZ4EHZrEeMpVma1G6wBxYe3WeT+cWYlUS2SwRHw=;
+	b=gR2UzzUcL+G5JduiHpu2g6k5osyYdgBB8URoT74DemzP06DF6vBBQSEqIxTUz0YM7Xhu
+	 sx74xsWWhiKXAenvb+ZBlSuO0x19YJnJHTy1MVGIct+rXBbxkJZjVs1MffxXc91Uyju0e
+	 /Bj7w8iXu7u2C0WsYKZPk666u6cshkl9vkUDGRI9T1awMU1lfOp8p+Kyc8cRv0pWqM7U7
+	 1fL0HaUoAT7N1eGkb1QIMljr7S3BDtYRafMmVxXNZgi/Pf547G95zBKgOoK2s37jztJCy
+	 yEPahe2R0cY84uRGFYZRdego7AmjOQn8vjRW4yPjDoDSY0POGzewiRQM44Pr9saP29g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.25
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BD01606A326;
-	Thu,  5 Nov 2026 08:55:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BD01606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAC3ULZwROxqX1lcAA--.2626S2;
-	Thu, 05 Nov 2026 16:55:12 +0800 (CST)
-Subject: Re: [PATCH 2/6] clk: qoriq: Fix clock reference leak in
- input_clock_by_index()
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: andy.tang@nxp.com, bmasney@redhat.com, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, lkml@vger.kernel.org, mturquette@baylibre.com,
- oss@buserror.net, robh@kernel.org, sboyd@kernel.org, stable@vger.kernel.org,
- vulab@iscas.ac.cn
-In-Reply-To: <1jik3qadhr.fsf@starbuckisacylon.baylibre.com>
-References: <20260915042829.1725639-1-vulab@iscas.ac.cn>
- <1jik3qadhr.fsf@starbuckisacylon.baylibre.com>
-Date: Thu, 05 Nov 2026 08:55:10 -0000
-Message-ID: <179386891087.2018036.1506540529183878937@iscas.ac.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291F3606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 09:05:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 291F3606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 1799a95ed8f811f19a56ed5b684f684d-20261105
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:4919fad1-8fb8-4cf6-acdd-6e9e921fbd01,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:7f8c8dba8eabc189306fe75811240ca5,BulkI
+	D:nil,BulkQuantity:0,SF:102|123|136|850|865|898,TC:nil,Content:0|15|50|99,
+	EDM:5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:
+	0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 1799a95ed8f811f19a56ed5b684f684d-20261105
+X-User: jiangwang@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <jiangwang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1781901378; Thu, 05 Nov 2026 17:05:48 +0800
+From: jiangwang@kylinos.cn
+To: stable@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
+	sashal@kernel.org,
+	amd-gfx@lists.freedesktop.org,
+	alexander.deucher@amd.com,
+	nicholas.kazlauskas@amd.com,
+	Rodrigo.Siqueira@amd.com,
+	harry.wentland@amd.com,
+	Wang Jiang <jiangwang@kylinos.cn>
+Subject: [PATCH 5.15] drm/amd/display: skip pre-flip post_update on DCE
+Date: Thu,  5 Nov 2026 17:05:43 +0800
+Message-Id: <20261105090543.930342-1-jiangwang@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,50 +73,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:zQCowAC3ULZwROxqX1lcAA--.2626S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7GF17CF15CF43KF1kKr4Durg_yoWDurg_W3
-	4ktrZxCw17JrW7WanIkF4Yqr4xtw1kZry3Z3y0qrn0gry5ZF1kXan8WrnIgF1rtFWFgF9x
-	Kr9xA3y7CwnFvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb-AFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2
-	jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52
-	x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
-	XwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrw
-	ACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
-	wI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2
-	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
-	6r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
-	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IY
-	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
-	0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JjU-B_UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgYCA2rsPlMYWgAAso
+Content-Transfer-Encoding: 8bit
 
-Hi Jerome,
+From: Wang Jiang <jiangwang@kylinos.cn>
 
-> This is PATCH 2 out 6 but there is not thread, cover letter or other
-> patches. I can't tell if there is a context I should be aware of.
+The v5.15.119 backport of the dc_update_planes_and_stream series
+(commit 3c1aa91b37f9 "drm/amd/display: Add wrapper to call planes and
+stream update", upstream commit 81f743a08f3b) made
+update_planes_and_stream_adapter() call
+dc_post_update_surfaces_to_stream() before every UPDATE_TYPE_FAST flip.
 
-Thank you for the review, and sorry for the delayed reply and the
-confusing submission.
+In mainline that series was merged in the same cycle as commit
+32953485c558 ("drm/amd/display: Do not update DRR while BW optimizations
+pending"), which restructured dc_post_update_surfaces_to_stream() so
+that disable_plane()/optimize_bandwidth() only run on DCN, retaining the
+legacy behaviour for DCE.  That companion commit was never backported to
+5.15.y, so on DCE every desktop flip now runs disable_plane() for each
+unused pipe - an ATOM enable_disp_power_gating VBIOS call each - plus
+optimize_bandwidth() immediately before the new surface address is
+programmed.
 
-The six patches are independent leak fixes across cpufreq, clk, driver
-core, and perf. They were grouped only for convenience and do not depend
-on each other; there is no additional context needed from the other
-patches to review this one. I sent them without a cover letter or proper
-threading, leaving this patch on its own despite the 2/6 numbering.
-That was my submission mistake.
+On Carrizo (DCE 11) this occasionally wedges the active pipe: the
+surface update stays GRPH_SURFACE_UPDATE_PENDING set forever and is
+never taken, GRPH_PFLIP never fires, drm_atomic_helper_wait_for_flip_done()
+times out and the desktop freezes.  When it hits the first desktop
+commit after boot, the pipe scans out zero data, which shows as a green
+screen on YCbCr 4:4:4 HDMI outputs (black on RGB/DP).  A VT switch
+recovers because the full modeset reprograms the front end.  Wedging
+boots also show "atombios stuck in loop" in the EnableDispPowerGating
+table and smu8 message timeouts.  Later modesets can deadlock in
+dce_mi_free_dmif().
 
-> Please check how you've send this. Consider using b4.
+This is the same class of regression that commit 62e5a7e2333a
+("drm/amd/display: Fix surface optimization regression on Carrizo")
+fixed for the previous call site in dc_commit_updates_for_stream(),
+which the new adapter path bypasses.  Mainline is not affected (DCE is
+guarded inside dc_post_update_surfaces_to_stream(), later cleaned up by
+commit 9571dbaf98c8); 6.1.y, 6.6.y and 6.12.y all carry the guard.
+Only 5.15.y is missing it.
 
-Thank you for the suggestion. I will check the submission workflow and
-look into using b4 for future submissions.
+Restrict the pre-update call to DCN, matching mainline behaviour.  The
+full mainline rework does not backport cleanly; this is the minimal
+equivalent for 5.15.y.
 
-Sorry again for the delay and the submission error. To avoid adding to
-your review workload, I will hold off on resending this patch for now.
-If you would prefer a resend as a standalone patch without the series
-numbering, please let me know.
+Tested on LENOVO 90K7S04400/3141 (Carrizo, Wani [1002:9874], DCE 11,
+BIOS M25KT37A): without this patch the wedge reproduces within minutes
+of desktop use on 5.15.120 and later; with it (and on v5.15.110 which
+predates the series) it does not reproduce.
 
-Best regards,
-Wentao Liang
-
+Fixes: 3c1aa91b37f9 ("drm/amd/display: Add wrapper to call planes and stream update")
+Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
+---
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -376,7 +376,8 @@
+ 	/*
+ 	 * Previous frame finished and HW is ready for optimization.
+ 	 */
+-	if (update_type == UPDATE_TYPE_FAST)
++	if (update_type == UPDATE_TYPE_FAST &&
++	    dc->ctx->dce_version >= DCE_VERSION_MAX)
+ 		dc_post_update_surfaces_to_stream(dc);
+ 
+ 	return dc_update_planes_and_stream(dc,
+-- 
+2.34.1
