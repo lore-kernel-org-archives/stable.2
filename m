@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793901088;
-	b=O3VoOLSEA3fn8nu7/ZAHJjjz30Yllpk+OMKzyA2xBxem3vCPo9QbRRZpbkH7PaSVrxmz
-	 EkbkbBxpt4TUO/t//mjzxPuHwfsV5dUQhbhCqBUMDiBITHI7sez8AsF9ojUH9PuFKtfPS
-	 soUcMKtHgtO1wsC3Ge29KgxSLCZe8Ys3XhTemhdsh5tPnXiSetay1l9+rybP3iAplNLgv
-	 zXnD7tGXrM4INUyKNq0dgiI40QvxcUkQX9oKTxGlHbZ96Ax+nAqSVFxrh3lzoWSwvz2RW
-	 h96LVJcRpX4k91uqlkxE/Hae+pC0OnUIcQMa9QDRTlzvVzllbiezDNqrq0od/ZQbNvA==
+	t=1793901106;
+	b=HtdqyvtNtXw9+XiEiAlJvC4W59R4Bsy/LY3hAOaPQmiKcAoR8ZapLbOqZUzBx/2oI7rx
+	 CBpZl/FUya9ahty9lVPFlYMiRLxuvF4GeFULsVKWEUYnmjFolnhNqH+dnHI9hGBj0u4Te
+	 Ivcc2PKrU0IRS4H/CKi4LArUxTTndg3kH9IduqPNYTj0TiipheQJZFn+wl+xn212uIa2+
+	 kCeQQAE/Hf0QwOw37ZanvJlHwV2IwLh0Yidzz5Bne1+N/rjBguCzpOJi6gxbRNejd/ZxA
+	 xDiiedx/tdfWld0P0WWMQX5vTyQZ7qqQ2e3txh9AjkwT3w6UGjCgas9L7tbagtqKAlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793901088;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=KJizlVtBLvzGN6fffR98BVrqK2zlPa9v71oTuZwwdI8=;
-	b=W0aRD1L1cJTBJwoxne+eOoAaBKjHS1XVXPY2+N2FCLJTtbP4dXL2AsrlYcGKrt50+UJT
-	 N8hNj6pJoOi9qPKg06b70ZZx8kchHoI2RMyZPtvZfql3tWuydO9DsUdaGu7xb9Yu2UeGv
-	 7X4WXnjeYiJJISNfi3lsFbkIJ/Ima9uV6nBuoXpi2sycQFb7JUJFtlLAX85C9WDd1B8qX
-	 x3zlqB7ol+ThHVqNdOmY+Ko8sYjAN73kr775tc58t8V8zPJv6RrdA8ZtAxEQBlgRDhfR1
-	 PZU5XxY5UMXpftJqde430m/c2Mc2Xnm1thM+fnzp3xtHtVXkJ/ySwbtazvn/G8LjgWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793901106;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Fhzy3KFyDdQSYQcQv9yXTQpFZz2nuIcDTt0lGpxe3/g=;
+	b=3Tfm9e7r+v7FUo+gLpBaQDFPQ5sMOWL2O67QIeULEu1P0f0mD7WLtWagX1rFyRi+DB92
+	 pdXt4Yk5s/wl3N7ZI9U7cyj0kx66bgB7GpQEDgyw5siUNYJoe9TcwCGv+9t/UwnJrxIjt
+	 Nv/0maVFZLT+dR3SlL/H/bh95GD9Bi7MYb52GQHvpQnPA/8dOOiKPw5xLs5jwGLIa2wXA
+	 OYb/b/FX5fwXIKuNCBKFtgcyiLt6SpSXPt5qgR18QgCKFPalU1RglUb+CRoH5NrlrFPB4
+	 I9MOiDN4sbQs0xoVSxprJBt7bXBf4njPbgLFVtPApvwjxgrjyn/1bX+beD9O/U+tNVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hkd7bdBE;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nGL2oH2C;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0193A606A333;
-	Thu,  5 Nov 2026 17:51:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0193A606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090F8606A328
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 17:51:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hkd7bdBE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793901088; x=1825437088;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=BWER8i7SUATVcxdzh06wJWoUzJI5CFwAxDOJkt5Txq0=;
-  b=hkd7bdBEhXuCC9cgDMTL6X6KL4Yy2/4mX5f9okj+aekdWsZOieSDhDo3
-   WxmIrheHAKI/nfFT3TJSGmPzFNm955TiqCrMD+D8TPOgOivcqiyzVbJI8
-   9Hl/cAZXWl0/3r3LN7NED7OqpAkw4tcIzq/iaAiDNqGunEpIm6gslc1SN
-   XbLme/1A4XikVfu+y8Uibq4p0404sEFyywIMiFq58w5tv/3jP+xd5uYme
-   LHPpjmZNpPfUvzYJKyXpsuAc7JY1tzUBGbciZa0kufIgU3LddhVZPRzU/
-   SgyXCPN/zTaQ8r40O/odBBJdXe/MU1Qp5ueJJrWdfbxcHS/THs+KGilsE
-   g==;
-X-CSE-ConnectionGUID: 5ezkPAvfSWWx6+bizoFGvQ==
-X-CSE-MsgGUID: kYarc4NmQjOuMoZrMAihjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2572539"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2572539"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 09:51:27 -0800
-X-CSE-ConnectionGUID: IhHYZZPaQ6mI9dTOiuHkXA==
-X-CSE-MsgGUID: kZNdolaiT1O3YI1/PgB+vg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7064865"
-Received: from amilburn-desk.amilburn-desk (HELO mnyman-desk.home) ([10.245.244.193])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 09:51:26 -0800
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-To: <gregkh@linuxfoundation.org>
-Cc: <linux-usb@vger.kernel.org>,
-	Xu Rao <raoxu@uniontech.com>,
-	stable@vger.kernel.org,
-	Niklas Neronin <niklas.neronin@linux.intel.com>,
-	Mathias Nyman <mathias.nyman@linux.intel.com>
-Subject: [PATCH 2/5] usb: xhci: disable the correct slot on alloc_dev failure
-Date: Thu,  5 Nov 2026 19:51:03 +0200
-Message-ID: <20261105175106.241182-3-mathias.nyman@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261105175106.241182-1-mathias.nyman@linux.intel.com>
-References: <20261105175106.241182-1-mathias.nyman@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nGL2oH2C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1573B1F000C1;
+	Thu,  5 Nov 2026 17:51:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793901105;
+	bh=Fhzy3KFyDdQSYQcQv9yXTQpFZz2nuIcDTt0lGpxe3/g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nGL2oH2CVcATrDVDij5fG5rYPlJOUdlFZGoAqt4Qbtc2MoGu+RVp3LgJ2Zxv8OxYY
+	 3BAUfDZbNO7fcOHw32VTqEGH8t/xhsSgns91pcJjGeRv9e/FUj5flaImrDin5yp9QH
+	 BQUQFQrV9uEVqI6tFB9Zcq7Us/669xlLkVK7LsMrJD92863KHiPrI7eVf6XP7Ruwld
+	 XoGBcS069sg0+q+hXmp4+2Hpy93rqYOjL8L+fJgcgrUyQQI7qkQKcuYfCpVhX9IPDg
+	 5gZ7TsxnB2C7knPu8WLUkMmmxlPB1HQgPMq+0Iv4kODAhD32pVI2A16+D5x0L0pqJv
+	 OD1VmW9IWISBQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Abdifatah Suruur <suruurism@gmail.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] smb: client: fix fiemap wild read on empty truncated response
+Date: Thu,  5 Nov 2026 12:51:43 -0500
+Message-ID: <20261105175002.2263115-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110448-freemason-fetal-7d15@gregkh>
+References: <2026110448-freemason-fetal-7d15@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,45 +61,91 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xu Rao <raoxu@uniontech.com>
+From: Abdifatah Suruur <suruurism@gmail.com>
 
-xhci_alloc_dev() stores the Slot ID returned by the Enable Slot command
-in the local slot_id variable.  udev->slot_id is updated only after
-xhci_alloc_virt_device() succeeds.
+[ Upstream commit f5baa17a0f316c235d61623ac8e8fb32c2b3c0cc ]
 
-If endpoint resource reservation or virtual device allocation fails
-before that update, the error path passes udev->slot_id to
-xhci_disable_and_free_slot().  During initial enumeration this is slot 0.
-When reallocating a device whose virtual device is missing or belongs to
-another usb_device, udev->slot_id may contain a stale Slot ID.
-The newly enabled slot can therefore remain active, or the wrong slot can
-be disabled.
+smb3_fiemap() treats -E2BIG from SMB2_ioctl() as a truncated range blob
+and loops for the next chunk. If the server reports
+STATUS_BUFFER_OVERFLOW with OutputCount == 0, SMB2_ioctl() returns
+-E2BIG with out_data == NULL and out_data_len == 0, and the existing
+length checks accept the empty result. The loop then evaluates
 
-Pass slot_id, which identifies the slot enabled by this invocation.
-xhci_disable_and_free_slot() already handles a missing xhci->devs entry.
+	next = out_data[num - 1].file_offset + ...
 
-Fixes: 3ffbba9511b4 ("USB: xhci: Allocate and address USB devices")
+with num == 0, reading 16 bytes before NULL.
+
+Reject a truncated range blob that contains no range, so the resume
+offset is never computed from an empty response. Also require the last
+range in a truncated blob to advance the resume offset without
+overflowing, and to stay within the requested range; a malicious or
+broken server could otherwise make no progress or underflow len and loop
+forever. Free the previous response buffer before retrying.
+
+Reproduced on 6.6.87.2 with a malicious SMB2 server that answers
+FSCTL_QUERY_ALLOCATED_RANGES with STATUS_BUFFER_OVERFLOW and
+OutputCount == 0; an FS_IOC_FIEMAP ioctl on the mount oopses in
+cifs_fiemap() with CR2 = fffffffffffffff8. The code path is unchanged
+on mainline.
+
+Fixes: 2f3ebaba13ce ("cifs: add fiemap support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Reviewed-by: Niklas Neronin <niklas.neronin@linux.intel.com>
-Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/host/xhci.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/cifs/smb2ops.c | 30 +++++++++++++++++++++++++++---
+ 1 file changed, 27 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index b50a582be1fb..94da0268b7b3 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -4301,7 +4301,7 @@ int xhci_alloc_dev(struct usb_hcd *hcd, struct usb_device *udev)
- 	return 1;
+diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
+index 2fe90bcc44b84..cf7c70a14730e 100644
+--- a/fs/cifs/smb2ops.c
++++ b/fs/cifs/smb2ops.c
+@@ -3915,6 +3915,15 @@ static int smb3_fiemap(struct cifs_tcon *tcon,
+ 		goto out;
+ 	}
  
- disable_slot:
--	xhci_disable_and_free_slot(xhci, udev->slot_id);
-+	xhci_disable_and_free_slot(xhci, slot_id);
++	/*
++	 * A truncated range blob must contain at least one range, otherwise
++	 * there is no offset to resume from and out_data is NULL.
++	 */
++	if (!last_blob && out_data_len == 0) {
++		rc = -EINVAL;
++		goto out;
++	}
++
+ 	num = out_data_len / sizeof(struct file_allocated_range_buffer);
+ 	for (i = 0; i < num; i++) {
+ 		flags = 0;
+@@ -3935,10 +3944,25 @@ static int smb3_fiemap(struct cifs_tcon *tcon,
+ 	}
  
- 	return 0;
- }
+ 	if (!last_blob) {
+-		next = le64_to_cpu(out_data[num - 1].file_offset) +
+-		  le64_to_cpu(out_data[num - 1].length);
+-		len = len - (next - start);
++		u64 last_start, last_len;
++
++		last_start = le64_to_cpu(out_data[num - 1].file_offset);
++		last_len = le64_to_cpu(out_data[num - 1].length);
++
++		if (check_add_overflow(last_start, last_len, &next) ||
++		    next <= start) {
++			rc = -EINVAL;
++			goto out;
++		}
++		if (next - start >= len) {
++			rc = 0;
++			goto out;
++		}
++
++		len -= next - start;
+ 		start = next;
++		kfree(out_data);
++		out_data = NULL;
+ 		goto again;
+ 	}
+ 
 -- 
-2.43.0
+2.53.0
 
