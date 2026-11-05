@@ -1,110 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793885032;
-	b=uYJjIfHMRn0Hg35ZSk65cDY49k8GUjjh07k8KTL/tfIRG4odKMTgF8wumFHMdXgbun8g
-	 7NqXcbHeGawAM+vGP9Ay5iIEO3H/2WPAHu1M3h5HVQKMM+LuJMViYbAAE2LOQEKvkevTs
-	 WquWrH0rQMNM4zW2uzZcuQSi0ucP8RULSvZek6lKzvYciRG+5zSglzfqUbjQegYPJLoQ4
-	 RN4ZOTESktk7+G/CMF/7QNBZZsLxDmVkoXJbJdrr3Kn4/nlzuqgRt62crkyGaKBdQJYAT
-	 bWDfCIYc0dBA92++Jls2/uwGMffS6u5F/xpFI8e/15supUdaVWZ4B38RfE8V/lvktBA==
+	t=1793885230;
+	b=dtZHE6aoC6I3UnAshesTO5NqxWDCH8UypY0AyJV0C3PcVOICFV9+lJZ4mMhLthcCsLXm
+	 gCeyI2IUsNBfQyIYWRKkJ0iCexr35sKL/WtfsvoQdj3RA14utM19GPs4fXub1QCGlwsKu
+	 4y/Nq7+NJPOvh+8KGOMYIXhFesd+nFciZi1ebp422jaFfUIEOhhdjnis4Vas6y5qS5YJI
+	 bdmH92n9dIw9YVNzMa7wNzOf650zOUBu8lGDM6RHcTwyVTStJ6H5fZchM6Ce8JtIyHNVj
+	 RgWJtkRmccX9VO09+1Zx+DazM3712Hb2scRQYPM2Zy4XCDHm/tMHmVC2ixEQObDH9zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885032;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885230;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=TRdxMZNVjHvNy5Du8W+cgRIYuVrbLC7KA1TotGIZa8I=;
-	b=jT54CtYuWfJl7qLYUGOIUCAZh+VR6FhkUBk3Ecjc1E9eNjoDTDHtM4PeM08GLKaMnK1N
-	 nkQ60os8dW5NVa9/mbgabFaioqRs2yCd65nqbRmCAQAlYtqMV3wmcrKPb7fwooKykGi9K
-	 f+Z4nVQeJGBMSIAyLWuN+0iLfFJl5cU39Ug2pmdhC9Xvp4+/kLqZJnPSxV4BcaGRMgeyM
-	 6vcoQy2vSkyEEWaUEaDY3Mi5iM7rinIO7AAVI0AgstkWDVHSCu9jGgvYCc6veNSOFEqlA
-	 FuHqJzRKaER2Wb2rx2dS/or+0jHjPkByBcbvGBqPC289XNHOjCZQNsY/MAJEo0QC5nQ==
+	bh=98OiPx49EcvXitIDKDeOXoaiDqN6ZgRkA3EyVm4UFHM=;
+	b=0FHl7Um3d9uhmCHEhuezAW2PPL8Z1JSiltIfpPladLEgLWC9H3PDvFqMI0QSDbIMZAcT
+	 ojwpgKnk0I1YrZDTIDJsqVYPBZ8i17hPi9Aeu7mY94/Y/yJKpdthuZPHRIukxphsfN7vf
+	 cntC/4tS70kxcf0Da0C5G6hla4W7ArghrPpt67taJoWV6kXN7DtmOrUh5i/aZTAgZFwJ4
+	 A0v8No5lj/Z/52QQG8g0DUaRNE5r1ogooeibEz4wAJ3Kq2PfbQcECW/bGuGKRh0jQKwHA
+	 RIH6uQcUml5Tr5m4sGL5uSZkqyCot5we9Or3cSB/fhG+T5qqd/qasGVHlfjRp9oX08w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VFgFUCiQ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FYXYWVLr;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p2BeMQ+A;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=i7Dfg9dm;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF009606D83B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 13:23:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF009606D83B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835AA606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 13:27:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 835AA606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VFgFUCiQ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FYXYWVLr
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A59tGLi082966
-	for <stable@vger.kernel.org>; Thu, 5 Nov 2026 13:23:50 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p2BeMQ+A;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=i7Dfg9dm
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5B3LWS3193503
+	for <stable@vger.kernel.org>; Thu, 5 Nov 2026 13:27:09 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=TRdxMZNVjHvNy5Du8W+cgR
-	IYuVrbLC7KA1TotGIZa8I=; b=VFgFUCiQj1DACVLVZoF5SJI2CqdXt6wFCTtkmX
-	A+td797+6XNXi9fmnsEOE0sm3n4K+Cz5A4nKtgK2/VTCTpqsIvZA0upmCpO/dcj/
-	AMaKHE7mxFk8nbDHIYIqtY90vji7q9jtroiJtwtf4TjybHLCEfSryKre0O0Vgyco
-	1tosd/c8VCHrZadjEuH277v/Uc6liwTLTM4uc1qCToM+SuMvdWSXkY57FRXqKRC2
-	v9P89rG1dXliOSc6NFezCR3pAEzVfeeijTnZsssumB0e+A1RmXhSiUPSMCchtrM9
-	yj3N1NJQD7UKLkXbNfB9+OsmvvrNuGBE5zDphSbNl3U8d+pQ==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrq1p10m1-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	98OiPx49EcvXitIDKDeOXoaiDqN6ZgRkA3EyVm4UFHM=; b=p2BeMQ+A398c3DNO
+	AVoR2dD4KtpBQZ4IGRhFqrGfZAQefhRlw1cVGd9iVMFEnu2FmN7e9EZzST0daoPJ
+	1faocORnAv3Ln9YrJL9uiPwMhAceS7b05ZffwQEWhENJ4skbuBTMyXYfmMvOpZdF
+	wPAIHnGXWQD0xv3O5prcLR7MObqysQegDQqf6HYsZuSwrDERV4W92GpyFl9qCt7+
+	34wy36no9Sr7m+Y0G7qjL4HePVYhtBfIX9n2egeXrolyFsPM1bXGXRhZmh29ZjNJ
+	+PtqQ1JORZhykeTBYp0zmqCWOZEOp6EWuNfQlGA8yxPJdYEudQjGm3ZRJmcMeIPK
+	dNYbCw==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrrkdrksm-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 05 Nov 2026 13:23:50 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-99939c0007cso323037241.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 05:23:50 -0800 (PST)
+	for <stable@vger.kernel.org>; Thu, 05 Nov 2026 13:27:08 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cd6532dbd7bso1261983a12.2
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 05:27:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793885030; x=1794489830; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=TRdxMZNVjHvNy5Du8W+cgRIYuVrbLC7KA1TotGIZa8I=;
-        b=FYXYWVLrCWH+QW/3bYsrKYe5Rs/CIO2vkbNwDamT7243Ypkbq0vdrhu5r425nzcaNq
-         Xgrnc8AeBpAtF5wI75iyERjaADdbrNouTyWJSo25Ob4uwbkeyxnIR28CXwoC6+zfv6iJ
-         6p7FcqJ6ckPSZOy89U+P1z93l3Xzwoy4TA+aQ1aNil5srJZjNBA60boTSqmLjM4rBt31
-         X9A3S1wyvgBXVbfbnCEA3gZzvRBQaobjzyYWaWPMjLhVbV9b4QP8LXnaWGGH2OS2v5Td
-         nsam7ynCpZI6z6rv67AkGDyy+m0LDwkIgXvSkkbQWWQG5j4N7OL2fj4GKF9hyx7LyGy+
-         BNFg==
+        d=oss.qualcomm.com; s=google; t=1793885228; x=1794490028; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=98OiPx49EcvXitIDKDeOXoaiDqN6ZgRkA3EyVm4UFHM=;
+        b=i7Dfg9dma5tADAzF+ffvAvJewuKKYsigi523d5j+U6H7Fgyjhnpg0hp59wMobO5H/T
+         1QeYr8s8rZUREHxwfuKLOPT2SLcmXA+N3yIs6ft3Vr9L8MgtFkWLvY3kgrvq7zk2DFqE
+         7Y7mFVRaJbrMJfvW5gm3r8WDMbiJ2MygUewkhkJJNv2MZGyx/l42x+HmTtwBi0JKL49q
+         3pPUgPvh9bULH4fLOOFqQ5DIkWESZMs5wh11HBv/4GgwlYYs402L3g84svgYZQhpfGzp
+         WXXq9W9wNebhzAXygb8I7H+/c379NqklE5ZDCP5KJM83Q3lr04KVdXarPXF7+EmZ6pNA
+         8YeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793885030; x=1794489830;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=TRdxMZNVjHvNy5Du8W+cgRIYuVrbLC7KA1TotGIZa8I=;
-        b=iO6BT+05w0MF6jkPFdiVK/HyOYWrURpENS8WiOIyDuxkMyU9qVyrfJ3sb6Nvu5e45C
-         zA0YvHIt99iXzXLps5lCaq8qW4g1POBbfxRvOKDby8eXppBX8gW0l0CegLgJqpApRbaF
-         62R3eP1ajrhn61CrqB/zWq8wFjVwpWABvwHy5nMm1DXK8Ppwr12hhNh/HRiXIev+S1T0
-         mIoUXRFEo0T9PzBjHfMaAxLnvee6TCH2pC36Z/oJ8n7a8CJ8eBRKh67SFZeIg+bAe9YH
-         1UVtz+HSDSLSQnxOsmopgN4Nh1re4HEnvCDK2/fRx5pzBYI2Esvw3ycqN3Oz5i+fC/yg
-         Q/JA==
-X-Forwarded-Encrypted: i=1; AKwUvByr7ykaim4QgPk02sszrAVtgN2/9QDvtxL40fBAXWQBvgdoI2mbvdY+ZBMkDCfm/99ta5x/zzo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+GHggY9O2wbonyJOTyTTpvtK/AuJVjNe0pxVjKg99qQvomvuXt
-	CPkrTBKNgi2XpmT9NJwS2U1aPMhXy/zgpGF+iHPgllu7cyMb3XXMMcO49B5FyyFGWNY7KFHhuPI
-	kduXSEOArae+o5Ol+LzHks+qEjKtgQOu5E+2/rvbMauRXfc+NxQ6Ua+FXXLI=
-X-Gm-Gg: AYBFou109mddH0YkdDPtuLmaK1ZVYMhpr5DhFZi40d4dPzpE2EAg+TtNJwyy1lZvIjE
-	3HspI0MbAaqJuaJsNrKbfCq6Iko5ZBzGzqkRUd5QqiMzCGyyXvhegD0qe91iZSow4LoIU60GRxE
-	sztloq31IWoTby6E/NNOjY6eteq9jkTs4rbHB6F/jaqF1jADET6F7/U7maqYwteaDuNwKLkF0Pk
-	WnXVN3usgf+O5n4WDC2YhxWBlKhW2g77Di3bmWQ3uEGS1RkmSRGT/XzuC3F89N8WOwLxpUmy3Bo
-	dy4xIn+ypbneFub+2MoMZxYq8JTwa/0bjNJJfR2umQfnQxqHvpAeKztxAI2zvDFes8mE7yBwhvH
-	Mglb4WnNwtNVQu9FylO6ezUkXESJU2eT2YaW2ySjxpR9jqBgvsWkqWn9pE2rBqW7mulJ2ODHuz3
-	E6AQ==
-X-Received: by 2002:a05:6102:3910:b0:7a7:19aa:f0d8 with SMTP id ada2fe7eead31-7d0728e5ca0mr6759290137.37.1793885029814;
-        Thu, 05 Nov 2026 05:23:49 -0800 (PST)
-X-Received: by 2002:a05:6102:3910:b0:7a7:19aa:f0d8 with SMTP id ada2fe7eead31-7d0728e5ca0mr6759267137.37.1793885029286;
-        Thu, 05 Nov 2026 05:23:49 -0800 (PST)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda20521sm10347207f8f.53.2026.11.05.05.23.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 05:23:48 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 05 Nov 2026 14:23:45 +0100
-Subject: [PATCH] gpiolib: synchronize updates of descriptor labels
+        d=1e100.net; s=20260707; t=1793885228; x=1794490028;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=98OiPx49EcvXitIDKDeOXoaiDqN6ZgRkA3EyVm4UFHM=;
+        b=fNtHQwzxt4vziiDAWoUJIlt5WBpHZthZ3MxRV5lZdzdtW0oof3jB2zWO3lT1uY+63+
+         b6ETDXdmvI4Jp9AsYUUSSfGazlu+WGU7wOv4Rss3Kou1A8wqofzM5pq65HxFikVuzYrc
+         woH5HmhU0I/vbP8SRI62PVrBauS9n5DbwMwLwHdAN3d0L+GpZxWzkf1iV0wudeTLzcrl
+         IbNyBwJ0YCeN8niqdWXB11eYIQGLGXxPFGMXXvdgcJy2xmDr/qbkkEwmyRpaOWv7BcW8
+         WwYGLI2+HCMPlCtNQzQKpdcOJ47NaAbn6o5ejylVOnHzGvQkUtNQi2oJk7B9lrZ+8Zlh
+         tECA==
+X-Forwarded-Encrypted: i=1; AKwUvByGTty1ZXTumOfMxvvwRhYsRMQ0ft7Py6kePv0vZiswi2gbVNeD4xsRD/vCY0i976pFnlPZ7rA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YaQAXBphn1+ZH1daYpe1Vyq3Bhel4TUCWp5E6P04a33eCloYJ
+	15s/q6xmC505HxPE2Gidv+HuJVxLF/W+pN8j4kJNOLAlHgQRSoBoYF8/aaqyfv1eKhW0mcdGIIc
+	n1a/4RZ8gNavonnQzl1bvJt9EyfpiUsDTG5hryMUZyX3I6QA6GXfWgvWRars=
+X-Gm-Gg: AYBFou0XOZ5xKbLvMABi3iKRGid25wRXpjM8D9O8fjrPqR1gduKx311PWP9fOU3RPkT
+	mFub6qxRF0tzJXrCJfRDemluJTCeygpTl+oSRUh3e//O4JnX6G4VBaX5p+ZTLSOaX2+o2gIOvyc
+	amCb+1cLBd4PWaJmzhxLoRWxZy9rgPFE19MeV2koE93xubDC9Y0VEWmGdVyNxEr/oruo6Voc3i0
+	3NW5nG556kWISmhtsBPEwKksngIksKv7E338yW89bacokRm81yfFhwdi8+lPY4bz5j3Q3hiySaE
+	kWjhcW9ZAkq1P8u8z39J9Wf81OKmtOpzF+AvsEVWcVc/PavsaKEmHUhFI+2UZoqcFnOj2+wmpdO
+	BMc+3+mTU6DBndVlw1bxzMHawyBwI4zF4Gml818o9qwzlqJJGtZifnjIj31XZfJAP3MmL4jOGie
+	BtDLjgQPlgRN3wrHOGvFyufx7cSU9PYgltEt6QTN6Xbw8Q
+X-Received: by 2002:a17:90b:574e:b0:3aa:ff61:9504 with SMTP id 98e67ed59e1d1-3ae897c94f6mr15087456a91.20.1793885227910;
+        Thu, 05 Nov 2026 05:27:07 -0800 (PST)
+X-Received: by 2002:a17:90b:574e:b0:3aa:ff61:9504 with SMTP id 98e67ed59e1d1-3ae897c94f6mr15087422a91.20.1793885227366;
+        Thu, 05 Nov 2026 05:27:07 -0800 (PST)
+Received: from [10.133.33.108] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b3163383sm3932545a91.7.2026.11.05.05.27.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 05:27:06 -0800 (PST)
+Message-ID: <a4b320d9-ade6-4f39-9e9a-e9a82b13152e@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 21:27:03 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,139 +116,252 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-gpiolib-set-desc-label-corruption-v1-1-fa84726ceac0@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAGCD7GoC/x2NywqDMBAAf0X23IUkxIL+Sukhj61dCCbsWhHEf
- zf0OIeZOUFJmBTm4QShnZXr2sE+BkjfsC6EnDuDM+5prRlxaVwLR1TaMJMmLCFSwVRFfm3rNmb
- jfMzWh8mP0DtN6MPH//F6X9cNDZyeQ3MAAAA=
-X-Change-ID: 20261105-gpiolib-set-desc-label-corruption-d024bd14a945
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3084;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=S9dGRxbbLvzUONk3VoDctp97Hfpf//G89PtLXYijNqM=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq7INj5nfHiFIa+0yq4PcA0EtllMol9ctLKBAt8
- guB6XpYl26JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCauyDYwAKCRAFnS7L/zaE
- wwMREACcQVzemlc3w+9MfHvBXrli9QMVPeW/sAJjjUMW/Ki0E7bc1BapWc45DRPZWMpYE1sYicC
- Ige4xacg3nhq5ckbbNkMu/7j9GXCX72fZ8T0/o4qN4GdbS2/wATcuj+SRKtRnJI13c7lglrAu05
- D5BKrhI/Ut6laKyKfmgKPoJnEijlyvE2SoaX2vQbx2TPiLXQkoshwtOMXEIBQVb7+lyTGfypTEs
- 7gKk+SE8SShuw98O6vtZBsBVCdu7UIio4NrfeKqdE5BmpGFol9w6WWuffOssVnof1yevfYgytV8
- pZD4jqL/onveJJPzwr/mhPfkW/s4L+qb9pyL6HyVHqQKVvHxp1oquCtJxX+bQamjpOl7KdSJok8
- OiqQYInokNVdOxh0+3DkoFS6MAXMch7DdWTDcOHTlKmWyBjT1lVu/fzxxe+lUKEF8pQdq9Wpt8g
- BA93cplfCjCRtiqi9ezqlEPOSkn85c7XfNUhKk0EXpeFbWn1onV+hbouG8wjE/FuFrN5TQZptFm
- lqQKHF1rqF44OKgqEvljL49lS8/Z/4bMDtpQU2E/bHvpmDTjRFXJFAZxhg3Vd/LEKAIEbFbUFST
- 3kNkJt0c9xeF7dqrqGCSajrRiinMdekmNTwBZcoTR19QLGkVDcH0oROUXzon9KXMs0sjlCTU5BA
- LFFZeip8Sy5pDiQ==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Authority-Analysis: v=2.4 cv=AaYkjHXG c=1 sm=1 tr=0 ts=6aec8366 cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=JaOSqjnWr-vPQE8BqLIA:9 a=QEXdDO2ut3YA:10
- a=o1xkdb1NAhiiM49bd1HK:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1MyBTYWx0ZWRfX0R07qHINnj/r
- JpUjQSjLmHqN9K1F2zTgLjIH5RKD9aQhPrrU0DQPj8f3yYmuuYHKXnfH3UotJMhiDsNtcBla02A
- UC4KsyE65XIEpAIbKa0bpJzz9P7444wLCSD8Rz3F0kPDevsfDbBYnIindusA0RUpeHEl5HqZn6j
- njP8Xh0HuVJLdOiwD08XEZrlqsKbddpNXeDQBnX74N3M2y5cCV1B3lrCXNmsa8TYGxYEal6beYl
- AeIcx/ARHfEa3GFbcZ5eXHfUcPRhrnTbsCU+UfaRaAqM5Coh6vg5j2q00CbwIv8tzhuF4XOg/k2
- 4wPsbXYex7e+QXcL3SXm6cBqzpg9yMc+kG0A9Ke4fmnUsdv+DHHk9/hGMT3ytNgynE/EjtKb23g
- 4NnhfLTPU5gV8ZO1k4X+YFv03hfo2TWPWZwAGAThC1Lvw2yZ4xVInzzRve+JdjlYxdkCqjiYbLg
- ZD8A3WVUjRcARHpdwXg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1MyBTYWx0ZWRfXwr+mA7LSXdv0
- guN85/bpfZnAcGzFNjL5Men2i+GYDaaPPjZW1xU/LUOIpSG+pxAS6FizinTbW187nxlrFLFcd4p
- un1bzqt+UlXD6e1rpLhQzh6Yax+UKUU=
-X-Proofpoint-ORIG-GUID: Kbvrt_gN3OaG_cDzeFn6AQRQ846rRM5s
-X-Proofpoint-GUID: Kbvrt_gN3OaG_cDzeFn6AQRQ846rRM5s
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cpufreq: Only cache resolved frequency in
+ cpufreq_driver_resolve_freq()
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: viresh.kumar@linaro.org, vincent.donnefort@arm.com,
+        linux-pm@vger.kernel.org, stable@vger.kernel.org,
+        zhongqiu.han@oss.qualcomm.com
+References: <20261104153042.3987338-1-zhongqiu.han@oss.qualcomm.com>
+ <CAJZ5v0gAXT+gEF7_dpJuDZDxB1hu7+Tq5dacZZhGz=X+VKDNwQ@mail.gmail.com>
+Content-Language: en-US
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+In-Reply-To: <CAJZ5v0gAXT+gEF7_dpJuDZDxB1hu7+Tq5dacZZhGz=X+VKDNwQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=Xd4cX455 c=1 sm=1 tr=0 ts=6aec842c cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=KC6K3fDbvlfE3RyZnzgA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
+ a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-ORIG-GUID: _Tx9CrVnwuue0nbDT31GvsBrZE75DWsI
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1MyBTYWx0ZWRfXx0rbCj6IX8D8
+ xsCXYnueIomQB1SLak31Yw8pCIisSEByP4SLMrXC1gioE0a1f+u2tAMiUbFcJ3d9gKvnRT+KsX+
+ nmi6CcyT17D3p0UrgPMrW7DVD4dwKQI=
+X-Proofpoint-GUID: _Tx9CrVnwuue0nbDT31GvsBrZE75DWsI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1MyBTYWx0ZWRfX12FyiHgG7BwO
+ fnMkaOvVvAFWBTSqYpDLTWXLU8dlVeKnVy18nuJ+yIAMFYSmXPPL+LWvrBL9wKCE4zmf9sfR7Fq
+ CiAV3cXqJzFnRc9AdAHjMAqIBCM8NPOoRCiQfoLyD1E8dbAm2upUT01Zajjf8TAtbirMQaVsNHP
+ ZBJRCTaqNxJ2N0aZckVr72loNIQ5odc/vbF2t+ZLgO39+ScnKjz9OKHUrQMYUw4C0hPcvB8fXvB
+ RhLoRbFr5xs6SX2eO4Xk+aQGRSTkOlaL8fV4lSOHeYeZWlHp4+g3q3cSrnu+UhrbFesxiRaZhtp
+ oibwWvvfQk0tANy+yoUdu5z6ssNp1tHCQPTD279KaPH7wFvWY1mg/xckE+dHo/sV9sDytQziyYP
+ X1+pG2ry6Rvgr5uOrK3zExmie1qRILB9a6CPmIeF47HJ31E66283Aj+1XJmgyY0S5U+aEQxruxX
+ MIaBFMmavjYqeyDhNcg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 clxscore=1015 suspectscore=0 spamscore=0
- priorityscore=1501 malwarescore=0 lowpriorityscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050053
+ priorityscore=1501 impostorscore=0 malwarescore=0 phishscore=0 spamscore=0
+ clxscore=1015 adultscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050053
 
-desc_set_label() swaps desc->label with rcu_replace_pointer() but
-without any synchronization of concurrent updates. The swap is a plain
-read + write: two threads can observe the same old label and then call
-call_scru() on the same SRCU head corrupting the state of the chain.
+On 11/5/2026 3:04 AM, Rafael J. Wysocki (Intel) wrote:
+> On Wed, Nov 4, 2026 at 4:30 PM Zhongqiu Han
+> <zhongqiu.han@oss.qualcomm.com> wrote:
+>>
+>> Commit e3c062360870 ("cpufreq: add cpufreq_driver_resolve_freq()") added
+>> policy->cached_resolved_idx so that "a subsequent fast_switch operation
+>> can avoid repeating the same lookup", and made cpufreq_set_policy()
+>> invalidate the cache instead of filling it. That is, the cached index is
+>> only meant to be used by the frequency switch immediately following the
+>> resolution that has produced it.
+>>
+>> However, two other places now access the cache without synchronizing
+>> with its other users:
+>>
+>>   * Since commit f9ccdec24d91 ("cpufreq: Reuse cpufreq_driver_resolve_freq()
+>>     in __cpufreq_driver_target()"), __cpufreq_driver_target() reads the
+>>     resolved index back from the cache before calling ->target_index().
+>>     sugov_work() calls it without sg_policy->update_lock, so the scheduler
+>>     path (a tick on the policy CPU or a remote update) can overwrite the
+>>     index via cpufreq_driver_resolve_freq() meanwhile. This matters when
+>>     sugov_hold_freq() discards the lower frequency resolved there, leaving
+>>     the CPU below the frequency schedutil has kept for it.
+>>
+>>    CPU0 (sugov_work())                  CPU0 (tick interrupt)
+>>    __cpufreq_driver_target(f_i)
+>>      __resolve_freq()
+>>        cached_resolved_idx = i
+>>                                         sugov_update_single_freq()
+>>                                           get_next_freq()
+>>                                             cpufreq_driver_resolve_freq(f_k)
+>>                                               cached_resolved_idx = k
+>>      __target_index(cached_resolved_idx)
+>>        ->target_index(policy, k)
+>>
+>>   * Since commit 151717690694 ("cpufreq: Make policy min/max hard
+>>     requirements"), cpufreq_set_policy() updates the cache as a side effect
+>>     of __resolve_freq(), which can race with governors switching frequencies
+>>     without policy->rwsem (schedutil, ondemand, conservative), and a similar
+>>     race was addressed by commit 7491cdf46b5c ("cpufreq: Avoid using
+>>     inconsistent policy->min and policy->max"). qcom-cpufreq-hw and
+>>     apple-soc-cpufreq ->fast_switch() read the cached index directly too.
+>>
+>>    CPU0 (sugov_work(), work_lock held)  CPU1 (handle_update(), rwsem held)
+>>    __cpufreq_driver_target(f_i)
+>>      __resolve_freq()
+>>        cached_resolved_idx = i
+>>                                         cpufreq_set_policy()
+>>                                           __resolve_freq(min)
+>>                                             cached_resolved_idx = j_min
+>>      __target_index(cached_resolved_idx)
+>>        ->target_index(policy, j_min)
+>>
+>> In both cases, schedutil does not call the driver again until its
+>> selection changes, so the CPU can get stuck at a frequency it has not
+>> selected. All drivers implementing ->target_index() are affected.
+>>
+>> The cache is only consumed by ->fast_switch() right after
+>> cpufreq_driver_resolve_freq(), so only update it there and use a local
+>> index in __cpufreq_driver_target().
+>>
+>> Fixes: f9ccdec24d91 ("cpufreq: Reuse cpufreq_driver_resolve_freq() in __cpufreq_driver_target()")
+>> Fixes: 151717690694 ("cpufreq: Make policy min/max hard requirements")
+>> Cc: stable@vger.kernel.org # 5.14+
+>> Signed-off-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+> 
+> Please see Sashiko's feedback on this one:
+> 
+> https://sashiko.dev/#/patchset/20261104153042.3987338-1-zhongqiu.han%40oss.qualcomm.com
+> 
+> and let me know what you think about it.
 
-Add a spinlock to struct gpio_device - we're using a single spinlock for
-all descriptors as using a per-descriptor lock would unnecessarily bloat
-the size of the desc array with very little chance and no consequences of
-contention - and use it to serialize the pointer update.
+Sashiko reported two issues here.
 
-Cc: stable@vger.kernel.org
-Fixes: 1f2bcb8c8ccd ("gpio: protect the descriptor label with SRCU")
-Closes: https://sashiko.dev/#/bug/linux-2f7ac8b6-5034-4ff1-9afa-5700ff44e3e9
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- drivers/gpio/gpiolib.c | 11 ++++++++---
- drivers/gpio/gpiolib.h |  2 ++
- 2 files changed, 10 insertions(+), 3 deletions(-)
+(1)The first is the build-time warning due to uninitialized idx, which I
+will fix in v2.
 
-diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
-index fbdeda2f278713a47c2e3d2a6640f387f6d92227..574f1b161d22c41e5f9248fe59efe25d7fcf5032 100644
---- a/drivers/gpio/gpiolib.c
-+++ b/drivers/gpio/gpiolib.c
-@@ -154,9 +154,12 @@ static int desc_set_label(struct gpio_desc *desc, const char *label)
- 		memcpy(new->str, label, len);
- 	}
- 
--	old = rcu_replace_pointer(desc->label, new, 1);
--	if (old)
--		call_srcu(&desc->gdev->desc_srcu, &old->rh, desc_free_label);
-+	scoped_guard(spinlock, &desc->gdev->desc_lock) {
-+		old = rcu_replace_pointer(desc->label, new,
-+					  lockdep_is_held(&desc->gdev->desc_lock));
-+		if (old)
-+			call_srcu(&desc->gdev->desc_srcu, &old->rh, desc_free_label);
-+	}
- 
- 	return 0;
- }
-@@ -1201,6 +1204,8 @@ int gpiochip_add_data_with_key(struct gpio_chip *gc, void *data,
- 		goto err_free_ida;
- 	rcu_assign_pointer(gdev->chip, gc);
- 
-+	spin_lock_init(&gdev->desc_lock);
-+
- 	ret = init_srcu_struct(&gdev->desc_srcu);
- 	if (ret)
- 		goto err_cleanup_gdev_srcu;
-diff --git a/drivers/gpio/gpiolib.h b/drivers/gpio/gpiolib.h
-index 650a702741dfb938fbdf11db65a46ac85b6af512..8dd8ea747f8a907664ca334b29b6602661c3767d 100644
---- a/drivers/gpio/gpiolib.h
-+++ b/drivers/gpio/gpiolib.h
-@@ -37,6 +37,7 @@ struct fwnode_handle;
-  * @valid_mask: If not %NULL, holds bitmask of GPIOs which are valid to be
-  * used from the chip.
-  * @desc_srcu: ensures consistent state of GPIO descriptors exposed to users
-+ * @desc_lock: synchronizes the updates to descriptor labels
-  * @ngpio: the number of GPIO lines on this GPIO device, equal to the size
-  * of the @descs array.
-  * @can_sleep: indicate whether the GPIO chip driver's callbacks can sleep
-@@ -71,6 +72,7 @@ struct gpio_device {
- 	struct gpio_desc	*descs;
- 	unsigned long		*valid_mask;
- 	struct srcu_struct	desc_srcu;
-+	spinlock_t		desc_lock;
- 	unsigned int		base;
- 	u16			ngpio;
- 	bool			can_sleep;
+(2)The other is the potential NULL pointer dereference and use of an
+uninitialized idx due to a pre-existing race. However, it is worth
+noting that once this race occurs, policy->freq_table will be NULL, and
+__target_index() will dereference the NULL freq_table regardless of
+whether idx is initialized. Initializing idx only affects the offset
+used for the NULL pointer access. If idx is initialized to 0 as part of
+the fix for (1), the NULL pointer access will be at a deterministic
+offset rather than an unknown one. As the race is pre-existing and is
+independent of the uninitialized idx warning, I will send a separate
+patch to address it in the next few days.
 
----
-base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
-change-id: 20261105-gpiolib-set-desc-label-corruption-d024bd14a945
+> 
+>> ---
+>>   drivers/cpufreq/cpufreq.c | 38 ++++++++++++++++++++++++++++++--------
+>>   1 file changed, 30 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+>> index 54dde8419bdc..ffde75dab91d 100644
+>> --- a/drivers/cpufreq/cpufreq.c
+>> +++ b/drivers/cpufreq/cpufreq.c
+>> @@ -471,10 +471,17 @@ void cpufreq_disable_fast_switch(struct cpufreq_policy *policy)
+>>   }
+>>   EXPORT_SYMBOL_GPL(cpufreq_disable_fast_switch);
+>>
+>> +/*
+>> + * Note that this does not update the cached frequency lookup in @policy,
+>> + * because it may be running in parallel with a frequency switch carried out by
+>> + * the governor that uses the cached index.  If @resolved_idx is not NULL, the
+>> + * index of the resolved frequency in the frequency table is stored in the
+>> + * location pointed to by it instead.
+>> + */
+>>   static unsigned int __resolve_freq(struct cpufreq_policy *policy,
+>>                                     unsigned int target_freq,
+>>                                     unsigned int min, unsigned int max,
+>> -                                  unsigned int relation)
+>> +                                  unsigned int relation, unsigned int *resolved_idx)
+>>   {
+>>          unsigned int idx;
+>>
+>> @@ -484,8 +491,8 @@ static unsigned int __resolve_freq(struct cpufreq_policy *policy,
+>>                  return target_freq;
+>>
+>>          idx = cpufreq_frequency_table_target(policy, target_freq, min, max, relation);
+>> -       policy->cached_resolved_idx = idx;
+>> -       policy->cached_target_freq = target_freq;
+>> +       if (resolved_idx)
+>> +               *resolved_idx = idx;
+>>          return policy->freq_table[idx].frequency;
+>>   }
+>>
+>> @@ -505,6 +512,7 @@ unsigned int cpufreq_driver_resolve_freq(struct cpufreq_policy *policy,
+>>   {
+>>          unsigned int min = READ_ONCE(policy->min);
+>>          unsigned int max = READ_ONCE(policy->max);
+>> +       unsigned int freq, idx;
+>>
+>>          /*
+>>           * If this function runs in parallel with cpufreq_set_policy(), it may
+>> @@ -517,7 +525,20 @@ unsigned int cpufreq_driver_resolve_freq(struct cpufreq_policy *policy,
+>>          if (unlikely(min > max))
+>>                  min = max;
+>>
+>> -       return __resolve_freq(policy, target_freq, min, max, CPUFREQ_RELATION_LE);
+>> +       target_freq = clamp_val(target_freq, min, max);
+>> +       freq = __resolve_freq(policy, target_freq, min, max, CPUFREQ_RELATION_LE,
+>> +                             &idx);
+>> +
+>> +       /*
+>> +        * Cache the lookup result for the subsequent ->fast_switch() call, which
+>> +        * is the only user of it.
+>> +        */
+>> +       if (policy->freq_table) {
+>> +               policy->cached_resolved_idx = idx;
+>> +               policy->cached_target_freq = target_freq;
+>> +       }
+>> +
+>> +       return freq;
+>>   }
+>>   EXPORT_SYMBOL_GPL(cpufreq_driver_resolve_freq);
+>>
+>> @@ -2355,12 +2376,13 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
+>>                              unsigned int relation)
+>>   {
+>>          unsigned int old_target_freq = target_freq;
+>> +       unsigned int idx;
+>>
+>>          if (cpufreq_disabled())
+>>                  return -ENODEV;
+>>
+>>          target_freq = __resolve_freq(policy, target_freq, policy->min,
+>> -                                    policy->max, relation);
+>> +                                    policy->max, relation, &idx);
+>>
+>>          pr_debug("CPU %u: cur %u kHz -> target %u kHz (req %u kHz, rel %u)\n",
+>>                  policy->cpu, policy->cur, target_freq, old_target_freq, relation);
+>> @@ -2393,7 +2415,7 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
+>>          if (!cpufreq_driver->target_index)
+>>                  return -EINVAL;
+>>
+>> -       return __target_index(policy, policy->cached_resolved_idx);
+>> +       return __target_index(policy, idx);
+>>   }
+>>   EXPORT_SYMBOL_GPL(__cpufreq_driver_target);
+>>
+>> @@ -2666,14 +2688,14 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
+>>           * concurrently by cpufreq_driver_resolve_freq() during the update.
+>>           */
+>>          freq = __resolve_freq(policy, new_data.max, new_data.min, new_data.max,
+>> -                             CPUFREQ_RELATION_H);
+>> +                             CPUFREQ_RELATION_H, NULL);
+>>          if (freq != policy->max) {
+>>                  WRITE_ONCE(policy->max, freq);
+>>                  policy->update_limits = true;
+>>          }
+>>
+>>          freq = __resolve_freq(policy, new_data.min, new_data.min, new_data.max,
+>> -                             CPUFREQ_RELATION_L);
+>> +                             CPUFREQ_RELATION_L, NULL);
+>>          freq = min(freq, policy->max);
+>>          if (freq != policy->min) {
+>>                  WRITE_ONCE(policy->min, freq);
+>> --
+>> 2.43.0
+>>
+>>
 
-Best regards,
+
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-
+Thx and BRs,
+Zhongqiu Han
