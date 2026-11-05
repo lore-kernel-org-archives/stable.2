@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793895822;
-	b=Dg1EN0kstn3xvRHGBlQhP6N9qKmR0MgB1pa+s2uGZBi3xIpaxSbUlrolfCSyePwqPBj/
-	 nsZfySItKHIb71YOlqm9+XashDvKNyIbZeaiwvx8y+rTnaFl1cq50F14klLcX8NgTXKXI
-	 KHxdLjGseZzMXs4DNpGz2VmfC14BC+o0vH4HoYoS4SJFS1lc5MYw83OaxTnfbk177+zvE
-	 0acizynKh90xdHVUH/HIaZtGIuqyIaXu8GlqsOa+4CKeqPjJObCIWyaF0VWt8f+lT5spQ
-	 T2cjdyBZvwTS7APpkchIKY5i2eEVVWaoc+wbQwxSlZhYq/2n/ymcUHbn0JqtFfnf+2w==
+	t=1793895826;
+	b=zDYGcxR3UbgQFupgbwdYGF53cOb/+bAShs318Ng20JgJMpmFHgxc6x/edJP1Tw9FrJ7c
+	 /5MDN+4vyD0lODMzIsFf91cPuYnZ6h3F6Q234y/Cdg+YsgcSkRflVIlOOVs6IVsNO31Ql
+	 uibK93Drww9D9gG0+qzWMaoBsLVshy2bHzhEDwZdaW6rg4gku04WdAJyEcpBPWg6Bl+J3
+	 uzxdR5gipkO5osSlX9Zgo5Jf1PqQW7furKJEFCBTheoO71NB6R1C+OG+Ci6jreCxGigg8
+	 gTR3I08IAaKq4/Qhsy3840t5e4WGvTkmsDj79UZikAyiUIIse+mFR58pUAJ7Ghr8oAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793895822;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793895826;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=LFtLCgqDl9jxjeT/z4lnHOfCaRwlLP/Rwzs+TtnEPYM=;
-	b=291DmbBrwMz6AVNkEfNL9WHDlSq7BD3wY72vipxvC4LhGIWmFU828dMFsJso9EQXo1P6
-	 Xz88eui0MVuZxcJlCYK3OfNLZiltlCuzMtg0kSt4JgRPgxKtB4s6KHoMI+9gaeIucDS1U
-	 Po/HwxzpMBBkkRDLCZvQZV1I0Lk40Kwj/ok5pJL/xZfsuisMifLFuCaiD8RaI/Go1Xq/l
-	 lzR2UDPHb2s05UVAllIAvGGfwlfC0TTBYSplJMNkYEBlhDHqudBNIbnj9tBLGChP5Ru+t
-	 S3X80IPMDAYrapINLfrhONyG/mmCmEq9nnLFrc33O/aFu3vhi5L2tDAfRBKLh/UiBww==
+	bh=T5xP3xmvTREeNhGaQXZoBDRJasarUYjMXHgROJqFmHI=;
+	b=e861ZBWSG826JTKDWlzx9QuOwWFP3usmRFetB4akecsXm6mScCWcGRF5IdVZ5C+l+Wfe
+	 j1HNpdN5TyKsTYW8nEX6ovdDeCkfAQX0nF7D2w0crfZpRBx1r1K6dFiL3Ohp2THq5FRuc
+	 pbm+xPMxodqMBLlYhD7FDdaCTnRNDCAgfxABycZgqgwxsAAcQU26u08pxa0yGhIOJoKEM
+	 I33f3LzGS3frXu06MgHLwwmsiudBWuzAON4NMN7Tuy6G74uLFidQXJW88TmSK9u3hiUAP
+	 e17KExqajQ/s1+c6BAZUDt4eLR5ixIGUdp2y2bE00IcNbt5Yi4LmMm5lmEMb1g2EyHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A4+2/W4g";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z0t3Jxza;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF987606A328
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 16:23:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338C1606A335
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 16:23:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4+2/W4g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C48B61F00A02;
-	Thu,  5 Nov 2026 16:23:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z0t3Jxza
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FA0D1F0093A;
+	Thu,  5 Nov 2026 16:23:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793895821;
-	bh=LFtLCgqDl9jxjeT/z4lnHOfCaRwlLP/Rwzs+TtnEPYM=;
+	s=k20260515; t=1793895826;
+	bh=T5xP3xmvTREeNhGaQXZoBDRJasarUYjMXHgROJqFmHI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A4+2/W4g3KL/vPJKIbLptQl8Za9CFpY2tP1JcGxGLWvT6YXcdNCuFyAgv+AT974wl
-	 4Dle2V6nEk8x4wp0ECiI1+qKCFBs0IFZcQ3eq+llxyhmuzQU3W/KrRrV9K9pEP0SKq
-	 5pKGKrSLNIkKTcFmRrxoSWRUcyr60MdmSZJgPhNmE+VzXtnizgrx6nQirug+/dVZc4
-	 50IwnLVhIJTdLG11+0OEwxLH+P6peXr7ZCis9wsjobihRDJcC5lYmc4ZW+806C/rs6
-	 VpulBPw874kzq+D5Rqoei+EPdfUbC2+BWw7Zpd9ob5SXt7p/WPwUHBJqXtql21pNPu
-	 zruvoP8vi2wlQ==
+	b=Z0t3JxzaAhz63nMk0AobuhioVKJ/Ypw64MzmhRLZ9/xF53A0wSdEwOLjtF9d41JcI
+	 Z1dVgGblTF9AyzeiuyKGAT9H7W7M4987Fq805+pE6D1XlMjVWtjQ42xniPZBmGAhku
+	 FF6OGNkVBYEWDtmrWMcUD09/hmTKwbQirzlLvuUdXjveUz13Mhidm3J/ox8NdkL/Y5
+	 5Thu4549WN+jit0C4zqW1rTghe9TktQAlNH62AORNvdCRMxVwzsVeYJvo+KwiJBgn6
+	 wgd+9VnlkEd9lOtpU27oro9abTM6vGLl3IjeBQoJYsQx1YD0dCVxUb5m7UZkJODyIy
+	 mJXAwcSbnHRJw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>,
+Cc: Chris Mason <mason@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Amir Goldstein <amir73il@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] xfs: improve dirent bounds checking in scrub and repair
-Date: Thu,  5 Nov 2026 11:23:38 -0500
-Message-ID: <20261105162325.2112487-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ovl: check that the parents of volatile/dirty are dirs
+Date: Thu,  5 Nov 2026 11:23:44 -0500
+Message-ID: <20261105162313.1978922-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105162325.2112487-1-sashal@kernel.org>
-References: <2026110438-luckless-handiwork-a5c4@gregkh>
- <20261105162325.2112487-1-sashal@kernel.org>
+In-Reply-To: <2026110454-overstate-universe-e323@gregkh>
+References: <2026110454-overstate-universe-e323@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,236 +62,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Darrick J. Wong" <djwong@kernel.org>
+From: Chris Mason <mason@kernel.org>
 
-[ Upstream commit 5d470234d04dae6fe2ca2cf4b9ef277b78c7e05a ]
+[ Upstream commit e34d2ef818e4c7676d8d8e1bf43e6a1ed39efb2a ]
 
-LOLLM complains that we don't do enough bounds checking of the directory
-entries in directory blocks when we're looking for errors or trying to
-salvage entries.  Let's improve that with more detailed checks.
+An unprivileged user crashes the kernel by mounting overlayfs with the
+volatile option.
 
-Cc: stable@vger.kernel.org # v4.16
-Fixes: ce92d29ddf9908 ("xfs: directory scrubber must walk through data block to offset")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
+A dentry that serves as the parent of a lookup must be a directory.
+ovl_create_volatile_dirty() walks work/incompat/volatile/dirty by name,
+and ovl_lookup_or_create() returns an existing entry whatever its type.
+A file or a symlink that another task creates during the mount becomes
+the parent of the next lookup, which calls a NULL ->lookup.
+
+An unprivileged user mounted overlayfs with "volatile" in a user
+namespace while a second process created a symlink named work/incompat,
+and the mount task oopsed on a NULL ->lookup call.
+
+Fix this by returning -ENOTDIR from ovl_lookup_or_create() when the
+caller asked for a directory and the existing entry is a non-dir.
+
+Fixes: c86243b090bc ("ovl: provide a mount option "volatile"")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+[ sashal: replaced end_creating(child) with dput(child) while retaining the existing explicit parent unlock ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/dir.c        | 68 +++++++++++++++++++++++++++++++++------
- fs/xfs/scrub/dir_repair.c | 37 ++++++++++++++++++---
- 2 files changed, 91 insertions(+), 14 deletions(-)
+ fs/overlayfs/super.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/fs/xfs/scrub/dir.c b/fs/xfs/scrub/dir.c
-index 2f73baee0f0b4..495fdf3b519ae 100644
---- a/fs/xfs/scrub/dir.c
-+++ b/fs/xfs/scrub/dir.c
-@@ -323,11 +323,24 @@ xchk_dir_check_unused(
- 	struct xchk_da_btree		*ds,
- 	struct xfs_buf			*bp,
- 	unsigned int			iter_off,
--	unsigned int			end)
-+	unsigned int			end,
-+	xfs_dablk_t			rec_bno)
- {
- 	struct xfs_dir2_data_unused	*dup = bp->b_addr + iter_off;
-+	unsigned int			advance;
-+
-+	if (iter_off + sizeof(*dup) > end) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		return -1;
-+	}
-+
-+	advance = xfs_dir2_data_unusedsize(be16_to_cpu(dup->length));
-+	if (!advance || iter_off + advance > end) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		return -1;
-+	}
- 
--	return be16_to_cpu(dup->length);
-+	return advance;
+diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+index 5d7df839902df..5b50a3c2289aa 100644
+--- a/fs/overlayfs/super.c
++++ b/fs/overlayfs/super.c
+@@ -1242,16 +1242,23 @@ static int ovl_check_rename_whiteout(struct dentry *workdir)
  }
  
- /*
-@@ -341,15 +354,31 @@ xchk_dir_check_entry(
- 	struct xfs_buf			*bp,
- 	unsigned int			iter_off,
- 	unsigned int			end,
--	struct xfs_dir2_data_entry	*dent)
-+	struct xfs_dir2_data_entry	*dent,
-+	xfs_dablk_t			rec_bno)
+ static struct dentry *ovl_lookup_or_create(struct dentry *parent,
+-					   const char *name, umode_t mode)
++					   const char *name, bool is_dir)
  {
- 	struct xfs_dir2_data_entry	*dep = bp->b_addr + iter_off;
- 	struct xfs_mount		*mp = ds->state->mp;
-+	unsigned int			advance;
-+
-+	/* must have namelen */
-+	advance = offsetof(typeof(*dep), name);
-+	if (iter_off + advance >= end) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		return -1;
-+	}
-+
-+	/* Don't walk off the end of the block. */
-+	advance = xfs_dir2_data_entsize(mp, dep->namelen);
-+	if (!advance || iter_off + advance > end) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		return -1;
-+	}
+ 	size_t len = strlen(name);
+ 	struct dentry *child;
  
- 	if (dep == dent)
- 		return 0;
- 
--	return xfs_dir2_data_entsize(mp, dep->namelen);
-+	return advance;
- }
- 
- /* Scrub a directory btree record. */
-@@ -377,6 +406,7 @@ xchk_dir_rec(
- 	xfs_dahash_t			hash;
- 	struct xfs_dir3_icleaf_hdr	hdr;
- 	unsigned int			tag;
-+	bool				foundit = false;
- 	int				error;
- 
- 	ASSERT(blk->magic == XFS_DIR2_LEAF1_MAGIC ||
-@@ -421,33 +451,44 @@ xchk_dir_rec(
- 	dent = bp->b_addr + off;
- 
- 	/* Make sure we got a real directory entry. */
--	iter_off = geo->data_entry_offset;
- 	end = xfs_dir3_data_end_offset(geo, bp->b_addr);
- 	if (!end) {
- 		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
- 		goto out_relse;
- 	}
--	for (;;) {
-+	iter_off = geo->data_entry_offset;
-+	while (iter_off < end) {
- 		struct xfs_dir2_data_unused	*dup = bp->b_addr + iter_off;
- 		int				advance;
- 
--		if (iter_off >= end) {
-+		/* must have freetag */
-+		advance = offsetof(typeof(*dup), length);
-+		if (iter_off + advance >= end) {
- 			xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
- 			goto out_relse;
- 		}
- 
- 		if (dup->freetag == cpu_to_be16(XFS_DIR2_DATA_FREE_TAG))
--			advance = xchk_dir_check_unused(ds, bp, iter_off, end);
-+			advance = xchk_dir_check_unused(ds, bp, iter_off, end,
-+					rec_bno);
- 		else
- 			advance = xchk_dir_check_entry(ds, bp, iter_off, end,
--					dent);
-+					dent, rec_bno);
- 		if (advance < 0)
- 			goto out_relse;
--		if (!advance)
-+		if (!advance) {
-+			foundit = true;
- 			break;
+ 	inode_lock_nested(parent->d_inode, I_MUTEX_PARENT);
+ 	child = lookup_one_len(name, parent, len);
+-	if (!IS_ERR(child) && !child->d_inode)
+-		child = ovl_create_real(parent->d_inode, child,
+-					OVL_CATTR(mode));
++	if (!IS_ERR(child)) {
++		if (!child->d_inode) {
++			child = ovl_create_real(parent->d_inode, child,
++						OVL_CATTR(is_dir ? S_IFDIR :
++								   S_IFREG));
++		} else if (is_dir && !d_can_lookup(child)) {
++			dput(child);
++			child = ERR_PTR(-ENOTDIR);
 +		}
- 		iter_off += advance;
++	}
+ 	inode_unlock(parent->d_inode);
+ 	dput(parent);
+ 
+@@ -1272,7 +1279,7 @@ static int ovl_create_volatile_dirty(struct ovl_fs *ofs)
+ 	const char *const *name = volatile_path;
+ 
+ 	for (ctr = ARRAY_SIZE(volatile_path); ctr; ctr--, name++) {
+-		d = ovl_lookup_or_create(d, *name, ctr > 1 ? S_IFDIR : S_IFREG);
++		d = ovl_lookup_or_create(d, *name, ctr > 1);
+ 		if (IS_ERR(d))
+ 			return PTR_ERR(d);
  	}
- 
-+	/* Hash tree must point to the exact dirent */
-+	if (!foundit) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		goto out_relse;
-+	}
-+
- 	/* Retrieve the entry, sanity check it, and compare hashes. */
- 	ino = be64_to_cpu(dent->inumber);
- 	hash = be32_to_cpu(ent->hashval);
-@@ -459,6 +500,13 @@ xchk_dir_rec(
- 		goto out_relse;
- 	}
- 
-+	/* Name must not overflow end of block */
-+	if ((char *)dent->name + dent->namelen >
-+	    (char *)bp->b_addr + BBTOB(bp->b_length)) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		goto out_relse;
-+	}
-+
- 	/* Does the directory hash match? */
- 	dname.name = dent->name;
- 	dname.len = dent->namelen;
-diff --git a/fs/xfs/scrub/dir_repair.c b/fs/xfs/scrub/dir_repair.c
-index f8e88b638c43d..c7fd39fd83a48 100644
---- a/fs/xfs/scrub/dir_repair.c
-+++ b/fs/xfs/scrub/dir_repair.c
-@@ -473,8 +473,16 @@ xrep_dir_recover_unused(
- 	unsigned int			end)
- {
- 	struct xfs_dir2_data_unused	*dup = bp->b_addr + offset;
-+	unsigned int			advance;
-+
-+	if (offset + sizeof(*dup) > end)
-+		return 0;
-+
-+	advance = xfs_dir2_data_unusedsize(be16_to_cpu(dup->length));
-+	if (!advance || offset + advance > end)
-+		return 0;
- 
--	return be16_to_cpu(dup->length);
-+	return advance;
- }
- 
- /*
-@@ -492,11 +500,14 @@ xrep_dir_recover_entry(
- 	unsigned int			advance;
- 	int				error;
- 
-+	/* must have namelen */
-+	advance = offsetof(typeof(*dep), name);
-+	if (offset + advance >= end)
-+		return 0;
-+
- 	/* Don't walk off the end of the block. */
- 	advance = xfs_dir2_data_entsize(rd->sc->mp, dep->namelen);
--	if (!advance)
--		return 0;
--	if (offset + advance > end)
-+	if (!advance || offset + advance > end)
- 		return 0;
- 
- 	/* Ok, let's save this entry. */
-@@ -534,6 +545,11 @@ xrep_dir_recover_data(
- 		if (xchk_should_terminate(rd->sc, &error))
- 			return error;
- 
-+		/* must have freetag */
-+		advance = offsetof(typeof(*dup), length);
-+		if (offset + advance >= end)
-+			break;
-+
- 		if (dup->freetag == cpu_to_be16(XFS_DIR2_DATA_FREE_TAG))
- 			advance = xrep_dir_recover_unused(bp, offset, end);
- 		else
-@@ -565,6 +581,19 @@ xrep_dir_recover_sf(
- 	hdr = ifp->if_data;
- 	end = (unsigned char *)ifp->if_data + ifp->if_bytes;
- 
-+	/* sf header must be big enough for count/i8count */
-+	if (!hdr || ifp->if_bytes < 2)
-+		return 0;
-+
-+	/* and large enough for the parent inumber */
-+	if (hdr->i8count) {
-+		if (ifp->if_bytes < offsetof(struct xfs_dir2_sf_hdr, parent[8]))
-+			return 0;
-+	} else {
-+		if (ifp->if_bytes < offsetof(struct xfs_dir2_sf_hdr, parent[4]))
-+			return 0;
-+	}
-+
- 	ino = xfs_dir2_sf_get_parent_ino(hdr);
- 	trace_xrep_dir_salvaged_parent(rd->sc->ip, ino);
- 
 -- 
 2.53.0
 
