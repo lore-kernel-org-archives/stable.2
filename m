@@ -1,99 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793852934;
-	b=XAqPh5k7lylajD++7gGWQtUy+WaVduN8op8BM1oTXZnJl4/DrHUci2yQeHeRegHsxX3r
-	 hIcrYT49JLzZnPQBbklxjnppo64MAaE7y4YxoYBMq/j/5QTsE2gZMoWRgt/F+MU8SCnmn
-	 RyAZCYcsjWEz9Fka8zaf3xuM2g2kcPNhQvoVGWOV1q0vEY42vv39SU+HYB6brv3uMuHXf
-	 3h3hPo4ollaPCcYPuF6CNo93nSlV/4BEPp8J9Ovz1fWSoSvnzx4Cqb0t27HE22amOBdXw
-	 tUg1LIerzAurXJGzpiObF/OzYS9aZq2ptDpvqtIbecoAIwoenWQGd3WdpPjLapKMnUQ==
+	t=1793852953;
+	b=DFl0K1Sl55fPJSbk8uR/xjH+yVUFF2E/OJPL4FwEH4I5QChomtT1n+OuRn9Keex+7Rwe
+	 XMlHw1w9pIlAob2nEL3Gbgb7LR8IzkSnEuLWUXss5vssJ9bIu9qsRdT70Sdw7NQXxvW3C
+	 Jitn1rNRZtuQvh3iVB+i5uylK+Hw1B8dEi1qXcCPf0rJ2jTP1Bu0Pvu5StudoKG9ALSJM
+	 XEKJ8btLg31TQ4KJg+VyzeendcId3QY1zHBQ8h7VTmMpWMg0GeHZBtIHCe7vXh2SOcBuk
+	 +nET3aC9+lF/IDdXJKLUZMo+y/QHwtmjoQ7BFBDv9IibA5FiDZ2JU9JhEehJkGWp53Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793852934;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793852953;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=KEm42QihUL6odJc0vgDavSCwsWRiCbS6wHuc5+HRkrA=;
-	b=cYw8bOCQLD2Pt0wbnucm7RkRcG9PIbXy+LdG+3lxoatJZ9FJR+meIJl7TPpzFLrHqEPh
-	 IKQHeclYgG3HK1mmnb1RjSdd/AgscfdOMLEmXrh82jTqMIgWs7ke0e84TT37KTEMCYOPu
-	 Dcas4D9Zi1van2MyMpv4joPv8IFo1/TOcVkR4PnL6LJsOLTl2oPKJFqv9Gr7t5BBc7b3l
-	 bZbJR1eXxQtxvsQR6dig/ocb8YKsVZwzIC/L3tJ54ZAWG8GwSHGLukWyX6zJGvVlKcliV
-	 IDf6AZlbuwCEXXmuLauPgOlpgxi4KBaJJjlTx0Pbh9IcPjmgB9Ojo5+3TzkmG5N5/Dg==
+	bh=JMo4bIblf20Ox/wHcnXswTyrH1vkkJSSvlX7wiz1Kyg=;
+	b=yXeh/OnCRvqirBhYfTLsTQbLKsFaMXVP1kSnANiIhOH2jVlYKPtSaRhocpuEQxQEYeEM
+	 Oov9PC0dCkJhdhJYE7oyzospb+ZAwz681LWbwq8i3LK1ZexTDNRpL0gSm8zISXczlpt2O
+	 hkyFFICYDojw6DZVOoTgEbu5oQcKQOkOWvMYK8a1+TTJAT7hLA0SaI0zOtMvyGBKToYL+
+	 ve7VPTr3/tgWKZDQ5HRQclqUz9bxTnbgUoLQPI+c+mcyM2dzm/glquz2MtDRlfc/Esdhu
+	 EGiaoMt50W9RgwLp9XeT9hUKTfmsn1VGekswYKgFP+o0X/nPb7M9dJI5tGdB8SgyIFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=Pz8epZir;
-	arc=none smtp.remote-ip=209.85.160.182
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tof0ZRuF;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9AC8606A329
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 04:28:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9AC8606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE5D606A328
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 04:29:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CE5D606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=Pz8epZir
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-533861a59b8so14333461cf.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 20:28:53 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tof0ZRuF
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3b0a519049aso742533a91.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 20:29:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1793852933; x=1794457733; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793852952; x=1794457752; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=KEm42QihUL6odJc0vgDavSCwsWRiCbS6wHuc5+HRkrA=;
-        b=Pz8epZirP16nHrgC4NO3PtdE3tUSEr3wJ+iQYqzaekJJRox81tcwLnWeIbBdoJMsvU
-         uvgXwQF5elg9BvTN6nZS3BJ5NvVeNpCkEZHrA+i7J9fDvWGr3EN5ttyWtefaDG4Q/6nn
-         I46sb4z0BLAyOZdtWa+LKOXoaQJNAvFaemIe9+Z9HALKuCgoTtMkrIIez2l/2sHwOQmG
-         RrVrbh3rzYmaTo0NjYPEcbp5eDJM2cknb2pJhClM1wA32YSQxQ26JB2IEFMVDcVTvX3n
-         7virYrZ03byn73qeFxsEGsKhTU26y450YpB8T0hRjsUlCjjfI/9os3AXNPTT8YmnFrlu
-         p4FA==
+        bh=JMo4bIblf20Ox/wHcnXswTyrH1vkkJSSvlX7wiz1Kyg=;
+        b=tof0ZRuFm308akvK86pHS8lOvkDLODF7X76iDUMsZeoOAL5PeMPvKicgb+VR7eA8CE
+         CDZC4KeK2881mFNc4MHX8cmbbUI2qbshedQ/ofBO8Mq5HF4rC2Z+moQTT0ckFab2R5JR
+         fAPGQIoEe7N94vCvCdMy3q7kKIbMV3/p0/vvankyrxL6JVdvhKLjZ8BJCqAe8sDx5zDF
+         xsjq+wFej52YMT6lCH6GXSplD8aF8FkG7ure/XRkcPVwjxaXKUKuPuiSFPTLRnW4M5b/
+         gQ/Q8blQ6krBTOD7JQYVAhoGoHVRLdaU+XTeTnuOJrm0uaKCo/o0A3l5PAkQofZGm437
+         8nkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793852933; x=1794457733;
+        d=1e100.net; s=20260707; t=1793852952; x=1794457752;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KEm42QihUL6odJc0vgDavSCwsWRiCbS6wHuc5+HRkrA=;
-        b=tbbxE5FD67E5LLhyQInF32c7ihvRpGGXI9nzmEsASRSZiTOlQa6nChZJbFVaQfHwvs
-         KOwayuY8h83654jrqkXAfDDjnjU/1Ptx5b8JDwwn5PTsrAK2iOWs8OOQoO8a9yDThuqp
-         StferGiDRdNubjqemaIn7V9RGGtAdYhgr2fG+7J9+rwwK9dOFtNyF/7ieas7OJmd8Rwb
-         E0yUoQsjlBEnux6+xdCtGHW1jQtioKIFk9DVNurx3CVpN6okpIowfLNhUf0HiK8tDnLM
-         Nm5OdhE3YgT7ZDpikrbZTVYcCqDsEkbzZjW5olD9D06JSHDD5UOS59o1ioC1xO6mZ09P
-         BQDA==
-X-Forwarded-Encrypted: i=1; AKwUvBzuV68Mudeq+y+ElpOx1pmO5zn3lO/BdXAoQxzRBtkW/tm0U35TaZ8I1VL0LHaTE4hGKHlMw5E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9OMHGPAUiljL06jXtj4Jx2SnrlY7/OaUJuojFwbO27WiGlXQHJ
-	RkM4oWV8lVsfF77I+1LfeDlHVG6Xq4b9C5tucnnCklvOykE18VHPMrVNKvD1PF+3Dg==
-X-Gm-Gg: AYBFou3D44M8nsY2gb0/lslpuG2MWRQo1+FN2caywK555GzKRDSnBHAgEmQsKaYwow0
-	FRyTN9YE+Yn6gDZ2oZRz/jyzPFPIb5zMGSkDE9rhY80/2tFtpwIbqqeLVoEgniPuHJ9eqzr8reC
-	NBQ14LD4FHvJBseL67tARgBuv6yNQcWu6VNFVeWG6l6n8Yg9wivhybFuPEj9k4n2jwH1hpX03Oq
-	kOnXNVlRRcS4zQ6h4q/ZALBJ1fWuvn2HSxP431kmkBtTKfd8X7E/X9+Sy+NUgD3SAtdjYj5+QJR
-	MM7s42C+3CNGhG+cTKOWheVhWhXXWONt2qaM/5JERnbDh0kk8Q0q8ZEoXJGoaPy4oEVYEIdO2+i
-	OKhL8qROVG3e0/9rWD+p9xioHuPHGUzlM6FagoFAb1f2HW5Q3dzAKDmtoNXT87cVr1V88QqoLZ3
-	OU2Bwm6csuquorOZ/TfFLA0q4EYuyxA//kC1wHAbH29JE8jYzteFhxDwHZYYmHFhXYolASJd2aA
-	8Cy8mDy13CgMsmjXIEswFLqHsLyRQFBo3UCR+kUBcKtJWhyxVJyLDMazRxOI4ea8Z/ysU7zUMjZ
-	MLaTEjKwUdqertWVTAUmuGXduSsB
-X-Received: by 2002:a05:622a:514c:b0:53e:82eb:c111 with SMTP id d75a77b69052e-542b75248f7mr298071241cf.36.1793852932573;
-        Wed, 04 Nov 2026 20:28:52 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e9378dc70sm16474186d6.37.2026.11.04.20.28.51
+        bh=JMo4bIblf20Ox/wHcnXswTyrH1vkkJSSvlX7wiz1Kyg=;
+        b=Rgl00cLsOEnG2rj7Mc1jXEr2LTnjlDu0hYqpw7b31KSec9UFC9nzhsawqe1EZ8NThe
+         UzHUCcST92CE+s9QUuv2rpjy7nUmVwJVrh4JwHeBjBAIFGQ56I3B204r0D2NlZa9Ac+/
+         9QgsRE6O/5kFYUiArTLTG94HaNcbVJYWeINNManq8d3k/t96UrRiiy08/KqWvbhZJw5m
+         HNaA/HROux+rW6j0u1KwN5ektS7VXnFV/qOwcoaOfXrOduujAjx5gq6znkjb5tAE2yGC
+         /1tx2A6l2HktmB4+ny92mBB6yC8o+1XzPiyXPi4L2mtUrEP6IkF5lB39dI2JEroPtZ4h
+         yHkw==
+X-Forwarded-Encrypted: i=1; AKwUvBzZOXOIUYNsbW7aWr0U5hFQAmVm2CJV2WWQi/FRqfV7q0RdfFJxrMADw20yHyEiaGM7nOaCqWo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Q9cW5jpIg7RoZoWNi/csqPQCufqeH4C4j95XW+NKazWwc3GYh
+	xmcZkO26G9epNnMv2xSxZvRMZE5/9tm7T7ql+sPYdCR4Zz0oPcEiqmQL
+X-Gm-Gg: AYBFou0+c4cnxcriuzoY6QY/p7D06ENxqgWbY2O8bFGmf1gy7v9+ZPMJJJybpRxmWUc
+	WLj7DVi/JXpCIkeNG9Kh4hM+8v6cVOqWXZlgBXzU2vMYZZifyKphzLe2z7rHfKke2EJbkxU5TGs
+	UuHJYdMGwCqN4TcpS85EfXUOWH268tQZuBNQX9Zf3JOBmSAB6iZpVg6RaRTU7cQeeCN4PCd9rlV
+	qNQVM2BnNz79ApBBpvVabgV2TkMK42zRpBa7Rp3CvMkNRjHt0XoExw3AXI4J5768g3oj/hnhrcB
+	/TIgaD5pzmuWoJOTSwugFU/fbjuMPHxLxJnrLfDPE0McS7xvUfQGkrzkspUWWOOFOJTqDGp2D2v
+	z1lU/13WVTsE/dC/yj+yucKlpXKYfbsGXFd7twXuomxC5b3t09yz+yx5RJnMc60IQvzI44zNYWh
+	BsSvC85ybAYI26DNe1LNqpRTwYpER4Y1hLGHl3CXz9OyD9/fG+Nwh1N8+4S5H5L1AORdZRZArMa
+	SjKKICzEFGqiPW7SS1fbfFIzUVgw11fVcamLCHD1LTWspjgCO2jxYOmBRWNLdgmIx99ns9qPSb2
+	uuF/A2Rvx/KZXGCWrSK5PTOa1eNBTmCnZEJusQRjjiNPBDeQ
+X-Received: by 2002:a17:90b:224f:b0:3ab:27f0:c90b with SMTP id 98e67ed59e1d1-3ae8983cf4emr16977504a91.53.1793852952411;
+        Wed, 04 Nov 2026 20:29:12 -0800 (PST)
+Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b32812a6sm1611635a91.11.2026.11.04.20.29.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 20:28:51 -0800 (PST)
-Date: Wed, 4 Nov 2026 23:28:48 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Cc: Michal Pecio <michal.pecio@gmail.com>,
-	Mathias Nyman <mathias.nyman@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH v5] usb: xhci: Fix use-after-free race in
- xhci_stop_device()
-Message-ID: <82a746b7-4e87-4d46-88c3-bb881f11b8de@rowland.harvard.edu>
-References: <20261104000031.679944e7.michal.pecio@gmail.com>
- <20261104035637.3325-1-25031212351@stu.xidian.edu.cn>
- <20261104151544.26672-1-25031212351@stu.xidian.edu.cn>
+        Wed, 04 Nov 2026 20:29:11 -0800 (PST)
+Date: Thu, 5 Nov 2026 12:29:05 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 4/5] gpiolib: don't overwrite the entire flags field in
+ gpiod_free_commit()
+Message-ID: <20261105042905.GB8436@rigel>
+References: <20261104-gpio-desc-flags-atomic-v1-0-e23cedf619ba@oss.qualcomm.com>
+ <20261104-gpio-desc-flags-atomic-v1-4-e23cedf619ba@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,64 +104,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261104151544.26672-1-25031212351@stu.xidian.edu.cn>
+In-Reply-To: <20261104-gpio-desc-flags-atomic-v1-4-e23cedf619ba@oss.qualcomm.com>
 
-On Wed, Nov 04, 2026 at 11:15:44PM +0800, YuanZhe Liu wrote:
-> Alan,
+On Wed, Nov 04, 2026 at 04:36:59PM +0100, Bartosz Golaszewski wrote:
+> Use gpiod_update_flags() to clear all request-related flags in one go
+> instead of risking racing with concurrent users and overwriting any
+> changes they could have done between READ_ONCE() and WRITE_ONCE().
 > 
-> Thanks - that is a fair point, and I agree that the generic exposure is in
-> the core: usbfs can drive port state on a hub whose driver is being
-> unbound, and usb core does not serialize the two.
+> Cc: stable@vger.kernel.org
+> Fixes: 35b545332b80 ("gpio: remove gpio_lock")
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  drivers/gpio/gpiolib.c | 26 +++++++++++++-------------
+>  1 file changed, 13 insertions(+), 13 deletions(-)
 > 
-> The awkward part is where the lock would go.  do_proc_control() releases
-> usb_lock_device() around usbfs_start_wait_urb(), so the control request to
-> the hub runs without the device lock, while usb_unbind_interface() ->
-> hub_disconnect() holds it.  Making those two exclude each other on that
-> mutex would mean holding it across a synchronous URB, which I do not think
-> is acceptable.
+> diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+> index 63b65b646fbcfa9ea0f724d1d3e1ac22ba28f638..28d4cf0cef70f437dc4271f82975d09dc55125ea 100644
+> --- a/drivers/gpio/gpiolib.c
+> +++ b/drivers/gpio/gpiolib.c
+> @@ -2693,23 +2693,23 @@ void gpiod_free_commit(struct gpio_desc *desc)
+>  		if (guard.gc->free)
+>  			guard.gc->free(guard.gc, gpiod_hwgpio(desc));
+>  
+> -		clear_bit(GPIOD_FLAG_ACTIVE_LOW, &flags);
+> -		clear_bit(GPIOD_FLAG_REQUESTED, &flags);
+> -		clear_bit(GPIOD_FLAG_OPEN_DRAIN, &flags);
+> -		clear_bit(GPIOD_FLAG_OPEN_SOURCE, &flags);
+> -		clear_bit(GPIOD_FLAG_PULL_UP, &flags);
+> -		clear_bit(GPIOD_FLAG_PULL_DOWN, &flags);
+> -		clear_bit(GPIOD_FLAG_BIAS_DISABLE, &flags);
+> -		clear_bit(GPIOD_FLAG_EDGE_RISING, &flags);
+> -		clear_bit(GPIOD_FLAG_EDGE_FALLING, &flags);
+> -		clear_bit(GPIOD_FLAG_EVENT_CLOCK_REALTIME, &flags);
+> -		clear_bit(GPIOD_FLAG_EVENT_CLOCK_HTE, &flags);
+> -		clear_bit(GPIOD_FLAG_IS_HOGGED, &flags);
+>  #ifdef CONFIG_OF_DYNAMIC
+>  		WRITE_ONCE(desc->hog, NULL);
+>  #endif
+>  		desc_set_label(desc, NULL);
+> -		WRITE_ONCE(desc->flags, flags);
+> +		gpiod_update_flags(desc,
+> +				   BIT(GPIOD_FLAG_ACTIVE_LOW) |
+> +				   BIT(GPIOD_FLAG_REQUESTED) |
+> +				   BIT(GPIOD_FLAG_OPEN_DRAIN) |
+> +				   BIT(GPIOD_FLAG_OPEN_SOURCE) |
+> +				   BIT(GPIOD_FLAG_PULL_UP) |
+> +				   BIT(GPIOD_FLAG_PULL_DOWN) |
+> +				   BIT(GPIOD_FLAG_BIAS_DISABLE) |
+> +				   BIT(GPIOD_FLAG_EDGE_RISING) |
+> +				   BIT(GPIOD_FLAG_EDGE_FALLING) |
+> +				   BIT(GPIOD_FLAG_EVENT_CLOCK_REALTIME) |
+> +				   BIT(GPIOD_FLAG_EVENT_CLOCK_HTE) |
+> +				   BIT(GPIOD_FLAG_IS_HOGGED), 0);
+>  #ifdef CONFIG_GPIO_CDEV
+>  		WRITE_ONCE(desc->debounce_period_us, 0);
+>  #endif
 > 
-> Two shapes I can see on the core side:
-> 
->  - refuse or queue hub class requests to a hub while its driver is being
->    unbound, or
->  - make usb_disconnect() of that hub's children wait for in-flight
->    port-state requests on that hub first.
-> 
-> I am happy to prototype either one; tell me which you would prefer.
 
-I'm still not certain I fully understand what's going on here.  It 
-sounds like one thread uses usbfs's do_proc_control() to send a 
-Set-Port-Feature(suspend) request to a hub, presumably without claiming 
-the hub interface.  At the same time, another thread tells usbfs to call 
-usb_driver_release_interface() for the hub interface.  Is that right?  
-If so, read on...
+Not directly related to your change, but the debounce_period_us is
+protected by the GPIOD_FLAG_REQUESTED flag, so it should be cleared
+before the flag, else it could potentially race with a new request.
+Not sure if you want to fix it here or in a separate patch.
 
-The issue here isn't a race, or locking, or a matter of a port's state.  
-The real problem is that userspace can use usbfs to send a 
-Set-Port-Feature request to the hub without claiming the hub interface.  
-If usbfs had to claim the interface then the problem you encountered 
-could not occur, right?
-
-It looks like check_ctrlrecip() needs to be more careful.  A whole bunch 
-of requesttype/request combinations -- basically, anything that isn't a 
-GET-* -- should be forced to call checkintf(ps, 0) if the target device 
-is a hub.  After all, we don't want userspace interfering with the 
-operation of the hub driver.  This special hub-class handling should 
-come directly before the code for the printer class.
-
-Can you write a patch to do this?
-
-> What is xhci-specific is that xhci_hub_control() is the only one of these
-> paths that walks per-device state: xhci_stop_device() looks up
-> xhci->devs[slot_id] and drops xhci->lock while sending the stop endpoint
-> commands.  ehci/ohci/uhci only write port registers there, so the same
-> interleaving does not give them a use-after-free.
-> 
-> So I would like to keep the xhci hunk as well, as memory-safety hardening
-> for the case where the core does not catch it.  If you would rather see
-> the core change first, I can send that separately and rebase this on top
-> of it.
-
-That's fine; I'm not concerned about the xhci-hcd portion.
-
-Alan Stern
+Cheers,
+Kent.
