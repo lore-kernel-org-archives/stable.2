@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793837334;
-	b=nLSHfVdQOS0EloGs0yhcYPd0Z8ErtbRgV+Ylquuvvs3P8udV6S7TKD/m0CLWoy4029DY
-	 i1haKgtXVxotQ5No9yBB2n4itGQHIgqwQo+25wbdfRqCSZtRVQTc8bzS+IgsPoyKEJ7Za
-	 V1Woa0eeO3Dp8appRpaITZBhrRdV5VykqaG8ZgqJqNFRQ3jt1eVcuF4m0YIK93lxBVuSD
-	 okqIgHn0jWeieXB01pMtoZMqflEUXtneCr2W+LBLlrLe97xeJixW5H7qb/Xh5IFqFXw0P
-	 7DfeTyLYCa8DedhfRYI/iFuRLLkLqjO24FN3NXUXsuu6yTfFgXyGN5Mx+pUh57OQCrA==
+	t=1793837335;
+	b=b/NT3IGF7/hIEBEVJ1uOQq/wOmv3mZr4s9Ac5wHMjB3vJIkz8CGRpi8UmAuJJ7UoeS8M
+	 vHf3NriePG6uXKLo1TbN395mIOro2IuChRCgZgFMbyu0o+8J+N/3Z9bHA/flYISXQ/UaJ
+	 6ZkKhICiLomoGQGlCFkd/bvhZinr1PmZ5lZucGZblO3hFuy6GHmvHpU7Mmuh76+DPFh8Y
+	 ZCbNNpSWFSGT4g3k0et/K5hQMWo5XS5YQ/7Uh/jbNbf7LAUTfr11tY5hErSeTzlGASqaY
+	 RaTUhgY+kJoTJnIh1dkZSB7oZ7oTy8AJxHmLfDH9M57ZKvm1QzcvWYW+kmPL2RpqX+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793837334;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793837335;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DHOsPfwMPXjjycy8WXwJXoG5dDnIpwtuH511PMYcgjU=;
-	b=XSTi5O5U8pXlxlX3YdZ3cPBmgj9l2u8SkLUJGcbj6nrvJ9Xn0NmbQGWZCh1u81gVBo43
-	 O/UFFAY/oQSXZ3EThko8rEWWHL7pbbOFd63L8SuDc3fwCMTfoCuPFZz1OLHcmf5Bxurh9
-	 Buz/JZ1Jn7pn/tvC4dcb7+FamayMy6+CvQvV0MSuziMTuweX1p/o3mnHMAYlNuVx7tWq2
-	 Sm6h3D7sUusE9xJJs3wyBGtwMuoA3yEPgZEFdoa+tQDcYJH9hYBCM4fSJkjPvIAlQlvn7
-	 zP0NHf6AYcJU7hCaFDKPM6fHCeo3rP19xKKqsXiz3ODOBoGNNEk7jQoo6o1bV+9EPiw==
+	bh=Nc6uWQ9nbl/Btn1WQ2V25dWXJ5jW8ALdsswrOS3YJD4=;
+	b=Jomy2APMdZVxQVeM6/xRMkn0ajNl8YYyhdlRV8HMo1VjAvJTC2Yf0eq5lYNTX24A3P8d
+	 yZbj0dT8LKcLmGQbtpbr8SQ5SLm73Sir3G0OgE5fZdGCeO8yr/UVwoVQ5fOqqib+f3S1a
+	 t3ydaPYJRIlleisjna3sd1l2h0QeVLjDU4r/VqJk74z2UzyW/pOQsgWOzlwybW3p58ESx
+	 VbLPqnQpDNOppRbXQ3meZnj++8zZ/JF5GYu15lGdC9VEp2nldNYxiglhUADWgBbFk6lBw
+	 50Hcc5d3Boo2kX+sG85RUY2SjrDGUl55vCU7M/VawoUotcsSH2vi1qDHpsobAGMVQvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KD2JhNbh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGyrMcSQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5A9606A329
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:08:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F679606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:08:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KD2JhNbh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BCE31F00919;
-	Thu,  5 Nov 2026 00:08:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGyrMcSQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EADD1F000C1;
+	Thu,  5 Nov 2026 00:08:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793837333;
-	bh=DHOsPfwMPXjjycy8WXwJXoG5dDnIpwtuH511PMYcgjU=;
+	s=k20260515; t=1793837335;
+	bh=Nc6uWQ9nbl/Btn1WQ2V25dWXJ5jW8ALdsswrOS3YJD4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KD2JhNbhDZpFmAYfqdb3aicCHfrwaxh+cieb+lHRRkwFMYSh2nE2eWckijPhkc1M4
-	 8fvXZXspRrzclljqD1Dw28A4C/5OfqiYoNV6lOTEXgOVbKcKVoy/YYxu8PaAv+VCqX
-	 nK/OJFEXrKnV6nfpuNwNwdQKnlHHxssF/cg5Ce6jVTwfTh8nrqMIM/F+epF9Z/m0vo
-	 lTdS0SrqfDFD93x+9kc6+uug5K9lLBrbRLHT/DwdzL9icKB4WLWhZC5IWbbYqfsRj/
-	 qzQp+tAdTs2NMqTBJnHABQuuP4Wqmg8xp4wa3AQb2LRYhF6jfgizgBGRYz0bHjjy0F
-	 TpI70r+mmM7AA==
+	b=KGyrMcSQSEt7SvhX2aIS/RPIY+ZT0j0elPfrl4JQeXVmw0XEodS8Fa2xvaV2n0H4r
+	 qnOF7yhyiH76dzDIG6xbz65AnOfwFMPJ7uI0dqGCr19f4wdnG44LAzoYZ+wgPW4zMi
+	 N33VTuqb++gl5IXuk6m6F3M7NXoIhx/Fz5ufuZPVLGLUPX9xOIWmWSnJgH1zhp3QTU
+	 0e8ndIX1qZ7eByo9aqEgkZ4zvZip82v8bheqZJW11hxG6hsP3Cv7Wi+2wD7e/DJ2Vt
+	 WBkeaEmDbciWFGYK6DlZH7a+YrYOrKUelnuk3Y9wPL8EodYFmm8UuQPHNe4s8lypJ2
+	 S0gPLuh7ibTzA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tianchu Chen <flynnnchen@tencent.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] staging: rtl8723bs: fix protected RX frame validation in decrypt path
-Date: Wed,  4 Nov 2026 19:08:51 -0500
-Message-ID: <20261105000819.977798-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] media: s5p-mfc: use timer_shutdown_sync() for the self-rearming watchdog
+Date: Wed,  4 Nov 2026 19:08:53 -0500
+Message-ID: <20261105000820.985309-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105000819.977798-1-sashal@kernel.org>
-References: <2026110447-latch-gala-c5d3@gregkh>
- <20261105000819.977798-1-sashal@kernel.org>
+In-Reply-To: <2026110426-pessimist-footing-003c@gregkh>
+References: <2026110426-pessimist-footing-003c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,101 +64,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tianchu Chen <flynnnchen@tencent.com>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit 495cb31c791bdf3f9efef255a9587b05b0526c9d ]
+[ Upstream commit 63069b5917cba2e15b1a78b3f4ff99e45102c56f ]
 
-The RX software decrypt path mishandles crafted protected frames from a
-malicious AP in two ways:
+The MFC watchdog timer (s5p_mfc_watchdog) is self-rearming: every
+callback re-arms itself with add_timer() and, on a timeout, schedules
+watchdog_work. s5p_mfc_remove() tears this down with timer_delete_sync()
+followed by flush_work().
 
-1) decryptor() never checks that a protected frame is long enough to
-hold the 802.11 header plus the per-cipher trailer.  All of
-rtw_wep_decrypt(), rtw_tkip_decrypt() and rtw_aes_decrypt() compute
+timer_delete_sync() dequeues the timer and waits for a callback that is
+already running, but it does not prevent a subsequent re-arm. Because the
+watchdog callback re-arms via add_timer(), this is the wrong shutdown
+primitive: once the wait returns nothing guarantees a just-queued re-arm
+will not fire later, dereferencing dev (clock on/off, deinit_hw,
+load_firmware, init_hw) after video_unregister_device(), DMA teardown and
+s5p_mfc_final_pm() have run, a potential use-after-free.
 
-	length = hdr.len - hdrlen - iv_len;
+Use timer_shutdown_sync(), which puts the timer into a shutdown state so
+that any add_timer()/mod_timer() from the callback becomes a no-op and no
+later firing is possible. Switch flush_work() to cancel_work_sync() so any
+watchdog_work that was already queued before the timer was stopped is
+cancelled rather than allowed to run to completion against the torn-down
+device.
 
-and act on the result, and recvframe_chkmic() similarly computes
+This issue was found by an in-house static analysis tool. No runtime
+reproducer is available.
 
-	datalen = hdr.len - hdrlen - iv_len - icv_len - 8;
-
-for TKIP (the 8-byte Michael MIC is not accounted for in icv_len).
-A frame shorter than hdrlen + iv_len + icv_len (+ 8 for TKIP) underflows
-these unsigned subtractions, turning into a ~4 GiB iteration count in
-aes_decipher()/arc4_crypt()/rtw_seccalctkipmic() or a ~4 GiB crc32_le()
-length, causing out-of-bounds reads/writes of up to ~4 GiB starting from
-the rx skb.  Reject such frames in decryptor() before touching the IV;
-this covers all three ciphers and the TKIP MIC check, and also keeps the
-unconditional iv[3] access within the frame.
-
-2) validate_80211w_mgmt() keeps using the frame - two memcpys through
-the stale rx_data pointer and a pkt_len update - before checking
-whether decryptor() returned NULL.  On decrypt failure (e.g. a unicast
-protected deauth/disassoc/action frame with a bad MIC, which this path
-always software-decrypts) the skb has already been freed, so this is a
-use-after-free read/write, and the caller's error path frees the frame
-a second time, drifting free_recvframe_cnt.  Bail out immediately when
-decryptor() fails, freeing the temporary mgmt_DATA buffer first.
-
-Discovered by Atuin - Automated Vulnerability Discovery Engine.
-
-Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
-Assisted-by: LLM
+Fixes: af9357467810 ("[media] MFC: Add MFC 5.1 V4L2 driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
-Link: https://patch.msgid.link/8ee3bdd1c45034200cb1aa9a7e9b575b9584643a@linux.dev
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: adapted the timer replacement to the existing del_timer_sync() call instead of timer_delete_sync() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/rtl8723bs/core/rtw_recv.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/rtl8723bs/core/rtw_recv.c
-index f43429c72298e..96630315d46a7 100644
---- a/drivers/staging/rtl8723bs/core/rtw_recv.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
-@@ -386,8 +386,21 @@ static union recv_frame *decryptor(struct adapter *padapter, union recv_frame *p
- 	u32  res = _SUCCESS;
+diff --git a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
+index 007c7dbee0377..58479d2a69fa0 100644
+--- a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
++++ b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
+@@ -1440,8 +1440,8 @@ static int s5p_mfc_remove(struct platform_device *pdev)
+ 	}
+ 	mutex_unlock(&dev->mfc_mutex);
  
- 	if (prxattrib->encrypt > 0) {
--		u8 *iv = precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
-+		u8 *iv;
-+		u32 min_len = prxattrib->hdrlen + prxattrib->iv_len + prxattrib->icv_len;
+-	del_timer_sync(&dev->watchdog_timer);
+-	flush_work(&dev->watchdog_work);
++	timer_shutdown_sync(&dev->watchdog_timer);
++	cancel_work_sync(&dev->watchdog_work);
  
-+		/* TKIP appends an 8-byte Michael MIC that icv_len doesn't account for */
-+		if (prxattrib->encrypt == _TKIP_)
-+			min_len += 8;
-+
-+		/* a protected frame must be long enough to hold the IV and ICV/MIC */
-+		if (precv_frame->u.hdr.len < min_len) {
-+			rtw_free_recvframe(precv_frame,
-+					   &padapter->recvpriv.free_recv_queue);
-+			return NULL;
-+		}
-+
-+		iv = precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
- 		prxattrib->key_index = (((iv[3]) >> 6) & 0x3);
- 
- 		if (prxattrib->key_index > WEP_KEYS) {
-@@ -1371,6 +1384,10 @@ static signed int validate_80211w_mgmt(struct adapter *adapter, union recv_frame
- 			if (!mgmt_DATA)
- 				goto validate_80211w_fail;
- 			precv_frame = decryptor(adapter, precv_frame);
-+			if (!precv_frame) {
-+				kfree(mgmt_DATA);
-+				goto validate_80211w_fail;
-+			}
- 			/* save actual management data frame body */
- 			memcpy(mgmt_DATA, ptr + pattrib->hdrlen + pattrib->iv_len, data_len);
- 			/* overwrite the iv field */
-@@ -1378,8 +1395,6 @@ static signed int validate_80211w_mgmt(struct adapter *adapter, union recv_frame
- 			/* remove the iv and icv length */
- 			pattrib->pkt_len = pattrib->pkt_len - pattrib->iv_len - pattrib->icv_len;
- 			kfree(mgmt_DATA);
--			if (!precv_frame)
--				goto validate_80211w_fail;
- 		} else if (is_multicast_ether_addr(GetAddr1Ptr(ptr)) &&
- 			(subtype == WIFI_DEAUTH || subtype == WIFI_DISASSOC)) {
- 			signed int BIP_ret = _SUCCESS;
+ 	video_unregister_device(dev->vfd_enc);
+ 	video_unregister_device(dev->vfd_dec);
 -- 
 2.53.0
 
