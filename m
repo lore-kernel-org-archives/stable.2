@@ -1,98 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793846377;
-	b=xViZ6sh/dbHDz8qMwtdgK6ThFdXuqGdMJtPc/DA9UtaAHxOBgN1l5V8xy0cQxXcqtwMt
-	 w5z+EjbqZUORltz1a1NediVIsFJBVRmmX5iPtT9prOiAoyOroh3VlzvAI2NuxHumG1feK
-	 aNLQ0XK7T9pJ3Xs01lTtee2s9e8HiaMgOVNfAAqse4jmQKepLZm+Y/zScfaLy3LMdeF2A
-	 WpiqFPQjjkdiYyWwtkcYc2dpG//R6sVmaRPcjG7U6d6DQwP6r2wpAhwce16OECeu5ktVg
-	 OjvEMYNND44lJ978TGL5GCsAmvA9q/dBCVFpE2ne1Gwa5wFNTJxPjncnEkL6j+SriWw==
+	t=1793846385;
+	b=4m+ipG+4bWFXFk6QOykMd34p1yddVhQdG//buGQ8bG6yIdAKvUmGMFVyICtLIBGkC1TU
+	 xN4abRQxNQRnjwuKdmqjERC/wIZ44j5bff2sW/PA45m/FZXHlGd1XWiLmV5BuaY1jxybQ
+	 St/fdgjvpzv05jdWe6VQ+Ra+6H2Mx2kj7kIkjoX2bBQP3/7STIBjdW8JlMhWi1l5vBEoD
+	 /CD4Vaxj0xxfJhVL/nrqMnPXwDPXtN5/ZMHiPfnq+hziwTWxZ5jm0bGI6nPC11z80l+tY
+	 OpdFrCiMC/YkA1Ti1b0bGbIlakygHr9VcLR3ZzIHg0KD89FqIgTZFnejcnrphKOAjAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793846377;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
-	 In-Reply-To:X-DetectorID-Processed;
-	bh=Nfv6FKqQEehlYO6PakQvy8xnbRMYCGdZ1UXiFqagoN0=;
-	b=TEcaSyHFJyVLkSOGDb0KI0y1N/dubfKMdmXG42ALrlmB1zyglQ09Kxhw7RRgWT4xE0PI
-	 8y0iB7i7jKaoGpjf0731ITTnUYq3SMmX0y7B+WOE48iaSHATA/oEKAa/VPtVjbS1uWti2
-	 rTQX3ohvWhA0xM+X7/TbMUPNSvoEbwjK5mBlL2cR2uQgbHhqk+7xS/ggpWbrWw7qI0/eP
-	 qlBkFcD0W+RPqCMuL5Xm0b52UnMdHv2t73Xq4oZV2sM0w4trNgXSjyrLvSvWqrK1ZF6bY
-	 MkVo3Jm0EwgAtpwZ1wz3eO0Yizgb7h3kWCI2wKssanS8JFLLifrfdYghITrYkXu2ovw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793846385;
+	h=Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=DDbyGbw7MuW06WyclY7o5d1Swb0uU+IZxHgQhT6kOYk=;
+	b=rM32XFAaHD9JKRNMBvtMC6buDtxlHt4h9CqQa/QUjIA7SpbY+FtsB0UX2vzlNrngIvmW
+	 8F+8/KE8geGQb6VgZyQ83oilhlkxqyNKvNhxaAG0g/VWFICVLPg4KlC0amzul5rIhPVfC
+	 m6E46sRfnJPuw2yUjhkPUDkGp0jPC+V0Zyldk2SGbJwm6hXDsViguNBLgwp1HsQ8LrNsI
+	 CTUQMnviYlHa8qe+H0LvWf86DHK2OkXoheKowY+L7HCj7ZzmE9MERT0ijmHlN/R+Ni1qD
+	 2yRba/ZrK3smPhjU+EqtptsR0IQj+ENQSlQ+oyJ6/Z0ejTDKorRm8srqrrxuLX9YaXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=YvGST+pt;
-	arc=none smtp.remote-ip=209.85.216.99
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHUHxqbE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660E6606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:39:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 660E6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93100606A328;
+	Thu,  5 Nov 2026 02:39:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=YvGST+pt
-Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-3b0a519049aso697583a91.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 18:39:37 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793846377; x=1794451177;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:dkim-signature
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Nfv6FKqQEehlYO6PakQvy8xnbRMYCGdZ1UXiFqagoN0=;
-        b=LnrIwe3DINWpDTty3lO7Hj1A60STaTHYrpqDhnKrbEMFlYRE9mWd2769x8JaKSUlCJ
-         izonTaDP8oFy06t8lCz+4IbSSkJSmdMPtR6VQipqtVG/gk5fbiTlPyPBAq00K20OT5Fx
-         g+GKCFiWwpBdf+DtT+H934TMHSe5YaMDw+CY/GdlAKHsXqAkGb1owfQ2vURlu4dZ9CVR
-         vvlKq0oC8CsbhQttEqZNPZEXsf8snURJSE7GeMuIzUePlEKF2moIDyKTwHoLK27ceey/
-         bld7EnDZOSH58807WaEm5b1EtofssyjWytdF/fD3+WcdFYXDXXVZf22U5C5+idpoLElk
-         BOjg==
-X-Forwarded-Encrypted: i=1; AKwUvBzIPwi2I3lqmZShpILKyWaOgvqdmRfpNbcjH9OMYBwHI9PJfft+WkTrzroMIx0Cl+/EnCdWpEU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+fIXLIo3Lissb2xCpVyfyWf0sdMgIgS6TkW+U7k/TCF+B5b/bc
-	QpSjv4qnaXhL/KsamrimQnb/T5AzWcbRRmA9LzGhInxihk4/yKwDUPZJGwzVo/DEfnDAIvmTv6H
-	c6kHSuPV5ZSxzI3y0C9EUXD+kB11BpPYx2NnKOrdpL6i5vKdXl7fGu73VW1g3LnaiWQgR/qqqtl
-	YuMfvh+hcYv3SPB9E1fkP6z3vgqFiE+96XpxCgjqI1FWphOr1s5u0nKkJKrRn85f3QCnCnW6Nz3
-	Wa+cT57H+dLvgFE
-X-Gm-Gg: AYBFou0/L4yT2mO8s1bMiSzHyvqdG4ccNDXUqLltYV4yxZGeGolpeAZ9LwgeyYk+nM0
-	z67sT4zbO5NnVyLOFZGe3qAzxf78XXuOoU2+BIIYMp7yMg8i+bl9ESstlKvBOz2VVpI8Q5S/gAs
-	7xsBYh8RmkWitNIt8QmJMAyGI0mo/9Jlrox7d4SIekFjYk8QE+2D46bGDgUptDewJGOw/D+izyu
-	Sze4Gczakv2aIIWWoLg1sycdc+B/DJP7YHzen6ZupzSKaz3f8L2UKtoPnskogibw1eDuu7lwASx
-	S21lUMNZzk2Ihsa+xSATMWDIOOXMg6klTjciTf7frQGu4Hsj+kykn+NO88ktzu91dmkeXCN1SqW
-	Lh0XIV2QG6h3p+ny21yFrhon5Qxkbcw+HbBsURxoAL+bF+mKNFAQGS+/AJgzTI7arTKOLbumBhX
-	vQCbXrRsNuQQGMnfioMLYktic/KpnSvdJw2Xa1rKC1
-X-Received: by 2002:a17:90b:4a41:b0:3b0:b03b:699f with SMTP id 98e67ed59e1d1-3b0b03b73c1mr1260046a91.1.1793846376452;
-        Wed, 04 Nov 2026 18:39:36 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b0b3195213sm922552a91.3.2026.11.04.18.39.36
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 04 Nov 2026 18:39:36 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36d1353fdcdso3898885eec.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 18:39:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793846375; x=1794451175; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Nfv6FKqQEehlYO6PakQvy8xnbRMYCGdZ1UXiFqagoN0=;
-        b=YvGST+ptJe6F39Eq5rGJtNWw7Q1p9uAmMClUEYCFQ0iuFShkKj6z/nzOvMa4aI2I8u
-         1pOmvy7f9IMHjKtX0btqL+ibPZJdPIggYUdxdtAx+8u+oMflTjZjCtGDR/2cndUWlC1G
-         HFeNd6lnZAglmtf/GLNci4Qaf4ITkHdb/Djqs=
-X-Forwarded-Encrypted: i=1; AKwUvBxxIUIjH1t0rCjzASRfjsQzO8P5MCK1IDYyBWnVpZ2a5aBmEOUeoPyFecZDoTrP11QDSCMYrB0=@vger.kernel.org
-X-Received: by 2002:a05:693c:41ca:b0:36d:2b50:4eb9 with SMTP id 5a478bee46e88-36d2b5050femr3978955eec.25.1793846374824;
-        Wed, 04 Nov 2026 18:39:34 -0800 (PST)
-X-Received: by 2002:a05:693c:41ca:b0:36d:2b50:4eb9 with SMTP id 5a478bee46e88-36d2b5050femr3978910eec.25.1793846373963;
-        Wed, 04 Nov 2026 18:39:33 -0800 (PST)
-Received: from localhost ([192.19.50.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36db94376b1sm4756075eec.10.2026.11.04.18.39.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 18:39:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHUHxqbE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B8EC1F000C1;
+	Thu,  5 Nov 2026 02:39:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793846385;
+	bh=DDbyGbw7MuW06WyclY7o5d1Swb0uU+IZxHgQhT6kOYk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=SHUHxqbE3t3YM5hIEkDdQ8afRpxWqPJNGPxRLe5OwVSvY85UltD8+HcHU87f8oiue
+	 qHKEaGcBoYepq22JqOVfqjNQZiFja1TNoob8CGIEEoGBlcbhxoxGIR3Ha78YKSiieZ
+	 ZtR2GPMigteigfdl4NP2fhqbL4jLP8HMsCUi0NJJyGoRkjyUrFgnKh/4U5nM8lvqBL
+	 36das2JME1XE6XX+X8irQraBPtyhYsSOtUD/XGtN6VOc7zwUoIi8z2N+mMH169sM67
+	 hZMPApcfFWh0CqpdChanIOFLfqW1u/hbAbSPBrjj7LmObAg6C6vI58CHjjKP/qw+a+
+	 6W0XTOD7OzPMQ==
+Message-ID: <0a489565ca1693403d08eaef7c3545f5b8366bb2.camel@kernel.org>
+Subject: Re: [PATCH v2] pNFS: avoid repeatedly cancelling I/O for the same
+ lseg
+From: Trond Myklebust <trondmy@kernel.org>
+To: Tim Menninger <tmenninger@everpuredata.com>, anna@kernel.org
+Cc: bcodding@hammerspace.com, Eric Badger <ebadger@everpuredata.com>, Jon
+ Curley <jcurley@everpuredata.com>, Prabhakar Pujeri
+ <prabhakar.pujeri@dell.com>, 	linux-nfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 04 Nov 2026 21:39:43 -0500
+In-Reply-To: <20261105000131.2512336-1-tmenninger@everpuredata.com>
+References: <20261105000131.2512336-1-tmenninger@everpuredata.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,29 +63,37 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 04 Nov 2026 18:40:54 -0800
-Message-Id: <DMMXHWJXBCKN.1OOHPUSW1BS7A@broadcom.com>
-Cc: <bcm-kernel-feedback-list@broadcom.com>, <ian.forbes@broadcom.com>,
- <yunfeng.li.nb@gmail.com>, <tomas@slax.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH 4/6] drm/vmwgfx: reserve dumb buffers while detaching
- their surfaces
-From: "Maaz Mombasawala <maaz.mombasawala@broadcom.com>"
- <maaz.mombasawala@broadcom.com>
-To: "Zack Rusin" <zack.rusin@broadcom.com>,
- <dri-devel@lists.freedesktop.org>
-X-Mailer: aerc 0.17.0
-References: <20261027211729.646988-1-zack.rusin@broadcom.com>
- <20261027211729.646988-5-zack.rusin@broadcom.com>
-In-Reply-To: <20261027211729.646988-5-zack.rusin@broadcom.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+MIME-Version: 1.0
 
-LGTM!
+On Thu, 2026-11-05 at 00:01 +0000, Tim Menninger wrote:
+> Commit b739a5bd9d9f ("NFSv4/flexfiles: Cancel I/O if the layout is
+> recalled or revoked") added I/O cancellation when a layout segment is
+> invalidated while outstanding references remain.
+>=20
+> The invalid segment stays on the layout's segment list until those
+> references drain. Subsequent scans can find it again and repeatedly
+> invoke the layout driver's cancel_io() callback. For flexfiles, this
+> cancels matching RPC tasks and disconnects data server RPC clients.
+> During RPC/RDMA data server recovery, repeated cancellation can cause
+> a
+> reconnect loop that consumes essentially all client CPU and prevents
+> forward progress.
 
-Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+This claim isn't making sense to me.
+
+If a layout segment is recalled or revoked, we should always be
+clearing the NFS_LSEG_VALID flag bit in order to prevent it being
+looked up again. New RPC calls should not be able to add that layout
+segment.
+
+So the only thing that can be found on a second run of
+rpc_cancel_tasks() is a task that has been attempted cancelled
+previously, but for which that cancel failed.
+If you're seeing actual spinning, where the RPC call is just being
+requeued by the rpc_call_done() callback, then we need to look at why
+the latter is failing to handle the situation correctly.
 
 --=20
-Maaz Mombasawala <maaz.mombasawala@broadcom.com>=20
-
+Trond Myklebust
+Linux NFS client maintainer, Hammerspace
+trondmy@kernel.org, trond.myklebust@hammerspace.com
