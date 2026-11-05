@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793898829;
-	b=Arr1dAgMrRiCIbMv5F6bgLqUPOFbq/0zor3e8PG66nJ+tjyjn4wo6aNPPoIejCRo8S6Y
-	 L8226ZlvG9dxL3+YA2BZ/3ezYCtW6Z2uc/cMQzgPKOiMd11NZedX2CRne/lVHW1e+8gRJ
-	 VDD95fcI5o2eC4SV9wBM4teSLnVOVLIzPwU58yhp+BTnyHr5+UjJNdXHFN22GXPiNlz+U
-	 WMJPlndOf4tUGyWePhCLWDlnZnSfdeosma1EEaDog8R4xslorsw54k/p8NcXY28hYVOw1
-	 /PQZXcqtBfO4Op21q2Qr22ecJWsJuLOimXd7eHwVr5IkE+gD7WqsskS1P3rkVB2DYog==
+	t=1793898830;
+	b=WjH0O3rrYhxyVPu8XlrrIdzyntP//ZZbOdyPyMrCS1IgLOepUvNkFdNiyGsQ5DdFKEK8
+	 K+q/dE77wHk1lRU4+mhKvwxw8tRrioy6KclBzdNB4JBudb3i4C3tZHpBQx5WhhlatMd7y
+	 cEAXyr4m+feq23Kwt8TgquFh0JLaUwu1xX389TxfxszbZW8bAmujhuK5sf6Si7BTr9b15
+	 zkSgslLgxoGa2kZWmPVKAbqH7w3CTmFGzpWaUZymVtyFplVCrFwN/AwrIziw6P66Pavsl
+	 LZqdWbbL6pIG7RcsjzYuCwJOOFdL30oSknGge5khUBec+09R5LEOZrAzNBK1QcznBEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793898829;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793898830;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HbkYZdwBVRPKznegyuKiPJo4XS3NaEmcelzjanIgMYc=;
-	b=ZyX2R+nZFbADueoeJDt3m+ZEXqbST0z6Zx0CkuixnQOXDNxzObmA7iOMDmDPpNU6O5UR
-	 e9E0LiJi28BOEdQu2zuMGLoxg+AiYE94ETmdIvr8PQefi8gvZpj9pAxxChDOsPlSwwd9u
-	 LDYBjJwZtAewA/AsLNH5iAkIdQWshTpWivQcYBNF4ha5QXNiwEgIK8PgxD+x9c1d3oqwn
-	 zTH7Lzsd5+E0QPIMP4bZKAfXFerM8jll0TVQ5YpZg8EDkV1ZXOguMqJcHIAUXaw+77Q0A
-	 ZTWLrP0WnisN2lXEz/cYCOU0q1Ga6GeAPjXBRsvALZa0264fnxRVfjRDBzbo7D/FM1A==
+	bh=e9lbHjL1/Sm4sdjLBSc6zBB9t6Ek9LZiuMFNDdw3z94=;
+	b=IizghSPLbR3F+A+r1ACz5cUz5S/5jMCtHrTR+crg0n1HyoJc2P/WLdU3vuLgTC9LakA/
+	 YfJG1HPPoQqgEhBlFHq648si83Gmrc71snGW9yQvCKt18djny5l0ktruS+6fXwGksscWY
+	 AoPu1rBm2ugzxhO6qmwqOJFWdlYlmpWbY2qKHce3iLwqTEBPv+tgIZYRuEYrHbYWR7HgK
+	 9Zk+J6taFqlbWo/3mkIwx2mEfw9XLlsi7ynDNb4OSwWgGME/+mYmLA2Vr3WzszXg74Ems
+	 dw+pEMZz23YwZNppntH//azN+XGJSjRJ+2nDG3GTJv5hgCAa66vYMkUJECRgYv62GyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CVQbkldR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJZD6iPE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3366606D81C
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 17:13:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1699606D822
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 17:13:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CVQbkldR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0A691F00919;
-	Thu,  5 Nov 2026 17:13:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJZD6iPE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20D8D1F000C1;
+	Thu,  5 Nov 2026 17:13:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793898828;
-	bh=HbkYZdwBVRPKznegyuKiPJo4XS3NaEmcelzjanIgMYc=;
+	s=k20260515; t=1793898829;
+	bh=e9lbHjL1/Sm4sdjLBSc6zBB9t6Ek9LZiuMFNDdw3z94=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CVQbkldRbSGpGEE2bIRSp6Qh+nVHnoGrrePHq39Q2Njjqsellj8sYPNddbdfC209m
-	 yZPGk1esSCy5xVHCa4W/nMmo3aYy9NZ8EWSoWz/eq4uwzA6Jy/z/nurifhmz/QROIs
-	 bVd1BBBVL2suEZ4snrHb77Lw2pdir4PGfxBDFaMEM66bT5N0qWb2pqOECtyBXuY7u/
-	 sXDV54PFL3V3WL/4KhMy2QnoNKWCN2Nh7vN4soA8pr/r7F6TNPibwDlXej9pSq2kF9
-	 8V9IPDm9arNjYINKGugRPNgtud8hICCTkWeca/8irx94Xj8jmInBJPRA/+OOpbWROa
-	 WbbepATcZbQ+g==
+	b=CJZD6iPEWVQhhufMFCs2qSw3Dl33p+B5JNCciY0Qxn/RlEQuXDq5T7hNCmod3aLGC
+	 6i4DztO/R2HnNEjx82MKNxA8Ck012O9xVCuGwmZYcAcBHh5GYgfOrq2xJizk54NPeS
+	 sVIocPW8LLnJerBxnLjyA8nm2B+/d30MDyss2/HcTt8P/zy07mQbQsCUquHTWncaM0
+	 pBHa8b0/hWIXO98jmpX47npFJ5qg+kVJjo3QfGTKEhD0O9objoC9xn6GI6fN1utqhU
+	 6YOJ2+AB0XFfYQDtfcUuqs18uJSg39JqXaS8fiezonAUoOEC6XCyN6FHVbDhMSqBz+
+	 RY0nqYggS3FwA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>,
+Cc: VeroFess <coderzeng@hotmail.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] xfs: check for buffer overruns when examining local/remote xattr entries
-Date: Thu,  5 Nov 2026 12:13:45 -0500
-Message-ID: <20261105171320.2145841-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] smb: server: size directory name conversion buffer correctly
+Date: Thu,  5 Nov 2026 12:13:47 -0500
+Message-ID: <20261105171319.2151172-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105171320.2145841-1-sashal@kernel.org>
-References: <2026110428-batch-urology-d8d3@gregkh>
- <20261105171320.2145841-1-sashal@kernel.org>
+In-Reply-To: <2026110424-submarine-stool-e2c1@gregkh>
+References: <2026110424-submarine-stool-e2c1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,111 +61,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Darrick J. Wong" <djwong@kernel.org>
+From: VeroFess <coderzeng@hotmail.com>
 
-[ Upstream commit 91c41f9524906a8ebd2ae68c98a07b4bd5255ddb ]
+[ Upstream commit f1f37834eaba5904103af1f18afe3510c7e9dc71 ]
 
-LOLLM noticed that the xattr scrub and repair code can walk off the end
-of the buffer if the xattr entry record starts so close to the end of
-the buffer that there's not even space for the entry structure itself.
-Strengthen the bounds checking here.
+A 2048-byte ASCII directory name needs 4098 bytes when converted to
+UTF-16, including the terminator. ksmbd_convert_dir_info_name() caps
+its allocation at PATH_MAX and writes past the end of that buffer.
 
-Cc: stable@vger.kernel.org # v4.15
-Fixes: 13791d3b833428 ("xfs: scrub extended attribute leaf space")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
+Allocate space for one UTF-16 code unit per input byte plus the
+terminator. Use kmalloc_array() to check the size calculation.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Assisted-by: gpt 6 sol with daybreak blue
+Signed-off-by: VeroFess <coderzeng@hotmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: Retained GFP_KERNEL instead of KSMBD_DEFAULT_GFP because the latter is unavailable. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/attr.c        | 12 ++++++++++++
- fs/xfs/scrub/attr_repair.c | 16 +++++++++++++---
- 2 files changed, 25 insertions(+), 3 deletions(-)
+ fs/smb/server/misc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/fs/xfs/scrub/attr.c b/fs/xfs/scrub/attr.c
-index 84507c80cf945..68d9666ab201a 100644
---- a/fs/xfs/scrub/attr.c
-+++ b/fs/xfs/scrub/attr.c
-@@ -306,6 +306,12 @@ xchk_xattr_local_entry(
- 	char				*name_end;
- 	unsigned int			namesize;
- 
-+	name_end = (char *)lentry + offsetof(typeof(*lentry), nameval[0]);
-+	if (name_end > buf_end) {
-+		xchk_da_set_corrupt(ds, level);
-+		return 0;
-+	}
-+
- 	namesize = xfs_attr_leaf_entsize_local(lentry->namelen,
- 			be16_to_cpu(lentry->valuelen));
- 	name_end = (char *)lentry + namesize;
-@@ -335,6 +341,12 @@ xchk_xattr_remote_entry(
- 	char				*name_end;
- 	unsigned int			namesize;
- 
-+	name_end = (char *)rentry + offsetof(typeof(*rentry), name[0]);
-+	if (name_end > buf_end) {
-+		xchk_da_set_corrupt(ds, level);
-+		return 0;
-+	}
-+
- 	namesize = xfs_attr_leaf_entsize_remote(rentry->namelen);
- 	name_end = (char *)rentry + namesize;
- 	if (rentry->namelen == 0) {
-diff --git a/fs/xfs/scrub/attr_repair.c b/fs/xfs/scrub/attr_repair.c
-index ab5bd7a4d4abb..2c573897c0c6a 100644
---- a/fs/xfs/scrub/attr_repair.c
-+++ b/fs/xfs/scrub/attr_repair.c
-@@ -285,6 +285,7 @@ xrep_xattr_salvage_local_attr(
- 	struct xfs_attr_leaf_name_local	*lentry)
+diff --git a/fs/smb/server/misc.c b/fs/smb/server/misc.c
+index 79de46a0283ab..604d8584fb2bd 100644
+--- a/fs/smb/server/misc.c
++++ b/fs/smb/server/misc.c
+@@ -290,12 +290,13 @@ char *ksmbd_convert_dir_info_name(struct ksmbd_dir_info *d_info,
+ 				  int *conv_len)
  {
- 	struct xchk_xattr_buf		*ab = rx->sc->buf;
-+	char				*name_end;
- 	unsigned char			*value;
- 	unsigned int			valuelen;
- 	unsigned int			namesize;
-@@ -293,10 +294,14 @@ xrep_xattr_salvage_local_attr(
- 	 * Decode the leaf local entry format.  If something seems wrong, we
- 	 * junk the attribute.
- 	 */
-+	name_end = (char *)lentry + offsetof(typeof(*lentry), nameval[0]);
-+	if (name_end > buf_end)
-+		return 0;
- 	value = &lentry->nameval[lentry->namelen];
- 	valuelen = be16_to_cpu(lentry->valuelen);
- 	namesize = xfs_attr_leaf_entsize_local(lentry->namelen, valuelen);
--	if ((char *)lentry + namesize > buf_end)
-+	name_end = (char *)lentry + namesize;
-+	if (name_end > buf_end)
- 		return 0;
- 	if (!xrep_xattr_want_salvage(rx, ent->flags, lentry->nameval,
- 			lentry->namelen, value, valuelen))
-@@ -333,8 +338,8 @@ xrep_xattr_salvage_remote_attr(
- 		.attr_filter		= ent->flags & XFS_ATTR_NSP_ONDISK_MASK,
- 		.namelen		= rentry->namelen,
- 		.name			= rentry->name,
--		.valuelen		= be32_to_cpu(rentry->valuelen),
- 	};
-+	char				*name_end;
- 	unsigned int			namesize;
- 	int				error;
+ 	char *conv;
+-	int  sz = min(4 * d_info->name_len, PATH_MAX);
  
-@@ -343,9 +348,14 @@ xrep_xattr_salvage_remote_attr(
- 	 * junk the attribute.  Note that we should never find a zero-length
- 	 * remote attribute value.
- 	 */
-+	name_end = (char *)rentry + offsetof(typeof(*rentry), name[0]);
-+	if (name_end > buf_end)
-+		return 0;
- 	namesize = xfs_attr_leaf_entsize_remote(rentry->namelen);
--	if ((char *)rentry + namesize > buf_end)
-+	name_end = (char *)rentry + namesize;
-+	if (name_end > buf_end)
- 		return 0;
-+	args.valuelen = be32_to_cpu(rentry->valuelen);
- 	if (args.valuelen == 0 ||
- 	    !xrep_xattr_want_salvage(rx, ent->flags, rentry->name,
- 			rentry->namelen, NULL, args.valuelen))
+-	if (!sz)
++	if (d_info->name_len <= 0)
+ 		return NULL;
+ 
+-	conv = kmalloc(sz, GFP_KERNEL);
++	/* One UTF-16 code unit per input byte, plus the terminating NUL. */
++	conv = kmalloc_array((size_t)d_info->name_len + 1,
++			     sizeof(__le16), GFP_KERNEL);
+ 	if (!conv)
+ 		return NULL;
+ 
+@@ -304,7 +305,6 @@ char *ksmbd_convert_dir_info_name(struct ksmbd_dir_info *d_info,
+ 				      d_info->name_len, local_nls, 0);
+ 	*conv_len *= 2;
+ 
+-	/* We allocate buffer twice bigger than needed. */
+ 	conv[*conv_len] = 0x00;
+ 	conv[*conv_len + 1] = 0x00;
+ 	return conv;
 -- 
 2.53.0
 
