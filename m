@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.11
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793911844;
-	b=q/5A4uRDRWMh38xag178uLZZQcAdrMesL6WT/gbhe5a4hNCGbJJRa9dSLPx2L6tPDIS/
-	 JbbKlBUcRm8GT86KGS2ysTfY8XW6rFfgUzZnO+akh37+MizrocDZpkA7VonMwB9PErfBk
-	 toFefFC5U7mAPLkI4H8K3V11AwRJzuaRJq3PJB/ol6GwfI+kXsM+s5h10ypHIgjXr5F0B
-	 sbeFwROOJOTCg3OeLGkrTCZaFOh8NTtXlWcaRYSIVxklW9137lp58I1QI85MDQa04VzZa
-	 a5mvTxu44Mn/ZcrB5AyX+FomVSWt3s23+9A5ongxQms1HVBhUZvfEM6v+5lldUfiuSA==
+	t=1793912022;
+	b=L9dkXlo8A3PZ8HsHOkvZWQlscV09i6pv6r42cGxSEU8JNA0Frsh0g1ZRSC2RLTR33kfK
+	 SKOsc612JJoi6Fz7Y6mR88wMNt8EeiEZ+7FQgMlQnW2tfwakYsiAVVF/Fqjp1ZCSzcoOn
+	 77NYJKY3qsdavv+7xCeVeztj3iKcn0g+Aq6FB2kOk3JF46n+l4gXc0zQh6Ickz8TxPJ+Y
+	 cW7YLJIwiakLRuLzxhrWzCst24paxORIh3iIUumJsx0l3m6f/dVjzE1XB9Qw2bB7gSdQ2
+	 10HQy0Sb10ShyAblf0zeCNjNORbnHzxihd9aJYWxzrIXp2YYk2hj8V5idgo4IYqX91Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793911844;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=n+pRwyM6jtw/t99MRAyQwbNSY1kY6+Y063USIMO4Eek=;
-	b=hli9YpJwtRr2rp+QTea9Cvkt9ckeRgWjYaVh6GkWGYcBKdsQ4ivIPiBXU3+iEGancDhM
-	 ySfMrc9IRxMVZf4pMYpM8HjTcsN4N4kCvDna7C3T7oV26ndfiE8MaK+4guYjbiFPHttab
-	 ut8UKOT54dz0XFtmQPvykluR2agqehlUJWHRQpNhVcZ7ABHWzDyiHT3EGj/uNCrGX54+v
-	 z0iozTLheE6AcsApcSw6JQEBAADB3C9CCENt4DRaM93D+i0OJPmA8tJ4xqnsinb66rUYv
-	 G8ngkA/XEcYSA2mlDJs+mJeXOn3UhtCaNexW86E02iLmcroSvZrtPRlAcX1eAv5xT8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793912022;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=hytWD9a2VKx1375ydkRbOIQtDmQfvpxJlUnWTyatKr8=;
+	b=QEVqDq1yLVvemWg499z3jwpd0Ro5WDYQSvqUZSSRFvefdQG0HdFxCq7dsi96HMgkSRP7
+	 ybx5ApYABBQdkL7EntN45WEBonwUGJwQaO9N7QXI7fbvGEPihs4dhbL87kDoC6ypHWty2
+	 F9tbMx8jX0auxmGuyw0eZye3RdKfzspVVNXdv8N8ean4kl2bwcEMA5Nhcoxur9vpBuWrt
+	 vLwnJxwMsQNEqHWFJkeg5stjYtRw0IgwOIltQXRpMSLAcKqtYYTIbxxNJe/KEyacxPO0t
+	 VXOkIh+Kj1KMrzQwx4o6uJwdhrhOrqVQUw0ZGoK2kFQaqh8HtfiZpLJPfrYPSeJCwWg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m92f5nis;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nokia.com;
+	spf=fail smtp.mailfrom=nokia.com;
+	dkim=pass header.d=nokia.com header.i=@nokia.com header.a=rsa-sha256 header.s=selector1 header.b="eQ/thbis";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.11
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011011.outbound.protection.outlook.com [52.101.62.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE6A606A31B;
-	Thu,  5 Nov 2026 20:50:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407E4606A32D;
+	Thu,  5 Nov 2026 20:53:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 407E4606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nokia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m92f5nis
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793911843;
-	b=ow09mkwMzDhHxhVGEwyG3VLSwsx8axmbdvMwjYPv/jzLlAu930xRaG+QEq0cNaowWEHB
-	 1D3ilriiDMKr99ekeo/4/1s5dZCPxsgAW8hRTusT12qGOkX2qrQXB0J7qCnQqJ3UL+Yo2
-	 LjkKdpGB5FfT0AvMP+xY6Pjx5NXomJ3zNsjCff1EaxaKweTj6FPD8AIw6b1d/HXFX3H3N
-	 yslzvQVcnBqsYaR5ge3pWUmbbM1NL/6QCiPREQBNq9rs01usCWef1QJUzw/IPOPArfVtM
-	 gpAuPQTYNqQjgc9wZJZXN1I2Iftl6Hd+01VrHXN3WFWT0UR5yJfv9vyBXWbVAo9toKw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793911843;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=n+pRwyM6jtw/t99MRAyQwbNSY1kY6+Y063USIMO4Eek=;
-	b=LWeN8HUWDyG5bIcbqiW0qPFT9XaZI+1lCCWvOCPAw3nDQpxx+ADK2ojgbYFPuZUsDlpZ
-	 9tE27G2/JZ55ZrWjEMrwv+tB4M6d3RXjiWyKlys5vUi/TJp/GKa91a26vNsRkIljcn3Kl
-	 9BfQu+ZWyHNV4iDoJzQL3VxMTVaXvfAuM9hiN2cqeTtEd1ZLCSIpxOei3yKAR7jDFax5r
-	 XDC+aaS5uJeScblanvxR3mx5Nho8QfhuTYKcSnAIDSUV/C3xHNn0XzH9YQRsSPOt9nRBH
-	 IZCK/+OS6iJ2OkwFgNp5ul0BozTNLloIo+02WBaTqzM/aS7x6QH34ybfbhhlgsAjFqQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0F3921F0089F;
-	Thu,  5 Nov 2026 20:50:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793911843;
-	bh=n+pRwyM6jtw/t99MRAyQwbNSY1kY6+Y063USIMO4Eek=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=m92f5nis4R5MrfdYJx3SaQAv9iq/Q0lQnchFK/s8iYOWbqXMEl8mlITHNGnylGb+M
-	 7EHFDoGg+fhYFkIO5IE3AJtMPpcUICBaEy7sTCy9t8NQs7mSr2gH9xtHne7i6BNoT/
-	 2GFyaWw7zyoL35031gdemiDXo8ugpUOr5OKk05HqxFL7yJ3vuAYhUf98tuPWzhej6h
-	 u2zC8kr1bl8PXeqkyZ8RX9cZLZemXIx47uZRlvM1v3INMzF0sXkT+LrYUIJ77dwA9l
-	 bQwn8XCiZypd8kxkIaT+Nc+vjiRg7GRVYzXwvBEsjxKOscHWgtHf3nD96wE8+az/00
-	 F3LTKydaH4uHA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 614C640753;
-	Thu,  5 Nov 2026 20:50:42 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Thu, 05 Nov 2026 15:50:42 -0500
-Subject: [PATCH v2] mm/memory_hotplug: don't offline a hwpoisoned page
- still in the page cache
+	dkim=pass (2048-bit key, unprotected) header.d=nokia.com header.i=@nokia.com header.a=rsa-sha256 header.s=selector1 header.b=eQ/thbis
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KUtnxDV7q2MbqNPOUxbo5AJWpJyVpvA580fgVbGA3XTan+jiHBqJfF8jsUthHR96SAnlAf4b5reZPGWMb9cC0cVmr2oRhDzMSZHYPHhYhlOAqfRHMf06r9sUhNQrnS+G7qwR92RfohR4knM78WQ8y0ShOd+C3z86LchgocBsPnYJZDF8JAX1saYsvfdj+0fecHiAb7RcuV19aLbun0vY29oCXlAj7iXAK6AIVlb3lUEqoZO39uG+MBJxb97PKpTiunqFfP4TZccF+gylqovP/A4m89LOUFF7bHK+nG5QEKAXElBEy/v0DOi1H/RyOLZYEcrJcv/w0IwDQ79IfrcC9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hytWD9a2VKx1375ydkRbOIQtDmQfvpxJlUnWTyatKr8=;
+ b=NEOfRhhUVjsu08xrdiKbiRR0LRItepUg+E2+lp2u3x9lCLCRZmmSOK2QlTZPHUVGmYwZSaSZ7y58EwoFLpRsnTKY+P8qofFx3Abqh2DEduL2wniE29w/S8I72snMh0eH8zguUCRF1ODUfcRFthF7ZJoI9p23zorxFM5hLjh8uZvZlT8OgoZ7FLhbWXgBU6WIcIfD59fU69fmEheZcyH4A7XxSmYmOE5OK/No9l1/3SDIW83fzQPtTTfUy7NtRHyDlitiFh0xHw3lf0Db1zTnJSgamoEtCXoUdoYKXjPLi5938uyQljG8bs6hbRJ+R5UtkFO2HgosqBUJ28Gn0oAvbQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nokia.com; dmarc=pass action=none header.from=nokia.com;
+ dkim=pass header.d=nokia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nokia.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hytWD9a2VKx1375ydkRbOIQtDmQfvpxJlUnWTyatKr8=;
+ b=eQ/thbislYbm5E7Qvhwceba7Nr+hpm+2IiM/Go40tCkYR79YNZDJy8PrKgXx+D1fIWMTlXjdEAERIV7e0/YY8ESRY+xEKTrZteD2EfZjAH1vCTgqjz9shJj2MTORdPVIFxC+iiNAmGHDcqOKMgDFfPYsdEJqv7BsaOyduvhdkGDwEttDfoZgxBzT5mp7X3ibjuFyZzY9az4KNZx6A6GAd7uelGd0mZAd19t6eCUMPtGwnUXVLv8ZXO7+5H5IPgfRLLPfypS8hCLcdPXrRVYyOMiHv97wcEpgFO8/EVdM8Szbgo/dviqA4qVk9Ba2nvVkI8RPxnCxrv1M3mhhGmU6yA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nokia.com;
+Received: from BN0PR08MB6951.namprd08.prod.outlook.com (2603:10b6:408:128::14)
+ by IA3PR08MB10310.namprd08.prod.outlook.com (2603:10b6:208:507::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 20:53:27 +0000
+Received: from BN0PR08MB6951.namprd08.prod.outlook.com
+ ([fe80::4dd1:e1e:56b0:b178]) by BN0PR08MB6951.namprd08.prod.outlook.com
+ ([fe80::4dd1:e1e:56b0:b178%5]) with mapi id 15.21.0569.011; Thu, 5 Nov 2026
+ 20:53:27 +0000
+From: Anthony Pighin <anthony.pighin@nokia.com>
+To: intel-wired-lan@lists.osuosl.org,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Cc: stable@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Todd Fujinaka <todd.fujinaka@intel.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH iwl-net] igb: Retry the D0 write of the i210 PLL workaround
+Date: Thu,  5 Nov 2026 15:53:24 -0500
+Message-ID: <20261105205325.2624892-1-anthony.pighin@nokia.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CH0P221CA0014.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:610:11c::12) To BN0PR08MB6951.namprd08.prod.outlook.com
+ (2603:10b6:408:128::14)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,190 +103,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-memhp-hwpoison-pagecache-v2-1-029d35634d42@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4V0bU1bnrryPwyLoYx0jLRNC6gh/
- Ls81i5Pcu85M4sYCCO7JjMLOFEkZ1dQp4RpA7ZDTu3KTAlVSKEuvMfeeG7e3lF0lnvoUIM2yKH
- AFHKVQVoKtt59wAd9dvW9PjiOzRP1sPm2haE4uPDd25PcdkdGCvk/M0kuObZVWeUasgybm3avs
- W8IztiOrF6W5QcbMN/m1QAAAA==
-X-Change-ID: 20261029-memhp-hwpoison-pagecache-a6e3a524a370
-To: David Hildenbrand <david@kernel.org>, 
- Oscar Salvador <osalvador@suse.de>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Vlastimil Babka <vbabka@kernel.org>, Gregory Price <gourry@gourry.net>, 
- linux-mm@kvack.org, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org, 
- tz2294@columbia.edu, stable@vger.kernel.org, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793911842; l=6645;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=LcESJSofCaj5hhsA+wo/1wUjY9ar4+NtuF2td4wtlmY=;
- b=L6SShOaykmI6dCci4Iy1FG7sziKGM25QC0E0mxJNfwPNCYkScmr7PKCl2ukaPWDTZ8RA8L9fU
- czAA+IwmvnrB3pXpqIFkAfhsj5sEa///R1+XfVVYQNXRgEsXOnfQb96
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN0PR08MB6951:EE_|IA3PR08MB10310:EE_
+X-MS-Office365-Filtering-Correlation-Id: 89f4700e-0f68-476e-8892-08df3b7ed717
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|366016|376014|23010399003|1800799024|261026140227099003|11063799006|261026121527099003|56012099006|261022105027099003|261022075727099003|261009223027099003|261021121427099003|261102123227099003|261021123027099003|261028144727099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	S0J3RZkMcvcH6IDwbTpbTK8lcmD1ExsgP6lruqVS0wv6HvbOuo72wskjkswqAVG9WgK6XTNlno3ZYgWIVClbuwYZFkPvEsv799vE8ySVR7n+NjkLQ2YEh6ehnubwxMt0mrFNIh3LrwAbvkT0KRG6XcSeCx9dK/p2Ix/sfd+lPAdffHenJ6wqHA0NhuVvn5MCjoaFL+v3uandJrScIKB5dI4WVyySoL7+JEn233F27jlJy3rgTpRCRQJOXWmt2xZ1KDVqnHOZUX+DHESDC9HnMp8crmk6ZYuCpNcOZ+DRZ95mIKsq4Eq9kq49z6CICXn7KxTCYK31Zd7vsHGw/LkursctGdxt6FJsp+9hVe9oIbDNfo3d9u9qURrsnO+njg7n3XN3o33TpqPIJ9/oDCU3p0rmKn5cdElhz6oSFz1R+O02OpabMEsYSaUCtFJ87gzU8gM8bHgfvYqSiW2KXiAR5tA1EqmF4sGbO7NzCdnMWzxtmuWB32ROXYydQZUdLbJDogJLgYpSYMnmTgpOurrwAKXXevcvwqzBXIt3MUFXdaRhVPnNvRQRKH0g22y7XeMWsd/QPcr3qDGB5dqeO0sAzRopnO/pWz6UxBDUE4Mv4SLV4AjbYdWT4057rxNkCEZ4Lo9TdY5Nz4PVab+ki2DHoSJ7TAmEFmZzN6OOrWRQtic=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN0PR08MB6951.namprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(23010399003)(1800799024)(261026140227099003)(11063799006)(261026121527099003)(56012099006)(261022105027099003)(261022075727099003)(261009223027099003)(261021121427099003)(261102123227099003)(261021123027099003)(261028144727099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?0iWSCWAL1sbQHfhgWxqsB3vl+swQZcXhZ2obj+KLDU1YQ2A6clyLeBuzkmcD?=
+ =?us-ascii?Q?iuLpJDwtkDN+NaDIUSchw5k7i9vjEB3/jmV469+Sxn+WvRH9DB960mW3Yr/v?=
+ =?us-ascii?Q?g1v98IzfngC9GayXARBOqI7RNRSiul10Kutm7WXBzqtEUsdBEcGMk461VRuq?=
+ =?us-ascii?Q?heWWZ+DTprd2DZkrW9CMIRYeDTcYUoQXTim9o8KSh5lKnMnmRV/8fDYE7Crw?=
+ =?us-ascii?Q?UK6yi6v8HNgzxMk7bY+altdTHBJdULsViQcb+0VrMrg15IuvtAs+PkZLYqiF?=
+ =?us-ascii?Q?/G5odAZjMp6l7fpHacRUHSjcEGLTokRrh1ubCOHSMktPTWkhX4ACRIHgEEY3?=
+ =?us-ascii?Q?i4SMr27+aM2Nl7UmD5shNGALD8ZnzRD3x5m7d76xywdOG6YwowbYsAMaDgP6?=
+ =?us-ascii?Q?b8s/CZKrocpBvktrt3Vy0zV842KeXzD/rizwfpT20XjfC9830ViBZsT2fCwo?=
+ =?us-ascii?Q?+fYHy5kx4A7Nux5q2WJqr3D235v+xln1PxzJNnjj4JLhjkHZDrZo+QjXGd/n?=
+ =?us-ascii?Q?r+tDrerihqLbhyQXAeanL6ryltgUz6oMUfjqZOQE85ch83i7b1w0s/1QWiYZ?=
+ =?us-ascii?Q?fmh5UOpYhkCG1kvaClFs8GH2x5sJQAQJOcGZdlwPApDH0L3l+E5vncInFkfU?=
+ =?us-ascii?Q?nlmrKexNqKE5PNCVeCjWXI3QQABKywqiKce/s8/u0KY6t0YH+lDx2wDO8GAq?=
+ =?us-ascii?Q?Q6SdF9rcEXvEiKfFmYuU4j1V5gweeNiwTXTzYkZQbon8j5dFTSneOWsf87bw?=
+ =?us-ascii?Q?PiOAnehG6vKE2u/PIWGopxlbWHFbXvTDPvKjTdBAMVdtK74uUe6Gwa2uf2lX?=
+ =?us-ascii?Q?9vo+utcE1RnS1AnAo1xrNT3Av6GvD+K++8MyGA2jRdpN1Ebl+bK+Z3W3K3ji?=
+ =?us-ascii?Q?XY/qHFFhqkangnJt0AN6/SOXs82GktiVJMp+w5uFGRr+Z7i8iz79d/GrzV4q?=
+ =?us-ascii?Q?bpcYKfNZtNAry70CAgjkXyPl+UvuCxlPeS+enZRp1A21FSSw/cayyBdb55Ez?=
+ =?us-ascii?Q?KcKfQkhtzMiBK6MRk8B399vKENQzJ303Q1eJNCV15z/R5U06/b1frLE80f8V?=
+ =?us-ascii?Q?N0F61AizISX3bREIjD2Kd4tWRmjbonAP6uTuHrOsptyqXjHjyDXzQCHe+55v?=
+ =?us-ascii?Q?OamPJI6bcBr+tvN1fILo5Bi94X+oljmRiKyhlVUqcMXw/sDQnmT3N/pCjl8W?=
+ =?us-ascii?Q?YiE0R691Wdy8ubv7enyDrNo+RbBqV0uP7TfWoparCWf6zwjuFZ47TgKL+IW8?=
+ =?us-ascii?Q?q3FcGzfvQtdmqLZqskVcDmPfX6yeho0uX0Mngn7WaEtaTnyw3Z7td0LxoUMr?=
+ =?us-ascii?Q?mj0xgrQZy5Qt3MaVtkFSCWIMB3cNHV1JOL5D3Ni+Is5wlVeW11UlLhZ5ubfo?=
+ =?us-ascii?Q?1Ij93UFovbHF4Zyl+pgMjUgSzC8vILUruMl4M0kv+gYAOh9h9RiAoregLZGK?=
+ =?us-ascii?Q?bmavtkjeejTckWbgsJKVUv+ONa2POe5lIMZ3TC9h8XaG85AZOCc0zhE6bjv+?=
+ =?us-ascii?Q?o++coe4/Cq3FdFNRCNgUKyElI/g/r5EX1koKica4R1kLJtzHsFfb1xnqiZt1?=
+ =?us-ascii?Q?VI9RT4Y2Lo4J2WYUS5pRwEyNTxBrOvDvYgQyF/oud2r8dMLSd0mjh3M6Sfev?=
+ =?us-ascii?Q?9gKdvgFgMJ4dswswx4mxDRIYfU4iepSeNNV/1k/YzS1AwNSv1Xi7FTNL7kFA?=
+ =?us-ascii?Q?qXIE6B/IU7tKJgafEOnXDEp8ANnKeZsM2KLg0CZifJ6CZpBsxVEEYQoRRq1y?=
+ =?us-ascii?Q?08QMUiCG/A=3D=3D?=
+X-OriginatorOrg: nokia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89f4700e-0f68-476e-8892-08df3b7ed717
+X-MS-Exchange-CrossTenant-AuthSource: BN0PR08MB6951.namprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 20:53:27.2649
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 5d471751-9675-428d-917b-70f44f9630b0
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4D3RKhZMi+BBC1b2Gseu9/A95zwqkQE7dSt+hXKosK7iBLXQksATzIcvYECMMNT6x49Ln54TUxpiwN0wN/7YWGcZhX2u//fhP8//cJ+LO7I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR08MB10310
 
-From: Mani Tofigh <mt4022@columbia.edu>
+When the PHY PLL of a flashless i210 fails to lock, the existing errata
+handler transitions the device through D3hot.
 
-Memory offline skips hwpoisoned pages, assuming nobody uses them
-anymore.  memory_failure() however sets PG_hwpoison before it takes the
-page, and taking it waits on pcp_batch_high_lock, which offline_pages()
-holds for the whole offline.  A memory error during the offline thus
-marks the page and then waits while the offline skips it:
+On some platforms, the root port frequently reports link training
+while the device is in D3hot. The generic DesignWare link check
+then treats the link as down, and the config access is rejected.
+If the write that requests D0 state is rejected, igb ignores the
+error and the device stays in D3hot. The next MMIO read fails, and
+igb reports "PCIe link lost" and detaches the device. Every later
+link setting fails.
 
-  Task A (offline_pages)               Task B (memory_failure)
-  zone_pcp_disable()
-                                       TestSetPageHWPoison(P)
-                                       get_hwpoison_page()
-                                         /* waits for Task A */
-  do_migrate_range()
-    /* P is poisoned (not migrated) */
-  test_pages_isolated()
-    /* P is poisoned (accepted) */
-  zone_pcp_enable()
-                                       /* P is off the LRU (Ignored) */
+  igb 0000:01:00.0 0000:01:00.0 (uninitialized): PCIe link lost
+  igb 0000:01:00.0: Hardware Error
+  ...
+  igb 0000:01:00.0: Cannot change link characteristics when SoL/IDER is active.
 
-The block goes offline while the file still points to P, and the next
-walk of the file's pages (here drop_caches on ext4) crashes on a struct
-page of offlined memory:
+Retry the D0 request until it is accepted, up to 1000 times. If the
+device never reaches D0, stop the workaround.
 
-  [   11.710348] Memory failure: 0x24224: unhandlable page.
-  [   11.710372] Memory failure: 0x24224: recovery action for get hwpoison page: Ignored
-  [   11.765371] page:000000008c304eee is uninitialized and poisoned
-  [   11.765389] page dumped because: VM_BUG_ON_PAGE(page_ref_count(page) == 0)
-  [   11.765440] kernel BUG at include/linux/mm.h:1990!
-  [   11.765458] Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-  [   11.772284] CPU: 3 UID: 0 PID: 85 Comm: mfoffline Tainted: G        W            7.3.0-17087-gd865f2677c44 #1 PREEMPT
-  [   11.777970] RIP: 0010:find_lock_entries+0x8ee/0xad0
-  [   11.798761] Call Trace:
-  [   11.799297]  <TASK>
-  [   11.803284]  mapping_try_invalidate+0xfd/0x2c0
-  [   11.810571]  drop_pagecache_sb+0x111/0x330
-  [   11.811572]  __iterate_supers+0x2e2/0x370
-  [   11.815863]  drop_caches_sysctl_handler+0x74/0xb0
-  [   11.816994]  proc_sys_call_handler+0x2ec/0x440
-  [   11.821360]  vfs_write+0x545/0x1250
-  [   11.825220]  ksys_write+0xfa/0x200
-  [   11.830202]  do_syscall_64+0xfb/0x590
-  [   11.832084]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  [   11.848423]  </TASK>
+Observed on LX2160A systems with a flashless i210. To confirm it, a
+test build of igb forced the workaround on every probe. Without this
+change, igb lost the device in 15 of 20 probes. Reading the root port
+registers during the workaround showed link training reported while the
+i210 was in D3hot.
 
-Once the memory is also removed it's a use-after-free of the memory map.
-tmpfs and the swap cache can end up the same way without the race.
-Since commit a76054266661 ("mm: shmem: don't truncate page if memory
-failure happens"), memory_failure() leaves a poisoned tmpfs folio in the
-page cache on purpose, and it does the same for a dirty folio in the
-swap cache.
+With this change, all 500 probes on the same systems reached D0 with
+no lost link. About 70% needed a retry, at most 21 D0 requests.
+Tested with 6.12.92.
 
-Treat a hwpoisoned page whose folio is still in a page cache or swap
-cache as busy in scan_movable_pages() and
-__test_page_isolated_in_pageblock() so that the offline fails and a
-waiting memory_failure() can go on.  Also have do_migrate_range() leave
-such a folio alone instead of taking it off the LRU, so that
-memory_failure() can still remove it from the cache.  A later offline
-succeeds once the page is out of the cache.  With the fix, the offline
-fails with -EBUSY and the file doesn't point to offlined memory anymore.
-
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it within about 10s.
-
-Fixes: b023f46813cd ("memory-hotplug: skip HWPoisoned page when offlining pages")
+Fixes: 948264879b68 ("igb: Workaround for i210 Errata 25: Slow System Clock")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Signed-off-by: Anthony Pighin <anthony.pighin@nokia.com>
 ---
-Changes in v2:
-- Leave a hwpoisoned folio that is still in a page cache or swap cache
-  alone in do_migrate_range(), so that a waiting memory_failure() can
-  still remove it from the cache (Sashiko)
-- Rebase onto current mm-new
-- Link to v1: https://lore.kernel.org/all/20261101-memhp-hwpoison-pagecache-v1-1-ed8785ca44eb@columbia.edu/
+ drivers/net/ethernet/intel/igb/e1000_i210.c | 33 +++++++++++++++++++--
+ 1 file changed, 31 insertions(+), 2 deletions(-)
 
-A pinned hwpoisoned page still isn't covered.  I'll send the refcount
-check David suggested as a follow-up.
-
-Taking get_online_mems() in memory_failure(), as in Gregory's series
-[1], would close only the race and not the tmpfs or swap cache case.
-
-[1] https://lore.kernel.org/all/20261027042204.3741307-4-gourry@gourry.net/
-
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/mfoffline.c
----
- mm/internal.h       | 9 +++++++++
- mm/memory_hotplug.c | 5 +++++
- mm/page_isolation.c | 2 +-
- 3 files changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/mm/internal.h b/mm/internal.h
-index 78a7f17b9934..35c6d30537f0 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1168,6 +1168,15 @@ static inline bool node_reclaim_enabled(void)
- 	return node_reclaim_mode & (RECLAIM_ZONE|RECLAIM_WRITE|RECLAIM_UNMAP);
+diff --git a/drivers/net/ethernet/intel/igb/e1000_i210.c b/drivers/net/ethernet/intel/igb/e1000_i210.c
+index 784f9a7bcbed..fad7cdfea197 100644
+--- a/drivers/net/ethernet/intel/igb/e1000_i210.c
++++ b/drivers/net/ethernet/intel/igb/e1000_i210.c
+@@ -7,9 +7,11 @@
+ 
+ #include <linux/bitfield.h>
+ #include <linux/if_ether.h>
++#include <linux/pci.h>
+ #include <linux/types.h>
+ #include "e1000_hw.h"
+ #include "e1000_i210.h"
++#include "igb.h"
+ 
+ static s32 igb_update_flash_i210(struct e1000_hw *hw);
+ 
+@@ -812,6 +814,33 @@ s32 igb_init_nvm_params_i210(struct e1000_hw *hw)
+ 	return 0;
  }
  
-+/*
-+ * A hwpoisoned page can be skipped by memory offline only once no page
-+ * cache or swap cache can find it anymore.
-+ */
-+static inline bool hwpoison_page_offlineable(const struct page *page)
++static bool igb_set_d0_i210(struct e1000_hw *hw, u16 pci_word)
 +{
-+	return !folio_mapping(page_folio(page));
++	struct igb_adapter *adapter = hw->back;
++	u16 pmcsr;
++	int i;
++
++	pci_word &= ~PCI_PM_CTRL_STATE_MASK;
++	pci_word |= PCI_D0;
++
++	/* Some host controller drivers refuse config accesses while the root
++	 * port reports link training. The root port can report link training
++	 * while the device is in D3hot, so the write that requests D0 can be
++	 * refused.
++	 */
++	for (i = 0; i < 1000; i++) {
++		igb_write_pci_cfg(hw, E1000_PCI_PMCSR, &pci_word);
++		igb_read_pci_cfg(hw, E1000_PCI_PMCSR, &pmcsr);
++		if (!PCI_POSSIBLE_ERROR(pmcsr) &&
++		    (pmcsr & PCI_PM_CTRL_STATE_MASK) == PCI_D0)
++			return true;
++		usleep_range(50, 100);
++	}
++
++	dev_err(&adapter->pdev->dev, "Device stuck in D3hot\n");
++	return false;
 +}
 +
- extern unsigned long  __must_check vm_mmap_pgoff(struct file *, unsigned long,
-         unsigned long, unsigned long,
-         unsigned long, unsigned long);
-diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-index 1bfd1f4daeb2..c5cfaa24b41b 100644
---- a/mm/memory_hotplug.c
-+++ b/mm/memory_hotplug.c
-@@ -1821,6 +1821,8 @@ static int scan_movable_pages(unsigned long start, unsigned long end,
- 		struct folio *folio;
+ /**
+  * igb_pll_workaround_i210
+  * @hw: pointer to the HW structure
+@@ -866,8 +895,8 @@ s32 igb_pll_workaround_i210(struct e1000_hw *hw)
+ 		pci_word |= E1000_PCI_PMCSR_D3;
+ 		igb_write_pci_cfg(hw, E1000_PCI_PMCSR, &pci_word);
+ 		usleep_range(1000, 2000);
+-		pci_word &= ~E1000_PCI_PMCSR_D3;
+-		igb_write_pci_cfg(hw, E1000_PCI_PMCSR, &pci_word);
++		if (!igb_set_d0_i210(hw, pci_word))
++			break;
+ 		reg_val = (E1000_INVM_AUTOLOAD << 4) | (nvm_word << 16);
+ 		wr32(E1000_EEARBC_I210, reg_val);
  
- 		page = pfn_to_page(pfn);
-+		if (PageHWPoison(page) && !hwpoison_page_offlineable(page))
-+			return -EBUSY;
- 		if (PageLRU(page) || page_has_movable_ops(page))
- 			goto found;
- 
-@@ -1887,6 +1889,9 @@ static void do_migrate_range(unsigned long start_pfn, unsigned long end_pfn)
- 			 */
- 			if (folio_test_large(folio) && !folio_test_hugetlb(folio))
- 				goto put_folio;
-+			/* The offline fails on it anyway, leave it to memory_failure() */
-+			if (!hwpoison_page_offlineable(page))
-+				goto put_folio;
- 			if (folio_test_lru(folio) && !folio_isolate_lru(folio))
- 				goto put_folio;
- 			if (folio_mapped(folio)) {
-diff --git a/mm/page_isolation.c b/mm/page_isolation.c
-index 5aaad037384e..beb09ef345ee 100644
---- a/mm/page_isolation.c
-+++ b/mm/page_isolation.c
-@@ -593,7 +593,7 @@ __test_page_isolated_in_pageblock(unsigned long pfn, unsigned long end_pfn,
- 			 */
- 			pfn += 1 << buddy_order(page);
- 		else if ((mode == PB_ISOLATE_MODE_MEM_OFFLINE) &&
--			 PageHWPoison(page))
-+			 PageHWPoison(page) && hwpoison_page_offlineable(page))
- 			/* A HWPoisoned page cannot be also PageBuddy */
- 			pfn++;
- 		else if ((mode == PB_ISOLATE_MODE_MEM_OFFLINE) &&
 
----
-base-commit: dba8aba0a9a00ff781c03d82ae534fc6f8c2e263
-change-id: 20261029-memhp-hwpoison-pagecache-a6e3a524a370
-
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
-
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.43.0
 
