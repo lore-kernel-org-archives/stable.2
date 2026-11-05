@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890955;
-	b=ZfFCbZc3vJMpQDIt0AqIgq1X3TkFY2aHi3yWI/bZK38lmoz3ogbHxJB76pOwB5NMpi/Y
-	 wQvPqGr8rVlUU+dLfA74IUGUkbQ6jbIjDY8k4xm8+EhqoBUHuvPQXer8sd9SplcT+uFC6
-	 SpxQlZawDGbFp9vYPM5WDnvRpL2g8HSrGAtcDB8NKUjIGiBJva8xoHMPSb6U6Glk+u3qI
-	 ZgdlcePPJQOVhCHFFxDv1i3AjsI7XM+Ak0hbXUOM22XY3t/njx4XUYq9deqBpNYPHu2mm
-	 EvkII7FSYOVMSmcyK+RfEvHNOBtPHljmfN1nhRoKd+j6fwjaIVNvthijRGiDyBYBEEQ==
+	t=1793890956;
+	b=vcvfgvYwJx6vEY1K73bjHP46m4iKTX4KJnnl8tVlcg/BiIlA9uiMuyJtjiBWk65WzADT
+	 rDjkjdyqvFPRrQ9ySjs9wg5u1NMfKdiDfeU9FjyTr3pop/DbqqN9gbiJgtHZK5j28tmdp
+	 Ctd++/C+Zbc07p9hka1LGTiKK2IoyFF96WoJMJsBJ1uuD+9OLl5xNWt8dGx82aeo7RsWm
+	 x80JdvwiHr7wV506oACe9cQBWgUqNnT4il3YEl8dOHbDNvKvC55n84jyBxNPSMaEJBIBe
+	 7AWJmwf8tzmi8B5oKay49C2+mIorpCvMQYnLCOszgBZ8h76tvUE88wwOIGDMPMf3OTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890955;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890956;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=U1PjpgVVhezd5uaIzjG23jxybF1YkeYl0e7nh7D1cfY=;
-	b=pB7YqiG35gVKXQ+PGAkC+UfPOBa3Pk+FjJ5gMSccQTZGu53RkV6xza0wCIhsDdm1XMiL
-	 qu/r3pTUpf0v7TWjw5Sz92weWoMJNmXRZElUr0FXkDV8vKSgj4FYfnvhEfpVq9PEx69Ih
-	 bq65cINMhwB8f+KyLAY+agErObhdJN4HzGCjQJp7HSfUVfi2p5LaciNzTyvlpgiZboKaI
-	 l1oMN//g7jQllRTUxdMu3g3G9XiEJGMKkNXPFPbQraz4qC78CYfAh3w0OxGdos8FuPamb
-	 hCyvZzGHglqlMMVsW9Agzw9wXcJZ02jvXlDcF8JWo7WYUDd0rUdCy7Qa9OuhLT6Hhdg==
+	bh=K/D6OPh6zEEF8uETwP1HkL+ri85ZPBf1vq3WSP6Obe4=;
+	b=PVfgzR1rYMg02IByYM3gQejlvI7Q3VmIzP2DITOHzkXGG8l5j97kksgQ9GYpuFifbbx3
+	 O/ijLiWNLMQp4z8F9vZ5r9L0LFguEiYk/sqaP1jOeSdqdqOVzG/HwqSC0Jxb2NrVuQXZu
+	 d9DIVSJvBtfaSHCPSE/cv/RAZxiRCHEql1SIzMSAMyeu8CRLHOindtzJkrAvSHNUYiDl5
+	 SfbAHeiciTQlc6Y4maVriR3lOoPNcH8EN4k48C9OchskmWYb4txHiv39xVcaLJn6rcDRJ
+	 6tuUQbptpHTzQyCGt3aE7KDXBV9Lbgt33ZYMQ+N2aqLwAwgU1ibeOpLSPoar33gBdDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fSeZhGVQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hh6tkqUF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06737606A33D
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:02:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549EB606EEB7
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:02:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fSeZhGVQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B2511F000C1;
-	Thu,  5 Nov 2026 15:02:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hh6tkqUF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FF3A1F00A1D;
+	Thu,  5 Nov 2026 15:02:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793890954;
-	bh=U1PjpgVVhezd5uaIzjG23jxybF1YkeYl0e7nh7D1cfY=;
+	s=k20260515; t=1793890956;
+	bh=K/D6OPh6zEEF8uETwP1HkL+ri85ZPBf1vq3WSP6Obe4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fSeZhGVQMWHtKz7sOrhUK4USF3g8tQF5dZ/9nJRbaO92hB+WHrjbvCiq6Jns+ycgd
-	 Wtj1LvMiJCj4mOF0Y8caMRE1UTu2jJtLpf7I+Vkdv2KUJGlXMhVDEggIHVeURe41UN
-	 2CP8OJBk5Yi0C6IcDj6ROp1ce6QDQvrjYZq4AVZz69znNRRajRrlRsRUa040GbFdiz
-	 rFlNr/DbUveIJv3bjyQ39KBfa18/rxL7LMa7243tyOykxy06QzQ2rrg3HHXfdJTQOL
-	 6Wj59b2xi+lVx46EtNNmdNo+EvFfnAma5U2WaPLkWJULcTsEP4PeryfudLljxgw8pS
-	 VsvjwuWpxqimA==
+	b=hh6tkqUFuC5CkiUBYhleVsxozkfE8V6rpyTR7yYAvlqa5M7e5NNQfKJosJiavivV+
+	 E0iaT0sRfG0jDjYCaBTvk4fwiBreguQ/98yOEk+DrFNopWSf0qHoZm9wRsmoizI7g8
+	 Xnw5d2is15cFtddmFLDYQbhgqhQ0al5eCW0EvsmzRuu+EUEhxr2v4vaOK+QXJDHv4j
+	 IuwJR86cWYOiYeWzk9eQRaYSEnTGlqCzxzsq2yWEn+ebcIxp+WlTnw/O/yr/T0k75f
+	 yVzFJG17kTOAemJYM3vgV5+T1XezwQUel42AfvVmTKFd6HrR7Ui4PvFTZSMKa48w0F
+	 deCfosqztUERg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
 	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] xfs: bound inode fork length against the fork size during log recovery
-Date: Thu,  5 Nov 2026 10:02:33 -0500
-Message-ID: <20261105150122.1662584-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] xfs: always report scrub errors in tracepoints
+Date: Thu,  5 Nov 2026 10:02:34 -0500
+Message-ID: <20261105150120.1843288-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110424-cure-criteria-18e5@gregkh>
-References: <2026110424-cure-criteria-18e5@gregkh>
+In-Reply-To: <2026110408-clay-heroics-73a0@gregkh>
+References: <2026110408-clay-heroics-73a0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,79 +62,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+From: "Darrick J. Wong" <djwong@kernel.org>
 
-[ Upstream commit 9232301894a06e664d8de2da97175cf98419bd16 ]
+[ Upstream commit 1ccc8f553d885d49c1bfe141ea1f331511940b3a ]
 
-xlog_recover_inode_commit_pass2() copies an inode log item's data/attr
-fork region into the inode buffer using the on-log region length without
-bounding it against the fork capacity, e.g.:
+LOLLM complains that the error processing functions in scrub will
+sometimes zero out *error before recording a tracepoint.  This makes
+diagnosing problems harder, so let's fix that.
 
-	len = item->ri_buf[2].iov_len;
-	memcpy(XFS_DFORK_DPTR(dip), src, len);
-
-The only guard is an ASSERT, which is a no-op on production kernels
-(CONFIG_XFS_DEBUG off), and xfs_dinode_verify() runs only after the copy.
-A crafted image with a dirty log can therefore drive a heap out-of-bounds
-write at mount time. The XFS_ILOG_DBROOT sibling already passes
-XFS_DFORK_DSIZE as a bound; the DDATA/DEXT and ADATA/AEXT memcpy paths
-did not.
-
-Bound each logged fork region against the destination fork size before
-copying it, and reject the log item with -EFSCORRUPTED when it does not
-fit. Because the recovered inode is only verified after the fork data has
-been copied in, the checks are done up front, before any memcpy into the
-on-disk inode.
-
-Fixes: 658fa68b6f34 ("xfs: refactor log recovery inode item dispatch for pass2 commit functions")
-Cc: stable@vger.kernel.org # v5.8
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Cc: stable@vger.kernel.org # v4.15
+Fixes: 4700d22980d459 ("xfs: create helpers to record and deal with scrub problems")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ sashal: Changed two iov_len accesses to i_len to match struct xfs_log_iovec recovery buffers. ]
+[ sashal: replaced cur->bc_ops->type == XFS_BTREE_TYPE_INODE with a cur->bc_flags & XFS_BTREE_ROOT_IN_INODE test ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/xfs_inode_item_recover.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ fs/xfs/scrub/btree.c   | 8 +++++++-
+ fs/xfs/scrub/common.c  | 7 +++++--
+ fs/xfs/scrub/dabtree.c | 6 +++++-
+ 3 files changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/fs/xfs/xfs_inode_item_recover.c b/fs/xfs/xfs_inode_item_recover.c
-index 239dd2e3384ec..2e82ee4b404b5 100644
---- a/fs/xfs/xfs_inode_item_recover.c
-+++ b/fs/xfs/xfs_inode_item_recover.c
-@@ -403,6 +403,25 @@ xlog_recover_inode_commit_pass2(
- 	ASSERT(!(fields & XFS_ILOG_DFORK) ||
- 	       (len == in_f->ilf_dsize));
- 
-+	/*
-+	 * The recovered inode is verified only after the fork data has been
-+	 * copied into it, so bound each logged fork region against the size of
-+	 * its fork now, before the memcpy below can overrun the on-disk inode.
-+	 * The DBROOT/ABROOT cases already bound their copies against the fork
-+	 * size.
-+	 */
-+	if ((fields & (XFS_ILOG_DDATA | XFS_ILOG_DEXT)) &&
-+	    item->ri_buf[2].i_len > XFS_DFORK_DSIZE(dip, mp)) {
-+		error = -EFSCORRUPTED;
-+		goto out_release;
-+	}
-+	if ((fields & (XFS_ILOG_ADATA | XFS_ILOG_AEXT)) &&
-+	    item->ri_buf[(fields & XFS_ILOG_DFORK) ? 3 : 2].i_len >
-+	    XFS_DFORK_ASIZE(dip, mp)) {
-+		error = -EFSCORRUPTED;
-+		goto out_release;
-+	}
-+
- 	switch (fields & XFS_ILOG_DFORK) {
- 	case XFS_ILOG_DDATA:
- 	case XFS_ILOG_DEXT:
-@@ -442,7 +461,6 @@ xlog_recover_inode_commit_pass2(
- 		case XFS_ILOG_ADATA:
- 		case XFS_ILOG_AEXT:
- 			dest = XFS_DFORK_APTR(dip);
--			ASSERT(len <= XFS_DFORK_ASIZE(dip, mp));
- 			memcpy(dest, src, len);
- 			break;
- 
+diff --git a/fs/xfs/scrub/btree.c b/fs/xfs/scrub/btree.c
+index 5403ef11a21c2..bfd1dd4af9c74 100644
+--- a/fs/xfs/scrub/btree.c
++++ b/fs/xfs/scrub/btree.c
+@@ -45,8 +45,14 @@ __xchk_btree_process_error(
+ 	case -ENODATA:
+ 		/* Note the badness but don't abort. */
+ 		sc->sm->sm_flags |= errflag;
++		if (cur->bc_flags & XFS_BTREE_ROOT_IN_INODE)
++			trace_xchk_ifork_btree_op_error(sc, cur, level,
++					*error, ret_ip);
++		else
++			trace_xchk_btree_op_error(sc, cur, level,
++					*error, ret_ip);
+ 		*error = 0;
+-		fallthrough;
++		break;
+ 	default:
+ 		if (cur->bc_flags & XFS_BTREE_ROOT_IN_INODE)
+ 			trace_xchk_ifork_btree_op_error(sc, cur, level,
+diff --git a/fs/xfs/scrub/common.c b/fs/xfs/scrub/common.c
+index 23de5443a12a6..b0b124943b79f 100644
+--- a/fs/xfs/scrub/common.c
++++ b/fs/xfs/scrub/common.c
+@@ -86,8 +86,9 @@ __xchk_process_error(
+ 	case -ENODATA:
+ 		/* Note the badness but don't abort. */
+ 		sc->sm->sm_flags |= errflag;
++		trace_xchk_op_error(sc, agno, bno, *error, ret_ip);
+ 		*error = 0;
+-		fallthrough;
++		break;
+ 	default:
+ 		trace_xchk_op_error(sc, agno, bno, *error,
+ 				ret_ip);
+@@ -141,8 +142,10 @@ __xchk_fblock_process_error(
+ 	case -ENODATA:
+ 		/* Note the badness but don't abort. */
+ 		sc->sm->sm_flags |= errflag;
++		trace_xchk_file_op_error(sc, whichfork, offset, *error,
++				ret_ip);
+ 		*error = 0;
+-		fallthrough;
++		break;
+ 	default:
+ 		trace_xchk_file_op_error(sc, whichfork, offset, *error,
+ 				ret_ip);
+diff --git a/fs/xfs/scrub/dabtree.c b/fs/xfs/scrub/dabtree.c
+index 1cfdba5b7f831..3b9655b3df426 100644
+--- a/fs/xfs/scrub/dabtree.c
++++ b/fs/xfs/scrub/dabtree.c
+@@ -48,8 +48,12 @@ xchk_da_process_error(
+ 	case -ENODATA:
+ 		/* Note the badness but don't abort. */
+ 		sc->sm->sm_flags |= XFS_SCRUB_OFLAG_CORRUPT;
++		trace_xchk_file_op_error(sc, ds->dargs.whichfork,
++				xfs_dir2_da_to_db(ds->dargs.geo,
++					ds->state->path.blk[level].blkno),
++				*error, __return_address);
+ 		*error = 0;
+-		fallthrough;
++		break;
+ 	default:
+ 		trace_xchk_file_op_error(sc, ds->dargs.whichfork,
+ 				xfs_dir2_da_to_db(ds->dargs.geo,
 -- 
 2.53.0
 
