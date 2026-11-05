@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.82.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866253;
-	b=ywZ2DbP/tcOASrf500zPcJzkMgCfFpuhRAAqwZSdcQS+jAwU7RSqgKg6A5QRoPbNbTa1
-	 BILywR8wLZ5mde6UHqNWM8Gg0IB+qf1bdbVix1EYSO1N6/UfSRqZIaCETgHUJ/i0pvsIj
-	 Xyvq94vXMt9JCUjmvJRbibcqtJ5P6sAEWBrEJxEpEfkfYhX70fHg0nd7aUKs1u3h9gk1W
-	 QpCmPWPj1QVafiXmUTfIHJ4du2JzmsPyAsvKDRKlwDWauZ7jO77wTkVk4rGgnmLIVHcWd
-	 Yn9nLXCIP00q9jglx0A7ownr/Eg8E7EL46ZYdNS7pxs5mAr4Ae3iOsiwlhE/LYiO0Zg==
+	t=1793866274;
+	b=ErbfyVon6rPl0r7etYjpDZSIsaweifYPYzc5HGlPtBQ7W/tev/RBdYkVZIb8fPPUOfEv
+	 wyLOsF8P+DoDQKxfRrcjteR0gh/aF7D9PpGdjWM/d4Wnpitcf0UO1Zh+teXqlEb63rWhF
+	 nMUpaKw/kgkdeCSmrgImDGHjxZUgpi3qNdzj6Vo8wYlRDLmIdnyA5sr6etLGMmHEsEtFp
+	 rFJB3BCwubhWu/otOKyNSJYR3tQ75L59O0ajt3bpYaUkYNCnGHuPHBpbsj5VuVwnZiTK+
+	 D0VXXlGW0/1g2dozo/Nu7OUanBI8I2S4hrL7Eec75byvE6dvVu2DbBWrvla2uPYOBcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866253;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866274;
 	h=DMARC-Filter:DKIM-Signature:Received:Content-Type:Message-ID:Date:
 	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
 	 From:In-Reply-To;
-	bh=KJX7XFKr2BJ3602v3cMnvakKbf4rDxLTSPpzuNkR+Ug=;
-	b=K42ouMp9lAj9qNwVz/Je+292k/LomP+RTA0XUnXnMofFqY3vT9KYrl2/k7uO/cmX2CeN
-	 F3ln7tTdVtsqk2Fht1NAzavytrYp2DXOiIZzu4V3BYpYVWssCcMVA630VzZID5ITzJ6CB
-	 6XpxAv25QYxZ1Bo4fOGMVQLXYdHYKT1xGum20kMzRFzYh8WOWMP4uuNh8f334TDyAZN1U
-	 hPFibbKiAOiiUXZ6s1QfFtNYmZM88eAMlnFP/KFhTMyjebjQpoJi+nrarf7j5kKryJ8Kv
-	 qoXLAJ7LLNDI6iHK0SiOfWW8my97t6MF+J4aXbVOR6p1r8ET8OGz+kjW8LKcZl7aCiw==
+	bh=asmqg6/1UGnzh4bWkxJ0A6ElYaEK2fDZylXj6jVvh0E=;
+	b=wAUdGB3tpOW3M5UNTqG65t+nHGbbQY2bh6Oq8aH6g97EQisHqRzs50S5JEPnGWOa9JSw
+	 SFmHUZrU/zWl82Et9RmpGrTrScBm/8Es9HL3BD13DKUIEk7jgWPTNUd5eyIo7/EOxL8oF
+	 f9azFuQmQCOoMuG3E3pegHSJshDuAPuF/kjCaRCHDrz6F8yrPDB0dgjH9phSrGqzldG8Q
+	 IjMt/nbr6/JbiH2XC88nXZUNX6dUrtPUYYZ1nkcpMX1cgz4YYErIbghgFTRHQy8IS3fVY
+	 wYTUhtqrdXvcqatbrt1t3vITPFK+7rN9mp5V8OdTvAv2IDeZBXvPtSfyi1lKic8tHzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=samba.org;
 	spf=pass smtp.mailfrom=samba.org;
-	dkim=pass header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=fT1eCe5a;
+	dkim=pass header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=Kyrq8wIt;
 	arc=none smtp.remote-ip=144.76.82.148
 Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
 	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006BA606A32D
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 08:10:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 006BA606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD1E606A335
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 08:11:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDD1E606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (3072-bit key, unprotected) header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=fT1eCe5a
+	dkim=pass (3072-bit key, unprotected) header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=Kyrq8wIt
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
 	s=42; h=From:Cc:To:Date:Message-ID;
-	bh=KJX7XFKr2BJ3602v3cMnvakKbf4rDxLTSPpzuNkR+Ug=; b=fT1eCe5a/pOKfi6ETuLh64LIQk
-	glSN6JwZJ5OqZMj3gPyRBlBpQr+pWkZ9A1jTMxZm6+cP1eV2pS4GK1E8rwFh4pyGt8QZbW1URir6K
-	rHy7aWoxXnavxcbQhDxWJ8CHZ2m+QfJXAuPROvVcndnZVvFLyb5t3xnh49q1CartFX/dTv1/CCJua
-	gxjQOr+3qiWCt5mIezcfWuPuv4XF68lvY18fxsCIwcPZPZGfqRCnAnHbSmioo4S9CEPCRVT19L3YP
-	6YiHIQu0QYe/LClz4csCH2ONwRKurtx+psPS/Msete1D2je8LwikQJrbu3aW2CBBNb5zYQyRUm+Ww
-	ThRYzbTwvBQSWbGm+rfvviHnKWTXFE9Pj0tT+mMx5zA6ywg0+ml/i4oWNuTRofbeeHMF/h3vqN0q0
-	qCvSyOvizJkFhBhzhw9kXZi8VQCguHgNfWIrnjAa8dpiur+DiGm9blUetr7bt5WvgZtC96D5a9iU5
-	htdAdtehaofbBW4EQXmSJ2P6;
+	bh=asmqg6/1UGnzh4bWkxJ0A6ElYaEK2fDZylXj6jVvh0E=; b=Kyrq8wIt0qLzdnxGGtS6MRDNEI
+	f1CpolBv4SEWvLafSR6a1ws22wGG/RA8dYryg0NY7Z9wjxOP/w4HbU4kOAcUQGFKahIfkPDH3aEsy
+	zJJ2DqL5TfNsiFG5/7I82fojYeZq/zwGY5rfePq5+mGJ8TODaUxmV7fWD8ivo93emWFuAS0UMaH3W
+	wOwmG/obbQ3cnZaNuSDhVnxKoVifc/ufTMDqG7i2fhGG9aT3vsF2P2+X50ixkc20bwxTEHcYPLCN/
+	yF3ZaoZgJwKuytBUkTMQkAadU7gp+CibqSAUqm1xu+N+af431dJYvJfPNn0foPoyYrYyhS6CA00zj
+	xHjreUXILBXw3xZ9l0BdAimtNXVgsGaUg83s45cf8Qp2cfcZcITHddld+mSZ+M8MO5BEL9LFdLAvC
+	pOp72+wC2rRWaYVvBqyCRZFShjGzqQx6wNNuytWl1CoTiXg1GByEVkBbhStTn8/ad7+3vf854aBhI
+	l/uziYgxOGUnwtkYiHhiB5zH;
 Received: from [127.0.0.2] (localhost [127.0.0.1])
 	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
 	(Exim)
-	id 1xOsYc-00000008UC0-3wLa;
-	Thu, 05 Nov 2026 08:10:50 +0000
-Content-Type: multipart/mixed; boundary="------------CTuvkRemNwwbaKVeToC3kgdX"
-Message-ID: <5ff03aa9-eca4-41cc-9e1f-4ad8676bed6a@samba.org>
-Date: Thu, 5 Nov 2026 09:10:50 +0100
+	id 1xOsYx-00000008UCM-3Qtk;
+	Thu, 05 Nov 2026 08:11:11 +0000
+Content-Type: multipart/mixed; boundary="------------jeUjgU0wX0mpfHou0YXCjYtl"
+Message-ID: <71706f92-565e-4179-8a05-b5ae218d9397@samba.org>
+Date: Thu, 5 Nov 2026 09:11:11 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,34 +62,34 @@ Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: FAILED: patch "[PATCH] smb: smbdirect: fix buffer length
- underflow in RDMA transfers" failed to apply to 6.1-stable tree
+ underflow in RDMA transfers" failed to apply to 5.15-stable tree
 To: gregkh@linuxfoundation.org, linkinjeon@kernel.org
 Cc: stable@vger.kernel.org
-References: <2026110438-macaw-walmart-26ac@gregkh>
+References: <2026110439-qualify-confiding-f593@gregkh>
 Content-Language: en-US
 From: Stefan Metzmacher <metze@samba.org>
-In-Reply-To: <2026110438-macaw-walmart-26ac@gregkh>
+In-Reply-To: <2026110439-qualify-confiding-f593@gregkh>
 
 This is a multi-part message in MIME format.
---------------CTuvkRemNwwbaKVeToC3kgdX
+--------------jeUjgU0wX0mpfHou0YXCjYtl
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Am 04.11.26 um 19:29 schrieb gregkh@linuxfoundation.org:
 > 
-> The patch below does not apply to the 6.1-stable tree.
+> The patch below does not apply to the 5.15-stable tree.
 > If someone wants it applied there, or to any other stable or longterm
 > tree, then please email the backport, including the original git commit
 > id to <stable@vger.kernel.org>.
 > 
 > To reproduce the conflict and resubmit, you may use the following commands:
 > 
-> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 > git checkout FETCH_HEAD
 > git cherry-pick -x 7193241a49c958782ba4b8df06da3734d1e317d2
 > # <resolve conflicts, build, test, etc.>
 > git commit -s
-> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110438-macaw-walmart-26ac@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110439-qualify-confiding-f593@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 > 
 > Possible dependencies:
 > 
@@ -141,52 +141,52 @@ Am 04.11.26 um 19:29 schrieb gregkh@linuxfoundation.org:
 >   
 >   		credits_needed += smbdirect_connection_calc_rw_credits(sc,
 
---------------CTuvkRemNwwbaKVeToC3kgdX
+--------------jeUjgU0wX0mpfHou0YXCjYtl
 Content-Type: text/plain; charset=UTF-8;
- name="backport-6.1-smbdirect-rdma-xmit-underflow.txt"
+ name="backport-5.15-smbdirect-rdma-xmit-underflow.txt"
 Content-Disposition: attachment;
- filename="backport-6.1-smbdirect-rdma-xmit-underflow.txt"
+ filename="backport-5.15-smbdirect-rdma-xmit-underflow.txt"
 Content-Transfer-Encoding: base64
 
-RnJvbSBmNzJiNDZhY2MxYTgwNTJlMTc0MTgxNTUxZjNiNmU4NTNlZjI2NGEwIE1vbiBTZXAg
+RnJvbSBmN2VhMmI2ODJmYmZkNTNhMTA3MDc4YmQwMDlhMGVlNjgxOGIyZGMxIE1vbiBTZXAg
 MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBTdGVmYW4gTWV0em1hY2hlciA8bWV0emVAc2FtYmEu
 b3JnPgpEYXRlOiBGcmksIDIzIE9jdCAyMDI2IDE5OjI2OjA5ICswOTAwClN1YmplY3Q6IFtQ
-QVRDSCA2LjEueV0gc21iOiBzbWJkaXJlY3Q6IGZpeCBidWZmZXIgbGVuZ3RoIHVuZGVyZmxv
-dyBpbiBSRE1BCiB0cmFuc2ZlcnMKClsgVXBzdHJlYW0gY29tbWl0IDcxOTMyNDFhNDljOTU4
-NzgyYmE0YjhkZjA2ZGEzNzM0ZDFlMzE3ZDIgXQoKV2hlbiBhIHJlbW90ZSBidWZmZXIgZGVz
-Y3JpcHRvciBpcyBsYXJnZXIgdGhhbiB0aGUgcmVtYWluaW5nIGxvY2FsCmJ1ZmZlciwgc21i
-ZGlyZWN0X2Nvbm5lY3Rpb25fcmRtYV94bWl0KCkgY2xhbXBzIGl0cyBsZW5ndGggYW5kIHNl
-dHMKYnVmX2xlbiB0byB6ZXJvLiBUaGUgY29tbW9uIGFjY291bnRpbmcgY29kZSB0aGVuIHN1
-YnRyYWN0cyB0aGUgY2xhbXBlZApsZW5ndGggZnJvbSBidWZfbGVuLCBjYXVzaW5nIGl0IHRv
-IHVuZGVyZmxvdy4gSWYgYW5vdGhlciBkZXNjcmlwdG9yCmZvbGxvd3MsIHRoZSBsb29wIHBy
-b2Nlc3NlcyBpdCB3aXRoIGEgd3JhcHBlZCByZW1haW5pbmcgbGVuZ3RoIGFuZAppbmNsdWRl
-cyBtZW1vcnkgYmV5b25kIHRoZSBsb2NhbCBidWZmZXIgaW4gdGhlIFJETUEgdHJhbnNmZXIu
-CgpBIGNsaWVudCBjYW4gdHJpZ2dlciBhbiBvdXQtb2YtYm91bmRzIGtlcm5lbCB3cml0ZSB3
-aXRoIGFuIFNNQiBXUklURQpyZXF1ZXN0LCBvciBhbiBvdXQtb2YtYm91bmRzIGtlcm5lbCBy
-ZWFkIHdpdGggYW4gU01CIFJFQUQgcmVxdWVzdCwgYnkKc3VwcGx5aW5nIG11bHRpcGxlIFJE
-TUEgYnVmZmVyIGRlc2NyaXB0b3JzIHdpdGggYW4gb3ZlcnNpemVkIGRlc2NyaXB0b3IKYmVm
-b3JlIHRoZSBsYXN0IG9uZS4KClJlbW92ZSB0aGUgcHJlbWF0dXJlIGFzc2lnbm1lbnQgdG8g
-YnVmX2xlbi4gU3VidHJhY3RpbmcgdGhlIGNsYW1wZWQgbGVuZ3RoCmFscmVhZHkgY29uc3Vt
-ZXMgdGhlIHJlbWFpbmluZyBidWZmZXIsIHNvIHRoZSBuZXh0IGl0ZXJhdGlvbiBzdG9wcyBh
-bmQKb25seSBkZXNjcmlwdG9ycyB3aXRoaW4gdGhlIGxvY2FsIGJ1ZmZlciBhcmUgdXNlZCB0
-byBidWlsZCB3b3JrIHJlcXVlc3RzLgoKRml4ZXM6IGU2MjhiZjkzOWFhZiAoImtzbWJkOiBy
-ZWR1Y2UgZGVzY3JpcHRvciBzaXplIGlmIHJlbWFpbmluZyBieXRlcyBpcyBsZXNzIHRoYW4g
-cmVxdWVzdCBzaXplIikKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKUmVwb3J0ZWQtYnk6
-IHpkaS1kaXNjbG9zdXJlc0B0cmVuZG1pY3JvLmNvbSAjIFpESS1DQU4tMzM1NDkKU2lnbmVk
-LW9mZi1ieTogU3RlZmFuIE1ldHptYWNoZXIgPG1ldHplQHNhbWJhLm9yZz4KU2lnbmVkLW9m
-Zi1ieTogTmFtamFlIEplb24gPGxpbmtpbmplb25Aa2VybmVsLm9yZz4KWyBtZXR6ZTogaW4g
-Ni4xIHRoZSBjb2RlIGlzIHNtYl9kaXJlY3RfcmRtYV94bWl0KCkgaW4KICBmcy9zbWIvc2Vy
-dmVyL3RyYW5zcG9ydF9yZG1hLmMgXQpBc3Npc3RlZC1ieTogQ2xhdWRlOmNsYXVkZS1vcHVz
-LTUtNQotLS0KIGZzL3NtYi9zZXJ2ZXIvdHJhbnNwb3J0X3JkbWEuYyB8IDEgLQogMSBmaWxl
-IGNoYW5nZWQsIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9mcy9zbWIvc2VydmVyL3Ry
-YW5zcG9ydF9yZG1hLmMgYi9mcy9zbWIvc2VydmVyL3RyYW5zcG9ydF9yZG1hLmMKaW5kZXgg
-YmNmMDYzMWNlMTBhLi5jYzk0MDliYjU0MDQgMTAwNjQ0Ci0tLSBhL2ZzL3NtYi9zZXJ2ZXIv
-dHJhbnNwb3J0X3JkbWEuYworKysgYi9mcy9zbWIvc2VydmVyL3RyYW5zcG9ydF9yZG1hLmMK
-QEAgLTEzNzgsNyArMTM3OCw2IEBAIHN0YXRpYyBpbnQgc21iX2RpcmVjdF9yZG1hX3htaXQo
-c3RydWN0IHNtYl9kaXJlY3RfdHJhbnNwb3J0ICp0LAogCQlpZiAoZGVzY19idWZfbGVuID4g
-YnVmX2xlbikgewogCQkJZGVzY19idWZfbGVuID0gYnVmX2xlbjsKIAkJCWRlc2NbaV0ubGVu
-Z3RoID0gY3B1X3RvX2xlMzIoZGVzY19idWZfbGVuKTsKLQkJCWJ1Zl9sZW4gPSAwOwogCQl9
-CiAKIAkJY3JlZGl0c19uZWVkZWQgKz0gY2FsY19yd19jcmVkaXRzKHQsIGRlc2NfYnVmLCBk
-ZXNjX2J1Zl9sZW4pOwotLSAKMi41My4wCgo=
+QVRDSCA1LjE1LnldIHNtYjogc21iZGlyZWN0OiBmaXggYnVmZmVyIGxlbmd0aCB1bmRlcmZs
+b3cgaW4gUkRNQQogdHJhbnNmZXJzCgpbIFVwc3RyZWFtIGNvbW1pdCA3MTkzMjQxYTQ5Yzk1
+ODc4MmJhNGI4ZGYwNmRhMzczNGQxZTMxN2QyIF0KCldoZW4gYSByZW1vdGUgYnVmZmVyIGRl
+c2NyaXB0b3IgaXMgbGFyZ2VyIHRoYW4gdGhlIHJlbWFpbmluZyBsb2NhbApidWZmZXIsIHNt
+YmRpcmVjdF9jb25uZWN0aW9uX3JkbWFfeG1pdCgpIGNsYW1wcyBpdHMgbGVuZ3RoIGFuZCBz
+ZXRzCmJ1Zl9sZW4gdG8gemVyby4gVGhlIGNvbW1vbiBhY2NvdW50aW5nIGNvZGUgdGhlbiBz
+dWJ0cmFjdHMgdGhlIGNsYW1wZWQKbGVuZ3RoIGZyb20gYnVmX2xlbiwgY2F1c2luZyBpdCB0
+byB1bmRlcmZsb3cuIElmIGFub3RoZXIgZGVzY3JpcHRvcgpmb2xsb3dzLCB0aGUgbG9vcCBw
+cm9jZXNzZXMgaXQgd2l0aCBhIHdyYXBwZWQgcmVtYWluaW5nIGxlbmd0aCBhbmQKaW5jbHVk
+ZXMgbWVtb3J5IGJleW9uZCB0aGUgbG9jYWwgYnVmZmVyIGluIHRoZSBSRE1BIHRyYW5zZmVy
+LgoKQSBjbGllbnQgY2FuIHRyaWdnZXIgYW4gb3V0LW9mLWJvdW5kcyBrZXJuZWwgd3JpdGUg
+d2l0aCBhbiBTTUIgV1JJVEUKcmVxdWVzdCwgb3IgYW4gb3V0LW9mLWJvdW5kcyBrZXJuZWwg
+cmVhZCB3aXRoIGFuIFNNQiBSRUFEIHJlcXVlc3QsIGJ5CnN1cHBseWluZyBtdWx0aXBsZSBS
+RE1BIGJ1ZmZlciBkZXNjcmlwdG9ycyB3aXRoIGFuIG92ZXJzaXplZCBkZXNjcmlwdG9yCmJl
+Zm9yZSB0aGUgbGFzdCBvbmUuCgpSZW1vdmUgdGhlIHByZW1hdHVyZSBhc3NpZ25tZW50IHRv
+IGJ1Zl9sZW4uIFN1YnRyYWN0aW5nIHRoZSBjbGFtcGVkIGxlbmd0aAphbHJlYWR5IGNvbnN1
+bWVzIHRoZSByZW1haW5pbmcgYnVmZmVyLCBzbyB0aGUgbmV4dCBpdGVyYXRpb24gc3RvcHMg
+YW5kCm9ubHkgZGVzY3JpcHRvcnMgd2l0aGluIHRoZSBsb2NhbCBidWZmZXIgYXJlIHVzZWQg
+dG8gYnVpbGQgd29yayByZXF1ZXN0cy4KCkZpeGVzOiBlNjI4YmY5MzlhYWYgKCJrc21iZDog
+cmVkdWNlIGRlc2NyaXB0b3Igc2l6ZSBpZiByZW1haW5pbmcgYnl0ZXMgaXMgbGVzcyB0aGFu
+IHJlcXVlc3Qgc2l6ZSIpCkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnClJlcG9ydGVkLWJ5
+OiB6ZGktZGlzY2xvc3VyZXNAdHJlbmRtaWNyby5jb20gIyBaREktQ0FOLTMzNTQ5ClNpZ25l
+ZC1vZmYtYnk6IFN0ZWZhbiBNZXR6bWFjaGVyIDxtZXR6ZUBzYW1iYS5vcmc+ClNpZ25lZC1v
+ZmYtYnk6IE5hbWphZSBKZW9uIDxsaW5raW5qZW9uQGtlcm5lbC5vcmc+ClsgbWV0emU6IGlu
+IDUuMTUgdGhlIGNvZGUgaXMgc21iX2RpcmVjdF9yZG1hX3htaXQoKSBpbgogIGZzL2tzbWJk
+L3RyYW5zcG9ydF9yZG1hLmMgXQpBc3Npc3RlZC1ieTogQ2xhdWRlOmNsYXVkZS1vcHVzLTUt
+NQotLS0KIGZzL2tzbWJkL3RyYW5zcG9ydF9yZG1hLmMgfCAxIC0KIDEgZmlsZSBjaGFuZ2Vk
+LCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZnMva3NtYmQvdHJhbnNwb3J0X3JkbWEu
+YyBiL2ZzL2tzbWJkL3RyYW5zcG9ydF9yZG1hLmMKaW5kZXggNmVhNzNmZTZkZTZjLi45OTg2
+ZTE5MWU3MDEgMTAwNjQ0Ci0tLSBhL2ZzL2tzbWJkL3RyYW5zcG9ydF9yZG1hLmMKKysrIGIv
+ZnMva3NtYmQvdHJhbnNwb3J0X3JkbWEuYwpAQCAtMTM2MSw3ICsxMzYxLDYgQEAgc3RhdGlj
+IGludCBzbWJfZGlyZWN0X3JkbWFfeG1pdChzdHJ1Y3Qgc21iX2RpcmVjdF90cmFuc3BvcnQg
+KnQsCiAJCWlmIChkZXNjX2J1Zl9sZW4gPiBidWZfbGVuKSB7CiAJCQlkZXNjX2J1Zl9sZW4g
+PSBidWZfbGVuOwogCQkJZGVzY1tpXS5sZW5ndGggPSBjcHVfdG9fbGUzMihkZXNjX2J1Zl9s
+ZW4pOwotCQkJYnVmX2xlbiA9IDA7CiAJCX0KIAogCQljcmVkaXRzX25lZWRlZCArPSBjYWxj
+X3J3X2NyZWRpdHModCwgZGVzY19idWYsIGRlc2NfYnVmX2xlbik7Ci0tIAoyLjUzLjAKCg==
 
---------------CTuvkRemNwwbaKVeToC3kgdX--
+
+--------------jeUjgU0wX0mpfHou0YXCjYtl--
