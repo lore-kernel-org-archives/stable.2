@@ -1,78 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793845216;
-	b=J94fVs1i1U9KxBXP8dOeHmk61c94o958sPR/687yZ3R/2ltF3gbYdeL8QCp/Gf6yDvPD
-	 82FLlUenPddBodVs+bfyr/dEkkMH4yEN4kKO8V74SI4TByi8Zd154+mi5jdK2v+a4Pkys
-	 x3WBnf5fHvKMjV9kYlyraO0woLVkIrmR0BHtOx0O76Kt2GIXlJxzvjc0IXGyXHQzdWj+X
-	 lcsozkEtPywCytRjUyrNzi745rpS/+L5GSjePKicv1Yg45DeVj9Eolw2Zii+7E9Fh6JyX
-	 eqbvW9PnW0Rm/USWPLbE92xVc+Kjmhu76jgEoeCPcoUzcXwbRQGHPF12f45Kfs2TRsg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793845216;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kwyi3xE5HC3vx77XwDaZCAD8Ng4RkB7EcEx9n2x6K5M=;
-	b=UG53Iglkk46Qw6rQaPiz6S6sPoLdO9ih73KAuZ5LoyVWcpP2uk0ej0hg/1SR7zum/31u
-	 HNoTA59YFAA6qsMM9V1luVsnkDPNP7XWlPeN8lKFk1QiUADjHtDD5WwfskrpiH2FBLF7X
-	 EfXcovLGOQ8Q3YPH26HV7bB+2RfdZ+fyzfb/kbdbDkT+MEa3qoKiliN7A5IExCghJ9jnR
-	 Qk4Dh63DJ1WZCaQUsqw+USrhqpk6JR1ebQnhe8cJL8x6YwYpudnO2NtRbRaV0DX43jCSU
-	 q5cbUFLs27ipr6EXYEqinen9o5xr6GGU2X05vdj+Pg3URT94lSsqkD81JfqSEXXmgoA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QX+kFSxb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793845458;
+	b=25vznrmXWKmQ/g/DQa7B/haXZwZFbUIBvIAFMNwJNSN5C1zojeV/msTjQ7q0nyy9qYK9
+	 j8mEbYoyo7fiiq59OwiE8FXKMJPwQ823kQXfOQ4QgAmwbY9R1vsqMEm2IhshN7SC7e1eO
+	 J7dWddkf68oA/95Zlfs1d3DU8gQC8/Win5RdiVjoiYRa6207ymv6zq9hXOZKgwrMND2pW
+	 t5DOmCVOwUFefPwCYv/PdeLbqoIEaNy7fOrNnXZ6ruYzV5SuOmMCRyec4HUHF+B104x7L
+	 XRNuYlNiFhDnrz83X7xTrZZ0VuWASoJnmDMxyJWO91VQkcPoOkxV6qh8uCj0ZfSfLqQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793845458;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Oz1bGnACal3C3J6gDkB1pKEsgvCxlnRsJc6z7fq2+sM=;
+	b=Hu4Q4/TU7GE4uuLGo3CNr2eGaMCfoWBLznWG9Is67lGrypkw9UjcTabRExwvA3+3Mbz2
+	 OraCQqn7ojtDLypx7EpM5z3YQSwu36hpMAZslzb1JIIBetfbCqhBshIpVfEfxadHYhQve
+	 WBgcldHcUexlF2PPqEtEqOrm52MTFFh/tsdX8rLYgZaG5YohaB32CsFHuliz5FoA4ro+I
+	 9Dk6WN5/rodx+IFqk/grnwP4CgQzNpjz/DWVwFO233YNF3/qHpDvKxqy3eF2VABGASJvY
+	 qFRGJKqMGmfaC8Km64575KK4+7c2hztF/NQsbViKRMvRcRUrBgq9l1zfoEtQIGsIhWw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XwmDuGUb;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96B5606A326;
-	Thu,  5 Nov 2026 02:20:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 310C8606A32E
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:24:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QX+kFSxb
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793845215;
-	b=wa39GSSEHDrQh51DulpZO3AcaGlIm6UQVEFZHA2m60dO3N2cw5mx9a3QXFDKK4MNzC+r
-	 DmDsQA+ybtvb1AFvTUE3ucS/WwyoFui1/w6DRdYyB1LXE1KHX0HUXtWRhg3gwQxWTHTlQ
-	 ZSYK3Hz8jQDj+sTOiBy26prhnUZbr7nQrEvZfFuQV/0/lkC8dVyWDJiz97kGkxbrhBRca
-	 1ZB05rhIIH3DNUvkpA1XvTyP/s7XHxoj58M4O974HK2xpPinTCanwRHAIaPfr8yOnelJr
-	 UEBx/ODOXV1tCx30bAw0S/bTZA3BG3/sndScsNj6Qh/a0WhKS7+V4xseIxagRNVmpMw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793845215;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=kwyi3xE5HC3vx77XwDaZCAD8Ng4RkB7EcEx9n2x6K5M=;
-	b=3Ljcki+gtj4FA54QAX1OZOAG8Xt1GhzlMPVRjOPAkRTZgPOM4OmsMDbHQLtBYzZZBhuz
-	 0niMsjGUzLc8AEXAdMhGDLzGZ8eH3urCdDx4T3R9TKGXhO1H66cqFKz2g0Iz79JWB45ry
-	 Wo+4jfjHjintRkGHjAXdJuSms8i532L+TflXG1hVGjWfueRGoa0ee6UEDf7pHTzIykD28
-	 RBbkswO7cbPER7Btqo5mSkYR3Htt5DIhcLbWHEZgqPxZfmxKQD3zrnvHQDrunkB+QlxIX
-	 tUTgc8taTOJN27zzNGkAQRiK2sT4Dq25vZz3IyV7Qc/XlIZp6J0iq7kgmoSCXZZVyMQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C83A71F000C1;
-	Thu,  5 Nov 2026 02:20:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XwmDuGUb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 454551F00919;
+	Thu,  5 Nov 2026 02:24:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793845215;
-	bh=kwyi3xE5HC3vx77XwDaZCAD8Ng4RkB7EcEx9n2x6K5M=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=QX+kFSxbvbL/8znyFYE1ufYSB99g5nhhkfX2u0ZztIjDiZrARWuoZPo4pv6qSiZc/
-	 6MZGjVMd7DZjfYdadU+RrD3oX+PC0mAZJf/3BnA9+fCSKZDXdguL+5Sb+8pML2kqc4
-	 tQ+JKvvmhaFVDQnEnidFVlkJ5EEYKDwCfgUT1oUZiJJJHCFU4G1W/XlrNOEM8SKqKI
-	 x4GaCIxCAgVeoSsHq79g39XrySaEU6kcgheFLRtoLCZj7bjj2uxF8Q2tyti37o0+2m
-	 RprO0TgierTfHKjPNf5n4Kd2yr9wo0oQ65jvlXg2fND1kLR5iFcq+wZyJvSP0ykgnN
-	 Hqu8yy3dw0H8g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2A88C4701A;
-	Thu,  5 Nov 2026 02:20:14 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Thu, 05 Nov 2026 02:20:14 +0000
-Subject: [PATCH] media: dvb-core: fix use-after-free in dvb_remove_device()
+	s=k20260515; t=1793845457;
+	bh=Oz1bGnACal3C3J6gDkB1pKEsgvCxlnRsJc6z7fq2+sM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XwmDuGUbBlgXNGoO6dh+aTz3nGfkBEP0FEjR1madIZlREfVFqD6hEXYFitmum3Fah
+	 tUNysMUJplSRt5a9ORSz+Xqm+HVs2Nz5ljTgLs/KMP05Qn19S+1/LeTyg1VPhbHdd5
+	 4ZKEAGgGpJj3NVttlJL/wYbTeAqJrQtamVw8OjwrWmRg+tWlhtKiOYAVmvd8cztaqJ
+	 9VOYGqbiaTutYFpiuXaDZ5KJCkv6DxeGEZze0AuEcM3vL0vdC6RHDJbMe1ztkAOVUP
+	 pdjw4jsSEluJ+ZATojb3fbg7HtpU5eEtJWl1IbicGd1jCvK+eZKDsK38yiG0XAofck
+	 AKDqfvgplYdvg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Young <sean@mess.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] media: rc: Fix race condition during rc_register_device()
+Date: Wed,  4 Nov 2026 21:24:16 -0500
+Message-ID: <20261105022404.1172334-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110405-opulently-slobbery-fb2f@gregkh>
+References: <2026110405-opulently-slobbery-fb2f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,97 +59,167 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-dvb-remove-device-uaf-v1-1-a9e091d7c9ae@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAN3n62oC/x2MOwqAMBAFryJbu+CqsfAqYhGTp27hhwSDIN7dY
- DkwMw9FBEWkvngoIGnUY88gZUFutfsCVp+Z6qruRCrDPk0csB0J7LPvwJed2cI2rTSdM2Iot2f
- ArPf/Hcb3/QDZT06qZwAAAA==
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, Joas Antonio dos Santos <joasantonio108@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793845213; l=2266;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=prLpSJVWNrnZT55RbJ2w1/TI1YO7NXSCENMkRGHUepw=;
- b=zCVEFfk4tLNKrt4gCOPsh3ztTBXtUF35/c3pdzSfvAzgmMIih85IFQxlWBVrgTs/tGl0aN+ib
- ICsbECE8OH3CIWpJSE7Z0yTVnIqb9SBOurvdMKsOf9AFWkgpphJRgci
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+From: Sean Young <sean@mess.org>
 
-dvb_remove_device() calls dvb_device_put() while still holding and
-using the dvb_device pointer.  If the put drops the last reference,
-dvb_free_device() kfrees the struct, and the subsequent calls to
-dvb_media_device_free(), device_destroy(), and list_del() all operate
-on freed memory.
+[ Upstream commit ec7cb49871e5c4f85d57290320c50ee0bae4db84 ]
 
-The syzbot KASAN report shows the freed kmalloc-256 object being read
-at dvb_media_device_free()+0x3a, which dereferences dvbdev->entity
-(dvbdev.c:210) after dvb_device_put() in dvb_remove_device() already
-freed it via dvb_free_device().
+Device drivers can call ir_raw_event_store() or ir_raw_event_handle()
+right after rc_allocate_device(). This means that while
+rc_register_device() is being called, those functions can be called
+from e.g. interrupt handlers.
 
-Fix by saving the minor number before releasing the reference and
-moving dvb_device_put() to after all accesses to the dvb_device
-struct.  This ensures the device remains valid for the entire cleanup
-sequence regardless of the reference count.
+Currently dev->raw is being allocated and populated by
+ir_raw_event_prepare() which is called from rc_register_device(). This
+is not done in a safe way, e.g. dev->raw is being set before the
+raw members are populated.
 
-Found by LLM-assisted code review of syzbot-reported crash patterns.
+Call ir_raw_event_prepare() from rc_allocate_device() instead.
 
-Reported-by: syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=37578f730d38898f4b74
-Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
+Fixes: a3572c34da8d ("V4L/DVB: ir-core: Add logic to decode IR protocols at the IR core")
+Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: Adjusted context for existing kzalloc() allocations and the out_free_table cleanup label. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/dvb-core/dvbdev.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ drivers/media/rc/rc-ir-raw.c | 20 +-------------------
+ drivers/media/rc/rc-main.c   | 19 +++++++++++--------
+ 2 files changed, 12 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
-index d753d3295..b2beacbab 100644
---- a/drivers/media/dvb-core/dvbdev.c
-+++ b/drivers/media/dvb-core/dvbdev.c
-@@ -593,19 +593,22 @@ EXPORT_SYMBOL(dvb_register_device);
- 
- void dvb_remove_device(struct dvb_device *dvbdev)
+diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
+index b84fc9dc2a017..6d7b2577e463f 100644
+--- a/drivers/media/rc/rc-ir-raw.c
++++ b/drivers/media/rc/rc-ir-raw.c
+@@ -72,9 +72,6 @@ static int ir_raw_event_thread(void *data)
+  */
+ int ir_raw_event_store(struct rc_dev *dev, struct ir_raw_event *ev)
  {
-+	int minor;
-+
- 	if (!dvbdev)
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	dev_dbg(&dev->dev, "sample: (%05dus %s)\n",
+ 		ev->duration, TO_STR(ev->pulse));
+ 
+@@ -103,9 +100,6 @@ int ir_raw_event_store_edge(struct rc_dev *dev, bool pulse)
+ 	ktime_t			now;
+ 	struct ir_raw_event	ev = {};
+ 
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	now = ktime_get();
+ 	ev.duration = ktime_to_us(ktime_sub(now, dev->raw->last_event));
+ 	ev.pulse = !pulse;
+@@ -130,9 +124,6 @@ int ir_raw_event_store_with_timeout(struct rc_dev *dev, struct ir_raw_event *ev)
+ 	ktime_t		now;
+ 	int		rc = 0;
+ 
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	now = ktime_get();
+ 
+ 	spin_lock(&dev->raw->edge_spinlock);
+@@ -167,9 +158,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_timeout);
+  */
+ int ir_raw_event_store_with_filter(struct rc_dev *dev, struct ir_raw_event *ev)
+ {
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	/* Ignore spaces in idle mode */
+ 	if (dev->idle && !ev->pulse)
+ 		return 0;
+@@ -201,9 +189,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_filter);
+  */
+ void ir_raw_event_set_idle(struct rc_dev *dev, bool idle)
+ {
+-	if (!dev->raw)
+-		return;
+-
+ 	dev_dbg(&dev->dev, "%s idle mode\n", idle ? "enter" : "leave");
+ 
+ 	if (idle) {
+@@ -227,7 +212,7 @@ EXPORT_SYMBOL_GPL(ir_raw_event_set_idle);
+  */
+ void ir_raw_event_handle(struct rc_dev *dev)
+ {
+-	if (!dev->raw || !dev->raw->thread)
++	if (!dev->raw->thread)
  		return;
  
-+	minor = dvbdev->minor;
-+
- 	down_write(&minor_rwsem);
--	dvb_minors[dvbdev->minor] = NULL;
--	dvb_device_put(dvbdev);
-+	dvb_minors[minor] = NULL;
- 	up_write(&minor_rwsem);
+ 	wake_up_process(dev->raw->thread);
+@@ -605,9 +590,6 @@ EXPORT_SYMBOL(ir_raw_encode_carrier);
+  */
+ int ir_raw_event_prepare(struct rc_dev *dev)
+ {
+-	if (!dev)
+-		return -EINVAL;
+-
+ 	dev->raw = kzalloc(sizeof(*dev->raw), GFP_KERNEL);
+ 	if (!dev->raw)
+ 		return -ENOMEM;
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index fb52ed2d4ef6b..5bd6aade49056 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -1701,14 +1701,24 @@ static const struct device_type rc_dev_type = {
+ struct rc_dev *rc_allocate_device(enum rc_driver_type type)
+ {
+ 	struct rc_dev *dev;
++	int ret;
  
- 	dvb_media_device_free(dvbdev);
--
--	device_destroy(dvb_class, MKDEV(DVB_MAJOR, dvbdev->minor));
--
-+	device_destroy(dvb_class, MKDEV(DVB_MAJOR, minor));
- 	list_del(&dvbdev->list_head);
+ 	dev = kzalloc(sizeof(*dev), GFP_KERNEL);
+ 	if (!dev)
+ 		return NULL;
+ 
++	if (type == RC_DRIVER_IR_RAW) {
++		ret = ir_raw_event_prepare(dev);
++		if (ret < 0) {
++			kfree(dev);
++			return NULL;
++		}
++	}
 +
-+	dvb_device_put(dvbdev);
+ 	if (type != RC_DRIVER_IR_RAW_TX) {
+ 		dev->input_dev = input_allocate_device();
+ 		if (!dev->input_dev) {
++			ir_raw_event_free(dev);
+ 			kfree(dev);
+ 			return NULL;
+ 		}
+@@ -1724,6 +1734,7 @@ struct rc_dev *rc_allocate_device(enum rc_driver_type type)
+ 		spin_lock_init(&dev->rc_map.lock);
+ 		spin_lock_init(&dev->keylock);
+ 	}
++
+ 	mutex_init(&dev->lock);
+ 
+ 	dev->dev.type = &rc_dev_type;
+@@ -1922,12 +1933,6 @@ int rc_register_device(struct rc_dev *dev)
+ 		dev->sysfs_groups[attr++] = &rc_dev_wakeup_filter_attr_grp;
+ 	dev->sysfs_groups[attr++] = NULL;
+ 
+-	if (dev->driver_type == RC_DRIVER_IR_RAW) {
+-		rc = ir_raw_event_prepare(dev);
+-		if (rc < 0)
+-			goto out_minor;
+-	}
+-
+ 	if (dev->driver_type != RC_DRIVER_IR_RAW_TX) {
+ 		rc = rc_prepare_rx_device(dev);
+ 		if (rc)
+@@ -1991,8 +1996,6 @@ int rc_register_device(struct rc_dev *dev)
+ out_free_table:
+ 	ir_free_table(&dev->rc_map);
+ out_raw:
+-	ir_raw_event_free(dev);
+-out_minor:
+ 	ida_free(&rc_ida, minor);
+ 	return rc;
  }
- EXPORT_SYMBOL(dvb_remove_device);
- 
-
----
-base-commit: ebcf66fba448879076bfdd1018ac5cda37b912bf
-change-id: 20261105-dvb-remove-device-uaf-aea34136c515
-
-Best regards,
 -- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
-
+2.53.0
 
