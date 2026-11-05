@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844122;
-	b=gsEUU8XbML5OiUni5Tyg8HcmXnB229wM8eoW74H3aSjVgZpmnSnkcdgD5lyyHo4vQFGW
-	 DsEoqauNPrrrZZyUmb6oWMm54ZpR2czb0qiN6lgN7JNCLPlYV+ymMyr7psLDqkcosQe6j
-	 IbzCVaTyyHdAUDaYkipBOYSDgJZq6nh8ZGeFWZ2+cUwKITmLYW3mop1DS8yvd/UxfU4MF
-	 H2SOKVnxIa8Ri+dyIR7XeD1ONNSmL/YLBCH1Fb0BzM8ewcwy9WRlKTI2ufhCPyYQo3iOS
-	 Ccri3UN4Cdecwy4Jfs0cWleU1n8BX9bNV9cPPimI2ALw1wDzBiimotqpCJzRwiQaTJA==
+	t=1793844124;
+	b=tC/1U11woQgbfAc4Y8FSNrr3fV+85tasWveEDN/9ol+Qq6xkApQMrArJi0S0m07Bs2wh
+	 3Cm4udsAiN3vXygCxeD+65JOIPladYFQBTxYr2L83nEQZrKe7U5atnqQWBFhR/M6IJ7w+
+	 xGiiyNfrho9HAyFH27wiH36cLCJ2m/GVzPl7T9fh978WMC4AIwDmTU7LbsvHm/C0JTahl
+	 edZJ4d0LDwbF/irBt8faz/tjZRrrZ1RnDuL1xLKPu38kqCmOHh6m1oTmCFFQ5D3QdhiMO
+	 B9CckysxE2pxXs9tx3FG01JEqJrDW0NWqUjtZZCml5xT0kbyUCJ/yYIYw8s8vi5ynqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844122;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844124;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FuAqkpgoO7HpbE7sMhjChunAscLHt7MBRHE68FkgSIs=;
-	b=EljWph7EgcXpznj6Z5lMWhiUXKJizZ0YtkvCvd9PwvgfdhN1H1EQWEvHEZC0n9FOmrzG
-	 oaMRrKm6kGCwoE84CNfYDPvxAhx17zk1soOKVQoYA7MQLK5sTGJ5szAdaYw3B7+JAnHH+
-	 3bFVhpUh++Yp6jHo/nXSCCgCyNw5C4HAqSVmIavuKRP5VHimdtNH1D7VqTen0wo6DHiyO
-	 VnGPLyD/3ZPlgCU4SDh0rWCSk7ZCgy4Szn/JD36Acn0XO2cQ5DuEg6S78QUq0H5enJgga
-	 YGhdMQVWGLW5EuEJ9lp8M0fJsy8jrKGoSTaHrcp6ZwJFTPDcmcjqguIXFLuO4sXBMew==
+	bh=cncinQWSmGoDrHEkvXdptv3RzmKNc4CVQhHlWEPV6Nw=;
+	b=QtOz8UUDX2HtKvSF8Ura2w7TcommFHz1lgLZ5Ly3OXHdV3lzgt9r4Ht5kh/8l2R/aA+3
+	 9D1TB0lLuVLamN3Vt5oP0beiB00vq1EWAuK2KvDHHADJomYc9p1/d+lSg0kNipC7CcILd
+	 tkBnRD1LxpSK/7Xhb7Zd8gcI49WRtMLqylGx2M6SYD09n6rnhA6NZmBtXSlCyJLbHexUi
+	 ptkP/1iP5j11uOSqFimdnP0vPjh5BoF2oQsRpo6sg3TkhorWh2paTU7iQ5CQ9X9/GbbR6
+	 IOUKgRLa7oyNw8ZKqdmfUS5BMFlCP+X5wlvbKsMoUZkjj+akBQq3WXO+ci5LvL7otMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bt8C6hf7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+gM4XFL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6354606A338
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:02:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF97606D804
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:02:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bt8C6hf7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A64721F00A16;
-	Thu,  5 Nov 2026 02:02:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+gM4XFL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED7A41F000C1;
+	Thu,  5 Nov 2026 02:02:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793844121;
-	bh=FuAqkpgoO7HpbE7sMhjChunAscLHt7MBRHE68FkgSIs=;
+	s=k20260515; t=1793844124;
+	bh=cncinQWSmGoDrHEkvXdptv3RzmKNc4CVQhHlWEPV6Nw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Bt8C6hf7NxnTw1l7i/E3AYoAuulFD7S8ioa8n7x5AnWgm3Lq/d/EL0IXuXH6UWd99
-	 JojfAS4f2XFieEPD0MxJlEioHOcXPGN8Q5ZrN31zJbV9akk2PRYeV1MYNkyX0QtoHz
-	 Eu+G5agl0zJ57310ddJc7mjDrSPYb3QUa3YIYRLTJeYdkq2AchpzYTfxIoxL4kOban
-	 OBEi6HaxgdgPVJxSH0LiH1hN6EDud9TUlAO9S2Tuh/bCQuTA1H/UeoPuhcsafx2L1U
-	 csr6B08f4UPAc+baYbtWu5hQf4QfXC5GQIY5FXTNnIcFpvZbgW96KCklU4nEo4F3ZB
-	 GToPZVetIVhAw==
+	b=i+gM4XFLdCZyGA3Vk3mdCMI1AcuqtFHurqQzD0tPTzFGdh/D7bOwFW4UNVG85sahA
+	 O7EdTQqoT5bRjR6Jv4h4sOYOrxErAAFWkjSYJTHhEde5HJYU9AdmSzbCuS7l0C7RXl
+	 iIV6jNIOBb8+SgtEfNd7wBl7bjvEklAMr9/PMiPcS/l4/YX0dlxUDPvXRlvLhD/0Fe
+	 1p0Oswo3oFXc+czCQJMqDcgpx6CMCTKsqfd3wfCoAGV19D9EC3y3BuFNA+gP2ctT53
+	 9h56gERgxKSO508oBKF0hN1gRyfhTPx2pFOLFIUXJUlwPMZgZMowvXYj8gWAOQhcrh
+	 R4GdFjfBl5hvw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Igor Putko <igorpetindev@gmail.com>,
-	syzbot+843bf2f48f4d12e6682e@syzkaller.appspotmail.com,
-	stable <stable@kernel.org>,
+Cc: Emily Peri <eperi1024@gmail.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] serial: core: shut down initialized port on removal
-Date: Wed,  4 Nov 2026 21:01:59 -0500
-Message-ID: <20261105020047.1070896-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] staging: rtl8723bs: Fix indentation in conditional statements
+Date: Wed,  4 Nov 2026 21:02:00 -0500
+Message-ID: <20261105020046.1070470-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110440-crouch-oblivion-2771@gregkh>
-References: <2026110440-crouch-oblivion-2771@gregkh>
+In-Reply-To: <2026110448-heftiness-shed-a845@gregkh>
+References: <2026110448-heftiness-shed-a845@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,71 +61,152 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Igor Putko <igorpetindev@gmail.com>
+From: Emily Peri <eperi1024@gmail.com>
 
-[ Upstream commit 810d467c11f0c85107874d08dfdd11acba6aa0c0 ]
+[ Upstream commit 6e006508f6e20a0f09dd9e64bc23c0592d92cc2d ]
 
-When a serial port configured as a console is opened and subsequently
-closed, tty_port_shutdown() skips invoking port->ops->shutdown() because
-port->console is true. As a result, tty_port_initialized() remains true
-and the port's interrupt handler stays registered in the irq subsystem.
+Remove/add tabs in block statements in rtl8723bs/core to fix checkpatch
+warnings for suspect code indent for conditionals.
 
-If the underlying device is later unbound or removed (e.g. via sysfs
-driver unbind or device hot-unplug), serial_core_remove_one_port()
-unregisters the console, frees uport->name via kfree(), and tears down
-the port without shutting it down or freeing its IRQ. Consequently, the
-irqaction descriptor remains registered in genirq with action->name
-pointing to freed memory.
-
-This triggers a use-after-free read whenever genirq accesses action->name,
-such as when reading /proc/interrupts:
-
-  BUG: KASAN: slab-use-after-free in string+0x476/0x570
-  Call Trace:
-   string+0x476/0x570
-   vsnprintf+0x422/0x1300
-   seq_printf+0x...
-   show_interrupts+...
-
-Fix this by acquiring port->mutex in serial_core_remove_one_port() after
-console unregistration, clearing port->console under the mutex to prevent
-data races with concurrent tty_port_shutdown(), and invoking
-uart_shutdown(NULL, state) if the port remains initialized. This ensures
-that port->ops->shutdown() is called and the IRQ is freed before
-kfree(uport->name).
-
-Reported-by: syzbot+843bf2f48f4d12e6682e@syzkaller.appspotmail.com
-Cc: stable <stable@kernel.org>
-Closes: https://syzkaller.appspot.com/bug?extid=843bf2f48f4d12e6682e
-Fixes: 761ed4a94582 ("tty: serial_core: convert uart_close to use tty_port_close")
-Fixes: f7048b15900f ("tty: serial_core: Add name field to uart_port struct")
-Signed-off-by: Igor Putko <igorpetindev@gmail.com>
-Link: https://patch.msgid.link/20261003163337.45577-1-igorpetindev@gmail.com
+Signed-off-by: Emily Peri <eperi1024@gmail.com>
+Link: https://lore.kernel.org/r/Y1cH7br3mMcT4Dm5@marshmallow
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Replaced scoped_guard() with explicit mutex_lock() and mutex_unlock() calls for GNU89 compatibility. ]
+Stable-dep-of: 495cb31c791b ("staging: rtl8723bs: fix protected RX frame validation in decrypt path")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/serial_core.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/staging/rtl8723bs/core/rtw_mlme.c     | 30 +++++++++----------
+ drivers/staging/rtl8723bs/core/rtw_mlme_ext.c |  2 +-
+ drivers/staging/rtl8723bs/core/rtw_recv.c     |  6 ++--
+ drivers/staging/rtl8723bs/core/rtw_sta_mgt.c  |  2 +-
+ 4 files changed, 19 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 4ffa682203166..ada412490668e 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -3090,6 +3090,13 @@ int uart_remove_one_port(struct uart_driver *drv, struct uart_port *uport)
- 	if (uart_console(uport))
- 		unregister_console(uport->cons);
+diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme.c b/drivers/staging/rtl8723bs/core/rtw_mlme.c
+index 258972f6de3fa..58b3dbee58ad5 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_mlme.c
++++ b/drivers/staging/rtl8723bs/core/rtw_mlme.c
+@@ -389,7 +389,7 @@ int is_same_network(struct wlan_bssid_ex *src, struct wlan_bssid_ex *dst, u8 fea
+ 	__le16 tmps, tmpd;
  
-+	mutex_lock(&port->mutex);
-+	port->console = false;
-+
-+	if (tty_port_initialized(port))
-+		uart_shutdown(NULL, state);
-+	mutex_unlock(&port->mutex);
-+
- 	/*
- 	 * Free the port IO and memory resources, if any.
- 	 */
+ 	if (rtw_bug_check(dst, src, &s_cap, &d_cap) == false)
+-			return false;
++		return false;
+ 
+ 	memcpy((u8 *)&tmps, rtw_get_capability_from_ie(src->ies), 2);
+ 	memcpy((u8 *)&tmpd, rtw_get_capability_from_ie(dst->ies), 2);
+@@ -669,7 +669,7 @@ int rtw_is_desired_network(struct adapter *adapter, struct wlan_network *pnetwor
+ 		uint ie_len = 0;
+ 
+ 		if ((desired_encmode == Ndis802_11EncryptionDisabled) && (privacy != 0))
+-	    bselected = false;
++			bselected = false;
+ 
+ 		if (psecuritypriv->ndisauthtype == Ndis802_11AuthModeWPA2PSK) {
+ 			p = rtw_get_ie(pnetwork->network.ies + _BEACON_IE_OFFSET_, WLAN_EID_RSN, &ie_len, (pnetwork->network.ie_length - _BEACON_IE_OFFSET_));
+@@ -795,7 +795,7 @@ void rtw_surveydone_event_callback(struct adapter	*adapter, u8 *pbuf)
+ 			pmlmepriv->to_join = false;
+ 			s_ret = rtw_select_and_join_from_scanned_queue(pmlmepriv);
+ 			if (s_ret == _SUCCESS) {
+-			     _set_timer(&pmlmepriv->assoc_timer, MAX_JOIN_TIMEOUT);
++				_set_timer(&pmlmepriv->assoc_timer, MAX_JOIN_TIMEOUT);
+ 			} else if (s_ret == 2) {/* there is no need to wait for join */
+ 				_clr_fwstate_(pmlmepriv, _FW_UNDER_LINKING);
+ 				rtw_indicate_connect(adapter);
+@@ -2015,8 +2015,8 @@ int rtw_restruct_wmm_ie(struct adapter *adapter, u8 *in_ie, u8 *out_ie, uint in_
+ 		    in_ie[i + 3] == 0x50 && in_ie[i + 4] == 0xF2 &&
+ 		    in_ie[i + 5] == 0x02) {
+ 			for (j = i; j < i + 9; j++) {
+-					out_ie[ielength] = in_ie[j];
+-					ielength++;
++				out_ie[ielength] = in_ie[j];
++				ielength++;
+ 			}
+ 			out_ie[initial_out_len + 1] = 0x07;
+ 			out_ie[initial_out_len + 6] = 0x00;
+@@ -2072,15 +2072,13 @@ static int rtw_append_pmkid(struct adapter *Adapter, int iEntry, u8 *ie, uint ie
+ 
+ 	if (ie[13] <= 20) {
+ 		/*  The RSN IE didn't include the PMK ID, append the PMK information */
+-			ie[ie_len] = 1;
+-			ie_len++;
+-			ie[ie_len] = 0;	/* PMKID count = 0x0100 */
+-			ie_len++;
+-			memcpy(&ie[ie_len], &psecuritypriv->PMKIDList[iEntry].PMKID, 16);
+-
+-			ie_len += 16;
+-			ie[13] += 18;/* PMKID length = 2+16 */
+-
++		ie[ie_len] = 1;
++		ie_len++;
++		ie[ie_len] = 0;	/* PMKID count = 0x0100 */
++		ie_len++;
++		memcpy(&ie[ie_len], &psecuritypriv->PMKIDList[iEntry].PMKID, 16);
++		ie_len += 16;
++		ie[13] += 18;/* PMKID length = 2+16 */
+ 	}
+ 	return ie_len;
+ }
+@@ -2099,9 +2097,9 @@ signed int rtw_restruct_sec_ie(struct adapter *adapter, u8 *in_ie, u8 *out_ie, u
+ 	memcpy(out_ie, in_ie, 12);
+ 	ielength = 12;
+ 	if ((ndisauthmode == Ndis802_11AuthModeWPA) || (ndisauthmode == Ndis802_11AuthModeWPAPSK))
+-			authmode = WLAN_EID_VENDOR_SPECIFIC;
++		authmode = WLAN_EID_VENDOR_SPECIFIC;
+ 	if ((ndisauthmode == Ndis802_11AuthModeWPA2) || (ndisauthmode == Ndis802_11AuthModeWPA2PSK))
+-			authmode = WLAN_EID_RSN;
++		authmode = WLAN_EID_RSN;
+ 
+ 	if (check_fwstate(pmlmepriv, WIFI_UNDER_WPS)) {
+ 		memcpy(out_ie+ielength, psecuritypriv->wps_ie, psecuritypriv->wps_ie_len);
+diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+index 32fd3cd0a5f77..e07e797144e3a 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
++++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
+@@ -5482,7 +5482,7 @@ u8 disconnect_hdl(struct adapter *padapter, unsigned char *pbuf)
+ 	u8 val8;
+ 
+ 	if (is_client_associated_to_ap(padapter))
+-			issue_deauth_ex(padapter, pnetwork->mac_address, WLAN_REASON_DEAUTH_LEAVING, param->deauth_timeout_ms/100, 100);
++		issue_deauth_ex(padapter, pnetwork->mac_address, WLAN_REASON_DEAUTH_LEAVING, param->deauth_timeout_ms/100, 100);
+ 
+ 	if (((pmlmeinfo->state&0x03) == WIFI_FW_ADHOC_STATE) || ((pmlmeinfo->state&0x03) == WIFI_FW_AP_STATE)) {
+ 		/* Stop BCN */
+diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/rtl8723bs/core/rtw_recv.c
+index 2825375bff942..7c7b6495965f5 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_recv.c
++++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
+@@ -161,7 +161,7 @@ int rtw_free_recvframe(union recv_frame *precvframe, struct __queue *pfree_recv_
+ 
+ 	if (padapter) {
+ 		if (pfree_recv_queue == &precvpriv->free_recv_queue)
+-				precvpriv->free_recvframe_cnt++;
++			precvpriv->free_recvframe_cnt++;
+ 	}
+ 	spin_unlock_bh(&pfree_recv_queue->lock);
+ 	return _SUCCESS;
+@@ -691,8 +691,8 @@ static signed int sta2sta_data_frame(struct adapter *adapter, union recv_frame *
+ 		if (bmcast) {
+ 			/*  For AP mode, if DA == MCAST, then BSSID should be also MCAST */
+ 			if (!IS_MCAST(pattrib->bssid)) {
+-					ret = _FAIL;
+-					goto exit;
++				ret = _FAIL;
++				goto exit;
+ 			}
+ 		} else { /*  not mc-frame */
+ 			/*  For AP mode, if DA is non-MCAST, then it must be BSSID, and bssid == BSSID */
+diff --git a/drivers/staging/rtl8723bs/core/rtw_sta_mgt.c b/drivers/staging/rtl8723bs/core/rtw_sta_mgt.c
+index beb11d89db186..c7de81f21bec0 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_sta_mgt.c
++++ b/drivers/staging/rtl8723bs/core/rtw_sta_mgt.c
+@@ -551,7 +551,7 @@ u8 rtw_access_ctrl(struct adapter *padapter, u8 *mac_addr)
+ 	else if (pacl_list->mode == 2)/* deny unless in accept list */
+ 		res = match;
+ 	else
+-		 res = true;
++		res = true;
+ 
+ 	return res;
+ }
 -- 
 2.53.0
 
