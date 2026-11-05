@@ -1,56 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793900468;
-	b=ZO85DGPu5OSrz155mgb+QFCaiFaw+LsBmJYcT7wLq5LPZoTYSCWqrCB1EPu1+z4GHmJG
-	 fktPrU2mGzDr+1NY7TJLzRNyGVsqVRSLS4IUc8qnnOzUZQfWG2Ch6Fktop88RPlrpjsYJ
-	 Mfsqnztuo50Aac1kldI1TMxeWdZIuwvvEPRXKTsi/MIrlPuSv1spGLfx18HVKKbywxr11
-	 Hj4+lxn7XDYLLjUEW4MYnJl5bRjLCyIilJg1pp1DRIQH18eloEfay0EP/Hzh9qnA8xOxc
-	 XipUzJiY/ipA585JEBbeHnGidYjMRQAauzoZKX4YbzULmA/WTXJRUToMRN2cRV4eOqg==
+	t=1793900564;
+	b=0007iJWbCzrbE2ugBHxX8OgT/m7m3OLtjc5cTjzh8YnPrdr1ouQ2Ia2Mt5b+yopzz6xF
+	 XaKtUnwzuoCeH0YnbiXGpez44L1VSuhQRcqCqrCNkUbPe3pkMveOoDy2mgqJ7FgCGTNAB
+	 RyTSaZ4Y0N1xs6c+SLil7xijcGM0LpORABcc/Y7wS17X4RCqBxbtj694cVpM/qQchF8zK
+	 dDBCyN0ZYYtq480dnJLROuU+z/PQUVQ2CwO1ZTBn6fU5bWQ9evRTCqGUSlsSOH1xEM6qk
+	 OISu1BBd4sCpxi7+1L0v9ZzICZgWmPuIM7lNeVjjdY7sLZvIEkVy9EINmCxhWTOulBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793900468;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5cHwaepW4MjyQa6Q8fqcAMUv+vuExNctllf6hUk3rVM=;
-	b=ul+vJGqobZhJGZ2jorqchI2rW7sG+ZLUcbcVQJqqdH8mDHQyfa8yF/P/7ZOovLpwatrE
-	 pmGl/zMvTd8J8eATc/k2viljeZ4g0G5QnuvW4XSk+pBxjPV657ivwi4qffAb7W4Tifp3v
-	 JHFEuEiF3Fps8H4gbA+t8FZSVa3TAOcapuC4/PWQSzRG3CxvSri9azJ+5codYfald7l+m
-	 +DSdS1Z20uIYdJ84F+X0R9RytE0EiPwrW1keXjhXnzbD0R60VDHhhyrLvknyT8ohnFDKW
-	 Y+w6pOP653ndkH+4bC6lM9RnW5uPOv1DK3HzZmsXC5kyCvdqAB9EU4IfT+J1AI2U2gQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793900564;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lkKAejhpVXm9seL1ehybdpNol6UMeDxsIrY79fbHsys=;
+	b=5RnMl3xNKGmh3xSZjID1UKb7doi3woPAh1zrHJjsWX/x0oZDrRZRdbgv/cS5sGlB5rFG
+	 G9mTEjYElVqNpSPE3H1BHNkSUAMU0pF2xj/5LjK5/eTy4m8HqoYRT/oB+HYjEBnhnn61y
+	 I5oxT/AbOIRDfrd58Yx1ZdsITp/LHtq2FIDHyPaHMxAf5POJd7LvET+c2rJhnqPi9XVtm
+	 AlV/EGlk3d/Q+y9aMaUKIqaEvTUBeQQtcGl/RFbpCjm+DKw/q93UohRGxBv4y8+G8a8vh
+	 MAU24zUHVuytYwEgdOFglM/g4RJRQ2DEFF6QijzNAfYLTE8Fpqueq1jotkiLFaOpFkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LWr801ps;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0cCpBXcz;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0A1606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 17:41:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD460606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 17:42:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD460606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LWr801ps
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFDDD1F000C1;
-	Thu,  5 Nov 2026 17:41:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793900467;
-	bh=5cHwaepW4MjyQa6Q8fqcAMUv+vuExNctllf6hUk3rVM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LWr801ps6MPOFdytlbOtlDJMcfR9hFOJWSRHaMUvQD3wem62bBTDzULk+KRPYh3pX
-	 SbShhCgdrkv+JxQwqm+HEHKKA88B/Llm0VkOmEuli1PGRTF+Zvo8/ulqc9q/bV0y8G
-	 QdwnKUiNKQkd0ZHFZaC6XAr82DFdzGwfFvQlOo/duJafpV38LuIz46FqXRGQbxmWjy
-	 zynaPTM2S4Nd9iDeb0e5Vg9FGUS4ZxoREgRXZeYTyNhQjT19w18rNCxf5J6JSAj6cJ
-	 USchMbaMM5h2/YJSDuVrLlGiBGXa7sKEcskiJ3KdbFnyeGyPyn3CgB7XjqMOhM6OVc
-	 W/AGwNs3xrltw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] smb: client: bound POSIX lock data area by response length
-Date: Thu,  5 Nov 2026 12:41:05 -0500
-Message-ID: <20261105174038.2191050-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110405-prankster-arguably-a837@gregkh>
-References: <2026110405-prankster-arguably-a837@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0cCpBXcz
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-14394530ec6so2984115c88.1
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 09:42:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793900563; x=1794505363; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lkKAejhpVXm9seL1ehybdpNol6UMeDxsIrY79fbHsys=;
+        b=0cCpBXczFYatbN465cchPeAyHME4783rqVh3+kL78PzF4IlkhKFBfE5QUc6pCUThe+
+         p4WXpGfbMQ8mn8FpHx7MMTutgqAqvxPCVDJo9FwfTet0dJOYWpVxzkZX/UPxIsoCMuaW
+         7zUEND9WP7c+PNDLfyL0V5Zr8Va+nAaPgI5xke5C5zjT6zZmNZ5141TVUikpJlNXh+tm
+         e+A6AxIrh++VB6UJ2mgMHkfQUHhO4qPFtKv5ynToDcG+gYHr52aihGwah8BvrO40fgiz
+         Krhff2dntNB/rAgijFx/fP1Zdw0haDcXxuF/yP6Od5kjUsLelS/3tyPYexfEotJ7bIe9
+         KHJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793900563; x=1794505363;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lkKAejhpVXm9seL1ehybdpNol6UMeDxsIrY79fbHsys=;
+        b=LFtStAo0maSTxgNJvuPVmAEVCp9b5UNLQXS9M9njdXCIcDf9yBtgu0H4TmBYVqM3U0
+         wT2h0C+HFE2RqJGG2d1c9R+fqRn+IGO9bawWv8rG3V1Uvwq4M6OYVwePVPkmb/NI5DkC
+         S9HCI5ev8apuMW/rZs4EfKR/VEQNEJrbYC/mZF0T7Tl/Ue9LQ0HWkNPnuAKgHYM0QKgm
+         TsOTDR9E5xcZVI0J3HKEE3p9reWbTiuMvOb2+y2390wCtpZuIEGBWXqdCeI5yqCHkVOI
+         LU7VM6EWQCmJzG8DqQt5CEiHe+GmbYFXegaokK3WuUFqC0syOHh+Hgk2wfDuZ9SV/OVe
+         HN5w==
+X-Forwarded-Encrypted: i=1; AKwUvBz6lVBwvT0YWJInGYj3n4o4Tx+4TflOGonuVxBW1eapW65q1a2OwNDmxI0bJ0eEo4Qseecz7Co=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/lPXRehTbVEQ6G2AZ5dPx9Qw90tY8EdcvBqECBLpNgqRU6LSXb
+	23ain0ORpIk8dCBu1oT/qQxuQegy+izs7dML+iW4AAXCy6cxwiR67Buz
+X-Gm-Gg: AYBFou2S/UZ3krAgYJ/y5Zo5o4FvgIA20IXdtSnojgqppPRFtRi9s1ULqMTHpTpOkvn
+	osgtPx+0EGgsHR/JQyTlCRLJ7Jb0zwFpoEGoh39rJyJ1K1++n0eayRIM1deu95Ifp9VRpvk15tk
+	gyQH/meV9289qN38NYZJIOrv5bEsbPgQHRK1wwlxyIhYMlzwM7KU7qQAYoDvMJkb9yX3gCFXfQ4
+	dLTJITENP/2RM+o8eqr/JO7PYk602KRvDsdl5h5zxrui1Nw7ZjRXhDK1gxJig8EqZ3KrSN8qSGg
+	VTipib6vfcEC+iSBhjRFA62LDCUiR7whFkLtFqNHsvseHc4d3N06RYCdkwmFUd2cZH81KFS4pcS
+	V+5um8bLc+6j099hku3knaShm67fAvdcKPvCngPxWaNAmaDKGpiU0vQc6BQv08eDvo5ENghU7l6
+	xMr6pkTPi/dfj76/BXQofsjYcrL72hO4YKS7l+wjZt8fGAE4w1v1mPaKRDRiQ1xFDP3aF9uGoUT
+	+bTwyZGAA4AIwpMFB8xh5u0KXfH6pTsZhPCZUZSUy8AQkWh6cqaUzA3XHe3cRD48E5ovPBFD5lf
+	ftK+UslTKliOwxjluDMD19A120hhBcPnpnTlWKHegvSq4krc84wZW2l6Yr2MkNGw0A==
+X-Received: by 2002:a05:701b:4550:10b0:1b2:4da6:bccd with SMTP id a92af1059eb24-1b24da6bf63mr5381543c88.34.1793900562754;
+        Thu, 05 Nov 2026 09:42:42 -0800 (PST)
+Received: from anon-laptop ([103.187.196.159])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39b8eb3sm24291014eec.27.2026.11.05.09.42.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 09:42:41 -0800 (PST)
+From: Wahid Khan <wahidzk0091@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Steve French <smfrench@gmail.com>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wahid Khan <wahidzk0091@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: refuse to read a handle that is not open for reading
+Date: Thu,  5 Nov 2026 23:08:38 +0530
+Message-ID: <20261105173838.1882328-1-wahidzk0091@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,61 +102,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
+smb2_create_open_flags() picks the open mode from the read and write
+bits of the desired access. FILE_EXECUTE and FILE_READ_ATTRIBUTES select
+neither, so a request for FILE_WRITE_DATA | FILE_EXECUTE |
+FILE_READ_ATTRIBUTES opens the file O_WRONLY.
 
-[ Upstream commit 8fc9af68c57156ff64769f30e831553cd03b3000 ]
+smb2_read() accepts FILE_READ_ATTRIBUTES and ksmbd_vfs_read() accepts
+FILE_EXECUTE, so a later READ on that handle passes both checks and
+reaches __kernel_read() on a file that has no FMODE_READ:
 
-CIFSSMBPosixLock() receives a TRANS2 response whose server-provided
-DataOffset and DataCount are not required by validate_t2() to describe an
-interval inside the response. A server can therefore make the client read a
-cifs_posix_lock beyond the response buffer and return those kernel bytes
-through F_GETLK.
+  WARNING: fs/read_write.c:518 at __kernel_read
+   __kernel_read
+   ksmbd_vfs_read
+   smb2_read
+   handle_ksmbd_work
 
-Use smbCalcSize() to obtain the full response length after any multipart
-TRANS2 reassembly, then reject data areas that extend past it before
-dereferencing them.
+Any client that can open a file with write access on a share, including
+a guest session, can trigger it; with panic_on_warn it takes the machine
+down.
 
-Fixes: fc94cdb94462 ("[CIFS] Fix new POSIX Locking for setting lock_type correctly on unlock")
-Reported-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
+Return STATUS_ACCESS_DENIED when the file is not readable.
+
+Fixes: f44158485826 ("cifsd: add file operations")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: Subtracted the four-byte RFC1001 prefix from smbCalcSize() and replaced unavailable smb_EIO2() tracing with -EIO. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
 ---
- fs/smb/client/cifssmb.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ fs/smb/server/vfs.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index 3795fdfebb519..b19d6fefa5e43 100644
---- a/fs/smb/client/cifssmb.c
-+++ b/fs/smb/client/cifssmb.c
-@@ -2092,6 +2092,7 @@ CIFSSMBPosixLock(const unsigned int xid, struct cifs_tcon *tcon,
- 		cifs_dbg(FYI, "Send error in Posix Lock = %d\n", rc);
- 	} else if (pLockData) {
- 		/* lock structure can be returned on get */
-+		unsigned int rsp_len;
- 		__u16 data_offset;
- 		__u16 data_count;
- 		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
-@@ -2102,10 +2103,16 @@ CIFSSMBPosixLock(const unsigned int xid, struct cifs_tcon *tcon,
- 		}
- 		data_offset = le16_to_cpu(pSMBr->t2.DataOffset);
- 		data_count  = le16_to_cpu(pSMBr->t2.DataCount);
-+		rsp_len = smbCalcSize(&pSMBr->hdr) - 4;
- 		if (data_count < sizeof(struct cifs_posix_lock)) {
- 			rc = -EIO;
- 			goto plk_err_exit;
- 		}
-+		if (data_offset > rsp_len ||
-+		    data_count > rsp_len - data_offset) {
-+			rc = -EIO;
-+			goto plk_err_exit;
-+		}
- 		parm_data = (struct cifs_posix_lock *)
- 			((char *)&pSMBr->hdr.Protocol + data_offset);
- 		if (parm_data->lock_type == cpu_to_le16(CIFS_UNLCK))
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index 1f2bc76f0..cb3f4f5fe 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -367,6 +367,10 @@ int ksmbd_vfs_read(struct ksmbd_work *work, struct ksmbd_file *fp, size_t count,
+ 	if (ksmbd_stream_fd(fp))
+ 		return ksmbd_vfs_stream_read(fp, rbuf, pos, count);
+ 
++	/* The access granted on open can include FILE_EXECUTE for a write-only file */
++	if (!(filp->f_mode & FMODE_READ))
++		return -EACCES;
++
+ 	if (!fp->is_posix_ctxt) {
+ 		int ret;
+ 
 -- 
 2.53.0
-
