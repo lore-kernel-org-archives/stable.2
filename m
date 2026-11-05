@@ -1,60 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793846224;
-	b=bAYw2boMfCxvS0M868jswET/8dApqqDfdMjVyCSqnTjXts3J1lAcVsGWhRoBPQWaDp0D
-	 zcLl94dVqHCks53VYsbJt+Z+Hiav0oLiVekJ/G4JCzGbpNyL4+5ioTtiVa9JjiK70BO/w
-	 5Ez1/ybYqMdeeNzA5RjRdcoSZiNbL9yr/Xhsn9KyliYgYswKkOZokppXzWJKYtW4cvU5M
-	 +G/zdr8zMr8brSEscR/yM+mKifan8ztLeb63UdUobMnPeIArJa2VFMWsnJ83eRLEswzxD
-	 7BJl/ARqlosc81ivXP4I/mZo+QfWVGnADq798QcDZeMUaXx8HAofyP+r7SO43U1EHVw==
+	t=1793846274;
+	b=K8SY38qBB/0rxe1D86PPxUxKKz4NTZ4IR5ReVwxCHsRKwsPzQ5xE48ey8V6aT0UAEB3J
+	 BJeWsJVt1RhsSsgo47mRAyT8gcK99rhrl0s05dDgCJJzY71kJTHlrb4u3hWkp9nIEoUCI
+	 VW4Vnej+4voj4LB+bzFKrwuLP1FFGLsj9lrF1rzORz7IIf3cZvrErjDOJlcYVnQDU+lb0
+	 WTVg2jGyLyHFIdj5ObYJicqBXZZN4Uz5v9YkFSVTYU1xdjhar5+dnBT7E0Hperx5s+V8x
+	 hmB50ORPtP0G9TH+vaBjiL7wRwci7z9KGMLTH92ngD8VzAQ0uIbRz2x2d7ayUQz7fCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793846224;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=o2Sbakd/p+dyG/BnhT/68otDQiDWdFKLLdFe8usA7Ko=;
-	b=p2Ln/RVrI/523JVqCxYHUiFWD/0J8vOgUFj162sz7e9++n6K4/fdrwmKo/0bFWxX/8rt
-	 NBVpn4DvEcMXu0RE1WOq5RJ//5UwkEjvUTIKhpGVa+xfnP17Ga5WGtjK6b+/7RXXmS4Ot
-	 JzMa90HN7/IYFhXiJEnklcDxOYnjBPAE4+bemzu+eBHhPOUtstzuakO9hnIBKQ2D0lUDi
-	 XXt5Cc+hFp4MlYP8hHFepEmvFPWvXMpJIITTzwCz2AwQN8ffQQ2AnF0WipL8eIIGvkSUK
-	 6tvT0//xowSmp/8G6PevgLfSDjNoFm6qpWbCOXzMuZqz7v0ecof13H/4QvVZbXNGZBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793846274;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=4YRZtBy/ufsiguFB9l3I5NzFI40FHV2N7HDeJmgHUcI=;
+	b=HYPTghs3cd1wzvsu6nmTMs93MwiEgGK8qldP8cs8z1oZhzrwN5WbtJ2Q7THln+hIi8dY
+	 5ItZn2N/P53H88JVCKlVMC98W5xudzdV1lC1q/UGDy45AKoPH4U0haKiknc5Q2dfq7VTx
+	 vK9AwlX6dZqEN7YRBwfiOTzNVxZoLTBWDc0og4E0rzkXE5d9wClZmzr/jwDpjJ/VPUoGs
+	 7VvobUi4kVS4WXrlH+bKzi1a3Cttv8Kx33Bw4sa1BuSNUyFzaXfVdgYN4kN1uBNoJVwQK
+	 cLIG/dzHmLSZC7IL+WTiuDT5cK2jh/MgGUQItntody9pGayIV0dG94nh0MPhkcmfwmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOKr7ESP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=NpKam+Zp;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7FE606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:37:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08B6606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:37:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E08B6606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOKr7ESP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44E931F000C1;
-	Thu,  5 Nov 2026 02:37:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793846223;
-	bh=o2Sbakd/p+dyG/BnhT/68otDQiDWdFKLLdFe8usA7Ko=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DOKr7ESPq5l5ne3d8yXT7ByF85MMuf5bb4GIKZftp0IvMuSq6DhfqZoy7IKlYiAzl
-	 /uu7E78+WHaEEEaQwpQC+STsq+v7N3Z4e47s0EuzeN89YigRzPq8M5GYO6wvl5byt7
-	 9egOPoElvnXIMkh9/HHVaDgseBMtuqd+UvHCyXZmQC6CMAUV/1SBnGijWWYlXGp7Nl
-	 uGpl3aS9IE9sENZ+nmNgaZC4OwkKZ2T11IArW2WKAxIwpfxoo4qUQBVP7vglVBCZGu
-	 bKiwVQ9aVrIZyV5EqpUFpOk0HqJtbKSRdr/Wg+MGXY81vEiSpDB2f0JD0UpSExHWDv
-	 f/c0s10wvNvZw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ruide Cao <caoruide123@gmail.com>,
-	Kyle Zeng <kylebot@openai.com>,
-	David Lee <david.lee@trailofbits.com>,
-	Vega <vega@nebusec.ai>,
-	Ren Wei <weir@nebusec.ai>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mptcp: hold MP_JOIN msk ref when cloning reqsk
-Date: Wed,  4 Nov 2026 21:37:00 -0500
-Message-ID: <20261105023629.1173783-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110450-quickstep-hasty-b937@gregkh>
-References: <2026110450-quickstep-hasty-b937@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=NpKam+Zp
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=4YRZtBy/ufsiguFB9l3I5NzFI40FHV2N7HDeJmgHUcI=;
+	b=NpKam+ZpaO5jIgt9EYzx3Tj4OgHjXqsjBgC4YAYB8LY3gC1GzVa9OrhsSoK+xqfJMwiPI6o7P
+	TaaYQvEGzv9s/sgnhuhsn8gMMXs/5f5YROfVgEcYCxtJpAt+kzGR8wtd5EQufL+gPFiZGoh+Mpq
+	ZtJPXOTIrPIe6cnGoAcx2ZI=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jKmfx0lrFzcZyM
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 10:37:13 +0800 (CST)
+Received: from kwepemk300018.china.huawei.com (unknown [7.202.194.246])
+	by mail.maildlp.com (Postfix) with ESMTPS id 2E21C40575
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 10:37:41 +0800 (CST)
+Received: from huawei.com (10.25.63.231) by kwepemk300018.china.huawei.com
+ (7.202.194.246) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 5 Nov
+ 2026 10:37:40 +0800
+From: Sun Yiqi <sunyiqi2@huawei.com>
+To: <sunyiqi2@huawei.com>
+CC: <stable@vger.kernel.org>
+Subject: [PATCH net] can: j1939: transport: validate the DPO packet offset
+Date: Thu, 5 Nov 2026 10:37:38 +0800
+Message-ID: <20261105023738.348-1-sunyiqi2@huawei.com>
+X-Mailer: git-send-email 2.51.0.windows.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,196 +68,57 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk300018.china.huawei.com (7.202.194.246)
 
-From: Ruide Cao <caoruide123@gmail.com>
+j1939_xtp_rx_dpo_one() stores the packet offset from a received ETP DPO
+command without checking it against the session's total packet count.
+An offset greater than or equal to that count makes
+j1939_session_skb_get() return NULL. A subsequent EOMA can then cause
+j1939_session_completed() to pass the NULL skb to j1939_sk_recv(),
+resulting in a NULL pointer dereference.
 
-[ Upstream commit c9c90cf437a9e6597611b6d3aad6e255fad22867 ]
+Reject an out-of-range offset before storing it and abort the session
+with J1939_XTP_ABORT_BAD_EDPO_OFFSET. Keeping the previous valid offset
+also prevents this lookup failure if an EOMA arrives while the session
+is waiting for the abort to complete.
 
-TCP request migration clones pending request sockets with
-inet_reqsk_clone().  For MPTCP MP_JOIN requests this byte-copies
-subflow_req->msk, but the clone does not own a reference.
-
-The original and cloned requests can consequently drop the same msk
-reference, leaving one request with a dangling pointer.  This manifests as
-a KASAN slab-use-after-free in subflow_req_destructor():
-
-  BUG: KASAN: slab-use-after-free in subflow_req_destructor (net/mptcp/subflow.c:45)
-  Write of size 4 at addr ff1100010e008d40 by task swapper/0/0
-  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-rc5-00353-gc27e36054537 #10 PREEMPT(full)
-
-  Call Trace:
-   subflow_req_destructor (net/mptcp/subflow.c:45)
-   subflow_v4_req_destructor (net/mptcp/subflow.c:694)
-   __reqsk_free (net/ipv4/inet_connection_sock.c:906)
-   reqsk_timer_handler (include/net/request_sock.h:137 net/ipv4/inet_connection_sock.c:1147)
-
-  Allocated by task 10014:
-   sk_prot_alloc (net/core/sock.c:2246)
-   sk_clone (net/core/sock.c:2488)
-   mptcp_sk_clone_init (include/net/sock.h:1848 net/mptcp/protocol.c:3564)
-   subflow_syn_recv_sock (net/mptcp/subflow.c:883)
-   tcp_check_req (net/ipv4/tcp_minisocks.c:934)
-
-  Freed by task 0:
-   slab_free_after_rcu_debug (include/linux/kasan.h:235 mm/slub.c:2677 mm/slub.c:6439)
-   rcu_core (kernel/rcu/tree.c:2645 kernel/rcu/tree.c:2897)
-
-  Last potentially related work creation:
-   kmem_cache_free (mm/slub.c:2638 mm/slub.c:6377 mm/slub.c:6504)
-   __sk_destruct (net/core/sock.c:2289 net/core/sock.c:2391)
-   sk_destruct (net/core/sock.c:2419)
-   __sk_free (net/core/sock.c:2430)
-   sk_free (net/core/sock.c:2441)
-   mptcp_close (include/net/sock.h:2020 net/mptcp/protocol.c:3399)
-   inet_release (net/ipv4/af_inet.c:442)
-
-  The buggy address belongs to the cache MPTCP of size 2968
-  The buggy address is 128 bytes inside a freed 2968-byte region
-
-A non-NULL subflow_req->msk means that the request owns one reference. The
-third ACK can concurrently transfer the original request reference to the
-child and release it, so taking an unconditional hold on the copied pointer
-is unsafe.
-
-MPTCP sockets use SLAB_TYPESAFE_BY_RCU and all current inet_reqsk_clone()
-callers run in an RCU read-side critical section. Document and
-lockdep-check that calling-context requirement.  Read the pointer from the
-original request and acquire a reference only if it is still live.  Use
-refcount_inc_not_zero_acquire() so the subsequent ownership validation
-cannot be reordered before the try-get, then re-read the original request
-to verify that it still owns the same msk. If either check fails, clear the
-clone pointer; otherwise its normal destructor balances the new reference.
-Mark the ownership-transfer store with WRITE_ONCE() to match the lockless
-reads.
-
-The following patch completes the clone fixup for MP_CAPABLE token
-ownership. Both patches carry the same Fixes tag and are required for
-stable backports.
-
-Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
+Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
 Cc: stable@vger.kernel.org
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Reported-by: David Lee <david.lee@trailofbits.com>
-Reported-by: Vega <vega@nebusec.ai>
-Closes: https://lore.kernel.org/all/20260804095051.715355-1-david.lee@trailofbits.com/
-Signed-off-by: Ruide Cao <caoruide123@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-3-932c9b182fc7@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: replaced refcount_inc_not_zero_acquire() with refcount_inc_not_zero() followed by an explicit smp_acquire__after_ctrl_dep() barrier. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Sun Yiqi <sunyiqi2@huawei.com>
 ---
- include/net/mptcp.h             |  9 ++++++++
- net/ipv4/inet_connection_sock.c |  4 ++++
- net/mptcp/subflow.c             | 38 ++++++++++++++++++++++++++++++++-
- 3 files changed, 50 insertions(+), 1 deletion(-)
+ net/can/j1939/transport.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/include/net/mptcp.h b/include/net/mptcp.h
-index 3c5c68618fcc5..32c5878f51175 100644
---- a/include/net/mptcp.h
-+++ b/include/net/mptcp.h
-@@ -189,6 +189,9 @@ int mptcp_subflow_init_cookie_req(struct request_sock *req,
- struct request_sock *mptcp_subflow_reqsk_alloc(const struct request_sock_ops *ops,
- 					       struct sock *sk_listener,
- 					       bool attach_listener);
-+/* Caller must hold an RCU read-side lock. */
-+void mptcp_subflow_reqsk_clone(struct request_sock *req,
-+			       struct request_sock *new_req);
+diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
+index 8fcfd13e5e6f..bda50432a72e 100644
+--- a/net/can/j1939/transport.c
++++ b/net/can/j1939/transport.c
+@@ -1823,14 +1823,22 @@ static void j1939_xtp_rx_dpo_one(struct j1939_session *session,
+ 				 struct sk_buff *skb)
+ {
+ 	const u8 *dat = skb->data;
++	unsigned int packet;
  
- __be32 mptcp_get_reset_option(const struct sk_buff *skb);
+ 	if (j1939_xtp_rx_cmd_bad_pgn(session, skb))
+ 		return;
  
-@@ -282,6 +285,12 @@ static inline struct request_sock *mptcp_subflow_reqsk_alloc(const struct reques
- 	return NULL;
- }
+ 	netdev_dbg(session->priv->ndev, "%s: 0x%p\n", __func__, session);
  
-+/* Caller must hold an RCU read-side lock. */
-+static inline void mptcp_subflow_reqsk_clone(struct request_sock *req,
-+					     struct request_sock *new_req)
-+{
-+}
-+
- static inline __be32 mptcp_reset_option(const struct sk_buff *skb)  { return htonl(0u); }
- #endif /* CONFIG_MPTCP */
- 
-diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index 9d000c2cf9b69..10b25cbabac07 100644
---- a/net/ipv4/inet_connection_sock.c
-+++ b/net/ipv4/inet_connection_sock.c
-@@ -20,6 +20,7 @@
- #include <net/tcp_states.h>
- #include <net/xfrm.h>
- #include <net/tcp.h>
-+#include <net/mptcp.h>
- #include <net/sock_reuseport.h>
- #include <net/addrconf.h>
- 
-@@ -945,6 +946,9 @@ static struct request_sock *inet_reqsk_clone(struct request_sock *req,
- 		rcu_assign_pointer(tcp_sk(nreq->sk)->fastopen_rsk, nreq);
- 	}
- 
-+	if (rsk_is_mptcp(req))
-+		mptcp_subflow_reqsk_clone(req, nreq);
-+
- 	return nreq;
- }
- 
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index cc62681d6ea8e..df85e8ac0d3d1 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -47,6 +47,42 @@ static void subflow_req_destructor(struct request_sock *req)
- 	mptcp_token_destroy_request(req);
- }
- 
-+void mptcp_subflow_reqsk_clone(struct request_sock *req,
-+			       struct request_sock *new_req)
-+{
-+	struct mptcp_subflow_request_sock *subflow_req = mptcp_subflow_rsk(req);
-+	struct mptcp_subflow_request_sock *new_subflow_req;
-+	struct mptcp_sock *msk;
-+
-+	new_subflow_req = mptcp_subflow_rsk(new_req);
-+	RCU_LOCKDEP_WARN(!rcu_read_lock_any_held(),
-+			 "MPTCP reqsk clone called without RCU");
-+
-+	/* A non-NULL ->msk means the request owns one reference.  The clone
-+	 * copied only the pointer, while the original request can concurrently
-+	 * transfer its reference to the child.  Acquire a reference for the
-+	 * clone, then verify that the original request still owns the same msk.
-+	 * MPTCP sockets use SLAB_TYPESAFE_BY_RCU and all clone callers run in
-+	 * an RCU read-side critical section, keeping the memory stable here.
-+	 */
-+	msk = READ_ONCE(subflow_req->msk);
-+	if (msk) {
-+		struct sock *sk = (struct sock *)msk;
-+
-+		if (!refcount_inc_not_zero(&sk->sk_refcnt)) {
-+			msk = NULL;
-+		} else {
-+			smp_acquire__after_ctrl_dep();
-+			if (READ_ONCE(subflow_req->msk) != msk) {
-+				sock_put(sk);
-+				msk = NULL;
-+			}
-+		}
++	packet = j1939_etp_ctl_to_packet(skb->data);
++	if (packet >= session->pkt.total) {
++		j1939_session_timers_cancel(session);
++		j1939_session_cancel(session, J1939_XTP_ABORT_BAD_EDPO_OFFSET);
++		return;
 +	}
 +
-+	new_subflow_req->msk = msk;
-+}
-+
- static void subflow_generate_hmac(u64 key1, u64 key2, u32 nonce1, u32 nonce2,
- 				  void *hmac)
- {
-@@ -812,7 +848,7 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
- 			}
+ 	/* transmitted without problems */
+-	session->pkt.dpo = j1939_etp_ctl_to_packet(skb->data);
++	session->pkt.dpo = packet;
+ 	session->last_cmd = dat[0];
+ 	j1939_tp_set_rxtimeout(session, 750);
  
- 			/* move the msk reference ownership to the subflow */
--			subflow_req->msk = NULL;
-+			WRITE_ONCE(subflow_req->msk, NULL);
- 			ctx->conn = (struct sock *)owner;
- 
- 			if (subflow_use_different_sport(owner, sk)) {
 -- 
-2.53.0
+2.51.0.windows.1
 
