@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903191;
-	b=1y3I4dpgWnp817e4NOQ7/jWsAqwCx/798gJmcxnqVjZBg/fSzxrz9Ax6NbUrPMLV6iTy
-	 JJysSuPqJaDPZqopmlHPEv+lEJiiTgjG4xl0ZFqWddgqz9I1HDxmJWIqhS2U0WDQbTRPT
-	 eV032SnY37J5OWC047Shy3lUMcFTEU49GOEpQTyqYUL/nVnhoby5hEsgoplDQ3hRfeKVp
-	 2pdyX0lC+VykMxyvpcLoSU8uvGM4PUaHE73xtuViiMxiDNHwnj1krtQJuODzPg8PSR5dw
-	 siHuSyQvvHt7mB5Y+VedsJu7m8JqxVVUftSFMWyuTdUyjE0jCUnAENyn0hLdfbOlOOQ==
+	t=1793903214;
+	b=Hb74LfBpHNKpK5kzKYJTncpuGR55UN9jGW6WHf6BtsO212q97qnU9iS3GpJpHogYm4rE
+	 MDw8rPGIfHgcHFtSEP7xUm80o/f2vmZrUCAnaK50cgJhtUW4jOvkrcIdVQfsndtQ6lq3I
+	 z/kmyjhMyRVrWDHVwo/cWP81MPN6rhGGs/owi5badLM0PyFAJZHWuZ0kf1hqlAyrDtVc9
+	 ARjgpPD7NPniw5ysHiexB3UevccDQVTt9WgNphEe0PJyrbegvG191ms3gVbNDYwvh6YqT
+	 On91QF+AszUfu/jSqDLOOU6O/9R2FIqeGs4MwL2Cu78allSuAeR+zwWnJ7SyePFO2/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903191;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903214;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:
 	 Content-Transfer-Encoding:In-Reply-To;
-	bh=ZjZZBHNzUUSdl8+mB6CksZcOvkW2kaVJTAeX6AL9t3o=;
-	b=ZLjiiCYkqyMsdhHiQSer/LsihCSCeBXfb3C2kw1dG/BZpti86cwtMekni+Bhr09EERUt
-	 FsHN7lTMoWt9QqHj19HZu/cTxRlxJCERCa0bg+i8nmvNoV43D5S4iRAIRTFR7xhsyIXJ/
-	 rDbCtqgvD9ZyPfdP1U1QEiHF5qR1jGUPy74FjSlvQMUjkGJSpeUGEx4pP7jAc+7en0IkE
-	 KDG9ClExPqO6yBN7r4ZAxSWykq9qXpOGkibaxwWo5hPcWlefku7CasgYUpledvovuGg61
-	 +L30dFtiulGbEKvTPNMfHqUz3a2vv0a1QdNOuDocUfEtgV1yvyq+56RBx2coEQDDG1Q==
+	bh=dfDgTO3yvVCZXtsYkXmpJ5oJ23yL/kKV2KveBtf9m/Y=;
+	b=UEkGq8rtjhUfTm/XdAcHpO8DZPGMcLIiPM4XmNx3iIMCANxtlG22+h+jhCyiBypFDq7h
+	 WfvV3tMCFH3QDjx8k9NG5wjETa645dViwm6zaWyvEUQkNb/+J6PRwCLzlhequf/M+4dB/
+	 jaqlcdtps2aMXSi5nlPnAlg+1w/pRgwn+s9ffJ7CeJlm6VffbJJq8J2tbyackWXBUBIe0
+	 hfbJ+DadthC4+KgfBLiQjr1CUCRLxWbS0UgMPBo8FFsU2v2ODFvF7MFs4eXMLBGH0o+5p
+	 54nCYWTqRDeV5KUerIkluozIowNyniUiTz9GotsAzSJJ+smg702GrTBz+rMay+eC7Fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTvvwaXk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZpLtKeP4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045F1606A33D;
-	Thu,  5 Nov 2026 18:26:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3719606A326;
+	Thu,  5 Nov 2026 18:26:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTvvwaXk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D79951F00A18;
-	Thu,  5 Nov 2026 18:26:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZpLtKeP4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AC461F000C1;
+	Thu,  5 Nov 2026 18:26:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793903190;
-	bh=ZjZZBHNzUUSdl8+mB6CksZcOvkW2kaVJTAeX6AL9t3o=;
+	s=k20260515; t=1793903213;
+	bh=dfDgTO3yvVCZXtsYkXmpJ5oJ23yL/kKV2KveBtf9m/Y=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JTvvwaXkP9+gdJl7sIR42xpr0Phc2EY0WhM3xuNdJkWFsPeYNXam7mFT/lilxXd6A
-	 j0ZFIs5jD8Spxe8dkW0n2ariVz3YND7QLErOKBx3YiNywrwN9Lp0G+0NVAsL31bIxV
-	 FlXmdcvYJX9PUql8Ty3tXo3N7rLyisUQcKQBB0CAGZse17FV05nfdg0HkTBjTZkDCE
-	 7HfNFihUQd6jH8wFxm5aOUh8Bf6M3+yWAE/6/2gC5ySwA7PsK3XtJJrWReOrgr9mXZ
-	 muv0UQ37OTU45t4EZmmdrlxp1Tny8QeXlFncV59LJHK0Dw/IMauVfclnArhvIkjvSm
-	 TxY2KTdOC1hDQ==
-Date: Thu, 5 Nov 2026 18:26:26 +0000
+	b=ZpLtKeP4zBE9Z8UmQX+svuJ+lV/fyrpuDasHH5GEICirAYqT988m3dqbWivKck0/D
+	 /h2NZjt2LGcRNUQO8oFcC5Kn67pTRaOliO/52Jhjkqv8X64bv9OBL6g46orTXkyA6Y
+	 IcfCaVLCBai7PvktWxkYaw4YtAZ4zbqfirp9i1knn8OFMuYK0QyrfW/T6TXc0U/mF1
+	 iTbJ29y5WoOnfmvzPLoMjKHIpRuYr6zMbp5Xsv1QoWSzYL6oSOU3pOGSQfy8t/8v0U
+	 GwdjuMtbTXh32rBBa8dcg3v1u86G7vKk8cv4rqPIUPOEcTo365suEtsEq/VUvVLuaO
+	 ggMPqRPEel3SQ==
+Date: Thu, 5 Nov 2026 18:26:48 +0000
 From: Lee Jones <lee@kernel.org>
 To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>
 Cc: Michael Hennerich <michael.hennerich@analog.com>,
@@ -51,10 +51,11 @@ Cc: Michael Hennerich <michael.hennerich@analog.com>,
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Subject: Re: [PATCH 4/8] pwm: axi-pwmgen: Enable clocks before accessing
  hardware registers in probe()
-Message-ID: <20261105182626.GM1650678@google.com>
+Message-ID: <20261105182648.GN1650678@google.com>
 References: <20261105143847.2559586-1-lee@kernel.org>
  <20261105143847.2559586-5-lee@kernel.org>
  <auylN53GJra88-E3@monoceros>
+ <20261105182626.GM1650678@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,23 +68,27 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <auylN53GJra88-E3@monoceros>
+In-Reply-To: <20261105182626.GM1650678@google.com>
 
-On Thu, 05 Nov 2026, Uwe Kleine-König wrote:
+On Thu, 05 Nov 2026, Lee Jones wrote:
 
-> On Thu, Nov 05, 2026 at 02:38:06PM +0000, Lee Jones wrote:
-> > axi_pwmgen_probe() calls axi_pwmgen_setup(), which reads and writes MMIO
-> > registers to verify the IP core version and determine the channel count,
-> > before acquiring and enabling axi_clk.  If the bootloader leaves the AXI
-> > peripheral clock gated, accessing the registers causes an unclocked bus
-> > access fault.
+> On Thu, 05 Nov 2026, Uwe Kleine-König wrote:
 > 
-> Do you have the hardware? Or what convinced you that an access fault
-> happens?
+> > On Thu, Nov 05, 2026 at 02:38:06PM +0000, Lee Jones wrote:
+> > > axi_pwmgen_probe() calls axi_pwmgen_setup(), which reads and writes MMIO
+> > > registers to verify the IP core version and determine the channel count,
+> > > before acquiring and enabling axi_clk.  If the bootloader leaves the AXI
+> > > peripheral clock gated, accessing the registers causes an unclocked bus
+> > > access fault.
+> > 
+> > Do you have the hardware? Or what convinced you that an access fault
+> > happens?
+> 
+> These are Sashiko bugs, as we discussed out-of-band.
+> 
+> None of these have been tested on real h/w.
 
-These are Sashiko bugs, as we discussed out-of-band.
-
-None of these have been tested on real h/w.
+I'll make that clear in the cover-letters going forward.
 
 -- 
 Lee Jones
