@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793886312;
-	b=PKTP+dzErWdbVPpZoyJEme5kMsHTLf/2bLyvqc9p6UNqLHWnZcdomlaTOR5vAKddbxjS
-	 RwwXGlsiCcirRsOe77JNpWwGkPb94CIk0Tgd2gud7pBRS76NdPUmHV5HK3UgXk9wSdZ7y
-	 FaYNuNZsgY+6LWjH7z66MF5uys7l13OZqy7acpUmo+dZaVvBsaK/gVnsK3G2DyYPhFllD
-	 Ngjp/3/n/TNKI7N1SommCATeQ7RyXCGZgTmoM9RHtXTKk3zH06nlNnSKxpk2AoYgSGeaa
-	 +GIhwSzvzOU2vVivHzbPN+VRUldkDOyI6Mia3YNv0+3weU0ooqxY2utOEF/htwKVRiQ==
+	t=1793886313;
+	b=M8g/bgh8clK6Ij7UGmkd6TjiLDcQX+2HyOGFYf86Bm5p8JGoE38mVG9kSkfTfMX6GPyf
+	 YXiZijEvYpcW8XvHE63OsvNYndn4wlTgLyOkofVACTYXvgCibvuV3JJzUNvSc/KjnMH5z
+	 JfDksWmmWJ+RyFnITcTtAqgxQCteRxqRICITsc5DqlkAF2sMmywG49L+Bo3OpyqXB9+py
+	 VrM2pqqk/uUlDDdKM+VzNlXO48qkyLspASSR+GyJlhQKyEUqUC1puTilLbJ28VMdiV4ek
+	 HNB4Cy0o6XAV7aabH0G12Bekybh3mH8dsmoG/sOXhmHhOEvCFBFob7u/WqYsoYxD5Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793886312;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793886313;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=dO256H+LIxFTdd6t2oXCNmhsicWnJ5fiOZUhfsKu4Ac=;
-	b=s26TJk5ijPb1W6MZ3O6+v7g2c64CxNbihe0bxQULYIC307bSxaD60dd0SKN+s18cPivx
-	 yPGvGugasaPWjyzMXo74wQyy658VaKpC5olxT0MLZAkmXLQiyBXLVoBbWAR5ICzv9eYMU
-	 wVcn6xj8cbP0cX6IgFfGWld3abVFfbcXFxrJXeVbd2/ekkyy2ROBvVqf/G44/BN+pLp9B
-	 g03VtvlcSls+ZcLtWfx+bAKtBYv6gPXLhURJg0ziOhu76Qpzj2+1seVy7dkoXwxNaQpVi
-	 vu2PfTHd+9Tuc5dGw1Z4l1nfLK1rOoFIsh4n+OatAZr1uggHr9onEoT1FBKdyVI2/lg==
+	bh=y5Pe60x6abRiVg28m0M7MU61OolRaQ1cu1W+NtqZjvM=;
+	b=xq8hocE1DqJLJ/g6SGOyduassWkS3/SsC4EroZG44tImngkOfioIrKmothDmQhmJt+Vz
+	 OQ/gAMmYv3pT5VBkaR7XosTIxcsiGdb7301yCuDMbnVkWZIBbw+L4iCZEr0qv8qJhIvjD
+	 5VpFnHDxfvLDjX7NKrkQVQH4QrFsNAiagx1QFnS+rD0p1c0vpgdRZB+Yk3iUMZQfuVOXK
+	 2ZeVFxZkP1ZvbP8teh0sha0Ijs1NhpkCblgEjGlziJY42gYuDQrrBC7CSMe+I2SCrwhnn
+	 vJ8cjf+HGUEaBLdOzDIhYqKg5DSYvFzL7j/LiZEmsCpT2aDMjr4kZPJK80cv7iHtsLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QzFKTmYX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VwTxsMqM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8EB606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 025F2606A31B
 	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 13:45:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QzFKTmYX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A6351F00919;
-	Thu,  5 Nov 2026 13:45:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VwTxsMqM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28DF61F00A15;
+	Thu,  5 Nov 2026 13:45:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793886312;
-	bh=dO256H+LIxFTdd6t2oXCNmhsicWnJ5fiOZUhfsKu4Ac=;
+	bh=y5Pe60x6abRiVg28m0M7MU61OolRaQ1cu1W+NtqZjvM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QzFKTmYXm2jbtAovKwqD6o0Qrj6cyjkcPvj+30X1C7M/xgjcMYUW59v3EhM/4X52+
-	 DbEil8MW46zJ4LyULRer+zF7hOH6R0fWtJjErjsBOblWT/QmbkBCPKj51I+BqS3TZ1
-	 FmEE6uF7CpoXNDsljs4PicOPRIgYOL/k0Oti46BTrxQx1BpxdtM8e0yE8Jx8ziL8As
-	 Aozr30qQDQM34yJvyL4zjfgDihZ3edkGB5ZSW5dgoZtUGhneStwZRAYA0TAfotUNci
-	 KkVR3lOoH137ImjYb9AHEtnh+N541I2n80RJRNR+bfM4K1cemNR664haKzU+eOcLbS
-	 f4z+UlIuz+s3g==
+	b=VwTxsMqMIHEDl9ev3393rks7vDjWRVwbJZEyFr/GyIEb3GjyQSsYFglDIRvr2aeoN
+	 xcmdQnLw7ZkItPnvYnU6nnfXpwzCCNXLeW1/LlpjeZn1IA0Pjx5ZRkhKLN2YjjsMAX
+	 u6BkPTeTapBJBW80Bq09RbKLKt1xaHJR5Kh4NI974dbDCTkIlpj3yCL2Ho6BNJa9SZ
+	 +VpAHtVkF2asdLlmoaTIEqEzkm8bj4NpyH7NzNo5JpymZpqQ9RFj8dMrB6l/Gkcc4d
+	 o3kiH8sE8LLCa9Kq+0uQp37HL8lEZ2ZDMSctwB3bsyPJyI5xlie9CJn9BRizI9aXbT
+	 Evf1eHDj7cDow==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chris Mason <mason@kernel.org>,
 	Josef Bacik <josef@toxicpanda.com>,
 	Amir Goldstein <amir73il@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ovl: do not copy up a dentry that was removed
-Date: Thu,  5 Nov 2026 08:45:10 -0500
-Message-ID: <20261105134351.1612295-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ovl: check that the parents of volatile/dirty are dirs
+Date: Thu,  5 Nov 2026 08:45:11 -0500
+Message-ID: <20261105134352.1612456-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110408-mummified-purposely-6cef@gregkh>
-References: <2026110408-mummified-purposely-6cef@gregkh>
+In-Reply-To: <2026110453-smokeless-womanless-d50b@gregkh>
+References: <2026110453-smokeless-womanless-d50b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,55 +64,76 @@ Content-Transfer-Encoding: 8bit
 
 From: Chris Mason <mason@kernel.org>
 
-[ Upstream commit f635192ad223d2009ee640b63adf5ce3198aa338 ]
+[ Upstream commit e34d2ef818e4c7676d8d8e1bf43e6a1ed39efb2a ]
 
-A change to a removed file through an open descriptor replaces whatever
-has its old name in the upper layer.
+An unprivileged user crashes the kernel by mounting overlayfs with the
+volatile option.
 
-Copy up must only create a name in the upper directory, never replace
-one. After an unlink, an rmdir or a rename over a lower dentry, a
-dentry that an open file keeps alive still has its old parent and name,
-but in the upper directory that name is now a whiteout or a new object.
-ovl_copy_up_workdir() renames the copy over it, which brings back the
-removed object and destroys whatever took its name.
+A dentry that serves as the parent of a lookup must be a directory.
+ovl_create_volatile_dirty() walks work/incompat/volatile/dirty by name,
+and ovl_lookup_or_create() returns an existing entry whatever its type.
+A file or a symlink that another task creates during the mount becomes
+the parent of the next lookup, which calls a NULL ->lookup.
 
-An unprivileged user opened a lower FIFO and unlinked it, root created
-a file at that name, and fchmod on the old descriptor replaced the file
-of root with the FIFO.
+An unprivileged user mounted overlayfs with "volatile" in a user
+namespace while a second process created a symlink named work/incompat,
+and the mount task oopsed on a NULL ->lookup call.
 
-Fix this by looking up the target name of the rename in
-ovl_copy_up_workdir() with LOOKUP_EXCL, so that copy up fails with
--EEXIST if the name is taken, as copy up with O_TMPFILE already does
-when it links the copy to the name.
+Fix this by returning -ENOTDIR from ovl_lookup_or_create() when the
+caller asked for a directory and the existing entry is a non-dir.
 
-Fixes: e9be9d5e76e3 ("overlay filesystem")
+Fixes: c86243b090bc ("ovl: provide a mount option "volatile"")
 Cc: stable@vger.kernel.org
 Signed-off-by: Chris Mason <mason@kernel.org>
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[amir: use LOOKUP_EXCL instead of relying on d_unhashed()]
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: replaced LOOKUP_EXCL in start_renaming_dentry() with a d_is_positive() check before ovl_do_rename() ]
+[ sashal: adapted creation handling to the existing inode-based API with explicit locking and dentry cleanup ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/overlayfs/copy_up.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ fs/overlayfs/super.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
-index 4c7ef60dbaac0..92b33a4fcdaa9 100644
---- a/fs/overlayfs/copy_up.c
-+++ b/fs/overlayfs/copy_up.c
-@@ -703,7 +703,10 @@ static int ovl_copy_up_workdir(struct ovl_copy_up_ctx *c)
- 	if (IS_ERR(upper))
- 		goto cleanup;
+diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+index 51eec4a8e82b2..e8e7e1c59d95d 100644
+--- a/fs/overlayfs/super.c
++++ b/fs/overlayfs/super.c
+@@ -1333,16 +1333,23 @@ static int ovl_check_rename_whiteout(struct ovl_fs *ofs)
  
--	err = ovl_do_rename(ofs, wdir, temp, udir, upper, 0);
-+	/* The name may have been taken since lookup, never replace it */
-+	err = -EEXIST;
-+	if (!d_is_positive(upper))
-+		err = ovl_do_rename(ofs, wdir, temp, udir, upper, 0);
- 	dput(upper);
- 	if (err)
- 		goto cleanup;
+ static struct dentry *ovl_lookup_or_create(struct ovl_fs *ofs,
+ 					   struct dentry *parent,
+-					   const char *name, umode_t mode)
++					   const char *name, bool is_dir)
+ {
+ 	size_t len = strlen(name);
+ 	struct dentry *child;
+ 
+ 	inode_lock_nested(parent->d_inode, I_MUTEX_PARENT);
+ 	child = ovl_lookup_upper(ofs, name, parent, len);
+-	if (!IS_ERR(child) && !child->d_inode)
+-		child = ovl_create_real(ofs, parent->d_inode, child,
+-					OVL_CATTR(mode));
++	if (!IS_ERR(child)) {
++		if (!child->d_inode) {
++			child = ovl_create_real(ofs, parent->d_inode, child,
++						OVL_CATTR(is_dir ? S_IFDIR :
++								   S_IFREG));
++		} else if (is_dir && !d_can_lookup(child)) {
++			dput(child);
++			child = ERR_PTR(-ENOTDIR);
++		}
++	}
+ 	inode_unlock(parent->d_inode);
+ 	dput(parent);
+ 
+@@ -1363,7 +1370,7 @@ static int ovl_create_volatile_dirty(struct ovl_fs *ofs)
+ 	const char *const *name = volatile_path;
+ 
+ 	for (ctr = ARRAY_SIZE(volatile_path); ctr; ctr--, name++) {
+-		d = ovl_lookup_or_create(ofs, d, *name, ctr > 1 ? S_IFDIR : S_IFREG);
++		d = ovl_lookup_or_create(ofs, d, *name, ctr > 1);
+ 		if (IS_ERR(d))
+ 			return PTR_ERR(d);
+ 	}
 -- 
 2.53.0
 
