@@ -1,74 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883730;
-	b=Q6Vh0bkHRSo2L5rVa7iBc1k8YEawjIviddf5xEQbv+9gKdBO+hRUClxaZbk3FjCo28lt
-	 HknhUkzEXb8HVjmqU5yxqlkKcpXuaxWO2zOEGSfDiqHmvffapfEH6TncRC/wWG5sdp42h
-	 LkTkHVLWCocW27wPCoGsKFPk8KzW3/FeGODZg1KjrTiRfYmLd66fxDPYHNtywoY8sJO0C
-	 q7kjQ37aYthrRCuIk5McwT1k0blq/TwFomNc4j9wYSQIfU8sOa7LE8ivE+Gw9cb7zk4BV
-	 AFpr+bFCp2CB+YdY00CTWWRGmYAD6IbtHttZ1L83IeNJKBHF1LCqNcsXMCgPE3sNkqg==
+	t=1793883861;
+	b=sxrjRMVhKz1owiUzFvpML/ZxMRd3X7GB+dUS5Pc076Kbfg944WE9jBNcbuASjWIZuhK3
+	 pNu21svm62oJYUPrB0PTXWopIL22fDZM/mv8BkAx7iM2xHTts248JZQ9lunw5G21Ao9G6
+	 5yp39rYuguIoU73P4dXFOS3yWAlGZom3Q2VMJDC33KHuuiZ3mPoy1v4/xXETFzWKG1lvs
+	 gJrmRutM0owrEs97wFvuQYYpletVL2dxldStWmLd3O4Nkc1KE5aAXsfmsfDDhHN07eNjd
+	 ntpHvuAoEwTmx8ffcyR315TUNNz49P1h1Ab5AyImcZRKp9H5BChkKVGtTO4r5HrmG7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883730;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883861;
 	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
 	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=ODdbidwungoC4joZGqAWEdUpjvBaTXtHkaXe8rKCFAw=;
-	b=UH5OwfxULKq9q0xSgdqDo9jDbn1AjyD7UJKa6yqabiphM4ocESDwAyUtdGShQcwJ8O51
-	 zTHFrmVAqonsrOUny3OySb7kX6+csRX4JMjTAyTFZPb7XbFTur6IAXEsRTDoiBKmaayTJ
-	 p2QWfa/XymP2zRxiV4VxQlL8lbBCzrvSi4JyleOnII/cCAyKKLVT5oAyraoZvXdAH8gGl
-	 ifBxU9FqQcHRZ14kw8YTJeIV2WuROI5hVPYMCStweq6NgLTuM7XnuQ+uI4a0zBTst5K4o
-	 a7qjcpYUy77PQJu1Af3sYEjCVo0BtC33IaDkmrqv+kgurdowAYxyzsXAJ9h8+hlRzfA==
+	bh=VGtXYc1r1fEEKTL7Yj84vITN0MZ0IiuZ0W73SGkuDDY=;
+	b=b390C0SVJa1/Ru0/hQDee97LRkI/BU4KvkJ3CFduQ6W+8d09j8hUY9F3Y8v30V3TPuov
+	 m13xbe4BqWfd6FhTcVctbWwr94z0xfRhgI0Huwfk+hjvgBziLKzHCJvaqpS3SN/1Nxg0W
+	 gw5t+qoG9YkNdJe9JOO+9Gg2TzYTuu8zT2DzBtDOuZr3pvmtSUeueEm56flXUZI+m1/z2
+	 egPSNhpXr1R9A+a0dAMf+iN3yN2zwDTuUPua5vcXN4kCw5Xhq/jl0XCklz5pE9hZySHr/
+	 j81exNYLFIi5U4G/l4DWWz+V5wDZEmcKctkDqoDHzuGpT0Ymj4HiqlPUEICgCfGVaaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZQ0oCC+y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyBusioC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83718606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 13:02:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56375606A32C;
+	Thu,  5 Nov 2026 13:04:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZQ0oCC+y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B6121F00A1B;
-	Thu,  5 Nov 2026 13:02:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyBusioC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50A751F00A1A;
+	Thu,  5 Nov 2026 13:04:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793883730;
-	bh=ODdbidwungoC4joZGqAWEdUpjvBaTXtHkaXe8rKCFAw=;
+	s=k20260515; t=1793883861;
+	bh=VGtXYc1r1fEEKTL7Yj84vITN0MZ0IiuZ0W73SGkuDDY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZQ0oCC+y9os0E1ZeMgu9e/N5WmpHjAOIrF4l3liGw27+gQmFuauUAu3QG/q9uDWTl
-	 3TKp+AU0H1wWqayQPvKZM57PaRJibPQUloG2nqac2lBeRqb0UEPX1dYD8h01AEjzDz
-	 vNGUIdx63ttmmh3zf3eIMHbzwnndB5k9MDBk4e+uow5NCSLEIH1cFyXz74Gi45tgp/
-	 Wa26Nd2c++AdKkgxRFXZAi6sa5GBBD2QE3KUoQkbJT7VI9iZhSrWybSuBgYbpQGlB8
-	 g3JErI4ZReV8vX8nOC1ZbmltupQcjstxr5TXRSSVm0c83LP1wwssH4qoIu1I1Wfl3J
-	 sDALxcReIe8CA==
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 0F3EE198003A;
-	Thu,  5 Nov 2026 08:02:04 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-08.internal (MEProxy); Thu, 05 Nov 2026 08:02:07 -0500
-X-ME-Sender: <xms:TH7saqG7wrZYgS8Mw0OKSmpa6lUlaIpWmaaxiMhNQ2_I9GE5fGmgsQ>
-    <xme:TH7satot4vh9OJnZQntbjnUpxcJanpaSDK0e6g1XrjWSdyQj5KtMNuq8mIsfVbK4R
-    O_S9txFhPKaLFT4TTMZb23wg-mNgfFZBeARZFINIWtUQTlSuusRnv8>
-X-ME-Received: <xmr:TH7sai2_SpttBsmoGsUTIFVzlHSABshtJuyvUk1T9udcIXUDJtEeThqzxuw>
+	b=hyBusioCAWpcmb2v5X8AgFwAFzSMoACqD4oDvCV0MPAlZ2X/Vp9gXKQkV/wfO0NyQ
+	 VKPTW5B/sjKvciQWPzosqTuDJWgRMUGUjWMSFvvK4Z2AlpcSBfTEuyG2AL3Gx2jM/X
+	 zNHXfkVnYBB58fgvZdLSFJI9AKVuXUdmC/H6FVj2DMecvuTjI1HrikoOiFLt/a838U
+	 sXLdUKFRrYnYXXbtRAIV29Wl1oG75udM100Ydm9JQw0lcdoR0ZAUu/Z92+qcUhpg0b
+	 I8QZzpbh7dvvpZgIzWYegbcKmtjH/JKnCgg3+02Q5v2WbRR+7M+0JAJgWCbwtFBlQg
+	 LoO/pZsC44esw==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 5580C198003A;
+	Thu,  5 Nov 2026 08:04:15 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Thu, 05 Nov 2026 08:04:17 -0500
+X-ME-Sender: <xms:zn7sagX0bHbqO4A4TRBYez_QTejKPgkzRwAViqmY3Q2vjo9CY_2mzw>
+    <xme:zn7sam4INjcHnQFcJfTI6uG9mIag1kAX4vNpX_O9rfCMLv4fmPKeAju4Jcs99CriE
+    DQa_mrCnjFsm5GYJWuJFzfMlquu0F1CVwljJtc3OnDCdL6WuZaDTHDc>
+X-ME-Received: <xmr:zn7sajHIz1M1ojP4JndE-bnH5Lboc5LvmijY9MxwNCATfeQhkUyt2mKr1Ng>
 X-ME-Proxy-Cause: dmFkZTGWioZ5UsUZvGXjaow1BsUGadLs8aZQdTF4UnV/07NAN/af8tN6pM/FfLXYfyZLfb
     xRpT19JopPsgAFGYsm8FzaqvOcRv05DtuUalhGCfVBg5TYHs9JXv+Q47gmOf937P2Gi3S+
     U2sfvRv8HM/m1nYX6eGi2a4miDiVYyQMuuHiidk1Rop6z5ppK7guJf5jvUfTyMXleQeyL+
     YFG9WYCksR8P+f/IoUx4Wo08VB8Mvto3/EHOpPBXbwb98JXOAs0bmRST4eO1cbxBPUkzyb
-    YU+NZSxhcSt0KRFVrgpydwZFv0ufeT4P8d+qRyppjSLMzQpNREs19lQwYqTs8BowLu6Nt2
-    5Am7l6YekVqjY83nXhyttgWii20fB0sq0/gLxPQHon5CrRkTEqrIGD//hCWFKqOgzqGCvi
-    aMcLQ7cAZew8NgHslTKKsAByAnDUby/6o7zf6t2iuxqMb/GVhW/urcyLO2AQ8SZ818X9mS
-    KvrqoB35qasVInQXx9O0IC9DWqxqX0BoD/o9yiGn5oqOKYTbGXBdOAIO4z+H9UZl5AQPCz
-    X5k1DEL86ay2iE++MFKAY52MrLVWAVVhibUP0tLtOKiw/bidGrXPVW2Da/VrEL1xMbaVji
-    gk/Rfm6DtM/to8/mnKjVPcrauVt2Z5IcYYLnNu1hKr6ktYnVJlpVoH4xcT1Q
-X-ME-Proxy: <xmx:TH7sahDqPgMnM6imR1rATIc4Ws5YrXF92NPtBNndS3RcrHPbByQR8w>
-    <xmx:TH7sat8lZSx0ZfTRSH73tiR_oEt_6GxNUq-DXVFxZ20237HLHQwtJQ>
-    <xmx:TH7savMpe0K9HyMh1PrMBNDDIaNN4W1yi749wUvB54Lc8e4xuSX9Tg>
-    <xmx:TH7sanFEmmZkFS9J_XtjodG9fU1CrzxAv4fcixThKJt6YmAuCEHgsw>
-    <xmx:TH7sauuRyf3FUbrFTX_8ORVoKejL2DOhUuj_v288Q3YNMXl9vOfBxqQs>
+    YU+NZSxhcSt0KRFVrgpydwZFv0ufeT4P8d+qRyppjSLMzQpNREs19lQwYqTs8BowLu6Nf0
+    PR/JbnTjTlqcoe9z9eXCxtppE/iBqN4lxahyvqAWND3wSza41vyy/g8b8tJb119KbVZ8CZ
+    MuRhok4swEs4IKe4vdUOtIKHZ5plH23vTgaYw6PfyI344YttADPGpvH6z1snl9sRY/w6tT
+    BrCIVHE4Cs5mpSXa/717IOVH1XtBwbuOkBGFH1n9JQAOTVfvpnco/Iz5sDs/mRgagaVrey
+    cq6c90syhHHUbEfhX1t/E8+JdiHng3sYYvf5nhsjkohkNfCEDaVAHGUsNyVx8+QglNqqXK
+    ulKWha96KxsFQer7kolLJlTQQ/AiVpLrSfhPXbnzPLT0MJ4ciPeh+uKeOiLg
+X-ME-Proxy: <xmx:zn7sasRYreFG1B12dgaWNLJaMTnvJum9gmqOKA_t2ZzUrKeUn33c3Q>
+    <xmx:zn7saoMA0D4Uv985DwquZetStTw113Ib0q1_tpUBZ9ajeeEzbsBWxQ>
+    <xmx:zn7saseZmeGUWPdwDHpB1Rp0nFyftZwCqUaODIf3SBWPBFb_Kb9U9w>
+    <xmx:zn7sarVZeG7-wD1HvalF6WI07O4X-rs7VxKwjsOGPZyZuRFNzx6Y1w>
+    <xmx:zn7sat-3I3FOwm9xcmy-LlgXxJQcXUcQS1qD5nrBScIbL-4eJN9kZEQj>
 Feedback-ID: i10464835:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 5 Nov 2026 08:02:04 -0500 (EST)
-Date: Thu, 5 Nov 2026 13:02:02 +0000
+ 5 Nov 2026 08:04:14 -0500 (EST)
+Date: Thu, 5 Nov 2026 13:04:13 +0000
 From: Kiryl Shutsemau <kas@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
@@ -79,8 +79,9 @@ Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
 	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Subject: Re: [PATCH] mm/khugepaged: free unused page table when setting a
  huge PMD fails
-Message-ID: <aux9liPvdZgpKCpa@thinkstation>
+Message-ID: <aux-ZdKu97JHLY96@thinkstation>
 References: <20261105-khugepaged_set_pmd-v1-1-cb79ab117199@kernel.org>
+ <aux9liPvdZgpKCpa@thinkstation>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,47 +93,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261105-khugepaged_set_pmd-v1-1-cb79ab117199@kernel.org>
+In-Reply-To: <aux9liPvdZgpKCpa@thinkstation>
 
-On Thu, Nov 05, 2026 at 01:16:05PM +0100, David Hildenbrand (Arm) wrote:
-> do_set_pmd() can allocate vmf.prealloc_pte on architectures that need a
-> deposited page table, such as PowerPC with the hash MMU. If the PMD is
-> no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
-> without consuming that table.
+On Thu, Nov 05, 2026 at 01:02:08PM +0000, Kiryl Shutsemau wrote:
+> On Thu, Nov 05, 2026 at 01:16:05PM +0100, David Hildenbrand (Arm) wrote:
+> > do_set_pmd() can allocate vmf.prealloc_pte on architectures that need a
+> > deposited page table, such as PowerPC with the hash MMU. If the PMD is
+> > no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
+> > without consuming that table.
+> > 
+> > Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
+> > userfaultfd operation can install a PTE table before taking the folio
+> > lock. If that races with set_huge_pmd(), the unused preallocated table
+> > is lost when its local vm_fault goes out of scope.
+> > 
+> > Free vmf.prealloc_pte on failure, as do_fault() already does. Successful
+> > PMD installation consumes the table and clears the pointer.
+> > 
+> > Having to do this cleanup outside of do_set_pmd() is rather nasty, but
+> > other callers depend on it already having been allocated. This needs a
+> > cleanup at some point.
 > 
-> Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
-> userfaultfd operation can install a PTE table before taking the folio
-> lock. If that races with set_huge_pmd(), the unused preallocated table
-> is lost when its local vm_fault goes out of scope.
+> I hate this being outside of do_set_pmd().
 > 
-> Free vmf.prealloc_pte on failure, as do_fault() already does. Successful
-> PMD installation consumes the table and clears the pointer.
-> 
-> Having to do this cleanup outside of do_set_pmd() is rather nasty, but
-> other callers depend on it already having been allocated. This needs a
-> cleanup at some point.
-
-I hate this being outside of do_set_pmd().
-
-What about making do_set_pmd() freeing ->prealloc_pte if it was
-allocated inside? Nothing changes for caller.
-
-        bool allocated = false;
-        ...
-        if (arch_needs_pgtable_deposit() && !vmf->prealloc_pte) {
-                vmf->prealloc_pte = pte_alloc_one(vma->vm_mm);
-                if (!vmf->prealloc_pte)
-                        return VM_FAULT_OOM;
-                allocated = true;
-        }
-        ...
-out:
-        spin_unlock(vmf->ptl);
-        if (ret && allocated) {
-                pte_free(vma->vm_mm, vmf->prealloc_pte);
-                vmf->prealloc_pte = NULL;
-        }
-        return ret;
+> What about making do_set_pmd() freeing ->prealloc_pte if it was
+> allocated inside? Nothing changes for caller.
+ 
+Or if we want to keep in set_huge_pmd() then set_huge_pmd() has to
+allocate it too. At least, it makes some sense.
 
 -- 
   Kiryl Shutsemau / Kirill A. Shutemov
