@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844059;
-	b=F4IVhNtKz2KNWXupUGyN0NtP6KqLSiS+DJ96Nhv8YLVR5/FpZ0fO4CZ4EguLW5KKrPnY
-	 672mWHm4C/hBADFM4jxyapj8A0qltvACX51LumHIrN5NJWHsc86nhRiu0J7DzHUOIkZ3/
-	 doyoxmFEsLCib3U76E/2T/TB3yDRakyXm05ixjrQvoGA2pYaHcyk/A4gx0mlktkN0Gmba
-	 VzGhoEwVtmytzsC/nyi5yM6w1zqspG/9AAd49uvhL5Zmo6kEmy2mDHb/S5717Od/2KFfi
-	 iW+BuCqDcDVoDezssVCxGS7sJhChV/C4+Lwe/BWMsFXFGu/rnDXyq4nkMfdh3I9VMyA==
+	t=1793844060;
+	b=jckK37SkBU22VB3u0fH+DparELDBDGIiTj52eqcOwHdGpHUxnR9AvvpoDPMrrxFX1qGC
+	 qJNFQAxAu3GTdzbp9CN5qO48w4MhMUVmkuw3wmLlMgBwWf7zweU703LDdbXYBWB8mn3dO
+	 Ei7qiPpY3LFIxJTx8OyVrJO2U1VciaKE2360whpf13or9a/eBpoEepCb4qqCtL1GJ9eCM
+	 o+qBPm7doeJ0DYZBxhvwGijch29jZrw0AcQ3vu+2OOgGH/il4bXC4MLDbZ6tHdfiOXIN0
+	 lCXgl8oxiNe0Xt3h2Mi0zXFP/9EQi8QXUuhAABsYd1ik5+pzSGcm0wPYqA42h0Nh2wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844059;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844060;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Gz5+BocdYpnSvVOth2dHz4qKFUJVFS8aPsP2PRCOQ2A=;
-	b=zuotTXo11jPIohL9m+hixuYB4v+ckShbXgVMS77c2ls3l9VpW/Ol3N3cHci3Zrrz+pAg
-	 iw80P6AwpFTQfxZmThnyBq7WvKUfvbOAVzRCFMYdx3CXXsWkD/TzU4crpXDwr8wX0sLLy
-	 b15LnvTgVuc9dmm7tGlkB1L1HxwWvu8KL/rHLe5vi6TfNCE3zU40Onp6YoVmyVSe/qGUK
-	 sBMWI7D0UymCicSnd9jr5i6PeaNW2sLs3fozNU4gDH4ZyJCa/Ty+NuuEwb6p88SnQqSdJ
-	 m8/KEpHlp4q16VeOWab8umDAFn8yhX+LUsxyN89pffcIAAoIDu1qg3B8d88Xg661img==
+	bh=7u5HgQJFcwmBsKH+KcB9T4UtPNzqc/Rbblp1zqshMwM=;
+	b=iSdjFhApTB4ZsoAObd7tdq5x/O9MleP2ee7Ak76xy0mG/Hi56Zj9weWozbMMoK1+20aQ
+	 YIvhI+ZOrUg8xwSN1B7QB9O6HFDEgDdeWj3g3SyjrPb6XhFFitZXhSp1BzJRFhst7EYgz
+	 b8IyszRswbbaFSrbBtRgshElxHJN36UepnSC1rGD7E6eJrUeVjEGazNxnJVcMrK6Mised
+	 3x8by17UuNst2K1MUqWKuCVKURAdnU2n4P1kzq622rGP23CSQaQUfiihk/eop15Qzq7N2
+	 HDXgLiPGLWrBTxgl0OwAM+bS8yrLsPRUFJeeOPfxB1ThSobXyD5J+Zaf2RcaaXuWefg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jBes1gC5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZNoKcJPN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC24606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:00:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6B6606A32E
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:00:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jBes1gC5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5220D1F000C1;
-	Thu,  5 Nov 2026 02:00:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZNoKcJPN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18ACD1F00919;
+	Thu,  5 Nov 2026 02:00:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793844058;
-	bh=Gz5+BocdYpnSvVOth2dHz4qKFUJVFS8aPsP2PRCOQ2A=;
+	s=k20260515; t=1793844059;
+	bh=7u5HgQJFcwmBsKH+KcB9T4UtPNzqc/Rbblp1zqshMwM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jBes1gC5TAvfeYJ+kExmniLYvPkUcoR6WYrRCkXL4pxzGeHZdefanLtmwruXrxgNb
-	 kLNZOO+Qqy/JCaLMvoCs9whh4ml3F7tnImi1NNyoyEIv0dQ62XFIu6KIU/rYLQrV/S
-	 5P2e9JQLwgB+521KBfj1gXjLaqXOvXvg/j6xKBj/6kIPE15qtyf0sPqIlYjjM6UoOr
-	 4+4YVAuAK4H+lihpM3wrQVvVGOzmFhh0bsvKlwfmF49GW1FLA8UgCxV7qBy3v2gfXO
-	 ffH8iGp6O5aDy7h9fMyiQW580KROB/YqFZ0gfzryR5k77YzWDGUMaqIwMXWT87V9QC
-	 Kw9OlWuyUSuRw==
+	b=ZNoKcJPNETwfF9hlR9an/maNr22WiAs+nKgsPxwM3Gz50fHCZ3ga/CPwizrKWB9c9
+	 zMBxxsUrKvMIcwFXSR39mRp+QhXIrCdC91b+zg3gSfI4fdZMrenGZIfkz9+0GQN1zz
+	 jZc7D4jCRXQoiCS/s/rkVrqdsAbteA5E/EbCZGaVOY86fOQHF79ieceEES6sge4hH8
+	 PrfDNfPgFl6R2UE8FXS1Ajf8wQtPeJVucvO5VKJrhIDx143CaQez6yDGGLuFpzJwNw
+	 Hm6sl9CfOHLoODQJbvGK8YbF95xYXEFDwZBrW66gQzDBWovdGGdlSB3bmBktpNC6eh
+	 3lZoXBXBAjlfw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sean Young <sean@mess.org>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 1/2] media: rc: Replace open coded krealloc() for keymap
-Date: Wed,  4 Nov 2026 21:00:55 -0500
-Message-ID: <20261105020040.1096758-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 2/2] media: rc: Add missing locking for keymap
+Date: Wed,  4 Nov 2026 21:00:56 -0500
+Message-ID: <20261105020040.1096758-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110424-pamperer-waltz-9ca3@gregkh>
+In-Reply-To: <20261105020040.1096758-1-sashal@kernel.org>
 References: <2026110424-pamperer-waltz-9ca3@gregkh>
+ <20261105020040.1096758-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,137 +64,206 @@ Content-Transfer-Encoding: 8bit
 
 From: Sean Young <sean@mess.org>
 
-[ Upstream commit e4b4aa413cc2e48a261c8c513ced964a3390c0cf ]
+[ Upstream commit ab9567336171e46ce9e03ee126902b3fd7901baa ]
 
-Replace open coded krealloc() and remove superfluous member of struct
-rc_map - we don't need to track both the size in bytes and entries.
+When the rc_map for an rc_dev gets updated, locking is required but is
+missing in places. A concurrent scancode lookup and a call to
+rc_{register,unregistered}_device() could result in a use-after-free;
+this could happen if IR is decoded during those function calls.
 
+Add lockdep assertions where locks are required.
+
+ir_free_table() should only be called for non-TX devices else we will
+use a spinlock without iniitializing it.
+
+Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
 Signed-off-by: Sean Young <sean@mess.org>
+Cc: stable@vger.kernel.org
 Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Stable-dep-of: ab9567336171 ("media: rc: Add missing locking for keymap")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/rc/rc-main.c | 45 +++++++++++++++++++-------------------
- include/media/rc-map.h     |  2 --
- 2 files changed, 22 insertions(+), 25 deletions(-)
+ drivers/media/rc/rc-main.c | 86 +++++++++++++++++++++++++-------------
+ 1 file changed, 57 insertions(+), 29 deletions(-)
 
 diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index 85c9be43b9127..81f3aafcae8f4 100644
+index 81f3aafcae8f4..946521ace142e 100644
 --- a/drivers/media/rc/rc-main.c
 +++ b/drivers/media/rc/rc-main.c
-@@ -17,9 +17,8 @@
- #include <linux/module.h>
- #include "rc-core-priv.h"
+@@ -104,7 +104,6 @@ static struct rc_map_list *seek_rc_map(const char *name)
  
--/* Sizes are in bytes, 256 bytes allows for 32 entries on x64 */
--#define IR_TAB_MIN_SIZE	256
--#define IR_TAB_MAX_SIZE	8192
-+#define IR_TAB_MIN_ENTRIES	32
-+#define IR_TAB_MAX_ENTRIES	1024
- 
- static const struct {
- 	const char *name;
-@@ -214,21 +213,23 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
- static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
- 			   const char *name, u64 rc_proto, size_t size)
+ struct rc_map *rc_map_get(const char *name)
  {
-+	unsigned int alloc;
- 	rc_map->name = kstrdup(name, GFP_KERNEL);
- 	if (!rc_map->name)
+-
+ 	struct rc_map_list *map;
+ 
+ 	map = seek_rc_map(name);
+@@ -201,7 +200,7 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
+  * ir_create_table() - initializes a scancode table
+  * @dev:	the rc_dev device
+  * @rc_map:	the rc_map to initialize
+- * @name:	name to assign to the table
++ * @map_name:	name to assign to the table
+  * @rc_proto:	ir type to assign to the new table
+  * @size:	initial size of the table
+  *
+@@ -211,23 +210,31 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
+  * return:	zero on success or a negative error code
+  */
+ static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
+-			   const char *name, u64 rc_proto, size_t size)
++			   const char *map_name, u64 rc_proto, size_t size)
+ {
++	struct rc_map_table *scan;
+ 	unsigned int alloc;
+-	rc_map->name = kstrdup(name, GFP_KERNEL);
+-	if (!rc_map->name)
++	char *name;
++
++	name = kstrdup(map_name, GFP_KERNEL);
++	if (!name)
  		return -ENOMEM;
-+	alloc = roundup_pow_of_two(size);
- 	rc_map->rc_proto = rc_proto;
--	rc_map->alloc = roundup_pow_of_two(size * sizeof(struct rc_map_table));
--	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
--	rc_map->scan = kmalloc(rc_map->alloc, GFP_KERNEL);
-+	rc_map->len = 0;
-+	rc_map->size = alloc;
-+	rc_map->scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
- 	if (!rc_map->scan) {
- 		kfree(rc_map->name);
- 		rc_map->name = NULL;
++
+ 	alloc = roundup_pow_of_two(size);
+-	rc_map->rc_proto = rc_proto;
+-	rc_map->len = 0;
+-	rc_map->size = alloc;
+-	rc_map->scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
+-	if (!rc_map->scan) {
+-		kfree(rc_map->name);
+-		rc_map->name = NULL;
++	scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
++	if (!scan) {
++		kfree(name);
  		return -ENOMEM;
  	}
  
--	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%u bytes)\n",
--		rc_map->size, rc_map->alloc);
-+	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
-+		alloc, alloc * sizeof(struct rc_map_table));
++	scoped_guard(spinlock_irqsave, &rc_map->lock) {
++		rc_map->name = name;
++		rc_map->scan = scan;
++		rc_map->rc_proto = rc_proto;
++		rc_map->len = 0;
++		rc_map->size = alloc;
++	}
++
+ 	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
+ 		alloc, alloc * sizeof(struct rc_map_table));
  	return 0;
+@@ -237,16 +244,26 @@ static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
+  * ir_free_table() - frees memory allocated by a scancode table
+  * @rc_map:	the table whose mappings need to be freed
+  *
+- * This routine will free memory alloctaed for key mappings used by given
++ * This routine will free memory allocated for key mappings used by given
+  * scancode table.
+  */
+ static void ir_free_table(struct rc_map *rc_map)
+ {
+-	rc_map->size = 0;
+-	kfree(rc_map->name);
+-	rc_map->name = NULL;
+-	kfree(rc_map->scan);
+-	rc_map->scan = NULL;
++	struct rc_map_table *scan;
++	const char *name;
++
++	scoped_guard(spinlock_irqsave, &rc_map->lock) {
++		name = rc_map->name;
++		scan = rc_map->scan;
++
++		rc_map->size = 0;
++		rc_map->len = 0;
++		rc_map->name = NULL;
++		rc_map->scan = NULL;
++	}
++
++	kfree(name);
++	kfree(scan);
  }
  
-@@ -262,38 +263,36 @@ static void ir_free_table(struct rc_map *rc_map)
- static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
- 			   gfp_t gfp_flags)
- {
--	unsigned int oldalloc = rc_map->alloc;
--	unsigned int newalloc = oldalloc;
--	struct rc_map_table *oldscan = rc_map->scan;
-+	unsigned int newsize = rc_map->size;
+ /**
+@@ -266,6 +283,8 @@ static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
+ 	unsigned int newsize = rc_map->size;
  	struct rc_map_table *newscan;
  
++	lockdep_assert_held(&rc_map->lock);
++
  	if (rc_map->size == rc_map->len) {
  		/* All entries in use -> grow keytable */
--		if (rc_map->alloc >= IR_TAB_MAX_SIZE)
-+		if (newsize >= IR_TAB_MAX_ENTRIES)
- 			return -ENOMEM;
+ 		if (newsize >= IR_TAB_MAX_ENTRIES)
+@@ -317,6 +336,8 @@ static unsigned int ir_update_mapping(struct rc_dev *dev,
+ 	int old_keycode = rc_map->scan[index].keycode;
+ 	int i;
  
--		newalloc *= 2;
--		dev_dbg(&dev->dev, "Growing table to %u bytes\n", newalloc);
-+		newsize *= 2;
++	lockdep_assert_held(&rc_map->lock);
 +
-+		dev_dbg(&dev->dev, "Growing table to %u entries\n", newsize);
+ 	/* Did the user wish to remove the mapping? */
+ 	if (new_keycode == KEY_RESERVED || new_keycode == KEY_UNKNOWN) {
+ 		dev_dbg(&dev->dev, "#%d: Deleting scan 0x%04llx\n",
+@@ -372,6 +393,8 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
+ {
+ 	unsigned int i;
+ 
++	lockdep_assert_held(&rc_map->lock);
++
+ 	/*
+ 	 * Unfortunately, some hardware-based IR decoders don't provide
+ 	 * all bits for the complete IR code. In general, they provide only
+@@ -396,7 +419,7 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
+ 	/* No previous mapping found, we might need to grow the table */
+ 	if (rc_map->size == rc_map->len) {
+ 		if (!resize || ir_resize_table(dev, rc_map, GFP_ATOMIC))
+-			return -1U;
++			return UINT_MAX;
  	}
  
--	if ((rc_map->len * 3 < rc_map->size) && (oldalloc > IR_TAB_MIN_SIZE)) {
-+	if (rc_map->len * 3 < rc_map->size && rc_map->size > IR_TAB_MIN_ENTRIES) {
- 		/* Less than 1/3 of entries in use -> shrink keytable */
--		newalloc /= 2;
--		dev_dbg(&dev->dev, "Shrinking table to %u bytes\n", newalloc);
-+		newsize /= 2;
-+		dev_dbg(&dev->dev, "Shrinking table to %u entries\n", newsize);
+ 	/* i is the proper index to insert our new keycode */
+@@ -478,16 +501,18 @@ static int ir_setkeytable(struct rc_dev *dev, const struct rc_map *from)
+ 	if (rc)
+ 		return rc;
+ 
+-	for (i = 0; i < from->size; i++) {
+-		index = ir_establish_scancode(dev, rc_map,
+-					      from->scan[i].scancode, false);
+-		if (index >= rc_map->len) {
+-			rc = -ENOMEM;
+-			break;
+-		}
++	scoped_guard(spinlock_irqsave, &rc_map->lock) {
++		for (i = 0; i < from->size; i++) {
++			index = ir_establish_scancode(dev, rc_map,
++						      from->scan[i].scancode, false);
++			if (index >= rc_map->len) {
++				rc = -ENOMEM;
++				break;
++			}
+ 
+-		ir_update_mapping(dev, rc_map, index,
+-				  from->scan[i].keycode);
++			ir_update_mapping(dev, rc_map, index,
++					  from->scan[i].keycode);
++		}
  	}
  
--	if (newalloc == oldalloc)
-+	if (newsize == rc_map->size)
- 		return 0;
+ 	if (rc)
+@@ -523,6 +548,8 @@ static unsigned int ir_lookup_by_scancode(const struct rc_map *rc_map,
+ {
+ 	struct rc_map_table *res;
  
--	newscan = kmalloc(newalloc, gfp_flags);
-+	newscan = krealloc_array(rc_map->scan, newsize,
-+				 sizeof(struct rc_map_table), gfp_flags);
- 	if (!newscan)
- 		return -ENOMEM;
- 
--	memcpy(newscan, rc_map->scan, rc_map->len * sizeof(struct rc_map_table));
- 	rc_map->scan = newscan;
--	rc_map->alloc = newalloc;
--	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
--	kfree(oldscan);
-+	rc_map->size = newsize;
++	lockdep_assert_held(&rc_map->lock);
 +
- 	return 0;
- }
- 
-diff --git a/include/media/rc-map.h b/include/media/rc-map.h
-index d95ed3e96de28..f167c37179c8f 100644
---- a/include/media/rc-map.h
-+++ b/include/media/rc-map.h
-@@ -148,7 +148,6 @@ struct rc_map_table {
-  * @scan: pointer to struct &rc_map_table
-  * @size: Max number of entries
-  * @len: Number of entries that are in use
-- * @alloc: size of \*scan, in bytes
-  * @rc_proto: type of the remote controller protocol, as defined at
-  *	     enum &rc_proto
-  * @name: name of the key map table
-@@ -158,7 +157,6 @@ struct rc_map {
- 	struct rc_map_table	*scan;
- 	unsigned int		size;
- 	unsigned int		len;
--	unsigned int		alloc;
- 	enum rc_proto		rc_proto;
- 	const char		*name;
- 	spinlock_t		lock;
+ 	res = bsearch(&scancode, rc_map->scan, rc_map->len,
+ 		      sizeof(struct rc_map_table), rc_map_cmp);
+ 	if (!res)
+@@ -1993,7 +2020,8 @@ int rc_register_device(struct rc_dev *dev)
+ 	scoped_guard(mutex, &dev->lock)
+ 		dev->registered = false;
+ out_free_table:
+-	ir_free_table(&dev->rc_map);
++	if (dev->driver_type != RC_DRIVER_IR_RAW_TX)
++		ir_free_table(&dev->rc_map);
+ out_raw:
+ 	ida_free(&rc_ida, minor);
+ 	return rc;
 -- 
 2.53.0
 
