@@ -1,81 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793859250;
-	b=NMwb5s8sjx054ODpWs27NmuDxiSnmidiR4y/Z/zKoaZ4QGNSNkXgfv5Y/Oqg1YmquP1+
-	 BnYE4EM5QoeP8XwEvlOATyuNnWrEiV3AzNkV7HM5u9wFyHb+S/b4+vW1mcOLbGBgoWfg/
-	 +In3FGhEQEY3LuWL9/8G4TbAGcnHjJvaYP06Rdb2m06iN/Odw7Fs8Y6D2FITDyF8t4cMO
-	 UBc7HuCdimFWuf29NuJuDL/tuVR/yO4P3uyYAcyJpLa7mOAJgsbb1tZHSePQMUC5NEmr9
-	 s0gPcSle1I4UhrOsvrSccW0ly8tmtsd5mPkIJ3z5Pco5bfjVEFgNmFW7TTp6hmIKUHg==
+	t=1793859284;
+	b=5fVzLdkH3vyaLEiIK07/KA2N2IDd+AlPt+EefguidYyyUxesZq7lRDcNL+FrnV2z7FOc
+	 wRyW/fwIToM/m8CdqHWb1FAH8YpwNrW1dHNIsHgUOdN22A09UbfJ6M/hTv+Jx8hRa6kzZ
+	 jNxLmz8sLO8VNUwdqIsLLDos4wyisv2S8vaQlerc8cWWkDiCtw1Fr3y120kf2sr8qBhbg
+	 Xttcz3DlBCGPzsWN9WXj1QkqtN8qbpovPh4kR1rzRjCESu/gh+uElO74BFj/H94dNnb30
+	 PsAxrejWU9ZzTA+oJdraUhratrEuucKW/zjvsS9hb5yd0pVnt/r8GryURXoEwXA8Upg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793859250;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=xRNZ0pQNv0O4AgQe25xHeQd1/afXwgVq8ve3/6zEzsA=;
-	b=XM2+YDVPAd+FwozHG42aWajjuLd2siiVjsrtih5KzizydhDNF/vZJiFWpWiTIgeKvGRP
-	 l/AJrnuEoSekXppzOCbcftR2XflnRFauONaGoC4e4fnipC5XD00Jx3NqQHMVglFPsj1a7
-	 mIfpEMxHf4VVL81DuuQ7x4C8baefvVzUt891BFF4ePirmKBv5d+LTDVyLEP/vgd0dTC01
-	 diM88BfnlJw49RgyFZI1aXmvZ1OrbDwj4poggoQI9unaEanWqYI5fX/2zomXlcaJbUS0i
-	 pT6xL3DEcmRN8s/8RDrF8XQC/l34Y7+BsdV3skoHqwIuiMvIkKTJQeSr6BHDxSWxxOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793859284;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=U36Txc3YHDyJmUAwKRZH3QKFOSd9Ge1d4BD1cisI4v0=;
+	b=28D1jxsmNSorVEquOquPlyDIS9/TqKXoju80cperudP5PuAx8tMqYqWsluXlGAHRkzhx
+	 0B1aiclCN4+k9cctI9UIp7amGgvWCgcKnhiMBA6mgEh3sHE4vAfEcsbF7/O/rg+fq7KYV
+	 H9gl3vJVdAlZssZ6ZS6IyFkbbf1TVNX/xpJK7ZGc9MC7p1MTG+l78FzKdbjXVXpFk/ZGG
+	 BLKHQ+Ma5oHLlo1dJWEiky+lTttA/P8KnJrUbGBroMZzu0Ly5+S/P6KOfvDHkz7HERhz0
+	 FrEbPV/JsVXyFg0RQChoCwrihDAWGOOaDezJfmZoJdw3WQipbnEXXX7FxJ+derlKaOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b="FOEcAI/t";
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="s/Ee9+Xo";
+	arc=none smtp.remote-ip=74.125.231.130
+Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33FB606A32C;
-	Thu,  5 Nov 2026 06:14:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E33FB606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24B0606A328
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 06:14:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C24B0606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=FOEcAI/t
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A56ChI12526563, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793859163; bh=xRNZ0pQNv0O4AgQe25xHeQd1/afXwgVq8ve3/6zEzsA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=FOEcAI/tlG14NSSEwve85seR3xewsDtvND5Tbu7t2sj6uLzFwbA4W4kF28DyknAWP
-	 qOzVbt/tpWg3/4PtPnvAupa1KbJDE6RgzF0FmkhpQmcwKzoGJksXkQxU5C8dBUYLGu
-	 iOkLuZzk8BrCT0qbW6QBYxRGnTXBZlaCYZT6cx4xu2Ovaq+xBcdPV9XBNPO6kDaeFs
-	 x9Lx/TtH7e8MinXDUDqQowZbba9ilrkJvglLUi+ziPIZW8tGeRajg/1IMHEqi37ISa
-	 kZKW7FzlbF/xDcnvupnoGo8mQWsV1YeM+8vYrLxM4n9Q4nlTdsJeSVCeDp3yTlFf/p
-	 LNyoDBZ5XIqIA==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A56ChI12526563
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 5 Nov 2026 14:12:43 +0800
-Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 14:12:43 +0800
-Received: from RTKEXHMBS03.realtek.com.tw ([fe80::d2b4:cd25:1a3e:aca8]) by
- RTKEXHMBS03.realtek.com.tw ([fe80::d2b4:cd25:1a3e:aca8%9]) with mapi id
- 15.02.2562.056; Thu, 5 Nov 2026 14:12:43 +0800
-From: =?big5?B?U3RhbmxleSBDaGFuZ1up96h8vHdd?= <stanley_chang@realtek.com>
-To: Joshua Scott <joshua.scott@alliedtelesis.co.nz>, Vinod Koul
-	<vkoul@kernel.org>, "linux-phy@lists.infradead.org"
-	<linux-phy@lists.infradead.org>
-CC: Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam
-	<mani@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH] phy: realtek: usb: fix the USB 2.0 PHY's port range check
-Thread-Topic: [PATCH] phy: realtek: usb: fix the USB 2.0 PHY's port range
- check
-Thread-Index: AQHdbGd3K0WzKIaqJEurOjghSm2EKrce/gDA
-Date: Thu, 5 Nov 2026 06:12:43 +0000
-Message-ID: <0cd63684f1ab4704848f317a96a4105b@realtek.com>
-References: <202611041419.6A4EJBeM41365932@rtits1.realtek.com.tw>
-In-Reply-To: <202611041419.6A4EJBeM41365932@rtits1.realtek.com.tw>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s/Ee9+Xo
+Received: by mail-oo2-f2.google.com with SMTP id 46e09a7af769-824f3901d55so1420014a34.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 22:14:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793859282; x=1794464082; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U36Txc3YHDyJmUAwKRZH3QKFOSd9Ge1d4BD1cisI4v0=;
+        b=s/Ee9+Xo4LDQ1MArYxLd6K9zq/yI5dpCu9hbgjb73RDC7vIjiAHYy5YuaInU0ZF+uG
+         IbMoH6bsEMPOuQnaiEU23F1el66kHy6+RLW1ARCRCXYXecfs+I93CstqiRoR/myBpNIb
+         dTQE7rAgVlt3GEqOQEsqC3duFc67dYQuDUQDAKt62lz0o9lbxVhIUE0h3LobGGnIJdb0
+         mOk8faBQraBXk9TtWuvQnMgdSpAIhne6aI2B3EmbhoOfaYgVncx/gfG8cONUo3aNkkKs
+         9l0j0sG9l/7huXDZJE/tSSac+9ElbHbZAz3dvHMcu6hfLmcmHa8xTO9VdzjJpauwZ76k
+         0cVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793859282; x=1794464082;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U36Txc3YHDyJmUAwKRZH3QKFOSd9Ge1d4BD1cisI4v0=;
+        b=PYudM4VEygAFF3RlN0JeH7h8CfH+o59jPoSYQHlHI7YtImSkS5LGJqFmh7Ik5TIsXY
+         osek4HB0FBTe2FMbROwVevZmGRsu/UyWJZEfeHT9H0LwOUVeLwgunKDi0OixDFlW8OWr
+         cSWk5aLRdamzeLvqXEdKKdKqWolQGmIsLGUwb88k607KDMiRhHbaaUWrHZqq7aLUp6Q1
+         jISHKBeeneEB+U2wT/J5FUq8AnpXjRIFKLpNaQIx1PCwwHlbAVC994n50eHoEsX5A1Kq
+         NlJYlD2S/PdPSxAMRMMqM3up4UPXuh9GCiOyLCvxKqabMJ/tobbYZjQjSWBmBIYeZ5+j
+         bwsg==
+X-Forwarded-Encrypted: i=1; AKwUvBx26qPmi1oEkR8hQu1yfiiUxWRaCGwJ/1xlLLBbvjZxDAh+jG0FbFDUufh54GLfJAWmpYNUXfw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9PVlY9d2I2Pt7l51wO3ALyWb7M9TVN6BoAwCgnP9f7PIkh3ss
+	19fHO4s+FufDTZmonm6I+pgqNAHympHFLE+rZGYAGVxPbLzt88q0lD4M
+X-Gm-Gg: AYBFou3HgsTk2zg1UUq6uT/X9/htrIm+KpnDTXYs+QYiDFrt/pF6d3jo+x7IJjr//Vv
+	g6Ne/2ca34HRNBtWk/Ch8fxHmcFge6dW0t7YbvJl6NdIzR5KZscloYtXL/TKXQUsjsFaBF38QHM
+	blwJBx7TXTvw/jP/O/+avzSPSQAQLmJ0/xlWnxnhr91IPVqsHjrIwjXMuiKR3edxVMqGL1gQmAc
+	elpmdpApjvhiJRAKwqR1xEAa7GwhI7IziBCNAjnQl9vEv1YYCcttdEP/xbuq8nYHUGPE4Sek62b
+	x8MjmPzxwvNT3kI4LjpLRovUCmQsLnmFJkJgrE7jNe0ZvTZV47gFyIUTHfA8AFwhMgocID15B/K
+	jZJfRitnPmF8vjLEawWwG2XHs46yc/GYzSgFLD8r8M5zQ33ijHr3nLwlCrdf/v3UT0yEqPtty74
+	1RlfPy8/QylxwV3gxrjRoRkASDhA/eQ+vWnAFK1O7JUV1x8pxBbrx7ist5Dq/Ey5Bm2Y3MxPmNF
+	lLC9jM+JntpJnDeQP4OtO75r3Ci+EFmfpjr3o49CbDAdbki2UP/yS1tlqoL4pB9oW4ItsstQgjf
+	pTbEh9IJ7Wk7RGq5wUxnK87unp0B66mnzJqpNGSeq+wvuK1sx9lG3aMSlmibPf13ptaA
+X-Received: by 2002:a05:6808:3383:b0:4fa:4b2b:5869 with SMTP id 5614622812f47-5640ddc3bebmr12496211b6e.38.1793859282632;
+        Wed, 04 Nov 2026 22:14:42 -0800 (PST)
+Received: from localhost.localdomain ([14.116.239.39])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9ef6e3bsm3469009b6e.5.2026.11.04.22.14.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 22:14:41 -0800 (PST)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: axboe@kernel.dk
+Cc: io-uring@vger.kernel.org,
+	stable@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>
+Subject: [PATCH] io_uring/kbuf: fix cross-mm interpretation of provided buffers
+Date: Thu,  5 Nov 2026 14:14:33 +0800
+Message-ID: <20261105061433.1947491-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,32 +95,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-SGkgSm9zaHVhLA0KDQoNCj4gDQo+IHJ0a19waHlfdG9nZ2xlKCkgY2hlY2tzIHRoZSBwb3J0IG51
-bWJlciBiZWZvcmUgdXNpbmcgaXQgdG8gaW5kZXggdGhlDQo+IHBoeV9wYXJhbWV0ZXIgYXJyYXks
-IHdoaWNoIGhhcyBudW1fcGh5IGVudHJpZXMuIFBvcnRzIGFyZSBudW1iZXJlZCBmcm9tDQo+IHpl
-cm8sIHNvIHRoZSBjaGVjayBzaG91bGQgcmVqZWN0IHBvcnQgPT0gbnVtX3BoeSwgYnV0IGl0IG9u
-bHkgcmVqZWN0cyBwb3J0cw0KPiBncmVhdGVyIHRoYW4gbnVtX3BoeS4gRml4IHRoZSBvZmYtYnkt
-b25lLg0KPiANCj4gRm91bmQgYnkgY29kZSBpbnNwZWN0aW9uLg0KPiANCj4gRml4ZXM6IGVlZGE0
-OTQ1NDJlNSAoInBoeTogcmVhbHRlazogdXNiOiBhZGQgbmV3IGRyaXZlciBmb3IgdGhlIFJlYWx0
-ZWsgUlREDQo+IFNvQyBVU0IgMi4wIFBIWSIpDQo+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3Jn
-DQo+IFNpZ25lZC1vZmYtYnk6IEpvc2h1YSBTY290dCA8am9zaHVhLnNjb3R0QGFsbGllZHRlbGVz
-aXMuY28ubno+DQo+IC0tLQ0KPiBQcmVwYXJlZCB3aXRoIHRoZSBoZWxwIG9mIENsYXVkZSBDb2Rl
-IChjbGF1ZGUtb3B1cy01LTUpLCB3aGljaCBkcmFmdGVkIHRoZQ0KPiBjaGFuZ2UgYW5kIGNoYW5n
-ZWxvZy4gSSByZXZpZXdlZCBpdCBhbmQgdGVzdGVkIGl0IG9uIGFuIFJUTDkzMTFCIGJvYXJkLA0K
-PiB3aGVyZSBVU0IgZGV2aWNlcyBzdGlsbCBjb25uZWN0IGFuZCBkaXNjb25uZWN0IG5vcm1hbGx5
-Lg0KPiANCj4gIGRyaXZlcnMvcGh5L3JlYWx0ZWsvcGh5LXJ0ay11c2IyLmMgfCAyICstDQo+ICAx
-IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL3BoeS9yZWFsdGVrL3BoeS1ydGstdXNiMi5jDQo+IGIvZHJpdmVycy9w
-aHkvcmVhbHRlay9waHktcnRrLXVzYjIuYw0KPiBpbmRleCAxZjA4YjE1MWQ5MGEuLmU0M2FkNWZh
-NmQ2NCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9waHkvcmVhbHRlay9waHktcnRrLXVzYjIuYw0K
-PiArKysgYi9kcml2ZXJzL3BoeS9yZWFsdGVrL3BoeS1ydGstdXNiMi5jDQo+IEBAIC02NzAsNyAr
-NjcwLDcgQEAgc3RhdGljIHZvaWQgcnRrX3BoeV90b2dnbGUoc3RydWN0IHJ0a19waHkgKnJ0a19w
-aHksDQo+IGJvb2wgY29ubmVjdCwgaW50IHBvcnQpICB7DQo+ICAgICAgICAgaW50IGluZGV4ID0g
-cG9ydDsNCj4gDQo+IC0gICAgICAgaWYgKGluZGV4ID4gcnRrX3BoeS0+bnVtX3BoeSkgew0KPiAr
-ICAgICAgIGlmIChpbmRleCA+PSBydGtfcGh5LT5udW1fcGh5KSB7DQo+ICAgICAgICAgICAgICAg
-ICBkZXZfZXJyKHJ0a19waHktPmRldiwgIiVzOiBUaGUgcG9ydD0lZCBpcyBub3QgaW4gdXNiIHBo
-eQ0KPiAobnVtX3BoeT0lZClcbiIsDQo+ICAgICAgICAgICAgICAgICAgICAgICAgIF9fZnVuY19f
-LCBpbmRleCwgcnRrX3BoeS0+bnVtX3BoeSk7DQo+ICAgICAgICAgICAgICAgICByZXR1cm47DQoN
-ClJldmlld2VkLWJ5OiBTdGFubGV5IENoYW5nIDxzdGFubGV5X2NoYW5nQHJlYWx0ZWsuY29tPg0K
-DQoNClRoYW5rcywNClN0YW5sZXkNCg==
+Legacy provided buffers store a raw user virtual address.  It is
+recorded in io_add_buffers() and later returned verbatim by
+io_provided_buffer_select().  The consumer (recv, send, read)
+imports it as a user pointer, so it is resolved in the address
+space of whichever task issues the request.  Nothing ties a buffer
+to the address space it was provided from.
+
+When a ring is shared between tasks with different address spaces,
+for example across fork(2) and execve(2), a consuming request reads
+from or writes to an address chosen by the provider, in the
+consumer's address space.
+
+Record the providing task's mm in each buffer, and refuse selection
+when the consuming task runs under a different mm.  The buffer stays
+queued for its owner and the request fails with -ENOBUFS.  The mm
+reference is held while the buffer is queued.
+
+This issue was discovered by Tencent CodeBuddy Security.
+
+Reported-by: zeroday zhao <zerodayzhao@tencent.com>
+Fixes: ddf0322db79c5 ("io_uring: add IORING_OP_PROVIDE_BUFFERS")
+Cc: stable@vger.kernel.org
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+---
+ io_uring/kbuf.c | 23 ++++++++++++++++++++---
+ io_uring/kbuf.h |  2 ++
+ 2 files changed, 22 insertions(+), 3 deletions(-)
+
+diff --git a/io_uring/kbuf.c b/io_uring/kbuf.c
+index abf44f5dba26a..b585105a17202 100644
+--- a/io_uring/kbuf.c
++++ b/io_uring/kbuf.c
+@@ -4,6 +4,7 @@
+ #include <linux/fs.h>
+ #include <linux/file.h>
+ #include <linux/mm.h>
++#include <linux/sched/mm.h>
+ #include <linux/slab.h>
+ #include <linux/namei.h>
+ #include <linux/poll.h>
+@@ -97,12 +98,18 @@ static int io_buffer_add_list(struct io_ring_ctx *ctx,
+ 	return xa_err(xa_store(&ctx->io_bl_xa, bgid, bl, GFP_KERNEL));
+ }
+ 
++static void io_kbuf_free(struct io_buffer *buf)
++{
++	mmdrop(buf->mm);
++	kfree(buf);
++}
++
+ void io_kbuf_drop_legacy(struct io_kiocb *req)
+ {
+ 	if (WARN_ON_ONCE(!(req->flags & REQ_F_BUFFER_SELECTED)))
+ 		return;
+ 	req->flags &= ~REQ_F_BUFFER_SELECTED;
+-	kfree(req->kbuf);
++	io_kbuf_free(req->kbuf);
+ 	req->kbuf = NULL;
+ }
+ 
+@@ -124,7 +131,7 @@ bool io_kbuf_recycle_legacy(struct io_kiocb *req, unsigned issue_flags)
+ 		list_add(&buf->list, &bl->buf_list);
+ 		bl->nbufs++;
+ 	} else {
+-		kfree(buf);
++		io_kbuf_free(buf);
+ 	}
+ 	req->flags &= ~REQ_F_BUFFER_SELECTED;
+ 	req->kbuf = NULL;
+@@ -140,6 +147,14 @@ static void __user *io_provided_buffer_select(struct io_kiocb *req, size_t *len,
+ 		struct io_buffer *kbuf;
+ 
+ 		kbuf = list_first_entry(&bl->buf_list, struct io_buffer, list);
++		/*
++		 * The buffer address is a user virtual address that gets
++		 * interpreted in the address space of whoever issues the
++		 * request. Refuse consumption by a different mm than the
++		 * one that provided the buffer.
++		 */
++		if (unlikely(kbuf->mm != current->mm))
++			return NULL;
+ 		list_del(&kbuf->list);
+ 		bl->nbufs--;
+ 		if (*len == 0 || *len > kbuf->len)
+@@ -452,7 +467,7 @@ static int io_remove_buffers_legacy(struct io_ring_ctx *ctx,
+ 		nxt = list_first_entry(&bl->buf_list, struct io_buffer, list);
+ 		list_del(&nxt->list);
+ 		bl->nbufs--;
+-		kfree(nxt);
++		io_kbuf_free(nxt);
+ 		cond_resched();
+ 	}
+ 	return i;
+@@ -575,6 +590,8 @@ static int io_add_buffers(struct io_ring_ctx *ctx, struct io_provide_buf *pbuf,
+ 		buf->len = min_t(__u32, pbuf->len, MAX_RW_COUNT);
+ 		buf->bid = bid;
+ 		buf->bgid = pbuf->bgid;
++		buf->mm = current->mm;
++		mmgrab(buf->mm);
+ 		addr += pbuf->len;
+ 		bid++;
+ 		cond_resched();
+diff --git a/io_uring/kbuf.h b/io_uring/kbuf.h
+index 401773e1ef805..fe0b01c475a49 100644
+--- a/io_uring/kbuf.h
++++ b/io_uring/kbuf.h
+@@ -44,6 +44,8 @@ struct io_buffer_list {
+ 
+ struct io_buffer {
+ 	struct list_head list;
++	/* mm of the task that provided this buffer, see io_add_buffers() */
++	struct mm_struct *mm;
+ 	__u64 addr;
+ 	__u32 len;
+ 	__u16 bid;
+-- 
+2.43.7
+
