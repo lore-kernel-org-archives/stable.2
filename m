@@ -1,101 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793852126;
-	b=Po+x0q8JfmsY7F9BeVaZJ1rpVH9bljQ3mEZhCnqpeqrU8AAC1AMvJH9HUeUR8qXtLY7n
-	 6T0VK9Gmg5jjqwyQsl90VhX4RDpSabWIEYhQcTsD1+bvjUs0JSxYt15C9F4jRglG1id+B
-	 GmnW+0gKNbnuegYP3sTdpb1UXvV29+zIv/QvDI+omqWvhhY8RvJDAA/3gNCTdueVywh+J
-	 I/ZIjqvQvHH3MFbAZHjAJNlbglfjWUWjU1KwsfZJgLak+eGDLdnqSSw1QCm+CYe8O2kDF
-	 BhOQJBmvpIZCGZNFHw5zCp6fEE6MJss9iYwpcV0LzIGNuMrbQTU1W4p1PlmaRvkohaQ==
+	t=1793852638;
+	b=E4Lmm9Yvxr3qUqDra6BENdtKbHhSmZjFbo2KEZS6Ga7pE7/dW3b+svaU8zoeSSz+XYCl
+	 /Wc5Dxd9+FP38H45Z6eQ1fq3905poBm6xOu87x6Egf2m5cH/HuEc2b3aMH5dP84yVW5JF
+	 sBunkhfLQafm1+7X35Svwxr7hNx8pzjlGmASrRGrldvgkVI7kfkAAo6an7eKBRuqUq1YW
+	 g9ZuOpZuLwL+4Fk2al5kdCzdNiiITAkXFlqkzlrtomuZvDWhx5VO/dxOCaxRDg44BeT/V
+	 GRAYKEVU/RUy4b7b4bWMItmffdG5ZgetiAF4sQ6Whma/D/LmidE1uTo8EOTJstKzw7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793852126;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793852638;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=v/dD+gCFKnFrY8PCehbOuNAzOY6DsEVbOoYKofj71BM=;
-	b=YyN2VoXr4w+VG0p2D2ZGHFDED3TFhf6UR7Y+s8SFDweRKjN6gz3wveiLTcX4yKAQoQGu
-	 gu+Bh6VAppjXp45oMjrkGYgR5DmkBxmX7mkceqpgMt7femOC2b6PmqzkI9Mdfrvw0nSPZ
-	 XbBsh1nhd9kdZ0Mxx3rBLR4G5O+SMlFXPHXuBbAfm72bmegoQ14CqI/NLyJt01hNrW1SO
-	 2QicCvzzCilEiCEvRgR2Fz08eytQQCMwbkNy5mYUdPbD7V+v1njgfsZl31EI1ULKYPrXS
-	 pMxyipLA6j03iL9EHs2xrC6CHbpCeK8E/I9NgvfvTS8v5w/LnXyQatRsTVYYN/gUKYg==
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=0Ic22w/EG1/wGaj0qAXu35aYDokPrgCRY3cSmP40FPc=;
+	b=rEYuNJmhHo+v+GnmqYYDG9AY5Z5ecFot2s9NP8pJl6UtZqSr1cVOk3czMDPmtmr42i9B
+	 Eba+Q5QnbDcZQiP4mk7eWYYU+NuvOtFbSuB7O4aCTEi3Z2yGMlyseZMJ7wDjz+Xi4CWIu
+	 3lwqf/lpGDz/WXWR5bafWVG9IIFG244tf2HJoWiJtJrPALg+pVvntXe/t3ZlSaeU/Fsg9
+	 2VeaVRCF/TIEnrariXfiQGnFVMJU29MiAjS4UrCX1XZJnaIWKB3vh+XSpcC99+XIqU0XB
+	 iHb2h2HYn0IJpCw22bKxQ/cChCIHzFNxngmVwJT9bTUucy95IFLLhuSozNmKTP5xM6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0KJOhIdc;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="K/LUUDcc";
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742D0606A32C
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 04:15:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 742D0606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E544B606A32D
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 04:23:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E544B606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0KJOhIdc
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so1103496a91.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 20:15:26 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K/LUUDcc
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso3762709eec.0
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 20:23:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793852126; x=1794456926; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v/dD+gCFKnFrY8PCehbOuNAzOY6DsEVbOoYKofj71BM=;
-        b=0KJOhIdcNUHNh+hpMXflfbO1b2pSAtdJ4Yxe1HdD3RiIbZgv5eF9L95iNtGkRefRG+
-         xhRfJsG7UPsTxI8aOUc6LjGjNi8dWWq1jJKUb8Bq+QbuLWVuvv3SrTPVVvsxPoqW1gf7
-         rU4v3DCJ/luDVStaJHpRseR0cz4KnSX5ZoZYw8CwZJO6vAIKVaLfZti006GIcsBJjt/4
-         jxigIcNr5xPTDyPadQQIDWPkzDfAImALT6hkCPegisUNo4pWSqdSREZ2pHjH3DEAmLcr
-         it7bazSZqAVe9TWf4VDdAusFcpyIvb7/vdUTTKOphfMTEENlLWyq4UVd0crxlBGA8mOI
-         9lsg==
+        d=gmail.com; s=20260707; t=1793852637; x=1794457437; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0Ic22w/EG1/wGaj0qAXu35aYDokPrgCRY3cSmP40FPc=;
+        b=K/LUUDccLX+qTBm7UcPTDL27HGE++ItvMbbx2fYN0zjTjbKhr5OruZA/U7XyohQJ+F
+         3az/M6N7+cDpLM3MORa9LKSuduqeXftKxiYYvJpaavCkveXYccJgOZK+HVrVT6kJRVCG
+         gE0XHgswm0RJA2PGbm2XTWut+QNKK4gjk3+u1jsBemZT/Iwj3O+UM5zA+KOFO3Sz/gML
+         u/WOXZJ4CJI10W36On7HS+7xMUQd6lYimmjCw7NFwn6E9KMXGPGxupMk6e6BSzO4bNQb
+         018CovunjInZ0AQROTlN4Sp1zp8UWZmPfS3memHNUNS80h9Cm/hk/AfScfGAzmwaaRL3
+         rtAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793852126; x=1794456926;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=v/dD+gCFKnFrY8PCehbOuNAzOY6DsEVbOoYKofj71BM=;
-        b=hUxEvc36LDvLgs8yGUrqlbuZza6aE5z1fkX/h7AlS3xklV1DeYvMpoQEygue9uvCCj
-         xbMgVs6/P0GE6KaIfwspoNWpc2Pbl5dOpFSWFw4ijbpNVW/gGVjg79omX07TL6pzNsN1
-         Zrk2pkm4OG398k20rZLZEGCnMLjHgVPv7n993jnMkPwWwe+kqatqPcK7EITIavyNf3Ga
-         2knh3TI6K8ouwOUiiMYMf3uKxy0eTu/v8Ew/oMhqOERhxdGFOvyXn08djcB/uNQ848CB
-         akhOn2Ys50olA2IW8rZcwmIba4aL8daXAHIw2/bsI6Raa6ILcJ7+dmu9xEloT/SsVAqh
-         yK3g==
-X-Forwarded-Encrypted: i=1; AKwUvBxUAMmIqLyJEXTUNzel3P5/m/qJPRZgwRY7gsTEg7XYqvWyywNSIhM4dZkEWXWWT+UiIjRIKKU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cGZJIqY5MOQaqVkl5pjuPxfk1Gctvsz/oqLvvfGWnYl2d7wZ0
-	gnnyXWxMAFprzMzG0D3IxaA2xmbPMu4gPwzwpTIleOvvsPsdNPgbnfq+
-X-Gm-Gg: AYBFou0ESqClcWO5+yX5SCR9SP4eeyA8/e5reBLWmmufKv4xxiUCMh4OEFEOPg8Qpfd
-	fKbV7RLTJXdR01T8gSljFkYA8ydngY0GZq53/ZXeUn8nVTMliWTkZlSxWiz9dRlT3vxIXdss7B6
-	TtTeHjoJW5OYkL6d6yAxoZJZ4K9Y391BrprWHu6X9eE+AANO2B5jrkWfeFvMoJ+5i+zpbobREgA
-	tOxAEOUuaU35EbV3BJiBe61BbgFroTm16J4E4113jInAnQXh0R5HKuAs2a4rg/Dsd28wmQp58Xq
-	Txg+jAmVV0dIZTzVuhVZhaXsoLWOgCBKTMBSp2n62ZbZDT2bC17LtfwT7IfknsCFi81KQ3u3caW
-	CcvJkXyyFg0BArYuKsJMXvAVl14Ga2fvyc1qfskEomX+0a08ANRCfcI6vopOkAYZAbnJPMqTAo5
-	tFG9b05+FMLvk/M5MHhkB2DWsQ9CU4AU1Ghd7fmIQC+gUjOlDF0uZWd4krpS3wgMCeyn26v3Oza
-	0MLzWLT33wnu1z+gOea+fJK6nJtAn92c6KK/sxdCpBLlgTgUSSK4pSRgLMAHvyMHdARsNrkivHF
-	F9axPD+G5GKkWFL9x33RDHptJ7OjMF6WnqbzEVae/jk2DtqXGSNTUchbkf+uMfJ+7owl
-X-Received: by 2002:a17:90b:280c:b0:3ac:9669:846b with SMTP id 98e67ed59e1d1-3ae895746f6mr15584115a91.9.1793852125571;
-        Wed, 04 Nov 2026 20:15:25 -0800 (PST)
-Received: from v4bel ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b3163383sm1625591a91.7.2026.11.04.20.15.21
+        d=1e100.net; s=20260707; t=1793852637; x=1794457437;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0Ic22w/EG1/wGaj0qAXu35aYDokPrgCRY3cSmP40FPc=;
+        b=tjNcq8CVXwNjeU+ANCHBO4ANWxsQMG1pHzc7IAF6dJmqT5VguUfJvPEh7o0dpYutS8
+         ggJKn3ITsftGgJdWyCiKem8ZQUet+pxy35TFcZFogkXZ8NW1Fqf4P+SBdhrqmG+AAVwk
+         lJ2Vg9qlk9VzZhctCe7WEG0EMPDQPf5YK5kZmyVODVWdJYj4ihhHZ4h7XYmucu1sNCRw
+         yWOZKsdK5oV7a0tcWfidWLrldBsqVeFIpx8ZazkuKv2NIj1rSHH8t8z/PJfs5GWypJSn
+         YFagiRYelkTThHd5XUeHnKzJ5kD5iV9RYbigbQbdLcULubKn82ITXE8MOdRu7+uIUIPN
+         S65Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxXGSt8+fIEkb7x9SYamQ9U0TukA/t93aw02b+lvYPkTm+YFonbKdkXCpf4AUDN5FOFOLT+D/4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8WYGmvKjfj4Y6YfUMT4ukfRJJ/8CAGlPbn09iMPJoJf730I1tT
+	59/OORO4OGdPutRFB4aerBC6SxVur3rqERZOPFlY7nVzNee8KYRyvGQ5
+X-Gm-Gg: AYBFou2gPSeDirtNqyshRyQf/7oOdftnqEKaL03SKcQuRGFFYFaNBtAISZhEKo+xnH9
+	V+Y7ntQw+SsHED6Lp2Csv4QMCTnbD1CaH1wL3xJB0xPJ55bvGPzUSFXdB5i5JAD+tuOdUebibBu
+	qoHQL5aKv/5Qxw+vLKC24OhR20RoSNhjdoMAY1dABSbNh8TEsJFoLYpAqI1Q0LR5dJvFqinl8Ir
+	1jIWINz5Xfc5F49xZwwsr5KmqHVNamNQRlmEZJi2pOuyXYvm13nW7ZbsHCids0DtrGCell15HfY
+	/i8zsB4sQqm3mTF4PGLIqF7O8jUOBIp6BbTKU8J29KRao98gGLVthxChXjUeHa8ba31JZ+9t+2u
+	QKNOnuOQhGioW+ZY/Hr8pTI4vVfmqtWYTYBOBB9EsloIQFBpaf0GzWYvN23lMZvHTWzXrw9EjKO
+	JBNSLYP/ZBXBPfQ8rJyY++dIVegne+1eNqlLfwkXy80BuYGOTAsqBHWAz3n2RG4rEboceDhAU+B
+	n899Nzz/rze11JcLDwLBW3chTCqAb4HbvvW/ZEYdDAl8HE26zYsOLQatnVxI4Rh8qBfL9+Dwoo5
+	AQ4T2QdviOFFqYpXKNduEFoQ50g6IzABJPvLIwcZDjtuE2un/Mbn/SCRuOSjjtkDjZlMcQ==
+X-Received: by 2002:a05:7022:f903:b0:149:cfa4:9b3b with SMTP id a92af1059eb24-1ac55776fa1mr27637322c88.3.1793852636693;
+        Wed, 04 Nov 2026 20:23:56 -0800 (PST)
+Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3788bffsm12394555eec.1.2026.11.04.20.23.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 20:15:24 -0800 (PST)
-Date: Thu, 5 Nov 2026 13:15:19 +0900
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: Eric Dumazet <edumazet@kernel.org>, ncardwell@google.com,
-	kuniyu@google.com, davem@davemloft.net, kuba@kernel.org,
-	horms@kernel.org, martin.lau@linux.dev, john.fastabend@gmail.com,
-	weiwan@google.com, sd@queasysnail.net, jiayuan.chen@linux.dev,
-	netdev@vger.kernel.org, stable@vger.kernel.org, imv4bel@gmail.com
-Subject: Re: [PATCH net v5 2/2] net: restore refcount ordering for lockless
- socket access
-Message-ID: <auwC161B4g61ptG4@v4bel>
-References: <20261029214219.1035176-1-imv4bel@gmail.com>
- <20261029214219.1035176-3-imv4bel@gmail.com>
- <CAL4WiioDoAT-50wStYDOy0b7f972QivB=Zk_7TCDrVPfOY665A@mail.gmail.com>
- <auqJOj7RVCWn7Ucl@v4bel>
- <7f8bd24d-7538-423d-b2a9-f5b0eae99d41@redhat.com>
+        Wed, 04 Nov 2026 20:23:56 -0800 (PST)
+Date: Thu, 5 Nov 2026 12:23:45 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 5/5] gpio: cdev: don't overwrite the whole flags field
+ when configuring lines
+Message-ID: <20261105042345.GA8436@rigel>
+References: <20261104-gpio-desc-flags-atomic-v1-0-e23cedf619ba@oss.qualcomm.com>
+ <20261104-gpio-desc-flags-atomic-v1-5-e23cedf619ba@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,54 +102,237 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7f8bd24d-7538-423d-b2a9-f5b0eae99d41@redhat.com>
+In-Reply-To: <20261104-gpio-desc-flags-atomic-v1-5-e23cedf619ba@oss.qualcomm.com>
 
-On Wed, Nov 04, 2026 at 08:59:50AM +0100, Paolo Abeni wrote:
-> On 11/4/26 02:24, Hyunwoo Kim wrote:
-> > On Tue, Nov 03, 2026 at 03:49:40PM +0100, Eric Dumazet wrote:
-> > > Le jeu. 29 oct. 2026 à 22:42, Hyunwoo Kim <imv4bel@gmail.com> a écrit :
-> > > > 
-> > > > Before commit fb041bb7c0a9 ("locking/refcount: Consolidate implementations
-> > > > of refcount_t"), default builds implemented refcount_inc_not_zero() using
-> > > > atomic_add_unless(), which provided full memory ordering on success. The
-> > > > commit removed that ordering on weakly ordered architectures, allowing
-> > > > accesses after a successful reference acquisition to be reordered before
-> > > > it.
-> > > > 
-> > > > Use refcount_inc_not_zero_acquire() in the IPv4 and IPv6 established
-> > > > lookups and in inet_twsk_purge(), where the socket is validated again
-> > > > after taking a reference.
-> > > > 
-> > > > bpf_sk_assign() can receive a socket pointer obtained through BTF
-> > > > without a reference. Use acquire ordering when it takes its own reference
-> > > > for a refcounted socket.
-> > > > 
-> > > > Use refcount_set_release() when setting refcounts in the SYN cookie,
-> > > > TCP Fast Open, request migration, and TIME_WAIT paths. Keep the existing
-> > > > TIME_WAIT smp_wmb(), which separately orders the refcount store before
-> > > > ehash publication.
-> > > > 
-> > > > Fixes: fb041bb7c0a9 ("locking/refcount: Consolidate implementations of refcount_t")
-> > > > Fixes: 27e5203bd9c5 ("bpf: Change bpf_sk_assign to accept ARG_PTR_TO_BTF_ID_SOCK_COMMON")
-> > > > Cc: stable@vger.kernel.org
-> > > > Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-> > > > ---
-> > > 
-> > > Lack of links to prior versions is rather annoying.
-> > 
-> > Is the cover letter alone insufficient?
-> > 
-> > Should the changelog be in each patch?
+On Wed, Nov 04, 2026 at 04:37:00PM +0100, Bartosz Golaszewski wrote:
+> linehandle_flags_to_desc_flags() and
+> gpio_v2_line_config_flags_to_desc_flags() read the flags word with
+> READ_ONCE(), modify the local copy and write it back with WRITE_ONCE().
 > 
-> Ideally the cover letter should include a very quick/short overview of the
-> changes, and a per patch changelog should include a more detailed list
-> (no entry added when the patch is unmodified).
+> The per-request config_mutex does not exclude sysfs, the irq core or
+> drivers touching the same descriptor, so bits they set or clear
+> concurrently can be lost.
+> 
+> Build the mask of bits owned by the line configuration and their new
+> values locally and apply them with gpiod_update_flags(). The whole
+> group changes in a single atomic step.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: b7adfb6076ff ("gpio: cdev: update flags at once when reconfiguring from user-space")
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  drivers/gpio/gpiolib-cdev.c | 118 ++++++++++++++++++++++++--------------------
+>  1 file changed, 65 insertions(+), 53 deletions(-)
+> 
+> diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
+> index 3f1f8c9acfc3c10d5b3e86b70009f1226793cbc7..b7f0aec12c8551e39d042a1999fdfb5683ae97d7 100644
+> --- a/drivers/gpio/gpiolib-cdev.c
+> +++ b/drivers/gpio/gpiolib-cdev.c
+> @@ -140,24 +140,30 @@ static int linehandle_validate_flags(u32 flags)
+>  	return 0;
+>  }
+>  
+> -static void linehandle_flags_to_desc_flags(u32 lflags, unsigned long *flagsp)
+> -{
+> -	unsigned long flags = READ_ONCE(*flagsp);
+> -
+> -	assign_bit(GPIOD_FLAG_ACTIVE_LOW, &flags,
+> -		   lflags & GPIOHANDLE_REQUEST_ACTIVE_LOW);
+> -	assign_bit(GPIOD_FLAG_OPEN_DRAIN, &flags,
+> -		   lflags & GPIOHANDLE_REQUEST_OPEN_DRAIN);
+> -	assign_bit(GPIOD_FLAG_OPEN_SOURCE, &flags,
+> -		   lflags & GPIOHANDLE_REQUEST_OPEN_SOURCE);
+> -	assign_bit(GPIOD_FLAG_PULL_UP, &flags,
+> -		   lflags & GPIOHANDLE_REQUEST_BIAS_PULL_UP);
+> -	assign_bit(GPIOD_FLAG_PULL_DOWN, &flags,
+> -		   lflags & GPIOHANDLE_REQUEST_BIAS_PULL_DOWN);
+> -	assign_bit(GPIOD_FLAG_BIAS_DISABLE, &flags,
+> -		   lflags & GPIOHANDLE_REQUEST_BIAS_DISABLE);
+> -
+> -	WRITE_ONCE(*flagsp, flags);
+> +static void linehandle_flags_to_desc_flags(u32 lflags, struct gpio_desc *desc)
 
-Understood. I'll do that from now on.
+This used to be a conversion function, hence the a_to_b naming.
+Now it is specifically updating the desc flags, so how about
+linehandle_update_desc_flags()?
 
+> +{
+> +	const unsigned long mask = BIT(GPIOD_FLAG_ACTIVE_LOW) |
+> +				   BIT(GPIOD_FLAG_OPEN_DRAIN) |
+> +				   BIT(GPIOD_FLAG_OPEN_SOURCE) |
+> +				   BIT(GPIOD_FLAG_PULL_UP) |
+> +				   BIT(GPIOD_FLAG_PULL_DOWN) |
+> +				   BIT(GPIOD_FLAG_BIAS_DISABLE);
+> +	unsigned long val = 0;
+> +
 
-Best regards,
-Hyunwoo Kim
+Agree with Andy - this should be flags, not val.
+
+> +	__assign_bit(GPIOD_FLAG_ACTIVE_LOW, &val,
+> +		     lflags & GPIOHANDLE_REQUEST_ACTIVE_LOW);
+> +	__assign_bit(GPIOD_FLAG_OPEN_DRAIN, &val,
+> +		     lflags & GPIOHANDLE_REQUEST_OPEN_DRAIN);
+> +	__assign_bit(GPIOD_FLAG_OPEN_SOURCE, &val,
+> +		     lflags & GPIOHANDLE_REQUEST_OPEN_SOURCE);
+> +	__assign_bit(GPIOD_FLAG_PULL_UP, &val,
+> +		     lflags & GPIOHANDLE_REQUEST_BIAS_PULL_UP);
+> +	__assign_bit(GPIOD_FLAG_PULL_DOWN, &val,
+> +		     lflags & GPIOHANDLE_REQUEST_BIAS_PULL_DOWN);
+> +	__assign_bit(GPIOD_FLAG_BIAS_DISABLE, &val,
+> +		     lflags & GPIOHANDLE_REQUEST_BIAS_DISABLE);
+> +
+> +	gpiod_update_flags(desc, mask, val);
+>  }
+>  
+>  static long linehandle_set_config(struct linehandle_state *lh,
+> @@ -182,7 +188,7 @@ static long linehandle_set_config(struct linehandle_state *lh,
+>  
+>  	for (i = 0; i < lh->num_descs; i++) {
+>  		desc = lh->descs[i];
+> -		linehandle_flags_to_desc_flags(lflags, &desc->flags);
+> +		linehandle_flags_to_desc_flags(lflags, desc);
+>  
+>  		if (lflags & GPIOHANDLE_REQUEST_OUTPUT) {
+>  			int val = !!gcnf.default_values[i];
+> @@ -346,7 +352,7 @@ static int linehandle_create(struct gpio_device *gdev, void __user *ip)
+>  		if (ret)
+>  			return ret;
+>  		lh->descs[i] = desc;
+> -		linehandle_flags_to_desc_flags(handlereq.flags, &desc->flags);
+> +		linehandle_flags_to_desc_flags(handlereq.flags, desc);
+>  
+>  		ret = gpiod_set_transitory(desc, false);
+>  		if (ret < 0)
+> @@ -1224,36 +1230,42 @@ static int gpio_v2_line_config_validate(struct gpio_v2_line_config *lc,
+>  }
+>  
+>  static void gpio_v2_line_config_flags_to_desc_flags(u64 lflags,
+> -						    unsigned long *flagsp)
+
+How about linereq_update_desc_flags()?
+
+> -{
+> -	unsigned long flags = READ_ONCE(*flagsp);
+> -
+> -	assign_bit(GPIOD_FLAG_ACTIVE_LOW, &flags,
+> -		   lflags & GPIO_V2_LINE_FLAG_ACTIVE_LOW);
+> -
+> -	assign_bit(GPIOD_FLAG_EDGE_RISING, &flags,
+> -		   lflags & GPIO_V2_LINE_FLAG_EDGE_RISING);
+> -	assign_bit(GPIOD_FLAG_EDGE_FALLING, &flags,
+> -		   lflags & GPIO_V2_LINE_FLAG_EDGE_FALLING);
+> -
+> -	assign_bit(GPIOD_FLAG_OPEN_DRAIN, &flags,
+> -		   lflags & GPIO_V2_LINE_FLAG_OPEN_DRAIN);
+> -	assign_bit(GPIOD_FLAG_OPEN_SOURCE, &flags,
+> -		   lflags & GPIO_V2_LINE_FLAG_OPEN_SOURCE);
+> -
+> -	assign_bit(GPIOD_FLAG_PULL_UP, &flags,
+> -		   lflags & GPIO_V2_LINE_FLAG_BIAS_PULL_UP);
+> -	assign_bit(GPIOD_FLAG_PULL_DOWN, &flags,
+> -		   lflags & GPIO_V2_LINE_FLAG_BIAS_PULL_DOWN);
+> -	assign_bit(GPIOD_FLAG_BIAS_DISABLE, &flags,
+> -		   lflags & GPIO_V2_LINE_FLAG_BIAS_DISABLED);
+> -
+> -	assign_bit(GPIOD_FLAG_EVENT_CLOCK_REALTIME, &flags,
+> -		   lflags & GPIO_V2_LINE_FLAG_EVENT_CLOCK_REALTIME);
+> -	assign_bit(GPIOD_FLAG_EVENT_CLOCK_HTE, &flags,
+> -		   lflags & GPIO_V2_LINE_FLAG_EVENT_CLOCK_HTE);
+> -
+> -	WRITE_ONCE(*flagsp, flags);
+> +						    struct gpio_desc *desc)
+> +{
+> +	const unsigned long mask = BIT(GPIOD_FLAG_ACTIVE_LOW) |
+> +				   BIT(GPIOD_FLAG_EDGE_RISING) |
+> +				   BIT(GPIOD_FLAG_EDGE_FALLING) |
+> +				   BIT(GPIOD_FLAG_OPEN_DRAIN) |
+> +				   BIT(GPIOD_FLAG_OPEN_SOURCE) |
+> +				   BIT(GPIOD_FLAG_PULL_UP) |
+> +				   BIT(GPIOD_FLAG_PULL_DOWN) |
+> +				   BIT(GPIOD_FLAG_BIAS_DISABLE) |
+> +				   BIT(GPIOD_FLAG_EVENT_CLOCK_REALTIME) |
+> +				   BIT(GPIOD_FLAG_EVENT_CLOCK_HTE);
+> +	unsigned long val = 0;
+> +
+
+And again.
+
+> +	__assign_bit(GPIOD_FLAG_ACTIVE_LOW, &val,
+> +		     lflags & GPIO_V2_LINE_FLAG_ACTIVE_LOW);
+> +	__assign_bit(GPIOD_FLAG_EDGE_RISING, &val,
+> +		     lflags & GPIO_V2_LINE_FLAG_EDGE_RISING);
+> +	__assign_bit(GPIOD_FLAG_EDGE_FALLING, &val,
+> +		     lflags & GPIO_V2_LINE_FLAG_EDGE_FALLING);
+> +	__assign_bit(GPIOD_FLAG_OPEN_DRAIN, &val,
+> +		     lflags & GPIO_V2_LINE_FLAG_OPEN_DRAIN);
+> +	__assign_bit(GPIOD_FLAG_OPEN_SOURCE, &val,
+> +		     lflags & GPIO_V2_LINE_FLAG_OPEN_SOURCE);
+> +	__assign_bit(GPIOD_FLAG_PULL_UP, &val,
+> +		     lflags & GPIO_V2_LINE_FLAG_BIAS_PULL_UP);
+> +	__assign_bit(GPIOD_FLAG_PULL_DOWN, &val,
+> +		     lflags & GPIO_V2_LINE_FLAG_BIAS_PULL_DOWN);
+> +	__assign_bit(GPIOD_FLAG_BIAS_DISABLE, &val,
+> +		     lflags & GPIO_V2_LINE_FLAG_BIAS_DISABLED);
+> +	__assign_bit(GPIOD_FLAG_EVENT_CLOCK_REALTIME, &val,
+> +		     lflags & GPIO_V2_LINE_FLAG_EVENT_CLOCK_REALTIME);
+> +	__assign_bit(GPIOD_FLAG_EVENT_CLOCK_HTE, &val,
+> +		     lflags & GPIO_V2_LINE_FLAG_EVENT_CLOCK_HTE);
+> +
+> +	gpiod_update_flags(desc, mask, val);
+>  }
+>  
+>  static long linereq_get_values(struct linereq *lr, void __user *ip)
+> @@ -1411,7 +1423,7 @@ static long linereq_set_config(struct linereq *lr, void __user *ip)
+>  		 */
+>  		if (!(flags & GPIO_V2_LINE_DIRECTION_FLAGS))
+>  			continue;
+> -		gpio_v2_line_config_flags_to_desc_flags(flags, &desc->flags);
+> +		gpio_v2_line_config_flags_to_desc_flags(flags, desc);
+>  		edflags = flags & GPIO_V2_LINE_EDGE_DETECTOR_FLAGS;
+>  		if (flags & GPIO_V2_LINE_FLAG_OUTPUT) {
+>  			int val = gpio_v2_line_config_output_value(&lc, i);
+> @@ -1667,7 +1679,7 @@ static int linereq_create(struct gpio_device *gdev, void __user *ip)
+>  
+>  		lr->lines[i].desc = desc;
+>  		flags = gpio_v2_line_config_flags(lc, i);
+> -		gpio_v2_line_config_flags_to_desc_flags(flags, &desc->flags);
+> +		gpio_v2_line_config_flags_to_desc_flags(flags, desc);
+>  
+>  		ret = gpiod_set_transitory(desc, false);
+>  		if (ret < 0)
+> @@ -2062,7 +2074,7 @@ static int lineevent_create(struct gpio_device *gdev, void __user *ip)
+>  	le->desc = desc;
+>  	le->eflags = eflags;
+>  
+> -	linehandle_flags_to_desc_flags(lflags, &desc->flags);
+> +	linehandle_flags_to_desc_flags(lflags, desc);
+>  
+>  	ret = gpiod_direction_input(desc);
+>  	if (ret)
+> 
+
+Overall I like the series.
+Good to see there is a raw version of try_cmpxchg() that can be combined with
+the existing atomic bitops without the questionable casting I was using
+with the atomic_long_try_cmpxchg().  That makes a whole load of sense.
+
+A couple of things not covered in these patches, but related to flag
+consistency:
+
+GPIOD_FLAG_USED_AS_IRQ is used as a lock over GPIOD_FLAG_IRQ_IS_ENABLED.
+e.g. gpiochip_enable_irq() and gpiochip_disable_irq() both warn and drop
+thru if it is not set.
+Yet gpiochip_lock_as_irq() does not check if it is already set, even just to
+raise a warning.  Why not?
+Does the updating of those two flags by gpiochip_lock_as_irq() and 
+gpiochip_unlock_as_irq() need to be atomic?  Not individually atomic but
+as a pair, else they race with gpiochip_enable_irq() and
+gpiochip_disable_irq()?
+Similarly, don't gpiochip_enable_irq() and gpiochip_disable_irq() need
+to perform an atomic test (of GPIOD_FLAG_USED_AS_IRQ) and set
+(of GPIOD_FLAG_IRQ_IS_ENABLED) so as not to race with the lock/unlock?
+
+Cheers,
+Kent.
