@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793905414;
-	b=DRzlFuqMCCWfJOq38QZf+rFKsHNq4RO/ecfZbgKzYZjDha0SmxvTlJYX6ff/iBloLr9G
-	 EKcFZwUKpktlhySBcl5oDuc0L7cL+VY3/FLE+6g1xMlDl3HZGRvXP41DLIif73CW0tUft
-	 A1x2/BzHHzqPMqD/VInK0pwzy7plIC9QzHyBduM5w9/xAfAjnLEJOR6RnBYMvP3rzWDT6
-	 6ulNpDlYtA7VCUSYYVB/+boT3L6EC7kOfb5J9rLBl3FG5TAzaiDAoHbbxf6kW3XWRJETb
-	 yusnKAukCKZUrpWj4QjIKLCW8F48xxpvUtFX+FSDXVniMaeIlQCVbqs2D5NP2GkKUGg==
+	t=1793905431;
+	b=znYIN6KuqSrLmX1MiBoQhnXaBJYNuSHjNZ7AA4pLwAffqe04r2WjAvApHimQ0POST1S3
+	 FAaSxmu+LvpPJwjJh/z0IJU1WnqqU4/OHXi5UvkhxUTqn5ggg3uA/wR8+iMmApY6MavxR
+	 GyoSTiikaQYEpcp3/0wzZpJh4LUui4eoiz+GMoyioA0AfJCeCAv5cgrHLcbaDcYzLB4gS
+	 c07sZQHmtCyxZWm5pZ8c4b/PPmr2Oe1PrPJvBbxmQH11gFjW0H6hRcnRZd4PC/4amXvT6
+	 OVC9zuMyA2V4AChtEJ3+i1tMjoZJDa7tm3NcFovZzVhVNPAxnfEJpNeJ5hZyTO1wiVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793905414;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793905431;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Kax+ozCzx4ZmXMhWSxfp14A5JBqAgAH2noBaBA1ZoOY=;
-	b=DPffmMtE3zEayTmu88njjxRMjQrbaeLZ33WzpslY3LvqXeUinaWjQvTGY1gWeafMglgA
-	 zrhKKohZrfB1BwYFs/9vVN31c1NryDz4GQO0boqdqby3b40EsZAQSgKay/k98Fduf+yHi
-	 AlxhvhNnry+1LGICLHOjXDwm0ew7VK35Fg0pm/gCzznFM/Nxnn5pujQ3FH+csMCMQQ8/f
-	 H5p25s7YHeRnHVnAfe+EVXiWtQTt7Ia0UmO1rGopVNdqG0dDdHM1mVa7Jh6My6s+myg0t
-	 0Mwi97SAcw83nRO/ff/LtT/2vFwrnHCMHatKTUxH4QNxX9tZyP5NDEECoU/OspLSXkA==
+	bh=YTKbx6cV5efdjD7qHslNTjhF0CpPnT8IpYRWlG/OMUg=;
+	b=nOa+EO6UeEPhTkjmWinxT3Cp7NrVToDCkmF1C9T0GaFlzwwvt9vsB8DWlF8oydbQaXcA
+	 HNcI/1/2JQXtR9A/hXBnLg8Ggk0Qk2qUlyRSO/gaSVR3ZAOiD85iJqeu5+9SCJZcFUMQb
+	 gGwqfBM+ogOKFsrvzJ3ue9JQjkLmlswfttzz5N7LFmOjVdizFMzj5DP4FFsW3ZCbBPVTn
+	 C7cZVsHGb3OmMfrJaUpEXfKcDwggvQbYEtHzDTSSfOIVAvXhZN/+r5vi++X7WNZIH1NyW
+	 ooYqTPWf6o9egXEtZ9hW3OW1daegwnBnHhnJeB1J9MU0BhBQzNJquHAAAkAkaULM8Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Njn7OAiE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lLWd7xT5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2787606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 19:03:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D01606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 19:03:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Njn7OAiE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3961F00919;
-	Thu,  5 Nov 2026 19:03:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lLWd7xT5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75AD91F000C1;
+	Thu,  5 Nov 2026 19:03:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793905413;
-	bh=Kax+ozCzx4ZmXMhWSxfp14A5JBqAgAH2noBaBA1ZoOY=;
+	s=k20260515; t=1793905431;
+	bh=YTKbx6cV5efdjD7qHslNTjhF0CpPnT8IpYRWlG/OMUg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Njn7OAiEysKymBoGBlhDGLp2VEsBnpLJOP1lyD0XCVtrtlEH26ulq7nga4qnDZXyU
-	 e+avkxaMSGlmr3nwa7dqmMUp9MyZxizCqVhrQt3TMzjPaRQAMqEKTXmyh63Foc7w2c
-	 2oqRbY8bZ0gLztiyjE0pF8JHCSP48qUhCGhu0PnETPz6omMmQBJm7JWP3qhQeNeRcK
-	 HmmlahG0NImaEUxX5WMKIS0JPIxm9PQAKDONCIotsyNEKs2TlcOcLcP/zdUQKIeeVQ
-	 kcMhp+fMMEZs5D6gvozgmRv+slq8pY9zzwRViKveB5EegWlsS5Y/AdMvQfLLZ9yn3O
-	 CT0TL3/8ofroQ==
+	b=lLWd7xT5oyRYt6ZmdR6YG5mukMP1ipSZK0jlWL1i3eBL+AN7S76Q2+zdBUWjmD+IM
+	 cu7zgOx3Nor0AwXDgmus8y1i4fVamzbLeWLq2lKbSyxoLykDWuF2pPpxlD3GQ/RpsU
+	 tReKrd7Ip6tKBGnZ/OBXNIwPsgo9KYqntHTLLA4zZn6TLRjeyyE8zsd8Al194xw2g8
+	 MnqMikgk2OyRGWMxuQsmEG7cZW5m4r2DzOkDdfEhxM8dbcOoY0IsUZLwtVIB40hxOy
+	 jloeWAFEVyVLg+c0PyZqKXxHePlCpftImP9/9a7q0HcOqEFn0rxUa5+5sfVSqQ+uA3
+	 G4CMrbJQq5C8w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>,
+Cc: Abdifatah Suruur <suruurism@gmail.com>,
 	Namjae Jeon <linkinjeon@kernel.org>,
 	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] smb: client: validate NT transaction response layout and offsets
-Date: Thu,  5 Nov 2026 14:03:31 -0500
-Message-ID: <20261105185731.2641233-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] smb: client: reject short SESSION_SETUP responses
+Date: Thu,  5 Nov 2026 14:03:49 -0500
+Message-ID: <20261105190313.2634432-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110454-brigade-bankbook-1cb4@gregkh>
-References: <2026110454-brigade-bankbook-1cb4@gregkh>
+In-Reply-To: <2026110428-citizen-exit-e402@gregkh>
+References: <2026110428-citizen-exit-e402@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,108 +62,102 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
+From: Abdifatah Suruur <suruurism@gmail.com>
 
-[ Upstream commit 83d0d5e0ca22233c75daf139ec0063b9d2ff1ac7 ]
+[ Upstream commit 4d8930afa3446041358a7db33e7b23a0bb9459b5 ]
 
-validate_ntransact() assumes that the response uses the fixed 18-word NT
-transaction layout. A different WordCount makes get_bcc() locate the byte
-count at a different offset from pSMBr->ByteCount, allowing the subsequent
-bounds checks to use inconsistent response boundaries.
+smb2_check_message() accepts frames shorter than struct smb2_pdu when
+the SMB2 status is non-zero, before the minimum-PDU check added by
+b4694f269e66d. A 64-byte STATUS_MORE_PROCESSING_REQUIRED SESSION_SETUP
+response is therefore accepted even though it cannot contain the
+SecurityBufferOffset and SecurityBufferLength fields.
 
-The function also turns the 32-bit ParameterOffset and DataOffset fields
-into pointers before checking their bounds. On a 32-bit client, a large
-offset can wrap the pointer below end_of_smb and pass the one-sided pointer
-comparison. The caller then dereferences the parameter pointer or copies
-from the data pointer.
+The parser then reads those fields from stale bytes left in the reused
+receive buffer by an earlier frame. With a long stale
+SecurityBufferLength, decode_ntlmssp_challenge() copies up to about
+64 KB from beyond the receive object and sends the data back to the
+server in the NTLMv2 AUTHENTICATE target info.
 
-Require the expected WordCount before reading the byte count. Check each
-offset and count against the received SMB length as integers before forming
-either pointer. Use subtraction after validating the offset so that the
-range checks cannot overflow.
+Reject short MPR SESSION_SETUP responses before the short-error path,
+and validate SecurityBufferOffset + SecurityBufferLength against the
+received response length before decoding the challenge.
 
-Reported-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
-Fixes: 0a4b92c05ed0 ("[CIFS] Add worker function for Get ACL cifs style")
+The ordering bypass is not new: the short-error early return predates
+b4694f269e66d, and the unvalidated SecurityBufferLength read predates
+the 2016 raw NTLMSSP split in 166cea4dc3a4, so all supported stable
+trees are affected. Reproduced on 6.6.87.2; the path is unchanged on
+mainline.
+
+Fixes: 5478f9ba9a34 ("CIFS: Add session setup/logoff capability for SMB2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
 Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ sashal: Replaced the unavailable smb2_min_pdu_len lookup with sizeof(struct smb2_sess_setup_rsp). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/cifssmb.c | 32 +++++++++++++++++++-------------
- 1 file changed, 19 insertions(+), 13 deletions(-)
+ fs/smb/client/smb2misc.c | 15 +++++++++++++++
+ fs/smb/client/smb2pdu.c  | 18 ++++++++++++------
+ 2 files changed, 27 insertions(+), 6 deletions(-)
 
-diff --git a/fs/cifs/cifssmb.c b/fs/cifs/cifssmb.c
-index 11a400663b9f2..290aa04d89151 100644
---- a/fs/cifs/cifssmb.c
-+++ b/fs/cifs/cifssmb.c
-@@ -3735,9 +3735,10 @@ static int
- validate_ntransact(char *buf, char **ppparm, char **ppdata,
- 		   __u32 *pparmlen, __u32 *pdatalen)
- {
--	char *end_of_smb;
- 	__u32 data_count, data_offset, parm_count, parm_offset;
- 	struct smb_com_ntransact_rsp *pSMBr;
-+	size_t buflen;
-+	char *end_buf;
- 	u16 bcc;
+diff --git a/fs/smb/client/smb2misc.c b/fs/smb/client/smb2misc.c
+index 34d2401c6c665..46c98d024f068 100644
+--- a/fs/smb/client/smb2misc.c
++++ b/fs/smb/client/smb2misc.c
+@@ -194,6 +194,21 @@ smb2_check_message(char *buf, unsigned int len, struct TCP_Server_Info *server)
+ 		return 1;
+ 	}
  
- 	*pdatalen = 0;
-@@ -3748,37 +3749,42 @@ validate_ntransact(char *buf, char **ppparm, char **ppdata,
- 
- 	pSMBr = (struct smb_com_ntransact_rsp *)buf;
- 
-+	if (pSMBr->hdr.WordCount != 18) {
-+		cifs_dbg(FYI, "invalid NT transaction WordCount %u\n",
-+			 pSMBr->hdr.WordCount);
-+		return -EINVAL;
++	/*
++	 * A SESSION_SETUP response that asks for more processing carries a
++	 * security blob and is parsed as a normal reply. Do not let the
++	 * short-error path below accept a frame that cannot hold the fixed
++	 * response fields.
++	 */
++	if (command == SMB2_SESSION_SETUP_HE &&
++	    shdr->Status == STATUS_MORE_PROCESSING_REQUIRED &&
++	    len < sizeof(struct smb2_sess_setup_rsp)) {
++		cifs_server_dbg(VFS,
++				"%s: session setup response too short: %u < %zu\n",
++				__func__, len, sizeof(struct smb2_sess_setup_rsp));
++		return 1;
 +	}
 +
- 	bcc = get_bcc(&pSMBr->hdr);
--	end_of_smb = 2 /* sizeof byte count */ + bcc +
--			(char *)&pSMBr->ByteCount;
-+	end_buf = 2 /* sizeof byte count */ + bcc + (char *)&pSMBr->ByteCount;
-+	buflen = end_buf - buf;
+ 	if (len < pdu_size) {
+ 		if ((len >= hdr_size)
+ 		    && (shdr->Status != 0)) {
+diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
+index 6d610f136f43e..e5efa7f02e12d 100644
+--- a/fs/smb/client/smb2pdu.c
++++ b/fs/smb/client/smb2pdu.c
+@@ -1757,15 +1757,21 @@ SMB2_sess_auth_rawntlmssp_negotiate(struct SMB2_sess_data *sess_data)
+ 	if (rc)
+ 		goto out;
  
- 	data_offset = le32_to_cpu(pSMBr->DataOffset);
- 	data_count = le32_to_cpu(pSMBr->DataCount);
- 	parm_offset = le32_to_cpu(pSMBr->ParameterOffset);
- 	parm_count = le32_to_cpu(pSMBr->ParameterCount);
- 
--	*ppparm = (char *)&pSMBr->hdr.Protocol + parm_offset;
--	*ppdata = (char *)&pSMBr->hdr.Protocol + data_offset;
--
- 	/* should we also check that parm and data areas do not overlap? */
--	if (*ppparm > end_of_smb) {
-+	if (parm_offset > buflen) {
- 		cifs_dbg(FYI, "parms start after end of smb\n");
- 		return -EINVAL;
--	} else if (parm_count + *ppparm > end_of_smb) {
-+	} else if (parm_count > buflen - parm_offset) {
- 		cifs_dbg(FYI, "parm end after end of smb\n");
- 		return -EINVAL;
--	} else if (*ppdata > end_of_smb) {
-+	} else if (data_offset > buflen) {
- 		cifs_dbg(FYI, "data starts after end of smb\n");
- 		return -EINVAL;
--	} else if (data_count + *ppdata > end_of_smb) {
--		cifs_dbg(FYI, "data %p + count %d (%p) past smb end %p start %p\n",
--			 *ppdata, data_count, (data_count + *ppdata),
--			 end_of_smb, pSMBr);
-+	} else if (data_count > buflen - data_offset) {
-+		cifs_dbg(FYI, "data offset %u + count %u past smb length %zu\n",
-+			 data_offset, data_count, buflen);
- 		return -EINVAL;
- 	} else if (parm_count + data_count > bcc) {
- 		cifs_dbg(FYI, "parm count and data count larger than SMB\n");
- 		return -EINVAL;
- 	}
+-	if (offsetof(struct smb2_sess_setup_rsp, Buffer) !=
+-			le16_to_cpu(rsp->SecurityBufferOffset)) {
+-		cifs_dbg(VFS, "Invalid security buffer offset %d\n",
+-			le16_to_cpu(rsp->SecurityBufferOffset));
++	u16 boff = le16_to_cpu(rsp->SecurityBufferOffset);
++	u16 blen = le16_to_cpu(rsp->SecurityBufferLength);
 +
-+	*ppparm = buf + parm_offset;
-+	*ppdata = buf + data_offset;
- 	*pdatalen = data_count;
- 	*pparmlen = parm_count;
- 	return 0;
++	if (offsetof(struct smb2_sess_setup_rsp, Buffer) != boff) {
++		cifs_dbg(VFS, "Invalid security buffer offset %d\n", boff);
+ 		rc = -EIO;
+ 		goto out;
+ 	}
+-	rc = decode_ntlmssp_challenge(rsp->Buffer,
+-			le16_to_cpu(rsp->SecurityBufferLength), ses);
++	if ((u32)boff + blen > sess_data->iov[0].iov_len) {
++		cifs_dbg(VFS, "%s: invalid security buffer length: %u\n",
++			 __func__, blen);
++		rc = -EINVAL;
++		goto out;
++	}
++	rc = decode_ntlmssp_challenge(rsp->Buffer, blen, ses);
+ 	if (rc)
+ 		goto out;
+ 
 -- 
 2.53.0
 
