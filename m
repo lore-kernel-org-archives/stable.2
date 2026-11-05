@@ -1,76 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793839438;
-	b=NNZ1IFxFJ+HZGOBOHZuK3VGOOHq6Kp1F/D+LAStxVGuLL1N52K+j2CIrEK1lurYjtizP
-	 SmIYA1UFR0FTQoWduv71iKzFY3Dl/x2L6Fh+hXE7iojyXfwJ2mWpoCxyc2WMswcK1Zekj
-	 e1UfETYLxvEmMNFDwJ3xqt9QNylFIBrzio1N1CLS0RRTqQgPKTfh1lTCjlr3fuHsOiQvu
-	 rPviEWzYjDxK/8JOo2EF4YLVbAYEbkNWV3FOCmRT6Knpnnx6BA79uGNkiHFHu1mA/OZlL
-	 bjUMUeY/6jnl+m0dkWg9r4kXybOVzUisITtMYMYhRkQ27Ku+ymPzRpokEkPBH8ae8jg==
+	t=1793839443;
+	b=Nqn6wL05Rb7gJbgiSC1sJY//JTUrjGN1xVqEQ9vcwckvB3ClY8HUPixYh4U2QJpWRewO
+	 j4X5dp87HpcWmT2Asfljs+gWmw8m2zUrC/Ml8kKCbYR3AqfTua1t5O8048mqEZyHuUAmv
+	 lz2Rgszpu4K42RJZRZ3sQ4o4nUoH6TcLPyFmYf9/OF6kmt63dduR0iIGqNyAqV63awxMz
+	 /lILcZirl4LNVwF9n2o5e8HR9ldmPQ036UnMPGp7yB11+PdDK8hPJ73tXWTzmZyL1dvUj
+	 KPRyXbi+q686DgzJpiqt5uAtRxCqQuJc3pPLn6eLDgpJgf+BTF8hSRwyo7BS0v6gazQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793839438;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793839443;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
 	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
 	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
 	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=op8fE5/kODJq5uwPkW013cLOLSpSEKh3HwrWjMp4c9k=;
-	b=l66NsFMqJeDTrj+XGdK4j/nL0dJRoWPphzzTLJO+OscRYYE5g03IuteI13va7kOcee9r
-	 8ifpVKEBB9Egp/itn4fdwluGIwA6GAipRJzwX1dIrIUMmPD2GbqWGN/cqamuP5g83TQem
-	 ruDxxWDNLcv31ZKJXq3QizY0Olc+ySW9R8UeBe7UmLj07Ud1RgeVIu9kYn+oshFqKpfbw
-	 sHig4matnxMnpfBW3cEEgqKX7QDsiPjfdbOcfLFFmXFCDJEiTTIRWKs0v+UjeJJ2GhEX8
-	 fHs6RnrbiUsVBKgcEsm6uVsD/4909e84ZpdQj/SjUEP2DjPI65OvaWz2xRgNf/Ri1Mw==
+	bh=TRvgzI3qXoA2HIsl7Zv36AwD/K99XeT08hxCxLH0B9A=;
+	b=tSdSmZlVjVqFEsvdkk0c4sO0N4nfJGIBbKEG+PTYSt2a/MzhpFc6RgZPqARQX2nE0UUU
+	 Uz6o7siX+PLHi0ON0PVwMulODzcDQFu8uvFtBBcmFctEB0lAtO7CfT6IlV/8N7WU4ag5b
+	 3Qv+yyu2XqQtvLGql8OXIIir9dOf1XHvdSPMBxoQTPlEytTF91tQcLzoKT25jgkTCMedo
+	 caPYEbMMFz33h/TISLg8hbBptlbgP1o4MYQHsci2mXGTmQDaMvEaNQkSBZDvy/ahXljfD
+	 nrVJyIO6WYUeQ+ekvLE8rvHEDB+lbEvw45tq3ITfrZ4srdnsCM/Ak8dSiCCffp1kF1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=samsung.com;
 	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=t1NBt9kj;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=gEPGYb1k;
 	arc=none smtp.remote-ip=203.254.224.34
 Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBDF5606A337
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:43:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBDF5606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A53F606A32C
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:43:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A53F606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=t1NBt9kj
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=gEPGYb1k
 Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261105004354epoutp04f9a86e6f4b58c513bc921b8f2e46fcfa~k-3YqRQlu0507505075epoutp04C
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261105004354epoutp043ada85cb6d63d7cfed7cfa10e6a55859~k-3YmdKxK0628006280epoutp04B
 	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:43:54 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261105004354epoutp04f9a86e6f4b58c513bc921b8f2e46fcfa~k-3YqRQlu0507505075epoutp04C
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261105004354epoutp043ada85cb6d63d7cfed7cfa10e6a55859~k-3YmdKxK0628006280epoutp04B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
 	s=mail20170921; t=1793839434;
-	bh=op8fE5/kODJq5uwPkW013cLOLSpSEKh3HwrWjMp4c9k=;
+	bh=TRvgzI3qXoA2HIsl7Zv36AwD/K99XeT08hxCxLH0B9A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=t1NBt9kjoGETIBgyoFqpRQ4GMSik8uA0352QcmfA6yhHzS3x/XjK4Ccy0LzlAFY3C
-	 li4Pjr7+t/tMIR07rLGgVGSl/sH9eyRAR+oe4xlXEjIFxq5TKyV6jWCxY/Vyfr9OSv
-	 mdATZI4CS0+RT7ovFIPoQHTVO5L75rfS9HthCoyg=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261105004354epcas2p1d7a3206ac45965d3f8eaa3a7d2fa8240~k-3YND8Zx2090420904epcas2p1I;
-	Thu,  5 Nov 2026 00:43:54 +0000 (GMT)
-Received: from epcas2p1.samsung.com (unknown [182.195.38.204]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4jKk895QTlz2SSKf; Thu,  5 Nov
+	b=gEPGYb1ktlGAv1wBW5AoEU3AJgR69HF/eFfsSWPdvxR6xGNkRMaul/NKZHoZsGIvW
+	 aeD2GinMhCZZAF0MKXB26AyE7ACehry5fETjciwVdMnvtJq+VwGfDT1hnRnV5GX8iB
+	 G45IFo0HOkh9OrWOj2mLDmaSP1g5jVqivEXUf2bo=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
+	20261105004353epcas2p33c41ad53cd488389d79916ef07439117~k-3X813PC1259112591epcas2p3E;
+	Thu,  5 Nov 2026 00:43:53 +0000 (GMT)
+Received: from epcas2p2.samsung.com (unknown [182.195.38.206]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4jKk89329Lz6B9mF; Thu,  5 Nov
 	2026 00:43:53 +0000 (GMT)
 Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd~k-3XSUoji2090420904epcas2p1D;
-	Thu,  5 Nov 2026 00:43:53 +0000 (GMT)
+	epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
+	20261105004352epcas2p307ea40aadb636015545cee6e79470a03~k-3WU95OM2408824088epcas2p3l;
+	Thu,  5 Nov 2026 00:43:52 +0000 (GMT)
 Received: from apsw.samsungds.net (unknown [12.80.211.160]) by
 	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261105004352epsmtip2f4fadb5ac88cdc8a9cf27df9dcca85db~k-3XGTE280751407514epsmtip2t;
-	Thu,  5 Nov 2026 00:43:52 +0000 (GMT)
+	20261105004351epsmtip209a25c3e4e97031d57f7fa4fb718bd32~k-3WOYWCl0761307613epsmtip2S;
+	Thu,  5 Nov 2026 00:43:51 +0000 (GMT)
 From: Kiwoong Kim <kwmad.kim@samsung.com>
 To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
 	alim.akhtar@samsung.com, jejb@linux.ibm.com, martin.petersen@oracle.com,
 	bvanassche@acm.org, kwangwon.min@samsung.com, hy50.seo@samsung.com,
 	cpgs@samsung.com, h10.kim@samsung.com
 Cc: stable@vger.kernel.org, stanleyjhu@google.com, Kiwoong Kim
-	<kwmad.kim@samsung.com>
-Subject: [PATCH v6 2/2] ufs: mcq: poll OCS after sq cleanup for device
- management commands
-Date: Thu,  5 Nov 2026 09:43:33 +0900
-Message-ID: <20261105004333.1097899-3-kwmad.kim@samsung.com>
+	<kwmad.kim@samsung.com>, Bean Huo <beanhuo@micron.com>
+Subject: [PATCH v6 1/2] ufs: core: skip ABORT TASK for device management
+ commands
+Date: Thu,  5 Nov 2026 09:43:32 +0900
+Message-ID: <20261105004333.1097899-2-kwmad.kim@samsung.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261105004333.1097899-1-kwmad.kim@samsung.com>
 X-Mailing-List: stable@vger.kernel.org
@@ -83,7 +83,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd
+X-CMS-MailID: 20261105004352epcas2p307ea40aadb636015545cee6e79470a03
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
 X-Sendblock-Type: AUTO_CONFIDENTIAL
@@ -91,113 +91,55 @@ CMS-TYPE: 102P
 X-CPGSPASS: Y
 cpgsPolicy: CPGSC10-234,Y
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd
+X-CMS-RootMailID: 20261105004352epcas2p307ea40aadb636015545cee6e79470a03
 References: <20261105004333.1097899-1-kwmad.kim@samsung.com>
-	<CGME20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd@epcas2p1.samsung.com>
+	<CGME20261105004352epcas2p307ea40aadb636015545cee6e79470a03@epcas2p3.samsung.com>
 
-Extend ufshcd_mcq_sq_cleanup() to poll the OCS field in the UTRD of a
-device management command after a successful SQ_CUS poll. UFSHCI does not
-specify the order between the OCS update and the SQ_CUS update, so OCS may
-still be stale when cleanup returns. Without this poll, a late response to
-a timed-out query can arrive while a retry is already in flight, leaving
-the host with two query contexts and raising IS.UTPES.
+In MCQ mode, ufshcd_mcq_abort() falls through to ufshcd_try_to_abort_task()
+for all timed-out commands. However, device management commands (query, NOP)
+use reserved requests and are not SCSI I/O commands. The ABORT TASK task
+management function is designed for SCSI I/O UPIUs and is not applicable to
+device management UPIUs.
 
-The poll is limited to device management commands because
-ufshcd_compl_one_cqe() copies the OCS from the CQE into the UTRD only for
-them. For SCSI commands, the OCS in the UTRD stays
-OCS_INVALID_COMMAND_STATUS, so polling it would always time out.
+This is only reachable since device management commands were converted to
+scsi_get_internal_cmd(); before that, a timed-out query was handled by
+ufshcd_wait_for_dev_cmd() -> ufshcd_clear_cmd() and never reached
+ufshcd_try_to_abort_task().
 
-The poll waits until OCS is no longer OCS_INVALID_COMMAND_STATUS or
-MCQ_POLL_US elapses. -ETIMEDOUT is returned only if OCS is still
-OCS_INVALID_COMMAND_STATUS after the poll. Any other value, such as
-OCS_ABORTED reported by the host controller for the cleaned-up request,
-means the cleanup has completed.
+Fix this by checking ufshcd_is_scsi_cmd() in ufshcd_try_to_abort_task(). When
+the request is a reserved (device management) command, skip the TM path and
+call ufshcd_clear_cmd() directly instead.
 
-The OCS is read under hwq->cq_lock. ufshcd_compl_one_cqe() updates the
-OCS under that lock before it sets cmd->result and calls scsi_done().
-Without the lock, cleanup could observe the new OCS and return while the
-completion is still running. The abort could then finish the command and
-a retry could reuse the same reserved request before the pending
-scsi_done() call, which would then complete the retry prematurely.
-
-Here is the timeline of an actual case for this that happened with kernel 6.18.
-1. The host sent a query but the device didn't respond with it for a long time.
-
-[ 7384.156142] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_mcq_sq_cleanup, hwq 0: cleanup return code (RTC) 0
-[ 7384.156154] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
-
-2. So after the query was timed out, the driver did SQ cleanup.
-Then the host updated CQ update and raised IS.CQES,
-Unfortunately, complete() was called the driver's ISR afterward.
-
-3. The driver started to retried the query. In the meantime, it set OCS to 0xF.
-Then the driver didn't wait for completion due to the previous complete() call,
-and just checked OCS.
-
-[ 7384.156163] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = 15
-
-4. The driver retried the query again, but the device didn't return anything,
-so the query was also timed-out.
-
-[ 7385.660108] [3:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
-
-5. A few seconds later, the device returned the response of the 1st query,
-but since the host was holding two query contexts and couldn't handle it,
-it raised IS.UTPES.
-
-Fixes: 8d7290348992 ("scsi: ufs: mcq: Add supporting functions for MCQ abort")
+Fixes: 08b12cda6c44 ("scsi: ufs: core: Switch to scsi_get_internal_cmd()")
 Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Reported-by: Bart Van Assche <bvanassche@acm.org>
 ---
- drivers/ufs/core/ufs-mcq.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ drivers/ufs/core/ufshcd.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/ufs/core/ufs-mcq.c b/drivers/ufs/core/ufs-mcq.c
-index 8106d55f4041..44214616d9db 100644
---- a/drivers/ufs/core/ufs-mcq.c
-+++ b/drivers/ufs/core/ufs-mcq.c
-@@ -550,6 +550,18 @@ static int ufshcd_mcq_sq_start(struct ufs_hba *hba, struct ufs_hw_queue *hwq)
- 	return err;
- }
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index bcc2512bf34b..7fc80926eeec 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -8046,6 +8046,9 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
  
-+/*
-+ * ufshcd_compl_one_cqe() updates the OCS under cq_lock before calling
-+ * scsi_done(). Holding cq_lock here makes sure that the completion has
-+ * finished once the updated OCS is observed.
-+ */
-+static enum utp_ocs ufshcd_mcq_read_ocs(struct ufs_hw_queue *hwq,
-+					struct ufshcd_lrb *lrbp)
-+{
-+	guard(spinlock_irqsave)(&hwq->cq_lock);
-+	return READ_ONCE(lrbp->utr_descriptor_ptr->header.ocs);
-+}
-+
- /**
-  * ufshcd_mcq_sq_cleanup - Clean up submission queue resources
-  * associated with the pending command.
-@@ -609,6 +621,23 @@ int ufshcd_mcq_sq_cleanup(struct ufs_hba *hba, int task_tag)
- 			 __func__, id,
- 			 FIELD_GET(SQ_ICU_ERR_CODE_MASK, readl(reg)));
+ 	lrbp = scsi_cmd_priv(cmd);
  
-+	/*
-+	 * For device management commands, there is no order guaranteed between
-+	 * OCS update and CUS update, which is why we need to wait here. SCSI
-+	 * commands are excluded because the OCS in their UTRD is not updated
-+	 * from the CQE.
-+	 */
-+	if (!err && blk_mq_is_reserved_rq(rq)) {
-+		enum utp_ocs ocs;
++	if (!ufshcd_is_scsi_cmd(cmd))
++		goto clear_cmd;
 +
-+		err = read_poll_timeout(ufshcd_mcq_read_ocs, ocs,
-+					ocs != OCS_INVALID_COMMAND_STATUS, 20,
-+					MCQ_POLL_US, false, hwq, lrbp);
-+		if (err)
-+			dev_err(hba->dev, "%s: OCS not updated. hwq=%d, tag=%d err=%d\n",
-+				__func__, id, task_tag, err);
-+	}
-+
- 	if (ufshcd_mcq_sq_start(hba, hwq))
- 		err = -ETIMEDOUT;
+ 	for (poll_cnt = 100; poll_cnt; poll_cnt--) {
+ 		err = ufshcd_issue_tm_cmd(hba, lrbp->lun, tag, UFS_QUERY_TASK,
+ 					  &resp);
+@@ -8091,6 +8094,7 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
+ 		return err;
+ 	}
  
++clear_cmd:
+ 	err = ufshcd_clear_cmd(hba, tag);
+ 	if (err)
+ 		dev_err(hba->dev, "%s: Failed clearing cmd at tag %d, err %d\n",
 -- 
 2.43.0
 
