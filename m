@@ -1,78 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793847451;
-	b=bJolhl6SIUsscwjIhh972XKouj9SA+pxZL+Z5ZPHhcl/YcQKXfdvoErA6jxAR3JK8eSF
-	 52SHO/iTpf1ocbqvpKW+Sw2JcnAtt6+v9qrDHi0CM61aOIPNlI7LjQl25uJ1fOo+o/Yqc
-	 CnfuGM9qmnl+DnZzi7IzoA+1LfFP5subXxRXXffKDs4Wj6QD/r8qmCJjunvjZMpBdydSM
-	 eiUlYey5ndEflVhABwCF+ZtWsuplrmTfcOhvrKCztr5YLrRjCuA3tIDLFS5fxwjbLOAj3
-	 IX9T7uQ6qaJiF+AjO1Oh+Fh9/W/2xJ6aKd3PBikFUGh7aHj1jTCsvaEhkQZpLJA4U8A==
+	t=1793847709;
+	b=o7MwprFzeCIKhLkc3E3tN9ZEPlY3SEVHVXrATU5HJU9Ks+mZmMPLQfVfQrWbs7iYiTSa
+	 FxLh+eMmJTH67gQ4jb5nYVuDsp2UnZX8HWcaMgVVrnJ3Q2QXzVjgD7CTBcq/ZodE2rYmr
+	 8TyjvksKnYYF1ivJ6JZUFzr5tihYQJwH+Aqzp0Kcpjug1BIJsaUu9dv3wch+Zi0CYrrBk
+	 awfFOHHffI/3fAzNANSCsvSmpEVDuU2CIwrAj883+YbnRveHfZDxqcYkMgq3SLOH4wRfF
+	 2Nrf/KqdlqR61VSlvQ0Qcrlz3BZrHrF9IxjjtPGfZoc9Add/dD9VH/KZ0255ws5aIVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793847451;
-	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yQF0ffGJFOq7JhhFUuyQIQNgwNgKhrnm79lPGkhe6es=;
-	b=trYDa+4OEW4kpqg6QLQZALw7Mx5JB64WvGIhUobphgNUjmx8gAF+JXr9zwxBT5fyZoO/
-	 gJoXXWSzS23dQc3/3EdOzpj63yERDV9dtAu3loXFkWPYtrKwklvK7pXv3FpyC+gkVsCDI
-	 hg3GvAmXt2wIOIIQZIz0TtiZdaC9u9E6BJt4AGoV+D/4O3Ht8+Wfw1CKLmn9oRk2lqOCR
-	 LOibLQf4l8EKy1+GWpnYjs5nmxThRS0O+xamJEgoO/OC8983zuoA0WDNPMemKRkFwocoI
-	 lHzXSqMSCJcRdhlGPBiH/27sgc/kZKrGboyu3hCZOzQF5dmSdkK5yoLQ0tVuXYgQV6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793847709;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ICbvw2AApviPM+bfuJROgVnpi9GztUWeMB32OclrH5A=;
+	b=zmnwUdvEkotFVVIJe8VERns5+5dMDWpmREdr6yOG8HXtgQlw0g6vLkbowHCqbRXW9+3Y
+	 TAUastFPzezB65rndli+G8wWqUJAUdu8srCCX5ugs24kptD+2CpqbSewYMzpDHQrS0n03
+	 RFQaS2/I0tTdEuL0h4atubljqB17Vbc5QuuuZQHIxbv8dyDr1VqI4ycqnOt3jYw4ZET0y
+	 aS7IJJcxaJhHJXS4GVfRJ2KORT/iESTeQtEJoM9s+HZCUawBNzOrWWCrrlvqpBQ4s6tMO
+	 BbjYC+pvHCLfL/3fXZPvb1b8l8YMKExxn8tdujNivXwVJfs/XvAeiIdOI6YJDX6a96A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=urTc34L1;
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V5PCUxzK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB06F606A336;
-	Thu,  5 Nov 2026 02:57:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB06F606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE64606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 03:01:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=urTc34L1
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 8F70B41A47;
-	Thu,  5 Nov 2026 13:57:22 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1793847442;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yQF0ffGJFOq7JhhFUuyQIQNgwNgKhrnm79lPGkhe6es=;
-	b=urTc34L1zMpApIctSqltdLU1vOzti9r/5DvCPv0LiXEuqj7pGgMTCY8Mi3XYGDX+Py1daL
-	n6PLxKLEEKxpU2NIgf7Y6stIxttCHne7kfPhGHMA4sPUbKL0qF/TzpuGKI4JfQTRVXnN9p
-	8lOHRhojk1MlOEMirdIuUiLrk4vBmQC9tTajsWJOVGkXimhQXMkqjhvXPrO0JpyhIG+0tG
-	JUoBOWvPUiir3PyktA9kkWClfpFaYNT6j9nH4Jv/kaSO9geLW93wf9ktV7hsU73poN4L/z
-	wmJnNf7N4g6E9tyWPp7Wi8Zxpr+RWyJDanMNboaDe8nVLlch3VIj9A5XgL0/Dg==
-X-GPT-Reason: legitimate; the email is a technical kernel patch
-	submission (linux kernel style) that aligns perfectly with the
-	personal mailbox of alastair@d-silva.org; the From domain (d-silva.org)
-	matches the recipient's domain; the content is highly specific
-	technical documentation regarding "rtw88" wifi drivers and "sdio" interrupt
-	handling without any marketing, phishing, or urgency tactics; authentication
-	is implicitly supported by the consistent use of the sender's
-	personal domain across the From and Signed-off-by headers.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: linux-wireless@vger.kernel.org,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	Kalle Valo <kvalo@kernel.org>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>,
-	stable@vger.kernel.org
-Subject: [PATCH rtw-next v8 3/4] wifi: rtw88: sdio: Fix unhandled RX request interrupt storm
-Date: Thu,  5 Nov 2026 13:56:59 +1100
-Message-ID: <20261105025700.1655219-4-alastair@d-silva.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V5PCUxzK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23B831F000C1;
+	Thu,  5 Nov 2026 03:01:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793847708;
+	bh=ICbvw2AApviPM+bfuJROgVnpi9GztUWeMB32OclrH5A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=V5PCUxzKMOMor3cnB8mzp5ICK08P389xuhdFCI40+Me1hIfSpynYxVyqO97sZrjVL
+	 XhtMCa9wzbrhpfmOoNUH0ao3NQ8svm3+bYL14k1jDTfiJC4yDSMPnfdM6bd1CTqfCy
+	 1dHNRA0w/EySyjKrDhHI2KA8o8h0INwho00jjvsHJfM7i5nuqbg1IkQ3FIlh2lv2LD
+	 AYBLYjc9xwDiJMPZmIq8c110iBYq+g6tU0f+PEC+w6CXvt+PT+rxEcm6/mrWNOtE47
+	 CuaLtR3h71nF0qPuytr2Ezu/fxA9PAHQxfO1O93uYIl5nRWz1UmrzZRBB4fPFIy6YC
+	 JfP+0UvGI0lTw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Diego Oliva <diego@bynar.io>,
+	David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] smb: client: fix OOB last_entry pointer from unbounded LastNameOffset
+Date: Wed,  4 Nov 2026 22:01:46 -0500
+Message-ID: <20261105030125.1233282-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105025700.1655219-1-alastair@d-silva.org>
-References: <20261105025700.1655219-1-alastair@d-silva.org>
+In-Reply-To: <2026110406-relatable-lilly-bbff@gregkh>
+References: <2026110406-relatable-lilly-bbff@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,129 +62,167 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 3081-based SDIO chips (observed on RTL8821CS; RTL8822BS and RTL8822CS
-are inferred to be affected as they share the 3081 architecture), clearing
-REG_SDIO_HISR_RX_REQUEST requires both a software W1C acknowledge and an
-empty RX FIFO. Masking this bit out before writing back to HISR prevents
-the software acknowledge from happening, leaving the bit asserted even
-after the FIFO is drained and causing an infinite interrupt storm loop
-that locks up the system.
+From: Diego Oliva <diego@bynar.io>
 
-8051-based chips instead clear this bit in hardware once the RX buffer is
-empty without a W1C writeback, and software must not clear it.
+[ Upstream commit 570c783a96f054dd3ac409a92772e9afb705d21c ]
 
-Split rtw_sdio_handle_interrupt() into separate 8051 and 3081 handlers.
-For 3081, disable interrupts via HIMR, acknowledge all pending status
-bits via W1C writeback (preserving the existing full status word
-writeback used on non-RTL8723BS chips, now including
-REG_SDIO_HISR_RX_REQUEST), service pending events, and re-enable
-interrupts under irq_lock if still running.
+CIFSFindFirst() and CIFSFindNext() locate the last entry of a
+TRANS2_FIND_FIRST2 or TRANS2_FIND_NEXT2 response by adding the
+LastNameOffset of the response parameters to the start of the data
+area, and store the result in psrch_inf->last_entry. MS-CIFS 2.2.6.2.2
+defines that offset as the offset of the entry's file name; the client
+follows the reading of NT and Samba servers, which point it at the
+entry. LastNameOffset is only checked against CIFSMaxBufSize, which
+says nothing about the response actually received: validate_t2() lets
+the data area start up to 1024 bytes into the buffer, and SendReceive()
+copies at most CIFSMaxBufSize + MAX_CIFS_HDR_SIZE bytes of a response,
+16468 by default, into a cifs_request allocation of CIFSMaxBufSize +
+MAX_SMB2_HDR_SIZE bytes, 16588 by default. The pointer itself can
+therefore be placed anywhere from the end of the received data to 820
+bytes past the end of the allocation.
 
-If unread packets remain in the FIFO when interrupts are re-enabled (or
-if new packets arrived), REG_SDIO_HISR_RX_REQUEST remains asserted and
-re-triggers the IRQ line. For 8051 chips, preserve the existing behavior.
+The read through that pointer is far larger than its displacement.
+find_cifs_entry() hands last_entry to cifs_save_resume_key() after every
+FindNext and after the FindFirst of a search rewind, and
+cifs_fill_dirent() takes the length of the name from the entry itself: a
+__le32 FileNameLength for most levels, a __u8 for
+SMB_FIND_FILE_INFO_STANDARD, and for SMB_FIND_FILE_UNIX the result of a
+scan for the terminating NUL over up to PATH_MAX + 1 UTF-16 units. The
+name is recorded as the resume name of the search, and the next
+CIFSFindNext() rejects only a recorded length of PATH_MAX or more before
+copying the name into the ResumeFileName of its request and sending it
+with the resume key taken from the same entry: up to 4 KiB of memory
+from past the end of the allocation leaks to the server, and for
+SMB_FIND_FILE_UNIX the NUL scan runs about twice as far before the
+length is even known. The entry does not have to lie outside the
+response for that either: a maximal response ends about 120 bytes before
+the end of the allocation, so an entry in its last bytes with a name
+just under PATH_MAX has nearly all of that name copied from past the
+allocation.
 
-Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
+It needs nothing unusual from the client: a FindNext response that
+reports no entries and does not end the search makes find_cifs_entry()
+send the next FindNext at once, carrying whatever was parsed at
+LastNameOffset, and a search rewind can do the same after its
+FindFirst. SMB1 is not negotiated by default: this takes a malicious
+or compromised server, a mount of it with an explicit vers=1.0, which
+CONFIG_CIFS_ALLOW_INSECURE_LEGACY (default y) permits, and a directory
+listing on that mount.
+
+With KASAN enabled, a response that places the last entry past the
+buffer, with a large DataOffset and a LastNameOffset near the end of
+its range, gives:
+
+ ==================================================================
+ BUG: KASAN: slab-out-of-bounds in cifs_save_resume_key.isra.0+0x7aa/0x7f0
+ Read of size 4 at addr ffff88807b55c33b by task ls/83
+
+ CPU: 1 UID: 0 PID: 83 Comm: ls Not tainted 7.3.0-rc4-00457-gf14572c203d5 #69 PREEMPT(lazy)
+ Call Trace:
+  <TASK>
+  kasan_report+0xdf/0x1a0
+  cifs_save_resume_key.isra.0+0x7aa/0x7f0
+  cifs_readdir+0x1ed6/0x29c0
+  iterate_dir+0x1c0/0x570
+  __x64_sys_getdents64+0x133/0x270
+  do_syscall_64+0x109/0x5d0
+  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  </TASK>
+
+ Allocated by task 83 on cpu 0 at 19.317556s:
+  cifs_buf_get+0x36/0x90
+  smb_init+0x4f/0x110
+  CIFSFindNext+0xf7/0x14c0
+  cifs_readdir+0xf51/0x29c0
+
+ The buggy address belongs to the object at ffff88807b558000
+  which belongs to the cache cifs_request of size 16588
+ The buggy address is located 623 bytes to the right of
+  allocated 16588-byte region [ffff88807b558000, ffff88807b55c0cc)
+ ==================================================================
+
+The four bytes read there are the FileNameLength of the entry, which
+cifs_fill_dirent() takes before anything checks where the entry lies.
+
+Ignore the last entry when it does not start inside the received
+response or the response holds no entries; for a response without
+entries, last_entry pointed into or past its empty data area and
+cifs_save_resume_key() parsed whatever the buffer held there. The
+entry is bounded by the response that was received, which is what the
+buffer holds, rather than by the data area the response declares,
+which a later patch checks against the received length. Record the
+search handle before the last entry is examined, since a response
+without a usable last entry still carries the handle that the search
+is continued and closed with; leaving the assignment in the else
+branch would drop the handle of every response without entries.
+
+This bounds where the last entry starts, not how far it is parsed: an
+entry that starts within the final bytes of the response still has
+its fixed part read past the end of the received data and its name,
+up to 4095 bytes, copied from past the end of the allocation, until
+the following patch bounds the parse itself. A response without a
+usable last entry continues the search with an empty resume name,
+since the preceding patch, "smb: client: fix use-after-free infoleak
+via the readdir resume name", drops the recorded name whenever a new
+response is installed. This patch applies on top of that one and
+relies on it: without it, every response rejected here would leave
+the previous name in place, pointing into a buffer that has been
+released.
+
+A conforming server is not affected: the last entry lies inside the
+data area of the response.
+
+Fixes: 0752f1522a91 ("[CIFS] make sure we have the right resume info before calling CIFSFindNext")
+Fixes: b77d753c413e ("[CIFS] Check that last search entry resume key is valid")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+Assisted-by: Bynario AI
+Signed-off-by: Diego Oliva <diego@bynar.io>
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/realtek/rtw88/sdio.c | 73 ++++++++++++++++++-----
- 1 file changed, 57 insertions(+), 16 deletions(-)
+Depends on <20261104194436.333741-1-sashal@kernel.org>
 
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index e318fefe5b5e7..eb1b60a517fb4 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -1499,6 +1499,58 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- 	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
- }
- 
-+static void rtw_sdio_handle_interrupt_8051(struct rtw_dev *rtwdev, u32 hisr)
-+{
-+	if (hisr & REG_SDIO_HISR_TXERR)
-+		rtw_sdio_tx_err_isr(rtwdev);
-+	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
-+		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
-+		rtw_sdio_rx_isr(rtwdev);
-+	}
-+
-+	/*
-+	 * RTL8723BS keeps raising the interrupt after resume if undefined
-+	 * status bits are written back, so acknowledge only the bits this
-+	 * driver defines. Other chips keep the existing behaviour.
-+	 */
-+	if (rtw_is_8723bs(rtwdev))
-+		hisr &= RTW_SDIO_HISR_CLEAR_MASK;
-+
-+	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
-+}
-+
-+static void rtw_sdio_handle_interrupt_3081(struct rtw_dev *rtwdev, u32 hisr)
-+{
-+	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+
-+	rtw_sdio_disable_interrupt(rtwdev);
-+
-+	/*
-+	 * Acknowledge all pending status bits via W1C writeback. Unlike 8051,
-+	 * 3081 requires REG_SDIO_HISR_RX_REQUEST to be explicitly cleared by
-+	 * software.
-+	 */
-+	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
-+
-+	if (hisr & REG_SDIO_HISR_TXERR)
-+		rtw_sdio_tx_err_isr(rtwdev);
-+	if (hisr & REG_SDIO_HISR_RX_REQUEST)
-+		rtw_sdio_rx_isr(rtwdev);
-+
-+	/*
-+	 * Unmasking HIMR re-asserts the IRQ line if new packets arrived or if
-+	 * unread data remains in the RX FIFO (e.g. if the 64KB budget was
-+	 * reached or an RX error occurred). On 3081 hardware, clearing
-+	 * REG_SDIO_HISR_RX_REQUEST requires both the W1C writeback above and
-+	 * an empty RX FIFO, so the bit remains asserted as long as unread
-+	 * data is in the buffer and re-triggers the interrupt when unmasked.
-+	 */
-+	scoped_guard(mutex, &rtwsdio->irq_lock) {
-+		if (rtwsdio->running)
-+			rtw_sdio_enable_interrupt(rtwdev);
-+	}
-+}
-+
- static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
- {
- 	struct ieee80211_hw *hw = sdio_get_drvdata(sdio_func);
-@@ -1517,24 +1569,13 @@ static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
- 	rtwsdio->irq_thread = current;
- 
- 	hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
--
--	if (hisr & REG_SDIO_HISR_TXERR)
--		rtw_sdio_tx_err_isr(rtwdev);
--	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
--		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
--		rtw_sdio_rx_isr(rtwdev);
-+	if (hisr) {
-+		if (rtw_chip_wcpu_8051(rtwdev))
-+			rtw_sdio_handle_interrupt_8051(rtwdev, hisr);
-+		else
-+			rtw_sdio_handle_interrupt_3081(rtwdev, hisr);
+ fs/cifs/cifssmb.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/fs/cifs/cifssmb.c b/fs/cifs/cifssmb.c
+index 6dc0b1793cbc7..685fdf7ecd070 100644
+--- a/fs/cifs/cifssmb.c
++++ b/fs/cifs/cifssmb.c
+@@ -4468,14 +4468,17 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
+ 	psrch_inf->presume_name = NULL;
+ 	psrch_inf->resume_name_len = 0;
+ 	psrch_inf->resume_key = 0;
++	if (pnetfid)
++		*pnetfid = parms->SearchHandle;
+ 	lnoff = le16_to_cpu(parms->LastNameOffset);
+-	if (CIFSMaxBufSize < lnoff) {
++	if (!psrch_inf->entries_in_buffer) {
++		psrch_inf->last_entry = NULL;
++	} else if (psrch_inf->srch_entries_start + lnoff >=
++		   psrch_inf->ntwrk_buf_start + bytes_returned) {
+ 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
+ 		psrch_inf->last_entry = NULL;
+ 	} else {
+ 		psrch_inf->last_entry = psrch_inf->srch_entries_start + lnoff;
+-		if (pnetfid)
+-			*pnetfid = parms->SearchHandle;
  	}
- 
--	/*
--	 * RTL8723BS keeps raising the interrupt after resume if undefined
--	 * status bits are written back, so acknowledge only the bits this
--	 * driver defines. Other chips keep the existing behaviour.
--	 */
--	if (rtw_is_8723bs(rtwdev))
--		hisr &= RTW_SDIO_HISR_CLEAR_MASK;
--
--	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
--
- 	rtwsdio->irq_thread = NULL;
+ 	return 0;
  }
- 
+@@ -4593,7 +4596,10 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
+ 	psrch_inf->resume_name_len = 0;
+ 	psrch_inf->resume_key = 0;
+ 	lnoff = le16_to_cpu(parms->LastNameOffset);
+-	if (CIFSMaxBufSize < lnoff) {
++	if (!psrch_inf->entries_in_buffer) {
++		psrch_inf->last_entry = NULL;
++	} else if (psrch_inf->srch_entries_start + lnoff >=
++		   psrch_inf->ntwrk_buf_start + bytes_returned) {
+ 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
+ 		psrch_inf->last_entry = NULL;
+ 	} else {
 -- 
 2.53.0
 
