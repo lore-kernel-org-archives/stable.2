@@ -1,79 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.68.102
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793862272;
-	b=a7rbKYhXyKArnaslqNUm5Uy54VYLSL//D//HPqAuIld0BMqUrmuceTht3zm8egXXD1Fk
-	 2q/png5qco5t3nIfNmAk7r1Q8P37JXz2L0Cf227r8D5ZDeE2jtbgSaJ846vi7z41KyZR0
-	 7/4Dcq3OX8uHL0KxB/e56ixEiuHf+9/MhrzfbUFRB9madWVEvlL7Pa1vopT+oh3TFwyha
-	 XS7+UGHaIUrpmxcWCSml3LGpc5KBdthIRpvpiZWWuEQQTr7Q2GhVqG5/Lsfw6xZQMka61
-	 JARcekU4KnDO8XgakN3K3IRSvEBqRSG9q81ZAjIaq64YDluT84oYyDjTpp6lnh2DYcQ==
+	t=1793862283;
+	b=YcAIM5ReTcNUU5QIAMIfWZ0fRyfOBzTrp3KBSAvoXqD8Mm0oEeuYTWdbiEPqlGg3Pw7j
+	 mYtOIjiEwalhTl96+dWE9eG/Sz+TZ/g6hRQtpU6wbuCV2qwxQXXv6HUqe496d2TQeJhji
+	 2ZkahYhjLtRm6xP6IQv2kinhOoBsHsmXhmiZQwCl1uZXBJmr/AVCVmp8Gb4WZ1rWxc9Vo
+	 pGmdI8m2NjuulI736K7/+Ah2gkrVWUEPl3SKfz7lV5zySZKPzvgdP+Bzrbzx6TNPBCthU
+	 /Im6Rth1GX99kYqWFhzyiszaANKnymN9zAolGw1u/rpa5WGoNfrKY+A85WbIi6lUq6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793862272;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793862283;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
 	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=LUkLYCAQG8uZ5fDEy/ZrjWX6jHEgJ9R2DqBFxbgN3OM=;
-	b=zLKWMRw5i//YK2nDHsofd6QoGfYPEIv079Alqvnos3DJU4jNOrD7T5YNBFDx4aYb0S6d
-	 5ATV7YeerwYO837fpKrXcfNMku4kzax3GXtBkREMyLBJwjEMPQ4JHpyr9mX0dlXJMX9q+
-	 j5E02ry1hCF9La2acsMzDOLaHOOedEQ9F31+WREBjZyzbRRhm0Wmn/v50MQGAEsZ2Z3xE
-	 fhZjyELWkcsiVY627JCci+xlAX9ea0yRJYz96FP/Ura97xoY7mJsDveMcZsxSoFMnqLj2
-	 sSUMdu7NzdekjNZmivVByDDrNVqfGjQOYoe+6iYQRgk0YsI0k4dHEocaSItcRGnq0XQ==
+	bh=0LYlvKnBuyOgTFhE6ZXvSHnkMEzStXd16IsR93SDLcc=;
+	b=2kZbPKHhU0x4MNGDSw2KkBWm0fht+OkKmvM5B9XE4niFs6HZdOkaXzsU19GbDFlawjex
+	 hauF38DRB3VxsMoAHi/DTKvfD37rI580yY8NDPTr6CmnOfXQjc/oDrpcvcHvEIiaNGEdC
+	 MJx3oCfllsAxfAY/feg+yw/5cy6a5hEF1Lu7D8yWiaVfNOs9IVj01x9or1Q6KN+XAlQKd
+	 ZrIHI3u5C7uWtJbf1DwxL1iKCyXkau4iyxglzCQ8dtbIJpdWjggIv1wE9DBuSoDRUWBuV
+	 hDwPRpxBNP+r9dBgs9pzqj5hDwE9fbB0PJ0RkqRkk3IqgnavCmX7GkiUShVqE6sEy6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amazon.com;
 	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=NmQGSaCC;
-	arc=none smtp.remote-ip=52.34.181.151
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=HmmHm7Js;
+	arc=none smtp.remote-ip=44.246.68.102
+Received: from pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.68.102])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CDB606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 07:04:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43CDB606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EAB1606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 07:04:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EAB1606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=NmQGSaCC
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=HmmHm7Js
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1793862272; x=1825398272;
+  t=1793862283; x=1825398283;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=LUkLYCAQG8uZ5fDEy/ZrjWX6jHEgJ9R2DqBFxbgN3OM=;
-  b=NmQGSaCCskyDyxE92OdaZEOV/ZlvV991n447Fi/L2t0mqectykLG7oYz
-   fScSwx1W4lplG/Yi3eMNfRKI5iY6M/I8Y1M/RRMvnaVN4VG/rwPNwzaWy
-   dr4L9ZKuMUXyWTNSBMm1wJlNYM2Xx7110f1uUAqI/dg3J67p67r6/TasV
-   fWiGnypd92QZB7CwDvCyGX2ftkBkX+AD9zsspAtT/3u5p6Gco8UDKb5O6
-   2Y+oJFpQhMeR4sJky2IcMeQ7mgv1Z/Iw9wauuaqr67UZWYVeOXEJDzDXv
-   /bE4tAsBCu30VAaW+FnvyIwOMnTvlo5s8h1qHRsA5KqvTBBmKvVltpopO
+  bh=0LYlvKnBuyOgTFhE6ZXvSHnkMEzStXd16IsR93SDLcc=;
+  b=HmmHm7Jsxfm151C6pvP7HY7twZtLTmD3foJcMbrr/3LVH152MbYalNCn
+   1qusji0mk5GUmu4v2A202pSf/n7lNSlso3gKk6MP1fmaQpvPNXsByt7SL
+   sv/SZlVr0A0z3Tz7HXjKi3mLYNnCGhHrwd8JorAqZIr8oJxvdzDV6NqId
+   O2PNSHdHzrY3yqAkw1m5WbgE01gRXoboZjK4voiFhgfLXd1tm60UZM83l
+   OidiUGGvdWBXQBEwtspkYaCMwG/jqenIovX0kI37UIr+Ec1fxoU+fcUce
+   tLtxkBJNo8ANEiy0HaScXehv4SAi04YsuuAivhLFDJHNvMd5aYPC59Hnq
    g==;
-X-CSE-ConnectionGUID: vrDY9AL7QE6n6IHFzeQHIA==
-X-CSE-MsgGUID: ow7+GQKLSr667QbihRJPMA==
+X-CSE-ConnectionGUID: LpbQ2qwrT/6iqIU4KMf9vw==
+X-CSE-MsgGUID: E0dwvs0oQwitmljC1IpvKA==
 X-IronPort-AV: E=Sophos;i="6.27,196,1787011200"; 
-   d="scan'208";a="33157905"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 07:04:31 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:23713]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.15.208:2525] with esmtp (Farcaster)
- id 97f8a510-eb14-487f-a6b5-da15ebf78121; Thu, 5 Nov 2026 07:04:31 +0000 (UTC)
-X-Farcaster-Flow-ID: 97f8a510-eb14-487f-a6b5-da15ebf78121
+   d="scan'208";a="33083042"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 07:04:42 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:12999]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.44.80:2525] with esmtp (Farcaster)
+ id 8a7e2f0f-1081-470b-bd38-44d3ccc99dc6; Thu, 5 Nov 2026 07:04:42 +0000 (UTC)
+X-Farcaster-Flow-ID: 8a7e2f0f-1081-470b-bd38-44d3ccc99dc6
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 5 Nov 2026 07:04:31 +0000
+ Thu, 5 Nov 2026 07:04:42 +0000
 Received: from dev-dsk-mkbund-2b-9ea2efba.us-west-2.amazon.com (10.2.100.138)
  by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 5 Nov 2026 07:04:30 +0000
+ Thu, 5 Nov 2026 07:04:42 +0000
 From: Mark Bundschuh <mkbund@amazon.com>
 To: <stable@vger.kernel.org>
 CC: <linux-mm@kvack.org>, <david@kernel.org>, yangge <yangge1116@126.com>,
 	Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <21cnbao@gmail.com>,
 	David Hildenbrand <david@redhat.com>, SeongJae Park <sj@kernel.org>, "Andrew
  Morton" <akpm@linux-foundation.org>, Mark Bundschuh <mkbund@amazon.com>
-Subject: [PATCH 6.1] mm: replace free hugepage folios after migration
-Date: Thu, 5 Nov 2026 07:03:46 +0000
-Message-ID: <20261105070346.3099207-1-mkbund@amazon.com>
+Subject: [PATCH 6.6] mm: replace free hugepage folios after migration
+Date: Thu, 5 Nov 2026 07:04:31 +0000
+Message-ID: <20261105070431.3100950-1-mkbund@amazon.com>
 X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -145,7 +145,7 @@ Cc: Barry Song <21cnbao@gmail.com>
 Cc: David Hildenbrand <david@redhat.com>
 Cc: SeongJae Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ 6.1: Take only the dequeue_huge_page_node_exact() hunk, so memory
+[ 6.6: Take only the dequeue_hugetlb_folio_node_exact() hunk, so memory
   offline stops migrating huge pages back into the isolated range. ]
 Signed-off-by: Mark Bundschuh <mkbund@amazon.com>
 ---
@@ -159,10 +159,10 @@ was still migrating after 60 s. With this patch on 5.10 it completes in
  1 file changed, 4 insertions(+)
 
 diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index f549adc0b670..d39cd5c582c8 100644
+index 8bfaaa84bb3f..8c1a032a6f53 100644
 --- a/mm/hugetlb.c
 +++ b/mm/hugetlb.c
-@@ -46,6 +46,7 @@
+@@ -47,6 +47,7 @@
  #include <linux/page_owner.h>
  #include "internal.h"
  #include "hugetlb_vmemmap.h"
@@ -170,16 +170,16 @@ index f549adc0b670..d39cd5c582c8 100644
  
  int hugetlb_max_hstate __read_mostly;
  unsigned int default_hstate_idx;
-@@ -1343,6 +1344,9 @@ static struct page *dequeue_huge_page_node_exact(struct hstate *h, int nid)
- 		if (PageHWPoison(page))
+@@ -1344,6 +1345,9 @@ static struct folio *dequeue_hugetlb_folio_node_exact(struct hstate *h,
+ 		if (folio_test_hwpoison(folio))
  			continue;
  
-+		if (is_migrate_isolate_page(page))
++		if (is_migrate_isolate_page(&folio->page))
 +			continue;
 +
- 		list_move(&page->lru, &h->hugepage_activelist);
- 		set_page_refcounted(page);
- 		ClearHPageFreed(page);
+ 		list_move(&folio->lru, &h->hugepage_activelist);
+ 		folio_ref_unfreeze(folio, 1);
+ 		folio_clear_hugetlb_freed(folio);
 -- 
 2.50.1
 
