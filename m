@@ -1,100 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793854523;
-	b=iR6peoTU+YUk8gjEMaeGaXeHhzxyx7oHpjmAAKcRKjeVLObF0dK2Wpan3HBsXcf94iYa
-	 UMyorjQoa97/NZU8QyXbHOL+XoXDyV4oojDbgoksRO6vaj8uZXQ33EoC3cucbg42wIGYY
-	 8R83pbMCrgY1uMJy2LUqA2imk9uL1bwjUrBCfGqvmYve3FsVjxWsY3ZQA0MvTzgNZ7xgt
-	 yowMe2VfzQRF3W0EBXkCs0L/5Aa5zHvbPoOiYsiz2mjsRD9xtpWaTGY/BjLsF3vZyo3O3
-	 Gy2pPhei7xxcSzifjZOFONyI6RBrqMbOCwq6sUOUOoAL5EgJPui69CGR2MJpam0MLbw==
+	t=1793854866;
+	b=GjgcCGylzFMoyH2xwMYdgiRd4kvmh+rwkA2C1lNXN6jLTZJlR4F3r/2h1lTg2wq/kydc
+	 GJBje261l8YUu8olBhjKBkZqJ+Sae698r8EYf7h06MAjDRIBXMxIUGKntkWshW2aJ6J30
+	 YeXs9rZXss2wP+LNwrI+WUIckTUFJp3CJEjbiVIYC0S525mBUxaVlKX9wW189usK3vdMl
+	 lO78JcDOD0xNslRYs5ZEX/x35GObygQRC28kU3Yw2G9H7vH8XSfucFGk1It3JL2FIPAyn
+	 hecNyYgqYelDcOsHaAbqMEu74tSvTAKtMZEnxGmchlsP4x5qTEDjGbL+8e+yUBBY0jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793854523;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=0K/OpJSJDyeiHFgRi2dD4j6fShhHweBIMHEcvs+4Jvc=;
-	b=ZMHhkVtQfHk3P9s4b8qqqnmdT8VtU/Ba2IYvAdbFQsFSBSpNO5uRMEANHBL9I2ibPfdI
-	 cwExqY2t6MQu7+FwDd/dyH1mEvphixe1y0oBgBtFEsc+I5ToQwVvJ6Gi/hCjVnnZzqRC4
-	 BTY07O3iC3zLvPIh/NYM3UzVsttx+vgNbW0DkFJvMjQbnblcSFgfV11qP1eeFoeZXIFcV
-	 mv9lxtodnuB910VeDSrsDB58aCV6IkpiaL8eBJ+MF41i4bG3qohfm1oqXmGu60Jcrh6Pp
-	 uxB4aJql7IBKYrgDGmBQJ3+8rQJ+uqW0GEMHJCRfXpAZ86J/Ime/bZjdFrrf+9FO4FQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793854866;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=RCWd2BjyL96l4KEXy518EvYimMhdF2AEZ/SyU9k+auA=;
+	b=5bV91XsBvhHdLgJDEZwI/zRKKjo0K4ndllYHEtywM8t+ifN3G8NZYv1G2+EqSnetUfv4
+	 3JJgilX7+C2P7WEYKysA1zfsEgT32U8H2DyUAioOvq3Q0mNx7zZB8dsqQztUuySiA1mfc
+	 UK9/nb6O7KdURi/1wC4ZopPl2eCuZO1ny33+lo5Db+zHVTtEOanCTrAa7yyrZfnjk38GN
+	 gKjZkaYrrNhMu+b9CB86BrjDydPYNmJNsUlRrse2wNWq5mV6aTkxK90jHVbQp88pvzmy8
+	 51VOTGqymwbZ8f2YULKV26MKrY9srfrfVqPsBqhbTaHV+6UMVK/E2h8chd/5hKwzUEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mTKYyYeV;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=EjcRrUNH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973AC606A329
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 04:55:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 973AC606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7730F606D803;
+	Thu,  5 Nov 2026 05:01:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mTKYyYeV
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3b0b8b5d28cso47766a91.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 20:55:22 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=EjcRrUNH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5F211F000C1;
+	Thu,  5 Nov 2026 05:01:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793854522; x=1794459322; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0K/OpJSJDyeiHFgRi2dD4j6fShhHweBIMHEcvs+4Jvc=;
-        b=mTKYyYeVr7uxttrPBh/zbgdicB4GtUsAEPY7xWdW42ONQLpFWniKAVmHzgolRVnz1R
-         7cGjdcpTCPUuQy/A64lwRFiyY3CHLGj3nlqbK6AEQwT2zG7biKPOWYGbyqYZoXfGRvF9
-         VMNjEFP/372eFVw5FbTuSsi8X8vRwpvlmPjZMD5VyyudE8jzRBB7z6J5DpdMGoY7Hq5p
-         KRhkUg8+WaJVVEcdue/XWCVzhYJgAPz+7SROTuyUkDUJZGvY0euOB/3t+nKtd4g2liXU
-         30ygp2YrQxS3ncCjh2vsNdYieq6M3aMH+1rBdw0W/ieO4AuFjVJakOI9Kr5nAz8+hS5n
-         ycYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793854522; x=1794459322;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0K/OpJSJDyeiHFgRi2dD4j6fShhHweBIMHEcvs+4Jvc=;
-        b=p+vlzVlt61FQhWALG8rB6l3/AL88Bj8YMQZeDu6Q6mfFxGclZxlaGNoPipiwnwCJV7
-         ZaaQ9QDAiu/Rc/fAUDiDWp23vqYLZzZJEhdtU9y7anj8Z1L+4NNZDYuuXtG7dzn5W38y
-         O7RzOUsCpShlDDjipYrcnI8zepin5923IQqV+XBpWT7s7QdbS5CfbjrfSdyh3K8i3Mmm
-         c91RKEAmiS1/eluv+j2opD9dKer3xRozkKXU7c9Bo76WGSn5d8I5LVDthRxgYQQgDnp2
-         KGyjkAX4Ob0ARSULXuklToBmiiyR0sqGvuNTFjGctMgCDhpE4NhucLj37tpKHF0ckr5b
-         2nKg==
-X-Forwarded-Encrypted: i=1; AKwUvBxK4vWcYwQ+EMAXtPL3w7iNZ/HZhXJX1WiA95svFe+9sv0QlElcgI2qUfbL7zkVeTlcZsxz1Go=@vger.kernel.org
-X-Gm-Message-State: APuU4Z97Z0egazWKq21X2cmlQXSKiXbxvz6X8/+yGdEY7idOm7X9HnuC
-	N0cMWjj4fXpP2fpb1NywBpNUzeavrMhdG2C1ZEULNANzVG8u5JZBsDkA
-X-Gm-Gg: AYBFou0VbWPiwWlcEKq2HuCzi8gv0afK923CdxlaIPlRSgmpHNPAlU03xfG9cqLEqFB
-	x5lFKoeyKJC0i/jHriR+F2o56aKZMNTwP86DhVzPu9an3KK31D8jRGzj5l4HC8QfhwB0q1NEeWA
-	SHOnspMp1a3qHB5nKw9qRKCqKlBr4pFXmJyYcPCz5NKCtGRmucg4y2u2JjYsTx2m6luKa0zMpMn
-	v+iq+Mg+ZKlMY/CRLw/DJy9fNs7qg/Rn9KbI/zRw4pXmHPr9rTLVuq8wXmd1JrCZIIkGzJF3GLP
-	WtGSnrIUEoSa8AqyJjXt4hXBwO7MhlmqBCoKlYpNuqPeQQefXudMjOrB6OpazqiZaHXA7i89eLf
-	8azzuMPe9OmStjw1dJ06dPsyKuqYo96TWYrlicVqDL+bB56FJK6m5E5PJq0z/gqGJ3N02aKFEom
-	qO7IP0Vqbdf2yL5e87RKtTlktK/7W+KEehHH2h/9+EzWQbIbuLBgUbVKbRszlMl+9iB3BW4hP4O
-	CcODCZimTM1eafYZ2z5PFr/kFaQfYSdxb7ITgTS2n2rjVLbN1aKwYC45ILdkyC6+32J3LijvRyt
-	fYmutEFibc941IOrVK5/EZwosjskZltOtpLqxoWIj8cnjbkV0d7BkN0jh9G8
-X-Received: by 2002:a17:90b:4487:b0:3ac:9c37:9422 with SMTP id 98e67ed59e1d1-3ae89626108mr25602011a91.2.1793854521680;
-        Wed, 04 Nov 2026 20:55:21 -0800 (PST)
-Received: from localhost.localdomain ([189.1.242.96])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0944eb1d1sm3726000a91.0.2026.11.04.20.55.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 20:55:20 -0800 (PST)
-From: Yiqi Sun <sunyiqixm@gmail.com>
-To: fuchen.dust@gmail.com
-Cc: coreteam@netfilter.org,
-	fw@strlen.de,
-	kadlec@netfilter.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	pablo@netfilter.org,
-	phil@nwl.cc,
-	stable@vger.kernel.org
-Subject: Re: [PATCH nf v3] netfilter: ipset: fix double free on kernel-side delete during resize
-Date: Thu,  5 Nov 2026 12:52:10 +0800
-Message-Id: <20261105045210.1179991-1-sunyiqixm@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261026102957.5530-1-fuchen.dust@gmail.com>
-References: <20261025090609.v2reply.4093.fuchen.dust@gmail.com> <20261026102957.5530-1-fuchen.dust@gmail.com>
+	d=linux-foundation.org; s=korg; t=1793854864;
+	bh=RCWd2BjyL96l4KEXy518EvYimMhdF2AEZ/SyU9k+auA=;
+	h=Date:To:From:Subject;
+	b=EjcRrUNHmAabaaYJusU14ro8ljEcmYplvbkNA37SSEaB7feI+S4XFCOqH63uiuSGK
+	 t0xLG4rVs0N9lc4ayc/y8njfdDibSLkBbht2bBFus+5+UUuYMATQTC6EZi282RZ4ih
+	 oZ2ar2C+mI/6TxhHWEQEmUdx/xL9SHAPrz799XCM=
+Date: Wed, 04 Nov 2026 21:01:04 -0800
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,
+	riel@surriel.com,qi.zheng@linux.dev,pfalcato@suse.de,ljs@kernel.org,
+	liam@infradead.org,lance.yang@linux.dev,jannh@google.com,harry@kernel.org,
+	david@kernel.org,ayushr@modal.com,baolin.wang@linux.alibaba.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-synchronize-with-pte-table-reclaim-for-all-folio-sizes.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261105050104.D5F211F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,71 +52,123 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi,
 
-I discovered the same double-free during ipset hash resize
-and confirmed its exploitability by successfully exploiting it
-in my test environment.
+The patch titled
+     Subject: mm: synchronize with PTE table reclaim for all folio sizes
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-synchronize-with-pte-table-reclaim-for-all-folio-sizes.patch
 
-While reviewing this fix, I noticed two remaining issues with the
-deferred operations in net/netfilter/ipset/ip_set_hash_gen.h:
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-synchronize-with-pte-table-reclaim-for-all-folio-sizes.patch
 
-1. Failure-path replay can resurrect a deleted element.
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-In mtype_resize(), cleanup clears orig->resizing before reaching the new
-drain path. Packet-path operations can then modify the original table
-directly, while earlier operations are still waiting in the backlog.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-For example, starting with A absent:
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-  - During resize, a packet-path ADD inserts A into the original table
-    and also queues an ADD in orig->ad.
-  - A bucket allocation in the resize copy loop fails. cleanup clears
-    orig->resizing and waits for an RCU grace period.
-  - Before drain replays the backlog, a later packet-path DEL removes A
-    from the original table and returns success without queuing a DEL.
-  - drain replays the earlier ADD, inserting A again.
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-The final state therefore contradicts the later successful DEL. Before
-this change, the failure path discarded the queued ADD, so this sequence
-left A absent.
+------------------------------------------------------
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+Subject: mm: synchronize with PTE table reclaim for all folio sizes
+Date: Thu, 05 Nov 2026 10:56:28 +0800
 
-The set->lock around list_splice_init() protects the list, but does not
-serialize replay with packet-path updates under the region locks. The
-RCU grace period does not prevent new updates either. Could failure-path
-replay preserve ordering with those updates as well as within the backlog?
+Similar to commit 243cf1f67b36 ("mm: memory: fix truncation removing
+mapped folios"), the '!pmd_present()' check in page_vma_mapped_walk() can
+also race with concurrent page table reclamation via
+zap_empty_pte_table().
 
-2. The new deferred-ADD branch can return success without queuing the ADD.
+page_vma_mapped_walk() is used by many functions including try_to_unmap(),
+try_to_migrate(), folio_mkclean(), pfn_mkclean_range(),
+remove_migration_ptes(), page_mapped_in_vma(), and
+mapping_wrprotect_range().  Except for try_to_unmap() and
+try_to_migrate(), the other callers do not perform post-walk accounting
+checks, so the race has no observable impact on them.
 
-In mtype_add(), the new branch for an existing element sets ret = 0 and
-jumps to resize. If allocation of struct mtype_resize_ad fails there,
-the existing "Don't bother" path goes to out with ret still zero.
+For migration, the race can cause unnecessary retries.  For reclaim via
+try_to_unmap(), the race can cause failure to reclaim a folio that is in
+fact already unmapped (as shown below), which may lead to unexpected OOM
+or increased refaults.
 
-For example, starting with A present:
+CPU 0 (reclaim)                      CPU 1 (MADV_DONTNEED)
+--------------------------------    --------------------------------
+folio_lock(F)
+try_to_unmap(F, TTU_SYNC)
+                                    zap_pte_range(full PMD range)
+                                      spin_lock(ptl)
+                                      clear PTEs
+                                      zap_empty_pte_table()
+                                        spin_trylock(pml)
+                                        pmd_clear()
+                                        spin_unlock(pml)
 
-  - During resize, a packet-path DEL queues a deletion of A, leaving A
-    in the original table.
-  - A subsequent packet-path ADD of A, without IPSET_FLAG_EXIST, takes
-    the new branch.
-  - Backlog allocation fails, but the ADD returns success.
-  - Replaying the queued DEL leaves A absent because no ADD was queued.
+  page_vma_mapped_walk()
+    observe !pmd_present(pmde)
+    nr_pages < HPAGE_PMD_NR
+    skip synchronization
+    return false
 
-This branch relies entirely on the backlog to preserve the ADD after
-the pending DEL. Allocation failure should at least return -ENOMEM for
-this deferred-only case, consistent with the deferred-DEL path.
+try_to_unmap() returns
+folio_mapped(F) == true
+nr_unmap_fail += folio_nr_pages(F)
+                                    tlb_flush_mmu_tlbonly()
+                                    tlb_flush_rmaps()
+                                      remove F's rmaps
+                                    spin_unlock(ptl)
 
-Validation of the two review findings above used a userspace harness
-containing the extracted add/delete functions and failure-path replay
-code, with lock/RCU stubs. Both sequences produced the incorrect final
-state with v3; the corresponding unpatched baseline cases did not.
-The baseline was mainline commit 05441d697f7f ("Merge tag 'cocci-7.4-rc1'
-of git://git.kernel.org/pub/scm/linux/kernel/git/jlawall/linux"). These
-are deterministic control-flow checks, not reproductions on a running
-kernel.
+Commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped folios")
+has already moved the PMD clear operation (via zap_empty_pte_table()) to
+after tlb_flush_rmaps().  Similarly, page_vma_mapped_walk() also needs to
+use sync_with_folio_pmd_zap() to synchronize and avoid memory ordering
+issues on weakly ordered CPUs.
 
-This review and the harness were prepared with AI assistance.
+Link: https://lore.kernel.org/affd6da4e8d0de1424a4e0b3bafcd1324dfb6c97.1793847060.git.baolin.wang@linux.alibaba.com
+Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
+Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Acked-by: Qi Zheng <qi.zheng@linux.dev>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Harry Yoo <harry@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: <ayushr@modal.com>
+Cc: <stable@vger.kernel.org>
+---
 
-Thanks.
+ mm/page_vma_mapped.c |    5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+--- a/mm/page_vma_mapped.c~mm-synchronize-with-pte-table-reclaim-for-all-folio-sizes
++++ a/mm/page_vma_mapped.c
+@@ -293,10 +293,7 @@ restart:
+ 			spin_unlock(pvmw->ptl);
+ 			pvmw->ptl = NULL;
+ 		} else if (!pmd_present(pmde)) {
+-			if ((pvmw->flags & PVMW_SYNC) &&
+-			    thp_vma_suitable_order(vma, pvmw->address,
+-						   PMD_ORDER) &&
+-			    (pvmw->nr_pages >= HPAGE_PMD_NR))
++			if (pvmw->flags & PVMW_SYNC)
+ 				sync_with_folio_pmd_zap(mm, pvmw->pmd);
+ 
+ 			goto next_pmd;
+_
+
+Patches currently in -mm which might be from baolin.wang@linux.alibaba.com are
+
+mm-synchronize-with-pte-table-reclaim-for-all-folio-sizes.patch
+
