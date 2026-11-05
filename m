@@ -1,79 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793849671;
-	b=aJzXGO0yqV6tNeY03BstyVkOOy/ilLArB8svF6aHaMx1XPpLJXyjPwPVSjWMz9YceAn6
-	 nNgsgVIKihA6V5OWDPZpRCzEYOcUcarW8vEoM4+Y+VF95vS3Axb09FXa05yX3bLNR0ULF
-	 ruv6xgB3kxOc/4VdZL1qDFaWT2FkWjaNiaXUh29bmojF/Ac34jWfjS774qTCcR7/Oc0sn
-	 xlZ75Ai3M4SiX1Jpk09yu1LqunmCgB+OO4OZ/4ITndM5bGu9/7ccvGtpYg1VZbvyIq3Xg
-	 974dkAYbfyF2RyC6HjvSKIqKu+94KE4bsSUzy0EfpqVMa+WegdIUvQhY62rtvWQzwIw==
+	t=1793849937;
+	b=NU2vyqGhkcg5wE8/ApfuHtGZXCC3kuSigHwBH0BE6NlQ9Enea6cUqNWx4NLxDp+PJSNI
+	 kKFgsFMIk+RyvE+3pEAIX9Py37IvJrMnjttRQiXdeO9iOQhqQE/mTfus3ie65yQt41yCy
+	 8Um57cTANtyxkC43Kz9hrZm3nHzvDzKxjFBXqvNxS3wkKyUHZT33F1VXGzz51ErxumX7t
+	 NU3XxHKJObZINdGDWDmbp3hl+MywBqGseiG0tuhMOM1esXWIVKT8LxhLzABgv2HtxWPG2
+	 uFKzK/sh6Ko01MTOXAI4EAJjUuTyYIxZSV91whoXjQyDAFF0L5ZL66rKD37av0ovFPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793849671;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:X-Mailer:Thread-Index:
-	 Content-Language:X-CMS-MailID:X-Msg-Generator:Content-Type:
-	 X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
-	 X-CMS-RootMailID:References;
-	bh=wqQeqShnEFAGPe29OtG3KFou809AHeH9DP4h7PajO7A=;
-	b=1BOfn1Ik8JvHrmB6AvG3FscCYkAomKF82fSmqpvS8EHpmr8wtAD5zE4Skv64cLp9Qzu5
-	 CDg1TY4FOoiu91OTY0YqP22qEZhvsj30Yn3aS8a4372oEa5SWUh31GUN+N/D83wStB4s/
-	 JHhMXth5Mu8a0HurZN1/6P678VBNAIOtTzqxWbq8+0f2IqdrxeEiolVmhrbhyPO/VMy1U
-	 Km9wu3E6UNc2NPl488HSI75V8ChkGaOmMBKpB0Ym6ZxSZVOawQ2p4fVChFvrZTZs2sJ+Y
-	 L+GtKi/ayCk1KhCZQ7xmod/s3C5NNqvbFCM5EW+HhWCfRRCcMAueCmF+E5/gXRNroNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793849937;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
+	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=0bmoyUkzdtIPwctA0XmmG4w/kO0aW9Vg8ocvhD7GQlc=;
+	b=uGr+wr2UE2QsdQ9byApDsoqXl7zAvV4mOKC+eZl5gyjy9B1eHwvw1bdfKwai3uyfbrsL
+	 rA45AHNZM59GgPTm1VTpxvJi/N0kh0D4W7sLIpRBi7z/DXgRuEsIo/EjirEI6i9Pd5b7e
+	 EnWlxSYdYQjRg0lStvG75DykrPI3eIDgfdU9SQ63+zD40j1ZrRu/Y64Nn3aUaDs7SjM5m
+	 uMxWVzX5JzqvEymgPOHKnwCddRLnfinxqPY04wgRcVQcyIHSrJQSrT/PF3Wf1lMf6rFD5
+	 tpnnREvm32b2zYknPPcxdzVvvCr7BsdboKD6aEhsKyrDUnYoF9DJq7fypMyEMrTR8Jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=cKaGZeuH;
-	arc=none smtp.remote-ip=203.254.224.34
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=1Jcw5Wpz;
+	arc=none smtp.remote-ip=113.46.200.227
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC8BA606A329
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 03:34:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC8BA606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A566606A31B;
+	Thu,  5 Nov 2026 03:38:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A566606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=cKaGZeuH
-Received: from epcas2p2.samsung.com (unknown [182.195.41.54])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261105033427epoutp0439d4610134014eb78baa2d7f724adb4c~lCMS78f890958009580epoutp04m
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 03:34:27 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261105033427epoutp0439d4610134014eb78baa2d7f724adb4c~lCMS78f890958009580epoutp04m
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793849667;
-	bh=wqQeqShnEFAGPe29OtG3KFou809AHeH9DP4h7PajO7A=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=cKaGZeuH++WTRTs78MzlTCZrEoKIqK4UQN8KS7Sa/0IQqWDbRw1DM1IaOymQtYTiz
-	 LBaImINUP3R7KhV3AF42HdoZiGx4ZvIsRurJ3WOPbu29Fnizwd8RA8lymqLxOnZIWB
-	 0bLNjyWcWGJFvjdMWD7/IvMDsCRyOlWHryCBHkKo=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261105033426epcas2p1d2160ff091330c7e6922ab88a2ff03ed~lCMSINNn13146231462epcas2p1r;
-	Thu,  5 Nov 2026 03:34:26 +0000 (GMT)
-Received: from epcas2p4.samsung.com (unknown [182.195.38.200]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jKnwy2wmfz6B9mB; Thu,  5 Nov
-	2026 03:34:26 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas2p4.samsung.com (KnoxPortal) with ESMTPA id
-	20261105033425epcas2p48e03f124a57ef06e37671dcdafa2cfeb~lCMRN5V-Z3116631166epcas2p4B;
-	Thu,  5 Nov 2026 03:34:25 +0000 (GMT)
-Received: from KORCO164647 (unknown [12.80.211.160]) by epsmtip1.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20261105033425epsmtip1076a61c25b744bbe3c6462f4fca4508b~lCMRHBO1x3255132551epsmtip1J;
-	Thu,  5 Nov 2026 03:34:25 +0000 (GMT)
-From: "Kiwoong Kim" <kwmad.kim@samsung.com>
-To: "'Bart Van Assche'" <bvanassche@acm.org>, <linux-scsi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <alim.akhtar@samsung.com>,
-	<jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
-	<kwangwon.min@samsung.com>, <hy50.seo@samsung.com>, <cpgs@samsung.com>,
-	<h10.kim@samsung.com>
-Cc: <stable@vger.kernel.org>, <stanleyjhu@google.com>, "'Bean Huo'"
-	<beanhuo@micron.com>
-In-Reply-To: <8446dc27-9518-4b0c-b9e9-116458210616@acm.org>
-Subject: RE: [PATCH v6 1/2] ufs: core: skip ABORT TASK for device management
- commands
-Date: Thu, 5 Nov 2026 12:34:25 +0900
-Message-ID: <002101dd6cd6$8e510b20$aaf32160$@samsung.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=1Jcw5Wpz
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=0bmoyUkzdtIPwctA0XmmG4w/kO0aW9Vg8ocvhD7GQlc=;
+	b=1Jcw5Wpz9oyiDJnwHAnO6nFeSGMqx7+lZec58dnCFBOwO03z6VN/b/BceRX9zohVd3zL43jty
+	lKXNUK5pvOr56UghyjTTBUYe3a6frRI6L9LD5rzdCJGRZ+9ue6Q3NdmNiwBL7k8Z1agGDhpAimm
+	JmlA+VLVSRDPJ63aF/9v5Wg=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jKp246SDSznTVh;
+	Thu,  5 Nov 2026 11:38:52 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id 4D13540578;
+	Thu,  5 Nov 2026 11:38:51 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 5 Nov 2026 11:38:50 +0800
+Subject: Re: [PATCH] ubifs: account for short copies in ubifs_write_end
+To: Hungyu Lin <dennylin0707@gmail.com>, <richard@nod.at>
+CC: <lin.nan@h3c.com>, <linux-mtd@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20261104191132.89515-1-dennylin0707@gmail.com>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <fb5c1cc4-d974-73ae-3b61-c0dc1363305a@huawei.com>
+Date: Thu, 5 Nov 2026 11:38:49 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,80 +70,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQH4JEezrlrww6xOutvb1msxx9OBXQK0O2N1AUyogGgCjTU/mba088Fg
-Content-Language: ko
-X-CMS-MailID: 20261105033425epcas2p48e03f124a57ef06e37671dcdafa2cfeb
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261105004352epcas2p307ea40aadb636015545cee6e79470a03
-References: <20261105004333.1097899-1-kwmad.kim@samsung.com>
-	<CGME20261105004352epcas2p307ea40aadb636015545cee6e79470a03@epcas2p3.samsung.com>
-	<20261105004333.1097899-2-kwmad.kim@samsung.com>
-	<8446dc27-9518-4b0c-b9e9-116458210616@acm.org>
+In-Reply-To: <20261104191132.89515-1-dennylin0707@gmail.com>
+Content-Type: text/plain; charset="gbk"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-
-
-
-Kiwoong Kim
-BRs.
-
-> -----Original Message-----
-> From: Bart Van Assche <bvanassche@acm.org>
-> Sent: Thursday, November 5, 2026 10:28 AM
-> To: Kiwoong Kim <kwmad.kim@samsung.com>; linux-scsi@vger.kernel.org;
-> linux-kernel@vger.kernel.org; alim.akhtar@samsung.com; jejb@linux.ibm.com;
-> martin.petersen@oracle.com; kwangwon.min@samsung.com; hy50.seo@samsung.com;
-> cpgs@samsung.com; h10.kim@samsung.com
-> Cc: stable@vger.kernel.org; stanleyjhu@google.com; Bean Huo
-> <beanhuo@micron.com>
-> Subject: Re: [PATCH v6 1/2] ufs: core: skip ABORT TASK for device
-> management commands
+ÔÚ 2026/11/5 3:11, Hungyu Lin Ð´µÀ:
+> ubifs_write_end() updates i_size and ui_size to pos + len even when
+> fewer bytes were copied. A one-byte write at EOF from an unreadable
+> buffer can fail with EFAULT while extending the file by one byte.
+> Partial writes can also extend the file past the last byte copied.
 > 
-> On 11/4/26 4:43 PM, Kiwoong Kim wrote:
->  > @@ -8046,6 +8046,9 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba,
-> int tag)  >
->  >  	lrbp = scsi_cmd_priv(cmd);
->  >
->  > +	if (!ufshcd_is_scsi_cmd(cmd))
->  > +		goto clear_cmd;
->  > +
+> Use pos + copied for size updates and cancel the budget when no data
+> was copied. Keep the appending decision based on the requested length
+> to match the inode budgeting and ui_mutex locking in ubifs_write_begin().
+> If a short copy ends within the old size, release any unused inode budget
+> without reducing the size, and still unlock ui_mutex.
 > 
-> ufshcd_abort() already has the following code for the SDB path:
+> Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
+> Link: https://lore.kernel.org/linux-mtd/20261027061226.3506517-1-lin.nan@h3c.com/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> ---
+>   fs/ubifs/file.c | 29 +++++++++++++++++++----------
+>   1 file changed, 19 insertions(+), 10 deletions(-)
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
 > 
-> 	if (blk_mq_is_reserved_rq(rq))
-> 		err = ufshcd_clear_cmd(hba, tag);
-> 	else
-> 		err = ufshcd_try_to_abort_task(hba, tag);
+> diff --git a/fs/ubifs/file.c b/fs/ubifs/file.c
+> index 99dd52715ee..8ebd3f4cddf 100644
+> --- a/fs/ubifs/file.c
+> +++ b/fs/ubifs/file.c
+> @@ -523,8 +523,8 @@ static int ubifs_write_end(const struct kiocb *iocb,
+>   	struct inode *inode = mapping->host;
+>   	struct ubifs_inode *ui = ubifs_inode(inode);
+>   	struct ubifs_info *c = inode->i_sb->s_fs_info;
+> -	loff_t end_pos = pos + len;
+> -	int appending = !!(end_pos > inode->i_size);
+> +	loff_t end_pos = pos + copied;
+> +	int appending = !!(pos + len > inode->i_size);
+>   
+>   	dbg_gen("ino %llu, pos %llu, pg %lu, len %u, copied %d, i_size %lld",
+>   		inode->i_ino, pos, folio->index, len, copied, inode->i_size);
+> @@ -552,6 +552,11 @@ static int ubifs_write_end(const struct kiocb *iocb,
+>   		goto out;
+>   	}
+>   
+> +	if (unlikely(!copied)) {
+> +		cancel_budget(c, folio, ui, appending);
+> +		goto out;
+> +	}
+> +
+>   	if (len == folio_size(folio))
+>   		folio_mark_uptodate(folio);
+>   
+> @@ -562,14 +567,18 @@ static int ubifs_write_end(const struct kiocb *iocb,
+>   	}
+>   
+>   	if (appending) {
+> -		i_size_write(inode, end_pos);
+> -		ui->ui_size = end_pos;
+> -		/*
+> -		 * We do not set @I_DIRTY_PAGES (which means that
+> -		 * the inode has dirty pages), this was done in
+> -		 * filemap_dirty_folio().
+> -		 */
+> -		__mark_inode_dirty(inode, I_DIRTY_DATASYNC);
+> +		if (end_pos > inode->i_size) {
+> +			i_size_write(inode, end_pos);
+> +			ui->ui_size = end_pos;
+> +			/*
+> +			 * We do not set @I_DIRTY_PAGES (which means that
+> +			 * the inode has dirty pages), this was done in
+> +			 * filemap_dirty_folio().
+> +			 */
+> +			__mark_inode_dirty(inode, I_DIRTY_DATASYNC);
+> +		} else if (!ui->dirty) {
+> +			ubifs_release_dirty_inode_budget(c, ui);
+> +		}
+>   		ubifs_assert(c, mutex_is_locked(&ui->ui_mutex));
+>   		mutex_unlock(&ui->ui_mutex);
+>   	}
 > 
-> and ufshcd_abort_one() skips reserved requests. Hence, ufshcd_mcq_abort()
-> is the only caller that can pass a device management command to
-> ufshcd_try_to_abort_task(). Please handle this the same way for both paths.
-> Either add the check in ufshcd_mcq_abort(), similar to the SDB path, or
-> keep it in ufshcd_try_to_abort_task() and remove the now redundant check
-> from ufshcd_abort().
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 > 
-> If the check stays in ufshcd_try_to_abort_task(), please also update its
-> kernel-doc header. That header says that UFS_QUERY_TASK and UFS_ABORT_TASK
-> are sent unconditionally.
-> 
->  > Fixes: 08b12cda6c44 ("scsi: ufs: core: Switch to
-> scsi_get_internal_cmd()")
->  > Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>  > Reviewed-by: Bean
-> Huo <beanhuo@micron.com>  > Reported-by: Bart Van Assche
-> <bvanassche@acm.org>
-> 
-> Please move the Reported-by: tag above the Signed-off-by: tag.
-> checkpatch also expects a Closes: tag after Reported-by:.
-> 
-> Thanks,
-> 
-> Bart.
-
 
