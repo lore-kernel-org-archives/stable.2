@@ -1,109 +1,107 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866731;
-	b=UAEDllGKN/3W9mtab/DAaV3tnrcDM1GdSkUlqMiocyO2ZpuHTpOhKjrwcvQT3X2VMrsq
-	 zWiipOTUizKNvWQ6Cjme+7iFO9NkVZuyfc+PPlYonh0nZEBHkZ0Fjfi9BbrkNm+a6MQJs
-	 3Ch0mLdmpjSUNEqhZQGk//rCVBAq2sbiXPN5mcnb4R4702hSUueRIOVOtFkTvP+U1hTuH
-	 m92FdKJi96H0X9sT9IoVruul3VdS4p9G8l5LWSPQBnJgjtm8bJKIs9l7rP9d0cffDvG6U
-	 unD0dN4vrHOxpJWYaIcjqgwer1uT1PoWcFIjHgtpPDbmdO58j5VJKC33Rwd2a2WDxmQ==
+	t=1793866727;
+	b=xVYXe7AdRCXvAcnwoL0M8j3OB4ecKLi/k+yZIjjiY77CMK4CF/PEiKbwC1cEfFZ9f94n
+	 die7Qw4nSFlTAiXbe/0Vc5qMINVAoOaJ2S+TCYk2RCZrC22qFN3EPUd65XidyWQjNfXol
+	 RHBFW+AojrBEEDQgTREQbrDaVXTkKmWTAe7OlBfeI1cyzfdKWQtBPoenQoi/3nnDKQlQj
+	 iGiU26zH2LTrBFOWRuCK+bA5UFAg+ji53Rgd589YF6ztVYrJZ1ChuSihQFid/WtAXjZZn
+	 e0+Mdc0yu6zwpBUH8zpKVCA1N7NxTz+AGBk8810pWxpypWwEcPOtkyNCk5kjNm6pZyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866731;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866727;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=YnYl0grphqtCTW16mbqB5OZ7Ar0uK9ejWodFsFluXmA=;
-	b=hXrav/+yv4Byk+nEZ3V7ENm6oBqIIS9V/7/X2cImBpiD/oTLfB3ctzXowkbTo0M1z0PP
-	 nskkQIYInjG0iDCkKvmZKOO3ZcXb3s0DpjaY6KaS/2/3aoKBDmHG+NEu43MHUWRxU3mZ/
-	 B5uziD0iogpF07VK/9GWEEuKe0qJIrmi+23ofxnN+M7mejIjHhDHpXvzAdMC8QyRKUkES
-	 D4be3PbnVVqyvJ6DT+7ReAYbTvUSq0UPfnhHPP1EQ3QrbDmb2SKfJOSX1GvXrZbbxApLf
-	 FFqjUu9+MoI8JEJCWUSmItPwsgD2Amdgfhfj4X7YBNeqxa1RO1Nqise8mer/xcx0LTw==
+	 X-Received:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=v1ehsd1h1KwjntsiObgsijntLBW7FiKbRqCPJkhAIr4=;
+	b=uhO0Kdnh86hVRmunT78/WN+xYj0QbqJaJgfRSN1RDIUv9CMcUXKkZ53jtMYs8LDnrSU7
+	 XMLB6375d0rFRTCNyvzyIkgRkrX299NDEfuqtA9R9zZlJrVNqel1Wg0Onh9F2sPrDaeXT
+	 lTvGf2Y7hhuXcodgLlzn1eFYjKm2TsAzEQAz/Hey7GcRV9V30Pc/80Kw5R+KlHR4qriZ8
+	 8NEZHjF7MG2A7lxQWmfm6jgN5LKFdy2cEfrM4oGfRTgTdP/WjwsYcZ6TXXu3JzAPMIfZh
+	 ZQO45JTGW7yFX7HfO5mhUyM0BMxAAsqUqTf2eOdhkz2XtwJuM5OFhQmnqwwCKCjnqEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="cOs2Z/H3";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=VXUc3kFo;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=h2oYDKFy;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qaZCRfaJ;
 	arc=none smtp.remote-ip=170.10.129.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4D4606A330
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 08:18:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D4D4606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A318C606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 08:18:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A318C606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cOs2Z/H3;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=VXUc3kFo
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=h2oYDKFy;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qaZCRfaJ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793866730;
+	s=mimecast20190719; t=1793866724;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YnYl0grphqtCTW16mbqB5OZ7Ar0uK9ejWodFsFluXmA=;
-	b=cOs2Z/H3fyglf48BU0THLdP2KnSdCqAFRgw/QMUR2e/5k5FXZ2YJAKG3F6lRcVbviNFW/O
-	CSTFlBRkODuDbbwX2wfgUk4CzBC5OZ08fxypB8FCgI+09azSiPKx0vUw1oyDpxDVIOLD07
-	iFt31ptmICj9BCexWB1sMOl6PXvn9ag=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=v1ehsd1h1KwjntsiObgsijntLBW7FiKbRqCPJkhAIr4=;
+	b=h2oYDKFy4VokWwcZHkZm7hVsT8DlklQqDVn2BNp3a7Qf5iiM27Bos17m8OLQ1BgOSwx1Rh
+	75y9cqPBzuareqoXkWq6rIGqYETVOP4h2GwyLO0iarYgORtjjgbQvAVNjBjC0GjJ8QgAEV
+	dsAacHQXpv+ok6AtvN/OOzI2Kgbo1+k=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-617-uO8F4psCP4CYBGHeOtuP8w-1; Thu, 05 Nov 2026 03:18:49 -0500
-X-MC-Unique: uO8F4psCP4CYBGHeOtuP8w-1
-X-Mimecast-MFC-AGG-ID: uO8F4psCP4CYBGHeOtuP8w_1793866728
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4ae58bf15d0so3359775e9.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 00:18:49 -0800 (PST)
+ us-mta-511-yx_8JpLoObiDeZIqASaXXA-1; Thu, 05 Nov 2026 03:18:43 -0500
+X-MC-Unique: yx_8JpLoObiDeZIqASaXXA-1
+X-Mimecast-MFC-AGG-ID: yx_8JpLoObiDeZIqASaXXA_1793866722
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4aa7a73b799so2637315e9.2
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 00:18:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793866728; x=1794471528; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YnYl0grphqtCTW16mbqB5OZ7Ar0uK9ejWodFsFluXmA=;
-        b=VXUc3kFoMMeDYPETcfw19wRE+EWWz8eBSRt+/1At2n2kYjlAnIcuW2KoBloTbNx4bW
-         no1b0wK8jaF1vhMt7wTXnWECw0VrTCmwc46AC4CJiVFV6SBiWcRdYTdFBP2kOWs8/Pe3
-         0JHy4hMRKGrVnhDCkJZjP71VLYoK8+KheV4TydAwUguHpq4DBNyIzZe3m5k9ZdHd6yxC
-         l9oaCBeUVFshJCmMq905F4797DBql1+OJsvHoqwQQk9gSQuLH40D3LWY6ZKzw8yWC3vL
-         pVwXN6c1463YriA6C5ht40mbZbf4vUU/aNnvm28Kn/vhHW5Xbr+FXemRtDB4boW2RVQB
-         ofvQ==
+        d=redhat.com; s=google; t=1793866722; x=1794471522; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=v1ehsd1h1KwjntsiObgsijntLBW7FiKbRqCPJkhAIr4=;
+        b=qaZCRfaJRdcwewF0Vrcz2q4qGrUreiSzsZizsYrydbiO07bBNCcKYRpCk3kpRWU3Ju
+         DjO2N+XEtDgHK7RMEKVX4iajlBNyF9DJEUonvPZ0atqV5m8LbL9Lv/GEQD0Wq25A6apq
+         UwDuBaJA1OY5fkIPSccOBzNpUBA5Zs6wzx8MMGazszrZBR3wcOEWSanarLzao41+vYS4
+         lsIbnUmq3yNemCK6PL32rp3AT9E9zsG15lHBwKJzeOob+IMRa2wAO7ORX8mO9H0e8RP7
+         0izHWziThSfjlH7ttE38zwA5QMbJK80BwbS0MhG96AVmNSgRTaEBNUdd02AE4KbZFiVI
+         68WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793866728; x=1794471528;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YnYl0grphqtCTW16mbqB5OZ7Ar0uK9ejWodFsFluXmA=;
-        b=oWDlVfsQ5IbXIkbxCUvFQJD02W2pC0p5viy7whcWHw+FLKK/oFFiNs8KHaVpHySj8V
-         ubDyK2QB26b9UyZWOYntIjLdujYOeUYWJDNZinz/cIkSDk8LZejmHw9LubLPeu3re/Yr
-         3Yzbpf9cAZMW29rhbYPWnmO/EExXzWsGbOshxKR7q1OoqsRwJt3vE3HH3CAf2h2wPGS3
-         3IxvEfQelPRuti6KYN8ph4HKYa6H1SsFPFRujoDRnk+4SlkIDTc6+5A/DF49HGcmvMug
-         zmodfRBt9mu7ixy8NLGc5/1ZhHVysjn/Qg/APRuof74z67ksA7nj6BhMD7zthV+zLBiy
-         Gfdg==
-X-Forwarded-Encrypted: i=1; AKwUvBzZAiHCJQ/nG0+le5VVkweY7LnoV4r7jvhS83rk6lzg1JGmz0UawogOn3x/UqHs7dVP2BhvHyM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RPGj4f9XTd0WxZKd3W+8KFSas5JcoZP8F2kl7eQq45T1JnYLd
-	vE+dAjKH2JkfjZSe1JLjSBs/HOktkAeHfMd5vMJSZ1OEJpVSkr+6yEVnXcqe73VbE4hSx/rYbkA
-	2V/v52S6YGpxLO2p8CpMEPwCYaI1wa0YnPZEkBgPuQxbrJYsttpDK58RU8w==
-X-Gm-Gg: AYBFou0qGgUCI/B2MSTd20dcR7cM7k0kDSghPjywWCEHRIZBe6AhPzeU1Yl+GlCPeRu
-	vl/NY4vHk8/2lBr2GXYq33LF+NWbPG90u83XVfbQI2UXBty5BkALvy/OdNTshTLHlTkxdsOU9zr
-	0dBtMlgutkJGTHFqIEvufF3/Oc0+D3cMdE0AlLwQ3y4P2nq60ATCZuce2WbAp/qJsx6KI9psED0
-	f/LKvRKIo7qlPj/BYTYv5uSLFfs6N6D5LjFh5AEll39Lh1nfarSXRzPzCU3hJdQTZezhvGTiIc+
-	VQL7ChVxUVgk02zB6YYynwzJTBLKQkEIfGap8T8qE3SVjDoJvrBYrn6KXW7ZEtG74fqwP1wJxe8
-	86Fzrkh9IajWviXfKrCja+Smg6iTkhF5PNxb777tbeB8s7GYDWceF2ed+xnY1ihlGAYv5T56gPa
-	SYulBqvHhqCaMRlw==
-X-Received: by 2002:a05:6000:2587:b0:48e:5ad1:5e77 with SMTP id ffacd0b85a97d-48e6e261607mr37451516f8f.0.1793866727921;
-        Thu, 05 Nov 2026 00:18:47 -0800 (PST)
-X-Received: by 2002:a05:6000:2587:b0:48e:5ad1:5e77 with SMTP id ffacd0b85a97d-48e6e261607mr37451467f8f.0.1793866727444;
-        Thu, 05 Nov 2026 00:18:47 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793866722; x=1794471522;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=v1ehsd1h1KwjntsiObgsijntLBW7FiKbRqCPJkhAIr4=;
+        b=SVeAbrv5Czxt78eCH9PcoFMbveQ7l3t5HXcje9ndQp9xu/zXsW9YeIE/kVz7t8qwEO
+         K12xTpGLXR0Zs5NVKmPXaFLOGNsuF306yiHtgJLfdcbDPAucidWDs5H+HiEqh7gQz0fB
+         fD2LIUGs6RBgLuz5ChQVHVipHU5rocFhnEUjMHov7TOztNzZOCTER75mFdGvz60wnWfb
+         cOhGJbpeDVfl7POvWe+Sm7hKwGDki12C7/nV/3vViGnwa1FozzyRrv7GowlAc3Xh4PZQ
+         cFCM7P5mb7y24spySf8Ytbz98Zh8ybuOWPfukQkG3YsGWfbommCQtPVZkW6sx+XXzxuS
+         AfOw==
+X-Forwarded-Encrypted: i=1; AKwUvBx6iZfZpBjwiwC0/Hdhnnj1JMOgZGx8v7WTo8pL7WO1jx313sNatyYlU8zQSlNFDGMP+QKV9qo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8kEIzp2UCl38sLIvXTpqBDMbhGTb06z0zxRO/DK0FqXTj70N6W
+	6qICzqKAOy8hJA0dxOvoCU59laONrtHpkOJ/SHWg0/9k4rHg9L1C1j4ZbgzSlq+zk2GM5t31sUw
+	1HKeR4LsGhYTSvlCO1jJBzZsoZS06aoZ+x+i5p6f9C2l6ueG+mxoDvHUe3w==
+X-Gm-Gg: AYBFou1tf0jXxzdgOiSpyBcFU1kmXpQ1vYxTZLX21LYlzCvgsZAzJi/aALytXsmItgf
+	gBQoFnUmuYNW0QD2WXjIZT93GClthOfHeCZBkip9bIEqE7FQ6XR7hQ5kFZMszaF1QTM9n3PcViB
+	Cz2UklVtk1GZQfi+cDmat2uScYe01e7B9UcefEnURaiyO5bD8fmNUGQaGnojBzlkv4gNbhMKIpB
+	8JHZky4rbv9RYAuLjekhnNUOuMOXXEVE8Zy3jiCyh0uIJVvLstcaRrh8pbf5Mcbc8XuQzInjeGL
+	LMNCOn6B9bf32q1I8fnjlzr7JPeZT4QpYX2QRfsQ6RwjNnKNmle50PqmFcqPv6unu8+m/XAlFM4
+	ZCDZlaAnJRa3dGVdbLNMgCMcgu+SnW1Am9Hjuk4XWxlmvjNOf9pX0COot+lUvpeGFlxafuSROva
+	NQ0N2uaBzaqL9f6w==
+X-Received: by 2002:a05:600c:a293:b0:4a2:417:7db5 with SMTP id 5b1f17b1804b1-4ac17d19a54mr262872495e9.2.1793866721836;
+        Thu, 05 Nov 2026 00:18:41 -0800 (PST)
+X-Received: by 2002:a05:600c:a293:b0:4a2:417:7db5 with SMTP id 5b1f17b1804b1-4ac17d19a54mr262872155e9.2.1793866721314;
+        Thu, 05 Nov 2026 00:18:41 -0800 (PST)
 Received: from localhost (119.red-83-42-172.dynamicip.rima-tde.net. [83.42.172.119])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda203b6sm8437363f8f.48.2026.11.05.00.18.46
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56ba6bc36sm51621395e9.0.2026.11.05.00.18.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 00:18:46 -0800 (PST)
+        Thu, 05 Nov 2026 00:18:40 -0800 (PST)
 From: Enric Balletbo i Serra <eballetb@redhat.com>
-Date: Thu, 05 Nov 2026 09:18:34 +0100
-Subject: [PATCH v3 3/3] clocksource/drivers/nxp-stm: Arm the compare
- channel from the state callbacks
+Subject: [PATCH v3 0/3] Fix NXP STM clockevent bugs causing lockups
+Date: Thu, 05 Nov 2026 09:18:31 +0100
+Message-Id: <20261105-nxp-stm-fixes-v3-0-8129b912e74b@redhat.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,9 +113,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-nxp-stm-fixes-v3-3-8129b912e74b@redhat.com>
-References: <20261105-nxp-stm-fixes-v3-0-8129b912e74b@redhat.com>
-In-Reply-To: <20261105-nxp-stm-fixes-v3-0-8129b912e74b@redhat.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13MTQrCMBCG4auUWTuSTNJUXHkPcRHbic2iPyQlV
+ ErvbloQsctvhuddIHLwHOFaLBA4+eiHPg91KqBubf9i9E3eQIKMFKSwn0eMU4fOzxzRPoU0qpQ
+ VGwfZjIH3Ryb3R96tj9MQ3ns+ye36LZlDKUkUSMIabTVbXepb4Ka107keOthSiX48+yOnzC+1p
+ UoYpwS7P76u6wf3KnF46gAAAA==
+X-Change-ID: 20261023-nxp-stm-fixes-ab0163517e6f
 To: Daniel Lezcano <daniel.lezcano@kernel.org>, 
  Thomas Gleixner <tglx@kernel.org>, 
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
@@ -129,139 +129,206 @@ Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, 
  Enric Balletbo i Serra <eballetb@redhat.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793866718; l=4847;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793866718; l=8667;
  i=eballetb@redhat.com; s=20261026; h=from:subject:message-id;
- bh=gKd+ISmeFZF91zn4FW3sChMabdau9YNhi9yQ9k+mIyE=;
- b=vyi+xrok9WUJjuZ1aq0y/R2QRzxzfZKBFUfjS/ufrPzTsHkchLnh3UsYDssaTGvwk2ad1KIFl
- fqgaUxkZlyaBuKQMQv+qtIzSGIyZOpwerNeuoyWlgaPGdY7D7wfZzk0
+ bh=sPmxboU+m8zF5VduzollnuV8Jw2XtblGq9zFKb/a2vA=;
+ b=K9rmtzRsFgLDxGjLsE7RpTnOrpN9U4ySH3x+8+hEsb8lyUBxLPp4emqf+Oz0Y6kRGZ66d+uRt
+ KPDIQQYkwJtBqew4RP7CiE5SKoRK1YLihAZ8IRqxnXkELTIOyYBOiwu
 X-Developer-Key: i=eballetb@redhat.com; a=ed25519;
  pk=5zh6xuAxTiQwglL2NXQFqWuyRPmCE8T5KPXLbNXhnKI=
 
-set_next_event() disables the compare channel, programs the comparator
-and enables the channel again after the overshoot check. The trailing
-channel-enable write is a posted write landing after the check: if the
-counter passes the programmed value before the enable takes effect, the
-match is missed. No min_delta can close that window.
+This series fixes three bugs in the NXP STM clocksource driver that can
+cause soft lockups and missed timer events, particularly visible on
+PREEMPT_RT kernels running on S32G platforms.
 
-Keep the channel armed for the whole ONESHOT operation instead, and
-manage it from the state callbacks, like the HPET driver does:
+The NXP STM generates an interrupt only on an exact match between the
+counter and the comparator registers. If the counter passes the
+programmed value before the comparator takes it into account, the match
+is missed and the hardware must count through all 2^32 ticks (~32.2s at
+133 MHz) before firing again, causing soft lockups.
 
-  - set_state_oneshot() and set_state_periodic() enable the channel;
-    a stale pending interrupt flag is cleared before enabling.
-    set_state_oneshot_stopped() and set_state_shutdown() disable it.
+Two independent bugs made that possible:
 
-  - set_next_event() now only writes the comparator, covered by the
-    overshoot check.
+  - The overshoot check in set_next_event() only detected a counter
+    wraparound, not the counter advancing past the programmed value
+    during the read/write sequence.
 
-  - The interrupt handler reprograms the comparator only in periodic
-    mode; in ONESHOT mode the stale value stays armed until the core
-    programs a new event or stops the channel.
+  - The channel-enable write at the end of set_next_event() lands after
+    the overshoot check. If the counter passes the programmed value
+    before the enable write takes effect, the check has already passed
+    and the match is missed. No min_delta can close that window.
 
-Fixes: cec32ac75827 ("clocksource/drivers/nxp-timer: Add the System Timer Module for the s32gx platforms")
-Assisted-by: Claude:claude-opus-4-6
+Patch 1 fixes max_delta: on 64-bit platforms, ULONG_MAX exceeds the
+hardware's 32-bit compare register width, making it possible to program
+an unreachable compare value.
+
+Patch 2 replaces the broken overshoot check with a margin based
+comparison following the pattern of hpet_clkevt_set_next_event(), and
+derives the minimum programming delta from that margin.
+
+Patch 3 keeps the compare channel armed for the whole ONESHOT operation
+and manages it from the state callbacks, like the HPET driver does, so
+that the comparator write is the last hardware access of the programming
+path and is covered by the overshoot check.
+
+With this in place, any delay of the programming sequence - however
+long the accesses to the timer module are stalled - degrades to a
+-ETIME retry by the clockevents core instead of a 32-bit wraparound
+stall.
+
+Measurement procedure for the overshoot constants
+--------------------------------------------------
+
+Both constants (STM_MIN_CYCLES and STM_MIN_PROG_DELTA) are sized from
+measurements on S32G, collected with temporary instrumentation on
+compare channel 1 (which the driver never touches):
+
+  - A write-to-match sweep programs the comparator at CNT + n for
+    increasing n and measures how far the counter advances between the
+    ordering read and the comparator write taking effect. Targets
+    within ~32 ticks are never reachable (the write needs at least
+    that long to land) and the window grows beyond ~256 ticks under
+    bus stress. No misses were seen at larger targets, so the landing
+    window is bounded on this platform. STM_MIN_CYCLES = 512 keeps a
+    factor of two on the observed tail.
+
+  - Tracking the read/write/read round trip of set_next_event() under
+    the lockup reproducer (stress-ng matrix/memthrash plus 1ns
+    clock_nanosleep hammers) shows a worst case of 574 counter ticks
+    (~4.3us at 133 MHz), against ~146 ticks (~1.1us) without load.
+
+The minimum programming delta must absorb the worst case round trip and
+still leave STM_MIN_CYCLES to the event when it reaches the check,
+otherwise a minimum delta program fails deterministically and spins in
+-ETIME retries (CONFIG_GENERIC_CLOCKEVENTS_MIN_ADJUST is not selected
+on arm64). 574 + 512 exceeds the HPET-derived 1.5 * STM_MIN_CYCLES =
+768, so that factor does not cover this platform; use
+STM_MIN_PROG_DELTA = 3 * STM_MIN_CYCLES = 1536 ticks (~11.5us), which
+covers the measured worst case with headroom.
+
+Reproducer
+----------
+
+The lockup can be reproduced on an unpatched S32G board with:
+
+  # ./trigger_lockup &
+  # stress-ng --matrix 0 --memthrash 0 & dmesg -w | grep -i "soft lockup"
+
+Where trigger_lockup.c is:
+
+  #define _GNU_SOURCE
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <time.h>
+  #include <pthread.h>
+  #include <sched.h>
+  #include <unistd.h>
+
+  void *timer_hammer(void *arg) {
+      long cpu = (long)arg;
+      cpu_set_t cpuset;
+      CPU_ZERO(&cpuset);
+      CPU_SET(cpu, &cpuset);
+      pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
+
+      /* Request 1 ns to force the kernel to clamp to min_delta (2 us) */
+      struct timespec req = { .tv_sec = 0, .tv_nsec = 1 };
+
+      while (1) {
+          clock_nanosleep(CLOCK_MONOTONIC, 0, &req, NULL);
+      }
+      return NULL;
+  }
+
+  int main(void) {
+      long ncpus = sysconf(_SC_NPROCESSORS_ONLN);
+      pthread_t threads[ncpus];
+
+      printf("[+] Hammering hrtimers with minimal deltas across %ld cores...\n", ncpus);
+      printf("[+] Check dmesg for: 'BUG: soft lockup - CPU#... stuck for 32s!'\n");
+
+      for (long i = 0; i < ncpus; i++) {
+          pthread_create(&threads[i], NULL, timer_hammer, (void *)i);
+      }
+
+      for (long i = 0; i < ncpus; i++) {
+          pthread_join(threads[i], NULL);
+      }
+      return 0;
+  }
+
+The soft lockup trace looks like:
+
+  watchdog: BUG: soft lockup - CPU#1 stuck for 32s! [swapper/1:0]
+  Modules linked in: nft_ct nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft
+   nft_masq nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4
+   nf_tables veth bridge stp llc rfkill binfmt_misc nls_ascii nls_cp437 vfat
+   fat ina2xx rtc_pcf85063 regmap_spi micrel phy_package aquantia crc_itu_t
+   ci_hdrc_imx dwmac_s32 crct10dif_ce ci_hdrc ghash_ce sha2_ce sha256_arm64
+   sha1_arm64_ce udc_core stmmac ulpi phy_generic pcs_xpcs usbmisc_imx
+   phylink ptp pps_core i2c_imx fsl_edma virt_dma flexcan can_dev s32g_wdt
+   watchdog sch_fq_codel drm fuse drm_panel_orientation_quirks nfnetlink
+   dmi_sysfs ipv6
+  CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Tainted: G               X   ------  ---   6.12.0-274.el10iv.aarch64 #1 PREEMPT_RT
+  Tainted: [X]=AUX
+  Hardware name: Unknown Unknown Product/Unknown Product, BIOS 2022.04-15.el10_4 04/01/2022
+  pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+  pc : default_idle_call+0x3c/0x170
+  lr : default_idle_call+0x30/0x170
+  sp : ffff80008011bdd0
+  x29: ffff80008011bdd0 x28: 0000000000000000 x27: 0000000000000000
+  x26: 0000000000000000 x25: 0000000000000000 x24: 0000000000000000
+  x23: 00000000000000c0 x22: ffff0008803ac840 x21: ffff0008803ac840
+  x20: 0000000000000000 x19: 0000000000000000 x18: 0000000000000000
+  x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
+  x14: 003369266b813144 x13: 0000000000000000 x12: 00000000000002eb
+  x11: 00000000000000c0 x10: 00000000000010a0 x9 : ffff800080350ff4
+  x8 : ffff0008803ad940 x7 : 0000000000000000 x6 : 0000000000000000
+  x5 : 0000000000000004 x4 : 000000000c1c684 x3 : 0000000000000001
+  x2 : ffff0008803ac840 x1 : ffff800081712628 x0 : 0000000000000001
+  Call trace:
+   default_idle_call+0x3c/0x170 (P)
+   cpuidle_idle_call+0x1a8/0x248
+   do_idle+0xa4/0x118
+   cpu_startup_entry+0x3c/0x50
+   secondary_start_kernel+0x124/0x168
+   __secondary_switched+0xc0/0xc8
+  hrtimer: interrupt took 7246 ns
+
 Signed-off-by: Enric Balletbo i Serra <eballetb@redhat.com>
 ---
- drivers/clocksource/timer-nxp-stm.c | 52 +++++++++++++++++++++++--------------
- 1 file changed, 32 insertions(+), 20 deletions(-)
+Changes in v3:
+- Code review and commit message editing assisted by Claude:claude-opus-4-6.
+- Rework the overshoot check following review feedback on v2: replace
+  the signed <= 0 comparison with a margin based check in the style of
+  hpet_clkevt_set_next_event(), and derive min_delta from the margin
+  (3 * STM_MIN_CYCLES) instead of increasing it to a fixed 20us.
+- Add a new patch which keeps the compare channel armed during the
+  whole ONESHOT operation instead of enabling it on every event: the
+  trailing channel-enable write was a posted write landing after the
+  overshoot check, which no min_delta could compensate for.
+- Size the margin constants from measurements on S32G instead of the
+  estimated timings.
 
-diff --git a/drivers/clocksource/timer-nxp-stm.c b/drivers/clocksource/timer-nxp-stm.c
-index 81527745b7e2..8ad99863bdff 100644
---- a/drivers/clocksource/timer-nxp-stm.c
-+++ b/drivers/clocksource/timer-nxp-stm.c
-@@ -254,14 +254,27 @@ static int nxp_stm_clockevent_shutdown(struct clock_event_device *ced)
- 	return 0;
- }
- 
-+static int nxp_stm_clockevent_set_oneshot(struct clock_event_device *ced)
-+{
-+	struct stm_timer *stm_timer = ced_to_stm(ced);
-+
-+	/*
-+	 * Clear a stale interrupt flag so that enabling the channel
-+	 * cannot fire an event from a previous match.
-+	 */
-+	writel(STM_CIR_CIF, STM_CIR0(stm_timer->base));
-+
-+	nxp_stm_clockevent_enable(stm_timer);
-+
-+	return 0;
-+}
-+
- static int nxp_stm_clockevent_set_next_event(unsigned long delta, struct clock_event_device *ced)
- {
- 	struct stm_timer *stm_timer = ced_to_stm(ced);
- 	u32 val;
- 	s32 res;
- 
--	nxp_stm_clockevent_disable(stm_timer);
--
- 	stm_timer->delta = delta;
- 
- 	val = nxp_stm_clockevent_read_counter(stm_timer) + delta;
-@@ -288,18 +301,16 @@ static int nxp_stm_clockevent_set_next_event(unsigned long delta, struct clock_e
- 	 */
- 	res = (s32)(val - nxp_stm_clockevent_read_counter(stm_timer));
- 
--	if (res < STM_MIN_CYCLES)
--		return -ETIME;
--
--	nxp_stm_clockevent_enable(stm_timer);
--
--	return 0;
-+	return res < STM_MIN_CYCLES ? -ETIME : 0;
- }
- 
- static int nxp_stm_clockevent_set_periodic(struct clock_event_device *ced)
- {
- 	struct stm_timer *stm_timer = ced_to_stm(ced);
- 
-+	writel(STM_CIR_CIF, STM_CIR0(stm_timer->base));
-+	nxp_stm_clockevent_enable(stm_timer);
-+
- 	return nxp_stm_clockevent_set_next_event(stm_timer->rate, ced);
- }
- 
-@@ -327,6 +338,8 @@ static int nxp_stm_clockevent_per_cpu_init(struct device *dev, struct stm_timer
- 	stm_timer->ced.name = name;
- 	stm_timer->ced.features = CLOCK_EVT_FEAT_PERIODIC | CLOCK_EVT_FEAT_ONESHOT;
- 	stm_timer->ced.set_state_shutdown = nxp_stm_clockevent_shutdown;
-+	stm_timer->ced.set_state_oneshot = nxp_stm_clockevent_set_oneshot;
-+	stm_timer->ced.set_state_oneshot_stopped = nxp_stm_clockevent_shutdown;
- 	stm_timer->ced.set_state_periodic = nxp_stm_clockevent_set_periodic;
- 	stm_timer->ced.set_next_event = nxp_stm_clockevent_set_next_event;
- 	stm_timer->ced.suspend = nxp_stm_clockevent_suspend;
-@@ -384,19 +397,18 @@ static irqreturn_t nxp_stm_module_interrupt(int irq, void *dev_id)
- 	writel(STM_CIR_CIF, STM_CIR0(stm_timer->base));
- 
- 	/*
--	 * Update STM_CMP value using the counter value
-+	 * The STM hardware has no periodic mode: the comparator stays
-+	 * armed after a match, so periodic mode is emulated by
-+	 * reprogramming the comparator here. In ONESHOT mode the stale
-+	 * comparator value stays armed instead; the clockevents core
-+	 * either programs a new event or stops the channel long before
-+	 * the counter can wrap around to the stale value (~32.2s at
-+	 * 133 MHz).
- 	 */
--	val = nxp_stm_clockevent_read_counter(stm_timer) + stm_timer->delta;
--
--	writel(val, STM_CMP0(stm_timer->base));
--
--	/*
--	 * stm hardware doesn't support oneshot, it will generate an
--	 * interrupt and start the counter again so software needs to
--	 * disable the timer to stop the counter loop in ONESHOT mode.
--	 */
--	if (likely(clockevent_state_oneshot(ced)))
--		nxp_stm_clockevent_disable(stm_timer);
-+	if (clockevent_state_periodic(ced)) {
-+		val = nxp_stm_clockevent_read_counter(stm_timer) + stm_timer->delta;
-+		writel(val, STM_CMP0(stm_timer->base));
-+	}
- 
- 	ced->event_handler(ced);
- 
+Changes in v2:
+- Update the code comment in nxp_stm_clockevent_starting_cpu() and the
+  commit message: clarify that 20us prevents repeated -ETIME retry
+  latency, removing the misleading reference to 32s wraparounds.
+- Link to v1: https://lore.kernel.org/r/20261026-nxp-stm-fixes-v1-0-20a64a4ea454@redhat.com
 
+---
+Enric Balletbo i Serra (3):
+      clocksource/drivers/nxp-stm: Fix max_delta overflow on 64-bit platforms
+      clocksource/drivers/nxp-stm: Fix overshoot detection in set_next_event
+      clocksource/drivers/nxp-stm: Arm the compare channel from the state callbacks
+
+ drivers/clocksource/timer-nxp-stm.c | 101 +++++++++++++++++++++++-------------
+ 1 file changed, 65 insertions(+), 36 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261023-nxp-stm-fixes-ab0163517e6f
+
+Best regards,
 -- 
-2.56.0
+Enric Balletbo i Serra <eballetb@redhat.com>
 
