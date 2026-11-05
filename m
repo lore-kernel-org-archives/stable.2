@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793889557;
-	b=YTJApyiJO4/kTKf8h+sr3VsISsfld3Hu4/M3RmvnvmsOtohScX+IzndTPHqbMHa219NI
-	 IOuJTacZjE6ivlF7v+vvq0dqvTYnHFfFsuxyy4kiT/lsJUw9hOOSYvDlDMZoB4gKKnA4n
-	 TcSERsmweOv87+kqwhiMb+D2eZFxPESUW9nfU9HSluDr0XKY3kC1jr5C6evocaHCV+bSc
-	 VBm3R7rIfCBshk2ORw8HLzR+M+by75nyp8eUZOKX4MMlBIlz1fatSYbmksqigbCCZT83k
-	 x17xukEihNnljfbuaR7h/yCtsVXmTJHhtRDvsx6xDB+NFevJrfFOm5IpkImNcDyyuDA==
+	t=1793889571;
+	b=SgKGO2+Q3WMecuyfFtZW4CgKSlH8VfVGmr8p4xFp4WXmQFVmnP2D243hSXuMh7b79tRu
+	 qBrohpG3QqW1otr9Lwsg3sSsm5c/o3VZgpUfgZBc6cjULjy3f9Gwyx2BVRup5PeD0W7DS
+	 tUGXc7QZGXo09R6urr32gNkXnvV+lmifCBW7i7sy7N/kJj9DBrZ20hQGFDbRP70Ji3jPb
+	 CeTWdJZd8Xs3BF884xIqk8JoomMu6UUqX8lVaBVFgJElvVTz43tnTXDlyQwiODb2juIrh
+	 Ptsjl/n1SfzR1KEtlel9YjtVlj0lGblXKVVcbrw5SLLWlkBageP4JxWkMVvvwg1uQdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793889557;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793889571;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FiV21OCubJEzTg6YT+Q4kjJCdTRu4YfZXKAgzksJbjM=;
-	b=pakOzqD6dLtsgayGmex3N7/anxUQ8y6aIbqWLmxQEzsDCoJk0fl6vjTK+favRLl1E1cH
-	 ePYPxo8gzCInY6epteaI2o4SWV2sG+56vVk8y4zbajyfs32N7ZAbgE04VXmFpaQDYg1li
-	 GjOkJa82oqlIF/Djqwv9ji+Ri+K8zH9cFkg+0dX5FuEgogzNrOVsf0jyf329SazqltKxk
-	 W4ZWRTZLPUJPEsVO74+MfKKRHnOxn23+TPVw/EptQxZBHn0s+J+FUwD8nnFbvCcNJKFUm
-	 HqRy3SSqmQ63tadne7/5hJCvTVVM/ZbeiBSZ76hDkCjGv9e7y3a+nym7MJ62gyujuuw==
+	bh=PSyN1YHPWqlEh6KBlb3S3Qwl9gNrCashcBnZD9ISPHc=;
+	b=ki/xFpw/oaGF3u7GpyOKEaUZBhvqrkZU+Hf6kltHIOakcQcZMCedP8T/jF05XaKGFfgX
+	 g3tXBK3HlSVKdXq0yU7Es5lheFQRO+aXYz8FSxzW/DU6cewlVornQSilplnwmqx2uyYrJ
+	 EvT5kP3oP1sin0ZD0fF2BbPF/M2fWIWDAufZ+CidObFKW+RXu71wm2WhqRWNMKMiSGuDe
+	 eKy9NzJtkPnOpYx3KslVybyA11BNLRolcCloqUDAp+Ia1mxqH9tUCcw71ElRoA/3ta160
+	 hqGRaxCNPSF05gFqdJ5ckUFO2cG/GbIPFZRTikM5uLPs/WAWCSeHHeE/NCQOjnKDyeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QBFG09mJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSmzGqIK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EEE9606A33B;
-	Thu,  5 Nov 2026 14:39:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A586B606A33C;
+	Thu,  5 Nov 2026 14:39:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QBFG09mJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D16CD1F00919;
-	Thu,  5 Nov 2026 14:39:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSmzGqIK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF4C61F000C1;
+	Thu,  5 Nov 2026 14:39:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793889557;
-	bh=FiV21OCubJEzTg6YT+Q4kjJCdTRu4YfZXKAgzksJbjM=;
+	s=k20260515; t=1793889570;
+	bh=PSyN1YHPWqlEh6KBlb3S3Qwl9gNrCashcBnZD9ISPHc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QBFG09mJoLNJqFObhX4Wx3KrWOCSyVwty+pF8IqCAUVrPiGOMZlBIQTJ97j6x0VF7
-	 Ey1oQLf5TG6xEdVxmWZlqvf2PjYyyBi6un3oVT6D+3oSX6ypeS/uqJIJddHiY4gH3Y
-	 sNahT6CzLwJGRs7N1u6hVMuez9s9NG0a+gVwkghxLdDIK8bFHQgL622PEy8PGm/biD
-	 MzpOK9gQ2C2Idw0ZQnf/GmO41mjUB7jDeaKq0j5qPUOUsyEGszWGPkgCj85t1CkzcP
-	 77qEu5kngYp9ol0pzMe4wqzgxWEZjEgC5GUKrjRtWpsbtf399ofxYJaNo+z3ItGboF
-	 0MGiUn6I0nvVA==
+	b=jSmzGqIKPUpLZZpX+iRhptsPPasIPHu0Htw6mu/9YR9pa1keWpXD5iVGK7+QR3xZg
+	 oOrGhKnuBWEkdEKmvc06gyubXv6cx6sUW34F6gDFC0KJ63NTwkbySIyokOeeMutAfe
+	 M/uRfUg7sfqwgWeGc5by5g5Po3ujzORTbphiVRU57ZohbTtjq5ZDtWkydRJt7NXpXs
+	 y2PW0wXCOYLK8m1ltju0sl5aYNvIETsaS3kFjDnA3JAio2Nljg8PdutwN4oeW+8BLG
+	 WDoD65VWWV2jkTwpdXp8GIJXZ05o4untu8tIDxRuad5YDZ6AiX72NUTVniookGTMUW
+	 +Q0lDX8lXpLBw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
 	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Juxin Gao <gaojuxin@loongson.cn>,
-	Huacai Chen <chenhuacai@kernel.org>,
+	Xiubo Li <Li.Xiubo@freescale.com>,
+	"shenwei.wang@nxp.com" <shenwei.wang@nxp.com>,
+	Thierry Reding <thierry.reding@gmail.com>,
 	linux-pwm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 3/8] pwm: loongson: Fix 32-bit control register truncation in pwm_loongson_set_polarity()
-Date: Thu,  5 Nov 2026 14:38:05 +0000
-Message-ID: <20261105143847.2559586-4-lee@kernel.org>
+Subject: [PATCH 5/8] pwm: fsl-ftm: Enable ipg_clk around regcache_sync() during resume
+Date: Thu,  5 Nov 2026 14:38:07 +0000
+Message-ID: <20261105143847.2559586-6-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
 In-Reply-To: <20261105143847.2559586-1-lee@kernel.org>
 References: <20261105143847.2559586-1-lee@kernel.org>
@@ -65,35 +65,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pwm_loongson_set_polarity() stores the 32-bit value read from
-LOONGSON_PWM_REG_CTRL into a 16-bit local variable before writing it
-back to the register, silently clearing the upper 16 bits.
+On SoCs with a dedicated IP interface clock (ipg_clk), register accesses
+require ipg_clk to be enabled in addition to the ftm_sys clock managed
+by regmap_mmio.  In fsl_pwm_resume(), ipg_clk is only enabled inside the
+channel loop for channels with PWMF_REQUESTED set, so if no channels are
+currently requested, regcache_sync() writes to the hardware registers
+while ipg_clk is disabled.
 
-Change val from u16 to u32 to match the 32-bit register width used
-throughout the rest of the driver.
+Enable ipg_clk across fsl_pwm_resume() around regcache_sync(), matching
+fsl_pwm_init().
 
-Fixes: 2b62c89448dd ("pwm: Add Loongson PWM controller support")
-Closes: https://sashiko.dev/#/bug/linux-bea00bdd-ae27-4d81-9902-e96ed8b6d8ad
+Fixes: 82a9c55a2bb0 ("pwm: fsl-ftm: Added a dedicated IP interface clock")
+Closes: https://sashiko.dev/#/bug/linux-858851cf-55a9-4776-883c-69c05f3961f2
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/pwm/pwm-loongson.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pwm/pwm-fsl-ftm.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/pwm/pwm-loongson.c b/drivers/pwm/pwm-loongson.c
-index 98c809bde2b3..4e8b54c8016c 100644
---- a/drivers/pwm/pwm-loongson.c
-+++ b/drivers/pwm/pwm-loongson.c
-@@ -76,7 +76,7 @@ static inline void pwm_loongson_writel(struct pwm_loongson_ddata *ddata,
- static int pwm_loongson_set_polarity(struct pwm_chip *chip, struct pwm_device *pwm,
- 				     enum pwm_polarity polarity)
+diff --git a/drivers/pwm/pwm-fsl-ftm.c b/drivers/pwm/pwm-fsl-ftm.c
+index 35406b2e1925..9e5470e2efe6 100644
+--- a/drivers/pwm/pwm-fsl-ftm.c
++++ b/drivers/pwm/pwm-fsl-ftm.c
+@@ -501,8 +501,13 @@ static int fsl_pwm_resume(struct device *dev)
  {
--	u16 val;
-+	u32 val;
- 	struct pwm_loongson_ddata *ddata = to_pwm_loongson_ddata(chip);
+ 	struct pwm_chip *chip = dev_get_drvdata(dev);
+ 	struct fsl_pwm_chip *fpc = to_fsl_chip(chip);
++	int ret;
+ 	int i;
  
- 	val = pwm_loongson_readl(ddata, LOONGSON_PWM_REG_CTRL);
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>
++	ret = clk_prepare_enable(fpc->ipg_clk);
++	if (ret)
++		return ret;
++
+ 	for (i = 0; i < chip->npwm; i++) {
+ 		struct pwm_device *pwm = &chip->pwms[i];
+ 
+@@ -522,6 +527,8 @@ static int fsl_pwm_resume(struct device *dev)
+ 	regcache_cache_only(fpc->regmap, false);
+ 	regcache_sync(fpc->regmap);
+ 
++	clk_disable_unprepare(fpc->ipg_clk);
++
+ 	return 0;
+ }
+ #endif
+Cc: shenwei.wang@nxp.com
 -- 
 2.56.0.398.g882cbad275-goog
 
