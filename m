@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793847051;
-	b=m/p/Zlz7+ffsCkpb3pCKEntz307pgDDk3ACjl8qL8MxbxmgrFsWxb5hPuSUWI6GuQkDJ
-	 LpJhaqs/XZukUZaHzBHoQv42nexc3q9OYL7+0mFl3gwmcUgtXqSyH0etf/bbtUbml0qYP
-	 dXxFAT679g6APQ6B3QFUkP2PNBLa7hrMyTPW68mccopOBBMV63x/1G7zqTnBpANzOnx62
-	 RLLcehjCEKkjxseQBlRGUq1qRiEoY61/hTESSM6cbIirLJ2iZE5wBIm91mVuwQbkfj2ZA
-	 kWybWAhftd1oKMjB4o4a+tU0e70SQLy5O11MN6HXCdfhIn2fSQFdZpIb5HLDi0Dr8tw==
+	t=1793847217;
+	b=Or5ADc23yJGdrzkw6iA1IxSBorpyuluwkW1zb8WZFkYnyAC9cJpcyB4pIU9D5cYbZaOM
+	 LR+IUdQQzxX+emZRoN4HKdr9yia/784JdgOzlqQIQWPa4w2CVSoJYuP5gWTLM+Z2YK0+R
+	 ljACSmUCBM1zsp+b/NihauNmvsH5a2ABxHPK8UsSzKY1aE2YIurEWzXLLmHeZTQ0yo57O
+	 UbApetGoVXbz4RxuA5dswRjNObD1q4dR8FBlEbqgGr/PdrZap6l2jEG0/zHz3SzS9Xl+f
+	 +KHhmPCVwcemdxIbjErbX7lCwy9XgUje+iIBaAqsW/Fkx5zh7bd2FtmyOuO+boKy+uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793847051;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793847217;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hi1qcCC8EcE/ARzFL+mTdQwX6UWc+I7qO4OZRyVpPMA=;
-	b=huFGU1YMYf5TZhn9jHCs72WRZ6UsEfRGvphGJlrRf25UyKNQUNsfjEcA19puoxGbutZZ
-	 zWRirsE0YD14xC9k7pKz2p+wA1VzAIZH55jLDrwHgG+LDZzQe7Qwsuna0ryATOwbEW6lb
-	 jZcO78rGDsSnrfvdPggftnfw6f3Nkq6TgVBxe9hxhwe5NpO0/YTS5/UNqZQcwwo+O4h6T
-	 QolCYOj3nPQDXDEfFM7jd0puMCwToB/5ns8UWeGmbJGnewqHBr5KuNYSpMSNluIP+e6Gj
-	 V2ZzWAIM/85vxOEC4cfREiufOPgPD221VmDZFQTbsxLWt2pGoyzV7gK34wfEGptruHQ==
+	bh=T+15faKg6nvNdXePPzl6V0YddzuBCk3ygzoVHs2lk04=;
+	b=Qu+vq1sHkOBiFb+t8cCVWkiqZMK/sJd7X5rTa8tQL6OTZp2x/5AnDo3Pz/q2PuF58zIk
+	 mtq1Uw+XnkKKBvVV+aDbjO1OXiI7GiTfbgx/9NM9Lj+ejtCOQhDSqpU1TUBLNq1ijSZw7
+	 HBnU0hFokitE9G0LcjWblnSPkHEeiKS9PYi3os+ctGJVxGC77cvmbhyWi7z6R3uiRsUzG
+	 oiR6IVJ0s56BmRjRyXJM+iuxhQD4VqMorXgCAjMJk4w6l6hoKFQYdZ+FXlb1uJJFv5/3r
+	 PyXYVZqmlEUKdgbZMXDMAxFT6eaL6onPeD6Hnkdy8SfKVsN9rKBzwVGNLnRizDx8qyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akIGX9QE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jc8zgwfT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5EC606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:50:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49B0606A329
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:53:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=akIGX9QE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A37A41F00919;
-	Thu,  5 Nov 2026 02:50:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jc8zgwfT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5D451F000C1;
+	Thu,  5 Nov 2026 02:53:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793847050;
-	bh=hi1qcCC8EcE/ARzFL+mTdQwX6UWc+I7qO4OZRyVpPMA=;
+	s=k20260515; t=1793847216;
+	bh=T+15faKg6nvNdXePPzl6V0YddzuBCk3ygzoVHs2lk04=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=akIGX9QE0/213DOiCBnK2qThOHUjCIRHBqoPyEioO5wqLPKEGAMMpcbsCIMlhQ26h
-	 K4eRD8gd75xNxA++Z4Seo36UcS0K/7GwW0AzM8ZW9EAsGs4aAUjlkNVedoK8XB2tfw
-	 3KKRPQzB7kH2KxhHZ+AhGNbgAznbiSLZshU1OorP8P53SEgz3ApHzGjwerByuVkz5v
-	 PiSOqvlJPojsAvvT8NTMVR/dR/UNtvnmr5toI6hA5qM+DiBXr0D5tWb6oIZepnmT4/
-	 h/Tx0jpstrCYtNe1VMWPiy3NbYjr1NOhJyL2GnZEIE9SfhtfBgr/fBU2VA7PMmoYUC
-	 cAM0vQFGDmZrw==
+	b=jc8zgwfTKV6rlZgJt9t9HhHV8BcKO2Wrma5yhw7sFTqRYdnWBUJ1UHw/x27YTGX5t
+	 evAXDQpZ7TwpVG+RLpOGokD21Nh4u4KFtHDVkPtinoNdnDxEc6kxZGWJRTNhrAebFe
+	 RQKkJasoZaXooXeH8+mUmKWzLKnxNUQXkIryuZHPD37+NqnKkWEmhvIRhuM1V/9niy
+	 twC7jZhJCLGxT7BPFiScg1GvpQhrRZCyk/CVtgoXiJqmw/d6sUulllKEEgqxUtYizd
+	 ob+LlQ8O2XGvZ/PjBuEM1YN09+r6RdnX1hMSWa5MC2ZDA6u3JO8oebbwcFeifOgjkr
+	 5UmE+tU/UFvzw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Young <sean@mess.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Diego Oliva <diego@bynar.io>,
+	David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] media: rc: Fix ABBA deadlock by making locks more fine grained
-Date: Wed,  4 Nov 2026 21:50:48 -0500
-Message-ID: <20261105025022.1173951-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] smb: client: fix OOB last_entry pointer from unbounded LastNameOffset
+Date: Wed,  4 Nov 2026 21:53:34 -0500
+Message-ID: <20261105025324.1202136-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110415-mocker-phony-91d4@gregkh>
-References: <2026110415-mocker-phony-91d4@gregkh>
+In-Reply-To: <2026110405-silent-unveiling-d1c7@gregkh>
+References: <2026110405-silent-unveiling-d1c7@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,129 +62,167 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Young <sean@mess.org>
+From: Diego Oliva <diego@bynar.io>
 
-[ Upstream commit c6d68866ad8aa1e957a3e5a6ede971148f1e3d59 ]
+[ Upstream commit 570c783a96f054dd3ac409a92772e9afb705d21c ]
 
-The ir_raw_event_unregister() function takes the ir_raw_handler_lock
-first and then the rc_dev->lock. Other functions like change_protocol
-do this in the reverse order.
+CIFSFindFirst() and CIFSFindNext() locate the last entry of a
+TRANS2_FIND_FIRST2 or TRANS2_FIND_NEXT2 response by adding the
+LastNameOffset of the response parameters to the start of the data
+area, and store the result in psrch_inf->last_entry. MS-CIFS 2.2.6.2.2
+defines that offset as the offset of the entry's file name; the client
+follows the reading of NT and Samba servers, which point it at the
+entry. LastNameOffset is only checked against CIFSMaxBufSize, which
+says nothing about the response actually received: validate_t2() lets
+the data area start up to 1024 bytes into the buffer, and SendReceive()
+copies at most CIFSMaxBufSize + MAX_CIFS_HDR_SIZE bytes of a response,
+16468 by default, into a cifs_request allocation of CIFSMaxBufSize +
+MAX_SMB2_HDR_SIZE bytes, 16588 by default. The pointer itself can
+therefore be placed anywhere from the end of the received data to 820
+bytes past the end of the allocation.
 
-This means that an ir decoder module unload and writing to the protocol
-sysfs file can cause a deadlock.
+The read through that pointer is far larger than its displacement.
+find_cifs_entry() hands last_entry to cifs_save_resume_key() after every
+FindNext and after the FindFirst of a search rewind, and
+cifs_fill_dirent() takes the length of the name from the entry itself: a
+__le32 FileNameLength for most levels, a __u8 for
+SMB_FIND_FILE_INFO_STANDARD, and for SMB_FIND_FILE_UNIX the result of a
+scan for the terminating NUL over up to PATH_MAX + 1 UTF-16 units. The
+name is recorded as the resume name of the search, and the next
+CIFSFindNext() rejects only a recorded length of PATH_MAX or more before
+copying the name into the ResumeFileName of its request and sending it
+with the resume key taken from the same entry: up to 4 KiB of memory
+from past the end of the allocation leaks to the server, and for
+SMB_FIND_FILE_UNIX the NUL scan runs about twice as far before the
+length is even known. The entry does not have to lie outside the
+response for that either: a maximal response ends about 120 bytes before
+the end of the allocation, so an entry in its last bytes with a name
+just under PATH_MAX has nearly all of that name copied from past the
+allocation.
 
-ir_raw_handler_lock protects the client list, amongst other things.
-Split this out into a separate lock so we can ensure the locking
-order is always the same.
+It needs nothing unusual from the client: a FindNext response that
+reports no entries and does not end the search makes find_cifs_entry()
+send the next FindNext at once, carrying whatever was parsed at
+LastNameOffset, and a search rewind can do the same after its
+FindFirst. SMB1 is not negotiated by default: this takes a malicious
+or compromised server, a mount of it with an explicit vers=1.0, which
+CONFIG_CIFS_ALLOW_INSECURE_LEGACY (default y) permits, and a directory
+listing on that mount.
 
-Fixes: 93cffffc18f6 ("[media] media: rc: fix decoder module unloading")
-Signed-off-by: Sean Young <sean@mess.org>
+With KASAN enabled, a response that places the last entry past the
+buffer, with a large DataOffset and a LastNameOffset near the end of
+its range, gives:
+
+ ==================================================================
+ BUG: KASAN: slab-out-of-bounds in cifs_save_resume_key.isra.0+0x7aa/0x7f0
+ Read of size 4 at addr ffff88807b55c33b by task ls/83
+
+ CPU: 1 UID: 0 PID: 83 Comm: ls Not tainted 7.3.0-rc4-00457-gf14572c203d5 #69 PREEMPT(lazy)
+ Call Trace:
+  <TASK>
+  kasan_report+0xdf/0x1a0
+  cifs_save_resume_key.isra.0+0x7aa/0x7f0
+  cifs_readdir+0x1ed6/0x29c0
+  iterate_dir+0x1c0/0x570
+  __x64_sys_getdents64+0x133/0x270
+  do_syscall_64+0x109/0x5d0
+  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  </TASK>
+
+ Allocated by task 83 on cpu 0 at 19.317556s:
+  cifs_buf_get+0x36/0x90
+  smb_init+0x4f/0x110
+  CIFSFindNext+0xf7/0x14c0
+  cifs_readdir+0xf51/0x29c0
+
+ The buggy address belongs to the object at ffff88807b558000
+  which belongs to the cache cifs_request of size 16588
+ The buggy address is located 623 bytes to the right of
+  allocated 16588-byte region [ffff88807b558000, ffff88807b55c0cc)
+ ==================================================================
+
+The four bytes read there are the FileNameLength of the entry, which
+cifs_fill_dirent() takes before anything checks where the entry lies.
+
+Ignore the last entry when it does not start inside the received
+response or the response holds no entries; for a response without
+entries, last_entry pointed into or past its empty data area and
+cifs_save_resume_key() parsed whatever the buffer held there. The
+entry is bounded by the response that was received, which is what the
+buffer holds, rather than by the data area the response declares,
+which a later patch checks against the received length. Record the
+search handle before the last entry is examined, since a response
+without a usable last entry still carries the handle that the search
+is continued and closed with; leaving the assignment in the else
+branch would drop the handle of every response without entries.
+
+This bounds where the last entry starts, not how far it is parsed: an
+entry that starts within the final bytes of the response still has
+its fixed part read past the end of the received data and its name,
+up to 4095 bytes, copied from past the end of the allocation, until
+the following patch bounds the parse itself. A response without a
+usable last entry continues the search with an empty resume name,
+since the preceding patch, "smb: client: fix use-after-free infoleak
+via the readdir resume name", drops the recorded name whenever a new
+response is installed. This patch applies on top of that one and
+relies on it: without it, every response rejected here would leave
+the previous name in place, pointing into a buffer that has been
+released.
+
+A conforming server is not affected: the last entry lies inside the
+data area of the response.
+
+Fixes: 0752f1522a91 ("[CIFS] make sure we have the right resume info before calling CIFSFindNext")
+Fixes: b77d753c413e ("[CIFS] Check that last search entry resume key is valid")
 Cc: stable@vger.kernel.org
-Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: adjusted ir_raw_event_unregister() context for del_timer_sync() and the existing teardown sequence ]
+Assisted-by: Bynario AI
+Signed-off-by: Diego Oliva <diego@bynar.io>
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/rc/rc-ir-raw.c | 38 +++++++++++++++++++++++-------------
- 1 file changed, 24 insertions(+), 14 deletions(-)
+Depends on <20261104155725.3917936-1-sashal@kernel.org>
 
-diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
-index c65bba4ec4739..304cc47e781ed 100644
---- a/drivers/media/rc/rc-ir-raw.c
-+++ b/drivers/media/rc/rc-ir-raw.c
-@@ -10,7 +10,8 @@
- #include <linux/sched.h>
- #include "rc-core-priv.h"
- 
--/* Used to keep track of IR raw clients, protected by ir_raw_handler_lock */
-+/* Used to keep track of IR raw clients, protected by ir_raw_client_lock */
-+static DEFINE_MUTEX(ir_raw_client_lock);
- static LIST_HEAD(ir_raw_client_list);
- 
- /* Used to handle IR raw handler extensions */
-@@ -290,13 +291,6 @@ static int change_protocol(struct rc_dev *dev, u64 *rc_proto)
- 	return 0;
- }
- 
--static void ir_raw_disable_protocols(struct rc_dev *dev, u64 protocols)
--{
--	mutex_lock(&dev->lock);
--	dev->enabled_protocols &= ~protocols;
--	mutex_unlock(&dev->lock);
--}
--
- /**
-  * ir_raw_gen_manchester() - Encode data with Manchester (bi-phase) modulation.
-  * @ev:		Pointer to pointer to next free event. *@ev is incremented for
-@@ -634,15 +628,18 @@ int ir_raw_event_register(struct rc_dev *dev)
- {
- 	struct task_struct *thread;
- 
-+	/* Holding dev->lock could result in a dead-lock */
-+	lockdep_assert_not_held(&dev->lock);
-+
- 	thread = kthread_run(ir_raw_event_thread, dev->raw, "rc%u", dev->minor);
- 	if (IS_ERR(thread))
- 		return PTR_ERR(thread);
- 
- 	dev->raw->thread = thread;
- 
--	mutex_lock(&ir_raw_handler_lock);
-+	mutex_lock(&ir_raw_client_lock);
- 	list_add_tail(&dev->raw->list, &ir_raw_client_list);
--	mutex_unlock(&ir_raw_handler_lock);
-+	mutex_unlock(&ir_raw_client_lock);
- 
- 	return 0;
- }
-@@ -666,8 +663,10 @@ void ir_raw_event_unregister(struct rc_dev *dev)
- 	kthread_stop(dev->raw->thread);
- 	del_timer_sync(&dev->raw->edge_handle);
- 
--	mutex_lock(&ir_raw_handler_lock);
-+	mutex_lock(&ir_raw_client_lock);
- 	list_del(&dev->raw->list);
-+
-+	mutex_lock(&ir_raw_handler_lock);
- 	list_for_each_entry(handler, &ir_raw_handler_list, list)
- 		if (handler->raw_unregister &&
- 		    (handler->protocols & dev->enabled_protocols))
-@@ -683,6 +682,8 @@ void ir_raw_event_unregister(struct rc_dev *dev)
- 	 * "device gone" is checked.
- 	 */
- 	mutex_unlock(&ir_raw_handler_lock);
-+
-+	mutex_unlock(&ir_raw_client_lock);
- }
- 
- /*
-@@ -705,15 +706,24 @@ void ir_raw_handler_unregister(struct ir_raw_handler *ir_raw_handler)
- 	struct ir_raw_event_ctrl *raw;
- 	u64 protocols = ir_raw_handler->protocols;
- 
-+	mutex_lock(&ir_raw_client_lock);
-+
- 	mutex_lock(&ir_raw_handler_lock);
- 	list_del(&ir_raw_handler->list);
-+	atomic64_andnot(protocols, &available_protocols);
-+	mutex_unlock(&ir_raw_handler_lock);
-+
- 	list_for_each_entry(raw, &ir_raw_client_list, list) {
-+		mutex_lock(&raw->dev->lock);
-+		mutex_lock(&ir_raw_handler_lock);
- 		if (ir_raw_handler->raw_unregister &&
- 		    (raw->dev->enabled_protocols & protocols))
- 			ir_raw_handler->raw_unregister(raw->dev);
--		ir_raw_disable_protocols(raw->dev, protocols);
-+		raw->dev->enabled_protocols &= ~protocols;
-+		mutex_unlock(&ir_raw_handler_lock);
-+		mutex_unlock(&raw->dev->lock);
+ fs/smb/client/cifssmb.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+index 7375e023b1e02..3eab6860d33ed 100644
+--- a/fs/smb/client/cifssmb.c
++++ b/fs/smb/client/cifssmb.c
+@@ -4045,14 +4045,17 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
+ 	psrch_inf->presume_name = NULL;
+ 	psrch_inf->resume_name_len = 0;
+ 	psrch_inf->resume_key = 0;
++	if (pnetfid)
++		*pnetfid = parms->SearchHandle;
+ 	lnoff = le16_to_cpu(parms->LastNameOffset);
+-	if (CIFSMaxBufSize < lnoff) {
++	if (!psrch_inf->entries_in_buffer) {
++		psrch_inf->last_entry = NULL;
++	} else if (psrch_inf->srch_entries_start + lnoff >=
++		   psrch_inf->ntwrk_buf_start + bytes_returned) {
+ 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
+ 		psrch_inf->last_entry = NULL;
+ 	} else {
+ 		psrch_inf->last_entry = psrch_inf->srch_entries_start + lnoff;
+-		if (pnetfid)
+-			*pnetfid = parms->SearchHandle;
  	}
--	atomic64_andnot(protocols, &available_protocols);
--	mutex_unlock(&ir_raw_handler_lock);
-+
-+	mutex_unlock(&ir_raw_client_lock);
+ 	return 0;
  }
- EXPORT_SYMBOL(ir_raw_handler_unregister);
+@@ -4170,7 +4173,10 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
+ 	psrch_inf->resume_name_len = 0;
+ 	psrch_inf->resume_key = 0;
+ 	lnoff = le16_to_cpu(parms->LastNameOffset);
+-	if (CIFSMaxBufSize < lnoff) {
++	if (!psrch_inf->entries_in_buffer) {
++		psrch_inf->last_entry = NULL;
++	} else if (psrch_inf->srch_entries_start + lnoff >=
++		   psrch_inf->ntwrk_buf_start + bytes_returned) {
+ 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
+ 		psrch_inf->last_entry = NULL;
+ 	} else {
 -- 
 2.53.0
 
