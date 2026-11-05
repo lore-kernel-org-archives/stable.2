@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881227;
-	b=i6U/UOeUDXTNcOq/K7f0Sj00j8a4VBG06Gj+NS0sKzLUwH3UbIQxUN+q3I8gFJH4tjF7
-	 +4p/oemxCjddmIx9A0WjpvwXDLKsU2MDunjOXDg2Lfvzj4UfX/p7BQFH/O+I/pIEXxsUW
-	 5yRv0NvILlMIEiuOJ+PQjpa3mpYB123Cn8oetkWkyK3ZHhO5z45Rr7puYBXFmEnh45AeK
-	 UiL1oeGWLbwJJS6OhcQflOl3l4LbM9xsTJ1xc0ddhA4mHjNDMsVTQIfOLPGvHondNDMnJ
-	 a+TlWcy3ofkA8FBvyUVbn0K1BBZjuDgnloX2ynb+xXHgn+rj+IVT7y9HIYqgogF/2/g==
+	t=1793881232;
+	b=2hh4z4QyygBzbj3IazxnzM05XaIvQlktHCFCuZJVHZiKE+rMjxUFDficXjsjOS+LtYMX
+	 HljcpCI+w/KYc8FIH5PP/uiPUxy3Hoh4QEOTEvbwjoAGjgXhWGQ7jAKxvSeGW88OHqgxE
+	 PZwbqWGbCyQZpOFaIKvFI23vukE7EH23ul/7ag0FZseRJxmezmYGlP3PefAjT+PNdAoo7
+	 uEzSI2lTaMscwti8476pj9geV0PJFVts7wg24TRDejm8dvWUXo1wAF69Pu3/3AVyONR8n
+	 fFnG/9CHlZir3Mqbt038IdE2CRvX4A/lnYRE/LU+AWQwaVH2PbH/YG2ECgddx6WkVpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881227;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881232;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PWz+v+4dSNABat0urnVkkVWKS/ACyVC0ecxa1NHykVk=;
-	b=sjqEJdztINzK+mA8aAYqC0O8cCpStnNnKxK2UlG8djg9McGIaDqbR0+zvW3tw3FaR24x
-	 54uFXBf6KOVhVbBLqGeg0eggRt97A1OCM7I0RBkogSt66BLXz9kU+bhv6zQCpZ9rReHPy
-	 a69ASOeT6I8AwUf8bzhOlibkh0RkgBQ0/6LNbfwQs9kr1ondsR4Pp5mh2EIcIBssSAruH
-	 US7pLosulwhj419nMPx2A+ktIhE4esLdk4e7agRT6feaknneWyhewPlKGWYe4EcVW6nAC
-	 rtx9PMkEVDR64ZzFmqdYjvdnvYZ2HNgKvKBKhH2VGUhkJOqO6JElX31BINpIYTF+y3g==
+	bh=qHi2oIb3FtYuSCEvzDbAEUe62Uu8Lqqd3KhBR8hgDCc=;
+	b=J7kEERCysgNbYT+82ii+DP1tNmlfJTn2rWUXlpfrjbdHInooJJMX2q0/GOKzfkeh3g1L
+	 xo+0SxWk7JxaqVJ52RnphcyZZaOPO4nL4w7WCTvPjtHSnG5OzPg8QnAjznbeCsL2afHY6
+	 cEB2aMewldcw71kkCHkoca/rzrvXI9s17xGSEtyPEhS6TaWL5XJxhYRfG5dT0rNXAmnmU
+	 WP/uxIWYIdkFfqZFwVSJ7EhN+K6Y+lV9oyHVhTb5tQLsQrnHuCzJLf26EYo3n30/DHzzu
+	 rao7DsBy6Hgtls5s+WqkT00jBf3kq7XKL3wH6k3nCkvotLAMrLvEL2NfzztmCRgYKeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=am4CQ8Lz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nh82suBp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E18606A328
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:20:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF3A606A328
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:20:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=am4CQ8Lz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 438B21F00919;
-	Thu,  5 Nov 2026 12:20:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nh82suBp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A7581F000C1;
+	Thu,  5 Nov 2026 12:20:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793881226;
-	bh=PWz+v+4dSNABat0urnVkkVWKS/ACyVC0ecxa1NHykVk=;
+	s=k20260515; t=1793881231;
+	bh=qHi2oIb3FtYuSCEvzDbAEUe62Uu8Lqqd3KhBR8hgDCc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=am4CQ8LzmRwiofzKmPtNnMN2eOEfsDRaostx5q9aKVZ/VvoEIOEGKWa5K3l7lIpoO
-	 QhOo4DN2j4CqzyxcoOCwXW5Xo39cb9OcspMUYWMx3IKU0J+Fz7DQoBu2X6qcfRJ0Ma
-	 GoWOsLoSfirDRWPA2xClxT3vs1NVIYeFtc2QLhhfZY1KgOD/AaxoVl7ene2lcMO8cF
-	 J4l2KRK0TIFwv5abOs7FIvxv8yc94wvehMZNVNUdjVsIUSJB8AYqUuCsmAR42H99VJ
-	 XXwDq5NBc0y7uXDy4VLKQNdR9BSU885yupx3XKwlHOWtTC5Yg0QcHp+gqIHm3rXuy9
-	 yi7Jhn29bFF3A==
+	b=Nh82suBpPcpfeOarjqLbv5OyB60d/OY5UObWHdTc7EQ9+5MUejVztcRFDtuV3gHxj
+	 RVYbbLLv1OVPurGnwcr3SSDEPTtkdKe4dTjiD4VvpQCsr2mwR3irFK3pqC/15KdgfG
+	 oTU8lvrmgRYhpEQBQfGC/cZ1lj/U+03leThAXNVKzlF7hmusy3LCZMQE5EFXpIBwKi
+	 u3BX6d/90+BHudkCDgAx/goXX0P8wq1X77hStQLpGB14S7pQjLVTXZ1wPiEI8P2xuh
+	 QCPlOPvnN1rfQHf95XXl6r6+ISq7HobM6iz8DtrqsoXfiu0H3E+522ImpqWBauHePa
+	 R+U+fvIay2k9w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chris Mason <mason@kernel.org>,
 	Josef Bacik <josef@toxicpanda.com>,
 	Amir Goldstein <amir73il@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ovl: take a snapshot of the name for copy up
-Date: Thu,  5 Nov 2026 07:20:25 -0500
-Message-ID: <20261105121919.1277439-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ovl: set OVL_WHITEOUTS before publishing the upper dir
+Date: Thu,  5 Nov 2026 07:20:30 -0500
+Message-ID: <20261105121913.1264093-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110415-paragraph-reproach-c827@gregkh>
-References: <2026110415-paragraph-reproach-c827@gregkh>
+In-Reply-To: <2026110402-shakable-banister-73fd@gregkh>
+References: <2026110402-shakable-banister-73fd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,90 +64,72 @@ Content-Transfer-Encoding: 8bit
 
 From: Chris Mason <mason@kernel.org>
 
-[ Upstream commit 65bf000962a33ec9d2488e4e1797b6cf630abcbb ]
+[ Upstream commit cbec8610ec5aaf35df50094ff639febc23f20773 ]
 
-The copy up of a directory reads a freed dentry name when a lookup
-moves the directory at the same time.
+Listing a directory while it is copied up causes a use-after-free of
+the readdir cache.
 
-A pointer to the name of a dentry is only valid while something stops
-a move of the dentry. ovl_do_copy_up() keeps a plain copy of
-c->dentry->d_name in c->destname, and ovl_copy_up_start() only keeps
-ovl_rename() away. When a lookup finds the same directory under another
-name after a change to the lower layer, d_splice_alias() moves the
-dentry and frees its external name.
+A merge directory must never be iterated as a real upper directory:
+that mode frees the cache in OVL_I(inode)->cache without looking at
+its refcount, while files opened in merged mode still use it.
+ovl_copy_up_workdir() publishes the upper dentry before it sets
+OVL_WHITEOUTS, and ovl_dir_open() samples both without a lock, so an
+open between the two stores finds the upper directory and takes it
+for a real one.
 
-With a delay in ovl_do_copy_up(), a chmod of a lower-only directory with
-a 60 byte name raced with a rename of that directory in the lower layer
-and a stat of the new name, and KASAN reported a use-after-free in
-lookup_noperm_common().
+With a delay between the two stores, an unprivileged process that
+listed a directory during its copy-up saw only "." and "..", and its
+next getdents freed the readdir cache of another descriptor.
 
-Fix this by using take_dentry_name_snapshot() for c->destname.
+Fix this by setting OVL_WHITEOUTS before ovl_inode_update(), so that
+ovl_dir_reset() agrees with ovl_dir_open(), and by testing
+OVL_TYPE_MERGE() of the path type in ovl_dir_open(), so that an open
+that observes the upper dentry never iterates a merge dir as a real
+dir, regardless of the order in which it observes the flag.
 
-Fixes: 829c28be9bb9 ("ovl: use d_splice_alias() in place of d_add() in lookup")
+Fixes: b79e05aaa166 ("ovl: no direct iteration for dir with origin xattr")
 Cc: stable@vger.kernel.org
 Signed-off-by: Chris Mason <mason@kernel.org>
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[amir: test OVL_TYPE_MERGE() instead of smp_rmb() in ovl_dir_open()]
+Link: https://lore.kernel.org/linux-unionfs/CAOQ4uxh-1J2OBjnDVbrrrjy1puSOW0kABvghN85ih6dtKUBTyA@mail.gmail.com/
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: adapted name snapshot handling to copy-up code with earlier destname initialization and no file-handle cleanup ]
+[ sashal: adjusted context for dentry-based helper calls and later inode initialization ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/overlayfs/copy_up.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ fs/overlayfs/copy_up.c | 2 +-
+ fs/overlayfs/readdir.c | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
-index 4c7ef60dbaac0..71df585385f1e 100644
+index 018867303a93a..07772f54e24f2 100644
 --- a/fs/overlayfs/copy_up.c
 +++ b/fs/overlayfs/copy_up.c
-@@ -791,6 +791,7 @@ static int ovl_do_copy_up(struct ovl_copy_up_ctx *c)
- {
- 	int err;
- 	struct ovl_fs *ofs = OVL_FS(c->dentry->d_sb);
-+	struct name_snapshot name;
- 	bool to_index = false;
+@@ -630,9 +630,9 @@ static int ovl_copy_up_workdir(struct ovl_copy_up_ctx *c)
+ 	if (!c->metacopy)
+ 		ovl_set_upperdata(d_inode(c->dentry));
+ 	inode = d_inode(c->dentry);
+-	ovl_inode_update(inode, temp);
+ 	if (S_ISDIR(inode->i_mode))
+ 		ovl_set_flag(OVL_WHITEOUTS, inode);
++	ovl_inode_update(inode, temp);
+ unlock:
+ 	unlock_rename(c->workdir, c->destdir);
  
- 	/*
-@@ -819,13 +820,23 @@ static int ovl_do_copy_up(struct ovl_copy_up_ctx *c)
- 		/* Disconnected dentry must be copied up to index dir */
- 		return -EIO;
- 	} else {
-+		/*
-+		 * ovl_copy_up_start() keeps ovl_rename() away from c->dentry,
-+		 * because ovl_rename() calls ovl_copy_up() on source and target
-+		 * dentry.  It does not stop d_splice_alias() from moving a
-+		 * directory that a lookup found under another name after a
-+		 * change to the lower layer.  That move frees an external name,
-+		 * so take a snapshot.
-+		 */
-+		take_dentry_name_snapshot(&name, c->dentry);
-+		c->destname = name.name;
- 		/*
- 		 * Mark parent "impure" because it may now contain non-pure
- 		 * upper
- 		 */
- 		err = ovl_set_impure(c->parent, c->destdir);
- 		if (err)
--			return err;
-+			goto out;
+diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+index 09a5542723787..6e13cad49ce54 100644
+--- a/fs/overlayfs/readdir.c
++++ b/fs/overlayfs/readdir.c
+@@ -937,7 +937,8 @@ static int ovl_dir_open(struct inode *inode, struct file *file)
+ 		return PTR_ERR(realfile);
  	}
+ 	od->realfile = realfile;
+-	od->is_real = ovl_dir_is_real(file->f_path.dentry);
++	od->is_real = !OVL_TYPE_MERGE(type) &&
++		      !ovl_test_flag(OVL_WHITEOUTS, inode);
+ 	od->is_upper = OVL_TYPE_UPPER(type);
+ 	file->private_data = od;
  
- 	/* Should we copyup with O_TMPFILE or with workdir? */
-@@ -857,6 +868,8 @@ static int ovl_do_copy_up(struct ovl_copy_up_ctx *c)
- out:
- 	if (to_index)
- 		kfree(c->destname.name);
-+	else
-+		release_dentry_name_snapshot(&name);
- 	return err;
- }
- 
-@@ -982,7 +995,6 @@ static int ovl_copy_up_one(struct dentry *parent, struct dentry *dentry,
- 	if (parent) {
- 		ovl_path_upper(parent, &parentpath);
- 		ctx.destdir = parentpath.dentry;
--		ctx.destname = dentry->d_name;
- 
- 		err = vfs_getattr(&parentpath, &ctx.pstat,
- 				  STATX_ATIME | STATX_MTIME,
 -- 
 2.53.0
 
