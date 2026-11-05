@@ -1,47 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793907257;
-	b=cVeyG6Mda140LpOMjTiNy52T9zta31b4klTCP9CPC5+W8wf62qkcvfdURq+B+znC0STD
-	 vrwYL41JnMdIcJNmoJZ9jPsv5eAbkW81TgFHzD65WwsSpjx8f3v6LPvXDvLDKvjjdWWOR
-	 TqxpgDoJifusJm+0YSt5JO8CcxoLFuTwbR7SK4IamGztD7ElwdStUHfL/1aGpUxvPHWFD
-	 IKfFbOEjd6PwZEQYZkpY++GAtvFibGo8Lu2belsMRMBNm3t+OONpwA+4+a2nBTqaqkZcG
-	 AFkYpaObQpdLyRYgo23NsCsVmShSSGghpRHWoEk6hUE5TStztQ5dpgKpXbDbWBVO5Vw==
+	b=TuIApe7ksYErn4j7nJxJUfHQBzNfZ8OiKbkrnpT49O1cSlh+MiLy0hDvDoHIkLrnu+Dk
+	 wP9/gEzBOnD4aZ6UwoaHeUb+gRCPES15cwFeBbLhcYPeAK5/wGtv+v9wAIJF8fv3vUhCv
+	 3oTZ6J1sFQ6G4SuGKEKeEnKtFSm/aZsHp7cd8jfEzCJ0rF0Oy1Eh5RmgYPm2pvlURLeZ5
+	 1wscjFGY95RJNnGfmiCOVrusF41wz2C2XKuNUICiiz18crCqGrGgAnliCrUVXzq6BCurS
+	 rBe4URCpmzFkWVYRXJk/EUKg/3UqGStOVUzT5fUYr/KrDY1WCAxuOEnPLzjYHHJrG8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793907257;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Dwu+w6nprYKMghj7ImzZruQ8WOAD5f4IrsT3udHNgFA=;
-	b=cOtRxJQztT82x6fURVrEN98ShVRRDU1GF1ezSi41/pwR50stIaFoxcCAixafqjNweVQl
-	 3Y4ztPDruLknsQIGFY0aONSWvHCx/Bgx9jRCDAczuc4B6iLKMqm6natdGxo0GFPn2D5h+
-	 PbatH2NyjCBZw8nrW5SV/2tlRWx3z4vyGw8y0KRKHJI6GdZ7+om0usjVmwBdnslxd0LdL
-	 gMhz5kwmoAdgb2rN70JA6pTwNq5MwpGWg1tugyVYYYMC8dAahk14JosyEiPlvEU8jXFe3
-	 /myEh/kwEK/0JJrR8Mdp+LwIjuR8hYZHIiAh1BWovbM+C5XCOcFRLlkVHEQqf4xGK2w==
+	bh=oJrZ/XR2HiFstwx5GpsmznXLz0IyXlH94OZ3vU0MTyc=;
+	b=couxrKvtIvZCHGtU8N1eE8DY2rKxFc8gDlDezG77j2etCpHDyVge2ptATpAy1ZStJxuv
+	 PzFlPy4QtAItj7MabJSG4hEw5jxkgIWx6Zq0SZ69pW7G9oB7wREN7zLVuTvKyU0c+OY67
+	 SKYMWVY2Lq+IJ41/Y+OMXMqQ4CDeljH1mb3n8zOq3zqGE+ArXOvwG9E1ZaadhQgCWen6e
+	 loXG3u03T82fk7G6wwF4Wf6rl8br0WSsqON5nUidl8i4JqpcOGrrpoInWnd5sKfnVKWM9
+	 LFpEZvET82tuTX2U/WTkIZLGPT8h3bkxGIB9w5LeemUnlGuGT3yGUqzFGWXY0Ht6Fvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=JTiOGuD9;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10728606B04D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11622606B059;
 	Thu,  5 Nov 2026 19:34:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10728606B04D
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11622606B059
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=JTiOGuD9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
 	s=smtpout1; t=1793907249;
-	bh=Dwu+w6nprYKMghj7ImzZruQ8WOAD5f4IrsT3udHNgFA=;
+	bh=oJrZ/XR2HiFstwx5GpsmznXLz0IyXlH94OZ3vU0MTyc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cLOFZRqHGkbRk1JF7270nxuXKvXdMY5v5n1BMxA8s13eHDvOesMKsM+5e5VCPcGAo
-	 rv64FZ6IUjm8cZmopazZbPOj4a8SAXwJXS0T/z9YPzMEcd03atXm/DZdbdF/upFDHa
-	 PcvEMaRbIA4CYh2Uj+LjpT6dlXjiaIXWNPB0TTBlVrcKDpFvs+wHw27Vs77uAJAVBj
-	 hF3nhrWX0VoRQ73+ce91RXVCQAMu3Y/Co78Z6tc8yzeGDt78En7C+w7H/oNYgvYP4f
-	 4P3y+lOOBH2AVtPReva4baH7wCF7Ltk08qgw9u43o2me1sHc6ejhbqWYFaEw3BrSgt
-	 QJWQjz+cQznfw==
+	b=JTiOGuD9bar7nm1s93oqkxDmTgnAmbp1xzHTd08DPkdG3ostkX6lP8UUBvyECtGJg
+	 CHXkKJOAgaWtX4MNkE8iZT3vx9j3EHZD0ByH6bN0o0i+fFb6JsiVO85zz69QdOp3qJ
+	 qPemlP1Udwm0oTLMF/3giZil2HfDCxNU1ZCFsZiNWrS4vHRORMcIBMI45MuGmaIhno
+	 /8VsCs3Rx5LSAgcU71XIvWPzVfJa08Xb5lB3zlca9/zsTEFyT8WHQL5GtqHXV5jbte
+	 4pZniahWsIlPbrLWN39tQ2UWNdmmnwVZ0Htw8LdV05Kn7MM4petou9CfdSHORFw7CJ
+	 QL55zP+r678Qg==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLCDK40jzzLfJ;
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLCDK1fyjzLfH;
 	Thu, 05 Nov 2026 14:34:09 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
@@ -74,9 +77,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v3 04/24] sched/deadline: Do not divide by zero active CPUs of a root domain
-Date: Thu,  5 Nov 2026 14:33:39 -0500
-Message-Id: <20261105193359.1450487-5-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v3 02/24] sched: Refuse SCHED_FLAG_KEEP_PARAMS that would change the policy or the class
+Date: Thu,  5 Nov 2026 14:33:37 -0500
+Message-Id: <20261105193359.1450487-3-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
 References: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
@@ -91,113 +94,115 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__dl_sub() and __dl_add() spread a change of a root domain's total_bw
-over the extra_bw of its active CPUs, dividing it by their number, which
-their callers take from dl_bw_cpus(). That number is 0 for a root domain
-whose CPUs all went offline, such as the default root domain, which
-holds the offline CPUs: the division then traps.
+SCHED_FLAG_KEEP_PARAMS keeps the parameters of a task:
+__sched_setscheduler() skips __setscheduler_params(), which is what sets
+p->policy, and the sched_class assignment with it. A request that asks
+for another policy is then carried out by half, and succeeds:
 
-A debugfs write of a fair server's runtime or period reaches it while
-its CPU goes offline or comes online. From the rebuild of the root
-domains in sched_cpu_deactivate() until the CPU is offline, and from the
-CPU online until sched_cpu_activate(), the CPU sits in the default root
-domain, with no active CPU, and the write is refused only once the CPU
-is offline, since commit 4043f5498416 ("sched/deadline: Reject debugfs
-dl_server writes for offline CPUs"). A write that leaves the server's
-bandwidth as it is passes admission there, __dl_overflow() comparing
-that root domain's capacity, 0, with total_bw less the old bandwidth
-plus the new, 0 as well, and dl_server_apply_params() divides. Any other
-value is refused with EBUSY, higher directly, lower through the unsigned
-subtraction.
+ - a class change, SCHED_DEADLINE to SCHED_OTHER, sets DEQUEUE_CLASS:
+   sched_change_begin() runs switched_from_dl() on a task that stays in
+   the class, and sched_change_end() switched_to_dl(). A sleeping task
+   has its bandwidth taken off its runqueue there, and taken off again
+   when it does leave: this_bw underflows;
+ - a policy change within the class, SCHED_OTHER to SCHED_BATCH, returns
+   0 and leaves the task where it was;
+ - a task that priority inheritance boosted into the deadline class is
+   of that class already, and a request for SCHED_DEADLINE finds
+   prev_class == next_class: sched_dl_overflow() admits it and adds its
+   bandwidth, which the skipped __setscheduler_params() never gives to
+   the task. It keeps SCHED_NORMAL and a dl_bw of 0, so nothing releases
+   that bandwidth, and total_bw of the root domain holds it for good.
 
-Writing a fair server's own runtime back in a loop while its CPU goes
-offline and online oopses on the first round, in 8-CPU VMs of v7.4-rc1:
+Refuse a request for another policy or another class, before
+sched_dl_overflow() reserves bandwidth, since nothing gives back what it
+reserves: a refusal after it would leak the runtime that sched_setattr()
+fills in from the task's slice, up to 100ms with a custom one, into
+total_bw. A refused request also leaves sched_reset_on_fork as it was.
 
-  Oops: divide error: 0000 [#1] SMP NOPTI
-  CPU: 6 UID: 0 PID: 110 Comm: dl_server_div0
-  RIP: 0010:dl_server_apply_params+0x335/0x380
-  Call Trace:
-   <TASK>
-   sched_server_write_common.isra.0+0x1c0/0x260
-   full_proxy_write+0x58/0x90
-   vfs_write+0xcb/0x550
-   ksys_write+0x6c/0xe0
-   do_syscall_64+0x109/0x5d0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+A SCHED_OTHER owner of a PTHREAD_PRIO_INHERIT mutex with a slice of
+40ms, boosted by a deadline waiter blocked on it, leaves 0.4 of a CPU
+behind at every such call: total_bw 419424 -> 838854 and there to stay,
+in 8-CPU VMs of v7.4-rc1. With this change the call is refused and
+total_bw is as it was. The selftest added later in this series has the
+case, params_keep_boosted.
 
-inactive_task_timer() can reach it too, found by reading: it releases
-the bandwidth of a task that left SCHED_DEADLINE, or died, before its
-0-lag time from the root domain of the CPU the task is on, and that CPU
-may go offline before the timer fires. With admission control off, so
-may sched_setattr() to SCHED_DEADLINE of a task asleep on an offline
-CPU.
+The class change was found by Juri Lelli from a report of Tejun Heo, and
+refused, after the reservation, by his "sched: Reject
+SCHED_FLAG_KEEP_PARAMS when it would change scheduling class", since
+dropped from tip. The policy change and the boosted case were found by
+the Sashiko AI review of the first posting of this series.
 
-Refuse the write while the CPU is inactive, as it is refused once
-offline: the server's bandwidth is not counted while the CPU is
-inactive, and the rebuild at its activation counts whatever the server
-has then. With no active CPU there is no extra_bw to update either:
-change total_bw alone, for the paths that have no write to refuse. 20
-rounds of the reproducer leave no warning then, its writes refused with
-EBUSY in the window.
-
-Fixes: daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl tasks")
+Link: https://lore.kernel.org/all/2b5fb3f22bca6aa383be8f4781923392@kernel.org/
+Link: https://lore.kernel.org/all/20261103-b4-sched-dl-bw-fixes-v1-3-dd761fe005b4@redhat.com/
+Fixes: a509a7cd7974 ("sched/uclamp: Extend sched_setattr() to support utilization clamping")
+Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
 Cc: stable@vger.kernel.org
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- kernel/sched/deadline.c | 11 +++++++++--
- kernel/sched/debug.c    |  7 ++++++-
- 2 files changed, 15 insertions(+), 3 deletions(-)
+ kernel/sched/syscalls.c | 40 +++++++++++++++++++++++++++++-----------
+ 1 file changed, 29 insertions(+), 11 deletions(-)
 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index c0ebdcde5fe5..4650bed9cc3f 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -189,18 +189,25 @@ void __dl_update(struct dl_bw *dl_b, s64 bw)
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index 2af550f92ac6..6819f0fea3c5 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -647,17 +647,6 @@ int __sched_setscheduler(struct task_struct *p,
+ 		goto recheck;
  	}
- }
  
-+/*
-+ * @cpus is the number of active CPUs of the root domain, whose extra_bw
-+ * shares the change: none once they all went offline, and total_bw alone
-+ * changes then.
-+ */
- static inline
- void __dl_sub(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
- {
- 	dl_b->total_bw -= tsk_bw;
--	__dl_update(dl_b, (s32)tsk_bw / cpus);
-+	if (cpus)
-+		__dl_update(dl_b, (s32)tsk_bw / cpus);
- }
+-	/*
+-	 * If setscheduling to SCHED_DEADLINE (or changing the parameters
+-	 * of a SCHED_DEADLINE task) we need to check if enough bandwidth
+-	 * is available.
+-	 */
+-	if ((dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, attr)) {
+-		retval = -EBUSY;
+-		goto unlock;
+-	}
+-
+-	p->sched_reset_on_fork = reset_on_fork;
+ 	oldprio = p->prio;
  
- static inline
- void __dl_add(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
- {
- 	dl_b->total_bw += tsk_bw;
--	__dl_update(dl_b, -((s32)tsk_bw / cpus));
-+	if (cpus)
-+		__dl_update(dl_b, -((s32)tsk_bw / cpus));
- }
+ 	newprio = __normal_prio(policy, attr->sched_priority, attr->sched_nice);
+@@ -677,9 +666,38 @@ int __sched_setscheduler(struct task_struct *p,
+ 	prev_class = p->sched_class;
+ 	next_class = __setscheduler_class(policy, newprio);
  
- static inline bool
-diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-index e6a3b516c703..a4ae092e0a68 100644
---- a/kernel/sched/debug.c
-+++ b/kernel/sched/debug.c
-@@ -410,7 +410,12 @@ static ssize_t sched_server_write_common(struct file *filp, const char __user *u
- 			return  -EINVAL;
- 		}
++	/*
++	 * SCHED_FLAG_KEEP_PARAMS prevents the policy and the class change
++	 * from actually happening: it skips __setscheduler_params() and the
++	 * sched_class assignment. Reject the contradictory requests that
++	 * ask for either, rather than carry out half of what they ask.
++	 *
++	 * A class change with the policy kept is one of them: the class of a
++	 * policy depends on the priority that priority inheritance leaves,
++	 * and on whether a BPF scheduler is in charge.
++	 */
++	if ((attr->sched_flags & SCHED_FLAG_KEEP_PARAMS) &&
++	    (policy != p->policy || prev_class != next_class)) {
++		retval = -EINVAL;
++		goto unlock;
++	}
++
+ 	if (prev_class != next_class)
+ 		queue_flags |= DEQUEUE_CLASS;
  
--		if (!cpu_online(cpu_of(rq)))
-+		/*
-+		 * Nor while it is inactive, going offline or coming online: the
-+		 * server's bandwidth is not counted in its root domain then,
-+		 * which has no active CPU to spread a change over.
-+		 */
-+		if (!cpu_active(cpu_of(rq)))
- 			return -EBUSY;
++	/*
++	 * If setscheduling to SCHED_DEADLINE (or changing the parameters
++	 * of a SCHED_DEADLINE task) we need to check if enough bandwidth
++	 * is available. Last of the checks: nothing gives back the
++	 * bandwidth it reserves.
++	 */
++	if ((dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, attr)) {
++		retval = -EBUSY;
++		goto unlock;
++	}
++
++	p->sched_reset_on_fork = reset_on_fork;
++
+ 	scx_prepare_setscheduler(p, policy);
  
- 		update_rq_clock(rq);
+ 	scoped_guard (sched_change, p, queue_flags) {
 -- 
 2.47.3
 
