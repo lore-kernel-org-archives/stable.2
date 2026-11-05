@@ -1,83 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881952;
-	b=tS3ns0eHBXkSjumj6XNlbKSxSPIMl/TyZ2e8ttNH4RHntNhJhSIJ57RUXAJPMAFWfNR8
-	 xm72EL1wEh5FgvGGwTjAntVV4IcNGTEVburyQi9LEYNVodjU4gQh5uf949ekdE0WnTbDg
-	 6DlwUPDQSwdFh+jqlIwDoMX6vYdctxKwibHhrd+Jci9KBF8mHuLH2kTlAoH1exIrhtHI+
-	 JDyP/CabPIDYfNO4eAMammt+7NtpC2TTLjm4L2dRHjJ5ezvJHXZvYPaIG+FkBxgoZ0CSE
-	 qeKTxvpq4b0Xjkmjrmr5Jn4SAzin7H2ZC0o+Vk6n+a9iAUclsGFKc50JQiDDCsGBoqw==
+	t=1793882008;
+	b=XHWaQl3Z5P0sdKI4RBwp28VVKQbtNXwi5/4oevFIsl/ioHtrn15XESnW9m6FeIehTpfg
+	 g2Piaobu4z5XgJv8ldnDL6qXBv3E2CVjRIHotzJHa+do0VVaIftRH3phXEThcmGWIwCks
+	 MBEOec6asSm6j1WRdPMQtepaEXZg39m053EiUFvu1fWup56SzNhNxkdgEmcd4ldgmmBP1
+	 q35XLvcGBuc6do10exTpQJ1zcrl816pTDqn5nDTZECctj7ifcnhZDaXgh6cITF0cRkP8K
+	 VCMQaocx7i3cZYrSDed/4ffqIcLhc0BHHxitWWrWgsGkoiOrZ6P9HuhyOmn0kgesW4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881952;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=nPQCcrd0LHbxoNK8AMGZ6yKfmkiB7m69pr9Z+gI9aco=;
-	b=4bDfvNhtvLTXxZie3aN5KdnLQiaKkMDed3qMoVIfgysjg8HmrIKcFeSxD1r/zFTN/AVx
-	 kh80lTohf19SgC6P6q0UI1Nv6ovV8WSR9kLi9y9vDxuFOuW18/rNseYySD5bFI7qpajkG
-	 PUVbapnJyrjgE6oGPs47GaJ3ftl+FegIo6flxEOCY1XS9uGBErahOhOlejCOtErO4fPlI
-	 VM08pXQDdhEbzgmH8iVgIS7uyfCjUhN+V/LmWwUXj82AYlTmdYYqp4i0A/zzRuJDKtMo7
-	 vGu8wPSXN3q6f4vZ+Tptx2/lsg31UC06w+oMziz2AjO3BcYlwr/1oRMFO9xzzUVAvLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882008;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=399TihSEoNYgth+6wVnQYzG17uXV0lxIYTXFWph8MJw=;
+	b=0Nc/sodpAptOHQ6H/LQRppt//nLIS7kkfgR5NGkyB5Y6+afdpQkDKfkI4JJyAYmI6UH4
+	 /RE2MuNHeEFONdiwUKG1EYWcACRbO2IQl2LOrfnJ9jy1mqxQbM+LefiqNQBf8P3n+z3Qa
+	 x7vpeZPh1FEUf15i007WIdHVGM5Kf5C9gWqx8j83sLG8zqpe6UHD9GYspPzXRUR/PM0i/
+	 TTUqJ+sa+YEWwSATYGvqAzXNo5uDjxLQbxKTjrhy42fg31DR/GiaCcpKI3U0EHTaJAfYj
+	 I7eROXOCve+N9rHUGvSKoIo0GMDr+giMsI67pUUwtL9PUul5aHbXeCnBxigajXSe6ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=lpC2roQC;
-	arc=none smtp.remote-ip=54.254.200.92
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=w8z6FbOY;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iqs4PIZq;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=w8z6FbOY;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iqs4PIZq;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC8F606A31B;
-	Thu,  5 Nov 2026 12:32:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CC8F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13DA606A32E
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:33:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C13DA606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=lpC2roQC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1793881870;
-	bh=nPQCcrd0LHbxoNK8AMGZ6yKfmkiB7m69pr9Z+gI9aco=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=lpC2roQC3kUhNzkZtPnfXg+gkfgpitnjPiSAtBjixFNPpbcY716vUl7d3L59QL5Po
-	 Vfn7RHkuxFyTPh54LUGoo62gg1h09FU1H6csNAc/G/WjY0rUy0qtZsj7vAvobum17p
-	 KrRVeHnsW4WCO28Zv5p4NNFn93C4W9iqrNh6w5Do=
-X-QQ-mid: zesmtpsz6t1793881863t7c919a0e
-X-QQ-Originating-IP: PjWpws/Wob451MYgMl+reGhJkP2Px/su/232CIZmEco=
-Received: from localhost.localdomain ( [61.183.83.60])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 05 Nov 2026 20:31:00 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 11215016198811326373
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.18 0000/1005] 6.18.61-rc1 review
-Date: Thu,  5 Nov 2026 20:30:55 +0800
-Message-ID: <AA41A636D5CD1011+20261105123054.2073195-2-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
-References: <20261104211043.516122098@linuxfoundation.org>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=w8z6FbOY;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iqs4PIZq;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=w8z6FbOY;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iqs4PIZq
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id E405821FB0;
+	Thu,  5 Nov 2026 12:33:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793881998; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=399TihSEoNYgth+6wVnQYzG17uXV0lxIYTXFWph8MJw=;
+	b=w8z6FbOYfxPCfpPyRo8fo9S5VcCI0qVhqe7YT1pPtFEMGd/3szBKK9zHo82Hn6L/F42ckJ
+	gNNPNtgkV6sVnZuRl2rz4eVWBLAOLJNSoEigFrny7UedOyJgyWWwvJx41LMC4StVX+WeRd
+	4PIxkUGlpjplbwMmoZTw66+rsgYv/Kk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793881998;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=399TihSEoNYgth+6wVnQYzG17uXV0lxIYTXFWph8MJw=;
+	b=iqs4PIZqE+DvP5T/3xiMqirTuMFp6TH5Tw6JOoxhYlLK7Zv4G3KnSDAWifAMVXG5pxJciH
+	aHo5g6F361m4otBA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793881998; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=399TihSEoNYgth+6wVnQYzG17uXV0lxIYTXFWph8MJw=;
+	b=w8z6FbOYfxPCfpPyRo8fo9S5VcCI0qVhqe7YT1pPtFEMGd/3szBKK9zHo82Hn6L/F42ckJ
+	gNNPNtgkV6sVnZuRl2rz4eVWBLAOLJNSoEigFrny7UedOyJgyWWwvJx41LMC4StVX+WeRd
+	4PIxkUGlpjplbwMmoZTw66+rsgYv/Kk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793881998;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=399TihSEoNYgth+6wVnQYzG17uXV0lxIYTXFWph8MJw=;
+	b=iqs4PIZqE+DvP5T/3xiMqirTuMFp6TH5Tw6JOoxhYlLK7Zv4G3KnSDAWifAMVXG5pxJciH
+	aHo5g6F361m4otBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 23355133F6;
+	Thu,  5 Nov 2026 12:33:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 9DzeOo137GoDLQAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Thu, 05 Nov 2026 12:33:18 +0000
+Date: Thu, 5 Nov 2026 12:33:16 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: willy@infradead.org, jack@suse.cz, akpm@linux-foundation.org, 
+	kas@kernel.org, dave.hansen@linux.intel.com, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] filemap: prefault writes starting beyond EOF
+Message-ID: <aux0ruR5HpMBMPI2@pedro-suse.tail5790ac.ts.net>
+References: <20261104071002.49693-1-dennylin0707@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,39 +108,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MPAlP4yRn0xgT4MtLD/FFPC+KcG6UVaR2LSVCza2gA4xBmDl0Qfch0w6
-	3J/alun5qqPGNolNsarkjUYTMKwCajcy4bNzT/xeKJmSCV2w/ay/lWB9BB0mTeLRXloKGLM
-	NUnv19VchZxPZAYKIf00sBEJdy/OBRDqJXoIsqCjei3LmC9jtbpD/fTCT+bYpCjMw2ak0XD
-	U6B5hdQwHqC2IwlLZAxm4Ed9nanZ1jniurMgUa2awE+Cm2PVqJAKPKLDYnok8+Si0x8uUNI
-	5Gt5H65Zc2pdffTUsuGh8zudrmawoyv9ciC6rI0IWWuqJynOHgBCNrxTWyKpETSsrHhGKqm
-	cIa6JPim52dto9KyKxjxJYuxj3LR1v6NvTJQzaQBH0SUlnu6MukZ6WnRd4XAJaUA6PpIt8e
-	NDUtDYuTCzINkpHe1qdzZiOrRUbTZ+oFSWKaxUMlmM3jGd2J9DQipNbhLe2zJQY934+KKO9
-	H6m5H1xnO8g08E58fnvW5jP1WlLodmVG/OhrNptxARVpjeZpoY37v3zJDDbJnZH9+bN9I4n
-	hSQUg3ffzlY+N87e7r6IuyNoq/cF/lL/e2GigGTwNA5k73d7TmDAVP0KQLWItM8nsoCM9b2
-	3R8FyELdWfxlX2292BYT5/ppyx4B0+LQUXErLrBFqZ7/DLYK3W12uekQMS93ynLY8ryRIJM
-	KBCItoqGrSGo7CJgZZdZHdQiUs+7HvOfOjfwvTSEEiAYCkzK1EXXex+MbwL6lr8KuNnKRQs
-	syF4lBs0dT1kA1KqM9UFqMIk6LHKga9FuNPKC/xWTYYkUElE6tN7QBAj/gKb2XYJgDmeEGN
-	IzFceUBnQ1Mqn07wJ3GNP/vLF7ZvJzhc0nWi3U6oD1stgce44GoYRlA6TMtB/ntMf+wNrOP
-	VlQRMpd/jwZUVFvopG/j7EAriBlijngVHAbQmAcJGLNSRYS/MZIScfz5Vbnlnxd+fiFn+ld
-	BDScjBTmcZM/+5oIOfQzb0wmCJBucwMcl8EV8W5Z0LRwJqvKWqKYpQ84ypPXaPn3fUu/yUk
-	oeJe3XfP73hN4pIwpQRsnxfhjdvoSZonKDx4uy1fnRzJEC0OFMuE3KR4A7Av8=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104071002.49693-1-dennylin0707@gmail.com>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -13.30
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+On Wed, Nov 04, 2026 at 07:10:02AM +0000, Hungyu Lin wrote:
+> Since prefaulting moved to the slow write path, a buffered write can reach
+> ->write_begin() and ->write_end() before discovering that its source buffer
+> is unreadable. Several filesystems can extend i_size in these callbacks
+> even when no data was copied. For example, a one-byte pwrite() at offset
+> 4096 into an empty file can fail with EFAULT but leave a 4096-byte file.
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+I've been following this discussion rather passively on the other thread, so
+I'll ask my stupid question: Why is this a problem? Yes, it's a bit of
+weird behavior, but system calls are generally not expected to behave
+super sanely in the case of bad input/weird errors.
 
-Best Regards
-Wentao Guan
+> 
+> Prefault the source before ->write_begin() when the write position is
+> beyond EOF, and return EFAULT if no source bytes can be made readable.
+> Overwrites and appends continue to skip this prefault. Keep the existing
+> slow-path faulting for forward progress after a failed atomic copy.
+> 
+> This also leaves intentional zero-length ->write_end() calls used by
+> generic_cont_expand_simple() unchanged. As with the previous prefaulting
+> behavior, a concurrent userspace unmap can still race with the later copy.
 
-Log:
-Linux version 6.18.61-rc1-ga7c80de5ffd0 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Thu Nov  5 18:01:38 CST 2026
-Linux version 6.18.61-rc1-ga7c80de5ffd0 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Thu Nov  5 18:21:56 CST 2026
-Linux version 6.18.61-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Thu Nov  5 18:41:25 CST 2026
-Linux version 6.18.61-rc1-ga7c80de5ffd0 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Thu Nov  5 17:40:11 CST 2026
+Ok, so it's still racy? What do you do if you can't fault it in at all?
+You still get a hole?
 
+> 
+> Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
+> Reported-by: Kiryl Shutsemau <kas@kernel.org>
+> Closes: https://lore.kernel.org/linux-mm/at9xXRhD2xZhszEj@thinkstation/
+> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+> Link: https://lore.kernel.org/all/at-XtWBQg3jv3H8Z@thinkstation/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> ---
+> 
+>  mm/filemap.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index b74bc1e5015c6f318333427f223b9f42061a6213..30414d55412b84f11ebe98b8eea607ee8c04eef5 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -4389,6 +4389,16 @@ ssize_t generic_perform_write(struct kiocb *iocb, struct iov_iter *i)
+>  			break;
+>  		}
+>  
+> +		/*
+> +		 * Some filesystems can extend i_size even when nothing was copied.
+> +		 * Prefault writes beyond EOF to catch unreadable source buffers.
+> +		 */
+> +		if (unlikely(pos > i_size_read(mapping->host)) &&
+> +		    fault_in_iov_iter_readable(i, bytes) == bytes) {
 
+I say this doesn't matter, and if you pass insane inputs you get
+insane outputs. Even more so considering this is racy, e.g races
+against munmap(), mremap(), mprotect(), memory poisoning, and other things
+like truncated memory mapped files sending out a SIGBUS (or uffd) :)
+
+I don't think it makes to add random prefault loops in hopes this makes
+for saner semantics.
+
+-- 
+Pedro
