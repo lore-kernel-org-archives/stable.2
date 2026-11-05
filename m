@@ -1,55 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793887094;
-	b=Be7ySYfPNyEa+wUb8oJKhsxRb8gmr7NRescdDGtgPwpL/PbSgBWVZjZbv7EM1YC6rSRn
-	 hbvJguzq/1OpxlIPwF4/GraC+v/MPpo6VYYG+Yror8S19UYGZA5b/I6IhyoNTxd8MRq5V
-	 /Uw1ArA9JQnzHRag3F1gkc1L42jnBK5AhqX8v5cZ1OPQKdlBmo0dOUZLDMidYGhCP+vmB
-	 XAEzEhu+c8cWY74i1bLfQw36UJOJxG7RGLeaF2/k8iTLRxxe48eJ1eUxVL8r6IqqJiuj4
-	 Isydz+whvtSTaquKdFO9X3lwunBMW0THNQhsMm7PeqvIRF+wuaZesZMpmxCfsB6RX0Q==
+	t=1793887097;
+	b=LjGgAHlUDlJjgwpLG0ycZGoUxtqFcP8zyh33ncfyhIJii0Tx59TMmQoDh4xd0g/ej6+L
+	 ttsSnlEHnGRcbltEkdSTgjMqAtMOavRKtK00x7BonBPNP3rMJNNbz8f3oDBus+YXduw85
+	 wcvzeBMheQC2Eu8Dsvb6UTU5imF5cdjL0RPnLPZhLjQv451Icu7D2MMcnsblAsYKxrHnm
+	 jeEiIzDCqFvmwDrflSH9WOp9JESCPjGgJPrdnPjBU4+n1mjhIuHcHwEa4KFe2F6hy/bIw
+	 Uc+fTmiFKmeaHkL7N92xN538p0CsLybClzuZLuD6RwVMzPWSoZcvycxUWJFTTrMfssg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793887094;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793887097;
 	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=Agsm+Coa6LwlQ0CbapgWLxU9tKEb2Aqeb/DbVdUUjxU=;
-	b=iRXPrxHc1oh5j5BTIt9TyklDY7jMtoanQ+PILDXhoBjTKy4Ql7fljEHB6slRsxpLHG9k
-	 C2AYspxQbo7mOTC9LM8XRmCj+vnivpb1/RWuS53Cn8989+X6lhLB7Su9axU9DHEE+wqby
-	 BVWD+qyFk8LQgBJMa4vR+I84ekVaIoeBJHInXXC8JflDVSCy3vrOy9UOZsPFzx9DHFf6A
-	 laEHWjNzvNG+D9daxdUNzfO8HUS2Z5TnpIBRiZ0DHd+MBIuZwj0F1WQQYXteadODn4usP
-	 gznQ3LdKa1Vk6Jt5eQnhWZ9E4swPAg44uJLacJgko8pOkcxBq0AKiOQHIpPMN+MRCtA==
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=roeOiANIDFUwCk1N8kNAgvb2U58m5KoSZCuD7m0gbng=;
+	b=nkj+G0FjeeeudPhuZa+ujETbamHMs7TTR2Epk7bZMXQzl7uAQXspitk5W0wHh6yNqBIh
+	 oZmQt1XiuvVLBgvzBP+rrbRj9ok2iQvYgs/EtFRwwihSqD5boWyhhG+msxDFlMX6zC5qc
+	 Y7rxkqhRlxRye2HikVICovzY85EVyFPIMULtnVD/QDRzkQ74t3UQs4m8l+uJQyX0zkm3X
+	 bXYHIHFzYnLwb9W8rXcraYRdz+o9qRyZ0AHE7T9bZ12DmMtw//FysLOoYihEqgv6ARIDA
+	 ngBQMkZXpSX+1y8SLU4G8KKENmjP8JopGm58lZ71E4lxKo2CApbjjDzq7jA0gbUAqQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EFAE606A333;
-	Thu,  5 Nov 2026 13:58:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EFAE606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A25606D819;
+	Thu,  5 Nov 2026 13:58:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7A25606D819
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jL3mf6V4lz5B0ss;
-	Thu, 05 Nov 2026 21:58:10 +0800 (CST)
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl2.zte.com.cn with SMTP id 6A5DvwLh060233;
-	Thu, 5 Nov 2026 21:57:58 +0800 (+08)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jL3ml3HNbz8Xrnt;
+	Thu, 05 Nov 2026 21:58:15 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6A5Dw6So060372;
+	Thu, 5 Nov 2026 21:58:06 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
+Received: from mapi (xaxapp04[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Thu, 5 Nov 2026 21:58:00 +0800 (CST)
-X-Zmail-TransId: 2afa6aec8b68d24-dd46d
+	Thu, 5 Nov 2026 21:58:07 +0800 (CST)
+X-Zmail-TransId: 2afb6aec8b6fdec-d453e
 X-Mailer: Zmail v1.0
-Message-ID: <20261105215800734URR7v0vyg8xZ8t5d0qzIb@zte.com.cn>
-In-Reply-To: <20261105215753914RuQA4AVkFtXzpBkieEscY@zte.com.cn>
-References: 20261105215753914RuQA4AVkFtXzpBkieEscY@zte.com.cn
-Date: Thu, 5 Nov 2026 21:58:00 +0800 (CST)
+Message-ID: <20261105215807526OqR0Bg86VChvwhCEz5xGr@zte.com.cn>
+Date: Thu, 5 Nov 2026 21:58:07 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,71 +61,64 @@ From: <shao.mingyin@zte.com.cn>
 To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
         <linux-nvme@lists.infradead.org>
 Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDIvMl0gbnZtZXQ6IHpuczogcmV0dXJuIHRoZSBuYW1lc3BhY2UgbG9va3VwIGVycm9yIGZvciBJZGVudGlmeQ==?=
+Subject: =?UTF-8?B?W1BBVENIXSBudm1lOiByZWplY3QgaW52YWxpZCByZWNvbm5lY3RfZGVsYXkgc3lzZnMgdmFsdWVz?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6A5DvwLh060233
+X-MAIL:mse-fl2.zte.com.cn 6A5Dw6So060372
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Thu, 05 Nov 2026 21:58:10 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Thu, 05 Nov 2026 21:58:15 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEC8B72.000/4jL3mf6V4lz5B0ss
+X-Fangmail-MID-QID: 6AEC8B77.000/4jL3ml3HNbz8Xrnt
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-nvmet_execute_identify_ns_zns() jumps to the done label when
-nvmet_req_find_ns() fails, and that label unconditionally overwrites
-status with the result of nvmet_copy_to_sgl():
+nvme_ctrl_reconnect_delay_store() stores whatever kstrtou32() accepted
+into opts->reconnect_delay without validating it.  The nvme-fabrics
+option parser refuses reconnect_delay values that are zero or negative,
+and the rest of the driver relies on that: nvme_ctrl_loss_tmo_store()
+computes
 
-	status = nvmet_req_find_ns(req);
-	if (status)
-		goto done;
-	...
-done:
-	status = nvmet_copy_to_sgl(req, 0, id_zns, sizeof(*id_zns));
+	opts->max_reconnects = DIV_ROUND_UP(ctrl_loss_tmo,
+					    opts->reconnect_delay);
 
-The identify command has already been checked to transfer exactly
-NVME_IDENTIFY_DATA_SIZE bytes, so copying the zeroed id_zns always
-succeeds.  An Identify command with CNS 05h and CSI 02h for a namespace
-that does not exist therefore completes successfully with a zeroed
-identify structure instead of returning Invalid Namespace, hiding the
-error from the host.
+Writing 0 to reconnect_delay and then a positive value to ctrl_loss_tmo
+therefore divides by zero in the kernel.  In addition, a value larger
+than INT_MAX is truncated to a negative int in the assignment and
+silently bypasses the checks done by the fabrics parser.
 
-Return the lookup error directly.  The other error paths in this
-function already use the out label.
+Reject zero and values that do not fit into the signed int field.
 
-Fixes: aaf2e048af27 ("nvmet: add ZBD over ZNS backend support")
+Fixes: 764075fdcb2f ("nvme: expose reconnect_delay and ctrl_loss_tmo via sysfs")
 Cc: stable@vger.kernel.org
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with the loop transport
-and CONFIG_BLK_DEV_ZONED.
+Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with the loop transport.
 
-An Identify with CNS 05h and CSI 02h for a namespace that does not
-exist (NSID 100) completes successfully and returns a zeroed structure:
+Writing 0 to reconnect_delay and then a positive value to ctrl_loss_tmo
+divides by zero in nvme_ctrl_loss_tmo_store():
 
   unpatched                            patched
-  ret=0, all 4096 bytes zero           ret=24587 (Invalid Namespace)
+  reconnect_delay=0 accepted           write rejected (-EINVAL)
+  divide error, kernel panic
 
-diff --git a/drivers/nvme/target/zns.c b/drivers/nvme/target/zns.c
-index 92f5c1435582..cea05b4bc740 100644
---- a/drivers/nvme/target/zns.c
-+++ b/drivers/nvme/target/zns.c
-@@ -108,7 +108,7 @@ void nvmet_execute_identify_ns_zns(struct nvmet_req *req)
+diff --git a/drivers/nvme/host/sysfs.c b/drivers/nvme/host/sysfs.c
+index 10018c6356b6..d7309a55aa8a 100644
+--- a/drivers/nvme/host/sysfs.c
++++ b/drivers/nvme/host/sysfs.c
+@@ -634,6 +634,14 @@ static ssize_t nvme_ctrl_reconnect_delay_store(struct device *dev,
+ 	if (err)
+ 		return err;
  
- 	status = nvmet_req_find_ns(req);
- 	if (status)
--		goto done;
-+		goto out;
- 
- 	if (nvmet_ns_revalidate(req->ns)) {
- 		mutex_lock(&req->ns->subsys->lock);
-@@ -140,7 +140,6 @@ void nvmet_execute_identify_ns_zns(struct nvmet_req *req)
- 		mar--;
- 	id_zns->mar = cpu_to_le32(mar);
- 
--done:
- 	status = nvmet_copy_to_sgl(req, 0, id_zns, sizeof(*id_zns));
- out:
- 	kfree(id_zns);
++	/*
++	 * reconnect_delay is used as a divisor by nvme_ctrl_loss_tmo_store()
++	 * and the reconnect logic expects a positive value, just like the
++	 * nvme-fabrics option parser does.
++	 */
++	if (!v || v > INT_MAX)
++		return -EINVAL;
++
+ 	ctrl->opts->reconnect_delay = v;
+ 	return count;
+ }
