@@ -1,113 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910179;
-	b=onD6jEHlLbKKCImHcG2AEv6ooRJggSMhxLyBq0lhrYNDI4/OR3/xqtE/UbzJqOK4G7aE
-	 p0xN7V1HrrYG9MNC7FYr1lpdG0BJchAFdkVWbGLcXYGdZwUaKqaLbIpD8tpasiLwWdZRJ
-	 mvrwHDT1ruaTUMeo10Qw1h+ZAiWauZ6KmFKmFiZOsu0VEP6SLdlkk1mjkAfeYvLjUnxt6
-	 mRprYboFNo0WiO1iOXPgnPXq+CCMkTMsogRdfW7z8WMKu4XiJpFSelGQxUh/1FdEV6FdW
-	 0p/tEjOWfTuaJ7IjZ/33R5HZpGkxPvJozgwf6YaaquPh4rR4400lqAGyXBTvBmI5csw==
+	t=1793910678;
+	b=yl6raqKlk7Dn6zfDE6bgM0nXgK6tDfzMyYBFAdwheSReaCF5tGXHpfzygObWhOHDUn9l
+	 j7zwkdq89wiKIfl5NGxW5uPkcJXi3uol3gdYaRRer6RJJxrKYh8p3cz9qE7OKTTJRfgz0
+	 765ft7WTpfnivuYA9L5g08iDE4nTf0Q+GhL9rslCjRXFHYbtZrBOfgT9UdaS6C91T2h2p
+	 UVM4tx7ISiswCzcPPxCsjchHgM98MlJ1HKhdvCR0n5AatJk5K5lJoyncjqLdtiqH26BFr
+	 QQznToW8AHStd6FdxS+10jFJ1tB930sAgf5Q7nhpzeru8lBsu7b8BW90exHiu35zkdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910179;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=nL6T7aHUaT5pIG87xtlBIVGdVXeITIPxNhed8tYutnQ=;
-	b=dAJQEDUPmQZ7mg4voNOoqeSZwRybzyojD/Jj4Ui6O91Wb0CkZGH6CBkSTmq8lLf8ealW
-	 pffjgXV1vJziYh0/cYeXplJyjstgzL8WQdXiGRqSmD26bY34Het/K3EPZUbm7ZSEk8356
-	 r6z5QHZeI1nPjm3KXyG9pxcXxunq9/adGUJH5EwhGRUXch5GTvAqhRFrup8AnprTLDX4I
-	 AorCh6l38vpaY/93+hPwEB+ZceyB3Xey01TMpqTbHNMRXKu8o/HGuJtkRQQlxcCnP9BQE
-	 umNc7iwLMaxGK7Hzfk0FpjWjhY1wY8QCxi5QeS7Gi5uFAX1vXACBMv2mZ5G+DulkBvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910678;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=TdhuTks2opBXvdhTmIB8yv80bnVd5dlxad76wxXRLWI=;
+	b=k715newbfSnjQf1tWr1iUAof5i3TodtInIS3CFcz773tkcOJuOUrz4DhOHwgUfaLqtZz
+	 84Pn2HVgs9KtpN33LPERPJbLsAsM+NhxXUWzOsVHhgAPjccDclHQQr/nKjcAMW6ukVrf8
+	 bbTlhQjodyaffEBUfIXUbIBqOGTTMFlRYeBF6ZPB9FFmHpbeyj4ZzcsK4BX4VspFHn6y0
+	 jYyqfjkUdaXDxnzMBKeqVLTkh8sEdocD+Km1W2MaPPH/ah/FWYtOWH0nNzLVTUT0IMu8V
+	 M1pXeKn26o5ygLoJ1E3JZ6T3s5kpHDn9vOmf03SdsByJQ2t+oPEzZ0b7oGISUh/fiCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b="J8gAWX/q";
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=R5nrVZj6;
-	arc=none smtp.remote-ip=148.163.135.74
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4iMyxMc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83203606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 20:22:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83203606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39FBC606A31B;
+	Thu,  5 Nov 2026 20:31:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=J8gAWX/q;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=R5nrVZj6
-Received: from pps.filterd (m0167071.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5Jh3KN3851485
-	for <stable@vger.kernel.org>; Thu, 5 Nov 2026 15:22:52 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=nL6T
-	7aHUaT5pIG87xtlBIVGdVXeITIPxNhed8tYutnQ=; b=J8gAWX/qKIU7Gl3tPbK/
-	UrmzeUpYTospSb8zM1H79k1RVFBW1tImzs87FZXgiawZ98Xq1oVN71Ff/ZuVKLMc
-	OdODjzDE7RNlHJhRapGxye/172NVMfDeGMBkHzPpkkSBaqt1uygQVIkhbrsGlLJ+
-	P1PQV7c4YFMpQfvSJDFgPQPj1dQE70yDebWjrC3kb5qJdd1a+ck37V1SBtP3PE0U
-	pQfX6EI3Bf+LBnkrM+NlvGQvZz49W0ho/hFjgtQ+gHIWGMUq601vo7IH8/YsdbCc
-	nTWGB7I1TeL1pm26pUmFjJxVVrqNwkA/g4+549rFN/CEr4Zxe0F05sn7QnVjW7X1
-	AA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hrs0hcste-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 05 Nov 2026 15:22:52 -0500 (EST)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f33438950so473055785a.1
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 12:22:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1793910171; x=1794514971; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nL6T7aHUaT5pIG87xtlBIVGdVXeITIPxNhed8tYutnQ=;
-        b=R5nrVZj6r7FKesvHw7VoZnQBLrZK8ANZg7sf2F4iMlAzFSN8mmJ6LcBtMiIzp1A934
-         wsJtDtmaaTqEDzQrHHzwQ5M19DlBeuSm0IuiPhfB+LCo3ebQWXKUpdR0m5G6vz1HSLef
-         8FOiFZmiA2cJHVIxzv70x0x/CZ8rom4CtH1a/kiAmgN/tPyWGRrnwX8r78KN+KGfLzXa
-         JAyepgxG5xmczzSSMWh3PCTRhKe7+Jplw5n4btCuG2me4mjLpwCzIx2mQvUHUFJcnBOY
-         AgXc3eTvH5DdR3j8Y75lyzo9yLT8IDIkl+XsNg0QpzfmAfrxv/qsmxCtumnCFb2PeZ6k
-         wE8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793910171; x=1794514971;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nL6T7aHUaT5pIG87xtlBIVGdVXeITIPxNhed8tYutnQ=;
-        b=Kg+PsHE1sM0xkcRgqySN2c7x/tSjQxKGlOx0f4D/JxEeM4ZhlB5GIEWuE2t+vwqsPw
-         FgTRTpnYtQtccI0P7NWKwBe6jIyz49a3vQT3Udy5yakNvU1RO21zPZAKVd0p5nXnS5Ww
-         LVTTVVgUwBGcFGYaKB6QCgFhGLwDes80lGFeB/FzvQwm0FQd2e7XHoyzenJZN7LOBfti
-         xqIvzuBpuRhYn9FhZ2TMQUJ+3msiUfKlPouinvOOrjDGUcPmdlstpoz81WmvSrufGMAn
-         RIm79yebdNaAxKftNLzXqS/0UldcuKD8P4Qz8e+wdVeLZjBfiewDmcxHbHnV9JPdMDPn
-         LG/w==
-X-Forwarded-Encrypted: i=1; AKwUvBxUk601cE7SqQVrOSzdjVFTp5jVa4JeLl9chX1Lzk3cHvfLnFtSijdeeIarzElVCNxP9BJERPs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9LO9KDa+gm4Ouwt8FCQdlJgFHBdRmsgAF3IgQprX3zSvxANg5u
-	D9jP3PItecFsvroT0jYunPRJvytqqdlxaSr9gcqq2jSQ1M8pjzijT4NErU/9vLERqDFYgtRO4pU
-	tJDQ8YiI+NKailE+6V894awFDQ8KswM87M/U7px8NZ34W5129Ntt7cA==
-X-Gm-Gg: AYBFou1TxQvCgw5kYMpNw+Ch4iBo4tJuYO2yHGqyGUitWcnbHnMYXtD3w9+zg7DulVI
-	5c7VgzVq5dIXsBToEcIHoyL/tSiyLte2P+FJV5syJogNRWoA9dMioB5P0lq+SlxmGuJY08G/1iV
-	tYISa52Kg8N9m5nb6AL8kVtibrRXLwGVUd8pxgg+PS5UoKTAEYU2WWKZOcQTa19gcfUt5EHk0T8
-	yJAQ9PtQGPpN2+NTU+GRVYJuFXtuqohKfNDUootmAzgYO09WdAoB5tjwPmeQNZHS9eG7omDshsX
-	PLHgjRWx1U1+WW5KG05pOwk0t+1KvqcweNRxrmzd2dRqKh7oKeif5BI14Da/KRp1R2+GeOtM88N
-	ydeAr3zKExK6toNppVuaemNcd+537bifUd/qyxctDy4uromyEsSnRQv20gzOfT7IgPJKT2drrQ5
-	nnKRgwCTrcyuCa9DvhK1RnCU7CgvBQaBK0nLlr1uEux8Fjv7ca5VZ6Dyv/67YLUjWa9v0ar2Ae2
-	Qo2lEEyaavOE2JqdAVjv9e4i48dgYTEtVyf6EGUr6/1c9tKV3hDACXQlfkzbSaC
-X-Received: by 2002:a05:620a:880c:b0:93b:d7a0:d9e6 with SMTP id af79cd13be357-945f360071cmr27402585a.64.1793910171190;
-        Thu, 05 Nov 2026 12:22:51 -0800 (PST)
-X-Received: by 2002:a05:620a:880c:b0:93b:d7a0:d9e6 with SMTP id af79cd13be357-945f360071cmr27399585a.64.1793910170744;
-        Thu, 05 Nov 2026 12:22:50 -0800 (PST)
-Received: from [10.206.221.57] ([129.236.229.247])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945ead40470sm133396385a.18.2026.11.05.12.22.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 12:22:50 -0800 (PST)
-Message-ID: <d16c6038-f03a-4e1b-9691-1ae36650f39c@columbia.edu>
-Date: Thu, 5 Nov 2026 15:22:49 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4iMyxMc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53BFE1F008A2;
+	Thu,  5 Nov 2026 20:31:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793910677;
+	bh=TdhuTks2opBXvdhTmIB8yv80bnVd5dlxad76wxXRLWI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=a4iMyxMcWpMfFTfJfNIxFDxA2rvaiekwJvEwJVsD9AgMRJYdXpBXRleMgAFa6IxCh
+	 FxiqU8rJv64UEvYRZ/6gYYVbzscWelg+mWv6Rxml44hPWU7nbHgAHW+v4VYvIkPkV/
+	 jrzS2BWYyBBEhdTGjYy+JSwh3g9ayrWo75JJNUfN3IjmNpC5TetPa3YBI7J/+aCUtz
+	 nuds2tJ1nAwIwPSzDtyMCHzmRlVcDD71BoLwOLZUrwm7nw+6xozQ0y395XW5qmFo/Q
+	 xefxjYblhwNI3XBSZj8pucJn0jKefeiSb46zGHMzeR/nBVDl3ee61bD0gtDrlU+qrF
+	 qUHeYhx3uhbZQ==
+Message-ID: <6f035f97-8b55-47ad-bd52-833b86b8ae8f@kernel.org>
+Date: Thu, 5 Nov 2026 21:31:09 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -118,75 +52,118 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] clocksource: Use the clocksource under test for the skew
- check timeout
-To: Thomas Gleixner <tglx@kernel.org>,
-        Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>,
-        John Stultz <jstultz@google.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
-        Srikanth Aithal <Srikanth.Aithal@amd.com>,
-        Borislav Petkov <bp@alien8.de>,
-        K Prateek Nayak <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org,
-        tz2294@columbia.edu, stable@vger.kernel.org
-References: <20261102-clocksource-skew-timeout-v1-1-4ff412918591@columbia.edu>
- <878q39y8da.ffs@fw13>
+Subject: Re: [PATCH v2 1/2] mm/huge_memory: take a reference on a folio PUD
+ copied by fork
+To: Zi Yan <ziy@nvidia.com>, Konstantin Khorenko <khorenko@virtuozzo.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Dan Williams <djbw@kernel.org>
+Cc: linux-mm@kvack.org, nvdimm@lists.linux.dev,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261105-vstor-150143-copy_huge_pud-folio-refcount-v2-0-2828fe5a51ed@virtuozzo.com>
+ <20261105-vstor-150143-copy_huge_pud-folio-refcount-v2-1-2828fe5a51ed@virtuozzo.com>
+ <DMNK05HCXYUJ.578OO1NG15LZ@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Mani Tofigh <mt4022@columbia.edu>
-In-Reply-To: <878q39y8da.ffs@fw13>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <DMNK05HCXYUJ.578OO1NG15LZ@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA4MSBTYWx0ZWRfX1Y1ZDy8TVA6C
- DtKEgI3y8oTQeD93+f+l0Nbw/VFlbrV2AOxtdYu0RGYEV/samsFhRpYVDqO1p6Wyt4T0iG1kpvO
- T2dPGSgTnx2lh7VHV71GSQnVAPWW+rUGrwxmhxGzdsefMQHxd0THCxZqJAW/Y904BJBRr7mMK0i
- 25Vo0GABk5xUNAyyiQfRIvJggqJwWs3sORFdmng+iIvBE2vwAMr7lz1anCkFIvq+6hRH0oCm2Wx
- tIIY9/3t9hcaHcIsLruvPANrxKv9IC7PsOaFX+f6hjFradCrQMb86/cSVyAtlTawq+tBB8KC16E
- VTpTmxexk7d4mw2N+kUy4bQyP3u38/nhqOJdwNmJnpn++gj5+Datgis3fqn4/5ZLHVPmsrua4/P
- U8QMDLt22TwJ/UUFnwu5VVcer85wIHAUyS+eCQC3yom32zMvzSjmTwQZgyGxdW/SFLLMfZ6O9Rw
- Qf1rlPmmR4VXPxrjnCg==
-X-Proofpoint-GUID: 0eu8qvGZQ-hdAvTAnjLumZK_UmMy2uJS
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA4MSBTYWx0ZWRfXzeuDHC6Kg5sB
- AqdPP9y84gkdgF6HNJ3TSsXU98SAZjM+MuPdrVxSS3HSbhJje4BGfvWSZz19K57DoAWhtHe5dS/
- 1Lc5nUKzADbbkbtEq7SJWj/IV5SMw//7eBpsOqVmDscFjOPTW7XC
-X-Proofpoint-ORIG-GUID: 0eu8qvGZQ-hdAvTAnjLumZK_UmMy2uJS
-X-Authority-Analysis: v=2.4 cv=R6GWitRX c=1 sm=1 tr=0 ts=6aece59c cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=JerxfvFqMz+qeRdZ4jtV1Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=79PYxaXUQd1wl-QFWJnA:22
- a=6JKDXS4o0tL8RmaW0nQA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11957
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 lowpriorityscore=10 bulkscore=10
- clxscore=1015 adultscore=0 impostorscore=10 spamscore=0 suspectscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050081
 
-On 11/3/26 3:20 PM, Thomas Gleixner wrote:
-> The above explanation is enough. No need for this backtrace.
+On 11/5/26 21:19, Zi Yan wrote:
+> On Thu Nov 5, 2026 at 12:00 PM EST, Konstantin Khorenko wrote:
+>> Device DAX maps its memory with vmf_insert_folio_pud(), which takes a
+>> folio reference, adds a PUD rmap and accounts the pages to the mm.
+>> zap_huge_pud() drops all three, but copy_huge_pud() copies the PUD into
+>> the child without taking any of them. Each child's unmap then drops
+>> what the parent took:
+>>
+>> - the folio is a reference short, so with two children its refcount
+>>   drops to zero and free_zone_device_folio() runs while the parent
+>>   still maps it;
+>> - the child's file counter goes negative, "Bad rss-counter state" when
+>>   its mm is freed;
+>> - the parent's unmap drives the entire mapcount below zero.
+>>
+>> fork copies the page tables of a device DAX mapping that has a guard
+>> region, and commit f807123d578d ("mm: allow guard regions in file-backed
+>> and read-only mappings") allowed MADV_GUARD_INSTALL there.
+>>
+>> Take the reference, the rmap and the counter for a PUD that
+>> vm_normal_page_pud() resolves to a page, as copy_present_ptes() does for
+>> a PTE, with a new folio_dup_file_rmap_pud() helper. copy_huge_pud() now
+>> needs both VMAs, so pass only them and take the mms from them.
+>>
+>> Fixes: aed877c2b425 ("device/dax: properly refcount device dax pages when mapping")
+>> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+>> ---
+>>  include/linux/huge_mm.h |  5 ++---
+>>  include/linux/rmap.h    | 22 ++++++++++++++++++++++
+>>  mm/huge_memory.c        | 27 +++++++++++++++++++--------
+>>  mm/memory.c             |  4 +---
+>>  4 files changed, 44 insertions(+), 14 deletions(-)
+>>
 > 
-
-
-Ok, I'll drop it in v2.
-
-> So your reproducer does:
+> I assume this supersedes David's version[1], which uses
+> folio_add_file_rmap_pud().
 > 
->    while true; do echo 0 >/sys/devices/system/cpu/cpu1/online; echo 1 >/sys/devices/system/cpu/cpu1/online; done
-> 
-> right?
-> 
+> [1] https://lore.kernel.org/all/20261031-fixes_core-v3-11-d6437171ecc3@kernel.org/
 
+Ugh, I thought I dropped it to wait for this one here. But turns out the flood
+of patches confused me :( (hoping I didn't drop another one by mistake)
 
-Yes, but on a kernel booted with clocksource=jiffies.
+It's already part of the fixes PULL request:
 
-> Can you and Srikanth please run that on top to validate that we don't
-> end up with that?
-I ran my patch with your delta in the same guest and it holds up well.
-No hang and no "stalled" warning (even though the remote read timed out
-a lot during the loop).
+https://lore.kernel.org/linux-mm/20261105084704.5703-1-david@kernel.org/
 
-Do you want the delta in v2? I can carry it as a separate patch from you
-or fold it into mine, whatever you prefer.
+Konstantin, sorry! Can you send a follow up to introduce+use the dup variant?
 
-Thanks!
-Mani
+-- 
+Cheers,
+
+David
