@@ -1,57 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793871427;
-	b=HHfNVkSs+vVKDO3f4oRTEjMKFJqdDo8cXVAoVDdfcytqtjHFb6tfqsyNrpd55E14o8A1
-	 aKfVotGwpT7wEVo32/DViCyzbduJs362CLm+HCpLvcBf/LN0RoXyN3IP5eikKGFY8CVDd
-	 DetC8d6v6ZRy1K9kZO5+JdIEpDnfqW/LBoPQ9jqM+btavkfch38WHVyRQVFIXwiaWSSHF
-	 HQpkh5Ql+kenPw5hxQcpfnNbV+bUmTfL6SxBS0PZ7QZJnt+xln0GaExU8iiQiREHn0mGy
-	 sbqEuajtA3AzJa9ar3OoITDJ8tAYOLG9GVrjKho0OkyLnPl5aSGAtqKbXgqgU/XlbOg==
+	t=1793871543;
+	b=omY5aNGqj5b6y05jHKhrcIhWHGTFsuIpmJi9YOY4cwkyk34wLzwf7UaSBbwcNDdTzXH+
+	 uOTmb75xHzKRxCUJHuLyUTCaVf33tWXLoFpYnXBs/SOwddo4qQ0EwdvUCl00cex7kwOBt
+	 MCcZ1ZBm4lJJgIRcNHoB8Rdi0Mbdy5ybHA6BgaEmHCOQBm+KiwWyWF7ZPmYdl5iG2RXo4
+	 ifgblNXSWHh802TUHwwJeg3FSAccbjLZd9+bqrNdx4JFpi1zxwlC9igy4j13BGmqeityX
+	 r5l8ncm9orGpNFy67e/HdnvsmRjOGEK4WyznUhT+Y5I46yzPW3b1Ff0WpD8OBs6EFXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793871427;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=7K/3UYmHmYqyZ4dedHvbD3/glGO/i1xPnHZWZAvi/hU=;
-	b=hYOZYFD4NpINGyhGqqpJW1uo3MuRSeJBLEzBS5jteJEEf8s5ZbpzeQzZHmzukbL0JgUz
-	 oJniLFeRwavUq/BnTK5npfOvuGkES+7RU2NhNAqjRZmFYhqN6rV5kNLv65A8BNqcvorPx
-	 gR2PIB/WlTa43uAEu8HpnKqJRBIQBmq++0QiXIdQ1TjnZ1B5iHOAZKY4XdqGb8Nd6DzF3
-	 tNeClZjST0JpavEOonAw3Ah3KCU9AhzfqVb5dYHddF9STbvm9qV40wp587+WGyCGjfisN
-	 YWhGujqP9SLuzPAlocb0JykPpiS5Pen19Ie/AH1hCYFkzYXEtYKywGC7HkYGUkKJ14w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793871543;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=nOWIFWh+1CEqipH8Zskds4nwG3GpkW/ipctC03Z2qdY=;
+	b=TzNkodtso0iqPm+KRPas2hi5uoAYYo4qR8zsZqAXpIbNtCw8+gmjEq7CpKK8+uJkKP8F
+	 D+S1xsQukvSPMSvJDaQj2OtPG13X8thcSYTfW21/sOJm0fT/seA5I31BpFnQ1phlPE84h
+	 38o9DyxJTiVKSmC4/EPl7lAFPNF+IToBftBxEexz/Ve6DV9TtIdbgAL0GrormloKC2hGC
+	 z5m1Vl/sg2owHqmQsYhDPsrXjutdFExLj7t2Nzj87R5EGiRDTSvoGE8LmMf2BZxozLfOL
+	 FPYlbfExgzA2T80nzFhJbN/qDTHcd3HOkuFT+kGLyBnczSsQqiIKYnX43xSx1JdTGeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c2bSiclw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fEV2hKzx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56512606A31B;
-	Thu,  5 Nov 2026 09:37:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E72D7606A339;
+	Thu,  5 Nov 2026 09:39:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c2bSiclw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5550D1F000C1;
-	Thu,  5 Nov 2026 09:37:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fEV2hKzx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97BF61F00A02;
+	Thu,  5 Nov 2026 09:39:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793871427;
-	bh=7K/3UYmHmYqyZ4dedHvbD3/glGO/i1xPnHZWZAvi/hU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c2bSiclwFvsOddDtNdBAGgue40cuAASBAriHF4ShMSnAH+dj5VoZ54/+FhXWYPl8+
-	 oGTmZ8+y0aZU1aGjpnG7PSNmLbrbHYBDtRkHAazRnTRaKM7kFb1gWrF4MgOONLKn6A
-	 D2g12W0/aSEoOEuqtKS+lZMd28/Pr0BAO8/hqM+XQ06Tn/zM0G4nP7gRYzQBGI8gDb
-	 NiFAE3FpUff/5JW8M6gm899fXTDENHW+NvBDvfaMy6A6GVA7US5GfJYie8tO9D2ot0
-	 3bnnWozdI7NLkK3bt+hwaq3bUOwgoV+63mfnaC86dYVSR7/ECeqqyJT/2JhMDDaHKE
-	 5J3D+4peA5HLA==
-Date: Thu, 5 Nov 2026 10:37:01 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: linux-fsdevel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
-	Chris Mason <mason@kernel.org>, linux-ext4@vger.kernel.org, 
-	OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, Andreas Dilger <adilger.kernel@dilger.ca>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Namjae Jeon <namjae.jeon@samsung.com>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 3/9] ext4: add ext4_inode_loc_block() helper
-Message-ID: <20261105-eurer-wimpel-gierig-935915475d98@brauner>
-References: <20261029-work-inode-metadata_writeback-v1-0-7d6c678a585d@kernel.org>
- <20261029-work-inode-metadata_writeback-v1-3-7d6c678a585d@kernel.org>
- <lqhym4n6vu46kretnwfstfutik4vl4l5imhnf6pi3aranjpryx@bgtxuzuha2zs>
+	s=k20260515; t=1793871542;
+	bh=nOWIFWh+1CEqipH8Zskds4nwG3GpkW/ipctC03Z2qdY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=fEV2hKzxVlnyyzz/+Ijpzj8+tZwVIb3yoZP98/MQGep/idZoFnVjQyF866h1KWeVf
+	 fO0Sk7iLN3phAX28vLVafI/flF78fI/EcQ2Pb087tNuMdmsvLVt5H5m4Fz/gIzvZF9
+	 xpjpMzW6GGKnYc0gLAPw6jhTd3XmT43C1RopWEscevHp4XG7fDv3zspYIQLzCZ8i74
+	 a5UOxDRXcthsaEm2rAZ+3QOhGs7q0vx00eKqIhJkXL9CMcy1nJVyFBBtTbxcCmBL/a
+	 8lkOQNPEhnGsGFDx6w5umjDuFwhxeaNbDWw0Zi8PoBmnuST3BLYnYNukdesOhqWg1+
+	 o4irIM89ncIpA==
+Subject:
+ Re: [PATCH net v2 2/2] selftests: net: exercise SO_MARK on connected sockets
+From: netdev-bot+sashiko@kernel.org
+To: yanxia@cmss.chinamobile.com
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, willemdebruijn.kernel@gmail.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, yana06070@163.com,
+ shuah@kernel.org, linux-kselftest@vger.kernel.org, willemb@google.com
+Date: Thu, 05 Nov 2026 09:39:01 +0000
+Message-ID: <179387154116.488856.7164246185525969593@kernel.org>
+In-Reply-To: <20261104092252.15712-1-yanxia@cmss.chinamobile.com>
+References: <20261104092252.15712-1-yanxia@cmss.chinamobile.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,27 +65,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <lqhym4n6vu46kretnwfstfutik4vl4l5imhnf6pi3aranjpryx@bgtxuzuha2zs>
 
-On Wed, Nov 04, 2026 at 06:07:04PM +0100, Jan Kara wrote:
-> So I don't think this patch is really needed. ext4_get_inode_loc_noio()
-> does exactly what you need so you can use it in the next patch. If you
-> really wanted to use sb_find_get_block_nonatomic() instead of
-> sb_find_get_block(), you can actually switch ext4_get_inode_loc_noio() to
-> use it.  ext4_get_inode_loc_noio() has only a single caller in ext4 -
-> ext4_fc_snapshot_inode() - that is actually fine to take the folio lock.
-> But that is mostly unrelated improvement to ext4.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Ok, I'll drop this and use ext4_get_inode_loc_noio().
+Low priority / nit picks for your consideration:
 
-Hm, the nonatomic lookup isn't optional though. Afaict, the atomic one
-bails when the folio is being migrated. So for the fast commit snapshot
-this now means we fall back to a full commit.
+- [Low] The new "IPv$i $p connected mark 0" cases in
+  tools/testing/selftests/net/cmsg_so_mark.sh can never fail, so they…
 
-So in ->sync_inode_metadata() we now skip a dirty inode block and
-fsync() returns before it's on disk. So we need to switch
-ext4_get_inode_loc_noio() over to atomic as well, no?
+--
+
+selftests: net: exercise SO_MARK on connected sockets
+
+This adds a -k option to cmsg_sender that calls connect() before sending
+and leaves msg_name unset. It also adds 18 connected-socket cases to
+cmsg_so_mark.sh for IPv4 and IPv6 UDP, ping and raw sends. The
+per-message mark in these cases is the socket mark, the prohibited mark,
+or zero.
+
+[ ... ]
+
+> diff --git a/tools/testing/selftests/net/cmsg_so_mark.sh b/tools/testing/selftests/net/cmsg_so_mark.sh
+> index 772ad0cc26304..7a5e317bc4c94 100755
+> --- a/tools/testing/selftests/net/cmsg_so_mark.sh
+> +++ b/tools/testing/selftests/net/cmsg_so_mark.sh
+> @@ -68,6 +68,22 @@ for ovr in setsock cmsg both; do
+>      done
+>  done
+>
+> +# Check per-message marks after connect() has populated the route cache.
+> +for i in 4 6; do
+> +    [ "$i" = 4 ] && TGT=$TGT4 || TGT=$TGT6
+> +
+> +    for p in u i r; do
+> +	for mark in "$((MARK + 1))" "$MARK" 0; do
+> +	    expected=0
+> +	    [ "$mark" -eq "$MARK" ] && expected=1
+
+[Severity: Low]
+Can the "connected mark 0" cases ever fail?
+
+Here cmsg_sender runs with -k -M 1001 -m 0. connect() caches a dst that
+was looked up with sk_mark 1001.
+
+opt.mark.ena is set, so ca_write_cmsg_u32() still sends an SO_MARK cmsg
+with value 0.
+
+The only policy rule in the script matches MARK:
+
+ip -netns $NS rule add fwmark $MARK lookup 300
+ip -6 -netns $NS rule add fwmark $MARK lookup 300
+ip -netns $NS route add prohibit any table 300
+ip -6 -netns $NS route add prohibit any table 300
+
+That means mark 0 and mark 1001 both go through the main table to the
+dummy0 route.
+
+On IPv6, ip6_datagram_send_ctl() sets ipc6->mark_set for any SO_MARK
+cmsg. With mark_set, udpv6_sendmsg() does a fresh lookup:
+
+    if (ipc6.mark_set)
+        dst = ip6_dst_lookup_flow(sock_net(sk), sk, fl6, final_p);
+    else
+        dst = ip6_sk_dst_lookup_flow(sk, fl6, final_p, connected);
+
+If the zero-mark handling were missing or broken, say mark_set was only
+set for non-zero marks, the send would reuse the cached main-table dst.
+It would succeed either way. ping_v6_sendmsg() behaves the same.
+
+The IPv4 and raw mark 0 cases don't use a socket dst cache on this path,
+so they can't tell the two cases apart either.
+
+The paired kernel fix ("ipv6: fix cached route reuse for SO_MARK control
+messages") mentions "including an explicit zero". These cases expect 0
+in both situations, so they only check connectivity.
+
+Could a rule be added that prohibits mark 0 with a full mask, for example
+fwmark 0/0xffffffff lookup 300? A plain fwmark 0 gives a mark_mask of 0
+and matches everything.
+
+With that rule, connect() with sk_mark 1001 would still succeed. The
+IPv6 UDP and ping mark 0 sends would then return 1 when the cached dst
+is bypassed and 0 when it is reused, so expected=1 would catch a
+regression.
+
+> +
+> +	    ip netns exec "$NS" ./cmsg_sender -"$i" -p "$p" -k \
+> +		-M "$((MARK + 1))" -m "$mark" -s "$TGT" 1234
+> +	    check_result "$?" "$expected" "IPv$i $p connected mark $mark"
+> +	done
+> +    done
+> +done
+
+[ ... ]
 
 -- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104092240.15649-1-yanxia%40cmss.chinamobile.com
