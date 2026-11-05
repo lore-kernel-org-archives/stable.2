@@ -1,56 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793909763;
-	b=ateWJZYE0UlTWM4DK5GKF84Mgiro32QuNfIxtsAtOciw04MYC0M4PnQluQhJU85aonvv
-	 ZqimRaz3FpATlyfZoTz1uJxKZan3pDU4k/EFhG4Hul/6kphl3bQRD6iLsqY1Ngw5i0p39
-	 9petEvfe0Yksj5nIGASLBjYT0PHWP7j7eEaiwlqhGp7NwKpZtIZ7IYXuC9PXNYfF/4P6Z
-	 TlJtHdrTl5RoNvDgZ39Xv4HaRdEWdivdyn4i6AVJAlEJa45/RaLyW2ydfpvwR/PQpK5yg
-	 hrMxtTbHxzXBFYipt0JZrWRJoSGVBUZmuR2kprK4mNPhr7BcJZxzfsFOXbX/nurN9vA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793909763;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8+GcNtd/Hc4ZgoL1JUBrrUkmhTioKc2whz8y2R0XOIA=;
-	b=ShYHeN6EiAk3hUyOeaag9aCkmCblnh/+Nw35LVAEn3tBJMrYpaY5XUOVC1QOjGrXWdl1
-	 i0MlLYUfo8FAW60hGb686iCa7mxJ1zYSJt8fqvPShRAJWgF0h7MP01nLoJ7HplG28iLMi
-	 ubVBNpz4YImgIj7eKEXuteg46MOIPwx2t87EL//PsBUC9dGo49KO6nW1WD507yXqwvx0O
-	 EsdHf85SFgQSr2aKg5qe+UTYMlOhK6VawQpNyE70r5vByhw5NWUPi+8A0B1+TZmhioz1P
-	 qzXocmsVpLAFOi0KKP3EMLR6TC5KKCxxHe1l/6r2ko87nA+Q6eNKglKYPZHy+wnS/iA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NpGn+8Yj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.64
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793909953;
+	b=cCAciyFj8p72GD2sjNGzqBnBwRJQJfOySTh5gedw4k8PFEM3dzJ3t3ONMN0lwLOdJTXK
+	 8vVgcQtJrU75TWP57IPQXerEhP7VQkQp+bkorb+hl4/EdMg6xlWUggZF5NJpV8NH8iZK7
+	 phWD4lcsbd2rGg10Vp0Eqi+DWdsdrrfGGei5bWH0AsZdtgIX5k3/wz+CZ9mcnmoFifnXL
+	 dvm7NZgfMV+HDZwEfMmSs2I/5+TcuygVoQt8rbGEAoBD2Zvr/cOFoRgSIkO5HRpAV7hoE
+	 GQWHwOw2xvA4XwJ+1PRrn0LdvxbuGWwqDB6JV0HK3mszkpCm3MgUojONqf7yVCx5N7w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793909953;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:To:From:
+	 Subject:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=YhQfeST11Y/BHVIVIEBo0tfRd8bdlsiSxx+qW7Nnol0=;
+	b=3Ts1PAQRdGbNUv4FCyX2GrPknysgC3vsZ4Qe3/xyo+Qoe8KePydKIVsys9a+luZywcy5
+	 pkDARJSQ/1+4OECpcGOQ0Oq4fLeAWQ96+Bofj/DoOaJiVWZYMl5xMHrRPmO9cNcHcoWR2
+	 Y/9LvqHxO6CSc53anUccKpfG8MYCErMARVbYVI3PywoQzC55WvYKP4oj8+MwP4POX8dgw
+	 6D9zvKLLL6EIXHJNt7IBtAFCaihgZgPPfQjeDIx/W0qD0NxZpEQ1FFEK0rVzvSJA367qN
+	 qMK1pzpU4Ui+S6nflmjgqCkRljJ58YrbFbJJskdhb/GonoeQ0vMkhg1BimL86GxaRgA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=nGOEMyVC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.64
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010064.outbound.protection.outlook.com [40.93.198.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CC0606A331
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 20:16:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A493D606A31B;
+	Thu,  5 Nov 2026 20:19:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A493D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NpGn+8Yj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED5561F0089F;
-	Thu,  5 Nov 2026 20:16:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793909762;
-	bh=8+GcNtd/Hc4ZgoL1JUBrrUkmhTioKc2whz8y2R0XOIA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NpGn+8Yj7slRPPXkXffxvx2KmbhOi6KPTPWR1+ejMLGhXFtRNGLUy3kmw96uji0UX
-	 +xE4J6G/DsKw7AZT3O/eAs0kr+OrdYZ966CfoY/W1Zm3bk+HTtVYHxEJ7UBIZPwjrT
-	 HE0/DNsOHdgg+/OMl/gmgRKlmJ6OrkUWZqY2J4R0CiHwQI6wKxIQQYRI0Q1qi5h0J+
-	 H8N4hUmwgm132CE1RXLmOhRszDoiOs8eduJjb/UH5yn0uzDuTlfl6enVQq27YfsFQ1
-	 UX6i7079YYC7v65YpK1xHV14eHaPVXF0qpJakYQ1bFhhuHZT1YsdMTSmhXJ0xZaPiK
-	 QzJnuZ32bzDQQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Diego Oliva <diego@bynar.io>,
-	David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] smb: client: reject FIND data areas that run past the received response
-Date: Thu,  5 Nov 2026 15:16:00 -0500
-Message-ID: <20261105201446.2682075-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110457-pulsate-oil-dbd1@gregkh>
-References: <2026110457-pulsate-oil-dbd1@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=nGOEMyVC
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XAsDjy7PKtByYe4FjFCN72wBzp3f+wN8xVbZzSItQ5YBubPmUWUtLnqCTIZ61wWTaF3o0JZ78SxM8Vu+dftCOjUuiawlm/0LdMpgpx4d1GKU5Dn2vP0v9gccT9qxBBgwLFYwIy1rJq7aCWgCt3oOt3Ds7+DXVP5VkBvGHqEfkG7ToLIaYaq6735xQTzDhsZRXA/B/fndRUaje2ubBb6EUcJ/PoeuWVbPJsL26bZzXAfN1cPpM6KaKSUL+nyqp3D5ZOmOCIl8QKEjDDGpxsB7US6dzms2SKHNRtSo6YF8cIxlWrImvutswZLsK8Rk2/fqAhuf9X0Enor0TEgV/FPvbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YhQfeST11Y/BHVIVIEBo0tfRd8bdlsiSxx+qW7Nnol0=;
+ b=SwAtgYDSINXW7YUe0urFJL7qw0PucvQDFB/tfToVYVf1Q9ig3YT3CKGRXhu5xVx6drLn69idxdlxxxRVlJWAPakiTFTqupUN63e7ZIh/w0fTcIlgtW/S24bMHwG7brvfyXrgzrM4mqpUndHkc1JYnpV6wl6eCiEljlItSy2/ndLIu3ldGRuKnGEWv0BdELhBTxzFk+shEi8715SYXoV42H2fH6MgT+qr+7hCn5TIuxCZlNXRE6MM9s7GklNisMgsDH4cAnAmGHPtyQ6XGhGA3Wrq3sNLO9N1biMGorvVMwa58DRjT7dZjHtpMQny9daSYNAAV8SmY/IVcFW+xuuu+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YhQfeST11Y/BHVIVIEBo0tfRd8bdlsiSxx+qW7Nnol0=;
+ b=nGOEMyVCTY3hWYyEeB0ZQkawBbC+PVxIJdWQij3YWVkTR27hshpflSaarAy75vAxf6NxOfXrQoo/q7bx3IGoq29uMedwyl17KL6YRKYKpPrMRF2uKFjOmoCcxVZH0DaXo9fNpjdGQwxpFh0VWENShMQ00J3D6YFkEFPYhP6aBAncg0lekgZyNkudLdSgLBrnPIORauC0Xvjfe9nnh45ImN9QnSnBkAhOo3yzYb32JIdNKPhVlXCJRcoT1TXVOxVbMNQgEJfrevM4WhtuF63QDgDEn/oaHxUedo9tRfpuIy+9gOiJqoH4uga9wBuzHjxZ3r/98xHyrbT2jVcRMdvmYQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by SA3PR12MB121967.namprd12.prod.outlook.com (2603:10b6:806:58a::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 20:19:10 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
+ 20:19:10 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 05 Nov 2026 15:19:08 -0500
+Message-Id: <DMNK05HCXYUJ.578OO1NG15LZ@nvidia.com>
+Cc: <linux-mm@kvack.org>, <nvdimm@lists.linux.dev>,
+ <linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+To: "Konstantin Khorenko" <khorenko@virtuozzo.com>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
+ "Lorenzo Stoakes" <ljs@kernel.org>, "Alistair Popple" <apopple@nvidia.com>,
+ "Dan Williams" <djbw@kernel.org>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH v2 1/2] mm/huge_memory: take a reference on a folio PUD
+ copied by fork
+X-Mailer: aerc 0.22.0
+References: <20261105-vstor-150143-copy_huge_pud-folio-refcount-v2-0-2828fe5a51ed@virtuozzo.com> <20261105-vstor-150143-copy_huge_pud-folio-refcount-v2-1-2828fe5a51ed@virtuozzo.com>
+In-Reply-To: <20261105-vstor-150143-copy_huge_pud-folio-refcount-v2-1-2828fe5a51ed@virtuozzo.com>
+X-ClientProxiedBy: YQZPR01CA0110.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:83::10) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,135 +101,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SA3PR12MB121967:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87368f27-205c-457e-171c-08df3b7a0ced
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|23010399003|7416014|1800799024|22082099003|18002099003|10067099003|11063799006|4143699003|261102123227099003|261021123027099003|261021121427099003|56012099006|261009223027099003|261022075727099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	H3WQd3y2ntoTLgTO1jRdBEw7IvhEscrI0s/Bjn5ft6ZP7QTZ4epXB3nSutP9A//E54tgGQZ0kOKpnrP5QXFZWlHK8dY2GVmmuuEVDHXUNrx21bB28/Ky8LVF7ncAcw5X6Ac35zwNuAch3EoiItWLJRQUnTs69gPaHt0aLQZCiQAc7dEPAMuDSMaFbraTy6NzSY7/l6kTyRhlB5nQ5wlVFCoMxP3469xzFDpAPfA83VL/Kq0XEaF7BQ5eaTJohdnp+uiIXx5ffnj2gE+jYRYt8iYiXddLSEaorIvKrevBpn/uSk+0m8iI+MpAM7Jc5up/YK+Y19nbW9Eni17tCUlzfxJRVtK1ex5rBPsahbhwdRRr546ejaUyg2ghTq651DzpVl/stDoA48x4HsEi8jkaK328NnRKWImpx479yALoHunjZauEisGhvA0ODndntba2eN+2398bwjOgSD59bnuYJWm2m5isCYcNPpgL1wXIPYeb+R/LoQXQJas2VWm4yjQ6HKxpi/JMmpfftcl6nkS97aYUEzvzMlnvTiU7+gJfPnXZ+2MRbx4eka4iujAsEJOB11G00rGoMfvCua46EyL0DXgNIy3cDE+GDG2Ok3ZeCSzwH4FPU9d++CTtOp3s2BEeidTD142ea/BNA2ekWhUhqYoQy3tmgw0+dpi2fPcDUSU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(7416014)(1800799024)(22082099003)(18002099003)(10067099003)(11063799006)(4143699003)(261102123227099003)(261021123027099003)(261021121427099003)(56012099006)(261009223027099003)(261022075727099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MWg2VS9VVWdNWlFCTC8rNEJ6S0Q3eU82TFpibW5naTFEaWFoaEwydElYMytH?=
+ =?utf-8?B?QjBITkQvQzBsYlhjMnBXRkdFZTUvdTZNZ2NmTmxjWVZiVC9BM1hpWWh2MlZm?=
+ =?utf-8?B?Z2dheXpja2EzNDVOdys1MHU1VkYycHV2NnpvN0xLdU9iR21UZ3RMYVNzVVd0?=
+ =?utf-8?B?M2pENDJPQi9oajM5RHl0bXh2cWpXN0lKNlg5Y0ZycXhkYlFhTWtwQkI3OGY4?=
+ =?utf-8?B?WHpXYWE3VmEzcGtUQlRLUkV5Tys0QW9FTFNlTWhpZWFMYnNlVFpQcmI4With?=
+ =?utf-8?B?anl1VnhPQTJFVEFibStKU2xMdWhSNFkxYUVjY01aTUQwOTl6bXdId2lUZVJz?=
+ =?utf-8?B?T2RoaXFuc25FQUpjQmtSc2Z3dm1HQlQydlBzRExFcXM2REN3OGZtSDhEMyt6?=
+ =?utf-8?B?TUxQaVAxMHBBc1RLVk5MRFNuU3R0NVFpZDYxMWNTZi9KV1c3MUZDQjgrdW5q?=
+ =?utf-8?B?d2ZyeGhnSDlmb0hIZVhIbkIvd1J4VmtLZUNUVW1kcGNwUWVnQmI1ZTVBVTZo?=
+ =?utf-8?B?MEdSQldrZ0ZjNmx4M3dZTDV6c2hKV3lhYWVaWkNRNy9PdTdFenBweGVCdjB3?=
+ =?utf-8?B?eUhtSVZvREdqbkFOWGhCQ2Fidk9rak05SlRWWDZpdllOdjRQd0NxN256STRz?=
+ =?utf-8?B?aUNoSkpuM0hZdXJaUVphZjVtcHAva3ZQOWF0RTZjNWEzYndzZW5nbEg3a0k1?=
+ =?utf-8?B?YitFNVAxaE94ZDNGUDhqLzRtaHBYeE9QME9ESjZQbXMveTJZSEptSmQ3QUx4?=
+ =?utf-8?B?UWN0VkIvMXBTWDVRbkx3WWFOdVBEYldsSkFwQ0pkaldJcFhSSnNDQ21nYnIy?=
+ =?utf-8?B?dEFnSi9MMUZ4V1psYlM4RWNHK0JmaGVSalZrT3R1Qy8vTVVXdTNFbytXNjVw?=
+ =?utf-8?B?bjFhakM1MzFDcjBjWDM5aFZ6cUVoVmtsUUpyLzQ1Z1JhNngybm9POUJJdkdN?=
+ =?utf-8?B?Nnp2R21KakhoN08waGdISEt1ZmNkVXRYSjlnYXprSjkwVURhOHR3NExrRnZ3?=
+ =?utf-8?B?L0Z2WThTMmYzaHliN0lxQzJsQlFCV2xBTzdVTGxtN0JSZklwSWlBdURPTks1?=
+ =?utf-8?B?bCtGamZIZ1pWSS9WMEpKdkd3NUxvMlAwa243Z00xRHhYYVJwSDhheHVpR1Z4?=
+ =?utf-8?B?N1Z6NG0vWDUwQkZ5MGx6eUFONXVRSFN4N283WGZVV0pTOERFcTF6QUNyUk1u?=
+ =?utf-8?B?ZmxQRDU3d3d1Z3cvOU9LYkxhT2NmeWZHK0w5K0hxekFJWjRpWVlGeXh2elJy?=
+ =?utf-8?B?bEJEc240dzMrazVMYi9QSFpUOUhqQ0dOeHFkUkhxeGVGNEVGOVRUSmJOeVRj?=
+ =?utf-8?B?MklGMTdaSkNHSE1QVEZySHdrREtHOFhENDNsbmNGWjVMRWU0dEQwYzJYeVZu?=
+ =?utf-8?B?Y3Fqak1DYlFxVDY1WGZkdDFXbUU4dElyRG1nYll6UHQvbGl0RmZDVEZzNWs0?=
+ =?utf-8?B?NDdqd2trbS9RMDBPckxYcDVxeVNpSTJRQnVJdjQwaEphcDZkNnFmY281TGNO?=
+ =?utf-8?B?N3BzVldVbmJqemVRcEFQWERBKzUxbnI4Vk1BS3JFakdKNG5CWm1rWTViaE1Z?=
+ =?utf-8?B?OUs4aE5yanBSVTZDRDBqQTlKRS9jOXJHK1ljT1VMWkp0b01OU2FwRkswTVFY?=
+ =?utf-8?B?OVJUdFFBQ0dBYXVuNkZMbiswUjlxQXFmYTU3OS9TalNNendNNkl1WlVkN0Nu?=
+ =?utf-8?B?S1pTV1ErbVJBY1UyeVBQK1JEWGhlMXg3eTk3OGhDZkpjOTZCNWpTOTdMTzh6?=
+ =?utf-8?B?QXNDenZtUDM2VWliVTRaWmNPRkwydkRkMjEwNTl0V0c1dnJOaUQ5MTNKaG9E?=
+ =?utf-8?B?N3BlbDNhbXJVU3dPSVFiS21IeDdjUFRSN3RvL1VlSjluWmQ1cVZWWWdkWUVh?=
+ =?utf-8?B?MTB2Z29ocXA1bUM1RWJuWVN6dGt6VGtBNW56WUcvTXBrczhZRFdoNkE3ZU1o?=
+ =?utf-8?B?ejQ1VmplV2haaGxMTUk5SjczSHNsbUtHTkY5WFF3OFlNeXJzUmV3eUdDQk9I?=
+ =?utf-8?B?YSs4TG94N09pZ1VPOTJpQk82ZEhWVTlGelZqRkFGSk8zSHY0V2NPc3FhNUVU?=
+ =?utf-8?B?WFFrWmpwNitPSGpmenJxNGFUSTF6aU56c2RPL2JtRlBkR3d0VGZkR2FVejhh?=
+ =?utf-8?B?VndhZXhheFpjUkJua2NQUFZhcG5TYnJpZ3REL1MyWlQzQUw0S2x4Q24wUSsr?=
+ =?utf-8?B?TUhTT1hjL3RNLzdoSWtmbk9xUjc1M2ZuZENRajNhSFFjdHRhS0IxZlRwdXNk?=
+ =?utf-8?B?TGQrOFRaYUZvUTEvMGVnbDAxbmFWc0VZQlhCaHVxTyttVWszNTc3T1pWdUp5?=
+ =?utf-8?Q?J0jcDiU/n10r0EJabo?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87368f27-205c-457e-171c-08df3b7a0ced
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 20:19:10.0238
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2/LYHRrSTJ+BMJh7KZ9PiEiWJVDcoxU4oAscORJc8uZYV2gjj7ul4I3dts/wMsc6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB121967
 
-From: Diego Oliva <diego@bynar.io>
+On Thu Nov 5, 2026 at 12:00 PM EST, Konstantin Khorenko wrote:
+> Device DAX maps its memory with vmf_insert_folio_pud(), which takes a
+> folio reference, adds a PUD rmap and accounts the pages to the mm.
+> zap_huge_pud() drops all three, but copy_huge_pud() copies the PUD into
+> the child without taking any of them. Each child's unmap then drops
+> what the parent took:
+>
+> - the folio is a reference short, so with two children its refcount
+>   drops to zero and free_zone_device_folio() runs while the parent
+>   still maps it;
+> - the child's file counter goes negative, "Bad rss-counter state" when
+>   its mm is freed;
+> - the parent's unmap drives the entire mapcount below zero.
+>
+> fork copies the page tables of a device DAX mapping that has a guard
+> region, and commit f807123d578d ("mm: allow guard regions in file-backed
+> and read-only mappings") allowed MADV_GUARD_INSTALL there.
+>
+> Take the reference, the rmap and the counter for a PUD that
+> vm_normal_page_pud() resolves to a page, as copy_present_ptes() does for
+> a PTE, with a new folio_dup_file_rmap_pud() helper. copy_huge_pud() now
+> needs both VMAs, so pass only them and take the mms from them.
+>
+> Fixes: aed877c2b425 ("device/dax: properly refcount device dax pages when=
+ mapping")
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+> ---
+>  include/linux/huge_mm.h |  5 ++---
+>  include/linux/rmap.h    | 22 ++++++++++++++++++++++
+>  mm/huge_memory.c        | 27 +++++++++++++++++++--------
+>  mm/memory.c             |  4 +---
+>  4 files changed, 44 insertions(+), 14 deletions(-)
+>
 
-[ Upstream commit 29bd6773187cb5c1bbbdf90d677c6add7d58af26 ]
+I assume this supersedes David's version[1], which uses
+folio_add_file_rmap_pud().
 
-CIFSFindFirst() and CIFSFindNext() take the directory entries of a
-TRANS2_FIND_FIRST2 or TRANS2_FIND_NEXT2 response from DataOffset for
-DataCount bytes. validate_t2() bounds DataOffset at 1024 and
-ParameterCount + DataCount by the byte count, and nothing compares
-DataOffset + DataCount with the number of bytes SendReceive() copied
-into the buffer.
+[1] https://lore.kernel.org/all/20261031-fixes_core-v3-11-d6437171ecc3@kern=
+el.org/
 
-smb_init() places the request and the response in the same
-cifs_request allocation and cifs_buf_get() clears only the start of
-it, so a short response whose data area extends past its end has
-srch_entries_start point at bytes of the request that was just sent,
-or at whatever the allocation held before, and those bytes are parsed
-as directory entries. cifs_readdir() and find_cifs_entry() walk the
-entries with nxt_dir_entry(), which checks every entry but the first
-of a response against the end of the SMB; cifs_query_path_info() and
-cifs_backup_query_path_info() read the first entry with no check at
-all. Those reads stay inside the allocation, but what they return is
-not part of the response. The last entry, which LastNameOffset locates
-relative to the data area, is bounded against the received response
-by an earlier patch of this series, as is every entry that
-cifs_fill_dirent() parses; the walk itself and the two query functions
-are not.
+LGTM.
 
-SMB1 is not negotiated by default; reaching this code requires an
-explicit vers=1.0 mount.
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-Reject a response whose data area extends past the received length,
-with the -EINVAL that validate_t2() returns for the other malformed
-transaction responses. cifs_query_path_info() and
-cifs_backup_query_path_info() still read a whole entry from a data
-area that may be smaller than one; that is not changed here.
 
-A conforming server is not affected. The data block of a transaction
-response is part of the SMB, so DataOffset + DataCount cannot exceed
-the smbCalcSize() bytes that SendReceive() copies; coalesce_t2()
-appends each secondary response to the data area and adds its length
-to both DataCount and the byte count, which keeps that relation.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: Bynario AI
-Signed-off-by: Diego Oliva <diego@bynar.io>
-Reviewed-by: David Howells <dhowells@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: adjusted declaration context because the in_len variable is absent in CIFSFindFirst() and CIFSFindNext() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/client/cifssmb.c | 31 +++++++++++++++++++++++++------
- 1 file changed, 25 insertions(+), 6 deletions(-)
-
-diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index d2a4016acf7eb..09a3924a5b76b 100644
---- a/fs/smb/client/cifssmb.c
-+++ b/fs/smb/client/cifssmb.c
-@@ -3968,8 +3968,9 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
- /* level 257 SMB_ */
- 	TRANSACTION2_FFIRST_REQ *pSMB = NULL;
- 	TRANSACTION2_FFIRST_RSP *pSMBr = NULL;
--	T2_FFIRST_RSP_PARMS *parms;
-+	unsigned int data_off, data_count;
- 	struct nls_table *nls_codepage;
-+	T2_FFIRST_RSP_PARMS *parms;
- 	unsigned int lnoff;
- 	__u16 params, byte_count;
- 	int bytes_returned = 0;
-@@ -4088,11 +4089,19 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
- 		return rc;
- 	}
- 
-+	data_off = le16_to_cpu(pSMBr->t2.DataOffset);
-+	data_count = le16_to_cpu(pSMBr->t2.DataCount);
-+	if (data_off + data_count > (unsigned int)bytes_returned) {
-+		cifs_dbg(VFS, "%s: data area offset %u count %u past response length %d\n",
-+			 __func__, data_off, data_count, bytes_returned);
-+		cifs_buf_release(pSMB);
-+		return -EINVAL;
-+	}
-+
- 	psrch_inf->unicode = !!(pSMBr->hdr.Flags2 & SMBFLG2_UNICODE);
- 	psrch_inf->ntwrk_buf_start = (char *)pSMBr;
- 	psrch_inf->smallBuf = false;
--	psrch_inf->srch_entries_start = (char *)&pSMBr->hdr.Protocol +
--		le16_to_cpu(pSMBr->t2.DataOffset);
-+	psrch_inf->srch_entries_start = (char *)&pSMBr->hdr.Protocol + data_off;
- 
- 	parms = (T2_FFIRST_RSP_PARMS *)((char *)&pSMBr->hdr.Protocol +
- 					le16_to_cpu(pSMBr->t2.ParameterOffset));
-@@ -4125,8 +4134,9 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
- {
- 	TRANSACTION2_FNEXT_REQ *pSMB = NULL;
- 	TRANSACTION2_FNEXT_RSP *pSMBr = NULL;
--	T2_FNEXT_RSP_PARMS *parms;
-+	unsigned int data_off, data_count;
- 	unsigned int name_len;
-+	T2_FNEXT_RSP_PARMS *parms;
- 	unsigned int lnoff;
- 	__u16 params, byte_count;
- 	char *response_data;
-@@ -4209,13 +4219,22 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
- 		cifs_buf_release(pSMB);
- 		return rc;
- 	}
-+
-+	data_off = le16_to_cpu(pSMBr->t2.DataOffset);
-+	data_count = le16_to_cpu(pSMBr->t2.DataCount);
-+	if (data_off + data_count > (unsigned int)bytes_returned) {
-+		cifs_dbg(VFS, "%s: data area offset %u count %u past response length %d\n",
-+			 __func__, data_off, data_count, bytes_returned);
-+		cifs_buf_release(pSMB);
-+		return -EINVAL;
-+	}
-+
- 	/* BB fixme add lock for file (srch_info) struct here */
- 	psrch_inf->unicode = !!(pSMBr->hdr.Flags2 & SMBFLG2_UNICODE);
- 	response_data = (char *)&pSMBr->hdr.Protocol +
- 		le16_to_cpu(pSMBr->t2.ParameterOffset);
- 	parms = (T2_FNEXT_RSP_PARMS *)response_data;
--	response_data = (char *)&pSMBr->hdr.Protocol +
--		le16_to_cpu(pSMBr->t2.DataOffset);
-+	response_data = (char *)&pSMBr->hdr.Protocol + data_off;
- 
- 	if (psrch_inf->smallBuf)
- 		cifs_small_buf_release(psrch_inf->ntwrk_buf_start);
--- 
-2.53.0
+--=20
+Best Regards,
+Yan, Zi
 
