@@ -1,57 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793858267;
-	b=YM+qJq/q/mYvXRAMo4k77GbKIZW95m9EZGXeYHPugxshY0QnEUeMhAKtxp028WaOHPM9
-	 EVowQfb8vWyLZI0DlB3zqwzluOJsOlGxRBUIx2f5Q1qto+S6C8DbOeDZ+iEc98OjEfc6M
-	 XmzsW2B2yZBjPEbplEQSrvEDccG+kF88rm5udEuK5D43jUv1BipHla3usYuuqXVoyohgW
-	 xvJuwbBCOEQmDc4GFKxLyy88Nq7t2pSupdjJFfDRIsrpQUIdrJEQv/NyrpMuBSBr+vI7L
-	 3EtotJqvpqGSqyUK6zTIfG4qdpQ1ltAb/am44A+aWnlVmfgxvUEgexfCcIRC/QRf5uQ==
+	t=1793858353;
+	b=Etz5aAT9KWSiPZ4nqKOtyqeQGx1u54JAR2oNrgi2QYiKGqtXYCNvYgeb5c+u5eaMZTLv
+	 PCDr/xaVd5L/kZ4QWK4r4xT4cD3D4Cq/FrlPi/3IVSSY4s+yCn5oln4g1azVEsGvXy64z
+	 ySn+BV5lt6JXTXTj9uLtsp+xQIAop0pbBi+dLyfoKKh+x0JzuToOC2rtEyqr6Ik148fz4
+	 j2NkbUyiwntflt1BTXNqmuSdCnWzCJqpVSJhSCVESrJbIuY+SD2wHAwr9YPuidPtSAvOz
+	 P9vVT9hZbJoqdF33MFNFKGmBIVR4ukrDN+5jPGlmFAgg4QnAdXOGtYL3wm7pDDPTeJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793858267;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=CzugvlBhqbMDKAvT3TfBg5pfX9J4bdWCzsHPnxIZ4/4=;
-	b=wlY9JgjbI7CTsYBKbdU3jCMIp6HupSZrZoP2tRsEl1P1/23PJrbqh8FDSrJ7N/f1Gc2P
-	 5Gh8r1EhwVWIxCV4EfZe49wVrCvuM0VJrf7tm9HqUVgSBvwcy4lTvTC4zu5k4im9fIJtj
-	 ZGrY8QSZCJGLuQ1GFH4tWBDddN61fmaqioDu1OyHHL+HYatUK3OVEATqwUWEepUaNRvq3
-	 rHVCSnOlZdkPoLeken1WvaijB38weispXYeAMUgHO9lkNUX0vTr0GNKEJ4xWCnXGcmaEx
-	 6wlhjT77UQRu2gg+bjj0BTbwey2q0+gCzOD3BNd+GXuXLHbUE+G/6AKp0pG27CnxMtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793858353;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:X-Mailer:Thread-Index:
+	 Content-Language:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
+	 X-CMS-RootMailID:References;
+	bh=/BbmuACGtbzAOpl3Wf0rhLYY2XYu/T/PZxVHApn7KDE=;
+	b=HEFW6DJhxHLcNv1kA+6lmBn+6CrkcsxcOC+NJakn+8BCxdvMWsARNs9a0njBhgBjMFyH
+	 VIUjRZ26yDxACZB7cDIl1VKC55AX5cwbdXIb8/5BunMecYmTLmMOPFaCZ5n3wMMbxJerP
+	 JHTh81v9eHA064KxZBlj/XlpqE23xe7go8ybQltlqqxssDeN6rSP2Ufvww23IpM8xQVK9
+	 4XeKVV0oasif0XWuCDAyOcjow4B02ODCzUYcvFeT2G4k/6f0Zro/hZhBOiQRmWOZBhhgO
+	 pwL+/70S/kac3KQf/Q69sy0U5D9yq4oMjhICtfFT9CcspHzz1KiI4G0CPROipQJA/LA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7CB02606A31B;
-	Thu,  5 Nov 2026 05:57:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CB02606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	In-Reply-To:References:Date:Message-ID:Content-Type:
-	Content-Transfer-Encoding:MIME-Version; bh=CzugvlBhqbMDKAvT3TfBg
-	5pfX9J4bdWCzsHPnxIZ4/4=; b=aljBKnVfi7a+9CRk0N7rMwDGulEDoJPsZBVF3
-	fyQ/HKunQQBWecVAGgBp2moonDv/BLQD1qoefRMxV55YDyJzE26Hf5NObMjw3ZyP
-	gFHmU/IQAxT4VOJb4miT+dFVmhXUqtFmIjJaUuRBY927xIKMBRCav76bOSwc9Yaw
-	pYQrgI=
-Received: from [127.0.1.1] (unknown [113.200.174.104])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkD2Of_TGuxqiwApAQ--.63435S2;
-	Thu, 05 Nov 2026 13:57:39 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH] Bluetooth: btusb: fix use-after-free in force_poll_sync
-In-Reply-To:
- <CABBYNZ+iU=riZ8MSTkbqv4vn0OJGLymtN98uJ8_0pw6hEaVWYQ@mail.gmail.com>
-References: <20261102110440.2589-1-25031212351@stu.xidian.edu.cn>
- <CABBYNZ+iU=riZ8MSTkbqv4vn0OJGLymtN98uJ8_0pw6hEaVWYQ@mail.gmail.com>
-Date: Thu, 05 Nov 2026 13:57:39 +0800
-Message-ID: <179385825903.13262.2748533820947958224@stu.xidian.edu.cn>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=BHPdM3W3;
+	arc=none smtp.remote-ip=203.254.224.34
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 831E0606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 05:59:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 831E0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=BHPdM3W3
+Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261105055907epoutp04f6008291c2fe8eb56fe755e1bf21aca5~lEKmuTZPn1643616436epoutp04e
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 05:59:07 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261105055907epoutp04f6008291c2fe8eb56fe755e1bf21aca5~lEKmuTZPn1643616436epoutp04e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793858347;
+	bh=/BbmuACGtbzAOpl3Wf0rhLYY2XYu/T/PZxVHApn7KDE=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=BHPdM3W3dKPva3jJ3NKlkEh2HNsr/MVDXcQbKIS++terj2TL552zehirj5d/4CPv8
+	 /351LhFmdlIUQiWJG1P5ATMpSxR0DRdpI4OsdUqFYoJ8mNoIUvOPJl8D4xIU25EW52
+	 2lW26Tb0GrqL79jQGlAdEKwA0cZnR3rkXYJr3oYQ=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261105055907epcas2p1cc414148af16714e99292f82a2d1c04c~lEKmPe6od0236502365epcas2p1J;
+	Thu,  5 Nov 2026 05:59:07 +0000 (GMT)
+Received: from epcas2p3.samsung.com (unknown [182.195.38.212]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4jKs7t4tCgz6B9mL; Thu,  5 Nov
+	2026 05:59:06 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261105055906epcas2p2520b4d9ab1ea8c31a5bedfef74718d69~lEKldGa211842318423epcas2p2K;
+	Thu,  5 Nov 2026 05:59:06 +0000 (GMT)
+Received: from KORCO164647 (unknown [12.80.211.160]) by epsmtip2.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20261105055904epsmtip2cffb0098c2408ba424de81ba87e36e9d~lEKkWznHB1691916919epsmtip2Q;
+	Thu,  5 Nov 2026 05:59:04 +0000 (GMT)
+From: "Kiwoong Kim" <kwmad.kim@samsung.com>
+To: "'Bart Van Assche'" <bvanassche@acm.org>, <linux-scsi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <alim.akhtar@samsung.com>,
+	<jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
+	<kwangwon.min@samsung.com>, <hy50.seo@samsung.com>, <cpgs@samsung.com>,
+	<h10.kim@samsung.com>
+Cc: <stable@vger.kernel.org>, <stanleyjhu@google.com>
+In-Reply-To: <8939a53e-1b21-4dd9-b65c-cbe03b8b72ce@acm.org>
+Subject: RE: [PATCH v6 2/2] ufs: mcq: poll OCS after sq cleanup for device
+ management commands
+Date: Thu, 5 Nov 2026 14:59:04 +0900
+Message-ID: <003701dd6cea$c396cd10$4ac46730$@samsung.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,53 +82,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:BLQMCkD2Of_TGuxqiwApAQ--.63435S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kw45Cr4fXw43Xr4DXFWDArb_yoW8Xr47pa
-	9Yk3Z8Jr4DKrsYq3s5uF4xX34SyryxWay3t3yfWw1Fy3y3Cr13tr4xJrZ0qa4xuFZ3tFWj
-	vw45WrW0qFn8JaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r
-	17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l
-	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4rMxAIw28IcxkI7VAKI48JMxC20s026x
-	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
-	JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
-	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
-	UvcSsGvfC2KfnxnUUI43ZEXa7IU8hjjDUUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUID2rrTMSUAQAAsc
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQH4JEezrlrww6xOutvb1msxx9OBXQGtTH96Ah1toR4BCq9oRLbC0xTA
+Content-Language: ko
+X-CMS-MailID: 20261105055906epcas2p2520b4d9ab1ea8c31a5bedfef74718d69
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd
+References: <20261105004333.1097899-1-kwmad.kim@samsung.com>
+	<CGME20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd@epcas2p1.samsung.com>
+	<20261105004333.1097899-3-kwmad.kim@samsung.com>
+	<8939a53e-1b21-4dd9-b65c-cbe03b8b72ce@acm.org>
 
-Hi Luiz,
+>  > Here is the timeline of an actual case for this that happened with
+> kernel 6.18.
+>  > =5B ... =5D
+>  > 2. So after the query was timed out, the driver did SQ cleanup.
+>  > Then the host updated CQ update and raised IS.CQES,  > Unfortunately,
+> complete() was called the driver's ISR afterward.
+>=20
+> This timeline describes code that no longer exists upstream. Since commit
+> 08b12cda6c44 (=22scsi: ufs: core: Switch to scsi_get_internal_cmd()=22), =
+the
+> device management path no longer calls complete(). Please describe the
+> race in terms of the current code:
 
-Thanks for the review.
+Let me add it below the timeline described previously.
 
-The vendor_diag observation is correct. For BTUSB_BCM_PATCHRAM and
-BTUSB_BCM_APPLE, btusb_probe() sets hdev->set_diag = btusb_bcm_set_diag,
-and hci_debugfs_create_basic() creates vendor_diag under hdev->debugfs.
-btusb does not set HCI_QUIRK_NON_PERSISTENT_DIAG, so vendor_diag_write()
-calls hdev->set_diag() even after the device has been unregistered, and
-btusb_bcm_set_diag() reads btusb_data->diag before checking HCI_RUNNING.
-As hdev->debugfs is only removed in hci_release_dev(), a write after
-btusb_disconnect() can reach freed btusb_data.
+> the query times out, the SCSI error handler calls ufshcd_abort() ->
+> ufshcd_mcq_abort() -> ufshcd_mcq_sq_cleanup(), the request is finished,
+> and the retry reuses the same reserved tag, struct scsi_cmnd and devman
+> UCD. A late CQE for the first query then maps to hba->dev_cmd.tag via
+> devman_ucd_dma_addr and completes the retry too early. That is why cq_loc=
+k
+> matters here. Please also keep lines in the patch description at 75
+> columns or less.
+>=20
+>  > +static enum utp_ocs ufshcd_mcq_read_ocs(struct ufs_hw_queue *hwq,
+>  > +					struct ufshcd_lrb *lrbp)
+>  > +=7B
+>  > +	guard(spinlock_irqsave)(&hwq->cq_lock);
+>  > +	return READ_ONCE(lrbp->utr_descriptor_ptr->header.ocs);
+>  > +=7D
+>=20
+> READ_ONCE() is not necessary since the OCS is read with cq_lock held.
 
-That is a separate pre-existing issue: force_poll_sync is not the only
-HCI debugfs file that can reach btusb_data, and the changelog sentence
-claiming btusb_data can no longer be dereferenced was too broad. v3
-scopes that guarantee to the force_poll_sync file.
+Got it.
 
-For hci_qca, qca_debugfs_init() stores pointers to qca_data in the ibs
-files and qca_close() frees qca_data without removing them. That is also
-pre-existing but self-contained in the driver, so I sent a separate
-patch that removes the ibs directory before qca_data is freed.
+>=20
+>  > +	if (=21err && blk_mq_is_reserved_rq(rq)) =7B
+>  > +		enum utp_ocs ocs;
+>  > +
+>  > +		err =3D read_poll_timeout(ufshcd_mcq_read_ocs, ocs,
+>  > +					ocs =21=3D OCS_INVALID_COMMAND_STATUS, 20,
+>  > +					MCQ_POLL_US, false, hwq, lrbp);
+>  > +		if (err)
+>  > +			dev_err(hba->dev, =22%s: OCS not updated. hwq=3D%d, tag=3D%d
+> err=3D%d=5Cn=22,
+>  > +				__func__, id, task_tag, err);
+>  > +	=7D
+>  > +
+>  >  	if (ufshcd_mcq_sq_start(hba, hwq))
+>  >  		err =3D -ETIMEDOUT;
+>=20
+> The SQ is still stopped at this point, so this loop can stop fetching fro=
+m
+> the hardware queue for up to MCQ_POLL_US (500 ms). Please move the OCS
+> poll after the ufshcd_mcq_sq_start() call.
 
-For vendor_diag, btusb cannot remove a file it does not own, so I think
-the fix belongs in hci_debugfs: either remove the basic files in
-hci_unregister_dev(), or make vendor_diag_write() reject writes once
-HCI_UNREGISTER is set. I can prepare that as a follow-up if you agree.
+I didn't get what you meant. The loop just reads updated OCS periodically
+and from what I know, it's based on the assumption that when a task is clea=
+ned up by setting SQRTCy.ICU to one
+and it's successfully done, the host updates OCS, even if SQ is stopped.
+If you feel I get your comment wrong, please let me know.
 
-Thanks,
-YuanZhe
+>=20
+> This code also waits for the interrupt handler to process the CQE. Why no=
+t
+> reap the CQE from this function? ufshcd_clear_lu_cmds() already does that
+> by calling ufshcd_mcq_poll_cqe_lock(hba, hwq) after ufshcd_clear_cmd().
+> Calling ufshcd_mcq_poll_cqe_lock() before reading the OCS would remove th=
+e
+> dependency on interrupt delivery and match the existing code.
+
+Because a successful SQ cleanup leads to OCS update,
+which subsequently leads to raising IS.CQES when MCQ is enabled.
+I understand your idea with ufshcd_clear_lu_cmds, then do you intend
+Ignoring IS.CQES event in this case?
+
+>=20
+> Additionally, does the UFSHCI specification guarantee that the host
+> controller posts a CQE (e.g. with OCS =3D ABORTED) for every command that
+> has been cleaned up? If not, this patch turns cases that are harmless
+> today into a host reset. Please cite the relevant section of the UFSHCI
+> specification in the patch description or in a source code comment.
+
+This is the sentence that I referred to:
+=22The host controller shall free up any resources associated to the nexus,
+and shall post a Completion Queue entry with OCS =3D ABORTED if clean up su=
+ccessful.=22
+
+
+> Thanks,
+>=20
+> Bart.
+
+Thanks
+Kiwoong Kim
+BRs.
 
