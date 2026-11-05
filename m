@@ -1,68 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793862304;
-	b=bfmxV7s1TfGFY62MTlSS2FPmnkAjGndhVIwemyDn93QJ/I6MNbIY1MXIukNgtJMKuHnK
-	 ZlkSh3Wuk76Gr+g2HjVndkHEAkOaSbkUpS14pKkP+0UikQHqtWhh+z6b0jIvu1OLikws/
-	 uoax3RUNqVrUE3ub8iCI2t5T7q6bYswL64KWu1yL07sEsqCBI+gGkHM+VzI9T3ZEI/MpD
-	 TTiDn7XYW1jo5C4EWhw+16iS3Fa975alhCo78sAKFz9HCPKZL2tZRyVZ8K6PLxdEyJF+p
-	 FI2aQ7t8jTBK7/RP9OFdHTMxRKUic05Tt4Ht9LTLA3wE3/EWHoqPwe4f1p2JiAvqlWA==
+	t=1793862386;
+	b=F8WZQsRIZTSorsGodEmT1DKgLieMkIFrjDuCtcQ4RRAitlEqvBIyGd4KS+KvsVtPt/ZI
+	 8AUNjmUixshzTfxGAq194l0jMBxMm4ID6sIGiRyuY5EsdoMInj0FzQv2nlVmUQXywFsPf
+	 MRZU42npr5agk3ZwhvAWGIYyNRA2pHKFqa1ZwkrR4zArVmD7jDYUk/cJROae17AE8N8gH
+	 9yAXkLxexJDf/TzbsZMSxVm0Fchg0NfMuurKBj5ByOih0SAB+wXt5m9Y5kCCmILqOsBxF
+	 SYAaMqydpVVf0OnlTW2hWOJF0iJo2U533c2kMR9HIBK6t7QtxCJZskBmN2Ti8/6NH/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793862304;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=QlIEuET91IH3iKQpMTAuGC8sBpbpkS1ruiNQt1cF4Q0=;
-	b=tUCUb2SISS8Tw9zgzZ/2d0wC/9Mczist8QvzdfUaHCMDfqqVbx+L6JAb0QKSsmdIg1eq
-	 O3InqiyGz0A2W5d8pXijqxEcq+C7gjNX7FImg/BqIr0QQLh/3CjwEiIMVoUpmTHBa7iwU
-	 4oCq2LEcw9HSHsD+0s7T/i6gHMyyhtZLWpPVvX9Z4XY2xQoTLXLbsgipu6utBu44vUfwn
-	 dN34y7F5SgNO8G/6HXi5LQPdp+gI9VyovN452pDoor9siZigRLZsTNSeFjT6ItBiYRF2X
-	 mfLyAxGHltTYSKgRwQnm05/vNVfASp+t5dL0Fr3wgXnJ6moDpeqs1wxgptx9rsHuffA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793862386;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	b=XpFPKGXTmUXwSH2ovEh0PxqeB+ze/6Xt/p3R3W/ZdsonmvUwnuUUz7M0QbHy3kRwBIoE
+	 DV6u4lXmH6oepCSpz+Q2bwBNhezwouba8kYQdrtd5FYYvCNkrxZ2FjZ9wbOQDe6AN/2be
+	 Z5RSPrAi3xsW06SWFo0C9VvPVSSEpYje4XRnQQRpabRWLzpEBaRf1bzP5/O6wUBkOyqfm
+	 2jbu6Od26FZ4lA/o0qjfhdmru/lKFJuIEq0WHZQvNSon1ujl15vGxh6WsykpykeT1v6IF
+	 uSr8YtellqKNrTQH4MOsbeBDJpYVPWe66WXJyHBQjtdRcg1YJiKjFqOf7O9+wRmEXbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lwioWRqQ;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J6zTV3Mr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0234A606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 07:05:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0234A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB994606A328;
+	Thu,  5 Nov 2026 07:06:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lwioWRqQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793862302; x=1825398302;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=McgwgcpuKSeUPehU0yM05wGhCrOsl3CTnR9MbzE07xA=;
-  b=lwioWRqQNWpmdH+HjeD+9HUdjT4ckV5ZLcypRY9fYE53/U1FDRImhRxw
-   krEJ9AYEfrHmheMo2i5yhIPQ3SivdP2jiN7wPmUiTBXBiBonPQ+LGcnUr
-   snifna0DGvaqydyxz0JbR5Nnj8j+AOQpBrHSrMs0yawyHbI5DHtxgq72+
-   QQS+TI/y+0pGYE3Z8BIuIijj6sIvjS1hSni7h3KCBl55hOYuya+XM0iLq
-   OHceg/wCTgCEBXqC8UijIy9WL0t1qwvobqtO2FA+WBODQeHhnxQNAPHz9
-   qv/fq7dUVyAqGWSSGcLuQjMv3bz3OlCUE7yMILdVfh4I4+qr0wlwfPDCA
-   A==;
-X-CSE-ConnectionGUID: MYhPiQ+wQFCpvqXO+JUfBg==
-X-CSE-MsgGUID: ExE6ZY3MRNejMBmETEG9JQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2674190"
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2674190"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 23:05:01 -0800
-X-CSE-ConnectionGUID: ZMrSdDUEQjmQYyR8ZsLkSw==
-X-CSE-MsgGUID: YeWVfUnDSX2I1h6ejbK4BQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="6996656"
-Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 23:04:59 -0800
-Message-ID: <dac4e304-98e6-4e61-93f4-8d971069d936@intel.com>
-Date: Thu, 5 Nov 2026 15:04:56 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J6zTV3Mr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00C81F000C1;
+	Thu,  5 Nov 2026 07:06:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793862385;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=J6zTV3Mr9FH2F5X28UpBb5j8YnlswoBc2K0NIUTiq0IBV6/+KNuUlb+t47aR04bOR
+	 2+qpwIVNdrWKnw4tSw4efMy06vpqEhtrL652hz+3lREUSSxoa97hDZyrzfNR5uaCiK
+	 e+/XBXQnxSgIfmA6y/90aQ9UCso/OOLJSqK5S9/924gEGIYmqmb73uy23/s11M5NRs
+	 xGTN5D0QdD8D4v5GLfNKs8B0X7l4/bBg61bTdnLMhV1/FceL+H9nBoaYcXSbO5QkA2
+	 aIs2pbE0r9w7rUceoM8YtAlAK3kh+REESLVSTdf1KyZCkAqMNotMp4+3FjWVqRaxaI
+	 QREBnyxcXzuTg==
+From: netdev-bot+sinfo@kernel.org
+To: Sun Yiqi <sunyiqi2@huawei.com>
+Cc: robin@protonic.nl, o.rempel@pengutronix.de, kernel@pengutronix.de,
+ socketcan@hartkopp.net, mkl@pengutronix.de, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org,
+ luoxiaoxing@huawei.com
+Subject: Re: [PATCH net] can: j1939: transport: validate the DPO packet offset
+Date: Thu, 05 Nov 2026 07:06:24 +0000
+Message-ID: <179386238443.488859.15787411674340454987@kernel.org>
+In-Reply-To: <20261105065931.1302-1-sunyiqi2@huawei.com>
+References: <20261105065931.1302-1-sunyiqi2@huawei.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,119 +63,25 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 0942/1005] KVM: TDX: Enable Bus Lock VM exit
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Nikolay Borisov <nik.borisov@suse.com>,
- Sean Christopherson <seanjc@google.com>,
- Chenyi Qiang <chenyi.qiang@intel.com>
-References: <20261104211043.516122098@linuxfoundation.org>
- <20261104211109.504581890@linuxfoundation.org>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <20261104211109.504581890@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/5/2026 5:11 AM, Greg Kroah-Hartman wrote:
-> 6.18-stable review patch.  If anyone has any objections, please let me know.
+Hi!
 
-There are some dependency patches failed to be backported [1][2][3]. What is the
-preferred way to handle it? prepare a separate series for 6.18-stable with all
-the necessary patches?
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-[1] https://lore.kernel.org/all/2026110415-porous-slather-09d5@gregkh/
-[2] https://lore.kernel.org/all/2026110443-stage-reproach-62d3@gregkh/
-[3] https://lore.kernel.org/all/2026110444-external-riverbed-0f47@gregkh/
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-> ------------------
-> 
-> From: Xiaoyao Li <xiaoyao.li@intel.com>
-> 
-> commit 63d196e2e20429de5ba501f1b6059d9b93140007 upstream.
-> 
-> Enable Bus Lock VM exit functionality for TDX guests.
-> 
-> Bus Lock VM exit is an existing feature supported by KVM.  Userspace can
-> enable Bus Lock VM exit through KVM_BUS_LOCK_DETECTION_EXIT when it's
-> reported as supported.  However, KVM reports the support of this CAP
-> just based on the hardware capability but doesn't differentiate between
-> VMX and TDX.  This leads to the issue that userspace can enable this cap
-> for TDX guests without getting an error, but the feature is not actually
-> enabled because KVM doesn't call the TDX module API to program the
-> relevant TD VMCS fields.
-> 
-> Enable Bus Lock VM exit for TDX guests by programming the
-> BUS_LOCK_DETECTION control in the TD VMCS and by adding the exit handler.
-> 
-> Note, there is no enumeration bit for this feature by TDX module because
-> all TDX modules support it and allow to set the TD VMCS as long as the
-> hardware supports the feature.
-> 
-> Fixes: 161d34609f9b ("KVM: TDX: Make TDX VM type supported")
-> Cc: stable@vger.kernel.org
-> Originally-by: Chenyi Qiang <chenyi.qiang@intel.com>
-> Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
-> Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
-> Link: https://patch.msgid.link/20260819094903.3060020-9-xiaoyao.li@intel.com
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->  arch/x86/kvm/vmx/tdx.c |   24 +++++++++++++++++++++++-
->  1 file changed, 23 insertions(+), 1 deletion(-)
-> 
-> --- a/arch/x86/kvm/vmx/tdx.c
-> +++ b/arch/x86/kvm/vmx/tdx.c
-> @@ -2042,7 +2042,7 @@ int tdx_complete_emulated_msr(struct kvm
->  }
->  
->  
-> -int tdx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t fastpath)
-> +static int __tdx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t fastpath)
->  {
->  	struct vcpu_tdx *tdx = to_tdx(vcpu);
->  	u64 vp_enter_ret = tdx->vp_enter_ret;
-> @@ -2143,6 +2143,8 @@ int tdx_handle_exit(struct kvm_vcpu *vcp
->  	case EXIT_REASON_NOTIFY:
->  		/* NMI blocking state is handled by TDX module */
->  		return __vt_handle_notify(vcpu, vmx_get_exit_qual(vcpu));
-> +	case EXIT_REASON_BUS_LOCK:
-> +		return vt_handle_bus_lock_vmexit(vcpu);
->  	default:
->  		break;
->  	}
-> @@ -2156,6 +2158,22 @@ unhandled_exit:
->  	return 0;
->  }
->  
-> +int tdx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t fastpath)
-> +{
-> +	int ret = __tdx_handle_exit(vcpu, fastpath);
-> +
-> +	/* Exit to user space when bus lock was detected */
-> +	if (vmx_get_exit_reason(vcpu).bus_lock_detected) {
-> +		if (ret > 0) {
-> +			vcpu->run->exit_reason = KVM_EXIT_X86_BUS_LOCK;
-> +			ret = 0;
-> +		}
-> +
-> +		vcpu->run->flags |= KVM_RUN_X86_BUS_LOCK;
-> +	}
-> +	return ret;
-> +}
-> +
->  void tdx_get_exit_info(struct kvm_vcpu *vcpu, u32 *reason,
->  		u64 *info1, u64 *info2, u32 *intr_info, u32 *error_code)
->  {
-> @@ -3151,6 +3169,10 @@ static int tdx_vcpu_init(struct kvm_vcpu
->  				vcpu->kvm->arch.notify_window);
->  	}
->  
-> +	if (vcpu->kvm->arch.bus_lock_detection_enabled)
-> +		td_vmcs_setbit32(tdx, SECONDARY_VM_EXEC_CONTROL,
-> +				 SECONDARY_EXEC_BUS_LOCK_DETECTION);
-> +
->  	tdx->state = VCPU_TD_STATE_INITIALIZED;
->  
->  	return 0;
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
