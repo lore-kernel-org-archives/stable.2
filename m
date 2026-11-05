@@ -1,62 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881812;
-	b=Z82I67jOo6zTMKzvfSFBB2+FvIubakaxTTaMJHBlSVFXbtXfMiQU1kyKIAcHlmEwhH9o
-	 e0vrvAD1YHeM8U7S7uvonKkIs8g/m1Yr7U+gQjyt6XLClkG/xhW+tTSHI050O/3uxUu7I
-	 gCM9jv+NubPYesmbOjdNsKoQPaJzybm2uH7uX0m3NfiWTCQ2lfrOxwAhq1yBYzwIpaiMR
-	 vhgARN7TxWmZ34HuF4MlqMHXebZzu37oN2mGgcgP8CCAJP6+cahF+XV34EQAkixA6OGyD
-	 YJBie5ZiXtI/qj6pOaSXM7dvaMjaXexzuUbmwtjVJn4uSu5qy8c441s2vObEDGpbPIA==
+	t=1793881838;
+	b=osBEgFqYvYfrWhkFjYJJFrjmoTCI9soIusAzNF8hmByufR8te+0qOdNSkmFPEBzujeE3
+	 WVvnvkFg+uNj/+UpS1+e68jGNiVY5OVZ8GTHYOThJxZAfXmRvyLj6k13Gmb0+WN1F3XuC
+	 F6jm5FnWd2aPW6MU64npvHlLusVuihz4w9sg/Q1JBoljvj/m31+lgbMHxAE6qX1cFNeQr
+	 6IVPFH2hsmpKfxwy92UXPDU7W2Rl7FB6/ZgF4qBBQ/WebdQ0Mzq9tQe7Ufj/bqFbPNbM3
+	 VhiLkzvivtxywrZqGAsuraHHUYCur50/DszGNDpn0BlOZ2eEqQCTDHyT6uWClq8HzWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881812;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
-	bh=QakUyBDErgRXiJ0ckzUn1Er0kMcNvtv0U8whHoiAyx0=;
-	b=CW+Q74mUpFG/gCf8GOMAi0HXE5f0TPTgo1sHYoIlWTVhe5kZR5N6IDIprc3kJRLkUQOm
-	 5Sq1TL+yR4P4qkNAL6AgdU36E1SEby2m3aTJ7lsngTkW1AYfsO5tDuo+wCFSk0TNqNCH7
-	 M1Dg52naTG6sniwi1IoFjjvd1Tt23iSkQl9XsvWFE0aH/pLNnMVWMnqp6A998mr5T2lxz
-	 Kow4m1254kISCt7QbFbc2kmjKY/Kj8XfCKO8Nq4hWoPPAecKal8/faSt+V9i+jQIi47HC
-	 orCuvGZxiLz2/BZWn2u6k9S2R58MuFrN24rpvZa2XRIajJeTa4azoZ2MnEhbWmdFk3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881838;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=NXQY59s7bZpTSHFUOUk0f+WmyGheH78ucLM4Hd8zHqc=;
+	b=oWSYdgtB6jum7PDLTuE1gJQ3fUU//+QXaKqea9HgzFP6OSZRN1jtLkxfIKybDIq/PBi/
+	 OVv3+wb1G2PbEa40jOiKxhqBAUsfMwHrx13Nsplr28KGIDKh/uQWbdstLxtDeMxoDjEcL
+	 iqF35xvltj3/alSF4nqtOZW3JiTaBrqPDC2dd8AxJNBx0Bj1YhaNs9OCa9DSfUYMC4p/u
+	 +xHoJqi7Is9JLCLrY0dXeTgjs2e+26Pcx7MGDjTYwUiqgT4C47lFsq2ImJTYLUhhdjhI4
+	 thBwaZoqZkzrsZ99m1nGGZQ0vSOLoY2NFCrhEhVoTjponVCAjJIkZx/SdYZQZs4HNJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=netfilter.org;
-	spf=pass smtp.mailfrom=netfilter.org;
-	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=I4oqW2lx;
-	arc=none smtp.remote-ip=217.70.190.124
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nPhhH6+N;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 2B505606A32E;
-	Thu,  5 Nov 2026 12:30:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B505606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FAB5606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:30:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FAB5606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=I4oqW2lx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1793881808;
-	bh=QakUyBDErgRXiJ0ckzUn1Er0kMcNvtv0U8whHoiAyx0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=I4oqW2lxhBpda3ZMqlF0pnEVvYTTO2EArEb6C6K4zh2HiyEeh8kOMqyuJw7MATnIS
-	 dEhIEGGH/v8xhpTJlF0Xrtr3tRYwbqmQ3RBUmxuqTk29tivKssyuDFCBjlDP739/Ph
-	 RjH/GZPGFjQXUMpP1dQf40bKaVsEEvXIiP6GffjuY9PWuVyPcgH4qfY3PRdKSQkJPx
-	 5KGD/L3SRhlHXcurmHjhUXCmwq5J3Ooh7j3D4S50IPv5971AzLXbmhMSRJcv26q7lS
-	 wWs0tYDNwQil36n+PVbQXKRiAYjmJipxnkkd1mQgwTKy2l6DkVBNtJ5XD3hPQT0O0z
-	 lKBxDErODFjZA==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 5C93560052;
-	Thu,  5 Nov 2026 13:30:08 +0100 (CET)
-Date: Thu, 5 Nov 2026 13:30:05 +0100
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Henry Martin <bsdhenrymartin@gmail.com>
-Cc: fw@strlen.de, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org, netdev@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] netfilter: nf_tables: fix pernet use-after-free on
- UNREGISTER rebroadcast
-Message-ID: <aux2zX3dLKYnzG56@chamomile>
-References: <20261105114817.3033625-1-bsdhenrymartin@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nPhhH6+N
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so11057975e9.3
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 04:30:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793881836; x=1794486636; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NXQY59s7bZpTSHFUOUk0f+WmyGheH78ucLM4Hd8zHqc=;
+        b=nPhhH6+NmaqLVBTjCn6gLiWxt54G0rgpmjDMCOOOwIWuE7hkwZaTwdHSUcbLz90bV3
+         +ZhYUFxfNS7WxFP0TCpE2V3+vHO/juXGoxxLRmQAG1M0RU9BwCAIC6xrf1jMiPl7o2Ys
+         87goIbnEB+AfvUgROipi1L6JBvIsJ37EY/02vV4hcGgnLBoV06mTIbqcKsRj3vaIT1H3
+         eS7zqYVWOirImhoCWwjmNkft6z7CcanMqZG7wJAvrrmk2Ge6lrxeGZdEDDTTyD8TFphY
+         Ih93YOQAnCpD94CVFIldfnCL/sushsVq1Om2ZW5GSygkVHDGFcvj0LHnRYakzU9XaN/D
+         x+Sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793881836; x=1794486636;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NXQY59s7bZpTSHFUOUk0f+WmyGheH78ucLM4Hd8zHqc=;
+        b=tHK6oEnTJsmJd4aRpB20kZtFA00txTeVHY8D2YPYCmyVTjvVAppms0PfKgLxIv99HK
+         k77i5Z09kmo+HY67Ct7YtDJN0kcdZ3MnioeLDggBLTj4QSCfhqUVqU/GO/3TjCPthlat
+         PKCvK44ZddmhDTAqTDKWFFewl4By63aCTznh0EpLJAoG3oz5bk2824umgR0N8BoV7aCL
+         skpU6zwrFS7+hHwRPPlayTrTzbGlqMk4cU5An8WsYCoj4dKt1pVs/RQFyyc+zXUGhTAk
+         jb1BJg3fD6BbbP19ohKVBGrovOVGeK1wYJ/HtoeQK2FpIe2An46iGHCUnQtc8NbAU85B
+         bIGA==
+X-Forwarded-Encrypted: i=1; AKwUvBwO5eFVhb6HiL2SZ33XhoyFNqg2bgaLH7pG222bZqnWDzaLKGR9wfjbPi4wootnjIdmLAyjWBU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8fnumjxcvCPUsablgOzHAQMaVY7Am+n9E4X2pfjFqTh98qdt8p
+	m4fUk/jHZCXDmkdS2AEb2I1d6EOFnDtzEs+eSyi3dtgz4CS5O//tonSB
+X-Gm-Gg: AYBFou0G+0DtLwzOacgc9J7P2nKCyT6w3s3nozOhzwSFbayt69HmSFq4r4VZ866JoAQ
+	EeTZqoEtUlrgK/wYbE+LGlcCTWJQ7+rPpfqdh7lPN6SyVcEc2vJg26LJ/wJe9kjMno1kLbP9TQP
+	GqCjiB5h9FHaaL1Iagfz0XfbtE5HI6KFSiGFjqG2kr1D27LZs7zgm78bef9VxhZQxcw/7MxHqrR
+	XDirmoWpKjtJyGfKJKHcSkIO/beBztR5V2bxqkJdJ9yhl4/be0ZI6myODN0sV44tOBmgqAqywOY
+	mwyPKAhDBUYpoXXF+Vc2hAhAVAml4I5sgtjWAjqP7S9F2VjZmbK6ey82ybQl9wT+EDrBSkVBjtN
+	rf5PLU3VS+FGGeRL72s70kd6hJqgl1NBC1WeSb0Rb/75uuLVQCL3MLGKq6eDQGwGr1GTZ0154zB
+	5jJJ9Tcmx4oLcWHyr8d245v4rEzSYUrGnFnyo3UfiqKpZyBuyNmtKDYVmDRvP39XQWjfgSX73KL
+	88fkagFT6l86qJgBxrL3VEU7QiyAVd8vmeCtzkUhNfXtf1lixxkIzLq5CT9njweK7l6H1FeIbKD
+	7vDVoCegEF1SYMtnxs/sdUGndK/SQDHR/FNOhH4=
+X-Received: by 2002:a05:600c:698d:b0:4a1:d97e:cd60 with SMTP id 5b1f17b1804b1-4ac185bd1e2mr417810655e9.16.1793881836320;
+        Thu, 05 Nov 2026 04:30:36 -0800 (PST)
+Received: from foxbook (bfg124.neoplus.adsl.tpnet.pl. [83.28.44.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fea180ee1sm11450138f8f.4.2026.11.05.04.30.35
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Thu, 05 Nov 2026 04:30:36 -0800 (PST)
+Date: Thu, 5 Nov 2026 13:30:31 +0100
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Pengfei Lv <lvpengfei20@huawei.com>, gregkh@linuxfoundation.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, xuhaiyang5@hisilicon.com, xuetao09@huawei.com,
+ caiyadong@huawei.com, suzhuangluan@hisilicon.com
+Subject: Re: [PATCH] usb: core: hub: Re-guess ep0 maxpacket size on reset
+Message-ID: <20261105133031.6a49f1cc.michal.pecio@gmail.com>
+In-Reply-To: <59b0cc88-9ac2-453b-bd68-56aa356c0fc0@rowland.harvard.edu>
+References: <20261104124402.1269650-1-lvpengfei20@huawei.com>
+	<b9ac3c8f-7ce5-43d1-bcf1-d2ce9877d914@rowland.harvard.edu>
+	<20261104183603.17d663ce.michal.pecio@gmail.com>
+	<59b0cc88-9ac2-453b-bd68-56aa356c0fc0@rowland.harvard.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,105 +102,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261105114817.3033625-1-bsdhenrymartin@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 05, 2026 at 07:48:17PM +0800, Henry Martin wrote:
-> A device unregistered outside its netns teardown can be stuck in
-> netdev_wait_allrefs_any() while the pernet exit handlers of its
-> netns run to completion.  The nftables pernet storage is freed on
-> that path.  The rebroadcasts then hit the nf_tables netdev
-> notifiers (base chain, flowtable, offload), which read the freed
-> storage via nft_pernet() and take commit_mutex on it, e.g. on
-> mainline v7.4-rc1 (KASAN build):
+On Thu, 5 Nov 2026 00:06:24 -0500, Alan Stern wrote:
+> On Wed, Nov 04, 2026 at 06:36:03PM +0100, Michal Pecio wrote:
+> > Were there known devices with bMaxPacketSize0 <= 16 which required
+> > the whole transfer to complete before they are reset?
+> > 
+> > That's not what happens in the initial iteration, so it seems any
+> > such devices would always take two iterations to begin working.
+> > 
+> > Is this what the only correct Proprietary Operating System does?  
 > 
->     BUG: KASAN: slab-use-after-free in nf_tables_netdev_event+0x17c
->     Read of size 8 at addr ffff88811061c980 by task ip/422
->     Call Trace:
->      nf_tables_netdev_event+0x17c/0x1c0
->     Freed by task 62:
->      kfree+0x161/0x450
->      net_passive_dec+0xe5/0x180
->      cleanup_net+0x45a/0x780
+> I don't know offhand of any positive or negative examples.
 
-Could ypu pass on a reproducer?
+Pengfei believes that the current behavior has only existed since 2023,
+so perhaps no device depends on it for enumeration yet. And proposed
+reset matches initial enumeration, so it seems low risk.
 
-> Skip the rebroadcasts in all three notifiers, which are the only
-> NETDEV_UNREGISTER events delivered with reg_state ==
-> NETREG_UNREGISTERED.  This mirrors commit fd0909e963ed8
-> ("netdev-genl: ignore NETDEV_UNREGISTER rebroadcasts").
-> 
-> This issue was discovered by Tencent CodeBuddy Security.
-> 
-> Fixes: 8a4fc54b07d75 ("net: get rid of rtnl_lock_unregistering()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-> ---
->  net/netfilter/nf_tables_api.c     | 9 +++++++++
->  net/netfilter/nf_tables_offload.c | 8 ++++++++
->  net/netfilter/nft_chain_filter.c  | 9 +++++++++
->  3 files changed, 26 insertions(+)
-> 
-> diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-> index 59ac623e6805f..e43a1b9fefc36 100644
-> --- a/net/netfilter/nf_tables_api.c
-> +++ b/net/netfilter/nf_tables_api.c
-> @@ -9902,6 +9902,15 @@ static int nf_tables_flowtable_event(struct notifier_block *this,
->  	    event != NETDEV_CHANGENAME)
->  		return NOTIFY_DONE;
->  
-> +	/* netdev_wait_allrefs_any() rebroadcasts NETDEV_UNREGISTER
-> +	 * while waiting for the last references to be dropped; the
-> +	 * netns and its nftables pernet storage may already be torn
-> +	 * down by then.
-> +	 */
-> +	if (event == NETDEV_UNREGISTER &&
-> +	    READ_ONCE(dev->reg_state) == NETREG_UNREGISTERED)
-> +		return NOTIFY_DONE;
-> +
->  	net = dev_net(dev);
->  	nft_net = nft_pernet(net);
->  	mutex_lock(&nft_net->commit_mutex);
-> diff --git a/net/netfilter/nf_tables_offload.c b/net/netfilter/nf_tables_offload.c
-> index 0ac3c26dfb3d1..d360e233d0366 100644
-> --- a/net/netfilter/nf_tables_offload.c
-> +++ b/net/netfilter/nf_tables_offload.c
-> @@ -672,6 +672,14 @@ static int nft_offload_netdev_event(struct notifier_block *this,
->  	if (event != NETDEV_UNREGISTER)
->  		return NOTIFY_DONE;
->  
-> +	/* netdev_wait_allrefs_any() rebroadcasts NETDEV_UNREGISTER
-> +	 * while waiting for the last references to be dropped; the
-> +	 * netns and its nftables pernet storage may already be torn
-> +	 * down by then.
-> +	 */
-> +	if (READ_ONCE(dev->reg_state) == NETREG_UNREGISTERED)
-> +		return NOTIFY_DONE;
-> +
->  	nft_net = nft_pernet(net);
->  	mutex_lock(&nft_net->commit_mutex);
->  	chain = __nft_offload_get_chain(nft_net, dev);
-> diff --git a/net/netfilter/nft_chain_filter.c b/net/netfilter/nft_chain_filter.c
-> index e04e689f22284..b3cfe8d426753 100644
-> --- a/net/netfilter/nft_chain_filter.c
-> +++ b/net/netfilter/nft_chain_filter.c
-> @@ -412,6 +412,15 @@ static int nf_tables_netdev_event(struct notifier_block *this,
->  	    event != NETDEV_CHANGENAME)
->  		return NOTIFY_DONE;
->  
-> +	/* netdev_wait_allrefs_any() rebroadcasts NETDEV_UNREGISTER
-> +	 * while waiting for the last references to be dropped; the
-> +	 * netns and its nftables pernet storage may already be torn
-> +	 * down by then.
-> +	 */
-> +	if (event == NETDEV_UNREGISTER &&
-> +	    READ_ONCE(dev->reg_state) == NETREG_UNREGISTERED)
-> +		return NOTIFY_DONE;
-> +
->  	nft_net = nft_pernet(dev_net(dev));
->  	mutex_lock(&nft_net->commit_mutex);
->  
-> -- 
-> 2.43.7
-> 
+> But if a device was going to hang if it was asked for the remaining
+> part of the device descriptor after a non-initial reset, how would it
+> ever get through initialization?  The procedure does two resets, and
+> after the second reset the device has to send the full descriptor.
+
+I guess a device can harcode enumeration, including the 2nd reset, as
+fixed sequence. Or it may send 8-byte descriptors while in the default
+state or when wLength=64. Not sure why it would do that, though.
+
+> I don't know what other OSes do about this.
+
+I tried W10 in QEMU with qemu-xhci host controller, the device was an
+audio dongle with a HID function and bMaxPacketSize0=8 passed through.
+I disconnected D- to get errors without port disconnection detected.
+
+Windows doesn't seem to switch packet size back to 64, it only disables
+non-default endpoints, checks port status, resets it, switches xHCI
+device state to "default" and then reads 64 bytes of device descriptor.
+
+This succeeds because host kernel has already configured proper packet
+size by this time. Not sure what Windows would od if this hanged.
+
+Later of course second reset, address device, normal enumeration.
+
+Regards,
+Michal
