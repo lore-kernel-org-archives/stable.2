@@ -1,58 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793847711;
-	b=SMXxftmlONjaOc19OzIGmuQ2zP0YzPV0aDcN/e256FBQ+qiOdi3MKHMvfu5T4M1P44Xf
-	 IX/GHiS7mqbljtgNxylk0aP9z2igAP48mSq9CAD7AGzk5ZjhlOJsIxvk9i3TWGk0/sUNd
-	 mkYrXP9UDcLnL7CC5K2MMqTFwrIpAQ/oZl2afGEsfIeFJpGaUbWsZolZumut9bgGAAbTD
-	 mT02z0TDXWUo9qUBrQA30oSKs1JZqRiXG18MM4J/d1ubGYH5q2Ga1IsMt6jJB0bsjycEF
-	 LNzZGs0lJ9kmWkkNSyLAzP2JWiGSbzaDPE/cW9ALVmw4TfjUihViSrHFJtGHbR8oFuw==
+	t=1793847806;
+	b=ZKJj5WXjYttN6a3+ERjMORHC6aHRgYNf5OJikN7K4H8Rg8A2a4Bor4JQqJzdLItNFosS
+	 oh4yr0XMOcVS82+3JYfNJsWSLSKM/1ouBQu3ukFKe7q4MNnCk6kO9GCQUHhSO9+O6QPg/
+	 8idcE8k0pA6QgYDVsN6XOTaFf294jO3tldg4c351GLOw6ltP4PAgZTyeyotFlgNNaI+lC
+	 3REI/nTgSaFcVg0aXTDAV/VM6bxoH476Wu16DvlGTYp3rCuu1zW3RJJz2mI3KbCH/2uyz
+	 cnpczJVimlbN5iL6TnUxYTAD4139lWdxwYYJ4mFCVXUjih73QiQLt2gHZZNh9ib/RGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793847711;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=xNUucnfc+vfRoGbQhXqn2kYs4MzqO1lstHiwfwPXjRw=;
-	b=jwfDMDpZqPd6kJy5paeBVpqYbkpaB/ZD5Pq+OCNWmsjrH5/H4GPT3nfnHGpiX0OrhQOc
-	 j2LkiLRV2rj4HlMhIi/PbVsM/uhsHhxVnEuMXj1VdSHYb3f+rTOBDYrr9EEIqYX4TJEvw
-	 9dq+wlXO5lgpULa6kmTUdHiZTGx6JkLdmyRFf0t39QSYlwsBSGThEkxUcKSOr5VUlboJv
-	 d9uIgw3iXF4YY2DU98Bdje4EjnDVdipKJ9SOwWufAa3jrE2VPXi9nHnB02GigSluHBxjk
-	 mLjJBzi1BrO5TwQF0gLOGpaa0By7eBnwWqgArShAoK7HZbpxxPS3mTua8PsoIQKLpiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793847806;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=TmyrGImNoeERgzj0671/YFCWmU7Tn1bl23zRlCFzkls=;
+	b=S/GJ2Ua0cHyZs0iIcAdA4cECekz+HROf0QRRmasH8s1wD3zvfQCrpI53Cmh/MpWpW7Jn
+	 zKUZFHLXRBeUx4KiCipA9RH8voo2azJI9XZlRnPH8+57sT4+yxpK3HB4bpCyJG1B5oQZ3
+	 CMjduwyUB7vDIcP5rWbKfrQVZfHfZm/51lpRsQnuVzoenUl902ucxkQpK1Ruf8KRr2PYF
+	 RsZRKS0nCeVpsREm2/rSJh76UB+3tNVR2+LbtWh+5Fyk9jrHalBznvHxNxUpFFFtHGGvC
+	 v+VJ7/fLkBJ4PodlVy1YowtDi6f6HedErJYj8ie4+l1pwwkq9iSQzOYq7wytiHG026A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="msF/fk7H";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cs.cmu.edu;
+	spf=pass smtp.mailfrom=andrew.cmu.edu;
+	dkim=pass header.d=cs.cmu.edu header.i=@cs.cmu.edu header.a=rsa-sha256 header.s=google-2021 header.b=HZ0rvCUd;
+	arc=none smtp.remote-ip=209.85.219.45
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277D6606A32D
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 03:01:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA3D606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 03:03:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FA3D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.cmu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrew.cmu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=msF/fk7H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A401F00919;
-	Thu,  5 Nov 2026 03:01:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793847710;
-	bh=xNUucnfc+vfRoGbQhXqn2kYs4MzqO1lstHiwfwPXjRw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=msF/fk7HsqHYGObzvqZdUMgQHlRR/Ch4uf7mZAO8vmRc3q+ZB88ChA5WYKAniK1lg
-	 WUE0wL2O92lynSnt/guZe81e/CJFOzmAiBqAkl3WFCpKLQWKB2M//UrCbQWBbR/4sE
-	 QcOvXdFjLzfT6evJg24Svn+I230Usg6GpNIHYW9CkUwLW37duwVsfnuC5Tkg6ggCeO
-	 BVLaxQmI8jPMoKKsF7cdYK7p4d+Cy3ZlusAVdYveIXlZpeYW+A08+hQn+Dxy8KKT9g
-	 sEF8To1/TsoMbHS+hJSx9t9zbu9oYXZ3yOFpv6Njs95txuX7h4IYpzUkYpAsp5MpfG
-	 wqoVJkKXPgsMQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Eduard Zateev <hackerowskiy@gmail.com>,
-	syzbot+5c3ed2a0de3270efc921@syzkaller.appspotmail.com,
-	syzbot+c2ec61adfbcb24e5ec20@syzkaller.appspotmail.com,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] smb: client: hold server info until cifsd exits
-Date: Wed,  4 Nov 2026 22:01:48 -0500
-Message-ID: <20261105030125.1213408-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110420-crunching-excess-eb90@gregkh>
-References: <2026110420-crunching-excess-eb90@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=cs.cmu.edu header.i=@cs.cmu.edu header.a=rsa-sha256 header.s=google-2021 header.b=HZ0rvCUd
+Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-917aca1aee5so17566346d6.2
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 19:03:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.cmu.edu; s=google-2021; t=1793847799; x=1794452599; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TmyrGImNoeERgzj0671/YFCWmU7Tn1bl23zRlCFzkls=;
+        b=HZ0rvCUdtiV8k6tqRF6TNPr6BxCfo26C8HCb+SArpySJ7XV0WATODALH96NFOW6e7o
+         ZGApbRrZ/QSzYLJ8X4t1ECE/Eu4lMlNDeD5wgFvEw8IqauOWePNXyp9HbuUJ7TnRzq9w
+         U3Fio9VNZSRrd/Z/2C9vHTz+SG5PyKTA8gsSf1cbn0lXq0B5Gfq+ofBHPqPkjgfeaBO5
+         /DXZLDSD0LWbJgTztTbwX8R2jJ4XcYm23CuYO5ko5CpQToVLBWnMG6CIHfph0jtfZrkO
+         8ugkjNiL0OzxmB6W5QvQOvvIzyubf5vGK0UgGFdBlaiG97CwLOofr5AdJpIJv6MOq/jP
+         CpGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793847799; x=1794452599;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TmyrGImNoeERgzj0671/YFCWmU7Tn1bl23zRlCFzkls=;
+        b=GBcNFMmBbyMXI03+ayaW38+zOxD0090eW3XxRTqZat175aASsQSFtrA+P9TQ1MrE5l
+         L1REQtOuVzG07KMGgCmmkflK0UwCFKP5Yp9NrbsF3myS+ovMJj2jz+yKZDz6yTTljXpc
+         olxLZimHJ8Z6eP0qINdMgIfNt/5/AJXUmNvFozADF0OVRwGyTLmU+wLE67Nour0yK9Sh
+         kkNFQLc0a1KjUg4jfRDLYdQVFdxHUsqZuYYzRAFfY2DSIYv0q6wQOzQMI4KAk17sdT7P
+         6uIk3cXrPMBymqBnILFbpDxAFfunajTZqxLbTwl3nQCaxIHLTIyz1qtYi+4xWQfHgukC
+         AREA==
+X-Forwarded-Encrypted: i=1; AKwUvBxr5fzcwIogvIihecx6Hwun7BXYX97xDxCjCoaDWdp55fGL7JrbywU5z8hocWT2XxwuGGYN6DY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+aNDiwNpzjbL9OX1sv1vK4xnprihjOY6b8YLS0wVBiBExP/PMt
+	MO+fTy/kAPSjiFLM1Ac77ryplJJCUrJMV3naQTBWs9IW9gTb5r+O6pIax8x9uWXHge60SdrYN2u
+	ov+8=
+X-Gm-Gg: AYBFou3m3Lcpc+S1xfIu7ZKoVmGqN505za93iU2cWECMjIMj3LdGp1zFmm28ocLyoWs
+	Y9Mxc3YROp0tNX7DxiXj4jXWY+4LFf/qSP1Llvx936O9MSA+vtfw4X4efE34cOpsMVp50VNjGxX
+	r/vI2a0gktKM3cxZz0E25JFil7/g8Upz7y6Cr/K4V0Gja8lz+Jal1X4HKx6SEPs4a6VvpSxsgxo
+	09KpfrQFGd1ukS7LhKqzC7ZQ5D2Yp6EAQceGLKzr4e+jCUzAiIP7EyMyc62xDe3DNitrL1tvVNh
+	v0s662DNaLQ4vRjQ1BYQ5PZ0hauYSHpqFfsz28GjNCQD+29oSqN/QZOhcUdgkje8EPmJzX5CJdb
+	Iub4jn3bpSoM6jbKvWNoJ+xV1lZGl9qYaVfTtXW7Qt9+l937h/9yUUApnc+Jz6z8RprS0VJTx6z
+	6hiMSq2ZQrRMrs0cYGMMD1Svj8nV0yHSVbcamgz0yFUZ5d2+TRHaxSdbHffwsZAe1bzQzjZ024I
+	RuC4R7ki00yrh2J2mWcsOuHJ3MEc5Wjk04S/mou8jAPBqsN9QYpo1Ug4rPf33iRBp32y58d8zVn
+	ZmR0nokm83XBLduvWfpMlsXtoUMoAKJ99ue5aP4BcRPgiUX2uA==
+X-Received: by 2002:a05:620a:46a5:b0:93f:2e08:6420 with SMTP id af79cd13be357-94421741ccemr3073423785a.38.1793847799333;
+        Wed, 04 Nov 2026 19:03:19 -0800 (PST)
+Received: from cs.cmu.edu (tempest.elijah.cs.cmu.edu. [128.2.210.10])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d468fbe9sm362171485a.3.2026.11.04.19.03.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 19:03:18 -0800 (PST)
+Date: Wed, 4 Nov 2026 22:03:04 -0500
+From: Jan Harkes <jaharkes@cs.cmu.edu>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: viro@zeniv.linux.org.uk, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] coda: honor the append state of each write
+Message-ID: <20261105030304.ukyfkyh7xf66yf7w@cs.cmu.edu>
+Mail-Followup-To: Hungyu Lin <dennylin0707@gmail.com>,
+	viro@zeniv.linux.org.uk, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261104191355.89544-1-dennylin0707@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,150 +100,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104191355.89544-1-dennylin0707@gmail.com>
 
-From: Eduard Zateev <hackerowskiy@gmail.com>
+On Wed, Nov 04, 2026 at 02:14:23PM -0500, Hungyu Lin wrote:
+> coda_open() adds O_APPEND to the container file's f_flags after it has
+> been opened, without updating its cached f_iocb_flags. An O_APPEND write
 
-[ Upstream commit 482c117c6dbeee382790168af10959810450ab09 ]
+Why do we now have cached copies of f_flags around? That sounds like a
+recipe for getting things out of sync.
 
-The last session reference can be dropped while the cifsd demultiplex
-thread is still running clean_demultiplex_info(). That thread frees
-TCP_Server_Info there, racing with cifs_put_tcp_session() as it releases
-the server crypto state. syzbot reported a KASAN use-after-free in
-cifs_crypto_secmech_release().
+Anyway, your patch subtly changes the container file we write from
+cfi->cfi_container to host_file and I am not convinced that is a safe
+change.
 
-Keep an object reference for the cifsd thread. Defer final crypto,
-session-key, network namespace, string, and structure cleanup until both
-the last session reference and the thread reference are dropped. Drop the
-thread reference after clean_demultiplex_info() has finished using the
-server.
+Yes, host_file is set to cfi->cfi_container but then we call
+venus_access_intent, which is an upcall to userspace which involves a
+context switch and may update the state of the container file.
 
-Build-tested with ARCH=arm64 and W=1 for
-fs/smb/client/connect.o. The KASAN reproducer was not run on the patched
-kernel.
+I am going to have to look at this a bit more carefully because we do
+use that cached host_file pointer to get i_size right after the write,
+so maybe it is safe and as far as I know our userspace cache manager
+only updates in place and never actually swaps the container file.
 
-Fixes: a5c3e1c725af ("Revert "cifs: No need to send SIGKILL to demux_thread during umount"")
-Reported-by: syzbot+5c3ed2a0de3270efc921@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5c3ed2a0de3270efc921
-Reported-by: syzbot+c2ec61adfbcb24e5ec20@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=c2ec61adfbcb24e5ec20
-Assisted-by: LLM OpenAI Codex
-Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
-Cc: stable@vger.kernel.org
-Tested-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: Adjusted patch context for missing NetBIOS fields and existing kfree() cleanup instead of kfree_sensitive(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/client/cifsglob.h |  2 ++
- fs/smb/client/connect.c  | 33 +++++++++++++++++++++------------
- 2 files changed, 23 insertions(+), 12 deletions(-)
+I haven't looked at this in a while, but I think f_pos synchronization
+was assumed to run through the Coda inode, so the append used the
+coda_inode->i_size to decide where the write would land, but I can also
+see that with the locks being where they are and the access_intent upcalls
+that may not be a valid assumption anymore.
 
-diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
-index f5ca2cd653e95..8ffc8b2ab6db4 100644
---- a/fs/smb/client/cifsglob.h
-+++ b/fs/smb/client/cifsglob.h
-@@ -16,6 +16,7 @@
- #include <linux/scatterlist.h>
- #include <linux/mm.h>
- #include <linux/mempool.h>
-+#include <linux/refcount.h>
- #include <linux/workqueue.h>
- #include <linux/utsname.h>
- #include <linux/sched/mm.h>
-@@ -647,6 +648,7 @@ struct TCP_Server_Info {
- 	spinlock_t srv_lock;  /* protect anything here that is not protected */
- 	__u64 conn_id; /* connection identifier (useful for debugging) */
- 	int srv_count; /* reference counter */
-+	refcount_t obj_refs; /* struct lifetime: srv_count users + cifsd */
- 	/* 15 character server name + 0x20 16th byte indicating type = srv */
- 	char server_RFC1001_name[RFC1001_NAME_LEN_WITH_NULL];
- 	struct smb_version_operations	*ops;
-diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
-index 81961a54c9f1c..225bcd149a32f 100644
---- a/fs/smb/client/connect.c
-+++ b/fs/smb/client/connect.c
-@@ -977,6 +977,19 @@ cifs_enable_signing(struct TCP_Server_Info *server, bool mnt_sign_required)
- 	return 0;
- }
- 
-+static void cifs_tcp_server_put(struct TCP_Server_Info *server)
-+{
-+	if (!refcount_dec_and_test(&server->obj_refs))
-+		return;
-+
-+	cifs_crypto_secmech_release(server);
-+	kfree_sensitive(server->session_key.response);
-+	put_net(cifs_net_ns(server));
-+	kfree(server->leaf_fullpath);
-+	kfree(server->hostname);
-+	kfree_sensitive(server);
-+}
-+
- static noinline_for_stack void
- clean_demultiplex_info(struct TCP_Server_Info *server)
- {
-@@ -1062,14 +1075,11 @@ clean_demultiplex_info(struct TCP_Server_Info *server)
- 		 */
- 	}
- 
--	put_net(cifs_net_ns(server));
--	kfree(server->leaf_fullpath);
--	kfree(server->hostname);
--	kfree(server);
--
- 	length = atomic_dec_return(&tcpSesAllocCount);
- 	if (length > 0)
- 		mempool_resize(cifs_req_poolp, length + cifs_min_rcv);
-+
-+	cifs_tcp_server_put(server);
- }
- 
- static int
-@@ -1678,7 +1688,7 @@ cifs_put_tcp_session(struct TCP_Server_Info *server, int from_reconnect)
- 	else
- 		cancel_delayed_work_sync(&server->reconnect);
- 
--	/* For secondary channels, we pick up ref-count on the primary server */
-+	/* For secondary channels, drop the reference on the primary server */
- 	if (SERVER_IS_CHAN(server))
- 		cifs_put_tcp_session(server->primary_server, from_reconnect);
- 
-@@ -1686,15 +1696,11 @@ cifs_put_tcp_session(struct TCP_Server_Info *server, int from_reconnect)
- 	server->tcpStatus = CifsExiting;
- 	spin_unlock(&server->srv_lock);
- 
--	cifs_crypto_secmech_release(server);
--
--	kfree_sensitive(server->session_key.response);
--	server->session_key.response = NULL;
--	server->session_key.len = 0;
--
- 	task = xchg(&server->tsk, NULL);
- 	if (task)
- 		send_sig(SIGKILL, task, 1);
-+
-+	cifs_tcp_server_put(server);
- }
- 
- struct TCP_Server_Info *
-@@ -1716,6 +1722,7 @@ cifs_get_tcp_session(struct smb3_fs_context *ctx,
- 		rc = -ENOMEM;
- 		goto out_err;
- 	}
-+	refcount_set(&tcp_ses->obj_refs, 1);
- 
- 	tcp_ses->hostname = kstrdup(ctx->server_hostname, GFP_KERNEL);
- 	if (!tcp_ses->hostname) {
-@@ -1856,6 +1863,8 @@ cifs_get_tcp_session(struct smb3_fs_context *ctx,
- 		module_put(THIS_MODULE);
- 		goto out_err_crypto_release;
- 	}
-+	/* Keep the server alive until the demultiplex thread has exited */
-+	refcount_inc(&tcp_ses->obj_refs);
- 	/* thread created, put it on the list */
- 	spin_lock(&cifs_tcp_ses_lock);
- 	list_add(&tcp_ses->tcp_ses_list, &cifs_tcp_ses_list);
--- 
-2.53.0
+You are correct that we cannot rely on the containers open time flags
+because that container file was opened by the userspace cache manager
+and is passed as an open fd to the kernel.  This handle is then shared
+by all users of the Coda inode, so some Coda file handles could be
+O_RDONLY, others may be O_RDWR, and some O_APPEND.
 
+So I think the core of your patch is probably right, but it may need
+some more careful thought, maybe the use of host_file is ok, maybe the
+i_size needs to be copied from cfi->cfi_container instead of host_file.
+
+Jan
+
+
+> can therefore overwrite existing data instead of appending. For example,
+> writing "Z" to a file containing "abc" produces "Zbc" rather than "abcZ".
+> 
+> Pass RWF_APPEND or RWF_NOAPPEND to vfs_iter_write() according to the
+> incoming IOCB_APPEND state. This also honors changes made with F_SETFL
+> and per-write append overrides instead of relying on the container's
+> open-time flags.
+> 
+> Fixes: 164f4064ca81 ("keep iocb_flags() result cached in struct file")
+> Cc: stable@vger.kernel.org # 6.9+
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> ---
+>  fs/coda/file.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/coda/file.c b/fs/coda/file.c
+> index 6ca8bfcb58f2..ae03f0b30d84 100644
+> --- a/fs/coda/file.c
+> +++ b/fs/coda/file.c
+> @@ -71,6 +71,7 @@ coda_file_write_iter(struct kiocb *iocb, struct iov_iter *to)
+>  	struct file *host_file = cfi->cfi_container;
+>  	loff_t ki_pos = iocb->ki_pos;
+>  	size_t count = iov_iter_count(to);
+> +	rwf_t flags = (iocb->ki_flags & IOCB_APPEND) ? RWF_APPEND : RWF_NOAPPEND;
+>  	ssize_t ret;
+>  
+>  	ret = venus_access_intent(coda_inode->i_sb, coda_i2f(coda_inode),
+> @@ -80,7 +81,7 @@ coda_file_write_iter(struct kiocb *iocb, struct iov_iter *to)
+>  		goto finish_write;
+>  
+>  	inode_lock(coda_inode);
+> -	ret = vfs_iter_write(cfi->cfi_container, to, &iocb->ki_pos, 0);
+> +	ret = vfs_iter_write(host_file, to, &iocb->ki_pos, flags);
+>  	coda_inode->i_size = file_inode(host_file)->i_size;
+>  	coda_inode->i_blocks = (coda_inode->i_size + 511) >> 9;
+>  	inode_set_mtime_to_ts(coda_inode, inode_set_ctime_current(coda_inode));
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> -- 
+> 2.43.0
+> 
