@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793882565;
-	b=n6y1VUdMvOY0Y1UQCovCdVhjKw7TBhb9EKigxb1DxgSHgS4ai369goOWdiCO/z0vFVy1
-	 tbT9v6ajl4ctS8+eeBrdZbGisGqYEkL1HWXcjwQDjjFP5jL5yaSuh9u0yipkE9AN2lqHU
-	 K2SusL4F2Bg4H2FEghdLkH+aA3xSUJJU1XuhXqgTiy1aLT/sC3+u9OzxKsU8ZnRF+9D4X
-	 PLI3c7WaPh6IgHaHiFzXRK8malc5kvc2yO+L6WY9GL+NjqN4THTM3yCNOv+VqeDKRtnRq
-	 WWnnJZk9UeqgourGwWpq+Ioo9NSki8OBCBUnZ+unmZpZtZy4OUKk7gLYiGKN0gyK42g==
+	t=1793882568;
+	b=sr3yHkJkHUUja1HVJ3GAj5qqGxkKP4NsuPOxjIyINhrZuPzGosDpsJuizT3Vc31NaurT
+	 6OxOxQ4Sp1lQUZ/QMYaeJUaxK4x69ZCvs72G8ehyR3YksHIYzj9XT/B2TjmTdweMTjzBS
+	 nBx5oICefu6xdcbUwZ5JX/LBVCTQlOFbHDQD6kcQDmvLw3l3SQ5G2igae+5qHVe7KGkUr
+	 /mwhrPYfs7SeNFRZ1Kz6fGL37y6vwTpvzElVwez96ey8grDR4yQvjZGeV81BWUptUoh0f
+	 H8YfqtMdezqOEYWqEwAvhxjQ5EFutE6I8gEqdWxoYqaJXcSYbfs2EA8ELMY3tIKKVPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882565;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882568;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Hpra49h2tIJZvGGHDR5HzCg/FGYiBsWReE6wHFXQ1q0=;
-	b=nMm2XMGL2oe86XlRu5zQQkeqD5Ve8AjAqzNAjixw8cEeBOJorG3Y4R9lCu+6yIddFr4c
-	 4Owlj+Z3SGMKeP79CVCcOkAFk1vBIKW/CLUwz+z8zAn7LM7CQSgwuNRnMDLanuMhragjl
-	 +goSvKnKLfiVTrWl8ElF3AOSKzWKgGrSG+kFgG8NFwXC4VUOLwdcJ/G4lKXULl2Pex6Na
-	 Seh8A6iMDKVNMXnI5qObHlV8kamVxxljSxrOXdjyu6ySuf3ApWBI+VmakcxvN4UMQt6KU
-	 3ByXOcgpFOt7ZK4fuil0Y5BypNPjxL1ISS50V+CT68Ts3Y3YzWXFvdwOZkuUtaAEhOA==
+	bh=uW3JsIhVFAwyT3ql8Ud0CDR614EgO2l3PnFYcnLviYw=;
+	b=yQd6+8lh2Jdv9mh40SjEm1dsfqSVfI3XUFSbPmRSBEiyK9tAnpmaYBffQdfKbm6uaQg4
+	 tSY0okoDvM647IzjrnChLUc2Qv1RuFAETwFykq9yka5mWVc+8tsv6HskGnuCWrdVZfsgT
+	 MP4cZ8tc1/8HaIBrQDjqd3hB2UNzpZ84HPR32qtosTkH1bLMfXKzPmzV3Py7Vp+6SB40x
+	 Wu61R80+MqDBE8XlDi27ABjg5T/FbiEkWieP6hiSJAW83voxSwHdonK9Xd9NU/dD/Vr/C
+	 9euEkbyVikWVZLjRscvI9A4YfMvdFpgJrIotbnp7N9nR3MZw9g9uS+F8fFUJ9jbY9Yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nv3JJ30q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eg2oMe9E;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED02E606D828;
-	Thu,  5 Nov 2026 12:42:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D082606D814;
+	Thu,  5 Nov 2026 12:42:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nv3JJ30q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EB501F00A18;
-	Thu,  5 Nov 2026 12:42:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eg2oMe9E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47D031F00919;
+	Thu,  5 Nov 2026 12:42:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793882564;
-	bh=Hpra49h2tIJZvGGHDR5HzCg/FGYiBsWReE6wHFXQ1q0=;
+	s=k20260515; t=1793882568;
+	bh=uW3JsIhVFAwyT3ql8Ud0CDR614EgO2l3PnFYcnLviYw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=nv3JJ30qrg/q5aGeYQRQKGRnI59swGe3pr6uyrXYP7q4EFwSL6uSOoPEjbveyieAs
-	 xpnUptKUZPDW0b91B9FjJL/pKjLFFEnVxwQKf0oqux8JbuucC1OsMm5WUthAotQPdB
-	 DSW2IBiAxxtiM6ZwG0xAesrrSkPTfX7qiDFSUMgJioX2gO1MxQGL2TouB0noz36ncD
-	 hbY+xmTzxwhtEXXStO1uk3RtivHuNlJO5DQlw/NCcC6NqXyuoQ3jjIFv3/ydTtoA1a
-	 55V3Q2Fb1YJ4id/9U0iCHSfSxDtvmfrvJEXsBnCoepVryXh6ONpfWO/8ghlhKEC2Kr
-	 XCL+qjuCwYkzg==
+	b=eg2oMe9EQyrLlTySAlsrMtx8QS4nNn/NJfu8/OODA0ox7E5Na+VtNTtck5CT6sMyz
+	 vDIUymYLX03kOL4z0FntK8Z4uiVUeGqi7yXg+hH9WlTjL86YV+tWcP1Eii/Manev4B
+	 YwgY2QWij6IsYPmJ8AmbTFULdSAWUv3P6+xfhC8Csh8FHWbz5hsp1DZUkjna/ZuP5U
+	 BoI/+IGx0A5ZrreHnTyYrfOeVUvxIm1n+rIz1LjyDBZPaW2QyRqF43yIxFZqnmGvgK
+	 hVqONbKP9h0PXdTyw+fTdegj/hsh149V2qS3gUO1m3oQPXqoWhNtIE6JzPT4DCgDKC
+	 oDdCcCn/hk9OQ==
 From: Christian Brauner <brauner@kernel.org>
-Date: Thu, 05 Nov 2026 13:41:39 +0100
-Subject: [PATCH RFC v2 10/13] udf: don't allocate the inode block in
- udf_sync_inode_metadata()
+Date: Thu, 05 Nov 2026 13:41:40 +0100
+Subject: [PATCH RFC v2 11/13] udf: sync inode metadata in udf_evict_inode()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-work-inode-metadata_writeback-v2-10-48628c60c336@kernel.org>
+Message-Id: <20261105-work-inode-metadata_writeback-v2-11-48628c60c336@kernel.org>
 References: <20261105-work-inode-metadata_writeback-v2-0-48628c60c336@kernel.org>
 In-Reply-To: <20261105-work-inode-metadata_writeback-v2-0-48628c60c336@kernel.org>
 To: linux-fsdevel@vger.kernel.org, Jan Kara <jack@suse.cz>
@@ -68,77 +67,62 @@ Cc: Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>,
  Namjae Jeon <namjae.jeon@samsung.com>, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2116; i=brauner@kernel.org;
- h=from:subject:message-id; bh=DSJoqNCEmQBwJLJ0nW3J2QU7yw43pwXr0BYIRgRbH9c=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9qZw9xXyN1385EeamesvQ32/ipR7Wmwbx3T96I6+f/
- ZiJbdOcjlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIlUcjMy7JgvFj7zZPPUHXM4
- LmXPyftp/tvrj+3rd6eZhX8p3lFws2Bk+B8d/dbJvKJvwbRHz08L6ezeeHS+mOkheUcFxqMHbBi
- rWQE=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1806; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=i0yiMrvON4FraxfwXdvfqy52+otzr1i7gCUy6miLT70=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9qZwzq8hC0+JA972uWKNzu17d4q3nvPlo3RvrY5Ncm
+ 9L1Y3kPdJSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzk2GuG//WfUzodi9htDodu
+ 67x2JuWO0o19O9+c5gtrDmIM+/0guZ7hn87yjY0zoma/4eZKfvdY86pbqHqJjFixWuYs+ZaTE+Z
+ bMAEA
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-udf_sync_inode_metadata() looks the block that holds the inode up with
-sb_getblk() which allocates a buffer for it if it isn't cached. But a
-block that isn't cached is neither dirty nor under writeback, so there's
-nothing to write or to wait for and the buffer just gets thrown away
-again.
+udf_write_inode() copies the inode into the block that holds it, marks
+the block dirty and sets I_METADATA_WRITEBACK so that a later fsync()
+writes the block out and waits for it. But the bit goes away with the
+inode. If the inode is evicted and read back in, fsync() finds a clean
+inode and returns while the block might still be dirty or under
+writeback.
 
-That allocation is also something we can't afford once inode eviction
-calls ->sync_inode_metadata() from reclaim. So look the block up with
-sb_find_get_block_nonatomic() instead.
+Right now that can't happen because inode_lru_isolate() never lets go
+of an inode with I_METADATA_WRITEBACK set. That is about to change.
 
+So call udf_sync_inode_metadata() from udf_evict_inode() for an inode
+that isn't deleted and still has the bit set. It syncs the metadata
+buffers as well so it replaces the mmb_sync() there, and since the
+previous patch it doesn't allocate anything.
+
+Suggested-by: Jan Kara <jack@suse.cz>
 Cc: stable@vger.kernel.org # v7.3
-Reviewed-by: Jan Kara <jack@suse.cz>
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/udf/inode.c | 31 +++++++++++++++----------------
- 1 file changed, 15 insertions(+), 16 deletions(-)
+ fs/udf/inode.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/fs/udf/inode.c b/fs/udf/inode.c
-index bacf2a86161e..b3e7c07cb9e7 100644
+index b3e7c07cb9e7..8f45133ce75a 100644
 --- a/fs/udf/inode.c
 +++ b/fs/udf/inode.c
-@@ -1742,25 +1742,24 @@ void udf_update_extra_perms(struct inode *inode, umode_t mode)
- int udf_sync_inode_metadata(struct inode *inode, struct writeback_control *wbc)
- {
- 	struct buffer_head *bh;
-+	unsigned long block;
- 	int err = 0;
- 
--	bh = sb_getblk(inode->i_sb,
--			udf_get_lb_pblock(inode->i_sb,
--					  &UDF_I(inode)->i_location, 0));
--	if (!bh)
--		return -EIO;
--
--	sync_dirty_buffer(bh);
--	if (buffer_write_io_error(bh)) {
--		udf_warn(inode->i_sb, "IO error syncing udf inode [%08llx]\n",
--			 inode->i_ino);
--		err = -EIO;
--		goto out;
-+	block = udf_get_lb_pblock(inode->i_sb, &UDF_I(inode)->i_location, 0);
-+	/* A block that isn't cached is neither dirty nor under writeback. */
-+	bh = sb_find_get_block_nonatomic(inode->i_sb, block);
-+	if (bh) {
-+		sync_dirty_buffer(bh);
-+		if (buffer_write_io_error(bh)) {
-+			udf_warn(inode->i_sb, "IO error syncing udf inode [%08llx]\n",
-+				 inode->i_ino);
-+			err = -EIO;
-+		}
-+		brelse(bh);
-+		if (err)
-+			return err;
+@@ -152,8 +152,18 @@ void udf_evict_inode(struct inode *inode)
+ 		}
  	}
--	err = mmb_sync(&UDF_I(inode)->i_metadata_bhs);
--out:
--	brelse(bh);
--	return err;
-+	return mmb_sync(&UDF_I(inode)->i_metadata_bhs);
- }
- 
- static void udf_adjust_time(struct udf_inode_info *iinfo, struct timespec64 time)
+ 	truncate_inode_pages_final(&inode->i_data);
+-	if (!want_delete)
+-		mmb_sync(&iinfo->i_metadata_bhs);
++	if (!want_delete) {
++		/*
++		 * fsync() can't find what I_METADATA_WRITEBACK tracks once the
++		 * inode is gone. This syncs the metadata buffers as well.
++		 */
++		if (inode_state_read_once(inode) & I_METADATA_WRITEBACK)
++			udf_sync_inode_metadata(inode, &(struct writeback_control) {
++				.sync_mode = WB_SYNC_ALL,
++			});
++		else
++			mmb_sync(&iinfo->i_metadata_bhs);
++	}
+ 	mmb_invalidate(&iinfo->i_metadata_bhs);
+ 	clear_inode(inode);
+ 	kfree(iinfo->i_data);
 
 -- 
 2.53.0
