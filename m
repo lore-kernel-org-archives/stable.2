@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840053;
-	b=NAhnH1KdNSVoslJwgHGt8zy5ep77XnPuXCNeRTWiB4HecaE66NlouEpA1xSmY7Vjj7qE
-	 GqzxJaRzs/miWB+KehyoOEgO0zOpc5ASki2rRaoT+NS1F0YQbZomFHpQlUtEF2/ZjmUhZ
-	 Q78LsW4ihKxuCwiT/BCWMRN+wrWZ9ofBk+/dqi6cxXKZLwxy9zy+OCOHlkHjJ2LS6SSkp
-	 eOmYcfsMLvfl1goeDUFdf37mnUpYEQReJxuhNUOU9jG5lglQe2P4beH01NqGMXjFx2kXp
-	 XBNNljI/6Q5pt4ej2iNVwoBAjN0KJrJ13s5TTvkBdRsiQ/p6DdmyNghIB3JFu1mTDJg==
+	t=1793840067;
+	b=vIzSsUM8pkpSOi6vzCEMdmwooaB9VZBdwCYtAmFStFBUidlg00DWZIgyrSsh7jnN5bB+
+	 /BxqywpeK66B/b2z3W5cOozHo+oWcizrOWYZrAceN56/lkbaMbUUtMPSfM6GFNYgXC4LS
+	 Sz7q6HIhNhiuNPz+crz8/ayZSPvfRSdtR88vhwcPDlB7rx/M6QDh+85VuG3Djo3nDNkRA
+	 iV2OT9TOluwnLY82zx8npqV41cGRLBPTvaghNij4Ae6GxG9UF28xqlAABgOXZCDsG2bS9
+	 312rztDh7LbQ8Juz/VWufFSMAQa42SX1tLQrCNRIyD/P6QAY4gHghN3dXFZSseqIBhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840053;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840067;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=y5sVsQZg6x6fuQ3KiH1M90quO8KQEoUWt5Z7/cr2Pg0=;
-	b=ldy8G46QQj0Fh0yf/FQfn5unt9CWHvxMpT75U7lWh77EP311mwCX+PXEycUmyY8zA7XV
-	 ZPRI0JcdyOjMhQoXy/g91hkj+ca5ei7LUQ/6M3nPpm7qCsDxHVpeNmMwDDqYriYnzfoCY
-	 7phTgEegcFdH8ZCYpfJIlrknb8Yx0+uru/2vM8gLrvwHT0set0I290Sf9lrxQ8Iu0fK0c
-	 KL2ew9cC03OtLoaB2LEP0jWhG8ZE2m5OHkXzrk5nQczz/3etzzRfqL9fxwbml7c/Or4l8
-	 5J6JzVkWBEtiFyV26OMNUhiJVWA7wFsRdJmtPGKAv4BnSbhzktF4BSNoAHRxJKrTsNA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=jxtFLxycrXqdqb4It2TVHczAL3LOoDH9peGLfOsz91g=;
+	b=KVb3FgekP6v4DTOFQ09aH+51iswyIXHgYoL/0AD+cOI6+9ivNsWf8t7vNITqjF2GYPQF
+	 1ritnNdNLuOe/zGagh7qwTm4DKJwM1hgzBgYG2sH2Hkm9uO0GvtuP8rcNJUZvoiC7HNHC
+	 m8meEPswPaINhzhsWv9Iz3tRYthD03zLXnuO4jmvaVQnSpOzOuYNBhyrUEAC34s5oAXcT
+	 9v2+yCE4LKN/KYSF8IoRhcUgwwnztXeOj0ifSE837Tb5iQC4GizNJKQwpVMmn0I8mx/Nt
+	 9gXiPKs135nU6tq7iLVlLkzBvZb9S9GLtBfHrDVnWnZd7uIDXG7n0HVk+m7xPPCQtpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hzk7hJvq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aO0onwG/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D2660A3810
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:54:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6369606A338
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:54:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hzk7hJvq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCD961F00919;
-	Thu,  5 Nov 2026 00:54:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aO0onwG/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC6D31F000C1;
+	Thu,  5 Nov 2026 00:54:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793840052;
-	bh=y5sVsQZg6x6fuQ3KiH1M90quO8KQEoUWt5Z7/cr2Pg0=;
+	s=k20260515; t=1793840059;
+	bh=jxtFLxycrXqdqb4It2TVHczAL3LOoDH9peGLfOsz91g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Hzk7hJvqwWvgQ/ZuWZXoyr4p8p2qciA4tWsIIGKwtOiAJHQVo4zy0jqLTjn6RIM1Q
-	 v0ea7SIo5AtN/4JGhrg0ozUGDPsbfwF/3bgmwBi3O5/e91SXio369NYJ/Iet8ChCf3
-	 tivX9zzNUDFqRUEqKFejfZikWJoczLfyS9QTrcrrCrnT+bJg5jBoz/XxyCt4jCslTm
-	 sUKqz2Ht7Q+vtqidXvVpu0rfY4OWMzBIM+E4KZ9MGfTxqy13mScxtYGvo7lQSXfXj7
-	 uEFYszfrsHBD7YGqEU8iRomuwxEh76hZWEW0XasdJ5C22q1xYxgKity10Icftw5lsY
-	 hHi7KRwEXtfYg==
+	b=aO0onwG/peN3OwZuaYa+OCoWPI30s3n+se8Ap/Adosk8Ni8hrRaz9q1r5lFw+OdDQ
+	 SY62USXAFF2aQ55wKf9vqPmg0k13oSTDYVVjHe2529XNci32gHbvx9cJGyXvyRKWJM
+	 4GPr8GDAkS5GHcZxaYBylI9HdTuelV9kzl9OF1/dKQIuRVafTfdoRVlqjX2lt8Fseb
+	 QlqDsCaoSRDtzyBt3s/vi+VCAf02QyU0eoKhTI9lsYpEiT2gqJGtxDt3YiuGU0D29q
+	 XYLwsqohb2miruEkGi5ysUs6yADt2yUKLwli6Wr7I0e6zKGV+98b9/d6wQqtgfKYWD
+	 fTOgnAAZxIV6w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yuchao Zhang <ndaugoing@gmail.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger@xenproject.org>,
-	Juergen Gross <jgross@suse.com>,
+Cc: Richard Patel <ripatel@wii.dev>,
+	Thomas Gleixner <tglx@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] xen-blkfront: unbind irq before tearing down ring and shadow requests
-Date: Wed,  4 Nov 2026 19:54:10 -0500
-Message-ID: <20261105005356.984834-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] genirq: Defer kfree(irqaction) until irq_thread_dtor() finishes
+Date: Wed,  4 Nov 2026 19:54:17 -0500
+Message-ID: <20261105005353.978441-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110403-viper-verify-b61d@gregkh>
-References: <2026110403-viper-verify-b61d@gregkh>
+In-Reply-To: <2026110453-reactive-cytoplasm-f801@gregkh>
+References: <2026110453-reactive-cytoplasm-f801@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,75 +59,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yuchao Zhang <ndaugoing@gmail.com>
+From: Richard Patel <ripatel@wii.dev>
 
-[ Upstream commit f3e27b7955727a4d7c0e9264a2a209fbba788bdc ]
+[ Upstream commit d04adff6860587e843948b0c31174f8ae11b8dfe ]
 
-In blkif_free_ring(), the driver tears down the ring's persistent grants,
-shadow request arrays, and shared ring structure (xenbus_teardown_ring),
-and only calls unbind_from_irqhandler() at the very end.
+When an interrupt thread exits abnormally via do_exit() (e.g. the interrupt
+handler oopses) without returning from irq_thread(), a concurrent call to
+free_irq() could free the irqaction before the irq_thread_dtor() exit task
+work runs.
 
-While blkif_free_ring() is freeing persistent grants and clearing the
-shadow array, the event channel interrupt (blkif_interrupt) is still
-registered and active.  If an interrupt arrives from the backend during
-this teardown window, blkif_interrupt() reads rinfo->ring.sring and,
-via blkif_completion(), accesses rinfo->shadow[id].grants_used and
-rinfo->shadow[id].sg.  blkif_free_ring() tears these structures down
-without holding rinfo->ring_lock, and the handler only checks
-info->connected at entry, so this is a real race resulting in a
-use-after-free or NULL pointer dereference.
+  irq thread (oopsed)                 free_irq()
+  -------------------                 ----------
+  do_exit()
+    exit_mm()
+      complete_vfork_done()  -------> kthread_stop() returns
+    exit_files() ...                  kfree(action)
+    exit_task_work()
+      irq_thread_dtor()
+        action->...                   <- use-after-free
 
-Fix this by moving unbind_from_irqhandler() to the beginning of
-blkif_free_ring().  Calling unbind_from_irqhandler() first frees the
-IRQ and synchronizes with any in-flight interrupt handlers on other CPUs
-before ring memory and shadow request structures are deallocated,
-matching the teardown order in drivers/net/xen-netfront.c.
+Track the pending exit work with the IRQTF_EXIT_WORK thread flag, and have
+__free_irq() wait for the bit to clear before kfree().
 
-Fixes: 11659569f720 ("xen/blkfront: split per device io_lock")
+irq_thread_dtor() only runs on irq_thread abnormal exit. If that dtor also
+faults, free_irq() will hang indefinitely, but double IRQ thread faults
+require a reboot anyways.
+
+[ tglx: Add missing include ]
+
+Fixes: ed3e694d78cc ("move exit_task_work() past exit_files() et.al.")
+Signed-off-by: Richard Patel <ripatel@wii.dev>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
-Acked-by: Roger Pau Monné <roger@xenproject.org>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20260922072155.34625-1-ndaugoing@gmail.com>
-[ sashal: adjusted context for ring cleanup using free_pages_exact() instead of xenbus_teardown_ring() ]
+Link: https://patch.msgid.link/20261009145842.1616117-2-ripatel@wii.dev
+[ sashal: replaced kthread_stop_put() with separate kthread_stop() and put_task_struct() calls ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/block/xen-blkfront.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ kernel/irq/internals.h |  2 ++
+ kernel/irq/manage.c    | 32 ++++++++++++++++++++++----------
+ 2 files changed, 24 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-index 19ddbf977d28f..44c82088a611c 100644
---- a/drivers/block/xen-blkfront.c
-+++ b/drivers/block/xen-blkfront.c
-@@ -1276,6 +1276,14 @@ static void blkif_free_ring(struct blkfront_ring_info *rinfo)
- 	struct blkfront_info *info = rinfo->dev_info;
- 	int i, j, segs;
+diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
+index da1f282d5a1d1..e9531706a91ae 100644
+--- a/kernel/irq/internals.h
++++ b/kernel/irq/internals.h
+@@ -30,6 +30,7 @@ extern struct irqaction chained_action;
+  * IRQTF_AFFINITY  - irq thread is requested to adjust affinity
+  * IRQTF_FORCED_THREAD  - irq action is force threaded
+  * IRQTF_READY     - signals that irq thread is ready
++ * IRQTF_EXIT_WORK - irq thread exit task_work is pending
+  */
+ enum {
+ 	IRQTF_RUNTHREAD,
+@@ -37,6 +38,7 @@ enum {
+ 	IRQTF_AFFINITY,
+ 	IRQTF_FORCED_THREAD,
+ 	IRQTF_READY,
++	IRQTF_EXIT_WORK,
+ };
  
-+	/*
-+	 * Interrupt teardown must be done ahead of freeing queue-related
-+	 * data, otherwise the interrupt handler can race with the cleanup.
-+	 */
-+	if (rinfo->irq)
-+		unbind_from_irqhandler(rinfo->irq, rinfo);
-+	rinfo->evtchn = rinfo->irq = 0;
-+
- 	/*
- 	 * Remove indirect pages, this only happens when using indirect
- 	 * descriptors but not persistent grants
-@@ -1365,10 +1373,6 @@ static void blkif_free_ring(struct blkfront_ring_info *rinfo)
- 	free_pages_exact(rinfo->ring.sring,
- 			 info->nr_ring_pages * XEN_PAGE_SIZE);
- 	rinfo->ring.sring = NULL;
--
--	if (rinfo->irq)
--		unbind_from_irqhandler(rinfo->irq, rinfo);
--	rinfo->evtchn = rinfo->irq = 0;
+ /*
+diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
+index 4998e8a561564..bcd5780b2f513 100644
+--- a/kernel/irq/manage.c
++++ b/kernel/irq/manage.c
+@@ -21,6 +21,7 @@
+ #include <linux/sched/isolation.h>
+ #include <uapi/linux/sched/types.h>
+ #include <linux/task_work.h>
++#include <linux/wait_bit.h>
+ 
+ #include "internals.h"
+ 
+@@ -1225,17 +1226,14 @@ static void wake_threads_waitq(struct irq_desc *desc)
+ 		wake_up(&desc->wait_for_threads);
  }
  
- static void blkif_free(struct blkfront_info *info, int suspend)
+-static void irq_thread_dtor(struct callback_head *unused)
++static void __irq_thread_dtor(struct irqaction *action)
+ {
+ 	struct task_struct *tsk = current;
+ 	struct irq_desc *desc;
+-	struct irqaction *action;
+ 
+ 	if (WARN_ON_ONCE(!(current->flags & PF_EXITING)))
+ 		return;
+ 
+-	action = kthread_data(tsk);
+-
+ 	pr_err("exiting task \"%s\" (%d) is an active IRQ thread (irq %d)\n",
+ 	       tsk->comm, tsk->pid, action->irq);
+ 
+@@ -1252,6 +1250,14 @@ static void irq_thread_dtor(struct callback_head *unused)
+ 	irq_finalize_oneshot(desc, action);
+ }
+ 
++static void irq_thread_dtor(struct callback_head *unused)
++{
++	struct irqaction *action = kthread_data(current);
++
++	__irq_thread_dtor(action);
++	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
++}
++
+ static void irq_wake_secondary(struct irq_desc *desc, struct irqaction *action)
+ {
+ 	struct irqaction *secondary = action->secondary;
+@@ -1308,6 +1314,7 @@ static int irq_thread(void *data)
+ 	else
+ 		handler_fn = irq_thread_fn;
+ 
++	set_bit(IRQTF_EXIT_WORK, &action->thread_flags);
+ 	init_task_work(&on_exit_work, irq_thread_dtor);
+ 	task_work_add(current, &on_exit_work, TWA_NONE);
+ 
+@@ -1332,6 +1339,7 @@ static int irq_thread(void *data)
+ 	 * oneshot mask bit can be set.
+ 	 */
+ 	task_work_cancel_func(current, irq_thread_dtor);
++	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
+ 	return 0;
+ }
+ 
+@@ -1863,6 +1871,13 @@ __setup_irq(unsigned int irq, struct irq_desc *desc, struct irqaction *new)
+ 	return ret;
+ }
+ 
++static void irq_stop_thread(struct irqaction *action)
++{
++	kthread_stop(action->thread);
++	put_task_struct(action->thread);
++	wait_on_bit(&action->thread_flags, IRQTF_EXIT_WORK, TASK_UNINTERRUPTIBLE);
++}
++
+ /*
+  * Internal function to unregister an irqaction - used to free
+  * regular and special interrupts that are part of the architecture.
+@@ -1967,12 +1982,9 @@ static struct irqaction *__free_irq(struct irq_desc *desc, void *dev_id)
+ 	 * the same bit to a newly requested action.
+ 	 */
+ 	if (action->thread) {
+-		kthread_stop(action->thread);
+-		put_task_struct(action->thread);
+-		if (action->secondary && action->secondary->thread) {
+-			kthread_stop(action->secondary->thread);
+-			put_task_struct(action->secondary->thread);
+-		}
++		irq_stop_thread(action);
++		if (action->secondary && action->secondary->thread)
++			irq_stop_thread(action->secondary);
+ 	}
+ 
+ 	/* Last action releases resources */
 -- 
 2.53.0
 
