@@ -1,120 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793895487;
-	b=dqhAmf3O8/IA5TErdSZu+nNDM+nwr+ShlshrmVGyXHOdzlXG5kQn2UglBA2oGm+df5GS
-	 TYtP0vhA2DDrQB+wOkUm+Un2wFtLuJM4pZC6CoL4UMgvD/EV7WUiPVeb+GkacjHOhtnkv
-	 gvuApVzkqXvTT688k/Hqv1uTtTPfayjTjbkGVnj2DxngMYVdr0Vqhh86te43CF0Xa1cA/
-	 /98vCSbK8+tJX6wAPariM7AlDV4EVAXNamWBti1br8XtqhzeqlrO+tTOr2pgwJb8v+E+v
-	 o3EH/5HhnPgzTYZAo+Jbl9C0z76314XKaMldFNQAMjTTuQJLiOFM3sTtwrAlz9WD4IQ==
+	t=1793895513;
+	b=HV1eLzevwkAGVuyrRMCTvr4t/QmDz/8PH/Tu+ZP2CIgIgYzfXj4fvRdfAe7RnfxcPMjp
+	 DHbvxLwo6R78FaEQC9m0xO5BntBP0SwPaVNCbWAN5A+Nav4dmjABlCfItorpJ9DoaU/GE
+	 sn402xr6JIgna2948vnbh/BeSgwu1U8ydDTd+LO9GT0rGsVWXC5EB7smz3fT2WBs1+JuI
+	 PYqyeXdtM+Kdi2zM30OYduMMSQwuijfJQklVw47JnUNYK4JHhRJlD4eKzsEJE9B8KBzjE
+	 67jwGdqBQ5m/o0lax48YAK0Hcax54Ar15R1J8wcze+uU5FzOZoCCAIWvFipDdoNyAMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793895487;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=5btkYgoCas6QGdDdEV99M1LT/zc64JzXRUD+6MRR7mA=;
-	b=ZAdH6W40bQCPwOuxZx5hSxMP8qj/xxggMQXk/VK+h9HxfDDE6UDs5rTmJ6wPWm6GfUqi
-	 wAXky8Zzw1OTj2gAF5fc/ojuTZ3tZjeTkxQ3p1Kg38xM1ejBJNrunpEE3m/7L1q7KB9Dl
-	 fS4zz7eCddocPCrlUxwFORjuzG/QiySY7d6mdAmZbS4vivgr7hNE2Q4kIZH5AbC3sMw5S
-	 N5pDuTiCqkos2KUjx8NhMjmyjw9OOHp0yFQ8+MkNooR8EBqtbeksd2MKbDlnQ5aBgSePw
-	 rHw9QezG6OUsxjN1XvTU3tnSCvFLJTWAK1KeRXk/OvADSsmaUf6izSF9xiwVZFd2pfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793895513;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=dJwwgZepT61iJuK80D0VOZi9hRO7XI3X6avR3AOgfjw=;
+	b=cnd/jzYLMXxg8T28BluGLVFzd+j1Llli+WDQZH/F9ukPtsaoW4ejBxDnrt5vB7BAY0TU
+	 vGII/QmAfx3jlQX8pnhBD24jCEI1ELlzdHnaY3iKy2T/72ZOdL0AIlPruGWB1k/zzDQXh
+	 KgFdrmfd9nx5eBtNEtv4WoxRAoKFFBoMQq0QkBnwWq4pPtGy1oLBlaHciSFuOSEwmQzxJ
+	 983dkesSwSKq41M2rQ6lDfS2mAut1LlzxqSuFObk9cxm8C+xKn5fVjv2L2nhVTipIoVEh
+	 yyvY/2Se2xqgeLjUREKi5eQxmAK5++4cjFw29FM69cgiluViuSTpjnQaEwXeRldiTuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=S5iL25OR;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=icvQ0q2+;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mvOP+GRe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDB5606D802
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 16:18:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFDB5606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E03B606A32E;
+	Thu,  5 Nov 2026 16:18:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=S5iL25OR;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=icvQ0q2+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793895485;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5btkYgoCas6QGdDdEV99M1LT/zc64JzXRUD+6MRR7mA=;
-	b=S5iL25ORlwfJuyOEN20HyeCp3FYVI8Da+tnY98mDd6yHCFiZeCpRc4Gc9t1btRzuXhPXdr
-	1vHHdOPborJtspGTx7Q/wd3GVSd3W4icgpgoKTU+MzMOV46tk90IJwsXyR8lqJu+8nivMO
-	O/D9e2qBUAT1LpxCxUynfqW6uQ3Xkc4=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-604-iMcxLLNHOMWYVQoh8qOk2A-1; Thu, 05 Nov 2026 11:18:04 -0500
-X-MC-Unique: iMcxLLNHOMWYVQoh8qOk2A-1
-X-Mimecast-MFC-AGG-ID: iMcxLLNHOMWYVQoh8qOk2A_1793895483
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a2065a2ef9so19454835e9.3
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 08:18:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793895483; x=1794500283; darn=vger.kernel.org;
-        h=content-type:mime-version:user-agent:message-id:date:references
-         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=5btkYgoCas6QGdDdEV99M1LT/zc64JzXRUD+6MRR7mA=;
-        b=icvQ0q2+/7npzbgW8GUq9laWEqHVJNMxVd2QK4Wx6lFoO4gsSt+lmep30txehm6dLJ
-         SDFHV9B2Fzzoa4DMvjCiXN8NvHAWJUoqnY1BTNtLQ12c+A5AFwpYtRwy6Xt5ItYYPVFJ
-         CxUusrqa3wnbpdD8LhTemA21wRrKMsjRNW5rgrWImFtMVstDVRbEURaH7goNjNKpeoba
-         x3y77F0yAse/oOOCKxhGUE2rkkQgq5rUr4ybrdyu9TF2HBm3ZU8atbodbkRXW+h8DkB1
-         Li48htykwc7VjByZnpGIz/PT1ndhJjv9DHpbaMEPZV1Gy2itwLbro/xzhash9WTqPuNG
-         A5jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793895483; x=1794500283;
-        h=content-type:mime-version:user-agent:message-id:date:references
-         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=5btkYgoCas6QGdDdEV99M1LT/zc64JzXRUD+6MRR7mA=;
-        b=2QfVnhQxR03Ggz18J9HFcgU/jA0Fy56rhBBYHMGNBtXMZbyUK7NorK7p+fVaw197uR
-         gkCGLFGJJG0odlR8gDA+He5jbDxsBKoKGx5h/7ISI/HLOXm6tI/YM/MEND79O1kOR0ch
-         BfdP9Mg6Dh+f96lBaVoqWNKkmxIEYRyGvJkhjYfg3TnsxcAuN7p1/n9iP0CjAhkOoQhX
-         hcrdMdaz0mjPJrU9uzkPSrGs5ZKhcbMAKj8glf3/6pXEKHkwkE1Gy9kHtZfprN3XOM7/
-         XUNMwUiAkhI/2EyFsmXuuD1V7VAW26jjwtu7YDRMiqtlPddnrfkESLePNaHBhhDi4kxY
-         wOSg==
-X-Forwarded-Encrypted: i=1; AKwUvByFB0MKmpptEPgBgOYDS5r+HVbNGZD4LFIPqu58kEd/v6BFIlu3LdGWh5oNO9UcWekjqByUX2w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/BbQDe19Kioy0Zhb87VLISdZTMnDgqbsCNSyr0JSVeW1tlcZav
-	8oXDcRcBBzicCMxbez4nSQJAYKQxCCznx+VxGuJ9Raki4RqCu71KHDdrRz1WdccfR64pRVodZgI
-	lITSYcHYy4iMF3gh8go77ZF/9FKc27Fu/tw1QjIfdVd6ygfD0CHD9uKeH21iuWB9ox620RvfCUY
-	WM1SjvKhws44V8tCVgi1aLtVCet5BMXo0xVoGhztHO
-X-Gm-Gg: AYBFou1mXbRtuGxoPW+fLTP336DoX6PkLgmqwL04F9cGflpC5wkf3+3FJSkQiG6UNAI
-	al67DNtDJ7OBihwm64bxTYX6//0KE1HkrzMs4yn3+JU56LOKZMSzWdtOvre4q4QFtJ0fOnMg0BM
-	1nQiNdKY5Fi3K60rl0TyIiAwzpSvHqmKS9CknTG6H8/aC1Qd/TkA9/3jyE5IMbTDFmXgbpld/54
-	07rIZ/aBEETPFieoStvexVM7QVguMpAiEP1CS0oo8zSBeliovHWp6MIObVerRY3sVMo6WdArBSk
-	+2/faWhbtVuP5XZLEHC4vP0q/VBjz07JzUH29tWyWA6VmVesFZfDIz1DSkpwCNpAANSF0ljfkni
-	aUpgU3M8AMMw1Vh+ItHvkjBUxL9LCajI43vFVWGhzC07w29wvGhAyJYL9Pc1zAVUYKCNan5Lm5A
-	K8Xg==
-X-Received: by 2002:a05:600c:4715:b0:4a3:598e:e7a8 with SMTP id 5b1f17b1804b1-4ac150b28bamr440224765e9.4.1793895483140;
-        Thu, 05 Nov 2026 08:18:03 -0800 (PST)
-X-Received: by 2002:a05:600c:4715:b0:4a3:598e:e7a8 with SMTP id 5b1f17b1804b1-4ac150b28bamr440224145e9.4.1793895482697;
-        Thu, 05 Nov 2026 08:18:02 -0800 (PST)
-Received: from aconole-thinkpadt14gen4.rmtusnh.csb ([213.157.19.68])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56fca22f4sm124635795e9.13.2026.11.05.08.17.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 08:18:00 -0800 (PST)
-From: Aaron Conole <aconole@redhat.com>
-To: Joas Antonio dos Santos via B4 Relay
- <devnull+joasantonio108.gmail.com@kernel.org>
-Cc: Eelco Chaudron <echaudro@redhat.com>,  Ilya Maximets
- <i.maximets@ovn.org>,  "David S. Miller" <davem@davemloft.net>,  Eric
- Dumazet <edumazet@kernel.org>,  Jakub Kicinski <kuba@kernel.org>,  Paolo
- Abeni <pabeni@redhat.com>,  Simon Horman <horms@kernel.org>,
-  joasantonio108@gmail.com,  netdev@vger.kernel.org,  dev@openvswitch.org,
-  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH net v2] openvswitch: advance by the real header length
- in get_ipv6_ext_hdrs()
-In-Reply-To: <20261102-ovs-exthdrs-v2-1-21ceef6a243d@gmail.com> (Joas Antonio
-	dos Santos via's message of "Mon, 02 Nov 2026 01:45:35 +0000")
-References: <20261102-ovs-exthdrs-v2-1-21ceef6a243d@gmail.com>
-Date: Thu, 05 Nov 2026 11:17:59 -0500
-Message-ID: <f7tqzgz8d6w.fsf@aconole-thinkpadt14gen4.rmtusnh.csb>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mvOP+GRe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAFB61F00A15;
+	Thu,  5 Nov 2026 16:18:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793895512;
+	bh=dJwwgZepT61iJuK80D0VOZi9hRO7XI3X6avR3AOgfjw=;
+	h=From:Subject:Date:To:Cc;
+	b=mvOP+GReeU+1v52XCaFnBL9ClC5t7oxsgdBFVjXryZPJ6rgs1+BtF+FKhhVUCeT2f
+	 iRXVNzqWSEtUYLXRqSzPEwLZrqRLh6BhBOsX62Qu35qqzDEUiGNsCNwlggjSWAIn2n
+	 2plXyz4obcHsnI6k5zSbiAGJPgbiLI/cYaz31OwekCC2YCVge8HBE1IXTxVBHcTWoC
+	 gW10UhJspfXgSv3F8g9VyEfBKFtw5A1eoQEowy3CYNtTe9tiEU5tCl2km9p9jxyE3Y
+	 r+iK+d90aBv1xTG/CQsYMhJGbh5+eyw5qzbASkF0JOcRDvGCNUCtO8+vlF371pnqhR
+	 Hy4QUV1yRnLKw==
+From: Mark Brown <broonie@kernel.org>
+Subject: [PATCH 0/2] arm64/suspend: Save more registers over suspend
+Date: Thu, 05 Nov 2026 16:05:03 +0000
+Message-Id: <20261105-arm64-fix-sysreg-suspend-v1-0-f4d9a99fec46@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -124,48 +53,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADGp7GoC/yXMQQrCQAyF4auUrA00Q5xFryIuxmlaU3AsSStK6
+ d0d6/KD9/4NXEzFoWs2MHmp67NU0KmBfE9lFNS+GkIbIlHLmOwRGQd9o3/cZERffZbS4znGwAM
+ nJspQ77NJXR3py/VvX2+T5OXXg33/Agm9pvZ8AAAA
+X-Change-ID: 20261104-arm64-fix-sysreg-suspend-56624f4a411c
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Anshuman Khandual <anshuman.khandual@arm.com>, 
+ Joey Gouly <joey.gouly@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Mark Brown <broonie@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=763; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=2ATZawLqBLUtwnOq5tqUFhonr+3ShvJg+pHfQAcax70=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLerAkt297FrWehZFT1a9vu8paPZxMYzvzf8DFNd8XMh
+ 8Vb5l/O7yhlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBE5rIx/NPwfyIvsr3U0s/C
+ pPDTlRjjcw51E9/8P7dO6nNC/JELqx4y/FO/xnq9jUF2fulvXwHTk1IXjUpmuOt+mWxZpmNqdLG
+ 6hBUA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Joas Antonio dos Santos via B4 Relay
-<devnull+joasantonio108.gmail.com@kernel.org> writes:
+While reviewing beeec0404622 (arm64: suspend: Save and restore
+TPIDR2_EL0 across CPU suspend) I noticed some more registers that we
+need to save over suspend, fix this.
 
-> From: Joas Antonio dos Santos <joasantonio108@gmail.com>
->
-> get_ipv6_ext_hdrs() walks the IPv6 extension header chain to fill
-> key->ipv6.exthdrs, but advances to the next header with ipv6_optlen()
-> whatever the current header is.  That is only right for Hop-by-Hop,
-> Destination Options and Routing headers:
->
->  - an Authentication Header is ((hdrlen + 2) << 2) bytes long
->    (ipv6_authlen()), so with hdrlen = 4 the walk skips 40 bytes instead
->    of 24 and reads the next "header" from the ICV and payload;
->
->  - a Fragment header is always 8 bytes, and the byte read as hdrlen is
->    its Reserved field, which the sender controls and receivers ignore,
->    so a non-zero value makes the walk skip up to 2048 bytes and miss
->    the headers that follow;
->
->  - in a non-first fragment nothing after the Fragment header is a
->    header at all, it is the middle of the fragmentable part, yet the
->    walk keeps parsing it as an extension header chain.
->
-> In all cases the OFPIEH12_* bits stored in key->ipv6.exthdrs depend on
-> bytes chosen by the sender rather than on the headers that are actually
-> present: payload bytes that look like another AH or a Hop-by-Hop header
-> add OFPIEH12_UNREP/OFPIEH12_UNSEQ, and real headers after a Fragment
-> header can go unreported.  Flows that match on OVS_KEY_ATTR_IPV6_EXTHDRS
-> then classify such packets wrongly.  There is no memory safety issue,
-> skb_header_pointer() bounds every read.
->
-> Advance by sizeof(struct frag_hdr) for Fragment headers and by
-> ipv6_authlen() for AH, and stop at the Fragment header if its offset is
-> non-zero, as ipv6_find_hdr() does.
->
-> Fixes: 28a3f0601727 ("net: openvswitch: IPv6: Add IPv6 extension header support")
-> Link: https://lore.kernel.org/all/178905555085.219967.6617611783437228045@kernel.org/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-> ---
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+Mark Brown (2):
+      arm64: suspend: Save POR_EL0 over suspend
+      arm64: suspend: Save GCS state over suspend
 
-Reviewed-by: Aaron Conole <aconole@redhat.com>
+ arch/arm64/include/asm/suspend.h |  2 +-
+ arch/arm64/mm/proc.S             | 20 ++++++++++++++++++++
+ 2 files changed, 21 insertions(+), 1 deletion(-)
+---
+base-commit: b0958b1397fb5ffdb995c0ccc74349841929c08d
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+change-id: 20261104-arm64-fix-sysreg-suspend-56624f4a411c
+
+Best regards,
+--  
+Mark Brown <broonie@kernel.org>
 
