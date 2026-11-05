@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793889564;
-	b=U6hSVMhMMFNrucPjPN3QQUejpTh+7NXTOrBDhu/PPJ5LMAq6U8lYX8ChdiN9uibo66Cd
-	 CndCpqP9ipSCP9iKD3C1SCnMzZeku5/bxe1owd2tVCtuAil8rTq6idTt3rkJlhMHIMZE/
-	 FcLeA681cUZOqPk519TjhoMUPnwb6qSdcF5W+uHY5TsjGTbkdY6ysM1xMt0UFud9Rxr9e
-	 sXyL7WNOWxhQG0Nu2oFrEUGf0Ke+lfpJK+kcIqcwDlRZJXC7NDHMP97YQHZN4RkStVeWQ
-	 u2jM1S1+wYawlTWacvsvVXBTPM1gOoQvhstvcCHWXsV4uGWTQ+y5mimJB270d8exq/A==
+	t=1793889557;
+	b=YTJApyiJO4/kTKf8h+sr3VsISsfld3Hu4/M3RmvnvmsOtohScX+IzndTPHqbMHa219NI
+	 IOuJTacZjE6ivlF7v+vvq0dqvTYnHFfFsuxyy4kiT/lsJUw9hOOSYvDlDMZoB4gKKnA4n
+	 TcSERsmweOv87+kqwhiMb+D2eZFxPESUW9nfU9HSluDr0XKY3kC1jr5C6evocaHCV+bSc
+	 VBm3R7rIfCBshk2ORw8HLzR+M+by75nyp8eUZOKX4MMlBIlz1fatSYbmksqigbCCZT83k
+	 x17xukEihNnljfbuaR7h/yCtsVXmTJHhtRDvsx6xDB+NFevJrfFOm5IpkImNcDyyuDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793889564;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793889557;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QpIDARN/Vr1KReVbx3nRsZF63S3ezskxf8SAIxOLPM0=;
-	b=5pUZ2M4ga1C1XjIBhicvDulzb9bBZVdUaR/l7BVDLFn+9CsAcX5gd6ej7XxmczFEXIxO
-	 LVNA9+SIbAEw3kttY6UKBSdnL498gRI3REh95vGORqbF8NpH/RCCkPt8zkCOMnQ51QyfU
-	 zZmGqSEBAMrXHLokGbLOCNlGz2Rn7tm/mViiqe7b1My5JW3cMUi8dBK8bPn0Ap7c8GYYC
-	 5ENqEEnhepHSbx2uKJXktSao4Hi+bfc45vISBeDiuhZXqnXzRotU6qNyM4VAxEItm3i3h
-	 L0+jNZyqushblnSoRiuH691i34UJMjU9WhJGllPRsu6+t9Eam4vT7vWrMRK6bSuUeMw==
+	bh=FiV21OCubJEzTg6YT+Q4kjJCdTRu4YfZXKAgzksJbjM=;
+	b=pakOzqD6dLtsgayGmex3N7/anxUQ8y6aIbqWLmxQEzsDCoJk0fl6vjTK+favRLl1E1cH
+	 ePYPxo8gzCInY6epteaI2o4SWV2sG+56vVk8y4zbajyfs32N7ZAbgE04VXmFpaQDYg1li
+	 GjOkJa82oqlIF/Djqwv9ji+Ri+K8zH9cFkg+0dX5FuEgogzNrOVsf0jyf329SazqltKxk
+	 W4ZWRTZLPUJPEsVO74+MfKKRHnOxn23+TPVw/EptQxZBHn0s+J+FUwD8nnFbvCcNJKFUm
+	 HqRy3SSqmQ63tadne7/5hJCvTVVM/ZbeiBSZ76hDkCjGv9e7y3a+nym7MJ62gyujuuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rn6KgDF1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QBFG09mJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF06606A331;
-	Thu,  5 Nov 2026 14:39:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EEE9606A33B;
+	Thu,  5 Nov 2026 14:39:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rn6KgDF1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38B721F0093A;
-	Thu,  5 Nov 2026 14:39:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QBFG09mJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D16CD1F00919;
+	Thu,  5 Nov 2026 14:39:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793889563;
-	bh=QpIDARN/Vr1KReVbx3nRsZF63S3ezskxf8SAIxOLPM0=;
+	s=k20260515; t=1793889557;
+	bh=FiV21OCubJEzTg6YT+Q4kjJCdTRu4YfZXKAgzksJbjM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Rn6KgDF1VNfg2Ip70MHdg7ocm/Ze02NeccCVLIxCRgQ3g807ZvWWLv3XL35SvsAPa
-	 eu/8v8wpEJZCUiMxVzPNcX5dX2TxgPykEStnA+8bpht/29TxrGXTb3IL2SQv4fk2O6
-	 L+gGqGXe5EgcRgP7pLX99xyU/pl1KNOWCq2iEGQeeZEcb7zge6ioxTFdrDfKI1dDg4
-	 rTHFxxwpKqRqSoIN0q/SxFPWKSa8y9N9MArGP6P2EGAIyEJ8TpP/5iIzKalM1H+CF9
-	 PzsOU/MKy/vxEazPjFPjTDu1YFYYA0vW7oBhZoXfIKshw5ZnSPyUB4882ZQPXvgq4A
-	 eCSRCoLJQUXLQ==
+	b=QBFG09mJoLNJqFObhX4Wx3KrWOCSyVwty+pF8IqCAUVrPiGOMZlBIQTJ97j6x0VF7
+	 Ey1oQLf5TG6xEdVxmWZlqvf2PjYyyBi6un3oVT6D+3oSX6ypeS/uqJIJddHiY4gH3Y
+	 sNahT6CzLwJGRs7N1u6hVMuez9s9NG0a+gVwkghxLdDIK8bFHQgL622PEy8PGm/biD
+	 MzpOK9gQ2C2Idw0ZQnf/GmO41mjUB7jDeaKq0j5qPUOUsyEGszWGPkgCj85t1CkzcP
+	 77qEu5kngYp9ol0pzMe4wqzgxWEZjEgC5GUKrjRtWpsbtf399ofxYJaNo+z3ItGboF
+	 0MGiUn6I0nvVA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Michael Hennerich <michael.hennerich@analog.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Trevor Gamblin <tgamblin@baylibre.com>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
 	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Sergiu Cuciurean <sergiu.cuciurean@analog.com>,
-	Drew Fustini <dfustini@baylibre.com>,
+	Juxin Gao <gaojuxin@loongson.cn>,
+	Huacai Chen <chenhuacai@kernel.org>,
 	linux-pwm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 4/8] pwm: axi-pwmgen: Enable clocks before accessing hardware registers in probe()
-Date: Thu,  5 Nov 2026 14:38:06 +0000
-Message-ID: <20261105143847.2559586-5-lee@kernel.org>
+Subject: [PATCH 3/8] pwm: loongson: Fix 32-bit control register truncation in pwm_loongson_set_polarity()
+Date: Thu,  5 Nov 2026 14:38:05 +0000
+Message-ID: <20261105143847.2559586-4-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.398.g882cbad275-goog
 In-Reply-To: <20261105143847.2559586-1-lee@kernel.org>
 References: <20261105143847.2559586-1-lee@kernel.org>
@@ -67,61 +65,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-axi_pwmgen_probe() calls axi_pwmgen_setup(), which reads and writes MMIO
-registers to verify the IP core version and determine the channel count,
-before acquiring and enabling axi_clk.  If the bootloader leaves the AXI
-peripheral clock gated, accessing the registers causes an unclocked bus
-access fault.
+pwm_loongson_set_polarity() stores the 32-bit value read from
+LOONGSON_PWM_REG_CTRL into a 16-bit local variable before writing it
+back to the register, silently clearing the upper 16 bits.
 
-Acquire and enable the clocks before calling axi_pwmgen_setup().
+Change val from u16 to u32 to match the 32-bit register width used
+throughout the rest of the driver.
 
-Fixes: 41814fe5c782 ("pwm: Add driver for AXI PWM generator")
-Closes: https://sashiko.dev/#/bug/linux-bc988dbc-7b12-4785-a164-b6dcab29b86a
+Fixes: 2b62c89448dd ("pwm: Add Loongson PWM controller support")
+Closes: https://sashiko.dev/#/bug/linux-bea00bdd-ae27-4d81-9902-e96ed8b6d8ad
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/pwm/pwm-axi-pwmgen.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/pwm/pwm-loongson.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/pwm/pwm-axi-pwmgen.c b/drivers/pwm/pwm-axi-pwmgen.c
-index b40522f01002..7c1b38124787 100644
---- a/drivers/pwm/pwm-axi-pwmgen.c
-+++ b/drivers/pwm/pwm-axi-pwmgen.c
-@@ -270,16 +270,6 @@ static int axi_pwmgen_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(regmap),
- 				     "failed to init register map\n");
+diff --git a/drivers/pwm/pwm-loongson.c b/drivers/pwm/pwm-loongson.c
+index 98c809bde2b3..4e8b54c8016c 100644
+--- a/drivers/pwm/pwm-loongson.c
++++ b/drivers/pwm/pwm-loongson.c
+@@ -76,7 +76,7 @@ static inline void pwm_loongson_writel(struct pwm_loongson_ddata *ddata,
+ static int pwm_loongson_set_polarity(struct pwm_chip *chip, struct pwm_device *pwm,
+ 				     enum pwm_polarity polarity)
+ {
+-	u16 val;
++	u32 val;
+ 	struct pwm_loongson_ddata *ddata = to_pwm_loongson_ddata(chip);
  
--	ret = axi_pwmgen_setup(regmap, dev);
--	if (ret < 0)
--		return ret;
--
--	chip = devm_pwmchip_alloc(dev, ret, sizeof(*ddata));
--	if (IS_ERR(chip))
--		return PTR_ERR(chip);
--	ddata = pwmchip_get_drvdata(chip);
--	ddata->regmap = regmap;
--
- 	/*
- 	 * Using NULL here instead of "axi" for backwards compatibility. There
- 	 * are some dtbs that don't give clock-names and have the "ext" clock
-@@ -305,6 +295,16 @@ static int axi_pwmgen_probe(struct platform_device *pdev)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to get exclusive rate\n");
- 
-+	ret = axi_pwmgen_setup(regmap, dev);
-+	if (ret < 0)
-+		return ret;
-+
-+	chip = devm_pwmchip_alloc(dev, ret, sizeof(*ddata));
-+	if (IS_ERR(chip))
-+		return PTR_ERR(chip);
-+	ddata = pwmchip_get_drvdata(chip);
-+	ddata->regmap = regmap;
-+
- 	ddata->clk_rate_hz = clk_get_rate(clk);
- 	if (!ddata->clk_rate_hz || ddata->clk_rate_hz > NSEC_PER_SEC)
- 		return dev_err_probe(dev, -EINVAL,
-Cc: Drew Fustini <dfustini@baylibre.com>
+ 	val = pwm_loongson_readl(ddata, LOONGSON_PWM_REG_CTRL);
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>
 -- 
 2.56.0.398.g882cbad275-goog
 
