@@ -1,88 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793851439;
-	b=WpHIFoHn05kL69Hzp1fifxyLiHOPw90UkXcOUWaMGej9lY/vrrvzUcorbusQx7MsN2Jt
-	 MmqDCoJUOB3BXvrOvh5uhAYnIWjcOhVSF6cxWKAC7nquksEUxBMfZK3qR8DjfktO0jssK
-	 1C0D4EnvfT3jWX6b+rmw7mcHA64gZupQNoynDfX2liE28pMJ/9q9LaEmGON6Cbajk/oA0
-	 wCy/uAGerT0pXY/AFg/iPnn2h/VGi6zxuKjGi7UNMcfQZBbpYLHwXM15/JZhaZFK6M3wT
-	 g5efnTynyjPgJz/4mnI+4+znl4fznbhTwKjZd1qKGSC02PNPHwXw5IXojNpcMfNORSA==
+	t=1793851695;
+	b=MYoj5NH3CsgMLSuXLzU85jVDg/kbaYvk/IhIdYV4uvV0s9/bPOo4CiS6l2Sll4WU24jd
+	 Qzx4qZo29IOn4F+A05aZwLDn4IYHmhnuQfsZox8CRSxHrYOyLWNSxVh3uyNAni8qrfcGz
+	 9In2CRhagMELwZFn1IvN2zSBSyD2hEH2BQAY3elL/UEHfBGKEcOfzUB/PjW+a8KWKfCQv
+	 B0GZ7tN6FWxspNIgUBk2Mury4MuIJaPTBxeeL+whfVf6gyJ5egfrYTqUPzXrE+GfmoeOE
+	 YHsNnYa/vlYYUxEll13qoli7vbBKY+kr+GluMUgjIc+StGJxhWErWX7F+CfNVPDnjjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793851439;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=AouVsEJi67JgAtqfY1MqGUWfrdWF3xPqbsbhWzfoN5g=;
-	b=pckF7JW/wErtYueDtdo7IGpIoZ66lTq22uM1m7QCa6Ky0xUujgff+hWD9i17k/jrpxRk
-	 oM9ATePACDevJGWhtKv99AGZSeLUWQyW/oQas4V5AUzOCrRZgmEz39sgG7ekAXzHYO/ug
-	 Kd/ViLTrTci0MFnSR43d6jVkZTEjJqv4h0zgwpLLzT21kNXY3LbvwxkKWPguuhIsvnrEA
-	 SWUl0RSzci95EiolL1MrBwB30u7x2pqDQUPEJDYVsBQ3r76lKL2/8b04M9YqC+CoEoZDC
-	 Se0lKuum8E6FNyf/+A/oH3gIR7oH6FWpcKHOMtNfGJTBlFQPxDxOTnr5x3QCALteWQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793851695;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=7GrZJSLMSTaY7SkaFZ0uijDSfH3F6ZTWMMqOxToPn0s=;
+	b=DZR/Emg1QsNphSRnR3Au44XTRUmIuiPk/Q4f5lzpo/2OBALfljLyDU9hzWIxn7qSMp5/
+	 VEoTrC+rfXGR6kmcmtX/sHMbog5//kvONxxa/Be+WkJSZ9d3Nf5stduDySpUGUHuR2p3A
+	 HMH1zBwqqmfbFuUWNkQPt/zoOCOgHXH0+a8HigAqcKjq99a832VtkAg3iwHKd9VOdJ9Cn
+	 de0YBuRZjrQnJwR4GX1yJOtu2NsQwkVBz6Gxj6JJz1a+4qPxhhZNG68QwWKHhXn6GEDTR
+	 f4PF8FhmHmn9tZuHe8J+wT04zVaYhvtY2ti30PTEyj65CySJdsAletOQkJ63OVDVLEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QMPkghEB;
-	arc=none smtp.remote-ip=209.85.161.52
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=epfnCIBm;
+	arc=none smtp.remote-ip=91.218.175.15
+Received: from mta0.migadu.com (out-15.mta0.migadu.com [91.218.175.15])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E51606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 04:03:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77E51606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588A3606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 04:08:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 588A3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QMPkghEB
-Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-704597ef1d8so622459eaf.3
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 20:03:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793851438; x=1794456238; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AouVsEJi67JgAtqfY1MqGUWfrdWF3xPqbsbhWzfoN5g=;
-        b=QMPkghEBpkt8Ldmg6JQG6mf3EWelpLNaZiMfRPQmB1OmTdTwzKEwWrgEpPw1EK5V1Q
-         lALkIlDp3yiEx2Zr5w2T6vNWiloqic/+yE9gB9h0jhKIagPbIaQNOcroxwWKfyE31Kzq
-         l15Edr2y/vaPBY3/hHJDhLuuI3yFD3oVqEsnVQ5h0LvW2DmxUbT9KCBLSw6HOO+T8N/H
-         5u7ghGm7pG9OaskIazdDFqv4xQUTzig2Ei3o3jsHf1VGrAuIuk8qsVXWou1Ulx7XdbKV
-         kSuqdceAoYxQQ9kZs6iIUFBpCD5BxNz6KqYhGt7FUO7w4GFJUGWueKai4IT5WKXeeA9t
-         ATdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793851438; x=1794456238;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=AouVsEJi67JgAtqfY1MqGUWfrdWF3xPqbsbhWzfoN5g=;
-        b=wfqEoz43d6QEEgDQ2Z+4GzBaAqCulyCbw7swz0MiXKP4RFaeJFKGHb9Ip7M+9nXuHD
-         7NjFEG3/NKT+K6RaVoetOIdgQvdP/IlO7IcWHpakXMUObodQnsEGcZYn6p45j7MwHqSp
-         0HHVlA8vopznVBcUEgtMyuDP4ArPGXNTrKsZZ5zLPtRPlUYyy8gZjaFcRMtC6Q1TgaMb
-         5TZ9hG/C5knaDxiP+kKenJ2ccTyLccY23mWuNPt0UN+SpS5nhi/d2afSMUuylF/EghFf
-         fZ/COkEltQ/2cj/hzQzFVhhvZaJAYfduobylilFdftzyAIfAlzmfW53ITxhk4Sk1HDVo
-         cp/w==
-X-Forwarded-Encrypted: i=1; AKwUvBy6VyPU/aGmhXiDrvGWF3S02L4vqow9Kj/LX/QEesu8sq8TWUBOGGY4ehapzq0bFtDYm+6OMkc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9i7DCn0QQGZg/AKIf+Cv55T56ECxKRj0g6B+pe2FXeJBePyekr
-	FLjfMu+HcXn5i6qg2GCnF5t03FC0028v8mCxFQS9G93Cy9dQ45wNx6L7wkS4Gwgo
-X-Gm-Gg: AYBFou1Y9Xl59tAM82MWKvsgIh6EOMB+Z17w/KeQuENHhI/lU+8UgJQ78kC5ImRjlIQ
-	iYKRycZjYKnOX3KJ09yOJsoD/YW6RXxtu0Od8PMTPsvxl76NlSduT5BlF+xH+fraEh6y53V/mjw
-	XHdAFRAJUXy5vySqfq7ZIHyLmdww82FFnJ1PZ6fCNMAHaEP3CM5cr109ys/k6u2nRUGALBxt5RM
-	pjL6/1KlPlFctLb/0Ym7MiO/cmrtzTUMlPOmYN+6A+0OMvZG8buHx1UzOHft9okg/1pnlfhunzT
-	NNI6PY92rPKLbXL6KxWCGNjoRBH+6Ig8EXJfutpl4QXLnl9bx3UU0iJLT1XrKGD2+8UbHfwXXly
-	VujNWYTtLXvmqBy3GE8Y8xHZeqyTg+SixXYZC+pDVb0mHBhXwKw5zp/Tjy3LVvyOLGTPpnaILX9
-	zy/NHf65GmpsAyp5kycrhX2E6bxLurVFzZkjH+/4cKnvLlxyeCWiJmxAuMV/RWUsUNCD6jAdDgF
-	kaeuV8k+1GD1fW9yDfPfHEE8WiGFhPbtVkymJctRiiSJifh7gITu0zXxJVPvpXPdg4uP4D18S9O
-	nXO8nuy9CGS3xjzLx0PO8UNbxLLm//wv9WUQ+28C3QlXMzv57jmFZ0gkBxC9WMwWGUHKjpSO1U/
-	s0/LbyXg5L7ybrqHl1wxrSvAH91UKIKIGlrdqmf+fqxu0mQXI+9+Y/K2nvz4W5EfvnwtHNhxVRv
-	gZaRJxKFCdnxhwW156X/xDRBqhaGDJPoMAg/c1KnErcEIjPZ8gt6jC0qGnclMyduIXM+KBI/GI
-X-Received: by 2002:a05:6820:560b:b0:700:dac:ba85 with SMTP id 006d021491bc7-714f295ac1cmr6702854eaf.14.1793851438261;
-        Wed, 04 Nov 2026 20:03:58 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-716c12d1f36sm3018997eaf.8.2026.11.04.20.03.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 20:03:57 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 04 Nov 2026 21:03:55 -0700
-Subject: [PATCH] mtd: core: avoid overflow when checking data bounds
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=epfnCIBm
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Alk5PnLb93phS/NG/b1nkAJfppoj1kE8R+vJuoaKDh0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793851691; v=1; x=1794456491;
+ b=epfnCIBmVysud4BWPuiYphnUHipz+x+hK5PFhSK0kbOjAhVRnBUISTQhTNnjqHTu90uAoC3z
+ 2I8LmQPXIfv825QP4NQrjTmuMnduc1ghTn9nyJ8IZZXUiTpq2xdxvImJh1jarrsFsKo3kTTmjAH
+ 6uz59nKYiczWuoihtWQ+CcZI=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ed0532ae4a2af54b;
+	Thu, 05 Nov 2026 04:08:10 +0000
+X-Mizu-Trace-ID: ed0532ae4a2af54b
+X-Migadu-Flow: FLOW_OUT
+From: Qi Zheng <qi.zheng@linux.dev>
+To: muchun.song@linux.dev,
+	osalvador@suse.de,
+	david@kernel.org,
+	akpm@linux-foundation.org,
+	azpijr@gmail.com,
+	lance.yang@linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Qi Zheng <zhengqi.arch@bytedance.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/4] x86: hugetlb: disable default CMA reservations on 32-bit kernel
+Date: Thu,  5 Nov 2026 12:07:43 +0800
+Message-ID: <ece5aebe95f6565046d17ffb738670feb3202943.1793850539.git.zhengqi.arch@bytedance.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <cover.1793850539.git.zhengqi.arch@bytedance.com>
+References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,56 +73,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-submit-mtd-oob-bounds-v1-v1-1-05209fce5a3e@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB0wQ6ulVykuTDJpp2BSMlEK4
- t2b6vIt/t9AOQsr3JsNMq+ikmKFaRtwryk+GcVXA3XUG9NdUBc7S8G5eEzJok1L9IqrQXJXF24
- UaOgHqPknc5DvsX6Mp2v7Zlf+P9j3HzneXbd8AAAA
-X-Change-ID: 20261104-submit-mtd-oob-bounds-v1-2c5cf82f2767
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Boris Brezillon <bbrezillon@kernel.org>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-mtd_check_oob_ops() adds the starting offset to the data length before
-comparing the result with the device size. On 64-bit systems, a request
-with offs == 1 and ops->len == SIZE_MAX wraps that sum to zero and passes
-the range check. The public read and write wrappers can then pass an
-out-of-range request to the driver.
+From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-Validate the starting offset first, then compare the data length with
-the remaining capacity. Preserve NULL-buffer length normalization and
-empty requests at the end of the device.
+A 32-bit x86 kernel can run on a 64-bit-capable CPU advertising GBPAGES.
+arch_hugetlb_cma_order() checks only this feature and returns a nonzero
+order, although gigantic HugeTLB support on x86 requires CONFIG_X86_64.
+Specifying hugetlb_cma= can therefore reserve a CMA area that cannot
+serve the intended gigantic HugeTLB allocations.
 
-Fixes: 5cdd929da53d ("mtd: Add sanity checks in mtd_write/read_oob()")
+On non-PAE kernels, the folded PUD_SHIFT yields a 4 MiB order, which is
+equal to MAX_PAGE_ORDER. With CONFIG_DEBUG_VM enabled, this triggers the
+VM_WARN_ON(order <= MAX_PAGE_ORDER) check in hugetlb_cma_reserve(),
+warning that hugetlb_cma is attempting to reserve a non-gigantic order.
+
+Require CONFIG_X86_64 as well as GBPAGES when selecting the default CMA
+order to avoid these ineffective reservations.
+
+Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
 Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 ---
- drivers/mtd/mtdcore.c | 2 +-
+ arch/x86/mm/hugetlbpage.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
-index 491a27d0315f..dda976ef52c9 100644
---- a/drivers/mtd/mtdcore.c
-+++ b/drivers/mtd/mtdcore.c
-@@ -1670,7 +1670,7 @@ static int mtd_check_oob_ops(struct mtd_info *mtd, loff_t offs,
- 	if (!ops->oobbuf)
- 		ops->ooblen = 0;
+diff --git a/arch/x86/mm/hugetlbpage.c b/arch/x86/mm/hugetlbpage.c
+index 3b26621c91286..70726a99ede7b 100644
+--- a/arch/x86/mm/hugetlbpage.c
++++ b/arch/x86/mm/hugetlbpage.c
+@@ -45,7 +45,7 @@ arch_initcall(gigantic_pages_init);
  
--	if (offs < 0 || offs + ops->len > mtd->size)
-+	if (offs < 0 || offs > mtd->size || ops->len > mtd->size - offs)
- 		return -EINVAL;
+ unsigned int __init arch_hugetlb_cma_order(void)
+ {
+-	if (boot_cpu_has(X86_FEATURE_GBPAGES))
++	if (IS_ENABLED(CONFIG_X86_64) && boot_cpu_has(X86_FEATURE_GBPAGES))
+ 		return PUD_SHIFT - PAGE_SHIFT;
  
- 	if (ops->ooblen) {
-
----
-base-commit: 1c1a342aceec79528b3ba51f376eca2be5928fe7
-change-id: 20261104-submit-mtd-oob-bounds-v1-2c5cf82f2767
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+ 	return 0;
+-- 
+2.54.0
 
