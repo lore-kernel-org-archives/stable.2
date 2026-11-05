@@ -1,60 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844108;
-	b=AFrV0STp1GBA0Lht6HNvGThlr1jEki8ZGTW82OLel5Hzud0csP2YU028Aqh7uUdLYYne
-	 Vm5NANMHGo6YsezDWtIPWhMaaCdF2rS2JUzdF5FeCnXEqFRfkRabexiCVdI6/IH1GCEs6
-	 5HPIdHaEpFdG7ZbJa0sv/d9PZ2K4bN8mF5dipTqMBIfruOC/VKukiBaLOrLnSNRI49hkM
-	 PHW7WWqiv6zu3IgFDyPmWv1z+Z9+4+/UulxPeYfSev/KXVVxtlrK7ttp8yS4zG8CDGnMT
-	 Rgbr+uQp/5NauCBP0x/QlXnSPFArc+QOdpq93yE0adwqGGBxLJ4SkNCAp7m1YrbXxJQ==
+	t=1793844111;
+	b=H0/gJVnqksjPwKIpiH4/LLiKDtF0NFtxWpPJno7CzCSFyj6TFtsdUDGlwZyUvJsF+LxU
+	 Pos2ikBSHD/JDhCCZ6tUsY+GrV7yF40MJoRqSPjTcL0EVOdGk1LE41dhvMQx9sBEJZ9zR
+	 7RAeGkz24Pm7C30AMt/biXHC1n+Zcmqlxiu+IRUzjRz9m4UH1hzOq/YzYdNK1IUpNXwtP
+	 noG4zhC52qUW633epaMJ+Amt1e1iiQSh+x9iGlgX+GlRaaVqnZLkgzuT74Yz1sa9CzQni
+	 z/9YRE4PGrU4svPqXk4of2vbDBOQ3zRtGAtn79355py6IPZYsQQ3wOscQSYT1i+6f5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844108;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844111;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1ojq9RrAXiMzlblGUgI08LqIkABzTJwtkb9euaZ7QYo=;
-	b=ztwUrscGIcMP+YQUmpBcCx+PIXOhlVlqHHG5BTTCWLlMGHOq50eCHj5eRnnI8mq8lAtv
-	 zOyNFLEnaqF4hq32umK/ShT/MI7L6EmUhwEw9nzYoZn5hVn2QcYr7SfLaHOJH2+vi1Zl/
-	 uzCbUXDBzH5GXNq/Vj+YKfaVqMykYEBke6n+KLTBrl6eQkyOWV0PKKLJ11S3O3u4M8LrE
-	 7j3GgAgYTRjJg61PMc1W5Ht2Qi9Vo8GPtFU7ftEYrjzSL/QMNzxDKws7ugcQBd/re3UnI
-	 S3xdD2L+kA6+76gkDf/l1klI+NO/J9qW5zaAKEuKIbrcvxTI/Dr3SK+skgoTchIfZHQ==
+	bh=W+58/eJYAEOdpebyKZhpejKCIvBBjMslhdPrEgFQ83Y=;
+	b=szBhwxnlkbJsu0hT4qhbQ5iFbEesWR5EuGT3fIVDgtSygJlWI/YeclncAAGYlFIaDLGU
+	 Wp2wT8NvVDd+g3HLVk5xF/e8k9VSooKHrjlXYiSSNeP8da4PVUGOAvuoTUYCzghSsbqw0
+	 LP/vzMxR6xCxqL8heK8VMcYJtfH/w1H5fmA5moISTV8zu6h2XKB8rtOFLOG4iUfykVFhp
+	 mVgGobCqJDwvB14cd5StHt9qp96/xbrVes3ptk/j8iwT20B+XCWTGWMCBjlzO2xnIu7m1
+	 GFW+UQNNGlXJWcfIr1YIm9w8dVJGBk5KANoSap86rI3ESnqbM5/We9K4Wpofa3nB5jQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hvhagHAz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mlm4gKtA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6E4606B69B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:01:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8415D606CC09
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:01:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hvhagHAz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1C651F000C1;
-	Thu,  5 Nov 2026 02:01:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mlm4gKtA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7261F000C1;
+	Thu,  5 Nov 2026 02:01:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793844107;
-	bh=1ojq9RrAXiMzlblGUgI08LqIkABzTJwtkb9euaZ7QYo=;
+	s=k20260515; t=1793844111;
+	bh=W+58/eJYAEOdpebyKZhpejKCIvBBjMslhdPrEgFQ83Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hvhagHAzaSxUiLCZCGy/3YlYWXmeNv0AhPTY64fAzf223hEuRyIAhCP/ne++uUmag
-	 DZcJNQwrd4WIpAXCrsOMftOmDmpsL/WFkkqRAy2btUjwHr+I8Vc8ojDFC6/OjBHdAJ
-	 D5jnFjwJ43usQBzVRexSMGUG5+j40R8gQOblc7w8BpOsCgEY+rASA4RfQlYqhy+pda
-	 OG9SVADBu2AExb7FcXjYiXizBPGgKSK7E8H/tzmfTheODu8EOAJbSWSmZcFrQeiUQ0
-	 BaeD1Hbk+06VkLbtXrux5dbMVI5a+Epn7mK+tE16vGGIBpeoj8YaESB4PAFCI400sb
-	 GeZMEyPoGDIjA==
+	b=Mlm4gKtATsG53loqG3aLmlshVkXm57k39Wbff4OdU9fD0Yr2/hGuIWzMzZYuIBQWd
+	 T3MDaxF/oiW1SxhuP57DupRCVkR8srP9ibiIGDafAgSgXkLo2zH8gKG3L0pFIOy+1R
+	 zp7xcmdQVWbvEaw1t6lezrG4CAsQU6In1YBjIk89lA7MDd/CvEx2WYfo/cs9tkexxH
+	 s/fiQQUFPLtvGxJAVRbNfracIK4CTKR/rqG+QNnrrfVxeKne1lezEtGZtYBhAww8cL
+	 mp5zEST3S0DO3G1WprD6dhM4/Xg+0Y9nfjp2UwK8IALhLmJZgt3rA5IDT69QI98B5e
+	 S3/v/Xcl19NgQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ruide Cao <caoruide123@gmail.com>,
-	Kyle Zeng <kylebot@openai.com>,
-	David Lee <david.lee@trailofbits.com>,
-	Vega <vega@nebusec.ai>,
-	Ren Wei <weir@nebusec.ai>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Oleg Keri <okerixx@gmail.com>,
+	Vinod Koul <vkoul@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mptcp: hold MP_JOIN msk ref when cloning reqsk
-Date: Wed,  4 Nov 2026 21:01:45 -0500
-Message-ID: <20261105020043.1033512-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] phy: core: Fix race-condition between _of_phy_get() and try_module_get()
+Date: Wed,  4 Nov 2026 21:01:49 -0500
+Message-ID: <20261105020042.1032242-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110450-skedaddle-wish-523e@gregkh>
-References: <2026110450-skedaddle-wish-523e@gregkh>
+In-Reply-To: <2026110412-deskbound-splashy-7b2b@gregkh>
+References: <2026110412-deskbound-splashy-7b2b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,195 +64,181 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ruide Cao <caoruide123@gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-[ Upstream commit c9c90cf437a9e6597611b6d3aad6e255fad22867 ]
+[ Upstream commit 090055ee629523092688da42428558ba56d4272f ]
 
-TCP request migration clones pending request sockets with
-inet_reqsk_clone().  For MPTCP MP_JOIN requests this byte-copies
-subflow_req->msk, but the clone does not own a reference.
+Sashiko asked during a patch review if the existing usage pattern had a
+race condition; specifically in of_phy_get() if it was possible between
+returning from _of_phy_get() and running try_module_get() that a module
+might be unbound leading to use-after-free.
 
-The original and cloned requests can consequently drop the same msk
-reference, leaving one request with a dangling pointer.  This manifests as
-a KASAN slab-use-after-free in subflow_req_destructor():
+Looking at the code this appears to be so, there is no linkage between the
+phy and module under a synchronisation primitive.
 
-  BUG: KASAN: slab-use-after-free in subflow_req_destructor (net/mptcp/subflow.c:45)
-  Write of size 4 at addr ff1100010e008d40 by task swapper/0/0
-  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-rc5-00353-gc27e36054537 #10 PREEMPT(full)
+Using the phy_provider_mutex in phy_get() will ensure there is a link between
+the returned phy pointer and the module_get() bumping the module reference
+count.
 
-  Call Trace:
-   subflow_req_destructor (net/mptcp/subflow.c:45)
-   subflow_v4_req_destructor (net/mptcp/subflow.c:694)
-   __reqsk_free (net/ipv4/inet_connection_sock.c:906)
-   reqsk_timer_handler (include/net/request_sock.h:137 net/ipv4/inet_connection_sock.c:1147)
+Amend phy_get(), of_phy_get() and devm_of_phy_get_by_index() to fix the
+same usage pattern.
 
-  Allocated by task 10014:
-   sk_prot_alloc (net/core/sock.c:2246)
-   sk_clone (net/core/sock.c:2488)
-   mptcp_sk_clone_init (include/net/sock.h:1848 net/mptcp/protocol.c:3564)
-   subflow_syn_recv_sock (net/mptcp/subflow.c:883)
-   tcp_check_req (net/ipv4/tcp_minisocks.c:934)
+phy_provider_unregister() must take the phy_provider_mutex so amending
+phy_get()/of_phy_get() to take that same mutex guarantees there is no
+use-after-free.
 
-  Freed by task 0:
-   slab_free_after_rcu_debug (include/linux/kasan.h:235 mm/slub.c:2677 mm/slub.c:6439)
-   rcu_core (kernel/rcu/tree.c:2645 kernel/rcu/tree.c:2897)
-
-  Last potentially related work creation:
-   kmem_cache_free (mm/slub.c:2638 mm/slub.c:6377 mm/slub.c:6504)
-   __sk_destruct (net/core/sock.c:2289 net/core/sock.c:2391)
-   sk_destruct (net/core/sock.c:2419)
-   __sk_free (net/core/sock.c:2430)
-   sk_free (net/core/sock.c:2441)
-   mptcp_close (include/net/sock.h:2020 net/mptcp/protocol.c:3399)
-   inet_release (net/ipv4/af_inet.c:442)
-
-  The buggy address belongs to the cache MPTCP of size 2968
-  The buggy address is 128 bytes inside a freed 2968-byte region
-
-A non-NULL subflow_req->msk means that the request owns one reference. The
-third ACK can concurrently transfer the original request reference to the
-child and release it, so taking an unconditional hold on the copied pointer
-is unsafe.
-
-MPTCP sockets use SLAB_TYPESAFE_BY_RCU and all current inet_reqsk_clone()
-callers run in an RCU read-side critical section. Document and
-lockdep-check that calling-context requirement.  Read the pointer from the
-original request and acquire a reference only if it is still live.  Use
-refcount_inc_not_zero_acquire() so the subsequent ownership validation
-cannot be reordered before the try-get, then re-read the original request
-to verify that it still owns the same msk. If either check fails, clear the
-clone pointer; otherwise its normal destructor balances the new reference.
-Mark the ownership-transfer store with WRITE_ONCE() to match the lockless
-reads.
-
-The following patch completes the clone fixup for MP_CAPABLE token
-ownership. Both patches carry the same Fixes tag and are required for
-stable backports.
-
-Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
+Fixes: ff764963479a1 ("drivers: phy: add generic PHY framework")
 Cc: stable@vger.kernel.org
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Reported-by: David Lee <david.lee@trailofbits.com>
-Reported-by: Vega <vega@nebusec.ai>
-Closes: https://lore.kernel.org/all/20260804095051.715355-1-david.lee@trailofbits.com/
-Signed-off-by: Ruide Cao <caoruide123@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-3-932c9b182fc7@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Replaced refcount_inc_not_zero_acquire() with refcount_inc_not_zero() followed by smp_acquire__after_ctrl_dep() on success. ]
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Tested-by: Oleg Keri <okerixx@gmail.com> # Lenovo Yoga Slim 7x Gen 11 (Glymur)
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Link: https://patch.msgid.link/20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-1-dc244e124e71@linaro.org
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
+[ sashal: Placed mutex acquisition after the existing NULL-name rejection in phy_get(), preserving its direct error return. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/mptcp.h             |  9 ++++++++
- net/ipv4/inet_connection_sock.c |  4 ++++
- net/mptcp/subflow.c             | 38 ++++++++++++++++++++++++++++++++-
- 3 files changed, 50 insertions(+), 1 deletion(-)
+ drivers/phy/phy-core.c | 42 ++++++++++++++++++++++++++++--------------
+ 1 file changed, 28 insertions(+), 14 deletions(-)
 
-diff --git a/include/net/mptcp.h b/include/net/mptcp.h
-index fb996124b3d5c..1378a9dccd8fc 100644
---- a/include/net/mptcp.h
-+++ b/include/net/mptcp.h
-@@ -210,6 +210,9 @@ int mptcp_subflow_init_cookie_req(struct request_sock *req,
- struct request_sock *mptcp_subflow_reqsk_alloc(const struct request_sock_ops *ops,
- 					       struct sock *sk_listener,
- 					       bool attach_listener);
-+/* Caller must hold an RCU read-side lock. */
-+void mptcp_subflow_reqsk_clone(struct request_sock *req,
-+			       struct request_sock *new_req);
+diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
+index dac0f7f4f3d3d..5bd96f11bb467 100644
+--- a/drivers/phy/phy-core.c
++++ b/drivers/phy/phy-core.c
+@@ -117,13 +117,13 @@ static struct phy *phy_find(struct device *dev, const char *con_id)
+ 	const char *dev_id = dev_name(dev);
+ 	struct phy_lookup *p, *pl = NULL;
  
- __be32 mptcp_get_reset_option(const struct sk_buff *skb);
- 
-@@ -303,6 +306,12 @@ static inline struct request_sock *mptcp_subflow_reqsk_alloc(const struct reques
- 	return NULL;
- }
- 
-+/* Caller must hold an RCU read-side lock. */
-+static inline void mptcp_subflow_reqsk_clone(struct request_sock *req,
-+					     struct request_sock *new_req)
-+{
-+}
+-	mutex_lock(&phy_provider_mutex);
++	lockdep_assert_held(&phy_provider_mutex);
 +
- static inline __be32 mptcp_reset_option(const struct sk_buff *skb)  { return htonl(0u); }
- #endif /* CONFIG_MPTCP */
+ 	list_for_each_entry(p, &phys, node)
+ 		if (!strcmp(p->dev_id, dev_id) && !strcmp(p->con_id, con_id)) {
+ 			pl = p;
+ 			break;
+ 		}
+-	mutex_unlock(&phy_provider_mutex);
  
-diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index af4c46d841a7f..e92412056b4f1 100644
---- a/net/ipv4/inet_connection_sock.c
-+++ b/net/ipv4/inet_connection_sock.c
-@@ -20,6 +20,7 @@
- #include <net/tcp_states.h>
- #include <net/xfrm.h>
- #include <net/tcp.h>
-+#include <net/mptcp.h>
- #include <net/sock_reuseport.h>
- #include <net/addrconf.h>
+ 	return pl ? pl->phy : ERR_PTR(-ENODEV);
+ }
+@@ -504,6 +504,8 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
+ 	struct phy *phy = NULL;
+ 	struct of_phandle_args args;
  
-@@ -948,6 +949,9 @@ static struct request_sock *inet_reqsk_clone(struct request_sock *req,
- 		rcu_assign_pointer(tcp_sk(nreq->sk)->fastopen_rsk, nreq);
++	lockdep_assert_held(&phy_provider_mutex);
++
+ 	ret = of_parse_phandle_with_args(np, "phys", "#phy-cells",
+ 		index, &args);
+ 	if (ret)
+@@ -515,11 +517,10 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
+ 		goto out_put_node;
  	}
  
-+	if (rsk_is_mptcp(req))
-+		mptcp_subflow_reqsk_clone(req, nreq);
-+
- 	return nreq;
- }
+-	mutex_lock(&phy_provider_mutex);
+ 	phy_provider = of_phy_provider_lookup(args.np);
+ 	if (IS_ERR(phy_provider) || !try_module_get(phy_provider->owner)) {
+ 		phy = ERR_PTR(-EPROBE_DEFER);
+-		goto out_unlock;
++		goto out_put_node;
+ 	}
  
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index 8fd3a0328cd23..ac278fca2f9a2 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -48,6 +48,42 @@ static void subflow_req_destructor(struct request_sock *req)
- 	mptcp_token_destroy_request(req);
- }
+ 	if (!of_device_is_available(args.np)) {
+@@ -533,8 +534,6 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
+ out_put_module:
+ 	module_put(phy_provider->owner);
  
-+void mptcp_subflow_reqsk_clone(struct request_sock *req,
-+			       struct request_sock *new_req)
-+{
-+	struct mptcp_subflow_request_sock *subflow_req = mptcp_subflow_rsk(req);
-+	struct mptcp_subflow_request_sock *new_subflow_req;
-+	struct mptcp_sock *msk;
+-out_unlock:
+-	mutex_unlock(&phy_provider_mutex);
+ out_put_node:
+ 	of_node_put(args.np);
+ 
+@@ -558,15 +557,21 @@ struct phy *of_phy_get(struct device_node *np, const char *con_id)
+ 	if (con_id)
+ 		index = of_property_match_string(np, "phy-names", con_id);
+ 
++	mutex_lock(&phy_provider_mutex);
 +
-+	new_subflow_req = mptcp_subflow_rsk(new_req);
-+	RCU_LOCKDEP_WARN(!rcu_read_lock_any_held(),
-+			 "MPTCP reqsk clone called without RCU");
-+
-+	/* A non-NULL ->msk means the request owns one reference.  The clone
-+	 * copied only the pointer, while the original request can concurrently
-+	 * transfer its reference to the child.  Acquire a reference for the
-+	 * clone, then verify that the original request still owns the same msk.
-+	 * MPTCP sockets use SLAB_TYPESAFE_BY_RCU and all clone callers run in
-+	 * an RCU read-side critical section, keeping the memory stable here.
-+	 */
-+	msk = READ_ONCE(subflow_req->msk);
-+	if (msk) {
-+		struct sock *sk = (struct sock *)msk;
-+
-+		if (!refcount_inc_not_zero(&sk->sk_refcnt)) {
-+			msk = NULL;
-+		} else {
-+			smp_acquire__after_ctrl_dep();
-+			if (READ_ONCE(subflow_req->msk) != msk) {
-+				sock_put(sk);
-+				msk = NULL;
-+			}
-+		}
+ 	phy = _of_phy_get(np, index);
+ 	if (IS_ERR(phy))
+-		return phy;
++		goto out_unlock;
+ 
+-	if (!try_module_get(phy->ops->owner))
+-		return ERR_PTR(-EPROBE_DEFER);
++	if (!try_module_get(phy->ops->owner)) {
++		phy = ERR_PTR(-EPROBE_DEFER);
++		goto out_unlock;
 +	}
-+
-+	new_subflow_req->msk = msk;
-+}
-+
- static void subflow_generate_hmac(u64 key1, u64 key2, u32 nonce1, u32 nonce2,
- 				  void *hmac)
- {
-@@ -901,7 +937,7 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
- 			}
  
- 			/* move the msk reference ownership to the subflow */
--			subflow_req->msk = NULL;
-+			WRITE_ONCE(subflow_req->msk, NULL);
- 			ctx->conn = (struct sock *)owner;
+ 	get_device(&phy->dev);
  
- 			if (subflow_use_different_sport(owner, sk)) {
++out_unlock:
++	mutex_unlock(&phy_provider_mutex);
+ 	return phy;
+ }
+ EXPORT_SYMBOL_GPL(of_phy_get);
+@@ -678,6 +683,7 @@ struct phy *phy_get(struct device *dev, const char *string)
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
++	mutex_lock(&phy_provider_mutex);
+ 	if (dev->of_node) {
+ 		index = of_property_match_string(dev->of_node, "phy-names",
+ 			string);
+@@ -686,10 +692,12 @@ struct phy *phy_get(struct device *dev, const char *string)
+ 		phy = phy_find(dev, string);
+ 	}
+ 	if (IS_ERR(phy))
+-		return phy;
++		goto out_unlock;
+ 
+-	if (!try_module_get(phy->ops->owner))
+-		return ERR_PTR(-EPROBE_DEFER);
++	if (!try_module_get(phy->ops->owner)) {
++		phy = ERR_PTR(-EPROBE_DEFER);
++		goto out_unlock;
++	}
+ 
+ 	get_device(&phy->dev);
+ 
+@@ -698,6 +706,8 @@ struct phy *phy_get(struct device *dev, const char *string)
+ 		dev_dbg(dev, "failed to create device link to %s\n",
+ 			dev_name(phy->dev.parent));
+ 
++out_unlock:
++	mutex_unlock(&phy_provider_mutex);
+ 	return phy;
+ }
+ EXPORT_SYMBOL_GPL(phy_get);
+@@ -837,15 +847,17 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+ 	if (!ptr)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	mutex_lock(&phy_provider_mutex);
+ 	phy = _of_phy_get(np, index);
+ 	if (IS_ERR(phy)) {
+ 		devres_free(ptr);
+-		return phy;
++		goto out_unlock;
+ 	}
+ 
+ 	if (!try_module_get(phy->ops->owner)) {
+ 		devres_free(ptr);
+-		return ERR_PTR(-EPROBE_DEFER);
++		phy = ERR_PTR(-EPROBE_DEFER);
++		goto out_unlock;
+ 	}
+ 
+ 	get_device(&phy->dev);
+@@ -858,6 +870,8 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+ 		dev_dbg(dev, "failed to create device link to %s\n",
+ 			dev_name(phy->dev.parent));
+ 
++out_unlock:
++	mutex_unlock(&phy_provider_mutex);
+ 	return phy;
+ }
+ EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
 -- 
 2.53.0
 
