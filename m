@@ -1,92 +1,145 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793852974;
-	b=C5MDSvtC/9905mTL/pkLjJ4oc3UKNhsvjNaGUxN4YXsi9QS7nDxTXfn/0FQ2KeVwcn5I
-	 +bzgBOR1pmNAe8+839U/4gsovfTMOPvNPb5hv/9cse3FSS4D1zvdO7hQ4JvGf5NG17O/z
-	 +FvUTXmpvKuGuBxm2qOiH9GAaOb1pP1daTOwbJpimJ30CdCyUpqFyBw0iodoPmBiyQq+G
-	 ZxBwyMKtXBhIRId/TDksOuqczBssY57Jz5FKCBtHGwFe+crRqSiWBEge0A08vgm1kxZ3H
-	 19i0b1oNkWWUaEDNVnyyRbzjmFZ0hydIJb+ZVMvMskn3NhkrzEIRN6401eZE5rJ/2BQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793852974;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1Q2IGNun9HG9qNSOHoCJ4AG7heKs5L51Qrg6JixMLi0=;
-	b=4NfP6J8NOFo80OpFQXeTJck8ZZCZRu7FzczcoF6PB2P5BXrj6MxD6bF9h7YD3z0Hc+1Y
-	 XfpfX8BA5DKoPqL9qvxP61+dXH62MXox44R7NnvLVI17/8IlZt/Ok7JeoCzKUlIM/VfBN
-	 ymu+Npj+bVir02gg3wWUFJxcHNF5PVHpx+np6BfHM2Z4b9OxoHqc+lHB0S1HyTRJQ0m8U
-	 1jTBiLSJReJE4bg6PS8QFxxLSIXuBtH0ezNb+6vVCJjlbTnb/VCRFJn6uO4mM2BNMQ5wE
-	 Dp/SJqqT8bhRQJoJqQZTD6HWn2Ci6qwBTq1yjdMcNprxDL53uldCeMIZBlYJTMxM52A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="vWWzuw/G";
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.116
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793853001;
+	b=TzOgvDYnDodK98XHQOV6WAHC9CSiXNWIRcXkyWEFBSe1ISczobPStpPeyZno3/tUHjvw
+	 c2eoSsVNsDQ6SP9ZQw7BilcGmfdVC5nYWVPlr2RswCIc+3sjajUuYX+nhBYetJk28LAzx
+	 y5ETPT79+CyIk3ACWihmYj4xF1EhPIWsFWtqxO51r9PgqOFqPsivulNHbxAjXAKpGcha/
+	 N15HobiPgarJc0NdBtzelOIhqNuc8Xrz90C3RS2GdNMHWOscTlxU3IpnMl+ZfFR276irN
+	 Hey7V/2kcxezCSVEPF4cCV6tx0rK6dAjK/6wmlWQqHSUK+55UWIwD6arPM3MKvcmEoQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793853001;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=HORLSkz38vOQbrJ3gped6jMd3y7mELXX/aOGM9YYTNM=;
+	b=OKOZKTZ2EBj3P8zwT8exTfJdhn5evJgSeHP6AI8VqBIYYJmoDExGzQ6dIRpbZA/kT+iI
+	 R6BXcPugrZlSV8spjsmUXwwVYMJFQqT9f9yrvGH+ebvNqGc2F15kkBxYn2PWvCU0y0ljp
+	 srpbu8y5tWv8FmrlfRJeRr9Mx9X6ytotVVDRKYptEs6omLcfZeBXWI1ypgqeXnu8sL1Us
+	 FitQWHD9e8w6UfLdzB3XftmdGXpCLsMJqydGmqU5mR95wTcNLbZLwSIzsPd5iqJurs+h5
+	 GJbAWdZrfyTSBOMzCPKByZIyfANQB3OM4NvTZIVunAQfJaqIsONNiDsfoWVO8P/zJ0g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=kuleuven.be;
+	spf=pass smtp.mailfrom=kuleuven.be;
+	dkim=pass header.d=kuleuven.be header.i=@kuleuven.be header.a=rsa-sha256 header.s=selector1 header.b=dzE1NNLR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.116
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11021116.outbound.protection.outlook.com [52.101.70.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18834606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 04:29:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18834606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32DC4606A33F
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 04:30:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32DC4606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kuleuven.be
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kuleuven.be
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vWWzuw/G
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1abaaf33a56so38757c88.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 20:29:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793852973; x=1794457773; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1Q2IGNun9HG9qNSOHoCJ4AG7heKs5L51Qrg6JixMLi0=;
-        b=vWWzuw/GacEXC6rPvKdZzeklFeJrllOHFOIbblqO4oQeWluT7G5iN/CoutV20rXhEb
-         lnOsMpsqK4t/PknL0InAsiMdShvb5NdQ6LEUwHicMFZ+zkLYj/LlTV4jA0MPu7Suk5UQ
-         8OvZX2j48Pduv5LdYxbwr+sX+t49cYqwyyBKKqZPuEfUh4zbve615rgXTeQ1BzdTKRdC
-         UvTOal4RLUNzD7UeLtfu+/cjFJUxpHOI5tyqBWnFxsoTNDhJQQDsIpANGCO7h9pAYzCs
-         8MJdfcAzLpC9q6kVBjOaiNHb1IpinyYVTVQMm6V7YKSc0h1+Qt6rUiB3kvVBrH1il+Ta
-         jf6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793852973; x=1794457773;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1Q2IGNun9HG9qNSOHoCJ4AG7heKs5L51Qrg6JixMLi0=;
-        b=oNqPJmUrTxYbN++yeiYkktdK9U12NGT9ydwZMy/K4UeuWiA8mK5NCPyG0hgThKsBVG
-         QgygYnK1uUWUw8xL3ObFIUadkoaG68rXctf8bEhdZzGV8vxK1SoGQcMXyu6iC6PTMaz7
-         50yJ8dwHLQuyxYJvRz9pG4iwG8Ho+yxraCCMpmbVVAW7nuQS7WB/7GZZge3ufv4tBMc0
-         1LKte7hxqL9WhvtbLRtCGEAWJ6AymAVB4z8EshxvPzG3egYKXIc1HG3hqZvSGv5BFkQb
-         zIDXCKRyhstej86je6TOciY9O7+90KrfEcKkJsw/jY8vIciGAd0Yi4+2as/Odk6rddbB
-         dctg==
-X-Forwarded-Encrypted: i=1; AKwUvBwksG1j+WvxR1t9x+cizmZGiEzUw8CWEMzrhHL3QPgXiU5bNJff7vgRoUidphjq9TjGEpBR/ss=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9y9ycUKQfmch/kwMnvI9rcLC+1xdvFZ+Xu4JfFy5jTvjBwBRu6
-	VqJeQa9E9bJbHgZUWw7cfwJ3xe7s61EPDyNnB25xjGz6MGVP9BEGwNaA
-X-Gm-Gg: AYBFou3csbDqRMsXk9oiEhfPzgrE6e5zyH0vYwbyb1JAATpTdGClHgzMHQ2NIgFgnV9
-	jENQISkcCGN6RBUeh0cUW0BIwBfscKnD0Ng/euWGm4haaw12XaOO8+a4xJcNfTA7rNlhaK764ba
-	QC9RgtL/k9Q+IFEe8MPISajV/XhSEKlpwZyC4/zdQMD8K+c51QJ5FCXXpzLxCWUcn4F+AVEGhgJ
-	tpXbTvZvvzjZ+cmJ1M8aP5KCG1F1nMbMKxR3HFx9am6viiSat2l++vBYtwNl3Bi6o6YH3EWdvHj
-	IgFanR/7i9snJFp8aFj9T8CxJDHef9eSY30G3056pu/tRBMPHfUOiXqdpesY7kzdw92oXqvG/Bd
-	nOmwosgI+8L2TY456X4YWdDN4rVY17Swt5Tz3NPc/n1j2cGumfBEzUOzbpZUPSU+FOCd0iGHy1Z
-	bVySsoHbmsrwUMP84dmmoJ+rQ73Llsx8wto0CpSjYwvk297XeU9ZPaYHlsvt0UADd+wmxK1cfzZ
-	9gzy5TCGV0XQptSPVmaVETJrtoyO0yErJaCL3x7m0AfgEx6BsfUxiBLT42Ecsm8X5j00Hl6QCtc
-	aZZu/YlnmBY6Sih9ueYOEX1vhkck5DhnlO1pHbwnsQ==
-X-Received: by 2002:a05:701b:2302:b0:183:d275:cf76 with SMTP id a92af1059eb24-1ac59dd0e2emr37777545c88.2.1793852972948;
-        Wed, 04 Nov 2026 20:29:32 -0800 (PST)
-Received: from CRASHEDROM.localdomain ([142.249.36.161])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c4f83fsm18403998c88.17.2026.11.04.20.29.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 20:29:32 -0800 (PST)
-From: Chengyu Liu <lui2012qwq@gmail.com>
-To: leon@kernel.org
-Cc: jgg@ziepe.ca,
-	linux-rdma@vger.kernel.org,
-	stable@vger.kernel.org,
-	Chengyu Liu <lui2012qwq@gmail.com>
-Subject: [PATCH v3] RDMA/ipoib: cancel the AH reaper synchronously on teardown
-Date: Thu,  5 Nov 2026 12:29:22 +0800
-Message-Id: <20261105042922.14733-1-lui2012qwq@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key, unprotected) header.d=kuleuven.be header.i=@kuleuven.be header.a=rsa-sha256 header.s=selector1 header.b=dzE1NNLR
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HTGQWPtsiNN4f9ZwdCqFd9dGSlqYfq7JWjfosCbOsvSSshbLWaCLgPEVMVd9g4RuwzqhjCa/xZoO5WJ219G83Kp3NS/lUwQAUHOCESK1Xd7LY5xWAK0Ed8iXW4lmjtWmx2ADioPg7pnvGysOm5JD2yhIFADBnsywfwOvEhZtlvVLs7ffscUZwfV8llVC5lhskW+5SxWTE10GogsAjavn5wASxlNm6E4EbBjUpUmL1NerdDQIe/SLQ19YTlEcTQ2O/v8RgfWv8Jl689iv5NSXa+3LJYQ1fgYtjrnqxLprR5KcS8qg5GDJkePzLRef2yJ8Szl/FlptxWfAXfZkK+yXoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HORLSkz38vOQbrJ3gped6jMd3y7mELXX/aOGM9YYTNM=;
+ b=OIbQASwi8YOwBPA6hnin4m5WcUfyi+Zu6cAL9vZIfigzbm6qWHvyfSgRbVsnsfiwdlQWsmCjQ5qPutvDJWi/laPornF42hQDhMlo95DtZYXR1ttpzSTOKM09GHJ47m9R+bGNUl961u36eQsZhQDe64TC9fc2zTQOWL/dBXz6N5zEH5na5qy/ZDKEd9JZEXEtaDdPmS8gdAMpdmpsG52IRSNdoNWnoYR/bNgBaT4P6cmSIqF823UloDnk4tnOC1sRrcWZLjZuhEkytz8hbp1qlp/jG7xGOUNK9GsTgfb0VLcBy5HB9kICkxwxy9ELRmLxF7Bl6q4tl5X8uKLl94d7Ag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=kuleuven.be; dmarc=pass action=none header.from=kuleuven.be;
+ dkim=pass header.d=kuleuven.be; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kuleuven.be;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HORLSkz38vOQbrJ3gped6jMd3y7mELXX/aOGM9YYTNM=;
+ b=dzE1NNLRfLGk5o8xESFhxFOHFqIvJb02YDTRexJtF3M/lcsP+G0nMAn3c4FyTX2A7obC0X7uhVWoyHwrGUp8e91TsapGDvOT5pAFBjTV9bmOQt/N8N44QehoWRpXMov8erWM4TJ4ryS4eW6/jndyOQ5sJqmapPz41k+xQWxMK1M=
+Received: from DB5PR08MB10062.eurprd08.prod.outlook.com (2603:10a6:10:48f::10)
+ by AS1PR08MB7610.eurprd08.prod.outlook.com (2603:10a6:20b:475::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Thu, 5 Nov 2026
+ 04:29:58 +0000
+Received: from DB5PR08MB10062.eurprd08.prod.outlook.com
+ ([fe80::cd17:89dc:ddbb:2f38]) by DB5PR08MB10062.eurprd08.prod.outlook.com
+ ([fe80::cd17:89dc:ddbb:2f38%3]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 04:29:57 +0000
+From: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"linkinjeon@kernel.org" <linkinjeon@kernel.org>, Paulo Alcantara
+	<pc@manguebit.org>
+CC: "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: Fixed Backport:FAILED: patch "[PATCH] ksmbd: validate security
+ descriptor offsets before pointer" failed to apply to 5.15-stable tree
+Thread-Topic: Fixed Backport:FAILED: patch "[PATCH] ksmbd: validate security
+ descriptor offsets before pointer" failed to apply to 5.15-stable tree
+Thread-Index: AQHda3z+nnaxK4zPX0KhLuldbS1oBLcdQP4OgAGj09U=
+Date: Thu, 5 Nov 2026 04:29:57 +0000
+Message-ID:
+ <DB5PR08MB1006256D47F5978B53488262FFD772@DB5PR08MB10062.eurprd08.prod.outlook.com>
+References: <2026110319-apple-willow-5e9e@gregkh>
+ <DB5PR08MB10062A51C82290EEE2CE45203FD682@DB5PR08MB10062.eurprd08.prod.outlook.com>
+In-Reply-To:
+ <DB5PR08MB10062A51C82290EEE2CE45203FD682@DB5PR08MB10062.eurprd08.prod.outlook.com>
+Accept-Language: en-BE, en-US
+Content-Language: aa
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=kuleuven.be;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB5PR08MB10062:EE_|AS1PR08MB7610:EE_
+x-ms-office365-filtering-correlation-id: 99debba8-40dc-4377-10b0-08df3af572eb
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|10070799003|376014|23010399003|786006|366016|1800799024|10067099003|18002099003|22082099003|38070700021|11063799006|56012099006|4143699003|261028144727099003|261102123227099003|261022105027099003|261026140227099003|261026121527099003|261021123027099003|261021121427099003|261009223027099003;
+x-microsoft-antispam-message-info:
+ Hji/Burbf+R0HBLMC6Vz0ksEvXy+JgJrSu1Lg+p5Z2mTNRLpi/6zlVCz2I6reE5QV1zat2Ps33R7TUvc7aV5M3Vuxpnh3Rsj/MMPg1aAG+2SnOw4BMmP/jPefZy7crdg1W4CVolW7HzSV9Stdb0T2nsatujtpA70quD190Ct7pAmx1A+ukEwGwmQ7PTk9yEo0BeFzUUIlCRPwDAIO70CHaqlF67Z7+mwuIp4i5ViVmWWKYbhp0A9SjezETeFTavvLAwtCAhSV0ZnifKgFUwGkFFU33+mBSXY3rutWUJ4wUgwIa0TQg/tXMqlOCfKp9yBigA+ktE5WGjsade9p0IMhfR3ovTP3KZAnrzKmvWf04vTMqRWFqd0EPrnTG+3AR8ixuU3+4bcel0sLDFpvFOqSGVZMxyQDetBEdJZbS+GV2PETj7Pf27zzBK3AF4pXu528LnBtbuspTXNeWXPrE/s64l6Z7YcNiSvCHz+j98g38tsaqc7SYUstR1X39C/2TPtQbGNgJeX++CCHZYPQUYCSuGbaQoTXA6HhhejkIVTMakL5uuM27Pmzoz9Jx2Jh6cyeHi4jYWblSImgfOCuustSF+eJl2PAP6+ZKp/haDky8hE8L8oabDf67h2Zne6gBOV71ohTbjWojerR2RtpzOfj2dy32iPue/OfYwuhVkMu7eB2CGipPxwT+hUjF7euv9yDKAEOJYVc5RDN9Xrb731XE4vi01qQJLqon8BYXfzgoQ=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB5PR08MB10062.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(23010399003)(786006)(366016)(1800799024)(10067099003)(18002099003)(22082099003)(38070700021)(11063799006)(56012099006)(4143699003)(261028144727099003)(261102123227099003)(261022105027099003)(261026140227099003)(261026121527099003)(261021123027099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?N1ZxBPL4iCkBq+HahChzHdgJ1DDY2Uv9jX9miERVpQ4ArhjsFJO/dg494MVJ?=
+ =?us-ascii?Q?WOFLyRuT1op48LlkOj8rzOKKyOGc6G3fu4PgfMq48cLB+/W+RFRszhTbAoLE?=
+ =?us-ascii?Q?E/prM2mXcNHDbysEfhtRw7oMdbTVzS0AZmAfFaJLb6VblsONUD3NhIBzyCaW?=
+ =?us-ascii?Q?lvtONoEUtjT000Drr9O6kc6jn7Q/yYLPkCu4jVlB46GzWqDA/D+XmVBkVZbS?=
+ =?us-ascii?Q?No9YkfYwyY1upitbtCr+ROV1RQC3eSNeukeDAuYfqp/qPweYm3mwwtuOdUk4?=
+ =?us-ascii?Q?bgxrXnbvZVUrKAAEXlQEzTnmYlkSpG9Mi3jCdne35nj3u1Udn2nJSgeLD1YR?=
+ =?us-ascii?Q?YODdt0ipJoB/v0FUoklakHspYE2r4Ob+PklzoST1/69r/kAAS2tdwx2upMYr?=
+ =?us-ascii?Q?G/KBknKjtm493RsXW12yYNxkKtG03YQEuGRxmNmn/0eq+Tr/DfnAkDHCYIuj?=
+ =?us-ascii?Q?IhJisSeITLKaMUaoaDdYiAkaZlbOAGLxGsDPCrQi0U6n5L6NkbavfZ/XeUMO?=
+ =?us-ascii?Q?JUNTALLkSsEP3Wzfq7352fmMFMUtt15D6YC8OQ+dlRS40aKfmOF0B7YgTHpm?=
+ =?us-ascii?Q?dFUCNWu2Lb+DQvDU2JlSWQe/G/98Py5mR8qWMpTz9Z9KeJAFv7p1gOzwt4X+?=
+ =?us-ascii?Q?YyCbvpYoVnkCmF+X6BVA93E3hg4CUjvhIausgTYfGfZEXQtSYdpjJaObJbk/?=
+ =?us-ascii?Q?kVNg+T3gz1Oj+pvaRotKtvqDPQ6itOZodRRiDXFnPBxTKFyqXtNpRoZ0DUBh?=
+ =?us-ascii?Q?jLA7LFAD7j8K3Qcrogb1AEYgFiP7XfIH5gyUGsmfFHYOUd2yni/s0yIBHGHX?=
+ =?us-ascii?Q?KlZh12oTRSm9FC9hLiBBtz1OdFqm4d8IwZBYoO1yOzxS22mBYPUBlKC8tsNj?=
+ =?us-ascii?Q?Na5kZ5DL9vDZJVeRcduAC3zNQU25IMDa+HqPR5ZvVnzFx/FhaO1O3Q7T7vv7?=
+ =?us-ascii?Q?J3yBNxiK1v/FZvYZM+VEwrYSqsvu3L99qyjHEkIns3+3VeB8UECMwLY7OYYV?=
+ =?us-ascii?Q?aPZLyuUQmUNUjyeQxYOvleEDKODHqUjvxdrj7T8feHSCr/Vz+zjcoAYmF04g?=
+ =?us-ascii?Q?0ROp0O4bUIaoVMQ+iG1Eh0yulKuYsKgcV7oYaY6RFJ3rx8Kb6oGF0x75c9q8?=
+ =?us-ascii?Q?tBT6ht/qH1ty2awAPqZwD/5FRyvswlbIBRQcBPwJhgD1uZfgBRRC/q+89ZbH?=
+ =?us-ascii?Q?BTDfQMMcOfRcd/hS1VfIIMjw0SUxOFm6PS0jR/ihhFp+WJE0lW7wW4ObItfu?=
+ =?us-ascii?Q?lxzVGkS91/ytegRBQsQLix+VN6AtfjrrsoEcCyB+eLaaEEG6Nt6K8sYoXraz?=
+ =?us-ascii?Q?3SxKpg5RZ/8YqboosIn54d5zFfVWzYwXgQFA2gJpVkwg3SGtMhv6rdBx/NcN?=
+ =?us-ascii?Q?ICWgeWroEBkTeghRE6GkasTbHYfaTSq174JkBnMbqvy3dhI6Y6iHhsCRyAYp?=
+ =?us-ascii?Q?rWWYMD++no+6qTFDhB1e9g03oPllWjdwWz+ybrZg6iKTnEudB2eXSwJew01h?=
+ =?us-ascii?Q?qfTQlrqPMfT5EVcKGKLYNjsrdURwXG2KA/Urq31c7fjsbx+WAVNnqzlllPqL?=
+ =?us-ascii?Q?isFG3Br3VQbwcayGpgMeqNgJBOlayHsccYiDe1WmTkMPkiGqD22oYc43sgr+?=
+ =?us-ascii?Q?1Wl91poAsYNxkr54SNhi/XSjmqE9v0nQeQKX7RquvRc/qqTFFI2cvonMzAXs?=
+ =?us-ascii?Q?AjpnWl93pb+SXlUgFIGauGlguA+AlinBK5dN98+gv9CiCfotpRh1267itVG6?=
+ =?us-ascii?Q?jRelrjMZDKZ0iBz0micpTYg3E0+b3G5U5mYEg8cWFLeX0lYhJZuK?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,503 +149,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-ipoib_stop_ah_reaper() uses cancel_delayed_work(), which cannot stop a
-callback that is already running.  ipoib_reap_ah() re-arms itself after
-an unlocked test_bit(IPOIB_STOP_REAPER) check, so a callback that has
-passed the check but has not re-armed yet still queues the delayed work
-after the "stop":
-
-  CPU0 (reaper)                     CPU1 (stop/teardown)
-  test_bit(STOP_REAPER) == 0
-                                    set_bit(STOP_REAPER)
-                                    cancel_delayed_work()  (no-op)
-                                    ... destroy_workqueue(priv->wq)
-  queue_delayed_work(priv->wq, ...)  <- delayed work sits on the timer
-
-destroy_workqueue() cannot see a delayed work that is pending on the
-timer wheel, so the re-armed work fires after the workqueue is
-destroyed and priv is freed: both the queueing onto the dead queue and
-the callback's container_of() on freed memory are use-after-free.
-
-Use cancel_delayed_work_sync(), which waits for a running callback and
-swallows its re-arm while the stop is in flight.  Note that
-ipoib_stop_ah_reaper() also runs on ndo_stop and on the stop/open cycle
-of a heavy flush, so the work must be left enabled for
-ipoib_start_ah_reaper() to re-arm it on the next open;
-cancel_delayed_work_sync() re-enables on the way out, unlike
-disable_delayed_work_sync() which would kill the reaper for good.
-
-The comment above claims ipoib_reap_dead_ahs() "ensures the work is
-really stopped", but it never touches the work item - it only walks
-the dead_ahs list under priv->lock.  The stop guarantee comes from the
-cancel; fix the comment along with it.
-
-Found by static analysis.  Reproduced on a KASAN build running stock
-ib_ipoib on a Soft-RoCE transport (rxe): when a running reaper callback
-escapes the stop and re-arms, the timer fires one second later in
-__run_timer_base() on the destroyed workqueue (slab-use-after-free).
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
----
-v3:
-  - back to cancel_delayed_work_sync(): ipoib_stop_ah_reaper() also runs
-    on ndo_stop and on the heavy-flush stop/open cycle, so the work must
-    be left enabled (sashiko review); disable_delayed_work_sync() would
-    kill the reaper on the next open
-
-v2: https://lore.kernel.org/r/20261104181753.1245369-1-lui2012qwq@gmail.com
-  - add reproducer on stock ib_ipoib over rxe
-  - switch to disable_delayed_work_sync() (superseded by v3)
-
-v1: https://lore.kernel.org/r/20261103170703.1600310-1-lui2012qwq@gmail.com
-
-
-Reproducer (harness summary; full driver scripts and the timing trigger
-below):
-
-    QEMU has no IB hardware, so the stock ib_ipoib driver runs over a
-    Soft-RoCE (rxe) transport presented as an IB port.  Harness shims,
-    all below ib_ipoib (the driver itself is unmodified):
-
-      * rxe_verbs.c: report link layer INFINIBAND and cap flags
-        PROT_IB|IB_MAD|AF_IB from rxe_get_link_layer() /
-        rxe_port_immutable(); skip ib_get_eth_speed() for the flipped
-        port in rxe_query_port(); set dev.parent before
-        ib_register_device().
-      * sa_query.c: answer ib_sa_path_rec_get() locally (async via
-        system_wq) when the device has no SA.
-      * multicast.c: complete ib_sa_join_multicast() locally (async);
-        tag the synthetic object (comp_mask bit 63) so
-        ib_sa_free_multicast() frees it.
-      * ipoib_ib.c (witness only, no behavior change): trace_printk()
-        timing in ipoib_reap_ah(), and an ESCAPED-ARM line when the
-        callback re-arms after IPOIB_STOP_REAPER was set.
-
-    With ~500 AH entries churned into dead_ahs, the reaper's walk
-    measures 20-160us once a second; the teardown (RDMA netlink
-    DELLINK of the rxe device) reaches ipoib_stop_ah_reaper() ~3.9ms
-    after the syscall enters.  The stock test->queue window is the
-    handful of instructions between the lockless test_bit() and the
-    queue_delayed_work(); to hit it deterministically the PoC kernel
-    widens it to 200us with a module parameter.  On a hit the witness
-    logs
-
-        ipoib_stop_ah_reaper: reap_ah: ib0 STOP at=531116547240
-        ipoib_reap_ah: reap_ah: ib0 ESCAPED-ARM after stop
-
-    and one second later the escaped timer fires on the destroyed
-    workqueue (trimmed):
-
-        BUG: KASAN: use-after-free in __run_timer_base.part.0+0x80c/0x900
-        Write of size 8 at addr ffff888021088628 by task swapper/0/0
-        Call Trace:
-         <IRQ>
-         kasan_report+0x96/0xd0
-         __run_timer_base.part.0+0x80c/0x900
-         tmigr_handle_remote_up+0x38b/0x830
-         ...
-         handle_softirqs+0x184/0x5c0
-         irq_exit_rcu+0x6e/0x150
-         sysvec_apic_timer_interrupt+0x70/0x80
-         </IRQ>
-
-    with the workqueue core reporting, right before the splat:
-
-        workqueue: cannot queue ipoib_reap_ah on wq ipoib_wq
-
-
-------------------------- reproducer: trigger.c -------------------------
-// SPDX-License-Identifier: GPL-2.0
-/*
- * trigger.c - F-026 teardown timing trigger.
- *
- * Watches the PoC kernel's ipoib_reap_ah() witness lines on trace_pipe
- * ("reap_ah: ib0 start=<ns> walk_ns=<ns>"), predicts the next reaper run
- * (~1s period, jiffy-aligned) and deletes the rxe device via RDMA netlink
- * (RDMA_NLDEV_CMD_DELLINK, the real teardown path: ib unregister -> ipoib
- * remove -> stop_ah_reaper -> destroy_workqueue -> free) at
- *
- *      next_start + walk_ns + offset
- *
- * which is the callback's test_bit->queue_delayed_work gap.
- *
- * usage: trigger <rxe_dev> <ib_dev> <offset_ns>
- */
-#define _GNU_SOURCE
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <time.h>
-#include <errno.h>
-#include <linux/netlink.h>
-#include <sys/socket.h>
-
-#ifndef NETLINK_RDMA
-#define NETLINK_RDMA 20
-#endif
-
-#define RDMA_NL_NLDEV		5
-#define RDMA_NL_GET_TYPE(c, o)	(((c) << 10) + (o))
-#define RDMA_NLDEV_CMD_GET	1
-#define RDMA_NLDEV_CMD_DELLINK	4
-#define RDMA_NLDEV_ATTR_DEV_INDEX	1
-#define RDMA_NLDEV_ATTR_DEV_NAME	2
-
-static const char *TRACE_PIPE = "/sys/kernel/tracing/trace_pipe";
-
-static unsigned long long now_ns(void)
-{
-	struct timespec ts;
-	clock_gettime(CLOCK_MONOTONIC, &ts);
-	return (unsigned long long)ts.tv_sec * 1000000000ull + ts.tv_nsec;
-}
-
-static void wait_until(unsigned long long deadline_ns)
-{
-	while (now_ns() < deadline_ns)
-		;
-}
-
-static int nla_put(char *buf, int *off, int type, const void *data, int len)
-{
-	struct nlattr *na = (struct nlattr *)(buf + *off);
-	na->nla_type = type;
-	na->nla_len = NLA_HDRLEN + len;
-	memcpy(buf + *off + NLA_HDRLEN, data, len);
-	*off += NLA_ALIGN(na->nla_len);
-	return 0;
-}
-
-/* dump all rdma links, return the index of `name` (0 if not found) */
-static int rdma_dev_index(int fd, const char *name)
-{
-	char buf[4096];
-	struct nlmsghdr *nlh = (struct nlmsghdr *)buf;
-	int found = -1;
-	struct timeval tv = { .tv_sec = 2, .tv_usec = 0 };
-
-	setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
-	memset(buf, 0, sizeof(buf));
-	nlh->nlmsg_len = NLMSG_LENGTH(0);
-	nlh->nlmsg_type = RDMA_NL_GET_TYPE(RDMA_NL_NLDEV, RDMA_NLDEV_CMD_GET);
-	nlh->nlmsg_flags = NLM_F_REQUEST | NLM_F_DUMP;
-	nlh->nlmsg_seq = 1;
-	if (send(fd, buf, nlh->nlmsg_len, 0) < 0)
-		return 0;
-
-	for (;;) {
-		ssize_t len = recv(fd, buf, sizeof(buf), 0);
-		struct nlmsghdr *m;
-		if (len <= 0)
-			break;
-		for (m = (struct nlmsghdr *)buf; NLMSG_OK(m, len);
-		     m = NLMSG_NEXT(m, len)) {
-			struct nlattr *a;
-			int rem, idx = -1;
-			char nm[64] = "";
-
-			if (m->nlmsg_type == NLMSG_DONE)
-				goto out;
-			if (m->nlmsg_type == NLMSG_ERROR) {
-				struct nlmsgerr *e = NLMSG_DATA(m);
-				fprintf(stderr, "[dbg] dump err=%d\n", e->error);
-				goto out;
-			}
-			a = (struct nlattr *)NLMSG_DATA(m);
-			rem = m->nlmsg_len - NLMSG_HDRLEN;
-			for (; rem > 0 && (int)a->nla_len <= rem;
-			       rem -= NLA_ALIGN(a->nla_len),
-			       a = (struct nlattr *)((char *)a + NLA_ALIGN(a->nla_len))) {
-				if (a->nla_type == RDMA_NLDEV_ATTR_DEV_INDEX)
-					idx = *(unsigned int *)((char *)a + NLA_HDRLEN);
-				else if (a->nla_type == RDMA_NLDEV_ATTR_DEV_NAME)
-					snprintf(nm, sizeof(nm), "%s",
-						 (char *)a + NLA_HDRLEN);
-			}
-			if (idx >= 0 && !strcmp(nm, name))
-				found = idx;
-			else if (idx == 0 && !strcmp(nm, name))
-				found = 0;
-		}
-	}
-out:
-	return found;
-}
-
-static int rdma_dellink(int fd, int index)
-{
-	char buf[256];
-	struct nlmsghdr *nlh = (struct nlmsghdr *)buf;
-	int off = NLMSG_LENGTH(0);
-
-	memset(buf, 0, sizeof(buf));
-	nlh->nlmsg_len = 0;
-	nlh->nlmsg_type = RDMA_NL_GET_TYPE(RDMA_NL_NLDEV, RDMA_NLDEV_CMD_DELLINK);
-	nlh->nlmsg_flags = NLM_F_REQUEST | NLM_F_ACK;
-	nlh->nlmsg_seq = 2;
-	nla_put(buf, &off, RDMA_NLDEV_ATTR_DEV_INDEX, &index, sizeof(index));
-	nlh->nlmsg_len = off;
-
-	if (send(fd, buf, off, 0) < 0)
-		return -1;
-	/* read the ACK */
-	if (recv(fd, buf, sizeof(buf), 0) > 0) {
-		struct nlmsghdr *m = (struct nlmsghdr *)buf;
-		if (m->nlmsg_type == NLMSG_ERROR) {
-			struct nlmsgerr *e = NLMSG_DATA(m);
-			return e->error ? -1 : 0;
-		}
-	}
-	return 0;
-}
-
-int main(int argc, char **argv)
-{
-	const char *ifname = argv[1];	/* rxe device, e.g. rxe0 */
-	const char *ibname = argv[2];	/* ipoib iface, e.g. ib0 */
-	char tname[80];
-	long long offset_ns = atoll(argv[3]);
-	FILE *f;
-	char line[512];
-	unsigned long long start = 0, walk = 0, period = 0, prev_start = 0;
-	int nlfd;
-
-	snprintf(tname, sizeof(tname), "reap_ah: %s ", ibname);
-
-	nlfd = socket(AF_NETLINK, SOCK_RAW, NETLINK_RDMA);
-	if (nlfd < 0) {
-		perror("socket NETLINK_RDMA");
-		return 1;
-	}
-
-	f = fopen(TRACE_PIPE, "r");
-	if (!f) {
-		perror("open trace_pipe");
-		return 1;
-	}
-
-	fprintf(stderr, "[*] trigger: dev=%s offset=%lldns\n", ifname, offset_ns);
-
-	while (fgets(line, sizeof(line), f)) {
-		char *s, *w;
-		if (!strstr(line, tname))
-			continue;
-		s = strstr(line, "start=");
-		w = strstr(line, "walk_ns=");
-		if (!s || !w)
-			continue;
-		start = strtoull(s + 6, NULL, 10);
-		walk = strtoull(w + 8, NULL, 10);
-		if (!start || !walk)
-			continue;
-		if (prev_start)
-			period = start - prev_start;
-		prev_start = start;
-		if (!period || !walk)
-			continue;
-
-		unsigned long long fire = start + period + walk + offset_ns;
-		unsigned long long t0 = now_ns();
-		if (fire <= t0)
-			continue;
-		fprintf(stderr, "[*] next gap in %llu ns (period %llu, walk %llu)\n",
-			fire - t0, period, walk);
-		wait_until(fire);
-		unsigned long long fired = now_ns();
-		int idx = rdma_dev_index(nlfd, ifname);
-		int rc = idx >= 0 ? rdma_dellink(nlfd, idx) : -1;
-		fprintf(stderr, "[+] fired DELLINK idx=%d rc=%d at=%llu drift=%lldns\n",
-			idx, rc, fired, (long long)(fired - fire));
-		fflush(stderr);
-
-		/* closed-loop: read the trace buffer, find the gap_enter and
-		 * STOP the del produced, report how far off we landed */
-		usleep(1500000);
-		FILE *tf = fopen("/sys/kernel/tracing/trace", "r");
-		if (tf) {
-			char l2[512];
-			unsigned long long ge = 0, stop = 0;
-			while (fgets(l2, sizeof(l2), tf)) {
-				char *p;
-				if (strstr(l2, tname) && (p = strstr(l2, "gap_enter=")))
-					ge = strtoull(p + 10, NULL, 10);
-				if (strstr(l2, tname) && (p = strstr(l2, "STOP at=")))
-					stop = strtoull(p + 8, NULL, 10);
-			}
-			fclose(tf);
-			if (ge && stop) {
-				long long miss = (long long)(stop - ge);
-				fprintf(stderr, "[=] MISS-BY=%lld (stop-gap_enter, want 0..200000)\n", miss);
-				printf("%lld\n", miss);	/* stdout for the driver */
-			}
-		}
-		return rc != 0;
-	}
-	return 1;
-}
-
-------------------------- guest scripts -------------------------
-
------ setup.sh -----
-#!/bin/bash
-# setup.sh - F-026 guest setup: two rxe endpoints presenting as IB, ipoib up.
-# NICs: enp0s3 = slirp (ssh/internet); enp0s4+enp0s5 = same L2 hub (ipoib pair).
-set -x
-mount -t configfs none /sys/kernel/config 2>/dev/null
-mount -t tracefs none /sys/kernel/tracing 2>/dev/null
-
-ip link set enp0s4 up
-ip link set enp0s5 up
-
-rdma link add rxe0 type rxe netdev enp0s4
-rdma link add rxe1 type rxe netdev enp0s5
-sleep 1
-
-ip addr add 10.99.0.1/24 dev ib0
-ip link set ib0 up
-ip addr add 10.99.0.2/24 dev ib1
-ip link set ib1 up
-sleep 1
-ip -brief addr show ib0
-ip -brief addr show ib1
-
-ping -c2 -W2 10.99.0.2 -I ib0 && echo PING-OK
-ip neigh show dev ib0
-echo SETUP-DONE
-
------ churn3.sh -----
-#!/bin/bash
-# churn3.sh - fast AH churn on ib0 (static PERMANENT neighs + one UDP each,
-# then explicit neigh del -> AHs to dead_ahs).  ib0 must have a /16 alias.
-N=${1:-500}
-LOOPS=${2:-9999}
-
-ip addr add 10.99.0.1/16 dev ib0 2>/dev/null	# widen the on-link subnet
-
-mklladdr() {
-	local i=$1
-	printf '80:00:00:10:52:54:00:12:%02x:%02x:00:00:00:00:00:00:00:%02x:%02x:01' \
-		$(( (i >> 8) & 255 )) $(( i & 255 )) $(( (i >> 8) & 255 )) $(( i & 255 ))
-}
-
-for l in $(seq 1 $LOOPS); do
-	for i in $(seq 1 $N); do
-		a=10.99.$(( i >> 8 )).$(( i & 255 ))
-		ip neigh replace $a lladdr $(mklladdr $i) dev ib0 2>/dev/null
-	done
-	/root/churn_send16 $N 2>/dev/null || /root/churn_send16 $N
-	for i in $(seq 1 $N); do
-		ip neigh del 10.99.$(( i >> 8 )).$(( i & 255 )) dev ib0 2>/dev/null
-	done
-	echo "loop $l done ($(date +%T))"
-done
-
------ churn_send16.c -----
-// SPDX-License-Identifier: GPL-2.0
-/*
- * churn_send16.c - one UDP datagram at each 10.99.Hi.Lo neighbor on ib0
- * so ipoib creates a real AH per neighbor (path lookup -> SA shim -> rxe AH).
- *
- * usage: churn_send16 <count>
- */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-
-int main(int argc, char **argv)
-{
-	int n = argc > 1 ? atoi(argv[1]) : 500;
-	int fd = socket(AF_INET, SOCK_DGRAM, 0);
-	char buf[64] = "f026";
-	struct sockaddr_in sa;
-	int i, sent = 0;
-
-	if (fd < 0) {
-		perror("socket");
-		return 1;
-	}
-
-	memset(&sa, 0, sizeof(sa));
-	sa.sin_family = AF_INET;
-	sa.sin_port = htons(9999);
-
-	for (i = 1; i <= n; i++) {
-		char ip[32];
-		snprintf(ip, sizeof(ip), "10.99.%d.%d", (i >> 8) & 255, i & 255);
-		inet_pton(AF_INET, ip, &sa.sin_addr);
-		if (sendto(fd, buf, sizeof(buf), 0,
-			   (struct sockaddr *)&sa, sizeof(sa)) >= 0)
-			sent++;
-	}
-	close(fd);
-	printf("churn_send16: fired %d datagrams\n", sent);
-	return 0;
-}
-
------ race.sh -----
-#!/bin/bash
-# race.sh - F-026 closed-loop sweep: trigger prints MISS-BY (where the
-# teardown's stop landed vs the reaper gap), we steer the next offset to
-# land 100us into the 200us widened gap.
-IF=ib0
-off=-4000000	# first guess: syscall latency is ~3.9ms
-MAX=${1:-300}
-
-for i in $(seq 1 $MAX); do
-	rdma link del rxe0 2>/dev/null; sleep 0.5
-	rdma link add rxe0 type rxe netdev enp0s4; sleep 1
-	ip addr add 10.99.0.1/16 dev $IF 2>/dev/null; ip link set $IF up; sleep 1
-	echo > /sys/kernel/tracing/trace
-	/root/churn3.sh 300 1 >/dev/null 2>&1
-
-	miss=$(/root/trigger rxe0 $IF $off 2>/dev/null | tail -1)
-	case "$miss" in ''|*[!0-9-]*)
-		echo "shot $i: off=$off no-measurement"
-		continue ;;
-	esac
-	echo "shot $i: off=$off miss=$miss"
-	off=$(( off - miss + 100000 ))
-
-	if grep -q 'ESCAPED-ARM' /sys/kernel/tracing/trace || dmesg | grep -qE 'BUG: KASAN|Oops'; then
-		echo "=== HIT at off=$off (shot $i) ==="
-		grep -E 'reap_ah|ESCAPED' /sys/kernel/tracing/trace | tail -20
-		dmesg | grep -E 'KASAN|Oops|Call Trace|RIP' | tail -30
-		echo "HIT-OFFSET=$off shot=$i" > /root/HIT
-		poweroff -f
-	fi
-done
-echo "done $MAX shots, no hit"
-
- drivers/infiniband/ulp/ipoib/ipoib_ib.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/infiniband/ulp/ipoib/ipoib_ib.c b/drivers/infiniband/ulp/ipoib/ipoib_ib.c
-index 81bbb3f7c113..5ed4f709cb40 100644
---- a/drivers/infiniband/ulp/ipoib/ipoib_ib.c
-+++ b/drivers/infiniband/ulp/ipoib/ipoib_ib.c
-@@ -736,11 +736,11 @@ static void ipoib_start_ah_reaper(struct ipoib_dev_priv *priv)
- static void ipoib_stop_ah_reaper(struct ipoib_dev_priv *priv)
- {
- 	set_bit(IPOIB_STOP_REAPER, &priv->flags);
--	cancel_delayed_work(&priv->ah_reap_task);
-+	cancel_delayed_work_sync(&priv->ah_reap_task);
- 	/*
- 	 * After ipoib_stop_ah_reaper() we always go through
--	 * ipoib_reap_dead_ahs() which ensures the work is really stopped and
--	 * does a final flush out of the dead_ah's list
-+	 * ipoib_reap_dead_ahs() which does a final flush out of the
-+	 * dead_ah's list
- 	 */
- }
- 
--- 
-2.25.1
-
+X-OriginatorOrg: kuleuven.be
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB5PR08MB10062.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99debba8-40dc-4377-10b0-08df3af572eb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Nov 2026 04:29:57.9056
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3973589b-9e40-4eb5-800e-b0b6383d1621
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HyebV3LhOQ9y7Bx7ThYa4mOfAP2PG4k4ajDGEf4Gv7Cx5EmXhhpWSqNpxMLpAF+M01u+JabTGvK+S/n/GMMRQ2zePmlmMel9NZJr9fSH0K4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR08MB7610
+
+From: Namjae Jeon <linkinjeon@kernel.org>=0A=
+=0A=
+[ Upstream commit 3474e1a304fbf9f7c996b24adcd519e031227a90 ]=0A=
+=0A=
+parse_sec_desc() constructs SID and DACL pointers by adding untrusted=0A=
+32-bit offsets to the security descriptor before checking their bounds.=0A=
+The existing checks reject offsets into the descriptor header, but do=0A=
+not reject offsets beyond the descriptor's length.=0A=
+=0A=
+On a 32-bit kernel, a large offset can wrap the pointer before the=0A=
+descriptor. The end-only checks in parse_sid() and parse_dacl() can then=0A=
+accept it, allowing an authenticated SMB2 SET_INFO request to access=0A=
+memory outside the security descriptor and fault the kernel.=0A=
+=0A=
+Check each nonzero offset against acl_len before constructing its=0A=
+pointer. Initialize the optional owner and group SID pointers to NULL=0A=
+so an omitted SID remains absent when parsing the DACL.=0A=
+=0A=
+The 5.15 tree keeps this code in fs/ksmbd/smbacl.c and uses a void=0A=
+parse_dacl(). Preserve those interfaces in this backport.=0A=
+=0A=
+Fixes: 0626e6641f6b ("cifsd: add server handler for central processing and =
+tranport layers")=0A=
+Cc: stable@vger.kernel.org=0A=
+Reported-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>=0A=
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>=0A=
+(cherry picked from commit 3474e1a304fbf9f7c996b24adcd519e031227a90)=0A=
+Signed-off-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>=0A=
+---=0A=
+=0A=
+My earlier reply in this thread had its tabs expanded by Outlook.=0A=
+Please disregard that copy.=0A=
+=0A=
+ fs/ksmbd/smbacl.c | 23 +++++++++++++++++------=0A=
+ 1 file changed, 17 insertions(+), 6 deletions(-)=0A=
+=0A=
+diff --git a/fs/ksmbd/smbacl.c b/fs/ksmbd/smbacl.c=0A=
+index 05c768225..515830f75 100644=0A=
+--- a/fs/ksmbd/smbacl.c=0A=
++++ b/fs/ksmbd/smbacl.c=0A=
+@@ -830,7 +830,7 @@ int parse_sec_desc(struct user_namespace *user_ns, stru=
+ct smb_ntsd *pntsd,=0A=
+ 		   int acl_len, struct smb_fattr *fattr)=0A=
+ {=0A=
+ 	int rc =3D 0;=0A=
+-	struct smb_sid *owner_sid_ptr, *group_sid_ptr;=0A=
++	struct smb_sid *owner_sid_ptr =3D NULL, *group_sid_ptr =3D NULL;=0A=
+ 	struct smb_acl *dacl_ptr; /* no need for SACL ptr */=0A=
+ 	char *end_of_acl =3D ((char *)pntsd) + acl_len;=0A=
+ 	__u32 dacloffset;=0A=
+@@ -842,12 +842,7 @@ int parse_sec_desc(struct user_namespace *user_ns, str=
+uct smb_ntsd *pntsd,=0A=
+ 	if (acl_len < sizeof(struct smb_ntsd))=0A=
+ 		return -EINVAL;=0A=
+ =0A=
+-	owner_sid_ptr =3D (struct smb_sid *)((char *)pntsd +=0A=
+-			le32_to_cpu(pntsd->osidoffset));=0A=
+-	group_sid_ptr =3D (struct smb_sid *)((char *)pntsd +=0A=
+-			le32_to_cpu(pntsd->gsidoffset));=0A=
+ 	dacloffset =3D le32_to_cpu(pntsd->dacloffset);=0A=
+-	dacl_ptr =3D (struct smb_acl *)((char *)pntsd + dacloffset);=0A=
+ 	ksmbd_debug(SMB,=0A=
+ 		    "revision %d type 0x%x ooffset 0x%x goffset 0x%x sacloffset 0x%x dac=
+loffset 0x%x\n",=0A=
+ 		    pntsd->revision, pntsd->type, le32_to_cpu(pntsd->osidoffset),=0A=
+@@ -863,6 +858,12 @@ int parse_sec_desc(struct user_namespace *user_ns, str=
+uct smb_ntsd *pntsd,=0A=
+ 	pntsd->type =3D cpu_to_le16(DACL_PRESENT);=0A=
+ =0A=
+ 	if (pntsd->osidoffset) {=0A=
++		if (le32_to_cpu(pntsd->osidoffset) < sizeof(struct smb_ntsd) ||=0A=
++		    le32_to_cpu(pntsd->osidoffset) >=3D acl_len)=0A=
++			return -EINVAL;=0A=
++=0A=
++		owner_sid_ptr =3D (struct smb_sid *)((char *)pntsd +=0A=
++				le32_to_cpu(pntsd->osidoffset));=0A=
+ 		rc =3D parse_sid(owner_sid_ptr, end_of_acl);=0A=
+ 		if (rc) {=0A=
+ 			pr_err("%s: Error %d parsing Owner SID\n", __func__, rc);=0A=
+@@ -878,6 +879,12 @@ int parse_sec_desc(struct user_namespace *user_ns, str=
+uct smb_ntsd *pntsd,=0A=
+ 	}=0A=
+ =0A=
+ 	if (pntsd->gsidoffset) {=0A=
++		if (le32_to_cpu(pntsd->gsidoffset) < sizeof(struct smb_ntsd) ||=0A=
++		    le32_to_cpu(pntsd->gsidoffset) >=3D acl_len)=0A=
++			return -EINVAL;=0A=
++=0A=
++		group_sid_ptr =3D (struct smb_sid *)((char *)pntsd +=0A=
++				le32_to_cpu(pntsd->gsidoffset));=0A=
+ 		rc =3D parse_sid(group_sid_ptr, end_of_acl);=0A=
+ 		if (rc) {=0A=
+ 			pr_err("%s: Error %d mapping Owner SID to gid\n",=0A=
+@@ -899,6 +906,10 @@ int parse_sec_desc(struct user_namespace *user_ns, str=
+uct smb_ntsd *pntsd,=0A=
+ 		pntsd->type |=3D cpu_to_le16(DACL_PROTECTED);=0A=
+ =0A=
+ 	if (dacloffset) {=0A=
++		if (dacloffset < sizeof(struct smb_ntsd) || dacloffset >=3D acl_len)=0A=
++			return -EINVAL;=0A=
++=0A=
++		dacl_ptr =3D (struct smb_acl *)((char *)pntsd + dacloffset);=0A=
+ 		parse_dacl(user_ns, dacl_ptr, end_of_acl,=0A=
+ 			   owner_sid_ptr, group_sid_ptr, fattr);=0A=
+ 	}=0A=
+-- =0A=
+2.43.0=0A=
+=0A=
