@@ -1,97 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793855189;
-	b=hCjlMqN5OZcMM3GoO429fI1sl3z8UjAK8vsS8cC5ChzSJqhvXTWeKEc838VsW8c6x73G
-	 O2n/DFB3UqVdRrJ+H4dx26Kw7OdzRAt27wHZlyeFO/36WpFu0pNh0kNmxBzRVL/n8F0hD
-	 PxNInCz9UG1uZceTTjt6uwiZmwCEIJzsWfRgzMsEoUhTrkMTrbkB5zZhTQPHYHgPbVFDq
-	 xiQIL0I7TdNHUD3ivTfHfgSAN10Tb1HPDeT8/XQzY6y0xRDoR7voRA7IPyib3fdVtnS8F
-	 ntrclh/BUaCt7wYjlh1PVvjkNUzK1kbxdw5cXbk48L8kBBBNX+YpnTvp6urJgBXxz5A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793855189;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.198
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793855338;
+	b=F5H3Gp5MNuLIwHkUPCxszv5TCJMJjLvEwzxKaB58ShUqyowyl2gdWne1W8yzVuNIQ+dY
+	 XsDolfJZGzoiOxMOvqZKuoR4H4YKArwm2BdXYvJdtjAIpTankldotC2mJKo+VfJ682oJb
+	 fHLEBB7hi0Nxww+NXydpJT90ibPGZPR/q2N8iCq19Lef2k+oPbzaBUvLTxn6DJcVRTOpF
+	 /zFT3tW1zX7dRhK35WP71C8/QMQ/cYMCfoowZDsPrR0vTnVMhKxU5rbOWrPBN9fIfG/cy
+	 eopp+w4I0Fu9DrJ2gBdwwT6oANuN2RE9BbWSIrg0QSiYx31KhiTbRiQu0qGuTmlsSFw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793855338;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=WJXyrXeadAPpp1EgKOr4nzDbu8SHuoj6JH23Y/l65FE=;
-	b=sEJuXNY9Y041RIG6XIjydb4qNBO8axcJutaebNgW1PUfUCgVdTfaKSQpkTDI82vrILDx
-	 cj10AMJ+0+v8jPU0T4DoK2iZJLuX/Oxp0NMRvajQxBiA2Mq9/Tt59jAbw1XBgC5dD2LA4
-	 grFirT+7lG1M21+XgT1NG+w6KhDAw2jN9VFjBtRSjBkoBcQEkIEfmGKquNeOuBuGkxJCD
-	 y0WWZgpDfD0sco+kXOwtubX2vwWLinzozTFVKW3g+f2ZxvQ/ihgCrh9C3g/ACA8tkQT5d
-	 bxwuUAq/k7sfotwRvqYzjEMTct1Pu9HTBkFZ30RoQn5cZIplUHobboSpsEI3AhvKCGQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=u1vps6FB;
-	arc=none smtp.remote-ip=209.85.219.51
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Content-Type;
+	bh=F49mRNwIXXKoaU9d1R0TU/cMDFceqYMXuPvzpIRBwac=;
+	b=Y0D+tQ1CJAcfhb7wh+2WW/68tHZSbM4pGe1bf2D801yuyUISkpwQZV9QeCi3o5NSkAZi
+	 iY+NqylCn5ZgF65sSfA563adDJ1OwkVcRV7voUGDynYqBtUlBt6AsAiBP4HnVf4j9BN1z
+	 v4Gi4rO4J/LaT5LLhFTQGggwNy9qO0krFdvqdLmyt2wJ1dYy1BJiEq0UE0nI9yRtsNBSH
+	 x3N7c+gE6ybwxZJ3BUtWEeuDMNaI7EkDHqcdAPUw5tZE8B338PrUoccqCwARrhTn196LE
+	 ZmYUw0/Vkzg7iTuk6Z0usKs/AJYF5Cd3gi31D/6W/kv+pes/FJZ1DCVcrfeOYrUUQIQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZbcVMO+d;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.198
+Received: from mail-oi2-f6.google.com (mail-oi2-f6.google.com [74.125.231.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D411606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 05:06:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D411606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14A4606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 05:08:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B14A4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=u1vps6FB
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-91e7fc8265aso17333866d6.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 21:06:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZbcVMO+d
+Received: by mail-oi2-f6.google.com with SMTP id 5614622812f47-550f311b527so629521b6e.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 21:08:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793855336; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JTLaxjiOIEXUWCID480Tb/cmDhlEXyOEqQVLQ13JsQZuMWT9QWQP2qmoY+eQ8zaliy
+         3B8ap0OaWn7PHXtp1d2JCaUQi/6E3qWpfv5n7JTVpv2cGcPF0GUVRX3JwzFUDPYeoTaL
+         m2bgShMFlKKKEfjsfoCCFzzntItKAQsk5awVpucuPH1e3VZIc1ciIe+4rRIFZG6lMlTz
+         My7qVt7exy4Cj+SM4QLkqgwt7+44TyGkO208eUsBWWNT98uJux52TzWr7EcjXdETGwqX
+         ce/Angz8oyBEwGFgHZByTDpAqT/PwEeiUyqPUzoi1fuKfKuMJ1oaIHQJfyns1xQyvwx8
+         fMyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=F49mRNwIXXKoaU9d1R0TU/cMDFceqYMXuPvzpIRBwac=;
+        fh=pESTVgf3wAhpqgHOnlDjHmRTLOPbW97xIh1UxBZlOhI=;
+        b=eTxOIwF3B/Bzq5ymG1xDMY5LBRb6RO/wrnYF2YKHdk17kBGmPHXAtCd2k1RnKsWqct
+         WiuwQ7+CgfZhKAAdUrT/xeDfTSftx282tSVahgGSvYZu18+OgB//6L4ih2wD9xYZrytu
+         RT0/lsyT3HSN7bGzD16t3aMWy9VHDOftLPloCMFLvWH193Wy3xqpV6KHMSLq6nIun1Mp
+         zsOMW5VMkdDTxPOiIEXwvA8uPrR3KV80wDEfsI2CpE5OUvVsTqvx00aNm0eKn2Yts8kU
+         VML6aOrj61rESq1Z9jCX/YjuO+1S/33Pd1jicxyETNpsl2m9aq4Fos13g7ecuQ6mLr1Q
+         CuDQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1793855188; x=1794459988; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WJXyrXeadAPpp1EgKOr4nzDbu8SHuoj6JH23Y/l65FE=;
-        b=u1vps6FB9frxf/5wIeIkT79W6+qKBcnHUXgZFA3lxyIcYMxWBSmuscItg+LvtzCPt4
-         wBr1/mtJY/KdPwSIYKiqNB7nr/GC5kN1g6ESuFk5sivSG+oM1NZS9EzeiYbFdXLDLnJg
-         R2P4a9eqHvR/8bAAY7C/e8ag0fUqd68EswHYUgY5F3qh8yTG09z43B71PnaptvlwZjQi
-         zS69FjHsGpaGz/m6gfwNcRf1iwYvtxvw3HKv+CwvysJR2kNza/Q5lGXCV1+6fI4TEX0t
-         h79lQrcPeWwS7dFc+ta2AHIO9VxrEiNfI34Egr3aWtmJCvctnWKRi/7MqfEHpYhsm2qP
-         bjTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793855188; x=1794459988;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793855336; x=1794460136; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WJXyrXeadAPpp1EgKOr4nzDbu8SHuoj6JH23Y/l65FE=;
-        b=j6PmRAzzaUKEX/7p1JQ/83JY/0FbcDgJcPDR0cZaySmyU+8xqJnQrUlYNIw1t48IPA
-         KZ9hLmCt3Fc8uhC95Xr+fM04BYJAl4vMadtcIay503YipTTNRfUDPySx1zip4MZ9gPjH
-         hHR0iKi9obFUg2gxdquLS+PM1XHizb+sLX1dQzTRdhi50gcWta8i9S/gYNIkmSA0OPU1
-         bdcX4w+UCHVWF/tbApHymibvNfLO2H15XacgLhkek/PAeUbErLtIeXl6C4ZoNWJKQNli
-         uuaKYkqx2Qjajm3R8Wx6a4P0LVmTWwNXa8ahA7Pc1DRM4bf9UjizyUUiA5l/wlbpXVnV
-         GNAw==
-X-Forwarded-Encrypted: i=1; AKwUvBz5EG05b/6kcLGlRVxmhXoeqtNipXXoEBvnDMirpCeP1wscAFypHt4sy2COf5CuafBNtng/Qkg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ptMuDqmFm/VKl5XfNZzj/Zi/BDRPEatV5FYxiy62hAFYhNJWR
-	k794j0sBMBbzVQIgH2RHbVdIPP7lQdTIXaNc6FISVjV4s2HIr2Qql054FgzZGbj24A==
-X-Gm-Gg: AYBFou3x4neZ87xVGM0Shdwd5w7z3cWcZ9mbOZ3pP6avuJSLNEmIKneUr527Mid5jPE
-	rkwepWuDO3crH1K8BKJzHztgSAmdU+cKVBSmyJrvva3o62yYb+Q4us0euto2nZGl6GjOgcasBlb
-	Q1n9EaGqH7cNWHLSwW17DnPhq4G0HilecAM31UwtIYvUetQ/3AzrZmKoxLk5nSHzqc2LZMN0YOb
-	hNzY1Rs9L4vWqYBFD65gCgE0108jymecrB8GxeFtzJ4OEUgKq+9u8LVlqkvmRBrLhLPK67Ir2Z4
-	KwapSKTN9urqpSdGgMcLjveUhmv9160SwMbQLv9S3KisFTfONQHwXqsKRe65EfpoIL6VtQ959zp
-	d+mbWlMhTo+Ww4P7J3iunBMteW9KAlTV4IRwEdbzeXrW+btrQHxtm3WAsHlOpp1r5y3UsmRtZNw
-	Q/Civ5vQ/fBvnEUfwfGmhBAmdnRZ0tdc0Vhih+bY69cIDfWgiA/YZgtEChNWiUUElAQuK8Gjpzo
-	NROSk2umEtaFbnY/iPtyoM7aRsQG4uXDhod2gFIbks/akk+Xv45tNesvLjB4K34+X54glquLYDS
-	fSMfIkYKGNJQui5ZB9UMHMQUjge3
-X-Received: by 2002:a05:6214:2263:b0:91c:7a7c:4491 with SMTP id 6a1803df08f44-91ca4bbd308mr298429816d6.43.1793855187833;
-        Wed, 04 Nov 2026 21:06:27 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e7e01a3f5sm38061886d6.30.2026.11.04.21.06.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 21:06:27 -0800 (PST)
-Date: Thu, 5 Nov 2026 00:06:24 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Pengfei Lv <lvpengfei20@huawei.com>, gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, xuhaiyang5@hisilicon.com,
-	xuetao09@huawei.com, caiyadong@huawei.com,
-	suzhuangluan@hisilicon.com
-Subject: Re: [PATCH] usb: core: hub: Re-guess ep0 maxpacket size on reset
-Message-ID: <59b0cc88-9ac2-453b-bd68-56aa356c0fc0@rowland.harvard.edu>
-References: <20261104124402.1269650-1-lvpengfei20@huawei.com>
- <b9ac3c8f-7ce5-43d1-bcf1-d2ce9877d914@rowland.harvard.edu>
- <20261104183603.17d663ce.michal.pecio@gmail.com>
+        bh=F49mRNwIXXKoaU9d1R0TU/cMDFceqYMXuPvzpIRBwac=;
+        b=ZbcVMO+d8qwcr+LjKwI1ovUtnV2jtZiGCbR5yVtezS/VbJnmpZgAhibdGeCD+/j+b4
+         ROiLVWPNDPF6rQsv1L1xB1tg1yDghKBi/J7RDgR9kIRH9qFjhNTNA/adF0iE88qheNyR
+         t8jNAFy2uFAZcrG7qNhqs7/mXem6in/7z92u26l8SqSXyBwrMG9VN3I/oSQr6V7hHe5i
+         qCeDReNgvmU5Z26E9wlUDgezEiILY6BVPG2Jv8SftgJfvUmyC0BqRMYna0rWr8LQdyqj
+         o3HeLuxcTKSzg+l1U1SHMkD/wGN/t/u6+nKkNKfUxyD7E11Kr/HZFeQN8TrWpZMtQCoZ
+         C6iA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793855336; x=1794460136;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F49mRNwIXXKoaU9d1R0TU/cMDFceqYMXuPvzpIRBwac=;
+        b=PnVvb2oNzKx3UwN82uJTmaNI31lgUviQzCa1KAg5BLs/MpHfF3JmtpT918UB4LKuAR
+         67HKzHn6oqGULH1XN45q1Vo6Uyw2+FPGkVVqgxmyHYY0gJeGOBuZIEXaE46/vzJP8Mg2
+         mkRB8HhBGVLy6DB3ldEK68lws7KCp00QF3lEtGfubCR9IdbIFQ1mrpl77ro5TLt6VgNO
+         3jmH4o+eVoshlmeiAnV9Spdnrmv7/Nw2lSjs1FbohWRTs8BC+OeP4l2sYFwe7wovpHRC
+         J1KB3wB7ZUjo5YY5xn+ihfhn91ePdx3UFURNvZs83deBqR2hxlt4/lsyVEJPlSTKt/I4
+         Ef6A==
+X-Forwarded-Encrypted: i=1; AKwUvBy4aMmzFZl1Sf35wyPi8vlgBYKBxjoTshl/+n7WxNAMlmCl/uP92A9ZhWT4pPCKCpl2//8y4E0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8OVl0xeKqhRhKHl+74w27G0coMnp3bkn1xYMXpyO0MB2XbiGTW
+	EPn912Huy8AYIU00mDDBKUqTcmknE//e3VFCdoJArC5KaL3a/SoQOeWUbsEp+R2GHWzTT4wAPsX
+	UrwN9CHuZUMIN7HrKmV+soZAtMPvmkBg=
+X-Gm-Gg: AYBFou006k8TBQPvA35IpatUvdy2dkhsrcbAffVqBKVi6AtvcPZCBTpOfbmmvQyy5j2
+	kaxjtME4Rvspncy/TTn57vMDBLZy8Ommx4Qi2eqyDD5IiwazWRklk97dMSJyWa68hC5GwhmGx3V
+	nLsn3qdQeoDKqa4T0ZNiTBJUNvugE0jEFghu5RG5bIaxpPT8BemmkhyCNCkMNAsz+4rAw4Gd510
+	jhFfXdUcvhhTso0zc5YajTrLldNftviEIgDLB65sbF80cBsPCCZX31csADFDXbytGmUhXdJyPTh
+	LUjW9Y85MSmihRJ8/UZi0dxpDttW8ddbXRuDkOrBlhVC/SfIGg7Y15WmXpXzXOYp+ZQ97o8RAz4
+	zON9tikWSsJs+n3EAehzFlcuEpdGddsCuRuejWq9bRHgaAJTZRV8RkZDuK6c1KovKTLb2MOd5zp
+	R0OSS7f4rlFRYlnQau45IlJ6dANAcF8YoTVF9AdRNkIHD1I8oJqK62rIivsYnBzpoif101kgSew
+	0s=
+X-Received: by 2002:a05:6808:198e:b0:4d6:9293:9b56 with SMTP id
+ 5614622812f47-5640de2e892mr13926693b6e.62.1793855336421; Wed, 04 Nov 2026
+ 21:08:56 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,37 +105,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104183603.17d663ce.michal.pecio@gmail.com>
+References: <20261104191355.89544-1-dennylin0707@gmail.com> <20261105030304.ukyfkyh7xf66yf7w@cs.cmu.edu>
+In-Reply-To: <20261105030304.ukyfkyh7xf66yf7w@cs.cmu.edu>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Wed, 4 Nov 2026 21:08:45 -0800
+X-Gm-Features: AclHuK_8naWfPmbeC6CGznX_C73hXCMzOor5rRkYJ7y1u4psfW7icnRznn3rIJw
+Message-ID: <CAGEkeHfnyyggAXOUy8MW+UT-B7FrG9sPWcO3CNysA=SwGp0m0Q@mail.gmail.com>
+Subject: Re: [PATCH] coda: honor the append state of each write
+To: Hungyu Lin <dennylin0707@gmail.com>, viro@zeniv.linux.org.uk, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Nov 04, 2026 at 06:36:03PM +0100, Michal Pecio wrote:
-> On Wed, 4 Nov 2026 09:59:24 -0500, Alan Stern wrote:
-> > On Wed, Nov 04, 2026 at 08:44:02PM +0800, Pengfei Lv wrote:
-> > > When the subsequent re-enumeration then uses the "new scheme" and
-> > > issues a 64-byte GET_DESCRIPTOR (get_bMaxPacketSize0 with size=64),
-> > > xhci_check_maxpacket() sees hw==sw==8 and does not issue an Evaluate
-> > > Context command.  The xHC queues a Data TRB of length 64 but applies
-> > > ep0 max_packet=8 for short-packet detection.  
-> > 
-> > That's exactly what we want it to do.
-> 
-> Should we want it, though?
-> 
-> Were there known devices with bMaxPacketSize0 <= 16 which required the
-> whole transfer to complete before they are reset?
-> 
-> That's not what happens in the initial iteration, so it seems any such
-> devices would always take two iterations to begin working.
-> 
-> Is this what the only correct Proprietary Operating System does?
+> Why do we now have cached copies of f_flags around? That sounds like a
+> recipe for getting things out of sync.
 
-I don't know offhand of any positive or negative examples.  But if a 
-device was going to hang if it was asked for the remaining part of 
-the device descriptor after a non-initial reset, how would it ever get 
-through initialization?  The procedure does two resets, and after the 
-second reset the device has to send the full descriptor.
+f_iocb_flags was introduced by 164f4064ca81. The VFS initializes it at
+open and updates it during F_SETFL, but Coda's direct modification of
+the container's f_flags misses that update.
 
-I don't know what other OSes do about this.
+> Anyway, your patch subtly changes the container file we write from
+> cfi->cfi_container to host_file and I am not convinced that is a safe
+> change.
 
-Alan Stern
+That substitution was unnecessary for the append fix. V2 keeps
+cfi->cfi_container in the write call and leaves the existing i_size
+copyback unchanged.
+
+I traced the container reference from coda_open() to coda_release()
+and could not find a path that replaces it after open. ACCESS_INTENT
+does not return a replacement handle. The container's contents and
+size may change during the upcall, but the existing size copyback
+reads i_size through the same held file reference after
+vfs_iter_write() returns.
+
+Thanks,
+Hungyu
