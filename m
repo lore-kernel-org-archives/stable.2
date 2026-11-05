@@ -1,74 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.181.193.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793911012;
-	b=mKjU41bFIbeG289bCJvNw62Ryplgcjfzh+vKWj0iFmBWsOaZmceExjSH+ULucmHBX7m3
-	 nY/JCrhjVpZpRwatfYKKranqmIu8H9IzpdKaGk2z29UXnBTN/3GduN0yKgpAALbZZx0BF
-	 5GdM69rsd4F76ZNYIzSuz00YOcO+NA5BDhceCl16OLdwojOiw3kUi7/BRRfrxk/uwJC7q
-	 HCM017nzEDiHsgYzCIkzZFMkPvAfHFq/irNPzj+tIAUkaW81L8MLtfKKV6BsXEt3dsCmt
-	 F0VdKNlfGiNy/rraFX9/ofW9mn7AdscEypJXofM9Xj96fscxbLQqFUc+docT76OaiAA==
+	t=1793911648;
+	b=NMK/9Rx/exHF9ShqeSduDXmT+zicxqwgOe2ZMFT8haPfuK4lAcjQjnR5FPKC//g/0PGO
+	 dl3l5w9HPtGIYfpPxnTN+zDyILkm2mXWkyOaOsd65f70J91aSQfTl2nLMmW+hki+AV+nR
+	 euGDE7+ePeG5xSga0S2P3Qsm65arYkWZei4rRpZadv/edrmU1nAvN62htBoXHdZZGqFXL
+	 P3WpAL/fDTYFf96gNqMMeVkDnr+sYqkx7ZEbDyvEcb5k+gt1O7/R8mNklIT6KKcusAyfN
+	 nWnpMCSRNi1wWmu1Fd3tWGUabOfLXB8AZTeB2C0ohX3vv73ZFaMrhfYFAaeKH3+6NUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793911012;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Ho0ssxdcOFZYydNEqXR/HyGk3gfggTzWbAzroYVX1OE=;
-	b=HwyG58TLFWlhKSrdFQATFlFyE8KsvftS5fMlVL0yVDN4QzlObF1v1B4ufng36Y58yXW4
-	 11qGAjHEBjh05shDTtfIeZUkbEhyJILTtPx5RGD+MLCbUGs5/zp7FjrrgQ+Ru5JkG2AcE
-	 hehMTiGLbMwy+i7wafWVxTuLie6aHSqMLZFVSKZUCNrSXuUHys1AIu19dbuTRlT53Q1v3
-	 ix5vVTjwELO4jQpCq4uohSfbmc/LvnAdlD++yqheDsMsEqdZd7cUJMmNRFKRUuQjwTza5
-	 VOC8hXBy6poq4Z/O2kg0HkUz6BsAFX8aJ7DhiO82F/9WIEoJmrjZzl0lMD6PDZ/lxMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793911648;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:CC:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=70nlDvoBPsnGpl5oVrTXxWd2kNX6qx4N/2s5G+z+mzw=;
+	b=OMimTDKEQZ1rrAYEFxctWLQWrBZT1Bjvv7i2ue29pNefnh2A+49BNiYWRDxuin2s2hnu
+	 1tiWHk/qjYIrIR5c+Fu/90zsmIVJcvWgzf7hF4NmxRs048BFzyzpM8vFKKXh8MLdpOoWt
+	 oNYRWGaVpvjq7AuYhK22b8vjl0Wgnu947zjb3Ca6xyaJwSpgCuXz1IQowsdi9d/udWyvy
+	 0dp2ph+kgS74Tp9W39ZCjBFits4ZUs9mNKzW4cM/SvZ3geYwXDEP4AlWiQJv3+buS1c5Z
+	 A9Fi7ZbAYrHMKpmlqR1UKgs8+nXF3569td76wCDo0ijIzixrHKlpuFT+DaWRZi/4AgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ww0Od+k6;
-	arc=none smtp.remote-ip=209.85.215.198
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=auroraos.dev;
+	spf=pass smtp.mailfrom=auroraos.dev;
+	arc=none smtp.remote-ip=95.181.193.9
+Received: from mail.auroraos.dev (unknown [95.181.193.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8268606D829
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 20:36:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8268606D829
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ww0Od+k6
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cdb4c49e52fso2064659a12.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 12:36:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793911011; x=1794515811; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ho0ssxdcOFZYydNEqXR/HyGk3gfggTzWbAzroYVX1OE=;
-        b=Ww0Od+k6WA74rbnGWCyPafAGJwjeDn1zHh7oJWkaWumgIa6Wy+e5IlIqTWjI7w6GYd
-         C6cJe85FRieOS64oVYv5URhTugXLp52pjBylTbvV8WcaB4AbgqHDVzvCWQdRa0xE6vi1
-         YxjurHWH1nWasxOOJVPy7eyMiUu7PfoPd/5mTJOeSx0z4LVN7sqL+W+B+HdigvItufdV
-         CXaTu0ebmA3QFMUvX5aTAXUf2zufir0N/4WAoE5QL7GnTqnAIWYzFM+1UoqZbSElpcbI
-         dr1NZzihgJNWbVrSgE/0TihQHwfsphK2MjMQZpwIcEP7jS6DRCk2Wz9nPUc/H94c4Q/2
-         LYsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793911011; x=1794515811;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ho0ssxdcOFZYydNEqXR/HyGk3gfggTzWbAzroYVX1OE=;
-        b=E8VFXsMUhhe+HtMxgeaQdkellSqCKcytEALZ0MqmD6JmdFae1MHYtJxJRLAKwDK2Sh
-         Usb1+PSnKT0FG2NYnakrwLn2Irq4bMJ5jMLJ7/pVb27ul5KdBCkxQEkN1Zf7XUsxHf25
-         sKA5a25GI+YWQKa8Ci3mpa9jclSTwNcY/LQ48D/jBbNCFnZCELF73zR9GsZoWtYXF2b4
-         V8LeiLDhN5kDK2be7jpPM8p7mfA+ctEX1idlTxqRRIR0pqGoaD8fvFdMO+hNofSVymFK
-         CCIfi7pa/BhZJpmJaqxYeQFZ4RF7pznqI7MWSYY2+j03T7rCcVaXs8tCoG4Fi05pkpsO
-         SG3A==
-X-Forwarded-Encrypted: i=1; AKwUvBzsHbRVzypj+QFUdkz3OongYZpSxsLKJTMCagQYElQVcNKNTmJlABvYQSxNRkpUmtOgJV0cL50=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+RTv7fOWekcG0WjG7FexHfzsyxh5v06wMpI/iDP0RIuMWiArP1
-	B1Pv2Cze16OsD6PeILWYQArHC5eEDKnE6uglk6+5Rx3xOp8JBsirADxUAkF5kpJ0L+kzS806nYu
-	DvAGcjQ==
-X-Received: from pgca13-n1.prod.google.com ([2002:a05:6a02:638d:10b0:cd8:5a84:95f])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:db09:b0:3e2:7c10:d46b
- with SMTP id adf61e73a8af0-3ebb29af117mr653557637.13.1793911010709; Thu, 05
- Nov 2026 12:36:50 -0800 (PST)
-Date: Thu, 5 Nov 2026 20:36:50 +0000
-In-Reply-To: <38fa9f2cc476502e9b1c1fef09ebba1df5dd5901.1793795528.git.x-professor@outlook.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C7F606A31B;
+	Thu,  5 Nov 2026 20:47:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16C7F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
+Received: from [192.168.2.104] (91.78.15.64) by exch16.corp.auroraos.dev
+ (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Thu, 5 Nov 2026
+ 23:47:14 +0300
+Message-ID: <71b77625-8475-43da-a62b-983cf572229d@auroraos.dev>
+Date: Thu, 5 Nov 2026 23:47:13 +0300
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,68 +44,102 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <38fa9f2cc476502e9b1c1fef09ebba1df5dd5901.1793795528.git.x-professor@outlook.com>
-Message-ID: <auzo2EcG7UWMVdtn@google.com>
-Subject: Re: [PATCH net v3] tcp: free saved_syn after an RCU grace period
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Yingjie Wang <x-professor@outlook.com>
-Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
-	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] pmdomain: rockchip: Don't log when of_clk_get() fails
+ with -EPROBE_DEFER
+To: Yao Zi <me@ziyao.cc>, Ulf Hansson <ulfh@kernel.org>, Heiko Stuebner
+	<heiko@sntech.de>, Shawn Lin <shawn.lin@rock-chips.com>, Sebastian Reichel
+	<sebastian.reichel@collabora.com>, Midgy BALON <midgy971@gmail.com>, Finley
+ Xiao <finley.xiao@rock-chips.com>, Frank Zhang <rmxpzlb@gmail.com>, Chris
+ Morgan <macromorgan@hotmail.com>, Kevin Hilman <khilman@linaro.org>, Caesar
+ Wang <wxt@rock-chips.com>, Elaine Zhang <zhangqing@rock-chips.com>
+CC: <linux-pm@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20261105001257.1368266-1-me@ziyao.cc>
+ <20261105001257.1368266-3-me@ziyao.cc>
+Content-Language: en-US
+From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+In-Reply-To: <20261105001257.1368266-3-me@ziyao.cc>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
+ exch16.corp.auroraos.dev (10.189.209.38)
 
-On Wed, 04 Nov 2026 12:32:19 +0000, Yingjie Wang wrote:
-> tcp_reqsk_record_syn() allocates saved_syn separately from its request
-> socket. bpf_sock_ops_get_syn() can load that pointer while processing a
-> retransmitted SYN under RCU.
+Hello!
+
+   Please consider using --no-git-fallback with scripts/get_maintainer.pl --
+I don't see what do I have to do with this patch (other than fixing another
+bug in this driver earlier).
+
+On 11/5/26 3:12 AM, Yao Zi wrote:
+
+> Current error handling code considers -EPROBE_DEFER as hard errors,
+> logs misleading dmesg like,
 > 
-> There are two ownership transfers which can let another CPU reclaim the
-> allocation while such a reader is still using it.
+> rockchip-pm-domain ff600000.power-management:power-controller: power-domain: failed to get clk at index 0: -517
+> rockchip-pm-domain ff600000.power-management:power-controller: failed to handle node power-domain: -517
 > 
-> First, tcp_move_syn() transfers req->saved_syn to a newly created child
-> socket. The child can be closed and tcp_saved_syn_free() can reclaim the
-> allocation before a reader of the old request finishes.
-> 
-> Second, inet_reqsk_clone() shallow-copies request_sock during request
-> migration. After reqsk_migrate_reset() clears the old request pointer, the
-> migrated clone owns it. However, a reader which already loaded the pointer
-> from the old request can still be using it when the clone is released.
-> 
-> I found this through LLM-assisted concurrency fuzzing.
-> 
-> Mark the request-socket saved_syn pointer as RCU protected and use RCU
-> accessors for its reads and updates. Keep the full-socket pointer plain
-> because all of its accesses hold the socket lock. Embed an rcu_head in
-> struct saved_syn and use kfree_rcu() in both teardown paths. This lets a
-> request-side reader which loaded the object before an ownership transfer
-> finish.
-> 
-> This follows commit e3f33b0a1d89 ("ipv4: free inet_opt and ireq_opt
-> after an RCU grace period"), which fixed the same ownership-transfer
-> pattern for IPv4 options.
-> 
-> The issue was confirmed with KASAN on v7.3-16007-g36aad21d50d1 using
-> temporary kernel instrumentation to widen the reader and request-migration
-> window. KASAN reported a slab-use-after-free read in
-> bpf_sock_ops_get_syn(), with the allocation freed by __reqsk_free() from
-> reqsk_timer_handler(). The same explicit migration test completed without
-> a report with deferred reclamation. A patched kernel without the delay
-> instrumentation also completed a successful migration and seven saved-SYN
-> reads without a KASAN report.
-> 
-> Fixes: 0813a841566f ("bpf: tcp: Allow bpf prog to write and parse TCP header option")
-> Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
+> Use dev_err_probe() at the callsite of of_clk_get(),
+
+> and check for -EPROBE_DEFER in places> where its return value could propagate to.
+
+   To where?
+   And I didn't understand why you couldn't just call dev_err_probe() everywhere --
+the error code seems to always be propagated...
+
+> Fixes: 7c696693a4f5 ("soc: rockchip: power-domain: Add power domain driver")
+> Fixes: 6be05b5ec161 ("soc: rockchip: power-domain: add support for sub-power domains")
+> Signed-off-by: Yao Zi <me@ziyao.cc>
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+> ---
+>  drivers/pmdomain/rockchip/pm-domains.c | 22 +++++++++++++---------
+>  1 file changed, 13 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
+> index 34c862e56aad..c147cc88edb1 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+[...]> @@ -1006,8 +1006,10 @@ static int rockchip_pm_add_subdomain(struct rockchip_pmu *pmu,
+> 
+>                 error = rockchip_pm_add_one_domain(pmu, np);
+>                 if (error) {
+> -                       dev_err(pmu->dev, "failed to handle node %pOFn: %d\n",
+> -                               np, error);
+> +                       if (error != -EPROBE_DEFER)
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+   Why not just call dev_err_probe() instead?
+
+> +                               dev_err(pmu->dev,
+> +                                       "failed to handle node %pOFn: %d\n",
+> +                                       np, error);
+>                         return error;
+>                 }
+> 
+> @@ -1102,15 +1104,17 @@ static int rockchip_pm_domain_probe(struct platform_device *pdev)
+>         for_each_available_child_of_node_scoped(np, node) {
+>                 error = rockchip_pm_add_one_domain(pmu, node);
+>                 if (error) {
+> -                       dev_err(dev, "failed to handle node %pOFn: %d\n",
+> -                               node, error);
+> +                       if (error != -EPROBE_DEFER)
+> +                               dev_err(dev, "failed to handle node %pOFn: %d\n",
+> +                                       node, error);
+>                         goto err_out;
+>                 }
+> 
+>                 error = rockchip_pm_add_subdomain(pmu, node);
+>                 if (error < 0) {
+> -                       dev_err(dev, "failed to handle subdomain node %pOFn: %d\n",
+> -                               node, error);
+> +                       if (error != -EPROBE_DEFER)
+> +                               dev_err(dev, "failed to handle subdomain node %pOFn: %d\n",
+> +                                       node, error);
+>                         goto err_out;
+>                 }
+>         }
+[...]
+
+MBR, Sergey
+
