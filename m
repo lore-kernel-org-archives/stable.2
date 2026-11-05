@@ -1,111 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.83.223.141
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793895544;
-	b=evXVSmmPAfd2w89FcSPaYXgzkaE3MseKtH1/JxSWql5p6Y6+6LIYfVyS5R59NShQB+Gx
-	 3j7duVxjAsuMEeJH7yyHAA8xGMvzH/vI8XwLnRvamaF67GBYG7dDvoraKyvsFIAk5nRhI
-	 ExTDqb9TXcDPVb2lcXtrAYhBnYX5c7MzzuN72+inkIewktbyrRknKyzIyC0Wkqjo0zdla
-	 G/enTs48FhH4xSbnGHYPd4batFkLiC38nhIe5E1cusQWC/+LekolCGZ04GfOgom22mD8d
-	 F6IwDlBq5lo+tJ7kFbVLqbGBqsyEO1HzbbB+Js+nBQHbrzhZ0nOndau2KFLVoXi4aUg==
+	t=1793895626;
+	b=5gLPvhgpVkV5FQf3wKWrtmJDzpf2+Pvbiw8oA+JfzICLb3ZDTRrJEYSO2CzqyZxSOY7D
+	 5nRQ4F+w/ZqX28lCOuScl1bXKf0p3dAaAyyXywYKtCvsp1R72RehYmAxPT8iwotv+Ssa/
+	 LAxNsZ2y48dDMUWCI9JsarNnNY+bjiAz0wJxTgFVX0Q275nGFnSLEo18cy7t0xY9cGLCy
+	 3mQ3oStequEG29q5vvgZw/M9fjyT+SBBJNW+lxZDX9bgWu78ya+MVpof8w0TvnNJ78bmQ
+	 W9Vs3tnhvvXYbpGgp8sXHdztIX5wkgMETIeyMmPJ5CmTRuLS9egrnK34sGNhEy9hKGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793895544;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=FcJOxiSipIa3lbkmFsBEsrX/6/5m87I40dDnzNRDJEI=;
-	b=whdCFRhkzZk2BwEBKu1wozxA7D5HCzUN7lKhqH63tjl+h0EFOPkX1kEhZZuWg3z1dGE3
-	 G0jsXPY0HJ6wEKeljMAtYz+RaHfTFjOzFNSUOvspqnXSwekC3JuTNJAh0xSsqgVpuelzf
-	 sQWMR9LmYn+E3UmjTBjuzynk7rzF5efot92Ry+jBYEjV0xeX9L/xYMSL03N8kvMgCLPs2
-	 75Rpfr78Os31Gx79Bpl6lS7lieH2tArOBx2qxOkFlCeSY5bV8YkWoImVEm1Sm0o4OanOF
-	 eWs6Wra3eEg7tc9PGY9wbbsrc9azxqzr905TTPePQn0hgVUMarSUg3yCNo6JlcwfDtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793895626;
+	h=DMARC-Filter:X-Sender-Id:Received:Received:X-Sender-Id:X-MC-Relay:
+	 X-MailChannels-SenderId:X-MailChannels-Auth-Id:X-Abaft-Desert:
+	 X-MC-Loop-Signature:X-MC-Ingress-Time:Received:Received:
+	 DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=dDD/ET6/mYd5ZD6mib2tWPW3i2iT6NYNz9oOSEWFJiQ=;
+	b=xYXu1m1UCrLcw/NTSPcqrykAAsopzbOiMhTbj+zVCXFDnb7szZtiuAxeCjlv4HG8NnAo
+	 sR2UlV9sTeLm4FWBV/Ew9oHuQnGGSD8un+ZLgTN3VwaFpq5wB16EqXWLM9fcxD6aW5BMS
+	 Lcknybb0+C83nY8ZHUb6nI+6RQ3RvrftvERhoMCWEdw8lhOPmXBD6YoLeg1k5Sl8guMKt
+	 lJHM8+3ZRrRwDyQ0t6CHlLwux2BnsZYIOXmigP5QnKUT5xUD/jwv8RGj2+rnJ84b9oslf
+	 eY2iYZsdqgIQgRfdxFrk0n42FvPFSrQMrbD2tLwrqwuZrBbdaVDCvrkF60qqOa49kqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MX3eRFb9;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OJoEZrDf;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=none header.from=stgolabs.net;
+	spf=fail smtp.mailfrom=stgolabs.net;
+	dkim=pass header.d=stgolabs.net header.i=@stgolabs.net header.a=rsa-sha256 header.s=dreamhost header.b=PL2zhSDK;
+	arc=none smtp.remote-ip=23.83.223.141
+Received: from panther.cherry.relay.mailchannels.net (panther.cherry.relay.mailchannels.net [23.83.223.141])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD61E606D80F
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 16:19:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD61E606D80F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C08606A332;
+	Thu,  5 Nov 2026 16:20:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82C08606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MX3eRFb9;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OJoEZrDf
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQHPG1630992
-	for <stable@vger.kernel.org>; Thu, 5 Nov 2026 16:19:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=FcJOxiSipIa3lbkmFsBEsr
-	X/6/5m87I40dDnzNRDJEI=; b=MX3eRFb9OrOtCYseWWLyf/hS44iSdGzDyMJ40q
-	bcWrjZep9TMr28KmJYNBGVSm21a1JOWLjeGdDWXDEboM6Ucow0NF2dMvhoOavCDt
-	85B9QLQyekmWJwv0QRK4/KR2cJQy1nJlbqgLUQ8v0Icnz9G4/uIxTVtLO0EOq0IX
-	2DDVepFiWkOhZKDjoyJ7GOLywW9gB4roN5jPOEb/q+mr2INys5H0TzwEtadHV1PL
-	m0l2p93mxgYT9+9Srm7IiSZnF5ui4kk3rVOPaxxbcVbQcu40RsuY3g7fuKjOhdv5
-	+dEPk4Q//ZrGbethUX1asFng8mbPmp2P8xZj9/GhLT4APupw==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrkaqarmx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 05 Nov 2026 16:19:02 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-99062be02ddso536009241.3
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 08:19:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793895542; x=1794500342; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=FcJOxiSipIa3lbkmFsBEsrX/6/5m87I40dDnzNRDJEI=;
-        b=OJoEZrDfXzijqaYJlvdzD5lwXfSUrVmqLljribq18NuWWFxWj2m5jwdrUWIroKlG0S
-         eyGsGubV741rom5x4uug7UX1HS9AlRqco2Lu+Nw7RjTTIEDopi6yRr85hGCoKYMek1h3
-         rb6s+SMWjctMsmK841MgKpVtFhMLbh3BW8GPMA87G2MLjk8MKJOYDdTCQ/jnOEaonnwI
-         jluCT70zKRzkWFtSnOG+cFqcHumNdFZ/w0fTerxL/gFfW3sjOBEkgmNmFb1j95kTOsbP
-         Tg5jLaUbizGXcmXaTP9iTBZLIBxR9XmewkZ2R1Vo5ruu22b2NxnmwH6WYkyQAwoSRSuL
-         Grtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793895542; x=1794500342;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=FcJOxiSipIa3lbkmFsBEsrX/6/5m87I40dDnzNRDJEI=;
-        b=pjZxX5HFbeOxCrBT0qoWPC48GTpc84MSDvuqYNit8HOpjvmx6erauTewinD5Qw2Ysj
-         WaCPsL//h4/tN38qOWQeY8zmrWYojgLjtCnmCZ3h1Z+tqH7UQummalQdrLp7RGaGkNFQ
-         KUIWwSNzD5DbP8W+qXFWtYnGKHasR7/a4eStNZTSOOkg+xmLdrDUYu6jfGijdKU0pExj
-         i5v3a0YX7/iHkP3Muh1eSSVLYlH28ej5x3LhVMejcT+pj7axO6bXnGzLpGZeLAyqvMLG
-         bmaueXj7/N13Bi660GbebNWJLXLfwMcpwbGIrBGkxd5XC+JedO2bEYIDroTwtDYajhKq
-         RQrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwfjSmI+bP5J7feeZSF58/ywUwlqmRek8SbnQtPPCceEyOxlTicsuQ4SHBRgLJ1ReH/xGgFeTY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+bargZ2mMmrHlymkHXcJal9lbpbzUktuXB5W+jqtxF+LJGvLnK
-	oEXuO0LCy5na0V29ZO+glFc3MFkMcjyBuIO6GpzoO/vNH48lBFyXWhVErdaeJoGpEa1yWxNF81I
-	TxanjU2dOUKujgRP4mmQ60xebxTAFU0tzqWmqMU+IyVBlQ7kR4YxNonkfyMo1TNt6H3c=
-X-Gm-Gg: AYBFou2V/jNa0lRv7Kqv3vFDqPix6Eu/TJ0S0a274Z0NAqMmncJU/W9bkdIHWrieyBu
-	Hja96Y1B/A/Jvndt9agpflQKmn+w0I4BssI+2Bap+PMXaasf/a+fqaFXtX/nZFwopG+qvGC7kLz
-	oYHekuAht2BmU5LFTj+cJazhsR0O01+KT8syl542UqkwaJeAruyv6WuBLI+Qwy+Ubf0O5UMzfTn
-	/RcN7wTAVFAJs2muhvsEutB5OCsnxi2pIvcHGQ3mYIiUPW4JFe8pZBNw7mhQjrcfuwpSOekKERj
-	ExMW5NIYm+KXCno91ZzY/W33zjikfTg1V2JePJv+VwJTheEAfI+9/Cx/GUcHs7iuCIjpb4QosOH
-	luGxumNNKP/Jh/zbR2RwUARbP0kgb3NLLRApVb8HpFYQ0U5rWM+yzrb9q9cTLdn6+EPCEW/noSl
-	UMBw==
-X-Received: by 2002:a05:6102:160c:b0:7cb:288a:b66d with SMTP id ada2fe7eead31-7d2a15989e3mr3554137.20.1793895541867;
-        Thu, 05 Nov 2026 08:19:01 -0800 (PST)
-X-Received: by 2002:a05:6102:160c:b0:7cb:288a:b66d with SMTP id ada2fe7eead31-7d2a15989e3mr3523137.20.1793895541369;
-        Thu, 05 Nov 2026 08:19:01 -0800 (PST)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fee968763sm10593388f8f.56.2026.11.05.08.18.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 08:19:00 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 05 Nov 2026 17:18:57 +0100
-Subject: [PATCH] pinctrl: qcom: check the return value of
- qcom_scm_io_readl()
+	dkim=pass (2048-bit key, unprotected) header.d=stgolabs.net header.i=@stgolabs.net header.a=rsa-sha256 header.s=dreamhost header.b=PL2zhSDK
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id 1C6A84616C6;
+	Thu, 05 Nov 2026 16:20:19 +0000 (UTC)
+Received: from pdx1-sub0-mail-a213.dreamhost.com (100-99-198-86.trex-nlb.outbound.svc.cluster.local [100.99.198.86])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 9C562461778;
+	Thu, 05 Nov 2026 16:20:18 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
+X-MailChannels-Auth-Id: dreamhost
+X-Abaft-Desert: 6a64af1d55728ab4_1793895618959_2500447647
+X-MC-Loop-Signature: 1793895618959:3312503829
+X-MC-Ingress-Time: 1793895618959
+Received: from pdx1-sub0-mail-a213.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.99.198.86 (trex/8.0.2);
+	Thu, 05 Nov 2026 16:20:18 +0000
+Received: from offworld (unknown [76.167.199.67])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dave@stgolabs.net)
+	by pdx1-sub0-mail-a213.dreamhost.com (Postfix) with ESMTPSA id 4jL6wd2MdVz2x;
+	Thu,  5 Nov 2026 08:20:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
+	s=dreamhost; t=1793895618;
+	bh=dDD/ET6/mYd5ZD6mib2tWPW3i2iT6NYNz9oOSEWFJiQ=;
+	h=Date:From:To:Cc:Subject:Content-Type;
+	b=PL2zhSDKwFY0tFJfzOl3vl+WBcnTU37CxGpGml/xnaciJDNKuLErF9gQbq2RhGZpU
+	 I3xP4JLt8lh9tiPULAVXfpNmLZC7hWm/RV7b5qFwT/YoztcLOjGn5fYujDLdHoaCIX
+	 Zpf4Yq/GtltBfrwl0YWJyWOOcEBrBB6Mn48/SpRMiWpYf0oKRLXjroS050ny2Wo6a3
+	 vJXfvQFXuUtHe83WzxbjLGfeIPXsVQZ8p8BUDxD31H4DPGiDlv7BhrmlavBI9/nYO6
+	 yqmxtTWIIBMavCQatFZj0jcHuRes1e53gm1Pg8BHc7SlqcP/+kzaaRZ+zM1L2aQeN5
+	 KzjrZOjC9bJOA==
+Date: Thu, 5 Nov 2026 08:20:14 -0800
+From: Davidlohr Bueso <dave@stgolabs.net>
+To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Darren Hart <dvhart@infradead.org>,
+	=?utf-8?B?QW5kcsOvwr/CvQ==?= Almeida <andrealmeid@igalia.com>,
+	Shuah Khan <shuah@kernel.org>, Kees Cook <kees@kernel.org>,
+	Shubhang Kaushik <shubhang@os.amperecomputing.com>,
+	"Christoph Lameter (Ampere)" <cl@gentwo.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Will Deacon <will@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] futex: Canonicalize arm64 tagged user addresses
+Message-ID: <20261105162014.ljayftn3g5lziow7@offworld>
+References: <20261030-futex-tagged-uaddr-v2-prep-v2-1-131eb7414bda@gentwo.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,105 +98,181 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-pinctrl-qcom-scm-fail-v1-1-a23f96c6b313@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAHCs7GoC/x3MQQqAIBBA0avErBtQo6KuEi0GG2ugrDQiCO+et
- HyL/1+IHIQj9MULgW+JsvsMXRZgF/Izo0zZYJRptFY1HuLtFVY87b5htBs6khUrqsmwo7ZjDbk
- 9Ajt5/u8wpvQB5EjblWcAAAA=
-X-Change-ID: 20261105-pinctrl-qcom-scm-fail-3a5a2efa79e1
-To: Bjorn Andersson <andersson@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>,
-        Christian Marangi <ansuelsmth@gmail.com>,
-        Ajay Kishore <akisho@codeaurora.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1485;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=Z+sYRV3+E9NWUPA5i/L8SISI8LUGUb1V03d4YnL6uZQ=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq7KxzpQS1HtT93B9G9ebCHgZUE6sRFu/yTU+MB
- roULgGzvqaJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCauyscwAKCRAFnS7L/zaE
- w1dkEACHi+NWYWNPBSDtUdYOsv1S2zl3Y6zL+Zue8MJ+VGfhxZQNnUqWkVzO54aA+DhdIHC6Ldo
- 0U0OZGmZqTHDPwtM8aFRqPkekhWcS6ND1O3x6smBGzQqy4dehF5NRogebbs7nJDszlQ7l1q9RuU
- vpCIT4kExvHKNK2FK18S8kFy4za0rTZYwa6uy5SchV3WV2BoSRIEepNT3Mpwkg3OnlZCDNmlTsF
- hudDYkuv0vYk2gjKGN6KI7felVAMfU60j2nQCvtyMGAl+3na2XZFh9NLO9LITMnMpKNt+iuOk9/
- 8VKJowPh48eWyALmB8sq6dHFUJGgWmYGbEAkQMiVacYLBVaYzPoRx4CjX6QVUC72HCnvSoHDssN
- 1GYlwIQFIMJ95bK15CN5x2ApBxhl1j3h3bjgAHxlf7LnWabxPqMvalIu8ApAtv+oHUE5JO9Qwx+
- 5UhV0yvFsIFmnC6reTv2F/12iAYcmXrNSTjkgGnwtklPNhzTkpe2J6994oUklkJtkNDZnVHFR4q
- Kjtn/p+NdnRrvKjnTNTm87x0fGh5COv9FbjU1+yfNf1ibrK6CF52kty3ari3OsMV4xyUhkJAPYZ
- l2eDNqlWU9dCaSIdF8ancsPN9THf9kEM2o2yN3HZznKymTXWIRHTAOVpPimMklAosmDyXLpVjZY
- PgUiCuAeGe8D7eg==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-GUID: Y9LBR_p7s_AvmXO1MTHvJciNV5dbuvU2
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2NCBTYWx0ZWRfX/3TU9hdJ2P+k
- Mz+a26vD31Ji3k5kVcF9SBMTkc+g+4gWeEmYTAWZbrvKeS6ZSLdHtNAXG7mCIQfPtFTLjlpTefG
- NHQpNZp+F1kIClSqp081MYUrYp+lHyk=
-X-Proofpoint-ORIG-GUID: Y9LBR_p7s_AvmXO1MTHvJciNV5dbuvU2
-X-Authority-Analysis: v=2.4 cv=OZoNnRTY c=1 sm=1 tr=0 ts=6aecac76 cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=SLtZePgESXxLFGUVpRkA:9 a=QEXdDO2ut3YA:10
- a=TOPH6uDL9cOC6tEoww4z:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2NCBTYWx0ZWRfXxt77kEViFqeo
- vvFKNVMZk4dTu0zXaQI1CJrd+NrL0xK0cg/+Cz+fl2t6YLIGLudwTwjDqtcBGApANIK8cYJxUlX
- Qcc14vDkSEJLQddkuNc0jMsvNOrq6GbO4Ulk8njCMpqw4Lkq8tgSahZU8cAOh/aX6bMJTI/wRV7
- 5BwxG4hrrfNC5Vfe1ST8cFWHPO6jALPmXL2+mbIcBZse9kvfV6qDKrTKGtWeVT8QvM2ykQHk/ll
- BVax27/0XAo0gX3TvViS3k30fg7tIRkNhzFm+RPbEYZq8gnAkJ0DTaM83bxh3EdPCHeGB99VPYk
- 46lHodcOs1wvy+t4az/IFEUashIAbCOtpmMJpXsMd9C+VMkKS/T5qTxEMqbx70LryUOzwaD0363
- d8/lpBbTiWqSoHJFiTQoZ5ji8XxM7rwr6Bnt2Wh+pKUumDDJWrxhbPfMm3hi8UwxdYrbjzYOQqT
- iuiia1lgE+pBT91foXA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 bulkscore=0 clxscore=1015 malwarescore=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 priorityscore=1501
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050064
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261030-futex-tagged-uaddr-v2-prep-v2-1-131eb7414bda@gentwo.org>
+User-Agent: NeoMutt/20220429
 
-qcom_scm_io_readl() performs an SCM call and may fail in which case, the
-stack variable val remains uninitialized and its contents are written to
-HW registers. Check the return value and bail-out on failure.
+On Fri, 30 Oct 2026, Shubhang Kaushik (Ampere) wrote:
 
-Cc: stable@vger.kernel.org
-Closes: https://sashiko.dev/#/bug/linux-a5545ffd-48cc-4856-94cc-4b2dd7968f50
-Fixes: 13bec8d49bdf ("pinctrl: qcom: use scm_call to route GPIO irq to Apps")
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- drivers/pinctrl/qcom/pinctrl-msm.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+>On arm64, a thread that enables the tagged address ABI can pass valid
+>top-byte-tagged user pointers to futex syscalls. Such a pointer must
+>have the same syscall behaviour as its untagged form.
+>
+>get_futex_key() validates the user address with access_ok(), but uses
+>the raw address when constructing private and shared-anonymous futex
+>keys. A waiter using a tagged address and a waker using the untagged
+>form can therefore access the same futex word while hashing to distinct
+>keys, causing FUTEX_WAKE to miss the waiter.
+>
+>Keep access_ok() on the original pointer so that arm64 retains its
+>per-thread tagged-address ABI enforcement. Canonicalize the address
+>afterwards, before it is used for futex key construction and shared
+>mapping lookup.
+>
+>Add an arm64 64-bit selftest for a tagged private waiter woken through
+>the corresponding untagged address.
+>
+>Fixes: 63f0c6037965 ("arm64: Introduce prctl() options to control the tagged user addresses ABI")
+>Cc: stable@vger.kernel.org
+>Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+>Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
 
-diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pinctrl-msm.c
-index 32aa7b919e24a0e614078ddc70a248c746e4813b..0053d1d927dc134ee81377fe480befa2da87c7f5 100644
---- a/drivers/pinctrl/qcom/pinctrl-msm.c
-+++ b/drivers/pinctrl/qcom/pinctrl-msm.c
-@@ -1117,7 +1117,12 @@ static int msm_gpio_irq_set_type(struct irq_data *d, unsigned int type)
- 		u32 addr = pctrl->phys_base[0] + reg;
- 		int ret;
- 
--		qcom_scm_io_readl(addr, &val);
-+		ret = qcom_scm_io_readl(addr, &val);
-+		if (ret) {
-+			raw_spin_unlock_irqrestore(&pctrl->lock, flags);
-+			return ret;
-+		}
-+
- 		val &= ~(intr_target_mask << g->intr_target_bit);
- 		val |= g->intr_target_kpss_val << g->intr_target_bit;
- 
+lgtm
 
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261105-pinctrl-qcom-scm-fail-3a5a2efa79e1
+Acked-by: Davidlohr Bueso <dave@stgolabs.net>
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-
+>---
+>Changes in v2:
+>- Add the generated tagged-address test binary to .gitignore.
+>- Compile the arm64-specific test implementation only for arm64 64-bit
+>  builds.
+>- Avoid relying on /proc/<tid>/wchan to detect that the waiter has
+>  queued; retry the untagged wake for a bounded interval instead.
+>
+>Link to v1: https://lore.kernel.org/r/20261022-futex-arm64-tagged-uaddr-v1-1-84d8afbe7668@gentwo.org
+>---
+> kernel/futex/core.c                                |  2 +
+> .../testing/selftests/futex/functional/.gitignore  |  1 +
+> tools/testing/selftests/futex/functional/Makefile  |  1 +
+> .../selftests/futex/functional/futex_tagged_addr.c | 61 ++++++++++++++++++++++
+> tools/testing/selftests/futex/functional/run.sh    |  3 ++
+> 5 files changed, 68 insertions(+)
+>
+>diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+>index a240638f69e5c65bd036434a15f3df680efb4638..dcc8ffca38595a5ea69f3672375ffb9f9c6766f9 100644
+>--- a/kernel/futex/core.c
+>+++ b/kernel/futex/core.c
+>@@ -539,6 +539,8 @@ int get_futex_key(u32 __user *uaddr, unsigned int flags, union futex_key *key,
+> 	if (unlikely(!access_ok(uaddr, size)))
+> 		return -EFAULT;
+>
+>+	address = untagged_addr(address);
+>+
+> 	if (unlikely(should_fail_futex(fshared)))
+> 		return -EFAULT;
+>
+>diff --git a/tools/testing/selftests/futex/functional/.gitignore b/tools/testing/selftests/futex/functional/.gitignore
+>index 7c39d10b38e4d86096d2d1ce5fe8d6036e8ca758..c64b93a683bd6e9f6b9d3e4f02397eb24cc5a0ad 100644
+>--- a/tools/testing/selftests/futex/functional/.gitignore
+>+++ b/tools/testing/selftests/futex/functional/.gitignore
+>@@ -6,6 +6,7 @@ futex_requeue
+> futex_requeue_pi
+> futex_requeue_pi_mismatched_ops
+> futex_requeue_pi_signal_restart
+>+futex_tagged_addr
+> futex_wait
+> futex_wait_private_mapped_file
+> futex_wait_timeout
+>diff --git a/tools/testing/selftests/futex/functional/Makefile b/tools/testing/selftests/futex/functional/Makefile
+>index a03bd5acba50319f08b04ff0904ef155c000fee3..8f7f6730285b725b483787362db4626c459d65c9 100644
+>--- a/tools/testing/selftests/futex/functional/Makefile
+>+++ b/tools/testing/selftests/futex/functional/Makefile
+>@@ -19,6 +19,7 @@ TEST_GEN_PROGS := \
+> 	futex_requeue_pi \
+> 	futex_requeue_pi_signal_restart \
+> 	futex_requeue_pi_mismatched_ops \
+>+	futex_tagged_addr \
+> 	futex_wait_uninitialized_heap \
+> 	futex_wait_private_mapped_file \
+> 	futex_wait \
+>diff --git a/tools/testing/selftests/futex/functional/futex_tagged_addr.c b/tools/testing/selftests/futex/functional/futex_tagged_addr.c
+>new file mode 100644
+>index 0000000000000000000000000000000000000000..0b0e350eff11939e42b7b1aca01136b037ed7217
+>--- /dev/null
+>+++ b/tools/testing/selftests/futex/functional/futex_tagged_addr.c
+>@@ -0,0 +1,61 @@
+>+// SPDX-License-Identifier: GPL-2.0-or-later
+>+
+>+#include <errno.h>
+>+#include <stdint.h>
+>+#include <string.h>
+>+#include <sys/prctl.h>
+>+#include <time.h>
+>+#include <unistd.h>
+>+
+>+#include <linux/prctl.h>
+>+
+>+#include "futextest.h"
+>+#include "futex_thread.h"
+>+#include "kselftest_harness.h"
+>+
+>+#define WAKE_RETRIES	100
+>+#define WAKE_WAIT_US	10000
+>+
+>+#if defined(__aarch64__) && __SIZEOF_POINTER__ == 8
+>+static futex_t futex;
+>+static futex_t *tagged_futex;
+>+
+>+static int waiterfn(void *arg)
+>+{
+>+	struct timespec timeout = { .tv_sec = 2 };
+>+
+>+	return futex_wait(tagged_futex, 0, &timeout, FUTEX_PRIVATE_FLAG);
+>+}
+>+#endif
+>+
+>+TEST(tagged_addr)
+>+{
+>+#if !defined(__aarch64__) || __SIZEOF_POINTER__ != 8
+>+	SKIP(return, "arm64 64-bit tagged address ABI not available");
+>+#else
+>+	struct futex_thread waiter;
+>+	int ret, i;
+>+
+>+	ret = prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0);
+>+	if (ret && errno == EINVAL)
+>+		SKIP(return, "tagged address ABI not available");
+>+	ASSERT_EQ(ret, 0)
+>+		TH_LOG("PR_SET_TAGGED_ADDR_CTRL failed: %s", strerror(errno));
+>+
+>+	tagged_futex = (futex_t *)((uintptr_t)&futex | (0x42ULL << 56));
+>+	ASSERT_EQ(futex_thread_create(&waiter, waiterfn, NULL), 0)
+>+		TH_LOG("pthread_create failed");
+>+
+>+	for (i = 0; i < WAKE_RETRIES; i++) {
+>+		ret = futex_wake(&futex, 1, FUTEX_PRIVATE_FLAG);
+>+		if (ret)
+>+			break;
+>+		usleep(WAKE_WAIT_US);
+>+	}
+>+
+>+	EXPECT_EQ(ret, 1);
+>+	EXPECT_EQ(futex_thread_destroy(&waiter), 0);
+>+#endif
+>+}
+>+
+>+TEST_HARNESS_MAIN
+>diff --git a/tools/testing/selftests/futex/functional/run.sh b/tools/testing/selftests/futex/functional/run.sh
+>index d1a681b798bd385570710e7c5f9bb28cca64de3e..620d13ee7171e7cc6061053750c9ff4cf525ff72 100755
+>--- a/tools/testing/selftests/futex/functional/run.sh
+>+++ b/tools/testing/selftests/futex/functional/run.sh
+>@@ -46,6 +46,9 @@ echo
+> echo
+> ./futex_waitv
+>
+>+echo
+>+./futex_tagged_addr
+>+
+> echo
+> ./futex_priv_hash
+>
+>
+>---
+>base-commit: 3ac032ef6ca8e47bb06d1e189dfcf88fa0a09c75
+>change-id: 20261030-futex-tagged-uaddr-v2-prep-63ea40b5a22f
+>
+>Best regards,
+>-- 
+>Shubhang Kaushik (Ampere) <sh@gentwo.org>
+>
