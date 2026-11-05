@@ -1,71 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903874;
-	b=aBERii3vRzZBQyyOJYdw/W1TPL4VqCkbCjsDnx/okxYRmvJ4F/n9O9rU70AEO8ul8Mk1
-	 6rQPiOGndQ5mNKj8H2SbHr9jX+vP3eiGLmgn5B0pD3wRcVUNrqEPQOH8YC3Gx6NKnlxPv
-	 oXLuc2tbDGvhLH3VtEPeceGPCaSfPyGcncKPG5xlLiBoYmS/ntwgTOSN4Nc87zU567Hzd
-	 RvBWIcv+x+KeS6xwQ3cwHwzf2Jhig9ChrjIp7ZHmKDNQ8mpqLCFTFkka723cnFF92F+Z8
-	 FLgaJQi22GepbUjdSoEeUZYg0CNS51NxyPzU/Vr7nFdjB+1sb010AdesHgQvhR++KXw==
+	t=1793903961;
+	b=KFB7UBZckuYsYco4DrXfy9r3UVQNNAOpkf66iGdXU7MTJN/RrCyHLjHDXddnlzVlZ3oH
+	 nDNix7iUVHhOCjz96w9KItCCnnpltavuGLrlTjaIpZMR21F/7QJzYfnnGD+KfUwDopJuJ
+	 mBDdTv57k6aMIaLX2r98j92WVx5Hl1onPUL0QSf+ocV63xuK65WSmrRxZ32t2rHQgT+XT
+	 R2FrS2A3pqLy+Xy+fCr8Hsm36Elq9qFj6Y5mZVXMb0MWzhIpINNF9S/dzO3LQ2ry/4OAW
+	 p9ZtgTPAC1bwCFCuFckRZkoHZYyRxuHj6npCElmGoI9lsDJExDfYT2HFJDHtUTmklVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903874;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=42B23m+JIdyvXG0sW7UzXbkef8/A6+4jMboFfV5//zI=;
-	b=bkoF+lyirnRTHtZLzZAZFL1x2SWu0vPiT/qy7iif7fZHYR0CiX0wnAfiMFJiRsUPx92I
-	 ulq92p3BzWPLS3nJYkYiTK5jkYnZSUN8O4z8x31AoxEn2K88Mpod53n4SvtYNPcnAnrFH
-	 YL0h8XxNwTrBuwczjjnv0f4JkpnDCVGTrLilPS6aTG3gnZNP9NGqwzf1EZzGYlpISbpRs
-	 zC9tXotsv9P1XZ53Dq34+KDuvH+jO8dv4vkJgfZZXtS7Jts5rTMlPXj8KgKDxQLj2yC2U
-	 JbT/Z8ERizrfhVeQhDTqn0hPADA1874YYsW8LqFeJ90lbqZVOEqe+P8K5CKh4JH5WiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903961;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=1jP4FNNNGUgiAZze6J9RG6eDxXUSytXfVQ6OmzqR10I=;
+	b=I09l1RaXPauqJyvMP+qA8wfo2hirZKmKrNhyX2MtiqDDfGwxSNrmpGJdhmR0ZBKidYpY
+	 TedUuERCkNjAAKlcj1YAkTxIqD8FG66SD2Ir5arm0Soc6sguncweYV1HydrO3+008wf4x
+	 uGUw4GgvuQWuMLmQIdqVf+v7crmCJqPwNLDxULojNe0UbGt2WpTTgibzyecABwlqiAZgt
+	 moWm1hmIugixAmaDsxxrfb5tv04MrttRHNUv9PMKswhnKVwofSl5vTLyMg4UEMWGpUeii
+	 eD9QhshRRLmZCOwWfcv0ZaBx/9GeW4fwM4deJ2h4YAzYliGB4tVgY2z3+zjKZvMdHSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nifLGVmn;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3224606A31B;
-	Thu,  5 Nov 2026 18:37:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3224606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Tt4/vD7e";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90B3606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:39:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nifLGVmn
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BCC64168F;
-	Thu,  5 Nov 2026 10:37:49 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D67BD3F632;
-	Thu,  5 Nov 2026 10:37:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793903872; bh=9Qhj0s746e4V1R4BU+HoKxTE/pluQc6iZNeXaD38eeI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nifLGVmnqXYcirsAZF6IszdTwzH5oMaXh0Z+dSQ4QKp9pkzRNqjBRKUBp/25yWrCP
-	 xU8XxQQj3RD6yqa54ohcJh44ntqKmEEcuQXhu0YHvBCN4CC/iPNCv97/T6KqwD1+Wf
-	 0l8BtR9y/1prJ4J5hTD5yWGu2QSD3R6G3rPp7qo0=
-Date: Thu, 5 Nov 2026 18:37:46 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	James Morse <james.morse@arm.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Doug Anderson <dianders@chromium.org>,
-	Breno Leitao <leitao@debian.org>,
-	Jinjie Ruan <ruanjinjie@huawei.com>,
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
-	Vladimir Murzin <vladimir.murzin@arm.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Huth <thuth@redhat.com>, Dawei Li <dawei.li@linux.dev>,
-	mrigendrachaubey <mrigendra.chaubey@gmail.com>,
-	kernel-team@meta.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] arm64: sdei: Run the event handler on the kernel
- vectors
-Message-ID: <auzM-l40BLsT3clg@arm.com>
-References: <20261105120835.3321912-1-kirill@shutemov.name>
- <20261105120835.3321912-2-kirill@shutemov.name>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tt4/vD7e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 916A61F000C1;
+	Thu,  5 Nov 2026 18:39:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793903961;
+	bh=1jP4FNNNGUgiAZze6J9RG6eDxXUSytXfVQ6OmzqR10I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Tt4/vD7evAdKOkUAJ0FSY6VCF/vSVDDSKyOycpySezKPSBouJfBVdR25QsHBug/I3
+	 v4M2Vo9u5B7yKTs7mwomIQn6LXnrxJGdIQ1dPTRxJQfirZjBhNxzVZCsU1ETanT4Xl
+	 OOca4B++IL31YGOCgO/PbfO6knTx7AIBgknj6MlZfwy5g7rCZImKLmUCRsO8+3wQiM
+	 3LJt6pDe3qeiONxqvFTP0qCsu2QGFXxRxIDPVWWWuHzF6cKp7VSUyvL7K+P84ni3a5
+	 Frfsav3eufrCsHUH5pZaBdQdKSAkVkbhSbdbfSi63EjxgqexI5P4zFNdSxDGIMLpvj
+	 LAOhqksMXlLuA==
+From: Sasha Levin <sashal@kernel.org>
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"linkinjeon@kernel.org" <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
+Subject: Re: [PATCH 6.1.y] Fixed ksmbd: validate security descriptor offsets before pointer arithmetic
+Date: Thu,  5 Nov 2026 13:39:06 -0500
+Message-ID: <2026-11-05-1-daily-reply-0001-ksmbd-sd-offsets@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <DB5PR08MB10062B7BF093BA770036A83AFFD772@DB5PR08MB10062.eurprd08.prod.outlook.com>
+References: <DB5PR08MB100620A5BE5A4EE2F978D001AFD682@DB5PR08MB10062.eurprd08.prod.outlook.com> <2026-11-04-1-daily-reply-0002-re-ksmbd-sd-offsets@kernel.org> <DB5PR08MB100627622C33C426D3138E1FAFD682@DB5PR08MB10062.eurprd08.prod.outlook.com> <DB5PR08MB10062B7BF093BA770036A83AFFD772@DB5PR08MB10062.eurprd08.prod.outlook.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,51 +61,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105120835.3321912-2-kirill@shutemov.name>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 12:08:33PM +0000, Kiryl Shutsemau wrote:
-> @@ -1065,10 +1067,27 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
->  	else if (cpu_has_pan())
->  		set_pstate_pan(0);
->  
-> +	/*
-> +	 * With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
-> +	 * EL0 until the next exception from EL0 maps the kernel. They only
-> +	 * handle exceptions from EL0: an exception taken here would run their
-> +	 * empty current-EL half and never come back. Switch to the kernel
-> +	 * vectors. The IRQ-like resume keeps using the interrupted VBAR, so it
-> +	 * still goes through the trampoline.
-> +	 */
-> +	vbar = read_sysreg(vbar_el1);
-> +	if (arm64_kernel_unmapped_at_el0() &&
-> +	    vbar == (unsigned long)__this_cpu_read(this_cpu_vector)) {
-> +		write_sysreg((unsigned long)vectors, vbar_el1);
-> +		isb();
-> +	}
+> From: Namjae Jeon <linkinjeon@kernel.org>
+>
+> [ Upstream commit 3474e1a304fbf9f7c996b24adcd519e031227a90 ]
 
-Sashiko had a comment that the above should be raw_cpu_read() since with
-preempt debugging and pseudo-NMIs, irqs_disabled() is false here and the
-check in __this_cpu_read() will warn.
+Queued for 6.1 and 5.15, thanks.
 
-Thinking about it, further down on the irqentry_nmi_enter() ->
-lockdep_hardirqs_off() we'll hit the irqs_disabled() issue again. We
-could just do a raw_local_irq_save/restore() around this function.
-Unnecessary for DAIF but useful with pseudo-NMIs.
-
-Alternatively, __sdei_asm_handler() could save/restore PMR and change
-the priorities similar to the kernel_entry code. Actually, this may be
-better since do_sdei_event() also checks regs_irqs_disabled() and we
-don't have any regs->pmr populated.
-
-Worth a separate patch to fix SDEI handling with pseudo-NMI on and no
-changes to __this_cpu_read() above needed. So, for this patch:
-
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-
-(I'll probably queue it for -rc but waiting to see if there are more
-comments)
+Going forward please fix your mail client and follow the submission rules: send
+with git send-email, use a proper [PATCH 6.1.y] / [PATCH 5.15.y] subject, and
+do not send patches as Outlook replies.
 
 -- 
-Catalin
+Thanks,
+Sasha
