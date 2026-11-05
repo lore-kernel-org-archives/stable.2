@@ -1,54 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793855655;
-	b=0lY0NH02Mxqx4J0cZU7w+oBE+LkuiktO7+7LDQdtyA/YlWMK4fq4BUuqNWmX6I6JcXz/
-	 yTzUtLpP1GSBcJ4lDd4CKRBz57ddnbn8u5Cd9dGpS/h0r/By0rYFzsMmUGwt8/w4zyk/5
-	 xQWhlHHi2JyLFu93spcUfZ22WdzwDydEpUfqyknDyYU7l3uLMBH86rx90KY6ItSwFU8AO
-	 pew8b1H4fDypoFOYDvKaMegX/8tQf2lEQnlfvqwpxt6jx8xu/zWLJsBicEJdjCY7RrQ51
-	 HdSRCmcJKdWeB7kV3/l9eKl7wXx6E6wVknm4EXNKW+BWZIpAHM2G5MvUozOgguKNRDw==
+	t=1793855659;
+	b=YcR+beIOsymkC8lll5aT2W8tsOpBsRD+hec21/L0IbS8HFV5JvqE8Kbr/nSsT6OgbZmA
+	 5bNqQ3Pbteb1la6E8+0G82E6NM+8lZztjYmLcwpdQp1yAfeD+ZBSbBCTxlwJX4rOj+Cyb
+	 lkEoMxfaK8CyfyUEnWK57TFblYItXdJpu4uxMLzJj2J7DogVAsFo+QFVzNBDaNxQF2ivd
+	 pc30QjviAoO4dVpwdCAQDpIGc+5jENRVg11m7oDCLFah2tOO8m2bKZR7xfFfEZT8O5naV
+	 yKN3agDAkmeFESPfq8fghPQiEP7ymTWUKYPMb++5/2xW/xVyQGgyC/A7Gf35xJmtcmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793855655;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=XEqA3W+i3V3yHQk0EklCgzFHb8brEsF0K0ZpN1y8TEQ=;
-	b=LBDNhcCj7zk/Q1c46lvFupcKOTUye3zumaas8tKd4+e/2HrOcxfd9rNWJMOcfsbusa+1
-	 RJEl8pIT1idHMdNFCFhQhcaanT3RIZp6t/d7b+fz5RJRiSPXjWsRYObK4Kmf/QVsdH7JZ
-	 4OUXancGTxncS8qlibajRpTp0QANYrDzGDNMPFRN7W+tX2EPJTdPYoyvlJqT2rOcHchrf
-	 7VSBe2eXoa9dJyIeZeVU5OUx35FtIDWvim560pu2S58527AttZuH+NE5NAYlw7snJTOWm
-	 74l5iYPZaJOA1pE6gjNpNMssnx58ihSygg06YNEKqMjymR64Txc5FmP1+nYsfeOEeCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793855659;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=l1eSX+6egLtOu1lrQcTgUdiF++U+c2v1MrLX8sa3W1M=;
+	b=ICHJng9oHoRRSrQ4vUG23SMq8x3uwDMDUbE+QSeBCW834/2crCqDIA6eEjQ61JGtl20g
+	 bloq3B/2zslBGtnGPXBH5dZZhGKRl4wukABZVKANw0KNGIHzRjyHabZLv7nd8ZDBO8GcE
+	 HJzRIGicYfUZaEFBc71x9XvPmUCS45Q0QCUk6nXEb7/Q052TPS8BHKLjNRpOD4jLmS+UL
+	 tSlSVd0KqVOBOujmHeWOD/4lQZTRMhlze03i/b0qM7V/AUEuDPnY62feLUf3blQAVST1i
+	 1OTqJ2w9NeUKI43T0ZtX9Ju+qJBwjXvrr44TnlbNlb15q+WttvEJY4wDlWwar4byhag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Jv2JoSDW;
-	arc=none smtp.remote-ip=95.215.58.123
-Received: from mta1.migadu.com (out-123.mta1.migadu.com [95.215.58.123])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o+unyceh;
+	arc=none smtp.remote-ip=74.125.229.5
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078B7606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 05:14:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 078B7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2BD5606A332
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 05:14:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2BD5606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Jv2JoSDW
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=xnhL49rU8Si9Gh8RiV1Fb+XbOATfd6SeIOCBPYd10uQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793855650; v=1; x=1794460450;
- b=Jv2JoSDWT8rRWOQPcqzFEkz0+ZUPr1snGqvUef4+jCsKVoJHOTVZo2HCYgK/Zy8xaFT4GN/i
- /cB/738Q14uaxOMvSUEIDrroWkDHCDcWwFyjDGJqNZZtdoTUnY8L2MjZwbUymCqjA6nXNXt9+Qk
- pAktt9j85Nu4FhP17wVMQfhQ=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id f77242cba51ecc71;
-	Thu, 05 Nov 2026 05:14:10 +0000
-X-Mizu-Trace-ID: f77242cba51ecc71
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o+unyceh
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36d73027aedso565488eec.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 21:14:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793855658; x=1794460458; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l1eSX+6egLtOu1lrQcTgUdiF++U+c2v1MrLX8sa3W1M=;
+        b=o+unycehWeryTcRSxGc+h2Dc3fEnOliQuiQCdnsHRKUgGjU1AG+VdIjBDc5OJ68/MX
+         Fpe/yCBi7FY+2rtIwDbdjpnvg/yefTvvXMgaRYbde75/NERLRS3xGmbER4QvbM/B5oY2
+         1+9E0MDBPf48Xeld8f53td+67l3AHv/uaG3r3xbs2idFxelZ9CXTtNwyVtXG70aiK5y/
+         ZW8T70W06hrYtvnuE/2WPgATmwaDKoafZjd1AT5DtdEmhZr80Nhf+dct+uOAQLwSkb8A
+         g+ujz4/HpokjJTelStEbPwQ2duF7qjhwnyiUs2anNDhl3GIxwMkWB/Fgn894ykyOMDsR
+         7Jag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793855658; x=1794460458;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l1eSX+6egLtOu1lrQcTgUdiF++U+c2v1MrLX8sa3W1M=;
+        b=0ClydP5B5oQG6T61YTOpQJroybE5rJWsartlSmGOJFn/6wnUUNMslizimmPRp+/yyo
+         Hzx40qI74gbS8IuPWDcOxHaidFQmTUzD7G8hedGdh3FA/ZcKt3RdBWinF2JVvYSG7SJ3
+         5XbEblGuAGRFmzqqdSKfg42aRb4vJRaz4XnsM5bOsr4zaGEihm62KW6e2lFqGTf8ZZna
+         vemF74XZE5pjiyaXdKgIEjSd7uR+h031bfqCB5DJDM2WBn+A33SwMWxvo8bMrViyIQt5
+         LKlN8VLeDJvN/s/tetFQejO2jPTGYM9QWcf4l5St8wEhCiYvT0Z7W6E0u7j8hUyt1bNa
+         Akhg==
+X-Forwarded-Encrypted: i=1; AKwUvBzlQGe2QOFsDxhR8Zis0igU6Zia0LBpgYAFqV0ctEVDyVWCjRM6m+w+A26WAeLXwJZJ/VnmCCA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9T+WDK0f063/NFv1hMtEWZGhXHYG4erpBT3BjvjcY6n5dsjRQD
+	0UkMmR0x3PK7eSD0c5oJwwNo3QnGuB4+5o53xRJLEtCQjgr7awic0hjL
+X-Gm-Gg: AYBFou1ne+3LYN5qzqty0SRMOtvoxTQYP7PWIJFHXPoJFrYXn/uGfScHKeQ1FIOx220
+	y9XIxuL7L60KoAvBswVIeN8ryncezbbw+xrHRjC+3dChZ5Fiu+JU4sKLYvli6Ye1WDxJOBYmwfY
+	0onbaci0Tg5i0zmW4mwV6KLafcw8WH/lwpvXlbCN4aRwU/Ba76cMyyf6SiDd/v2JiMpRjt9nQx1
+	Q/QbPEb8hq1b++w+KQqh9J+qn3OsCN384HA2XpXYtNZ9lHw8YngJXBD56mSTdR/V3lEA7DpZeLH
+	Hgc7BC7g73q9Ea1awVfzWY9bYIZ+F1kTLuk58+FF2Hm34akqRsMtY2YRTvftKSHkOpr1FfNwXzt
+	IH1A9nvDBmgAJHk9kNsHeJFCALpyeCkMmgniQG8OuJ1f6znBoySxLWd4Lk3RZOTKLRernT5scDz
+	6R0pYRw9vjpPmeqbD9PNgJ/X2DUnISyMVGMadtLXCQOiq2ooUltY0guUDgwGnDiy5ORLqIM5mwC
+	8BgERbdztUMOvO3wVWYwZ7TMT7SDIf6Fn97NLo/Fc5gz4V8AX838ZZzLOuJYJRdlS01xq4lG3x5
+	S6o6JQ8JAOoZahax3Mn6/TmNvhbtJhr1TlZHX2e5t3nu/K40NnI8pNKRxBIR5yHtQ8fdDgwaY1X
+	j57izk+BFDxQniUcIkEw5Nm1J04LAB/Td8VRBjA==
+X-Received: by 2002:a05:693c:6087:b0:369:f420:8679 with SMTP id 5a478bee46e88-36a42440304mr29748490eec.38.1793855657614;
+        Wed, 04 Nov 2026 21:14:17 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36db94376b1sm6079160eec.10.2026.11.04.21.14.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 21:14:17 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: jaharkes@cs.cmu.edu
+Cc: coda@cs.cmu.edu,
+	codalist@coda.cs.cmu.edu,
+	viro@zeniv.linux.org.uk,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH v2] coda: honor the append state of each write
+Date: Thu,  5 Nov 2026 05:14:06 +0000
+Message-ID: <20261105051406.52442-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,151 +99,52 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v2 2/4] mm: gup: allow long-term pins of CMA-allocated
- HugeTLB folios
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <818fb0b4bbb234e4a2bd0552d61634f1a8431616.1793850539.git.zhengqi.arch@bytedance.com>
-Date: Thu, 5 Nov 2026 13:13:57 +0800
-Cc: osalvador@suse.de,
- David Hildenbrand <david@kernel.org>,
- akpm@linux-foundation.org,
- azpijr@gmail.com,
- Lance Yang <lance.yang@linux.dev>,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- Qi Zheng <zhengqi.arch@bytedance.com>,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <8F5F930D-A05E-4255-8E70-2567921A92A0@linux.dev>
-References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
- <818fb0b4bbb234e4a2bd0552d61634f1a8431616.1793850539.git.zhengqi.arch@bytedance.com>
-To: Qi Zheng <qi.zheng@linux.dev>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+coda_open() adds O_APPEND to the container file's f_flags after it has
+been opened, without updating its cached f_iocb_flags. An O_APPEND write
+can therefore overwrite existing data instead of appending. For example,
+writing "Z" to a file containing "abc" produces "Zbc" rather than "abcZ".
 
+Pass RWF_APPEND or RWF_NOAPPEND to vfs_iter_write() according to the
+incoming IOCB_APPEND state. This also honors changes made with F_SETFL
+and per-write append overrides instead of relying on the container's
+open-time flags.
 
-> On Nov 5, 2026, at 12:07, Qi Zheng <qi.zheng@linux.dev> wrote:
->=20
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
->=20
-> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
-> unpinnable, causing unnecessary migration or pinning failures.
->=20
-> These folios already own their CMA bitmap ranges, and memory blocks
-> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
-> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
->=20
-> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic =
-hugepages using cma")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Muchun Song <muchun.song@linux.dev>
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+Fixes: 164f4064ca81 ("keep iocb_flags() result cached in struct file")
+Cc: stable@vger.kernel.org # 6.9+
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+Changes in v2:
+- Keep cfi->cfi_container as the vfs_iter_write() argument.
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+ fs/coda/file.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-But a nit bellow.
+diff --git a/fs/coda/file.c b/fs/coda/file.c
+index 6ca8bfcb58f2..c9fba41f7cea 100644
+--- a/fs/coda/file.c
++++ b/fs/coda/file.c
+@@ -71,6 +71,7 @@ coda_file_write_iter(struct kiocb *iocb, struct iov_iter *to)
+ 	struct file *host_file = cfi->cfi_container;
+ 	loff_t ki_pos = iocb->ki_pos;
+ 	size_t count = iov_iter_count(to);
++	rwf_t flags = (iocb->ki_flags & IOCB_APPEND) ? RWF_APPEND : RWF_NOAPPEND;
+ 	ssize_t ret;
+ 
+ 	ret = venus_access_intent(coda_inode->i_sb, coda_i2f(coda_inode),
+@@ -80,7 +81,7 @@ coda_file_write_iter(struct kiocb *iocb, struct iov_iter *to)
+ 		goto finish_write;
+ 
+ 	inode_lock(coda_inode);
+-	ret = vfs_iter_write(cfi->cfi_container, to, &iocb->ki_pos, 0);
++	ret = vfs_iter_write(cfi->cfi_container, to, &iocb->ki_pos, flags);
+ 	coda_inode->i_size = file_inode(host_file)->i_size;
+ 	coda_inode->i_blocks = (coda_inode->i_size + 511) >> 9;
+ 	inode_set_mtime_to_ts(coda_inode, inode_set_ctime_current(coda_inode));
 
-> ---
-> include/linux/mm.h | 29 +----------------------------
-> mm/gup.c           | 31 +++++++++++++++++++++++++++++++
-> 2 files changed, 32 insertions(+), 28 deletions(-)
->=20
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 2d0b8a4c9974f..75dd40265d3f4 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -2975,35 +2975,8 @@ static inline bool is_zero_folio(const struct =
-folio *folio)
-> 	return is_zero_page(&folio->page);
-> }
->=20
-> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
-> #ifdef CONFIG_MIGRATION
-> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
-> -{
-> -#ifdef CONFIG_CMA
-> -	int mt =3D folio_migratetype(folio);
-> -
-> -	if (mt =3D=3D MIGRATE_CMA || mt =3D=3D MIGRATE_ISOLATE)
-> -		return false;
-> -#endif
-> -	/* The zero page can be "pinned" but gets special handling. */
-> -	if (is_zero_folio(folio))
-> -		return true;
-> -
-> -	/* Coherent device memory must always allow eviction. */
-> -	if (folio_is_device_coherent(folio))
-> -		return false;
-> -
-> -	/*
-> -	 * Filesystems can only tolerate transient delays to truncate =
-and
-> -	 * hole-punch operations
-> -	 */
-> -	if (folio_is_fsdax(folio))
-> -		return false;
-> -
-> -	/* Otherwise, non-movable zone folios can be pinned. */
-> -	return !folio_is_zone_movable(folio);
-> -
-> -}
-> +bool folio_is_longterm_pinnable(struct folio *folio);
-> #else
-> static inline bool folio_is_longterm_pinnable(struct folio *folio)
-> {
-> diff --git a/mm/gup.c b/mm/gup.c
-> index 2b405cce2ca5c..e8503141bb275 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -2216,6 +2216,37 @@ struct page *get_dump_page(unsigned long addr, =
-int *locked)
->=20
-> #ifdef CONFIG_MIGRATION
->=20
-> +bool folio_is_longterm_pinnable(struct folio *folio)
-> +{
-> +#ifdef CONFIG_CMA
-> +	int mt =3D folio_migratetype(folio);
-> +
-> +	/* Explicit HugeTLB CMA allocations own their bitmap ranges. */
-
-The description of "bitmap ranges" is weird, making me think what's the =
-meaning of
-bitmap. Please use more generic description here.
-
-> +	if (folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio))
-> +		return true;
-> +
-> +	if (mt =3D=3D MIGRATE_CMA || mt =3D=3D MIGRATE_ISOLATE)
-> +		return false;
-> +#endif
-> +	/* The zero page can be "pinned" but gets special handling. */
-> +	if (is_zero_folio(folio))
-> +		return true;
-> +
-> +	/* Coherent device memory must always allow eviction. */
-> +	if (folio_is_device_coherent(folio))
-> +		return false;
-> +
-> +	/*
-> +	 * Filesystems can only tolerate transient delays to truncate =
-and
-> +	 * hole-punch operations
-> +	 */
-> +	if (folio_is_fsdax(folio))
-> +		return false;
-> +
-> +	/* Otherwise, non-movable zone folios can be pinned. */
-> +	return !folio_is_zone_movable(folio);
-> +}
-> +
-> /*
->  * An array of either pages or folios ("pofs"). Although it may seem =
-tempting to
->  * avoid this complication, by simply interpreting a list of folios as =
-a list of
-> --=20
-> 2.54.0
->=20
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.43.0
 
