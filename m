@@ -1,99 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.86
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793888394;
-	b=XH+LcG71dqiiOtTKf0v5Ink8NYo/RqYcKhm+N2Fur0gcYUVROrIQ9gz3iG3GcjwjCVG6
-	 s/sYeH9UENqUdfHhUwCrvSsF+EUTob1E7dcqb+59fuIIt3A8ifnKAxmNSCW+bi8QGfXv2
-	 8731s5efhLG6sWz3v6Qbt1ZhqyBmX6HkouY87fnMlXVV9AggXhTlu6YjusqWX9XUIBdb8
-	 SRnuLeLBr/VyMA3WlmINTmMfIZHqGQQpEvSy5H64rDwQUkfC05v06fQdY1hBh7TxpMfvN
-	 dOd7OiBnHbkvSa6KgpzSf9bKH/gMJ5Uz59M+1Z5WsqHbV4b5ZG9NiixlwKPD75waXtg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888394;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=rcqapZK4HikxcI6gUSn63l3r0+uMxP4pSS7qzcwvrgc=;
-	b=GOQtnNSnmGQGWUfHpG4Wcs9dBo02tBOR8r4t9wVELi5VJvqhkbeoBpUb+gS1KFx0kMJ5
-	 8cYabQLutBy/lAw1YJf6FfH4jy4dgyZk6S4u0XjrUIBvkYUCh6yBg5stGpJ/TIwWPjkEF
-	 h4pBhq1v2mCiAb2U7jSIaCaR8bVUtq0Kv27UUxJnphsIVITMc8CJ2O3ffbMFteQSV6s5e
-	 vrsFcDLK5iL6JrYhrL4IedCvmZH84xWJi0lLM9IV7JTBkD9L47FDgX/di2OnYlAuE+xGJ
-	 PnYsQoZ0Yhy2ut/H3YkNLi6Gm1z683C9DCaX1vTGTlI9eklWDrESCx0yUv5Mn/IAMgQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=virtuozzo.com;
-	spf=pass smtp.mailfrom=virtuozzo.com;
-	dkim=pass header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=selector2 header.b=L5mHv++v;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.86
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11021086.outbound.protection.outlook.com [40.107.130.86])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793888422;
+	b=oauCn2Tt3RXlH+Pgl1vCEP00nE0KWpOsq+vPIZIvv6/Em3uoeZPQVrs5iLzsjmll7qeJ
+	 lL7v45uE1W4V6+5N6l986DkgIlhYYmaUtuwAINzzEAKmSHVUgb2kCBJmXQHvXDci9Gsr9
+	 zTNaHOxENTTgu5YkOtrYg0dsRXwNIH9zCU6ivVbWTZzcaiZFeUQuTAjU635/2UHD4/+yY
+	 qzh+8Fh8cQbrEYy+tp6F1jYCYUCRajWZkXWfabX4eFwGaaSXaWqZDM7cNiOFkYy1TXOpK
+	 21G9G00KXIpXOdKCYqeO/IDHFX+8a7SnmxpAygbW1vVA9CD1FwalYcK06qzUCuKaHDA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888422;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=9j7OAr20v+RlMYc8MGPS5Xjx5WH+YMzD3KSivw6GqE4=;
+	b=jtd4l0RtnvGnVjyDTwMCPWNsIi0VQ2bwa38Yfh8FyqE7rwAqjdys8yNz/9JDpa8pkEaG
+	 iAiL6v0CU4jxosYVLkjnpW3POYxfC698KCfiAEZQC67nB1InJTRnHaADZ64Fqu2F7Zbh9
+	 /iqOtJDSS79ad5piEmYBN5mzrG1mAxSgb8FruLIn+DhvV5oNVOzguU+v+Am/Nb/VghqFh
+	 sZaiiLn3BOohZKGaGaMaMYeSWXcYiJSV6nIruV3llwmJjoxiZgl7enoJFIWalCU02YJ9o
+	 xe7XFQZT+D4XX5FJ0oKvFucUY7XaZUUgC1l6j0PTV08p8vIha2REAFStelpOMJBFzZw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MP1R5ifH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAD7606A329;
-	Thu,  5 Nov 2026 14:19:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EAD7606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD2A606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 14:20:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=selector2 header.b=L5mHv++v
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AQ43JB8HXBOi1oNitutTLBzPgSLHEX38J2R+I6YIUjRSnSdm5JeCwU6eU4b/3P/63uu+IWeUat+J+Yb0VE2Ut7J5I7eIck1pMlKOda551IW77nTbraqhjsifI9VD0Xf/OBT0sOi+nfAZvCed41XiXt2ALbdjBc/7QWvJdX1mS2e70sXb31WELi2LUXYMkIqJGAKmts88ClwWMCDeASZMRN1kNWCk+ZtZ40MSNWYMM4wBQmdUt+MBKsOaU17LlaaJPN4VQpbcYEQsHtykC0YxoWk7WI4OA6LohnEk4oG0iWcYOV3Kg1ak2hYSQILKGuUaQ7gelZvXS6Sh7GfC583TmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rcqapZK4HikxcI6gUSn63l3r0+uMxP4pSS7qzcwvrgc=;
- b=WK+VTcbbedcRUThve3JZx5pGHGydWChRrGh5WHC3lR9hk65DLmBQUfdoX1OxPqvLSWp8JNObuo/EF37vgIKaivKvy8jprh8QarXtQ0uRiW4MG2Llvb4q1qHihkJ/PNl8Ur+j49yAQmb9euvxbRXZNstnt6UmpPZefYwGhbUUfFXmCCopNIIbWM6gTi97A3Z0xEaygrtmZzmW8mgoO2vOegkpCZEITS/SbyJPautCYTurQLUwwRKs20H60u5+jcRuT24nDTFlr3PwhjrreDcnKLv3QcQ9P3ZXwsG7EHAjDrBZC1PzrBLBi6o23A7KonvtkBEctlzHqCazbuoK8zFiNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=virtuozzo.com; dmarc=pass action=none
- header.from=virtuozzo.com; dkim=pass header.d=virtuozzo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rcqapZK4HikxcI6gUSn63l3r0+uMxP4pSS7qzcwvrgc=;
- b=L5mHv++v4pI1hJ/DVKCCA8V+N1broE4hlzHpBVwG0IfHv9KQgKg98oUhk6etRdDFcBkRh6KfRV7IVs3MLmnWT4rmGsktd/NgCbPkP81Usy34e5KPqXxr6VcGla5ZJUO09XWPTjH2HyfrVcgYKelfsvgjvijaqawOmHgWgPJOArfDdQt5J8R2dZ559BzFjO/LW6T78Sgmj1V12dfNtWwv/44EaYbgS7SmHaegShCJVM9hjogmY1TVwJI5OoZQ//HMIuqdSovYXoWWw48WSU06Se+EIrsRSRt5kKMSe9LqmF2UdgoUPgwkQ4n9ttiFtSEqFVEbJF7BNld8WFtczx9K4w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=virtuozzo.com;
-Received: from AS2PR08MB9075.eurprd08.prod.outlook.com (2603:10a6:20b:5ff::9)
- by CPHPR08MB665563.eurprd08.prod.outlook.com (2603:10a6:380:107::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
- 2026 14:19:50 +0000
-Received: from AS2PR08MB9075.eurprd08.prod.outlook.com
- ([fe80::3f57:9ced:7a37:1bd8]) by AS2PR08MB9075.eurprd08.prod.outlook.com
- ([fe80::3f57:9ced:7a37:1bd8%4]) with mapi id 15.21.0592.007; Thu, 5 Nov 2026
- 14:19:50 +0000
-Message-ID: <cfd786eb-4ae5-4dcc-a9f2-3eb4b7e7962c@virtuozzo.com>
-Date: Thu, 5 Nov 2026 15:19:48 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm/huge_memory: take a reference on a folio PUD
- copied by fork
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Dan Williams <djbw@kernel.org>
-Cc: linux-mm@kvack.org, nvdimm@lists.linux.dev,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261021-vstor-150143-copy_huge_pud-folio-refcount-v1-0-8bd88551f9be@virtuozzo.com>
- <20261021-vstor-150143-copy_huge_pud-folio-refcount-v1-1-8bd88551f9be@virtuozzo.com>
- <26862633-c3d1-4b82-8ca2-346cb78570d7@kernel.org>
-Content-Language: en-US, ru, sr
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-In-Reply-To: <26862633-c3d1-4b82-8ca2-346cb78570d7@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4P250CA0017.EURP250.PROD.OUTLOOK.COM
- (2603:10a6:20b:5e3::6) To AS2PR08MB9075.eurprd08.prod.outlook.com
- (2603:10a6:20b:5ff::9)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MP1R5ifH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA6781F00919
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 14:20:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793888422;
+	bh=9j7OAr20v+RlMYc8MGPS5Xjx5WH+YMzD3KSivw6GqE4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MP1R5ifHbWUMmgiizsfEf3M3nHuTTFqJzWyoUN7+6C8vZSmzxmkTBlqTPSpTope9M
+	 kErRFEjQhLzJQcxFKJBCyO7xsCWMK3LbObsPQvZSNlQKm652+aYuKl5Qydyf6Tkq3M
+	 ycjYNmA1hFnPJfHKakRoGC71oSN5oeuvFRHzqzbhTb1WVE/VyprpptoruERMPSgXet
+	 AYR10r5XXuE4kGkCjSL0NCIpptS/dCB6E5cf6gZK4Yq2cGnF2iFBRAfQbZfIKyLwWE
+	 7iswSOlnF3Qj7fXw0bse4nm+XwfeO+HN3QpaxdNBibzRjjy1LsBjrVQJxkZAMjxotn
+	 MAV2l2JTaWRDg==
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3acc7a0b558so15374321fa.3
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 06:20:21 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBw8eNDCKk7Pj23KxA47OMZ3m9lDexlFPoUeq2kxxNcmbMIe1htey/6etj3aFaFw1a9ZaaFjjsQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8l3sFIn36Qpl0fpSXniySRwP7f/3e90XLCXzmr8JdjyOIyBjcm
+	rcZnTPOZgbXhr0n1FHkoWG2X0JPQk3E5+fZ2RV6UPU96Valv+mExlfveJoSWWoZ90T/VLDOXryq
+	aptZHF+sX5Cy9530QM2LYgNMy1J75PFs=
+X-Received: by 2002:a05:651c:c008:20b0:3ab:43ca:1daa with SMTP id
+ 38308e7fff4ca-3acc5f98dc8mr27775431fa.3.1793888420723; Thu, 05 Nov 2026
+ 06:20:20 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,82 +59,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR08MB9075:EE_|CPHPR08MB665563:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1a638dd7-04eb-4f81-3449-08df3b47da40
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|261022075727099003|4143699003|56012099006|261021121427099003|261026121527099003|261102123227099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	4mbVQP7szRDhTgt8QcFu8P7I1EWzjN8KQd0o3W5qre0yyz96y6Jm7uke0wRTAH0k9HOhJUx/GV9KDU2F+nIsoUDSnQFNQIhDVcUZX+VDPGNuSGVXZWhhbJrZHAe0cJwwXQC81HBMdYOinoUgCVZsfUM2kmvMEy+sbPBOTjkKklakhNV2furrpNuL+rDzSPLTM9L5n8nFamiQuwlTi8aHNwZNTpWmh0pWeQUtVi+GcIh9xJh/Na6tnoaD++3fL75fiZTwlHBRrV0aCuzr7Yd0MnPOcTdElnYnjqMR2tUEhlkLUDWHo9h1f20GFip4wtJTsX1U9EtW1ybfX1VFdPmP7yW7gi/T6cEH/pzqOdt7EHvsScLr/Bv0nQjo/CAGU4mkUPN3mrPUZae+Zgt2nufbtssGtargKGIvpWaBbHRmFVdxVM9CJqg5T/gDM+WeWL/uIH8yWZmAkbWCBbewPibKID6K7429LnLdA39jK5v7QdQcBA3pzLGD578imYk3ZyKvYcPD8E8bB6FI0VF5eXHgX1Rm/q9xrzNGgie9tdrDs3FhLvtygpLsBS4UYjG00Wn7rPaqm2qwOepZjua3E6B7UkAcGaz8ggRaGFlGP59/PGiZ5kW1OSGHRwUTTcQsGc84LhMpoCbfKzg6vX5UKQHjKAhRuGBdAnUQqok16sEPDko=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR08MB9075.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(261022075727099003)(4143699003)(56012099006)(261021121427099003)(261026121527099003)(261102123227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NTJQOWxKYWx4TVNhd0s1U3lERUU3ZjJsUCtTbkk1VWFIUWRXSXZSaURjeWNs?=
- =?utf-8?B?V3plWkhCb0p3ZTIyMmE3NTF5SktDODJpMEFkQjQzdGtvNlYzMTZaVnZaK3FX?=
- =?utf-8?B?ZklrNTdTNUhXKzlzOEE5Z2txcGFMalFFWk50ejJBaGFhSFhBL3A2M3ZvYXh1?=
- =?utf-8?B?Nk8yYnNPRlVrb016SFcrdHhheG1JUDFuc1BwbzE5S1VuUk5TWjdXZW52Y05O?=
- =?utf-8?B?eVZWd2pVSjZLV2VHcXpxVzRYKy81Z2V6VEo4Rk1Gc0xsNjFGZmd4b1F3d1Q5?=
- =?utf-8?B?SUJVUVBMN2pqYk9WTDFiZ3JnQjBaalJoZTQ2UVFrQUdUSlFhQm1IUHc2S2tL?=
- =?utf-8?B?MkM1ZCtzUFhGaFZrMjE1bk1zNi9zWVQ1MHRHOTR0OUFGN1ROMlMzbTdkSU82?=
- =?utf-8?B?K2ZYVERPREdXN1FpZEowZnZLNlBiK0hCZ2hkU0krNVRiUCsrM3BtbEFRWWVE?=
- =?utf-8?B?VW8zTW1TaVZwUnExbm5KRW5ycTBHUEVOd3V6aGh4OS9UVG9LN0dRc2IyeXpC?=
- =?utf-8?B?d24xbWxIS1JJK2xOZXJIa08zUDVnd1M1VVE3YnMzdDVsUWNibm1aMnF1eTJr?=
- =?utf-8?B?WVNkQnNwVmtTUjFicWltaUdVY2tYQ1NlWXdTMHdHcHB3ZENvMVJONWFWYlp3?=
- =?utf-8?B?NXlWMUp1dlRVaVNKNURpUFE2OVJrUnAwU0t6d1ZzeWJMMHMwR2tBVE5SSnE5?=
- =?utf-8?B?VTByeUx5NlFoZzk4VzBhdVNWaDZzMFBrQXpJWGpHL2xuTjJMTFJwOTZOSTFH?=
- =?utf-8?B?azJrdSttb2JVdHlDNEFHRGJmZE5mK0dhMFM4WTZ0RER6VlZrVFQ5aWlVZCtu?=
- =?utf-8?B?NEJqUmhSRjVyYjROQjdzaFkxTDhyYjd4UVZJVzZNSUFudU9MUC84ejRxc1JH?=
- =?utf-8?B?c2VCci9kYTNhcnZ2Q3BBUDV0MENMUEcwS0p2cjVSeXF1cTVIRzU1RldKa2tZ?=
- =?utf-8?B?TmtXMXNYNEd4V0oybnhZaHllaGJhYnhpencwR3N4UjlPZThQS2ZZc2dmTTVB?=
- =?utf-8?B?WVdLSnlNaW9ZeDIxN2tzd1lpTTUwTDVqSVpxeENHMWJuVlgzOGozRm41c2w0?=
- =?utf-8?B?NnN0MU02eUx2eld3dHNKL3NVNnVwN2FSTTkrbmdKYVc1dHhwQTI4aDBMQXcr?=
- =?utf-8?B?ZTI2bEhocXpFY0RoQm9KUWMyQy90TDdLSm4ySlF4RXhsb01yNzVBYitRYzlk?=
- =?utf-8?B?TzJmVHYrcGFqby9vUFdjMWFqQVpMT3pic3pSa0QrZWtLU0JEWjY3cXpBNHUr?=
- =?utf-8?B?c3FmT2lGd0FxWFptNnRrbHhoUjYzeTFlNGZiekxBc014OHBrMk1VTlNBS280?=
- =?utf-8?B?KzBOc2Y4Uy94T3FEanRyT3lkQjhYaDRzc25iTFd1WjIwUFE2dDZTUGUwUjJt?=
- =?utf-8?B?ZHFJeHR3dkZveko3T2tUZHRDOTBDeE9HWklWVTRNWTRzOXJ2OFcxS3ZGRTFq?=
- =?utf-8?B?YTBmOUZjUUlCek5WMEV4eURlb01mSFNUVGdWWk50NHFqd2J2bitKdVErcUJt?=
- =?utf-8?B?cEQzdmhXV0xIZFZueklWMkU0VnZGL01CZlhaVEVGaWlVMXVMQ3BJWlpmWEJS?=
- =?utf-8?B?eXg0U2laa28zVzNxRXlwSnpTYVF6NERGRWhXZTBKeVROdHY5NWE0dEVMdjIw?=
- =?utf-8?B?MkRmWk4rd0lDYk11RkkyZzQ0bEFydXdCa1B6clAzUm5HTkhuRFFhNDBxZUs3?=
- =?utf-8?B?VFZ3SFBhSHRiOWMvbXpESjkyeElXVS9oYXhWMTRQUzhFM3hsQmUxM3JzMVpz?=
- =?utf-8?B?alR2cDBJOXJKekpQSklpZnhKbENXTHVoTk9GQmxLLyt4MU5OaWZVUmQwVzZN?=
- =?utf-8?B?R1Rzb2NDN3RsMFdLL2J3cnB3RXF6R09SOVFERHVwNllyRlpocmRmNmRHUTBE?=
- =?utf-8?B?VUNTNVFvZG1xdkZtanZMTEtsQ08ycFNTb1JGb2hWQVMwZDgvZHhFcGR0VWhY?=
- =?utf-8?B?aVErYjY0aVljVUlQQ2s1NEM5WGZjMFMvbDMxejlhNURNcG52R0o1cWoxN2NX?=
- =?utf-8?B?bXlYRk9zUTBoNlZTNis1QkFleTNEMHVOM2cxV3RyS3BXUnBrN3MrcVZmUUNV?=
- =?utf-8?B?N3lZMktydC82d1JkSUFoSXlDQXJBMXRiaU1KdDNLOW52MU5QSHh2OUdSR004?=
- =?utf-8?B?VGZQYjJVdnNwSS82ZXBGWDYyei91N3pKSXJDQU8zQlRYbnVxM2pkR0Z0VEpj?=
- =?utf-8?B?TmJZMG1velhDYzEyem9WUUM0V1ZORUYyK1dhZllZNlR6RWJKcVRML0JPY2do?=
- =?utf-8?B?ZzlOa3o5bm5HWTNqMFRJZzdMeHdKdlVheHBhYlZ1d1cwckc1MVBYRzFTa0Zp?=
- =?utf-8?B?WnhmSVJoZG93UzZUMUZDb0hTK2M2eDRHaWluWGhwR2xoaEQ3QU12dz09?=
-X-OriginatorOrg: virtuozzo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a638dd7-04eb-4f81-3449-08df3b47da40
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR08MB9075.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 14:19:50.1535
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YYODJbz8DWmpT6cGWkxXhZKnrkVu0i9DP5xd39hoz7zTB/NiovprwcZC9tLVvWKQOrot1j1zDABrIq58asOaAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPHPR08MB665563
+References: <20261105114707.3030737-1-bsdhenrymartin@gmail.com>
+In-Reply-To: <20261105114707.3030737-1-bsdhenrymartin@gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Thu, 5 Nov 2026 15:20:07 +0100
+X-Gmail-Original-Message-ID: <CAL4Wiiq4AoNzymK0F+q34rVfsBM=0-cioH33ETqO=O8soNQPWA@mail.gmail.com>
+X-Gm-Features: AclHuK83mSd_6LJnEiM96cq9K076X5CYXG1WWhMMBwOtTetgW1uPaRe3PIog_B8
+Message-ID: <CAL4Wiiq4AoNzymK0F+q34rVfsBM=0-cioH33ETqO=O8soNQPWA@mail.gmail.com>
+Subject: Re: [PATCH] nexthop: fix null-deref in nexthop_flush_dev on
+ UNREGISTER rebroadcast
+To: Henry Martin <bsdhenrymartin@gmail.com>, Florian Westphal <fw@strlen.de>, 
+	Pablo Neira Ayuso <pablo@netfilter.org>
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net, 
+	kuba@kernel.org, pabeni@redhat.com, namangulati@google.com, kuniyu@google.com, 
+	netdev@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Introducing folio_dup_file_rmap_pud() is better. But please see how I move
-> the comment and how passing mm+vma to the helper is not really reasonable.
+Le jeu. 5 nov. 2026 =C3=A0 12:47, Henry Martin <bsdhenrymartin@gmail.com> a=
+ =C3=A9crit :
+>
+> A device unregistered outside its netns teardown can be stuck in
+> netdev_wait_allrefs_any() while the pernet exit handlers of its
+> netns run to completion.  nexthop_net_exit() frees devhash and
+> sets it to NULL.  The rebroadcasts then hit nexthop_flush_dev(),
+> which dereferences the NULL pointer, e.g. on mainline v7.4-rc1
+> (KASAN build):
+>
+>     Oops: general protection fault, probably for non-canonical
+>     address 0xdffffc0000000004: 0000 [#1] SMP KASAN NOPTI
+>     KASAN: null-ptr-deref in range [0x0000000000000020-0x27]
+>     RIP: 0010:nexthop_flush_dev+0xb8/0x240
+>     Call Trace:
+>      nh_netdev_event+0x250/0x330
+>      netdev_run_todo+0xaa2/0xef0
+>      rtnl_dellink+0x35f/0xa90
+>
+> The faulting task holds RTNL, so the network stack is left wedged.
+>
+> Skip the rebroadcasts, which are the only NETDEV_UNREGISTER events
+> delivered with reg_state =3D=3D NETREG_UNREGISTERED.  This mirrors
+> commit fd0909e963ed8 ("netdev-genl: ignore NETDEV_UNREGISTER
+> rebroadcasts").
+>
+> This issue was discovered by Tencent CodeBuddy Security.
+>
+> Fixes: 8a4fc54b07d75 ("net: get rid of rtnl_lock_unregistering()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+> ---
+>  net/ipv4/nexthop.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>
+> diff --git a/net/ipv4/nexthop.c b/net/ipv4/nexthop.c
+> index 42e55b5a755ee..1eba7026abcae 100644
+> --- a/net/ipv4/nexthop.c
+> +++ b/net/ipv4/nexthop.c
+> @@ -3996,7 +3996,16 @@ static int nh_netdev_event(struct notifier_block *=
+this,
+>
+>         switch (event) {
+>         case NETDEV_DOWN:
+> +               nexthop_flush_dev(dev, event);
+> +               break;
+>         case NETDEV_UNREGISTER:
+> +               /* netdev_wait_allrefs_any() rebroadcasts NETDEV_UNREGIST=
+ER
+> +                * while waiting for the last references to be dropped; t=
+he
+> +                * netns and its nexthop pernet state may already be torn
+> +                * down by then.
+> +                */
+> +               if (READ_ONCE(dev->reg_state) =3D=3D NETREG_UNREGISTERED)
+> +                       break;
+>                 nexthop_flush_dev(dev, event);
+>                 break;
+>         case NETDEV_CHANGE:
 
-Thanks, agreed on both. v2 will pass only the VMAs, with the mms taken
-from them as in your patch, drop src_mm from copy_pud_range() and move
-the TODO next to the rmap duplication. folio_dup_file_rmap_pud() stays.
+Thanks for the report Henry, I was able to reproduce this crash.
 
-Could v2 then replace your 01/36, so you can drop it from your series?
-I'd add your Suggested-by; if you prefer Co-developed-by with your
-Signed-off-by from the patch above, I'll use that instead.
+Your patch is correct for nexthop: the first NETDEV_UNREGISTER already
+removed all nexthops using the device, and no new one can be attached
+to an unlisted device.
 
---
-Best regards,
-Konstantin Khorenko
+But I would prefer to fix this in the core instead, for these reasons:
 
+1. This is the second instance of the same bug after netdev-genl, and
+it will not be the last. Any netdevice notifier using pernet state of
+dev_net(dev) in its NETDEV_UNREGISTER handler is exposed. Adding a
+reg_state check in all of them is whack-a-mole.
+2. The NULL deref is only the first symptom. Once cleanup_net()
+completes, struct net itself is freed, while the stuck device still
+points to it. Following rebroadcasts then hit a use-after-free:
+   - netdev_wait_allrefs_any() itself: __rtnl_net_lock(dev_net(dev))
+with CONFIG_DEBUG_NET_SMALL_RTNL=3Dy.
+   - Any notifier reading dev_net(dev) before checking reg_state, for
+instance ipmr_device_event() walking net->ipv4.mr_tables.
+
+   A reg_state check in nexthop (or netdev-genl) does not help there.
+3. The root cause is my commit 8a4fc54b07d7 ("net: get rid of
+rtnl_lock_unregistering()"). The barrier it removed had been added by
+50624c934db1 ("net: Delay default_device_exit_batch until no devices
+are unregistering v2") precisely to prevent this situation. I only
+considered the loopback dependency when removing it, and missed the
+notifiers one.
+4. Restoring this guarantee in the core is cheap: a per-netns counter
+of devices sitting in netdev_run_todo(), and
+default_device_exit_batch() waiting for it to reach zero once all
+devices of the dying netns are unlisted. In the common case the
+counter is already zero and there is no wait.
+
+   Then all NETDEV_UNREGISTER handlers, including rebroadcasts, can
+again assume that dev_net(dev) and its pernet state are alive, and
+nexthop needs no change.
+
+I tested this with a KASAN kernel, using your scenario (a nexthop on a
+veth whose peer is deleted from another netns while a reference is
+held, then the netns is deleted). The crash goes away.
+
+I will send the patch shortly, with your Reported-by: tag.
+
+Thanks.
+
+pw-bot: rejected
