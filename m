@@ -1,62 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793918645;
-	b=PkfCP6svRac8UvzIbeQ3bWL6kYRArQzuumbIRGFGVRd+qQG4EIINZ4ou2aLVzcdxKMdA
-	 RkwaNVCDEOVsWZNsXYkjPGXjzctuIxRiqrb4x3fU4JoY4RLrmxY1e4KMJXUEIg0sJz4Zo
-	 9t97r0VErMxEGfejoOIV7H+5kZ8fYjmFzz9hECCps55iK+gNlauLh5NIlrUrj+lMS6Yt+
-	 CZdBL5U3XYWC56AS35RJ+vu4B3Sd7hln4fuxMXXWJGpmNaY74GVBfCi180s10lCyA/cgz
-	 YEX1p1+ycl5C6ZkuGz6P9CZ4eWQHPsOr9vmcYh0ewjeBNg8xftklSSdZwEzBrCQMGSA==
+	t=1793918743;
+	b=zcU7G+vyGnGlFoUdYmG4/qB3Gojl4aiAsImxOpJx6ewj5i2kGT/Oa8hY7yVob6ME8Gt6
+	 9tq0NRVFIXpy16ahjOBcDaKpRpLQeT7QnJNOuJenZ0PfImD2lct0AORESrx1kWaIkAIss
+	 u0Xh1KyoIxC6lOS5qSVZNovY+zrMdSOwx8NwsWjukk4Udxo1cnvr6zOJUUpeFZvnMu+Yr
+	 BHAXEWCnO8ZuBBrHiHuFeIkNY7+W/4WJ00DfTGBGaVe44H33ZwJQ+e1jR0Lz0iMF1tu0b
+	 +fohdzcUxBynU6wqY8xUTrmcQu06rZNjWZl0G9X3+cClF4dyVyca97lWXNFZnS3Esag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793918645;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=JxLJNgnKaaDtogy9UDJ+u4IBfGkMCrx4gqopdXLbwqE=;
-	b=QWQpzRmG3SqCcOgsNuRcpSFtfES361UVccTUPfE70bpscByo4Ffb/3JUNjIJLAAOG5U6
-	 5/+zKarn6ZtFTL+BeYB/yQ3jNOiKBkoLpFjKuDIORo2fWiGGm5gWIwD2cWty3dI2Ke9ch
-	 qFG22bScaugQkSiDTa+U726sytVOtmBAhX5DbW2IysZpgWTYJRwDER2DAAL336qLHBv2d
-	 etZ7PiLWXzDpPDKI/Yz9XtbhO1BwCyonxTPY7W8IiWRbipgQbSpBwjUkuVt1ndSd8Rbsw
-	 dk45HnFAHcd81GHOmUr5ieb/NGC8lOLB8+33F+FL8ETWdH6K4fLbtxQTmxCIrSEZj3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793918743;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=z45gJVenqDQdfqsulcVzTmokKGR0+PriaPFVgi6XmGI=;
+	b=SQqOr+Y9Gwpe1rVi2+JFDID48+rkFbSg3SqD1cGsa1OATtPgdKei6Ot8dnxWNJkejQCf
+	 s4wt83NSddBauFrz2OimDLJfnXCa6ZIvNtd+aIcMV8BOLkV6v9xReefanvUMW2IPZfKo2
+	 vZQJEIuDGaYrgYN00239eT4iMbKuLWOEjU6fpaYE7XNYfaP8v+uQOMVVNRB/b2VRzilh3
+	 5jAThrN3WMNFvCFkBvCsgxU2MaHz81+r2UlOYjnRY9lYlIulfSJivwfFXrvjtw/cfWycU
+	 w5Sm4XbXlRMcQfgJ+qh/84seLDggNXAb6NLDWja5qgkEYPrDGFnq9MNGv30s2MJcfsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=91.218.175.181
-Received: from mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=manguebit.org;
+	spf=pass smtp.mailfrom=manguebit.org;
+	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=kKstYBYZ;
+	arc=none smtp.remote-ip=143.255.12.172
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32506606D80C
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 22:44:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32506606D80C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vAPWWkIFDwbgy2wHFM/rAmP8el8Mj7wGKfgTaZhtpZ4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793918642; v=1; x=1794523442;
- b=rp7glFqHvrLHbMfBSaPiYJG22IM71k3aN2mJXgKV8YPS9ZSnI0eD4CGSpjLSYsqaCbG5rVU7
- niGJGtmUA431/BKVodx+m/HkN3vVu/yDMxehWTLamDYafgLyUpZ6bt5suRnNrAgPbvce5imoIzY
- 5T3SqgXEZUkCHeEd5Y8xay/Q=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 960618cb128bac7d;
-	Thu, 05 Nov 2026 22:44:02 +0000
-X-Mizu-Trace-ID: 960618cb128bac7d
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 5 Nov 2026 22:43:58 +0000
-From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Krystian Kaniewski <krystianmkaniewski@gmail.com>, 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB6D606A332;
+	Thu,  5 Nov 2026 22:45:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FB6D606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=kKstYBYZ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
+	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
+	Content-ID:Content-Description;
+	bh=z45gJVenqDQdfqsulcVzTmokKGR0+PriaPFVgi6XmGI=; b=kKstYBYZQ2DUIsejsU8w5L6bsk
+	Q3BotTJKwNvcF1moifwY8c3dC1HEuK+189LgPS0IftQWtmqS/Hb0zYB816ddBQOxVAcMhYnw3FOAY
+	w+yc1sTKhh3p6crkDwainCi/z4Log+cS0sSkK13QO54QsFyUn6HyJlCpOpxrP9NZeTOpdzHBDi6b1
+	/S56bpn+VDpLFFuCpA5yWF7+8s4WWUh+/6pq0r3zRTeMM687pvgWg+2u1E36d8bzj7PVCoJYTv7gj
+	qfHGiaKDxdCQ7Y9FezCQupQwxsEBDNDX9uUfAtoZlDVFdsTNSEpjS3YBJSHgGbZtCPwSm1yXvDcgZ
+	kT536gLw==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
+	id 1xP6D6-00000000yml-0AOO;
+	Thu, 05 Nov 2026 19:45:33 -0300
+From: Paulo Alcantara <pc@manguebit.org>
+To: linux-cifs@vger.kernel.org,
+	netfs@lists.linux.dev,
+	David Howells <dhowells@redhat.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Christian Brauner <brauner@kernel.org>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/filemap: stop fault-around when the walk steps back
-Message-ID: <au0GBdGqu6cv5PMy@linux.dev>
-References: <20261031-jf-mm-filemap-map-pages-lower-bound-v2-1-21029744e589@linux.dev>
- <aunPI5eOUOAEUa8d@pedro-suse.tail5790ac.ts.net>
- <20261104-jf-filemap-v2-pedro-reply-r2-74c87c6fbcf@linux.dev>
- <auxvLCiljPhy0n_q@pedro-suse.tail5790ac.ts.net>
+Subject: [PATCH v5 03/17] netfs: keep the prepare_read errno when abandoning read retries
+Date: Thu,  5 Nov 2026 19:45:17 -0300
+Message-ID: <20261105224531.2316211-4-pc@manguebit.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261105224531.2316211-1-pc@manguebit.org>
+References: <20261105224531.2316211-1-pc@manguebit.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,43 +72,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auxvLCiljPhy0n_q@pedro-suse.tail5790ac.ts.net>
+Content-Transfer-Encoding: 8bit
 
-On Thu, 5 Nov 2026 12:19:13 +0000, Pedro Falcato wrote:
-> Thank you. So, if I'm not mistaken, this is the race:
-> First, you map/see this:
-> 	[folio pgoff 4, length 4]
-> Then, at some point in time, someone punches the hole:
-> 	[no folios here]
-> Then, at some point in time, someone faults another folio in the range:
-> 	[folio pgoff 0, length 8]
-> so you step backwards. Is this correct? Or am I misunderstanding this?
+When ->prepare_read() fails while retrying a read,
+netfs_retry_read_subrequests() marks the subrequest failed and abandons
+the rest, which overwrites the error of every failed subrequest with
+-ENOMEM.  The reader then gets -ENOMEM for e.g. a handle that couldn't be
+reopened (-EHOSTDOWN, -ENOENT), a credit wait interrupted by a signal
+(-ERESTARTSYS) or umount -f (-EIO).  The first pass doesn't have this
+problem, as netfs_cancel_read() keeps the errno.
 
-Not quite. In my test a large folio goes away and a small one comes back
-below where the walk started. If that happens during the walk's first
-lookup, the walk can step back. Krystian's fix doesn't cover that
-lookup.
+Record the errno of ->prepare_read() in the subrequest and keep the error
+of subrequests that already failed, using -ENOMEM only for those
+abandoned while still waiting for a retry.
 
-In your order it doesn't step back. The new folio covers the place where
-the walk is, so the walk either gets it at the right index or skips its
-sibling slots.
+Fixes: ee4cdf7ba857 ("netfs: Speed up buffered reading")
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: stable@vger.kernel.org
+---
+ fs/netfs/read_retry.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-> If so, how can this happen while we hold the PTE lock? That itself should
-> block truncation.
+diff --git a/fs/netfs/read_retry.c b/fs/netfs/read_retry.c
+index 5bd8dee5a834..8a722995fa9d 100644
+--- a/fs/netfs/read_retry.c
++++ b/fs/netfs/read_retry.c
+@@ -28,6 +28,7 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
+ 	struct netfs_io_subrequest *subreq;
+ 	struct netfs_io_stream *stream = &rreq->io_streams[0];
+ 	struct list_head *next;
++	int ret;
+ 
+ 	_enter("R=%x", rreq->debug_id);
+ 
+@@ -140,8 +141,11 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
+ 
+ 			/* Renegotiate max_len (rsize) */
+ 			stream->sreq_max_len = subreq->len;
+-			if (rreq->netfs_ops->prepare_read &&
+-			    rreq->netfs_ops->prepare_read(subreq) < 0) {
++			ret = 0;
++			if (rreq->netfs_ops->prepare_read)
++				ret = rreq->netfs_ops->prepare_read(subreq);
++			if (ret < 0) {
++				subreq->error = ret;
+ 				trace_netfs_sreq(subreq, netfs_sreq_trace_reprep_failed);
+ 				__set_bit(NETFS_SREQ_FAILED, &subreq->flags);
+ 				goto abandon;
+@@ -221,7 +225,9 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
+ 				part = netfs_limit_iter(&source, 0, part, stream->sreq_max_segs);
+ 
+ 			netfs_stat(&netfs_n_rh_download);
+-			if (rreq->netfs_ops->prepare_read(subreq) < 0) {
++			ret = rreq->netfs_ops->prepare_read(subreq);
++			if (ret < 0) {
++				subreq->error = ret;
+ 				trace_netfs_sreq(subreq, netfs_sreq_trace_reprep_failed);
+ 				__set_bit(NETFS_SREQ_FAILED, &subreq->flags);
+ 				goto abandon;
+@@ -257,7 +263,9 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
+ 		if (!test_bit(NETFS_SREQ_FAILED, &subreq->flags) &&
+ 		    !test_bit(NETFS_SREQ_NEED_RETRY, &subreq->flags))
+ 			continue;
+-		subreq->error = -ENOMEM;
++		if (!subreq->error ||
++		    !test_bit(NETFS_SREQ_FAILED, &subreq->flags))
++			subreq->error = -ENOMEM;
+ 		__set_bit(NETFS_SREQ_FAILED, &subreq->flags);
+ 		__clear_bit(NETFS_SREQ_NEED_RETRY, &subreq->flags);
+ 	}
+-- 
+2.56.0
 
-We don't hold it yet. filemap_map_pages() does the first lookup under
-RCU and takes the PTE lock after it.
-
-> Can you share the reproducer?
-
-With the delays it can corrupt memory on a kernel without this patch, so
-I'd rather not post it. I can share it off-list with the maintainers if
-they want it. The 40 runs without a delay were on a debug kernel with
-the delays set to 0.
-
-Andrew, I can send a v3 with this case in the commit message if you
-want it.
-
-- Jose
