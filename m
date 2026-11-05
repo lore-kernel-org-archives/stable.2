@@ -1,63 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793905264;
-	b=42CU5GB/L0BGS282QnpWStILfoo+CTysURQDeSyQAeFsFC+6QL99MKb9RZotciBCewiC
-	 ZzU4jJ/oawAV5ZPup57SWyzU82JNhmsyqIcX0dZ1h+CFnhgZm1jYQMqfAZ+qZsbb2Vyqj
-	 LY7VEV7b0OvSP1hoIteJ0S7j/U67iT9Wq+XHWKiNwf7t9cYifTq5jp9nnujzMrPg8ayMu
-	 Dgt5Gw74CaNiGRSJvAxwR1LOoGxTzv7F13aA/e7z2QHegjpP9Kka+SBlTqIu/yx40/XE7
-	 YVugz7JhZGPNX9sWZoqROlZpfcv0nbKvArMoB/n3349EUF3UesMgg4E/jUVjfiae4xw==
+	t=1793905414;
+	b=DRzlFuqMCCWfJOq38QZf+rFKsHNq4RO/ecfZbgKzYZjDha0SmxvTlJYX6ff/iBloLr9G
+	 EKcFZwUKpktlhySBcl5oDuc0L7cL+VY3/FLE+6g1xMlDl3HZGRvXP41DLIif73CW0tUft
+	 A1x2/BzHHzqPMqD/VInK0pwzy7plIC9QzHyBduM5w9/xAfAjnLEJOR6RnBYMvP3rzWDT6
+	 6ulNpDlYtA7VCUSYYVB/+boT3L6EC7kOfb5J9rLBl3FG5TAzaiDAoHbbxf6kW3XWRJETb
+	 yusnKAukCKZUrpWj4QjIKLCW8F48xxpvUtFX+FSDXVniMaeIlQCVbqs2D5NP2GkKUGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793905264;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=cNvHm4P49zGZ0AA9ASMVJBBbN+Qdiu12WvVmr/Br59g=;
-	b=AO8UAGZhHcxN1AtbJ6G9GNF82Uf8Hu+VPxKgYw3WzEqCuMdg42UvbpibZQxs3kTNlazk
-	 5isIYgSyLP5DxWFZhWgitI0HkWD3vAfaYtRKDi2/dJdfDrRG3Al8D410R8UZJ6MZ6jbUg
-	 m+9fgOzfqv01Ssj5EmpxdHFZ8MrTvFFuEbZU7w+lVWaCNRTP96UT7ktdURGVaMz08BZKv
-	 yVysdKix9CfDmNXnyVOfbRW3cyfivlqM4AoaUwlS4t0BpWBlP9SV9+MuARObsLIooKV19
-	 Ocqw22G4VEWyOpCD2HklNdCCQDZNUAxCQcFWOM9VfntyRiYGm6nsWR2V9Z0OkEpn8ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793905414;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Kax+ozCzx4ZmXMhWSxfp14A5JBqAgAH2noBaBA1ZoOY=;
+	b=DPffmMtE3zEayTmu88njjxRMjQrbaeLZ33WzpslY3LvqXeUinaWjQvTGY1gWeafMglgA
+	 zrhKKohZrfB1BwYFs/9vVN31c1NryDz4GQO0boqdqby3b40EsZAQSgKay/k98Fduf+yHi
+	 AlxhvhNnry+1LGICLHOjXDwm0ew7VK35Fg0pm/gCzznFM/Nxnn5pujQ3FH+csMCMQQ8/f
+	 H5p25s7YHeRnHVnAfe+EVXiWtQTt7Ia0UmO1rGopVNdqG0dDdHM1mVa7Jh6My6s+myg0t
+	 0Mwi97SAcw83nRO/ff/LtT/2vFwrnHCMHatKTUxH4QNxX9tZyP5NDEECoU/OspLSXkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=mVwNmf4S;
-	arc=none smtp.remote-ip=216.40.44.11
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Njn7OAiE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1263606A329;
-	Thu,  5 Nov 2026 19:01:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1263606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2787606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 19:03:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=mVwNmf4S
-Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay02.hostedemail.com (Postfix) with ESMTP id 38E62120A7F;
-	Thu,  5 Nov 2026 19:01:00 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id D07D620027;
-	Thu,  5 Nov 2026 19:00:57 +0000 (UTC)
-Date: Thu, 5 Nov 2026 14:00:56 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Vineet Gupta <vineet.gupta@linux.dev>
-Cc: Peter Zijlstra <peterz@infradead.org>, mhiramat@kernel.org,
- mark.rutland@arm.com, mathieu.desnoyers@efficios.com, andrii@kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] tracing: fgraph: Raise FTRACE_RETSTACK_ALLOC_SIZE
- to 1024
-Message-ID: <20261105140056.111875ef@gandalf.local.home>
-In-Reply-To: <53ee72a4-a5f7-4a7d-8a0a-fc3fc8804d75@linux.dev>
-References: <20260922225526.1554758-1-vineet.gupta@linux.dev>
-	<20260922225526.1554758-2-vineet.gupta@linux.dev>
-	<20260924100040.GD4121339@noisy.programming.kicks-ass.net>
-	<1e223334-b371-487b-a60a-7f1f5c007f7e@linux.dev>
-	<20261105122648.67abbe1d@gandalf.local.home>
-	<53ee72a4-a5f7-4a7d-8a0a-fc3fc8804d75@linux.dev>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Njn7OAiE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3961F00919;
+	Thu,  5 Nov 2026 19:03:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793905413;
+	bh=Kax+ozCzx4ZmXMhWSxfp14A5JBqAgAH2noBaBA1ZoOY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Njn7OAiEysKymBoGBlhDGLp2VEsBnpLJOP1lyD0XCVtrtlEH26ulq7nga4qnDZXyU
+	 e+avkxaMSGlmr3nwa7dqmMUp9MyZxizCqVhrQt3TMzjPaRQAMqEKTXmyh63Foc7w2c
+	 2oqRbY8bZ0gLztiyjE0pF8JHCSP48qUhCGhu0PnETPz6omMmQBJm7JWP3qhQeNeRcK
+	 HmmlahG0NImaEUxX5WMKIS0JPIxm9PQAKDONCIotsyNEKs2TlcOcLcP/zdUQKIeeVQ
+	 kcMhp+fMMEZs5D6gvozgmRv+slq8pY9zzwRViKveB5EegWlsS5Y/AdMvQfLLZ9yn3O
+	 CT0TL3/8ofroQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] smb: client: validate NT transaction response layout and offsets
+Date: Thu,  5 Nov 2026 14:03:31 -0500
+Message-ID: <20261105185731.2641233-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110454-brigade-bankbook-1cb4@gregkh>
+References: <2026110454-brigade-bankbook-1cb4@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,29 +60,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: D07D620027
-X-Stat-Signature: nijojfznnj3s8kdiojgc86wnjfhogrsj
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+nm+5gLQ+/jQ61184zf/E+nKVeZtsLm/k=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=cNvHm4P49zGZ0AA9ASMVJBBbN+Qdiu12WvVmr/Br59g=; b=mVwNmf4SBa97XgOt0W+LBsdzkyAGomNG5f3kFlfo2cLPp17X6NbpjJ7FeyINp/Cb9sG/gMkUvqbIXPuvVioKcFs8pz2ngP1nrFU0CwWMLx15z8EhVsBwrvoL+XDwuv75841uOB+7TViLFS1vViwskjohD1kNzqXtcJYdULGUilA=
-X-HE-Tag: 1793905257-975753
-X-HE-Meta: U2FsdGVkX1+LHqlcgYP7t/pmkV2ynE3kMb2NTGO/kTaMvUBSeBvGzpu0I/wEj2vasu8haOHq2h/UWA0QaqeZARh3oIWLDYcepC876sn7JI/ChsNQoLRPIiHpBh4iNPmZlxDIVDyshTtYkG75cpLL+SlNdfBCHjF1E3Q4L8XOyaXK80xu3UyjP6EsZMniBb/cXyvZQvkAGRjaaxXZbIeg8SuiRGnqbYmbXLj+h7iTanUFH/p4Tr9aZmBKLz1R/J+dz3vMHSnb2367fpoK7KT0AJiKNCSNOAcj7XmG+7b5HuZvRKlM0s1+e58QlKqxIhuMMnWFHomVAP2bfquGXNSvbUOQ+GE7hfDE
+Content-Transfer-Encoding: 8bit
 
-On Thu, 5 Nov 2026 09:56:07 -0800
-Vineet Gupta <vineet.gupta@linux.dev> wrote:
+From: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
 
-> I think you have some catching up to do still :-)
-> This is v1, we are currently at v4 [1] with Peter's suggestion and 
-> further split up for ease of backport and use of new rcu_scope 
-> constructs as suggested by Masami san. It has been Acked by Andrii [2] 
-> and Alexei [3]
+[ Upstream commit 83d0d5e0ca22233c75daf139ec0063b9d2ff1ac7 ]
 
-Bah, this one wasn't superseded in patchwork, and I'm going from oldest to newest.
+validate_ntransact() assumes that the response uses the fixed 18-word NT
+transaction layout. A different WordCount makes get_bcc() locate the byte
+count at a different offset from pSMBr->ByteCount, allowing the subsequent
+bounds checks to use inconsistent response boundaries.
 
-Sorry about that ;-)
+The function also turns the 32-bit ParameterOffset and DataOffset fields
+into pointers before checking their bounds. On a 32-bit client, a large
+offset can wrap the pointer below end_of_smb and pass the one-sided pointer
+comparison. The caller then dereferences the parameter pointer or copies
+from the data pointer.
 
+Require the expected WordCount before reading the byte count. Check each
+offset and count against the received SMB length as integers before forming
+either pointer. Use subtraction after validating the offset so that the
+range checks cannot overflow.
 
--- Steve
+Reported-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
+Fixes: 0a4b92c05ed0 ("[CIFS] Add worker function for Get ACL cifs style")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/cifs/cifssmb.c | 32 +++++++++++++++++++-------------
+ 1 file changed, 19 insertions(+), 13 deletions(-)
+
+diff --git a/fs/cifs/cifssmb.c b/fs/cifs/cifssmb.c
+index 11a400663b9f2..290aa04d89151 100644
+--- a/fs/cifs/cifssmb.c
++++ b/fs/cifs/cifssmb.c
+@@ -3735,9 +3735,10 @@ static int
+ validate_ntransact(char *buf, char **ppparm, char **ppdata,
+ 		   __u32 *pparmlen, __u32 *pdatalen)
+ {
+-	char *end_of_smb;
+ 	__u32 data_count, data_offset, parm_count, parm_offset;
+ 	struct smb_com_ntransact_rsp *pSMBr;
++	size_t buflen;
++	char *end_buf;
+ 	u16 bcc;
+ 
+ 	*pdatalen = 0;
+@@ -3748,37 +3749,42 @@ validate_ntransact(char *buf, char **ppparm, char **ppdata,
+ 
+ 	pSMBr = (struct smb_com_ntransact_rsp *)buf;
+ 
++	if (pSMBr->hdr.WordCount != 18) {
++		cifs_dbg(FYI, "invalid NT transaction WordCount %u\n",
++			 pSMBr->hdr.WordCount);
++		return -EINVAL;
++	}
++
+ 	bcc = get_bcc(&pSMBr->hdr);
+-	end_of_smb = 2 /* sizeof byte count */ + bcc +
+-			(char *)&pSMBr->ByteCount;
++	end_buf = 2 /* sizeof byte count */ + bcc + (char *)&pSMBr->ByteCount;
++	buflen = end_buf - buf;
+ 
+ 	data_offset = le32_to_cpu(pSMBr->DataOffset);
+ 	data_count = le32_to_cpu(pSMBr->DataCount);
+ 	parm_offset = le32_to_cpu(pSMBr->ParameterOffset);
+ 	parm_count = le32_to_cpu(pSMBr->ParameterCount);
+ 
+-	*ppparm = (char *)&pSMBr->hdr.Protocol + parm_offset;
+-	*ppdata = (char *)&pSMBr->hdr.Protocol + data_offset;
+-
+ 	/* should we also check that parm and data areas do not overlap? */
+-	if (*ppparm > end_of_smb) {
++	if (parm_offset > buflen) {
+ 		cifs_dbg(FYI, "parms start after end of smb\n");
+ 		return -EINVAL;
+-	} else if (parm_count + *ppparm > end_of_smb) {
++	} else if (parm_count > buflen - parm_offset) {
+ 		cifs_dbg(FYI, "parm end after end of smb\n");
+ 		return -EINVAL;
+-	} else if (*ppdata > end_of_smb) {
++	} else if (data_offset > buflen) {
+ 		cifs_dbg(FYI, "data starts after end of smb\n");
+ 		return -EINVAL;
+-	} else if (data_count + *ppdata > end_of_smb) {
+-		cifs_dbg(FYI, "data %p + count %d (%p) past smb end %p start %p\n",
+-			 *ppdata, data_count, (data_count + *ppdata),
+-			 end_of_smb, pSMBr);
++	} else if (data_count > buflen - data_offset) {
++		cifs_dbg(FYI, "data offset %u + count %u past smb length %zu\n",
++			 data_offset, data_count, buflen);
+ 		return -EINVAL;
+ 	} else if (parm_count + data_count > bcc) {
+ 		cifs_dbg(FYI, "parm count and data count larger than SMB\n");
+ 		return -EINVAL;
+ 	}
++
++	*ppparm = buf + parm_offset;
++	*ppdata = buf + data_offset;
+ 	*pdatalen = data_count;
+ 	*pparmlen = parm_count;
+ 	return 0;
+-- 
+2.53.0
+
