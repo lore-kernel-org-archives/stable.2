@@ -1,56 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793847217;
-	b=Or5ADc23yJGdrzkw6iA1IxSBorpyuluwkW1zb8WZFkYnyAC9cJpcyB4pIU9D5cYbZaOM
-	 LR+IUdQQzxX+emZRoN4HKdr9yia/784JdgOzlqQIQWPa4w2CVSoJYuP5gWTLM+Z2YK0+R
-	 ljACSmUCBM1zsp+b/NihauNmvsH5a2ABxHPK8UsSzKY1aE2YIurEWzXLLmHeZTQ0yo57O
-	 UbApetGoVXbz4RxuA5dswRjNObD1q4dR8FBlEbqgGr/PdrZap6l2jEG0/zHz3SzS9Xl+f
-	 +KHhmPCVwcemdxIbjErbX7lCwy9XgUje+iIBaAqsW/Fkx5zh7bd2FtmyOuO+boKy+uA==
+	t=1793847227;
+	b=NAbajLGPOfR5iWi7OTc+/tc9I1mvmotVpqMNQjK878VwiUwhWFV1tp8U3QI4TtLqws1k
+	 vm+5RLC2TDG2iU35ve1/Y55MqRAunP8bgfjSyHgxABmWTLBu2XpZ5D7b13yQrixrQLSWw
+	 1eCmzgXQNdgqv9m0mQ9+rCoLiSzGZTalN9ABN5m64Johr6HdntYfgwU3gTVpYKYGTRvsL
+	 er+fgQAwKamhq07CRRT4mDT2wuXRZA/xn9yaOc+G5xFc7pL9mTNyoLozU5NrqqxZbdhyR
+	 Rz/HCig8TLyhsA1DYGQ6eLZMDMNg11nPu6t1lcUhxJYY/8rzDHZcJt3UY1XDaxAUY+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793847217;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793847227;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=T+15faKg6nvNdXePPzl6V0YddzuBCk3ygzoVHs2lk04=;
-	b=Qu+vq1sHkOBiFb+t8cCVWkiqZMK/sJd7X5rTa8tQL6OTZp2x/5AnDo3Pz/q2PuF58zIk
-	 mtq1Uw+XnkKKBvVV+aDbjO1OXiI7GiTfbgx/9NM9Lj+ejtCOQhDSqpU1TUBLNq1ijSZw7
-	 HBnU0hFokitE9G0LcjWblnSPkHEeiKS9PYi3os+ctGJVxGC77cvmbhyWi7z6R3uiRsUzG
-	 oiR6IVJ0s56BmRjRyXJM+iuxhQD4VqMorXgCAjMJk4w6l6hoKFQYdZ+FXlb1uJJFv5/3r
-	 PyXYVZqmlEUKdgbZMXDMAxFT6eaL6onPeD6Hnkdy8SfKVsN9rKBzwVGNLnRizDx8qyg==
+	bh=/m+V6Vw5N9+3ZSybFVk2sHvEnuvXOAoRTQQ/i6HhfLU=;
+	b=MALyoC0oWRfqWvQBVTixQiF/NxDEzGfcHWWRcVZ6/M+DPQizSKst35u0K5idoj3a17jK
+	 Xz6fMlBq+UtDnr8X38hfkGDKOtnV+nBJzswA1XpIbq8NQANEKp58gnxWKrSNZwx7QdPmL
+	 h3rsCPPuRmrz+pyuNUALRfaNIUdAvG3nfZzj2P6kPlOF8g9G9sQCqWo9UxrBmXAc0ZdDx
+	 QMgWLxvaYaOBdnB60o/K3nKUg9SSU6H7x5ua8kVEtQWaR0OyymIjk1wKXxmQefihoBDg1
+	 gmxHVe5W44Fd38ge2yGU2ooCG0E9FHrFlmO+IReo5KnaF789l1euXIshdFd/pKF5DOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jc8zgwfT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czVaYiiX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49B0606A329
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:53:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2EEE606A329
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:53:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jc8zgwfT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5D451F000C1;
-	Thu,  5 Nov 2026 02:53:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czVaYiiX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A78011F000C1;
+	Thu,  5 Nov 2026 02:53:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793847216;
-	bh=T+15faKg6nvNdXePPzl6V0YddzuBCk3ygzoVHs2lk04=;
+	s=k20260515; t=1793847226;
+	bh=/m+V6Vw5N9+3ZSybFVk2sHvEnuvXOAoRTQQ/i6HhfLU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jc8zgwfTKV6rlZgJt9t9HhHV8BcKO2Wrma5yhw7sFTqRYdnWBUJ1UHw/x27YTGX5t
-	 evAXDQpZ7TwpVG+RLpOGokD21Nh4u4KFtHDVkPtinoNdnDxEc6kxZGWJRTNhrAebFe
-	 RQKkJasoZaXooXeH8+mUmKWzLKnxNUQXkIryuZHPD37+NqnKkWEmhvIRhuM1V/9niy
-	 twC7jZhJCLGxT7BPFiScg1GvpQhrRZCyk/CVtgoXiJqmw/d6sUulllKEEgqxUtYizd
-	 ob+LlQ8O2XGvZ/PjBuEM1YN09+r6RdnX1hMSWa5MC2ZDA6u3JO8oebbwcFeifOgjkr
-	 5UmE+tU/UFvzw==
+	b=czVaYiiXP14O288UQpOrruNhCJGmOGBvz/E7bA5PWjE21oQyDBiHcIca7T/5FvYuH
+	 u46aeRkiY+1Bbo7eW7EQQ2ml4MVK6RSipE2tIeBmGbJuAyCcqsDVfUztvnGII2W3L2
+	 J6lWIpR0HSdya3Z8LM8SzclrYiGYRu/cF+6S3Vc0ETLOib40aEhq8ikppnHLFUvCzA
+	 nsBdC5a+J/mVUlRtyW/zKyij6GASsBfzPplHH8/LudKdqI9icFyrqe6UrLdmlI/Mj8
+	 0ZHz8GtQ2Gzo8zeEvGzxOnvmrLyxeMZJQylxXkv6zcCRahwkg2ln33lPtep8wDJQVp
+	 LQI3W3I3U6bXQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Diego Oliva <diego@bynar.io>,
-	David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Vernon Yang <yanglincheng@kylinos.cn>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Zach O'Keefe <zokeefe@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] smb: client: fix OOB last_entry pointer from unbounded LastNameOffset
-Date: Wed,  4 Nov 2026 21:53:34 -0500
-Message-ID: <20261105025324.1202136-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm: khugepaged: fix swap entry value to folio_pfn()
+Date: Wed,  4 Nov 2026 21:53:44 -0500
+Message-ID: <20261105025324.1172108-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110405-silent-unveiling-d1c7@gregkh>
-References: <2026110405-silent-unveiling-d1c7@gregkh>
+In-Reply-To: <2026110435-preview-regally-12b1@gregkh>
+References: <2026110435-preview-regally-12b1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,167 +68,142 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Diego Oliva <diego@bynar.io>
+From: Vernon Yang <yanglincheng@kylinos.cn>
 
-[ Upstream commit 570c783a96f054dd3ac409a92772e9afb705d21c ]
+[ Upstream commit 942c8ec27aa4ffc587511650718349964e1696e6 ]
 
-CIFSFindFirst() and CIFSFindNext() locate the last entry of a
-TRANS2_FIND_FIRST2 or TRANS2_FIND_NEXT2 response by adding the
-LastNameOffset of the response parameters to the start of the data
-area, and store the result in psrch_inf->last_entry. MS-CIFS 2.2.6.2.2
-defines that offset as the offset of the entry's file name; the client
-follows the reading of NT and Samba servers, which point it at the
-entry. LastNameOffset is only checked against CIFSMaxBufSize, which
-says nothing about the response actually received: validate_t2() lets
-the data area start up to 1024 bytes into the buffer, and SendReceive()
-copies at most CIFSMaxBufSize + MAX_CIFS_HDR_SIZE bytes of a response,
-16468 by default, into a cifs_request allocation of CIFSMaxBufSize +
-MAX_SMB2_HDR_SIZE bytes, 16588 by default. The pointer itself can
-therefore be placed anywhere from the end of the received data to 820
-bytes past the end of the allocation.
+Patch series "mm: khugepaged: fix tracepoint UAF", v5.
 
-The read through that pointer is far larger than its displacement.
-find_cifs_entry() hands last_entry to cifs_save_resume_key() after every
-FindNext and after the FindFirst of a search rewind, and
-cifs_fill_dirent() takes the length of the name from the entry itself: a
-__le32 FileNameLength for most levels, a __u8 for
-SMB_FIND_FILE_INFO_STANDARD, and for SMB_FIND_FILE_UNIX the result of a
-scan for the terminating NUL over up to PATH_MAX + 1 UTF-16 units. The
-name is recorded as the resume name of the search, and the next
-CIFSFindNext() rejects only a recorded length of PATH_MAX or more before
-copying the name into the ResumeFileName of its request and sending it
-with the resume key taken from the same entry: up to 4 KiB of memory
-from past the end of the allocation leaks to the server, and for
-SMB_FIND_FILE_UNIX the NUL scan runs about twice as far before the
-length is even known. The entry does not have to lie outside the
-response for that either: a maximal response ends about 120 bytes before
-the end of the allocation, so an entry in its last bytes with a name
-just under PATH_MAX has nearly all of that name copied from past the
-allocation.
+The khugepaged tracepoints take a folio pointer and call folio_pfn(), but
+by then the folio may no longer be valid: freed after folio_put(),
+folio_unlock() or pte_unmap_unlock(), or not a folio at all but an
+xarray-encoded swap entry.  On classic SPARSEMEM, dereferencing it oopses
+khugepaged as soon as the trace event is enabled; on other memory models
+it merely prints a bogus pfn.
 
-It needs nothing unusual from the client: a FindNext response that
-reports no entries and does not end the search makes find_cifs_entry()
-send the next FindNext at once, carrying whatever was parsed at
-LastNameOffset, and a search rewind can do the same after its
-FindFirst. SMB1 is not negotiated by default: this takes a malicious
-or compromised server, a mount of it with an explicit vers=1.0, which
-CONFIG_CIFS_ALLOW_INSECURE_LEGACY (default y) permits, and a directory
-listing on that mount.
+Pass the pfn to the tracepoints directly, captured while the folio is
+still pinned, closing the use-after-free windows in
+mm_khugepaged_scan_file(), mm_khugepaged_scan_pmd() and
+mm_khugepaged_collapse_file().
 
-With KASAN enabled, a response that places the last entry past the
-buffer, with a large DataOffset and a LastNameOffset near the end of
-its range, gives:
+This patch (of 3):
 
- ==================================================================
- BUG: KASAN: slab-out-of-bounds in cifs_save_resume_key.isra.0+0x7aa/0x7f0
- Read of size 4 at addr ffff88807b55c33b by task ls/83
+When the swap entries found exceed max_ptes_swap, the loop is left via
+break with folio still holding the xarray value that encodes the swap
+entry, not valid folio pointer.
 
- CPU: 1 UID: 0 PID: 83 Comm: ls Not tainted 7.3.0-rc4-00457-gf14572c203d5 #69 PREEMPT(lazy)
- Call Trace:
-  <TASK>
-  kasan_report+0xdf/0x1a0
-  cifs_save_resume_key.isra.0+0x7aa/0x7f0
-  cifs_readdir+0x1ed6/0x29c0
-  iterate_dir+0x1c0/0x570
-  __x64_sys_getdents64+0x133/0x270
-  do_syscall_64+0x109/0x5d0
-  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  </TASK>
+That value is passed to trace_mm_khugepaged_scan_file(), which feeds it to
+folio_pfn().  On FLATMEM and SPARSEMEM_VMEMMAP, the page_to_pfn() is plain
+pointer arithmetic, so the trace event merely prints bogus scan_pfn.  On
+classic SPARSEMEM, the page_to_pfn() reads page->flags, dereferencing the
+tiny encoded integer and oopsing khugepaged whenever the trace event is
+enabled.
 
- Allocated by task 83 on cpu 0 at 19.317556s:
-  cifs_buf_get+0x36/0x90
-  smb_init+0x4f/0x110
-  CIFSFindNext+0xf7/0x14c0
-  cifs_readdir+0xf51/0x29c0
+So when folio is the swap entry value, simply set pfn to -1, just like
+exhausted scan naturally.
 
- The buggy address belongs to the object at ffff88807b558000
-  which belongs to the cache cifs_request of size 16588
- The buggy address is located 623 bytes to the right of
-  allocated 16588-byte region [ffff88807b558000, ffff88807b55c0cc)
- ==================================================================
+And the folio_put() has maybe dropped the last reference of folio.  The
+trace_mm_khugepaged_scan_file() is left with a dangling folio pointer.  so
+using the folio_pfn() before dropping the reference, closing
+use-after-free window.
 
-The four bytes read there are the FileNameLength of the entry, which
-cifs_fill_dirent() takes before anything checks where the entry lies.
-
-Ignore the last entry when it does not start inside the received
-response or the response holds no entries; for a response without
-entries, last_entry pointed into or past its empty data area and
-cifs_save_resume_key() parsed whatever the buffer held there. The
-entry is bounded by the response that was received, which is what the
-buffer holds, rather than by the data area the response declares,
-which a later patch checks against the received length. Record the
-search handle before the last entry is examined, since a response
-without a usable last entry still carries the handle that the search
-is continued and closed with; leaving the assignment in the else
-branch would drop the handle of every response without entries.
-
-This bounds where the last entry starts, not how far it is parsed: an
-entry that starts within the final bytes of the response still has
-its fixed part read past the end of the received data and its name,
-up to 4095 bytes, copied from past the end of the allocation, until
-the following patch bounds the parse itself. A response without a
-usable last entry continues the search with an empty resume name,
-since the preceding patch, "smb: client: fix use-after-free infoleak
-via the readdir resume name", drops the recorded name whenever a new
-response is installed. This patch applies on top of that one and
-relies on it: without it, every response rejected here would leave
-the previous name in place, pointing into a buffer that has been
-released.
-
-A conforming server is not affected: the last entry lies inside the
-data area of the response.
-
-Fixes: 0752f1522a91 ("[CIFS] make sure we have the right resume info before calling CIFSFindNext")
-Fixes: b77d753c413e ("[CIFS] Check that last search entry resume key is valid")
-Cc: stable@vger.kernel.org
-Assisted-by: Bynario AI
-Signed-off-by: Diego Oliva <diego@bynar.io>
-Reviewed-by: David Howells <dhowells@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Link: https://lore.kernel.org/20260909025804.3233645-1-vernon2gm@gmail.com
+Link: https://lore.kernel.org/20260909025804.3233645-2-vernon2gm@gmail.com
+Fixes: d41fd2016ed0 ("mm/khugepaged: add tracepoint to hpage_collapse_scan_file()")
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Zach O'Keefe <zokeefe@google.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: adapted folio-based code to use struct page and page_to_pfn() in hpage_collapse_scan_file() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Depends on <20261104155725.3917936-1-sashal@kernel.org>
+ include/trace/events/huge_memory.h | 6 +++---
+ mm/khugepaged.c                    | 7 ++++++-
+ 2 files changed, 9 insertions(+), 4 deletions(-)
 
- fs/smb/client/cifssmb.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index 7375e023b1e02..3eab6860d33ed 100644
---- a/fs/smb/client/cifssmb.c
-+++ b/fs/smb/client/cifssmb.c
-@@ -4045,14 +4045,17 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
- 	psrch_inf->presume_name = NULL;
- 	psrch_inf->resume_name_len = 0;
- 	psrch_inf->resume_key = 0;
-+	if (pnetfid)
-+		*pnetfid = parms->SearchHandle;
- 	lnoff = le16_to_cpu(parms->LastNameOffset);
--	if (CIFSMaxBufSize < lnoff) {
-+	if (!psrch_inf->entries_in_buffer) {
-+		psrch_inf->last_entry = NULL;
-+	} else if (psrch_inf->srch_entries_start + lnoff >=
-+		   psrch_inf->ntwrk_buf_start + bytes_returned) {
- 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
- 		psrch_inf->last_entry = NULL;
- 	} else {
- 		psrch_inf->last_entry = psrch_inf->srch_entries_start + lnoff;
--		if (pnetfid)
--			*pnetfid = parms->SearchHandle;
+diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
+index 01591e7995235..23bd4c1f984e8 100644
+--- a/include/trace/events/huge_memory.h
++++ b/include/trace/events/huge_memory.h
+@@ -172,10 +172,10 @@ TRACE_EVENT(mm_collapse_huge_page_swapin,
+ 
+ TRACE_EVENT(mm_khugepaged_scan_file,
+ 
+-	TP_PROTO(struct mm_struct *mm, struct page *page, struct file *file,
++	TP_PROTO(struct mm_struct *mm, unsigned long pfn, struct file *file,
+ 		 int present, int swap, int result),
+ 
+-	TP_ARGS(mm, page, file, present, swap, result),
++	TP_ARGS(mm, pfn, file, present, swap, result),
+ 
+ 	TP_STRUCT__entry(
+ 		__field(struct mm_struct *, mm)
+@@ -188,7 +188,7 @@ TRACE_EVENT(mm_khugepaged_scan_file,
+ 
+ 	TP_fast_assign(
+ 		__entry->mm = mm;
+-		__entry->pfn = page ? page_to_pfn(page) : -1;
++		__entry->pfn = pfn;
+ 		__assign_str(filename, file->f_path.dentry->d_iname);
+ 		__entry->present = present;
+ 		__entry->swap = swap;
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 4c3581364cb28..9738b70bbd453 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -2167,6 +2167,7 @@ static int hpage_collapse_scan_file(struct mm_struct *mm, unsigned long addr,
+ 	int present, swap;
+ 	int node = NUMA_NO_NODE;
+ 	int result = SCAN_SUCCEED;
++	unsigned long failed_pfn = -1;
+ 
+ 	present = 0;
+ 	swap = 0;
+@@ -2200,6 +2201,7 @@ static int hpage_collapse_scan_file(struct mm_struct *mm, unsigned long addr,
+ 					/* Maybe PMD-mapped */
+ 					? SCAN_PTE_MAPPED_HUGEPAGE
+ 					: SCAN_PAGE_COMPOUND;
++			failed_pfn = page_to_pfn(page);
+ 			/*
+ 			 * For SCAN_PTE_MAPPED_HUGEPAGE, further processing
+ 			 * by the caller won't touch the page cache, and so
+@@ -2212,18 +2214,21 @@ static int hpage_collapse_scan_file(struct mm_struct *mm, unsigned long addr,
+ 		node = page_to_nid(page);
+ 		if (hpage_collapse_scan_abort(node, cc)) {
+ 			result = SCAN_SCAN_ABORT;
++			failed_pfn = page_to_pfn(page);
+ 			break;
+ 		}
+ 		cc->node_load[node]++;
+ 
+ 		if (!PageLRU(page)) {
+ 			result = SCAN_PAGE_LRU;
++			failed_pfn = page_to_pfn(page);
+ 			break;
+ 		}
+ 
+ 		if (page_count(page) !=
+ 		    1 + page_mapcount(page) + page_has_private(page)) {
+ 			result = SCAN_PAGE_COUNT;
++			failed_pfn = page_to_pfn(page);
+ 			break;
+ 		}
+ 
+@@ -2252,7 +2257,7 @@ static int hpage_collapse_scan_file(struct mm_struct *mm, unsigned long addr,
+ 		}
  	}
- 	return 0;
+ 
+-	trace_mm_khugepaged_scan_file(mm, page, file, present, swap, result);
++	trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present, swap, result);
+ 	return result;
  }
-@@ -4170,7 +4173,10 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
- 	psrch_inf->resume_name_len = 0;
- 	psrch_inf->resume_key = 0;
- 	lnoff = le16_to_cpu(parms->LastNameOffset);
--	if (CIFSMaxBufSize < lnoff) {
-+	if (!psrch_inf->entries_in_buffer) {
-+		psrch_inf->last_entry = NULL;
-+	} else if (psrch_inf->srch_entries_start + lnoff >=
-+		   psrch_inf->ntwrk_buf_start + bytes_returned) {
- 		cifs_dbg(VFS, "ignoring corrupt resume name\n");
- 		psrch_inf->last_entry = NULL;
- 	} else {
+ #else
 -- 
 2.53.0
 
