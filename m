@@ -1,62 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903973;
-	b=wTVW2FDOMKK36Gt7BfbIJw5ZjzhvIHGixS5vdt0BoKkjf/6T56FebCM8z3//KVA1q2PZ
-	 oj0gAAy6N5dzNJJWMC+M5IANTvjryMQ3vhNMCEL6O/8hGsX5JsvZGr/zoTt5jzTRtIYMw
-	 b0hBG2fp7HtbpV7qO5tnGQ/+1SXzOKEyacXfXvrl9X0UHHm3XL2AZWOSzlfmcYJuqQtOw
-	 CIM2epPFvlb7JE6fPvk8eAz0KjegJSulVC1djJahtPEv8aIvnuHRqbX2et8qXxg5n8kTx
-	 qdOt6ofEwucK7Zu6dnMKRkSekty+lnBl3MfLPdEuPhzA+H14r20LmFbdxwpJ47u6aeA==
+	t=1793903974;
+	b=kq51BBlOFNIIdurgA2f/7KfZG9zfZUBoPGEF2/zNHn9S4cfcGHPd6uVghRFWb8hefvIB
+	 oUVVI4el0h8UYPUq8FRFXvGCMYn+g4cNpPlIxE7GsNi460YEvvhh/EvJ7wjzzkXsKPmY6
+	 vigOlJt13x0qdNXJshQFAOvrGwjNo1HKPYYipl3TsnqFU+RB40deyWqhCP7O8RxaBhjuF
+	 kUuXzNnzQEzTSN0NB2HBXUwqEOmMFkBsjHtKX9wpEzvIRM8+uAugiu+nWNuOBuiiZyHQz
+	 ccq+EWin3dr8ZcOZb7aSZgaFq08sD7Qd8eCSdLmjeaHdJRaLmur9HQTXFpCJv0tmBkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903973;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903974;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=yZp0d94T9bPfx4eAPUckZTFJ9UR5AeCdX7IgpGQtpq4=;
-	b=l9VSeUI2XbsMprV06/p06q3u1sIp34bThS6KinFm8AqcJDqEUrGqqvftL3beRCEDOluN
-	 R4ldPrA59z7enmES66mhic2YYvmOtfMd/A6eIcBfKJPoP9Q40zDzN6Y4Pt+d1MxNPKIvj
-	 WsuUYvSV7Bq5+Dn/G2S2A9VLq27RUd4LgThQ+TuPGKz7DsOUxh2/tU6e+6wAHr54dWYos
-	 5p1+Gfn6gAU16SauM5F3KePz+wiJvXPmsg9X0/bkipHNQ/Ud8Lt+QP2yPZH31JNFK8aLZ
-	 P3AQLm6x1I5oGUW68t+fIdmDydgZhMbBFVd2f4KE522fn/uD6BIE1rlgLFuv2bQM20w==
+	bh=/vmTha+/NBgXWyoBJFSSnlMTejShcEZUjZERBZZ4wT8=;
+	b=Dz8HmC4ni46TCXVO7tMzxoFDd5P/bG+pFTmLtcd75IHNeryezBpVJrXoIUs5xsf3v9jA
+	 h52qfL+e2YF25Lg/YijlDpU97ElPln/YWt3T+7oRce+A3KvIdnPUGcdQ8dI8ksJjNJxz3
+	 Vk0Oh30tPDwZY93KryIWhctamWlfRneTUgrPRAyWvL3ueD4j3iew0g/uU+2q4uUThUBVE
+	 xeVZxxELvdTQCHkhT0MF2hBG3qBij8Ct0wR7Qi6rPiL2f5cBiMGJcrWw+2x1RHWR3lGsk
+	 klBtlpgXFUcVEJDbFMjBE8nHZJQ8Sc6AY34KqBjhcjGW9XFUxiYlrdyLjVcxwn4cMpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HgJx9ICm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DUxOmdGN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588A4606A334
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:39:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38994606A334
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:39:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HgJx9ICm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE0241F00919;
-	Thu,  5 Nov 2026 18:39:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DUxOmdGN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46BC11F0093A;
+	Thu,  5 Nov 2026 18:39:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793903973;
-	bh=yZp0d94T9bPfx4eAPUckZTFJ9UR5AeCdX7IgpGQtpq4=;
+	s=k20260515; t=1793903974;
+	bh=/vmTha+/NBgXWyoBJFSSnlMTejShcEZUjZERBZZ4wT8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HgJx9ICmappF/L2PYdIE+uSw6YhVEGNvmYYx6GuWvPPprAxt5X9tn2oE5WsLeNIrx
-	 vBBkt7b16OSGlxFlO7k89i123kGYOnVAua2mdYGLuojPXbhqyaRhNOe2XTHQ5Fq9fK
-	 jUkhQ7gX7tuAlTJ1piURzBFzJesC8Iy722W8HjoKmb81zT8wFAmOkdE41uM95u+xZ+
-	 G4oyRHDSuv21yxy7zgOIKnUwuLgf2IJVB8/EuMpi/xMGbZL0L0U7hlzs21Xwi0QjAu
-	 p89v5OF9BMeCNiRHiJI61Zc0u7kgLApGdHcEdbDGlCTTOdTEK8CQSnCkh1lDSFiy7q
-	 jtmJ4udw9uSjg==
+	b=DUxOmdGNLBHj39kAt6sRM53ZreT22ldFtpEVpMELymJfS8swfeNkFX1+UOQy7h4Zx
+	 8079mWR2/+a/w6mQINhHyNywPQmKsEM+wmiWwCaTdkrfHJ65Fbbcyo65U82ai/FxQL
+	 oN6u2MAq7GQZlI9/t/tC/qUk6jvavu3lpCZdG7NFycbKgkE1y4CNKCV/Nz0Nwee/YC
+	 KqcrfipOSvjwz6saAleM9+BJO6TTO6BuLXIjKHH99DWTrC+pdG5Ha6/M9tduT4R0Uk
+	 qRt2Rhq03Jr3PFzjEHNmS38uy4xKQnV+S9lSNUoqgsXSQ0HSQeRnXpsiQCZTBuNV52
+	 yYlll3q6YOghw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: "stable@vger.kernel.org" <stable@vger.kernel.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	linux-mm@kvack.org,
-	david@kernel.org,
-	yangge <yangge1116@126.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Barry Song <21cnbao@gmail.com>,
-	David Hildenbrand <david@redhat.com>,
-	SeongJae Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mark Bundschuh <mkbund@amazon.com>
-Subject: Re: [PATCH 5.10] mm: replace free hugepage folios after migration
-Date: Thu,  5 Nov 2026 13:39:15 -0500
-Message-ID: <2026-11-05-1-daily-reply-0010-mm-hugepage-folios@kernel.org>
+	=?utf-8?q?Tales_A=2E_Mendon=C3=A7a?= <talesam@gmail.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	"intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+	Kjell Arne Rekaa <kjell.arne.rekaa@sparebank1.no>
+Subject: Re: [stable request] drm/xe: Implement Wa_22016122933 (d5b0bf3f37f1) for 7.2.y and 7.3.y
+Date: Thu,  5 Nov 2026 13:39:16 -0500
+Message-ID: <2026-11-05-1-daily-reply-0011-xe-wa-22016122933@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105070150.3093908-1-mkbund@amazon.com>
-References: None<20261105070150.3093908-1-mkbund@amazon.com>
+In-Reply-To: <OLAP279MB00864A857672EED0E6BF554997772@OLAP279MB0086.NORP279.PROD.OUTLOOK.COM>
+References: None<OLAP279MB00864A857672EED0E6BF554997772@OLAP279MB0086.NORP279.PROD.OUTLOOK.COM>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,14 +63,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [ Upstream commit 04f13d241b8b146b23038bffd907cb8278391d07 ]
+> please consider backporting the following upstream commit to the 7.2.y and 7.3.y stable trees:
+>
+> d5b0bf3f37f1 ("drm/xe: Implement Wa_22016122933")
 
-These carry only the is_migrate_isolate_page() hunk of 04f13d241b8b ("mm:
-replace free hugepage folios after migration"), which has no Cc: stable or
-Fixes: tag upstream.
-
-I need an ack from an mm maintainer (David or Andrew) on the reduced backport
-before queueing it for 5.10, 5.15, 6.1, 6.6 and 6.12.
+Queued for 7.3, thanks. 7.2.y is no longer an active stable tree.
 
 -- 
 Thanks,
