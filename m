@@ -1,56 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881211;
-	b=h11/s+KSuHmtHnwSA0XvhXbJff+fgC+VKpEVK+9ANhfp3em7+VjgZlfSXHVf4fOyXoun
-	 3D1bFVkgXVJiWsGltw/mr7I6oDlMdVcJRl2srlJybPHD5coc4mPR0KCUty+QyH5eedwt5
-	 ErtYIK3xCu9C0JtfLZPHHA1dyq3LyrZHgb19zWfhVSjwvE58487yIYjeG8x1a0r3tZPfY
-	 qHElSEAIQ4YQGLbWKcYxb93ChL7v6hCpL7PRl95j4XGjPT7Ykjnl01m22DssaLFF4cNvy
-	 Y1QT+a9fLtG7p4eJ0KOYIualfsoRsPkQ2IPFR5+3m3fy5UZ1Oo62nAodMAOv8tLdmUw==
+	t=1793881223;
+	b=5U1c+EYPvNnh60wAiDHdA9jneTSB8ps3P8PlLOD5TtYO0TtjGEVP7kWkAmYRFZp7e8y9
+	 9mARhupwG0kxjs8Un/l8yrWpsz7O7xpgl/klFLWmzz9RnM5ODbM5hIPZn7LNiCMxvI9ro
+	 1vIZFC1Ds1fDIFDxjJgirDt0/8mgphKBN2k+EgYV5D6rYoDp4dtOqdRNMEjCQeKxzB7n1
+	 HiwaTRqm8JrOT3u9XUxt4QJ3YJY5LtRQjTo+GDCl42XsiaVgpO4nE64400K9pqb2p1cHh
+	 sV+TFh9auOpEgvR2pyz32dfs+GY4hDOLuLBROa64tBCZUsTEwJbY618iZhhFKEltnDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881211;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881223;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=bo03mai6CfRU0HLhlJjvopiVvmWux2djuiPc9AX2enw=;
-	b=PgA5cxrTwK5mV+5kRdnwlZ/mZ3hs1GQxPhZCKEVAABE7e5SkXSjCOkFYl0JkukNqZgSw
-	 8HPOH+EktKTF3+hczlr2ocMP80kGhzDGnOj3JScMUwE6LVY5e+lsNaFD3iCiOvywqXgge
-	 IoA1fE1NMXp9k2t1gAU+ehHh8yZnqCJjSz/ogB9ZxBwKQCDMgvXZVXglynV9rb9pXB1B5
-	 JcO5fIkBWJkYkly43kzNGeua32R5I0eggASEy6wKhTEtrLGVX7KcdH5uVSVEKpY3R8JHC
-	 sXr95L+Ymyy1mQSG7WaomCPEc7qdZUdgTPobf0L0bWp1VXoHeDkjaG6YwNlpgAICQMg==
+	bh=fAmo3UiGH3poxS3WQo2PjWtTz2Q8kyx+gsOelyY9Rlo=;
+	b=WFwv7yuzvorlaSJNpqr2LEy1MMOKED1/JB5Ke3WXLa5Tb5JXBA6GSLmhMyaaxf6rZz9g
+	 v/Dje6mKgQOuLJJSaHIxSivXAPeegSaDChDpcBLlJWru3+9IMruBR91XYqmRsqzv+XmAi
+	 Ezkwg1pBEC6rufih1sU0wxmtvPJym0SzahzgifVQq5xVwvpHf/BA0+f9QcHq06Py0lYV1
+	 iUWsR1lkVHg5yd1i5XgqnzK/fHifGz+On5j+JDYEPoW3NE5eUflnz/yMpn01cr+S8yvQy
+	 bm49jlMAWh/eDG5KlWFw3EICtz7oO8rQ2mi5GO4Uxx0Jsh7+rGHGXnL4LCgUCFho9NA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OeLGcuAp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dL2lpMMy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468F9606A33D
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:20:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EE30606A329
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:20:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OeLGcuAp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 581BE1F00A16;
-	Thu,  5 Nov 2026 12:20:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dL2lpMMy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAEA21F000C1;
+	Thu,  5 Nov 2026 12:20:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793881210;
-	bh=bo03mai6CfRU0HLhlJjvopiVvmWux2djuiPc9AX2enw=;
+	s=k20260515; t=1793881222;
+	bh=fAmo3UiGH3poxS3WQo2PjWtTz2Q8kyx+gsOelyY9Rlo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OeLGcuApR+gRGB6Q/L/68mq/pzr/DYGhmrGU2zNEjxHHGm2wjkJo53EbITCRwkWGv
-	 HjsBQozOpdE9X+kwRGzC8I/6uj6/zRbmTitJdTJamK0qIuH4LlEzNLjKnL1CXXIgU2
-	 Yam5nze6U9T8gmSJU+ZwRUzUZa81Q1OjvMm1inNHeqNf0bEEhNHWbRMZKtPXrosp+9
-	 e7mqvhpPMeMd3EhaJj7pzid7v7wz/Y1swKYHIkbTngCeE9N2fRJxZwhNPTKuHEsl44
-	 IDQ8nMYpnp7DZmBZ7CKJ/FDR+VMioMA2b6+4TdgUU0HRRIdYsnjSyG30H/eaSOfZAL
-	 egtm/NDT3ohhg==
+	b=dL2lpMMyshmDMSOm5IlWHYFsLT8naHwzwydssdQCCxXIo7Si60nEuTEAMRwIBcbjg
+	 UuLHmZYwZuyn3ICgK1tw3/X2GqZRD0r/euBPTOvMNGGlFomafBsJEZeF/gSmkfXPr8
+	 XeGgnbjOkblCPsXOroj2fv3H+DuWpmZTb4jS1YrUX1IgoehJvs2sjrhYA/YAJxs+Os
+	 jx+e8G/HGDIQpWa/qu3AKfI6ChvPkWkBtvkfEik5BQCwCQdzU730u59USJdt5RiCmP
+	 SYrkylG0yWfv1p5j4+b53DeKVeQycg67CJleyPJj7ne7nuiijdGdc/YA/6+bP8m8t0
+	 RtC5mKw8ecyeQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chris Mason <mason@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Amir Goldstein <amir73il@gmail.com>,
+Cc: Cen Zhang <zzzccc427@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Jia-Ju Bai <baijiaju1990@gmail.com>,
+	jjzuming@gmail.com,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ovl: check that the parents of volatile/dirty are dirs
-Date: Thu,  5 Nov 2026 07:20:09 -0500
-Message-ID: <20261105121914.1259746-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ocfs2: snapshot dentry names in file and setattr traces
+Date: Thu,  5 Nov 2026 07:20:20 -0500
+Message-ID: <20261105121916.1253770-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110452-attic-confusion-b886@gregkh>
-References: <2026110452-attic-confusion-b886@gregkh>
+In-Reply-To: <2026110444-uncivil-appraiser-edfc@gregkh>
+References: <2026110444-uncivil-appraiser-edfc@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,78 +67,279 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <mason@kernel.org>
+From: Cen Zhang <zzzccc427@gmail.com>
 
-[ Upstream commit e34d2ef818e4c7676d8d8e1bf43e6a1ed39efb2a ]
+[ Upstream commit 8cd3ff30659775a6831c66687a69d2b83d163591 ]
 
-An unprivileged user crashes the kernel by mounting overlayfs with the
-volatile option.
+Patch series "ocfs2: stabilize dentry names in file and setattr traces",
+v4.
 
-A dentry that serves as the parent of a lookup must be a directory.
-ovl_create_volatile_dirty() walks work/incompat/volatile/dirty by name,
-and ovl_lookup_or_create() returns an existing entry whatever its type.
-A file or a symlink that another task creates during the mount becomes
-the parent of the next lookup, which calls a NULL ->lookup.
+Snapshot names at all six users of ocfs2__file_ops and at the separate
+setattr event. Patch 1 handles the five ordinary file-operation callers
+and setattr. Patch 2 handles release separately to preserve its locked
+open-count sample and take the snapshot outside that critical section.
 
-An unprivileged user mounted overlayfs with "volatile" in a user
-namespace while a second process created a symlink named work/incompat,
-and the mount task oopsed on a NULL ->lookup call.
+The release explanation distinguishes its existing RCU lifetime coverage
+from name/length consistency. It does not claim that the ordinary
+callers' external-name UAF interleaving crosses the held inode spinlock.
+The release source change is unchanged from v3.
 
-Fix this by returning -ENOTDIR from ovl_lookup_or_create() when the
-caller asked for a directory and the existing entry is a non-dir.
+Patch 1 also removes the read callback's redundant NULL-inode check.
+The two patches apply independently and leave trace formats unchanged.
 
-Fixes: c86243b090bc ("ovl: provide a mount option "volatile"")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: adapted newer VFS creation helpers to older lookup and creation APIs with explicit inode locking and dentry cleanup ]
+This patch (of 2):
+
+The open, fsync, read, write and splice-read trace calls pass the live
+dentry name and length to the shared ocfs2__file_ops event class.
+ocfs2_setattr() passes the same unprotected arguments to its own event.
+Both events size and copy a __string field separately. A reference to
+the dentry does not pin the external storage backing an individual name.
+
+With an event enabled, a caller can be preempted after loading the name
+pointer. A long-to-short rename can then replace the name and reclaim its
+old external allocation before the trace callback sizes or copies it,
+provided no other snapshot retains that allocation.
+
+The setattr inode lock does not exclude every rename: a same-directory
+rename of a source directory need not take that directory's inode lock.
+It can therefore change the dentry name while setattr records its event.
+Inline names and separately loaded lengths can also change during trace
+record sizing and copying.
+
+Take a dentry name snapshot around each of these six trace calls and
+pass both the string and length from the snapshot. Check event enablement
+before taking a snapshot. Keep the event classes and formats unchanged.
+
+Also remove the redundant NULL-inode check in the read callback.
+file_inode() returns the open file's inode, which is already used by the
+trace call above the check.
+
+The historical report below is from the read path.
+
+KASAN report as below:
+
+    BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
+    Read of size 1 at addr ffff88810a5b2b18 by task python3/496
+
+    [CPU and host details omitted.]
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? strlen+0x85/0xa0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20e/0x420
+     ? strlen+0x85/0xa0
+     kasan_report+0xe0/0x110
+     ? strlen+0x85/0xa0
+     strlen+0x85/0xa0
+     trace_event_raw_event_ocfs2__file_ops+0xf0/0x480
+     ? __pfx_trace_event_raw_event_ocfs2__file_ops+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? pmbd_probe_hit_cookie+0xe7/0x1c0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+     ocfs2_file_read_iter+0x6cd/0xb30
+     ? __pfx_ocfs2_file_read_iter+0x10/0x10
+     ? selinux_file_permission+0x11d/0x540
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? security_file_permission+0x26/0x80
+     vfs_read+0x7d2/0xc20
+     ? __pfx_vfs_read+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_do_sys_openat2+0x10/0x10
+     ksys_read+0x111/0x200
+     ? __pfx_ksys_read+0x10/0x10
+     ? irqentry_exit+0xbe/0x820
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on_prepare+0x11d/0x150
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    [User register dump omitted.]
+     </TASK>
+
+    Allocated by task 489:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_noprof+0x2de/0x780
+     __d_alloc+0x5fc/0x8c0
+     d_alloc_parallel+0x106/0x11d0
+     lookup_open+0x3ff/0x13e0
+     path_openat+0x95e/0x2020
+     do_file_open+0x21e/0x470
+     do_sys_openat2+0xf4/0x1b0
+     __x64_sys_openat+0x136/0x1e0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 0:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     __rcu_free_sheaf_prepare+0x65/0x2a0
+     rcu_free_sheaf_nobarn+0x1d/0x50
+     rcu_core+0x6be/0x1ed0
+     handle_softirqs+0x1fa/0x8d0
+     __irq_exit_rcu+0x113/0x1e0
+     irq_exit_rcu+0xe/0x20
+     sysvec_apic_timer_interrupt+0x6c/0x80
+     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+
+    The buggy address belongs to the object at ffff88810a5b2b00
+     which belongs to the cache kmalloc-rcl-192 of size 192
+    The buggy address is located 24 bytes inside of
+     freed 192-byte region [ffff88810a5b2b00, ffff88810a5b2bc0)
+
+    [Page and shadow-memory dumps omitted.]
+
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-0@gmail.com
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-1@gmail.com
+Fixes: 468eedde23d6 ("ocfs2: Remove mlog(0) from fs/ocfs2/file.c")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: omitted the ocfs2_file_splice_read() tracing changes ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/overlayfs/super.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ fs/ocfs2/file.c | 84 +++++++++++++++++++++++++++++++------------------
+ 1 file changed, 53 insertions(+), 31 deletions(-)
 
-diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index bd0c548cf1eeb..b0cf671b4200d 100644
---- a/fs/overlayfs/super.c
-+++ b/fs/overlayfs/super.c
-@@ -594,16 +594,23 @@ static int ovl_check_rename_whiteout(struct ovl_fs *ofs)
+diff --git a/fs/ocfs2/file.c b/fs/ocfs2/file.c
+index 53b5fbaee7f73..c5145ec2fa03c 100644
+--- a/fs/ocfs2/file.c
++++ b/fs/ocfs2/file.c
+@@ -86,10 +86,17 @@ static int ocfs2_file_open(struct inode *inode, struct file *file)
+ 	int mode = file->f_flags;
+ 	struct ocfs2_inode_info *oi = OCFS2_I(inode);
  
- static struct dentry *ovl_lookup_or_create(struct ovl_fs *ofs,
- 					   struct dentry *parent,
--					   const char *name, umode_t mode)
-+					   const char *name, bool is_dir)
- {
- 	size_t len = strlen(name);
- 	struct dentry *child;
- 
- 	inode_lock_nested(parent->d_inode, I_MUTEX_PARENT);
- 	child = ovl_lookup_upper(ofs, name, parent, len);
--	if (!IS_ERR(child) && !child->d_inode)
--		child = ovl_create_real(ofs, parent->d_inode, child,
--					OVL_CATTR(mode));
-+	if (!IS_ERR(child)) {
-+		if (!child->d_inode) {
-+			child = ovl_create_real(ofs, parent->d_inode, child,
-+						OVL_CATTR(is_dir ? S_IFDIR :
-+								   S_IFREG));
-+		} else if (is_dir && !d_can_lookup(child)) {
-+			dput(child);
-+			child = ERR_PTR(-ENOTDIR);
-+		}
+-	trace_ocfs2_file_open(inode, file, file->f_path.dentry,
+-			      (unsigned long long)oi->ip_blkno,
+-			      file->f_path.dentry->d_name.len,
+-			      file->f_path.dentry->d_name.name, mode);
++	if (trace_ocfs2_file_open_enabled()) {
++		struct dentry *dentry = file->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_open(inode, file, dentry,
++				      oi->ip_blkno,
++				      name.name.len, name.name.name,
++				      mode);
++		release_dentry_name_snapshot(&name);
 +	}
- 	inode_unlock(parent->d_inode);
- 	dput(parent);
  
-@@ -624,7 +631,7 @@ static int ovl_create_volatile_dirty(struct ovl_fs *ofs)
- 	const char *const *name = volatile_path;
+ 	if (file->f_mode & FMODE_WRITE) {
+ 		status = dquot_initialize(inode);
+@@ -175,11 +182,17 @@ static int ocfs2_sync_file(struct file *file, loff_t start, loff_t end,
+ 	tid_t commit_tid;
+ 	bool needs_barrier = false;
  
- 	for (ctr = ARRAY_SIZE(volatile_path); ctr; ctr--, name++) {
--		d = ovl_lookup_or_create(ofs, d, *name, ctr > 1 ? S_IFDIR : S_IFREG);
-+		d = ovl_lookup_or_create(ofs, d, *name, ctr > 1);
- 		if (IS_ERR(d))
- 			return PTR_ERR(d);
+-	trace_ocfs2_sync_file(inode, file, file->f_path.dentry,
+-			      oi->ip_blkno,
+-			      file->f_path.dentry->d_name.len,
+-			      file->f_path.dentry->d_name.name,
+-			      (unsigned long long)datasync);
++	if (trace_ocfs2_sync_file_enabled()) {
++		struct dentry *dentry = file->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_sync_file(inode, file, dentry,
++				      oi->ip_blkno,
++				      name.name.len, name.name.name,
++				      (unsigned long long)datasync);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	if (ocfs2_is_hard_readonly(osb) || ocfs2_is_soft_readonly(osb))
+ 		return -EROFS;
+@@ -1130,15 +1143,19 @@ int ocfs2_setattr(struct dentry *dentry, struct iattr *attr)
+ 	int had_lock;
+ 	struct ocfs2_lock_holder oh;
+ 
+-	trace_ocfs2_setattr(inode, dentry,
+-			    (unsigned long long)OCFS2_I(inode)->ip_blkno,
+-			    dentry->d_name.len, dentry->d_name.name,
+-			    attr->ia_valid,
+-				attr->ia_valid & ATTR_MODE ? attr->ia_mode : 0,
+-				attr->ia_valid & ATTR_UID ?
++	if (trace_ocfs2_setattr_enabled()) {
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_setattr(inode, dentry, OCFS2_I(inode)->ip_blkno,
++				    name.name.len, name.name.name, attr->ia_valid,
++				    attr->ia_valid & ATTR_MODE ? attr->ia_mode : 0,
++				    attr->ia_valid & ATTR_UID ?
+ 					from_kuid(&init_user_ns, attr->ia_uid) : 0,
+-				attr->ia_valid & ATTR_GID ?
++				    attr->ia_valid & ATTR_GID ?
+ 					from_kgid(&init_user_ns, attr->ia_gid) : 0);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	/* ensuring we don't even attempt to truncate a symlink */
+ 	if (S_ISLNK(inode->i_mode))
+@@ -2383,11 +2400,17 @@ static ssize_t ocfs2_file_write_iter(struct kiocb *iocb,
+ 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+ 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+ 
+-	trace_ocfs2_file_write_iter(inode, file, file->f_path.dentry,
+-		(unsigned long long)OCFS2_I(inode)->ip_blkno,
+-		file->f_path.dentry->d_name.len,
+-		file->f_path.dentry->d_name.name,
+-		(unsigned int)from->nr_segs);	/* GRRRRR */
++	if (trace_ocfs2_file_write_iter_enabled()) {
++		struct dentry *dentry = file->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_write_iter(inode, file, dentry,
++					    OCFS2_I(inode)->ip_blkno,
++					    name.name.len, name.name.name,
++					    (unsigned int)from->nr_segs);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	if (!direct_io && nowait)
+ 		return -EOPNOTSUPP;
+@@ -2533,17 +2556,16 @@ static ssize_t ocfs2_file_read_iter(struct kiocb *iocb,
+ 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+ 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+ 
+-	trace_ocfs2_file_read_iter(inode, filp, filp->f_path.dentry,
+-			(unsigned long long)OCFS2_I(inode)->ip_blkno,
+-			filp->f_path.dentry->d_name.len,
+-			filp->f_path.dentry->d_name.name,
+-			to->nr_segs);	/* GRRRRR */
+-
++	if (trace_ocfs2_file_read_iter_enabled()) {
++		struct dentry *dentry = filp->f_path.dentry;
++		struct name_snapshot name;
+ 
+-	if (!inode) {
+-		ret = -EINVAL;
+-		mlog_errno(ret);
+-		goto bail;
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_read_iter(inode, filp, dentry,
++					   OCFS2_I(inode)->ip_blkno,
++					   name.name.len, name.name.name,
++					   to->nr_segs);
++		release_dentry_name_snapshot(&name);
  	}
+ 
+ 	if (!direct_io && nowait)
 -- 
 2.53.0
 
