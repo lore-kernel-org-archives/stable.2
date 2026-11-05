@@ -1,90 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793912583;
-	b=MKidRZThNg7k7rnxnANaQXSKdZDqBkKr/zZaBOaLGIgM5LBz7ghBUEz8BAlmaTYIJJMm
-	 KbB5MOdivCtBRZxg2AH1BXsWVnnVPKsUP+M6nJpwyV8g/deZXzrBcXuV1uKKqWh7Aqps1
-	 BiTkaUMJdYtGpDgHKjSNHMLc09734HA6nLBSOdl0jDBh+AMmU+Mo4FZMuWC2r16yKIoqQ
-	 QUC2mGpQlGJyxKr/1wrMiPCt/Lw4kxQ20h9QJa4XInCoAJ/HrTwH5hq9yl7/J6EHc7NpL
-	 prupZWPwodRn46Zx0q+OBZcT/QGgTuP9m2vnXsGRyq+DX0/GvCb0yDgWhUt2fnNVKbQ==
+	t=1793912647;
+	b=TX3diHMVVBEcmJhsfeDzYVZrtJipNPt6FLbihgP5lp8EBnZ8E99M0k9+wLAMrJQN9Zbp
+	 eR6TfoqfkYlUJSDg/o18W3XVqNXVbl/Z3Ztt5fEZX0DXHMJW+VpKCtZMmorGPbev3eXZ9
+	 /67ZO/BoaWF35oiz3qzOrt95e3Nr0Fmm7rHPsOQOLhHEh9z6eB0Ed/aQ9NZuTnnMwIsab
+	 L2ensu51Zj9mQ/24snNasZM1o/3LkQE70jg0DvZE55VU9wCjEVbs94xutLrojlbZHeMMO
+	 lm5uKt3eADWulcMGSPlv2pOA59BdLOCOODwJKFve70EDTl8vmXNwku0nITjn34F8nDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793912583;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793912647;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=vIPsFgpeDDDerv0ETdjJMk/BOk+taB7WxA1rqOHL3fI=;
-	b=mf0LA7gaAnFFLwKD24KIOmqcEHRlTUvwK1thyxpIQNl67CoPcP0go7U9EPW30MZnUgo2
-	 /lh81MfInSsYR03TjMq5TWk6D3mKDbQtaKUUQ27pL7ETMbxDSQa9SkknzX1gj0GVV2Sdf
-	 KSloh4LEaekQP+L1KSYwX612YwAjHOl8OsflZjoJ5VRqFpWGAYO3OyhTx3WY2R1qe0tkk
-	 W27K5IE7hCZItzcLT53725EmupxxDRN1dpjct4X5H7xzHf9j7cYbPt8b/y5vAKtJlgz8o
-	 iBgVaeF60aA/nNYcCb5Vct0kOGfq7KtEaamGo4kMItotDIJnvCtzog/XZnxDnJJkOdA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=EGxIARHwfDH+PiGjWxKomdVYqHv4YKk1Tq7/8Jn6Wag=;
+	b=2eMnYqn3nxtDHRgSMcgAZh6e66/j766juV1puqUDLqjwEdifmftdROoj98hr4oZCEOGv
+	 5NxH6nyi5cebOE9JgAUrew8R8E+0yksTKyoJrzhbeidg+C5Eqk8RR8Q2KPUe2PW1lGb+F
+	 C/1bD1cfMd5hpcu3ZiSy4TcySKQhJYfUR+rPDX6ES301kZIwGiJ7mdYYKZ0ZohBcidDLs
+	 QypvOAZtVasKwXVkoo76yVPMxtFbTVcKm/cUsTRpEQLs8h5fneeepxQ5Z6kuGEKnDb53M
+	 oSXkCmZD+CivIo94GRw4vW/t3qOpY8H6b27I+3hcornLC/GMOZzIKOppd36FrvXN8GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Hlb7qb2j;
-	arc=none smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	dmarc=pass header.from=bobrowski.net;
+	spf=pass smtp.mailfrom=bobrowski.net;
+	dkim=pass header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=RR3ez42l;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B59606A32E
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 21:03:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0B59606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59700606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 21:04:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59700606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bobrowski.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bobrowski.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Hlb7qb2j
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b587591414so1012979a12.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 13:03:01 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=RR3ez42l
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so4400532eec.1
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 13:04:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1793912580; x=1794517380; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vIPsFgpeDDDerv0ETdjJMk/BOk+taB7WxA1rqOHL3fI=;
-        b=Hlb7qb2jlbDnD7w+YrqmTYEpCFK07r73zRxJ0MmPzqWcARWLRaQYzCX1erlio0Nuva
-         WumHk61kfaPnQvT/quClGwyWPOu/1sj4V6AHXiozQh6+AfB3WkVy9DBgdwru4lXgCVMh
-         5SzsU8ExDqctaJJOZX0WnvAdItUzTLvG/iCZM=
+        d=bobrowski.net; s=google; t=1793912645; x=1794517445; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EGxIARHwfDH+PiGjWxKomdVYqHv4YKk1Tq7/8Jn6Wag=;
+        b=RR3ez42lbroTR0C7UAFjLFoiwgCT4dVKo2bv8J6+/n5BtMBcBzpgdfeUPjSBmEF3Xz
+         hbx1NKwaXgJOSk2qVFv+KuUq3AenJUb9yZ5FfI1DDcIVzOuqWDgLL9YSJprGylG9zFKG
+         VdR5TyUxoabuh47Z8B5MNNnopXGLMVjLpxPbc19rCQGxomIUocvckcIWO0B6dV1TJsR4
+         nhI/cKC0sJXADNN0w2beQgsvvnkh1/v8YyJy8D8mpS9oWCtfUVKtN2sNLf6lnWFbOgHl
+         Mq9XYNZt2fyxKb2RsWLuZ3G7QkPe4SBJZIZBuYxskyAHso3PvYF7QMnoUo/GLLifLjpw
+         Nlkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793912580; x=1794517380;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vIPsFgpeDDDerv0ETdjJMk/BOk+taB7WxA1rqOHL3fI=;
-        b=XIC4Cyqd9j0xT7WlFTPNggeCDkFmlibDruh3rmdUlaBLQT6bRikkdh+/VTJfLdhN7p
-         uKj9qU2ITqGYlvTvBg+dksflN7TUxpXZ3+OKZnqjnEhNiV+8vU7tz4zECK6evDIEMKNy
-         soeFNmqJHKydEWcwk61d/nLrS2qoMJyaGMD/Lg9ypawyvHpqdBBP3oBLvG0c5xm47g7S
-         RUi2Dg54I7pFQlVCypUC3d6bD8qqEDoCDrhDeRDCqyovFh2NPc+0Hyviu37pa0QSc711
-         Hy0fA4l1XDwHNNqBRsvX01C5LgwmDJuXHbeZ/SwYvbHBwqc5S3kagAPDN1jMdy0SzD8+
-         8vHg==
-X-Forwarded-Encrypted: i=1; AKwUvBxheR/ifperhXbQoB6VU9il4HfegiflYh4PE3lUQnlLtaE8Tw9FgPVRdMNaqCaxL5GeXfH+Fg0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z83ilgz4MzlVKivUpAt7HY6tKcJvrSfVeZJZJ1GEXCmVPsmdUbY
-	JtrnO8t5NiczISPeVos/jIko7LMINxSjDPRKeqak9RwrojSGaQ/Ev+I8TyXUccWIWkBGn7ENAXB
-	20utSRXo=
-X-Gm-Gg: AYBFou0CBMjJMG1W28/EQEWEjkzD7Gtg/ko30AaNtqKSC6aiFA60aondY6zzeUS/v+S
-	axCBw/OfQVWQJGI2mSvvZ5P1QWv0F29mQ+pBre3aejPfAMxWtXkBuFB+kWObgYcpbT0ZFdYqRgG
-	6mmsxSStTSwjZpFbcBGNwNvaFgJBBJYjpyBY+uSJwUxnifiixBhq5iFwiS5o6LHvvbWNdk+nTCO
-	Rmt4nZPXuH9OcwHUCbMIIDHNy/00tGiC8K1sDqb90u0zRhywwX2Y1UwBDmxXtOLo6oZscYecez6
-	1Jh0V9UeW/IGWgjzabKxUlqNWSqZ0D/NOuJmlEvc5nHhfANdrJt6oXpIlYXpokfN4alh5eNAeiT
-	hdV625dwzMe0epcxTPX4ZplcJr9O9Py5sgGNEuVH5Q9UanSiJajcIHJp/PX9/smZvkKHSNZQcj6
-	LUv0FDkR8QSnyeWW8YhV2tHGnxQmdZVD/lrp6f87viVjjPevPb1KV44DjnseoBhY059HbgC6mYN
-	O/GhM3OAqEfj7eQqGrNxW9WuWyIXNO1hV+Yf7uMASJVntxdOdjbqkkZsm8/arP4bCplRoBd5Daj
-	5JutWdPH2NOnNeB6WSQYXymwOF8MkGn1ryFDUNkC1xm+sCxqs8kGtZT7vj/1654xZsyPbVYcZKS
-	5Xw==
-X-Received: by 2002:a05:6402:210f:b0:6b5:969c:316d with SMTP id 4fb4d7f45d1cf-6b5977df4d2mr323917a12.15.1793912580226;
-        Thu, 05 Nov 2026 13:03:00 -0800 (PST)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com. [209.85.218.48])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55abd3da7sm2208153a12.1.2026.11.05.13.02.54
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 13:02:56 -0800 (PST)
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c315869241fso364299966b.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 13:02:54 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxJszYhfy3ARqvS/G5IpdaPPVaR694BP68qabUiY6Dcmahy4JTxBUP0kDTI/O9b9TY+NscChSU=@vger.kernel.org
-X-Received: by 2002:a17:906:c150:b0:c46:9ca9:f524 with SMTP id
- a640c23a62f3a-c4d354b9d04mr48470966b.32.1793912574580; Thu, 05 Nov 2026
- 13:02:54 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793912645; x=1794517445;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EGxIARHwfDH+PiGjWxKomdVYqHv4YKk1Tq7/8Jn6Wag=;
+        b=COBb57tYBLEGBIWU44jwYbFAqgaAikPBx1Po7ItHwSLUzAW5CKFEcsE+tDojsQOTt3
+         c5a4z/P8OeJoCpTlJ2QZqgoPSEEFj9ywoIOjYgJGIxujXSeLvPgRFyub1CjPzDVgQ/FX
+         8JVoJXtWZMlXg3HTg9iwSdSNxfloaU2eK9ByeztKVQnqg93B5zWwkHIKYC+Zpzzb4bG5
+         jeZ7/aedAqenXeySIl0mHbqRYRHJX0JrQv3O9sTBQE8ucdSGcZ0Ub7XQailyFYteO/cI
+         ldMGyaik7MdRH1srUoMdNCUJ+3qIO3tNh1/flGwVwtyIJELgMaK5mGsVW87+EQjTea2B
+         tgAg==
+X-Forwarded-Encrypted: i=1; AKwUvByGxsWggJLOHRw7LfyR212utbslzfZBnHsYOBCoJ+Dpn12JzBUQT/K2omyd6bXrMa0+k4/PxPY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FLx+9vl2CHaLQU/XuToa7LAIrmI3mgE6b8wxBR96S5u/IF3zN
+	dAvePXnK8Dk1b42KCq83ErlCxkVxY5uN8vHckiMVaruFy1eF9xwiagSDf86Jh9Ml/j+J
+X-Gm-Gg: AYBFou1HvkoC5ylUn7TrmeW86jbKaTJ0uxkuHJI3iGIZB6y9tm07lb9aD09Zjv1Bz0H
+	Q1XSmnLfbOWRo5SUg+sYah8EcNATT4YPo5quj4RIPgEA7oYwW6s5sLWfE4gE21LNqMFrfceA+YK
+	KQUqtWkLOkFYGIgGseBtkDNObkzaCa0jI4+THIyFMHvwYoj4XpGtIkLKeTJWqc591PU0nulOl/W
+	yhYZ1FX3QNA0SCaaeuQvWS3emfXGE3TMdLsz4C2ErkoP76Lvf2oonRxcEs8MxCZrU7hCRJuAOuw
+	9pkOBuBU/bCW1Z16lpsCY/2wLgLpG0iA9o4cxy4UojgQ7Ti+zRKaBF4sBdRsyyhCPaF/WGwr48J
+	wWSIG2zSK6oObyc8C5mthpCc0OUhFCMKEdTwu/PuAAR/oyui0tRhcD61F6rk65hGUegwJKTaOva
+	IuFu6tIlDPH4rYCWAGlmjXP0wbmFaOr6jKMIYfFZzxqQv30MNBAyvb0l69ZIegAM5WWgNXGkrqo
+	c+G1o1Sbj9Pf0OE7oBPAXYz6KnfV+wq62jgdQF7ZeH5VUW9r6dlDxEJpPyx/yU+XZHs6ITAnnbP
+	mj+lHvdgEQqyIrdxByF5RxZKTRexM1ZqbIKTYta/hNrr2Hm9BflJSyI1QkLZUfCPbKwyO6y5xFF
+	aTCzaqA==
+X-Received: by 2002:a05:7301:251b:b0:36a:1e0a:accb with SMTP id 5a478bee46e88-36f7631c69amr422598eec.35.1793912645000;
+        Thu, 05 Nov 2026 13:04:05 -0800 (PST)
+Received: from lima-development (163-53-146-70.ip4.superloop.au. [163.53.146.70])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36f74069e31sm761960eec.0.2026.11.05.13.03.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 13:04:04 -0800 (PST)
+Date: Fri, 6 Nov 2026 08:03:56 +1100
+From: Matt Bobrowski <matt@bobrowski.net>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, bpf@vger.kernel.org,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH bpf-next 1/2] bpf: fix crash in bpf_path_d_path() for
+ exiting tasks
+Message-ID: <auzvPMnq2vrLaBdB@lima-development>
+References: <20261020105014.97985-1-matt@bobrowski.net>
+ <20261020105014.97985-2-matt@bobrowski.net>
+ <DM9VJTFJGVXB.3GH9LO3NGV5PO@gmail.com>
+ <atiawbBo6WRPA6QA@lima-development>
+ <at_MbcW0OlciNLrE@lima-development>
+ <20261105-berglandschaft-mitbringen-baufinanzierung-c0542594d218@brauner>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,52 +113,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
- <auaFhOa5EBz4gJwK@gondor.apana.org.au> <xdzcyoou73blpfdlgy47i2ktrcsffnclerzojpgrxphid54gjc@nicdcvzqx447>
- <auqtTjXhD8is-y9f@gondor.apana.org.au> <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
- <aurAxRpCwzeyXeVj@gondor.apana.org.au> <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
- <aurJZ81qnbiHH_P1@gondor.apana.org.au> <ausS3LQNkdc6lBy3@milan>
- <auxDm_YO4oACA_d2@gondor.apana.org.au> <auzOjphJ8DWpXwUy@milan>
-In-Reply-To: <auzOjphJ8DWpXwUy@milan>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Thu, 5 Nov 2026 13:02:35 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wjcKOC7O30L8_8PMniT71aqy_3ZEYK2xyoR8zW9ZCvO7g@mail.gmail.com>
-X-Gm-Features: AclHuK-6zo-9KtIYF9n0Bopl194z1pM7LoK-Wva3VmRK1J9HSt04b5Zu07i1Nu8
-Message-ID: <CAHk-=wjcKOC7O30L8_8PMniT71aqy_3ZEYK2xyoR8zW9ZCvO7g@mail.gmail.com>
-Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
-To: Uladzislau Rezki <urezki@gmail.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, 
-	"Liam R. Howlett (Google)" <liam@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>, Michal Hocko <mhocko@suse.com>, 
-	Baoquan He <bhe@redhat.com>, Alexander Potapenko <glider@google.com>, 
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>, Marco Elver <elver@google.com>, 
-	Michal Hocko <mhocko@kernel.org>, 
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	maple-tree@lists.infradead.org, Lorenzo Stoakes <ljs@kernel.org>, 
-	Chris Mason <mason@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org, 
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-berglandschaft-mitbringen-baufinanzierung-c0542594d218@brauner>
 
-On Thu, 5 Nov 2026 at 10:44, Uladzislau Rezki <urezki@gmail.com> wrote:
->
-> @@ -1025,7 +1025,13 @@ void br_fdb_update(struct net_bridge *br, struct net_bridge_port *source,
->                         }
->                 }
->         } else {
-> -               spin_lock(&br->hash_lock);
-> +               if (in_serving_softirq()) {
-> +                       if (!spin_trylock(&br->hash_lock))
+On Thu, Nov 05, 2026 at 04:44:34PM +0100, Christian Brauner wrote:
+> On Tue, Oct 27, 2026 at 08:55:57AM +1100, Matt Bobrowski wrote:
+> > On Wed, Oct 21, 2026 at 09:58:09PM +1100, Matt Bobrowski wrote:
+> > > On Tue, Oct 20, 2026 at 06:24:42PM +0000, Alexei Starovoitov wrote:
+> > > > On Tue, Oct 20, 2026 at 03:50 AM Matt Bobrowski <matt@bobrowski.net> wrote:
+> > > > > Fix this by returning -EINVAL from bpf_path_d_path() when current->fs
+> > > > > is NULL. Only the task itself clears its fs, in exit_fs(), so the check
+> > > > > cannot race with that.
+> > > > 
+> > > > The crash is gone, but so is the path. file_release progs will get
+> > > > -EINVAL for every file that a task still has open when it exits.
+> > > > 
+> > > > It also breaks what works today. The d_dname branch in d_path() returns
+> > > > before it looks at current->fs, so at task exit a pipe or a socket
+> > > > resolves to "pipe:[123]" now and to -EINVAL with this patch.
+> > > > 
+> > > > And it's not specific to bpf. The comment in fs/cachefiles/namei.c says
+> > > > that current->fs == NULL in do_exit() breaks d_path() called from ext4
+> > > > open.
+> > > > 
+> > > > can we fix it in d_path() instead ?
+> > > > With an empty root prepend_path() goes up to the global root, the same
+> > > > way d_absolute_path() does. Then the check in bpf_path_d_path() is not
+> > > > needed and the selftest can expect the path. A chrooted task gets the
+> > > > path from the global root, but it doesn't have a root anymore.
+> > > > 
+> > > > Something like this (compile tested only):
+> > > 
+> > > Prior to sending out the fix, I also considered addressing this directly
+> > > within d_path(), much like you've proposed here, but decided against
+> > > it. d_path()'s contract is to build a pathname relative to the current
+> > > root. It does fall back to a root-independent name when the path isn't
+> > > reachable from that root, but that fallback still presupposes the caller
+> > > has a root to measure against. An exiting task past exit_fs() has no
+> > > root, so d_path() has no correct answer to give in that state, and I'm
+> > > not convinced we should invent one for it.  That's what
+> > > d_absolute_path() is for.
+> > > 
+> > > You're right that my patch regresses the d_dname case though, since
+> > > pipes and sockets resolve today without ever looking at current->fs.
+> > > Rather than replicating the d_dname check in bpf_path_d_path(), which
+> > > would mean duplicating VFS logic such as the mounted pseudo-inode
+> > > special case, I think the cleaner fix is to move the "no root, no
+> > > answer" check into d_path() itself, after the d_dname branch:
+> > > 
+> > > 	if (unlikely(!current->fs))
+> > > 		return ERR_PTR(-ENOENT);
+> 
+> That seems ok albeit fugly.
 
-I don't think that in_serving_softirq() makes any sense.
+Yeah, not super nice, I agree...
 
-If I read this code correctly - and it's possible I didn't - this is
-always called under local_bh_disable().
-
-And local_bh_disable() will have increased the preempt-count exactly
-so that it looks like it's in_serving_softirq().
-
-Maybe I got lost somewhere, but it basically looks like that test will
-always be true and is pointless (and misleading).
-
-         Linus
+Anyway, I'll respin this series with what I've proposed above.
