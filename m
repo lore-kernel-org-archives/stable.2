@@ -1,98 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793878753;
-	b=oeNCXA3keCs3FAVjlodURSiIUvj0wrm7+PzVPIn5l8M1JZ0xr/sRxKw1TwENaCrhJCLA
-	 VSPf2nbr9cLj+th3gpgw16PKrQNh4K6Og4KWKao7xFm9idn9EMthl1MF5XhKgt/ETY5nu
-	 r+RMpLKHCd76pjlIWNx16FkpNxvEMTJAuShRxF5bownDI0ETxKRjWQlJzqns7FtfcRO4a
-	 /t5fv59wkc3pdBKPKmG+tl49HbBQc2yDkKQraUeIY/4v6bV4qw8ZgyLWiLBkegz0V/Lf0
-	 UbyKw100agOj/pQ75XaFjZ+UJOD0z3PNtrgVPuStFYZviBKtbJM8JBtKutZe/8wzWTw==
+	t=1793878887;
+	b=LjjJrj8265QV8imSZMpLBoTXDJ2FVbWTRlx6S1Pw6OdWuzUuKzT8k2KxRRH/S6Ngi1mZ
+	 TPkpDSG/zOdOZdSFacUpXap4yDJEnkKgrHY1VuYFG2eS7uEVAkSJUHRLr5kAlvmfH4rm7
+	 omB9y/Rk4J6JR+R+pWL+UKU2znPU+ymQhSGHEjDPHaIzfqlH/6SUhWq2tYc8O7NfXiSdM
+	 WtGxkUYgaz8CZEub/39EKxzA6XPWn8gBR1zy7U7J1kXMoXbckckWWevDbn9a4cGX/Dgpf
+	 1yKM1sXcVZngzDwHjP2XPkk5yC8tfXi7B04Z2JdWPn9Xc6KlrrdD3ZxnTKiijkIoAxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878753;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=wLy/MC5U/srGzmiqFOFPlUlx6h4GbJbOkj3ViR+QLTs=;
-	b=e5mUVKbXTyAGS1NJ3YgWlFwPEorHCVhvsMHihSEVQMeLjbgN1vYX47K6VAKJlC5R3/so
-	 88UfREAXt550sCjhBHHUBpPDSjhu5LXlqa6HGSjDXv15qE63XnAOntZGk/rE+Ad7b3HGf
-	 dr7Pay567TeeiqngCo5W3d1V1FaaDTvtUO9OPH02sFeMCHSQR3BrSv3uZMHWjx+hf4qVg
-	 DDi804Gv2WJ7MWccDnhEiIic73zUlbRmHTnNVf8xKLAEqpgvBanzBDL8GAJp70iXVQH6N
-	 hFo+7/4CD23MV8S3KaIAd1dMWr6R4DPfENQc2EVQhoAK3lAzjjz4zflpQncteiE4d4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878887;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=lCeU7WqtPlFL0u28tAWE4TptrCsWoJqXXac/H5Y8UUQ=;
+	b=dtr8vQSGAhO2+phFSjmLjvvv9ELYzzDtS0aNdmEji+5q/q/bdqDo3HKvS4CllIaMP2yD
+	 Dn4yHrk1Ck+9czKcKEkD8sWfZlBb/PuZJAuweTO8mgrfI/xsYg78+LGKUNhDp1S0P/eKK
+	 wXvKjxff3UpVTyPt0T/Sr8vwSN63sX6S1rtKJTCJdHunuA8v6Wec6FSymTECr3y3Goawd
+	 K7gwKl1myFUekCoBBjbNdS5rHcgT6p5AHNqCFJDyVKf/dm7YxMNXWaO468WXzOgTSwh/U
+	 Uiu33TgczNUo220+gX0BYddUdCYNBK2jWbjmDOxzsrEvEZ8EIosF/BtspwLkhTxTd4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NMcfvhUV;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sVeVtJRH;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vuwkzsBE;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sVeVtJRH;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vuwkzsBE;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7853C606A328
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 11:39:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7853C606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA20606A329;
+	Thu,  5 Nov 2026 11:41:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEA20606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NMcfvhUV
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36a18fc7a38so1852535eec.1
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 03:39:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793878751; x=1794483551; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wLy/MC5U/srGzmiqFOFPlUlx6h4GbJbOkj3ViR+QLTs=;
-        b=NMcfvhUVqPBalavljOq3AdNC7tJsJBv+ug0t2CLiNqpmrU2AJNud3XXIMeJZF1rnOC
-         pwureEM5btmrTMJvCLOk5ptu0BLvxUbiDQ/o3Bflr7+msvseP1z73Yc1Uln4l+a7Zfmq
-         zYFYG4rFEdklLdFOLn7TL1v/Xcz0OhNeszy6COYhjuCmbF9CYHx6lPFnmfxOkjlwFzEu
-         EAzlsMYY2UtA1VHKFFGTsBuzjUdycHOFqijPRKvoZm210mvOBEaf5E2xoUJ1eBGiTZYU
-         D1WLug9kwHBatTqrkmXEKkT8/HWf+mjJVNdgrxkLvAadIbVG5c6iOtmNpG99GapzGoHL
-         BsTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793878751; x=1794483551;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wLy/MC5U/srGzmiqFOFPlUlx6h4GbJbOkj3ViR+QLTs=;
-        b=iXDHQbGDudPpL7iUYojplVxauk13IJ3w/ZaLM5hHtpr9ZMRFrXv5LDYL1j834LD9us
-         3zw0Beyi51WbM5zZqJXQlxDv2dNFJd2sMLyHpGzDNPdrEr2F/Ps1LGSQyLjTrcmqLLSz
-         Zxa7k60f6LOhE/lSSZnt7dJc+itgzaTmk54Pu3wTfgdqEcQu1j9Y9hBYAkiz+PoyTqsN
-         8OreRXzmOG4dIkmHVtagyjoZ+1tAGp+ZUplMryCM4voZ/JY2k3nxXd5pmuTbaX1OpFO8
-         ZulKfusWfFjST4JXaJXCBUuKXbu9CR7Dm/qHoMPTYACMUwLCFC3GPHkrd7Nnibr9L+DN
-         uuUw==
-X-Forwarded-Encrypted: i=1; AKwUvByGs8B16PG99um9uslyXIbkEL6dBJ8FIbpfHXzauWAVYZQSd9aUzrd3OGOV38sPSV+TEWO9V1s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/tuC/qilqWSC0ADc7pX3TJ0degcvC4LHVmlDM1YGghbhGUUG5c
-	he3CWVFK6JXxdoPHHpncYlOY5wgUp8TRu18HACyqcM3VykW45TUKVFLQWB/8OB6z3Ro=
-X-Gm-Gg: AYBFou3j0XblbkxLD97ZocC5UAVpPHvXq/imo4uvihKE70ct1SiLCnmZII5ThPdlmG8
-	jHyLINsjvFs66y6RjDv6jswALdwTw5bzkw7CO2dAwIUUmXhoJhwsZrzTw348kbtriDmm+w0GRfk
-	hhUczFB1s2AeX2DdABz8BJWshwj5NGHOg+dMNx4p81oOl1h8UMTq1+ZEStcnpcxiCHwz/cXFIMi
-	aRh0hyyKY8jaDPxOC8C1+L+pWpnb2pDz5l+IEHrZXbkTVSppCNdbtKeN2Me5I9mQyFG91cXOzUe
-	c4OR2dufl7a6J34s0tJXnASIOqaGCIhfFStOu/yaQ7SxIRES7F2n3jSP94FhK2yHcBrovEBBjz+
-	46tlKyDDDptWJ7+XLkMBMts13nU1dcYoLJc8+BmF/v2BziXNPrZREQf7i9cbYc0nnUHTXmUVRhY
-	WTUvwjz9tQ49XPeuT2pPb3STCRjYJ7ixBheNoB1VArG8r0D77xISGmpTBRD9NHK4qZMGeSESceq
-	xSICefvL80Cto2dlIwW4NMyG85jcc2s/CJdcZZww7EGMaAFpk7w85/ugduog8M13MU80gpDhFFO
-	PrLCblbV3jZN0XW/7SCSA3tlyL/EHq8UbbG7jngAdS5UZRjbeecnPTYoLjLC6TJNkbhBXKtvjeD
-	s612fr5Dh4TM063AozSE+Q37OxWOZCbY=
-X-Received: by 2002:a05:7300:a943:b0:36c:991e:c9b with SMTP id 5a478bee46e88-36c991e288dmr14652570eec.14.1793878751259;
-        Thu, 05 Nov 2026 03:39:11 -0800 (PST)
-Received: from lwq-System-Product-Name.. ([23.247.137.158])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38f53a6sm15089493eec.15.2026.11.05.03.39.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 03:39:10 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-To: netdev@vger.kernel.org,
-	david@ixit.cz,
-	davem@davemloft.net,
-	kuba@kernel.org
-Cc: edumazet@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	oe-linux-nfc@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] nfc: rawsock: serialize SEND_SHUTDOWN with the TX work requeue
-Date: Thu,  5 Nov 2026 19:38:12 +0800
-Message-Id: <20261105113812.969651-1-shunsheng1218@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sVeVtJRH;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vuwkzsBE;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sVeVtJRH;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vuwkzsBE
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1E66A21EFE;
+	Thu,  5 Nov 2026 11:41:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793878885; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lCeU7WqtPlFL0u28tAWE4TptrCsWoJqXXac/H5Y8UUQ=;
+	b=sVeVtJRHmCez1LTgkgxlC7ymMIoqBUxHEcpbPuiTw+LbDT4oPlHADz2Nup5Y4XkVnbVoDk
+	it5vmGnaVZfno1DYDqX11TE+/cZqz+5DBii4SNDMZd47SSrwV/j/qOrqaptU0Cbv8IOz2R
+	SNKUKTm79wLZzIjQ8Z0k9Nr+vLNViV0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793878885;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lCeU7WqtPlFL0u28tAWE4TptrCsWoJqXXac/H5Y8UUQ=;
+	b=vuwkzsBEcCG36qlub78Ir05oWJttjLgL1QqDCsASqboi7pG0u6LKGZy4KCtzu9Qqsj7mam
+	/axyOJZeWj8zunDA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793878885; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lCeU7WqtPlFL0u28tAWE4TptrCsWoJqXXac/H5Y8UUQ=;
+	b=sVeVtJRHmCez1LTgkgxlC7ymMIoqBUxHEcpbPuiTw+LbDT4oPlHADz2Nup5Y4XkVnbVoDk
+	it5vmGnaVZfno1DYDqX11TE+/cZqz+5DBii4SNDMZd47SSrwV/j/qOrqaptU0Cbv8IOz2R
+	SNKUKTm79wLZzIjQ8Z0k9Nr+vLNViV0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793878885;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lCeU7WqtPlFL0u28tAWE4TptrCsWoJqXXac/H5Y8UUQ=;
+	b=vuwkzsBEcCG36qlub78Ir05oWJttjLgL1QqDCsASqboi7pG0u6LKGZy4KCtzu9Qqsj7mam
+	/axyOJZeWj8zunDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EF13B134F6;
+	Thu,  5 Nov 2026 11:41:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id +avfL2Rr7Go4dQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 11:41:24 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 60CBBB6BA; Thu, 05 Nov 2026 12:41:20 +0100 (CET)
+Date: Thu, 5 Nov 2026 12:41:20 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
+	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 16/38] proc: don't walk through a non-directory when
+ resolving a name
+Message-ID: <xhnd2xzehnh35nmgphm2euuyulbwoz2fbxf7zmfn3hvdbcualr@ltehycoskzll>
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+ <20261102-work-procfs-bugfixes-v1-16-59422ed3e465@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,109 +131,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-16-59422ed3e465@kernel.org>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[60];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.30
 
-rawsock_release() sets SEND_SHUTDOWN before cancelling tx_work, but it
-updated the shutdown flag without the write-queue lock that
-rawsock_data_exchange_complete() holds while it tests the flag and
-re-queues tx_work.  A deferred completion could pass that check before
-the flag was set and still schedule the work after cancel_work_sync()
-had returned; the worker then ran on a socket that was freed right
-after release dropped its reference.  KASAN reports the
-slab-use-after-free in rawsock_tx_work().
+On Mon 02-11-26 15:21:31, Christian Brauner wrote:
+> __xlate_proc_name() walks the components of a name like "a/b/c" and
+> takes whatever it finds for "a" and "b" as the directory to go on in.
+> It never checks that they actually are directories. So
+> proc_create("file/x") hangs x into the subdir tree of the regular file
+> "file". Nobody can look x up there, but remove_proc_subtree() on the
+> file removes and frees x along with it, behind the back of whoever
+> registered x.
+> 
+> pktgen passes the name the writer of "add_device" picks to
+> proc_create_data(), and only the part in front of the '@' has to name
+> a network device:
+> 
+>   echo "add_device lo@"   > /proc/net/pktgen/kpktgend_0
+>   echo "add_device lo@/x" > /proc/net/pktgen/kpktgend_1
+>   echo "rem_device_all"   > /proc/net/pktgen/kpktgend_0
+>   echo "rem_device_all"   > /proc/net/pktgen/kpktgend_1
+> 
+> The third write frees both entries and the fourth one makes kpktgend_1
+> call proc_remove() on the freed second one:
+> 
+>   BUG: KASAN: slab-use-after-free in proc_remove+0x8f/0xa0
+>   Read of size 8 at addr ff110001134c8e70 by task kpktgend_1/243
+>   Call Trace:
+>    proc_remove+0x8f/0xa0
+>    pktgen_remove_device.isra.0+0x118/0x500
+>    pktgen_rem_all_ifs+0xeb/0x1a0
+>    pktgen_thread_worker+0x1b42/0x7280
+> 
+> The files of a network namespace belong to the root of its user
+> namespace and these writes don't require a capability. So once pktgen
+> is loaded an unprivileged user can do this in namespaces of its own.
+> 
+> Treat a component that isn't a directory like one that doesn't exist.
+> All names with a '/' that the tree passes in as literals only walk
+> through directories. pktgen is fixed separately to not pass such names
+> in the first place.
+> 
+> Reported-by: Chris Mason <mason@kernel.org>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Set SEND_SHUTDOWN under the write-queue lock, so the completion either
-queues the work before the flag becomes visible (and cancel_work_sync()
-then covers it) or observes the flag and does not queue.  The
-completion-side check from the previous submission is kept.
+Looks good. Feel free to add:
 
-The remaining requeue window after the cancel-based teardown was
-previously raised in review of that change (CVE-2026-23372): an
-asynchronous NFC completion can queue tx_work after
-cancel_work_sync() has returned.  This change closes that window and
-does not claim to be the first report of a rawsock teardown
-use-after-free.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-This issue was found during an AI-assisted source review of the socket
-release, TX work and deferred data-exchange completion paths.  It was
-reproduced on a KASAN kernel with a deterministic timing-injection
-harness for a deferred NFC completion callback: with only the
-completion-side check, stalling the completion between its shutdown
-check and schedule_work() while release ran produced seven
-slab-use-after-free reports in rawsock_tx_work(); with this change the
-same sequence and the original purge-window injection produce no
-reports.  The tests run in QEMU with a virtual NFC device; no NFC
-hardware is involved.
+								Honza
 
-Link: https://lists.openwall.net/netdev/2026/03/24/271
-Fixes: d793458c45df ("nfc: rawsock: cancel tx_work before socket teardown")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
----
-
-v2:
-- Set SEND_SHUTDOWN under the write-queue lock, so a completion that
-  tested the flag before it was visible can no longer requeue tx_work
-  after cancel_work_sync() returned (v1 only added the completion-side
-  check, which left this ordering window open).
-- Added deterministic A/B testing of that window: stalling the
-  completion between its shutdown check and schedule_work() while
-  release runs reproduces the use-after-free on the v1 code and is
-  clean with this change.
-- Corrected the Fixes tag to the cancel-based teardown commit and
-  linked the earlier review thread for the remaining window.
-
-v1: https://lore.kernel.org/r/179378590950.74297.14503648624087894519@gmail.com/
- net/nfc/rawsock.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
-
-diff --git a/net/nfc/rawsock.c b/net/nfc/rawsock.c
-index f7d7a599fade7..dd8401e3402d3 100644
---- a/net/nfc/rawsock.c
-+++ b/net/nfc/rawsock.c
-@@ -68,12 +68,23 @@ static int rawsock_release(struct socket *sock)
- 		nfc_sock_unlink(&raw_sk_list, sk);
- 
- 	if (sk->sk_state == TCP_ESTABLISHED) {
--		/* Prevent rawsock_tx_work from starting new transmits and
-+		/*
-+		 * Prevent rawsock_tx_work from starting new transmits and
- 		 * wait for any in-progress work to finish.  This must happen
- 		 * before the socket is orphaned to avoid a race where
- 		 * rawsock_tx_work runs after the NCI device has been freed.
-+		 *
-+		 * Set SEND_SHUTDOWN under the write-queue lock so it is
-+		 * ordered against rawsock_data_exchange_complete(), which
-+		 * tests the flag and re-queues tx_work under the same lock:
-+		 * either the completion queued the work before we take the
-+		 * lock (cancel_work_sync() below then covers it), or it
-+		 * sees SEND_SHUTDOWN and does not queue.
- 		 */
-+		spin_lock_bh(&sk->sk_write_queue.lock);
- 		sk->sk_shutdown |= SEND_SHUTDOWN;
-+		spin_unlock_bh(&sk->sk_write_queue.lock);
-+
- 		cancel_work_sync(&nfc_rawsock(sk)->tx_work);
- 		rawsock_write_queue_purge(sk);
- 	}
-@@ -168,7 +179,14 @@ static void rawsock_data_exchange_complete(void *context, struct sk_buff *skb,
- 		goto error_skb;
- 
- 	spin_lock_bh(&sk->sk_write_queue.lock);
--	if (!skb_queue_empty(&sk->sk_write_queue))
-+	/*
-+	 * Once the release path has set SEND_SHUTDOWN, do not requeue
-+	 * tx_work: the socket may be freed right after cancel_work_sync()
-+	 * returns.  The flag is checked under the same lock that the
-+	 * release path uses to set it.
-+	 */
-+	if (!skb_queue_empty(&sk->sk_write_queue) &&
-+	    !(sk->sk_shutdown & SEND_SHUTDOWN))
- 		schedule_work(&nfc_rawsock(sk)->tx_work);
- 	else
- 		nfc_rawsock(sk)->tx_work_scheduled = false;
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> ---
+>  fs/proc/generic.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/proc/generic.c b/fs/proc/generic.c
+> index 2b1971da4a85..c560c96a64eb 100644
+> --- a/fs/proc/generic.c
+> +++ b/fs/proc/generic.c
+> @@ -170,7 +170,7 @@ static int __xlate_proc_name(const char *name, struct proc_dir_entry **ret,
+>  	de = *ret ?: &proc_root;
+>  	while ((next = strchr(cp, '/')) != NULL) {
+>  		de = pde_subdir_find(de, cp, next - cp);
+> -		if (!de) {
+> +		if (!de || !S_ISDIR(de->mode)) {
+>  			WARN(1, "name '%s'\n", name);
+>  			return -ENOENT;
+>  		}
+> 
+> -- 
+> 2.53.0
+> 
 -- 
-2.34.1
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
