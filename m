@@ -1,99 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793857824;
-	b=I7JG/tj9fGcU4m0iWny7oqlPQWaGFVLNhmHW6CsQKDdRIFW5p8u8hLog90VMS/87yFAv
-	 4aqRFWMg5BgJIbxog9emDtkJWUPZUaqIJjU94DKEY+UylHzSmMpyQuydm7QM5bM9wP67A
-	 w8aMqT/XZ1Ve7K2zg4rOnL6jsM5pVhRmlQ3PDi2Ns0K5izZibGeG5BtpUp9NrT5wuZlUx
-	 /qb0SQOhM0ut5puft0Sun3zW/y9MN9EvBfHfYhPYaBvqTyemhN0yWJB562XKg04M0gwgv
-	 bH7+8gZ+4pSO0ozsLlUEzbJu+Onw7rPQL4TLF57PuzdVIsPmgQUajZBHoqsRTe/CMng==
+	t=1793858215;
+	b=Aad0QCkmmbY8qHRPzvuPIyx1owQTZlUF/AdrCHe7N2PP/EOYQxh/CvS92TRwRu5uE7B2
+	 BA1KYt36DJ7SkREn/WLbX5ryPT34tB05tZJs8xNQ3CfuhOoPQS1IoosFtByJHi1Dxfz9h
+	 uyihhHgqY5eDNeEJ5Pk3D2AZzXuCarzvotyhVCcgRqZ9aCqanKqIvK7nmTILEChFHi7U5
+	 nCwffnYWhRn6qEA/gfVHwWMSBPbqQHQzgl3Z7bRK2yh/gH3te0JrNO3Tv/fOQzXnooy3g
+	 1Z8/1CuSy4hE2ciH54M8kunhBOr5n8PW7z5Dduz8/J5drD8Wu1yV/od0Mky6qzoLr+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793857824;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=+g9gPB3NPHJMq13L+EnItb3VxEDWriLeBj7+7fau5JU=;
-	b=GkHBt6Z8M/4qJqRIxETWHCMc4kchKXR+PGATOENRlVYwqdvyyKeh+5C1gUbehHnHNvSZ
-	 Fe622msPkNt9f3nGLEkeBZCxF6wdRuAmQb4g1oWCk498D2o+UGBGg81WNfbU2V0tjM7sc
-	 r1dIGuH3mkdckOe+ykSMppUMb581hzeberGzDxS5occZ9O4NULBT5E6TaWzthN0qIbajo
-	 DP1KtZbl/V7bP5qzhoFy6vr6GM7WAXYQ6MEZmh+nJIC4Ym4YEXYAhWi61Hhrwj9EiijFz
-	 rxZz7gVw/JvNMvdrbfmOGz1URSc45UkUnBMhCMfcOMxC/8aWsgFrZbJgElgylrmtB8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793858215;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=slh0g6QAgnW7NAG54cOhS+cSI62lJb7/WrZKg47ntE4=;
+	b=HrGXdHPaN5kV7RjgZRD3j99ARN8PjXDuQb4RnywY6HAEhjV46jOPWOOwlfnEWg+k92lZ
+	 eQt9CJaOPNl2YTy5h0inFqpGSJW+gzEs5oLR3vtKJeAWUzMl5KeT14uUID0TtCSPWviYu
+	 SZb4REF+zcoKitwoCGZbp1LBsvqg0BeXRPBlW294/20o15uQtOGm4ANyCuKsJGg70wgGO
+	 iiqS7fB72VhtxrUsmYuSnBsif9UC0nBEx2bWDm278N9Ay63dNhBv7IVmFvfaqSlh08zxN
+	 iw6O/yohtAnuheYb3AAbQFIisbCatflnrUxCylGaDYXwvwY3LyXQyteOcddIQOwm91Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O7onWOzj;
-	arc=none smtp.remote-ip=74.125.231.131
-Received: from mail-oo2-f3.google.com (mail-oo2-f3.google.com [74.125.231.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321E4606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 05:50:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 321E4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O7onWOzj
-Received: by mail-oo2-f3.google.com with SMTP id 006d021491bc7-6f436312596so633216eaf.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 21:50:23 -0800 (PST)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D1F28606A31B;
+	Thu,  5 Nov 2026 05:56:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1F28606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793857823; x=1794462623; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+g9gPB3NPHJMq13L+EnItb3VxEDWriLeBj7+7fau5JU=;
-        b=O7onWOzjsuEnDLg4/mm9LN+dwnOuJIJ6TlmvN0CDVQRKe9VqzO8uwugEfWetLXiAFj
-         DH1BtRCu7FefJRt250fTr1x+UiIHkrtf0snEB/tKlb1pyg7gy2RlL4fyc4tkqjlIrvgY
-         OXvja5HKfKWkkhAnsRlNxUWQ//NMN4zIPUzx3sfp9uDdwYEVBRomwCDHMXKOpl5SqoBY
-         fSDikrjiAPraCQLd4db5+v8/YYs3ufUabHv4LbZz6KYbHZDRv8GJGWaPq8o+ps4rH9r1
-         /uVQ+GiM/sPtlvUsUCytaDABrVddYXRS1lGn5ys4PrssA9Hbo+epcpGsUgMTQv2x2qB4
-         a9qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793857823; x=1794462623;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+g9gPB3NPHJMq13L+EnItb3VxEDWriLeBj7+7fau5JU=;
-        b=ZKaaocDoB4HO1EucdJQ8AMJXIYsbCUJcmH0ZEzHxmtMDnbifVYd1iiUtr1EcMmXDjw
-         +VWIGkV09xnzv1kIbwGGG+kNRK9QPdd0vtrvPgXp3jxBCPknTf6gdiyD/8ghbqOMU0wn
-         AWZ96KYf83B8uIe3Nom1w/V0twAfq/CMEIA1HbopMIKDP5HxuN+Fej2M9PJ2EAf+6whq
-         osBAcCu5+P5K/HP37l6kLlNnjWr0sZjhnJE+SiKKrMtzDm96D2FzAUyzjMnSccORqNUJ
-         p31hrIPg+0YAsx+V2hxuOiKKpOQRl5kBa8S1qfSziUWbrz6fhZReS333MWMgsMuVdCNn
-         hxHA==
-X-Forwarded-Encrypted: i=1; AKwUvBySZ5QWq5cftzbTByKKFW3gMkmD2FR1nkVIs3iolfZm+fYR2Y+FNnf/1zojQ1zecZsdNeJ/IiM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9cSXWI8lOoVcKgDAVtbBhb8793o9DScRRUuJZAr9YRHM1ICh7o
-	aGgrSn1oISy6YccQgKaAqflhS/M5a90GtWUo6EQ0k0o/z7u4glulkNn1
-X-Gm-Gg: AYBFou1400460q8SfxYvmhubTi5Ia1gl/3pDoi9qdyPinjrIVKHcOLj3OHWMo0KbhWF
-	4Sg0DV8M7rkQpACaUu89TTePGZo4KriPLXaL3ZyWAvv8CmLID5/8McOIKE04ONIyI0hs3WTLV/O
-	mm8IXWhhDM7ITcOnU6TQx78I5MMdQ1QxfmiGIMDsIYASPyiodBvVt0ciepewBCgH4yN7yxBfTvG
-	fLyrhAs+o9m3MsXVlDLpINSOZTx2f6bz/vFPIY4dBAAM4s11KPyhfX+VrNs+cTtQ4mTtCou3RnQ
-	1iC28CztKLLDObjtBxLW/PGteE5suzF4r3h8a7b3UziolmjtsewjHHa3OjW/HSNj0pEWBH6rQzX
-	SHMbgRX2O5K710pdVveCHX+1zcuS44oc1XAkVvkIFPtsK/Cfy/vGGnhvwBsxXCdAjC0otPHSaQP
-	xMZc/u166rPH+YhB5YcsVU9UQfx84Oslex3A/QUo4xQYgH4mRsJHJ1ftPVjRZpj4YpXsjG1ota4
-	iR5W31d6beuGaa4xOb6jid1nMekzNkQnh5fOKFVxVLOF1qHV2sWCwDlxzV7aj+/V8LBKbJr6o9I
-	pUGW80nJdqpRxGKjanOEMxBPDFjEnZOcgXIeV3s9ezBdNbMbaxkjM6eAeA7a0moh/qjcSG84GJW
-	FI7GQBM5jQTaR
-X-Received: by 2002:a05:6820:f001:b0:716:caab:5347 with SMTP id 006d021491bc7-716caab604dmr2386765eaf.75.1793857822678;
-        Wed, 04 Nov 2026 21:50:22 -0800 (PST)
-Received: from localhost.localdomain ([14.22.11.180])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4acea48fd55sm3919776fac.4.2026.11.04.21.50.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 21:50:20 -0800 (PST)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: kraxel@redhat.com
-Cc: tzimmermann@suse.de,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	dri-devel@lists.freedesktop.org,
-	virtualization@lists.linux.dev,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	zeroday zhao <zerodayzhao@tencent.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/bochs: fix VRAM out-of-bounds blit with oversized fb pitch
-Date: Thu,  5 Nov 2026 13:50:00 +0800
-Message-ID: <20261105055000.1873029-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=slh0g6QAgn
+	W7NAG54cOhS+cSI62lJb7/WrZKg47ntE4=; b=ZunScl6pxsP1P1pv6p3Pn3IJhr
+	z3QUYzI3TDLVAwVUpXtuZybRzEytLC8rNJyIoX8nCqn+0bjCk8s2KPR8cvrQYAhq
+	j5I1hWHslhLIAGkfdU6z7kvUNqpRW+cvl7XZo5jsmB8cIHHCGilRbb33+PKrNsij
+	gvhJrghXGIobHr8qQ=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.104])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkBWdfuXGuxqyS0pAQ--.27356S2;
+	Thu, 05 Nov 2026 13:56:41 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH v3] Bluetooth: btusb: fix use-after-free in force_poll_sync
+Date: Thu,  5 Nov 2026 13:56:39 +0800
+Message-Id: <20261105055639.12824-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,70 +59,96 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkBWdfuXGuxqyS0pAQ--.27356S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWr43Ary3uF18ur47Zw4rGrg_yoW5Xr4kpF
+	Z8Ca4Yk3yDJrs5Crn8Aa1xAFyFvws7Xa4UCa429w15Wr9xWry8AFyxtrWYgr9rCrWUAF12
+	yFnrKFy3u3W5CrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r
+	15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4rMxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8siSPUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUID2rrSlWWGwAAsQ
 
-The primary plane's atomic_update() copies the shadow framebuffer
-into the ioremapped VRAM with the fb pitch as the row stride.  The
-blit offset and length grow with the pitch, but nothing checks them
-against the size of the VRAM mapping.
+The force_poll_sync debugfs file uses the driver's struct btusb_data as
+its private data. The file is created under hdev->debugfs and is removed
+only when the HCI device is released, while btusb_disconnect() frees
+btusb_data unconditionally. The HCI device can outlive the driver data,
+for example when an HCI socket still references it, so reading or
+writing the already opened file then dereferences freed memory:
 
-Addfb2 only enforces a minimum pitch, so userspace can pick an
-arbitrarily large one.  A single atomic commit then writes
-framebuffer content beyond the VRAM mapping, e.g. on mainline
-v7.4-rc1 (KASAN build):
+  BUG: KASAN: slab-use-after-free in force_poll_sync_read+0x129/0x140
+  Read of size 1 at addr ffff88800cfb7038
+  ...
+  Freed by task ...:
+   kfree
+   btusb_disconnect
 
-    BUG: unable to handle page fault for address: ffffc90002800000
-    Oops: Oops: 0002 [#1] SMP KASAN NOPTI
-    CPU: 2 UID: 1000 PID: 1258 Comm: poc Not tainted 7.4.0-rc1 #1
-    RIP: 0010:memcpy_toio+0x22/0x50
-    CR2: ffffc90002800000 CR3: 0000000110f75000 CR4: 00000000003006f0
-    Call Trace:
-     drm_fb_memcpy+0x37c/0x6b0
-     bochs_primary_plane_helper_atomic_update+0x36c/0xa20
+Remove the debugfs file before the private data is freed.
+debugfs_remove() waits for callers that are already inside the file
+operations, and any later access fails with -EIO instead of reaching the
+driver, so the force_poll_sync file can no longer dereference btusb_data
+after it is gone.
 
-Reject framebuffers whose pitch * height exceeds the VRAM size in
-the primary plane's atomic_check(), same as the hyperv DRM driver
-does.
-
-This issue was discovered by Tencent CodeBuddy Security.
-
-Reported-by: zeroday zhao <zerodayzhao@tencent.com>
-Fixes: c3ac343c14485 ("drm/bochs: Use GEM SHMEM helpers for memory management")
+Fixes: 800fe5ec302e ("Bluetooth: btusb: Add support for queuing during polling interval")
 Cc: stable@vger.kernel.org
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- drivers/gpu/drm/tiny/bochs.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Changes in v3:
+  - Scope the changelog claim to the force_poll_sync file: the
+    vendor_diag file used by Broadcom devices has a separate,
+    pre-existing lifetime problem and is not covered here.
 
-diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
-index 8192decddbc1e..527ddd8bcf369 100644
---- a/drivers/gpu/drm/tiny/bochs.c
-+++ b/drivers/gpu/drm/tiny/bochs.c
-@@ -422,7 +422,9 @@ static const uint32_t bochs_primary_plane_formats[] = {
- static int bochs_primary_plane_helper_atomic_check(struct drm_plane *plane,
- 						   struct drm_atomic_commit *state)
- {
-+	struct bochs_device *bochs = to_bochs_device(plane->dev);
- 	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
-+	struct drm_framebuffer *fb = new_plane_state->fb;
- 	struct drm_crtc *new_crtc = new_plane_state->crtc;
- 	struct drm_crtc_state *new_crtc_state = NULL;
- 	int ret;
-@@ -439,6 +441,15 @@ static int bochs_primary_plane_helper_atomic_check(struct drm_plane *plane,
- 	else if (!new_plane_state->visible)
- 		return 0;
+ drivers/bluetooth/btusb_main.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_main.c
+index 92a78a7e6039..95398e2ca098 100644
+--- a/drivers/bluetooth/btusb_main.c
++++ b/drivers/bluetooth/btusb_main.c
+@@ -1088,6 +1088,8 @@ struct btusb_data {
+ 	int (*disconnect)(struct hci_dev *hdev);
  
-+	/*
-+	 * atomic_update() blits the shadow framebuffer into the
-+	 * ioremapped VRAM with the fb pitch as the row stride. The
-+	 * blit offset and length grow with the pitch, so make sure
-+	 * the framebuffer fits into the VRAM mapping.
-+	 */
-+	if ((u64)fb->pitches[0] * fb->height > bochs->fb_size)
-+		return -EINVAL;
+ 	int oob_wake_irq;   /* irq for out-of-band wake-on-bt */
 +
++	struct dentry *force_poll_sync_dentry;
+ };
+ 
+ static void btusb_reset(struct hci_dev *hdev)
+@@ -4820,8 +4822,9 @@ static int btusb_probe(struct usb_interface *intf,
+ 
+ 	usb_set_intfdata(intf, data);
+ 
+-	debugfs_create_file("force_poll_sync", 0644, hdev->debugfs, data,
+-			    &force_poll_sync_fops);
++	data->force_poll_sync_dentry =
++		debugfs_create_file("force_poll_sync", 0644, hdev->debugfs,
++				    data, &force_poll_sync_fops);
+ 
  	return 0;
- }
+ 
+@@ -4862,6 +4865,9 @@ static void btusb_disconnect(struct usb_interface *intf)
+ 	if (!data)
+ 		return;
+ 
++	debugfs_remove(data->force_poll_sync_dentry);
++	data->force_poll_sync_dentry = NULL;
++
+ 	hdev = data->hdev;
+ 	usb_set_intfdata(data->intf, NULL);
  
 -- 
-2.43.7
+2.34.1
 
