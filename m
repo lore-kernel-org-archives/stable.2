@@ -1,59 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793868801;
-	b=yrQ29MVR1b44pIpuoHCpqtrlq/c+fg12aAOMErsaNfoYu27TKD7cX8WrrrQzlttqUefI
-	 5hj3mjEBvx+K6DIszju4RHybIS7xbM3wCxnCb2EMhn4w+mGpe+5OP+sGz0PKZaOzCqpkk
-	 iq4TohiaOI6E6W5lp6wKWon3K6xl80P4nrL+bGaBpdIW6Mc/ml7VmejsbRWXM1/LW+L4Z
-	 nNxeORwJTZlfVuUt9rCKWl6jK0ii6pZcZOctAhEACjaqEXkx7eogewB50v4WVQuJNkwRf
-	 dwECmlNJPZD60l0EdQRUueYVQQMlJaq8ox3sBxnlh2SBt0f99o1I6K1fT+H0bxHaBOA==
+	t=1793868894;
+	b=je0O0+1oPJt9FNstpwlpCJdGTc2dMFW9CGOluKjfgeuDx0Q5o0H3Y3eRoJJKU5TnTG6Z
+	 RkmwcaihjY5hwR2IYokDyLRpM4o3vBUV/oVv6lR/AhuggoV0CVr367dtCEB94u/p6dwcN
+	 wIYgNHeH1N4A1B0vj1QmzzVVR8f8ZcZBPoKY3q5x7xfl4l3eQUC3LqtYC55tiqn90Ht5P
+	 gHxumglPhiTELf60p1lXabeQWpz7Fn24WC7IH3nBJSEV4HDP/+7kJcuDABBLLkkQwFSMc
+	 oiE6kRj8KMPKfPw/yvVcF/bCZN+jyjMbK7t0j+lLxKTH/+ZHXUhvV3dfXtlCwW/6JwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793868801;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=QC5j2xRESRmSD7obottAudidFpaX/mHq2OWq+o7sIlY=;
-	b=EBeZ4xNqNIgl5OO6DB6b3pjPoCjk7PU3Ha8SFO7BTr9/tMJLLNpTG8sUIjQgqAVI2eI4
-	 YF9oJ23YUXik3c+Zg7xdGEcKT9SiSHg2s4u3nFOSQ2kI1rfTv/or0fkxj53pQv8vLxwn+
-	 /1DOqLOcYqQww6iyxw/yDGNF6Xxh1qFzXQEONrrHE+vSTl2Mo8ZhbmPPGXqubiyRVEVFn
-	 WrZRhv61XBD8Eg/NeybQm0le910MIWCopkHjhFlO+iuiHyfeSOFvih9h+4OjmN6kRwY6i
-	 oCDHdOFPvY1l58VaXBmuYonAV7pvXZydDPJ56+MMcPxBWdXhozqEwk2M7GfDpsZ6Plw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793868894;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=kO+uPMdDpz8W5t/f37PmqHD6B/Gio3Vy2iMQmXxJUgI=;
+	b=kXpQ1ss4On49iEITjlthomZi0uewXlqU7Y0G2bTcCecipHYvoxXJFO5PfYQmIo+nyhuv
+	 IlxHKz/T5Zb9DY1LTwIxYFAzbMOY7hue18iU+0jP+qSgdAXSPQKagqc6BX0D7CJteMHyb
+	 RjPnb6JO8EpBpKWXjIuDTIjRZdbXDjo9XlgPd6R2IRBi8TnjCqRVgdtnJEFyV5b0DhJsJ
+	 3gZ36BzIXYNInOGi6aRZisZwYjf9g4lWBD57etrUrkyRxaNnyXlccOH5WenUdqZ4OCArE
+	 mg8UX+1cQt8LaE64IuPK58Wb5OXErMAmM7PR9u9zC8XF3lPzyQlcMGygIdGg6aP7t9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=xgQpdWAl;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QjN1lQM2;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fJS3lh07;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6195E606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 08:53:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6195E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89778606A33A
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 08:54:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89778606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=xgQpdWAl
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 788341A07CE;
-	Thu,  5 Nov 2026 08:53:16 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3D4FF5FF85;
-	Thu,  5 Nov 2026 08:53:16 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2C220103291D2;
-	Thu,  5 Nov 2026 09:53:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793868794; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=QC5j2xRESRmSD7obottAudidFpaX/mHq2OWq+o7sIlY=;
-	b=xgQpdWAldL0yJrgVGT1AnGzu1XNvzgdid4qdl7D9S3poXSwZ+1xXuvxVEJDKHf+30d4gi1
-	jfIEKILjzdFPA1DkuZMvQdeZI2TLkw5w99flejhGSpT9PHWna1nwLpFhUFy5Z/NcvK5Wma
-	891zzHR+JkOvKtWirxgpOnQwdkkv3CpRDOTmHl1E8EDvTjQIUlbqZwuL49B0Pjp5FNasCd
-	+u9DXnZ9VoKPzeMLgu447oUgwyq0RoSui0BxNQb7+bKAh2yPSYr+qYCVYDg8cbxowRlD9D
-	Pf1RY+KNEgpz758Q/l8DzyjAyUtRDowJ2DbDMGDT+wPyaxb5FyvC8vVZtg2QMg==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Thu, 05 Nov 2026 09:52:46 +0100
-Subject: [PATCH v2] drm/bridge: ite-it66121: fix silent probe regression
- due to reset timing
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QjN1lQM2;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fJS3lh07
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A56UKOu3223814
+	for <stable@vger.kernel.org>; Thu, 5 Nov 2026 08:54:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=kO+uPMdDpz8W5t/f37PmqHD6
+	B/Gio3Vy2iMQmXxJUgI=; b=QjN1lQM2lBm74tGA6J8kZzfAbK58hzzqHrUuUJES
+	zoJacckMYEzHW4ZtwZEl4s0Nq55KdU8lOEiBIOyqPgVoDGsQY9dRCJsXhshVhsQb
+	g8Ix21CdLKg+ebKq6KCoA65a7BOqy5QFdK00RG9BpFWYziliPuRK8aI+0gBGNUQT
+	LRitOMu1tqg1JRbSA3pCpXrftXbHpCGwg781gWafpKEznqoWmHwYsOxUBXmwhnFE
+	s7FRPQqcd7KcGywUrgyV5uWQIhI81cxvR2yvmwhXKslYzNbNeR8KjDyV7SZpiPNi
+	1rgGdyorUHmNtw33+ri7J9PxyEzaLm9qeLAcuXcTd8EQ3w==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrj43h6hp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 05 Nov 2026 08:54:53 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7bf08dc2fc8so379608137.0
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 00:54:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793868893; x=1794473693; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kO+uPMdDpz8W5t/f37PmqHD6B/Gio3Vy2iMQmXxJUgI=;
+        b=fJS3lh07mwOOdRIf5arM/QvbuGRl5vPJsdmldR/nODTH9CgeuUds6Pw8LSsv0pxp8P
+         R7RrhRHUF3MCGDUsN6hl0Z2Qde5ycl9HtxMSciOH/xehUbJRAllwYJodab1xDEr+7BCD
+         qTnuxZJx9Tjk6k5TF374hvjw9uZjWU+OsrAb0pbK/oz9As93le60BCoLaIo+9g1HPUFk
+         utN4OH5bMtuDHqhqg8Gs+Nj7lnI1cVOkSd4+PUkPDrLNRlzwiIBH1QzUPpgFP816R129
+         ZHAqHTskGRQv55DYpCuue45pNhmTIeOxbv8lqHd7msJo5smlBMEWZitxzQiwz0iIjzCm
+         OK7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793868893; x=1794473693;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kO+uPMdDpz8W5t/f37PmqHD6B/Gio3Vy2iMQmXxJUgI=;
+        b=bZbdApA8qtqF0s96Nd05F+OKgfquyLdEV97UlTilMjaR+Uh2X3SVC14/ROMkpsQfVK
+         ept8oHvjpFnBIXPOIG1plrL/0m9JTwWTeqX6Y+/o/f8fZEjnuVLDlu4h/4IBRQmOqhdj
+         Sc+oCzpwJSsBCzjiJNq6gJEdTADNK3K0xGIiG1mlA/BGf9O6UwfGJEmeoSIxSD1bBM3m
+         +w2uQQ+tGVzrTkQQbaLEjXZs8EjVqUhvoCpCxyGlJhJHZxq8v+YZWCFIMv2HqDgc1YmT
+         LQKPt04i7vzc/6htwN6QbhakwIQqPhp86WNYGf1OIqfVlV68/gQoT1EGif43MLVUkELb
+         eMOA==
+X-Forwarded-Encrypted: i=1; AKwUvBxuZhYCyj/X6Y6qTFiIlCV/91tjVBDNsa40Sm2G1u7cdEya9rPIsidUyEJ8OVZlKXs9t29RsJk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/YSlYmL6HxbEOLAqVX3BX+JpJTwORLpAJkqJBFhwgGl6ar5SFO
+	3rs+vrGCYZVjalprHTt6xHO+Tfe1ka+SO+O0pmGeIwf8HuuVo3gfRNyGOyCLG2rvOkb8LyY0wOR
+	lsyvQH7I/3A0qVI30wEJ2GLCv1iBznbutKj9kAr+ku6S7OhmqMpJ1R9ywABo=
+X-Gm-Gg: AYBFou0CRkf0u+lQk16nTpamgauJYybQ0el7T+6Uy0yNW9x5ROU3rXyZB8AKhfrcaUY
+	t+ZV+kbhAYjywc0TLFRCKtxwdp4MkbsHys4Bd9Kj/2qhlSvHbGVcpAVgY+AyLEJ/gKy4eZy3c19
+	8gU8jBtJ4+LC4Q15HzKf/K1JtkTuSvpy/ryhyedNYA+QcxhIjurZw84hUvPvoDxO42LDo+T07UM
+	nYiOJ3uGoVE+Cdn1dwAd80y5IPwSbASx7BQNZvp1at4z1/h9L09veDhIVRrJngXW1JHnrVwW38H
+	SCK1RzEYTZ6S9q/BitYEccsxnfndq+YSnEo5DhMEuJbFuU5if2gw0q4ES/MAwGQh0ecgIMEvAMz
+	DoaXSmZSqSw/XyZazwuxUIl5sAwFb17/Hzv+c/MMiBmgPgF3vHZJM3a+m0iiNFdc=
+X-Received: by 2002:a05:6102:5811:b0:7c5:4da3:aefd with SMTP id ada2fe7eead31-7d072c25cf0mr8060512137.15.1793868892542;
+        Thu, 05 Nov 2026 00:54:52 -0800 (PST)
+X-Received: by 2002:a05:6102:5811:b0:7c5:4da3:aefd with SMTP id ada2fe7eead31-7d072c25cf0mr8060491137.15.1793868891889;
+        Thu, 05 Nov 2026 00:54:51 -0800 (PST)
+Received: from oss.qualcomm.com ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed552afcsm8675487f8f.41.2026.11.05.00.54.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 00:54:50 -0800 (PST)
+Date: Thu, 5 Nov 2026 10:54:49 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Haotian Zhang <vulab@iscas.ac.cn>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] soc: qcom: cmd-db: Fix probe race with possible ERR_PTR
+ dereference
+Message-ID: <znleorpqv6fey4tlkwzemxhqwxy7jz5lb4xoy5jhbfxqovjtpc@ueapczda74lp>
+References: <20261104151550.215604-2-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,93 +122,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-drm-ite-it66121-fix-reset-v2-1-02039d66af29@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NSw6CMBCGr0Jm7ZhOkUJceQ/DAsogY4SathIN4
- e4WvIDL738uENgLBzhnC3ieJYibEuhDBnZophujdIlBK21IUYGdH1FikqMxpAl7eaPnwBF7Kk2
- RF1VTGQOp//SczH37Wv84vNo727gNbolBQnT+s5/PtOX++ZkJCU9lrvKKlWlae2mdiw+ZjtaNU
- K/r+gVqH0dd1gAAAA==
-X-Change-ID: 20261015-drm-ite-it66121-fix-reset-f1765358a866
-To: Phong LE <ple@baylibre.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Julien Chauveau <chauveau.julien@gmail.com>
-Cc: Paul Cercueil <paul.cercueil@bootlin.com>, Nishanth Menon <nm@ti.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104151550.215604-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: o4S-q3lf_lOVvDAxE8e1csySEyBy6Zpb
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAzNSBTYWx0ZWRfX9jDwrLBpKoQs
+ m6QVG9VuWG0NNo0IbzkOmsytp8tco4DD9KB97kt6P8I3U516vkZW0Cu2KXEys1Bv3gal2+GhgWU
+ zIeVXo2kq4yd4n9ZbVaQ1EbX55wcfuE6ZX6Xme9kmY42OJaqX1BPxUeHus9iq86frnuS/RaNmUq
+ uDzHOh9rh8KQAF6ch88wBkZ6/2G01j8T8UKloa8KGTFDBW+TU1HNoRvFlFhVezdopjJjq04/yVl
+ rt+NmSpzm2nvCM5kaSGW0f+7DS9YsMX0QeOe5ERBtHwpEvceA5jsCvyinYJ8NvYUo7AwcmhK6oY
+ ZNeJLOhUuKFzKyeOVuW7fOv6IYMDmRauxE6yIVtOedqxqRhnNSJq3985Bjq9UKl3SQ4GAK+ngAS
+ LbZXVjsXHBr5ai+2w7/9fdf0AH0gTgJwe57+wZ3dQpckbOm6W+a1S3BFBzvfwI1Wnim2xPADDQH
+ GgonKOMuFVmGHXqqjVw==
+X-Proofpoint-GUID: o4S-q3lf_lOVvDAxE8e1csySEyBy6Zpb
+X-Authority-Analysis: v=2.4 cv=SZdi5fRu c=1 sm=1 tr=0 ts=6aec445d cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=VtB4zeJ1tuDDAJRGO14A:9
+ a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAzNSBTYWx0ZWRfX78idlNYY+nKv
+ cuqYOQGjCTiRSldsmPIscyN+0YUVQ4I8s0/Ej3dXzMzspZmwyQIP9DmgS0TXjQAp99WYOXFoXdg
+ jdJ3J1LZoycaFvqsIlCD6K5soMyBJvg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_02,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050035
 
-Commit e02b5262fd28 ("drm/bridge: it66121: acquire reset GPIO in probe")
-rightfully added code to make the reset pin really work instead of being a
-no-op, but that change introduced a regression making probe fail most of
-the times, at least on some hardware.
+On 26-11-04 16:15:51, Krzysztof Kozlowski wrote:
+> cmd_db_dev_probe() stores the result of devm_memremap() directly in the
+> global "cmd_db_header" variable and only afterwards validates it, which
+> opens a very short window where a concurrent thread could access and
+> dereference stored ERR_PTR.
+> 
+> Theoretical (not reproduced) race condition could look like:
+> 
+>   CPU 0                               CPU 1
+>   -----                               -----
+>   cmd_db_dev_probe()
+>     cmd_db_header = devm_memremap();
+>     // holds ERR_PTR
+>                                       cmd_db_ready()
+>                                         if (cmd_db_header == NULL)
+>                                           // false, proceeds
+>                                         cmd_db_magic_matches(cmd_db_header);
+>                                           // oops on ERR_PTR
+>     if (IS_ERR(cmd_db_header))
+>       cmd_db_header = NULL;
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/bug/linux-1e6d9e1c-b97d-447c-9cbc-d874a0609918
+> Fixes: 0da7824734d8 ("soc: qcom: cmd-db: Use devm_memremap() to fix memory leak in cmd_db_dev_probe")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-On a BeagleBone Black rev.D the IT66122 silently fails probing >90% of the
-times. This is because:
-
- 1. the regmap_read() calls just after it66121_hw_reset() to read the ID
-    registers fail
- 2. there is no error checking for these regmap_read(), execution
-    continues silently
- 3. this results in not matching any of the IDs from it66xx_chip_info
- 4. and this results in silently returning -ENODEV
-
-Empirical tests showed a small delay after de-asserting reset fixes
-probing. Likely the device needs some ramp-up time after reset. No such
-requirement is mentioned in the docs I could find, so the amount of delay
-was chosen by testing: 10 ms worked in 100% of 25 test runs, so setting a
-20 ms delay should provide a safe margin.
-
-Fixes: e02b5262fd28 ("drm/bridge: it66121: acquire reset GPIO in probe")
-Cc: stable@vger.kernel.org
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
-Changes in v2:
-- Add comment
-- Link to v1: https://patch.msgid.link/20261015-drm-ite-it66121-fix-reset-v1-1-473038e06abc@bootlin.com
----
-Changes in v2:
-- add comment (Javier)
-
-FYI For items 2 and 4 above, I'm sending separate patches to make those
-errors not silent [0]. Those aren't fixes, so they would be for
-drm-misc-next, while this patch is for drm-misc-fixes.
-
-[0] https://lore.kernel.org/r/20261015-drm-ite-it66121-log-probe-errors-v1-0-7fd6994e0be0@bootlin.com
----
- drivers/gpu/drm/bridge/ite-it66121.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
-index c8d0a26e8e90..f00cbe477a78 100644
---- a/drivers/gpu/drm/bridge/ite-it66121.c
-+++ b/drivers/gpu/drm/bridge/ite-it66121.c
-@@ -357,6 +357,8 @@ static void it66121_hw_reset(struct it66121_ctx *ctx)
- 	gpiod_set_value(ctx->gpio_reset, 1);
- 	msleep(20);
- 	gpiod_set_value(ctx->gpio_reset, 0);
-+	/* Post-reset delay not specified, value found by testing */
-+	msleep(20);
- }
- 
- static inline int it66121_preamble_ddc(struct it66121_ctx *ctx)
-
----
-base-commit: 0720532355207f2014a98b650d19497cbe3b22f5
-change-id: 20261015-drm-ite-it66121-fix-reset-f1765358a866
-
-Best regards,
---  
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
