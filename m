@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793898731;
-	b=jPln7FSKGi8CTjaJCfABuOxeAIfQMapGvn3QnWIXbNSsfU8Kk4Q8ao2sXEIyvcnvskUm
-	 V+sGtAkqXBZmM1tW0fO+smubqEQO3KqcGP9bj8W7jUZvjhbDxM96PIlqte78BJoYcKRd+
-	 wBcHhtzYkL0nOF11iYxdzuUcTBsE5bvM9EMYBlYipQJIYpDwouuoYkrynSUccDSCmZeoM
-	 1JXtaaK2V1Tn2w5YD3iZ/Z+1BtRBfPEN1uya8Yey6teADbm4lh+Dqx13Z/dNUgSR+NEKL
-	 0fBTM2BwUFmDL3BWnR27s+oh9akzrvdncidM7C8OM8iroH+J416zEzI6uEHmMPBi0vA==
+	t=1793898818;
+	b=ogICuTGe0EOBo7LF/qm2Bk3An4wedQ0428lyj+BU0jRWGjOPkOmbt3TWI2d5U/XLb8ak
+	 wtSCj5hoKWuTzuJvDjOCIpENSnOqnXOC1EIdGPgX+PT9X4jcLwtWbErA9ssqvYSn9fruW
+	 Gnv2Hey8KkfhiDVqMRp242KxP5zNMX1vLmj1Dm+Wupw8dtfquFt4sS/VAysHjRivkkGAj
+	 jLPSWOoLETkmsMk+e10IsmsCKjKfYCOPmSlgR+V44wCBEUccLHfAyNCiFdYHlYaNFV3yX
+	 vAHYg85RB4HLoIzKb5n4EgFr9GOZrHxrFx44/PsMa1s/QCBuf63gGzYITGVdsb+xlhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793898731;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZqAa1Oh2nxpnn+KjGTMbK5AgLwQRuXTCVB+NqwSKOY4=;
-	b=2p6GZrWJWxEDkzO6JhqfgrcubsH9XjzK7aYkGmQ2Pfn4yBvggEhDjAab7ZBQdAmX3Ucm
-	 EWwz6RVsEXu0CPgVWOZENR95BS1zUaiLq0G6/UqFn2jvOQM32MBXQQcc7ryIlGYGxWCMy
-	 HEU/j7fqJ8jzlgnfP32KFwKJD15aD7Txhtxyt3MF6sUEAmPQzLfkM+E996mKeMOF1vP8n
-	 7UXkjCHDC+73jxC1ywR1583d8vWVv8HebyvVOJcTSxRUKgKkOlSuKpbseQPr99JK90KJd
-	 Ivb8B5NwtT5u1pIzE95pWGt9u4yQ1fgE4QFsa+ccG/YC3pCfYD7XYkihFrfNlUYco4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793898818;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=5qtN6iAqZlZcgjIu3i2Kkt/E0vZ5lT6wIFZ1ejiExJE=;
+	b=LnpMV8+wBL+dPzOr+zVV8ZoiJe0R3HMDyt5R0MQzOkpwCMOgqTQ1B4kod+PwJy55zLkD
+	 Ps8GAh+xmEetFlVhqTTQNDI3VdrDnZQwm9WR/B4BzRl6MMzv1+sVqaonniYNmOZMMR6/4
+	 Oyp1G5vmDRFxl5qhNiunmL4Q4fELBaBQyOofBAwAt6MxKVq10W0BXPGdcSbefHQlAdz3K
+	 1spgkqULWKuuIpcZh0Vd6aX0sghoB+TOA7DmFfV2J75tCz9CVOFFhn3m5r9a5SB/CUOil
+	 hmMyrDOaKQL23OBmNUoUH/DgLRGe1sHKn7vSEWxcFoN1DuvyQxMS31wKZfP78DGEwJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WylgLfYX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kRFPleSn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 41D71606A329;
-	Thu,  5 Nov 2026 17:12:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDEC4606A32C
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 17:13:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WylgLfYX
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5C57B1F000C1;
-	Thu,  5 Nov 2026 17:12:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kRFPleSn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1A951F000C1;
+	Thu,  5 Nov 2026 17:13:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793898730;
-	bh=ZqAa1Oh2nxpnn+KjGTMbK5AgLwQRuXTCVB+NqwSKOY4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WylgLfYXMNgfJaoCNMKKBhh9tTUVD1IuXWiKkv50IDBAEvwtmZEzuuQh2CDX4Xe//
-	 LapefWfcpr2gbP7YNzvTHHQijR1O959ivXYAgVFQ8y0dtQyZ3t9XvQU/PH3O37OAXR
-	 qUddCpszSLEM5xvz9I96H45q4rl0OS95mslp5AY+qONaG95d/lB27I+aQRBTZzlZXf
-	 jff7iOblQq38qXSIYUxfnv6ydArA8rODzGVlq9cBX0kyidlqgYrYRejThj2iDRCd+e
-	 n5R+8GRpmODQjcZNv9Drmz/snqG4rcDXH2iMTs08mzTzgdOtBxMclWCNsFi6UkcC2h
-	 8/gAshC4d0rLg==
-Date: Thu, 5 Nov 2026 19:12:07 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Srish Srinivasan <ssrish@linux.ibm.com>
-Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com,
-	ritesh.list@gmail.com, sshegde@linux.ibm.com, mpe@ellerman.id.au,
-	npiggin@gmail.com, christophe.leroy@csgroup.eu,
-	James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
-	nayna@linux.ibm.com, rnsastry@linux.ibm.com, stable@vger.kernel.org
-Subject: Re: [PATCH v6 2/9] keys/trusted_keys: fix PKWM output buffer cleanup
-Message-ID: <auy450SsVheY_yCz@kernel.org>
-References: <20261105144320.357260-1-ssrish@linux.ibm.com>
- <20261105144320.357260-3-ssrish@linux.ibm.com>
+	s=k20260515; t=1793898817;
+	bh=5qtN6iAqZlZcgjIu3i2Kkt/E0vZ5lT6wIFZ1ejiExJE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kRFPleSn+XXvV4se5OXAuI1EcV5UjPbq8XN4ahpKSmmdmF0mR/nyqDTEEwX/JcWIC
+	 e7iSWm+qwrONsyzMQkwU+gIQrZW7nS7lFE94pZ0OLcsXthMj7FFM6401IGrrEV3uUI
+	 J5KjLllJGU8eQ5qyoKccvOnMMsBZVVxIKiFTtDOoottcoDVHsXTsc4DR1s8yhN3+5P
+	 LRG6T5qpsCP4O0o0H+LdMIGPZb5/ELeXh89TPXXkKGXb5HCW7ASt0L00SQm7ZKbojK
+	 5ikFYkrfozzii+/qKxs98isGFGfFW3dbSQfus/DGdd0k2d60IH1H98BpTWMPWzR2E9
+	 4PWGQcQMKNlFw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cem@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] xfs: reinitialize dquot block if non-first dquot can't load
+Date: Thu,  5 Nov 2026 12:13:34 -0500
+Message-ID: <20261105171316.2147033-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110434-purist-sureness-e19b@gregkh>
+References: <2026110434-purist-sureness-e19b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,51 +60,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105144320.357260-3-ssrish@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 08:13:13PM +0530, Srish Srinivasan wrote:
-> The PKWM seal and unseal paths unconditionally free their output buffers,
-> but the PLPKS helpers can return without initializing those pointers.
-> 
-> Initialize the output buffer pointers to NULL to make cleanup safe on early
-> failure paths.
-> 
-> Fixes: c99fcb0d735b ("keys/trusted_keys: establish PKWM as a trusted source")
-> Cc: stable@vger.kernel.org # 7.0
-> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
-> ---
->  security/keys/trusted-keys/trusted_pkwm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/security/keys/trusted-keys/trusted_pkwm.c b/security/keys/trusted-keys/trusted_pkwm.c
-> index 422f752598e1..97ffec0ce1b7 100644
-> --- a/security/keys/trusted-keys/trusted_pkwm.c
-> +++ b/security/keys/trusted-keys/trusted_pkwm.c
-> @@ -82,7 +82,7 @@ static int trusted_pkwm_seal(struct trusted_key_payload *p, char *datablob)
->  {
->  	struct trusted_key_options *options = NULL;
->  	struct trusted_pkwm_options *pkwm = NULL;
-> -	u8 *input_buf, *output_buf;
-> +	u8 *input_buf, *output_buf = NULL;
->  	u32 output_len, input_len;
->  	int rc;
->  
-> @@ -129,7 +129,7 @@ static int trusted_pkwm_seal(struct trusted_key_payload *p, char *datablob)
->  
->  static int trusted_pkwm_unseal(struct trusted_key_payload *p, char *datablob)
->  {
-> -	u8 *input_buf, *output_buf;
-> +	u8 *input_buf, *output_buf = NULL;
->  	u32 input_len, output_len;
->  	int rc;
->  
-> -- 
-> 2.52.0
-> 
+From: "Darrick J. Wong" <djwong@kernel.org>
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+[ Upstream commit faa9aa9e846332aaad78096a2cebfeafe68a7776 ]
 
-Br, Jarkko
+LOLLM noticed that the early exit logic in xrep_quota_block is defective
+because it only looks in the first ondisk dquot for corruption that
+would prevent dquots from loading.  We need to scan all the dquots in
+the block, not just the first one.
+
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+Stable-dep-of: 780212c8d810 ("xfs: forcibly reset quota timers when upgrading to bigtime during repair")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/xfs/scrub/quota_repair.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
+
+diff --git a/fs/xfs/scrub/quota_repair.c b/fs/xfs/scrub/quota_repair.c
+index 95d5bb8c10032..368be503334fa 100644
+--- a/fs/xfs/scrub/quota_repair.c
++++ b/fs/xfs/scrub/quota_repair.c
+@@ -299,7 +299,6 @@ xrep_quota_block(
+ 	xfs_dqid_t		id)
+ {
+ 	struct xfs_dqblk	*dqblk;
+-	struct xfs_disk_dquot	*ddq;
+ 	struct xfs_quotainfo	*qi = sc->mp->m_quotainfo;
+ 	struct xfs_def_quota	*defq = xfs_get_defquota(qi, dqtype);
+ 	struct xfs_buf		*bp = NULL;
+@@ -321,14 +320,21 @@ xrep_quota_block(
+ 		break;
+ 	case 0:
+ 		dqblk = bp->b_addr;
+-		ddq = &dqblk[0].dd_diskdq;
++		error = 0;
+ 
+ 		/*
+ 		 * If there's nothing that would impede a dqiterate, we're
+ 		 * done.
+ 		 */
+-		if ((ddq->d_type & XFS_DQTYPE_REC_MASK) == dqtype &&
+-		    id == be32_to_cpu(ddq->d_id)) {
++		for (i = 0; i < qi->qi_dqperchunk; i++, dqblk++) {
++			struct xfs_disk_dquot	*ddq = &dqblk->dd_diskdq;
++
++			if ((ddq->d_type & XFS_DQTYPE_REC_MASK) != dqtype ||
++			    id + i != be32_to_cpu(ddq->d_id))
++				error++;
++		}
++
++		if (!error) {
+ 			xfs_trans_brelse(sc->tp, bp);
+ 			return 0;
+ 		}
+@@ -341,7 +347,7 @@ xrep_quota_block(
+ 	dqblk = bp->b_addr;
+ 	bp->b_ops = &xfs_dquot_buf_ops;
+ 	for (i = 0; i < qi->qi_dqperchunk; i++, dqblk++) {
+-		ddq = &dqblk->dd_diskdq;
++		struct xfs_disk_dquot	*ddq = &dqblk->dd_diskdq;
+ 
+ 		trace_xrep_disk_dquot(sc->mp, dqtype, id + i);
+ 
+-- 
+2.53.0
 
