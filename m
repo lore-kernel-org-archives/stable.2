@@ -1,91 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793866245;
-	b=IvR3uMaRL+NL0JiWDnaVYFA+TJs+mFR8sUZzG34HBEIT+ftaQaXWYZU80q610/HVxpOJ
-	 ABCX88ri2sjwxCh9/mMdBJkyxHSDlsObtiscMO2W+vBn2kRUG7ZiwFLT3h/gyIvVN3B+k
-	 WrZXFAALUcCGPDgvbNDGgSyo3zj+dHQ88sWXDKkNZDifqgEKkV/E1Lph90JUpCKu2TyXE
-	 ei6slZlwO1+OR85MLmYFsxZFXcHyPR1KRlV7cFRwX1AIUDmiwyASZXZki5qbVhGjKiQjm
-	 8jka6B64+AH4V+3JIf2x4Gro9a5J9mUANWLTQmafhMj00tpj5V7wvfjNpkQDbF5ewQA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866245;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DpJSt1J3oBy4CzDK+E+eF+bEhTjYYeDvHIcZlaiwBL8=;
-	b=hYrDEnXgMIc//HS+2cI8Uu0ltamcSA7Q0Ou4sHBJEOBIifgojNqV1HGr3TtTgBEBXZVk
-	 lpgCBeShbmztUMfzhCytjvV22wf1trtwrJjiRYiZBNkN13f8SNJRnIlDvMPAcoGByAi3Y
-	 KsvAPA8e/kZ3G4t/XPCQw3S7nKK9xfrmzUyAZSILM8ZcxQoFiMMazJLIqrX2b+ihn+YZp
-	 4GYYLA54kZK29ECGRfE3sTPuHIrlcGquDY9kyinJaZaQLXErXZBQxtyyFDO4aEsSYEK9F
-	 Z1hOlwt9N0+rGYJrxTebVfdj7m/EwIJi6fFl4migBQSzNGviCnuQI5ENeIs/E+cditw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hartkopp.net;
-	spf=fail smtp.mailfrom=hartkopp.net;
-	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=RJcVB9Sm;
-	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=ejiew3nS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.82.148
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793866253;
+	b=ywZ2DbP/tcOASrf500zPcJzkMgCfFpuhRAAqwZSdcQS+jAwU7RSqgKg6A5QRoPbNbTa1
+	 BILywR8wLZ5mde6UHqNWM8Gg0IB+qf1bdbVix1EYSO1N6/UfSRqZIaCETgHUJ/i0pvsIj
+	 Xyvq94vXMt9JCUjmvJRbibcqtJ5P6sAEWBrEJxEpEfkfYhX70fHg0nd7aUKs1u3h9gk1W
+	 QpCmPWPj1QVafiXmUTfIHJ4du2JzmsPyAsvKDRKlwDWauZ7jO77wTkVk4rGgnmLIVHcWd
+	 Yn9nLXCIP00q9jglx0A7ownr/Eg8E7EL46ZYdNS7pxs5mAr4Ae3iOsiwlhE/LYiO0Zg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866253;
+	h=DMARC-Filter:DKIM-Signature:Received:Content-Type:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To;
+	bh=KJX7XFKr2BJ3602v3cMnvakKbf4rDxLTSPpzuNkR+Ug=;
+	b=K42ouMp9lAj9qNwVz/Je+292k/LomP+RTA0XUnXnMofFqY3vT9KYrl2/k7uO/cmX2CeN
+	 F3ln7tTdVtsqk2Fht1NAzavytrYp2DXOiIZzu4V3BYpYVWssCcMVA630VzZID5ITzJ6CB
+	 6XpxAv25QYxZ1Bo4fOGMVQLXYdHYKT1xGum20kMzRFzYh8WOWMP4uuNh8f334TDyAZN1U
+	 hPFibbKiAOiiUXZ6s1QfFtNYmZM88eAMlnFP/KFhTMyjebjQpoJi+nrarf7j5kKryJ8Kv
+	 qoXLAJ7LLNDI6iHK0SiOfWW8my97t6MF+J4aXbVOR6p1r8ET8OGz+kjW8LKcZl7aCiw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=samba.org;
+	spf=pass smtp.mailfrom=samba.org;
+	dkim=pass header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=fT1eCe5a;
+	arc=none smtp.remote-ip=144.76.82.148
+Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
+	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02ACD606A31B;
-	Thu,  5 Nov 2026 08:10:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02ACD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006BA606A32D
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 08:10:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 006BA606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=RJcVB9Sm;
-	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=ejiew3nS
-ARC-Seal: i=1; a=rsa-sha256; t=1793866216; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=Q7OuVBQGPqWj161mzcCzlQvPbhlo8+hYvt+HdeglpYTdVC/OuTexhZn/50Id01I7nY
-    5I0gyWFlIpEBUpd2WwtFA2gzv0Nhg03RpHNtRnuvXhgfJQkMeXixZsrwGePK+/eA4dv/
-    GcS+FZEbMOn6442PTs6GtKKXl0Dcc0KO0uYBqQrAY7hoeb+TwUzd9Z8G7PJV9s8KVUzW
-    PPPDYvn731pKEw99DmA6FCppCRR6sa/9REwR/wT11nxUBAOmPPqxk7uT7zX3cac7tWc7
-    EFYbp8jZXpjMaobblbUFKxMWOk/A3sa/d48DcgxXnauVH+Kee2qbPueZvd9aoVnL+uNN
-    SRQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793866216;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=DpJSt1J3oBy4CzDK+E+eF+bEhTjYYeDvHIcZlaiwBL8=;
-    b=GI9q+PtdSpTl1/qD/ZYkRa7VqkE5JWEAC2aZujmeKYatx0tnE5hbn77ybtY1RNRas2
-    S21lsyRooIkuk+lK6Dpc1EDkXJHYeHUV0QxyhRU6z1hg8+XQ0b8wDzeQTTY15OGPwEoO
-    /lNISyKBfuIsfknwlhIfyEMfmQ+YSARXHvy1xMW5XqDFNVW4L5CF25KFAjIXHFms5/mB
-    d7iRDZ2QT+NuzjEF3DrmuhB+fobuPpch2ejazS1c/huRgo/hbeiHZJmNJwG86Wr1KGK9
-    oh2juK4X79fuKTXLLCe85bhJF1z2WbB/0nePIFn8eXA81kxcZ7TIZAN25I7n81MvBoti
-    QNOw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793866216;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=DpJSt1J3oBy4CzDK+E+eF+bEhTjYYeDvHIcZlaiwBL8=;
-    b=RJcVB9Sm67rtlKjws+PCpRzpIZi8pUZzonvFWuQIfIUpoNguI5c+7CLA/Rf7abGAaG
-    qrkZZYfE23ewjxxTxge2rmLz9L41RGtofqrlpseYaP2miFcAKqCDai8nzGn8Ai9LfeqO
-    okycVstLHhDMpjhTOrwm6plS2sjcdIU1QV+aNkX8hm+XKd8SHMbNB+G+bjtw3r+EPRhD
-    UahHVAFUD7XiL04HBk07v4aEGZ/l5SVI+ezU/lES59XS6MEeoxkRCxh07UcOZMDf04II
-    aybtmwEztMJJpn6MJiAimO0QJzN+T22z7WdXmZds9E7iy9nu2I1EEyX1wpIjOLYD3bem
-    018g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793866216;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=DpJSt1J3oBy4CzDK+E+eF+bEhTjYYeDvHIcZlaiwBL8=;
-    b=ejiew3nSnbYEfWwM/HAOw+NbnrImbGV8DssKBXXAuDCEXTUAoCBbLnKgm/RGRmzMd7
-    SSNyuERHt4p4riZDasBw==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
-Received: from [IPV6:2a00:6020:4a38:6810::989]
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Kfdf2a2A58AFJmI
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Thu, 5 Nov 2026 09:10:15 +0100 (CET)
-Message-ID: <73ed871b-2248-482f-a96a-31230494b144@hartkopp.net>
-Date: Thu, 5 Nov 2026 09:10:15 +0100
+	dkim=pass (3072-bit key, unprotected) header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=fT1eCe5a
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
+	s=42; h=From:Cc:To:Date:Message-ID;
+	bh=KJX7XFKr2BJ3602v3cMnvakKbf4rDxLTSPpzuNkR+Ug=; b=fT1eCe5a/pOKfi6ETuLh64LIQk
+	glSN6JwZJ5OqZMj3gPyRBlBpQr+pWkZ9A1jTMxZm6+cP1eV2pS4GK1E8rwFh4pyGt8QZbW1URir6K
+	rHy7aWoxXnavxcbQhDxWJ8CHZ2m+QfJXAuPROvVcndnZVvFLyb5t3xnh49q1CartFX/dTv1/CCJua
+	gxjQOr+3qiWCt5mIezcfWuPuv4XF68lvY18fxsCIwcPZPZGfqRCnAnHbSmioo4S9CEPCRVT19L3YP
+	6YiHIQu0QYe/LClz4csCH2ONwRKurtx+psPS/Msete1D2je8LwikQJrbu3aW2CBBNb5zYQyRUm+Ww
+	ThRYzbTwvBQSWbGm+rfvviHnKWTXFE9Pj0tT+mMx5zA6ywg0+ml/i4oWNuTRofbeeHMF/h3vqN0q0
+	qCvSyOvizJkFhBhzhw9kXZi8VQCguHgNfWIrnjAa8dpiur+DiGm9blUetr7bt5WvgZtC96D5a9iU5
+	htdAdtehaofbBW4EQXmSJ2P6;
+Received: from [127.0.0.2] (localhost [127.0.0.1])
+	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
+	(Exim)
+	id 1xOsYc-00000008UC0-3wLa;
+	Thu, 05 Nov 2026 08:10:50 +0000
+Content-Type: multipart/mixed; boundary="------------CTuvkRemNwwbaKVeToC3kgdX"
+Message-ID: <5ff03aa9-eca4-41cc-9e1f-4ad8676bed6a@samba.org>
+Date: Thu, 5 Nov 2026 09:10:50 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,265 +61,132 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 08/15] can: protect the receive lists with a
- per-device lock
-To: netdev-bot+sashiko@kernel.org, mkl@pengutronix.de
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
- linux-can@vger.kernel.org, kernel@pengutronix.de, liucj1228@outlook.com,
- s.grosjean@peak-system.fr, stable@vger.kernel.org
-References: <20261103204305.3211144-9-mkl@pengutronix.de>
- <179382520797.488856.11630508832915860623@kernel.org>
+Subject: Re: FAILED: patch "[PATCH] smb: smbdirect: fix buffer length
+ underflow in RDMA transfers" failed to apply to 6.1-stable tree
+To: gregkh@linuxfoundation.org, linkinjeon@kernel.org
+Cc: stable@vger.kernel.org
+References: <2026110438-macaw-walmart-26ac@gregkh>
 Content-Language: en-US
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-In-Reply-To: <179382520797.488856.11630508832915860623@kernel.org>
+From: Stefan Metzmacher <metze@samba.org>
+In-Reply-To: <2026110438-macaw-walmart-26ac@gregkh>
+
+This is a multi-part message in MIME format.
+--------------CTuvkRemNwwbaKVeToC3kgdX
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
+Am 04.11.26 um 19:29 schrieb gregkh@linuxfoundation.org:
+> 
+> The patch below does not apply to the 6.1-stable tree.
+> If someone wants it applied there, or to any other stable or longterm
+> tree, then please email the backport, including the original git commit
+> id to <stable@vger.kernel.org>.
+> 
+> To reproduce the conflict and resubmit, you may use the following commands:
+> 
+> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+> git checkout FETCH_HEAD
+> git cherry-pick -x 7193241a49c958782ba4b8df06da3734d1e317d2
+> # <resolve conflicts, build, test, etc.>
+> git commit -s
+> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110438-macaw-walmart-26ac@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+> 
+> Possible dependencies:
+> 
+> 
+> 
+> thanks,
+> 
+> greg k-h
+> 
+> ------------------ original commit in Linus's tree ------------------
+> 
+>  From 7193241a49c958782ba4b8df06da3734d1e317d2 Mon Sep 17 00:00:00 2001
+> From: Stefan Metzmacher <metze@samba.org>
+> Date: Fri, 23 Oct 2026 19:26:09 +0900
+> Subject: [PATCH] smb: smbdirect: fix buffer length underflow in RDMA transfers
+> 
+> When a remote buffer descriptor is larger than the remaining local
+> buffer, smbdirect_connection_rdma_xmit() clamps its length and sets
+> buf_len to zero. The common accounting code then subtracts the clamped
+> length from buf_len, causing it to underflow. If another descriptor
+> follows, the loop processes it with a wrapped remaining length and
+> includes memory beyond the local buffer in the RDMA transfer.
+> 
+> A client can trigger an out-of-bounds kernel write with an SMB WRITE
+> request, or an out-of-bounds kernel read with an SMB READ request, by
+> supplying multiple RDMA buffer descriptors with an oversized descriptor
+> before the last one.
+> 
+> Remove the premature assignment to buf_len. Subtracting the clamped length
+> already consumes the remaining buffer, so the next iteration stops and
+> only descriptors within the local buffer are used to build work requests.
+> 
+> Fixes: e628bf939aaf ("ksmbd: reduce descriptor size if remaining bytes is less than request size")
+> Cc: stable@vger.kernel.org
+> Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-33549
+> Signed-off-by: Stefan Metzmacher <metze@samba.org>
+> Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+> 
+> diff --git a/fs/smb/smbdirect/rw.c b/fs/smb/smbdirect/rw.c
+> index 6fe38042cfb9..cb142c3c50b2 100644
+> --- a/fs/smb/smbdirect/rw.c
+> +++ b/fs/smb/smbdirect/rw.c
+> @@ -143,7 +143,6 @@ int smbdirect_connection_rdma_xmit(struct smbdirect_socket *sc,
+>   		if (desc_buf_len > buf_len) {
+>   			desc_buf_len = buf_len;
+>   			desc[i].length = cpu_to_le32(desc_buf_len);
+> -			buf_len = 0;
+>   		}
+>   
+>   		credits_needed += smbdirect_connection_calc_rw_credits(sc,
 
+--------------CTuvkRemNwwbaKVeToC3kgdX
+Content-Type: text/plain; charset=UTF-8;
+ name="backport-6.1-smbdirect-rdma-xmit-underflow.txt"
+Content-Disposition: attachment;
+ filename="backport-6.1-smbdirect-rdma-xmit-underflow.txt"
+Content-Transfer-Encoding: base64
 
-On 04.11.26 21:46, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in case
-> you want to address the nit picks below when you respin.
-> 
-> Low priority / nit picks for your consideration:
-> 
-> - [Low] Since RTNL is no longer held across raw_bind() and isotp_bind(),
->    a NETDEV_DOWN followed by NETDEV_UP inside the bind() window is never…
-> 
-> Pre-existing issues:
-> - [High] This patch did not introduce this problem, but CAN_BCM still
->    lets an unprivileged task stall a user-memory copy while holding…
-> 
-> --
-> 
-> can: protect the receive lists with a per-device lock
-> 
-> This adds a spinlock to struct can_dev_rcv_lists, so can_rx_unregister()
-> finds a subscription even after the device has moved to another network
-> namespace. The per-netns rcvlists_lock now only protects the statistics.
-> CAN_RAW and CAN_ISOTP bind()/release()/setsockopt() stop taking RTNL and
-> rely on lock_sock(), RCU publication of the bound device and a barrier
-> pair for NETDEV_DOWN.
-> 
-> Link: https://lore.kernel.org/linux-can/CEA6A38A-2646-4ADA-95B4-CBAE2F301A8E@doyensec.com/
-> Link: https://patch.msgid.link/20261027-can-rx-lock-v12-3-eb5afc2d8b9b@hartkopp.net
-> 
->> diff --git a/net/can/bcm.c b/net/can/bcm.c
->> index 60406439a13f7..9288b96724da2 100644
->> --- a/net/can/bcm.c
->> +++ b/net/can/bcm.c
-> 
-> [ ... ]
-> 
->> @@ -1936,6 +1925,7 @@ static int bcm_release(struct socket *sock)
->>   	list_del(&bo->notifier);
->>   	spin_unlock(&bcm_notifier_lock);
->>   
->> +	/* bcm_notify() can not access this socket anymore */
->>   	lock_sock(sk);
->>   
->>   #if IS_ENABLED(CONFIG_PROC_FS)
-> 
-> [Severity: High]
-> This is a pre-existing issue, not one introduced by this patch. The
-> commit message is about unprivileged users holding up RTNL, though, so
-> is CAN_BCM still open to the same kind of problem?
-> 
+RnJvbSBmNzJiNDZhY2MxYTgwNTJlMTc0MTgxNTUxZjNiNmU4NTNlZjI2NGEwIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBTdGVmYW4gTWV0em1hY2hlciA8bWV0emVAc2FtYmEu
+b3JnPgpEYXRlOiBGcmksIDIzIE9jdCAyMDI2IDE5OjI2OjA5ICswOTAwClN1YmplY3Q6IFtQ
+QVRDSCA2LjEueV0gc21iOiBzbWJkaXJlY3Q6IGZpeCBidWZmZXIgbGVuZ3RoIHVuZGVyZmxv
+dyBpbiBSRE1BCiB0cmFuc2ZlcnMKClsgVXBzdHJlYW0gY29tbWl0IDcxOTMyNDFhNDljOTU4
+NzgyYmE0YjhkZjA2ZGEzNzM0ZDFlMzE3ZDIgXQoKV2hlbiBhIHJlbW90ZSBidWZmZXIgZGVz
+Y3JpcHRvciBpcyBsYXJnZXIgdGhhbiB0aGUgcmVtYWluaW5nIGxvY2FsCmJ1ZmZlciwgc21i
+ZGlyZWN0X2Nvbm5lY3Rpb25fcmRtYV94bWl0KCkgY2xhbXBzIGl0cyBsZW5ndGggYW5kIHNl
+dHMKYnVmX2xlbiB0byB6ZXJvLiBUaGUgY29tbW9uIGFjY291bnRpbmcgY29kZSB0aGVuIHN1
+YnRyYWN0cyB0aGUgY2xhbXBlZApsZW5ndGggZnJvbSBidWZfbGVuLCBjYXVzaW5nIGl0IHRv
+IHVuZGVyZmxvdy4gSWYgYW5vdGhlciBkZXNjcmlwdG9yCmZvbGxvd3MsIHRoZSBsb29wIHBy
+b2Nlc3NlcyBpdCB3aXRoIGEgd3JhcHBlZCByZW1haW5pbmcgbGVuZ3RoIGFuZAppbmNsdWRl
+cyBtZW1vcnkgYmV5b25kIHRoZSBsb2NhbCBidWZmZXIgaW4gdGhlIFJETUEgdHJhbnNmZXIu
+CgpBIGNsaWVudCBjYW4gdHJpZ2dlciBhbiBvdXQtb2YtYm91bmRzIGtlcm5lbCB3cml0ZSB3
+aXRoIGFuIFNNQiBXUklURQpyZXF1ZXN0LCBvciBhbiBvdXQtb2YtYm91bmRzIGtlcm5lbCBy
+ZWFkIHdpdGggYW4gU01CIFJFQUQgcmVxdWVzdCwgYnkKc3VwcGx5aW5nIG11bHRpcGxlIFJE
+TUEgYnVmZmVyIGRlc2NyaXB0b3JzIHdpdGggYW4gb3ZlcnNpemVkIGRlc2NyaXB0b3IKYmVm
+b3JlIHRoZSBsYXN0IG9uZS4KClJlbW92ZSB0aGUgcHJlbWF0dXJlIGFzc2lnbm1lbnQgdG8g
+YnVmX2xlbi4gU3VidHJhY3RpbmcgdGhlIGNsYW1wZWQgbGVuZ3RoCmFscmVhZHkgY29uc3Vt
+ZXMgdGhlIHJlbWFpbmluZyBidWZmZXIsIHNvIHRoZSBuZXh0IGl0ZXJhdGlvbiBzdG9wcyBh
+bmQKb25seSBkZXNjcmlwdG9ycyB3aXRoaW4gdGhlIGxvY2FsIGJ1ZmZlciBhcmUgdXNlZCB0
+byBidWlsZCB3b3JrIHJlcXVlc3RzLgoKRml4ZXM6IGU2MjhiZjkzOWFhZiAoImtzbWJkOiBy
+ZWR1Y2UgZGVzY3JpcHRvciBzaXplIGlmIHJlbWFpbmluZyBieXRlcyBpcyBsZXNzIHRoYW4g
+cmVxdWVzdCBzaXplIikKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKUmVwb3J0ZWQtYnk6
+IHpkaS1kaXNjbG9zdXJlc0B0cmVuZG1pY3JvLmNvbSAjIFpESS1DQU4tMzM1NDkKU2lnbmVk
+LW9mZi1ieTogU3RlZmFuIE1ldHptYWNoZXIgPG1ldHplQHNhbWJhLm9yZz4KU2lnbmVkLW9m
+Zi1ieTogTmFtamFlIEplb24gPGxpbmtpbmplb25Aa2VybmVsLm9yZz4KWyBtZXR6ZTogaW4g
+Ni4xIHRoZSBjb2RlIGlzIHNtYl9kaXJlY3RfcmRtYV94bWl0KCkgaW4KICBmcy9zbWIvc2Vy
+dmVyL3RyYW5zcG9ydF9yZG1hLmMgXQpBc3Npc3RlZC1ieTogQ2xhdWRlOmNsYXVkZS1vcHVz
+LTUtNQotLS0KIGZzL3NtYi9zZXJ2ZXIvdHJhbnNwb3J0X3JkbWEuYyB8IDEgLQogMSBmaWxl
+IGNoYW5nZWQsIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9mcy9zbWIvc2VydmVyL3Ry
+YW5zcG9ydF9yZG1hLmMgYi9mcy9zbWIvc2VydmVyL3RyYW5zcG9ydF9yZG1hLmMKaW5kZXgg
+YmNmMDYzMWNlMTBhLi5jYzk0MDliYjU0MDQgMTAwNjQ0Ci0tLSBhL2ZzL3NtYi9zZXJ2ZXIv
+dHJhbnNwb3J0X3JkbWEuYworKysgYi9mcy9zbWIvc2VydmVyL3RyYW5zcG9ydF9yZG1hLmMK
+QEAgLTEzNzgsNyArMTM3OCw2IEBAIHN0YXRpYyBpbnQgc21iX2RpcmVjdF9yZG1hX3htaXQo
+c3RydWN0IHNtYl9kaXJlY3RfdHJhbnNwb3J0ICp0LAogCQlpZiAoZGVzY19idWZfbGVuID4g
+YnVmX2xlbikgewogCQkJZGVzY19idWZfbGVuID0gYnVmX2xlbjsKIAkJCWRlc2NbaV0ubGVu
+Z3RoID0gY3B1X3RvX2xlMzIoZGVzY19idWZfbGVuKTsKLQkJCWJ1Zl9sZW4gPSAwOwogCQl9
+CiAKIAkJY3JlZGl0c19uZWVkZWQgKz0gY2FsY19yd19jcmVkaXRzKHQsIGRlc2NfYnVmLCBk
+ZXNjX2J1Zl9sZW4pOwotLSAKMi41My4wCgo=
 
-Yes, this is a pre-existing issue that is not introduced by this series.
-It has already been answered for this patch set here:
-
-https://lore.kernel.org/linux-can/64f4dfcf-40ec-4838-85d3-a30c3912e242@hartkopp.net/
-
-CAN_BCM (and CAN_J1939) notifier handling will be looked at separately.
-
-> bcm_sendmsg() takes lock_sock(sk). While it holds the lock,
-> bcm_tx_setup(), bcm_rx_setup() and bcm_tx_send() copy frame data from
-> user memory with memcpy_from_msg():
-> 
-> net/can/bcm.c:bcm_tx_setup() {
->      ...
-> 			err = memcpy_from_msg((u8 *)cf, msg, op->cfsiz);
->      ...
-> }
-> 
-> bcm_notify() runs from the netdev notifier with RTNL held. On
-> NETDEV_UNREGISTER it takes lock_sock() on every BCM socket in the
-> device's namespace, whether or not the socket is bound to that device:
-> 
-> net/can/bcm.c:bcm_notify() {
->      ...
-> 	case NETDEV_UNREGISTER:
-> 		lock_sock(sk);
->      ...
-> }
-> 
-> Suppose the sendmsg iovec points at a FUSE-backed mapping whose daemon
-> never answers. The copy then stalls with the socket lock held.
-> 
-> A CAN device unregister in that netns then blocks bcm_notify() in
-> lock_sock() with RTNL held. For example, the user can delete a vcan in
-> their own unprivileged user+net namespace. After that, every RTNL user
-> on the host hangs.
-> 
-> The CAN_RAW version of this is fixed later in this series by "can: raw,
-> isotp: copy socket options outside of lock_sock()". That covers
-> memdup_sockptr()/copy_from_sockptr() in raw_setsockopt_locked() and
-> copy_to_iter() in raw_getsockopt() under lock_sock(). Before this
-> patch, raw_setsockopt() even held RTNL directly across the copy.
-> 
-> CAN_ISOTP is not affected. The BCM paths look the same at the end of
-> the series.
-> 
-> Could the BCM frame data also be copied before lock_sock()?
-> 
-> [ ... ]
-> 
->> diff --git a/net/can/raw.c b/net/can/raw.c
->> index e1d741a25be3f..d6517f71cadeb 100644
->> --- a/net/can/raw.c
->> +++ b/net/can/raw.c
-> 
-> [ ... ]
-> 
->> @@ -305,16 +309,31 @@ static void raw_notify(struct raw_sock *ro, unsigned long msg,
->>   		       struct net_device *dev)
->>   {
->>   	struct sock *sk = &ro->sk;
->> +	struct net_device *bind_dev;
->>   
->>   	if (!net_eq(dev_net(dev), sock_net(sk)))
->>   		return;
->>   
->> -	if (ro->dev != dev)
->> +	if (msg == NETDEV_DOWN)
->> +		smp_mb(); /* IFF_UP is cleared before, pairs with raw_bind() */
->> +
->> +	/* Lockless fast path, ro->bind_dev covers a concurrent bind().
->> +	 * Read it before ro->dev, pairs with smp_store_release() in
->> +	 * raw_bind(). A stale ro->bind_dev only costs a lock_sock().
->> +	 */
->> +	bind_dev = smp_load_acquire(&ro->bind_dev);
->> +	if (READ_ONCE(ro->dev) != dev &&
->> +	    (msg != NETDEV_UNREGISTER || bind_dev != dev))
->>   		return;
-> 
-> [ ... ]
-> 
->> @@ -479,14 +500,25 @@ static int raw_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int len
-> 
-> [ ... ]
-> 
->> +		rcu_read_lock();
->> +		dev = dev_get_by_index_rcu(sock_net(sk), addr->can_ifindex);
->> +		if (dev) {
->> +			dev_hold(dev);
->> +			/* pairs with smp_load_acquire() in raw_notify() */
->> +			smp_store_release(&ro->bind_dev, dev);
->> +		}
->> +		rcu_read_unlock();
-> 
-> [ ... ]
-> 
->> @@ -496,9 +528,6 @@ static int raw_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int len
->>   			goto out_put_dev;
->>   		}
->>   
->> -		if (!(dev->flags & IFF_UP))
->> -			notify_enetdown = 1;
->> -
->>   		ifindex = dev->ifindex;
->>   
->>   		/* filters set by default/setsockopt */
-> 
-> [ ... ]
-> 
->> @@ -528,24 +557,32 @@ static int raw_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int len
->>   		ro->ifindex = ifindex;
->>   		ro->bound = 1;
->>   		/* bind() ok -> hold a reference for new ro->dev */
->> -		ro->dev = dev;
->> +		WRITE_ONCE(ro->dev, dev);
->>   		if (ro->dev)
->>   			netdev_hold(ro->dev, &ro->dev_tracker, GFP_KERNEL);
->> +
->> +		if (dev) {
->> +			/* Either raw_notify() sees ro->dev on NETDEV_DOWN or
->> +			 * we see the cleared IFF_UP, pairs with raw_notify()
->> +			 */
->> +			smp_mb();
->> +			if (!(READ_ONCE(dev->flags) & IFF_UP))
->> +				notify_enetdown = 1;
->> +		}
->>   	}
-> 
-> [Severity: Low]
-> The commit message says:
-> 
->    "As RTNL does not keep NETDEV_DOWN out of bind() anymore, bind() checks
->    IFF_UP after publishing the bound device, with a barrier pair against
->    raw_notify() and isotp_notify(), so a down transition during bind() is
->    still reported with ENETDOWN."
-> 
-> Does this still hold when a full down/up cycle happens inside bind()?
-> 
-
-No. As RTNL does not keep NETDEV_DOWN out of bind() anymore, a down/up
-cycle that completes between the filter registration and the IFF_UP
-check in bind() is not reported with ENETDOWN. Frames received in this
-window before the down transition may then already be queued for the
-socket.
-
-I consider this acceptable: ENETDOWN is an asynchronous notification
-and bind() has not returned at this point. When bind() returns, the
-socket is bound to a device that is up, and every down transition
-after the bound device has been published is reported, which is
-ensured by the barrier pair. So no down transition is missed for a
-bound socket.
-
-The commit message could be more precise here, but I don't think this
-justifies a respin.
-
-> raw_bind() registers the filters with raw_enable_allfilters() before it
-> publishes ro->dev. raw_rcv() can already queue frames for the socket at
-> that point. raw_enable_filters() can do up to CAN_RAW_FILTER_MAX
-> GFP_KERNEL allocations with cond_resched(), so this window can be long.
-> 
-> In raw_notify(), the bind_dev hint only covers NETDEV_UNREGISTER. A
-> NETDEV_DOWN in this window returns early:
-> 
-> raw_bind()                            RTNL holder
->    smp_store_release(&ro->bind_dev)
->    raw_enable_allfilters()
->      /* frames get queued */
->                                        dev_close()
->                                          clears IFF_UP
->                                          raw_notify(NETDEV_DOWN)
->                                            ro->dev != dev -> return
->                                        dev_open()
->                                          sets IFF_UP
->    WRITE_ONCE(ro->dev, dev)
->    smp_mb()
->    IFF_UP is set -> no ENETDOWN
-> 
-> isotp_bind() has the same window. so->dev is published early, but
-> isotp_notify() drops NETDEV_DOWN while so->bound is still 0:
-> 
-> net/can/isotp.c:isotp_notify() {
->      ...
-> 	case NETDEV_DOWN:
-> 		if (!READ_ONCE(so->bound))
-> 			break;
->      ...
-> }
-> 
-> isotp_bind() only sets so->bound after both can_rx_register() calls,
-> and samples IFF_UP after that.
-> 
-> Before this patch, holding RTNL across bind() ruled out this
-> interleaving. Is it acceptable to miss ENETDOWN in this case? If so,
-> should the commit message only promise this for a down state that is
-> still in effect when bind() samples IFF_UP?
-> 
-
+--------------CTuvkRemNwwbaKVeToC3kgdX--
