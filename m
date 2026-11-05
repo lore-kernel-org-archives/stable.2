@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793895810;
-	b=fTa6LMROrUKytUlrvirdNTHFleDerQIr4W3Q+00r2URY2vCCfAALc9j65ZpKf81YpB2n
-	 V3LJ9zVQZX7/mskx3bzdjZMvkQwbcvFD06wEkm/aiUGKczjoYA3jJK9DZQjRfq9WPj3qX
-	 z6Z6nAq2L1RBapL9pEH+h8zuH7ySGntSBQ3rzpZJZhEsen+7f4uYsIODFcBwfiUcQb2bT
-	 GNfRv3NzAK/5nESHL9gAGdI87TBBRNAAUEhJHfYUfX3fU4fGpHpzpltdvoVW3OagUvIG9
-	 iMRBOn/cmmkKmJ1ZPBTIqP62+xSj2mn9z2i+dnNQwfLI7cuYLM6GuQfbmp3UsI09Krg==
+	t=1793895811;
+	b=U8tN/G0cXQ/ITPE74yxfif9D8DkKsmnjDL/qpbx2WBYT6XBLrWq/e+7vwTC/2gKvvsWY
+	 NpFaFpgLk2Zn3vdX6e+ZbHFC2TUqagv4iblLqTbeX0zJl95qP5cqZAv8EgxwKYybh4ekV
+	 7+2ppiYWI9EUJwdndwJYVGREXBAFlbl5c1EFnPMyB20iunmLD01QtRiTUyWKVKa+uwXNf
+	 uCbhp1R3f4mLpzGYpPQuChwO9Qww37Sxpncg2L52FNyt8f+Vx2k6wE52drOn2AT941iLC
+	 /2E5NUZ7jpAB1ywm0LbHz+rJCF479SuKPvG5YtOPoBamxwDnPVCxQMaPrMtLEjPOuDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793895810;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793895811;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SoWzIW7bEmjUW7FhBuDi30MWJaVlc04PymSszBYMXww=;
-	b=Q3YDQ6CP9g4NZuc3oRvuu6Bf3BLSLCtDOfgmt4U5TsR1WKK0+W9q6kZNWgjN228NZGts
-	 qcxvm2xPCpDy3IGb46JRo9QMkrWpoapNc9vzFlel6y/lDAkEsg+QGzxbcg0OKQQptVRTE
-	 xXYKL8EqGT455pQxS4rns9TeqM7Jylmf+kIwZCyuYLHINdJ+GHvZk1+il+79K+iniXHRB
-	 ruy0OhPAGcLq/eZj1iPAG5TH2/9vf3eQFfXRm5BYnCyhJRhqCxJCWDUaYpvcoLnjvqxeu
-	 3bZ4nDPshjn291rQE1vF2mEKGOUMSeL5yvSMrOOdbMVuH92nbTYj3dRQvLgwMngC0Ew==
+	bh=HbkYZdwBVRPKznegyuKiPJo4XS3NaEmcelzjanIgMYc=;
+	b=AtZ3O1g6eVSywE4qz/9J4jTg6wA1iXSXk+9Ug+qDWg0g0o4zfIwnrnfkzU0X4h2vDZth
+	 tRd1axmeQkXpPyah4MxoYXPwXt6CkIXeIrNjkV+mA+ZIWWWTWHzzW6MEQR52Me4e4SPAA
+	 sOZP/iQJZDBicFo0NxOptaDlrD3ROB1Af3eGnd0AT7rUkJ1HfpRdz9MbjsWeZay/8u0Ms
+	 uyzJu5/pGokzvj/eRsvCH84BtyTO13c9Rq26/UFe0cB4eAIAuhAOK+5NjrMcxcVyDp1+M
+	 ds5e0aVW75AsKzETwKCIu9DPlyJj2g2IQw9VhLQPeWx2zJTLy9+jI68gFVajHM5HwwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhNN0ijc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BrLPc5OZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C4D606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C611606A31B
 	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 16:23:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhNN0ijc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6759F1F000C1;
-	Thu,  5 Nov 2026 16:23:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BrLPc5OZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E6911F00A17;
+	Thu,  5 Nov 2026 16:23:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793895810;
-	bh=SoWzIW7bEmjUW7FhBuDi30MWJaVlc04PymSszBYMXww=;
+	bh=HbkYZdwBVRPKznegyuKiPJo4XS3NaEmcelzjanIgMYc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hhNN0ijcJBHxqpw6CnUueuLx1TxSPbuZivs26+fwyxOtnaocHGdo34PRBMQws+fzt
-	 cVOBVhWctaAvobQjg69Y2z94/gpPFJdqMf4e2g2mBBygXNPFmyldvFlcSGS/X6wdGY
-	 JUNRs8kfKUVYSTQDftV0rV7vyM4oVQEMCMZe9GzHEpB8uHhud7DuNhoykws+CAsj1x
-	 zaQyjJNvSjo/dmVjEIfJmrv8VTFmXZDsOkbC/NJ/tTZDjk9HLE5YSqg5Y/7j9hn7p5
-	 1vFqSm+QbSf+BrwUnrxl3Uin5TRllmC1dfO5HhN30IYQkPv7nTFL2KkpXJcHU9TrwA
-	 wqKKcTG+A5XJA==
+	b=BrLPc5OZP0MDAUn3HJ+Taung+tW/zyP8Mofk/0YcClOfwqxZV5c+c6oAedBI+bOOm
+	 Bdh+nuIMpUjrrb5EvOB/YDma8W4TquZb0BR8kepBjZXoWNa0EAQUZISzTsWEUN9NGk
+	 vRp/mTnmyAidEZKrPa4QgSHcDWf6his7UEcUiokg5qEtHTJ4mzdvrWXzXrAHE3MXZp
+	 B+fJB+LkSY5DEH4rDNbZILXsklDTz2jhexYbGkPAr5CT4z/4RvNA6KRBAoYAq7dXHg
+	 RFturbHw1GMMN9jKJ5KUT0uGZtTuu2uQjLxmVKh2rNAfSNoxS4DE50WWXcSg8tGw4t
+	 IJdDZmnSrQslg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Darrick J. Wong" <djwong@kernel.org>,
 	Christoph Hellwig <hch@lst.de>,
 	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] xfs: break out xattr entry checks into separate functions
-Date: Thu,  5 Nov 2026 11:23:27 -0500
-Message-ID: <20261105162315.2113156-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] xfs: check for buffer overruns when examining local/remote xattr entries
+Date: Thu,  5 Nov 2026 11:23:28 -0500
+Message-ID: <20261105162315.2113156-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110427-crawlers-unlighted-eb26@gregkh>
+In-Reply-To: <20261105162315.2113156-1-sashal@kernel.org>
 References: <2026110427-crawlers-unlighted-eb26@gregkh>
+ <20261105162315.2113156-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,137 +65,109 @@ Content-Transfer-Encoding: 8bit
 
 From: "Darrick J. Wong" <djwong@kernel.org>
 
-[ Upstream commit 9eb04a6d41c7e474d4665118895c3c2d8e5a2741 ]
+[ Upstream commit 91c41f9524906a8ebd2ae68c98a07b4bd5255ddb ]
 
-We're going to add more xattr entry checking code in xchk_xattr_entry so
-break these out into separate functions so that we don't go crazy
-indenting.  There's a slight behavior change here where we skip updating
-the usedmap if we've decided the xattr structure is corrupt.
+LOLLM noticed that the xattr scrub and repair code can walk off the end
+of the buffer if the xattr entry record starts so close to the end of
+the buffer that there's not even space for the entry structure itself.
+Strengthen the bounds checking here.
 
+Cc: stable@vger.kernel.org # v4.15
+Fixes: 13791d3b833428 ("xfs: scrub extended attribute leaf space")
 Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Stable-dep-of: 91c41f952490 ("xfs: check for buffer overruns when examining local/remote xattr entries")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/attr.c | 90 ++++++++++++++++++++++++++++++++++-----------
- 1 file changed, 68 insertions(+), 22 deletions(-)
+ fs/xfs/scrub/attr.c        | 12 ++++++++++++
+ fs/xfs/scrub/attr_repair.c | 16 +++++++++++++---
+ 2 files changed, 25 insertions(+), 3 deletions(-)
 
 diff --git a/fs/xfs/scrub/attr.c b/fs/xfs/scrub/attr.c
-index 7315d0cb1e2e7..84507c80cf945 100644
+index 84507c80cf945..68d9666ab201a 100644
 --- a/fs/xfs/scrub/attr.c
 +++ b/fs/xfs/scrub/attr.c
-@@ -293,6 +293,66 @@ xchk_xattr_set_map(
- 	return ret;
- }
- 
-+static unsigned int
-+xchk_xattr_local_entry(
-+	struct xchk_da_btree		*ds,
-+	int				level,
-+	char				*buf_end,
-+	struct xfs_attr_leafblock	*leaf,
-+	int				idx)
-+{
-+	struct xfs_attr_leaf_name_local	*lentry =
-+			xfs_attr3_leaf_name_local(leaf, idx);
-+	char				*name_end;
-+	unsigned int			namesize;
-+
-+	namesize = xfs_attr_leaf_entsize_local(lentry->namelen,
-+			be16_to_cpu(lentry->valuelen));
-+	name_end = (char *)lentry + namesize;
-+	if (lentry->namelen == 0) {
-+		xchk_da_set_corrupt(ds, level);
-+		return 0;
-+	}
-+	if (name_end > buf_end) {
-+		xchk_da_set_corrupt(ds, level);
-+		return 0;
-+	}
-+
-+	return namesize;
-+}
-+
-+static unsigned int
-+xchk_xattr_remote_entry(
-+	struct xchk_da_btree		*ds,
-+	int				level,
-+	char				*buf_end,
-+	struct xfs_attr_leafblock	*leaf,
-+	int				idx,
-+	struct xfs_attr_leaf_entry	*ent)
-+{
-+	struct xfs_attr_leaf_name_remote *rentry =
-+			xfs_attr3_leaf_name_remote(leaf, idx);
-+	char				*name_end;
-+	unsigned int			namesize;
-+
-+	namesize = xfs_attr_leaf_entsize_remote(rentry->namelen);
-+	name_end = (char *)rentry + namesize;
-+	if (rentry->namelen == 0) {
-+		xchk_da_set_corrupt(ds, level);
-+		return 0;
-+	}
-+	if (rentry->valueblk == 0 && !(ent->flags & XFS_ATTR_INCOMPLETE)) {
-+		xchk_da_set_corrupt(ds, level);
-+		return 0;
-+	}
-+	if (name_end > buf_end) {
-+		xchk_da_set_corrupt(ds, level);
-+		return 0;
-+	}
-+
-+	return namesize;
-+}
-+
- /*
-  * Check this leaf entry's relations to everything else.
-  * Returns the number of bytes used for the name/value data.
-@@ -311,9 +371,6 @@ xchk_xattr_entry(
- {
- 	struct xfs_mount		*mp = ds->state->mp;
- 	struct xchk_xattr_buf		*ab = ds->sc->buf;
--	char				*name_end;
--	struct xfs_attr_leaf_name_local	*lentry;
--	struct xfs_attr_leaf_name_remote *rentry;
- 	unsigned int			nameidx;
+@@ -306,6 +306,12 @@ xchk_xattr_local_entry(
+ 	char				*name_end;
  	unsigned int			namesize;
  
-@@ -333,25 +390,14 @@ xchk_xattr_entry(
- 	}
++	name_end = (char *)lentry + offsetof(typeof(*lentry), nameval[0]);
++	if (name_end > buf_end) {
++		xchk_da_set_corrupt(ds, level);
++		return 0;
++	}
++
+ 	namesize = xfs_attr_leaf_entsize_local(lentry->namelen,
+ 			be16_to_cpu(lentry->valuelen));
+ 	name_end = (char *)lentry + namesize;
+@@ -335,6 +341,12 @@ xchk_xattr_remote_entry(
+ 	char				*name_end;
+ 	unsigned int			namesize;
  
- 	/* Check the name information. */
--	if (ent->flags & XFS_ATTR_LOCAL) {
--		lentry = xfs_attr3_leaf_name_local(leaf, idx);
--		namesize = xfs_attr_leaf_entsize_local(lentry->namelen,
--				be16_to_cpu(lentry->valuelen));
--		name_end = (char *)lentry + namesize;
--		if (lentry->namelen == 0)
--			xchk_da_set_corrupt(ds, level);
--	} else {
--		rentry = xfs_attr3_leaf_name_remote(leaf, idx);
--		namesize = xfs_attr_leaf_entsize_remote(rentry->namelen);
--		name_end = (char *)rentry + namesize;
--		if (rentry->namelen == 0)
--			xchk_da_set_corrupt(ds, level);
--		if (rentry->valueblk == 0 &&
--		    !(ent->flags & XFS_ATTR_INCOMPLETE))
--			xchk_da_set_corrupt(ds, level);
--	}
--	if (name_end > buf_end)
--		xchk_da_set_corrupt(ds, level);
-+	if (ent->flags & XFS_ATTR_LOCAL)
-+		namesize = xchk_xattr_local_entry(ds, level, buf_end, leaf,
-+				idx);
-+	else
-+		namesize = xchk_xattr_remote_entry(ds, level, buf_end, leaf,
-+				idx, ent);
-+	if (!namesize)
-+		return;
++	name_end = (char *)rentry + offsetof(typeof(*rentry), name[0]);
++	if (name_end > buf_end) {
++		xchk_da_set_corrupt(ds, level);
++		return 0;
++	}
++
+ 	namesize = xfs_attr_leaf_entsize_remote(rentry->namelen);
+ 	name_end = (char *)rentry + namesize;
+ 	if (rentry->namelen == 0) {
+diff --git a/fs/xfs/scrub/attr_repair.c b/fs/xfs/scrub/attr_repair.c
+index ab5bd7a4d4abb..2c573897c0c6a 100644
+--- a/fs/xfs/scrub/attr_repair.c
++++ b/fs/xfs/scrub/attr_repair.c
+@@ -285,6 +285,7 @@ xrep_xattr_salvage_local_attr(
+ 	struct xfs_attr_leaf_name_local	*lentry)
+ {
+ 	struct xchk_xattr_buf		*ab = rx->sc->buf;
++	char				*name_end;
+ 	unsigned char			*value;
+ 	unsigned int			valuelen;
+ 	unsigned int			namesize;
+@@ -293,10 +294,14 @@ xrep_xattr_salvage_local_attr(
+ 	 * Decode the leaf local entry format.  If something seems wrong, we
+ 	 * junk the attribute.
+ 	 */
++	name_end = (char *)lentry + offsetof(typeof(*lentry), nameval[0]);
++	if (name_end > buf_end)
++		return 0;
+ 	value = &lentry->nameval[lentry->namelen];
+ 	valuelen = be16_to_cpu(lentry->valuelen);
+ 	namesize = xfs_attr_leaf_entsize_local(lentry->namelen, valuelen);
+-	if ((char *)lentry + namesize > buf_end)
++	name_end = (char *)lentry + namesize;
++	if (name_end > buf_end)
+ 		return 0;
+ 	if (!xrep_xattr_want_salvage(rx, ent->flags, lentry->nameval,
+ 			lentry->namelen, value, valuelen))
+@@ -333,8 +338,8 @@ xrep_xattr_salvage_remote_attr(
+ 		.attr_filter		= ent->flags & XFS_ATTR_NSP_ONDISK_MASK,
+ 		.namelen		= rentry->namelen,
+ 		.name			= rentry->name,
+-		.valuelen		= be32_to_cpu(rentry->valuelen),
+ 	};
++	char				*name_end;
+ 	unsigned int			namesize;
+ 	int				error;
  
- 	if (!xchk_xattr_set_map(ds->sc, ab->usedmap, nameidx, namesize))
- 		xchk_da_set_corrupt(ds, level);
+@@ -343,9 +348,14 @@ xrep_xattr_salvage_remote_attr(
+ 	 * junk the attribute.  Note that we should never find a zero-length
+ 	 * remote attribute value.
+ 	 */
++	name_end = (char *)rentry + offsetof(typeof(*rentry), name[0]);
++	if (name_end > buf_end)
++		return 0;
+ 	namesize = xfs_attr_leaf_entsize_remote(rentry->namelen);
+-	if ((char *)rentry + namesize > buf_end)
++	name_end = (char *)rentry + namesize;
++	if (name_end > buf_end)
+ 		return 0;
++	args.valuelen = be32_to_cpu(rentry->valuelen);
+ 	if (args.valuelen == 0 ||
+ 	    !xrep_xattr_want_salvage(rx, ent->flags, rentry->name,
+ 			rentry->namelen, NULL, args.valuelen))
 -- 
 2.53.0
 
