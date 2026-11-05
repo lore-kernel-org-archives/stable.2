@@ -1,110 +1,110 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793885878;
-	b=clOCmxIHzI5y5/VHzE80kX6IPPjE8Ztjrd+xqX9J6niiT4ESV7LLh0fKArtpEWqh+OGE
-	 +nkxv6XscFAUoJ4Jpfy3Sc00wgI09rJzfuS1sGU5IiVNFBsV0Oj2f4rTDdJPHxcOHkDX5
-	 hEw/lvijaNH7DesQA6X961tW5DJhwVs/Lco+oKJpNYUHIkTrPQd9Rb/SczNshDuICZJQN
-	 vR+tRHx8YO+FWx/LGUdPCwUECiouFvyrxYAOkQxMnGtaPqhDFazRzk9kSsCcvme4UWWsj
-	 ACeVl6P9sKcE4AFw/3q3d4cZgP1bMdZcCx8YTcIWBRRZISazZyjlcJrhNbGiw9cUEiw==
+	t=1793885908;
+	b=uxU/NO7g9RWC51NCwf4Vu/fhPF6wckDIKG1pEvytTttdcsDYevA8O6BW8zvMhnmVTepx
+	 qIylxKXvduu85cH4TVLFIS05UUo45+E0DojsSgn71MHSeM1pnDwJyYuC/Lvry8g3TJQyt
+	 ps1Z7x4U/0FuJ098dzt+15oJKVqb40415XkiqzxCIawpW+a4iDNgdzSOEM3pVHCcDG/LZ
+	 5Yj5nX/Xh0UGw3jpKPCmrqr21/7HqfmirUxbvcDX7lbH4IULsLRNKoY72Ipakw33gg+tC
+	 BpdtGZqDYEdWxo2FCZErCAgFMB3Hhw2/clnwzTkZlxnNCu1dQ5utyLtSPcCrTG0jJfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885878;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793885908;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=nBYAXaQCU5l+uQzIVTFnmiRDO5n3/EOCy+3rVyXrJ2A=;
-	b=yD0gIvHQ0/mnhyvyCvRdHzCgosQ3FUm8LiC9LkHDfQ+MqYf2U0r8EZw6+rtC6WRHYgEE
-	 sqwHFg+uaVEvQ4lnqPp/w8h3fqpcbGiWNpzd6g2y6v5aPS64UgDUA+y+j8GzRrSndsVJ1
-	 MEy4/iGC8YohAexuICu3npqB6qFx9wZVV8nNzT087BunMBK27v0DoVF48qndcgnB5/k4e
-	 xZeW7uFOXm7OpD2cXIrLmQFNN9PtUF5ZOASzFabhu0ASSBUw8iszORdGCZKPEHaozLY8S
-	 sU8QGWnb0TkW57nsiA9+9WJ2htU2F7cXV5A/exBuIkj6UTgtKK29hCmzPNCERgyTaZw==
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=wgo56krwWP6+nuckTvIM2kU9owPJ0evgUp5Ov0Hc770=;
+	b=h9poGl6iwSYFqbsl2HSYp7fcr+pBsB9GguSs4XgR6aHO4pu7rCW6LkD1BcKhnmdy4YaA
+	 dbjjRhKyfsT9UVcUH46JGQJvM1aLRrgV3hHSVAIDw+IJZ/fqVUyjlIJYF+t9gbIynutke
+	 lsDaELO4+Q40ZA3Obf6Q9zHnWk6X3BleglbODbwTA+LwqF4bRnnBCPycRRXd3b4fHye9T
+	 i96VZbXQ0TW9o3jSWe3xXQGSdvJapUVL1bMS3tg/WsNU8Wi6MEksJYEBG+n6Ng5scAHKe
+	 C6ybaty3CRjSUy08S3Xq7w+m9qxVxvEZDw8Di4pxeD8M1yH52jc4bVqByTmxsNHfinw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OfzZAkKU;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gYoAsOxD;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ST7MwXAn;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZFOygiF9;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA7D606A328
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 13:37:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CA7D606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05EA606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 13:38:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A05EA606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OfzZAkKU;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gYoAsOxD
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ST7MwXAn;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZFOygiF9
 Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A59tHIT444523
-	for <stable@vger.kernel.org>; Thu, 5 Nov 2026 13:37:57 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A59tGwI444517
+	for <stable@vger.kernel.org>; Thu, 5 Nov 2026 13:38:26 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=nBYAXaQCU5l+uQzIVTFnmi
-	RDO5n3/EOCy+3rVyXrJ2A=; b=OfzZAkKUfD1eEmEaFTGr5lSyftY4+Uy9As+tC7
-	zpawJRl1vVRjm/7pLMV1QW7s2FMN7T1miiqme/4eUS2GyLft4V70JzizNVyZHpAW
-	a2tgcKkPkbGi4Kt0tPDgje3wiw4V6u/elpP0SzArFlAw3jk07UScv9bxNO24uE7Q
-	ETDyKKaPusLXkFD2gIg3d7z+d1Gl+az6iXwBpyY7z26iM9KR8gCPg/tw2I3SvaFz
-	+TqjAK4w61O3ng4CRES9ROUVHMKW2iJFRVkPjgkFYUHVsfPKs9/ZBfLl0uua7zVK
-	F+mKKXVQ+NchuSPaMDrFNGz3A3Btf8tgaKiJAB8Z0ZaD1+kA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrpaah8u1-1
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=wgo56krwWP6+nuckTvIM2kU9owPJ0evgUp5
+	Ov0Hc770=; b=ST7MwXAnA/4NnC5vKPvD6Ob8cVn5zxekMF7POKc4eTiAwkVOp3q
+	3bXqI6a+OgV/S60mICBcBT0rOW4MdpnpUA0DKqVEm5WgPAe6Tx1INiaMnavgyaqI
+	Dd+gwhIvnzou4YJ3pU7KD2HemD8/wjaGRD8radM5/xWdcEfaw9EKy+xLgOmOvHit
+	QEzbCyi7q1tlA8PWKuMK0HSD4duYcD4st/f3UUZZd/nTblJW9Mfqnhz9Tim21Mmy
+	03B9Chas59l8Xth+yB5A1V/ItyecZeZE4ahOT4sUPJYbyisl4cEFO7JX/cVlyKXv
+	VahmZan4CVwBOx71DCH35EaSnJyl62Bse3A==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrpaah8vm-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 05 Nov 2026 13:37:57 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5338974c0ceso50420601cf.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 05:37:57 -0800 (PST)
+	for <stable@vger.kernel.org>; Thu, 05 Nov 2026 13:38:26 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd5ca3840c5so2249013a12.2
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 05:38:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793885877; x=1794490677; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nBYAXaQCU5l+uQzIVTFnmiRDO5n3/EOCy+3rVyXrJ2A=;
-        b=gYoAsOxDBDE12LWwC0HZqMWH+Inp59lXJv/plXN1oAsal3XAmLfSyca5vQfWE9J1sS
-         kk/i8SYNj7ClXyiJ4J4tJYoQv//L2th8UsWdOO8j7uZPF8G2f7eRjttPCsHBQJ79Ce+w
-         ynq05v+XHxb1ydPsxbH370aB7TNbjhQ+srK5qPMBcH0GoUdhMpkJMEyiczZVm4M7z6ct
-         F7GqsUN6Cn7zrtzbga+tsZuoxtsSkjZVoq6+2jxikVYyN8Y7+73gNH9UeL8fiMqCCdtl
-         ZiGI6KusK9HWb4sTtGi0ytCWbMOf0BWWBO93rFcWJZRT9u7vcHLt9/74L1/7s3wzG8yc
-         KWnQ==
+        d=oss.qualcomm.com; s=google; t=1793885905; x=1794490705; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wgo56krwWP6+nuckTvIM2kU9owPJ0evgUp5Ov0Hc770=;
+        b=ZFOygiF9tU6L817rlGvKuDlpS9OFlrOEPm41jruyRqITfJEcjS3U99Kq4paeXB+elC
+         IZHjTJNibNpO0WKjClffzf7U4IfktvT0UQ7HsadbP9X77cVc49FljN0/ksbRqDn4gqYp
+         nwVbYY7k0paGfKqILF9V/llwquU7rEZ/qav/pAgUQ6gDDEiQYLsPEtbfWt7yi5WChOyW
+         pO/hYBGiKzJAphuHXfBmzx3WIxdfQYz6G+c5Dyp0oitPjPGzrGXawVX80Uo3t0qN+o2h
+         IQoHH3xHaJElAvl8ozAMoROawBtkREk7PgoDVv2aBGig52Gr66innr3k61TtdgfkjU3d
+         RX1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793885877; x=1794490677;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=nBYAXaQCU5l+uQzIVTFnmiRDO5n3/EOCy+3rVyXrJ2A=;
-        b=DlHzN/WLkhMfMaahFdjDylo+ble11b1ZY9NyBFNmw9TE/jq/SQQOTxXMUnJ6TkGltS
-         Nnf1C4W8UfoBAjCg94w54e+nUIi6gVHfadoyXj8smqozPqfpOcuCsFUfDuPVAnLirNHq
-         SGLEFlXmEBKXqcuvQ0F/qDMaPPFTeB4H0CnSkc77noUCxHZ1VwZO+NruoVgDYLqr0JXQ
-         8v8Z/ZOAgP9lvX5VtK7p/RTrMvzpMGIoLSmR64PjGDi9cyZcuon7e8M857403k5VBZ0L
-         85pWTjF3OXK8p2Ng9VoKvvXoC4So5GFAbPe9npxrK3IbqgCvnH6K84Q5fDnMM0EJ3dad
-         k0eQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwOuWTRscbDuwLBNIrnyAPwBXU4J6JFAOgzoTUFfKKPRYYyQY4Y2yDzij/dNdKq6IITCWNW9t8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RvULy4TmNC4uVz4vGx/O2hCRZBebaL8lacddYn2SMU1y2LObh
-	I0qCNefjEHOu1F6Cm+XD0aqsT05O/NgZkz2YMpWPYjGUfRQx+ixW3L3tZGiiJwVD4srMYmLjnXB
-	eWXPHhKWzrl2J7tu2lC19ZWaUVxZmn/DoHQEoXgcNtpGX05wbj2f1M0UL0YU=
-X-Gm-Gg: AYBFou1p+5e4y474i1U5uzW0f8s38gvfIPEuTvNYZYClxT+fKkao0P1UHAIpEBduhrj
-	F+6cSKrM0PVk+7MQFzTVtM9W7Um9t5X478Eij5XFvvmgZtwFrc5GCXb6D5Bzeo+XXHhLOlITQc2
-	iSJjcUhQltJBfTyDv3b86cOOEUiUYbXOxF9TOxVSatHJB8UVY6AJmKSkwq8pl+FYdwL1+2t9KB9
-	3E1vgLsD8kV0FGd/RrqKex0KZavBkj8lnYEdZgGD0I1KvtOTMacoKItKDARDGvDJGwxcrNYGGJ+
-	A8T75/gh7Xm8Fi81hC292CncHWFABhEV5cYiod5bxFV3w6lWVBugTL1X2ZIGAbbM0J32WYTKhd1
-	EicsmvaFy2K1I1tVL7nbPeyfkLdOOQJB7Z9lPvCKtbVcQsvHpDBzVCygloR73RmyLHDJPY45/4x
-	Il/A==
-X-Received: by 2002:a05:620a:444f:b0:93f:2158:9c4a with SMTP id af79cd13be357-94421711b08mr2944063785a.15.1793885876622;
-        Thu, 05 Nov 2026 05:37:56 -0800 (PST)
-X-Received: by 2002:a05:620a:444f:b0:93f:2158:9c4a with SMTP id af79cd13be357-94421711b08mr2944060185a.15.1793885876196;
-        Thu, 05 Nov 2026 05:37:56 -0800 (PST)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bff38c26eesm846167e87.55.2026.11.05.05.37.54
+        d=1e100.net; s=20260707; t=1793885905; x=1794490705;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wgo56krwWP6+nuckTvIM2kU9owPJ0evgUp5Ov0Hc770=;
+        b=EilSlCAfMHffe3zgjJoU7TC1XpK5cc4AAPaXZPsyEWeLT3xOfod1IFCuj9rB7j2rjo
+         KRZr1BoH81yKMhVhXvmaTFLEO9kMYYsKyJo9EQSsSpmpZq2MLO5SIKnqyOrJxvE3jw69
+         jLE/ReECoKatZDri+ToPQbO6ZLTf6/c73aTpofUmyL2Ici1MG2JfJ4qD5g6ENg24/4H2
+         281h/rJyfMhHbgmM8OstiAvXUfhwhdrUQxkDjYDIWUZhlN0pc+v8a2ym9+1PIbDkfPve
+         /E1wBQ/ovnXXg/hl8UTRqSI1odplEw6bXpTH+4A08TuxMXZfzuZxmTXTh40iVsk4y72J
+         0KUQ==
+X-Gm-Message-State: APuU4Z+l/0lgh8dolhWnG06mS/Dx8vOWtcLOJJveeJ+I2mmPicnc8YmL
+	5kxXr3K/aSn/ZzcWvP7pT3GXDlaXv2Rju5IbXXsnsBMwRIJLcgHusTseSmtHA0W1wVEtadtpfJH
+	f1ry8WMc3UOnQ8RoPEdgPCjh2nhMtbncxIN3bGOuJbFRQ7/Va8NsL4uU9tBX4Vsh3+vg=
+X-Gm-Gg: AYBFou1iLyuq+pWeuymVfBTiY4nyzdzBtE/69uknFEMO9aK6s8VLW6a5FIWFL6ct8AN
+	/1cnvOu2BsPcR8WqaBsTYMnCVOJUvOTY2jaflXh6ElRXCXlk114Y11Nz+R6/QMmH/iXK5mQuXj+
+	Jim4WLDozjaD2KynJgayZIUfAH0DHtgPOtFnzwkb2x7HKrw3wi3FjzWu2Lw6fMlR6TEvsBBl+OB
+	2gKPicOPFnXrCUPHrhxmz2wC/TUxf21+TqGIXsfOF+PsDgVfY+AbPVakJ8gbl8qwjYRxePiVPrk
+	NCPX3OQisREV0v5wIZiMfpAjNUPyS5ekCXscrGjkBAUaz4EXgIlHt+foGf6CZLnpSqZjii42hKa
+	fgmVKKtKSmWCNbXraG24Quk7MJRFN6C3rIZmR3U8WUGF3EdmMkWirznfz31lI8AJJtpkn0d2fXD
+	FFxI+9tk+ZuGUYqHgJFL1eQCLC6qj61pLEZr+seHk=
+X-Received: by 2002:a05:6a21:7309:b0:3e8:b7fd:6266 with SMTP id adf61e73a8af0-3e9289cf9c5mr17688542637.42.1793885905074;
+        Thu, 05 Nov 2026 05:38:25 -0800 (PST)
+X-Received: by 2002:a05:6a21:7309:b0:3e8:b7fd:6266 with SMTP id adf61e73a8af0-3e9289cf9c5mr17688522637.42.1793885904487;
+        Thu, 05 Nov 2026 05:38:24 -0800 (PST)
+Received: from zhonhan-gv.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb4694a0e0sm2341480a12.20.2026.11.05.05.38.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 05:37:55 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 05 Nov 2026 14:37:52 +0100
-Subject: [PATCH] gpio: of: fix potential misconfiguration of hogged lines
+        Thu, 05 Nov 2026 05:38:24 -0800 (PST)
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+To: zhongqiu.han@oss.qualcomm.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH] cpufreq: Only cache resolved frequency in cpufreq_driver_resolve_freq()
+Date: Thu,  5 Nov 2026 21:38:21 +0800
+Message-ID: <20261105133821.1251727-1-zhongqiu.han@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,56 +114,25 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-gpiolib-of-hog-uninitialized-v1-1-fcaeaccefab6@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAK+G7GoC/x3MQQqDMBAF0KvIrDuQES20VykuopnED5JIYkUU7
- 97Q5du8i4pmaKF3c1HWHQUpVsijoWm2MSjDVVNr2qeI6TmsSAtGTp7nFPgbEbHBLjjVsZH+5W0
- npnOearFm9Tj+/We47x9yeiNnbgAAAA==
-X-Change-ID: 20261105-gpiolib-of-hog-uninitialized-0159fa4104df
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        Mika Westerberg <mika.westerberg@linux.intel.com>,
-        Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1541;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=bt5WAnktT/7z4dpWnfgI0LPlqoaHeMaSqU7OOV98urE=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq7IayGr6XLD2TmtYggAWFsuPVUX5xi9oBIRZoU
- m/TWN1Ci1SJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCauyGsgAKCRAFnS7L/zaE
- wz8vD/9roQsE0oxTdin62mb4TKCj27aEGH4Zu66ck3gRawTNqF1d54P18f4PaM2hBp2mKKBQV2q
- W2nUcO3jXdtOhp8o5EACR9OoF3ajTJ8czJbRCcjg9v5uAN69hjn8a8PQL9+x/xMc6Mx3/FfeuuV
- G/eJQK4uCJgeZcQ8ef+XZ3of9ExJQQm3TsflmaYzuJg4p6U7hO4v7vds4RPdlPvWza1igVa/bha
- lmViSg9DpHxPP61M3nrwMDjMfSHJuyitu/TkL1cV4R1ADYkqPAeKwOKIzlClm9vqTs+E10XK83T
- oq/2Nd3HW4dltcJzDkDmSFMOTUOev5hnZL6o1eUujy2fy094H5lJqdE1WdnraVG2OkSfJEEuwyR
- Ad0oZPlogbWClqtKyTVMNRaupLKUcgF+KAG0M34zcGu+HK+cQ3LyWRNmAF94c31D1I3UFiFi2WZ
- TBt7HNFjwaPOUSY0bgD1pbPy9kvwUPUaDEGlJzDfNEBk4j3UzoW3DZvTzR8ywgxmtcx3PIBRFpR
- eUv6wQkAWt2RH4TKn58F5Qx/13CAyGXvcGg0MzN89L6PkdMh3rwI4l4b+dmu/FixlPqRrgYbmgb
- um+IdvCqe9mdUD8md5PBsDTbeJ5OmAMKcyjPpI/GNH1Yuvw0YNqs/nbXKstz7utcutB8mSs1e9s
- 7aTgD55njnEOdGQ==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1NCBTYWx0ZWRfX+et7mpIC+AD3
- GXJ2qeVez9q4Hn3NnUUOB4pQ3jdHtH2dtWrdxyPDcT+cIv4rhMnS/2kQA/fKijTAn6bapCSyYC2
- /4UTdTkuoossQ54wNIpQZLxfLSX9gLMLaXuvZXZXSKSiz2tPtHgrkcV7oY9b/qxDaNVQDsIOg62
- 7gB8ciXBFIixdptnW3K8V2tPdMFTt7qcCs00SxttnJjaE47i5ds794om34x0pKxv44P8Sou6mml
- WIv9RbX7WLFpLTBT1Fh5wRNprKELxAaHuqXF5l3E1ttyF998+PH0ztm5lMqQrUd5ek0tgv4qfOP
- HCzZwK+Si5y5Iv6vgQmUawxggljBTWUkOpmv+zm5DjF9LLB2pctOFtidcwggINVtgvUzkARI27y
- BmLUmAfUjfzqnqHYS89rwIg7J44TaiE9SbYKgJ1szWAPZSeZxO4DFYL6hwW/jTthWvIbSUMcp6z
- 7FEsmX4KYE+0Zk8edxQ==
-X-Proofpoint-GUID: 2d3-xwr8yOlWHB8NqzZiei1_ZrD2Rbr9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1NCBTYWx0ZWRfX6R13qAbkDmCU
- uhfIpfxRKKCxQgM2YFKj9fQn2blxlAjsNzqp3f8UPhVFiPCKiqq+siUXsJvyOBNumL9tkYeLzCO
- JljXqk0xmyPlUP9uBUafNTMeYeYkfY8=
-X-Proofpoint-ORIG-GUID: 2d3-xwr8yOlWHB8NqzZiei1_ZrD2Rbr9
-X-Authority-Analysis: v=2.4 cv=WOXqzXsR c=1 sm=1 tr=0 ts=6aec86b5 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1NCBTYWx0ZWRfX8oD1wgabog0H
+ hjLe/WEOoiuLQP7Qqp/sQ260Lg/YTy0cdjxZMmOQJeUm8Z20zYqjvT/gg7wIeLichn7gppM0XKN
+ XmwKn69rA2Fwtz+3zD64RdQAJCsal6UUlmomOtjH/fwAV5adKl6PdNfFaomQM3h5ygzzEHGkjFP
+ ryGcp0Jc/fv+Vn7JIs006sQzROA1KU8hmtFlqvSTWmHyCSMaoLSobe7vkRu9PLWB0dj/gbntRy6
+ YUCaGHGjmkk74fgBQp7rYUahR+xJ+2rBmtkJ5UViTo6rDIbeuKguQaGKkR0RARe+TOjXWnzwU63
+ MtF6XUGEo5YFxZSkMW/t1I7hQNP9NMglF2hElsr9PtaS3jdSYYsga0ezicIqb5qmlfra67b76oY
+ xvvfvsWzIR/rdRdQ6vflASX+/Jm1EVPP/eP/vg1DmsMaXiyBm6IZTIsv/j++QMub52gDI3cgTtH
+ 6FkcELKAT3Z0mLqxvXg==
+X-Proofpoint-GUID: rMQ-XwUJiDkqrMVCPWxJ_QNv7BlCVTy9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1NCBTYWx0ZWRfX36mkXeefZAPY
+ iB+WcvlVX4xrcOZ6uWqyuTtajZIMFtVqwwB3l5ZOTPvfU3PcZr79l8pKGnW9losOnjbchgqzEI/
+ Lzy7j0yW4Ob3NNCoKg7JKl7cSEe/LwU=
+X-Proofpoint-ORIG-GUID: rMQ-XwUJiDkqrMVCPWxJ_QNv7BlCVTy9
+X-Authority-Analysis: v=2.4 cv=WOXqzXsR c=1 sm=1 tr=0 ts=6aec86d2 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=pdO2fDfkyHolN64SMbIA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22 a=GvGzcOZaWPEFPQC_NcjD:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=ZLhjMWIiCFWLY5ZuiNwA:9 a=bFCP_H2QrGi7Okbo017w:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
@@ -174,43 +143,175 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
  definitions=main-2611050054
 
-In of_gpiochip_get_lflags() the local variable xlate_flags is declared
-without being initialized before its address is passed to
-of_xlate_and_get_gpiod_flags() when processing a devicetree gpio-hog
-child node. If a driver uses an of_xlate() callback that doesn't update
-the flags argument (like gpiochip_fwd_delay_of_xlate()) we'll end up
-passing that uninitialized value to of_convert_gpio_flags(), potentially
-misconfiguring the hogged GPIO.
+Commit e3c062360870 ("cpufreq: add cpufreq_driver_resolve_freq()") added
+policy->cached_resolved_idx so that "a subsequent fast_switch operation
+can avoid repeating the same lookup", and made cpufreq_set_policy()
+invalidate the cache instead of filling it. That is, the cached index is
+only meant to be used by the frequency switch immediately following the
+resolution that has produced it.
 
-Initialize xlate_flags to 0.
+However, two other places now access the cache without synchronizing
+with its other users:
 
-Cc: stable@vger.kernel.org
-Fixes: d1d564ec4992 ("gpio: move hogs into GPIO core")
-Closes: https://sashiko.dev/#/bug/linux-2bb44847-fd6e-406c-878d-9739da2cb8b5
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+ * Since commit f9ccdec24d91 ("cpufreq: Reuse cpufreq_driver_resolve_freq()
+   in __cpufreq_driver_target()"), __cpufreq_driver_target() reads the
+   resolved index back from the cache before calling ->target_index().
+   sugov_work() calls it without sg_policy->update_lock, so the scheduler
+   path (a tick on the policy CPU or a remote update) can overwrite the
+   index via cpufreq_driver_resolve_freq() meanwhile. This matters when
+   sugov_hold_freq() discards the lower frequency resolved there, leaving
+   the CPU below the frequency schedutil has kept for it.
+
+  CPU0 (sugov_work())                  CPU0 (tick interrupt)
+  __cpufreq_driver_target(f_i)
+    __resolve_freq()
+      cached_resolved_idx = i
+                                       sugov_update_single_freq()
+                                         get_next_freq()
+                                           cpufreq_driver_resolve_freq(f_k)
+                                             cached_resolved_idx = k
+    __target_index(cached_resolved_idx)
+      ->target_index(policy, k)
+
+ * Since commit 151717690694 ("cpufreq: Make policy min/max hard
+   requirements"), cpufreq_set_policy() updates the cache as a side effect
+   of __resolve_freq(), which can race with governors switching frequencies
+   without policy->rwsem (schedutil, ondemand, conservative), and a similar
+   race was addressed by commit 7491cdf46b5c ("cpufreq: Avoid using
+   inconsistent policy->min and policy->max"). qcom-cpufreq-hw and
+   apple-soc-cpufreq ->fast_switch() read the cached index directly too.
+
+  CPU0 (sugov_work(), work_lock held)  CPU1 (handle_update(), rwsem held)
+  __cpufreq_driver_target(f_i)
+    __resolve_freq()
+      cached_resolved_idx = i
+                                       cpufreq_set_policy()
+                                         __resolve_freq(min)
+                                           cached_resolved_idx = j_min
+    __target_index(cached_resolved_idx)
+      ->target_index(policy, j_min)
+
+In both cases, schedutil does not call the driver again until its
+selection changes, so the CPU can get stuck at a frequency it has not
+selected. All drivers implementing ->target_index() are affected.
+
+The cache is only consumed by ->fast_switch() right after
+cpufreq_driver_resolve_freq(), so only update it there and use a local
+index in __cpufreq_driver_target().
+
+Fixes: f9ccdec24d91 ("cpufreq: Reuse cpufreq_driver_resolve_freq() in __cpufreq_driver_target()")
+Fixes: 151717690694 ("cpufreq: Make policy min/max hard requirements")
+Cc: stable@vger.kernel.org # 5.15+
+Signed-off-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
 ---
- drivers/gpio/gpiolib-of.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/cpufreq/cpufreq.c | 38 ++++++++++++++++++++++++++++++--------
+ 1 file changed, 30 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
-index 25b97109f97ea88c83c744e496e24263ee71b8bb..8bc4562608e1141983300132b90758ce68d7625d 100644
---- a/drivers/gpio/gpiolib-of.c
-+++ b/drivers/gpio/gpiolib-of.c
-@@ -753,7 +753,7 @@ int of_gpiochip_get_lflags(struct gpio_chip *chip,
- 			   struct fwnode_reference_args *gpiospec,
- 			   unsigned long *lflags)
- {
--	enum of_gpio_flags xlate_flags;
-+	enum of_gpio_flags xlate_flags = 0;
- 	struct of_phandle_args args;
- 	struct gpio_desc *desc;
+diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+index 54dde8419bdc..68009918e80a 100644
+--- a/drivers/cpufreq/cpufreq.c
++++ b/drivers/cpufreq/cpufreq.c
+@@ -471,10 +471,17 @@ void cpufreq_disable_fast_switch(struct cpufreq_policy *policy)
+ }
+ EXPORT_SYMBOL_GPL(cpufreq_disable_fast_switch);
  
-
----
-base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
-change-id: 20261105-gpiolib-of-hog-uninitialized-0159fa4104df
-
-Best regards,
++/*
++ * Note that this does not update the cached frequency lookup in @policy,
++ * because it may be running in parallel with a frequency switch carried out by
++ * the governor that uses the cached index.  If @resolved_idx is not NULL, the
++ * index of the resolved frequency in the frequency table is stored in the
++ * location pointed to by it instead.
++ */
+ static unsigned int __resolve_freq(struct cpufreq_policy *policy,
+ 				   unsigned int target_freq,
+ 				   unsigned int min, unsigned int max,
+-				   unsigned int relation)
++				   unsigned int relation, unsigned int *resolved_idx)
+ {
+ 	unsigned int idx;
+ 
+@@ -484,8 +491,8 @@ static unsigned int __resolve_freq(struct cpufreq_policy *policy,
+ 		return target_freq;
+ 
+ 	idx = cpufreq_frequency_table_target(policy, target_freq, min, max, relation);
+-	policy->cached_resolved_idx = idx;
+-	policy->cached_target_freq = target_freq;
++	if (resolved_idx)
++		*resolved_idx = idx;
+ 	return policy->freq_table[idx].frequency;
+ }
+ 
+@@ -505,6 +512,7 @@ unsigned int cpufreq_driver_resolve_freq(struct cpufreq_policy *policy,
+ {
+ 	unsigned int min = READ_ONCE(policy->min);
+ 	unsigned int max = READ_ONCE(policy->max);
++	unsigned int freq, idx;
+ 
+ 	/*
+ 	 * If this function runs in parallel with cpufreq_set_policy(), it may
+@@ -517,7 +525,20 @@ unsigned int cpufreq_driver_resolve_freq(struct cpufreq_policy *policy,
+ 	if (unlikely(min > max))
+ 		min = max;
+ 
+-	return __resolve_freq(policy, target_freq, min, max, CPUFREQ_RELATION_LE);
++	target_freq = clamp_val(target_freq, min, max);
++	freq = __resolve_freq(policy, target_freq, min, max, CPUFREQ_RELATION_LE,
++			      &idx);
++
++	/*
++	 * Cache the lookup result for the subsequent ->fast_switch() call, which
++	 * is the only user of it.
++	 */
++	if (policy->freq_table) {
++		policy->cached_resolved_idx = idx;
++		policy->cached_target_freq = target_freq;
++	}
++
++	return freq;
+ }
+ EXPORT_SYMBOL_GPL(cpufreq_driver_resolve_freq);
+ 
+@@ -2355,12 +2376,13 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
+ 			    unsigned int relation)
+ {
+ 	unsigned int old_target_freq = target_freq;
++	unsigned int idx = 0;
+ 
+ 	if (cpufreq_disabled())
+ 		return -ENODEV;
+ 
+ 	target_freq = __resolve_freq(policy, target_freq, policy->min,
+-				     policy->max, relation);
++				     policy->max, relation, &idx);
+ 
+ 	pr_debug("CPU %u: cur %u kHz -> target %u kHz (req %u kHz, rel %u)\n",
+ 		policy->cpu, policy->cur, target_freq, old_target_freq, relation);
+@@ -2393,7 +2415,7 @@ int __cpufreq_driver_target(struct cpufreq_policy *policy,
+ 	if (!cpufreq_driver->target_index)
+ 		return -EINVAL;
+ 
+-	return __target_index(policy, policy->cached_resolved_idx);
++	return __target_index(policy, idx);
+ }
+ EXPORT_SYMBOL_GPL(__cpufreq_driver_target);
+ 
+@@ -2666,14 +2688,14 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
+ 	 * concurrently by cpufreq_driver_resolve_freq() during the update.
+ 	 */
+ 	freq = __resolve_freq(policy, new_data.max, new_data.min, new_data.max,
+-			      CPUFREQ_RELATION_H);
++			      CPUFREQ_RELATION_H, NULL);
+ 	if (freq != policy->max) {
+ 		WRITE_ONCE(policy->max, freq);
+ 		policy->update_limits = true;
+ 	}
+ 
+ 	freq = __resolve_freq(policy, new_data.min, new_data.min, new_data.max,
+-			      CPUFREQ_RELATION_L);
++			      CPUFREQ_RELATION_L, NULL);
+ 	freq = min(freq, policy->max);
+ 	if (freq != policy->min) {
+ 		WRITE_ONCE(policy->min, freq);
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.43.0
 
