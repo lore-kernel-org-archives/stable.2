@@ -1,87 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=93.188.205.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881272;
-	b=XRQK5LpcWY4Y9dqK5+41trtbPpT7jhqfhDs+3UBnWDav68DRIIxT23dYxjjumG0mmbpI
-	 RAuZ+U98+6a9WrhU9Ft6f8kUXy4QVcdfVX8JANbxUaSPfjtLde5+ma+KZYISLPOAmbRmK
-	 F0QU6c2Jbf0DPJOamggQzDfV6VovBLiEKwGS4ZiotAQ7fYr8dWgoSEdmr7HZ36aBsZE6w
-	 qSyCLGc/ik+X77DapaB1jHPJdee4fQra66O7zsDFvil7sZ2rKQT60r9pkWd1CqCxjElH1
-	 fLkVlGzWQx5jEpRZZzAAa2l3jJ52K3XudlVgDAK53Rrdffu5oqNuNtv0vwtpYYece8A==
+	t=1793881273;
+	b=bnaSvP4r3Po3mcQGZlIPPiCjz2IAfiQOaHA79m859UvUz1lDBLikh0npscbK4kSfPe4g
+	 23myTlI6AerhmfnyjfdoNs2aW6JgAXK9GBdIYVgPAYZNXLRjBy+Eit307Yg3zm5hpTgsf
+	 Y1kDtibqyqpVOhbVD8gyPKZ+1gxp4Maa74ABJRRCsaT2IcqHqKPZ1qa1MJVIkR6yMbP4v
+	 wyxlEXHuGEo2EFaRN+0N5M4zTDuDP8PH6C2IG02Q/hg9XR0yrfotfhCXpIIQZGWGjeGHT
+	 GXp6Ko0jS0ejBdM50FWtNmAO97AgV7jYG0XxJDLxxm5pmiAlk6TWgDjq2ra6F1tcN2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881272;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=827W8Bv4XvdqTsXocFrr5OhNWM/nbGthPBlHBnMvyIw=;
-	b=Lapa0E87ZN5+iyDCrYFn8Kt1X4qtFdJ1JEHAbLPNWtqivLUbicQw5w/Ss8zK8pOucep/
-	 fbMTn4XSWA+7055CDpkGBh3NJb3aCFq2jlFsIg8P85xwqnHPPGAm4Gs37SPYOReTCToqV
-	 8Hqkbsx0GZwGcDlulEUqyUI13w0vYJs7JTZBGspXPuLG6GJSqg7K3Cd1uvic4INO/L4qi
-	 +Y1t7hQnjNdjonUWZSAYL/FTfDXc6PHzr6HeBYjnOkQss/z16vdmdvZdHsVZpYoz3dCSp
-	 VamBzI9SwGcyUSWJ8oUBDcs3DY9Dj7btM0IMWlcq4Jt/mor3G0ND6yTkom0lgeIyjGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881273;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=qLuvYgtpasAKkOVBQjswAHWXysKN7cRsF9p74hK2S2g=;
+	b=irLVa4Om/1MtLqK05TY68QusPcX+vrXn+PeKmnjdZym5OzeUOgP+UrlhWuqEuyTr0fGA
+	 sgCZtJlTXPHf5LSteNpHOJG5kLrTBKRrbWN0l3EoiqJQs/Ly8N5pa/h/d76m3G5n66x9u
+	 MK+TGS5Kn62hzrn8g0CxF2OltKaGLbdgxmszCODJQtuNkBw9+dDCf6etJT4eK5AfzMLog
+	 ZR9d4Nslo01wovKS1QVCSEiR0Xnp/Z3igGfbGFxrsG4oc9aetI2tMdxOTjZDF6DVwPE8t
+	 Qp9wjUjx9fmz59HrdWJxBl/HHPKtAvLmoyPtVTmvKvl7ZzrPBluqQxZQBhApNp00MDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=Vn6HXFxS;
-	arc=none smtp.remote-ip=93.188.205.243
-Received: from mail-gw02.astralinux.ru (mail-gw02.astralinux.ru [93.188.205.243])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KhcIIhhy;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6n5z2yLa;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KhcIIhhy;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6n5z2yLa;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2886606D809;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9454606D805;
 	Thu,  5 Nov 2026 12:21:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2886606D809
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9454606D805
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=Vn6HXFxS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1793881269;
-	bh=/NNL9SQ1CVMDnRywr9WJ/sjPBHVESoryl5LZcxDT9HY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Vn6HXFxSO3qYbreVpqIA4D8esHMMih9wrjgJs0SICjZvAioXe9HU3NpjC9WIb8wHu
-	 vjsEarU9SR/m738vxvdI8B7IGrcCC9BsskqgtvYmWGSdYKv0ZO0HuvAMzDZlL2dl7w
-	 eROAdxGb7tM2wDTnXTYQVeLOQ4sb0z+vMAGfrSJS9Ap0qCLhYubnqo4oU7figograU
-	 a3kI6IbEvdTn431iUDdd2as/mXbI6vcnFv4zI2JwGrpoSzhSFD7FMVKSK5otaYMiLg
-	 1SOUnu3q/kYhJcMDttDMT06nHPQlMdie6xvZjfnlApnHf4CMrH+gal6xxOz1eXwkqM
-	 A7oP1MVF80LTw==
-Received: from gca-msk-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw02.astralinux.ru (Postfix) with ESMTP id 910AC1F6FA;
-	Thu,  5 Nov 2026 15:21:09 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.13])
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KhcIIhhy;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6n5z2yLa;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=KhcIIhhy;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=6n5z2yLa
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail-gw02.astralinux.ru (Postfix) with ESMTPS;
-	Thu,  5 Nov 2026 15:21:08 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.31.238])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jL1cg509zz2GXX;
-	Thu, 05 Nov 2026 15:21:07 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Jon Mason <jdmason@kudzu.us>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Allen Hubbe <allenbh@gmail.com>,
-	Koichiro Den <den@valinux.co.jp>,
-	Leon Romanovsky <leonro@nvidia.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	ntb@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15 3/3] ntb: Store original DMA address for future release
-Date: Thu,  5 Nov 2026 15:20:33 +0300
-Message-ID: <20261105122035.2021-4-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
-In-Reply-To: <20261105122035.2021-1-mdmitrichenko@astralinux.ru>
-References: <20261105122035.2021-1-mdmitrichenko@astralinux.ru>
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2479F1F78A;
+	Thu,  5 Nov 2026 12:21:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793881270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qLuvYgtpasAKkOVBQjswAHWXysKN7cRsF9p74hK2S2g=;
+	b=KhcIIhhyXURXrxsFKNrS5/KQBWOxVAoWljoB38cQtiYrDrFV8sed3xw/zXNPMim53TtxIA
+	7ZbhM5diXv9jAcO7L3DVJNrAZi+K4lsRTnJWaMYMlYugOK16bRU+y/fGzxnSLhmlcVsvyG
+	csbL8slrND45GD1FIeOECoj0f7hJMwQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793881270;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qLuvYgtpasAKkOVBQjswAHWXysKN7cRsF9p74hK2S2g=;
+	b=6n5z2yLaHgAEN7/Tcd0WzA7lHAxJSKkismyyu/ILXPkdtd7h0WOyyJxNx+8962qMQ9rlAn
+	/2Drg5p7a9P7WmBA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793881270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qLuvYgtpasAKkOVBQjswAHWXysKN7cRsF9p74hK2S2g=;
+	b=KhcIIhhyXURXrxsFKNrS5/KQBWOxVAoWljoB38cQtiYrDrFV8sed3xw/zXNPMim53TtxIA
+	7ZbhM5diXv9jAcO7L3DVJNrAZi+K4lsRTnJWaMYMlYugOK16bRU+y/fGzxnSLhmlcVsvyG
+	csbL8slrND45GD1FIeOECoj0f7hJMwQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793881270;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qLuvYgtpasAKkOVBQjswAHWXysKN7cRsF9p74hK2S2g=;
+	b=6n5z2yLaHgAEN7/Tcd0WzA7lHAxJSKkismyyu/ILXPkdtd7h0WOyyJxNx+8962qMQ9rlAn
+	/2Drg5p7a9P7WmBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B0198134F6;
+	Thu,  5 Nov 2026 12:21:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id r7UFIbV07Gp3IAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 12:21:09 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 1B713B6D8; Thu, 05 Nov 2026 13:21:05 +0100 (CET)
+Date: Thu, 5 Nov 2026 13:21:05 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
+	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
+	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
+	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 33/38] proc: sysctl: copy to and from userspace
+ without holding the table
+Message-ID: <cbocsd4qe254dc7mgzk3jkieahrp5kfxpnfh5owopkulg5oo6l@jd5sw3l4nw5c>
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+ <20261102-work-procfs-bugfixes-v1-33-59422ed3e465@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,71 +131,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/05 10:44:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {date_rfc_vio_soft_silent}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;lore.kernel.org:7.1.1;new-mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1;127.0.0.199:7.1.2, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207265 [Nov 05 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/05 10:48:00 #28800686
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/11/05 10:44:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-33-59422ed3e465@kernel.org>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[60];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email]
+X-Spam-Score: -11.30
 
-From: Leon Romanovsky <leonro@nvidia.com>
+On Mon 02-11-26 15:21:48, Christian Brauner wrote:
+> proc_sys_call_handler() grabs the table, copies in what is written,
+> calls the handler and copies what it produced out to userspace before
+> it lets go of the table again. Unregistering a table waits until nobody
+> uses it anymore. So a reader or writer whose copy faults for as long as
+> it wants, with userfaultfd or a stalled FUSE mapping, keeps
+> unregister_sysctl_table() waiting, and its callers like to hold locks
+> while they do that. addrconf unregisters the ipv6 sysctls of a device
+> with RTNL held, so a stalled read of /proc/sys/net/ipv6/conf/<dev>/mtu
+> holds up every RTNL user until the reader gives up.
+> 
+> Copy in before grabbing the table and copy out after letting go of it,
+> like procfs and kernfs do for their files. The buffer is ours, nothing
+> needs the table for the copies.
+> 
+> That moves the allocation and the copy in before the permission check.
+> A write that can't be copied in, or a request that is too large, now
+> fails with -EFAULT or -ENOMEM where it used to fail with -EPERM.
+> 
+> Fixes: 330d57fb98a9 ("[PATCH] Fix sysctl unregistration oops (CVE-2005-2709)")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-commit da6d997ac556479c112554ab5d95cbd04683eb11 upstream.
+Looks good. Feel free to add:
 
-The DMA API requires that dma_free_attrs receive the exact dma_handle
-originally returned by the allocation function. Do not modify it.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Fixes: fc5d1829f9bf ("NTB: transport: Try harder to alloc an aligned MW buffer")
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Link: https://lore.kernel.org/r/20260501-dma-attrs-debug-v2-1-8dbac75cd501@nvidia.com
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-80884.
+								Honza
 
- drivers/ntb/ntb_transport.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-index 2fca53b8e486d..fd3af0058f08c 100644
---- a/drivers/ntb/ntb_transport.c
-+++ b/drivers/ntb/ntb_transport.c
-@@ -211,6 +211,7 @@ struct ntb_transport_mw {
- 	void *alloc_addr;
- 	void *virt_addr;
- 	dma_addr_t dma_addr;
-+	dma_addr_t original_dma_addr;
- };
- 
- struct ntb_transport_client_dev {
-@@ -800,7 +801,7 @@ static void ntb_free_mw(struct ntb_transport_ctx *nt, int num_mw)
- 
- 	ntb_mw_clear_trans(nt->ndev, PIDX, num_mw);
- 	dma_free_coherent(dma_dev, mw->alloc_size,
--			  mw->alloc_addr, mw->dma_addr);
-+			  mw->alloc_addr, mw->original_dma_addr);
- 	mw->xlat_size = 0;
- 	mw->buff_size = 0;
- 	mw->alloc_size = 0;
-@@ -823,6 +824,7 @@ static int ntb_alloc_mw_buffer(struct ntb_transport_mw *mw,
- 		return -ENOMEM;
- 	}
- 	virt_addr = alloc_addr;
-+	mw->original_dma_addr = dma_addr;
- 
- 	/*
- 	 * we must ensure that the memory address allocated is BAR size
+> ---
+>  fs/proc/proc_sysctl.c | 50 ++++++++++++++++++++++++++++----------------------
+>  1 file changed, 28 insertions(+), 22 deletions(-)
+> 
+> diff --git a/fs/proc/proc_sysctl.c b/fs/proc/proc_sysctl.c
+> index 38b61887b59c..2150cf842919 100644
+> --- a/fs/proc/proc_sysctl.c
+> +++ b/fs/proc/proc_sysctl.c
+> @@ -602,14 +602,36 @@ static ssize_t proc_sys_call_handler(struct kiocb *iocb, struct iov_iter *iter,
+>  		int write)
+>  {
+>  	struct inode *inode = file_inode(iocb->ki_filp);
+> -	struct ctl_table_header *head = grab_header(inode);
+>  	const struct ctl_table *table = PROC_I(inode)->sysctl_entry;
+> +	struct ctl_table_header *head;
+>  	size_t count = iov_iter_count(iter);
+>  	char *kbuf;
+>  	ssize_t error;
+>  
+> -	if (IS_ERR(head))
+> -		return PTR_ERR(head);
+> +	/* don't even try if the size is too large */
+> +	if (count >= KMALLOC_MAX_SIZE)
+> +		return -ENOMEM;
+> +	kbuf = kvzalloc(count + 1, GFP_KERNEL);
+> +	if (!kbuf)
+> +		return -ENOMEM;
+> +
+> +	/*
+> +	 * Copy in before grabbing the table and copy out after letting go of
+> +	 * it. Unregistering the table waits for us and a copy that faults can
+> +	 * take as long as userspace wants.
+> +	 */
+> +	if (write) {
+> +		error = -EFAULT;
+> +		if (!copy_from_iter_full(kbuf, count, iter))
+> +			goto out_free_buf;
+> +		kbuf[count] = '\0';
+> +	}
+> +
+> +	head = grab_header(inode);
+> +	if (IS_ERR(head)) {
+> +		error = PTR_ERR(head);
+> +		goto out_free_buf;
+> +	}
+>  
+>  	/*
+>  	 * At this point we know that the sysctl was not unregistered
+> @@ -624,28 +646,15 @@ static ssize_t proc_sys_call_handler(struct kiocb *iocb, struct iov_iter *iter,
+>  	if (!table->proc_handler)
+>  		goto out;
+>  
+> -	/* don't even try if the size is too large */
+> -	error = -ENOMEM;
+> -	if (count >= KMALLOC_MAX_SIZE)
+> -		goto out;
+> -	kbuf = kvzalloc(count + 1, GFP_KERNEL);
+> -	if (!kbuf)
+> -		goto out;
+> -
+> -	if (write) {
+> -		error = -EFAULT;
+> -		if (!copy_from_iter_full(kbuf, count, iter))
+> -			goto out_free_buf;
+> -		kbuf[count] = '\0';
+> -	}
+> -
+>  	error = BPF_CGROUP_RUN_PROG_SYSCTL(head, table, write, &kbuf, &count,
+>  					   &iocb->ki_pos);
+>  	if (error)
+> -		goto out_free_buf;
+> +		goto out;
+>  
+>  	/* careful: calling conventions are nasty here */
+>  	error = table->proc_handler(table, write, kbuf, &count, &iocb->ki_pos);
+> +out:
+> +	sysctl_head_finish(head);
+>  	if (error)
+>  		goto out_free_buf;
+>  
+> @@ -658,9 +667,6 @@ static ssize_t proc_sys_call_handler(struct kiocb *iocb, struct iov_iter *iter,
+>  	error = count;
+>  out_free_buf:
+>  	kvfree(kbuf);
+> -out:
+> -	sysctl_head_finish(head);
+> -
+>  	return error;
+>  }
+>  
+> 
+> -- 
+> 2.53.0
+> 
 -- 
-2.43.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
