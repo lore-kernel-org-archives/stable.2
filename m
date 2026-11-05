@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793849370;
-	b=niZpBel9h7p5pw/x6SAl4g9JFg23CJzfOys6ueO44OFp6+DVE7+rUsQ1jTJFA9sYxTEZ
-	 My9bJ8IGZ1fL5oDx9TxXDP5ytvrTBiF/tJ0Czr6yZlZWuhyEHfNS0iCXmj5FbTlqchu8Q
-	 OTSsBQ5STllFBba2DUyFZG+YW8EqNI5sOjb5KoFg1dTeyw8vyezLPONjLdMUFejl0m57b
-	 mS/yQwGhWJI/TsoAo6D0NzbG6bhyQPNDep9u0rVtcLC3uVTGSNYX2DKvpQeEbo/joT6y5
-	 9pWI9WXclUR0P2gx9dHY9+iwPq3RwBkxYGbXVSDlDIKQDv2ohYHdFXJ6wrcMzpOn09g==
+	t=1793849376;
+	b=LlGIuldZNmqyLAs8fDsKbOAcv6VqwonqDpgowYgC5u0lql0nE0pglfeeoToa7bRcV/xj
+	 It90X52mq9cXl/0JG3yB0odPJuNqnAmSweBXFuf0CNbmRnDHuJRq+Hp4YwGSxdKE02dpa
+	 nG/MercK5sIWUGtSHmaXmjkmvPIpjHmpKBLZ3rXaJkpMRu09RleQB4pGjrJOh29eWhziA
+	 4+l+tbVr9RPmVqWbj/qlkGV6JOPwK1aApWsg5vGERKBV4/HbVPHSRv9Vc+KH24ZMAkXD8
+	 Oc7KUPz++RrptX0U5dKNJjC3ax7nFEFTbruf/vGLLIKnkamTwXz7ulPdVSGcTtUts2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793849370;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793849376;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7MLhfQXO+xkYp2XQhzSm3g9OBFIo08KPg7MNSZZ7E6E=;
-	b=dnBj9JRhK57wLlZl6DT6c8/Q5UG3yQpOP5ka00omRwo40rsVPL0j7ndgLcPrjOQKox3x
-	 c6xU9f1zUEn4ZFveNkdH1yEmfFX8VlJO5P88HIK2VUsXm6hOOIxai/sjvp6ay5krn+yPe
-	 MK+NGhradU70yRX3jLXmJY47q0373XCsZDRDoxmz00LIMgdYED7hA2rD9cwo9rYNoEXyh
-	 pv/F4QEQ1WmHmkNs74zF3DF3OI67f9BqPYZlFvbpsH8+leyR0DKseGt3G+JuKnCniViOf
-	 0/qXNs0u65FdmxzX4uD8mFKNWJr9rU+59SqscNTvXheEK9pxM7C8xkHzgKDEmrHWo0g==
+	bh=xgusUtW1HEDu0ocyP4YnpPOOX8nPhs+UJDFn8UI/yDI=;
+	b=tLtQOQKtB5GfNHh/39CAQ+pAKacI/yo4xufX302xIAu/cTGQEzgp7Yko9UQs6wU5LuQ3
+	 4LLdQPwWOQJLT907hsXmqY8b778k1c6ipA8fZH4AVzB48nVquKtooyXVW/v3fO/Fz91x2
+	 PcknrvN50bO0LUoSLmh2vvWWPRGxwD+EJZi3KIKhaRg8jErS2x9UTkFPhBP1vKJ2I37B0
+	 lWzJYf3dkYMTBzHjaPYQTNcj4DclmCsj2A8VWGEQJgU1IniKTTrYjDKlYd2jW+NzMWLv6
+	 44zRmfg7JTpshrcEmLkRkOUfaOT7dkHkyipGtLApBTPRuR4J/euQFiTlQglr2iXrllQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z5nbbW6V;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GopbOTyB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5974F606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 03:29:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04096606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 03:29:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z5nbbW6V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60A2E1F000C1;
-	Thu,  5 Nov 2026 03:29:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GopbOTyB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECF431F000C1;
+	Thu,  5 Nov 2026 03:29:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793849369;
-	bh=7MLhfQXO+xkYp2XQhzSm3g9OBFIo08KPg7MNSZZ7E6E=;
+	s=k20260515; t=1793849375;
+	bh=xgusUtW1HEDu0ocyP4YnpPOOX8nPhs+UJDFn8UI/yDI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z5nbbW6V7xSI1e0rnb4g4wNLjuepFLs3t2B2Z4/rh71YRq2eVuY1xWcmfXbiQQkMR
-	 lFgdPFTcB3NX2aclJIGdh92JrgkkQo6ccDfKhTQz0ID3nUz0582DsNRLCjJ4o6FgDc
-	 +EYQ+y7NADYnky3U5zB+lifRgcPHJV73m+4S5EFgH+SPiMXA8DXKbxXquLWF1Gr5aa
-	 mogf3wnRLhP8zAcqAD57ZuemvbDJrF70zSExm2xJ8nDyUOmAUqKdWY/+b8KJMjktpU
-	 t92YUVeFEEugbDi2yfEVPhvFlPyc0qJ+23ZK179l3b2QONnIs0+OCu1aFM35DOVGOk
-	 0CWhiYFiR7l1Q==
+	b=GopbOTyBWY9yjuwmsvZvOeaTjnq/34GNukYTLcfZZhKUoXWlXwEPRe+wKA3TJhd30
+	 5YlWK32mPbcMrTthz2wn6vFLhQrVrdqEneGCWCoJvlv0pB04TGzu29P5nmliuQXLVg
+	 Jln++AThN7QeodI7pT1Y6LQez+/oWrPjlDKPUatZ6IGC6lELjd3+2G0PKGuniId63u
+	 bGeOR6jqRegqmzBzqClkaG+63uFFXO93kSbiJPTNFGjLI8QlKZv0MlRzLGDTFgTi0F
+	 yjXF88nWDutJ+1jVxJI8voz5HV5RDdqG74kWXEHRehfVpdiEefqPgPn0C9T9GKXAoC
+	 4KvW9a4jjp9Gg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Jamie Lenehan <lenehan@twibble.org>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+Cc: Ruide Cao <caoruide123@gmail.com>,
+	Kyle Zeng <kylebot@openai.com>,
+	David Lee <david.lee@trailofbits.com>,
+	Vega <vega@nebusec.ai>,
+	Ren Wei <weir@nebusec.ai>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] scsi: dc395x: sync the waiting_timer before freeing the host
-Date: Wed,  4 Nov 2026 22:29:28 -0500
-Message-ID: <20261105032859.1171835-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] mptcp: hold MP_JOIN msk ref when cloning reqsk
+Date: Wed,  4 Nov 2026 22:29:33 -0500
+Message-ID: <20261105032900.1214671-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110424-unless-washer-9ef1@gregkh>
-References: <2026110424-unless-washer-9ef1@gregkh>
+In-Reply-To: <2026110451-unrushed-payable-d703@gregkh>
+References: <2026110451-unrushed-payable-d703@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,65 +66,195 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Ruide Cao <caoruide123@gmail.com>
 
-[ Upstream commit 0b1a79f2791a06f139dce5450e487307cf0e241f ]
+[ Upstream commit c9c90cf437a9e6597611b6d3aad6e255fad22867 ]
 
-The waiting_timer callback re-arms itself and takes the host lock.
-adapter_uninit() currently stops it with timer_delete(), which does not
-wait for a callback already running on another CPU. The final
-scsi_host_put() that frees the host (and the host lock the callback
-dereferences) runs right after adapter_uninit(), so a concurrent or just
-re-armed callback can fire after the free, leaving a potential
-use-after-free window.
+TCP request migration clones pending request sockets with
+inet_reqsk_clone().  For MPTCP MP_JOIN requests this byte-copies
+subflow_req->msk, but the clone does not own a reference.
 
-Replace timer_delete() with timer_shutdown_sync() at the top of
-adapter_uninit(), before the host-lock section: the timer is dequeued,
-a running callback is waited for and rearming is blocked before the chip
-is halted, so it cannot fire at all once the adapter has ceased to
-function. Waiting outside the lock avoids the self-deadlock that would
-result from syncing a callback blocked on the lock we still hold.
+The original and cloned requests can consequently drop the same msk
+reference, leaving one request with a dangling pointer.  This manifests as
+a KASAN slab-use-after-free in subflow_req_destructor():
 
-No shutdown is needed for selto_timer because it has no reachable armer
-or callback.
+  BUG: KASAN: slab-use-after-free in subflow_req_destructor (net/mptcp/subflow.c:45)
+  Write of size 4 at addr ff1100010e008d40 by task swapper/0/0
+  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.0-rc5-00353-gc27e36054537 #10 PREEMPT(full)
 
-This issue was found by an in-house static analysis tool.
+  Call Trace:
+   subflow_req_destructor (net/mptcp/subflow.c:45)
+   subflow_v4_req_destructor (net/mptcp/subflow.c:694)
+   __reqsk_free (net/ipv4/inet_connection_sock.c:906)
+   reqsk_timer_handler (include/net/request_sock.h:137 net/ipv4/inet_connection_sock.c:1147)
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+  Allocated by task 10014:
+   sk_prot_alloc (net/core/sock.c:2246)
+   sk_clone (net/core/sock.c:2488)
+   mptcp_sk_clone_init (include/net/sock.h:1848 net/mptcp/protocol.c:3564)
+   subflow_syn_recv_sock (net/mptcp/subflow.c:883)
+   tcp_check_req (net/ipv4/tcp_minisocks.c:934)
+
+  Freed by task 0:
+   slab_free_after_rcu_debug (include/linux/kasan.h:235 mm/slub.c:2677 mm/slub.c:6439)
+   rcu_core (kernel/rcu/tree.c:2645 kernel/rcu/tree.c:2897)
+
+  Last potentially related work creation:
+   kmem_cache_free (mm/slub.c:2638 mm/slub.c:6377 mm/slub.c:6504)
+   __sk_destruct (net/core/sock.c:2289 net/core/sock.c:2391)
+   sk_destruct (net/core/sock.c:2419)
+   __sk_free (net/core/sock.c:2430)
+   sk_free (net/core/sock.c:2441)
+   mptcp_close (include/net/sock.h:2020 net/mptcp/protocol.c:3399)
+   inet_release (net/ipv4/af_inet.c:442)
+
+  The buggy address belongs to the cache MPTCP of size 2968
+  The buggy address is 128 bytes inside a freed 2968-byte region
+
+A non-NULL subflow_req->msk means that the request owns one reference. The
+third ACK can concurrently transfer the original request reference to the
+child and release it, so taking an unconditional hold on the copied pointer
+is unsafe.
+
+MPTCP sockets use SLAB_TYPESAFE_BY_RCU and all current inet_reqsk_clone()
+callers run in an RCU read-side critical section. Document and
+lockdep-check that calling-context requirement.  Read the pointer from the
+original request and acquire a reference only if it is still live.  Use
+refcount_inc_not_zero_acquire() so the subsequent ownership validation
+cannot be reordered before the try-get, then re-read the original request
+to verify that it still owns the same msk. If either check fails, clear the
+clone pointer; otherwise its normal destructor balances the new reference.
+Mark the ownership-transfer store with WRITE_ONCE() to match the lockless
+reads.
+
+The following patch completes the clone fixup for MP_CAPABLE token
+ownership. Both patches carry the same Fixes tag and are required for
+stable backports.
+
+Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
 Cc: stable@vger.kernel.org
-Cc: Jamie Lenehan <lenehan@twibble.org>
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260911020544.42966-1-fanwu01@zju.edu.cn
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ sashal: Replaced unavailable timer_shutdown_sync() with timer_delete_sync(). ]
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Reported-by: David Lee <david.lee@trailofbits.com>
+Reported-by: Vega <vega@nebusec.ai>
+Closes: https://lore.kernel.org/all/20260804095051.715355-1-david.lee@trailofbits.com/
+Signed-off-by: Ruide Cao <caoruide123@gmail.com>
+Signed-off-by: Ren Wei <weir@nebusec.ai>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-3-932c9b182fc7@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ sashal: replaced refcount_inc_not_zero_acquire() with refcount_inc_not_zero() followed by smp_acquire__after_ctrl_dep() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/dc395x.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ include/net/mptcp.h             |  9 ++++++++
+ net/ipv4/inet_connection_sock.c |  4 ++++
+ net/mptcp/subflow.c             | 38 ++++++++++++++++++++++++++++++++-
+ 3 files changed, 50 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/scsi/dc395x.c b/drivers/scsi/dc395x.c
-index d8967bf72ef26..5442713433f9b 100644
---- a/drivers/scsi/dc395x.c
-+++ b/drivers/scsi/dc395x.c
-@@ -4456,13 +4456,11 @@ static void adapter_uninit_chip(struct AdapterCtlBlk *acb)
- static void adapter_uninit(struct AdapterCtlBlk *acb)
- {
- 	unsigned long flags;
--	DC395x_LOCK_IO(acb->scsi_host, flags);
+diff --git a/include/net/mptcp.h b/include/net/mptcp.h
+index 1120363987d05..bcde90d8d9168 100644
+--- a/include/net/mptcp.h
++++ b/include/net/mptcp.h
+@@ -183,6 +183,9 @@ int mptcp_subflow_init_cookie_req(struct request_sock *req,
+ struct request_sock *mptcp_subflow_reqsk_alloc(const struct request_sock_ops *ops,
+ 					       struct sock *sk_listener,
+ 					       bool attach_listener);
++/* Caller must hold an RCU read-side lock. */
++void mptcp_subflow_reqsk_clone(struct request_sock *req,
++			       struct request_sock *new_req);
  
--	/* remove timers */
--	if (timer_pending(&acb->waiting_timer))
--		del_timer(&acb->waiting_timer);
--	if (timer_pending(&acb->selto_timer))
--		del_timer(&acb->selto_timer);
-+	/* Drain the self-rearming timer; must not run under host_lock. */
-+	timer_delete_sync(&acb->waiting_timer);
+ __be32 mptcp_get_reset_option(const struct sk_buff *skb);
+ 
+@@ -282,6 +285,12 @@ static inline struct request_sock *mptcp_subflow_reqsk_alloc(const struct reques
+ 	return NULL;
+ }
+ 
++/* Caller must hold an RCU read-side lock. */
++static inline void mptcp_subflow_reqsk_clone(struct request_sock *req,
++					     struct request_sock *new_req)
++{
++}
 +
-+	DC395x_LOCK_IO(acb->scsi_host, flags);
+ static inline __be32 mptcp_reset_option(const struct sk_buff *skb)  { return htonl(0u); }
+ #endif /* CONFIG_MPTCP */
  
- 	adapter_uninit_chip(acb);
- 	adapter_remove_and_free_all_devices(acb);
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index 73d884df1e6e3..f77066fcdda6c 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -20,6 +20,7 @@
+ #include <net/tcp_states.h>
+ #include <net/xfrm.h>
+ #include <net/tcp.h>
++#include <net/mptcp.h>
+ #include <net/sock_reuseport.h>
+ #include <net/addrconf.h>
+ 
+@@ -768,6 +769,9 @@ static struct request_sock *inet_reqsk_clone(struct request_sock *req,
+ 		rcu_assign_pointer(tcp_sk(nreq->sk)->fastopen_rsk, nreq);
+ 	}
+ 
++	if (rsk_is_mptcp(req))
++		mptcp_subflow_reqsk_clone(req, nreq);
++
+ 	return nreq;
+ }
+ 
+diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
+index 5ee090b74fa45..73580bf40aca8 100644
+--- a/net/mptcp/subflow.c
++++ b/net/mptcp/subflow.c
+@@ -47,6 +47,42 @@ static void subflow_req_destructor(struct request_sock *req)
+ 	mptcp_token_destroy_request(req);
+ }
+ 
++void mptcp_subflow_reqsk_clone(struct request_sock *req,
++			       struct request_sock *new_req)
++{
++	struct mptcp_subflow_request_sock *subflow_req = mptcp_subflow_rsk(req);
++	struct mptcp_subflow_request_sock *new_subflow_req;
++	struct mptcp_sock *msk;
++
++	new_subflow_req = mptcp_subflow_rsk(new_req);
++	RCU_LOCKDEP_WARN(!rcu_read_lock_any_held(),
++			 "MPTCP reqsk clone called without RCU");
++
++	/* A non-NULL ->msk means the request owns one reference.  The clone
++	 * copied only the pointer, while the original request can concurrently
++	 * transfer its reference to the child.  Acquire a reference for the
++	 * clone, then verify that the original request still owns the same msk.
++	 * MPTCP sockets use SLAB_TYPESAFE_BY_RCU and all clone callers run in
++	 * an RCU read-side critical section, keeping the memory stable here.
++	 */
++	msk = READ_ONCE(subflow_req->msk);
++	if (msk) {
++		struct sock *sk = (struct sock *)msk;
++
++		if (!refcount_inc_not_zero(&sk->sk_refcnt)) {
++			msk = NULL;
++		} else {
++			smp_acquire__after_ctrl_dep();
++			if (READ_ONCE(subflow_req->msk) != msk) {
++				sock_put(sk);
++				msk = NULL;
++			}
++		}
++	}
++
++	new_subflow_req->msk = msk;
++}
++
+ static void subflow_generate_hmac(u64 key1, u64 key2, u32 nonce1, u32 nonce2,
+ 				  void *hmac)
+ {
+@@ -803,7 +839,7 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
+ 			}
+ 
+ 			/* move the msk reference ownership to the subflow */
+-			subflow_req->msk = NULL;
++			WRITE_ONCE(subflow_req->msk, NULL);
+ 			ctx->conn = (struct sock *)owner;
+ 
+ 			if (subflow_use_different_sport(owner, sk)) {
 -- 
 2.53.0
 
