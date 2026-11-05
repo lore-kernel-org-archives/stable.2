@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844060;
-	b=jckK37SkBU22VB3u0fH+DparELDBDGIiTj52eqcOwHdGpHUxnR9AvvpoDPMrrxFX1qGC
-	 qJNFQAxAu3GTdzbp9CN5qO48w4MhMUVmkuw3wmLlMgBwWf7zweU703LDdbXYBWB8mn3dO
-	 Ei7qiPpY3LFIxJTx8OyVrJO2U1VciaKE2360whpf13or9a/eBpoEepCb4qqCtL1GJ9eCM
-	 o+qBPm7doeJ0DYZBxhvwGijch29jZrw0AcQ3vu+2OOgGH/il4bXC4MLDbZ6tHdfiOXIN0
-	 lCXgl8oxiNe0Xt3h2Mi0zXFP/9EQi8QXUuhAABsYd1ik5+pzSGcm0wPYqA42h0Nh2wg==
+	t=1793844069;
+	b=tC0qZnMvf0cStIwgatCIknc898kGh140oEMXx9IARMtFPqqqaRgn6Z9diSVdY/LWWbar
+	 uCm81YFWmDcYPnvxhDzHobHEENaQvdhnxOGmOrZGcRQEXwXD2Cl3l6WmMFbqCTAtps+II
+	 iYQUZ6nZbCBV0W6c4uFdX4onvKxK3jytIFDvCZV5XmN9zf6zelwZdO/IL5nz5v1yAgXUk
+	 0G+WK0sTz2SwndJjQClUxxLBn0wEKJ0x/aHL5SL2k8aJaJXlHTzsB2p/Hj9ZvELVnSh6F
+	 fiJartOuDaXBawHaN8g9cej/iGsQxa/0L3ZxhaZ5GDo8hFgUzIjcmuFI5vbNjU71awg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844060;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844069;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7u5HgQJFcwmBsKH+KcB9T4UtPNzqc/Rbblp1zqshMwM=;
-	b=iSdjFhApTB4ZsoAObd7tdq5x/O9MleP2ee7Ak76xy0mG/Hi56Zj9weWozbMMoK1+20aQ
-	 YIvhI+ZOrUg8xwSN1B7QB9O6HFDEgDdeWj3g3SyjrPb6XhFFitZXhSp1BzJRFhst7EYgz
-	 b8IyszRswbbaFSrbBtRgshElxHJN36UepnSC1rGD7E6eJrUeVjEGazNxnJVcMrK6Mised
-	 3x8by17UuNst2K1MUqWKuCVKURAdnU2n4P1kzq622rGP23CSQaQUfiihk/eop15Qzq7N2
-	 HDXgLiPGLWrBTxgl0OwAM+bS8yrLsPRUFJeeOPfxB1ThSobXyD5J+Zaf2RcaaXuWefg==
+	bh=6Jr1zICD/K/waeGyYyMgHEHtfsqGd05Jy9VR+ZrJj18=;
+	b=UfGsc9OKGC3DFnDFaNP+3CamqmeUhVM06mE5P/4KEBpTGti3tUCGcyVYgW2pKLxUqUoH
+	 r3XAQqXhIWgLKFOoWTTf2zdwl3Wa25Y0ItRp3J34PpOeglVZ9RmShXaE//1M6bZCByKFW
+	 zRQg1zLsBn4WdZfVSx1F+iqRdO0XHUp1K6pd466/gAwTN/2AdzEygOAlnBElwx1xluDUi
+	 kqBGbTbA+Y5TcVp0lvzBiYfMdkmicKzpkhfvWohqAqjD8vWFiAG1BlpoErMBuETvS9QE0
+	 XARcJRewBdSDy72jkUfYQpL5d2BfZNhkSOvvBykgTENIyylISp1eK5PEIrs5m4K5vEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZNoKcJPN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l08ZK9VC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6B6606A32E
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:00:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2C0606A32C
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:01:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZNoKcJPN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18ACD1F00919;
-	Thu,  5 Nov 2026 02:00:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l08ZK9VC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B63CA1F000C1;
+	Thu,  5 Nov 2026 02:01:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793844059;
-	bh=7u5HgQJFcwmBsKH+KcB9T4UtPNzqc/Rbblp1zqshMwM=;
+	s=k20260515; t=1793844068;
+	bh=6Jr1zICD/K/waeGyYyMgHEHtfsqGd05Jy9VR+ZrJj18=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZNoKcJPNETwfF9hlR9an/maNr22WiAs+nKgsPxwM3Gz50fHCZ3ga/CPwizrKWB9c9
-	 zMBxxsUrKvMIcwFXSR39mRp+QhXIrCdC91b+zg3gSfI4fdZMrenGZIfkz9+0GQN1zz
-	 jZc7D4jCRXQoiCS/s/rkVrqdsAbteA5E/EbCZGaVOY86fOQHF79ieceEES6sge4hH8
-	 PrfDNfPgFl6R2UE8FXS1Ajf8wQtPeJVucvO5VKJrhIDx143CaQez6yDGGLuFpzJwNw
-	 Hm6sl9CfOHLoODQJbvGK8YbF95xYXEFDwZBrW66gQzDBWovdGGdlSB3bmBktpNC6eh
-	 3lZoXBXBAjlfw==
+	b=l08ZK9VCtW9h0kPc+a6cZzEKVIGV1SOoQkKaTdZ+bR6mMYVbnTE2uPAFIepW5Totf
+	 n0URYHVivudjpsjRlP63rJMVujxSGZ6MRZKHCvyNoXnlRzI/uvy5vFRGEEYrnl1eCr
+	 Ok/K/h/xjj/mhMoflJSn28S2QRNPAz5/EhuNlvxHHdgU9wbJas5PwyX87fODvIKFJA
+	 1mR0nm94+IBhvD5Iaf0UMbZzpcCgbnnEUSrYiBmhS3twvpN2oXfzUHUSiB3l2r5fWB
+	 nyTP1wPMnCXAutebsu0nGEr3TJClCkk7Xd2YnOlECW93gtTLF9UyKjgu6fexiIwM9s
+	 RQJ0eq3s3SlCQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Young <sean@mess.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Jamie Lenehan <lenehan@twibble.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 2/2] media: rc: Add missing locking for keymap
-Date: Wed,  4 Nov 2026 21:00:56 -0500
-Message-ID: <20261105020040.1096758-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] scsi: dc395x: sync the waiting_timer before freeing the host
+Date: Wed,  4 Nov 2026 21:01:06 -0500
+Message-ID: <20261105020039.1070505-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105020040.1096758-1-sashal@kernel.org>
-References: <2026110424-pamperer-waltz-9ca3@gregkh>
- <20261105020040.1096758-1-sashal@kernel.org>
+In-Reply-To: <2026110423-helper-sprang-8be1@gregkh>
+References: <2026110423-helper-sprang-8be1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,208 +62,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Young <sean@mess.org>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit ab9567336171e46ce9e03ee126902b3fd7901baa ]
+[ Upstream commit 0b1a79f2791a06f139dce5450e487307cf0e241f ]
 
-When the rc_map for an rc_dev gets updated, locking is required but is
-missing in places. A concurrent scancode lookup and a call to
-rc_{register,unregistered}_device() could result in a use-after-free;
-this could happen if IR is decoded during those function calls.
+The waiting_timer callback re-arms itself and takes the host lock.
+adapter_uninit() currently stops it with timer_delete(), which does not
+wait for a callback already running on another CPU. The final
+scsi_host_put() that frees the host (and the host lock the callback
+dereferences) runs right after adapter_uninit(), so a concurrent or just
+re-armed callback can fire after the free, leaving a potential
+use-after-free window.
 
-Add lockdep assertions where locks are required.
+Replace timer_delete() with timer_shutdown_sync() at the top of
+adapter_uninit(), before the host-lock section: the timer is dequeued,
+a running callback is waited for and rearming is blocked before the chip
+is halted, so it cannot fire at all once the adapter has ceased to
+function. Waiting outside the lock avoids the self-deadlock that would
+result from syncing a callback blocked on the lock we still hold.
 
-ir_free_table() should only be called for non-TX devices else we will
-use a spinlock without iniitializing it.
+No shutdown is needed for selto_timer because it has no reachable armer
+or callback.
 
-Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
-Signed-off-by: Sean Young <sean@mess.org>
+This issue was found by an in-house static analysis tool.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Jamie Lenehan <lenehan@twibble.org>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://patch.msgid.link/20260911020544.42966-1-fanwu01@zju.edu.cn
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ sashal: adjusted context for del_timer() instead of timer_delete() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/rc/rc-main.c | 86 +++++++++++++++++++++++++-------------
- 1 file changed, 57 insertions(+), 29 deletions(-)
+ drivers/scsi/dc395x.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index 81f3aafcae8f4..946521ace142e 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -104,7 +104,6 @@ static struct rc_map_list *seek_rc_map(const char *name)
- 
- struct rc_map *rc_map_get(const char *name)
+diff --git a/drivers/scsi/dc395x.c b/drivers/scsi/dc395x.c
+index d5623253826f1..7b15b86e85879 100644
+--- a/drivers/scsi/dc395x.c
++++ b/drivers/scsi/dc395x.c
+@@ -4416,13 +4416,11 @@ static void adapter_uninit_chip(struct AdapterCtlBlk *acb)
+ static void adapter_uninit(struct AdapterCtlBlk *acb)
  {
--
- 	struct rc_map_list *map;
+ 	unsigned long flags;
+-	DC395x_LOCK_IO(acb->scsi_host, flags);
  
- 	map = seek_rc_map(name);
-@@ -201,7 +200,7 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
-  * ir_create_table() - initializes a scancode table
-  * @dev:	the rc_dev device
-  * @rc_map:	the rc_map to initialize
-- * @name:	name to assign to the table
-+ * @map_name:	name to assign to the table
-  * @rc_proto:	ir type to assign to the new table
-  * @size:	initial size of the table
-  *
-@@ -211,23 +210,31 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
-  * return:	zero on success or a negative error code
-  */
- static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
--			   const char *name, u64 rc_proto, size_t size)
-+			   const char *map_name, u64 rc_proto, size_t size)
- {
-+	struct rc_map_table *scan;
- 	unsigned int alloc;
--	rc_map->name = kstrdup(name, GFP_KERNEL);
--	if (!rc_map->name)
-+	char *name;
+-	/* remove timers */
+-	if (timer_pending(&acb->waiting_timer))
+-		del_timer(&acb->waiting_timer);
+-	if (timer_pending(&acb->selto_timer))
+-		del_timer(&acb->selto_timer);
++	/* Drain the self-rearming timer; must not run under host_lock. */
++	timer_shutdown_sync(&acb->waiting_timer);
 +
-+	name = kstrdup(map_name, GFP_KERNEL);
-+	if (!name)
- 		return -ENOMEM;
-+
- 	alloc = roundup_pow_of_two(size);
--	rc_map->rc_proto = rc_proto;
--	rc_map->len = 0;
--	rc_map->size = alloc;
--	rc_map->scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
--	if (!rc_map->scan) {
--		kfree(rc_map->name);
--		rc_map->name = NULL;
-+	scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
-+	if (!scan) {
-+		kfree(name);
- 		return -ENOMEM;
- 	}
++	DC395x_LOCK_IO(acb->scsi_host, flags);
  
-+	scoped_guard(spinlock_irqsave, &rc_map->lock) {
-+		rc_map->name = name;
-+		rc_map->scan = scan;
-+		rc_map->rc_proto = rc_proto;
-+		rc_map->len = 0;
-+		rc_map->size = alloc;
-+	}
-+
- 	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
- 		alloc, alloc * sizeof(struct rc_map_table));
- 	return 0;
-@@ -237,16 +244,26 @@ static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
-  * ir_free_table() - frees memory allocated by a scancode table
-  * @rc_map:	the table whose mappings need to be freed
-  *
-- * This routine will free memory alloctaed for key mappings used by given
-+ * This routine will free memory allocated for key mappings used by given
-  * scancode table.
-  */
- static void ir_free_table(struct rc_map *rc_map)
- {
--	rc_map->size = 0;
--	kfree(rc_map->name);
--	rc_map->name = NULL;
--	kfree(rc_map->scan);
--	rc_map->scan = NULL;
-+	struct rc_map_table *scan;
-+	const char *name;
-+
-+	scoped_guard(spinlock_irqsave, &rc_map->lock) {
-+		name = rc_map->name;
-+		scan = rc_map->scan;
-+
-+		rc_map->size = 0;
-+		rc_map->len = 0;
-+		rc_map->name = NULL;
-+		rc_map->scan = NULL;
-+	}
-+
-+	kfree(name);
-+	kfree(scan);
- }
- 
- /**
-@@ -266,6 +283,8 @@ static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
- 	unsigned int newsize = rc_map->size;
- 	struct rc_map_table *newscan;
- 
-+	lockdep_assert_held(&rc_map->lock);
-+
- 	if (rc_map->size == rc_map->len) {
- 		/* All entries in use -> grow keytable */
- 		if (newsize >= IR_TAB_MAX_ENTRIES)
-@@ -317,6 +336,8 @@ static unsigned int ir_update_mapping(struct rc_dev *dev,
- 	int old_keycode = rc_map->scan[index].keycode;
- 	int i;
- 
-+	lockdep_assert_held(&rc_map->lock);
-+
- 	/* Did the user wish to remove the mapping? */
- 	if (new_keycode == KEY_RESERVED || new_keycode == KEY_UNKNOWN) {
- 		dev_dbg(&dev->dev, "#%d: Deleting scan 0x%04llx\n",
-@@ -372,6 +393,8 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
- {
- 	unsigned int i;
- 
-+	lockdep_assert_held(&rc_map->lock);
-+
- 	/*
- 	 * Unfortunately, some hardware-based IR decoders don't provide
- 	 * all bits for the complete IR code. In general, they provide only
-@@ -396,7 +419,7 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
- 	/* No previous mapping found, we might need to grow the table */
- 	if (rc_map->size == rc_map->len) {
- 		if (!resize || ir_resize_table(dev, rc_map, GFP_ATOMIC))
--			return -1U;
-+			return UINT_MAX;
- 	}
- 
- 	/* i is the proper index to insert our new keycode */
-@@ -478,16 +501,18 @@ static int ir_setkeytable(struct rc_dev *dev, const struct rc_map *from)
- 	if (rc)
- 		return rc;
- 
--	for (i = 0; i < from->size; i++) {
--		index = ir_establish_scancode(dev, rc_map,
--					      from->scan[i].scancode, false);
--		if (index >= rc_map->len) {
--			rc = -ENOMEM;
--			break;
--		}
-+	scoped_guard(spinlock_irqsave, &rc_map->lock) {
-+		for (i = 0; i < from->size; i++) {
-+			index = ir_establish_scancode(dev, rc_map,
-+						      from->scan[i].scancode, false);
-+			if (index >= rc_map->len) {
-+				rc = -ENOMEM;
-+				break;
-+			}
- 
--		ir_update_mapping(dev, rc_map, index,
--				  from->scan[i].keycode);
-+			ir_update_mapping(dev, rc_map, index,
-+					  from->scan[i].keycode);
-+		}
- 	}
- 
- 	if (rc)
-@@ -523,6 +548,8 @@ static unsigned int ir_lookup_by_scancode(const struct rc_map *rc_map,
- {
- 	struct rc_map_table *res;
- 
-+	lockdep_assert_held(&rc_map->lock);
-+
- 	res = bsearch(&scancode, rc_map->scan, rc_map->len,
- 		      sizeof(struct rc_map_table), rc_map_cmp);
- 	if (!res)
-@@ -1993,7 +2020,8 @@ int rc_register_device(struct rc_dev *dev)
- 	scoped_guard(mutex, &dev->lock)
- 		dev->registered = false;
- out_free_table:
--	ir_free_table(&dev->rc_map);
-+	if (dev->driver_type != RC_DRIVER_IR_RAW_TX)
-+		ir_free_table(&dev->rc_map);
- out_raw:
- 	ida_free(&rc_ida, minor);
- 	return rc;
+ 	adapter_uninit_chip(acb);
+ 	adapter_remove_and_free_all_devices(acb);
 -- 
 2.53.0
 
