@@ -1,96 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793882975;
-	b=oexB+X9F5vfRJcjTsYl2uVpI0YP3fSPBuGAO1R1BZNG/TB9rcNUY1Ng4UcT3LLdqVCF6
-	 1FnMki0Sd9b6s3li25Zr5POQo+h6IHgeXQW8v2KImpY00GE6cVihCxebwiv0Ualotz7mJ
-	 nXjHP5447qC12gGLmaLUqDZvBFlvt2834/XHSKGdOOhn0w4x/e1m/p19iUzsuJfnX71Q0
-	 Q0eq4iEUI6f7IbDSDAJKzNCtfDcb4AbfrMM+nFp3BwBA2OeDPSIZAOWEtQ6tXl+HvjauE
-	 /dH2Lgq3Q96cXCPMv/ib7sXsRUBIIcJJ1Pzos533wGrwXmpK1UislbHC/lPYg3vKRIg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882975;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=R/DBftmiqpvZQZM2WNA5eddXOQrWxFpkrkg4mRpLdPA=;
-	b=Lvkla14TOallnQ/R0C/cV1JdjWfpng8aquyAymoFHwxdamnRiMDJ1sdr6KUd6gTSa0vN
-	 R/KpnyE/7UrJqisSYG3M2JXf300lFkbjxfVcugXCi3VRlAYEWhzX0sHtbGhlvr6m2Bln3
-	 3O9L7c1fykCuT/5APfmWF6JybHD3wiA4boFOzAF7C+IsANpYVx0Bc6Zsg+whfMAhqDOV1
-	 J0zgSzp3QuuabDoaGB8YIC2/zoOB2jxadVbNJI6XlBHEyQ4d5sa+RJUjS/DijNJ4EA/3X
-	 8Zi1uvc5LQe8BuDT9FDdfty41bJiaOTSfQfZTNrGix9C4OxcLiNj3gu8NOirJJmSitw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ji+tHU+3;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793883035;
+	b=0OWifo5sTKWnNf2znAGV7hHeeHq+hhN3ejvFoEWK3kNYaQUnMMR6uaRKtOn/q2HnLEYk
+	 GBExhPHXEsiTJjKNUwmHwyIrS6RjmyggsjTdw39ZMDnFxE/NWZCDhqun59oowSPi97lpQ
+	 FDR/gmZ3OyPGBrzY9SyTI0LzLE+eumj5UwEdm554rsLdVt1BNL+MGPGM00F56GA38JLf/
+	 p+LVybqG8d/1A+iycfdCFiKoaCRcyaiY27hd39rL+zpwZEUvOZz5DPTZChmtpy7J/l0dL
+	 VI8xjmGjRoYwSqtMleRovLdtL+5uOyURoDZpiuG11oAFr8CLokYLMenylkUJ+MKzS8A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883035;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=fxxRNtZaPILmzYTmPUqnBJD2qtrA6bhJsu6TXNOj87E=;
+	b=aJBtKrmM25IM+qrf15C5K2Eh2C1vKbvqP5jxUMclYyKSXWXFCnQXOl/qUzz1kE9cWmAd
+	 Tpjs6DulUnl/rMG8djxiq/WH88LL5dSu95qxsW8lYQ3kEZz/+dtsp+KrqWUdW8AloTwgC
+	 SMYKFmi5zyvyb+fflbjABvwgcQltgA1rgLwM7tEkIBCc89KlqxpoXjowYnz+wekIZO3cN
+	 0ATt5lHRKnCqia4FmENrOaKVeL9WStkCX9U2UWDz8Z11YsUKcJobUd4ujKSZBmJ2ugy50
+	 wVsy9ZIaz6moAMDAZa5Wa9eJmIQ28jQn7HeHndAldPGuXTQIjprDcv0LWq4h3qWz2AQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=luxonis.com;
+	spf=pass smtp.mailfrom=luxonis.com;
+	dkim=pass header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=AaPhrYO0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9663606A33D
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:49:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9663606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7AFB606D817
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:50:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7AFB606D817
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=luxonis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=luxonis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ji+tHU+3
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5AEGlm3166454;
-	Thu, 5 Nov 2026 12:49:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=R/DBft
-	miqpvZQZM2WNA5eddXOQrWxFpkrkg4mRpLdPA=; b=ji+tHU+3EzwqCoJZ/vjo/X
-	KQzUZS16MaK8foEI/4kuRcXUapUxoMk2oMzrTSdg18GUdQqMESrkOReYW4XZZslY
-	frSYal3ECBK4G+LJ5aF8MLvHfR7N4aoTlEv9zJApQoqLO87ttv4eZ38sRdAmI34w
-	AjFyEnnSL95lDzEx/nFBAFVB3mnd/FSArfzXjQE1a1Se36CnUHszfNdt8BQb+N4X
-	tBVC1gx0jcW4ki1Eu/AINSIe/3S8UZwMuJy+LPlJJmy5AKg6HlDn8dnHU9WZzYWV
-	sVR/NGIxq9//UqFPnOeOymYWrkBqCxyXwNOxJ+HNtsmkdytRJjBYEWDx0TKPFZkw
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn5rj1wwv-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 12:49:30 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5A4xwa271774;
-	Thu, 5 Nov 2026 12:49:30 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hqsf5gg1f-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 12:49:30 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A5CnQrT42139908
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 5 Nov 2026 12:49:26 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 83B6C2004B;
-	Thu,  5 Nov 2026 12:49:26 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6177E20040;
-	Thu,  5 Nov 2026 12:49:26 +0000 (GMT)
-Received: from p-imbrenda (unknown [9.68.31.243])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Thu,  5 Nov 2026 12:49:26 +0000 (GMT)
-Date: Thu, 5 Nov 2026 13:49:24 +0100
-From: Claudio Imbrenda <imbrenda@linux.ibm.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Christian Borntraeger
- <borntraeger@linux.ibm.com>,
-        Steffen Eiden <seiden@linux.ibm.com>,
-        Christoph Schlameuss <schlameuss@linux.ibm.com>,
-        Heiko Carstens
- <hca@linux.ibm.com>
-Subject: Re: [PATCH 6.18.y 2/4] KVM: s390: Enable KVM_GENERIC_MMU_NOTIFIER
-Message-ID: <20261105134924.4e417448@p-imbrenda>
-In-Reply-To: <20261104231214.887398-2-sashal@kernel.org>
-References: <2026110445-lividly-gratified-dd5f@gregkh>
-	<20261104231214.887398-1-sashal@kernel.org>
-	<20261104231214.887398-2-sashal@kernel.org>
-Organization: IBM
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=AaPhrYO0
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b1aa2848d2so2909984a12.3
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 04:50:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793883032; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Chi30Kuot6SbEAcbGU4Mea+W/YQwzXiMgkIbI83UJZYnozgtH7bRcrwH/YpGhFi2aL
+         AGvRoUt2KZK69Nb913n0dNDA7QjoFCd++zkHkyjQW7tC9LEWOUMoFcCn+eIgDgNcYBr0
+         rA54pZ+eWFWkpauR9+C6+ycY+JtHNPsMop1ZYc7ueD2qUpaKobvPfeUon4U7V/LU4em1
+         1LzAF/k/frH+JUCGeXaUH6fJMu1dSvzDAgDahprNgMDHeIyYL+YmZEKNYXytolOXxSQd
+         lcMzO0/h6jbk3T5p1jwDdDOMlieds3dF7XcxgP5R+gO3oLhSZ+9Qmh/X2MC7ujOxxqE4
+         dN4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fxxRNtZaPILmzYTmPUqnBJD2qtrA6bhJsu6TXNOj87E=;
+        fh=NlnP5uLJa0WxL2fK4j5nuRPaHaV//txKeygXnR3oeBc=;
+        b=E01AY3fayIL+U19EAU3dANiR9pi+tYYNhE4/L1ernCO4NtGWilyC4KmLFeo7Y2ZXd4
+         kJuPG70AnONAFP1gIosdge5IX0/hJ+gLs1fgNhRX+9y9FCUFWhAsZKGixVGwBRLPq5Ac
+         6BlpuGBR82W7B6buvIbne8m+K4SvxaQklZxzKl1CLCcOlOGH50cHSy9wcE+5GnsyU+EQ
+         i8K+a/gbFvuzgXcWfrIzw9Q7/DHbuuHznORvJU5UoB3mShyW41YHU8TM7YAsc1YB4EpJ
+         EumapC1jNgoyUvAMz8Pj2cstMIqKa9zVLAaoJzf/0Yiqi8zEsmLiR1LeBgzwC+9iUZ0q
+         E2jA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=luxonis.com; s=google; t=1793883032; x=1794487832; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fxxRNtZaPILmzYTmPUqnBJD2qtrA6bhJsu6TXNOj87E=;
+        b=AaPhrYO0r4u+Q7lIQ1qSS8rg//A/haANyRTxqzSDHNs7Q03zKmtWqm7rlMoajRbBmI
+         7cdjypj1nI9ME4l0tPc0b7Ri3I3BIN5ONdDTohhgf6lbMGst/wBW+2L5hHgsV1lMJk4M
+         Y4NX9T63xg/3kD/JsepvUbCUttxaXeZ6BOtbdt2eIMLysFDiKSo/AAxIiuDm8Z2LsD5B
+         Fvew1vb9VYJM3z5tihBk/Dkn6wkbnq8YyKjMdguAcsS86uhTdbxi48DAkSdhibeb28HS
+         Jwdcd2Rw2eHR9zGFveYtdorgxtszrX5NiNgrStV9aSWwN/OB0zxg9SiSXI3jarirxT87
+         1g/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793883032; x=1794487832;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fxxRNtZaPILmzYTmPUqnBJD2qtrA6bhJsu6TXNOj87E=;
+        b=RVGG7QKQaC4Afc97sU3hfwoSCHnsiRo7sVeSyZe2aX2h7ACbRzhiWkE1eM+lpCSaW8
+         1sv+LmppZBJilr4kv+nGgHZFRtbbNPIJ1Vo2neM/d3qVYCexxklqZ78xJzGScHNtLJ48
+         7Fo+0xKKgRgTbUakYRypGnmj6fcTVPO86Eor1/wzj+LbJpuf7kct4yrftRsj4AkMmRxa
+         PmnNCC6AE09Pe9YdH+ppjn+WApBSV60XbzB4CjzXZHBAdaB8dwb+wub2O/0qd7A1876R
+         mZNpezVWIp7jBfirrV+CIZyHXd2iPLDTKJjAOAsJDyRbmyq0kZ6ehI3zyMSV3kko9+50
+         KXzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzdpKDHe47S0OtoCSUDE9tJYWY9I3lkXfXs75U8CMFaSq9oue5YuVIdJR92wc65inBRbwG/wkA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Bcab+i9HNTk5OSRqn8ywTO9Pw0M1U6adXH7kWc5CVYrYAcU1z
+	/599x9F71HRvxwDXp+9Vav2JyVxQfNn5xAgfRqyjCVVufpyV8Yu2oRz7EyjypoYsoHfbEC+VLXd
+	R8vTx7v1J1zqxKEkkcyqdOifBuwX7kPFZp1S3j9c9KA==
+X-Gm-Gg: AYBFou11Z6r49e6WAB8OvKZAnV8R3OBIbL9grfcYDfqmfUzsbpgymQWCbvXPVxfh9qC
+	5xvzRQ9Dr7cqqv0mVav1pSuaa6u6gSHl2BWY8oR/6oHyB9RTUcmthLFWfpsar1VvPA07rqLpGCf
+	8xg15BQKpJT058U2KiwFbyFimVlP1bllzxEYy4OtS/dFqTEy022LKrOYXCQKHvlFmMkV8BRq6O1
+	X4cAQJuEamsFav5mjpxTkd5R0Wx4Njz0r763yeMoJIH6o+AQwHv7QV5TtruN3WBgOW82bHj+tQc
+	MI1O54OiLvwhGElwcIq6o/vcPz4a4qZsqRf1gP2KqKmPa/6ojDiBRC34vp34xQS1PAuBO/ENhih
+	ofWlPiFkC/fJISffaO0DBPhrPvohL1PHnPEsakMtX/hZV5RVHbQSepAHP+cw=
+X-Received: by 2002:a05:6402:4510:b0:6b5:8227:f921 with SMTP id
+ 4fb4d7f45d1cf-6b58227fc0cmr1372938a12.3.1793883032296; Thu, 05 Nov 2026
+ 04:50:32 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,170 +104,134 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: BESXC7hHhlpEaGoijwuXQ6kH7lCXuV5i
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA1MCBTYWx0ZWRfX4OZ5FwKXF97F
- hkBcqUfz8r3RS9XGWhxvdPwoB8r4vWXzS3NtTbsx/dMB/v1xKxssHlSWSvSk315k3BgITxjtHTv
- +0DJeUfWvpJv//KCfhr1LsbvrbheWr8=
-X-Authority-Analysis: v=2.4 cv=LokHWXdc c=1 sm=1 tr=0 ts=6aec7b5b cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=UAWmP4t35YqQfNuaZqgA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA1MCBTYWx0ZWRfX2oioLgoY94qk
- nQINwlJ2GHnb624jP7av54ZSQUk9LvKq8K2/UzefghT8bYXMXAGubTwqt+tffU16pEu6bs+73Qd
- +O0lC7dmM2q+SXgyXtnSwonnHEfDA2IjDz5LeNLE3gSkT/F6Weze885LmVHndEzIQf7OvKhPLMO
- qZV4uxL4csylIdYINm3/xVeD7rszxK0FE43nNMke1lO/rfu1GQLpDGYXR5wZnZUIoSOLHoVLMBV
- zkFooSrhE5FcW+1FVtVR55aOYzQurk4ooqVR8Ncv599WhA3mZpWqVKr/qOwpJCNexnZEj4TfCSm
- vCLp/W7A0gRW06i+LaBlGdsijBr4LU+IiAXTglwSDeTeXJNv8+uK5BUmDeVdJVuf7k6wVwkMjaC
- nCtygPMMccZ4ehytkQeDekzxggLsIcdS4fYhuPo9kV8RDWZj4udOqOMkE0Ki0a4F6lzmw5mG0Y2
- 7fiteQtB8GpfgLjw5qA==
-X-Proofpoint-GUID: BESXC7hHhlpEaGoijwuXQ6kH7lCXuV5i
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_03,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 clxscore=1011 impostorscore=0
- priorityscore=1501 suspectscore=0 phishscore=0 malwarescore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611050050
+References: <20261101102720.702600-1-jure.rebernik@luxonis.com> <c2191a11-4148-463e-aec4-c1ffe5c732d7@intel.com>
+In-Reply-To: <c2191a11-4148-463e-aec4-c1ffe5c732d7@intel.com>
+From: Jure Rebernik <jure.rebernik@luxonis.com>
+Date: Thu, 5 Nov 2026 13:50:20 +0100
+X-Gm-Features: AclHuK_wIav0SwzrlsNwACWakZrKC3c-OCoeFKk73bmPWBjfnXtYuwCmn4ecdms
+Message-ID: <CAD9jT+pAn6S_pFOZnS2ZQc=Hfb7FY6Fdop9J1-N8yHoLvHnHjw@mail.gmail.com>
+Subject: Re: [PATCH net] r8169: enable the RxOverflow interrupt again
+To: Jacob Keller <jacob.e.keller@intel.com>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>, nic_swsd@realtek.com, netdev@vger.kernel.org, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Sunil Goutham <sgoutham@marvell.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Nov 04, 2026 at 02:49:53PM -0800, Jacob Keller wrote:
+> If people disagree, then I think v2 should just clear RxOverflow only
+> for RTL8168h rather than only keeping it on RTL8125 since thats the only
+> one claimed to be tested in the original commit. To me, it seems
+> entirely plausible that RTL8168h also has this same behavior and
+> requires the flag but simply wasted tested with this same use case.
+>
+> Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
 
-I'm a little confused, why is this being backported to 6.18?
+Thanks for the review, Jacob.
 
-KVM_GENERIC_MMU_NOTIFIER should not be enabled on s390; s390 will not
-use mmu_notifiers for KVM until 7.0
+Adding Sunil Goutham to Cc, who reviewed 6994520a3328, the commit this
+patch fixes.
 
-Patch da260bcb56fe ("KVM: pfncache: use a dedicated invalidation
-sequence for cache refresh") does not seem to affect the old s390 code
-present in 6.18
+-- Jure Rebernik
 
-Or am I missing something?
-
-
-On Wed,  4 Nov 2026 18:13:02 -0500
-Sasha Levin <sashal@kernel.org> wrote:
-
-> From: Claudio Imbrenda <imbrenda@linux.ibm.com>
-> 
-> [ Upstream commit a2f2798fa6d18d91766b19a4896bd9fd0654d730 ]
-> 
-> Enable KVM_GENERIC_MMU_NOTIFIER, for now with empty placeholder callbacks.
-> 
-> Also enable KVM_MMU_LOCKLESS_AGING and define KVM_HAVE_MMU_RWLOCK.
-> 
-> Acked-by: Christian Borntraeger <borntraeger@linux.ibm.com>
-> Reviewed-by: Steffen Eiden <seiden@linux.ibm.com>
-> Reviewed-by: Christoph Schlameuss <schlameuss@linux.ibm.com>
-> Acked-by: Heiko Carstens <hca@linux.ibm.com>
-> Signed-off-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-> Stable-dep-of: da260bcb56fe ("KVM: pfncache: use a dedicated
-> invalidation sequence for cache refresh") Signed-off-by: Sasha Levin
-> <sashal@kernel.org> ---
->  arch/s390/include/asm/kvm_host.h |  1 +
->  arch/s390/kvm/Kconfig            |  2 ++
->  arch/s390/kvm/kvm-s390.c         | 45
-> +++++++++++++++++++++++++++++++- 3 files changed, 47 insertions(+), 1
-> deletion(-)
-> 
-> diff --git a/arch/s390/include/asm/kvm_host.h
-> b/arch/s390/include/asm/kvm_host.h index c2ba3d4398c53..f5f87dae0dd9d
-> 100644 --- a/arch/s390/include/asm/kvm_host.h
-> +++ b/arch/s390/include/asm/kvm_host.h
-> @@ -27,6 +27,7 @@
->  #include <asm/isc.h>
->  #include <asm/guarded_storage.h>
->  
-> +#define KVM_HAVE_MMU_RWLOCK
->  #define KVM_MAX_VCPUS 255
->  
->  #define KVM_INTERNAL_MEM_SLOTS 1
-> diff --git a/arch/s390/kvm/Kconfig b/arch/s390/kvm/Kconfig
-> index 0ca9d6587243c..0c93ed676508b 100644
-> --- a/arch/s390/kvm/Kconfig
-> +++ b/arch/s390/kvm/Kconfig
-> @@ -31,6 +31,8 @@ config KVM
->  	select KVM_VFIO
->  	select MMU_NOTIFIER
->  	select VIRT_XFER_TO_GUEST_WORK
-> +	select KVM_GENERIC_MMU_NOTIFIER
-> +	select KVM_MMU_LOCKLESS_AGING
->  	help
->  	  Support hosting paravirtualized guest machines using the
-> SIE virtualization capability on the mainframe. This should work
-> diff --git a/arch/s390/kvm/kvm-s390.c b/arch/s390/kvm/kvm-s390.c
-> index caf484b4df7ba..9d1150bb38b29 100644
-> --- a/arch/s390/kvm/kvm-s390.c
-> +++ b/arch/s390/kvm/kvm-s390.c
-> @@ -4919,7 +4919,7 @@ int __kvm_s390_handle_dat_fault(struct kvm_vcpu
-> *vcpu, gfn_t gfn, gpa_t gaddr, u rc =
-> fixup_user_fault(vcpu->arch.gmap->mm, vmaddr, fault_flags,
-> &unlocked); if (!rc) rc = __gmap_link(vcpu->arch.gmap, gaddr, vmaddr);
-> -	scoped_guard(spinlock, &vcpu->kvm->mmu_lock) {
-> +	scoped_guard(read_lock, &vcpu->kvm->mmu_lock) {
->  		kvm_release_faultin_page(vcpu->kvm, page, false,
-> writable); }
->  	mmap_read_unlock(vcpu->arch.gmap->mm);
-> @@ -6141,6 +6141,49 @@ void kvm_arch_commit_memory_region(struct kvm
-> *kvm, return;
->  }
->  
-> +/**
-> + * kvm_test_age_gfn() - test young
-> + * @kvm: the kvm instance
-> + * @range: the range of guest addresses whose young status needs to
-> be cleared
-> + *
-> + * Context: called by KVM common code without holding the kvm mmu
-> lock
-> + * Return: true if any page in the given range is young, otherwise 0.
-> + */
-> +bool kvm_test_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
-> +{
-> +	return false;
-> +}
-> +
-> +/**
-> + * kvm_age_gfn() - clear young
-> + * @kvm: the kvm instance
-> + * @range: the range of guest addresses whose young status needs to
-> be cleared
-> + *
-> + * Context: called by KVM common code without holding the kvm mmu
-> lock
-> + * Return: true if any page in the given range was young, otherwise
-> 0.
-> + */
-> +bool kvm_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range)
-> +{
-> +	return false;
-> +}
-> +
-> +/**
-> + * kvm_unmap_gfn_range() - Unmap a range of guest addresses
-> + * @kvm: the kvm instance
-> + * @range: the range of guest page frames to invalidate
-> + *
-> + * This function always returns false because every DAT table
-> modification
-> + * has to use the appropriate DAT table manipulation instructions,
-> which will
-> + * keep the TLB coherent, hence no additional TLB flush is ever
-> required.
-> + *
-> + * Context: called by KVM common code with the kvm mmu write lock
-> held
-> + * Return: false
-> + */
-> +bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range
-> *range) +{
-> +	return false;
-> +}
-> +
->  static inline unsigned long nonhyp_mask(int i)
->  {
->  	unsigned int nonhyp_fai = (sclp.hmfai << i * 2) >> 30;
-
+On Wed, Nov 4, 2026 at 11:50=E2=80=AFPM Jacob Keller <jacob.e.keller@intel.=
+com> wrote:
+>
+> On 11/1/2026 2:27 AM, Jure Rebernik wrote:
+> > Commit 6994520a3328 ("r8169: disable interrupt source RxOverflow")
+> > removed RxOverflow (RxDescUnavail in the vendor driver) from the
+> > interrupt mask on the grounds that NAPI is scheduled anyway when the
+> > chip runs out of RX descriptors. On RTL8125B that does not hold.
+> >
+>
+> This commit says it was "Tested on RTL8168h."
+>
+> > When the RTL8125B runs out of RX descriptors it sets RxOverflow and
+> > stops receiving. It does not start again when the driver returns
+> > descriptors to it, only when RxOverflow is cleared in IntrStatus.
+> > rtl8169_interrupt() clears only the bits it read on entry. If the ring
+> > fills while NAPI runs with the interrupt mask cleared, RxOverflow is
+> > set after that read and stays set: NAPI empties the ring, unmasks the
+> > interrupts and completes, the stopped receiver raises no RxOK, and
+> > RxOverflow is no longer an interrupt source. Reception stays stopped,
+> > and every frame is counted in rx_missed, until another event such as
+> > TxOK makes the handler clear all status bits.
+> >
+> > This was observed on a machine in real use: an RTL8125B (XID 641) on
+> > the PCIe bus of an arm64 Qualcomm QCS8550, running v7.2.6. With UDP
+> > at 800 Mbit/s inbound and nothing sent by the host, reception stopped
+> > for seconds in 13 of 20 30 s runs, losing 5% to 31% of the datagrams,
+> > and a single transmitted packet restarted it. To confirm the cause,
+> > a debugfs dump added to a test build of the driver showed, during each
+> > stop, IntrMask 0x2f, IntrStatus 0x50, NAPI idle and all 256 RX
+> > descriptors owned by the NIC. Writing only RxOverflow to IntrStatus
+> > from user space, through the sysfs PCI resource mapping and with
+> > nothing transmitted, restarted reception in 17 of 17 stops.
+> > Reproducing the stall itself needs no kernel modification.
+> >
+> > With this change backported to v7.2.6, 0 of 20 runs stopped and the
+> > worst run lost 0.03%, on two RTL8125B boards. It was build-tested,
+> > not run, on this tree, where the single-vector path RTL8125B uses
+> > is the same as in v7.2. The multi-vector mapping used by RTL8127 is
+> > not changed and was not tested.
+> >
+> > Restore the mask of the chips that had RxOverflow before that commit.
+> > Only RTL8125B was tested.
+> >
+> > The investigation was done with an AI coding assistant (Claude Code):
+> > it wrote the HIL test scripts, the debugfs instrumentation and the
+> > register tools used above, proposed this change and drafted this
+> > changelog. I reviewed the change and the evidence, and the test
+> > results above come from runs on our hardware.
+> >
+> > Fixes: 6994520a3328 ("r8169: disable interrupt source RxOverflow")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Jure Rebernik <jure.rebernik@luxonis.com>
+> > ---
+> >
+> > Notes:
+> >     This restores RxOverflow for every chip that had it before 6994520a=
+3328,
+> >     but I could only test RTL8125B. If you prefer, I can send a v2 that=
+ sets
+> >     it for the RTL8125 family only (rtl_is_8125()).
+> >
+>
+> I was thinking that it might make sense to only remove RxOverflow from
+> RTL8168h, the one that the original change was tested on. However,  the
+> original change is not motivated as a bug fix, and I think given we
+> *know* it is harmful to have this bit clear on RTL8125B, I think I agree
+> with this implementation that sets it for all device types.
+>
+> If people disagree, then I think v2 should just clear RxOverflow only
+> for RTL8168h rather than only keeping it on RTL8125 since thats the only
+> one claimed to be tested in the original commit. To me, it seems
+> entirely plausible that RTL8168h also has this same behavior and
+> requires the flag but simply wasted tested with this same use case.
+>
+> Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+>
+> >  drivers/net/ethernet/realtek/r8169_main.c | 4 +++-
+> >  1 file changed, 3 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/et=
+hernet/realtek/r8169_main.c
+> > index cd4ebc654dd0..62709160d354 100644
+> > --- a/drivers/net/ethernet/realtek/r8169_main.c
+> > +++ b/drivers/net/ethernet/realtek/r8169_main.c
+> > @@ -6086,7 +6086,9 @@ static void rtl_set_irq_mask(struct rtl8169_priva=
+te *tp)
+> >               tp->irq_mask =3D RxOK | RxErr | TxOK | TxErr | LinkChg;
+> >
+> >               if (tp->mac_version <=3D RTL_GIGA_MAC_VER_06)
+> > -                     tp->irq_mask |=3D SYSErr | RxFIFOOver;
+> > +                     tp->irq_mask |=3D SYSErr | RxOverflow | RxFIFOOve=
+r;
+> > +             else
+> > +                     tp->irq_mask |=3D RxOverflow;
+> >       }
+> >  }
+> >
+>
