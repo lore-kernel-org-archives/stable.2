@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793837335;
-	b=b/NT3IGF7/hIEBEVJ1uOQq/wOmv3mZr4s9Ac5wHMjB3vJIkz8CGRpi8UmAuJJ7UoeS8M
-	 vHf3NriePG6uXKLo1TbN395mIOro2IuChRCgZgFMbyu0o+8J+N/3Z9bHA/flYISXQ/UaJ
-	 6ZkKhICiLomoGQGlCFkd/bvhZinr1PmZ5lZucGZblO3hFuy6GHmvHpU7Mmuh76+DPFh8Y
-	 ZCbNNpSWFSGT4g3k0et/K5hQMWo5XS5YQ/7Uh/jbNbf7LAUTfr11tY5hErSeTzlGASqaY
-	 RaTUhgY+kJoTJnIh1dkZSB7oZ7oTy8AJxHmLfDH9M57ZKvm1QzcvWYW+kmPL2RpqX+w==
+	t=1793837344;
+	b=rmw5vYPHh8pWG6uhLgYwT+ofo5x6/ztYao2lrDfJe7Q2Dp/EoUD3Bnf6S+ls4FoL6KmT
+	 kiqbJwWQtB3U9kLQ1lPlc2NFfzbkOgJetwTWeE6H9JAL/mYGtrIcIijvWt07qBU1e/4XF
+	 aIvms1AXgzn45y1HH4GsCiPdb9/uZMo0BaOlcZc24OKOHNtWtYhEy2npP/2QerExN4NZr
+	 0Q3L3A/AxY4j+4hYK2NWXUzTzG80BD9uSvMuCbFGiFV1opIHFOSAXubHLiK17LpdZiGy7
+	 jVr3PyZo2poyWHr7mbGYh1ojcpj84J+PbiuXKGODNojp6vTGb1sEp0PELk6v6lD5uRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793837335;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793837344;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Nc6uWQ9nbl/Btn1WQ2V25dWXJ5jW8ALdsswrOS3YJD4=;
-	b=Jomy2APMdZVxQVeM6/xRMkn0ajNl8YYyhdlRV8HMo1VjAvJTC2Yf0eq5lYNTX24A3P8d
-	 yZbj0dT8LKcLmGQbtpbr8SQ5SLm73Sir3G0OgE5fZdGCeO8yr/UVwoVQ5fOqqib+f3S1a
-	 t3ydaPYJRIlleisjna3sd1l2h0QeVLjDU4r/VqJk74z2UzyW/pOQsgWOzlwybW3p58ESx
-	 VbLPqnQpDNOppRbXQ3meZnj++8zZ/JF5GYu15lGdC9VEp2nldNYxiglhUADWgBbFk6lBw
-	 50Hcc5d3Boo2kX+sG85RUY2SjrDGUl55vCU7M/VawoUotcsSH2vi1qDHpsobAGMVQvg==
+	bh=CWbh8T8xcwlyHyj/A2VvfzV9LVGJIdGPItMWQe9O76g=;
+	b=zuBr4sj7kgSeq4nITlP7KupzD4rq6gVROqce6TrgvYSsm6O8raUYf5zGSIGSOFrSOWXO
+	 V35SUd7g3AygRJhGETAlI9YvSzNdQ706xcCXzXDUVtbP9AIZTDhPe4Vhm6aoX7+5E9CiA
+	 RZFBY/kJ48i3eLVj7Gdnmq5zmAmZTtw5QQbIfcvjbigv5+rbvGhsu6tg++zx/6So68/Ku
+	 g4IM/2XBTAlFhMu/enc3TQB7S/eSN64QPrpr7CPh5/AyKjaNDvOeEyKypiznZc7pIKDAb
+	 inZuEtt2EzKjxGzNAeeFsxNMVrq3XCY0DyAjquZsxPF7FEYH6FV5dBNhO7FNsd1vl+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGyrMcSQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RleSyJh+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F679606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:08:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF9B606A328
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:09:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGyrMcSQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EADD1F000C1;
-	Thu,  5 Nov 2026 00:08:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RleSyJh+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFCEE1F000C1;
+	Thu,  5 Nov 2026 00:09:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793837335;
-	bh=Nc6uWQ9nbl/Btn1WQ2V25dWXJ5jW8ALdsswrOS3YJD4=;
+	s=k20260515; t=1793837343;
+	bh=CWbh8T8xcwlyHyj/A2VvfzV9LVGJIdGPItMWQe9O76g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KGyrMcSQSEt7SvhX2aIS/RPIY+ZT0j0elPfrl4JQeXVmw0XEodS8Fa2xvaV2n0H4r
-	 qnOF7yhyiH76dzDIG6xbz65AnOfwFMPJ7uI0dqGCr19f4wdnG44LAzoYZ+wgPW4zMi
-	 N33VTuqb++gl5IXuk6m6F3M7NXoIhx/Fz5ufuZPVLGLUPX9xOIWmWSnJgH1zhp3QTU
-	 0e8ndIX1qZ7eByo9aqEgkZ4zvZip82v8bheqZJW11hxG6hsP3Cv7Wi+2wD7e/DJ2Vt
-	 WBkeaEmDbciWFGYK6DlZH7a+YrYOrKUelnuk3Y9wPL8EodYFmm8UuQPHNe4s8lypJ2
-	 S0gPLuh7ibTzA==
+	b=RleSyJh+dcxHW6pcskYIu5ZkrANvTrFN2IbBDcMrwKkjjX0Joqdfdm2WW5AuYMs/D
+	 GcVd81iNR/s9uq6dBmL1/PdOWRLVCdhVgJWijnXyLZE3Gjca58OA7hYIDmbMe48YBd
+	 vDze9dtPX/fJoLDuafQ39a2I9RCLwPhNQuhVCyGBuTuLNS98phaReTeBCk+ZOeB9hH
+	 TRYycyx5D94OXTbkAQc2x80menwYqCCbppafacDs4A19Z9tipdL08DIlOiuEkAaGXW
+	 QmHTQwpFr9kBzLVs/jeVtTNWONk2LHE4W7It/xKIyNdp9L4Iz9jp6OBF3mllgQ/Glt
+	 3+34ipgPH/Tvw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Zhao Li <enderaoelyther@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] media: s5p-mfc: use timer_shutdown_sync() for the self-rearming watchdog
-Date: Wed,  4 Nov 2026 19:08:53 -0500
-Message-ID: <20261105000820.985309-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] wifi: mt76: mt7996: unlink TWT flow if the MCU rejects the agreement
+Date: Wed,  4 Nov 2026 19:09:01 -0500
+Message-ID: <20261105000820.978745-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110426-pessimist-footing-003c@gregkh>
-References: <2026110426-pessimist-footing-003c@gregkh>
+In-Reply-To: <2026110430-vagueness-punctuate-be5b@gregkh>
+References: <2026110430-vagueness-punctuate-be5b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,62 +61,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Zhao Li <enderaoelyther@gmail.com>
 
-[ Upstream commit 63069b5917cba2e15b1a78b3f4ff99e45102c56f ]
+[ Upstream commit 022f5f8b7a0580da50fcbc34da853d03d4321fe2 ]
 
-The MFC watchdog timer (s5p_mfc_watchdog) is self-rearming: every
-callback re-arms itself with add_timer() and, on a timeout, schedules
-watchdog_work. s5p_mfc_remove() tears this down with timer_delete_sync()
-followed by flush_work().
+mt7996_mac_add_twt_setup() links a new flow into dev->twt_list before
+asking the MCU to add the agreement, but exits without unlinking the flow
+if the request fails. The flow-ID and table masks are only committed
+after MCU success, so the still-linked flow is invisible to the
+mask-gated teardown paths.
 
-timer_delete_sync() dequeues the timer and waits for a callback that is
-already running, but it does not prevent a subsequent re-arm. Because the
-watchdog callback re-arms via add_timer(), this is the wrong shutdown
-primitive: once the wait returns nothing guarantees a just-queued re-arm
-will not fire later, dereferencing dev (clock on/off, deinit_hw,
-load_firmware, init_hw) after video_unregister_device(), DMA teardown and
-s5p_mfc_final_pm() have run, a potential use-after-free.
+If the station retries the setup, the same slot is cleared and its
+embedded list node reinitialized while it is still linked, corrupting
+dev->twt_list. If the station disassociates instead, teardown skips the
+flow and station storage can be freed while the node remains linked. A
+later scheduling or debugfs twt_stats walk can then dereference the
+freed flow, resulting in a use-after-free.
 
-Use timer_shutdown_sync(), which puts the timer into a shutdown state so
-that any add_timer()/mod_timer() from the callback becomes a no-op and no
-later firing is possible. Switch flush_work() to cancel_work_sync() so any
-watchdog_work that was already queued before the timer was stopped is
-cancelled rather than allowed to run to completion against the torn-down
-device.
+Unlink the flow when the MCU rejects the agreement. This restores the
+list to its pre-request state while leaving the unchanged mask and
+agreement accounting untouched.
 
-This issue was found by an in-house static analysis tool. No runtime
-reproducer is available.
-
-Fixes: af9357467810 ("[media] MFC: Add MFC 5.1 V4L2 driver")
+Fixes: 98686cd21624 ("wifi: mt76: mt7996: add driver for MediaTek Wi-Fi 7 (802.11be) devices")
 Cc: stable@vger.kernel.org
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Reviewed-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-[ sashal: adapted the timer replacement to the existing del_timer_sync() call instead of timer_delete_sync() ]
+Link: https://lore.kernel.org/all/20260729173632.14387-3-enderaoelyther@gmail.com/
+Assisted-by: Codex:gpt-5.6-sol
+Assisted-by: Kimi:K3
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Link: https://patch.msgid.link/20260825112620.97568-1-enderaoelyther@gmail.com
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+[ sashal: Adapted mt7996_mcu_twt_agrt_update() to pass msta->vif instead of &msta->vif->deflink. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/wireless/mediatek/mt76/mt7996/mac.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
-index 007c7dbee0377..58479d2a69fa0 100644
---- a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
-+++ b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
-@@ -1440,8 +1440,8 @@ static int s5p_mfc_remove(struct platform_device *pdev)
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c b/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
+index 14c84219ef750..42e75e7416ed4 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7996/mac.c
+@@ -2551,8 +2551,10 @@ void mt7996_mac_add_twt_setup(struct ieee80211_hw *hw,
  	}
- 	mutex_unlock(&dev->mfc_mutex);
+ 	flow->tsf = le64_to_cpu(twt_agrt->twt);
  
--	del_timer_sync(&dev->watchdog_timer);
--	flush_work(&dev->watchdog_work);
-+	timer_shutdown_sync(&dev->watchdog_timer);
-+	cancel_work_sync(&dev->watchdog_work);
+-	if (mt7996_mcu_twt_agrt_update(dev, msta->vif, flow, MCU_TWT_AGRT_ADD))
++	if (mt7996_mcu_twt_agrt_update(dev, msta->vif, flow, MCU_TWT_AGRT_ADD)) {
++		list_del(&flow->list);
+ 		goto unlock;
++	}
  
- 	video_unregister_device(dev->vfd_enc);
- 	video_unregister_device(dev->vfd_dec);
+ 	setup_cmd = TWT_SETUP_CMD_ACCEPT;
+ 	dev->twt.table_mask |= BIT(table_id);
 -- 
 2.53.0
 
