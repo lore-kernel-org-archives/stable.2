@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881247;
-	b=pDCSyFeHK3mQV2CWJhuVAP6ppenyVCh5ZTbaeqgr/wfmPFfiT6tUTdkaa99lomSruJFu
-	 n00jiix7/LXWyc7ORxL53+BgI4oBHDyM4wEfxdNGxKQx9pgrcfWWrQZZ0XAn+6E2YDba2
-	 VwsUrJuPc5RGeRpOPM16+BskzQf3uqhJqmYn+0KrCes0yebmkTJOL0lbe9MJlXvqeKOXq
-	 SCgiMMMAa3st94EPSpJJjeYHR4+MI3pETJW0V4agKrL44qQhmNer6XoaaryAcI5YDt1Ts
-	 NQGpX+KG0U9ZG5bGbYUq5B/AtXoGPdJ6XHRtNa5A35M64k2B/uMAYufP/uYju+cpT5A==
+	t=1793881252;
+	b=uCzfDer4nYLDGEc0Naye0Htq9JGudLwcwGlNDlCZLLphWxR4KUmSaMI2xV9DsX7FmqAW
+	 GPKkB4WrEkBYSjYlbMBVntQGI/YKTlwBedZs9FShhqCy+A1Z9IL19Bzj6oqxGrDsIqEuy
+	 oVYrNoQF+rXEUg9ZzeLaZX0PyC623tA2AzznRLiBHPaj7BKn00DUMOtjDzdVke+hKVlvG
+	 jUnMF/fnWugJj8lVAMAVnouLpow75m1dgyWY7yp5DA+3C1WH1IgGNKvqSCAEpFbZ3OO/g
+	 GMPCS/CFnbRyuP0dl9Hh2V/1LzukZUBH0p0RnEIhJoScpsymbwM3EkAjCtuES/nWK2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881247;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881252;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2DqK50qOegGS2WP+VoAn0rftI92eyvVx/YD+jbbwuYo=;
-	b=Z+KpF3OLsbUf+y1I+LHT5rVB8z61M4OkGBkIIxtG/ZcyVzRnIcsD9n8I8kNzfPdI1VU/
-	 cGQ6j3uZjPtZ6oAThtrsx4Pfs0c4fpJwsRtBbsPiY+W/mZpRdarnzi0ZajfewJxwcfQG+
-	 qsKJObnpHJBji/lpr5MV1MJn0/ccjhQE5bcieUDFsQhfgh/RfvkQQUB4XZKZB99dEidyK
-	 +5B1iVxyeqWbgibSWDReHolBbsUPjqG1GcKJEkN+dQ3JBiYQ4OTsgT/3F7KsVrA9qzgzB
-	 ZqC1l3wlaNNXnVKQ1rT1s+785QaZ+/egmEHsnobMV++0JLMZlPzOBVrtN8Ftw6v9SOQ==
+	bh=Knums40XXvOhxh70354koYPopqiwtaa7ppDUEvWAPfM=;
+	b=OjrgCe/qdZEM9j2lWB5I/nOskeLXMrMMQYO3Cm3Yr/werX59qWOUp6t1bykzKNyab+Rm
+	 XetdJcqUYlO6s6GM1t9fSS9KsEIlgFZt5bsQLATyZ8JaV02iDSIGGcdof7lpsPTC1CCW8
+	 wyuOYvXDpZFT0t0pNpnXtsfO9T4lPrq4FQx/KrvhAI5ghBxHuwa15BxcQDWoj0VqUSSFW
+	 RqbJ33A0vR80XlVB4o1D6XHwx3FbtgH5+L8HzWknL7eycr7pOK3puzUrPYYluX7svIXPm
+	 hPPlY5dJlMydzvqHRLiGnBHVC0G0GPL3Z8+9Ztj8c9BSwUN1s3CNriU8xNt8jcjp5TQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LlA/DLDq";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XBct6Lbg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36375606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:20:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448B2606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:20:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LlA/DLDq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BB821F000C1;
-	Thu,  5 Nov 2026 12:20:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XBct6Lbg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 651931F00919;
+	Thu,  5 Nov 2026 12:20:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793881247;
-	bh=2DqK50qOegGS2WP+VoAn0rftI92eyvVx/YD+jbbwuYo=;
+	s=k20260515; t=1793881251;
+	bh=Knums40XXvOhxh70354koYPopqiwtaa7ppDUEvWAPfM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LlA/DLDqVPT1I7o2bJB09mUtT2B6UnYhNg4pA/6pS0YPlSlGqGwoURPRpRTZnkzEc
-	 q8dvebbAOzg2PLeOrVn0QyxF2f2NIn4BcbMlB3xabl9nOohdohwcITPYaWWGtCLVRq
-	 B3seCOGdaZGeRO319mK8QqSWdJcmj0VX3m8lTX2MSVUfoPyLd3noBqrJUKycODHeKH
-	 v9yUJ8+x8Az3uhFZP6zJ4ohMqDfAlZZ/A5/og6HYe2DK1tDtk5Kr9WRms/mQRh3Q9D
-	 cXX7gPC729aOtvwvVOtsnSQLuLzrUrXTI6qPI8zWRo7/qJbKcGHm1Soevs4BEOzZ+T
-	 gGBNruyNpB7Zw==
+	b=XBct6LbgsYAph1j627ORvtH7K/k1K5F3i1G4m4nL/9W0pOYxpve9L/pate/oQJ76g
+	 +4JxINurCDKXVC4BeXZbVpC4W4SO7pH4Hlv6tEEZQ3pGaeXsZLQYwKul9o443XEhGO
+	 6RGIM7kZm7xK+BKpdBQHHIG2zo+zcFUrEKv4SKfm0AvL2JVYFHdmE9Uws0CPrZ+VRq
+	 htcC1xZUSx1W6FwM9/TfhruW4Zi/3/Oz0+j61VL4pKsL6WfsMjHnfh1SbGOpx0hv6T
+	 91ZAOQEgYON1yiGQ2JOwHTpBSM3HqKi5PFR9XYfpZIHxYkrIx8dqoH4+5vnKOHwDRs
+	 /ArCawOehpvew==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chris Mason <mason@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Amir Goldstein <amir73il@gmail.com>,
+Cc: Sean Young <sean@mess.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ovl: hold a reference on the parent in readdir
-Date: Thu,  5 Nov 2026 07:20:45 -0500
-Message-ID: <20261105121917.1276549-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] media: rc: Fix ABBA deadlock by making locks more fine grained
+Date: Thu,  5 Nov 2026 07:20:50 -0500
+Message-ID: <20261105121917.1229283-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110448-rebuild-overpower-e0e1@gregkh>
-References: <2026110448-rebuild-overpower-e0e1@gregkh>
+In-Reply-To: <2026110415-swiftness-afterglow-8cfd@gregkh>
+References: <2026110415-swiftness-afterglow-8cfd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,116 +61,131 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <mason@kernel.org>
+From: Sean Young <sean@mess.org>
 
-[ Upstream commit 16d319e12328acafeafd3eecdf09c46d7fb43452 ]
+[ Upstream commit c6d68866ad8aa1e957a3e5a6ede971148f1e3d59 ]
 
-Listing a directory on an overlay uses a freed dentry and crashes the
-kernel when a lookup moves the directory at the same time.
+The ir_raw_event_unregister() function takes the ir_raw_handler_lock
+first and then the rc_dev->lock. Other functions like change_protocol
+do this in the reverse order.
 
-Code that can sleep may only use d_parent without a reference while
-something stops a move of the dentry. ovl_iterate_real(),
-ovl_need_adjust_d_ino() and ovl_cache_update() use the d_parent of the
-listed directory and hold only the lock of that directory. When a
-lookup finds the directory under another parent after a change to a
-layer, d_splice_alias() moves it without that lock and drops its
-reference on the old parent.
+This means that an ir decoder module unload and writing to the protocol
+sysfs file can cause a deadlock.
 
-With a delay in ovl_iterate_real(), getdents64 on an overlay directory
-raced a rename in the lower layer and a lookup that moved its dentry,
-and after an rmdir of the old parent KASAN reported a use-after-free in
-security_inode_getattr().
+ir_raw_handler_lock protects the client list, amongst other things.
+Split this out into a separate lock so we can ensure the locking
+order is always the same.
 
-Fix this by using dget_parent() in the three functions.
-
-Fixes: b5efccbe0a12 ("ovl: constant d_ino across copy up")
+Fixes: 93cffffc18f6 ("[media] media: rc: fix decoder module unloading")
+Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[amir: fix comments in ovl_need_adjust_d_ino()]
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: adapted ovl_need_adjust_d_ino() changes to the inline logic in ovl_iterate() ]
+Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: replaced unavailable lockdep_assert_not_held() with a CONFIG_LOCKDEP-guarded WARN_ON(debug_locks && lockdep_is_held(&dev->lock)) check ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/overlayfs/readdir.c | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+ drivers/media/rc/rc-ir-raw.c | 40 +++++++++++++++++++++++-------------
+ 1 file changed, 26 insertions(+), 14 deletions(-)
 
-diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
-index 666cc62578f65..75e47ef3c7118 100644
---- a/fs/overlayfs/readdir.c
-+++ b/fs/overlayfs/readdir.c
-@@ -474,8 +474,8 @@ static int ovl_cache_update_ino(struct path *path, struct ovl_cache_entry *p)
- 			goto get;
- 		}
- 		if (p->len == 2 && p->name[1] == '.') {
--			/* we shall not be moved */
--			this = dget(dir->d_parent);
-+			/* d_splice_alias() can move even a locked dir */
-+			this = dget_parent(dir);
- 			goto get;
- 		}
- 	}
-@@ -693,6 +693,7 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
- 	struct ovl_dir_file *od = file->private_data;
- 	struct dentry *dir = file->f_path.dentry;
- 	const struct ovl_layer *lower_layer = ovl_layer_lower(dir);
-+	struct dentry *parent;
- 	struct ovl_readdir_translate rdt = {
- 		.ctx.actor = ovl_fill_real,
- 		.orig_ctx = ctx,
-@@ -703,18 +704,26 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
- 	if (rdt.xinobits && lower_layer)
- 		rdt.fsid = lower_layer->fsid;
+diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
+index c65bba4ec4739..d5f960b3d1a47 100644
+--- a/drivers/media/rc/rc-ir-raw.c
++++ b/drivers/media/rc/rc-ir-raw.c
+@@ -10,7 +10,8 @@
+ #include <linux/sched.h>
+ #include "rc-core-priv.h"
  
--	if (OVL_TYPE_MERGE(ovl_path_type(dir->d_parent))) {
-+	/*
-+	 * The lock on dir does not stop d_splice_alias() from moving it to
-+	 * another parent, which drops the reference dir holds on this one.
-+	 */
-+	parent = dget_parent(dir);
-+	if (OVL_TYPE_MERGE(ovl_path_type(parent))) {
- 		struct kstat stat;
- 		struct path statpath = file->f_path;
+-/* Used to keep track of IR raw clients, protected by ir_raw_handler_lock */
++/* Used to keep track of IR raw clients, protected by ir_raw_client_lock */
++static DEFINE_MUTEX(ir_raw_client_lock);
+ static LIST_HEAD(ir_raw_client_list);
  
--		statpath.dentry = dir->d_parent;
-+		statpath.dentry = parent;
- 		err = vfs_getattr(&statpath, &stat, STATX_INO, 0);
--		if (err)
-+		if (err) {
-+			dput(parent);
- 			return err;
-+		}
+ /* Used to handle IR raw handler extensions */
+@@ -290,13 +291,6 @@ static int change_protocol(struct rc_dev *dev, u64 *rc_proto)
+ 	return 0;
+ }
  
- 		WARN_ON_ONCE(dir->d_sb->s_dev != stat.dev);
- 		rdt.parent_ino = stat.ino;
- 	}
-+	dput(parent);
+-static void ir_raw_disable_protocols(struct rc_dev *dev, u64 protocols)
+-{
+-	mutex_lock(&dev->lock);
+-	dev->enabled_protocols &= ~protocols;
+-	mutex_unlock(&dev->lock);
+-}
+-
+ /**
+  * ir_raw_gen_manchester() - Encode data with Manchester (bi-phase) modulation.
+  * @ev:		Pointer to pointer to next free event. *@ev is incremented for
+@@ -634,15 +628,20 @@ int ir_raw_event_register(struct rc_dev *dev)
+ {
+ 	struct task_struct *thread;
  
- 	if (ovl_is_impure_dir(file)) {
- 		rdt.cache = ovl_cache_get_impure(&file->f_path);
-@@ -742,6 +751,8 @@ static int ovl_iterate(struct file *file, struct dir_context *ctx)
- 		ovl_dir_reset(file);
- 
- 	if (od->is_real) {
-+		struct dentry *parent = dget_parent(dentry);
++	/* Holding dev->lock could result in a dead-lock */
++#ifdef CONFIG_LOCKDEP
++	WARN_ON(debug_locks && lockdep_is_held(&dev->lock));
++#endif
 +
- 		/*
- 		 * If parent is merge, then need to adjust d_ino for '..', if
- 		 * dir is impure then need to adjust d_ino for copied up
-@@ -750,11 +761,12 @@ static int ovl_iterate(struct file *file, struct dir_context *ctx)
- 		if (ovl_xino_bits(dentry->d_sb) ||
- 		    (ovl_same_fs(dentry->d_sb) &&
- 		     (ovl_is_impure_dir(file) ||
--		      OVL_TYPE_MERGE(ovl_path_type(dentry->d_parent))))) {
-+		      OVL_TYPE_MERGE(ovl_path_type(parent))))) {
- 			err = ovl_iterate_real(file, ctx);
- 		} else {
- 			err = iterate_dir(od->realfile, ctx);
- 		}
-+		dput(parent);
- 		goto out;
- 	}
+ 	thread = kthread_run(ir_raw_event_thread, dev->raw, "rc%u", dev->minor);
+ 	if (IS_ERR(thread))
+ 		return PTR_ERR(thread);
  
+ 	dev->raw->thread = thread;
+ 
+-	mutex_lock(&ir_raw_handler_lock);
++	mutex_lock(&ir_raw_client_lock);
+ 	list_add_tail(&dev->raw->list, &ir_raw_client_list);
+-	mutex_unlock(&ir_raw_handler_lock);
++	mutex_unlock(&ir_raw_client_lock);
+ 
+ 	return 0;
+ }
+@@ -666,8 +665,10 @@ void ir_raw_event_unregister(struct rc_dev *dev)
+ 	kthread_stop(dev->raw->thread);
+ 	del_timer_sync(&dev->raw->edge_handle);
+ 
+-	mutex_lock(&ir_raw_handler_lock);
++	mutex_lock(&ir_raw_client_lock);
+ 	list_del(&dev->raw->list);
++
++	mutex_lock(&ir_raw_handler_lock);
+ 	list_for_each_entry(handler, &ir_raw_handler_list, list)
+ 		if (handler->raw_unregister &&
+ 		    (handler->protocols & dev->enabled_protocols))
+@@ -683,6 +684,8 @@ void ir_raw_event_unregister(struct rc_dev *dev)
+ 	 * "device gone" is checked.
+ 	 */
+ 	mutex_unlock(&ir_raw_handler_lock);
++
++	mutex_unlock(&ir_raw_client_lock);
+ }
+ 
+ /*
+@@ -705,15 +708,24 @@ void ir_raw_handler_unregister(struct ir_raw_handler *ir_raw_handler)
+ 	struct ir_raw_event_ctrl *raw;
+ 	u64 protocols = ir_raw_handler->protocols;
+ 
++	mutex_lock(&ir_raw_client_lock);
++
+ 	mutex_lock(&ir_raw_handler_lock);
+ 	list_del(&ir_raw_handler->list);
++	atomic64_andnot(protocols, &available_protocols);
++	mutex_unlock(&ir_raw_handler_lock);
++
+ 	list_for_each_entry(raw, &ir_raw_client_list, list) {
++		mutex_lock(&raw->dev->lock);
++		mutex_lock(&ir_raw_handler_lock);
+ 		if (ir_raw_handler->raw_unregister &&
+ 		    (raw->dev->enabled_protocols & protocols))
+ 			ir_raw_handler->raw_unregister(raw->dev);
+-		ir_raw_disable_protocols(raw->dev, protocols);
++		raw->dev->enabled_protocols &= ~protocols;
++		mutex_unlock(&ir_raw_handler_lock);
++		mutex_unlock(&raw->dev->lock);
+ 	}
+-	atomic64_andnot(protocols, &available_protocols);
+-	mutex_unlock(&ir_raw_handler_lock);
++
++	mutex_unlock(&ir_raw_client_lock);
+ }
+ EXPORT_SYMBOL(ir_raw_handler_unregister);
 -- 
 2.53.0
 
