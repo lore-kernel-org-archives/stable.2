@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890932;
-	b=G+1/lVWWynQj4ZkIvFI9SsVmPLBCaGD9iH1gIUesjGiXCEyehqrXEsxPSxkLpOrh+yHe
-	 WtrL5RTHNyyua57TdZCQC++q/u2KA6OBG3+cZukvqrmeX371t7T8/wA3L95c2N1lsw6qk
-	 8MeF5XpmlOq0yRDX2SGKzhwQ0njDvlHa/G7NczoWW3gMIXy/dRlkeHe03f8btQHjdOiVm
-	 Qhoop4HL1N3WmQF12gCXJ91B2JGtz2ME1ceIPbSi/+jFKuMHihwyNp0i6mzGaEMrvVhYI
-	 mtthdAswWZyWJiTIfYLVFQLpmVogJ3doOyA0xuSmNoZ3xd5qR4g0kNQp4CZI3zaMshg==
+	t=1793890939;
+	b=VeZ/c0dEPE+JdfJCI9gEmye82Eb3rO6q6i8plsGeS8NxVpnhdS4102fV+jPnnC1FbNWw
+	 oxUrYKx/af88OOOKqUHk9aw86iYyNDh2pnMKkCcgWNpTQb4mclLhy/EfaBZI+KMcoDalF
+	 iSHuGBPQzPoM+bf6Kc/unMgtj8N94T/UGh0SUB33vC2bkEm5KI4rZBtjXQXTxSFzzwppu
+	 dPVxQm1wR25DVLJprciSdD2+o6fsHL7gz+kYwHJC+WflLnTafy89eMcxIYRV9HAAfKugg
+	 SlUlZfw0htHZjOyniTljAt1QMXn3FcoZN4GoFtx3FlAxz7OztQDjAy4jRylCWhSeR0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890932;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890939;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=M2VGFn7iOeUvIJn75BxjrPqzoBSLCwUXzT5IiJlycYw=;
-	b=4gavZ7vDhR7grWdX19tNpvyv7A8m61XVpDIldv3IpLPoyeMand9kyWIt7ImomV353Lsr
-	 ozoOSP7gDxJ6BN62Uy4n9J87XXduKMGubamIQR3xSjngpE8B/uIKcKk5xvrBR7plpvxaW
-	 GI12b/dsuejpU5QZCu2S86diNOyC1XiZl8IW/LIKqOJfXCOBSarb1OiESXzAlSiW8yZLv
-	 FvdArjlNWBi1rKd/u3T0/Jcp7/XJ5lQWZxxeSekSTdsFbAzzqSZOpgkcwLgc08hT86bUj
-	 tfaFezwB29NZaGmjhyoGYJmknxDEbCf2OKfc8/NbS1v2ulrYkbuuyZMY5fMnbxXz50w==
+	bh=ixCVT93bZaTNeOx4Am48PMYfOqT+BPUN0teQBsYh70s=;
+	b=hR4Du6/9ktr3eiQAQqNq0J8xJGC4EmOFLbOEMn7LL+KJ6PecPdFBHtuJDoAbbrH8inIC
+	 /3R5V00cXwCyOv+ryCU38IvdihRdtk1QPP5PsnUrZMlYolqHMc7Np/VVIPvcMpIPHuu9v
+	 C+Gx59UtGfUhrI7gssv+xQ9s0TlD56w0TQjNjuKFLXIUpRspMWUJuPPEUeSJPXGJ1bhUh
+	 JTdk81AoZoqRJ2mMkSj9zlfes4IlPoUdu4Ttz3+AVhhDCvi5VFtFxvST/3BD7OOPsccnx
+	 8u6V+72wnIEubA1LtczaFSHK3i4yyaegUyFmXst/uIM9W1MFNGE4WRyfMLxamg09OfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZLGv1PgJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kY4+qsZf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5C5606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:02:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2226606A33B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:02:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZLGv1PgJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 676951F00919;
-	Thu,  5 Nov 2026 15:02:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kY4+qsZf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D14671F0093A;
+	Thu,  5 Nov 2026 15:02:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793890932;
-	bh=M2VGFn7iOeUvIJn75BxjrPqzoBSLCwUXzT5IiJlycYw=;
+	s=k20260515; t=1793890938;
+	bh=ixCVT93bZaTNeOx4Am48PMYfOqT+BPUN0teQBsYh70s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZLGv1PgJWiXRlrmQHB8BQQlkz/TkdwlwsPVkQNWuX45Kw5ovmSEpXntUTPuDNy22y
-	 j5vaIDIrc7rCOxOxHcMV4xiJrWZbsol+AqTokvlVMdcqDkcZtznn7TxweYKjcaUrc/
-	 PTe9e6cBYXoHMHTRdl9ErLUe9CDD4ZaGOxQSnzsEzLS2S/1TGEi/YuBtTAZA4pO3Of
-	 yCZpIobe3uoPa6A3hzHWjyEITT2eVAL7t9ktnWzvSuPVSXhjCwCpxQ0mMrhKyADPT7
-	 PYIBRltj9nOiOz5sE2uhHc+ngV14fK9eE3zyNB0b36XW6cgY10GcMBO0qaVMfRnEc5
-	 wdijJX/5YkUug==
+	b=kY4+qsZf148NeWusgmPhq29uK4lBc87eQ4iQbn6V350LBAbwzDtWHLX7g83wKvyNs
+	 S+qOiQAMhLXmeWPEJu7am7fNdVAFDk09qn3p7SKqhZ1oGFJGroz6jLuTzEdSjsNInb
+	 BrkCjaCBPoX1wTsSUBKNspqYCSVr/Kbjrxt4qNddqfI7JirkwKAuJBYpobxfIoGNUm
+	 7AgcRr9dEN5U8yyzWL1K6z7KBsvXK/3/yChdY0Divt5OyTaSfIxgTbLtRBCB5YSC5m
+	 zzmRbKR+fuUcbvAjBVz2SxEmo31vTMTNn+nZFSLdmzvE2u5qSBzclbOcHZ6tBsAZua
+	 K1+hDbIBC2G3g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Darrick J. Wong" <djwong@kernel.org>,
 	Christoph Hellwig <hch@lst.de>,
 	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] xfs: rescan the AGs if incore delalloc counter is negative
-Date: Thu,  5 Nov 2026 10:02:10 -0500
-Message-ID: <20261105150116.1839450-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] xfs: complain loudly when dirtree checker finds broken links
+Date: Thu,  5 Nov 2026 10:02:16 -0500
+Message-ID: <20261105150119.1835271-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110408-stoning-numbing-9457@gregkh>
-References: <2026110408-stoning-numbing-9457@gregkh>
+In-Reply-To: <2026110432-statue-level-5b8e@gregkh>
+References: <2026110432-statue-level-5b8e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,52 +64,48 @@ Content-Transfer-Encoding: 8bit
 
 From: "Darrick J. Wong" <djwong@kernel.org>
 
-[ Upstream commit 47b1e941bb55f735d82ba2649412260da78b98f8 ]
+[ Upstream commit e09438cab72c2c6a32665829d4186155346bfee8 ]
 
-LOLLM complains that percpu_counter_sum can return a negative number but
-we instead misinterpret that into a huge unsigned value and do bad
-things to fdblocks.  It shouldn't do that, so let's add a retry loop and
-an attempt to freeze the filesystem to (hopefully) zero out the incore
-delalloc counter.  It probably won't work, but at least failing the
-repair beats doing the wrong thing.
+LOLLM observed that the directory tree walk code bails out if it finds
+broken parent pointers along the way.  However, it flattens the return
+code to zero, which means that we can end up in the repair code having
+not completed the scan.  We should never proceed with a repair in this
+state, so let's mark the scrub incomplete and exit.
 
-Cc: stable@vger.kernel.org # v5.2
-Fixes: 75efa57d0bf5fc ("xfs: add online scrub for superblock counters")
+Cc: stable@vger.kernel.org # v6.10
+Fixes: 928b721a11789a ("xfs: teach online scrub to find directory tree structure problems")
 Signed-off-by: Darrick J. Wong <djwong@kernel.org>
 Assisted-by: LOLLM # finding obvious bugs
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ sashal: retained existing pag and agno declarations while omitting realtime-counter hunks because the delayed realtime counters are absent ]
+[ sashal: Retained xchk_ino_xref_set_corrupt(sc, sc->ip->i_ino) instead of upstream's xchk_ip_xref_set_corrupt(sc, sc->ip). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/fscounters.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ fs/xfs/scrub/dirtree.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/fs/xfs/scrub/fscounters.c b/fs/xfs/scrub/fscounters.c
-index 9aca5c82a3c51..e8d90b674d944 100644
---- a/fs/xfs/scrub/fscounters.c
-+++ b/fs/xfs/scrub/fscounters.c
-@@ -299,7 +299,7 @@ xchk_fscount_aggregate_agcounts(
- {
- 	struct xfs_mount	*mp = sc->mp;
- 	struct xfs_perag	*pag;
--	uint64_t		delayed;
-+	int64_t			delayed;
- 	xfs_agnumber_t		agno;
- 	int			tries = 8;
- 	int			error = 0;
-@@ -362,6 +362,11 @@ xchk_fscount_aggregate_agcounts(
- 	 * of the computation.
- 	 */
- 	delayed = percpu_counter_sum(&mp->m_delalloc_blks);
-+	if (delayed < 0) {
-+		ASSERT(delayed >= 0);
+diff --git a/fs/xfs/scrub/dirtree.c b/fs/xfs/scrub/dirtree.c
+index 8933506c4830a..35848cbfae929 100644
+--- a/fs/xfs/scrub/dirtree.c
++++ b/fs/xfs/scrub/dirtree.c
+@@ -849,7 +849,8 @@ xchk_dirtree_find_paths_to_root(
+ 				 * A parent pointer of @sc->ip is bad, don't
+ 				 * bother continuing.
+ 				 */
+-				break;
++				xchk_set_incomplete(sc);
++				return error;
+ 			}
+ 			if (error == -ESTALE) {
+ 				/* This had better be an invalidation. */
+@@ -970,6 +971,7 @@ xchk_dirtree(
+ 		 * parent pointers are corrupt; this scan cannot be completed
+ 		 * without full information.
+ 		 */
 +		xchk_set_incomplete(sc);
-+		return -EFSCORRUPTED;
-+	}
- 	fsc->fdblocks -= delayed;
- 
- 	trace_xchk_fscounters_calc(mp, fsc->icount, fsc->ifree, fsc->fdblocks,
+ 		xchk_ino_xref_set_corrupt(sc, sc->ip->i_ino);
+ 		error = 0;
+ 		goto out_scanlock;
 -- 
 2.53.0
 
