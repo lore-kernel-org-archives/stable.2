@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881287;
-	b=vZup4IRakbHo2nVh7OCVMdheOEJnge7+jWRHXEMi3EgUiBTK10T2I+dz8u6LTY+MieT3
-	 WqvKaUuSiVuCRbmn2/iGWs0WteL8phQkbATKZjAarj7UvHE1j57qnSLGAzCB6+A6dkTIj
-	 8sICL1YS65cuCzH3Og0mWnGdfQnTO5jBahBii4XGsTQfMYlq0WXLV5UWZE6ojyi65x6GG
-	 F9PXfi7d3c+ysxfWgX8I/KkVxoEdeO5hZClo1ZdTjBFeoBhu8KOOkBrPbyWywzoTGB61P
-	 LIaZ4J3LdHyBzVSq0G/eRW1WKh/RuzKwOe2y6rOWxrkwG1o7+42z87vqn8eOMO2BBhg==
+	t=1793881293;
+	b=X0hglZ3gcDcEvkWpjQCQXz1Kq7Dbi1hApefjuFExqVyjipBqZrGLun9N8lFJeUT3njUM
+	 Y7jfGtNIRwj9YkGXpoSUOUjguVtxfBu3KM3bDDIKD7UR3HizGhLiz4gE5CAjeRrXljTTm
+	 lsmgAgAD9DpWmNelm+hph/hq/V1TPflQkN4qd4oePh1E3NsCaPPOQqxkFXutp9Arj+m7n
+	 ssscMQkP8TlUkbAk7S3I9/ADuYlgf7BJGjmePh/nmHjMKKMpqB9XNwCeOkUnf20QVkiGl
+	 iD7A/fu1FHz+GVgg7JQ/GXyIxuHdSBV79C88Gk0YT3UtGptZ7IZ/Sk/YWp/x4tgf33A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881287;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881293;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UxiTS62BtQTEaQsj2KqI71K0t2BbsWQA2HZrTm2lC8k=;
-	b=BMIsvdiaVKgAOlcDzLcpkRXbeoHLjTGNctKEEc1Slkg2mG9oFlD6YlO0EjLBVioW9S59
-	 jSy5vBrhT39FHE4/pi9QVpfad/0B3y4+TA28kvKtzmFZg+5+o+voHHsiBjalhQkraZtT/
-	 Jgh3TyexrW8+8svUQqBhM2G0mx6GVG71NAdRZ+Dg1gud3MGgBrlVU4vkSQ7VTKlonJ6h+
-	 3EwGmPFv6Bl0ugGf80bq5VT2LAJGxOxW8ePj8fQaVUAgQZec+c/QE6P8YCx33vj3f9IdX
-	 jB25xTdZlOzduVfVEzkSOTQ/jDMfWRzyaRXiBJy1mrUosacni/GHG7Bigdl29SqI24g==
+	bh=vAsY6LXOnLZclehaN7vvtt8W8PcUF2Y3yMx85UmExXQ=;
+	b=SJxjZDq/sJArUV7L84a2qkA91DdOfwZlXvsc2kxCnoM9pQJVt052yK76ARXN5Gu/d5YE
+	 FK/BFAfrW0dJlM+O4J/vdUjhUU5sx1HJGLXcZ7Gg94dYeUjXQ0GTLTKTgOi2rVsdp6lZj
+	 WEP28clBoUart+f2cWNqB5k5lrNR+rW1Y/M7trilWu8buVq86nXra8AvanSv+s3HIWgU9
+	 PXbvHP1b/bnOsvMO9NSBRThvYaMzJtEOULWFrV6BJ6XmCjD6InbYH4iWg3DtVFmLOt5xw
+	 2lMkA2denmKyodHjmDi0tItTnf5XUFgAlJHUMPytZvvI6CM4kICZBSEFJHNZKSVvN9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MFYAVIqM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6Md0Fdc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC62606D82A
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:21:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B47606A337
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:21:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MFYAVIqM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 457A21F00919;
-	Thu,  5 Nov 2026 12:21:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6Md0Fdc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78BEB1F000C1;
+	Thu,  5 Nov 2026 12:21:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793881286;
-	bh=UxiTS62BtQTEaQsj2KqI71K0t2BbsWQA2HZrTm2lC8k=;
+	s=k20260515; t=1793881293;
+	bh=vAsY6LXOnLZclehaN7vvtt8W8PcUF2Y3yMx85UmExXQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MFYAVIqMJ3nq+Zl+IqmxwuDj1LF3clDz5O0TlBLcdVxD98SSdeDiKVUJ3RvmSBi4o
-	 IStqTYPFDMc2Oor39Vuz0OC9xBepE9MCQfGyBofdRY1fnGe5gk0mrlXJKmOVQwxANo
-	 rxH8YIs1RZpv2bCHE1PYzenw6FbY2EhLUji9PMb3nRnYLKZV+3R+NPL6dOcrc5OUaz
-	 jkxp1Agv/hgj7w5qfHpjF2wKcXb4PI5H7LbwjR4iOvPitD7pIDTVhv+Ku2LWLzMP0+
-	 qObt5ENwC5SzKR2kVoA5+mVre8OA4o+u19obXhpEciOn5um49Q5nghzIezryNoYkTY
-	 JhCD/qNdJB2zA==
+	b=I6Md0FdcCo9D9iD3kRv8fb0M2VpGcnNxR+RvyscYexlnpcWM+ZJIX/c6tV/ofkQhU
+	 XputvCL2HzSbSBNq8BP1xEHyJp6q2QBAJZ0sXZrzokr+wDGEaKqLJCbr+7LI8DRePu
+	 XwLcfC1YofjVsq3Lw2bOFexCI57Nshl1WRfH0EltY/b1tFf3Vhq4nUFwgHnm1AB2EJ
+	 7WAYUgMNP+sG37ugvVkzr1ROaN4IEnKb/1ifec844R6Yo+2YwByYMsTtmAKkZIRzvU
+	 v3iSdkF1ArjKgAKTLVHNzR5wgaWj2X0uegAHuAlYRA6zYuUWP2fU1ae5iRm8HTZ+j1
+	 AIGIskJyj11Ag==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tianchu Chen <flynnnchen@tencent.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Eduard Zateev <hackerowskiy@gmail.com>,
+	syzbot+5c3ed2a0de3270efc921@syzkaller.appspotmail.com,
+	syzbot+c2ec61adfbcb24e5ec20@syzkaller.appspotmail.com,
+	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] staging: rtl8723bs: fix protected RX frame validation in decrypt path
-Date: Thu,  5 Nov 2026 07:21:25 -0500
-Message-ID: <20261105121915.1233786-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] smb: client: hold server info until cifsd exits
+Date: Thu,  5 Nov 2026 07:21:31 -0500
+Message-ID: <20261105121915.1276136-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110449-unleveled-simmering-935a@gregkh>
-References: <2026110449-unleveled-simmering-935a@gregkh>
+In-Reply-To: <2026110421-avatar-written-3163@gregkh>
+References: <2026110421-avatar-written-3163@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,105 +64,153 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tianchu Chen <flynnnchen@tencent.com>
+From: Eduard Zateev <hackerowskiy@gmail.com>
 
-[ Upstream commit 495cb31c791bdf3f9efef255a9587b05b0526c9d ]
+[ Upstream commit 482c117c6dbeee382790168af10959810450ab09 ]
 
-The RX software decrypt path mishandles crafted protected frames from a
-malicious AP in two ways:
+The last session reference can be dropped while the cifsd demultiplex
+thread is still running clean_demultiplex_info(). That thread frees
+TCP_Server_Info there, racing with cifs_put_tcp_session() as it releases
+the server crypto state. syzbot reported a KASAN use-after-free in
+cifs_crypto_secmech_release().
 
-1) decryptor() never checks that a protected frame is long enough to
-hold the 802.11 header plus the per-cipher trailer.  All of
-rtw_wep_decrypt(), rtw_tkip_decrypt() and rtw_aes_decrypt() compute
+Keep an object reference for the cifsd thread. Defer final crypto,
+session-key, network namespace, string, and structure cleanup until both
+the last session reference and the thread reference are dropped. Drop the
+thread reference after clean_demultiplex_info() has finished using the
+server.
 
-	length = hdr.len - hdrlen - iv_len;
+Build-tested with ARCH=arm64 and W=1 for
+fs/smb/client/connect.o. The KASAN reproducer was not run on the patched
+kernel.
 
-and act on the result, and recvframe_chkmic() similarly computes
-
-	datalen = hdr.len - hdrlen - iv_len - icv_len - 8;
-
-for TKIP (the 8-byte Michael MIC is not accounted for in icv_len).
-A frame shorter than hdrlen + iv_len + icv_len (+ 8 for TKIP) underflows
-these unsigned subtractions, turning into a ~4 GiB iteration count in
-aes_decipher()/arc4_crypt()/rtw_seccalctkipmic() or a ~4 GiB crc32_le()
-length, causing out-of-bounds reads/writes of up to ~4 GiB starting from
-the rx skb.  Reject such frames in decryptor() before touching the IV;
-this covers all three ciphers and the TKIP MIC check, and also keeps the
-unconditional iv[3] access within the frame.
-
-2) validate_80211w_mgmt() keeps using the frame - two memcpys through
-the stale rx_data pointer and a pkt_len update - before checking
-whether decryptor() returned NULL.  On decrypt failure (e.g. a unicast
-protected deauth/disassoc/action frame with a bad MIC, which this path
-always software-decrypts) the skb has already been freed, so this is a
-use-after-free read/write, and the caller's error path frees the frame
-a second time, drifting free_recvframe_cnt.  Bail out immediately when
-decryptor() fails, freeing the temporary mgmt_DATA buffer first.
-
-Discovered by Atuin - Automated Vulnerability Discovery Engine.
-
-Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
-Assisted-by: LLM
+Fixes: a5c3e1c725af ("Revert "cifs: No need to send SIGKILL to demux_thread during umount"")
+Reported-by: syzbot+5c3ed2a0de3270efc921@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=5c3ed2a0de3270efc921
+Reported-by: syzbot+c2ec61adfbcb24e5ec20@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=c2ec61adfbcb24e5ec20
+Assisted-by: LLM OpenAI Codex
+Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
-Link: https://patch.msgid.link/8ee3bdd1c45034200cb1aa9a7e9b575b9584643a@linux.dev
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Retained the existing DBG_871X() debug message in the relocated decrypt-failure branch. ]
+Tested-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ sashal: adapted DFS cleanup to free both origin_fullpath and leaf_fullpath under the existing CONFIG_CIFS_DFS_UPCALL guard. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/rtl8723bs/core/rtw_recv.c | 25 ++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+ fs/smb/client/cifsglob.h |  2 ++
+ fs/smb/client/connect.c  | 38 +++++++++++++++++++++++---------------
+ 2 files changed, 25 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/rtl8723bs/core/rtw_recv.c
-index 0e6fb03ff85c8..8ed6ded1bef79 100644
---- a/drivers/staging/rtl8723bs/core/rtw_recv.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
-@@ -451,7 +451,21 @@ union recv_frame *decryptor(struct adapter *padapter, union recv_frame *precv_fr
- 	RT_TRACE(_module_rtl871x_recv_c_, _drv_info_, ("prxstat->decrypted =%x prxattrib->encrypt = 0x%03x\n", prxattrib->bdecrypted, prxattrib->encrypt));
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index a9dce6fe2705f..6658d6c532f80 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -16,6 +16,7 @@
+ #include <linux/scatterlist.h>
+ #include <linux/mm.h>
+ #include <linux/mempool.h>
++#include <linux/refcount.h>
+ #include <linux/workqueue.h>
+ #include <linux/utsname.h>
+ #include <linux/sched/mm.h>
+@@ -589,6 +590,7 @@ struct TCP_Server_Info {
+ 	spinlock_t srv_lock;  /* protect anything here that is not protected */
+ 	__u64 conn_id; /* connection identifier (useful for debugging) */
+ 	int srv_count; /* reference counter */
++	refcount_t obj_refs; /* struct lifetime: srv_count users + cifsd */
+ 	/* 15 character server name + 0x20 16th byte indicating type = srv */
+ 	char server_RFC1001_name[RFC1001_NAME_LEN_WITH_NULL];
+ 	struct smb_version_operations	*ops;
+diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
+index 157d947846d9b..3cb2d68673a5c 100644
+--- a/fs/smb/client/connect.c
++++ b/fs/smb/client/connect.c
+@@ -984,6 +984,21 @@ cifs_enable_signing(struct TCP_Server_Info *server, bool mnt_sign_required)
+ 	return 0;
+ }
  
- 	if (prxattrib->encrypt > 0) {
--		u8 *iv = precv_frame->u.hdr.rx_data+prxattrib->hdrlen;
-+		u8 *iv;
-+		u32 min_len = prxattrib->hdrlen + prxattrib->iv_len + prxattrib->icv_len;
++static void cifs_tcp_server_put(struct TCP_Server_Info *server)
++{
++	if (!refcount_dec_and_test(&server->obj_refs))
++		return;
 +
-+		/* TKIP appends an 8-byte Michael MIC that icv_len doesn't account for */
-+		if (prxattrib->encrypt == _TKIP_)
-+			min_len += 8;
-+
-+		/* a protected frame must be long enough to hold the IV and ICV/MIC */
-+		if (precv_frame->u.hdr.len < min_len) {
-+			rtw_free_recvframe(precv_frame,
-+					   &padapter->recvpriv.free_recv_queue);
-+			return NULL;
-+		}
-+
-+		iv = precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
- 		prxattrib->key_index = (((iv[3])>>6)&0x3);
++	cifs_crypto_secmech_release(server);
++	kfree_sensitive(server->session_key.response);
++	put_net(cifs_net_ns(server));
++#ifdef CONFIG_CIFS_DFS_UPCALL
++	kfree(server->origin_fullpath);
++	kfree(server->leaf_fullpath);
++#endif
++	kfree(server->hostname);
++	kfree_sensitive(server);
++}
  
- 		if (prxattrib->key_index > WEP_KEYS) {
-@@ -1426,6 +1440,11 @@ static sint validate_80211w_mgmt(struct adapter *adapter, union recv_frame *prec
- 				goto validate_80211w_fail;
- 			}
- 			precv_frame = decryptor(adapter, precv_frame);
-+			if (!precv_frame) {
-+				kfree(mgmt_DATA);
-+				DBG_871X("%s mgmt descrypt fail  !!!!!!!!!\n", __func__);
-+				goto validate_80211w_fail;
-+			}
- 			/* save actual management data frame body */
- 			memcpy(mgmt_DATA, ptr+pattrib->hdrlen+pattrib->iv_len, data_len);
- 			/* overwrite the iv field */
-@@ -1433,10 +1452,6 @@ static sint validate_80211w_mgmt(struct adapter *adapter, union recv_frame *prec
- 			/* remove the iv and icv length */
- 			pattrib->pkt_len = pattrib->pkt_len - pattrib->iv_len - pattrib->icv_len;
- 			kfree(mgmt_DATA);
--			if (!precv_frame) {
--				DBG_871X("%s mgmt descrypt fail  !!!!!!!!!\n", __func__);
--				goto validate_80211w_fail;
--			}
- 		} else if (IS_MCAST(GetAddr1Ptr(ptr)) &&
- 			(subtype == WIFI_DEAUTH || subtype == WIFI_DISASSOC)) {
- 			sint BIP_ret = _SUCCESS;
+ static void clean_demultiplex_info(struct TCP_Server_Info *server)
+ {
+@@ -1070,17 +1085,11 @@ static void clean_demultiplex_info(struct TCP_Server_Info *server)
+ 		 */
+ 	}
+ 
+-	put_net(cifs_net_ns(server));
+-#ifdef CONFIG_CIFS_DFS_UPCALL
+-	kfree(server->origin_fullpath);
+-	kfree(server->leaf_fullpath);
+-#endif
+-	kfree(server->hostname);
+-	kfree(server);
+-
+ 	length = atomic_dec_return(&tcpSesAllocCount);
+ 	if (length > 0)
+ 		mempool_resize(cifs_req_poolp, length + cifs_min_rcv);
++
++	cifs_tcp_server_put(server);
+ }
+ 
+ static int
+@@ -1669,7 +1678,7 @@ cifs_put_tcp_session(struct TCP_Server_Info *server, int from_reconnect)
+ 	list_del_init(&server->tcp_ses_list);
+ 	spin_unlock(&cifs_tcp_ses_lock);
+ 
+-	/* For secondary channels, we pick up ref-count on the primary server */
++	/* For secondary channels, drop the reference on the primary server */
+ 	if (CIFS_SERVER_IS_CHAN(server))
+ 		cifs_put_tcp_session(server->primary_server, from_reconnect);
+ 
+@@ -1690,15 +1699,11 @@ cifs_put_tcp_session(struct TCP_Server_Info *server, int from_reconnect)
+ 	server->tcpStatus = CifsExiting;
+ 	spin_unlock(&server->srv_lock);
+ 
+-	cifs_crypto_secmech_release(server);
+-
+-	kfree_sensitive(server->session_key.response);
+-	server->session_key.response = NULL;
+-	server->session_key.len = 0;
+-
+ 	task = xchg(&server->tsk, NULL);
+ 	if (task)
+ 		send_sig(SIGKILL, task, 1);
++
++	cifs_tcp_server_put(server);
+ }
+ 
+ struct TCP_Server_Info *
+@@ -1720,6 +1725,7 @@ cifs_get_tcp_session(struct smb3_fs_context *ctx,
+ 		rc = -ENOMEM;
+ 		goto out_err;
+ 	}
++	refcount_set(&tcp_ses->obj_refs, 1);
+ 
+ 	tcp_ses->hostname = kstrdup(ctx->server_hostname, GFP_KERNEL);
+ 	if (!tcp_ses->hostname) {
+@@ -1849,6 +1855,8 @@ cifs_get_tcp_session(struct smb3_fs_context *ctx,
+ 		module_put(THIS_MODULE);
+ 		goto out_err_crypto_release;
+ 	}
++	/* Keep the server alive until the demultiplex thread has exited */
++	refcount_inc(&tcp_ses->obj_refs);
+ 	/* thread created, put it on the list */
+ 	spin_lock(&cifs_tcp_ses_lock);
+ 	list_add(&tcp_ses->tcp_ses_list, &cifs_tcp_ses_list);
 -- 
 2.53.0
 
