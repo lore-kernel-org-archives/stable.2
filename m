@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.185.58.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793887819;
-	b=hekcH/UgnHnygep1H+1mEGKKxVB6H1+GpoILzHkH4XKGtwgsSaafHF4Q6CKcBRneM12C
-	 +hldtscLANjosqYZUuBWZjh0Jrf+ZK0s6IyjsnuGJdyrjoGE6MIEeNx9munBu/uJm+Ahj
-	 cdA2sR/e80r/zGRwbntF+K7M63HBSJzHO6HNu8UrVh8lvCmP9Encmg2SzN2DnqrARwMiR
-	 b/sPFu6R4bKvxqNUquvb+pwzFg2P6KL8P83adbyluoT0PLl1IDouiBX03KJGPRcJl9LNz
-	 PD8NhwyXz0t2UoUvZ7gxCXP98EzJ+IUkMjg7UyvXaNBm450AFiFvsdys8ZwK7RCGhcg==
+	t=1793887821;
+	b=bf4q70rMFN0RkbZlA6sWiCrs0f9/SU+2ze5NqCXltIyAe03w6XidemAIZbkiPO2RQflc
+	 ftdjP4RaJz249VpxW7OJwhZHbad80aY5En+101Xc+SpPZM6tz4mPouMkc3CbkU8RI3yBd
+	 KsX0cb5uzkv6AOzioBk1UUPIJ8PbFY+dUpJlGWFHMT0YFRnpqAwY+pZvZdhn0xH2Oo1uP
+	 uh9Qjs1f8fA2GzggceFgVPqJlG37XFlwzYUH5un9zz9SgN8nft4Ets9Tf5/j+89RYtrbj
+	 mknEB1LfIqqXPEfEel4ThI2ozCzP1ooK3qpQWltzkKkiIrZbI71SV1erGx9JGsG70WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793887819;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793887821;
 	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 X-Spamd-Bar;
-	bh=7K1EA9md3lO2uzD1+1lDPBcZKKiPZ6B98DYU6Y9hvcY=;
-	b=QTfsmtPz0h590tXMMwtklU6Ak4hIXkfOc1uVMFV8ySfYy+1w5nNWVvJqxEvNUFuk0SO1
-	 xJix/etSbSBVWwq2tzIKnkt+OXg1a83Q5JNI4tNpo4N6MnmMTOpoE6HtRwFwLaxVkXnvf
-	 d0qapV/Oa2ynXrhSlnRUs30oLXNgGUI/YjtY4b4Cv4iRZKRKMjy3CLs+d864e0oUiVhUq
-	 1xTbYUE8RcUlMsrNd49fBa06bHOXAo3iIiI1NRi5riD40C6hwR20PQ0SMGApYT33b192F
-	 k8wSxthhDeyVF/G4bJQF+yYaje/XZoW8CT1qkse14zxShyC5/ObxjPKY+BcQb04tCxA==
+	bh=2w/pv8W8p2703IU4YSematscewyjnxpED9mVVxiIFo4=;
+	b=Df+OBpZ6XMF7HU7etQsB+gGi3cjOJ+VvAdX3miFwusxtSWR4fFiMQNqnNPKtxvQtbBJc
+	 QPIYOdDFPttDM/yTKGacY+n/BcswYOnVcxQf6Y71X5jFPqWcBY7v2IfCmzoLFEnowsiuR
+	 3d9fx4yW3hUlcyKytCVUDmE1TkV8OhnbsbIyhhMmSXQphnbVmRj0Is/XRloO3t4dZd8cx
+	 r1ZKaYAw8yqmYilC+Ax0KujiSRs/xUHFrk2VL4C9ztEDQ0lcegwK5hM207JIGcvLXbIYj
+	 XkYMFH5CGiYbTdg4f6FZ5TAxACsxaAMGVF22dBTXmjM87GbWGbiBaYo09h2KWLDL3GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=badcode.im;
 	spf=pass smtp.mailfrom=badcode.im;
-	dkim=pass header.d=badcode.im header.i=@badcode.im header.a=rsa-sha256 header.s=dkim header.b=qPa5nXrQ;
+	dkim=pass header.d=badcode.im header.i=@badcode.im header.a=rsa-sha256 header.s=dkim header.b="RJ/XGpAd";
 	arc=none smtp.remote-ip=185.185.58.180
 Received: from badcode.im (badcode.im [185.185.58.180])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F5B606A329;
-	Thu,  5 Nov 2026 14:10:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01F5B606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD92C606A33D;
+	Thu,  5 Nov 2026 14:10:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD92C606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=badcode.im
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=badcode.im
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=badcode.im header.i=@badcode.im header.a=rsa-sha256 header.s=dkim header.b=qPa5nXrQ
+	dkim=pass (2048-bit key, unprotected) header.d=badcode.im header.i=@badcode.im header.a=rsa-sha256 header.s=dkim header.b=RJ/XGpAd
 From: Alexander Ildiyarov <alex@badcode.im>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=badcode.im; s=dkim;
-	t=1793887816;
+	t=1793887818;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7K1EA9md3lO2uzD1+1lDPBcZKKiPZ6B98DYU6Y9hvcY=;
-	b=qPa5nXrQdBtCE3ZbBqpeKXWTis3/ceb67Z0mAcp18PAfO3brNX4P2DDjmvGH/5g13+7Ao9
-	aH7mNPmh0iDlpsMH9M2D3xEUzPnvMPZaxZ653o+1ojRk932rBoajykOEYZ9SjijFHS8fVG
-	Ngw26zch5Ct+pMP28jrrMS+QrpvulIY3XXa8XkuQAisBcQ85VjLMBHq3E8jxRwLN3IfCss
-	edZPV88BRFedFPAaf3dFD8MidwZQZCatY2rmaXeBm4TXeM6EQ0pzZv6moU43SNRhjRBHNK
-	Jmoq3YmQE3i4Fn1y/0cp1UyA0ccHTHuK2EqmDSBHy3xvl6cn0phU1fDSzFqoWQ==
+	bh=2w/pv8W8p2703IU4YSematscewyjnxpED9mVVxiIFo4=;
+	b=RJ/XGpAd89QuYTXpsvBXCp4YT4Zv3Rpp5EAi8+phAcuzARz58byHBX/dkXUGrMezEwxi1d
+	ZXHmgZGLp5oVw+vLiLYzPLOB4yAtEUBqFrEHajSAEjIK0bQBe3WI/7YRiVMR+A71fDu1OD
+	zuk+eRu6uYuk8exG6s2Cbfeuwn5VwdPffjUNFKLFk/7B9cprr92edeGzMs4FmeVbrQX4qC
+	vaf1LbZgqiTmUBJnjC2mSRdIm2taIRatXLGDfwRFVsGDwySwAKGSM0aWEU5+fFxGw/Tbsp
+	iiEii+JIBQOzaZ3S8UXRe2y460XkStCPHQSOq8izmrrjwUyow6yANzRQHlDTCg==
 Authentication-Results: badcode.im;
 	auth=pass smtp.mailfrom=alex@badcode.im
 To: "Jason A . Donenfeld" <Jason@zx2c4.com>,
@@ -59,9 +59,9 @@ Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
 	linux-kernel@vger.kernel.org,
 	Alexander Ildiyarov <alex@badcode.im>,
 	stable@vger.kernel.org
-Subject: [PATCH net 1/2] wireguard: account peer and allowedips allocations to memcg
-Date: Thu,  5 Nov 2026 17:10:05 +0300
-Message-ID: <20261105141006.95083-2-alex@badcode.im>
+Subject: [PATCH net 2/2] wireguard: noise: recheck replay and flood under write lock on initiation
+Date: Thu,  5 Nov 2026 17:10:06 +0300
+Message-ID: <20261105141006.95083-3-alex@badcode.im>
 In-Reply-To: <20261105141006.95083-1-alex@badcode.im>
 References: <20261105141006.95083-1-alex@badcode.im>
 X-Mailing-List: stable@vger.kernel.org
@@ -76,96 +76,113 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spamd-Bar: -
 
-Peers, allowed IP trie nodes, the per-peer dst_cache and the per-device
-hashtables are all allocated in the context of the process that
-configures the device over netlink, but none of these allocations are
-charged to that process's memory cgroup: the wg_peer and allowedips_node
-caches are created without SLAB_ACCOUNT, and the hashtables and
-dst_cache use plain GFP_KERNEL.
+wg_noise_handshake_consume_initiation() checks the initiation's
+timestamp against latest_timestamp, and last_initiation_consumption
+against the current time, while holding handshake->lock for reading.
+It then drops the lock and takes it again for writing to store the new
+state, without repeating the checks.
 
-The amount of memory is bounded only by MAX_PEERS_PER_DEVICE (2^20) per
-device, with no limit on the number of devices or on the number of
-allowed IPs per peer. Since WG_CMD_SET_DEVICE uses GENL_UNS_ADMIN_PERM,
-any user who can create a user and network namespace can do this, and
-thereby escape the memory limits of the cgroup it runs in.
+Incoming handshake packets are spread round-robin over all online CPUs,
+so two copies of the same initiation, received back to back, are
+processed in parallel. Both copies can pass the checks before either of
+them updates latest_timestamp and last_initiation_consumption, so the
+replay and flood protection is bypassed. The responder then creates two
+responses, each with a new ephemeral key, and installs the keypair of
+the last one, while the initiator accepts whichever response arrives
+first. When those differ, the session is unusable until the initiator
+gives up on it and starts a new handshake, and an attacker who can see
+and duplicate initiations can repeat this for every handshake.
 
-For example, a process in a cgroup with memory.max=64M that adds 100000
-peers with 20 /128 allowed IPs each grows Slab by ~790 MiB, yet the
-cgroup's memory.current stays below 1 MiB and its memory limit is never
-hit.
+The window is narrow, since the expensive DH computations happen before
+the check, so it is between up_read() and down_write() only. With netem
+duplicating every initiation between two namespaces, no double response
+was observed in 200 handshakes on a 4-CPU VM. With a usleep_range(1000,
+2000) inserted before down_write() to widen the window, 30 of 50
+duplicated initiations produced two responses, and in 12 of 50 cases
+the session was unusable after the handshake. With this patch applied,
+and the same delay, every duplicate was rejected and all 50 sessions
+worked.
 
-Fix this by creating the two caches with SLAB_ACCOUNT and using
-GFP_KERNEL_ACCOUNT for the hashtables and the dst_cache. The keypair
-allocations are left alone, as they happen from the handshake worker and
-are bounded to three per peer.
+Fix this by doing the checks again once the write lock is held, keeping
+the read-locked check as a fast path for rejecting replays.
+
+This is the initiation-side counterpart of the response-side race fixed
+by:
+commit 2a73c9b2c0ca ("wireguard: noise: reject response consumption after intermediate initiation")
 
 Fixes: e7096c131e51 ("net: WireGuard secure network tunnel")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Alexander Ildiyarov <alex@badcode.im>
 ---
- drivers/net/wireguard/allowedips.c | 2 +-
- drivers/net/wireguard/peer.c       | 4 ++--
- drivers/net/wireguard/peerlookup.c | 4 ++--
- 3 files changed, 5 insertions(+), 5 deletions(-)
+ drivers/net/wireguard/noise.c | 29 ++++++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/wireguard/allowedips.c b/drivers/net/wireguard/allowedips.c
-index 5ece9acad64d..2f2b8a94c8a7 100644
---- a/drivers/net/wireguard/allowedips.c
-+++ b/drivers/net/wireguard/allowedips.c
-@@ -411,7 +411,7 @@ struct wg_peer *wg_allowedips_lookup_src(struct allowedips *table,
- 
- int __init wg_allowedips_slab_init(void)
- {
--	node_cache = KMEM_CACHE(allowedips_node, 0);
-+	node_cache = KMEM_CACHE(allowedips_node, SLAB_ACCOUNT);
- 	return node_cache ? 0 : -ENOMEM;
+diff --git a/drivers/net/wireguard/noise.c b/drivers/net/wireguard/noise.c
+index 428d3afe3ce4..209127654e65 100644
+--- a/drivers/net/wireguard/noise.c
++++ b/drivers/net/wireguard/noise.c
+@@ -580,13 +580,23 @@ wg_noise_handshake_create_initiation(struct message_handshake_initiation *dst,
+ 	return ret;
  }
  
-diff --git a/drivers/net/wireguard/peer.c b/drivers/net/wireguard/peer.c
-index 1cb502a932e0..05b80521c706 100644
---- a/drivers/net/wireguard/peer.c
-+++ b/drivers/net/wireguard/peer.c
-@@ -33,7 +33,7 @@ struct wg_peer *wg_peer_create(struct wg_device *wg,
- 	peer = kmem_cache_zalloc(peer_cache, GFP_KERNEL);
- 	if (unlikely(!peer))
- 		return ERR_PTR(ret);
--	if (unlikely(dst_cache_init(&peer->endpoint_cache, GFP_KERNEL)))
-+	if (unlikely(dst_cache_init(&peer->endpoint_cache, GFP_KERNEL_ACCOUNT)))
- 		goto err;
- 
- 	peer->device = wg;
-@@ -229,7 +229,7 @@ void wg_peer_put(struct wg_peer *peer)
- 
- int __init wg_peer_init(void)
++/* Must hold handshake->lock, for reading or writing */
++static bool initiation_is_replay_or_flood(const struct noise_handshake *handshake,
++					  const u8 timestamp[NOISE_TIMESTAMP_LEN])
++{
++	return memcmp(timestamp, handshake->latest_timestamp,
++		      NOISE_TIMESTAMP_LEN) <= 0 ||
++	       (s64)handshake->last_initiation_consumption +
++			       NSEC_PER_SEC / INITIATIONS_PER_SECOND >
++		       (s64)ktime_get_coarse_boottime_ns();
++}
++
+ struct wg_peer *
+ wg_noise_handshake_consume_initiation(struct message_handshake_initiation *src,
+ 				      struct wg_device *wg)
  {
--	peer_cache = KMEM_CACHE(wg_peer, 0);
-+	peer_cache = KMEM_CACHE(wg_peer, SLAB_ACCOUNT);
- 	return peer_cache ? 0 : -ENOMEM;
- }
+ 	struct wg_peer *peer = NULL, *ret_peer = NULL;
+ 	struct noise_handshake *handshake;
+-	bool replay_attack, flood_attack;
+ 	u8 key[NOISE_SYMMETRIC_KEY_LEN];
+ 	u8 chaining_key[NOISE_HASH_LEN];
+ 	u8 hash[NOISE_HASH_LEN];
+@@ -594,6 +604,7 @@ wg_noise_handshake_consume_initiation(struct message_handshake_initiation *src,
+ 	u8 e[NOISE_PUBLIC_KEY_LEN];
+ 	u8 t[NOISE_TIMESTAMP_LEN];
+ 	u64 initiation_consumption;
++	bool reject;
  
-diff --git a/drivers/net/wireguard/peerlookup.c b/drivers/net/wireguard/peerlookup.c
-index 99651a86ac95..f333e906014a 100644
---- a/drivers/net/wireguard/peerlookup.c
-+++ b/drivers/net/wireguard/peerlookup.c
-@@ -21,7 +21,7 @@ static struct hlist_head *pubkey_bucket(struct pubkey_hashtable *table,
+ 	down_read(&wg->static_identity.lock);
+ 	if (unlikely(!wg->static_identity.has_identity))
+@@ -630,17 +641,21 @@ wg_noise_handshake_consume_initiation(struct message_handshake_initiation *src,
+ 		goto out;
  
- struct pubkey_hashtable *wg_pubkey_hashtable_alloc(void)
- {
--	struct pubkey_hashtable *table = kvmalloc_obj(*table);
-+	struct pubkey_hashtable *table = kvmalloc_obj(*table, GFP_KERNEL_ACCOUNT);
+ 	down_read(&handshake->lock);
+-	replay_attack = memcmp(t, handshake->latest_timestamp,
+-			       NOISE_TIMESTAMP_LEN) <= 0;
+-	flood_attack = (s64)handshake->last_initiation_consumption +
+-			       NSEC_PER_SEC / INITIATIONS_PER_SECOND >
+-		       (s64)ktime_get_coarse_boottime_ns();
++	reject = initiation_is_replay_or_flood(handshake, t);
+ 	up_read(&handshake->lock);
+-	if (replay_attack || flood_attack)
++	if (reject)
+ 		goto out;
  
- 	if (!table)
- 		return NULL;
-@@ -82,7 +82,7 @@ static struct hlist_head *index_bucket(struct index_hashtable *table,
- 
- struct index_hashtable *wg_index_hashtable_alloc(void)
- {
--	struct index_hashtable *table = kvmalloc_obj(*table);
-+	struct index_hashtable *table = kvmalloc_obj(*table, GFP_KERNEL_ACCOUNT);
- 
- 	if (!table)
- 		return NULL;
+ 	/* Success! Copy everything to peer */
+ 	down_write(&handshake->lock);
++	/* Check again, now that we have an exclusive lock, so that two threads
++	 * processing the same initiation in parallel can't both pass the check
++	 * above before either of them updates the timestamp.
++	 */
++	if (initiation_is_replay_or_flood(handshake, t)) {
++		up_write(&handshake->lock);
++		goto out;
++	}
+ 	memcpy(handshake->remote_ephemeral, e, NOISE_PUBLIC_KEY_LEN);
+ 	if (memcmp(t, handshake->latest_timestamp, NOISE_TIMESTAMP_LEN) > 0)
+ 		memcpy(handshake->latest_timestamp, t, NOISE_TIMESTAMP_LEN);
 -- 
 2.43.0
 
