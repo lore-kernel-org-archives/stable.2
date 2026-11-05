@@ -1,80 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.1.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793862295;
-	b=0p3aN3ZZaKo95BwnICnva+H0RlmfMcS2V32L7LixRTfpxvwRrRUgvVim3aoad1YW0hhZ
-	 kWANU0zxMhmyOjW/PS3mZ0gNYbkydutWZpLmhR2g7rfnM/k8lgTO6BwR6+1T3X7qdqzJ+
-	 43Bv4TZjY3q3oIpDg7QuuzEqYJSyJ5GxtLgyfrzT4r2jpUaylbM87pmJhf6JkmIMQ4eMI
-	 +lLT8AhlTk0X12uZek4zaKEzGbGva9Gm4RkqGFmVQGvm35fDVBVd2QfXxzCMHeh3YNsoA
-	 b5EKJDKkrRXajtgIhcUV1B8JUa3ZMLkGgYTyKS2ZX0dGlU7D9sanlM9p32l3sV4OgJw==
+	t=1793862304;
+	b=bfmxV7s1TfGFY62MTlSS2FPmnkAjGndhVIwemyDn93QJ/I6MNbIY1MXIukNgtJMKuHnK
+	 ZlkSh3Wuk76Gr+g2HjVndkHEAkOaSbkUpS14pKkP+0UikQHqtWhh+z6b0jIvu1OLikws/
+	 uoax3RUNqVrUE3ub8iCI2t5T7q6bYswL64KWu1yL07sEsqCBI+gGkHM+VzI9T3ZEI/MpD
+	 TTiDn7XYW1jo5C4EWhw+16iS3Fa975alhCo78sAKFz9HCPKZL2tZRyVZ8K6PLxdEyJF+p
+	 FI2aQ7t8jTBK7/RP9OFdHTMxRKUic05Tt4Ht9LTLA3wE3/EWHoqPwe4f1p2JiAvqlWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793862295;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793862304;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=4l44b+AwhAEl7Y2yYU1zn4HtQwsLDMpz34p1PtYCmP8=;
-	b=4Zym9BDrfH7JGjS1s1e6r7W8qCIto5yBSZXLH1Kq0/HeAxb90yJZS9q9gywJTorP2Oc6
-	 eC3k1MYV+ZLfSE4Ul5hojd44nJeaJXl3rYOj1ZzZuJi3AZqogC4QyPCEIZu9ezWCy5hG0
-	 5c+cV3MfCcN31xiO3GXZIZ7ADLSqN5y4Gc4DjoneeCtwqr2bbF4yiwya2wNfM8uNqndyO
-	 r2/zXPwb3clhiQalRp4FSB9cut7b1009zSA0MEBew8fjsOp5tEy+e/8rVKT6fVLub/9nq
-	 FSx5Srs+gp80IOev/qqoBwKCuXRvu7K7U7uFUNmH8tmSe+vRuwuIiIxfIuNkwHEGHJA==
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=QlIEuET91IH3iKQpMTAuGC8sBpbpkS1ruiNQt1cF4Q0=;
+	b=tUCUb2SISS8Tw9zgzZ/2d0wC/9Mczist8QvzdfUaHCMDfqqVbx+L6JAb0QKSsmdIg1eq
+	 O3InqiyGz0A2W5d8pXijqxEcq+C7gjNX7FImg/BqIr0QQLh/3CjwEiIMVoUpmTHBa7iwU
+	 4oCq2LEcw9HSHsD+0s7T/i6gHMyyhtZLWpPVvX9Z4XY2xQoTLXLbsgipu6utBu44vUfwn
+	 dN34y7F5SgNO8G/6HXi5LQPdp+gI9VyovN452pDoor9siZigRLZsTNSeFjT6ItBiYRF2X
+	 mfLyAxGHltTYSKgRwQnm05/vNVfASp+t5dL0Fr3wgXnJ6moDpeqs1wxgptx9rsHuffA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Sz5nEFKI;
-	arc=none smtp.remote-ip=44.246.1.125
-Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lwioWRqQ;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15AF4606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 07:04:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15AF4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0234A606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 07:05:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0234A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Sz5nEFKI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1793862295; x=1825398295;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=4l44b+AwhAEl7Y2yYU1zn4HtQwsLDMpz34p1PtYCmP8=;
-  b=Sz5nEFKIBDejuv/2WNEMQweEdn9KibmPK2KQWpuuYNNl+J80yx/gCKl9
-   Lvgs1z/8AMY4YLtH8xnZ5uo72anmgulJLMXnwwj5YFaLrYgYyoiNDNOB5
-   ECPJGVyJ9sWrqdVd7orv5Q83SZIjJoGP0eL/B3/vhCl3z5q6Gd/h0hEug
-   eKV0i1LytCdzkxQ5GJeK11v7PBzOGa1SAJYeJAbRD3s680tjuAqefopsS
-   TWsTlcEWvKItqgGCuwvQ7sApx7w6xBbBF58AxHf7VPeGQYUkGRtJh/LF/
-   y2FfZLyxDyacPUelVX0qG3Are/UtCxX3I2ty8rq4Fcp+0B5Vbn6YkLsrF
-   Q==;
-X-CSE-ConnectionGUID: JwTQVVBvTEuV0LKc2KPDLw==
-X-CSE-MsgGUID: SXXMfe1cQbW+BPEL5CX4oA==
-X-IronPort-AV: E=Sophos;i="6.27,196,1787011200"; 
-   d="scan'208";a="33172376"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 07:04:54 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:23408]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.15.208:2525] with esmtp (Farcaster)
- id e60c700b-b0ba-4d1a-b314-1637a485e3b6; Thu, 5 Nov 2026 07:04:54 +0000 (UTC)
-X-Farcaster-Flow-ID: e60c700b-b0ba-4d1a-b314-1637a485e3b6
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 5 Nov 2026 07:04:54 +0000
-Received: from dev-dsk-mkbund-2b-9ea2efba.us-west-2.amazon.com (10.2.100.138)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 5 Nov 2026 07:04:54 +0000
-From: Mark Bundschuh <mkbund@amazon.com>
-To: <stable@vger.kernel.org>
-CC: <linux-mm@kvack.org>, <david@kernel.org>, yangge <yangge1116@126.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <21cnbao@gmail.com>,
-	David Hildenbrand <david@redhat.com>, SeongJae Park <sj@kernel.org>, "Andrew
- Morton" <akpm@linux-foundation.org>, Mark Bundschuh <mkbund@amazon.com>
-Subject: [PATCH 6.12] mm: replace free hugepage folios after migration
-Date: Thu, 5 Nov 2026 07:04:42 +0000
-Message-ID: <20261105070442.3101877-1-mkbund@amazon.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lwioWRqQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793862302; x=1825398302;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=McgwgcpuKSeUPehU0yM05wGhCrOsl3CTnR9MbzE07xA=;
+  b=lwioWRqQNWpmdH+HjeD+9HUdjT4ckV5ZLcypRY9fYE53/U1FDRImhRxw
+   krEJ9AYEfrHmheMo2i5yhIPQ3SivdP2jiN7wPmUiTBXBiBonPQ+LGcnUr
+   snifna0DGvaqydyxz0JbR5Nnj8j+AOQpBrHSrMs0yawyHbI5DHtxgq72+
+   QQS+TI/y+0pGYE3Z8BIuIijj6sIvjS1hSni7h3KCBl55hOYuya+XM0iLq
+   OHceg/wCTgCEBXqC8UijIy9WL0t1qwvobqtO2FA+WBODQeHhnxQNAPHz9
+   qv/fq7dUVyAqGWSSGcLuQjMv3bz3OlCUE7yMILdVfh4I4+qr0wlwfPDCA
+   A==;
+X-CSE-ConnectionGUID: MYhPiQ+wQFCpvqXO+JUfBg==
+X-CSE-MsgGUID: ExE6ZY3MRNejMBmETEG9JQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2674190"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2674190"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 23:05:01 -0800
+X-CSE-ConnectionGUID: ZMrSdDUEQjmQYyR8ZsLkSw==
+X-CSE-MsgGUID: YeWVfUnDSX2I1h6ejbK4BQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="6996656"
+Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 23:04:59 -0800
+Message-ID: <dac4e304-98e6-4e61-93f4-8d971069d936@intel.com>
+Date: Thu, 5 Nov 2026 15:04:56 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,102 +72,119 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA003.ant.amazon.com (10.13.139.47) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 0942/1005] KVM: TDX: Enable Bus Lock VM exit
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Nikolay Borisov <nik.borisov@suse.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Chenyi Qiang <chenyi.qiang@intel.com>
+References: <20261104211043.516122098@linuxfoundation.org>
+ <20261104211109.504581890@linuxfoundation.org>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <20261104211109.504581890@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: yangge <yangge1116@126.com>
+On 11/5/2026 5:11 AM, Greg Kroah-Hartman wrote:
+> 6.18-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 04f13d241b8b146b23038bffd907cb8278391d07 ]
+There are some dependency patches failed to be backported [1][2][3]. What is the
+preferred way to handle it? prepare a separate series for 6.18-stable with all
+the necessary patches?
 
-My machine has 4 NUMA nodes, each equipped with 32GB of memory.  I have
-configured each NUMA node with 16GB of CMA and 16GB of in-use hugetlb
-pages.  The allocation of contiguous memory via cma_alloc() can fail
-probabilistically.
+[1] https://lore.kernel.org/all/2026110415-porous-slather-09d5@gregkh/
+[2] https://lore.kernel.org/all/2026110443-stage-reproach-62d3@gregkh/
+[3] https://lore.kernel.org/all/2026110444-external-riverbed-0f47@gregkh/
 
-When there are free hugetlb folios in the hugetlb pool, during the
-migration of in-use hugetlb folios, new folios are allocated from the free
-hugetlb pool.  After the migration is completed, the old folios are
-released back to the free hugetlb pool instead of being returned to the
-buddy system.  This can cause test_pages_isolated() check to fail,
-ultimately leading to the failure of cma_alloc().
-
-Call trace:
-
-cma_alloc()
-    __alloc_contig_migrate_range() // migrate in-use hugepage
-    test_pages_isolated()
-        __test_page_isolated_in_pageblock()
-             PageBuddy(page) // check if the page is in buddy
-
-To address this issue, we introduce a function named
-replace_free_hugepage_folios().  This function will replace the hugepage
-in the free hugepage pool with a new one and release the old one to the
-buddy system.  After the migration of in-use hugetlb pages is completed,
-we will invoke replace_free_hugepage_folios() to ensure that these
-hugepages are properly released to the buddy system.  Following this step,
-when test_pages_isolated() is executed for inspection, it will
-successfully pass.
-
-Additionally, when alloc_contig_range() is used to migrate multiple in-use
-hugetlb pages, it can result in some in-use hugetlb pages being released
-back to the free hugetlb pool and subsequently being reallocated and used
-again.  For example:
-
-[huge 0] [huge 1]
-
-To migrate huge 0, we obtain huge x from the pool.  After the migration is
-completed, we return the now-freed huge 0 back to the pool.  When it's
-time to migrate huge 1, we can simply reuse the now-freed huge 0 from the
-pool.  As a result, when replace_free_hugepage_folios() is executed, it
-cannot release huge 0 back to the buddy system.  To address this issue, we
-should prevent the reuse of isolated free hugepages during the migration
-process.
-
-Link: https://lkml.kernel.org/r/1734503588-16254-1-git-send-email-yangge1116@126.com
-Link: https://lkml.kernel.org/r/1736582300-11364-1-git-send-email-yangge1116@126.com
-Signed-off-by: yangge <yangge1116@126.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <21cnbao@gmail.com>
-Cc: David Hildenbrand <david@redhat.com>
-Cc: SeongJae Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ 6.12: Take only the dequeue_hugetlb_folio_node_exact() hunk, so memory
-  offline stops migrating huge pages back into the isolated range. ]
-Signed-off-by: Mark Bundschuh <mkbund@amazon.com>
----
-Without this, offlining a memory block holding mapped huge pages keeps
-migrating them back into the block until the offline is interrupted.
-Reproduced on arm64 on 5.10 and 6.12 (stock AL2023 6.12.113): the offline
-was still migrating after 60 s. With this patch on 5.10 it completes in
-0.15 s with the data intact. Also sent for 5.10, 5.15, 6.1, 6.6 and 6.12.
-
- mm/hugetlb.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 68e0cc0748ca..b4c6c926a71e 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -48,6 +48,7 @@
- #include <linux/page_owner.h>
- #include "internal.h"
- #include "hugetlb_vmemmap.h"
-+#include <linux/page-isolation.h>
- 
- int hugetlb_max_hstate __read_mostly;
- unsigned int default_hstate_idx;
-@@ -1350,6 +1351,9 @@ static struct folio *dequeue_hugetlb_folio_node_exact(struct hstate *h,
- 		if (folio_test_hwpoison(folio))
- 			continue;
- 
-+		if (is_migrate_isolate_page(&folio->page))
-+			continue;
-+
- 		list_move(&folio->lru, &h->hugepage_activelist);
- 		folio_ref_unfreeze(folio, 1);
- 		folio_clear_hugetlb_freed(folio);
--- 
-2.50.1
+> ------------------
+> 
+> From: Xiaoyao Li <xiaoyao.li@intel.com>
+> 
+> commit 63d196e2e20429de5ba501f1b6059d9b93140007 upstream.
+> 
+> Enable Bus Lock VM exit functionality for TDX guests.
+> 
+> Bus Lock VM exit is an existing feature supported by KVM.  Userspace can
+> enable Bus Lock VM exit through KVM_BUS_LOCK_DETECTION_EXIT when it's
+> reported as supported.  However, KVM reports the support of this CAP
+> just based on the hardware capability but doesn't differentiate between
+> VMX and TDX.  This leads to the issue that userspace can enable this cap
+> for TDX guests without getting an error, but the feature is not actually
+> enabled because KVM doesn't call the TDX module API to program the
+> relevant TD VMCS fields.
+> 
+> Enable Bus Lock VM exit for TDX guests by programming the
+> BUS_LOCK_DETECTION control in the TD VMCS and by adding the exit handler.
+> 
+> Note, there is no enumeration bit for this feature by TDX module because
+> all TDX modules support it and allow to set the TD VMCS as long as the
+> hardware supports the feature.
+> 
+> Fixes: 161d34609f9b ("KVM: TDX: Make TDX VM type supported")
+> Cc: stable@vger.kernel.org
+> Originally-by: Chenyi Qiang <chenyi.qiang@intel.com>
+> Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
+> Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+> Link: https://patch.msgid.link/20260819094903.3060020-9-xiaoyao.li@intel.com
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  arch/x86/kvm/vmx/tdx.c |   24 +++++++++++++++++++++++-
+>  1 file changed, 23 insertions(+), 1 deletion(-)
+> 
+> --- a/arch/x86/kvm/vmx/tdx.c
+> +++ b/arch/x86/kvm/vmx/tdx.c
+> @@ -2042,7 +2042,7 @@ int tdx_complete_emulated_msr(struct kvm
+>  }
+>  
+>  
+> -int tdx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t fastpath)
+> +static int __tdx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t fastpath)
+>  {
+>  	struct vcpu_tdx *tdx = to_tdx(vcpu);
+>  	u64 vp_enter_ret = tdx->vp_enter_ret;
+> @@ -2143,6 +2143,8 @@ int tdx_handle_exit(struct kvm_vcpu *vcp
+>  	case EXIT_REASON_NOTIFY:
+>  		/* NMI blocking state is handled by TDX module */
+>  		return __vt_handle_notify(vcpu, vmx_get_exit_qual(vcpu));
+> +	case EXIT_REASON_BUS_LOCK:
+> +		return vt_handle_bus_lock_vmexit(vcpu);
+>  	default:
+>  		break;
+>  	}
+> @@ -2156,6 +2158,22 @@ unhandled_exit:
+>  	return 0;
+>  }
+>  
+> +int tdx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t fastpath)
+> +{
+> +	int ret = __tdx_handle_exit(vcpu, fastpath);
+> +
+> +	/* Exit to user space when bus lock was detected */
+> +	if (vmx_get_exit_reason(vcpu).bus_lock_detected) {
+> +		if (ret > 0) {
+> +			vcpu->run->exit_reason = KVM_EXIT_X86_BUS_LOCK;
+> +			ret = 0;
+> +		}
+> +
+> +		vcpu->run->flags |= KVM_RUN_X86_BUS_LOCK;
+> +	}
+> +	return ret;
+> +}
+> +
+>  void tdx_get_exit_info(struct kvm_vcpu *vcpu, u32 *reason,
+>  		u64 *info1, u64 *info2, u32 *intr_info, u32 *error_code)
+>  {
+> @@ -3151,6 +3169,10 @@ static int tdx_vcpu_init(struct kvm_vcpu
+>  				vcpu->kvm->arch.notify_window);
+>  	}
+>  
+> +	if (vcpu->kvm->arch.bus_lock_detection_enabled)
+> +		td_vmcs_setbit32(tdx, SECONDARY_VM_EXEC_CONTROL,
+> +				 SECONDARY_EXEC_BUS_LOCK_DETECTION);
+> +
+>  	tdx->state = VCPU_TD_STATE_INITIALIZED;
+>  
+>  	return 0;
 
