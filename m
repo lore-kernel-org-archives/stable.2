@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844069;
-	b=tC0qZnMvf0cStIwgatCIknc898kGh140oEMXx9IARMtFPqqqaRgn6Z9diSVdY/LWWbar
-	 uCm81YFWmDcYPnvxhDzHobHEENaQvdhnxOGmOrZGcRQEXwXD2Cl3l6WmMFbqCTAtps+II
-	 iYQUZ6nZbCBV0W6c4uFdX4onvKxK3jytIFDvCZV5XmN9zf6zelwZdO/IL5nz5v1yAgXUk
-	 0G+WK0sTz2SwndJjQClUxxLBn0wEKJ0x/aHL5SL2k8aJaJXlHTzsB2p/Hj9ZvELVnSh6F
-	 fiJartOuDaXBawHaN8g9cej/iGsQxa/0L3ZxhaZ5GDo8hFgUzIjcmuFI5vbNjU71awg==
+	t=1793844080;
+	b=0ivj0Bxx9Uvwk8uWCzRLEwzrLhjiCG0u4Z902SWzu89bINAlrAEiV+IQzcpWs3GPPPah
+	 owRv3gHzj8aOermPwH7s0Hq17bLYa3zmXj4+4YtvAfySN/YJsMhDCuqqV0+BPo406sbS/
+	 R4Q7aMvVT0B6I6Ivnio2CJy7cGNuWOCVHID9QGalcupcaXO3wbdU5upckJZ6vWm+nCPMx
+	 DFy+n7upAIMZ8zEhsgVZa4HJVnJTIDlBEUMjNpIaq/VjadEmpAQVmesgcNMzsn0INHVv3
+	 HXTZXGf/YjfEDT13cOeIfUngqwbLAzspwlc+1OWp7HXx0gOl0eA2xOsUUSc1x4LP+pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844069;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844080;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6Jr1zICD/K/waeGyYyMgHEHtfsqGd05Jy9VR+ZrJj18=;
-	b=UfGsc9OKGC3DFnDFaNP+3CamqmeUhVM06mE5P/4KEBpTGti3tUCGcyVYgW2pKLxUqUoH
-	 r3XAQqXhIWgLKFOoWTTf2zdwl3Wa25Y0ItRp3J34PpOeglVZ9RmShXaE//1M6bZCByKFW
-	 zRQg1zLsBn4WdZfVSx1F+iqRdO0XHUp1K6pd466/gAwTN/2AdzEygOAlnBElwx1xluDUi
-	 kqBGbTbA+Y5TcVp0lvzBiYfMdkmicKzpkhfvWohqAqjD8vWFiAG1BlpoErMBuETvS9QE0
-	 XARcJRewBdSDy72jkUfYQpL5d2BfZNhkSOvvBykgTENIyylISp1eK5PEIrs5m4K5vEw==
+	bh=QB9Xyx3ta39qW431833onDEPcMa3DDKpwmfZIbD84NU=;
+	b=TOpMJF8cHlOWgifwkm3ac+UKp5Jayp71QFxihkvNUVo9crn8IGUkHSYo/l5GOt7mANsP
+	 vZimjDFsqnD5iYetRQIsmqEnGYt6alyJk0bJgJ/drr1DgFWrXHPNyf1BMXzhNcBNffWpN
+	 DjTgdD/Xv4KvPrIH++eixAkIISOdPkJZbMT/ExHRk8xhDiPNP/on+ADLc0IGpjJ2TnnVH
+	 etzoLgPgxNdiwAGxefiAWvSL7arGuOhC4JW3TqnW11V/uE7q6uU/DymGjSqWAgpbJhgh7
+	 cjoQpuQiXHyXtLpy30YE4t7hpC+7NMLTvm5SvzlKNRAnPElGpo0DmHlchtoandrowGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l08ZK9VC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ij+liANE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2C0606A32C
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:01:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A89D6082BD7
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:01:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l08ZK9VC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B63CA1F000C1;
-	Thu,  5 Nov 2026 02:01:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ij+liANE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B50A1F000C1;
+	Thu,  5 Nov 2026 02:01:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793844068;
-	bh=6Jr1zICD/K/waeGyYyMgHEHtfsqGd05Jy9VR+ZrJj18=;
+	s=k20260515; t=1793844079;
+	bh=QB9Xyx3ta39qW431833onDEPcMa3DDKpwmfZIbD84NU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l08ZK9VCtW9h0kPc+a6cZzEKVIGV1SOoQkKaTdZ+bR6mMYVbnTE2uPAFIepW5Totf
-	 n0URYHVivudjpsjRlP63rJMVujxSGZ6MRZKHCvyNoXnlRzI/uvy5vFRGEEYrnl1eCr
-	 Ok/K/h/xjj/mhMoflJSn28S2QRNPAz5/EhuNlvxHHdgU9wbJas5PwyX87fODvIKFJA
-	 1mR0nm94+IBhvD5Iaf0UMbZzpcCgbnnEUSrYiBmhS3twvpN2oXfzUHUSiB3l2r5fWB
-	 nyTP1wPMnCXAutebsu0nGEr3TJClCkk7Xd2YnOlECW93gtTLF9UyKjgu6fexiIwM9s
-	 RQJ0eq3s3SlCQ==
+	b=Ij+liANEPT6vYuqNeVf/xcY4+2J4fjNzvnN9B9Vp/lNw5nWnup/6KwtY6CjZecCEE
+	 k2RU1mMbJ7xyf1mY6+t25nfTSOWcu9/5Qw05hYqv+B519XBYfJku7D5wHszjbieeX9
+	 kBm4fZntT6GEaM5UmoPYtFUIb2KfAjxzeSYFzBMMNGgVfBjRE42yUZ7sO4v78rDKHV
+	 u3WybPpLT3jW+BNn1tJKuhqRPe45h1KuP/CUWrLWGsNbqVeXtPWQ6Fs/UmpGao1h8o
+	 589Pkoqvpo5qE5vaISZkOvTjozebkjAbR2h4cRY+Pv2/nJ86Mx0EYsiUhhmlz2g1KC
+	 k6WjDsyBMSdng==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Jamie Lenehan <lenehan@twibble.org>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+Cc: Sean Young <sean@mess.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] scsi: dc395x: sync the waiting_timer before freeing the host
-Date: Wed,  4 Nov 2026 21:01:06 -0500
-Message-ID: <20261105020039.1070505-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] media: rc: Fix race condition during rc_register_device()
+Date: Wed,  4 Nov 2026 21:01:17 -0500
+Message-ID: <20261105020042.1081272-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110423-helper-sprang-8be1@gregkh>
-References: <2026110423-helper-sprang-8be1@gregkh>
+In-Reply-To: <2026110404-speckled-pedicure-c48e@gregkh>
+References: <2026110404-speckled-pedicure-c48e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,65 +61,165 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Sean Young <sean@mess.org>
 
-[ Upstream commit 0b1a79f2791a06f139dce5450e487307cf0e241f ]
+[ Upstream commit ec7cb49871e5c4f85d57290320c50ee0bae4db84 ]
 
-The waiting_timer callback re-arms itself and takes the host lock.
-adapter_uninit() currently stops it with timer_delete(), which does not
-wait for a callback already running on another CPU. The final
-scsi_host_put() that frees the host (and the host lock the callback
-dereferences) runs right after adapter_uninit(), so a concurrent or just
-re-armed callback can fire after the free, leaving a potential
-use-after-free window.
+Device drivers can call ir_raw_event_store() or ir_raw_event_handle()
+right after rc_allocate_device(). This means that while
+rc_register_device() is being called, those functions can be called
+from e.g. interrupt handlers.
 
-Replace timer_delete() with timer_shutdown_sync() at the top of
-adapter_uninit(), before the host-lock section: the timer is dequeued,
-a running callback is waited for and rearming is blocked before the chip
-is halted, so it cannot fire at all once the adapter has ceased to
-function. Waiting outside the lock avoids the self-deadlock that would
-result from syncing a callback blocked on the lock we still hold.
+Currently dev->raw is being allocated and populated by
+ir_raw_event_prepare() which is called from rc_register_device(). This
+is not done in a safe way, e.g. dev->raw is being set before the
+raw members are populated.
 
-No shutdown is needed for selto_timer because it has no reachable armer
-or callback.
+Call ir_raw_event_prepare() from rc_allocate_device() instead.
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: a3572c34da8d ("V4L/DVB: ir-core: Add logic to decode IR protocols at the IR core")
+Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
-Cc: Jamie Lenehan <lenehan@twibble.org>
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260911020544.42966-1-fanwu01@zju.edu.cn
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ sashal: adjusted context for del_timer() instead of timer_delete() ]
+Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: Retained the existing kzalloc() call instead of kzalloc_obj() in ir_raw_event_prepare(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/dc395x.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ drivers/media/rc/rc-ir-raw.c | 20 +-------------------
+ drivers/media/rc/rc-main.c   | 19 +++++++++++--------
+ 2 files changed, 12 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/scsi/dc395x.c b/drivers/scsi/dc395x.c
-index d5623253826f1..7b15b86e85879 100644
---- a/drivers/scsi/dc395x.c
-+++ b/drivers/scsi/dc395x.c
-@@ -4416,13 +4416,11 @@ static void adapter_uninit_chip(struct AdapterCtlBlk *acb)
- static void adapter_uninit(struct AdapterCtlBlk *acb)
+diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
+index 6da12803fd9e0..1782bbce35559 100644
+--- a/drivers/media/rc/rc-ir-raw.c
++++ b/drivers/media/rc/rc-ir-raw.c
+@@ -72,9 +72,6 @@ static int ir_raw_event_thread(void *data)
+  */
+ int ir_raw_event_store(struct rc_dev *dev, struct ir_raw_event *ev)
  {
- 	unsigned long flags;
--	DC395x_LOCK_IO(acb->scsi_host, flags);
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	dev_dbg(&dev->dev, "sample: (%05dus %s)\n",
+ 		ev->duration, TO_STR(ev->pulse));
  
--	/* remove timers */
--	if (timer_pending(&acb->waiting_timer))
--		del_timer(&acb->waiting_timer);
--	if (timer_pending(&acb->selto_timer))
--		del_timer(&acb->selto_timer);
-+	/* Drain the self-rearming timer; must not run under host_lock. */
-+	timer_shutdown_sync(&acb->waiting_timer);
+@@ -103,9 +100,6 @@ int ir_raw_event_store_edge(struct rc_dev *dev, bool pulse)
+ 	ktime_t			now;
+ 	struct ir_raw_event	ev = {};
+ 
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	now = ktime_get();
+ 	ev.duration = ktime_to_us(ktime_sub(now, dev->raw->last_event));
+ 	ev.pulse = !pulse;
+@@ -130,9 +124,6 @@ int ir_raw_event_store_with_timeout(struct rc_dev *dev, struct ir_raw_event *ev)
+ 	ktime_t		now;
+ 	int		rc = 0;
+ 
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	now = ktime_get();
+ 
+ 	spin_lock(&dev->raw->edge_spinlock);
+@@ -167,9 +158,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_timeout);
+  */
+ int ir_raw_event_store_with_filter(struct rc_dev *dev, struct ir_raw_event *ev)
+ {
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	/* Ignore spaces in idle mode */
+ 	if (dev->idle && !ev->pulse)
+ 		return 0;
+@@ -201,9 +189,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_filter);
+  */
+ void ir_raw_event_set_idle(struct rc_dev *dev, bool idle)
+ {
+-	if (!dev->raw)
+-		return;
+-
+ 	dev_dbg(&dev->dev, "%s idle mode\n", idle ? "enter" : "leave");
+ 
+ 	if (idle) {
+@@ -227,7 +212,7 @@ EXPORT_SYMBOL_GPL(ir_raw_event_set_idle);
+  */
+ void ir_raw_event_handle(struct rc_dev *dev)
+ {
+-	if (!dev->raw || !dev->raw->thread)
++	if (!dev->raw->thread)
+ 		return;
+ 
+ 	wake_up_process(dev->raw->thread);
+@@ -606,9 +591,6 @@ EXPORT_SYMBOL(ir_raw_encode_carrier);
+  */
+ int ir_raw_event_prepare(struct rc_dev *dev)
+ {
+-	if (!dev)
+-		return -EINVAL;
+-
+ 	dev->raw = kzalloc(sizeof(*dev->raw), GFP_KERNEL);
+ 	if (!dev->raw)
+ 		return -ENOMEM;
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index 2f1684a81eb14..ea262801e1155 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -1701,14 +1701,24 @@ static const struct device_type rc_dev_type = {
+ struct rc_dev *rc_allocate_device(enum rc_driver_type type)
+ {
+ 	struct rc_dev *dev;
++	int ret;
+ 
+ 	dev = kzalloc(sizeof(*dev), GFP_KERNEL);
+ 	if (!dev)
+ 		return NULL;
+ 
++	if (type == RC_DRIVER_IR_RAW) {
++		ret = ir_raw_event_prepare(dev);
++		if (ret < 0) {
++			kfree(dev);
++			return NULL;
++		}
++	}
 +
-+	DC395x_LOCK_IO(acb->scsi_host, flags);
+ 	if (type != RC_DRIVER_IR_RAW_TX) {
+ 		dev->input_dev = input_allocate_device();
+ 		if (!dev->input_dev) {
++			ir_raw_event_free(dev);
+ 			kfree(dev);
+ 			return NULL;
+ 		}
+@@ -1724,6 +1734,7 @@ struct rc_dev *rc_allocate_device(enum rc_driver_type type)
+ 		spin_lock_init(&dev->rc_map.lock);
+ 		spin_lock_init(&dev->keylock);
+ 	}
++
+ 	mutex_init(&dev->lock);
  
- 	adapter_uninit_chip(acb);
- 	adapter_remove_and_free_all_devices(acb);
+ 	dev->dev.type = &rc_dev_type;
+@@ -1922,12 +1933,6 @@ int rc_register_device(struct rc_dev *dev)
+ 		dev->sysfs_groups[attr++] = &rc_dev_wakeup_filter_attr_grp;
+ 	dev->sysfs_groups[attr++] = NULL;
+ 
+-	if (dev->driver_type == RC_DRIVER_IR_RAW) {
+-		rc = ir_raw_event_prepare(dev);
+-		if (rc < 0)
+-			goto out_minor;
+-	}
+-
+ 	if (dev->driver_type != RC_DRIVER_IR_RAW_TX) {
+ 		rc = rc_prepare_rx_device(dev);
+ 		if (rc)
+@@ -1991,8 +1996,6 @@ int rc_register_device(struct rc_dev *dev)
+ out_free_table:
+ 	ir_free_table(&dev->rc_map);
+ out_raw:
+-	ir_raw_event_free(dev);
+-out_minor:
+ 	ida_free(&rc_ida, minor);
+ 	return rc;
+ }
 -- 
 2.53.0
 
