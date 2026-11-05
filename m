@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.218
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844796;
-	b=CwyjuZWl5mBCbTCZhG7VUXALT8kwB3mx/ukTN23ePx+DD9Pc1rFdfBFWvAufpmmfUTOF
-	 k/gOJ79GjVdGVxRfSi4ylpfjGPYJ6BCrAuFicb9L94OrlWQb/r42+i5ecNXTONnEx1SVQ
-	 BYIf26tojlrLOjy7Cel8iFE4InZgzbgcplEfG6/fovmtrZh3tXdGbbAyIQfHVy2saMAM5
-	 MegFHBxqWgJwNA2koZBs6i0JLmrwzcBE+8i4Z6MyETR1ru2ixqUZ8i3wEUedeZkYSxnsO
-	 dw6k1Iw/gndVJWkpf08ftsc4E4zoOKLBVBsWhkeYFnbnfGLB/3Huz9Ju/sDLU6jdTJA==
+	t=1793844847;
+	b=pMk0VOD7Jhrwmw5QTLHMiKppbRyQNgYOz/jd4aCaxN5d01T8K/f0RnDzgRvOPJgrIxhA
+	 NbxzSDErcuVXP1ADFvsOqwaCNvtRkAMYF3guFO77YjwdG84qGpsI5qe8jVolyw23aagSE
+	 B99WrAWAXLKLSBGwKx14N88WVQUykQI/JVCdeaM0zTAeI0TdT9FXYLDvhzL/jfeX/mTuX
+	 DOr9oMfvGoB79GSgVfkL1t6/tmbEr4ncmemMmbcBLKrr1FT2MCKDKFCO5AApLas0cBUe1
+	 vStfBooNeb7HHiJJk0zIYq2SI4Vsxh4UFAQ21mevJPabCHrXpYM9u3URfqwPPLTcYFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844796;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=iTltyTy3XY6yo19A8F9g/qsXyruIBa411J5VIM+AbTg=;
-	b=LQZ6orlwakCW7H8qDykrH6CYHFqGw2pjpNBxtb9/5ca+ShyseZigh5294cJWz0sHStJJ
-	 bwovyIzi/1Jpz5Q03VTfCYwSqlj/IfmT+F1Hee/QLdpLRo3RzXoef8cTEwOdzNirA8YKY
-	 WayRHwirTGWjf4JhTGSU+ptvqftADT71dsFMqmWW/iyk/xyoeIa7GfoYkq2UCnF1AWsZT
-	 8WVapz0Y27KsXcVjcxVFvcYUzS+ndh5FNbZZ+aYt/UsQ3/t20lmh1gwWVHjcDuWR7Op13
-	 vrd3TQ8LziLgFETBWKT3Ydip+jbLJnahkAXz4qkUqGdBN9hwSXrtl34WFA9Sx1byunQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844847;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=tXeq94tKXH8bHOz1amsH5XRU51n2PYOOTkgxfF1PjyI=;
+	b=Dc4rbQa9nAQS4hUVxU7b2zKRqpLIaFhyYAlAK5O1Ze6M3B/Ewc+lRUgLFAXchOInmdwh
+	 6Rx0zhT2quUgTzccblskVwTy3KRW5SuRi+PTdTD4RDzTz9Nl3iWL6kkXTr8+UdrTvOVFm
+	 OvqXpYzY3Z8LFqJUb8T6ZYqBUhXmJqFOTS0TdL3vH19WACFJZQYIlOnZDrC2z9tzyaQ9g
+	 WV76KaW+ymlwNU0b/aZbLfEwaFYXujHZ/gvXCQxNVD442HucayUckssNFkTU0jN+XM6+c
+	 yYLvpgXYp927cGEAOZ2g731RPn9APa/2+FAb4nZVD/UQZuR8NVBpoqeOibe1h0ltQxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=V+8QhNMj;
-	arc=none smtp.remote-ip=115.124.28.218
-Received: from out28-218.mail.aliyun.com (out28-218.mail.aliyun.com [115.124.28.218])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=j2sTp789;
+	arc=none smtp.remote-ip=95.215.58.119
+Received: from mta1.migadu.com (out-119.mta1.migadu.com [95.215.58.119])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 052A6606A31B;
-	Thu,  5 Nov 2026 02:13:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 052A6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B32606A33D
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:14:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39B32606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=V+8QhNMj
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1793844784; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=iTltyTy3XY6yo19A8F9g/qsXyruIBa411J5VIM+AbTg=;
-	b=V+8QhNMjfVbt6YKv2sdcr0bvaw+UcydgsTGQi5kh4iYrZeQR/p3kemlSaHPrh3CNGHMAkbkqVU8BcyFOFa4z4Dgz7x2k+NECnZC1jOZu7KI4XJsOvk+qwG4M0CtdH6bRkXN3sW5b6SM+BZZyqTUCe4yiQa1De/ml0h7NwnX4sbQ=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1164851|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00192615-6.33412e-05-0.998011;FP=10463892798782289586|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033071099199;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jx4H42-_1793844783;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jx4H42-_1793844783 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 05 Nov 2026 10:13:04 +0800
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	liuc63@xiaopeng.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] Input: tegra-kbc - check the pin numbers from the device tree
-Date: Thu,  5 Nov 2026 10:13:03 +0800
-Message-ID: <20261105021303.4206-1-zhugl3@xiaopeng.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103084135.426629-7-zhugl3@xiaopeng.com>
-References: <20261103084135.426629-7-zhugl3@xiaopeng.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=j2sTp789
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=l5hRS8qgzR0WOCPLF0tQbQ+of37lp1oZsgw+XUQqwhg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793844844; v=1; x=1794449644;
+ b=j2sTp789TAzH4+lGZ7lYWfaDwj4tzc9cwnz9VymVYz+93eIx1j2P1wIewQP0NcIfVbJQKLyf
+ 0DO8NIIghKzDouBSBnDym1wAnQyGpqJsD9irj2dQSZrGObeDZJB96QtjMGxheDIwPErfv1cfpzT
+ zdnAQ3fG/Xx2Ge3hDWonFfXo=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7ce234fbb2517b84;
+	Thu, 05 Nov 2026 02:14:03 +0000
+X-Mizu-Trace-ID: 7ce234fbb2517b84
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <fc4939cc-84ec-4c5c-88a7-658ca800377d@linux.dev>
+Date: Thu, 5 Nov 2026 10:15:13 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,65 +58,189 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v2 01/51] alloc_tag: don't remove /proc/allocinfo
+ under the codetag module lock
+To: Christian Brauner <brauner@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>,
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>,
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>,
+ Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados
+ <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>,
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>,
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
+ coreteam@netfilter.org, kexec@lists.infradead.org,
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net,
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org,
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>,
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org,
+ linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>,
+ stable@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ Suren Baghdasaryan <surenb@google.com>
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+ <20261104-work-procfs-bugfixes-v2-1-021c84d852e0@kernel.org>
+Content-Language: en-US
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-1-021c84d852e0@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The row and column pin lists are read straight from the device tree
-and used to index the pin configuration array:
+Cc Suren
 
-	for (i = 0; i < num_rows; i++) {
-		kbc->pin_cfg[rows_cfg[i]].type = PIN_CFG_ROW;
-		kbc->pin_cfg[rows_cfg[i]].num = i;
-	}
+Hi Christian
 
-The helper only limits how many entries it reads, not what they
-contain. Not all Tegra variants have KBC_MAX_GPIO pins - Tegra114,
-for example, has 11 rows + 8 columns = 19 - and the setup loop only
-initializes pin_cfg[] up to kbc->num_rows_and_columns, so a device
-tree that names a pin the variant does not have makes the row and
-column stores write over pin_cfg entries that were never touched,
-and the later check_pin_cfg() walk reads that stale data back as
-valid configuration.
+On 2026/11/5 03:06, Christian Brauner wrote:
+> codetag_alloc_module_section() takes the codetag type's mod_lock for
+> writing and calls reserve_module_tags() with it held. When that can't
+> reserve the tags, because the section's alignment doesn't fit, because
+> there are too many tags for the page flag bits or because the memory
+> for them can't be allocated, it shuts memory allocation profiling down
+> and removes /proc/allocinfo, still with mod_lock held.
+> 
+> remove_proc_entry() waits until every reader of the entry has let go of
+> it, and a reader of /proc/allocinfo takes mod_lock for reading in
+> allocinfo_start() while it holds the entry. So a module load that hits
+> one of those paths while /proc/allocinfo is being read waits for the
+> reader and the reader waits for the module load, for good.
+> 
+> Let a work item remove the entry in that case. The profiling is shut
+> down right away like before, the file just goes a moment later.
+> 
+> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Reject pin numbers the variant does not have.
+Thanks.
 
-Fixes: 88390243a993 ("Input: tegra-kbc - add support for rows/columns configuration from dt")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
----
-v2: validate against kbc->num_rows_and_columns instead of
-    KBC_MAX_GPIO, per review - Tegra114 only has 19 KBC pins and
-    the setup loop above only initializes pin_cfg[] up to
-    num_rows_and_columns, so pins in [19, 24) must be rejected too.
+is this a problem you have hit in practice?
+Sashiko discovered this issue earlier and reported it as follows:
 
- drivers/input/keyboard/tegra-kbc.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> index 2070e682fe106..112a014d4b890 100644
+> --- a/mm/alloc_tag.c
+> +++ b/mm/alloc_tag.c
+> @@ -950,10 +950,12 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
+>  		int grow_res;
+>  
+>  		module_tags.size = offset + size;
+> -		if (mem_alloc_profiling_enabled() && !tags_addressable()) {
+> +		if (!tags_addressable()) {
+>  			shutdown_mem_profiling(true);
+This is a pre-existing issue, but does this shutdown_mem_profiling(true) call
+introduce an AB-BA deadlock between /proc/allocinfo file readers (pde->in_use)
+and module loading (cttype->mod_lock)?
+A user reading /proc/allocinfo acquires the procfs in_use reference in
+use_pde(), then blocks on down_read(&alloc_tag_cttype->mod_lock) in
+allocinfo_start().
+Concurrently, if a module loads and tags_addressable() fails,
+codetag_alloc_module_section() holds down_write(&cttype->mod_lock) and calls
+shutdown_mem_profiling(true), which removes the proc entry. This removal waits
+indefinitely for the in_use reference to drop to zero, hanging both procfs
+reads and module loading.
+> -			pr_warn("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
+> -				mod->name, NR_UNUSED_PAGEFLAG_BITS);
+> +			pr_warn_once("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
+> +				     mod->name, NR_UNUSED_PAGEFLAG_BITS);
+> +			release_module_tags(mod, false);
+> +			return ERR_PTR(-EAGAIN);
+>  		}
+>  
+>  		grow_res = vm_module_tags_populate();
 
-diff --git a/drivers/input/keyboard/tegra-kbc.c b/drivers/input/keyboard/tegra-kbc.c
-index bc1c80a..657260d 100644
---- a/drivers/input/keyboard/tegra-kbc.c
-+++ b/drivers/input/keyboard/tegra-kbc.c
-@@ -522,6 +522,10 @@ static int tegra_kbc_parse_dt(struct tegra_kbc *kbc)
- 	}
- 
- 	for (i = 0; i < num_rows; i++) {
-+		if (rows_cfg[i] >= kbc->num_rows_and_columns) {
-+			dev_err(kbc->dev, "invalid row pin %u\n", rows_cfg[i]);
-+			return -EINVAL;
-+		}
- 		kbc->pin_cfg[rows_cfg[i]].type = PIN_CFG_ROW;
- 		kbc->pin_cfg[rows_cfg[i]].num = i;
- 	}
-@@ -538,6 +542,10 @@ static int tegra_kbc_parse_dt(struct tegra_kbc *kbc)
- 	}
- 
- 	for (i = 0; i < num_cols; i++) {
-+		if (cols_cfg[i] >= kbc->num_rows_and_columns) {
-+			dev_err(kbc->dev, "invalid col pin %u\n", cols_cfg[i]);
-+			return -EINVAL;
-+		}
- 		kbc->pin_cfg[cols_cfg[i]].type = PIN_CFG_COL;
- 		kbc->pin_cfg[cols_cfg[i]].num = i;
- 	}
--- 
-2.43.0
+I previously sent a patch with a comparable idea, though Sashiko remained unconvinced.
 
+[patch]: https://lore.kernel.org/all/20260817062726.106511-3-hao.ge@linux.dev/
+
+[Sashiko's objections]: https://sashiko.dev/#/patchset/20260817062726.106511-1-hao.ge@linux.dev
+
+Could this patch perhaps wait for mine? No worries if this is inconvenient.
+
+Best regards                                                                                                                                                                                                                                                                  
+Hao
+
+> ---
+>  mm/alloc_tag.c | 27 ++++++++++++++++++++++++---
+>  1 file changed, 24 insertions(+), 3 deletions(-)
+> 
+> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> index 82e2c3448dcf..7d7ad6704953 100644
+> --- a/mm/alloc_tag.c
+> +++ b/mm/alloc_tag.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/seq_file.h>
+>  #include <linux/string_choices.h>
+>  #include <linux/vmalloc.h>
+> +#include <linux/workqueue.h>
+>  #include <linux/kmemleak.h>
+>  #include <uapi/linux/alloc_tag.h>
+>  
+> @@ -604,6 +605,26 @@ static void shutdown_mem_profiling(bool remove_file)
+>  	mem_profiling_support = false;
+>  }
+>  
+> +static void remove_allocinfo_file(struct work_struct *work)
+> +{
+> +	remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
+> +}
+> +static DECLARE_WORK(remove_allocinfo_work, remove_allocinfo_file);
+> +
+> +/*
+> + * A module's tags are reserved with the codetag module lock held for
+> + * writing, and a reader of /proc/allocinfo takes that lock with the entry
+> + * pinned. Removing the entry there would wait for that reader for good, so
+> + * let a work item do it.
+> + */
+> +static void shutdown_mem_profiling_async(void)
+> +{
+> +	if (!mem_profiling_support)
+> +		return;
+> +	shutdown_mem_profiling(false);
+> +	schedule_work(&remove_allocinfo_work);
+> +}
+> +
+>  void __init alloc_tag_sec_init(void)
+>  {
+>  	struct alloc_tag *last_codetag;
+> @@ -855,7 +876,7 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
+>  		align = 1;
+>  
+>  	if (!ensure_alignment(align, &prepend)) {
+> -		shutdown_mem_profiling(true);
+> +		shutdown_mem_profiling_async();
+>  		pr_err("%s: alignment %lu is incompatible with allocation tag indexing. Memory allocation profiling is disabled!\n",
+>  			mod->name, align);
+>  		return ERR_PTR(-EINVAL);
+> @@ -905,14 +926,14 @@ unlock:
+>  
+>  		module_tags.size = offset + size;
+>  		if (mem_alloc_profiling_enabled() && !tags_addressable()) {
+> -			shutdown_mem_profiling(true);
+> +			shutdown_mem_profiling_async();
+>  			pr_warn("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
+>  				mod->name, NR_UNUSED_PAGEFLAG_BITS);
+>  		}
+>  
+>  		grow_res = vm_module_tags_populate();
+>  		if (grow_res) {
+> -			shutdown_mem_profiling(true);
+> +			shutdown_mem_profiling_async();
+>  			pr_err("Failed to allocate memory for allocation tags in the module %s. Memory allocation profiling is disabled!\n",
+>  			       mod->name);
+>  			return ERR_PTR(grow_res);
+> 
