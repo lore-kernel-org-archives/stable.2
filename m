@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903974;
-	b=kq51BBlOFNIIdurgA2f/7KfZG9zfZUBoPGEF2/zNHn9S4cfcGHPd6uVghRFWb8hefvIB
-	 oUVVI4el0h8UYPUq8FRFXvGCMYn+g4cNpPlIxE7GsNi460YEvvhh/EvJ7wjzzkXsKPmY6
-	 vigOlJt13x0qdNXJshQFAOvrGwjNo1HKPYYipl3TsnqFU+RB40deyWqhCP7O8RxaBhjuF
-	 kUuXzNnzQEzTSN0NB2HBXUwqEOmMFkBsjHtKX9wpEzvIRM8+uAugiu+nWNuOBuiiZyHQz
-	 ccq+EWin3dr8ZcOZb7aSZgaFq08sD7Qd8eCSdLmjeaHdJRaLmur9HQTXFpCJv0tmBkw==
+	t=1793903975;
+	b=PAnBq63dlNiYrifmmEJzjzfeWaHdALSu1t54JBB8z7O0ITRg2N56lBPkkupP3+oASdU+
+	 LdkCmCVKnC+zBveQ0f50mgUPc5JUW5Dv/A73PNkdaILRL5dC9y3zSrSG4H/VO56ergshI
+	 uL2eSKjYq7cUhdT/XX3dKvk6EDcl+MeAwiizOnUuL4uhJhBXXCjKn6AV+EQEOQZ5TjkX8
+	 4cXCjDSSX/1V+7Vn/v9gBiCoWUIEGHUyUj/vW0wqty7AGdNYM6bYgW8OzVsGtiwbRKsfM
+	 LJL1SFl6XIqV2cpa1HadHK9uTNc115gXCS45r7n/8CxQzsotl23DB+ayCX5WTMQ8TBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903974;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903975;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/vmTha+/NBgXWyoBJFSSnlMTejShcEZUjZERBZZ4wT8=;
-	b=Dz8HmC4ni46TCXVO7tMzxoFDd5P/bG+pFTmLtcd75IHNeryezBpVJrXoIUs5xsf3v9jA
-	 h52qfL+e2YF25Lg/YijlDpU97ElPln/YWt3T+7oRce+A3KvIdnPUGcdQ8dI8ksJjNJxz3
-	 Vk0Oh30tPDwZY93KryIWhctamWlfRneTUgrPRAyWvL3ueD4j3iew0g/uU+2q4uUThUBVE
-	 xeVZxxELvdTQCHkhT0MF2hBG3qBij8Ct0wR7Qi6rPiL2f5cBiMGJcrWw+2x1RHWR3lGsk
-	 klBtlpgXFUcVEJDbFMjBE8nHZJQ8Sc6AY34KqBjhcjGW9XFUxiYlrdyLjVcxwn4cMpg==
+	bh=YwbnbRhHmCfVoQcY2gvOMp4PY56dbeFZ+Y8zAcnCGdw=;
+	b=115BtruaTgzb7F2wHNGL1VTgFA8CZ6GuFELBgsQONMl9etlY2Lzyym9+9S8uzmAp9s5m
+	 njQ6DJGXQdAOTX/rr1OvwLS7v5MMt69fHvfO/Jaiad3GznAHGdAU7MlOpUZ+RHx2HUGjI
+	 VH0qHh2s/U4V5p7vdY1TI9WL3YjUfkJuePuGlcJoG+zZsHcDNPLl6RXbJbWpNu45sSjCK
+	 3szhJvmqIyXuxcvRszPVIFQinevbC1hMwhq6soPhM35JNsQw4ZXWBfpSmTFBDifv2OnWd
+	 rJGKyBe12oVp4imN6/UahcFZcSPzNL22Apum1Ta/gkTpIBVW1y2KJ8U8ktfjR4+nuFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DUxOmdGN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMnvZfBB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38994606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4DF606A33E
 	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:39:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DUxOmdGN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46BC11F0093A;
-	Thu,  5 Nov 2026 18:39:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMnvZfBB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38B1D1F000C1;
+	Thu,  5 Nov 2026 18:39:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793903974;
-	bh=/vmTha+/NBgXWyoBJFSSnlMTejShcEZUjZERBZZ4wT8=;
+	bh=YwbnbRhHmCfVoQcY2gvOMp4PY56dbeFZ+Y8zAcnCGdw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DUxOmdGNLBHj39kAt6sRM53ZreT22ldFtpEVpMELymJfS8swfeNkFX1+UOQy7h4Zx
-	 8079mWR2/+a/w6mQINhHyNywPQmKsEM+wmiWwCaTdkrfHJ65Fbbcyo65U82ai/FxQL
-	 oN6u2MAq7GQZlI9/t/tC/qUk6jvavu3lpCZdG7NFycbKgkE1y4CNKCV/Nz0Nwee/YC
-	 KqcrfipOSvjwz6saAleM9+BJO6TTO6BuLXIjKHH99DWTrC+pdG5Ha6/M9tduT4R0Uk
-	 qRt2Rhq03Jr3PFzjEHNmS38uy4xKQnV+S9lSNUoqgsXSQ0HSQeRnXpsiQCZTBuNV52
-	 yYlll3q6YOghw==
+	b=ZMnvZfBBwlEjQkfoRssOh2n8T7p5d8jMSpnDo0P9WKGyCsxCnZeCNjDGm6YyavwJp
+	 fz48+8GxrL0hrNXQEx4VtjfKp/XGwKZ+Nyl1yY2F/3F2/ism0k4ihP8l3LCmHazMMX
+	 YEB/JG7jfdQBX3eNpVInlb8cP+H6dPecQU3wGQEDgco+kV17RME8RSoDNrq0snWsdR
+	 XrB8jpibHp7iVOEAFtm0MtETS9yVn3/OVYw780SRNT7uiuUT8/NJpv/KYCclnTtIHf
+	 qXjCr5ODJXXTQDp8brQG/GIApsSD801YqeR0dZ+vkR7Z9g1zQgARZkHwCStdZRb/VQ
+	 whvZMhbN/8mNQ==
 From: Sasha Levin <sashal@kernel.org>
-To: "stable@vger.kernel.org" <stable@vger.kernel.org>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	=?utf-8?q?Tales_A=2E_Mendon=C3=A7a?= <talesam@gmail.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	"intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
-	Kjell Arne Rekaa <kjell.arne.rekaa@sparebank1.no>
-Subject: Re: [stable request] drm/xe: Implement Wa_22016122933 (d5b0bf3f37f1) for 7.2.y and 7.3.y
-Date: Thu,  5 Nov 2026 13:39:16 -0500
-Message-ID: <2026-11-05-1-daily-reply-0011-xe-wa-22016122933@kernel.org>
+	xiaoyao.li@intel.com,
+	sashiko-bot@kernel.org,
+	Sean Christopherson <seanjc@google.com>
+Subject: Re: [PATCH 6.12.y] KVM: VMX: Preserve negative return value in vmx_handle_exit() with bus lock detected
+Date: Thu,  5 Nov 2026 13:39:17 -0500
+Message-ID: <2026-11-05-1-daily-reply-0012-kvm-vmx-bus-lock@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <OLAP279MB00864A857672EED0E6BF554997772@OLAP279MB0086.NORP279.PROD.OUTLOOK.COM>
-References: None<OLAP279MB00864A857672EED0E6BF554997772@OLAP279MB0086.NORP279.PROD.OUTLOOK.COM>
+In-Reply-To: <20261105121320.2093899-1-xiaoyao.li@intel.com>
+References: <2026110458-starch-scroll-7508@gregkh> <20261105121320.2093899-1-xiaoyao.li@intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,11 +62,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> please consider backporting the following upstream commit to the 7.2.y and 7.3.y stable trees:
->
-> d5b0bf3f37f1 ("drm/xe: Implement Wa_22016122933")
+> Preserve the negative return value from __vmx_handle_exit() when a bus
+> lock is detected, instead of always overwriting it with 0.
 
-Queued for 7.3, thanks. 7.2.y is no longer an active stable tree.
+Queued for 6.12, 6.6, 6.1 and 5.15, thanks.
 
 -- 
 Thanks,
