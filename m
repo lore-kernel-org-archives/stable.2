@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844124;
-	b=tC/1U11woQgbfAc4Y8FSNrr3fV+85tasWveEDN/9ol+Qq6xkApQMrArJi0S0m07Bs2wh
-	 3Cm4udsAiN3vXygCxeD+65JOIPladYFQBTxYr2L83nEQZrKe7U5atnqQWBFhR/M6IJ7w+
-	 xGiiyNfrho9HAyFH27wiH36cLCJ2m/GVzPl7T9fh978WMC4AIwDmTU7LbsvHm/C0JTahl
-	 edZJ4d0LDwbF/irBt8faz/tjZRrrZ1RnDuL1xLKPu38kqCmOHh6m1oTmCFFQ5D3QdhiMO
-	 B9CckysxE2pxXs9tx3FG01JEqJrDW0NWqUjtZZCml5xT0kbyUCJ/yYIYw8s8vi5ynqA==
+	t=1793844126;
+	b=Z2sNEVcOZpDMDmSD/k1cmgM6gs0jvMkZ0kxImDE2uJj7mSXXoQLImkzbSzmAXnRV9AyS
+	 NHDT40yV7keZ48/N0T+K/eyZaVG+Od6dbutjddPQLMaPn3Nv2/gVFyU0SvZq2RoPtVk8o
+	 wU2nBDTO5pDEYKGfOVjIyztDTuNzM4AQ46W215c+pOMGPcHLci6P/ZX0EwO8agurE/lVV
+	 HvoixEvHu2R77o655oCHr9LMAbWEMOBknIIN12wHebPNDG/3r2Qz8dmWQh0dMIxoL+5SM
+	 EnFOsI1AeUYqKtcz+Cg5AMcR9Qckm0q+Od7IZiptdeuzc++35+VuWxbqVYK8vhFH5wQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844124;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844126;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cncinQWSmGoDrHEkvXdptv3RzmKNc4CVQhHlWEPV6Nw=;
-	b=QtOz8UUDX2HtKvSF8Ura2w7TcommFHz1lgLZ5Ly3OXHdV3lzgt9r4Ht5kh/8l2R/aA+3
-	 9D1TB0lLuVLamN3Vt5oP0beiB00vq1EWAuK2KvDHHADJomYc9p1/d+lSg0kNipC7CcILd
-	 tkBnRD1LxpSK/7Xhb7Zd8gcI49WRtMLqylGx2M6SYD09n6rnhA6NZmBtXSlCyJLbHexUi
-	 ptkP/1iP5j11uOSqFimdnP0vPjh5BoF2oQsRpo6sg3TkhorWh2paTU7iQ5CQ9X9/GbbR6
-	 IOUKgRLa7oyNw8ZKqdmfUS5BMFlCP+X5wlvbKsMoUZkjj+akBQq3WXO+ci5LvL7otMw==
+	bh=fY0PDMWbEO5s7PX2yNMT9KfVtJs/gNRn/kNvRWq8LmA=;
+	b=eYX3nVw+/7O9w2UXQHQSOuDxJGGiinfzF/NK1pzt3PbCpyk8aG45P1nW5qhZ7RlIQbqc
+	 uj5QRmHokRItpi2GWp/ec87UqJldYOjZKmQ3SEq+HhbLYXnjiwtLFkYcttoNqhL3XSfdQ
+	 gYGHWymtOgDk4NRMuE5bWDkwegMbcLwisiHKMdD4EeCecmDKFt/7aOeae5Nwt9T5d7TIA
+	 TdCVtHh03utK7GpDVxFSeQqxip5/8geqhZsDKHOE87YjWgLL2kAXFiyJZrW7W2ghaCEWa
+	 aPMkQTI3LNMueTYsJC1otdnxpIW3oy5Dy7cW91ijhNRdX7Ne9YIVM0EK/4PuvR3NL0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+gM4XFL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iLvb6iWS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF97606D804
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:02:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D3C3606D804
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:02:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+gM4XFL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED7A41F000C1;
-	Thu,  5 Nov 2026 02:02:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iLvb6iWS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE70A1F0093A;
+	Thu,  5 Nov 2026 02:02:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793844124;
-	bh=cncinQWSmGoDrHEkvXdptv3RzmKNc4CVQhHlWEPV6Nw=;
+	s=k20260515; t=1793844125;
+	bh=fY0PDMWbEO5s7PX2yNMT9KfVtJs/gNRn/kNvRWq8LmA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i+gM4XFLdCZyGA3Vk3mdCMI1AcuqtFHurqQzD0tPTzFGdh/D7bOwFW4UNVG85sahA
-	 O7EdTQqoT5bRjR6Jv4h4sOYOrxErAAFWkjSYJTHhEde5HJYU9AdmSzbCuS7l0C7RXl
-	 iIV6jNIOBb8+SgtEfNd7wBl7bjvEklAMr9/PMiPcS/l4/YX0dlxUDPvXRlvLhD/0Fe
-	 1p0Oswo3oFXc+czCQJMqDcgpx6CMCTKsqfd3wfCoAGV19D9EC3y3BuFNA+gP2ctT53
-	 9h56gERgxKSO508oBKF0hN1gRyfhTPx2pFOLFIUXJUlwPMZgZMowvXYj8gWAOQhcrh
-	 R4GdFjfBl5hvw==
+	b=iLvb6iWS9RklCTutMFPNSOz4s9w1KJKgrwiCCdPe7j33jVzLjiyGdBbHtUZZ489Uy
+	 VaVT6KSrQozYD5r+x1KE3pV7gwaU8uBfo5IDWiqvbyQhDh/9OMKXfXiaiqdjG1W1yE
+	 OeVHuZ2fiG7u9lZwvAH8CiDVe79itrC/k2YC8+TUEJAIM3xqrH8LNupF0kiTgQE21U
+	 kD1PKmS9sGDHi6Jp0pb3JTiO3OBfgSHKGmddmUvw6c1iGXfN7yDxkN0Gjjr9kL57ZB
+	 8t/FDOSSEB6a8920EmYM2ZyBljcPYuBURYbip8nDTbZEtGaNobpLS+6OwwB+5jBWde
+	 n8LT/cJ0MJPBA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Emily Peri <eperi1024@gmail.com>,
+Cc: Khasar Munkh-Erdene <02khasar@gmail.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/3] staging: rtl8723bs: Fix indentation in conditional statements
-Date: Wed,  4 Nov 2026 21:02:00 -0500
-Message-ID: <20261105020046.1070470-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/3] staging: rtl8723bs: fix spacing around operators in rtw_recv.c
+Date: Wed,  4 Nov 2026 21:02:01 -0500
+Message-ID: <20261105020046.1070470-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110448-heftiness-shed-a845@gregkh>
+In-Reply-To: <20261105020046.1070470-1-sashal@kernel.org>
 References: <2026110448-heftiness-shed-a845@gregkh>
+ <20261105020046.1070470-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,152 +62,305 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Emily Peri <eperi1024@gmail.com>
+From: Khasar Munkh-Erdene <02khasar@gmail.com>
 
-[ Upstream commit 6e006508f6e20a0f09dd9e64bc23c0592d92cc2d ]
+[ Upstream commit 393b267e6f04a11d4b18b7dc1423fa59f173f72b ]
 
-Remove/add tabs in block statements in rtl8723bs/core to fix checkpatch
-warnings for suspect code indent for conditionals.
+Fix coding style issues by adding missing spaces around binary and
+ternary operators, as reported by checkpatch.pl.
 
-Signed-off-by: Emily Peri <eperi1024@gmail.com>
-Link: https://lore.kernel.org/r/Y1cH7br3mMcT4Dm5@marshmallow
+Signed-off-by: Khasar Munkh-Erdene <02khasar@gmail.com>
+Link: https://patch.msgid.link/20260225032909.72799-1-02khasar@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+Omit the operator-spacing hunk for rtw_handle_tkip_mic_err(), which is
+implemented separately here. Retain the receive-path spacing changes
+needed by the protected-frame validation fix. Use the existing
+is_multicast_ether_addr() helper at the adjacent management-frame test
+so the subsequent NULL-check removal applies without a conflict.
+
 Stable-dep-of: 495cb31c791b ("staging: rtl8723bs: fix protected RX frame validation in decrypt path")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/staging/rtl8723bs/core/rtw_mlme.c     | 30 +++++++++----------
- drivers/staging/rtl8723bs/core/rtw_mlme_ext.c |  2 +-
- drivers/staging/rtl8723bs/core/rtw_recv.c     |  6 ++--
- drivers/staging/rtl8723bs/core/rtw_sta_mgt.c  |  2 +-
- 4 files changed, 19 insertions(+), 21 deletions(-)
+ drivers/staging/rtl8723bs/core/rtw_recv.c | 84 +++++++++++------------
+ 1 file changed, 42 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme.c b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-index 258972f6de3fa..58b3dbee58ad5 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-@@ -389,7 +389,7 @@ int is_same_network(struct wlan_bssid_ex *src, struct wlan_bssid_ex *dst, u8 fea
- 	__le16 tmps, tmpd;
- 
- 	if (rtw_bug_check(dst, src, &s_cap, &d_cap) == false)
--			return false;
-+		return false;
- 
- 	memcpy((u8 *)&tmps, rtw_get_capability_from_ie(src->ies), 2);
- 	memcpy((u8 *)&tmpd, rtw_get_capability_from_ie(dst->ies), 2);
-@@ -669,7 +669,7 @@ int rtw_is_desired_network(struct adapter *adapter, struct wlan_network *pnetwor
- 		uint ie_len = 0;
- 
- 		if ((desired_encmode == Ndis802_11EncryptionDisabled) && (privacy != 0))
--	    bselected = false;
-+			bselected = false;
- 
- 		if (psecuritypriv->ndisauthtype == Ndis802_11AuthModeWPA2PSK) {
- 			p = rtw_get_ie(pnetwork->network.ies + _BEACON_IE_OFFSET_, WLAN_EID_RSN, &ie_len, (pnetwork->network.ie_length - _BEACON_IE_OFFSET_));
-@@ -795,7 +795,7 @@ void rtw_surveydone_event_callback(struct adapter	*adapter, u8 *pbuf)
- 			pmlmepriv->to_join = false;
- 			s_ret = rtw_select_and_join_from_scanned_queue(pmlmepriv);
- 			if (s_ret == _SUCCESS) {
--			     _set_timer(&pmlmepriv->assoc_timer, MAX_JOIN_TIMEOUT);
-+				_set_timer(&pmlmepriv->assoc_timer, MAX_JOIN_TIMEOUT);
- 			} else if (s_ret == 2) {/* there is no need to wait for join */
- 				_clr_fwstate_(pmlmepriv, _FW_UNDER_LINKING);
- 				rtw_indicate_connect(adapter);
-@@ -2015,8 +2015,8 @@ int rtw_restruct_wmm_ie(struct adapter *adapter, u8 *in_ie, u8 *out_ie, uint in_
- 		    in_ie[i + 3] == 0x50 && in_ie[i + 4] == 0xF2 &&
- 		    in_ie[i + 5] == 0x02) {
- 			for (j = i; j < i + 9; j++) {
--					out_ie[ielength] = in_ie[j];
--					ielength++;
-+				out_ie[ielength] = in_ie[j];
-+				ielength++;
- 			}
- 			out_ie[initial_out_len + 1] = 0x07;
- 			out_ie[initial_out_len + 6] = 0x00;
-@@ -2072,15 +2072,13 @@ static int rtw_append_pmkid(struct adapter *Adapter, int iEntry, u8 *ie, uint ie
- 
- 	if (ie[13] <= 20) {
- 		/*  The RSN IE didn't include the PMK ID, append the PMK information */
--			ie[ie_len] = 1;
--			ie_len++;
--			ie[ie_len] = 0;	/* PMKID count = 0x0100 */
--			ie_len++;
--			memcpy(&ie[ie_len], &psecuritypriv->PMKIDList[iEntry].PMKID, 16);
--
--			ie_len += 16;
--			ie[13] += 18;/* PMKID length = 2+16 */
--
-+		ie[ie_len] = 1;
-+		ie_len++;
-+		ie[ie_len] = 0;	/* PMKID count = 0x0100 */
-+		ie_len++;
-+		memcpy(&ie[ie_len], &psecuritypriv->PMKIDList[iEntry].PMKID, 16);
-+		ie_len += 16;
-+		ie[13] += 18;/* PMKID length = 2+16 */
- 	}
- 	return ie_len;
- }
-@@ -2099,9 +2097,9 @@ signed int rtw_restruct_sec_ie(struct adapter *adapter, u8 *in_ie, u8 *out_ie, u
- 	memcpy(out_ie, in_ie, 12);
- 	ielength = 12;
- 	if ((ndisauthmode == Ndis802_11AuthModeWPA) || (ndisauthmode == Ndis802_11AuthModeWPAPSK))
--			authmode = WLAN_EID_VENDOR_SPECIFIC;
-+		authmode = WLAN_EID_VENDOR_SPECIFIC;
- 	if ((ndisauthmode == Ndis802_11AuthModeWPA2) || (ndisauthmode == Ndis802_11AuthModeWPA2PSK))
--			authmode = WLAN_EID_RSN;
-+		authmode = WLAN_EID_RSN;
- 
- 	if (check_fwstate(pmlmepriv, WIFI_UNDER_WPS)) {
- 		memcpy(out_ie+ielength, psecuritypriv->wps_ie, psecuritypriv->wps_ie_len);
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-index 32fd3cd0a5f77..e07e797144e3a 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme_ext.c
-@@ -5482,7 +5482,7 @@ u8 disconnect_hdl(struct adapter *padapter, unsigned char *pbuf)
- 	u8 val8;
- 
- 	if (is_client_associated_to_ap(padapter))
--			issue_deauth_ex(padapter, pnetwork->mac_address, WLAN_REASON_DEAUTH_LEAVING, param->deauth_timeout_ms/100, 100);
-+		issue_deauth_ex(padapter, pnetwork->mac_address, WLAN_REASON_DEAUTH_LEAVING, param->deauth_timeout_ms/100, 100);
- 
- 	if (((pmlmeinfo->state&0x03) == WIFI_FW_ADHOC_STATE) || ((pmlmeinfo->state&0x03) == WIFI_FW_AP_STATE)) {
- 		/* Stop BCN */
 diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/rtl8723bs/core/rtw_recv.c
-index 2825375bff942..7c7b6495965f5 100644
+index 7c7b6495965f5..ebec2cff6a2b6 100644
 --- a/drivers/staging/rtl8723bs/core/rtw_recv.c
 +++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
-@@ -161,7 +161,7 @@ int rtw_free_recvframe(union recv_frame *precvframe, struct __queue *pfree_recv_
- 
- 	if (padapter) {
- 		if (pfree_recv_queue == &precvpriv->free_recv_queue)
--				precvpriv->free_recvframe_cnt++;
-+			precvpriv->free_recvframe_cnt++;
- 	}
- 	spin_unlock_bh(&pfree_recv_queue->lock);
- 	return _SUCCESS;
-@@ -691,8 +691,8 @@ static signed int sta2sta_data_frame(struct adapter *adapter, union recv_frame *
- 		if (bmcast) {
- 			/*  For AP mode, if DA == MCAST, then BSSID should be also MCAST */
- 			if (!IS_MCAST(pattrib->bssid)) {
--					ret = _FAIL;
--					goto exit;
-+				ret = _FAIL;
-+				goto exit;
+@@ -333,13 +333,13 @@ static signed int recvframe_chkmic(struct adapter *adapter,  union recv_frame *p
+ 				mickey = &stainfo->dot11tkiprxmickey.skey[0];
  			}
- 		} else { /*  not mc-frame */
- 			/*  For AP mode, if DA is non-MCAST, then it must be BSSID, and bssid == BSSID */
-diff --git a/drivers/staging/rtl8723bs/core/rtw_sta_mgt.c b/drivers/staging/rtl8723bs/core/rtw_sta_mgt.c
-index beb11d89db186..c7de81f21bec0 100644
---- a/drivers/staging/rtl8723bs/core/rtw_sta_mgt.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_sta_mgt.c
-@@ -551,7 +551,7 @@ u8 rtw_access_ctrl(struct adapter *padapter, u8 *mac_addr)
- 	else if (pacl_list->mode == 2)/* deny unless in accept list */
- 		res = match;
- 	else
--		 res = true;
-+		res = true;
  
- 	return res;
- }
+-			datalen = precvframe->u.hdr.len-prxattrib->hdrlen-prxattrib->iv_len-prxattrib->icv_len-8;/* icv_len included the mic code */
++			datalen = precvframe->u.hdr.len - prxattrib->hdrlen - prxattrib->iv_len - prxattrib->icv_len - 8;/* icv_len included the mic code */
+ 			pframe = precvframe->u.hdr.rx_data;
+-			payload = pframe+prxattrib->hdrlen+prxattrib->iv_len;
++			payload = pframe + prxattrib->hdrlen + prxattrib->iv_len;
+ 
+ 			rtw_seccalctkipmic(mickey, pframe, payload, datalen, &miccode[0], (unsigned char)prxattrib->priority); /* care the length of the data */
+ 
+-			pframemic = payload+datalen;
++			pframemic = payload + datalen;
+ 
+ 			bmic_err = false;
+ 
+@@ -387,9 +387,9 @@ static union recv_frame *decryptor(struct adapter *padapter, union recv_frame *p
+ 	u32  res = _SUCCESS;
+ 
+ 	if (prxattrib->encrypt > 0) {
+-		u8 *iv = precv_frame->u.hdr.rx_data+prxattrib->hdrlen;
++		u8 *iv = precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
+ 
+-		prxattrib->key_index = (((iv[3])>>6)&0x3);
++		prxattrib->key_index = (((iv[3]) >> 6) & 0x3);
+ 
+ 		if (prxattrib->key_index > WEP_KEYS) {
+ 			switch (prxattrib->encrypt) {
+@@ -511,7 +511,7 @@ static signed int recv_decache(union recv_frame *precv_frame, u8 bretry, struct
+ {
+ 	signed int tid = precv_frame->u.hdr.attrib.priority;
+ 
+-	u16 seq_ctrl = ((precv_frame->u.hdr.attrib.seq_num&0xffff) << 4) |
++	u16 seq_ctrl = ((precv_frame->u.hdr.attrib.seq_num & 0xffff) << 4) |
+ 		(precv_frame->u.hdr.attrib.frag_num & 0xf);
+ 
+ 	if (tid > 15)
+@@ -575,29 +575,29 @@ static void process_wmmps_data(struct adapter *padapter, union recv_frame *precv
+ 	if (!psta->qos_option)
+ 		return;
+ 
+-	if (!(psta->qos_info&0xf))
++	if (!(psta->qos_info & 0xf))
+ 		return;
+ 
+-	if (psta->state&WIFI_SLEEP_STATE) {
++	if (psta->state & WIFI_SLEEP_STATE) {
+ 		u8 wmmps_ac = 0;
+ 
+ 		switch (pattrib->priority) {
+ 		case 1:
+ 		case 2:
+-			wmmps_ac = psta->uapsd_bk&BIT(1);
++			wmmps_ac = psta->uapsd_bk & BIT(1);
+ 			break;
+ 		case 4:
+ 		case 5:
+-			wmmps_ac = psta->uapsd_vi&BIT(1);
++			wmmps_ac = psta->uapsd_vi & BIT(1);
+ 			break;
+ 		case 6:
+ 		case 7:
+-			wmmps_ac = psta->uapsd_vo&BIT(1);
++			wmmps_ac = psta->uapsd_vo & BIT(1);
+ 			break;
+ 		case 0:
+ 		case 3:
+ 		default:
+-			wmmps_ac = psta->uapsd_be&BIT(1);
++			wmmps_ac = psta->uapsd_be & BIT(1);
+ 			break;
+ 		}
+ 
+@@ -922,20 +922,20 @@ static signed int validate_recv_ctrl_frame(struct adapter *padapter, union recv_
+ 		switch (pattrib->priority) {
+ 		case 1:
+ 		case 2:
+-			wmmps_ac = psta->uapsd_bk&BIT(0);
++			wmmps_ac = psta->uapsd_bk & BIT(0);
+ 			break;
+ 		case 4:
+ 		case 5:
+-			wmmps_ac = psta->uapsd_vi&BIT(0);
++			wmmps_ac = psta->uapsd_vi & BIT(0);
+ 			break;
+ 		case 6:
+ 		case 7:
+-			wmmps_ac = psta->uapsd_vo&BIT(0);
++			wmmps_ac = psta->uapsd_vo & BIT(0);
+ 			break;
+ 		case 0:
+ 		case 3:
+ 		default:
+-			wmmps_ac = psta->uapsd_be&BIT(0);
++			wmmps_ac = psta->uapsd_be & BIT(0);
+ 			break;
+ 		}
+ 
+@@ -947,7 +947,7 @@ static signed int validate_recv_ctrl_frame(struct adapter *padapter, union recv_
+ 			psta->state ^= WIFI_STA_ALIVE_CHK_STATE;
+ 		}
+ 
+-		if ((psta->state&WIFI_SLEEP_STATE) && (pstapriv->sta_dz_bitmap&BIT(psta->aid))) {
++		if ((psta->state & WIFI_SLEEP_STATE) && (pstapriv->sta_dz_bitmap & BIT(psta->aid))) {
+ 			struct list_head	*xmitframe_plist, *xmitframe_phead;
+ 			struct xmit_frame *pxmitframe = NULL;
+ 			struct xmit_priv *pxmitpriv = &padapter->xmitpriv;
+@@ -991,7 +991,7 @@ static signed int validate_recv_ctrl_frame(struct adapter *padapter, union recv_
+ 				/* spin_unlock_bh(&psta->sleep_q.lock); */
+ 				spin_unlock_bh(&pxmitpriv->lock);
+ 
+-				if (pstapriv->tim_bitmap&BIT(psta->aid)) {
++				if (pstapriv->tim_bitmap & BIT(psta->aid)) {
+ 					if (psta->sleepq_len == 0) {
+ 						/* issue nulldata with More data bit = 0 to indicate we have no buffered packets */
+ 						issue_nulldata_in_interrupt(padapter, psta->hwaddr);
+@@ -1373,15 +1373,15 @@ static signed int validate_80211w_mgmt(struct adapter *adapter, union recv_frame
+ 				goto validate_80211w_fail;
+ 			precv_frame = decryptor(adapter, precv_frame);
+ 			/* save actual management data frame body */
+-			memcpy(mgmt_DATA, ptr+pattrib->hdrlen+pattrib->iv_len, data_len);
++			memcpy(mgmt_DATA, ptr + pattrib->hdrlen + pattrib->iv_len, data_len);
+ 			/* overwrite the iv field */
+-			memcpy(ptr+pattrib->hdrlen, mgmt_DATA, data_len);
++			memcpy(ptr + pattrib->hdrlen, mgmt_DATA, data_len);
+ 			/* remove the iv and icv length */
+ 			pattrib->pkt_len = pattrib->pkt_len - pattrib->iv_len - pattrib->icv_len;
+ 			kfree(mgmt_DATA);
+ 			if (!precv_frame)
+ 				goto validate_80211w_fail;
+-		} else if (IS_MCAST(GetAddr1Ptr(ptr)) &&
++		} else if (is_multicast_ether_addr(GetAddr1Ptr(ptr)) &&
+ 			(subtype == WIFI_DEAUTH || subtype == WIFI_DISASSOC)) {
+ 			signed int BIP_ret = _SUCCESS;
+ 			/* verify BIP MME IE of broadcast/multicast de-auth/disassoc packet */
+@@ -1431,7 +1431,7 @@ static signed int validate_recv_frame(struct adapter *adapter, union recv_frame
+ 	struct rx_pkt_attrib *pattrib = &precv_frame->u.hdr.attrib;
+ 
+ 	u8 *ptr = precv_frame->u.hdr.rx_data;
+-	u8  ver = (unsigned char) (*ptr)&0x3;
++	u8  ver = (unsigned char) (*ptr) & 0x3;
+ 
+ 	/* add version chk */
+ 	if (ver != 0) {
+@@ -1469,7 +1469,7 @@ static signed int validate_recv_frame(struct adapter *adapter, union recv_frame
+ 		retval = _FAIL; /*  only data frame return _SUCCESS */
+ 		break;
+ 	case WIFI_DATA_TYPE: /* data */
+-		pattrib->qos = (subtype & BIT(7)) ? 1:0;
++		pattrib->qos = (subtype & BIT(7)) ? 1 : 0;
+ 		retval = validate_recv_data_frame(adapter, precv_frame);
+ 		if (retval == _FAIL) {
+ 			struct recv_priv *precvpriv = &adapter->recvpriv;
+@@ -1514,8 +1514,8 @@ static signed int wlanhdr_to_ethhdr(union recv_frame *precvframe)
+ 	if (pattrib->encrypt)
+ 		recvframe_pull_tail(precvframe, pattrib->icv_len);
+ 
+-	psnap = (struct ieee80211_snap_hdr	*)(ptr+pattrib->hdrlen + pattrib->iv_len);
+-	psnap_type = ptr+pattrib->hdrlen + pattrib->iv_len+SNAP_SIZE;
++	psnap = (struct ieee80211_snap_hdr	*)(ptr + pattrib->hdrlen + pattrib->iv_len);
++	psnap_type = ptr + pattrib->hdrlen + pattrib->iv_len + SNAP_SIZE;
+ 	/* convert hdr + possible LLC headers into Ethernet header */
+ 	/* eth_type = (psnap_type[0] << 8) | psnap_type[1]; */
+ 	if ((!memcmp(psnap, rfc1042_header, SNAP_SIZE) &&
+@@ -1529,37 +1529,37 @@ static signed int wlanhdr_to_ethhdr(union recv_frame *precvframe)
+ 		/* Leave Ethernet header part of hdr and full payload */
+ 		bsnaphdr = false;
+ 
+-	rmv_len = pattrib->hdrlen + pattrib->iv_len + (bsnaphdr?SNAP_SIZE:0);
++	rmv_len = pattrib->hdrlen + pattrib->iv_len + (bsnaphdr ? SNAP_SIZE : 0);
+ 	len = precvframe->u.hdr.len - rmv_len;
+ 
+-	memcpy(&be_tmp, ptr+rmv_len, 2);
++	memcpy(&be_tmp, ptr + rmv_len, 2);
+ 	eth_type = ntohs(be_tmp); /* pattrib->ether_type */
+ 	pattrib->eth_type = eth_type;
+ 
+ 	if ((check_fwstate(pmlmepriv, WIFI_MP_STATE) == true)) {
+ 		ptr += rmv_len;
+ 		*ptr = 0x87;
+-		*(ptr+1) = 0x12;
++		*(ptr + 1) = 0x12;
+ 
+ 		eth_type = 0x8712;
+ 		/*  append rx status for mp test packets */
+-		ptr = recvframe_pull(precvframe, (rmv_len-sizeof(struct ethhdr)+2)-24);
++		ptr = recvframe_pull(precvframe, (rmv_len - sizeof(struct ethhdr) + 2) - 24);
+ 		if (!ptr)
+ 			return _FAIL;
+ 		memcpy(ptr, get_rxmem(precvframe), 24);
+ 		ptr += 24;
+ 	} else {
+-		ptr = recvframe_pull(precvframe, (rmv_len-sizeof(struct ethhdr) + (bsnaphdr?2:0)));
++		ptr = recvframe_pull(precvframe, (rmv_len - sizeof(struct ethhdr) + (bsnaphdr ? 2 : 0)));
+ 		if (!ptr)
+ 			return _FAIL;
+ 	}
+ 
+ 	memcpy(ptr, pattrib->dst, ETH_ALEN);
+-	memcpy(ptr+ETH_ALEN, pattrib->src, ETH_ALEN);
++	memcpy(ptr + ETH_ALEN, pattrib->src, ETH_ALEN);
+ 
+ 	if (!bsnaphdr) {
+ 		be_tmp = htons(len);
+-		memcpy(ptr+12, &be_tmp, 2);
++		memcpy(ptr + 12, &be_tmp, 2);
+ 	}
+ 
+ 	return _SUCCESS;
+@@ -1610,7 +1610,7 @@ static int amsdu_to_msdu(struct adapter *padapter, union recv_frame *prframe)
+ 		pdata += nSubframe_Length;
+ 		a_len -= nSubframe_Length;
+ 		if (a_len != 0) {
+-			padding_len = 4 - ((nSubframe_Length + ETH_HLEN) & (4-1));
++			padding_len = 4 - ((nSubframe_Length + ETH_HLEN) & (4 - 1));
+ 			if (padding_len == 4)
+ 				padding_len = 0;
+ 
+@@ -1842,7 +1842,7 @@ static int recv_indicatepkt_reorder(struct adapter *padapter, union recv_frame *
+ 
+ 			rtw_recv_indicatepkt(padapter, prframe);
+ 
+-			preorder_ctrl->indicate_seq = (preorder_ctrl->indicate_seq + 1)%4096;
++			preorder_ctrl->indicate_seq = (preorder_ctrl->indicate_seq + 1) % 4096;
+ 
+ 			return _SUCCESS;
+ 		}
+@@ -1852,7 +1852,7 @@ static int recv_indicatepkt_reorder(struct adapter *padapter, union recv_frame *
+ 
+ 			retval = amsdu_to_msdu(padapter, prframe);
+ 
+-			preorder_ctrl->indicate_seq = (preorder_ctrl->indicate_seq + 1)%4096;
++			preorder_ctrl->indicate_seq = (preorder_ctrl->indicate_seq + 1) % 4096;
+ 
+ 			if (retval != _SUCCESS) {
+ 			}
+@@ -2047,7 +2047,7 @@ static int recv_func(struct adapter *padapter, union recv_frame *rframe)
+ 			!psecuritypriv->busetkipkey) {
+ 			rtw_enqueue_recvframe(rframe, &padapter->recvpriv.uc_swdec_pending_queue);
+ 
+-			if (recvpriv->free_recvframe_cnt < NR_RECVFRAME/4) {
++			if (recvpriv->free_recvframe_cnt < NR_RECVFRAME / 4) {
+ 				/* to prevent from recvframe starvation, get recvframe from uc_swdec_pending_queue to free_recvframe_cnt  */
+ 				rframe = rtw_alloc_recvframe(&padapter->recvpriv.uc_swdec_pending_queue);
+ 				if (rframe)
+@@ -2136,19 +2136,19 @@ static void rtw_signal_stat_timer_hdl(struct timer_list *t)
+ 		}
+ 
+ 		/* update value of signal_strength, rssi, signal_qual */
+-		tmp_s = (avg_signal_strength+(_alpha-1)*recvpriv->signal_strength);
++		tmp_s = (avg_signal_strength + (_alpha - 1) * recvpriv->signal_strength);
+ 		if (tmp_s % _alpha)
+-			tmp_s = tmp_s/_alpha + 1;
++			tmp_s = tmp_s / _alpha + 1;
+ 		else
+-			tmp_s = tmp_s/_alpha;
++			tmp_s = tmp_s / _alpha;
+ 		if (tmp_s > 100)
+ 			tmp_s = 100;
+ 
+-		tmp_q = (avg_signal_qual+(_alpha-1)*recvpriv->signal_qual);
++		tmp_q = (avg_signal_qual + (_alpha - 1) * recvpriv->signal_qual);
+ 		if (tmp_q % _alpha)
+-			tmp_q = tmp_q/_alpha + 1;
++			tmp_q = tmp_q / _alpha + 1;
+ 		else
+-			tmp_q = tmp_q/_alpha;
++			tmp_q = tmp_q / _alpha;
+ 		if (tmp_q > 100)
+ 			tmp_q = 100;
+ 
 -- 
 2.53.0
 
