@@ -1,62 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793847227;
-	b=NAbajLGPOfR5iWi7OTc+/tc9I1mvmotVpqMNQjK878VwiUwhWFV1tp8U3QI4TtLqws1k
-	 vm+5RLC2TDG2iU35ve1/Y55MqRAunP8bgfjSyHgxABmWTLBu2XpZ5D7b13yQrixrQLSWw
-	 1eCmzgXQNdgqv9m0mQ9+rCoLiSzGZTalN9ABN5m64Johr6HdntYfgwU3gTVpYKYGTRvsL
-	 er+fgQAwKamhq07CRRT4mDT2wuXRZA/xn9yaOc+G5xFc7pL9mTNyoLozU5NrqqxZbdhyR
-	 Rz/HCig8TLyhsA1DYGQ6eLZMDMNg11nPu6t1lcUhxJYY/8rzDHZcJt3UY1XDaxAUY+Q==
+	t=1793847228;
+	b=xskt0qUdVL7WrYpOQ6zRfnmK3i1uxQduDcbU0i37yajczgvcTI82rL7T003/oHJptdL1
+	 lRClJwiuWErIQZtp2xG5ewuYtLCL0qqLotKs4PCZIOkyG+m7QrPhYuIPN8TaKWhHbSKTV
+	 vkpCf9eqwV+2te5Ev+1qnYZDEOrqrIlVohqwrQakSKc16fyX/Bfgz8kt1mnSgeJ12UbuE
+	 Xt3vKdy3X+HZaTXTy7qZb+OSQTwEir3Xe/uX2Wa9qPtnYHS9ZSl1QeVOK8JhVz1MCAoZ/
+	 CJrx79twM2OALzqWqSpDLKtwbyqYtIpNsyRoFBdYUDo6uWWw4PjlafyCu7jEtSbhhYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793847227;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793847228;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/m+V6Vw5N9+3ZSybFVk2sHvEnuvXOAoRTQQ/i6HhfLU=;
-	b=MALyoC0oWRfqWvQBVTixQiF/NxDEzGfcHWWRcVZ6/M+DPQizSKst35u0K5idoj3a17jK
-	 Xz6fMlBq+UtDnr8X38hfkGDKOtnV+nBJzswA1XpIbq8NQANEKp58gnxWKrSNZwx7QdPmL
-	 h3rsCPPuRmrz+pyuNUALRfaNIUdAvG3nfZzj2P6kPlOF8g9G9sQCqWo9UxrBmXAc0ZdDx
-	 QMgWLxvaYaOBdnB60o/K3nKUg9SSU6H7x5ua8kVEtQWaR0OyymIjk1wKXxmQefihoBDg1
-	 gmxHVe5W44Fd38ge2yGU2ooCG0E9FHrFlmO+IReo5KnaF789l1euXIshdFd/pKF5DOQ==
+	bh=xcT5tiixZNHCrX+aTAltCReAjjb1g0dELGZX+pJHXSQ=;
+	b=vsM3miC9z5xWtay8PC73bPfLD/OgxBX4y4E1k8FiroLqmXqOKALYswo1v01uzoSBxKdT
+	 /N1AgOVBtjCbHj+Y5Ts9EEBArxAEe5U0W/5PmIJFQFAaBrUX7lEkZdAqypDX5T/LRu/AR
+	 tvH6RO+QljJGMT3dM/M7/PrOpkKBdewZzUmEHy2AvZVgm38ThI3lqs0LAo427+w0R8Tcy
+	 LrBddHvwjWvrHF02QjvOGuS72X5fKQqDOU4y0wxwxDA8TmmvMXgzqryJiXbPV2BlE7RbV
+	 gGcymR5Ae5pbggesSBaTFLdxfcwGdTflCS94f9k46MCXntXOZ1en2l+ZMc3eTs7p3Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czVaYiiX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iI5ArQ5F;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2EEE606A329
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:53:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86DEF606A329
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:53:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czVaYiiX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A78011F000C1;
-	Thu,  5 Nov 2026 02:53:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iI5ArQ5F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3D521F00919;
+	Thu,  5 Nov 2026 02:53:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793847226;
-	bh=/m+V6Vw5N9+3ZSybFVk2sHvEnuvXOAoRTQQ/i6HhfLU=;
+	s=k20260515; t=1793847228;
+	bh=xcT5tiixZNHCrX+aTAltCReAjjb1g0dELGZX+pJHXSQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=czVaYiiXP14O288UQpOrruNhCJGmOGBvz/E7bA5PWjE21oQyDBiHcIca7T/5FvYuH
-	 u46aeRkiY+1Bbo7eW7EQQ2ml4MVK6RSipE2tIeBmGbJuAyCcqsDVfUztvnGII2W3L2
-	 J6lWIpR0HSdya3Z8LM8SzclrYiGYRu/cF+6S3Vc0ETLOib40aEhq8ikppnHLFUvCzA
-	 nsBdC5a+J/mVUlRtyW/zKyij6GASsBfzPplHH8/LudKdqI9icFyrqe6UrLdmlI/Mj8
-	 0ZHz8GtQ2Gzo8zeEvGzxOnvmrLyxeMZJQylxXkv6zcCRahwkg2ln33lPtep8wDJQVp
-	 LQI3W3I3U6bXQ==
+	b=iI5ArQ5FVFb+6uiySAXuhQ9LQ4f5ACn5oX6AIeEwyhIlrY9zaBhqKmiMez6y2NjyX
+	 +myJXy+Y9MAFSSPo6tvOYdELRkCbBjM9hVjdPAHB2+6tgui7H56w+n/z6dD47mRjAs
+	 F873nhyjEpTOrJ6uJXEqqxikFV9abmiC1nlasArn08a7GxMdD8U9KsEsp7mH4sA8QZ
+	 dk7eQqyKGMOIYUrcn8RDDNeYhfOi2JYl+C6D8aW1dk31xZmAgHRkMps8/fX7XvBn5X
+	 5hhraQiCTDh+79RFGdeMOx8Xcb/ZkD4/ZaPUnp/1sDlFgTKsb5tr5HMNl2Dv56nCRt
+	 7Cx9OcnpmGwDQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vernon Yang <yanglincheng@kylinos.cn>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Barry Song <baohua@kernel.org>,
-	Dev Jain <dev.jain@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Zach O'Keefe <zokeefe@google.com>,
+Cc: Tianchu Chen <flynnnchen@tencent.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm: khugepaged: fix swap entry value to folio_pfn()
-Date: Wed,  4 Nov 2026 21:53:44 -0500
-Message-ID: <20261105025324.1172108-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] staging: rtl8723bs: fix protected RX frame validation in decrypt path
+Date: Wed,  4 Nov 2026 21:53:46 -0500
+Message-ID: <20261105025323.1174871-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110435-preview-regally-12b1@gregkh>
-References: <2026110435-preview-regally-12b1@gregkh>
+In-Reply-To: <2026110449-rekindle-unhappily-b3bd@gregkh>
+References: <2026110449-rekindle-unhappily-b3bd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,142 +61,103 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vernon Yang <yanglincheng@kylinos.cn>
+From: Tianchu Chen <flynnnchen@tencent.com>
 
-[ Upstream commit 942c8ec27aa4ffc587511650718349964e1696e6 ]
+[ Upstream commit 495cb31c791bdf3f9efef255a9587b05b0526c9d ]
 
-Patch series "mm: khugepaged: fix tracepoint UAF", v5.
+The RX software decrypt path mishandles crafted protected frames from a
+malicious AP in two ways:
 
-The khugepaged tracepoints take a folio pointer and call folio_pfn(), but
-by then the folio may no longer be valid: freed after folio_put(),
-folio_unlock() or pte_unmap_unlock(), or not a folio at all but an
-xarray-encoded swap entry.  On classic SPARSEMEM, dereferencing it oopses
-khugepaged as soon as the trace event is enabled; on other memory models
-it merely prints a bogus pfn.
+1) decryptor() never checks that a protected frame is long enough to
+hold the 802.11 header plus the per-cipher trailer.  All of
+rtw_wep_decrypt(), rtw_tkip_decrypt() and rtw_aes_decrypt() compute
 
-Pass the pfn to the tracepoints directly, captured while the folio is
-still pinned, closing the use-after-free windows in
-mm_khugepaged_scan_file(), mm_khugepaged_scan_pmd() and
-mm_khugepaged_collapse_file().
+	length = hdr.len - hdrlen - iv_len;
 
-This patch (of 3):
+and act on the result, and recvframe_chkmic() similarly computes
 
-When the swap entries found exceed max_ptes_swap, the loop is left via
-break with folio still holding the xarray value that encodes the swap
-entry, not valid folio pointer.
+	datalen = hdr.len - hdrlen - iv_len - icv_len - 8;
 
-That value is passed to trace_mm_khugepaged_scan_file(), which feeds it to
-folio_pfn().  On FLATMEM and SPARSEMEM_VMEMMAP, the page_to_pfn() is plain
-pointer arithmetic, so the trace event merely prints bogus scan_pfn.  On
-classic SPARSEMEM, the page_to_pfn() reads page->flags, dereferencing the
-tiny encoded integer and oopsing khugepaged whenever the trace event is
-enabled.
+for TKIP (the 8-byte Michael MIC is not accounted for in icv_len).
+A frame shorter than hdrlen + iv_len + icv_len (+ 8 for TKIP) underflows
+these unsigned subtractions, turning into a ~4 GiB iteration count in
+aes_decipher()/arc4_crypt()/rtw_seccalctkipmic() or a ~4 GiB crc32_le()
+length, causing out-of-bounds reads/writes of up to ~4 GiB starting from
+the rx skb.  Reject such frames in decryptor() before touching the IV;
+this covers all three ciphers and the TKIP MIC check, and also keeps the
+unconditional iv[3] access within the frame.
 
-So when folio is the swap entry value, simply set pfn to -1, just like
-exhausted scan naturally.
+2) validate_80211w_mgmt() keeps using the frame - two memcpys through
+the stale rx_data pointer and a pkt_len update - before checking
+whether decryptor() returned NULL.  On decrypt failure (e.g. a unicast
+protected deauth/disassoc/action frame with a bad MIC, which this path
+always software-decrypts) the skb has already been freed, so this is a
+use-after-free read/write, and the caller's error path frees the frame
+a second time, drifting free_recvframe_cnt.  Bail out immediately when
+decryptor() fails, freeing the temporary mgmt_DATA buffer first.
 
-And the folio_put() has maybe dropped the last reference of folio.  The
-trace_mm_khugepaged_scan_file() is left with a dangling folio pointer.  so
-using the folio_pfn() before dropping the reference, closing
-use-after-free window.
+Discovered by Atuin - Automated Vulnerability Discovery Engine.
 
-Link: https://lore.kernel.org/20260909025804.3233645-1-vernon2gm@gmail.com
-Link: https://lore.kernel.org/20260909025804.3233645-2-vernon2gm@gmail.com
-Fixes: d41fd2016ed0 ("mm/khugepaged: add tracepoint to hpage_collapse_scan_file()")
-Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Zach O'Keefe <zokeefe@google.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: adapted folio-based code to use struct page and page_to_pfn() in hpage_collapse_scan_file() ]
+Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
+Link: https://patch.msgid.link/8ee3bdd1c45034200cb1aa9a7e9b575b9584643a@linux.dev
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: Adjusted context for older syntax while preserving IS_MCAST() and rtw_zmalloc(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/trace/events/huge_memory.h | 6 +++---
- mm/khugepaged.c                    | 7 ++++++-
- 2 files changed, 9 insertions(+), 4 deletions(-)
+ drivers/staging/rtl8723bs/core/rtw_recv.c | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
 
-diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
-index 01591e7995235..23bd4c1f984e8 100644
---- a/include/trace/events/huge_memory.h
-+++ b/include/trace/events/huge_memory.h
-@@ -172,10 +172,10 @@ TRACE_EVENT(mm_collapse_huge_page_swapin,
+diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/rtl8723bs/core/rtw_recv.c
+index 5b0a596eefb77..f6585c034a902 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_recv.c
++++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
+@@ -392,7 +392,21 @@ static union recv_frame *decryptor(struct adapter *padapter, union recv_frame *p
+ 	u32  res = _SUCCESS;
  
- TRACE_EVENT(mm_khugepaged_scan_file,
+ 	if (prxattrib->encrypt > 0) {
+-		u8 *iv = precv_frame->u.hdr.rx_data+prxattrib->hdrlen;
++		u8 *iv;
++		u32 min_len = prxattrib->hdrlen + prxattrib->iv_len + prxattrib->icv_len;
++
++		/* TKIP appends an 8-byte Michael MIC that icv_len doesn't account for */
++		if (prxattrib->encrypt == _TKIP_)
++			min_len += 8;
++
++		/* a protected frame must be long enough to hold the IV and ICV/MIC */
++		if (precv_frame->u.hdr.len < min_len) {
++			rtw_free_recvframe(precv_frame,
++					   &padapter->recvpriv.free_recv_queue);
++			return NULL;
++		}
++
++		iv = precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
+ 		prxattrib->key_index = (((iv[3])>>6)&0x3);
  
--	TP_PROTO(struct mm_struct *mm, struct page *page, struct file *file,
-+	TP_PROTO(struct mm_struct *mm, unsigned long pfn, struct file *file,
- 		 int present, int swap, int result),
- 
--	TP_ARGS(mm, page, file, present, swap, result),
-+	TP_ARGS(mm, pfn, file, present, swap, result),
- 
- 	TP_STRUCT__entry(
- 		__field(struct mm_struct *, mm)
-@@ -188,7 +188,7 @@ TRACE_EVENT(mm_khugepaged_scan_file,
- 
- 	TP_fast_assign(
- 		__entry->mm = mm;
--		__entry->pfn = page ? page_to_pfn(page) : -1;
-+		__entry->pfn = pfn;
- 		__assign_str(filename, file->f_path.dentry->d_iname);
- 		__entry->present = present;
- 		__entry->swap = swap;
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 4c3581364cb28..9738b70bbd453 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -2167,6 +2167,7 @@ static int hpage_collapse_scan_file(struct mm_struct *mm, unsigned long addr,
- 	int present, swap;
- 	int node = NUMA_NO_NODE;
- 	int result = SCAN_SUCCEED;
-+	unsigned long failed_pfn = -1;
- 
- 	present = 0;
- 	swap = 0;
-@@ -2200,6 +2201,7 @@ static int hpage_collapse_scan_file(struct mm_struct *mm, unsigned long addr,
- 					/* Maybe PMD-mapped */
- 					? SCAN_PTE_MAPPED_HUGEPAGE
- 					: SCAN_PAGE_COMPOUND;
-+			failed_pfn = page_to_pfn(page);
- 			/*
- 			 * For SCAN_PTE_MAPPED_HUGEPAGE, further processing
- 			 * by the caller won't touch the page cache, and so
-@@ -2212,18 +2214,21 @@ static int hpage_collapse_scan_file(struct mm_struct *mm, unsigned long addr,
- 		node = page_to_nid(page);
- 		if (hpage_collapse_scan_abort(node, cc)) {
- 			result = SCAN_SCAN_ABORT;
-+			failed_pfn = page_to_pfn(page);
- 			break;
- 		}
- 		cc->node_load[node]++;
- 
- 		if (!PageLRU(page)) {
- 			result = SCAN_PAGE_LRU;
-+			failed_pfn = page_to_pfn(page);
- 			break;
- 		}
- 
- 		if (page_count(page) !=
- 		    1 + page_mapcount(page) + page_has_private(page)) {
- 			result = SCAN_PAGE_COUNT;
-+			failed_pfn = page_to_pfn(page);
- 			break;
- 		}
- 
-@@ -2252,7 +2257,7 @@ static int hpage_collapse_scan_file(struct mm_struct *mm, unsigned long addr,
- 		}
- 	}
- 
--	trace_mm_khugepaged_scan_file(mm, page, file, present, swap, result);
-+	trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present, swap, result);
- 	return result;
- }
- #else
+ 		if (prxattrib->key_index > WEP_KEYS) {
+@@ -1374,6 +1388,10 @@ static signed int validate_80211w_mgmt(struct adapter *adapter, union recv_frame
+ 				goto validate_80211w_fail;
+ 			}
+ 			precv_frame = decryptor(adapter, precv_frame);
++			if (!precv_frame) {
++				kfree(mgmt_DATA);
++				goto validate_80211w_fail;
++			}
+ 			/* save actual management data frame body */
+ 			memcpy(mgmt_DATA, ptr+pattrib->hdrlen+pattrib->iv_len, data_len);
+ 			/* overwrite the iv field */
+@@ -1381,9 +1399,6 @@ static signed int validate_80211w_mgmt(struct adapter *adapter, union recv_frame
+ 			/* remove the iv and icv length */
+ 			pattrib->pkt_len = pattrib->pkt_len - pattrib->iv_len - pattrib->icv_len;
+ 			kfree(mgmt_DATA);
+-			if (!precv_frame) {
+-				goto validate_80211w_fail;
+-			}
+ 		} else if (IS_MCAST(GetAddr1Ptr(ptr)) &&
+ 			(subtype == WIFI_DEAUTH || subtype == WIFI_DISASSOC)) {
+ 			signed int BIP_ret = _SUCCESS;
 -- 
 2.53.0
 
