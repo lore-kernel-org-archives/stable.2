@@ -1,59 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=141.30.67.75
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793860363;
-	b=r51JYlCgfVbl2FbUaMvwpXQ7rDpnyBalXVkWtmoBI7ySI9Yxvhc6LjipuVqzAZ7jzFYy
-	 7Xko7f2QIGEJ5J4h7tWkA8P5Y3dIwN2IQG+05pTKeb4xNC6HilIef/L7C5Epg00wYvEIE
-	 Vn5XAaH5QqYjl2iY5RPdwTwYy4slvKR2jRmhWfg75DBVEDfyZPmgizfQF9llmu3zHsan6
-	 KxI5qNREKabeWRbAfXghT/nbhMoDNzOfvdAWtovJTVNynos7anL/MWBnn3D996D905Zpi
-	 obu79FZR5RXNyRrMfvnxo7aHEv2zHlfZ5WNCYrGZwCVycVBLytpEnY758OrVmpxOJ9w==
+	t=1793860382;
+	b=npWeue18FpgJGLSIm1pQnAs09bfCMlbInxzhGcTsiC+TA3DysZ4eEpgh+Usd3Oz3Xz/v
+	 /Pe6HrumQ8/x++ACcx/qN8FUMI5Xx+5WfpdpL/Ig7nDxaYIDUXepvl1MHggS8Y3Ul/2H2
+	 dqSVq0EOc6EuZxyEKcNbxagXQJ9+snCIUh4MpNWjXGCtyn6ILJ2icakEm7IOizSRX0m3+
+	 /HE5b8J9vv3qaQoY7SEyXAuMR+shozVY+WcII9XbQalcwwxip0lgwqeHDyGanUyDt5KzY
+	 kDxjHi62qXY1BTaotMkzNzdvVXBbLdt8AKypmkA7YcY5IvS1lB6S4MA/A2pPA2+fxWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793860363;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:CC:References:Content-Language:
-	 From:In-Reply-To:Content-Type:X-ClientProxiedBy:X-TUD-Virus-Scanned;
-	bh=cPpKl4WG5JKaac3kLhgIvr4xrBI+YzFPZxwf2/PhyUA=;
-	b=eCaQQr0jiUYqQRE3+t/bRESbyaQgIYFcyE+gGIgS4A+OROopuBX/AWezorB7My0WHD9r
-	 5bruLvwsjECWbKmKU1DQrJZcnzwYZPrEULDaRRh1u9QMuTdt2tnuRfXnBnaXyALYCME4n
-	 YwxRA3QFlvXAjiQJerAlljps0QzOLNY7zv9KMxIsSrozaLp1CFD+H2GtQVsOEsFLC2oWu
-	 QVIoaBF96KkYAYxn+VpSlsk1CW50/W6F+wFIx1I+7SA4JTyb5UQ8USuD32ioEqdkWTrdX
-	 EKFr983Dqb/MchjnLEnQNI13ecAjzFczMqmPhLpq9Hjk2JebtbyWt46oQq5BusSzxVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793860382;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=i9lUQhKTJARLIGZRhVPiKhYepIMb4qgefFmvf1eFIYU=;
+	b=CGujyaqJeiY9Psbpux5lKBkiOJ+c8+WCUkU+CP/UsxW1Z9EnfQ3kcW9RdvI6KFAOuiLV
+	 q3AgCRKyMZVSDD7y/q7uE7W7MvG6UWAr72GLjaYyfNrZ5OtWe5h/3nKIbalgZpkEdWjV/
+	 nIX7wjIi3SoeBMmyyUCgqAg1RA5T/x4+sT04S4ASC5K8yHvxRBxpmvzqeWdmXWbqSqAu8
+	 Z+9Q4F8i1ktGprkCLTkoMlGSB8wdqy3Hy/zAQ5yaxzoT3SiiT7PnuVggahYUHRHMMQRJ/
+	 8KyNDRlZD4FlvDljS+rOXRJAsS7Yzr4wD8M6mPCOcyFUEHlwp5Up5j64EoRs9cLLlAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tu-dresden.de;
-	spf=pass smtp.mailfrom=tu-dresden.de;
-	arc=none smtp.remote-ip=141.30.67.75
-Received: from mailout4.zih.tu-dresden.de (mailout4.zih.tu-dresden.de [141.30.67.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BtweYb3c;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74696606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 06:32:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74696606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tu-dresden.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tu-dresden.de
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=tu-dresden.de; s=dkim2022; h=Content-Type:In-Reply-To:From:References:CC:To
-	:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=cPpKl4WG5JKaac3kLhgIvr4xrBI+YzFPZxwf2/PhyUA=; b=RDQ+BaHHrigk6GCfx6mUkjHt2m
-	O4ReSRDOBFEBsDEPzN6AtQ1H2OUKl4eSVnklxpQWMhB+P2SgMcgDF4om6G3snGKEWnU4a4rJRJPnz
-	u0JNoHgyKK5pwaHtU7jH/6nL3Bw+8UWjzBMX/XhXdngPl6q1uQ9dfY7YxU7EOd71C7GGb6+JJ+c4m
-	cu+IgmyQSZL+2uQCOD5wm3mmI69QSH8obaKxqtBkWRa7MjNVqIuz5JuaT5GrsQsF+76npQFhG9B+v
-	rzudYk4xlGNQm+S8SRsr9xproKm0Z2WeD0bmrYOXfJmS61rGvwwflmpLe2abMXTHOkjTXGxeK5Sw4
-	JLUDRXXw==;
-Received: from msx-l422.msx.ad.zih.tu-dresden.de ([172.26.34.142] helo=msx.tu-dresden.de)
-	by mailout4.zih.tu-dresden.de with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ulf.markwardt@tu-dresden.de>)
-	id 1xOr1N-0057Nj-0d;
-	Thu, 05 Nov 2026 07:32:29 +0100
-Received: from [141.30.69.151] (141.76.13.149) by
- msx-l422.msx.ad.zih.tu-dresden.de (172.26.34.142) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 07:32:14 +0100
-Message-ID: <9debf1f8-aa89-4714-a2d8-c00d222ecf85@tu-dresden.de>
-Date: Thu, 5 Nov 2026 07:32:14 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAA03606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 06:33:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAA03606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BtweYb3c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793860381; x=1825396381;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=8P3cdLGyuNT+F+1XsXoqEW14jcmXDRbaqV2gGMoUKVo=;
+  b=BtweYb3c0/RYqnEH2AMQ0+flgnjw2brHBPEGtkKQ5ijwZUlPa3zcTgAG
+   HvyxOYfAZ31Jg1Wz/fkuNWVP07fySE4naduAfG/BFbwnhImXan05K+xDh
+   atgygwhnlfLeG47BYxvcLepEmh5FIk4dE4h+9bX2oBpDq1pzo58/0e1Uu
+   bnPZXc5Bp/eTkHn67zS6XYuOrvdI3JVZda/Qx6izoShZzDZWsSp1QLypm
+   i2Q6/z7iPpCX2+bAn9iOxhcIjveZ1BFTHP89LnFbe15Hk+m2TDGSgaOOc
+   tbFRvwV16pSdzeBQ64ibZ/Nq/RSLvYBhn4WsL/qDoKILTDxtHtDfe8/Rj
+   A==;
+X-CSE-ConnectionGUID: LeaAMfY1St6hq9o4ePxlDw==
+X-CSE-MsgGUID: k1HW+fVnRXiTw4xnt3yTOg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2534429"
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="2534429"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:33:00 -0800
+X-CSE-ConnectionGUID: uQG8tVdDQjOCyiQ0Cc2Wkg==
+X-CSE-MsgGUID: GxcZXKwASKu8KWM7dtGUWA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
+   d="scan'208";a="7048378"
+Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:32:59 -0800
+Message-ID: <3f991366-7a8e-443d-bce1-9ad14c20386f@intel.com>
+Date: Thu, 5 Nov 2026 14:32:54 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,147 +73,85 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Infiniband PKEY Regression 6.12.115
-To: Greg KH <gregkh@linuxfoundation.org>
-CC: <stable@vger.kernel.org>, <regressions@lists.linux.dev>
-References: <aaa3241b-4dc7-47da-8703-067ffc4ce252@tu-dresden.de>
- <2026110214-property-unaligned-70bb@gregkh>
+Subject: Re: FAILED: patch "[PATCH] KVM: VMX: Preserve negative return value
+ in vmx_handle_exit()" failed to apply to 5.10-stable tree
+To: gregkh@linuxfoundation.org, seanjc@google.com
+Cc: stable@vger.kernel.org
+References: <2026110401-siren-occupancy-2a61@gregkh>
 Content-Language: en-US
-From: Ulf Markwardt <ulf.markwardt@tu-dresden.de>
-In-Reply-To: <2026110214-property-unaligned-70bb@gregkh>
-Content-Type: multipart/signed; protocol="application/pkcs7-signature";
-	micalg=sha-512; boundary="------------ms050400080004040707090609"
-X-ClientProxiedBy: MSX-L416.msx.ad.zih.tu-dresden.de (172.26.34.136) To
- msx-l422.msx.ad.zih.tu-dresden.de (172.26.34.142)
-X-TUD-Virus-Scanned: mailout4.zih.tu-dresden.de
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <2026110401-siren-occupancy-2a61@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---------------ms050400080004040707090609
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+On 11/5/2026 3:19 AM, gregkh@linuxfoundation.org wrote:
+> 
+> The patch below does not apply to the 5.10-stable tree.
+> If someone wants it applied there, or to any other stable or longterm
+> tree, then please email the backport, including the original git commit
+> id to <stable@vger.kernel.org>.
 
-RGVhciBhbGwsDQphZnRlciAzIGRheXMgb2YgZXh0ZW5zaXZlIHRlc3Rpbmcgd2UgZm91bmQg
-dGhlIHJlYXNvbiBvZiB0aGUgcmVncmVzc2lvbiB3YXMgYW4gT3BlblNNIHByb2JsZW0uDQpX
-ZSBub3cgaGF2ZSB0aGlzIGtlcm5lbCBpbiBwcm9kdWN0aW9uLg0KVGhhbmtzLA0KVWxmDQoN
-Cg0KQW0gMDIuMTEuMjYgdW0gMTI6MjIgc2NocmllYiBHcmVnIEtIOg0KPiBPbiBNb24sIE5v
-diAwMiwgMjAyNiBhdCAwNzozODozOUFNICswMTAwLCBVbGYgTWFya3dhcmR0IHdyb3RlOg0K
-Pj4gRGVhciBMaW51eCBEZXZlbG9wZXJzLA0KPj4gd2UgYXJlIHJ1bm5pbmcgNi4xMi54IGtl
-cm5lbHMgd2l0aCBBbG1hTGludXggOS44IGFzIE9TIG9uIHNvbWUgSFBDIGNsdXN0ZXJzLg0K
-Pj4gIEZyb20gNi4xMi4xMTQgdG8gNi4xMi4xMTUgd2UgZXhwZXJpZW5jZSB0aGlzIHJlZ3Jl
-c3Npb24gb24gYSBjZXJ0YWluIGhvc3QgdHlwZToNCj4+DQo+PiBUaGUgSW5maW5pQmFuZCBQ
-X0tleSB0YWJsZXMgZG8gbm90IGdldCBwb3B1bGF0ZWQgYnkgdGhlIFNNIChvcGVuc20pIHdo
-ZW4NCj4+IGJvb3Rpbmcga2VybmVsIDYuMTIuMTE1LiBBbGwgSVBvSUIgY2hpbGQgaW50ZXJm
-YWNlcyB0aGF0IHJlcXVpcmUgYSBzcGVjaWZpYyBQX0tleQ0KPj4gKGUuZy4gMHg4MDAxLCAw
-eDgwMDIpIGZhaWwgd2l0aCAiUF9LZXkgbm90IGZvdW5kIi4gV2l0aCBrZXJuZWwgNi4xMi4x
-MTQgdGhlDQo+PiBQX0tleSB0YWJsZXMgZ2V0IHBvcHVsYXRlZCBhbmQgYWxsIElQb0lCIHN1
-YmludGVyZmFjZXMgY29tZSB1cCBhdCBib290IHRpbWUuDQo+IA0KPiBBbnkgY2hhbmNlIHlv
-dSBjYW4gcnVuICdnaXQgYmlzZWN0JyB0byBmaW5kIHRoZSBvZmZlbmRpbmcgY29tbWl0Pw0K
-PiANCj4gQW5kIGFsd2F5cyBjYzogdGhlIHJlbGV2YW50IHN1YnN5c3RlbSBkZXZlbG9wZXJz
-IHRvIHBsZWFzZS4NCj4gDQo+IHRoYW5rcywNCj4gDQo+IGdyZWcgay1oDQoNCi0tIA0KX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXw0KRHIuIFVsZiBNYXJrd2FyZHQNCkdydXBwZW5sZWl0ZXIgSFBDIFNlcnZp
-Y2VzDQoNClRlY2huaXNjaGUgVW5pdmVyc2l0w6R0IERyZXNkZW4NClplbnRydW0gZsO8ciBJ
-bmZvcm1hdGlvbnNkaWVuc3RlIHVuZCBIb2NobGVpc3R1bmdzcmVjaG5lbiAoWklIKQ0KRC0w
-MTA2MiAgRHJlc2Rlbg0KDQpUZWwuOiAgICs0OSAzNTEgNDYzLTMzNjQwDQpFLU1haWw6IHVs
-Zi5tYXJrd2FyZHRAdHUtZHJlc2Rlbi5kZQ0KDQo=
+This one doesn't need to be backported to 5.10-stable. It fixes fe6b6bc802b4
+("KVM: VMX: Enable bus lock VM exit"), which was merged since 5.12
 
---------------ms050400080004040707090609
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: Kryptografische S/MIME-Signatur
+> To reproduce the conflict and resubmit, you may use the following commands:
+> 
+> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+> git checkout FETCH_HEAD
+> git cherry-pick -x cef48693da1e964e9f192bfc16cd0ed287c48337
+> # <resolve conflicts, build, test, etc.>
+> git commit -s
+> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110401-siren-occupancy-2a61@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+> 
+> Possible dependencies:
+> 
+> 
+> 
+> thanks,
+> 
+> greg k-h
+> 
+> ------------------ original commit in Linus's tree ------------------
+> 
+> From cef48693da1e964e9f192bfc16cd0ed287c48337 Mon Sep 17 00:00:00 2001
+> From: Xiaoyao Li <xiaoyao.li@intel.com>
+> Date: Wed, 19 Aug 2026 17:49:00 +0800
+> Subject: [PATCH] KVM: VMX: Preserve negative return value in vmx_handle_exit()
+>  with bus lock detected
+> 
+> Preserve the negative return value from __vmx_handle_exit() when a bus
+> lock is detected, instead of always overwriting it with 0.
+> 
+> The purpose of bus_lock_detected handling is to force a userspace exit to
+> inform userspace that a bus lock happened. The negative return value can
+> achieve this purpose, and changing the negative value to 0 fails to return
+> an error to userspace. So, preserve the negative return value.
+> 
+> Fixes: fe6b6bc802b4 ("KVM: VMX: Enable bus lock VM exit")
+> Cc: stable@vger.kernel.org
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://lore.kernel.org/all/20260805034602.5B2BB1F000E9@smtp.kernel.org/
+> Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
+> Link: https://patch.msgid.link/20260819094903.3060020-7-xiaoyao.li@intel.com
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> 
+> diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+> index 965141e0d4c8..6df390ae8708 100644
+> --- a/arch/x86/kvm/vmx/vmx.c
+> +++ b/arch/x86/kvm/vmx/vmx.c
+> @@ -6864,11 +6864,12 @@ int vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
+>  	 * a bus lock in guest.
+>  	 */
+>  	if (vmx_get_exit_reason(vcpu).bus_lock_detected) {
+> -		if (ret > 0)
+> +		if (ret > 0) {
+>  			vcpu->run->exit_reason = KVM_EXIT_X86_BUS_LOCK;
+> +			ret = 0;
+> +		}
+>  
+>  		vcpu->run->flags |= KVM_RUN_X86_BUS_LOCK;
+> -		return 0;
+>  	}
+>  	return ret;
+>  }
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgMFADCABgkqhkiG9w0BBwEAAKCC
-Dj0wggbmMIIEzqADAgECAhAxAnDUNb6bJJr4VtDh4oVJMA0GCSqGSIb3DQEBDAUAMIGIMQsw
-CQYDVQQGEwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkx
-HjAcBgNVBAoTFVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJT
-QSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTAeFw0yMDAyMTgwMDAwMDBaFw0zMzA1MDEyMzU5
-NTlaMEYxCzAJBgNVBAYTAk5MMRkwFwYDVQQKExBHRUFOVCBWZXJlbmlnaW5nMRwwGgYDVQQD
-ExNHRUFOVCBQZXJzb25hbCBDQSA0MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA
-s0riIl4nW+kEWxQENTIgFK600jFAxs1QwB6hRMqvnkphfy2Q3mKbM2otpELKlgE8/3AQPYBo
-7p7yeORuPMnAuA+oMGRb2wbeSaLcZbpwXgfCvnKxmq97/kQkOFX706F9O7/h0yehHhDjUdyM
-yT0zMs4AMBDRrAFn/b2vR3j0BSYgoQs16oSqadM3p+d0vvH/YrRMtOhkvGpLuzL8m+LTAQWv
-QJ92NwCyKiHspoP4mLPJvVpEpDMnpDbRUQdftSpZzVKTNORvPrGPRLnJ0EEVCHR82LL6oz91
-5WkrgeCY9ImuulBn4uVsd9ZpubCgM/EXvVBlViKqusChSsZEn7juIsGIiDyaIhhLsd3amm8B
-S3bgK6AxdSMROND6hiHT182Lmf8C+gRHxQG9McvG35uUvRu8v7bPZiJRaT7ZC2f50P4lTlnb
-LvWpXv5yv7hheO8bMXltiyLweLB+VNvg+GnfL6TW3Aq1yF1yrZAZzR4MbpjTWdEdSLKvz8+0
-wCwscQ81nbDOwDt9vyZ+0eJXbRkWZiqScnwAg5/B1NUD4TrYlrI4n6zFp2pyYUOiuzP+as/A
-Znz63GvjFK69WODR2W/TK4D7VikEMhg18vhuRf4hxnWZOy0vhfDR/g3aJbdsGac+diahjEwz
-yB+UKJOCyzvecG8bZ/u/U8PsEMZg07iIPi8CAwEAAaOCAYswggGHMB8GA1UdIwQYMBaAFFN5
-v1qqK0rPVIDh2JvAnfKyA2bLMB0GA1UdDgQWBBRpAKHHIVj44MUbILAK3adRvxPZ5DAOBgNV
-HQ8BAf8EBAMCAYYwEgYDVR0TAQH/BAgwBgEB/wIBADAdBgNVHSUEFjAUBggrBgEFBQcDAgYI
-KwYBBQUHAwQwOAYDVR0gBDEwLzAtBgRVHSAAMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2Vj
-dGlnby5jb20vQ1BTMFAGA1UdHwRJMEcwRaBDoEGGP2h0dHA6Ly9jcmwudXNlcnRydXN0LmNv
-bS9VU0VSVHJ1c3RSU0FDZXJ0aWZpY2F0aW9uQXV0aG9yaXR5LmNybDB2BggrBgEFBQcBAQRq
-MGgwPwYIKwYBBQUHMAKGM2h0dHA6Ly9jcnQudXNlcnRydXN0LmNvbS9VU0VSVHJ1c3RSU0FB
-ZGRUcnVzdENBLmNydDAlBggrBgEFBQcwAYYZaHR0cDovL29jc3AudXNlcnRydXN0LmNvbTAN
-BgkqhkiG9w0BAQwFAAOCAgEACgVOew2PHxM5AP1v7GLGw+3tF6rjAcx43D9Hl110Q+BABABg
-lkrPkES/VyMZsfuds8fcDGvGE3o5UfjSno4sij0xdKut8zMazv8/4VMKPCA3EUS0tDUoL01u
-gDdqwlyXuYizeXyH2ICAQfXMtS+raz7mf741CZvO50OxMUMxqljeRfVPDJQJNHOYi2pxuxgj
-KDYx4hdZ9G2o+oLlHhu5+anMDkE8g0tffjRKn8I1D1BmrDdWR/IdbBOj6870abYvqys1qYlP
-otv5N5dm+XxQ8vlrvY7+kfQaAYeO3rP1DM8BGdpEqyFVa+I0rpJPhaZkeWW7cImDQFerHW9b
-KzBrCC815a3WrEhNpxh72ZJZNs1HYJ+29NTB6uu4NJjaMxpk+g2puNSm4b9uVjBbPO9V6sFS
-G+IBqE9ckX/1XjzJtY8Grqoo4SiRb6zcHhp3mxj3oqWi8SKNohAOKnUc7RIP6ss1hqIFyv0x
-XZor4N9tnzD0Fo0JDIURjDPEgo5WTdti/MdGTmKFQNqxyZuT9uSI2Xvhz8p+4pCYkiZqpahZ
-lHqMFxdw9XRZQgrP+cgtOkWEaiNkRBbvtvLdp7MCL2OsQhQEdEbUvDM9slzZXdI7NjJokVBq
-3O4pls3VD2z3L/bHVBe0rBERjyM2C/HSIh84rfmAqBgklzIOqXhd+4RzadUwggdPMIIFN6AD
-AgECAhEAmkSPPUwO1DXs/EDCpH/twDANBgkqhkiG9w0BAQwFADBGMQswCQYDVQQGEwJOTDEZ
-MBcGA1UEChMQR0VBTlQgVmVyZW5pZ2luZzEcMBoGA1UEAxMTR0VBTlQgUGVyc29uYWwgQ0Eg
-NDAeFw0yNDEyMDkwMDAwMDBaFw0yNjEyMDkyMzU5NTlaMIHCMQswCQYDVQQGEwJERTEQMA4G
-A1UECBMHU2FjaHNlbjEoMCYGA1UEChMfVGVjaG5pc2NoZSBVbml2ZXJzaXRhZXQgRHJlc2Rl
-bjERMA8GA1UEYRMIR09WREUrU04xKjAoBgkqhkiG9w0BCQEWG3VsZi5tYXJrd2FyZHRAdHUt
-ZHJlc2Rlbi5kZTESMBAGA1UEBBMJTWFya3dhcmR0MQwwCgYDVQQqEwNVbGYxFjAUBgNVBAMT
-DVVsZiBNYXJrd2FyZHQwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQDElJs+kF+T
-G6kwO6RM0QSGZ4RHl637aMMJjVrmnz00NVfHjora9wx2bjl89NHGBCBxrknlke6EhhxGupTy
-mcw7Iwj+kEbh4mEapCO5TEhKd9fZF2zEcXFtcYQyOkZjbPiqy7FOi7+WTGIuw3npJ7VxFY+Z
-lgoJLeuZManEf0kNMvlneCGVCEEQF9+Z1BybGnl2lewDKB0eD4B0Cw9oSpDBFWPgkJuVfxBW
-FXKVjHjtEo0tUQdKVaa/rZXRwVTZn/g8Z6R6JqJDqUeWAkRUUPZApYl1JlcTHr3ubybxaB9e
-LOlhNKGEgoqG0LnNeBoYacV7NrUBngwhyHXppUDvJ2tFIypiiLzZEKJZadqPyUMEPYhMel5U
-cASStvN1oe9gqBiI7jBwjT6C5IlUVCHJcc+8fo2FaWCjIFFc7KEDYmuCT8nBGSVI1n4RQn8v
-Fmhx1WNwwfljqaPLl3q2pXS/hMKZDLSgGMTgn2k9B7Z+gH0rhaSAHH3fm463zv7EPtlyOqOl
-LnKfRXhV6UM1Uv3ksiFwQBIy4AUP8gQsN8vb7A1QS+UKFh3efJkCOr6KvvC3WnB7IzfiZuIP
-h66bTzU0c9CfpX/2rUhAxAFjA+eja4NRNEyvwx0ub8Xwuc39Yy/ZD0GFkCNcn/ns+YYBmrrd
-2vPBVO5djwBiQsQpZZADk2sXGwIDAQABo4IBuTCCAbUwHwYDVR0jBBgwFoAUaQChxyFY+ODF
-GyCwCt2nUb8T2eQwHQYDVR0OBBYEFME4P5woUkdtehAmPrhDT+qQ4+7EMA4GA1UdDwEB/wQE
-AwIFoDAMBgNVHRMBAf8EAjAAMB0GA1UdJQQWMBQGCCsGAQUFBwMEBggrBgEFBQcDAjBQBgNV
-HSAESTBHMDoGDCsGAQQBsjEBAgEKBDAqMCgGCCsGAQUFBwIBFhxodHRwczovL3NlY3RpZ28u
-Y29tL1NNSU1FQ1BTMAkGB2eBDAEFAwIwQgYDVR0fBDswOTA3oDWgM4YxaHR0cDovL0dFQU5U
-LmNybC5zZWN0aWdvLmNvbS9HRUFOVFBlcnNvbmFsQ0E0LmNybDB4BggrBgEFBQcBAQRsMGow
-PQYIKwYBBQUHMAKGMWh0dHA6Ly9HRUFOVC5jcnQuc2VjdGlnby5jb20vR0VBTlRQZXJzb25h
-bENBNC5jcnQwKQYIKwYBBQUHMAGGHWh0dHA6Ly9HRUFOVC5vY3NwLnNlY3RpZ28uY29tMCYG
-A1UdEQQfMB2BG3VsZi5tYXJrd2FyZHRAdHUtZHJlc2Rlbi5kZTANBgkqhkiG9w0BAQwFAAOC
-AgEAauYNnnCxU2tUY3Ad7vmEUeqJ/WG7e2exROkdXRL9UBHJS/r2SSy6ILxKd1feym4RZijq
-lf1hM40VmFiexSwiUVYa8Pa3ap6/2FJfaRvidhHozUWOvtRNEs8cGcj/HAwbn2clGv83l2nr
-Imtuaa08FYHJ5i3nu9OQoLXkm1730pusr19XEe+I0ToO39IYSjAmnUHXBFT7feofx5Y4oKDr
-EMiQAFwqAMmcS5yvvSAbCZdoVROxe/+AG7rQnII+gGcrtYNLfwC+ts4sZB65Bxr/Knl2T0SS
-5iZFzkeCymD/Mj12RVpLAbAaiZqA1MeqU//eu1V2VWj0Uw0Zz4izanLF/x2TJ4zOKTkOkEgW
-iyW1v5m8HTryuYmFtyCb87kzNU93q6sIBd9rnJKw1M7AyILn58Xa8cyyfTfv19gdwASSesr1
-IUJ9NHWpoY9Pz8IxUMwKGKNC5ZUdEucH/uNHhwbpyG3wnnja0jjrU4HpjIHBGFln8mRwRrAq
-bctMGfSb1okV4U7d2cBmWj9mxt6RdIEcTN2YxI4CgUt39VLghZRs+g1VJ3BVOe4Ar5AqO8uz
-G+wPLvAYbN/I4RXFIP5TzILWgIJ+tAU0ItFe0v3fUQFtssiX5aEX1ZxIixpFiJ8DjModLW/t
-fbQTFa/m3cgPY7fYmL7GsF1vtBrd3Etqcyx6XMYxggVIMIIFRAIBATBbMEYxCzAJBgNVBAYT
-Ak5MMRkwFwYDVQQKExBHRUFOVCBWZXJlbmlnaW5nMRwwGgYDVQQDExNHRUFOVCBQZXJzb25h
-bCBDQSA0AhEAmkSPPUwO1DXs/EDCpH/twDANBglghkgBZQMEAgMFAKCCAr4wGAYJKoZIhvcN
-AQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjYxMTA1MDYzMjE0WjBPBgkqhkiG
-9w0BCQQxQgRAqdryZQEJUAEeb6Y0U8z5GNOpDmqfqd3huLFsuy69cH2rEbydHt/068cq5HCt
-E33k2voSd3MLvv29E+0ustCoAzBqBgkrBgEEAYI3EAQxXTBbMEYxCzAJBgNVBAYTAk5MMRkw
-FwYDVQQKExBHRUFOVCBWZXJlbmlnaW5nMRwwGgYDVQQDExNHRUFOVCBQZXJzb25hbCBDQSA0
-AhEAmkSPPUwO1DXs/EDCpH/twDBsBgsqhkiG9w0BCRACCzFdoFswRjELMAkGA1UEBhMCTkwx
-GTAXBgNVBAoTEEdFQU5UIFZlcmVuaWdpbmcxHDAaBgNVBAMTE0dFQU5UIFBlcnNvbmFsIENB
-IDQCEQCaRI89TA7UNez8QMKkf+3AMIIBVwYJKoZIhvcNAQkPMYIBSDCCAUQwCwYJYIZIAWUD
-BAEqMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzANBggqhkiG9w0DAgIBBTANBggqhkiG9w0D
-AgIBBTAHBgUrDgMCBzANBggqhkiG9w0DAgIBBTAHBgUrDgMCGjALBglghkgBZQMEAgEwCwYJ
-YIZIAWUDBAICMAsGCWCGSAFlAwQCAzALBglghkgBZQMEAgQwCwYJYIZIAWUDBAIHMAsGCWCG
-SAFlAwQCCDALBglghkgBZQMEAgkwCwYJYIZIAWUDBAIKMAsGCSqGSIb3DQEBATALBgkrgQUQ
-hkg/AAIwCAYGK4EEAQsAMAgGBiuBBAELATAIBgYrgQQBCwIwCAYGK4EEAQsDMAsGCSuBBRCG
-SD8AAzAIBgYrgQQBDgAwCAYGK4EEAQ4BMAgGBiuBBAEOAjAIBgYrgQQBDgMwDQYJKoZIhvcN
-AQEBBQAEggIAA5655ULL4eTyp9fiyiDbgvxsusIQ2C/VpdHDK74t1tBvMWIOi9h7tkN5xGa4
-pB9dUGs6ki96bEkWyt3gFL2X/ml7RPMx4/075Bkon93jWng+FE5rOB1oidXyg6HJ3UXOWK/1
-qudXIQh4XwCD7FXYgb9xB4if8GmVgo/BJCbkub6Dk8qA0/XNPXff904EsbGKvBJCB3Jech3p
-hO16JHuPin7NwmMNyzdWTFPCM54t+5yK1+EAJjmj0yaQzyKWUQ2ajTBkw69Q9TSgbxufy9CM
-FuPrd9/dM2+uFRedWgp82wCdEuEO1m70WbHiWS+w8DYEUUUMehZIC84AqJ7DpVak5ujvrrDs
-M5saxmzHvqYvunuLyZaBAmFL2m9jP1/3wy1nQMQV9caOaGlIErtaQ384V49B6UAc8FE/1m6g
-lCBLH0WSekT9ktbHrYya5b2OPiiP+XR2+dDYWFXDE90brlXCpAJnxxZsxCHoi3GHE75zqiWb
-6T97xtUXDNnCrbXPFKTT1CrelL4R2RXQamBdsVpaWX0qBzH1gbB+wfJjki0uxck5gdMJrPt+
-a9TAdNvMXPQ/JlG+C6ciHo2HfxoLjxalZp4nkGM4KmF+i8ngg5GEjXsJQuzaZ5jQAv2O1JxN
-YxO8fly4miMw2TEP+SJZtHk5UmohCurttgU6tZ2uPJrtbbAAAAAAAAA=
---------------ms050400080004040707090609--
