@@ -1,101 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793896041;
-	b=M6WJOARlZ4opKRyD7QKG/zZHwrkguku5feOxD8sT9egjaOUBuhKkCYeLZkAv5v5nQLjm
-	 PgfqYXUKXmnQou5p9FIqx/QAhoK+0H429DAf5+BBBuL7bzMJDh77wmrubNQCCXWo5pZSF
-	 rpw4IZCbHeZGLpD0qFAzHWON3MexFGSubpMVrHebgZPIxdEDuHoCQIoVN6EJ1iQEWMo42
-	 adR0VWKMgt1xuZ6eEQ5ASdl62BgByFSUU5609sYukBnc+lnfly+1mXcl4rtJ/d0cLQ5ou
-	 WON7qt0zMOLF08ynE27zOTasdxAug2dQwQzYV/ZzpVARPb3LQyGVEv4dyxASSPtPB8w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793896041;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793896258;
+	b=wPrNl9LOseancUt7r+S9nXf7d4wI7gbfGeA/rO9/2JPP7mFkVStABLKZkToKeFssnMsn
+	 619ozHe1MySws1onzq9Sh0oBHzD7i+kVF+jI9Z6gluOtfjvA1S+JvkPyqwL7TyzMq1495
+	 jMvFwsrtAMXB53Z6R7/INyC681fFMjawdM8/keeKSl1ONgvCxu7SMiLauYxVbI5m2MMMN
+	 gjUtYdcQ7Le9QmTMnZODkQJc2/I+FrrybTOdO/xm3UGurbvD2fr4cxZf6Br0jZbWTG6EV
+	 OHN6lnRLmm6y8ogn41XkXoWM1g7dtiF73WkBm8NQGKfGSnHv0wKSZOXheRnXC9cYTJw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793896258;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=KjSVeGEEd0+bGdWRP6KVoFnNf90ZO756HfHoWrPkLN8=;
-	b=hP4vbh7XpKmEQh7IDCMPXGXei8pcLv6iVdlOxw98zDINT/oJCTRPqdvVGEANXsBtgsjo
-	 p05v9RsKf1qi0af6s5Rnb2WQZ9ibVBoYggSu2HNdCNUvJXQaLzmn1FTfNYO4t4p3MRKbw
-	 g5awk5esTAPA5Es27mX1iRKKtOnLygSNYUwGQqBfm9xsrQR0tUyNHtYPKTBbMxjJPm1gf
-	 xFiNy3xALlmaFi8qsChRjuZ65ON/S+ZApRfgpOCBwhR2bR8MX58gc1ugUlBOQxudegZ2F
-	 pmC+zi2zVtUFBDt6ftEfibAjMgMLJyNxGPgvlJmtJvLawc4GcVMiNt8xtoCXyDu8ZnQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=IAdWmD8J;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=coQkw57ZP+vtxGOFNXxyJOYi0uTeh1KAeZgHd3m+lMA=;
+	b=d7eLjzLUYZC0CBcd2GeLqhqCluFa3iR5g5KyGriz6LLzpccPAVoO92JWXdSWVWfNfHwP
+	 Ru+O/YfhaVTK3XWsV0LTt/hlnxQoeYJQ8ChvMTp73i+Nyp5wc6EPsU72DaGilla0CK+se
+	 mqSdMDLjce8/x3UCEekwzL4H6/KvbCHOpGX4q1p0RLQFuhMWLtXEUgOnhIjB/aIl6hae6
+	 ySxMfYwCmKHJUScL6dpvLhWUgBzW7BVpYPGRyYoj/4zZP9LXU3JlKb8TdvbpSNBqbYBze
+	 kRyfuHvx0rd1qs3FdHNLwSgC+VsqckxGzOtWaoOZ6TdHX32B+R3L0WfE7Lt809gjTmQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CB2606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 16:27:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52CB2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=IAdWmD8J
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9f6a16afcso68515ad.1
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 08:27:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793896041; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Q3wdMINJenlVivZwe8iy99isUusLm9KPGw6IF9kIjF23XGtp/rsL6v7HUdyvPMKEOx
-         5b/FA3pvqy5mUZZeMO2fwkFhXTjPqgunm2mtFeIVnOOQh1bDiHF3v8n+YP0V+8c5EsKh
-         HEmF6cSnMhEi+iw9yWKoVusN2EfI4AGfpMLh+dlprP7Uw11ngsSwLfwogDg3sO5OxQs5
-         pZq7Uw+sHu8awEeZKM6cO/UVuW6NdXsHZjpwQEABFIWU9zwUiP63fBn8b4EQ1WmAN62q
-         IIp04YW59ZnvFqp1MPXkOhAFoIoxMUvAK+qf5kX+D2tM9phFDAelOvESYhdmuwnx6GFy
-         ANqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KjSVeGEEd0+bGdWRP6KVoFnNf90ZO756HfHoWrPkLN8=;
-        fh=G0cMEWjCNOJnU4LzR6wYlO/05bxtDqRpm6mHJNeDaro=;
-        b=R+0oiHEJE4xjQ9rpop9sfxf/uXVDCJHH+Kc+kOZ0zQJHn7J5GvlIF8QJCf/Ld/tb5C
-         WZoydGER2C/k45HpB2fVMQl9cSuJqxw8EfT1djPSC61K5EzBmq9OgF/i9wkFV4WhzPGs
-         BEEjKH6eZFI4ACXYrgCfsFI4GkfywIdEHtMSCDJtwzCbD6vZm1ZzyFF0s9K5FE0ea9ou
-         g22DTLU4RLjNXTaNkDuTFjwL0muK8/5eC1ULeYiKWEgXjClq0GrjxAXOmZywg8Jl1bIz
-         xlp9d8yBQKu1X03iaHsxoixj+s2ju1ed6Elp6XKU4hkR/SikLRJ3o//mRouD8ScfbFiq
-         VI2w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63AC66082BD1
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 16:30:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63AC66082BD1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4395d31228so344321966b.1
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 08:30:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793896041; x=1794500841; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KjSVeGEEd0+bGdWRP6KVoFnNf90ZO756HfHoWrPkLN8=;
-        b=IAdWmD8JNPkb8+BPDqxGVrDthrcfZlPbVpLTWVrjVrtFSpMlJnimBTQk4/nuq9rXDp
-         ppHgIt4hqBFXBeHjd867j/CAsSVgjXkfq6GXp16mkT5K/sYhCf74FuAWiOgi51Xl23YP
-         p/7zABbNgjIH5SYUiZdfmFPGbIW4FfN3p+2pIa6VhaHQDutr8itsY0X2nagXClXkWHMm
-         FhEWL0xZD3vJItk2osFuhRXByiPR+eFiUTfqLZPdBdt1KrA68k2W2Gzf67boy/FaF5IP
-         8Q3yBF7aWMnb64lG4ghdiuQNiOK05BhTUgghwfBU4bgLRDPisn0zlxqVkKmr32WkWXNs
-         aokA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793896041; x=1794500841;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linux-foundation.org; s=google; t=1793896256; x=1794501056; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KjSVeGEEd0+bGdWRP6KVoFnNf90ZO756HfHoWrPkLN8=;
-        b=FIiA29olZTtyMFwv8yDqSU/xnHcPzuPgkKFWoc5IlvuQV1owf1mlpLyQrF6XOe6gYw
-         nd649lUxLWd3kcGi6yIolO91ziVEghIGi8d1V3r8cpxw4Zf66dHPd2Z4vGXyRbldon30
-         /kqMpV0yS//3LI1nbWzm2T8YMoQYPKjtAnM8/guCQtb6dXP97umWy8LKGEEs+vygF+oe
-         p1w36GJunEbvDWT+HMqn3zPvy4h1uqJwzaNRZIBzNBVTl2DauMABwW07M2DPwKksZcl5
-         KhR2rLFAkn9QUQ3q/9k1ezUKrzrCJ9JMx2uxaaMobauhN+R6L3ZJrwOEfVJ3PHfX8scc
-         +ciA==
-X-Forwarded-Encrypted: i=1; AKwUvBx/oMXjttR0m95OnSnzzSmWb9VJuUzTmNSUdZ6w8S9dv3hgHA1/QCDYVR4xcCIPiAdyyI4JkGU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Dv6+Jtjw8PA/zrbPcpQJ17yyAyfFWj9g6azX7OE77VOq+i2dl
-	YMK+nwZnG5k8G2uXR6K3vdWJ055vjrzAlMbaBTNORKg/LcVVwNTK7xP7kdvV2i3xE5KDsZDIfef
-	SOL+0wVJRAml0DYydMBqrpji1CuUgdPpXXMWFsqsk
-X-Gm-Gg: AYBFou2arkXAAK2wfm+EGx8qRQYdWxfzsFnu5xaEHjXDJjnAmWOQLLpob8bU27lgGeo
-	e195kG2fbEXYZI6Ann6vZsCIklHmh62ioRg75JRXX9woVGrsnzxlXkP/MAnHxVtT7+qi5L7jClF
-	+VQ832T00BWEtX1iernsICnEUaiD8D+8YsM4JjFm+SeFQ/2BK81blrCXD0fM3sHC6aoUBtRnoJn
-	DvmxUPr419AO6HIr8xVDbuEQgyq2i7vnSXA6hDtdUBTIyW0mdqlw8OnzJju+JP+ec5cKmcmKge4
-	19Zctc1WEyJ+l/arxmZZhihPOEaISLnYBRM724vUOGE1g8JZAkjR8+VNbVUOMwz8I05s+NQ0Skp
-	gwa0ngJV1R2DJFsNnfEW4a3rEysI6+qR9tM32nQIBR9fdu8vvBB2a1V950PYOlTcXNegQbxx4Z3
-	h5Ig+aQoSTTVredAHbXijqootYKh6VgN4uQjA26wyBixG3
-X-Received: by 2002:a17:903:f8f:b0:2e2:d665:6ad8 with SMTP id
- d9443c01a7336-2ed261403d9mr4943165ad.4.1793896040053; Thu, 05 Nov 2026
- 08:27:20 -0800 (PST)
+        bh=coQkw57ZP+vtxGOFNXxyJOYi0uTeh1KAeZgHd3m+lMA=;
+        b=CD3Ttqf5zszqcjbxN8Xi3b1rXPhnPDw1fk3SypfzXbAaBeopoNnRx4zkNF9vtOl9H+
+         foS8qfQn2ixtP3C9SmubaEL/td0XgU0ixSgsM6jBJZyw1HoUVjtpV3XAdI7/fDxbCtCA
+         cAEgXGT6aaseqk36oCrkbqdIieqCFWmK2H0fY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793896256; x=1794501056;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=coQkw57ZP+vtxGOFNXxyJOYi0uTeh1KAeZgHd3m+lMA=;
+        b=kTiNoIZRp/X5d5yaDnqIB/9awPFFXuFlvsE3dGyigPH8s+1SaljBSMsydYTBNKYW5s
+         E9h4btcgHe8Lq8rvYc0RKY7WPcED+vZk3JRUko5v9ae8MtAZARvlmkNYIatpkZsNbpOY
+         /I+7SAPakKTuNZyvnjBQ8HkGfgiaRAkOMU/x4qdGUjHlaJIRbg13NhBzVxaTFFHDWsad
+         XNCEe0tnfjqv/PVx7faQY2V0NgS3VBllz5s40XB+nF1629GebuzlOrSQkBEycO6pGeWs
+         aAKnawme/Qtlm3h/ezpkoYxlQfmQc7MEhU3+Ci5ZbFnQ95IfJWNtbEK3LtZhWLJwPBfl
+         075Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwVYjVhYaiQsFLJxbvIr5Q+LfbbnaI8PQQa5OEa44AtClCU+tJvx+Telp29MC88JofY+PdnSUk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+nDzaLyU96RTPoeXOib8wYDe/CtT3SayCiALZI/Ys4R8y2Ey5K
+	xgHHn5hESJe4fnx4JNYAzARz8OfJ3SQ8TWB7Ej/ccYVJrrf8GSA2pMRK/80kdNISvY4sZDhyH6l
+	gVFeFDPc=
+X-Gm-Gg: AYBFou1CCqW46R4AeCp7sdAbqGAC/k17HWQFBsbbT5mZCAC2vjRwRxJMWeW+5iu2lib
+	J4f1VpU6BQsS/H8fc/TT/bX0oddkvjwboziQtlU8zPg4RVBAHccTftlg06/7EVvH+FTXLsvlH0b
+	if42l5FAO51To/OrGNIIG6R0QZN/ZbOqM1TzgVpFE9cj7PbLzZc8C5yX/u0+QRt0Y4PkCl1GS3t
+	63k2/b4zpBLk+FLIliUw7OSMtvnmVU/mADoY5J2Jn7+17C0AkZEhNJwMEz5nJez5pHpLtDMK85B
+	mn3D4JYhG8TO6cRQjxZr/aNpahCnpjrWKmNVnRLp+r8HfhuFgD6J1iYr8nRu+E1x/PmLaFJ44Qn
+	nFRA5Zp9OWl41TbG9WjLqupL7s/osa0aQOMxZWkbBWgC7cH3mpPMbMEkC9NHyiTrgpLA5Rq0tHY
+	MaWUmJQFB5GqLQRJXOBnp3mElG7y52bout6XrLXVTyy0n3gryTb7G7xCYq/StXICbDqisqvBajD
+	wRJBuS3mPd8qGlWD+DlbDZB1QocUAtbIrRaahZEDzqZyvx3BHVyXN0yVhSsIKyWzr6mYF8gBq/Q
+	elMKE+kJqKjpQig1Yp3bV7ri1UOIBn5BiK3q1CUwhtS8hkL9afF6AlV3djxD8YGN+WL9nZVDhsW
+	MUA==
+X-Received: by 2002:a17:907:60d0:b0:c35:babe:ab44 with SMTP id a640c23a62f3a-c4d34efdb7amr5275266b.0.1793896255687;
+        Thu, 05 Nov 2026 08:30:55 -0800 (PST)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com. [209.85.218.54])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e495f70sm187272166b.76.2026.11.05.08.30.54
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 08:30:54 -0800 (PST)
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso332679166b.2
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 08:30:54 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxF0SayE/aNaElEavvXFEbUp6Z+oCtfqpbFcrXwEPfoHuAvSBq0JnGWZH7r7xOZJiHWR3cA+28=@vger.kernel.org
+X-Received: by 2002:a05:6402:3899:b0:6b5:76b9:5040 with SMTP id
+ 4fb4d7f45d1cf-6b576b95165mr2666079a12.41.1793895788549; Thu, 05 Nov 2026
+ 08:23:08 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,50 +91,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org> <20261104-work-procfs-bugfixes-v2-44-021c84d852e0@kernel.org>
-In-Reply-To: <20261104-work-procfs-bugfixes-v2-44-021c84d852e0@kernel.org>
-From: Jann Horn <jannh@google.com>
-Date: Thu, 5 Nov 2026 17:26:43 +0100
-X-Gm-Features: AclHuK_t6xWdJYQZJZWrLOUlN89qpMohpKX0x61rzlBSDTuPtx0XhCCr0dC0-vQ
-Message-ID: <CAG48ez19KzsgbOQ35FfGO=cVXGvr51WTA-3g3xNWPmUv2iS+8Q@mail.gmail.com>
-Subject: Re: [PATCH RESEND v2 44/51] proc: sysctl: resume readdir after the
- last name it returned
-To: Christian Brauner <brauner@kernel.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>, Kees Cook <kees@kernel.org>, 
-	Joel Granados <joel.granados@kernel.org>, Jan Kara <jack@suse.cz>, 
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>, kernel list <linux-kernel@vger.kernel.org>, 
-	stable <stable@vger.kernel.org>
+References: <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
+ <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
+ <auaFhOa5EBz4gJwK@gondor.apana.org.au> <xdzcyoou73blpfdlgy47i2ktrcsffnclerzojpgrxphid54gjc@nicdcvzqx447>
+ <auqtTjXhD8is-y9f@gondor.apana.org.au> <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
+ <aurAxRpCwzeyXeVj@gondor.apana.org.au> <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
+ <aurJZ81qnbiHH_P1@gondor.apana.org.au> <ausS3LQNkdc6lBy3@milan> <auxDm_YO4oACA_d2@gondor.apana.org.au>
+In-Reply-To: <auxDm_YO4oACA_d2@gondor.apana.org.au>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 5 Nov 2026 08:22:52 -0800
+X-Gmail-Original-Message-ID: <CAHk-=whXvVO6a5AreZu3LPBj_wjpzUanwhvu8WqWP2q7g5S7Vw@mail.gmail.com>
+X-Gm-Features: AclHuK_lYzOySVnPMTXkh-HXGHC850mf9gNJxZLEPPhkqoVD1gRX0QozBFysw7g
+Message-ID: <CAHk-=whXvVO6a5AreZu3LPBj_wjpzUanwhvu8WqWP2q7g5S7Vw@mail.gmail.com>
+Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Uladzislau Rezki <urezki@gmail.com>, "Liam R. Howlett (Google)" <liam@infradead.org>, 
+	Davidlohr Bueso <dave@stgolabs.net>, Michal Hocko <mhocko@suse.com>, Baoquan He <bhe@redhat.com>, 
+	Alexander Potapenko <glider@google.com>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>, 
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	maple-tree@lists.infradead.org, Lorenzo Stoakes <ljs@kernel.org>, 
+	Chris Mason <mason@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org, 
+	"David Hildenbrand (Arm)" <david@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 4, 2026 at 8:27=E2=80=AFPM Christian Brauner <brauner@kernel.or=
-g> wrote:
-> proc_sys_readdir() counts the entries of a directory and resumes a
-> listing at the number getdents64() stopped at. The entries are sorted
-> by name, so one that is registered or unregistered in between shifts
-> everything behind it by one. Listing /proc/sys/net/ipv4/conf with a
-> buffer that holds ".", ".." and "all" and registering a device whose
-> name sorts before "all" makes the next call return "all" a second time.
-> Unregistering one that sorted before the position makes it skip an
-> entry instead. So a listing that takes more than one call shows a name
-> twice, or not at all. Even the 64k buffer of ls needs a second call to
-> find the end of the directory, so a device that comes up right then
-> repeats the last entry.
+On Thu, 5 Nov 2026 at 00:51, Herbert Xu <herbert@gondor.apana.org.au> wrote:
 >
-> So remember the name of the last entry a call emitted in the file and
-> resume at the first usable entry after it, like kernfs resumes after
-> the node it stopped at. The entry itself can't be pinned across calls,
-> unregistering waits for that. If the position was moved by a seek in
-> between the listing counts from the start like before, seeking to an
-> arbitrary position has never been better than that.
+> On Wed, Nov 04, 2026 at 12:11:24PM +0100, Uladzislau Rezki wrote:
+> >
+> > There are users in kernel. For example:
 >
-> That also takes one walk down the tree to resume instead of a walk over
-> every entry in front of the position with a round trip through
-> sysctl_lock for each of them.
+> Thanks for the list.
 >
-> Fixes: 77b14db502cb ("[PATCH] sysctl: reimplement the sysctl proc support=
-")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> > drivers/GPU
+> >     /* Allocate the file in vmalloc memory, it's likely to be big */
+> >     iter.start = __vmalloc(file_size, GFP_NOWAIT);
+> >
+> > AMD-GPU:
+> >     kvzalloc(size, GFP_NOWAIT);
+> >     kvzalloc_objs(struct amdgpu_coredump_ring, GFP_NOWAIT);
+> >     kvzalloc(ring->ring_size, GFP_NOWAIT);
+>
+> These appear to be executing out of process context without spin
+> locks so they're not really GFP_ATOMIC.
 
-Reviewed-by: Jann Horn <jannh@google.com>
+Historically, GFP_ATOMIC and GFP_NOWAIT have been largely the same
+except for GFP_ATOMIC eating into reserves.
+
+But I wonder if we might be able to soften that a bit, or add a new
+form, because it looks like the AMD-GPU case at least doesn't really
+care about any kind of "don't sleep", what it really just wants is an
+"optimistic allocation" - try to get the memory, but don't spend
+effort on freeing things if there is not enough memort.
+
+The AMD code in question literally has a comment that says
+
+        /* Dump ring content if memory allocation succeeds. */
+
+so while it's possible that it has some atomicity requirements, it
+doesn't look that way to me from a very quick look.
+
+The etnaviv case looks to be the exact same thing: it is definitely
+called in normal process context (that code takes a mutex lock around
+it all).
+
+So those two cases really don't looke like they are about "atomicity" at all.
+
+> > net/ipv4/udp.c:
+> >     err = bpf_iter_udp_realloc_batch(iter, batch_sks, GFP_NOWAIT);
+>
+> This looks buggy in exactly the same way as rhashtable.  It's
+> called under spin_lock_bh, and the same lock can be taken on
+> the softirq path on another CPU.
+
+Yeah, that case is definitely actually atomic and holds a lock. Not great.
+
+Is there any way to limit the vmalloc() case to the actuall atomic one
+and just fail when it needs to busy-wait?
+
+               Linus
