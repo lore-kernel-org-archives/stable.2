@@ -1,78 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.202
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793858353;
-	b=Etz5aAT9KWSiPZ4nqKOtyqeQGx1u54JAR2oNrgi2QYiKGqtXYCNvYgeb5c+u5eaMZTLv
-	 PCDr/xaVd5L/kZ4QWK4r4xT4cD3D4Cq/FrlPi/3IVSSY4s+yCn5oln4g1azVEsGvXy64z
-	 ySn+BV5lt6JXTXTj9uLtsp+xQIAop0pbBi+dLyfoKKh+x0JzuToOC2rtEyqr6Ik148fz4
-	 j2NkbUyiwntflt1BTXNqmuSdCnWzCJqpVSJhSCVESrJbIuY+SD2wHAwr9YPuidPtSAvOz
-	 P9vVT9hZbJoqdF33MFNFKGmBIVR4ukrDN+5jPGlmFAgg4QnAdXOGtYL3wm7pDDPTeJg==
+	t=1793858636;
+	b=zCdT5FLLBtIdW0w5Iw2S8ISS+cCgAbqRBlR1xO/ifMt0qeaYUIy2HGRx5GVcyegAkS9e
+	 1xW/GvKSyhcGUbPdr7FO1Kh4Z35BqeMkgLHU4HWLouh58SfBgCo4gZ8S6nVhp+tXfTYHW
+	 KMFr5VumCEJ74f0mXCGiwk9220n7AhxnSJv6tDkhZssXYL0J6IqhjAFMMjqZpyJrcPk1r
+	 0CF4R011pRnkPtQ3Rs2YoMS6wJ4AwR6bzE3iFb+lBv+FLtys5O3N2bHGNICbMBjOfyCGx
+	 xlvF5lZhZWFfSM1x8AjL2l8OACieqHFrsMivUD/Ss9WTz3UEI9IQRWgUehQ1cWUGkCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793858353;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:X-Mailer:Thread-Index:
-	 Content-Language:X-CMS-MailID:X-Msg-Generator:Content-Type:
-	 X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
-	 X-CMS-RootMailID:References;
-	bh=/BbmuACGtbzAOpl3Wf0rhLYY2XYu/T/PZxVHApn7KDE=;
-	b=HEFW6DJhxHLcNv1kA+6lmBn+6CrkcsxcOC+NJakn+8BCxdvMWsARNs9a0njBhgBjMFyH
-	 VIUjRZ26yDxACZB7cDIl1VKC55AX5cwbdXIb8/5BunMecYmTLmMOPFaCZ5n3wMMbxJerP
-	 JHTh81v9eHA064KxZBlj/XlpqE23xe7go8ybQltlqqxssDeN6rSP2Ufvww23IpM8xQVK9
-	 4XeKVV0oasif0XWuCDAyOcjow4B02ODCzUYcvFeT2G4k/6f0Zro/hZhBOiQRmWOZBhhgO
-	 pwL+/70S/kac3KQf/Q69sy0U5D9yq4oMjhICtfFT9CcspHzz1KiI4G0CPROipQJA/LA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793858636;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fl+RqVSy++c8t4D9ZLDA6qx49eqFU8GFdwgJMfJOyN4=;
+	b=nyfpwjsIkLDPlc2gOqL8eXBGkHX04bmlUJ4psBukFpLPSmN4Omfc43zT4WdZV2VVz9Ax
+	 VVuk4m9kVFi5dpQRg3VbGI+utmrRRkO4HeGoEs1OunNFGcva1thihSCGXW1+Tq8oyN4+x
+	 9zwU4DAQPYvXAa8XfuU00mxUEioYgaFPBN19K8jSGHH/Gt/vvhAZYXIk8d0jSqOuPad0A
+	 as/kT16nsRgM9LN86H04+NqtNQxVwhlChKaX7L/rKjs2JQj9yvyOAJsFtqD3Zf56VZGs+
+	 hDBLodaKjFLPokqD0WO5J9+ZnzZP2+YqZOZQ9AmkQy/+Tvr5MCb39O1KfkwOkAt9EZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=BHPdM3W3;
-	arc=none smtp.remote-ip=203.254.224.34
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sITsORkr;
+	arc=none smtp.remote-ip=74.125.231.202
+Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 831E0606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 05:59:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 831E0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5949606A328
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 06:03:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5949606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=BHPdM3W3
-Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261105055907epoutp04f6008291c2fe8eb56fe755e1bf21aca5~lEKmuTZPn1643616436epoutp04e
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 05:59:07 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261105055907epoutp04f6008291c2fe8eb56fe755e1bf21aca5~lEKmuTZPn1643616436epoutp04e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793858347;
-	bh=/BbmuACGtbzAOpl3Wf0rhLYY2XYu/T/PZxVHApn7KDE=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=BHPdM3W3dKPva3jJ3NKlkEh2HNsr/MVDXcQbKIS++terj2TL552zehirj5d/4CPv8
-	 /351LhFmdlIUQiWJG1P5ATMpSxR0DRdpI4OsdUqFYoJ8mNoIUvOPJl8D4xIU25EW52
-	 2lW26Tb0GrqL79jQGlAdEKwA0cZnR3rkXYJr3oYQ=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261105055907epcas2p1cc414148af16714e99292f82a2d1c04c~lEKmPe6od0236502365epcas2p1J;
-	Thu,  5 Nov 2026 05:59:07 +0000 (GMT)
-Received: from epcas2p3.samsung.com (unknown [182.195.38.212]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4jKs7t4tCgz6B9mL; Thu,  5 Nov
-	2026 05:59:06 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261105055906epcas2p2520b4d9ab1ea8c31a5bedfef74718d69~lEKldGa211842318423epcas2p2K;
-	Thu,  5 Nov 2026 05:59:06 +0000 (GMT)
-Received: from KORCO164647 (unknown [12.80.211.160]) by epsmtip2.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20261105055904epsmtip2cffb0098c2408ba424de81ba87e36e9d~lEKkWznHB1691916919epsmtip2Q;
-	Thu,  5 Nov 2026 05:59:04 +0000 (GMT)
-From: "Kiwoong Kim" <kwmad.kim@samsung.com>
-To: "'Bart Van Assche'" <bvanassche@acm.org>, <linux-scsi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <alim.akhtar@samsung.com>,
-	<jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
-	<kwangwon.min@samsung.com>, <hy50.seo@samsung.com>, <cpgs@samsung.com>,
-	<h10.kim@samsung.com>
-Cc: <stable@vger.kernel.org>, <stanleyjhu@google.com>
-In-Reply-To: <8939a53e-1b21-4dd9-b65c-cbe03b8b72ce@acm.org>
-Subject: RE: [PATCH v6 2/2] ufs: mcq: poll OCS after sq cleanup for device
- management commands
-Date: Thu, 5 Nov 2026 14:59:04 +0900
-Message-ID: <003701dd6cea$c396cd10$4ac46730$@samsung.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sITsORkr
+Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4c3bb46aaf0so715119b6e.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 22:03:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793858634; x=1794463434; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fl+RqVSy++c8t4D9ZLDA6qx49eqFU8GFdwgJMfJOyN4=;
+        b=sITsORkr/kUi1tLLm2LhV4O4MeBBZD5P42Mn7DMsbqXc1l0My7lI4VmgtVtnfCNRPm
+         F2K5ABd1e0VHSJ8v2yESdYDjTq4i63tkKEsmDkfU94JGf8/kaTIlpLIWCue9vT5bF1Nu
+         nuFchHwAR7Ftsz3TEZCXr+WCGl9OD/waFlfO7CL1Jilo/txk7zlc2begOhUWVb0h/j/R
+         TGbTC/6DEKgD1gf7luCdWPsrmDKhVsiH4PA2kU5S6CZ068gtUu1ny0pcnBfzdI1R8zjJ
+         BNwajppvpcVWWXsA70Yz5DddZP4BTQKmTeGOmnqBOD5ep97jZ1ZC4JL9FAWfb5NB8wJq
+         qSnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793858634; x=1794463434;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fl+RqVSy++c8t4D9ZLDA6qx49eqFU8GFdwgJMfJOyN4=;
+        b=ADdnvfoR0pIHuT/szeySy9ER9cBjbGrzTywTZvC0EH2hOZUEUTjWR2gHhI1dIpQVYg
+         1IunefhK0XDtXFAc9ltDDnM8byVXy4UM/zizeFu2WJbV4e+GZnes1y4i9uRrRxzPNtM5
+         +X+vfCbAwnHhOQbZ6rIBQQfUQa/1HbKQzneLfFB4yLBfqIIp+BcK6ZEC0sNg2VtNRICt
+         XzIKwMDitZgqoFxT7jPFu8ZlVLh0YXGw+fhKTQsUgh7cvtJ43oHD9etggxu06HPx92N9
+         CVIdVgix4fTHw/nYv778mAKOhApoTMrqxxRQ8ztFQ2e3NnST5GfAPu6IyCSvo66qjNp2
+         nMYA==
+X-Forwarded-Encrypted: i=1; AKwUvBzPjAKT3/Yqy9QN4THIOJyjE55WLMLiuPHCf7BMI3TwktAwUtoh1xtSB7L1bWevXYKG11gFOD0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/VJTvbiC1ZZNePjNkroZDnNaibn5FeCTrBGtrPNEi5cUzrnR/a
+	+Qjnu2SrvhKHGBUa4AzwaNiGoR5ObH6TuSNMNXk6X5xwD4YARayE/hCT
+X-Gm-Gg: AYBFou2qRAJupRVF2EHF6JA0yZfSYrxisjWC/4EKwKT+w0YQ8b8RVLkhjvTG3f3U5po
+	jXslqVisKwvvkhBcCJM7aNvyZ3Vw71hcl1EIX2k0WpIhkSjZ56K2Wpz/3AcjOKyqkNjT8iU8aWc
+	D0lkbgR3XrY/K+Gvp2bIMuGr/tLfGpaAK1Q7kBA9eM1GdDfay4yKcYwSj4nL1SekCjAQEbTSZdT
+	2MkU4wRB8kDp2IprPlhivfjGy657YhHsLHhXynCjZc7FuvLNIXg0Qq2httXwy/r5VeJm2YBerkK
+	+lq+P0iZ+rOpWFf/122h0Ryj0xgqXBEHOTejQcyJAnPLj0c7lv8czGJv0tULXFabLfPGk0I4FWA
+	6EN30jCrVUXRrtYFvOJ2ukEYCBItOf6UxsCAfMV5KYxLelqP+PYuHiKRRCNqXutC0KkvSC/e84f
+	jplcRk8ss9cLQgHIZD0TDRTj5FditIiPxheH3HV1Ps/guVx14Eyt+muQhZG4bpPmhIbK2LDUY3P
+	hvHTd/1Vnc4oOyFavFeQ5EoZABG4Ep1VOF08bu0KwIMKtIgZAxOzRIEKi6MhkiSqbb3pT7sLGdV
+	6JUBB0oK0aXER/PvcLCCGyEcrOYFjTEIp9XM1IEPqVLHVU/OU0JlofmwHgkjW2gvPOw=
+X-Received: by 2002:a05:6808:14d2:b0:532:963f:3118 with SMTP id 5614622812f47-5640d97353cmr12997705b6e.3.1793858634408;
+        Wed, 04 Nov 2026 22:03:54 -0800 (PST)
+Received: from localhost.localdomain ([14.22.11.161])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567a9f41424sm3493476b6e.9.2026.11.04.22.03.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 22:03:53 -0800 (PST)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	john.fastabend@gmail.com
+Cc: bpf@vger.kernel.org,
+	netdev@vger.kernel.org,
+	stable@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>
+Subject: [PATCH] bpf: fix verifier model mismatch on __sk_buff.remote_port narrow read
+Date: Thu,  5 Nov 2026 14:03:31 +0800
+Message-ID: <20261105060331.1912252-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,118 +101,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQH4JEezrlrww6xOutvb1msxx9OBXQGtTH96Ah1toR4BCq9oRLbC0xTA
-Content-Language: ko
-X-CMS-MailID: 20261105055906epcas2p2520b4d9ab1ea8c31a5bedfef74718d69
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd
-References: <20261105004333.1097899-1-kwmad.kim@samsung.com>
-	<CGME20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd@epcas2p1.samsung.com>
-	<20261105004333.1097899-3-kwmad.kim@samsung.com>
-	<8939a53e-1b21-4dd9-b65c-cbe03b8b72ce@acm.org>
+Content-Transfer-Encoding: 8bit
 
->  > Here is the timeline of an actual case for this that happened with
-> kernel 6.18.
->  > =5B ... =5D
->  > 2. So after the query was timed out, the driver did SQ cleanup.
->  > Then the host updated CQ update and raised IS.CQES,  > Unfortunately,
-> complete() was called the driver's ISR afterward.
->=20
-> This timeline describes code that no longer exists upstream. Since commit
-> 08b12cda6c44 (=22scsi: ufs: core: Switch to scsi_get_internal_cmd()=22), =
-the
-> device management path no longer calls complete(). Please describe the
-> race in terms of the current code:
+On little endian, the ctx access conversion for __sk_buff.remote_port
+loads the 16-bit skc_dport and shifts it left by 16, producing a
+4-byte value of up to 0xffff0000.  It reports its width through
+bpf_target_off() as 2, the member size.
 
-Let me add it below the timeline described previously.
+A 2-byte read is a narrower load of this 4-byte ctx field, but the
+fixup pass only masks the result when the access size is smaller
+than the reported width, so the masking is skipped.  The verifier
+models the register as [0, 0xffff] while the runtime value is
+[0, 0xffff0000].  Arithmetic the verifier folds to a constant can
+therefore take any 16-bit port value at runtime, enabling
+out-of-bounds reads and writes relative to map values.
 
-> the query times out, the SCSI error handler calls ufshcd_abort() ->
-> ufshcd_mcq_abort() -> ufshcd_mcq_sq_cleanup(), the request is finished,
-> and the retry reuses the same reserved tag, struct scsi_cmnd and devman
-> UCD. A late CQE for the first query then maps to hba->dev_cmd.tag via
-> devman_ucd_dma_addr and completes the retry too early. That is why cq_loc=
-k
-> matters here. Please also keep lines in the patch description at 75
-> columns or less.
->=20
->  > +static enum utp_ocs ufshcd_mcq_read_ocs(struct ufs_hw_queue *hwq,
->  > +					struct ufshcd_lrb *lrbp)
->  > +=7B
->  > +	guard(spinlock_irqsave)(&hwq->cq_lock);
->  > +	return READ_ONCE(lrbp->utr_descriptor_ptr->header.ocs);
->  > +=7D
->=20
-> READ_ONCE() is not necessary since the OCS is read with cq_lock held.
+Report the real produced width (4) so the fixup pass applies the
+usual RSH/AND masking to narrow reads.  Full 4-byte reads are
+unaffected.
 
-Got it.
+This issue was discovered by Tencent CodeBuddy Security.
 
->=20
->  > +	if (=21err && blk_mq_is_reserved_rq(rq)) =7B
->  > +		enum utp_ocs ocs;
->  > +
->  > +		err =3D read_poll_timeout(ufshcd_mcq_read_ocs, ocs,
->  > +					ocs =21=3D OCS_INVALID_COMMAND_STATUS, 20,
->  > +					MCQ_POLL_US, false, hwq, lrbp);
->  > +		if (err)
->  > +			dev_err(hba->dev, =22%s: OCS not updated. hwq=3D%d, tag=3D%d
-> err=3D%d=5Cn=22,
->  > +				__func__, id, task_tag, err);
->  > +	=7D
->  > +
->  >  	if (ufshcd_mcq_sq_start(hba, hwq))
->  >  		err =3D -ETIMEDOUT;
->=20
-> The SQ is still stopped at this point, so this loop can stop fetching fro=
-m
-> the hardware queue for up to MCQ_POLL_US (500 ms). Please move the OCS
-> poll after the ufshcd_mcq_sq_start() call.
+Reported-by: zeroday zhao <zerodayzhao@tencent.com>
+Fixes: 8a31db5615667 ("bpf: add access to sock fields and pkt data from sk_skb programs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+---
+ net/core/filter.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-I didn't get what you meant. The loop just reads updated OCS periodically
-and from what I know, it's based on the assumption that when a task is clea=
-ned up by setting SQRTCy.ICU to one
-and it's successfully done, the host updates OCS, even if SQ is stopped.
-If you feel I get your comment wrong, please let me know.
-
->=20
-> This code also waits for the interrupt handler to process the CQE. Why no=
-t
-> reap the CQE from this function? ufshcd_clear_lu_cmds() already does that
-> by calling ufshcd_mcq_poll_cqe_lock(hba, hwq) after ufshcd_clear_cmd().
-> Calling ufshcd_mcq_poll_cqe_lock() before reading the OCS would remove th=
-e
-> dependency on interrupt delivery and match the existing code.
-
-Because a successful SQ cleanup leads to OCS update,
-which subsequently leads to raising IS.CQES when MCQ is enabled.
-I understand your idea with ufshcd_clear_lu_cmds, then do you intend
-Ignoring IS.CQES event in this case?
-
->=20
-> Additionally, does the UFSHCI specification guarantee that the host
-> controller posts a CQE (e.g. with OCS =3D ABORTED) for every command that
-> has been cleaned up? If not, this patch turns cases that are harmless
-> today into a host reset. Please cite the relevant section of the UFSHCI
-> specification in the patch description or in a source code comment.
-
-This is the sentence that I referred to:
-=22The host controller shall free up any resources associated to the nexus,
-and shall post a Completion Queue entry with OCS =3D ABORTED if clean up su=
-ccessful.=22
-
-
-> Thanks,
->=20
-> Bart.
-
-Thanks
-Kiwoong Kim
-BRs.
+diff --git a/net/core/filter.c b/net/core/filter.c
+index 9245009d9f1eb..6eb4751441f39 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -10455,13 +10455,19 @@ static u32 bpf_convert_ctx_access(enum bpf_access_type type,
+ 	case offsetof(struct __sk_buff, remote_port):
+ 		BUILD_BUG_ON(sizeof_field(struct sock_common, skc_dport) != 2);
+ 
++		/*
++		 * The converted value is 4 bytes wide, not 2: on little
++		 * endian the 16-bit port is shifted into the high half.
++		 * Don't use bpf_target_off() here, it would report the
++		 * member size and the narrow-load masking in the fixup
++		 * pass would be skipped.
++		 */
++		*target_size = 4;
+ 		*insn++ = BPF_LDX_MEM(BPF_FIELD_SIZEOF(struct sk_buff, sk),
+ 				      si->dst_reg, si->src_reg,
+ 				      offsetof(struct sk_buff, sk));
+ 		*insn++ = BPF_LDX_MEM(BPF_H, si->dst_reg, si->dst_reg,
+-				      bpf_target_off(struct sock_common,
+-						     skc_dport,
+-						     2, target_size));
++				      offsetof(struct sock_common, skc_dport));
+ #ifndef __BIG_ENDIAN_BITFIELD
+ 		*insn++ = BPF_ALU32_IMM(BPF_LSH, si->dst_reg, 16);
+ #endif
+-- 
+2.43.7
 
