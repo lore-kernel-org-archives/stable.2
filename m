@@ -1,87 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883861;
-	b=sxrjRMVhKz1owiUzFvpML/ZxMRd3X7GB+dUS5Pc076Kbfg944WE9jBNcbuASjWIZuhK3
-	 pNu21svm62oJYUPrB0PTXWopIL22fDZM/mv8BkAx7iM2xHTts248JZQ9lunw5G21Ao9G6
-	 5yp39rYuguIoU73P4dXFOS3yWAlGZom3Q2VMJDC33KHuuiZ3mPoy1v4/xXETFzWKG1lvs
-	 gJrmRutM0owrEs97wFvuQYYpletVL2dxldStWmLd3O4Nkc1KE5aAXsfmsfDDhHN07eNjd
-	 ntpHvuAoEwTmx8ffcyR315TUNNz49P1h1Ab5AyImcZRKp9H5BChkKVGtTO4r5HrmG7Q==
+	t=1793884228;
+	b=o9yUzorR9m65hkjhm7yiKgbiY7dN5mJawCXO4MzgMKeYCGfBr2+vr5/T00cfu7ZMmfoa
+	 tLo91swDKSs3+e0Q4/4aP84l2mSDwIZIex22joMplZn/xxLthByV35aVXE+MkqQNHvO/3
+	 8fPATPbcW3vC7juRDUWp3PI9RS3r9Nx/zjqoE9eXciPNNZFMy0R7p09ECw4w+H4FdceT6
+	 J+cb63NMd5f01nE+5h5Ir9LIJt1lW8dGm8nn8/wuc2WWSdO+J5ubV2u/MQrs17pLxErDK
+	 GgBxrTdWAYLmZEy41dVuDIt9anDI7MZuvz/W+I6Jw9ARrPWpLvA32VvwVYVmzju8mlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883861;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=VGtXYc1r1fEEKTL7Yj84vITN0MZ0IiuZ0W73SGkuDDY=;
-	b=b390C0SVJa1/Ru0/hQDee97LRkI/BU4KvkJ3CFduQ6W+8d09j8hUY9F3Y8v30V3TPuov
-	 m13xbe4BqWfd6FhTcVctbWwr94z0xfRhgI0Huwfk+hjvgBziLKzHCJvaqpS3SN/1Nxg0W
-	 gw5t+qoG9YkNdJe9JOO+9Gg2TzYTuu8zT2DzBtDOuZr3pvmtSUeueEm56flXUZI+m1/z2
-	 egPSNhpXr1R9A+a0dAMf+iN3yN2zwDTuUPua5vcXN4kCw5Xhq/jl0XCklz5pE9hZySHr/
-	 j81exNYLFIi5U4G/l4DWWz+V5wDZEmcKctkDqoDHzuGpT0Ymj4HiqlPUEICgCfGVaaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793884228;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=4JVtXgjnsEuq37SFb/p1jbhOS50fULU4Fu7t4ksVFwk=;
+	b=kYhl57Z17qF7LjsZcUZ8rD59M3/ewkx+aP/I1aLWwnnWnZSS/Ywf6DdudTkEeB3OIan+
+	 iHbykZqx1SnzJBCOstUdzExnGUZN29SrQkj1P9pxjT8FUwaXwyLDb5Kixm++QuvjSbnKa
+	 ZQLJuIALj7ZScvV3QvcALsu/tS++eUSiHR3w5uW9LqY5bhdVPRnXctvS8gBLb8jgS0PmQ
+	 xbQek7tv4CSXMeg6XBXE5Ca8ONznOM6D4A5lFc4WvB4UFFcS6N6oSc0OqF0cCuwU0/0cw
+	 ayN6rH0fW7nrVOlItV257lwmP588QcROCS85aZwkggzBOe29o6K/dnnEOf085gFU5Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyBusioC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvG7UJAA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56375606A32C;
-	Thu,  5 Nov 2026 13:04:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E877606A329;
+	Thu,  5 Nov 2026 13:10:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyBusioC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50A751F00A1A;
-	Thu,  5 Nov 2026 13:04:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvG7UJAA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D78851F00919;
+	Thu,  5 Nov 2026 13:10:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793883861;
-	bh=VGtXYc1r1fEEKTL7Yj84vITN0MZ0IiuZ0W73SGkuDDY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hyBusioCAWpcmb2v5X8AgFwAFzSMoACqD4oDvCV0MPAlZ2X/Vp9gXKQkV/wfO0NyQ
-	 VKPTW5B/sjKvciQWPzosqTuDJWgRMUGUjWMSFvvK4Z2AlpcSBfTEuyG2AL3Gx2jM/X
-	 zNHXfkVnYBB58fgvZdLSFJI9AKVuXUdmC/H6FVj2DMecvuTjI1HrikoOiFLt/a838U
-	 sXLdUKFRrYnYXXbtRAIV29Wl1oG75udM100Ydm9JQw0lcdoR0ZAUu/Z92+qcUhpg0b
-	 I8QZzpbh7dvvpZgIzWYegbcKmtjH/JKnCgg3+02Q5v2WbRR+7M+0JAJgWCbwtFBlQg
-	 LoO/pZsC44esw==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 5580C198003A;
-	Thu,  5 Nov 2026 08:04:15 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Thu, 05 Nov 2026 08:04:17 -0500
-X-ME-Sender: <xms:zn7sagX0bHbqO4A4TRBYez_QTejKPgkzRwAViqmY3Q2vjo9CY_2mzw>
-    <xme:zn7sam4INjcHnQFcJfTI6uG9mIag1kAX4vNpX_O9rfCMLv4fmPKeAju4Jcs99CriE
-    DQa_mrCnjFsm5GYJWuJFzfMlquu0F1CVwljJtc3OnDCdL6WuZaDTHDc>
-X-ME-Received: <xmr:zn7sajHIz1M1ojP4JndE-bnH5Lboc5LvmijY9MxwNCATfeQhkUyt2mKr1Ng>
-X-ME-Proxy-Cause: dmFkZTGWioZ5UsUZvGXjaow1BsUGadLs8aZQdTF4UnV/07NAN/af8tN6pM/FfLXYfyZLfb
-    xRpT19JopPsgAFGYsm8FzaqvOcRv05DtuUalhGCfVBg5TYHs9JXv+Q47gmOf937P2Gi3S+
-    U2sfvRv8HM/m1nYX6eGi2a4miDiVYyQMuuHiidk1Rop6z5ppK7guJf5jvUfTyMXleQeyL+
-    YFG9WYCksR8P+f/IoUx4Wo08VB8Mvto3/EHOpPBXbwb98JXOAs0bmRST4eO1cbxBPUkzyb
-    YU+NZSxhcSt0KRFVrgpydwZFv0ufeT4P8d+qRyppjSLMzQpNREs19lQwYqTs8BowLu6Nf0
-    PR/JbnTjTlqcoe9z9eXCxtppE/iBqN4lxahyvqAWND3wSza41vyy/g8b8tJb119KbVZ8CZ
-    MuRhok4swEs4IKe4vdUOtIKHZ5plH23vTgaYw6PfyI344YttADPGpvH6z1snl9sRY/w6tT
-    BrCIVHE4Cs5mpSXa/717IOVH1XtBwbuOkBGFH1n9JQAOTVfvpnco/Iz5sDs/mRgagaVrey
-    cq6c90syhHHUbEfhX1t/E8+JdiHng3sYYvf5nhsjkohkNfCEDaVAHGUsNyVx8+QglNqqXK
-    ulKWha96KxsFQer7kolLJlTQQ/AiVpLrSfhPXbnzPLT0MJ4ciPeh+uKeOiLg
-X-ME-Proxy: <xmx:zn7sasRYreFG1B12dgaWNLJaMTnvJum9gmqOKA_t2ZzUrKeUn33c3Q>
-    <xmx:zn7saoMA0D4Uv985DwquZetStTw113Ib0q1_tpUBZ9ajeeEzbsBWxQ>
-    <xmx:zn7saseZmeGUWPdwDHpB1Rp0nFyftZwCqUaODIf3SBWPBFb_Kb9U9w>
-    <xmx:zn7sarVZeG7-wD1HvalF6WI07O4X-rs7VxKwjsOGPZyZuRFNzx6Y1w>
-    <xmx:zn7sat-3I3FOwm9xcmy-LlgXxJQcXUcQS1qD5nrBScIbL-4eJN9kZEQj>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 5 Nov 2026 08:04:14 -0500 (EST)
-Date: Thu, 5 Nov 2026 13:04:13 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, Hugh Dickins <hughd@google.com>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/khugepaged: free unused page table when setting a
- huge PMD fails
-Message-ID: <aux-ZdKu97JHLY96@thinkstation>
-References: <20261105-khugepaged_set_pmd-v1-1-cb79ab117199@kernel.org>
- <aux9liPvdZgpKCpa@thinkstation>
+	s=k20260515; t=1793884228;
+	bh=4JVtXgjnsEuq37SFb/p1jbhOS50fULU4Fu7t4ksVFwk=;
+	h=From:Subject:Date:To:Cc;
+	b=EvG7UJAAFso5sazSELc3T7U8SeTiF0WumSDWQqvbbeJubVZRt5xkyIpRNtFRBK8Yz
+	 eadccCdYVey0fBS06FLj6OAeQRxr8N2wXCMfAzd9keVqEFbgjY7DUOBS8W4ENcSYi2
+	 0Y+5yUw8I1QnXBbHWgkAM9Xk7/7hnNuT9Zb3rQSgSUWxjadNHQR14gBNyjM1cwQL+G
+	 Z8bAyW4QcOtEG6qWMxXHGfLuGWiteReZchluVqwS/4hrej0HAbuiFrh+Rbdlus1lKY
+	 kk5kbbueWuE2AZqDy7zFrg0BvH0K9c0pNobYApBIM8xvVJV+jOZ+Q6xOBL9S9BEJSF
+	 iF4g5KJ6Pub4w==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH 0/5] mm: limit pagecache folio refcount
+Date: Thu, 05 Nov 2026 14:10:09 +0100
+Message-Id: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,36 +53,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aux9liPvdZgpKCpa@thinkstation>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADKA7GoC/yXMUQqDMBCE4avIPjeQpOqDVylFNJ3UFUlKNmpBv
+ HvT9vGDmf8gQWIIddVBCRsLx1BgLhW5aQhPKH4Uk9W2NUY3KsG7uIbcxw3JL3HvJQ/jAtXUFtr
+ W5qo9qNxfZcnvX/p2/1vWcYbL3x6d5weSn9hzfAAAAA==
+X-Change-ID: 20261105-refcount_overflow_stable-542e024130fe
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Song Liu <songliubraving@fb.com>, 
+ Rik van Riel <riel@surriel.com>, Hugh Dickins <hughd@google.com>, 
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Steve Sistare <steven.sistare@oracle.com>, 
+ John Hubbard <jhubbard@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ iommu@lists.linux.dev, "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3177; i=david@kernel.org;
+ h=from:subject:message-id; bh=UI8M/ZLKqbJS5E9r1E06UCCyrA6rtpgRnEQYsXCV2PI=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLeNJhllz4v91n1qrjxV/3edtn8r9+VtnAxXUxNW5M1/
+ cSiaSK/OkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZiI7FlGhgf3grimRlw4XiR8
+ eDOz36xl11/uWWy50rxs7b/UsDbz57cZGd592lpVPGWGJWc1o7uCpGA452cfxlfH932RefyQn0t
+ iFQMA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On Thu, Nov 05, 2026 at 01:02:08PM +0000, Kiryl Shutsemau wrote:
-> On Thu, Nov 05, 2026 at 01:16:05PM +0100, David Hildenbrand (Arm) wrote:
-> > do_set_pmd() can allocate vmf.prealloc_pte on architectures that need a
-> > deposited page table, such as PowerPC with the hash MMU. If the PMD is
-> > no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
-> > without consuming that table.
-> > 
-> > Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
-> > userfaultfd operation can install a PTE table before taking the folio
-> > lock. If that races with set_huge_pmd(), the unused preallocated table
-> > is lost when its local vm_fault goes out of scope.
-> > 
-> > Free vmf.prealloc_pte on failure, as do_fault() already does. Successful
-> > PMD installation consumes the table and clears the pointer.
-> > 
-> > Having to do this cleanup outside of do_set_pmd() is rather nasty, but
-> > other callers depend on it already having been allocated. This needs a
-> > cleanup at some point.
-> 
-> I hate this being outside of do_set_pmd().
-> 
-> What about making do_set_pmd() freeing ->prealloc_pte if it was
-> allocated inside? Nothing changes for caller.
- 
-Or if we want to keep in set_huge_pmd() then set_huge_pmd() has to
-allocate it too. At least, it makes some sense.
+Users can create a lot of folio references to pagecache folios, making
+it possible to overflow the refcount of large folios.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+While we knew that one could in theory overflow a folio's refcount, we
+mostly assumed that bad things would happen and it wouldn't go
+unnoticed.
+
+Not so sure if that is really always the case, and leaving that problem
+unsolved is irresponsible, so let's limit pagecache folio refcounts.
+
+This is really only relevant for large folios / thps in the page cache.
+With anon folios (including THPs), we should not be
+able to trigger folio refcount overflows (until we get PUD-sized ones ;) ).
+
+It was likely a problem for anon folios as well before we had a
+dedicated pincount.
+
+Let's limit the refcount before it turns negative, giving admin processes
+some extra reserves (to reover a problematic system). We still leave some
+headroom to allow for some slight limit overshooting, to make the
+implementation easier.
+
+Then, we also check when splicing pagecache folios to a pipe, and
+improve our existing checks in gup. We also have to take care of
+mmu_gather, to not hold too many references when zapping (whereby new
+page faults could remap pages concurrently).
+
+This is only a temporary solution for upstream+stable, until we have
+something better. These fixes will be a bit challenging to backport to
+stable, but it will be much easier compared to the RFC series I have here
+were we do things properly by (what we discussed a couple of times
+earlier):
+
+ - Letting the mapcount of large folios be a long
+ - Holding a single refcount if the folio is mapped, across all mappings
+ - Reverting the limits introduced in this series
+
+I'll polish that up and send it once we merged something that can be
+backported to stable.
+
+Tested on x86-64 by lowering the folio refcount limits such that limits
+can easily be exceeded, to then test fault (SIGBUS), fork(), splice and GUp
+behavior briefly when we run into refcount limits on a shmem THP.
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+David Hildenbrand (Arm) (5):
+      mm: limit pagecache folio refcount when mapping pages
+      mm: limit pagecache folio refcount when splicing into pipes
+      mm/mmu_gather: flush pending references early before the folio limit
+      iommufd: fix cleanup when adding memfd folio pins fails
+      mm/gup: limit pagecache folio refcount when grabbing references
+
+ drivers/iommu/iommufd/pages.c | 15 +++++++++++----
+ include/linux/mm.h            | 43 ++++++++++++++++++++++++++++++++++++++++---
+ mm/filemap.c                  | 10 ++++++++++
+ mm/gup.c                      | 12 ++++++++----
+ mm/huge_memory.c              | 24 ++++++++++++++++++++++--
+ mm/memory.c                   | 27 ++++++++++++++++++++++-----
+ mm/migrate.c                  | 11 +++++++++++
+ mm/mmu_gather.c               |  5 +++++
+ mm/shmem.c                    |  4 ++++
+ mm/userfaultfd.c              |  4 ++++
+ 10 files changed, 137 insertions(+), 18 deletions(-)
+
+---
+
+base-commit: 02f72aa35c5e7dff443c62cd9964686396c8b201
+
+change-id: 20261105-refcount_overflow_stable-542e024130fe
+
+--
+
+Cheers,
+
+David
+
