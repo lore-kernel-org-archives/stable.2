@@ -1,72 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903969;
-	b=s/lqAq4VOrhza/n8qdbd085Ao9ODuia1cwAUTG2fjmwgeVszgyg4vn0cndBOP1eqJ54M
-	 q33QNyoGsxsP8ynqk93yUZIGB8NKGfN8uXFtPS9evTaMX1+XbCOiaN/KO+0odAhCbdWJD
-	 R5CD8dQFy63cFKFDdtG3eye8YPwpfpKVsVtYmwr8Us9/uUXefUO69CqOhnrURnog+cSDI
-	 H1ICaUZlEtRz0R+Y91GN5C3Vetj60dbeOEUiQtw+9r/C2jODKA8/Yj5+lzTmw6LBfqb6O
-	 J0Vw3mLtRXgDrGejwJVqTlKW/R28YcfpPpDR8i0y5aFamjNaIfIXUK5Fql0nIBb10QA==
+	t=1793903972;
+	b=mi34g8jbStNlvGJDe/HUbbpQSA7wV+OebkQ1gVCF5omn5ZeE01aBLxd9t/2lMypUbA2j
+	 X84AmI5mJy1fn03eFyt5W77feINeX5A+Vumf+v/Ztry69AEHno/qMVDrZvB6XDeo8vbpd
+	 Njkbvgk1lWmMCpDruUPHqwdvP/A7n3Si560ycj6Xx+YGgqV3VVC/jVC+7mixFcagjaYhu
+	 z823/SC7g0eZyLXs5VpDARRfdOalgOsXk9YeIg/aAXHzR1LblNUQfvVE6/IzEuTniRerP
+	 FOA75xKZwDcWrEkOU444LX5N1sbKmQMrQUgsetSxLJPboIAEdSv5S4yLUXuOwk28XWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903969;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903972;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=kyJKFe+Qufh58LhQv1QPoZOdsh6S5H1jMiL/jMeFUDs=;
-	b=tXbpdo4w/4yLhothuMmX59BfTQrCvQD4V0WPOSo7B2SCiHrd+wPS02km3utdDQjHJd3a
-	 eOixT2BSgianFBfyPhKofER4Mq5MDiBeYgdAD+RyOlI2Sj2qtOR/bhQU82nRkj2uGYHNR
-	 U9NUtje0474wdvD5/ZHR4x9U/SsCaTULD45oQgb2H93oUj5U5t/rIQ+VqavdOBvEfssRX
-	 cbjM8GLahFU5Xwy0RUJvcXK6C02tvEL3fLv2ME61qzY4VuAPRNNdfS08ozgcu1mKyl8vO
-	 WOFwsFt/6EON67LrCBn9w5z5SibYdoxGirrx8WkDuaKP7h29hB+8VY3qDogAdt6wLng==
+	bh=GfFefFPCFFgVfaMUikxfvk1jmTnTROgypY/4sMiVmXE=;
+	b=kHvJG+fk6pI8s4MN1cuu83YpWJMgARb638lpB8jILiQRosGpJZTXtkQ4CybZ3KPV8c2N
+	 yM/HYY2Qp/RER6gXSAPyZPMigxgYAhTDwFm9e81I2k9A+7zsqWxkxNbZg9oc393jmfrDl
+	 JhS0tsmodZD0Xn19lkRhMM7KB3dwu0zKqQiraUHS0/NjgwekeoUb6zOGNkQBZIdwoQ9Rd
+	 WqzecJHkRsRhfYOF5qOYtFkrH5PxUjw9KXl1up9HpkZd1i25HGKF3McrmlJ6EGcmGTzx4
+	 yzxeKE9SUXxY0uQPl+Owyu07X11ezeEQD1Ds8DUFRwc+ThdRSyLzEz8ilW72f+6IqlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KFCPo+V/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NtTI2Xel;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008D9606A328;
-	Thu,  5 Nov 2026 18:39:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1276F606A331;
+	Thu,  5 Nov 2026 18:39:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KFCPo+V/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3F5A1F0093A;
-	Thu,  5 Nov 2026 18:39:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NtTI2Xel
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D71C1F0093A;
+	Thu,  5 Nov 2026 18:39:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793903968;
-	bh=kyJKFe+Qufh58LhQv1QPoZOdsh6S5H1jMiL/jMeFUDs=;
+	s=k20260515; t=1793903971;
+	bh=GfFefFPCFFgVfaMUikxfvk1jmTnTROgypY/4sMiVmXE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KFCPo+V/yPd/NgrnBy73Nul/Kx0CTjbWAFZg5F3e/z/gzKwpDHU9ukLgVDFmZHcQo
-	 E3xBRcQ2CvercMgKn/qBJqtcqqJOJxlGTG0TSS7z+d/o7p2Li1i6VWuEsq8YMsUP5h
-	 6vPNYCQCGNTMXLETDpkdeu8OUa61I2XHPkIYh+oSZ00SGHZRoCj8kWyNX4fNu/cQPT
-	 Bq5pOxB13KyUxNuQ6HtS7MACeLKHp+vbhDJhn+h9DXUeAd3qgF1fQ6J9GJ4ehODPlG
-	 Bto3YFqA6Uamiaadahp3GgokdcBprw9orWDsmnil3pUEc8TLzzSHu4TIQSpI9ov+nB
-	 hsXLHUhhK7cfg==
+	b=NtTI2XellujX61c+dOcEHTrQO4+kvgxYWgdKjTRnajsuYyyX573MgAYUnoDxh55fK
+	 9BmD0HqldCtbf5KIitXv/oM+sI4PTvudUHwpNBFshllgLWkd1gtOoicHLBVfV9WNg6
+	 DVA1KY8TJEqeniFvNrOYfCXKofP0ojnWQ+KdqKHpJabO6SNW3YYnuET9QkDQ7MKIKU
+	 Na2iX7GaLKjYOUDbNFFrRU61c9VwIwyldxHy4Uv8gzWIk1zaDRqA/1Z4vayUWNgV/x
+	 WJ4KHCDNDcF4pRGytihE2vwbYYXWwg7iORcShByUuFX7j/rsBeffelKcFgwyJRlDqw
+	 3BjNsPvPFaAHw==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	jonathanh@nvidia.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com,
-	Ronald Warsow <rwarsow@gmx.de>
-Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
-Date: Thu,  5 Nov 2026 13:39:12 -0500
-Message-ID: <2026-11-05-1-daily-reply-0007-7.3.2-rc1-wx@kernel.org>
+	pc@manguebit.org,
+	gregkh@linuxfoundation.org,
+	wozizhi@huawei.com,
+	lsahlber@redhat.com,
+	sprasad@microsoft.com,
+	tom@talpey.com,
+	glaming@microsoft.com,
+	linux-cifs@vger.kernel.org,
+	apais@microsoft.com,
+	rlmenge@gmail.com,
+	hargar@linux.microsoft.com,
+	Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Subject: Re: [PATCH 6.1.y] smb: client: fix busy dentry warning on unmount after DIO
+Date: Thu,  5 Nov 2026 13:39:14 -0500
+Message-ID: <2026-11-05-1-daily-reply-0009-smb-busy-dentry-dio@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <3dfb9b8d-3bf7-4fa2-89ec-6561c1b7b70e@gmx.de>
-References: <20261104211038.406938024@linuxfoundation.org> <3dfb9b8d-3bf7-4fa2-89ec-6561c1b7b70e@gmx.de>
+In-Reply-To: <20261104173309.19150-1-sidchintamaneni@gmail.com>
+References: None<20261104173309.19150-1-sidchintamaneni@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,18 +71,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> I need to revert:
+> commit 75f5c412fa867efa0bf9b646bffe0d912109e84a upstream.
 >
-> "x86/mm/pat: Fix effective RW computation in lookup_address_in_pgd_attr()"
->
-> otherwise I get:
->
-> [    0.108037] ------------[ cut here ]------------
-> [    0.108037] CPA detected W^X
+> We recently backported commit 75f5c412fa86 ("smb: client: fix busy
+> dentry warning on unmount after DIO") to the 6.6 stable kernel [1], and
+> the same issue exists in the 6.1 stable kernel.
 
-Could you send your .config and the full dmesg around the W^X warning, and let
-us know whether current mainline shows the same warning? The patch stays queued
-for now.
+Queued for 6.1, thanks.
 
 -- 
 Thanks,
