@@ -1,68 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793918743;
-	b=BB7SbkU2ObelzSQ4M7ZJlGpOPmR9M8JX8owQgeqSb/KYLLVmeM5REt4lB0JHM6zOcn4A
-	 /1QtNSNRg2Q8BzSahXZnECLC9KJAKzw2+eZj+2KUZbWeB9jvyFeCLMc1/KO2jeeLg3jCt
-	 1nO+iUb+XVTQjPbhNbS/rkO6ZFRhcQynTgDNRohPVzIENXNGkcR+3Gu1spxWCmPz3DIJW
-	 PtiGFOt6yefGoap+8saWZcBleDzJlw64xIHgKzeGK1oDUU6qT7ykZKVbd3j9sk2TOaMFy
-	 gzzsEIyKnbkhAgqmFzL7VtEHZ0egXptAo+dMremQBsrdTdWcUCVD+2QxvuJn+TLfnDQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793918743;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ONVBZOGRK6Li/BFHinDMKlUeKD/Gp6VvcaHhv+nvDQU=;
-	b=gnIOh1IM5Pc67OT+g+nosOyvc2SfeJL+vwHK+HPOM1hF7k/2UL6JTMMaAnUnyZDc64GO
-	 GxuONA8hzy/hmlLL12IvifH5ldgmLlLkdt0qdmyzd32Do7KT6ZdDVK9YGnenIVzO/UND0
-	 aWzfI6pQ9pLTZmwil8P7M3YVFXAW3uNGhgPgthv7+IANQmnxkmQ78UBUemiMm7ptlifjv
-	 Q5bRHg0A2H1qYLtcPaJ7qy+ZU6edMq7UINpUvxAGjmGT0DtDy/tc6XO6M2lbo7lzmRccB
-	 XiWppQRysVNLwegyx0hgU4B6WVvkLDo7AIVCReH2X3oH841I8DAGs8Q37iZTtAb9usw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=manguebit.org;
-	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=IAGbU8bN;
-	arc=none smtp.remote-ip=143.255.12.172
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.17
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793919544;
+	b=pjeSleaMgnK4j+bXHzhNw3ihtEfwKamIttDWMCQRuxPr3Emd9jKtN2BVvLDaFtvF2hUb
+	 jpUlAa/rKmxjP/DaQepZQdFdZlX70/YnEMK4I1Uy1gWU2xwyOZwCF5fusgwHSBt6fEpWB
+	 +CHBz5tADBgdJlr9Hvvw2WUQevqOEq20ublMu3RPT2nnaxnhP7nLXiz/oDGFo2/vqdaef
+	 lWx7DPVVVNJOCnKlEhLWECFmxzVVlBwsAv5UOMPuVqHbqB403TcZbH+9YjKd0p+xFOjnp
+	 Vb9S+QjvEH5N3x2IllsQJvZ0+FHgTuO+sxAI5KneF//FsbfK8XKEuOU1WlU1sbR6JxQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793919544;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=CzIbM5cd5zfHPfsEq8RGVqvuB+L/B19V70kw/qtaukU=;
+	b=C6F9dsadDAuh2UeRVPdzlKSwSRkrQinzOkG0reSoh1NGotDyWzazMjyflW+bTXjJdnh8
+	 E5OSriGtbGEdSDynwWuXysvafkXtZlDQRfcTDPabMX884LzsRf+iuMPT3oC5mw2XcxJop
+	 hBGd78snJPM4BgXLothMrY01DwX4kQM1w1tDwl1nQPS4DQ3bgTB9I5a13hXMSyf7b4f25
+	 17pK+84/Ekc8kXpNqY7dJVLxqIlcdpORufqI9xP3ABJ/DhyiFOTQsiPJLgkVhn6v49hce
+	 8Wn8FuSeUKO66D1KXeZLAMijSSRRzLlRtFypvp4adfq/p4f9VUzdzW7lE91UXtPt5Wg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Yt1Gq3ab;
+	arc=fail smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F9F2606A32F;
-	Thu,  5 Nov 2026 22:45:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F9F2606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E3E3606A326;
+	Thu,  5 Nov 2026 22:59:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E3E3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=IAGbU8bN
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
-	Content-ID:Content-Description;
-	bh=ONVBZOGRK6Li/BFHinDMKlUeKD/Gp6VvcaHhv+nvDQU=; b=IAGbU8bNxw5aX+Q01Y7LpJNHRE
-	u6fp7ksh+1GeZKb9LS+F9Rk7VS1L3oDa3+6//EkIBAub+0mUWeB7YBdEyJ7gdSs12T/hZe++IYm6u
-	kH3DsINKXH/3+9Blc007huPOplibCMAjtf150zq02kCxP7PzNqzYj9IOrXQlY0FB8LV/zktb6TvRH
-	BG6KCFNZNgXonP5Ml3qqYV957LsQPxc7qVhk70e938VlTU1W+XZuhp+NyWK465nEw+ufu0RtaPyI2
-	3Zm7T1n6cu2d84NkztqQTtLRZnnqF62gZXMoz/o2YWcGztFjigiTjyJnOkNi5s8f62gT3zorTo0hT
-	cbmSDfiw==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
-	id 1xP6D6-00000000ymq-1d3o;
-	Thu, 05 Nov 2026 19:45:33 -0300
-From: Paulo Alcantara <pc@manguebit.org>
-To: linux-cifs@vger.kernel.org,
-	netfs@lists.linux.dev,
-	David Howells <dhowells@redhat.com>
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Christian Brauner <brauner@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v5 04/17] smb: client: let umount -f abort retried reads and writes
-Date: Thu,  5 Nov 2026 19:45:18 -0300
-Message-ID: <20261105224531.2316211-5-pc@manguebit.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105224531.2316211-1-pc@manguebit.org>
-References: <20261105224531.2316211-1-pc@manguebit.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Yt1Gq3ab
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793919542; x=1825455542;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=qvXp3yRbY4LDgfYz/M9g1PCFrbe0O1SyYzQ5E1Alc7U=;
+  b=Yt1Gq3abaqJe6oMOUUHFNGUjQWXk5o94/a8wFTYHZ59aD4LaI4eGVorg
+   jb7tDxL+9FRoO0+W36kVVpXFF21kg39SPLfL29UewNOcCRM4h/+19lXkX
+   E95BOjuNsnErkHHMw3pHzyyJvai95a8G39zat/57ru327Ol87pN8vKaXX
+   loWj0uBiwLcr/rwmnKJ8CkWzQDc8efD3cGif2s5kfdaOvKzx4BmFvjH9U
+   ZvG07UM5IcWYb863LuwkXmKMZ0Ifw0TrXQ58UeqQnpYSN2Bf8RdNIXfzg
+   aN7lny0P133ypTj9Q1+E8XV9q7Z2cqTSJKzd143WxcMwADY1jGLQdal3K
+   Q==;
+X-CSE-ConnectionGUID: ZmDTnI/DRoefMggYmGhsKA==
+X-CSE-MsgGUID: CBi34BCYRYeI8PiNv/Z/Zw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2757479"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2757479"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 14:59:02 -0800
+X-CSE-ConnectionGUID: PcOL07acTiCiTNrGH1Nyjw==
+X-CSE-MsgGUID: ciHfv6UrRNanZ1m1z9R5lg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7248118"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 14:59:02 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 14:59:01 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 5 Nov 2026 14:59:01 -0800
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.38) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 5 Nov 2026 14:59:01 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G8i+oAXciW6ZsN27Nfvqc7dJyO2rt4Tq/DhSuMs2hUH0jnrzZfi0hcTCf8SC6J1jh8heULae6fPCAA1nd0QFICr3ipHb5hpbSRgVvNAQpPHWZPNiPlxJ117cX++TsPMdjqc7sAD2aG/f/LXJKFeF5H3EbZ6mzz7Bgn9jW5ZfGpOn6k5i3TI+3PNyBkSPc9Yz4Cxo7OCrQIW1vVnrlB0Cf2bZDrJ/Su+zpeImBbhcqDD+eY43Ol4o60sRNaMtZj1QjYQK5DAra3J0FVILqPhfa7ok78pjez4r6qQUQYaXk2RRSOUH1CA9qf2qbS0rPxxBGS8KyWoHpzhOCQfAtEYuVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CzIbM5cd5zfHPfsEq8RGVqvuB+L/B19V70kw/qtaukU=;
+ b=vKxmOFvFQDVjCT23CvPtbY3LZ9AeoHJ7op/rTQFdzStCOwbpbLe3cHKZ/6ln5Vqii3qyxh29OQVAazOexfIuPN4eTmMwcuY+yvsxn9owx4M1FcPqCYzaTS8SAqOP6RhqPJN1T4Elv7LZVnYd/78UF2ZYr66TW1Ovf1qgWHFIojdLeK7tqy77emClD1jXfhb36R+64ccH7fsCHszhKNrGd0jD/M71z5V6eSMMQs6W7VgeK1TZGLci4yBlj/Jh6VUN+fKu7tnIQISIEDR7B4B2suqicWBrgq+k1BAV1hZe+GGvIMH2NxwugFUPOg+i6hWGOpPQMcZpTxcXjEVDajBeCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
+ by CH3PR11MB849673.namprd11.prod.outlook.com (2603:10b6:610:364::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 22:58:59 +0000
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 22:58:58 +0000
+Date: Thu, 5 Nov 2026 14:58:54 -0800
+From: Alison Schofield <alison.schofield@intel.com>
+To: Muchun Song <songmuchun@bytedance.com>
+CC: Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang
+	<dave.jiang@intel.com>, Andrew Morton <akpm@linux-foundation.org>, "Joao
+ Martins" <joao.m.martins@oracle.com>, Ritesh Harjani <ritesh.list@gmail.com>,
+	Muchun Song <muchun.song@linux.dev>, <stable@vger.kernel.org>,
+	<nvdimm@lists.linux.dev>, <linux-cxl@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] dax/pmem: fix unaligned compound devmap initialization
+Message-ID: <au0KLseDt4S6b1ME@aschofie-mobl2.lan>
+References: <20261016054914.2601510-1-songmuchun@bytedance.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261016054914.2601510-1-songmuchun@bytedance.com>
+X-ClientProxiedBy: MW4PR04CA0048.namprd04.prod.outlook.com
+ (2603:10b6:303:6a::23) To DS4PPF0BAC23327.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::9)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,293 +135,130 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|CH3PR11MB849673:EE_
+X-MS-Office365-Filtering-Correlation-Id: 16ac90d6-ec8f-4251-832a-08df3b906021
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|6133799003|10067099003|18002099003|22082099003|261021135927099003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261009223027099003|261021121427099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info: YBTvYfqdwAam4ctS4SM73h5kXLGTNepHSJNZQaysjZZ5QDwcgEkc6452a14lx2Nz3petNLPEPUTps50zcGpi4zgQgnbw0FPjLxDouPwQ3dSam5DDjTezM3JXSKnH63VCX8Z3cdGzCWW7ZoVgupuwmLhVgoIGmEqi0SjdEU5rfEP4vmOIXyCxTYgMu6IEsXeOGYCgpfXLtCU+hQC/v7a7npwnaAAUp50A5htoIiryDReJgmNNnCuWo/H6R6njt0g8fShVDW4cmcYuaenTTmHmRPKVfqaIGkKGBhaaKA25GUTO9jTgV4xjOjARw1q9PFa2p/BKQGTVlOP8Vw9Y7guz8TL+4EfzrSnFZR5jchrMpw6q06XUP4luFmTE1zuAeCKyBoN+gcEnzWgJeh87V2BxlLLvbtLuAX1PZWiUEQl1Y3E6PlgkaQ8/YCsBmVdl0/4sKSsv0DlAW+MeAQq/6SGntCCv8YQuxk/8Qr9wyddSXYSShxEkNAxjsve8i+5Su7PmweBI6i72OPTGa0wb99cwLm+I8ZlPbXOG1Kw/5WECYrCNfto+zl35Nx+1nJZQeGb/o416iMhE2WRSneYrwjstQjQUxcFVbYavEbjgSty+puXMFnvF6aJy0HORYaPk5fKE
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(261021135927099003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261009223027099003)(261021121427099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?YPvenLjJJA1TPAEzrbjWNE8ibDKbD9hSynciEEiRL9FpKEgVIB1d+NkHvsOr?=
+ =?us-ascii?Q?jUP9vLkVSNh/9UAGwnsiEfbJmTGYhwfbde/oKe2NMqYuZSMvfdAMtnvsA8Ij?=
+ =?us-ascii?Q?HtO+LRw2gjRNCsxfjci6RjutvzK1yPJXzIidtpFvWBRcMohQ+0SCKJFL2JLF?=
+ =?us-ascii?Q?nnndzIhnPoDkRW6lE1EnfyMtYdZKJzecXzDqj1tqfOVW1+H8Krwlfug+qMWz?=
+ =?us-ascii?Q?xZdU4dXWydZfITtHb3r0MDrGTf0WghMu3SY/1w73DunnIuSf9bYOOAYaiQkQ?=
+ =?us-ascii?Q?3divlo/p1qwWZj4B0LeKPhtCCJ+NWWy9jS12h1KQNwYom/zOsyqOS/GD7rJA?=
+ =?us-ascii?Q?us/ROu+blIxdgu7RFwdf4pTHf+HSOjgt4SxJWcHJMA4wWVl8ABv2Ocwp6paO?=
+ =?us-ascii?Q?xEoY+7nr/gLRzvF7fATCoMOPr/6ml8GJvyjIeIcwpX57Zp8O0M5Aio4lPgD1?=
+ =?us-ascii?Q?YxcFVQQjymj5vym3FafxjoEQ+0uuiptihD8gkPjqd5RderOUw/52Rk4mUxSo?=
+ =?us-ascii?Q?kOd2/YHqNSVEsNJy9etT1gBHzeRNP951+o6OCqEcPx6GjNP3bhWPkRNF9W34?=
+ =?us-ascii?Q?AwZeYQyEAnZ9o8AwoULFeI94DXpxpXq5UkYy1prWuvYbUzC0zBwIjB5WMIe0?=
+ =?us-ascii?Q?RT0+I+pnOrs0zBN1msi5cxN6KlNo2y6xdk7Mj0Ljqcfp32n0s9dip8hdTLmz?=
+ =?us-ascii?Q?IP9A8981AvPH5oOReLtbaYO8DvGc8APXiWRnvdFVsA/6nr/OgIW22lV6L6T6?=
+ =?us-ascii?Q?v+/iQGphoYd9P1G7Zc8ATDLoEzcNOC5BmrtAa0CTv7LhMNkiSA6aA/zj0PT/?=
+ =?us-ascii?Q?+bME0Q4JomdqzVcsU5F60WNeCKR8lbOGYhcspYQFwnSFwogUbYFM1h4tdo8D?=
+ =?us-ascii?Q?sddJZl1oc408S/qYOpjkIElUWqhUMf2TtypuI5NwGKcg7STIFw/JByGyN2ud?=
+ =?us-ascii?Q?8fqyBAhoDMhZ27pZosAUekitwDgCqofuaLfsApRbETwzCornYHUzUq+hRHv9?=
+ =?us-ascii?Q?LoJ2c4hwN/SxiLbbn8Oc7UZyzeUX4Uxv7O+1+q42/bi7wbvDds15n4J7/jkH?=
+ =?us-ascii?Q?zQGjjkSjcuAcD50IlALCbcA11LYo3vh3CKvQyPDPSoqftvxoAO4iylp2r0hm?=
+ =?us-ascii?Q?kFNY7ou+3T+6zQeKJEHmeZnrw5/8Sl3TQ1mpwC/8lkcoyxVvwvdQ+4ckV03N?=
+ =?us-ascii?Q?UPSaMjsvEFxSHJFQxNuyO71RRvB1COPJIICuo9D2nszvsTsYeYpZJ3A95qyU?=
+ =?us-ascii?Q?FSi5pTrJ5bFRMc4nS3GbkZRINrYEAp4zdaMTZJCOpwhoFq6Vt+bwUMxEuOLi?=
+ =?us-ascii?Q?rQHuDWviNirm0H4caCilSNKnLcYOTlfb2DgAJbthv81GSxuN1+UdKz4OZZjE?=
+ =?us-ascii?Q?w36c5jqsNgqodiT0G+poX0bd6Rbu08Vkbdmiu9DkLWdH3VOlZ+rHeXaViPGm?=
+ =?us-ascii?Q?vvp/l9WoKb89ktHAOegf6RP8PoctLtENzODXPfUBlgIKE65HntYU/k6IL0yP?=
+ =?us-ascii?Q?yt3ZglYOUGUIO01v7eayIT/oqKbtJwssodVUODP5LeTN5xG9q/49/cOIhqZ/?=
+ =?us-ascii?Q?z8KfUkfIAQB+Zx4GYrVdINQWpwF8OiVrwmMSnaq+vXh6+an9odkIRE/ULT98?=
+ =?us-ascii?Q?y/NpewSxO3ccdKQDrrb+VEoVckVpLTZCl3CLye0heSNiLRp5JYi/+9CJrc1B?=
+ =?us-ascii?Q?x5oyy+g3fKoyQBB570Xr6XOLnfXok07owq8fgf8qbKhXMoU/3AnNIf6a9TTi?=
+ =?us-ascii?Q?YjhOHQ0ZJa3hCAujZ3nAj3xf164n/jY=3D?=
+X-Exchange-RoutingPolicyChecked: vTvs1PndAu/GdhkREBE8nD5MK/HEwWloexcAVTqeixr6kyHAulix49rfC9PZiLw493E0+y/iCS1dtzN9nsxZFS/hCSgbcg8BCVifa0Fc61NyvqHFYQ4Ml2CYGpOamDtgPs4NlTdF14iPEZ2qTANQNgQAWiSRx8+xyDJQpYZ+yoRqrPBVgr5vdtpr7Rt95YkNpVMJHojh3GIOS3dlLr+U1TOzhbO5EhpMYXXpOnH0lDTPu6rbZ3vWJQkQurNtNMV/QsIx09SiWR8j0ekXlhPuENMrxsThwG2Z06O+iYrcs7hu0m8Oc+nXqI2F1cl6VN7eryb2ddxzjKzeaODgtWxZ/Q==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16ac90d6-ec8f-4251-832a-08df3b906021
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 22:58:58.7290
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jiYorgsLhtkllAgbtx+mE16uO94E6ahxzLb2t1AChOEhfrmg1CbjCS5Gm4AZy6MEzNnh6Ho0zopK3j70+/eAUZpFBbjn2OivWFExdVxAHn0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB849673
+X-OriginatorOrg: intel.com
 
-umount -f only wakes up tasks waiting on the server's queues.  Reads and
-writes being retried - forever on hard mounts - keep going, so with the
-server gone the unmount still hangs in sync_filesystem() waiting for
-their writeback.  NFS kills outstanding RPCs on umount -f instead.
+On Fri, Oct 16, 2026 at 01:49:14PM +0800, Muchun Song wrote:
+> Static pmem Device DAX namespaces reserve space for namespace metadata
+> before the user-visible data range, and may also include padding needed
+> to satisfy the Device DAX alignment. __dax_pmem_probe() adjusts the
+> dax_region range to start at the data range, but the dev_pagemap range
+> still starts at the beginning of the namespace.
+> 
+> That is not valid for compound devmap mappings whose memmap is stored in
+> system RAM. Compound page initialization requires the start PFN to be
+> naturally aligned to the compound page size, because the head and tail
+> struct pages are initialized according to that geometry. If the pgmap
+> starts before the aligned data range, memmap_init_zone_device() can build
+> compound page metadata from an unaligned PFN.
+> 
+> The resulting struct page layout is inconsistent with the Device DAX
+> mapping. A later mmap fault can then resolve the user-visible PFN through
+> invalid compound page metadata and hit a kernel panic while inserting the
+> DAX folio.
+> 
+> Fix this by advancing the pgmap start to the aligned Device DAX data
+> range for non-altmap compound mappings. Leave base-page namespaces
+> unchanged, and leave the altmap path unchanged because
+> memmap_init_zone_device() already skips the altmap reservation itself.
+> 
+> Fixes: 14606001efb4 ("device-dax: compound devmap support")
+> Cc: <stable@vger.kernel.org>
+> Reported-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> Closes: https://lore.kernel.org/r/wlrkqqvg.ritesh.list@gmail.com
+> Assisted-by: LLM
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> ---
+>  drivers/dax/pmem.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/drivers/dax/pmem.c b/drivers/dax/pmem.c
+> index bee93066a849..d3a9b85107b0 100644
+> --- a/drivers/dax/pmem.c
+> +++ b/drivers/dax/pmem.c
+> @@ -51,6 +51,13 @@ static struct dev_dax *__dax_pmem_probe(struct device *dev)
+>  	/* adjust the dax_region range to the start of data */
+>  	range = pgmap.range;
+>  	range.start += offset;
+> +	/*
+> +	 * When the memmap is stored in RAM, exclude metadata and alignment
+> +	 * padding from compound page initialization.  Otherwise, the pgmap
+> +	 * may start before the naturally aligned Device DAX data range.
+> +	 */
+> +	if (!pgmap_altmap(&pgmap) && le32_to_cpu(pfn_sb->align) > PAGE_SIZE)
+> +		pgmap.range.start = range.start;
 
-Count umount -f attempts per superblock and have each read and write
-request remember the count it started with.  Fail with -EIO, rather than
-retry, reissue, issue or wait for credits, any subrequest of a request
-that predates a umount -f once it is a retry or the server or share is
-disconnected; a kworker doing writeback can't be signalled out of the
-credit wait otherwise.  First attempts on a connected server still go
-ahead, and requests started later aren't aborted (but see below), so
-I/O on a healthy server keeps working if the unmount then fails with
--EBUSY or only detaches one of several mounts.
 
-retry_count is not bumped yet when netfs_retry_write_stream() calls
-prepare_write() for the first retry, so don't rely on it alone to tell a
-reissue from a first attempt: treat a subrequest as a retry when it
-already carries an xid (it has been prepared before) in
-prepare_write()/prepare_read(), or when its replay flag is set in
-cifs_io_aborted(), and abort it when the mount is going away even if the
-connection still looks healthy.
+Hi Muchun,
 
-Requests created after umount -f - writeback kicked off by the background
-flusher, an oplock break or sync_filesystem() during the final teardown -
-snapshot the already bumped count and would otherwise retry forever on a
-hard mount, hanging cifs_kill_sb().  Once a superblock that saw a umount
--f reaches cifs_kill_sb() the mount is going away for good, so flag it and
-stop retrying I/O on it too; one that never saw a umount -f still
-flushes as before.
+Does moving the start here lose vmemmap savings when the old start
+was already aligned? ie. on x86_64 with -M mem and 2M alignment, a
+namespace starting on a 128M section boundary has its data at +2M. The
+first section then becomes a partial add, which 2ef77f4a7d5a
+("mm/sparse-vmemmap: set compound page order for device DAX") doesn't
+optimize. Would that cost about 1.7 MiB of extra vmemmap?
 
-A sync(2) or syncfs() waiting under s_umount for writeback started after
-umount -f would still keep the unmount from reaching cifs_kill_sb(), so
-also stop retrying such I/O while s_umount is contended.  After a failed
-umount -f, that also stops reads and writes retrying while a remount,
-freeze or new mount of the same superblock waits on s_umount.
+Can you round the original pgmap start up to the alignment to avoid
+that loss, and still fix the crash?
 
-Fixes: 2c1238a7477a ("cifs: make retry logic in read/write path consistent with other paths")
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: stable@vger.kernel.org
----
- fs/smb/client/cifs_fs_sb.h |  2 ++
- fs/smb/client/cifsfs.c     | 10 +++++++
- fs/smb/client/cifsglob.h   |  1 +
- fs/smb/client/cifsproto.h  |  2 ++
- fs/smb/client/file.c       | 55 ++++++++++++++++++++++++++++++++++++++
- fs/smb/client/smb2pdu.c    | 16 +++--------
- 6 files changed, 74 insertions(+), 12 deletions(-)
+-- Alison
 
-diff --git a/fs/smb/client/cifs_fs_sb.h b/fs/smb/client/cifs_fs_sb.h
-index d6494e1d93cc..b322718d9199 100644
---- a/fs/smb/client/cifs_fs_sb.h
-+++ b/fs/smb/client/cifs_fs_sb.h
-@@ -57,6 +57,7 @@ struct cifs_sb_info {
- 	atomic_t active;
- 	atomic_t mnt_cifs_flags;
- 	atomic_t outstanding_rreq;	/* nr of rreqs not yet fully deinitialized */
-+	atomic_t umount_aborts;		/* nr of umount -f attempts */
- 	struct delayed_work prune_tlinks;
- 	struct rcu_head rcu;
- 
-@@ -68,6 +69,7 @@ struct cifs_sb_info {
- 	 * (cifs_autodisable_serverino) in order to match new mounts.
- 	 */
- 	bool mnt_cifs_serverino_autodisabled;
-+	bool exiting;			/* umount -f committed: stop retries */
- 	/*
- 	 * Available once the mount has completed.
- 	 */
-diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
-index bf199a5ca084..b3735c98bfc3 100644
---- a/fs/smb/client/cifsfs.c
-+++ b/fs/smb/client/cifsfs.c
-@@ -297,6 +297,15 @@ static void cifs_kill_sb(struct super_block *sb)
- {
- 	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
- 
-+	/*
-+	 * Reaching here after a umount -f means the mount is going away for
-+	 * good, so stop retrying I/O that can no longer complete (e.g.
-+	 * writeback to a server that is gone) rather than looping forever on
-+	 * a hard mount and hanging the teardown below.
-+	 */
-+	if (atomic_read(&cifs_sb->umount_aborts))
-+		WRITE_ONCE(cifs_sb->exiting, true);
-+
- 	/*
- 	 * We need to release all dentries for the cached directories
- 	 * and close all deferred file handles before we kill the sb.
-@@ -835,6 +844,7 @@ static void cifs_umount_begin(struct super_block *sb)
- 	if (cifs_sb == NULL)
- 		return;
- 
-+	atomic_inc(&cifs_sb->umount_aborts);
- 	tcon = cifs_sb_master_tcon(cifs_sb);
- 
- 	spin_lock(&cifs_tcp_ses_lock);
-diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
-index dbf980fcf05b..fb732c178e76 100644
---- a/fs/smb/client/cifsglob.h
-+++ b/fs/smb/client/cifsglob.h
-@@ -1482,6 +1482,7 @@ struct cifs_io_request {
- 	struct netfs_io_request		rreq;
- 	struct cifsFileInfo		*cfile;
- 	pid_t				pid;
-+	int				umount_aborts;
- };
- 
- /* asynchronous read support */
-diff --git a/fs/smb/client/cifsproto.h b/fs/smb/client/cifsproto.h
-index f9ea35597bc2..a37eee2ca54b 100644
---- a/fs/smb/client/cifsproto.h
-+++ b/fs/smb/client/cifsproto.h
-@@ -137,6 +137,8 @@ bool is_size_safe_to_change(struct cifsInodeInfo *cifsInode, __u64 end_of_file,
- 			    bool from_readdir);
- void cifs_write_subrequest_terminated(struct cifs_io_subrequest *wdata,
- 				      ssize_t result);
-+bool cifs_io_stopped(struct cifs_io_subrequest *subreq);
-+bool cifs_io_should_replay(struct cifs_io_subrequest *subreq);
- struct cifsFileInfo *find_writable_file(struct cifsInodeInfo *cifs_inode,
- 					int flags);
- int __cifs_get_writable_file(struct cifsInodeInfo *cifs_inode,
-diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index aa2d09dac44c..270858e526f9 100644
---- a/fs/smb/client/file.c
-+++ b/fs/smb/client/file.c
-@@ -39,6 +39,40 @@
- 
- static int cifs_reopen_file(struct cifsFileInfo *cfile, bool can_flush);
- 
-+bool cifs_io_stopped(struct cifs_io_subrequest *subreq)
-+{
-+	struct super_block *sb = subreq->rreq->inode->i_sb;
-+	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
-+	int aborts;
-+
-+	if (cifs_forced_shutdown(cifs_sb) || READ_ONCE(cifs_sb->exiting))
-+		return true;
-+	aborts = atomic_read(&cifs_sb->umount_aborts);
-+	if (aborts != subreq->req->umount_aborts)
-+		return true;
-+	return aborts && rwsem_is_contended(&sb->s_umount);
-+}
-+
-+bool cifs_io_should_replay(struct cifs_io_subrequest *subreq)
-+{
-+	struct cifs_tcon *tcon = tlink_tcon(subreq->req->cfile->tlink);
-+
-+	if (cifs_io_stopped(subreq))
-+		return false;
-+	return smb2_should_replay(tcon, &subreq->retries, &subreq->cur_sleep);
-+}
-+
-+static bool cifs_io_aborted(struct cifs_io_subrequest *subreq)
-+{
-+	struct cifs_tcon *tcon = tlink_tcon(subreq->req->cfile->tlink);
-+
-+	if (!cifs_io_stopped(subreq))
-+		return false;
-+	return subreq->subreq.retry_count || subreq->replay ||
-+	       READ_ONCE(subreq->server->tcpStatus) == CifsNeedReconnect ||
-+	       tcon->need_reconnect;
-+}
-+
- /*
-  * Prepare a subrequest to upload to the server.  We need to allocate credits
-  * so that we know the maximum amount of data that we can include in it.
-@@ -52,6 +86,7 @@ static void cifs_prepare_write(struct netfs_io_subrequest *subreq)
- 	struct TCP_Server_Info *server;
- 	struct cifsFileInfo *open_file = req->cfile;
- 	struct cifs_sb_info *cifs_sb = CIFS_SB(wdata->rreq->inode->i_sb);
-+	bool reprepared = wdata->have_xid;
- 	size_t wsize = req->rreq.wsize;
- 	int rc;
- 
-@@ -63,6 +98,12 @@ static void cifs_prepare_write(struct netfs_io_subrequest *subreq)
- 	server = cifs_pick_channel(tlink_tcon(open_file->tlink)->ses);
- 	wdata->server = server;
- 
-+	if (cifs_io_aborted(wdata) ||
-+	    (reprepared && cifs_io_stopped(wdata))) {
-+		subreq->error = -EIO;
-+		return netfs_prepare_write_failed(subreq);
-+	}
-+
- 	if (cifs_sb->ctx->wsize == 0)
- 		cifs_negotiate_wsize(server, cifs_sb->ctx,
- 				     tlink_tcon(req->cfile->tlink));
-@@ -120,6 +161,10 @@ static void cifs_issue_write(struct netfs_io_subrequest *subreq)
- 		goto fail;
- 	}
- 
-+	rc = -EIO;
-+	if (cifs_io_aborted(wdata))
-+		goto fail;
-+
- 	rc = adjust_credits(wdata->server, wdata, cifs_trace_rw_credits_issue_write_adjust);
- 	if (rc)
- 		goto fail;
-@@ -157,6 +202,7 @@ static int cifs_prepare_read(struct netfs_io_subrequest *subreq)
- 	struct cifs_io_request *req = container_of(subreq->rreq, struct cifs_io_request, rreq);
- 	struct TCP_Server_Info *server;
- 	struct cifs_sb_info *cifs_sb = CIFS_SB(rreq->inode->i_sb);
-+	bool reprepared = rdata->have_xid;
- 	size_t size;
- 	int rc = 0;
- 
-@@ -168,6 +214,10 @@ static int cifs_prepare_read(struct netfs_io_subrequest *subreq)
- 	server = cifs_pick_channel(tlink_tcon(req->cfile->tlink)->ses);
- 	rdata->server = server;
- 
-+	if (cifs_io_aborted(rdata) ||
-+	    (reprepared && cifs_io_stopped(rdata)))
-+		return -EIO;
-+
- 	if (cifs_sb->ctx->rsize == 0)
- 		cifs_negotiate_rsize(server, cifs_sb->ctx,
- 				     tlink_tcon(req->cfile->tlink));
-@@ -218,6 +268,10 @@ static void cifs_issue_read(struct netfs_io_subrequest *subreq)
- 		 __func__, rreq->debug_id, subreq->debug_index, rreq->mapping,
- 		 subreq->transferred, subreq->len);
- 
-+	rc = -EIO;
-+	if (cifs_io_aborted(rdata))
-+		goto failed;
-+
- 	rc = adjust_credits(server, rdata, cifs_trace_rw_credits_issue_read_adjust);
- 	if (rc)
- 		goto failed;
-@@ -282,6 +336,7 @@ static int cifs_init_request(struct netfs_io_request *rreq, struct file *file)
- 	rreq->rsize = cifs_sb->ctx->rsize;
- 	rreq->wsize = cifs_sb->ctx->wsize;
- 	req->pid = current->tgid; // Ummm...  This may be a workqueue
-+	req->umount_aborts = atomic_read(&cifs_sb->umount_aborts);
- 
- 	if (file) {
- 		open_file = file->private_data;
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index f85595136ef8..ecc127d9f0af 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -4815,9 +4815,7 @@ smb2_readv_callback(struct TCP_Server_Info *server, struct mid_q_entry *mid)
- 
- 	/* see if we need to retry */
- 	if (is_replayable_error(rdata->result) &&
--	    smb2_should_replay(tcon,
--			       &rdata->retries,
--			       &rdata->cur_sleep))
-+	    cifs_io_should_replay(rdata))
- 		rdata->replay = true;
- 
- 	trace_smb3_rw_credits(rreq_debug_id, subreq_debug_index, rdata->credits.value,
-@@ -4926,9 +4924,7 @@ smb2_async_readv(struct cifs_io_subrequest *rdata)
- out:
- 	/* if the send error is retryable, let netfs know about it */
- 	if (is_replayable_error(rc) &&
--	    smb2_should_replay(tcon,
--			       &rdata->retries,
--			       &rdata->cur_sleep)) {
-+	    cifs_io_should_replay(rdata)) {
- 		rdata->replay = true;
- 		trace_netfs_sreq(&rdata->subreq, netfs_sreq_trace_io_retry_needed);
- 		__set_bit(NETFS_SREQ_NEED_RETRY, &rdata->subreq.flags);
-@@ -5165,9 +5161,7 @@ smb2_writev_callback(struct TCP_Server_Info *server, struct mid_q_entry *mid)
- 
- 	/* see if we need to retry */
- 	if (is_replayable_error(wdata->result) &&
--	    smb2_should_replay(tcon,
--			       &wdata->retries,
--			       &wdata->cur_sleep))
-+	    cifs_io_should_replay(wdata))
- 		wdata->replay = true;
- 
- 	cifs_write_subrequest_terminated(wdata, result ?: written);
-@@ -5339,9 +5333,7 @@ smb2_async_writev(struct cifs_io_subrequest *wdata)
- out:
- 	/* if the send error is retryable, let netfs know about it */
- 	if (is_replayable_error(rc) &&
--	    smb2_should_replay(tcon,
--			       &wdata->retries,
--			       &wdata->cur_sleep)) {
-+	    cifs_io_should_replay(wdata)) {
- 		wdata->replay = true;
- 		trace_netfs_sreq(&wdata->subreq, netfs_sreq_trace_io_retry_needed);
- 		__set_bit(NETFS_SREQ_NEED_RETRY, &wdata->subreq.flags);
--- 
-2.56.0
 
+
+>  	dax_region = alloc_dax_region(dev, region_id, &range,
+>  			nd_region->target_node, le32_to_cpu(pfn_sb->align),
+>  			IORESOURCE_DAX_STATIC);
+> 
+> base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
+> -- 
+> 2.54.0
+> 
