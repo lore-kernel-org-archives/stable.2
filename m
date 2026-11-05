@@ -1,56 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893370;
-	b=mjJPkdS0Cr1NW8FjlwNsUpnGzOIdq2iKp+Caabn99zLEQ3/nCNWbhoOxMWT5eS96qhpN
-	 2Opq8WsR+MQgc5wEUedbS/ecVH6AiTRy9qJ9+SXKXJnXmrrUe88A6e+il2YoqXsDCoEem
-	 Kg2qndJTdTga49l7RWv5ZTlNBSwspUdpMJsWeB0b6FDOCY6ufw0MpX9eVfe+S4VULIHAe
-	 ziyT85CIB+1ZRi9dSnY0uGUByiLbWJ6OlY79bb/Slc19uLJtnae6sHc1ylnnmCJ594hqS
-	 6wsikLZkdBhx4VLNdHE55zIJz2oWwN+va0cjcmSQNoquxNdr56XKa6lMfgqNBe8vtnQ==
+	t=1793893481;
+	b=Ec0RMS8W+uiPZJxl9Wm0xGr2C0O6fFu/l0x/QVbPYbuqyU31qbdniHqsFywW3JVyQU2G
+	 he/i3D+dDYRVft4qEAd+WB3ZmE96zE4Rylq489psBTeJfWqXbj5NJ/ZgZm16KWq2/ACNH
+	 mSBSp02X09jb8oFwRQ3DwVT8UsMYAgq2nuTcq6nYRYD3Yuc81LCCPxhJ6nudrCPLRqPjU
+	 Pp6GNXX2p1/pu32I9bjsSsO/3jPs0C1mnYIQTbL9L5gAIbx9aFbYUDjbgERa5JPs6qwrU
+	 KtxwKuNwoWWw3dFQGau1clJ4G1xyGuBjMCiirOGo5wo3ywTiobdM19LzrOe58yf4rjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893370;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=njUTYI4oBVmnjDbhYkyzul7xSC2CdBIMpC7eGmomWg0=;
-	b=W4MYoSzCGai4ho4YDssR1FSHlpbIejGKXg1C8m9K5+CGbS9V5mT8vfiSciqvi/Augm88
-	 auBCmmI747e2sHc7pyjHQQjaALFpAHEEa0yJ4XO+P3XqorIbQR0YjKe9Q/bvYSUwc6Tkc
-	 H6QbhV2RYaUN4KEtjyHkLQZtsM/Sc9gRMbqf3JV5g/vw/4J7aePByttiy9GQM6pJy93tP
-	 ARFepRsAx2I+8s9Qs122CLFZvAkRE+fDWkypYnSXk3MKkVr3xOeCptuGNUodB4v69BSRq
-	 IkFyvUeiklzZbZgoZS+snjalLUutAA1WbkiWTZoyWzdcDiHhOqIXYPEZkinTrjjfJDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893481;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=dEHSukm4T4eXj4wYWKIQpZ+9IcO69CzYv4uOD7S+jpQ=;
+	b=XKQAq+QNwkPvdHHiOARNHESg2H/be4/R55G4dBZD4V8M43ZqO1ZmbQESLAotI8fs6Yh6
+	 ERj4VlYwoWX1tJf6C3U8Nmx5oPenCtWPqJSoYMhXrwHiriEbj5tPdCMeub7dcRZD4ghr8
+	 7iR0It1/+O2Y20cMvt0+mjjvGl4mOumU4M6iVYkJhh+aw7JejCgBPTNET3P3vD8DtwjbK
+	 158C/9F8UuYp0Clqp73/1AAaGXpR/X77HTeh2JOcaDi3V6uRhxqtNC1X6Adu9985LZatW
+	 Xz4pYf1h+h5gRDBXjrRydiqc1ms+JQjbcPm1nyDg8ojzZHI8xAsfoP3YuDDi3zgJrIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgKj4PMl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QPDjg50q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069BA606A329
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:42:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCA7606A32C;
+	Thu,  5 Nov 2026 15:44:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgKj4PMl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E1701F00A18;
-	Thu,  5 Nov 2026 15:42:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QPDjg50q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 124A51F000C1;
+	Thu,  5 Nov 2026 15:44:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793893369;
-	bh=njUTYI4oBVmnjDbhYkyzul7xSC2CdBIMpC7eGmomWg0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kgKj4PMlx1OtqSgvYQXOMShiw2wgPfX+MWZGDwtcBF9r3KCjd0iWctI9ZKJkHqUa1
-	 4PeIIZNrrEOpm50t/IzTOurNLn5Bm/8wrXLqPsjHcU9xfBKVqrDx34UVkVAvhRp1kS
-	 N0G8LOwpmTVNrQ3TZK+pilAnrE8SoavCFPu22XeEfaHGFRSE/brkXD/9qOZz8dV9vj
-	 kmNMrK8eHxRbR0sj9UhW8HtTju8lrQexFK7p3wibALrtnnr9qACPn5JjhNBWo/ywmd
-	 VFZ0osTqHiVuDIWfedK3tES3UHkn7UAU+wzXE3co/LzxILwGI75xOObCd/vonKrvvC
-	 tTKc0fb5dX3ow==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] xfs: bound da-node entry count against the correct geometry
-Date: Thu,  5 Nov 2026 10:42:47 -0500
-Message-ID: <20261105154224.1981823-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110406-unheard-batboy-4143@gregkh>
-References: <2026110406-unheard-batboy-4143@gregkh>
+	s=k20260515; t=1793893480;
+	bh=dEHSukm4T4eXj4wYWKIQpZ+9IcO69CzYv4uOD7S+jpQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QPDjg50qQCIHzWlsgw3acSA/5xY6m6SZWjGyp1UDaH2j27o/23FstkEFFRWYDyJlR
+	 Fg9xMgaUBcNKbsMh2LZkaQatRqIfNTD2eJCZoU0LKCuIVM99YZ35b6sgM5zc8O7xS/
+	 L3ibsVPf/9JwsWuFvBKP/082nuZ4hnb9OI9qI+lBo++wnR20Xg71SdsHiVlM1adq9B
+	 LTFt+d5FQybUl3SKx4y/DTQdzR8RTN949dljmstqem0tmfKjPoAOZ6yeCTWTQmYoL7
+	 RLyV5y2faWjCN12smpuItcRCIBPCOzya22xq5gbmwto2HhWV0Xm2jLPL8Kgq42lPoD
+	 q//Smeok+OCZw==
+Date: Thu, 5 Nov 2026 16:44:34 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Matt Bobrowski <matt@bobrowski.net>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, bpf@vger.kernel.org, 
+	Daniel Borkmann <daniel@iogearbox.net>, Alexei Starovoitov <alexei.starovoitov@gmail.com>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
+	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH bpf-next 1/2] bpf: fix crash in bpf_path_d_path() for
+ exiting tasks
+Message-ID: <20261105-berglandschaft-mitbringen-baufinanzierung-c0542594d218@brauner>
+References: <20261020105014.97985-1-matt@bobrowski.net>
+ <20261020105014.97985-2-matt@bobrowski.net>
+ <DM9VJTFJGVXB.3GH9LO3NGV5PO@gmail.com>
+ <atiawbBo6WRPA6QA@lima-development>
+ <at_MbcW0OlciNLrE@lima-development>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,67 +67,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <at_MbcW0OlciNLrE@lima-development>
 
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+On Tue, Oct 27, 2026 at 08:55:57AM +1100, Matt Bobrowski wrote:
+> On Wed, Oct 21, 2026 at 09:58:09PM +1100, Matt Bobrowski wrote:
+> > On Tue, Oct 20, 2026 at 06:24:42PM +0000, Alexei Starovoitov wrote:
+> > > On Tue, Oct 20, 2026 at 03:50 AM Matt Bobrowski <matt@bobrowski.net> wrote:
+> > > > Fix this by returning -EINVAL from bpf_path_d_path() when current->fs
+> > > > is NULL. Only the task itself clears its fs, in exit_fs(), so the check
+> > > > cannot race with that.
+> > > 
+> > > The crash is gone, but so is the path. file_release progs will get
+> > > -EINVAL for every file that a task still has open when it exits.
+> > > 
+> > > It also breaks what works today. The d_dname branch in d_path() returns
+> > > before it looks at current->fs, so at task exit a pipe or a socket
+> > > resolves to "pipe:[123]" now and to -EINVAL with this patch.
+> > > 
+> > > And it's not specific to bpf. The comment in fs/cachefiles/namei.c says
+> > > that current->fs == NULL in do_exit() breaks d_path() called from ext4
+> > > open.
+> > > 
+> > > can we fix it in d_path() instead ?
+> > > With an empty root prepend_path() goes up to the global root, the same
+> > > way d_absolute_path() does. Then the check in bpf_path_d_path() is not
+> > > needed and the selftest can expect the path. A chrooted task gets the
+> > > path from the global root, but it doesn't have a root anymore.
+> > > 
+> > > Something like this (compile tested only):
+> > 
+> > Prior to sending out the fix, I also considered addressing this directly
+> > within d_path(), much like you've proposed here, but decided against
+> > it. d_path()'s contract is to build a pathname relative to the current
+> > root. It does fall back to a root-independent name when the path isn't
+> > reachable from that root, but that fallback still presupposes the caller
+> > has a root to measure against. An exiting task past exit_fs() has no
+> > root, so d_path() has no correct answer to give in that state, and I'm
+> > not convinced we should invent one for it.  That's what
+> > d_absolute_path() is for.
+> > 
+> > You're right that my patch regresses the d_dname case though, since
+> > pipes and sockets resolve today without ever looking at current->fs.
+> > Rather than replicating the d_dname check in bpf_path_d_path(), which
+> > would mean duplicating VFS logic such as the mounted pseudo-inode
+> > special case, I think the cleaner fix is to move the "no root, no
+> > answer" check into d_path() itself, after the d_dname branch:
+> > 
+> > 	if (unlikely(!current->fs))
+> > 		return ERR_PTR(-ENOENT);
 
-[ Upstream commit 3df5e5aaa3bc0913236c48ab29b7df3a785aa29f ]
-
-xfs_da3_node_verify() bounds the node entry count against the larger of
-the directory and attribute geometries because, as a buffer verifier, it
-cannot tell whether the block belongs to the directory or the attribute
-tree. When the directory block size exceeds the fs block size (e.g.
-mkfs.xfs -n size=64k -b size=4k), an attribute node buffer is a single fs
-block that holds only m_attr_geo->node_ents entries, yet a crafted attr
-node may claim a count up to m_dir_geo->node_ents and still pass the
-verifier.
-
-xfs_da3_node_lookup_int() then indexes btree[] up to that count during
-its binary search -- an out-of-bounds read via getxattr/listxattr on a
-mounted crafted image.
-
-The buffer verifier is the wrong place to tighten this: it has no fork
-context, and the transaction-less read path used by getxattr does not run
-xfs_da3_node_set_type() either. xfs_da3_node_lookup_int(), on the other
-hand, always runs on that path and holds args->geo, the geometry of the
-fork actually being searched. Bound the entry count against
-args->geo->node_ents there, before walking the entries.
-
-Fixes: 7ab610f9e0f1 ("xfs: move node entry counts to xfs_da_geometry")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ sashal: Omitted the xfs_da_mark_sick() call because the helper is unavailable. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/xfs/libxfs/xfs_da_btree.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/fs/xfs/libxfs/xfs_da_btree.c b/fs/xfs/libxfs/xfs_da_btree.c
-index 9ac99912e7a54..ef0dbca2750bc 100644
---- a/fs/xfs/libxfs/xfs_da_btree.c
-+++ b/fs/xfs/libxfs/xfs_da_btree.c
-@@ -1658,6 +1658,19 @@ xfs_da3_node_lookup_int(
- 		} else
- 			expected_level--;
- 
-+		/*
-+		 * The node verifier cannot tell whether this block belongs to
-+		 * the directory or the attribute tree, so it only bounds the
-+		 * entry count against the larger of the two geometries.  Here
-+		 * args->geo is the geometry of the fork we are actually
-+		 * searching, so reject a count that would walk btree[] off the
-+		 * end of this node buffer.
-+		 */
-+		if (nodehdr.count > args->geo->node_ents) {
-+			xfs_buf_mark_corrupt(blk->bp);
-+			return -EFSCORRUPTED;
-+		}
-+
- 		max = nodehdr.count;
- 		blk->hashval = be32_to_cpu(btree[max - 1].hashval);
- 
--- 
-2.53.0
-
+That seems ok albeit fugly.
