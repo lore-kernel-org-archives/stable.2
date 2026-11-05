@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793883427;
-	b=avcIQlQq6omDZtOCJo1XC3fUePYSotTTRermvwWi4jtgLsIOIJObkVWtsvk5182AfXaL
-	 33vCH2/1RzgLdHiGROhgxwmDFhXN0U2R252MMlwKo4VjX4d/nZzphGqSOnmJuwggOZMbI
-	 Eh1IQNFf2t8haaPSXMn4ylwjvR3Yp7OJesaxH0L1oZZF0fdG1hy2O8T9fxbvdOUqqUF/6
-	 Otek/xvGk8rAMzLLT1iKBOTvPZF8cffoB2B0orvypN9lK0BJhXHZWZ/i6EIAfPcBpdFde
-	 BcGv/YMMJQZyIgSjg6MGkXxIQpROue6HxoB2sQQm/1iDY8nDXxjJaYRW1cDUpFDoQaQ==
+	t=1793883478;
+	b=JLP08tLPQupJkw4Y6QGgQS2NGKUNxklAg08LZ0S6kcEdLKKKLMPHcYJSDe0Dc32kX3bS
+	 m2YNXuORvlW+XPmiX8mAURIwU79p1t3xunxAqKnoXLnBp7a+IS+H6Ujaxa3TsoYDPSIdu
+	 zVawYMdB2FpuyB9NtMLq4y6G3UR3hO2W+/mAgcFk6zW4Q1jsBQdd/lneNQmm4GLJjNidu
+	 KONOaq91wxheME/HoRpmYFTH4ZA5SKEwwI3wgcSuo0bfkSkhXqYP1jJ0JWqsEkYDZo0Ft
+	 o72XI/aLvnBxnLtHRjDfASaw5RKPOXmQeXl95CMf8fmayiqmdbMurcegVg3yt9IiC7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793883427;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=rZ6k8R1bOQlS/X7q2b6Yiu4rvCDu2cXy2pD0OcCAH5c=;
-	b=WLbEwJXrUAMIiJAgg2ci/Gttq7LwQkfTcmumzqNCeIyo9ZwyEAAyJ/XwI1UdC7gM6E7N
-	 lXZJfTrHVVXEkN66BwHB5ZrBxOMJa/fL85PX7h3ORKSGfsuSqavF72w/siZUSoDQtCL+l
-	 9jkKMoj63g8Pi1E4Vr5HJoqt3ed5xCRvoDJI7wP8E3LLJOA5RYMF29gw++LEnqtTDKgLq
-	 UiGK65fcP7HYWZbj4cbCNz+OGdlQV0wRLZGGaH019MAHnIxX9QZVb2cdAROxvxzP7JzNt
-	 hcXM2LAcQ2oE2Y451ZD5vJhSLTnX4hpFdbo4B6U9LhHwE1KFUzKZ1QzU8kna60peWiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793883478;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Nyw4uo1UMx2UMwcj5/86TrpcocSt85lTij3scmNGbos=;
+	b=pHRso/kjDDyu6QO9B9LYe/ZaoQC6wpjOYSpabDSS/7V1BkRQ1a9Q3XuQ8Rof8Y7+Hq8J
+	 eym3yvURYBf6mOaWPn9guOoOuKZYFElChLpQBRITbTeHMpXM1tGAGKPNfh0CsjZXhV8YG
+	 Lj4o85vwJ7+KEq9ZeW7eMXdZPM1A5P+VH2KpKlDKqk2I2NizU3sv1Ehu+Ry5vFBM5V7yX
+	 48w1qVRpTiXi/WDYvIm2msLhyODNKIwNKgtB5fi32O0HD/XKZRbBYB+Evty6+j1BBgPPN
+	 PIQOX4cEYK/hvkETBQK8RkuwXhgB5qpZ6V62t1YjlXShAC7MxKWa0ELW9f5A136VLPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ub41LAQj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cQrjd+q6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6259606D811;
-	Thu,  5 Nov 2026 12:57:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB186606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:57:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ub41LAQj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E66CE1F00A1B;
-	Thu,  5 Nov 2026 12:57:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cQrjd+q6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BFF61F00A20
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:57:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793883426;
-	bh=rZ6k8R1bOQlS/X7q2b6Yiu4rvCDu2cXy2pD0OcCAH5c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ub41LAQj+GrBohKgtd5slgBHRRzptP85vguenH1g9Pg59r9iGnWHuPWp0BNwqjB0w
-	 B/Ol+XOZkCXTOORDFtPVbma0YeZTOBBox4xldb1+yby/GG0KS7JidvaHjRs4hJUesS
-	 31unvePipSrtPWmfycRF1I3dfTeEO/3DzxDVk/Qv2X7aHzogSdkN7Oy6DjWhjewq+u
-	 8mw1lV5lVB+sElpe+fBLBjVst8XGGvfU5xRu1RtMRfIxbcDutyFpHPpTNeestnYtKZ
-	 7jDRbhdCILOLxa8kQghFE5cVev47mUSzsq227Flug3oQWFRq7nOBJmxbVwFFTftrKl
-	 qbFtlUDZeX08Q==
-From: Sasha Levin <sashal@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Willy Tarreau <w@1wt.eu>,
-	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	Wake Liu <wakel@google.com>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH RESEND 3/3] selftests/size: use nolibc startup and syscall wrappers
-Date: Thu,  5 Nov 2026 07:57:01 -0500
-Message-ID: <20261105125701.1605281-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105125701.1605281-1-sashal@kernel.org>
-References: <20261105125701.1605281-1-sashal@kernel.org>
+	s=k20260515; t=1793883477;
+	bh=Nyw4uo1UMx2UMwcj5/86TrpcocSt85lTij3scmNGbos=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=cQrjd+q6nNpH2xoYNC3OC/u9iIITjUzXz6ZPttJw7Yk1JV+VJxUNiRy6fOdG4bo9h
+	 GFL0O6lgYfzlBm/5jsmbAw21QmT0Eh8QxIptTWVhMwkCm4qXVZz/CshS+7P4QBCqq8
+	 gW+LQNqBud8EGNAJrdghHpvGnQ4zBjEQH/6kSAzl4d1gRk88I0MYMfGmyR6M9rWkRX
+	 UVdzwh0ZHGw+rb+WR7LAKULmUgS6ZY2jnsiYd6BSzAQRB9fL9iLfnR9M5XDOTbZ0wD
+	 Lh4aQYThFILqsEH6JCp+daJ9LvCemhjVrSJ8c3hux1kPtLmdfD5BBANf0wCmCtwJUW
+	 V/IbQPTgfpjvA==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so1634784e87.2
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 04:57:57 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzvG0OUfte06eoDidFzL+g2ELpwSDhmrv/FYlTcQvo4sJys86J99RVMUFAPZdm6mPhbDbJLxlU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ijKuVibGlLqJJtZOTmKQyZLhBKEADdnrATt1KdiFyyrqT8yJa
+	LNlH++AVyEvpZGQA3V9zWNGhyQafdEYxHAoVio/RII16uBSmrPMkCn/TZH8trzscy/OcebdFRnd
+	9STyHYLXEyW9Kkzsui63oJEk9T97jnWU=
+X-Received: by 2002:ac2:4e0f:0:b0:5be:536e:cfbc with SMTP id
+ 2adb3069b0e04-5bfd9562ac4mr7119062e87.17.1793883475976; Thu, 05 Nov 2026
+ 04:57:55 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,141 +59,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261104152657.14909-1-mateusz.nowicki@posteo.net> <20261104152657.14909-2-mateusz.nowicki@posteo.net>
+In-Reply-To: <20261104152657.14909-2-mateusz.nowicki@posteo.net>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 5 Nov 2026 13:57:43 +0100
+X-Gmail-Original-Message-ID: <CAD++jLkYxFR89WGnQKvPgCLYaE7Le06U45Cqn9yR05fa5C_xTA@mail.gmail.com>
+X-Gm-Features: AclHuK-1e9C4sXwoHJ54MvMjIKaAAfliTo1iA6pakb6j7gBlL_TeQYZIIK87yhs
+Message-ID: <CAD++jLkYxFR89WGnQKvPgCLYaE7Le06U45Cqn9yR05fa5C_xTA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/5] mmc: mmci: do not count a data CRC error as a
+ complete transfer
+To: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org, 
+	Russell King <linux@armlinux.org.uk>, Yann Gautier <yann.gautier@foss.st.com>, 
+	Christophe Kerello <christophe.kerello@foss.st.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-get_size provides its own _start and is linked statically against the C
-library with -nostartfiles. That combination assumes startup and TLS
-details that vary between architectures and C library versions: errno
-lives in thread-local storage that is never set up, and the static link
-expects symbols from the skipped startup files. CI builds have failed
-with undefined _init/_fini on ARM with clang and an undefined _DYNAMIC
-on LoongArch.
+On Wed, Nov 4, 2026 at 4:27=E2=80=AFPM Mateusz Nowicki
+<mateusz.nowicki@posteo.net> wrote:
 
-Build the test with the in-tree nolibc instead. nolibc provides the
-startup code, so the test returns from main(), and it provides the
-write() and syscall() wrappers without the TLS errno problem. A failing
-sysinfo() is now reported as a TAP failure instead of crashing the
-test. Keep the static link and the existing TAP output.
+> With datacnt_useless (STM32 variants) success is 0 on a data error and
+> a CRC error subtracts one from it. bytes_xfered becomes 0xfffffe00 and
+> mmc_blk completes the whole request as successful, although the
+> controller stopped at the failing block. Reads return stale data and
+> writes are lost without any error.
+>
+> Tested on the STM32MP257F-DK eMMC in HS200 with a forced bad tuning:
+> without this change 5 of 14 reads returned zeros, with it all 10 reads
+> were correct.
+>
+> Fixes: b79220b3e0af ("mmc: mmci: add variant property to not read datacnt=
+")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 
-Since the test no longer uses the system C library headers, the kernel
-UAPI headers have to be installed before it is built. Add the headers
-target as an order-only prerequisite, as nolibc-test does, so that a
-standalone build installs them. Link libgcc only when the selected
-compiler is GCC, which needs it for division helpers on ARM, and detect
-that from the compiler rather than from LLVM so that CC=clang builds do
-not try to link a libgcc that clang does not provide.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-nolibc does not support arc, csky, microblaze, nios2 or xtensa, so the
-test can no longer be built for those architectures. This conversion
-also makes the separate i386 vDSO workaround proposed for get_size
-unnecessary.
-
-Link: https://lore.kernel.org/r/20260929043637.1917707-1-wakel@google.com
-Fixes: 3ce51050fadd ("selftest: size: Add size test for Linux kernel")
-Cc: stable@vger.kernel.org # 6.18.x
-Reviewed-by: Thomas Weißschuh <linux@weissschuh.net>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- tools/testing/selftests/size/Makefile   |  9 ++++++-
- tools/testing/selftests/size/get_size.c | 33 +++++++------------------
- 2 files changed, 17 insertions(+), 25 deletions(-)
-
-diff --git a/tools/testing/selftests/size/Makefile b/tools/testing/selftests/size/Makefile
-index b87facc00a6e9..884b42d7fd0e2 100644
---- a/tools/testing/selftests/size/Makefile
-+++ b/tools/testing/selftests/size/Makefile
-@@ -1,6 +1,13 @@
- # SPDX-License-Identifier: GPL-2.0-only
--CFLAGS := -static -ffreestanding -nostartfiles -s
-+CFLAGS = -Os -static -nostdlib -nostdinc -ffreestanding -fno-stack-protector -s
-+CFLAGS += -isystem $(top_srcdir)/tools/include/nolibc $(KHDR_INCLUDES)
- 
- TEST_GEN_PROGS := get_size
- 
- include ../lib.mk
-+
-+CC_IS_GCC := $(shell printf '\043if defined(__GNUC__) && !defined(__clang__)\nGCC\n\043endif\n' | \
-+	$(CC) $(CFLAGS) -E -P -x c - 2>/dev/null)
-+LDLIBS += $(if $(filter GCC,$(CC_IS_GCC)),-lgcc)
-+
-+$(OUTPUT)/get_size: | headers
-diff --git a/tools/testing/selftests/size/get_size.c b/tools/testing/selftests/size/get_size.c
-index 2980b1a63366b..ada6a271711a7 100644
---- a/tools/testing/selftests/size/get_size.c
-+++ b/tools/testing/selftests/size/get_size.c
-@@ -11,26 +11,12 @@
-  * own execution.  It also attempts to have as few dependencies
-  * on kernel features as possible.
-  *
-- * It should be statically linked, with startup libs avoided.  It uses
-- * no library calls except the syscall() function for the following 3
-- * syscalls:
-- *   sysinfo(), write(), and _exit()
-- *
-- * For output, it avoids printf (which in some C libraries
-- * has large external dependencies) by  implementing it's own
-- * number output and print routines, and using __builtin_strlen()
-- *
-- * The test may crash if any of the above syscalls fails because in some
-- * libc implementations (e.g. the GNU C Library) errno is saved in
-- * thread-local storage, which does not get initialized due to avoiding
-- * startup libs.
-+ * It is statically linked with nolibc startup and syscall wrappers.
-+ * For output, it avoids printf by implementing its own print routines.
-  */
- 
--#include <sys/sysinfo.h>
--#include <unistd.h>
--#include <sys/syscall.h>
--
--#define STDOUT_FILENO 1
-+#include <nolibc.h>
-+#include <linux/sysinfo.h>
- 
- static int print(const char *s)
- {
-@@ -39,7 +25,7 @@ static int print(const char *s)
- 	while (s[len] != '\0')
- 		len++;
- 
--	return syscall(SYS_write, STDOUT_FILENO, s, len);
-+	return write(STDOUT_FILENO, s, len);
- }
- 
- static inline char *num_to_str(unsigned long num, char *buf, int len)
-@@ -80,8 +66,7 @@ static int print_k_value(const char *s, unsigned long num, unsigned long units)
- 	return ccode;
- }
- 
--/* this program has no main(), as startup libraries are not used */
--void _start(void)
-+int main(void)
- {
- 	int ccode;
- 	struct sysinfo info;
-@@ -91,12 +76,12 @@ void _start(void)
- 	print("TAP version 13\n");
- 	print("# Testing system size.\n");
- 
--	ccode = syscall(SYS_sysinfo, &info);
-+	ccode = syscall(__NR_sysinfo, &info);
- 	if (ccode < 0) {
- 		print("not ok 1");
- 		print(test_name);
- 		print(" ---\n reason: \"could not get sysinfo\"\n ...\n");
--		syscall(SYS_exit, ccode);
-+		return 1;
- 	}
- 	print("ok 1");
- 	print(test_name);
-@@ -112,5 +97,5 @@ void _start(void)
- 	print(" ...\n");
- 	print("1..1\n");
- 
--	syscall(SYS_exit, 0);
-+	return 0;
- }
--- 
-2.53.0
-
+Yours,
+Linus Walleij
