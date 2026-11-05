@@ -1,50 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907256;
-	b=5pM7Yiewx8YTht7AfSLpNl4tn1/W+GHxjmchZ7yrMtbv/452AkhZ6oTEbRi873c5Sm8S
-	 AGRbQ4c1xAj7IKZXz01K2NU5znB5YE5hL5AyXYDUe7H0DdVsYQe0iUJzSfG+B6qIN+xYQ
-	 EH8GiLBh1+k+uLWm4QqyvEZDRoSQMoBRC3Vcpqn5gUeedeTYiAmNwnhldgXMCL4EJxDe0
-	 wF48P/ijjhNCAkWzG3lKrs0D0PMnSS7NatcYp12vz+vtjP0ZzEGCL716CzLKaXb6D1M3x
-	 w/pjmg3BNu4GTnyFHL4OmtvphsYz3tpXoRMa2FWDgDGpQqcTqYcIUI8Vh69by+ecnRA==
+	t=1793907257;
+	b=cVeyG6Mda140LpOMjTiNy52T9zta31b4klTCP9CPC5+W8wf62qkcvfdURq+B+znC0STD
+	 vrwYL41JnMdIcJNmoJZ9jPsv5eAbkW81TgFHzD65WwsSpjx8f3v6LPvXDvLDKvjjdWWOR
+	 TqxpgDoJifusJm+0YSt5JO8CcxoLFuTwbR7SK4IamGztD7ElwdStUHfL/1aGpUxvPHWFD
+	 IKfFbOEjd6PwZEQYZkpY++GAtvFibGo8Lu2belsMRMBNm3t+OONpwA+4+a2nBTqaqkZcG
+	 AFkYpaObQpdLyRYgo23NsCsVmShSSGghpRHWoEk6hUE5TStztQ5dpgKpXbDbWBVO5Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907256;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907257;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=UgrZOSXgcIR7ewws5Wtl/aD7cavaVZd53IcOP/KOXkE=;
-	b=1/2HUS3wC8dpH4Bn0CAdYePxGc/f8A4FY+oUdDHGnyGPd3ntZHwvrOfgZI+Tltcp9too
-	 4MKk/yGCgFjvyCM4qXY9TebvuI0CrEPxAeivin8As4Mp3hBw4nSio+UxDaz6xl9elN0UD
-	 gTjg5st5yoe555xTsfIpf9/yZyX3qjofSRMjObw9kN69mcMsQd/MZ7sPFDk+PYa/1uy43
-	 NHtV7oBW0KxGcBQNba3BRnmfw9RhQf0ZnbMsxnMu1fixTBPxyyZwjswjdxuUI7FErnxS7
-	 mfDlEYPuv/+TDENlYpZebxOAJFHD8y/UCmIgkxcvmrJsGXGxwtaJTJgoOibFBPxHUFg==
+	bh=Dwu+w6nprYKMghj7ImzZruQ8WOAD5f4IrsT3udHNgFA=;
+	b=cOtRxJQztT82x6fURVrEN98ShVRRDU1GF1ezSi41/pwR50stIaFoxcCAixafqjNweVQl
+	 3Y4ztPDruLknsQIGFY0aONSWvHCx/Bgx9jRCDAczuc4B6iLKMqm6natdGxo0GFPn2D5h+
+	 PbatH2NyjCBZw8nrW5SV/2tlRWx3z4vyGw8y0KRKHJI6GdZ7+om0usjVmwBdnslxd0LdL
+	 gMhz5kwmoAdgb2rN70JA6pTwNq5MwpGWg1tugyVYYYMC8dAahk14JosyEiPlvEU8jXFe3
+	 /myEh/kwEK/0JJrR8Mdp+LwIjuR8hYZHIiAh1BWovbM+C5XCOcFRLlkVHEQqf4xGK2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=wfUNz3ai;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1086D606B056;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10728606B04D;
 	Thu,  5 Nov 2026 19:34:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1086D606B056
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10728606B04D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=wfUNz3ai
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
 	s=smtpout1; t=1793907249;
-	bh=UgrZOSXgcIR7ewws5Wtl/aD7cavaVZd53IcOP/KOXkE=;
+	bh=Dwu+w6nprYKMghj7ImzZruQ8WOAD5f4IrsT3udHNgFA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=wfUNz3ai7Y58tnwvg1X98+jEC4IVm8uKj/gJTQ/Sp4733zg52AZNaIj5RB0SMKRWk
-	 ywcxvSHd3zd3LTeTEYOaC0M8kyXrb7Fekr3soVdSnjPSUlPQrQHPEpL6Ae9E9fP6sP
-	 uVjJgeEiPBVLjjiN3OTCAhGcgiPEozjRKO5EHfHgKBL3oxXg5fRSrhs/qt6nXV+aXM
-	 8gCaT2kNyUJLMXQuony0BpxnTlqlbnmVlM5ViFK/XWYmGkKjs+fVmT/WDAqR9ShAnO
-	 Tn8IwalGGgjAZ/UdVfjDYoI1g0ByUFSMOwnHAcBNyYPASPmp5Bo514hrHEwsfxGBge
-	 GWKDEcetfIU6w==
+	b=cLOFZRqHGkbRk1JF7270nxuXKvXdMY5v5n1BMxA8s13eHDvOesMKsM+5e5VCPcGAo
+	 rv64FZ6IUjm8cZmopazZbPOj4a8SAXwJXS0T/z9YPzMEcd03atXm/DZdbdF/upFDHa
+	 PcvEMaRbIA4CYh2Uj+LjpT6dlXjiaIXWNPB0TTBlVrcKDpFvs+wHw27Vs77uAJAVBj
+	 hF3nhrWX0VoRQ73+ce91RXVCQAMu3Y/Co78Z6tc8yzeGDt78En7C+w7H/oNYgvYP4f
+	 4P3y+lOOBH2AVtPReva4baH7wCF7Ltk08qgw9u43o2me1sHc6ejhbqWYFaEw3BrSgt
+	 QJWQjz+cQznfw==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLCDK0NNszLDS;
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLCDK40jzzLfJ;
 	Thu, 05 Nov 2026 14:34:09 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
@@ -76,11 +73,10 @@ Cc: linux-kernel@vger.kernel.org,
 	cgroups@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
-	Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 01/24] sched: Fix cpuset_mutex double unlock in __sched_setscheduler()
-Date: Thu,  5 Nov 2026 14:33:36 -0500
-Message-Id: <20261105193359.1450487-2-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v3 04/24] sched/deadline: Do not divide by zero active CPUs of a root domain
+Date: Thu,  5 Nov 2026 14:33:39 -0500
+Message-Id: <20261105193359.1450487-5-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
 References: <20261105193359.1450487-1-mathieu.desnoyers@efficios.com>
@@ -95,162 +91,113 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Andrea Parri <parri.andrea@gmail.com>
+__dl_sub() and __dl_add() spread a change of a root domain's total_bw
+over the extra_bw of its active CPUs, dividing it by their number, which
+their callers take from dl_bw_cpus(). That number is 0 for a root domain
+whose CPUs all went offline, such as the default root domain, which
+holds the offline CPUs: the division then traps.
 
-A sched_setattr() with SCHED_FLAG_KEEP_POLICY on a SCHED_DEADLINE task
-unlocks cpuset_mutex twice if the task's policy changes concurrently:
+A debugfs write of a fair server's runtime or period reaches it while
+its CPU goes offline or comes online. From the rebuild of the root
+domains in sched_cpu_deactivate() until the CPU is offline, and from the
+CPU online until sched_cpu_activate(), the CPU sits in the default root
+domain, with no active CPU, and the write is refused only once the CPU
+is offline, since commit 4043f5498416 ("sched/deadline: Reject debugfs
+dl_server writes for offline CPUs"). A write that leaves the server's
+bandwidth as it is passes admission there, __dl_overflow() comparing
+that root domain's capacity, 0, with total_bw less the old bandwidth
+plus the new, 0 as well, and dl_server_apply_params() divides. Any other
+value is refused with EBUSY, higher directly, lower through the unsigned
+subtraction.
 
-  WARNING: bad unlock balance detected!
-  7.4.0-rc1 #1 Not tainted
-  -------------------------------------
-  repro/126 is trying to release lock (cpuset_mutex) at:
-  [<ffffffff9a17cacc>] __sched_setscheduler+0x9cc/0xc40
-  but there are no more locks to release!
-  ...
+Writing a fair server's own runtime back in a loop while its CPU goes
+offline and online oopses on the first round, in 8-CPU VMs of v7.4-rc1:
+
+  Oops: divide error: 0000 [#1] SMP NOPTI
+  CPU: 6 UID: 0 PID: 110 Comm: dl_server_div0
+  RIP: 0010:dl_server_apply_params+0x335/0x380
   Call Trace:
-   print_unlock_imbalance_bug.part.0+0xfb/0x110
-   lock_release+0x286/0x2e0
-   __mutex_unlock_slowpath+0x1a/0x400
-   __sched_setscheduler+0x9cc/0xc40
-   __x64_sys_sched_setattr+0xa3/0x1b0
-   do_syscall_64+0x106/0x5f0
+   <TASK>
+   sched_server_write_common.isra.0+0x1c0/0x260
+   full_proxy_write+0x58/0x90
+   vfs_write+0xcb/0x550
+   ksys_write+0x6c/0xe0
+   do_syscall_64+0x109/0x5d0
    entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-__sched_setscheduler() samples p->policy before taking any lock, and
-restarts from the recheck label if p->policy differs under the rq lock.
-The restart drops cpuset_mutex but leaves cpuset_locked set, so a pass
-that no longer needs the mutex still unlocks it on its way out:
+inactive_task_timer() can reach it too, found by reading: it releases
+the bandwidth of a task that left SCHED_DEADLINE, or died, before its
+0-lag time from the root domain of the CPU the task is on, and that CPU
+may go offline before the timer fires. With admission control off, so
+may sched_setattr() to SCHED_DEADLINE of a task asleep on an offline
+CPU.
 
-  CPU 1                                CPU 2
-  __sched_setscheduler(KEEP_POLICY)
-    policy = p->policy /* DEADLINE */
-                                       __sched_setscheduler(SCHED_OTHER)
-                                         p->policy = SCHED_OTHER
-    cpuset_locked = true
-    cpuset_lock()
-    rq = task_rq_lock(p)
-    oldpolicy != p->policy
-      cpuset_unlock()
-      goto recheck
-    /* no cpuset_lock() this time */
-    ...
-    if (cpuset_locked)
-      cpuset_unlock()
+Refuse the write while the CPU is inactive, as it is refused once
+offline: the server's bandwidth is not counted while the CPU is
+inactive, and the rebuild at its activation counts whatever the server
+has then. With no active CPU there is no extra_bw to update either:
+change total_bw alone, for the paths that have no write to refuse. 20
+rounds of the reproducer leave no warning then, its writes refused with
+EBUSY in the window.
 
-Without CONFIG_DEBUG_MUTEXES, or CONFIG_DEBUG_RT_MUTEXES on PREEMPT_RT,
-nothing warns. The second unlock still clears the owner field regardless
-of who holds the mutex, so another task can lose cpuset_mutex inside its
-critical section. Entering SCHED_DEADLINE needs CAP_SYS_NICE, but a
-racing caller that owns the task does not need it if it samples a policy
-other than SCHED_DEADLINE.
-
-Clear cpuset_locked when dropping the mutex for the restart. This should be
-safe because the flag is only tested on the paths leaving the next pass,
-after that pass has set it again if it took the mutex.
-
-The following program, run as root, reproduces the splat, which no longer
-appears with this applied. On PREEMPT_RT it crashes the kernel within
-seconds, which this also fixes:
-
-  #define _GNU_SOURCE
-  #include <pthread.h>
-  #include <stdint.h>
-  #include <sys/syscall.h>
-  #include <unistd.h>
-
-  struct attr {
-      uint32_t size, policy;
-      uint64_t flags;
-      int32_t nice;
-      uint32_t prio;
-      uint64_t runtime, deadline, period;
-  };
-
-  static volatile int stop;
-  static volatile pid_t target;
-
-  static void set(struct attr a)
-  {
-      a.size = sizeof(a);
-      syscall(SYS_sched_setattr, target, &a, 0);
-  }
-
-  static void *sleeper(void *arg)
-  {
-      target = syscall(SYS_gettid);
-      while (!stop)
-          usleep(1000);
-      return arg;
-  }
-
-  static void *switcher(void *arg)
-  {
-      while (!stop) {
-          /* SCHED_DEADLINE, 2us every 1s */
-          set((struct attr){ .policy = 6, .runtime = 2000,
-                             .deadline = 1000000000,
-                             .period = 1000000000 });
-          set((struct attr){ .policy = 0 }); /* SCHED_OTHER */
-      }
-      return arg;
-  }
-
-  static void *racer(void *arg)
-  {
-      /* KEEP_POLICY | KEEP_PARAMS */
-      while (!stop)
-          set((struct attr){ .flags = 0x18 });
-      return arg;
-  }
-
-  int main(void)
-  {
-      pthread_t t[5];
-      int i;
-
-      pthread_create(&t[0], NULL, sleeper, NULL);
-      while (!target)
-          usleep(100);
-      pthread_create(&t[1], NULL, switcher, NULL);
-      for (i = 2; i < 5; i++)
-          pthread_create(&t[i], NULL, racer, NULL);
-      sleep(30);
-      stop = 1;
-      for (i = 0; i < 5; i++)
-          pthread_join(t[i], NULL);
-      return 0;
-  }
-
-An LLM helped find the PREEMPT_RT crash and write this patch and its test.
-
-Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20261016062629.2102883-1-sh_def%40163.com
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Fixes: daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl tasks")
 Cc: stable@vger.kernel.org
-Reviewed-by: Waiman Long <longman@redhat.com>
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- kernel/sched/syscalls.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ kernel/sched/deadline.c | 11 +++++++++--
+ kernel/sched/debug.c    |  7 ++++++-
+ 2 files changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index 45a127deeadd..2af550f92ac6 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -640,8 +640,10 @@ int __sched_setscheduler(struct task_struct *p,
- 	if (unlikely(oldpolicy != -1 && oldpolicy != p->policy)) {
- 		policy = oldpolicy = -1;
- 		task_rq_unlock(rq, p, &rf);
--		if (cpuset_locked)
-+		if (cpuset_locked) {
- 			cpuset_unlock();
-+			cpuset_locked = false;
-+		}
- 		goto recheck;
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index c0ebdcde5fe5..4650bed9cc3f 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -189,18 +189,25 @@ void __dl_update(struct dl_bw *dl_b, s64 bw)
  	}
+ }
  
++/*
++ * @cpus is the number of active CPUs of the root domain, whose extra_bw
++ * shares the change: none once they all went offline, and total_bw alone
++ * changes then.
++ */
+ static inline
+ void __dl_sub(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
+ {
+ 	dl_b->total_bw -= tsk_bw;
+-	__dl_update(dl_b, (s32)tsk_bw / cpus);
++	if (cpus)
++		__dl_update(dl_b, (s32)tsk_bw / cpus);
+ }
+ 
+ static inline
+ void __dl_add(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
+ {
+ 	dl_b->total_bw += tsk_bw;
+-	__dl_update(dl_b, -((s32)tsk_bw / cpus));
++	if (cpus)
++		__dl_update(dl_b, -((s32)tsk_bw / cpus));
+ }
+ 
+ static inline bool
+diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
+index e6a3b516c703..a4ae092e0a68 100644
+--- a/kernel/sched/debug.c
++++ b/kernel/sched/debug.c
+@@ -410,7 +410,12 @@ static ssize_t sched_server_write_common(struct file *filp, const char __user *u
+ 			return  -EINVAL;
+ 		}
+ 
+-		if (!cpu_online(cpu_of(rq)))
++		/*
++		 * Nor while it is inactive, going offline or coming online: the
++		 * server's bandwidth is not counted in its root domain then,
++		 * which has no active CPU to spread a change over.
++		 */
++		if (!cpu_active(cpu_of(rq)))
+ 			return -EBUSY;
+ 
+ 		update_rq_clock(rq);
 -- 
 2.47.3
 
