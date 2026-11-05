@@ -1,66 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793859363;
-	b=LcjctPqsINhmkpjRrWzoXmJP/NtwXx3N8c9pFK2G9ETDgHUXFeXbZQO+eO2TiNIooGIS
-	 oCYEh16yw2kPCyGNLL11w4jVmgbj3JHbno+CHkvlauL3n0JTF9+pzqadzAI2AvnFvb5e7
-	 RDptwsuI7WkgonhQbGM+k0dt3WuaF9OhBTq/XGm8/QdCdV3X3q8N8Wys29PPNWbArotxq
-	 zXWh1kTDLqSkitFkkvQh+tKYqLiTR7hgnSpgFplnHuCyPfVe1i9inf0ZpIU70Q2JwJaRV
-	 8H+M4Tl5NS1ZOhcr/klpRXS91k5Ax+SfKFK0NxHrR4pMXiR7ojbMTnwHfXJ3LEjsKXg==
+	t=1793859739;
+	b=mz4yzLAB/8F9KAHl0WgTGszKq4cMmEG4AsKslW7QADpts8RIpsov9jQpNyCw6Ihyf9lo
+	 YtJsT3zA/2rxQIY1l+liX2EJqDMw8ev8wB4LzU8gkeNgqmxhlgTU6SXCrKUnLAZG2UPsd
+	 C6XnedAenAGpBi17cs/t092Nwhp4hddz8BMH5Z0QyOe8Brw2NmGg63IsjTfa7d8GlBRSP
+	 RGTMk1wagZws53EJzXjIjmG+TyRlcaxySAT8GpRap5SYYn0GAsbzA5j95mQW3IF+MvhYr
+	 vrgHiP7a5jY2xyphNphA87HtuOiM8RDMCN+MoNowepOoMTKepI1DN73M0Fijg3HzeSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793859363;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793859739;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Ht3VAbHQHzDHei4QEb4HwEqvM3SGqJetP0+wHUtoq+E=;
-	b=1nGe4xGSfGs5CML7JMO0lArXKH9T/RrCJsiyerI6//k9DRNq/4Z+b/s+ljVJEqtcabh9
-	 KnIy5/QtYkzRws48EIzy3Fz9Bdchr8a+cFSwtPs5bQejVmmTeMpDvHcv4oJpc4gSAhjlB
-	 Ppqu51ObHz2NKcU3bYxxNHNBJTnRxEeQrrR7CVG5mBDPUkdmZFWh6R/pX5ewqF5Zb7kHm
-	 dQxdp0lQM+ndCesNuGEObm5m7Gl+Mgn4EV7Cq37ozxnvEvIu/BO72IZPKKvlq10Mxhm5T
-	 qFK+aDK2A38Php2PoxjQHDxiy7b58AM4TsKg3Zk/a23MvAFeW8Us4eUTDcv15PT5bZw==
+	bh=c22kVI6iDaDjz+Pxwg/q1MAEsUvOm3Q18F07aEiZhTo=;
+	b=2Nq5v/sMsMGTNYQvArDrmqE+ww5d2QLwt6fbvAyvsiyB/BZ0qXwVtp1earZAP740s2Si
+	 91WUyeny1Cr0h6e+u1LYf1tcVAxEHktD2QcZPdemqLhq3FXPrzFRMlp9fggD3cbk24twG
+	 DbZS0RHCaYVU8jOLgobkzJugGowOv/G9sCQMy1O7RJ2kPOtv5RKIigRvU0vmbjl8DmiO7
+	 DPNIl0A3g10609UsiiGzZOnmzq6UscoU5MHfvOELHqacHzGGAVhG5HqqZvgktHl8mim0n
+	 1mR9ASswlhVlCbmBIRRqTHCnbtyoTctW2duluRtLacwoGpg8IuXFT8mbxau2f1P57UA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cN8Xc5kn;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EyW7iDVS;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F40B606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 06:16:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F40B606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D1F606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 06:22:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42D1F606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cN8Xc5kn
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EyW7iDVS
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793859362; x=1825395362;
+  t=1793859738; x=1825395738;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=7aUoKw3oosq0gAMmL/iJQ0+9zD1YGeuiR6rLRzJNxB4=;
-  b=cN8Xc5kn3OB7BLNjozHEoNBwhbAyTMKNrSF1hNlEC6QCyi8+SZMJdPpm
-   3d7znU7owhnjocYL4wdQ+706JVn0doG+44MnYkS9KD1+EynhX8Exsk67Y
-   6R6NBqLH5wr5RHGwUpwxzKDfM9XvK/ltaxQcLPB0oTpY+0BLooXt0t81u
-   KHCM2yvYPwPmmdbTqzb4eBY0TA57gjPekYYoyTMjzvwAWofHJhzPJk4gx
-   +R9c+mkJflGXzVo9uczZMYV/HZ6f+YlMDke9hGeGpI6589ed61VWPCTes
-   /VvdTC4zeGWVahKD5VxlYAX8FhclIh+w49nW+XkJUGNH2J4vQ/KZMn75+
-   A==;
-X-CSE-ConnectionGUID: UrTJYbNhQlW3giNqOzetxw==
-X-CSE-MsgGUID: kCdxwbHIRHOkrtjk65seBQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2670063"
+  bh=6jAi/xu4gl+txHbT7Jeh6opdG3IOgfnmDvp+yvOmTrw=;
+  b=EyW7iDVSsWNo+g5z3pbZV2ZO9zngZw/jHAUBkaJKpe+z9izLOw0OYKN0
+   KHvjUyZldqL9ifiE102T5j5uuI7QI43LJiX2r++ao6KS+0XHnksKhdos7
+   nXFIQ7vKk6e8nwYhnWQF+cBleg4oQoX2GKIRrjfugD41ipmoaPAG8O/Fu
+   HtssypP6ABizjhlAlqdyvhO6GoI9nm1+aDWjQB5oTAjbv2oM/39qfc3qc
+   JvtWg4V+uSmd6btzJxDohTDEN2KvzPr6N0Dr+lLg49q/Ak1l8fk4IjH6X
+   4tWcQZqAGlTFSJ+V4jCcb/8hHHJGGQQvl8PZVxAydJ0qvg1gKVG1AKHgD
+   g==;
+X-CSE-ConnectionGUID: lWGpn1bpTJW7EeV+7IWveg==
+X-CSE-MsgGUID: /666IMmNQHGNLRKg0d0rxw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2673470"
 X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="2670063"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:16:02 -0800
-X-CSE-ConnectionGUID: ATGGm9MPR52HKXI208cR5A==
-X-CSE-MsgGUID: 3xNzNSgFTy+iD08vbBAtDA==
+   d="scan'208";a="2673470"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 22:22:18 -0800
+X-CSE-ConnectionGUID: K5CN2UuwSF6iRTCVTEEI4w==
+X-CSE-MsgGUID: ugNHYbTJRlqFJQonmR5TSA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,196,1787036400"; 
-   d="scan'208";a="7031045"
+   d="scan'208";a="8689784"
 Received: from lxy-dev.sh.intel.com ([10.239.48.89])
-  by orviesa009.jf.intel.com with ESMTP; 04 Nov 2026 22:16:00 -0800
+  by fmviesa011.fm.intel.com with ESMTP; 04 Nov 2026 22:22:15 -0800
 From: Xiaoyao Li <xiaoyao.li@intel.com>
 To: stable@vger.kernel.org
 Cc: xiaoyao.li@intel.com,
@@ -68,12 +68,12 @@ Cc: xiaoyao.li@intel.com,
 	Yan Zhao <yan.y.zhao@intel.com>,
 	Binbin Wu <binbin.wu@linux.intel.com>,
 	Rick Edgecombe <rick.p.edgecombe@intel.com>
-Subject: [PATCH 6.18.y] KVM: VMX: Formally define KVM's "0xdead" exit reason used for failed VM-Enter
-Date: Thu,  5 Nov 2026 12:02:08 +0000
-Message-ID: <20261105120208.2031475-1-xiaoyao.li@intel.com>
+Subject: [PATCH 6.12.y] KVM: VMX: Formally define KVM's "0xdead" exit reason used for failed VM-Enter
+Date: Thu,  5 Nov 2026 12:08:12 +0000
+Message-ID: <20261105120812.2037884-1-xiaoyao.li@intel.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110438-shrink-panic-2119@gregkh>
-References: <2026110438-shrink-panic-2119@gregkh>
+In-Reply-To: <2026110439-makeshift-acting-834f@gregkh>
+References: <2026110439-makeshift-acting-834f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,7 +115,7 @@ Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
  2 files changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/arch/x86/include/asm/vmx.h b/arch/x86/include/asm/vmx.h
-index c85c50019523..a9daddd84ad6 100644
+index f7fd4369b821..ac2c0665b661 100644
 --- a/arch/x86/include/asm/vmx.h
 +++ b/arch/x86/include/asm/vmx.h
 @@ -20,6 +20,14 @@
@@ -134,10 +134,10 @@ index c85c50019523..a9daddd84ad6 100644
  
  /*
 diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 5bae3d5ce6ee..54a78d5e9fe7 100644
+index 7e098fb60bbf..7a8dd42b9032 100644
 --- a/arch/x86/kvm/vmx/vmx.c
 +++ b/arch/x86/kvm/vmx/vmx.c
-@@ -6173,6 +6173,8 @@ static int (*kvm_vmx_exit_handlers[])(struct kvm_vcpu *vcpu) = {
+@@ -6151,6 +6151,8 @@ static int (*kvm_vmx_exit_handlers[])(struct kvm_vcpu *vcpu) = {
  static const int kvm_vmx_max_exit_handlers =
  	ARRAY_SIZE(kvm_vmx_exit_handlers);
  
@@ -146,12 +146,12 @@ index 5bae3d5ce6ee..54a78d5e9fe7 100644
  void vmx_get_exit_info(struct kvm_vcpu *vcpu, u32 *reason,
  		       u64 *info1, u64 *info2, u32 *intr_info, u32 *error_code)
  {
-@@ -7354,7 +7356,7 @@ static noinstr void vmx_vcpu_enter_exit(struct kvm_vcpu *vcpu,
+@@ -7313,7 +7315,7 @@ static noinstr void vmx_vcpu_enter_exit(struct kvm_vcpu *vcpu,
  	vmx_enable_fb_clear(vmx);
  
  	if (unlikely(vmx->fail)) {
--		vmx->vt.exit_reason.full = 0xdead;
-+		vmx->vt.exit_reason.full = EXIT_REASON_UNDEFINED;
+-		vmx->exit_reason.full = 0xdead;
++		vmx->exit_reason.full = EXIT_REASON_UNDEFINED;
  		goto out;
  	}
  
