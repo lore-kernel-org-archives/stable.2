@@ -1,55 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840714;
-	b=1djQVTi0FKCqXQBMmI8ozN+FObewsmvwMYhcLhWeUn70NhoWSRII0PRvM/8D4DzIDeRa
-	 AcUyM6AseL5/hGokCtrpH5d9HmeOZzCESzV7elf7SOZGh7ddD4UA25pqlt8awTTrbvryW
-	 yTBWRz0wSlJqRCZ6fJ24wBOPdsUoiWH0dKuMok0H3wTbgP4ThlSiV1Oko9sehIt6rnwOq
-	 5jzNMe2yCHtMSpoZAikHQLa7FgZLihdbKnVGSEmtM1lKKmpEU2ck/wI4PJJRgRJaX/qVI
-	 0jX4xeVwXMhfW6iDik76TqrWCY7ZC6590tRZDjK0Y1+VVcP047TEsghEhObXwVnna/g==
+	t=1793840778;
+	b=lyI2n4X9wEVpG6wdzR+4ohwC/KbT0ae/FjeOUqUdylpDWUHPaHJE05fx6VAIVlrLb3GB
+	 4rORH/t5LgR5ZBTdiX//EivPcs/GZPPhgfWgI3aRrEDlTU39yIQ0zBx24qzQNWXtuWkAZ
+	 CxXoV63gx+43JgX+J7mcDSh5nEPPB+DhIn12Z7Pl1sIEdPxS+b649klDG8FZ/77yToq+6
+	 jZH08207sqPf3AGt8bV07N72EEqrXBhN2mP/Wz3TQ0c8XaQqR6pAff9D8czUkKSTJXRgq
+	 U/fl4/fRcvHDlmRVkxBeuEpsZvMkAdiKpHlRgnvFYr6nwOgh8/2qsOVatT8Ar8cd2cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840714;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6TMe2Ccnv5qjbtBbc8Ely43sy+kQVkJJ/fNbvF1VPYQ=;
-	b=GGgIVctuMCOxl4C9ZX4HyAXAF1MJD9CuJ1U90Y2/iepJkne7Z/x2vU+6Lglz/uL8TpD3
-	 9rBcw3skuG5KibD9gBfgvUnHGDwFwXx+jbX7sjPS7yl9rk4VREPt8hqL9BplTEnI0qbfa
-	 n2Z7NcQwiu7DUg5GYhhY6OfKGdz+CgHdBLEfc4UX72LXckcJB9JyAuWZcYVRKcN20b+vW
-	 lHIHgUmLLVdU/2vgzNdjBTOlr0M1qf0rBxAxpSSE6gSc+vp21oqETFkXG9t5yyH+NEMGo
-	 ybZNaMTuUtw2ELDNb8RoY9/Vdt4+Fweb0JF9OC9iU5ZdhsObR2vot3mw3ShtaKao2Bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793840778;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
+	 X-Content-Kind-Code:In-Reply-To:X-CPGS-Detection:X-Drm-Type:
+	 X-Msg-Generator:X-Msg-Type:X-Reply-Demand:Message-ID:Date:
+	 X-CMS-MailID:Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:
+	 CMS-TYPE:X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
+	 X-CMS-RootMailID:References;
+	bh=7oacRK3Pt7sPDmCYh3oGr8HRMGBnelioWyFlTRnDaT4=;
+	b=4ekTau3d9eXOYN0WSdUpDPzc698lXQ5wRPh36IXVIq6N87Yxmo0qZbrtiGHUhEtBvofY
+	 ZHxiCsU2eRcewYmEQ1Gpd5B2zET0ZC6MJH+5yEpHsn4dwswwxFy5MISkBfluYYkRmc/5J
+	 igfao3XRWo6EHaFfhQ7qguqS/FxIGU0seKia6LoZ6CRt42elpYdkzfsIcXl2sdIOxPOFj
+	 Yn65cEZ95vkPQjnVGkuPAcQLrJvxcmU4u/Lm2BK4Cw3tNkopQMWqjU7wtaInHuzqK2jQ8
+	 LM52yrR6MS11gdm48+cNB3VWs5O4DVQgOZOyDO5JVXlnov7YNjBWXJlvPEjlO6D6oIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oHHNdrsv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=RA3zsBB6;
+	arc=none smtp.remote-ip=203.254.224.34
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65EA606A333
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 01:05:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2711E606A329
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 01:06:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2711E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oHHNdrsv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FB281F00A02;
-	Thu,  5 Nov 2026 01:05:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793840713;
-	bh=6TMe2Ccnv5qjbtBbc8Ely43sy+kQVkJJ/fNbvF1VPYQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oHHNdrsvp98TUgJ7TqiS6Ro2ABwaAx/wTu4G+7Ij9LOnSz+RfV9OK4CJJDO1Lbzbl
-	 xOL9J0PpDFvIqTptqp/TgJi0lHLcbi629XoiaQmYeUG1/+s2+L6TbZDEJ+iBLr9D7W
-	 iO33D62K1RJUGTTni7hJIesGEI3yZ9n3A98sbErWmk6AGZ0Vw9MwLLwBj5IYygXOOu
-	 S1fnTuvQJy2ecq4xzwerFZLLMYqaCBzhLY5qQjt5fq1m6U53mlzBtYniVFWBff8oTD
-	 EA2nu0afHnoXWr+F7vbRx0iVZZfBCxGta7DtFtQEbiXpSElAaOigDp+CQeRs8lVOqQ
-	 WKh10J5FRQ8Og==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sean Young <sean@mess.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] media: rc: Fix race between bpf(BPG_PROG_ATTACH) and device unregister
-Date: Wed,  4 Nov 2026 20:05:12 -0500
-Message-ID: <20261105010459.1096550-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110455-abacus-sitting-9c3b@gregkh>
-References: <2026110455-abacus-sitting-9c3b@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=RA3zsBB6
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261105010614epoutp04978c33af3f62dc6645b80f1d6cecaeb5~lAK47iCa22814228142epoutp04c
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 01:06:14 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261105010614epoutp04978c33af3f62dc6645b80f1d6cecaeb5~lAK47iCa22814228142epoutp04c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793840774;
+	bh=7oacRK3Pt7sPDmCYh3oGr8HRMGBnelioWyFlTRnDaT4=;
+	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+	b=RA3zsBB6URHMzGwoGYVTZtDnG4Z/RSmoifO152SpBUu+BE87rLi3SQfpeaFgcWXKA
+	 E+4yTCLFFv47LIa+83OerP4m0YunVhraHGUkgn7/KS74QvP4afwSZiLvwjZk0B7/2N
+	 WJFaNH6P/Rtf+gXJ4fF4CmO1KriIpBYMuSjlBT9c=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261105010613epcas2p104a21c4f3ac935d60d726cc0c56fbdee~lAK4A-fKR0052700527epcas2p1G;
+	Thu,  5 Nov 2026 01:06:13 +0000 (GMT)
+Received: from epcas2p3.samsung.com (unknown [182.195.38.212]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4jKkdx2v9gz6B9m7; Thu,  5 Nov
+	2026 01:06:13 +0000 (GMT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,56 +62,60 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Subject: RE:(2) [PATCH 1/2] mm/huge_memory: set memcg_data before a split
+ page leaves the folio
+Reply-To: daejun7.park@samsung.com
+Sender: Daejun Park <daejun7.park@samsung.com>
+From: Daejun Park <daejun7.park@samsung.com>
+To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>
+CC: Tao Yi <escape@deepseek.com>, Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+	David Hildenbrand <david@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett"
+	<liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, Ryan Roberts
+	<ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
+	<baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
+	<usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Vlastimil Babka
+	<vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Brendan Jackman
+	<brendan.jackman@linux.dev>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, Daejun Park
+	<daejun7.park@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <DMMKKOIGA9UJ.353PCUUMFLCCJ@nvidia.com>
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261105010612epcms2p60abe5ce24c4ca7d61236b613a517fe2a@epcms2p6>
+Date: Thu, 05 Nov 2026 10:06:12 +0900
+X-CMS-MailID: 20261105010612epcms2p60abe5ce24c4ca7d61236b613a517fe2a
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261104163327epcas2p1f056cd220dc0d3e40e6fcea082f01b74
+References: <DMMKKOIGA9UJ.353PCUUMFLCCJ@nvidia.com>
+	<20261104-kpagecgroup-split-v1-0-f70e947fec85@samsung.com>
+	<20261104-kpagecgroup-split-v1-1-f70e947fec85@samsung.com>
+	<CGME20261104163327epcas2p1f056cd220dc0d3e40e6fcea082f01b74@epcms2p6>
 
-From: Sean Young <sean@mess.org>
+On Wed Nov 4, 2026 at 11:33 AM EST, Zi Yan wrote:
+> Assign memcg data before clear_compound_head(), so lockless,
+> reference-free readers get the right value instead of bogus data from
+> the overlaid ->_nr_pages in the first tail page.
 
-[ Upstream commit b3f5daf3222999d3f92f606a4eb5e35ab90fd0e4 ]
+Thanks, agreed. Your wording says why the assignment has to come before
+clear_compound_head(), which my comment left implicit.
 
-Mark the device as unregistered before tearing down raw IR/bpf
-state, so that racing bpf(BPF_PROG_{ATTACH,DETACH,QUERY}) calls
-cannot slip in between ir_raw_event_unregister() completing and
-dev->registered being cleared.
-
-Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
-Signed-off-by: Sean Young <sean@mess.org>
-Cc: stable@vger.kernel.org
-Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/media/rc/rc-main.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index 2eaacfa1e29eb..9ee1ea13550bd 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -2030,18 +2030,18 @@ void rc_unregister_device(struct rc_dev *dev)
- 	if (!dev)
- 		return;
- 
-+	mutex_lock(&dev->lock);
-+	dev->registered = false;
-+	if (dev->users && dev->close)
-+		dev->close(dev);
-+	mutex_unlock(&dev->lock);
-+
- 	if (dev->driver_type == RC_DRIVER_IR_RAW)
- 		ir_raw_event_unregister(dev);
- 
- 	del_timer_sync(&dev->timer_keyup);
- 	del_timer_sync(&dev->timer_repeat);
- 
--	mutex_lock(&dev->lock);
--	if (dev->users && dev->close)
--		dev->close(dev);
--	dev->registered = false;
--	mutex_unlock(&dev->lock);
--
- 	rc_free_rx_device(dev);
- 
- 	/*
--- 
-2.53.0
-
+Thanks,
+Daejun
