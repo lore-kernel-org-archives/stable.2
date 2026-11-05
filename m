@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793854974;
-	b=fzjYM+0scVy24nPvCt16Hy0lOm+9c6nFUg+gddm8XD3T5DpFMtUK+djNse41iXX/F2o9
-	 ZYIexfENy4bsW80CSPSNb68Z5ktGDfmNswBFpz/+C7OC/XjBSZxeL5apQR0max94c03oj
-	 Eb+VfOVd0p6+yRUqLbLq2rGwZ+i/c1o93lNW7vtrGK4rJtN7QnimGkllWL2ZH0umhFqyK
-	 ro2eOCvL69scFMCRdqLJHxWO1B3XWVnKuTd9uM0AIHFSQTLCAo01hGuAG5p2e/DY+QK7V
-	 TOy4q18q+ipldYhAQJ02j818QBcnwOnsuUrEee6I1ImMSSRQgZ94zJZw+qTrmWMhr8A==
+	t=1793854972;
+	b=uOwpy3pEdhQiBi0nWzNf/Z49gN9BpnaVkpUMxGTbpXaJbse92OXIHJ6bBb9zeEpBakwO
+	 ttjz1i3roC1TpyzupwY9fO6ec3vt7vVAx7Te09V7wCxRVxg870Zp3TklwIo/q4QfaO9zE
+	 pgdATeCX365YjbthB6fwdKImhrflqmwzO6ns0uvc0YebbXUSd4JaGkRtIZp9478bq7NY4
+	 b6RfFcbcXGswO89CLKTgsaQed6smQYZoFiCBkzo8JLnaPTPdeQZthgWw9pDLazJ5DCAmf
+	 WqDZ96qxMs+EX4XYzT0gC8fS14lFvR2F9yoYqrjzRRouzAP/Q1o1QMN+W9XzZD8scEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793854974;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793854972;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=TF3dG/II9qrYEa2Qmqny+KjCxq+HEK6VEhmgidqtZ9g=;
-	b=QeQIaA+IlBhxRfYP1/8P49F2o87AiPBZt/Et3Z87fNrqLd7wPPK8U9L2fHaT+RgwKDS7
-	 DxMr1E8ZgX/lWi66LfkyNqXSoJaL9rwKnTpSAMvYK7TTELo/VE3VJW/MiXTCyAqnc7XfR
-	 2iyerTYpPJSKXs0UmZUL0dF0LXlGDI75nWrgHQKgZTqF117sV1XSroOPeW4Ke27OIQ4j7
-	 MgMukSkoQWJiz6A/T2xNJjP46C1jMBky89GRdMkEWdlzNciHZGHJxnqa+B0umkESA4oMP
-	 y/4sGp3EG0kAfiyB0f+qwZs47m1hLpifR+1m5Fp85lxV75DO4CKX3dJmbftRN4I9gqQ==
+	bh=JrA96iHSEppxQ2hp+sSJL/g5LPKU9LnKIC8wGzFqNw8=;
+	b=cTxfGXPITNXEsf5PTJC7C9VeJ4hRREFth8m4wJQ3DRTNvAlXtvPqjXwIMTOjsNxG4ded
+	 YIyGsJP+alW2ffO9JfQH7NGuAgmtlU/znWKZp509+7rRBx5wcHULR2IjVdrmVzMbL3pTe
+	 zPuSSPDneCVu2m1ioOPXu9Ki5C/JhWcPCQRHg4a2VvrMSxDPh7RtLxRcD745rEL2q/9mY
+	 4eUd4VB90ImAc3d4JDyOEaRiPgfuQ8dTcirQ4unQgR+Atvkt+9WMFSPgMdo9CRl1lSPz0
+	 uqPn5ileCwQlPBzghjp1aUdFzQmypT97jM81WfdMMa/ySy0jOybfFv/L6rk4SDaFqqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jvcXWPBo;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VxNtRLI3;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19111606D801
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 05:02:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19111606D801
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7A5E606D821
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 05:02:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7A5E606D821
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jvcXWPBo
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15ea896ddc8so2537290c88.0
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 21:02:53 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VxNtRLI3
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1ae18eb9ad0so1688752c88.1
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 21:02:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793854973; x=1794459773; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793854971; x=1794459771; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TF3dG/II9qrYEa2Qmqny+KjCxq+HEK6VEhmgidqtZ9g=;
-        b=jvcXWPBo4oPsQGKrdvmfRGUxrtNptrfBHwHbDuBYiWoBP/PbA/e0/6vIGvZDg1o4KW
-         xBy/ROcm1nDKrffPpwBo2MOmMNxacoz4XahOMl9+Q6QY18NzDS+UGvKiN4hB0MgpuyiE
-         omok6Wmkl4sB+merjoI1ah8wVRDErhWLA4ULo4HvU6Z5CK+dhc9AANDHEbCKt9qX3Wnd
-         aw76kTwCcRPuODRqwWbp61xLxId0Rc1feEQPMjIQl4uMbqvXTyFXwykSSrZdwBZA7T0x
-         B0gkdP+VT2UfpWtb+2l2R34ZWlN+FTT8iDpHsAR53SfKFu1DeolJO+Y5JBjpv8a8PvzN
-         +8hg==
+        bh=JrA96iHSEppxQ2hp+sSJL/g5LPKU9LnKIC8wGzFqNw8=;
+        b=VxNtRLI3j9T/8JzZeBa7Vg/9x3/kswBzW6MPGKAqaXfVyJ3lITbV4/VITEAICjFfMf
+         eMk2B5AHjHt7knwLMB+T5Dshpo8fW5iugQoOKGXGvPz3mr5TGAdRRLcJWqL3TK8DyxDq
+         cnBt51+U0LBmPPBvJyvPOSnvB5X6rTiDbKxi4szD6gQ51Oksxy/4Bf9/dg7xdWFE5xal
+         ezJPO7Yz6vgEQ03dSP9ltynu3OCWaAeHuPGbVFyqCwv9sIQRTT5BErN8iBOywapHneTH
+         3W9KbNFG6O4UgwRN8R5O6iyiVcff28vJEYPlqlQ4lLwQII/aIh2g+A8eGVJPWgXFSnUN
+         Tt6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793854973; x=1794459773;
+        d=1e100.net; s=20260707; t=1793854971; x=1794459771;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TF3dG/II9qrYEa2Qmqny+KjCxq+HEK6VEhmgidqtZ9g=;
-        b=xG65O+yAUpWHBHMHpMmfmP7LU1bTcQhAAI8FeSr7bVEVf4xggnKfdeNtBCVGI4QNY/
-         vyJDnX3bxRgb1krXiFI/Dd25zMvm49qIsVi30n7CJ42IBdRxYuCyNTt069cY93UiFNF1
-         5LBSRrxfWeTkojH8hdVyOrmSFRbFqP8GdHiGUDW0n7CO+5CIVu/ub2AYpRS0czMRsdC6
-         0xFJ0bDpCQf1r1yNj9VM6J/qgZoSrd0WBsSR5AVxopzHJgwb7+/2QN0isQBviAnrfi+u
-         8Yuy1HEPpT+Ueo0LtOUGa3wj/DxENC+6HWxNAK2Zk48l4GyrxEdtogONammBIxTSQGC6
-         NvRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx8dl3sIq9dIJlHIBMfM9HHK7PMgxq8BGoAismcIq7c5ujkGzCiXer6ge+mj7J+LJMxFHUMDYE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+WB9qZNNE4fkLZZ2b5M56ctrCBkSGLk5dMDfMNZYj+ZWtdCsex
-	VrNDyLwc70QMSFYkt2AyWyZGY4QKXzdlyHArHfG1A6AvEzSJVb24R9nR
-X-Gm-Gg: AYBFou2DnCByo+eGD4MfhRSVTSVv+lMiU2A0F+bp1OxuOPhu+4eCSq0cAGigSrcO8yS
-	Zz34aSfNwWZ/A7wd3PGaEvjGovNXwv9nPpj2kjXocTcpT7rL1VOKxHqyeWSpB3gBIp/OSaH9rRs
-	qPlHvLthdXGeBiMklqMsyeTlBEayrBCdv2XNnU/RqARY3+apoxdD4DAoUuoGhR70zgMkCPhR0CD
-	s5AFyFh5Yb/NzP5NDzUK3BBomYeVsMMyfi9Vpr6kQJOoKJNYCH9yGr8Aa0wSdBvLrl909xUuIjf
-	63C2TV89cd9bn/ONpaa3uApdTNszIR1vh2yUwW448F//rdrCo+UyQ5HUPrXP3e+/P/t9eDugyqx
-	uPuWSGZwp9JDVA2+GEQ4MsZcFEbcuX/gDGRFvFjtHGtttns29M0foMKD8+dqmPcvCG22WuKIOp9
-	6fNboU9Ao0OKynlqecG1B28LdzvCsFoIaTqzaZzu/2u9XujN6xzHjQMMTyonJq9JVjNFwP4pd5M
-	1hN/eTCziWr6zmU4gqpHnAZUh3XOI3DdfJc6wrvQGN86cBnpueAKNMTZ0GQ5omCB2Sq2wE8EASa
-	qQIUcj5Bcovbrhr5UYhjBgfxj8P86AxGyqOpzP+G+WCtF6Po1s+ngj1cDCiKsbgN0zD8q1P1I1I
+        bh=JrA96iHSEppxQ2hp+sSJL/g5LPKU9LnKIC8wGzFqNw8=;
+        b=SyTIyYORHqyD95NE4yqLZWq6PaRIcM5DQiHIBz+UxEqUa7HFiEfQKrmHKM/niV+AS4
+         4peZ17Z3FEU0w9hc/vZkKNfQnSVXEYtcRRKWDwOBeX+6l+lqeJ/ZPavjP7vYj5n5d9K5
+         /7G1WyICgcY+4CDbKZ5oSV+6d3hSU31+vQm6atBjJiqy268SRmpt12My3skXNpbZici5
+         B+iR7yIWGS8vu4qc6dxFrFR1P96ScxbbfarIP61zKmPBtG9dYZrF1Exs/nALwJV4wI2X
+         qPswmjAh8Wyy7d/N9E1u1oAfPhFELWg9dYW+q4jA3CheuEGXOAm+IExPgzgq1GZBhLiJ
+         gwag==
+X-Forwarded-Encrypted: i=1; AKwUvBz7kBhWWZr0d4u9t8v70/fFFvJBwtIBRWzrxPPzBXgCBBQyP+0q8tX5N9o/JC6dhNWPJfu0CUI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/nphvvPVJsnazHJhcxXJ9NtEvgrZ5p7KVha95Yt0Q7fQ3lIY9T
+	OCcpJyKsjis5ZwWKWZ+TMeIrpicC1Pxp2Mm3apU7CDtH27vYO0nzCAQX
+X-Gm-Gg: AYBFou1xJt+6OifksilAWrSNUtrfDh1Q9UouXdUOMyDRSsKOUnFPRbNsdp0udhYcAqp
+	xtdVhRcIxuy/yeE9N/80VTZP8GwWV/NId/d4pzopcHe47HqGQqavQBus4T+9iqH0novkn2Z7asM
+	fp47PlEMCFJoAS9eBh3LciMaUTkWCGgUAlRb75DNo0RJZkKQmLu41nRfKrvMc7KMqjydNZ3V6bk
+	3ZYkmv8r5/JSOr+4+slVJ9Ai/rWbsfMtDNRXb+t2aLDv46J/xqmYnnVtrWOGKlQGSRgrtDDWOcO
+	r7pcTa2i7FknLbTUGWNFCzN843o5rAMXUa58dkS7W6u8oyatnEpYKwQlUIt/A4PjiwkjokydqG/
+	PuGviemcRuQuooDz+oTYJsmjRWtOdEVumN8fVu/vRxU5PlIeK7iCsArNG1CLDPQEzinmt2mT6C3
+	//kOgyvL/2flmNEZ3aJCKcmuJHQP3P2bFSem/5CVoze2N9xLFUrj9npyWD3Rls8csT3Johey8OB
+	aujIXBm7V+sHJGoRxqw5Eu4lopvdYci/y12gHhh/Y+d95Yd6ntK6/1fyOCU9DVtXZtFvx5yFnjB
+	mPOw6kxsSzP+Y4nmyOViDzqrwPz1EAhywv9rp5DlGLo/1G92ls9cqh0/tylTuAoA1iIseoybFLY
 	=
-X-Received: by 2002:a05:7022:3b88:b0:143:54c6:6a5 with SMTP id a92af1059eb24-1ac5c8379a3mr26747424c88.37.1793854973017;
-        Wed, 04 Nov 2026 21:02:53 -0800 (PST)
+X-Received: by 2002:a05:701b:2816:b0:182:94d7:f76a with SMTP id a92af1059eb24-1ac6088a34bmr25504978c88.43.1793854970493;
+        Wed, 04 Nov 2026 21:02:50 -0800 (PST)
 Received: from localhost.localdomain ([136.25.42.214])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c283sm13626735c88.4.2026.11.04.21.02.51
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c283sm13626735c88.4.2026.11.04.21.02.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 21:02:52 -0800 (PST)
+        Wed, 04 Nov 2026 21:02:50 -0800 (PST)
 From: Tim Budding <tim.budding@gmail.com>
 To: netdev@vger.kernel.org,
 	linux-sctp@vger.kernel.org
@@ -94,9 +94,9 @@ Cc: lucien.xin@gmail.com,
 	linux-kernel@vger.kernel.org,
 	Tim Budding <tim.budding@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net v2 3/4] sctp: fix I-FORWARD-TSN handling of fragments on other streams
-Date: Wed,  4 Nov 2026 21:02:24 -0800
-Message-Id: <20261105050225.49292-4-tim.budding@gmail.com>
+Subject: [PATCH net v2 2/4] sctp: report the partially delivered MID in PARTIAL_DELIVERY_ABORTED
+Date: Wed,  4 Nov 2026 21:02:23 -0800
+Message-Id: <20261105050225.49292-3-tim.budding@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261105050225.49292-1-tim.budding@gmail.com>
 References: <20261105050225.49292-1-tim.budding@gmail.com>
@@ -111,124 +111,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sctp_report_iftsn() incorrectly frees queued I-DATA fragments in two
-cases. First, it drops any queued fragments with TSN less than or equal
-to the New Cumulative TSN. This prevents reconstruction of messages
-still being received on other streams and can fully block an ordered
-stream. Second, it calls sctp_intl_abort_pd() if the New Cumulative TSN
-equals the highest TSN seen. This check exists for association resets
-but can be inadvertently triggered by any I-FORWARD-TSN that arrives
-before data with a higher TSN, causing data loss and, if a partial
-delivery is in progress on an ordered stream, an aborted association.
+When an I-FORWARD-TSN skips the message being partially delivered on a
+stream, sctp_intl_skip() passes the MID from the I-FORWARD-TSN to the
+PARTIAL_DELIVERY_ABORTED notification as pdapi_seq. That MID is the
+highest one skipped on the stream, so when more than one message is
+skipped, the notification names a later message instead of the one
+whose partial delivery was aborted.
 
-Fix the first by freeing fragments from sctp_intl_skip() based on
-stream, U bit, and MID instead of TSN. Fix the second by moving the call
-to sctp_intl_abort_pd() from sctp_report_iftsn() to the corresponding
-reset handlers.
+Report the MID being partially delivered, sin->mid_uo or sin->mid,
+instead.
 
-Observed in real use as unexpected message loss. Reproduced on an
-unmodified kernel with the sctp_ifwdtsn.sh selftest added later in this
-series, which passes with this fix. Reproduction and fix done with AI
-assistance.
+Reproduced on an unmodified kernel with the pdapi and pdapi_uo tests of
+the sctp_ifwdtsn.sh selftest added later in this series, which pass
+with this fix. Reproduction and fix done with AI assistance.
 
-Fixes: 47b20a88566f ("sctp: implement report_ftsn for sctp_stream_interleave")
+Fixes: de60fe910543 ("sctp: implement handle_ftsn for sctp_stream_interleave")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/179293012867.3134.16497481637722705271@kernel.org/
 Cc: stable@vger.kernel.org
 Signed-off-by: Tim Budding <tim.budding@gmail.com>
 ---
- net/sctp/stream.c            |  2 ++
- net/sctp/stream_interleave.c | 32 +++++++++++---------------------
- 2 files changed, 13 insertions(+), 21 deletions(-)
+ net/sctp/stream_interleave.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/sctp/stream.c b/net/sctp/stream.c
-index e4354d58f20b..d5e71a2027f5 100644
---- a/net/sctp/stream.c
-+++ b/net/sctp/stream.c
-@@ -749,6 +749,7 @@ struct sctp_chunk *sctp_process_strreset_tsnreq(
- 	 */
- 	max_tsn_seen = sctp_tsnmap_get_max_tsn_seen(&asoc->peer.tsn_map);
- 	asoc->stream.si->report_ftsn(&asoc->ulpq, max_tsn_seen);
-+	asoc->stream.si->abort_pd(&asoc->ulpq, GFP_ATOMIC);
- 
- 	/* G1: Compute an appropriate value for the Receiver's Next TSN -- the
- 	 *     TSN that the peer should use to send the next DATA chunk.  The
-@@ -1028,6 +1029,7 @@ struct sctp_chunk *sctp_process_strreset_resp(
- 			LIST_HEAD(temp);
- 
- 			asoc->stream.si->report_ftsn(&asoc->ulpq, mtsn);
-+			asoc->stream.si->abort_pd(&asoc->ulpq, GFP_ATOMIC);
- 
- 			sctp_tsnmap_init(&asoc->peer.tsn_map,
- 					 SCTP_TSN_MAP_INITIAL,
 diff --git a/net/sctp/stream_interleave.c b/net/sctp/stream_interleave.c
-index e239da686f68..1113b3455369 100644
+index 869940001588..e239da686f68 100644
 --- a/net/sctp/stream_interleave.c
 +++ b/net/sctp/stream_interleave.c
-@@ -1203,28 +1203,21 @@ static void sctp_report_fwdtsn(struct sctp_ulpq *ulpq, __u32 ftsn)
- 	sctp_ulpq_abort_pd(ulpq, GFP_ATOMIC);
- }
- 
--static void sctp_intl_reasm_flushtsn(struct sctp_ulpq *ulpq, __u32 ftsn)
-+static void sctp_intl_reasm_flush_mid(struct sk_buff_head *reasm, __u16 sid,
-+				      __u32 mid)
- {
- 	struct sk_buff *pos, *tmp;
- 
--	skb_queue_walk_safe(&ulpq->reasm, pos, tmp) {
-+	skb_queue_walk_safe(reasm, pos, tmp) {
- 		struct sctp_ulpevent *event = sctp_skb2event(pos);
--		__u32 tsn = event->tsn;
- 
--		if (TSN_lte(tsn, ftsn)) {
--			__skb_unlink(pos, &ulpq->reasm);
--			sctp_ulpevent_free(event);
--		}
--	}
--
--	skb_queue_walk_safe(&ulpq->reasm_uo, pos, tmp) {
--		struct sctp_ulpevent *event = sctp_skb2event(pos);
--		__u32 tsn = event->tsn;
-+		if (event->stream < sid)
-+			continue;
-+		if (event->stream > sid || MID_lt(mid, event->mid))
-+			break;
- 
--		if (TSN_lte(tsn, ftsn)) {
--			__skb_unlink(pos, &ulpq->reasm_uo);
--			sctp_ulpevent_free(event);
--		}
-+		__skb_unlink(pos, reasm);
-+		sctp_ulpevent_free(event);
- 	}
- }
- 
-@@ -1232,11 +1225,6 @@ static void sctp_report_iftsn(struct sctp_ulpq *ulpq, __u32 ftsn)
- {
- 	/* Move the Cumulattive TSN Ack ahead. */
- 	sctp_tsnmap_skip(&ulpq->asoc->peer.tsn_map, ftsn);
--	/* purge the fragmentation queue */
--	sctp_intl_reasm_flushtsn(ulpq, ftsn);
--	/* abort only when it's for all data */
--	if (ftsn == sctp_tsnmap_get_max_tsn_seen(&ulpq->asoc->peer.tsn_map))
--		sctp_intl_abort_pd(ulpq, GFP_ATOMIC);
- }
- 
- static void sctp_handle_fwdtsn(struct sctp_ulpq *ulpq, struct sctp_chunk *chunk)
-@@ -1260,6 +1248,7 @@ static void sctp_intl_skip(struct sctp_ulpq *ulpq, __u16 sid, __u32 mid,
- 			sctp_intl_stream_abort_pd(ulpq, sid, sin->mid_uo, 0x1,
+@@ -1257,7 +1257,7 @@ static void sctp_intl_skip(struct sctp_ulpq *ulpq, __u16 sid, __u32 mid,
+ 	if (flags & SCTP_FTSN_U_BIT) {
+ 		if (sin->pd_mode_uo && !MID_lt(mid, sin->mid_uo)) {
+ 			sin->pd_mode_uo = 0;
+-			sctp_intl_stream_abort_pd(ulpq, sid, mid, 0x1,
++			sctp_intl_stream_abort_pd(ulpq, sid, sin->mid_uo, 0x1,
  						  GFP_ATOMIC);
  		}
-+		sctp_intl_reasm_flush_mid(&ulpq->reasm_uo, sid, mid);
  		return;
+@@ -1268,7 +1268,7 @@ static void sctp_intl_skip(struct sctp_ulpq *ulpq, __u16 sid, __u32 mid,
+ 
+ 	if (sin->pd_mode) {
+ 		sin->pd_mode = 0;
+-		sctp_intl_stream_abort_pd(ulpq, sid, mid, 0x0, GFP_ATOMIC);
++		sctp_intl_stream_abort_pd(ulpq, sid, sin->mid, 0x0, GFP_ATOMIC);
  	}
  
-@@ -1271,6 +1260,7 @@ static void sctp_intl_skip(struct sctp_ulpq *ulpq, __u16 sid, __u32 mid,
- 		sctp_intl_stream_abort_pd(ulpq, sid, sin->mid, 0x0, GFP_ATOMIC);
- 	}
- 
-+	sctp_intl_reasm_flush_mid(&ulpq->reasm, sid, mid);
  	sctp_mid_skip(stream, in, sid, mid);
- 
- 	sctp_intl_reap_ordered(ulpq, sid);
 -- 
 2.34.1
 
