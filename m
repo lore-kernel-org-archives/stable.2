@@ -1,127 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881017;
-	b=yfHNpqn1+mwnIZzfRDttIGi5poAmRm7VakcMq1ZzSyX4DRCIJcOrscv/+Z/d7/1oP5VX
-	 PHSpUJcnwhR+u9eTLxn89sL68h45WvtvDwwzTWue0R7uKnRUsezuTZW4gJn5jwKgvlA6y
-	 H+Kl/VALuPINUCFDdxZtuCRu4bNoX7rMFOJVmzSqI7yR3nPklXmJ7KPUOnxcNqXo1wGFG
-	 k0JoX4vPDTqN6c+EkIJednebq+U6es0kIVK/DPUTyQG4unBrmp2tA/QIaiJfClfX+vBPa
-	 bx12XNj/HmdWlSLWgKR46Lh5omudc9/UseJ00MFhZG9WHej+H7q6E2BOQr+RyHjTibQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881017;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=ADzlvyamTQU4UnQoclm/eaQzV+qRhdj3W0LtVIZccYw=;
-	b=WaBv5iZCr9JX1vHKJVQk4q3S49OYKaXWO5U+oyAuBd2J2gQ8CNOLF4SGx3ZWMIxKSak5
-	 5i4wBQoQW+dwU+ocxdXtYZBIOoIthqiSyt8ObdMbvL1RRV59uWaJHGsu0dvEcvl6gitJq
-	 gsDa4M2e5p41T7oD3CfEiPpCi54qU9gAXJayVCTH2cR1lTmUGB8esRNtPXyuEiz1oPA+v
-	 V2ksZUNisEqMlhpnc1SKe2g6vG2eEnAznakKJz3+FRjVjvg1mfXVphX9xSex4oFOohVZr
-	 fcYAp1DLVH3p8bNFAMsluCjBda00sDo2dDU9yqqd7l+g/boqFeFdPEORxojBhbExgnw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=cYe8TYsk;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QIbMvVJs;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qcWXmYyb;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YQFOqDtq;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793881108;
+	b=DkspMrx4W3KoWNU0fxm459UqhONsQJJ7ClkUqzOrZUsMrb1DiYbAuF83Fa3/ZmD+MO4C
+	 HbOcidM4aKMZIr8UGUHSosluiOLjZ16adQtaSW8qtUqpF3bU/ItSc78kxdctxL+xPVmzP
+	 tEaPHEJGCY8FPa4WTMzGD7jI2QMv0aWIZFY4NX7YSxPxLa7fLXRMkRg2zoBGXbj5Lvsmx
+	 5suqofQ/21AQLQ7DcZNjpWSgLZBuKxM5xS9DBhS1IFXxfg3bZ95QfKCioasNdMaeKrxNX
+	 QHTGZTL/dructoxiAbaI0Kl/3CYnpmEuH3frNLFprpZELcUO13htsdWQztSrX2UXsjw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881108;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=eefMXQAgx8LZwf0Fx8BRlWFmLt9F1+J29m11Vy9njI0=;
+	b=tFBB3dq3c6mup1A9LV4hx47mQxvXBw8Mopfd4WSmhr9tKTMOuRcQX0ViNjN4yq/NhBTY
+	 sMGYbfUMtCBEyPi14qLT/HXJCcA3f10Rw+f4LOF1Favs8A4RBEox6M/PiBkaLHkrCA1lb
+	 Jy5+n5l61R5t17rXu4fD/0fk6oiS5Oe99epgTb1l3T1dvsaGbFE/FKlyxjBD3gD3y3O7h
+	 a22cpDpiRd0iY2TmvxVl8fzZPf/zd00RnWa4Tm9TlgO/wYDC+lWwc3g4kA4rZvr2GMhAB
+	 5s/gF4TIz57ZU2MPXGLQS+bpoobtWfhAJQpChqjs8+wKJjIVS+Lpr0Tn1tEp5Rf46rQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=futuring-girl.com;
+	spf=pass smtp.mailfrom=futuring-girl.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F668606A32C;
-	Thu,  5 Nov 2026 12:16:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F668606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=cYe8TYsk;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QIbMvVJs;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qcWXmYyb;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YQFOqDtq
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 8F2281F785;
-	Thu,  5 Nov 2026 12:16:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793881014; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ADzlvyamTQU4UnQoclm/eaQzV+qRhdj3W0LtVIZccYw=;
-	b=cYe8TYskNgcCDl9X/k1KW8A+of6s9HPRYsn3eNTPIV5RsFlT7AWS/MQE3Ksi3uh3QV4KD5
-	Hi2guTuJU7x2qqFFTRs6JOAz8i6Q55GuiUnI2xO+KTPomgEeNxSjhoYwnOYxznNqbm63Mo
-	5qtfkmh5zv/NMPGB0+8MSe7zifKcXmA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793881014;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ADzlvyamTQU4UnQoclm/eaQzV+qRhdj3W0LtVIZccYw=;
-	b=QIbMvVJsr8XvPWk78XYqkteMct1dWNms40BmNTEwa1LXYhQgAGTS+dajwGjNJCINSsxxSt
-	HemSrC/mVhMQ9jBA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793881013; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ADzlvyamTQU4UnQoclm/eaQzV+qRhdj3W0LtVIZccYw=;
-	b=qcWXmYyb5+mCW0254eM18Rdi4r0I1vVFScoBAC1JoCDgbQr+JVrkM2hgqEp84Kj2sVZnX6
-	yOxI9PyPOhb6xWYpHefOBtPtMSEL6Mz2dqvUxPwKWIeCnNhnabJauUjOIrpt/Ne/cxy6NC
-	ZAMNOvP3NI2+Dh4POTu44wQ8ZjW2uSA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793881013;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ADzlvyamTQU4UnQoclm/eaQzV+qRhdj3W0LtVIZccYw=;
-	b=YQFOqDtq+4SGdkOEWqs8BsjsIPs8cBY5Z7x8DRzRezIETmSxSypiEkth9ev7JNqvuGFopt
-	jijBqci6GEVKGZDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 41DC8134F6;
-	Thu,  5 Nov 2026 12:16:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id XqZMBLVz7GpNHAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 12:16:53 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id A35F0B6D5; Thu, 05 Nov 2026 13:16:52 +0100 (CET)
-Date: Thu, 5 Nov 2026 13:16:52 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
-	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
-	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	netdev@vger.kernel.org, ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
-	coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
-	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
-	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
-	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
-	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org, 
-	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 31/38] proc: sysctl: resume readdir after the last
- name it returned
-Message-ID: <ba3zz2mphlmojth4kk3gvistj555c2sos6ft4ofb6cm5xfcsnp@3xas2kz2irvu>
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
- <20261102-work-procfs-bugfixes-v1-31-59422ed3e465@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A45146082BCD
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:18:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A45146082BCD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso277889766b.2
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 04:18:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793881096; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ox7Ar+Nc2uEzd0YpOoAfwhHJUqvdbOu6KeyBQmGHc2CYpePpCKezoFhZGOiYwe+q/A
+         CZK5UmmTKMEs4fAYx4Q6wcwe2QLii8yIW1FRFrfGqkk873c+Tu266xQhzmyDtfaO5YYa
+         LwDDsoTRvLOO+qbDFkWRmxR8qMSvgfV7vvkyD8Zdi0ZVIOTjTPfVSms7EJafSZ6B5QOV
+         D5+96QrmclGxtNk+ba4YaDFVuvTgBDtqbEVQsvcOIx9zQUDRDR7moK9PpUN0yk5a0qBp
+         sTIDW1ZGS7hN1eBMTq2gr8PevJoLHU3OI9hn5OAZJMw1hRjF0Fc6t/ehJdoim4teeJwU
+         KCFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=eefMXQAgx8LZwf0Fx8BRlWFmLt9F1+J29m11Vy9njI0=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=hIWtp7grdWV+blbgGyjrvi6keLv4gJvPLUZ5oZVEfqAg3uDLfOiCbrMC2onsg+dwzr
+         iaoAiTle06ROq2WaI261P9ctTuSSvRHGt6pGRtNYeYf0d5mZzh6wsN9TMYs+831wkEdm
+         zUPK+y/YW6OLlq+MxE8IRX/q8hBb3wFwr7zsCVRfNQBo8/LyW+E+Uf3H3y0AKMmFZznq
+         qHIyacB98Qa8OKjkcUaZQ3po2+RGKDoaL/WOUmy36ERmW/UG/eePEWoJbzPyze5wNHOd
+         rMYCuh5lMobnpNo/y/v16nz3Mzbz/QSoVqYicsP0XPrSYl2ayvQBc2hvzsM+mR6V1P9R
+         M+UA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=futuring-girl.com; s=google; t=1793881096; x=1794485896; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eefMXQAgx8LZwf0Fx8BRlWFmLt9F1+J29m11Vy9njI0=;
+        b=I8vsUZP0H9GSmpiQduka/DtR8wsUcmq1RCpQijc6ZG39Xc8UMnTxn9qwdiMi/OkjGw
+         LvStQ5IglRUyeX/2fOYxwPtWPD3y/AWIQRsqXlPUgDOGq8LTbckr77vyADGjwrpNe5nA
+         lFebWqwJaf2jvPlvhZHOxf+k0zW09IoInLEEcp6YtAcyZGHRV63+iP25Y0GME0R67LZ+
+         vlRX39VGczNVYr+M+fIDNjJNO/r33cIt5DYGj1DE9l57HsgC1UyB+PQAA3HYmcpHZRym
+         7T5wRaTuva622derdAbl08OIct4f6MiUAPojxvuik4dn9/hNnuINABsjNKmv8ZTa2tv5
+         eSOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793881096; x=1794485896;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eefMXQAgx8LZwf0Fx8BRlWFmLt9F1+J29m11Vy9njI0=;
+        b=SLJYUnUIltNp2EC6lJJVkZm0tmcxXXwIX4C+SN2lqoewybPKj0Wy0JxFbSkYeqlahk
+         OTTJXTLO+0MACf2bMeMQH1msjESJSzDkvRjSp71eTuGgZN3dWqjFEDYMAPr5zGp7SbI/
+         FgO24rh/JPph++HVV5U57sd2OdcxQPjYbsm05HlPqcDAlxredNUgIQ16UXi5ZI6LZldp
+         Rf4GXmnaGWEysMmekMI5MHnzy8HB/F2ds3rbLusu3i/HlHVgeGRpXRh+elQKJ++ZkY8u
+         Tg+VqsxWIAftUYx9xsCEt1a6WEvD+agQDxAS7uR85KO+aOtT0iIgnvqGglxpV2cm1o2c
+         M2kQ==
+X-Gm-Message-State: APuU4Z+p5JYFDWuiUkvICXXB/BqCbLNKGQCLomBFxPnvfHhRzBdmiPte
+	sXcf4j/dOTZrFMfZkxRtnszTAAr2ZxXkCNMLxxR8NEatNucrrSrDFtX29OvuY98F88GCP5XkQlH
+	1MesqXN4gQEQGAXTwJavOozRj6Ws8XfF98IH94EyYHg==
+X-Gm-Gg: AYBFou0xOMtzV4rvh60Q/kkbjqz3VHdyqMBxItWVJSsY1828AYhxTICHcNfFn9WaW3L
+	0aHyNntih0t7SFIndPCJ8sY4hyGFlHF/+hKGdb1NQINQPfIPc2gEv+EIkYNF9ENKyzTuT53c3Wd
+	AjmBRwwaZtUKrPNSNAM0Kksx/2o1TSu/GlCFQF/K0Dk2mNv6HU+EGVVZB52/GexIhEJepSLwN8l
+	xDGyJNHF63McUPAb8llHAENpbNoFN+UQBlQ4JG59xg/CnOTZ0LySzZpQFIMrPve0dqodtJwE+Wp
+	+xJkDqoqZdOL5vsLxWD6NUOWxykGoj8fToByGmd76el+x2E/BbnquZseLZo52RFNQEW2fba5l+d
+	TezD+f7ixLf0eyOoMfj8eqyEkA3M8/iaPpqW7
+X-Received: by 2002:a17:907:6d29:b0:c33:dbe8:291c with SMTP id
+ a640c23a62f3a-c4ca7a4dd2fmr1811633166b.20.1793881095505; Thu, 05 Nov 2026
+ 04:18:15 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -131,75 +100,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-31-59422ed3e465@kernel.org>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[60];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -11.30
+References: <20261104211038.406938024@linuxfoundation.org>
+In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Thu, 5 Nov 2026 21:17:59 +0900
+X-Gm-Features: AclHuK_xKzr1_jGZskftgS9tYbRvEAvyWrEkQDJw4-ZYm6nRuyK-hjQJVu5MVE8
+Message-ID: <CAKL4bV6VGE1J3K45KsOfo40zsZEZav4rxSVGRR3Rs7Z2E94_UQ@mail.gmail.com>
+Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon 02-11-26 15:21:46, Christian Brauner wrote:
-> proc_sys_readdir() counts the entries of a directory and resumes a
-> listing at the number getdents64() stopped at. The entries are sorted
-> by name, so one that is registered or unregistered in between shifts
-> everything behind it by one. Listing /proc/sys/net/ipv4/conf with a
-> buffer that holds ".", ".." and "all" and registering a device whose
-> name sorts before "all" makes the next call return "all" a second time.
-> Unregistering one that sorted before the position makes it skip an
-> entry instead. So a listing that takes more than one call shows a name
-> twice, or not at all. Even the 64k buffer of ls needs a second call to
-> find the end of the directory, so a device that comes up right then
-> repeats the last entry.
-> 
-> So remember the name of the last entry a call emitted in the file and
-> resume at the first usable entry after it, like kernfs resumes after
-> the node it stopped at. The entry itself can't be pinned across calls,
-> unregistering waits for that. If the position was moved by a seek in
-> between the listing counts from the start like before, seeking to an
-> arbitrary position has never been better than that.
-> 
-> That also takes one walk down the tree to resume instead of a walk over
-> every entry in front of the position with a round trip through
-> sysctl_lock for each of them.
-> 
-> Fixes: 77b14db502cb ("[PATCH] sysctl: reimplement the sysctl proc support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Hi Greg
 
-Just one coding style nit below. Otherwise feel free to add:
+On Thu, Nov 5, 2026 at 8:41=E2=80=AFAM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.3.2 release.
+> There are 547 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 06 Nov 2026 21:07:23 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.3.2-rc1.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.3.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Linux version 7.3.2-rc1 tested.
 
-> +	if (!name) {
-> +		after = rb_first(&dir->root);
-> +	} else for (node = dir->root.rb_node; node;) {
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
 
-This indentation looks too inventive to me :) I'd just use
-	} else {
-		for (...) {
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+[    0.000000] Linux version 7.3.2-rc1rv-g75eaee7a6465
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
+Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Thu Nov  5 20:31:07 JST 2026
+
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
