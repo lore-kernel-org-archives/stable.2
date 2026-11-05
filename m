@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793871222;
-	b=fVfa3alLK3Ae3J2LnlnPe1CthHGl8NLHEQ8hfsK1wurrMDxQfDy9LfXIvP5OrCk5cldt
-	 FqlJkdhvaMLGJVUPmcYEud7Ut7fXY6kCUzFl2sdiZuno4HqnsewABA1BhUjAqDjbAd6Uw
-	 A22+U91SQfXALQR+RQ/4/ctEte742ao/yiHB0pi/FqDCh8biyzmR4PykNYeuTZWzWN14R
-	 fWqUDuecfaUSj6Bd6FRHltr2e/uFR1iDn4OXh4vwHHYYpfOITILPEWvFSljpikgoIwhh7
-	 xgHjVAP1TJygFZADMwgaHqzo4l7MZVrZKL/0co9eQx8R/SdzptJ01E3qribp5qeagkg==
+	t=1793871246;
+	b=B9TsxyZ6fbBBy/BccInZaD2AZdlVzApXvZtusABLSjt0/d4ERHAzhNmEe/p2/D6puuRC
+	 Viz5Noo4nub/Yi9qOn7X4I8K+GegvVLf1hHp25Wi6dH64+y35lz4I0xGK0MVGWcypUi0h
+	 tHa3yrCRm6RKOLFVlrbtG+Hij6G07HVK/zuN1BvcZvLMwX1yv83aN60YRkAffH/51Xvxp
+	 +1krKFLSOAyfap0WmbRypKOjlPXPs+4VYSZ5OpjJF6/dlkCIImDEJi44MWP5cJTuczulH
+	 jK20nIIDHlARz7ItBiOndVoy/GxuoDwPB6yxZGpcvlEo/+C3q4gnA6LCfX0BYW7h6BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793871222;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=B9M1jKc5WShsgBoTJ+bYEs7oHPuVcQGJEiYWo3gvijw=;
-	b=CQQHl+dAvfAu9dDBTjNjLhUmBJHxDgGob9XeEwA0rF3toNCyWO9GeP5OhXWjmsWPfAm8
-	 7pizPlg71b8xZLlHBVeVnqI+Q/RB29Mt1uJXcjsaNRLpbwWK9uEvDNZ2/3hJuJhheek69
-	 9eu751MoIdWD/cDCihqNTO4cTT1vGDeLdRYHOhKfbahAm/u7NWGy2ai+U72O1KHddy6W+
-	 kw+LGEwc+N7PxY8Sqh1L48lWpRfCAycHva2mlOqwu2edaYhBYHvCny5+OBRnOtc6TXS4a
-	 GxzxRNaOH3fhrD/1jNtS8VkWY6YrRzXbPTAZ+MkijfztFPDltOlt343rSgF/EsoFRnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793871246;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=iBOfy5O+0eohQ89wWM3JHoeRMFw720CvWts9Mtt94kg=;
+	b=zJC5oiDLmOHQcA8niyuLOd4hgPIXk3bOGQ55TUlzPEKTyxU3iCTFPNgm6hWFayVbk79x
+	 wJea4C8oe7+5cb/u7iP1jegB37qBf8rBAIojvFiw4l9hBrHQvDfC38yV/pAi3ojX1wiYj
+	 Et+iGUJq+s34OVNVYL1UafDaZ5p5LLCA4IdMiGQslVwZkFzMO+4tR5wW8xbNqu32Wifow
+	 DCy9C7hLQcrSSzUv6JCbkfWWi8k7VXGBf41W+oN6FPIQQ23bSApxlhcBOJB8gmZhji+b2
+	 sGH0cPYS0JjMIdWhuLaWuoz5vkIZOBmsjOfMER2O3yVS7uBfzNnx3ohNxUo4GHN/ROw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4pVjiXq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kH2/2Thm";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A839E606A31B;
-	Thu,  5 Nov 2026 09:33:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05139606A328
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 09:34:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4pVjiXq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B18C11F00A15;
-	Thu,  5 Nov 2026 09:33:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kH2/2Thm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CECE1F00A18
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 09:34:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793871221;
-	bh=B9M1jKc5WShsgBoTJ+bYEs7oHPuVcQGJEiYWo3gvijw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N4pVjiXqQWR+5SFY4TKFoYUfEMsE72yuHNwRK2I41rxQuY/4LbRXQ3ko3EI+vkg/P
-	 c3t9TL6FMacOdgZ88Dqk9Pyo0kDgU5qbDRTydfg5vlzJiQf5yyt2y8OZZlFEBUct4l
-	 AVq2YNScTMavI2su3aDV36L9wqRNxRMU9H3gKoQmpG6KwCttP2eoIChKmjnjCV7GAV
-	 65LAONyGbAzgTALhT7n0xP/HOw7uhtxt6qpgiN48V4OdRIbiT5YgpKrns28GOCTs8b
-	 fRlP5n3H184cK07tK8cIDlPnF9xH88lkpuPz/LxIJ5sNSsHe6G1prAvEeM2nBx6j4e
-	 jMMOqP+++KBCA==
-Date: Thu, 5 Nov 2026 10:33:35 +0100
-From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-To: Qi Zheng <qi.zheng@linux.dev>
-Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
-	akpm@linux-foundation.org, azpijr@gmail.com, lance.yang@linux.dev,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] mm: gup: allow long-term pins of CMA-allocated
- HugeTLB folios
-Message-ID: <auxNbw83G5v3nvI_@localhost.localdomain>
-References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
- <818fb0b4bbb234e4a2bd0552d61634f1a8431616.1793850539.git.zhengqi.arch@bytedance.com>
+	s=k20260515; t=1793871245;
+	bh=iBOfy5O+0eohQ89wWM3JHoeRMFw720CvWts9Mtt94kg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kH2/2ThmSmTuYrAqoZWP06MhveGLpQ7yH69j1W0W9ppNRp+veQPUYmrYbLA36ZTcg
+	 WMl3HawM8b5g2sErObcuoxuM8NQh815V9gVHjcRldAhHfoIbEe7KFWivmcSNEyeMM/
+	 LKEFyiNriYRJkjHYFRraLKVcylAXHuGcEfOM6rX1q1kG2IV3MLva53Y9EFyufrRxSK
+	 0jpgU/jBiVxYQ51Tq5ggzdG1uOS9V4Sjv2PJ8yseTBprRQOWFqwTyLG1m74YoaoEuM
+	 qw4dBMz2DrF6UJzKbgzI/HYamSx7XtcwlATncpgEjIBq65UrIngq8Zhl9v3QRkHYVy
+	 5UHyZyi6r9zjw==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5bcdae234ecso1190697e87.3
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 01:34:05 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzwy5WT8Ikto+GMwq7l34umUVy+zX2ToiLb7cI3OClCbiKFYOxQ+tOfZ2WsgwlqL9ayBmBeRc0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9DoaWe0NoTkX5norL/FTg0EQIF48/4M324yLHoiFuQpdECfuNM
+	U/oMjudx/kWxThHnHwyG+uDZSpGhFefZv45Ve4TXOIIlAg4rmGUbIq4x0cyF+KWFbloY1nHuDqv
+	bmjLXr+i6GquGWFKdLCo02ZDyQk0/42c=
+X-Received: by 2002:a05:6512:3c8e:b0:5bf:a5c1:d11 with SMTP id
+ 2adb3069b0e04-5bfd957cd9amr6465740e87.64.1793871244374; Thu, 05 Nov 2026
+ 01:34:04 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,31 +59,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <818fb0b4bbb234e4a2bd0552d61634f1a8431616.1793850539.git.zhengqi.arch@bytedance.com>
+References: <20261103213002.1673560-1-lee@kernel.org> <20261103213002.1673560-11-lee@kernel.org>
+In-Reply-To: <20261103213002.1673560-11-lee@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 5 Nov 2026 10:33:52 +0100
+X-Gmail-Original-Message-ID: <CAD++jLmREn-duxqZyLmY97DR_TKiDLRgxiJiy=cno6rdosa8YQ@mail.gmail.com>
+X-Gm-Features: AclHuK_c9EDZKaN1V7Dk_kEOYVVIT2evfGZYSvNiUvKlEjAfXzbR3MVATtMhYcI
+Message-ID: <CAD++jLmREn-duxqZyLmY97DR_TKiDLRgxiJiy=cno6rdosa8YQ@mail.gmail.com>
+Subject: Re: [PATCH 10/10] pinctrl: qcom: Check qcom_scm_io_readl() return
+ value in msm_gpio_irq_set_type()
+To: Lee Jones <lee@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Ajay Kishore <akisho@codeaurora.org>, Christian Marangi <ansuelsmth@gmail.com>, 
+	linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 05, 2026 at 12:07:44PM +0800, Qi Zheng wrote:
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
-> 
-> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
-> unpinnable, causing unnecessary migration or pinning failures.
-> 
-> These folios already own their CMA bitmap ranges, and memory blocks
-> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
-> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
-> 
-> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
+On Tue, Nov 3, 2026 at 10:31=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
+
+> In msm_gpio_irq_set_type(), when pctrl->intr_target_use_scm is set, the
+> return value of qcom_scm_io_readl(addr, &val) is ignored.  If the SCM rea=
+d
+> fails, val remains uninitialised and its stack contents are modified and
+> written back to the hardware register via qcom_scm_io_writel().
+>
+> Check the return value of qcom_scm_io_readl() before modifying and writin=
+g
+> back val.
+>
+> Fixes: 13bec8d49bdf ("pinctrl: qcom: use scm_call to route GPIO irq to Ap=
+ps")
+> Closes: https://sashiko.dev/#/bug/linux-a5545ffd-48cc-4856-94cc-4b2dd7968=
+f50
 > Cc: stable@vger.kernel.org
-> Suggested-by: Muchun Song <muchun.song@linux.dev>
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
-With the rewording suggested by Munchun:
+This patch 10/10 applied for fixes.
 
-Reviewed-by: Oscar Salvador <osalvador@suse.de>
-
- 
-
--- 
-Oscar Salvador
-SUSE Labs
+Yours,
+Linus Walleij
