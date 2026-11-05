@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907024;
-	b=CJanC/dCV0HHzEGLPF2Y/r5iksRLEGT+UsXcqysVWsDGqC51GH0u5iRNh0VRwuK/KkhU
-	 ibF7gq96VXW980v8+YjwdcoAaJe5orBL9seEi1uHygs3MAreYNaSrsfwP7EjRz0mVJtMR
-	 iH/ETpT0Nr/wSazTtMcqO7+/XxIEDRh6AVlS3Gvcbj0Jr5R+liuVH6X5ZZNFQ3BDSpZ+s
-	 62OwlwqixviYgTY4LV9SEG9tI3jm9WZ3SdKN2utd3/5YZhpUE06SJqhOErfY7BjT3q5fN
-	 vLZZNVVZ7ZRdDGHSCwDAm4fJMOIgkD6Uic477MC/CjpXOS6ao8WAYJ+h5f54fT6sJRw==
+	t=1793907220;
+	b=WRfbHp2oIP+qix9cku67N0k8OU1xVU+bBV4jCkItCvZ5LdRpsWY3GQXU4uah5iwgZtzp
+	 N92+SCWbZL4S9YC7vTMgsAdDoBpRL1uuuUZTviStsio5Fr19g5kR/VuKPOvLcsJwD1m8M
+	 o0C4J3q34YOse7tRGE7+u5y/1W+C5arPv7DUzU/1q+bdUAIA4y5CIkXAT+BHb1h6xeLnn
+	 l2Q68oU6YCKc230tBWsLy8ims5sjEsc5NiglD7a/MUXuLcXSwg+rx1vlKTh+BkuRsZNGe
+	 fUQ5PDU12uOlCfl2baNRPs6je/2jht1UeoPBJ8AJ/6xuZSy47IGj5PfK2QRDT/rb9qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907024;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=pMEMtxyuK3+HRaY44/pvazcCGljjnGE2tNKvXpoZ/u4=;
-	b=RLk190eVNrGcBVxzuOlFdM8551/Xie4LPWTAKYmOhheiOMi2DbqZfo3ZY2wFIwtDUj+R
-	 14jlX6alAjcRGqPQOmgPsgbA9afn14K7nnpfi9OrxHWrUGsvoyzI7m8+JapBTAFAkVd4c
-	 1cbieWf0XgJ1cnnrOYJUJYPCsrx1JortMY1mp7Gyk6MYS2UCTkaqybJFMcg8lfgiAHXOv
-	 ltR+XIfSbDpJMD7k2x4KzEtt0XMnGGL90wwLppqCxneEunMQ9bDb71P4bzCQfjrY/X1I5
-	 cPB1/8WLnPm3BBMi3YC4/xeHmiWX+hllZau/etGwb3/bimfV27PbYjOzivfVGo9bJ4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907220;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=XbhAnP/ILmrqrHVcsIMgwEAju1oHG3WmXGNKBJobHD4=;
+	b=StHRWHI/Bub4Q030c6M398n84GWPzZKmVzpgYmKLeAdJFT4e8bQvrWpr6WyHpG4q0yjZ
+	 OR82x86//QOO3sm9lfLPrCIAZkc2iD63XbFBM9OOjZHE9UsuXb+U0B6xoo4EmQZ3aaf/i
+	 i6aTTqFaGVGCukdf/idG8eAmreUhEMYcl/Iu4DPuwLK+6Jd4H0OW49O6M8USGw6SQNcyH
+	 r/hGJvaH0e5sDOCR/hzANaQNpT3PcX4G+AmTA3EU3I6gk3xN+HGE9NIiW+ofQj3fXZvG4
+	 ZcQe0QcKR9Y2JeP5fwRK6pdrj7IbzD1VsEX09sXEdf2v1k8YNf7tIMTqzSaLh3oj/Yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Adkt0KqD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GrLoezKO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE39606B07A;
-	Thu,  5 Nov 2026 19:30:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD43606A335;
+	Thu,  5 Nov 2026 19:33:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Adkt0KqD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2061E1F00A1D;
-	Thu,  5 Nov 2026 19:30:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GrLoezKO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4201F000E0;
+	Thu,  5 Nov 2026 19:33:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793907023;
-	bh=pMEMtxyuK3+HRaY44/pvazcCGljjnGE2tNKvXpoZ/u4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Adkt0KqDWgMzrDm8+MPoQhdBeLqzCa/8ErQx/Oxjx65v/35NY5l0/5ulmnxqV72Fd
-	 Xa/B3zhIfRrsvSfKsLWCTSEfScD1XuM6kVVVsrT6XFvRqCKWtxZo2+IWY4NoGYud6D
-	 HJSykQQUFRruviEsG8ktW8tekyIm58QnGGsPx7wyRziLak3Tf5va/xArvKAl3ph20G
-	 TcV3Hv/piOHGWdWsm2RWo8/DXQbSXDt/MfuiNaq1SAp1I7crOiW0JVnlCJC14Q5lyp
-	 euXvV+XAKGGVD96GEgfMTn7CuIoojQ8meM1yyijDmSHlu0WUsUSFtLKgzZHt/iqe8J
-	 E21ysAXKmTdew==
-From: Leon Romanovsky <leon@kernel.org>
-To: jgg@ziepe.ca, 0z5a <dezhen.lu@student.uni-tuebingen.de>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261103142804.67210-1-dezhen.lu@student.uni-tuebingen.de>
-References: <20261103142804.67210-1-dezhen.lu@student.uni-tuebingen.de>
-Subject: Re: [PATCH rdma-rc] RDMA/mlx5: Fix DevX umem page size truncation
- for pages >= 4G
-Message-Id: <179390702044.98181.15076173312140750474.b4-ty@kernel.org>
-Date: Thu, 05 Nov 2026 14:30:20 -0500
+	s=k20260515; t=1793907219;
+	bh=XbhAnP/ILmrqrHVcsIMgwEAju1oHG3WmXGNKBJobHD4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GrLoezKOzShcBQLOKvcfucBO6REFy5MhJrmOrbkY13/Ul2Twvv4PbjWauaKr3JXrZ
+	 8VMic7xYvekP3HDGPnCl3WvcGcIiqWoGMUzdbkj2b3eSYxCdsFdFfr+xLOeE4bzJdA
+	 r1ECZoj3qLcAM7dr74EVBEfH/1zfiZ0lvfz2ErzOwCGsUDjBVW9OG7wi5Ai8zVILDO
+	 PuyL7lPIKbWhkifkUVWfCNI7Ks9728Gx1KvYMifWNoRr5qU0Xj9h8vqG4gYPcWeSpU
+	 q6EtYyKogjRAO72NeNBpneGGjPJKGwtFCcwKwmHnCUz4x8U+oiu0qZxURsBW6Iud8r
+	 CLb3fTxcKZO7Q==
+Date: Thu, 5 Nov 2026 19:33:37 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Sami Tolvanen <samitolvanen@google.com>, dm-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+Subject: Re: [PATCH 5.10/5.15] dm-verity: fix buffer overflow in FEC
+ calculation
+Message-ID: <20261105193337.GB3266627@google.com>
+References: <20261105091903.1866-1-mdmitrichenko@astralinux.ru>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,28 +61,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105091903.1866-1-mdmitrichenko@astralinux.ru>
 
+On Thu, Nov 05, 2026 at 12:19:01PM +0300, Mikhail Dmitrichenko wrote:
+> Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+> [mdmitrichenko: Omit the erasures array size cleanup. The older
+>  implementation already allocates 253 entries, more than the
+>  maximum of 24 roots.]
+> Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+> ---
+> Backport fix for CVE-2026-72098.
 
-On Tue, 03 Nov 2026 15:28:04 +0100, 0z5a wrote:
-> devx_umem_find_best_pgsize() computes the page size in an unsigned long
-> but returns it as unsigned int, and devx_umem_reg_cmd_alloc() stores it
-> in an unsigned int. When the DMA mapping of the umem is contiguous and
-> aligned to 4 GiB or more, and the umem length is a multiple of that
-> size, ib_umem_find_best_pgoff() selects a page size >= 2^32. Since the
-> value is a power of two, the truncation turns it into 0 and the
-> registration fails with -EINVAL.
-> 
-> [...]
+Looks fine.  I would have mentioned that 6.1 needs this too, but the
+same backport was already released there without dm-devel being Cc'ed
+anyway.
 
-Applied, thanks!
-
-[1/1] RDMA/mlx5: Fix DevX umem page size truncation for pages >= 4G
-      https://git.kernel.org/rdma/rdma/c/b5c11bf9759834
-
-Best regards,
--- 
-Leon Romanovsky <leon@kernel.org>
-
+- Eric
