@@ -1,56 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.82.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866274;
-	b=ErbfyVon6rPl0r7etYjpDZSIsaweifYPYzc5HGlPtBQ7W/tev/RBdYkVZIb8fPPUOfEv
-	 wyLOsF8P+DoDQKxfRrcjteR0gh/aF7D9PpGdjWM/d4Wnpitcf0UO1Zh+teXqlEb63rWhF
-	 nMUpaKw/kgkdeCSmrgImDGHjxZUgpi3qNdzj6Vo8wYlRDLmIdnyA5sr6etLGMmHEsEtFp
-	 rFJB3BCwubhWu/otOKyNSJYR3tQ75L59O0ajt3bpYaUkYNCnGHuPHBpbsj5VuVwnZiTK+
-	 D0VXXlGW0/1g2dozo/Nu7OUanBI8I2S4hrL7Eec75byvE6dvVu2DbBWrvla2uPYOBcA==
+	t=1793866305;
+	b=BdpU0QebDuiMps25THJABG/b8WomktyDYrd75WIxr1AzQeLgU/5Xq3JCfpuMEZSyen4C
+	 Pw4Xkcv06xoR4D5JStGCs84H9opvI2BO0dlYSxgBLaTDPNp9RnDzkEzsj7te6CtHpY+ZC
+	 vOjIl4YmYiNB0FAv94lbZP0s6iha7n3ACCPRz4TYL5Jg2RB8ztmBC6HCZkInrqzdC59yk
+	 i9JFTpGs78NkrN9uMbHuLGH0T2km2C73IlUpw6H3sIHxImpcIIeJVlFDojoyyYHryUFIj
+	 taICmVFePNroJ7v/UPp1BA4xcAun331LrbFETgzvWzB4hd377fmyTrjG9MZqW7MYarQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866274;
-	h=DMARC-Filter:DKIM-Signature:Received:Content-Type:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To;
-	bh=asmqg6/1UGnzh4bWkxJ0A6ElYaEK2fDZylXj6jVvh0E=;
-	b=wAUdGB3tpOW3M5UNTqG65t+nHGbbQY2bh6Oq8aH6g97EQisHqRzs50S5JEPnGWOa9JSw
-	 SFmHUZrU/zWl82Et9RmpGrTrScBm/8Es9HL3BD13DKUIEk7jgWPTNUd5eyIo7/EOxL8oF
-	 f9azFuQmQCOoMuG3E3pegHSJshDuAPuF/kjCaRCHDrz6F8yrPDB0dgjH9phSrGqzldG8Q
-	 IjMt/nbr6/JbiH2XC88nXZUNX6dUrtPUYYZ1nkcpMX1cgz4YYErIbghgFTRHQy8IS3fVY
-	 wYTUhtqrdXvcqatbrt1t3vITPFK+7rN9mp5V8OdTvAv2IDeZBXvPtSfyi1lKic8tHzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866305;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=mIPALp95eM3AkXFlvFAPjNiT6Aysu1euG/w9XR+z1kc=;
+	b=Phbvq2BorycRUMjm1Y0btqhDFQPBAqNdVY62SOWL/L63ROYccytdLxZj8olREEldCANc
+	 0Ybgo1mA46NZQ32gkXZMaayblXrqPbumE7pNWucNnlwjjr/jQBAJVE2aeKP/RBuqbHNnZ
+	 +Cd5ayAy3NZvHdGc0Z5eMSKTXnO7Q2Wh7rU8AXEDzNRkpYmQTys5X0uaGNX2V/CDncwOq
+	 86ATgiOWq9ys6FMPmL2BYj2bNM72pgX6TKrZLgG/2Gq/Smp1fk/XF+F8iUDFpHoSuy0Dm
+	 NqTap0sS4XtugtwG7qUdGuKNc3sBLXX7sGjP7gB4JWxzUqa/iP91VOnbK8DG9vvfL8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samba.org;
-	spf=pass smtp.mailfrom=samba.org;
-	dkim=pass header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=Kyrq8wIt;
-	arc=none smtp.remote-ip=144.76.82.148
-Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
-	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a8LwHb4Z;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cJfYmTmE;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD1E606A335
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 08:11:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDD1E606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52498606A329
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 08:11:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52498606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (3072-bit key, unprotected) header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=Kyrq8wIt
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
-	s=42; h=From:Cc:To:Date:Message-ID;
-	bh=asmqg6/1UGnzh4bWkxJ0A6ElYaEK2fDZylXj6jVvh0E=; b=Kyrq8wIt0qLzdnxGGtS6MRDNEI
-	f1CpolBv4SEWvLafSR6a1ws22wGG/RA8dYryg0NY7Z9wjxOP/w4HbU4kOAcUQGFKahIfkPDH3aEsy
-	zJJ2DqL5TfNsiFG5/7I82fojYeZq/zwGY5rfePq5+mGJ8TODaUxmV7fWD8ivo93emWFuAS0UMaH3W
-	wOwmG/obbQ3cnZaNuSDhVnxKoVifc/ufTMDqG7i2fhGG9aT3vsF2P2+X50ixkc20bwxTEHcYPLCN/
-	yF3ZaoZgJwKuytBUkTMQkAadU7gp+CibqSAUqm1xu+N+af431dJYvJfPNn0foPoyYrYyhS6CA00zj
-	xHjreUXILBXw3xZ9l0BdAimtNXVgsGaUg83s45cf8Qp2cfcZcITHddld+mSZ+M8MO5BEL9LFdLAvC
-	pOp72+wC2rRWaYVvBqyCRZFShjGzqQx6wNNuytWl1CoTiXg1GByEVkBbhStTn8/ad7+3vf854aBhI
-	l/uziYgxOGUnwtkYiHhiB5zH;
-Received: from [127.0.0.2] (localhost [127.0.0.1])
-	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
-	(Exim)
-	id 1xOsYx-00000008UCM-3Qtk;
-	Thu, 05 Nov 2026 08:11:11 +0000
-Content-Type: multipart/mixed; boundary="------------jeUjgU0wX0mpfHou0YXCjYtl"
-Message-ID: <71706f92-565e-4179-8a05-b5ae218d9397@samba.org>
-Date: Thu, 5 Nov 2026 09:11:11 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a8LwHb4Z;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cJfYmTmE
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A56U8F34169642
+	for <stable@vger.kernel.org>; Thu, 5 Nov 2026 08:11:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	mIPALp95eM3AkXFlvFAPjNiT6Aysu1euG/w9XR+z1kc=; b=a8LwHb4ZHdGn4MsJ
+	20ov9kOlvbDvIQg0LABhso9DtRcQp9puWNQq18Ru1K6N0sJEiArvwPTGJaFrRozj
+	khU8WPF049wZiIAsEJj/hAIT39GPXKalNdUrp1/EeOsaj9peDHIVkEVprYWY9drA
+	l3z+XTvUcKqSsq3x8upVQPSQtbooBJta092cmY47+kBicyWl1KAOMtAxSAiW7Bl5
+	PwoWNjVqm4tUPYx4yPpBf4Wlkwe6J5dEOFBf8Yy6BfF3T5W5sYlNcFvm7P6Ke2Sr
+	5DvkxPkb2gVR1XA1seH38HhLXvDcReeBJq0r/hRYFWt1iTHaz/3Idcf8mNomwj8U
+	SoYuZw==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrmcd8dum-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 05 Nov 2026 08:11:43 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91e751af52bso3723946d6.2
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 00:11:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793866303; x=1794471103; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mIPALp95eM3AkXFlvFAPjNiT6Aysu1euG/w9XR+z1kc=;
+        b=cJfYmTmEF0pCxy+r41jz/0v/qRBS587sP+w9/rlgJlfc6L3MwP5XdKeRFbZvUO/LDE
+         ThdRVHeFJeaC2TkDd9r+Ws0abl6ivqFMD6vrCxvx64/YWGmXez/THI6YtUL2YXmdP3kt
+         BpmVbWnYafyMWlsWuDcgxBWn2xjCehowwNEuNnQUMcuTAzXtEQTTgO5z8uNqdTj8cYko
+         eIed/SYJFHHE+WParcaxxwVNUCOEXJZ7PybxOvdhwCgaQNr1SKXVJoIhgYOIPePRO++h
+         tRNwmQb7dZkeAhnKqEV5dN8Xo37nxsHTkLaQwjg0M1w5yQb37lA1M8+a/hTHYKAdTb/7
+         riIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793866303; x=1794471103;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mIPALp95eM3AkXFlvFAPjNiT6Aysu1euG/w9XR+z1kc=;
+        b=XebvdRwOJ81fkHfvbL27dBuPgTZG8Hlg9ui+LKT0gnRdYI/a2r8M13JQphqYBgP8bs
+         Lkg7klKzY0cegsgpcHI3/3dBaJz4gMgIHSwXZsRjwBvxIzYSTyqUocTofBScbpPbh6ur
+         DAf3Qc1TSRwTQfAjWr7xyjodtxQII2JnhCXBt8XLjTdyPbnJQPB/i95TegainfwuHE7V
+         MN0+s21o51jZMCnE9xd+FnAZyMjYH/Wh3BNhAyXxLSocYLGtoH5qcN4ZD17hzBYHPsX2
+         0LfAOxKPwvCvgCkI7JDqoGPO2IL+V9r/GKWenOjM6Cjtz1T5NgDc0J9ra9HdIXYb62fx
+         QNcQ==
+X-Gm-Message-State: APuU4Z/atFCgXdgogLf7qoHKLKobGtXzy2NU70afxK4lPpEf3au9lZKJ
+	Wzcf/nMRrx3ZZTRxXzpWzTBo8rEYuyRPjZpMd/HUsntf2QZZhxmC+bqOZgqgqROAfCXuiVFgNiE
+	WwqC0ir7EVqupnfz89MXMcU/UM8ADZPiSgtpf2uirFGL4E2HFM1s/Gp+394E=
+X-Gm-Gg: AYBFou0QyTIhM43e169NLf/eZ8Ua2bFyTgIn5D1TnNoOIgPAj/doJA6Y7W1rXv9RQ3W
+	OCmaWihAVP7AFLc/8E7vzBVbuWMMtqnj/JAZxR428i7QthXtuA8pLP/7h4R/Kmbinxr+8AfDEV5
+	Yy9NyIUGf12igc9O8vMl+OBnI4r0oLzEfQdxz7hL4JmwW9EEsadgtfxH7XUiZg6cW41RcWPUx9C
+	YJFrLdvPUGqdPZQ9JxiZrdMC8sZ10XTIQSkRIRz8a/X7mEx6xv1bsZP6ourRp2JUORX24PH6xSP
+	Tm6MI+rpoxh8QQo3icMV5p8+ppv377HzWMdv2FIU5208LZyJ4tSfmQJOwU/XKJQ7rnszNf2umAB
+	FS4Z8ZXgavBXbA51351FPWO4i+xym1Rq7uZnsTYUcag+GldclxyuT8P9nMBWNPA+WtNDr
+X-Received: by 2002:a05:6214:20ac:b0:91c:7831:f4af with SMTP id 6a1803df08f44-91ca4b63f0dmr405783006d6.4.1793866303180;
+        Thu, 05 Nov 2026 00:11:43 -0800 (PST)
+X-Received: by 2002:a05:6214:20ac:b0:91c:7831:f4af with SMTP id 6a1803df08f44-91ca4b63f0dmr405782466d6.4.1793866302702;
+        Thu, 05 Nov 2026 00:11:42 -0800 (PST)
+Received: from [192.168.226.1] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e4a49fasm146003566b.82.2026.11.05.00.11.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 00:11:41 -0800 (PST)
+Message-ID: <cd587c31-9e78-4957-aa41-53d568547654@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 09:11:39 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,132 +114,72 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: FAILED: patch "[PATCH] smb: smbdirect: fix buffer length
- underflow in RDMA transfers" failed to apply to 5.15-stable tree
-To: gregkh@linuxfoundation.org, linkinjeon@kernel.org
-Cc: stable@vger.kernel.org
-References: <2026110439-qualify-confiding-f593@gregkh>
+Subject: Re: [PATCH 3/6] backlight: qcom-wled: Cancel delayed work on probe
+ failure
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+        Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
+        Kiran Gunda <quic_kgunda@quicinc.com>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org, David Heidelberg <david@ixit.cz>
+References: <20261104183935.1214630-1-lee@kernel.org>
+ <20261104183935.1214630-4-lee@kernel.org>
 Content-Language: en-US
-From: Stefan Metzmacher <metze@samba.org>
-In-Reply-To: <2026110439-qualify-confiding-f593@gregkh>
-
-This is a multi-part message in MIME format.
---------------jeUjgU0wX0mpfHou0YXCjYtl
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261104183935.1214630-4-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=EOGTQFZC c=1 sm=1 tr=0 ts=6aec3a40 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bK3wT2hOXHs123jOQ6gA:9
+ a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-GUID: NgyAwcumrzYHmUSY6sqq7yiWAFIO_tjT
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAzMiBTYWx0ZWRfX65VWg2a9MCT1
+ 0WU50Ttcz2LGcEYc4xUr0Vbl6nyREL89TYa0c/R3Jo4x9pvvo8S/GpkyhMmwrJYu788xBioLAVu
+ Il7xusAP3NqKQXEoFjMoERB+D0Tz2mo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAzMiBTYWx0ZWRfX1PEmi+VmN1Z0
+ epGld+aZFMEUZVrn+1/LDh5/ovtd6C150E0Qzu0NQE04ZP9kaD9U62nsEAXksg3R5j4nQJCtY3G
+ K3TtZX9glnMHgqzEdurwmGQJ8iHpFB77ihoHuNK7Hs+jdZmpxvNcMHXoSufA3PRsDHPGSGKg23R
+ ze268+8qmWVEBbM64vAZG1fkEFV/CJtCXoouayOqPPN1gd/9oAv3BgHOZAfp3/GZsLvtEs1zq6o
+ eLbonCvfwN/i+ksFzWvj0aqQxqS4bSywlBmniRO3eZ6OKhaQvqdBHTg6MrWcK1E76f3oYoW/+Qu
+ dyT1gs9lQqMPghV0YdESVsf7aJa1WpNN/U4vQehuxKFItObbM5knFbZ6C3BPHsLcOU9Jjpcr07W
+ wJxS//KTXDiSkElKE7O3cc4lclp67RoGLkecp4nye0Cxx2+oOool3+njl3XsKa0vfq0/fK32ug4
+ glgpJ/dkmZ+cTnD6O3A==
+X-Proofpoint-ORIG-GUID: NgyAwcumrzYHmUSY6sqq7yiWAFIO_tjT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_02,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 suspectscore=0 bulkscore=0 phishscore=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050032
 
-Am 04.11.26 um 19:29 schrieb gregkh@linuxfoundation.org:
+On 11/4/26 7:39 PM, Lee Jones wrote:
+> If a short interrupt fires after wled_configure_short_irq() has
+> registered the interrupt handler, wled_short_irq_handler() calls
+> wled_module_enable(), which schedules wled->ovp_work.
 > 
-> The patch below does not apply to the 5.15-stable tree.
-> If someone wants it applied there, or to any other stable or longterm
-> tree, then please email the backport, including the original git commit
-> id to <stable@vger.kernel.org>.
+> If wled_probe() subsequently fails during
+> devm_backlight_device_register(), devres frees the wled structure while
+> wled->ovp_work remains pending, leading to a use-after-free when
+> wled_ovp_work() executes.
 > 
-> To reproduce the conflict and resubmit, you may use the following commands:
+> Configure the OVP interrupt first, then initialise wled->ovp_work via
+> devm_delayed_work_autocancel() before requesting the short interrupt.
+> This ensures that on teardown devres frees the short interrupt first,
+> cancels any pending wled->ovp_work while wled->ovp_irq is still valid,
+> and finally frees the OVP interrupt and wled structure.
 > 
-> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-> git checkout FETCH_HEAD
-> git cherry-pick -x 7193241a49c958782ba4b8df06da3734d1e317d2
-> # <resolve conflicts, build, test, etc.>
-> git commit -s
-> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110439-qualify-confiding-f593@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
-> 
-> Possible dependencies:
-> 
-> 
-> 
-> thanks,
-> 
-> greg k-h
-> 
-> ------------------ original commit in Linus's tree ------------------
-> 
->  From 7193241a49c958782ba4b8df06da3734d1e317d2 Mon Sep 17 00:00:00 2001
-> From: Stefan Metzmacher <metze@samba.org>
-> Date: Fri, 23 Oct 2026 19:26:09 +0900
-> Subject: [PATCH] smb: smbdirect: fix buffer length underflow in RDMA transfers
-> 
-> When a remote buffer descriptor is larger than the remaining local
-> buffer, smbdirect_connection_rdma_xmit() clamps its length and sets
-> buf_len to zero. The common accounting code then subtracts the clamped
-> length from buf_len, causing it to underflow. If another descriptor
-> follows, the loop processes it with a wrapped remaining length and
-> includes memory beyond the local buffer in the RDMA transfer.
-> 
-> A client can trigger an out-of-bounds kernel write with an SMB WRITE
-> request, or an out-of-bounds kernel read with an SMB READ request, by
-> supplying multiple RDMA buffer descriptors with an oversized descriptor
-> before the last one.
-> 
-> Remove the premature assignment to buf_len. Subtracting the clamped length
-> already consumes the remaining buffer, so the next iteration stops and
-> only descriptors within the local buffer are used to build work requests.
-> 
-> Fixes: e628bf939aaf ("ksmbd: reduce descriptor size if remaining bytes is less than request size")
+> Fixes: 8663c188beea ("backlight: qcom-wled: Add auto string detection logic")
+> Closes: https://sashiko.dev/#/bug/linux-ca2e48a2-f511-44b8-a7d4-866f360bf107
 > Cc: stable@vger.kernel.org
-> Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-33549
-> Signed-off-by: Stefan Metzmacher <metze@samba.org>
-> Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-> 
-> diff --git a/fs/smb/smbdirect/rw.c b/fs/smb/smbdirect/rw.c
-> index 6fe38042cfb9..cb142c3c50b2 100644
-> --- a/fs/smb/smbdirect/rw.c
-> +++ b/fs/smb/smbdirect/rw.c
-> @@ -143,7 +143,6 @@ int smbdirect_connection_rdma_xmit(struct smbdirect_socket *sc,
->   		if (desc_buf_len > buf_len) {
->   			desc_buf_len = buf_len;
->   			desc[i].length = cpu_to_le32(desc_buf_len);
-> -			buf_len = 0;
->   		}
->   
->   		credits_needed += smbdirect_connection_calc_rw_credits(sc,
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> ---
 
---------------jeUjgU0wX0mpfHou0YXCjYtl
-Content-Type: text/plain; charset=UTF-8;
- name="backport-5.15-smbdirect-rdma-xmit-underflow.txt"
-Content-Disposition: attachment;
- filename="backport-5.15-smbdirect-rdma-xmit-underflow.txt"
-Content-Transfer-Encoding: base64
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-RnJvbSBmN2VhMmI2ODJmYmZkNTNhMTA3MDc4YmQwMDlhMGVlNjgxOGIyZGMxIE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBTdGVmYW4gTWV0em1hY2hlciA8bWV0emVAc2FtYmEu
-b3JnPgpEYXRlOiBGcmksIDIzIE9jdCAyMDI2IDE5OjI2OjA5ICswOTAwClN1YmplY3Q6IFtQ
-QVRDSCA1LjE1LnldIHNtYjogc21iZGlyZWN0OiBmaXggYnVmZmVyIGxlbmd0aCB1bmRlcmZs
-b3cgaW4gUkRNQQogdHJhbnNmZXJzCgpbIFVwc3RyZWFtIGNvbW1pdCA3MTkzMjQxYTQ5Yzk1
-ODc4MmJhNGI4ZGYwNmRhMzczNGQxZTMxN2QyIF0KCldoZW4gYSByZW1vdGUgYnVmZmVyIGRl
-c2NyaXB0b3IgaXMgbGFyZ2VyIHRoYW4gdGhlIHJlbWFpbmluZyBsb2NhbApidWZmZXIsIHNt
-YmRpcmVjdF9jb25uZWN0aW9uX3JkbWFfeG1pdCgpIGNsYW1wcyBpdHMgbGVuZ3RoIGFuZCBz
-ZXRzCmJ1Zl9sZW4gdG8gemVyby4gVGhlIGNvbW1vbiBhY2NvdW50aW5nIGNvZGUgdGhlbiBz
-dWJ0cmFjdHMgdGhlIGNsYW1wZWQKbGVuZ3RoIGZyb20gYnVmX2xlbiwgY2F1c2luZyBpdCB0
-byB1bmRlcmZsb3cuIElmIGFub3RoZXIgZGVzY3JpcHRvcgpmb2xsb3dzLCB0aGUgbG9vcCBw
-cm9jZXNzZXMgaXQgd2l0aCBhIHdyYXBwZWQgcmVtYWluaW5nIGxlbmd0aCBhbmQKaW5jbHVk
-ZXMgbWVtb3J5IGJleW9uZCB0aGUgbG9jYWwgYnVmZmVyIGluIHRoZSBSRE1BIHRyYW5zZmVy
-LgoKQSBjbGllbnQgY2FuIHRyaWdnZXIgYW4gb3V0LW9mLWJvdW5kcyBrZXJuZWwgd3JpdGUg
-d2l0aCBhbiBTTUIgV1JJVEUKcmVxdWVzdCwgb3IgYW4gb3V0LW9mLWJvdW5kcyBrZXJuZWwg
-cmVhZCB3aXRoIGFuIFNNQiBSRUFEIHJlcXVlc3QsIGJ5CnN1cHBseWluZyBtdWx0aXBsZSBS
-RE1BIGJ1ZmZlciBkZXNjcmlwdG9ycyB3aXRoIGFuIG92ZXJzaXplZCBkZXNjcmlwdG9yCmJl
-Zm9yZSB0aGUgbGFzdCBvbmUuCgpSZW1vdmUgdGhlIHByZW1hdHVyZSBhc3NpZ25tZW50IHRv
-IGJ1Zl9sZW4uIFN1YnRyYWN0aW5nIHRoZSBjbGFtcGVkIGxlbmd0aAphbHJlYWR5IGNvbnN1
-bWVzIHRoZSByZW1haW5pbmcgYnVmZmVyLCBzbyB0aGUgbmV4dCBpdGVyYXRpb24gc3RvcHMg
-YW5kCm9ubHkgZGVzY3JpcHRvcnMgd2l0aGluIHRoZSBsb2NhbCBidWZmZXIgYXJlIHVzZWQg
-dG8gYnVpbGQgd29yayByZXF1ZXN0cy4KCkZpeGVzOiBlNjI4YmY5MzlhYWYgKCJrc21iZDog
-cmVkdWNlIGRlc2NyaXB0b3Igc2l6ZSBpZiByZW1haW5pbmcgYnl0ZXMgaXMgbGVzcyB0aGFu
-IHJlcXVlc3Qgc2l6ZSIpCkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnClJlcG9ydGVkLWJ5
-OiB6ZGktZGlzY2xvc3VyZXNAdHJlbmRtaWNyby5jb20gIyBaREktQ0FOLTMzNTQ5ClNpZ25l
-ZC1vZmYtYnk6IFN0ZWZhbiBNZXR6bWFjaGVyIDxtZXR6ZUBzYW1iYS5vcmc+ClNpZ25lZC1v
-ZmYtYnk6IE5hbWphZSBKZW9uIDxsaW5raW5qZW9uQGtlcm5lbC5vcmc+ClsgbWV0emU6IGlu
-IDUuMTUgdGhlIGNvZGUgaXMgc21iX2RpcmVjdF9yZG1hX3htaXQoKSBpbgogIGZzL2tzbWJk
-L3RyYW5zcG9ydF9yZG1hLmMgXQpBc3Npc3RlZC1ieTogQ2xhdWRlOmNsYXVkZS1vcHVzLTUt
-NQotLS0KIGZzL2tzbWJkL3RyYW5zcG9ydF9yZG1hLmMgfCAxIC0KIDEgZmlsZSBjaGFuZ2Vk
-LCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZnMva3NtYmQvdHJhbnNwb3J0X3JkbWEu
-YyBiL2ZzL2tzbWJkL3RyYW5zcG9ydF9yZG1hLmMKaW5kZXggNmVhNzNmZTZkZTZjLi45OTg2
-ZTE5MWU3MDEgMTAwNjQ0Ci0tLSBhL2ZzL2tzbWJkL3RyYW5zcG9ydF9yZG1hLmMKKysrIGIv
-ZnMva3NtYmQvdHJhbnNwb3J0X3JkbWEuYwpAQCAtMTM2MSw3ICsxMzYxLDYgQEAgc3RhdGlj
-IGludCBzbWJfZGlyZWN0X3JkbWFfeG1pdChzdHJ1Y3Qgc21iX2RpcmVjdF90cmFuc3BvcnQg
-KnQsCiAJCWlmIChkZXNjX2J1Zl9sZW4gPiBidWZfbGVuKSB7CiAJCQlkZXNjX2J1Zl9sZW4g
-PSBidWZfbGVuOwogCQkJZGVzY1tpXS5sZW5ndGggPSBjcHVfdG9fbGUzMihkZXNjX2J1Zl9s
-ZW4pOwotCQkJYnVmX2xlbiA9IDA7CiAJCX0KIAogCQljcmVkaXRzX25lZWRlZCArPSBjYWxj
-X3J3X2NyZWRpdHModCwgZGVzY19idWYsIGRlc2NfYnVmX2xlbik7Ci0tIAoyLjUzLjAKCg==
-
-
---------------jeUjgU0wX0mpfHou0YXCjYtl--
+Konrad
