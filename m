@@ -1,59 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793840778;
-	b=lyI2n4X9wEVpG6wdzR+4ohwC/KbT0ae/FjeOUqUdylpDWUHPaHJE05fx6VAIVlrLb3GB
-	 4rORH/t5LgR5ZBTdiX//EivPcs/GZPPhgfWgI3aRrEDlTU39yIQ0zBx24qzQNWXtuWkAZ
-	 CxXoV63gx+43JgX+J7mcDSh5nEPPB+DhIn12Z7Pl1sIEdPxS+b649klDG8FZ/77yToq+6
-	 jZH08207sqPf3AGt8bV07N72EEqrXBhN2mP/Wz3TQ0c8XaQqR6pAff9D8czUkKSTJXRgq
-	 U/fl4/fRcvHDlmRVkxBeuEpsZvMkAdiKpHlRgnvFYr6nwOgh8/2qsOVatT8Ar8cd2cw==
+	t=1793841079;
+	b=iYy4m0vb1cGNYfRZY0KQ7/vaL4+yQk2IF0rZUTkaCYMHUZpT5etdx98raUAe1yziCxsT
+	 MHatmsb3vIBrM7ijUXUZyB3nLuK3CSazah/YwNJz/8vZQj++DTB9Mh9nNS3m10k67t/u2
+	 1+O6CKezBrv7TtsrMhCILr/qfNovw0n13Rbt1LOAaRpyOKtIgwXMF7oL7o+Sc+LSsC6tN
+	 GWeJ4VgXu4kZlc7eLOKZHUWJ3MnCK8C52E5FtUxbVwZ6WREshTvV/I8nLeK0++9pSL7n1
+	 htfzk+nWTAiWaTT81Jn1z5w378XUjhErOnisH0WMSs4rnDlOMWkuPA/CrXYKT2jgV3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793840778;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
-	 X-Content-Kind-Code:In-Reply-To:X-CPGS-Detection:X-Drm-Type:
-	 X-Msg-Generator:X-Msg-Type:X-Reply-Demand:Message-ID:Date:
-	 X-CMS-MailID:Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:
-	 CMS-TYPE:X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
-	 X-CMS-RootMailID:References;
-	bh=7oacRK3Pt7sPDmCYh3oGr8HRMGBnelioWyFlTRnDaT4=;
-	b=4ekTau3d9eXOYN0WSdUpDPzc698lXQ5wRPh36IXVIq6N87Yxmo0qZbrtiGHUhEtBvofY
-	 ZHxiCsU2eRcewYmEQ1Gpd5B2zET0ZC6MJH+5yEpHsn4dwswwxFy5MISkBfluYYkRmc/5J
-	 igfao3XRWo6EHaFfhQ7qguqS/FxIGU0seKia6LoZ6CRt42elpYdkzfsIcXl2sdIOxPOFj
-	 Yn65cEZ95vkPQjnVGkuPAcQLrJvxcmU4u/Lm2BK4Cw3tNkopQMWqjU7wtaInHuzqK2jQ8
-	 LM52yrR6MS11gdm48+cNB3VWs5O4DVQgOZOyDO5JVXlnov7YNjBWXJlvPEjlO6D6oIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793841079;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=2UlnfVNGDD6KvMEc2fU81K3LEQe/mZwN7o76G/XWM5s=;
+	b=bKrIXNXM9tGJosy4SbRYUaTzYwTtihtCifJkkpDuSjDj3qUZYCYW6965XppFMMjaDq69
+	 Ki9oHy5zSlr0wPB5QLL40qCzK8huvEGmDNt4ECO0Riu8Ukg/6o6DsY3DLi4FniaJl38os
+	 y+kZev7PHYOrJ/Kb/JOgOuAAzDU5OWhTSIXf6fQKfGnIhSZwF4tV122tg5NT/hiujYfos
+	 Dcpgin8loeokx8uvKIxw3tmc7gjJbVAqX87Jbiq3ktYGZUxjx0fs6WfrpDushmgxQ04jD
+	 sKUJrb/cv7y5MpPHm0afOsBEoZUw58J6OVFe7FWkilp/If3vvfAxnBxIK6JKTmVS2qQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=RA3zsBB6;
-	arc=none smtp.remote-ip=203.254.224.34
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=AtzlCBaZ;
+	arc=none smtp.remote-ip=113.46.200.224
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2711E606A329
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 01:06:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2711E606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 598F4606A326;
+	Thu,  5 Nov 2026 01:11:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 598F4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=RA3zsBB6
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261105010614epoutp04978c33af3f62dc6645b80f1d6cecaeb5~lAK47iCa22814228142epoutp04c
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 01:06:14 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261105010614epoutp04978c33af3f62dc6645b80f1d6cecaeb5~lAK47iCa22814228142epoutp04c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793840774;
-	bh=7oacRK3Pt7sPDmCYh3oGr8HRMGBnelioWyFlTRnDaT4=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=RA3zsBB6URHMzGwoGYVTZtDnG4Z/RSmoifO152SpBUu+BE87rLi3SQfpeaFgcWXKA
-	 E+4yTCLFFv47LIa+83OerP4m0YunVhraHGUkgn7/KS74QvP4afwSZiLvwjZk0B7/2N
-	 WJFaNH6P/Rtf+gXJ4fF4CmO1KriIpBYMuSjlBT9c=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261105010613epcas2p104a21c4f3ac935d60d726cc0c56fbdee~lAK4A-fKR0052700527epcas2p1G;
-	Thu,  5 Nov 2026 01:06:13 +0000 (GMT)
-Received: from epcas2p3.samsung.com (unknown [182.195.38.212]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jKkdx2v9gz6B9m7; Thu,  5 Nov
-	2026 01:06:13 +0000 (GMT)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=AtzlCBaZ
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=2UlnfVNGDD6KvMEc2fU81K3LEQe/mZwN7o76G/XWM5s=;
+	b=AtzlCBaZdAAK7PW/2RxxZuF3O5U9kqNqHOqZr3+usZ3hWsD75vD1DHHAjBDLN69K87t/D+JoN
+	BLAkcNDuIvi3vz32A536gDqVrdVlJFA/ASAmDtEzqVDYL7FlbIehpreFazipnoFBeh8nK82X2fi
+	8D3SPhRPG/pvIoAJNgn6jqs=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jKklT1zbDz1cySG;
+	Thu,  5 Nov 2026 09:11:01 +0800 (CST)
+Received: from whupemk300014.china.huawei.com (unknown [7.152.185.8])
+	by mail.maildlp.com (Postfix) with ESMTPS id C6F0C4056C;
+	Thu,  5 Nov 2026 09:11:12 +0800 (CST)
+Received: from [10.174.177.221] (10.174.177.221) by
+ whupemk300014.china.huawei.com (7.152.185.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 5 Nov 2026 09:11:11 +0800
+Message-ID: <5dcebf01-f1f5-48b0-b5ac-69e7d1c33d24@huawei.com>
+Date: Thu, 5 Nov 2026 09:11:00 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,60 +61,72 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Subject: RE:(2) [PATCH 1/2] mm/huge_memory: set memcg_data before a split
- page leaves the folio
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>
-CC: Tao Yi <escape@deepseek.com>, Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
-	David Hildenbrand <david@kernel.org>, Matthew Wilcox <willy@infradead.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett"
-	<liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, Ryan Roberts
-	<ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
-	<baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, Usama Arif
-	<usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Vlastimil Babka
-	<vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Brendan Jackman
-	<brendan.jackman@linux.dev>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>, Daejun Park
-	<daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <DMMKKOIGA9UJ.353PCUUMFLCCJ@nvidia.com>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261105010612epcms2p60abe5ce24c4ca7d61236b613a517fe2a@epcms2p6>
-Date: Thu, 05 Nov 2026 10:06:12 +0900
-X-CMS-MailID: 20261105010612epcms2p60abe5ce24c4ca7d61236b613a517fe2a
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] rpcrdma: Serialize notification registration with
+ device removal
+To: Chuck Lever <cel@kernel.org>
+CC: Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Olga
+ Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey
+	<tom@talpey.com>, Trond Myklebust <trondmy@kernel.org>, Anna Schumaker
+	<anna@kernel.org>, "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
+	"linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>, yuehaibing
+	<yuehaibing@huawei.com>, zhangchangzhong <zhangchangzhong@huawei.com>,
+	"weiyongjun (A)" <weiyongjun1@huawei.com>
+References: <20261103032758.1302493-1-lixiasong1@huawei.com>
+ <20261103032758.1302493-2-lixiasong1@huawei.com>
+ <03cf178a-bbcf-448e-88bb-84e4dd994baf@slotpi15m67>
+From: Li Xiasong <lixiasong1@huawei.com>
+In-Reply-To: 03cf178a-bbcf-448e-88bb-84e4dd994baf@slotpi15m67
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261104163327epcas2p1f056cd220dc0d3e40e6fcea082f01b74
-References: <DMMKKOIGA9UJ.353PCUUMFLCCJ@nvidia.com>
-	<20261104-kpagecgroup-split-v1-0-f70e947fec85@samsung.com>
-	<20261104-kpagecgroup-split-v1-1-f70e947fec85@samsung.com>
-	<CGME20261104163327epcas2p1f056cd220dc0d3e40e6fcea082f01b74@epcms2p6>
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ whupemk300014.china.huawei.com (7.152.185.8)
 
-On Wed Nov 4, 2026 at 11:33 AM EST, Zi Yan wrote:
-> Assign memcg data before clear_compound_head(), so lockless,
-> reference-free readers get the right value instead of bogus data from
-> the overlaid ->_nr_pages in the first tail page.
+On 11/4/2026 6:06 AM, Chuck Lever wrote:
+> On Tue, 03 Nov 2026 11:27:56 +0800, Li Xiasong wrote:
+> 
+>> +	mutex_lock(&rpcrdma_device_mutex);
+>> +	rd = rpcrdma_get_client_data(device);
+>>  	if (!rd || test_bit(RPCRDMA_RD_F_REMOVING, &rd->rd_flags))
+>> -		return -ENETUNREACH;
+>> +		goto out_unlock;
+>>
+>>  	/*
+>>  	 * Arm rn_done before xa_alloc() publishes @rn: once @rn is
+>> @@ -78,11 +89,15 @@ int rpcrdma_rn_register(struct ib_device *device,
+>>  	rn->rn_done = done;
+>>  	if (xa_alloc(&rd->rd_xa, &rn->rn_index, rn, xa_limit_32b, GFP_KERNEL) < 0) {
+> 
+> This xa_alloc() now runs with rpcrdma_device_mutex held, and the
+> mutex is module-wide. Every xprtrdma connect, every svcrdma accept,
+> and rpcrdma_remove_one() take it. GFP_KERNEL here can enter direct
+> reclaim with the mutex held.
+> 
+> Before this patch, a connect worker that blocked in that wait
+> could wait only on its own transport, and every other
+> transport reconnected independently. With the mutex held across
+> the allocation, a connect worker for transport A that is waiting in
+> reclaim on an RPC over disconnected transport B blocks transport
+> B's reconnect in rpcrdma_rn_register(). The same holds for an nfsd
+> thread in svc_rdma_accept() on a host that also runs an NFS client.
+> Device removal queues behind the same mutex.
+> 
+> The mutex does not need to cover the allocation. xa_reserve() or
+> xa_insert() with a slot reserved before mutex_lock(), or
+> memalloc_noio_save() around the critical section, keeps the
+> serialization this patch needs without holding the lock across
+> reclaim.
+> 
 
-Thanks, agreed. Your wording says why the assignment has to come before
-clear_compound_head(), which my comment left implicit.
+Thanks for pointing this out. I missed the reclaim dependency while
+holding the module-wide mutex.
+
+I'll revisit the allocation path and make sure registration remains
+serialized with device removal without introducing this dependency.
 
 Thanks,
-Daejun
+Li Xiasong
+
+
