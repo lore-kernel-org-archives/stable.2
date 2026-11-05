@@ -1,56 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.82.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866219;
-	b=CCyTueKvdt6PEEeE28E0+mvRSFSaduEtGG7UYxg2AEp4yUEA2aqAgV9X95wXURwoob+c
-	 2e2AtBmzjAtXiTP/dUcqKaTnv3NhuHrBLgm1D2k0jPCyKGw90h3UeKfzFqo5/54UtvE6P
-	 RtsuIvRMCDEfEblHi23uy0iExcwrgpmN5I4V2FgEX9Pq6eudVC6+OZe8ZiH77vqjzjWxz
-	 2FjmCOu8KsdqYQ8CDuLJQxklZKkjVf3jKKxu2KQMXbn/vEcmf8MzicQrw6TsTyfplwk02
-	 0x3U1mJYQgJyhQcg2ab3QDad3tXOzvM+wZjZn1EP9YKPh+zJW8AZusp1JP1aoocGzoQ==
+	t=1793866222;
+	b=i6/iIWVlAh3RUiXez3B+VgC6mGw06s5q57cIzabgTS16FEgb/tzPyQTIbPxf66KOBGfJ
+	 VJDe3UAvCqe8vm+dhN1Kb3J8CqFxaZTRoOhs7WiqRcY4T51rcxei0o4657pE2VP2o9SEt
+	 RI2VxlIWErgOjr6K9XI4uNDtx26nZPMMoePfA8cE48a7zFVJmVV2EqB9nz+/ZNGSM3UuS
+	 kLno+hAFkv8yic9tQGfeG6wh6QjMAPsdeWv2gP1IVRI99f2Pnoi/g9RzUKk0mPmOdEhXg
+	 4TwT62AGImc/d6r2wm9xa4PdPxunKRO4SYgnGxqHnPQUlFCpRwSHJ05oQPotVLpfY3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866219;
-	h=DMARC-Filter:DKIM-Signature:Received:Content-Type:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To;
-	bh=LKtUYXUIDFpML0kPQsPssvtpKcDDfoa2YZs3nvL2GQk=;
-	b=Pwue8UNxdJkAwx1tsQNbJClQ9Mif2riv65XW3dxYFp1kJC0FRvxV1ubS9UQpiFZ4ypXg
-	 CaWCov7/nMJgS79BtvXcb3BtgOagji1gJIHtXZ61ZX9amP2GH0U2z2y1H61nzFf6ga2gD
-	 scYhEtDeO4G7gVB50uBbknZxX8+k4luKeUnhGuAB92r7zrzDjYDzcbLdAA0AaP+gTR86k
-	 zZksoPqtafRmrcqrbQ3B9bDLVonXEyhg1SdR6MaDbHcCGCIhSgIp/kMjBKqVpLLXAQrPV
-	 7dONqiN+iV3Li5yIS7MbFWDAJGHE4RhT2DkAT+biqTVdp8DHfCFYnyl5Sq5DMwWX79g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866222;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=eBh969nVxZFFTO6fmYWdYNz93+AyKv5QmTP2TTDmML4=;
+	b=f8RpsGMq4hVdWlJ9dg+Y7iN830K8U5/ukDkYMp2ltNA1zZAZXBeeuYiifArhbU2/jV+B
+	 hesS5yV6rwl5VBSy2jsE2QVENbpO3kqTK2NzkDvlk9Jcc9H5rfkrw1avaulVuWlnPDwCl
+	 5AHROCgYlGv7vmFZam0JG8ikbloowkax6IrtCGgPLjpwNinPHBg2xkEn0A2Z7u+0CvB9n
+	 6LafzTYkQyMBwdw+GgwmCV+1ywrvI6bGh6COiykDCwHL0tV+xpy7U9bNNyhjOgHT1LW68
+	 HDxPlro+tXvYfZ1Ryr9COQfU8Ml1ABcAfNd1EGhj9teVQgoGlJ5meKk2Q9VtiRmtmcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samba.org;
-	spf=pass smtp.mailfrom=samba.org;
-	dkim=pass header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=DztBhM9+;
-	arc=none smtp.remote-ip=144.76.82.148
-Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
-	(using TLSv1.3 with cipher TLS_CHACHA20_POLY1305_SHA256 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=Z8MnDae2;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A78606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 08:10:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87A78606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9590B606A32D
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 08:10:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9590B606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (3072-bit key, unprotected) header.d=samba.org header.i=@samba.org header.a=rsa-sha256 header.s=42 header.b=DztBhM9+
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
-	s=42; h=From:Cc:To:Date:Message-ID;
-	bh=LKtUYXUIDFpML0kPQsPssvtpKcDDfoa2YZs3nvL2GQk=; b=DztBhM9+DXr4r+Q6mCsGXCDi3P
-	Dgzwgsz68yxKDbf0Y8YFFqsNri30zWwMo72DH16Qo1OqcqxLwkvJejl6IJvlYJO3cvP8SPzI1hytE
-	bUFCasbTuiK9SkqrxcqwyXqUGEsZCd8wxNF/anq7Fi4BUXBvra/HBu4u6HvdMrJccTm81wEMDtL7W
-	AvcVypGT5uv641rBsEN/aOoZE7aKFRK5P18nLRplJbQY4jR3/69U0zOxyu7ccQkmLeTAXhcvAy0gG
-	H4ocliGzCekSO8ibr/7S9k+jpMbLMs4w5BBlSWVOnYYFlLN00aW0OvQQqlBmrjtqpByFxmktkrlkr
-	/MLz6VwjLAeYuj2T4OwoQIWDEKJSID2zvvZzEzO4wr8IIavaO3uVZAiLlAX8yotPa5txcBhKTphe7
-	F8SmBG9Qs0T4pxrndff+C5D8UuRmV1IvMqF4qoTePD7BOV8HQgEId4oKNfiP6xfif952AFBMcwdkC
-	SExpDJ2jvbm0/GsIL6ruVySe;
-Received: from [127.0.0.2] (localhost [127.0.0.1])
-	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
-	(Exim)
-	id 1xOsY3-00000008UB4-3uHg;
-	Thu, 05 Nov 2026 08:10:16 +0000
-Content-Type: multipart/mixed; boundary="------------IEtIK1YxxNdIYu3HvIUjP0On"
-Message-ID: <751f0e5b-c37d-47a4-a45d-56043ccbb8d2@samba.org>
-Date: Thu, 5 Nov 2026 09:10:15 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=Z8MnDae2
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso11442135e9.1
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 00:10:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1793866220; x=1794471020; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eBh969nVxZFFTO6fmYWdYNz93+AyKv5QmTP2TTDmML4=;
+        b=Z8MnDae2Fsn66y+fSPyhIuqVEskaO6qb9N4w+S1WzyIZxbKvRPUaH83NjoqUuRdMlQ
+         +55mICaJ6Mx4r9o4hofBCQXICU1dZRMk6ZFp69lam3+EG2p/B8tv3geUffTwhQveCz15
+         CiJ3AJX+wQRitZ5yRXE3IpRddVqAtBQA+LFpuZnJJlfMDbJ647OrTyhsZsYzMxcheuT7
+         kDqst3oFw40pV5MPPnyS1I07Qb1DjDb2+tfRvbNRWPLCqOp52ICk+qV9dTDFL7B3EQyl
+         aMoXwSy08+l0EzHmmZDL+HcgI/PWt+WPFGN92vN4ylbNtBCitkfiE8D/rx1t8fVhAf2N
+         pkTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793866220; x=1794471020;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eBh969nVxZFFTO6fmYWdYNz93+AyKv5QmTP2TTDmML4=;
+        b=E10lxifuNsnQAhoDFdPQ4AhF93QrEinCMcF+ZRUTKQky8t/5sCUL1NyArv2yNiB5/Q
+         64BaX+zKpTwIeHCiGRcuuLtttcG5BHz2fjevUrtwcyXYkOc+yZFEsR1jPpbux0X9nNhU
+         g1CvFdiGUHYga/1FRNdKudOFA59wOAZydOoKSuPsZvHKy6uqAqmGD/9qj8oHPlfzhJKN
+         kodYoFReW4ZPRXZ7sDnXVtzBTLPBc6oPwfbJySNpvrw/Gjg6j2Kf7UnQb+jVZa50Oq3r
+         Cf52OhDp1VeSOY1gO5Y67eBm2gc8sDjIljQvtrkoeGg1QNq2BfPzCm0F/CGm3iIG4syK
+         yXww==
+X-Forwarded-Encrypted: i=1; AKwUvBwBLkNC9Wcr4cj9vXcdEn1uNL33nBAsvTl3TGW2D/ncrhP/vMlSsCB6Nf8m6KIM3NsyhUOmvEs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81Et5AtwrCcKE6VHLZGufW1PbXTBFprH28YUN0vSXls6PE2RWv
+	Ov2a+k6m/bz4tgFnD1xeAS/hM8OdVBsZK/JEboun3XyLo1BhtzQt7h4=
+X-Gm-Gg: AYBFou08+tbol9dAu4pSJCmChuWi5leNDuagZTO+A3QvUKQcP5rzVOJe7/Z5SMwl9qq
+	4Z2uPGVxZiqwWGv4tsiIJlLKr410Sl1QT3b8cNuaE29MLvJMWqrHVRiyrvsQok9dgdxevAnOY/t
+	BWTklwGRFxCdj4lDIWBj17VyqjSfJs5BcvzHlsPixmieN6Nda8gbc0JcOalfywY8bE5u9Vw/OM9
+	l08MYy8vvbc11jecN60giOhd5vRUNwKmpura2NYxqXWyDte6TbMXLQs2w8E451v2M7wwLK2QFeB
+	Pi6qL2M2FQdQZKlm676/i0PRB81H83OxmjyEXkf4aVAdX2kGTpEZkWS9OByaKyo/Fw/Vv564CTa
+	IGLNEVqvMXdu8Q2u1POsBcd475+9xYk/JbDHpbfT3WqWcvIlBDViRfZNgdWJ05iMCTIW/Ui1MgU
+	YHaTySekkIJMC5zEKdXB1WJ0t7JUww6Vj3iEGV0hxVp0C5TRAa6ni2RRJQOdo6Uz+1Z44Chqzbz
+	SBy9hRChDwE2pU9ez7ks3NPPbc+CbpUZ4mUbHJygNL89hYZPbp2iTpRGXgxUnCVqUk1uJSaLVTR
+	o2QAO3SEAyEhmivIRMdTlsjRSdpytC0zpfxSL4C/wJXAHQsLJZQ9RJ2MvsAnD9YyekZwIx3ab4S
+	atrc=
+X-Received: by 2002:a05:600c:4585:b0:4a7:8fe8:130c with SMTP id 5b1f17b1804b1-4ac1889d5a1mr393620925e9.28.1793866219820;
+        Thu, 05 Nov 2026 00:10:19 -0800 (PST)
+Received: from [192.168.1.3] (p5b2b4618.dip0.t-ipconnect.de. [91.43.70.24])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba207sm43172805e9.10.2026.11.05.00.10.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 00:10:19 -0800 (PST)
+Message-ID: <2d666e39-816a-4f38-960b-3e537189219b@googlemail.com>
+Date: Thu, 5 Nov 2026 09:10:18 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,133 +92,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: FAILED: patch "[PATCH] smb: smbdirect: fix buffer length
- underflow in RDMA transfers" failed to apply to 6.6-stable tree
-To: gregkh@linuxfoundation.org, linkinjeon@kernel.org
-Cc: stable@vger.kernel.org
-References: <2026110437-flagpole-glitch-eff0@gregkh>
-Content-Language: en-US
-From: Stefan Metzmacher <metze@samba.org>
-In-Reply-To: <2026110437-flagpole-glitch-eff0@gregkh>
-
-This is a multi-part message in MIME format.
---------------IEtIK1YxxNdIYu3HvIUjP0On
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261104211038.406938024@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Am 04.11.26 um 19:29 schrieb gregkh@linuxfoundation.org:
-> 
-> The patch below does not apply to the 6.6-stable tree.
-> If someone wants it applied there, or to any other stable or longterm
-> tree, then please email the backport, including the original git commit
-> id to <stable@vger.kernel.org>.
-> 
-> To reproduce the conflict and resubmit, you may use the following commands:
-> 
-> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-> git checkout FETCH_HEAD
-> git cherry-pick -x 7193241a49c958782ba4b8df06da3734d1e317d2
-> # <resolve conflicts, build, test, etc.>
-> git commit -s
-> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110437-flagpole-glitch-eff0@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
-> 
-> Possible dependencies:
-> 
-> 
-> 
-> thanks,
-> 
-> greg k-h
-> 
-> ------------------ original commit in Linus's tree ------------------
-> 
->  From 7193241a49c958782ba4b8df06da3734d1e317d2 Mon Sep 17 00:00:00 2001
-> From: Stefan Metzmacher <metze@samba.org>
-> Date: Fri, 23 Oct 2026 19:26:09 +0900
-> Subject: [PATCH] smb: smbdirect: fix buffer length underflow in RDMA transfers
-> 
-> When a remote buffer descriptor is larger than the remaining local
-> buffer, smbdirect_connection_rdma_xmit() clamps its length and sets
-> buf_len to zero. The common accounting code then subtracts the clamped
-> length from buf_len, causing it to underflow. If another descriptor
-> follows, the loop processes it with a wrapped remaining length and
-> includes memory beyond the local buffer in the RDMA transfer.
-> 
-> A client can trigger an out-of-bounds kernel write with an SMB WRITE
-> request, or an out-of-bounds kernel read with an SMB READ request, by
-> supplying multiple RDMA buffer descriptors with an oversized descriptor
-> before the last one.
-> 
-> Remove the premature assignment to buf_len. Subtracting the clamped length
-> already consumes the remaining buffer, so the next iteration stops and
-> only descriptors within the local buffer are used to build work requests.
-> 
-> Fixes: e628bf939aaf ("ksmbd: reduce descriptor size if remaining bytes is less than request size")
-> Cc: stable@vger.kernel.org
-> Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-33549
-> Signed-off-by: Stefan Metzmacher <metze@samba.org>
-> Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-> 
-> diff --git a/fs/smb/smbdirect/rw.c b/fs/smb/smbdirect/rw.c
-> index 6fe38042cfb9..cb142c3c50b2 100644
-> --- a/fs/smb/smbdirect/rw.c
-> +++ b/fs/smb/smbdirect/rw.c
-> @@ -143,7 +143,6 @@ int smbdirect_connection_rdma_xmit(struct smbdirect_socket *sc,
->   		if (desc_buf_len > buf_len) {
->   			desc_buf_len = buf_len;
->   			desc[i].length = cpu_to_le32(desc_buf_len);
-> -			buf_len = 0;
->   		}
->   
->   		credits_needed += smbdirect_connection_calc_rw_credits(sc,
+Am 04.11.2026 um 22:03 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 7.3.2 release.
+> There are 547 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
---------------IEtIK1YxxNdIYu3HvIUjP0On
-Content-Type: text/plain; charset=UTF-8;
- name="backport-6.6-smbdirect-rdma-xmit-underflow.txt"
-Content-Disposition: attachment;
- filename="backport-6.6-smbdirect-rdma-xmit-underflow.txt"
-Content-Transfer-Encoding: base64
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-RnJvbSAxNmY5MzU4MTBmYzY1NTNkMmNhZmY0YmQ3NDBlMjFlM2RjMGFlNDBhIE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBTdGVmYW4gTWV0em1hY2hlciA8bWV0emVAc2FtYmEu
-b3JnPgpEYXRlOiBGcmksIDIzIE9jdCAyMDI2IDE5OjI2OjA5ICswOTAwClN1YmplY3Q6IFtQ
-QVRDSCA2LjYueV0gc21iOiBzbWJkaXJlY3Q6IGZpeCBidWZmZXIgbGVuZ3RoIHVuZGVyZmxv
-dyBpbiBSRE1BCiB0cmFuc2ZlcnMKClsgVXBzdHJlYW0gY29tbWl0IDcxOTMyNDFhNDljOTU4
-NzgyYmE0YjhkZjA2ZGEzNzM0ZDFlMzE3ZDIgXQoKV2hlbiBhIHJlbW90ZSBidWZmZXIgZGVz
-Y3JpcHRvciBpcyBsYXJnZXIgdGhhbiB0aGUgcmVtYWluaW5nIGxvY2FsCmJ1ZmZlciwgc21i
-ZGlyZWN0X2Nvbm5lY3Rpb25fcmRtYV94bWl0KCkgY2xhbXBzIGl0cyBsZW5ndGggYW5kIHNl
-dHMKYnVmX2xlbiB0byB6ZXJvLiBUaGUgY29tbW9uIGFjY291bnRpbmcgY29kZSB0aGVuIHN1
-YnRyYWN0cyB0aGUgY2xhbXBlZApsZW5ndGggZnJvbSBidWZfbGVuLCBjYXVzaW5nIGl0IHRv
-IHVuZGVyZmxvdy4gSWYgYW5vdGhlciBkZXNjcmlwdG9yCmZvbGxvd3MsIHRoZSBsb29wIHBy
-b2Nlc3NlcyBpdCB3aXRoIGEgd3JhcHBlZCByZW1haW5pbmcgbGVuZ3RoIGFuZAppbmNsdWRl
-cyBtZW1vcnkgYmV5b25kIHRoZSBsb2NhbCBidWZmZXIgaW4gdGhlIFJETUEgdHJhbnNmZXIu
-CgpBIGNsaWVudCBjYW4gdHJpZ2dlciBhbiBvdXQtb2YtYm91bmRzIGtlcm5lbCB3cml0ZSB3
-aXRoIGFuIFNNQiBXUklURQpyZXF1ZXN0LCBvciBhbiBvdXQtb2YtYm91bmRzIGtlcm5lbCBy
-ZWFkIHdpdGggYW4gU01CIFJFQUQgcmVxdWVzdCwgYnkKc3VwcGx5aW5nIG11bHRpcGxlIFJE
-TUEgYnVmZmVyIGRlc2NyaXB0b3JzIHdpdGggYW4gb3ZlcnNpemVkIGRlc2NyaXB0b3IKYmVm
-b3JlIHRoZSBsYXN0IG9uZS4KClJlbW92ZSB0aGUgcHJlbWF0dXJlIGFzc2lnbm1lbnQgdG8g
-YnVmX2xlbi4gU3VidHJhY3RpbmcgdGhlIGNsYW1wZWQgbGVuZ3RoCmFscmVhZHkgY29uc3Vt
-ZXMgdGhlIHJlbWFpbmluZyBidWZmZXIsIHNvIHRoZSBuZXh0IGl0ZXJhdGlvbiBzdG9wcyBh
-bmQKb25seSBkZXNjcmlwdG9ycyB3aXRoaW4gdGhlIGxvY2FsIGJ1ZmZlciBhcmUgdXNlZCB0
-byBidWlsZCB3b3JrIHJlcXVlc3RzLgoKRml4ZXM6IGU2MjhiZjkzOWFhZiAoImtzbWJkOiBy
-ZWR1Y2UgZGVzY3JpcHRvciBzaXplIGlmIHJlbWFpbmluZyBieXRlcyBpcyBsZXNzIHRoYW4g
-cmVxdWVzdCBzaXplIikKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKUmVwb3J0ZWQtYnk6
-IHpkaS1kaXNjbG9zdXJlc0B0cmVuZG1pY3JvLmNvbSAjIFpESS1DQU4tMzM1NDkKU2lnbmVk
-LW9mZi1ieTogU3RlZmFuIE1ldHptYWNoZXIgPG1ldHplQHNhbWJhLm9yZz4KU2lnbmVkLW9m
-Zi1ieTogTmFtamFlIEplb24gPGxpbmtpbmplb25Aa2VybmVsLm9yZz4KWyBtZXR6ZTogaW4g
-Ni42IHRoZSBjb2RlIGlzIHNtYl9kaXJlY3RfcmRtYV94bWl0KCkgaW4KICBmcy9zbWIvc2Vy
-dmVyL3RyYW5zcG9ydF9yZG1hLmMgXQpBc3Npc3RlZC1ieTogQ2xhdWRlOmNsYXVkZS1vcHVz
-LTUtNQotLS0KIGZzL3NtYi9zZXJ2ZXIvdHJhbnNwb3J0X3JkbWEuYyB8IDEgLQogMSBmaWxl
-IGNoYW5nZWQsIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9mcy9zbWIvc2VydmVyL3Ry
-YW5zcG9ydF9yZG1hLmMgYi9mcy9zbWIvc2VydmVyL3RyYW5zcG9ydF9yZG1hLmMKaW5kZXgg
-ZDUyMmFjZTIwODQwLi42MGMwM2U1OTBiYTkgMTAwNjQ0Ci0tLSBhL2ZzL3NtYi9zZXJ2ZXIv
-dHJhbnNwb3J0X3JkbWEuYworKysgYi9mcy9zbWIvc2VydmVyL3RyYW5zcG9ydF9yZG1hLmMK
-QEAgLTEzODgsNyArMTM4OCw2IEBAIHN0YXRpYyBpbnQgc21iX2RpcmVjdF9yZG1hX3htaXQo
-c3RydWN0IHNtYl9kaXJlY3RfdHJhbnNwb3J0ICp0LAogCQlpZiAoZGVzY19idWZfbGVuID4g
-YnVmX2xlbikgewogCQkJZGVzY19idWZfbGVuID0gYnVmX2xlbjsKIAkJCWRlc2NbaV0ubGVu
-Z3RoID0gY3B1X3RvX2xlMzIoZGVzY19idWZfbGVuKTsKLQkJCWJ1Zl9sZW4gPSAwOwogCQl9
-CiAKIAkJY3JlZGl0c19uZWVkZWQgKz0gY2FsY19yd19jcmVkaXRzKHQsIGRlc2NfYnVmLCBk
-ZXNjX2J1Zl9sZW4pOwotLSAKMi41My4wCgo=
+On my machine, I don't see the issue Ronald Warsow reported.
 
---------------IEtIK1YxxNdIYu3HvIUjP0On--
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+
+
+Beste Grüße,
+Peter Schneider
+
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
+
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
