@@ -1,62 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793899170;
-	b=y7BXXsWPJo2ttigD+dfopBrNz6I5TTreFTwITTpZHAPfYicUJDdSFE25O6PI1AGW2PzE
-	 YKNFpCLQAxzuCuYQNN0t+jCsxNnrwC1aheRofoIwAfreZLXWFyZlVUVdjI8NdPZpLFqlM
-	 BouJ06EGrVhuy6y+MNlrR58kXoOCoKKepZf03NTFX6sbhL3icZwnlP90AvlpkSxLOedtW
-	 OmXG9u1dOMGZWiZHbE7nsVzVlBGh7SUo+fYunAdri01sJtEKgC2dUH/pMRLT8tXdByy0j
-	 yEfvQpvUI7rQai1ws/OQ9HJ9DG+tPNHpvmh6HWZVSTVIITaaKsAsUZ77ENCH4UPNGIA==
+	t=1793899277;
+	b=rZP/nm664Mf1Ts4s/RfTsx8/O1/9Zb2ZA9TjBMS8Ni/ULyNYsXYHWAXsVxVSd3ARTORE
+	 mQIAfzMoVKl5cU/OWSaelPiMtjFFqVKgPMte2z3l4z/+bAqefcHbP7rBeuXSi9TRT4eCh
+	 KpevRNHhlNfTDivXQk1sw69OwZNKI8oQ1fl9ChDMeyhtobSdesSR9pXtJv6ebAAUOwIQu
+	 DmWMLcvXixDhF0slSMY6v12VCUbcD0bzIepqJBux1I7hcz+8RJyCI04hLkK52xvB/GmeK
+	 zYZ30K6bqigs2/iXga8DCBG0o+4Ax0CILIeD5I4lhTFtpZSB5AZzdkQrjG/lF1fjRwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793899170;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793899277;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=pyTb+/pJLSrwt4XUdkCfU4wPbzpalLAiHr7jIUNDISI=;
-	b=N1xVHhJEeKgvtR1iSVVas51dY6EC17naUGA7kZyL313593rjSsgVLDonoDhuJ/KiFXx4
-	 Zrma5M7qVqpDuTYhrMINhgG8K4XGnvH4+nwO9GrY/wnXow1t6njpjisebF2T0MfrSSlea
-	 zG+WVzeTWqb8LLVmFuzMP6Nrhuo9hiu+GCShx+oTT0fGSajYeNEM4wP1mpI09O7McKoza
-	 +sWArOf+HfIYAN1yASB73jXJQAE3xiqR5YhzcK0n1T12jIM5tG/vvyGRzuKvSssOwV8HJ
-	 oy28CyTUr5goM99sxjITNtySYKFqPMUTGG8vKZsI3ainOrt9FkMzvAMOa1/8JaG+Z5Q==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ZSLmVDDKXY30pCKbP0Qz/fVPpcIl5QebUyezvhSAwwQ=;
+	b=QpKoBMVzGNzrLH8WU47FNHA/qKH+Jry2OsrAy/UYRpMGrrMmwhKaT7b+rA1CTFn9Xtik
+	 79dpGivs0QWdFVUCdqv7KvF0vulr1V+l12hBAxaIlPUvFiLwc3bNxk9Pw7wiUUQPQm56k
+	 JX6jZ8lKMy3hclVPskf++TT7p4+DJFlO0NzCXsnyY6IUS0h+MhGTn9OPAvoZUO9JzQdMy
+	 m47YK6O8r6G6MehxIXYcNtH/HlceGq8pyFy+tfcXuMrfjb5d7TqaOrGNgFpLnPuWIq+Lx
+	 DUOzIWxtVe/GHQYnhncyCngMjfUKaTNRsYF/bP11en77Aw16sGsILDseQ4zZhll92DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WNmFQCaC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FqtVxxQh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6510E606EE9B;
-	Thu,  5 Nov 2026 17:19:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E8D60A261B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 17:21:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WNmFQCaC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0613B1F00A1E;
-	Thu,  5 Nov 2026 17:19:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FqtVxxQh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A60971F000C1;
+	Thu,  5 Nov 2026 17:21:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793899170;
-	bh=pyTb+/pJLSrwt4XUdkCfU4wPbzpalLAiHr7jIUNDISI=;
+	s=k20260515; t=1793899277;
+	bh=ZSLmVDDKXY30pCKbP0Qz/fVPpcIl5QebUyezvhSAwwQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WNmFQCaCgcOEolYzgllzTZy11+7reKuDsYfH+PW1N0Yv4SzXi9OGgYFAdBqrvaBEi
-	 b9ofFQxFrVHgB+a0/rZnKLKrq19RFpwdMgXJsiYbHILUSjCAx3elR89YxRGVockb8t
-	 4RdhJ9UpBhS51SpxKaUPoIJvYL9OQL3Uo0Tk2oU++MllfusAeTvCMXgrhH8DacHY8w
-	 ZoABlDpfMCLsodNg7U06JBBJVplYC+WoahfTTukCXLN4Ta2kk71zX3EHTj1XDO65by
-	 QfRu0TIaF7hRNep6sKcMVYIHC7c8/hUcPrMCmG0znSU0bqIYMKWgolnuUP3KNJH0UD
-	 0nu3gwRj+ziRw==
-From: Christian Brauner <brauner@kernel.org>
-To: Jann Horn <jannh@google.com>,
-	Chen Linxuan via B4 Relay <devnull+me.black-desk.cn@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	Chen Linxuan <me@black-desk.cn>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] pidfd: restrict task access ioctls to the caller's pid namespace
-Date: Thu,  5 Nov 2026 18:19:17 +0100
-Message-ID: <20261105-stadt-diesmal-ansonsten-408471a29224@brauner>
+	b=FqtVxxQh5QVObcCS8ON0pA1NyR4CGffRVJzpkY5+lpHkk9LjSDioYVzS3AAcJgN8o
+	 syWBiD+Wi4Pw0P/vOTHha9MK73IMI4ViodS5KOAtyqgLciZblr5E/owttcQsGMq721
+	 FJdghPwKP9h8hz6wyqbrfiGd4l02qI1Yw28h/w/lIa7Bb+v/RWK1WCKoBzorO6xfUD
+	 u40Wum2i9NeXY41KtnY0AwtAMdMX9P75S1WxLf42Gv6MjMdFtwnkBIjtluhrgQgxC+
+	 CY2Oj+vk/FEYPONhLSZxdpiy2tgfHu56haSGTivbxD9IK68kkcWIobOJ+yvn2Y5d/2
+	 kuNgf5Tu8BYXg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] smb: client: bound POSIX lock data area by response length
+Date: Thu,  5 Nov 2026 12:21:15 -0500
+Message-ID: <20261105172108.2183463-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261027-pidfd-task-access-v1-1-d46cf0fa4ca1@black-desk.cn>
-References: <20261027-pidfd-task-access-v1-1-d46cf0fa4ca1@black-desk.cn>
+In-Reply-To: <2026110405-rural-consent-24d8@gregkh>
+References: <2026110405-rural-consent-24d8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,45 +60,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1613; i=brauner@kernel.org; h=from:subject:message-id; bh=Qr+Jb1sJ1vPFC2VOoqGkq9cW4xW4++1uFE1E9/S8cMQ=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS92TVt/qaONZ6LT3+cLR3J9MX97YWbf3b4x2ruXvtO0 OLsPoMPqzpKWRjEuBhkxRRZHNpNwuWW81RsNsrUgJnDygQyhIGLUwAmkt7M8Ic7O/nag2058/3S rnDMUFqflxHuabv32bqerz8lE/K1Z2owMmxYGG7Gc2T1mkudDWv+62w94b04/svWm/yalZ+fTzL +M48dAA==
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-On Tue, 27 Oct 2026 16:22:15 +0800, Chen Linxuan via B4 Relay wrote:
-> pidfds can cross pid namespace boundaries: a task may obtain one for a
-> process outside of its own pid namespace hierarchy through SO_PASSPIDFD
-> or SO_PEERPIDFD, via SCM_RIGHTS, or through file descriptor inheritance.
-> 
-> The namespace ioctls gate access with a ptrace check against the
-> target's credentials only. That check does not account for the pid
-> namespace relationship between the caller and the target, so a task
-> inside a pid namespace can use a pidfd obtained across that boundary to
-> acquire namespace file descriptors of a task outside of its hierarchy.
-> 
-> [...]
+From: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
 
-I think this needs to be backported. I added:
+[ Upstream commit 8fc9af68c57156ff64769f30e831553cd03b3000 ]
 
-Fixes: 5b08bd408534 ("pidfs: allow retrieval of namespace file descriptors")
+CIFSSMBPosixLock() receives a TRANS2 response whose server-provided
+DataOffset and DataCount are not required by validate_t2() to describe an
+interval inside the response. A server can therefore make the client read a
+cifs_posix_lock beyond the response buffer and return those kernel bytes
+through F_GETLK.
+
+Use smbCalcSize() to obtain the full response length after any multipart
+TRANS2 reassembly, then reject data areas that extend past it before
+dereferencing them.
+
+Fixes: fc94cdb94462 ("[CIFS] Fix new POSIX Locking for setting lock_type correctly on unlock")
+Reported-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
 Cc: stable@vger.kernel.org
-
+Signed-off-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ fs/smb/client/cifssmb.c | 8 ++++++++
+ fs/smb/client/trace.h   | 1 +
+ 2 files changed, 9 insertions(+)
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+index 6e4b845a4078c..a5c592e2562de 100644
+--- a/fs/smb/client/cifssmb.c
++++ b/fs/smb/client/cifssmb.c
+@@ -2338,6 +2338,7 @@ CIFSSMBPosixLock(const unsigned int xid, struct cifs_tcon *tcon,
+ 		cifs_dbg(FYI, "Send error in Posix Lock = %d\n", rc);
+ 	} else if (pLockData) {
+ 		/* lock structure can be returned on get */
++		unsigned int rsp_len;
+ 		__u16 data_offset;
+ 		__u16 data_count;
+ 		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
+@@ -2348,10 +2349,17 @@ CIFSSMBPosixLock(const unsigned int xid, struct cifs_tcon *tcon,
+ 		}
+ 		data_offset = le16_to_cpu(pSMBr->t2.DataOffset);
+ 		data_count  = le16_to_cpu(pSMBr->t2.DataCount);
++		rsp_len = smbCalcSize(&pSMBr->hdr);
+ 		if (data_count < sizeof(struct cifs_posix_lock)) {
+ 			rc = -EIO;
+ 			goto plk_err_exit;
+ 		}
++		if (data_offset > rsp_len ||
++		    data_count > rsp_len - data_offset) {
++			rc = smb_EIO2(smb_eio_trace_lock_data_area,
++				      data_offset, data_count);
++			goto plk_err_exit;
++		}
+ 		parm_data = (struct cifs_posix_lock *)
+ 			((char *)&pSMBr->hdr.Protocol + data_offset);
+ 		if (parm_data->lock_type == cpu_to_le16(CIFS_UNLCK))
+diff --git a/fs/smb/client/trace.h b/fs/smb/client/trace.h
+index a56fbacf28d14..670612d1a4497 100644
+--- a/fs/smb/client/trace.h
++++ b/fs/smb/client/trace.h
+@@ -42,6 +42,7 @@
+ 	EM(smb_eio_trace_ioctl_no_rsp,			"ioctl_no_rsp") \
+ 	EM(smb_eio_trace_ioctl_out_off,			"ioctl_out_off") \
+ 	EM(smb_eio_trace_lock_bcc_too_small,		"lock_bcc_too_small") \
++	EM(smb_eio_trace_lock_data_area,		"lock_data_area") \
+ 	EM(smb_eio_trace_lock_data_too_small,		"lock_data_too_small") \
+ 	EM(smb_eio_trace_malformed_ksid_key,		"malformed_ksid_key") \
+ 	EM(smb_eio_trace_malformed_sid_key,		"malformed_sid_key") \
+-- 
+2.53.0
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
-
-[1/1] pidfd: restrict task access ioctls to the caller's pid namespace
-      https://git.kernel.org/vfs/vfs/c/3c40d51327f2
