@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890926;
-	b=uNBTlFsNVWpHl+plMgk6t+0AgQ+vO9UuO+h9URDu0jUe7iSbj4jKpcN98nnt7q4QMkRe
-	 JNuPQxBhgQ0VsKKGDBdM5eSECkugprAbGm5U3y0C/+waqrwgSHJ3Y46wGIMmX1BqP2UTz
-	 +kpwyLvi/XRKxWGcxuFnAJPTG4xsS+sSjCDJ8QnEjxIv9YOiHRVDPI4rh6r9XR6UQ+0bX
-	 Dr+yiG4k9hqjEPHp2tDqwME5MYEJa5vo9EwSShFvKfHj3nOCKt6nsQ1IRUyGaVd83XxcT
-	 J6nIwnL7HS89iT8kq33D071IvrtT3QdvYejgpTzX6eub8KNwM5JK5PARu4M1HJwUBLQ==
+	t=1793890930;
+	b=bZnGZaryKKB44PIUJFCrEmxb5WncoFIa8uXPPhmBDXz+QcVVan2AhLNVS2/ghEFSx0Qr
+	 DfxPvOpHdUzD6RT0aO0q8IGW6hNXxCqlBuzdizorFkZLPRlpLbI4A3tMSveaFEv2rMz9J
+	 PuFaAIAZ/4r1L5W0GgjVKgHeGzTDdhWv0ncY+ILEUo2GaYFg1leLewFZBCgnqHJ0cyrw3
+	 VCnHi9o0sHXWGDa/jkzxyVuGpGiQJ2nOugY6cv6qJk8aOpHdQMRZpOU3YuDlMT7DeD7Dl
+	 rrqUoltnZ0t+wZnSif8nXgeYE5X73SORAcTt9Y98+HpR+c+AtAyXPjPee0UO/UQ7QEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890926;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890930;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6kFjY9EhpADRATLaEQRH5aI1pY9SsSTjKpZGroszLvc=;
-	b=h3W0XdTdJEoXtphDaTzJp3Sp1vbnCOUP6NAq2+R+S6ZI3E1smDyATspKO8MEWaAAXQvX
-	 XS28ZDG+dKgGKfHC7RYVQHnpoMBbNXhnMwdUFbe7l/F4QkS5BgIC5Im1714O7jQFAKPDe
-	 SeLdE1KhtcbMXu3qBcwFS4Fb532ekbt7fOTs3klgVebnrLT4BtWQvsnALhiKwP+V/3Tsi
-	 GIb842fx5dI4V+TtZVvN6E7NTBvlJvec/59oJ0FyofZanXvIVp2sRH6VA7uKf6H4btT1H
-	 ldIImchNyka6EhwxHdLum83coph+wwwFSuKXGzG6KbZJBRGRYSH3o36EYXukq14lj4A==
+	bh=974nuGvRc85oTJShO4eEdpOa4/VLre4jFNqCZ+Ho7T4=;
+	b=q+w/KumAoEWJ+DCNHcUnpnVO7F/l0O6Z5Njj/hXk4rBmQAkIn/cky1O4TKk3ewWTJza0
+	 Xl3Tl1UIaSHfF55dvKtIbzAzA6/suRNjxAOPsT5ZjBsEcAaqz4dC4701J8cjbl+QNzq63
+	 pX1dl0QRAuOuHeUo1XkrBmSx7HztwBD7jqzxGn6m+tDqewvmdNq9LSPWCMGVWh7YUpgWb
+	 aOEXqDttJaJ7tECuZlH+x/eMvXRvwtI+gDz3SN74VTEsu/Kcu7ubxLUNFnYO0wFxn2P09
+	 xeqNoxQ/RIvNXpr0QV8iMlpPRaznDQq3+our81COuj93XTTDci9Y35frpHXhZck8aUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IX9XUrGP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="QDSc/9Pm";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47282606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:02:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDC0606A339
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:02:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IX9XUrGP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4649C1F000C1;
-	Thu,  5 Nov 2026 15:02:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QDSc/9Pm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 723A71F000C1;
+	Thu,  5 Nov 2026 15:02:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793890925;
-	bh=6kFjY9EhpADRATLaEQRH5aI1pY9SsSTjKpZGroszLvc=;
+	s=k20260515; t=1793890930;
+	bh=974nuGvRc85oTJShO4eEdpOa4/VLre4jFNqCZ+Ho7T4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IX9XUrGPND0j6dmS1ylzFeOaZ4fLOydoBO4Eg/I1pP5lVlXAkAbrFA+mht+OCExoD
-	 jb8lUDsqI7HPa0dRU0gwBnWZmMVMHYsxNMFE74uzjipCTMO0gnCJBebr7W+GCQe7nP
-	 HzHbO7DtfYql+fHz/VWOJKCEwnLu510ZHXZtbK9mnSJLF7P56ZfOLyKnXs+NoOgvbt
-	 qt8LOa26zAPPQK9fJJ3QJR9OMvm/XomYkBgqbz4EC0/t+qUN/5HBw8s5cKrKnsnZsS
-	 Jp+yhqvScqQ5rLDJrqTeSjOdfKYv+a41tkz7ANfvIwWTmQtKjzV74Ve+OdZH5Y9Xyf
-	 BXKA+14MDuPbA==
+	b=QDSc/9Pm93yyK5fsckBIuaKD5L2fKkNhrrSweRLGPDRYl4MnNmpsu79waL+o5S/rm
+	 SOFfGW2gIuyaGXhSmfLMsT/HwY2ClJMmn5rwqL2+NZPxe9CY2od7BWU+G3cVzntcfz
+	 LQ+f8pdbrLBkcUOWwD4z43jHPY/rOjQPxOPmvsj5MgPvFf2FLTQ6l6G07ux5fYkAoy
+	 rgEsmX/RAx2Bb4N1rKdgu1+DIhLt++/604Xc76Jq1ebEPYhSXriLpgBu1WpqXyK1GV
+	 +Mkqkdosb9BVUmg+na/vTOup5hwH/4Yl1st1SVw/ccTtwm4zEsJLFeKJKMO6W5uO3c
+	 JAdrgyEg/I6Sw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Darrick J. Wong" <djwong@kernel.org>,
 	Christoph Hellwig <hch@lst.de>,
 	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] xfs: don't queue rmap update twice when reaping a fork
-Date: Thu,  5 Nov 2026 10:02:03 -0500
-Message-ID: <20261105150117.1846224-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] xfs: cross-reference the primary superblock
+Date: Thu,  5 Nov 2026 10:02:08 -0500
+Message-ID: <20261105150119.1837412-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110457-depravity-unflawed-a6ca@gregkh>
-References: <2026110457-depravity-unflawed-a6ca@gregkh>
+In-Reply-To: <2026110440-single-collision-69cc@gregkh>
+References: <2026110440-single-collision-69cc@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,47 +64,76 @@ Content-Transfer-Encoding: 8bit
 
 From: "Darrick J. Wong" <djwong@kernel.org>
 
-[ Upstream commit 219ff8a734d8438e24eb346a847c9b1ad9b7ab5d ]
+[ Upstream commit 0c61016006ab08f8346f9e7b1e38559bd4ea499e ]
 
-LOLLM noticed that xrep_reap_bmapi_iter calls xfs_bmap_unmap_extent and
-xfs_rmap_unmap_extent to remove a mapping from a file fork and its
-reverse mapping.  However, xfs_bmap_del_extent_real also queues a
-deferred rmap removal log item, which means that we incorrectly queue
-two rmap removal operations.  Fix that by removing the extra call and
-updating the comment to mention this subtlety that I forgot, having
-written the code. :P
+Make sure we cross-reference the primary superblock against the rest of
+the AG 0 space metadata.  Drop the unused @bp parameter of
+xchk_superblock_xref to avoid complaints about uninitialized variables.
 
-Cc: stable@vger.kernel.org # v6.10
-Fixes: 5befb047b9f4de ("xfs: add the ability to reap entire inode forks")
+Cc: stable@vger.kernel.org # v4.16
+Fixes: 52dc4b44af7419 ("xfs: cross-reference with the bnobt")
 Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ sashal: Adapted rs->ip and rs->whichfork references to direct ip and whichfork arguments. ]
+[ sashal: initialized the error variable to zero in xchk_superblock() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/reap.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/xfs/scrub/agheader.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
-diff --git a/fs/xfs/scrub/reap.c b/fs/xfs/scrub/reap.c
-index 4ce345ae4565e..0c827798ade67 100644
---- a/fs/xfs/scrub/reap.c
-+++ b/fs/xfs/scrub/reap.c
-@@ -905,12 +905,12 @@ xrep_reap_bmapi_iter(
- 		/*
- 		 * Schedule removal of the mapping from the fork.  We use
- 		 * deferred log intents in this function to control the exact
--		 * sequence of metadata updates.
-+		 * sequence of metadata updates.  The BUI queues a RUI to
-+		 * remove the reverse mapping.
- 		 */
- 		xfs_bmap_unmap_extent(sc->tp, ip, whichfork, imap);
- 		xfs_trans_mod_dquot_byino(sc->tp, ip, XFS_TRANS_DQ_BCOUNT,
- 				-(int64_t)imap->br_blockcount);
--		xfs_rmap_unmap_extent(sc->tp, ip, whichfork, imap);
- 		return 0;
- 	}
+diff --git a/fs/xfs/scrub/agheader.c b/fs/xfs/scrub/agheader.c
+index b7b838bd4ba43..89193f07b451f 100644
+--- a/fs/xfs/scrub/agheader.c
++++ b/fs/xfs/scrub/agheader.c
+@@ -23,8 +23,7 @@
+ /* Cross-reference with the other btrees. */
+ STATIC void
+ xchk_superblock_xref(
+-	struct xfs_scrub	*sc,
+-	struct xfs_buf		*bp)
++	struct xfs_scrub	*sc)
+ {
+ 	struct xfs_mount	*mp = sc->mp;
+ 	xfs_agnumber_t		agno = sc->sm->sm_agno;
+@@ -64,16 +63,12 @@ xchk_superblock(
+ 	struct xfs_buf		*bp;
+ 	struct xfs_dsb		*sb;
+ 	struct xfs_perag	*pag;
+-	xfs_agnumber_t		agno;
++	xfs_agnumber_t		agno = sc->sm->sm_agno;
+ 	uint32_t		v2_ok;
+ 	__be32			features_mask;
+-	int			error;
++	int			error = 0;
+ 	__be16			vernum_mask;
  
+-	agno = sc->sm->sm_agno;
+-	if (agno == 0)
+-		return 0;
+-
+ 	/*
+ 	 * Grab an active reference to the perag structure.  If we can't get
+ 	 * it, we're racing with something that's tearing down the AG, so
+@@ -83,6 +78,9 @@ xchk_superblock(
+ 	if (!pag)
+ 		return -ENOENT;
+ 
++	if (agno == 0)
++		goto out_xref;
++
+ 	error = xfs_sb_read_secondary(mp, sc->tp, agno, &bp);
+ 	/*
+ 	 * The superblock verifier can return several different error codes
+@@ -344,7 +342,8 @@ xchk_superblock(
+ 			BBTOB(bp->b_length) - sizeof(struct xfs_dsb)))
+ 		xchk_block_set_corrupt(sc, bp);
+ 
+-	xchk_superblock_xref(sc, bp);
++out_xref:
++	xchk_superblock_xref(sc);
+ out_pag:
+ 	xfs_perag_put(pag);
+ 	return error;
 -- 
 2.53.0
 
