@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890918;
-	b=05jmFY+xuv8IXyaXrQfYW43kGOF7qosgFlPHAckfE/tQRzKnCgNIWfn7dmBTXBrKzfmc
-	 XhTlA0kjQ6lb3LGmcO6Cp6KoaEAUt32Ii22UG/vy2rudeCnmz+9Y9+aAtxrl8ibeR5wIt
-	 qm8zocI0InHnVvVPO7UYrlyuN5phnQe7/+sx/bLepMsxWxgaP8h1K5e1ny8hR8IrKNzug
-	 BOZ6WvcpDztOHVVX8LhHNUjhpEhMpKDV96AofrASd1R0+A4TI1cdT/hc+qU+fxxnDTTjd
-	 eYG2xmCRGVH81+AGwjZ1n9tXfMnfLi5I6iVwEfAtLA6LCR7jcU0h7NAEw/ioCQGwC8A==
+	t=1793890926;
+	b=uNBTlFsNVWpHl+plMgk6t+0AgQ+vO9UuO+h9URDu0jUe7iSbj4jKpcN98nnt7q4QMkRe
+	 JNuPQxBhgQ0VsKKGDBdM5eSECkugprAbGm5U3y0C/+waqrwgSHJ3Y46wGIMmX1BqP2UTz
+	 +kpwyLvi/XRKxWGcxuFnAJPTG4xsS+sSjCDJ8QnEjxIv9YOiHRVDPI4rh6r9XR6UQ+0bX
+	 Dr+yiG4k9hqjEPHp2tDqwME5MYEJa5vo9EwSShFvKfHj3nOCKt6nsQ1IRUyGaVd83XxcT
+	 J6nIwnL7HS89iT8kq33D071IvrtT3QdvYejgpTzX6eub8KNwM5JK5PARu4M1HJwUBLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890918;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890926;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=o7js8l+OTzOn83DN8L0GkmX4bMpevE/9Om2C2ln8/8I=;
-	b=3/MEjUQwnV49fZBhDzy7XJ2Feo2LnGx7ABZCBlu1Fx0mf6WOmBwa40oLN1Nto3PH7uJq
-	 y7qJMouD5tCEIVZucaxuDrOmenYmkNtG6Ri8OwYl/JuDBZ1g759XPje++zzyIgHjO/Tw8
-	 CXBF37x8UOUOuRQ9VAfcp+ReqrSYNn+P23hEyMagnjUWfH3mw2p1fXB3r1+LpvN1rzAHH
-	 qEGkvc0zmuBxXV+SB3HXjH4V0puk/tgwcJHbY3xCXk608bEBuevF8ukIk7UgXreKS8Oo7
-	 S/i2CGlAP0a7cUdv246BLaKlamMQBFmtljU+QSKU5PYd7D6EKNSatjKRca2loaf+8mA==
+	bh=6kFjY9EhpADRATLaEQRH5aI1pY9SsSTjKpZGroszLvc=;
+	b=h3W0XdTdJEoXtphDaTzJp3Sp1vbnCOUP6NAq2+R+S6ZI3E1smDyATspKO8MEWaAAXQvX
+	 XS28ZDG+dKgGKfHC7RYVQHnpoMBbNXhnMwdUFbe7l/F4QkS5BgIC5Im1714O7jQFAKPDe
+	 SeLdE1KhtcbMXu3qBcwFS4Fb532ekbt7fOTs3klgVebnrLT4BtWQvsnALhiKwP+V/3Tsi
+	 GIb842fx5dI4V+TtZVvN6E7NTBvlJvec/59oJ0FyofZanXvIVp2sRH6VA7uKf6H4btT1H
+	 ldIImchNyka6EhwxHdLum83coph+wwwFSuKXGzG6KbZJBRGRYSH3o36EYXukq14lj4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j7Z+g55L;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IX9XUrGP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92726606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:01:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47282606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:02:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j7Z+g55L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 851561F00919;
-	Thu,  5 Nov 2026 15:01:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IX9XUrGP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4649C1F000C1;
+	Thu,  5 Nov 2026 15:02:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793890918;
-	bh=o7js8l+OTzOn83DN8L0GkmX4bMpevE/9Om2C2ln8/8I=;
+	s=k20260515; t=1793890925;
+	bh=6kFjY9EhpADRATLaEQRH5aI1pY9SsSTjKpZGroszLvc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j7Z+g55LnKZsKKdUGdCkKMIOsXJSI3Il+7t9arta+Kr6XFT1JJSOCVQDg8E1zuCDF
-	 C2yqLUSLddRsvhW9dVolpwC8TFeGdB+4cQZrkz+fBW80ZlhTxTLYz+JrG9FL6UwzIx
-	 FLi7a9GkNAaIWbEH2dk92v9PIBCmdFQ6KXX+/aJVzRIfOfOs8EjD/FhXOSrib9QfVg
-	 pjmAmwdgR4rClpSjAQXJIsiuyTfVYQRUiJnYfqBMxdvMcC5qw7aQhHDd4om1oc5boC
-	 GcSGdvYcgfbSlOcJ46ZP75mEGVrCQLsDG7i7Ea1iDJ3j8JgEm3sASIBo/AW9oAZs+P
-	 QjZ3verxlBmhg==
+	b=IX9XUrGPND0j6dmS1ylzFeOaZ4fLOydoBO4Eg/I1pP5lVlXAkAbrFA+mht+OCExoD
+	 jb8lUDsqI7HPa0dRU0gwBnWZmMVMHYsxNMFE74uzjipCTMO0gnCJBebr7W+GCQe7nP
+	 HzHbO7DtfYql+fHz/VWOJKCEwnLu510ZHXZtbK9mnSJLF7P56ZfOLyKnXs+NoOgvbt
+	 qt8LOa26zAPPQK9fJJ3QJR9OMvm/XomYkBgqbz4EC0/t+qUN/5HBw8s5cKrKnsnZsS
+	 Jp+yhqvScqQ5rLDJrqTeSjOdfKYv+a41tkz7ANfvIwWTmQtKjzV74Ve+OdZH5Y9Xyf
+	 BXKA+14MDuPbA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chris Mason <mason@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Amir Goldstein <amir73il@gmail.com>,
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ovl: do not copy up a dentry that was removed
-Date: Thu,  5 Nov 2026 10:01:56 -0500
-Message-ID: <20261105150116.1655939-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] xfs: don't queue rmap update twice when reaping a fork
+Date: Thu,  5 Nov 2026 10:02:03 -0500
+Message-ID: <20261105150117.1846224-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110409-shorts-resilient-2f0f@gregkh>
-References: <2026110409-shorts-resilient-2f0f@gregkh>
+In-Reply-To: <2026110457-depravity-unflawed-a6ca@gregkh>
+References: <2026110457-depravity-unflawed-a6ca@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,57 +62,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <mason@kernel.org>
+From: "Darrick J. Wong" <djwong@kernel.org>
 
-[ Upstream commit f635192ad223d2009ee640b63adf5ce3198aa338 ]
+[ Upstream commit 219ff8a734d8438e24eb346a847c9b1ad9b7ab5d ]
 
-A change to a removed file through an open descriptor replaces whatever
-has its old name in the upper layer.
+LOLLM noticed that xrep_reap_bmapi_iter calls xfs_bmap_unmap_extent and
+xfs_rmap_unmap_extent to remove a mapping from a file fork and its
+reverse mapping.  However, xfs_bmap_del_extent_real also queues a
+deferred rmap removal log item, which means that we incorrectly queue
+two rmap removal operations.  Fix that by removing the extra call and
+updating the comment to mention this subtlety that I forgot, having
+written the code. :P
 
-Copy up must only create a name in the upper directory, never replace
-one. After an unlink, an rmdir or a rename over a lower dentry, a
-dentry that an open file keeps alive still has its old parent and name,
-but in the upper directory that name is now a whiteout or a new object.
-ovl_copy_up_workdir() renames the copy over it, which brings back the
-removed object and destroys whatever took its name.
-
-An unprivileged user opened a lower FIFO and unlinked it, root created
-a file at that name, and fchmod on the old descriptor replaced the file
-of root with the FIFO.
-
-Fix this by looking up the target name of the rename in
-ovl_copy_up_workdir() with LOOKUP_EXCL, so that copy up fails with
--EEXIST if the name is taken, as copy up with O_TMPFILE already does
-when it links the copy to the name.
-
-Fixes: e9be9d5e76e3 ("overlay filesystem")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[amir: use LOOKUP_EXCL instead of relying on d_unhashed()]
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: Adapted start_renaming_dentry()'s LOOKUP_EXCL handling to an explicit d_is_negative() check before ovl_do_rename(). ]
+Cc: stable@vger.kernel.org # v6.10
+Fixes: 5befb047b9f4de ("xfs: add the ability to reap entire inode forks")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+[ sashal: Adapted rs->ip and rs->whichfork references to direct ip and whichfork arguments. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/overlayfs/copy_up.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ fs/xfs/scrub/reap.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
-index 018867303a93a..5d655889af06e 100644
---- a/fs/overlayfs/copy_up.c
-+++ b/fs/overlayfs/copy_up.c
-@@ -622,7 +622,10 @@ static int ovl_copy_up_workdir(struct ovl_copy_up_ctx *c)
- 	if (IS_ERR(upper))
- 		goto cleanup;
+diff --git a/fs/xfs/scrub/reap.c b/fs/xfs/scrub/reap.c
+index 4ce345ae4565e..0c827798ade67 100644
+--- a/fs/xfs/scrub/reap.c
++++ b/fs/xfs/scrub/reap.c
+@@ -905,12 +905,12 @@ xrep_reap_bmapi_iter(
+ 		/*
+ 		 * Schedule removal of the mapping from the fork.  We use
+ 		 * deferred log intents in this function to control the exact
+-		 * sequence of metadata updates.
++		 * sequence of metadata updates.  The BUI queues a RUI to
++		 * remove the reverse mapping.
+ 		 */
+ 		xfs_bmap_unmap_extent(sc->tp, ip, whichfork, imap);
+ 		xfs_trans_mod_dquot_byino(sc->tp, ip, XFS_TRANS_DQ_BCOUNT,
+ 				-(int64_t)imap->br_blockcount);
+-		xfs_rmap_unmap_extent(sc->tp, ip, whichfork, imap);
+ 		return 0;
+ 	}
  
--	err = ovl_do_rename(wdir, temp, udir, upper, 0);
-+	/* The name may have been taken since lookup, never replace it */
-+	err = -EEXIST;
-+	if (d_is_negative(upper))
-+		err = ovl_do_rename(wdir, temp, udir, upper, 0);
- 	dput(upper);
- 	if (err)
- 		goto cleanup;
 -- 
 2.53.0
 
