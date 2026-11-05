@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793858682;
-	b=iWykmzDVNZILkP+6hqOXPE2i1v6M+VKwua50dVwE63lAlBa3/ILn6rx+Kte+u6+Xv+Ks
-	 CszzMLWaJWRATfZbmEq0O4OsNb8i1BCTeDBRXy7HX5qX00NIZsK0r12fXc4JY50Z9Zwqe
-	 t3jxua1k3rDJMvF7qvL5K3zeFJAM5wrWOtWCSucQtOGIvOtR2Pywt8zdD/LjqmZr3vkMx
-	 j9xudm9MjWph4ZrjuIC29I3rhuWNfCVA9S57bYZV8+XMMdnN2UJ1CAzEPR5Y1wwsD7lFL
-	 XOwb+Mv7908ZEGsBvFI9mvqocsSnOxW+mP46LV8r1ssoaxVrVY5QfHTUbEFEN/GaDvw==
+	t=1793858687;
+	b=Reikml5igfDQJHd5BblBTvlcQtoAFYTYluMYee8eHfrARrPe6xvwHVCK1LVVt3ZRXu8i
+	 fxANE1+2djVSR0Fl9ZSYWk+yiJIy7g6SJMl2LMZFUDkFG9d7RjdEcErQDhBEwdTn1CbyH
+	 9hkCm7oWvtxF8/qnMrU5dAZAl5IGyEqCznBRzbDurd/CB/n0GVNOAgeM7Dnmx5jUzp6RB
+	 eVOJxwsm1YUVTwwzNt6qOtfnShc0c9cgXn2OelnLTJNjaUwUD7YjIk58VeYkaN1G0RyQz
+	 XlDLrzgJoWAqbCZpbAjuVAyac/f2U9lERaqsfOsfJWVozgaESbMwYxwxGovqmMbcrsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793858682;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793858687;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=YPu8h0jDpjB4vijwFawJAErayo8SO8CuvsZ0ZVqanQU=;
-	b=VzvcE9C9YIolgLS69jSWZ+C+n9zWoLwuFqQsXtdso8HjLnrEO7dCAlX+0E6Zx74ek0ME
-	 Z40fL1h+V7gfwysNThHWHumy03+OwBJVY2zqSRH8wg4RiLMiqs985yDnWIV76l9MADMP4
-	 eOMAwidcGaze6+fhtovYnecrdhh9KUwhZoB6yjLOSTbM7gTyUvO0MPBy0GKmkwhk0Asow
-	 ip9J8UZKArp5WanxNkL0+UNzoD0eW/GF1uxi5wuks9FlsAJ/8IfJyhXgmitEmutityc3T
-	 sliN0Wr8/VtX03ww1SDzNUI/0Ws1Od+BRE9PPMEexMcRwz/mpfyFpdd0GQRa1JBDqaQ==
+	bh=qq/4vwt5KZIiFWaAeaK5UibLMyaTMg//P8AG8snjRNo=;
+	b=g2MFXf+b5n9CMuAwbjz9g6mtCYPZJxsbANMTKPZhhEbJ5dp1p//LTwO+4Qj3utuibdMm
+	 dW5Ank949Q8orUi9DTNfZhNO+Ovd8hgvAt3ZkNlftH0mqG67Py4+UiTiLCwMDT+De/GBu
+	 CZrdnDEhA8zXLgmwGRlmx+ksA/yKHyyc2Ub2TITkNVOYUfhHY9GWqkMng+Ga7YCFyLiZ8
+	 bQwZ4hJJ1NkTUgB8oiibJai233B3Dze//IKy4YrXRti3cd2c/hiR+7x/pmw5CUm9RRr/m
+	 xBcx5Mjg3qrsIIZkr4N73KZMcSSJWy3M8k34syYR69LWp1h3om73+WWtIJFiA8Nbs3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L9foHbIz;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x0jsydmY;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A457F606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 06:04:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A457F606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FFDD606A32C
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 06:04:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FFDD606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L9foHbIz
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3acb1224533so245149a91.2
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 22:04:41 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x0jsydmY
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3acb1224533so245155a91.2
+        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 22:04:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793858681; x=1794463481; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793858687; x=1794463487; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YPu8h0jDpjB4vijwFawJAErayo8SO8CuvsZ0ZVqanQU=;
-        b=L9foHbIzzFITZMHdneZN2RIlEiH9B4iUkZdQWFIjSW+8AZyIZYb+1M+gOJuej7daN4
-         cMwLt5VkIkvHEpL80W0121MwVk/F9EVgEa6IMubRgptzS/ybSoEG59azSZioaMlR5mSJ
-         vxchDSBfcz4jpGT9B7mRNJln/GT24Tl5RHnVmnqwAhLsGu/57BgTb6zyEHeZObSxZulj
-         UBFzRxQ4ob08QC2VCRe76hn6afFmACfGcqjoUG2LjqXA6qokONwY9ZA8az2SWmE7Y5g7
-         V6UyhBssyUPyD/OnnXF4t0AtLVSHiGtW+lLmBSlnKhwGO/Xetngng11ortACtm05irUC
-         aN+g==
+        bh=qq/4vwt5KZIiFWaAeaK5UibLMyaTMg//P8AG8snjRNo=;
+        b=x0jsydmYz18XSDwUugYl5mIBDYC+RltVy5DCZGxBIAPvE50cdNznU5CtSNM4xoWA+M
+         VCpaAUtO9vIb359etix3sIYra36L3L3VXFx0hIyfAcynEwbp229d9ac/D75d/mTCrOT1
+         JCLBJex6aA1Fcj8FWLHw/OBQVVLKHmYKtSxVLh675yC+OYw9DzlDyn3Fn0yeisD1Ra8Q
+         l4mmXgV0jqKqEqek2T6DSZHb5930Gba2LgOxghqgkFUl1abVBgznYHv4M0sWglCSkRsS
+         ptOy3qi+ldR8dl7HT+nCaJR9vmmMXfBdonLUYFB6S1FRH307c0mxsvlaPyZ5NKtjyMCG
+         TkQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793858681; x=1794463481;
+        d=1e100.net; s=20260707; t=1793858687; x=1794463487;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YPu8h0jDpjB4vijwFawJAErayo8SO8CuvsZ0ZVqanQU=;
-        b=mOOQKcXgjmsM5X6M+y8ZMFbDJDXk7/CEsOGY+R+OBPMEnbNQ53DwZjrUqSBNYJoUmE
-         An5meI5Ou5kzjVZCmXsckCXH2AZVy5T4LlmxZp1IT6RwdNb3KQA0Bb1rxk86q6L/6RO9
-         bgHn34kMauT2qiPMzulymt+DpP/2FnMs//n+kIFP2JSJb+wxZhWxIaX9jKnJ1SQ46fgz
-         aXO55o553f7+Vw0UAiE9pDSAkpEEKsXR7PwD/q5CtG2oXHfb+di+DkWvqLDNNcWAgPYc
-         4cnwxsZZJOWNDWYCLfcVYZRhsrA0LA4Ou34t8Canh0IDNoYCUAYd5Vx75badBFE3PuZs
-         WkTw==
-X-Forwarded-Encrypted: i=1; AKwUvBx+pLrcqNztTlAU5VvpweCw1Tuba5Bmaqi8prC5VM0GuVx8JrKXORjyTggBAH1r5xy81HrXgkI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/CiAqmTi0HR65bnFfV7FG3WhbEmo1Lc0wASO0p4cDdBJd3fVys
-	a0iIuAUiiplKA+sZePBynxjymA3l4dNHFKEHP40nhUcUsc7U0g+gyRqw
-X-Gm-Gg: AYBFou1UMweZTg4IDqzQxRJbpFcmtPzEN5IL4Xcy19HL0+BxDLRvzbMaXMsITFWHp3N
-	/VO9vjX72RRxGzr72zBY/zmCGK2IIaSsZ7YDI9IRDCMQFITUGfaopNKPN+uVSqDzxzLjp8lwhWA
-	JHQimYZpNAeXfwGuARI1L1zfj/42CrDZ6nPG2fX3DLLH3U5LJa219971FZ6rimFsQk0yoz7on11
-	zwdqSk+SL28wL3UPoOBnz0OQqk0bi4YaFrYhwYhT22ZViSllwqbJCRFFnJKnA6qi2TOGup39u0F
-	WHX8DV2q2ZmSPkWq9xy9i9YwIu+7EY7wjlDHro9DR4AMqYlccAVNcJGgTRbckBtE3v7tnhgjZzL
-	PivQpsue51IvTqjnwvbhMmFRnjJXCGLsFx6aX5VmZrln0oKyHi1NN/NKTkXNXC0PtY2PNkv3zJb
-	c1DQfa0FhezDlLL6B6P8AsyfK1u262bH9YCQ7btZEU/Cac8koJY0Jhnf/oDxsGnSLx/fxpA/DO3
-	/Vwt5LdTmGIycYOwtslU7E7ZJEhYlDO8uXRo6fGteSPtvwjBc2y66Yj+mEZP1gkzL7zhxXKW3W1
-	QgUUFbTF6SmxFSucWpC0YWnkxn3wWJem0d3chWMwwg==
-X-Received: by 2002:a17:90b:1652:b0:3ac:a7ee:6785 with SMTP id 98e67ed59e1d1-3ae895a0406mr26169727a91.1.1793858680988;
-        Wed, 04 Nov 2026 22:04:40 -0800 (PST)
+        bh=qq/4vwt5KZIiFWaAeaK5UibLMyaTMg//P8AG8snjRNo=;
+        b=ruRl6RErH37Tubqw966w/Gsm5HATZk6SG3BrGlv2Sp5nOsrUu8XQvLPgtdmNKEERXH
+         pTmZ+QnC/ULBh5hKm43WYFsWsOVPJFDVF65j1qWGF3VmB7SUryuJZuyc1b1+DXhSvLT+
+         jBD7kVXo5i4uEQoqLi+Wi96DczsdkJiy/1vS5sEtMEIQP7QEftvkG+aL1q9u3zqunlfo
+         y2uMrj2LGRowpC4xE22G4bhemzZCR1Pb9NPMz2KpzgJXRPEgREtRQGsOuFL+Jx/6VzwX
+         2Q/x0MbnjYLoashqGRdgjypYQ/Vpi5yBNo6VwlsTA93OB2gc7cf0SjAlqAivZdR+rSpn
+         +Q+g==
+X-Forwarded-Encrypted: i=1; AKwUvBxVW7JIk7G+4QcrudXnDQQuL9nG+ZCPnotsLmOM65GcwKqvm1HKf71mLR4v/8KJxNPjLGSldCw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ojulWsy7dXaINtnKvAXXcqa+Na6p+ftvtQeK7uvFARgbZjsKV
+	+sKqmq9/edK1k5im81nc6dIQUl8qJdyW7i69SUrTfF0hOj636uriJOg6
+X-Gm-Gg: AYBFou2apboqhxCoPDJ/7apS6wSDfz6vqHN6+oq374xrby9o77pxpQ5GGEsV7COm4BX
+	13xONT8zT5xmZ0Sa2HeBaooEgeer86A0BG5HeRGZgXR8eW5BpM6g23WCfrcfJ27tB3nEwhssPAq
+	kILtAu4i7n9dPcZoby6Z02SGmCcrmgKQasBk7HfYy39Q5WU8ttdHjB37H2fENsbktA20JW/6hFE
+	9SJPcJP592AzbKQ7iW5H4h/HNYtYJY1lTa3vG7NPP98lNgR/yTGlcLs8c9tzR1cdWbcK8y1FPiN
+	vTu/NFeE4oJUiAAZZf71+NzyAXdJszhbjCQAN2OwnooVw6cJB7panX0Ydb/1t3ecj5iI3WOciP6
+	zZzn3EYPGgEch5RQUAoZmpcppyWY+Yv7hdoDGl1D8IUVX+XGc0X5C4ius5/53lrsHlcLijgb0bQ
+	NrVIASGiZGE84Nq4IZ8jJbbi3KCiyp0t/SsebMz0kJqCDkqPvg+T5V8IG+sFWDfKQvo4+SnwBSc
+	tvf+Iy54Az1xkQqEiOlCOkRucpAPvjEoXAiwoCbRGuxKnOI1Es/EZfhTYjSeDqtfNth1bvLomJA
+	xshFfK5siBNydam3wLtMZ3mvN+amcpUe3FHJBfxc9A==
+X-Received: by 2002:a17:90b:2f4f:b0:3a0:c162:51af with SMTP id 98e67ed59e1d1-3ae89291df0mr25913696a91.0.1793858686515;
+        Wed, 04 Nov 2026 22:04:46 -0800 (PST)
 Received: from CRASHEDROM.localdomain ([142.249.36.161])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b313c0dcsm2093100a91.1.2026.11.04.22.04.37
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b313c0dcsm2093100a91.1.2026.11.04.22.04.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 22:04:40 -0800 (PST)
+        Wed, 04 Nov 2026 22:04:46 -0800 (PST)
 From: Chengyu Liu <lui2012qwq@gmail.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
@@ -88,9 +88,9 @@ Cc: dri-devel@lists.freedesktop.org,
 	tursulin@ursulin.net,
 	stable@vger.kernel.org,
 	Chengyu Liu <lui2012qwq@gmail.com>
-Subject: [PATCH v2 1/2] i915/gt: don't store ERR_PTR into ppgtt->base.pd on allocation failure
-Date: Thu,  5 Nov 2026 14:04:21 +0800
-Message-Id: <20261105060422.51848-2-lui2012qwq@gmail.com>
+Subject: [PATCH v2 2/2] i915/perf: remove sysfs entry if idr_alloc() fails in add_config
+Date: Thu,  5 Nov 2026 14:04:22 +0800
+Message-Id: <20261105060422.51848-3-lui2012qwq@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20261105060422.51848-1-lui2012qwq@gmail.com>
 References: <20261105060422.51848-1-lui2012qwq@gmail.com>
@@ -105,64 +105,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-gen6_ppgtt_create() stores the result of gen6_alloc_top_pd() directly
-into ppgtt->base.pd, and on failure the ERR_PTR stays in the field.
-i915_vm_put() runs vm->cleanup = gen6_ppgtt_cleanup(), where
-gen6_ppgtt_free_pd() dereferences pd via gen6_for_all_pdes() - with an
-ERR_PTR that is an invalid dereference and a crash (in the async
-release worker).
+i915_perf_add_config_ioctl() creates the dynamic sysfs entry for the OA
+config before allocating its id.  If idr_alloc() fails, the error path
+drops the config reference via reg_err: without removing the sysfs
+entry - unlike the normal remove path, which does sysfs_remove_group()
+first.  The leftover attributes point into the freed oa_config; kernfs
+only stores the attribute pointer, and show_dynamic_id() reaches the
+freed object via container_of (including the show() callback itself),
+so reading /sys/class/drm/cardX/metrics/<uuid>/id afterwards is a
+use-after-free.
 
-Assign to a local first and store into the field only after it is
-validated, so the field never holds an error pointer; on the failure
-path it stays NULL, and gen6_ppgtt_free_pd() now bails out on a NULL
-pd.
+Remove the sysfs group on the idr_alloc() failure path, mirroring the
+remove ioctl's ordering (under metrics_lock).
 
 Found by static analysis.
 
 Cc: stable@vger.kernel.org
 Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
 ---
- drivers/gpu/drm/i915/gt/gen6_ppgtt.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_perf.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-index 438cd4724ac4..f747ee1f96d7 100644
---- a/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen6_ppgtt.c
-@@ -259,6 +259,9 @@ static void gen6_ppgtt_free_pd(struct gen6_ppgtt *ppgtt)
- 	struct i915_page_table *pt;
- 	u32 pde;
- 
-+	if (!pd)
-+		return;
-+
- 	gen6_for_all_pdes(pt, pd, pde)
- 		if (pt)
- 			free_pt(&ppgtt->base.vm, pt);
-@@ -427,6 +430,7 @@ void gen6_ppgtt_unpin(struct i915_ppgtt *base)
- 
- struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt)
- {
-+	struct i915_page_directory *pd;
- 	struct i915_ggtt * const ggtt = gt->ggtt;
- 	struct gen6_ppgtt *ppgtt;
- 	int err;
-@@ -455,11 +459,12 @@ struct i915_ppgtt *gen6_ppgtt_create(struct intel_gt *gt)
- 	if (err)
- 		goto err_put;
- 
--	ppgtt->base.pd = gen6_alloc_top_pd(ppgtt);
--	if (IS_ERR(ppgtt->base.pd)) {
--		err = PTR_ERR(ppgtt->base.pd);
-+	pd = gen6_alloc_top_pd(ppgtt);
-+	if (IS_ERR(pd)) {
-+		err = PTR_ERR(pd);
- 		goto err_put;
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 19b82427aa41..40385f991abb 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -4716,6 +4716,7 @@ int i915_perf_add_config_ioctl(struct drm_device *dev, void *data,
+ 		drm_dbg(&perf->i915->drm,
+ 			"Failed to create sysfs entry for OA config\n");
+ 		err = oa_config->id;
++		sysfs_remove_group(perf->metrics_kobj, &oa_config->sysfs_metric);
+ 		goto sysfs_err;
  	}
-+	ppgtt->base.pd = pd;
- 
- 	return &ppgtt->base;
- 
+ 	id = oa_config->id;
 -- 
 2.25.1
 
