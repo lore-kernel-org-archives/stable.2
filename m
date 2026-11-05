@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793895513;
-	b=HV1eLzevwkAGVuyrRMCTvr4t/QmDz/8PH/Tu+ZP2CIgIgYzfXj4fvRdfAe7RnfxcPMjp
-	 DHbvxLwo6R78FaEQC9m0xO5BntBP0SwPaVNCbWAN5A+Nav4dmjABlCfItorpJ9DoaU/GE
-	 sn402xr6JIgna2948vnbh/BeSgwu1U8ydDTd+LO9GT0rGsVWXC5EB7smz3fT2WBs1+JuI
-	 PYqyeXdtM+Kdi2zM30OYduMMSQwuijfJQklVw47JnUNYK4JHhRJlD4eKzsEJE9B8KBzjE
-	 67jwGdqBQ5m/o0lax48YAK0Hcax54Ar15R1J8wcze+uU5FzOZoCCAIWvFipDdoNyAMQ==
+	t=1793895515;
+	b=b4tULwmtnOMwj/c+2SsWO7Wy8OAdpwDXDkyTv6ZRTACDfuUsqSP0a91dX4Z2YS6JT0+/
+	 g5UNvxHC72hgFwXa0ZrTQuevDH9kSSgNHGTueBrMSDtjt17lw8naNrEd62KzFY40XuRQd
+	 V1S11dSf4/qY7w+pX7mZ6TNVzSbUX5fCHxNkRW4hsL1uOoEVREDdw3NgUf9SolaHMJWMo
+	 H6QuTXY8eE+OyMRTh4RWO5TiH4qF0hrDERjEKmVtJ9WzVlIPKp7vyGQb4kGBgHmPoOD6T
+	 hfL9LtzfuSwinyS4cn5FlqJACgbAfZ8sgs7IHSOsKF/4qMuHp5ECw7tjjs2UTToLV9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793895513;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=dJwwgZepT61iJuK80D0VOZi9hRO7XI3X6avR3AOgfjw=;
-	b=cnd/jzYLMXxg8T28BluGLVFzd+j1Llli+WDQZH/F9ukPtsaoW4ejBxDnrt5vB7BAY0TU
-	 vGII/QmAfx3jlQX8pnhBD24jCEI1ELlzdHnaY3iKy2T/72ZOdL0AIlPruGWB1k/zzDQXh
-	 KgFdrmfd9nx5eBtNEtv4WoxRAoKFFBoMQq0QkBnwWq4pPtGy1oLBlaHciSFuOSEwmQzxJ
-	 983dkesSwSKq41M2rQ6lDfS2mAut1LlzxqSuFObk9cxm8C+xKn5fVjv2L2nhVTipIoVEh
-	 yyvY/2Se2xqgeLjUREKi5eQxmAK5++4cjFw29FM69cgiluViuSTpjnQaEwXeRldiTuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793895515;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=0J8HAE6fhEZu8JqEpog8/ysJSaUFoTKmnmkh+IDODZI=;
+	b=es6I+6Rtl1aypG6Nff9E8Q+L16FJDlGXwDsW1H3Hs00zutG7gKYezVDa4Tjv9JGLLIh/
+	 xp0YPCBiufjw6eaeWdmlHk/WzkA4pU9A5u5XRaSaeYQ6mNtkkWTXklYpju+/O3qnfuSFZ
+	 rdb745s/4FLIXCIL0RRJeU1Tsly43N3O/P52DV+LL1+gQNERa44I1TW2P9dZldyTPedDl
+	 I04Wki4Zpzxf6Gf2SGkUP1JDjRinmmQpu0/XeeXF+M1Z230N02HWu8xlYNbE6EgLe+5nZ
+	 eUo9AmtZPY2sCu42JbGi8wEBGTCe1bkfWuN/YYkoiZ7BvVFVQr2+ICpGIDMPFW4A9sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mvOP+GRe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SL5DlQfk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E03B606A32E;
-	Thu,  5 Nov 2026 16:18:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEA3606D81D;
+	Thu,  5 Nov 2026 16:18:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mvOP+GRe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAFB61F00A15;
-	Thu,  5 Nov 2026 16:18:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SL5DlQfk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC291F0093A;
+	Thu,  5 Nov 2026 16:18:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793895512;
-	bh=dJwwgZepT61iJuK80D0VOZi9hRO7XI3X6avR3AOgfjw=;
-	h=From:Subject:Date:To:Cc;
-	b=mvOP+GReeU+1v52XCaFnBL9ClC5t7oxsgdBFVjXryZPJ6rgs1+BtF+FKhhVUCeT2f
-	 iRXVNzqWSEtUYLXRqSzPEwLZrqRLh6BhBOsX62Qu35qqzDEUiGNsCNwlggjSWAIn2n
-	 2plXyz4obcHsnI6k5zSbiAGJPgbiLI/cYaz31OwekCC2YCVge8HBE1IXTxVBHcTWoC
-	 gW10UhJspfXgSv3F8g9VyEfBKFtw5A1eoQEowy3CYNtTe9tiEU5tCl2km9p9jxyE3Y
-	 r+iK+d90aBv1xTG/CQsYMhJGbh5+eyw5qzbASkF0JOcRDvGCNUCtO8+vlF371pnqhR
-	 Hy4QUV1yRnLKw==
+	s=k20260515; t=1793895514;
+	bh=0J8HAE6fhEZu8JqEpog8/ysJSaUFoTKmnmkh+IDODZI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=SL5DlQfkF75//kBq74BLhyYrGyh09AZ5vuIYMAZwnTRGKvWpQ8voQ3p09E9KAXH1D
+	 jPGG/rMN+7C4Ea4xbqYw5IYi+eIc9BFWabg/AiNSlqGZn3xTJuL5gCvnUS+MJFqMLE
+	 Lt+BPV+IcN2tXm16eNPnXjCGdLdN4Fed1j9nR83v6KlakfWQag40zDef521k5nbt4i
+	 wHNg4DnP4x6KMcs77aj2xLNjZekoLW9rLE0wcCSABy7DEc2ZSWZOXEON94aMFxv8fx
+	 qG4ZvF2rlfchbimy8dEsHm/2R4UjbJAJR82BT1j25AhrVFDwFmjJqQsRPCcpF6KAPv
+	 WYlQPL0Ue7xFA==
 From: Mark Brown <broonie@kernel.org>
-Subject: [PATCH 0/2] arm64/suspend: Save more registers over suspend
-Date: Thu, 05 Nov 2026 16:05:03 +0000
-Message-Id: <20261105-arm64-fix-sysreg-suspend-v1-0-f4d9a99fec46@kernel.org>
+Date: Thu, 05 Nov 2026 16:05:04 +0000
+Subject: [PATCH 1/2] arm64: suspend: Save POR_EL0 over suspend
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,10 +54,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADGp7GoC/yXMQQrCQAyF4auUrA00Q5xFryIuxmlaU3AsSStK6
- d0d6/KD9/4NXEzFoWs2MHmp67NU0KmBfE9lFNS+GkIbIlHLmOwRGQd9o3/cZERffZbS4znGwAM
- nJspQ77NJXR3py/VvX2+T5OXXg33/Agm9pvZ8AAAA
-X-Change-ID: 20261104-arm64-fix-sysreg-suspend-56624f4a411c
+Message-Id: <20261105-arm64-fix-sysreg-suspend-v1-1-f4d9a99fec46@kernel.org>
+References: <20261105-arm64-fix-sysreg-suspend-v1-0-f4d9a99fec46@kernel.org>
+In-Reply-To: <20261105-arm64-fix-sysreg-suspend-v1-0-f4d9a99fec46@kernel.org>
 To: Catalin Marinas <catalin.marinas@arm.com>, 
  Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
  Anshuman Khandual <anshuman.khandual@arm.com>, 
@@ -66,34 +64,70 @@ To: Catalin Marinas <catalin.marinas@arm.com>,
 Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Mark Brown <broonie@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=763; i=broonie@kernel.org;
- h=from:subject:message-id; bh=2ATZawLqBLUtwnOq5tqUFhonr+3ShvJg+pHfQAcax70=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLerAkt297FrWehZFT1a9vu8paPZxMYzvzf8DFNd8XMh
- 8Vb5l/O7yhlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBE5rIx/NPwfyIvsr3U0s/C
- pPDTlRjjcw51E9/8P7dO6nNC/JELqx4y/FO/xnq9jUF2fulvXwHTk1IXjUpmuOt+mWxZpmNqdLG
- 6hBUA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1760; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=SP+OuiZxr0S1Vipeh1xjDaZfgd3xHIYWyxtkizFr0qM=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLerAlNurjN/0bbvmVhASJ8G1wS3OdVLJrQr2V57M6cm
+ 23f7FfIdpSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAik0QZGT4+0Lj4vcpsV/iu
+ tXoKdiIvXnJsq/PbZjzpUb+Uy8sPngsYGfZJsSQsNzWp+Zcz84PF9Inn/tm9+m8g0cS262PlHP8
+ IXWYA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-While reviewing beeec0404622 (arm64: suspend: Save and restore
-TPIDR2_EL0 across CPU suspend) I noticed some more registers that we
-need to save over suspend, fix this.
+POR_EL0 is a live EL0 register on systems with S1POE but it is not saved
+and restored by cpu_do_suspend()/cpu_do_resume(). This means that the task
+that initiated suspend can return to userspace with an UNKNOWN value. Fix
+this by saving and restoring the value over suspend.
 
+This increases the size of struct cpu_suspend_ctx.
+
+Fixes: bf83dae90fbc ("arm64: enable the Permission Overlay Extension for EL0")
 Signed-off-by: Mark Brown <broonie@kernel.org>
+Cc: stable@vger.kernel.org
 ---
-Mark Brown (2):
-      arm64: suspend: Save POR_EL0 over suspend
-      arm64: suspend: Save GCS state over suspend
+ arch/arm64/include/asm/suspend.h | 2 +-
+ arch/arm64/mm/proc.S             | 8 ++++++++
+ 2 files changed, 9 insertions(+), 1 deletion(-)
 
- arch/arm64/include/asm/suspend.h |  2 +-
- arch/arm64/mm/proc.S             | 20 ++++++++++++++++++++
- 2 files changed, 21 insertions(+), 1 deletion(-)
----
-base-commit: b0958b1397fb5ffdb995c0ccc74349841929c08d
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-change-id: 20261104-arm64-fix-sysreg-suspend-56624f4a411c
+diff --git a/arch/arm64/include/asm/suspend.h b/arch/arm64/include/asm/suspend.h
+index a5abf0615594..eb9ce315f146 100644
+--- a/arch/arm64/include/asm/suspend.h
++++ b/arch/arm64/include/asm/suspend.h
+@@ -2,7 +2,7 @@
+ #ifndef __ASM_SUSPEND_H
+ #define __ASM_SUSPEND_H
+ 
+-#define NR_CTX_REGS 15
++#define NR_CTX_REGS 16
+ #define NR_CALLEE_SAVED_REGS 12
+ 
+ /*
+diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
+index b1516630904d..664ea9e3b9ad 100644
+--- a/arch/arm64/mm/proc.S
++++ b/arch/arm64/mm/proc.S
+@@ -117,6 +117,10 @@ alternative_else_nop_endif
+ alternative_if ARM64_SME
+ 	mrs_s	x2, SYS_TPIDR2_EL0
+ 	str	x2, [x0, #112]
++alternative_else_nop_endif
++alternative_if ARM64_HAS_S1POE
++	mrs	x2, REG_POR_EL0
++	str	x2, [x0, #120]
+ alternative_else_nop_endif
+ 	ret
+ SYM_FUNC_END(cpu_do_suspend)
+@@ -160,6 +164,10 @@ alternative_if ARM64_SME
+ 	ldr	x2, [x0, #112]
+ 	msr_s	SYS_TPIDR2_EL0, x2
+ alternative_else_nop_endif
++alternative_if ARM64_HAS_S1POE
++	ldr	x2, [x0, #120]
++	msr	REG_POR_EL0, x2
++alternative_else_nop_endif
+ 
+ 	msr	sctlr_el1, x12
+ 	set_this_cpu_offset x13
 
-Best regards,
---  
-Mark Brown <broonie@kernel.org>
+-- 
+2.47.3
 
