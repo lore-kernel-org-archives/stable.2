@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793849361;
-	b=NWc1sfs2PXvGoo71ES4OjAwwCMENLqCplaXg+8SmS2ix0roVN66L7hI3IZc99M7NRJ7/
-	 lsLLrJBvNTYKquMVGbSr+uBp8eMx//QNUH6as6Ap1vqieeqoQ6VIMgySO0mPrqdKz+G/u
-	 1okUDSULSUFq64GvtEAKiwGJ4DpFsGQncoPWX6o+ieq7oAABYI5wxYWncY5n8M4eayVIR
-	 Z0i6qrqloQyOH4xdj52KNFTHRa974rZ+EL+dwZGugI5bKaAtaPVUSThL5bSo4xtPa4Tas
-	 uRu8HwkPxoSKB1F8LSTrdOY1vx0JDqSYNNoAHLJgWNkZsgCwWKT6oo+HEtKw7qaypGA==
+	t=1793849370;
+	b=niZpBel9h7p5pw/x6SAl4g9JFg23CJzfOys6ueO44OFp6+DVE7+rUsQ1jTJFA9sYxTEZ
+	 My9bJ8IGZ1fL5oDx9TxXDP5ytvrTBiF/tJ0Czr6yZlZWuhyEHfNS0iCXmj5FbTlqchu8Q
+	 OTSsBQ5STllFBba2DUyFZG+YW8EqNI5sOjb5KoFg1dTeyw8vyezLPONjLdMUFejl0m57b
+	 mS/yQwGhWJI/TsoAo6D0NzbG6bhyQPNDep9u0rVtcLC3uVTGSNYX2DKvpQeEbo/joT6y5
+	 9pWI9WXclUR0P2gx9dHY9+iwPq3RwBkxYGbXVSDlDIKQDv2ohYHdFXJ6wrcMzpOn09g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793849361;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793849370;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QrM7XKaTd3KW5zosEpenibPHPtGrmr6fjhBP/7cIplA=;
-	b=S6J3OVEU1VsxYDew561Qf+hy4dT00bP87AHLu1/sINpCxBv1T7XGMcblnxgQRvpdFWVB
-	 81d2jmzpt5VEiQlZdQ64ITelfapiqj/6LHs65hFI9uxJyzhpGisD/0J2dIhtC0LqFagyO
-	 p2OAM5cOrhBCBYr9dJIgIo+IWtpvTOJsIdxa8xr+JWuG3fyXDrwHP7QuAgbnvdNPf/53h
-	 NMy/vxAFBSHKePgCcCzNtQwufISrPrZ9uzUKm/8wojadbILAOAtSs/Jz/SpX80DjOfn5j
-	 yutlTt1wbPCMMfr3Bp9SgdMWF7Aho+8BQ+75or9gI7uFyKHLtAnTefYEboVM2BUg/Mw==
+	bh=7MLhfQXO+xkYp2XQhzSm3g9OBFIo08KPg7MNSZZ7E6E=;
+	b=dnBj9JRhK57wLlZl6DT6c8/Q5UG3yQpOP5ka00omRwo40rsVPL0j7ndgLcPrjOQKox3x
+	 c6xU9f1zUEn4ZFveNkdH1yEmfFX8VlJO5P88HIK2VUsXm6hOOIxai/sjvp6ay5krn+yPe
+	 MK+NGhradU70yRX3jLXmJY47q0373XCsZDRDoxmz00LIMgdYED7hA2rD9cwo9rYNoEXyh
+	 pv/F4QEQ1WmHmkNs74zF3DF3OI67f9BqPYZlFvbpsH8+leyR0DKseGt3G+JuKnCniViOf
+	 0/qXNs0u65FdmxzX4uD8mFKNWJr9rU+59SqscNTvXheEK9pxM7C8xkHzgKDEmrHWo0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVmQMWsn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z5nbbW6V;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C58B606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 03:29:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5974F606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 03:29:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVmQMWsn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7D2D1F000C1;
-	Thu,  5 Nov 2026 03:29:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z5nbbW6V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60A2E1F000C1;
+	Thu,  5 Nov 2026 03:29:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793849361;
-	bh=QrM7XKaTd3KW5zosEpenibPHPtGrmr6fjhBP/7cIplA=;
+	s=k20260515; t=1793849369;
+	bh=7MLhfQXO+xkYp2XQhzSm3g9OBFIo08KPg7MNSZZ7E6E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iVmQMWsnHta3VOjuvCmHXMAaYkoLZQqcgRmQAwn595+tupwupqIVChj1X3t0Sh4aD
-	 Av46cy/giV3sfHdRlFhWfritOztzqhd/UECO92NIvfCqvatOsZs1oahOJ/a1+UDaDc
-	 nAmi1iEGNy2arOraBp8w5ZF6iAU8ygGFV8cVimAfI/rsUZUY3g5r4jVnhju/qh9mY5
-	 eojyzT5FF8HUVJ1htA1bxHeOVS3qC0DN0OOF9Pk/Rf1jWdDFSwGfQsMHfcAOu8ICYN
-	 f2+bBqvLCTQquvkY2V+QQ2cM1hZjro1u+iNAQIO5jKc4RQeyg9ecrFLYh5BSq4KaeI
-	 /yfEXSkrrW2HQ==
+	b=Z5nbbW6V7xSI1e0rnb4g4wNLjuepFLs3t2B2Z4/rh71YRq2eVuY1xWcmfXbiQQkMR
+	 lFgdPFTcB3NX2aclJIGdh92JrgkkQo6ccDfKhTQz0ID3nUz0582DsNRLCjJ4o6FgDc
+	 +EYQ+y7NADYnky3U5zB+lifRgcPHJV73m+4S5EFgH+SPiMXA8DXKbxXquLWF1Gr5aa
+	 mogf3wnRLhP8zAcqAD57ZuemvbDJrF70zSExm2xJ8nDyUOmAUqKdWY/+b8KJMjktpU
+	 t92YUVeFEEugbDi2yfEVPhvFlPyc0qJ+23ZK179l3b2QONnIs0+OCu1aFM35DOVGOk
+	 0CWhiYFiR7l1Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chris Mason <mason@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Amir Goldstein <amir73il@gmail.com>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Jamie Lenehan <lenehan@twibble.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ovl: set OVL_WHITEOUTS before publishing the upper dir
-Date: Wed,  4 Nov 2026 22:29:19 -0500
-Message-ID: <20261105032859.1214121-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] scsi: dc395x: sync the waiting_timer before freeing the host
+Date: Wed,  4 Nov 2026 22:29:28 -0500
+Message-ID: <20261105032859.1171835-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110401-photo-throwing-2a3a@gregkh>
-References: <2026110401-photo-throwing-2a3a@gregkh>
+In-Reply-To: <2026110424-unless-washer-9ef1@gregkh>
+References: <2026110424-unless-washer-9ef1@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,74 +62,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <mason@kernel.org>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit cbec8610ec5aaf35df50094ff639febc23f20773 ]
+[ Upstream commit 0b1a79f2791a06f139dce5450e487307cf0e241f ]
 
-Listing a directory while it is copied up causes a use-after-free of
-the readdir cache.
+The waiting_timer callback re-arms itself and takes the host lock.
+adapter_uninit() currently stops it with timer_delete(), which does not
+wait for a callback already running on another CPU. The final
+scsi_host_put() that frees the host (and the host lock the callback
+dereferences) runs right after adapter_uninit(), so a concurrent or just
+re-armed callback can fire after the free, leaving a potential
+use-after-free window.
 
-A merge directory must never be iterated as a real upper directory:
-that mode frees the cache in OVL_I(inode)->cache without looking at
-its refcount, while files opened in merged mode still use it.
-ovl_copy_up_workdir() publishes the upper dentry before it sets
-OVL_WHITEOUTS, and ovl_dir_open() samples both without a lock, so an
-open between the two stores finds the upper directory and takes it
-for a real one.
+Replace timer_delete() with timer_shutdown_sync() at the top of
+adapter_uninit(), before the host-lock section: the timer is dequeued,
+a running callback is waited for and rearming is blocked before the chip
+is halted, so it cannot fire at all once the adapter has ceased to
+function. Waiting outside the lock avoids the self-deadlock that would
+result from syncing a callback blocked on the lock we still hold.
 
-With a delay between the two stores, an unprivileged process that
-listed a directory during its copy-up saw only "." and "..", and its
-next getdents freed the readdir cache of another descriptor.
+No shutdown is needed for selto_timer because it has no reachable armer
+or callback.
 
-Fix this by setting OVL_WHITEOUTS before ovl_inode_update(), so that
-ovl_dir_reset() agrees with ovl_dir_open(), and by testing
-OVL_TYPE_MERGE() of the path type in ovl_dir_open(), so that an open
-that observes the upper dentry never iterates a merge dir as a real
-dir, regardless of the order in which it observes the flag.
+This issue was found by an in-house static analysis tool.
 
-Fixes: b79e05aaa166 ("ovl: no direct iteration for dir with origin xattr")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[amir: test OVL_TYPE_MERGE() instead of smp_rmb() in ovl_dir_open()]
-Link: https://lore.kernel.org/linux-unionfs/CAOQ4uxh-1J2OBjnDVbrrrjy1puSOW0kABvghN85ih6dtKUBTyA@mail.gmail.com/
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-[ sashal: Adjusted context to preserve existing inode initialization and cleanup while replacing the dentry-based ovl_dir_is_real() call. ]
+Cc: Jamie Lenehan <lenehan@twibble.org>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://patch.msgid.link/20260911020544.42966-1-fanwu01@zju.edu.cn
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+[ sashal: Replaced unavailable timer_shutdown_sync() with timer_delete_sync(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/overlayfs/copy_up.c | 2 +-
- fs/overlayfs/readdir.c | 3 ++-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ drivers/scsi/dc395x.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
-index 4c7ef60dbaac0..dadca83b41a69 100644
---- a/fs/overlayfs/copy_up.c
-+++ b/fs/overlayfs/copy_up.c
-@@ -711,9 +711,9 @@ static int ovl_copy_up_workdir(struct ovl_copy_up_ctx *c)
- 	if (!c->metacopy)
- 		ovl_set_upperdata(d_inode(c->dentry));
- 	inode = d_inode(c->dentry);
--	ovl_inode_update(inode, temp);
- 	if (S_ISDIR(inode->i_mode))
- 		ovl_set_flag(OVL_WHITEOUTS, inode);
-+	ovl_inode_update(inode, temp);
- unlock:
- 	unlock_rename(c->workdir, c->destdir);
+diff --git a/drivers/scsi/dc395x.c b/drivers/scsi/dc395x.c
+index d8967bf72ef26..5442713433f9b 100644
+--- a/drivers/scsi/dc395x.c
++++ b/drivers/scsi/dc395x.c
+@@ -4456,13 +4456,11 @@ static void adapter_uninit_chip(struct AdapterCtlBlk *acb)
+ static void adapter_uninit(struct AdapterCtlBlk *acb)
+ {
+ 	unsigned long flags;
+-	DC395x_LOCK_IO(acb->scsi_host, flags);
  
-diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
-index 666cc62578f65..ed4c34366c5c0 100644
---- a/fs/overlayfs/readdir.c
-+++ b/fs/overlayfs/readdir.c
-@@ -942,7 +942,8 @@ static int ovl_dir_open(struct inode *inode, struct file *file)
- 		return PTR_ERR(realfile);
- 	}
- 	od->realfile = realfile;
--	od->is_real = ovl_dir_is_real(file->f_path.dentry);
-+	od->is_real = !OVL_TYPE_MERGE(type) &&
-+		      !ovl_test_flag(OVL_WHITEOUTS, inode);
- 	od->is_upper = OVL_TYPE_UPPER(type);
- 	file->private_data = od;
+-	/* remove timers */
+-	if (timer_pending(&acb->waiting_timer))
+-		del_timer(&acb->waiting_timer);
+-	if (timer_pending(&acb->selto_timer))
+-		del_timer(&acb->selto_timer);
++	/* Drain the self-rearming timer; must not run under host_lock. */
++	timer_delete_sync(&acb->waiting_timer);
++
++	DC395x_LOCK_IO(acb->scsi_host, flags);
  
+ 	adapter_uninit_chip(acb);
+ 	adapter_remove_and_free_all_devices(acb);
 -- 
 2.53.0
 
