@@ -1,74 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903484;
-	b=SeR5WcczlGBD5drhznGRa7jOj2c+DdyK6bF8+JpyWqirmFP5OKtWyaUK/DeFFy4NBCDw
-	 KIgdkij61f5dk8TDjpU5xzMvCtgLH/LHGtewr+bdaw5nIink/4C/SaXdVYFta78+affuX
-	 y+dQbjOJ7hLrnlEqedkuhWVz1sHQ2Kxg80qi8Ui+DujsGJ8m4ZpAOTWPzhBiKfqo2+Ov0
-	 ZIHVDtyXAnmC9DxJYrpg6BGq+TDHOI85lpkypUQvK7CK5Dr05aIXzQBKhkqrKxheNSPzB
-	 PGGqJMtLEPYUQhYW8ikfpUndjhFOjaGXwg+M1oZb+GwvNdDObfvP0DM8pWhSo/jSTXQ==
+	t=1793903874;
+	b=aBERii3vRzZBQyyOJYdw/W1TPL4VqCkbCjsDnx/okxYRmvJ4F/n9O9rU70AEO8ul8Mk1
+	 6rQPiOGndQ5mNKj8H2SbHr9jX+vP3eiGLmgn5B0pD3wRcVUNrqEPQOH8YC3Gx6NKnlxPv
+	 oXLuc2tbDGvhLH3VtEPeceGPCaSfPyGcncKPG5xlLiBoYmS/ntwgTOSN4Nc87zU567Hzd
+	 RvBWIcv+x+KeS6xwQ3cwHwzf2Jhig9ChrjIp7ZHmKDNQ8mpqLCFTFkka723cnFF92F+Z8
+	 FLgaJQi22GepbUjdSoEeUZYg0CNS51NxyPzU/Vr7nFdjB+1sb010AdesHgQvhR++KXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903484;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903874;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Patchwork-Hint:Organization;
-	bh=WwkvDRtHEJBciSzWk9FpLgZP6gn0rZI7lUvTL7qFPGk=;
-	b=Ix1vllCBGChE3+jwNFJmpwcEejf7O2og1FDkyDf4mh51ZFZkFvqmQHxrjbrYpM8ww23V
-	 vMNFZg2JJM+Y6Me48EYqIUzM9/Nq807dqSabjHbXZgTkwJtVdk/VYfTLWgNMZU/Dvf9uR
-	 YCab5BZnhLA9BeBeaE9xAN/gQVGRIJZYCk1yIQScvKtviz0Os7rEyTZX1u88GHWbFuZhn
-	 f6iRQXqOamDe1+VckIvrQu5Q3kBb50mA2D5V7AITViAsExyMMzsKsLlQkKlODzaDbcdWv
-	 Wcc/FOQUdyBreupB8uTIA22/R2AA2YdQ09Rz+bv875/aVdK7EFo5/hbIFAfA0AQDydA==
+	 Content-Disposition:In-Reply-To;
+	bh=42B23m+JIdyvXG0sW7UzXbkef8/A6+4jMboFfV5//zI=;
+	b=bkoF+lyirnRTHtZLzZAZFL1x2SWu0vPiT/qy7iif7fZHYR0CiX0wnAfiMFJiRsUPx92I
+	 ulq92p3BzWPLS3nJYkYiTK5jkYnZSUN8O4z8x31AoxEn2K88Mpod53n4SvtYNPcnAnrFH
+	 YL0h8XxNwTrBuwczjjnv0f4JkpnDCVGTrLilPS6aTG3gnZNP9NGqwzf1EZzGYlpISbpRs
+	 zC9tXotsv9P1XZ53Dq34+KDuvH+jO8dv4vkJgfZZXtS7Jts5rTMlPXj8KgKDxQLj2yC2U
+	 JbT/Z8ERizrfhVeQhDTqn0hPADA1874YYsW8LqFeJ90lbqZVOEqe+P8K5CKh4JH5WiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TvAofHOz;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D933606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:31:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D933606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nifLGVmn;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3224606A31B;
+	Thu,  5 Nov 2026 18:37:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3224606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TvAofHOz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793903483; x=1825439483;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=j2mvJ5a8fsbbPNHvdOtBbrbBDAd2SqqYDHITBf9HNKs=;
-  b=TvAofHOzZbtU3yfa8z0G6BUEC0uMQ2Po68Vrxh6juZhcujYlU+v5wFVz
-   J/6lY3pWPN2tLI6nFAeCyl1MVniW7r80XU3SwizfiVW1Y6MKBSUs/cfni
-   CsDRXWk2KQZzuKk4BJip6eW4iEl7/zDsvaawWJY2/pQE7wxKkR3lbS/aT
-   6LcbT45qJOmXuTZCMc3Ze8kLCNg5JFdffIrmHBVzPUi+ENxi9yJpDOuFj
-   /8qQ/5eNPplnSQCacozWm7jMN6A4jofr16pUSr2Ww3qTJDMT5s95uq8BC
-   sl1Z0uRvJgl5HiASnKyqMX5qDOlq+clytinSCUZtDEZu9868yMq9fpjOu
-   g==;
-X-CSE-ConnectionGUID: 0j63kcCsR7O2+2nZf/wtdA==
-X-CSE-MsgGUID: xoCApWevTpOvxCawbYWqbA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2697726"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2697726"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 10:31:02 -0800
-X-CSE-ConnectionGUID: ASmBuyjaQRWTE2vht7cW5A==
-X-CSE-MsgGUID: PUpXyBVYQYeBraWHrXpUUA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7497834"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.198])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 10:31:00 -0800
-Date: Thu, 5 Nov 2026 20:30:56 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/cdclk: Ignore SWF18 in SKL CDCLK sanitization
-Message-ID: <auzLYHTMuLVVktJv@intel.com>
-References: <20261105124737.24456-1-ville.syrjala@linux.intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nifLGVmn
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BCC64168F;
+	Thu,  5 Nov 2026 10:37:49 -0800 (PST)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D67BD3F632;
+	Thu,  5 Nov 2026 10:37:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793903872; bh=9Qhj0s746e4V1R4BU+HoKxTE/pluQc6iZNeXaD38eeI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nifLGVmnqXYcirsAZF6IszdTwzH5oMaXh0Z+dSQ4QKp9pkzRNqjBRKUBp/25yWrCP
+	 xU8XxQQj3RD6yqa54ohcJh44ntqKmEEcuQXhu0YHvBCN4CC/iPNCv97/T6KqwD1+Wf
+	 0l8BtR9y/1prJ4J5hTD5yWGu2QSD3R6G3rPp7qo0=
+Date: Thu, 5 Nov 2026 18:37:46 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	James Morse <james.morse@arm.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Doug Anderson <dianders@chromium.org>,
+	Breno Leitao <leitao@debian.org>,
+	Jinjie Ruan <ruanjinjie@huawei.com>,
+	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	Vladimir Murzin <vladimir.murzin@arm.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Huth <thuth@redhat.com>, Dawei Li <dawei.li@linux.dev>,
+	mrigendrachaubey <mrigendra.chaubey@gmail.com>,
+	kernel-team@meta.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] arm64: sdei: Run the event handler on the kernel
+ vectors
+Message-ID: <auzM-l40BLsT3clg@arm.com>
+References: <20261105120835.3321912-1-kirill@shutemov.name>
+ <20261105120835.3321912-2-kirill@shutemov.name>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,96 +75,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261105124737.24456-1-ville.syrjala@linux.intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+In-Reply-To: <20261105120835.3321912-2-kirill@shutemov.name>
 
-On Thu, Nov 05, 2026 at 02:47:37PM +0200, Ville Syrjala wrote:
-> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> 
-> Currently on SKL/derivatives we are checking whether
-> the VBIOS/GOP programmed the SWF18 scratch register
-> appropriately. Based on the original commit, and the
-> set of bits checked, the code actually wanted to check
-> SWF06 instead. Looks like it's just completely confused
-> whether the register offset should be 0x6*4 vs. 0x18 vs.
-> 0x18*4. SWF06 is where the VBIOS/GOP should stuff some
-> information about what outputs it enabled. SWF18 is
-> where the VBIOS/GOP is supposed to stuff the maximum
-> CDCLK frequency.
-
-Actually it's me who is confused. SWF06 is the CDCLK thing
-and SWF18 is the pipe/output thing. So I guess it was checking
-the right register after all. Oh well, that doesn't change the
-fact that it doesn't work on chromebooks.
-
-> 
-> I suppose either of these scratch registers are part
-> of the expected protocol between the VBIOS/GOP and
-> driver, but it looks like at least some coreboot
-> based systems don't set them up.
-> 
-> SWF18 not being populated leads us to reprogram the
-> CDCLK PLL during driver initialization, while the
-> display pipes are still potentially active. We also
-> set CDCLK to its minimum frequency, under the
-> assumption that nothing actually needs a higher
-> CDCLK frequency when it hasn't even been correctly
-> initialized.
-> 
-> Due to some other changes in the code we may no longer
-> force a full CDCLK recalculation and reprogramming upon
-> the first atomic commit, so CDCLK can remain at a
-> potentially too low a frequency indefinitely.
-> 
-> To fix this let's just stop looking at SWF18 completely.
-> The code is anyway confused about which register
-> it's actually looking at, and we don't look at that
-> register on any other platform either. We also do an
-> actual readout of the CDCLK state from the hardware
-> so we should be able to spot if anything is wrong
-> enough to need reprogramming.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: ba91b9eecb47 ("drm/i915/cdclk: Decouple cdclk from state->modeset")
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16595
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17423
-> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_cdclk.c | 13 +------------
->  1 file changed, 1 insertion(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-> index 92e6fca861f6..0f2f693c78d4 100644
-> --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-> +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-> @@ -1269,18 +1269,7 @@ static void skl_set_cdclk(struct intel_display *display,
+On Thu, Nov 05, 2026 at 12:08:33PM +0000, Kiryl Shutsemau wrote:
+> @@ -1065,10 +1067,27 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+>  	else if (cpu_has_pan())
+>  		set_pstate_pan(0);
 >  
->  static void skl_sanitize_cdclk(struct intel_display *display)
->  {
-> -	u32 cdctl, expected, swf18;
-> -
-> -	/*
-> -	 * check if the pre-os initialized the display
-> -	 * There is SWF18 scratchpad register defined which is set by the
-> -	 * pre-os which can be used by the OS drivers to check the status
-> -	 */
-> -	swf18 = intel_de_read(display, SWF_ILK(0x18));
-> -	if ((swf18 & 0x00FFFFFF) == 0) {
-> -		drm_dbg_kms(display->drm, "Sanitizing CDCLK due to SWF18 0x%x\n", swf18);
-> -		goto sanitize;
-> -	}
-> +	u32 cdctl, expected;
->  
->  	intel_update_cdclk(display);
->  	intel_cdclk_dump_config(display, &display->cdclk.hw, "Current CDCLK");
-> -- 
-> 2.56.0
+> +	/*
+> +	 * With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
+> +	 * EL0 until the next exception from EL0 maps the kernel. They only
+> +	 * handle exceptions from EL0: an exception taken here would run their
+> +	 * empty current-EL half and never come back. Switch to the kernel
+> +	 * vectors. The IRQ-like resume keeps using the interrupted VBAR, so it
+> +	 * still goes through the trampoline.
+> +	 */
+> +	vbar = read_sysreg(vbar_el1);
+> +	if (arm64_kernel_unmapped_at_el0() &&
+> +	    vbar == (unsigned long)__this_cpu_read(this_cpu_vector)) {
+> +		write_sysreg((unsigned long)vectors, vbar_el1);
+> +		isb();
+> +	}
+
+Sashiko had a comment that the above should be raw_cpu_read() since with
+preempt debugging and pseudo-NMIs, irqs_disabled() is false here and the
+check in __this_cpu_read() will warn.
+
+Thinking about it, further down on the irqentry_nmi_enter() ->
+lockdep_hardirqs_off() we'll hit the irqs_disabled() issue again. We
+could just do a raw_local_irq_save/restore() around this function.
+Unnecessary for DAIF but useful with pseudo-NMIs.
+
+Alternatively, __sdei_asm_handler() could save/restore PMR and change
+the priorities similar to the kernel_entry code. Actually, this may be
+better since do_sdei_event() also checks regs_irqs_disabled() and we
+don't have any regs->pmr populated.
+
+Worth a separate patch to fix SDEI handling with pseudo-NMI on and no
+changes to __this_cpu_read() above needed. So, for this patch:
+
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+
+(I'll probably queue it for -rc but waiting to see if there are more
+comments)
 
 -- 
-Ville Syrjälä
-Intel
+Catalin
