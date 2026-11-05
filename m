@@ -1,58 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793892950;
-	b=iC24/OQ4ocW5LF07l2yVdgnxHm6nvqYaZErXRbnfaUwmHy6SSYtvxyXbZWjqcYnqEO46
-	 clbEDW4Pcus8RTLNzd2u3ebhreTuMBLSSQ0MXnXhcpM7p9+mDU02yp37EknLZrNYcpBFT
-	 zf+4SyEHkDqwzkSNgWBj5GhHN9LTQqIzaaoSxmrf6eFYUxiPCTDZjIq3csY9XgcVXEGit
-	 iJkP8gE9y5X0FIQCPx4l2GQrxTIua35Bzcpu7S5dkWOnTAWfnflSOJnfXnazGclCwNdiH
-	 nSH4M4uZ8LhyPoB5EYm5JSdLosZ+6IMyYxW2C1fsy0qD2t4Xt+3UIlm0rij3oa0ketg==
+	t=1793892946;
+	b=CKINh/rvD617SaCn5u5gqGIREVWya+vU+J8Uddev5FQU5MwCBVDkAnyptQDKiSAWsHcH
+	 a/dYIVoe2C/aR/XvWbXiQSWr/Ijqc7NI/VCRPNE2Oxoc4XaYCY8bJ7r63uw3UOQC8Hqhy
+	 mQiALfeZs7Nk5U91DjvOQ0gfo0F+kRKQDpe/kDp3PwrCIDY6ampu9fo9SucPPek8qXpFQ
+	 J7Y6hDSvm2xtTt0zWJnoe9ZuVR+klUOXL5DfNy29RmQ37DrShyJW1d/FAVCFe8G5B9FLv
+	 az701rugeDTL3whnBTjz453wypZHEc86lFayXrEuKzDVdnpPHg8e7DSoWd/Nbpm8GEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793892950;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TkPEC3r/ywYKclCXCKERaenC48rzR/X1t9r60sr/1hg=;
-	b=r4d38xyIG4tYbJe8RPKl0TvyF/mSew81iw3khlSV4+SbRXvBRoG+HLLns/UTuWkDdHpK
-	 PWtl5jOyQjGn/6PIqh30ec4i8X3ccEcdR5U/Mf04ajhBjKJeJfQh0cNy5ruqupRYyYDfr
-	 iBfbbVH/hwnKyZN1G1P3K0wcJOXFHMV/Okx/OMbb7AXEiJqZ21frx6DD90oSCSBZMKLXn
-	 phHvoNlYQvynUHTjTHgJKpvvAVSsFxAolvGFQoApxPj4LIVC52nql09NEHcefHYTwoS6R
-	 WsLBrFUj1rfusaZp8bZRCwWvKVsptbL4tY/Eqj5YJGJgXXp8Yai7CToFka/sS+bHQRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793892946;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lvinUM9bdOIzQQT+vOy1XPr/IQD9o1XMDhdE9KnkQhw=;
+	b=pHmW1zFmxvM63Gx0Iqbd3L5S3zQkyJga02NJXhxW+9lj3i2EgeO1pszJtXtTzsjkMWQu
+	 Zi5kYhanV0o6gRN9txHAxLCVMvFF2jdNQhlKlxj2xI7li+1ye2YNoPsNj0JSYGJj4O4vc
+	 LUdCZG6TmWAaCdsx/BxPkCAHP1JPc2G+5Lq6Faa0KHbQCyjPUtSBmX4ziNxcgO1McdzP1
+	 kgayl7r66Shl0GGj3rXHhUFNImEyEiM81x9sfHmnVfpJ+T79xVUlMQShzBBv0maGdqtIM
+	 kG0KB5rhyusiIlS6sLmnxHdOxVfqhv4X9V1guqXQdX8tgJR0wSiBtAhZbDsEp4q2sEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nrXiUSGr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=PWCM5JUG;
+	arc=none smtp.remote-ip=209.85.208.97
+Received: from mail-ed1-f97.google.com (mail-ed1-f97.google.com [209.85.208.97])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2543606A328
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:35:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD06606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:35:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DD06606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nrXiUSGr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78FA61F00A18;
-	Thu,  5 Nov 2026 15:35:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793892949;
-	bh=TkPEC3r/ywYKclCXCKERaenC48rzR/X1t9r60sr/1hg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nrXiUSGrhKFfxMVj679XL/KtJrk0eOAwl0IeracbEa810P1AV3ldM11DfcRCKBBX2
-	 jCxJxOKFvF6bzxZrnP38S0UuXFFRb4OzSAIhAK1NwHV3HquViN/srg+disFCoMqrCB
-	 fCz+J0mv64ANicrU4es9aYIwMkhhI+fYB3cbZOGPSgWNehuDTbbq0M9sIe1pDg3KFZ
-	 hF7yga8xwIJaS5kjA1m3yx/uFAYoNyYVMPcdRKYzL7kFPhijZMV7lpvIe3hXdYrmYj
-	 EKN5MkaUVex200EPwQXTG7WQXn6i6nAXdgIE683UTiJhFEOCu6C4CLBRdCfb0R5lSs
-	 9uSjI0QWz49WA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Eduard Zateev <hackerowskiy@gmail.com>,
-	syzbot+5c3ed2a0de3270efc921@syzkaller.appspotmail.com,
-	syzbot+c2ec61adfbcb24e5ec20@syzkaller.appspotmail.com,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] smb: client: hold server info until cifsd exits
-Date: Thu,  5 Nov 2026 10:35:47 -0500
-Message-ID: <20261105150118.1662306-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=PWCM5JUG
+Received: by mail-ed1-f97.google.com with SMTP id 4fb4d7f45d1cf-6b4f7d3cd98so2404430a12.0
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 07:35:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1793892939; x=1794497739; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lvinUM9bdOIzQQT+vOy1XPr/IQD9o1XMDhdE9KnkQhw=;
+        b=PWCM5JUGt2vM7IoWvZ2VRy/K1pZWjolfIrZvNnnrIcVUCmKuwQSNtxHRCsfWsYW2YN
+         n5RR3UmHSzqRH84ms8sRvR55ma2onqpmsjP2uhFSHqR9BEXm9vzd4rhtJfYuLMnwcLaO
+         4ekvrvwBN531NBXuN8cWbQLvzJVzFsLFQt9LSbiQNLBCPSl8vs+bpW46ZBeEY9hN6H8A
+         OQrjLyVKDMSFH/UZTUmIuB5WCmhpYUt/GjaDqeIKC1Y3py7x7L2eSbF2T+dCNRfeWAuv
+         IR/ajfFa4PACXPv1H+8IfPasF+e86OENGadezOhGXXbOZhaFtDX/X8ukte0DnN/fcUUK
+         2X5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793892939; x=1794497739;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lvinUM9bdOIzQQT+vOy1XPr/IQD9o1XMDhdE9KnkQhw=;
+        b=dNwQJb3c26hWw4bDrsYtGxlLRrxfLs1Qtm+XaRTWrZHNObEEnwpbjN7OsVMAiLivAA
+         1SX1uk6xMtRzD5/X9c4mdRRBamd90qSGqZLcrxTijREn1rU+XEb84MoDfHvDfExLlxkc
+         5sS5V21o9huWL9HWLxjzpwQUfXvjFiBYhh8Ode/RJuSKr7FnBJF8iu5O+MH/WXaUIkG8
+         9m0U/6P1ROlCjQDr+ktqQ9f57IiPPm+n6AfC0C/BnKBjHuK1Vd3QqHJed/GQ9EsA8nMY
+         Dzd2q3uHLsxGIhkulhMBcuJr+5WerUz5b/r/g/xmljageLUyopGBwkseOtFXMvoQqA1X
+         gyzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzQJiHAtceFVTI6rDvJmlBE3auCdr1xHBmB3mnDFazVWDPu1Hh2oLfDW3FrCu9jHC5K5IuuDus=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9KBe1FSBqNxQIRitYvr4pxmXZ8VpSQOtmIZ9KGYtcJqEsErJfq
+	7sdSZ9pOytSeh9nqIqs0KKA3MRollMoIDc7QH0icQGx/lvAnjJv3SEkpjSE449C/gEY+tUnf9FH
+	OQ7971g+s2VIDf3q/qrbpp78JYu7G+fiU3d1X
+X-Gm-Gg: AYBFou3j7BunnsizAKpex9e5iTfHoAYYJHXyN96c1tXiaK7+g/3ginHb/nA+Hu5d5P4
+	aSt7WeGCJlWwM5j3rsb4v2iy1oYFc2vFiCV3o207XeK0ixv/La+4UsheJKPnkwjErUbHxsxqiJZ
+	6sHgy0VAhpFDnxtIwKqCV7DJGtfpNiWY2RDFB3tHEjUnIvz3LUC+5VX0aWHQ/Kk3s9Y9H668ljz
+	xM5x8ChUH+AE8faF3DI+UpR7GiewNisgBmo7x91nJyuwTLFzgwVbyEYPNCSTtRS8F3WIp9Nqub5
+	fQ038YBYY+uDFOTNTimCXBwJMfDiU9QXO18PCZUYK7kaD/0XG78YjuaGK6QoEGfnmdWg/8wqK3R
+	ppAlEBZbd02wpRckLkY9ef3nQA1Rw3GLzMTiYbg==
+X-Received: by 2002:a05:6402:ea7:b0:6b5:78bc:406b with SMTP id 4fb4d7f45d1cf-6b578bc4265mr1906328a12.23.1793892938711;
+        Thu, 05 Nov 2026 07:35:38 -0800 (PST)
+Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
+        by smtp-relay.gmail.com with ESMTPS id 4fb4d7f45d1cf-6b55ac1beefsm1194828a12.4.2026.11.05.07.35.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 07:35:38 -0800 (PST)
+X-Relaying-Domain: purestorage.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id E2A1E34040C;
+	Thu,  5 Nov 2026 07:35:06 -0800 (PST)
+From: tmenninger@purestorage.com
+To: trondmy@kernel.org
+Cc: anna@kernel.org,
+	bcodding@hammerspace.com,
+	ebadger@everpuredata.com,
+	jcurley@everpuredata.com,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	prabhakar.pujeri@dell.com,
+	stable@vger.kernel.org,
+	tmenninger@everpuredata.com
+Subject: Re: [PATCH v2] pNFS: avoid repeatedly cancelling I/O for the same lseg
+Date: Thu,  5 Nov 2026 15:35:07 +0000
+Message-ID: <20261105153507.3145077-1-tmenninger@purestorage.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110422-graduate-mounting-470e@gregkh>
-References: <2026110422-graduate-mounting-470e@gregkh>
+In-Reply-To: <0a489565ca1693403d08eaef7c3545f5b8366bb2.camel@kernel.org>
+References: <0a489565ca1693403d08eaef7c3545f5b8366bb2.camel@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,146 +109,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eduard Zateev <hackerowskiy@gmail.com>
+> This claim isn't making sense to me.
+> 
+> If a layout segment is recalled or revoked, we should always be
+> clearing the NFS_LSEG_VALID flag bit in order to prevent it being
+> looked up again. New RPC calls should not be able to add that layout
+> segment.
+>
+> So the only thing that can be found on a second run of
+> rpc_cancel_tasks() is a task that has been attempted cancelled
+> previously, but for which that cancel failed.
+> If you're seeing actual spinning, where the RPC call is just being
+> requeued by the rpc_call_done() callback, then we need to look at why
+> the latter is failing to handle the situation correctly.
 
-[ Upstream commit 482c117c6dbeee382790168af10959810450ab09 ]
+Agreed. I am not seeing new I/O acquire an invalid lseg.
 
-The last session reference can be dropped while the cifsd demultiplex
-thread is still running clean_demultiplex_info(). That thread frees
-TCP_Server_Info there, racing with cifs_put_tcp_session() as it releases
-the server crypto state. syzbot reported a KASAN use-after-free in
-cifs_crypto_secmech_release().
+The issue is that the set of lsegs affected by return processing can
+expand while the original I/O drains. Newer lsegs can exist on the same
+layout header, with I/O that has not previously been cancelled.
+Cancellation and cleanup of the old I/O can then redrive return
+processing against that shared header and bring the newer lsegs into the
+return scope here:
 
-Keep an object reference for the cifsd thread. Defer final crypto,
-session-key, network namespace, string, and structure cleanup until both
-the last session reference and the thread reference are dropped. Drop the
-thread reference after clean_demultiplex_info() has finished using the
-server.
+  pnfs_put_lseg(A)             [final reference]
+    pnfs_cache_lseg_for_layoutreturn()
+      pnfs_set_plh_return_info(..., seq=0)
+    pnfs_put_layout_hdr()
+      ...
+      pnfs_mark_matching_lsegs_return(..., lo->plh_return_seq)
 
-Build-tested with ARCH=arm64 and W=1 for
-fs/smb/client/connect.o. The KASAN reproducer was not run on the patched
-kernel.
+The zero argument to pnfs_set_plh_return_info() resolves to the current
+header sequence. If that sequence has advanced while A was draining, the
+pending return cutoff can advance with it.
 
-Fixes: a5c3e1c725af ("Revert "cifs: No need to send SIGKILL to demux_thread during umount"")
-Reported-by: syzbot+5c3ed2a0de3270efc921@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5c3ed2a0de3270efc921
-Reported-by: syzbot+c2ec61adfbcb24e5ec20@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=c2ec61adfbcb24e5ec20
-Assisted-by: LLM OpenAI Codex
-Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
-Cc: stable@vger.kernel.org
-Tested-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: moved thread reference acquisition before kthread_run() because it starts the thread immediately. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/cifs/cifsglob.h |  2 ++
- fs/cifs/connect.c  | 29 +++++++++++++++++++----------
- 2 files changed, 21 insertions(+), 10 deletions(-)
+For example, my trace records, on the same header:
 
-diff --git a/fs/cifs/cifsglob.h b/fs/cifs/cifsglob.h
-index 8a5cdf4ba0ae6..05f68bf0a4a68 100644
---- a/fs/cifs/cifsglob.h
-+++ b/fs/cifs/cifsglob.h
-@@ -25,6 +25,7 @@
- #include <linux/scatterlist.h>
- #include <linux/mm.h>
- #include <linux/mempool.h>
-+#include <linux/refcount.h>
- #include <linux/workqueue.h>
- #include <linux/fcntl.h>
- #include "cifs_fs_sb.h"
-@@ -674,6 +675,7 @@ struct TCP_Server_Info {
- 	struct list_head tcp_ses_list;
- 	struct list_head smb_ses_list;
- 	int srv_count; /* reference counter */
-+	refcount_t obj_refs; /* struct lifetime: srv_count users + cifsd */
- 	/* 15 character server name + 0x20 16th byte indicating type = srv */
- 	char server_RFC1001_name[RFC1001_NAME_LEN_WITH_NULL];
- 	struct smb_version_operations	*ops;
-diff --git a/fs/cifs/connect.c b/fs/cifs/connect.c
-index db54cbbe8cc5e..dedcc00e3b675 100644
---- a/fs/cifs/connect.c
-+++ b/fs/cifs/connect.c
-@@ -880,6 +880,18 @@ handle_mid(struct mid_q_entry *mid, struct TCP_Server_Info *server,
- 	dequeue_mid(mid, malformed);
- }
- 
-+static void cifs_tcp_server_put(struct TCP_Server_Info *server)
-+{
-+	if (!refcount_dec_and_test(&server->obj_refs))
-+		return;
-+
-+	cifs_crypto_secmech_release(server);
-+	kfree_sensitive(server->session_key.response);
-+	put_net(cifs_net_ns(server));
-+	kfree(server->hostname);
-+	kfree_sensitive(server);
-+}
-+
- static void clean_demultiplex_info(struct TCP_Server_Info *server)
- {
- 	int length;
-@@ -964,12 +976,11 @@ static void clean_demultiplex_info(struct TCP_Server_Info *server)
- 		 */
- 	}
- 
--	kfree(server->hostname);
--	kfree(server);
--
- 	length = atomic_dec_return(&tcpSesAllocCount);
- 	if (length > 0)
- 		mempool_resize(cifs_req_poolp, length + cifs_min_rcv);
-+
-+	cifs_tcp_server_put(server);
- }
- 
- static int
-@@ -2496,8 +2507,6 @@ cifs_put_tcp_session(struct TCP_Server_Info *server, int from_reconnect)
- 		return;
- 	}
- 
--	put_net(cifs_net_ns(server));
--
- 	list_del_init(&server->tcp_ses_list);
- 	spin_unlock(&cifs_tcp_ses_lock);
- 
-@@ -2518,16 +2527,13 @@ cifs_put_tcp_session(struct TCP_Server_Info *server, int from_reconnect)
- 	server->tcpStatus = CifsExiting;
- 	spin_unlock(&GlobalMid_Lock);
- 
--	cifs_crypto_secmech_release(server);
- 	cifs_fscache_release_client_cookie(server);
- 
--	kfree(server->session_key.response);
--	server->session_key.response = NULL;
--	server->session_key.len = 0;
--
- 	task = xchg(&server->tsk, NULL);
- 	if (task)
- 		send_sig(SIGKILL, task, 1);
-+
-+	cifs_tcp_server_put(server);
- }
- 
- struct TCP_Server_Info *
-@@ -2548,6 +2554,7 @@ cifs_get_tcp_session(struct smb_vol *volume_info)
- 		rc = -ENOMEM;
- 		goto out_err;
- 	}
-+	refcount_set(&tcp_ses->obj_refs, 1);
- 
- 	tcp_ses->ops = volume_info->ops;
- 	tcp_ses->vals = volume_info->vals;
-@@ -2635,6 +2642,8 @@ cifs_get_tcp_session(struct smb_vol *volume_info)
- 	 * this will succeed. No need for try_module_get().
- 	 */
- 	__module_get(THIS_MODULE);
-+	/* Keep the server alive until the demultiplex thread has exited */
-+	refcount_inc(&tcp_ses->obj_refs);
- 	tcp_ses->tsk = kthread_run(cifs_demultiplex_thread,
- 				  tcp_ses, "cifsd");
- 	if (IS_ERR(tcp_ses->tsk)) {
--- 
-2.53.0
+  final put:       lseg A, pls_seq=336
+  return info:     input_seq=0, resolved_seq=529
+                   plh_return_seq=528 -> 529
+  header-put scan: seq=529
+  cancel_io:       a different lseg B, pls_seq=529
 
+A was already covered by the previous return boundary of 528. Its final
+put nevertheless expanded that boundary to 529, and the next scan
+invoked cancellation for B.
+
+B does not need to have encountered an independent I/O error to be
+selected by that expanded scan. Its I/O can be cancelled for the first
+time because cleanup of A broadened the return scope. As B drains, the
+same interaction can affect another newer lseg:
+
+  cancel I/O on A
+    -> cleanup redrives return processing with an expanded scope
+    -> invalidate B and cancel its previously uncancelled I/O
+    -> cleanup of B can repeat the process
+
+Counting only newly requested cancellations does not break that sequence
+because each newly selected lseg can supply previously uncancelled
+tasks.
+
+This does not require new I/O to acquire invalid A, or the same RPC to
+be repeatedly requeued by rpc_call_done(). The feedback can proceed
+through completion/release processing and cancellation of different
+tasks on different lsegs.
+
+The cache-path sequence update is what I tried to address in [1]. I
+asked to hold off merging it because later recovery in [2] ("SUNRPC: let
+cancelled RPC/RDMA requests drain before release") testing left some
+ranks slow even when the reconnect loop was gone.
+
+[1] https://lore.kernel.org/all/20260921235520.502987-1-tmenninger@everpuredata.com/
+[2] https://lore.kernel.org/all/20261105030710.2652306-1-tmenninger@everpuredata.com/
