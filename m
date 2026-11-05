@@ -1,109 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793912647;
-	b=TX3diHMVVBEcmJhsfeDzYVZrtJipNPt6FLbihgP5lp8EBnZ8E99M0k9+wLAMrJQN9Zbp
-	 eR6TfoqfkYlUJSDg/o18W3XVqNXVbl/Z3Ztt5fEZX0DXHMJW+VpKCtZMmorGPbev3eXZ9
-	 /67ZO/BoaWF35oiz3qzOrt95e3Nr0Fmm7rHPsOQOLhHEh9z6eB0Ed/aQ9NZuTnnMwIsab
-	 L2ensu51Zj9mQ/24snNasZM1o/3LkQE70jg0DvZE55VU9wCjEVbs94xutLrojlbZHeMMO
-	 lm5uKt3eADWulcMGSPlv2pOA59BdLOCOODwJKFve70EDTl8vmXNwku0nITjn34F8nDg==
+	t=1793913597;
+	b=PO8oDiiF9QJ9kjqKILBo/GjYQUuI/XF+exyENiLTogwaxaQSFn5Lk52jfrHgYbg/CV6x
+	 1h74N9PRXRCLAGtfcWXRVC8rHbbuRBy+cJzEN5uIHpK5KBF0k4/Djxn1tfJJ56ZnBUDBQ
+	 mTEIiqZAgPtb2uhmmqs8c6yslzI75bxoLNjXaAoZUWrsIt2o6TzlFrXo2M2AZ1umGgSW8
+	 HWPImpx0n0NDnM4Djkaq/CCjKT2q4NocGMmKI0ylOA5T0QqMelOhHzTKv83aHYe6yK3Qq
+	 a5AlJx4rvpLPOVaSnx7RrQvxNJ7tw3l7b08MVayHwP7ZZajLmSeLCujbPkIykXfZVSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793912647;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=EGxIARHwfDH+PiGjWxKomdVYqHv4YKk1Tq7/8Jn6Wag=;
-	b=2eMnYqn3nxtDHRgSMcgAZh6e66/j766juV1puqUDLqjwEdifmftdROoj98hr4oZCEOGv
-	 5NxH6nyi5cebOE9JgAUrew8R8E+0yksTKyoJrzhbeidg+C5Eqk8RR8Q2KPUe2PW1lGb+F
-	 C/1bD1cfMd5hpcu3ZiSy4TcySKQhJYfUR+rPDX6ES301kZIwGiJ7mdYYKZ0ZohBcidDLs
-	 QypvOAZtVasKwXVkoo76yVPMxtFbTVcKm/cUsTRpEQLs8h5fneeepxQ5Z6kuGEKnDb53M
-	 oSXkCmZD+CivIo94GRw4vW/t3qOpY8H6b27I+3hcornLC/GMOZzIKOppd36FrvXN8GA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793913597;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=ErmcKCXK4Qc7kBuRGtWtZmp/Yc7eehLhKbwu8GKHMvA=;
+	b=fMr1d2wxlRa2FGnVocjbKNG3dd7k0N4f57ealaKFYpK8oq7/vCPc8ydPvxxxgUVtCBjT
+	 U1ZRW6qpUVM9sIO4kQfIlPLJpQXm8VCNRlHJH2+Lj3H+CKyuASB0KvcPpPDfAHFXWCtmW
+	 ww30e19u4PuOgL4QaOEd6gh2XXi7CGD7+akgVfy7MO+XxOHw0NKzfhdgRPKPqdiwG6az5
+	 H4CsfHlxc8b/kP5Uiro9KRuV6KDqlM2aQyrIsMfsO7DpvIg4XlhQxn1y6GQ9pDxCPJ091
+	 y1p2/n0LHYa53ycM1byqFG+Dma0JP3je0GIONNgIDlWvNpIhWzDHlvCDMEQab0GpkMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bobrowski.net;
-	spf=pass smtp.mailfrom=bobrowski.net;
-	dkim=pass header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=RR3ez42l;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=yvOtmGNh;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=PDrVvcfw;
+	arc=none smtp.remote-ip=202.12.124.146
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59700606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 21:04:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59700606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bobrowski.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bobrowski.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F117606A329
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 21:19:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F117606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bobrowski.net header.i=@bobrowski.net header.a=rsa-sha256 header.s=google header.b=RR3ez42l
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so4400532eec.1
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 13:04:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bobrowski.net; s=google; t=1793912645; x=1794517445; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EGxIARHwfDH+PiGjWxKomdVYqHv4YKk1Tq7/8Jn6Wag=;
-        b=RR3ez42lbroTR0C7UAFjLFoiwgCT4dVKo2bv8J6+/n5BtMBcBzpgdfeUPjSBmEF3Xz
-         hbx1NKwaXgJOSk2qVFv+KuUq3AenJUb9yZ5FfI1DDcIVzOuqWDgLL9YSJprGylG9zFKG
-         VdR5TyUxoabuh47Z8B5MNNnopXGLMVjLpxPbc19rCQGxomIUocvckcIWO0B6dV1TJsR4
-         nhI/cKC0sJXADNN0w2beQgsvvnkh1/v8YyJy8D8mpS9oWCtfUVKtN2sNLf6lnWFbOgHl
-         Mq9XYNZt2fyxKb2RsWLuZ3G7QkPe4SBJZIZBuYxskyAHso3PvYF7QMnoUo/GLLifLjpw
-         Nlkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793912645; x=1794517445;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EGxIARHwfDH+PiGjWxKomdVYqHv4YKk1Tq7/8Jn6Wag=;
-        b=COBb57tYBLEGBIWU44jwYbFAqgaAikPBx1Po7ItHwSLUzAW5CKFEcsE+tDojsQOTt3
-         c5a4z/P8OeJoCpTlJ2QZqgoPSEEFj9ywoIOjYgJGIxujXSeLvPgRFyub1CjPzDVgQ/FX
-         8JVoJXtWZMlXg3HTg9iwSdSNxfloaU2eK9ByeztKVQnqg93B5zWwkHIKYC+Zpzzb4bG5
-         jeZ7/aedAqenXeySIl0mHbqRYRHJX0JrQv3O9sTBQE8ucdSGcZ0Ub7XQailyFYteO/cI
-         ldMGyaik7MdRH1srUoMdNCUJ+3qIO3tNh1/flGwVwtyIJELgMaK5mGsVW87+EQjTea2B
-         tgAg==
-X-Forwarded-Encrypted: i=1; AKwUvByGxsWggJLOHRw7LfyR212utbslzfZBnHsYOBCoJ+Dpn12JzBUQT/K2omyd6bXrMa0+k4/PxPY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FLx+9vl2CHaLQU/XuToa7LAIrmI3mgE6b8wxBR96S5u/IF3zN
-	dAvePXnK8Dk1b42KCq83ErlCxkVxY5uN8vHckiMVaruFy1eF9xwiagSDf86Jh9Ml/j+J
-X-Gm-Gg: AYBFou1HvkoC5ylUn7TrmeW86jbKaTJ0uxkuHJI3iGIZB6y9tm07lb9aD09Zjv1Bz0H
-	Q1XSmnLfbOWRo5SUg+sYah8EcNATT4YPo5quj4RIPgEA7oYwW6s5sLWfE4gE21LNqMFrfceA+YK
-	KQUqtWkLOkFYGIgGseBtkDNObkzaCa0jI4+THIyFMHvwYoj4XpGtIkLKeTJWqc591PU0nulOl/W
-	yhYZ1FX3QNA0SCaaeuQvWS3emfXGE3TMdLsz4C2ErkoP76Lvf2oonRxcEs8MxCZrU7hCRJuAOuw
-	9pkOBuBU/bCW1Z16lpsCY/2wLgLpG0iA9o4cxy4UojgQ7Ti+zRKaBF4sBdRsyyhCPaF/WGwr48J
-	wWSIG2zSK6oObyc8C5mthpCc0OUhFCMKEdTwu/PuAAR/oyui0tRhcD61F6rk65hGUegwJKTaOva
-	IuFu6tIlDPH4rYCWAGlmjXP0wbmFaOr6jKMIYfFZzxqQv30MNBAyvb0l69ZIegAM5WWgNXGkrqo
-	c+G1o1Sbj9Pf0OE7oBPAXYz6KnfV+wq62jgdQF7ZeH5VUW9r6dlDxEJpPyx/yU+XZHs6ITAnnbP
-	mj+lHvdgEQqyIrdxByF5RxZKTRexM1ZqbIKTYta/hNrr2Hm9BflJSyI1QkLZUfCPbKwyO6y5xFF
-	aTCzaqA==
-X-Received: by 2002:a05:7301:251b:b0:36a:1e0a:accb with SMTP id 5a478bee46e88-36f7631c69amr422598eec.35.1793912645000;
-        Thu, 05 Nov 2026 13:04:05 -0800 (PST)
-Received: from lima-development (163-53-146-70.ip4.superloop.au. [163.53.146.70])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36f74069e31sm761960eec.0.2026.11.05.13.03.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 13:04:04 -0800 (PST)
-Date: Fri, 6 Nov 2026 08:03:56 +1100
-From: Matt Bobrowski <matt@bobrowski.net>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, bpf@vger.kernel.org,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH bpf-next 1/2] bpf: fix crash in bpf_path_d_path() for
- exiting tasks
-Message-ID: <auzvPMnq2vrLaBdB@lima-development>
-References: <20261020105014.97985-1-matt@bobrowski.net>
- <20261020105014.97985-2-matt@bobrowski.net>
- <DM9VJTFJGVXB.3GH9LO3NGV5PO@gmail.com>
- <atiawbBo6WRPA6QA@lima-development>
- <at_MbcW0OlciNLrE@lima-development>
- <20261105-berglandschaft-mitbringen-baufinanzierung-c0542594d218@brauner>
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=yvOtmGNh;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=PDrVvcfw
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfout.stl.internal (Postfix) with ESMTP id 8CDB71D00184
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 16:19:56 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-10.internal (MEProxy); Thu, 05 Nov 2026 16:19:56 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1793913595; x=
+	1793999995; bh=ErmcKCXK4Qc7kBuRGtWtZmp/Yc7eehLhKbwu8GKHMvA=; b=y
+	vOtmGNhItGkjkHRwkw/QRynci7++9MYE4P5HyfTxQRNzrB0NlH1ox7GwnDJtF7vh
+	XKZUR7hY4Rr6HAiQznSk2cHUbEOLNXuOZpDQnKNptvY7EX6Z+jH8ZWBjgCjuIVc6
+	L2kEXDhof/b8610exXZ3AOJN99blUajnd4IJ/rr5BQf9vxcw9ETeB6W6b7gulSM2
+	zoKQhrN5xXWqpDgI3Gq2deiZImdobhll+dn1OMyBEqI/3OqgZLp4QWhYoDTnblvK
+	MO483R78rOybjCqpk/7XyP45I43OC6COgDf5i3800d6eLJHXyXYSDR6gS7ojCyOS
+	bqHJY/ftIOfZ58cEM/BAA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1793913595; x=1793999995; bh=E
+	rmcKCXK4Qc7kBuRGtWtZmp/Yc7eehLhKbwu8GKHMvA=; b=PDrVvcfwl0GuVRplB
+	vDw19SGgVqY/r6iTs7+LOqSNm+1QLmEwob9Ae+SKtseIAqT2W/51V9Pt0r6hWxfT
+	lu6Y/V7CQV4FRuuZYhyerJINY3Xcutqcj5wHaT+LTBhO5Ij/v3XSBJGJfrY9K8Y1
+	HRFQsQ5HnVh+iBe4NjDCt892QVlkHfuzbnC2PgeuAphHEr3sxhCmCoYc8ck3pxJy
+	wK+d/N1Eq8d4gcZOeMY24s9nlJeKOoc4VDTQQRTrqSJhDbwYy1mA8gfZB8aIoXde
+	KfkLbLVmUrIP4gkvt2kaoN6jp3/RJFbAUxu5T6y251tsenUuQbVil5xK0EsoTk9F
+	42iLQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793913595; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:tMGyXGoq8PwIJh/7PD1Epy4TVQU1v558V5PvGt9GFLraG7c
+	bhx2Dk4qXREGe+rl9UV3i6AdNtDp7rW2AJK2aeIRo1jSRAOi8IKTZSPo65mHvzQt
+	XvNENBSfTp7irBOBlfdHqxyeTkMi08mAiW/l+Pp1/nOUdPP4OjdjZuSD76w8uYD5
+	XH4WAYu1Fx0VXfQ1QDIkH5xLVhZIZ8vMm3ftKZTp3U+3OwH9u5/0K3jIOqg6K00A
+	bFe6fmyl7p9API1plxICYT8jqS8o1DJEE63urmi6agGdzFQF+xX5PobwZO4EP97S
+	boVyJm13l0yX3U+E7kJnKeMVkoNfKQpxmQJ+YRw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:35wEaj4pi6ZDXDE7lfdg/5WomGpWCIHDHyaBKCZHyw4=:ErmcKCXK4Qc7kBuRGtWtZmp/Yc7eehLhKbwu8GKHMvA=;
+X-ME-Sender: <xms:-vLsas9McbPdC5V4lM89N2XBdDkTVw_IDIqNuGWTzz80yzp8bejQsg>
+    <xme:-vLsaqslFlxCU-vWCNAEOy8b8od2w6sFQ0sLpYMK1dZAeiO9VfNmesVHRBQVk7DIU
+    1mrcbhibD4580FeRpCBc2YhNs5WIDZxdSJR7lxBs1u9XKpECCimPC0>
+X-ME-Received: <xmr:-vLsas0UqrIWZghU5QoXDsBpjlMH_D8vCtNflX0bYz8FwdE7CE17nWnH4WrkZetQ>
+X-ME-Proxy-Cause: dmFkZTExEsqBxM9FjMdWDeIbhE8L3hVN7kMWAlv7iQ/fe/JS0XCEp7M4H8Ami50TZ1g4td
+    Mmyc/EUMxi80QS+t/wPxIpxQKKsHlxwv5+ne5iya8ycP0pAvU/ch3En9g6Wv8mwsS59xEZ
+    qh1ja1FcU/96gTK9v9TtOJ3NFRzfwXrwuWSPqNBH1XoMac1x4JQXQ3w0MFDvD5os8aIR2f
+    KUQjs8Xo7cF3ZLF3Pe7riq9yAJzUHXlJLUrMU9DdHLlpB0gi4HmNXfX042ntXPUxZocFW8
+    sxc9FJRcAE9oWljcE91EFivVkxOqhCMrqAXhj9EuK6NHVEpnCUzOWL+lXGIRnrUNB/kwEC
+    xu7NicsouLgWqH/i1k+ZDugM09168lU5K4gAdMMe0B+54fjNcdx7xbhgPGug5rLzQ6xpkw
+    +IpNzNNRfBAd6Ae/531qKoqkglwP7LPfM1fiXPpljRE/27Sy/ZAgdlq/vwI7ABdIqWLYnK
+    rNY2/H4DTeHEqSwtmiZ0CocIOuWDB41DxYlUpiYCCE4RGtsbz1yvhuIeNv0J/JjvWRMVEw
+    Fgt3wVJ718ALHpYRpYddNP4mfjON0Rn5intKwiukSuxUEwp7UNtg/thXbF/8QnkRYVz6Uc
+    YNMN8vOItWLseFrEL/6y94BmlT8ZZKlCUhdoq0ahgpqTsqRVF1PJKIg8UkmA
+X-ME-Proxy: <xmx:-vLsavQZiZYOMEiX8T3n1-I7Jq9446geueBP7AilclLV4TkuY6MqPw>
+    <xmx:-vLsagcHHFTl1z1auImX3KVUV1JsMGrwzfCHtl88-0V1pGnEBuEFWg>
+    <xmx:-vLsagfOK-2vqFo2OqU_U-Vtq0gXQjsrQKqwbLwckbD_80LRTxdVCA>
+    <xmx:-vLsaq1Gg06dW_gpLfULdd8rYG7yimGG41uYh9Qdx5vkBd9Pyi-IFg>
+    <xmx:-_LsaqIW29gxM5sO3loiWzGdh-y-HdxZCY3p2P9JsEiyo3-hwMeNEJnO>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 5 Nov 2026 16:19:53 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: Wahid Khan <wahidzk0091@gmail.com>
+Cc: linkinjeon@kernel.org,
+	smfrench@gmail.com,
+	senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>
+Subject: Re: [PATCH] ksmbd: refuse to read a handle that is not open for reading
+Date: Thu,  5 Nov 2026 15:19:43 -0600
+Message-ID: <20261105211943.696696-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261105173838.1882328-1-wahidzk0091@gmail.com>
+References: <20261105173838.1882328-1-wahidzk0091@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,60 +132,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105-berglandschaft-mitbringen-baufinanzierung-c0542594d218@brauner>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 04:44:34PM +0100, Christian Brauner wrote:
-> On Tue, Oct 27, 2026 at 08:55:57AM +1100, Matt Bobrowski wrote:
-> > On Wed, Oct 21, 2026 at 09:58:09PM +1100, Matt Bobrowski wrote:
-> > > On Tue, Oct 20, 2026 at 06:24:42PM +0000, Alexei Starovoitov wrote:
-> > > > On Tue, Oct 20, 2026 at 03:50 AM Matt Bobrowski <matt@bobrowski.net> wrote:
-> > > > > Fix this by returning -EINVAL from bpf_path_d_path() when current->fs
-> > > > > is NULL. Only the task itself clears its fs, in exit_fs(), so the check
-> > > > > cannot race with that.
-> > > > 
-> > > > The crash is gone, but so is the path. file_release progs will get
-> > > > -EINVAL for every file that a task still has open when it exits.
-> > > > 
-> > > > It also breaks what works today. The d_dname branch in d_path() returns
-> > > > before it looks at current->fs, so at task exit a pipe or a socket
-> > > > resolves to "pipe:[123]" now and to -EINVAL with this patch.
-> > > > 
-> > > > And it's not specific to bpf. The comment in fs/cachefiles/namei.c says
-> > > > that current->fs == NULL in do_exit() breaks d_path() called from ext4
-> > > > open.
-> > > > 
-> > > > can we fix it in d_path() instead ?
-> > > > With an empty root prepend_path() goes up to the global root, the same
-> > > > way d_absolute_path() does. Then the check in bpf_path_d_path() is not
-> > > > needed and the selftest can expect the path. A chrooted task gets the
-> > > > path from the global root, but it doesn't have a root anymore.
-> > > > 
-> > > > Something like this (compile tested only):
-> > > 
-> > > Prior to sending out the fix, I also considered addressing this directly
-> > > within d_path(), much like you've proposed here, but decided against
-> > > it. d_path()'s contract is to build a pathname relative to the current
-> > > root. It does fall back to a root-independent name when the path isn't
-> > > reachable from that root, but that fallback still presupposes the caller
-> > > has a root to measure against. An exiting task past exit_fs() has no
-> > > root, so d_path() has no correct answer to give in that state, and I'm
-> > > not convinced we should invent one for it.  That's what
-> > > d_absolute_path() is for.
-> > > 
-> > > You're right that my patch regresses the d_dname case though, since
-> > > pipes and sockets resolve today without ever looking at current->fs.
-> > > Rather than replicating the d_dname check in bpf_path_d_path(), which
-> > > would mean duplicating VFS logic such as the mounted pseudo-inode
-> > > special case, I think the cleaner fix is to move the "no root, no
-> > > answer" check into d_path() itself, after the d_dname branch:
-> > > 
-> > > 	if (unlikely(!current->fs))
-> > > 		return ERR_PTR(-ENOENT);
-> 
-> That seems ok albeit fugly.
+On Thu, Nov 05, 2026 at 11:08:38PM +0530, Wahid Khan wrote:
+> Return STATUS_ACCESS_DENIED when the file is not readable.
 
-Yeah, not super nice, I agree...
+Tested on ksmbd-for-next with KASAN. A READ on a handle opened for
+FILE_WRITE_DATA | FILE_EXECUTE | FILE_READ_ATTRIBUTES hits the warning
+before and gets STATUS_ACCESS_DENIED after. smbtorture gives the same
+results as without the patch.
 
-Anyway, I'll respin this series with what I've proposed above.
+Reviewed-by: Ian Bridges <icb@fastmail.org>
+Tested-by: Ian Bridges <icb@fastmail.org>
