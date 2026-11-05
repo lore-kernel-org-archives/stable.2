@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910122;
-	b=U+puNZ/u3oZF3S3yS+BLMF+Vgk+5Zl9q4gNwfzA9ugtM3QsOQb7Cw2ZsrT6lMywV956w
-	 6lE/cDsFW/j2Vl8oL0zltK39iS2Qra+9DzMpUaBuXiMYWocAv1IEsFi0yOCTUdwLcDOr1
-	 IMUaNE1sCOO7d9p9Jz/4rPYIJEWc33c32Lehd0lyucL1ma2GYupiD+z/sTI5Cm6gt8/1q
-	 8TZd06aNDsVTPAoLv7w5j+COqIBJoC/ZF0JlH7SVMKgufnSaLck5nW8H/ADL0XlNrFhQZ
-	 I8NEVO0lKU+2CiMWHxGKiRRUeNoXfzpiJq/10ygVSpH5J09ar6wbypzJ/bsR9NAeEYQ==
+	t=1793910134;
+	b=X/ipSy/yKsYdSq5DjTlPJ8vALCPBBJbP0rhiVBwCVSORktiAsAehrtCiENQom1tYnT83
+	 b5LVQ6nfpOAuU3CJi+SzthfBpb6tfpNawCfuc17j7dLB2D2D9NdK8uT7/vIENOd4NOoum
+	 XbcWdM+6ZuxlDa9Z7T28AgKpDV7ngjKObk81AtocZZhR6Y5YVLp37D1ZapO5rQ5gbpiVz
+	 mC92zfPneh3e7sxc3yKJlP4e+fj6763kzPBvKyx784Nq3rRuEi0XGRTaiBriAwyFT25uh
+	 QgKBlNKm95B0iBelPN1LC5UkAxgSnGRvfc8HyNAF0kr43tbz/XqFdV8afioOyMOH8xQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910122;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910134;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GBSoKPzBBTCeZbRe09pTyWh4fNOSBFEBjT3rb6JlR5M=;
-	b=BpKSiMEGT+bJZpQbEjWqW+OUrhsR3E89+j249zd5QjGCqRZomT2kmIADBjY/nrg3pMhw
-	 KfitETpUZ2DgnbRImd36rBf12XYA0eThtCIvyh9On5v4KgnYys5lkdfTPYLmFvI8TnEQ4
-	 8JXkBh6rn+q53RD5C94VGpVlcdJRK77j6/HJZEKqEwMaUHXmwaDvFXW5xtfuDDvDI/27T
-	 Kwge9jRI3it1NWAA34jGxBhqVLan0jJVaFrm0bu9xhGFJRHzyXraR+aRrFppTROio5nAm
-	 wJ8hjEiZdHMrV7lMKGD9gcNcx/Or104U50L2Tndc/ZtAic4m96F2Ld6nYZ4eulPvr5A==
+	bh=SP1orB75e6nbezKp12T6XX9L8Qktc1L5Z85FyvR2R34=;
+	b=WRWg9Z/iHWUtG6tTrncXfQNg/C9UiaYxFy8CKW2AQH0LSvbBzpyavxytkwrDI80YSeGZ
+	 XdVknZYZKylNDGURLUyWqdXbo65xUunNDxtGzdeavU/wVUOx6b0/KduQvmWPy/L2/9B/L
+	 RjHl+6jiUMn9hP2UruEeTxjxqJH/U7JjtNciH5DMACV9FblZO+0YQ823EFZ2x0asy2Lxl
+	 EtJ0UcBwC9Fa6qmcBUrbnBmzfpMAxPA+qX4SqIvw3j8/YIkhL3iWbMBlrUNKkwXvgklmw
+	 /9oD9IZYTGhdjJ9Oa75yPpTEb6SgVN6YmXYwN3gVHcl7b08p0lTaVuoktiCtfJL+6YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T40MFSd2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jyJnJXea;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A03606A329
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 20:22:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714F8606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 20:22:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T40MFSd2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83B601F0089F;
-	Thu,  5 Nov 2026 20:22:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jyJnJXea
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89D671F008A2;
+	Thu,  5 Nov 2026 20:22:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793910122;
-	bh=GBSoKPzBBTCeZbRe09pTyWh4fNOSBFEBjT3rb6JlR5M=;
+	s=k20260515; t=1793910134;
+	bh=SP1orB75e6nbezKp12T6XX9L8Qktc1L5Z85FyvR2R34=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T40MFSd28DYBi+1LkT7qQxQbLuEclpT1HNNkTrnIt2wzHB/hZeutFv4pxlx0xJJLL
-	 SDgcceO4/BdAVb/t96eKJ4G9Lrri/nDsDPEgaXCGW+5i7ZjgDiWWQQNmbDZdzuhwHR
-	 QS+UP+ui9I4O586fHVcExuLi+T6+6fagwVDn0pzUIbmm2pwzyqM05WTPooRB9KWXbx
-	 VVy0IPiAwXpVskTAeLlSxL1RC7RgjyjTaKkJHGrhoGe3+XO80eIJkK6e5WykI7DuDX
-	 boARnfFyxkp++CtI4ULZLybMxY1y0tYF8qj8R3XuRcWIOSx2+MQ+Ldw4cTPHVO0Qwr
-	 yIMxADF+wB/HQ==
+	b=jyJnJXeaCPdUBVmUEYmTq/WBDOV02LoNBk4KFVbMZ+Q1wdT0ItVTRa+lmNqtrFBj4
+	 S86IXpNG7RKzpyGm6aoRepWovkdMsOx2m3hQOy5TtPHOxpjL0Veu+otwvXbU5FEXBB
+	 KMGlRHpSbCaAWrm8YfYiRt1jWmOPIJ5/TciupKUol85hKohkee4tW70eYu0sJKTAEo
+	 y3EgQeGFBv0F0Rl4v5CSB+nb09CSkBoQTHRwWjols4nlwxDq9MiKDqcZPyhICn31Sj
+	 aeUH0brb3KQD9rdpynKN47qFm1W/tzM80L0gqITjq9JUXtekzWTWqYJ10Z1z12RTJC
+	 ajss+OMy5gGlg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>,
 	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] smb: client: validate SMB1 EA list bounds before parsing
-Date: Thu,  5 Nov 2026 15:22:00 -0500
-Message-ID: <20261105201449.2682653-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] smb: client: validate SMB1 EA list bounds before parsing
+Date: Thu,  5 Nov 2026 15:22:12 -0500
+Message-ID: <20261105202150.2759890-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110406-guileless-stoppage-72d2@gregkh>
-References: <2026110406-guileless-stoppage-72d2@gregkh>
+In-Reply-To: <2026110407-overprice-bronco-f64f@gregkh>
+References: <2026110407-overprice-bronco-f64f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,10 +92,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 16 insertions(+), 5 deletions(-)
 
 diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index 3795fdfebb519..e3349b058dfd9 100644
+index d2a4016acf7eb..f5e4f23bfacb4 100644
 --- a/fs/smb/client/cifssmb.c
 +++ b/fs/smb/client/cifssmb.c
-@@ -5769,9 +5769,11 @@ CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
+@@ -5733,9 +5733,11 @@ CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
  	int rc = 0;
  	int bytes_returned;
  	int list_len;
@@ -107,7 +107,7 @@ index 3795fdfebb519..e3349b058dfd9 100644
  	char *end_of_smb;
  	__u16 params, byte_count, data_offset;
  	unsigned int ea_name_len = ea_name ? strlen(ea_name) : 0;
-@@ -5848,9 +5850,18 @@ CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
+@@ -5812,9 +5814,18 @@ CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
  	ea_response_data = (struct fealist *)
  				(((char *) &pSMBr->hdr.Protocol) + data_offset);
  
@@ -129,7 +129,7 @@ index 3795fdfebb519..e3349b058dfd9 100644
  		cifs_dbg(FYI, "empty EA list returned from server\n");
  		/* didn't find the named attribute */
  		if (ea_name)
-@@ -5859,12 +5870,12 @@ CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
+@@ -5823,12 +5834,12 @@ CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
  	}
  
  	/* make sure list_len doesn't go past end of SMB */
