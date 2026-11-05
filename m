@@ -1,56 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907857;
-	b=CdfLFusJg6Qa0baS9gqo/2FwbqqMqusNNnVh/PlibY+a9zkmok1fuGzXn/zZzcl2VjTY
-	 v0oH9kbZpLE3lD0BIT1YzD6Ek2OwX567SjEtcQpsoDBtM59U31oy+IW7pAatURnRT2jGH
-	 C/5A1661GnOgAQWiniDs7jUfppQjAG4D2Q2VMsof6ce4iLV1HNbZACUr4KC59bJkBY1Mm
-	 jp4SIm623uxDrIojI0PoyuNidxyeAOeyssRD5gPekMFWKC+iG5EIOrHi5MTll7IQZWbQp
-	 i0ZJh6tYjyizNAaxuEwuCHa760RVvBYVQvp0DexhsnD2VVD3lj8yHN9rzcYg1hLI4tQ==
+	t=1793907909;
+	b=w69RBcixzLnsMyomrcMAAw4e/yJ6ABL0p5XMdw/D8w0+mnbsKEEh5ZEh/o0b8YRr0JHT
+	 XYgquNcogMvl6TBYX3i6UpBJcp9yA/kgOsrQBSXbw+560C8KPmCKvMHuO2mYg/TYHwyfL
+	 qZ91zslXOkUITw7mYxjmu75GPqjez+QwWesKBkNhnjWkheOpkymDhgi9UHZ3saOKYVW+8
+	 n44FZUkZ6MuDKhZlF353Otu9Maez/309lLb2WZkZOzSb9PAcO6VyHU4e+HWb6N86GNm0M
+	 VLwTdI/Zo++rfDNYtd2U6Hm6wc2f7QOJADd6a1/NMrLfMJjTZtQEGhRZYJ94wZYvouw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907857;
-	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
-	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=bBEAv3UO3ZxF4T+NmNpnI6CeqCaeMtA6CzKXaO3Q5og=;
-	b=N2MeyFk1F73S5Ajryhqjp5hH2cfgoiKCZz+mXeQVIn2xhzLhmtZ4p3EejB/z5j9Z+Wby
-	 fBdRcweWt+3K0HAPZ9QJngzR/zSHfgYLDVwSxc3s0nnL1HQw5NqqRAXhXUcUb5RtarPQh
-	 ljj2kIAoy/uDEdL1F6/+XsXaecGYTOmrwCOh3k277CiyxpsfhMnhJ2nSXpaNiusKnzwkF
-	 GUc5356BB21SQqKSeBnh3h9WWlL5Oe0cKN4Y787beOT3FMZlR9dT3UPDR+MwkbW0KlsSR
-	 qBGgQ2xUjtTIhPNxRXBRAM+y3X37GWxFIQJDTF2xaZC0UyFRdyeUa60ulPDzjcA6NfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907909;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=SwwRFdOw4oikJB0l/UHgh6k09vdq8uhcaONY4VtARHI=;
+	b=gki25+JrvQiO7v+vPPbg2tTTae4TlINP/daQUjqVbKcQCil1V6eIYfEVCKu7jUUNvkS2
+	 tJ4P1Od9U8i45g4jTZIaGJu8TGvGtTgNH9T27JH1dPNfaxyBKAipwIsd8HtQ5SnXqSCwk
+	 Hr4tXlw1Ej9hXawWPz54q/or6hFImL0SjdfclkWyVtbU1zbs80R5YPg5z20hptdI3ZB4N
+	 0Bgl/llKWFI8vnJrCuXdd2qLuJ4afSDNG5qQsqexB1b/8TkEH5KPZ2f988UbDdPyln6o2
+	 p9OGsbOGCI1IB9kbeE3DKHcp9jGN0+DtNJSilzrG5tJEDEndUKMlgn4RAoGpfut3TVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Jyi4g1Qe;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aFwEUG2M;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F4056606A6C2;
-	Thu,  5 Nov 2026 19:44:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F4056606A6C2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 545506077B6B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 19:45:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Jyi4g1Qe
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=bBEAv3UO3ZxF4T+NmNpnI6CeqCaeMtA6CzKXaO3Q5og=; b=Jyi4g1QetjEvOrlqt8id4ElKvb
-	dowv/IcXcedK74YGJbecI1hIHe3uBFFM6/Hmzy37aFHs+uLcJzC7y3kCHVtyOKns0ojJCrIn2aHOT
-	H4RBo1tUoCh1NQu1hC2QoVGBZ/39k6h79qkzrrFDX0obUtTL71ZkRa6VnNXgwERdIXv9YYmMuJbXw
-	YPYvG5AlCYy2ZyVrFD+sUDgl/dG4xTAKbp+KvPajmV87gXflWINJAZDpXguElZHiOF4wTOU+G5+ub
-	cOTpU96i8INWNEGcjd8F4367d9Yq+jyHKJiccO0pR+Aqh8z7EkygCj0J79Iu9AR5BRddQ9sAa1YlG
-	5mEl2w9g==;
-Received: from [::1] (port=36730 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xP3Na-00000009EsF-3Ace;
-	Thu, 05 Nov 2026 20:44:08 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aFwEUG2M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 873C91F0089F;
+	Thu,  5 Nov 2026 19:45:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793907908;
+	bh=SwwRFdOw4oikJB0l/UHgh6k09vdq8uhcaONY4VtARHI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aFwEUG2MRn1cnJpuFDp/RuKE9w9V7lQIsGOnP+6tTnyE/o+7hi44rof4K7A+A3/Me
+	 LmB3NQaaHG6Fw2IrsEZpWvYrsQBeciPKqPKDDvMLdqAHh9VXKDxH+XfG1LPLQmeRmj
+	 no7/Zzpy/GXlRZUJlEW5ZkBLjhGd8f06ItJIzyvVBwK6w95Dz84AIIc1C8XuceM6qX
+	 rTKNcm1C+hQTK/1QoRjbmbi6KHnumMPsIKiRb3/lONH2lBIXPu+3e6QCMoERTTzkyW
+	 B8zlJp5LEpjW8FeIL8f6UVFUDO84dKju21/n+JzAdWWTt6R/kgW6epXpVOpCWcJ5vi
+	 1n+OA1XrQzQEg==
+Message-ID: <ac54a9f6-e21d-4f03-88dc-6562afd59cf6@kernel.org>
+Date: Thu, 5 Nov 2026 20:45:04 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,110 +51,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Thu, 05 Nov 2026 20:44:08 +0100
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Paul Moore <paul@paul-moore.com>, Bradley Morgan <brads@mainlining.org>
-Cc: Eric Paris <eparis@redhat.com>, audit@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] audit: fix UAF in kauditd_send_queue()
-In-Reply-To: <b446cedf8a7977337389f8cdc1e5acce@paul-moore.com>
-References: <20261031211258.1626829-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <b446cedf8a7977337389f8cdc1e5acce@paul-moore.com>
-User-Agent: Roundcube Webmail/1.6.20
-Message-ID: <341401a3fa5863542319566051bde1ea@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.10] mm: replace free hugepage folios after migration
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+Cc: linux-mm@kvack.org, yangge <yangge1116@126.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <21cnbao@gmail.com>,
+ SeongJae Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Mark Bundschuh <mkbund@amazon.com>
+References: <20261105070150.3093908-1-mkbund@amazon.com>
+ <2026-11-05-1-daily-reply-0010-mm-hugepage-folios@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <2026-11-05-1-daily-reply-0010-mm-hugepage-folios@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 2026-11-04 21:36, Paul Moore wrote:
-> On Oct 31, 2026 Bradley Morgan <brads@mainlining.org> wrote:
->> 
->> kauditd_send_queue() grabs an extra reference to the skb header before
->> netlink_unicast() since it may need to retry a failed send. If unicast
->> delivery reuses that same header, the receive path stores the
->> destination socket in skb->sk without taking a socket reference.
->> Consequently, after the receiver consumes the skb and closes the
->> socket, the extra reference taken on the skb header makes kauditd
->> release a header whose skb->sk points to freed socket storage.
->> 
->> KASAN reports a UAF as:
->> 
->>   BUG: KASAN: slab-use-after-free in sock_rfree+0x44/0x140
->>   Write of size 4 at addr ffff888004f94140 by task kauditd/31
->> 
->> Clone the header before netlink_unicast(), then use the clone for
->> delivery and keep the original skb only for retries. If cloning fails,
->> handle it as -EAGAIN so the send can be retried.
->> 
->> Fixes: f3d357b09295 ("Audit: save audit_backlog_limit audit messages 
->> in case auditd comes back")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
->> ---
->>  kernel/audit.c | 11 +++++++----
->>  1 file changed, 7 insertions(+), 4 deletions(-)
->> 
->> diff --git a/kernel/audit.c b/kernel/audit.c
->> index 9412af9144bc..5e739fa606be 100644
->> --- a/kernel/audit.c
->> +++ b/kernel/audit.c
->> @@ -790,6 +790,7 @@ static int kauditd_send_queue(struct sock *sk, u32 
->> portid,
->>  {
->>  	int rc = 0;
->>  	struct sk_buff *skb = NULL;
->> +	struct sk_buff *skb_to_send;
->>  	struct sk_buff *skb_tail;
->>  	unsigned int failed = 0;
->> 
->> @@ -810,9 +811,11 @@ static int kauditd_send_queue(struct sock *sk, 
->> u32 portid,
->>  		}
->> 
->>  retry:
->> -		/* grab an extra skb reference in case of error */
->> -		skb_get(skb);
->> -		rc = netlink_unicast(sk, skb, portid, 0);
->> +		/* Keep the original header unowned for retries. */
->> +		skb_to_send = skb_clone(skb, GFP_KERNEL);
+On 11/5/26 19:39, Sasha Levin wrote:
+>> [ Upstream commit 04f13d241b8b146b23038bffd907cb8278391d07 ]
 > 
-> As Bradley pointed out, this appears a little confusing as the existing
-> approach of skb_get()+netlink_unicast() should end up doing something
-> very similar to what you are proposing due to netlink_unicast() calling
-> into netlink_trim() which in this case should always end up doing a
-> skb_clone().  I'm sure I'm missing something, can you help me 
-> understand
-> why this proposed patch is different and solves the problem?
+> These carry only the is_migrate_isolate_page() hunk of 04f13d241b8b ("mm:
+> replace free hugepage folios after migration"), which has no Cc: stable or
+> Fixes: tag upstream.
 > 
-> Also, do you have a reproducer for this?
+> I need an ack from an mm maintainer (David or Andrew) on the reduced backport
+> before queueing it for 5.10, 5.15, 6.1, 6.6 and 6.12.
+> 
 
-Dear Bradley and Paul,
+Looks alright, the other hunks are only relevant for migration support of
+hugetlb folios in alloc_contig_range(), which we didn't have in 5.10 IIUC.
 
-Thanks for the comments. The fix is closely related to the current
-code but the main difference is that netlink_trim() does not always
-reach its skb_shared() clone path. Moving the clone earlier in the
-execution avoids the UAF.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-I do have a reproducer, which as Bradley pointed out, triggers the UAF
-by indeed taking the early abort path with the delta * 2 < skb->truesize
-condition in netlink_trim(). This makes netlink_trim() returns the
-original shared skb, and this path does not reach clone of skb a few
-lines later in netlink_trim(). In the fix, by calling skb_clone()
-explicitely before the call to netlink_unicast(), audit keeps the
-original skb, the clone is given to netlink, and the UAF is avoided.
+-- 
+Cheers,
 
-I hope this clarifies.
-
-Regards,
-Jérémy
+David
