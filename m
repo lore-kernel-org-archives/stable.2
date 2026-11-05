@@ -1,78 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793897178;
-	b=w2FQ++34Jvln/8UjcIVFoMxe5RZSfdOFU7xqJujggh8Qau7U8xPz30zksiPK0u4Vxjq9
-	 1+ZMhzaYB1zr8ZGG/G0+mZ9yEEKPRcJ/T7wb5v4StNCWrg2yOveoU5gmO8eqHIndDo6zT
-	 6GDCHwiCpWdGJuC2OQwa5S2Vj280+jR9pd1DwgZ9Gbyw2e6S4mRUwBOO0k8v4zEIwPtwM
-	 cQT5o6x7MU3UWcVbysl0Y+O+/P9QdOza1aPn1Wj9eOCnrpzRH7OMcUvPmdA3YBvA31COL
-	 Px53NtRZvOLsJeSImC3ZTnicf4UVwaOmJlCWysv4ynJSEAWlzw/BLcxbfcnoHO341NA==
+	t=1793897312;
+	b=aS04pAnbl8UBRzawozI90phlE9SF3kYMDpKlSgy1XYBJ6LRAjWBdqZ3M6Sppw1p7+ww3
+	 ESTY32WJOePDS/0oC0YLF5jwrRG5E69FDXCLrtcX3okgvOIDUS+Q4cdDreLbQ4liaFFPf
+	 AS02l6Zyr87FutAomsqdvqVSO3zm4cqkHh5b62Hu9WT2Ic3bIvnjTG2mojWio+1EYUlfn
+	 LvEE6lxSWh4r4a3MQKMLX3xfbtAoLomApNO0T1I1bKKA3ouit/GAOd7OcViYl8BKhwMVS
+	 8SSGtjh1bzsPixEtQ+JUIAGg6Z5qQzwd//ON5u0SluveN/FxS0wkoACPREwA9ZwDWKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793897178;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=qOBd/AF0trxY0YAt5Jt3B+F2pkdd0RcR8oCX6VitlYo=;
-	b=Xv7sN/4kzxJXcnzZm9j4y71T9A1nVS2YznllV0l6BwWNULtJWiwWiLeNd9hkSQba2ga+
-	 ZKCwbO6R6C/Knd0syFBlJDqUWp4a84VkqipJqRvl2baAvyUIg3NGzxE8p+GK9jLMNHp7V
-	 IvtSL/wvFqpyIGST66ZU5cscI3ZUINvCvW28iLbWh2saiJfc8Du6gFXAVnzMV88n3Ee2o
-	 jZ20AZZUe6q8u+B7dj5PMJ/F7+U3Jm4OhKKuoRUvLQlSlwIIBZ/umn4cSrgPN+Qrb2Ml1
-	 /GQ79J9EJlux9sFNQZurpHjr1AzBREWZ8QnbnPLycZIz59XyeKZn9u+iCsCYAfMz60A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793897312;
+	h=Received:DKIM-Signature:Date:To:Cc:From:Message-Id:Subject;
+	bh=3nNnYS3rXGBEUIhHZKihqecq8rp1NDmqZJxqu67mjHY=;
+	b=1bNATpyHNAw+6TBWOw4OCJBK1g84Cm6pI/nFyyX6zA5He05i5s9xjxkS6pX7c1rwXT/t
+	 oH5uBoqgduulXfi4KGhcMel8S2kwFnj15RjUVPpkstTa23DNB4suT/7qpdn4vquOZAffM
+	 RaP85F6a8w/KngnUKSX8Z0Wr87vTi3oGqpado+AjVfnFrtvQZrdU2+IYrb71RrRxYlnUA
+	 NRBALSVOxG21tvQtzkQtPeAiTvasu7N3ggPY97SJQY3gy35jyTtyPmlUp9VrkWLXpVcFE
+	 Gqet6kBHMeDhyfnn+8uIBbq4w6ITEKuyrbGC5lCW/l/S6B1jEdVddYjv2UbMqy7ZSig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ma6tXKnD;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ZY1udhAV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 773D5606D804
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 16:46:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 773D5606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6B3606A329;
+	Thu,  5 Nov 2026 16:48:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ma6tXKnD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793897174;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qOBd/AF0trxY0YAt5Jt3B+F2pkdd0RcR8oCX6VitlYo=;
-	b=Ma6tXKnD64fPgPj8+0W0AgBhSkAex9aHpWqQXnhy306okg+2g3LKNeCQiJmPYHAUY3AmL5
-	JNnLzlag8k12Q3/9k1QNHZj7O+FDJmo5ajpHurp8ykEvIcbVR/njUlPUA/0jG1NttQqMUB
-	R3ZKqcSGsZ1AJ1g5t1YhT9nZhme2hYc=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-496-P__bO09AMJu_dDHqsFadHA-1; Thu,
- 05 Nov 2026 11:45:57 -0500
-X-MC-Unique: P__bO09AMJu_dDHqsFadHA-1
-X-Mimecast-MFC-AGG-ID: P__bO09AMJu_dDHqsFadHA_1793897138
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D792D1955E7A;
-	Thu,  5 Nov 2026 16:45:37 +0000 (UTC)
-Received: from pbonzini-thinkpadx1carbon6th.rmtit.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D51C01956088;
-	Thu,  5 Nov 2026 16:45:35 +0000 (UTC)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Hillf Danton <hdanton@sina.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Harry Yoo <harry@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/5] x86: KVM: take b->lock around wait
-Date: Thu,  5 Nov 2026 17:45:27 +0100
-Message-ID: <20261105164531.313849-2-pbonzini@redhat.com>
-In-Reply-To: <20261105164531.313849-1-pbonzini@redhat.com>
-References: <20261105164531.313849-1-pbonzini@redhat.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ZY1udhAV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63F6A1F000C1;
+	Thu,  5 Nov 2026 16:48:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793897311;
+	bh=3nNnYS3rXGBEUIhHZKihqecq8rp1NDmqZJxqu67mjHY=;
+	h=Date:To:Cc:From:Subject;
+	b=ZY1udhAVpAvlluTuk0VV0ITiU7+6n9sCRl47dQHeqnBsOyMVVj/cHs3BsQEJ79WrN
+	 GrLAc6AJOPd34awsf74B/zRKFmsy3ICE4EcW7bPTxaOXzbuANJ77XDH3iS7HGUqnal
+	 R1b7c2un31wzSEogO+H1x6+H62hKut3GRV/bSPIg=
+Date: Thu, 05 Nov 2026 08:48:30 -0800
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-block@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Daehyeon Ko <4ncienth@gmail.com>,
+ Al Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>,
+ Keith Busch <kbusch@kernel.org>, Hannes Reinecke <hare@kernel.org>,
+ Christoph Hellwig <hch@lst.de>, Haocheng Yu <l1za0.sec@gmail.com>,
+ Tal Zussman <tz2294@columbia.edu>, stable@vger.kernel.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Message-Id: <de6c68da958f43278194d4cf45a8fde2.1@linux-foundation.org>
+Subject: [PATCH 1/1] iov_iter: validate extracted segment for bvec alignment
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,63 +54,83 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-If a vCPU thread is migrated between an async page fault vmexit and the
-call to kvm_async_pf_wait_schedule(), the wait will occur on a different
-CPU than the page ready notification.  When this happens,
-kvm_async_pf_wait_schedule() can exit and free the on-stack node
-before swake_up_one() finishes.  Avoid this by protecting the
-accesses to &n.link with the bucket spinlock.
+From: Daehyeon Ko <4ncienth@gmail.com>
+Subject: iov_iter: validate extracted segment for bvec alignment
+Date: Thu, 15 Oct 2026 15:19:07 +0900
 
-Note that in principle this could use a single critical section that
-also covers kvm_async_pf_queue_task(), but that call is going to be
-moved out of kvm_async_pf_wait_schedule().
+iov_iter_extract_bvecs() validates iter_iov_addr() and iter_iov_len()
+before iov_iter_extract_pages() selects the first nonempty segment and
+limits it by iter->count.  The checks can therefore cover a different
+range after a leading empty segment or iov_iter_truncate().
 
-Cc: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+An unprivileged O_DIRECT preadv() reproduced the empty-segment case: an
+aligned empty segment followed by a misaligned one completed 4096 bytes
+instead of returning -EINVAL.  A truncated iterator has the same mismatch
+when its full segment length is aligned but its remaining count is not.
+
+The worst effect I have confirmed is an alignment-contract bypass.  An
+unprivileged O_DIRECT preadv() produced bvecs with offset/length pairs
+(1, 4095) and (0, 1).  The bio reached brd_submit_bio(), and the read
+completed 4096 bytes instead of failing with -EINVAL.
+
+I have not demonstrated harmful behavior on real DMA hardware.  For a
+normal blk-mq target, blk_mq_submit_bio() calls
+__bio_split_to_limits(), where bio_split_io_at() rejects the misaligned
+bvec before queue_rq().  Virtio-blk and loop both returned -EINVAL in
+my controls.
+
+So a bio-based driver can receive a bvec which violates its advertised
+dma_alignment, but any further effect is driver-specific.  I have not
+reproduced memory corruption or a crash on real hardware.
+
+Bound the normal fast-path length by iter->count.  Keep
+first_iovec_segment() for leading empty segments so validation covers the
+remaining portion of the segment available for extraction.
+
+Link: https://lore.kernel.org/20261015061907.2713943-1-4ncienth@gmail.com
+Fixes: 14b007e17881 ("block: validate user space vectors during extraction")
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Closes: https://lore.kernel.org/r/20261012065520.1089147-1-4ncienth@gmail.com
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Keith Busch <kbusch@kernel.org>
+Cc: Hannes Reinecke <hare@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Haocheng Yu <l1za0.sec@gmail.com>
+Cc: Tal Zussman <tz2294@columbia.edu>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: <stable@vger.kernel.org>
 ---
- arch/x86/kernel/kvm.c | 6 ++++++
- 1 file changed, 6 insertions(+)
 
-diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-index 9f0efbe94793..6c0a794ed89a 100644
---- a/arch/x86/kernel/kvm.c
-+++ b/arch/x86/kernel/kvm.c
-@@ -152,6 +152,8 @@ static bool kvm_async_pf_queue_task(u32 token, struct kvm_task_sleep_node *n)
-  */
- void kvm_async_pf_task_wait_schedule(u32 token)
- {
-+	u32 key = hash_32(token, KVM_TASK_SLEEP_HASHBITS);
-+	struct kvm_task_sleep_head *b = &async_pf_sleepers[key];
- 	struct kvm_task_sleep_node n;
- 	DECLARE_SWAITQUEUE(wait);
- 
-@@ -160,16 +162,20 @@ void kvm_async_pf_task_wait_schedule(u32 token)
- 	if (!kvm_async_pf_queue_task(token, &n))
- 		return;
- 
-+	raw_spin_lock(&b->lock);
- 	for (;;) {
- 		prepare_to_swait_exclusive(&n.wq, &wait, TASK_UNINTERRUPTIBLE);
- 		if (hlist_unhashed(&n.link))
- 			break;
- 
-+		raw_spin_unlock(&b->lock);
- 		local_irq_enable();
- 		schedule();
- 		local_irq_disable();
-+		raw_spin_lock(&b->lock);
- 	}
- 	finish_swait(&n.wq, &wait);
-+	raw_spin_unlock(&b->lock);
+ lib/iov_iter.c |    9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+--- a/lib/iov_iter.c~iov_iter-validate-extracted-segment-for-bvec-alignment
++++ a/lib/iov_iter.c
+@@ -1042,7 +1042,7 @@ static ssize_t iter_xarray_get_pages(str
+ 	return maxsize;
  }
- EXPORT_SYMBOL_FOR_KVM(kvm_async_pf_task_wait_schedule);
  
--- 
-2.56.0
-
-
+-/* must be done on non-empty ITER_UBUF or ITER_IOVEC one */
++/* must be used on a non-empty ITER_UBUF, ITER_IOVEC or ITER_KVEC */
+ static unsigned long first_iovec_segment(const struct iov_iter *i, size_t *size)
+ {
+ 	size_t skip;
+@@ -1959,8 +1959,13 @@ ssize_t iov_iter_extract_bvecs(struct io
+ 		   iter_is_iovec(iter) ||
+ 		   iov_iter_is_kvec(iter))) {
+ 		unsigned long start = (unsigned long)iter_iov_addr(iter);
++		size_t seg_size = min(iter_iov_len(iter), iter->count);
+ 
+-		if ((start | iter_iov_len(iter)) & mem_align_mask)
++		if (unlikely(!seg_size && iter->count)) {
++			seg_size = iter->count;
++			start = first_iovec_segment(iter, &seg_size);
++		}
++		if ((start | seg_size) & mem_align_mask)
+ 			return -EINVAL;
+ 	} else if (iov_iter_alignment(iter) & mem_align_mask) {
+ 		return -EINVAL;
+_
