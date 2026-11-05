@@ -1,98 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793846211;
-	b=QPjZY8HxF2UFGcX5RhPP//X7Xhm7O7p9s7AF4kfxDSAQa/cZxLl2OKI/PAa5JL02n9tX
-	 vFHFOYVmD4ZH9rhVmq2sXELLAxTaDtKkH0N6OUeglIYo9K7sWpHXomYD0Y54kzy7T3vli
-	 uYvS1HfWtO3g8v2JbD+GR6VwXfdDXeY7D7xX1dmdr8X2MKqbnzZ7rUyhKsw2QMzl3CxT6
-	 UMlmynioMfQKFjvzSwXcRd8j7oGwSicAzIrpYSzJILpyVnRlkJ7lvqX5z8v4acCivPfUm
-	 mYOXhWML/K4Z2x80cMkmykzMWXFBKrM+rayT83ipZkUGigO/JzsPNjn7ZA4FqQyqXZw==
+	t=1793846214;
+	b=dD742YlG2FC/e/t/QP8rk1sWfApv5Sz1Df634II+486mVHgWzuD9vEWR/uNUGJQDCRwM
+	 51+HfBcF3JuPKTy1Cij6m6zZ9If5WFzCD4FiWEJjfs9jGXOo3FhCYp6lC5Ob0+PkZuyqI
+	 Wj7SF1ix0yF7DXMek8F0xqjCbV7iCFsAAE+1QruDvgDymHaReplgstzKl3rTC/R0MBNTJ
+	 S8h6HsaVGyFUi3tQpQXJDcHYJhtvAZuYvF/k6+Xsh7c3uauD3HMM388grpEu2qOqW6yXP
+	 KtH2cArWB6XhOuPZPCtqi1LSbOMweZKtedSv3fi2mHXCJGjJuXQU25+QwuPKzGoghJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793846211;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
-	 In-Reply-To:X-DetectorID-Processed;
-	bh=SG3mnPTkUQ4F9za/w8XE+qK/ulAJ5xkH8LniqYdvqGs=;
-	b=QXNeALGMfq7zTD1qDHh8nEGen2oF7C2a8RrFlfqFyZLO9x7NOF+M3eDsG5/wzyGUM5Zs
-	 2zQotD7Y+omeHBbf21mfBCJPbLGKd+cVX265bk09H5XSC73nHMYqTIqsyNBjGtEgzMSVv
-	 sa+jLqr2wYFdSQBFm37k0h7lKs+zEvq7NuXx/AlsL2Q6FNU/OKKuCV1oaFS7DOjIm8dz1
-	 24vuflRBPh/j8S/QmA/UbIuuXdaTu47H4oVQsmB3j0rKtB99O6jc4tw3hM01XnNN8RAv8
-	 hbzzU7ievikYecskXiVpvpue9zYSysWkSCPPIpY2bSEyQQrutkPlBbVnQhjQUoT6zvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793846214;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ovlFKgPccfbLmr8Zqua+kkM8x4hwULlrstOJBaYY3Ro=;
+	b=YGrzF4keKZG9hurcUrFFar6a+72nbVKrlJVJ0OQJUsXypIZNHjqpGQqJk7NPbhEp4mwI
+	 t4l/KAPENvTHaclpp1IrIcWkPICZIUSjgR0Yi2INCRX0RMwXWDYXvWwIsaOJPSzXlnq7t
+	 m2DWceCD1XtcZZEAGPTtMLhGSu2kXn3sZAiQwERq88nXkza8vpf03OiE/QfBN8cJRZrHm
+	 AEuNY5zf8UK7mpXlriJ8bkRJfxeeR6VvljjPQ3meuZxNjXG6C2W0s+4U09qflzkNupK6y
+	 iN5ODQuXmzgU2M4K4Jj+n2ExfTVXMfGfHSymyAtEnBp4SGCqYq4moHA+g0riY+Un3vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="Ohp/quh6";
-	arc=none smtp.remote-ip=209.85.215.227
-Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IzvMzucY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB33606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:36:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFB33606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DEE606A32C
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:36:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Ohp/quh6
-Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso958086a12.3
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 18:36:50 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793846210; x=1794451010;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:dkim-signature
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=SG3mnPTkUQ4F9za/w8XE+qK/ulAJ5xkH8LniqYdvqGs=;
-        b=EqqFaLJgLV6MV8dwylv4FYwTXqi529U6hsvJdBzH1hz/J7ETrbp79Y7ikEQzIk9vuk
-         /gIsuiLW0RHPS3kOLWIdjMvrQ6J/wGJPsrafiDZWscTBIL97NVzpgz1reF8nWMyJZOeN
-         dJEHRkukMqsE1GXFKiKbQ1hKkbhdMEozWikCSCgzdZ1OG0prPwKyWqYaOTGteHDHeG0K
-         oWiSQDcSbZ5L/eMynZI7N6vs/HyRNkLVfg5ZvlgoBsPHL7m0Ec43QXdGiy6si3cepjDs
-         1rbtuLnlumpcOLtyGziKJtLeqSAa8luZtTcpZpnVLKQlPNxSlD7p5y99g/l68TqlGNnb
-         IM8A==
-X-Forwarded-Encrypted: i=1; AKwUvBx1DglTGSu1nelTS2JsfzXQkRAbo4VYYPCZXFRD/mK+AdwbD9UgTHX5J2Fa3GckjeSxwlpLLnI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z953qVGFHN/AxFI0GwMD/mLVCInNZeMGlL3R2fD++X8RKR40hxR
-	5bzEE62GdEnBrUuFZXuKdufLgfHvqZbQ/TlTazHCS/73MkRaPOchwkTbsIcZTWG/bqOEVZuyAtC
-	REKqeyjAbnYAe+GlZL9W/StmBh/ekrNw0aqSJ3lMr6YEwvVafM3ny+q4uBkfNaXn+zAmBXTnhYx
-	QnlhR+uSMyfZLIcltI2LvU/uvrrL39Nw7lc6NlgseqTwrjdH8fuUnt9e/e/iSIL2YYphipa7u/n
-	AWgRRSFhATtKK1v
-X-Gm-Gg: AYBFou0lop4IQS7ivxUUPaiUXHQ/ac4PjckyahTYdjICG8JGeAjeV0ZTASBVajt46mx
-	AOpnVSq0643r98W+DyGVUzW/sZEv5AEdYzMOj1s08nHl/QVtmA0L1Ea7iWDh58p++gAtiWtfRfZ
-	tyrGdRiBa0XgoJDpj6E1whk53ytOFgeA5S/T1cnO0a6bKwaG2vEO5hHD3s+yELiRhaIMNMC3Gpa
-	sL+BUdQ5XjbRyGiFN5TvATrUiHa7LS2L5YCgtcIHyoyfZh3/HB4r1vZY2/2+JZKbiF7DKAe1Ee5
-	FNTscGX3OOrVqPqw8gh6FVADvu0A7xqjooozUfT2Aq+AG3k3TLjrzpOsRCpRFlTup7rLA3aWK80
-	UkQU0fwPajXruT+E40H7r0dbuviEqxafVTozdfQa1tZYKhanlU79prHT61PJy76NSjMvMBXFzsY
-	BBvzTqJTUujPmlPXXGggntB7gCNBiCZDrwl2wbqMo9
-X-Received: by 2002:a17:90b:28c5:b0:3ad:ce24:acfa with SMTP id 98e67ed59e1d1-3ae897c652dmr14373452a91.20.1793846209808;
-        Wed, 04 Nov 2026 18:36:49 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b0b31cfb16sm855662a91.6.2026.11.04.18.36.49
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 04 Nov 2026 18:36:49 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91e81083140so15674066d6.3
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 18:36:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793846209; x=1794451009; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=SG3mnPTkUQ4F9za/w8XE+qK/ulAJ5xkH8LniqYdvqGs=;
-        b=Ohp/quh6ZDgZb/ITkc3V7/IGLtym4XoeMnbnx3nw30tNn0Kvk74RgO0Dgvkn0FJfgm
-         caa/3NprRpRIYNbqkaXlQ/U+hBj03vTq5NEGagu80Z1lk6sHa9Kle3lUU2HtVhsOSN/b
-         1Nb3QEE5Kay/8bMZik81IiVSm8Nvg83eBH7Ew=
-X-Forwarded-Encrypted: i=1; AKwUvBxApOPiqI7Yqb+zllTWRGNSgxdh/wDWsjKyPZ+Nu09IlglKoZFQuOVc8uQ715TRkDM4DcoNtxw=@vger.kernel.org
-X-Received: by 2002:a05:6214:5c43:b0:91e:9699:5f05 with SMTP id 6a1803df08f44-91e96997eaemr14886866d6.31.1793846208787;
-        Wed, 04 Nov 2026 18:36:48 -0800 (PST)
-X-Received: by 2002:a05:6214:5c43:b0:91e:9699:5f05 with SMTP id 6a1803df08f44-91e96997eaemr14886616d6.31.1793846208186;
-        Wed, 04 Nov 2026 18:36:48 -0800 (PST)
-Received: from localhost ([192.19.50.250])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91e7e7b1e92sm35327436d6.45.2026.11.04.18.36.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 18:36:47 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IzvMzucY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C1981F000C1;
+	Thu,  5 Nov 2026 02:36:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793846214;
+	bh=ovlFKgPccfbLmr8Zqua+kkM8x4hwULlrstOJBaYY3Ro=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IzvMzucYbSsO0OQoUxXYLaQQ/VtxnWSBwKnpjdXPkQIDVAskbZlEmjJoFs40TVCsl
+	 RfrySLrQDxvqptfZD3kjtWVjkPJ2jrT1ggg3e55A8VZ8c5y9nDcx+TP+yhZq2eZ6G5
+	 y3jT89gRwDcPcpLFAjyn6WfaINCfpnTXJvhvCcSY2R3k7IAfgpNXKz665uaQxCTeN8
+	 g4NO4RQYNGWTrCELfMwweLjrWOdQtNIELGiWDRUy8STBIUpe9BDv26Xfxf0vIQEBkB
+	 mmPwOQH9N5FPv1Y5+tWlS3IYfHKblsmEgs2c5XGx0LMv5ysIxvE/E2LwkeMb6xC2qy
+	 MpnYwrw+2YOIA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Cen Zhang <zzzccc427@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Jia-Ju Bai <baijiaju1990@gmail.com>,
+	jjzuming@gmail.com,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] ocfs2: snapshot dentry names in file and setattr traces
+Date: Wed,  4 Nov 2026 21:36:51 -0500
+Message-ID: <20261105023629.1170861-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110443-bakeshop-rush-4984@gregkh>
+References: <2026110443-bakeshop-rush-4984@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,97 +64,282 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 04 Nov 2026 18:38:07 -0800
-Message-Id: <DMMXFS0YGX39.56J0BV2Q2ZNA@broadcom.com>
-Cc: <bcm-kernel-feedback-list@broadcom.com>, <ian.forbes@broadcom.com>,
- <yunfeng.li.nb@gmail.com>, <tomas@slax.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH 2/6] drm/vmwgfx: validate GB-only cursor command limits
-From: "Maaz Mombasawala <maaz.mombasawala@broadcom.com>"
- <maaz.mombasawala@broadcom.com>
-To: "Zack Rusin" <zack.rusin@broadcom.com>,
- <dri-devel@lists.freedesktop.org>
-X-Mailer: aerc 0.17.0
-References: <20261027211729.646988-1-zack.rusin@broadcom.com>
- <20261027211729.646988-3-zack.rusin@broadcom.com>
-In-Reply-To: <20261027211729.646988-3-zack.rusin@broadcom.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue Oct 27, 2026 at 2:17 PM PDT, Zack Rusin wrote:
-> Guest-backed devices without cursor MOB support define cursor images with
-> SVGA_CMD_DEFINE_ALPHA_CURSOR. SVGA_REG_CURSOR_MAX_DIMENSION belongs to th=
-e
-> cursor MOB register class and reads as zero on devices that do not expose
-> that class. Applying this register to GB-only cursors rejects every
-> nonempty image submitted by KMS clients, leaving Xorg without a hardware
-> cursor.
->
-> The submission transport also limits the command size. A 96x96 image fits
-> the 40 KiB FIFO image limit, but exceeds the 32 KiB command-buffer limit
-> and causes a device command error when submitted through that transport.
->
-> Validate GB-only images against SVGA_MAX_CURSOR_CMD_DIMENSION and
-> SVGA_MAX_CURSOR_CMD_BYTES. For command-buffer submission, also bound the
-> whole command by SVGA_CB_MAX_COMMAND_SIZE, including its header. Calculat=
-e
-> the image byte count in 64 bits and keep the register-based dimension and
-> MOB size checks for MOB cursors.
->
-> Fixes: d5ed8749168a ("drm/vmwgfx: enforce cursor size limits for MOB curs=
-ors")
-> Cc: stable@vger.kernel.org
-> Reported-by: Yunfeng Li <yunfeng.li.nb@gmail.com>
-> Closes: https://patch.msgid.link/20260830151619.2452307-1-yunfeng.li.nb@g=
-mail.com
-> Assisted-by: LLM
-> Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
-> ---
->  drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 23 ++++++++++++++++++--
->  1 file changed, 21 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/d=
-rm/vmwgfx/vmwgfx_cursor_plane.c
-> index 942d07079ef7..14490ead99cd 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-> @@ -778,8 +778,27 @@ int vmw_cursor_plane_atomic_check(struct drm_plane *=
-plane,
->  				 "surface not suitable for cursor\n");
->  			return -EINVAL;
->  		}
-> -	} else if (update_type =3D=3D VMW_CURSOR_UPDATE_GB_ONLY ||
-> -		   update_type =3D=3D VMW_CURSOR_UPDATE_MOB) {
-> +	} else if (update_type =3D=3D VMW_CURSOR_UPDATE_GB_ONLY) {
-> +		u64 image_size =3D (u64)new_state->crtc_w *
-> +				 new_state->crtc_h * sizeof(u32);
-> +		u32 max_size =3D SVGA_MAX_CURSOR_CMD_BYTES;
-> +
-> +		/* The command-buffer limit includes the define-cursor header. */
-> +		if (vmw->cman)
-> +			max_size =3D min_t(u32, max_size,
-> +					 SVGA_CB_MAX_COMMAND_SIZE -
-> +					 sizeof(struct vmw_svga_fifo_cmd_define_cursor));
-> +
-> +		if (!new_state->crtc_w || !new_state->crtc_h ||
-> +		    new_state->crtc_w > SVGA_MAX_CURSOR_CMD_DIMENSION ||
-> +		    new_state->crtc_h > SVGA_MAX_CURSOR_CMD_DIMENSION ||
-> +		    image_size > max_size) {
+From: Cen Zhang <zzzccc427@gmail.com>
 
-We should have a separate message for image_size > max_size.
+[ Upstream commit 8cd3ff30659775a6831c66687a69d2b83d163591 ]
 
-> +			drm_dbg_kms(&vmw->drm,
-> +				    "Cursor dimensions (%u, %u) violate command limits\n",
-> +				    new_state->crtc_w, new_state->crtc_h);
-> +			return -EINVAL;
-> +		}
-> +	} else if (update_type =3D=3D VMW_CURSOR_UPDATE_MOB) {
->  		u32 cursor_max_dim =3D
->  			vmw_read(vmw, SVGA_REG_CURSOR_MAX_DIMENSION);
-> =20
+Patch series "ocfs2: stabilize dentry names in file and setattr traces",
+v4.
 
+Snapshot names at all six users of ocfs2__file_ops and at the separate
+setattr event. Patch 1 handles the five ordinary file-operation callers
+and setattr. Patch 2 handles release separately to preserve its locked
+open-count sample and take the snapshot outside that critical section.
 
---=20
-Maaz Mombasawala <maaz.mombasawala@broadcom.com>=20
+The release explanation distinguishes its existing RCU lifetime coverage
+from name/length consistency. It does not claim that the ordinary
+callers' external-name UAF interleaving crosses the held inode spinlock.
+The release source change is unchanged from v3.
+
+Patch 1 also removes the read callback's redundant NULL-inode check.
+The two patches apply independently and leave trace formats unchanged.
+
+This patch (of 2):
+
+The open, fsync, read, write and splice-read trace calls pass the live
+dentry name and length to the shared ocfs2__file_ops event class.
+ocfs2_setattr() passes the same unprotected arguments to its own event.
+Both events size and copy a __string field separately. A reference to
+the dentry does not pin the external storage backing an individual name.
+
+With an event enabled, a caller can be preempted after loading the name
+pointer. A long-to-short rename can then replace the name and reclaim its
+old external allocation before the trace callback sizes or copies it,
+provided no other snapshot retains that allocation.
+
+The setattr inode lock does not exclude every rename: a same-directory
+rename of a source directory need not take that directory's inode lock.
+It can therefore change the dentry name while setattr records its event.
+Inline names and separately loaded lengths can also change during trace
+record sizing and copying.
+
+Take a dentry name snapshot around each of these six trace calls and
+pass both the string and length from the snapshot. Check event enablement
+before taking a snapshot. Keep the event classes and formats unchanged.
+
+Also remove the redundant NULL-inode check in the read callback.
+file_inode() returns the open file's inode, which is already used by the
+trace call above the check.
+
+The historical report below is from the read path.
+
+KASAN report as below:
+
+    BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
+    Read of size 1 at addr ffff88810a5b2b18 by task python3/496
+
+    [CPU and host details omitted.]
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? strlen+0x85/0xa0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20e/0x420
+     ? strlen+0x85/0xa0
+     kasan_report+0xe0/0x110
+     ? strlen+0x85/0xa0
+     strlen+0x85/0xa0
+     trace_event_raw_event_ocfs2__file_ops+0xf0/0x480
+     ? __pfx_trace_event_raw_event_ocfs2__file_ops+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? pmbd_probe_hit_cookie+0xe7/0x1c0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+     ocfs2_file_read_iter+0x6cd/0xb30
+     ? __pfx_ocfs2_file_read_iter+0x10/0x10
+     ? selinux_file_permission+0x11d/0x540
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? security_file_permission+0x26/0x80
+     vfs_read+0x7d2/0xc20
+     ? __pfx_vfs_read+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_do_sys_openat2+0x10/0x10
+     ksys_read+0x111/0x200
+     ? __pfx_ksys_read+0x10/0x10
+     ? irqentry_exit+0xbe/0x820
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? trace_hardirqs_on_prepare+0x11d/0x150
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    [User register dump omitted.]
+     </TASK>
+
+    Allocated by task 489:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_noprof+0x2de/0x780
+     __d_alloc+0x5fc/0x8c0
+     d_alloc_parallel+0x106/0x11d0
+     lookup_open+0x3ff/0x13e0
+     path_openat+0x95e/0x2020
+     do_file_open+0x21e/0x470
+     do_sys_openat2+0xf4/0x1b0
+     __x64_sys_openat+0x136/0x1e0
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 0:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     __rcu_free_sheaf_prepare+0x65/0x2a0
+     rcu_free_sheaf_nobarn+0x1d/0x50
+     rcu_core+0x6be/0x1ed0
+     handle_softirqs+0x1fa/0x8d0
+     __irq_exit_rcu+0x113/0x1e0
+     irq_exit_rcu+0xe/0x20
+     sysvec_apic_timer_interrupt+0x6c/0x80
+     asm_sysvec_apic_timer_interrupt+0x1a/0x20
+
+    The buggy address belongs to the object at ffff88810a5b2b00
+     which belongs to the cache kmalloc-rcl-192 of size 192
+    The buggy address is located 24 bytes inside of
+     freed 192-byte region [ffff88810a5b2b00, ffff88810a5b2bc0)
+
+    [Page and shadow-memory dumps omitted.]
+
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-0@gmail.com
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0088-v7-6324344256f0c3b1c3d8-1@gmail.com
+Fixes: 468eedde23d6 ("ocfs2: Remove mlog(0) from fs/ocfs2/file.c")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: Omitted the ocfs2_file_splice_read() hunk because the function is absent. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ocfs2/file.c | 84 +++++++++++++++++++++++++++++++------------------
+ 1 file changed, 53 insertions(+), 31 deletions(-)
+
+diff --git a/fs/ocfs2/file.c b/fs/ocfs2/file.c
+index e29e267472bf8..571d7d34965bb 100644
+--- a/fs/ocfs2/file.c
++++ b/fs/ocfs2/file.c
+@@ -84,10 +84,17 @@ static int ocfs2_file_open(struct inode *inode, struct file *file)
+ 	int mode = file->f_flags;
+ 	struct ocfs2_inode_info *oi = OCFS2_I(inode);
+ 
+-	trace_ocfs2_file_open(inode, file, file->f_path.dentry,
+-			      (unsigned long long)oi->ip_blkno,
+-			      file->f_path.dentry->d_name.len,
+-			      file->f_path.dentry->d_name.name, mode);
++	if (trace_ocfs2_file_open_enabled()) {
++		struct dentry *dentry = file->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_open(inode, file, dentry,
++				      oi->ip_blkno,
++				      name.name.len, name.name.name,
++				      mode);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	if (file->f_mode & FMODE_WRITE) {
+ 		status = dquot_initialize(inode);
+@@ -173,11 +180,17 @@ static int ocfs2_sync_file(struct file *file, loff_t start, loff_t end,
+ 	tid_t commit_tid;
+ 	bool needs_barrier = false;
+ 
+-	trace_ocfs2_sync_file(inode, file, file->f_path.dentry,
+-			      oi->ip_blkno,
+-			      file->f_path.dentry->d_name.len,
+-			      file->f_path.dentry->d_name.name,
+-			      (unsigned long long)datasync);
++	if (trace_ocfs2_sync_file_enabled()) {
++		struct dentry *dentry = file->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_sync_file(inode, file, dentry,
++				      oi->ip_blkno,
++				      name.name.len, name.name.name,
++				      (unsigned long long)datasync);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	if (ocfs2_is_hard_readonly(osb) || ocfs2_is_soft_readonly(osb))
+ 		return -EROFS;
+@@ -1126,15 +1139,19 @@ int ocfs2_setattr(struct user_namespace *mnt_userns, struct dentry *dentry,
+ 	int had_lock;
+ 	struct ocfs2_lock_holder oh;
+ 
+-	trace_ocfs2_setattr(inode, dentry,
+-			    (unsigned long long)OCFS2_I(inode)->ip_blkno,
+-			    dentry->d_name.len, dentry->d_name.name,
+-			    attr->ia_valid,
+-				attr->ia_valid & ATTR_MODE ? attr->ia_mode : 0,
+-				attr->ia_valid & ATTR_UID ?
++	if (trace_ocfs2_setattr_enabled()) {
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_setattr(inode, dentry, OCFS2_I(inode)->ip_blkno,
++				    name.name.len, name.name.name, attr->ia_valid,
++				    attr->ia_valid & ATTR_MODE ? attr->ia_mode : 0,
++				    attr->ia_valid & ATTR_UID ?
+ 					from_kuid(&init_user_ns, attr->ia_uid) : 0,
+-				attr->ia_valid & ATTR_GID ?
++				    attr->ia_valid & ATTR_GID ?
+ 					from_kgid(&init_user_ns, attr->ia_gid) : 0);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	/* ensuring we don't even attempt to truncate a symlink */
+ 	if (S_ISLNK(inode->i_mode))
+@@ -2380,11 +2397,17 @@ static ssize_t ocfs2_file_write_iter(struct kiocb *iocb,
+ 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+ 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+ 
+-	trace_ocfs2_file_write_iter(inode, file, file->f_path.dentry,
+-		(unsigned long long)OCFS2_I(inode)->ip_blkno,
+-		file->f_path.dentry->d_name.len,
+-		file->f_path.dentry->d_name.name,
+-		(unsigned int)from->nr_segs);	/* GRRRRR */
++	if (trace_ocfs2_file_write_iter_enabled()) {
++		struct dentry *dentry = file->f_path.dentry;
++		struct name_snapshot name;
++
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_write_iter(inode, file, dentry,
++					    OCFS2_I(inode)->ip_blkno,
++					    name.name.len, name.name.name,
++					    (unsigned int)from->nr_segs);
++		release_dentry_name_snapshot(&name);
++	}
+ 
+ 	if (!direct_io && nowait)
+ 		return -EOPNOTSUPP;
+@@ -2530,17 +2553,16 @@ static ssize_t ocfs2_file_read_iter(struct kiocb *iocb,
+ 	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+ 	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+ 
+-	trace_ocfs2_file_read_iter(inode, filp, filp->f_path.dentry,
+-			(unsigned long long)OCFS2_I(inode)->ip_blkno,
+-			filp->f_path.dentry->d_name.len,
+-			filp->f_path.dentry->d_name.name,
+-			to->nr_segs);	/* GRRRRR */
+-
++	if (trace_ocfs2_file_read_iter_enabled()) {
++		struct dentry *dentry = filp->f_path.dentry;
++		struct name_snapshot name;
+ 
+-	if (!inode) {
+-		ret = -EINVAL;
+-		mlog_errno(ret);
+-		goto bail;
++		take_dentry_name_snapshot(&name, dentry);
++		trace_ocfs2_file_read_iter(inode, filp, dentry,
++					   OCFS2_I(inode)->ip_blkno,
++					   name.name.len, name.name.name,
++					   to->nr_segs);
++		release_dentry_name_snapshot(&name);
+ 	}
+ 
+ 	if (!direct_io && nowait)
+-- 
+2.53.0
 
