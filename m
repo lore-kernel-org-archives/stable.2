@@ -1,66 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793849937;
-	b=NU2vyqGhkcg5wE8/ApfuHtGZXCC3kuSigHwBH0BE6NlQ9Enea6cUqNWx4NLxDp+PJSNI
-	 kKFgsFMIk+RyvE+3pEAIX9Py37IvJrMnjttRQiXdeO9iOQhqQE/mTfus3ie65yQt41yCy
-	 8Um57cTANtyxkC43Kz9hrZm3nHzvDzKxjFBXqvNxS3wkKyUHZT33F1VXGzz51ErxumX7t
-	 NU3XxHKJObZINdGDWDmbp3hl+MywBqGseiG0tuhMOM1esXWIVKT8LxhLzABgv2HtxWPG2
-	 uFKzK/sh6Ko01MTOXAI4EAJjUuTyYIxZSV91whoXjQyDAFF0L5ZL66rKD37av0ovFPw==
+	t=1793850262;
+	b=fYNu389/kk3CYbIjGI5sRSRFE+7lm41M11yHbql3Qz8vJ+KakjOqZcZ17UQ/86vnIvGe
+	 t0P+eb65u3G+GzaFEBABsPp9aAXGI9hwMVuaVQBv+nAwyoDskD2N7bmWJtABBck+q/7pK
+	 vmp0UsClp/ZFsIYLM0XAg7XPNvQwhLkyF6a4ABs9WVFbdF6mSIHQzm2QPjAIDFkajwx1g
+	 Gzx8JPvqvO241/kT9+r0T9KtO/2Ewd7Ffa0yfP2GzCxZtNP5cbW/nHEkGRwJdex7HgQlu
+	 UmTP8cdAsq/+Q/im1NQrzeQaqY7TokUFKNA+kIllsXvQxeN/Hnhr67RskUeY90mqD7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793849937;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
-	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=0bmoyUkzdtIPwctA0XmmG4w/kO0aW9Vg8ocvhD7GQlc=;
-	b=uGr+wr2UE2QsdQ9byApDsoqXl7zAvV4mOKC+eZl5gyjy9B1eHwvw1bdfKwai3uyfbrsL
-	 rA45AHNZM59GgPTm1VTpxvJi/N0kh0D4W7sLIpRBi7z/DXgRuEsIo/EjirEI6i9Pd5b7e
-	 EnWlxSYdYQjRg0lStvG75DykrPI3eIDgfdU9SQ63+zD40j1ZrRu/Y64Nn3aUaDs7SjM5m
-	 uMxWVzX5JzqvEymgPOHKnwCddRLnfinxqPY04wgRcVQcyIHSrJQSrT/PF3Wf1lMf6rFD5
-	 tpnnREvm32b2zYknPPcxdzVvvCr7BsdboKD6aEhsKyrDUnYoF9DJq7fypMyEMrTR8Jg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793850262;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=yJ8dqWz9KUaL17ytdxjlE4oALHuPm1Gl496tqSLmA+o=;
+	b=w3V50jBntr0jQFEHNdNUVypRb7Ozx9qFaUIlYex+bOMuxI9kidLwCnekHutQifJ3wzrY
+	 c6s+a933ZFlG7LEQ0jsO2HgQr2r1t7P/XJjzAxRBwQmtFc/XwWdlVQ94YTM8WbeTzpEe7
+	 uJMmattgfiohPZk9crbx9pyXqsogEv/I4jYagUKuIo0cE1LG2D3nZi1N9fzbadhT4jOKJ
+	 wqRl0nsUHtEtVbNR+uOL8COHA1v4MwyplhLpHeQlFI/pO2lsZP8SjiBOWwJ0gaxEdlq2l
+	 l4fOBzeEQECrEmJdxbrLELwevnY9GfPqrKvxj6DmMSOfmSkYTfE2gSlX1dOVnczZMPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=1Jcw5Wpz;
-	arc=none smtp.remote-ip=113.46.200.227
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oDgdRZed;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A566606A31B;
-	Thu,  5 Nov 2026 03:38:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A566606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE8C606A334
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 03:44:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=1Jcw5Wpz
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=0bmoyUkzdtIPwctA0XmmG4w/kO0aW9Vg8ocvhD7GQlc=;
-	b=1Jcw5Wpz9oyiDJnwHAnO6nFeSGMqx7+lZec58dnCFBOwO03z6VN/b/BceRX9zohVd3zL43jty
-	lKXNUK5pvOr56UghyjTTBUYe3a6frRI6L9LD5rzdCJGRZ+9ue6Q3NdmNiwBL7k8Z1agGDhpAimm
-	JmlA+VLVSRDPJ63aF/9v5Wg=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jKp246SDSznTVh;
-	Thu,  5 Nov 2026 11:38:52 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id 4D13540578;
-	Thu,  5 Nov 2026 11:38:51 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 5 Nov 2026 11:38:50 +0800
-Subject: Re: [PATCH] ubifs: account for short copies in ubifs_write_end
-To: Hungyu Lin <dennylin0707@gmail.com>, <richard@nod.at>
-CC: <lin.nan@h3c.com>, <linux-mtd@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-References: <20261104191132.89515-1-dennylin0707@gmail.com>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <fb5c1cc4-d974-73ae-3b61-c0dc1363305a@huawei.com>
-Date: Thu, 5 Nov 2026 11:38:49 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oDgdRZed
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12B461F00A02;
+	Thu,  5 Nov 2026 03:44:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793850261;
+	bh=yJ8dqWz9KUaL17ytdxjlE4oALHuPm1Gl496tqSLmA+o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oDgdRZed3mzg5Jn9KCjIbnFbQdgEdMD8XxlQxyREeuVtLRS5HS4XYbGnyLc3yVOIO
+	 rYuz4UirNNYW8Rs6ROrUoW4iYwDbu4JQqFZZEObxojLYsml/jIE284YGh8jKBRFNpb
+	 poOPpFHM+vtXDhfXohllDapdSpfech/ApjOI3BlfHbRqQBSAq+VOU6N3UxT6YcC+6W
+	 B6eGG0gbMs7UMnRiRy1v4s9WWV37+oF2LwCBmwugQfQLFf93jtazpeGP1+2GKyd+n4
+	 7SBPu0U9FLvlnSLWqKp9g9q9891vHp8Y8JuCM8F7P4QTnMG1lYq5VDNrPTR1d1COyX
+	 LyGsDkwDSn5zQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Young <sean@mess.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] media: rc: Fix race condition during rc_register_device()
+Date: Wed,  4 Nov 2026 22:44:19 -0500
+Message-ID: <20261105034402.1228887-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110406-staple-sheet-b1c6@gregkh>
+References: <2026110406-staple-sheet-b1c6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,88 +59,167 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261104191132.89515-1-dennylin0707@gmail.com>
-Content-Type: text/plain; charset="gbk"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- whupemo200011.china.huawei.com (7.152.185.179)
 
-ÔÚ 2026/11/5 3:11, Hungyu Lin Ð´µÀ:
-> ubifs_write_end() updates i_size and ui_size to pos + len even when
-> fewer bytes were copied. A one-byte write at EOF from an unreadable
-> buffer can fail with EFAULT while extending the file by one byte.
-> Partial writes can also extend the file past the last byte copied.
-> 
-> Use pos + copied for size updates and cancel the budget when no data
-> was copied. Keep the appending decision based on the requested length
-> to match the inode budgeting and ui_mutex locking in ubifs_write_begin().
-> If a short copy ends within the old size, release any unused inode budget
-> without reducing the size, and still unlock ui_mutex.
-> 
-> Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
-> Link: https://lore.kernel.org/linux-mtd/20261027061226.3506517-1-lin.nan@h3c.com/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> ---
->   fs/ubifs/file.c | 29 +++++++++++++++++++----------
->   1 file changed, 19 insertions(+), 10 deletions(-)
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-> 
-> diff --git a/fs/ubifs/file.c b/fs/ubifs/file.c
-> index 99dd52715ee..8ebd3f4cddf 100644
-> --- a/fs/ubifs/file.c
-> +++ b/fs/ubifs/file.c
-> @@ -523,8 +523,8 @@ static int ubifs_write_end(const struct kiocb *iocb,
->   	struct inode *inode = mapping->host;
->   	struct ubifs_inode *ui = ubifs_inode(inode);
->   	struct ubifs_info *c = inode->i_sb->s_fs_info;
-> -	loff_t end_pos = pos + len;
-> -	int appending = !!(end_pos > inode->i_size);
-> +	loff_t end_pos = pos + copied;
-> +	int appending = !!(pos + len > inode->i_size);
->   
->   	dbg_gen("ino %llu, pos %llu, pg %lu, len %u, copied %d, i_size %lld",
->   		inode->i_ino, pos, folio->index, len, copied, inode->i_size);
-> @@ -552,6 +552,11 @@ static int ubifs_write_end(const struct kiocb *iocb,
->   		goto out;
->   	}
->   
-> +	if (unlikely(!copied)) {
-> +		cancel_budget(c, folio, ui, appending);
-> +		goto out;
-> +	}
-> +
->   	if (len == folio_size(folio))
->   		folio_mark_uptodate(folio);
->   
-> @@ -562,14 +567,18 @@ static int ubifs_write_end(const struct kiocb *iocb,
->   	}
->   
->   	if (appending) {
-> -		i_size_write(inode, end_pos);
-> -		ui->ui_size = end_pos;
-> -		/*
-> -		 * We do not set @I_DIRTY_PAGES (which means that
-> -		 * the inode has dirty pages), this was done in
-> -		 * filemap_dirty_folio().
-> -		 */
-> -		__mark_inode_dirty(inode, I_DIRTY_DATASYNC);
-> +		if (end_pos > inode->i_size) {
-> +			i_size_write(inode, end_pos);
-> +			ui->ui_size = end_pos;
-> +			/*
-> +			 * We do not set @I_DIRTY_PAGES (which means that
-> +			 * the inode has dirty pages), this was done in
-> +			 * filemap_dirty_folio().
-> +			 */
-> +			__mark_inode_dirty(inode, I_DIRTY_DATASYNC);
-> +		} else if (!ui->dirty) {
-> +			ubifs_release_dirty_inode_budget(c, ui);
-> +		}
->   		ubifs_assert(c, mutex_is_locked(&ui->ui_mutex));
->   		mutex_unlock(&ui->ui_mutex);
->   	}
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> 
+From: Sean Young <sean@mess.org>
+
+[ Upstream commit ec7cb49871e5c4f85d57290320c50ee0bae4db84 ]
+
+Device drivers can call ir_raw_event_store() or ir_raw_event_handle()
+right after rc_allocate_device(). This means that while
+rc_register_device() is being called, those functions can be called
+from e.g. interrupt handlers.
+
+Currently dev->raw is being allocated and populated by
+ir_raw_event_prepare() which is called from rc_register_device(). This
+is not done in a safe way, e.g. dev->raw is being set before the
+raw members are populated.
+
+Call ir_raw_event_prepare() from rc_allocate_device() instead.
+
+Fixes: a3572c34da8d ("V4L/DVB: ir-core: Add logic to decode IR protocols at the IR core")
+Signed-off-by: Sean Young <sean@mess.org>
+Cc: stable@vger.kernel.org
+Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: adjusted allocation context for kzalloc() with explicit sizes and GFP_KERNEL instead of kzalloc_obj() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/media/rc/rc-ir-raw.c | 20 +-------------------
+ drivers/media/rc/rc-main.c   | 19 +++++++++++--------
+ 2 files changed, 12 insertions(+), 27 deletions(-)
+
+diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
+index c65bba4ec4739..d695ca6eaa579 100644
+--- a/drivers/media/rc/rc-ir-raw.c
++++ b/drivers/media/rc/rc-ir-raw.c
+@@ -73,9 +73,6 @@ static int ir_raw_event_thread(void *data)
+  */
+ int ir_raw_event_store(struct rc_dev *dev, struct ir_raw_event *ev)
+ {
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	dev_dbg(&dev->dev, "sample: (%05dus %s)\n",
+ 		ev->duration, TO_STR(ev->pulse));
+ 
+@@ -104,9 +101,6 @@ int ir_raw_event_store_edge(struct rc_dev *dev, bool pulse)
+ 	ktime_t			now;
+ 	struct ir_raw_event	ev = {};
+ 
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	now = ktime_get();
+ 	ev.duration = ktime_to_us(ktime_sub(now, dev->raw->last_event));
+ 	ev.pulse = !pulse;
+@@ -131,9 +125,6 @@ int ir_raw_event_store_with_timeout(struct rc_dev *dev, struct ir_raw_event *ev)
+ 	ktime_t		now;
+ 	int		rc = 0;
+ 
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	now = ktime_get();
+ 
+ 	spin_lock(&dev->raw->edge_spinlock);
+@@ -168,9 +159,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_timeout);
+  */
+ int ir_raw_event_store_with_filter(struct rc_dev *dev, struct ir_raw_event *ev)
+ {
+-	if (!dev->raw)
+-		return -EINVAL;
+-
+ 	/* Ignore spaces in idle mode */
+ 	if (dev->idle && !ev->pulse)
+ 		return 0;
+@@ -202,9 +190,6 @@ EXPORT_SYMBOL_GPL(ir_raw_event_store_with_filter);
+  */
+ void ir_raw_event_set_idle(struct rc_dev *dev, bool idle)
+ {
+-	if (!dev->raw)
+-		return;
+-
+ 	dev_dbg(&dev->dev, "%s idle mode\n", idle ? "enter" : "leave");
+ 
+ 	if (idle) {
+@@ -228,7 +213,7 @@ EXPORT_SYMBOL_GPL(ir_raw_event_set_idle);
+  */
+ void ir_raw_event_handle(struct rc_dev *dev)
+ {
+-	if (!dev->raw || !dev->raw->thread)
++	if (!dev->raw->thread)
+ 		return;
+ 
+ 	wake_up_process(dev->raw->thread);
+@@ -613,9 +598,6 @@ EXPORT_SYMBOL(ir_raw_encode_carrier);
+  */
+ int ir_raw_event_prepare(struct rc_dev *dev)
+ {
+-	if (!dev)
+-		return -EINVAL;
+-
+ 	dev->raw = kzalloc(sizeof(*dev->raw), GFP_KERNEL);
+ 	if (!dev->raw)
+ 		return -ENOMEM;
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index 923cc1acda942..e3b538ec547b7 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -1699,14 +1699,24 @@ static const struct device_type rc_dev_type = {
+ struct rc_dev *rc_allocate_device(enum rc_driver_type type)
+ {
+ 	struct rc_dev *dev;
++	int ret;
+ 
+ 	dev = kzalloc(sizeof(*dev), GFP_KERNEL);
+ 	if (!dev)
+ 		return NULL;
+ 
++	if (type == RC_DRIVER_IR_RAW) {
++		ret = ir_raw_event_prepare(dev);
++		if (ret < 0) {
++			kfree(dev);
++			return NULL;
++		}
++	}
++
+ 	if (type != RC_DRIVER_IR_RAW_TX) {
+ 		dev->input_dev = input_allocate_device();
+ 		if (!dev->input_dev) {
++			ir_raw_event_free(dev);
+ 			kfree(dev);
+ 			return NULL;
+ 		}
+@@ -1722,6 +1732,7 @@ struct rc_dev *rc_allocate_device(enum rc_driver_type type)
+ 		spin_lock_init(&dev->rc_map.lock);
+ 		spin_lock_init(&dev->keylock);
+ 	}
++
+ 	mutex_init(&dev->lock);
+ 
+ 	dev->dev.type = &rc_dev_type;
+@@ -1916,12 +1927,6 @@ int rc_register_device(struct rc_dev *dev)
+ 		dev->sysfs_groups[attr++] = &rc_dev_wakeup_filter_attr_grp;
+ 	dev->sysfs_groups[attr++] = NULL;
+ 
+-	if (dev->driver_type == RC_DRIVER_IR_RAW) {
+-		rc = ir_raw_event_prepare(dev);
+-		if (rc < 0)
+-			goto out_minor;
+-	}
+-
+ 	if (dev->driver_type != RC_DRIVER_IR_RAW_TX) {
+ 		rc = rc_prepare_rx_device(dev);
+ 		if (rc)
+@@ -1978,8 +1983,6 @@ int rc_register_device(struct rc_dev *dev)
+ out_rx_free:
+ 	ir_free_table(&dev->rc_map);
+ out_raw:
+-	ir_raw_event_free(dev);
+-out_minor:
+ 	ida_free(&rc_ida, minor);
+ 	return rc;
+ }
+-- 
+2.53.0
 
