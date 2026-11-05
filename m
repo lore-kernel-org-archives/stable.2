@@ -1,73 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888875;
-	b=Qqeap/sPZUhUvsOoV5UuIdknb5zyUmYsPEWwr3XjyELUW9eHpBd/ub7uawfHcxr/S4lY
-	 giHBeeNA2UtXG1l0WgWKsLuNPvGJ8cmOGEMlMAcvPYTeE4CJX623pYOkmhsdAzG4nIG5x
-	 FCwzFLXjT41Afui6ssCkMvZaHJa+vn+Xch8922xAY6q82gNZtszMGXa5ofUMigP9RVKwD
-	 WZaHEDyiQvOzkM22Ux9Z4BDeZ+gj3s/JO/M8ySb9vIrEh9d6CAjPuRYdxFFv5/mHZgslR
-	 o27IVMjZbGEj7fFMLYvOOJd5dPuHJwWegMkXgeqZGhGAmuAAOCceFr2UL8wPXIi0ebg==
+	t=1793888901;
+	b=m3z0Iectwg1jl0etTAdQDpKO2SpQkHBQhHQKB8cXpKgynNCRZ1ubeSROGPzsq5KTbCbE
+	 hYKDmTnfQEKZqKqAanfIxNE3Y2rtravpScJuyYendNQw5pORKZpQdAenJfiLV5++kImEZ
+	 n5dk+M1RHkCALtYNjGOtGOxatcRZrgGQzToYHXUHa8MqUaiQ15jixvBEzSp5yyzTO+pmZ
+	 lPup8Wd8zkHaSaGNr9jFGMMDfO+M24DgnEPPQ3PqW7zmFthEWUSEWIwzLKjVpq/ybW8AI
+	 cf2BMb3sE1TiIP8+ygPh0kfeDxW3WX9N2QRORSsgxTYnwvq8xhu5X7qiluMYUQBveOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888875;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=LRV93Nqcl6llLVOsU+H1CS51ILRBPhoMbPofrdUB/74=;
-	b=AYblHzL7N2OA2JBAa/+7qteoFOz5o5OjsDD1yolTbWUt1RapkdsdQ/JuaMg6kiBZt+7N
-	 lZx+n3jjlHabzDAkk24T7V8DPV5e2bEC88YpPhXVJ7JpDyLlEk/6yEMcqJ/CZsVv9j/5E
-	 jOLT+hScCMXibiEfuwWA8tnnIAvK578VdUhRVuKKb65yRK8AU+1R8UZoyqQE2ocYWYuYQ
-	 Kmu4hemSmNdk9oFZh0Qf+9LFlwLRNuxHYDidA6DXp3sAipQuBPFxMukPr6hBHjDBFJV9t
-	 rkZBs/VGP9egjSQjj2gvjEkxOMWM7L1d5KM56iyQjHr3VPOhMRr+0TsAG1aMUwHaVdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888901;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=NZO0Qmu713jFQm/vKYluvL9hJJFkxcgriVrbL4y9m6w=;
+	b=BdUTebVuk6Gt4uLkpXGQhVXFcpc8BvL6aGyhso5s4iwCJcTXcWOuT/C1FuSYMdkry3Y4
+	 xHw0ruMnZ011q8AdmLjcaJXbnkXvAjoaKaI896h/osCVjHge9ebfsuovi64aweRzpA8UJ
+	 VsefnWk4oitVw5IQPgCNhZoNzziwD2gs9kiEHMFIsNkB1NBzdOIcTFKheQkl4yceOAD7c
+	 RZilbQeytO5xX4PaxVU25azpuNP7YuWD9BxHamH5/+jCsJtzssvYlgetAhiOJVUEBSm5U
+	 PQiDVczxzFYDzXabTkU8MVb/VHbFQNY2KFxpPhZfDg5R4KcPeM9G6K3w71VJkjfCQLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aN24FoPH;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gpI7asQc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93928606D817
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 14:27:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93928606D817
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E6A606A328
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 14:28:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aN24FoPH
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ed2c307e62so9384115ad.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 06:27:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793888874; x=1794493674; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LRV93Nqcl6llLVOsU+H1CS51ILRBPhoMbPofrdUB/74=;
-        b=aN24FoPHt5Fu/VbR5YA9iqjw9gkOHF1L3A557BNn8meDy6aZnJXgPZTx7RKAVC4XwB
-         rHG9q8eIUDfoOI8qcV0OL29yQQ+tBcNxfpn6U6nZ8TlL21uO+NvWuYiNDOWfKoVwDUZ+
-         lxL1CW1665hITaFPCPpkJpSIoWWH6oKaQ8zK6HQ5fIiLurD2Z4xndd/C3HIDoH36XZa4
-         cFhBQpDNrWKM2AIqZjavEni8R5yijEOikryd7H0J9I8ORrgMZDOiaU2x0BzKXEVadqfQ
-         yu39hDUdtzR0Pt80zJ1+WR/e6Utasjubwnd2okamJsOfbIOai/+pGiD1xGYZI6rJ9F1Y
-         SO9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793888874; x=1794493674;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LRV93Nqcl6llLVOsU+H1CS51ILRBPhoMbPofrdUB/74=;
-        b=gOloj7g7Dowu0JuoDgmF53QUbq0jJf0cNgrPnWM8FZejROGuDclKinUtJ7Kb27cq9e
-         kCQwGFGmpKy4u0MUgYo4A5DbgZ1W/d88OhzaKIYOpxfXNesAx0eDaIsre8NA0HKBQ0Rh
-         ps9+kIF3vX+9RO0uGh6MBqv6Xqey3+lXOY+9Peq2jemTYrAq9cYrnmU2A9PIW/hNi7AD
-         TcLX9VKcG4xSJuFbABEbzEZX0337B11DRl4n5WjCc8GWDwmGKw3AmIhMjuExQq31x7G6
-         5727RaoIHwPA6CPeeQjAH98u5ue0qKS0vmeKVzPZpIgAFtc9T0L/u0j+9TugAVFu1VOr
-         sqVA==
-X-Gm-Message-State: APuU4Z8VJq0gIsgNYhd/eGGhoQqwp9k8/oOD3VpL+JWmCgN2YWCZQeGT
-	vE0sdRzB1ejtIddg0iY+6crTNh5B3i6X29RA5zHRIrf3hoo6lcRLX0EKer3bsuiEguxIcbXpCm6
-	qfU6p+Q==
-X-Received: from plbl8.prod.google.com ([2002:a17:902:eb08:b0:2e8:dd92:634c])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:fd85:b0:2ed:124b:6fee
- with SMTP id d9443c01a7336-2ed124b7265mr40484475ad.62.1793888873749; Thu, 05
- Nov 2026 06:27:53 -0800 (PST)
-Date: Thu, 5 Nov 2026 06:27:52 -0800
-In-Reply-To: <20261105120208.2031475-1-xiaoyao.li@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gpI7asQc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23E691F0093A;
+	Thu,  5 Nov 2026 14:28:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793888900;
+	bh=NZO0Qmu713jFQm/vKYluvL9hJJFkxcgriVrbL4y9m6w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gpI7asQcVQQJHrkzbgPyomvIoO0Q9FjQGseA3T/mxapwJHkbLt+pmXTw1UhyrPre4
+	 h893FQ5jDq4Os4dxRf4S1JlGMt7pAsAhJRpVuPdc/6LnR6F4M/EEayd+9k7jAMMUXH
+	 0ArijT1PYeEBvfWiKqK1HRFD7CdmCf9bvOP2mNxVU26hiRnAY266YuhoBTspjZy/4u
+	 7Xd2nIg14s5/rROwFUbKUW4FGJaT8sK+EEx+CI1OsnrZDBV5sTwt97KAileJyfuc8W
+	 M7bcd6K69kDdBO6EAIDmRj7o6QfmglVax2E5oblnf3m5mc7IzuJFs/5WSUHlnjUErD
+	 iMa1jZsLwiXfw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cem@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] xfs: cross-reference the primary superblock
+Date: Thu,  5 Nov 2026 09:28:18 -0500
+Message-ID: <20261105142754.1656811-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110440-september-retiring-e3ac@gregkh>
+References: <2026110440-september-retiring-e3ac@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,50 +59,81 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <2026110438-shrink-panic-2119@gregkh> <20261105120208.2031475-1-xiaoyao.li@intel.com>
-Message-ID: <auySaIYe-EowIYxG@google.com>
-Subject: Re: [PATCH 6.18.y] KVM: VMX: Formally define KVM's "0xdead" exit
- reason used for failed VM-Enter
-From: Sean Christopherson <seanjc@google.com>
-To: Xiaoyao Li <xiaoyao.li@intel.com>
-Cc: stable@vger.kernel.org, Yan Zhao <yan.y.zhao@intel.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026, Xiaoyao Li wrote:
-> From: Sean Christopherson <seanjc@google.com>
-> 
-> [ Upstream commit d85f7dc8cf3c91a131946dae4c3aa8d9c97322d7 ]
-> 
-> Add EXIT_REASON_UNDEFINED to track KVM's magic "0xdead" value that's used
-> to stuff the exit reason on a failed VM-Enter so that the magic can be
-> reused by TDX, and to make it more obvious that it's an arbitrary, KVM-
-> defined value (though the whole "dead" thing makes it pretty darn obvious).
-> 
-> Opportunistically add a compile-time assert to ensure the KVM-defined exit
-> reason never collides with a "real" exit reason.
-> 
-> No functional change intended.
-> 
-> Cc: Xiaoyao Li <xiaoyao.li@intel.com>
-> Cc: Yan Zhao <yan.y.zhao@intel.com>
-> Cc: Binbin Wu <binbin.wu@linux.intel.com>
-> Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
-> Link: https://patch.msgid.link/20260921235656.1107929-1-seanjc@google.com
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
-> ---
+From: "Darrick J. Wong" <djwong@kernel.org>
 
-In the future, please provide a quick explanation of the conflict resolution(s),
-it helps me assess the safety/correctness of the backport, and provides a paper
-trail to help with debug in case the backport introduces a bug.
+[ Upstream commit 0c61016006ab08f8346f9e7b1e38559bd4ea499e ]
 
-For this, there was a superficial conflict due to lack of upstream commit
-3c75e6a5da3c0 ("KVM: VMX: Move architectural "vmcs" and "vmcs_hdr" structures
-to public vmx.h").
+Make sure we cross-reference the primary superblock against the rest of
+the AG 0 space metadata.  Drop the unused @bp parameter of
+xchk_superblock_xref to avoid complaints about uninitialized variables.
 
-Acked-by: Sean Christopherson <seanjc@google.com>
+Cc: stable@vger.kernel.org # v4.16
+Fixes: 52dc4b44af7419 ("xfs: cross-reference with the bnobt")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+[ sashal: Initialized error to zero because the AG 0 path bypasses its assignment. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/xfs/scrub/agheader.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
+
+diff --git a/fs/xfs/scrub/agheader.c b/fs/xfs/scrub/agheader.c
+index 6c6e5eba42c8b..41de023cad2da 100644
+--- a/fs/xfs/scrub/agheader.c
++++ b/fs/xfs/scrub/agheader.c
+@@ -32,8 +32,7 @@ xchk_setup_agheader(
+ /* Cross-reference with the other btrees. */
+ STATIC void
+ xchk_superblock_xref(
+-	struct xfs_scrub	*sc,
+-	struct xfs_buf		*bp)
++	struct xfs_scrub	*sc)
+ {
+ 	struct xfs_mount	*mp = sc->mp;
+ 	xfs_agnumber_t		agno = sc->sm->sm_agno;
+@@ -74,16 +73,12 @@ xchk_superblock(
+ 	struct xfs_buf		*bp;
+ 	struct xfs_dsb		*sb;
+ 	struct xfs_perag	*pag;
+-	xfs_agnumber_t		agno;
++	xfs_agnumber_t		agno = sc->sm->sm_agno;
+ 	uint32_t		v2_ok;
+ 	__be32			features_mask;
+-	int			error;
++	int			error = 0;
+ 	__be16			vernum_mask;
+ 
+-	agno = sc->sm->sm_agno;
+-	if (agno == 0)
+-		return 0;
+-
+ 	/*
+ 	 * Grab an active reference to the perag structure.  If we can't get
+ 	 * it, we're racing with something that's tearing down the AG, so
+@@ -93,6 +88,9 @@ xchk_superblock(
+ 	if (!pag)
+ 		return -ENOENT;
+ 
++	if (agno == 0)
++		goto out_xref;
++
+ 	error = xfs_sb_read_secondary(mp, sc->tp, agno, &bp);
+ 	/*
+ 	 * The superblock verifier can return several different error codes
+@@ -354,7 +352,8 @@ xchk_superblock(
+ 			BBTOB(bp->b_length) - sizeof(struct xfs_dsb)))
+ 		xchk_block_set_corrupt(sc, bp);
+ 
+-	xchk_superblock_xref(sc, bp);
++out_xref:
++	xchk_superblock_xref(sc);
+ out_pag:
+ 	xfs_perag_put(pag);
+ 	return error;
+-- 
+2.53.0
+
