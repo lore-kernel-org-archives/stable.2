@@ -1,32 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888104;
-	b=o/0VNrHPIoh1FJ+ds+YNdVXmrXMVhMMX+9rFt+IIb9+AQKDl7mBa2ds85Ho2nirlBz0l
-	 EByYZUXhxnUZ2V3Gn93dNPRFBUJADJCpWzNrkuoe0UAaG1FNIXn5/HeC1/Xb6mmLkD4vD
-	 +R0kpdprmSlNqMqvpVXqZrn3Hvi3HBs2F+j5qZb+IIivpyf6jYnYB0PPqkmbWDXppoxy7
-	 IhZP/zyhKvx2AkVIP1XBGRIH8HxtBFjXwMi5Zx9tYD0SpfNAnx7m9jTzxrejXUItehVzJ
-	 vPOlouOC7dh4EMzUi8GvXyBR+G9Rm4omFpYOKicCikvU1VHw53zbq5NJnvTbl1oOo+A==
+	t=1793888185;
+	b=H2KJpVxXjSnPn/4BbZXlMB8D54Jgie40sX/ryAzbo7xRFHrUV986dVppNWMUWaGt7V+e
+	 tBMt3SPLSiTaqgVirEgwFotESAKZHfWKcs92EuuhOUwzeDxfH3MwWZL43YKCcluaIlKNz
+	 QxyHqa+3fr253QNjmhrXTJrqXT6W/j6eyoCYNLXwczcZqmX1hhRZJBWF0OhHI3udZgEnA
+	 fN0vqnw9Zd0DS4jzMTdjAA3jy26e+ZllJqirnXjmSqqMleFbAMOA2kGu7nxEE3kpmd4Uk
+	 KT+5Vrl77fQmku5zOh5ZvkhD/jyMYXeuw2PnWYzsNM2UiEg1Wdy5qo5yhl2gfzAVBog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888104;
-	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
-	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=hhYHORyyMEe9WzmKHSw5na7G0AtsvbFkX50GoyW9BPo=;
-	b=J1W//O8N42dq1X7QXkKPYVyKF47aUMTIsURcwQBJDunEW/LByhNJWDfhqHMK8wARb8tu
-	 wS0diISZQtBmzlE+BpGr9h0ng0ALSGiGI8d9MPBFbxyyYuTh2EohVPzk4M2TGbUpyHMmf
-	 PyrErQ8A1yQyV3I4ylvuOA9e5eCQP8GJ7A5HDsCht+OAEnnB+Rb3tDax9CkJF4Ex4VbTt
-	 OYE6lR2DfDD+zwqGC3Q3G2QvqbH+pbWPQPJLr9E9tQVUpEN42wkE4SIzjuhOfngltcb6t
-	 Mh35F0eZOSf+RznYPE8givNJ/WDiiBlixJQH5M/O4WcjHTefRG/TROiVXSNikkbSuwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888185;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=rAJsX7tX1O6eyar/UVT5L0lDjUzhUYuddF5rtYMCgtU=;
+	b=gFekDLvAyxxJSyAChm1B1R8OigoYon8IIixrOukV6/u2hOIb7saDJQiWlSBllG0WQjcp
+	 ogv1BENJl+pbIucgwTUDh5RmlKGeroBtax2PiEq5zQfDJed26nBE9RvCZEOjIDDMvdHWw
+	 EJ4TFfHZqGgQGOHsdKVKSawOgF5Grkh7RofnknAVCZckIdQhGfg9s3f6fWDamF9LbWi0Q
+	 9K/tTVYUE+vCKFaImq/XWlR1BRuIJOQeWv5so8hatXhTqvS+KTlRB3HNdBlYpsMfJ9Lui
+	 fQyEBCoOYKmrzY7bP/GlBeCgznZRVJ/mSjd4wI/uHSsfB2aQrCub3JpJMtRsse0LDSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=w6rz.net;
+	spf=pass smtp.mailfrom=w6rz.net;
+	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=GUAw7TB5;
+	arc=none smtp.remote-ip=44.202.169.39
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B35606EEB7;
-	Thu,  5 Nov 2026 14:15:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72CD31F00919;
-	Thu,  5 Nov 2026 14:15:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF73606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 14:16:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DF73606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=GUAw7TB5
+Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
+	by cmsmtp with ESMTPS
+	id OtB5xnZZTOOJnOyGNxZxYT; Thu, 05 Nov 2026 14:16:23 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id OyGMx0qrMVqSeOyGMxKTcF; Thu, 05 Nov 2026 14:16:23 +0000
+X-Authority-Analysis: v=2.4 cv=eLETjGp1 c=1 sm=1 tr=0 ts=6aec8fb7
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=rAJsX7tX1O6eyar/UVT5L0lDjUzhUYuddF5rtYMCgtU=; b=GUAw7TB5T7sbZkip1C2bDIqUHQ
+	VoZfxL5dfLJeDnCOzd0k0/SJB0MmwdXUeWcGzdaRD/JIDce9S/Jf0DYRbsbrbjtX3cLlftnGko17J
+	6ZgjTBe1tnS8GkpsyEFSdhBeXy1QoUVyRIqAOPhU0aP5opq4WAX08d0rhTSJ8khfYGF6BtHijorVP
+	GVWQAbY/1xNSfNJGX1OVvn6qP2MMPcsdKjnaSpvUhTjz4rYZcPzpAcwdQUJxxnHmnWNgTyOGmSnXL
+	VaE3xRRJ06FATMnOZv/TgaiiL6waXHcg5haAQKe+ViBKRgRbJrEPu9Io5BozYxGm3SoolMfEmjD57
+	G0XnLeAg==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:33262 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xOyGL-00000000VVf-47L5;
+	Thu, 05 Nov 2026 07:16:22 -0700
+Message-ID: <788c2383-1bbe-48a2-b667-226e311bf8ca@w6rz.net>
+Date: Thu, 5 Nov 2026 06:16:20 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -36,85 +76,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261104211038.406938024@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] PCI: mobiveil: Fix device_node leak in
- ls_g4_pcie_probe()
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-To: Vishal Satle <vishalsatleit24@gmail.com>
-Cc: Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Rob Herring <robh@kernel.org>, 
- linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261027094427.143733-1-vishalsatleit24@gmail.com>
-References: <20261027094427.143733-1-vishalsatleit24@gmail.com>
-Date: Thu, 05 Nov 2026 19:44:57 +0530
-Message-Id: <179388809743.2730.8434004843297816557.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2015;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=GsF7syF+nFLWXE9m7kFav4xxaz1L9DMmDNF5rgbPuko=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq7I9ielNJs9cOVzbu7dfV03fSaAXcVw3Efl3/5
- MGgqL6r9OaJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauyPYgAKCRBVnxHm/pHO
- 9fY2B/0UPbAnwhZVOulWyTLwWcwDtH8wPKAnl5TZjBlx3KJzWpzJ8vD6Z65kcgD5Nhy2kAh15mh
- kcX3dJ6RX16WpVlt/j8mjwHCI9X9edGJzjZkxEpZSF0STCMpQRqbaeQ26kd4djn6c+NTDXYWhcL
- O/ESpuFr3emaYHxI1XySbdSiApOfTLYBhhg2z43KuQRQ9gxqJd1FxR4ntrc4TIUCl2Rx1GisfXP
- 5kybBO8xDPRfApUElgiIyhD9uvYJCkqEDKjQVDkJtIJcU9YCIV0JRWS6vLy9J44vMhiZ4kE21Zr
- 4JUqyBfyU+RGlGwKbRM3yqZYGx+uwUPonaIe2MV8tzOGrd87
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xOyGL-00000000VVf-47L5
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:33262
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 19
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfLWidq128bIGctjWu9XDzDuG0RBZmkbuD8umd0AuK+Z7/WKfFMWIUpJyUGGF9+Ff8FJ4tilOMcJuCG/ryAXBa6Amj6P0OXMzDmf2AKjS8L+9sXJ6CzYh
+ acryqdODXpVO0KeD/g5nZlyEjFE6RWXNTx265MrvPVqLU4mWIXoX1Naw3RiHo1zT4XDr0Dn/6bZwsg==
 
-On 2026-10-27 15:14 +0530, Vishal Satle wrote:
-> ls_g4_pcie_probe() calls of_parse_phandle() to verify the presence of
-> the "msi-parent" device node. of_parse_phandle() increments the reference
-> count of the returned device_node.
-> 
-> Because the return value was evaluated directly as a boolean condition,
-> the acquired reference was never released, leaking the MSI controller node
-> reference count on probe.
-> 
-> Assign the resolved node to a local variable and call of_node_put() once
-> the existence check is complete.
-> 
-> Cc: stable@vger.kernel.org
-> 
+On 11/4/26 13:03, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.3.2 release.
+> There are 547 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 06 Nov 2026 21:07:23 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.2-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-Why? This is not a critical bug fix to backport.
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-> Signed-off-by: Vishal Satle <vishalsatleit24@gmail.com>
-> ---
->  drivers/pci/controller/mobiveil/pcie-layerscape-gen4.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/pci/controller/mobiveil/pcie-layerscape-gen4.c b/drivers/pci/controller/mobiveil/pcie-layerscape-gen4.c
-> index 4919b27ea..5b1862fe0 100644
-> --- a/drivers/pci/controller/mobiveil/pcie-layerscape-gen4.c
-> +++ b/drivers/pci/controller/mobiveil/pcie-layerscape-gen4.c
-> @@ -199,12 +199,15 @@ static int __init ls_g4_pcie_probe(struct platform_device *pdev)
->  	struct mobiveil_pcie *mv_pci;
->  	struct ls_g4_pcie *pcie;
->  	struct device_node *np = dev->of_node;
-> +	struct device_node *msi_node;
->  	int ret;
->  
-> -	if (!of_parse_phandle(np, "msi-parent", 0)) {
-> +	msi_node = of_parse_phandle(np, "msi-parent", 0);
-> +	if (!msi_node) {
-
-You should just use of_property_present() and be done with it. The driver is not
-using the phandle and it shouldn't care if it resolves to a proper node or not
-as it will be verified by the irqchip layer.
-
-But that being said, I really doubt whether we need this check or not. None of
-the other controller drivers are having this check. If this property is absent,
-then MSIs won't work, but INTx will continue to work. So the controller wouldn't
-be broken altogether.
-
-So this check can be dropped.
-
-- Mani
-
+Tested-by: Ron Economos <re@w6rz.net>
 
