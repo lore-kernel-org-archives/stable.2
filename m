@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793898838;
-	b=Z4MeboNXwgTQZ4psHXovqKpwEM/EOAgtFm2gshBOjvW0L1UcrG9ZUXlGTI4NfaJ9vCfc
-	 H3Vr0ZQzdht0OoOIEHCcLYU9wonlvBbxJrnQvkXjpYFXQv7pfR3OIrkHF6c5godTz3n2k
-	 eRJJHFu7hC0HWj43LvDHV/1/vWjy4rdAtTCa7VG/YEqF2koRNFoBQIxwY2yNCmOemzTCs
-	 /tqFQjD2WLZ7VZqZ0+xan0gjNJVUfasLmIzgo9w/dZiKeU0nVd7k/lxJF1tQEnSOIAjyC
-	 U/E8wVfcQNz2IKdh37NxEfQxoiuFvKZX80c/P60pm+HrecRw8PZbezgu6AuX02RjWTQ==
+	t=1793898844;
+	b=OetqfhctTHnCKFjfujtv31GIV3UUrh0Ru9TdNbRoprGKqESpJeQwxytJyWrrSv12/iBP
+	 ORhEUQAwTtF6yN2kLvwHiOnDKLRgHIhDu0R9b1gD3K7Qqi2dAf5YLiSVTDx+vK34KTmN/
+	 HHs4R6yunfrjq9ggWRBFlbZZo2kl3AN7+ST3JJJeYoBHTHUk085XmqBalzljyrbnd8ukZ
+	 W33kX8GUSynVmFhdGpk+iY7SSbuHIawNiPRNJS1eL04+UskEZVJ3fvr+wjnl/Lja7UsNF
+	 HtbimG3dQ3piEYhw42q8rayy+OE5JaVM+IDIBwjL0QhxaJnHwGOSdHBBZw3AzwNyK6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793898838;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793898844;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VNCOQAfPgfzkXrVK/ffiaYOG8YpIzXi0nU0JVRSHl4g=;
-	b=Bi+Je4P7Ku1HlRk6SoncDHVhjrlfKpxP3e28qBNr+/jJgyy8melzmH+p+E7IR1HXPc3w
-	 TunYTfTvzngXKcSl3nIA1wJYQmUjySwMXFIBohgS1r2XyCbD8W43scvewDrlqAEXDLEjV
-	 XYSU1hfLz+bEWOTWCnEq6RZm/aqTiLBCKdqmMrBZTGGdaCQuVjrSoliaGX8yviZDWEf+R
-	 lyy6ncpjTdjAk5LAVYhtNWhNVfBmqDTLU1sWuyrl7nmk2H2mU430Wa5F8hUEHVqGV/JSS
-	 H2Z31rzOfy9tOah0OjrdSW4mmSnwuyBv3ihecfDOyxosWTYYNSvUrWL9C1+YjbuZeZQ==
+	bh=mZnJs2FrhzMu55lCfGJCBqrL4/6mY7+rmeFNzwXpvhM=;
+	b=LUD1ySjaqjrV6MDXon3WJ1fwN3TaV3zsz2t0JzNLul9/Z3DgExcdMBJ2DbtpTtczpc/I
+	 f4g3ofuGkQFlRq+FeZRjPBPjz6bn3z1gMei5wpKVQ9mPV6up3X2U8vODvZSjVUIT3d1Fn
+	 Y+1nwxg9t6V0Bta4k8CgZiqE6T83fKWpVpx1TIQirC9EF/0PJ6PWNeT9JNolxPxzQQ9XZ
+	 9RsDrdHvtLByVzapkNbudmRrRuqDkIDEAeXtsifCnsHb5IGMyxpIBMuTz62lRdYZMT4QR
+	 iCsPFpBywwTq+tNiDmwjzI/cZA/oKpp4BnZ9G2WNmlk0WVp+RksE3hICe9TmIj0WN0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C+tSRwTg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7e7dqIT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BCB606D826
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 17:13:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E5BC606D808
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 17:14:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C+tSRwTg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 148B81F00A15;
-	Thu,  5 Nov 2026 17:13:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7e7dqIT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E61D21F000C1;
+	Thu,  5 Nov 2026 17:14:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793898837;
-	bh=VNCOQAfPgfzkXrVK/ffiaYOG8YpIzXi0nU0JVRSHl4g=;
+	s=k20260515; t=1793898844;
+	bh=mZnJs2FrhzMu55lCfGJCBqrL4/6mY7+rmeFNzwXpvhM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C+tSRwTgJmfMlw2g+x52EzEbOWumkAVBOyqS9ucZgHHEfsCsCBO/6OqneR9s6XCI0
-	 CG6FQv3XQS+QkYLZJZGb0b1sPE8DESj6s3L2AdrRA7iJMfBWCm5yfbnmts3TDWLgg9
-	 OH6gG0sqh6hylU7kNivuKur6d899ov0elRJFpHd+l0F6+HOSOHaeMNbYYUKgtaoqd4
-	 u7J8coByGNK+0UsBmqyHoND/2US7iTQyWMKytRLG3eyx0g0y/94763dRPgbb18kmyB
-	 IyVzAI822sxaSyUVB481FVsTZ1wPX937Lv9LTVWMYS+4VWnZvbX/z3GL+BqJfu2tcs
-	 2yCYauMgRv9yA==
+	b=h7e7dqITnKxbR+x7MNjmmbgrtCONbtuNBP8lSOidLt9gWrqAVXDCSqD6RMaDX+pa8
+	 NuZTIHp/QtnYPrfXn5TIht6o/FvvIOEa1X6kD/oAaW0g+jBV29nceqZa7DbbTMSLrq
+	 gzpzJr5mFjIaKurMX/W4bQnrPse1tkUJI+3BMqGHdZU5vQ/5dt5V+reHmKJ9LHe6AV
+	 ekEKM0LysdFSGCy8ZI/JLO/cPyEfr1yBlO2JR4cbNHGR1KxuSLLR5B49FWHb8Dv8Gr
+	 2lXOE5QAMs6WTmUszkow1zykoCkTwnJ4yTjc8KQ7vonoBEqSUQEMofetF4FfP+/qq5
+	 mubcn7p9HjNwg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>,
+Cc: Stefan Metzmacher <metze@samba.org>,
+	zdi-disclosures@trendmicro.com,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] xfs: improve dirent bounds checking in scrub and repair
-Date: Thu,  5 Nov 2026 12:13:55 -0500
-Message-ID: <20261105171319.2146310-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] smb: smbdirect: fix buffer length underflow in RDMA transfers
+Date: Thu,  5 Nov 2026 12:14:02 -0500
+Message-ID: <20261105171318.2151915-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105171319.2146310-1-sashal@kernel.org>
-References: <2026110439-earlobe-retract-6b7b@gregkh>
- <20261105171319.2146310-1-sashal@kernel.org>
+In-Reply-To: <2026110437-bully-enviable-15b3@gregkh>
+References: <2026110437-bully-enviable-15b3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,236 +62,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Darrick J. Wong" <djwong@kernel.org>
+From: Stefan Metzmacher <metze@samba.org>
 
-[ Upstream commit 5d470234d04dae6fe2ca2cf4b9ef277b78c7e05a ]
+[ Upstream commit 7193241a49c958782ba4b8df06da3734d1e317d2 ]
 
-LOLLM complains that we don't do enough bounds checking of the directory
-entries in directory blocks when we're looking for errors or trying to
-salvage entries.  Let's improve that with more detailed checks.
+When a remote buffer descriptor is larger than the remaining local
+buffer, smbdirect_connection_rdma_xmit() clamps its length and sets
+buf_len to zero. The common accounting code then subtracts the clamped
+length from buf_len, causing it to underflow. If another descriptor
+follows, the loop processes it with a wrapped remaining length and
+includes memory beyond the local buffer in the RDMA transfer.
 
-Cc: stable@vger.kernel.org # v4.16
-Fixes: ce92d29ddf9908 ("xfs: directory scrubber must walk through data block to offset")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
+A client can trigger an out-of-bounds kernel write with an SMB WRITE
+request, or an out-of-bounds kernel read with an SMB READ request, by
+supplying multiple RDMA buffer descriptors with an oversized descriptor
+before the last one.
+
+Remove the premature assignment to buf_len. Subtracting the clamped length
+already consumes the remaining buffer, so the next iteration stops and
+only descriptors within the local buffer are used to build work requests.
+
+Fixes: e628bf939aaf ("ksmbd: reduce descriptor size if remaining bytes is less than request size")
+Cc: stable@vger.kernel.org
+Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-33549
+Signed-off-by: Stefan Metzmacher <metze@samba.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: Retargeted the change from smbdirect_connection_rdma_xmit() to the equivalent smb_direct_rdma_xmit() implementation. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/dir.c        | 68 +++++++++++++++++++++++++++++++++------
- fs/xfs/scrub/dir_repair.c | 37 ++++++++++++++++++---
- 2 files changed, 91 insertions(+), 14 deletions(-)
+ fs/smb/server/transport_rdma.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/fs/xfs/scrub/dir.c b/fs/xfs/scrub/dir.c
-index 7928dbe221d58..2bb5ead7cffd0 100644
---- a/fs/xfs/scrub/dir.c
-+++ b/fs/xfs/scrub/dir.c
-@@ -315,11 +315,24 @@ xchk_dir_check_unused(
- 	struct xchk_da_btree		*ds,
- 	struct xfs_buf			*bp,
- 	unsigned int			iter_off,
--	unsigned int			end)
-+	unsigned int			end,
-+	xfs_dablk_t			rec_bno)
- {
- 	struct xfs_dir2_data_unused	*dup = bp->b_addr + iter_off;
-+	unsigned int			advance;
-+
-+	if (iter_off + sizeof(*dup) > end) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		return -1;
-+	}
-+
-+	advance = xfs_dir2_data_unusedsize(be16_to_cpu(dup->length));
-+	if (!advance || iter_off + advance > end) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		return -1;
-+	}
- 
--	return be16_to_cpu(dup->length);
-+	return advance;
- }
- 
- /*
-@@ -333,15 +346,31 @@ xchk_dir_check_entry(
- 	struct xfs_buf			*bp,
- 	unsigned int			iter_off,
- 	unsigned int			end,
--	struct xfs_dir2_data_entry	*dent)
-+	struct xfs_dir2_data_entry	*dent,
-+	xfs_dablk_t			rec_bno)
- {
- 	struct xfs_dir2_data_entry	*dep = bp->b_addr + iter_off;
- 	struct xfs_mount		*mp = ds->state->mp;
-+	unsigned int			advance;
-+
-+	/* must have namelen */
-+	advance = offsetof(typeof(*dep), name);
-+	if (iter_off + advance >= end) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		return -1;
-+	}
-+
-+	/* Don't walk off the end of the block. */
-+	advance = xfs_dir2_data_entsize(mp, dep->namelen);
-+	if (!advance || iter_off + advance > end) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		return -1;
-+	}
- 
- 	if (dep == dent)
- 		return 0;
- 
--	return xfs_dir2_data_entsize(mp, dep->namelen);
-+	return advance;
- }
- 
- /* Scrub a directory btree record. */
-@@ -369,6 +398,7 @@ xchk_dir_rec(
- 	xfs_dahash_t			hash;
- 	struct xfs_dir3_icleaf_hdr	hdr;
- 	unsigned int			tag;
-+	bool				foundit = false;
- 	int				error;
- 
- 	ASSERT(blk->magic == XFS_DIR2_LEAF1_MAGIC ||
-@@ -413,33 +443,44 @@ xchk_dir_rec(
- 	dent = bp->b_addr + off;
- 
- 	/* Make sure we got a real directory entry. */
--	iter_off = geo->data_entry_offset;
- 	end = xfs_dir3_data_end_offset(geo, bp->b_addr);
- 	if (!end) {
- 		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
- 		goto out_relse;
- 	}
--	for (;;) {
-+	iter_off = geo->data_entry_offset;
-+	while (iter_off < end) {
- 		struct xfs_dir2_data_unused	*dup = bp->b_addr + iter_off;
- 		int				advance;
- 
--		if (iter_off >= end) {
-+		/* must have freetag */
-+		advance = offsetof(typeof(*dup), length);
-+		if (iter_off + advance >= end) {
- 			xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
- 			goto out_relse;
+diff --git a/fs/smb/server/transport_rdma.c b/fs/smb/server/transport_rdma.c
+index 585617595727b..be26c2e569e57 100644
+--- a/fs/smb/server/transport_rdma.c
++++ b/fs/smb/server/transport_rdma.c
+@@ -1388,7 +1388,6 @@ static int smb_direct_rdma_xmit(struct smb_direct_transport *t,
+ 		if (desc_buf_len > buf_len) {
+ 			desc_buf_len = buf_len;
+ 			desc[i].length = cpu_to_le32(desc_buf_len);
+-			buf_len = 0;
  		}
  
- 		if (dup->freetag == cpu_to_be16(XFS_DIR2_DATA_FREE_TAG))
--			advance = xchk_dir_check_unused(ds, bp, iter_off, end);
-+			advance = xchk_dir_check_unused(ds, bp, iter_off, end,
-+					rec_bno);
- 		else
- 			advance = xchk_dir_check_entry(ds, bp, iter_off, end,
--					dent);
-+					dent, rec_bno);
- 		if (advance < 0)
- 			goto out_relse;
--		if (!advance)
-+		if (!advance) {
-+			foundit = true;
- 			break;
-+		}
- 		iter_off += advance;
- 	}
- 
-+	/* Hash tree must point to the exact dirent */
-+	if (!foundit) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		goto out_relse;
-+	}
-+
- 	/* Retrieve the entry, sanity check it, and compare hashes. */
- 	ino = be64_to_cpu(dent->inumber);
- 	hash = be32_to_cpu(ent->hashval);
-@@ -451,6 +492,13 @@ xchk_dir_rec(
- 		goto out_relse;
- 	}
- 
-+	/* Name must not overflow end of block */
-+	if ((char *)dent->name + dent->namelen >
-+	    (char *)bp->b_addr + BBTOB(bp->b_length)) {
-+		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
-+		goto out_relse;
-+	}
-+
- 	/* Does the directory hash match? */
- 	dname.name = dent->name;
- 	dname.len = dent->namelen;
-diff --git a/fs/xfs/scrub/dir_repair.c b/fs/xfs/scrub/dir_repair.c
-index 4c565f7bcd290..72fe0ae3e18de 100644
---- a/fs/xfs/scrub/dir_repair.c
-+++ b/fs/xfs/scrub/dir_repair.c
-@@ -467,8 +467,16 @@ xrep_dir_recover_unused(
- 	unsigned int			end)
- {
- 	struct xfs_dir2_data_unused	*dup = bp->b_addr + offset;
-+	unsigned int			advance;
-+
-+	if (offset + sizeof(*dup) > end)
-+		return 0;
-+
-+	advance = xfs_dir2_data_unusedsize(be16_to_cpu(dup->length));
-+	if (!advance || offset + advance > end)
-+		return 0;
- 
--	return be16_to_cpu(dup->length);
-+	return advance;
- }
- 
- /*
-@@ -486,11 +494,14 @@ xrep_dir_recover_entry(
- 	unsigned int			advance;
- 	int				error;
- 
-+	/* must have namelen */
-+	advance = offsetof(typeof(*dep), name);
-+	if (offset + advance >= end)
-+		return 0;
-+
- 	/* Don't walk off the end of the block. */
- 	advance = xfs_dir2_data_entsize(rd->sc->mp, dep->namelen);
--	if (!advance)
--		return 0;
--	if (offset + advance > end)
-+	if (!advance || offset + advance > end)
- 		return 0;
- 
- 	/* Ok, let's save this entry. */
-@@ -528,6 +539,11 @@ xrep_dir_recover_data(
- 		if (xchk_should_terminate(rd->sc, &error))
- 			return error;
- 
-+		/* must have freetag */
-+		advance = offsetof(typeof(*dup), length);
-+		if (offset + advance >= end)
-+			break;
-+
- 		if (dup->freetag == cpu_to_be16(XFS_DIR2_DATA_FREE_TAG))
- 			advance = xrep_dir_recover_unused(bp, offset, end);
- 		else
-@@ -559,6 +575,19 @@ xrep_dir_recover_sf(
- 	hdr = ifp->if_data;
- 	end = (unsigned char *)ifp->if_data + ifp->if_bytes;
- 
-+	/* sf header must be big enough for count/i8count */
-+	if (!hdr || ifp->if_bytes < 2)
-+		return 0;
-+
-+	/* and large enough for the parent inumber */
-+	if (hdr->i8count) {
-+		if (ifp->if_bytes < offsetof(struct xfs_dir2_sf_hdr, parent[8]))
-+			return 0;
-+	} else {
-+		if (ifp->if_bytes < offsetof(struct xfs_dir2_sf_hdr, parent[4]))
-+			return 0;
-+	}
-+
- 	ino = xfs_dir2_sf_get_parent_ino(hdr);
- 	trace_xrep_dir_salvaged_parent(rd->sc->ip, ino);
- 
+ 		credits_needed += calc_rw_credits(t, desc_buf, desc_buf_len);
 -- 
 2.53.0
 
