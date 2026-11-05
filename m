@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793890939;
-	b=VeZ/c0dEPE+JdfJCI9gEmye82Eb3rO6q6i8plsGeS8NxVpnhdS4102fV+jPnnC1FbNWw
-	 oxUrYKx/af88OOOKqUHk9aw86iYyNDh2pnMKkCcgWNpTQb4mclLhy/EfaBZI+KMcoDalF
-	 iSHuGBPQzPoM+bf6Kc/unMgtj8N94T/UGh0SUB33vC2bkEm5KI4rZBtjXQXTxSFzzwppu
-	 dPVxQm1wR25DVLJprciSdD2+o6fsHL7gz+kYwHJC+WflLnTafy89eMcxIYRV9HAAfKugg
-	 SlUlZfw0htHZjOyniTljAt1QMXn3FcoZN4GoFtx3FlAxz7OztQDjAy4jRylCWhSeR0g==
+	b=GNo0tPmsuBU2KMR327iBK+2Iq8peSqUeBc74obipD0oQ0lZCCtqc2zCU2tPV63f8u27C
+	 lMxCufHXL8FiZW8xRD5zZeDot6/rfMorcY8ovXLyAW+zg+u9Obb9H8gEUTRfifok8sNgY
+	 Cu91tWUzhBQWMMNCd2QpFsH4JRmCVDQFUweeXtGcOex1d1nNJKgUp1pQIXYXUWNdQksoB
+	 0TZP3iqgiy5/pefOEY7VdpaNozAP5A1nSy7oKK6jdXMzhJgVkoJPFVCEDISRzrzAgbL/j
+	 Jm0LQ3fvxqQQvAzPbBfPKMo2sTKTVXAVnBMeEqO3friTAqhALd7VhNBYap36/bwgnkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793890939;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ixCVT93bZaTNeOx4Am48PMYfOqT+BPUN0teQBsYh70s=;
-	b=hR4Du6/9ktr3eiQAQqNq0J8xJGC4EmOFLbOEMn7LL+KJ6PecPdFBHtuJDoAbbrH8inIC
-	 /3R5V00cXwCyOv+ryCU38IvdihRdtk1QPP5PsnUrZMlYolqHMc7Np/VVIPvcMpIPHuu9v
-	 C+Gx59UtGfUhrI7gssv+xQ9s0TlD56w0TQjNjuKFLXIUpRspMWUJuPPEUeSJPXGJ1bhUh
-	 JTdk81AoZoqRJ2mMkSj9zlfes4IlPoUdu4Ttz3+AVhhDCvi5VFtFxvST/3BD7OOPsccnx
-	 8u6V+72wnIEubA1LtczaFSHK3i4yyaegUyFmXst/uIM9W1MFNGE4WRyfMLxamg09OfA==
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Th2EePlfDg5QnQaDDFMLBDaeEnUxKbLxz61zlAt+uE0=;
+	b=mjkjyooXQKJBJP9/l3FwwUtu9YtZREMXPFiX+LQl5YzKVig0/Jd8Xu/49hk3LveNgcgh
+	 8A8KqZTxxmr++84Y4UyKwEZx+Dr07LmNaMMYC/BxEyVetRDr67m2TNZiDvSdFr/gjYsRB
+	 ZcSyfh5z7Un49J4Y5JU2yjAzdAzejWTNLC+gDrt980iUkatX67clUjIDsFkf2zHIpGt4j
+	 pPCF4/wS/mNyW4RySynqqk+i8Vj9g7LMhwd2mIrDzUu26h0tkMuFzRpB45/mHsxlF779b
+	 JfW0k+0pu0fD8mOFSnl9dFRLMjALeJ1dblEypFKFViVu5v+pcrcxbeKLDIkydWAxt4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kY4+qsZf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="meR5T6/I";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2226606A33B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:02:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C2390606A33C;
+	Thu,  5 Nov 2026 15:02:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kY4+qsZf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D14671F0093A;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=meR5T6/I
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id AD8AA1F000C1;
 	Thu,  5 Nov 2026 15:02:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793890938;
-	bh=ixCVT93bZaTNeOx4Am48PMYfOqT+BPUN0teQBsYh70s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kY4+qsZf148NeWusgmPhq29uK4lBc87eQ4iQbn6V350LBAbwzDtWHLX7g83wKvyNs
-	 S+qOiQAMhLXmeWPEJu7am7fNdVAFDk09qn3p7SKqhZ1oGFJGroz6jLuTzEdSjsNInb
-	 BrkCjaCBPoX1wTsSUBKNspqYCSVr/Kbjrxt4qNddqfI7JirkwKAuJBYpobxfIoGNUm
-	 7AgcRr9dEN5U8yyzWL1K6z7KBsvXK/3/yChdY0Divt5OyTaSfIxgTbLtRBCB5YSC5m
-	 zzmRbKR+fuUcbvAjBVz2SxEmo31vTMTNn+nZFSLdmzvE2u5qSBzclbOcHZ6tBsAZua
-	 K1+hDbIBC2G3g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] xfs: complain loudly when dirtree checker finds broken links
-Date: Thu,  5 Nov 2026 10:02:16 -0500
-Message-ID: <20261105150119.1835271-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110432-statue-level-5b8e@gregkh>
-References: <2026110432-statue-level-5b8e@gregkh>
+	bh=Th2EePlfDg5QnQaDDFMLBDaeEnUxKbLxz61zlAt+uE0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=meR5T6/I46yjJhz4yyyaHZYAQbaaa+3LeJAZX3g6igvawMtWZvFh1TSt+Dgar55Ew
+	 RH6DUGlGdCeYliFyiQcVFeKqZ+pyVB8PZPefKd1SyRrjACqwpwdnqe9uP+t12DDiIQ
+	 idmBs69Qy4W72zpR1NJN80sK5asD4at1nQgmEE32ioowlW372OvX9GJ+sS5CNU/+JH
+	 REajFGxH4nWRlvyp00anCJ9/4CkF6aXztOaLLTetHobngeHLffkS7a2M4g7chRpWzJ
+	 D8zVJ4b0xCDrArTfUY34wVXxtQVI0w0kaVFU0UA498EmQRakXSahJZUtKZtBHUk+2a
+	 JWGCrjOeKuw5A==
+Date: Thu, 5 Nov 2026 16:02:14 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Kent Gibson <warthog618@gmail.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	"Paul E. McKenney" <paulmck@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] gpio: cdev: fix waitqueue deadlock on chip deregistration
+Message-ID: <k73l7tb5qwvzk76uv5e56kz4yybuqgpiq7u5qt46z6xc3bgle7@lkqecrcpaerv>
+References: <20261105-gpio-cdev-srcu-deadlock-v1-1-6047117030ec@oss.qualcomm.com>
+ <20261105145711.GA92894@rigel>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,52 +59,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105145711.GA92894@rigel>
 
-From: "Darrick J. Wong" <djwong@kernel.org>
+On Thu, Nov 05, 2026 at 10:57:11PM +0800, Kent Gibson wrote:
+> On Thu, Nov 05, 2026 at 03:47:59PM +0100, Bartosz Golaszewski wrote:
+> > The three calls to wait_event_interruptible_locked() sleep while holding
+> > gdev->srcu. In gpiochip_remove(), synchronize_srcu() runs before
+> > gcdev_unregister(). The latter fires the waitqueue wakeup events from
+> > the notifier callbacks, so a reader blocked on an empty FIFO never leaves
+> > its SRCU section and the removal will block forever in the former.
+> > 
+> > Since rcu_access_pointer() is a plain READ_ONCE(), we don't really need
+> > to take the SRCU read lock. We don't access the chip structure after
+> > checking it. Remove the lock and instead make the waitqueue aware of the
+> > possible chip deregistration. Keep the initial gdev->chip checks as
+> > removing them may change the error codes visible to user-space, for
+> > instance in cases of a non-blocking read on an empty fifo.
+> > 
+> > Ideally, we'd factor out the common code into a dedicated helper but
+> > there doesn't seem to exist a clean way of passing a kfifo as argument
+> > so let's open-code the three call sites.
+> > 
+> > Cc: stable@vger.kernel.org
+> > Fixes: d83cee3d2bb1 ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU")
+> > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > ---
+> > I've had it on my TODO list for a while. I vaguely remember someone
+> > reporting it to me but can't find the reference anymore. Please feel
+> > free to add a Reported-by: and Closes:.
+> > 
+> 
+> Isn't this the same as patch 4/7 in Adrian's series[1]?
+>
 
-[ Upstream commit e09438cab72c2c6a32665829d4186155346bfee8 ]
+Dang it, yes indeed. Which may explain why I had it written down for
+some reason and thought I was supposed to fix it.
 
-LOLLM observed that the directory tree walk code bails out if it finds
-broken parent pointers along the way.  However, it flattens the return
-code to zero, which means that we can end up in the repair code having
-not completed the scan.  We should never proceed with a repair in this
-state, so let's mark the scrub incomplete and exit.
+Nevermind this patch.
 
-Cc: stable@vger.kernel.org # v6.10
-Fixes: 928b721a11789a ("xfs: teach online scrub to find directory tree structure problems")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ sashal: Retained xchk_ino_xref_set_corrupt(sc, sc->ip->i_ino) instead of upstream's xchk_ip_xref_set_corrupt(sc, sc->ip). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/xfs/scrub/dirtree.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/fs/xfs/scrub/dirtree.c b/fs/xfs/scrub/dirtree.c
-index 8933506c4830a..35848cbfae929 100644
---- a/fs/xfs/scrub/dirtree.c
-+++ b/fs/xfs/scrub/dirtree.c
-@@ -849,7 +849,8 @@ xchk_dirtree_find_paths_to_root(
- 				 * A parent pointer of @sc->ip is bad, don't
- 				 * bother continuing.
- 				 */
--				break;
-+				xchk_set_incomplete(sc);
-+				return error;
- 			}
- 			if (error == -ESTALE) {
- 				/* This had better be an invalidation. */
-@@ -970,6 +971,7 @@ xchk_dirtree(
- 		 * parent pointers are corrupt; this scan cannot be completed
- 		 * without full information.
- 		 */
-+		xchk_set_incomplete(sc);
- 		xchk_ino_xref_set_corrupt(sc, sc->ip->i_ino);
- 		error = 0;
- 		goto out_scanlock;
--- 
-2.53.0
-
+Bart
