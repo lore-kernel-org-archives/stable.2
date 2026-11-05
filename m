@@ -1,52 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793915510;
-	b=zQuA20sOwZLOF5m/TZC/QZUzo4QNZ+/5xz5Z+FJffuU7Y+3p+hqeSGoXVTiXwlP8CmXw
-	 AUX2voxyUOiEE1ESWDq+fgKrN4+nk0MfXvDBJ7/rnjsBx+ecI/ju8XXUph+uFKqpb1QqX
-	 cU47UYfhKCVlDZHhZTWIVKBYfNTWYYpXbQo6EAl0JgQ70sTm7Tr+v6aQ4MaYXRQovUeud
-	 /QIBKFPTM1ASd3mtJjytfJ9JnHTssU8hLlNc7miQr0+sXx5cuAdaDHCGIBNpHiHb9N8kz
-	 3Kfg8oV7YBnTeipC2c1JPvPxO/GNRhd7Us3gKjwUZ08DxB19Tgsct3bd1budrNoM6uA==
+	t=1793915809;
+	b=qfRmTDR3bf1FGLEQDZ5FUwGt2FjZYpn31QAWhZvAAl2v4+821IJ3NICVmVsoNsJfUeoe
+	 RqSnMZMGmu1a8YrfuJTLghIRW+VlH7S/kwzZeeuY78/GhxB2GjGjOJi8p/jcfSHVmz4Nc
+	 hRyEJPm4bp8hKG/bLZzi4wNH5kiAUqMACXgFTOWmfpUombtlaSOxE/3r9CfPRQhsiSmBH
+	 fWw8A9IB0P/ZKUIhD58wVVBTmhJTxqnuY8tgDJqdt5C5NSUmbipND+lXHGNpulT3TP3qt
+	 xmZmZm4e03/bF+B58cv5i9isFKltAcRCKfNyQ5TZB/1yCBvrcALJFhyGu9PZXHtXUeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793915510;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nn59pGKdS6ZAYSfKCAK/dFr8+eqz3gwLAlKcsw0ScZQ=;
-	b=Aw817pnO+EbSijbq7o2Dk87aZYYmGMpcWsEh9IKlmRb3xl1TTCw34HbCan6KidQ7yWuK
-	 7eBefxDVKcB/ryAhavc6zRwLOcTbKZbaEmpIRE0M7B5OY+9TpPNNIHRaH37dXYJgPlpcm
-	 KkFiTsqRh1B2gOkISGnq5h3qyplK0UjA8A2vSPPZYmTrx31Rh73hgPANj/4gCvGSwSpDi
-	 T7ljURFaWY6hpJy1WY/nLm9e88LQVvrbEpEPVOGeS5YxX+nS4ZLBR0My6R5bDFFjEfm9d
-	 DabTEr9Spwk8zezL8GK3HY+4aS/IHSz3gOIsa10XAZNx8LrmEZOjEoq2LZwRkZjbd9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793915809;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=CPyUJuu2yeOSTelLItaNsxminWyw+/YBw1HOW8wGPck=;
+	b=fJXd7sceOzfYadDCUDPMCbXVVgFzrzS8ukjDi22lUKgEyJmVOqnkBKnoORXG7GE0G5eu
+	 2NRrp5+uLmwtkFQyOFeTvKsK14UvZQS+EEpZhvMRj38e5FBM4lRzpguixj7YPVK4N7az2
+	 hXpUXP6CA1xDCSG1r4xsgohrb6+Fi0dhab5+/3+nkXzCif0XMR+ghIWbrYmxZy6YCIGaI
+	 HqSmmQX+eIg0sAcmF54oFtedxVU6cz5Odj25FHl5f2WmxUJdxUiI0jz7oYWRy0MP2IB2U
+	 EkzwCV5c95JIsaijR4kbymxEygdZO8cHG/1uNAhq8saGvrGawqPXXcy7kU1wNHIC6yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e9QWj46W;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P8zcnrW6;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C92D606A326;
-	Thu,  5 Nov 2026 21:51:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3384A606D802
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 21:56:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3384A606D802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e9QWj46W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABE521F0089F;
-	Thu,  5 Nov 2026 21:51:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793915509;
-	bh=nn59pGKdS6ZAYSfKCAK/dFr8+eqz3gwLAlKcsw0ScZQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=e9QWj46WJmqKLLHeKyw0Yzz8G+RXC61IrMhy4Bas55drdXiGEYmRQwQhTbxK4pkW0
-	 ULAdE7Zd3tKO9VjaEfwhGmrchm/7jbCRDykhKwCJiPJeRaK5x/6JU+ok47BddiGFBD
-	 JckEzm0lGhIZT+uY0Ue+jHI2Ex2oKTbQVsk94uOrqei9hBITFU/dP2ngAyMlsRmSC5
-	 6wYQkd925iKUwnY6Z8gVHlhT9YMx1gxI4OBlnEJSMZEoaJhfcjQsB6RC6rRBCX3F/h
-	 d4YejkFDWeJkxO7LBAi/W9Nrs7G9zA6AeVd9hGTjGaL0pDwkuX7FmQB/etKrZtFlOA
-	 VgrBsWSQEU2oA==
-Date: Thu, 5 Nov 2026 15:51:48 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Jennifer Chan <jenniferchan@meta.com>
-Cc: bhelgaas@google.com, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Lukas Wunner <lukas@wunner.de>, Jason Gunthorpe <jgg@nvidia.com>
-Subject: Re: [PATCH] PCI: Add d3cold delay quirk for NVIDIA LR10 NVSwitch
-Message-ID: <20261105215148.GA1566818@bhelgaas>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P8zcnrW6
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a1947498bso92581eec.1
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 13:56:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793915808; x=1794520608; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CPyUJuu2yeOSTelLItaNsxminWyw+/YBw1HOW8wGPck=;
+        b=P8zcnrW6mWnaxoyc6Z4odI5ZW3ufC1DKRm0R3fv2ovHISY6QKwLK7MTWWElGe14nsy
+         +VZiDBWbTvnjoQZ0yJ2n8NfO59f97nM4m0CZhNQiYuDOLrJd95NFQPgRmAq+JFKgFrIX
+         R7iqRL2PiDuZ2qmKBNfo+2YC6qHRPDZMLP8QBn1g9ENbwqS/j6/DLlz2SFiyJEPFF7kj
+         N1/Q5EciLtgaP9RvPIyIr+ZLc4CR5VaMBavsGqglPGln6+u9qyLE7ohzSf9bXtWdzHM0
+         iUP2oI/ycLvmhj7Scz2AsfDGsUKlWMqy4LQnhNFBlAhPXNXbz3MxkgdisG9HVYQ5EtdM
+         odIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793915808; x=1794520608;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CPyUJuu2yeOSTelLItaNsxminWyw+/YBw1HOW8wGPck=;
+        b=UNAEWvEnaVEWZf+QdTk+qO12XAXUAl8CA4BQzYuntBhjNY2OscxN2RrVdBm4FOhCgF
+         QOyhQ4So5/qWLH/eiUjS4hI1JhQRw7dvCmgtfNKUDuPFrd493brX7gbnbwaFVmGLFp2S
+         naH9raURpcz7idWSXzg5bcQmTa7J4cVMwv6AEdbVlo5++hoZq/NNuwCRQop4Lh6GtDwF
+         rnf3hAY20aOQG7PcfH3nKYxcVF/KwZ0SeLy8qKHmAzoxcNbJAR1YcNkEntlJ39pP6Pp/
+         YYXDEst2lDu81Fk2Yhi5EwgFk4RVoKnuXpgIipjigpKO+f+3L6MzHZs7flm4vu/cP3kQ
+         4OCg==
+X-Forwarded-Encrypted: i=1; AKwUvBywmsI7S0rScdbYDw6clXx285LYjFaus4QhoYR6KLFNxKWk1Dsx91QLEHWI7HQm6tY6gzdF5C8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/hLjFlcOXPGIz/QzgYxgqLw/LPlcEejQWhlkCnS+Cvbz+5os8s
+	+Fi0/ys6769u6/rK7Udt0VfR02mJD6jO9mhppWVcEOEhAltQNkWbpVIcvtRL/g==
+X-Gm-Gg: AYBFou0bJ8u2aJnb3ggtmph6keelfByhoBcj76u+5SBnqm1nNHIXwdZg6nbgkc/ZJaS
+	ODnc/TuMeJNwuga9WsBF7rVXJMXJAVTOVbqeGeWnHzLM3goeIi76a3Ro8/HapTNRmjONjiOC2CJ
+	ptb/sWwucxGSmLrz1cQYaaHLNHANVKNf6QpfWHo7zQqsC2Q+6+/gJ8XTyOUY1/2swcWbjuJ1L+g
+	5+Y1MGGrHEsrmvttUchESkSNHk7r0P0GdYeaH1yzcNtUtpPAsgo8yjY5My+ucP21ShMC74O7MX8
+	HDqdxhU4G98kMPQB9b/h8VeOWSr9bdSvgicHoukJKbssoSKtevIxRVXyctGldZXIaD527LJ7uof
+	mDF9r2jpfbVC0nV4oRVVPdsr25XeMagk2oF4Pb6uJD+EkOTchbeaYli9Dog0Y9Zu+7oAqeGmt7k
+	DFPMdm22a/jPEIaRv8B0XMpH3DzFiJo/a1RJZjM1YB1G0Z8cQ3DK1ex6N7XBQxHnynqmYAanXpj
+	GdGpjJOKeHmvGmCHU4VzBn1hhb4zGibRCDIXjtJ3QW87VJso/glu3837qQIKZr5XWORs7/+XHQd
+	gNhRCKgxgoPwNRWQMBb35lFBslT3ofq4ONGMAZV9Y9d8C2f4etWhGf8jhsiHXIVeMSoKofUZndq
+	f
+X-Received: by 2002:a05:693c:40c3:b0:36d:a465:b38e with SMTP id 5a478bee46e88-36f72cc18cfmr774374eec.5.1793915808199;
+        Thu, 05 Nov 2026 13:56:48 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36f736a1da4sm1053048eec.7.2026.11.05.13.56.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 13:56:47 -0800 (PST)
+Message-ID: <99b56b59-a1f9-49cb-96b8-6bc844a878f3@gmail.com>
+Date: Thu, 5 Nov 2026 13:56:45 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,75 +93,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105201010.2297078-1-jenniferchan@meta.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261104211038.406938024@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-[+cc Lukas, author of ac91e6980563, Jason in case NVIDIA knows
-anything]
-
-On Thu, Nov 05, 2026 at 12:10:10PM -0800, Jennifer Chan wrote:
-> On a Supermicro HGX A100 system (X12DGO-6), each of the six LR10
-> NVSwitches (10de:1af1) sits alone behind a PLX PEX 8725 (10b5:8725)
-> downstream port.  "nvidia-smi -r" resets all GPUs: NVML unbinds the
-> switches from the nvidia-nvswitch driver, resets each one through sysfs
-> (reset_method "bus", a Secondary Bus Reset of its port) and binds them
-> again.  The PCI core waits 100 ms after the link comes back, the switch
-> answers config reads and the reset completes.  When nvidia-nvswitch then
-> probes the switches, one fails in pci_enable_device() with
+On 11/4/26 13:03, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.3.2 release.
+> There are 547 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
->   Unable to change power state from D3cold to D0, device inaccessible
+> Responses should be made by Fri, 06 Nov 2026 21:07:23 +0000.
+> Anything received after that time might be too late.
 > 
-> four others fail to initialize with -EIO, and the NVSwitch fabric does
-> not come back.
-
-Do you know where the -EIO is from?
-
-> The same systems recover every time on a kernel that sleeps 1 s after
-> each Secondary Bus Reset, as pci_reset_secondary_bus() did before commit
-> ac91e6980563 ("PCI: Unify delay handling for reset and resume").  Adding
-> a 1 s sleep before the link wait on the PEX 8725 ports of the failing
-> kernel fixes it too.  Config reads already succeed at that point, so
-> pci_dev_wait() does not cover it, and the switch's state there is not
-> known.
-
-Ugh, a second is a long time to wait.  Does the kernel you're testing
-include e8df1d194c39 ("PCI: Don't treat ~0 as ready in pci_dev_wait()
-with RRS SV"), by chance?  It only appeared in v7.3, so it's pretty
-new.
-
-> Give LR10 a 1 s d3cold_delay, so that pci_bridge_wait_for_secondary_bus()
-> waits 1 s after the downstream link comes up before the switch is used.
-> This adds 1 s to each LR10 reset (about 6 s to an "nvidia-smi -r" on
-> these systems) and to D3cold resume of its port.  Resets issued further
-> up the hierarchy keep the default delay.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.2-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
+> and the diffstat can be found below.
 > 
-> Fixes: ac91e6980563 ("PCI: Unify delay handling for reset and resume")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jennifer Chan <jenniferchan@meta.com>
-> ---
->  drivers/pci/quirks.c | 2 ++
->  1 file changed, 2 insertions(+)
+> thanks,
 > 
-> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-> index 7f1f47ea2ee4..4a84095e736f 100644
-> --- a/drivers/pci/quirks.c
-> +++ b/drivers/pci/quirks.c
-> @@ -6569,12 +6569,14 @@ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_TOSHIBA, 0x0220, of_pci_make_dev_node);
->   * after reset recovery or resume from D3cold:
->   *
->   * VideoPropulsion (aka Genroco) Torrent QN16e MPEG QAM Modulator
-> + * NVIDIA LR10 NVSwitch (HGX A100)
->   */
->  static void pci_fixup_d3cold_delay_1sec(struct pci_dev *pdev)
->  {
->  	pdev->d3cold_delay = 1000;
->  }
->  DECLARE_PCI_FIXUP_FINAL(0x5555, 0x0004, pci_fixup_d3cold_delay_1sec);
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_NVIDIA, 0x1af1, pci_fixup_d3cold_delay_1sec);
->  
->  #ifdef CONFIG_PCIEAER
->  static void pci_mask_replay_timer_timeout(struct pci_dev *pdev)
-> -- 
-> 2.53.0-Meta
-> 
+> greg k-h
+
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
+
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
