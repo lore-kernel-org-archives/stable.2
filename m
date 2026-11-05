@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793890939;
-	b=GNo0tPmsuBU2KMR327iBK+2Iq8peSqUeBc74obipD0oQ0lZCCtqc2zCU2tPV63f8u27C
-	 lMxCufHXL8FiZW8xRD5zZeDot6/rfMorcY8ovXLyAW+zg+u9Obb9H8gEUTRfifok8sNgY
-	 Cu91tWUzhBQWMMNCd2QpFsH4JRmCVDQFUweeXtGcOex1d1nNJKgUp1pQIXYXUWNdQksoB
-	 0TZP3iqgiy5/pefOEY7VdpaNozAP5A1nSy7oKK6jdXMzhJgVkoJPFVCEDISRzrzAgbL/j
-	 Jm0LQ3fvxqQQvAzPbBfPKMo2sTKTVXAVnBMeEqO3friTAqhALd7VhNBYap36/bwgnkQ==
+	t=1793890955;
+	b=ZfFCbZc3vJMpQDIt0AqIgq1X3TkFY2aHi3yWI/bZK38lmoz3ogbHxJB76pOwB5NMpi/Y
+	 wQvPqGr8rVlUU+dLfA74IUGUkbQ6jbIjDY8k4xm8+EhqoBUHuvPQXer8sd9SplcT+uFC6
+	 SpxQlZawDGbFp9vYPM5WDnvRpL2g8HSrGAtcDB8NKUjIGiBJva8xoHMPSb6U6Glk+u3qI
+	 ZgdlcePPJQOVhCHFFxDv1i3AjsI7XM+Ak0hbXUOM22XY3t/njx4XUYq9deqBpNYPHu2mm
+	 EvkII7FSYOVMSmcyK+RfEvHNOBtPHljmfN1nhRoKd+j6fwjaIVNvthijRGiDyBYBEEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793890939;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Th2EePlfDg5QnQaDDFMLBDaeEnUxKbLxz61zlAt+uE0=;
-	b=mjkjyooXQKJBJP9/l3FwwUtu9YtZREMXPFiX+LQl5YzKVig0/Jd8Xu/49hk3LveNgcgh
-	 8A8KqZTxxmr++84Y4UyKwEZx+Dr07LmNaMMYC/BxEyVetRDr67m2TNZiDvSdFr/gjYsRB
-	 ZcSyfh5z7Un49J4Y5JU2yjAzdAzejWTNLC+gDrt980iUkatX67clUjIDsFkf2zHIpGt4j
-	 pPCF4/wS/mNyW4RySynqqk+i8Vj9g7LMhwd2mIrDzUu26h0tkMuFzRpB45/mHsxlF779b
-	 JfW0k+0pu0fD8mOFSnl9dFRLMjALeJ1dblEypFKFViVu5v+pcrcxbeKLDIkydWAxt4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793890955;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=U1PjpgVVhezd5uaIzjG23jxybF1YkeYl0e7nh7D1cfY=;
+	b=pB7YqiG35gVKXQ+PGAkC+UfPOBa3Pk+FjJ5gMSccQTZGu53RkV6xza0wCIhsDdm1XMiL
+	 qu/r3pTUpf0v7TWjw5Sz92weWoMJNmXRZElUr0FXkDV8vKSgj4FYfnvhEfpVq9PEx69Ih
+	 bq65cINMhwB8f+KyLAY+agErObhdJN4HzGCjQJp7HSfUVfi2p5LaciNzTyvlpgiZboKaI
+	 l1oMN//g7jQllRTUxdMu3g3G9XiEJGMKkNXPFPbQraz4qC78CYfAh3w0OxGdos8FuPamb
+	 hCyvZzGHglqlMMVsW9Agzw9wXcJZ02jvXlDcF8JWo7WYUDd0rUdCy7Qa9OuhLT6Hhdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="meR5T6/I";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fSeZhGVQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C2390606A33C;
-	Thu,  5 Nov 2026 15:02:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06737606A33D
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:02:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=meR5T6/I
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id AD8AA1F000C1;
-	Thu,  5 Nov 2026 15:02:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fSeZhGVQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B2511F000C1;
+	Thu,  5 Nov 2026 15:02:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793890938;
-	bh=Th2EePlfDg5QnQaDDFMLBDaeEnUxKbLxz61zlAt+uE0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=meR5T6/I46yjJhz4yyyaHZYAQbaaa+3LeJAZX3g6igvawMtWZvFh1TSt+Dgar55Ew
-	 RH6DUGlGdCeYliFyiQcVFeKqZ+pyVB8PZPefKd1SyRrjACqwpwdnqe9uP+t12DDiIQ
-	 idmBs69Qy4W72zpR1NJN80sK5asD4at1nQgmEE32ioowlW372OvX9GJ+sS5CNU/+JH
-	 REajFGxH4nWRlvyp00anCJ9/4CkF6aXztOaLLTetHobngeHLffkS7a2M4g7chRpWzJ
-	 D8zVJ4b0xCDrArTfUY34wVXxtQVI0w0kaVFU0UA498EmQRakXSahJZUtKZtBHUk+2a
-	 JWGCrjOeKuw5A==
-Date: Thu, 5 Nov 2026 16:02:14 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Kent Gibson <warthog618@gmail.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	"Paul E. McKenney" <paulmck@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] gpio: cdev: fix waitqueue deadlock on chip deregistration
-Message-ID: <k73l7tb5qwvzk76uv5e56kz4yybuqgpiq7u5qt46z6xc3bgle7@lkqecrcpaerv>
-References: <20261105-gpio-cdev-srcu-deadlock-v1-1-6047117030ec@oss.qualcomm.com>
- <20261105145711.GA92894@rigel>
+	s=k20260515; t=1793890954;
+	bh=U1PjpgVVhezd5uaIzjG23jxybF1YkeYl0e7nh7D1cfY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fSeZhGVQMWHtKz7sOrhUK4USF3g8tQF5dZ/9nJRbaO92hB+WHrjbvCiq6Jns+ycgd
+	 Wtj1LvMiJCj4mOF0Y8caMRE1UTu2jJtLpf7I+Vkdv2KUJGlXMhVDEggIHVeURe41UN
+	 2CP8OJBk5Yi0C6IcDj6ROp1ce6QDQvrjYZq4AVZz69znNRRajRrlRsRUa040GbFdiz
+	 rFlNr/DbUveIJv3bjyQ39KBfa18/rxL7LMa7243tyOykxy06QzQ2rrg3HHXfdJTQOL
+	 6Wj59b2xi+lVx46EtNNmdNo+EvFfnAma5U2WaPLkWJULcTsEP4PeryfudLljxgw8pS
+	 VsvjwuWpxqimA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] xfs: bound inode fork length against the fork size during log recovery
+Date: Thu,  5 Nov 2026 10:02:33 -0500
+Message-ID: <20261105150122.1662584-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110424-cure-criteria-18e5@gregkh>
+References: <2026110424-cure-criteria-18e5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,44 +60,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105145711.GA92894@rigel>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 10:57:11PM +0800, Kent Gibson wrote:
-> On Thu, Nov 05, 2026 at 03:47:59PM +0100, Bartosz Golaszewski wrote:
-> > The three calls to wait_event_interruptible_locked() sleep while holding
-> > gdev->srcu. In gpiochip_remove(), synchronize_srcu() runs before
-> > gcdev_unregister(). The latter fires the waitqueue wakeup events from
-> > the notifier callbacks, so a reader blocked on an empty FIFO never leaves
-> > its SRCU section and the removal will block forever in the former.
-> > 
-> > Since rcu_access_pointer() is a plain READ_ONCE(), we don't really need
-> > to take the SRCU read lock. We don't access the chip structure after
-> > checking it. Remove the lock and instead make the waitqueue aware of the
-> > possible chip deregistration. Keep the initial gdev->chip checks as
-> > removing them may change the error codes visible to user-space, for
-> > instance in cases of a non-blocking read on an empty fifo.
-> > 
-> > Ideally, we'd factor out the common code into a dedicated helper but
-> > there doesn't seem to exist a clean way of passing a kfifo as argument
-> > so let's open-code the three call sites.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Fixes: d83cee3d2bb1 ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU")
-> > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > ---
-> > I've had it on my TODO list for a while. I vaguely remember someone
-> > reporting it to me but can't find the reference anymore. Please feel
-> > free to add a Reported-by: and Closes:.
-> > 
-> 
-> Isn't this the same as patch 4/7 in Adrian's series[1]?
->
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 
-Dang it, yes indeed. Which may explain why I had it written down for
-some reason and thought I was supposed to fix it.
+[ Upstream commit 9232301894a06e664d8de2da97175cf98419bd16 ]
 
-Nevermind this patch.
+xlog_recover_inode_commit_pass2() copies an inode log item's data/attr
+fork region into the inode buffer using the on-log region length without
+bounding it against the fork capacity, e.g.:
 
-Bart
+	len = item->ri_buf[2].iov_len;
+	memcpy(XFS_DFORK_DPTR(dip), src, len);
+
+The only guard is an ASSERT, which is a no-op on production kernels
+(CONFIG_XFS_DEBUG off), and xfs_dinode_verify() runs only after the copy.
+A crafted image with a dirty log can therefore drive a heap out-of-bounds
+write at mount time. The XFS_ILOG_DBROOT sibling already passes
+XFS_DFORK_DSIZE as a bound; the DDATA/DEXT and ADATA/AEXT memcpy paths
+did not.
+
+Bound each logged fork region against the destination fork size before
+copying it, and reject the log item with -EFSCORRUPTED when it does not
+fit. Because the recovered inode is only verified after the fork data has
+been copied in, the checks are done up front, before any memcpy into the
+on-disk inode.
+
+Fixes: 658fa68b6f34 ("xfs: refactor log recovery inode item dispatch for pass2 commit functions")
+Cc: stable@vger.kernel.org # v5.8
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+[ sashal: Changed two iov_len accesses to i_len to match struct xfs_log_iovec recovery buffers. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/xfs/xfs_inode_item_recover.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
+
+diff --git a/fs/xfs/xfs_inode_item_recover.c b/fs/xfs/xfs_inode_item_recover.c
+index 239dd2e3384ec..2e82ee4b404b5 100644
+--- a/fs/xfs/xfs_inode_item_recover.c
++++ b/fs/xfs/xfs_inode_item_recover.c
+@@ -403,6 +403,25 @@ xlog_recover_inode_commit_pass2(
+ 	ASSERT(!(fields & XFS_ILOG_DFORK) ||
+ 	       (len == in_f->ilf_dsize));
+ 
++	/*
++	 * The recovered inode is verified only after the fork data has been
++	 * copied into it, so bound each logged fork region against the size of
++	 * its fork now, before the memcpy below can overrun the on-disk inode.
++	 * The DBROOT/ABROOT cases already bound their copies against the fork
++	 * size.
++	 */
++	if ((fields & (XFS_ILOG_DDATA | XFS_ILOG_DEXT)) &&
++	    item->ri_buf[2].i_len > XFS_DFORK_DSIZE(dip, mp)) {
++		error = -EFSCORRUPTED;
++		goto out_release;
++	}
++	if ((fields & (XFS_ILOG_ADATA | XFS_ILOG_AEXT)) &&
++	    item->ri_buf[(fields & XFS_ILOG_DFORK) ? 3 : 2].i_len >
++	    XFS_DFORK_ASIZE(dip, mp)) {
++		error = -EFSCORRUPTED;
++		goto out_release;
++	}
++
+ 	switch (fields & XFS_ILOG_DFORK) {
+ 	case XFS_ILOG_DDATA:
+ 	case XFS_ILOG_DEXT:
+@@ -442,7 +461,6 @@ xlog_recover_inode_commit_pass2(
+ 		case XFS_ILOG_ADATA:
+ 		case XFS_ILOG_AEXT:
+ 			dest = XFS_DFORK_APTR(dip);
+-			ASSERT(len <= XFS_DFORK_ASIZE(dip, mp));
+ 			memcpy(dest, src, len);
+ 			break;
+ 
+-- 
+2.53.0
+
