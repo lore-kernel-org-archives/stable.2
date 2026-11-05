@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793837780;
-	b=hwZg5hH1UAaK98pyLvLrAGEmdmC7QOCWWqnT2WzvgWMJkASjAFMKPQc8Zfl35ULV2hoO
-	 o4ygbfvDz4IoWgtqy49PgisG16crk84UcJk/hwoZyyUDc0qBujVeIarchl6nfe60x7/vw
-	 vzyS7hzrZT5vn7H8E1wLQpP4W38Wl/6azViZfU4SWUrSZrAe4YeaRBIzrQOJGQVvwXx4C
-	 ntBmQAeCClyjcA59Qg8WCIUz0F38uRw6a3+k8T2i5gGXlJOvdqCUKM1I8jJxCqBlEHA9p
-	 QSsh3K+xf/Jfy+9geKVJCHmwoa8aHQlUUvDo9v8PX+sDe+3F2TW75KrLQkaF5YDGMNA==
+	t=1793837789;
+	b=rhdaUDSmJssKgFiZWsizml60QqMBk8QNVa4fRvI/sdjV4qjTOIeTwI9Ek1LdgISmHh0s
+	 0SAqq3TKP1JcAQSubHfneuG1sfjPOqijafhYyj5j6EOGIwoLVZWsaR9U7gwbslQd61KRY
+	 NkvkVwwSFI/QY1+Rof6IyjxRKFX/gGLw/4gK5AhWrYHy3cPE0PiM0Z0hFBQQQPeDZrWf2
+	 R858fz3jgzm05b+Uqs2MUJqJgs9JLrblYkZWdfKNcisfGZsJ7cNSiYt+DzzVgxiUhDmSz
+	 GhbWEEIFq/UYNQNNNGXjE9nNb7U97MO+jb7CTlcS8DreLt1En631BEqMT8FBgP/jYtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793837780;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793837789;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UEkf9QcugVz0tKL69cOlKxGK96kCaB6eNfttBbg2Qe4=;
-	b=qf8gvvbs9fkHtkcU10IH2DrBSo2kSsS8fUD1KZMMLgf9NqTBCPV50MqbCSDPPbXBxo9s
-	 ddz7pytNjNDF0q6vUuhV8JH1HE8+mNFiYtwoREPDrrw/w0UXFci/jSK2/v9gfw54OgICm
-	 ttOgkysGzzy3eBoVGt+ffO1ileymo8hRhAa4zvvGna8zqUyHZrlBrb1lxtANfb0vdGYa8
-	 dRMTkVGNzWMWByL9R0gi0EIVODOLmtcz9fMzMuLJ5/KYiOXtfHFo+5zZY1QyxpK8Yfy1f
-	 5ukP68aAc5aYRR/4wKK6G8Fot+f7yfmpGi0YeaoqoMVso7tXQPgNL+JYZtufY26kctA==
+	bh=NTIdioslX0EozhiQe8usqpJ7oOMuux2Ok0kV7z1tdeQ=;
+	b=5QOIowhsWqA7Mv4Z7Reyzg2Cu4RIxtn943GmfK6oEudH/b0vocC/FIMzA2rC52PB5MBK
+	 4kuOOEp2W2blyCtC7AtnaLKWuNsC2lQe3t2Sp+lNvpRci7k8qc85n/gxluqGpQKpCQOsT
+	 33hD+9I68Bp7fJS+91DkNJuD3N7qzltY9vxUnMD0MTpxtkXh31rjYto8JwyvctckaJUDp
+	 6Rc5414N7hZrWinGRnaLJO2fbeaCMGAKG0AL+kHdQpALaNBcg8ZAss67wyCJ5KHgPwDyj
+	 OrwE2c1McqAdFqOH1tlpDb4BVAysKs7pjqWsP8f4A93RSLWlK4g0clm7avjiiVeHAXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ve7YtVku;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TPaKDSXc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F31606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:16:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82315606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:16:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ve7YtVku
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BBB11F000C1;
-	Thu,  5 Nov 2026 00:16:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TPaKDSXc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1D441F000C1;
+	Thu,  5 Nov 2026 00:16:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793837779;
-	bh=UEkf9QcugVz0tKL69cOlKxGK96kCaB6eNfttBbg2Qe4=;
+	s=k20260515; t=1793837789;
+	bh=NTIdioslX0EozhiQe8usqpJ7oOMuux2Ok0kV7z1tdeQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ve7YtVkuvAlOFWIMHpkvBRUB7f16hWt133ipAOVYGc+miWHVRe2v6KTHn1V4pc5BB
-	 I/dXwyT901tg4myBRMB0aTKeXxkJ3oDlm7wcy2cA4ejGCV32bY2wpis+eTUkrjILmR
-	 8aHIHtliMSy9Kltw+vQE+JFG4riKv9wW3IgfDKIFYykYp46U+/nYsrvWULuNpLixKT
-	 5dpFnmTeH9X1zpyHm+Z+a3OFspiOu81XD+BoQRpI26daY1CNJT78BSkhZJjpERiSFk
-	 TM4M1Ikn9Omm/3fi57tF9gROC9vVuMsj0LRIbZvtcMosGLVw2Zc06mbrQtyAoUBQ2E
-	 YCxPdazguezLg==
+	b=TPaKDSXcMqTqNHfZvbhXqFTNzkzTnSEcVOaVOCXvVfxFptNuyAVsbDzdvaPQ2ovK0
+	 b232ZyEOwEsJzqbW4mFvxJeseNoOgDvViorOX7j4TF11xqjIZR2cwxYAz/8tzOEoUf
+	 sVKs/AalfVj0F6oMWWj4UhcKaHTE6ya09yR4kfFtOJ0tqj5zMcTVmiKuQZf1DTsTfL
+	 UlMCJzgYO+74WaFj4ZfTyo4nbuLcsWRVVoGuVdhGnP+XhqZ6spNdCZrHL+qVwNh9Cs
+	 9WC4zZEdlM49NxxKziEHfhFMOHsomZcu+82SCdIbqqRffdWFj0KnvNnnsyrgLKFSAk
+	 zgbuI7VvUtSDA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Weiming Shi <bestswngs@gmail.com>,
-	co+d17c2bc750a9cbbb@bugs.sh,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Balakrishnan Sambath <balakrishnan.s@microchip.com>,
+	Eugen Hristev <ehristev@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] virtio_net: atomically disable rx mode work
-Date: Wed,  4 Nov 2026 19:16:18 -0500
-Message-ID: <20261105001559.950311-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] media: microchip-isc: take a reference on the parsed endpoints
+Date: Wed,  4 Nov 2026 19:16:27 -0500
+Message-ID: <20261105001600.927668-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110440-steam-gleeful-8fc6@gregkh>
-References: <2026110440-steam-gleeful-8fc6@gregkh>
+In-Reply-To: <2026110457-mummy-online-37cb@gregkh>
+References: <2026110457-mummy-online-37cb@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,155 +62,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Weiming Shi <bestswngs@gmail.com>
+From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 
-[ Upstream commit 1234707482053f1d1ac7c5756207d2c29057974c ]
+[ Upstream commit f2eb2fd388bf3f1959556a326e797cacca341c86 ]
 
-virtio-net uses a boolean to gate rx_mode_work during device teardown.
-The flag is changed under RTNL, but ndo_set_rx_mode checks it under the
-address-list lock. A callback can therefore pass the check and enqueue work
-after teardown has flushed it. The work is also enabled before late
-probe operations that can fail, allowing probe unwind to free the netdev
-with work still queued.
+for_each_endpoint_of_node() drops the reference on the current node as
+it advances. xisc_parse_dt() and isc_parse_dt() store the node in
+subdev_entity->epn and release it later with of_node_put(), but never
+took their own reference, so the stored pointer refers to an
+already-released node. This underflows the refcount and can
+use-after-free, reachable through the camera device tree overlay.
 
-KASAN reports the worker using a virtqueue that probe unwind already freed:
+Take a reference with of_node_get() when storing the node, and drop it
+in microchip_isc_subdev_cleanup() so the entities the bind loop never
+reaches on an early exit do not leak it.
 
-  BUG: KASAN: slab-use-after-free in virtqueue_add_split
-  Workqueue: events virtnet_rx_mode_work
-  Call Trace:
-   virtqueue_add_split (drivers/virtio/virtio_ring.c:706)
-   virtqueue_add_sgs (drivers/virtio/virtio_ring.c:2839)
-   virtnet_send_command_reply (drivers/net/virtio_net.c:3565)
-   virtnet_rx_mode_work (drivers/net/virtio_net.c:3833)
-   process_one_work (kernel/workqueue.c:3322)
-   worker_thread (kernel/workqueue.c:3405)
-  Freed by task 119:
-   kfree (mm/slub.c:6625)
-   vp_del_vq.isra.0 (drivers/virtio/virtio_pci_common.c:259)
-   vp_del_vqs (drivers/virtio/virtio_pci_common.c:285)
-   virtnet_probe (drivers/net/virtio_net.c:7129)
-
-Use the workqueue disable mechanism to atomically reject new queue attempts
-and drain running work. Keep work disabled until probe succeeds or restore
-has reattached the netdev, then enable it and replay receive-mode state for
-a running interface. Disable it before resource teardown in freeze and
-remove.
-
-Fixes: b9f7425239a0 ("virtio-net: convert rx mode setting to use workqueue")
+Fixes: c9aa973884a1 ("media: atmel: atmel-isc: add microchip-xisc driver")
+Fixes: d6701f13bd07 ("media: atmel: Use v4l2_async_notifier_add_fwnode_remote_subdev")
 Cc: stable@vger.kernel.org
-Reported-by: <co+d17c2bc750a9cbbb@bugs.sh>
-Assisted-by: LLM
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-Link: https://patch.msgid.link/20261017114237.2786302-2-bestswngs@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ sashal: Adjusted context to preserve existing refill handling and restore error paths. ]
+Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: adapted error cleanup to existing explicit endpoint loops using break exits instead of goto err_cleanup ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/virtio_net.c | 25 +++++++++----------------
- 1 file changed, 9 insertions(+), 16 deletions(-)
+ drivers/media/platform/atmel/atmel-isc-base.c    | 6 ++++++
+ drivers/media/platform/atmel/atmel-sama5d2-isc.c | 5 ++++-
+ drivers/media/platform/atmel/atmel-sama7g5-isc.c | 5 ++++-
+ 3 files changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-index b7ab57f4e277a..34390befdf8a8 100644
---- a/drivers/net/virtio_net.c
-+++ b/drivers/net/virtio_net.c
-@@ -458,9 +458,6 @@ struct virtnet_info {
- 	/* Work struct for setting rx mode */
- 	struct work_struct rx_mode_work;
- 
--	/* OK to queue work setting RX mode? */
--	bool rx_mode_work_enabled;
--
- 	/* Does the affinity hint is set for virtqueues? */
- 	bool affinity_hint_set;
- 
-@@ -740,16 +737,13 @@ static void disable_delayed_refill(struct virtnet_info *vi)
- 
- static void enable_rx_mode_work(struct virtnet_info *vi)
- {
--	rtnl_lock();
--	vi->rx_mode_work_enabled = true;
--	rtnl_unlock();
-+	if (enable_work(&vi->rx_mode_work) && netif_running(vi->dev))
-+		schedule_work(&vi->rx_mode_work);
- }
- 
- static void disable_rx_mode_work(struct virtnet_info *vi)
- {
--	rtnl_lock();
--	vi->rx_mode_work_enabled = false;
--	rtnl_unlock();
-+	disable_work_sync(&vi->rx_mode_work);
- }
- 
- static void virtqueue_napi_schedule(struct napi_struct *napi,
-@@ -3996,8 +3990,7 @@ static void virtnet_set_rx_mode(struct net_device *dev)
- {
- 	struct virtnet_info *vi = netdev_priv(dev);
- 
--	if (vi->rx_mode_work_enabled)
--		schedule_work(&vi->rx_mode_work);
-+	schedule_work(&vi->rx_mode_work);
- }
- 
- static int virtnet_vlan_rx_add_vid(struct net_device *dev,
-@@ -5813,7 +5806,6 @@ static void virtnet_freeze_down(struct virtio_device *vdev)
- 	/* Make sure no work handler is accessing the device */
- 	flush_work(&vi->config_work);
- 	disable_rx_mode_work(vi);
--	flush_work(&vi->rx_mode_work);
- 
- 	if (netif_running(vi->dev)) {
- 		rtnl_lock();
-@@ -5840,7 +5832,6 @@ static int virtnet_restore_up(struct virtio_device *vdev)
- 	virtio_device_ready(vdev);
- 
- 	enable_delayed_refill(vi);
--	enable_rx_mode_work(vi);
- 
- 	if (netif_running(vi->dev)) {
- 		rtnl_lock();
-@@ -5853,6 +5844,8 @@ static int virtnet_restore_up(struct virtio_device *vdev)
- 	netif_tx_lock_bh(vi->dev);
- 	netif_device_attach(vi->dev);
- 	netif_tx_unlock_bh(vi->dev);
-+
-+	enable_rx_mode_work(vi);
- 	return err;
- }
- 
-@@ -6952,6 +6945,7 @@ static int virtnet_probe(struct virtio_device *vdev)
- 
- 	INIT_WORK(&vi->config_work, virtnet_config_changed_work);
- 	INIT_WORK(&vi->rx_mode_work, virtnet_rx_mode_work);
-+	disable_work(&vi->rx_mode_work);
- 	spin_lock_init(&vi->refill_lock);
- 
- 	if (virtio_has_feature(vdev, VIRTIO_NET_F_MRG_RXBUF)) {
-@@ -7103,8 +7097,6 @@ static int virtnet_probe(struct virtio_device *vdev)
- 	if (vi->has_rss || vi->has_rss_hash_report)
- 		virtnet_init_default_rss(vi);
- 
--	enable_rx_mode_work(vi);
--
- 	/* serialize netdev register + virtio_device_ready() with ndo_open() */
- 	rtnl_lock();
- 
-@@ -7204,6 +7196,8 @@ static int virtnet_probe(struct virtio_device *vdev)
- 		goto free_unregister_netdev;
+diff --git a/drivers/media/platform/atmel/atmel-isc-base.c b/drivers/media/platform/atmel/atmel-isc-base.c
+index f768be3c40595..eeaf91d80acd7 100644
+--- a/drivers/media/platform/atmel/atmel-isc-base.c
++++ b/drivers/media/platform/atmel/atmel-isc-base.c
+@@ -2219,6 +2219,12 @@ void isc_subdev_cleanup(struct isc_device *isc)
+ 	list_for_each_entry(subdev_entity, &isc->subdev_entities, list) {
+ 		v4l2_async_notifier_unregister(&subdev_entity->notifier);
+ 		v4l2_async_notifier_cleanup(&subdev_entity->notifier);
++		/*
++		 * Release the endpoint reference taken while parsing. It is
++		 * NULL for entities the bind loop already consumed, so this
++		 * only drops the ones left over on an early exit.
++		 */
++		of_node_put(subdev_entity->epn);
  	}
  
-+	enable_rx_mode_work(vi);
+ 	INIT_LIST_HEAD(&isc->subdev_entities);
+diff --git a/drivers/media/platform/atmel/atmel-sama5d2-isc.c b/drivers/media/platform/atmel/atmel-sama5d2-isc.c
+index 7421bc51709c4..cf96d40828ab5 100644
+--- a/drivers/media/platform/atmel/atmel-sama5d2-isc.c
++++ b/drivers/media/platform/atmel/atmel-sama5d2-isc.c
+@@ -354,7 +354,7 @@ static int isc_parse_dt(struct device *dev, struct isc_device *isc)
+ 			ret = -ENOMEM;
+ 			break;
+ 		}
+-		subdev_entity->epn = epn;
++		subdev_entity->epn = of_node_get(epn);
+ 
+ 		flags = v4l2_epn.bus.parallel.flags;
+ 
+@@ -375,6 +375,9 @@ static int isc_parse_dt(struct device *dev, struct isc_device *isc)
+ 	}
+ 	of_node_put(epn);
+ 
++	list_for_each_entry(subdev_entity, &isc->subdev_entities, list)
++		of_node_put(subdev_entity->epn);
 +
- 	pr_debug("virtnet: registered device %s with %d RX and TX vq's\n",
- 		 dev->name, max_queue_pairs);
+ 	return ret;
+ }
  
-@@ -7255,7 +7249,6 @@ static void virtnet_remove(struct virtio_device *vdev)
- 	/* Make sure no work handler is accessing the device. */
- 	flush_work(&vi->config_work);
- 	disable_rx_mode_work(vi);
--	flush_work(&vi->rx_mode_work);
+diff --git a/drivers/media/platform/atmel/atmel-sama7g5-isc.c b/drivers/media/platform/atmel/atmel-sama7g5-isc.c
+index a4defc30cf412..3183ab2345c8b 100644
+--- a/drivers/media/platform/atmel/atmel-sama7g5-isc.c
++++ b/drivers/media/platform/atmel/atmel-sama7g5-isc.c
+@@ -344,7 +344,7 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
+ 			ret = -ENOMEM;
+ 			break;
+ 		}
+-		subdev_entity->epn = epn;
++		subdev_entity->epn = of_node_get(epn);
  
- 	virtnet_free_irq_moder(vi);
+ 		flags = v4l2_epn.bus.parallel.flags;
+ 
+@@ -368,6 +368,9 @@ static int xisc_parse_dt(struct device *dev, struct isc_device *isc)
+ 	}
+ 	of_node_put(epn);
+ 
++	list_for_each_entry(subdev_entity, &isc->subdev_entities, list)
++		of_node_put(subdev_entity->epn);
++
+ 	return ret;
+ }
  
 -- 
 2.53.0
