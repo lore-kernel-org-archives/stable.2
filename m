@@ -1,117 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793891394;
-	b=i2DSq5UWB1o4GXSt7mdXzIiM5ExtT4pG3i2Yzpg6xjtwqJTxE3G8Cc6EbPgInossSoV2
-	 T9ZQISMSad+GaYVS1uK1Saqk1iz/Hygq96JUwdqEL65t+8ghkR8OvjV1hNf6C6xach/ES
-	 yOAeWkWXPkqQUpyUxZqjKE7DcebgxTuiVukAdlq1npke0IFjlMl6ljsirt2X8kFsiWj8x
-	 uK94zjv7RY1V/hvdKzSbyHGebIHuHba8EgQWkaFHzht8yeuIUOK0SqPOLGyrEGyibnYLB
-	 0pIFSk7PNRv8ptqmxEGshSlfB4YpMmFqJdpIBgPXXu+w5m3qMo5o+PFT5VEjcomJlcA==
+	t=1793891512;
+	b=OQGPIb2xNGoPOiLrr14HmlaVUzjz/a6gOQZdj6bd50nMP17z6PL56ZB5mF4qNgJb3kET
+	 D/yX34++VyuFiqOiocSGrihjDb0a3N5hMjT63aZV5f4kem5nNwMm/GnAp+fSZTBq7utoq
+	 1ngK1421KiTd3SY5WBLaAUKjhgP2S11SWhW5w4aQ3eBSQJ91p2p3O85f0437phB7A/P0e
+	 QjEKvbToTsFQuVWRoucJMO3HjWzrFerMWxNNAxNLesabzhCJYaeY043hqXE0E3zNF3SK/
+	 2k0/O+OE9nTP0Nz5vgrBS2yk+3FdUkbePN0WAxxclwN4H0+bekUV09Uj/IIGFA0jUfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793891394;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4ggaaPWZDNxL0DAiqx5vNcK9rDHloEyp1DjKsZE36cA=;
-	b=XPvsPUceT6eJunmN4trzaaxy8bXP0ZQw75GWvVfcU0KC1bXEoIPFFOfiOFMFtzqOmTdz
-	 qbcrGYCtP6HcuSyZp3vkvieywbCUfeiLWVM5yh2etbhkQRRDFgdQSX/GVD3WrC4fAjABk
-	 +HuRLjhMPDV3VB0a7M7DwwGDh43CUUBIXM/O0rFTrTm+tf5JWnPwfZK+IV+IK19CmkNgr
-	 38J0ABRtR46lRHBdyr4Lv6pKpUm4wjCRVmqWjoOzHEYBnizj/SNSFL7M/IGxvxcbIX9Fv
-	 +DJCYP3RmLyaSjfV+sC0RNqMs4VfTNvSOfH33JTsQ/59HI7ktaRzlT7L/FcwyDZj8ZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793891512;
+	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:
+	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-FB-Internal:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version;
+	bh=6bxWa9BhJ936wj2QTmk50qV7AcXRwA1UfxmnMBLdpAM=;
+	b=ACPL5awwjutGlDwRrUZDuQAxMXQR432RKn8SeV00SQN0hblToz+h3JZ9PzsktcuNeveG
+	 Cz+MhjpgLhm1m3DyXzF9/LH40xaOce/hTm0cL+zTt7ajcozp2l/S0/6ek0NO5qXSvzgt1
+	 o2Yw0E66yPtvwcd6TRAslgoNq3eUTdKvcb1ctiMt1p4p5crNwyF7moNvQTOJlfciB75yE
+	 0djRBSe1KPIRTgftiPL3SmHCcsMigcO9xsj6Bi6GIu+dTK7+RjslvBjIq6kogxM5Yt1ao
+	 0JANoFkpigF5v6+My6zE2abohek6ppLxixShqqEXVp/IOQtCYGRZ4MQWITS+s+KunKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fs90zJzZ;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=tL9ebwdV;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=fail header.from=kernel.org;
+	spf=pass smtp.mailfrom=meta.com;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB74606D82A
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:09:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DB74606D82A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fs90zJzZ;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=tL9ebwdV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793891394;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4ggaaPWZDNxL0DAiqx5vNcK9rDHloEyp1DjKsZE36cA=;
-	b=fs90zJzZuafVuQzdsSHJ0cXhmfeAR6y1cdiNB4D1gOAgYeu8h9k/zrK8XPnBXvTPw4pV5X
-	aKJVHca414msK15EA86z+gRrdzTCs74z4BlLE6xllYloU69UwsR+SnLDDlNglbToA3Crbw
-	ax9GqSqfClJxQFa66vZ0GRJlX42XdkI=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-1-e4e4Boi6PXieyqYKU-efjA-1; Thu, 05 Nov 2026 10:09:50 -0500
-X-MC-Unique: e4e4Boi6PXieyqYKU-efjA-1
-X-Mimecast-MFC-AGG-ID: e4e4Boi6PXieyqYKU-efjA_1793891388
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e00f3929bso515147f8f.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 07:09:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793891388; x=1794496188; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4ggaaPWZDNxL0DAiqx5vNcK9rDHloEyp1DjKsZE36cA=;
-        b=tL9ebwdV7oOdIIQF3HeY+1L3U4EErRkIvwLe2jwArflIR8G0RHn7hYF4F9bqW4Xux4
-         drUmhi0vfnVoolkUSrsI5BrlYO6JTAmHbAYtogq0KQHm7t4qbJJEpjnGISoANyNlUiyy
-         NZutx5CwYwHYFk7fFnwZiGQDllJTtjI9CkSm8rNE+GlKnnIfn23NK+DYUlbmr9hu9Zwu
-         Edqs+I0gDYR0L2uNKVGACgsl4fj6pSh9i62YwEhjnGarJ1lkXRIPXE5xwxHTIEZA784h
-         Ni6gxrM8CX9Nen1bwzsn0UdEpkble0uiwT80x4MRMNSQn5cyfn2P2PUYiWSHEB7e9m4j
-         kIqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793891388; x=1794496188;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4ggaaPWZDNxL0DAiqx5vNcK9rDHloEyp1DjKsZE36cA=;
-        b=IEYN6a2iHPiTTqcdCcPeSor8JfNLCEuDnG2e/IiTxEdJxiAc2YsI1uSZ/Zbj/yD1mb
-         NdTDLo1RDYaDGhtGqlxkRN1AP5d/5/wu5dgx3UfunMIMklw35fGszlz2tcOHUv/sboao
-         XzQVpPjiBUO8V5q72W9XAjgwqpVp70wXeVbnZZAItv7OjQTJuO1TpwaYTAuPBZQP1LcW
-         H7LK5EepKv7Kk9Kw3NC/a9Oy419rFPm+qUNWw38AIoko+IelI5Yynz/8f6yeo/MPSrdV
-         DAnHjtIPGfxtTLNwxmompNmlqackenr+N4WgKG3TELDOzYrcx1r48G/a2Vcpcj8JrJgh
-         gpcw==
-X-Forwarded-Encrypted: i=1; AKwUvBz5faOkOrHbjlFcY4kITzLVgWFY/ojrBxRoHh2ZRncaBC2hi3NLP+qhyRKwzVGsjYEWBaVtcv0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Ta3ZYInPwg+Ynfdq0qPJTEelhRVOskW3a1VTUlIwQDpRlPHf0
-	pyHbzHGA6zJigFrDCGw3jI5uVNdaGKSxp5EHReExNp1FtWQN1bRLFLxM9qxRpZG4xYf3LMLIyev
-	C4SI2E5SAqVexawlP4jeZL0mmx+7rE1th3AiMMoyS13O3tXRqDCoUMmi5Zg==
-X-Gm-Gg: AYBFou3oeG/xFu0M23qHUgABDO3dPzxOlmXgLjcBkrWLJp6sCPC1zB4fkAu5zVFmHoS
-	jBsREfazQBxBcH1hkqU1V1cQvqp+7ipd3dOH5C36hiKIXWRCVUNeqC0joN20Q9kM9eogJOV2r6i
-	mnkrx5K2guWcXrEYC6KK5NAwaw+W0bDGdwkUjMmtFc71d81JnAHc1QN0w0AFlLVgRc03as5famU
-	qd4iealuZSyjgSKQbevlEry7ot5ARU4pQmYtgbY80x+xRDWQao1r8LwyX7ecRbAR1GhrEJ+npzv
-	5azgB2aicTuloFRt+Tf9ad8KbLavjY+i91OYtCnVKalc5Y2ZH/fyiFUkN1eF1S+Vty73YJqFcgp
-	9ExL8sYBEt5cpy2uC3gJ4CmkF2KwI60/ktGCC+F3EvIDCsVmW9fdyeVu5/QjtyZj7ID8D3cKWRP
-	KVYdfkfQ9Hi8hfSwmGhGs4LFUQKKizWfnCAbGnf89zRUU=
-X-Received: by 2002:a05:6000:4552:b0:48a:f4d4:e1f3 with SMTP id ffacd0b85a97d-49115c978eamr3205040f8f.13.1793891387706;
-        Thu, 05 Nov 2026 07:09:47 -0800 (PST)
-X-Received: by 2002:a05:6000:4552:b0:48a:f4d4:e1f3 with SMTP id ffacd0b85a97d-49115c978eamr3205007f8f.13.1793891387238;
-        Thu, 05 Nov 2026 07:09:47 -0800 (PST)
-Received: from mszeredi-thinkpadt14gen6.redhat.corp (188-142-154-142.pool.digikabel.hu. [188.142.154.142])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda207d8sm9961340f8f.52.2026.11.05.07.09.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:09:46 -0800 (PST)
-From: Miklos Szeredi <mszeredi@redhat.com>
-To: fuse-devel@lists.linux.dev
-Cc: German Maglione <gmaglione@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	virtualization@lists.linux.dev,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 1/3] virtiofs: fix use-after-free of fs->tag on device removal
-Date: Thu,  5 Nov 2026 16:09:40 +0100
-Message-ID: <20261105150943.86650-2-mszeredi@redhat.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105150943.86650-1-mszeredi@redhat.com>
-References: <20261105150943.86650-1-mszeredi@redhat.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B74606A339
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:11:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31B74606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+Received: from pps.filterd (m0528009.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5ESS6F4164510
+	for <stable@vger.kernel.org>; Thu, 5 Nov 2026 07:11:50 -0800
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hrqp21qy1-5
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 05 Nov 2026 07:11:50 -0800 (PST)
+Received: from twshared13996.31.frc3.facebook.com (2620:10d:c085:208::f) by
+ mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Thu, 5 Nov 2026 15:11:47 +0000
+Received: from devbig197.nha3.facebook.com (localhost [IPv6:::1])
+	by devbig197.nha3.facebook.com (Postfix) with ESMTP id 8E6E42E7EC6F0;
+	Thu,  5 Nov 2026 07:11:31 -0800 (PST)
+From: Keith Busch <kbusch@kernel.org>
+To: <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
+        <linux-nvme@lists.infradead.org>, <shao.mingyin@zte.com.cn>
+CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+In-Reply-To: <20261104030720567AV9nG8iiGp4C0YlWIDDs7@zte.com.cn>
+References: <20261104030720567AV9nG8iiGp4C0YlWIDDs7@zte.com.cn>
+Subject: Re: [PATCH 0/2] nvmet: fix configfs attribute validation
+Message-ID: <179389149158.2132554.16810927122814072564.b4-ty@kernel.org>
+Date: Thu, 5 Nov 2026 07:11:31 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -121,93 +65,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13.0
+X-FB-Internal: Safe
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2MCBTYWx0ZWRfXxjeUgR1Fns3e
+ Cz6F6F48bbTaO/xhtQOjqYbrWd7+L7H6huOTiOS4S8iafcJDmmEyyTuq0AwmqCnOVTiAQjnXvbf
+ hccpJqZ39Q6Or7QO7tql/pkt2TWbnghEJDV7ZkEhvFaSlvUn9no5IFH7u5sf5TrD2Ivjm4tp1cn
+ 8uPsOKcpFbR+Cf+vSPKPhof2PHXKbCTFMTG5ND+S51FhlsIUawuR+OBOfhkJaV308BrsAb61Sjy
+ 0xPhXK3unswaU2xQ9z/+YQmgert2QYUwJfboWTJJh3sfMR0azZvMJVjwsA+sXCgZrXSant81bxe
+ IdwV7c98UA8pFVh6XSFmMa4Jbdmpj+//zvGHENJgeMwU556Y5mwAK9IzYuBtSm/mTEbDrYXTfOu
+ lgrrbKqjKzvTcrG2Dk3Xwf/cUBEK5KTskKFHz38xw0Wod2biDPNyDmrRVBxDBWxnxLEbrg6rMwk
+ 0EvECmGXT6DIHSbNKGw==
+X-Proofpoint-GUID: evoaat0n58pLK3zeYuU0zfGW135lB2Ub
+X-Proofpoint-ORIG-GUID: evoaat0n58pLK3zeYuU0zfGW135lB2Ub
+X-Authority-Analysis: v=2.4 cv=L8mI0OT8 c=1 sm=1 tr=0 ts=6aec9cb6 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=U_y8lYiYyhHBU5rMqhb2:22
+ a=1RTuLK3dAAAA:8 a=VwQbUJbxAAAA:8 a=9dzKPAul-E0u2g9dFJgA:9 a=QEXdDO2ut3YA:10
+ a=kRpfLKi8w9umh8uBmg1i:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2MCBTYWx0ZWRfX/dLJjhj0gicr
+ 40J6bc/iVVBvZazIKTnYn34IBDm7DQNudO4RanN9e9buVUmcTMqNfGDryon5QcVSzSYdmlMO9ry
+ KDxQ4Qp+dRYA9pD8+6MoKihAZNXiq0Y=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
 
-The virtio_fs object is refcounted via its kobject, so a mount can keep it
-alive well beyond the lifetime of the virtio device binding.  The tag
-string, however, was allocated with devm_kmalloc() and is therefore freed
-by devres_release_all() as soon as the device is unbound, i.e. right after
-virtio_fs_remove() returns (see device_unbind_cleanup() in
-drivers/base/dd.c).
 
-virtio_fs_get_tree() looks up the instance, takes a kobject reference and
-then drops virtio_fs_mutex before doing the sleepable part of the mount
-(allocations, fuse_conn_init(), sget_fc()).  A concurrent device removal
-can complete in that window:
+On Wed, 04 Nov 2026 03:07:20 +0800, shao.mingyin@zte.com.cn wrote:
+> This series fixes two independent configfs attribute bugs in nvmet.
+> 
+> Patch 1 fixes a use-after-free when attr_tbkas is written while a
+> controller is going away.  The store callback walked subsys->ctrls under
+> nvmet_config_sem only, while the list is protected by subsys->lock and
+> nvmet_ctrl_free() does not take nvmet_config_sem.  Take subsys->lock for
+> the walk, as the qid_max store callback already does.
+> 
+> [...]
 
-  CPU 0 (mount)                         CPU 1 (remove)
-  -------------                         --------------
-  virtio_fs_get_tree()
-    virtio_fs_find_instance()
-    // reference taken, mutex dropped
-                                        virtio_fs_remove()
-                                          list_del_init(&fs->list);
-                                        // driver core unbinds device
-                                        // devres frees fs->tag
-  virtio_fs_fill_super()
-    mutex_lock(&virtio_fs_mutex);
-    if (list_empty(&fs->list))
-            pr_info(... fs->tag);   <-- use-after-free
+Applied, thanks!
 
-The virtio_fs object itself is still valid here, only its tag has been
-freed behind its back.
+[1/2] nvmet: take subsys->lock when forcing reconnects for tbkas
+      commit: fb205953868a7f29317ad619366a5faf2bb268a7
+[2/2] nvmet: bound the traddr and trsvcid configfs writes
+      commit: 21d6e9f2fb79da2a516901697bd562c361ed6160
 
-Fix the lifetime mismatch at the source: allocate the tag with kmalloc()
-and free it from virtio_fs_ktype_release(), so that it lives exactly as
-long as the object embedding it.  All probe error paths already drop the
-final kobject reference, so they are covered.  Merely dropping the tag
-from the error message would paper over this instance while leaving a
-devres pointer embedded in an object that routinely outlives its device.
-
-The other readers of fs->tag are unaffected: tag_show() is fenced off by
-the kobject_del() in virtio_fs_remove(), the automatic KOBJ_REMOVE uevent
-is emitted from __kobject_del() while the device is still bound, and both
-virtio_fs_add_instance() and virtio_fs_find_instance() only walk instances
-still on virtio_fs_instances.
-
-Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
-Cc: <stable@vger.kernel.org>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-0328b3a1-043b-468e-8425-6a613d91b5ef
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
----
- fs/fuse/virtio_fs.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-index ba8d79c4bcac..ef58bedc3941 100644
---- a/fs/fuse/virtio_fs.c
-+++ b/fs/fuse/virtio_fs.c
-@@ -193,6 +193,7 @@ static void virtio_fs_ktype_release(struct kobject *kobj)
- {
- 	struct virtio_fs *vfs = container_of(kobj, struct virtio_fs, kobj);
- 
-+	kfree(vfs->tag);
- 	kfree(vfs->mq_map);
- 	kfree(vfs->vqs);
- 	kfree(vfs);
-@@ -489,7 +490,11 @@ static void virtio_fs_free_devs(struct virtio_fs *fs)
- 	}
- }
- 
--/* Read filesystem name from virtio config into fs->tag (must kfree()). */
-+/*
-+ * Read filesystem name from virtio config into fs->tag.  Freed by
-+ * virtio_fs_ktype_release() so that it stays valid for as long as the
-+ * virtio_fs object itself, which may outlive the virtio device.
-+ */
- static int virtio_fs_read_tag(struct virtio_device *vdev, struct virtio_fs *fs)
- {
- 	char tag_buf[sizeof_field(struct virtio_fs_config, tag)];
-@@ -505,7 +510,7 @@ static int virtio_fs_read_tag(struct virtio_device *vdev, struct virtio_fs *fs)
- 		end = &tag_buf[sizeof(tag_buf)];
- 
- 	len = end - tag_buf;
--	fs->tag = devm_kmalloc(&vdev->dev, len + 1, GFP_KERNEL);
-+	fs->tag = kmalloc(len + 1, GFP_KERNEL);
- 	if (!fs->tag)
- 		return -ENOMEM;
- 	memcpy(fs->tag, tag_buf, len);
+Best regards,
 -- 
-2.56.0
+Keith Busch <kbusch@kernel.org>
 
