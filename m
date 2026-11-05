@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793898818;
-	b=ogICuTGe0EOBo7LF/qm2Bk3An4wedQ0428lyj+BU0jRWGjOPkOmbt3TWI2d5U/XLb8ak
-	 wtSCj5hoKWuTzuJvDjOCIpENSnOqnXOC1EIdGPgX+PT9X4jcLwtWbErA9ssqvYSn9fruW
-	 Gnv2Hey8KkfhiDVqMRp242KxP5zNMX1vLmj1Dm+Wupw8dtfquFt4sS/VAysHjRivkkGAj
-	 jLPSWOoLETkmsMk+e10IsmsCKjKfYCOPmSlgR+V44wCBEUccLHfAyNCiFdYHlYaNFV3yX
-	 vAHYg85RB4HLoIzKb5n4EgFr9GOZrHxrFx44/PsMa1s/QCBuf63gGzYITGVdsb+xlhg==
+	b=JfrS1147xupBiTHDsecej55sOGCP2UHShssPMVZHlvpoY9W2Gh6kUHifsHP09ZLS1Egy
+	 RF3+XmrhupMqF9JzkxryZqG5Kqwq/dCcmmjMilk6whvyFyj8AXrFdnZjenU4O0evwjBe0
+	 ZEFlBNSLsU4+py6nJD5vtIBKK88fCOyLdzbfcR3JY6lu0w9HIeUrs1ABhxF53FZn60JWQ
+	 cWHgPArQ6H8aq4XSV1Ip7H6FYDYNevZUAor9NUYhkoTy1wW3u+7SCDRtBQkFoGcOaHx2W
+	 7g4DTxIbqictrZu5kW4zCd/kKj2Lh2zQ9q28uTLJb1UCOV8XYmKiKIQu1OKZLu64Iug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793898818;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5qtN6iAqZlZcgjIu3i2Kkt/E0vZ5lT6wIFZ1ejiExJE=;
-	b=LnpMV8+wBL+dPzOr+zVV8ZoiJe0R3HMDyt5R0MQzOkpwCMOgqTQ1B4kod+PwJy55zLkD
-	 Ps8GAh+xmEetFlVhqTTQNDI3VdrDnZQwm9WR/B4BzRl6MMzv1+sVqaonniYNmOZMMR6/4
-	 Oyp1G5vmDRFxl5qhNiunmL4Q4fELBaBQyOofBAwAt6MxKVq10W0BXPGdcSbefHQlAdz3K
-	 1spgkqULWKuuIpcZh0Vd6aX0sghoB+TOA7DmFfV2J75tCz9CVOFFhn3m5r9a5SB/CUOil
-	 hmMyrDOaKQL23OBmNUoUH/DgLRGe1sHKn7vSEWxcFoN1DuvyQxMS31wKZfP78DGEwJQ==
+	bh=4sMYTQ7jwk1wqderGZz8Q2TnL99uyUEFZhNcvcTKd/Q=;
+	b=g2KJEglK8QMMHtdCowxXFZK8Iubsvf3RLLCklPpwvqB1ZLovJl4Hb3iK1xynk6Ym4mSb
+	 nHODWIsTvjCrkkpQa8zAs+rUWHP/eL29uWhF6KxpjoVUx095t+1YxW3ctADhsHiWUFEyl
+	 tMGAJM5x4nI0U7mZs44fWC53mw4+DXzpg3j7kj58qNNXxBBxtEYq9w/8U0tskT7M/2v/p
+	 4L/RTdQHN0nMu5UYHb/l8blw4ZRJMGtKaSmzC14KoSoskU6f88pricpZjvPs2d0UUzyH2
+	 QRaSrUvpRojqWeFWqHdn6lteKl4J3qGg/5TpJlNiDmLksRYWijWA7hllTsIM+ZHq+kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kRFPleSn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OfarXm+h;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDEC4606A32C
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 17:13:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86587606A337
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 17:13:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kRFPleSn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1A951F000C1;
-	Thu,  5 Nov 2026 17:13:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OfarXm+h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA4671F00919;
+	Thu,  5 Nov 2026 17:13:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793898817;
-	bh=5qtN6iAqZlZcgjIu3i2Kkt/E0vZ5lT6wIFZ1ejiExJE=;
+	s=k20260515; t=1793898818;
+	bh=4sMYTQ7jwk1wqderGZz8Q2TnL99uyUEFZhNcvcTKd/Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kRFPleSn+XXvV4se5OXAuI1EcV5UjPbq8XN4ahpKSmmdmF0mR/nyqDTEEwX/JcWIC
-	 e7iSWm+qwrONsyzMQkwU+gIQrZW7nS7lFE94pZ0OLcsXthMj7FFM6401IGrrEV3uUI
-	 J5KjLllJGU8eQ5qyoKccvOnMMsBZVVxIKiFTtDOoottcoDVHsXTsc4DR1s8yhN3+5P
-	 LRG6T5qpsCP4O0o0H+LdMIGPZb5/ELeXh89TPXXkKGXb5HCW7ASt0L00SQm7ZKbojK
-	 5ikFYkrfozzii+/qKxs98isGFGfFW3dbSQfus/DGdd0k2d60IH1H98BpTWMPWzR2E9
-	 4PWGQcQMKNlFw==
+	b=OfarXm+hz4OSfUl0gLqsGDGnBh16LHbG5MnQpvxJyPd8cP2w0JMKvkEXI18ENvXKZ
+	 U3H5nqSBzzlHH2zsdW2DSiatqYzDokkjpDm28+Pjvqew7zIFb4Ps1/tuy3FefY+B4D
+	 K7WWyHZPitQnRQQdmaqIWF95iJbU1SXo94Q1G1NJwAqHy3RWMjG24v/YruD0IvlMmG
+	 07UA7Ex5gnBgfQ5OJTPKwFnT+8i9SoFgk1BGlLYdhKR8X3cSuTLBNh9KJ0jkcIudXa
+	 QV9e1lEB8asinCKc3eeH/FwsvY0FWw33pxMXf+6TOUnwkgdEcIQSFtkW/DXvH8V2bR
+	 5I4KJ2rB2l0Gw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Darrick J. Wong" <djwong@kernel.org>,
 	Christoph Hellwig <hch@lst.de>,
 	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] xfs: reinitialize dquot block if non-first dquot can't load
-Date: Thu,  5 Nov 2026 12:13:34 -0500
-Message-ID: <20261105171316.2147033-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] xfs: forcibly reset quota timers when upgrading to bigtime during repair
+Date: Thu,  5 Nov 2026 12:13:35 -0500
+Message-ID: <20261105171316.2147033-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110434-purist-sureness-e19b@gregkh>
+In-Reply-To: <20261105171316.2147033-1-sashal@kernel.org>
 References: <2026110434-purist-sureness-e19b@gregkh>
+ <20261105171316.2147033-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,69 +65,60 @@ Content-Transfer-Encoding: 8bit
 
 From: "Darrick J. Wong" <djwong@kernel.org>
 
-[ Upstream commit faa9aa9e846332aaad78096a2cebfeafe68a7776 ]
+[ Upstream commit 780212c8d8105eadb5f56b4c7aafb94937755582 ]
 
-LOLLM noticed that the early exit logic in xrep_quota_block is defective
-because it only looks in the first ondisk dquot for corruption that
-would prevent dquots from loading.  We need to scan all the dquots in
-the block, not just the first one.
+If we decide to upgrade a dquot to BIGTIME as part of repairing it, we
+should zero out the timer fields so that they are re-evaluated and reset
+in bigtime format instead of letting through whatever was in there
+before.
 
+Cc: stable@vger.kernel.org # v6.8
+Fixes: a5b91555403e3a ("xfs: repair quotas")
 Signed-off-by: Darrick J. Wong <djwong@kernel.org>
 Assisted-by: LOLLM # finding obvious bugs
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Stable-dep-of: 780212c8d810 ("xfs: forcibly reset quota timers when upgrading to bigtime during repair")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/quota_repair.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ fs/xfs/scrub/quota_repair.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
 diff --git a/fs/xfs/scrub/quota_repair.c b/fs/xfs/scrub/quota_repair.c
-index 95d5bb8c10032..368be503334fa 100644
+index 368be503334fa..0def7a1b366a8 100644
 --- a/fs/xfs/scrub/quota_repair.c
 +++ b/fs/xfs/scrub/quota_repair.c
-@@ -299,7 +299,6 @@ xrep_quota_block(
- 	xfs_dqid_t		id)
- {
- 	struct xfs_dqblk	*dqblk;
--	struct xfs_disk_dquot	*ddq;
- 	struct xfs_quotainfo	*qi = sc->mp->m_quotainfo;
- 	struct xfs_def_quota	*defq = xfs_get_defquota(qi, dqtype);
- 	struct xfs_buf		*bp = NULL;
-@@ -321,14 +320,21 @@ xrep_quota_block(
- 		break;
- 	case 0:
- 		dqblk = bp->b_addr;
--		ddq = &dqblk[0].dd_diskdq;
-+		error = 0;
- 
- 		/*
- 		 * If there's nothing that would impede a dqiterate, we're
- 		 * done.
- 		 */
--		if ((ddq->d_type & XFS_DQTYPE_REC_MASK) == dqtype &&
--		    id == be32_to_cpu(ddq->d_id)) {
-+		for (i = 0; i < qi->qi_dqperchunk; i++, dqblk++) {
-+			struct xfs_disk_dquot	*ddq = &dqblk->dd_diskdq;
-+
-+			if ((ddq->d_type & XFS_DQTYPE_REC_MASK) != dqtype ||
-+			    id + i != be32_to_cpu(ddq->d_id))
-+				error++;
-+		}
-+
-+		if (!error) {
- 			xfs_trans_brelse(sc->tp, bp);
- 			return 0;
- 		}
-@@ -341,7 +347,7 @@ xrep_quota_block(
- 	dqblk = bp->b_addr;
+@@ -348,6 +348,8 @@ xrep_quota_block(
  	bp->b_ops = &xfs_dquot_buf_ops;
  	for (i = 0; i < qi->qi_dqperchunk; i++, dqblk++) {
--		ddq = &dqblk->dd_diskdq;
-+		struct xfs_disk_dquot	*ddq = &dqblk->dd_diskdq;
+ 		struct xfs_disk_dquot	*ddq = &dqblk->dd_diskdq;
++		bool			was_bigtime =
++				!!(ddq->d_type & XFS_DQTYPE_BIGTIME);
  
  		trace_xrep_disk_dquot(sc->mp, dqtype, id + i);
  
+@@ -356,8 +358,21 @@ xrep_quota_block(
+ 		ddq->d_type = dqtype;
+ 		ddq->d_id = cpu_to_be32(id + i);
+ 
+-		if (xfs_has_bigtime(sc->mp) && ddq->d_id)
++		if (xfs_has_bigtime(sc->mp) && ddq->d_id) {
++			/*
++			 * If something was broken with this dquot and it was a
++			 * non-bigtime dquot, we'll grant everyone a fresh
++			 * grace period by zeroing the timer field rather than
++			 * try to interpret what might be garbage.
++			 */
++			if (!was_bigtime) {
++				ddq->d_btimer = 0;
++				ddq->d_itimer = 0;
++				ddq->d_rtbtimer = 0;
++			}
++
+ 			ddq->d_type |= XFS_DQTYPE_BIGTIME;
++		}
+ 
+ 		xrep_quota_fix_timer(sc->mp, ddq, ddq->d_blk_softlimit,
+ 				ddq->d_bcount, &ddq->d_btimer,
 -- 
 2.53.0
 
