@@ -1,82 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793880762;
-	b=ZKZWI3r0lavVYnrtay7vEswy1BRSXwTOAmftUYkLFf9vme5kg40xhIQz9SV2Aft6wEef
-	 zwAet1KZkcT61ZFBwS7t2x+CnHGDVaCagi2o/46GUSV2MJE5MDFed0BsiXWG6RlatIG7N
-	 sv4rybemNJYwdApq9HdfJUFgd2FetHvBAoIai6VgBjaotnUggusMSH8ZF0M982wEvsnCk
-	 YHpsL7I2vOT9VgOYfxlKLsH2nEiO0C0qZGZ5hhPUifFJsznLzPoidMaYuz5gBrCz3wnDy
-	 e8nyaCRA09siFZYVsHgb1b+24MV/bI4QXF80lEmvFEItPYEGwwpwaWX2YKhwj1kKUGQ==
+	t=1793880836;
+	b=n9goGMdlSQARvpNw0Q005v+wyT0k/zLYKCIV2OII44YRM1/pC0QchF/ecllukp/kKBUY
+	 VMRRB3Aexdk36vEO2Wdg9hmMHQgJhZedRfWQs4cCMOPwBu/G1gGvTSl2F97KiMhdfeSiG
+	 5M+KknVYMcfcQdAhQRR+xqeIbltS20IriMxDGTHTfYGOOupRWLdyneIg98ddCiLNynpsF
+	 dpihmA1LKDr7K4oDAeiQUzx2ncE4/VmIVdz9Qs/b9ymhnQgF/Gi6lZHKWnHIoippAdUUx
+	 Q094P4e+DGp7n6smpvodp6Wgiwoa8IiRP6NIQzgWG/it7MO4EAwTFTdarkOnq7FlONw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793880762;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=zHMd/dXYh7gIG0cBwUrUnPLYGKq0g6gjljh3Mny/LFw=;
-	b=gn26rQEG/1dxHEWBL+hOiCd3tRIbn9zO1Nf5b5dtT3gGtZiK11Cwu1Zh6tMwcsP/I/Lv
-	 EzfIixDiDd7uIKtWaIsuEZN/iH0pPLpQ88jle/fu/0MyX6ZK2GtnStNXBiCxHWKv2v82O
-	 vhJPk182hemSZ8dbFL3M17x0+PpBij86KUUlkNykof+TGaR3Ryn+E3xodI0Cu7djff2GD
-	 tW46lLoHkbLfawIGxKPxX8Qx2ewBZDnegE9LUKPWDM6PQrj7KhP7/Nfwy2EHvUWYnR75d
-	 LuEXtwVZpnukjkfiBoPqDtLyzLSUMVHlbaojStgZT6mEH9nAk9HfhP3tcknEqJfgQ5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880836;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=DsqgM0QBvrYpfH6mPkHRfI27cBP6lloybws40MK/kXM=;
+	b=AIPaXiKvE5XViF8esgYYMZVTMcb+1mVYWaxj4kSXx64SKejVmKVKFGtrCoTA3Ambn+j2
+	 3YoTYSfPUEl68pU10cZFwIb1HnMfGg0fmKM+YAcJQcj0acFfu3i38FpVFA947wv7mdwLf
+	 Svd35ypv7JKdbEbB1reSUcY08bhg17Leuypddp7xl9ZziYhxKZJG4rRa60aRazcjuow46
+	 PhTiLsHsL/y6OAjX+2MXEfUl3QpWChOa2a2d5y2Juv7SY407PBqF2yVIhCrQhc9OXXeCj
+	 fLl6qC3jeV/81cSbM6Iz+ZzQHgUgs/PIAZkXK1w1bhNDGeUOP8R+pfc8j8XbDZGRwcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n83ov0yb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y7YPv1U1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FCD4606A32C
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:12:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10DC606A326;
+	Thu,  5 Nov 2026 12:13:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n83ov0yb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0FBA1F0093A;
-	Thu,  5 Nov 2026 12:12:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y7YPv1U1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66E5C1F000C1;
+	Thu,  5 Nov 2026 12:13:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793880762;
-	bh=zHMd/dXYh7gIG0cBwUrUnPLYGKq0g6gjljh3Mny/LFw=;
+	s=k20260515; t=1793880836;
+	bh=DsqgM0QBvrYpfH6mPkHRfI27cBP6lloybws40MK/kXM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n83ov0ybs9zKjBE+JDKTc4TPiw5KduZShNqgRdasi9NMkwyZpv9GLkz4bkaF9cFXT
-	 t1RXCJACx+SLGqI76ahilnF5Hghlr8BcHq5Q4+ctzVdzne1JxE1T80Z+msPh8iSWcG
-	 Wq/F1ukxPloyUBAKh2tFffyAngWvC2GqcFWfyMGYXCdIIdsZrI43ONo8fczLlAYQiu
-	 fWqAQ2THJmzKgeR6S4k2jBoiMsGdPGbPXgf6Vg1E5v3mf+LXtxpi+Mdycih4L4nz+t
-	 bIPbeOyGnj1SwlPupDwntO7HTqvB4zyyzBFD8//WJe/f3ipgyqkUSuZ8zoBTd8wPRa
-	 zi1CQyyyWdH+A==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfauth.ams.internal (Postfix) with ESMTP id BFC97198003A;
-	Thu,  5 Nov 2026 07:12:38 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Thu, 05 Nov 2026 07:12:40 -0500
-X-ME-Sender: <xms:tnLsatKWpvswulKG_-ndkBrKLQLI1gU79TIrVbtQEn6pI1aW18xTCg>
-    <xme:tnLsaoYbvRuiZ0YqcNqrJ-JBhLTqH08_KeeFGjFaujvQbKWLcRuE3fySPU94bZz_d
-    JBHg08cTKfLvfIBsEULgWqkShEEcVC0HytwY-Uj2DSI8-mT3uL3I54>
-X-ME-Received: <xmr:tnLsaogQJmRYXQI6KN_HWwqOXeE9GufB7k8H4mYx9jWOL6qMLw1EuTqo5M0>
-X-ME-Proxy-Cause: dmFkZTFSCgiRUzVCJYCqptrUSa9RHQsLWQK1L6z9r9zyIOoZgIGHK/fHlQJAVg90TKAzJ3
-    s4UplecP7s1f3qOUWNCj5tYaRHeCEDqQKOYgk3SWTs3mYDAtRtLSDSya2S0qC24O4N3NP7
-    Hc222vgyIrKhtZHOstUnlYYDNDcxuWUYVxaKNabOt10YTuemJKgd7oOphgIehKzrjXcH+V
-    YHa8b2QL81OVg8O0nTCEw0sxzYDLw5LJ1tdblkIm2kd/XRoBN5iuZBfEh0LXeo6+/pZ+Bj
-    9/ybhAJ6xcJ/Rib4C9vXdNXcqtFniKdrO19OrbOg5LNTt/el6+WBUWKwXLc7Sy8y3GeZFq
-    xAGe7EK8aR7Nld64zmyK1EMnNXKRWPa7dPDsLG7XgfWEx9jXTHU9TApHgygnxsw71KnEhr
-    +E0Uc0ouJy3xpuTYTPcPym6iVmVuPwbOHiMJb+4rYKxvdfBnVfQZxTheF/5Dmzo0t+Ihvc
-    E2r8qAWyRV3T0wKJMPoyozVSXaLKFLmmDsnespiGkdOim9QHqyZDYJTnQfD/YFJD7Gt/Bd
-    MkcHiQLVZMIwvUNZPsfOEelQMt5BXwHLuOxmUIobhmNRBMdOaaZvCGqVn4iTczB4mCBznY
-    MWgm/wVf17mSFUw921U8q8JLuzeLlj2XEPeH+nRaAoiFL+3rMtGPysUjxlgw
-X-ME-Proxy: <xmx:tnLsal4RQYFZtsdaTsaU_I3frjcOpHVNtg7FlgKyT_8NH1TbATU9eg>
-    <xmx:tnLsaoohQzjIGt0BjtURG0YcFYmDLrCm_RVsKKgO0UgpHqCxMnHLoA>
-    <xmx:tnLsaqiS8re4jucvqlzhjTO32YU6x9Tj0Fkb2mpLap_1xKXQ7hbw9w>
-    <xmx:tnLsaotI_y1-TwwYZCvhRI1cs0nglmjXg4Vdf_JQ7OypcNwe0JuGwA>
-    <xmx:tnLsaj2vda6mSJQo077WW3NDOB4_zz7nGw8pJqEEUxn9beWFUfTTcast>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 5 Nov 2026 07:12:37 -0500 (EST)
-Date: Thu, 5 Nov 2026 12:12:36 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: willy@infradead.org, jack@suse.cz, akpm@linux-foundation.org, 
-	dave.hansen@linux.intel.com, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] filemap: prefault writes starting beyond EOF
-Message-ID: <auxyhE-b_fHQ_Eqz@thinkstation>
-References: <20261104071002.49693-1-dennylin0707@gmail.com>
+	b=Y7YPv1U168Z/wd7J4xYpngNS5hX7ML71bjwp3Izn2bQqqQ4obuvA3rmaFa03VMkzw
+	 L4RbiRYzrnFiAguLYnitjWD0QX1Vh42s/IFGaKaf9flEThRcJNI5arvUARepwpnIIL
+	 qZXToYJLvw9vnhQItEMfWSVB5wd+GcHH55TpZCVHWNq3RAUKCb3iJRh6rBj6qWP5QH
+	 k0F5mvzZcvmCtlrDPf4LQDBRHGr6Cy3d7e1H7/nSPsn0F1xxhb8ths0yNEWYD/j4xS
+	 kVAdgEoyNEZjUha53+CI0InOFE/L69Zz2KFw+Bi0az2nj1zD4it3f/YMw2Z+0tNeQq
+	 cdQO2ASRQjqxQ==
+Date: Thu, 5 Nov 2026 17:43:50 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
+Cc: Georgiy Osokin <g.osokin@auroraos.dev>,
+	Sumit Garg <sumit.garg@kernel.org>,
+	Jens Wiklander <jenswi@kernel.org>,
+	op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, lvc-project@linuxtesting.org
+Subject: Re: [PATCH] tee: shm: don't warn on an oversized page array in
+ register_shm_helper()
+Message-ID: <auxy_pv57awSTf2m@sumit-xelite>
+References: <20261023210238.551855-1-g.osokin@auroraos.dev>
+ <CAGgiveXkWxrdeRYCxBC9X0eQSUAAxF5N+ioe3iM6GZ=pSqHHeg@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,38 +62,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20261104071002.49693-1-dennylin0707@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGgiveXkWxrdeRYCxBC9X0eQSUAAxF5N+ioe3iM6GZ=pSqHHeg@mail.gmail.com>
 
-On Wed, Nov 04, 2026 at 07:10:02AM +0000, Hungyu Lin wrote:
-> Since prefaulting moved to the slow write path, a buffered write can reach
-> ->write_begin() and ->write_end() before discovering that its source buffer
-> is unreadable. Several filesystems can extend i_size in these callbacks
-> even when no data was copied. For example, a one-byte pwrite() at offset
-> 4096 into an empty file can fail with EFAULT but leave a 4096-byte file.
-> 
-> Prefault the source before ->write_begin() when the write position is
-> beyond EOF, and return EFAULT if no source bytes can be made readable.
-> Overwrites and appends continue to skip this prefault. Keep the existing
-> slow-path faulting for forward progress after a failed atomic copy.
-> 
-> This also leaves intentional zero-length ->write_end() calls used by
-> generic_cont_expand_simple() unchanged. As with the previous prefaulting
-> behavior, a concurrent userspace unmap can still race with the later copy.
-> 
-> Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
-> Reported-by: Kiryl Shutsemau <kas@kernel.org>
-> Closes: https://lore.kernel.org/linux-mm/at9xXRhD2xZhszEj@thinkstation/
-> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
-> Link: https://lore.kernel.org/all/at-XtWBQg3jv3H8Z@thinkstation/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+On Tue, 03 Nov 2026 at 19:34:08 +0100, Jens Wiklander wrote:
+>Hi,
+>
+>On Fri, Oct 23, 2026 at 11:03 PM Georgiy Osokin <g.osokin@auroraos.dev> wrote:
+>>
+>> register_shm_helper() sizes shm->pages from the length passed to
+>> TEE_IOC_SHM_REGISTER and allocates it with kzalloc_objs(). A length above
+>> 2 GiB makes the array larger than the page allocator can serve in one
+>> block (MAX_PAGE_ORDER), so it trips its order warning; on a panic_on_warn
+>> kernel that is a panic.
+>>
+>> The size comes from userspace and the request fails with -ENOMEM anyway,
+>> so pass __GFP_NOWARN. kvzalloc_objs() would not help since kvmalloc
+>> warns above INT_MAX as well.
+>>
+>> Fixes: 033ddf12bcf5 ("tee: add register user memory")
+>> Cc: stable@vger.kernel.org
+>> Cc: lvc-project@linuxtesting.org
+>> Signed-off-by: Georgiy Osokin <g.osokin@auroraos.dev>
+>> ---
+>>  drivers/tee/tee_shm.c | 3 ++-
+>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/tee/tee_shm.c b/drivers/tee/tee_shm.c
+>> index 6742b35..d539988 100644
+>> --- a/drivers/tee/tee_shm.c
+>> +++ b/drivers/tee/tee_shm.c
+>> @@ -438,7 +438,8 @@ register_shm_helper(struct tee_context *ctx, struct iov_iter *iter, u32 flags,
+>>                 goto err_free_shm;
+>>         }
+>>
+>> -       shm->pages = kzalloc_objs(*shm->pages, num_pages);
+>> +       shm->pages = kzalloc_objs(*shm->pages, num_pages,
+>> +                                 GFP_KERNEL | __GFP_NOWARN);
+>>         if (!shm->pages) {
+>>                 ret = ERR_PTR(-ENOMEM);
+>>                 goto err_free_shm;
+>>
+>> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+>> --
+>> 2.54.0
+>>
+>
+>Looks good. Sumit, do you agree?
 
-You found the bug, I only pointed out that it is not tmpfs-specific.
-Please drop Reported-by and Closes; Suggested-by and Link are enough.
+Yeah, feel free to add:
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>.
+Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+-Sumit
