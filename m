@@ -1,65 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903963;
-	b=dgVhBpCQL5592inbFVdxVCA8JbDu2hQICaSwr9yfjucnZwVXG7SDDZzOLqfbMqJVOiWG
-	 AMrCTuH0oUnVfZ06hEIXPuN1Rn3EJjapjjW88snFfNIyeMrSnUkEnaJJNhRqlSrvTijUF
-	 Zv9oblhTssax7KpB2vuPnIlWS42018J2CoE/XDONu7d90PYX29zooSyNMF3uAK5Mr4Uws
-	 6rfI+cbEmmxW06J0qYyElrqH5hhdfvrDTmqhVazyvvAC+qHZ2c8N3xN35RmBXovZt4QQx
-	 LPiJ1z7WSYDbn3ReIwGvufxm3QBKKZSdAGCaTs6drJZJj7dOz7tL7wz2jdE9X4A3JOw==
+	t=1793903964;
+	b=RCfxcExWh05tDPioTifGOsyhFxQCwFEqwWoZQueXEKHi7cVc4nIKmN0uUvHliJ1IqsTo
+	 i+Xx1BNOygTPwjIjbPpEP1A1a0kbYqykccM/l9X0qjEg41zBnGe5ZLZGNDb1wzixGZsOz
+	 NFEQLiT3d4J7K/Xz2YgPs1t1qprNUPseUM1hBSStTBi8kthMOQOlgjf+ciRdecZGhYxqs
+	 L+nw2/LQ3K1bYMklmW+UKBUNWDnNUNvErxlFQGulSjiXgiZ0YwMkhVlJAwAwJ5cbQdqLu
+	 It0eGov3OMXLgwSRdsAob97F+LL0fh/S2sC1JNa0c1nxH1GcjWjWp9MKKWXF9I4IxOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903963;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903964;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=V/SDDxz3wlKXwyaEwTsYPI4t32wBGHndbEsA/WUskPw=;
-	b=riemhzZcV8cXmmDleH2PRcXsOu6ehHikkRAK0q+a9x+T3P9IUZbQTo9ejwDllq91dPxP
-	 XSP+pU7e4bf5jaVLOj8YLZsxp9ziJEQWhBYDeAdIgcysfCVBWAKf3631UQ1t/o5/qnGvX
-	 zhpeAwzTk8K7Ocn7ByqqWVMm795hXdBu0tmOb7FQSP5FBFtaSaWVu+qKvo5N1deGqcYXi
-	 bnF5dH3MDRrMbRYw2UzY/lyrENLM0wLN9Ipy7Lf3ThSvXNUYPZ0sCe2+qlKVvP1lhXcHH
-	 EiSyQownlmhmXU6lvR1SAwAwk+EwvshcRPpaeJPHmlVs3ulIt+xf32DraagtvxyOt8Q==
+	bh=m73ETkCoJLf19UqxWgdfSmlDpfUJZ86mu2KoMFYhahQ=;
+	b=mRfsAXvrcAcym8OCATwCS2pV8g67n6pQav2TyleIMJXsO0JwAEBA2Yki6+iyN4HhItyU
+	 Q824kjtiQMADNDmGuRYp1oJLdTklAtyHowZrbPdavNVdB19twweydFPSMr748N27QI97H
+	 ejCdLNGzny0ch6Cj9kgTT00SUMrk0vCBpAvRwpmHPbdID0oLWq7UnUO71m6t0FTDd1ckt
+	 VxcxxPci/DzkNE/RY5aFffaNS1JvPVXpfeMhiCmevZ8gGNMlWUf/JlAHbri2VAGZdvAeI
+	 F8VX5yCbV/aaXl83uWjWeAddu+BqztNouhZIY6PqTIwcY+qthlr9Rzr++S6SIKg2Vpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WL/9FlIR";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ev0fQPol;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531E7606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E260A606A32C
 	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:39:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WL/9FlIR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867D91F0093A;
-	Thu,  5 Nov 2026 18:39:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ev0fQPol
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3247E1F000C1;
+	Thu,  5 Nov 2026 18:39:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793903962;
-	bh=V/SDDxz3wlKXwyaEwTsYPI4t32wBGHndbEsA/WUskPw=;
+	s=k20260515; t=1793903963;
+	bh=m73ETkCoJLf19UqxWgdfSmlDpfUJZ86mu2KoMFYhahQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WL/9FlIR1B3O8gL5tePbPzNclFkescsqZ3igNByTag+F3jKK+DRWiSBS0VZZMQd2i
-	 upg8HyE0MaXw1v7ZeuxETOVJC8HXqcIbE2fqDbXw6WY3LvZSKmqO4gM2AStHCVygDF
-	 PIHqnGlUJ88TRWRwqqJDQYHrl0gVWoIT1geyir7LEiw0EPbRAK4Ac/+KS8AjjGdcad
-	 oE6kjk788Qposg7uPM1RfpVSePPbw80bD5VA0NZmgoxuvfBH/6eLwFBj2XUmzcBOrT
-	 zj4wU6hTKgedBpt2jhISXhR53zy4iXA8ovrqLRoO+jmPeYatwwKa2wMBaX+o5QtaMJ
-	 vFDiQo7FFCUHw==
+	b=ev0fQPolXzii6zkCO9wUwDeX21NcNb6N7uDZbgT6FuD/XgvHiuQsKSa6R5MGvDcF/
+	 sFj3OKY7in2VRXoMV/JP2G9NefRt5hFkoUmDuMtf1FqdC0Bu/QCEmHxsKYDhzVeLdc
+	 EliZ4eJFI9lUEY+CWQvNSYBYxxqh4LMOuNHzbB+o02qc3pxz7AQFLdqTOEsOu2k8XT
+	 w+BalFa7zRlUIrqwQFnl/dgvk5t+G7X0WDDA/pjeCsWXYk7qELer7kOGPOG2nCkHtV
+	 8YyAv9m/lS7OjQVdeZq2JmmhfCNO3c+F1ctEfm80eo9PYbc4jswZSR3F/J4B6jNddD
+	 hfROCYBpKrUOw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Amir Goldstein <amir73il@gmail.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kyle Zeng <kylebot@openai.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"JongHyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
-	Rik van Riel <riel@surriel.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 6.12.y] mm/rmap: don't discard lazyfree THPs at PMD level
-Date: Thu,  5 Nov 2026 13:39:07 -0500
-Message-ID: <2026-11-05-1-daily-reply-0002-mm-rmap-lazyfree@kernel.org>
+	stable@vger.kernel.org,
+	Chris Mason <mason@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>
+Subject: Re: [PATCH 6.1.y] ovl: take a snapshot of the name for copy up
+Date: Thu,  5 Nov 2026 13:39:08 -0500
+Message-ID: <2026-11-05-1-daily-reply-0003-ovl-name-snapshot@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104155648.4014303-1-ziy@nvidia.com>
-References: <2026110438-manpower-atrium-3945@gregkh> <20261104155648.4014303-1-ziy@nvidia.com>
+In-Reply-To: <CAOQ4uxhK6nfoPiqmxeXLZ_bPi_e04k35JwCjzMUvWH-PkfMmCQ@mail.gmail.com>
+References: <2026110415-dragster-unsubtly-6084@gregkh> <20261105034403.1239777-1-sashal@kernel.org> <CAOQ4uxhK6nfoPiqmxeXLZ_bPi_e04k35JwCjzMUvWH-PkfMmCQ@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,12 +62,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> __discard_anon_folio_pmd_locked() clears a lazyfree THP's PMD before it
-> determines whether the folio can be discarded, and restores it if the
-> folio is dirty or has extra references.
+> This is the same change as the one I asked Greg to apply to 6.6 and 6.1
+>
+> Can take whichever to 6.1
 
-Queued for 6.12, thanks. The 6.18 version is not needed, 6.18 already has the
-fix queued.
+Thanks, both of your patches are queued for 6.1.
 
 -- 
 Thanks,
