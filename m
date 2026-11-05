@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793902424;
-	b=IWatDlCKI1OXxHBDJuehZm13KONp9W8kbvhH3XPt/4pXWNHCaTZlw7Tt4H8h49BlLl1/
-	 LHyUua1OskxOh5HiutDPQgW91OZoVaghKp2CjEVK+Wq80WvWGTPLfaZLC5Z/VE0Au3I5j
-	 6WwywIrT/w9SyuwQ90qfyJWe+tYSrZbTOgtg4TQV728IFmFIbsKSKqRr8QQ69jUM2VhDF
-	 gxNevz7cO3JjIXyd4gKFFn73eau99LL7zZtTLmWHWQUaI3zxWqWNXHVCJhqakc3TfBwaW
-	 DNRk2VXRFD/Mqv5n+jztgSHLCHNjxBiASfg1vHcalZSDogGJxNqZ2yCt+PN0kmVgm5w==
+	t=1793902425;
+	b=H50AP1FIWaC+Es/nyWt1BMn4QwjKB3rygSsboTO8MeBqiJ5nf+wACglBhAqIPrcc7BvX
+	 a6B29v1UmnzvQgKSpv+a77im2OGf4gEAlojpLZi9Uhs0o/63sGbntA2CgKrMCS92125js
+	 DSmWpYWAiMc3L/TcIcsml4apDF3NQF6qnbD+rh9Elx7rOt5MSy43xA9ahKYsqSU679Bbs
+	 gx3H1AiOj8q0JiQ0QFK4o+SJvrx/dgyeBXdWFpy0oQsa96yJItc5mSHNihNeKll6KFLyh
+	 xFUK0MCanmliF+ixkoCopsfIhQpOorYhhbnCS8sOYg/aVZu+DfCNDv0ZgsTsThNEsDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793902424;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793902425;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mR3i1W+FJLcBbkWI0MtcxdTW89H+epEruWCmxmEKjd8=;
-	b=CXpLqSsmm9tV7ojw2HNFaO6TU8ovE45hoOpRivuEasxGzLoI1U/h4w9RbPAsEsUlpdQ9
-	 VD2UQPuCNyd1dXb6zS8855JRpq+8rUnsrc4bGcwHmgK4KOgBNmKLdczMk/maNFxdEn3FX
-	 WDSy5XtIYRx8RL5PzXtFyhtPycrz1/0/6WTqRCRriy/Q0+V1EfJK8ITgzrNzXGxXgpsoC
-	 ktI4KdQhE6zZBamDviuvG0Qs07QJb/sGEKcyKFVT3iQxGGv/gMSlHcx9Fd7Xqg4//SkJt
-	 eZtzpiIwinUGVUKRHpy6fP6ZC07acRerUkMOsLAFgTw7MJAp1X3i97lb6RQfp8bL+1w==
+	bh=RJ6adDlLDVxMK+RCqIFQr2Tr2SX9JNSJvqtnfx0ibBE=;
+	b=lajdSbFzlV7JvRnsMF96xLwXQXIrj4MDTpJSiqk80ghpq+QDwEhrI4U/yW8/TFYVbSLv
+	 S7tKPJyAN8+u/NoUK9kdqAwRjKkogGvSI3lj09fEKC2s966cdYufwL5ECp0X5lJBtx4jt
+	 dy6NUuPKoPL1emSZ+Y4ANN/JVZoRh4e2XlhkPVVI+lGOiHvVzirOPmrxpPNAfb1V0MrF4
+	 s+JDzlvL3qkM1jiRR72MbcbofIs3M0xUmM6tL/TAi9QYZ7yxJDyeNdTA7rj7khgXlkgbu
+	 9ORj9rDts/4iFk9eaq2aRbOUueCckOzKrko1KCU8LkysHN8kI7gQ/+xg4/ZTkCmeooQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jnodbQJM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="I/LvY11a";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBCD606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:13:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87FBE606A32D
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:13:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jnodbQJM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6871F000C1;
-	Thu,  5 Nov 2026 18:13:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I/LvY11a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 746151F0093A;
+	Thu,  5 Nov 2026 18:13:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793902423;
-	bh=mR3i1W+FJLcBbkWI0MtcxdTW89H+epEruWCmxmEKjd8=;
+	s=k20260515; t=1793902425;
+	bh=RJ6adDlLDVxMK+RCqIFQr2Tr2SX9JNSJvqtnfx0ibBE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jnodbQJMqU2l2hyvoZqihp04WF1vVvhehu/ji7hofjE2VXZn2v3a0bM0BCRIyIjiU
-	 3ooeVjEFidMzgQruvT5AMYKAPXIZtx96nyIoIOEv302q+MOyx7q9ZmvH81Vk/Nag3i
-	 Q6LWsD6mN0vWSkOLPSXjonoK+nsC9wR2CqW1AzY7JmVlII8eWtctBjxfD/tz1k4HNO
-	 +0j2lbJxhgXKM9xJDqdgQOpTozsHdWivWnRF5QwF5QcpAsYe500kfYwYMHjSFwRqz5
-	 vM/PxWGSeXuvshrD5kJosRDzSAUOKW8vzNst6ouN8euSTabgLrap+/TJaoR0xIeBDB
-	 6lonCbUBOuJUg==
+	b=I/LvY11aPjd2viVYbGWliS3Mme2WF7nXVRZeD1/EJNk61TJk5NdedgV1bZJ8TcKsg
+	 ABPbkFKeMrH0bnA8ocuKsiW3/xPZtcVNXjvqaHjyCMkdEjTaacnQ59Vj2sCOr+PmFg
+	 BzdBYfgKMzCr07F2+w5+1p+l4nZZbR8bgU7uxCpaE9nuWXdD6QxvsVmaO+Fn0tVNyM
+	 6++t80jXAEqr49OU+LE01l6wUyqYwYwAucA///IMokwt9xWMn+vwxFCfWxdejvz1as
+	 z159jMi/FXoqUlgK9Cvr+a8t3GPeNh/LAZkKOEohXN8HvlVi3GwYq8ahN9AEBd1wHE
+	 fn5kF95HUZySA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>,
+Cc: Paulo Alcantara <pc@manguebit.org>,
+	David Howells <dhowells@redhat.com>,
 	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] smb: client: bound POSIX lock data area by response length
-Date: Thu,  5 Nov 2026 13:13:42 -0500
-Message-ID: <20261105181323.2270186-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] smb: client: reclaim credits for decrypted reads with no matching mid
+Date: Thu,  5 Nov 2026 13:13:43 -0500
+Message-ID: <20261105181325.2262054-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110406-dismantle-scariness-905f@gregkh>
-References: <2026110406-dismantle-scariness-905f@gregkh>
+In-Reply-To: <2026110440-baked-marvelous-fdf0@gregkh>
+References: <2026110440-baked-marvelous-fdf0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,61 +66,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
+From: Paulo Alcantara <pc@manguebit.org>
 
-[ Upstream commit 8fc9af68c57156ff64769f30e831553cd03b3000 ]
+[ Upstream commit 78f73985846465a25a7bd1d89904053661f3ca92 ]
 
-CIFSSMBPosixLock() receives a TRANS2 response whose server-provided
-DataOffset and DataCount are not required by validate_t2() to describe an
-interval inside the response. A server can therefore make the client read a
-cifs_posix_lock beyond the response buffer and return those kernel bytes
-through F_GETLK.
+When a decrypted SMB2 READ response carries a MessageId that matches no
+outstanding request, both the inline receive_encrypted_read() and the
+offloaded smb2_decrypt_offload() paths drop the frame without accounting
+the credits the server granted in it.  The plaintext unknown-frame path in
+cifs_demultiplex_thread() already reclaims them with
+smb2_add_credits_from_hdr(), so encrypted reads leak credits that the
+plaintext path would not.
 
-Use smbCalcSize() to obtain the full response length after any multipart
-TRANS2 reassembly, then reject data areas that extend past it before
-dereferencing them.
+This also happens for legitimate frames - e.g. a reply that arrives after
+the client has timed out and dropped the mid - so over a long-lived
+connection the client's credit count drifts down and can eventually starve
+it of the ability to issue requests.  The frame is AEAD-authenticated, so
+the granted credits in the decrypted header come from the real server and
+are safe to apply.
 
-Fixes: fc94cdb94462 ("[CIFS] Fix new POSIX Locking for setting lock_type correctly on unlock")
-Reported-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Reclaim the credits from the decrypted header before dropping the frame,
+and export smb2_add_credits_from_hdr() so the SMB2 receive paths can use it.
+
+Fixes: c42a6abe3012 ("CIFS: Add capability to decrypt big read responses")
+Fixes: 35cf94a39728 ("smb3: allow parallelizing decryption of reads")
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: Subtracted 4 from smbCalcSize() and replaced smb_EIO2() tracing with plain -EIO. ]
+Reviewed-by: David Howells <dhowells@redhat.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
+Cc: stable@vger.kernel.org
+[ sashal: adjusted prototype insertion context to preserve existing declaration formatting and extern keywords ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifssmb.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ fs/smb/client/cifsproto.h | 1 +
+ fs/smb/client/connect.c   | 3 +--
+ fs/smb/client/smb2ops.c   | 6 ++++--
+ 3 files changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index d2a4016acf7eb..f8cfd6e5b27c8 100644
---- a/fs/smb/client/cifssmb.c
-+++ b/fs/smb/client/cifssmb.c
-@@ -2056,6 +2056,7 @@ CIFSSMBPosixLock(const unsigned int xid, struct cifs_tcon *tcon,
- 		cifs_dbg(FYI, "Send error in Posix Lock = %d\n", rc);
- 	} else if (pLockData) {
- 		/* lock structure can be returned on get */
-+		unsigned int rsp_len;
- 		__u16 data_offset;
- 		__u16 data_count;
- 		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
-@@ -2066,10 +2067,16 @@ CIFSSMBPosixLock(const unsigned int xid, struct cifs_tcon *tcon,
- 		}
- 		data_offset = le16_to_cpu(pSMBr->t2.DataOffset);
- 		data_count  = le16_to_cpu(pSMBr->t2.DataCount);
-+		rsp_len = smbCalcSize(&pSMBr->hdr) - 4;
- 		if (data_count < sizeof(struct cifs_posix_lock)) {
- 			rc = -EIO;
- 			goto plk_err_exit;
- 		}
-+		if (data_offset > rsp_len ||
-+		    data_count > rsp_len - data_offset) {
-+			rc = -EIO;
-+			goto plk_err_exit;
-+		}
- 		parm_data = (struct cifs_posix_lock *)
- 			((char *)&pSMBr->hdr.Protocol + data_offset);
- 		if (parm_data->lock_type == cpu_to_le16(CIFS_UNLCK))
+diff --git a/fs/smb/client/cifsproto.h b/fs/smb/client/cifsproto.h
+index 325408073888e..d47ad5d86b4b1 100644
+--- a/fs/smb/client/cifsproto.h
++++ b/fs/smb/client/cifsproto.h
+@@ -161,6 +161,7 @@ cifs_mark_tcp_ses_conns_for_reconnect(struct TCP_Server_Info *server,
+ 				      bool mark_smb_session);
+ extern int cifs_reconnect(struct TCP_Server_Info *server,
+ 			  bool mark_smb_session);
++void smb2_add_credits_from_hdr(char *buffer, struct TCP_Server_Info *server);
+ extern int checkSMB(char *buf, unsigned int len, struct TCP_Server_Info *srvr);
+ extern bool is_valid_oplock_break(char *, struct TCP_Server_Info *);
+ extern bool backup_cred(struct cifs_sb_info *);
+diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
+index 2cbbbf0c93b80..cfe694eed0f67 100644
+--- a/fs/smb/client/connect.c
++++ b/fs/smb/client/connect.c
+@@ -1225,8 +1225,7 @@ cifs_handle_standard(struct TCP_Server_Info *server, struct mid_q_entry *mid)
+ 	return 0;
+ }
+ 
+-static void
+-smb2_add_credits_from_hdr(char *buffer, struct TCP_Server_Info *server)
++void smb2_add_credits_from_hdr(char *buffer, struct TCP_Server_Info *server)
+ {
+ 	struct smb2_hdr *shdr = (struct smb2_hdr *)buffer;
+ 	int scredits, in_flight;
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 7cf6419df037d..63e3c3082ab28 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -5256,9 +5256,10 @@ static void smb2_decrypt_offload(struct work_struct *work)
+ 
+ 	dw->server->lstrp = jiffies;
+ 	mid = smb2_find_dequeue_mid(dw->server, dw->buf);
+-	if (mid == NULL)
++	if (mid == NULL) {
+ 		cifs_dbg(FYI, "mid not found\n");
+-	else {
++		smb2_add_credits_from_hdr(dw->buf, dw->server);
++	} else {
+ 		mid->decrypted = true;
+ 		rc = handle_read_data(dw->server, mid, dw->buf,
+ 				      dw->server->vals->read_rsp_size,
+@@ -5381,6 +5382,7 @@ receive_encrypted_read(struct TCP_Server_Info *server, struct mid_q_entry **mid,
+ 	*mid = smb2_find_mid(server, buf);
+ 	if (*mid == NULL) {
+ 		cifs_dbg(FYI, "mid not found\n");
++		smb2_add_credits_from_hdr(buf, server);
+ 		rc = -1;
+ 	} else {
+ 		cifs_dbg(FYI, "mid found\n");
 -- 
 2.53.0
 
