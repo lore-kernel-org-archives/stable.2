@@ -1,98 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.155.198.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793862078;
-	b=g8JyumKguFe8kHxQaOX6hm2TGoXSiaadt6OTnX3IlCvB40Pj2yXIsV4mFB8kTVC2Bzxz
-	 fIVjCnBjoJubsoKHG0GUhKJvFjhitKqbiB5hOMV+jO/MVOrwyPffWrjAPFAESPEEuhi0m
-	 dQhyv+1bMdlqbbjb+wIqIyXYj4UEVKFVkJJ6ITfwlxPbARpcMBRiqAzqQXQNgsqhU3hk+
-	 X6d08nTCID06jq01Z2F2VPT1ngutE9TDVJwunNE6OqanEb69ZYL5/Edgdj98XmkTlwJY1
-	 XNRq4TRZ+2T01nKfyJIyZeHCSjpaPlPA0hbKw7qyr9MY54N59Wb8pkW2kxfKzK+KQfQ==
+	t=1793862128;
+	b=cjjKQpVSLYYr3f9Q5E73IdFMBVnpgtNuEXrMxb+CinlSN2TlB4Ot7Glq0Kw42oup7XJl
+	 i5d+VZ3+VAOLg2ypFpSjGAyvkReyykyi4L7OXAkwVIyV72CSlhQYOJSjH37kokkJz2TO7
+	 4ztlSeXqvXT0kE4ByhMTF8gIHrclYOsWvWOHfF4BDezplgNUTQQhLNbAacRsBh6L9RSBP
+	 7ul5ra6kDluKK9BaFK07tV687rqii/xfE/37MD5rHxJEegnSPLow2Cxkzztcwq/ERM2s3
+	 Vw8J8k1WAVIpuSa9OayYBhdVGxyTm26iXNHTa31Q4KcyzT1oGwVJM4AffFGv+4nYkcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793862078;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=SvleQPQxuspsOfczyKT3no41nY6ahcqtcV2ZKq+gdBc=;
-	b=CGY8IQKL2vwQHbLKNcHpZnZGgqwtpM5CdgIDGbqdUYju4dMOyHAj3kYVgrE93TC05uyv
-	 6UqccSkOQjcpOB+PdvkEfJpVT0nQepdr1NQtoxVOFCtPQ0AEKR7Ll7QRQYVaXfYeiO5/e
-	 XS33Joo/T/eOR763izpzhmneWWLUnXZu1398Wo3gv1grMMUUnr+97T7ga8YBfxKOytN6z
-	 OqTGFkGL7jtZqU6bQXOhb5NnvR2WPOoc3ZVro/NI7nhzK1LXlWv/QBtzlK+8f8X/tVUCW
-	 vVXiZJ1eG8FvVELjjQLL0JnrpSd4+4QzvtB4gyy1rslyfFbxGJHp4Fq8UsfzOBpHqBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793862128;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=YIY8kqUIU6/z94NGPeDu4JQpZ6OW4PmQsBTRnwMMORE=;
+	b=vRudegecRX5SdTIgZCCpM2POfNDuzIS83TYVx3wpffjjwPzel9A2yZrNxtbOIIyObhn8
+	 vE7lDjijAJdGj1DrjY5VLaG8O0YXkknTEw7FrgUvBlZJCS0iBo8e77qJUyRWIEhmR0+Pc
+	 J/AY1iIt0P1WVAvVxz60M9w3l2x7Hl05BqtOODHE6jYLkGFsgUbcxeRBMH/OrZFnH40YS
+	 yfJ0Pzno51/ZAiDJhPptCPJdM1Q8KRx2PWxKs6k3hwl3TU+hR7G8bKvnm6eWY1nXvxkED
+	 bUHvVCGUe0wT4rqbVllhvuIhN24r5pwmbKAer5pnzrp9FXzIjHaGMEaTfgwSf1ZS9Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cBVGU0ye;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b="V+0b/M+H";
+	arc=none smtp.remote-ip=35.155.198.111
+Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E26D606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 07:01:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E26D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F87606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 07:02:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2F87606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cBVGU0ye
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so14642415e9.1
-        for <stable@vger.kernel.org>; Wed, 04 Nov 2026 23:01:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=V+0b/M+H
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793862076; x=1794466876; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SvleQPQxuspsOfczyKT3no41nY6ahcqtcV2ZKq+gdBc=;
-        b=cBVGU0ye0km98YY6rzSibqk+YOAsqmuO4VwxQySr2PTZe6uVSSv5E5s4Xm6GbHnTCi
-         3N8J66tfTEzlqxB8nVaqFyFM11xBt9AMdClhypKG0mArGQ1WDLqGPIpyqvvaBIAGdM4Z
-         annPeaQAcJa+XU/dJ/6003fAQXMqUWBHADzYS7pmBzA42kZ5eveMdGXdtTruvtOzHjRq
-         qF4/cJs/+hpO33mcZ+IcCgO2llfdn0ndXRV/V6Yz1XKVXltUg0pWfUkC3TeOx5YPGuDK
-         mUS1Fx/NKBJfh8us92VTcA8YEnNxgFtNkeURSpjm9UugHdoTQemevikE6GVo3ydLCenD
-         HBgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793862076; x=1794466876;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SvleQPQxuspsOfczyKT3no41nY6ahcqtcV2ZKq+gdBc=;
-        b=cadYLIlfefRUn/Gx4/9JwbLD/Ki04rgTxLXq4tTNa+OvwcEh7KfBtXJB5OjAzDZo0g
-         X/o8HmK8LWIUQ3CRvWWMFxzAZ+rPKoeGWqogKtuD0LABr2qN9c71ANRRl0YT3SXoaUsP
-         NGf7sVvqcUivfF6cm2DDkAP/HUj4tjPtiSMXDuyWSkVl730DdAr6WqwY41/iuASESA1p
-         fvzei3KJ3ys+joBI1qfpgL7nZW50Zlfa/cgG/3HZBCB2AIiADDINrUd2Nuv9xnlnsc6v
-         2Pc6yLgarxbuRrjIBpfxscYflh5HCDfdTIDJelavPtfwzO/fWPcICVcmUi4SSkb9RWLN
-         4jPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxXlLx1SCaMBwbDbRj4SRhV0djtoX1G1p/m81w9OpqvJ2CNhmIuZjGqYyjl/g+CvEU7WMUNMtU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ekWiHCHNBPgxPIScupeZjkQcnX01Mfj2MypqcK3vrUiR+PELV
-	j+/num5NqY7UCxa6h6xvd7rSPhR2Cpbo3v4DxLJdv4k5gh6vUZhLI7Lc16c1Q7Ek+bE=
-X-Gm-Gg: AYBFou0pJsYX+AqfYmAiW1/Kuwkr5832w7AqHi512BL96heylzYmJzuJ5MxAf4J4NSE
-	MTxvN77+pCqkfviofXkjGgECuSfkTo3NGrBH/p0fdDUzNKPqeFmJlnNAmIImx0R4kaD3BrVPecq
-	wnmB/QfI0b9qjAVqY4X2LiMI6A0Z47A9ZSPH5CxdhDRUuyqEpEfeDGgItv0ZtNZoCfiE0tAK1o8
-	OS7bqRVZwb5GqpNvS+Zflt1ZVvgpgwGu4v1ueM+FpkqA7gVTXm52K0AVKIpr+Z2KjaKgb2iQQ1Y
-	SxT8SunTeRsaetwxpf0IsILk4XSsAuq/vlWzJMilqorZn0rtljBG3f5YbRNWrIKd7FS2ISa+neC
-	BLAaJ7zCPMALFJ0kJuer1QCfOm0C89pZXKddp8WDEG9nQrWdwqrOLbJPxT78/iZyw6p77C5PcNH
-	I8fFtj28sA8GMzWYtmXP28fINREZQ29HkU0zeFQ3kDQwh0NudKEjBHIAIrYe/6GmAhvQnRskiOh
-	SCwGrGdgICuIavcshfwJ6x4JcIvgP6oDNzSVRgyqHlM6trWaaAlhf2BBiuV44HygEA2ioUNnLTv
-	5diyFl9rCkZDxCeNox4qBeZPmx+cCII9mxuFcaFU/lYPyFjyVutqrQZrt93NyXTR/QCZvfdyIok
-	M/ZXFqA==
-X-Received: by 2002:a05:600c:6095:b0:4a0:1b21:2628 with SMTP id 5b1f17b1804b1-4ac18b7e1c1mr359585225e9.23.1793862075779;
-        Wed, 04 Nov 2026 23:01:15 -0800 (PST)
-Received: from recorder.play.pl ([2a02:a31a:a1b6:b080:23ca:4af6:2cc9:8091])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba0f3sm40116155e9.9.2026.11.04.23.01.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 23:01:15 -0800 (PST)
-From: Greg Sikorski <sikorski.grzegorz@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	"Jiangong . Han" <jiangong.han@windriver.com>,
-	linux-kernel@vger.kernel.org,
-	Greg Sikorski <sikorski.grzegorz@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: em28xx: fix NULL pointer dereference on disconnect of dual-TS devices
-Date: Thu,  5 Nov 2026 08:01:10 +0100
-Message-ID: <20261105070110.122371-1-sikorski.grzegorz@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261104052800.44551-1-sikorski.grzegorz@gmail.com>
-References: <20261104052800.44551-1-sikorski.grzegorz@gmail.com>
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1793862127; x=1825398127;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=YIY8kqUIU6/z94NGPeDu4JQpZ6OW4PmQsBTRnwMMORE=;
+  b=V+0b/M+HwaC3ME+B79y0cj55CWBfMhsSlV2q+pedAKjylOO6eQljkA35
+   c689QSBzFl6BCdF8BscEzn7pKPkOgf/u0MueJPOySt6YiKFRteKfE5ktA
+   MD5GhamymyINmMQUqLEoJdBe4zTXg9Hg4JkVEWqdzbpqLTX3SAiNCJKjS
+   k8DTV8wwh707Fjv7/BSJYn+ZjGd6tHT4STlwTcHEKkys5IAvpVeZ6lQ9b
+   CxE5G/SNXUNsGXDSfsZph/pSfX3nBk9atxhe21itaz+FYCpyqLFIMBQJp
+   OoczoiAHujp0mh0c9NvlzMotLH4kScSNQA/svRUimfF0NpBr9sWeEk8qt
+   w==;
+X-CSE-ConnectionGUID: s26Q9zbLQAqL8oxZ3zTAJg==
+X-CSE-MsgGUID: AHxq8QwUQ/6TSK0SjDwUPQ==
+X-IronPort-AV: E=Sophos;i="6.27,196,1787011200"; 
+   d="scan'208";a="33069119"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 07:02:07 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:21704]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.44.80:2525] with esmtp (Farcaster)
+ id 8ac5ada2-292c-4d17-9bcd-c9860d19a1d4; Thu, 5 Nov 2026 07:02:07 +0000 (UTC)
+X-Farcaster-Flow-ID: 8ac5ada2-292c-4d17-9bcd-c9860d19a1d4
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 5 Nov 2026 07:02:06 +0000
+Received: from dev-dsk-mkbund-2b-9ea2efba.us-west-2.amazon.com (10.2.100.138)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Thu, 5 Nov 2026 07:02:06 +0000
+From: Mark Bundschuh <mkbund@amazon.com>
+To: <stable@vger.kernel.org>
+CC: <linux-mm@kvack.org>, <david@kernel.org>, yangge <yangge1116@126.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <21cnbao@gmail.com>,
+	David Hildenbrand <david@redhat.com>, SeongJae Park <sj@kernel.org>, "Andrew
+ Morton" <akpm@linux-foundation.org>, Mark Bundschuh <mkbund@amazon.com>
+Subject: [PATCH 5.10] mm: replace free hugepage folios after migration
+Date: Thu, 5 Nov 2026 07:01:50 +0000
+Message-ID: <20261105070150.3093908-1-mkbund@amazon.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,72 +85,101 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA003.ant.amazon.com (10.13.139.47) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Commit 826915b6b65e ("media: em28xx: fix use-after-free of
-dev_next->devlist on disconnect") made em28xx_close_extension() unlink
-dev->dev_next->devlist from em28xx_devlist. On a regular dual-TS board
-(e.g. Hauppauge WinTV-dualHD, 2040:8265) the secondary device is never
-added to that list: em28xx_duplicate_dev() kmemdup()s the primary device
-during probe, before request_modules() -> em28xx_init_extension() links
-the primary one, so dev_next->devlist is { NULL, NULL }. With
-CONFIG_LIST_HARDENED the inlined list_del() validity check dereferences
-the NULL prev pointer and every disconnect oopses in usb_hub_wq with
-em28xx_devlist_mutex held; the device never re-enumerates and the USB hub
-thread stays stuck until reboot:
+From: yangge <yangge1116@126.com>
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  Workqueue: usb_hub_wq hub_event
-  RIP: 0010:em28xx_close_extension+0x80/0x130 [em28xx]
-  Call Trace:
-   em28xx_usb_disconnect.cold+0x87/0xed [em28xx]
-   usb_unbind_interface+0x9b/0x2c0
-   ...
-   usb_disconnect+0xe7/0x300
-   hub_port_connect+0x7f/0x930
+[ Upstream commit 04f13d241b8b146b23038bffd907cb8278391d07 ]
 
-Initialise the list head in em28xx_init_dev(), which runs for both
-devices (for the secondary one after the kmemdup()), and unlink both
-entries with list_del_init(). That is correct whether or not dev_next was
-ever linked, so the use-after-free fixed by that commit stays fixed.
+My machine has 4 NUMA nodes, each equipped with 32GB of memory.  I have
+configured each NUMA node with 16GB of CMA and 16GB of in-use hugetlb
+pages.  The allocation of contiguous memory via cma_alloc() can fail
+probabilistically.
 
-Fixes: 826915b6b65e ("media: em28xx: fix use-after-free of dev_next->devlist on disconnect")
-Cc: stable@vger.kernel.org
-Signed-off-by: Greg Sikorski <sikorski.grzegorz@gmail.com>
+When there are free hugetlb folios in the hugetlb pool, during the
+migration of in-use hugetlb folios, new folios are allocated from the free
+hugetlb pool.  After the migration is completed, the old folios are
+released back to the free hugetlb pool instead of being returned to the
+buddy system.  This can cause test_pages_isolated() check to fail,
+ultimately leading to the failure of cma_alloc().
+
+Call trace:
+
+cma_alloc()
+    __alloc_contig_migrate_range() // migrate in-use hugepage
+    test_pages_isolated()
+        __test_page_isolated_in_pageblock()
+             PageBuddy(page) // check if the page is in buddy
+
+To address this issue, we introduce a function named
+replace_free_hugepage_folios().  This function will replace the hugepage
+in the free hugepage pool with a new one and release the old one to the
+buddy system.  After the migration of in-use hugetlb pages is completed,
+we will invoke replace_free_hugepage_folios() to ensure that these
+hugepages are properly released to the buddy system.  Following this step,
+when test_pages_isolated() is executed for inspection, it will
+successfully pass.
+
+Additionally, when alloc_contig_range() is used to migrate multiple in-use
+hugetlb pages, it can result in some in-use hugetlb pages being released
+back to the free hugetlb pool and subsequently being reallocated and used
+again.  For example:
+
+[huge 0] [huge 1]
+
+To migrate huge 0, we obtain huge x from the pool.  After the migration is
+completed, we return the now-freed huge 0 back to the pool.  When it's
+time to migrate huge 1, we can simply reuse the now-freed huge 0 from the
+pool.  As a result, when replace_free_hugepage_folios() is executed, it
+cannot release huge 0 back to the buddy system.  To address this issue, we
+should prevent the reuse of isolated free hugepages during the migration
+process.
+
+Link: https://lkml.kernel.org/r/1734503588-16254-1-git-send-email-yangge1116@126.com
+Link: https://lkml.kernel.org/r/1736582300-11364-1-git-send-email-yangge1116@126.com
+Signed-off-by: yangge <yangge1116@126.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <21cnbao@gmail.com>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: SeongJae Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ 5.10: Take only the dequeue_huge_page_node_exact() hunk, so memory
+  offline stops migrating huge pages back into the isolated range. ]
+Signed-off-by: Mark Bundschuh <mkbund@amazon.com>
 ---
-v2: refer to the fixed commit without a bare sha1 in the last paragraph
-    (checkpatch: GIT_COMMIT_ID); no code change.
+Without this, offlining a memory block holding mapped huge pages keeps
+migrating them back into the block until the offline is interrupted.
+Reproduced on arm64 on 5.10 and 6.12 (stock AL2023 6.12.113): the offline
+was still migrating after 60 s. With this patch on 5.10 it completes in
+0.15 s with the data intact. Also sent for 5.10, 5.15, 6.1, 6.6 and 6.12.
 
- drivers/media/usb/em28xx/em28xx-cards.c | 1 +
- drivers/media/usb/em28xx/em28xx-core.c  | 4 ++--
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ mm/hugetlb.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/media/usb/em28xx/em28xx-cards.c b/drivers/media/usb/em28xx/em28xx-cards.c
-index 8440eafad..4d2ea2e27 100644
---- a/drivers/media/usb/em28xx/em28xx-cards.c
-+++ b/drivers/media/usb/em28xx/em28xx-cards.c
-@@ -3845,6 +3845,7 @@ static int em28xx_init_dev(struct em28xx *dev, struct usb_device *udev,
- 	const char *chip_name = NULL;
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index b23c8b2699b5..4383de6fe621 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -41,6 +41,7 @@
+ #include <linux/node.h>
+ #include <linux/userfaultfd_k.h>
+ #include <linux/page_owner.h>
++#include <linux/page-isolation.h>
+ #include "internal.h"
  
- 	dev->intf = intf;
-+	INIT_LIST_HEAD(&dev->devlist);
- 	mutex_init(&dev->ctrl_urb_lock);
- 	spin_lock_init(&dev->slock);
+ int hugetlb_max_hstate __read_mostly;
+@@ -1088,6 +1089,9 @@ static struct page *dequeue_huge_page_node_exact(struct hstate *h, int nid)
+ 		if (PageHWPoison(page))
+ 			continue;
  
-diff --git a/drivers/media/usb/em28xx/em28xx-core.c b/drivers/media/usb/em28xx/em28xx-core.c
-index 62a1c25a2..ab1e1e18b 100644
---- a/drivers/media/usb/em28xx/em28xx-core.c
-+++ b/drivers/media/usb/em28xx/em28xx-core.c
-@@ -1263,8 +1263,8 @@ void em28xx_close_extension(struct em28xx *dev)
- 		}
- 	}
- 	if (dev->dev_next)
--		list_del(&dev->dev_next->devlist);
--	list_del(&dev->devlist);
-+		list_del_init(&dev->dev_next->devlist);
-+	list_del_init(&dev->devlist);
- 	mutex_unlock(&em28xx_devlist_mutex);
- }
- 
++		if (is_migrate_isolate_page(page))
++			continue;
++
+ 		list_move(&page->lru, &h->hugepage_activelist);
+ 		set_page_refcounted(page);
+ 		ClearPageHugeFreed(page);
 -- 
-2.53.0
+2.50.1
 
