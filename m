@@ -1,56 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793844126;
-	b=WUQR93w2nQ/GRLZDPaj9eTcPGloH4QnHW0s999BGAe3qnL4DsD4KZPRRNCrnW5ROVAh2
-	 zgxKEUwxlBCOfWHJip7mo3XX49+j+hIrzOyucadnb7QDykUf6R0X+TnYjj/pBVFc164wx
-	 mXYlDig2pKeYRFOhxAmoOh4DhxWn63H5EuceRWZ7JlZsImcpqfD1iOqT+UEjttPnpVpSC
-	 +pV8HTg+2jdJueIhKYPnMIyuEeQ6Bv4BMA4i3YPLsUV6PXRFv74FKCld5KLSQW/7+aZ70
-	 YgwDFokubHXNoYvzDOhtOaLGfkdmlSstG3h6xNzoKROseyqAwLzndfpSGPD87OD2OuA==
+	t=1793844717;
+	b=Qyro3QOXUSEDPDjRAImFngLUfUUlADtAxfJ9nNm7PAJ3xwrrl40d5hR9oyVVMq+MM/mT
+	 B9RWEVmOaQSztrcGc+DfITdGYQUHKGSzWF0FAo6CMd758Stl7c+A8M2iSiZmTeVr19DgI
+	 oKIaaWFmCrxvUxRupDdh0W6F+wxtquedrF8a+OAHOi3PHrjMD0MfXQNKqYI+C5Ah+QY4k
+	 ThmnZpjOvxfYsa5/U7KowugkZufalARQyviPWdDuTRDXqZGd6Xn/5evdUMiB+9ipBj1CU
+	 ut0/33pH2IgCYPbtYnM1+R1TVoK401IGK21rLNMO0C5+ppghhEMZT6EsiAVzMnXtmfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793844126;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=PcUNqNsKlsSM13jmAjx1E6TR+eJWfNHPxQuxelewDqU=;
-	b=MEihJh54C2fv32wyt8Dz1QEuJo8GWB6WkV8FQpy2iyq7CgjKEa1msV+NvN0rpDz1G1dP
-	 GmOd9jW2bK4VjKwFwoQnGB3RsFgRO6I9+W5vpvdTRIXHaGOsg45tXPKFlAS1p+qUoN2KG
-	 Goe6EXv3OvcC2K/oDzfsl83+wyTCGFOtlFsoMWKJP+R6DpyLq2KYCJQGFnFZXdOxB8n2o
-	 6boa0CfeGCie8MCq36dSBJBjyel+RhJDUkKjubEhGgzVOp4LsdNQbFlsun131r4gZKbdH
-	 MAQYomD09XZST2sVVIJYOpkZbpK8QlCjJCfNsuqEkHbm5x7QEKqkKatvsZIOQnDi9tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793844717;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qyG1gsYQ3BoyLlEsOpf8qDvLw6xue201jPWCtX5Rs0g=;
+	b=uUH1JemRC2JYPSAUnJlo/QCNXNQsaDb6hXK9uSeyrwEmzjBXH3V4+ILWfJ32zv5AATsr
+	 2CagdKL3LDrT6tvrSucJ/mspWFCTU29vSs24CmMTEG5KSpDpdXnTMIs1GzlVAfBaf14+P
+	 7gvnfK+zAn6vxbBBep0S0CkOjMq0Jx7P5djZkoeBPJLn8b5l/wS0XhzE0hslEAyq6pDYe
+	 jw9jRW7+GrnL3oqgPVRYtVk7NVbDS9mvnLAsIHwc9ABIdf9gPAzuwYY6u/1stdF8n7vOk
+	 TTDN4FlnkDze1K163Q2T00u7ivWsmYW67YvdUoe8ptjNph0w1Misd8waRXhvRrPUszg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GFv7lOOz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	arc=none smtp.remote-ip=162.62.57.49
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3602F6082BD6
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:02:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GFv7lOOz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FDF91F00A1D;
-	Thu,  5 Nov 2026 02:02:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793844125;
-	bh=PcUNqNsKlsSM13jmAjx1E6TR+eJWfNHPxQuxelewDqU=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9AD1606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 02:11:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9AD1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793844709; bh=qyG1gsYQ3BoyLlEsOpf8qDvLw6xue201jPWCtX5Rs0g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GFv7lOOzmRgMEaYb+mLO2DcmBO/aYp5UfzktHK9mDir9vhK3Y7SSahiEKRmiV2fF9
-	 wnbPeMJRWTTnzz1hT6smrkfm70sOqRMKEzlZw/sZ6jlRe71As77aPXN4I5iWKvV7jI
-	 4dC47MaQbeb2+jgV9ANWw+/LGLUfqICwZqo7/zAMealJ47rh9u+g7yqfuB0GOE4K2r
-	 nTAAoMRYCN98G1k1lBiPJWjfHTKIAFW273mBzLUiMSySzRF8WH7SQgNP0tCXXLed77
-	 161gOE8c+UmMxTX9t5oNVo6BwTNwm1QoxyAoHlzQMUjwbiZ6cwurj4gznXcauom6qI
-	 FWGZzjIioVKJQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Tianchu Chen <flynnnchen@tencent.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] staging: rtl8723bs: fix protected RX frame validation in decrypt path
-Date: Wed,  4 Nov 2026 21:02:02 -0500
-Message-ID: <20261105020046.1070470-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105020046.1070470-1-sashal@kernel.org>
-References: <2026110448-heftiness-shed-a845@gregkh>
- <20261105020046.1070470-1-sashal@kernel.org>
+	b=FYgcBFeqc616ZCpk5YQ9sGcXrA6su83ZWG7JZrjCx7x6ldafH5PTBuqkAQlKrVi+M
+	 v6+BJRWdygNZmYNOX7WopP8FtyVG/JRhRaWDFZtMRIVCkidjNLBViucm7Qo9t4l131
+	 vy+p7A/9DdZ/rPDs3nt/tpHNJO5n0gr7iCJg1b6c=
+Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id 2EEAE2FE; Thu, 05 Nov 2026 10:11:46 +0800
+X-QQ-mid: xmsmtpt1793844706tdxlufj9z
+Message-ID: <tencent_BA3A8C65555EB74908B7404C6562DC5D5705@qq.com>
+X-QQ-XMAILINFO: OVFdYp27KdlJOTWDMjKzocYQeCxfvFDkjUJDdDoSrhs0rYcK2r0L+dloyQ1+Qc
+	 w6Jo/T9NOOTqWCDwkRDohLWpkPVSYaQt6KrKJiJQQS8x+JbjFmL73EKAvKhypgndcvrEmDYhaaO9
+	 DehNywBSsPV8F7RUGvMxy7RPQD+n3yOKvaxe0F1y+6VNXZWxgMzFjh5C6xM+ItiPElCjXkxopKTC
+	 xi3+EO65+4n1dsEzXUyOcMHTybwpPL61FxhLIIah6HR5LzoV5uvdIV2JlkQqEtEx1Szp/eB4vJho
+	 ky8jX9H/MUkVFfAGRDT6Co8bg4qbJ4YHHrTknchG/a6ndvDE6losHwceASOKLTyYdz1P76rAWr0v
+	 8XhJHdVM+9rYmeFSW8U1XHSuVyFd6oIgES1ff896NE9pfrrKR6gi9hHv1xru8JYOoD9ce6iNVIHG
+	 ffHuTdYpDKUi0PuMJcRaK6wdv8Fw4keUKp0no3l6q3SaeQOQaYMCFSaHKrV+kTIDb0ACtSb1sI/9
+	 ujT+NZPIN3luY75vR8GH1esos5c8cJP5Dzfvsdr9acmxfZcll72o9lq7ryW94l2WVmeQe68NAHCV
+	 fCY9R/UAVq1+xD3qyyMscvTPV0uQDmEwoXXDg9TxH8aLPK0+pE0c0SVvX5BMn0ll1yHcxVAhOQrX
+	 mYEsQzUSfvkpbbuowOkZ5cy5VhCb+7FbEYDg2XQMSalWw07N5bMxreO1QgZz/ADdTNBZKwPasZKD
+	 +f6XhCys+ghxuwGb4V28qAah7Npm3AvNJCtdvZ6GRljrs9+eFcMS4OHbUk5c1h+dxqfw4AMdS4/h
+	 fZiuzAO0A8PUVg4ISORHGsu5L9yL1mSOoOGoKZsLHeb2YkAY0IHv4pcICi+fcFLGAFjuOWNFbaVD
+	 PxdlxxRr5Zvgd/5kN6mQop/EEaImPaQXTUHcYUGAaB9X6nUSON8YoVs8cKvoq5cYUWT1EymthNtH
+	 6BECUyUEnRGXYUOuixoaOh9+VKgIP8FRr6C+Wh7xQ2R3kefaXOTbzWDnEayhgUptpmZWl1M07tgm
+	 TESjI1RvNma7iMahbrSsd1B24AE0Sr4Qt5bP6fHxzunXs1cqYa7hzlwKgo3eecnws5kWsC51B4Ea
+	 k+NY1RvMKuTH743HuAhtNVXc2wYRuk4mQuCUUMqWQKMJ3JyHVjPKUP0nUp3w==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Shuai Liu <847807867@qq.com>
+To: linux-ext4@vger.kernel.org
+Cc: tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	linux-kernel@vger.kernel.org,
+	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com,
+	sashiko-bot@kernel.org,
+	Shuai Liu <847807867@qq.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v8] ext4: fix slab-use-after-free in do_split()
+Date: Thu,  5 Nov 2026 10:11:46 +0800
+X-OQ-MSGID: <20261105021146.1039041-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-198398@kernel.org>
+References: <sashiko-outbox-198398@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,101 +89,224 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tianchu Chen <flynnnchen@tencent.com>
+do_split() allocates a new directory block with ext4_append() to hold
+the second half of the entries of the leaf block being split, then
+dx_move_dirents() copies entries from the old block (*bh) into the new
+one (bh2).  Nothing verifies that the newly allocated block differs
+from the block being split.
 
-[ Upstream commit 495cb31c791bdf3f9efef255a9587b05b0526c9d ]
+On a filesystem whose block bitmap is inconsistent with the directory
+tree, a block already referenced as a directory leaf or as an htree
+index block can still be marked free, so ext4_append() can return that
+same block.  With concurrent operations on such a filesystem (as
+exercised by the syzbot reproducer), the block can even be freed
+between allocations, resulting in bh2 aliasing *bh.  dx_move_dirents()
+then copies the block onto itself, corrupting directory entries
+mid-copy: a rec_len field can be overwritten with name bytes, so the
+subsequent wipe of the stale entry memset()s a bogus length, causing
+the slab-use-after-free reported by syzbot.
 
-The RX software decrypt path mishandles crafted protected frames from a
-malicious AP in two ways:
+The same aliasing applies to the htree index blocks.  If the leaf
+block or a newly allocated block aliases an index frame, the index
+header can be overwritten before do_split() runs (add_dirent_to_buf()
+inserting into an aliased leaf, make_indexed_dir() moving the dirents
+into an aliased new block, the index split in ext4_dx_add_entry()
+copying entries into an aliased buffer), letting dx_insert_block()
+memmove() out of bounds with a corrupted count and dx_release() loop
+past the frames[] array (or leak frames) with a corrupted
+indirect_levels.
 
-1) decryptor() never checks that a protected frame is long enough to
-hold the 802.11 header plus the per-cipher trailer.  All of
-rtw_wep_decrypt(), rtw_tkip_decrypt() and rtw_aes_decrypt() compute
+Fix this by checking for these aliases before any directory block
+contents are modified, and bailing out with -EFSCORRUPTED, reporting
+the corruption via ext4_error_inode_block():
 
-	length = hdr.len - hdrlen - iv_len;
+  - make_indexed_dir(): after ext4_append(), before moving the
+    dirents out of the root block
+  - ext4_dx_add_entry(): after reading the leaf block and after
+    ext4_append() in the index split, before the entries are copied
+  - do_split(): for *bh and bh2 against all frames[0..level]
 
-and act on the result, and recvframe_chkmic() similarly computes
-
-	datalen = hdr.len - hdrlen - iv_len - icv_len - 8;
-
-for TKIP (the 8-byte Michael MIC is not accounted for in icv_len).
-A frame shorter than hdrlen + iv_len + icv_len (+ 8 for TKIP) underflows
-these unsigned subtractions, turning into a ~4 GiB iteration count in
-aes_decipher()/arc4_crypt()/rtw_seccalctkipmic() or a ~4 GiB crc32_le()
-length, causing out-of-bounds reads/writes of up to ~4 GiB starting from
-the rx skb.  Reject such frames in decryptor() before touching the IV;
-this covers all three ciphers and the TKIP MIC check, and also keeps the
-unconditional iv[3] access within the frame.
-
-2) validate_80211w_mgmt() keeps using the frame - two memcpys through
-the stale rx_data pointer and a pkt_len update - before checking
-whether decryptor() returned NULL.  On decrypt failure (e.g. a unicast
-protected deauth/disassoc/action frame with a bad MIC, which this path
-always software-decrypts) the skb has already been freed, so this is a
-use-after-free read/write, and the caller's error path frees the frame
-a second time, drifting free_recvframe_cnt.  Bail out immediately when
-decryptor() fails, freeing the temporary mgmt_DATA buffer first.
-
-Discovered by Atuin - Automated Vulnerability Discovery Engine.
-
-Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
-Assisted-by: LLM
+Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
-Link: https://patch.msgid.link/8ee3bdd1c45034200cb1aa9a7e9b575b9584643a@linux.dev
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/staging/rtl8723bs/core/rtw_recv.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+Signed-off-by: Shuai Liu <847807867@qq.com>
+Changes in v8:
+  - Add an index-to-index alias check in dx_probe(). The existing tree cycle
+    check compares only logical block numbers, so on a corrupted filesystem
+    where two distinct logical index blocks map to the same physical block,
+    frames[] can be populated with identical buffer_heads (the same physical
+    block can pass the limit, count and checksum checks at both levels since
+    dx_root and dx_node entries live at different offsets). Writing a child
+    frame's dx_node entries in place then overwrites the root dx_root_info
+    (including indirect_levels) and the root dx_countlimit, and dx_release()
+    reading the corrupted indirect_levels can walk past the end of the
+    frames[] array and brelse() stack garbage. Check each newly read index
+    block against all ancestor frames' buffer_heads, which also removes a
+    double brelse() of an aliased buffer_head on the dx_probe() failure
+    path. (Sashiko)
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/rtl8723bs/core/rtw_recv.c
-index ebec2cff6a2b6..9004c3952a655 100644
---- a/drivers/staging/rtl8723bs/core/rtw_recv.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
-@@ -387,8 +387,21 @@ static union recv_frame *decryptor(struct adapter *padapter, union recv_frame *p
- 	u32  res = _SUCCESS;
+---
+ fs/ext4/namei.c | 79 ++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 75 insertions(+), 4 deletions(-)
+
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+index 354fc2d22df1..fb1ea835cd20 100644
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -914,6 +914,17 @@ dx_probe(struct ext4_filename *fname, struct inode *dir,
+ 			goto fail;
+ 		}
  
- 	if (prxattrib->encrypt > 0) {
--		u8 *iv = precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
-+		u8 *iv;
-+		u32 min_len = prxattrib->hdrlen + prxattrib->iv_len + prxattrib->icv_len;
- 
-+		/* TKIP appends an 8-byte Michael MIC that icv_len doesn't account for */
-+		if (prxattrib->encrypt == _TKIP_)
-+			min_len += 8;
-+
-+		/* a protected frame must be long enough to hold the IV and ICV/MIC */
-+		if (precv_frame->u.hdr.len < min_len) {
-+			rtw_free_recvframe(precv_frame,
-+					   &padapter->recvpriv.free_recv_queue);
-+			return NULL;
++		for (i = 0; i < level; i++) {
++			if (frame_in[i].bh == frame->bh) {
++				ext4_warning_inode(dir,
++					"dx entry: index block %u aliases ancestor index block",
++					block);
++				brelse(frame->bh);
++				frame->bh = NULL;
++				goto fail;
++			}
 +		}
 +
-+		iv = precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
- 		prxattrib->key_index = (((iv[3]) >> 6) & 0x3);
+ 		entries = ((struct dx_node *) frame->bh->b_data)->entries;
  
- 		if (prxattrib->key_index > WEP_KEYS) {
-@@ -1372,6 +1385,10 @@ static signed int validate_80211w_mgmt(struct adapter *adapter, union recv_frame
- 			if (!mgmt_DATA)
- 				goto validate_80211w_fail;
- 			precv_frame = decryptor(adapter, precv_frame);
-+			if (!precv_frame) {
-+				kfree(mgmt_DATA);
-+				goto validate_80211w_fail;
-+			}
- 			/* save actual management data frame body */
- 			memcpy(mgmt_DATA, ptr + pattrib->hdrlen + pattrib->iv_len, data_len);
- 			/* overwrite the iv field */
-@@ -1379,8 +1396,6 @@ static signed int validate_80211w_mgmt(struct adapter *adapter, union recv_frame
- 			/* remove the iv and icv length */
- 			pattrib->pkt_len = pattrib->pkt_len - pattrib->iv_len - pattrib->icv_len;
- 			kfree(mgmt_DATA);
--			if (!precv_frame)
--				goto validate_80211w_fail;
- 		} else if (is_multicast_ether_addr(GetAddr1Ptr(ptr)) &&
- 			(subtype == WIFI_DEAUTH || subtype == WIFI_DISASSOC)) {
- 			signed int BIP_ret = _SUCCESS;
+ 		if (dx_get_limit(entries) != dx_node_limit(dir)) {
+@@ -1903,13 +1914,14 @@ static struct ext4_dir_entry_2 *dx_pack_dirents(struct inode *dir, char *base,
+  * Returns pointer to de in block into which the new entry will be inserted.
+  */
+ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+-			struct buffer_head **bh,struct dx_frame *frame,
+-			struct dx_hash_info *hinfo)
++			struct buffer_head **bh, struct dx_frame *frames,
++			struct dx_frame *frame, struct dx_hash_info *hinfo)
+ {
+ 	unsigned blocksize = dir->i_sb->s_blocksize;
+ 	unsigned continued;
+ 	int count;
+ 	struct buffer_head *bh2;
++	struct dx_frame *f;
+ 	ext4_lblk_t newblock;
+ 	u32 hash2;
+ 	struct dx_map_entry *map;
+@@ -1922,12 +1934,42 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+ 	if (ext4_has_feature_metadata_csum(dir->i_sb))
+ 		csum_size = sizeof(struct ext4_dir_entry_tail);
+ 
++	for (f = frames; f <= frame; f++) {
++		if (*bh == f->bh) {
++			ext4_error_inode_block(dir, (*bh)->b_blocknr,
++					       EFSCORRUPTED,
++					       "leaf block aliased with index block");
++			brelse(*bh);
++			*bh = NULL;
++			return ERR_PTR(-EFSCORRUPTED);
++		}
++	}
++
+ 	bh2 = ext4_append(handle, dir, &newblock);
+ 	if (IS_ERR(bh2)) {
+ 		brelse(*bh);
+ 		*bh = NULL;
+ 		return ERR_CAST(bh2);
+ 	}
++	if (bh2 == *bh) {
++		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
++				       "cannot split aliased directory block");
++		brelse(bh2);
++		brelse(*bh);
++		*bh = NULL;
++		return ERR_PTR(-EFSCORRUPTED);
++	}
++	for (f = frames; f <= frame; f++) {
++		if (bh2 == f->bh) {
++			ext4_error_inode_block(dir, bh2->b_blocknr,
++					       EFSCORRUPTED,
++					       "leaf block aliased with index block");
++			brelse(bh2);
++			brelse(*bh);
++			*bh = NULL;
++			return ERR_PTR(-EFSCORRUPTED);
++		}
++	}
+ 
+ 	BUFFER_TRACE(*bh, "get_write_access");
+ 	err = ext4_journal_get_write_access(handle, dir->i_sb, *bh,
+@@ -2257,6 +2299,13 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
+ 		brelse(bh);
+ 		return PTR_ERR(bh2);
+ 	}
++	if (bh2 == bh) {
++		ext4_error_inode_block(dir, bh->b_blocknr, EFSCORRUPTED,
++				       "cannot index aliased directory block");
++		brelse(bh2);
++		brelse(bh);
++		return -EFSCORRUPTED;
++	}
+ 	ext4_set_inode_flag(dir, EXT4_INODE_INDEX);
+ 	data2 = bh2->b_data;
+ 
+@@ -2325,7 +2374,7 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
+ 	if (retval)
+ 		goto out_frames;
+ 
+-	de = do_split(handle,dir, &bh2, frame, &fname->hinfo);
++	de = do_split(handle, dir, &bh2, frames, frame, &fname->hinfo);
+ 	if (IS_ERR(de)) {
+ 		retval = PTR_ERR(de);
+ 		goto out_frames;
+@@ -2476,6 +2525,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+ 			     struct inode *dir, struct inode *inode)
+ {
+ 	struct dx_frame frames[EXT4_HTREE_LEVEL], *frame;
++	struct dx_frame *f;
+ 	struct dx_entry *entries, *at;
+ 	struct buffer_head *bh;
+ 	struct super_block *sb = dir->i_sb;
+@@ -2496,6 +2546,15 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+ 		bh = NULL;
+ 		goto cleanup;
+ 	}
++	for (f = frames; f <= frame; f++) {
++		if (bh == f->bh) {
++			ext4_error_inode_block(dir, bh->b_blocknr,
++					       EFSCORRUPTED,
++					       "leaf block aliased with index block");
++			err = -EFSCORRUPTED;
++			goto cleanup;
++		}
++	}
+ 
+ 	BUFFER_TRACE(bh, "get_write_access");
+ 	err = ext4_journal_get_write_access(handle, sb, bh, EXT4_JTR_NONE);
+@@ -2549,6 +2608,18 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+ 			err = PTR_ERR(bh2);
+ 			goto cleanup;
+ 		}
++		for (f = frames; f < frames + levels; f++) {
++			if (bh2 == f->bh)
++				break;
++		}
++		if (f < frames + levels || bh2 == bh) {
++			ext4_error_inode_block(dir, bh2->b_blocknr,
++					       EFSCORRUPTED,
++					       "cannot split aliased index block");
++			brelse(bh2);
++			err = -EFSCORRUPTED;
++			goto cleanup;
++		}
+ 		node2 = (struct dx_node *)(bh2->b_data);
+ 		entries2 = node2->entries;
+ 		memset(&node2->fake, 0, sizeof(struct fake_dirent));
+@@ -2631,7 +2702,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+ 			goto journal_error;
+ 		}
+ 	}
+-	de = do_split(handle, dir, &bh, frame, &fname->hinfo);
++	de = do_split(handle, dir, &bh, frames, frame, &fname->hinfo);
+ 	if (IS_ERR(de)) {
+ 		err = PTR_ERR(de);
+ 		goto cleanup;
 -- 
-2.53.0
+2.43.0
 
