@@ -1,87 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893276;
-	b=ccF84848M4oendVw+3LoIGG7nmItUK7F7Kt0bDYCkAgHmxF8gsyfx56WfACf+/P7M7Vm
-	 LdhSxQOUjfzRttg1Aao6T6+PKovQoCJ1iuaOcSBvCPbVVIL/Ls/uI3tFym4YFBqg878e7
-	 bA7GL9R91Czq3MY10UD3GHdOkGp+9Q4C9ki360Jz4nWQN6v0r+FeqnEGiUXeo6i00YUZj
-	 wJ36mTtG7LAjObbz+BKrKFD9v6wyquYaBPUJd4f4cIWgHQaluemdRAADXKoWf7hwkaJhx
-	 oItKg9OZQCeAx+4rCBLW09OKOdb5oSxQQ1viVIYips7F+1c9ttPxJrST1WnIoNmYUGg==
+	t=1793893370;
+	b=mjJPkdS0Cr1NW8FjlwNsUpnGzOIdq2iKp+Caabn99zLEQ3/nCNWbhoOxMWT5eS96qhpN
+	 2Opq8WsR+MQgc5wEUedbS/ecVH6AiTRy9qJ9+SXKXJnXmrrUe88A6e+il2YoqXsDCoEem
+	 Kg2qndJTdTga49l7RWv5ZTlNBSwspUdpMJsWeB0b6FDOCY6ufw0MpX9eVfe+S4VULIHAe
+	 ziyT85CIB+1ZRi9dSnY0uGUByiLbWJ6OlY79bb/Slc19uLJtnae6sHc1ylnnmCJ594hqS
+	 6wsikLZkdBhx4VLNdHE55zIJz2oWwN+va0cjcmSQNoquxNdr56XKa6lMfgqNBe8vtnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893276;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=r3AP3t6GqHgFMQ1XdVu4Hhyjy6C+AgYC+TMVyHZ5Uy4=;
-	b=5HBjsSbxPyc04y9vzWeNawIwpAcf4Rjdn0DA1CieomW8JH6fhzi1bFHC3KAofTM0vItD
-	 2ZNPjaHfR+62Mq6rbHlhMzbyvVmHNAODhTtrjnWOO7xviH/1x8dldahE20ZJKEHYsfccL
-	 1DYvj7pOzVPfroyEsoztEa979hGGo2bM6kcszFNCGc9WLqq6CQLWXpyLKX/u3Uj8EwMMT
-	 qjLA38Pgv3kbe9hS4U0RweSJjy5OQEtnbyj3iEre+Wrysh+cs7fYwMkwjB6z02gIbYxiI
-	 RRWF1ZK4uYXaI5SZpNBwumhNWgkzd2z4CVQyVzuBd+UfKqVQyaY8TGa7O4mUfCo4I+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793893370;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=njUTYI4oBVmnjDbhYkyzul7xSC2CdBIMpC7eGmomWg0=;
+	b=W4MYoSzCGai4ho4YDssR1FSHlpbIejGKXg1C8m9K5+CGbS9V5mT8vfiSciqvi/Augm88
+	 auBCmmI747e2sHc7pyjHQQjaALFpAHEEa0yJ4XO+P3XqorIbQR0YjKe9Q/bvYSUwc6Tkc
+	 H6QbhV2RYaUN4KEtjyHkLQZtsM/Sc9gRMbqf3JV5g/vw/4J7aePByttiy9GQM6pJy93tP
+	 ARFepRsAx2I+8s9Qs122CLFZvAkRE+fDWkypYnSXk3MKkVr3xOeCptuGNUodB4v69BSRq
+	 IkFyvUeiklzZbZgoZS+snjalLUutAA1WbkiWTZoyWzdcDiHhOqIXYPEZkinTrjjfJDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=debian.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=74.125.224.43
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgKj4PMl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB411606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:41:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB411606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-67be9601f31so1630716d50.3
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 07:41:15 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793893275; x=1794498075;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r3AP3t6GqHgFMQ1XdVu4Hhyjy6C+AgYC+TMVyHZ5Uy4=;
-        b=yAFU6GD0/T6HN7ps7j2rxNTkZsFA9o2tjslzFYAmAp7b4sMHemkkceGl9DLrfdJoTO
-         gwGvLdGH1Zm+Rt6r7e4WQRr2AIsTkg18Fd1C5JlG4/aOZoxdTm7vJQGQwZiznx5/+VjS
-         GlbEf/UT7E5kE+U/tyXVJG0wNsCfUZ1M72zKOAZ5TlKYYxT5SqIKXKidKaNMDES1+HnK
-         STauiLpLHydMwTOPAwrr9mj7C5dQ26P5Rbkbe0LexizWt+nTy7fr6GLzEYCjrjacLNdy
-         VYVP6D6xuhFS2qEQVtl5tsPKOHd/R7BeQ0aK4B6pWgmzyoYJ5Hljf2FE0jBcUIjRLThK
-         iVpg==
-X-Forwarded-Encrypted: i=1; AKwUvBy8QcSeLocQTPDe88H0eH2A1mrpMQIYOjXK5u82G8+Un+F/eLNqN1ovRNjcMHB5TVuKQotSf98=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9j1FN4bpa/zZMbvrZVHrgT3zcCntYCwPbaW64F8NDemJqsoNS6
-	Toa31ooJezUnsTCowJpnleO46Mb4ol+rYciGz/ik100HDrxF+k/NnvOs
-X-Gm-Gg: AYBFou26/Ko02QOiNunZPTmHTsQKFS2JGHRwdxYx17cdZ7A5PR4iT3KUPcAQAXdVzdA
-	NPGirJR7DYwPPBO7zlZ+bU9FH/928wEEWpqabR9HmdMD3yzuA3OgXl8yfvrVslBqEMW8fyi53rM
-	MkK6NnTGwrSN3Y/PerX/IV8fvBxiVdT/95CryfSQ5ueu75PY91C8d2fWw1QtImTNZhhCHXBctXg
-	mzMOlaR1KKCzGTtqt5i/9zwyNiLYSWOJrpZcpDWPQU9dUWdt7o4EY0ArI1srNVTo9R1WEy0PWX+
-	r75vO17qA5yMZJ9SplHBK65DennAY8zOKwHgmbvdnYB6c1EAXi1bQk/pmavHNQGrCvvppltA6aI
-	21qs+4Bjl4tjU4MpN+vsZ8/yDRlZDztNOsu6HWbF7XC/lsk0yQC9ohXiEGC/uvcV2c+7BPGogxg
-	tPVemngEd7NmUkzhAz9gp8Cw3NwVAucj3ua1d2ACSlrVR336p8YKfeaQaKMwgtMO1FNneuSqE9J
-	9MjADvvb0OGpupn4kKPCmnU0Hg3R+XDN/9DsTvCwxeMOaNseNfOnS1qt7fFpQbUYwsXr1m7wWR5
-	ielwVnUUcIZF9g02VLc=
-X-Received: by 2002:a05:690e:1698:b0:67b:9051:e334 with SMTP id 956f58d0204a3-67bb304d942mr9266532d50.99.1793893274539;
-        Thu, 05 Nov 2026 07:41:14 -0800 (PST)
-Received: from gmail.com ([2a03:2880:24ff:54::])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67bee27bfddsm3766424d50.15.2026.11.05.07.41.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 07:41:14 -0800 (PST)
-Date: Thu, 5 Nov 2026 07:41:12 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	James Morse <james.morse@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>, Marc Zyngier <maz@kernel.org>, 
-	Doug Anderson <dianders@chromium.org>, Jinjie Ruan <ruanjinjie@huawei.com>, 
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, 
-	Linus Walleij <linusw@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Huth <thuth@redhat.com>, Dawei Li <dawei.li@linux.dev>, 
-	mrigendrachaubey <mrigendra.chaubey@gmail.com>, kernel-team@meta.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: sdei: Preserve the interrupted context's
- exception registers
-Message-ID: <auyjSmtuqkXCqMvl@gmail.com>
-References: <20261105120835.3321912-1-kirill@shutemov.name>
- <20261105120835.3321912-3-kirill@shutemov.name>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069BA606A329
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgKj4PMl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E1701F00A18;
+	Thu,  5 Nov 2026 15:42:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793893369;
+	bh=njUTYI4oBVmnjDbhYkyzul7xSC2CdBIMpC7eGmomWg0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kgKj4PMlx1OtqSgvYQXOMShiw2wgPfX+MWZGDwtcBF9r3KCjd0iWctI9ZKJkHqUa1
+	 4PeIIZNrrEOpm50t/IzTOurNLn5Bm/8wrXLqPsjHcU9xfBKVqrDx34UVkVAvhRp1kS
+	 N0G8LOwpmTVNrQ3TZK+pilAnrE8SoavCFPu22XeEfaHGFRSE/brkXD/9qOZz8dV9vj
+	 kmNMrK8eHxRbR0sj9UhW8HtTju8lrQexFK7p3wibALrtnnr9qACPn5JjhNBWo/ywmd
+	 VFZ0osTqHiVuDIWfedK3tES3UHkn7UAU+wzXE3co/LzxILwGI75xOObCd/vonKrvvC
+	 tTKc0fb5dX3ow==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] xfs: bound da-node entry count against the correct geometry
+Date: Thu,  5 Nov 2026 10:42:47 -0500
+Message-ID: <20261105154224.1981823-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110406-unheard-batboy-4143@gregkh>
+References: <2026110406-unheard-batboy-4143@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,62 +60,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105120835.3321912-3-kirill@shutemov.name>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 12:08:34PM +0000, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> An SDEI event is dispatched by firmware regardless of PSTATE.DAIF, so it
-> can interrupt the kernel where the exception registers are live:
-> 
->  - exception entry, before kernel_entry has saved ELR_EL1/SPSR_EL1 and
->    before the C handler has read ESR_EL1/FAR_EL1;
->  - exception return, after kernel_exit has loaded ELR_EL1/SPSR_EL1 and
->    before the ERET.
-> 
-> An IRQ or pseudo-NMI cannot arrive there with PSTATE.I set. Firmware
-> saves only x0-x17, PC and PSTATE around an SDEI event, so a synchronous
-> exception taken by the handler overwrites the interrupted context's
-> ELR, SPSR, ESR and FAR. do_sdei_event() only notices that ELR changed,
-> and warns.
-> 
-> The interrupted context then carries on with the handler's state. A
-> task interrupted on its way into the kernel can be sent SIGILL for the
-> handler's kernel data abort. A task interrupted on its way back to user
-> space ERETs to EL1, at the handler's fixup address, with user registers
-> loaded.
-> 
-> With SDEI delivering NMI backtraces, this happens in normal operation.
-> The handler runs show_regs(), which reads through possibly-NULL pointers
-> with the _nofault() accessors. print_worker_info() faults this way for a
-> kworker that is not running a work item, and a single sysrq-l warned
-> once per such kworker.
-> 
-> Save ELR, SPSR, ESR and FAR in __sdei_handler() before
-> irqentry_nmi_enter(), which can take an exception too, and restore them
-> after irqentry_nmi_exit().
-> 
-> Once they are restored, a nested exception is harmless if its handler is
-> safe in NMI context. That holds for EL1 data aborts on translation,
-> permission and access-flag faults, which never take the mmap lock in NMI
-> context, and for BRK. Warn once, with the syndrome, about any other
-> exception class.
-> 
-> Fixes: f5df26961853 ("arm64: kernel: Add arch-specific SDEI entry code and CPU masking")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 
-Tested-by: Breno Leitao <leitao@debian.org>
+[ Upstream commit 3df5e5aaa3bc0913236c48ab29b7df3a785aa29f ]
 
-Tested on NVIDIA Grace (firmware SDEI) with next-20261104, KASAN + lockdep,
-ARM_SDEI_NMI=y: sysrq-l under stress-ng, with a kprobe on show_regs() and
-eprobes on irq_disable/irq_enable that fault on purpose.
+xfs_da3_node_verify() bounds the node entry count against the larger of
+the directory and attribute geometries because, as a buffer verifier, it
+cannot tell whether the block belongs to the directory or the attribute
+tree. When the directory block size exceeds the fs block size (e.g.
+mkfs.xfs -n size=64k -b size=4k), an attribute node buffer is a single fs
+block that holds only m_attr_geo->node_ents entries, yet a crafted attr
+node may claim a count up to m_dir_geo->node_ents and still pass the
+verifier.
 
-Without the series the box crashed (a task interrupted in el0t_64_sync
-got the handler's BRK, then lockdep/KASAN fallout and a hard lockup)
+xfs_da3_node_lookup_int() then indexes btree[] up to that count during
+its binary search -- an out-of-bounds read via getxattr/listxattr on a
+mounted crafted image.
 
-With it, KPTI off and kpti=1, ~4000 kprobe hits and ~5500 faults in
-irqentry_nmi_enter()/exit() produced no warnings or stalls.
+The buffer verifier is the wrong place to tighten this: it has no fork
+context, and the transaction-less read path used by getxattr does not run
+xfs_da3_node_set_type() either. xfs_da3_node_lookup_int(), on the other
+hand, always runs on that path and holds args->geo, the geometry of the
+fork actually being searched. Bound the entry count against
+args->geo->node_ents there, before walking the entries.
+
+Fixes: 7ab610f9e0f1 ("xfs: move node entry counts to xfs_da_geometry")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+[ sashal: Omitted the xfs_da_mark_sick() call because the helper is unavailable. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/xfs/libxfs/xfs_da_btree.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/fs/xfs/libxfs/xfs_da_btree.c b/fs/xfs/libxfs/xfs_da_btree.c
+index 9ac99912e7a54..ef0dbca2750bc 100644
+--- a/fs/xfs/libxfs/xfs_da_btree.c
++++ b/fs/xfs/libxfs/xfs_da_btree.c
+@@ -1658,6 +1658,19 @@ xfs_da3_node_lookup_int(
+ 		} else
+ 			expected_level--;
+ 
++		/*
++		 * The node verifier cannot tell whether this block belongs to
++		 * the directory or the attribute tree, so it only bounds the
++		 * entry count against the larger of the two geometries.  Here
++		 * args->geo is the geometry of the fork we are actually
++		 * searching, so reject a count that would walk btree[] off the
++		 * end of this node buffer.
++		 */
++		if (nodehdr.count > args->geo->node_ents) {
++			xfs_buf_mark_corrupt(blk->bp);
++			return -EFSCORRUPTED;
++		}
++
+ 		max = nodehdr.count;
+ 		blk->hashval = be32_to_cpu(btree[max - 1].hashval);
+ 
+-- 
+2.53.0
 
