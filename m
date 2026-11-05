@@ -1,72 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793889277;
-	b=HDSN5c8Z693aCjOsYS2K79inwhZb6/1VtFZ5XcUc8J/ujhc6nAVnk9mfkR4guGDPDv/S
-	 WtHv6bwIbrz1IoqDZ6J6SJdwSUihb7wb2ckbO1u+Fmwgab/oUzjvawh5ypepNwzUJRVCN
-	 hJAyAX1yf5wwefbD1nkZZA8tS+ll80NjZdEPFdIN+RcCBS2LZ4qaDhZVLrKZOtPvCymEo
-	 85f4RjYAJQ3dkCplw2grYC89dHcCPSZRFqoJ8lc9ZkDU/pO+yckUChG6pB/ihY2oeKyPV
-	 g6v1DKXbgrbWUyScI1Y5MognTVWwVBLDZe7GtCCzFQcwTu6kSfenwdCEb+knFV7X5uQ==
+	t=1793889290;
+	b=xdyQbNkj+goKze1Qvo46wbP0Zkw4TOx0qqIhEBkfmxZ7kRjCjre9oDm/Tf1KYMRYfent
+	 DMqN9LE2d29iGkWfp/WskdcU2pHmcj+4LG9wNz5rD08eVRDj4WXOP4YkY50aERCN9Rw8U
+	 E6BIZrhwX6RNRTkdWOytRJdJ/9Jloz8fqlE4+4symg+EZtH6vgqOM3Iv1UH3Xu4lxkW/+
+	 vzLdP33/eWXH4Fe3asna6emNMQSwnpKUxUZiNCZkocy7VTZEWtPhitZ3UtkN7RbAgXiVx
+	 o+eOkKcjG3TxRI0keUoHdW9WGkEEkcbwf7ImAqC5NfLw9s5zdEi6Rlj7XaKRhCz65PA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793889277;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=c/yt9uFPnjvQM+fiEYYJRoCxuqKFimMZvvZyEcVri54=;
-	b=fUdg7eNJQlPoL37C/4MI5Y5zr2FQ2FILc291hY6mCa+zpKglzads1gEYHRl4byBY1QN1
-	 Kspsvu8xnqHGV+tip+EZe6AELNF/vyCxag4P8mVlmOGpLweRYcIsT5RRDFKRcw2WnG1bU
-	 Y+vq5WgvDY0KCALIxegqSB9anWy3Rmd7WqM48H7DBGFoBUH2RIigWYXWcctbOQwd7lsLX
-	 tKBdC6I4LViaadyRWPFLAOGysp5TtNbUkAToQVinkHIZYG5w319zYYuTWxLBpoVgI5c03
-	 ShmQSwDbSrolwiMg0bnINT83JR8FcMiUST9exedcAqqBLqMh2F4EC6HZWaz116wIxtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793889290;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=62EbqcPazohWksXCUZowHNS5I5/7C31pdH5kDZmM+88=;
+	b=piJJwzKF+iSFyNR3/7MMiCG1kQu/VsFoWu50Pg/9XOW8xyPgB9yU2e4EMEHCkNhzEHZ9
+	 qCkBj5rcLixCIxQkWoyDDTPMUG8NPJLzceh2mzi96CpqVRYLi1hj18sQ5efTwvWI+6A3/
+	 s292Ce3dLVcI/3j19kaaMH5v53JLfZA3b0WBDOcnztwD41OuIkqEsxeSUcl22ogpi/Tl+
+	 N4X27QPhFLF4Vh6i7HzdhbmKuFqNV9Ar61lXqaBPMsHvcDwytzafEpYLCNfry0n2hy5Jr
+	 /j97gWG7PH6YYSm697tq1KNMFbA5I53ejsiOvOSs6suCeFcW6+HzS1GhmzXOQbNd0Gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=y8kPvgpB;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ubYMg+wD;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmxmEOiu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7BB606A338;
-	Thu,  5 Nov 2026 14:34:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C7BB606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26917606A330
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 14:34:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=y8kPvgpB;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=ubYMg+wD
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793889273;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c/yt9uFPnjvQM+fiEYYJRoCxuqKFimMZvvZyEcVri54=;
-	b=y8kPvgpBm6pcjhdgIt6MKI76n7YcCOMGFSUhP56keDoTBkv1upezh7+RoupfxlbIzWo9MY
-	Unw2CSO8NPpzqepNUn0jsjs9WcYUBaapCiLMxl2kobyF4M4282CnrnaGAHQF1r7h101McP
-	yDAQ6N/qmHvCX7eBTW2RiMzX42wyfp9q+53te74H1Xgl4QYfI2cRt2G6rzCAGbIBmrG3/z
-	dHujzGKFRQP4pZqPhy6gcCRcXQAtU0IOtxVxrtN2Wm9wxgxBDxSsPwOvtYc/9ZCLmPRaML
-	bOMJc2Y5DPMNiFz/2GHR8CQ8XGoPRluEQEVAZdVOUEH3ZcedwchkzPfxkFLTkw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793889273;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c/yt9uFPnjvQM+fiEYYJRoCxuqKFimMZvvZyEcVri54=;
-	b=ubYMg+wDtIygfUyemhGW8eaVqxZ9fn6Uuvfta99Fo2lhXCI58yM9flSvWKtHzOodlNSpBE
-	fSGJHxVrI1fE/5BQ==
-To: Breno Leitao <leitao@debian.org>, Petr Mladek <pmladek@suse.com>, Kiryl
- Shutsemau <kas@kernel.org>
-Cc: linux-kernel@vger.kernel.org, printk@lists.linux.dev,
- gustavold@gmail.com, samuelcrossley@gmail.com, ryan.roberts@arm.com,
- brads@mainlining.org, x86@kernel.org, Breno Leitao <leitao@debian.org>,
- kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] printk: nbcon: Flush unsafe consoles from printk()
- in panic
-In-Reply-To: <20261102-panic_unsafe_flush-v1-1-12d1e22fd6d8@debian.org>
-References: <20261102-panic_unsafe_flush-v1-0-12d1e22fd6d8@debian.org>
- <20261102-panic_unsafe_flush-v1-1-12d1e22fd6d8@debian.org>
-Date: Thu, 05 Nov 2026 15:40:33 +0106
-Message-ID: <87v76bz6rq.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmxmEOiu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23B861F0093A;
+	Thu,  5 Nov 2026 14:34:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793889289;
+	bh=62EbqcPazohWksXCUZowHNS5I5/7C31pdH5kDZmM+88=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lmxmEOiuE9i0lgrIKaHI6bQOLqGfI05DxDrJnkrCZJFzpTcdTUuuLJ+i8YOYKjjZ9
+	 SUJCfto91WM+zYRE/68fsRNZuCmOjqthzGXiz16hpE0KEdZe/CB86M/QNOvJFOM/ni
+	 9/xhXb40APfGmtBctfnQ83FYk9lU+C4qEXAK4KM+dPMnjfGVxoXFkTZ2JOSirxRMF8
+	 7I3bfeUg0vYCsoSPNtlBoWmtUBYIm+ffKJhHEEwGsBjaIKLE6k9ZZt3W8tN/OW3ll/
+	 e63s6J5fhhqnoGA9A7RjeR+KvRbC3o/5DRXOknRc6oscDIKlCDLsKTO9dsX+wNbPkW
+	 ImZLIgJi5CBiQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cem@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] xfs: allow softlimit with no hardlimit in quota scrub
+Date: Thu,  5 Nov 2026 09:34:47 -0500
+Message-ID: <20261105143436.1657649-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110443-flammable-slimy-0f35@gregkh>
+References: <2026110443-flammable-slimy-0f35@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,88 +60,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-02, Breno Leitao <leitao@debian.org> wrote:
-> --- a/kernel/printk/nbcon.c
-> +++ b/kernel/printk/nbcon.c
-> @@ -1688,7 +1692,15 @@ static void __nbcon_atomic_flush_pending(u64 stop_seq)
->   */
->  void nbcon_atomic_flush_pending(void)
->  {
-> -	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb));
-> +	u64 stop_seq = prb_next_reserve_seq(prb);
-> +
-> +	__nbcon_atomic_flush_pending(stop_seq, false);
-> +
-> +	if (panic_on_this_cpu() && oops_in_progress) {
-> +		panic_nbcon_allow_unsafe_takeover = true;
-> +		__nbcon_atomic_flush_pending(stop_seq, true);
-> +		panic_nbcon_allow_unsafe_takeover = false;
-> +	}
->  }
->  
->  /**
+From: "Darrick J. Wong" <djwong@kernel.org>
 
-This part of the patch gave me some ideas. First, I like the idea of
-putting the policy handling code inside
-nbcon_atomic_flush_pending(). This keeps the code outside of
-kernel/printk fairly simple:
+[ Upstream commit 342c2e00b3a99099a7088f7b8c8f075670c603a9 ]
 
-1. In emergency sections, printk() is calling
-nbcon_atomic_flush_pending(), which always skips
-CON_NBCON_ATOMIC_UNSAFE.
+LOLLM observes that the sysadmin can set a user's soft limit to a
+nonzero value and the hard limit to zero, so those aren't corruptions.
 
-2. During panic, printk() is calling nbcon_atomic_flush_pending(), which
-via policy could include CON_NBCON_ATOMIC_UNSAFE (in a 2nd internal
-loop, after all safe atomic consoles are attempted).
+Cc: stable@vger.kernel.org # v4.15
+Fixes: c2fc338c87a31f ("xfs: scrub quota information")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+[ sashal: omitted the quota repair changes in xrep_quota_item() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/xfs/scrub/quota.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-3. After kthreads are shutdown, printk() is calling
-nbcon_atomic_flush_pending(), which via policy could include
-CON_NBCON_ATOMIC_UNSAFE (in a 2nd internal loop, after all safe atomic
-consoles are attempted).
+diff --git a/fs/xfs/scrub/quota.c b/fs/xfs/scrub/quota.c
+index d6c1b00a4fc8c..201672fe29b5c 100644
+--- a/fs/xfs/scrub/quota.c
++++ b/fs/xfs/scrub/quota.c
+@@ -102,21 +102,21 @@ xchk_quota_item(
+ 	 * suspect, which is why we flag it for review.
+ 	 *
+ 	 * Complain about corruption if the soft limit is greater than
+-	 * the hard limit.
++	 * the hard limit and there's a hard limit set.
+ 	 */
+ 	if (dq->q_blk.hardlimit > mp->m_sb.sb_dblocks)
+ 		xchk_fblock_set_warning(sc, XFS_DATA_FORK, offset);
+-	if (dq->q_blk.softlimit > dq->q_blk.hardlimit)
++	if (dq->q_blk.hardlimit && dq->q_blk.softlimit > dq->q_blk.hardlimit)
+ 		xchk_fblock_set_corrupt(sc, XFS_DATA_FORK, offset);
+ 
+ 	if (dq->q_ino.hardlimit > M_IGEO(mp)->maxicount)
+ 		xchk_fblock_set_warning(sc, XFS_DATA_FORK, offset);
+-	if (dq->q_ino.softlimit > dq->q_ino.hardlimit)
++	if (dq->q_ino.hardlimit && dq->q_ino.softlimit > dq->q_ino.hardlimit)
+ 		xchk_fblock_set_corrupt(sc, XFS_DATA_FORK, offset);
+ 
+ 	if (dq->q_rtb.hardlimit > mp->m_sb.sb_rblocks)
+ 		xchk_fblock_set_warning(sc, XFS_DATA_FORK, offset);
+-	if (dq->q_rtb.softlimit > dq->q_rtb.hardlimit)
++	if (dq->q_rtb.hardlimit && dq->q_rtb.softlimit > dq->q_rtb.hardlimit)
+ 		xchk_fblock_set_corrupt(sc, XFS_DATA_FORK, offset);
+ 
+ 	/* Check the resource counts. */
+-- 
+2.53.0
 
-For the above situations, no new flushing calls are needed. But there is
-another scenario for CON_NBCON_ATOMIC_UNSAFE (and unsafe printing in
-general):
-
-4. If the kernel ends in a way other than the final panic() loop, (for
-example kexec, sysrq-r, panic+reboot), the above scenarios do not allow
-unsafe printing. For the related code points we could call
-nbcon_atomic_flush_unsafe() and it could handle the policy of unsafe
-flushing depending on the context, which would allow
-CON_NBCON_ATOMIC_UNSAFE to flush here as well.
-
-The unsafe policy flags could be something like:
-
-PANIC_PRINTK
-- panic: all printk() calls during panic
-- checked in nbcon_atomic_flush_pending() of #2
-- if ((policy & PANIC_PRINTK) && panic_in_progress())
-
-NORMAL_FLUSH
-- non-panic: atomic flush calls: shutdown, reboot, kexec
-- checked in nbcon_atomic_flush_pending() of #3
-- checked in nbcon_atomic_flush_unsafe() of #4
-- if ((policy & NORMAL_FLUSH) && !panic_in_progress())
-
-PANIC_FLUSH
-- panic: unsafe atomic flush calls: reboot, kexec
-- checked in nbcon_atomic_flush_unsafe() of #4
-- if ((policy & PANIC_FLUSH) && panic_in_progress())
-
-Netconsole originally wanted by default:
-
-    .policy = NORMAL_FLUSH | PANIC_FLUSH,
-
-But this last series shows that netconsole actually wants:
-
-    .policy = NORMAL_FLUSH | PANIC_FLUSH | PANIC_PRINTK,
-
-These are slightly different policies. But as long as printk supports
-all 3 policy flags, we do not care which policies are chosen.
-
-I am happy to code up a full implementation if you think this has merit
-or you want to see the patch to decide.
-
-John
