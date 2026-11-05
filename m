@@ -1,73 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793891582;
-	b=rbZ0CNj5DYz2XhfjWka24ny3X1bE7y9DCBeilUPCS0+ks8LkK4bFUs6FVVZ9CFkiLGKb
-	 nEDBEzuryD29Ht0bNe8dE8mEJOMolLjr8Jf8yNthaVsSlor564EIYji4wiDSva6QN8r5L
-	 e61T1sbx0wVVVp0amifEfbp4T3TJ/z84N6/Rn9nPCaEXi/YbrFH+lGr4ZqIgDbrDJVz/V
-	 hFQVD0Bep+2PEeuXHkYLzzXdHFrfJtyouM9/DLD8/zYc5wUmhSRReTr+xEP9d6N/LK6YA
-	 j7PG2Gl3ZHceHN7dVYsRa4H02Wz1Olxh4N9/C0e5hgWCR0p/e6I6w71iw8idl5Qtw0A==
+	t=1793891605;
+	b=iy/OdyJfAwBKLFFBBmrwRK87M4btTGW6+fHxzFEg4ALkGqRXpAOQpJpv4uzaJ2eyz0KD
+	 eFCIFPO28Mpv4a72FQsl//PL5uWXgQ+gC0NS/Lm17F+cOxnByDMALolKub9DIsbOF4RhC
+	 1jBFCEt9sqZYpBFdTuStKuubTDVn7K2PFbSkinFhHRHkqzUP599jbpavvkm7DpHerOFi9
+	 A0ZfTSr/hC4CTysPmPlZgvxDuubdquFAnIj5oajl7+B7cDKcO4AC3q3yH82TNKIhvy32X
+	 +2jEkDd+Np1P7REsLGM5RiPfntOOIhxznWooLsoCHXXF57ITWYKVThIkZb1Y1btpWjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793891582;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793891605;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
 	 References:Message-ID:Subject:From:To:Cc:Content-Type;
 	bh=s0nutuVUph4b6cXq4/OVubQ7e7mF9JBGs/elhgXlqrs=;
-	b=WaOB4MM6kpvbvxFIIRn57RRWMsOhjQAZIn3snuudm+3Eww5Q+2itBCpKvyrZh+Vg+qda
-	 Kvh8d90y8B2/zVqO0oPIbuCV24PoVXHShSvWu3QvTyI5DPBF0I/D+SFkddrZjlGS/osm/
-	 H9MM8q9bFFJowUN90k3pnhKUU3mydVa3tfyqIy8/3QGc9F6cBcDoCI1lt4ynbhoS48cC1
-	 yIAxOMNlWrwT/+q1Py1M0SRjDtLB5k1pvslaKdg6gatTo5Ub6c2QmsxqaXHNV1iqsHWn1
-	 JVBv2unNAJvB9NQyZq0YVde7xdmlYCOxWset7WwMMsW95H5b7WETFamt++5jsW0i1FA==
+	b=WMJJ9ilqW/2Lq5YnCGP+dv56hr5AoN6iZxLuMymPEtuMEiHM7M6auZysDvrRtVFO4/AN
+	 kb2AGGoouqzZYlq+KQ79YJPo/s7H1wo5PjpjLnzn0zV2l3GtC593Q8fyE9+czUSz8vtlc
+	 tk+XMhE65Vit3HcLydXjxMnJcpUzD1IImpLhXfKtJSW7jP5M7d/m5eIHlPjxZK4JweG8K
+	 n1a9mA1G69rh8nsDFZTdBNNxHsrEsLaod50R7tSBhLNSqTKP2LzYV1W37wY50rZ1LxQil
+	 9UdJ6DtMJZrVrt9ZoPIqkNq/D//NK9cF9mFPzZenonelgmFXKAAKMbKsWJG+wc786OQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HX7ZPRAs;
-	arc=none smtp.remote-ip=209.85.215.199
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=f407I9Ty;
+	arc=none smtp.remote-ip=209.85.214.198
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3DF8606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:13:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3DF8606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 654EA606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 15:13:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 654EA606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=HX7ZPRAs
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc7e0321ec1so2084242a12.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 07:13:01 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=f407I9Ty
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e9995cea88so20764885ad.0
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 07:13:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793891581; x=1794496381; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793891605; x=1794496405; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
         bh=s0nutuVUph4b6cXq4/OVubQ7e7mF9JBGs/elhgXlqrs=;
-        b=HX7ZPRAsmzxUDvXeDin2+5Dds+G408j6vMPLXPbFamY04PRf9J/7MjROJUUgk7OcD0
-         0Yz+KOVbuoVgzL/lgBUEa1be8/w0Zth0lKjj3xegkStFwE0aGY83bC5PyQ8YS9cAWIZ2
-         upHdvwxbqNfffGr5wh62HUZ/O5+pJdm1J5DS7hk8ModXyA23H5GY+rneqkU8cPS3ZAs3
-         KrbYzxvxk1LiWSOZMysREIwL3MkFH8aX/ves8WXwm5GpBwpIa8zOezYuCsAumAneJM6f
-         wtof5qY6bVAOoJDdHrDBZYFR6tGq/gh3DFqQRLCLAatL6mfgRIK+mn2BorDHDJow7aIp
-         v6dg==
+        b=f407I9TyFd7QbDEAzI4VxDF5MD7wg7TStiJPXukLWrKxgnX4nnD49GaJuzCNmfjO7Y
+         2ZN6ZZsk38cOKzPccK8IzPL14yfvhqwO0OUldjCr7i2vGg65dAsCC+RlDlXWeT8URmkz
+         GTf0wNR/7GwWjQfe1NURJ/fad8QQlVgs+uCqIEBGD8fW1G2Oywgafp3dKnNs+Ng+XARf
+         gDzb3XsS34UShDcan2SodCQsUVsnXV0qcmGPE8RW57/AoetxK1a8CnTY9adobJEHC5hg
+         cCnbRleQ8PdxtZ+0MlNqUVJc1hmWnp5yPuP3deg/Btaie2B5d1iwqXog/RP2Iac9tEuo
+         6J3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793891581; x=1794496381;
+        d=1e100.net; s=20260707; t=1793891605; x=1794496405;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
         bh=s0nutuVUph4b6cXq4/OVubQ7e7mF9JBGs/elhgXlqrs=;
-        b=wzOuUVRAPnpGZG5fzxvjET5KcMmh/Vf7awy21DLHDW0EIvjVkzYbglBG/yXk20slwf
-         ZFrigJXg41N2a2/ZPAAnYLPH8xYRZ6Jd7h1+sInojIChdMdFjwTOov6AkCLeBaAOr4oM
-         KAJQngAHd7RMYhpWYMMCmyJ+uQxuuKEzuNJH0ABHVUyfNar4lGl+3ooWK5QesTb5tQab
-         D/ZHcG3rsYiaizoaHsecMyu5eK/+DW70HvyABw4uWX9f2hmep6fLkajJy2O52NGWWf39
-         Ka/xxhw3AQ5kSu+bzrUAKQgcuqJWTN7ZVUtlxF9+8UECsO7M2MN40vaXzLPGDFuspCr5
-         o/Ww==
-X-Gm-Message-State: APuU4Z9A3jxT03Q55rEpYXVlxzm7jIyQFjFHIrpb5IrCjrvOwnwSXW9F
-	lRxC8H1JreD5Q81X8sd8VjVCZ/GbcWtyOZ+8DVseioLQT5u5opj3IK5nvNl6EQ4dqaq8iNTTJwx
-	kFeUDTw==
-X-Received: from pjbss7.prod.google.com ([2002:a17:90b:2ec7:b0:3a8:8cd:a0a6])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:33c1:b0:3a8:59d3:5317
- with SMTP id 98e67ed59e1d1-3ae89751035mr16951423a91.32.1793891579841; Thu, 05
- Nov 2026 07:12:59 -0800 (PST)
-Date: Thu, 5 Nov 2026 07:12:59 -0800
-In-Reply-To: <20261105121632.2103355-1-xiaoyao.li@intel.com>
+        b=k4CSmrIAxE9AlcHFRC9m9+CCt86A+JH9ZA0X1Wrobo1lJDoNzER+xB27o/HZDs/UBX
+         vnZUEvmLUpmwTAa0iB5CumPgRnuYfvoz/TDvPMjlDWuDTUB2w+kS3wXP2YxbRLM2mpfK
+         y3gLBkJFoLkBjgMgjtPNS2i3UdxrORS3fTDQhczdnoE4c0dNU3e78T1hDOf8+kGaJkto
+         qZ3arIVHI/gtBhctGTSwCa2Topg1PGMuvVIWMOB5wWkNV7D8A9sUI7/AEz8EHcHf4qJZ
+         +/hkCKy495/Jx/8klurYS+v+XGvkrA4Dvq/24ZIYZ/nW9zesLrj4DTPf2YnVVN9dzfnC
+         /TaA==
+X-Gm-Message-State: APuU4Z/sN3DBerWimh8sm0pCMK2pfpRW0LmL3OjYtptluzQOOY2iDbYw
+	rZRzxdL0atFsA1garPItn/Xq/zSSXhvDguAJ9aPbJW1T2cBjkQzKbz94y+o1qPhOZVy9Y/5p0iL
+	XNWeE+A==
+X-Received: from pgfd3-n1.prod.google.com ([2002:a05:6a02:6543:10b0:ccb:62e:3f01])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:390f:b0:3b0:a4bf:b90
+ with SMTP id 98e67ed59e1d1-3b0a4bf0bb0mr3622356a91.20.1793891604482; Thu, 05
+ Nov 2026 07:13:24 -0800 (PST)
+Date: Thu, 5 Nov 2026 07:13:23 -0800
+In-Reply-To: <20261105121724.2103509-1-xiaoyao.li@intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,9 +77,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <2026110459-dismiss-purse-35a5@gregkh> <20261105121632.2103355-1-xiaoyao.li@intel.com>
-Message-ID: <auyc-6hFd44ROybd@google.com>
-Subject: Re: [PATCH 6.1.y] KVM: VMX: Preserve negative return value in
+References: <2026110400-steerable-maternity-eeae@gregkh> <20261105121724.2103509-1-xiaoyao.li@intel.com>
+Message-ID: <auydE1K6ENl8wIfk@google.com>
+Subject: Re: [PATCH 5.15.y] KVM: VMX: Preserve negative return value in
  vmx_handle_exit() with bus lock detected
 From: Sean Christopherson <seanjc@google.com>
 To: Xiaoyao Li <xiaoyao.li@intel.com>
