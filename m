@@ -1,88 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866222;
-	b=i6/iIWVlAh3RUiXez3B+VgC6mGw06s5q57cIzabgTS16FEgb/tzPyQTIbPxf66KOBGfJ
-	 VJDe3UAvCqe8vm+dhN1Kb3J8CqFxaZTRoOhs7WiqRcY4T51rcxei0o4657pE2VP2o9SEt
-	 RI2VxlIWErgOjr6K9XI4uNDtx26nZPMMoePfA8cE48a7zFVJmVV2EqB9nz+/ZNGSM3UuS
-	 kLno+hAFkv8yic9tQGfeG6wh6QjMAPsdeWv2gP1IVRI99f2Pnoi/g9RzUKk0mPmOdEhXg
-	 4TwT62AGImc/d6r2wm9xa4PdPxunKRO4SYgnGxqHnPQUlFCpRwSHJ05oQPotVLpfY3Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866222;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
-	 Cc:References:From:In-Reply-To:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793866245;
+	b=IvR3uMaRL+NL0JiWDnaVYFA+TJs+mFR8sUZzG34HBEIT+ftaQaXWYZU80q610/HVxpOJ
+	 ABCX88ri2sjwxCh9/mMdBJkyxHSDlsObtiscMO2W+vBn2kRUG7ZiwFLT3h/gyIvVN3B+k
+	 WrZXFAALUcCGPDgvbNDGgSyo3zj+dHQ88sWXDKkNZDifqgEKkV/E1Lph90JUpCKu2TyXE
+	 ei6slZlwO1+OR85MLmYFsxZFXcHyPR1KRlV7cFRwX1AIUDmiwyASZXZki5qbVhGjKiQjm
+	 8jka6B64+AH4V+3JIf2x4Gro9a5J9mUANWLTQmafhMj00tpj5V7wvfjNpkQDbF5ewQA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866245;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=eBh969nVxZFFTO6fmYWdYNz93+AyKv5QmTP2TTDmML4=;
-	b=f8RpsGMq4hVdWlJ9dg+Y7iN830K8U5/ukDkYMp2ltNA1zZAZXBeeuYiifArhbU2/jV+B
-	 hesS5yV6rwl5VBSy2jsE2QVENbpO3kqTK2NzkDvlk9Jcc9H5rfkrw1avaulVuWlnPDwCl
-	 5AHROCgYlGv7vmFZam0JG8ikbloowkax6IrtCGgPLjpwNinPHBg2xkEn0A2Z7u+0CvB9n
-	 6LafzTYkQyMBwdw+GgwmCV+1ywrvI6bGh6COiykDCwHL0tV+xpy7U9bNNyhjOgHT1LW68
-	 HDxPlro+tXvYfZ1Ryr9COQfU8Ml1ABcAfNd1EGhj9teVQgoGlJ5meKk2Q9VtiRmtmcw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=Z8MnDae2;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	bh=DpJSt1J3oBy4CzDK+E+eF+bEhTjYYeDvHIcZlaiwBL8=;
+	b=hYrDEnXgMIc//HS+2cI8Uu0ltamcSA7Q0Ou4sHBJEOBIifgojNqV1HGr3TtTgBEBXZVk
+	 lpgCBeShbmztUMfzhCytjvV22wf1trtwrJjiRYiZBNkN13f8SNJRnIlDvMPAcoGByAi3Y
+	 KsvAPA8e/kZ3G4t/XPCQw3S7nKK9xfrmzUyAZSILM8ZcxQoFiMMazJLIqrX2b+ihn+YZp
+	 4GYYLA54kZK29ECGRfE3sTPuHIrlcGquDY9kyinJaZaQLXErXZBQxtyyFDO4aEsSYEK9F
+	 Z1hOlwt9N0+rGYJrxTebVfdj7m/EwIJi6fFl4migBQSzNGviCnuQI5ENeIs/E+cditw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hartkopp.net;
+	spf=fail smtp.mailfrom=hartkopp.net;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=RJcVB9Sm;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=ejiew3nS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9590B606A32D
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 08:10:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9590B606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02ACD606A31B;
+	Thu,  5 Nov 2026 08:10:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02ACD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=Z8MnDae2
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso11442135e9.1
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 00:10:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1793866220; x=1794471020; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eBh969nVxZFFTO6fmYWdYNz93+AyKv5QmTP2TTDmML4=;
-        b=Z8MnDae2Fsn66y+fSPyhIuqVEskaO6qb9N4w+S1WzyIZxbKvRPUaH83NjoqUuRdMlQ
-         +55mICaJ6Mx4r9o4hofBCQXICU1dZRMk6ZFp69lam3+EG2p/B8tv3geUffTwhQveCz15
-         CiJ3AJX+wQRitZ5yRXE3IpRddVqAtBQA+LFpuZnJJlfMDbJ647OrTyhsZsYzMxcheuT7
-         kDqst3oFw40pV5MPPnyS1I07Qb1DjDb2+tfRvbNRWPLCqOp52ICk+qV9dTDFL7B3EQyl
-         aMoXwSy08+l0EzHmmZDL+HcgI/PWt+WPFGN92vN4ylbNtBCitkfiE8D/rx1t8fVhAf2N
-         pkTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793866220; x=1794471020;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eBh969nVxZFFTO6fmYWdYNz93+AyKv5QmTP2TTDmML4=;
-        b=E10lxifuNsnQAhoDFdPQ4AhF93QrEinCMcF+ZRUTKQky8t/5sCUL1NyArv2yNiB5/Q
-         64BaX+zKpTwIeHCiGRcuuLtttcG5BHz2fjevUrtwcyXYkOc+yZFEsR1jPpbux0X9nNhU
-         g1CvFdiGUHYga/1FRNdKudOFA59wOAZydOoKSuPsZvHKy6uqAqmGD/9qj8oHPlfzhJKN
-         kodYoFReW4ZPRXZ7sDnXVtzBTLPBc6oPwfbJySNpvrw/Gjg6j2Kf7UnQb+jVZa50Oq3r
-         Cf52OhDp1VeSOY1gO5Y67eBm2gc8sDjIljQvtrkoeGg1QNq2BfPzCm0F/CGm3iIG4syK
-         yXww==
-X-Forwarded-Encrypted: i=1; AKwUvBwBLkNC9Wcr4cj9vXcdEn1uNL33nBAsvTl3TGW2D/ncrhP/vMlSsCB6Nf8m6KIM3NsyhUOmvEs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z81Et5AtwrCcKE6VHLZGufW1PbXTBFprH28YUN0vSXls6PE2RWv
-	Ov2a+k6m/bz4tgFnD1xeAS/hM8OdVBsZK/JEboun3XyLo1BhtzQt7h4=
-X-Gm-Gg: AYBFou08+tbol9dAu4pSJCmChuWi5leNDuagZTO+A3QvUKQcP5rzVOJe7/Z5SMwl9qq
-	4Z2uPGVxZiqwWGv4tsiIJlLKr410Sl1QT3b8cNuaE29MLvJMWqrHVRiyrvsQok9dgdxevAnOY/t
-	BWTklwGRFxCdj4lDIWBj17VyqjSfJs5BcvzHlsPixmieN6Nda8gbc0JcOalfywY8bE5u9Vw/OM9
-	l08MYy8vvbc11jecN60giOhd5vRUNwKmpura2NYxqXWyDte6TbMXLQs2w8E451v2M7wwLK2QFeB
-	Pi6qL2M2FQdQZKlm676/i0PRB81H83OxmjyEXkf4aVAdX2kGTpEZkWS9OByaKyo/Fw/Vv564CTa
-	IGLNEVqvMXdu8Q2u1POsBcd475+9xYk/JbDHpbfT3WqWcvIlBDViRfZNgdWJ05iMCTIW/Ui1MgU
-	YHaTySekkIJMC5zEKdXB1WJ0t7JUww6Vj3iEGV0hxVp0C5TRAa6ni2RRJQOdo6Uz+1Z44Chqzbz
-	SBy9hRChDwE2pU9ez7ks3NPPbc+CbpUZ4mUbHJygNL89hYZPbp2iTpRGXgxUnCVqUk1uJSaLVTR
-	o2QAO3SEAyEhmivIRMdTlsjRSdpytC0zpfxSL4C/wJXAHQsLJZQ9RJ2MvsAnD9YyekZwIx3ab4S
-	atrc=
-X-Received: by 2002:a05:600c:4585:b0:4a7:8fe8:130c with SMTP id 5b1f17b1804b1-4ac1889d5a1mr393620925e9.28.1793866219820;
-        Thu, 05 Nov 2026 00:10:19 -0800 (PST)
-Received: from [192.168.1.3] (p5b2b4618.dip0.t-ipconnect.de. [91.43.70.24])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba207sm43172805e9.10.2026.11.05.00.10.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 00:10:19 -0800 (PST)
-Message-ID: <2d666e39-816a-4f38-960b-3e537189219b@googlemail.com>
-Date: Thu, 5 Nov 2026 09:10:18 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=RJcVB9Sm;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=ejiew3nS
+ARC-Seal: i=1; a=rsa-sha256; t=1793866216; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Q7OuVBQGPqWj161mzcCzlQvPbhlo8+hYvt+HdeglpYTdVC/OuTexhZn/50Id01I7nY
+    5I0gyWFlIpEBUpd2WwtFA2gzv0Nhg03RpHNtRnuvXhgfJQkMeXixZsrwGePK+/eA4dv/
+    GcS+FZEbMOn6442PTs6GtKKXl0Dcc0KO0uYBqQrAY7hoeb+TwUzd9Z8G7PJV9s8KVUzW
+    PPPDYvn731pKEw99DmA6FCppCRR6sa/9REwR/wT11nxUBAOmPPqxk7uT7zX3cac7tWc7
+    EFYbp8jZXpjMaobblbUFKxMWOk/A3sa/d48DcgxXnauVH+Kee2qbPueZvd9aoVnL+uNN
+    SRQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793866216;
+    s=strato-dkim-0002; d=strato.com;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=DpJSt1J3oBy4CzDK+E+eF+bEhTjYYeDvHIcZlaiwBL8=;
+    b=GI9q+PtdSpTl1/qD/ZYkRa7VqkE5JWEAC2aZujmeKYatx0tnE5hbn77ybtY1RNRas2
+    S21lsyRooIkuk+lK6Dpc1EDkXJHYeHUV0QxyhRU6z1hg8+XQ0b8wDzeQTTY15OGPwEoO
+    /lNISyKBfuIsfknwlhIfyEMfmQ+YSARXHvy1xMW5XqDFNVW4L5CF25KFAjIXHFms5/mB
+    d7iRDZ2QT+NuzjEF3DrmuhB+fobuPpch2ejazS1c/huRgo/hbeiHZJmNJwG86Wr1KGK9
+    oh2juK4X79fuKTXLLCe85bhJF1z2WbB/0nePIFn8eXA81kxcZ7TIZAN25I7n81MvBoti
+    QNOw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793866216;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=DpJSt1J3oBy4CzDK+E+eF+bEhTjYYeDvHIcZlaiwBL8=;
+    b=RJcVB9Sm67rtlKjws+PCpRzpIZi8pUZzonvFWuQIfIUpoNguI5c+7CLA/Rf7abGAaG
+    qrkZZYfE23ewjxxTxge2rmLz9L41RGtofqrlpseYaP2miFcAKqCDai8nzGn8Ai9LfeqO
+    okycVstLHhDMpjhTOrwm6plS2sjcdIU1QV+aNkX8hm+XKd8SHMbNB+G+bjtw3r+EPRhD
+    UahHVAFUD7XiL04HBk07v4aEGZ/l5SVI+ezU/lES59XS6MEeoxkRCxh07UcOZMDf04II
+    aybtmwEztMJJpn6MJiAimO0QJzN+T22z7WdXmZds9E7iy9nu2I1EEyX1wpIjOLYD3bem
+    018g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793866216;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=DpJSt1J3oBy4CzDK+E+eF+bEhTjYYeDvHIcZlaiwBL8=;
+    b=ejiew3nSnbYEfWwM/HAOw+NbnrImbGV8DssKBXXAuDCEXTUAoCBbLnKgm/RGRmzMd7
+    SSNyuERHt4p4riZDasBw==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
+Received: from [IPV6:2a00:6020:4a38:6810::989]
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Kfdf2a2A58AFJmI
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Thu, 5 Nov 2026 09:10:15 +0100 (CET)
+Message-ID: <73ed871b-2248-482f-a96a-31230494b144@hartkopp.net>
+Date: Thu, 5 Nov 2026 09:10:15 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,45 +95,266 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261104211038.406938024@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 08/15] can: protect the receive lists with a
+ per-device lock
+To: netdev-bot+sashiko@kernel.org, mkl@pengutronix.de
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
+ linux-can@vger.kernel.org, kernel@pengutronix.de, liucj1228@outlook.com,
+ s.grosjean@peak-system.fr, stable@vger.kernel.org
+References: <20261103204305.3211144-9-mkl@pengutronix.de>
+ <179382520797.488856.11630508832915860623@kernel.org>
+Content-Language: en-US
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+In-Reply-To: <179382520797.488856.11630508832915860623@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 04.11.2026 um 22:03 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 7.3.2 release.
-> There are 547 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
-
-On my machine, I don't see the issue Ronald Warsow reported.
-
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
 
-Beste Grüße,
-Peter Schneider
+On 04.11.26 21:46, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in case
+> you want to address the nit picks below when you respin.
+> 
+> Low priority / nit picks for your consideration:
+> 
+> - [Low] Since RTNL is no longer held across raw_bind() and isotp_bind(),
+>    a NETDEV_DOWN followed by NETDEV_UP inside the bind() window is never…
+> 
+> Pre-existing issues:
+> - [High] This patch did not introduce this problem, but CAN_BCM still
+>    lets an unprivileged task stall a user-memory copy while holding…
+> 
+> --
+> 
+> can: protect the receive lists with a per-device lock
+> 
+> This adds a spinlock to struct can_dev_rcv_lists, so can_rx_unregister()
+> finds a subscription even after the device has moved to another network
+> namespace. The per-netns rcvlists_lock now only protects the statistics.
+> CAN_RAW and CAN_ISOTP bind()/release()/setsockopt() stop taking RTNL and
+> rely on lock_sock(), RCU publication of the bound device and a barrier
+> pair for NETDEV_DOWN.
+> 
+> Link: https://lore.kernel.org/linux-can/CEA6A38A-2646-4ADA-95B4-CBAE2F301A8E@doyensec.com/
+> Link: https://patch.msgid.link/20261027-can-rx-lock-v12-3-eb5afc2d8b9b@hartkopp.net
+> 
+>> diff --git a/net/can/bcm.c b/net/can/bcm.c
+>> index 60406439a13f7..9288b96724da2 100644
+>> --- a/net/can/bcm.c
+>> +++ b/net/can/bcm.c
+> 
+> [ ... ]
+> 
+>> @@ -1936,6 +1925,7 @@ static int bcm_release(struct socket *sock)
+>>   	list_del(&bo->notifier);
+>>   	spin_unlock(&bcm_notifier_lock);
+>>   
+>> +	/* bcm_notify() can not access this socket anymore */
+>>   	lock_sock(sk);
+>>   
+>>   #if IS_ENABLED(CONFIG_PROC_FS)
+> 
+> [Severity: High]
+> This is a pre-existing issue, not one introduced by this patch. The
+> commit message is about unprivileged users holding up RTNL, though, so
+> is CAN_BCM still open to the same kind of problem?
+> 
 
--- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+Yes, this is a pre-existing issue that is not introduced by this series.
+It has already been answered for this patch set here:
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
+https://lore.kernel.org/linux-can/64f4dfcf-40ec-4838-85d3-a30c3912e242@hartkopp.net/
+
+CAN_BCM (and CAN_J1939) notifier handling will be looked at separately.
+
+> bcm_sendmsg() takes lock_sock(sk). While it holds the lock,
+> bcm_tx_setup(), bcm_rx_setup() and bcm_tx_send() copy frame data from
+> user memory with memcpy_from_msg():
+> 
+> net/can/bcm.c:bcm_tx_setup() {
+>      ...
+> 			err = memcpy_from_msg((u8 *)cf, msg, op->cfsiz);
+>      ...
+> }
+> 
+> bcm_notify() runs from the netdev notifier with RTNL held. On
+> NETDEV_UNREGISTER it takes lock_sock() on every BCM socket in the
+> device's namespace, whether or not the socket is bound to that device:
+> 
+> net/can/bcm.c:bcm_notify() {
+>      ...
+> 	case NETDEV_UNREGISTER:
+> 		lock_sock(sk);
+>      ...
+> }
+> 
+> Suppose the sendmsg iovec points at a FUSE-backed mapping whose daemon
+> never answers. The copy then stalls with the socket lock held.
+> 
+> A CAN device unregister in that netns then blocks bcm_notify() in
+> lock_sock() with RTNL held. For example, the user can delete a vcan in
+> their own unprivileged user+net namespace. After that, every RTNL user
+> on the host hangs.
+> 
+> The CAN_RAW version of this is fixed later in this series by "can: raw,
+> isotp: copy socket options outside of lock_sock()". That covers
+> memdup_sockptr()/copy_from_sockptr() in raw_setsockopt_locked() and
+> copy_to_iter() in raw_getsockopt() under lock_sock(). Before this
+> patch, raw_setsockopt() even held RTNL directly across the copy.
+> 
+> CAN_ISOTP is not affected. The BCM paths look the same at the end of
+> the series.
+> 
+> Could the BCM frame data also be copied before lock_sock()?
+> 
+> [ ... ]
+> 
+>> diff --git a/net/can/raw.c b/net/can/raw.c
+>> index e1d741a25be3f..d6517f71cadeb 100644
+>> --- a/net/can/raw.c
+>> +++ b/net/can/raw.c
+> 
+> [ ... ]
+> 
+>> @@ -305,16 +309,31 @@ static void raw_notify(struct raw_sock *ro, unsigned long msg,
+>>   		       struct net_device *dev)
+>>   {
+>>   	struct sock *sk = &ro->sk;
+>> +	struct net_device *bind_dev;
+>>   
+>>   	if (!net_eq(dev_net(dev), sock_net(sk)))
+>>   		return;
+>>   
+>> -	if (ro->dev != dev)
+>> +	if (msg == NETDEV_DOWN)
+>> +		smp_mb(); /* IFF_UP is cleared before, pairs with raw_bind() */
+>> +
+>> +	/* Lockless fast path, ro->bind_dev covers a concurrent bind().
+>> +	 * Read it before ro->dev, pairs with smp_store_release() in
+>> +	 * raw_bind(). A stale ro->bind_dev only costs a lock_sock().
+>> +	 */
+>> +	bind_dev = smp_load_acquire(&ro->bind_dev);
+>> +	if (READ_ONCE(ro->dev) != dev &&
+>> +	    (msg != NETDEV_UNREGISTER || bind_dev != dev))
+>>   		return;
+> 
+> [ ... ]
+> 
+>> @@ -479,14 +500,25 @@ static int raw_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int len
+> 
+> [ ... ]
+> 
+>> +		rcu_read_lock();
+>> +		dev = dev_get_by_index_rcu(sock_net(sk), addr->can_ifindex);
+>> +		if (dev) {
+>> +			dev_hold(dev);
+>> +			/* pairs with smp_load_acquire() in raw_notify() */
+>> +			smp_store_release(&ro->bind_dev, dev);
+>> +		}
+>> +		rcu_read_unlock();
+> 
+> [ ... ]
+> 
+>> @@ -496,9 +528,6 @@ static int raw_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int len
+>>   			goto out_put_dev;
+>>   		}
+>>   
+>> -		if (!(dev->flags & IFF_UP))
+>> -			notify_enetdown = 1;
+>> -
+>>   		ifindex = dev->ifindex;
+>>   
+>>   		/* filters set by default/setsockopt */
+> 
+> [ ... ]
+> 
+>> @@ -528,24 +557,32 @@ static int raw_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int len
+>>   		ro->ifindex = ifindex;
+>>   		ro->bound = 1;
+>>   		/* bind() ok -> hold a reference for new ro->dev */
+>> -		ro->dev = dev;
+>> +		WRITE_ONCE(ro->dev, dev);
+>>   		if (ro->dev)
+>>   			netdev_hold(ro->dev, &ro->dev_tracker, GFP_KERNEL);
+>> +
+>> +		if (dev) {
+>> +			/* Either raw_notify() sees ro->dev on NETDEV_DOWN or
+>> +			 * we see the cleared IFF_UP, pairs with raw_notify()
+>> +			 */
+>> +			smp_mb();
+>> +			if (!(READ_ONCE(dev->flags) & IFF_UP))
+>> +				notify_enetdown = 1;
+>> +		}
+>>   	}
+> 
+> [Severity: Low]
+> The commit message says:
+> 
+>    "As RTNL does not keep NETDEV_DOWN out of bind() anymore, bind() checks
+>    IFF_UP after publishing the bound device, with a barrier pair against
+>    raw_notify() and isotp_notify(), so a down transition during bind() is
+>    still reported with ENETDOWN."
+> 
+> Does this still hold when a full down/up cycle happens inside bind()?
+> 
+
+No. As RTNL does not keep NETDEV_DOWN out of bind() anymore, a down/up
+cycle that completes between the filter registration and the IFF_UP
+check in bind() is not reported with ENETDOWN. Frames received in this
+window before the down transition may then already be queued for the
+socket.
+
+I consider this acceptable: ENETDOWN is an asynchronous notification
+and bind() has not returned at this point. When bind() returns, the
+socket is bound to a device that is up, and every down transition
+after the bound device has been published is reported, which is
+ensured by the barrier pair. So no down transition is missed for a
+bound socket.
+
+The commit message could be more precise here, but I don't think this
+justifies a respin.
+
+> raw_bind() registers the filters with raw_enable_allfilters() before it
+> publishes ro->dev. raw_rcv() can already queue frames for the socket at
+> that point. raw_enable_filters() can do up to CAN_RAW_FILTER_MAX
+> GFP_KERNEL allocations with cond_resched(), so this window can be long.
+> 
+> In raw_notify(), the bind_dev hint only covers NETDEV_UNREGISTER. A
+> NETDEV_DOWN in this window returns early:
+> 
+> raw_bind()                            RTNL holder
+>    smp_store_release(&ro->bind_dev)
+>    raw_enable_allfilters()
+>      /* frames get queued */
+>                                        dev_close()
+>                                          clears IFF_UP
+>                                          raw_notify(NETDEV_DOWN)
+>                                            ro->dev != dev -> return
+>                                        dev_open()
+>                                          sets IFF_UP
+>    WRITE_ONCE(ro->dev, dev)
+>    smp_mb()
+>    IFF_UP is set -> no ENETDOWN
+> 
+> isotp_bind() has the same window. so->dev is published early, but
+> isotp_notify() drops NETDEV_DOWN while so->bound is still 0:
+> 
+> net/can/isotp.c:isotp_notify() {
+>      ...
+> 	case NETDEV_DOWN:
+> 		if (!READ_ONCE(so->bound))
+> 			break;
+>      ...
+> }
+> 
+> isotp_bind() only sets so->bound after both can_rx_register() calls,
+> and samples IFF_UP after that.
+> 
+> Before this patch, holding RTNL across bind() ruled out this
+> interleaving. Is it acceptable to miss ENETDOWN in this case? If so,
+> should the commit message only promise this for a down state that is
+> still in effect when bind() samples IFF_UP?
+> 
+
