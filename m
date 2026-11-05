@@ -1,74 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793882864;
-	b=N0JAFg8no8GyETl3Q0S/srTSIk4TY7zKHfCnN0pPngjJRew1N6E5HQR1DRSlHME98DSa
-	 FsXH3OrjlHmpBuL2aO+I6XN1A5lWcsYD2cIJmhs999xBlV011uKSCQ1uBBXMl9IZcODtt
-	 PdqKPK6oNf9FnjsRwbBwKrpiwSfHu95xsgFPxAu9hAEtrFBTzaUtgYKx04U8Omjz6KNAN
-	 MWtnkWPyq9YyY56KvoAWkwejZfLQkOB9nqWhY87i5vyKD6SsQSI7aCuXi4m7hLNArLpsr
-	 Ywxppdk3YvybxaUzuLeR/D01a8xvupMRupOFaF9Ij1ZuxWCxCBZ30SUt1tnB3/c2Zvg==
+	t=1793882967;
+	b=tM8LgsmWWV/ZGwEa0jGpUuccWYV5TbIfJxVzMRpvWo0Vof7e1+s5NbXtLbFM4GtQItS3
+	 41t+bQSm4wtvqtT2v8daaRxENxou0J79A9NzOfYeaU5EkfoH10nBPTt5zOGrAlQr7MWNh
+	 jcIlbQslgjzTgP0GGZpgZXqiF1cvZV8t485CeErv80FS+vtHXvrDD1kYwL4DXhZuQl8Gy
+	 bHgw9edlNY1b9ylAnZriedrGDS1ZvMb3x6Y6ct8HQPxfYyzLtQSYedoyTRTmYno+SgaYE
+	 Cz2JsorH/eRmI7fdDg8f9N7WedBk30Yivm57I2HWyymhWIdMGA3bfjZtN1DPuBdxTIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882864;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:Organization:
-	 Content-Transfer-Encoding;
-	bh=+CdIoUC6SO9infTBGNxfj2iPfMXtBw1qIQTeTVf1PyE=;
-	b=VNa8AuZQp1AwNlGjpavRrdM/DwJjVKnH5d0i+bV7dPJJl5HbW42ox3c42hPkj9WKP7f6
-	 7n832RWV4OkebXNcOfVXhopTvqzb5XndKXrJp1YaVhA46WRcBiZ3jHzBZ5m3X1S4a+Uui
-	 tEt3BsdQfrFFUCfzlMhDXXkMRX54RgphdVwNByx6pqKbJudpS0eqNWMKdLH2ibcb5kykm
-	 zNgtgFjtgPMbN+Br1DiupvxgZh6Fb94J/49qOo203ijsAiPgrHEkWO+/lcFx3950VRwpL
-	 ksp8r7g5qbL2REH7GudgiQVbsiZTM7p8Xv0KCpvSE/1fIg7dIhoxtgOKiz3kGXFsaQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882967;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=jm/wpw0aBzb0o0AOc3jfnmw4DQX6HAAVWZR9EuNYLsE=;
+	b=ZIVbtQlLEh0ZVa9YClgVGtTCsvG1F0ZQdzH0fASmWRc/CRm9bGGJKtCYmoW7//awRAMA
+	 poaYPVlhyPx6yXp33SYraBbjuiOfV+J3SgTeI7Co7BbhiZGdfcr+7BHzk/77sjqMtKTdG
+	 nOz9j9xseKHpmbLx2ekJvN1iEwo1ZdJgbHG9IhO+TYTX+0XgWb8ZMTuS8q9O0JRFYKCRY
+	 SXEBJmMF/lnoyGUCMadIZHNn0d7HFHB9GAWpX757YQop9Ubxcnx3wdzuYriK8FH6kTBiL
+	 JvX0WCrRaYp/rXvrQ1J4wfkURBsm7/VzeSs3TdeCBUMQaKP3Yp/NZRyF7wDzUgiijXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AbYeOOSN;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLWHo9b7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50FD606A329
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:47:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A50FD606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2044606A32C
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:49:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AbYeOOSN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793882862; x=1825418862;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=pYe+wLI5gTUZba/OWS1Wy2JNJrM2m6qK+Vsq6PudyqI=;
-  b=AbYeOOSNE8nOcaPhHv+BzI6MjPcHUSl3AqY2DDpVTGn34c5MEzl8SLp2
-   RCble5kBz1YhtmumXLUUriOkyyfGYire7p+zhPbL5P/Wg1jvnA3uz+SuI
-   aaoTSgMXBqptffQxcy55PxsRLTAM/mNVK4zK0GQwJs0BFVEpa0naS9k8N
-   P2RriaET0bSN/NaQjLSnKhu4il8NHbU55T02ZedsONZzB1PuN3m04tkGt
-   Wc9d+rWr/iCKFoGYe4GRB/bynZrm2ZdlnjyqjyWC1KY/5CcfZXvgXMfAi
-   nuN5wBkUXNb+l4OvWz5BQuHhLvM+3SWDjqkhBSi4eccibeZOePpELXO16
-   A==;
-X-CSE-ConnectionGUID: eYp3PL0MQZSYtXpLWl0n9w==
-X-CSE-MsgGUID: BgpFQER5QEmhBp/yGPCqFA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2688346"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2688346"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 04:47:42 -0800
-X-CSE-ConnectionGUID: ScNAL6dcR1WSeMVjAkR+bQ==
-X-CSE-MsgGUID: WanBHScDT6q6UxjkjwnofQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="6991678"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.198])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 04:47:41 -0800
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/i915/cdclk: Ignore SWF18 in SKL CDCLK sanitization
-Date: Thu,  5 Nov 2026 14:47:37 +0200
-Message-ID: <20261105124737.24456-1-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLWHo9b7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7799E1F000C1;
+	Thu,  5 Nov 2026 12:49:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793882966;
+	bh=jm/wpw0aBzb0o0AOc3jfnmw4DQX6HAAVWZR9EuNYLsE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hLWHo9b7hGosYSZW7trOle1t4JGK+lOuRPHSSG2ne8QkE8RxORZgz/3ScR/mCd2NY
+	 h4x0RAkm3nAKpJimuuuZNFst2I0wlcVKPd9C3H8o1ZlG88z0q32xfuIRl09+T0hymM
+	 02iY45Rq4Iz9PPnlIJQdwDBnQiAqnoGCt2Q9E4My7WZ+jOZgXT6sVvUBPcnCgA3QkO
+	 R63JJQQ4ALhdm4ZoSLQ+trtZJKWSmaG3b+ELBuyu7Fskp8LXuzheAoK5YOhjbl2OZF
+	 rQ1FK5kT9Ia2+DOVQKMDOaF5dIo90ieLAZjIb1NU/BVZmxs/9LNOkGjNHAEIzv9rVv
+	 3ZWIE3NaexvvQ==
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 875C5198003A;
+	Thu,  5 Nov 2026 07:49:22 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-08.internal (MEProxy); Thu, 05 Nov 2026 07:49:24 -0500
+X-ME-Sender: <xms:UnvsahYHfhfuowuo7CsP8DI_Mq629tzha1V6duSqF3d2rOoPSMOv2A>
+    <xme:Unvsapt5IHWqJRc9M1sDyX7maYF_aTnvkF3rMU-NZSWrWQAwToH4sJh1chBA8zN9S
+    vs5PWUD70Qqfv5gbjKLksaFf6psAS_xzlGAl-EQFYJgCyqCRlGupGA>
+X-ME-Received: <xmr:UnvsaokNKCzaNhhvvjKtVP_uXeFX2Ktxdm7UD05Mw8QsKXMyVPjJI11dUpQ>
+X-ME-Proxy-Cause: dmFkZTEW4JllTt5Idft6CjxHmeLyHBmFga2y1IuhusNWLkk+RuUzgi27fIRUkj6zehD73Z
+    qXCwJB+LL25tnZ7MVvsM1jJdiEBmACdZ24JuSELrb7onelR59Gex48EX9ZAQtwkYfzKv6O
+    uaYpMi0+N/MMtqlBvS8vtGqvcrtbxioqnmLvVVrtYt7ftIUJbtV5gX1DIVLeAqEZt1hxdV
+    1+ToEn+FZOdUeh1da2rslwkQZ+AzZG7c40X/kdHTPxPibTU64dnYA36koXg0Tlz8Wztmyv
+    SwnwNjIN0SiiiHU6wxG2euwX+lZfIbFsB8NG0sjX2VL9xr9B8DML+aHpZRMo5jzBfq1zPR
+    ktSIxz93afPY52xXAJMQtDa6ryeGSkd99uQQ6HftCDK/5lq4A4EXG6248hlloaD1dqQXli
+    ZfBqDxP6dPOx+dZRQ5Ewmf0owbcmym2T/DPtrd1oHh+5f0JrozQg5Z3q1nnwt2feob/tEk
+    u4jNZriHcMDhzf+vukSoUlT4TCc8bTEwt3z1Ad0c8X1v6VONQOnV2MwVoZxOFNxVbqAT1s
+    uTKzMC5Z5cFTuo+YI/c5cGoRfBKchT5UlKqB4cs8vwCsJf5yvPg+fHKtjE73dCphA+JD6X
+    4lrlpVaOJ6xaw9/S6Ce8EuGV+CFGCBHfLl4DzEOInSySvMg3qWI/C/CplHqA
+X-ME-Proxy: <xmx:UnvsaiWBPrxsObXpEfarSHjcZGtPcIfjWRAQTuI4KwVlYpuTuVT4jA>
+    <xmx:UnvsajnY5bhdHIG9jufPM0V3sE_xvLSab1AQ3GDusGs1dZGlzkyHiw>
+    <xmx:UnvsanQNGRjIVbPM2n1URzuw1Dv5PS7K8oFUojWmDZegXctMcg26AQ>
+    <xmx:UnvsavE1b5ie_x4Ez0D48lT6jS7Xz-4pnh1JAvyrcmsJuSzP25PwqA>
+    <xmx:UnvsapjUNKB-WYf_Z5-t4A4Z6DmdPTQ_jrkdSpcEREnYB4Kk8P0E7FuG>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 5 Nov 2026 07:49:21 -0500 (EST)
+Date: Thu, 5 Nov 2026 12:49:20 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: Hungyu Lin <dennylin0707@gmail.com>, willy@infradead.org, jack@suse.cz, 
+	akpm@linux-foundation.org, dave.hansen@linux.intel.com, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] filemap: prefault writes starting beyond EOF
+Message-ID: <aux4uyBHKsFo5bTd@thinkstation>
+References: <20261104071002.49693-1-dennylin0707@gmail.com>
+ <aux0ruR5HpMBMPI2@pedro-suse.tail5790ac.ts.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,82 +87,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aux0ruR5HpMBMPI2@pedro-suse.tail5790ac.ts.net>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Thu, Nov 05, 2026 at 12:33:16PM +0000, Pedro Falcato wrote:
+> On Wed, Nov 04, 2026 at 07:10:02AM +0000, Hungyu Lin wrote:
+> > Since prefaulting moved to the slow write path, a buffered write can reach
+> > ->write_begin() and ->write_end() before discovering that its source buffer
+> > is unreadable. Several filesystems can extend i_size in these callbacks
+> > even when no data was copied. For example, a one-byte pwrite() at offset
+> > 4096 into an empty file can fail with EFAULT but leave a 4096-byte file.
+> 
+> I've been following this discussion rather passively on the other thread, so
+> I'll ask my stupid question: Why is this a problem? Yes, it's a bit of
+> weird behavior, but system calls are generally not expected to behave
+> super sanely in the case of bad input/weird errors.
 
-Currently on SKL/derivatives we are checking whether
-the VBIOS/GOP programmed the SWF18 scratch register
-appropriately. Based on the original commit, and the
-set of bits checked, the code actually wanted to check
-SWF06 instead. Looks like it's just completely confused
-whether the register offset should be 0x6*4 vs. 0x18 vs.
-0x18*4. SWF06 is where the VBIOS/GOP should stuff some
-information about what outputs it enabled. SWF18 is
-where the VBIOS/GOP is supposed to stuff the maximum
-CDCLK frequency.
+The input does not have to be bad. Write from an mmap() of a file that
+another process has truncated: write() fails with EFAULT and the
+destination file has grown anyway. I see it on ext4 and tmpfs. Before
+665575cff098 the file was left alone
 
-I suppose either of these scratch registers are part
-of the expected protocol between the VBIOS/GOP and
-driver, but it looks like at least some coreboot
-based systems don't set them up.
+> > 
+> > Prefault the source before ->write_begin() when the write position is
+> > beyond EOF, and return EFAULT if no source bytes can be made readable.
+> > Overwrites and appends continue to skip this prefault. Keep the existing
+> > slow-path faulting for forward progress after a failed atomic copy.
+> > 
+> > This also leaves intentional zero-length ->write_end() calls used by
+> > generic_cont_expand_simple() unchanged. As with the previous prefaulting
+> > behavior, a concurrent userspace unmap can still race with the later copy.
+> 
+> Ok, so it's still racy? What do you do if you can't fault it in at all?
+> You still get a hole?
 
-SWF18 not being populated leads us to reprogram the
-CDCLK PLL during driver initialization, while the
-display pipes are still potentially active. We also
-set CDCLK to its minimum frequency, under the
-assumption that nothing actually needs a higher
-CDCLK frequency when it hasn't even been correctly
-initialized.
+Only if the buffer goes away between the prefault and the copy, e.g.
+another thread munmap()s it mid-write. That is userspace racing with
+itself, and every write had that window before 665575cff098.
 
-Due to some other changes in the code we may no longer
-force a full CDCLK recalculation and reprogramming upon
-the first atomic commit, so CDCLK can remain at a
-potentially too low a frequency indefinitely.
+> > Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
+> > Reported-by: Kiryl Shutsemau <kas@kernel.org>
+> > Closes: https://lore.kernel.org/linux-mm/at9xXRhD2xZhszEj@thinkstation/
+> > Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+> > Link: https://lore.kernel.org/all/at-XtWBQg3jv3H8Z@thinkstation/
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> > ---
+> > 
+> >  mm/filemap.c | 10 ++++++++++
+> >  1 file changed, 10 insertions(+)
+> > 
+> > diff --git a/mm/filemap.c b/mm/filemap.c
+> > index b74bc1e5015c6f318333427f223b9f42061a6213..30414d55412b84f11ebe98b8eea607ee8c04eef5 100644
+> > --- a/mm/filemap.c
+> > +++ b/mm/filemap.c
+> > @@ -4389,6 +4389,16 @@ ssize_t generic_perform_write(struct kiocb *iocb, struct iov_iter *i)
+> >  			break;
+> >  		}
+> >  
+> > +		/*
+> > +		 * Some filesystems can extend i_size even when nothing was copied.
+> > +		 * Prefault writes beyond EOF to catch unreadable source buffers.
+> > +		 */
+> > +		if (unlikely(pos > i_size_read(mapping->host)) &&
+> > +		    fault_in_iov_iter_readable(i, bytes) == bytes) {
+> 
+> I say this doesn't matter, and if you pass insane inputs you get
+> insane outputs.
 
-To fix this let's just stop looking at SWF18 completely.
-The code is anyway confused about which register
-it's actually looking at, and we don't look at that
-register on any other platform either. We also do an
-actual readout of the CDCLK state from the hardware
-so we should be able to spot if anything is wrong
-enough to need reprogramming.
+As I mentioned above, it can happen with pretty legitimate input.
 
-Cc: stable@vger.kernel.org
-Fixes: ba91b9eecb47 ("drm/i915/cdclk: Decouple cdclk from state->modeset")
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16595
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17423
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_cdclk.c | 13 +------------
- 1 file changed, 1 insertion(+), 12 deletions(-)
+> Even more so considering this is racy, e.g races
+> against munmap(), mremap(), mprotect(), memory poisoning, and other things
+> like truncated memory mapped files sending out a SIGBUS (or uffd) :)
+> 
+> I don't think it makes to add random prefault loops in hopes this makes
+> for saner semantics.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index 92e6fca861f6..0f2f693c78d4 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -1269,18 +1269,7 @@ static void skl_set_cdclk(struct intel_display *display,
- 
- static void skl_sanitize_cdclk(struct intel_display *display)
- {
--	u32 cdctl, expected, swf18;
--
--	/*
--	 * check if the pre-os initialized the display
--	 * There is SWF18 scratchpad register defined which is set by the
--	 * pre-os which can be used by the OS drivers to check the status
--	 */
--	swf18 = intel_de_read(display, SWF_ILK(0x18));
--	if ((swf18 & 0x00FFFFFF) == 0) {
--		drm_dbg_kms(display->drm, "Sanitizing CDCLK due to SWF18 0x%x\n", swf18);
--		goto sanitize;
--	}
-+	u32 cdctl, expected;
- 
- 	intel_update_cdclk(display);
- 	intel_cdclk_dump_config(display, &display->cdclk.hw, "Current CDCLK");
+A buffer that is already unmapped, PROT_NONE, poisoned or beyond EOF of
+its file fails the prefault, and the file is not touched. Only the races
+in your list get through.
+
+It is one prefault, not a loop, and only for writes that start beyond
+EOF. Overwrites and appends keep the fast path.
+
 -- 
-2.56.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
