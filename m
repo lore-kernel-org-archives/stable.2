@@ -1,58 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793881293;
-	b=X0hglZ3gcDcEvkWpjQCQXz1Kq7Dbi1hApefjuFExqVyjipBqZrGLun9N8lFJeUT3njUM
-	 Y7jfGtNIRwj9YkGXpoSUOUjguVtxfBu3KM3bDDIKD7UR3HizGhLiz4gE5CAjeRrXljTTm
-	 lsmgAgAD9DpWmNelm+hph/hq/V1TPflQkN4qd4oePh1E3NsCaPPOQqxkFXutp9Arj+m7n
-	 ssscMQkP8TlUkbAk7S3I9/ADuYlgf7BJGjmePh/nmHjMKKMpqB9XNwCeOkUnf20QVkiGl
-	 iD7A/fu1FHz+GVgg7JQ/GXyIxuHdSBV79C88Gk0YT3UtGptZ7IZ/Sk/YWp/x4tgf33A==
+	t=1793881462;
+	b=LFm6ontSnt/BDCYNr5mH1xLNCfsWBEf8KZhsut5dqIhn+dAveHMrHQ3sHHQiCEN4w+E9
+	 nshGKr1BAT5q+jAY+5cz/+jcQ9Mb1ypeFQf8rJitZ+HxAK+Mhwy9IoPRYtMcL8c8XwwB6
+	 eK2Cmu3BQy4chS7WvYoLE+bzDjfGc8el5gzgGX7N4b4LLDQ1xYyTgQjnPs3NgF2e+18Jj
+	 8CHTYmjJG66+regioA41DgEcBjrCZ1xbv/jVbZ22CDDBg3yuS/ffvKpWtiCG3N/VlA4UR
+	 9czXNjFuArbnzFZQkZ0aMGFyw+acs+Ucuw21a+1ztIPD/XUhWywFiAT0zj9fO+v72bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793881293;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793881462;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vAsY6LXOnLZclehaN7vvtt8W8PcUF2Y3yMx85UmExXQ=;
-	b=SJxjZDq/sJArUV7L84a2qkA91DdOfwZlXvsc2kxCnoM9pQJVt052yK76ARXN5Gu/d5YE
-	 FK/BFAfrW0dJlM+O4J/vdUjhUU5sx1HJGLXcZ7Gg94dYeUjXQ0GTLTKTgOi2rVsdp6lZj
-	 WEP28clBoUart+f2cWNqB5k5lrNR+rW1Y/M7trilWu8buVq86nXra8AvanSv+s3HIWgU9
-	 PXbvHP1b/bnOsvMO9NSBRThvYaMzJtEOULWFrV6BJ6XmCjD6InbYH4iWg3DtVFmLOt5xw
-	 2lMkA2denmKyodHjmDi0tItTnf5XUFgAlJHUMPytZvvI6CM4kICZBSEFJHNZKSVvN9w==
+	bh=hZJeiaVH/GjKAUQoaK3P09WiycS+5a3Fe5WXL/jdsOg=;
+	b=jWEb3VJNY++7vXQNVC7hdM9bF/qjF1sue0EDOE3uN477hu2MFnXaplenwNz5P/aWnTi3
+	 eRMljns6WuUPBqHdFQ5+nG3TKQWxc5oPt6Ks9kRerqlvaMAwpm/SnQbiRNqiLhWWf02HR
+	 mZxwm/igAq8YK3sC79PIs7veuhtP26sKti60Cd6nMvGjI5lG0JDTmT9Brgskj2Nvo2KDA
+	 P5YeHFitLmd3oinr24++R8CiL+u69Rn8nGosKU6OO0gVgYdToNwHujBEzdaTI+eYlNoCM
+	 azHy7yJVWIY7d61IesacnySXV8nYXeBidX5l/r02AecT+QtETi8NCxuen+i/l1++GsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6Md0Fdc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fWLawPGv;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=WUEioGiP;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B47606A337
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:21:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A04606A32D
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 12:24:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0A04606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6Md0Fdc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78BEB1F000C1;
-	Thu,  5 Nov 2026 12:21:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793881293;
-	bh=vAsY6LXOnLZclehaN7vvtt8W8PcUF2Y3yMx85UmExXQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I6Md0FdcCo9D9iD3kRv8fb0M2VpGcnNxR+RvyscYexlnpcWM+ZJIX/c6tV/ofkQhU
-	 XputvCL2HzSbSBNq8BP1xEHyJp6q2QBAJZ0sXZrzokr+wDGEaKqLJCbr+7LI8DRePu
-	 XwLcfC1YofjVsq3Lw2bOFexCI57Nshl1WRfH0EltY/b1tFf3Vhq4nUFwgHnm1AB2EJ
-	 7WAYUgMNP+sG37ugvVkzr1ROaN4IEnKb/1ifec844R6Yo+2YwByYMsTtmAKkZIRzvU
-	 v3iSdkF1ArjKgAKTLVHNzR5wgaWj2X0uegAHuAlYRA6zYuUWP2fU1ae5iRm8HTZ+j1
-	 AIGIskJyj11Ag==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Eduard Zateev <hackerowskiy@gmail.com>,
-	syzbot+5c3ed2a0de3270efc921@syzkaller.appspotmail.com,
-	syzbot+c2ec61adfbcb24e5ec20@syzkaller.appspotmail.com,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] smb: client: hold server info until cifsd exits
-Date: Thu,  5 Nov 2026 07:21:31 -0500
-Message-ID: <20261105121915.1276136-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110421-avatar-written-3163@gregkh>
-References: <2026110421-avatar-written-3163@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fWLawPGv;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=WUEioGiP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793881460;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hZJeiaVH/GjKAUQoaK3P09WiycS+5a3Fe5WXL/jdsOg=;
+	b=fWLawPGvwtzWNqtc7PV7MO2zVqNlqTs3wbKfQnklMc/HOkrCY69lD1DR/IWV7e6eZdC47Z
+	C62xsu221DI8A3OtDiKliD6lyCozx0XX5ie/OGFFvfhKqgze9jC1IM8ZqjUuvL3Q19/5I+
+	ACFhGUObbYibDCVR9Hm4YWAZuY57ltw=
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com
+ [74.125.82.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-551-oiRKrI38O-2WqtCmJNgG8w-1; Thu, 05 Nov 2026 07:24:19 -0500
+X-MC-Unique: oiRKrI38O-2WqtCmJNgG8w-1
+X-Mimecast-MFC-AGG-ID: oiRKrI38O-2WqtCmJNgG8w_1793881458
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-14373747468so3907143c88.1
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 04:24:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793881458; x=1794486258; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hZJeiaVH/GjKAUQoaK3P09WiycS+5a3Fe5WXL/jdsOg=;
+        b=WUEioGiPHxZI4O9j0y3J+cdPJ0b5ZAjlJyTd6Lx0mCFlCFL2w09wpc7YehmYg1VN+O
+         cwFFLm1q3mT6GbbvyJNU9X13JlcgELvx8075n53p+aqvkcuZF4eErBKkJmFYPg4ri59A
+         FIgw43Iq/i5wb8CQwbVatwvo6Y4SDbVMITBO8kgQbUn8DdDTk25UJNRjKscmeeCW+0NY
+         Kuf41VIGe8/oqU65i+COG4yNsz6+smfP8OGOQOJlznm11oETrvC08hSw4pQe8jINkfiq
+         PYjyw61lTbXhr1HZuzG4HRnLXYtnfY3LRMb6geFHRSl++Pvl2xvm6FtlU8980ip0rXUT
+         6x1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793881458; x=1794486258;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hZJeiaVH/GjKAUQoaK3P09WiycS+5a3Fe5WXL/jdsOg=;
+        b=aA9IYc7X0ixAlxULtX1QP92PHGEbJ5ZXj5jHBIXRlUcdmOb/2jV5akvOy3J4jjZjwI
+         H1cQnn5j64l0Nr97l8aP0er3fVqtdZ6Lbqf5jXoz51BNcAjqPB/ivvJhjTj7degoQUTv
+         RET1ZJcV9WXZFaIZ21apL9/xjOphpKcX/I8ymavf63eBHk7UHPXMm4IG4W2NnIukPDVp
+         h2eGHW1tWwdjHk52KZ5p5mITPujx3bnehDW0xFsCpiBK0eBNXoxklm09MiQcLQL4y6qh
+         oJ4VRvj7L9IUBhZeBUno8XxWf/sUd/IAR6i4TcX/Dt5GHik2N3fV215gFUB8z0aq+IwD
+         iYAw==
+X-Forwarded-Encrypted: i=1; AKwUvBwNS+UsBou2y0LmfZB6z4ni2aVnpbKR7eLGBXXEq9CfB2x0H3+/Qil6YciBYmTZxeGP6OR9rIs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8QfPJk4z0cg/HWv18mVI28TSuFwmxnKECdWYv2a3xc6QC6kh8M
+	zhdeqBFjekJL8z/vCdDn8tyWhFJAxkaQByY2XtMp/UYqCcRNbYhqVW+6dVgRXEIgy0f57SiAUu/
+	AWjaFhgZ5igijMoUNdR+hKhMqAdBvnUtPxmawcfN7oHbnngMtwRZjgY7pSw==
+X-Gm-Gg: AYBFou2y/JwsExSqG+Zn/Hz6L98Cc+3g3VkxDOYHLEXZwH3vk05/G/9iO1A1RMz7BfF
+	udRUc9gxTXJhY+qPgzXiEQ3SEI/xQJtnvSomHneLanEsbh3FP+LKjMDC+QRgN4PKxmgh+HK1pol
+	DJ1Gnz1NMLC3QkLoRD3dpOVB6lGGqC2EN6AmB1n8baCqPQdeACrRhnqh4V6tqmnAVjXURAeOPQc
+	Md63JWkmLR/b4mcUJWyxA+lcvGJdWH9SDWboZ0T/yVG8c1KVCc/7CA7njQBTQwP4jGamBWxgX5W
+	MaOhqjol/64YTqHHrbr1g33ly/mxcaoNzuBAGg9H+BNdCoZDI2TdscsUQOXkUp2zywNztH82GF0
+	8oOX7o85zsKK4OJRt2J6jPVSvnJ4GLxtglOr3nOAePVcdvFnyspQyil6GZgp9LGU4gsxV1mTtbR
+	9KDAuPfjS5uQv8Gj0bB8FYmqTQEeg+R2BkpMecsvE=
+X-Received: by 2002:a05:7022:1707:b0:183:3c2a:ae8 with SMTP id a92af1059eb24-1ac5cb19462mr26201839c88.41.1793881458068;
+        Thu, 05 Nov 2026 04:24:18 -0800 (PST)
+X-Received: by 2002:a05:7022:1707:b0:183:3c2a:ae8 with SMTP id a92af1059eb24-1ac5cb19462mr26201813c88.41.1793881457405;
+        Thu, 05 Nov 2026 04:24:17 -0800 (PST)
+Received: from mgandhi-thinkpadp16vgen1.redhat.corp ([2401:4900:88fb:e4bc:f699:bfa1:8ae:63f7])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245b8822fsm19713431c88.2.2026.11.05.04.24.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 04:24:16 -0800 (PST)
+From: "Milan P. Gandhi" <mgandhi@redhat.com>
+To: sathya.prakash@broadcom.com,
+	kashyap.desai@broadcom.com,
+	sumit.saxena@broadcom.com,
+	sreekanth.reddy@broadcom.com,
+	martin.petersen@oracle.com
+Cc: linux-scsi@vger.kernel.org,
+	mgandhi@redhat.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] scsi: mpi3mr: Validate reply frame size bounds
+Date: Thu,  5 Nov 2026 17:54:01 +0530
+Message-ID: <20261105122401.266559-1-mgandhi@redhat.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103123316.223917-1-mgandhi@redhat.com>
+References: <20261103123316.223917-1-mgandhi@redhat.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,153 +124,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eduard Zateev <hackerowskiy@gmail.com>
+Firmware provides reply_frame_size in dwords, which the driver multiplies
+by 4 to compute facts.reply_sz (u16). If the reported size exceeds
+U16_MAX / 4, the multiplication overflows u16 before assignment, causing
+under-allocated DMA reply buffers.
 
-[ Upstream commit 482c117c6dbeee382790168af10959810450ab09 ]
+Furthermore, several paths assume a minimal reply frame size:
+- logdata_entry_sz calculations underflow or hit zero when reply_sz <= 20
+  bytes, leading to zero-size allocations and divide-by-zero crashes.
+- Unsolicited status descriptors and fixed replies (such as struct
+  mpi3_iounit_control_reply, 64 bytes) require at least 16 dwords.
 
-The last session reference can be dropped while the cifsd demultiplex
-thread is still running clean_demultiplex_info(). That thread frees
-TCP_Server_Info there, racing with cifs_put_tcp_session() as it releases
-the server crypto state. syzbot reported a KASAN use-after-free in
-cifs_crypto_secmech_release().
+Validate reply_frame_size in mpi3mr_issue_iocfacts() to ensure it is
+within [16, U16_MAX / 4] dwords before processing facts data.
 
-Keep an object reference for the cifsd thread. Defer final crypto,
-session-key, network namespace, string, and structure cleanup until both
-the last session reference and the thread reference are dropped. Drop the
-thread reference after clean_demultiplex_info() has finished using the
-server.
-
-Build-tested with ARCH=arm64 and W=1 for
-fs/smb/client/connect.o. The KASAN reproducer was not run on the patched
-kernel.
-
-Fixes: a5c3e1c725af ("Revert "cifs: No need to send SIGKILL to demux_thread during umount"")
-Reported-by: syzbot+5c3ed2a0de3270efc921@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5c3ed2a0de3270efc921
-Reported-by: syzbot+c2ec61adfbcb24e5ec20@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=c2ec61adfbcb24e5ec20
-Assisted-by: LLM OpenAI Codex
-Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
+Fixes: 824a156633df ("scsi: mpi3mr: Base driver code")
 Cc: stable@vger.kernel.org
-Tested-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: adapted DFS cleanup to free both origin_fullpath and leaf_fullpath under the existing CONFIG_CIFS_DFS_UPCALL guard. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Milan P. Gandhi <mgandhi@redhat.com>
 ---
- fs/smb/client/cifsglob.h |  2 ++
- fs/smb/client/connect.c  | 38 +++++++++++++++++++++++---------------
- 2 files changed, 25 insertions(+), 15 deletions(-)
+v2:
+ - Check lower bound (16 dwords) to avoid downstream underflows.
+ - Add MPI3MR_MIN_REPLY_FRAME_SZ_DWORDS define.
+ - Clarify commit message and error message bounds.
 
-diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
-index a9dce6fe2705f..6658d6c532f80 100644
---- a/fs/smb/client/cifsglob.h
-+++ b/fs/smb/client/cifsglob.h
-@@ -16,6 +16,7 @@
- #include <linux/scatterlist.h>
- #include <linux/mm.h>
- #include <linux/mempool.h>
-+#include <linux/refcount.h>
- #include <linux/workqueue.h>
- #include <linux/utsname.h>
- #include <linux/sched/mm.h>
-@@ -589,6 +590,7 @@ struct TCP_Server_Info {
- 	spinlock_t srv_lock;  /* protect anything here that is not protected */
- 	__u64 conn_id; /* connection identifier (useful for debugging) */
- 	int srv_count; /* reference counter */
-+	refcount_t obj_refs; /* struct lifetime: srv_count users + cifsd */
- 	/* 15 character server name + 0x20 16th byte indicating type = srv */
- 	char server_RFC1001_name[RFC1001_NAME_LEN_WITH_NULL];
- 	struct smb_version_operations	*ops;
-diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
-index 157d947846d9b..3cb2d68673a5c 100644
---- a/fs/smb/client/connect.c
-+++ b/fs/smb/client/connect.c
-@@ -984,6 +984,21 @@ cifs_enable_signing(struct TCP_Server_Info *server, bool mnt_sign_required)
- 	return 0;
- }
+ drivers/scsi/mpi3mr/mpi3mr.h    |  1 +
+ drivers/scsi/mpi3mr/mpi3mr_fw.c | 18 ++++++++++++++++++
+ 2 files changed, 19 insertions(+)
+
+diff --git a/drivers/scsi/mpi3mr/mpi3mr.h b/drivers/scsi/mpi3mr/mpi3mr.h
+index d6e16707fd97..e78383df619c 100644
+--- a/drivers/scsi/mpi3mr/mpi3mr.h
++++ b/drivers/scsi/mpi3mr/mpi3mr.h
+@@ -83,6 +83,7 @@ extern atomic64_t event_counter;
+ #define MPI3MR_ADMIN_REPLY_Q_SIZE	(8 * MPI3MR_PAGE_SIZE_4K)
+ #define MPI3MR_ADMIN_REQ_FRAME_SZ	128
+ #define MPI3MR_ADMIN_REPLY_FRAME_SZ	16
++#define MPI3MR_MIN_REPLY_FRAME_SZ_DWORDS	16	/* 64 bytes */
  
-+static void cifs_tcp_server_put(struct TCP_Server_Info *server)
-+{
-+	if (!refcount_dec_and_test(&server->obj_refs))
-+		return;
-+
-+	cifs_crypto_secmech_release(server);
-+	kfree_sensitive(server->session_key.response);
-+	put_net(cifs_net_ns(server));
-+#ifdef CONFIG_CIFS_DFS_UPCALL
-+	kfree(server->origin_fullpath);
-+	kfree(server->leaf_fullpath);
-+#endif
-+	kfree(server->hostname);
-+	kfree_sensitive(server);
-+}
- 
- static void clean_demultiplex_info(struct TCP_Server_Info *server)
+ /* Operational queue management definitions */
+ #define MPI3MR_OP_REQ_Q_QD		512
+diff --git a/drivers/scsi/mpi3mr/mpi3mr_fw.c b/drivers/scsi/mpi3mr/mpi3mr_fw.c
+index f0d3cd398dd0..60a92366e590 100644
+--- a/drivers/scsi/mpi3mr/mpi3mr_fw.c
++++ b/drivers/scsi/mpi3mr/mpi3mr_fw.c
+@@ -3261,6 +3261,7 @@ static int mpi3mr_issue_iocfacts(struct mpi3mr_ioc *mrioc,
+ 	struct mpi3_ioc_facts_data *facts_data)
  {
-@@ -1070,17 +1085,11 @@ static void clean_demultiplex_info(struct TCP_Server_Info *server)
- 		 */
+ 	struct mpi3_ioc_facts_request iocfacts_req;
++	u16 reply_frame_size;
+ 	void *data = NULL;
+ 	dma_addr_t data_dma;
+ 	u32 data_len = sizeof(*facts_data);
+@@ -3318,6 +3319,23 @@ static int mpi3mr_issue_iocfacts(struct mpi3mr_ioc *mrioc,
+ 		goto out_unlock;
  	}
- 
--	put_net(cifs_net_ns(server));
--#ifdef CONFIG_CIFS_DFS_UPCALL
--	kfree(server->origin_fullpath);
--	kfree(server->leaf_fullpath);
--#endif
--	kfree(server->hostname);
--	kfree(server);
--
- 	length = atomic_dec_return(&tcpSesAllocCount);
- 	if (length > 0)
- 		mempool_resize(cifs_req_poolp, length + cifs_min_rcv);
+ 	memcpy(facts_data, (u8 *)data, data_len);
 +
-+	cifs_tcp_server_put(server);
- }
- 
- static int
-@@ -1669,7 +1678,7 @@ cifs_put_tcp_session(struct TCP_Server_Info *server, int from_reconnect)
- 	list_del_init(&server->tcp_ses_list);
- 	spin_unlock(&cifs_tcp_ses_lock);
- 
--	/* For secondary channels, we pick up ref-count on the primary server */
-+	/* For secondary channels, drop the reference on the primary server */
- 	if (CIFS_SERVER_IS_CHAN(server))
- 		cifs_put_tcp_session(server->primary_server, from_reconnect);
- 
-@@ -1690,15 +1699,11 @@ cifs_put_tcp_session(struct TCP_Server_Info *server, int from_reconnect)
- 	server->tcpStatus = CifsExiting;
- 	spin_unlock(&server->srv_lock);
- 
--	cifs_crypto_secmech_release(server);
--
--	kfree_sensitive(server->session_key.response);
--	server->session_key.response = NULL;
--	server->session_key.len = 0;
--
- 	task = xchg(&server->tsk, NULL);
- 	if (task)
- 		send_sig(SIGKILL, task, 1);
++	reply_frame_size = le16_to_cpu(facts_data->reply_frame_size);
++	/*
++	 * Validate reply_frame_size:
++	 * - Must be at least 16 dwords (64 bytes) to accommodate fixed reply
++	 *   structures and avoid underflow/divide-by-zero in logdata sizing.
++	 * - Must not exceed U16_MAX / 4 to prevent integer overflow.
++	 */
++	if (reply_frame_size < MPI3MR_MIN_REPLY_FRAME_SZ_DWORDS ||
++	    reply_frame_size > (U16_MAX / 4)) {
++		ioc_err(mrioc, "Invalid reply_frame_size %u (must be %u..%u dwords)\n",
++			reply_frame_size, MPI3MR_MIN_REPLY_FRAME_SZ_DWORDS,
++			(unsigned int)(U16_MAX / 4));
++		retval = -EINVAL;
++		goto out_unlock;
++	}
 +
-+	cifs_tcp_server_put(server);
- }
- 
- struct TCP_Server_Info *
-@@ -1720,6 +1725,7 @@ cifs_get_tcp_session(struct smb3_fs_context *ctx,
- 		rc = -ENOMEM;
- 		goto out_err;
- 	}
-+	refcount_set(&tcp_ses->obj_refs, 1);
- 
- 	tcp_ses->hostname = kstrdup(ctx->server_hostname, GFP_KERNEL);
- 	if (!tcp_ses->hostname) {
-@@ -1849,6 +1855,8 @@ cifs_get_tcp_session(struct smb3_fs_context *ctx,
- 		module_put(THIS_MODULE);
- 		goto out_err_crypto_release;
- 	}
-+	/* Keep the server alive until the demultiplex thread has exited */
-+	refcount_inc(&tcp_ses->obj_refs);
- 	/* thread created, put it on the list */
- 	spin_lock(&cifs_tcp_ses_lock);
- 	list_add(&tcp_ses->tcp_ses_list, &cifs_tcp_ses_list);
+ 	mpi3mr_process_factsdata(mrioc, facts_data);
+ out_unlock:
+ 	mrioc->init_cmds.state = MPI3MR_CMD_NOTUSED;
 -- 
-2.53.0
+2.56.0
 
