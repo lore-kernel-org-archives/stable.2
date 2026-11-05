@@ -1,55 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.245.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879896;
-	b=awz+unRVAPkACqPM3koIUNC8C0/kAaELQ316Cj6b0rNxyrSHfSBtm0ggc2PPhZODGomC
-	 u1jj1jIN7EQlZ3etXPdgs0pL7sIddqlXjVHnJ4NbYsYlZgr8TY1tV0s7bj7TVMRwnQUJy
-	 Veng6BVuLLQz2uGIoaSNKjTWa9BNX/vh/76ElYjxBIcx2oCiUSrLHK3sdPZgESAirjyFR
-	 qW9b5yZPCC4EsqR6/JMR8Leh+E9Yqx2ha7sop2i1KOgRjvxNtO1FXccdp5GxddKhH4uea
-	 61eL0vuVrQnvk6PWpzuuO2tdf8P1s67HQVcnejebWZy1i0QR6p31vUCWQgBf9tPiWjQ==
+	t=1793879900;
+	b=VpajqGtURlvglb09UZL1Bus6RgM8qGFhpViXmY4Zeg6NjzIRZhy0t8gsd6Mr5ccC0dXD
+	 noMz3RcG3ZoqiXUm6UcpdsVwOuid7gJLupLp3Tpj0EoOi7URVbCvzNYSHNjNNh5li/4kJ
+	 4sMbfKFtewOU4pT2GDLZOQPhCm0cDRffZrIwB+Kzh/2Z5ksSniE49b3I3KUECeGx2wXAC
+	 7ToesWjie6hw09h6jwOtRAAqdXr/J3M8R2bf6stAojDP3BwAstk9R3f0X6gKszBNbPbdO
+	 9t0bZqRDSCzxsGfwLqh0WSh+jCbqU/BBkAWlXzK95hhreqZL1eJW9ASCVqorjMGfDxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879896;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=zBByXkNjVCE+LBHCR7ezhTaXQstt0LGC/bJIB+BFpQI=;
-	b=lcvc34F8olHC3RS9ovjzk/nZt5arjK0NEJV4Rk8KnGSiS2DP4G+A1NYIPFAG/vb95jpx
-	 rDZqTF94rfemMsA1ULvrMSqzj2bMSCIPcdAV9qWO1i+XeHa3m/j496P4KK3bGNROTD/DL
-	 D0VJkwgHPbJEP2Equl2kA9uRqksK7st/EbwEvKELwf164ars9W+JSIBO0fx7wfCRAWIpf
-	 fzjSglznJ0UVeTfBmcUl9+s9J9uwwji3r5DI23s/Yz2vGO9ul5JxM/YaBw4Clu+Lpb47F
-	 uyTZ7GpoK6f8PMT7RmOMoLJTvf+anhncyoodmKcFBFRBmNCb2dUxicVMiNmzAwPx5Pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879900;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=SpfLuW96ysa+N5RDQ9Bs8I6IRaYlyOe+7/4nH7BbGf8=;
+	b=F63On7d2iFmAJfUVzcglSBLeZV+7MCv0ZhoF1icki3JEwcdE0/Niu108srhkwyelA/EY
+	 k0d+z4NIPKtGHA+jYUwOA+romT23LSug1Dn++EBn/1p6nNrloybaRbfSYoLGWbfESaPpK
+	 7QmrokeyYwRjujXjqNECl8vhDHN+FM1LBi2VNzQk/1TQ1QaOBfT+VZ2xJZPF9gBYx4pnJ
+	 ez+dhMyIzG7N6RzdIIkPbpDOIm+4T/U/qqnKZyt6YnStyVLYKDK7FUS2Bcwd3YNfkMZ1K
+	 ecWjC8UoVen7jr8haFmoHyACIis171k9jPioIvnsdugXQeU/dKqJfnhqU46RdViYUOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W1ljF0wo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=strlen.de;
+	spf=pass smtp.mailfrom=strlen.de;
+	arc=none smtp.remote-ip=91.216.245.30
+Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D2D0606A33B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 11:58:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W1ljF0wo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B99C1F00A15
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 11:58:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793879896;
-	bh=zBByXkNjVCE+LBHCR7ezhTaXQstt0LGC/bJIB+BFpQI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=W1ljF0wosvH1izZK3HIyyKMPS5Nl7Fo7AEZF9nLeRoL/nKfwePwoGhcP3cO13i5tt
-	 K+PUL4PFr4udMC83cGKKjMr95u5F6AzyCFfgXmQwohvdyHJOb8o0v0L31qd4X8Q3YS
-	 D84D/iJ2MOzYNBOxKr0Ue6tJCGWdPu2P/UCDDOMTZV/DgaNvOJZwMu+TMhs6DWycs7
-	 ywqAr7SoMLXbegyQGmA4NVfAa7Qez7SAqekGZVKKuCwHNmKGhZyAsiDoMRt/E3FF4i
-	 HxNTj+/zd2QYAjKzHwfDFqMcaLp/u4WO32FNoTqPqpziosA/9rok+DLCoyDXqwC64K
-	 0WBpB7ohqvFvA==
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c445c95d553so255248166b.1
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 03:58:16 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzUoRtN3n00hsh4EWVERcLGVnvh1qYyTJ9MdFDK1HPUKrZeBmB7rgZjGCSue6IYc9ObJdkzXGM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z85sQzUyPMI2fRnZjyCaZQCJkLSsv+ke0Q5DKJWYpoT6bE0Vdbg
-	7lx+3hIVeT17PcH9txMTuIlBhb/ECwb1JDKbFe/Z2e4NuQXK87fHKCxG2e33SAsPr5/1jUEKE+A
-	h/HxIz4q25JCT/JwdC/5QWtmhMOhSmrQ=
-X-Received: by 2002:a17:907:c5ce:b0:c29:5d41:dfe8 with SMTP id
- a640c23a62f3a-c4ca7ae82f3mr1627888466b.43.1793879894694; Thu, 05 Nov 2026
- 03:58:14 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24168606D816;
+	Thu,  5 Nov 2026 11:58:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24168606D816
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
+Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
+	id A893760293; Thu, 05 Nov 2026 12:58:10 +0100 (CET)
+Date: Thu, 5 Nov 2026 12:58:05 +0100
+From: Florian Westphal <fw@strlen.de>
+To: Henry Martin <bsdhenrymartin@gmail.com>
+Cc: pablo@netfilter.org, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org, netdev@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] netfilter: nf_tables: fix pernet use-after-free on
+ UNREGISTER rebroadcast
+Message-ID: <auxvTfxdTgYnZ0Wn@strlen.de>
+References: <20261105114817.3033625-1-bsdhenrymartin@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,50 +51,20 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104183702.192452-1-icb@fastmail.org> <20261104183702.192452-2-icb@fastmail.org>
-In-Reply-To: <20261104183702.192452-2-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Thu, 5 Nov 2026 20:58:02 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-a+UH4q65J9K4e=EscH7tkHC+eEu_HC_oEeVzBdi0Kog@mail.gmail.com>
-X-Gm-Features: AclHuK913ysvhcNOT2S1DOx1NkImFakA1bWuvLx5kL8RLaniHar89jBvPmRxZ78
-Message-ID: <CAKYAXd-a+UH4q65J9K4e=EscH7tkHC+eEu_HC_oEeVzBdi0Kog@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ksmbd: skip metadata-only opens in sharing checks
-To: Ian Bridges <icb@fastmail.org>
-Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
-	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105114817.3033625-1-bsdhenrymartin@gmail.com>
 
-> diff --git a/fs/smb/server/smb_common.c b/fs/smb/server/smb_common.c
-> index f9fb3741ada3..920e94017bf6 100644
-> --- a/fs/smb/server/smb_common.c
-> +++ b/fs/smb/server/smb_common.c
-> @@ -719,6 +719,15 @@ int ksmbd_smb_check_shared_mode(struct file *filp, struct ksmbd_file *curr_fp)
->                 if (prev_fp->attrib_only != curr_fp->attrib_only)
->                         continue;
->
-> +               /*
-> +                * Two opens conflict only if both hold a right in
-> +                * FILE_SHARE_CHECKED_ACCESS_LE (MS-FSA 2.1.5.1.2.1 and
-> +                * 2.1.5.1.2.2)
-> +                */
-> +               if (!(prev_fp->daccess & FILE_SHARE_CHECKED_ACCESS_LE) ||
-> +                   !(curr_fp->daccess & FILE_SHARE_CHECKED_ACCESS_LE))
-> +                       continue;
+Henry Martin <bsdhenrymartin@gmail.com> wrote:
+>  
+> +	/* netdev_wait_allrefs_any() rebroadcasts NETDEV_UNREGISTER
+> +	 * while waiting for the last references to be dropped; the
+> +	 * netns and its nftables pernet storage may already be torn
+> +	 * down by then.
+> +	 */
+> +	if (event == NETDEV_UNREGISTER &&
+> +	    READ_ONCE(dev->reg_state) == NETREG_UNREGISTERED)
+> +		return NOTIFY_DONE;
 > +
-Could we account for O_TRUNC in the access mask used for sharing
-checks before adding this shortcut ?  CREATE requesting READ_CONTROL
-can still specify FILE_OVERWRITE. smb2_create_open_flags() then sets
-O_TRUNC, but fp->daccess remains READ_CONTROL, so this condition skips
-the sharing checks even though the request can reach
-smb2_create_truncate(). For example, with an existing FILE_READ_DATA
-open and ShareAccess=0, second CREATE specifying READ_CONTROL,
-FILE_OVERWRITE and ShareAccess=0 changes the sharing-check result from
--EPERM to success in the extracted-function harness. The open should
-be checked using an effective access mask that includes
-FILE_WRITE_DATA when O_TRUNC is requested. The client's requested
-access can be kept separately for the returned handle. This would let
-the shortcut exclude opens that only access metadata while still
-checking opens that truncate file data.
 
-Thanks.
+3x copypaste of same arbitrary conditional :-(
