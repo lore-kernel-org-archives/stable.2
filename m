@@ -1,94 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.83.223.141
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793895626;
-	b=5gLPvhgpVkV5FQf3wKWrtmJDzpf2+Pvbiw8oA+JfzICLb3ZDTRrJEYSO2CzqyZxSOY7D
-	 5nRQ4F+w/ZqX28lCOuScl1bXKf0p3dAaAyyXywYKtCvsp1R72RehYmAxPT8iwotv+Ssa/
-	 LAxNsZ2y48dDMUWCI9JsarNnNY+bjiAz0wJxTgFVX0Q275nGFnSLEo18cy7t0xY9cGLCy
-	 3mQ3oStequEG29q5vvgZw/M9fjyT+SBBJNW+lxZDX9bgWu78ya+MVpof8w0TvnNJ78bmQ
-	 W9Vs3tnhvvXYbpGgp8sXHdztIX5wkgMETIeyMmPJ5CmTRuLS9egrnK34sGNhEy9hKGQ==
+	t=1793895810;
+	b=fTa6LMROrUKytUlrvirdNTHFleDerQIr4W3Q+00r2URY2vCCfAALc9j65ZpKf81YpB2n
+	 V3LJ9zVQZX7/mskx3bzdjZMvkQwbcvFD06wEkm/aiUGKczjoYA3jJK9DZQjRfq9WPj3qX
+	 z6Z6nAq2L1RBapL9pEH+h8zuH7ySGntSBQ3rzpZJZhEsen+7f4uYsIODFcBwfiUcQb2bT
+	 GNfRv3NzAK/5nESHL9gAGdI87TBBRNAAUEhJHfYUfX3fU4fGpHpzpltdvoVW3OagUvIG9
+	 iMRBOn/cmmkKmJ1ZPBTIqP62+xSj2mn9z2i+dnNQwfLI7cuYLM6GuQfbmp3UsI09Krg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793895626;
-	h=DMARC-Filter:X-Sender-Id:Received:Received:X-Sender-Id:X-MC-Relay:
-	 X-MailChannels-SenderId:X-MailChannels-Auth-Id:X-Abaft-Desert:
-	 X-MC-Loop-Signature:X-MC-Ingress-Time:Received:Received:
-	 DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=dDD/ET6/mYd5ZD6mib2tWPW3i2iT6NYNz9oOSEWFJiQ=;
-	b=xYXu1m1UCrLcw/NTSPcqrykAAsopzbOiMhTbj+zVCXFDnb7szZtiuAxeCjlv4HG8NnAo
-	 sR2UlV9sTeLm4FWBV/Ew9oHuQnGGSD8un+ZLgTN3VwaFpq5wB16EqXWLM9fcxD6aW5BMS
-	 Lcknybb0+C83nY8ZHUb6nI+6RQ3RvrftvERhoMCWEdw8lhOPmXBD6YoLeg1k5Sl8guMKt
-	 lJHM8+3ZRrRwDyQ0t6CHlLwux2BnsZYIOXmigP5QnKUT5xUD/jwv8RGj2+rnJ84b9oslf
-	 eY2iYZsdqgIQgRfdxFrk0n42FvPFSrQMrbD2tLwrqwuZrBbdaVDCvrkF60qqOa49kqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793895810;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=SoWzIW7bEmjUW7FhBuDi30MWJaVlc04PymSszBYMXww=;
+	b=Q3YDQ6CP9g4NZuc3oRvuu6Bf3BLSLCtDOfgmt4U5TsR1WKK0+W9q6kZNWgjN228NZGts
+	 qcxvm2xPCpDy3IGb46JRo9QMkrWpoapNc9vzFlel6y/lDAkEsg+QGzxbcg0OKQQptVRTE
+	 xXYKL8EqGT455pQxS4rns9TeqM7Jylmf+kIwZCyuYLHINdJ+GHvZk1+il+79K+iniXHRB
+	 ruy0OhPAGcLq/eZj1iPAG5TH2/9vf3eQFfXRm5BYnCyhJRhqCxJCWDUaYpvcoLnjvqxeu
+	 3bZ4nDPshjn291rQE1vF2mEKGOUMSeL5yvSMrOOdbMVuH92nbTYj3dRQvLgwMngC0Ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=stgolabs.net;
-	spf=fail smtp.mailfrom=stgolabs.net;
-	dkim=pass header.d=stgolabs.net header.i=@stgolabs.net header.a=rsa-sha256 header.s=dreamhost header.b=PL2zhSDK;
-	arc=none smtp.remote-ip=23.83.223.141
-Received: from panther.cherry.relay.mailchannels.net (panther.cherry.relay.mailchannels.net [23.83.223.141])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhNN0ijc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C08606A332;
-	Thu,  5 Nov 2026 16:20:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82C08606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C4D606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 16:23:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=stgolabs.net header.i=@stgolabs.net header.a=rsa-sha256 header.s=dreamhost header.b=PL2zhSDK
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 1C6A84616C6;
-	Thu, 05 Nov 2026 16:20:19 +0000 (UTC)
-Received: from pdx1-sub0-mail-a213.dreamhost.com (100-99-198-86.trex-nlb.outbound.svc.cluster.local [100.99.198.86])
-	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 9C562461778;
-	Thu, 05 Nov 2026 16:20:18 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
-X-MailChannels-Auth-Id: dreamhost
-X-Abaft-Desert: 6a64af1d55728ab4_1793895618959_2500447647
-X-MC-Loop-Signature: 1793895618959:3312503829
-X-MC-Ingress-Time: 1793895618959
-Received: from pdx1-sub0-mail-a213.dreamhost.com (pop.dreamhost.com
- [64.90.62.162])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.99.198.86 (trex/8.0.2);
-	Thu, 05 Nov 2026 16:20:18 +0000
-Received: from offworld (unknown [76.167.199.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dave@stgolabs.net)
-	by pdx1-sub0-mail-a213.dreamhost.com (Postfix) with ESMTPSA id 4jL6wd2MdVz2x;
-	Thu,  5 Nov 2026 08:20:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
-	s=dreamhost; t=1793895618;
-	bh=dDD/ET6/mYd5ZD6mib2tWPW3i2iT6NYNz9oOSEWFJiQ=;
-	h=Date:From:To:Cc:Subject:Content-Type;
-	b=PL2zhSDKwFY0tFJfzOl3vl+WBcnTU37CxGpGml/xnaciJDNKuLErF9gQbq2RhGZpU
-	 I3xP4JLt8lh9tiPULAVXfpNmLZC7hWm/RV7b5qFwT/YoztcLOjGn5fYujDLdHoaCIX
-	 Zpf4Yq/GtltBfrwl0YWJyWOOcEBrBB6Mn48/SpRMiWpYf0oKRLXjroS050ny2Wo6a3
-	 vJXfvQFXuUtHe83WzxbjLGfeIPXsVQZ8p8BUDxD31H4DPGiDlv7BhrmlavBI9/nYO6
-	 yqmxtTWIIBMavCQatFZj0jcHuRes1e53gm1Pg8BHc7SlqcP/+kzaaRZ+zM1L2aQeN5
-	 KzjrZOjC9bJOA==
-Date: Thu, 5 Nov 2026 08:20:14 -0800
-From: Davidlohr Bueso <dave@stgolabs.net>
-To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Darren Hart <dvhart@infradead.org>,
-	=?utf-8?B?QW5kcsOvwr/CvQ==?= Almeida <andrealmeid@igalia.com>,
-	Shuah Khan <shuah@kernel.org>, Kees Cook <kees@kernel.org>,
-	Shubhang Kaushik <shubhang@os.amperecomputing.com>,
-	"Christoph Lameter (Ampere)" <cl@gentwo.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Will Deacon <will@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] futex: Canonicalize arm64 tagged user addresses
-Message-ID: <20261105162014.ljayftn3g5lziow7@offworld>
-References: <20261030-futex-tagged-uaddr-v2-prep-v2-1-131eb7414bda@gentwo.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhNN0ijc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6759F1F000C1;
+	Thu,  5 Nov 2026 16:23:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793895810;
+	bh=SoWzIW7bEmjUW7FhBuDi30MWJaVlc04PymSszBYMXww=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hhNN0ijcJBHxqpw6CnUueuLx1TxSPbuZivs26+fwyxOtnaocHGdo34PRBMQws+fzt
+	 cVOBVhWctaAvobQjg69Y2z94/gpPFJdqMf4e2g2mBBygXNPFmyldvFlcSGS/X6wdGY
+	 JUNRs8kfKUVYSTQDftV0rV7vyM4oVQEMCMZe9GzHEpB8uHhud7DuNhoykws+CAsj1x
+	 zaQyjJNvSjo/dmVjEIfJmrv8VTFmXZDsOkbC/NJ/tTZDjk9HLE5YSqg5Y/7j9hn7p5
+	 1vFqSm+QbSf+BrwUnrxl3Uin5TRllmC1dfO5HhN30IYQkPv7nTFL2KkpXJcHU9TrwA
+	 wqKKcTG+A5XJA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cem@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] xfs: break out xattr entry checks into separate functions
+Date: Thu,  5 Nov 2026 11:23:27 -0500
+Message-ID: <20261105162315.2113156-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110427-crawlers-unlighted-eb26@gregkh>
+References: <2026110427-crawlers-unlighted-eb26@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,181 +60,141 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261030-futex-tagged-uaddr-v2-prep-v2-1-131eb7414bda@gentwo.org>
-User-Agent: NeoMutt/20220429
+Content-Transfer-Encoding: 8bit
 
-On Fri, 30 Oct 2026, Shubhang Kaushik (Ampere) wrote:
+From: "Darrick J. Wong" <djwong@kernel.org>
 
->On arm64, a thread that enables the tagged address ABI can pass valid
->top-byte-tagged user pointers to futex syscalls. Such a pointer must
->have the same syscall behaviour as its untagged form.
->
->get_futex_key() validates the user address with access_ok(), but uses
->the raw address when constructing private and shared-anonymous futex
->keys. A waiter using a tagged address and a waker using the untagged
->form can therefore access the same futex word while hashing to distinct
->keys, causing FUTEX_WAKE to miss the waiter.
->
->Keep access_ok() on the original pointer so that arm64 retains its
->per-thread tagged-address ABI enforcement. Canonicalize the address
->afterwards, before it is used for futex key construction and shared
->mapping lookup.
->
->Add an arm64 64-bit selftest for a tagged private waiter woken through
->the corresponding untagged address.
->
->Fixes: 63f0c6037965 ("arm64: Introduce prctl() options to control the tagged user addresses ABI")
->Cc: stable@vger.kernel.org
->Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
->Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+[ Upstream commit 9eb04a6d41c7e474d4665118895c3c2d8e5a2741 ]
 
-lgtm
+We're going to add more xattr entry checking code in xchk_xattr_entry so
+break these out into separate functions so that we don't go crazy
+indenting.  There's a slight behavior change here where we skip updating
+the usedmap if we've decided the xattr structure is corrupt.
 
-Acked-by: Davidlohr Bueso <dave@stgolabs.net>
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+Stable-dep-of: 91c41f952490 ("xfs: check for buffer overruns when examining local/remote xattr entries")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/xfs/scrub/attr.c | 90 ++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 68 insertions(+), 22 deletions(-)
 
->---
->Changes in v2:
->- Add the generated tagged-address test binary to .gitignore.
->- Compile the arm64-specific test implementation only for arm64 64-bit
->  builds.
->- Avoid relying on /proc/<tid>/wchan to detect that the waiter has
->  queued; retry the untagged wake for a bounded interval instead.
->
->Link to v1: https://lore.kernel.org/r/20261022-futex-arm64-tagged-uaddr-v1-1-84d8afbe7668@gentwo.org
->---
-> kernel/futex/core.c                                |  2 +
-> .../testing/selftests/futex/functional/.gitignore  |  1 +
-> tools/testing/selftests/futex/functional/Makefile  |  1 +
-> .../selftests/futex/functional/futex_tagged_addr.c | 61 ++++++++++++++++++++++
-> tools/testing/selftests/futex/functional/run.sh    |  3 ++
-> 5 files changed, 68 insertions(+)
->
->diff --git a/kernel/futex/core.c b/kernel/futex/core.c
->index a240638f69e5c65bd036434a15f3df680efb4638..dcc8ffca38595a5ea69f3672375ffb9f9c6766f9 100644
->--- a/kernel/futex/core.c
->+++ b/kernel/futex/core.c
->@@ -539,6 +539,8 @@ int get_futex_key(u32 __user *uaddr, unsigned int flags, union futex_key *key,
-> 	if (unlikely(!access_ok(uaddr, size)))
-> 		return -EFAULT;
->
->+	address = untagged_addr(address);
->+
-> 	if (unlikely(should_fail_futex(fshared)))
-> 		return -EFAULT;
->
->diff --git a/tools/testing/selftests/futex/functional/.gitignore b/tools/testing/selftests/futex/functional/.gitignore
->index 7c39d10b38e4d86096d2d1ce5fe8d6036e8ca758..c64b93a683bd6e9f6b9d3e4f02397eb24cc5a0ad 100644
->--- a/tools/testing/selftests/futex/functional/.gitignore
->+++ b/tools/testing/selftests/futex/functional/.gitignore
->@@ -6,6 +6,7 @@ futex_requeue
-> futex_requeue_pi
-> futex_requeue_pi_mismatched_ops
-> futex_requeue_pi_signal_restart
->+futex_tagged_addr
-> futex_wait
-> futex_wait_private_mapped_file
-> futex_wait_timeout
->diff --git a/tools/testing/selftests/futex/functional/Makefile b/tools/testing/selftests/futex/functional/Makefile
->index a03bd5acba50319f08b04ff0904ef155c000fee3..8f7f6730285b725b483787362db4626c459d65c9 100644
->--- a/tools/testing/selftests/futex/functional/Makefile
->+++ b/tools/testing/selftests/futex/functional/Makefile
->@@ -19,6 +19,7 @@ TEST_GEN_PROGS := \
-> 	futex_requeue_pi \
-> 	futex_requeue_pi_signal_restart \
-> 	futex_requeue_pi_mismatched_ops \
->+	futex_tagged_addr \
-> 	futex_wait_uninitialized_heap \
-> 	futex_wait_private_mapped_file \
-> 	futex_wait \
->diff --git a/tools/testing/selftests/futex/functional/futex_tagged_addr.c b/tools/testing/selftests/futex/functional/futex_tagged_addr.c
->new file mode 100644
->index 0000000000000000000000000000000000000000..0b0e350eff11939e42b7b1aca01136b037ed7217
->--- /dev/null
->+++ b/tools/testing/selftests/futex/functional/futex_tagged_addr.c
->@@ -0,0 +1,61 @@
->+// SPDX-License-Identifier: GPL-2.0-or-later
->+
->+#include <errno.h>
->+#include <stdint.h>
->+#include <string.h>
->+#include <sys/prctl.h>
->+#include <time.h>
->+#include <unistd.h>
->+
->+#include <linux/prctl.h>
->+
->+#include "futextest.h"
->+#include "futex_thread.h"
->+#include "kselftest_harness.h"
->+
->+#define WAKE_RETRIES	100
->+#define WAKE_WAIT_US	10000
->+
->+#if defined(__aarch64__) && __SIZEOF_POINTER__ == 8
->+static futex_t futex;
->+static futex_t *tagged_futex;
->+
->+static int waiterfn(void *arg)
->+{
->+	struct timespec timeout = { .tv_sec = 2 };
->+
->+	return futex_wait(tagged_futex, 0, &timeout, FUTEX_PRIVATE_FLAG);
->+}
->+#endif
->+
->+TEST(tagged_addr)
->+{
->+#if !defined(__aarch64__) || __SIZEOF_POINTER__ != 8
->+	SKIP(return, "arm64 64-bit tagged address ABI not available");
->+#else
->+	struct futex_thread waiter;
->+	int ret, i;
->+
->+	ret = prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0);
->+	if (ret && errno == EINVAL)
->+		SKIP(return, "tagged address ABI not available");
->+	ASSERT_EQ(ret, 0)
->+		TH_LOG("PR_SET_TAGGED_ADDR_CTRL failed: %s", strerror(errno));
->+
->+	tagged_futex = (futex_t *)((uintptr_t)&futex | (0x42ULL << 56));
->+	ASSERT_EQ(futex_thread_create(&waiter, waiterfn, NULL), 0)
->+		TH_LOG("pthread_create failed");
->+
->+	for (i = 0; i < WAKE_RETRIES; i++) {
->+		ret = futex_wake(&futex, 1, FUTEX_PRIVATE_FLAG);
->+		if (ret)
->+			break;
->+		usleep(WAKE_WAIT_US);
->+	}
->+
->+	EXPECT_EQ(ret, 1);
->+	EXPECT_EQ(futex_thread_destroy(&waiter), 0);
->+#endif
->+}
->+
->+TEST_HARNESS_MAIN
->diff --git a/tools/testing/selftests/futex/functional/run.sh b/tools/testing/selftests/futex/functional/run.sh
->index d1a681b798bd385570710e7c5f9bb28cca64de3e..620d13ee7171e7cc6061053750c9ff4cf525ff72 100755
->--- a/tools/testing/selftests/futex/functional/run.sh
->+++ b/tools/testing/selftests/futex/functional/run.sh
->@@ -46,6 +46,9 @@ echo
-> echo
-> ./futex_waitv
->
->+echo
->+./futex_tagged_addr
->+
-> echo
-> ./futex_priv_hash
->
->
->---
->base-commit: 3ac032ef6ca8e47bb06d1e189dfcf88fa0a09c75
->change-id: 20261030-futex-tagged-uaddr-v2-prep-63ea40b5a22f
->
->Best regards,
->-- 
->Shubhang Kaushik (Ampere) <sh@gentwo.org>
->
+diff --git a/fs/xfs/scrub/attr.c b/fs/xfs/scrub/attr.c
+index 7315d0cb1e2e7..84507c80cf945 100644
+--- a/fs/xfs/scrub/attr.c
++++ b/fs/xfs/scrub/attr.c
+@@ -293,6 +293,66 @@ xchk_xattr_set_map(
+ 	return ret;
+ }
+ 
++static unsigned int
++xchk_xattr_local_entry(
++	struct xchk_da_btree		*ds,
++	int				level,
++	char				*buf_end,
++	struct xfs_attr_leafblock	*leaf,
++	int				idx)
++{
++	struct xfs_attr_leaf_name_local	*lentry =
++			xfs_attr3_leaf_name_local(leaf, idx);
++	char				*name_end;
++	unsigned int			namesize;
++
++	namesize = xfs_attr_leaf_entsize_local(lentry->namelen,
++			be16_to_cpu(lentry->valuelen));
++	name_end = (char *)lentry + namesize;
++	if (lentry->namelen == 0) {
++		xchk_da_set_corrupt(ds, level);
++		return 0;
++	}
++	if (name_end > buf_end) {
++		xchk_da_set_corrupt(ds, level);
++		return 0;
++	}
++
++	return namesize;
++}
++
++static unsigned int
++xchk_xattr_remote_entry(
++	struct xchk_da_btree		*ds,
++	int				level,
++	char				*buf_end,
++	struct xfs_attr_leafblock	*leaf,
++	int				idx,
++	struct xfs_attr_leaf_entry	*ent)
++{
++	struct xfs_attr_leaf_name_remote *rentry =
++			xfs_attr3_leaf_name_remote(leaf, idx);
++	char				*name_end;
++	unsigned int			namesize;
++
++	namesize = xfs_attr_leaf_entsize_remote(rentry->namelen);
++	name_end = (char *)rentry + namesize;
++	if (rentry->namelen == 0) {
++		xchk_da_set_corrupt(ds, level);
++		return 0;
++	}
++	if (rentry->valueblk == 0 && !(ent->flags & XFS_ATTR_INCOMPLETE)) {
++		xchk_da_set_corrupt(ds, level);
++		return 0;
++	}
++	if (name_end > buf_end) {
++		xchk_da_set_corrupt(ds, level);
++		return 0;
++	}
++
++	return namesize;
++}
++
+ /*
+  * Check this leaf entry's relations to everything else.
+  * Returns the number of bytes used for the name/value data.
+@@ -311,9 +371,6 @@ xchk_xattr_entry(
+ {
+ 	struct xfs_mount		*mp = ds->state->mp;
+ 	struct xchk_xattr_buf		*ab = ds->sc->buf;
+-	char				*name_end;
+-	struct xfs_attr_leaf_name_local	*lentry;
+-	struct xfs_attr_leaf_name_remote *rentry;
+ 	unsigned int			nameidx;
+ 	unsigned int			namesize;
+ 
+@@ -333,25 +390,14 @@ xchk_xattr_entry(
+ 	}
+ 
+ 	/* Check the name information. */
+-	if (ent->flags & XFS_ATTR_LOCAL) {
+-		lentry = xfs_attr3_leaf_name_local(leaf, idx);
+-		namesize = xfs_attr_leaf_entsize_local(lentry->namelen,
+-				be16_to_cpu(lentry->valuelen));
+-		name_end = (char *)lentry + namesize;
+-		if (lentry->namelen == 0)
+-			xchk_da_set_corrupt(ds, level);
+-	} else {
+-		rentry = xfs_attr3_leaf_name_remote(leaf, idx);
+-		namesize = xfs_attr_leaf_entsize_remote(rentry->namelen);
+-		name_end = (char *)rentry + namesize;
+-		if (rentry->namelen == 0)
+-			xchk_da_set_corrupt(ds, level);
+-		if (rentry->valueblk == 0 &&
+-		    !(ent->flags & XFS_ATTR_INCOMPLETE))
+-			xchk_da_set_corrupt(ds, level);
+-	}
+-	if (name_end > buf_end)
+-		xchk_da_set_corrupt(ds, level);
++	if (ent->flags & XFS_ATTR_LOCAL)
++		namesize = xchk_xattr_local_entry(ds, level, buf_end, leaf,
++				idx);
++	else
++		namesize = xchk_xattr_remote_entry(ds, level, buf_end, leaf,
++				idx, ent);
++	if (!namesize)
++		return;
+ 
+ 	if (!xchk_xattr_set_map(ds->sc, ab->usedmap, nameidx, namesize))
+ 		xchk_da_set_corrupt(ds, level);
+-- 
+2.53.0
+
