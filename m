@@ -1,49 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793902616;
-	b=LlQSATc57ANTd4QNClrWZkO6HMIVXqlpdOF/7iPtcmDSO2pMEnBovm0GM7WdJP8MpY0h
-	 3vs6Qpde5SWZu0EZn8VOWgsUKeQFuM+9Q2bqLNzxuy4vx7nv3w9qoA8RdFFYC25ZFRrZ6
-	 YQPscA/Kg695NA3Y5YT/lForJUUpgYJoH+hb9t5zXORdTO+KxGdJIEs0ON2OTjJlEn8aU
-	 Wq7gWb/SdxBXxmNgRwA1XN+6KTOe8KE3Azu+mdXmzfsElOsng3OHkrvr4ggMLldUNPGjP
-	 wEFkHjQ93QRqJGHJOT6J/gO9HCtG6GedQ16QVEcmegrYtiYU6T1P+DS03uzQh1Xm/GA==
+	t=1793903151;
+	b=HnL/X7l3X0roC/BB59Br98ZSggyw27qz3iNkMfMqX+M4PieaRkm/tChoXQhErTj7qb9n
+	 pgQCEV5KQGTCzUTw9CoxjLfwAxNZqVie+h09g3tRsQvpSL/1QuKgltmVuhl/P6yEwZzRx
+	 Gr49on2UhBCFt78CDPlyg7ydak/+ED49i8Om1SqfZCUqbI+8Qc1RCTBmAjTEP1f+P+OPA
+	 nvqo6+q+bEpecTLb+uCL9vQxi+Px0fF78IRjbPtwtVqMlEa0ycRNqlfknbvQ56ucy9kxf
+	 WOpqiOX7MMYtbZ7B7aQkrGoRxsjxil+9P6fHBFjKyUGSBhtfHH44PF2d8z9+p0rneTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793902616;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=vMpWvkjgwpvMMa7+syhmsy3PKYx+lNXAcu0o7qMwcLg=;
-	b=CRCAZ1kQhFus0iwhEdQk0y++BlcgyJy60hozP9qVbfmIXA61zXkMZO3n5drYH1TMPm1e
-	 nLR3yuOcNgYWpF4Q3JWCkK+0LsfENGWG94P6AHiPT0vTQeZlB8sqC/Xp7S+LeRv8KCEke
-	 4K53gym1ZKK3+0kKTT4XYCRFNXNQvdm9exp/ltl7KcYZD/LF0R1fSSvaGeL1d2C/pU95Q
-	 TzCevCpM0ZVwP8XqH4Zx5yMjf+Slh0wQWIq2DO0xUZTh3GYgX5G/bPcSBwgbuPBUmII8O
-	 R/JFmXJQTlQ8Sca7AaXMpJCf+KBfEzQdy0wdcmTrcPPSaS6MmkGPvu/XZ6osnP5ihdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903151;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
+	b=gh8HLbEch9yLJb5AYyYs2mwNnvvr5zkQGfBUwMZC7NQekE5xIu5BpnIuJDtc8ZsPVB3y
+	 qPSVwjpKGLwsZ7FZplOq6IUm8HebMERv0Zoq6mSj9QlP4A8yuj/kcGqCzEn7u56siv9FN
+	 5qrvAbM1ASpfHCOL4Bn8N56cqfd5mKv2SqYli8gVVqdkksXPzGcxxljEjAS1eMPvbw64Y
+	 Hia37rh4DOzwOg+Vpu3hmhgy4UAzMMz53M286PqY+/9W+Wz53vQfaffokFYIifW0ANgiW
+	 qDKaUGp0/yVVblJAuOdDo/GkGdZPRYcmn+bi/L5UO5sHR+LMUlZ0Jmg5vJRziDHHxGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zce8u9kf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=gpLik4Np;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IRCfsY0D;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qpZ4fh0Q;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/Zr3qgE1";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D43606A326;
-	Thu,  5 Nov 2026 18:16:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80146606A32D
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:25:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80146606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zce8u9kf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6775A1F000C1;
-	Thu,  5 Nov 2026 18:16:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793902615;
-	bh=vMpWvkjgwpvMMa7+syhmsy3PKYx+lNXAcu0o7qMwcLg=;
-	h=From:Date:Subject:To:Cc;
-	b=Zce8u9kfBUlYo6KPIi/Kk8ohVlE7iAqICTrnuxM4OKaYJT8CbiOb+lNyAvDEfG1zo
-	 hjnQd9+iJlRqJieiLQaQ8FHaRzreH1IYeiVkIVs/7L0vdncoo4akHf/VCrGyWyqevH
-	 uafdMf2itzKtADBAlzNGtQzKM0R6rbKZyDFUT49/eltsfUq/viuVCDVsyET7gxubUB
-	 ifLonotA7eXw+8MFA0l25QnuqbtDVG5ixTQGTCJP7MYDAhPH5a+lnMKUqChCn+6mnx
-	 FvJ2lGsBuTLNTSbMLHV4slSs6uJWnTRppiyrPmZQ47NdPAwVivq79Dc6LkUzAWWb6I
-	 FUP4nD4UrGwyA==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 05 Nov 2026 19:16:44 +0100
-Subject: [PATCH] mm/khugepaged: don't map folios that are not uptodate in
- MADV_COLLAPSE
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=gpLik4Np;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IRCfsY0D;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qpZ4fh0Q;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/Zr3qgE1
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 680B41F806;
+	Thu,  5 Nov 2026 18:25:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793903142; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
+	b=gpLik4NpZai2UCjBWJ/B95wrHx4MFifwTzLWTRBPuU4JR4/ciZjfkZNijMo/jVikJg/ygF
+	hXxQy95vm+/D72Fq30mAwhIbXoERwC3lkAK+lm6im+qEmXKSAMyCFceZGJneyxAC1IgVze
+	Jzdww+rCxUQNhEyS3mcIi9GyDQooxhA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793903142;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
+	b=IRCfsY0DDHNNDPM4eXi8rOYTYZ4Xoyq6uw0m4wt/msxYws1pV66lh10BLLtzBT9ELWY4ZG
+	CAAL25a7JaiBzFDg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793903140; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
+	b=qpZ4fh0QxEdi0FT26Cr+9xiUgjtuL0capIrgzL6ruIrFpfI80vQ6Zmkpoh/99Vql2oxws5
+	cD93of+Fqf+ld9B00RpMC/cOTXFB/rLYJlmvqYUYgtvJ7BMtW5S1qcVmbueCji3IDM2wff
+	LRazJdXXvLpumw9+JCsWwDGVSym4yKU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793903140;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
+	b=/Zr3qgE1TUmuiHY93oePEYHUzm7HO4+DFmlFo2o14oM23SU60+Tpdx+yUWXDjuHfGG8YcQ
+	Jd41VfGUr+OCttBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3C052133F6;
+	Thu,  5 Nov 2026 18:25:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 3Xl0BiTK7GqAHQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 18:25:40 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id B89CDB819; Thu, 05 Nov 2026 19:25:39 +0100 (CET)
+Date: Thu, 5 Nov 2026 19:25:39 +0100
+From: Jan Kara <jack@suse.cz>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: akpm@linux-foundation.org, willy@infradead.org, jack@suse.cz, 
+	shr@devkernel.io, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, sashiko-bot@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/page-writeback: avoid overflow when reporting BDI
+ byte limits
+Message-ID: <ijzndqxlfmivwaujc7nhtsa4p3hyd43g3aqud3vovajnd7jh7f@wcarf4xjxm5b>
+References: <20261103193627.71959-1-dennylin0707@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,82 +111,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAvI7GoC/yXMQQqDMBBA0avIrBuYRGqrVyklqBl1CmrIJKUg3
- t1Ul2/x/wZCgUmgKTYI9GXhdcnQtwL6qV1GUuyywaCptMa7Eop2SiNZPzubfFxdG0nVXf00WOJ
- jKBFy6wMN/Du/r/dlSd2H+vifwb4f8usBZ3kAAAA=
-X-Change-ID: 20261105-set_huge_pmd_uptodate-9b9820307f30
-To: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Hugh Dickins <hughd@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Zach O'Keefe <zokeefe@google.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1539; i=david@kernel.org;
- h=from:subject:message-id; bh=4vPRQgFKZMvkn+yRb7hUHK9P1W7c8xgEacmzWiDG098=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLenBDYF6dT1ebwouDdmfDrT5l/yqdorLYTb9qf9uJBx
- M5Pz6ovdJSyMIhxMMiKKbIEBd83ePlyXW21Gx8zzBxWJpAhDFycAjAR/WqGP7y3LZzkeI4/rtvC
- c09x08cjapfurVeL8DBW9bzbrLBWeAkjw23meu0ZiwLt81acetgfvmEH11qxjII83SPfTLrdD6b
- uYQMA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103193627.71959-1-dennylin0707@gmail.com>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
+X-Spam-Score: -12.80
 
-madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
-uptodate. For example, shmem fallocate() can put such folios into the
-page cache.
+On Tue 03-11-26 19:36:26, Hungyu Lin wrote:
+> bdi_get_bytes() multiplies unsigned long operands before assigning the
+> result to u64. On 32-bit kernels, the intermediate product wraps and
+> min_bytes and max_bytes report incorrect limits. For example, with
+> vm.dirty_bytes set to 104857600 and max_ratio set to 100, max_bytes
+> reports 268 instead of 104857600.
+> 
+> Convert the page count to bytes in u64 and use mul_u64_u32_div() to avoid
+> overflow in the subsequent multiplication. This also handles large dirty
+> limits on systems with larger pages. Combining the two divisions keeps
+> the existing rounding behavior.
+> 
+> Fixes: 00df7d51263b ("mm: add bdi_get_max_bytes() function")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-collapse_file() already refuses to proceed with folios that are not
-uptodate. Let's just do the same in try_collapse_pte_mapped_thp() and skip
-such folios, leaving handling to the page faults.
+Looks good. Feel free to add:
 
-Note that collapse_file() effectively clears shmem folios through
-shmem_get_folio(); let's keep this fix simple and simply let the page
-fault path deal with that.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
-Reported-by: Chris Mason <mason@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
-Once reviewed, I will pick this up in a timely manner.
----
- mm/khugepaged.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+								Honza
 
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 8d9f05a39afb3..db135b3c44ef1 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1900,6 +1900,12 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
- 		goto drop_folio;
- 	}
- 
-+	/* Leave any uninitialized folios to the page fault path. */
-+	if (!folio_test_uptodate(folio)) {
-+		result = SCAN_FAIL;
-+		goto drop_folio;
-+	}
-+
- 	result = find_pmd_or_thp_or_none(mm, haddr, &pmd);
- 	switch (result) {
- 	case SCAN_SUCCEED:
-
----
-
-base-commit: f44fd601f72e09e44c667b9234c9cd469856679c
-
-change-id: 20261105-set_huge_pmd_uptodate-9b9820307f30
-
---
-
-Cheers,
-
-David
-
+> ---
+>  mm/page-writeback.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/page-writeback.c b/mm/page-writeback.c
+> index 499a35473e4f..ddebec79d8d9 100644
+> --- a/mm/page-writeback.c
+> +++ b/mm/page-writeback.c
+> @@ -665,7 +665,8 @@ static u64 bdi_get_bytes(unsigned int ratio)
+>  	u64 bytes;
+>  
+>  	global_dirty_limits(&background_thresh, &dirty_thresh);
+> -	bytes = (dirty_thresh * PAGE_SIZE * ratio) / BDI_RATIO_SCALE / 100;
+> +	bytes = mul_u64_u32_div((u64)dirty_thresh << PAGE_SHIFT, ratio,
+> +				100 * BDI_RATIO_SCALE);
+>  
+>  	return bytes;
+>  }
+> -- 
+> 2.43.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
