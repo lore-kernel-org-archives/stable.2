@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793897103;
-	b=mkvYXMY+C0jMl1q/FAV4/KkDqGyvSlh0fNIVmLmpPha1/gobQhNNYlggiYKwt0Etu/7o
-	 lzi/9KCb2zIJUB71HkRbRWgTw4XT3OgJskScqjoghRdwZ9nc3RZu6GmHoeJ5yzzXKviur
-	 8cB9RoJ+RJZAHtM7KsFsmeROLgLYNfjIFmTy9xS1hzlk/YISCD3ZFPSahSf895CQLcl63
-	 IR4d/AmgsLj5YR5sWWjA8Tt/ZRGD2Eruub/+BfijaZd0pNbQFShCDUaV++91ofTdKHc1C
-	 UHvyJIcr4LjTIE5zKl9j+pnOtFxWgMxfi+5b385cKr7UwihHt3rUehnHb2TL1pFqOsg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793897103;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=wdYtPMhw6iQb9Bu4pea/weFH8wbGNUV9dgjmliA9Fu4=;
-	b=imV4BzLr5nDJhNQti4YpDFPOUTpyPcmKxo+Wcz9dz315GdcALyEp2LmPoyHR+Y/GwUBa
-	 WJsiOWcyp4kpWS9bAfzTCCO7hpV8KKI8yL3yXqXa762yL6mvyj/NgGm1bo1hGGiLixWSN
-	 K+uEoK8rK/6F372l3sXxMUo9j5pJONangQ9RaAsKNrU2ZoTQARQkg2rrxvFeMVRs1/KBv
-	 X+fOnoYjLr9pVoaj5xJGEkoI5sk4KzflkVeEJoZdFY8OjWgOQVMvHV2iC3TnAgXR0r3XI
-	 qsGAb0sJ/K2PjI4DYd28O3hXNcyWG8lJ21TJcVl539xwM2upY4rgwyFkYBds9NpqeBg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=GeWQn8+z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793897149;
+	b=V2G6tziIZQXPUDxXwlVGkHF7ZR5n71c8ygPwsuyy78dkRhQ2lkTEykXsQVvOPTzKLe3p
+	 kD4FT3Pp29bLIH20hRC86Feiz50Yr7POQ7BUD/QNqOoW4R9c13t0KBuMcbuiLbnqwG3mO
+	 zGtZ3Gb+SMJT2RygZbQNBHOG/v7NmDAl4AMcLk865xAZXFnltQLZglKbpdbCToR9LxxYW
+	 r92hw2/SPFeTUizZrvOCX5jF2HGDTDOi1azRNMX9h7y3aiHGA1t9dlnH8hwc5zUi2JAhf
+	 7Z6pvE9s4UZLPBuIHZ1NZkbCAmBrMmRo3CdbqNiyCeP0nc9fI56hWaHXHADbMrAqm2A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793897149;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=bbo5gnUtFNRT4iGRdhfs0Zl/Z5xcFTedmyZx/HnUAxE=;
+	b=GZgAMSXLZPg2QWy2zT5yyIgUic5RLSdxish5tBqSzvYDv/iQ4aTpAD89UgaZGBHEsPNP
+	 Q14AMMXJ+3f3wBPlQUjw5/KYbff/CyUv/oOb/jZCARjpIuG8ddY/4BeDDVSMwSbSdl0/k
+	 kZhI69GHqCZTpnvWuHaoQZOLFVipxYcwY1077B6YPTkxMMFCfPkBQ3w/UwBxUP4/6Zba0
+	 DSqAq4CqPl0ceG1iB6NFssPoE6vDNLUlj7Oxe91YvPsdHQlT013xFUR0A1nytEIP70xxg
+	 US9N5Bm5JLpSCrHeRHGaoufDwpTl/fvdK7JXIAwsHYXEn1Q+NRmCAQx9BU/sAP595cQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PNEvC2by;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31738606A329
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 16:45:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31738606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24BA606D804
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 16:45:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D24BA606D804
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=GeWQn8+z
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ed3f563739so9825ad.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 08:45:01 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793897101; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oyIyKcza4c443QyxeePqxgawZCN1gn3H5NE72njWPbk+BTzy1OXDxU0PW4HURqqYQe
-         BqK81YK7izymvKe7UZjujP2dz6gj7+qvT2e0/iJ9kjMWmlIuJ9fZI0P7D6HWifMO79IJ
-         /SMapXAtPoU4bbAC+yRk2Yu/eerBCS0lKdUpPdmCiDi+3azuzSTk/aqplboFZRGdeuiq
-         xxciFb4PEaCUXrsUfmpM475Jp7INTpbkRi4Hl9aYIJyQ2kP6xykUoO9J+L9qNvgHOZFG
-         l4Dr/87pPp1ZnTGoJ0F31cV1T7O/C3WT4wVdlxSI8JBPp/IeTBIUkHqBKpHYu0g3GAKg
-         pxZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wdYtPMhw6iQb9Bu4pea/weFH8wbGNUV9dgjmliA9Fu4=;
-        fh=+ZsDOs7dGQre9lX9Zz38wEB3XSx+b7mxln2Wtc/yVXE=;
-        b=buxHSFb2cK+Z2boMGRY2akIRoVK6W/NZmKlxYSsGjWHsLTxZzqsNtFC1k54mScBoPj
-         u41dgjmMhKI5mQfQcrRlOoAy082sJsy7fmbBkCIxvDHNX44JugUf1xjrTs4ZC8seSZKL
-         0MxiE2Qc1rGJf8hiY/yqPf+XlJ4WZXHNEQ/fqQMM1AZbPRfKZhZValcTyY7aoUSKLCkO
-         Z4nH7PpOIbN3MjQRJysqrwr7UuNKZec0JJ+XoGPescusZiqX6cbbWm3lcTV3SAS6YcgG
-         61F/nRmDa8EYJ86ZissyJS3F0miBt96lvZze0XJR+zE78YuKU70iPsQp7xENvZpdiuw0
-         ZcHw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793897101; x=1794501901; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wdYtPMhw6iQb9Bu4pea/weFH8wbGNUV9dgjmliA9Fu4=;
-        b=GeWQn8+zTCHvUtarI8ppl7DxE2DxVhnh3Q3uJMcuo811/kyKqNIvbJWgM44d/Z1jcF
-         uxmZ4HtlFK3aSnR0TpKMlENeCTJ66Vj86SOJ0/Fdfh8t1Cj7stI7bnd17Zvp3zgU+34M
-         bzAZN7oAmeii/J8KUcDC/yM25/Sbdl7PX+ToYXi5fBWmc3IFwetmuW3nrnkHhPSIrke7
-         JMadU+uRc/vwrPc410zSBHmfVbJPQ8+Y7/0vOIJcm6g+X7vLsHIE7B3bIW/RS538Hi3A
-         MbXbLOH0GrIrlZHra2msMNU/Bx1iAwPKcy2ZsFUi7kZl5+78lIcdmYBOerALR38eOCI8
-         4SpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793897101; x=1794501901;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wdYtPMhw6iQb9Bu4pea/weFH8wbGNUV9dgjmliA9Fu4=;
-        b=HfYozB0KE6dp9SWRGErncSZDbxjcLMC1KwTdSXEnXUGVWEr7Bf4klEcS+l45XDb/uh
-         SiUGyU+4c59iiVGXamJi4o5M7yzWwWIwkE5WlO9AzbfTuNHg05Svr3jTxRGWSBKW1IEz
-         vxTdr2ymJhJ/o3cu77FKQZ+RvcPfqBnBXSj+FMoX0iVCgOBp4MwVyZhfbfXQy0YNdAUM
-         iU8Fmb8PYxjUDJz9es5Bfojx+GXXrS+UPNjVCXepNls+IUPjt+fhwjRd65/64lcpNJEf
-         /Zch2vdvlaj66Q11NGieJ6SPAdGmbA6tqvRH01Ld6NZPaCHcTTY3RZ0MfvjWf5tNB3ik
-         kPcw==
-X-Forwarded-Encrypted: i=1; AKwUvBypRdnzZ1wmLql2MWn5uTdnwTGW8I64NGjGWNHiVGxJD3+XyXYb5O95rTRm84EgLAu2/sKyPjA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+joaOELg1gFelXn44CEWcfmo6ZPdqRW4Xk1qGdUlsF/ia/Uuxz
-	Fvvme6HFBIL2WRYA0rMq2S6UPIO95zRgTNoUn5tI9jgymveEMkuW7NmOB3vyOFEGSA/Q6Q7oSr/
-	03oY5eyNMn97fcbxT38DXUP24NMfu29W38SbOcVOU
-X-Gm-Gg: AYBFou12nK/l7ZdbYk4vCy239HwfQQS79rQkf5z9ivy5B9eD9fTn9l3JCiEkZxJoMNS
-	aopXy/Tf6pJTlDmQJqsgdn5vNnMjpte60C3eURJNti5owqiYBXsBwib06JgmLWXvezMlOpKXrTS
-	dnn/oKjgQ6ga3SXX+zJkaSJ2O2onBXyo4/cRY+Q8Kzgb7SiDAK8UrszOhrWJoWHOIWizJ3uilC6
-	rouYjDwh3O+hcFMSg19jLBHNAH7nCN7MLKbT7kWvhdmK1C4/k01YSTteXsVrBObqw4+EtoiGh8Y
-	RBiSmO9Wn22LjXbOtwX/wvBTPzAGvGCmcAGXv4QGZcTHQg29GOXdfnisfPFb1Vwon/cXdCFeeSI
-	8aZNKWJbbg/xOkUyXjTjXeK37rK6Q/gjSuVnYva0IwfIj2RGIE5AmS1JRM8S4xaMaAFsrIRZ8u1
-	qXiUmtQR1N1F+yst/gSj+a6rM=
-X-Received: by 2002:a17:903:26c5:b0:2e6:344:7bb4 with SMTP id
- d9443c01a7336-2ed27dfcd4cmr5295155ad.11.1793897100818; Thu, 05 Nov 2026
- 08:45:00 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PNEvC2by
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793897148;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bbo5gnUtFNRT4iGRdhfs0Zl/Z5xcFTedmyZx/HnUAxE=;
+	b=PNEvC2byRHfTJkZefT+rZMBdvpe6+pnmt/B+S8kg8FWQRXUrAaYvxKnRa6YZyR+siA1L/h
+	4WOfleERsHGEp/m1VFl9/YZ7SOZJJFpDVK1YL2WUDZnF3KJZc3ifiup/kYg+2yw+o0IDjc
+	zY1amDTp9Q/b5KN2R+bDY2Ms/AFF3lI=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-155-C15SOF6CO16zjwDhOSII8w-1; Thu,
+ 05 Nov 2026 11:45:42 -0500
+X-MC-Unique: C15SOF6CO16zjwDhOSII8w-1
+X-Mimecast-MFC-AGG-ID: C15SOF6CO16zjwDhOSII8w_1793897141
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D167F1955DBB;
+	Thu,  5 Nov 2026 16:45:40 +0000 (UTC)
+Received: from pbonzini-thinkpadx1carbon6th.rmtit.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 47B82195608B;
+	Thu,  5 Nov 2026 16:45:38 +0000 (UTC)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Hillf Danton <hdanton@sina.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Harry Yoo <harry@kernel.org>,
+	syzbot+f11512d1e5878ba5e60e@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH 2/5] KVM: x86: register asynchronous page fault waits with interrupts disabled
+Date: Thu,  5 Nov 2026 17:45:28 +0100
+Message-ID: <20261105164531.313849-3-pbonzini@redhat.com>
+In-Reply-To: <20261105164531.313849-1-pbonzini@redhat.com>
+References: <20261105164531.313849-1-pbonzini@redhat.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,73 +83,282 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org> <20261102-work-procfs-bugfixes-v1-19-59422ed3e465@kernel.org>
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-19-59422ed3e465@kernel.org>
-From: Jann Horn <jannh@google.com>
-Date: Thu, 5 Nov 2026 17:44:23 +0100
-X-Gm-Features: AclHuK-fnefOFLp1bzMgat_Ywl30iLttA2NtTvDkjZ9zj3bJEHqA_bwaqAGV1Yw
-Message-ID: <CAG48ez2XEE+U4iyhxB6b2Zm88Mj6a36iQX1=X6NyJtB4o6hJ6Q@mail.gmail.com>
-Subject: Re: [PATCH RFC 19/38] proc: resume readdir after the last name it returned
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
-	Al Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Mon, Nov 2, 2026 at 3:26=E2=80=AFPM Christian Brauner <brauner@kernel.or=
-g> wrote:
-> proc_readdir_de() counts the entries of a directory and resumes a
-> listing at the number getdents64() stopped at. The entries are sorted
-> by name, so one that is added or removed in between shifts everything
-> behind it by one. Listing /proc/net/dev_snmp6 with a buffer that holds
-> ".", ".." and "lo" and adding a device whose name sorts before "lo"
-> makes the next call return "lo" a second time. Removing one that sorted
-> before the position makes the next call skip an entry instead.
->
-> Since commit 895b4c0c79b0 ("fs/proc: fix uaf in proc_readdir_de()") an
-> entry that is removed while it is being emitted also ends the listing
-> right there. pde_subdir_next() finds nothing after an erased entry, so
-> proc_readdir_de() reports the end of the directory and the next call
-> resumes by number, skipping another entry. For /proc itself
-> proc_root_readdir() takes that as the end of the static entries and
-> moves on to the pids, so the rest of the static entries is missing.
-> And if the position is behind the last entry when a call starts
-> proc_readdir_de() returns 0, so /proc then lists no pids at all.
->
-> So remember the name of the last entry a call emitted in the file and
-> resume at the first entry after it, like kernfs resumes after the node
-> it stopped at. An entry that was removed while it was emitted is
-> continued after by its name as well. If the position was moved by a
-> seek in between the listing counts from the start like before.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Fixes: 895b4c0c79b0 ("fs/proc: fix uaf in proc_readdir_de()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Asynchronous page fault handling has some wonky code to detect page ready
+notifications that are sent before the waiter is registered.  When page
+ready notifications for asynchronous page faults were separated from
+not-present notifications and turned into an interrupt, this code was
+unwittingly made almost-redundant.  Page ready notification is now delayed
+until after interrupts are enabled; and for an asynchronous page faults
+that occur outside guest mode, Linux never enables interrupts between the
+delivery of the #PF exception and the call to kvm_async_pf_queue_task().
+Therefore, the dummy allocation path is fully dead on that common path.
 
-Reviewed-by: Jann Horn <jannh@google.com>
+For the nested virtualization case, however, vmx.c and svm.c do
+record in the interrupt-disabled region whether a #PF vmexit is an
+asynchronous page fault, but they defer registration of the waiter until
+kvm_handle_page_fault().  Because of this, the vCPU thread can be preempted
+before kvm_async_pf_task_wait_schedule() is called, and apf_task_wake_one()
+may them not find the vCPU thread in the waiters list.  It then allocates
+the struct kvm_task_sleep_node* on behalf of the task that received the
+asynchronous page fault.  Besides keeping alive the wonky code, allocating
+the node from an hardirq-disabled region is a problem for PREEMPT_RT kernels,
+as duly reported by syzkaller.
 
-> +static void proc_dir_cursor_set(struct file *file, struct proc_dir_entry=
- *de,
-> +                               loff_t pos)
-> +{
-> +       struct proc_dir_cursor *cursor =3D file->private_data;
-> +
-> +       if (!cursor) {
-> +               cursor =3D kmalloc(sizeof(*cursor), GFP_KERNEL);
-> +               if (!cursor)
-> +                       return;
+Split registration from wait so that the caller decides where to
+put the node and so that KVM can anticipate the registration before
+interrupts are enabled.  KVM cannot use a node on the stack like
+kvm_async_pf_task_wait_schedule() does, but it can place it in the vCPU
+struct instead.
 
-(For both this and the proc_sys version, you could instead do the
-cursor allocation at the start of readdir() so that you can return a
-proper error if it fails, but I guess it doesn't really matter and
-that would complicate the code a bit more...)
+Reported-by: syzbot+f11512d1e5878ba5e60e@syzkaller.appspotmail.com
+Cc: Sean Christopherson <seanjc@google.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ arch/x86/include/asm/kvm_host.h |  1 +
+ arch/x86/include/asm/kvm_para.h | 21 +++++++++++++++++++--
+ arch/x86/kernel/kvm.c           | 33 +++++++++++++--------------------
+ arch/x86/kvm/mmu.h              | 14 ++++++++++++++
+ arch/x86/kvm/mmu/mmu.c          |  4 +++-
+ arch/x86/kvm/svm/svm.c          |  3 +--
+ arch/x86/kvm/vmx/main.c         |  2 +-
+ 7 files changed, 52 insertions(+), 26 deletions(-)
+
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 1ee4b127004d..3f096a0f3387 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -951,6 +951,7 @@ struct kvm_vcpu_arch {
+ 		u16 vec;
+ 		u32 id;
+ 		u32 host_apf_flags;
++		struct kvm_task_sleep_node host_apf_node;
+ 		bool pageready_pending;
+ 	} apf;
+ 
+diff --git a/arch/x86/include/asm/kvm_para.h b/arch/x86/include/asm/kvm_para.h
+index 4a47c16e2df8..1e28c89b1405 100644
+--- a/arch/x86/include/asm/kvm_para.h
++++ b/arch/x86/include/asm/kvm_para.h
+@@ -5,6 +5,7 @@
+ #include <asm/processor.h>
+ #include <asm/alternative.h>
+ #include <linux/interrupt.h>
++#include <linux/swait.h>
+ #include <uapi/asm/kvm_para.h>
+ 
+ #include <asm/tdx.h>
+@@ -117,13 +118,22 @@ static inline long kvm_sev_hypercall3(unsigned int nr, unsigned long p1,
+ 	return ret;
+ }
+ 
++struct kvm_task_sleep_node {
++	struct hlist_node link;
++	struct swait_queue_head wq;
++	u32 token;
++	int cpu;
++	bool dummy;
++};
++
+ #ifdef CONFIG_KVM_GUEST
+ void kvmclock_init(void);
+ void kvmclock_disable(void);
+ bool kvm_para_available(void);
+ unsigned int kvm_arch_para_features(void);
+ unsigned int kvm_arch_para_hints(void);
+-void kvm_async_pf_task_wait_schedule(u32 token);
++bool kvm_async_pf_queue_task(u32 token, struct kvm_task_sleep_node *n);
++void kvm_async_pf_task_wait_schedule(struct kvm_task_sleep_node *n);
+ u32 kvm_read_and_reset_apf_flags(void);
+ bool __kvm_handle_async_pf(struct pt_regs *regs, u32 token);
+ 
+@@ -146,7 +156,14 @@ static inline void kvm_spinlock_init(void)
+ #endif /* CONFIG_PARAVIRT_SPINLOCKS */
+ 
+ #else /* CONFIG_KVM_GUEST */
+-#define kvm_async_pf_task_wait_schedule(T) do {} while(0)
++static inline bool kvm_async_pf_queue_task(u32 token, struct kvm_task_sleep_node *n)
++{
++	return false;
++}
++
++static inline void kvm_async_pf_task_wait_schedule(struct kvm_task_sleep_node *n)
++{
++}
+ 
+ static inline bool kvm_para_available(void)
+ {
+diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
+index 6c0a794ed89a..d3a0e0d7bb84 100644
+--- a/arch/x86/kernel/kvm.c
++++ b/arch/x86/kernel/kvm.c
+@@ -80,14 +80,6 @@ static int has_guest_poll = 0;
+ #define KVM_TASK_SLEEP_HASHBITS 8
+ #define KVM_TASK_SLEEP_HASHSIZE (1<<KVM_TASK_SLEEP_HASHBITS)
+ 
+-struct kvm_task_sleep_node {
+-	struct hlist_node link;
+-	struct swait_queue_head wq;
+-	u32 token;
+-	int cpu;
+-	bool dummy;
+-};
+-
+ static struct kvm_task_sleep_head {
+ 	raw_spinlock_t lock;
+ 	struct hlist_head list;
+@@ -108,12 +100,14 @@ static struct kvm_task_sleep_node *_find_apf_task(struct kvm_task_sleep_head *b,
+ 	return NULL;
+ }
+ 
+-static bool kvm_async_pf_queue_task(u32 token, struct kvm_task_sleep_node *n)
++bool kvm_async_pf_queue_task(u32 token, struct kvm_task_sleep_node *n)
+ {
+ 	u32 key = hash_32(token, KVM_TASK_SLEEP_HASHBITS);
+ 	struct kvm_task_sleep_head *b = &async_pf_sleepers[key];
+ 	struct kvm_task_sleep_node *e;
+ 
++	lockdep_assert_irqs_disabled();
++
+ 	raw_spin_lock(&b->lock);
+ 	e = _find_apf_task(b, token);
+ 	if (e) {
+@@ -142,30 +136,27 @@ static bool kvm_async_pf_queue_task(u32 token, struct kvm_task_sleep_node *n)
+ 	raw_spin_unlock(&b->lock);
+ 	return true;
+ }
++EXPORT_SYMBOL_FOR_KVM(kvm_async_pf_queue_task);
+ 
+ /*
+  * kvm_async_pf_task_wait_schedule - Wait for pagefault to be handled
+- * @token:	Token to identify the sleep node entry
++ * @n:	Previously queued sleep node.
+  *
+  * Invoked from the async pagefault handling code or from the VM exit page
+  * fault handler. In both cases RCU is watching.
+  */
+-void kvm_async_pf_task_wait_schedule(u32 token)
++void kvm_async_pf_task_wait_schedule(struct kvm_task_sleep_node *n)
+ {
+-	u32 key = hash_32(token, KVM_TASK_SLEEP_HASHBITS);
++	u32 key = hash_32(n->token, KVM_TASK_SLEEP_HASHBITS);
+ 	struct kvm_task_sleep_head *b = &async_pf_sleepers[key];
+-	struct kvm_task_sleep_node n;
+ 	DECLARE_SWAITQUEUE(wait);
+ 
+ 	lockdep_assert_irqs_disabled();
+ 
+-	if (!kvm_async_pf_queue_task(token, &n))
+-		return;
+-
+ 	raw_spin_lock(&b->lock);
+ 	for (;;) {
+-		prepare_to_swait_exclusive(&n.wq, &wait, TASK_UNINTERRUPTIBLE);
+-		if (hlist_unhashed(&n.link))
++		prepare_to_swait_exclusive(&n->wq, &wait, TASK_UNINTERRUPTIBLE);
++		if (hlist_unhashed(&n->link))
+ 			break;
+ 
+ 		raw_spin_unlock(&b->lock);
+@@ -174,7 +165,7 @@ void kvm_async_pf_task_wait_schedule(u32 token)
+ 		local_irq_disable();
+ 		raw_spin_lock(&b->lock);
+ 	}
+-	finish_swait(&n.wq, &wait);
++	finish_swait(&n->wq, &wait);
+ 	raw_spin_unlock(&b->lock);
+ }
+ EXPORT_SYMBOL_FOR_KVM(kvm_async_pf_task_wait_schedule);
+@@ -279,6 +270,7 @@ static __always_inline bool kvm_apf_reason_pending(void)
+ 
+ noinstr bool __kvm_handle_async_pf(struct pt_regs *regs, u32 token)
+ {
++	struct kvm_task_sleep_node n;
+ 	irqentry_state_t state;
+ 	u32 flags;
+ 
+@@ -320,7 +312,8 @@ noinstr bool __kvm_handle_async_pf(struct pt_regs *regs, u32 token)
+ 
+ 	if (flags & KVM_PV_REASON_PAGE_NOT_PRESENT) {
+ 		/* Page is swapped out by the host. */
+-		kvm_async_pf_task_wait_schedule(token);
++		if (kvm_async_pf_queue_task(token, &n))
++			kvm_async_pf_task_wait_schedule(&n);
+ 	} else {
+ 		WARN_ONCE(1, "Unexpected async PF flags: %x\n", flags);
+ 	}
+diff --git a/arch/x86/kvm/mmu.h b/arch/x86/kvm/mmu.h
+index b2a295a9f084..3cb2616d88ac 100644
+--- a/arch/x86/kvm/mmu.h
++++ b/arch/x86/kvm/mmu.h
+@@ -162,6 +162,20 @@ void kvm_configure_mmu(bool enable_tdp, int tdp_forced_root_level,
+ bool kvm_can_do_async_pf(struct kvm_vcpu *vcpu);
+ int kvm_handle_page_fault(struct kvm_vcpu *vcpu, u64 error_code,
+ 				u64 fault_address, char *insn, int insn_len);
++
++static inline void kvm_handle_host_apf_irqoff(struct kvm_vcpu *vcpu, u32 token)
++{
++	vcpu->arch.apf.host_apf_flags = kvm_read_and_reset_apf_flags();
++	if ((vcpu->arch.apf.host_apf_flags & KVM_PV_REASON_PAGE_NOT_PRESENT) &&
++	    !kvm_async_pf_queue_task(token, &vcpu->arch.apf.host_apf_node)) {
++		/*
++		 * Nothing to do but regular page fault handling must still
++		 * be suppressed, so leave host_apf_flags nonzero.
++		 */
++		vcpu->arch.apf.host_apf_flags = KVM_PV_REASON_PAGE_READY;
++	}
++}
++
+ void __kvm_mmu_refresh_passthrough_bits(struct kvm_vcpu *vcpu,
+ 					struct kvm_pagewalk *pw);
+ 
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index dc2aef72ffdd..1f2ae73275aa 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -4979,8 +4979,10 @@ int kvm_handle_page_fault(struct kvm_vcpu *vcpu, u64 error_code,
+ 	} else if (flags & KVM_PV_REASON_PAGE_NOT_PRESENT) {
+ 		vcpu->arch.apf.host_apf_flags = 0;
+ 		local_irq_disable();
+-		kvm_async_pf_task_wait_schedule(fault_address);
++		kvm_async_pf_task_wait_schedule(&vcpu->arch.apf.host_apf_node);
+ 		local_irq_enable();
++	} else if (flags & KVM_PV_REASON_PAGE_READY) {
++		vcpu->arch.apf.host_apf_flags = 0;
+ 	} else {
+ 		WARN_ONCE(1, "Unexpected host async PF flags: %x\n", flags);
+ 	}
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 136069dfcd44..e0ff458761cf 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -4764,8 +4764,7 @@ static __no_kcsan fastpath_t svm_vcpu_run(struct kvm_vcpu *vcpu, u64 run_flags)
+ 
+ 	/* if exit due to PF check for async PF */
+ 	if (svm->vmcb->control.exit_code == SVM_EXIT_EXCP_BASE + PF_VECTOR)
+-		vcpu->arch.apf.host_apf_flags =
+-			kvm_read_and_reset_apf_flags();
++		kvm_handle_host_apf_irqoff(vcpu, svm->vmcb->control.exit_info_2);
+ 
+ 	kvm_clear_available_registers(vcpu, SVM_REGS_LAZY_LOAD_SET);
+ 
+diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
+index d75170a6199e..b46f8f60ce70 100644
+--- a/arch/x86/kvm/vmx/main.c
++++ b/arch/x86/kvm/vmx/main.c
+@@ -916,7 +916,7 @@ static void handle_exception_irqoff(struct kvm_vcpu *vcpu, u32 intr_info)
+ {
+ 	/* if exit due to PF check for async PF */
+ 	if (is_page_fault(intr_info))
+-		vcpu->arch.apf.host_apf_flags = kvm_read_and_reset_apf_flags();
++		kvm_handle_host_apf_irqoff(vcpu, vt_get_exit_qual(vcpu));
+ 	/* if exit due to NM, handle before interrupts are enabled */
+ 	else if (is_nm_fault(intr_info))
+ 		handle_nm_fault_irqoff(vcpu);
+-- 
+2.56.0
 
 
-> +               file->private_data =3D cursor;
-> +       }
-> +       cursor->pos =3D pos;
-> +       cursor->len =3D de->namelen;
-> +       memcpy(cursor->name, de->name, de->namelen);
-> +}
