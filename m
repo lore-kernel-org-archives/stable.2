@@ -1,86 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793839113;
-	b=QoywnI2O+3gZRIwk/e/Yxky+odqJoZaS62LSILcf9i+q8qO6eIBOOHbKmfjn35Rm2G/5
-	 kd5onADqY94jtJ7HTVMZVt8L7lz7PNhiVT6p+/qYMpNwI1UbSzvU+Lr+/GCp0DgQhjYMS
-	 qyJ3tjKWi7gn46PmwMHn9KULUk+3RkqfNIBIj2L9RX2ZpuFt5s1IKtvCYIs5S59arLQTR
-	 iZwJQ4JPwOEp5goodJg6is2GqS/mvr1WjaVqko8HPNuvHeAe1O17kyC/WKZjw4BpJ1odI
-	 ObZgswdmVuXx0TCZrbHDNUmeuaLk3Q/teoI4x080xXR213OtI3R7wcopVIkpuJB5beA==
+	t=1793839437;
+	b=LqL4nYSSkPw0wo9R+L+nR5hoTpLJdhsTy9mAEl4EsnDUBoraS/edcGni1EjruNRHa/Nm
+	 gHvCc62acvsHDl9D/o/CbSnXZKM/j0DLN5vUyvMj8kXAcH/sNdqyooaZmUuGJ9wc6KV6d
+	 +M5aJSiXrf/9YOSYhDNdl5xElWKtS8CqFjSmB4TyjeuDEwC2u6HJlgt9upcLxc3PBZUH2
+	 MtbQBlXajJ4w+xtSHj+EJ2lK4J0+1iPHzAde9LI7OOhaEDfzTa+fBg3vG+1kxcIaYfJ4K
+	 EJLYqkwk0rGELm8GMP0qdFYmm2dB3IkWT8A9zj/a3mYa8XIphBc3j9BzoYKM4zcqN9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793839113;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=mHu2Zp+OIHYsTxDxzUotJkKv0NMf1tqUvXZaUeyrli0=;
-	b=iSOAcN163glkihd0I1UDA9IfczqqDws2Zz+TregcWRqInh61+yCrnUFCS0VCZZSrdhU8
-	 QUWsJMoXuNUb5FD9vNrWVv2PSU1azFdhWHw7XgrtuNE0ha4iF0DUA0Egu5dI9riDFaN/G
-	 21asRfvaH9nlqGGj5L0pnv8qjFwrwxr1opGA9jbcZkv9C4Y3uw6s64lF4XY/g7Unof9RK
-	 CSR528A4OcQ7dgz9w3h41yA/DFiEzsqlg9IvKWpuQcioHYlxIfpvH/+ehFeaxj3MFBJ3E
-	 ytvpcgZVlYHt6VarkWXeB48/aazGnS2zbQOYGwM71HjhGZb097fMG3MKtz4SgNLjuFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793839437;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
+	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:
+	 X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=lMXJ+/muzDU83uHxeSJNtnzH7dJqEI3daaJL/TB7jNA=;
+	b=eTozyhu085URnOxJnKAf60jKen8eY38DCCa3JNvyYOTcBKDyA+STkaYikIx2ORinU4DZ
+	 LRIBUVYpCOUWzDMnIhxNyoyX5B2I+GUdaWHBj+jEI6OuJaDoPrE47cC8A/7T59dQDDllh
+	 ZhY4c7P7V+o8Ed2kLT+StKTC8eSUe4hCdoEn0sgppMUi+9Ghqb0negHb3580Dtv4RNyAm
+	 GWYBnsCUQmyuXPAAEhTLJ7Xsdnbyl7pzgQH3sOG3yiSzhJDkYaw/FCdwfvcE0HxTkbIyU
+	 WSodghPg6QCFKYOPObSPf/EVL2yLYjPKolbNDskJviehtqmpaPB5Iq/JNgD1lufGZLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=CIL4B5I0;
-	arc=none smtp.remote-ip=162.62.57.64
-Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=DfA3o6uQ;
+	arc=none smtp.remote-ip=203.254.224.34
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A8E606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:38:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18A8E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B86B606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:43:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B86B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=CIL4B5I0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793839101; bh=mHu2Zp+OIHYsTxDxzUotJkKv0NMf1tqUvXZaUeyrli0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CIL4B5I0zxkoEMrOyOvKCtJi+kpKpF86scdupcw/kulTi5BGFQdzVxQZT33Lytd07
-	 /cDBh/Woaq9Smoitloo/IWO2IsDI8HVXTKSBzm4fqO/7NIMYG2FR29oHWBnOoLvEh3
-	 goBNZT7TE1/5kar4o7dEGBJqKqHfncrLAE50vLwU=
-Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 9912A272; Thu, 05 Nov 2026 08:38:17 +0800
-X-QQ-mid: xmsmtpt1793839097tkdlsus0m
-Message-ID: <tencent_75A7137EEE37D2E72C50F2284D95B85A6208@qq.com>
-X-QQ-XMAILINFO: Mg/13mbJq/Ru72bRH8u6I/LlE3zpGN+46yeQkAQ9GaBhoYhPdOzk/a6PsVlX4P
-	 o97ZqDAOB4trRBzl+V3jSr0J62lHnaFvlZO2Nk85nksRqRxgkQXgDflczXY+IUXpW1nqUnfecMan
-	 inTo5xX7QcJ05kD7tI74thQF8JxhOJe/jd/IJhEw8h5mobHve+/tECjPhIXMTt1+PA1lB8269yBT
-	 0jb6uU0x3iymrXre5kURvglrNLNOjnlNF8I9YaPIX8aMg6AdeEK/s3T3CIiaaNWifr242O4jEu8A
-	 mEBE2mwHOfxPj5UTx/vBpYZfhIDVh7AouEelQ0TL0pyyeMiMf1Ur2pe0GHeJJmw/G92rBYUJb2it
-	 QG6I/IdbMJvCakFWVLuqF2+Lq88AcUDIt2K/J4jV2ea9t7JHkqi9hOLuMKa/9jMrkDJsoYaMpA0B
-	 ajr4W+ndZEeeZbGVv7KMaehcMBjk+NtliZqG9HB99P/o2VfB9pBqWSf0mPu0XKaJ0RfGuiLQHJDU
-	 0qIy/liIXr6ClnR7CTIjYwyYv9kEmcQZEfQAQxBaAvZEdpaQOiW/wBqmpa4Ea3Wk9kSzcegp4C/Y
-	 xTyjHJdtaMaV1PYP/uHIgeBT3MiKeStWnWV7qIsMFVA/Eu85pK3K3u3V32andFaBALm+rwBFPA4U
-	 BjkyztcQaVDpS6k0rf7emvexLx6fm7rmBWzuBHDaH0xenztjZFblLPNlWazW8Gcy054Nn1ZZotrt
-	 n4SgxOQpx2x1Xa4Z1DUKenVvrbV40EYggm7RliWL/58Ta5MvyceTvbf1huyIocF7ReTnIdwSn1sr
-	 NRWU2uip/C48VveKyVkbrUtwTP8udj5OIuy+nnRixzyKNUg06sO1YrpL/zSQIR5kaajgnlg29ZJG
-	 61JrDDeRRlkRYsOrnzlgQtN0FsJAvtkGsJ6aqinBGN3YD2j/jjAMEoLhsNVG+S1ujnKukQ3tr/H5
-	 pxEWtj6rvIf1swhIcAmoBxExS8+RAI9HiyaF5HZCrG7ywalbd3ZgW1D5p0LDbTVRWsSeOOTJw12V
-	 Csqw9jH8qVC0akU3yZJFWM8jPhvptON83CYlmCRui2Z2W/TubUC3P5s8xl6R+dtMsE4n2FM7CInT
-	 sqe4o+
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Shuai Liu <847807867@qq.com>
-To: linux-ext4@vger.kernel.org
-Cc: tytso@mit.edu,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-kernel@vger.kernel.org,
-	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com,
-	sashiko-bot@kernel.org,
-	Shuai Liu <847807867@qq.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v6] ext4: fix slab-use-after-free in do_split()
-Date: Thu,  5 Nov 2026 08:38:17 +0800
-X-OQ-MSGID: <20261105003817.904103-1-847807867@qq.com>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=DfA3o6uQ
+Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261105004352epoutp04c91dc3b32ab5654e3aca8777fd27a286~k-3W278w50585505855epoutp04V
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:43:52 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261105004352epoutp04c91dc3b32ab5654e3aca8777fd27a286~k-3W278w50585505855epoutp04V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793839432;
+	bh=lMXJ+/muzDU83uHxeSJNtnzH7dJqEI3daaJL/TB7jNA=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=DfA3o6uQJHS+RY8PVtrcY5JYtDYlLy23nbRH4QMH9pspkmhs8Y9cwmygzeTDXvtZn
+	 vUEPx34JnwKyv3nd5sR63oPDvc9GU98kpI4U1QhD73CkLvrpfsNnwqx2qPijJC57C9
+	 nGZouJdZkhZCOIbOz2X5scvAMD+Z6VU7k0iWpLJA=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261105004351epcas2p10dbd92a419bc558f532be34411696942~k-3WNJ-di3009630096epcas2p1j;
+	Thu,  5 Nov 2026 00:43:51 +0000 (GMT)
+Received: from epcas2p3.samsung.com (unknown [182.195.38.205]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4jKk8754dgz6B9mJ; Thu,  5 Nov
+	2026 00:43:51 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261105004351epcas2p19e657481834dc8493d926f10cff77d03~k-3VVTxBQ2090420904epcas2p13;
+	Thu,  5 Nov 2026 00:43:51 +0000 (GMT)
+Received: from apsw.samsungds.net (unknown [12.80.211.160]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261105004350epsmtip2b619f40258ed37e22a67ad6a6d6681a6~k-3VOjFto0753407534epsmtip27;
+	Thu,  5 Nov 2026 00:43:50 +0000 (GMT)
+From: Kiwoong Kim <kwmad.kim@samsung.com>
+To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alim.akhtar@samsung.com, jejb@linux.ibm.com, martin.petersen@oracle.com,
+	bvanassche@acm.org, kwangwon.min@samsung.com, hy50.seo@samsung.com,
+	cpgs@samsung.com, h10.kim@samsung.com
+Cc: stable@vger.kernel.org, stanleyjhu@google.com, Kiwoong Kim
+	<kwmad.kim@samsung.com>
+Subject: [PATCH v6 0/2] ufs: fix the abort path of device management
+ commands in MCQ mode
+Date: Thu,  5 Nov 2026 09:43:31 +0900
+Message-ID: <20261105004333.1097899-1-kwmad.kim@samsung.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <sashiko-outbox-197106@kernel.org>
-References: <sashiko-outbox-197106@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,205 +82,96 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261105004351epcas2p19e657481834dc8493d926f10cff77d03
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261105004351epcas2p19e657481834dc8493d926f10cff77d03
+References: <CGME20261105004351epcas2p19e657481834dc8493d926f10cff77d03@epcas2p1.samsung.com>
 
-do_split() allocates a new directory block with ext4_append() to hold
-the second half of the entries of the leaf block being split, then
-dx_move_dirents() copies entries from the old block (*bh) into the new
-one (bh2).  Nothing verifies that the newly allocated block differs
-from the block being split.
+This series fixes how a timed-out device management command (query, NOP)
+is aborted in MCQ mode.
 
-On a filesystem whose block bitmap is inconsistent with the directory
-tree, a block already referenced as a directory leaf or as an htree
-index block can still be marked free, so ext4_append() can return that
-same block.  With concurrent operations on such a filesystem (as
-exercised by the syzbot reproducer), the block can even be freed
-between allocations, resulting in bh2 aliasing *bh.  dx_move_dirents()
-then copies the block onto itself, corrupting directory entries
-mid-copy: a rec_len field can be overwritten with name bytes, so the
-subsequent wipe of the stale entry memset()s a bogus length, causing
-the slab-use-after-free reported by syzbot.
+Patch 1 makes ufshcd_try_to_abort_task() skip the task management path
+for device management commands and clear them with ufshcd_clear_cmd()
+directly, as the single doorbell path in ufshcd_abort() already does.
+Since the conversion to scsi_get_internal_cmd(), ufshcd_mcq_abort() sends
+these commands to the QUERY TASK / ABORT TASK path, which is meant for
+SCSI I/O commands.
 
-The same aliasing applies to the htree index blocks.  If the leaf
-block or a newly allocated block aliases an index frame, the index
-header can be overwritten before do_split() runs (add_dirent_to_buf()
-inserting into an aliased leaf, make_indexed_dir() moving the dirents
-into an aliased new block, the index split in ext4_dx_add_entry()
-copying entries into an aliased buffer), letting dx_insert_block()
-memmove() out of bounds with a corrupted count and dx_release() loop
-past the frames[] array (or leak frames) with a corrupted
-indirect_levels.
+Patch 2 makes ufshcd_mcq_sq_cleanup() wait for the OCS of a device
+management command to be updated after SQ cleanup. UFSHCI does not
+specify the order between the OCS update and the SQ_CUS update. Without
+the wait, a late completion of the cleaned-up query can race with the
+retry of that query, which leaves the host with two query contexts and
+raises IS.UTPES.
 
-Fix this by checking for these aliases before any directory block
-contents are modified, and bailing out with -EFSCORRUPTED, reporting
-the corruption via ext4_error_inode_block():
+Patch 2 depends on patch 1. Without patch 1, ufshcd_mcq_sq_cleanup() is
+reached for a device management command only if the ABORT TASK TMF
+succeeds.
 
-  - make_indexed_dir(): after ext4_append(), before moving the
-    dirents out of the root block
-  - ext4_dx_add_entry(): after reading the leaf block and after
-    ext4_append() in the index split, before the entries are copied
-  - do_split(): for *bh and bh2 against all frames[0..level]
+Changes since v5:
+- Read the OCS under hwq->cq_lock again, as in v4. Without the lock,
+  ufshcd_mcq_sq_cleanup() can observe the OCS update and return while
+  ufshcd_compl_one_cqe() has not yet called scsi_done(). A retry that
+  reuses the reserved request can then be completed by that pending
+  scsi_done() call (Sashiko).
+- Explain the need for cq_lock in a comment and in the patch 2 commit
+  message.
 
-Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuai Liu <847807867@qq.com>
-Changes in v6:
-  - Move the aliasing checks to every point where a directory buffer
-    is obtained for an htree operation, before its contents are
-    modified, as the checks inside do_split() were too late for three
-    paths (Sashiko):
-    * make_indexed_dir(): an aliased ext4_append() result would be
-      memcpy()ed and memset()ed before do_split() could check it
-    * ext4_dx_add_entry(): add_dirent_to_buf() would insert into a
-      leaf block aliasing an already-verified index block right after
-      the read, and the index split would copy entries into an
-      aliased ext4_append() buffer before do_split() is reached
-  - Extend the commit message accordingly (Sashiko)
+Link: https://lore.kernel.org/linux-scsi/20261104094914.180788-1-kwmad.kim@samsung.com/
 
----
- fs/ext4/namei.c | 68 ++++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 64 insertions(+), 4 deletions(-)
+Changes since v4:
+- Read the OCS in ufshcd_mcq_sq_cleanup() with READ_ONCE() directly and
+  drop the cq_lock and the ufshcd_mcq_read_ocs() helper, per review. (Bart)
+- Report an error when the OCS poll times out. (Bart)
 
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 354fc2d22df1..d9ae5c5a5562 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -1903,13 +1903,14 @@ static struct ext4_dir_entry_2 *dx_pack_dirents(struct inode *dir, char *base,
-  * Returns pointer to de in block into which the new entry will be inserted.
-  */
- static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
--			struct buffer_head **bh,struct dx_frame *frame,
--			struct dx_hash_info *hinfo)
-+			struct buffer_head **bh, struct dx_frame *frames,
-+			struct dx_frame *frame, struct dx_hash_info *hinfo)
- {
- 	unsigned blocksize = dir->i_sb->s_blocksize;
- 	unsigned continued;
- 	int count;
- 	struct buffer_head *bh2;
-+	struct dx_frame *f;
- 	ext4_lblk_t newblock;
- 	u32 hash2;
- 	struct dx_map_entry *map;
-@@ -1922,12 +1923,42 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
- 	if (ext4_has_feature_metadata_csum(dir->i_sb))
- 		csum_size = sizeof(struct ext4_dir_entry_tail);
- 
-+	for (f = frames; f <= frame; f++) {
-+		if (*bh == f->bh) {
-+			ext4_error_inode_block(dir, (*bh)->b_blocknr,
-+					       EFSCORRUPTED,
-+					       "leaf block aliased with index block");
-+			brelse(*bh);
-+			*bh = NULL;
-+			return ERR_PTR(-EFSCORRUPTED);
-+		}
-+	}
-+
- 	bh2 = ext4_append(handle, dir, &newblock);
- 	if (IS_ERR(bh2)) {
- 		brelse(*bh);
- 		*bh = NULL;
- 		return ERR_CAST(bh2);
- 	}
-+	if (bh2 == *bh) {
-+		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
-+				       "cannot split aliased directory block");
-+		brelse(bh2);
-+		brelse(*bh);
-+		*bh = NULL;
-+		return ERR_PTR(-EFSCORRUPTED);
-+	}
-+	for (f = frames; f <= frame; f++) {
-+		if (bh2 == f->bh) {
-+			ext4_error_inode_block(dir, bh2->b_blocknr,
-+					       EFSCORRUPTED,
-+					       "leaf block aliased with index block");
-+			brelse(bh2);
-+			brelse(*bh);
-+			*bh = NULL;
-+			return ERR_PTR(-EFSCORRUPTED);
-+		}
-+	}
- 
- 	BUFFER_TRACE(*bh, "get_write_access");
- 	err = ext4_journal_get_write_access(handle, dir->i_sb, *bh,
-@@ -2257,6 +2288,13 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
- 		brelse(bh);
- 		return PTR_ERR(bh2);
- 	}
-+	if (bh2 == bh) {
-+		ext4_error_inode_block(dir, bh->b_blocknr, EFSCORRUPTED,
-+				       "cannot index aliased directory block");
-+		brelse(bh2);
-+		brelse(bh);
-+		return -EFSCORRUPTED;
-+	}
- 	ext4_set_inode_flag(dir, EXT4_INODE_INDEX);
- 	data2 = bh2->b_data;
- 
-@@ -2325,7 +2363,7 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
- 	if (retval)
- 		goto out_frames;
- 
--	de = do_split(handle,dir, &bh2, frame, &fname->hinfo);
-+	de = do_split(handle, dir, &bh2, frames, frame, &fname->hinfo);
- 	if (IS_ERR(de)) {
- 		retval = PTR_ERR(de);
- 		goto out_frames;
-@@ -2476,6 +2514,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
- 			     struct inode *dir, struct inode *inode)
- {
- 	struct dx_frame frames[EXT4_HTREE_LEVEL], *frame;
-+	struct dx_frame *f;
- 	struct dx_entry *entries, *at;
- 	struct buffer_head *bh;
- 	struct super_block *sb = dir->i_sb;
-@@ -2496,6 +2535,15 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
- 		bh = NULL;
- 		goto cleanup;
- 	}
-+	for (f = frames; f <= frame; f++) {
-+		if (bh == f->bh) {
-+			ext4_error_inode_block(dir, bh->b_blocknr,
-+					       EFSCORRUPTED,
-+					       "leaf block aliased with index block");
-+			err = -EFSCORRUPTED;
-+			goto cleanup;
-+		}
-+	}
- 
- 	BUFFER_TRACE(bh, "get_write_access");
- 	err = ext4_journal_get_write_access(handle, sb, bh, EXT4_JTR_NONE);
-@@ -2549,6 +2597,18 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
- 			err = PTR_ERR(bh2);
- 			goto cleanup;
- 		}
-+		for (f = frames; f <= frame; f++) {
-+			if (bh2 == f->bh)
-+				break;
-+		}
-+		if (f <= frame || bh2 == bh) {
-+			ext4_error_inode_block(dir, bh2->b_blocknr,
-+					       EFSCORRUPTED,
-+					       "cannot split aliased index block");
-+			brelse(bh2);
-+			err = -EFSCORRUPTED;
-+			goto cleanup;
-+		}
- 		node2 = (struct dx_node *)(bh2->b_data);
- 		entries2 = node2->entries;
- 		memset(&node2->fake, 0, sizeof(struct fake_dirent));
-@@ -2631,7 +2691,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
- 			goto journal_error;
- 		}
- 	}
--	de = do_split(handle, dir, &bh, frame, &fname->hinfo);
-+	de = do_split(handle, dir, &bh, frames, frame, &fname->hinfo);
- 	if (IS_ERR(de)) {
- 		err = PTR_ERR(de);
- 		goto cleanup;
+Link: https://lore.kernel.org/linux-scsi/cover.1793598099.git.kwmad.kim@samsung.com/
+
+Changes since v3:
+- Split the v3 patch into two patches: the abort path fix and
+  the OCS poll after SQ cleanup (Bean Huo).
+- Explain in patch 1 that the problem is only reachable since the
+  scsi_get_internal_cmd() conversion and add the corresponding Fixes tag,
+  per review.
+- Add a Fixes tag to patch 2. (Bean Huo)
+- Fix the step numbering of the timeline in the patch 2 commit message.
+
+Link: https://lore.kernel.org/linux-scsi/20261030111045.982094-1-kwmad.kim@samsung.com/
+
+Changes since v2:
+- Use read_poll_timeout() for the OCS poll in ufshcd_mcq_sq_cleanup().
+  The open-coded loop did not re-read the OCS after the timeout, so it
+  could return a false -ETIMEDOUT if the OCS was updated while sleeping
+  in the last iteration (Sashiko).
+
+Link: https://lore.kernel.org/linux-scsi/20261030093645.790159-1-kwmad.kim@samsung.com/
+
+Changes since v1:
+- Limit the OCS poll in ufshcd_mcq_sq_cleanup() to device management
+  commands. ufshcd_compl_one_cqe() copies the OCS from the CQE into the
+  UTRD only for them, so for SCSI commands the poll always ran for
+  MCQ_POLL_US and then failed with -ETIMEDOUT (Sashiko).
+- Return -ETIMEDOUT only if OCS is still OCS_INVALID_COMMAND_STATUS
+  after the poll. OCS_ABORTED, which the host controller reports for
+  the cleaned-up request, is no longer treated as a cleanup failure
+  (Sashiko).
+- Update the commit message to match.
+
+Link: https://lore.kernel.org/linux-scsi/20261030083311.602909-1-kwmad.kim@samsung.com/
+
+Kiwoong Kim (2):
+  ufs: core: skip ABORT TASK for device management commands
+  ufs: mcq: poll OCS after sq cleanup for device management commands
+
+ drivers/ufs/core/ufs-mcq.c | 29 +++++++++++++++++++++++++++++
+ drivers/ufs/core/ufshcd.c  |  4 ++++
+ 2 files changed, 33 insertions(+)
+
 -- 
 2.43.0
 
