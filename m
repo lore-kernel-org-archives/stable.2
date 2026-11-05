@@ -1,57 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793839106;
-	b=K0t85Fxrep4uBPPIEYH5wn9cCF+Q3w7Wk8x7Wj8YmKRmqLpGvC2BthNpOjyhAWoWH7kP
-	 0VA3N48F4ROkMYyT6SlMNFF2U6zFBHQRop8hJMxjdLw50Pn5ZLERoRDLficxscCwJ8xAu
-	 /0XyCH1hT9kBga0vsFfenKvyDLNbdpwiU1G2gAI6vLxe2+QUbVDI52EcONzIR/YApaInV
-	 fg8mG8X9DvKjXeVs88+n7s/GsCia4d/vEOsCE9+cQVLEWDbZX1I4mdrsLFWJw2n9GUgv/
-	 UHqn3TmEA+9kWD2kheQoC3BAUqMhsYy42bMgCZfM8LQHP2PfbFA4dQspp/gor0hwozQ==
+	t=1793839113;
+	b=QoywnI2O+3gZRIwk/e/Yxky+odqJoZaS62LSILcf9i+q8qO6eIBOOHbKmfjn35Rm2G/5
+	 kd5onADqY94jtJ7HTVMZVt8L7lz7PNhiVT6p+/qYMpNwI1UbSzvU+Lr+/GCp0DgQhjYMS
+	 qyJ3tjKWi7gn46PmwMHn9KULUk+3RkqfNIBIj2L9RX2ZpuFt5s1IKtvCYIs5S59arLQTR
+	 iZwJQ4JPwOEp5goodJg6is2GqS/mvr1WjaVqko8HPNuvHeAe1O17kyC/WKZjw4BpJ1odI
+	 ObZgswdmVuXx0TCZrbHDNUmeuaLk3Q/teoI4x080xXR213OtI3R7wcopVIkpuJB5beA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793839106;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Dy1aKQGJJTwtjNmlBymTEs3WMnLFZzsvL/te9TVaVSE=;
-	b=bEBocmK3aGiUBODYFVyX5RlqaQlct2sZLbfnLoU3/iB2VxYUm1HuNVS5/qFtbX0Ff14A
-	 WVUSck8TGdojl7odAn4jFBsRreDmNQWARmut6A2CnU/lSFUTPTTf9a5r/zibEIjWCnh6v
-	 PXZ5jgiPlZOuh0Bs1I2rFZem+82Ew3aXaxhOkpY2M1UEwIqAHTuMtBqK520oc3lTPbrEZ
-	 tfCW08omHVNtCsFUzwXVg1feKom8OTjyZa+/Yzlr4e4YVmYd9k/hVcEIokLEsiDoZk/Vu
-	 r6oVfoF2HTc73gvlOXloqQGs+F1V3Px74wbDBBDxfaLYsoSgv9o1MwfXWE5jAcO3pqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793839113;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=mHu2Zp+OIHYsTxDxzUotJkKv0NMf1tqUvXZaUeyrli0=;
+	b=iSOAcN163glkihd0I1UDA9IfczqqDws2Zz+TregcWRqInh61+yCrnUFCS0VCZZSrdhU8
+	 QUWsJMoXuNUb5FD9vNrWVv2PSU1azFdhWHw7XgrtuNE0ha4iF0DUA0Egu5dI9riDFaN/G
+	 21asRfvaH9nlqGGj5L0pnv8qjFwrwxr1opGA9jbcZkv9C4Y3uw6s64lF4XY/g7Unof9RK
+	 CSR528A4OcQ7dgz9w3h41yA/DFiEzsqlg9IvKWpuQcioHYlxIfpvH/+ehFeaxj3MFBJ3E
+	 ytvpcgZVlYHt6VarkWXeB48/aazGnS2zbQOYGwM71HjhGZb097fMG3MKtz4SgNLjuFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RSLOxZno;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=CIL4B5I0;
+	arc=none smtp.remote-ip=162.62.57.64
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B7B606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:38:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A8E606A326
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:38:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18A8E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RSLOxZno
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4951F000C1;
-	Thu,  5 Nov 2026 00:38:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793839105;
-	bh=Dy1aKQGJJTwtjNmlBymTEs3WMnLFZzsvL/te9TVaVSE=;
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=CIL4B5I0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793839101; bh=mHu2Zp+OIHYsTxDxzUotJkKv0NMf1tqUvXZaUeyrli0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RSLOxZno2vcremE0POZkJKdn54ImTQSHXUA+38IIc2H7xS+HFNogZbmrjMVUL8AUy
-	 N9vTqw5ddqhc6wtbj5aYTA+NI1j7lhPlgy26EsI3xaV2yfr6qXsZvEViw7rzt8CeVD
-	 aBoW9rnAljsuZOOFe7NZthg0yyFoUXNvYiYSwAmxrzKA4+6LXxK7Hdf2BDyyWKp4As
-	 NH4GhAU2weQNWlHCNDpq3UhkoVcCFWSwItbFOENbajOAv4QyXr7KJOgxrfakgGh6Ld
-	 dSvoIxQbBzIYV5TOwmAmhwTbZc9kD0jL2StnWzYu6y/N6Fr5cr0BtFuhBW8DLVE01S
-	 LJW4pFVXsv2/A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Igor Putko <igorpetindev@gmail.com>,
-	syzbot+843bf2f48f4d12e6682e@syzkaller.appspotmail.com,
-	stable <stable@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] serial: core: shut down initialized port on removal
-Date: Wed,  4 Nov 2026 19:38:24 -0500
-Message-ID: <20261105003741.986188-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110437-fabulous-dingbat-b644@gregkh>
-References: <2026110437-fabulous-dingbat-b644@gregkh>
+	b=CIL4B5I0zxkoEMrOyOvKCtJi+kpKpF86scdupcw/kulTi5BGFQdzVxQZT33Lytd07
+	 /cDBh/Woaq9Smoitloo/IWO2IsDI8HVXTKSBzm4fqO/7NIMYG2FR29oHWBnOoLvEh3
+	 goBNZT7TE1/5kar4o7dEGBJqKqHfncrLAE50vLwU=
+Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 9912A272; Thu, 05 Nov 2026 08:38:17 +0800
+X-QQ-mid: xmsmtpt1793839097tkdlsus0m
+Message-ID: <tencent_75A7137EEE37D2E72C50F2284D95B85A6208@qq.com>
+X-QQ-XMAILINFO: Mg/13mbJq/Ru72bRH8u6I/LlE3zpGN+46yeQkAQ9GaBhoYhPdOzk/a6PsVlX4P
+	 o97ZqDAOB4trRBzl+V3jSr0J62lHnaFvlZO2Nk85nksRqRxgkQXgDflczXY+IUXpW1nqUnfecMan
+	 inTo5xX7QcJ05kD7tI74thQF8JxhOJe/jd/IJhEw8h5mobHve+/tECjPhIXMTt1+PA1lB8269yBT
+	 0jb6uU0x3iymrXre5kURvglrNLNOjnlNF8I9YaPIX8aMg6AdeEK/s3T3CIiaaNWifr242O4jEu8A
+	 mEBE2mwHOfxPj5UTx/vBpYZfhIDVh7AouEelQ0TL0pyyeMiMf1Ur2pe0GHeJJmw/G92rBYUJb2it
+	 QG6I/IdbMJvCakFWVLuqF2+Lq88AcUDIt2K/J4jV2ea9t7JHkqi9hOLuMKa/9jMrkDJsoYaMpA0B
+	 ajr4W+ndZEeeZbGVv7KMaehcMBjk+NtliZqG9HB99P/o2VfB9pBqWSf0mPu0XKaJ0RfGuiLQHJDU
+	 0qIy/liIXr6ClnR7CTIjYwyYv9kEmcQZEfQAQxBaAvZEdpaQOiW/wBqmpa4Ea3Wk9kSzcegp4C/Y
+	 xTyjHJdtaMaV1PYP/uHIgeBT3MiKeStWnWV7qIsMFVA/Eu85pK3K3u3V32andFaBALm+rwBFPA4U
+	 BjkyztcQaVDpS6k0rf7emvexLx6fm7rmBWzuBHDaH0xenztjZFblLPNlWazW8Gcy054Nn1ZZotrt
+	 n4SgxOQpx2x1Xa4Z1DUKenVvrbV40EYggm7RliWL/58Ta5MvyceTvbf1huyIocF7ReTnIdwSn1sr
+	 NRWU2uip/C48VveKyVkbrUtwTP8udj5OIuy+nnRixzyKNUg06sO1YrpL/zSQIR5kaajgnlg29ZJG
+	 61JrDDeRRlkRYsOrnzlgQtN0FsJAvtkGsJ6aqinBGN3YD2j/jjAMEoLhsNVG+S1ujnKukQ3tr/H5
+	 pxEWtj6rvIf1swhIcAmoBxExS8+RAI9HiyaF5HZCrG7ywalbd3ZgW1D5p0LDbTVRWsSeOOTJw12V
+	 Csqw9jH8qVC0akU3yZJFWM8jPhvptON83CYlmCRui2Z2W/TubUC3P5s8xl6R+dtMsE4n2FM7CInT
+	 sqe4o+
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: Shuai Liu <847807867@qq.com>
+To: linux-ext4@vger.kernel.org
+Cc: tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	linux-kernel@vger.kernel.org,
+	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com,
+	sashiko-bot@kernel.org,
+	Shuai Liu <847807867@qq.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v6] ext4: fix slab-use-after-free in do_split()
+Date: Thu,  5 Nov 2026 08:38:17 +0800
+X-OQ-MSGID: <20261105003817.904103-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-197106@kernel.org>
+References: <sashiko-outbox-197106@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,71 +92,204 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Igor Putko <igorpetindev@gmail.com>
+do_split() allocates a new directory block with ext4_append() to hold
+the second half of the entries of the leaf block being split, then
+dx_move_dirents() copies entries from the old block (*bh) into the new
+one (bh2).  Nothing verifies that the newly allocated block differs
+from the block being split.
 
-[ Upstream commit 810d467c11f0c85107874d08dfdd11acba6aa0c0 ]
+On a filesystem whose block bitmap is inconsistent with the directory
+tree, a block already referenced as a directory leaf or as an htree
+index block can still be marked free, so ext4_append() can return that
+same block.  With concurrent operations on such a filesystem (as
+exercised by the syzbot reproducer), the block can even be freed
+between allocations, resulting in bh2 aliasing *bh.  dx_move_dirents()
+then copies the block onto itself, corrupting directory entries
+mid-copy: a rec_len field can be overwritten with name bytes, so the
+subsequent wipe of the stale entry memset()s a bogus length, causing
+the slab-use-after-free reported by syzbot.
 
-When a serial port configured as a console is opened and subsequently
-closed, tty_port_shutdown() skips invoking port->ops->shutdown() because
-port->console is true. As a result, tty_port_initialized() remains true
-and the port's interrupt handler stays registered in the irq subsystem.
+The same aliasing applies to the htree index blocks.  If the leaf
+block or a newly allocated block aliases an index frame, the index
+header can be overwritten before do_split() runs (add_dirent_to_buf()
+inserting into an aliased leaf, make_indexed_dir() moving the dirents
+into an aliased new block, the index split in ext4_dx_add_entry()
+copying entries into an aliased buffer), letting dx_insert_block()
+memmove() out of bounds with a corrupted count and dx_release() loop
+past the frames[] array (or leak frames) with a corrupted
+indirect_levels.
 
-If the underlying device is later unbound or removed (e.g. via sysfs
-driver unbind or device hot-unplug), serial_core_remove_one_port()
-unregisters the console, frees uport->name via kfree(), and tears down
-the port without shutting it down or freeing its IRQ. Consequently, the
-irqaction descriptor remains registered in genirq with action->name
-pointing to freed memory.
+Fix this by checking for these aliases before any directory block
+contents are modified, and bailing out with -EFSCORRUPTED, reporting
+the corruption via ext4_error_inode_block():
 
-This triggers a use-after-free read whenever genirq accesses action->name,
-such as when reading /proc/interrupts:
+  - make_indexed_dir(): after ext4_append(), before moving the
+    dirents out of the root block
+  - ext4_dx_add_entry(): after reading the leaf block and after
+    ext4_append() in the index split, before the entries are copied
+  - do_split(): for *bh and bh2 against all frames[0..level]
 
-  BUG: KASAN: slab-use-after-free in string+0x476/0x570
-  Call Trace:
-   string+0x476/0x570
-   vsnprintf+0x422/0x1300
-   seq_printf+0x...
-   show_interrupts+...
+Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuai Liu <847807867@qq.com>
+Changes in v6:
+  - Move the aliasing checks to every point where a directory buffer
+    is obtained for an htree operation, before its contents are
+    modified, as the checks inside do_split() were too late for three
+    paths (Sashiko):
+    * make_indexed_dir(): an aliased ext4_append() result would be
+      memcpy()ed and memset()ed before do_split() could check it
+    * ext4_dx_add_entry(): add_dirent_to_buf() would insert into a
+      leaf block aliasing an already-verified index block right after
+      the read, and the index split would copy entries into an
+      aliased ext4_append() buffer before do_split() is reached
+  - Extend the commit message accordingly (Sashiko)
 
-Fix this by acquiring port->mutex in serial_core_remove_one_port() after
-console unregistration, clearing port->console under the mutex to prevent
-data races with concurrent tty_port_shutdown(), and invoking
-uart_shutdown(NULL, state) if the port remains initialized. This ensures
-that port->ops->shutdown() is called and the IRQ is freed before
-kfree(uport->name).
-
-Reported-by: syzbot+843bf2f48f4d12e6682e@syzkaller.appspotmail.com
-Cc: stable <stable@kernel.org>
-Closes: https://syzkaller.appspot.com/bug?extid=843bf2f48f4d12e6682e
-Fixes: 761ed4a94582 ("tty: serial_core: convert uart_close to use tty_port_close")
-Fixes: f7048b15900f ("tty: serial_core: Add name field to uart_port struct")
-Signed-off-by: Igor Putko <igorpetindev@gmail.com>
-Link: https://patch.msgid.link/20261003163337.45577-1-igorpetindev@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Replaced scoped_guard() with explicit mutex_lock() and mutex_unlock() for GNU89 compatibility. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/tty/serial/serial_core.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ fs/ext4/namei.c | 68 ++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 64 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index a52e88a750f9e..3fc3b33cadc51 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -3071,6 +3071,13 @@ int uart_remove_one_port(struct uart_driver *drv, struct uart_port *uport)
- 	if (uart_console(uport))
- 		unregister_console(uport->cons);
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+index 354fc2d22df1..d9ae5c5a5562 100644
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -1903,13 +1903,14 @@ static struct ext4_dir_entry_2 *dx_pack_dirents(struct inode *dir, char *base,
+  * Returns pointer to de in block into which the new entry will be inserted.
+  */
+ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+-			struct buffer_head **bh,struct dx_frame *frame,
+-			struct dx_hash_info *hinfo)
++			struct buffer_head **bh, struct dx_frame *frames,
++			struct dx_frame *frame, struct dx_hash_info *hinfo)
+ {
+ 	unsigned blocksize = dir->i_sb->s_blocksize;
+ 	unsigned continued;
+ 	int count;
+ 	struct buffer_head *bh2;
++	struct dx_frame *f;
+ 	ext4_lblk_t newblock;
+ 	u32 hash2;
+ 	struct dx_map_entry *map;
+@@ -1922,12 +1923,42 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+ 	if (ext4_has_feature_metadata_csum(dir->i_sb))
+ 		csum_size = sizeof(struct ext4_dir_entry_tail);
  
-+	mutex_lock(&port->mutex);
-+	port->console = false;
++	for (f = frames; f <= frame; f++) {
++		if (*bh == f->bh) {
++			ext4_error_inode_block(dir, (*bh)->b_blocknr,
++					       EFSCORRUPTED,
++					       "leaf block aliased with index block");
++			brelse(*bh);
++			*bh = NULL;
++			return ERR_PTR(-EFSCORRUPTED);
++		}
++	}
 +
-+	if (tty_port_initialized(port))
-+		uart_shutdown(NULL, state);
-+	mutex_unlock(&port->mutex);
-+
- 	/*
- 	 * Free the port IO and memory resources, if any.
- 	 */
+ 	bh2 = ext4_append(handle, dir, &newblock);
+ 	if (IS_ERR(bh2)) {
+ 		brelse(*bh);
+ 		*bh = NULL;
+ 		return ERR_CAST(bh2);
+ 	}
++	if (bh2 == *bh) {
++		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
++				       "cannot split aliased directory block");
++		brelse(bh2);
++		brelse(*bh);
++		*bh = NULL;
++		return ERR_PTR(-EFSCORRUPTED);
++	}
++	for (f = frames; f <= frame; f++) {
++		if (bh2 == f->bh) {
++			ext4_error_inode_block(dir, bh2->b_blocknr,
++					       EFSCORRUPTED,
++					       "leaf block aliased with index block");
++			brelse(bh2);
++			brelse(*bh);
++			*bh = NULL;
++			return ERR_PTR(-EFSCORRUPTED);
++		}
++	}
+ 
+ 	BUFFER_TRACE(*bh, "get_write_access");
+ 	err = ext4_journal_get_write_access(handle, dir->i_sb, *bh,
+@@ -2257,6 +2288,13 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
+ 		brelse(bh);
+ 		return PTR_ERR(bh2);
+ 	}
++	if (bh2 == bh) {
++		ext4_error_inode_block(dir, bh->b_blocknr, EFSCORRUPTED,
++				       "cannot index aliased directory block");
++		brelse(bh2);
++		brelse(bh);
++		return -EFSCORRUPTED;
++	}
+ 	ext4_set_inode_flag(dir, EXT4_INODE_INDEX);
+ 	data2 = bh2->b_data;
+ 
+@@ -2325,7 +2363,7 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
+ 	if (retval)
+ 		goto out_frames;
+ 
+-	de = do_split(handle,dir, &bh2, frame, &fname->hinfo);
++	de = do_split(handle, dir, &bh2, frames, frame, &fname->hinfo);
+ 	if (IS_ERR(de)) {
+ 		retval = PTR_ERR(de);
+ 		goto out_frames;
+@@ -2476,6 +2514,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+ 			     struct inode *dir, struct inode *inode)
+ {
+ 	struct dx_frame frames[EXT4_HTREE_LEVEL], *frame;
++	struct dx_frame *f;
+ 	struct dx_entry *entries, *at;
+ 	struct buffer_head *bh;
+ 	struct super_block *sb = dir->i_sb;
+@@ -2496,6 +2535,15 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+ 		bh = NULL;
+ 		goto cleanup;
+ 	}
++	for (f = frames; f <= frame; f++) {
++		if (bh == f->bh) {
++			ext4_error_inode_block(dir, bh->b_blocknr,
++					       EFSCORRUPTED,
++					       "leaf block aliased with index block");
++			err = -EFSCORRUPTED;
++			goto cleanup;
++		}
++	}
+ 
+ 	BUFFER_TRACE(bh, "get_write_access");
+ 	err = ext4_journal_get_write_access(handle, sb, bh, EXT4_JTR_NONE);
+@@ -2549,6 +2597,18 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+ 			err = PTR_ERR(bh2);
+ 			goto cleanup;
+ 		}
++		for (f = frames; f <= frame; f++) {
++			if (bh2 == f->bh)
++				break;
++		}
++		if (f <= frame || bh2 == bh) {
++			ext4_error_inode_block(dir, bh2->b_blocknr,
++					       EFSCORRUPTED,
++					       "cannot split aliased index block");
++			brelse(bh2);
++			err = -EFSCORRUPTED;
++			goto cleanup;
++		}
+ 		node2 = (struct dx_node *)(bh2->b_data);
+ 		entries2 = node2->entries;
+ 		memset(&node2->fake, 0, sizeof(struct fake_dirent));
+@@ -2631,7 +2691,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+ 			goto journal_error;
+ 		}
+ 	}
+-	de = do_split(handle, dir, &bh, frame, &fname->hinfo);
++	de = do_split(handle, dir, &bh, frames, frame, &fname->hinfo);
+ 	if (IS_ERR(de)) {
+ 		err = PTR_ERR(de);
+ 		goto cleanup;
 -- 
-2.53.0
+2.43.0
 
