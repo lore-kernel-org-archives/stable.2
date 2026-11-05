@@ -1,78 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793917731;
-	b=vNAc8Qf2uzvOWY1dA2ikryxR7LyY+fxwr5ZVmFKyCKj1QkgLOzdzOFOVNClNphNJWiKc
-	 hqFOYegGjg5xseYv7OlijyJ6X5kQlWmLbTHBOtWWyt4DSzqPC4z37LjOaTdjSskNVEMHZ
-	 XvDVnHj4YdvsfW+6iwUTPcJ9D87qdWtpBb5VmnIWoCIwOmADVbzIYUMP0tMfbb9IpjUv+
-	 h8ApLoj5U9sE2ioUUgXIkFEstq1FequbLoiyzMbWI+/hVoj/+v7N+3xRXf7gCQmlOnP6o
-	 crb8O4dyHmXbPRIlt4ZwJDH8u5x47W/K3tfnkXBirK/JM3ihA20F9NUvGKm0B/cDeqw==
+	t=1793917732;
+	b=zYP1pSkhnZA4JK8K0hB/FpkukprIRBPlgon4e9RsLo+9S2cI94gpp2fYwrDhoPMwT/xj
+	 WU7xf/8M/uDgimO4JiqB7VmnFu3BXhjSVCgiD0bGaDdcFPy3uD1whmehaGEHW66/OluAG
+	 daBzIyO2edpYUC4TpYcCMn3wJKwe4Hd0ep47svdkmRm53x5OODDtXCX0zeaxs+hEhuhFd
+	 8tDxGjh2ChDsRFJr41LV+i/j8F4NrFVsVC57LCcNo85T5zSZSaq4VhngRqjzbtOBMSgYM
+	 lA2n5JWM+wRuVMKggplZu2btc2ljHL074+2MCfyzzysf+nYPE5KaS0rAjuTT/2lJ8xQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793917731;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XHsHQOEJb3CJGb0dyhyAhjJ4f3CKAMOllBH9b+JYEWs=;
-	b=J9lnB0skoG+G5P+wMdr/b/W5sS+KWIGkdgPq/QxwSbUW8Kl9oITPh7s8jCqHUnh0U/Ja
-	 s50d83UYykVK5dqiphSs4OuiHIH1fvmW9oLDUNl7gmDzRVaaQN9tmTMm0T2ofpYQc/0IL
-	 bON0C/yVJdzvGbuHx8opXiu50x0abe/DnlVmqQCq4+kLwSYqRRtk65WUNKpqwO/oYs0Da
-	 xyZqEAMUydQmWeGjXJhfb2pbwOujGPE4EuWPlzs+ZgVc6n0osteALjrzzb0RmzYkLr9W+
-	 O8fyB6GWkHgFRwevSnuk7CWfIWpkSBe8JJFEmFA1KdotVqu/OzCk/ePEQR/a48GovWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793917732;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=fa9CP0gkzkemp29oqw3QTLDptskJjZgFq/jn4p5Ch+g=;
+	b=nFdphsBx9LudLLVC3Jj7xaurOIIfEGrJKnTazptk2jvW20ZbZBIbdY4Uvol3OrJyb9wQ
+	 61/jS6K2bYtFa0xCH5ytNGOkUvY6bbuiYha6d2nQl5+HC2MsOm1EfocJs3HlUcbYzVVcg
+	 b+Ec21M2QHTL5NFJnwh1ps0+Oxv9Fhu2H+c3PravK3xE2ch/1fPbHiTBzTxbEvzt7feAs
+	 VbjFfEossTJQEuUdyhTVa3XyFVCuSh7akITq/1q0GSILPsQQtByjWAb8/l5TbSk/LBXI2
+	 06WAad1UR5y2seDGFYMfJsY0NCDbv4N5bsKtp6dNLdmDmfXTL7YGMxgUzg4RK9lejLg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RjKWZGml;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JUDW+kyc;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765B9606A31B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3326606A329;
 	Thu,  5 Nov 2026 22:28:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RjKWZGml
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JUDW+kyc
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793917731;
-	b=pB3M06+QiiBeEGiyeR5Jn33gSExURVpZBeX7HOXNqKyOVe7fdo1/swx+8EvtXzYU0fMZ
-	 RPs7o1kStKXrBYbCoxqHibOhmMMVHrvgn+xXZ9C1pKA/M4iQfvFrdQ1zzgDGcCyKFt/gj
-	 eFzo6xYZxlSjismiFgnJ0kOSjvax9OJUEoNA6zb1Fuoq6/260JAoHkcIS1hOsnJjqcffQ
-	 IGFjle8jxD7hZhAr2dJ9siCMjMDox499S7S6x0oMHVuyW3r7i0T9VdCq56BZU11TyiyXl
-	 VZnl1Fh9tGvRvhBAGJ4bf99px3gIXMhib+IZuNNw3mffbavHi0mQgi1PRCyGFGWbMFg==
+	b=gzIwERIXum4ErveU/HXF9qBPB61I+rATv3nt4RqIQ3/96rjSsOIYEXssFh5RvajB1/bg
+	 Dyd00B1HElTjIUEeFinCq6x5ZSY7yK/ApL0StIJjJQFyrPQWp1UzEAjS7pmw63avlW9L1
+	 Mb6pZ3/d9uEDiMYZQBgeMyWa/1Nxm7voaaqjYE5UuJ9F4L9Z611mXp+XlfNpINBTpWBN9
+	 x75iN79ogQUnznz2De9aoE+d+R53So31FIm45uEtX3Ga/eq2NJ2eYVo73x8sO7FYbf+7j
+	 JVyB0dhjhUKI6oqX2nMY10eKyYtAHbeXLpUYsaw9J2q3YSXMCFNQ/pJKYOgW7duE36w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793917731;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XHsHQOEJb3CJGb0dyhyAhjJ4f3CKAMOllBH9b+JYEWs=;
-	b=T2JUXqa6NSVrDCMs8GKL+vLJESHV3vJu6IAtEClspeJi8rLBPVUyBb/vgEm56iu/9Omo
-	 YIishrvFslDoPSC1B4ZMyYaGuKPOjvaPLqIiLrfN68svbiNXsIGaDap1BO60Lqochv4f9
-	 GWgaVPU4wjf6OmC3hUYx0s/+jYE8kQxe3lj1f2c6wdCcprzdOcCCA5pXspjulvVkc6OWz
-	 ZEupO2TZIQEHmo/Jw1S7zWOg5bLSsqj9F8UrhBJPrub1rci8YJIhP7kdYW7xLz/nsmVqk
-	 aamcXS22gCqQ8Ja3JyyY2Fb6/106ll/8HcBMczPQNsszBiQt1W3sSXyOp+G7YWJEtpQ==
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=fa9CP0gkzkemp29oqw3QTLDptskJjZgFq/jn4p5Ch+g=;
+	b=mrhJpEpFx93zwYkQySIYAIzkiOnuI85ohsunH2YvxCPUUQtQmDSHyCqudxxxKp4Ken77
+	 C2tlvS0k+f6MWJPM9y3KPeHv0hHC+z08WCY/OYi3FtIEiAfdF3tf6U3i5q3ivwEWdprzk
+	 dpAfK8yO+8wRT8PkQjuWRLO42neud4iWik+WBMSTMOknsOX4dNjRKqyVHuZaxPd8Rp4z2
+	 DBr+dXAeH2p3g7JISsUfJ25qTL2H8WwfOAdRIxh9a0cQzI86Of1P40kWsrDwbSoQoQfQ6
+	 4PvNNXfABRiBTnTYyPkdmi8VQaNx+/rkmwHhyk0zCEeChKHjgmvLrBYra/1YCfbSbGA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7165A1F008A1;
+	by smtp.kernel.org (Postfix) with ESMTPS id 633291F0089F;
 	Thu,  5 Nov 2026 22:28:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793917731;
-	bh=XHsHQOEJb3CJGb0dyhyAhjJ4f3CKAMOllBH9b+JYEWs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=RjKWZGmlKrkzq450SX3vBuNoStwEzyEJa7btx9vhw5GoVr7ZW6sArUgonrgnplzNR
-	 Mz3xQvRaDZOum07DuyAyBLk9sgR0lTdU7JhP5yeUlCvq34d+rUh1M4yU91kJnvhkyI
-	 8HOWyX4ueCELFX1/kr7bgsVvgESFbFS4lX7ogD56RSHoPRn/Pm512k6Wtk5+l+ClNq
-	 d8MMXWq9M+BYS0RtqPidvJReV13wkxwlBSjEU56o9cH0/Trxm1CFDUGd/dCUnjZGTL
-	 AxzGkZrtuXuUxMk4qxXrcDlY9SI4aLhKtgxpfzNb0XCP2cl2E66KENBj1/gQa6sDIJ
-	 cYUQyxedsWM2g==
+	bh=fa9CP0gkzkemp29oqw3QTLDptskJjZgFq/jn4p5Ch+g=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=JUDW+kyctfEVYw5n6iSnWvaHJ/BEpuqvJkBWfEMPQ/84lW6sUIn7sai66E2Kp+DMg
+	 83gm+5wxceoNzxLhZfWUoKZpFpu+Gq9uw8odGau4rU99OXLJaRck66JhZ1yEGvYAdC
+	 cShKyPpc4rXqrok1EGiHFIHVdEtp03LXsTQd/E4J9acQaDe5xJr+UYD75C71bN2iyM
+	 TL42j9YVcY4m3Iua6z4n9V17ARvSOSf9dm000VptAB/489TNG6NPh0IzgBL0SeWaRP
+	 BmPalaZNjzM3wIzWzwkCYhzxQ0Mzhtegh3q4bOrn8vtAU33hHIZz2AfwniE1PobwQd
+	 5yklIqcgrKOrw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EA29841E10;
+	by lkml.kernel.org (Postfix) with ESMTP id D20D145AB7;
 	Thu,  5 Nov 2026 22:28:49 +0000 (UTC)
 From: Xuheng Li via B4 Relay <devnull+xuheng.cs.columbia.edu@kernel.org>
-Date: Thu, 05 Nov 2026 22:28:50 +0000
-Subject: [PATCH 1/3] KVM: arm64: Compute the hyp pool size in 64 bits
+Subject: [PATCH 0/3] KVM: arm64: Fix the hyp pool size on large machines,
+ plus two hardening patches
+Date: Thu, 05 Nov 2026 22:28:49 +0000
+Message-Id: <20261105-hyp-pool-and-map-v1-0-756bb5d8e067@cs.columbia.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,9 +85,11 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-hyp-pool-and-map-v1-1-756bb5d8e067@cs.columbia.edu>
-References: <20261105-hyp-pool-and-map-v1-0-756bb5d8e067@cs.columbia.edu>
-In-Reply-To: <20261105-hyp-pool-and-map-v1-0-756bb5d8e067@cs.columbia.edu>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avIrBtohAq7SrSwnGqgVBSiiO6et
+ HyL/x/InIQz9OqBxKdkCb6AKgXzZv3KKK4YdK1borrB7Y4YQ9jReoeHjTg13E1sLJEhKFlMvMj
+ 1L4fxfT/QCcPTYgAAAA==
+X-Change-ID: 20261105-hyp-pool-and-map-b5e7be9a1191
 To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>
 Cc: Quentin Perret <qperret@google.com>, Will Deacon <will@kernel.org>, 
  Catalin Marinas <catalin.marinas@arm.com>, 
@@ -96,87 +100,52 @@ Cc: Quentin Perret <qperret@google.com>, Will Deacon <will@kernel.org>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Xuheng Li <xuheng@cs.columbia.edu>, stable@vger.kernel.org
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793917729; l=2873;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793917729; l=1436;
  i=xuheng@cs.columbia.edu; s=20261028; h=from:subject:message-id;
- bh=UxuVgBjPBETyOHIqHbEHAWaoxXnBBnvVmnBeY1ybafA=;
- b=j9yH+aaCv6O2qR5kWkR35pr2U+iHzJ4e49Ta/xuKRt8WMXlEXE3VrDsW3x/tw1Ag3OsxxiFMq
- s0jXWQBw68lBQs2POH+PpP/WYzowh9qbNa32gIpdjHLnA3+Krye1ZQ8
+ bh=gQekyKtD9gqE06JU2ATVEtl2lW315Pl8Hsi4FhanixE=;
+ b=4VskGk/nnncCTlFFpyv3yW8wjN2DEulU4CGjyKuATzAXd5ZtSIs40RgAyCWjcH90faDMofvwW
+ QBW4Q1u4euzD8W3zGQ3dJBTFllXoV432+H67kpL3UW0tDIXSTi0QnmS
 X-Developer-Key: i=xuheng@cs.columbia.edu; a=ed25519;
  pk=L1HVV+goqxYmEMO/OXakL6uf9isSpgk2QrLlFqyZ2Qs=
 X-Endpoint-Received: by B4 Relay for xuheng@cs.columbia.edu/20261028 with
  auth_id=1349
 X-Original-From: Xuheng Li <xuheng@cs.columbia.edu>
 Reply-To: xuheng@cs.columbia.edu
-Content-Transfer-Encoding: 7bit
 
-From: Xuheng Li <xuheng@cs.columbia.edu>
+Three changes for issues we found in pKVM as part of our research
+project.
 
-hyp_pool_init() takes the pool size as an unsigned int number of pages
-and computes the size in bytes as nr_pages << PAGE_SHIFT, in 32 bits.
-For a pool of 4 GiB or more (nr_pages >= 2^20 with 4 KiB pages) the
-shift overflows, and both pool->range_end and pool->max_order are
-derived from the truncated size.
+Patch 1 fixes a 32-bit size computation in hyp_pool_init(): a pool of
+4 GiB or more gets a truncated range and maximum order.  hpool and
+host_s2_pool reach that size on machines with about 2 TiB of RAM.
 
-The two large pools are sized from the amount of memory:
-hyp_s1_pgtable_pages() for hpool and host_s2_pgtable_pages() for
-host_s2_pool both provision page-granular tables for all of memory,
-about one page per 2 MiB of RAM, so they reach 4 GiB on a machine with
-about 2 TiB of RAM.  Arm systems of that size exist, for example AWS
-Graviton4 x8g.metal-48xl instances (3 TiB) and Ampere Altra Max
-servers (up to 4 TiB per socket).
+Patch 2 checks the host stage-2 PGD allocation for NULL before using
+it.  With patch 1 applied that allocation cannot fail, so this only
+turns a mis-sized pool into a clean -ENOMEM instead of a hyp panic.
 
-With a truncated range_end, most of the pool lies outside
-[range_start, range_end), so __hyp_attach_page() treats those pages as
-external order-0 pages that never coalesce, and the pool cannot satisfy
-multi-page allocations.  What that does depends on the host's IPA size,
-since the only multi-page allocation from these pools is the host
-stage-2 PGD in host_s2_zalloc_pages_exact():
+Patch 3 makes hyp_map_walker() refuse to replace a valid block mapping
+with a table, which would skip break-before-make and unmap the rest of
+the block.  Nothing in mainline maps into an existing hyp block, so this
+is hardening; Android's interface for EL2 modules to map pages can reach
+it.
 
- - With a 44- or 48-bit PARange the PGD is a single page.  pKVM boots,
-   but both pools run with a wrong range and maximum order, and any
-   later multi-page allocation from them would fail.
-
- - With a 42-bit PARange the PGD is eight concatenated level-1 tables.
-   Its allocation fails, and host_s2_zalloc_pages_exact() calls
-   hyp_split_page() on the result before checking it for NULL, so pKVM
-   initialisation operates on a bogus struct hyp_page instead of failing
-   with -ENOMEM.
-
-Compute the size in 64 bits.
-
-Fixes: 8e17c66249e9 ("KVM: arm64: Introduce a Hyp buddy page allocator")
-Cc: stable@vger.kernel.org
 Signed-off-by: Xuheng Li <xuheng@cs.columbia.edu>
 ---
- arch/arm64/kvm/hyp/nvhe/page_alloc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Xuheng Li (3):
+      KVM: arm64: Compute the hyp pool size in 64 bits
+      KVM: arm64: Check the host stage-2 PGD allocation for NULL
+      KVM: arm64: Don't replace a valid hyp block mapping with a table
 
-diff --git a/arch/arm64/kvm/hyp/nvhe/page_alloc.c b/arch/arm64/kvm/hyp/nvhe/page_alloc.c
-index 57f86aa0f..e7c10d2f7 100644
---- a/arch/arm64/kvm/hyp/nvhe/page_alloc.c
-+++ b/arch/arm64/kvm/hyp/nvhe/page_alloc.c
-@@ -233,16 +233,16 @@ int hyp_pool_init(struct hyp_pool *pool, u64 pfn, unsigned int nr_pages,
- 		  unsigned int reserved_pages)
- {
- 	phys_addr_t phys = hyp_pfn_to_phys(pfn);
-+	u64 size = (u64)nr_pages << PAGE_SHIFT;
- 	struct hyp_page *p;
- 	int i;
- 
- 	hyp_spin_lock_init(&pool->lock);
--	pool->max_order = min(MAX_PAGE_ORDER,
--			      get_order(nr_pages << PAGE_SHIFT));
-+	pool->max_order = min(MAX_PAGE_ORDER, get_order(size));
- 	for (i = 0; i <= pool->max_order; i++)
- 		INIT_LIST_HEAD(&pool->free_area[i]);
- 	pool->range_start = phys;
--	pool->range_end = phys + (nr_pages << PAGE_SHIFT);
-+	pool->range_end = phys + size;
- 
- 	/* Init the vmemmap portion */
- 	p = hyp_phys_to_page(phys);
+ arch/arm64/kvm/hyp/nvhe/mem_protect.c | 3 +++
+ arch/arm64/kvm/hyp/nvhe/page_alloc.c  | 6 +++---
+ arch/arm64/kvm/hyp/pgtable.c          | 7 +++++++
+ 3 files changed, 13 insertions(+), 3 deletions(-)
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261105-hyp-pool-and-map-b5e7be9a1191
 
+Best regards,
 -- 
-2.53.0
+Xuheng Li <xuheng@cs.columbia.edu>
 
 
