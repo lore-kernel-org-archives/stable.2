@@ -1,99 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793907398;
-	b=fNs9DT7D2hShDAcxiU6EJYAj++UtFdwP1Ro975oTbywmbCMoVrm4eVFQo/DVhInhvj99
-	 xaCCzhSW2LO9BED4LuQ+apMt2Oi6EiciExNtv2D7LrU3MWgmV9vk9OUDikKidOopaJ2Rs
-	 2umIa7lAs2o04IghInURvAf4hd/zdwGLXG0xW27j2d6ysNlrPH5slf9BMmy++kHMwXGHL
-	 ZFRzUJqnCn0W8ieLHUSzDyiJJea42leqMxaDWUyFAf34ISLHzvsvq8Wi8+hvpw7jTv4pR
-	 3pD3Pjhjo3Z3vs/W1imXrzFkGdXX1m05O+T5JH2fJhNX3obnOcK6eGkXJ+qKBalgN1A==
+	t=1793907485;
+	b=ZhnaSjHmtWsr5PPKxTRgZaruqGeP3KycAhfGFl3IjTh5AhR/NWBcFeVL0xI8o8rPRTb1
+	 IYWJzXYy06hspLAJ8i+Y1BgBETOOPIp2GUURIsfxtMiAd+1dU2HroZ34vZepq7W+VThGf
+	 8yTwpAUneHFvVXIO/SZyp1eOWfC09H0Cl8djT8iiYVRbDqxWFDpxE8Z77F2SRDoMHDx9w
+	 5MD8rC1oUKLIjm3L8Sq/nxK91dDcCK1oU9kX3gKgLUNR/R6ynZ/kFf3abxbYwfCICMicg
+	 jIoYNHvjnVHdeXOyMUtEij2kZ6/vQoxCs8Ayy5Fz8CNL8wSqbltOgvg3H24SxmWi9BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793907398;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Varby6vTTgGosmDxdkbVVCPGhFaIy/1zgNtje3gNyzM=;
-	b=VzIrnj2XlfBIWVNezo+VIa4prnChCpqFCp9Fk54j/JR8LhEcOKgVzHuqpU5n8F3+GR+V
-	 oX1kS4TbKhRvcJMwFVkZ762fiQErodKNcjj9M3/0vHQKB6DihSrsyl4S9yOCdpJFVZarT
-	 8QC9R353LyQ+K8ri3oLNSIjFyg8H3z2XwbUQHRDia9QUdYJHRJD7qldx+UR+0nMdjMihC
-	 HNzaMs4SY1B00jcHe7SribWPWnxuGgNltSsVenxDhNwuup2fuHpxE0eBQvtAG6sRUfxfj
-	 qqGxk+WGiR/rWXrTFbIVZ+rvveb7k3ZFSOTlP50A3SJBdTZiF1OpT9MaqKf/992vCLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793907485;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5gtDsALbs7XRusV4UDxH8IZuJVkw8oLPyfccKt3BFWc=;
+	b=j9COQGN+dh2kOJfPDNIVJKRNe7ym6h3+/83SPHZ+G+7AUuGJJOlV+QS2zqUHuwCCCmvn
+	 5KhxFiFgcITpAo4qYA5EFPl6w5iYCpeaxBsPXLj65Olf8++sjarBVmCjEuGfYFjrvhUjF
+	 nFgMyOgui8xPcGb8wdL2qdsUqWsPxPyTufLMaPrY4se+qXcdeyij5yYraBR09JNraKC8A
+	 GWPstvTfjPDOglBdTEyzlO0Ha8vZ+uF67EIfuwcBqQgewK+ajXUw3+PRQrjyiFu6L8Yy3
+	 1xhHJvXulcAZSlDo5JRojaizDEtHBNnkYGskoA6sBPlU/QD9hPQQ/c3ByN6frlwKjtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="MrvVq/pA";
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CqdY7yqN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38AC1606B05F
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 19:36:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38AC1606B05F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8BA607D010;
+	Thu,  5 Nov 2026 19:38:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MrvVq/pA
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3b0b3438540so846574a91.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 11:36:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793907397; x=1794512197; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Varby6vTTgGosmDxdkbVVCPGhFaIy/1zgNtje3gNyzM=;
-        b=MrvVq/pAxeEpkWXJvxeD7gcR/Qrh87bKPPTXZNEO0tG57lXCu9eFrtFxefXkdMbQ+t
-         +FiL/k3Ptej86tBsPDeoLoizkVTIBwROn8QWbNusVRS8R/bCWm9dd6AGcGB7ub/WtPGR
-         UWy3DCVzTTXRt+1WOzTVq60M6NKtxfs+3JKFNAt/gZKsEsjG8TdLG+xv5InLaxogx2T5
-         OmYwab8IEf/IYxJ3jC3/1u/celUFJj8e96sXYWLdq5SO7gk63YV8hC7JdeKci8xMXjEq
-         4nI7GwwwC1aOwO/Mk+UIING/PbLJezKjiIG/tMhS17HnfXM8TKGnyuXPcUMKDSksixfU
-         SLNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793907397; x=1794512197;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Varby6vTTgGosmDxdkbVVCPGhFaIy/1zgNtje3gNyzM=;
-        b=QjzgtEXIYbST+uo5VktI1joCFxkTvO4MIJGf11Q9E0mA1DVC2IgtaAzslIBC6pbXD8
-         zikkyGfNxjk/ox14st9vqgOZfQnqkEAEmSvoW9sT4Hn5mOAktm2aMkT/446033RIGqSd
-         0vebvCQudvMdbWPLdYt3nr8RZN1xnYrVhUT//Xv+HoGz0D8cM3EsIn6xIbBrBEzRfY+/
-         /jTdz39Iitlg2DNLAVykyiwd9TMioRZI+RHaKmLt1tc2tyI5vLQniW+dru4lyrfBQ1dF
-         iUbnCioks+7CJ4ZWgADra3fIltaLW1Bdt8AXmdy+RY5IepwPYzTmVRg8Hg/kbc1M4oeL
-         mX0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxY/Mjyeyq5JpPVtw/L+TcJ+j793i6BjlPrrNC/jnIA3XhIjusj160c/J9t/yYBjg4F4ca2SE0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xa3rNQ7pZbYV+lJWnXzHyQtzPlLbdcmPs0pMXkyt1Mq7IulrC
-	nYA6CenHHRNkVtruOoHj06vBorTFio8jBJHoOGtEyypbhZYZVEFUS+ck
-X-Gm-Gg: AYBFou1CI012HaaywMxY/mY7SRCAjYn0BwunY4GwKJlkDbXGJOQISdU6/GTUgqm6fO8
-	D5F3yig3hyC22np0hlAHrB9MOx64ZrkFgcRp2pHnolS266mG67QdyazdfoV/ewxsbgs4Wj5IqR8
-	fevooHgCJenYE5A5O1Uxb0NAag7oJHxxEzFaxLSkT/jaF9q5fYWle0oN2prtZvvcAl+bWFBk13g
-	Ed/JN3nuVuAaH/d10+9AaAMkW2L4CEM97x2kkZcxXsCXSy9WKUKjo31li/Gt8K7JqrXVNh3zJQX
-	+FyjDNQRuH0lJnC+EWAwE5xx8pgEJam1QKwVS/dvfQ0Ddh6q2Jt9/n8e88NNRdQWou9yB4S2QCs
-	IuKvnUStQ+9JOCutAwu8TFvB8jX2L6j6yD1mmwLKG6j9w8Vr+EzTZYfMtw7Pu5T0pu+1impQCDU
-	ZfXVBXGYLFwoue5lInncg2qiNxPnJpSQ+ZoD6U/ZgP1/J1XObbxxmpH1uX03lz+fcm8SE7/dOQj
-	DNbrDUCmlaTe18p1x1PRHcIJRqcaaYehKw5buSRaQIXcUgK4laXc/wMgzUbxc2ETJEnGRl6UTBX
-	eSJcYFQ4KDZjWP9McXuGycpCAPsnXQ2Mq6Nj15lh4J4ZLCRJ
-X-Received: by 2002:a17:90b:448f:b0:3ab:9c73:147 with SMTP id 98e67ed59e1d1-3b0db69ee38mr32308a91.14.1793907397392;
-        Thu, 05 Nov 2026 11:36:37 -0800 (PST)
-Received: from ubuntu24.vpn.host.chaitin.net ([124.77.124.225])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7c42932sm499331a91.6.2026.11.05.11.36.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 11:36:37 -0800 (PST)
-From: Yuansheng Yang <0xbeac@gmail.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: David Howells <dhowells@redhat.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v4] KEYS: Protect pkey method checks against type removal
-Date: Fri,  6 Nov 2026 03:36:31 +0800
-Message-ID: <20261105193632.34363-1-0xbeac@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <auy1ANMSKTXZb8GE@kernel.org>
-References: <auy1ANMSKTXZb8GE@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CqdY7yqN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CCDF1F0089F;
+	Thu,  5 Nov 2026 19:38:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793907484;
+	bh=5gtDsALbs7XRusV4UDxH8IZuJVkw8oLPyfccKt3BFWc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CqdY7yqNv/aoO7y8upwLtyC6XH28aiuYbZ6OsFDFPVo5Uv7M6SEwt0HGtZ9PvNbfe
+	 dUnEHTjnZeF4AOxpiYNDB+t15zIXbJ9dVQDZDPzLabQnGCxz1hUlma2Tts/KJtSVt4
+	 2v5rO1INZaqnIRY818PxRaXLDPEj6QbYGEbaPLFHCPklRlUbS1sKlaBDoQrXbsQrp0
+	 txbK0Xwy4YwCNLc0ieAt+lP5vEBuEEuA8+UPtqFjybZs3cBMswIc5qG2tRfCYdgISW
+	 uqMezNJqHLEVxrjXv5gHzFdtGj/zb0MKsNOedLAifG2XKiz89N+HM+RJezKiL5aQSA
+	 +3gP86DfWi8tQ==
+Date: Thu, 5 Nov 2026 21:38:00 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Chengyu Liu <lui2012qwq@gmail.com>
+Cc: jgg@ziepe.ca, linux-rdma@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] RDMA/ipoib: cancel the AH reaper synchronously on
+ teardown
+Message-ID: <20261105193800.GJ8298@unreal>
+References: <20261105042922.14733-1-lui2012qwq@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,192 +56,512 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105042922.14733-1-lui2012qwq@gmail.com>
 
-keyctl_pkey_params_get() looks up the key, and keyctl_pkey_query(),
-keyctl_pkey_e_d_s() and keyctl_pkey_verify() then dereference
-key->type->asym_* outside key->sem.  A reference keeps the key alive, but
-does not pin the module providing its type.
+On Thu, Nov 05, 2026 at 12:29:22PM +0800, Chengyu Liu wrote:
+> ipoib_stop_ah_reaper() uses cancel_delayed_work(), which cannot stop a
+> callback that is already running.  ipoib_reap_ah() re-arms itself after
+> an unlocked test_bit(IPOIB_STOP_REAPER) check, so a callback that has
+> passed the check but has not re-armed yet still queues the delayed work
+> after the "stop":
+> 
+>   CPU0 (reaper)                     CPU1 (stop/teardown)
+>   test_bit(STOP_REAPER) == 0
+>                                     set_bit(STOP_REAPER)
+>                                     cancel_delayed_work()  (no-op)
+>                                     ... destroy_workqueue(priv->wq)
+>   queue_delayed_work(priv->wq, ...)  <- delayed work sits on the timer
+> 
+> destroy_workqueue() cannot see a delayed work that is pending on the
+> timer wheel, so the re-armed work fires after the workqueue is
+> destroyed and priv is freed: both the queueing onto the dead queue and
+> the callback's container_of() on freed memory are use-after-free.
+> 
+> Use cancel_delayed_work_sync(), which waits for a running callback and
+> swallows its re-arm while the stop is in flight.  Note that
+> ipoib_stop_ah_reaper() also runs on ndo_stop and on the stop/open cycle
+> of a heavy flush, so the work must be left enabled for
+> ipoib_start_ah_reaper() to re-arm it on the next open;
+> cancel_delayed_work_sync() re-enables on the way out, unlike
+> disable_delayed_work_sync() which would kill the reaper for good.
+> 
+> The comment above claims ipoib_reap_dead_ahs() "ensures the work is
+> really stopped", but it never touches the work item - it only walks
+> the dead_ahs list under priv->lock.  The stop guarantee comes from the
+> cancel; fix the comment along with it.
+> 
+> Found by static analysis.  Reproduced on a KASAN build running stock
+> ib_ipoib on a Soft-RoCE transport (rxe): when a running reaper callback
+> escapes the stop and re-arms, the timer fires one second later in
+> __run_timer_base() on the destroyed workqueue (slab-use-after-free).
 
-unregister_key_type() calls key_gc_keytype(), which retypes every
-remaining key of the type to key_type_dead under key->sem for writing.
-The pkey paths read key->type again after their checks, so a concurrent
-module unload can turn the checked callback into the NULL key_type_dead
-member and call through a NULL function pointer, e.g.:
+Please add full dmesg kernel stack here.
 
-  KEYCTL_PKEY_SIGN task              Module unload and key GC
-  ------------------------           ------------------------
-  keyctl_pkey_e_d_s()
-    if (!key->type->asym_eds_op)     unregister_key_type()
-                                       GC: down_write(&key->sem)
-                                       GC: retype to key_type_dead
-                                       GC: up_write(&key->sem)
-                                     free_module()
-    in = memdup_user(...)
-    key->type->asym_eds_op(...)      -> NULL call
+Thanks
 
-In-tree, turris-signing-key provides such methods.
-
-Remove the key->type->asym_query check from keyctl_pkey_params_get(): it
-runs without key->sem, so key_gc_keytype() can retype the key right after
-it.  Instead, make keyctl_pkey_params_get_2(), keyctl_pkey_query(),
-keyctl_pkey_e_d_s() and keyctl_pkey_verify() each take key->sem for
-reading, check the key->type->asym_* method they are about to call, call
-it and release key->sem.  As key_gc_keytype() takes key->sem for writing
-before it retypes the key, key->type cannot change between the check and
-the call.  Drop the asym_eds_op and asym_verify_signature checks that
-keyctl_pkey_e_d_s() and keyctl_pkey_verify() did before memdup_user() for
-the same reason; -EOPNOTSUPP is now returned from under key->sem.
-memdup_user(), kmalloc() and copy_to_user() stay outside key->sem, as in
-__keyctl_read_key().
-
-This problem was recently fixed for keyctl_read_key() by 925c84e3cc21
-("keys: Protect the read method check against type removal") and for
-key_update() by aef3a8a4f988 ("KEYS: Protect the update method check
-against type removal").
-
-Fixes: 00d60fd3b932 ("KEYS: Provide keyctls to drive the new key type ops for asymmetric keys [ver #2]")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuansheng Yang <0xbeac@gmail.com>
----
-Changes in v4:
-- Rewrite the commit message: describe what changes in
-  keyctl_pkey_params_get(), keyctl_pkey_params_get_2() and the three
-  keyctl handlers and why, and cite the read/update fixes by subject.
-- Rename the out_unlock labels to out_up_key_sem.
-- Use out_up_key_sem / out_free_in / out_free_params in
-  keyctl_pkey_verify(); leave the other functions' existing labels alone.
-- No functional change relative to v3.
-
-v3: https://lore.kernel.org/all/9d47e202bd11857b3555e6b95694b3c3a4f2460b.1793852399.git.0xbeac@gmail.com/
-v2: https://lore.kernel.org/all/20261104021414.50696-1-0xbeac@gmail.com/
-
- security/keys/keyctl_pkey.c | 58 +++++++++++++++++++++++++++----------
- 1 file changed, 42 insertions(+), 16 deletions(-)
-
-diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
-index 15b6bf6399..3e3253330c 100644
---- a/security/keys/keyctl_pkey.c
-+++ b/security/keys/keyctl_pkey.c
-@@ -100,9 +100,6 @@ static int keyctl_pkey_params_get(key_serial_t id,
- 		return PTR_ERR(key_ref);
- 	params->key = key_ref_to_ptr(key_ref);
- 
--	if (!params->key->type->asym_query)
--		return -EOPNOTSUPP;
--
- 	return 0;
- }
- 
-@@ -129,7 +126,16 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
- 	if (ret < 0)
- 		return ret;
- 
-+	down_read(&params->key->sem);
-+	if (!params->key->type->asym_query) {
-+		ret = -EOPNOTSUPP;
-+		goto out_up_key_sem;
-+	}
-+
- 	ret = params->key->type->asym_query(params, &info);
-+
-+out_up_key_sem:
-+	up_read(&params->key->sem);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -185,7 +191,16 @@ long keyctl_pkey_query(key_serial_t id,
- 	if (ret < 0)
- 		goto error;
- 
-+	down_read(&params.key->sem);
-+	if (!params.key->type->asym_query) {
-+		ret = -EOPNOTSUPP;
-+		goto out_up_key_sem;
-+	}
-+
- 	ret = params.key->type->asym_query(&params, &res);
-+
-+out_up_key_sem:
-+	up_read(&params.key->sem);
- 	if (ret < 0)
- 		goto error;
- 
-@@ -230,10 +245,6 @@ long keyctl_pkey_e_d_s(int op,
- 	if (ret < 0)
- 		goto error_params;
- 
--	ret = -EOPNOTSUPP;
--	if (!params.key->type->asym_eds_op)
--		goto error_params;
--
- 	switch (op) {
- 	case KEYCTL_PKEY_ENCRYPT:
- 		params.op = kernel_pkey_encrypt;
-@@ -260,7 +271,16 @@ long keyctl_pkey_e_d_s(int op,
- 	if (!out)
- 		goto error_in;
- 
-+	down_read(&params.key->sem);
-+	if (!params.key->type->asym_eds_op) {
-+		ret = -EOPNOTSUPP;
-+		goto out_up_key_sem;
-+	}
-+
- 	ret = params.key->type->asym_eds_op(&params, in, out);
-+
-+out_up_key_sem:
-+	up_read(&params.key->sem);
- 	if (ret < 0)
- 		goto error_out;
- 
-@@ -305,31 +325,37 @@ long keyctl_pkey_verify(const struct keyctl_pkey_params __user *_params,
- 	ret = keyctl_pkey_params_get_2(_params, _info, KEYCTL_PKEY_VERIFY,
- 				       &params);
- 	if (ret < 0)
--		goto error_params;
--
--	ret = -EOPNOTSUPP;
--	if (!params.key->type->asym_verify_signature)
--		goto error_params;
-+		goto out_free_params;
- 
- 	in = memdup_user(_in, params.in_len);
- 	if (IS_ERR(in)) {
- 		ret = PTR_ERR(in);
--		goto error_params;
-+		goto out_free_params;
- 	}
- 
- 	in2 = memdup_user(_in2, params.in2_len);
- 	if (IS_ERR(in2)) {
- 		ret = PTR_ERR(in2);
--		goto error_in;
-+		goto out_free_in;
- 	}
- 
- 	params.op = kernel_pkey_verify;
-+	down_read(&params.key->sem);
-+	if (!params.key->type->asym_verify_signature) {
-+		ret = -EOPNOTSUPP;
-+		goto out_up_key_sem;
-+	}
-+
- 	ret = params.key->type->asym_verify_signature(&params, in, in2);
- 
-+out_up_key_sem:
-+	up_read(&params.key->sem);
- 	kfree(in2);
--error_in:
-+
-+out_free_in:
- 	kfree(in);
--error_params:
-+
-+out_free_params:
- 	keyctl_pkey_params_free(&params);
- 	return ret;
- }
--- 
-2.43.0
-
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+> ---
+> v3:
+>   - back to cancel_delayed_work_sync(): ipoib_stop_ah_reaper() also runs
+>     on ndo_stop and on the heavy-flush stop/open cycle, so the work must
+>     be left enabled (sashiko review); disable_delayed_work_sync() would
+>     kill the reaper on the next open
+> 
+> v2: https://lore.kernel.org/r/20261104181753.1245369-1-lui2012qwq@gmail.com
+>   - add reproducer on stock ib_ipoib over rxe
+>   - switch to disable_delayed_work_sync() (superseded by v3)
+> 
+> v1: https://lore.kernel.org/r/20261103170703.1600310-1-lui2012qwq@gmail.com
+> 
+> 
+> Reproducer (harness summary; full driver scripts and the timing trigger
+> below):
+> 
+>     QEMU has no IB hardware, so the stock ib_ipoib driver runs over a
+>     Soft-RoCE (rxe) transport presented as an IB port.  Harness shims,
+>     all below ib_ipoib (the driver itself is unmodified):
+> 
+>       * rxe_verbs.c: report link layer INFINIBAND and cap flags
+>         PROT_IB|IB_MAD|AF_IB from rxe_get_link_layer() /
+>         rxe_port_immutable(); skip ib_get_eth_speed() for the flipped
+>         port in rxe_query_port(); set dev.parent before
+>         ib_register_device().
+>       * sa_query.c: answer ib_sa_path_rec_get() locally (async via
+>         system_wq) when the device has no SA.
+>       * multicast.c: complete ib_sa_join_multicast() locally (async);
+>         tag the synthetic object (comp_mask bit 63) so
+>         ib_sa_free_multicast() frees it.
+>       * ipoib_ib.c (witness only, no behavior change): trace_printk()
+>         timing in ipoib_reap_ah(), and an ESCAPED-ARM line when the
+>         callback re-arms after IPOIB_STOP_REAPER was set.
+> 
+>     With ~500 AH entries churned into dead_ahs, the reaper's walk
+>     measures 20-160us once a second; the teardown (RDMA netlink
+>     DELLINK of the rxe device) reaches ipoib_stop_ah_reaper() ~3.9ms
+>     after the syscall enters.  The stock test->queue window is the
+>     handful of instructions between the lockless test_bit() and the
+>     queue_delayed_work(); to hit it deterministically the PoC kernel
+>     widens it to 200us with a module parameter.  On a hit the witness
+>     logs
+> 
+>         ipoib_stop_ah_reaper: reap_ah: ib0 STOP at=531116547240
+>         ipoib_reap_ah: reap_ah: ib0 ESCAPED-ARM after stop
+> 
+>     and one second later the escaped timer fires on the destroyed
+>     workqueue (trimmed):
+> 
+>         BUG: KASAN: use-after-free in __run_timer_base.part.0+0x80c/0x900
+>         Write of size 8 at addr ffff888021088628 by task swapper/0/0
+>         Call Trace:
+>          <IRQ>
+>          kasan_report+0x96/0xd0
+>          __run_timer_base.part.0+0x80c/0x900
+>          tmigr_handle_remote_up+0x38b/0x830
+>          ...
+>          handle_softirqs+0x184/0x5c0
+>          irq_exit_rcu+0x6e/0x150
+>          sysvec_apic_timer_interrupt+0x70/0x80
+>          </IRQ>
+> 
+>     with the workqueue core reporting, right before the splat:
+> 
+>         workqueue: cannot queue ipoib_reap_ah on wq ipoib_wq
+> 
+> 
+> ------------------------- reproducer: trigger.c -------------------------
+> // SPDX-License-Identifier: GPL-2.0
+> /*
+>  * trigger.c - F-026 teardown timing trigger.
+>  *
+>  * Watches the PoC kernel's ipoib_reap_ah() witness lines on trace_pipe
+>  * ("reap_ah: ib0 start=<ns> walk_ns=<ns>"), predicts the next reaper run
+>  * (~1s period, jiffy-aligned) and deletes the rxe device via RDMA netlink
+>  * (RDMA_NLDEV_CMD_DELLINK, the real teardown path: ib unregister -> ipoib
+>  * remove -> stop_ah_reaper -> destroy_workqueue -> free) at
+>  *
+>  *      next_start + walk_ns + offset
+>  *
+>  * which is the callback's test_bit->queue_delayed_work gap.
+>  *
+>  * usage: trigger <rxe_dev> <ib_dev> <offset_ns>
+>  */
+> #define _GNU_SOURCE
+> #include <stdio.h>
+> #include <stdlib.h>
+> #include <string.h>
+> #include <unistd.h>
+> #include <fcntl.h>
+> #include <time.h>
+> #include <errno.h>
+> #include <linux/netlink.h>
+> #include <sys/socket.h>
+> 
+> #ifndef NETLINK_RDMA
+> #define NETLINK_RDMA 20
+> #endif
+> 
+> #define RDMA_NL_NLDEV		5
+> #define RDMA_NL_GET_TYPE(c, o)	(((c) << 10) + (o))
+> #define RDMA_NLDEV_CMD_GET	1
+> #define RDMA_NLDEV_CMD_DELLINK	4
+> #define RDMA_NLDEV_ATTR_DEV_INDEX	1
+> #define RDMA_NLDEV_ATTR_DEV_NAME	2
+> 
+> static const char *TRACE_PIPE = "/sys/kernel/tracing/trace_pipe";
+> 
+> static unsigned long long now_ns(void)
+> {
+> 	struct timespec ts;
+> 	clock_gettime(CLOCK_MONOTONIC, &ts);
+> 	return (unsigned long long)ts.tv_sec * 1000000000ull + ts.tv_nsec;
+> }
+> 
+> static void wait_until(unsigned long long deadline_ns)
+> {
+> 	while (now_ns() < deadline_ns)
+> 		;
+> }
+> 
+> static int nla_put(char *buf, int *off, int type, const void *data, int len)
+> {
+> 	struct nlattr *na = (struct nlattr *)(buf + *off);
+> 	na->nla_type = type;
+> 	na->nla_len = NLA_HDRLEN + len;
+> 	memcpy(buf + *off + NLA_HDRLEN, data, len);
+> 	*off += NLA_ALIGN(na->nla_len);
+> 	return 0;
+> }
+> 
+> /* dump all rdma links, return the index of `name` (0 if not found) */
+> static int rdma_dev_index(int fd, const char *name)
+> {
+> 	char buf[4096];
+> 	struct nlmsghdr *nlh = (struct nlmsghdr *)buf;
+> 	int found = -1;
+> 	struct timeval tv = { .tv_sec = 2, .tv_usec = 0 };
+> 
+> 	setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+> 	memset(buf, 0, sizeof(buf));
+> 	nlh->nlmsg_len = NLMSG_LENGTH(0);
+> 	nlh->nlmsg_type = RDMA_NL_GET_TYPE(RDMA_NL_NLDEV, RDMA_NLDEV_CMD_GET);
+> 	nlh->nlmsg_flags = NLM_F_REQUEST | NLM_F_DUMP;
+> 	nlh->nlmsg_seq = 1;
+> 	if (send(fd, buf, nlh->nlmsg_len, 0) < 0)
+> 		return 0;
+> 
+> 	for (;;) {
+> 		ssize_t len = recv(fd, buf, sizeof(buf), 0);
+> 		struct nlmsghdr *m;
+> 		if (len <= 0)
+> 			break;
+> 		for (m = (struct nlmsghdr *)buf; NLMSG_OK(m, len);
+> 		     m = NLMSG_NEXT(m, len)) {
+> 			struct nlattr *a;
+> 			int rem, idx = -1;
+> 			char nm[64] = "";
+> 
+> 			if (m->nlmsg_type == NLMSG_DONE)
+> 				goto out;
+> 			if (m->nlmsg_type == NLMSG_ERROR) {
+> 				struct nlmsgerr *e = NLMSG_DATA(m);
+> 				fprintf(stderr, "[dbg] dump err=%d\n", e->error);
+> 				goto out;
+> 			}
+> 			a = (struct nlattr *)NLMSG_DATA(m);
+> 			rem = m->nlmsg_len - NLMSG_HDRLEN;
+> 			for (; rem > 0 && (int)a->nla_len <= rem;
+> 			       rem -= NLA_ALIGN(a->nla_len),
+> 			       a = (struct nlattr *)((char *)a + NLA_ALIGN(a->nla_len))) {
+> 				if (a->nla_type == RDMA_NLDEV_ATTR_DEV_INDEX)
+> 					idx = *(unsigned int *)((char *)a + NLA_HDRLEN);
+> 				else if (a->nla_type == RDMA_NLDEV_ATTR_DEV_NAME)
+> 					snprintf(nm, sizeof(nm), "%s",
+> 						 (char *)a + NLA_HDRLEN);
+> 			}
+> 			if (idx >= 0 && !strcmp(nm, name))
+> 				found = idx;
+> 			else if (idx == 0 && !strcmp(nm, name))
+> 				found = 0;
+> 		}
+> 	}
+> out:
+> 	return found;
+> }
+> 
+> static int rdma_dellink(int fd, int index)
+> {
+> 	char buf[256];
+> 	struct nlmsghdr *nlh = (struct nlmsghdr *)buf;
+> 	int off = NLMSG_LENGTH(0);
+> 
+> 	memset(buf, 0, sizeof(buf));
+> 	nlh->nlmsg_len = 0;
+> 	nlh->nlmsg_type = RDMA_NL_GET_TYPE(RDMA_NL_NLDEV, RDMA_NLDEV_CMD_DELLINK);
+> 	nlh->nlmsg_flags = NLM_F_REQUEST | NLM_F_ACK;
+> 	nlh->nlmsg_seq = 2;
+> 	nla_put(buf, &off, RDMA_NLDEV_ATTR_DEV_INDEX, &index, sizeof(index));
+> 	nlh->nlmsg_len = off;
+> 
+> 	if (send(fd, buf, off, 0) < 0)
+> 		return -1;
+> 	/* read the ACK */
+> 	if (recv(fd, buf, sizeof(buf), 0) > 0) {
+> 		struct nlmsghdr *m = (struct nlmsghdr *)buf;
+> 		if (m->nlmsg_type == NLMSG_ERROR) {
+> 			struct nlmsgerr *e = NLMSG_DATA(m);
+> 			return e->error ? -1 : 0;
+> 		}
+> 	}
+> 	return 0;
+> }
+> 
+> int main(int argc, char **argv)
+> {
+> 	const char *ifname = argv[1];	/* rxe device, e.g. rxe0 */
+> 	const char *ibname = argv[2];	/* ipoib iface, e.g. ib0 */
+> 	char tname[80];
+> 	long long offset_ns = atoll(argv[3]);
+> 	FILE *f;
+> 	char line[512];
+> 	unsigned long long start = 0, walk = 0, period = 0, prev_start = 0;
+> 	int nlfd;
+> 
+> 	snprintf(tname, sizeof(tname), "reap_ah: %s ", ibname);
+> 
+> 	nlfd = socket(AF_NETLINK, SOCK_RAW, NETLINK_RDMA);
+> 	if (nlfd < 0) {
+> 		perror("socket NETLINK_RDMA");
+> 		return 1;
+> 	}
+> 
+> 	f = fopen(TRACE_PIPE, "r");
+> 	if (!f) {
+> 		perror("open trace_pipe");
+> 		return 1;
+> 	}
+> 
+> 	fprintf(stderr, "[*] trigger: dev=%s offset=%lldns\n", ifname, offset_ns);
+> 
+> 	while (fgets(line, sizeof(line), f)) {
+> 		char *s, *w;
+> 		if (!strstr(line, tname))
+> 			continue;
+> 		s = strstr(line, "start=");
+> 		w = strstr(line, "walk_ns=");
+> 		if (!s || !w)
+> 			continue;
+> 		start = strtoull(s + 6, NULL, 10);
+> 		walk = strtoull(w + 8, NULL, 10);
+> 		if (!start || !walk)
+> 			continue;
+> 		if (prev_start)
+> 			period = start - prev_start;
+> 		prev_start = start;
+> 		if (!period || !walk)
+> 			continue;
+> 
+> 		unsigned long long fire = start + period + walk + offset_ns;
+> 		unsigned long long t0 = now_ns();
+> 		if (fire <= t0)
+> 			continue;
+> 		fprintf(stderr, "[*] next gap in %llu ns (period %llu, walk %llu)\n",
+> 			fire - t0, period, walk);
+> 		wait_until(fire);
+> 		unsigned long long fired = now_ns();
+> 		int idx = rdma_dev_index(nlfd, ifname);
+> 		int rc = idx >= 0 ? rdma_dellink(nlfd, idx) : -1;
+> 		fprintf(stderr, "[+] fired DELLINK idx=%d rc=%d at=%llu drift=%lldns\n",
+> 			idx, rc, fired, (long long)(fired - fire));
+> 		fflush(stderr);
+> 
+> 		/* closed-loop: read the trace buffer, find the gap_enter and
+> 		 * STOP the del produced, report how far off we landed */
+> 		usleep(1500000);
+> 		FILE *tf = fopen("/sys/kernel/tracing/trace", "r");
+> 		if (tf) {
+> 			char l2[512];
+> 			unsigned long long ge = 0, stop = 0;
+> 			while (fgets(l2, sizeof(l2), tf)) {
+> 				char *p;
+> 				if (strstr(l2, tname) && (p = strstr(l2, "gap_enter=")))
+> 					ge = strtoull(p + 10, NULL, 10);
+> 				if (strstr(l2, tname) && (p = strstr(l2, "STOP at=")))
+> 					stop = strtoull(p + 8, NULL, 10);
+> 			}
+> 			fclose(tf);
+> 			if (ge && stop) {
+> 				long long miss = (long long)(stop - ge);
+> 				fprintf(stderr, "[=] MISS-BY=%lld (stop-gap_enter, want 0..200000)\n", miss);
+> 				printf("%lld\n", miss);	/* stdout for the driver */
+> 			}
+> 		}
+> 		return rc != 0;
+> 	}
+> 	return 1;
+> }
+> 
+> ------------------------- guest scripts -------------------------
+> 
+> ----- setup.sh -----
+> #!/bin/bash
+> # setup.sh - F-026 guest setup: two rxe endpoints presenting as IB, ipoib up.
+> # NICs: enp0s3 = slirp (ssh/internet); enp0s4+enp0s5 = same L2 hub (ipoib pair).
+> set -x
+> mount -t configfs none /sys/kernel/config 2>/dev/null
+> mount -t tracefs none /sys/kernel/tracing 2>/dev/null
+> 
+> ip link set enp0s4 up
+> ip link set enp0s5 up
+> 
+> rdma link add rxe0 type rxe netdev enp0s4
+> rdma link add rxe1 type rxe netdev enp0s5
+> sleep 1
+> 
+> ip addr add 10.99.0.1/24 dev ib0
+> ip link set ib0 up
+> ip addr add 10.99.0.2/24 dev ib1
+> ip link set ib1 up
+> sleep 1
+> ip -brief addr show ib0
+> ip -brief addr show ib1
+> 
+> ping -c2 -W2 10.99.0.2 -I ib0 && echo PING-OK
+> ip neigh show dev ib0
+> echo SETUP-DONE
+> 
+> ----- churn3.sh -----
+> #!/bin/bash
+> # churn3.sh - fast AH churn on ib0 (static PERMANENT neighs + one UDP each,
+> # then explicit neigh del -> AHs to dead_ahs).  ib0 must have a /16 alias.
+> N=${1:-500}
+> LOOPS=${2:-9999}
+> 
+> ip addr add 10.99.0.1/16 dev ib0 2>/dev/null	# widen the on-link subnet
+> 
+> mklladdr() {
+> 	local i=$1
+> 	printf '80:00:00:10:52:54:00:12:%02x:%02x:00:00:00:00:00:00:00:%02x:%02x:01' \
+> 		$(( (i >> 8) & 255 )) $(( i & 255 )) $(( (i >> 8) & 255 )) $(( i & 255 ))
+> }
+> 
+> for l in $(seq 1 $LOOPS); do
+> 	for i in $(seq 1 $N); do
+> 		a=10.99.$(( i >> 8 )).$(( i & 255 ))
+> 		ip neigh replace $a lladdr $(mklladdr $i) dev ib0 2>/dev/null
+> 	done
+> 	/root/churn_send16 $N 2>/dev/null || /root/churn_send16 $N
+> 	for i in $(seq 1 $N); do
+> 		ip neigh del 10.99.$(( i >> 8 )).$(( i & 255 )) dev ib0 2>/dev/null
+> 	done
+> 	echo "loop $l done ($(date +%T))"
+> done
+> 
+> ----- churn_send16.c -----
+> // SPDX-License-Identifier: GPL-2.0
+> /*
+>  * churn_send16.c - one UDP datagram at each 10.99.Hi.Lo neighbor on ib0
+>  * so ipoib creates a real AH per neighbor (path lookup -> SA shim -> rxe AH).
+>  *
+>  * usage: churn_send16 <count>
+>  */
+> #include <stdio.h>
+> #include <stdlib.h>
+> #include <string.h>
+> #include <unistd.h>
+> #include <arpa/inet.h>
+> #include <sys/socket.h>
+> 
+> int main(int argc, char **argv)
+> {
+> 	int n = argc > 1 ? atoi(argv[1]) : 500;
+> 	int fd = socket(AF_INET, SOCK_DGRAM, 0);
+> 	char buf[64] = "f026";
+> 	struct sockaddr_in sa;
+> 	int i, sent = 0;
+> 
+> 	if (fd < 0) {
+> 		perror("socket");
+> 		return 1;
+> 	}
+> 
+> 	memset(&sa, 0, sizeof(sa));
+> 	sa.sin_family = AF_INET;
+> 	sa.sin_port = htons(9999);
+> 
+> 	for (i = 1; i <= n; i++) {
+> 		char ip[32];
+> 		snprintf(ip, sizeof(ip), "10.99.%d.%d", (i >> 8) & 255, i & 255);
+> 		inet_pton(AF_INET, ip, &sa.sin_addr);
+> 		if (sendto(fd, buf, sizeof(buf), 0,
+> 			   (struct sockaddr *)&sa, sizeof(sa)) >= 0)
+> 			sent++;
+> 	}
+> 	close(fd);
+> 	printf("churn_send16: fired %d datagrams\n", sent);
+> 	return 0;
+> }
+> 
+> ----- race.sh -----
+> #!/bin/bash
+> # race.sh - F-026 closed-loop sweep: trigger prints MISS-BY (where the
+> # teardown's stop landed vs the reaper gap), we steer the next offset to
+> # land 100us into the 200us widened gap.
+> IF=ib0
+> off=-4000000	# first guess: syscall latency is ~3.9ms
+> MAX=${1:-300}
+> 
+> for i in $(seq 1 $MAX); do
+> 	rdma link del rxe0 2>/dev/null; sleep 0.5
+> 	rdma link add rxe0 type rxe netdev enp0s4; sleep 1
+> 	ip addr add 10.99.0.1/16 dev $IF 2>/dev/null; ip link set $IF up; sleep 1
+> 	echo > /sys/kernel/tracing/trace
+> 	/root/churn3.sh 300 1 >/dev/null 2>&1
+> 
+> 	miss=$(/root/trigger rxe0 $IF $off 2>/dev/null | tail -1)
+> 	case "$miss" in ''|*[!0-9-]*)
+> 		echo "shot $i: off=$off no-measurement"
+> 		continue ;;
+> 	esac
+> 	echo "shot $i: off=$off miss=$miss"
+> 	off=$(( off - miss + 100000 ))
+> 
+> 	if grep -q 'ESCAPED-ARM' /sys/kernel/tracing/trace || dmesg | grep -qE 'BUG: KASAN|Oops'; then
+> 		echo "=== HIT at off=$off (shot $i) ==="
+> 		grep -E 'reap_ah|ESCAPED' /sys/kernel/tracing/trace | tail -20
+> 		dmesg | grep -E 'KASAN|Oops|Call Trace|RIP' | tail -30
+> 		echo "HIT-OFFSET=$off shot=$i" > /root/HIT
+> 		poweroff -f
+> 	fi
+> done
+> echo "done $MAX shots, no hit"
+> 
+>  drivers/infiniband/ulp/ipoib/ipoib_ib.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/infiniband/ulp/ipoib/ipoib_ib.c b/drivers/infiniband/ulp/ipoib/ipoib_ib.c
+> index 81bbb3f7c113..5ed4f709cb40 100644
+> --- a/drivers/infiniband/ulp/ipoib/ipoib_ib.c
+> +++ b/drivers/infiniband/ulp/ipoib/ipoib_ib.c
+> @@ -736,11 +736,11 @@ static void ipoib_start_ah_reaper(struct ipoib_dev_priv *priv)
+>  static void ipoib_stop_ah_reaper(struct ipoib_dev_priv *priv)
+>  {
+>  	set_bit(IPOIB_STOP_REAPER, &priv->flags);
+> -	cancel_delayed_work(&priv->ah_reap_task);
+> +	cancel_delayed_work_sync(&priv->ah_reap_task);
+>  	/*
+>  	 * After ipoib_stop_ah_reaper() we always go through
+> -	 * ipoib_reap_dead_ahs() which ensures the work is really stopped and
+> -	 * does a final flush out of the dead_ah's list
+> +	 * ipoib_reap_dead_ahs() which does a final flush out of the
+> +	 * dead_ah's list
+>  	 */
+>  }
+>  
+> -- 
+> 2.25.1
+> 
+> 
