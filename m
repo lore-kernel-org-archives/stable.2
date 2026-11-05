@@ -1,129 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793873731;
-	b=h/8LtSzAguBeFy5qv5PYjr8x1sbvyqQyl++bqJSfliFTq9teGf0jtDYsCCEo5/2UqdaT
-	 gD5T4p9nkw3jiVmapjj4atPeR1M7qmfrwWQYxqvPGf4mlXMluBS0z1Ld5oXlnBb/HDkyl
-	 XNyPlZmAzqFpZ6dznKlBGheHO871ZlnIT+NRgF+w9cwM8Op274P00lgFJuazDicJMX+l9
-	 OLe9Wkt/WRyUkbVTJYElnGDu6ep6roxdgx9FMxSWTCkjB8bDCA9+jI0y+RMgWNNifXhlV
-	 +XajShttCFvFPJnUzib4Q3yqAsDVFDT0cTVs681MbdroHNn08UbWfpUJbBRZsVXat0A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873731;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Reason;
-	bh=SIBppA2366C43hK9iK5FptwHElk4KYkeI64Zd0T30FI=;
-	b=1fv+FO8WnyG4/dGsEEopRd2l2CIMqxWUX2R31z3+qYSTTi9+ZGCpXe9vmYazP76R7VJv
-	 UrDRDjKwLZ4xYr1dafqfZ0/XFlBRtNrI9Rj6Sybg+LwSGCE8V7/wX6045HQksUu7jYvxw
-	 1DRerjyJ9rAiOlB/WfvMb281l8wZhALKUHMFn/77buzqeBRAPgU+9fbYQvy6H7p+loPgu
-	 BavLzehv4wEcBYh81y6YtKYQ5cJMLlSRLgYl1Sq7HSXD+H8WYXJcLotMQMApnqdTYDM9j
-	 JLJvLToZgThgsYuLi/wCSqa1JpJUdXeJZXkX/PAidxfI/dY+OAxx2yLinz3G8rgEJdA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=opensource.cirrus.com;
-	spf=pass smtp.mailfrom=opensource.cirrus.com;
-	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=AESlhJz3;
-	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=hCJFcQKr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793873973;
+	b=tCo89ycOmQVnq4J8GavPTLU4M+C7nmWnlBTfAh1yw0cNzmOlE4sQ8X4K7Mi4p3NQcIap
+	 vGZLzdj3uWa2764aTiKd3yghlHMfrY9kaGGtKmDLY9Jz0P+adjcXAVj8z330JpaL+FLx0
+	 1zf9Ro8lh3ewD3mB5tuaGE9ZcbwCdBvmGQ/Lsf6Iffgy7ELpVgw//UbW6PxY6DvYaXbgV
+	 kNAayBP1X47BDpafYqThExEG/hUq+gbbyZZq+RPJuolv3AeUsXfL9osIeLJLxpLX1Qj+w
+	 DNJuRaQJNHxxK3qGub3oX85Wij3ODQsQrX2Ep3BmR9Bj24Ji4hCOcMz9HZ5nQVU+aFw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873973;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/2+xR7h3rNPHrZb7MEbP97PuNvaX3QrmpfP5OQT5IHk=;
+	b=Gly0FoDnr8xXQ2PFv1RXiPtwdMBma06q/hWhj03UdA717lLiQKDnkluS6GUq5L1kGtAO
+	 607lYTkc/NlVVAt9SU66x3LbTBgQfUPNhRk2UvL5GRi3TRni6rFynrG1KwvYU0FoLk9Rp
+	 OPoYondntDS9u2N9/i4XSqHCK4kf4fpn8U/38cM9mIhyyqcEUbDkRnMZYd7DwV008w6D8
+	 Nm0SjlMu+bzvYYReVIerMmZV2WmWr3bP/pAPVqMp9HFcH2v1LuofOWjGJmyxZkv1o8ZYr
+	 Daf/yKXvWhngb8yeeGB+IMtYjDZTaPF+cYwoiJBRSEMidJqXVRl3pM0ZBEwzmWKKf5Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PY8w+zYA;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HMJklcMh;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E213A606AA5C;
-	Thu,  5 Nov 2026 10:15:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E213A606AA5C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA5B606A331
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 10:19:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFA5B606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=AESlhJz3;
-	dkim=pass (1024-bit key, unprotected) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=hCJFcQKr
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A52KR6O3669519;
-	Thu, 5 Nov 2026 04:15:22 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=SIBppA2366C43hK9iK
-	5FptwHElk4KYkeI64Zd0T30FI=; b=AESlhJz3Sf/vv3+XvM/9nHznArWh72rZMs
-	gAE3/+fq3p1bf1CkDIZzTgoHWmPThQMxtHRakK9txh12/p27RCoVI4D3IaNqsuLI
-	c1762tCqMZ553U9SOlNmylaPmrXQtdArS5rtZhVdRF7bwu9pvhJZ9+1wN4LfXMks
-	B8/Zt/7Rzm0m1GnDZPV1RlVAj3hgiunEBWaCt0NBgMcm3NGRfrRRMyBBQ3VKbFh9
-	XXIYNhcXpNGMHHyucnH5ECO79iJM9Ok58rz1B0z8dM/Kvz8GeU6beih3WgTQGnpi
-	GuIt3xdS7EEMO/PLqUEnsOFLxCew8+9DQ7cCbl8Y/cqnoJSfAc3A==
-Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11020099.outbound.protection.outlook.com [40.93.198.99])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4hr73fhk1v-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 04:15:21 -0600 (CST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KQhiXfC4P6qsTj9TJAX3XdLzTY/CBTX2D+lPQ7bDFS8fR0rbr4txSFXFNMHgC3XTITV4CEIMzt65eHJteE8M+DCc9nLZ/U+5ZaQEVt1R0O653DtSK5I7AU2NiL3/kki5psL9kEXUzTWa0UN+FGlRXXFy6mwGsjZJgKPsMCH1HHf0Fz4VZxs4+y2BLkyODRICROAetzAL1Gu7LSup3aYfhuWK3QmGdKNpkqF4kO1vcKwdFo44GTURnQi1ebvXG2DRyfmYHdfhwJP/CtoZTAvYH/U00TnPQdU/TSdtBspraVswbqqZLAt0+iBlHlVqg7DfwDiQlMA3jzTnnZpYzwLn7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SIBppA2366C43hK9iK5FptwHElk4KYkeI64Zd0T30FI=;
- b=SpU/CPnE5tbYaJkznLeN0A3S/bw4fFxRMoLLgliDn2OZgHuFvzOW1Pjb9j3VL0uz9Ose3bQGKDWwGWpSOJPq3RXA9BsvKwDbIe8ylYqer6/AbeOuw7Bs86xUG+ustM+v75LWtBuCLil+MjYTq8CVYwPwkApyPNVgxkdxZUQNd8u+hCmClS5OyIJIOvcAPM8msVkeVgf0IyXQBqfaGIQCM219zpBI2OLA8S/ZSjMHLHwkCNqx6NUFA6kQJU1MShSrQ1tuP2cUU5zzEiMln2dVz2W91uUS2NjMtsTZMIbvRwoHI8P5xXxlAOmOtGASB8S6nC4ReT8qXGX5guwCKsWAcA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PY8w+zYA;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HMJklcMh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793873971;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/2+xR7h3rNPHrZb7MEbP97PuNvaX3QrmpfP5OQT5IHk=;
+	b=PY8w+zYAXiiVifm6btqV+p5uDBQw5cQQYVuimHjxqdacJfiJcVuJAgaOTL3MWKRWVKDitI
+	mCsjOWf0L6ZcIug3KS6evtUDA2nG2AFeSAohzEmzEMrG97dg0RH5BrlnRceL6KZLKnizB/
+	7WdZy/6eIV3q/m+xNIGWscRxWYF2xy8=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-349-EBAn4BQoO9eDYNDRPvdJbw-1; Thu, 05 Nov 2026 05:19:30 -0500
+X-MC-Unique: EBAn4BQoO9eDYNDRPvdJbw-1
+X-Mimecast-MFC-AGG-ID: EBAn4BQoO9eDYNDRPvdJbw_1793873969
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-49166c8a60dso450899f8f.0
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 02:19:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SIBppA2366C43hK9iK5FptwHElk4KYkeI64Zd0T30FI=;
- b=hCJFcQKrZEedPblsj9JYVe6uPYGsP+GUJgwkBXftbwjY7M3hEnzTLRxKp7OLHBOvpZ0dZ/mTr4sPUB5sVmR9C+QyMxR86nfG5XU5JJrjH8IgcscUGf26w4nyEAkJusIlH8dPwMSlcBOzAxftD4tzPL385OZ6ACUrlTHYAZ1mrqQ=
-Received: from PH0PR07CA0005.namprd07.prod.outlook.com (2603:10b6:510:5::10)
- by DSVPR19MB997311.namprd19.prod.outlook.com (2603:10b6:8:38b::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Thu, 5 Nov
- 2026 10:15:15 +0000
-Received: from CY4PEPF000392DB.namprd03.prod.outlook.com
- (2603:10b6:510:5:cafe::77) by PH0PR07CA0005.outlook.office365.com
- (2603:10b6:510:5::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Thu, 5
- Nov 2026 10:15:15 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- CY4PEPF000392DB.mail.protection.outlook.com (10.167.247.121) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Thu, 5 Nov 2026 10:15:13 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 5A9D6406544;
-	Thu,  5 Nov 2026 10:15:12 +0000 (UTC)
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 4333E820273;
-	Thu,  5 Nov 2026 10:15:12 +0000 (UTC)
-Date: Thu, 5 Nov 2026 10:15:11 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        patches@opensource.cirrus.com, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH 04/10] regulator: arizona-micsupp: Cancel check_cp_work
- on device teardown
-Message-ID: <auxXL2v0SRPOLBAa@opensource.cirrus.com>
-References: <20261104182148.1176116-1-lee@kernel.org>
- <20261104182148.1176116-5-lee@kernel.org>
+        d=redhat.com; s=google; t=1793873969; x=1794478769; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/2+xR7h3rNPHrZb7MEbP97PuNvaX3QrmpfP5OQT5IHk=;
+        b=HMJklcMh9FcYEXGvdgDrdmi0+f7NbWsuCXHc0hMqdEPVp0TkQ8B0Jwpy4ReTtJzZPh
+         SLE2pVTWesYvybWibzIhXsA+oZIsNutxhoV792AUzGz2aE9aYfuOTtoBPli/Sua9yeQP
+         D5X2qTQGPX+DRtRiEiPbrU+/nm4dkuZwKBuHVZCchSHf3fioFSc8iDW/bdRDkgpSWIav
+         QXg+UVZcMs2Fwv1bKpXD/uz8JxLfiDSngSlKMGnZt95jFNna+U0Z/dlhhREXpRzmJvVS
+         njlcPJDpkfq4PB9wlB47/l3VMD0V6cDYLLM826nBbkvglvtcqFAQhs0nEB6astc5/pC8
+         1dRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793873969; x=1794478769;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/2+xR7h3rNPHrZb7MEbP97PuNvaX3QrmpfP5OQT5IHk=;
+        b=NBhUXi8e8xRR6dE2pypU0dUnUhfKm6O2Mx+tYSkwtJFtdr6Qj8vxzz+KInk9TrVeZP
+         +4UFAphxXGs4yuVpuqoA/CPKb3HuYHOBBgGbdpnxGK+IKJt1AcL8P/5YdaHelyOG+ywv
+         bb07heHLm+Leev/A2zO3XNh630EzUIiMZq0Oy/JtNvfBAjRIzBevcJlpTBV3jMHeoCct
+         QnpGNDeKrCF+yo/6qT5umDecvTyxAgogmPS/LmVKK3ixh2QeWuYMaoemUwgYxE4nOaWo
+         xngxf/pKCpr8SGe6hQax0z0YQJf707Jh2mirx/uK24ogmJWQWLfetka3v3+QHkACMKNN
+         nxrw==
+X-Forwarded-Encrypted: i=1; AKwUvBxg1y029NQ8tAr8RLSAdUpVvMFgEGeSXo4MIeTLCPLnvH6Lb/v7XCXi7Yf1mhxd+Ml9Xg05cBg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z96SKS37npbMt1V2uzJMxNymeXddGL1mqQv1yWmAvKcqKDPhONr
+	iL/h3I4dT1ZBKrsqaOx89AGD+zDc3BuhyU3CXbDAviMiomEPtygyqDU8wrDBxA3Z4V6QuxOkzTj
+	p0fdAFc4+OYhykQAtBZSBaklN1GBckV+cCs+RxdclRZIjNEK5SHFkDCmOLA==
+X-Gm-Gg: AYBFou0qwFjkgwHJLzZVjJmAU9wNbQ4nSbNQNRSP6l4Ms24MV1bB+w5A5bjjAqemCJX
+	1rvltjtJ87lFTzvJ5znmHK0o68r1MKjx9zwE9KcZJvKKKvfJJskykRVglD+sKusVjnntmT4j3eg
+	u62Z+m4w3LkhU1AVfL8Fu5P1a8fDF9XMARm4LOlHiAtUADp6dzGYp1r7BxmvqvMvXXKNh9YTmw4
+	hhNZcNgPf2RiJtvwNbpWHyqpNnEiJ2VwFQGn0vbP0/DwILzhILoAZMLV3e4eXzFUmdl5+d+etj4
+	cO5t4zG9qeJ97W1IpUqQ1DWvna41MJLT2CT4vRZO6SSk/MS5N5dBS0VoVs2+K1k3fDIwc5Ze5g+
+	CjM0QjP5rP/+EgyZ0anwTbWpQMTzsfCm23CJGT/aGVcuTdvz+wg4R
+X-Received: by 2002:a05:6000:3109:b0:48f:bcbf:26fc with SMTP id ffacd0b85a97d-48fbcbf2c1cmr13670554f8f.53.1793873969162;
+        Thu, 05 Nov 2026 02:19:29 -0800 (PST)
+X-Received: by 2002:a05:6000:3109:b0:48f:bcbf:26fc with SMTP id ffacd0b85a97d-48fbcbf2c1cmr13670494f8f.53.1793873968633;
+        Thu, 05 Nov 2026 02:19:28 -0800 (PST)
+Received: from sgarzare-redhat ([80.116.143.202])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed0844c8sm9640157f8f.26.2026.11.05.02.19.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 02:19:28 -0800 (PST)
+Date: Thu, 5 Nov 2026 11:19:23 +0100
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: jrmmhm.kernel@eldare.de
+Cc: Stefan Hajnoczi <stefanha@redhat.com>, 
+	Bobby Eshleman <bobbyeshleman@meta.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	Jason Wang <jasowangio@gmail.com>, Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, virtualization@lists.linux.dev, 
+	kvm@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3] vsock/virtio: clear vqs[] to avoid a UAF on a
+ failed PM restore
+Message-ID: <auxVKMavkOw3Ia-6@sgarzare-redhat>
+References: <20261104-vsock-restore-uaf-send-v3-1-d60d06488b57@eldare.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -133,75 +121,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20261104182148.1176116-5-lee@kernel.org>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF000392DB:EE_|DSVPR19MB997311:EE_
-X-MS-Office365-Filtering-Correlation-Id: b703cefe-e668-44eb-91cf-08df3b25aed4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|61400799027|376014|36860700016|82310400026|261022105027099003|56012099006|4143699003|11063799006|261028144727099003|261009223027099003|261026140227099003|261026121527099003|22082099003|18002099003|16102099003|10067099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	QvB7hBNLzDM60z84UoKVfDTZ+O31nObh1DvMaPvOdzuVJeekdfFDtGoznt7r2FluRZFp3PV7tuEc9Fs0rQ+OJJXYcsQj+cU+rRCO1DfajPsCNVVpC/rUaBUJNKHDcnNvfDaKUv5y2Yke4jqOjDhMe3QwkYzglOzqMj6kmRgVvcM+vmsx80UD+swZGkT781DS95iPobIpBxeXdQizKHO2eWAlfqonjnJqDVPOYUixGMlj9s9PSoE/kwO5aUCrRE60PSq7SiMj2jd1hfKbY4WumGRQDQ1JX6znhKXFZPZn/GRBF/ah02IrMP2MplF7nAV3jpO4JfmVPuKBL4HXwVeiLHgg0JoU/6+EZ6Rk6Vkwt2faVMCs/ArTyFxoxwcHJT1sZO5aBFRFU+M2zDIp6xv+BPXCLq7Txefz2UxYO+TwIVOF/TbavzVcIWgczciFyjPg5cjKsSxtGeXnJKrZw9Igfr/5imCo67vhESFtIL9hIWECMzz+H9J5t71rgX8W2RQlxWf6S776JL34m57fZDoHr2EYKi3/t8Q5pVAyVJqahrrFrNGzdpxp1jYj3PeAwhBdmJLRiEr13tKCMlRRD2r8tEqhfWD6ukO2++11j17reI0xRR7jVQ7P3/M2fJ2a5Oo1o4l8UyaWr2b8QeXmD2oM8g==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(61400799027)(376014)(36860700016)(82310400026)(261022105027099003)(56012099006)(4143699003)(11063799006)(261028144727099003)(261009223027099003)(261026140227099003)(261026121527099003)(22082099003)(18002099003)(16102099003)(10067099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	0ZEW/TUTswzGA65IOOqqTi1EvTbs7jIC2OaZ7XAJLd7XiXMTrjjuTpvIfvPE/DSDBTw8VmsCxOkmZnFDQ/FH7Y4o+FLnQLwGJ8AGNNz2B78OLjU651UtKxYa3ANzAQRU/C1AbU+v/1PrgAKNm5tGYGmY6sgfK/n/BI+s2+qeo3MlmxuF9WArUHfS2hhoQlMicgaBPWlBIivwjFCwoQM7K1zHxYnxz9p0vjc5ZNW4qX/pw2USDlGKq6MrN6vm7B0wgnemK0lPQk/2CY70ZHoRomzL7cj3jSvZo8VHBaATgsOvqSgHtrMfNz7chCmd2U9BDOnSElwgKIzkGN7kJ3ak/+BvPhD9DwTK8nE6SrQDHt0l+DmeWUzDUwjCcuk9Bk9zNM4qkhK8Ihghes3kHqmH1Pu5TxEd+TYG4btx+UKW0VobPwyQpMwwgNcsr9C8efGb
-X-Exchange-RoutingPolicyChecked:
-	M9L0ZT/kjSGgxB7r21pq731qDxVToOYoUcXAGCbx9T/WWKm9Uqt/73cpa/GBQjT3e2xhnpn9NyN0gr+S+Eb9AabgLSkS2OF6uRYbQwL3yzrupzkPArCI9jmTSuGQxoAT1l9GZLtKCJnLiGuHmqjoGoa7dYyf8nqCn97jqSynJ3Ve3p+zEHSS4SISISTrCpgSQ5WfHR01pVGE0AxU012MfihLVnbt7mHOEeeWQpI5lnuhsVgF50cBwuI+QCmJeMjztucfHURYCfxC7KR2r35c6UYEhxQyvX+pGgg9ksMxCx5JUHtBByMtN0wlChQWTTlg/UmVISLvMKJfCfpBK5Px9Q==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 10:15:13.9943
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b703cefe-e668-44eb-91cf-08df3b25aed4
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CY4PEPF000392DB.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR19MB997311
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA0MCBTYWx0ZWRfX516r7WjxeRXI
- QIZfN1bhChXLVX60FVMspWOvibEstwv6yOYYpv+0vBmb8gfxGkMObXINpAqyncxR7o/Jr1AIEYr
- lJEgQoDnmrw1YHN1N4Sjk88Pc+hPBsk=
-X-Proofpoint-GUID: r4fn0jmDNbyWZP9afU2ZivN9ZMDKrKvr
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA0MCBTYWx0ZWRfX5vBy89qFAnCp
- HS9rr/gYKteOu2ypdaObLoL+0FGzUdnE9DyFOgq/O2OPutJx2SJPov96WE8j2lRWdR/vKStDEfs
- g+47gelywwoOL6B8rDNpE2Zeevo8f2Z/OS0bU8gAeLqx2ilv46KTSicu2IQGgB5IZQLinoB8owI
- DN9p6y3tONHvUOGPp3LPSgQJrxNoi4IEjizGBjHPOjTSXcVrMHo0xskNOaiHZ/upS8Mo1btzAne
- wjEYIzli9bQrhAHoh1GNapHZQoERcteqjLA2HqIspksnDSs1dGxb+73LjjFsgcBvkMvR7jMrLZO
- NmJuDBysJQxV9pzmbecErMJ6Hofu4CHzrSWWwHoCP/25m3KYhRhVxt2zbWXrwvj88ZAwUCncU7k
- lDVRYlJl3Fu2SuGtPAny2UVZYbNyR1hNAE0XlAd6omjYS5yVBoz0R09uqH5WbrQoylWX2SonCQC
- NScVEZCPXt/Inrqqp1Q==
-X-Proofpoint-ORIG-GUID: r4fn0jmDNbyWZP9afU2ZivN9ZMDKrKvr
-X-Authority-Analysis: v=2.4 cv=K6S3jCWI c=1 sm=1 tr=0 ts=6aec5739 cx=c_pps
- a=GknEWMF7HrfbFJOd498rxg==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
- a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=w1d2syhTAAAA:8 a=zeWXDPi-NAzp5XSfxpsA:9
- a=CjuIK1q_8ugA:10 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Spam-Reason: safe
+In-Reply-To: <20261104-vsock-restore-uaf-send-v3-1-d60d06488b57@eldare.de>
 
-On Wed, Nov 04, 2026 at 06:20:54PM +0000, Lee Jones wrote:
-> micsupp->check_cp_work is initialised with raw INIT_WORK() and is never
-> cancelled when the regulator device is unbound or when registration
-> fails after set_machine_constraints() has run, allowing a pending work
-> item to dereference micsupp after devres frees it.
-> 
-> Initialise check_cp_work with devm_work_autocancel() before registering
-> the regulator so the work item is cancelled after regulator teardown and
-> before micsupp is freed.
-> 
-> Fixes: e6ed90581bfa ("regulator: arizona-micsupp: Enable SYSCLK for charge pump")
-> Closes: https://sashiko.dev/#/bug/linux-3f85eadb-7493-4aea-9e4d-ce319b6e0688
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-> ---
+On Wed, Nov 04, 2026 at 05:26:43PM +0100, Jerome Mohm via B4 Relay wrote:
+>From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+>
+>virtio_vsock_vqs_del() frees the virtqueues but leaves vsock->vqs[]
+>pointing at them. If virtio_vsock_restore() then fails, the driver
+>stays bound with a dangling vqs[], and the next freeze or unbind
+>passes a freed virtqueue to virtqueue_detach_unused_buf():
+>
+>  BUG: KASAN: slab-use-after-free in virtqueue_detach_unused_buf
+>   virtio_vsock_vqs_del (net/vmw_vsock/virtio_transport.c:785)
+>   virtio_vsock_remove
+>  Freed by task ...:
+>   vp_del_vqs
+>   virtio_vsock_freeze
+>
+>Clear vqs[] after del_vqs() and when virtio_find_vqs() fails. Return
+>early from virtio_vsock_vqs_del() when vqs[] is empty: a second
+>del_vqs() would free virtio-mmio's IRQ again ("Trying to free
+>already-free IRQ").
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Is this an issue or just a warning?
+
+>
+>Found with the help of Anthropic's Claude and reproduced on virtio-pci
+>by failing the restore with failslab; the virtio-mmio IRQ issue was
+>found by the netdev Sashiko review. With this patch neither report
+>appears on virtio-pci or virtio-mmio guests, and the vsock vmtest.sh
+>single-VM tests pass. A find_vqs() failure after some virtqueues were
+>set up was not exercised.
+>
+>Fixes: bd50c5dc182b ("vsock/virtio: add support for device suspend/resume")
+>Cc: stable@vger.kernel.org
+>Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+>---
+>Changes in v3:
+>- Shorten the commit message (Stefano, Michael).
+>- Drop the two comments on clearing vqs[] (Bobby) and shorten the
+>  remaining one.
+>- Drop the tool note below "---"; it is in the commit message (Stefano).
+>- Comment changes only; not rebuilt or retested.
+>- Link to v2: https://patch.msgid.link/20261028-vsock-restore-uaf-send-v2-1-675aad6da714@eldare.de
+>---
+> net/vmw_vsock/virtio_transport.c | 16 +++++++++++++---
+> 1 file changed, 13 insertions(+), 3 deletions(-)
+>
+>diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+>index 4f9aa9c4c3aa..ffe7cd93463d 100644
+>--- a/net/vmw_vsock/virtio_transport.c
+>+++ b/net/vmw_vsock/virtio_transport.c
+>@@ -714,8 +714,10 @@ static int virtio_vsock_vqs_init(struct virtio_vsock *vsock)
+> 	atomic_set(&vsock->queued_replies, 0);
+>
+> 	ret = virtio_find_vqs(vdev, VSOCK_VQ_MAX, vsock->vqs, vqs_info, NULL);
+>-	if (ret < 0)
+>+	if (ret < 0) {
+>+		memset(vsock->vqs, 0, sizeof(vsock->vqs));
+> 		return ret;
+>+	}
+>
+> 	virtio_vsock_update_guest_cid(vsock);
+>
+>@@ -781,6 +783,14 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
+> 	 */
+> 	virtio_reset_device(vdev);
+>
+>+	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
+
+I'd prefer to move this before the virtio_reset_device(), because the 
+comment on top of that is related also to the next steps (detach unused 
+buffers), so having this in the middle is not really readable.
+
+>+
+>+	/* After a failed restore no virtqueues are live, and a second
+>+	 * del_vqs() would free virtio-mmio's IRQ again.
+
+What will be the issue of freeing virtio-mmio's IRQ again?
+
+
+The rest LGTM.
 
 Thanks,
-Charles
+Stefano
+
+>+	 */
+>+	if (!vsock->vqs[VSOCK_VQ_RX])
+>+		return;
+>+
+> 	mutex_lock(&vsock->rx_lock);
+> 	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
+> 		kfree_skb(skb);
+>@@ -791,10 +801,10 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
+> 		kfree_skb(skb);
+> 	mutex_unlock(&vsock->tx_lock);
+>
+>-	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
+>-
+> 	/* Delete virtqueues and flush outstanding callbacks if any */
+> 	vdev->config->del_vqs(vdev);
+>+
+>+	memset(vsock->vqs, 0, sizeof(vsock->vqs));
+> }
+>
+> static int virtio_vsock_probe(struct virtio_device *vdev)
+>
+>---
+>base-commit: 363c8c79220d0db4d65dcd570529ddda15067cb5
+>change-id: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
+>
+>Best regards,
+>--
+>Jerome Mohm <jrmmhm.kernel@eldare.de>
+>
+>
+
