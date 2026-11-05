@@ -1,88 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793918606;
-	b=OgHaMyBxytXWubuJohco/leFeAw8Yz4EqWbuC1vI4uCCKNSywrLKO1BMmpp34Cr1eRyK
-	 PpUgmsk/VwzK7LYGmn9TXW38SEsjCThGVruzMTSWDggwZ+Vnm1Oick6zD5VZnMso+YwI3
-	 H4mBjxM0CAl/To2CQc96R6MNepTufFrOtDMPGO14ne/kQHihU7ixOa+iVZZ0seQTcCDW1
-	 2eWgxPA2q586Br8kOeitvbal3VrNIBfqm6C+fU4cZbjoI0UJqDvTSiJ8BTDRTODfqYq5e
-	 OTivt0D7MrvMZl+SpeMACNgtNLvFyBdnQQpuKoLXht9rAnFfSgK6tGr2z5YJBTeWtCQ==
+	t=1793918645;
+	b=PkfCP6svRac8UvzIbeQ3bWL6kYRArQzuumbIRGFGVRd+qQG4EIINZ4ou2aLVzcdxKMdA
+	 RkwaNVCDEOVsWZNsXYkjPGXjzctuIxRiqrb4x3fU4JoY4RLrmxY1e4KMJXUEIg0sJz4Zo
+	 9t97r0VErMxEGfejoOIV7H+5kZ8fYjmFzz9hECCps55iK+gNlauLh5NIlrUrj+lMS6Yt+
+	 CZdBL5U3XYWC56AS35RJ+vu4B3Sd7hln4fuxMXXWJGpmNaY74GVBfCi180s10lCyA/cgz
+	 YEX1p1+ycl5C6ZkuGz6P9CZ4eWQHPsOr9vmcYh0ewjeBNg8xftklSSdZwEzBrCQMGSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793918606;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=JOpRBPshV3gRP/lPEEbp1JMlpxX4CyZP+32ZaHNPJd0=;
-	b=uCTwakbaKxn1PjHT4uHqa4d5GC6TXwKBrJP/q21oQ9PtexGIzfUYFBBrDPw2yuB4M4BW
-	 64GYOmxwtjedMZg7IcKYvVXmSsyidNBqpB9DSB14PdgEyMLpTSGKsE/1VYcgI+e4qqSAr
-	 6Iob8bQJVkLUzM4vK+eQusgUWgWjIo/NZiVbNnpksNJKovaYKKzdJjp1Rz7eztOaF8rdI
-	 KqR/r7t3OLy0opfdl5MU1FWn4oS3DKg+yrX+FBd1lFC1zsEhtBlUBSyL8XSuG8/kuoznW
-	 JAvQWIEhdFZptx24xATuXafyRJ65/o6PQ/PmkyvtFg9uGqZIvBhRYnNVxhNXeyW2GPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793918645;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=JxLJNgnKaaDtogy9UDJ+u4IBfGkMCrx4gqopdXLbwqE=;
+	b=QWQpzRmG3SqCcOgsNuRcpSFtfES361UVccTUPfE70bpscByo4Ffb/3JUNjIJLAAOG5U6
+	 5/+zKarn6ZtFTL+BeYB/yQ3jNOiKBkoLpFjKuDIORo2fWiGGm5gWIwD2cWty3dI2Ke9ch
+	 qFG22bScaugQkSiDTa+U726sytVOtmBAhX5DbW2IysZpgWTYJRwDER2DAAL336qLHBv2d
+	 etZ7PiLWXzDpPDKI/Yz9XtbhO1BwCyonxTPY7W8IiWRbipgQbSpBwjUkuVt1ndSd8Rbsw
+	 dk45HnFAHcd81GHOmUr5ieb/NGC8lOLB8+33F+FL8ETWdH6K4fLbtxQTmxCIrSEZj3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=TrD7Cxpu;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=91.218.175.181
+Received: from mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D51606A326
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 22:43:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31D51606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=TrD7Cxpu
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so192865e9.2
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 14:43:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793918599; x=1794523399; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JOpRBPshV3gRP/lPEEbp1JMlpxX4CyZP+32ZaHNPJd0=;
-        b=TrD7CxpucIFDuoAAY/Fvrj2jfILQmhNwzHdFdCRXPCKVoHUIEwuUgoot25W0qsUDDf
-         jPvxuQEWGYrKZoZ1/7z+cwqm3lRJ0irRQMoAUDmFJKVlWsO5y7tL6Z6V0w0OdjVw7TCH
-         WHY9G6871WNF6FJUKFYj/14I+0N4ZE2xTiuVYSDYLhzBm7O2V3X40HgC7eKL7qY2C7Tu
-         igjHHtiqCol764W6FpsRczGLkJzOADgMTgTuIgG5oKVobZumKLixG2hDCUEqq92Joq3F
-         TmeIpDNDkPB9ZmVaP5kZ6TLmE098EcltprL+IUs5KbTqxA8/ws84Q8cSmMRDgYCgUplC
-         AHrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793918599; x=1794523399;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JOpRBPshV3gRP/lPEEbp1JMlpxX4CyZP+32ZaHNPJd0=;
-        b=cYUwx7DJxpQ7MWStz5jMQ5jzym7JDFCW5FoodNiYPbIzPDzZFSfLxsOsPp5FBXRN3r
-         t+fD9L5VsBXV9O+/SoL8Wd9FeQrMaDkjFmSok+9Nk1srll6sLnzzJNc1vYmC2BUK5V3E
-         Kvqbf+1dS81AZp6AbEWI3ie65RArE90PGHfd8rbZhZvAP/A5aIUrgBNlVUSByesL263+
-         JA5jg/ofPIBn6uS44MC+bUCOzrHnW0ckaQ9eT+pgA0TKpm5Z0/vQdoNb+Wjh/nfNKwvy
-         2SlYuEicM8kz6FLjWAtmYC+SA3SdbKATAtLjfC9Y7sV/9OcQOhf1rP7SGID7f1+fA0T0
-         e7IQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzv974cNvBOvP+7RCXvOt0CF7ymVaYmWEZty2gBxyokrsfD8hbBmrNS5jt8IbGuF6ESV1oemWg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RNJgDchYoiOD8zrbkzTTpTUQ6H8HyWe/VlyD1pWaW9A7WIrpj
-	hnoHKFPT78A9t9U2xL+p+sReRCvgqTL7O7q3Oz/6UKgPz8B5O4pKGud9Vif8QcFw1zk=
-X-Gm-Gg: AYBFou2QVLr1hdp4GloAVwVU5BlxxyjNY4LnVC5qa4tGS0o43K2pP/5RDTRiQeMCuhW
-	FaVjSadObHqqjzJ+xXRFDNxaroZreAuwF2bJ+r4URpfPuVR6S4VjJsUbdU7pnsJ+qDJCopuQXIu
-	LrQ6mpITh1X4eQrBxtS1Hj1b0q1H9MvjB6es1k+R1hFwZIotyjleKbOqW3KbkS+a85/ELJ8mt7Y
-	a40B1FckrXQsmI5p9qXO4mNln1xL/ltQK0n9ZmNxo7laLtqdrKbnKQwEud7y4gbYSyTvy17lzPX
-	4v1HVJ2pTakdLQThX779TlgcioOIGEfUKSN3VMoRcXVGNRSAVzHl/7oU1gYmUTNBstqLVfZJ+ct
-	DtD2dROojXYqbBoGz1fqtnrPgjM0rdk2fPMUQwGIeQ1TB3QYd/VRlaaaVfAZY5Xm0q2FCHF85lR
-	0EckuF4JjjXgcozmk7/rT/zO/kwBrHs8h+bG4GchQjPtO+SWt500BTrTljfHwLCJ3nrzTGvOlj/
-	FUr9ozdKGpeNNWU8qeMrR9Go+g7A/hNmDwTbc5KsQGYe/p4gOQrWD8BvdCN5vYB2HH5fjM0/xJ0
-	C2XYI9ASNQ9Y3Qih2cPR
-X-Received: by 2002:a05:600c:3f12:b0:4a2:1a:a11d with SMTP id 5b1f17b1804b1-4b6d82b2c91mr9773435e9.0.1793918599570;
-        Thu, 05 Nov 2026 14:43:19 -0800 (PST)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7c8a3d9sm1005430a91.10.2026.11.05.14.43.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 14:43:18 -0800 (PST)
-Message-ID: <c6d8ece0-cbb8-4479-977a-6306b1c02ae7@suse.com>
-Date: Fri, 6 Nov 2026 09:13:11 +1030
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32506606D80C
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 22:44:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32506606D80C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=vAPWWkIFDwbgy2wHFM/rAmP8el8Mj7wGKfgTaZhtpZ4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793918642; v=1; x=1794523442;
+ b=rp7glFqHvrLHbMfBSaPiYJG22IM71k3aN2mJXgKV8YPS9ZSnI0eD4CGSpjLSYsqaCbG5rVU7
+ niGJGtmUA431/BKVodx+m/HkN3vVu/yDMxehWTLamDYafgLyUpZ6bt5suRnNrAgPbvce5imoIzY
+ 5T3SqgXEZUkCHeEd5Y8xay/Q=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 960618cb128bac7d;
+	Thu, 05 Nov 2026 22:44:02 +0000
+X-Mizu-Trace-ID: 960618cb128bac7d
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 5 Nov 2026 22:43:58 +0000
+From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Krystian Kaniewski <krystianmkaniewski@gmail.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/filemap: stop fault-around when the walk steps back
+Message-ID: <au0GBdGqu6cv5PMy@linux.dev>
+References: <20261031-jf-mm-filemap-map-pages-lower-bound-v2-1-21029744e589@linux.dev>
+ <aunPI5eOUOAEUa8d@pedro-suse.tail5790ac.ts.net>
+ <20261104-jf-filemap-v2-pedro-reply-r2-74c87c6fbcf@linux.dev>
+ <auxvLCiljPhy0n_q@pedro-suse.tail5790ac.ts.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,68 +66,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] btrfs: overwrite a leftover balance item instead of
- BUG_ON()
-To: Siddharth Mishra <smish149@asu.edu>
-Cc: dsterba@suse.com, mason@kernel.org, josef@toxicpanda.com,
- fdmanana@kernel.org, linux-btrfs@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- syzbot+dc9291cf132691aeb478@syzkaller.appspotmail.com, stable@vger.kernel.org
-References: <20261105214738.111967-1-smish149@asu.edu>
- <20261105214738.111967-2-smish149@asu.edu>
- <4c59541a-3f19-4ad3-bef3-59b9c42c2e90@suse.com>
- <20261105224022.254528-1-smish149@asu.edu>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
- Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
- +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
- WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
- /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
- qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
- SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
- Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
- 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
- os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
- UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
-In-Reply-To: <20261105224022.254528-1-smish149@asu.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auxvLCiljPhy0n_q@pedro-suse.tail5790ac.ts.net>
 
+On Thu, 5 Nov 2026 12:19:13 +0000, Pedro Falcato wrote:
+> Thank you. So, if I'm not mistaken, this is the race:
+> First, you map/see this:
+> 	[folio pgoff 4, length 4]
+> Then, at some point in time, someone punches the hole:
+> 	[no folios here]
+> Then, at some point in time, someone faults another folio in the range:
+> 	[folio pgoff 0, length 8]
+> so you step backwards. Is this correct? Or am I misunderstanding this?
 
+Not quite. In my test a large folio goes away and a small one comes back
+below where the walk started. If that happens during the walk's first
+lookup, the walk can step back. Krystian's fix doesn't cover that
+lookup.
 
-在 2026/11/6 09:10, Siddharth Mishra 写道:
-> On Fri, Nov 06, 2026 at 08:39:01AM +1030, Qu Wenruo wrote:
->>>
->>> Both assumptions can be wrong:
->>>
->>> - insert_balance_item() inserts the item, then commits the transaction.
->>>     btrfs_commit_transaction() can fail without aborting the
->>>     transaction, for example when btrfs_start_dirty_block_groups() fails
->>>     to allocate a path.
->>
->> I think no call site can handle a btrfs_commit_transaction() failure
->> without transaction abort.
->>
->> This is a way bigger problem than what you're fixing.
-> 
-> Are you suggesting that the right fix is to make
-> btrfs_commit_transaction() abort the transaction when
-> btrfs_start_dirty_block_groups() fails?
+In your order it doesn't step back. The new folio covers the place where
+the walk is, so the walk either gets it at the right index or skips its
+sibling slots.
 
-At least one should check if all btrfs_commit_transaction() callers can 
-handle such error correctly.
+> If so, how can this happen while we hold the PTE lock? That itself should
+> block truncation.
+
+We don't hold it yet. filemap_map_pages() does the first lookup under
+RCU and takes the PTE lock after it.
+
+> Can you share the reproducer?
+
+With the delays it can corrupt memory on a kernel without this patch, so
+I'd rather not post it. I can share it off-list with the maintainers if
+they want it. The 40 runs without a delay were on a debug kernel with
+the delays set to 0.
+
+Andrew, I can send a v3 with this case in the commit message if you
+want it.
+
+- Jose
