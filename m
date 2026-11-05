@@ -1,55 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904881;
-	b=1BHFcMo9Lo9G60wheOJ+zBKyzN+4e6t0woegf07gm5qmGsA/JBRS+z/TxGwmfXFfdWnE
-	 jofUsW0eKCXu6uPamI3QNWzCRfHJXp55NKkByy1+CzCYRAFHTGdnNNNULKrU/fEPetI/m
-	 64dciP5kA5jwS2JnHSlpMz8PxTZGeUcu3SG/gs6Uozj+YDNecMoIhNIMN0lYXeHMeIjKV
-	 WDDsMeuX+rG0COxD56B7RSMLBAUBYltICykQZpSmnVslURii7Hzh/1oec0PESp9HcLybF
-	 X3O/ewFA4nLkMxI4mr6/ikNs2haUdKxmAX+5BcWAr66s4qZEKZkbDTX1akB4m+R3gMQ==
+	t=1793905264;
+	b=42CU5GB/L0BGS282QnpWStILfoo+CTysURQDeSyQAeFsFC+6QL99MKb9RZotciBCewiC
+	 ZzU4jJ/oawAV5ZPup57SWyzU82JNhmsyqIcX0dZ1h+CFnhgZm1jYQMqfAZ+qZsbb2Vyqj
+	 LY7VEV7b0OvSP1hoIteJ0S7j/U67iT9Wq+XHWKiNwf7t9cYifTq5jp9nnujzMrPg8ayMu
+	 Dgt5Gw74CaNiGRSJvAxwR1LOoGxTzv7F13aA/e7z2QHegjpP9Kka+SBlTqIu/yx40/XE7
+	 YVugz7JhZGPNX9sWZoqROlZpfcv0nbKvArMoB/n3349EUF3UesMgg4E/jUVjfiae4xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904881;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9L9I/in43IWbNs7j+C8FRahBLCI2ibZryaerFqjUezw=;
-	b=lIsfcTX43kxvDD0vEDxD3HL6zph2YS00M+TOwBslGX6nrj9L6n9f2qaSeA4twcwAWy+0
-	 ZoVKQZCmotJwbb7B/u567XxMUYypbDSw43K8kMWYGCfjb5OPFVM7urxvB4DbMiXVdzCge
-	 RYJIfdGE09U4XVGj0RdG96P2GCXvpyPTNb3RbxTzDCC2zNEUyDSniwioFvvw0do2jnp00
-	 7NjpzRqbDe99SBE7FQwlRFFY0aeP53fLIXtVuz0lqnTWGG6ci3JhdtRb15Sh5nqSXERAO
-	 /CGp4FGTuc4sKkMiCodlW8ZEWtkhMuZp/u9f1810LCn0bHxhlrHn6IJmQqqjTnhn+0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793905264;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=cNvHm4P49zGZ0AA9ASMVJBBbN+Qdiu12WvVmr/Br59g=;
+	b=AO8UAGZhHcxN1AtbJ6G9GNF82Uf8Hu+VPxKgYw3WzEqCuMdg42UvbpibZQxs3kTNlazk
+	 5isIYgSyLP5DxWFZhWgitI0HkWD3vAfaYtRKDi2/dJdfDrRG3Al8D410R8UZJ6MZ6jbUg
+	 m+9fgOzfqv01Ssj5EmpxdHFZ8MrTvFFuEbZU7w+lVWaCNRTP96UT7ktdURGVaMz08BZKv
+	 yVysdKix9CfDmNXnyVOfbRW3cyfivlqM4AoaUwlS4t0BpWBlP9SV9+MuARObsLIooKV19
+	 Ocqw22G4VEWyOpCD2HklNdCCQDZNUAxCQcFWOM9VfntyRiYGm6nsWR2V9Z0OkEpn8ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMWkIR9r;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=mVwNmf4S;
+	arc=none smtp.remote-ip=216.40.44.11
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3786606A329
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:54:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1263606A329;
+	Thu,  5 Nov 2026 19:01:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1263606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YMWkIR9r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F06421F0093A;
-	Thu,  5 Nov 2026 18:54:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793904880;
-	bh=9L9I/in43IWbNs7j+C8FRahBLCI2ibZryaerFqjUezw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YMWkIR9rGexAavg6ezj9GORNB7jHXLj47jtxIubQcQQV6ipchIZ6Sl/OGXAPSFKsM
-	 sG8PXjPsVebB+fJllTZhSkspufxqzVDY7tFM4Fh3tl3qiCyb4TO82k3eUkN0LUBs4v
-	 G7IOrLOYY9ObnvO60SsHmeHtQzUoXCmIEV1XKuyvGYRETfuBjPsyAk97+A06/C/tMt
-	 wBb9Ajzgk2pACVpirH2XEHfbs1AlGoPh/h9JmttudK4wHrV8GCIs06fc3hppy2MbKf
-	 RIRPnYI6yI8LpA8bBpnTcvDO1hlf7rIjk3jJj0JLQz0zEvCCVdJ7+ipT856TkigJSN
-	 owcvr8M9kWcUg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: VeroFess <coderzeng@hotmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] smb: server: size directory name conversion buffer correctly
-Date: Thu,  5 Nov 2026 13:54:38 -0500
-Message-ID: <20261105185418.2278834-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110425-refining-slum-bcbe@gregkh>
-References: <2026110425-refining-slum-bcbe@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=mVwNmf4S
+Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay02.hostedemail.com (Postfix) with ESMTP id 38E62120A7F;
+	Thu,  5 Nov 2026 19:01:00 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id D07D620027;
+	Thu,  5 Nov 2026 19:00:57 +0000 (UTC)
+Date: Thu, 5 Nov 2026 14:00:56 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Vineet Gupta <vineet.gupta@linux.dev>
+Cc: Peter Zijlstra <peterz@infradead.org>, mhiramat@kernel.org,
+ mark.rutland@arm.com, mathieu.desnoyers@efficios.com, andrii@kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] tracing: fgraph: Raise FTRACE_RETSTACK_ALLOC_SIZE
+ to 1024
+Message-ID: <20261105140056.111875ef@gandalf.local.home>
+In-Reply-To: <53ee72a4-a5f7-4a7d-8a0a-fc3fc8804d75@linux.dev>
+References: <20260922225526.1554758-1-vineet.gupta@linux.dev>
+	<20260922225526.1554758-2-vineet.gupta@linux.dev>
+	<20260924100040.GD4121339@noisy.programming.kicks-ass.net>
+	<1e223334-b371-487b-a60a-7f1f5c007f7e@linux.dev>
+	<20261105122648.67abbe1d@gandalf.local.home>
+	<53ee72a4-a5f7-4a7d-8a0a-fc3fc8804d75@linux.dev>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,59 +67,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: D07D620027
+X-Stat-Signature: nijojfznnj3s8kdiojgc86wnjfhogrsj
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+nm+5gLQ+/jQ61184zf/E+nKVeZtsLm/k=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=cNvHm4P49zGZ0AA9ASMVJBBbN+Qdiu12WvVmr/Br59g=; b=mVwNmf4SBa97XgOt0W+LBsdzkyAGomNG5f3kFlfo2cLPp17X6NbpjJ7FeyINp/Cb9sG/gMkUvqbIXPuvVioKcFs8pz2ngP1nrFU0CwWMLx15z8EhVsBwrvoL+XDwuv75841uOB+7TViLFS1vViwskjohD1kNzqXtcJYdULGUilA=
+X-HE-Tag: 1793905257-975753
+X-HE-Meta: U2FsdGVkX1+LHqlcgYP7t/pmkV2ynE3kMb2NTGO/kTaMvUBSeBvGzpu0I/wEj2vasu8haOHq2h/UWA0QaqeZARh3oIWLDYcepC876sn7JI/ChsNQoLRPIiHpBh4iNPmZlxDIVDyshTtYkG75cpLL+SlNdfBCHjF1E3Q4L8XOyaXK80xu3UyjP6EsZMniBb/cXyvZQvkAGRjaaxXZbIeg8SuiRGnqbYmbXLj+h7iTanUFH/p4Tr9aZmBKLz1R/J+dz3vMHSnb2367fpoK7KT0AJiKNCSNOAcj7XmG+7b5HuZvRKlM0s1+e58QlKqxIhuMMnWFHomVAP2bfquGXNSvbUOQ+GE7hfDE
 
-From: VeroFess <coderzeng@hotmail.com>
+On Thu, 5 Nov 2026 09:56:07 -0800
+Vineet Gupta <vineet.gupta@linux.dev> wrote:
 
-[ Upstream commit f1f37834eaba5904103af1f18afe3510c7e9dc71 ]
+> I think you have some catching up to do still :-)
+> This is v1, we are currently at v4 [1] with Peter's suggestion and 
+> further split up for ease of backport and use of new rcu_scope 
+> constructs as suggested by Masami san. It has been Acked by Andrii [2] 
+> and Alexei [3]
 
-A 2048-byte ASCII directory name needs 4098 bytes when converted to
-UTF-16, including the terminator. ksmbd_convert_dir_info_name() caps
-its allocation at PATH_MAX and writes past the end of that buffer.
+Bah, this one wasn't superseded in patchwork, and I'm going from oldest to newest.
 
-Allocate space for one UTF-16 code unit per input byte plus the
-terminator. Use kmalloc_array() to check the size calculation.
+Sorry about that ;-)
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Assisted-by: gpt 6 sol with daybreak blue
-Signed-off-by: VeroFess <coderzeng@hotmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: replaced KSMBD_DEFAULT_GFP with GFP_KERNEL to preserve the existing allocation policy ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/ksmbd/misc.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/fs/ksmbd/misc.c b/fs/ksmbd/misc.c
-index 11314f7c622a6..42fa55c0027d6 100644
---- a/fs/ksmbd/misc.c
-+++ b/fs/ksmbd/misc.c
-@@ -322,12 +322,13 @@ char *ksmbd_convert_dir_info_name(struct ksmbd_dir_info *d_info,
- 				  int *conv_len)
- {
- 	char *conv;
--	int  sz = min(4 * d_info->name_len, PATH_MAX);
- 
--	if (!sz)
-+	if (d_info->name_len <= 0)
- 		return NULL;
- 
--	conv = kmalloc(sz, GFP_KERNEL);
-+	/* One UTF-16 code unit per input byte, plus the terminating NUL. */
-+	conv = kmalloc_array((size_t)d_info->name_len + 1,
-+			     sizeof(__le16), GFP_KERNEL);
- 	if (!conv)
- 		return NULL;
- 
-@@ -336,7 +337,6 @@ char *ksmbd_convert_dir_info_name(struct ksmbd_dir_info *d_info,
- 				      d_info->name_len, local_nls, 0);
- 	*conv_len *= 2;
- 
--	/* We allocate buffer twice bigger than needed. */
- 	conv[*conv_len] = 0x00;
- 	conv[*conv_len + 1] = 0x00;
- 	return conv;
--- 
-2.53.0
-
+-- Steve
