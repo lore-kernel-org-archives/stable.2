@@ -1,93 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793906714;
-	b=Mu9RyDxBslxNrpom+s4L8xl7pTdLdph/jdlHkxPh5tfg1oNwEXVJKculjjHKRH+gOQqg
-	 AKN0kd5FtJP3HsM9fQsl68JaptEJGwMdEoG+c+Px4oJpDfvkdk+HwuBlY7oyrei6+5iDb
-	 xBzmj+X0RM0Urr7UWZ5DTVJ0cNmEm0z5/3nSiOK5YChenc6N4im8KpT711SlzwdDuoW7B
-	 iFP5Gf3i5uI/u5w26inAuTPc0H4LUtLxbVicBt3d+QIX2jw3yY697jnIe6p/9KhKgpBQ5
-	 Y5cQLPj1QZVlJUeFabxaCNyAIPa8ad1XpLOyGI256ErNn+qjMWyGh6re7+IPRj17f1g==
+	t=1793906799;
+	b=gBV1dzec4T7Nl5DmlTnQOm1ujztMd2xYab+Cd+wo59wReDJH3zE9Dna0JTI45mKBPv1a
+	 sA+Nvr7tanz3nZb9YXbJW2uSFo6Mteqw5aM5kZQI8cpawg4aMj+DWmULSUK4lpiqvYsSx
+	 WFTxr/jhbeAceM1KoCE7tfNqYbnIN5LF/5BEb1AE6DSAbSdrkmcF65AN6pRaB198/42bG
+	 3oeq9HBcrP3+QDYEQjJyDHlres9lu3zPIzoRSJUZXzrJx0h/4ZL1xaSns+KkAA9/pZJXh
+	 ypmWyOU8uauSMYkxRpTbDX/OfNn2mSo9jr3ZBm/m1s8CV/1GcKbBwlW2BmV8QLs+yeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906714;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pK7uBulsQM5HxeaDcs0VER9nyKXu9clIhlJ8nf2FkJ0=;
-	b=KKIeN/lr9o8IK1fL2sNyAYKub5yGCJn473RxQaTqNjAq+qTlPfCugGakKYowV0bGEr0+
-	 /ltCVhvFH8wpjhneivklLoS+/DlUk5cqQ15cFjEguwjzuqFpLe+b4Jyk9N2K+vlqs/ucM
-	 LuoE67067IBErwI7RwZtWmwvK/OHnRzkZNHTeAHMAom2czPKJsMQf8HZwbaMrtUJINQnk
-	 GdJTL75MSq1U4lTeCRFnnXGjQPjnecsUV9dIL8wolMsUUoLbPLwVhBCjfRJlY7VQNXDJl
-	 4n/vOO5wfmsKjH0POeo3UVl4rkSRpau+UiTSB11qiUjwczgYKccePSiQ+7NeLQBcf0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906799;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=TZphQxclz2gFW9ezkdnyrlJdzJISPtOa2u0+oLIYQtA=;
+	b=nSMFeacMqwe0Tnn1NXZbr3CNBFO0l6LlVECnghGZwNexEegH0HkiuV33kZjHUmSols5S
+	 /2DxRCuq9eGeXIw3/CQnIwHo/F4q30x3JuGXpFjjtc2gRlgo9k7eXxQxPD8J/qqMh1Z+N
+	 6Eu/VucBg/lgBMYtsnXCE/uo8xu3ooM+/FzhLqFrfnFI1uPdU5sYBH78LEw0PSoX8YUfv
+	 m9pzg65XCdFGOzDtoxtgOJMKfvdJqkmVPB/LsyRECgUyRdzsAjKCgMq3+b9gUJNP6wtDJ
+	 pD+j8YqhNoLLgMtKsaTY8EPqg44lh+WiMcfyx2hYYfsFTy7N3EMEMHab9y0DAT0ZKYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=fail header.from=maryasin.name;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bEScuDWz;
-	arc=none smtp.remote-ip=209.85.208.179
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+	arc=none smtp.remote-ip=209.85.208.53
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B275606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 19:25:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B275606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481F8606A328
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 19:26:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 481F8606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=maryasin.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bEScuDWz
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a49a022221so18487121fa.3
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 11:25:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793906712; x=1794511512; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pK7uBulsQM5HxeaDcs0VER9nyKXu9clIhlJ8nf2FkJ0=;
-        b=bEScuDWzg2puP4njY7C9y4kK2gPXAOD+9K9zMDM/lmWcivieEF+zf1zO1bmoQrzxxB
-         X6SZc8KHrFLS4xVYtYu3e4NQDZNld+90jD3Rlo4ILA59st2bpkbiSPSj7Lq1ZOCVTiLC
-         ayC+wTT2ZQJvWcp+bSflWfekwii+QMi0kjWSmdsDKa24GZ4snarq0POoN4LbIzw4liMr
-         qq/aJjL9j4Y/MXinvd5WAPYdYHF0MkEIyJ9dBckycixN4LPBrCzdRq9LpgE2zeWcP/Gh
-         58MqTfOdDd6xeXcLfVCPC+8mI4iBd17YdfqA2s30F2Hvk5mqeALVqaBQCq62KNqDJHZJ
-         N0Yg==
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6af9a9451daso3636492a12.0
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 11:26:39 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793906712; x=1794511512;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pK7uBulsQM5HxeaDcs0VER9nyKXu9clIhlJ8nf2FkJ0=;
-        b=gMQ0RqwuefwxYf3aVwh7ELQHaTIASPFkmk1rkJ6Dtg2QP92jX2FyCL3iCMJfdKoAK+
-         s1l4opPiM2o2leKrmtXHU4DDYpBSkNIA+K1mXOP7D0FAAG/gJkT/D60i516Jta3rkbTH
-         sNEkuRBxoo6OVHCTDPkcRr/cd4582UKgx7Mrtw71WjAc7fmlnvZJqZb3mv7O1zrhH+Tq
-         heeIv2zNuB7SHG8m3jhtAQsnVvdiyIjKc3IvjyGEWLdOa+3GrAGD7kyqc6nmuLvDJ6y5
-         i8k2c5FPZf7ab6LDrS4N+hL1ujYV4JFBZZZ1N2YGka7WLjNoTO3Ycryuyb/Hz3Pll4EH
-         vtBA==
-X-Gm-Message-State: APuU4Z/fxKqi9bO+5FJK0/+sQvE+1lxgfSk3e3le4Pd0TqxpCLaRQdus
-	6fH0jynfJV7sc4jSDS7Cq+tcpXCbECksU6Foee37/nh/K7rCpgfKVHznUpLR9Fgo5ZEJ2A==
-X-Gm-Gg: AYBFou00DOt3re+hEAyZXDRUY1PX76gMctxl3GLcVow+KxxsoAO/GBYkzOdni1NH6jy
-	6nFyhjxH6YQdZEm1ahsxTEm8YJpVHAqViwpJCCNNE/BJV2yksY2LsS63I9UrumDNc3+P+N3BnQE
-	iX25lW2i34yDVV009UwYIr+MqLJUuDpAMV6gsjHZNzoqagnCMSZT1HLfRc5BwNLz629r+zeW0ph
-	zfRyDvsKeqb/Fnp56JhKPFK4m8p+VXovpAN6Kn/gmj0bpSx87u9afpLhScKoLclVfoEcuPGNP9e
-	wbTLaN6KHoUQmSXOHSxOGn58oGCAvrgFqNk5i874n7kQco1fBxg44aI8oHG55FmC1gI8zZTu3IM
-	jA/+L4/w7BuXc7aGBrJKUijD0rvv9+4rO65fmiPOhlKTaZiC0qicuWuDmakySRMFyfmQ4Kuj2lZ
-	GI+gl1ajpEDCCZ0xpSlgAMii40/0Pv9uPNlgnioYXovG+5vS8DCWnQjGn3+fap5NBvqcu5Nx2av
-	F7hExufoAV9eRss88GSb6ppfTwV/QkDaV0fCtA2GkxJ/bCsL96yNzyVmojvoSdSHQYB2UbTAcU0
-	NLOdQRrSbdmfyYy5ZPiwcWQem1t2UmrXORBAnUDPwOc=
-X-Received: by 2002:a05:651c:1614:b0:3ac:974c:64f3 with SMTP id 38308e7fff4ca-3acf3e57dcamr438661fa.22.1793906711385;
-        Thu, 05 Nov 2026 11:25:11 -0800 (PST)
-Received: from localhost.localdomain ([185.65.135.248])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acdc6ea213sm12015791fa.34.2026.11.05.11.25.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 11:25:10 -0800 (PST)
-From: Trace <tracekotae@gmail.com>
-To: stable@vger.kernel.org
-Cc: regressions@lists.linux.dev,
-	amd-gfx@lists.freedesktop.org,
-	Honglei Huang <honghuan@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>
-Subject: [REGRESSION 6.18.y] Please backport 342981fff328 ("drm/amdgpu: drop retry loop in amdgpu_hmm_range_get_pages")
-Date: Thu,  5 Nov 2026 20:25:03 +0100
-Message-ID: <20261105192503.228363-1-tracekotae@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20260707; t=1793906798; x=1794511598;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TZphQxclz2gFW9ezkdnyrlJdzJISPtOa2u0+oLIYQtA=;
+        b=ti/K4vJ6MpNeOt1PoSNVlL6nuMVS/ZP/mxY/ZK83xM6kVk+NzNS5kI7odjmaDSLN7q
+         mT9R765ZJ0bWTK3BwZpVBNvuycdGt4FFAQedtBziniIXVw+/O1LJapvQnF1I6NBed10Q
+         KEBbL/N8vn1q/NJwIXRzxVDfNTlKuQaO1p4yyBVKNtywBtaVtFB/xjo4LnNY74Xg3UDT
+         bAU0HmlRrmhZ+1LhkZh0mG1/VXSG7XGuOWOYsS5Fmr/FFJA8Th5o4JcYmMPC4oWBwoU3
+         xmbpFojcCL95T77QGyEkN8L94n6vLxh+0PSZFDaoE7vlzy4nnBhrUEo0zcDLYRfU8NpX
+         IXGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbeSo+c780Po1hJ/k/uHfcaXuZS3Ttz/rf9N0eVf+9T1yL5x4zUW29y/Ffuah9OHbmNeaXZJw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ydAZi2tV2g6Lwk2871X8FtsFZKzGma/LKT0ktsfyAcLMtFswB
+	puTurI0ItJ9f6F6GTIJo0s1V9yJpBKAbEGMBnDiIYMaW9M86svjBtHguvdkrB1nCmUdeoA==
+X-Gm-Gg: AYBFou1EFnEvGEZ56nVSCzHpwXvX68kEOkfvDJkLuTbrk8Ku7OPgBQ/gUagTpP4YqIt
+	WAyN39t+stISahQa1zMnjWczA1FPR+7ME38BksiGd+eMOb5DSqrXp8Dw8dTBmAvE1XO4t5RZR4C
+	ztFdnIbnD8Y+nQVJREh20eIS4KVf+I7rpEcqsYQPev2HRe3ZkPLa485OGL1iSan2lPmZcCCGf6H
+	Fzr3GTbQZhQia4yayV9sTblq0wVnyaxzbsCycqy5X5jwRRenKbQ/eioVjfD9srxZl2py0mJ+h1X
+	+V0o3UFL37XYCs11sKwKxmy5imqj5n33MYKonO2cbmw7CVYeZl7kA6FVxyshV9Eb+/rt/E6q94Z
+	eJEQp3FC9oxhVTCxM4fV7Q4oxxZNAb9ZySE/b6kM7Uh5BmUb/u+YcwcLt1BUj9r3VA2mNwVuzXz
+	N8omxQvlmzeowvedYJTIGHHfkKAzUdN1ysbuiwdYia8kMZOZ7k66v2VHIaaDbszZzPyqP7e6OSV
+	jNmiQcnWvLGj37Uv01oDs378KXj8Idk9B8EYdUn+zx/2IU7zanxJac6Y2sWj3RT+B4EydtvEx7t
+	Z9RUO18D8nvC3w5H26Z3YCwNacpMiazOKjACNeC/n+Wgy7Z4BxrqXB78RUDp74KF4CKgHug3MHP
+	znnsQFQJgENei6om/hZTOyRljMSHmnMmaBGzG4W53M3AhQM4cpaNQsVER5K97P29sDia3t8LH2V
+	US9RCcVj8Ewybf
+X-Received: by 2002:a05:6402:51d3:b0:6b5:7873:b138 with SMTP id 4fb4d7f45d1cf-6b5978092dcmr135261a12.40.1793906797392;
+        Thu, 05 Nov 2026 11:26:37 -0800 (PST)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com. [209.85.208.41])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b55ac44f48sm2058923a12.12.2026.11.05.11.26.36
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 11:26:36 -0800 (PST)
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6af9a9451daso3636452a12.0
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 11:26:36 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByg4EoWTUf5cNUe0wQThVKTIVaOLaoCoej4TlyEX1cFSaUaVN+OKPU/uBBT2xchM5+vn+aRMf8=@vger.kernel.org
+X-Received: by 2002:a05:6402:280f:b0:6b5:8674:c01d with SMTP id
+ 4fb4d7f45d1cf-6b5975277f0mr197220a12.5.1793906796627; Thu, 05 Nov 2026
+ 11:26:36 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,44 +83,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261104165319.1890851-1-srinivas.pandruvada@linux.intel.com>
+In-Reply-To: <20261104165319.1890851-1-srinivas.pandruvada@linux.intel.com>
+From: =?UTF-8?B?0KHQtdC80ZHQvSDQnNCw0YDRjNGP0YHQuNC9?= <simeon@maryasin.name>
+Date: Thu, 5 Nov 2026 22:26:25 +0300
+X-Gmail-Original-Message-ID: <CAM2dg7dnvj7X3Fo9r_=Pn=EHxUwyFEwQN6XdLLPmOAdaY76JfQ@mail.gmail.com>
+X-Gm-Features: AclHuK9weJ0gP1AI6YK6eNmMlqgPCqXQEUZ4hk_XFsi6eDTrhg4oCQvVn1yYuq4
+Message-ID: <CAM2dg7dnvj7X3Fo9r_=Pn=EHxUwyFEwQN6XdLLPmOAdaY76JfQ@mail.gmail.com>
+Subject: Re: [PATCH v2] iio: hid-sensors: fix fractional part for unit
+ exponents -7 and -8
+To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Cc: jikos@kernel.org, jic23@kernel.org, bentiss@kernel.org, 
+	linux-input@vger.kernel.org, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+Tested-by: Semyon Maryasin <simeon@maryasin.name>
 
-please consider upstream commit 342981fff328 ("drm/amdgpu: drop retry loop
-in amdgpu_hmm_range_get_pages") for 6.18.y, 6.12.y and 6.6.y.
+Here is what I observe with this patch:
+1. Enable sensor and run xxd /dev/HID-SENSOR-2000e1.3.auto
+2. In the second terminal, do rmmod intel_ishtp_hid
+3. Observed result: xxd stops with "xxd: No such device"
+4. At the same time, in kernel logs I see the following:
 
-6.18.57, 6.12.114 and 6.6.160 took 962d684b5dc0 ("drm/amdgpu: fix
-amdgpu_hmm_range_get_pages", cherry-picked from c08972f55594). As the commit
-message of 342981fff328 explains, that change leaves the -EBUSY retry loop
-spinning for the full timeout. 7.0.13 and 7.1.1 took the follow-up. These three
-branches did not, and it carries no Fixes: or stable tag. It is not in 6.18.60,
-6.12.115 or 6.6.161, and is not in the queue as of 2026-11-05.
+=D0=BD=D0=BE=D1=8F 05 22:19:16 dook kernel: hid-sensor-hub 001F:8087:0AC2.0=
+005:
+timeout waiting for response from ISHTP device
+=D0=BD=D0=BE=D1=8F 05 22:19:19 dook kernel: hid-sensor-hub 001F:8087:0AC2.0=
+005:
+timeout waiting for response from ISHTP device
+=D0=BD=D0=BE=D1=8F 05 22:19:22 dook kernel: hid-sensor-hub 001F:8087:0AC2.0=
+006:
+timeout waiting for response from ISHTP device
+=D0=BD=D0=BE=D1=8F 05 22:19:25 dook kernel: hid-sensor-hub 001F:8087:0AC2.0=
+006:
+timeout waiting for response from ISHTP device
 
-The cost on a Radeon AI PRO R9700 with ROCm, a PyTorch speech model loaded
-from safetensors:
+No system crash, so I suppose this is okay?
 
-  6.18.56 and before:  model load 6-7.5 s
-  6.18.57:             model load 507 s
-  6.18.59:             model load 514 s
-  7.3.0:               model load 16 s with a cold page cache, 8.4 s warm
+After subsequent modprobe the sensor initializes and works properly.
+No kernel crash with this patch.
 
-With the same 679-character text and voice on the same image, it renders
-at 0.11x realtime on 6.18.59 and 0.73x on 7.3.0, against about 0.9x before
-6.18.57.
+=D1=81=D1=80, 4 =D0=BD=D0=BE=D1=8F=D0=B1. 2026=E2=80=AF=D0=B3. =D0=B2 19:53=
+, Srinivas Pandruvada
+<srinivas.pandruvada@linux.intel.com>:
+>
+> split_micro_fraction() scales the remainder to micro units by
+> multiplying it by 10^(6 - exp). The unit exponent of a HID field goes
+> down to -8, so exp can be 7 or 8 here. Then the argument of int_pow()
+> is negative, which the unsigned parameter turns into a huge power of
+> ten: 0 modulo 2^64. As a result, the fractional part of a value read
+> from the hysteresis attributes is always reported as 0.
+>
+> Divide by 10^(exp - 6) in these two cases. This matches the reverse
+> conversion in convert_to_vtf_format().
+>
+> Fixes: 73c6768b710a ("iio: hid-sensors: Common attribute and trigger")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+> ---
+> v2:
+> - Fix __udivdi3 link error on 32-bit by using a 32-bit divisor
+> - Address Andy's comment:
+> Keep no % divisor in a temporary variable next to no / divisor
+>
+>  drivers/iio/common/hid-sensors/hid-sensor-attributes.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c b/dri=
+vers/iio/common/hid-sensors/hid-sensor-attributes.c
+> index 9e7c26e37880..d44091faf122 100644
+> --- a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
+> +++ b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
+> @@ -96,9 +96,14 @@ static void simple_div(int dividend, int divisor, int =
+*whole, int *micro_frac)
+>  static void split_micro_fraction(unsigned int no, int exp, int *val1, in=
+t *val2)
+>  {
+>         int divisor =3D int_pow(10, exp);
+> +       unsigned int rem;
+>
+>         *val1 =3D no / divisor;
+> -       *val2 =3D no % divisor * int_pow(10, 6 - exp);
+> +       rem =3D no % divisor;
+> +       if (exp > 6)
+> +               *val2 =3D rem / (unsigned int)int_pow(10, exp - 6);
+> +       else
+> +               *val2 =3D rem * int_pow(10, 6 - exp);
+>  }
+>
+>  /*
+> --
+> 2.56.0
+>
+>
 
-The loading thread sits at 99% system time in kfd_ioctl ->
-svm_range_set_attr -> svm_range_validate_and_map ->
-amdgpu_hmm_range_get_pages -> hmm_range_fault.
-https://github.com/ROCm/TheRock/issues/9257 reports the same stall on a gfx1100
-card.
 
-The patch does not apply cleanly. On 6.18.60 only the first hunk's context
-differs, as hmm_range is still a pointer there. 6.12.115 fails on the same hunk
-and 6.6.161 on both. I have not built or run a backport.
-
-#regzbot introduced: v6.18.56..v6.18.57
-
-Thanks,
-Trace
+--=20
+=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,
+=D0=A1=D0=B5=D0=BC=D1=91=D0=BD =D0=9C=D0=B0=D1=80=D1=8C=D1=8F=D1=81=D0=B8=
+=D0=BD
