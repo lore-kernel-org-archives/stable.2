@@ -1,109 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866499;
-	b=cE+OS/RK53AbyYPc/+NQ866iENu5Q4UQyWk3sYfk3JxfgTxm6jhxGF6PaEEHT4JfqRy9
-	 +k6CGubypX5e1Kok2Fx86cd98NM/H02kpUjQVAClxyPY0K0mGx4WYZ+LYuj+QCvNlx5kC
-	 7JDZDlVmEJ2vLn+qZao8aL7sSZlW/Xn5RrjUlmFfvljzktH2OagTltKmyNbP41vwSgbzo
-	 wUquCg9gx5T++/bLFbjeLuAg5UGcNjUvwCShJZOzb8Q+wgNlxFi9DP+kHwkx9J2e9cpmS
-	 HUbE6GGSDN0TsRmzuJObBgmiuzLhhF/sxM8fZsumUPBIjcIYq9es/e3KzLxmld2TKAQ==
+	t=1793866543;
+	b=Yh9FujEtLZc3N/iRzn2Jgn7z3JQGBhTdaElH7uqHl2zhKYmop5gjFRYfvFwUe/wlQ8cC
+	 h1ytVTC0glbII5nbN1MCP5ZhPXFTlO6CGkzMI97aosEnuamwNbBS3x8nOaWVXH5lqoFD7
+	 YpmrUo64mWw++PwKC5us3j+1s3mBFAK8za4B8qW+maGMx4K3UGESB3QXHdDLMux5Ajz2a
+	 xneVbHi+5P7BUEIRCEZ7qDpNmPqV9S6o94RcGFk3KrrqC97dgomojJCMvB+iBtX1wYp0h
+	 dt8AD+yngAb1Ylg43n+gIElza6DpK+O1l7uKMrVRp0jWB4Zavl/cocl6vfnSbo0Yvcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866499;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=CNclkriunYbBMaVdIXTN6SL9vtukgwN4y6FMbEyV2KM=;
-	b=yi+n8uCt0vJQEu15CjUo6AzOhbOZnl1OGS4s5J/jefs5hoqZczMZzjO8Aj8rlwnb6+pE
-	 /CwuQk+72ttGjCzkeQQOkgSS1i1Zym/Cdw2NNXF3u9VGCMaMHrlwBjrgo2vYyZz7Gv6gq
-	 kbfF7neD+8M0hY/QfmZGywCCKLscd0PcLpUajXr89eAvwO5ncNMoCYXUOvdZH8Lfde1Ot
-	 wwGT9w5Gm2D0BVAw84i19ynM47GTFoUWvCAvy6npgbx+Izc41R3KQB56C9eB8aggjCTGN
-	 8ZqZZhQ2QZETnRS74qYVbKF2d3W/wDGmr1aX2mz4wLNseHuj8wfwIxDWmS8dIuzwk4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793866543;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=PqVJrqCplD2272hpkWFwVcPUGoXg+HOijFlxAT2SeNM=;
+	b=eAw6bMmMe2uKYsHR0G9LZKSCpkUyiXXvBtTjy0LaEgcVB5ZCR/E6huIMn5GCtP4nu/O1
+	 4BACHAndKtzJZzQ16TtMSJbWLoPi8SW9hs//E9pBmeDhvlcslZ26vAyKkjjkH2O6Y6wX8
+	 +SRDt/sC+J7+92oiSSObm9ptRtqf3n/B1QGEFiLPZfFQjMgamAtwI1iKb33uSUxLRbgrP
+	 cSmSdMHwr4xi9cLgH+b4zmEwEXsmCFsGK5jiIpW5aNYCIx5ykr/q0E3rBAIEtE85WX0fQ
+	 MLIJYnZczNuXFbHq4aUDbNJ8rt7QGoq+03yVrJ/zmK59JlK4rno/lSIGqipQEqiwbeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=j77L8QPK;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R1FBryIY;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNg+UfgH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 983EB606A330
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 08:14:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 983EB606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1481F606A32F;
+	Thu,  5 Nov 2026 08:15:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=j77L8QPK;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R1FBryIY
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A56U4Xc3073642
-	for <stable@vger.kernel.org>; Thu, 5 Nov 2026 08:14:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	CNclkriunYbBMaVdIXTN6SL9vtukgwN4y6FMbEyV2KM=; b=j77L8QPKWZBQ+jZ1
-	K8Btva8ICOlPOodpHLv4RKpgwyePhZRn+zZizN9rDvlunq533kw5NK+baUNrpaTw
-	XK2xXF/FJfDqIS/uHxgblKfJQyKenikPMofnghGau4ED6zfHd+w1vLAlbZPA+tpn
-	KVQiLJAyrsnOZaqh5jfgjxAW8pRJ60UcAnuBnAaIeDiyynLO4/VT4aGSxQxZ2hRU
-	8KGehbPJU8lnW6XuOKmsmknMr/eq2BdVUbsvCuEuFBCMy8pPw+J3TnnO5uEcIV8o
-	pp+v5LicooMtD5U3luCR06m7sdbaur9psqVgs0Vdhd6OiTt45gaFSZbeqVPB3rcx
-	PbkHvg==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrksq8kka-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 05 Nov 2026 08:14:57 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91c8f9f6b49so3880736d6.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 00:14:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793866497; x=1794471297; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CNclkriunYbBMaVdIXTN6SL9vtukgwN4y6FMbEyV2KM=;
-        b=R1FBryIYs0ICPItE8MiJatJT92Zw0SuQATdhTmE0LbBphFdwCBSue1twZIev6yKyLL
-         AW+uQMleTJHTo2n0DdEk1UIftx07tR5Fm73ORe4Bdob9nD+fGUfjX9QZRSZlHoURa4D6
-         ZzhoeyHlKnRq8KxbFgYCsrssI4hMQyt0Ie3hzdCehyAcSDexBTReEhZxUTECXnNz4okL
-         1cYZXNxxH5F5b3CFx/AMQn3coaaS5YJHjLD0K2Zl+wP900M41vJ2C9CagforW927K2ZN
-         d7JTcWazVyicV/nDGdXEeVcvxGfdnuPlE0mpi5LhhSKmeNfRkdsVitkHLbKAocBrQe/m
-         oqfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793866497; x=1794471297;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CNclkriunYbBMaVdIXTN6SL9vtukgwN4y6FMbEyV2KM=;
-        b=JimRwfv7xe49siJa0vk4xBz1V/yekf0EYOKMBCmhE42hYd2j1NI4IBWQXikwnHxwxV
-         dbpttIKR2p6AJa4vZSNdPIDLMjfYo5DEk40yR6qcSkTRO5o6+Z8VMTvxU28gMEcJmm0Z
-         VK0SatGq+aDwRm5v48t4y15Bj84+N9CcdAMg+9u/FBzKoYTeEiHgkSkWugMTpkLgIYDe
-         9ZKilhAOitIHTvyLngiUvPYAhdJjpk0VD1vOpEKKN9dmYDwG5cCgSg56JTfqLPttWrUJ
-         N21zURz786sRAzC1ZnUU6aziY8pSCN+e+0kN0oBEnymxO8jcYpgN906Efm1L4bKf9F9f
-         tX7A==
-X-Gm-Message-State: APuU4Z9caER1l4QR4f4vLgNwdO+TpaAIJVyltOUTCUc63vY3Tlsc7Iy9
-	6ohXUwwIR+YG82ApXpMHuG7Ed7UhfHGp0PA5h/dmeGifMX9uMagNxU6m8CL/Qfhu5NY5iWsKXID
-	OoezP3rtGdgq7tdcgGcySPrSUdMuBSzMAhpaYOv05gS64Uv1kvwns2a3nGM4=
-X-Gm-Gg: AYBFou2M6wpwPwe4j5X2Na43pvQ4A5WG0nq70BLhsTRIbc7JXjFPuoLinOz1Pxd5jh5
-	AtWipwqsWIvkKi63ZyGTe0tL9PSGZoZIQmt6SU3o2AWhKwK6ed5GmBtXYDUlHEzn/TSawzjdGeQ
-	6pk9kq1c5/wKUCZhPu+SKRqHLtg+3SF4vL3861mA3tSvj1b1vHQSuFgcoXMmdzp3ZVG0MfG34B+
-	9002Uus6r3u4OzzOL7VXUjxm88vrH3B7P06bQdClkm4fJufYxY63x5f5LYOPJM6R80m8577gWxQ
-	sFc2lf2ZHE30bfyhp2VmAwsu0r2eVzZcLcv+fY4yTJqA1H9MscodSwir2Ia02uaV0g4bsB6NxO7
-	SXO6IYmUzso3pxq9H0sI5SnVBVkkZKcykbMeN1MgGd/mq49aiFa9oSiPsJY99ZpymZaSu
-X-Received: by 2002:a05:6214:5913:b0:91e:94a2:f994 with SMTP id 6a1803df08f44-91e94a312bemr42645136d6.1.1793866496656;
-        Thu, 05 Nov 2026 00:14:56 -0800 (PST)
-X-Received: by 2002:a05:6214:5913:b0:91e:94a2:f994 with SMTP id 6a1803df08f44-91e94a312bemr42644466d6.1.1793866495886;
-        Thu, 05 Nov 2026 00:14:55 -0800 (PST)
-Received: from [192.168.226.1] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d0e44650bsm149681966b.43.2026.11.05.00.14.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 00:14:54 -0800 (PST)
-Message-ID: <54b22ec7-f763-4f89-a711-c6c6796550cf@oss.qualcomm.com>
-Date: Thu, 5 Nov 2026 09:14:52 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNg+UfgH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B75A1F000C1;
+	Thu,  5 Nov 2026 08:15:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793866542;
+	bh=PqVJrqCplD2272hpkWFwVcPUGoXg+HOijFlxAT2SeNM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=oNg+UfgHD4ZLaUNBVkRFIHRA0gfjeajdzdUqRzfc5YLfimMgw73C7hTCGf2evUoiF
+	 o5aQenWk3lkesNtxN94qsYzqGbZ0sBeTkX4R0jeWMQ9hEwbMcMT6dX8TZkqtwCgwHf
+	 /y2LwIjZb3LYKBmcFxbd22p4oPOpyg4FeUYhPzUtJS+JxE9SEnh+5KpiuWrC+8LKY/
+	 wYXeba5Onzm117aObPxW4rGT+jZM89C5TkGsduI2ZfVhugghwGliz6ctTNZreFj56z
+	 9Ldf6gTscVYTguXZLVnnFXqTGgJq1fFT2dZFLjJuMOlqip46X01str7vxXoIy0V0Of
+	 /762uRT+HKBrA==
+Message-ID: <4d0e9017-18cb-4344-8f7f-414d708b4e9d@kernel.org>
+Date: Thu, 5 Nov 2026 09:15:35 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,71 +52,251 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] backlight: qcom-wled: Check for auto-detection
- callback in wled_ovp_irq_handler()
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
-        Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
-        Subbaraman Narayanamurthy <quic_subbaram@quicinc.com>,
-        Kiran Gunda <quic_kgunda@quicinc.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org, David Heidelberg <david@ixit.cz>
-References: <20261104183935.1214630-1-lee@kernel.org>
- <20261104183935.1214630-6-lee@kernel.org>
+Subject: Re: [PATCH v6] mm/page_alloc: avoid direct reclaim and compaction for
+ costly __GFP_NORETRY allocations
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261104183935.1214630-6-lee@kernel.org>
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Salvatore Dipietro <dipiets@amazon.it>
+Cc: linux-kernel@vger.kernel.org, hch@infradead.org, abuehaze@amazon.com,
+ akpm@linux-foundation.org, alisaidi@amazon.com, blakgeof@amazon.com,
+ brauner@kernel.org, dgc@kernel.org, dipietro.salvatore@gmail.com,
+ djwong@kernel.org, hannes@cmpxchg.org, linux-fsdevel@vger.kernel.org,
+ linux-mm@kvack.org, linux-xfs@vger.kernel.org, mhocko@suse.com,
+ ritesh.list@gmail.com, rvvandan@amazon.com, stable@vger.kernel.org,
+ surenb@google.com, willy@infradead.org, ziy@nvidia.com,
+ David Hildenbrand <david@redhat.com>, Christoph Hellwig <hch@lst.de>,
+ Dmitry Ilvokhin <d@ilvokhin.com>, Brendan Jackman
+ <brendan.jackman@linux.dev>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+References: <20261001082152.2879289-1-dipiets@amazon.it>
+ <auuDXDglZ-Z1LZhA@quatroqueijos.cascardo.eti.br>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <auuDXDglZ-Z1LZhA@quatroqueijos.cascardo.eti.br>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAzMiBTYWx0ZWRfX+bLdXtqYRHJR
- Xxy0Z7btNGAwPQIfQibk/TuP/UXvaRZ5/C5324pzcrXeZD5fK6Fh0l7XzORLeXd4yyu2DizojII
- V15NyN9+v09dt0aNbKcEKCtM3LjJ/XTTbIkretfu7iSzNa3KYAbiwzeXdwassmM9Wbfs7L+/ih5
- 6574HIKKXQn34JpfSoGH2L0y3NpXEBVveFBO/keWBDstyyH/sxGNJrnLQSkG3UqqTC9COeopCzD
- sf7aamLurvzE2VR5DTeCTIDGGShqyR/FM4BCnPlQvNJJyl9zLSMvh+/B8q9qXS76Uzmh5TPf8C5
- D1CSs2+AFc9m+PZQ+V/MItslTPl5AfKu8Y75kSSoxDlg6EUIzT7fQF1OxeR549paYBlK+RduVxl
- fNn6gV/7O6fhdQsHn5Nf55sEw/6LWEG5Iqxiyll4uMc6rIP3r8MREQYXNWwgQL/zzJF2QhNiWeD
- yVBqQd9KNf5IqwIeW6w==
-X-Proofpoint-ORIG-GUID: yuwybefU2NlwgIWrJfsNSq5rwgjrmAg4
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAzMiBTYWx0ZWRfXyk2HDlLQG78g
- oPNzEYPAG/H/rE4lg0JzxJTW3hdmNYfZ7OV9P4u4YlZIoYjlVZdJ5eGwyaB6GkqJaEnnYRAztSk
- f/xJ7F6DsoTxp192+Q+nHTwp1g8wFQY=
-X-Authority-Analysis: v=2.4 cv=CIe/zhrD c=1 sm=1 tr=0 ts=6aec3b01 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=EwSOXpY8fmkhG1aJMgAA:9
- a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10 a=pJ04lnu7RYOZP9TFuWaZ:22
- a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-GUID: yuwybefU2NlwgIWrJfsNSq5rwgjrmAg4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_02,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 bulkscore=0 suspectscore=0 adultscore=0
- lowpriorityscore=0 phishscore=0 impostorscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050032
 
-On 11/4/26 7:39 PM, Lee Jones wrote:
-> The wled_auto_detection_required callback is only populated for WLED4
-> and WLED5 hardware, remaining NULL on WLED3 (where automatic string
-> detection is not supported).
+On 11/4/26 20:11, Thadeu Lima de Souza Cascardo wrote:
+> On Thu, Oct 01, 2026 at 08:21:51AM +0000, Salvatore Dipietro wrote:
+>> Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+>> introduced high-order folio allocations in the iomap buffered write
+>> path.  When memory is fragmented, each failed costly-order allocation
+>> enters __alloc_pages_slowpath() which runs direct reclaim, direct
+>> compaction and drain_all_pages(), causing a 0.38x throughput drop on
+>> PostgreSQL pgbench (simple-update) with 1024 clients on a 96-vCPU arm64
+>> system.
+>> 
+>> The root issue is that direct reclaim and direct compaction are too
+>> expensive for hot allocation paths that have fallbacks to smaller
+>> allocations.  __filemap_get_folio_mpol() already marks higher-order
+>> allocations with __GFP_NORETRY | __GFP_NOWARN, signalling that the
+>> caller can handle failure.  However, the page allocator still enters the
+>> full blocking slowpath for costly orders with __GFP_NORETRY, which is
+>> unnecessarily aggressive when the caller will simply retry at a lower
+>> order.
+>> 
+>> For costly-order allocations with __GFP_NORETRY, clear
+>> __GFP_DIRECT_RECLAIM at the very start of the slowpath, before
+>> can_direct_reclaim, can_compact and the nofail checks are evaluated.
+>> This makes the entire slowpath treat the request as non-blocking: no
+>> direct reclaim, no direct compaction and no drain_all_pages() IPI
+>> across every CPU.  Reclaim and compaction move to the background
+>> instead: kswapd is still woken for reclaim, and it wakes kcompactd for
+>> defragmentation.  The system keeps its long-term health while the
+>> latency-critical direct allocation path no longer stalls.
+>> 
+>> Allocations that also request __GFP_THISNODE are exempted.  That flag
+>> pairing identifies the local-node-first THP attempt issued by
+>> alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
+>> form transparent huge pages.
+>> 
+>> Clearing __GFP_DIRECT_RECLAIM makes these allocations reach the
+>> !can_direct_reclaim bailout, which since commit 4c0ed883e051
+>> ("mm/page_alloc: fix defrag_mode for non-reclaimable allocations") drops
+>> ALLOC_NOFRAGMENT and retries instead of failing when defrag_mode is on.
+>> With vm.defrag_mode=1 a __GFP_NORETRY allocation could therefore succeed
+>> by fragmenting another migratetype's pageblock.  That is the wrong trade
+>> for a caller that has already communicated it can handle failure and has
+>> a cheap lower-order fallback, so exclude __GFP_NORETRY from the
+>> relaxation.  The exclusion is not restricted to costly orders: any
+>> __GFP_NORETRY caller has said it can cope with failure, so failing is
+>> preferable to fragmenting for all of them.
+>> 
+>> Test environment:
+>>   Hardware:  AWS EC2 m8g.24xlarge (96 vCPU, arm64)
+>>              12x 1TB IO2 32000 IOPS RAID0 XFS
+>>   OS:        AL2023
+>>   Kernel:    v7.3-rc1
+>>   Database:  PostgreSQL 18.4
+>>   Workload:  pgbench simple-update, 1024 clients, 96 threads, 1200s
+>> 
+>> Results (average of 3 runs, TPS):
+>> 
+>>   Config                                       Avg TPS   % vs baseline
+>>   v7.3-rc1 baseline (vm.defrag_mode=0)          58,602               -
+>>   v7.3-rc1 + this patch (vm.defrag_mode=0)     157,246         +168.3%
+>>   v7.3-rc1 baseline (vm.defrag_mode=1)         109,012               -
+>>   v7.3-rc1 + this patch (vm.defrag_mode=1)     157,778          +44.7%
+>> 
+>> Link: https://lore.kernel.org/all/20260403193535.9970-1-dipiets@amazon.it/T/#t [v1]
+>> Link: https://lore.kernel.org/linux-mm/20260420161404.642-1-dipiets@amazon.it/T/#u [v2]
+>> Link: https://lore.kernel.org/all/20260710143437.12379-1-dipiets@amazon.it/T/#u [v3]
+>> Link: https://lore.kernel.org/all/20260904115629.3993331-1-dipiets@amazon.it/T/#u [v4]
+>> Link: https://lore.kernel.org/all/20260911142102.2294202-1-dipiets@amazon.it/T/#u [v5]
+>> Fixes: 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
+>> Cc: stable@vger.kernel.org
+>> Cc: Andrew Morton <akpm@linux-foundation.org>
+>> Cc: Vlastimil Babka <vbabka@kernel.org>
+>> Cc: David Hildenbrand <david@redhat.com>
+>> Cc: Michal Hocko <mhocko@suse.com>
+>> Cc: Johannes Weiner <hannes@cmpxchg.org>
+>> Cc: Matthew Wilcox <willy@infradead.org>
+>> Cc: Christoph Hellwig <hch@lst.de>
+>> Cc: Dave Chinner <dgc@kernel.org>
+>> Cc: Ritesh Harjani <ritesh.list@gmail.com>
+>> Cc: Zi Yan <ziy@nvidia.com>
+>> Cc: Dmitry Ilvokhin <d@ilvokhin.com>
+>> Cc: linux-mm@kvack.org
+>> Cc: linux-fsdevel@vger.kernel.org
+>> Cc: linux-xfs@vger.kernel.org
+>> Cc: linux-kernel@vger.kernel.org
+>> Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+>> Acked-by: Zi Yan <ziy@nvidia.com>
+>> Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+>> Reviewed-by: Christoph Hellwig <hch@lst.de>
+>> Signed-off-by: Salvatore Dipietro <dipiets@amazon.it>
+>> ---
+>>  mm/page_alloc.c | 21 ++++++++++++++++++---
+>>  1 file changed, 18 insertions(+), 3 deletions(-)
+>> 
+>> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+>> index 12fac9084c48..64d09964ca77 100644
+>> --- a/mm/page_alloc.c
+>> +++ b/mm/page_alloc.c
+>> @@ -4784,10 +4784,10 @@ static inline struct page *
+>>  __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+>>  						struct alloc_context *ac)
+>>  {
+>> -	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
+>> -	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
+>> -	bool nofail = gfp_mask & __GFP_NOFAIL;
+>>  	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
+>> +	bool can_direct_reclaim;
+>> +	bool can_compact;
+>> +	bool nofail;
+>>  	struct page *page = NULL;
+>>  	unsigned int alloc_flags;
+>>  	unsigned long did_some_progress;
+>> @@ -4802,6 +4802,18 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+>>  	bool can_retry_reserves = true;
+>>  	unsigned long alloc_start_time = jiffies;
+>>  
+>> +	/*
+>> +	 * Costly __GFP_NORETRY callers have a cheap fallback, so don't stall
+>> +	 * them in reclaim or compaction. __GFP_THISNODE callers are exempt.
+>> +	 */
+>> +	if (costly_order && (gfp_mask & __GFP_NORETRY) &&
+>> +	    !(gfp_mask & __GFP_THISNODE))
+>> +		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
+>> +
+>> +	can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
+>> +	can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
+>> +	nofail = gfp_mask & __GFP_NOFAIL;
+>> +
+>>  	if (unlikely(nofail)) {
+>>  		/*
+>>  		 * Also we don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
 > 
-> However, wled_configure_ovp_irq() still registers wled_ovp_irq_handler()
-> on WLED3 when an "ovp" interrupt is present in the Device Tree.  If an
-> OVP fault interrupt fires on WLED3, wled_ovp_irq_handler()
-> unconditionally invokes wled->wled_auto_detection_required(), causing a
-> NULL pointer dereference.
-> 
-> Verify that wled->wled_auto_detection_required is non-NULL before
-> invoking it in wled_ovp_irq_handler().
-> 
-> Fixes: f16899a6a7d4 ("backlight: qcom-wled: Add callback functions")
-> Closes: https://sashiko.dev/#/bug/linux-d3eba287-2af9-43fb-851f-78ab3df0f35b
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-> ---
+> This would trigger a warning if __GFP_NOFAIL and __GFP_NORETRY were ever
+> used together, though that does not make sense and I haven't found a case
+> where it is used in practice.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Right. But always there is some risk someone does that unintentionally by
+trying to turn an allocation with incoming gfp flags (including unexpected
+__GFP_NOFAIL) to an opportunistic one first by appending __GFP_NORETRY, etc.
 
-Konrad
+> Aside from either warning for the specific case of these flags being used
+> together or adding a comment right here to that effect, I don't think any
+> other change is needed, though.
+
+Indeed. I thought we did have such warnings. Also a combination with
+__GFP_RETRY_MAYFAIL would make no sense. So we should perhaps add them.
+
+> Another comment about the general approach: TTM pool page allocator does
+> use __GFP_NORETRY and __GFP_DIRECT_RECLAIM for high orders and when we
+> previously suggested to drop __GFP_DIRECT_RECLAIM to avoid compaction, it
+> was frowned upon. In the end, a lot of other changes were made and for the
+> relevant cases, this does not seem to change its current behavior, amongst
+> other things, because it uses __GFP_THISNODE.
+> 
+> I did run some TTM GTT allocations with some fragmentation workload and I
+> haven't seen much change in the latency for these high order allocations,
+> so:
+> 
+> Tested-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+
+Thanks!
+
+>> @@ -4918,8 +4930,11 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+>>  		 * Reclaim/compaction cannot run, so defrag_mode's strategy
+>>  		 * of enforcing ALLOC_NOFRAGMENT cannot be fulfilled. Allow
+>>  		 * fallbacks rather than failing the allocation outright.
+>> +		 * Not for __GFP_NORETRY: those have a cheap lower order
+>> +		 * fallback, so failing beats fragmenting.
+>>  		 */
+>>  		if (defrag_mode && (alloc_flags & ALLOC_NOFRAGMENT) &&
+>> +		    !(gfp_mask & __GFP_NORETRY) &&
+>>  		    (gfp_mask & __GFP_KSWAPD_RECLAIM)) {
+>>  			alloc_flags &= ~ALLOC_NOFRAGMENT;
+>>  			goto retry;
+>> 
+>> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+>> -- 
+>> 2.50.1
+>> 
+>> 
+>> 
+>> 
+>> AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
+>> 
+>> 
+>> 
+
