@@ -1,74 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.245.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793888686;
-	b=NasvHqHxUv586qqOrrLc+4oPgqM3eBWKV0q960F3VRnVb73rPw99KRJx3VC11VNkiANz
-	 NwxvIHzr1yVaE0+XmNOikrLVpP5WBHAvB9saFRJU0hKpF7oTQFShQisn8dfKScFY5FT4P
-	 ey82J78uV4eZlJuOC5Wp9fEmTGPdkihtY9RWN7BHz3rM9zOgqeRUCxCezvT6aEaEyH6hO
-	 XGOkklrcMD9Ds66zd+xyuctyBBPsxEsW+8p+JaUSp6g58w2rwP5dKlfVrXc2rOSKwSnEF
-	 pGxffRZke83/ijcHnWLYyTpO8cAg1DmH0PIlul2RhOaZZDD72+7rgEvYBIi6sZpGwwg==
+	t=1793888807;
+	b=c1mLAw8weMNeGE6Ojs1dNkKWzJTM94bqP1UYiZ9p7t50qBbuqWhEO+0iM5otyKW3DL8H
+	 A1VTb81H9di3Fqn8sLU5GiVYY11B3BF92csrqsnkqjEngAXEt5D+OxyMluTTjcRiAzcnm
+	 Q+/n095ZxaYlsdSIR9Zqhr9X9Ijw6e0lb8s+zKhoWEawe+EZQ0SUl1HvOgtKD/LF5LjV1
+	 zEtS3U0IHH4orZOoX02WTAuLreMFOtzr5Mwh7DtGG4o7dR7cNDOUb4Gch7UR4xEqPcCCj
+	 phtFi+H1PbHGSt+JvdW/FJFowESnLRRgW1CIGtyRKcJEAdRGCDb6hslYN8P8fl7RHUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793888686;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Whq/GeK8lJYp6vWQcR6l4+gWrLqDlX5gpLbTFWIZllg=;
-	b=tO8O9y4iVM7EbQ2uZomUbg7o6RvAP2dbr/cgmsOJpl9R0xBIlqjHcDsvJm3eMcLNtTAy
-	 C5P9qPSG6LSTuCquAHtVJ8npFlfbMwLD3hQ+QsP2IJzbwyfqeVcEGWjUFOjjs37Kynt14
-	 J11ruh1wCQ3Wley+9VXynFK8+7db6bp8n7n7qlz8qoibiPHxzoQKGJF/skIlxlmK30OWe
-	 oH8Ecpmv6x2DAiROwXvCSch+/0peBRbk7FFoH/24C8Ul3+FDyRHeg0VaAFJ7/D8su3afd
-	 OdLjw7tarLWmxCKFynYXEcFDXpdznhOkL2yD2m2cZ/O0A3bHka2uhCTD9UROlUSCFqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793888807;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=L8Rb50XkmO6XeB6blehC4ZCWZ4kvWegiRHR0v/W8P68=;
+	b=wbJtP+Jmx8T15gJeif2REKqBIbBcC0yhD6VjOIMUOapUEI+Fvnuv9+4TCANGCO9jdQms
+	 nsyakAc3UvjriNbSt7kakjclZzDFIfNDv8KntcOQt1GNfJokI/3Rwdu6XMTUryC1Ci+Hd
+	 /51iSiwHMpDh0Qnz1L1GpXgZH/lZKYd9NdL/zNDJNWNfAWyFERf/e4ArCNyE7kf3yvWFL
+	 JQlgwlFd5LdW6e5vEOugAxfqvCQjze5UmstB9BA3YeewPTmZUNMHT5YLF0t8YALn/UBxn
+	 aDCGGYleL1fIjcMGiHifZh6XSVS4463aWb1ul0MhuQv175ph7JFUR43gCV2uXsxHynA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nFoa9KRz;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=strlen.de;
+	spf=pass smtp.mailfrom=strlen.de;
+	arc=none smtp.remote-ip=91.216.245.30
+Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C85E606A32C
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 14:24:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C85E606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nFoa9KRz
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a079256596so1728123b3a.0
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 06:24:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793888685; x=1794493485; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Whq/GeK8lJYp6vWQcR6l4+gWrLqDlX5gpLbTFWIZllg=;
-        b=nFoa9KRzdugdYzLTBT+UUtYNoZvRI6P0geoxWFlfVUvaiMNQOD/OAS/Ect8bmHRecH
-         ERz9Kj+q5++Nu7jlyUIzA0QTon07UB0y09yGR0SU1ULfRGvydKu7R0Zn/2ITkxGk7UPC
-         3rA11ALeNUBB13T3XLjdTK0zWgYU9clH5+n0UiBqh7Wm9ng/kBptFmDi08rLuiOBiARq
-         PfkQFMoztwa4uO+Qzv/lmop/xXmEy3Ev0n3F/YoPV3DPu/gNsGI0oHO9fp4SXAV51djT
-         XSPpcU7IOp1nbiagEp+luCMvUuJuQ9Vssqfhb4bERQSI4tSdQ7fqB6IxwVHqD102HDhw
-         AWzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793888685; x=1794493485;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Whq/GeK8lJYp6vWQcR6l4+gWrLqDlX5gpLbTFWIZllg=;
-        b=npgBQFcNPGGAqD+PUuAfwXH2k3U3byFOQFQ/S5ugIdQnw11PTHD3gJS7LsqDbj/MZk
-         K8x+nbezfOieKEYHa7GkSue7u+2DcthWenxhSPHFq+JLS3hZbAj4ISiNIUXTo1sd47ES
-         v6kp2778xVAPTYb7l9OG1O0Jid3guv3XM4ZSWzMBdfJHc2vjTp5Bp8W082zKV0cn/gkW
-         VG7FigDN4Jaj/y6NuzzO35Za1sJ9cE0myP99Ey5axupsQN6/TmRhNVCXaw9amRdSeiiL
-         PVb2PdFDygPC9OF4PkDnaC03ZMVSev4IPX3c/qeS+2TIlcWMKE5KY5ea5/+v6h3XJIWI
-         zZEg==
-X-Forwarded-Encrypted: i=1; AKwUvBwjvnegFn/PJuOv9O+aBzbA52kkWSHP0YuDxRtMQnpCWdn4hhqtI136XnQBUuy8F2U7krSZCJA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z98Ti/AGzcGi9oI1rhlDWN4Sr3JRR7N9T6wiFhyhCKc+ht+Bt27
-	AagA4515hsVDcYqGUAnSVdjXK6XqjWf27HrtvvPUMc+QFHYVa6FiXuUoV/FtWpwfZ5ZnUJlD6k/
-	ZlHUTKQ==
-X-Received: from pgly25.prod.google.com ([2002:a63:1819:0:b0:cd8:2b49:af45])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6372:a745:b0:3d4:52bd:b89d
- with SMTP id adf61e73a8af0-3e928d46807mr12909269637.23.1793888685125; Thu, 05
- Nov 2026 06:24:45 -0800 (PST)
-Date: Thu, 5 Nov 2026 06:24:43 -0800
-In-Reply-To: <2026110539-lived-blast-ef64@gregkh>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98080606A333;
+	Thu,  5 Nov 2026 14:26:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98080606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
+Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
+	id 480B760380; Thu, 05 Nov 2026 15:26:44 +0100 (CET)
+Date: Thu, 5 Nov 2026 15:26:43 +0100
+From: Florian Westphal <fw@strlen.de>
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: henry martin <bsdhenrymartin@gmail.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>, davem@davemloft.net,
+	kuba@kernel.org, pabeni@redhat.com, netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org, netdev@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] netfilter: nf_tables: fix pernet use-after-free on
+ UNREGISTER rebroadcast
+Message-ID: <auySI28pT75B4hWM@strlen.de>
+References: <20261105114817.3033625-1-bsdhenrymartin@gmail.com>
+ <aux2zX3dLKYnzG56@chamomile>
+ <CAEnQdOox6ddd_GScf24z65bocnMvX0KHeDTju_8j3bzQjLi0HQ@mail.gmail.com>
+ <CAL4Wiir+91dO7AVVq3O86bWu9NC+8Z+kFUeYveJqfW44-5ChvQ@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,28 +54,18 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261104211043.516122098@linuxfoundation.org> <20261104211109.504581890@linuxfoundation.org>
- <dac4e304-98e6-4e61-93f4-8d971069d936@intel.com> <2026110539-lived-blast-ef64@gregkh>
-Message-ID: <auyRq2HXJIfMXgBh@google.com>
-Subject: Re: [PATCH 6.18 0942/1005] KVM: TDX: Enable Bus Lock VM exit
-From: Sean Christopherson <seanjc@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Xiaoyao Li <xiaoyao.li@intel.com>, stable@vger.kernel.org, patches@lists.linux.dev, 
-	Nikolay Borisov <nik.borisov@suse.com>, Chenyi Qiang <chenyi.qiang@intel.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAL4Wiir+91dO7AVVq3O86bWu9NC+8Z+kFUeYveJqfW44-5ChvQ@mail.gmail.com>
 
-On Thu, Nov 05, 2026, Greg Kroah-Hartman wrote:
-> On Thu, Nov 05, 2026 at 03:04:56PM +0800, Xiaoyao Li wrote:
-> > On 11/5/2026 5:11 AM, Greg Kroah-Hartman wrote:
-> > > 6.18-stable review patch.  If anyone has any objections, please let me know.
-> > 
-> > There are some dependency patches failed to be backported [1][2][3]. What is the
-> > preferred way to handle it? prepare a separate series for 6.18-stable with all
-> > the necessary patches?
-> 
-> Yes please.
-> 
-> Do you want me to drop this one for now?
+Eric Dumazet <edumazet@kernel.org> wrote:
+> Instead of working around the problem, what about fixing it in the core?
 
-Yes, please drop it.  Thanks!
+> commit bbe8af9893694c807435178eb428c42d3305db97
+> Author: Eric Dumazet <edumazet@kernel.org>
+> Date:   Thu Nov 5 13:44:07 2026 +0100
+> 
+>     net: wait for in-flight device unregistrations before netns dismantle
+
+Thanks Eric, that looks much more sensible.
