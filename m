@@ -1,47 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793847937;
-	b=vMnR5QUr5sOKwgO5exwuJyRw2NPUoUW09IeL/a57plpujWmDzCYFZz8h0m6kZnpIGnt5
-	 kieiC0QbvUONo6K+7LM6Cd4ebq6OKdqmepDpKT8XJeLgEFo4/F7MmWDLTnRA1rxkZ9YBW
-	 xLspTpBI8IhFU0jqXY3NgArehth51VHSf+dRDhaBsNieqzrOemlE6sINxXx+pE7us95xy
-	 hVvwwVg4ZTnaXOwBe0Hew3DTz9DAA7NkmaPj3gOi4rPPF/RIbvyuaJsM35cItylTMLbn5
-	 fKb9V6PgLLS1A1suhljkgcAh6pd6vE0GJHzkZAltYFcZLZ5Bd4zHz2adXjFkbuxz+ww==
+	t=1793848124;
+	b=AmHAp8UBgdpgxQSxtRo4lRBuRmIg5Tjl6BnX2y/u+25oH8fNWhAxUsGpquB4UWL8m1ov
+	 5HqnMOIVVc30lBEta1Dvqva5aQZh2rVV2qyjhojmK3EEoiTkfmnMCPZoLaH8onNcDPW/Q
+	 3VBsNy7n6GPVgbr/0+gwbxbpc27RM3Dsw229EiBb+rt2kqF5U9ZKMq80Vf1wegQR4/MHq
+	 S7gX9bodYH3WcvIrGK4ie16AiLIs3qX/3yTkHieFR3NLmm/6CZlFwcDavZZ8ka9FQKRay
+	 8Y79y6eEixWtsYGBtxbnZW0C7weiqGOOclKbh1aA4bi0A8pvuO9lzWtQeEUmO/RiouA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793847937;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=9xIguVReA3V5SZUDkHgjtW9XgljexvCmfUk/SQdX/9s=;
-	b=SdjdKxWR584itMq6YWx4UGKYZXCoeOUoQemD/nychJRc4oON8FoZpSj/rl+VpF5WVAU3
-	 k/DmbFJc+GK7oaOzQnWAPF0dAcY9ERpNZDbIAzktajhAY/azKG26eLeUnuH1TDQUY684p
-	 aKhO3A090clO7Ikgs6DQ4xdxRlWXoJYhxPeR4brHbTXl+b3pTXTzatF2N82RbofpPSMZB
-	 N8/GFkGgzTfGThbo+tF3dQpTOg2sPTjIVYadMozRiF4QEPQTg29AcvhTfjm/k9bSWx3Ge
-	 fqFkdBERdb0ZwkBba/pgeDM9EMWLPoxHFbx6RTlbh0Ya7nPYgccZAUYamQBu0OyXcog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793848124;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=O4hDMZyahdHdegz9dJ6txQLowUvWcjILhCbebbhV65U=;
+	b=pnuOYe1x6fITVpgGFAz4FObc3NeItqJKSYvh0FqnXR3P8EKZFJ15Qe2lG8ywMq6+MNHo
+	 uaAcuVI/iUjvQvs/lzg3H6qn/ChTu5sH7PZuyyV302t3OF/enO35kci97N87qd5jzMyQY
+	 SNscrtvRZ7bzKod7CizOhDSlVw57xGmIXq0+PIkRG3P6YP27hXJP//mzDIfl6h08IUw/7
+	 KJKOsUXkd3zOOtrOSV2FJQnAwkuduk9OmpTGnNFv/KPFVd3MP97KFD6WAixJ10AHce5Wq
+	 Q/zUXnsQ4aR0FCAJsOUk91xuM/DilDFeQ3fpQnDdg+3dKtJSFUHAKC+aspgUI3AiP5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJFr0FE6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LMLexRDH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26EBC606A326;
-	Thu,  5 Nov 2026 03:05:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE64606A328;
+	Thu,  5 Nov 2026 03:08:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJFr0FE6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B964C1F000C1;
-	Thu,  5 Nov 2026 03:05:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LMLexRDH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAB421F00A17;
+	Thu,  5 Nov 2026 03:08:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793847936;
-	bh=9xIguVReA3V5SZUDkHgjtW9XgljexvCmfUk/SQdX/9s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TJFr0FE6GnJWJ5BA0xO6Z3FyzL6gPcwj4k8TNcnAqmlM4Uz0m9z65L8m/XhVraBJJ
-	 k/448veIdvaM8ZgwoR1e4beSn3SPs2iv7ETdVi2gXLNRaHrgrFtG7RETSCIUswwj7l
-	 76opx8RrdwDKImp6o46Mpm9nEA72YSE3IkzSCglRtg4hwkZ9s6c+OCjC95xOZcY49d
-	 OlyZ87wb7RC2iV/afC/SdvJmXSs8625FM4K0d/ORXB3onW7l0cowM2Qv7dFC8ozqMT
-	 aWy3KkCrFkhc52a6IbMO7tYIDa9gVuPVPTznzzq2XnWrGTk657B79fk9Ec8C/cawJh
-	 bGLA9jxuA4OHg==
-Message-ID: <23ffd3e6-14be-430b-bc5f-aec46e13bb4a@kernel.org>
-Date: Thu, 5 Nov 2026 12:05:34 +0900
+	s=k20260515; t=1793848124;
+	bh=O4hDMZyahdHdegz9dJ6txQLowUvWcjILhCbebbhV65U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LMLexRDHJs09ubq1cI7EzX1rCJn+bsp7C6uAMbrfts6jbE+TqUChZsvuO22U48gFI
+	 msrOtJN7ZTYG2jhjF0hTMaJ+de1by5SSelPfRyU2vEj5nPSTakIm3ntD4/InRQD2Ni
+	 0LTN0Fd0BhBjg2Tyt36Uh7Uo3TYLw9NBeMiLNpEdvAZ31R5clw8OzUFSghkhLwR64c
+	 x1WuxMdqUGzQUqwKIPC+4dPVlv3adRZ/OIHaL6cwe3CRZ6OJH0yCnw7oORDGuDJax6
+	 qxI6CISU/Fh8TSpEaxvctrBgD4ijOm8WERTSuYlUfayZNZQ0qlmwLds3/I/FwXGp2p
+	 OlHih/LOtsDCg==
+From: SJ Park <sj@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
+Date: Wed,  4 Nov 2026 19:08:36 -0800
+Message-ID: <20261105030836.89040-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,41 +76,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ata: ahci_dwc: reject invalid device tree port numbers
-To: shao.mingyin@zte.com.cn, cassel@kernel.org, linux-ide@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261104221318841yKO89PGcSNeaV4KutBOUJ@zte.com.cn>
-Content-Language: en-US
-From: Damien Le Moal <dlemoal@kernel.org>
-Organization: Western Digital Research
-In-Reply-To: <20261104221318841yKO89PGcSNeaV4KutBOUJ@zte.com.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/4/26 23:13, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On Wed,  4 Nov 2026 16:03:04 -0500 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+
+> This is the start of the stable review cycle for the 7.3.2 release.
+> There are 547 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> ahci_dwc_init_dmacr() reads the "reg" property of every available child
-> node and uses it directly as a port number, both to compute the port
-> MMIO base and as an index into dpriv->dmacr[], which has AHCI_MAX_PORTS
-> entries.  ahci_platform_get_resources(), which runs earlier, checks the
-> same property against hpriv->nports and skips invalid child nodes, but
-> this second walk does not.
-> 
-> A device tree that describes one valid port and one port with a "reg"
-> value above AHCI_MAX_PORTS therefore makes the driver write past
-> dpriv->dmacr[] and access MMIO beyond the mapped region.  Apply the same
-> check as the resource loop and skip invalid child nodes with a warning.
-> 
-> Fixes: 33629d35090f ("ata: ahci: Add DWC AHCI SATA controller support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> Responses should be made by Fri, 06 Nov 2026 21:07:23 +0000.
+> Anything received after that time might be too late.
 
-Looks OK.
+This rc kernel passes DAMON functionality test [1] on my test machine.
 
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Tested-by: SJ Park <sj@kernel.org>
 
--- 
-Damien Le Moal
-Western Digital Research
+[1] https://github.com/damonitor/damon-tests/tree/next/corr
+
+
+Thanks,
+SJ
+
+[...]
