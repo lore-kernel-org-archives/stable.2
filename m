@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793839100;
-	b=rU7fx68ltk7dr5Zzx5qlBOS5H64Q1lgnEpMb+0GsCwQKmf7KOzfebsgqm0CsjVVm4qJK
-	 t2e5mkPozyHlDynWGBOVMrHARJQK/fHFLawWNYu04M5m2huHWohnglnb6HGmBP6ZXKQCj
-	 YoiTgJAGhgd597kvYX+dB+GbXIw6xr5JDwmk3hAuYdKSvJdkU4QG28c0pXZMNDA4FZ9T8
-	 3Kl1ZwzLS2J2HK7iJ6vzdBHEuV53hOIs0DSAOwdBzHfqZt8q0lJf09krj8LI0L7t1tBSH
-	 DJozToi2WgqJydadOn9ZRZ2A95Z6sDXmCepJAJXr/5J6ZTWxeb6J3kJz6d7Jj/50z1g==
+	t=1793839106;
+	b=K0t85Fxrep4uBPPIEYH5wn9cCF+Q3w7Wk8x7Wj8YmKRmqLpGvC2BthNpOjyhAWoWH7kP
+	 0VA3N48F4ROkMYyT6SlMNFF2U6zFBHQRop8hJMxjdLw50Pn5ZLERoRDLficxscCwJ8xAu
+	 /0XyCH1hT9kBga0vsFfenKvyDLNbdpwiU1G2gAI6vLxe2+QUbVDI52EcONzIR/YApaInV
+	 fg8mG8X9DvKjXeVs88+n7s/GsCia4d/vEOsCE9+cQVLEWDbZX1I4mdrsLFWJw2n9GUgv/
+	 UHqn3TmEA+9kWD2kheQoC3BAUqMhsYy42bMgCZfM8LQHP2PfbFA4dQspp/gor0hwozQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793839100;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793839106;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KUDxiSxJITvVYaGfMBSH9nFZ7Mf1lJhQlaGqO5wXTVQ=;
-	b=MF54KjgBBLgjr8rTAC83q9WEMcCejVtrWasK2zuVn8wjqrXX0Z3N8SFCMueBnLt7D7j+
-	 GrBs36lAsImxOvJBAJxVvjS/Ztx3IrybRIBe4kYzmC4aEOPabb2xR5+SHrxW9x9QkbyK1
-	 zOoKg6CmB1gzyu4RuBZE3coUeFgKaRtQ+6kiI71BIL/CReOYGS/scWhSp57qDQ180YeTm
-	 VkvnobNliZTZ5iu5U2rt9idx5rtpnALyxR3zdo4dBYE9hlqN0trlCNud4UT8Z+mnKgpwY
-	 zsX8x198tD6q7a6BqScggtnqzo8sEabgulPmmzXel+AJ2d3pxfKF1hNA3mg9sbgXz+A==
+	bh=Dy1aKQGJJTwtjNmlBymTEs3WMnLFZzsvL/te9TVaVSE=;
+	b=bEBocmK3aGiUBODYFVyX5RlqaQlct2sZLbfnLoU3/iB2VxYUm1HuNVS5/qFtbX0Ff14A
+	 WVUSck8TGdojl7odAn4jFBsRreDmNQWARmut6A2CnU/lSFUTPTTf9a5r/zibEIjWCnh6v
+	 PXZ5jgiPlZOuh0Bs1I2rFZem+82Ew3aXaxhOkpY2M1UEwIqAHTuMtBqK520oc3lTPbrEZ
+	 tfCW08omHVNtCsFUzwXVg1feKom8OTjyZa+/Yzlr4e4YVmYd9k/hVcEIokLEsiDoZk/Vu
+	 r6oVfoF2HTc73gvlOXloqQGs+F1V3Px74wbDBBDxfaLYsoSgv9o1MwfXWE5jAcO3pqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BeOjNIwd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RSLOxZno;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFA5606A32E
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:38:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B7B606A31B
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 00:38:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BeOjNIwd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E8631F000C1;
-	Thu,  5 Nov 2026 00:38:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RSLOxZno
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4951F000C1;
+	Thu,  5 Nov 2026 00:38:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793839100;
-	bh=KUDxiSxJITvVYaGfMBSH9nFZ7Mf1lJhQlaGqO5wXTVQ=;
+	s=k20260515; t=1793839105;
+	bh=Dy1aKQGJJTwtjNmlBymTEs3WMnLFZzsvL/te9TVaVSE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BeOjNIwd6K1AztiBE4EQkmP+lxITuSV5xfvDLy89iTFT1vGkUhfWdBfdH7UVByoYf
-	 96y6GNlhlFXDhmUDzIo8FvxdOq9olD8wyUf6X4Aw+uyvpahVli+W2h7lqXe60wTZBz
-	 GOAHv6O6VXgRp6GHI6JhWYIP0xGjYMkiDTZYxwLWX5cK0nnIEde8dEuhMQptN5/+ow
-	 0cqRN1eMsOzy6i5WLA7P14FuQQ8LFBhpTkW3egGGH1b7INRgRr48Ecv/9yaToM734A
-	 bzl91UYMx4jVvyslnBhgtGxIZJ9Wt3PNshgypb1IFQGYYuycnGSrIu8bR5ctX8oLfj
-	 kHsZuXNJOn3Fg==
+	b=RSLOxZno2vcremE0POZkJKdn54ImTQSHXUA+38IIc2H7xS+HFNogZbmrjMVUL8AUy
+	 N9vTqw5ddqhc6wtbj5aYTA+NI1j7lhPlgy26EsI3xaV2yfr6qXsZvEViw7rzt8CeVD
+	 aBoW9rnAljsuZOOFe7NZthg0yyFoUXNvYiYSwAmxrzKA4+6LXxK7Hdf2BDyyWKp4As
+	 NH4GhAU2weQNWlHCNDpq3UhkoVcCFWSwItbFOENbajOAv4QyXr7KJOgxrfakgGh6Ld
+	 dSvoIxQbBzIYV5TOwmAmhwTbZc9kD0jL2StnWzYu6y/N6Fr5cr0BtFuhBW8DLVE01S
+	 LJW4pFVXsv2/A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Jamie Lenehan <lenehan@twibble.org>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+Cc: Igor Putko <igorpetindev@gmail.com>,
+	syzbot+843bf2f48f4d12e6682e@syzkaller.appspotmail.com,
+	stable <stable@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] scsi: dc395x: sync the waiting_timer before freeing the host
-Date: Wed,  4 Nov 2026 19:38:18 -0500
-Message-ID: <20261105003740.1022036-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] serial: core: shut down initialized port on removal
+Date: Wed,  4 Nov 2026 19:38:24 -0500
+Message-ID: <20261105003741.986188-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110423-almost-vantage-160b@gregkh>
-References: <2026110423-almost-vantage-160b@gregkh>
+In-Reply-To: <2026110437-fabulous-dingbat-b644@gregkh>
+References: <2026110437-fabulous-dingbat-b644@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,65 +63,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Igor Putko <igorpetindev@gmail.com>
 
-[ Upstream commit 0b1a79f2791a06f139dce5450e487307cf0e241f ]
+[ Upstream commit 810d467c11f0c85107874d08dfdd11acba6aa0c0 ]
 
-The waiting_timer callback re-arms itself and takes the host lock.
-adapter_uninit() currently stops it with timer_delete(), which does not
-wait for a callback already running on another CPU. The final
-scsi_host_put() that frees the host (and the host lock the callback
-dereferences) runs right after adapter_uninit(), so a concurrent or just
-re-armed callback can fire after the free, leaving a potential
-use-after-free window.
+When a serial port configured as a console is opened and subsequently
+closed, tty_port_shutdown() skips invoking port->ops->shutdown() because
+port->console is true. As a result, tty_port_initialized() remains true
+and the port's interrupt handler stays registered in the irq subsystem.
 
-Replace timer_delete() with timer_shutdown_sync() at the top of
-adapter_uninit(), before the host-lock section: the timer is dequeued,
-a running callback is waited for and rearming is blocked before the chip
-is halted, so it cannot fire at all once the adapter has ceased to
-function. Waiting outside the lock avoids the self-deadlock that would
-result from syncing a callback blocked on the lock we still hold.
+If the underlying device is later unbound or removed (e.g. via sysfs
+driver unbind or device hot-unplug), serial_core_remove_one_port()
+unregisters the console, frees uport->name via kfree(), and tears down
+the port without shutting it down or freeing its IRQ. Consequently, the
+irqaction descriptor remains registered in genirq with action->name
+pointing to freed memory.
 
-No shutdown is needed for selto_timer because it has no reachable armer
-or callback.
+This triggers a use-after-free read whenever genirq accesses action->name,
+such as when reading /proc/interrupts:
 
-This issue was found by an in-house static analysis tool.
+  BUG: KASAN: slab-use-after-free in string+0x476/0x570
+  Call Trace:
+   string+0x476/0x570
+   vsnprintf+0x422/0x1300
+   seq_printf+0x...
+   show_interrupts+...
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Cc: Jamie Lenehan <lenehan@twibble.org>
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260911020544.42966-1-fanwu01@zju.edu.cn
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ sashal: Adjusted timer-removal context for existing del_timer() calls instead of timer_delete(). ]
+Fix this by acquiring port->mutex in serial_core_remove_one_port() after
+console unregistration, clearing port->console under the mutex to prevent
+data races with concurrent tty_port_shutdown(), and invoking
+uart_shutdown(NULL, state) if the port remains initialized. This ensures
+that port->ops->shutdown() is called and the IRQ is freed before
+kfree(uport->name).
+
+Reported-by: syzbot+843bf2f48f4d12e6682e@syzkaller.appspotmail.com
+Cc: stable <stable@kernel.org>
+Closes: https://syzkaller.appspot.com/bug?extid=843bf2f48f4d12e6682e
+Fixes: 761ed4a94582 ("tty: serial_core: convert uart_close to use tty_port_close")
+Fixes: f7048b15900f ("tty: serial_core: Add name field to uart_port struct")
+Signed-off-by: Igor Putko <igorpetindev@gmail.com>
+Link: https://patch.msgid.link/20261003163337.45577-1-igorpetindev@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ sashal: Replaced scoped_guard() with explicit mutex_lock() and mutex_unlock() for GNU89 compatibility. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/dc395x.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ drivers/tty/serial/serial_core.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/scsi/dc395x.c b/drivers/scsi/dc395x.c
-index 670a836a6ba19..f18cd86ee7b4c 100644
---- a/drivers/scsi/dc395x.c
-+++ b/drivers/scsi/dc395x.c
-@@ -4411,13 +4411,11 @@ static void adapter_uninit_chip(struct AdapterCtlBlk *acb)
- static void adapter_uninit(struct AdapterCtlBlk *acb)
- {
- 	unsigned long flags;
--	DC395x_LOCK_IO(acb->scsi_host, flags);
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index a52e88a750f9e..3fc3b33cadc51 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -3071,6 +3071,13 @@ int uart_remove_one_port(struct uart_driver *drv, struct uart_port *uport)
+ 	if (uart_console(uport))
+ 		unregister_console(uport->cons);
  
--	/* remove timers */
--	if (timer_pending(&acb->waiting_timer))
--		del_timer(&acb->waiting_timer);
--	if (timer_pending(&acb->selto_timer))
--		del_timer(&acb->selto_timer);
-+	/* Drain the self-rearming timer; must not run under host_lock. */
-+	timer_shutdown_sync(&acb->waiting_timer);
++	mutex_lock(&port->mutex);
++	port->console = false;
 +
-+	DC395x_LOCK_IO(acb->scsi_host, flags);
- 
- 	adapter_uninit_chip(acb);
- 	adapter_remove_and_free_all_devices(acb);
++	if (tty_port_initialized(port))
++		uart_shutdown(NULL, state);
++	mutex_unlock(&port->mutex);
++
+ 	/*
+ 	 * Free the port IO and memory resources, if any.
+ 	 */
 -- 
 2.53.0
 
