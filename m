@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793904248;
-	b=ucA04SXk7jiSlAZgK4p3Z8wPlB37Lvw6hvpsDK91zu9v2gOgtQMyucVn7g4uMZwACoOi
-	 MlLXSvxvvOm7B7IpGLhfKVBjEYzm6mzgDfKR41CeKiaYvuWk2ayF8ESyVgWH2S5xKJt5E
-	 moDudz+mSm+m/F8Bm4njA5zoweEo6q+f2nxC+yuGEZiKPahG4aSJ8/gdvjduy4M2+dVRh
-	 +vT8ISEFBKaFVhac39nPNgFTfDrIS7oUfOXzn1gfVceWpmV4prKbHu4X1MT8YmdwdbkWK
-	 ux5bQiGNwE2nBwltTzAR+wjuJWf11e9DTf4Jh8Uu+gTQ51wnbIfRQiwkJGhuSEF6hag==
+	t=1793904253;
+	b=cqNIirRDI9qf6L+kLuSh8ki/xn2Z6Vgcnu+4OStjj6eS9Hfzg29XlSIFo9akQ+hJEESH
+	 2sLoh4lXaiLcAL5fYL3amngLW07oLma81KazfdcClkgUr8v0N2WGY5VOLdW+V24b9KJN8
+	 XI6ovs5dV6aUAyO548O8y+ikUDyAkG4EefAJL0GR4KYdtmQmiSJuOat5i+Y3Gytg+1Utr
+	 dZPslaCqwxLp4Zdx21AxyFP11fvBIxqPNuNbsS/IsB2ZAytOdmJJHSUMdWQ+cjD40BGwA
+	 Y/afsDwbpGcu1+9sMQNb65lrGo9afL73x81Yyjk5gpJvF/zi/VE9GgAA2Cfup9MoDmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793904248;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793904253;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Ior9xZGWVcajWcyZgUGuA+AS6urZffsr7mS2bQv/DtQ=;
-	b=44MDx4iuQDY6pOAES/wE6xWhEfXLuq5PH6UtTrEJCV6RXpdBj3H3Lpqdn35+ye4Ct/0x
-	 j/u6uP0dPAhDqoKEFsDdT/I1ErCMM8U94DARAiHAofy2ETmwoAw4o8jLg119bWosEUZKA
-	 hsL36YUga1L9tmdxwVR/8W9luo/59fzz34i9l+fEOXtKbJTpwv/RWHJNcG8mVjByrNE7d
-	 Ozi2cH8N+jxCtz8NG/wxM/A43mw2H1QTKAfv3z7ZrBPKeaVqxek5aVb72qF7KS7SXYU/g
-	 m+5DYSJ9klQipNHiSkW903g+AIHF0PHfROtb7BQmM/yoUecSXS5n5zl5sATA7pVvm1Q==
+	bh=c7ReC2jztjZEV5viZi62bX5jXswhcxntgwOBonNP1Os=;
+	b=l/W2hdLalYXDOtyS2FoP2pSfk6JAYAS5j/IAPuezX/96kPmlOma2kcJEc0PmZePWD0p/
+	 sgN3Q86Ju4W4MoglgdKAqd1qtCfeXOtuI4TTG/X7NIbhDb7rL4h9SUjZiNOkeH65XiAcg
+	 Moem7w3LqZzN7Nwn6osvptqlSYGyiKBVyhMgXuMJnNFe9PsnbKghItlQPdDw0mJo5NgzO
+	 DZevGI6BdjKVToxTZEm2ETTOh35aSOKw142pIcjGKf389MnFawzx925wmIM4oW4KFkuV5
+	 FaqSWRmMVrhywLdZkTHXWq0yRwMqQTZ2aMjjoxpTvk/xXBQ6wWDWpZaYDEdGIa+HHHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QkiQZq+B;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ov5CvrJC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2219606A31B
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:44:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5E9606A331
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:44:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QkiQZq+B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34D721F000C1;
-	Thu,  5 Nov 2026 18:44:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ov5CvrJC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 647801F0093A;
+	Thu,  5 Nov 2026 18:44:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793904247;
-	bh=Ior9xZGWVcajWcyZgUGuA+AS6urZffsr7mS2bQv/DtQ=;
+	s=k20260515; t=1793904253;
+	bh=c7ReC2jztjZEV5viZi62bX5jXswhcxntgwOBonNP1Os=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QkiQZq+BXnDcM84jdtzpRB2Tt/JWCbKIolPtSwhGrieLOfkhkna6CQ5A8V9jgjkC8
-	 9m3ujmKSnHM2Es8cSAQXqrpsg1eJKcI0TD1d2nEBS62f21Glz/9dfA4h1m4yRloLho
-	 FTiT0AXf5hVgMtAlbl3lDI7Uvr//Jm3RvT+n4ZZOQYIPGmJlwQcRRL0B8NWe9vjASm
-	 IJryag++xUz7PR+YsOwAqbnDNsHtX6vIB1FfdSbup/S6prk55sUgNF9dIub3tXjf3a
-	 /c97RTEKTa4tLoaffxONFBTGVZ7ytJ7RLr34ZWf2PxFiWKzMcqFZwyd8o/2Grq9skp
-	 2fvdGoAfGI+Uw==
+	b=Ov5CvrJC5e3e6oiZEAYTbtJ3ua+rDwclHVPJ0fwHoywpPklUHA13gtYF3L1iAKIyg
+	 1lCTeFcfnSq8/Fc6gd5eY7ZlOMMf9yM3HcEWlmX9quMIweK6XxcY2PaQtMcPWtD21n
+	 b2+UA712f5pXPH4MK4xHzdeYdLIJJm6dD6teQOSx+wEMwMZBI0FpE+v9DVl8su3AgJ
+	 CZIBjEmiTI/5xTqbN/yQwLDM9u1Zd1Xnuk/mJ6no4c5mRrLnWiDcvMY7mYTdtffnqw
+	 wSLb+SNDiDsoqQ1I8DIBbxSTklh6DnZz+JwPsCU+2wdSKriD5OL26YabI1iZPskC1+
+	 XRYQLuwtMBUJg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Diego Oliva <diego@bynar.io>,
-	David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] smb: client: reject FIND data areas that run past the received response
-Date: Thu,  5 Nov 2026 13:44:06 -0500
-Message-ID: <20261105184240.2288252-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] xfs: improve dirent bounds checking in scrub and repair
+Date: Thu,  5 Nov 2026 13:44:11 -0500
+Message-ID: <20261105184242.2288878-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110455-defendant-swung-d565@gregkh>
-References: <2026110455-defendant-swung-d565@gregkh>
+In-Reply-To: <2026110440-scrambler-rants-fb16@gregkh>
+References: <2026110440-scrambler-rants-fb16@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,133 +62,127 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Diego Oliva <diego@bynar.io>
+From: "Darrick J. Wong" <djwong@kernel.org>
 
-[ Upstream commit 29bd6773187cb5c1bbbdf90d677c6add7d58af26 ]
+[ Upstream commit 5d470234d04dae6fe2ca2cf4b9ef277b78c7e05a ]
 
-CIFSFindFirst() and CIFSFindNext() take the directory entries of a
-TRANS2_FIND_FIRST2 or TRANS2_FIND_NEXT2 response from DataOffset for
-DataCount bytes. validate_t2() bounds DataOffset at 1024 and
-ParameterCount + DataCount by the byte count, and nothing compares
-DataOffset + DataCount with the number of bytes SendReceive() copied
-into the buffer.
+LOLLM complains that we don't do enough bounds checking of the directory
+entries in directory blocks when we're looking for errors or trying to
+salvage entries.  Let's improve that with more detailed checks.
 
-smb_init() places the request and the response in the same
-cifs_request allocation and cifs_buf_get() clears only the start of
-it, so a short response whose data area extends past its end has
-srch_entries_start point at bytes of the request that was just sent,
-or at whatever the allocation held before, and those bytes are parsed
-as directory entries. cifs_readdir() and find_cifs_entry() walk the
-entries with nxt_dir_entry(), which checks every entry but the first
-of a response against the end of the SMB; cifs_query_path_info() and
-cifs_backup_query_path_info() read the first entry with no check at
-all. Those reads stay inside the allocation, but what they return is
-not part of the response. The last entry, which LastNameOffset locates
-relative to the data area, is bounded against the received response
-by an earlier patch of this series, as is every entry that
-cifs_fill_dirent() parses; the walk itself and the two query functions
-are not.
-
-SMB1 is not negotiated by default; reaching this code requires an
-explicit vers=1.0 mount.
-
-Reject a response whose data area extends past the received length,
-with the -EINVAL that validate_t2() returns for the other malformed
-transaction responses. cifs_query_path_info() and
-cifs_backup_query_path_info() still read a whole entry from a data
-area that may be smaller than one; that is not changed here.
-
-A conforming server is not affected. The data block of a transaction
-response is part of the SMB, so DataOffset + DataCount cannot exceed
-the smbCalcSize() bytes that SendReceive() copies; coalesce_t2()
-appends each secondary response to the data area and adds its length
-to both DataCount and the byte count, which keeps that relation.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: Bynario AI
-Signed-off-by: Diego Oliva <diego@bynar.io>
-Reviewed-by: David Howells <dhowells@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: Adjusted declaration context in CIFSFindFirst() and CIFSFindNext() to account for the missing in_len variable. ]
+Cc: stable@vger.kernel.org # v4.16
+Fixes: ce92d29ddf9908 ("xfs: directory scrubber must walk through data block to offset")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+[ sashal: Inlined upstream helper checks into the existing xchk_dir_rec() loop because the helper refactor is absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifssmb.c | 31 +++++++++++++++++++++++++------
- 1 file changed, 25 insertions(+), 6 deletions(-)
+ fs/xfs/scrub/dir.c | 60 +++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 54 insertions(+), 6 deletions(-)
 
-diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index 6e4b845a4078c..ca3ee6837daa0 100644
---- a/fs/smb/client/cifssmb.c
-+++ b/fs/smb/client/cifssmb.c
-@@ -4317,8 +4317,9 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
- /* level 257 SMB_ */
- 	TRANSACTION2_FFIRST_REQ *pSMB = NULL;
- 	TRANSACTION2_FFIRST_RSP *pSMBr = NULL;
--	T2_FFIRST_RSP_PARMS *parms;
-+	unsigned int data_off, data_count;
- 	struct nls_table *nls_codepage;
-+	T2_FFIRST_RSP_PARMS *parms;
- 	unsigned int lnoff;
- 	__u16 params, byte_count;
- 	int bytes_returned = 0;
-@@ -4437,11 +4438,19 @@ CIFSFindFirst(const unsigned int xid, struct cifs_tcon *tcon,
- 		return rc;
- 	}
+diff --git a/fs/xfs/scrub/dir.c b/fs/xfs/scrub/dir.c
+index 5c87800ab223d..73f8449caa9d0 100644
+--- a/fs/xfs/scrub/dir.c
++++ b/fs/xfs/scrub/dir.c
+@@ -219,6 +219,7 @@ xchk_dir_rec(
+ 	xfs_dahash_t			hash;
+ 	struct xfs_dir3_icleaf_hdr	hdr;
+ 	unsigned int			tag;
++	bool				foundit = false;
+ 	int				error;
  
-+	data_off = le16_to_cpu(pSMBr->t2.DataOffset);
-+	data_count = le16_to_cpu(pSMBr->t2.DataCount);
-+	if (data_off + data_count > (unsigned int)bytes_returned) {
-+		cifs_dbg(VFS, "%s: data area offset %u count %u past response length %d\n",
-+			 __func__, data_off, data_count, bytes_returned);
-+		cifs_buf_release(pSMB);
-+		return -EINVAL;
+ 	ASSERT(blk->magic == XFS_DIR2_LEAF1_MAGIC ||
+@@ -263,28 +264,67 @@ xchk_dir_rec(
+ 	dent = bp->b_addr + off;
+ 
+ 	/* Make sure we got a real directory entry. */
+-	iter_off = geo->data_entry_offset;
+ 	end = xfs_dir3_data_end_offset(geo, bp->b_addr);
+ 	if (!end) {
+ 		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
+ 		goto out_relse;
+ 	}
+-	for (;;) {
++	iter_off = geo->data_entry_offset;
++	while (iter_off < end) {
+ 		struct xfs_dir2_data_entry	*dep = bp->b_addr + iter_off;
+ 		struct xfs_dir2_data_unused	*dup = bp->b_addr + iter_off;
++		unsigned int			advance;
+ 
+-		if (iter_off >= end) {
++		/* must have freetag */
++		advance = offsetof(typeof(*dup), length);
++		if (iter_off + advance >= end) {
+ 			xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
+ 			goto out_relse;
+ 		}
+ 
+ 		if (be16_to_cpu(dup->freetag) == XFS_DIR2_DATA_FREE_TAG) {
+-			iter_off += be16_to_cpu(dup->length);
++			if (iter_off + sizeof(*dup) > end) {
++				xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK,
++						rec_bno);
++				goto out_relse;
++			}
++
++			advance = xfs_dir2_data_unusedsize(be16_to_cpu(dup->length));
++			if (!advance || iter_off + advance > end) {
++				xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK,
++						rec_bno);
++				goto out_relse;
++			}
++
++			iter_off += advance;
+ 			continue;
+ 		}
+-		if (dep == dent)
++
++		/* must have namelen */
++		advance = offsetof(typeof(*dep), name);
++		if (iter_off + advance >= end) {
++			xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++			goto out_relse;
++		}
++
++		/* Don't walk off the end of the block. */
++		advance = xfs_dir2_data_entsize(mp, dep->namelen);
++		if (!advance || iter_off + advance > end) {
++			xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++			goto out_relse;
++		}
++
++		if (dep == dent) {
++			foundit = true;
+ 			break;
+-		iter_off += xfs_dir2_data_entsize(mp, dep->namelen);
++		}
++		iter_off += advance;
 +	}
 +
- 	psrch_inf->unicode = !!(pSMBr->hdr.Flags2 & SMBFLG2_UNICODE);
- 	psrch_inf->ntwrk_buf_start = (char *)pSMBr;
- 	psrch_inf->smallBuf = false;
--	psrch_inf->srch_entries_start = (char *)&pSMBr->hdr.Protocol +
--		le16_to_cpu(pSMBr->t2.DataOffset);
-+	psrch_inf->srch_entries_start = (char *)&pSMBr->hdr.Protocol + data_off;
++	/* Hash tree must point to the exact dirent */
++	if (!foundit) {
++		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++		goto out_relse;
+ 	}
  
- 	parms = (T2_FFIRST_RSP_PARMS *)((char *)&pSMBr->hdr.Protocol +
- 					le16_to_cpu(pSMBr->t2.ParameterOffset));
-@@ -4474,8 +4483,9 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
- {
- 	TRANSACTION2_FNEXT_REQ *pSMB = NULL;
- 	TRANSACTION2_FNEXT_RSP *pSMBr = NULL;
--	T2_FNEXT_RSP_PARMS *parms;
-+	unsigned int data_off, data_count;
- 	unsigned int name_len;
-+	T2_FNEXT_RSP_PARMS *parms;
- 	unsigned int lnoff;
- 	__u16 params, byte_count;
- 	char *response_data;
-@@ -4558,13 +4568,22 @@ int CIFSFindNext(const unsigned int xid, struct cifs_tcon *tcon,
- 		cifs_buf_release(pSMB);
- 		return rc;
+ 	/* Retrieve the entry, sanity check it, and compare hashes. */
+@@ -297,6 +337,14 @@ xchk_dir_rec(
+ 		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
+ 		goto out_relse;
  	}
 +
-+	data_off = le16_to_cpu(pSMBr->t2.DataOffset);
-+	data_count = le16_to_cpu(pSMBr->t2.DataCount);
-+	if (data_off + data_count > (unsigned int)bytes_returned) {
-+		cifs_dbg(VFS, "%s: data area offset %u count %u past response length %d\n",
-+			 __func__, data_off, data_count, bytes_returned);
-+		cifs_buf_release(pSMB);
-+		return -EINVAL;
++	/* Name must not overflow end of block */
++	if ((char *)dent->name + dent->namelen >
++	    (char *)bp->b_addr + BBTOB(bp->b_length)) {
++		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
++		goto out_relse;
 +	}
 +
- 	/* BB fixme add lock for file (srch_info) struct here */
- 	psrch_inf->unicode = !!(pSMBr->hdr.Flags2 & SMBFLG2_UNICODE);
- 	response_data = (char *)&pSMBr->hdr.Protocol +
- 		le16_to_cpu(pSMBr->t2.ParameterOffset);
- 	parms = (T2_FNEXT_RSP_PARMS *)response_data;
--	response_data = (char *)&pSMBr->hdr.Protocol +
--		le16_to_cpu(pSMBr->t2.DataOffset);
-+	response_data = (char *)&pSMBr->hdr.Protocol + data_off;
- 
- 	if (psrch_inf->smallBuf)
- 		cifs_small_buf_release(psrch_inf->ntwrk_buf_start);
+ 	calc_hash = xfs_da_hashname(dent->name, dent->namelen);
+ 	if (calc_hash != hash)
+ 		xchk_fblock_set_corrupt(ds->sc, XFS_DATA_FORK, rec_bno);
 -- 
 2.53.0
 
