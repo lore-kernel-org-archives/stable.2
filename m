@@ -1,107 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793903151;
-	b=HnL/X7l3X0roC/BB59Br98ZSggyw27qz3iNkMfMqX+M4PieaRkm/tChoXQhErTj7qb9n
-	 pgQCEV5KQGTCzUTw9CoxjLfwAxNZqVie+h09g3tRsQvpSL/1QuKgltmVuhl/P6yEwZzRx
-	 Gr49on2UhBCFt78CDPlyg7ydak/+ED49i8Om1SqfZCUqbI+8Qc1RCTBmAjTEP1f+P+OPA
-	 nvqo6+q+bEpecTLb+uCL9vQxi+Px0fF78IRjbPtwtVqMlEa0ycRNqlfknbvQ56ucy9kxf
-	 WOpqiOX7MMYtbZ7B7aQkrGoRxsjxil+9P6fHBFjKyUGSBhtfHH44PF2d8z9+p0rneTw==
+	t=1793903191;
+	b=1y3I4dpgWnp817e4NOQ7/jWsAqwCx/798gJmcxnqVjZBg/fSzxrz9Ax6NbUrPMLV6iTy
+	 JJysSuPqJaDPZqopmlHPEv+lEJiiTgjG4xl0ZFqWddgqz9I1HDxmJWIqhS2U0WDQbTRPT
+	 eV032SnY37J5OWC047Shy3lUMcFTEU49GOEpQTyqYUL/nVnhoby5hEsgoplDQ3hRfeKVp
+	 2pdyX0lC+VykMxyvpcLoSU8uvGM4PUaHE73xtuViiMxiDNHwnj1krtQJuODzPg8PSR5dw
+	 siHuSyQvvHt7mB5Y+VedsJu7m8JqxVVUftSFMWyuTdUyjE0jCUnAENyn0hLdfbOlOOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793903151;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
-	b=gh8HLbEch9yLJb5AYyYs2mwNnvvr5zkQGfBUwMZC7NQekE5xIu5BpnIuJDtc8ZsPVB3y
-	 qPSVwjpKGLwsZ7FZplOq6IUm8HebMERv0Zoq6mSj9QlP4A8yuj/kcGqCzEn7u56siv9FN
-	 5qrvAbM1ASpfHCOL4Bn8N56cqfd5mKv2SqYli8gVVqdkksXPzGcxxljEjAS1eMPvbw64Y
-	 Hia37rh4DOzwOg+Vpu3hmhgy4UAzMMz53M286PqY+/9W+Wz53vQfaffokFYIifW0ANgiW
-	 qDKaUGp0/yVVblJAuOdDo/GkGdZPRYcmn+bi/L5UO5sHR+LMUlZ0Jmg5vJRziDHHxGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793903191;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=ZjZZBHNzUUSdl8+mB6CksZcOvkW2kaVJTAeX6AL9t3o=;
+	b=ZLjiiCYkqyMsdhHiQSer/LsihCSCeBXfb3C2kw1dG/BZpti86cwtMekni+Bhr09EERUt
+	 FsHN7lTMoWt9QqHj19HZu/cTxRlxJCERCa0bg+i8nmvNoV43D5S4iRAIRTFR7xhsyIXJ/
+	 rDbCtqgvD9ZyPfdP1U1QEiHF5qR1jGUPy74FjSlvQMUjkGJSpeUGEx4pP7jAc+7en0IkE
+	 KDG9ClExPqO6yBN7r4ZAxSWykq9qXpOGkibaxwWo5hPcWlefku7CasgYUpledvovuGg61
+	 +L30dFtiulGbEKvTPNMfHqUz3a2vv0a1QdNOuDocUfEtgV1yvyq+56RBx2coEQDDG1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=gpLik4Np;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IRCfsY0D;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qpZ4fh0Q;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/Zr3qgE1";
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTvvwaXk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80146606A32D
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 18:25:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80146606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045F1606A33D;
+	Thu,  5 Nov 2026 18:26:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=gpLik4Np;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IRCfsY0D;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=qpZ4fh0Q;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/Zr3qgE1
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 680B41F806;
-	Thu,  5 Nov 2026 18:25:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793903142; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
-	b=gpLik4NpZai2UCjBWJ/B95wrHx4MFifwTzLWTRBPuU4JR4/ciZjfkZNijMo/jVikJg/ygF
-	hXxQy95vm+/D72Fq30mAwhIbXoERwC3lkAK+lm6im+qEmXKSAMyCFceZGJneyxAC1IgVze
-	Jzdww+rCxUQNhEyS3mcIi9GyDQooxhA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793903142;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
-	b=IRCfsY0DDHNNDPM4eXi8rOYTYZ4Xoyq6uw0m4wt/msxYws1pV66lh10BLLtzBT9ELWY4ZG
-	CAAL25a7JaiBzFDg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793903140; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
-	b=qpZ4fh0QxEdi0FT26Cr+9xiUgjtuL0capIrgzL6ruIrFpfI80vQ6Zmkpoh/99Vql2oxws5
-	cD93of+Fqf+ld9B00RpMC/cOTXFB/rLYJlmvqYUYgtvJ7BMtW5S1qcVmbueCji3IDM2wff
-	LRazJdXXvLpumw9+JCsWwDGVSym4yKU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793903140;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=43uhnSsbz3kHU9pdgxC9KmtDl/67WB1TNCWfONes/yw=;
-	b=/Zr3qgE1TUmuiHY93oePEYHUzm7HO4+DFmlFo2o14oM23SU60+Tpdx+yUWXDjuHfGG8YcQ
-	Jd41VfGUr+OCttBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3C052133F6;
-	Thu,  5 Nov 2026 18:25:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 3Xl0BiTK7GqAHQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Thu, 05 Nov 2026 18:25:40 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id B89CDB819; Thu, 05 Nov 2026 19:25:39 +0100 (CET)
-Date: Thu, 5 Nov 2026 19:25:39 +0100
-From: Jan Kara <jack@suse.cz>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: akpm@linux-foundation.org, willy@infradead.org, jack@suse.cz, 
-	shr@devkernel.io, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, sashiko-bot@kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/page-writeback: avoid overflow when reporting BDI
- byte limits
-Message-ID: <ijzndqxlfmivwaujc7nhtsa4p3hyd43g3aqud3vovajnd7jh7f@wcarf4xjxm5b>
-References: <20261103193627.71959-1-dennylin0707@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTvvwaXk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D79951F00A18;
+	Thu,  5 Nov 2026 18:26:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793903190;
+	bh=ZjZZBHNzUUSdl8+mB6CksZcOvkW2kaVJTAeX6AL9t3o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JTvvwaXkP9+gdJl7sIR42xpr0Phc2EY0WhM3xuNdJkWFsPeYNXam7mFT/lilxXd6A
+	 j0ZFIs5jD8Spxe8dkW0n2ariVz3YND7QLErOKBx3YiNywrwN9Lp0G+0NVAsL31bIxV
+	 FlXmdcvYJX9PUql8Ty3tXo3N7rLyisUQcKQBB0CAGZse17FV05nfdg0HkTBjTZkDCE
+	 7HfNFihUQd6jH8wFxm5aOUh8Bf6M3+yWAE/6/2gC5ySwA7PsK3XtJJrWReOrgr9mXZ
+	 muv0UQ37OTU45t4EZmmdrlxp1Tny8QeXlFncV59LJHK0Dw/IMauVfclnArhvIkjvSm
+	 TxY2KTdOC1hDQ==
+Date: Thu, 5 Nov 2026 18:26:26 +0000
+From: Lee Jones <lee@kernel.org>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>
+Cc: Michael Hennerich <michael.hennerich@analog.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Trevor Gamblin <tgamblin@baylibre.com>,
+	Sergiu Cuciurean <sergiu.cuciurean@analog.com>,
+	Drew Fustini <dfustini@baylibre.com>, linux-pwm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 4/8] pwm: axi-pwmgen: Enable clocks before accessing
+ hardware registers in probe()
+Message-ID: <20261105182626.GM1650678@google.com>
+References: <20261105143847.2559586-1-lee@kernel.org>
+ <20261105143847.2559586-5-lee@kernel.org>
+ <auylN53GJra88-E3@monoceros>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,78 +64,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261103193627.71959-1-dennylin0707@gmail.com>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
-X-Spam-Score: -12.80
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <auylN53GJra88-E3@monoceros>
 
-On Tue 03-11-26 19:36:26, Hungyu Lin wrote:
-> bdi_get_bytes() multiplies unsigned long operands before assigning the
-> result to u64. On 32-bit kernels, the intermediate product wraps and
-> min_bytes and max_bytes report incorrect limits. For example, with
-> vm.dirty_bytes set to 104857600 and max_ratio set to 100, max_bytes
-> reports 268 instead of 104857600.
+On Thu, 05 Nov 2026, Uwe Kleine-König wrote:
+
+> On Thu, Nov 05, 2026 at 02:38:06PM +0000, Lee Jones wrote:
+> > axi_pwmgen_probe() calls axi_pwmgen_setup(), which reads and writes MMIO
+> > registers to verify the IP core version and determine the channel count,
+> > before acquiring and enabling axi_clk.  If the bootloader leaves the AXI
+> > peripheral clock gated, accessing the registers causes an unclocked bus
+> > access fault.
 > 
-> Convert the page count to bytes in u64 and use mul_u64_u32_div() to avoid
-> overflow in the subsequent multiplication. This also handles large dirty
-> limits on systems with larger pages. Combining the two divisions keeps
-> the existing rounding behavior.
-> 
-> Fixes: 00df7d51263b ("mm: add bdi_get_max_bytes() function")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> Do you have the hardware? Or what convinced you that an access fault
+> happens?
 
-Looks good. Feel free to add:
+These are Sashiko bugs, as we discussed out-of-band.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+None of these have been tested on real h/w.
 
-								Honza
-
-> ---
->  mm/page-writeback.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-> index 499a35473e4f..ddebec79d8d9 100644
-> --- a/mm/page-writeback.c
-> +++ b/mm/page-writeback.c
-> @@ -665,7 +665,8 @@ static u64 bdi_get_bytes(unsigned int ratio)
->  	u64 bytes;
->  
->  	global_dirty_limits(&background_thresh, &dirty_thresh);
-> -	bytes = (dirty_thresh * PAGE_SIZE * ratio) / BDI_RATIO_SCALE / 100;
-> +	bytes = mul_u64_u32_div((u64)dirty_thresh << PAGE_SHIFT, ratio,
-> +				100 * BDI_RATIO_SCALE);
->  
->  	return bytes;
->  }
-> -- 
-> 2.43.0
-> 
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Lee Jones
