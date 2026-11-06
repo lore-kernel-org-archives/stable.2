@@ -1,56 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.240
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969964;
-	b=R0j/LTMNKwV9ZlEMaA8oGtIZWXGTrTx2xRteIuF+ekPZPWl0Dt6T0RCsJ+ya0QHDD5Oa
-	 wJJ7NHnz5BysrfaGTsyLdwFj7aqLgIVPfax7LZ53uNIPiMTWMyPUZatWcchaXKDylP29j
-	 DHE1caqr9gP5quD3WngAlvrooyE+Dqe7Q96kH6Dm8fhwcV3RlweoMaWpzNrs2/ZY/WnAh
-	 IcYADCZb7gbuEuDxMyjBBMWqLhifUof/UCOCmBRrL2VZlCAdSuKHSFcg0XegpooTvzt/o
-	 1yW8ZTis88DupkDIfHQ90VHzF0s+W3IEjTa9G3Wx3KhvXdtiZH720/F7k71Sb0uLY4A==
+	t=1793970018;
+	b=lZub6BTvN+do5Yye+T9xvNbjJKPkPqsu+zMab096bgz3mT7tSIs3rDqkGb6VZKXsHbU7
+	 IT+tV4dNdbjeyuYf/wnGK67cjPmJzqwNh4IvAIfisZAQsFCYKzKHiqDQ6nSrkyDbueIaY
+	 2kvo4RPs1hv4XPoQ6/YQxDEYUC540wPDsKypkiy1sksknarRa252Y35wqGHr9lXBiVd6A
+	 oDg0eADnMtpJC9cbml6VLCCN1rPT0sp15PzswwJT17ad2Oa9aELP+KhMZ8R2R0sX7+nXm
+	 2khPWH4UrrOM+mQdWKWwNhkqtzQqugN2rnzm3cZmj9BTuD3ciOma7+xL9H9HvCPj3tA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969964;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=fiYwLEHB3UDkX1HTg9ZN8aoSra0A2vaRIEd4CmgIwKs=;
-	b=SRanHVdYnsHv/0dKIoiZdB45q62f7VSYUNlqMKCY0O3tv5XmkbjVSxY9YnWSBXHDBTV3
-	 mi2ZL3QmBpGDGDgcxQ0lYASHotd9ZkpjBEDD7u4PtS/ts1ztVFEf61IAYikm1jfDrQJw4
-	 owd8Iu4XXWplbla+5TuQEriP6euKx/0yzvTBeuaTsNtSyUp7OxYDr5Sf7tLVVuf3ZD1uy
-	 t2+mKLSUNEjOuRaosauBwf1pbpEbYyfd6MhIu4NxVUMrqRN2lNrRVWjND+Tiv1MapIob+
-	 hqoNeP6w/KgrGh3aiy6PI0XiMECB6pBVKkm2d5hoAi1Chm6eR3xemgUS3K8O0zdZVrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793970018;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=CmVIaM3M0lQoS5Gw+xCsHIl1GWfVDNYrrM5ZXpTz810=;
+	b=ZgoNJqLhOS+WqdfxMlhFnVdWNGM1wDEy/dSlqNawVbbM5eB+Q3mk2otbakc+eHNZZSx1
+	 aEQjwAdW9bvwr3lez8uOUm5KVQrx4jj+ajDTyHSVEBCEI1aUrwUMlwttcc9E0dlAZ0N5z
+	 r/aU7QfoTtF6KhLfKMehXlO2Ia/T4gtFq33naYg0Nzn+6jL/SMIt1E9gaAFdU3EONRsZv
+	 LQSK6dGivKEB7dvxyeJudqiOh0nyj96QS9fk9CXIPuiP/jtD/P8m0/6nB5Qq3FxkIA/mv
+	 uEVq7zBrRbQuDhEG8SvPn3K+mtXS/SAIzlBpo5NhTEuOiScGhVdkvc661M/2CUXLm5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YO6qJheh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ha0p8K1y;
+	arc=none smtp.remote-ip=95.215.58.240
+Received: from mta1.migadu.com (out-240.mta1.migadu.com [95.215.58.240])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80DF606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:59:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12C3606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 13:00:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E12C3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YO6qJheh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B84C41F0089F;
-	Fri,  6 Nov 2026 12:59:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793969963;
-	bh=fiYwLEHB3UDkX1HTg9ZN8aoSra0A2vaRIEd4CmgIwKs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YO6qJhehT8BcrGBRzr68uboZKbM17seWksY3o5/O1taGOVy45A46lY3Ij23NWipIg
-	 2lqUQttyJHt7CS9igUOfsw1IPW0bO9fP30uKy5D5MV+lLlgkKc00Vq4zOcs79fg6fl
-	 qk+RvgEJ//WDYjiOkUTT3UlRpi+ZimsTEEjzO02/UPLUTUs73IDoZX80VahDFrjQMU
-	 JFo+012dy8dYrBy4JummquCdDo+VALdkc55y/QTjFrvnwWHlvuWuvnmRsdgo02i9Y3
-	 Pasb3GIuo9n+zfPSHjDHEQ+6PZL7upHRCqThWp6e1usALbdwzuPZ9eu61opoJ/j59V
-	 P68BuZEJvD9ng==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chuck Lever <cel@kernel.org>,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] NFSD: Map flex file layout IDs through the request's user namespace
-Date: Fri,  6 Nov 2026 07:59:21 -0500
-Message-ID: <20261106125901.15517-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110409-never-carnation-defe@gregkh>
-References: <2026110409-never-carnation-defe@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ha0p8K1y
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=CmVIaM3M0lQoS5Gw+xCsHIl1GWfVDNYrrM5ZXpTz810=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793970015; v=1; x=1794574815;
+ b=Ha0p8K1yHuybAEvJv8yQwMRBnFlRC4vfJvXdkuyzkn51lASZ6NcpUx+xyRi6kivVS1tdg3LQ
+ TJ5tizkWw/SajFV0hqsU3Qo9Jb+weUWH8CDF25GrToblMbFd/v79ajADBJYF6dlVmDeX/mtJGUA
+ eF+gBBL0AGQuaTVA9I0L6Grk=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8a4767ebe6dc839f;
+	Fri, 06 Nov 2026 13:00:14 +0000
+X-Mizu-Trace-ID: 8a4767ebe6dc839f
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5bff701efa5so3743e87.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 05:00:14 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzq96TnIUeIMPxW9AGhgTtJ2yRXeT9u78nOZwoz7g+nopkBYe/Saer/3UJsr9TApheuxz0/uCw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8H5o/lcbiEIzXt1h9FiNJbZWuu33+3etiS3yKVgeYjczaqty7h
+	qWQGFho1Jwa4zjptwyXmA49/dXuIIO03MpT97JEAfNXOmHnxmf+GW/aqIexuECJiBhIaXZzEvFZ
+	bRjhvp6f8yQ2NfcM4DivZVgt67oICEPe1scdaLnHM
+X-Received: by 2002:a05:6512:2509:b0:5bf:c9c6:ae92 with SMTP id
+ 2adb3069b0e04-5c0071b526dmr56719e87.7.1793970013173; Fri, 06 Nov 2026
+ 05:00:13 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,178 +66,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261105-pin-barrier-v1-1-04ebf118175a@cs.columbia.edu>
+In-Reply-To: <20261105-pin-barrier-v1-1-04ebf118175a@cs.columbia.edu>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Fri, 6 Nov 2026 12:59:36 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTxoNcx4s4L2DRXLu6VydiG2N3OqRYr+kscghp0jVVwg5g@mail.gmail.com>
+X-Gm-Features: AclHuK-w8IPMfkMD2ik_GPs_KpCTf31_7nutwDTH3Csiea4URVFMI1--f_NjCec
+Message-ID: <CA+EHjTxoNcx4s4L2DRXLu6VydiG2N3OqRYr+kscghp0jVVwg5g@mail.gmail.com>
+Subject: Re: [PATCH] KVM: arm64: Order a later pinner's accesses after the hyp mapping
+To: xuheng@cs.columbia.edu
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Quentin Perret <qperret@google.com>, Will Deacon <will@kernel.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Chuck Lever <cel@kernel.org>
+Could you also give a case in the message that a well-behaved host can
+hit? Since 7.4, two vCPUs of one VM can pin struct kvm at the same
+time from the __kvm_adjust_pc hypercall (cf533b4d3630), which then
+reads it on a CPU with MTE.
 
-[ Upstream commit f913d5d2130a584d1a027ffe3dfd88b6be2e0540 ]
+Either way:
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-nfsd4_ff_proc_layoutget() and nfsd4_ff_encode_layoutget() translate
-the file's owner and group with init_user_ns, but every other identity
-nfsd places on the wire goes through nfsd_user_namespace(). When the
-transport carries a credential from a non-initial user namespace, the
-flex file layout reports host-global IDs. The client copies those IDs
-into the AUTH_SYS credential it presents to the data server, and
-svcauth_unix_accept() resolves that credential in the transport's
-namespace, so data server I/O runs under an identity unrelated to the
-file's owner.
-
-Switching to the request's namespace introduces a second hazard.
-from_kuid() returns (uid_t)-1 when the target namespace has no
-mapping for the owner, and the IOMODE_READ arm adds one to that
-result to derive an identity for which the data server denies
-writes. The addition would wrap to zero, handing the client uid 0
-instead of an identity distinct from the owner.
-
-Translate both IDs in nfsd4_ff_proc_layoutget(), which has the
-svc_rqst, and carry the wire values in struct pnfs_ff_layout.
-from_kuid_munged() substitutes overflowuid for an unmapped owner and
-thus never returns (uid_t)-1, so the increment cannot wrap to zero.
-
-Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
-Cc: stable@vger.kernel.org
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260720141442.783935-1-cel@kernel.org?part=3
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260720163724.810227-1-cel@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[ sashal: added the missing rqstp argument to the proc_layoutget callback interface, caller and implementations ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/nfsd/blocklayout.c       |  4 ++--
- fs/nfsd/flexfilelayout.c    | 24 ++++++++++++++----------
- fs/nfsd/flexfilelayoutxdr.c |  4 ++--
- fs/nfsd/flexfilelayoutxdr.h |  5 +++--
- fs/nfsd/nfs4proc.c          |  2 +-
- fs/nfsd/pnfs.h              |  4 ++--
- 6 files changed, 24 insertions(+), 19 deletions(-)
-
-diff --git a/fs/nfsd/blocklayout.c b/fs/nfsd/blocklayout.c
-index 5eae60425e57c..bbb999c9bab99 100644
---- a/fs/nfsd/blocklayout.c
-+++ b/fs/nfsd/blocklayout.c
-@@ -18,8 +18,8 @@
- 
- 
- static __be32
--nfsd4_block_proc_layoutget(struct inode *inode, const struct svc_fh *fhp,
--		struct nfsd4_layoutget *args)
-+nfsd4_block_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
-+		const struct svc_fh *fhp, struct nfsd4_layoutget *args)
- {
- 	struct nfsd4_layout_seg *seg = &args->lg_seg;
- 	struct super_block *sb = inode->i_sb;
-diff --git a/fs/nfsd/flexfilelayout.c b/fs/nfsd/flexfilelayout.c
-index 0bc52e6bec394..3c6a80c010957 100644
---- a/fs/nfsd/flexfilelayout.c
-+++ b/fs/nfsd/flexfilelayout.c
-@@ -14,19 +14,20 @@
- #include <linux/sunrpc/addr.h>
- 
- #include "flexfilelayoutxdr.h"
-+#include "auth.h"
- #include "pnfs.h"
- #include "vfs.h"
- 
- #define NFSDDBG_FACILITY	NFSDDBG_PNFS
- 
- static __be32
--nfsd4_ff_proc_layoutget(struct inode *inode, const struct svc_fh *fhp,
--		struct nfsd4_layoutget *args)
-+nfsd4_ff_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
-+		const struct svc_fh *fhp, struct nfsd4_layoutget *args)
- {
-+	struct user_namespace *userns = nfsd_user_namespace(rqstp);
- 	struct nfsd4_layout_seg *seg = &args->lg_seg;
- 	u32 device_generation = 0;
- 	int error;
--	uid_t u;
- 
- 	struct pnfs_ff_layout *fl;
- 
-@@ -49,13 +50,16 @@ nfsd4_ff_proc_layoutget(struct inode *inode, const struct svc_fh *fhp,
- 	fl->flags = FF_FLAGS_NO_LAYOUTCOMMIT | FF_FLAGS_NO_IO_THRU_MDS |
- 		    FF_FLAGS_NO_READ_IO;
- 
--	/* Do not allow a IOMODE_READ segment to have write pemissions */
--	if (seg->iomode == IOMODE_READ) {
--		u = from_kuid(&init_user_ns, inode->i_uid) + 1;
--		fl->uid = make_kuid(&init_user_ns, u);
--	} else
--		fl->uid = inode->i_uid;
--	fl->gid = inode->i_gid;
-+	fl->uid = from_kuid_munged(userns, inode->i_uid);
-+	fl->gid = from_kgid_munged(userns, inode->i_gid);
-+
-+	/*
-+	 * Do not allow an IOMODE_READ segment to have write permissions.
-+	 * The group is left intact so group-readable files stay readable;
-+	 * nfsd_setuser() squashes an unmapped uid to the export's anon ID.
-+	 */
-+	if (seg->iomode == IOMODE_READ)
-+		fl->uid++;
- 
- 	error = nfsd4_set_deviceid(&fl->deviceid, fhp, device_generation);
- 	if (error)
-diff --git a/fs/nfsd/flexfilelayoutxdr.c b/fs/nfsd/flexfilelayoutxdr.c
-index c05d1d3e20210..4bfdfee1bf9ce 100644
---- a/fs/nfsd/flexfilelayoutxdr.c
-+++ b/fs/nfsd/flexfilelayoutxdr.c
-@@ -32,8 +32,8 @@ nfsd4_ff_encode_layoutget(struct xdr_stream *xdr,
- 
- 	fh_len = 4 + xdr_align_size(fl->fh.size);
- 
--	uid.len = sprintf(uid.buf, "%u", from_kuid(&init_user_ns, fl->uid));
--	gid.len = sprintf(gid.buf, "%u", from_kgid(&init_user_ns, fl->gid));
-+	uid.len = sprintf(uid.buf, "%u", fl->uid);
-+	gid.len = sprintf(gid.buf, "%u", fl->gid);
- 
- 	/* data server entry: deviceid + efficiency + stateid + fh list +
- 	 * user + group + flags + stats_collect_hint
-diff --git a/fs/nfsd/flexfilelayoutxdr.h b/fs/nfsd/flexfilelayoutxdr.h
-index 8e195aeca0237..3e2dc4d070f8d 100644
---- a/fs/nfsd/flexfilelayoutxdr.h
-+++ b/fs/nfsd/flexfilelayoutxdr.h
-@@ -35,8 +35,9 @@ struct pnfs_ff_device_addr {
- struct pnfs_ff_layout {
- 	u32				flags;
- 	u32				stats_collect_hint;
--	kuid_t				uid;
--	kgid_t				gid;
-+	/* Values to encode; nfsd4_ff_proc_layoutget() has mapped these */
-+	u32				uid;
-+	u32				gid;
- 	struct nfsd4_deviceid		deviceid;
- 	stateid_t			stateid;
- 	struct nfs_fh			fh;
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index 3af22badd70f5..9bad4740101fa 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -2260,7 +2260,7 @@ nfsd4_layoutget(struct svc_rqst *rqstp,
- 	if (atomic_read(&ls->ls_stid.sc_file->fi_lo_recalls))
- 		goto out_put_stid;
- 
--	nfserr = ops->proc_layoutget(d_inode(current_fh->fh_dentry),
-+	nfserr = ops->proc_layoutget(rqstp, d_inode(current_fh->fh_dentry),
- 				     current_fh, lgp);
- 	if (nfserr)
- 		goto out_put_stid;
-diff --git a/fs/nfsd/pnfs.h b/fs/nfsd/pnfs.h
-index 4f4282d4eeca4..c29de1795b2cb 100644
---- a/fs/nfsd/pnfs.h
-+++ b/fs/nfsd/pnfs.h
-@@ -29,8 +29,8 @@ struct nfsd4_layout_ops {
- 	__be32 (*encode_getdeviceinfo)(struct xdr_stream *xdr,
- 			struct nfsd4_getdeviceinfo *gdevp);
- 
--	__be32 (*proc_layoutget)(struct inode *, const struct svc_fh *fhp,
--			struct nfsd4_layoutget *lgp);
-+	__be32 (*proc_layoutget)(struct svc_rqst *rqstp, struct inode *inode,
-+			const struct svc_fh *fhp, struct nfsd4_layoutget *lgp);
- 	__be32 (*encode_layoutget)(struct xdr_stream *,
- 			struct nfsd4_layoutget *lgp);
- 
--- 
-2.53.0
-
+Cheers,
+/fuad
