@@ -1,97 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793941173;
-	b=aBFX+FZPpQxkdoWXHxqF4aDDyAiJtnYQ7PE5Mkw0eYe6+bEw606KjrZFUu1Tp71nShpW
-	 SgNLUT4OUWEIfVHwyEEesWRDAalS7UppD846rFpcBCfxdrn+ygjxo+YpwIvq/P6tb+cUe
-	 GFPsiHzAmutpp456UJNRIe5mYW0ZbEkD6uj9M7hTNcWrkxwmlAGruWnY5fUjZ+T7pl4m0
-	 zlNQTqOLEIdN3NML2tQrKyDFi1g3sTu5Ylun3FSKkk3oZsRuaHJP3Jn+s0/Nk825yBUhf
-	 OonRkgnDwhTJsz0OsUujJYGQf5ZmuPtcX8ikQT1ID9ZjTv93HeR+7EVAmDDeWrR8gZw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793941173;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=nk53h9xGi0i8b4U2D9YQl5+MCk7G9ktrexEt257Eljk=;
-	b=Yx8uiqLvmdzwD3K7aRq0qQJo9Y15sQWRVUX7y+J19MnMOAbHLVbC8uozvDRoXdZhbyz1
-	 dm9cSRgwvJec6yN5kd+kLpikq0pyAWUgQ2wx2UjAtYxL2AHgSz/y5/qHQQi3/TYDRv619
-	 6vlO9EJ6+jqSUky4EDSfQzBdR1WCxtYGW4nAdXF5zCxl2jA8ph8HrdQhL8/MiKXH/LnrI
-	 RCNJktbygsoQ/bYKuC8ltnpFR/XppA3+XRpWjIbxTKBMYK6Cgv3JXzG2A0F0bkj385xy5
-	 vBWWc7A3pTWhA2hIpg4yE+8oMnEN+wXDn1X/jp1iaDFYqV83wNWfd5wxacWSx/t6CKA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ESnQB5SX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.63.102
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793941312;
+	b=5COrXGNvzrZFwa+ZBJ6FqGsZ8ptlVUYeaF1GChcKsZj7lQkrcmBU4qNzShFluDMHE7EB
+	 BkTLln6PdVfj1GpbckfohXW9H12MUngUoE8MeBw8hFDOhUe6DoyyNgGlIZV3qWFOCU9BA
+	 18c5CIjQr45uGuMWcTLDOzS9mL/++GUPYmzsPHevSHAF87VrgWIW+9WwiyE8cOsYLEbtk
+	 0XSEJJRtsR1TGgBA2mxs1fgKdICU2Z5cem6fx9x0DQT3h5rK9X0sZ/UHlNSHCC2/qKwGg
+	 RSdIvtuOH3vQAUNueNHEOnQ/dLAMuV/rTzSfvuFJ9VOp56OtmkDOlm2ysfFvduaocsQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793941312;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-NC-CID;
+	bh=Y0AUU5E7/+rCxN0vdJ7as9H6oMmR7pe5wklE24oi3Ww=;
+	b=vWA0OpFZrpvr3dk0//l1wlM0k7hoX4I+FaUmXSwOeX1z/gp6GNgqc3WHolaWQaeAzIOV
+	 yEYoLxMicba89VphGAVkPpUiAxbjT4gcFVUVohejERgu55KkVXgJJaMjVc4tPTYYy1XlF
+	 p+WNn727cR82POXNd0nV0ya/Gi4TIuPMBMpj8Fs46j26ga/jw00aoP8TNa8MdHbBlpPM1
+	 TWQfAvxq3ahnWwGti5nfDroIZd9VmKqQYj+b1eeNlbrWASspMx+5x/9WPc9V3grm1NFCu
+	 VR7aQiO+jmk84HGJrB+CwlyD2E9u1K7N9orZbOaF0Th4gss+mwP4lVl0Z3qCLwN2EsA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=leemhuis.info;
+	spf=pass smtp.mailfrom=leemhuis.info;
+	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=RLrzxMft;
+	arc=none smtp.remote-ip=188.68.63.102
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649E2606A32C
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 04:59:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 649E2606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E70606A32C
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 05:01:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75E70606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ESnQB5SX
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4cac7a7d3cso23942066b.3
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 20:59:33 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793941172; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eSsXwjxksQlCSfsHLHTJuqM4bj2zOJxuF3nJ15OreOasTd9iDyZ/xu8wzJrG+XuKjH
-         lTexmnv57P70j/459kRFFYMZ3lwRYs+5hjKNT5D9POny4vWf6/1dGnR07YYbXMzLW/B9
-         lJ9z3q/25M95lb6rRsH73Qj46mSSj/7f7HhZ+I0ijwlFGr5N741cg5A2Q9vL5PNvMU6X
-         lSlLirK/j7RceRQpz7HeT0HIe0y3Ea2WZ4oYiRbEx5SeTTQsEQfXohdIV0/4jb+7YsA4
-         wwD1NGtoM97vVJSHml14E3zM0bkK2O/S2xj0j1XYIa4KOnjrqbS6d5u8t4qDuC8dwD4p
-         9L2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=nk53h9xGi0i8b4U2D9YQl5+MCk7G9ktrexEt257Eljk=;
-        fh=sy8jaBg8s7jHR/eZQkgmnmP2wR1HIGPK3DBKB5o9wu0=;
-        b=VCHthKsgyzojXwonRaCV3oLZEWwMvjfy8B/cSOXLTT0VMCupcmJyemC3MmCe7StCtF
-         REugJRW2gBqUjCyOnDk2sjtGadH83EPqRVq/UmdwsKqJ/aW/JZqF4tomBjVCX4dTAuZl
-         HDod5HzWxS3tQt2ZxvGU4ulynjHsX3LWIzSsXPgb+soWkpBTdk4YX2/ZXC1GjRAN6E03
-         ngio9LbHAk6J7mfKMS3Jx+1z9cEJcwm3t5MWp3GcriKfW3NpVMVfPTkmNM0IFMPHD/Um
-         JdujLfLHBzCwxKMUh3a+5LLka1jFV/ziDMZV4L6KqCtEKUM5ZGn8NlXx9VEeGxR//Jvw
-         X7kg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793941172; x=1794545972; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nk53h9xGi0i8b4U2D9YQl5+MCk7G9ktrexEt257Eljk=;
-        b=ESnQB5SXngposlYGfWXteZKpzmQdpN2v3wkEdKkj7ePkswkwBH40yzRKijfjaHGfoG
-         BZH5RS1JoUo3wQfDbxoqJoS1J3KrBLHk9+EpgI2sqWqWG51cvTdMckyoXb+hiKxwbQqd
-         sEvUF0l9ZI/QIsqyznngu0pWX5hHCaed3T1HKNaAJMipa5uyh7IAB8y36+82bMN0DL81
-         0syn1FJTN+2Xre42vGhxcIIgN4c0YSBWkxCGXWlhy84NsOma8DOz9uYsLkvoGhXJPiCt
-         QHFcJ8lcLaz8VXa1fWMALzF5myV3GwSD3km8ydMpSl3FQcLUjMa0gk4g7BgWhBvUf+sI
-         /f5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793941172; x=1794545972;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nk53h9xGi0i8b4U2D9YQl5+MCk7G9ktrexEt257Eljk=;
-        b=Vbyc0N7WYvLmiPp7pN7YfNr0c1Rzer/UQMfiM7EIw1Sy41NUQYBfs4wtxU4FflPjT9
-         +Bmc2JHCPKPbTGrM3ws57hFHbhmmO7a9JQgOnaa5nbVsBcDCkf4Ocvsb077AF0+FiMRL
-         //TrbY5gwrMq2NGBNY9MC/lwEkv701vXETBmi1Us9cPd5dCpqkRA2vK0p5DLhfwogU2o
-         5O3gh2pV0VGFU1b6vKWX/4TijeC42OBjlF1YSU/dcRtFCcPCAynE/kuamCIDQ8/UpLW+
-         38lzq/i2GyhN4qxrV5FZcN6P5E40Lgx9rHDUfPxuxfqG+Ej1CSu9fXelX/2F6SxEgAX0
-         U+rw==
-X-Forwarded-Encrypted: i=1; AKwUvBxBkCCrdanL+mLx9yLMBVi9lb50XHo1WWRxl2KBCxYgtmAsXf3XDM/Se/9LBaDTMcv50fyeWnQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8HO4aZFW5NHQIForOp2mcpaqv2mWbVCNYY+lyAi14jjhHo98zT
-	LmQqNYMWwZFhgVuTA/bTZcHkgp+aTNWnfqSK+hWe/8Rn1z+VfmQJnMCvI+CHwJUmjY6u+u4iY33
-	MSwyyYM27+nWp0lYDhuGhEPF7/DAyyos=
-X-Gm-Gg: AYBFou1h5HRYDumyl05ouk/PFlpYDbpM/FifjxP3moVLbhbYgBD3+1WN81oXdR9SsGl
-	6PENPAOPNjTV4P/LOdwTC4mZyIofFOPmoPp0+OsV3+akqO3j5mQc2RmJZbgOB2sjwoBPjJuObQP
-	t7RP0rvMVuMMBo8oVh+V3/+S1EiWg0PhuPrIa7X2A3+Xnhzbor4ubBpJE8lMgRTnYxKHBLiRwzj
-	IlPdnffrXfQlj5dxiW1bTznS9eYbgyiytCYYnfjNfTliLckyXdXzsqTax0nX+B4CSghYvXvYI12
-	V2vfdd/+/lltc8rGnALzZ7UOHH0W/18paaHamy/U0l/ZcT+vdjKvmsz82K9VtNC3O44hfi2dRxy
-	33nZr9OeLHNET2OYMpBjq7FhyaEdlXaSGx0Fjnw==
-X-Received: by 2002:a17:907:d03:b0:c41:1e13:8891 with SMTP id
- a640c23a62f3a-c4d34a64653mr110110366b.9.1793941171526; Thu, 05 Nov 2026
- 20:59:31 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=RLrzxMft
+Received: from mors-relay-2502.netcup.net (localhost [127.0.0.1])
+	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4jLRqB2Ngtz6J7C;
+	Fri,  6 Nov 2026 06:01:42 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1793941302;
+	bh=7qQnouvD+JAdZNOi6Kwdiln3omcULuDZkHSCg1KBGu4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RLrzxMftgd0UUqqTRx6cTwLfp5Vzry9TWyQSMrYwKszSReiHRGi2fTuR5CTTjvDZM
+	 9j9nB6hh02TQkZRZnDy1hwdBcxSBlFZYbL64VVAxwx6uHxYBGM9xpzEr8Uw6cyYY9i
+	 hlBaEqebkrT8l1NCl3xLwOvR4opzA0Wef7v8Ji1TluuOkCqfJCAzCB2llx9TH+ErNi
+	 JICmrUtvD+lLlqBnWGaNAVBgHlbA7SU9v3QsWJfquW7VKF7qczcTJq1SgsXXQAH0vg
+	 ACDN5q65y5iYRqCY40sDKPlpVM36So3ipddE8VuoBtU0vafqlGc1fmE6FkzCwDeGm4
+	 tLJT1HgzIhvLA==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4jLRqB1fkvz4xXG;
+	Fri,  6 Nov 2026 06:01:42 +0100 (CET)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jLRq959rbz8sgW;
+	Fri,  6 Nov 2026 06:01:41 +0100 (CET)
+Received: from [192.168.44.188] (unknown [185.238.219.126])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 792215FA05;
+	Fri,  6 Nov 2026 06:01:32 +0100 (CET)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 185.238.219.126) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[192.168.44.188]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <afd31f34-5669-4d65-ad74-caaca5b7c176@leemhuis.info>
+Date: Fri, 6 Nov 2026 06:01:31 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,76 +74,146 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Shantanu Sarkar <shantanu.connect58@gmail.com>
-Date: Fri, 6 Nov 2026 10:29:14 +0530
-X-Gm-Features: AclHuK_6yVfvd4MvFxvFI_KwNC62wXAmnA8mSmYy2zvtvvaMyEA2xYUb-GFYXG0
-Message-ID: <CAK8Z4SCRhWcbL5i6NgwiLWDCX48YbMfcJ_+nFrGxKMZiN1vG3w@mail.gmail.com>
-Subject: [REGRESSION] media: em28xx: list_del corruption on dual-TS disconnect
-To: "Jiangong.Han" <jiangong.han@windriver.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, regressions@lists.linux.dev, 
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] NULL pointer dereference in ext4_mb_load_buddy_gfp
+To: Marek Becka <marek.becka@sh.cz>, stable@vger.kernel.org
+Cc: regressions@lists.linux.dev
+References: <3af016db-ce2d-4ed6-8f9a-13f31eb3ea9d@sh.cz>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <3af016db-ce2d-4ed6-8f9a-13f31eb3ea9d@sh.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <179394129276.378571.17530318651233681891@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 792215FA05
+X-NC-CID: c7kBoASD3dW7g/tci+B1BH5TOUJ/UWmpALO/uSnIhftwEBMlGkY=
 
-Hi,
+On 11/6/26 00:01, Marek Becka wrote:
+> After updating from 6.1.190 to 6.1.191 we are expecting an NULL pointer
+> dereference in function ext4_mb_load_buddy_gfp on multiple servers. It
+> looks like folio_test_uptodate is called with NULL folio pointer in fs/
+> ext4/mballoc.c:1536 .
 
-Commit 826915b6b65e ("media: em28xx: fix use-after-free of
-dev_next->devlist on disconnect"), merged for v7.3 and backported to
-stable, makes em28xx_close_extension() unconditionally do
+From a very quick look this seems to be the problem that was reported
+here earlier:
+https://lore.kernel.org/linux-ext4/20261102-ext4-ntfs3-null-folio-v1-0-4fd91ee23a4a@elliotjb.com/
 
-if (dev->dev_next)
-list_del(&dev->dev_next->devlist);
+A fix for that is queued.
 
-On a dual-TS board whose secondary device is not audio-only (the
-normal DVB case), dev_next->devlist was never added to em28xx_devlist.
-em28xx_duplicate_dev() kmemdup()s the zero-allocated primary in
-em28xx_usb_probe() before request_modules() links the primary, so
-dev_next->devlist is {NULL, NULL}, and the list_del() on disconnect
-crashes. On current mainline (7.4.0-rc1, 05441d697f7f), with
-CONFIG_DEBUG_LIST=y:
+If it's a different problem, please speak up.
 
-  em28xx 5-1:0.244: Closing input extension
-  list_del corruption, ffff88810de88250->next is NULL
-  ------------[ cut here ]------------
-  kernel BUG at lib/list_debug.c:53!
-  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-  CPU: 1 UID: 0 PID: 32 Comm: kworker/1:1 Not tainted 7.4.0-rc1 #1 PREEMPT(full)
-  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009)
-  Workqueue: usb_hub_wq hub_event
-  Call Trace:
-   em28xx_close_extension+0x15a/0x390
-   em28xx_usb_disconnect+0x16b/0x2f0
-   usb_unbind_interface+0x295/0x9c0
-   device_release_driver_internal+0x48d/0x7d0
-   bus_remove_device+0x444/0x560
-   device_del+0x523/0x8f0
-   usb_disable_device+0x3d4/0x8d0
-   usb_disconnect+0x346/0x9a0
-   hub_event+0x1bd6/0x4d10
+Ciao, Thorsten
 
-Reproducer: syzbot's C reproducer for the bug the commit fixes
-(https://syzkaller.appspot.com/bug?extid=99d6c66dbbc484f50e1c), with
-one byte changed so the emulated 2040:026d device (WinTV-dualHD
-01595) exposes a DVB isoc endpoint 0x84 instead of the audio endpoint
-0x83, i.e. in the memcpy of the extra endpoint descriptor:
+> There is an example of this crash:
+> 
+> [ 1678.841763] BUG: kernel NULL pointer dereference, address:
+> 0000000000000000
+> [ 1678.841821] #PF: supervisor read access in kernel mode
+> [ 1678.841854] #PF: error_code(0x0000) - not-present page
+> [ 1678.841877] PGD 0 P4D 0
+> [ 1678.841896] Oops: 0000 [#1] PREEMPT SMP PTI
+> [ 1678.841918] CPU: 11 PID: 10142 Comm: kworker/u82:2 Not tainted
+> 6.1.191 #1
+> [ 1678.841946] Hardware name: Supermicro Super Server/X10DRW-E, BIOS
+> 2.0b 07/26/2016
+> [ 1678.841973] Workqueue: writeback wb_workfn (flush-253:4)
+> [ 1678.842006] RIP: 0010:ext4_mb_load_buddy_gfp+0xb5/0x370 [ext4]
+> [ 1678.842105] Code: c9 89 e8 99 f7 3c 24 4c 63 e8 89 54 24 0c ba 01 00
+> 00 00 4c 89 ee e8 4a e3 0d cf 49 89 c6 48 3d 00 f0 ff ff 0f 87 1f 01 00
+> 00 <48> 8b 00 a8 04 0f 84 09 01 00 00 49 8b 06 a8 01 0f 85 fe 00 00 00
+> [ 1678.842160] RSP: 0018:ffffd28d64597620 EFLAGS: 00010207
+> [ 1678.842184] RAX: 0000000000000000 RBX: ffffd28d64597700 RCX:
+> 0001a00330001005
+> [ 1678.842210] RDX: ffff8e100065f908 RSI: 0001a00330001005 RDI:
+> ffff8e10208a6600
+> [ 1678.842236] RBP: 0000000000000064 R08: 0000000000000001 R09:
+> ffff8e104df781a0
+> [ 1678.842261] R10: ffff8e100065f908 R11: 0000000000000090 R12:
+> ffff8e008cde8800
+> [ 1678.842287] R13: 0000000000000064 R14: 0000000000000000 R15:
+> ffff8e0094e062f0
+> [ 1678.842311] FS:  0000000000000000(0000) GS:ffff8e1fbf840000(0000)
+> knlGS:0000000000000000
+> [ 1678.842340] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [ 1678.842362] CR2: 0000000000000000 CR3: 0000000154c10001 CR4:
+> 00000000003706e0
+> [ 1678.842387] DR0: 0000000000000000 DR1: 0000000000000000 DR2:
+> 0000000000000000
+> [ 1678.842413] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7:
+> 0000000000000400
+> [ 1678.842438] Call Trace:
+> [ 1678.842454]  <TASK>
+> [ 1678.842471]  ext4_mb_find_by_goal+0x91/0x260 [ext4]
+> [ 1678.842551]  ? __ext4_handle_dirty_metadata+0x5c/0x1b0 [ext4]
+> [ 1678.842620]  ext4_mb_regular_allocator+0x93/0xcc0 [ext4]
+> [ 1678.842705]  ext4_mb_new_blocks+0x7ba/0x1060 [ext4]
+> [ 1678.842792]  ? ext4_find_extent+0x18e/0x480 [ext4]
+> [ 1678.842864]  ext4_ext_map_blocks+0x951/0x18d0 [ext4]
+> [ 1678.842938]  ? release_pages+0x15a/0x490
+> [ 1678.842967]  ? __pagevec_release+0x1b/0x60
+> [ 1678.842992]  ext4_map_blocks+0x1b1/0x5c0 [ext4]
+> [ 1678.843073]  ext4_writepages+0x87e/0x1150 [ext4]
+> [ 1678.843162]  do_writepages+0x6e/0x1d0
+> [ 1678.843186]  __writeback_single_inode+0x41/0x350
+> [ 1678.843213]  writeback_sb_inodes+0x1ed/0x4c0
+> [ 1678.843239]  __writeback_inodes_wb+0x4c/0xf0
+> [ 1678.843263]  wb_writeback+0x172/0x2f0
+> [ 1678.843286]  wb_workfn+0x2b1/0x510
+> [ 1678.843310]  process_one_work+0x1d1/0x3a0
+> [ 1678.843334]  worker_thread+0x4d/0x380
+> [ 1678.843354]  ? process_one_work+0x3a0/0x3a0
+> [ 1678.843374]  kthread+0xda/0x100
+> [ 1678.843396]  ? kthread_complete_and_exit+0x20/0x20
+> [ 1678.844048]  ret_from_fork+0x22/0x30
+> [ 1678.844673]  </TASK>
+> [ 1678.845285] Modules linked in: netconsole binfmt_misc tcp_diag
+> inet_diag 8021q garp stp mrp llc ipt_REJECT nf_reject_ipv4 xt_multiport
+> xt_comment xt_tcpudp xt_u32 nft_compat nf_tables nfnetlink xfs
+> intel_rapl_msr intel_rapl_common intel_uncore_frequency
+> intel_uncore_frequency_common sb_edac x86_pkg_temp_thermal
+> intel_powerclamp coretemp ipmi_ssif kvm_intel bfq kvm irqbypass
+> ghash_clmulni_intel sha512_ssse3 sha512_generic sha256_ssse3 sha1_ssse3
+> ast drm_vram_helper aesni_intel crypto_simd cryptd snd_pcm mei_me
+> snd_timer drm_ttm_helper iTCO_wdt intel_pmc_bxt snd sg ttm
+> iTCO_vendor_support joydev evdev rapl soundcore intel_cstate
+> drm_kms_helper pcspkr ioatdma watchdog intel_uncore mei acpi_ipmi
+> ipmi_si ipmi_devintf ipmi_msghandler acpi_pad acpi_power_meter button
+> mii bonding tls drm configfs fuse ip_tables x_tables autofs4 ext4 crc16
+> mbcache jbd2 raid10 raid456 async_raid6_recov async_memcpy async_pq
+> async_xor async_tx xor raid6_pq libcrc32c crc32c_generic raid0 multipath
+> linear
+> [ 1678.845432]  hid_generic usbhid hid dm_mod raid1 md_mod sd_mod t10_pi
+> crc64_rocksoft crc64 crc_t10dif crct10dif_generic ahci libahci xhci_pci
+> xhci_hcd libata ehci_pci ehci_hcd crct10dif_pclmul crct10dif_common
+> crc32_pclmul crc32c_intel usbcore scsi_mod igb i2c_i801 lpc_ich
+> i2c_smbus i2c_algo_bit scsi_common usb_common dca wmi
+> [ 1678.853096] CR2: 0000000000000000
+> [ 1678.853796] ---[ end trace 0000000000000000 ]---
+> [ 1678.911623] RIP: 0010:ext4_mb_load_buddy_gfp+0xb5/0x370 [ext4]
+> [ 1678.912558] Code: c9 89 e8 99 f7 3c 24 4c 63 e8 89 54 24 0c ba 01 00
+> 00 00 4c 89 ee e8 4a e3 0d cf 49 89 c6 48 3d 00 f0 ff ff 0f 87 1f 01 00
+> 00 <48> 8b 00 a8 04 0f 84 09 01 00 00 49 8b 06 a8 01 0f 85 fe 00 00 00
+> [ 1678.913921] RSP: 0018:ffffd28d64597620 EFLAGS: 00010207
+> [ 1678.914622] RAX: 0000000000000000 RBX: ffffd28d64597700 RCX:
+> 0001a00330001005
+> [ 1678.915341] RDX: ffff8e100065f908 RSI: 0001a00330001005 RDI:
+> ffff8e10208a6600
+> [ 1678.916048] RBP: 0000000000000064 R08: 0000000000000001 R09:
+> ffff8e104df781a0
+> [ 1678.916747] R10: ffff8e100065f908 R11: 0000000000000090 R12:
+> ffff8e008cde8800
+> [ 1678.917449] R13: 0000000000000064 R14: 0000000000000000 R15:
+> ffff8e0094e062f0
+> [ 1678.918153] FS:  0000000000000000(0000) GS:ffff8e1fbf840000(0000)
+> knlGS:0000000000000000
+> [ 1678.918860] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [ 1678.919574] CR2: 0000000000000000 CR3: 0000000154c10001 CR4:
+> 00000000003706e0
+> [ 1678.920297] DR0: 0000000000000000 DR1: 0000000000000000 DR2:
+> 0000000000000000
+> [ 1678.921018] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7:
+> 0000000000000400
+> [ 1678.921736] note: kworker/u82:2[10142] exited with irqs disabled
+> [ 1678.922508] ------------[ cut here ]------------
 
--"\x83\x99\x35\x19\x1f"
-+"\x84\x99\x35\x19\x1f"
-
-Results in QEMU (x86_64, syzbot's upstream config, 5 min per boot):
-  - tree at 826915b6b65e^ (before the commit):  no crash (3 of 3 boots)
-  - same tree with 826915b6b65e applied:         crash above (3 of 3)
-  - mainline 05441d697f7f (7.4.0-rc1):           crash above (2 of 2)
-The unmodified syzbot reproducer (audio-only secondary) is fixed by
-the commit, as intended. I have not tested real hardware or the stable
-backports (6.12.y, 6.18.y, 7.2.y, 7.3.y carry the same change).
-
-How this was found: we were testing AI coding agents on old syzbot
-bugs, and an AI-assisted review of the candidate patches flagged this
-path; I then confirmed it with the reproducer above. No AI-written
-patch is included.
-
-#regzbot introduced: 826915b6b65e
-
-Thanks,
-Shantanu
