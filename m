@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793974442;
-	b=gPAlvXtKikxyDQkvJEM8pfERtHfogM4/QbapTqd4HRQ84nxT86LenX4joD7hDVkLQqNg
-	 JFjumO5hOJnAy2rDKCBHNQUBh58oP9NS1tBNQjpuLUXSxgg04v6bxMbJjU97u8DDJ7flf
-	 qfzSOI/jGvWJULVCHqFL89JHH5gBcpi2It/BfGAelyIP4SE9IBwnYx5MdKVBJbsjkJTK6
-	 SBbBeNeGSyKZxedJy7C6Yt8PX8R5zErqbLe/tg4rpfQgzw0Oz0+KVRn35rkf1GRJFPREj
-	 kdZ/4WZFd5di7yiNXLUA0XbavzCFykmvaGNZkcozl5qKZF/lhgsHH66lbtRPSaTsdXQ==
+	t=1793974464;
+	b=BTCahLEITg6k++rKHZvQysvKTSEVNZCSFHThbZoD7lBaTCPevtwtqhqijWPxzg80moDo
+	 l1LZ9fLYDcOtC/5gB53U67Zm+BelfMgIqN8QFDJX+sPUZeiaQytW9PFV0bYTMn+CXVs+5
+	 STtAdPuWWLW30kPMsG2Zdef0eIYoVFdexyFjYi3nygUTFcDdIboleG1n2KKNVcKkoUtXP
+	 oHfRdkpFyFn+3KvEGLn5d3uiptxtulUk4o4GBIuRbwAM3IMZlX0r5Xy0IfO5W9GfwD4gi
+	 JGA49tzmUE2zx9g5a2nmipEbmY0RVnGJDQ3rU+X0yJE+3/vWk5QkF+mdvavgFeNEbVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974442;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974464;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=44SsE/9iYJWI+80sT2EB2TsgJX0RhDrAshfrHbZKawg=;
-	b=OHpxvxMnHVlesAT90vo0WVrYiVVo2ADY6kfPLsUD16x152HBF2/Au3SV3I1vpFHzfngc
-	 sirmrzJjYArFP8JqCgJWWk1tNLKOqgK95DN+BQcZeecmvVuBQwdrONcLj2/1ZbbprFcCi
-	 7EYA4DlI8QTn8wJSGWYCiYxTtvkNGnBk4DdMyLZO3hBQ5xZ+E1mOB6EWgK1nJmMlAzaZz
-	 MZRyGdDxh47GAVtUaxTkQKnCqlZpu2523XzvkASILwf/+q5ySYTMXdp5yJU6H67wZMwYL
-	 SCL+20OpBfii0qV/UyHRGVXznJDKzhpY4eriMFWgwtoG+wddgA40qKqJGmuvmro0fvw==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=gz00Y9A4JQKExsb5+4mSdcu8vdeABT5KYMirIqERa1s=;
+	b=qS4+y98c/lbuCJLVOuMa00i6A3FzVHCXUA8zVYh7JOLuLNbmIBArom32BzOZzMe9UFr2
+	 /lFEGjgrJ6V/TmSm7Z530kal3l+w+Djtn6OD4yeseNa0w+tJ1yyCuVhHvyKCU1B/jIAeI
+	 ICJilEoB6uZeNeYYbO74qT+SrWixYl0ElelUusBWypuZFT5VshF7ZT0LYD06xPUwFqnMW
+	 pd33bRMzmpX8QQLNMm4U2UwGENNO0j3FW3eoN0SYXR5ixHRXRp0ydMtX8uFi9COMRvedb
+	 w6lhQO0wHxakCgqrJqKYUxDiPvVDSQHRpB22CbiQHDfMpXawoN4qGT3iTTl4DY3O3PQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q+miJQyG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OqqnYD4q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57149606A336
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:14:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C849606A33C
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:14:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q+miJQyG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 698801F008A1;
-	Fri,  6 Nov 2026 14:14:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OqqnYD4q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1331F0089F;
+	Fri,  6 Nov 2026 14:14:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793974441;
-	bh=44SsE/9iYJWI+80sT2EB2TsgJX0RhDrAshfrHbZKawg=;
+	s=k20260515; t=1793974464;
+	bh=gz00Y9A4JQKExsb5+4mSdcu8vdeABT5KYMirIqERa1s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q+miJQyGVFUMg2IxEQP+lt1D3O+JFeHfogyb0Ddidk67RBlMnMvThEQ1H/32x/KaB
-	 jFOTEUJeQqNLsENu0mL7wWxyzGUzU/qjh3FGA6nBU6bRAyND0dWseUkbBJ2zMjd7LQ
-	 ITnsndcxYkyfzq3CyWqLvxmppPCGhioa02kSCcDtRcZT9uU+cXkEPwdaIPLaPP/RaO
-	 93uz8M9jPeHYFGfMnEP0fle7h8lgSeJlIBmpgL+KKEXWv9u0UB+xEv+jhaKOR2PX5T
-	 6SZ6Af0SgMBFlGLGY3MzlKCGLD0qNqFDc+iLsE6oX2FKIiDMmco0jIYUMxwNiTqZ/y
-	 hqkIpnFenwVWg==
+	b=OqqnYD4q3fZgZMquiEfz1OE9ijSU6h92asZCaCNYRreQREvblyQrrmZ1A9Y5uTPL+
+	 irTq1yMJCqUziJBX+vJCBUzYwqI1KaYysz+0lzJJP5YqdJUqsY9j/zPuAm78j2sxIK
+	 4JxPCqtfpWYHwnkJAkwjXITpdkxEUKUUBhTw3W12L9AekeR/urKGY5zzN2OnREkl2r
+	 Pz9k0Ud+dq3TSSL6dD6s00p9RrYSj2geZW5iYkMpWSb7yOE0/U+4Fuz/WSHLbH60s+
+	 pGiWn9xb4W23e2jJsdSa8bbgOM352skGDEEnYjVsEDH09/Bxr4qBhatMBLaTPLaoMr
+	 g4/uh9K9TjOdw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	Chuck Lever <cel@kernel.org>,
+Cc: Sean Christopherson <seanjc@google.com>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Stefan Teodorescu <fane@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] SUNRPC: fix oversized GSS proxy token copy
-Date: Fri,  6 Nov 2026 09:14:00 -0500
-Message-ID: <20261106141259.246945-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] KVM: nSVM: Reject KVM_SET_NESTED_STATE if L1 has EFER.LMA=1 && EFER.LME=0
+Date: Fri,  6 Nov 2026 09:14:21 -0500
+Message-ID: <20261106141258.286432-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110401-ranting-untimed-faa6@gregkh>
-References: <2026110401-ranting-untimed-faa6@gregkh>
+In-Reply-To: <2026110438-espionage-padding-358f@gregkh>
+References: <2026110438-espionage-padding-358f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,52 +60,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit 62319c2534b603b416fa2aa2f3ef18c311f75010 ]
+[ Upstream commit 5dc500a354cc8e109df678076ae3488094649468 ]
 
-gss_read_proxy_verf() allocates one page per token chunk, but it copies the
-entire linear head of an RPC request into in_token->pages[0]. A UDP datagram
-can leave more than PAGE_SIZE bytes in the linear head, so a large
-RPCSEC_GSS INIT token overwrites following pages.
+Reject KVM_SET_NESTED_STATE if the incoming L1 host state has what is
+effectively an impossible EFER combination of LMA=1 but LME=0, i.e. if the
+state says long mode is active but not enabled.  Unlike VMX, SVM doesn't
+have an explicit consistent check for the illegal combination; presumably
+hardware simply ignores EFER.LMA if EFER.LME=0.
 
-Copy the linear head in page-sized chunks before switching to the request
-page array. The linear head itself can span multiple pages.
+Unfortunately, KVM doesn't ignore EFER.LMA in this case and consumes the
+illegal state when constructing the shadow MMU for L2.  E.g. if userspace
+also clears CR4.PAE, then kvm_calc_cpu_role() will compute a role with 4 or
+5 levels of paging, but shadow_mmu_init_context() will wire up the MMU to
+use the paging32 template, which maxes out its levels at 2.
 
-Fixes: 5866efa8cbfb ("SUNRPC: Fix svcauth_gss_proxy_init()")
+Note, the "real badness" is effectively the same as what happened with the
+nVMX bug fixed by commit 112e66017bff ("KVM: nVMX: add missing consistency
+checks for CR0 and CR4").  Unfortunately, the sanity check added by commit
+72e2fb24a0b0 ("KVM: x86/mmu: Bug the VM if a vCPU ends up in long mode
+without PAE enabled") doesn't work for this case, since L2 state is active
+at the time of the page fault, but it's L1 that has the bad state.
+
+Fixes: cc440cdad5b7 ("KVM: nSVM: implement KVM_GET_NESTED_STATE and KVM_SET_NESTED_STATE")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Assisted-by: Codex:gpt-5
-Link: https://patch.msgid.link/20260910125120.3798995-1-Jeremy.Jean@oss.cyber.gouv.fr
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[ sashal: adapted the copy source and length calculation to argv->iov_base and argv->iov_len instead of XDR stream pointers ]
+Cc: Yosry Ahmed <yosry@kernel.org>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Link: https://patch.msgid.link/20260902232028.2767071-2-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[ sashal: adjusted context for __nested_vmcb_check_save() instead of nested_vmcb_check_save() with a boolean argument ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/auth_gss/svcauth_gss.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ arch/x86/kvm/svm/nested.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/sunrpc/auth_gss/svcauth_gss.c b/net/sunrpc/auth_gss/svcauth_gss.c
-index ab99ffb464ffa..8ebebbdef911d 100644
---- a/net/sunrpc/auth_gss/svcauth_gss.c
-+++ b/net/sunrpc/auth_gss/svcauth_gss.c
-@@ -1183,10 +1183,11 @@ static int gss_read_proxy_verf(struct svc_rqst *rqstp,
- 	}
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index 141f0a6388e34..a4019175e39d7 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -1768,6 +1768,7 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
+ 	if (!(save->cr0 & X86_CR0_PG) ||
+ 	    !(save->cr0 & X86_CR0_PE) ||
+ 	    (save->rflags & X86_EFLAGS_VM) ||
++	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)) ||
+ 	    !__nested_vmcb_check_save(vcpu, &save_cached))
+ 		goto out_free;
  
- 	length = min_t(unsigned int, inlen, argv->iov_len);
--	if (length)
--		memcpy(page_address(in_token->pages[0]), argv->iov_base, length);
-+	for (to_offs = 0; to_offs < length; to_offs += PAGE_SIZE)
-+		memcpy(page_address(in_token->pages[to_offs >> PAGE_SHIFT]),
-+		       (char *)argv->iov_base + to_offs,
-+		       min_t(unsigned int, length - to_offs, PAGE_SIZE));
- 	inlen -= length;
--
- 	to_offs = length;
- 	from_offs = rqstp->rq_arg.page_base;
- 	while (inlen) {
 -- 
 2.53.0
 
