@@ -1,58 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793935602;
-	b=i9YuJ9xrFAmbyx58EzqmkcgBdbgNAN1GyNxdywZ5kf8hHfMEJ5QefvWZotDuB+0XyAt1
-	 Xcbm74RDtg+uNh++218aFsLY11FaWRaSCajsURxYvQFbSf7BgwFa2WDtUSVfa+gQOV3L7
-	 9nekAfBgNV38AdxbzmfJxyVTX++HYwsustnooiinYlSZ+qwxkd1QfeJ7guo88OeBkaBAP
-	 pDZyuOFAAZsGG8kPJ3gappN0pL9lR8VCvCXlQTDHzpSvg7kEPrzUoQBpROURTvkHRvOYI
-	 vjp7vdu+aOWqo8ZAyYwVPKkxqt87jJlHrJlpNRzTImL7gJdhMUoZzsjA86fHiuHmiIA==
+	t=1793935661;
+	b=F0U25/PaRoGrweA1XMghHQGF9UChbUSnGqPHA/0LdotFJpJ7anp73I1DuIOE4CpDSFCo
+	 ilsAFGpOvi7E3cMEXWeszFMQJiyV49LJo5+IaFXHLxzP453zEGVbBlOj6VmCpND6Hof2f
+	 P7tT+mH7W7i2zV17ARWIRsNaPm1C6d6QHdXMUuRY3LAXFtzeKP7u5l4Qn6x87wVCkDGh8
+	 EzpVZ0h4J64LOXjvtpydcP1j0Bn4yTAjCo00jg+BnxdVQo0WwKyo3R1RXSDCCrqwHoukh
+	 bqbs6mz9+tCTq97G98xUZhi7gYeZz4ixVo5ijIGLBYt3LhCSDqEVaRue/Lye+UoeXBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793935602;
-	h=DMARC-Filter:DKIM-Signature:User-Agent:Content-Type:Reply-To:Cc:Date:
-	 Subject:Mime-Version:Content-Transfer-Encoding:In-Reply-To:
-	 X-Lms-Return-Path:Received:To:From:Message-Id:References:
-	 X-Original-From;
-	bh=GicqH+O3H0yQelB/uFYofYeCG5YOTIFkaNOJy/Z44EM=;
-	b=VBciYA1I/PkuH2cxlrCwwJU+gg/lLPkn/QM/n0iQymtSfWeSLzd4Hu3zbF7RkzZH9qHL
-	 GSCbJeskGUagr+aV5CGoE/rgcLIDy2ZuGBDdwhSklDHeDngbZFpxbRhLlXIJz4E5wQD1y
-	 mqszytL9i4IrGBjhiqLfltgmZJWmXxyjZEnd1c7tcbsX3utW0FCarKhbcSu0UH2wBxjOz
-	 wWW2GzhdCTGmeZuxtlIPEa0EDQwFxzxvVpeQqeApBE/m1BGc2hzbeVr2UU+rAZGMuC6zT
-	 rCy20On/XZc/0ca2Ol3I7MkcBw0Ag8+g1IV7VAFFid2Rdk9fERheV4fTqoD6VttWYxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793935661;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=JhoR/fSrFG5Bl+D/S34kWTtE6s30HX1R6IW7XSJeqxo=;
+	b=JRRxZWzm87m8gyDfWKoHMmgzPNuIi8WMDhO/2+fNVlsROW1Hv3rfWi0/n5wn9meJSlkA
+	 1g90XNX3gyvRTo5QC2sqX8uV/IH2JLilCt3k7Ls1/1NaGTYRx0VtMOjkaGkqKHJDsTgMm
+	 7jmiwWzJWEKnMTosewPsaQRClBT1MatSxI8a+V/SI7cfCtrXKFS2qAEilWZQJ1YPbqnCB
+	 cXpqBFn/PMarvcWhsFMltzycC3uz8XpyCgbCJuSgJbnmFdRO6VdGlYV06Chk8mVVvxItf
+	 GJOx+pRmtiXGGOPrxqDyEHU6SX7o21DFf8Bb1x5Lw/kdRagVHUySmqxKJcH9kBY1c5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fygo.io;
-	spf=pass smtp.mailfrom=fygo.io;
-	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=CcYn3gMZ;
-	arc=none smtp.remote-ip=209.127.231.42
-Received: from va-2-42.ptr.blmpb.com (va-2-42.ptr.blmpb.com [209.127.231.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SysInatS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD842606A328
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 03:26:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD842606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97EB606A31B
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 03:27:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=CcYn3gMZ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1793935589;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=GicqH+O3H0yQelB/uFYofYeCG5YOTIFkaNOJy/Z44EM=;
- b=CcYn3gMZZPVbv1GIO/pn7F75MseqFEBWoeXDtEflazMk8lx0qkostupKKmg9u1vUQS1NnU
- Dq1t8aOoSTphAktHKDUDnaPTCmQJt3mIylp+2DeKiqDTIxuqn8imWi8+Z6oGzMoQ/l6oO5
- u5XpQWROwQL7C15yl1CJWyl+llhxYKyO1OR/eweY69JsREk5ckzj/Tv/z3mUf7Il7xzYQ/
- hpgcggVXn4sW+juXsorEg1DWjM8I5ahR26v1NHXXDRXwv+JMUd0/BT5H5qDNk7PXjrWx9w
- wziuCb7l/1hkKh675enoSyUTqoCpbEZNOl7GOgDnInle98G++IVvxsPCa1sueA==
-User-Agent: Mozilla Thunderbird
-Content-Type: text/plain; charset=UTF-8
-Reply-To: yukuai@fygo.io
-Cc: <linux-bcache@vger.kernel.org>, <regressions@lists.linux.dev>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	<song@kernel.org>, <magiclinan@didiglobal.com>, <xiao@kernel.org>, 
-	<colyli@fygo.io>, <kent.overstreet@linux.dev>
-Date: Fri, 6 Nov 2026 11:26:23 +0800
-Subject: Re: [PATCH] md/raid5: complete unsupported discards successfully
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SysInatS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D10CE1F0089F;
+	Fri,  6 Nov 2026 03:27:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793935660;
+	bh=JhoR/fSrFG5Bl+D/S34kWTtE6s30HX1R6IW7XSJeqxo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SysInatSvd6p9MMYs70Zg9GmRnosvzEbp8TC8iw83wjGuy8/XfNJIJjsOKN071UXf
+	 HtSXq2+eYHnIE/2zXnfTNVMIPRMhm5eJgVRLqs+114KAZHaxSKbGtNmSvaQFkSs8au
+	 H7rMOW4jdEc41j/eV/hOa1p90JHl7wOgmjC+okblaL6tlpGv2VTm7u+k8OYZUocrNZ
+	 TXs8LN32F2pi3RNjuVU7rRjY9sZwTZkmL0/5i/3gxFKa7oZ2dxwUM2zlpGsP4Zr3vT
+	 wpz3yWnH56geeWFV+egtKuAKjahTewd8OdRw7l0u4CopRJNMOabYXl8qjLDp96LcxO
+	 rbNG4Nh94rlpA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chuck Lever <cel@kernel.org>,
+	syzbot+d5c77cabf7a3492aa650@syzkaller.appspotmail.com,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] NFSD: Move the cld upcall message out of the caller's stack frame
+Date: Thu,  5 Nov 2026 22:27:37 -0500
+Message-ID: <20261106032728.4021201-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110455-splice-wrongdoer-64c7@gregkh>
+References: <2026110455-splice-wrongdoer-64c7@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,76 +58,89 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <179299857972.12222.2729359466842183358@gmail.com>
-X-Lms-Return-Path: <lba+26aed48e5+b08a0b+vger.kernel.org+yukuai@fygo.io>
-Received: from [192.168.1.104] ([39.182.0.25]) by smtp.larksuite.com with ESMTPS; Fri, 06 Nov 2026 03:26:28 +0000
-To: "Konstantin Nikiforov" <helllamer@gmail.com>, 
-	<linux-raid@vger.kernel.org>, "yu kuai" <yukuai@fygo.io>
-From: "yu kuai" <yukuai@fygo.io>
-Message-Id: <770fdf93-4330-4094-9807-a0cb449ecb73@fygo.io>
-References: <CAO96y0V6oncv54ihXnHfJMYiG_QAQ-NM8BOdqPDXKL8r8-kR9Q@mail.gmail.com> <179299857972.12222.2729359466842183358@gmail.com>
-X-Original-From: yu kuai <yukuai@fygo.io>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-=E5=9C=A8 2026/10/26 14:21, Konstantin Nikiforov =E5=86=99=E9=81=93:
+From: Chuck Lever <cel@kernel.org>
 
-> Since commit 90573092673c ("md/raid5: validate discard support at
-> request time") raid5 advertises max_hw_discard_sectors =3D UINT_MAX no
-> matter whether the member devices support discard or
-> devices_handle_discard_safely is set, and make_discard_request() fails
-> the discards it cannot handle with BLK_STS_NOTSUPP.
->
-> Before that commit such arrays did not advertise discard at all, so
-> upper layers never sent one. Now they do, and the failure is not
-> harmless:
->
->   - bcache forwards discards to its backing device whenever
->     bdev_max_discard_sectors() is non-zero, and backing_request_endio()
->     treats every non-zero bi_status as a media error. After io_error_limi=
-t
->     (64) of them bch_cached_dev_error() stops the cached device. On a
->     machine with root on LVM over bcache over a raid5 of three HDDs the
->     root filesystem disappeared a few minutes after every boot.
->
->   - btrfs enables discard=3Dasync by default on any device that advertise=
-s
->     discard, which is what generated the discards in the first place.
->
-> Discard is advisory: blkdev_issue_discard() already turns -EOPNOTSUPP
-> into success for its callers, and md_submit_discard_bio() silently skips
-> raid0/raid10 members without discard support. Do the same here and
-> complete the bio successfully when the array cannot pass it down safely,
-> so that callers submitting their own discard bios, like bcache, see the
-> same behaviour.
->
-> Fixes: 90573092673c ("md/raid5: validate discard support at request time"=
-)
-> Cc:stable@vger.kernel.org # 7.2
-> Closes:https://lore.kernel.org/all/CAO96y0V6oncv54ihXnHfJMYiG_QAQ-NM8BOdq=
-PDXKL8r8-kR9Q@mail.gmail.com/
-> Signed-off-by: Konstantin Nikiforov<helllamer@gmail.com>
-> ---
-> Kuai, this is the raid5-side change you were fine with in the report
-> thread. Reproducer: raid5 over three loop devices with a bcache backing
-> device on top, four blkdiscard calls on the bcache device. On 7.2.11
-> without the patch bcache's io_errors goes to 4 (bch_count_backing_io_erro=
-rs
-> in dmesg); with the patch applied to 7.2.11 it stays at 0, and the
-> affected machine (root on LVM over bcache over raid5 of HDDs) boots and
-> runs with the patched module without any backing-device errors.
-> blkdiscard on the md device itself reports success either way because
-> blkdev_issue_discard() masks EOPNOTSUPP.
->
-> One correction to my report: the "discard_granularity is 0" observation
-> was a side effect of my own workaround (writing 0 to discard_max_bytes
-> makes the block layer report granularity 0); on a fresh array the
-> granularity is the stripe size as expected.
->
->   drivers/md/raid5.c | 11 ++++++++++-
->   1 file changed, 10 insertions(+), 1 deletion(-)
-Applied
+[ Upstream commit c559b05610557fa3c6c30259261f6dae523b3f23 ]
 
---=20
-Thanks,
-Kuai
+__cld_pipe_upcall() builds its struct rpc_pipe_msg on the stack and
+hands it to rpc_queue_upcall(), which links it into a list the pipe
+owns until the message is released. Only the completion rules keep that
+frame alive for as long as the pipe refers to it, and the peer that
+drives those rules is an untrusted userspace daemon. The gss and idmap
+upcalls do not take that on: each keeps the message in the object it
+already allocates.
+
+Do the same here and put the message in struct cld_upcall, beside the
+reply buffer it carries. cld_pipe_destroy_msg() then reaches the upcall
+from the message directly rather than through msg->data.
+
+Reported-by: syzbot+d5c77cabf7a3492aa650@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=d5c77cabf7a3492aa650
+Link: https://patch.msgid.link/20260901-alemi-v2-2-e163f94a3a6e@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
+Stable-dep-of: 2a83fcb50f3c ("NFSD: Complete a cld upcall when the daemon closes the pipe")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/nfsd/nfs4recover.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
+index 2eebde725f71e..1255851179eef 100644
+--- a/fs/nfsd/nfs4recover.c
++++ b/fs/nfsd/nfs4recover.c
+@@ -726,6 +726,7 @@ struct cld_upcall {
+ 	struct completion	 cu_done;
+ 	/* daemon has read the whole upcall; protected by cn_lock */
+ 	bool			 cu_inflight;
++	struct rpc_pipe_msg	 cu_pipe_msg;
+ 	union {
+ 		struct cld_msg_hdr	 cu_hdr;
+ 		struct cld_msg		 cu_msg;
+@@ -737,22 +738,22 @@ static int
+ __cld_pipe_upcall(struct rpc_pipe *pipe, void *cmsg, struct nfsd_net *nn)
+ {
+ 	int ret;
+-	struct rpc_pipe_msg msg;
+ 	struct cld_upcall *cup = container_of(cmsg, struct cld_upcall, cu_u);
++	struct rpc_pipe_msg *msg = &cup->cu_pipe_msg;
+ 
+-	memset(&msg, 0, sizeof(msg));
+-	msg.data = cmsg;
+-	msg.len = nn->client_tracking_ops->msglen;
++	memset(msg, 0, sizeof(*msg));
++	msg->data = cmsg;
++	msg->len = nn->client_tracking_ops->msglen;
+ 
+-	ret = rpc_queue_upcall(pipe, &msg);
++	ret = rpc_queue_upcall(pipe, msg);
+ 	if (ret < 0) {
+ 		goto out;
+ 	}
+ 
+ 	wait_for_completion(&cup->cu_done);
+ 
+-	if (msg.errno < 0)
+-		ret = msg.errno;
++	if (msg->errno < 0)
++		ret = msg->errno;
+ out:
+ 	return ret;
+ }
+@@ -924,9 +925,8 @@ cld_pipe_downcall(struct file *filp, const char __user *src, size_t mlen)
+ static void
+ cld_pipe_destroy_msg(struct rpc_pipe_msg *msg)
+ {
+-	struct cld_msg *cmsg = msg->data;
+-	struct cld_upcall *cup = container_of(cmsg, struct cld_upcall,
+-						 cu_u.cu_msg);
++	struct cld_upcall *cup = container_of(msg, struct cld_upcall,
++						 cu_pipe_msg);
+ 	struct cld_net *cn = cup->cu_net;
+ 
+ 	/*
+-- 
+2.53.0
+
