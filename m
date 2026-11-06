@@ -1,76 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.79
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979260;
-	b=DHx7EtlnVuoB3Vv/IwaVODLQESadpdNd27Mp6V9H4Yi0XQcZDkq1WnF5B0cmWmbcYnti
-	 pzzzA/fqFlbfz7ahoglxDijfh3QuAQQG61Dfxkei+FP9JlFWu0MQMNkj+8dq66IV6Zm92
-	 zNMxy32bB5p9B75efMb6KWHMv/qAYapYwxNc59xTvSH/9NVqX8qH+M23qqayZ0KEl3aO/
-	 WQN08R7gKWNottvEVh6NeYfzqRm1FY4lseJgScxX7wjLugreirzdqeiqtBh20/XpNMx+U
-	 J0MhKF4c7/TzR2L23iFRfBdSUEUGSQi7VqhelVV38hEOh1AUut1tAU0PI+YwZNb938Q==
+	t=1793979438;
+	b=WBjQEgryumMA+b8MCVds1AkJHAsjW6YeEeRPkP+YmWk9EozRv1C8z5sL1ySz/sav7YrI
+	 cLfO8EB2dierUyxvuD0qUPxes/ELWr7pCgEV5PjOY7rfRiZ9/XoicChCpKzWF9/2iFH8W
+	 jA6PJCJkA4zqro3Ev9nCMCMgdSnv88ANlSjMf/HCzfF8O3pMDy5PGyU2gRfca1IOf3izO
+	 pQSRCpQFRZEsjozp9XURY87KZdFNVzeuY1wczqkPT98N5LVpBbEPRmQnRpRxk1slEenR7
+	 4ve2ErVzi5LgTSKyYO+n+lHmySsOXyCanuP1fn0LYy2/cnQvh94LIqGgsVuklTpGS+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979260;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979438;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=3UAbQu4Zz7jM5fvfnVPIQRW8LGHO6T/qo7Hc+AehbY4=;
-	b=GFDjMB3bRK4d0GJHNcIRH4tJHiDf0D8S2Qj7xcuWiTVLwoEuI2Yi3FM+GdmobWH8mRgj
-	 HP8PTOtT+PnZFMno6RAH9RGv6/X1mAHdwFWp0LosLmedjCdZuzq06n/GDBRyLHVpBjs3z
-	 wuv9bSNfflhJVl99KDsQV23POIEb08Bt9Y0PaLaIB3PMi/srsakHc3wovob6uRxLPjVbO
-	 6DffyBFZ6DMnObAge7EB13i2nqS9IcfhoZ8Ti05xRk5D6zfBaIVr/dwkHr6mqD71NpfNA
-	 3nnFQn1RTmJKZ9tNfQUSTXRonPPGsPMjehw3eUwjV1hnF3JGng6wKANVGdFlMPeFTIA==
+	bh=cCBhluogALMB9ict55RUcD1t3S2bLQ055nWP0iu3cWw=;
+	b=ftHFdsBzStN1pvWACcZ3NAqXgql1s3vIpCH1nwSkme/1dvlwojB90aVS3phzHUgpV/Pj
+	 3LbRjzGoW3TEiq7rxQ+UT9rPewom5VJ8xgO562lcEPDC+l9t3Odstv52a57jH7SgiBQeU
+	 il2kqXwhpbT1+ESyz69q1pgrxKx+nAAaH+OL9ZapkfY2tV7g98YwaM2JoItbiWLszS59z
+	 zQJrJXXSFxVzay/d+AtCETozd2q6BHR8Vj/hxYwQ9KKFwwS8T0EUfh3X4Bey39fV7ODNR
+	 Zq7t2nIe47s5jbGO06YK5xzhbI2JPaEvrabINdwGpJsaR1f5HZMNqxE2C7zzpVyfDJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VhokyNrA;
-	arc=none smtp.remote-ip=95.215.58.79
-Received: from mta1.migadu.com (out-79.mta1.migadu.com [95.215.58.79])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=manguebit.org;
+	spf=pass smtp.mailfrom=manguebit.org;
+	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=GK5Afbxs;
+	arc=none smtp.remote-ip=143.255.12.172
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0781606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 15:34:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0781606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07BD606A335;
+	Fri,  6 Nov 2026 15:37:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C07BD606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VhokyNrA
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4IpYDm1JeTeVQryoSNRzjLLGuozzk6CpKr9+AhGJ6uY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793979257; v=1; x=1794584057;
- b=VhokyNrA9rO/IiddTY7Qj6x7ba7aZUn1FKhs7ajCtrOgaJAPnmZzejHHyYw4UfLOAiH5bxP+
- 4EWVftLheEtm70YmUWkm1Px7Rdi/ZpK1E+FLUi4G28bspY0FLOVM838t2GYXE+DcjLjAXlIXX6y
- nSKJFHy9h74g1jcO9X8vu3GA=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 1c7542236927aa1f;
-	Fri, 06 Nov 2026 15:34:17 +0000
-X-Mizu-Trace-ID: 1c7542236927aa1f
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Hugh Dickins <hughd@google.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=GK5Afbxs
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
+	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
+	Content-ID:Content-Description;
+	bh=cCBhluogALMB9ict55RUcD1t3S2bLQ055nWP0iu3cWw=; b=GK5AfbxsbcdsodhpUvulQsYFJI
+	ZoGVnggJ7rZeX7IZYkgCG15sQVJSaK5MKFe6q3wLlJ5h0xXkbMeI5hZ6V7ANGZeje641SJ5qXUd6d
+	ZkZFzzDTw+kbpvHzKiagFHMWl5kRSeOW42F8Cx03BYjgZpS0HCA/Wek0h9SCoSVmTiFb6fjxEQKDt
+	e+2ErPJwqRq/cUncpgmx6YGbIB2W27rTkn7u/ixNQ8rdyHrn+sewzh9+KDCFC5MlnS+cFAdS5aEgn
+	so0yY5PsBRId8DvCIYR6Kc0YxKvkNhxHBePQ10UOUGFcgqKQJntppRCEgIVrdcjl8bYMMznf6c+Su
+	xdfn1llw==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
+	id 1xPM09-000000012Yt-1xW2;
+	Fri, 06 Nov 2026 12:37:14 -0300
+From: Paulo Alcantara <pc@manguebit.org>
+To: linux-cifs@vger.kernel.org,
+	netfs@lists.linux.dev,
+	David Howells <dhowells@redhat.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Christian Brauner <brauner@kernel.org>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] mm: free unused page table allocated by do_set_pmd()
-Date: Fri,  6 Nov 2026 07:34:13 -0800
-Message-ID: <20261106153414.2938216-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106-khugepaged_set_pmd-v2-1-d2457b5e377a@kernel.org>
-References: 
+Subject: [PATCH v6 09/18] smb: client: issue writes from a worker if the task is dying
+Date: Fri,  6 Nov 2026 12:37:01 -0300
+Message-ID: <20261106153710.2498773-10-pc@manguebit.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106153710.2498773-1-pc@manguebit.org>
+References: <20261106153710.2498773-1-pc@manguebit.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,73 +74,149 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, 06 Nov 2026 13:36:12 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+A task with a fatal signal pending can't send on the socket:
+__smb_send_rqst() refuses it upfront with -ERESTARTSYS, as SIGKILL can't
+be blocked and a send interrupted halfway forces a reconnect.  Writeback,
+however, runs in the context of whoever starts it, so when a dying task
+flushes dirty pages - close() racing with SIGKILL, or fd teardown during
+exit_group() - every write subrequest gets refused:
 
-> do_set_pmd() can allocate vmf->prealloc_pte on architectures that need a
-> deposited page table, such as PowerPC with the hash MMU. If the PMD is
-> no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
-> without consuming that table.
-> 
-> Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
-> userfaultfd operation can install a PTE table before taking the folio
-> lock. If that races with set_huge_pmd(), the unused preallocated table
-> is lost when its local vm_fault goes out of scope.
-> 
-> Track whether do_set_pmd() allocated the table and free it after dropping
-> the PMD lock if it was not consumed. Preserve any preallocated table
-> supplied by the caller for PTE fallback. Successful PMD installation
-> consumes the table and clears the pointer.
-> 
-> Returning without a preallocated table matches the existing behavior on
-> architectures that do not need a deposited table. All callers
-> already handle that case.
-> 
-> Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  mm/memory.c | 6 ++++++
->  1 file changed, 6 insertions(+)
+  smb3_write_err: ... offset=0x1400000 len=0x400000 rc=-512
+  cifs_flush_err: ino=... rc=-512
 
-Acked-by: Usama Arif <usama.arif@linux.dev>
+Since the switch to netfslib, a failed upload ends writeback with the
+folios clean, so the data is silently lost: the server ends up with
+20MiB of a 64MiB file while stat(2) reports the full size.
 
-Reminded me of lazy pagetable deposit series :)
+Issue writeback subrequests of dying tasks from a new cifswritebackd
+workqueue instead, like afs does for all of its writes, so they get sent
+from a context with no signals.  Leave direct and unbuffered writes
+alone, as their callers get the error.  Use a dedicated WQ_UNBOUND
+workqueue as the writes may block for long on credits, sends or reopens,
+e.g. on hard mounts with an unresponsive server, and must not hold up
+other cifs work such as reconnects, nor starve the WQ_MEM_RECLAIM
+rescuer of cifsiod_wq.
 
-> 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index becf53a2a0944..421064aef3cf0 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -5687,6 +5687,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
->  	struct vm_area_struct *vma = vmf->vma;
->  	bool write = vmf->flags & FAULT_FLAG_WRITE;
->  	unsigned long haddr = vmf->address & HPAGE_PMD_MASK;
-> +	bool pgtable_allocated = false;
->  	pmd_t entry;
->  	vm_fault_t ret = VM_FAULT_FALLBACK;
->  
-> @@ -5725,6 +5726,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
->  		vmf->prealloc_pte = pte_alloc_one(vma->vm_mm);
->  		if (!vmf->prealloc_pte)
->  			return VM_FAULT_OOM;
-> +		pgtable_allocated = true;
->  	}
->  
->  	vmf->ptl = pmd_lock(vma->vm_mm, vmf->pmd);
-> @@ -5755,6 +5757,10 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
->  	count_vm_event(THP_FILE_MAPPED);
->  out:
->  	spin_unlock(vmf->ptl);
-> +	if (pgtable_allocated && vmf->prealloc_pte) {
-> +		pte_free(vma->vm_mm, vmf->prealloc_pte);
-> +		vmf->prealloc_pte = NULL;
-> +	}
->  	return ret;
->  }
->  #else
-> 
-> -- 
-> 2.43.0
-> 
-> 
+Fixes: 3ee1a1fc3981 ("cifs: Cut over to using netfslib")
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: stable@vger.kernel.org
+---
+ fs/smb/client/cifsfs.c   | 15 +++++++++++++--
+ fs/smb/client/cifsglob.h |  1 +
+ fs/smb/client/file.c     | 26 +++++++++++++++++++++++++-
+ 3 files changed, 39 insertions(+), 3 deletions(-)
+
+diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
+index b3735c98bfc3..7146bb22a69e 100644
+--- a/fs/smb/client/cifsfs.c
++++ b/fs/smb/client/cifsfs.c
+@@ -164,6 +164,7 @@ struct workqueue_struct	*cifsoplockd_wq;
+ struct workqueue_struct	*deferredclose_wq;
+ struct workqueue_struct	*serverclose_wq;
+ struct workqueue_struct	*cfid_put_wq;
++struct workqueue_struct	*cifs_writeback_wq;
+ __u32 cifs_lock_secret;
+ 
+ /*
+@@ -2133,9 +2134,16 @@ init_cifs(void)
+ 		goto out_destroy_serverclose_wq;
+ 	}
+ 
+-	rc = cifs_init_inodecache();
+-	if (rc)
++	cifs_writeback_wq = alloc_workqueue("cifswritebackd",
++					    WQ_UNBOUND | WQ_MEM_RECLAIM, 0);
++	if (!cifs_writeback_wq) {
++		rc = -ENOMEM;
+ 		goto out_destroy_cfid_put_wq;
++	}
++
++	rc = cifs_init_inodecache();
++	if (rc)
++		goto out_destroy_writeback_wq;
+ 
+ 	rc = cifs_init_netfs();
+ 	if (rc)
+@@ -2206,6 +2214,8 @@ init_cifs(void)
+ 	cifs_destroy_netfs();
+ out_destroy_inodecache:
+ 	cifs_destroy_inodecache();
++out_destroy_writeback_wq:
++	destroy_workqueue(cifs_writeback_wq);
+ out_destroy_cfid_put_wq:
+ 	destroy_workqueue(cfid_put_wq);
+ out_destroy_serverclose_wq:
+@@ -2251,6 +2261,7 @@ exit_cifs(void)
+ 	destroy_workqueue(fileinfo_put_wq);
+ 	destroy_workqueue(serverclose_wq);
+ 	destroy_workqueue(cfid_put_wq);
++	destroy_workqueue(cifs_writeback_wq);
+ 	destroy_workqueue(cifsiod_wq);
+ }
+ 
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index b6a993cc0245..e211dea91e6e 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -2144,6 +2144,7 @@ extern struct workqueue_struct *cifsoplockd_wq;
+ extern struct workqueue_struct *deferredclose_wq;
+ extern struct workqueue_struct *serverclose_wq;
+ extern struct workqueue_struct *cfid_put_wq;
++extern struct workqueue_struct *cifs_writeback_wq;
+ extern __u32 cifs_lock_secret;
+ 
+ extern mempool_t *cifs_sm_req_poolp;
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 0d2db0dd43f2..1bd8edbc8d7b 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -94,6 +94,12 @@ static bool cifs_io_aborted(struct cifs_io_subrequest *subreq)
+ 	       tcon->need_reconnect;
+ }
+ 
++static bool cifs_writeback_dying(struct netfs_io_subrequest *subreq)
++{
++	return subreq->rreq->origin == NETFS_WRITEBACK &&
++		fatal_signal_pending(current);
++}
++
+ /*
+  * Prepare a subrequest to upload to the server.  We need to allocate credits
+  * so that we know the maximum amount of data that we can include in it.
+@@ -170,7 +176,7 @@ static void cifs_prepare_write(struct netfs_io_subrequest *subreq)
+ /*
+  * Issue a subrequest to upload to the server.
+  */
+-static void cifs_issue_write(struct netfs_io_subrequest *subreq)
++static void __cifs_issue_write(struct netfs_io_subrequest *subreq)
+ {
+ 	struct cifs_io_subrequest *wdata =
+ 		container_of(subreq, struct cifs_io_subrequest, subreq);
+@@ -208,6 +214,24 @@ static void cifs_issue_write(struct netfs_io_subrequest *subreq)
+ 	goto out;
+ }
+ 
++static void cifs_issue_write_worker(struct work_struct *work)
++{
++	struct netfs_io_subrequest *subreq;
++
++	subreq = container_of(work, struct netfs_io_subrequest, work);
++	__cifs_issue_write(subreq);
++}
++
++static void cifs_issue_write(struct netfs_io_subrequest *subreq)
++{
++	if (unlikely(cifs_writeback_dying(subreq))) {
++		subreq->work.func = cifs_issue_write_worker;
++		WARN_ON_ONCE(!queue_work(cifs_writeback_wq, &subreq->work));
++		return;
++	}
++	__cifs_issue_write(subreq);
++}
++
+ static void cifs_netfs_invalidate_cache(struct netfs_io_request *wreq)
+ {
+ 	cifs_invalidate_cache(wreq->inode, 0);
+-- 
+2.56.0
+
