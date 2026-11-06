@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793972844;
-	b=il185FT2BX0G9Nb05AfmMKB1hMxDrOAr80Bek/QHRUbj+ebRpnaZf61rI1CZufXHZJKS
-	 U7xkbdnZR65DdUM03S8MoEVYwAoqGDbity882xqdjMMM8uyWVy3xBRZja0jYsMAeQuXH4
-	 TTJt/fLiK+bwBBdZWgKXqfZpIxHzv1REzbQHNamIUY9i2gs+JF1I8wvPJDND1E1TUTFLK
-	 PXyywEers0Tf4hQC8+5kTGCOaTywDFT+AzjhsLqrlbreezyDPN8LoXNyehlmmt3I7SDLC
-	 RgXjiHZW/hXHSWE51zID42yrUXJvcLwxL9lpR1AaB8ioab4Z7hutAjyH9Ffq12scdRg==
+	t=1793972861;
+	b=3qiOG2RN3NvnblBcCR6mXLciPGRkWyfLVXWvaJzscpfTyi5Z9YS6t41mYvshPqMZon1R
+	 C0uhzLmD1qLPzeKrcm2PcGD0JOl6LfEJlWDhmlaAGf5xiEQmLoRHxfParAPZUBZXALX3G
+	 X9AVQ+4lDD+o7QuLVQdmRElU9W/pM66DhyLHltwJwskythvNNgiLQdh66XLJDw0FRIQAV
+	 bJKQ2atFcR9hiPflZ3BAX2YndN3P1l1obU3ho8OSGIYsqVYtAmaJvd0aVN5Sf65SRjBFO
+	 Lqt0H+CriPoTCbyDqLebRNeCgGOxpidK5eq4xCuo6RdiQS57Nj09o0Hb9LqjxD/7+GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793972844;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AQXta7caG2t5JEi+vLGtdpb0UwRr2wKnn3UDCjsVPks=;
-	b=RkOGgv224NKUajpPPS/T8xwafKgXn4m14resdg4xFtJ2427t5fhBeYmGDyWrObte/ukn
-	 BONM+BV6oTyx1DxF7Py7uT6pZ17s4kuzbuzqc8Au4yxQt5lKKf79MVMU8VYQQtq6Ia7aG
-	 riwnrfe0bqHQ4ND++pYwxXhoJBWlUOdg0eqoVDYuYHqI3cjWYxeoz8Y0XEYXggb7pJlni
-	 BNWnPPGj+Yef1XswdERxsLeaAqOYAzIs3QXyHlDN46KWaJLx7f+NNUyQWVhJadlijYPjk
-	 G6OSYtUz3wE2CgtOOgFnKKnvo0Rh7JMUzk2EEJCEhcYyliXfXYYrwTRJ11isWYFjtnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793972861;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=4vVL1EiPkJtSj0Q5/MEZPPVQTmsj+iOOThXSePIk96o=;
+	b=NscM5J2nbMxg5QznMmfdrRvZIzsg5XXk3AcVKxr5DhAsT502CHh60re2E/FNuWjOqVQH
+	 mp31JG/dPthugtPSm6AQ2kpuc3RwOaR+tg9+IrU7KtBxo7U0+YTVjF8ave4aO5G1S7/k0
+	 kA/jTxVkKkrZyt2sJuhygM1raOtrjA/ONia/abqfSkfsEbWmZhLg2eLNsqTqo3CgmpF56
+	 GSK4nDSpezuWHWifxjXPz5H0XAKjh9YWeUuM92FPIzwrsv5egOn1jiyjzQY1H4GfN1F7+
+	 u5QSKgveEJAbQrh4LoDKed7y8eCQZshlBg/cEjHcbwRBubXFrIHbxfjOvj0OPRG61FQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKuKhEGB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hq0Bqfj2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A32606A329
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 13:47:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0A1606A329
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 13:47:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKuKhEGB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3F861F0089F;
-	Fri,  6 Nov 2026 13:47:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hq0Bqfj2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6B9A1F008BC
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 13:47:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793972843;
-	bh=AQXta7caG2t5JEi+vLGtdpb0UwRr2wKnn3UDCjsVPks=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QKuKhEGBaaRhOZ9Exi2VWDEsGZ2uCKWxL1McWEupPTGFO5iPBD9ntGoIX8lkfvDtM
-	 AVUhFoHonxBxcJfiRxHXv2OSPYYy1Kux2VXp9aKVkkbuHieGWOuSPj/0Msqa8XXN3h
-	 6mgHZKzP9JmFLiLjMBgDqD2nsy/3f/RNjVo2DY1RyRjc4UlNnMFl3HybQN9HR2/ZnC
-	 gZd8ie+cWtx/qomhhle9dPEllyZMd2QmE0PUj9txqKbPnCFU+tuC158wAdXZSFT/Jx
-	 Mp0omlC73yDKwJ9Kqo7D0wHfKMU38neB/yUataXXiSZBvQiUG51qVOKBGZnLO87cMA
-	 HrRRWWIQdjksA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Benjamin Coddington <ben.coddington@hammerspace.com>,
-	Benjamin Coddington <bcodding@hammerspace.com>,
-	Anna Schumaker <anna.schumaker@hammerspace.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] NFSv4/pnfs: bound the CB_NOTIFY_DEVICEID array count before allocating
-Date: Fri,  6 Nov 2026 08:47:21 -0500
-Message-ID: <20261106134703.14265-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110400-luminance-syndrome-19a6@gregkh>
-References: <2026110400-luminance-syndrome-19a6@gregkh>
+	s=k20260515; t=1793972860;
+	bh=4vVL1EiPkJtSj0Q5/MEZPPVQTmsj+iOOThXSePIk96o=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=hq0Bqfj2UyhLMuTH5ekszeM/i7rugVYBcjwLWOQjWb5rKs5SSOkLzbvQOxdY/lWjf
+	 qmNzTDIjow4/PpnuRv/OABiVlxSnKeMxeTZVMaknC3ZUax/bvINmgAKMlNidIiH88P
+	 LGFWmh2WsKNsJl3zUmLa7jn/ECIt41Ur+LHGhk2bHnrozUx+tOpVNYzIcpCPuGVDzD
+	 MIPAZVI/7RAaLoWyUhNo4XrDTQl55uGWDWrzWcfy+KQleJK//ZytW9nn55oa6HvI4R
+	 tN5Xv/Mno20UNLkbF4V6WTbFWJqRwU16ONj5edIc9D+TkD83sv8Iy3jTTW6x45cCp0
+	 O9ZoAgM2DqvwQ==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bff8fc7cf2so711861e87.3
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 05:47:40 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwYE7suGpqi0TSkksEQhb454udZk0rQB1sQueZ5GNFyOYSFnYIic/PPVcHpEJZ2RDNLqwlPrrM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z91e/AHnGESQvkJjQOunbQRkY8aNvUTjNK7pRkfLlIHxwl3eJ3N
+	9+MapZTJB4KxBkEyjkRcu/F50iEOzT0DStSpYQaoZjC56XtZ283fjWY8mxmt/9wjIu7ypNLFxNI
+	9sUo3M/QO5oX75YWWwSCioQBdsLWYX7U=
+X-Received: by 2002:a05:6512:3b11:b0:5bf:d6f5:f966 with SMTP id
+ 2adb3069b0e04-5c003adf1ecmr764970e87.47.1793972859536; Fri, 06 Nov 2026
+ 05:47:39 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,46 +59,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261103213002.1673560-1-lee@kernel.org> <20261103213002.1673560-8-lee@kernel.org>
+ <CAD++jLmF0U6ehFSuauqKDQiZRkuUnqpbZd--v2aqF2YZQF=HwA@mail.gmail.com> <5c414196f5e34bfeb7a94714e5542a72@realtek.com>
+In-Reply-To: <5c414196f5e34bfeb7a94714e5542a72@realtek.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 6 Nov 2026 14:47:27 +0100
+X-Gmail-Original-Message-ID: <CAD++jLmBht_EauPV1ggkw_pnydVbCTHk7s_dyHPN6OA_zXOKvg@mail.gmail.com>
+X-Gm-Features: AclHuK-g1F9N5vtbEMFGavDY124RqKgGGFWqEsXHGpoz6PIuenneZBMpw1y5QLU
+Message-ID: <CAD++jLmBht_EauPV1ggkw_pnydVbCTHk7s_dyHPN6OA_zXOKvg@mail.gmail.com>
+Subject: Re: [PATCH 07/10] pinctrl: realtek: Initialise omitted offset fields
+ to NA in config macros
+To: =?UTF-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
+Cc: Lee Jones <lee@kernel.org>, =?UTF-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>, 
+	=?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.com>, 
+	=?UTF-8?B?VFlfQ2hhbmdb5by15a2Q6YC4XQ==?= <tychang@realtek.com>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+	"linux-realtek-soc@lists.infradead.org" <linux-realtek-soc@lists.infradead.org>, 
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Benjamin Coddington <ben.coddington@hammerspace.com>
+On Fri, Nov 6, 2026 at 3:49=E2=80=AFAM Yu-Chun Lin [=E6=9E=97=E7=A5=90=E5=
+=90=9B]
+<eleanor.lin@realtek.com> wrote:
 
-[ Upstream commit 32f0967ea296d447925465c98e7eec71d4e2f755 ]
+> Thanks for applying this patch. Just a quick heads-up on the merged commi=
+t [1]:
+>
+> 1. The first Fixes tag kept the original 'dcc9334435b0' instead of the co=
+rrected
+> 'e99ce78030db' I suggested.
 
-decode_devicenotify_args() hands the server's notification count
-straight to kmalloc_objs() as the array length, without checking it
-against the message that carried it.  Bound it the way nfs4xdr.c bounds
-an attribute length, against xdr_stream_remaining().
+I went in and fixed it up.
 
-Fixes: 1be5683b03a7 ("pnfs: CB_NOTIFY_DEVICEID")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Benjamin Coddington <bcodding@hammerspace.com>
-Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
-[ sashal: adjusted allocation context to use kmalloc_array() instead of kmalloc_objs() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/nfs/callback_xdr.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+> 2. Branch: It was applied to 'for-next' instead of 'fixes'. Just checking=
+ if
+> this was intended.
 
-diff --git a/fs/nfs/callback_xdr.c b/fs/nfs/callback_xdr.c
-index 505d195ed61dd..ff73aee4f72f1 100644
---- a/fs/nfs/callback_xdr.c
-+++ b/fs/nfs/callback_xdr.c
-@@ -272,6 +272,13 @@ __be32 decode_devicenotify_args(struct svc_rqst *rqstp,
- 	if (n == 0)
- 		goto out;
- 
-+	/* sanity check the count against the remaining stream */
-+	if (n > xdr_stream_remaining(xdr) /
-+		((4 * sizeof(uint32_t)) + NFS4_DEVICEID4_SIZE)) {
-+		status = htonl(NFS4ERR_BADXDR);
-+		goto out;
-+	}
-+
- 	args->devs = kmalloc_array(n, sizeof(*args->devs), GFP_KERNEL);
- 	if (!args->devs) {
- 		status = htonl(NFS4ERR_DELAY);
--- 
-2.53.0
+Yes Lee reached out to me on IRC and asked that the paches be queued
+for-next as nonurgent fixes.
 
+Yours,
+Linus Walleij
