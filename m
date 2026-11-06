@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978792;
-	b=NyGvJtPtPr+SInof1CUYYixasWUdoFHLfC2wUwXr2ltKm9hDzK+6of3Ae3i3lsS2hiVS
-	 8l7XE8BBQPNazam3VIuEoXygbnOpC1CgnVb8Ojk6FOlKxrBCYX3QYA+jiCvyX0bNl4ylD
-	 9hU3wgcyTUBakeAnCiXEyUnfjOZ4NumbrhXugBixnTpFuRMc+7WIfCg42n3vP4yHKwdx4
-	 v1Hyt8CrSZbZK77liIO7AOrXyr+NAizEUHwkoC6vBjbhrCaeRlnlTzxXIsHnaKu9LoteS
-	 gJGVoHiE1LKCyY3pmewLP6R/hHIZy5VDtEwOQ+nPXgbE995TS0N2tKJXy2xQhHp91NA==
+	t=1793978797;
+	b=tubN1k28oFq9IsN8wF6fOqaeIspDuMroMyU14uzpXuS7xV2ixHNWWQpi4uPwktlhiVSc
+	 //igzYzrliPudJg7sC8ejwEScrd5nOZfhHgDYQ5k6/EPJyw5AcjtoY+8DFsdcxK9bJmoa
+	 kkTLCMM9ulRO5G1JufQcC/7kpm43UV7dubLzlaWUN8Pdbv4HK915YZU93U/IAwsAdaNwD
+	 9ii2zksTLx5v8JXkPHE55/Ir72/ekZwbUx9HpMzuz6dlHVAh0A9z6ysX+GNrjFNMiSKzt
+	 P9bNwvih29QIjWdjsbVp78QlTXQnUOOQBxnfIoUQKv4oIvE+zjjbg69Q6L+bAv1dxGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978792;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978797;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Debian-User;
-	bh=rNsjOe/KrdZQe41KIXUEyhhURKL3GfhHxPSvPzNZxKQ=;
-	b=OEQyX5Zk2t/ohPyQwfvJ7zdclAwywvfQgY5HsE4KIsNOc2/v+jB5dDGu4mmVcTJ/vUF8
-	 sC6dhjHlXPgeIoP0nSfvXjsT03TE+/HfP7qTRTBHBOnOAEL+JoIOQs9//iOGI+JCpnP9g
-	 v5dUjtVx68YMwtzEwMaW4ce14N1BXrrSoHH9nqSLwWDSYvknRUAfSVZ0MVAusPahHdJLF
-	 yJAUAk73D8vroD5561xf+WL6lQ5zD2Qai4FNU3XxkWHt9u3WmyhFunIvKJ3EdH4feSYJS
-	 njuyPMo9AA2m9lT+hQir/6aFg3MDON0J3Ouha7MdUPz5B7WoSddEei431nrb/zqhNTQ==
+	bh=UIxBh+zRJVkTKkXW/+Fu4zhs3mLcL4i3tBZ3X/u5LeQ=;
+	b=HqlY/FadSwIMmsQqEhI6QEaRX+BCiaJdqZ3Ff9W/gtK59GScZe7QooLw86WhyehrNT2r
+	 nz7F0TosdDZvPeGLDVleGyRUk1848KqhwSv/ZD4if8yAUbEkHBXbMZJYmvkjyrD/FzNSw
+	 B3Usev81qjR1nN85z0Tkg9XsD41736h0LQ/gubhDC4CerXV0abAUCLO+SxGGCddFkH+zm
+	 Kw+6HAhJaxD2W8ujkR+HIhPPwk2ReeO+2rA00XKQqUkQlIdEwYakno67CFNjP2NbnVYGC
+	 zHwuHKOyIp8pJtzkFYbPYoo+n29OjhFgCQX2AMSiPTC4HLh0QWm/R5JUyweqIJRaXDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=debian.org;
 	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Gj7PAGTw;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=tzD3GYQt;
 	arc=none smtp.remote-ip=82.195.75.108
 Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA742606A329;
-	Fri,  6 Nov 2026 15:26:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA742606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE25606A332;
+	Fri,  6 Nov 2026 15:26:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BE25606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Gj7PAGTw
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=tzD3GYQt
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Message-Id:Date:Subject:From:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=rNsjOe/KrdZQe41KIXUEyhhURKL3GfhHxPSvPzNZxKQ=; b=Gj7PAGTwWipMZIwpuADrjXicYp
-	7SwBXt0rQdA3cTZhg7JT8rKOck3HwhpI2RLYPOi9VAXrgc1+xhR1OH/3a5OBUXkTzm8Ik8RFqMjNw
-	RyhcA/SX4gF42plz6sisWDGcx0T+qM7dzrOU+YDJDNhzhWscMGxNGObYQ1aaDMCsUGi4VxvdCvS3G
-	x/22epGGkS7xXAxw/6sxAF7Ccsi+dp82too3C4HdA21zXUMSgOY5rz8zZeioq0IOzQyj/Gh/SO1yO
-	NYLG7SsZNLRi1VN4VrAS9hRJDMtsuXMFh1SnEntqZuldhL0GhAEEaDNbYvQhmZ0s73oia5UTpLwsQ
-	9vhW27tw==;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=UIxBh+zRJVkTKkXW/+Fu4zhs3mLcL4i3tBZ3X/u5LeQ=; b=tzD3GYQtC18ZlmPw4JresrP5iA
+	USsHZcOQ67Fk1flH3ViDAuTvf6iMLfRizn8Ffr7GgA5yox4JAaAq144RCkadog6YvNkbzzGOv0ycf
+	QRl1xxYN3KPMZFEWmxZkQ2fBJuUjCvEx0c5Md9plZZJsMcO6LYfdLqAXulFRcRcdqzjPPTDZ9kCT+
+	GTv1CRIQ6OICUjGkXz/qjW2OXyROdqZHGm0oSueyKbf54XQ0tcqQh/NbXGh3leHlbLGZ4Vaf/r9Bu
+	OexKkjye9RL5AemAjK1ELaOMaG4tFCUfBRnYRuarzaDxdDafgWq+VlFu9DPLvff9oGuuj/ED7fyWT
+	k+4weIXw==;
 Received: from authenticated-user
 	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.96)
 	(envelope-from <leitao@debian.org>)
-	id 1xPLph-009NUF-2U;
-	Fri, 06 Nov 2026 15:26:26 +0000
+	id 1xPLpq-009NUW-1r;
+	Fri, 06 Nov 2026 15:26:34 +0000
 From: Breno Leitao <leitao@debian.org>
-Subject: [PATCH v2 0/2] btrfs: drain in-flight direct IO before direct
- writes dirty the page cache
-Date: Fri, 06 Nov 2026 07:21:09 -0800
-Message-Id: <20261106-btrfs_page_cache-v2-0-f57575d0071d@debian.org>
+Date: Fri, 06 Nov 2026 07:21:11 -0800
+Subject: [PATCH v2 2/2] btrfs: drain in-flight direct IO before zeroing an
+ unaligned EOF block
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,11 +65,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGrw7WoC/x3NsQ6CMBRA0V9p3lxMWxVDJ0d33QwhbX20L7GAL
- RII4d+NrHc4d4WMiTCDZisknChT34FmijNwwXQeC3qBZqCEKqUUZWHH1OZmMB4bZ1zAQhkrpTh
- VrpJH4AyGhC3NO/msOYNAeezTsh8m+a9gvvN0eXgx3z/n5Rbt1UdD74PrI9Tbtv0AvS61lZUAA
- AA=
-X-Change-ID: 20261106-btrfs_page_cache-2ab11049c913
+Message-Id: <20261106-btrfs_page_cache-v2-2-f57575d0071d@debian.org>
+References: <20261106-btrfs_page_cache-v2-0-f57575d0071d@debian.org>
+In-Reply-To: <20261106-btrfs_page_cache-v2-0-f57575d0071d@debian.org>
 To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>
 Cc: Qu Wenruo <wqu@suse.com>, Filipe Manana <fdmanana@kernel.org>, 
  Boris Burkov <boris@bur.io>, Atish Patra <atish.patra@linux.dev>, 
@@ -79,82 +76,95 @@ Cc: Qu Wenruo <wqu@suse.com>, Filipe Manana <fdmanana@kernel.org>,
  kernel-team@meta.com, stable@vger.kernel.org, 
  Qu Wenruo <quwenruo.btrfs@gmx.com>
 X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2514; i=leitao@debian.org;
- h=from:subject:message-id; bh=G5bu8pZByj7CV8JE5MV2SiAOm5Ks6FKz3MWBRljfLPk=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq7fGdi4cemJ1mys8+l1vMEGG0dq/FWrzN9X9Qz
- 6q6a3i8ccqJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCau3xnQAKCRA1o5Of/Hh3
- bQDmD/4mZeWhaDDZg4t5RPL5nylUSfKRfiOMsY/cLFg3HeFWmOgLoPFLw5/t+vf5JQzZT5SsNmr
- JdUySBrzqABuxRA1UoHyVXqozN+IZS4P0g1Sd9m7CkhdgJg/jhfwfirWkHoTiSK4vWugTwzUZ+A
- 55qUam9oUSWQU4Wd+0kezWcsfr7ljCUzQZZhcQ5A2J0zmFD+UwLYuOKjSHzLeFuayCfqTKlptXC
- YH+ri8iQ97W1mF3zVR3XVTekurQD6RYzn5WAIlLnj+6yXhySbVIU2Udh5a59JQMFPj8C60L64wz
- /MqEwFPDw+rihIRXDK4yHFa7Ur6pNczkUT3uXbX1cGUGWuWJ0CU5l1aD+hiSGwd2aNtMcOpjxIp
- g+HN+1s/tbX3w6FYhQ2+mdncLIb0FJ93nt+gVENgwowsES9rxE5UaKevNbFWlsuYjFVrnG71l61
- r081vOfe0yM5H8JE/jcb5+zAPCCwEPmNhBTgoGxhfii2Ap1VCoBAjQ+EnmUCkT1d7P9JlfDwjX2
- 3XmeYBsuiQRFm49oC38zrqJroT2EwSryV5FklYuueOAajAD4bRIBEdF9d5lnIZza4gCDrtEw7z/
- pyo6opIEubTVz4IoFZ7Lt/hw9LNT0poDQ/HqOWvWjwyJYUnWHvoy/nDj4UTAykIU06UZ4QU5DRk
- uCyKWdG6aZqgHUQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3201; i=leitao@debian.org;
+ h=from:subject:message-id; bh=9VDZR0ipfUyh1vgVGQArt/gpNnJfH39nLr9aJFg2lt4=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq7fGdnxAvTzK+p1Ov0ZlWSX5nkQcHKqGIfQtvb
+ IPuwJNvogqJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCau3xnQAKCRA1o5Of/Hh3
+ bVhUEACZMXzKjxEaoHK7ypneRs2+41hPOOfbjZb18sqcHLsVXgUJwV2O+IaUb8QkVmBN4OawZaO
+ 1qrO+H+ka8yKydmPuLKcRW3+vCq0HUZ061OUidC7uYTyYx0kskZvInA/M089u8WWSV2kosCVDfu
+ tYHJldYy7xYWQnqnzDzD03aFqpADshHBy+XZF2vHQ2yk+Ma+FlHRKl5edPE2MHzIrAdJ5UaF/PZ
+ PiGNM8XkVrJtSGcfzllq3CVVjrXeFT2TFeT+Oa3y1piD9BBpw8eO78fDaXE+Pkz7Fta1KDDyOAj
+ wx9p2xyij2lRQjEVl1h2fcMZtMZKydbo3WXJ1zrgjNCIl+6gq3zhCdQ0hJHWcgOqPbGZS4V1TSG
+ 6z8NUWD54OGgvEJn1i+0QOaAkRmS4upbxXLL5bAC4MzfUiT+G3O6YY3z5vOe9pYUGCwH2SD7MeF
+ aNUB9ZixZarIAmTZrkNC29Bemo9VbdZ2Qsr41Lzi5KZdl7fevryQaroGjMiDrqvGpigCF7zBMrg
+ xjde9d4R7FXwHw12iPfzOV6YjrnuUI1ot37ITs3GpKDhrideNXNJGbzTIBwVMqJfeGYSTbKUtZi
+ VIVxLdciAk41uATHQLmPgqOxxpbnJXucxXh2djA5EjKqmbc4RWuiuVRsQ2Y85kYN0pSmquEXXum
+ pcRkRbP30Kku1IQ==
 X-Developer-Key: i=leitao@debian.org; a=openpgp;
  fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
 X-Debian-User: leitao
 
-Atish reported that arm64 hosts with 64K pages and 4K btrfs blocks,
-which keep VM disk images as NOCOW files opened with O_DIRECT, log
+A write that starts past an unaligned i_size first zeroes the rest of
+the block at i_size: btrfs_write_check() calls btrfs_cont_expand(),
+whose btrfs_truncate_block() reads the folio, zeroes it past i_size and
+marks that block dirty.
 
-  Page cache invalidation failure on direct I/O.  Possible data corruption due to collision with buffered I/O!
+Reading the folio waits for the ordered extents of direct writes to the
+other blocks of the folio, but not for their iomap completion, which
+runs separately from the ordered extent completion and is where the
+page cache gets invalidated:
 
-and the next fsync() on the image fails with -EIO. Every write the VM
-issues is O_DIRECT, the buffered writes come from btrfs itself.
+1) Task A has an async direct write in flight to block 0 of a folio.
+2) A fallen back write or a truncate left i_size in the middle of block
+   1 of the same folio. Task B issues an O_DIRECT write past i_size, and
+   btrfs_truncate_block() waits for the ordered extent of Task A.
+3) Task A's write completes and its ordered extent finishes, so Task B
+   zeroes the rest of block 1 and dirties the folio. When iomap then
+   completes Task A's write, kiocb_invalidate_post_direct_write() finds
+   the folio dirty and records -EIO in the mapping, so the next fsync()
+   fails.
 
-Both patches close the same race: a direct write dirties a folio while
-another task's direct write to a different block of that folio is in
-flight, and the completion of the latter fails to invalidate it.
+btrfs_direct_write() calls btrfs_write_check() before it decides to fall
+back to buffered IO, so this hits direct writes past EOF as well as the
+unaligned ones that fall back: for those, the inode_dio_wait() in
+btrfs_buffered_write() runs after the folio is dirty.
 
-Patch 1 waits before the buffered fallback for unaligned writes. Patch 2
-waits before btrfs_write_check() zeroes the block at an unaligned EOF,
-which btrfs_direct_write() does before it decides to fall back.
+Wait for in-flight direct IO before zeroing, as XFS does in
+xfs_file_write_zero_eof(). Unlike waiting for the ordered extents,
+inode_dio_wait() covers the invalidation, as iomap_dio_complete() calls
+inode_dio_end() after it.
 
-Tested on a 64K page arm64 kernel, on a NOCOW file of a 4K block btrfs.
-Async 4K O_DIRECT writes race 512 byte O_DIRECT writes inside EOF
-(fallback), and O_DIRECT writes past an unaligned EOF, of 4K (eof-dio)
-and of 512 bytes, which fall back (eof-fb). fdatasync() EIOs in 20
-seconds per test:
+Only an unaligned i_size needs the wait, as btrfs_truncate_block()
+dirties nothing otherwise. Buffered and encoded writes past such an
+i_size wait as well, since they share btrfs_write_check().
 
-              base   patch 1   patch 1+2
-  fallback       6         0           0
-  eof-dio       24        20           0
-  eof-fb        34        14           0
+A reproducer keeps 4K AIO O_DIRECT writes in flight to the first 15
+blocks of a folio of a NOCOW file. Another task truncates the file to
+end inside the last block of that folio, then writes past EOF.
 
-60 second runs got 56 and 38 EIOs in the eof tests with patch 1, and
-none in any test with both patches, in two runs. The reproducer for
-patch 1 is at [1].
+On a 64K page VM it got 56 fdatasync() EIOs in 60 seconds before this
+patch, 38 when the write past EOF is 512 bytes and falls back, and none
+in two runs with this patch.
 
-[1] https://github.com/leitao/btrfs-dio-fallback
+Qu Wenruo pointed this path out, from a Sashiko review.
 
+Fixes: 95ea0486b20e ("btrfs: allow read-write for 4K sectorsize on 64K page size systems")
+Cc: stable@vger.kernel.org
+Reported-by: Qu Wenruo <quwenruo.btrfs@gmx.com>
 Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
-Changes in v2:
-- New patch 2: drain in-flight direct IO before btrfs_write_check()
-  zeroes the block at an unaligned EOF (Qu, from a Sashiko review).
-- Patch 1: no code change. Picked up Boris' Reviewed-by, and added a
-  stable Cc.
-- Both patches: the Fixes: tags now name 95ea0486b20e, which first
-  allowed writes with more than one block per folio, 4K blocks on 64K
-  pages.
-- Link to v1: https://lore.kernel.org/all/auxv7Tg0xSq5yHmb@gmail.com/
+ fs/btrfs/file.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
----
-Breno Leitao (2):
-      btrfs: drain in-flight direct IO before buffered write fallback
-      btrfs: drain in-flight direct IO before zeroing an unaligned EOF block
+diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
+index 2017a96814d857..15802db7b664b8 100644
+--- a/fs/btrfs/file.c
++++ b/fs/btrfs/file.c
+@@ -1063,6 +1063,13 @@ int btrfs_write_check(struct kiocb *iocb, size_t count)
+ 		/* Expand hole size to cover write data, preventing empty gap */
+ 		loff_t end_pos = round_up(pos + count, fs_info->sectorsize);
+ 
++		/*
++		 * Zeroing the block at an unaligned EOF dirties its folio, so
++		 * drain in-flight direct IO first, see btrfs_buffered_write().
++		 */
++		if (!IS_ALIGNED(oldsize, fs_info->sectorsize))
++			inode_dio_wait(inode);
++
+ 		ret = btrfs_cont_expand(BTRFS_I(inode), oldsize, end_pos);
+ 		if (ret)
+ 			return ret;
 
- fs/btrfs/file.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-change-id: 20261106-btrfs_page_cache-2ab11049c913
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+-- 
+2.53.0-Meta
 
