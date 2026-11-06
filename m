@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977228;
-	b=jbnsEBIanavxiu+QRWhUHIe8oP9Tm8oZTJgva9wXoGkkW/Qg5dN26BRkBdoyjzjBt9zE
-	 GjiSpLPOe8dPcweTdQVQZm+mXcQD+onLtt21gDJInG/dTZmMkZCkAaA2eXtRgT0stOTBf
-	 KsIEBnFoRQQaDIDMzaAhd26Kaf0/sbhP2aUlQpI6yt2Sg1wHimiHvs9BohS3taTRrym76
-	 kdwguFwbb99KM+G8cA1rbyXLmj+Qqw5R4r8aq/2AO+oIbVQVTYkMSYkbT/x1I1Kjs0Nld
-	 iVAk0GI1xFqzdvI/IpAzHB6O9bQ8XgPNO6oGyA286/Wvrkbqft41xDIQozyoL3ujCPA==
+	t=1793977261;
+	b=fNv5EWlY0qdW8hr5FzXa3IA0CahjP8lZzJVKs5SeU8ZFNbPEms9rqXnLgUXRGLQRI9mz
+	 VGXABTGoEn9yYBMfORpYlOZAGpgooSEfwTGyuj7tupsTxVTR8lLOBMn4HCjJc7D9xwilc
+	 5ZYwFHhbfJjAEpJsiB40U7ZJolYeRBJHVEWjiU6v2I6rLvrhVYiBxPMZplVtzIdYXMPtR
+	 chlur+jMiBsKxuN067V7tZ623ZUiIH0B/+xYxi81vhek/ggtsw7IqxG2JY+LLwvbczf3Q
+	 EyF8aTyx1LIQlw2bPyfKzLyjIec+XZOiqfJG0DAcgoR/a7wXU4XGIrPDpUvy9ZX+iZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977228;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=9t5fly3hO1PboXA0fMYf5Gqlfv6z0xmf1AD5NzOQdGI=;
-	b=Wxo3qYvUhR3gjdCy29A+HAaYAjB9ciwzzcUmEMLf/ocln0HHSywQvfmKW13sX9eDqFo2
-	 RcVW+DIGtW2mApA7BvhRB2QrYfpiTG+TNAnvq/JmHQLBYbnu8ZUaYIzTZZxQ5NO2gT+Er
-	 1dADvn2/SGRrA6T4AJqO74NHp7kfZ9XtEnrXNWMOyB7R5xHlGI7zHjJDUSYH6RhDST0Rc
-	 pC9K9pk7EGUXL7wcmGuJ8ND/Y85vEhRImdmHV17IwbSwBQoycvuhfBUUw4m9ZX/Il3Blx
-	 QK1Xp+XiqHTypO9P6LIAwOZYSEA85z32dLCEzjNvBWAYiQUyrBzwfKx9x4wcA8hyAQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977261;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=wlQ/ylp9GVZtOOHn9Jt4l4fXgeRsbR0XY1uRiov6ulI=;
+	b=f1I6c/N5YgJrJeSDgI3Jag0HruwwxctR03nXoX/9j7MU39qRMcS4HFohYh7R5OhufZ5s
+	 PZam9T+Kch3+R6kwC1GWEfg5N/PxN5gTY5hIsY9Zx9QVqkgTPRFvLR28FVQTI6wMetmGA
+	 sE38iWljb8ZPC3JOY+6z77Uu5RB9IZfOZADGmHy0UQf6lKHOyZW+AmnZtVOjAk9xUJSHT
+	 D6/h9nzhVDz86Ni2DvOToBicien3fpr4OlXJYGRfarM3gduGLUMkAfecO5JEP9yMTjseH
+	 zgoOm53N6a9t30ybIeRMObY8ytH476AyZYhv/aIqOgJTvIEQLuSgxwFjRAIwdJOhbIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YO2RWjZQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41AD8606A32D;
-	Fri,  6 Nov 2026 15:00:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41AD8606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jLj6113Q9z4yjjK;
-	Fri, 06 Nov 2026 23:00:25 +0800 (CST)
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl2.zte.com.cn with SMTP id 6A6F0FMC036335;
-	Fri, 6 Nov 2026 23:00:16 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp04[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 6 Nov 2026 23:00:19 +0800 (CST)
-X-Zmail-TransId: 2afb6aedeb8359e-69562
-X-Mailer: Zmail v1.0
-Message-ID: <20261106230019343v9OWwbe7yzjYZeoO4htcW@zte.com.cn>
-In-Reply-To: <20261106230013815Squ68I1R3ds7pODmhHTwr@zte.com.cn>
-References: 20261106230013815Squ68I1R3ds7pODmhHTwr@zte.com.cn
-Date: Fri, 6 Nov 2026 23:00:19 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 869F3606A329
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 15:01:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YO2RWjZQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99A7A1F0089F;
+	Fri,  6 Nov 2026 15:01:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793977261;
+	bh=wlQ/ylp9GVZtOOHn9Jt4l4fXgeRsbR0XY1uRiov6ulI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YO2RWjZQt+zIFMY/bwd7PQzBXX7oHTLvrq9UhYJVg3CgDDhpq/lmffBWozFXQncrr
+	 WlSOyh7KcE//j1NBe2UvYTfOllplkNGNZzczpuDhgb5FvXm5h55pNMlZF2JGMnMEL6
+	 Y5HRYqa/V7PjlGoG22kX961LlojqeHQikd+Vk2+cXjZ9MP5Ldp5zU+AfEqnQo/5uHx
+	 gptM2LbrFpKZExpjq7VmPWgy33nX7BXRBAEp/kdS4TjfkU4ZCYNE5g343KQv+5m38X
+	 YQ480pR/A520nW/Nne10SCb4xwJYOov7TE42Fm0YdiU0IEMA9cyDSZX4KJp6GzOo8f
+	 TEdf4t7Ih6XRQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Xiaoyao Li <xiaoyao.li@intel.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] KVM: TDX: Don't assume exit_reason[31:16] is all-0 in tdx_to_vmx_exit_reason()
+Date: Fri,  6 Nov 2026 10:00:59 -0500
+Message-ID: <20261106150048.399638-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110444-external-riverbed-0f47@gregkh>
+References: <2026110444-external-riverbed-0f47@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,202 +58,99 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIHYyIDEvMl0gbnZtZXQ6IHplcm8gdGhlIGVudGlyZSBHZXQgTG9nIFBhZ2UgdHJhbnNmZXIgYnVmZmVy?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6A6F0FMC036335
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Fri, 06 Nov 2026 23:00:25 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEDEB89.000/4jLj6113Q9z4yjjK
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+From: Xiaoyao Li <xiaoyao.li@intel.com>
 
-Several fixed-size Get Log Page handlers copy only the log structure
-and leave the rest of the host buffer untouched.  The transport buffers
-are not zeroed, so a host requesting more bytes than the structure
-receives stale kernel memory.
+[ Upstream commit bc335ce04408750585b4b32f248c543c9493d545 ]
 
-Zero the entire transfer length before filling the buffer in the
-Supported Log Pages, Commands Supported and Effects, Supported
-Features, Endurance Group, Rotational Media Information and Reservation
-handlers.  For the Error log, also clamp the ring walk to the requested
-length and propagate copy failures instead of completing with success.
+When handling the real Exit Reason, don't assume the upper 16 bits as
+all-0 in tdx_to_vmx_exit_reason(), in preparation for enabling Bus Lock
+VM exit.
 
-The Rotational Media Information handler now accepts a buffer larger
-than its fixed structure.
+When Bus Lock VM exit is enabled, the bit 26 of Exit Reason becomes
+valid and it can be 1 with various exit reasons.  Change the logic in
+tdx_to_vmx_exit_reason() to check the 'basic' Exit Reason for correctness.
+Also preserve bit[31:16] when changing the (basic) Exit Reason, to not
+lose the information in bit[31:16].
 
-Fixes: 11ad507784ed ("nvmet: add error log page cmd handler")
-Fixes: 83acb24e6de7 ("nvmet: implement supported log pages")
-Fixes: 0866bf0c3778 ("nvmet: add commands supported and effects log page")
-Fixes: e973c91727d4 ("nvmet: implement supported features log")
-Fixes: 266b652c65b4 ("nvmet: implement endurance groups")
-Fixes: 5fd075cdaf36 ("nvmet: implement rotational media information log")
-Fixes: 5a47c2080a73 ("nvmet: support reservation feature")
+Change the return type of tdx_to_vmx_exit_reason() to
+"union vmx_exit_reason" for the convenience of manipulating the basic
+field.
+
+Fixes: c42856af8f70 ("KVM: TDX: Add a place holder for handler of TDX hypercalls (TDG.VP.VMCALL)")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-
+Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Link: https://patch.msgid.link/20260819094903.3060020-5-xiaoyao.li@intel.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-The uninitialized tail is made visible with page_poison=1
-(CONFIG_PAGE_POISONING): freed pages are filled with 0xaa, so a
-Supported Log Pages request that asks for 4096 bytes (NUMD 1023) shows
-bytes 1024..4095 as 0xaa on the unpatched kernel.  The request is four
-times sizeof(struct nvme_supported_log), so the handler writes only the
-first 1024 bytes.
+Depends on <20261106144334.354667-1-sashal@kernel.org>
 
-  unpatched                            patched
-  tail[1024..4095] = 0xaa (10/10)      tail zeroed (0/10)
+ arch/x86/kvm/vmx/tdx.c | 24 ++++++++++++++----------
+ 1 file changed, 14 insertions(+), 10 deletions(-)
 
-Without page poisoning the same bytes would carry whatever stale data
-the target's page allocation returns; the patch zeroes them first.
-
-The Rotational Media Information and Reservation log changes, and the
-error log ring clamp, are not runtime-tested: the test guest has no
-rotational namespace, no persistent-reservation setup, and no injected
-command error.
----
- drivers/nvme/target/admin-cmd.c | 51 ++++++++++++++++++++++++++++++++---------
- drivers/nvme/target/pr.c        |  6 +++++
- 2 files changed, 46 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
-index 26028be8fe4d..6cb05d33f024 100644
---- a/drivers/nvme/target/admin-cmd.c
-+++ b/drivers/nvme/target/admin-cmd.c
-@@ -176,16 +176,35 @@ static void nvmet_execute_get_log_page_error(struct nvmet_req *req)
- {
- 	struct nvmet_ctrl *ctrl = req->sq->ctrl;
- 	unsigned long flags;
--	off_t offset = 0;
-+	u32 offset = 0;
-+	u32 len;
- 	u64 slot;
- 	u64 i;
-+	u16 status = 0;
-+
-+	status = nvmet_zero_sgl(req, 0, req->transfer_len);
-+	if (status) {
-+		nvmet_req_complete(req, status);
-+		return;
-+	}
-+
-+	len = min_t(u32, req->transfer_len,
-+		    NVMET_ERROR_LOG_SLOTS * sizeof(struct nvme_error_slot));
- 
- 	spin_lock_irqsave(&ctrl->error_lock, flags);
-+
-+	/*
-+	 * The NVMe base specification requires the most recent error to be
-+	 * the first log entry, so walk the ring backwards from the slot of
-+	 * the last error and stop at the end of the requested buffer.
-+	 */
- 	slot = ctrl->err_counter % NVMET_ERROR_LOG_SLOTS;
- 
--	for (i = 0; i < NVMET_ERROR_LOG_SLOTS; i++) {
--		if (nvmet_copy_to_sgl(req, offset, &ctrl->slots[slot],
--				sizeof(struct nvme_error_slot)))
-+	for (i = 0; i < NVMET_ERROR_LOG_SLOTS &&
-+	     offset + sizeof(struct nvme_error_slot) <= len; i++) {
-+		status = nvmet_copy_to_sgl(req, offset, &ctrl->slots[slot],
-+					   sizeof(struct nvme_error_slot));
-+		if (status)
- 			break;
- 
- 		if (slot == 0)
-@@ -195,7 +214,7 @@ static void nvmet_execute_get_log_page_error(struct nvmet_req *req)
- 		offset += sizeof(struct nvme_error_slot);
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index ad5b5497473a5..2739e60bd06a2 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -899,10 +899,10 @@ static __always_inline bool tdx_is_exit_reason_valid(u64 vp_enter_ret)
  	}
- 	spin_unlock_irqrestore(&ctrl->error_lock, flags);
--	nvmet_req_complete(req, 0);
-+	nvmet_req_complete(req, status);
  }
  
- static void nvmet_execute_get_supported_log_pages(struct nvmet_req *req)
-@@ -221,7 +240,9 @@ static void nvmet_execute_get_supported_log_pages(struct nvmet_req *req)
- 	logs->lids[NVME_LOG_RMI] = cpu_to_le32(NVME_LIDS_LSUPP);
- 	logs->lids[NVME_LOG_RESERVATION] = cpu_to_le32(NVME_LIDS_LSUPP);
+-static __always_inline u32 tdx_to_vmx_exit_reason(struct kvm_vcpu *vcpu)
++static __always_inline union vmx_exit_reason tdx_to_vmx_exit_reason(struct kvm_vcpu *vcpu)
+ {
+ 	struct vcpu_tdx *tdx = to_tdx(vcpu);
+-	u32 exit_reason;
++	union vmx_exit_reason exit_reason;
  
--	status = nvmet_copy_to_sgl(req, 0, logs, sizeof(*logs));
-+	status = nvmet_zero_sgl(req, 0, req->transfer_len);
-+	if (!status)
-+		status = nvmet_copy_to_sgl(req, 0, logs, sizeof(*logs));
- 	kfree(logs);
- out:
- 	nvmet_req_complete(req, status);
-@@ -303,7 +324,7 @@ static void nvmet_execute_get_log_page_rmi(struct nvmet_req *req)
- 		goto out;
+ 	/*
+ 	 * Return the synthesized invalid Exit Reason, as the TDX module
+@@ -910,22 +910,26 @@ static __always_inline u32 tdx_to_vmx_exit_reason(struct kvm_vcpu *vcpu)
+ 	 * but this is NOT a failed VM-Enter.
+ 	 */
+ 	if (!tdx_is_exit_reason_valid(tdx->vp_enter_ret))
+-		return EXIT_REASON_UNDEFINED;
++		return (union vmx_exit_reason) {
++			.basic = EXIT_REASON_UNDEFINED,
++		};
+ 
+-	exit_reason = tdx->vp_enter_ret;
++	exit_reason.full = (u32)tdx->vp_enter_ret;
+ 
+-	switch (exit_reason) {
++	switch (exit_reason.basic) {
+ 	case EXIT_REASON_TDCALL:
+ 		if (tdvmcall_exit_type(vcpu))
+-			return EXIT_REASON_VMCALL;
+-
+-		return tdcall_to_vmx_exit_reason(vcpu);
++			exit_reason.basic = EXIT_REASON_VMCALL;
++		else
++			exit_reason.basic = tdcall_to_vmx_exit_reason(vcpu);
++		break;
+ 	case EXIT_REASON_EPT_MISCONFIG:
+ 		/*
+ 		 * Defer KVM_BUG_ON() until tdx_handle_exit() because this is in
+ 		 * non-instrumentable code with interrupts disabled.
+ 		 */
+-		return EXIT_REASON_UNDEFINED;
++		exit_reason.basic = EXIT_REASON_UNDEFINED;
++		break;
+ 	default:
+ 		break;
  	}
+@@ -942,7 +946,7 @@ static noinstr void tdx_vcpu_enter_exit(struct kvm_vcpu *vcpu)
  
--	if (req->transfer_len != sizeof(*log)) {
-+	if (req->transfer_len < sizeof(*log)) {
- 		status = NVME_SC_SGL_INVALID_DATA | NVME_STATUS_DNR;
- 		goto out;
- 	}
-@@ -321,7 +342,9 @@ static void nvmet_execute_get_log_page_rmi(struct nvmet_req *req)
- 	else
- 		log->numa = cpu_to_le16(1);
+ 	tdx->vp_enter_ret = tdh_vp_enter(&tdx->vp, &tdx->vp_enter_args);
  
--	status = nvmet_copy_to_sgl(req, 0, log, sizeof(*log));
-+	status = nvmet_zero_sgl(req, 0, req->transfer_len);
-+	if (!status)
-+		status = nvmet_copy_to_sgl(req, 0, log, sizeof(*log));
- 	kfree(log);
- out:
- 	nvmet_req_complete(req, status);
-@@ -436,7 +459,9 @@ static void nvmet_execute_get_log_cmd_effects_ns(struct nvmet_req *req)
- 		goto free;
- 	}
+-	vt->exit_reason.full = tdx_to_vmx_exit_reason(vcpu);
++	vt->exit_reason = tdx_to_vmx_exit_reason(vcpu);
  
--	status = nvmet_copy_to_sgl(req, 0, log, sizeof(*log));
-+	status = nvmet_zero_sgl(req, 0, req->transfer_len);
-+	if (!status)
-+		status = nvmet_copy_to_sgl(req, 0, log, sizeof(*log));
- free:
- 	kfree(log);
- out:
-@@ -527,7 +552,9 @@ static void nvmet_execute_get_log_page_endgrp(struct nvmet_req *req)
- 	put_unaligned_le64(host_writes, &log->hwc[0]);
- 	put_unaligned_le64(data_units_written, &log->duw[0]);
- copy:
--	status = nvmet_copy_to_sgl(req, 0, log, sizeof(*log));
-+	status = nvmet_zero_sgl(req, 0, req->transfer_len);
-+	if (!status)
-+		status = nvmet_copy_to_sgl(req, 0, log, sizeof(*log));
- 	kfree(log);
- out:
- 	nvmet_req_complete(req, status);
-@@ -601,7 +628,9 @@ static void nvmet_execute_get_log_page_features(struct nvmet_req *req)
- 	features->fis[NVME_FEAT_RESV_MASK] =
- 		cpu_to_le32(NVME_FIS_FSUPP | NVME_FIS_NSCPE);
- 
--	status = nvmet_copy_to_sgl(req, 0, features, sizeof(*features));
-+	status = nvmet_zero_sgl(req, 0, req->transfer_len);
-+	if (!status)
-+		status = nvmet_copy_to_sgl(req, 0, features, sizeof(*features));
- 	kfree(features);
- out:
- 	nvmet_req_complete(req, status);
-diff --git a/drivers/nvme/target/pr.c b/drivers/nvme/target/pr.c
-index 14eaa99f98fa..b860cbe192cd 100644
---- a/drivers/nvme/target/pr.c
-+++ b/drivers/nvme/target/pr.c
-@@ -99,6 +99,12 @@ void nvmet_execute_get_log_page_resv(struct nvmet_req *req)
- 	u64 cur_count;
- 	u64 next_count;
- 
-+	status = nvmet_zero_sgl(req, 0, req->transfer_len);
-+	if (status) {
-+		nvmet_req_complete(req, status);
-+		return;
-+	}
-+
- 	mutex_lock(&log_mgr->lock);
- 	if (!kfifo_get(&log_mgr->log_queue, &log))
- 		goto out;
+ 	vt->exit_qualification = tdx->vp_enter_args.rcx;
+ 	tdx->ext_exit_qualification = tdx->vp_enter_args.rdx;
+-- 
+2.53.0
+
