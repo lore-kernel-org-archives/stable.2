@@ -1,76 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793958641;
-	b=aryLEz2CSmm4XBQTLyPlFuisXWymUZdtqGHB/syJtrNcfI9wvuKGlw4KUEYJMK2rkK03
-	 QgrwXbc9EDs+MS/STMYm4rqgM+ZLNnAHoPbBujMLAQ7llb8TqZJL8R2Hjz4IHZQGzss5G
-	 W0H5jah1ImxCO7doswaiEvrtJe4Hx9rU8MA512Ab5iKb+89IiG/Lk3acNEdu5Gmb1Ph9d
-	 Gzs7ZBaDm0Eg6512/M2xCd2xm/+mdHID/PyfyqI1gfIvb+e1xv9WjyGnbDkSgp/c/iNVs
-	 Q2gvBeELR7z25kWbDEjBJYhA8ph1cLNnetc9vAipD6UXUpT6uhOOAA2c/BEypUC6HEw==
+	t=1793958640;
+	b=SO2uDWzXcenOS7wuomt1P+nVyJl8B0/YqDCmo7EZCA8POrPwpVXWajogqbycsb3hyZiQ
+	 iiIFVlFPqR71szLXzcd+fONpZiVl1QxQBAJOUSaBKPAojFVaP6jOLkBWouExZbM+5KdRg
+	 6GfSlAdjIA7c1kbE3VuUReZYYslOY7yb5UzMc5lffcPosdUcW/Jkq9PvKJH9n2xxG68tw
+	 S7nq+++2oMG9DBk5kqcllsjvPjAatsOiIRQOfW1zfl9VccTPhIbHJ3j+ZGIXKTJ5KLFCZ
+	 d6v9n1HS7SwheAi0dlwBbw6nM2eQAkAyHa3l3qy+Krz3crAjlVcKDgOZ2ehsEDJ5olQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793958641;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=fd+a7G3xSvwgjKwhNsGK6E9dV+lpCpxwKCjbHoMr1A0=;
-	b=2lyvTAMIyAfVisFK+IXP+57zbON/vxbyPW1CyjB8J2yB2F+smQwTlEmwKqLC6P3FkrY6
-	 8aU9YvHEyvgi3vzNXVuSL2/x0kr+zCnCRSuVcibPAjH1BER5lYdsTKvHYu0BwLvCqdxwk
-	 VlihMRRuL6cv83eMbMsPC6T6caQ5zQp7oJs1BBYF67/0A71hVcaMq76vTVBhPHr009kIg
-	 ADT0sk4PaoG/O+EPRcENqdhSsYcqC+suSBOrbg5gsYeX+/2QoF4dbXhOA2sNM1UWOLaCX
-	 iHpbTBrsYAckVMqBIu+dt3AkqjEY5yJhprulbTzlgZkjxpk38m0PMUq/wXDQcA+Upeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793958640;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RupwrtSRCRknDTCP4U8+mHVorluG3D1aDqrqCuXGL/o=;
+	b=Zb7J1D41a16rSlVOnF1M5RK8oFLQ66nQsFbAjdGseHDuICdX07OmBhgTX8qHHcafqtDC
+	 vcPIkOyTOrq6pLX0Gx6XtH9ZVs0auIDb5XUs20kIyOHCe71dC99QkN1bgjkmRwd1EXkyN
+	 oV9SBnezBZ5K86meV4cmnrHWHayrFvEhcy/3loEBxlA7xRJ0+rUenYWMFTW94MWxhmIJP
+	 eWTLDfN3PkPr/0Zdbq0OCdIfge4rbjOAZLRvAj+Pk8ZBTw/ILZY4eRYjxugu2djtLD99E
+	 Z5y1weoSU5EPcuUhdbbKCXw8Vmkec56HutxloeMDJcMAgeVlNpQYvSr413P3QDVnntg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=BtZv4RIg;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=eR2FCeKe;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t1D9H5iu;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561096082BD7;
-	Fri,  6 Nov 2026 09:50:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 561096082BD7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD6D606EEBB
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 09:50:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAD6D606EEBB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=BtZv4RIg;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=eR2FCeKe
-Date: Fri, 06 Nov 2026 09:50:38 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793958639;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fd+a7G3xSvwgjKwhNsGK6E9dV+lpCpxwKCjbHoMr1A0=;
-	b=BtZv4RIgB5yQFHKQeXOQGxj4HuscSCrtoYL1rVndWqRIXnRvmWfyD2tIRWGYUaSXwgw18+
-	zSc6b1aMh6leerHrXNxrzZGS2+ooj/DVxQYsYyZmzi3RnQVPWvG0Iac4uTXm5w4JyJp+yD
-	IdC/bYWO8Gnm1ugHulCuGiD16YHYi3Blq/1ItntkN9bEk5zxj259etT+kCe76RtDjPrw4h
-	j267gLbS9r0S3ms1U5+LT6XflsL+5cH9/EtFXagRiDeHPMdajZhNZDiCv7s96L9RktuuWG
-	v+htK5UocljLedfOsb7Qkp7nRVxkDnv/+BXkioB+iWduC+wPvroQxec4WMmCOA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793958639;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fd+a7G3xSvwgjKwhNsGK6E9dV+lpCpxwKCjbHoMr1A0=;
-	b=eR2FCeKe32U5idp4hFE3/LLRj1MtmW5hiN9OyXf9U6D9Hf8ulsTAPAtGBssRV7Pq0k++Xb
-	db1GrYR0PryTQ8BQ==
-From: "tip-bot2 for Daehyeon Ko" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/urgent] sched/fair: Clear throttle state when leaving the
- fair class
-Cc: Daehyeon Ko <4ncienth@gmail.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, Aaron Lu <ziqianlu@bytedance.com>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261022235234.150957-1-4ncienth@gmail.com>
-References: <20261022235234.150957-1-4ncienth@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t1D9H5iu
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-490585eddfcso290439f8f.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 01:50:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793958638; x=1794563438; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RupwrtSRCRknDTCP4U8+mHVorluG3D1aDqrqCuXGL/o=;
+        b=t1D9H5iuTUmjdPhOVJmZIub2cA7iiSUr41ZQ3yS+raxwi2K9JW5USUNO1Ej8W7ktyy
+         jDlpr6IYaICDt5N3782Vm+vT8R7N+VD6e282WCZUIr3qHs3ymqVae8nOek4p5Qr6O/oS
+         dqZpOzvc4Swchkzri6wDXvUOBTWJM5lyg5UOT7Y/iAiO/bDMWNay73N2vmeXoqlrNWa3
+         CWfy2PPZ8DtSbf0uhLB61kRz/tBH8yhEbP0mgAap9N/KETVXb+EF1zhC7HOG5tW8CGpR
+         ZOvm0YUZZDiDTRNjJd5C/6nVAnSAYqMrPeB1m3dSCFZzIl8NAmnARF5bgl9O49QSbyKD
+         /grw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793958638; x=1794563438;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RupwrtSRCRknDTCP4U8+mHVorluG3D1aDqrqCuXGL/o=;
+        b=MZGf0a3rlZSNzHJxcBy3eShIFvrTYtM7XqJu+NJzF6WNehxpQIAmHnTJoi3/Jei2pv
+         wrLvZew0qJ5v/M468P7eCOFME8Hm8f4R8/jIv7ocEfkx8XnT9R0KMFEpL0YD7TGeIrnJ
+         0nTOetVNvy+O5pFlFXHM0mCfncS0z1ZCrX6fBZRNlwcB+8huJMKre50gkAf2NW5oiE3r
+         tVehxjktyVSuZdRIeaGrw5S0LNZ+Vv6A4F0FTvbECQ7m+sl9TBQUDfh3bdbaNZcvMeZq
+         IKhRclaKIHYuJn8XyyawVPHDw4/QSKciyN6fXVsSvaNO6ONrlkhRLdWfi7cJkbtlXKIj
+         26Lw==
+X-Forwarded-Encrypted: i=1; AL+hErEOVfIQcDQ6JX9YS+nws3IjZ3MapBTle5jnWZuwXoPn+Pjj5iVJADN+k9roaAd+XJUNEAiWeo0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/RMrgd6LzU4/3jvqIvOws9I7tdTc/Epn/UP6boLc+Wn2Vc7PKU
+	qx/8z3VigLTkfY+3BvdM4FGpOooeahoyi3QnFsxWUFpGVS9QUYrdwd+p
+X-Gm-Gg: AYBFou2IOvjlpTtFIfRJ0/0h/5dV7VYZN9vLCegPboJti2TANmQSA/Ew14dYWTuFN5a
+	8U/PSKMcK40qouFxQ+V6Ajk0GNUTCpClipGLu8EgmvVUMISsckP5/3Kp4xeJj6ZmozKx5RC8pW8
+	VQ42eHNevTayFSwkvxJoZUxOUqlYsaGGmmMi2pmbLJDv/bDXbraxwe415ElOX26PnOFGNyIiTxw
+	cbODQ04FJ4XRDrnwGE9TKjiLgHxooBvvghC58RNXc/esRuA5+SCv2uoZDvL6n+KrJvT4MnJtZmg
+	JeCFjikaJjhyQ4nubDafgjxyZIX+K89mpHd+oNnP+ZyzxEki93D/uXfJpZcFJYVx/2qE3T0mxEh
+	VI0K41UvaM5h65g/cfs3itjeLi9PyQk/BfaovdEVL7LVip4KoUNlJyim/Ryypqj0oLb9184Sf9c
+	b2xKT4cm74Nr2fqUPXe/Ty6VhTatYpGeBVR1hDfLQORzy4e/OKOXsqxx++mvdoJ3HF4Fl9on0bm
+	5fgy8v5BDEfCwxbZMvtAjsQSI8Wq/yFXVLROVb3AFyLrbrIVmfnaD7JkMbhleCUAPutNOJuTQRx
+	9otZfcb/SiJXSmCKnF0IvQU=
+X-Received: by 2002:a5d:5d82:0:b0:491:83e7:32bd with SMTP id ffacd0b85a97d-49277f88313mr3982559f8f.50.1793958637679;
+        Fri, 06 Nov 2026 01:50:37 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d3d60e78sm2755152f8f.1.2026.11.06.01.50.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 01:50:37 -0800 (PST)
+Message-ID: <6662ae76-c8dc-4bc5-9730-bf9f537ca9cb@gmail.com>
+Date: Fri, 6 Nov 2026 10:50:34 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,83 +92,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179395863813.1009794.9427104434880401809.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] mm: limit pagecache folio refcount when splicing into
+ pipes
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
+ Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
+ Steve Sistare <steven.sistare@oracle.com>, John Hubbard <jhubbard@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ iommu@lists.linux.dev, stable@vger.kernel.org
+References: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
+ <20261105-refcount_overflow_stable-v1-2-70b9c655da3e@kernel.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261105-refcount_overflow_stable-v1-2-70b9c655da3e@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the sched/urgent branch of tip:
+On 11/5/26 2:10 PM, David Hildenbrand (Arm) wrote:
+> Similar to mapping pagecache folios into page tables, let's reject splicing
+> folios into a pipe if the refcount is at it's limit, similar to how we
+> handle it during GUP.
+> 
+> This will prevent more cases of possible folio refcount overflows with
+> large pagecache folios.
+> 
+> Let's keep it simple and check in the two callers of
+> splice_folio_into_pipe().
+> 
+> Also check in try_get_page() to cover pipe-buffer duplication by tee()
+> and partial pipe-to-pipe splicing.
+> 
+> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
+> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Commit-ID:     c282051fc2cae2ea54770ebe435dbea090272c25
-Gitweb:        https://git.kernel.org/tip/c282051fc2cae2ea54770ebe435dbea0902=
-72c25
-Author:        Daehyeon Ko <4ncienth@gmail.com>
-AuthorDate:    Fri, 23 Oct 2026 08:52:33 +09:00
-Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Fri, 06 Nov 2026 10:04:04 +01:00
+LGTM:
 
-sched/fair: Clear throttle state when leaving the fair class
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-Task-based CFS bandwidth throttling removes a task's fair sched_entity
-while the scheduler core still considers the task queued. p->throttled
-carries the fair-specific state across dequeue/enqueue operations.
-
-DEQUEUE_CLASS removes the task from cfs_rq->throttled_limbo_list
-but retains the bit. If the last finite CFS quota is disabled while
-the task runs in another class, it is absent from the unthrottle walk and
-the bit survives.
-Returning to fair while cfs_bandwidth_used() is false then performs a real
-fair enqueue with p->throttled still set.
-
-After bandwidth is re-enabled, a class-change dequeue treats the
-stale bit as limbo state and skips __dequeue_task(). p->se.on_rq therefore
-remains set, and put_prev_task_fair() places the entity in the EEVDF tree
-while the task moves to RT. On exit, the fair picker can select the
-TASK_DEAD task. __schedule() then returns to do_task_dead(),
-which hits BUG().
-
-Keep p->throttled across migrations and group moves, but clear it on
-DEQUEUE_CLASS because fair-specific state must not outlive fair-class
-membership. A later return to fair uses the normal enqueue path. That path
-still respects a throttled cfs_rq.
-
-A KASAN, LOCKDEP and DEBUG_LIST v7.3 kernel reproduced the do_task_dead()
-BUG in 3/3 root and 3/3 delegated uid-1000 runs with CapPrm=3DCapEff=3D0 and
-RLIMIT_RTPRIO=3D1. The fix passed both matrices plus a 3/3 class-switch
-control with bandwidth continuously enabled, without a scheduler warning,
-KASAN report, lockdep splat or crash.
-
-An AI coding assistant analyzed the state mismatch and drafted the initial
-reproducer, fix candidate and this changelog. The source paths, trigger,
-controls and results were rechecked against the cited revisions.
-
-Fixes: e1fad12dcb66 ("sched/fair: Switch to task based throttle model")
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Aaron Lu <ziqianlu@bytedance.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261022235234.150957-1-4ncienth@gmail.com
----
- kernel/sched/fair.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index cfc9822..ad41453 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -6964,8 +6964,8 @@ static void dequeue_throttled_task(struct task_struct *=
-p, int flags)
- 	WARN_ON_ONCE(p->se.on_rq);
- 	list_del_init(&p->throttle_node);
-=20
--	/* task blocked after throttled */
--	if (flags & DEQUEUE_SLEEP) {
-+	/* Task blocked after throttling or is leaving the fair class: */
-+	if (flags & (DEQUEUE_SLEEP | DEQUEUE_CLASS)) {
- 		p->throttled =3D false;
- 		return;
- 	}
+-- 
+cheers,
+jose a. p-a
