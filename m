@@ -1,56 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793974679;
-	b=SReph7YCCp7n152x03+5RLOxP8AsCsM9iCM81FnWC292piYdVKt7MgpV6k4kIAoSyaxl
-	 gMdCqawhMDbw7c8F1y3IPbhSaXfWE7d/j55OG2OkWq7arJRgE5U3hjbSl0Rm03WlAudD3
-	 8g0dWTeGtXRFg9HlOOh0LISj/vME2Y6WPjHk/r/6NHSWF6oSTKu4cCT128sRtO8T2ru3V
-	 aWExXaCLqmuZ33U/GIFKCTMS9g/RANsKcimoqN/o5bjCYIR17myr/Poxzm1bpV6WpLAPa
-	 4cGeTU8fxYwWmCskhPIYwPeMNW9aFMTGBQFAYFpWcIkXSEYfZPXzk6elbjbfavxrhOg==
+	t=1793974691;
+	b=S0CjzF8E/oynNxhTAAfxv2EaOUJpI68FWIvJ57wTcM2DX3nWj6l2F/blG7D7xHrYo+4U
+	 XPCV43mmZ7RNWJuJDxFFN2bthDhL3eKsmm63qSEMReLw1Dw7P1v9POuBdinAmYGjCcNoX
+	 H6BkjqcK8svf7Tpg+YzMxotHdHyLffLFIC8k0fa3JhegoIp2BgSniBR97YLbFd8HRYoF+
+	 4LmbQFZbnsHr3ck9Xc05tqp2pf2hi/PHTmUvIHYiCgmM4xrL49t7xXZ78iW+b1KhfXdYu
+	 IDuO3wix81eK+CBvNZXwVjTCiZDaKcCIB8AHNq3XmqAnQkL2/GrTmweZczLZhsAoOCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974679;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VCh2ZaFuxfC+u/rbMqTxz5XBMsPuDvmJBVHq8w+GZe4=;
-	b=45gw0ah7wrgO3SLdrlNNjzkiEzzvj/Ycyjh4r6ICQhBbnHOYmqr2FKvSmNEwqCyoMnDb
-	 Zx9c9vUZ5AtUGyCQzZICjS048v5wtKnkrpbBxkZSLb2408URD27MVAacnVBoGs16aXW8c
-	 7psvKYI1HGCY+Ul/WU6yeN8LAehdDrfoZr0ITZkboCR4uFSCsxSsEM/ZXByGJskLBrINI
-	 Uyf4TidoImCtIiouWigh99kOHX9ilC1xAEh3PElenNv5cTL8+LDgmUFCffYk34JyWTd7g
-	 qKtxe55DAJ4FAVHsNYpMPzBufNfWE1ZroR8KnKSbfbEK2oE+rlUuPsQRgBXzEwWfaFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974691;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=DbXOMRc+RxyXDwhPgVxgq6OSlAD0HlpBTR9dAYmXezE=;
+	b=ZniozLnf5pBSyLz8i72JKxnr2VwCMQbOfKFC00z29VPny8Z8Sawc9bgjRjUFVkIOtTEn
+	 +jaziS8Z76UQFmf71TZQfxhCoUnuCHJkpEujxdOvlw7LTsqz6ibrWohlzsCrSYqksid+W
+	 fFkz66nGJkPeWBgjuiWV6VX4jIduECfg395KxEEqT0BkHOJJkt0+iCidEpUDuMkMrEcsp
+	 v0TFc8ycUzi1tzS4VerjWgDb4npoC95jYIQ8hwnUpiyI/QRLVpnBQ19nBWBJ0XWltkAuq
+	 A56/JB+hEEs2LCKEUiFqabpFnpNGbstIoGrwUzu7P52SgqTxD14VL2NxAF+PaoOPFgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJT67RRm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FIawBo5u;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GAIC8+xY;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FIawBo5u;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GAIC8+xY;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14532606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:17:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1AE606A326;
+	Fri,  6 Nov 2026 14:18:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E1AE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJT67RRm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 305341F008A3;
-	Fri,  6 Nov 2026 14:17:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793974678;
-	bh=VCh2ZaFuxfC+u/rbMqTxz5XBMsPuDvmJBVHq8w+GZe4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PJT67RRmERftfBIzbiT/GzLzvsAVAfycyO66SoB8HTdMDMiQtBS6JPBHke1MtmlbA
-	 /H4KiUA0ADOXgJDe3kKZRf8AcB+H4OdopNntasgoN5eNM2Ma8wh3Iv5tIUzUSc6iBm
-	 JJ/q1pp/Xas6Wfi3X+V7eUDuTXdBLUK7YGPJjJ+/iuFNg2ImQQvXJYC4jLMeKU0Utg
-	 t66JcK5I6v3sKoH9Gczxx6CLxA1RDodEc4aO/AaG61kkgl5j4uEmR443RuiHrZ4FpX
-	 TENYZyv6NyEu6xw7ssJFe3mFF+jHAhW9Q/vC9MWc+7Hnu1NhKttcHhQrPZDLpRqtg7
-	 jpIfuYDmMN6pQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Benji Wiebe <itsme@benjiwiebe.com>,
-	Chuck Lever <cel@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] nfsd: don't offer flexfiles layouts when NFSv3 isn't being served
-Date: Fri,  6 Nov 2026 09:17:56 -0500
-Message-ID: <20261106141636.256539-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110412-uncounted-lung-91bb@gregkh>
-References: <2026110412-uncounted-lung-91bb@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FIawBo5u;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GAIC8+xY;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=FIawBo5u;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GAIC8+xY
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 1D076221AB;
+	Fri,  6 Nov 2026 14:18:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793974689; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DbXOMRc+RxyXDwhPgVxgq6OSlAD0HlpBTR9dAYmXezE=;
+	b=FIawBo5uxM6qqiDjVJWp3+osfdJHTB7/9k/8ZXnfwSqMSVMQsrA+ls8eohG0IqsgJpshAu
+	4k11WqrTgHHWctbcwqEkg37q29R+/n7gnGuz2bQMgmmTJ/h2bxDAuTJMuFv97yn+PnssG4
+	8k8LiAdzcqtEIdwStCzpo35K3tJtj+M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793974689;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DbXOMRc+RxyXDwhPgVxgq6OSlAD0HlpBTR9dAYmXezE=;
+	b=GAIC8+xY/rXGUL8rB7GiG/X98jUIopLTsD8tl90kFvlhyIwDk5QTCQpDh/2tRDj5r7pbP4
+	TKSB1zBzbcO0FBBw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793974689; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DbXOMRc+RxyXDwhPgVxgq6OSlAD0HlpBTR9dAYmXezE=;
+	b=FIawBo5uxM6qqiDjVJWp3+osfdJHTB7/9k/8ZXnfwSqMSVMQsrA+ls8eohG0IqsgJpshAu
+	4k11WqrTgHHWctbcwqEkg37q29R+/n7gnGuz2bQMgmmTJ/h2bxDAuTJMuFv97yn+PnssG4
+	8k8LiAdzcqtEIdwStCzpo35K3tJtj+M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793974689;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DbXOMRc+RxyXDwhPgVxgq6OSlAD0HlpBTR9dAYmXezE=;
+	b=GAIC8+xY/rXGUL8rB7GiG/X98jUIopLTsD8tl90kFvlhyIwDk5QTCQpDh/2tRDj5r7pbP4
+	TKSB1zBzbcO0FBBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EDB5D132C9;
+	Fri,  6 Nov 2026 14:18:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id WnUKNKDh7WpnaAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 06 Nov 2026 14:18:08 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 8BE5F21B85; Fri, 06 Nov 2026 15:18:04 +0100 (CET)
+Date: Fri, 6 Nov 2026 15:18:04 +0100
+From: Jan Kara <jack@suse.cz>
+To: Breno Leitao <leitao@debian.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Julian Sun <sunjunchao@bytedance.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	cgroups@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH 1/4] writeback: add the missing newline to the slow
+ writeback report
+Message-ID: <qmosz7e5iaxgadaltvzzcduym4z3dpzw7qrdcwahfvoh75mbzm@2gfo7v62qajq>
+References: <20261106-writeback_stall_report-v1-0-bf0c3b9023a5@debian.org>
+ <20261106-writeback_stall_report-v1-1-bf0c3b9023a5@debian.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,58 +119,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106-writeback_stall_report-v1-1-bf0c3b9023a5@debian.org>
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[23];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-From: Jeff Layton <jlayton@kernel.org>
+On Fri 06-11-26 04:26:31, Breno Leitao wrote:
+> wb_wait_for_completion_cb() reports a writeback wait that exceeds
+> hung_task_timeout_secs with a pr_info() that has no trailing newline.
+> printk() keeps such a record open for a continuation and does not
+> finalize it, so dmesg, the consoles and netconsole only see the report
+> once the next message is logged.
+> 
+> Terminate the message with a newline.
+> 
+> Fixes: d6e621590764 ("writeback: Add logging for slow writeback (exceeds sysctl_hung_task_timeout_secs)")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 
-[ Upstream commit 5d28b2c920d9d9d3c45b41769342ad785eb372a7 ]
+Sure. Feel free to add:
 
-The flexfiles layout driver hands out a deviceinfo that names this server
-as an NFSv3 DS (flexfilelayout.c hardcodes da->version = 3). With v3
-disabled, the client can't talk to the DS: it loops on v3 NULL calls that
-the server answers with PROG_MISMATCH, and I/O hangs in D state.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Skip LAYOUT_FLEX_FILES in nfsd4_setup_layout_type() unless v3 is enabled.
+								Honza
 
-Reported-by: Benji Wiebe <itsme@benjiwiebe.com>
-Closes: https://lore.kernel.org/linux-nfs/c734eeb8-8486-4491-bb4d-b9656cbaffbe@app.fastmail.com/
-Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260904-pnfs-ff-v1-1-5f502cf25401@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[ sashal: replaced the CONFIG_NFSD_FLEXFILELAYOUT preprocessor guard instead of extending an existing IS_ENABLED() check ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/nfsd/nfs4layouts.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
-index bcf16dd07d488..f55092c66f42b 100644
---- a/fs/nfsd/nfs4layouts.c
-+++ b/fs/nfsd/nfs4layouts.c
-@@ -125,6 +125,7 @@ nfsd4_set_deviceid(struct nfsd4_deviceid *id, const struct svc_fh *fhp,
- 
- void nfsd4_setup_layout_type(struct svc_export *exp)
- {
-+	struct nfsd_net *nn = net_generic(exp->cd->net, nfsd_net_id);
- #if defined(CONFIG_NFSD_BLOCKLAYOUT) || defined(CONFIG_NFSD_SCSILAYOUT)
- 	struct super_block *sb = exp->ex_path.mnt->mnt_sb;
- #endif
-@@ -132,9 +133,9 @@ void nfsd4_setup_layout_type(struct svc_export *exp)
- 	if (!(exp->ex_flags & NFSEXP_PNFS))
- 		return;
- 
--#ifdef CONFIG_NFSD_FLEXFILELAYOUT
--	exp->ex_layout_types |= 1 << LAYOUT_FLEX_FILES;
--#endif
-+	if (IS_ENABLED(CONFIG_NFSD_FLEXFILELAYOUT) &&
-+	    nfsd_vers(nn, 3, NFSD_TEST))
-+		exp->ex_layout_types |= 1 << LAYOUT_FLEX_FILES;
- #ifdef CONFIG_NFSD_BLOCKLAYOUT
- 	if (sb->s_export_op->get_uuid &&
- 	    sb->s_export_op->map_blocks &&
+> ---
+>  fs/fs-writeback.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+> index 15260cf2a29b09..01a00d7542b371 100644
+> --- a/fs/fs-writeback.c
+> +++ b/fs/fs-writeback.c
+> @@ -204,7 +204,7 @@ static bool wb_wait_for_completion_cb(struct wb_completion *done)
+>  	done->progress_stamp = jiffies;
+>  	if (timeout && (waited_secs > timeout))
+>  		pr_info("INFO: The task %s:%d has been waiting for writeback "
+> -			"completion for more than %lu seconds.",
+> +			"completion for more than %lu seconds.\n",
+>  			current->comm, current->pid, waited_secs);
+>  
+>  	return !atomic_read(&done->cnt);
+> 
+> -- 
+> 2.53.0-Meta
+> 
 -- 
-2.53.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
