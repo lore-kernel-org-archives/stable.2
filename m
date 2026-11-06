@@ -1,96 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.50
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.54
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793994954;
-	b=Cv2bjZHLXtUStbCiyNfcZAmXmxtf7eVs1zJ6hIJyrHhlz5u7L/WVkrLYs3AGWbXg8itN
-	 hm5t/JpBXU2XvYROZ+t04Vc6rn1WkUcUBY5Z15+HYhRdRJLxwByJv5K4DgVk68kxYmsRZ
-	 hx/XlFndj+joTra9GDx+KDrk42btr64ofKJw4/eSHSbgEBheIw3sPDoO4m8B40wQXVGQv
-	 1kjALSvRGZWhLmdVG0TVYJnSnThhhrJVmmzilpm03EnRrcMPPgTzqar62O8Tac+BEY5P4
-	 AQubv5HWBKMf+12PUkrUjlKGpEbsrfeqjipTT9C4Bqruvmxcfku5f0oKUat19nTjN7Q==
+	t=1793995183;
+	b=d0ytiAKUPll4nKyPNFuwK6sBRLAC2q4oOw5zlg1z9heg1GNZAfRIXkmXxmdrCilBxNRR
+	 IZD0RqG2p6AERAnt/O151WfElvH4lN3GvN26U/gxM6Am7ZtTbgyp1XkwkiLYbuRh0aD+G
+	 aOyX/SCpOv8pHQnyoTwxCPgvp3t0UoRYBlyLk0/kPyQzFZluLPfvJ89KZwmwpu8HPdfmH
+	 k7bGHgExRlE0lBmi/+Goq3a11nldMTWb7B4ygbJn4YOMM++SKqZvkkHTm945HoNKGS2RG
+	 hF3zdkdwcOGpuGWmdpr1UPQpxk76Qf/bqg5lyO5LVaNNuGukaz1JuVw0tJ7jeEhrjjQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793994954;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=qT7WW7vcZBPtLuk5JhrI7XyB/AaW+R0jW2UYvnd+i5I=;
-	b=Qh2Oy4pdCqGaKjJy/qMSn68thoE1+vyqkIOH6d3ueYtAP+AHJZa2KGfWONfxek108AnW
-	 A2D6ATZa1/Lh0PS0vlsZltdcw/QT4vBeTkLuL8HIUXUOnhA8iIY02pWCPrKd2nR+jwleh
-	 rRxSothp9g7Jpe2kb9v5ZgFyl4k+cUSIWd7qfFj1XapnM9K4Q71CghvDCNDanVdhhXhPh
-	 zXHjD7stiMIKCV/RB655AmB4c4mg+aCvk3csm5AA9sVXToxEAbtUdmBxt52FZdCxD8NbZ
-	 fJmRBTeXfWM4wXGtFimk0zSJLgQSiltTtZBNtfjKsQfhWTywvTvOwYv5i/kUoNuCRnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793995183;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=4IjryWNxdORCjNaHoK0nCSyu8CfUlBnhe9uOpGWyC/k=;
+	b=xoCKtYTwgCHPTc5qmPQsK5I64klpZbGeQBPqRc8fHI8xZCiMJZZr3DC1tUMBCI2M2yEN
+	 RybKCwto4y9F8HX7zJlyi6s+mXIg+0vlJO8mrcQFIbZt2MDQiElxiVQgSDmOyw6uW1lu1
+	 sBarFHrDeDgw1cXqay2LZPXxzakGT/MGU1VjTzhTqZxO0c4sVYKUr4OK7vzcOhGJ6yvlu
+	 JcShORI8nBOVlISPynD+tGh6mtzVPNXRHuKtn4gqN01DoNqCzGjkk8tk9gSDUl6lWg4Nf
+	 H2sdCf/yHKS013hBECWLT0rGMoiSQ1OpsHqe4NKX9gf0AEAr3KiVt9h5cl7zWiE688w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nokia.com;
-	spf=fail smtp.mailfrom=nokia.com;
-	dkim=pass header.d=nokia.com header.i=@nokia.com header.a=rsa-sha256 header.s=selector1 header.b=mqnCf8M6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.50
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011050.outbound.protection.outlook.com [40.107.208.50])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t3Q+3In8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E4C606A326;
-	Fri,  6 Nov 2026 19:55:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89E4C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nokia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3012F606A32D
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 19:59:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3012F606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nokia.com header.i=@nokia.com header.a=rsa-sha256 header.s=selector1 header.b=mqnCf8M6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KuyRoJwHTlTzCR6L8mqUPEHZtlUSWIHI61Z38z45dW6OzpD6T+n/QiNZbqs+jcoGjWQQimHxGsc+sUy0/s5g/f3YCTcLcOfiFI25JYu4L2T8a864SVHIIOl68O9G/wwewDsAc6q2n+5q//v00MaLmkZiyRs7pJMIE0Sa/rcUzaC9qbs84aSISruROTiIsaQIDTFviRjPAMM7TU4jkAzZHS7N1Qov4s1C7FfeUu8Me2ygTafqRXXq3Ae5UWJwZjzgobXF5SU9tmalT+ZasrRO4+fS/DH0XhczWi8b7SB4aVpz+EeQMr+FKxH8nJQWBMU1v9ij+U5RhjB4JjSOyaz/dQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qT7WW7vcZBPtLuk5JhrI7XyB/AaW+R0jW2UYvnd+i5I=;
- b=vEgrQMjk/xenL+0tv/z7OQqd9rI5oWQzIKFjvmY09e/d4kr2kRs/vz5RK5+akKLDDQ7NUwJ/qU5nZXweo14iTJFokTA6XY9xMcWfLcT8pSTqb66gTh1yXd36o047p3o5LDhUH8As8QwwJKgIwVlECOMN7k3xwC48ELU/FzEL3jZjBxZxSyqXwI3b+pLaa2TuYELvHI8dnmPelKY7BpM1PBLt9YIE5kK3SSNsb9k7K2zqLgDz5dAxpC7qkG80ataYw5fWzJSs3P0okREBsDZ2+CI90pKHTSCM/M5E6lkgxjg8yeNJOdgp0CSrOhIOUfBUbB6QmPFdR/phcocetjINWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nokia.com; dmarc=pass action=none header.from=nokia.com;
- dkim=pass header.d=nokia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nokia.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qT7WW7vcZBPtLuk5JhrI7XyB/AaW+R0jW2UYvnd+i5I=;
- b=mqnCf8M6O4AONQ6EEENmO0K4WbBrQuM9V9ID/iUyLsTB0+gZBok4LLzpHYNulHeL5QB2nI9hGppg1bX+kjKQtmTKkaekqTKb/bfydQIvruaqyVVVfEnH78ut6tFn4PQCp92Id2OBlHJoqSbcHBbCMquwcMrxANUUN4iRg/btPb1oTXwWBu0bewiXasx9AhsqN3GsIWNQu5VrbWbVNIxsdXcYalFDkFBlr886qBfWCW/UEvuUBkWyhg66OBsOWv3xE+qd83f0g+tAudXW+K8b9eBn1wgUbnhKQKwQYvEWQgWIZK61MMaw/cxrVRaehAc22quRA9erciU91cE+CNUK2Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nokia.com;
-Received: from BN0PR08MB6951.namprd08.prod.outlook.com (2603:10b6:408:128::14)
- by PH8PR08MB8487.namprd08.prod.outlook.com (2603:10b6:510:25a::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 6 Nov 2026
- 19:55:47 +0000
-Received: from BN0PR08MB6951.namprd08.prod.outlook.com
- ([fe80::4dd1:e1e:56b0:b178]) by BN0PR08MB6951.namprd08.prod.outlook.com
- ([fe80::4dd1:e1e:56b0:b178%5]) with mapi id 15.21.0569.011; Fri, 6 Nov 2026
- 19:55:47 +0000
-From: Anthony Pighin <anthony.pighin@nokia.com>
-To: netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] net: mii: Check speed and duplex only when autoneg is off
-Date: Fri,  6 Nov 2026 14:55:44 -0500
-Message-ID: <20261106195544.4146568-1-anthony.pighin@nokia.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: CH5PR03CA0017.namprd03.prod.outlook.com
- (2603:10b6:610:1f1::12) To BN0PR08MB6951.namprd08.prod.outlook.com
- (2603:10b6:408:128::14)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t3Q+3In8
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a215e64962so12118455e9.1
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 11:59:43 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793995182; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cSdvYloVxGZ9+oxnZykaH6qjkA38sx5+N2pgCZW/cjnnz6uY/CukXZhzilmYNDnTUN
+         taVuirrgjIwJD1ht64pOLNIJzTv91RuLkH7mD0QJJMTtp8zI7hvBMQz0LWOWHMClm0at
+         j18dtGRqteHc27Z4TCqveNcwcQSMmKieeiIepNdIpTwgTrElm4pDiqrCmHX8vUk3EwIp
+         zpEx0r1Imwht9Tr8AxwNIK1m2Nzcp8xBXW5LVidvrHUcgqCX2U+sA5dfq+8yzz2SShSb
+         M0zc9GRmsC1Od/vZSDiK3bOWnPvOCO6MuEgsymRPEO61lrSu7T/4HqncXEmWBepyXJmp
+         257g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4IjryWNxdORCjNaHoK0nCSyu8CfUlBnhe9uOpGWyC/k=;
+        fh=u422dgagqtW+wwzV8B/cuwJ22PhiTvFBtarLUYn3eaU=;
+        b=GZAkXGtwJYrzl6FQ/VgXJaHvNAG0DLUpm7xHtzmOkwOuP6CyiSy4qrHr32gH1hQVhS
+         v4d3UtktDbYiVeXUvd5AuK3y8+xFn7XS33UQER2OyNZuHIxOaZlpdXRdkcKELvYKkV3h
+         8VmCV3priuDnAQPbEbRNrIWgaMmxM1p0w2yC+8CmEnS+twHQnjm7BDTF+hitJP2aPu8r
+         QSrQtVL5sheAvyKf13H/UmPbY0xJpNkj7kyfARxNgZXUBlqukNMfVmp8mBliHHWAXeGj
+         0YpG9KauC+VqUuZRAl1GuviNoyKhM94Nqo2aWuJHQ9qsbhkgjhoG76nhRbwYqzT5LAd3
+         qkvA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793995182; x=1794599982; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4IjryWNxdORCjNaHoK0nCSyu8CfUlBnhe9uOpGWyC/k=;
+        b=t3Q+3In8uQM7jXczqcckVxmrD9TlsK4Wt9CHC6V4Ium4ZBrwEBAvd1gnQO1BxUTABB
+         BuYFie7PmRD8o/IgMRtW+KEiHdutxS/qVLj4qc+c74wKlvIXAOy2kTBDjQjMb2uBQoia
+         0CqS7gmDZAc2fVlsVrzvf0QMc+CxoTz2Vtn5lSihnzwjb0KsHa16vmauZIigR4+FCC57
+         +3gaBozTHvKeZEK7JXP6vd23c05OPd/WBKmRbZlp/WOHw8zxnIClBZrlObjlspa1NFWU
+         i4ippmbLxYcHau472r97/GhqdFN8d8zYruBm0ZDMgeRtuKtpnpAVrwrFwmM1slY21kmP
+         Anog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793995182; x=1794599982;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4IjryWNxdORCjNaHoK0nCSyu8CfUlBnhe9uOpGWyC/k=;
+        b=GT7C6HlniUkYWWLGqWHx8iUcJt/uq+mFQqshBsUPUC/ZxpqlD76m5ub82DScOCOGRJ
+         xQic6Y6Sjbz/KEJqL4Z6MgfJ16/SvXewYgcgqGLw1VAuixVDXZZcgj9Utlv3WfUApC/T
+         FEl6dA5V8RPFDBRF9aqLJFx87ITVyhTlc5GKgGOYjOi337JcVdz0KgwHp9tPwcJzS5W4
+         2UdgK4MyoWTWp8jpdMGwZb6Zv0Rxy2nHC3Iidl9iI2QBX+zFU6EVkvIig5CcTWk8AqT1
+         Alm05hB0qQW57LtUUWzUlmnGhjwliInPEXbDYf/I92W5/Dsa1HT6IHw7+z24yG0jA/ia
+         UySw==
+X-Gm-Message-State: APuU4Z/j8HUpSpWTcrDzHa3Z/jefozGyFCP5+1KJ9K1CO1QrpdgG4ykO
+	osrNrW+7gHHKly7epOkdowSO5rxUsyYv2ioNuczfeKSEBGAPB3PFOfrq9THF3vlza7Hs2MxafhT
+	oDenyoLdSzrCWoOuD3peuRAmiTk7rAWA=
+X-Gm-Gg: AYBFou2oX6f7gFvlCShpL1LlCPfEfeeV5Ueq65P11oV8vYIGiWYv6noqU02llLWT+iB
+	GZugzLzmUhWUI9eQ5ifDYidPklFeCgLXDmaimRs+Qp4DVowUf0N1ldlkMaNEmUn4DVrEYn/+jsA
+	z7MB6FVAQtkYRJ8HQtt3HQvwObjTMoKNz/UL4UbH3wr0gy1KnGFOMv9s9qOy0kE1zLAISEWFx2U
+	TkF3tH+GlBohj9gxLCe1mc+gLzzd2Zf6/hP2b57RYQRO188/N6ydxYPHuErrhaIqdpd2UqDAiLJ
+	qnJWWSaHbYceGFGE5e8fIMsBUEz2iJPVgtXLk2HzrCOPCErIpk/k1lu1UaLAE5gWAM9lM+53Fbi
+	olsqPsUfpksTzkGZ3Ge1wYCbWSoPOpdkHF3i9fDY/zgG7wBRaCffVSHvR/5ftqvDYIBSZTValO4
+	ATZXURtahCgHLAlTq6rNTmMJnbFTndEG1fZzdXbrvcVbD1bM/UydxM
+X-Received: by 2002:a05:600c:818e:b0:4b3:9540:47a6 with SMTP id
+ 5b1f17b1804b1-4b6dff86e38mr59681805e9.28.1793995181368; Fri, 06 Nov 2026
+ 11:59:41 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,127 +104,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN0PR08MB6951:EE_|PH8PR08MB8487:EE_
-X-MS-Office365-Filtering-Correlation-Id: dafdbbe6-a7d1-492e-fa8c-08df3c3ff365
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|18002099003|10067099003|261028144727099003|11063799006|261026121527099003|261022075727099003|261026140227099003|261102123227099003|56012099006|261009223027099003|261021121427099003|261021123027099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info:
-	3aPU4BgDjlPy/DIwa54NfVAcRmQtdVrr/dw6uMut4VmeTlQpuR/XrXdRYuywJWlWPNcLYTLlM2Xou2iYqctJaNnhsHlP5qjQdR1dOHE7keWJc6j70SkZpUiFrZ+cfA5pcysjaC1zxbv91CAvrHlALd6erWCYNa/75uMmfG39IMMpWytRfHOIrk9iAaXFbjRn8M1xWgEor81e2OvmA6WOBAuIJ0VIDVa80JAAPl3KaWjCnBt76HLQCSA6wEjRk4DoXMirTwQtkscvKQQ8EFHqiE3yanhiutcHOZdaULBUvLZj1KWP78mbyeRn4aa8a1qAcWelTtaw3aRtzfp7mBWHzUd7DuDF+V9hePNkx3+oK1zn5Lu10ckPFRIuUJU+2ZwOEJmHsGs5o2MGs/vYUiOVnhAGkHqbZZIcpUZZlhZ/tc9AURaY5Yiomo7XZoQGZsnqRvZtKbdAaxe0eU9k+TaESge3KH0rFMC0IOt8VTJ+gkRik7YOmWVnrh/rxr5rB/k2Lzg2XziCUJFrxtixJ4WTCqNETbvYC294b6AljkZ7R05D+L/Un4umU+AXqS4dVMztAYXuPPSYrloUHhwi0mteJ67pwHnTQhbTOrdxTFGfltuqSLiLd3k+O2NHzMlHpNPthVG+MxYu7JRdiGVcfW/rGOlEwY1Gff0OzCcGr6LHRAQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN0PR08MB6951.namprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(18002099003)(10067099003)(261028144727099003)(11063799006)(261026121527099003)(261022075727099003)(261026140227099003)(261102123227099003)(56012099006)(261009223027099003)(261021121427099003)(261021123027099003)(261022105027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?BnetGm9L2XLdg0iXhUacoGzw6djt4fcxkmTACDcdTcW0gGluoLyvj4qwJKzr?=
- =?us-ascii?Q?nnzJ7J5Y4StBxdYUgil0To4hqusDM7ULtVvxV0P+EdBpzlhM7b/Q5Btg+NNJ?=
- =?us-ascii?Q?iBVUZYPmGtLLoa7b443S1sYNp/NroE/QwB1JOST3KHA4T2CpRov8HZf5G0a+?=
- =?us-ascii?Q?PnLmGxs7oq/YcIljV48m5ZQ8LDc0m9dynaubyBDg7oMjTbsYjhol+jK+vsiQ?=
- =?us-ascii?Q?7a+8JfEQoK2ITryvzTTmtxNkKQwAJ2HzSmQDkLNaVK54kLQnYrJUX3mBRB5t?=
- =?us-ascii?Q?d4pLLt5lcwCYe/oxXWpED+6JVb05VRu8tnJfY9tSrHo+eWljIzSRbTH5TFPT?=
- =?us-ascii?Q?bxgHtGwAvqW4F7rInAKNh1HN858NJjzxAJD4YfA0nv5hBZ2PrHO1K9UPEcfi?=
- =?us-ascii?Q?ZAh8SynBJ/EMYGWD2m8b63OOniHL+B46mkmyIHildBOgXJQU1cJielLA6TME?=
- =?us-ascii?Q?NtscQcw63cRHB+Skcc14HFgCwb3XKeMNnoBj08hOjfHL5Q2KvLbYA3vxJfVb?=
- =?us-ascii?Q?XwwF/XCtipjWgA7pKD075xM4GZeKFOXF/AHjg4tr+mhT9j0Igxay9yBKxsps?=
- =?us-ascii?Q?TR4J3jyJbTAqS72NxP8dY1ruc6ney8YdrFUyh+Rm0QftLHeMKcz+e+K/duX/?=
- =?us-ascii?Q?hsY0q0wjIU97fEYrkeZtc6j/4cKtXiuAD8aX+SIVqN8o8f7IG2ZTIF7BKnWt?=
- =?us-ascii?Q?T7XwRBt/9JoPsUGQHqzkxr3RQC5UiRaoOt3kcBjOAhUDb9tlmLBPoMRGb+Gi?=
- =?us-ascii?Q?MOXRgYRVHfTY2QqWzZPz9sUZG6ix7mT5d6BPCngEv2Y7B5RGKsBVUM2/QQH+?=
- =?us-ascii?Q?mPhjeSuG73cpqr/SeoEinzAfCeDjVpGY0To2ft/0eP0+MiPweWKquMUEri+l?=
- =?us-ascii?Q?jfahW9d6FvgiP3KNYhdGBp5M5L42ifeysPVtb5ob23d0UaKLVb6LrjmQUaB8?=
- =?us-ascii?Q?53nOZJ44XWps68GT4XQWqUdtetrec2MhfdXWmmj89c+oBOG4hHND4cZerU27?=
- =?us-ascii?Q?icN0igvHqRHOJ4tCBPwUbIxoL1rAJ5Dnio+/VzxmvKSyUDRBLuNLi+CFi1zo?=
- =?us-ascii?Q?WXds3vhrIHXGHHWs0jeyJmNQNe+TG4zrEzVarkCcV40X82mmEdVFZ2hZoocW?=
- =?us-ascii?Q?9znJmlI5PGK/YXRpeX85z4d3voZZOY+Hx8LGNigeT2Vs94m2pSDFuLG9vsyT?=
- =?us-ascii?Q?2MIRN4T++WqCsSdwt/LUMc2h9kGwhMegx0tblXOuw4b4GyKwTg389Dcfz7lg?=
- =?us-ascii?Q?OrGh/rZ/T3YniVX9PTXN0KsuOZON6uIQj60AQTi4eD2pcb0Xoxyk7lgI1PFU?=
- =?us-ascii?Q?H1IxIfUkfN/C58hIiA0txgvtW6gWmmNtFo14Lea0169tyK0//MenR0rkEvsB?=
- =?us-ascii?Q?m2XBFUXKykitY+61WRi9GNpNC8BEuOE/+ye09odkeOulH1Msic+tUyqaVf20?=
- =?us-ascii?Q?nN1lMWiaAhAF7Y3VjdcRXez2gc9Ot1xhqs1BviluHJFyPLBFeLuhlAWn9nDy?=
- =?us-ascii?Q?YMrw2I9FMUBFmrjOXEBiiY17iZeiEmbkL7W5hx6V/G++vcItawd0YU7EwpxW?=
- =?us-ascii?Q?2CH79yE6bkf+Rj/7MqBfW8KbtjlbXpewWoy2meht75aktVF9ACTk0WktPd6l?=
- =?us-ascii?Q?3X+82GUGw9Afw3n8TVaSgQzBSMV4jeKEvW79Tdcbrme4R991tul1ZHngFdiA?=
- =?us-ascii?Q?s/KDtYP3LM9voDcLg1rfFoQpq7gEr+TINrBW0mbtQ0EOdAByn7hdTT06LSwY?=
- =?us-ascii?Q?ik/MSYoJ/g=3D=3D?=
-X-OriginatorOrg: nokia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dafdbbe6-a7d1-492e-fa8c-08df3c3ff365
-X-MS-Exchange-CrossTenant-AuthSource: BN0PR08MB6951.namprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 19:55:47.6995
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 5d471751-9675-428d-917b-70f44f9630b0
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G1ouwTOd/s8Mu0vPwa0V9OTqoHoE6IanxAQnVCkCIiF3xj+/HbenHYIGkLRdKN3qM8uaZOVKQKEyR+YJpGtt1XSNE9woOOjn1cudT61SHsk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR08MB8487
+References: <20261106160432.2552507-1-nphamcs@gmail.com> <20261106160432.2552507-3-nphamcs@gmail.com>
+In-Reply-To: <20261106160432.2552507-3-nphamcs@gmail.com>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Fri, 6 Nov 2026 12:59:29 -0700
+X-Gm-Features: AclHuK-x2stv42uMBHd5li29XslCAB0_-6f7YisoUMr7LicPx45if_utjKD95Yc
+Message-ID: <CAKEwX=PiM8vc27jOVdinOGO9AdCOpbKozu=Hj_b55y10-ynFyA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] mm/swap: publish cluster tables after reacquiring
+ allocator locks
+To: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	akpm@linux-foundation.org, axelrasmussen@google.com, baohua@kernel.org, 
+	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, brauner@kernel.org, 
+	chrisl@kernel.org, david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com, 
+	ljs@kernel.org, mhocko@kernel.org, nphamcs@gmail.com, qi.zheng@linux.dev, 
+	shakeel.butt@linux.dev, shikemeng@huaweicloud.com, weixugc@google.com, 
+	willy@infradead.org, youngjun.park@lge.com, yuanchu@google.com
+Cc: stable@vger.kernel.org, ryncsn@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-mii_ethtool_get_link_ksettings() reports SPEED_UNKNOWN while the link is
-down. ethtool reads the current settings, changes the autoneg and
-advertising fields, and writes the result back. When it does this to
-enable autoneg on a port without link, mii_ethtool_set_link_ksettings()
-rejects the unknown speed with -EINVAL. For example, on an ax88179_178a
-USB adapter while the link is down:
+On Fri, Nov 6, 2026 at 9:04=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote:
+>
+> Under memory pressure, swap_cluster_populate() can publish a table
+> while its locks are dropped for a sleeping allocation. A cached
+> allocator can consume and free that table before the populating
+> allocator resumes, leaving the resumed scan with a NULL table.
+>
+>     CPU0                           CPU1
+>     swap_cluster_populate()
+>       drop local/global/ci locks
+>       allocate and publish table
+>                                    swap_alloc_fast()
+>                                      consume the table
+>                                    charge failure cleanup
+>                                      free the table
+>       reacquire local/global/ci
+>       return ci
+>     alloc_swap_scan_cluster()
+>       read the missing table
+>
+> Keep the count table, cgroup table and zero bitmap private until
+> swap_cluster_alloc_table() restores all allocator locks. Install them
+> under the cluster lock and retain it through the scan. Initial bad-slot
+> setup takes only the cluster lock because the device is unpublished.
+>
+> A stale reclaimer can return the isolated cluster to allocation while
+> its locks are dropped. Abandon installation if the list state changes or
+> a table appears, freeing only private allocations. Restore locks on
+> allocation failure too, so the caller can return a still-isolated
+> cluster to its free list.
+>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://lore.kernel.org/all/sashiko-outbox-181084@kernel.org/
+> Link: https://lore.kernel.org/all/sashiko-outbox-181086@kernel.org/
+> Co-developed-by: Kairui Song <ryncsn@gmail.com>
 
-  # ethtool -s eth0 autoneg on advertise 0x2f
-  Cannot set new settings: Invalid argument
-    not setting autoneg
+I think I need a
 
-pch_gbe_set_link_ksettings() already works around the same failure by
-replacing an unknown speed with SPEED_1000 before it calls
-mii_ethtool_set_link_ksettings().
+Signed-off-by: Kairui Song <ryncsn@gmail.com>
 
-The autoneg path uses only the advertising mask, so check speed and
-duplex only when the link is forced.
+here as well...
 
-Fixes: f6f2e946aa4d ("net: mii: Fix the Speed display when the network cable is not connected")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anthony Pighin <anthony.pighin@nokia.com>
----
- drivers/net/mii.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/mii.c b/drivers/net/mii.c
-index 37bc3131d31a..439444637537 100644
---- a/drivers/net/mii.c
-+++ b/drivers/net/mii.c
-@@ -333,12 +333,6 @@ int mii_ethtool_set_link_ksettings(struct mii_if_info *mii,
- 	struct net_device *dev = mii->dev;
- 	u32 speed = cmd->base.speed;
- 
--	if (speed != SPEED_10 &&
--	    speed != SPEED_100 &&
--	    speed != SPEED_1000)
--		return -EINVAL;
--	if (cmd->base.duplex != DUPLEX_HALF && cmd->base.duplex != DUPLEX_FULL)
--		return -EINVAL;
- 	if (cmd->base.port != PORT_MII)
- 		return -EINVAL;
- 	if (cmd->base.phy_address != mii->phy_id)
-@@ -346,8 +340,19 @@ int mii_ethtool_set_link_ksettings(struct mii_if_info *mii,
- 	if (cmd->base.autoneg != AUTONEG_DISABLE &&
- 	    cmd->base.autoneg != AUTONEG_ENABLE)
- 		return -EINVAL;
--	if ((speed == SPEED_1000) && (!mii->supports_gmii))
--		return -EINVAL;
-+
-+	/* Speed is SPEED_UNKNOWN while the link is down; autoneg ignores it */
-+	if (cmd->base.autoneg == AUTONEG_DISABLE) {
-+		if (speed != SPEED_10 &&
-+		    speed != SPEED_100 &&
-+		    speed != SPEED_1000)
-+			return -EINVAL;
-+		if (cmd->base.duplex != DUPLEX_HALF &&
-+		    cmd->base.duplex != DUPLEX_FULL)
-+			return -EINVAL;
-+		if ((speed == SPEED_1000) && (!mii->supports_gmii))
-+			return -EINVAL;
-+	}
- 
- 	/* ignore supported, maxtxpkt, maxrxpkt */
- 
-
-base-commit: 19a227903e65c7a9c179156485660a4e017575fe
--- 
-2.43.0
-
+(Kairui - up to you if you feel like Co-developed-by + Signed-off-by
+or Suggested-by + Acked-by is more appropriate here. I just filled in
+the sketch you gave me.)
