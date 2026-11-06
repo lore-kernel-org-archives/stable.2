@@ -1,100 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969255;
-	b=z7TXf9CeTnq0tsZx3N7EtATwr/LEqE2XmvZsGgrkooTNf4T7pt4IEyl4YKzUSNTR8a48
-	 1qlU6Ty7i5wuAjUjif/5CZ6AZV6CkSh/7OjSiYnLPR3Fi05Mya15w/AibU1UvWMbjkBwy
-	 usA7ANJDynYRZ9KfM4yIIoiAft4W9jjFOdMx1pF1veGplITxQKtB3eDdS0fKk2DA3HgjQ
-	 0QiQ9xYYjVBIQ33n4QotUSxVFqmUBDOQdCGpjJg3Z4k7C1TNYkQfk1szsG6SfRS+T7ZcM
-	 jmBRuz/3r84ch5J+SAQIZ/kmuhBxZkYz93jjZToIusuCe9kcZDKeT6pRcd0j1YOpCrg==
+	t=1793969374;
+	b=H7IkMGYrL8aS5+vHarNFtSmyzUYOUWpdhhfPmTpbhQ/6ucmGgvqiZMRtRuepqOtqIKRR
+	 BYrQjTTN4LehfF621lA0rMFVdwgKD2Js7PMCRsQmQX9iHkvEupHK0JNDk9dSTzfnRBYuQ
+	 lRghWS6iFJHAxDkYz4WcQEmxS3Hm5a6aqgXS8SEI30car3DlvAhRMvYeLTl3q45oUIM+t
+	 PLoVWZbAHQWfUSmHoUIYJvBrQqUOSekwNp92RqRqAS13CbeErzQ2WvVYdy56vK7gpSrC2
+	 Hp8cQ/VxKkfvtZ1k9wAaPY+bOttXKE6RcBSG3g7voInySGHEjKMSwZkQTLWYXS+D5iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969255;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Jbz4ViRXJQJmGQTHmz/n4fB3e11Y7YXX3ix7TPBKr/Q=;
-	b=2d6OE5O/bB1W3WMAH8k8hynHtqOAdbwtpGCJ5bOUYwHkOwEsMYYfMUuzOfuCLUxSMkHL
-	 uYp5+IIa5yJcfjBYRpCYvHXEm3sXH5Gn0Nvu+BXBPk8bQa6VgNEYYjtRN/dhTQENuurJo
-	 nL1o798WOFT98D/wXk5QJaxJ7KTayckj3/nkZH8EWQcGoIHwyhDHNNOa4HKuYUh6Rgkbh
-	 FNPXOd5RQlyBmTufHtmRPjgGwydRYyPNBJ0kOb+u7h4i2prYrp6EIWDv98hlFklpAYH2o
-	 lEJ2GzKZVbcXCy0Ml9MkyY6HVCoiNZRwWKohunOluNoQxjEqgD6xBIHPrwIMaLTj+/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969374;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=MfInTUzq1I5bmAHdpslIMIN8700/Qi0ASVtkQGQk8UQ=;
+	b=llcImx39G4RokfgCJD9WdTQcKkeWDUMHAvmgS3+tGl3kzS0eRr7iDhMT+w6PAecuZI9j
+	 3XfKfiJlxIAB66c4XXKXK1DDBgmODG11qJ4waXuyQrhyp/0vxcpCgcVrgtFit8xb6AX2F
+	 EXJmiWdZCJndrY+S1nP4nCmmqgQuqCLj681kJS7yG0Mbd3UY7z0nygYwOGUx5YttRa3er
+	 HonF2zIsWKM+VFIcN77JhRBXZaJXJ7IrNW9OsEhQB364a6HrIV+ycdESqg4+2GtZAhiBm
+	 RombijUFzpynZlggjsyHvyYumxYJ2efaI0K8m+hvZQcpdZAETF+ThWbdAMnN+zuKEAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GYE8JxpC;
-	arc=none smtp.remote-ip=74.125.229.4
-Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQKuXGZh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35714606A33C
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:47:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35714606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495B3606A330;
+	Fri,  6 Nov 2026 12:49:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GYE8JxpC
-Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-370231dbf90so193528eec.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 04:47:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793969254; x=1794574054; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jbz4ViRXJQJmGQTHmz/n4fB3e11Y7YXX3ix7TPBKr/Q=;
-        b=GYE8JxpC/XsGkeI4sBpOQ6DJvE77JIlVnRsWlvafhf3pFfJET9MlXd8nPF2d5DgUP+
-         30WS2GXdlDp5aokJ22hMIPfJsRLfyGU0uIcm0w+YRP3oBnt0PJjqL0VfCVv6cMUmRwdc
-         1cnijDYPjmej/v5Qh8w8xNAlXKNpPqzt0UALSXJ2Wij/wThr1iZrHgNX2RsIv6YvstCf
-         65nNWEzTdciPyY6MSNg6KVCUPq/yYaxwVJrQ3Twvabjqwr7fcYH0ABw6WLAInNcndsbv
-         lGmqZIkfUzo/vmfc90H6TitpSeBrfZGWZ0O+q+qM7jL8CdR5Sf6dX3kw+KbaUpskv2MQ
-         wnDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793969254; x=1794574054;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jbz4ViRXJQJmGQTHmz/n4fB3e11Y7YXX3ix7TPBKr/Q=;
-        b=CCSJ/lZ1i4esaXTpYzJKNocQ2m443eHQZskaWNFnEnP2PkzEJUETU4t1hKvOISscuO
-         KOYi+rpMky1R6+8ZZ2paNNx0g+2/tyH7n69/IUcKMQ9fLLV1HLy2rnU9wXvX57KPSfAY
-         Fd3O759Leod5jDLrcCIkvW9MWSu/ugpBXCbCDmRc3ZvQvRVjxEoHKeoD+QCBbwDAcOyV
-         8n3sg94zJBT3jp+W2y2DDMb9xvJZHY2zpT4hB3g5fpqX+S0XlYa9RiP1E7mxBzFrq1lh
-         BLU1c6KBhDodkWgIlYaq1DMsM+WE/dQVFS1gRPrzhWv1lCmx3J+9HxMZYX5LN3ahm4lC
-         5MOQ==
-X-Forwarded-Encrypted: i=1; AL+hErGbAfInoVNEKQMdsBrN9rQRMOLpdR2PCU9qGS1U1q7lFst7FP8u42lSj1a/ku3qFLpsOBWoWKQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9IV6Z6ZgPOKS8Od+tqA5J2gghtdh/JS83wO3InAKnVkXK2q/N6
-	U0w27gjuUXI5X2ZsUHKJB5Zx/KD+3xitKILDowuu9uZhQNWwswpSNYtz
-X-Gm-Gg: AYBFou0/qu61sp+8fvZcYwOcWocYFF8UBnh3cV/fWQn8X/OG+2fX3m3FEuanegaxNLD
-	u7/4zipcSbqCID/F4GHmEVP3pM6S0H3PYs80ihSansR7ZI9SJ+v1vIPaIB/QqjqWDBXMK+ov3TO
-	laIQo9fEmWuDhm+U4PmGFz8fL3AzGb77TyLEs1HHUDydm8xHIPDjFqg+1cRI5MEXIknF1kKbetn
-	rwxyDjYzTxAjXaA7QyixpZCImC5w4EoPR9wgLoek+DewHOKrHZVQoNB1eWElU1JWTr9OXpFt1ZC
-	/ycNNyVe6SFb6yGTp3+LQzaj0gtDM1VLECUr7HahJfdL4fDYPYZ59jiSg/imv4dSM1TrDYHpEcm
-	JvwxKuIGvWhu5ZUruOA4VsLVRobMd4EsC/NZ0X9OdwBW+5eIWxopT+ES73pxA2ZglY8l3/ZESRK
-	ZAPj6b0w+PtJmlmGmSI3SqrG2yKKPZXsR4sfRxBwxrdhvfdhPg+HxUr/B4tDFk+hqqzT+VcOy+H
-	MLbp6hGPw892qkH5fiuII1tW2SfneqGw6PmwWiC2B2kUvPrTITdGhf8Stxa8mu+oOZci2nMPd5o
-	OnKT0RXjLgbuoS2nUOMOC3rF4tE/Kcr3zebUWeEO0tBNL7XLbNSBxABzeP91j25XjDcw/9qjguW
-	+a0ZmY9d0z8l6LMRi3gWrlhYsEmnprbb6sFrJZA==
-X-Received: by 2002:a05:7300:ea18:b0:36a:12c4:8bdd with SMTP id 5a478bee46e88-36f7554337amr3612023eec.21.1793969254337;
-        Fri, 06 Nov 2026 04:47:34 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa30138fesm6844272eec.0.2026.11.06.04.47.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 04:47:33 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: davem@davemloft.net
-Cc: edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	n05ec@lzu.edu.cn,
-	ylong030@ucr.edu,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sashiko-bot@kernel.org,
-	dennylin0707@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH net] vlan: prevent cross-netns MII register writes
-Date: Fri,  6 Nov 2026 12:46:39 +0000
-Message-ID: <20261106124639.12584-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQKuXGZh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CFFE1F0089F;
+	Fri,  6 Nov 2026 12:49:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793969374;
+	bh=MfInTUzq1I5bmAHdpslIMIN8700/Qi0ASVtkQGQk8UQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=IQKuXGZhlNxc0vzYiGGG+WWptr0Cybd1J5cdy5LQiHbvReQTrkbSs0p4OiW+tZQpT
+	 DdesXCviqPJIoOTqGY/F3iBQfExbDFCnbkQurepOuHezZGxYNMtBbqrqE7pbIrPvvJ
+	 DJFaVWsGWQjtXfqcl5q+zddqS+az0RX7yMkmWHDDVPC8rViggdYUeU26RL8n/5iFrk
+	 +N3Ch4zil+t2FNEKgT5VinUrYkkoX2g6skrbpg9smn71JvMf/6m5IM9yX350EDKIZy
+	 GLIdJoluvgypaQIljk//9iv1WUuNZsphhnjfCZSYY8T0hnqyyh/GA57cclFQHOYzEa
+	 PgbjxcN1NSMhg==
+From: David Hildenbrand <david@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Hugh Dickins <hughd@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Zach O'Keefe <zokeefe@google.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+In-Reply-To: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
+References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
+Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate
+ in MADV_COLLAPSE
+Message-Id: <179396936975.4326.8320211724584654723.b4-ty@b4>
+Date: Fri, 06 Nov 2026 13:49:29 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,46 +66,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-vlan_dev_ioctl() forwards SIOCSMIIREG to the underlying real
-device without checking whether the VLAN device and real device
-belong to the same network namespace.
+On Thu, 05 Nov 2026 19:16:44 +0100, David Hildenbrand (Arm) wrote:
+> madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
+> uptodate. For example, shmem fallocate() can put such folios into the
+> page cache.
+> 
+> collapse_file() already refuses to proceed with folios that are not
+> uptodate. Let's just do the same in try_collapse_pte_mapped_thp() and skip
+> such folios, leaving handling to the page faults.
+> 
+> [...]
 
-A VLAN device can be moved into another network namespace while
-its real device remains in the host namespace. This allows a
-process with the required privileges in the VLAN device's
-namespace to modify PHY registers on the host's real device.
+Applied, thanks!
 
-Reject SIOCSMIIREG when the two devices belong to different
-network namespaces. Preserve MII reads across namespaces and
-allow MII writes when both devices belong to the same namespace.
+tree: mm/core.git
+branch: for-next-fixes
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- net/8021q/vlan_dev.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Applied patches will appear soon in mm-next, followed by linux-next.
 
-diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
-index bca0a3693636..0d0904103302 100644
---- a/net/8021q/vlan_dev.c
-+++ b/net/8021q/vlan_dev.c
-@@ -416,9 +416,12 @@ static int vlan_dev_ioctl(struct net_device *dev, struct ifreq *ifr, int cmd)
- 	ifrr.ifr_ifru = ifr->ifr_ifru;
- 
- 	switch (cmd) {
-+	case SIOCSMIIREG:
-+		if (!net_eq(dev_net(dev), dev_net(real_dev)))
-+			break;
-+		fallthrough;
- 	case SIOCGMIIPHY:
- 	case SIOCGMIIREG:
--	case SIOCSMIIREG:
- 		err = dev_eth_ioctl(real_dev, &ifrr, cmd);
- 		break;
- 	}
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
+
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
+
+[1/1] mm/khugepaged: don't map folios that are not uptodate in MADV_COLLAPSE
+      https://git.kernel.org/mm/core/c/d6d183ac
+
 -- 
-2.43.0
+Cheers,
+
+David
 
