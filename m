@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978596;
-	b=v5Xecf7An6El3OTSZg3u5ZUbQEucSwqQeQvCV3Joe8gXVDRl8Ad89ZUPehgB9q2Eig1R
-	 iGpTrOZptYjTijDObeSQia7tm/seXjM/TdSuyjbXmMVtrqRaZXf5vvTvAn3tIjWi3TVOF
-	 pEouCT8xTFEorBvMhfKq+E3tkTSqV6e2ii8BYZdyxfAbZs6ALZhmxayDYRvSR3TTty9d7
-	 xUlh37wvLCO2hRYvOljdmzqJ4zSlgdctopsZi3mdi/XjLidjrLT6T6guiS+4FlAxFQtK9
-	 v3oWmJKoDyYIQHH3ZqlSLNhi02Mq/y4gqRd7Pqbhrbizj1HvhruLkJa8r15Abdfo49w==
+	t=1793978679;
+	b=Z3+9dGVzCj3gg4TG6BOaTzCoeyDbWLAXukmPjfkDWHCUuU1Fuy1BmpDWHZrQDTKBo0I9
+	 SORxFGn7z1DA53lOc7M937pfll4ZSWnU5nAKkNgZ2ny1kvo2RqaRRru29XrHfA5LDcRkf
+	 e4AAhHH2V6uj+OnXCbB+18nEIG/hcl5JczmmsDFgWSawEvPHJs3DpRXbNLRD7NNxcb4o+
+	 /NiNUg4MXXx1WPQDlJsXNR1DMuebhAG2+3EokMex3etfYhmPQc8H4NzV2JYIBW/beqCiV
+	 K/RZkVmg0Rj+xnBRhKNOrCKFM3YlQvcq2dGsg+0ve2czxdzkTKL6YCj1GMFXzjxvbDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978596;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978679;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wEP4JuQU0P2yq8X2XSLRKG5Pf8+rQ+Lx8gGdmvn7s3Q=;
-	b=pBF92Mv3fhIIHOIfkuCvKM9h+gCdUvU8FxwoI4yviAoAUR94DAcivGMYy6fC4uXPBPa9
-	 DFq1QgRsg7lDqvkzqQzYgCtKnjL8ck0pEC+ubfAaw4AyhcMhhVMQ8GD78nyIZljh7fmmL
-	 yzpTzJ52PhRsZBDPQKat92E87dACJdX9KMj2Gxgs6Ev82UgObkqUs9XWShA6aY8zNKrLG
-	 d3RPcoN3Lw9+t8KW0PC9pwksEj62Gx9IjlLogvVEzllJDnAhFG5sHyrDy3I37h2/4RsI7
-	 BLT/Pkaxo4Ep1OKFynqt5VgQRGGUeJQIyRmyvtusRSYEC+CqVQY2wAYGqxXyjdOcVNg==
+	bh=VsmKhMCPI5TGuiotzbDgLac51lD11IUhvG6TQedGDOc=;
+	b=Y7NIvA5IAxw4Z1AO6LnvGLfD6ESmRfKx/FGT2gQ/hf2nr8WyCk4Gm7Shu/7wg5LgiTNi
+	 slALQYNASlYdHkB2hqEObV+RpiV1ffTaydPSm7UqYEMd9HCRCwK7ItJFvPntHN2K/rYTf
+	 NOgR8kjjwwu6g7rNsAFFZsrlI5wISlWDT2ZCDZqzCImNuR9yVWLGwg9drNJIaJHpdvHC5
+	 yZBzMwmxMz7Y5dzs1qDcFDpYql3nc/kSjrCpDXAy49q6lRlgw84oISa2WjFvH/BEHxAl5
+	 pYjatJRDNwio6FG+1MwCeERv+UX1glT5a7+g59LbtrSC7lXN2vMz9UxgaOr4fEJRQfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kZIdU5Uo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fkb1w2S9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id D7081606D807;
-	Fri,  6 Nov 2026 15:23:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 76206606D818;
+	Fri,  6 Nov 2026 15:24:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kZIdU5Uo
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 036431F0089F;
-	Fri,  6 Nov 2026 15:23:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fkb1w2S9
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 8EFE51F0089F;
+	Fri,  6 Nov 2026 15:24:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793978595;
-	bh=wEP4JuQU0P2yq8X2XSLRKG5Pf8+rQ+Lx8gGdmvn7s3Q=;
+	s=k20260515; t=1793978679;
+	bh=VsmKhMCPI5TGuiotzbDgLac51lD11IUhvG6TQedGDOc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kZIdU5UoqQ0HkYNhJaloKpEHYfN92rDvF8TCDhkQ2ScGfiXlADW1/Ok08uDEpWAHn
-	 q+GPUyE6kl4jwHnKZD7DW/pcq5sx10uMY/Ycx1FT1Og/yieL4BW6jLi1Zt9bUlBLqE
-	 EFKBePbhVa1zBY5pohaMb3X3KAAt60u8qgkKceZM30FMWI7fnDDS6mqBhwm2d5XzCP
-	 FHncPtPwT8cJQHZHe6/3ruQvgcUA2SFAxt/7Nwibzs9LVbc7XdQXQA1zr2D/h/tpGR
-	 c9ZGIBs0OIqBu2pouY4Fa0KcqH4gO5QNHfERxGkr18dqXoPas1kUo7nm4qhu97x3Et
-	 0G2XhYh++unnw==
-Date: Fri, 6 Nov 2026 17:23:12 +0200
+	b=fkb1w2S9YfZl9PyYR0g0GUMkYYob+m+kDMqQTOfGKB4sZBjfCI6pgKG1l9HZS7WCe
+	 Wn6aN3BCEhrCgMTfZmIT5GCi7l/22whgq8NeHK1q/+eskLG1eJHEQwvyAB3oAKFTHe
+	 plNpOy5qsdUGVbTR/iXyEekllI+fZoZlbtAlnE7CpuLVagrqXcsxX2PAI/mjPaovji
+	 d9cGQb4Jx0pnBrirleEmesXmT0Cxwsr0Z2TzlGau4yZkTYxxLDXJQF9rDKSIfaIYIa
+	 roMU+FoYjDsRv7KhSvD76wEx8I/kU6pKwDBEPdc3HdB9vrFS03E2UQo0eeaMsMs0Q0
+	 cJgDnqe4JKQ1Q==
+Date: Fri, 6 Nov 2026 17:24:35 +0200
 From: Jarkko Sakkinen <jarkko@kernel.org>
 To: Guo Zihao <guozh23@xiaopeng.com>
 Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Ashley Lai <adlai@linux.vnet.ibm.com>,
-	Kent Yoder <key@linux.vnet.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Matthew Garrett <matthewgarrett@google.com>,
 	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] tpm: ibmvtpm: check the response size against the buffer
- size
-Message-ID: <au3w4NDX1Uqz-iqd@kernel.org>
-References: <20261106014946.4128696-1-guozh23@xiaopeng.com>
+Subject: Re: [PATCH] tpm: efi: reject a final events table with an oversized
+ preboot log
+Message-ID: <au3xM-7onNTtgceh@kernel.org>
+References: <20261106014956.4129904-1-guozh23@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,47 +62,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106014946.4128696-1-guozh23@xiaopeng.com>
+In-Reply-To: <20261106014956.4129904-1-guozh23@xiaopeng.com>
 
-On Fri, Nov 06, 2026 at 09:49:46AM +0800, Guo Zihao wrote:
-> The send path validates the transfer size against the size of the
-> RTCE buffer:
+On Fri, Nov 06, 2026 at 09:49:56AM +0800, Guo Zihao wrote:
+> The preboot portion recorded in the main event log is subtracted from
+> the size of the final events table taken from the firmware:
 > 
-> 	if (count > ibmvtpm->rtce_size) {
-> 		dev_err(ibmvtpm->dev,
-> 			"Invalid size in send: count=%zd, rtce_size=%d\n",
-> 			count, ibmvtpm->rtce_size);
-> 		return -EIO;
-> 	}
+> 	/*
+> 	 * The 'final events log' size excludes the 'final events preboot log'
+> 	 * at its beginning.
+> 	 */
+> 	final_events_log_size -= log_tbl->final_events_preboot_size;
 > 
-> The receive path has no such check: the response length is whatever
-> the hypervisor reported in the completion CRQ, and it is only
-> compared against the size the caller asked for before being used to
-> copy and clear the RTCE buffer:
+> Both sizes come from EFI configuration tables and are not validated
+> against each other. A final events table claiming a preboot portion
+> larger than the table itself makes final_events_log_size go negative:
+> the subsequent devm_krealloc() can then end up with a wrapped, too
+> small allocation, and the memcpy() that appends the final events log
+> uses the negative value as its length, running far past the buffer.
 > 
-> 	len = ibmvtpm->res_len;
+> The boot path has no way to fix up such a table, so fail the final
+> events log instead of appending from it.
 > 
-> 	if (count < len) {
-> 		...
-> 		return -EIO;
-> 	}
-> 
-> 	spin_lock(&ibmvtpm->rtce_lock);
-> 	memcpy((void *)buf, (void *)ibmvtpm->rtce_buf, len);
-> 	memset(ibmvtpm->rtce_buf, 0, len);
-> 
-> A response length larger than the RTCE buffer makes the memcpy read
-> past the buffer and the memset clear past it.
-> 
-> Reject a response that does not fit in the RTCE buffer, mirroring
-> the check the send path already performs.
-> 
-> Fixes: 132f76294744 ("drivers/char/tpm: Add new device driver to support IBM vTPM")
+> Fixes: 166a2809d65b ("tpm: Don't duplicate events from the final event log in the TCG2 log")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
-> ---
 
-Ditto. I.e, I'm not sure if this is a bug fix or just better validation
-for failing components.
+Ditto.
+
+For all four address validation vs bug fix intersection. I did not
+check throughly enough to be exactly sure of all four.
 
 Br, Jarkko
