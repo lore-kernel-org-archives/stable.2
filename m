@@ -1,102 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793976570;
-	b=QZyHEhbn7ABCrr5mEWpEWX4K/foIdlaAJsZAi+xugoFPydjV9nYMupJrnwZq/SDyyhbS
-	 jjrsel3X8ZnKSQelUDfGt8rdGx96hdDrod9a1VleNkDn+zGmokfgaG2xmW3YiBf0J7OhF
-	 2rvB0QeoCa1BVdYQgQW+tXUaX3zneuxlRsx/P6k1R3eP4JUrv6nRkrBE1B9yjNnitTHBP
-	 tggdQc9xFfhIUo8vrIbum1uEfB7wPhYxgv7JpIC72AEgj7YfSyEo7nX6lNib9n0dSZXHA
-	 sNANfqukJQm0kptXZDR6ePaHXhf2IUH7USmjI2aBdQ/WEEAUG7AyLKSow8FLMGp2HRA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976570;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=+Uq3ccaWd7fkRO2giwzEhKhp4Q2d9Aamt7PEbt3q74Q=;
-	b=EN/H90snvqXqleuyi9qnluttG1qPtkuuo7+2YUAZ67Sov8SBSGbZYRiMpsNFF/EF+zFX
-	 svuqz6XnadqcFblN8KWYdu61PmYf26gWF/fM192cN0xS9/3EMWAfh94TM2ISArCsoTAIW
-	 Mr9ZqOir0MPdrnGZjkALhuIwU7kPi79bGIvgf44zh2fjx9OFgm2Yfa/D7nNxj2x60GbPX
-	 4Lk/tMxtnBiJ+NZtIWhQCuPVV9NaB9ExxOANrBKJWCZ3UxcDqdftYIym5e6HKq1OQt7Eo
-	 n1W6uuTIMec2Dp38suZ0m5RvyyUfhNBliH+yRlShp76Pwe0lClR7UGTwcE+MERevP8Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e1fvAOd2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793976695;
+	b=tYtNOO/6zymomT9YHAsBlLi5tYs7zpI9R7IOGeo9jN8rckR5k2oLjMKBm/NZfpS74cQd
+	 t1Q5CD07fAArKY207KqgopAFOPVNFt/TH8duVYkWhG3NdFBVdBRX2Xi8iOxkMzqeCJHDa
+	 /XqGOTiDzqh4e3QNcQtnaQxIEN3OnQdhoXREyPz+5IHYF/Fdnt2FF5f0vaLN630e5Aa+H
+	 4UK4TdKdXCM0cVMTrYs2AHYY+T/QHE9GSX8AL7zv0udGPfylT7NEG5870Er2WD9Q5Mb6Q
+	 7OgJ0rnpIe4lItI0+unpAOVk8fgV/0yK4GAQY780l+xCuwRb9G1Wy/nV1gSPp/CU2pA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976695;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=4/Drp7ifQeUDYwHgL1y7yzB8cVXQQt4dJhK1PJvWBeQ=;
+	b=5rJ55steepiaORQqbpO9ShMDwVRkSpDzOKSpQ0y12b9Y8rn/GYH9SrgsvokmgO7HGCAI
+	 IbCnEk5/NPXbX11qKJCyqezRfGSyn4hyAYRR0YlACtppBMFxHXFX7yPHh/vgS2gjppZzY
+	 mtvOpcsLXC3FZGF6hTM6HW/fm9pCeRRWP4MjTV7VRyvS61uwRe/fdDT7dYmD5iA2aCIm7
+	 lIzO4zMsB3uIbJculNiSNCQFwy/1s2AuPptgi760LoYuc112hfVS1tx1UyEeZMtOkEEiv
+	 mvAEKA3bjXfxhjB9QjIPKSzVS9N1aH7juQ/IWlX9SbbSG5xvzmHr8mYiMW9w1/J3VHQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=JnXTZjNW;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vu+SOg9R;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=xaftLuhN;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BaTthie3;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE18606A32E
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:49:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDE18606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80057606A32C;
+	Fri,  6 Nov 2026 14:51:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80057606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e1fvAOd2
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36a6ee9c59aso107931eec.3
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 06:49:29 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793976569; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TClzRegp1BhfWa1V5W5hr8q0E6TRtcxshEsuVHYZNAy3hyhQsN9a6f/xsHN8jUmQzH
-         9hj8yWGSiI1PlCWUuE6L7IdUkKCu6Ueu2uYjgehqHI7CiBox/AQRxzt6XOV4pxyFwrr9
-         0meE99i4pZTZtCxJFwScrEqQed8032Jznhyrb/cg+jak17fzQEcPCjPMbFHKLI0FIL2B
-         wComX6n2f3MBl69gWyLd+Lv51MWmcGykr3UcMKqX6GsCaXUBSJIlJmVygcyYWdZmgjIv
-         K7XxK4vIPULcRrvV4ynoU0u140GzHN67AQzwQ3W3DuFw+gMi9f97OY+WnNLXQiSkYz5M
-         +SiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+Uq3ccaWd7fkRO2giwzEhKhp4Q2d9Aamt7PEbt3q74Q=;
-        fh=uNE+3XNxJMz8cjqo/XW6gvuJBdTinDWrGyM0RSUviGg=;
-        b=aaOerU4MOV+YwBVJDsO+NxCY/B/uLMssbX+Rf8j3ghpQCEQ0h/jx0VvGBuMeARhJDg
-         6a8Vqbj+5jaIN2oid76hHsSoA5LMNyILZdfwazOHl02vpPG3bs5UPGLeHIdvDUpMrYAq
-         U9xgIKJ/x4CMkBc5C0vBl8h65vZ3dfeToOb5Iw04DHmZ0BoMLK2rBTQewHKa96QKhOyL
-         gzsh0TciKpkDm+FNDOm7/HF+HAKGD8bMpCYbvLgdBsf8e/KuckSPYVnJBq4AAVYlJisK
-         6hXtGgn9Z7RLh7bF6uo3vpm/XZsXe+o4juDtQ3Dp2MM1FHd2vNq+GwYNQccmgPxdU5oG
-         yMXw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793976569; x=1794581369; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+Uq3ccaWd7fkRO2giwzEhKhp4Q2d9Aamt7PEbt3q74Q=;
-        b=e1fvAOd2uD3CisHs88RpjqGC5sbtPt/N8Yw2bckZBqDqiKLM43dGykySp76Mlj3scP
-         brRWGUqsp4eLGg2YJq8n4lAgpYyvxuuJsS/AXGdr1cpKrvH8VQ2SXk19oWFFs1l+CA+B
-         Pfl5QhyWBWrF6cMWLeW5MrD9hXQAPAN8vAkrmAIX9xJLH9tUPGbYZLbzKgsOLTjGKVrG
-         VldlWbSjoUtLSVa3Ssz75qT5MwV8QBpexLH7fbBpr5KbgNZJqCfUjrD/66cpgcR+bHEd
-         cxyrfP/EAi3wpXGIlfI/mvz2YUlonZvb+IXJZXh3Imn+GhLFyTKD7VMOx+p+z7xsKG2S
-         Z9wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793976569; x=1794581369;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+Uq3ccaWd7fkRO2giwzEhKhp4Q2d9Aamt7PEbt3q74Q=;
-        b=q7e+J/pEPz+FiVUtIRxfHmOj/h6uESZNy9qosqpVEfI0uph2ZnAlXQn++oL7N5ZYrV
-         1Jhw1UGq1IXtmXjc2LMipeuxj58vIq3U/M7OKNrj/sEoqqq9+57ispbnK323VRwtc9m6
-         kz3kNRLTVtTiCnQt4aQpD5Gtr9zychMIF/L8nPzB5ro7/oXbeiBODQfQxbZWEA5HXD6a
-         S4Uel1uJVbByd5TqNoptJc9greKASYrykK0WM0MK5X4Nm6OMT/VSM0W/KhZZjWhN2/Om
-         uZ85PpK+ipasrtmRlhgIXlgwz90a8glLSItxqEFjiw+pBMPKO7MWQp8apmSkqdE3mBAW
-         RzZg==
-X-Forwarded-Encrypted: i=1; AL+hErEVLb/PeumNQZObuTWz5UaArf1F4XKvkur+98Hd14SO1moUoljMI2ylNQTKTQTh2I3lf+MgSQw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8YNWpW4eb2hBncpgKDHII75M83T0qw7/Gij4riBJ0apgVHEzEi
-	DzCPSukBmyTB4hnQtIky+ZhmxuNPBT6oyTMXXGTl64KOAThpLsBty6uw8pYhksKejVa96UAJkoc
-	nWEsy25lNZlv587ht0zExxnoz9uNkYgx9n4uDdWE=
-X-Gm-Gg: AYBFou3uLyMXfVUiq7G1lOYWwRKFAwAjcI84NonkcF6INhPYeNjbvSRpQW4s3VgxpOq
-	FfNbqfBLZTR7E4yw02gUC4It5P/UKDc219R5AHACXcj/Acret/WuWRPEKEjoY1VaH+PSsJbhUbZ
-	YuKw3Z6d3ACfI/UOLOmufIlolMUWU31WODvOZ8+cTZnO6YbxrLDMulwcg7oNHkwZ0NjanpP3iqS
-	wYIZyNTBFAeCjCd9J9YcXzSb6dDVk1STonB4WTzz9ekqq0gqnQsBIwvSevRECdxNE7fmlvat2Cw
-	4bS0nGQwgQ4YyURXQ0cow3liWuQKCUp+LzQdEa2vhLTGE09mj7KDraJsQdFFfra891PcNWzHeAD
-	uVKtMVXo6TYW+fcJktXfuLD3GsZKM3aDPdtWk1gWnRx8+mugpHJz2X8GkxfHjxN+pjadnTXTR8N
-	DeLxi7R9bVdDihO4RgbVnGoNatYSDbSwicMYOe7p7JvTC1pJblQO/y0uHXc9/JvFZ1gyHlqERqE
-	puGbZjPTU5v9LcdoOI7yVWvWw6J89HuVMyi
-X-Received: by 2002:a05:693c:2503:b0:36f:10ec:f692 with SMTP id
- 5a478bee46e88-36f6fb7f196mr5010433eec.0.1793976568783; Fri, 06 Nov 2026
- 06:49:28 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=JnXTZjNW;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vu+SOg9R;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=xaftLuhN;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BaTthie3
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 9050F1F452;
+	Fri,  6 Nov 2026 14:51:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793976692; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4/Drp7ifQeUDYwHgL1y7yzB8cVXQQt4dJhK1PJvWBeQ=;
+	b=JnXTZjNWKaYglOEMRDSghM1mCC8CNtPojWVDsn5B13eHKgmQOu3cdekZBeNj+00J7iQ3LI
+	UV5d4kkPrTH06M2o7FGxphCpaBfr2wN+9n8CAw0gwtLhigQG1cjEgACINTpI9LhqUTGl9p
+	/ZvgV3B60NlCepfGQLtjfH5sRUnkvuw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793976692;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4/Drp7ifQeUDYwHgL1y7yzB8cVXQQt4dJhK1PJvWBeQ=;
+	b=vu+SOg9RfkkDnYPxjvQXAyw7j8Wrlj0Vh5LJPvpl4cQVWL8z6J/t/foUpDm8d3gLugJwuB
+	KMSFez8osLFwxaCw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793976691; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4/Drp7ifQeUDYwHgL1y7yzB8cVXQQt4dJhK1PJvWBeQ=;
+	b=xaftLuhNsHCJTSkN5c8rVdB9MVTN8fHJ8mnsW+M9up9jf1l/5IB73gkO15bYG0ZfA6Zu4B
+	T5swbGc4Z3/V887/5tD9HefzA2SvrMOZlpnNXBvHDdkQt1rwlGVAoIP9UODYwBckO1mz+J
+	GUWmg0Q3GLuEcssGb0u6JIIdS5XCa3E=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793976691;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4/Drp7ifQeUDYwHgL1y7yzB8cVXQQt4dJhK1PJvWBeQ=;
+	b=BaTthie3RK/0Nw8QZfZHg0G/Q9yNycBg8SyGWFn5lAf7LAB+y3C1SXcSiRHteLRheifI/H
+	QtHlG/YJDKaluPCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6A02E132C9;
+	Fri,  6 Nov 2026 14:51:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id P5/ZEXPp7WoZDAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Fri, 06 Nov 2026 14:51:31 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id E957121B9C; Fri, 06 Nov 2026 15:51:26 +0100 (CET)
+Date: Fri, 6 Nov 2026 15:51:26 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, stable@vger.kernel.org
+Subject: Re: [PATCH] fs: fix the SEEK_CUR f_lock condition
+Message-ID: <7vzn53nez54u2ps3z7eb2v7vqca3sitzhhu7epk2lrrkt6l32o@hxboo6t23vow>
+References: <20261106-work-file-seek_f_lock-v1-1-5b9a6c2928d4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,30 +109,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <2026110412-idealism-matador-e917@gregkh>
-In-Reply-To: <2026110412-idealism-matador-e917@gregkh>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 6 Nov 2026 15:49:14 +0100
-X-Gm-Features: AclHuK-4J_Q1FcHHB3pLwxMHuOqtR4d_h85Y77rwXjqSJF5ocbrO_IU-w1ktrbg
-Message-ID: <CANiq72nURMBn-HGMvvJ44_ttydVQbdX9KYDtQ8cSJBVbW4b-XQ@mail.gmail.com>
-Subject: Re: FAILED: patch "[PATCH] rust: dma: declare cfi_encoding for
- dma_data_direction" failed to apply to 6.18-stable tree
-To: gregkh@linuxfoundation.org
-Cc: samitolvanen@google.com, aliceryhl@google.com, dakr@kernel.org, 
-	gary@garyguo.net, ojeda@kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106-work-file-seek_f_lock-v1-1-5b9a6c2928d4@kernel.org>
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Score: -12.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Wed, Nov 4, 2026 at 3:14=E2=80=AFPM <gregkh@linuxfoundation.org> wrote:
->
-> The patch below does not apply to the 6.18-stable tree.
-> If someone wants it applied there, or to any other stable or longterm
-> tree, then please email the backport, including the original git commit
-> id to <stable@vger.kernel.org>.
+On Fri 06-11-26 14:14:35, Christian Brauner wrote:
+> Commit da06e3c51794 ("fs: don't needlessly acquire f_lock") wanted to
+> skip f_lock for SEEK_CUR on files that already serialize f_pos through
+> f_pos_lock, i.e. FMODE_ATOMIC_POS files and directories, and keep it
+> for everything else. The condition it added does the opposite:
+> file_seek_cur_needs_f_lock() returns false exactly for the files that
+> never take f_pos_lock and true for the ones that do.
+> 
+> So since v6.15 a SEEK_CUR on a shared block device or on a character
+> device that uses fixed_size_llseek() updates f_pos without any lock and
+> two concurrent calls can lose an update, while regular files and
+> directories pay for a spinlock they don't need.
+> 
+> Invert the condition.
+> 
+> Fixes: da06e3c51794 ("fs: don't needlessly acquire f_lock")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> ---
+> Commit da06e3c51794 got the condition in file_seek_cur_needs_f_lock()
+> backwards. Regular files and directories still take f_lock on SEEK_CUR
+> while block devices and fixed_size_llseek() character devices, which
+> never take f_pos_lock, update f_pos unlocked since v6.15 and can lose
+> an update. It's a one-liner.
+> ---
+>  fs/file.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/file.c b/fs/file.c
+> index 4cd40dfa6129..fd08d34874ac 100644
+> --- a/fs/file.c
+> +++ b/fs/file.c
+> @@ -1387,14 +1387,18 @@ static inline bool file_needs_f_pos_lock(struct file *file)
+>  
+>  bool file_seek_cur_needs_f_lock(struct file *file)
+>  {
+> -	if (!(file->f_mode & FMODE_ATOMIC_POS) && !file->f_op->iterate_shared)
+> -		return false;
+> -
+>  	/*
+> +	 * Files that go through f_pos_lock when they are shared, i.e.
+> +	 * FMODE_ATOMIC_POS files and directories, don't need f_lock for a
+> +	 * SEEK_CUR. Everything else does, since nothing else serializes
+> +	 * the f_pos update.
+> +	 *
+>  	 * Note that we are not guaranteed to be called after fdget_pos() on
+>  	 * this file obj, in which case the caller is expected to provide the
+>  	 * appropriate locking.
+>  	 */
+> +	if ((file->f_mode & FMODE_ATOMIC_POS) || file->f_op->iterate_shared)
 
-This is at (as a series):
+Isn't the iterate_shared check moot now? Because all directories will have
+FMODE_ATOMIC_POS set AFAICS do_dentry_open(). But regardless feel free to
+add:
 
-  https://lore.kernel.org/stable/20261106144721.29080-2-ojeda@kernel.org/
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Cheers,
-Miguel
+								Honza
+
+> +		return false;
+>  
+>  	return true;
+>  }
+> 
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261106-work-file-seek_f_lock-c3fb94613214
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
