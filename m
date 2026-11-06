@@ -1,100 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.71
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793986301;
-	b=IRxV/qtQWOdpVXvrCInpP5dtH00GvYgTwQS4TA5AdHbJrHp5aDm61aT1vm9WvzTOvGxh
-	 9bjKucSeRN8FrZLQex+/B6DHVK2/rpOQ3Q1wylCopvMe4yN0HjDmlbYyHPIuCcgO9WAQb
-	 q6PduRge83Dnk8ABwwZ9T3yEsEQsoOcoTLXXAyLKHfenyKeIP7mWPev14XQnOx9CB5hEN
-	 FwCymH6pUiUVaD9gY/nvCmOkI1ADPWqJgPA6qGSuwbSEV37uhMouxJNaBJUVCr8gJgW2p
-	 9dBXgNaAkQxxVA+Ujdyvua9Ls7kBWJkgVXuD3H97JjyKjgIJAG4LmQC9fM08+N8+OLw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793986301;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793986456;
+	b=Q7yZsJD1/LvtagJleRSVKirrnm8m1elFeZ4r/Oeyb/Gsjl1HDKB1Y6mvxGwmWeWdUT7M
+	 lg1qwNbo2TOvxp39L3Zndfb+zuCm00wRhohyL7qbGEzfwY+UMsB0wsQKh1SHyKqVlRqwl
+	 wsnIYxxruAyHE1h6/4M0Sd17kx6ZhA7jv58/5nvZVXC8jxubKqJgs98Viq0Xsa8X5IUQ0
+	 A3F7/CaP8wbO23IZGoXB4+vtbFq25H/PGD5QuKLfZXNrfN2ScG2jPiyr61qlW1966KwZ8
+	 YIUCaFtFGXaVqlqHhfFXIaU6g/hzBZqDE2eVRvxJCaJMeP9Qs0o/Gs1aio8PtHfpMLw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793986456;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=SAsf/HJnla1202h032Zyvwlt1FDI3cas1HI6elwtfA8=;
-	b=baGEWsyWT6TZV+FTOV2EGc5rzOe2CkjtJxXYhtvGwgyPKK0qzM3fMdiEtiPfyAIw8Jqh
-	 8ZMpgozgSMkCyOgTinbVmwgHQvz0/c7ujUfvlPZE0nmlX9FKsWZpwALX5hteTPDZpLChg
-	 /X4ZpvAZ4dO/JMol3ZmNaciUNMW3tnhpvleGjaeRRV+O7VMzgSiyynwRcM3HXNREHngu9
-	 tY6F9SlxgTayeMucRPJ1UfcVmM+MYOHrHa5XwePZwSbQvoyNP0TkamU5po+7fqgYZEklz
-	 lpbfWvehIP2ojpFJ1lGR2a/eoIf9Rvr6BO0LrDZq56Fem1H6SfltfqGsJe03Uukm5Fg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P4+H+1F6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.71
-Received: from mail-lr2-f7.google.com (mail-lr2-f7.google.com [74.125.230.71])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6rsNhxKU4Uq6TJj9umYTq5+bXlunuJ5/jQ9luyM1bCE=;
+	b=l98Ww57BtVPxXgrCoiAEVlY/Vhbt5CUdxHhmWTYOr0i0pqoCGypVTZZ/CLc466syqyp3
+	 DLZrA/WURw82ewEsCxIZH2xSrNAa1D811BM4FQgJkG135TZagJSsRrehlKipiDGW7QzQh
+	 lxBLstycwO2yVgMQaXcEy/tuLaPdDs1ZVDu+/4jZb6/7AGfBwbdwAsfxW3erxoQ5hRPNT
+	 WzFSRtf0ocG7WUSBAoOfCtH+XpBAJ1SqByEM8hrHikmB4MVxlmvNituwjC6YbKPpdez/A
+	 ZvyRQoFU3Q5GwAAA77MDHXzLnh/wfk6nL6g2jXTrAH+vTHyE2ba2ABWXe5il6fLF0pg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=H1n8peoM;
+	arc=none smtp.remote-ip=209.85.167.180
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BA5606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 17:31:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9BA5606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CBB606A32C
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 17:34:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1CBB606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P4+H+1F6
-Received: by mail-lr2-f7.google.com with SMTP id 38308e7fff4ca-3ac5c86570aso714671fa.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 09:31:40 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793986299; cv=none;
-        d=google.com; s=arc-20260327;
-        b=r4/K4U6Cokq5j9kWrSs7m1VLgaDzf7n9jFdZvba1+sCgBcaM3O3I8XpBqyDWs3yDyl
-         kSbkIVeDiX0dmA2x0HpcqlPNFBEJnPSCmg8v5dN74icswDuzmppiQOmZsxG/WOBIlYzk
-         lsGpiHTbwBXEXrASeY4Mrgfet+zItvDFcy8ZWK5sOv17xX01TUDvX1c4Shr8zR5hrUjn
-         EylzN07HwDySTcYu84oIdizTBaV6BfaXLfi+dFmvssZdBzjYa0hgKL5IL20WEH5rJ6Wf
-         VMcBIANp8WJAhzxPRnAr8gZzE34CUVMtw0VXm6ibF9nmarhczmLHVwO+qwBfztDQcJEG
-         OXJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=SAsf/HJnla1202h032Zyvwlt1FDI3cas1HI6elwtfA8=;
-        fh=k//bE99jN2bvZFUwdSpJDLXRDl4eUPIFPcPf6Cb0Nfw=;
-        b=bhn5gQOXEO+hbl4GIxHeRRkiN7sQw25RGAaJ8eETKSGyd5VqQzqD/HooMmmS4DCWdW
-         ce6+UCjxJ6SJrpUwIOeSfIkhKeDwfpeERM0Q6qUucvQcNfEbH50KwXvSqRQ7ripveZ+P
-         i5C/rKKRlLwvqgOhd9uH3vvCR81SFetgcqy9oOJunBiQu4iNDILYu1gD6SCPcKmWTsiP
-         ES5R3uHHBZytwaMfjScaKj22HtQh9jy/h2dXyGANgh7quV7G7mtok3UAAS2v3cHJt/N2
-         r3VDhMSvDS7vDeEeH+TkQgh886A1uR68Oqi30iLwD/R8pp8D87g2rwqej/3A0pGDVvEd
-         I3dg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=H1n8peoM
+Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-4f699fe49b3so594537b6e.3
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 09:34:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793986299; x=1794591099; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SAsf/HJnla1202h032Zyvwlt1FDI3cas1HI6elwtfA8=;
-        b=P4+H+1F6M7rJHsIV9+FaNVlWRMbnr0A2JFUp/oXQo+O9VfDSgU3sggrd47kNd3izdz
-         d5Mrfaiy+SAtJ0XQs0kQZFEYUKPt0ODDfvzM7p6TXF2c2XAlYfooVzjevL16c3ZblW38
-         zXWvcRLTieY09hWod2jDAOopAiTQg3jiidCY4bdAreE7Pu/rNrkTtuyUhUv1okJqgUQO
-         fLPxhF59vHCGN75NZIWLwPYa2uU+J+YjSKeDJma3SXKwJSJ4jIRoI3iqyptfowy1cW9b
-         V93cb+9pCQ8GCV2N4d/83DzbIW78OTixGals2GDZ02LaNzO1l60H0doOBrBHdhL6YFVd
-         I2xQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793986299; x=1794591099;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793986453; x=1794591253; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SAsf/HJnla1202h032Zyvwlt1FDI3cas1HI6elwtfA8=;
-        b=v1GVJlc3nDUU+BuHxzboT1GSU3GHBH80DLBoTMFAN8Ga7sUz4mTVIwI7HkpuRtTob/
-         yMDZp9gyN7U+asmdNPB8v5a3+OxBMMvFfU87YEB9BWQ0kOJEH7vIfK42y+uDPBtBg+Oo
-         rhevIdLqfBB/SKJmMcVpa79PVqq/fTJMeBGGtQGrPUs6augMEB7OFxPG69GVIZqq8tl2
-         WLBqobe64SjLPqRjZC1MD7VbLMmZEBZozAfbRLPVk3bcIYp5NZP6R9F4caOI/NoNsNEK
-         VL9Mb247RrsWi/JHOzkYMq6+nHmhKAWIUp4yf4VX2niWOCuZVTnJLPkcQGgIJkAW1WDL
-         Pgng==
-X-Forwarded-Encrypted: i=1; AL+hErFKhbvskE4Q8J+/pM48W7PdvLAo6+tgmjJZ11jKN8VLldhTSE22GHvJRgD9Iz06rBeazBshTqo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8iTKLw1k2p6iNGsOno7O8Zz+wUYeNIJQVkuLzmixEQxrVtxf6X
-	6oWgHSSwDg/EIVmhJip6mC/OAoNq1Au/7g6/MR/KuXdL75kz4FbbIbO09mj4w6hk/YSpbLhz8UG
-	zy20W8g9rcVBcgV3m0VYe6d5DKFNoYV2rlgUA6ZWeQSWV
-X-Gm-Gg: AYBFou0u2T0aACnMUTZ+S3K7R19HIriXxJNecNFgY0T5d5+RrR9/0egCDu2k6/hazy2
-	0omfuqs1CsVxJ05ty1o6d9lT0Irmpck4EeS52qXlE/IaGKIBUMmmDKH4IszMrwoITNCBNoY44ey
-	Utdo3td9i/4HnfKstiGiXdeDZItAu7L99/dGBQm07kwT83J+EfxYLIkY1ImBA9QOwF0eZlN+eUj
-	LAIIAe9mzYsySAVZQuxlndYjLN0Hm2j+Hs70Ki9S5kK45VddbpVX4nAMgX8DkSuq0oepzDk1T8d
-	5T/8vUgfbjngRa0hEhaa5Ee15j9u1Bnzs8hZAWnavGflgP4nOzQmDL0cVV4zFYqkAxyvKbXF191
-	/DaOd/QOa7aMcHapC6w1xLZDRbuWPdAeKmaYieWhK4xl5v7o9D0kRr41Qbg==
-X-Received: by 2002:a2e:a107:0:b0:3ac:e00f:6bef with SMTP id
- 38308e7fff4ca-3acf3a07eabmr6207661fa.6.1793986298519; Fri, 06 Nov 2026
- 09:31:38 -0800 (PST)
+        bh=6rsNhxKU4Uq6TJj9umYTq5+bXlunuJ5/jQ9luyM1bCE=;
+        b=H1n8peoMAqKlFFts4q7qsZyavtsxv6Xj/IKYK7QUEhpvVhDCbI3FHLnzVZ6AqNSqnY
+         OQJxro7CJci/kmR/w8Ramc8i4NjtoqfL7Rts4ErC9dR97OpiUSHtXW+MqxkSctC1qa8c
+         nyr7Gt68/h4GDFItq3Jzz7mW44evez2L0oINWZfvijjhPGS4NtQY6RTNTIaYublj0O/u
+         5lfAbwywwIY8up3KQy1H48g3+LnMjpdhHQRemisPVk9aw2SMIHR+69TjjQ7IR8+DwDGG
+         992dderweWZWd9pNy/7Sw2Pdfh3Ts/mN1pQjTwSqQ+lkE+/Pei9J0lSxNCV7WdeGCYX9
+         vd4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793986453; x=1794591253;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6rsNhxKU4Uq6TJj9umYTq5+bXlunuJ5/jQ9luyM1bCE=;
+        b=Py066DzQLbmEO0/SO8egYlYTVeDLsPe8IEeU8gf/zbY/kZObOSqG+vzSPvol4ccXZ1
+         atkBeTCXUCwrdtLZ18pEJuXNAQvYznRNOqnRJmibXz6B/p0bveLbN38+Gi30K21WOD2R
+         xHl2PtAPUjRjgm97cKZBd2uUQkLevwbRg4RSGdgDNWqYDDNVZEEsYtSd3tsSDRSZdSWq
+         SxBH7QjSS1fs8PNmWKz0TG50OnBltGRVNjzQIvVjtAu9T6J9SUxCtfGImTt7xQIbjYit
+         gXhtEpLEV6aeUA1KecX1VMS59h38/gPexySwMybj9FjpJT/i5PB4ULn/Rqxn8W3S4pZb
+         wyHg==
+X-Forwarded-Encrypted: i=1; AKwUvByvqtFFhVgNNBzdtBWCDRROp2vx0AvdhWaj0rskvlfCCF1VlhvmHuw8UXw26drjUjA7BX49vXo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+PKC0juq+5NV3676XuYdionWE3XbwJnqgZfTw7lzKui8ErcIVU
+	vRUcDdQhKQ5mFB8By0lfWFKyWQmFrIqpOqnB50YbUSC1Osxi/Uz7jvQowCoTH64Se+U=
+X-Gm-Gg: AYBFou1l72QDX21g7qQeICiRPaCX5bgoQhvaVIqJ5UO9kxYFzKffMdKxUFcWcAf3En2
+	VhHDi9YLyO6M/sblJRLmvqu1gtpdTaFDS9iGcUPfQ1fvJeWLIFB/HqIk3cGoY5vfp3bFLgCnlKa
+	wSTsO+w2EQiDuemS6sdJ0vlC3GJOcjT0T/VzqIDEXEyNpu1kGrgyvZNFy+Xx/5TEfiPJ2DP5mvZ
+	5SCt2YcC2NHHJMfZrdrRDK2/LH5oA7JTSIN520VtQ5O/F5k8rJ38IvR2SGjFz7BBw+t7ocQwU+U
+	Pw/aGPXGRs/klocfNC10LRTi9kFfEyQLg6nrYOALbsPVQd4z7NaxV1jG9wTwqaljhpkrYIWeENO
+	bsFELUH3Qi+UuyFCPgGb5t6LFYFpeAg+r7Z13rkGvzQqJ7ynAFYk/M98B/upsbvN3hX3oBvxW0y
+	62wkEoJjk2CMHxA20LW+PjIijFB71ZuGmzwossoYhwwIhLkiw0qP6HSWDP5kfOh6MtIvdWj/Fxc
+	BgP4bMNYYyrGWz5CN+qEHWzvAnPS4jgDbe20mJtfB5W8K3M2TMkMCAJkVu37s8QKKYNbPRcbRcW
+	Oq4ouYiL2see1Q8itIfqM0k41B6d3UGoqgF/evDZGDwUsOPeiY0N2W5MTXSQcglt2LlP+RJKimf
+	Psr9A7/r/
+X-Received: by 2002:a05:6808:15a7:b0:53a:e153:e901 with SMTP id 5614622812f47-567e0f42f28mr2650995b6e.2.1793986453280;
+        Fri, 06 Nov 2026 09:34:13 -0800 (PST)
+Received: from [192.168.2.38] ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567e7e5f6e2sm1932773b6e.11.2026.11.06.09.34.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 09:34:12 -0800 (PST)
+Message-ID: <a41c9599-f668-4920-93fb-c4dff42b2856@kernel.dk>
+Date: Fri, 6 Nov 2026 10:34:11 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,65 +93,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105061433.1947491-1-bsdhenrymartin@gmail.com> <3f0cf989-c294-44ac-8bf9-11bf69dfee45@kernel.dk>
-In-Reply-To: <3f0cf989-c294-44ac-8bf9-11bf69dfee45@kernel.dk>
-From: henry martin <bsdhenrymartin@gmail.com>
-Date: Sat, 7 Nov 2026 01:31:27 +0800
-X-Gm-Features: AclHuK8FDdjdShTooQaCgTiT2ZtXnpiQqMTbomZdRqfL2T5bf1xh8VVRWEJU1_M
-Message-ID: <CAEnQdOqaGiexk6BcvU+L1xoEFDr1e6sWzm1VuH-JBJJKXhc__Q@mail.gmail.com>
-Subject: Re: [PATCH] io_uring/kbuf: fix cross-mm interpretation of provided buffers
-To: Jens Axboe <axboe@kernel.dk>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] io_uring/kbuf: fix cross-mm interpretation of provided
+ buffers
+To: henry martin <bsdhenrymartin@gmail.com>
 Cc: io-uring@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+References: <20261105061433.1947491-1-bsdhenrymartin@gmail.com>
+ <3f0cf989-c294-44ac-8bf9-11bf69dfee45@kernel.dk>
+ <CAEnQdOqaGiexk6BcvU+L1xoEFDr1e6sWzm1VuH-JBJJKXhc__Q@mail.gmail.com>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <CAEnQdOqaGiexk6BcvU+L1xoEFDr1e6sWzm1VuH-JBJJKXhc__Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 11/5/26, Jens Axboe wrote:
-> This isn't a bug. A ring is shared memory, and anyone with access to it
-> can write SQEs that the other side submits, with whatever addresses they
-> want. Provided buffers are no different from the addr field in any SQE,
-> and the same holds for ring provided buffers which this patch doesn't
-> even touch. Sharing a ring with another address space means fully
-> trusting it, that's inherent to the design.
+On 11/6/26 10:31 AM, henry martin wrote:
+> On 11/5/26, Jens Axboe wrote:
+>> This isn't a bug. A ring is shared memory, and anyone with access to it
+>> can write SQEs that the other side submits, with whatever addresses they
+>> want. Provided buffers are no different from the addr field in any SQE,
+>> and the same holds for ring provided buffers which this patch doesn't
+>> even touch. Sharing a ring with another address space means fully
+>> trusting it, that's inherent to the design.
+> 
+> Agreed ? the SQE address fields already grant that capability, and
+> ring provided buffers have the same property, so this adds nothing
+> beyond what sharing a ring already means.
 
-Agreed =E2=80=94 the SQE address fields already grant that capability, and
-ring provided buffers have the same property, so this adds nothing
-beyond what sharing a ring already means.
+Forget SQEs or whatever, what stops you from inputting a virtual address
+from another process into a read(2) system call you're doing? This has
+nothing to do with io_uring AT ALL, and everything to do with people
+using LLMs to try and find things and not even considering what those
+"findings" are before sending them out and wasting other peoples time...
 
-Thanks for the review,
-Henry
-
-Jens Axboe <axboe@kernel.dk> =E4=BA=8E2026=E5=B9=B411=E6=9C=885=E6=97=A5=E5=
-=91=A8=E5=9B=9B 21:28=E5=86=99=E9=81=93=EF=BC=9A
->
-> On 11/4/26 11:14 PM, Henry Martin wrote:
-> > Legacy provided buffers store a raw user virtual address.  It is
-> > recorded in io_add_buffers() and later returned verbatim by
-> > io_provided_buffer_select().  The consumer (recv, send, read)
-> > imports it as a user pointer, so it is resolved in the address
-> > space of whichever task issues the request.  Nothing ties a buffer
-> > to the address space it was provided from.
-> >
-> > When a ring is shared between tasks with different address spaces,
-> > for example across fork(2) and execve(2), a consuming request reads
-> > from or writes to an address chosen by the provider, in the
-> > consumer's address space.
-> >
-> > Record the providing task's mm in each buffer, and refuse selection
-> > when the consuming task runs under a different mm.  The buffer stays
-> > queued for its owner and the request fails with -ENOBUFS.  The mm
-> > reference is held while the buffer is queued.
-> >
-> > This issue was discovered by Tencent CodeBuddy Security.
->
-> This is nonsense.
->
-> This isn't a bug. A ring is shared memory, and anyone with access to it
-> can write SQEs that the other side submits, with whatever addresses they
-> want. Provided buffers are no different from the addr field in any SQE,
-> and the same holds for ring provided buffers which this patch doesn't
-> even touch. Sharing a ring with another address space means fully
-> trusting it, that's inherent to the design.
->
-> --
-> Jens Axboe
->
+-- 
+Jens Axboe
