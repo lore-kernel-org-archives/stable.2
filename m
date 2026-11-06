@@ -1,56 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793930101;
-	b=OBbQFE71QiWlIxU7ZFkvSey5TJGRcNbhuzku9Sc1kLSb8uxhBBJYCjEMo+2REx0Bfynw
-	 cvJLB1to7576fpVmUinH/eX7oGcXZIy2v6qYyJKhDBCoA2bqvBbTiVeLyJ5hdbm6AcWLR
-	 Bz6cFvlpEUKe+XZ305fYyC2jzCeTyfAB5dq+kh+7HUBH1xhgqWYnduag3lQoGROWqZFdg
-	 KM/hDXbFFgWgUNk5RMshmod+gzRxymV5xb8g5QRnfiXNJ4P+gYQfevowYHYVcQbwCM7/m
-	 JCUdNNqLRUNhQLcqC+GEaiLnDVaxm4txLMbW0ZlWYAm2aogk/o7HnHvTIGJ/jBR2cTQ==
+	t=1793930167;
+	b=PKknn+knR6PyWRGgsTd12cmYtAfpccbWOJwDS88Mb6G2A3jb6oKv++SYzvrlfAb432PE
+	 uSQb765zQhZX8egqKzqwll/39usGsxU2yS0ZQJmZKYCTSguBrubmunz5qeQEl6Zeko71R
+	 8E6HThYA+ynJm4qhuG7SyfHotA8rwbIHsia9nHFhrqLOLqZmQP57lm6bG2sbOi8ZBK9Wa
+	 r2y61x4LSwEkaS6ulBIq+si/exujQjsxwEWhEgsyyQAlf2AjtAlbM06GPcszWqPS65sto
+	 M2xYWkRV3XhtMv8E4kwnUbxfaYYzWz8ZU8AeM3R61bsgofLVNxx9KvgZzh/Nzx7iYng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793930101;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2JTWRbayT44KvcFbBoro4PHjYrw+snTrEVpHmksCMbs=;
-	b=BMe3NLGM7e0gyJBTdZDvSpO3pW/wVyXTfCuVtdNyP5GnRQOnGCZkM17lVdRyt1Nll0qz
-	 AIaj9pN429mefSqZ/HwHnhaVWSrsJ7NbUFA5/TyHdEbcBgZ0XNQq6sYFBa26clkKC7wEB
-	 JsCf0wVfVZ1WEiGmyTiE/oXaIkPZiRiPHuoW3jp4Y341+ORIvCi/hjwI8WrOywhxK1N8M
-	 rFy62uhu27r02j60Bxk2z6M50jdCphF3Kk9HmPuNs+D/Czh7yy8UQXgb8aYOqs73GSajl
-	 lhD3+5elasg/2nvYqqgnTvYBTaV/KnjY3JsbX2zfp/GJ5a4PRmwnEY+X9Q5/R8mJEhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793930167;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=2IwaaquVGNd7gM6MhL4GlZ3FLZbafuQnYr1jszjtRIw=;
+	b=uJ/MbyHo7ujPtxIZ5cvmlkwq2/nSxlk1Y6g66W6ZR/V+bqaGc7yf4nU7447v/VWxyXbE
+	 XnjTALd30vHrONvC9h2sJsO+3JtOIziFz3lIsykGnyGIDnUDwhj/lFBljTJWfEeLGaaGF
+	 fGy9F/QuX9IfJASRpANQvBskS/mAt1MO5lgQb20jHv7Ybz//XPxlPhGSTwuriShohctAx
+	 myLizZ48VPFdjcuq+Drzxf25F6qiO5IAgzeZ4CUe03G3TWE7wBBzsLP9xey3hn+KNgnYO
+	 Dgc4bcm597fEMNLlyYWUnJFPh5ENroxjrWWr+fOxBAVMGElDX2g5ETUXtfgbHHwQQig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSWediYp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Anu424r9;
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0FB606A31B
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:55:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A296606A328
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:56:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A296606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSWediYp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEB321F0089F;
-	Fri,  6 Nov 2026 01:54:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793930100;
-	bh=2JTWRbayT44KvcFbBoro4PHjYrw+snTrEVpHmksCMbs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nSWediYpU0ZYeeuxgbib3wCQGsIr2xQCNQ2QecaeCIab4EiHLAeO6WkpqUU8dxG4B
-	 DbUAsqw6x1Z7MjDFrYPwjaxJ3ekhLPZjq6sJDs7Vlrc0kSbUG7tOq56exaalSHNqNM
-	 6dHBP9xjwyYH1C1D5d9CnsfUv589PicID6+X8c3StuSLNy13H6e2ouTrBRxpWAiBAa
-	 ob9+3YENUOK9mO1XTuADylzLUKui+iVzjWezeNWwL81gvJc3L5kBCC7g93+u4058MA
-	 EFWNwdoB7xqGCOC17RWvJZGW2r8Bx+j/L8TMzq+N++1NanvtA03+cVj/jqAP53V+Tp
-	 FmknUEvNPPvtw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Benjamin Coddington <bcodding@hammerspace.com>,
-	Arun Potharaju <arun.potharaju@hammerspace.com>,
-	Anna Schumaker <anna.schumaker@hammerspace.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] NFSv4/flexfiles: fail I/O to the data server once a lock is lost
-Date: Thu,  5 Nov 2026 20:54:58 -0500
-Message-ID: <20261106015250.3615933-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110416-handprint-unwed-af98@gregkh>
-References: <2026110416-handprint-unwed-af98@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Anu424r9
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso73969a12.3
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 17:56:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793930166; x=1794534966; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2IwaaquVGNd7gM6MhL4GlZ3FLZbafuQnYr1jszjtRIw=;
+        b=Anu424r9svMljH5y5MvSy8eIfkZeKXitPff2rHMsTxbWq3XimrnwcSHNVn3hZYKA+w
+         K1KiBRnmP1gHlbb9wbVYp5J62APYCXS6ff+e4TV55obmi94N5b7RWLP6VKnAZ2/AzuEq
+         f4L2kaTPRKyzhG1KEEXinFTDVO2baVhaeGTo79MskLcoq7sY9X7WoOpVQ1jhrB3yxOiy
+         9bMKjR5JEUP6O5GilVu/zraExlK6sqGe/WBHvzbDO5xy43w9sWnrQW39FRaPXDrkxKwM
+         WzjsFMSSdfNYYRg22lNoznAm3l2KxKHaiCSCeGERyicnX9g5i7+5avNj2wRhwJx1fVdp
+         c8Bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793930166; x=1794534966;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2IwaaquVGNd7gM6MhL4GlZ3FLZbafuQnYr1jszjtRIw=;
+        b=GNGKPyXj4TBD/Z6PXKo5/oPA2qcKp3F4AHuyeRK80bhiI0NNUrThTk/efuDEOUvkjk
+         MVlmeBt7a6VgcEN3Lmeor/4xUIUWKB59z5iTXIwVhnnQ1Q1EuHXdWI5ITfRBz72cO7RM
+         UsubbJYxFABjTjg80evpujl27gqv5XiDrO35ObfUaNap+hmSLDWV1WeccqpGSlRuC9md
+         Tu+pjmnR80IUmwo7w7GAhyijiYxxaPrZjZH0B1HsSbYfLOK3uiGKh+XsRPc6eSvzpXSF
+         4KasdZhmnKauGziKhMk1Nx0U5SrVwcPq62NW7u0949S6z8MNKoWXseu/fO6NqIIFHbEG
+         ETvA==
+X-Forwarded-Encrypted: i=1; AL+hErGwqRU8fvWyhq2/vw1w4NSohbsd0QggU9lzwHfBPkvBOrK6/ooCz/TpOeXtVqii+Z4xpfJTSzo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Y0h6XUo6+LoeKGKsVB9z3nPWXgcS9AcvMJxx5IE92TpSEUQ1p
+	AGkZCG5SvA8+P0k1+C3l3HR9jaLKXIcGxTgAbCOwqHZrPDB2KkL7qkRs
+X-Gm-Gg: AYBFou1ftVyCxrdWj0iuPJ6dlIQw/X7kh1PHQS1MLtJtK0Wstwe69dCUFIovuiNYkVi
+	PAGcaYBujSFLemnGkptJyDKeaiU4XQ1WSAuLldnXwk1BOZ9wnK0P0JSub79hOL8YTHdRFXlXjXP
+	B6UmBK1lakaCB6azjFhTxVRL2mv4wg50nSyEOjtYeufkyGk8LwE/CuzuNmlZC20V/sg01cw0pEN
+	SJM8efKpmBYtAuEZ8mh4vt0xSfi+sryLzKOTGQUMOO0I3cV9M50mAqik/yUQIBeF6EZHDAeEkn0
+	lQJd6AP5hUj8mO5RyPrF69L0GuW+sb4lMot4DV9TFdlaTfYaHvf9umdjEYqSKZE0JUAk1TiFhXH
+	JzW3R6RqKDLNFM+/H90xfh7DzkQypvR9h6ZvcGD7U4tA4Ri43XWMlsBHk1hQRAOm7SwUzjtd9Zu
+	YgPpYatk2A9TAeVOK6ki2+EUFxP+I37rjmr4E1w7ZeaZrVf+rQho9AmIEf2qqnCmEsFjrAPLr91
+	rMpVdo9tucDM6Gc5A0rvo7BmUa0xAnSzBUWsamXU7tfXcVX9pcDWTvUJ4NBoqYA83w0FX8rYSgO
+	u2lWGOSJzTcIGxGphg==
+X-Received: by 2002:a17:90b:2c86:b0:3b0:9a1b:b6fe with SMTP id 98e67ed59e1d1-3b0db70871dmr983678a91.62.1793930165680;
+        Thu, 05 Nov 2026 17:56:05 -0800 (PST)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0b32678ecsm6138265a91.9.2026.11.05.17.56.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 17:56:04 -0800 (PST)
+Date: Fri, 6 Nov 2026 10:56:02 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>, ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] ntfs: don't write a compression block after a short
+ copy
+Message-ID: <au0zsi-oLfcprQxI@hyunchul-PC02>
+References: <f385711f8772132f64462e1d6c13efadadc51bc2.1793874221.git.zhanxusheng@xiaomi.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,221 +98,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <f385711f8772132f64462e1d6c13efadadc51bc2.1793874221.git.zhanxusheng@xiaomi.com>
 
-From: Benjamin Coddington <bcodding@hammerspace.com>
+Hi Zhan,
 
-[ Upstream commit 7fa2ad367abe6d3155daefb57331e7fce1a17afd ]
+On Thu, Nov 05, 2026 at 09:01:58PM +0800, Zhan Xusheng wrote:
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> 
+> ntfs_compress_write() does not read in the folios of a compression
+> block that the write covers completely. If the copy from user space
+> then comes up short, the rest of those folios still holds whatever
+> the memory held before; ntfs_write_cb() compresses that to disk and
+> the folios are marked uptodate.
+> 
+> The copy can come up short after fault_in_iov_iter_readable() has
+> succeeded if the source buffer is unmapped in between. On a volume
+> with 4K clusters, writing 64K at offset 0 of a compressed file while
+> another thread unmaps and remaps the last page of the buffer leaves
+> 61440 new bytes followed by 4096 bytes of another process's freed
+> memory in the file. The write returns -EFAULT.
+> 
+> Treat a short copy into a full block like a copy that made no
+> progress.
+> 
+> Fixes: 5b676a77f3e4 ("ntfs: skip reads for full compression unit overwrites")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-When a client loses a byte-range lock, because its lease expired and it
-may not recover the lock (nfs.recover_lost_locks=0) or because reclaim
-failed, it marks the lock state NFS_LOCK_LOST and fails further I/O by
-that lock owner.  Otherwise an application that believes it holds a
-lock over a range is never told that the lock is gone, and can
-overwrite data that another client has since written under its own
-lock on that range.
+This patch looks good to me. But the second patch in this series
+appears to be missing.
 
-The NFSv4 READ/WRITE and file layout I/O paths apply this in
-rpc_call_prepare, where nfs4_set_rw_stateid() returns -EIO for a lost
-lock.  The flexfiles data server I/O path does not: the NFSv3 data
-server path never checked, and the check on the NFSv4 path was removed
-when the data server stateid began to be taken from the layout.
+Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 
-Fail read and write RPCs to the data server in rpc_call_prepare when the
-lock is lost.  The data server path has no use for the stateid that
-nfs4_set_rw_stateid() selects, and selecting it looks up a delegation
-or open stateid on every I/O.
-Instead add nfs4_lock_context_lost(), which only tests NFS_LOCK_LOST,
-and check it alongside the open state.  Its lookup,
-__nfs4_lookup_lock_state(), is split out of __nfs4_find_lock_state()
-and takes no reference: a lock state is only unlinked from
-state->lock_states under state->state_lock, so one found while holding
-that lock cannot be freed before it is released.  Use it in
-nfs4_copy_lock_stateid() as well, which only reads the lock state under
-that lock.  That drops a reference get and put from stateid selection
-for all NFSv4 I/O without changing the stateid selected.
+> ---
+> Tested in QEMU on ntfs-next with KASAN, 4K clusters, page cache
+> dropped and freed memory filled with 'Z' before each write:
+> 
+>   before: 16 of 41 writes failed, 3 of them changed the file, each
+>           time bytes 61440-65535 read back as 0x5a
+>   after:  286 of 731 writes failed, none changed the file
+> 
+> The same loop on rootfs gives short writes and no corruption. I can
+> send the reproducer if it helps.
+> 
+>  fs/ntfs/compress.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/fs/ntfs/compress.c b/fs/ntfs/compress.c
+> index 82c7c7d29073..287bd47282d9 100644
+> --- a/fs/ntfs/compress.c
+> +++ b/fs/ntfs/compress.c
+> @@ -1567,6 +1567,16 @@ int ntfs_compress_write(struct ntfs_inode *ni, loff_t pos, size_t count,
+>  			}
+>  		}
+>  
+> +		/*
+> +		 * The folios of a full compression block are not read in, so
+> +		 * after a short copy the rest of the block holds whatever the
+> +		 * folios contained.  Don't write that out.
+> +		 */
+> +		if (full_cb && copied < cb_size) {
+> +			iov_iter_revert(from, copied);
+> +			copied = 0;
+> +		}
+> +
+>  		if (!copied) {
+>  			err = -EFAULT;
+>  			goto release_pages;
+> 
+> base-commit: 564c7753647731d19170914c1c637d3b33d88d3b
+> -- 
+> 2.43.0
+> 
 
-Terminating the RPC in rpc_call_prepare is not enough on its own.  The
-done callback reads the -EIO as a data server connection error, forgets
-the device ID, and resets the I/O to pNFS (or, for an NFSv4 data
-server, possibly to the MDS).  After a reset to pNFS a new LAYOUTGET is
-granted and rpc_call_prepare fails the I/O again, without end.  The
-existing NFS_CONTEXT_BAD check does not loop, since the open state is
-then invalid and pnfs_update_layout() fails the reset I/O, but it still
-forgets the device ID.
-
-So when an RPC that was never sent fails and the open context is bad,
-the open state is invalid, or the lock is lost, complete it with -EIO
-without error handling.  An RPC that was sent and failed is handled as
-before, so a real data server error is still reported to the MDS.
-
-Fixes: d67ae825a59d ("pnfs/flexfiles: Add the FlexFile Layout Driver")
-Fixes: bb21ce0ad227 ("flexfiles: use per-mirror specified stateid for IO")
-Cc: stable@vger.kernel.org
-Tested-by: Arun Potharaju <arun.potharaju@hammerspace.com>
-Assisted-by: LLM
-Signed-off-by: Benjamin Coddington <bcodding@hammerspace.com>
-Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
-[ sashal: Retained fl_owner/fl_owner2 variable names instead of upstream owner/owner2. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/nfs/flexfilelayout/flexfilelayout.c | 25 +++++++++++++++--
- fs/nfs/nfs4_fs.h                       |  2 ++
- fs/nfs/nfs4state.c                     | 38 +++++++++++++++++++++++---
- 3 files changed, 59 insertions(+), 6 deletions(-)
-
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
-index 88140175a445f..8e9d523bcb6a9 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.c
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.c
-@@ -1372,12 +1372,27 @@ static void ff_layout_io_track_ds_error(struct pnfs_layout_segment *lseg,
- 	dprintk("%s: err %d op %d status %u\n", __func__, err, opnum, status);
- }
- 
-+static bool ff_layout_io_state_lost(const struct nfs_pgio_header *hdr)
-+{
-+	struct nfs_open_context *ctx = hdr->args.context;
-+
-+	return test_bit(NFS_CONTEXT_BAD, &ctx->flags) ||
-+	       !nfs4_valid_open_stateid(ctx->state) ||
-+	       nfs4_lock_context_lost(ctx->state, hdr->args.lock_context);
-+}
-+
- /* NFS_PROTO call done callback routines */
- static int ff_layout_read_done_cb(struct rpc_task *task,
- 				struct nfs_pgio_header *hdr)
- {
- 	int err;
- 
-+	if (task->tk_status < 0 && !RPC_WAS_SENT(task) &&
-+	    ff_layout_io_state_lost(hdr)) {
-+		task->tk_status = -EIO;
-+		return 0;
-+	}
-+
- 	if (task->tk_status < 0) {
- 		ff_layout_io_track_ds_error(hdr->lseg, hdr->pgio_mirror_idx,
- 					    hdr->args.offset, hdr->args.count,
-@@ -1465,7 +1480,7 @@ static void ff_layout_read_record_layoutstats_done(struct rpc_task *task,
- static int ff_layout_read_prepare_common(struct rpc_task *task,
- 					 struct nfs_pgio_header *hdr)
- {
--	if (unlikely(test_bit(NFS_CONTEXT_BAD, &hdr->args.context->flags))) {
-+	if (unlikely(ff_layout_io_state_lost(hdr))) {
- 		rpc_exit(task, -EIO);
- 		return -EIO;
- 	}
-@@ -1549,6 +1564,12 @@ static int ff_layout_write_done_cb(struct rpc_task *task,
- 	loff_t end_offs = 0;
- 	int err;
- 
-+	if (task->tk_status < 0 && !RPC_WAS_SENT(task) &&
-+	    ff_layout_io_state_lost(hdr)) {
-+		task->tk_status = -EIO;
-+		return 0;
-+	}
-+
- 	if (task->tk_status < 0) {
- 		ff_layout_io_track_ds_error(hdr->lseg, hdr->pgio_mirror_idx,
- 					    hdr->args.offset, hdr->args.count,
-@@ -1652,7 +1673,7 @@ static void ff_layout_write_record_layoutstats_done(struct rpc_task *task,
- static int ff_layout_write_prepare_common(struct rpc_task *task,
- 					  struct nfs_pgio_header *hdr)
- {
--	if (unlikely(test_bit(NFS_CONTEXT_BAD, &hdr->args.context->flags))) {
-+	if (unlikely(ff_layout_io_state_lost(hdr))) {
- 		rpc_exit(task, -EIO);
- 		return -EIO;
- 	}
-diff --git a/fs/nfs/nfs4_fs.h b/fs/nfs/nfs4_fs.h
-index cfef738d765e0..5a52401a60b4a 100644
---- a/fs/nfs/nfs4_fs.h
-+++ b/fs/nfs/nfs4_fs.h
-@@ -517,6 +517,8 @@ extern int nfs4_select_rw_stateid(struct nfs4_state *, fmode_t,
- 		const struct cred **);
- extern bool nfs4_copy_open_stateid(nfs4_stateid *dst,
- 		struct nfs4_state *state);
-+extern bool nfs4_lock_context_lost(struct nfs4_state *state,
-+		const struct nfs_lock_context *l_ctx);
- 
- extern struct nfs_seqid *nfs_alloc_seqid(struct nfs_seqid_counter *counter, gfp_t gfp_mask);
- extern int nfs_wait_on_sequence(struct nfs_seqid *seqid, struct rpc_task *task);
-diff --git a/fs/nfs/nfs4state.c b/fs/nfs/nfs4state.c
-index c30c6dbbf9254..52903757beacc 100644
---- a/fs/nfs/nfs4state.c
-+++ b/fs/nfs/nfs4state.c
-@@ -844,10 +844,13 @@ void nfs4_close_sync(struct nfs4_state *state, fmode_t fmode)
-  * be made.  Failing that, a "consistent" choice is preferable.  The
-  * consistent choice we make is to prefer the first owner, that of a
-  * Posix lock.
-+ *
-+ * Called with state->state_lock held.  No reference is taken: a lock
-+ * state is freed only after it is unlinked under state->state_lock.
-  */
- static struct nfs4_lock_state *
--__nfs4_find_lock_state(struct nfs4_state *state,
--		       fl_owner_t fl_owner, fl_owner_t fl_owner2)
-+__nfs4_lookup_lock_state(struct nfs4_state *state,
-+			 fl_owner_t fl_owner, fl_owner_t fl_owner2)
- {
- 	struct nfs4_lock_state *pos, *ret = NULL;
- 	list_for_each_entry(pos, &state->lock_states, ls_locks) {
-@@ -858,6 +861,16 @@ __nfs4_find_lock_state(struct nfs4_state *state,
- 		if (pos->ls_owner == fl_owner2)
- 			ret = pos;
- 	}
-+	return ret;
-+}
-+
-+static struct nfs4_lock_state *
-+__nfs4_find_lock_state(struct nfs4_state *state,
-+		       fl_owner_t owner, fl_owner_t owner2)
-+{
-+	struct nfs4_lock_state *ret;
-+
-+	ret = __nfs4_lookup_lock_state(state, owner, owner2);
- 	if (ret)
- 		refcount_inc(&ret->ls_count);
- 	return ret;
-@@ -1006,7 +1019,7 @@ static int nfs4_copy_lock_stateid(nfs4_stateid *dst,
- 	fl_flock_owner = l_ctx->open_context->flock_owner;
- 
- 	spin_lock(&state->state_lock);
--	lsp = __nfs4_find_lock_state(state, fl_owner, fl_flock_owner);
-+	lsp = __nfs4_lookup_lock_state(state, fl_owner, fl_flock_owner);
- 	if (lsp && test_bit(NFS_LOCK_LOST, &lsp->ls_flags))
- 		ret = -EIO;
- 	else if (lsp != NULL && test_bit(NFS_LOCK_INITIALIZED, &lsp->ls_flags) != 0) {
-@@ -1014,11 +1027,28 @@ static int nfs4_copy_lock_stateid(nfs4_stateid *dst,
- 		ret = 0;
- 	}
- 	spin_unlock(&state->state_lock);
--	nfs4_put_lock_state(lsp);
- out:
- 	return ret;
- }
- 
-+bool nfs4_lock_context_lost(struct nfs4_state *state,
-+			    const struct nfs_lock_context *l_ctx)
-+{
-+	struct nfs4_lock_state *lsp;
-+	bool ret;
-+
-+	if (!test_bit(LK_STATE_IN_USE, &state->flags))
-+		return false;
-+
-+	spin_lock(&state->state_lock);
-+	lsp = __nfs4_lookup_lock_state(state, l_ctx->lockowner,
-+				       l_ctx->open_context->flock_owner);
-+	ret = lsp && test_bit(NFS_LOCK_LOST, &lsp->ls_flags);
-+	spin_unlock(&state->state_lock);
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(nfs4_lock_context_lost);
-+
- bool nfs4_copy_open_stateid(nfs4_stateid *dst, struct nfs4_state *state)
- {
- 	bool ret;
 -- 
-2.53.0
-
+Thanks,
+Hyunchul
