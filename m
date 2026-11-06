@@ -1,54 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.67
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793954830;
-	b=YpJRoIpb8Y+Un/fgOigvvhcUnF98N9GPEVhQ4CPY5Sqt4X/MUtKLFPnuoF9HKZ8bQHyf
-	 s/DtAEe9C6uUNA89NoV5oJu61MSwZtZ9bJod53c1+M+1M2uqQX8AYIiN/3tUj5uawx9ca
-	 0fLhzhgjRZv07ehQk35r1Lu40gDF6Hno76nrDKqKjOUQt44z+HtqIHxTPJkG7THRX/QdD
-	 w0UQEkZWjr7zpeusBUPQd9vJx5qV3F9BblwRbp+H8Kc87LAae3zhasFfKEmXiSILCeR4o
-	 BzTCvqZLlAScqC3vd/yJrviVRVN872aAtJU2FHIXdCYObgh24Bdoc3SphAKNNoSKi6w==
+	t=1793954876;
+	b=QujYjPnwHdi74SXyp7AD1RyO3cZPSCd4g+v7Sl5D/tcMDHMuCve6GJ3ypXkpYVrlhJyZ
+	 Z960H+0B68il6UJfxWkKVBEAoKrFU5wV/dOGKaf26O7VRM9uHJTsmhnZ4ro0ASx/AbLp8
+	 H8KxdTOo4GMgGg4BDzC6tP+fDvYY6cwgIWat1t0F5a9qWTl+1m9vg+OqqhM9fFY3u47TZ
+	 REaHAxQk/1LU74sDWQjc7AFhZds8CR5JNbQ6lHpeTJUExO51qzMCbpGmxFscYUtD2Kdk9
+	 f/qaHVS3HBqlOceg2aXpHh2oYr9fobvhRGm6QfEYe2/YfaUByOklIT3lU7szPQeN1TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793954830;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WVjR7AQi4oaSYLPP/YcMBKqO77FuEMf6i3mIOfBIYwc=;
-	b=uLNbN0Y2IHjmpNVqRStLL8vuQAYuMt68JcEUkEtPBuaa8c4Q5VxcjJ6cQKYefVaSUL00
-	 3Oq2DNODo80xcObMFmDi+z9ONQCvISu27QNmjK/Zl6qo9vzttOCV71oLMO2ECp7CQPX/L
-	 xsWcN0FdPlDRDFDr/ypPHexyCwjJUIRgxVjRT3xVJ2wNwjT+SmS7v3HnOW4ZnjgUmrbTD
-	 jFYEuyCOjWbq40Ei7bOxAe0sbDCRuDj/X9jS0rI7KYlrw5iuJPFnvZCl117QaECJBmkGC
-	 V8ku6hgSG+40R5qKg+3NEJPSY+PwA6742yX1tP895HYi3vRwFIgIzwSeIWp8hk1K58w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793954876;
+	h=DMARC-Filter:Received:Subject:From:To:Cc:Date:Message-ID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=h/4lCx5YHTMucoB1S7Px0zKZz/f5KR98aiYQ/OUQG/Y=;
+	b=hC6zugrgIz/E/MverNNM+X6wN///EMqN9Ez+J/37vmr1TAHI+tPL+xAvPNtDUd2FCl3K
+	 pGdLhPl2laQBeTVM8EtCB7NDc5i9zhJWuJoKIdcP5GznWBMyMlxJFCDjt3eowQk5HBoIb
+	 VpqgF3S3aMiatkoP6tk3yC34X/cSPBeR/gQD7mf7Nq9yMjiIM0cxOXR55dakMXAHulljb
+	 BZDgllcAPyAhXXi9fIL4ITnWC6ah0lLfNou4KSREtABePSekLSG5iBl5/EaCZi42PWLbv
+	 62r6pYGnFt0eb35Ocf0AFOFhUhI37Q/oO9fue4D+iksFWJLvgQjwd2SWwZMx2NvgKBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=l8iEegfi;
-	arc=none smtp.remote-ip=91.218.175.67
-Received: from mta0.migadu.com (out-67.mta0.migadu.com [91.218.175.67])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5088D606A328
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 08:47:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5088D606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=l8iEegfi
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=xBISfCPjp+kLETxVE0uQCWrnE6fGni8796KMoogwtJM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793954827; v=1; x=1794559627;
- b=l8iEegfiOPM853xuCz+hUf29kN9y3PYTO8iba4KxQD1yQw+4Yu8KzMFt7UjndYb7bT80CG+r
- fJSWEz1IYrBX1sHHwB48MIZpRl16FjCCPqoXdZ+IVYMSXpu/jvYYT02QSw1lkl+76T4qt3/kbh8
- SAA19PwPtbp53gkL/xZttcRE=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 571745cc821a2578;
-	Fri, 06 Nov 2026 08:47:07 +0000
-X-Mizu-Trace-ID: 571745cc821a2578
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <626381b8-8111-4b8d-b93b-def9ae33f1cd@linux.dev>
-Date: Fri, 6 Nov 2026 16:46:49 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95638606A326;
+	Fri,  6 Nov 2026 08:47:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95638606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAD3kbczlO1qD41uAA--.1707S2;
+	Fri, 06 Nov 2026 16:47:47 +0800 (CST)
+Subject: [PATCH v2] dmaengine: switchtec-dma: Fix device reference leak in
+ switchtec_dma_create()
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Logan Gunthorpe <logang@deltatee.com>,
+ Kelvin Cao <kelvin.cao@microchip.com>, Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, vulab@iscas.ac.cn
+Date: Fri, 06 Nov 2026 08:47:27 -0000
+Message-ID: <179395484742.2120950.2917629799587193019@iscas.ac.cn>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,129 +53,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- Mani Tofigh <mt4022@columbia.edu>, stable@vger.kernel.org
-Subject: Re: [PATCH cgroup/for-7.4-fixes] cgroup/freezer: Fix exiting tasks
- left frozen forever after rmdir
-To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
-References: <20261105191951.3409248-1-tj@kernel.org>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20261105191951.3409248-1-tj@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAD3kbczlO1qD41uAA--.1707S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZFWrCry5Zr1rCFW8Gw4fAFb_yoW8ur1DpF
+	W5Was3GrWjyr1UKa1Uu3W7ZFyj9w4Sy3yF9rW8Aw13ur98X345JryxW340qry8CF97GFnI
+	qFyYyrykWa40yrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUva1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
+	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
+	IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
+	87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c
+	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
+	WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
+	1lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAK
+	I48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
+	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
+	6r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
+	IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
+	67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyT
+	uYvjfUw_-PUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwEDA2rtTw36PAABsE
 
-Hello Tejun,
+switchtec_dma_create() takes a reference on the PCI device with
+get_device() and stores it in dma->dev. The reference is normally
+dropped by switchtec_dma_release(), the device_release() callback, which
+only runs once dma_async_device_register() has succeeded and the device
+is later unregistered. If the registration fails, the error path frees
+the dma device directly without ever dropping that extra reference,
+leaking the reference taken on the PCI device.
 
-在 2026/11/6 3:19, Tejun Heo 写道:
-> Since 93618edf7538 ("cgroup: Defer css percpu_ref kill on rmdir until cgroup
-> is depopulated"), rmdir succeeds once cgroup.procs is empty, but exiting
-> tasks hidden from it can stay in the cgroup until their final context
-> switch. If such a task is frozen in a v1 freezer cgroup, nothing is left to
-> thaw it after rmdir: freezer.state is gone with the cgroup, and a THAWED
-> write to an ancestor clears only CGROUP_FREEZING_PARENT.
-> 
-> 8ab6980c7007 ("cgroup/freezer: walk exiting tasks in the v1 freezer") made
-> the freezer walks include exiting tasks. A FROZEN write now also freezes a
-> hidden task in a freezable sleep on its exit path. The fix depends on that
-> commit, as the thaw reaches hidden tasks through the same walk.
-> 
-> Since 81933038f5e2 ("pid_namespace: make zap_pid_ns_processes() freezable"),
-> an exiting pid namespace init sleeps that way until a parent outside the
-> namespace reaps a zombie in it.
-> 
-> Thaw the cgroup from ->css_killed(), as a THAWED write to it would. A
-> descendant removed earlier can still hold hidden tasks frozen through
-> CGROUP_FREEZING_PARENT. The thaw reaches it too, as its css stays online
-> until its tasks are gone.
-> 
-> rmdir removes freezer.state only after ->css_killed() returns, and a write
-> to it takes no cgroup_mutex. A FROZEN write after the thaw would freeze the
-> removed cgroup again, so refuse to freeze a dead cgroup.
-> 
-> Verified with a reproducer, including under a frozen parent, from an already
-> removed child and with a racing FROZEN write.
-> 
+Drop the reference with put_device() on the error path.
 
-Ran a three-mode reproducer (rmdir / frozen parent / racing FROZEN
-write) against next-20261103 + 8ab6980c7007 on a 2-vCPU VM. Base hit
-the hang at round 1 (11s), with the patch 600s / 106334 rmdir rounds
-and 6817 raced rounds all ran clean.
+Fixes: d9587042b50f ("dmaengine: switchtec-dma: Introduce Switchtec DMA engine skeleton")
+Cc: stable@vger.kernel.org
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+Changes in v2:
+- Rebase on top of the switchtec-dma fixes from Logan Gunthorpe, which
+  are now in mainline. The change itself is unchanged, so the Reviewed-by
+  tag is kept.
+- Link to v1: https://lore.kernel.org/all/20260916093332.2003909-1-vulab@iscas.ac.cn/
+- Sorry for the very late reply; thanks for pointing me at your series.
 
-Reviewed-by: Tao Cui <cuitao@kylinos.cn>
-Tested-by: Tao Cui <cuitao@kylinos.cn>
+To Frank's question in the thread: no, switchtec_dma_remove() does not
+need put_device() either. switchtec_dma_release() is reached through
+dma_device_release() once the registered device gets unregistered, and
+that is where the reference taken by get_device() belongs; dropping it in
+remove() as well would put the PCI device reference twice.
 
-Thanks,
-Tao
-> Fixes: 93618edf7538 ("cgroup: Defer css percpu_ref kill on rmdir until cgroup is depopulated")
-> Cc: stable@vger.kernel.org # v7.1+
-> Signed-off-by: Tejun Heo <tj@kernel.org>
-> ---
->  kernel/cgroup/legacy_freezer.c | 34 ++++++++++++++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
-> 
-> diff --git a/kernel/cgroup/legacy_freezer.c b/kernel/cgroup/legacy_freezer.c
-> index bd11047f2311..1792523d119a 100644
-> --- a/kernel/cgroup/legacy_freezer.c
-> +++ b/kernel/cgroup/legacy_freezer.c
-> @@ -382,6 +382,24 @@ static void freezer_change_state(struct freezer *freezer, bool freeze)
->  	 * CGROUP_FREEZING_PARENT.
->  	 */
->  	mutex_lock(&freezer_mutex);
-> +
-> +	/*
-> +	 * A dead cgroup must not be frozen.
-> +	 *
-> +	 * rmdir thaws the cgroup from freezer_css_killed(), but freezer.state
-> +	 * stays writable until rmdir removes it a moment later. A FROZEN write
-> +	 * in that gap would freeze the cgroup again, and nothing could thaw it
-> +	 * after that.
-> +	 *
-> +	 * A freezer.state write doesn't take cgroup_mutex, but testing
-> +	 * cgroup_is_dead() without it is safe. rmdir marks the cgroup dead
-> +	 * before the thaw, so a write that takes freezer_mutex after the thaw
-> +	 * sees it dead. One that takes it before the thaw may still see the
-> +	 * cgroup alive, but the thaw then undoes its freeze.
-> +	 */
-> +	if (freeze && data_race(cgroup_is_dead(freezer->css.cgroup)))
-> +		goto out_unlock;
-> +
->  	rcu_read_lock();
->  	css_for_each_descendant_pre(pos, &freezer->css) {
->  		struct freezer *pos_f = css_freezer(pos);
-> @@ -403,10 +421,25 @@ static void freezer_change_state(struct freezer *freezer, bool freeze)
->  		css_put(pos);
->  	}
->  	rcu_read_unlock();
-> +out_unlock:
->  	mutex_unlock(&freezer_mutex);
->  	cpus_read_unlock();
->  }
->  
-> +/**
-> + * freezer_css_killed - Thaw a freezer cgroup being removed
-> + * @css: css being killed
-> + *
-> + * Exiting tasks hidden from cgroup.procs can still be in the cgroup when it is
-> + * removed, and a frozen one has nothing left to thaw it once freezer.state is
-> + * gone. Thaw the cgroup as a THAWED write to it would. A frozen ancestor keeps
-> + * the tasks frozen through CGROUP_FREEZING_PARENT until the ancestor is thawed.
-> + */
-> +static void freezer_css_killed(struct cgroup_subsys_state *css)
-> +{
-> +	freezer_change_state(css_freezer(css), false);
-> +}
-> +
->  static ssize_t freezer_write(struct kernfs_open_file *of,
->  			     char *buf, size_t nbytes, loff_t off)
->  {
-> @@ -466,6 +499,7 @@ static struct cftype files[] = {
->  struct cgroup_subsys freezer_cgrp_subsys = {
->  	.css_alloc	= freezer_css_alloc,
->  	.css_online	= freezer_css_online,
-> +	.css_killed	= freezer_css_killed,
->  	.css_offline	= freezer_css_offline,
->  	.css_free	= freezer_css_free,
->  	.attach		= freezer_attach,
+ drivers/dma/switchtec_dma.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/dma/switchtec_dma.c b/drivers/dma/switchtec_dma.c
+index a386c3a284e6..713ba7ba1125 100644
+--- a/drivers/dma/switchtec_dma.c
++++ b/drivers/dma/switchtec_dma.c
+@@ -1333,6 +1333,7 @@ static int switchtec_dma_create(struct pci_dev *pdev)
+ 	switchtec_dma_chans_disable(pdev, swdma_dev);
+ 	switchtec_dma_chans_release(pdev, swdma_dev);
+ 	switchtec_dma_chans_free(swdma_dev);
++	put_device(dma->dev);
+ 
+ err_exit:
+ 	if (swdma_dev->chan_status_irq >= 0)
+-- 
+2.34.1
 
