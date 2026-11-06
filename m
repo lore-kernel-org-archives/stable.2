@@ -1,89 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793972477;
-	b=1irlWPnG2bpNr8IXfEaniATcmIijfpEyyYAZS6vYnuNObx7HJofNDIL6bfFse9faILm/
-	 taonK5EBD6E15fHPCym6nS9joI68/kCWR3i0Owa5qhkRxgSFWQuXf0sRB4w+EPm5Ze3cH
-	 sn5NiVd52iUCTmglragkZu61atiBycodod/um6PTBbdhA0khUov4WRjMKHa7hjH8cNMSU
-	 rqKREtk5yM9x4Fl2sR97B62bu6MU+wd1fWZO3vsw2de2ODkviMS/MDBA7wKbptvgWRwz2
-	 nJOed4kXfI03Lrvp5S1wmVmoFiho88yx//SS48/+fDHqqGwY/iWSwqAaRZTACv3ev5Q==
+	t=1793972666;
+	b=XSQYYbM919JSWSnF6dGRz8VFz2ypVpY1msU70Q0bgGi4F7uQ3iBc8ljSyncp1JMD2v3K
+	 WzcU13KpCiLTAm4L9nBWbUeRjUJQ8FUdLeHxU92yPXhXbUBcLToJD1E+2vp8pPsefILSZ
+	 +8FbvxBuH72nDWJvxkSFrxjyryXQaimq4jUCJ0sfFLCO5fZhui9wdiU8/g4lFmjx3i/I4
+	 5AmKbEZSRDOwD9Z3UH7A8nBcR3TLLaM6Mai5yV9VGhG1Deh2yMyGb/tHtw4+UrvtAdzDZ
+	 yRvLqjOsRt5F/RXGV5ngFxm3qvK7Iok4OF8p1QytIwd9CGqKGbx9fosY+souDRX4PYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793972477;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=HHFIxXCaPKga6nPstJLsXOx0R+aPE2/7Ghw2d3Thvuw=;
-	b=qoHHJAJKTX9fHdd7UrcdYKsoOu1yR5NJyEPgwMKc013vAIKl6atIBCshptXbuVJZy2Tr
-	 H6C/9trshPeIRTEJm2M8b1vWHPGvlHB7MrkA0nIs1qbT6Ju7idMhKcFehGY3vHMQ7FgCz
-	 mJbF3+wfGh/CBrP1cVZPnNlUMAIQrU83CDAFLzLYqMPpxOBxaEwWjvUoZT58cNHRZpn3L
-	 VNvpzMRPKRS2cFySWNSkewcLnUiiyma0X9twiTv+V5vfQgSvZlIQGW+0S9SGpcHxosr7M
-	 INIEMyCRlPNwdqbbaoa9w5GjRxnsFVEji4LNtvJlAtPjZf/5nZE5R4SF3RzgHDR835w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793972666;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Rdk+KoCZKVcNWi2GCnoRdsLg54qpB/3KzXiaqLtVfJE=;
+	b=Epg01PftLbe0GaB1Ho62pyFaDQRDV2wJXxtw2B985DWqy1SH6lduV5hbX/2rNnlSfp64
+	 OIjmI+zGJINQFzenUbKyvXrdcCPAaYutw0U7SzuIGVxGux/3rpPaT2WoODpZZ8Et5GhOJ
+	 OsOBgWCOBPmPLTrEq3DK1D3sFSunsq4H3KphgcZ5DZvX0mL8HQJeiN15S6053hC557V1P
+	 oI5UfvvmMh1edWouEJl122sYY5x/SxCR4tXv7EvcFhjIT0/DpYuAo+YlEI3ohozQP/IG3
+	 qqMlxT/m0fq8yWcipz3O4fw20TodeGf3/Laoerozl1M3Fnmd/Mfz9/GRC2Xpzy4aAcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="R/8vaa/Y";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BkxNhnwe;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CCC6606A331
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 13:41:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67833606A32D;
+	Fri,  6 Nov 2026 13:44:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67833606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R/8vaa/Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A47F1F0089F;
-	Fri,  6 Nov 2026 13:41:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793972477;
-	bh=HHFIxXCaPKga6nPstJLsXOx0R+aPE2/7Ghw2d3Thvuw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R/8vaa/YJLABioKAZ4tEZ5ua53of0H+4BpD+/SXvYaOHK06E07ANfYizOx92eLISy
-	 vLpWE1CirlB86vCDGui2doz9l2TKEFalsz8BmpA7cf2w9AXjmvYIpqZrwpp+Tl1h7w
-	 dUCEqpyyMyOEnBd/Bb+ThckpTwF1fygLzNyI9XuDtihsEGpmXuwSDExaOyCKcd+egR
-	 1ryR3FuX93wCy9bS6qPs9ralDkbPxzWTKmY0RGW08Mkd/ptnu7eRNxWr2aIbPQO1iL
-	 WnYAnhBfbFeLek8YQnUCPusmVSFSv6YIHlwBVt6c6gjYBo3iu2S5uClwfkG7DJ6+/g
-	 h9kobkiWEIvsg==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 0C615198003A;
-	Fri,  6 Nov 2026 08:41:10 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Fri, 06 Nov 2026 08:41:13 -0500
-X-ME-Sender: <xms:9tjtahZPGgf_7Mahm6dyFWAiSzOyaPpJy0CJdd2KQR4SLi-gJSQr2Q>
-    <xme:9tjtak3xGIlKg3ClGZx_nuLlEK-8f8vHVnOEbsvt6_mjfnUWH0YRMeNNfa2AIwbH_
-    exb4qCSdi362NzQOfR2Eo3Qw0qqwd1JZfRou4W8qissDxgyEyCAuFeEJg>
-X-ME-Received: <xmr:9tjtarM2RAzkloEnmJErFCGFZPTJdgRBXz20R1fjUAsMiOKwgdL64BcDjpo>
-X-ME-Proxy-Cause: dmFkZTFVFaqrxdMA0Rdrdmsp+IP9B9mG/dxHIufxIo+xMkIcBSnN5hVLhkUBVzyjEV4JdK
-    Bq8Vi7aogF17ZTGXov2XvAZgFCDHIzZ1XEMCali6ZPDPHgz81JW+gZfwpkmHRh84E617rC
-    ahx81ZCaxhS+gJdFDJHUghjaitiOxaZlDtB9yoTdxdwNZEwU7fgFbA0LirO/asuE/CuRCW
-    9U41q6izoAvPbSw1lF0KFBqKm4Q8PzBRTNxmqm/BVcpVogZmMFoTujTVS4zbZTjDyjc3bw
-    v61ycqyrVpQGPm8Q1YhBM79/LSXec2moRI22lkXKfGd03YJNu+S+2c7N0OvVF6uO48jTrM
-    fFIL9grvdTdMUrD2C4QZUqgAWZCtyLtK9B2jZ4goPrhuzTNJUFDDE7ZcFLlTg1mNZAPs1p
-    +X7thflt3GXGXPKYGweuPvUhOtUGHOvsnPFXPnl/LS6whsO77murx4EIu/9cMeqg7JG6+c
-    of/qkUbAzxKd9XHYtpZHF6l4M2cYrAc9bnBsEqk6PCiT7YfcFvCeMW0+BXLs7LJV7sMh3z
-    5UMEQit26OJygfOSJtXIOVP78gP7LsNPGlN9dvAeB7IwvncyiDGYLJLYjuqqaqVYRdUocr
-    sTna/nVF3l+i7zzPA3K75Sl+8L9syB21FOm4TZNdzoYe5KTaE8phGK5MIqEQ
-X-ME-Proxy: <xmx:9tjtamI4ieZk2t1h2e7TrdxSr8WRa0nkLNU6y9HkZOc4xn6p54IiOw>
-    <xmx:9tjtas5yULsRxxSgzHZEkdMMZNXYy6NCoZQYeZQAQSbgmhCIou9o7Q>
-    <xmx:9tjtarTszdhzO2TYo4wyeMrDKRgx39K026_RI1D6gGbKDq5bU0pcUA>
-    <xmx:9tjtand1KXXf_qlaCXE5vPXegDRYcgMQ20CkK2kpRZTN8SVwogP7sQ>
-    <xmx:9tjtak1wrj_BF14J7-J0wDrZQD_zvCfvlmvdV9QWVsVih_sWxdRgb013>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 6 Nov 2026 08:41:10 -0500 (EST)
-Date: Fri, 6 Nov 2026 13:41:09 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Hugh Dickins <hughd@google.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Zach O'Keefe <zokeefe@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate in
- MADV_COLLAPSE
-Message-ID: <au3YD92l6BwCQIPJ@thinkstation>
-References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
- <au3C8lNElGg4LnR1@thinkstation>
- <254c6f0a-9353-4806-a5ab-a071cd59c64f@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BkxNhnwe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793972665; x=1825508665;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=z1sOBUUrLI/mZYK2by/G56QXYL/56/c0SiPpzTRruPY=;
+  b=BkxNhnwegwoy5JWbd7xHw2k2hv0bywt7F6zOMQbZK094qMYtd/3uH0lW
+   9LjtKI/mOENQrfo+EX0ZmDMTkGRT9If0u+XV6Bnr/jw19j9T1wpUIRLVI
+   FB3bmvEDrQVKa4lXprH/ThIQDxPuWD/j7qVP+NVMTky2mUKScU1kOo3Xl
+   xrjfjt7FNQOT/5aVFvwR3mkLXs/eSeKFo1+tAhCVT/SW8Z6xyvtths8Zy
+   L6evJjkiJJt6/V84tDDWRw31u7Bmctzx+AZlvhh/Chno4KQ4ERyiU0SAi
+   W0+1hiPUdubBjtVHeIrJwCG4i/BwHe6TjTwnGqlvb37TleZC6EzYJDv3+
+   A==;
+X-CSE-ConnectionGUID: HkCzam31TpyKPJ/BCDxJjQ==
+X-CSE-MsgGUID: +depP/+XTUi7/DaYpbiwtg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2812230"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2812230"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 05:44:25 -0800
+X-CSE-ConnectionGUID: 9JFujfcHQW+jYL2M9LvuVw==
+X-CSE-MsgGUID: imhm2SRrQq22LFZ576TqNw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7609902"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.104])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 05:44:21 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Maciej Grochowski <Maciej.Grochowski@sony.com>,
+	Geramy Loveless <gloveless@jqluv.com>,
+	Eric Auger <eauger@redhat.com>,
+	Alexey Fomenko <alexey.fomenko@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+	Mesih Kilinc <Mesih.Kilinc@sony.com>,
+	linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v5 03/14] PCI: Don't size or assign disabled BARs
+Date: Fri,  6 Nov 2026 15:43:24 +0200
+Message-ID: <20261106134341.39493-4-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261106134341.39493-1-ilpo.jarvinen@linux.intel.com>
+References: <20261106134341.39493-1-ilpo.jarvinen@linux.intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,89 +90,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <254c6f0a-9353-4806-a5ab-a071cd59c64f@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 01:29:31PM +0100, David Hildenbrand (Arm) wrote:
-> > Separately from this fix: nothing on the mapping side catches this.
-> > Every caller checks uptodate on its own (next_uptodate_folio(),
-> > filemap_fault(), shmem_get_folio()), and khugepaged was the one that
-> > went straight from filemap_lock_folio() to do_set_pmd().
-> > 
-> > Should do_set_pmd() and set_pte_range() assert it? Something like
-> > 
-> >         VM_WARN_ON_ONCE_FOLIO(folio->mapping && !folio_test_anon(folio) &&
-> >                               !folio_test_uptodate(folio), folio);
-> 
-> I think so. But looking at these hard-to-trigger but in the end very nasty
-> problems, should we actually reject the operation and do a pr_warn_once() or
-> something?
+When a 64-bit BAR is larger than 4GB but pci_bus_addr_t or
+resource_size_t is 32-bit, __pci_read_base() marks the BAR with
+IORESOURCE_UNSET | IORESOURCE_DISABLED and sets its size to zero while
+retaining the type flags. pdev_resource_assignable() only excludes
+disabled bridge windows so such a BAR is still included in resource
+sizing.
 
-Yes, rejecting sounds better.
+pbus_size_mem() then calls __ffs() on its zero alignment, which is
+undefined behavior. pdev_sort_resources() catches the zero alignment but
+logs a bogus "alignment must not be zero" warning.
 
-Not in set_pte_range() as I suggested, though. Fault-around only gets
-there with folios that next_uptodate_folio() checked under the folio
-lock, and for CoW it maps the new anon folio after do_cow_fault() has
-already copied from the page cache one.
+Exclude all IORESOURCE_DISABLED resources in pdev_resource_assignable().
 
-Checking the folio ->fault() returned in finish_fault() covers PTE, PMD
-and CoW; do_set_pmd() covers khugepaged. Both return VM_FAULT_SIGBUS.
+A disabled expansion ROM is still assigned because ROM disabling is
+tracked with IORESOURCE_ROM_ENABLE, not with IORESOURCE_DISABLED.
 
-Something like this, only compile-tested:
+Fixes: 23b13bc76f35 ("PCI: Fail safely if we can't handle BARs larger than 4GB")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+---
+ drivers/pci/setup-bus.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 6fe0b7dab927..ff2f2deff761 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -5674,6 +5674,22 @@ static vm_fault_t __do_fault(struct vm_fault *vmf)
-        return ret;
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index ed16ef7c26fa..0c27cec83c0d 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -301,20 +301,18 @@ static bool pdev_resources_assignable(struct pci_dev *dev)
+ 	return true;
  }
-
-+/*
-+ * A page cache folio that is not uptodate holds data that was never read in
-+ * or cleared, and mapping it leaks stale memory to userspace. The callers are
-+ * expected to check, so treat a hit as a kernel bug and refuse the mapping.
-+ */
-+static bool file_folio_not_uptodate(struct folio *folio)
-+{
-+       if (likely(folio_test_uptodate(folio)))
-+               return false;
-+       /* Driver pages from ->fault() never get PG_uptodate */
-+       if (folio_test_anon(folio) || !folio->mapping)
-+               return false;
-+       WARN_ONCE(1, "refusing to map a page cache folio that is not uptodate\n");
-+       return true;
-+}
-+
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
- static void deposit_prealloc_pte(struct vm_fault *vmf)
+ 
+-static bool pdev_resource_assignable(struct pci_dev *dev, struct resource *res)
++static bool pdev_resource_assignable(struct resource *res)
  {
-@@ -5714,6 +5730,9 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
-                return ret;
-        page = &folio->page;
-
-+       if (file_folio_not_uptodate(folio))
-+               return VM_FAULT_SIGBUS;
-+
-        /*
-         * Just backoff if any subpage of a THP is corrupted otherwise
-         * the corrupted page may mapped by PMD silently to escape the
-@@ -5849,6 +5868,16 @@ vm_fault_t finish_fault(struct vm_fault *vmf)
-        unsigned long addr;
-        bool needs_fallback = false;
-
-+       /*
-+        * Check the folio ->fault() returned. For CoW that is the source of the
-+        * copy; DAX CoW has none.
-+        */
-+       if (vmf->page) {
-+               folio = page_folio(vmf->page);
-+               if (file_folio_not_uptodate(folio))
-+                       return VM_FAULT_SIGBUS;
-+       }
-+
- fallback:
-        addr = vmf->address;
+-	int idx = pci_resource_num(dev, res);
+-
+ 	if (!res->flags)
+ 		return false;
+ 
+-	if (pci_resource_is_bridge_win(idx) && res->flags & IORESOURCE_DISABLED)
++	if (res->flags & IORESOURCE_DISABLED)
+ 		return false;
+ 
+ 	return true;
+ }
+ 
+-static bool pdev_resource_should_fit(struct pci_dev *dev, struct resource *res)
++static bool pdev_resource_should_fit(struct resource *res)
+ {
+ 	if (resource_assigned(res))
+ 		return false;
+@@ -322,7 +320,7 @@ static bool pdev_resource_should_fit(struct pci_dev *dev, struct resource *res)
+ 	if (res->flags & IORESOURCE_PCI_FIXED)
+ 		return false;
+ 
+-	return pdev_resource_assignable(dev, res);
++	return pdev_resource_assignable(res);
+ }
+ 
+ /* Sort resources by alignment */
+@@ -340,7 +338,7 @@ static void pdev_sort_resources(struct pci_dev *dev, struct list_head *head)
+ 		resource_size_t r_align;
+ 		struct list_head *n;
+ 
+-		if (!pdev_resource_should_fit(dev, r))
++		if (!pdev_resource_should_fit(r))
+ 			continue;
+ 
+ 		r_align = pci_resource_alignment(dev, r);
+@@ -1094,7 +1092,7 @@ static void pbus_size_io(struct pci_bus *bus, resource_size_t add_size,
+ 			if (resource_assigned(r) || !(r->flags & IORESOURCE_IO))
+ 				continue;
+ 
+-			if (!pdev_resource_assignable(dev, r))
++			if (!pdev_resource_assignable(r))
+ 				continue;
+ 
+ 			r_size = resource_size(r);
+@@ -1305,7 +1303,7 @@ static void pbus_size_mem(struct pci_bus *bus, struct resource *b_res,
+ 			resource_size_t r_size;
+ 
+ 			if (!pdev_resources_assignable(dev) ||
+-			    !pdev_resource_should_fit(dev, r))
++			    !pdev_resource_should_fit(r))
+ 				continue;
+ 			if (b_res != pbus_select_window(bus, r))
+ 				continue;
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.47.3
+
