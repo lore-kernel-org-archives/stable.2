@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793974422;
-	b=mm6CO1I046rUw2HrDkdnt1SW8kTtszinPeC2m/FQaeDx6Jhyfu31xxAYtREGCGIlhJJp
-	 /FI6SWewxztYec+WgZ2weemK2eBGaIZfg84j+nbSwHSiblkMXTqvMIjfA1kqDFKKcdsax
-	 W4VpZEr7c82uSAsLwAmX9hrhunOD0yFORvmgmPXNDxbJ4kWAg6uAJr498z/qsXxQ+GxFg
-	 sg8cRQxln9TSRZWkNJswsB0K44tycZ7wOmXbCtyze48MeXEnt//Ex3isd8DzL/WCCBuc6
-	 iF5Uk3MVPVa81iVFPttxFmhmYf95/gw8Ec9czZD/P6FhbBATNHRuioNRMFiH6Xj6wSQ==
+	t=1793974434;
+	b=H0LiyoPHpyidlwOFAYFJ7m6QUSalojvzWlg+Qsrx8EfOdX+xZFR9kIDSdKD+Nguogy+6
+	 tZkTIknPGU01kLFKz+b2CqhC3SXtjZ47svKhB5+YvhtCVcHoD4rxAFBCEPq91rfzhen5v
+	 Wj1qRQ8GxfGs8M2uG+nlLyfocOhriRi0JKcG+eSL/GIAMnHXLyfvnIkJ2ZO5qg+a48j1M
+	 jep7Qx44utNOoMCmFpURil1pB9b8O4S9xdW9kfYhHz0foWfVu4g9J1G2kMIbavsJeI8Hy
+	 B7gk45cte1PlkQOC6T94pErceZSMQOhrb8GzGJa9rZOvpm75nWHJRHktp9E9TodeNCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974422;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974434;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=y78igagAU78xsdzotx1d+odiNbQ2fq+lSFD+7N7QFfk=;
-	b=P2Z8hsGyO+j0uT4chpO/tCUh52DdLkxZBo30DVBSdbJ9FsD/60i6x6j+k/ritwH92nqj
-	 V1ic2j99Qs4cZnlV87yypgNQkEY+cb5I0srfPYK4dVfgru8zSv1swfEIYrMu5yxBm5Ecp
-	 FQBzbCHRgxoT8XB88rs75CNh1pL6dIUUJ4i3So1mUTjE1Y71Duuo228Z+5wwe/PEee3+d
-	 BpPmb/QfPbzlnsPKl3lzqtLBjYk0tzHgmICMVPSxCdR1yTYI6C6LBnPYi2UefOrkyTzxb
-	 rZmwn+DaOct/WK5OsfXDbVIKZAOG6h4HbqEOL8PSXKis6v13G0JTKFury4YV1YPxawA==
+	bh=xu1baS48ye+qwWEvBqTZfDWU1JYVsCbOka7SRSIYCuY=;
+	b=cYXIeRUwJzsh1BW9xG+J11Ot+zLwYVa2C3xPxHGSd/RoFU/hZaWJYuCshuKu/iL1y4/Y
+	 nNBMzCHUetJ6RZdeouCwIrVB9ilyxyIMKHdq0qPHGAEw9tPl8fXkZmhsq2vtKXuU/AeiQ
+	 0zDnwpD8Is8XvGMUw3fP1yCXJ5jJZs9hNYBLenw4o51UbhvNLnLjBEX+So1IQqlGFUNb0
+	 4lgqHm96A1YLJTljG8QJyluhsSv9/x7SAgKcDfSHwIe9AG19YyGRAM1c6lQxZrv/ezjr7
+	 7mzHSHMz88QtsSOcUpCUISnOhi9mmDEeNIXu6/oD8MewOyGdez7LKZP5h9MRRdvX3Gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PvVGXNg/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EtZTG90C;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08878606A32C
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:13:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77697606A336
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:13:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PvVGXNg/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF4911F008A1;
-	Fri,  6 Nov 2026 14:13:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EtZTG90C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4919C1F008A1;
+	Fri,  6 Nov 2026 14:13:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793974421;
-	bh=y78igagAU78xsdzotx1d+odiNbQ2fq+lSFD+7N7QFfk=;
+	s=k20260515; t=1793974434;
+	bh=xu1baS48ye+qwWEvBqTZfDWU1JYVsCbOka7SRSIYCuY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PvVGXNg//zkHlBa/3X1bU7Sj0+uEMWXw6nZARx+rR29oFvC0J9fDRha6G+fXK2V11
-	 gom7eMVH5aVikGm6gzhSyrywUFJLo8541dALv5xq0w7a9haJ8NUhAFYxVqRVGoLMop
-	 ZCZO65ThYV94hSIzCJUVc75Ot94EwNlYC2Hs0OyjuriOUUyqtn4NvYppyciGtYvDOE
-	 swA4K564SuiPiPXq/mk7K1mIXCCUOW1G5vXMg1GZ/s0oxisupnARnZzblA6l6X6eKw
-	 LDpH/3URwZa544/50I1wslp8lV8e8O+mB99DSziG4VHhM4o5rDqTcaxI92u7lIU9qp
-	 P7FyGzWfLRE8g==
+	b=EtZTG90Cs+WoHNOkvO/Egi5vgAeX3ucN+phQQbqPFr3pMcbuO92jw+f0/XIkRZnt7
+	 Z1R/xzul83bsfb2i4ErV2ktddPy+vw+n3FQdriy5bLQ9dlW/xb6OwxyA3cVgHTbkmc
+	 bAVorGTHDweWwDth28wfjY/2CbGb0wJ5N0Iv4RuGPfxKaaezQjbkdsQ1RcxNbwzM+f
+	 panmI4FwqtmlFJiGoRZJocvyE619RodJZE0M2jnXvdCWF9cTCuB57XCuPNwzMdvJe8
+	 TCGIwpmlX90JN+KB0hQsFdX/+SSUMuIJH6vKUlk2PPYwkckVRbodmAg9sYrHZKCTbY
+	 NBdN5DMB3VukA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: David Howells <dhowells@redhat.com>,
@@ -50,12 +50,12 @@ Cc: David Howells <dhowells@redhat.com>,
 	Simon Horman <horms@kernel.org>,
 	linux-afs@lists.infradead.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] rxrpc: Fix update of call->tx_pending without holding lock
-Date: Fri,  6 Nov 2026 09:13:39 -0500
-Message-ID: <20261106141255.247326-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] afs: Fix afs to abort the rxrpc call on send error
+Date: Fri,  6 Nov 2026 09:13:51 -0500
+Message-ID: <20261106141255.246531-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110439-morale-coleslaw-379f@gregkh>
-References: <2026110439-morale-coleslaw-379f@gregkh>
+In-Reply-To: <2026110414-occultist-maturity-4b0c@gregkh>
+References: <2026110414-occultist-maturity-4b0c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,37 +69,18 @@ Content-Transfer-Encoding: 8bit
 
 From: David Howells <dhowells@redhat.com>
 
-[ Upstream commit 7801c42c3bb737cfb06194a383873fcad8daacf5 ]
+[ Upstream commit 3e6af08a571fe2943a006acf3e890f36322602bc ]
 
-Currently, rxrpc_send_data() updates call->tx_pending just before it
-returns - but it won't be holding the call->user_mutex when it does this if
-a wait was interrupted by a signal.  This would allow a parallel sendmsg()
-to race.
+Fix afs_send_empty_reply() and afs_send_simple_reply() to always try to
+abort the rxrpc call rather than just aborting on -ENOMEM and otherwise
+abandoning it.  If the call is already complete due to network failure or a
+received abort, this will do nothing.
 
-Further, both the callers of rxrpc_send_data() call it with the lock held,
-and then it returns an indication through the parameter list to say whether
-it has dropped the lock or not - after which the callers both just drop the
-lock if it's still held.
+Also make afs_make_call() always abort on send error; again, it does
+nothing if the rxrpc call is already dead.
 
-Fix this by:
-
- (1) Moving the release of call->user_mutex down into rxrpc_send_data() and
-     get rid of the indicator parameter.  This makes it easier to see where
-     the lock is held.
-
- (2) After waiting, if the attempt to reacquire the mutex is interrupted,
-     just return directly there rather than going to out_unlock
-
- (3) Restricting the txb variable to inside the buffering loop and leaving
-     ->tx_pending set until we've queued the buffer.
-
-Note that there's a slight change in behaviour in that wait_for_space
-failure now doesn't check for completion because it doesn't hold the call
-user_mutex.  The caller, however, should re-issue the send and pick up any
-error at a second attempt.
-
-Fixes: b0f571ecd794 ("rxrpc: Fix locking in rxrpc's sendmsg")
-Closes: https://sashiko.dev/#/patchset/20260702144919.172295-1-dhowells%40redhat.com
+Fixes: 08e0e7c82eea ("[AF_RXRPC]: Make the in-kernel AFS filesystem use AF_RXRPC.")
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824091645.415423-1-dhowells%40redhat.com
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Marc Dionne <marc.dionne@auristor.com>
 cc: Eric Dumazet <edumazet@google.com>
@@ -109,184 +90,122 @@ cc: Paolo Abeni <pabeni@redhat.com>
 cc: Simon Horman <horms@kernel.org>
 cc: linux-afs@lists.infradead.org
 cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261006133011.531806-4-dhowells@redhat.com
+Link: https://patch.msgid.link/20261006133011.531806-6-dhowells@redhat.com
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ sashal: adapted rxrpc_txbuf handling to sk_buff buffers within the existing caller control flow ]
+[ sashal: adapted rxrpc_kernel_send_data() calls to retain the explicit length argument ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/rxrpc/sendmsg.c | 57 ++++++++++++++++++++++-----------------------
- 1 file changed, 28 insertions(+), 29 deletions(-)
+ fs/afs/rxrpc.c               | 49 +++++++++++++-----------------------
+ include/trace/events/rxrpc.h |  2 +-
+ 2 files changed, 18 insertions(+), 33 deletions(-)
 
-diff --git a/net/rxrpc/sendmsg.c b/net/rxrpc/sendmsg.c
-index b03d93d8b69d0..28cd9fe93844e 100644
---- a/net/rxrpc/sendmsg.c
-+++ b/net/rxrpc/sendmsg.c
-@@ -287,11 +287,10 @@ static int rxrpc_queue_packet(struct rxrpc_sock *rx, struct rxrpc_call *call,
- static int rxrpc_send_data(struct rxrpc_sock *rx,
- 			   struct rxrpc_call *call,
- 			   struct msghdr *msg, size_t len,
--			   rxrpc_notify_end_tx_t notify_end_tx,
--			   bool *_dropped_lock)
-+			   rxrpc_notify_end_tx_t notify_end_tx)
-+	__releases(&call->user_mutex)
+diff --git a/fs/afs/rxrpc.c b/fs/afs/rxrpc.c
+index 523272b86ad46..02bb3ad472eec 100644
+--- a/fs/afs/rxrpc.c
++++ b/fs/afs/rxrpc.c
+@@ -442,10 +442,8 @@ void afs_make_call(struct afs_addr_cursor *ac, struct afs_call *call, gfp_t gfp)
+ 	return;
+ 
+ error_do_abort:
+-	if (ret != -ECONNABORTED)
+-		rxrpc_kernel_abort_call(call->net->socket, rxcall,
+-					RX_USER_ABORT, ret,
+-					afs_abort_send_data_error);
++	rxrpc_kernel_abort_call(call->net->socket, rxcall,
++				RX_USER_ABORT, ret, afs_abort_send_data_error);
+ 	if (call->async) {
+ 		afs_see_call(call, afs_call_trace_async_abort);
+ 		return;
+@@ -872,6 +870,7 @@ void afs_send_empty_reply(struct afs_call *call)
  {
- 	struct rxrpc_skb_priv *sp;
--	struct sk_buff *skb;
- 	struct sock *sk = &rx->sk;
- 	enum rxrpc_call_state state;
- 	long timeo;
-@@ -325,11 +324,9 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
- 			goto maybe_error;
- 	}
+ 	struct afs_net *net = call->net;
+ 	struct msghdr msg;
++	int ret;
  
--	skb = call->tx_pending;
--	call->tx_pending = NULL;
--	rxrpc_see_skb(skb, rxrpc_skb_seen);
+ 	_enter("");
+ 
+@@ -884,21 +883,13 @@ void afs_send_empty_reply(struct afs_call *call)
+ 	msg.msg_controllen	= 0;
+ 	msg.msg_flags		= 0;
+ 
+-	switch (rxrpc_kernel_send_data(net->socket, call->rxcall, &msg, 0,
+-				       afs_notify_end_reply_tx)) {
+-	case 0:
+-		_leave(" [replied]");
+-		return;
 -
- 	do {
-+		struct sk_buff *skb = call->tx_pending;
-+
- 		/* Check to see if there's a ping ACK to reply to. */
- 		if (call->ackr_reason == RXRPC_ACK_PING_RESPONSE)
- 			rxrpc_send_ack_packet(call, false, NULL);
-@@ -381,6 +378,9 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
- 			       sp->remain);
- 
- 			skb->ip_summed = CHECKSUM_UNNECESSARY;
-+			call->tx_pending = skb;
-+		} else {
-+			rxrpc_see_skb(skb, rxrpc_skb_seen);
- 		}
- 
- 		_debug("append");
-@@ -432,13 +432,13 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
- 
- 			ret = call->security->secure_packet(call, skb, skb->mark);
- 			if (ret < 0)
--				goto out;
-+				goto out_unlock;
- 
- 			ret = rxrpc_queue_packet(rx, call, skb,
- 						 !msg_data_left(msg) && !more,
- 						 notify_end_tx);
- 			/* Should check for failure here */
--			skb = NULL;
-+			call->tx_pending = NULL;
- 		}
- 	} while (msg_data_left(msg) > 0);
- 
-@@ -450,45 +450,46 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
- 			ret = call->error;
- 		read_unlock_bh(&call->state_lock);
+-	case -ENOMEM:
+-		_debug("oom");
++	ret = rxrpc_kernel_send_data(net->socket, call->rxcall, &msg, 0,
++				     afs_notify_end_reply_tx);
++	if (ret < 0) {
+ 		rxrpc_kernel_abort_call(net->socket, call->rxcall,
+-					RXGEN_SS_MARSHAL, -ENOMEM,
+-					afs_abort_oom);
+-		fallthrough;
+-	default:
+-		_leave(" [error]");
+-		return;
++					RXGEN_SS_MARSHAL, ret,
++					afs_abort_send_error);
++		afs_set_call_complete(call, ret, RXGEN_SS_MARSHAL);
  	}
--out:
--	call->tx_pending = skb;
-+out_unlock:
-+	mutex_unlock(&call->user_mutex);
- 	_leave(" = %d", ret);
- 	return ret;
+ }
  
- call_terminated:
--	rxrpc_free_skb(skb, rxrpc_skb_freed);
--	_leave(" = %d", call->error);
--	return call->error;
-+	ret = call->error;
-+	goto out_unlock;
+@@ -910,7 +901,7 @@ void afs_send_simple_reply(struct afs_call *call, const void *buf, size_t len)
+ 	struct afs_net *net = call->net;
+ 	struct msghdr msg;
+ 	struct kvec iov[1];
+-	int n;
++	int ret;
  
- maybe_error:
- 	if (copied)
- 		goto success;
--	goto out;
-+	goto out_unlock;
+ 	_enter("");
  
- efault:
- 	ret = -EFAULT;
--	goto out;
-+	goto out_unlock;
+@@ -925,21 +916,15 @@ void afs_send_simple_reply(struct afs_call *call, const void *buf, size_t len)
+ 	msg.msg_controllen	= 0;
+ 	msg.msg_flags		= 0;
  
- wait_for_space:
- 	ret = -EAGAIN;
- 	if (msg->msg_flags & MSG_DONTWAIT)
- 		goto maybe_error;
- 	mutex_unlock(&call->user_mutex);
--	*_dropped_lock = true;
-+
- 	ret = rxrpc_wait_for_tx_window(rx, call, &timeo,
- 				       msg->msg_flags & MSG_WAITALL);
- 	if (ret < 0)
--		goto maybe_error;
-+		goto out_nolock;
- 	if (call->interruptibility == RXRPC_INTERRUPTIBLE) {
- 		if (mutex_lock_interruptible(&call->user_mutex) < 0) {
- 			ret = sock_intr_errno(timeo);
--			goto maybe_error;
-+			goto out_nolock;
- 		}
- 	} else {
- 		mutex_lock(&call->user_mutex);
+-	n = rxrpc_kernel_send_data(net->socket, call->rxcall, &msg, len,
+-				   afs_notify_end_reply_tx);
+-	if (n >= 0) {
+-		/* Success */
+-		_leave(" [replied]");
+-		return;
+-	}
+-
+-	if (n == -ENOMEM) {
+-		_debug("oom");
++	ret = rxrpc_kernel_send_data(net->socket, call->rxcall, &msg, len,
++				     afs_notify_end_reply_tx);
++	if (ret < 0) {
+ 		rxrpc_kernel_abort_call(net->socket, call->rxcall,
+-					RXGEN_SS_MARSHAL, -ENOMEM,
+-					afs_abort_oom);
++					RXGEN_SS_MARSHAL, ret,
++					afs_abort_send_error);
++		afs_set_call_complete(call, ret, RXGEN_SS_MARSHAL);
++		_leave(" [error]");
  	}
--	*_dropped_lock = false;
- 	goto reload;
-+out_nolock:
-+	_leave(" = %d [intr]", ret);
-+	return copied ?: ret;
+-	_leave(" [error]");
  }
  
  /*
-@@ -650,7 +651,6 @@ int rxrpc_do_sendmsg(struct rxrpc_sock *rx, struct msghdr *msg, size_t len)
- 	enum rxrpc_call_state state;
- 	struct rxrpc_call *call;
- 	unsigned long now, j;
--	bool dropped_lock = false;
- 	int ret;
- 
- 	struct rxrpc_send_params p = {
-@@ -760,12 +760,12 @@ int rxrpc_do_sendmsg(struct rxrpc_sock *rx, struct msghdr *msg, size_t len)
- 	} else if (p.command != RXRPC_CMD_SEND_DATA) {
- 		ret = -EINVAL;
- 	} else {
--		ret = rxrpc_send_data(rx, call, msg, len, NULL, &dropped_lock);
-+		ret = rxrpc_send_data(rx, call, msg, len, NULL);
-+		goto error_put;
- 	}
- 
- out_put_unlock:
--	if (!dropped_lock)
--		mutex_unlock(&call->user_mutex);
-+	mutex_unlock(&call->user_mutex);
- error_put:
- 	rxrpc_put_call(call, rxrpc_call_put);
- 	_leave(" = %d", ret);
-@@ -793,7 +793,6 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
- 			   struct msghdr *msg, size_t len,
- 			   rxrpc_notify_end_tx_t notify_end_tx)
- {
--	bool dropped_lock = false;
- 	int ret;
- 
- 	_enter("{%d,%s},", call->debug_id, rxrpc_call_states[call->state]);
-@@ -811,8 +810,8 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
- 	case RXRPC_CALL_SERVER_ACK_REQUEST:
- 	case RXRPC_CALL_SERVER_SEND_REPLY:
- 		ret = rxrpc_send_data(rxrpc_sk(sock->sk), call, msg, len,
--				      notify_end_tx, &dropped_lock);
--		break;
-+				      notify_end_tx);
-+		goto out;
- 	case RXRPC_CALL_COMPLETE:
- 		read_lock_bh(&call->state_lock);
- 		ret = call->error;
-@@ -825,8 +824,8 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
- 		break;
- 	}
- 
--	if (!dropped_lock)
--		mutex_unlock(&call->user_mutex);
-+	mutex_unlock(&call->user_mutex);
-+out:
- 	_leave(" = %d", ret);
- 	return ret;
- }
+diff --git a/include/trace/events/rxrpc.h b/include/trace/events/rxrpc.h
+index 8cbec303cb505..1dbeabf143347 100644
+--- a/include/trace/events/rxrpc.h
++++ b/include/trace/events/rxrpc.h
+@@ -20,10 +20,10 @@
+ 	/* AFS errors */						\
+ 	EM(afs_abort_general_error,		"afs-error")		\
+ 	EM(afs_abort_interrupted,		"afs-intr")		\
+-	EM(afs_abort_oom,			"afs-oom")		\
+ 	EM(afs_abort_op_not_supported,		"afs-op-notsupp")	\
+ 	EM(afs_abort_probeuuid_negative,	"afs-probeuuid-neg")	\
+ 	EM(afs_abort_send_data_error,		"afs-send-data")	\
++	EM(afs_abort_send_error,		"afs-send-error")	\
+ 	EM(afs_abort_unmarshal_error,		"afs-unmarshal")	\
+ 	/* rxperf errors */						\
+ 	EM(rxperf_abort_general_error,		"rxperf-error")		\
 -- 
 2.53.0
 
