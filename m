@@ -1,65 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964560;
-	b=HT6Bntwzek9EHjrFCHrB+jTVCU6tIpNDI90EVCbXoraiDrnf+iIsXtCHdn8bFIFBZXgH
-	 EVdDR6N7ZtdYMGJx3vETiUv5kY60J4mdzZS4r6bHz0X4Z9rMnJxJFvJEWu3V7E0fAZl4O
-	 MNlXyF/IXTgdj0Vnt+1AdNuyQl7lzEh6v3Xxfd18OS+IILc/ZRtkpBbOqJnrzBdeS7SvS
-	 wCBIEo+8To+ZesAETr7smbhHsiYHqlSlDsSKE/2PkjdWXqBvcrkSVch/+Kjl6MDZlT6N2
-	 6n1z3FQkwm1A6O8NWOdFOUhCTzXWkq2cCLc/JwnsNCbh/pGmds5aRkMVHROMyOEYSeg==
+	t=1793964612;
+	b=BP9xP2l05GGeGyXHpKmKUSeAuL4H/MJ/BW4bMf8Cxn33r+IhWwboOrr6yuNqGhvA8sLp
+	 BWpuPcNkvgYTHSX6JhTvav1ptdPZpCZvcrvd0iiQ0L/YjQpNibrFl55QFX3UXQNbj9IGB
+	 UTowjvwXQYxYEc6YnJwgkeSP2kaovMGbmR3l52wLpWIHfp/vuEsCpshjFeTGJqjdSa0Ps
+	 Zfju1hoFyMDzHRBJczmYypSgkGzY4jHAyJCsGybWONC/tvmmdCDHZqS16aErrqn15/9Vg
+	 4aEQbn1nVyow2S2KIKYOMLi3WkSiS1YKL9XfkhzHM6jXSGy16Byit5nLapwNISxXMoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964560;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=iM+SfBejBmbmga6UyfeGy4tcXe+ACgtNFM+WMKjMw2k=;
-	b=lnVI3BiCxHMDwQnhCeVGesNrHjQMdwIfCceA2muF5GLzw16R8DuX3S8vyuB/1IjInE7X
-	 cXYWFb7qeR3u/HQ2W209DqxzT2tiiYesHfCeFg0I9vZqNXRGh+jdWHd0/CCHx3CPpFLzj
-	 E2ecvpxfIM6fKDEVYJ0jMbBdu5n+0xfxXMg2905Im9tGg/zwA43IlWqMi7uO35g8goywL
-	 FG+dGKcTdZBNBkE4AfDw9KfI3QNro9WxbHAQbG8q3bNCvBEMxgO6V+1Uc3x9e2cMrWJCO
-	 IF9J7w56LcosgJUzOUe9Ct8YGMKuU49gn1ZroXvjNA/LOD4nGZUw3T6QNITFfPh64aQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964612;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
+	 Content-Type;
+	bh=OGu9HnxFx7ILoi6Sr4AwkzoLyqNw7jVxivu5jz9Fz6g=;
+	b=QntSDmKDpBCX3HT0djD/ibsIz5e/PRsGOimAN3bpvgbRUV7y2hxciksis7FwoJDbovsA
+	 t4nYWeQHXiAvASr0MwZvjL0sJWpwdQHXSlF7OPk7MhtkGvy+1gDtPgChGZY6ARAm3eDd6
+	 THRZnxnligMPnImgHz0BuYqYkjrwTMKKeg9vWuV4uhb/84qn0yA+BDS0oaTNmquhB8XBx
+	 ae5UtD3+SIEtORgVDZ7unwJo5+4Ci0pQG2JnTrmGHCcIl73cTX+NR4/J5Nb1mArIwgQ7p
+	 ULum6AjxmXluZgi3AIiAgsofKwHNBuHVuX1p4pB8gdssu6qv8gNNVlv0Rzf5uekrWxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=Kr2TdItY;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IbNOfskd;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11AC606D835;
-	Fri,  6 Nov 2026 11:29:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D11AC606D835
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28151606A329
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 11:30:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28151606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=Kr2TdItY
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=iM+SfBejBmbmga6UyfeGy4tcXe+ACgtNFM+WMKjMw2k=; 
-	b=Kr2TdItY9CYe1scElzL+I/RzNP3Gn+yn4X2emxWeNXDGBTLtIHso/MwGIoWdzlypgwmshXFJf0z
-	9sBuPsFkkfNX3KpFgC/iH1iNdtWmMMo0yq7Xf45yOdzWEsQox2aiKz7DZ+f1CZ8HLa7HEiD7sUJvw
-	wX5qFov1hcT2xayiTwRVJHqRqNCJJDkACXeuKslCB1EMPQPsgTvzTZZKKQRoWGCUk7VRnGc0yvHrO
-	sZiHsHTzaE5dG02S/70BvAjCaz5C/9aa0a26/bAzhseBYHAK6k93tRmPZ37YF5TGmMvFvc+m17kal
-	d82dasUSBCmtct1ne+7Kue3UWMtTbJMNC2MQ==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xPI89-0000000Br7q-21aL;
-	Fri, 06 Nov 2026 19:29:14 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 06 Nov 2026 19:29:13 +0800
-Date: Fri, 6 Nov 2026 19:29:13 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: ZhaoJinming <zhaojinming@uniontech.com>
-Cc: linux-crypto@vger.kernel.org, qat-linux@intel.com,
-	linux-kernel@vger.kernel.org,
-	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Suman Kumar Chakraborty <suman.kumar.chakraborty@intel.com>,
-	Laurent M Coquerel <laurent.m.coquerel@intel.com>,
-	Thorsten Blum <blum@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: qat - free dc_data with kfree() in the error path
-Message-ID: <au26CQgxIh74UlJ2@gondor.apana.org.au>
-References: <20261019-qat-dc-data-kfree-v1-1-b294cb951a77@uniontech.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IbNOfskd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793964611; x=1825500611;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=GK/563x6tR4WLUFQQaCsN8n/obNWN8uKgyI5EBMWAXM=;
+  b=IbNOfskdqx/TYSHXPcTK7OEU/dsF/NeISug26AJQPwHxyo4S/WEnRJkT
+   TGsSNEDFjepC8PmQvOf6OC7kRy33X+cAR0K6s6MGt/Mgz6JJa0+WMOBbN
+   6wX6N54DtTSDBDfSkAbtLajS8IsN0YUvYoHFJW8/xW9PW8AHbC1x9Nji4
+   AmPwcaOtXSoEXzEhOhGdC5CluNsYf0kgRiU0sASVnF3SQgQ2vH8qjLjPK
+   9AT+pvo1vyZIZEfLfzq1IU6s0Lba2grzGGm4otoFAc3QRSjHiGiu3+6ox
+   WsmQxWFN7RAiYhOhXBVJgv2cBnncs4aNL6/karTjc70JD/T2bicazagWE
+   g==;
+X-CSE-ConnectionGUID: ISh+hKVrQcSq5edE6cm+3A==
+X-CSE-MsgGUID: yw/MhUB0S2WDHJdq6J2xxw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2766330"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2766330"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 03:30:10 -0800
+X-CSE-ConnectionGUID: ao5OsVLTTIKNcyZdmw0rGQ==
+X-CSE-MsgGUID: zv1trccIT/q1DRwV0IljpA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7247791"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.101])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 03:30:07 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Wentao Guan <guanwentao@uniontech.com>, joonas.lahtinen@linux.intel.com,
+ imre.deak@intel.com, jouni.hogander@intel.com
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, Wentao
+ Guan <guanwentao@uniontech.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/i915/display: Don't drop the async-put delay on
+ self-requeue
+In-Reply-To: <134A26B6BCDD3C9C+20261104053910.1065103-1-guanwentao@uniontech.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <134A26B6BCDD3C9C+20261104053910.1065103-1-guanwentao@uniontech.com>
+Date: Fri, 06 Nov 2026 13:30:04 +0200
+Message-ID: <a2b152662d219f9be0861e63ddbb78dd1971dc2a@intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,46 +83,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019-qat-dc-data-kfree-v1-1-b294cb951a77@uniontech.com>
+Content-Type: text/plain
 
-On Mon, Oct 19, 2026 at 01:51:32PM +0800, ZhaoJinming wrote:
-> qat_compression_alloc_dc_data() allocates dc_data with kzalloc_node(), but
-> its error path releases it with devm_kfree():
-> 
-> 	dc_data = kzalloc_node(sizeof(*dc_data), GFP_KERNEL,
-> 			       dev_to_node(dev));
-> 	...
-> err:
-> 	accel_dev->dc_data = NULL;
-> 	kfree(obuff);
-> 	devm_kfree(dev, dc_data);
-> 
-> devm_kfree() only frees memory that was allocated with devm_kmalloc() and
-> registered with the device resource manager.  dc_data is a plain kmalloc
-> allocation that was never registered, so devres_destroy() does not find it,
-> returns -ENOENT and devm_kfree() ends up in WARN_ON() without freeing
-> anything.  The dc_data structure is leaked.
-> 
-> Commit 4cc871ad0173 ("crypto: qat - use unmanaged allocation for dc_data")
-> switched dc_data to unmanaged allocation and replaced the devm_kfree() in
-> qat_free_dc_data(), but missed the identical call in the error path of
-> qat_compression_alloc_dc_data().  That path is taken when the overflow
-> buffer allocation or its DMA mapping fails.
-> 
-> Free dc_data with kfree() here as well, matching the allocation and the
-> other release path.
-> 
-> Fixes: 4cc871ad0173 ("crypto: qat - use unmanaged allocation for dc_data")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
+On Wed, 04 Nov 2026, Wentao Guan <guanwentao@uniontech.com> wrote:
+> cancel_async_put_work() also clears async_put_next_delay, so moving it
+> ahead of the requeue in intel_display_power_put_async_work() makes the
+> requeue always use a zero delay. That discards the delay accumulated by
+> concurrent async puts, including the 17 ms DC-state anti-toggle delay
+> requested for POWER_DOMAIN_DC_OFF.
+>
+> Use cancel_delayed_work() directly to cancel the stale instance without
+> clearing the delay, and clear the delay only after the requeue has
+> consumed it.
+>
+> Fixes: 30ca6365bb42 ("drm/i915: Fix assert on pending async-put power domain work when it requeues itself")
+> Cc: <stable@vger.kernel.org> # v6.11+
+> Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+
+How did you find this?
+
+Is there a bug report about this?
+
+How did you test this?
+
+
+BR,
+Jani.
+
 > ---
->  drivers/crypto/intel/qat/qat_common/qat_compression.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/i915/display/intel_display_power.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+> index b000ec001ccfc..7da6eda46e9e0 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+> @@ -873,7 +873,7 @@ intel_display_power_put_async_work(struct work_struct *work)
+>  	 * Cancel the work that got queued after this one got dequeued,
+>  	 * since here we released the corresponding async-put reference.
+>  	 */
+> -	cancel_async_put_work(power_domains, false);
+> +	cancel_delayed_work(&power_domains->async_put_work);
+>  
+>  	/* Requeue the work if more domains were async put meanwhile. */
+>  	if (!bitmap_empty(power_domains->async_put_domains[1].bits, POWER_DOMAIN_NUM)) {
+> @@ -885,9 +885,10 @@ intel_display_power_put_async_work(struct work_struct *work)
+>  		queue_async_put_domains_work(power_domains,
+>  					     fetch_and_zero(&new_work_wakeref),
+>  					     power_domains->async_put_next_delay);
+> -		power_domains->async_put_next_delay = 0;
+>  	}
+>  
+> +	power_domains->async_put_next_delay = 0;
+> +
+>  out_verify:
+>  	verify_async_put_domains_state(power_domains);
 
-Patch applied.  Thanks.
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Jani Nikula, Intel
