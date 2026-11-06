@@ -1,49 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793968603;
-	b=bzjyO0NgDFt0HOOm5EYjsyMPhSuv5o6u5SgqUegnuQp9c3cSU6xeWTZyUxqyJiAm2gp5
-	 bM2mBiwBLMJ1MHJUB/uSkMl/Yq6mdnLDP2GWVv7Ch7EN0DhhJgYnuxxc5Qzbgc4fDJPvX
-	 tsySz9qiMxsXnB/m6CBuwoFqSQ5aZ79B6gR0+Knj1wG/+kFXfJfQ8g1nJ4EsTX3NlmN2T
-	 nr7M84eR+EhOmfxV6zzklqitCIVZddSGTK3aEp6qn58K4xmEogi+f37yv3Wk0J65WVUvH
-	 1eRgNIfOoUvf60Dw5MZ0ly7PspiuwX0xcS2llUXQjz9juROVxSVa2bUuvhU5EgI6ufA==
+	t=1793968613;
+	b=Y0UELDvEK4zTf0lQqescMuNv8sl79nCPu3Jb80epRfOvnAoHWec393hoAnbSSTRlL/ws
+	 SKLL6+L/k0DOJSRKhqQIHuKGMwotEar5xv5wS/zjYPPcwMB91BkBMQZll+tSWafe3qXIp
+	 w82P0hQiGRGZcYoYhnQYxFq9S02iNiEO12ts8MWnsSxtbeuE/w9Qu+8xGWs4EkXkDmRlN
+	 8aKNAgh/OP4p9WPErA75AVak1YtLtHLUJPCVNFC9oFq+CRjzVmjooJSCcpC4avffMUjCY
+	 VfUlbN1oeu2xOE14ZL1YBKVIvX0u0OGHN/+3ixptxm1rOJf+M87EJw0WqBvAWi4olJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793968603;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=k0OJ5cOJhFxwKRWgLGHa4buWJAMOSgYsz1k8mWUWB34=;
-	b=Pj1N2VP3EqrHP5zVqm6+ClGD1YiDsipdOPFOoMdvrxBE0aPRhHXh17ESYWcby9ZeQPlz
-	 KD1HmHz9jLmU6p/fQ+Nfa7RKNq8ZF98owWjBH4TlWorImt5+D58792VnzHiHFyPoa+e38
-	 6hulONYLcypw3i7ruD6YaP3rQWdGdnMU8VT+LD687w37BlUx+cd/C6gBnRNSUVXJKFXAL
-	 jmkhb7KPEiErC48500gxyAqJFfnmlNmQPL24HasSoUZDlTQ1+xlA0gcx3ET+nH6v0XTGw
-	 gKfEfmaY0zFxFv9xCgeFaLZnCO77AqZFsfiN3PFFvnyM1AWNBV7vmDFt6TNesl0PkIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968613;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=TnLKaglbbXEAFvqSov0AzPE4Tl5hjAM8u+AUSR5bnbk=;
+	b=MhvDFA8bl9IQQLuZbtBLTNxygzsindOLajLSAZ39STH+t59WwpqmdxxHtcdkeiVtcX93
+	 ORcPdyOq20CORe4ecFUjVmLJHDqmCv0oiq0kZ4MZD+3UvWZVvKUvn3WHm13WhcDy9BCP+
+	 9rWOnHUipxZLTBDVMxR64Yt0Qgn/RGfpqEmO0VDcvM6BGl1fQDsG/jt0d+qz6t+J7n3Ov
+	 CV978/zFklW2loXj1+TmMMIjVUPsY0gHJiJiPirq6d0teYfX/pv4+0tzrrdeI0UlQVEYh
+	 vhCGSMLpdRN3ihnuRz0JTfACuim0R2Rgu8ciACYhd/xltqV57Gh+d23WQg+4b8wuqcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCsFJVVW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XKTJG4Mr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2D8606A326;
-	Fri,  6 Nov 2026 12:36:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB25606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:36:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCsFJVVW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36B3C1F0089F;
-	Fri,  6 Nov 2026 12:36:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XKTJG4Mr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 985001F008A1;
+	Fri,  6 Nov 2026 12:36:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793968603;
-	bh=k0OJ5cOJhFxwKRWgLGHa4buWJAMOSgYsz1k8mWUWB34=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=MCsFJVVWl57i+t+M5XQAOw82JpUNPrrmCyAT97GYiSLGMNTof7En4bso9aSYFK+nh
-	 grMauLv1Llt4mhQLU+mYgS7FDOeyfyqKe2tHIwdmWI6ZwDx84zQW0D00ocTfXo6FWB
-	 YcVwgKMJslFIG+zqbAhZi+/4+Gi0ZVWi6/HhVd1eeAW1ab3nRFhdNuEuFp/zEFx120
-	 BWxRwxRCJ2SuNg0+HnjM8Zs7syWTtl7v1Ue6dUC3kdHpPa5qcUt3fO+P99J7oUga/r
-	 6xUABepAxWBkKK0kkJ9Qp2/XVhg4DGv8DgWebHd7TUBSJpMYjFOeYrwt1ojTK1aG/I
-	 KQkI5XCQ2AS1Q==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Fri, 06 Nov 2026 13:36:13 +0100
-Subject: [PATCH v2 2/2] mm: don't allocate a page table under RCU in
- do_set_pmd()
+	s=k20260515; t=1793968612;
+	bh=TnLKaglbbXEAFvqSov0AzPE4Tl5hjAM8u+AUSR5bnbk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XKTJG4Mre4RXAtngaJsIWfsYAO1gF4ocMPbb6Z1ImAvolYM5VFb60T0ItSST7THQS
+	 2IgYFEhHe1EfNFb5UwpVXvUsTTrJLsJgob6UY6KRoEAya8I6AIpHfXGhZz1OrBJzU4
+	 6YAzRHgEKQDjOz6LqQTsnlmpqIE6JoRihcSoETL230W+Q0DoK2BAz9kD/cbuUmQUnQ
+	 AX3pYztPmUkYC9UF8AXDFf77DbfksGoqg/PplypgwucrMpucsPqdsFeeD0fLlAewn9
+	 wZqtvDpRkMoJxoc/gE7ogMKzdMluodb8BjhWHi5/Dw6pJ3tHaL8tuZK/TZpJIuXyia
+	 gXovNZh7Z5YSg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Eric Dumazet <edumazet@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-afs@lists.infradead.org,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] rxrpc: Fix update of call->tx_pending without holding lock
+Date: Fri,  6 Nov 2026 07:36:50 -0500
+Message-ID: <20261106123625.4013722-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110437-felt-tip-think-1d33@gregkh>
+References: <2026110437-felt-tip-think-1d33@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,142 +66,240 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-khugepaged_set_pmd-v2-2-d2457b5e377a@kernel.org>
-References: <20261106-khugepaged_set_pmd-v2-0-d2457b5e377a@kernel.org>
-In-Reply-To: <20261106-khugepaged_set_pmd-v2-0-d2457b5e377a@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Hugh Dickins <hughd@google.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4428; i=david@kernel.org;
- h=from:subject:message-id; bh=lLTIq2694J3MjH85WnniQQmIlLYoYXSiDFLoKNVlvso=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLLenjznuf6+6JY5LZVhOr8lgr60aDZldUyt+HJ3t45fc
- NMb75uFHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzEeBEjw42v63Tqn6+y7s6b
- HvHtprqP7btNIe4XUmx+ac1QVvGXX8vI8C7cw0j5PbNm4OIEj9JJofPjthTO+Zm78iNrWbrSvMd
- 3OAE=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-do_fault_around() skips PTE table preallocation when the PMD already points
-to a PTE table. A concurrent collapse can then retract that table and
-clear the PMD before filemap_map_pages() locks the new PMD-sized folio.
+From: David Howells <dhowells@redhat.com>
 
-filemap_map_pmd() can then call do_set_pmd() with an empty PMD and no
-preallocated table. On PowerPC hash MMU, do_set_pmd() then tries
-allocating a PTE table to deposit. But filemap_map_pmd() calls
-do_set_pmd() under RCU, so allocating from that context is not good.
+[ Upstream commit 7801c42c3bb737cfb06194a383873fcad8daacf5 ]
 
-This race became possible when retract_page_tables() stopped taking the
-mmap and VMA locks. Previously, those locks excluded retraction while
-the fault was in progress.
+Currently, rxrpc_send_data() updates call->tx_pending just before it
+returns - but it won't be holding the call->user_mutex when it does this if
+a wait was interrupted by a signal.  This would allow a parallel sendmsg()
+to race.
 
-Add a may_alloc argument to do_set_pmd() and pass false from
-filemap_map_pmd(), so we can fail with VM_FAULT_FALLBACK instead of
-trying to allocate.
+Further, both the callers of rxrpc_send_data() call it with the lock held,
+and then it returns an indication through the parameter list to say whether
+it has dropped the lock or not - after which the callers both just drop the
+lock if it's still held.
 
-This issue should be fairly hard to hit in practice.
+Fix this by:
 
-Fixes: 1d65b771bc08 ("mm/khugepaged: retract_page_tables() without mmap or vma lock")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+ (1) Moving the release of call->user_mutex down into rxrpc_send_data() and
+     get rid of the indicator parameter.  This makes it easier to see where
+     the lock is held.
+
+ (2) After waiting, if the attempt to reacquire the mutex is interrupted,
+     just return directly there rather than going to out_unlock
+
+ (3) Restricting the txb variable to inside the buffering loop and leaving
+     ->tx_pending set until we've queued the buffer.
+
+Note that there's a slight change in behaviour in that wait_for_space
+failure now doesn't check for completion because it doesn't hold the call
+user_mutex.  The caller, however, should re-issue the send and pick up any
+error at a second attempt.
+
+Fixes: b0f571ecd794 ("rxrpc: Fix locking in rxrpc's sendmsg")
+Closes: https://sashiko.dev/#/patchset/20260702144919.172295-1-dhowells%40redhat.com
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Eric Dumazet <edumazet@google.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261006133011.531806-4-dhowells@redhat.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ sashal: adapted exit handling for code lacking RXRPC_CALL_TX_NO_MORE while preserving existing packet-length bookkeeping and the caller’s if/else structure ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/mm.h |  3 ++-
- mm/filemap.c       |  2 +-
- mm/khugepaged.c    |  2 +-
- mm/memory.c        | 10 +++++++---
- 4 files changed, 11 insertions(+), 6 deletions(-)
+ net/rxrpc/sendmsg.c | 59 +++++++++++++++++++++------------------------
+ 1 file changed, 27 insertions(+), 32 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index a2dd76cc5bbfe..bd144fec5f5da 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -2156,7 +2156,8 @@ static inline pte_t maybe_mkwrite(pte_t pte, struct vm_area_struct *vma)
- 	return pte;
- }
+diff --git a/net/rxrpc/sendmsg.c b/net/rxrpc/sendmsg.c
+index c9b85848e825b..9d68e58dace9c 100644
+--- a/net/rxrpc/sendmsg.c
++++ b/net/rxrpc/sendmsg.c
+@@ -279,10 +279,9 @@ static void rxrpc_queue_packet(struct rxrpc_sock *rx, struct rxrpc_call *call,
+ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 			   struct rxrpc_call *call,
+ 			   struct msghdr *msg, size_t len,
+-			   rxrpc_notify_end_tx_t notify_end_tx,
+-			   bool *_dropped_lock)
++			   rxrpc_notify_end_tx_t notify_end_tx)
++	__releases(&call->user_mutex)
+ {
+-	struct rxrpc_txbuf *txb;
+ 	struct sock *sk = &rx->sk;
+ 	enum rxrpc_call_state state;
+ 	long timeo;
+@@ -293,23 +292,18 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
  
--vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page);
-+vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page,
-+		bool may_alloc);
- void set_pte_range(struct vm_fault *vmf, struct folio *folio,
- 		struct page *page, unsigned int nr, unsigned long addr);
+ 	ret = rxrpc_wait_to_be_connected(call, &timeo);
+ 	if (ret < 0)
+-		return ret;
++		goto out_unlock;
  
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 86297841f9955..9871b4f32a916 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -3745,7 +3745,7 @@ static bool filemap_map_pmd(struct vm_fault *vmf, struct folio *folio,
- 
- 	if (pmd_none(*vmf->pmd) && folio_test_pmd_mappable(folio)) {
- 		struct page *page = folio_file_page(folio, start);
--		vm_fault_t ret = do_set_pmd(vmf, folio, page);
-+		vm_fault_t ret = do_set_pmd(vmf, folio, page, /* may_alloc= */ false);
- 		if (!ret) {
- 			/* The page is mapped successfully, reference consumed. */
- 			folio_unlock(folio);
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 8d9f05a39afb3..5836e08abc984 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1826,7 +1826,7 @@ static enum scan_result set_huge_pmd(struct vm_area_struct *vma, unsigned long a
+ 	if (call->conn->state == RXRPC_CONN_CLIENT_UNSECURED) {
+ 		ret = rxrpc_init_client_conn_security(call->conn);
+ 		if (ret < 0)
+-			return ret;
++			goto out_unlock;
  	}
  
- 	vmf.pmd = pmdp;
--	if (do_set_pmd(&vmf, folio, page))
-+	if (do_set_pmd(&vmf, folio, page, /* may_alloc= */ true))
- 		return SCAN_FAIL;
+ 	/* this should be in poll */
+ 	sk_clear_bit(SOCKWQ_ASYNC_NOSPACE, sk);
  
- 	folio_get(folio);
-diff --git a/mm/memory.c b/mm/memory.c
-index 421064aef3cf0..6eeed43b05a19 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -5682,7 +5682,8 @@ static void deposit_prealloc_pte(struct vm_fault *vmf)
- 	vmf->prealloc_pte = NULL;
+ reload:
+-	txb = call->tx_pending;
+-	call->tx_pending = NULL;
+-	if (txb)
+-		rxrpc_see_txbuf(txb, rxrpc_txbuf_see_send_more);
+-
+ 	ret = -EPIPE;
+ 	if (sk->sk_shutdown & SEND_SHUTDOWN)
+ 		goto maybe_error;
+@@ -337,6 +331,8 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 	}
+ 
+ 	do {
++		struct rxrpc_txbuf *txb = call->tx_pending;
++
+ 		if (!txb) {
+ 			size_t remain;
+ 
+@@ -355,6 +351,9 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 				ret = -ENOMEM;
+ 				goto maybe_error;
+ 			}
++			call->tx_pending = txb;
++		} else {
++			rxrpc_see_txbuf(txb, rxrpc_txbuf_see_send_more);
+ 		}
+ 
+ 		_debug("append");
+@@ -392,12 +391,12 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 
+ 			ret = call->security->secure_packet(call, txb);
+ 			if (ret < 0)
+-				goto out;
++				goto out_unlock;
+ 
+ 			txb->kvec[0].iov_len += txb->len;
+ 			txb->len = txb->kvec[0].iov_len;
+ 			rxrpc_queue_packet(rx, call, txb, notify_end_tx);
+-			txb = NULL;
++			call->tx_pending = NULL;
+ 		}
+ 	} while (msg_data_left(msg) > 0);
+ 
+@@ -406,45 +405,46 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 	if (rxrpc_call_is_complete(call) &&
+ 	    call->error < 0)
+ 		ret = call->error;
+-out:
+-	call->tx_pending = txb;
++out_unlock:
++	mutex_unlock(&call->user_mutex);
+ 	_leave(" = %d", ret);
+ 	return ret;
+ 
+ call_terminated:
+-	rxrpc_put_txbuf(txb, rxrpc_txbuf_put_send_aborted);
+-	_leave(" = %d", call->error);
+-	return call->error;
++	ret = call->error;
++	goto out_unlock;
+ 
+ maybe_error:
+ 	if (copied)
+ 		goto success;
+-	goto out;
++	goto out_unlock;
+ 
+ efault:
+ 	ret = -EFAULT;
+-	goto out;
++	goto out_unlock;
+ 
+ wait_for_space:
+ 	ret = -EAGAIN;
+ 	if (msg->msg_flags & MSG_DONTWAIT)
+ 		goto maybe_error;
+ 	mutex_unlock(&call->user_mutex);
+-	*_dropped_lock = true;
++
+ 	ret = rxrpc_wait_for_tx_window(rx, call, &timeo,
+ 				       msg->msg_flags & MSG_WAITALL);
+ 	if (ret < 0)
+-		goto maybe_error;
++		goto out_nolock;
+ 	if (call->interruptibility == RXRPC_INTERRUPTIBLE) {
+ 		if (mutex_lock_interruptible(&call->user_mutex) < 0) {
+ 			ret = sock_intr_errno(timeo);
+-			goto maybe_error;
++			goto out_nolock;
+ 		}
+ 	} else {
+ 		mutex_lock(&call->user_mutex);
+ 	}
+-	*_dropped_lock = false;
+ 	goto reload;
++out_nolock:
++	_leave(" = %d [intr]", ret);
++	return copied ?: ret;
  }
  
--vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page)
-+vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page,
-+		bool may_alloc)
+ /*
+@@ -611,7 +611,6 @@ int rxrpc_do_sendmsg(struct rxrpc_sock *rx, struct msghdr *msg, size_t len)
+ 	__releases(&rx->sk.sk_lock.slock)
  {
- 	struct vm_area_struct *vma = vmf->vma;
- 	bool write = vmf->flags & FAULT_FLAG_WRITE;
-@@ -5723,6 +5724,8 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
- 	 * related to pte entry. Use the preallocated table for that.
- 	 */
- 	if (arch_needs_pgtable_deposit() && !vmf->prealloc_pte) {
-+		if (!may_alloc)
-+			return VM_FAULT_FALLBACK;
- 		vmf->prealloc_pte = pte_alloc_one(vma->vm_mm);
- 		if (!vmf->prealloc_pte)
- 			return VM_FAULT_OOM;
-@@ -5764,7 +5767,8 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
+ 	struct rxrpc_call *call;
+-	bool dropped_lock = false;
+ 	int ret;
+ 
+ 	struct rxrpc_send_params p = {
+@@ -717,12 +716,12 @@ int rxrpc_do_sendmsg(struct rxrpc_sock *rx, struct msghdr *msg, size_t len)
+ 	} else if (p.command != RXRPC_CMD_SEND_DATA) {
+ 		ret = -EINVAL;
+ 	} else {
+-		ret = rxrpc_send_data(rx, call, msg, len, NULL, &dropped_lock);
++		ret = rxrpc_send_data(rx, call, msg, len, NULL);
++		goto error_put;
+ 	}
+ 
+ out_put_unlock:
+-	if (!dropped_lock)
+-		mutex_unlock(&call->user_mutex);
++	mutex_unlock(&call->user_mutex);
+ error_put:
+ 	rxrpc_put_call(call, rxrpc_call_put_sendmsg);
+ 	_leave(" = %d", ret);
+@@ -752,7 +751,6 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
+ 			   struct msghdr *msg, size_t len,
+ 			   rxrpc_notify_end_tx_t notify_end_tx)
+ {
+-	bool dropped_lock = false;
+ 	int ret;
+ 
+ 	_enter("{%d},", call->debug_id);
+@@ -763,12 +761,9 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
+ 	mutex_lock(&call->user_mutex);
+ 
+ 	ret = rxrpc_send_data(rxrpc_sk(sock->sk), call, msg, len,
+-			      notify_end_tx, &dropped_lock);
++			      notify_end_tx);
+ 	if (ret == -ESHUTDOWN)
+ 		ret = call->error;
+-
+-	if (!dropped_lock)
+-		mutex_unlock(&call->user_mutex);
+ 	_leave(" = %d", ret);
  	return ret;
  }
- #else
--vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page)
-+vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page,
-+		bool may_alloc)
- {
- 	return VM_FAULT_FALLBACK;
- }
-@@ -5888,7 +5892,7 @@ vm_fault_t finish_fault(struct vm_fault *vmf)
- 
- 	if (pmd_none(*vmf->pmd)) {
- 		if (!needs_fallback && folio_test_pmd_mappable(folio)) {
--			ret = do_set_pmd(vmf, folio, page);
-+			ret = do_set_pmd(vmf, folio, page, /* may_alloc= */ true);
- 			if (ret != VM_FAULT_FALLBACK)
- 				return ret;
- 		}
-
 -- 
-2.43.0
+2.53.0
 
