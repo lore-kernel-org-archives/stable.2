@@ -1,51 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.58
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793930459;
-	b=dn+GsIfcDwZa3sTpjcGj5o1+TGkDkewewPwQ6QK/wLB3675cLA56uX4REM3zIF5yi2SR
-	 3rIa735FfCoqns7Kt6HbKPp4kFkgsT5X8Glu6TkeBGZ27kfBLTcMurXRbW8QgZricgUpe
-	 xZdez+dJWqwVp1hz1QbWK1Rd20uAfCPfDWq7rMqIEtcNhqpc9LtsDufm6B6No2/GZ7VP7
-	 X3YpSz2Ua8wpp6hY2Oj/KLDFpmnZK2ParVXpA1HweLUEZ/F6GOJEqThqMYDzLAUKQ22IK
-	 dKyjUcffFn6x5vYOTlBbobwzQg/jQmS4qC7OoyWOn12lk5u9jTCRtcAnoEgMLXS3Tbw==
+	t=1793930548;
+	b=VzY+ydSIBkU/tVEJ3C++5yDALIlnLqYrUuTPzwvj6sNEsd5U6PQZR6zmZLu4x0eZHrwp
+	 LbKFFo7nZpICNh+el3WKDyXVgoEiYSdWMeumpUJit1SXd6A23+J18urv2RiCC2xX+c3Jy
+	 3Yh43jy2MN0aUuYR6MEPKOtjjqcjenE/35BNUwDnLqoLf2Kl4aQibeJW/fRQP89cXl4bZ
+	 SgC2Q6kzNv/7pCoWOG3vNQvPLZ/xT7jLAe9RW4AovVTdSGNNIuXzYWeV5rF71pj/TTf8f
+	 bFXoSxdw82Vea8HTDseewQ1V+24xG30e3VlAx2Gj/FMUQO5RSfUPXCh0N1zhHIjqUwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793930459;
-	h=DMARC-Filter:DKIM-Signature:User-Agent:X-Lms-Return-Path:
-	 Mime-Version:To:Message-Id:From:Subject:Content-Transfer-Encoding:
-	 Content-Type:References:Received:Reply-To:Cc:X-Original-From:Date:
-	 In-Reply-To;
-	bh=BzurbRUdgcB5LkEIB7Hn26hUmmq0gClbqcTlXGMVGzw=;
-	b=zKUYjuDRvYXNnT0ZPrpb+9z6tARu1lziKi2spDRM2eeTARDrFPI/iUIHesaofQBKs9Ls
-	 1lZROaFgxJwXhCpQxgcrNmlUtrzum4z15ovWyQRXt+CyBwxUv1YsMM+EcP4LNHnEloOWU
-	 XoVLh/n52aIsSfceJpmu73hVPg+/mFBI3PJcIjmd+ouuQZF1LB/NJKorlExm9wX58AuXv
-	 sYm8a7kSxVcUG9f8QMzABzHj8PpahoFiHdp7sfSyyke8VmvkEeJo7nhMQVJdqol9em6m3
-	 1KpwfV7ij3lzxDwjH6AhaB585mcGFRvwbKrhDuLIq0KkHbL16H0yHTNoqFkrEtk7bIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793930548;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pKmPuefvTAbfdN4jAqHdCzsBrC5bf2nTi/bHl0k4C9Y=;
+	b=dyQiP6VjsdCQUSyz1LJ8gU2/TwuTh5Dx5K9WRPhV+2Jf1FXeWsNSw1AnnZ3K0geuuy5M
+	 8RSs/qOiIboBqCR3sGW68A7zazVsL2LYyjDNAS7EU33b0TziO/KUBkyB3vuZ8uf8gxoQ2
+	 Ttt1DhstAmOTXyMDUdF0aWQrk3MkQr+Acgj7ZY0y3ISgSv1zyw/n5pdJsgqXqr4o4O1UF
+	 tpFrXb820R5i+Mi7wDYlt7tEjafOORj2TMGyzjPOzpSVpSC9f4l7jlsK+zLrH4Nash6Ev
+	 sRc5fVdonMDaYb77VlBxlk1/1ZvveIheC4xS00etp9cjpculmfK48cSNS4GTujua0MQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fygo.io;
-	spf=pass smtp.mailfrom=fygo.io;
-	dkim=pass header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=ByicbgQn;
-	arc=none smtp.remote-ip=209.127.231.58
-Received: from va-2-58.ptr.blmpb.com (va-2-58.ptr.blmpb.com [209.127.231.58])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ladNjTS8;
+	arc=none smtp.remote-ip=115.124.28.145
+Received: from out28-145.mail.aliyun.com (out28-145.mail.aliyun.com [115.124.28.145])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E488606A330
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:00:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E488606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E937606A31B;
+	Fri,  6 Nov 2026 02:02:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E937606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.a=rsa-sha256 header.s=s1 header.b=ByicbgQn
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1793930450;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=BzurbRUdgcB5LkEIB7Hn26hUmmq0gClbqcTlXGMVGzw=;
- b=ByicbgQncgOWB8QtXNxPUp/boZqIU+6wT7nej9vW9WnUwlRKJJxXhDyv3AScbpqzJPxpUi
- EVR5W6q/WvqKawJVGIzWbPXKhL6kwEBZ08cmxCnqVhYot8Sz2ByUibbbiNfvwm5UdqkI2j
- y/pnu+FWGgqPOKF7BSnSlHDLpv3mpEdbkY8mo2v0KgMoF3CJ0ZXNKlXUOzjK7uRGr8c73T
- x6jtd0d2FPejJwkPytaoYVNp6dPepnUr8/yUQYrvO6a/LuRoAw1nbDLM0zjoyBwsuJ8G9C
- Uczub1HHhGfKtK3dAgx1GlKM0re8BSWOxMXAB6WL+MHdcDrz2dLyLztsi2ccPg==
-User-Agent: Mozilla Thunderbird
-X-Lms-Return-Path: <lba+26aed34d1+510b79+vger.kernel.org+yukuai@fygo.io>
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=ladNjTS8
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793930538; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=pKmPuefvTAbfdN4jAqHdCzsBrC5bf2nTi/bHl0k4C9Y=;
+	b=ladNjTS89SBkUvIF6eC4kNtp6THHEQ6TWrndAhaZWxqrPi2Y4EwN8GoJ7g2sxQEchyl/HueT0MT1rC3Uu8d7P3naI0G1UX0LtnukGC7u7qUVqbHmn6TiJpglD9zzi+u0VU0cSh93VH7PJVrsnS28/709iFOoXqnAb2XLaPM+6BM=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2143449|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0535512-0.204086-0.742363;FP=3679924564259477098|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045038069;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jxvJMbx_1793930537;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jxvJMbx_1793930537 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 06 Nov 2026 10:02:17 +0800
+From: Guo Zihao <guozh23@xiaopeng.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Markus Armbruster <armbru@redhat.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] Input: xen-kbdfront - bound the backend-supplied keycode
+Date: Fri,  6 Nov 2026 10:02:17 +0800
+Message-ID: <20261106020217.48481-1-guozh23@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261106014957.4130059-1-guozh23@xiaopeng.com>
+References: <20261106014957.4130059-1-guozh23@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,75 +63,88 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-To: "Sanan Hasanov" <sanan.hasanou@gmail.com>, "Song Liu" <song@kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
-Message-Id: <ab391b73-557c-4eef-ac05-bfa25f9e2d03@fygo.io>
-From: "yu kuai" <yukuai@fygo.io>
-Subject: Re: [PATCH] md: don't allow changing the personality of a failed array
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-References: <20261019193659.31381-1-sanan.hasanou@gmail.com>
-Received: from [192.168.1.104] ([39.182.0.25]) by smtp.larksuite.com with ESMTPS; Fri, 06 Nov 2026 02:00:48 +0000
-Reply-To: yukuai@fygo.io
-Cc: "Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
-	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<syzbot+0b672810a475890d3636@syzkaller.appspotmail.com>, 
-	"Sanan Hasanov" <sanan.hasanov@ucf.edu>, <stable@vger.kernel.org>
-X-Original-From: yu kuai <yukuai@fygo.io>
-Date: Fri, 6 Nov 2026 10:00:44 +0800
-In-Reply-To: <20261019193659.31381-1-sanan.hasanou@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-=E5=9C=A8 2026/10/20 3:36, Sanan Hasanov =E5=86=99=E9=81=93:
+Keycodes arrive from the shared ring the backend writes:
 
-> From: Sanan Hasanov<sanan.hasanov@ucf.edu>
->
-> level_store() lets userspace switch a running array to another
-> personality through the takeover path, and then ignores the return value
-> of pers->run(). Takeover is expected to always produce something the new
-> personality can run, but that no longer holds for an array that has
-> already failed: since commit 57668f0a4cc4 ("raid5: introduce MD_BROKEN"),
-> has_failed() treats MD_BROKEN as fatal, so raid5_run() refuses such an
-> array. It then frees the new conf and clears mddev->private, while
-> level_store() has already installed the raid5 personality and freed the
-> old one. The array is left with mddev->pers =3D=3D &raid5_personality and
-> mddev->private =3D=3D NULL, and the next operation that reaches the
-> personality dereferences NULL:
->
->    md/raid0md0: Disk failure on loop0 detected, failing array.
->    md/raid:md0: not enough operational devices (1/3 failed)
->    md/raid:md0: failed to run raid set.
->    KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
->    RIP: 0010:kasan_byte_accessible+0x12/0x30 mm/kasan/generic.c:210
->    Call Trace:
->     spin_lock_irq include/linux/spinlock_rt.h:96 [inline]
->     lock_all_device_hash_locks_irq drivers/md/raid5.c:107 [inline]
->     raid5_quiesce+0xc2/0x8a0 drivers/md/raid5.c
->     __md_stop_writes+0xeb/0x4b0 drivers/md/md.c:7038
->     md_set_readonly+0x330/0x560 drivers/md/md.c:7138
->     array_state_store+0x584/0xe90 drivers/md/md.c:4720
->
-> syzbot gets there by failing a member of a raid0 array, which sets
-> MD_BROKEN, then writing "raid5" to md/level and "readonly" to
-> md/array_state. The same applies to a two-disk raid1 array whose last
-> working device has failed: raid1_error() sets MD_BROKEN but leaves
-> degraded at 1, so raid5_takeover_raid1() still accepts it.
->
-> MD_BROKEN is never cleared while the array is running, and a failed
-> array can't be turned into a working one by changing its level. Refuse
-> the change up front with -EBUSY, which is also what state_store()
-> returns when failing a device leaves the array broken.
->
-> Fixes: 57668f0a4cc4 ("raid5: introduce MD_BROKEN")
-> Reported-by:syzbot+0b672810a475890d3636@syzkaller.appspotmail.com
-> Closes:https://syzkaller.appspot.com/bug?extid=3D0b672810a475890d3636
-> Cc:stable@vger.kernel.org
-> Signed-off-by: Sanan Hasanov<sanan.hasanov@ucf.edu>
-> ---
->   drivers/md/md.c | 6 ++++++
->   1 file changed, 6 insertions(+)
-Applied
+	if (test_bit(key->keycode, info->ptr->keybit)) {
+		dev = info->ptr;
+	} else if (test_bit(key->keycode, info->kbd->keybit)) {
+		...
+	} else {
+		pr_warn("unhandled keycode 0x%x\n", key->keycode);
+		return;
+	}
 
---=20
-Thanks,
-Kuai
+The keycode is a plain u32 from the ring page, while the keybit
+bitmaps it is tested against are sized for the KEY_CNT keycode bits
+declared to the input core. A backend that sends a keycode at or
+above KEY_CNT makes test_bit() read past the bitmap to decide which
+device gets the event, and no keycode at or above KEY_MAX is a valid
+EV_KEY code in the first place.
+
+Since the event sits in memory the backend keeps writing access to,
+the keycode must also be fetched exactly once: re-reading key->keycode
+after the bounds check would let a concurrent backend write feed an
+unchecked value to test_bit() and input_event(). Snapshot the keycode
+into a local variable with READ_ONCE() before validating it, and use
+the snapshot (as well as the already snapshotted pressed value)
+throughout.
+
+Ignore keycodes the bitmaps cannot hold.
+
+Fixes: 4ee36dc08e5c ("xen pvfb: Para-virtual framebuffer, keyboard and pointer driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+---
+
+v2: Snapshot the keycode with READ_ONCE() so a concurrent backend
+write to the shared ring page cannot feed an unchecked value past the
+KEY_MAX check (double-fetch, sashiko review); also reuse the already
+snapshotted pressed value instead of re-reading key->pressed.
+
+ drivers/input/misc/xen-kbdfront.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/input/misc/xen-kbdfront.c b/drivers/input/misc/xen-kbdfront.c
+index 6471d836f6fe..f95aefedf026 100644
+--- a/drivers/input/misc/xen-kbdfront.c
++++ b/drivers/input/misc/xen-kbdfront.c
+@@ -91,22 +91,28 @@ static void xenkbd_handle_key_event(struct xenkbd_info *info,
+ {
+ 	struct input_dev *dev;
+ 	int value = key->pressed;
++	u32 keycode = READ_ONCE(key->keycode);
+ 
+-	if (test_bit(key->keycode, info->ptr->keybit)) {
++	if (keycode >= KEY_MAX) {
++		pr_warn("unhandled keycode 0x%x\n", keycode);
++		return;
++	}
++
++	if (test_bit(keycode, info->ptr->keybit)) {
+ 		dev = info->ptr;
+-	} else if (test_bit(key->keycode, info->kbd->keybit)) {
++	} else if (test_bit(keycode, info->kbd->keybit)) {
+ 		dev = info->kbd;
+-		if (key->pressed && test_bit(key->keycode, info->kbd->key))
++		if (value && test_bit(keycode, info->kbd->key))
+ 			value = 2; /* Mark as autorepeat */
+ 	} else {
+-		pr_warn("unhandled keycode 0x%x\n", key->keycode);
++		pr_warn("unhandled keycode 0x%x\n", keycode);
+ 		return;
+ 	}
+ 
+ 	if (unlikely(!dev))
+ 		return;
+ 
+-	input_event(dev, EV_KEY, key->keycode, value);
++	input_event(dev, EV_KEY, keycode, value);
+ 	input_sync(dev);
+ }
+ 
+-- 
+2.50.1
+
