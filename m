@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969559;
-	b=IAsdeY1cbC4tbg8jJ/DhttkoayuHbdRKKhgTRaN06D8BNBYwF15U7sAFA/S794hUd28+
-	 +TBP6/ELQsinlF3FLsvBSNLW01HihL+8q02ULK+YOIiU9UL9OEiEyecAD9xEHGMFOnGKE
-	 cpM2O2mTYhrUoJYgHEN+LEPsLOsHzt+9RGGAwn/92zZiut10LLhwZ+ZjqMRUZtH8vqd7Q
-	 LRCgnP8IwjacVNWC22G+kmse1zEx8/MLIIw+Rr+dD3I3+rDLSbM0cgjE2Y3TiG+hTfh9u
-	 7pryajKijhRQIl67M0AvgTiED3LdmFskEw27b8lm5x6sJvJY6tNljszwZSI+wGHT1Uw==
+	t=1793969964;
+	b=R0j/LTMNKwV9ZlEMaA8oGtIZWXGTrTx2xRteIuF+ekPZPWl0Dt6T0RCsJ+ya0QHDD5Oa
+	 wJJ7NHnz5BysrfaGTsyLdwFj7aqLgIVPfax7LZ53uNIPiMTWMyPUZatWcchaXKDylP29j
+	 DHE1caqr9gP5quD3WngAlvrooyE+Dqe7Q96kH6Dm8fhwcV3RlweoMaWpzNrs2/ZY/WnAh
+	 IcYADCZb7gbuEuDxMyjBBMWqLhifUof/UCOCmBRrL2VZlCAdSuKHSFcg0XegpooTvzt/o
+	 1yW8ZTis88DupkDIfHQ90VHzF0s+W3IEjTa9G3Wx3KhvXdtiZH720/F7k71Sb0uLY4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969559;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969964;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=EgI1rb0KeKR397/pGzURcKLJ3aEPeSa2azYReaCnN9g=;
-	b=xBu9PiSHwdrP5ctECOarvlK1Yx3kbJuxI2R0MQnlkttct/6N7iAcwpBlk3Cdueya88QS
-	 miyNWIrCrbRkoYCxug6QL0ARkG6CGr/8R38AAdVGobiQdI3BH6Gcipu50Y4lHqtS1ISyC
-	 JOPrElvyHDvSqKR35t+IoVjO6HDcZPDMV5lOpjQ22H8q0qa+K4+ZzWjvZ+LwqlUAh5yzL
-	 oeYc91WRdhgGWo88Y7fKXwInZc/0groKpd3WrpHc1EFMk6/mRT9UDWpqgmKKBk3zBF14g
-	 mlJMmQgwRs2L5mpi/BlYsKqtjZc0U3BVZB9Md1TaDdlcl2GhVicbDuKYTmPdPwSd01g==
+	bh=fiYwLEHB3UDkX1HTg9ZN8aoSra0A2vaRIEd4CmgIwKs=;
+	b=SRanHVdYnsHv/0dKIoiZdB45q62f7VSYUNlqMKCY0O3tv5XmkbjVSxY9YnWSBXHDBTV3
+	 mi2ZL3QmBpGDGDgcxQ0lYASHotd9ZkpjBEDD7u4PtS/ts1ztVFEf61IAYikm1jfDrQJw4
+	 owd8Iu4XXWplbla+5TuQEriP6euKx/0yzvTBeuaTsNtSyUp7OxYDr5Sf7tLVVuf3ZD1uy
+	 t2+mKLSUNEjOuRaosauBwf1pbpEbYyfd6MhIu4NxVUMrqRN2lNrRVWjND+Tiv1MapIob+
+	 hqoNeP6w/KgrGh3aiy6PI0XiMECB6pBVKkm2d5hoAi1Chm6eR3xemgUS3K8O0zdZVrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XgLfh7+M;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YO6qJheh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F74606A32E
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:52:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80DF606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:59:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XgLfh7+M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026221F008A5;
-	Fri,  6 Nov 2026 12:52:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YO6qJheh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B84C41F0089F;
+	Fri,  6 Nov 2026 12:59:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793969559;
-	bh=EgI1rb0KeKR397/pGzURcKLJ3aEPeSa2azYReaCnN9g=;
+	s=k20260515; t=1793969963;
+	bh=fiYwLEHB3UDkX1HTg9ZN8aoSra0A2vaRIEd4CmgIwKs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XgLfh7+MiqPM/jtUj7EII2pKhtRCsCQCozI3pFRdDCp3O+/de1VVMRwOOI8A0RXTj
-	 46dACKuCUXM4xjHfxtY+NdHTQ3dsR45ZEHNznyE6HxW+/p+Wk3qRjHdVfUtTceh8yj
-	 tpnATs0+UYApytw8vYXm4oPXJCkU7swKJapGBLTGrFQ/yauK0/9TAuu6vdlrA78Qos
-	 zfGCfeDwO7EFBPZ0xkWnuDEzE3SMSZ1eONCKq2YlSaEgPCJT9dsZlZKBpeyt8FlN7b
-	 aPrQKCbQZfOBvb+zN7umiNgZgbO2AeXCB735x+jLzIHHouFVlJR1HYTF+uFvGRBVFT
-	 YL83lNfcPSO3g==
+	b=YO6qJhehT8BcrGBRzr68uboZKbM17seWksY3o5/O1taGOVy45A46lY3Ij23NWipIg
+	 2lqUQttyJHt7CS9igUOfsw1IPW0bO9fP30uKy5D5MV+lLlgkKc00Vq4zOcs79fg6fl
+	 qk+RvgEJ//WDYjiOkUTT3UlRpi+ZimsTEEjzO02/UPLUTUs73IDoZX80VahDFrjQMU
+	 JFo+012dy8dYrBy4JummquCdDo+VALdkc55y/QTjFrvnwWHlvuWuvnmRsdgo02i9Y3
+	 Pasb3GIuo9n+zfPSHjDHEQ+6PZL7upHRCqThWp6e1usALbdwzuPZ9eu61opoJ/j59V
+	 P68BuZEJvD9ng==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chuck Lever <cel@kernel.org>,
-	syzbot+edbebd898142ee5e24ce@syzkaller.appspotmail.com,
+	sashiko-bot <sashiko-bot@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] NFSD: Complete a cld upcall when the daemon closes the pipe
-Date: Fri,  6 Nov 2026 07:52:37 -0500
-Message-ID: <20261106125227.15863-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] NFSD: Map flex file layout IDs through the request's user namespace
+Date: Fri,  6 Nov 2026 07:59:21 -0500
+Message-ID: <20261106125901.15517-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106125227.15863-1-sashal@kernel.org>
-References: <2026110456-scribing-radio-40c1@gregkh>
- <20261106125227.15863-1-sashal@kernel.org>
+In-Reply-To: <2026110409-never-carnation-defe@gregkh>
+References: <2026110409-never-carnation-defe@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,78 +64,174 @@ Content-Transfer-Encoding: 8bit
 
 From: Chuck Lever <cel@kernel.org>
 
-[ Upstream commit 2a83fcb50f3c25c493cc4389619340fefe9d6ac4 ]
+[ Upstream commit f913d5d2130a584d1a027ffe3dfd88b6be2e0540 ]
 
-Once nfsdcld has read a whole upcall, rpc_pipe_read() unlinks the
-message from every pipe list, so the purges in rpc_pipe_release()
-and rpc_close_pipes() no longer reach it. cld_upcall_ops supplies no
-.release_pipe callback, and cld_pipe_destroy_msg() returns without
-completing the upcall because a downcall is expected to follow. A
-daemon that exits between the read and the write therefore strands
-its waiter: the nfsd thread sleeps in TASK_UNINTERRUPTIBLE in
-__cld_pipe_upcall() and never returns, hung task warnings follow,
-and the server cannot be shut down.
+nfsd4_ff_proc_layoutget() and nfsd4_ff_encode_layoutget() translate
+the file's owner and group with init_user_ns, but every other identity
+nfsd places on the wire goes through nfsd_user_namespace(). When the
+transport carries a credential from a non-initial user namespace, the
+flex file layout reports host-global IDs. The client copies those IDs
+into the AUTH_SYS credential it presents to the data server, and
+svcauth_unix_accept() resolves that credential in the transport's
+namespace, so data server I/O runs under an identity unrelated to the
+file's owner.
 
-Add a .release_pipe that completes every upcall the daemon has
-consumed. cu_inflight distinguishes those from upcalls still queued
-on the pipe, which the framework purges before it calls this
-callback; cld_pipe_downcall() removes an upcall it accepts from
-cn_list under the same lock. Neither can be completed twice.
+Switching to the request's namespace introduces a second hazard.
+from_kuid() returns (uid_t)-1 when the target namespace has no
+mapping for the owner, and the IOMODE_READ arm adds one to that
+result to derive an identity for which the data server denies
+writes. The addition would wrap to zero, handing the client uid 0
+instead of an identity distinct from the owner.
 
-Fail the stranded upcall with -EPIPE rather than the -EAGAIN that
-makes cld_pipe_upcall() retry. The daemon consumed the request, so
-whether it acted on it before exiting is unknown.
+Translate both IDs in nfsd4_ff_proc_layoutget(), which has the
+svc_rqst, and carry the wire values in struct pnfs_ff_layout.
+from_kuid_munged() substitutes overflowuid for an unmapped owner and
+thus never returns (uid_t)-1, so the increment cannot wrap to zero.
 
-Fixes: f3f8014862d8 ("nfsd: add the infrastructure to handle the cld upcall")
-Reported-by: syzbot+edbebd898142ee5e24ce@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/linux-nfs/6a99f6f0.2e567484.299ffc.000c.GAE@google.com/
+Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260901-alemi-v2-7-e163f94a3a6e@kernel.org
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260720141442.783935-1-cel@kernel.org?part=3
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260720163724.810227-1-cel@kernel.org
 Signed-off-by: Chuck Lever <cel@kernel.org>
+[ sashal: added the missing rqstp argument to the proc_layoutget callback interface, caller and implementations ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs4recover.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ fs/nfsd/blocklayout.c       |  4 ++--
+ fs/nfsd/flexfilelayout.c    | 24 ++++++++++++++----------
+ fs/nfsd/flexfilelayoutxdr.c |  4 ++--
+ fs/nfsd/flexfilelayoutxdr.h |  5 +++--
+ fs/nfsd/nfs4proc.c          |  2 +-
+ fs/nfsd/pnfs.h              |  4 ++--
+ 6 files changed, 24 insertions(+), 19 deletions(-)
 
-diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
-index 2b7aafca359bf..b2597a7c72311 100644
---- a/fs/nfsd/nfs4recover.c
-+++ b/fs/nfsd/nfs4recover.c
-@@ -937,10 +937,34 @@ cld_pipe_destroy_msg(struct rpc_pipe_msg *msg)
- 	complete(&cup->cu_done);
- }
+diff --git a/fs/nfsd/blocklayout.c b/fs/nfsd/blocklayout.c
+index 5eae60425e57c..bbb999c9bab99 100644
+--- a/fs/nfsd/blocklayout.c
++++ b/fs/nfsd/blocklayout.c
+@@ -18,8 +18,8 @@
  
-+/*
-+ * An upcall the daemon has consumed is off every pipe list, so the
-+ * purge in rpc_pipe_release() and rpc_close_pipes() cannot reach it.
-+ * Release its waiter here instead; no downcall can arrive now.
-+ */
-+static void
-+cld_release_pipe(struct inode *inode)
-+{
-+	struct nfsd_net *nn = net_generic(inode->i_sb->s_fs_info, nfsd_net_id);
-+	struct cld_net *cn = nn->cld_net;
-+	struct cld_upcall *cup;
-+
-+	spin_lock(&cn->cn_lock);
-+	list_for_each_entry(cup, &cn->cn_list, cu_list) {
-+		if (!cup->cu_inflight)
-+			continue;
-+		cup->cu_inflight = false;
-+		cup->cu_pipe_msg.errno = -EPIPE;
-+		complete(&cup->cu_done);
-+	}
-+	spin_unlock(&cn->cn_lock);
-+}
-+
- static const struct rpc_pipe_ops cld_upcall_ops = {
- 	.upcall		= rpc_pipe_generic_upcall,
- 	.downcall	= cld_pipe_downcall,
- 	.destroy_msg	= cld_pipe_destroy_msg,
-+	.release_pipe	= cld_release_pipe,
- };
  
- static struct dentry *
+ static __be32
+-nfsd4_block_proc_layoutget(struct inode *inode, const struct svc_fh *fhp,
+-		struct nfsd4_layoutget *args)
++nfsd4_block_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
++		const struct svc_fh *fhp, struct nfsd4_layoutget *args)
+ {
+ 	struct nfsd4_layout_seg *seg = &args->lg_seg;
+ 	struct super_block *sb = inode->i_sb;
+diff --git a/fs/nfsd/flexfilelayout.c b/fs/nfsd/flexfilelayout.c
+index 0bc52e6bec394..3c6a80c010957 100644
+--- a/fs/nfsd/flexfilelayout.c
++++ b/fs/nfsd/flexfilelayout.c
+@@ -14,19 +14,20 @@
+ #include <linux/sunrpc/addr.h>
+ 
+ #include "flexfilelayoutxdr.h"
++#include "auth.h"
+ #include "pnfs.h"
+ #include "vfs.h"
+ 
+ #define NFSDDBG_FACILITY	NFSDDBG_PNFS
+ 
+ static __be32
+-nfsd4_ff_proc_layoutget(struct inode *inode, const struct svc_fh *fhp,
+-		struct nfsd4_layoutget *args)
++nfsd4_ff_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
++		const struct svc_fh *fhp, struct nfsd4_layoutget *args)
+ {
++	struct user_namespace *userns = nfsd_user_namespace(rqstp);
+ 	struct nfsd4_layout_seg *seg = &args->lg_seg;
+ 	u32 device_generation = 0;
+ 	int error;
+-	uid_t u;
+ 
+ 	struct pnfs_ff_layout *fl;
+ 
+@@ -49,13 +50,16 @@ nfsd4_ff_proc_layoutget(struct inode *inode, const struct svc_fh *fhp,
+ 	fl->flags = FF_FLAGS_NO_LAYOUTCOMMIT | FF_FLAGS_NO_IO_THRU_MDS |
+ 		    FF_FLAGS_NO_READ_IO;
+ 
+-	/* Do not allow a IOMODE_READ segment to have write pemissions */
+-	if (seg->iomode == IOMODE_READ) {
+-		u = from_kuid(&init_user_ns, inode->i_uid) + 1;
+-		fl->uid = make_kuid(&init_user_ns, u);
+-	} else
+-		fl->uid = inode->i_uid;
+-	fl->gid = inode->i_gid;
++	fl->uid = from_kuid_munged(userns, inode->i_uid);
++	fl->gid = from_kgid_munged(userns, inode->i_gid);
++
++	/*
++	 * Do not allow an IOMODE_READ segment to have write permissions.
++	 * The group is left intact so group-readable files stay readable;
++	 * nfsd_setuser() squashes an unmapped uid to the export's anon ID.
++	 */
++	if (seg->iomode == IOMODE_READ)
++		fl->uid++;
+ 
+ 	error = nfsd4_set_deviceid(&fl->deviceid, fhp, device_generation);
+ 	if (error)
+diff --git a/fs/nfsd/flexfilelayoutxdr.c b/fs/nfsd/flexfilelayoutxdr.c
+index c05d1d3e20210..4bfdfee1bf9ce 100644
+--- a/fs/nfsd/flexfilelayoutxdr.c
++++ b/fs/nfsd/flexfilelayoutxdr.c
+@@ -32,8 +32,8 @@ nfsd4_ff_encode_layoutget(struct xdr_stream *xdr,
+ 
+ 	fh_len = 4 + xdr_align_size(fl->fh.size);
+ 
+-	uid.len = sprintf(uid.buf, "%u", from_kuid(&init_user_ns, fl->uid));
+-	gid.len = sprintf(gid.buf, "%u", from_kgid(&init_user_ns, fl->gid));
++	uid.len = sprintf(uid.buf, "%u", fl->uid);
++	gid.len = sprintf(gid.buf, "%u", fl->gid);
+ 
+ 	/* data server entry: deviceid + efficiency + stateid + fh list +
+ 	 * user + group + flags + stats_collect_hint
+diff --git a/fs/nfsd/flexfilelayoutxdr.h b/fs/nfsd/flexfilelayoutxdr.h
+index 8e195aeca0237..3e2dc4d070f8d 100644
+--- a/fs/nfsd/flexfilelayoutxdr.h
++++ b/fs/nfsd/flexfilelayoutxdr.h
+@@ -35,8 +35,9 @@ struct pnfs_ff_device_addr {
+ struct pnfs_ff_layout {
+ 	u32				flags;
+ 	u32				stats_collect_hint;
+-	kuid_t				uid;
+-	kgid_t				gid;
++	/* Values to encode; nfsd4_ff_proc_layoutget() has mapped these */
++	u32				uid;
++	u32				gid;
+ 	struct nfsd4_deviceid		deviceid;
+ 	stateid_t			stateid;
+ 	struct nfs_fh			fh;
+diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
+index 3af22badd70f5..9bad4740101fa 100644
+--- a/fs/nfsd/nfs4proc.c
++++ b/fs/nfsd/nfs4proc.c
+@@ -2260,7 +2260,7 @@ nfsd4_layoutget(struct svc_rqst *rqstp,
+ 	if (atomic_read(&ls->ls_stid.sc_file->fi_lo_recalls))
+ 		goto out_put_stid;
+ 
+-	nfserr = ops->proc_layoutget(d_inode(current_fh->fh_dentry),
++	nfserr = ops->proc_layoutget(rqstp, d_inode(current_fh->fh_dentry),
+ 				     current_fh, lgp);
+ 	if (nfserr)
+ 		goto out_put_stid;
+diff --git a/fs/nfsd/pnfs.h b/fs/nfsd/pnfs.h
+index 4f4282d4eeca4..c29de1795b2cb 100644
+--- a/fs/nfsd/pnfs.h
++++ b/fs/nfsd/pnfs.h
+@@ -29,8 +29,8 @@ struct nfsd4_layout_ops {
+ 	__be32 (*encode_getdeviceinfo)(struct xdr_stream *xdr,
+ 			struct nfsd4_getdeviceinfo *gdevp);
+ 
+-	__be32 (*proc_layoutget)(struct inode *, const struct svc_fh *fhp,
+-			struct nfsd4_layoutget *lgp);
++	__be32 (*proc_layoutget)(struct svc_rqst *rqstp, struct inode *inode,
++			const struct svc_fh *fhp, struct nfsd4_layoutget *lgp);
+ 	__be32 (*encode_layoutget)(struct xdr_stream *,
+ 			struct nfsd4_layoutget *lgp);
+ 
 -- 
 2.53.0
 
