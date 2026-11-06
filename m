@@ -1,114 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793981082;
-	b=p7yH+N4FlzWN8aa0Zcq403RNaWD/jCUFX6GlVxfDiFbDjiXuw6YNwA1OSRQed9H1L7Cl
-	 pxSQpdLduhDHO5s09bVKPe8xe4CoZuvPYFdMGq9jsgNh912FHgtUeKm0k66BjqJyOQj0H
-	 nlWTOu0zgWFExlMH3RAR+qZ/J8L07ebPKmLQbl5a0YiIjJYwTuXOVWBgDW0C3A46Xzxfy
-	 nEz5e/cRpf0CwH/rHTmZv/VjMKhyoiPCrHIhrlTPAmfmkN0a1YTrodczhy0IS9t+D9Qnl
-	 rYQrdNMuKBXZa1N80qDr6kp3x5t9PWApoCwG2xn8z6LAh4Lxt51oBZyFIILJGRrDv3Q==
+	t=1793981248;
+	b=AuIWvs84xO+cZB1ePVVYXbQH/FY7ZW6OIrWqZNi7ic8H/8xjEATwfv09JtAJIK+iuxGi
+	 OfHSJLnUnrCtUr+6xTjwLI5lr9k4sIkb96mQ4zaBypP9K/0wErXVolmJApmqVGl+Kqs0E
+	 gHLwyyY6tmlibMyjOu5hUJyo6HNhkXtw8rqsF4tJdhNaiz17aQyQzyl5tRId2mpcw2k6K
+	 nAAfv0Aunqt7Mr66sLKRX5j/ryoYahhonJabRxCfC6iirYWukBj2vWVwubV1OQtpDyBvT
+	 97dUNthuyuY4wZtxylMy/ABOeclLVVA4a140LIBQTyz/LysRs2agykV5CmOaLo4hUjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981082;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IbAo/XVll2SGDEss8QZao+7wapwcfSzf7Q09tuS5w64=;
-	b=NtucE0cuwnWTDtlbNLBKSq+OGJ3CFetKXLs/jK4H1tsDdZTaSKfUfgfC2QgT/eZUCIdw
-	 bs01JKazLoGm6o5K10sGRdnPnHJoXzRoghEUf202g0g3y+FbGCYGcPkH4JnXMzgSvxH4J
-	 M9KHAZohppQouy72WnvPl+3H9RKNRJ0r+BT4WHHIqSzetHOuohrgLyCbYjENT3Madpra6
-	 vs8yzQ38RHRMueGgWzbV/PSXyG4a014YocO8n76KGRUnWn8RooquaPH0hG6BDc3/c1//E
-	 hOLPwtkj+IE2qIb2PlIlMxNLEJYUIuM4czQcLVzlsCJz2RdwBw87rhCw/l4IDro+aWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981248;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=00+S1ncG6YAwmfnUVxPizp2qUUiAsuEdaMz3ipr8jcQ=;
+	b=wzNAFhvoUc23kNOxgL7T5avqT+45efPhlwpWrd5AraBEx03t8q5LUEGxUsWg3l+Dx340
+	 pVEtm5XOXdkaBxzX5l+36MaEFEWIT+9cU7HQeagrK2VZ4rKLnWd1PMNRHOw5EiKDFIJEN
+	 Ylc75oXwljCcqSmgjgWbxgJbPEqIaOhnMKQSd7pxPtDyoF7moNYAhaXbM58uG5uEVT5s4
+	 URv1nUt8WO5RSen+vQnOCM8s0bKjInKHAZIWAMs5Tdcwm9C4WLs15Q2LW1vexRiTa7n0g
+	 zmTwuMfcG5rA8dCe9a+uxaeGnysfMzDuvVIKMa+3g35HZQdn9qeRHFv+H+IdHfze9HQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=toAU0PUL;
-	arc=none smtp.remote-ip=209.85.128.179
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D7hgOwqT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27371606A32C
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 16:04:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27371606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F383A606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 16:07:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=toAU0PUL
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b305d38bafso6698027b3.3
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 08:04:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793981081; x=1794585881; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IbAo/XVll2SGDEss8QZao+7wapwcfSzf7Q09tuS5w64=;
-        b=toAU0PULMx4lp0K6cH2kYZw6ovTqDdgIJzh+GWMSgQ+Il0iqLfTky5m9VdTiMzQ8ya
-         U0UdF4G8VU1K5Jh0ZslycxwOW9htwhzzdW0kg3TDzqM93UQYPworNojXBFe3CxjejcV/
-         BpPx5ucpwVhL4f0NHCawPwD/mQ8RIBgwWot8RoloN6kgnj8j4w+Ysp/dkMu/W1keuiIx
-         rAJsfm4xXhbjmXC9Bb/0xRfQG2+AZQcjNGl8WmrfVQhfHSCMA4oVIJy3Sw3eCB3iUT5j
-         h9Ps+7wL4hJpa82Udn3PQJZLNksCf/vZw+QidI60lBnaN9AyFcBUvLxCam8COnRTJG2Y
-         CcOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793981081; x=1794585881;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IbAo/XVll2SGDEss8QZao+7wapwcfSzf7Q09tuS5w64=;
-        b=SqJbLZv9M3Q17/RrenCOCWUC3/mDgJT7/vGHOhWd4AzM6tO6ddjEj+JX82/Y6+Hggy
-         u26ijyatJzFAIEe6JhcHVtK34HjljDEVl+LUqgJV5RNpmASaZ8yQeTJ2X8tpvCft2IUB
-         dBYryvKxZglJo5RXk3GTZX5vRGwQb6ElQL7gYWP1OwqEkFKM8pzy7mm6NqMa6KQBg8wg
-         ETc8HsNoBShYbL6ofyU3P2sdBz3btL1TcYPFXY0QPPgmGfbSKFwQ7/8x4P5Rptp/TNl/
-         LsvVGBgIOqP3rIloBT5t4C1ojTZKOuDs4whMzYOW7w86u6WfiLhzwX3a+4gJxdep1bSE
-         ZKbA==
-X-Gm-Message-State: APuU4Z9kgwbzBfo+mf+9nFzVNkSUB/McMF/npIaEo+Dc+qGuEenyzMQP
-	7u49eJpHqDBtuHnmy4mscOPH3vukiPQFwrle3M1QbyqLPaxyIB7Hr5VAlZx2DNrp
-X-Gm-Gg: AYBFou12eMtM1EjD5q4giJg+wXmzWjHhyd5E+6G/BMvOGxGOUgxoDYVvn2hIv1cPjHS
-	2aIrDAEBLa25WW/ZJOUMOoEA4pCm3kSfBnYhYIiEjy1RyMtx1/lj4x35+2M/1aa/K8Qc46HeeBJ
-	9u9Z4Zip5ke6vYpjlX2Jlb5V0lDQ1yHouLZcfAc3JpqbZJZknPTSlUy8LwRh4BO+HygedvfbhPf
-	x1uzH77FsA50/4jQbgKeq826KYOnqimHe94PaRYHbSQAD8Fny8DLRIF+/n0Ivm/WDx61072e1Z/
-	7Cc6/5A/xGPEAHiWAWwRJMYc8g5msGMJAw1n8+MdhsahWODwdlWKgnAHHMeu6VCQQMTdklI+86w
-	eOc63rfp35YwGQLhpmf9aBR9mkoJS6jaqoRUg09yfjvdQn0Sa0KcInX9QQhnXa/y/tsK7Apz5Pr
-	JY7mZs0IflQw++68XiUpsrk0tvaZrQfr1wpPDtUWaqG0++n+yL0a6tKdLVL4GP/hY3YMQLDLEcH
-	7Z/9+CMdi1O98cqi+ylJ3XAxvvuicLt3zYgy7bAOvODtbOgChG/BwRAe/bzS4dT919lfiQtRIQm
-	0bIVSH2VqGXU4X8lANgEzwKEyT/3xa6Fa+rOd6hcGZa1lP0F04CVHjcEmrT/QWPlIfkbjkAb3Go
-	wcJ2Djde+xIe7dMwCn5VweHYPkAlMgQsc99HpsA==
-X-Received: by 2002:a05:690c:9517:b0:8b3:3fc5:2be with SMTP id 00721157ae682-8b341947d76mr12228297b3.20.1793981080879;
-        Fri, 06 Nov 2026 08:04:40 -0800 (PST)
-Received: from localhost ([2a03:2880:10ff:4a::])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b33f7fec67sm22059507b3.22.2026.11.06.08.04.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 08:04:39 -0800 (PST)
-From: Nhat Pham <nphamcs@gmail.com>
-To: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	axelrasmussen@google.com,
-	baohua@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	baoquan.he@linux.dev,
-	brauner@kernel.org,
-	chrisl@kernel.org,
-	david@kernel.org,
-	hannes@cmpxchg.org,
-	kasong@tencent.com,
-	ljs@kernel.org,
-	mhocko@kernel.org,
-	nphamcs@gmail.com,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	shikemeng@huaweicloud.com,
-	weixugc@google.com,
-	willy@infradead.org,
-	youngjun.park@lge.com,
-	yuanchu@google.com
-Cc: stable@vger.kernel.org,
-	ryncsn@gmail.com
-Subject: [PATCH 2/2] mm/swap: publish cluster tables after reacquiring allocator locks
-Date: Fri,  6 Nov 2026 08:04:32 -0800
-Message-ID: <20261106160432.2552507-3-nphamcs@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D7hgOwqT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13EA21F0089F;
+	Fri,  6 Nov 2026 16:07:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793981247;
+	bh=00+S1ncG6YAwmfnUVxPizp2qUUiAsuEdaMz3ipr8jcQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=D7hgOwqTX4ImYRgjca121GTm0/Rdf+pVSJbGn0UyatDk/w5KQIzAVAtVSmCItRSH4
+	 Rwmx+qjsU7J5SuIGoKJyVz7/iz7XwJ3sWI0JaJYru7mkmDKl5Azz4iX8e0QQatjJy9
+	 k9CUl63o5k15SM6IEKzUaEjr4T9LXo4uxpRRYpoiMKNj5BemfVmft/s0+goQm+YCHL
+	 7VbYNUKm6uMqNt0J4gyVaiTKJ+8vry41iH6PP9wRHZXmh/LVrEAL7PuGud0Vyn+7Mb
+	 /GdZVomLq1cmRsFsIRCJ1xk60UEI7qocKbrHnKWWoQ1modZMmciJld25+3Bi2bF9EQ
+	 zq4aA5kbDSumA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Keqiang Duan <duankeqiangcym@gmail.com>,
+	Qinguang Chen <chenqinguang@kuaishou.com>,
+	Zhiping Du <duzhiping@kuaishou.com>,
+	Chao Gao <chao.gao@intel.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] KVM: x86: Clear hardware HLT state when userspace makes a vCPU not-halted
+Date: Fri,  6 Nov 2026 11:07:25 -0500
+Message-ID: <20261106160636.402535-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106160432.2552507-1-nphamcs@gmail.com>
-References: <20261106160432.2552507-1-nphamcs@gmail.com>
+In-Reply-To: <2026110436-molecule-hardness-92c9@gregkh>
+References: <2026110436-molecule-hardness-92c9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -120,221 +64,138 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Under memory pressure, swap_cluster_populate() can publish a table
-while its locks are dropped for a sleeping allocation. A cached
-allocator can consume and free that table before the populating
-allocator resumes, leaving the resumed scan with a NULL table.
+From: Keqiang Duan <duankeqiangcym@gmail.com>
 
-    CPU0                           CPU1
-    swap_cluster_populate()
-      drop local/global/ci locks
-      allocate and publish table
-                                   swap_alloc_fast()
-                                     consume the table
-                                   charge failure cleanup
-                                     free the table
-      reacquire local/global/ci
-      return ci
-    alloc_swap_scan_cluster()
-      read the missing table
+[ Upstream commit 883719f57f5d3898637b130d6db4742471cad618 ]
 
-Keep the count table, cgroup table and zero bitmap private until
-swap_cluster_alloc_table() restores all allocator locks. Install them
-under the cluster lock and retain it through the scan. Initial bad-slot
-setup takes only the cluster lock because the device is unpublished.
+Force a vCPU out of its hardware-tracked halted state when userspace puts
+the vCPU into any state other than HALTED via KVM_SET_MP_STATE, i.e. clear
+VMCS.GUEST_ACTIVITY_STATE if it says the vCPU is halted.  Add an optional
+kvm_x86_ops hook to do the clearing, as SVM has no equivalent VMCB field.
 
-A stale reclaimer can return the isolated cluster to allocation while
-its locks are dropped. Abandon installation if the list state changes or
-a table appears, freeing only private allocations. Restore locks on
-allocation failure too, so the caller can return a still-isolated
-cluster to its free list.
+When HLT-exiting is disabled for a VM (KVM_CAP_X86_DISABLE_EXITS with
+KVM_X86_DISABLE_EXITS_HLT, e.g. QEMU's "-overcommit cpu-pm=on"), a guest
+HLT halts the physical CPU instead of exiting to KVM, and hardware saves
+GUEST_ACTIVITY_STATE=HLT into the VMCS on the next VM-Exit.  That field is
+sticky: it survives VM-Exit/VM-Enter and is only cleared by vmx_clear_hlt()
+on event injection, or by vmx_vcpu_reset() on INIT / vCPU creation.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/sashiko-outbox-181084@kernel.org/
-Link: https://lore.kernel.org/all/sashiko-outbox-181086@kernel.org/
-Co-developed-by: Kairui Song <ryncsn@gmail.com>
-Fixes: cdd77f84d966 ("mm, swap: consolidate cluster allocation helpers")
+Nothing clears it on a userspace-driven state change.  KVM_SET_REGS only
+writes the software register cache and KVM_SET_MP_STATE only writes
+vcpu->arch.mp_state; kvm_vcpu_running() likewise consults software state
+only.  A VMM that emulates a machine reset therefore ends up with a vCPU
+that KVM happily VM-Enters while hardware refuses to fetch instructions.
+
+Reproduce with a Linux guest by triggering a panic/kdump on a non-boot
+vCPU: nmi_shootdown_cpus() parks the other vCPUs -- including vCPU0 -- in
+crash_nmi_callback(), which does local_irq_disable() followed by a bare
+HLT.  The capture kernel then resets the machine via port 0xCF9.  QEMU
+rewrites RIP to 0xfff0 and sets mp_state to RUNNABLE, but vCPU0's
+GUEST_ACTIVITY_STATE is still HLT, so the BSP never executes the reset
+vector, never sends SIPIs, and the entire VM hangs at "reboot: machine
+restart" forever.  Only destroying and recreating the VM recovers it.
+
+Key off "not HALTED" rather than "is RUNNABLE" as HALTED is the only target
+state for which retaining the hardware halted state is meaningful; every
+other transition either can't be reached on VMX, e.g. AP_RESET_HOLD, or
+goes through vmx_vcpu_reset(), which stuffs GUEST_ACTIVITY_ACTIVE anyways.
+This also captures the intent more directly: KVM only ever drops the
+hardware halted state, it never installs it.
+
+Hook KVM_SET_MP_STATE rather than the VM-Enter path so that the clearing
+is driven by an explicit userspace declaration, and so that no work is
+added to vmx_vcpu_run().  Gate the call on kvm_hlt_in_guest() even though
+vmx_clear_hlt() checks it as well, as the check is cheap and makes it
+obvious in common code when the hardware state can exist at all.
+
+Do nothing for TDX vCPUs as TDX doesn't support disabling HLT-exiting and
+KVM cannot access a TD's VMCS, i.e. the VMCS used to run the vCPU can't
+in HALTED state, and even if it were, KVM can't change it.
+
+Fixes: caa057a2cad6 ("KVM: X86: Provide a capability to disable HLT intercepts")
 Cc: stable@vger.kernel.org
-Signed-off-by: Nhat Pham <nphamcs@gmail.com>
+Tested-by: Qinguang Chen <chenqinguang@kuaishou.com>
+Signed-off-by: Zhiping Du <duzhiping@kuaishou.com>
+Signed-off-by: Keqiang Duan <duankeqiangcym@gmail.com>
+Reviewed-by: Chao Gao <chao.gao@intel.com>
+Link: https://patch.msgid.link/20260820123512.87236-1-duankeqiangcym@gmail.com
+[sean: drop claim that spurious wakeups are ok, massage changelog]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[ sashal: Adapted clear_hlt to the existing VMX callback interface using KVM_X86_OP_NULL and static_call_cond(). ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/swapfile.c | 106 +++++++++++++++++++++++++++++++++++---------------
- 1 file changed, 74 insertions(+), 32 deletions(-)
+ arch/x86/include/asm/kvm-x86-ops.h |  1 +
+ arch/x86/include/asm/kvm_host.h    |  7 +++++++
+ arch/x86/kvm/vmx/vmx.c             |  1 +
+ arch/x86/kvm/x86.c                 | 13 +++++++++++++
+ 4 files changed, 22 insertions(+)
 
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 189f04d8838f..162a73a9e663 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -449,15 +449,23 @@ static void swap_cluster_free_table(struct swap_cluster_info *ci)
- 	swap_cluster_free_count_table(table);
- }
- 
--static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t gfp)
-+/*
-+ * Return with ci locked. An unlocked allocator also needs si's outer locks;
-+ * initial bad-slot setup passes NULL because the device is not published.
-+ */
-+static int swap_cluster_alloc_table(struct swap_info_struct *si,
-+				    struct swap_cluster_info *ci,
-+				    gfp_t gfp, bool locked)
- {
- 	struct swap_table *table = NULL;
-+#ifdef CONFIG_MEMCG
-+	struct swap_memcg_table *memcg_table = NULL;
-+#endif
-+#if !SWAP_TABLE_HAS_ZEROFLAG
-+	unsigned long *zero_bitmap = NULL;
-+#endif
- 	struct folio *folio;
--
--	/* The cluster must be empty and not on any list during allocation. */
--	VM_WARN_ON_ONCE(ci->flags || !cluster_is_empty(ci));
--	if (rcu_access_pointer(ci->table))
--		return 0;
-+	int ret = -ENOMEM;
- 
- 	if (SWP_TABLE_USE_PAGE) {
- 		folio = folio_alloc(gfp | __GFP_ZERO, 0);
-@@ -467,27 +475,49 @@ static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t gfp)
- 		table = kmem_cache_zalloc(swap_table_cachep, gfp);
- 	}
- 	if (!table)
--		return -ENOMEM;
-+		goto lock;
- 
- #ifdef CONFIG_MEMCG
- 	if (!mem_cgroup_disabled()) {
--		VM_WARN_ON_ONCE(ci->memcg_table);
--		ci->memcg_table = kzalloc_obj(*ci->memcg_table, gfp);
--		if (!ci->memcg_table) {
--			swap_cluster_free_count_table(table);
--			return -ENOMEM;
--		}
-+		memcg_table = kzalloc_obj(*ci->memcg_table, gfp);
-+		if (!memcg_table)
-+			goto lock;
- 	}
- #endif
- 
- #if !SWAP_TABLE_HAS_ZEROFLAG
--	VM_WARN_ON_ONCE(ci->zero_bitmap);
--	ci->zero_bitmap = bitmap_zalloc(SWAPFILE_CLUSTER, gfp);
--	if (!ci->zero_bitmap) {
--		swap_cluster_free_table(ci);
--		swap_cluster_free_count_table(table);
--		return -ENOMEM;
-+	zero_bitmap = bitmap_zalloc(SWAPFILE_CLUSTER, gfp);
-+	if (!zero_bitmap)
-+		goto lock;
-+#endif
-+	ret = 0;
+diff --git a/arch/x86/include/asm/kvm-x86-ops.h b/arch/x86/include/asm/kvm-x86-ops.h
+index 9e00275576b1f..dae111324c0e6 100644
+--- a/arch/x86/include/asm/kvm-x86-ops.h
++++ b/arch/x86/include/asm/kvm-x86-ops.h
+@@ -71,6 +71,7 @@ KVM_X86_OP(interrupt_allowed)
+ KVM_X86_OP(nmi_allowed)
+ KVM_X86_OP(get_nmi_mask)
+ KVM_X86_OP(set_nmi_mask)
++KVM_X86_OP_NULL(clear_hlt)
+ KVM_X86_OP(enable_nmi_window)
+ KVM_X86_OP(enable_irq_window)
+ KVM_X86_OP(update_cr8_intercept)
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index d31817fb39620..8bdf591d93c17 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -1394,6 +1394,13 @@ struct kvm_x86_ops {
+ 	int (*nmi_allowed)(struct kvm_vcpu *vcpu, bool for_injection);
+ 	bool (*get_nmi_mask)(struct kvm_vcpu *vcpu);
+ 	void (*set_nmi_mask)(struct kvm_vcpu *vcpu, bool masked);
++	/*
++	 * Force the vCPU out of any hardware-tracked halted/inactive state so
++	 * that it will fetch and execute instructions on the next VM-Enter.
++	 * Only needed by VMX, where VMCS.GUEST_ACTIVITY_STATE persists across
++	 * VM-Exit/VM-Enter; SVM has no equivalent VMCB field.
++	 */
++	void (*clear_hlt)(struct kvm_vcpu *vcpu);
+ 	void (*enable_nmi_window)(struct kvm_vcpu *vcpu);
+ 	void (*enable_irq_window)(struct kvm_vcpu *vcpu);
+ 	void (*update_cr8_intercept)(struct kvm_vcpu *vcpu, int tpr, int irr);
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index 77b1161e36e74..c234c6ff88490 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -7810,6 +7810,7 @@ static struct kvm_x86_ops vmx_x86_ops __initdata = {
+ 	.nmi_allowed = vmx_nmi_allowed,
+ 	.get_nmi_mask = vmx_get_nmi_mask,
+ 	.set_nmi_mask = vmx_set_nmi_mask,
++	.clear_hlt = vmx_clear_hlt,
+ 	.enable_nmi_window = vmx_enable_nmi_window,
+ 	.enable_irq_window = vmx_enable_irq_window,
+ 	.update_cr8_intercept = vmx_update_cr8_intercept,
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index bbfc8ccf4fcd9..99f58a57280a4 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -10666,6 +10666,19 @@ int kvm_arch_vcpu_ioctl_set_mpstate(struct kvm_vcpu *vcpu,
+ 		set_bit(KVM_APIC_SIPI, &vcpu->arch.apic->pending_events);
+ 	} else
+ 		vcpu->arch.mp_state = mp_state->mp_state;
 +
-+lock:
-+	if (!locked) {
-+		if (si) {
-+			local_lock(&percpu_swap_cluster.lock);
-+			if (!(si->flags & SWP_SOLIDSTATE))
-+				spin_lock(&si->global_cluster_lock);
-+		}
-+		spin_lock(&ci->lock);
- 	}
-+	lockdep_assert_held(&ci->lock);
++	/*
++	 * Force the vCPU out of any hardware-tracked halted state, e.g. VMX's
++	 * GUEST_ACTIVITY_STATE=HLT, when userspace puts the vCPU into a state
++	 * other than HALTED.  The hardware state is sticky across VM-Exit and
++	 * VM-Enter and is not touched by any other ioctl, so a vCPU that halted
++	 * with HLT-exiting disabled stays wedged even after userspace rewrites
++	 * its registers, e.g. when a VMM emulates a machine reset.
++	 */
++	if (kvm_hlt_in_guest(vcpu->kvm) &&
++	    mp_state->mp_state != KVM_MP_STATE_HALTED)
++		static_call_cond(kvm_x86_clear_hlt)(vcpu);
 +
-+	/* A stale reclaimer may have returned the cluster to allocation. */
-+	if (ci->flags != CLUSTER_FLAG_NONE || cluster_table_is_alloced(ci))
-+		ret = -EAGAIN;
-+	if (ret)
-+		goto free;
-+
-+	/* The cluster must be empty and not on any list during allocation. */
-+	VM_WARN_ON_ONCE(!cluster_is_empty(ci));
-+#ifdef CONFIG_MEMCG
-+	VM_WARN_ON_ONCE(ci->memcg_table);
-+	ci->memcg_table = memcg_table;
-+#endif
-+#if !SWAP_TABLE_HAS_ZEROFLAG
-+	VM_WARN_ON_ONCE(ci->zero_bitmap);
-+	ci->zero_bitmap = zero_bitmap;
- #endif
+ 	kvm_make_request(KVM_REQ_EVENT, vcpu);
  
- 	/*
-@@ -496,6 +526,17 @@ static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t gfp)
- 	 */
- 	rcu_assign_pointer(ci->table, table);
- 	return 0;
-+
-+free:
-+#ifdef CONFIG_MEMCG
-+	kfree(memcg_table);
-+#endif
-+#if !SWAP_TABLE_HAS_ZEROFLAG
-+	bitmap_free(zero_bitmap);
-+#endif
-+	if (table)
-+		swap_cluster_free_count_table(table);
-+	return ret;
- }
- 
- /*
-@@ -546,8 +587,8 @@ swap_cluster_populate(struct swap_info_struct *si,
- 		lockdep_assert_held(&si->global_cluster_lock);
- 	lockdep_assert_held(&ci->lock);
- 
--	if (!swap_cluster_alloc_table(ci, __GFP_HIGH | __GFP_NOMEMALLOC |
--					  __GFP_NOWARN))
-+	if (!swap_cluster_alloc_table(si, ci, __GFP_HIGH | __GFP_NOMEMALLOC |
-+					      __GFP_NOWARN, true))
- 		return ci;
- 
- 	/*
-@@ -560,8 +601,8 @@ swap_cluster_populate(struct swap_info_struct *si,
- 		spin_unlock(&si->global_cluster_lock);
- 	local_unlock(&percpu_swap_cluster.lock);
- 
--	ret = swap_cluster_alloc_table(ci, __GFP_HIGH | __GFP_NOMEMALLOC |
--					   GFP_KERNEL);
-+	ret = swap_cluster_alloc_table(si, ci, __GFP_HIGH | __GFP_NOMEMALLOC |
-+					     GFP_KERNEL, false);
- 
- 	/*
- 	 * Back to atomic context. We might have migrated to a new CPU with a
-@@ -571,13 +612,9 @@ swap_cluster_populate(struct swap_info_struct *si,
- 	 * could happen with ignoring the percpu cluster is fragmentation,
- 	 * which is acceptable since this fallback and race is rare.
- 	 */
--	local_lock(&percpu_swap_cluster.lock);
--	if (!(si->flags & SWP_SOLIDSTATE))
--		spin_lock(&si->global_cluster_lock);
--	spin_lock(&ci->lock);
--
- 	if (ret) {
--		move_cluster(si, ci, &si->free_clusters, CLUSTER_FLAG_FREE);
-+		if (ret != -EAGAIN)
-+			move_cluster(si, ci, &si->free_clusters, CLUSTER_FLAG_FREE);
- 		spin_unlock(&ci->lock);
- 		return NULL;
- 	}
-@@ -825,9 +862,13 @@ static int swap_cluster_setup_bad_slot(struct swap_info_struct *si,
- 
- 	ci = cluster_info + idx;
- 	/* Need to allocate swap table first for initial bad slot marking. */
--	if (!ci->count && swap_cluster_alloc_table(ci, GFP_KERNEL))
--		return -ENOMEM;
--	spin_lock(&ci->lock);
-+	if (!ci->count) {
-+		ret = swap_cluster_alloc_table(NULL, ci, GFP_KERNEL, false);
-+		if (ret)
-+			goto out;
-+	} else {
-+		spin_lock(&ci->lock);
-+	}
- 	/* Check for duplicated bad swap slots. */
- 	if (__swap_table_xchg(ci, ci_off, SWP_TB_BAD) != SWP_TB_NULL) {
- 		pr_warn("Duplicated bad slot offset %d\n", offset);
-@@ -835,6 +876,7 @@ static int swap_cluster_setup_bad_slot(struct swap_info_struct *si,
- 	} else {
- 		ci->count++;
- 	}
-+out:
- 	spin_unlock(&ci->lock);
- 
- 	WARN_ON(ci->count > SWAPFILE_CLUSTER);
+ 	ret = 0;
+-- 
+2.53.0
+
