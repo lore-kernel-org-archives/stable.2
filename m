@@ -1,91 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793988002;
-	b=IHd4emn40B03bHSDo+AbHr3DRffK5+zkhGV8kJvjIavruw4jFs+46zR7FWw27QnKA7q4
-	 Cl5kt+n5cRX8zyIbrOunkntCQXa6LVmdSYBsn3lH609ll/jbQ8gfUaBZkAsKxdskUkTGc
-	 8RJFXNtOAmG4SdnYwc24A5N9ABxpjhWPTPNnzIhj+xwIuXCqMmAPAcqXyo/7NGfYbPe2i
-	 DUxmfhCdtmoHfelZl63/t8uOpfMd3Re3VEXahP8GIOMgdaoTpobxT6BLXiurGlvhe0F2O
-	 KWJt7zWTsvGdx2ODpVLmP6EzJm5rvJGrqumqmRK6UEqCFLJxubZ1hCb2QP+iu2DAFog==
+	t=1793988035;
+	b=wjGhZta+O/inYaRJtkwQ1j7CpA/idGlgP38iymGi0uy/PAlgBcw6vZQ8w/xoUEmonlY6
+	 kQmSqQArq/FUA9+ZW4k7QvN8C6Yakxhu6xZUwlggH371nDNDij5REsDOkhg70jZDdtUxo
+	 PEnTRCXP0svyP1JgKjN0rPn8c9q/OankEU6x1CyUXaosL9VwkKvBVFGa6P9mkMiu3Rq1g
+	 KdYsjXwDrki1MkUMp+zZpTigdAacLhIsMbGs/j1W6EIKTWz17Jfv8xUufDSAjCMNtL8xl
+	 lzr3GRXA1KpX+T9VY/svD1pC1Uf3b7FwtfCP760r5wSAfTa6jLyhlSsy7y+DBlB7Amw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988002;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=l+HBRH6Z2Sf6XQfzze6i5pft1TRrO4lvAq6O629kQwQ=;
-	b=v5DoVuNDQOJuNd77Ejruky3m4L7h6YNGle7MXykZ/SY9PAZ0lL830FQ9YIZiYYKWUKlQ
-	 Qrr6IIoT3fMDV8JyWgMbYhuUmrnceMGIDmPMy9wbgvgJ9DWJOHwSM88HlVzq6DDyVNErp
-	 /0bEhe6HSg8vxvb33HOBB2+T7+9epeS4tP/lFE3Kd8wL/JCbPMXyYRQ5vOuagzHfDuBGX
-	 dYEaMhR1NfASUiBXMpSg3JQTPPuU0Oq2/tGCAZbuxmeBYwnZDS5NVbA4jExwlHvlJbEiK
-	 iI3yAJS3HHUN5CG1mCYAfA14k/yxjOU4b8xIEZIqQvYw5c+pLyTTWJPBKak2k6RkZBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793988035;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Xr+SISH5RV62XIiVtNL1uZtms8VkD967JZr1xeYJsAQ=;
+	b=OmM55178JvlUrqukl0l1NXfIlWr5Ou5rMnWTRIlye41irtivCuKC2XU4UGvKbkbXyDSx
+	 5SRZ+U68lHd4wFXJPTJpvHgAKnOruPazjk9fO51riuxRLsrhZDM+UJFQo4e1zZmw0VrrK
+	 q2s1eWwvVGLwiK3pGCexnqNA6DiOvE4r+sAxgo4N25DRmyGvOiCrbYWxhwGsaroB5ZgQ3
+	 gHrm+2diWu9dc7iPjAXhxSRWfBG5Lxa15PMsIVoWcTkubPGlI0tUdSUDJQ5c3rGHrGdTC
+	 jcZ2S25iHe+/ukefPRRq8tC09Z9ait+1e06TDvB0FkwwxNzIIdwql5KwUwAoTqZuNRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=V7S9TpIs;
-	arc=none smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PEwx9ATq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4850606A332
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 18:00:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4850606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21CA0606A336
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 18:00:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=V7S9TpIs
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso1305630a12.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 10:00:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793988000; x=1794592800; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=l+HBRH6Z2Sf6XQfzze6i5pft1TRrO4lvAq6O629kQwQ=;
-        b=V7S9TpIsPqXzUq3A6UkoBW71N9DZiWaA8wWWRo/cn+Ii+OaUl8iK3Fo/acjd4NRnkw
-         xN76KbFxJpVXKLKrZX0eNxswogzOAtyhaV9Daq50KUI1qQ6bPVdWvyns8biF6v3u/LuV
-         Sm8CRXLFqPAO7lbcQBhioPIgQBHvWkYe6MoAU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793988000; x=1794592800;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l+HBRH6Z2Sf6XQfzze6i5pft1TRrO4lvAq6O629kQwQ=;
-        b=T/+/v0cLHmncrB9JHh2PKhuzhFpt/fix3J1EDairVnYEbUOsvLqDufyj8U7Yz6hhPI
-         NneGJlcjtdsVqTYdQRlbIr+W8FA/IvOFTtpE45+kpAC/JuFD+MsfsnXhIpysZZo+EPNr
-         iXkWiwjPlBSidoZiBeHCTFhweiuwqU7dICgLAwjPImvFzqCSAD4+QxX2E3mSHtt1OKC2
-         +2SN5x5sIcIsfIlLQVXruPKAfkuyBnJcwea9L4lkmmqL9IP3PksDuHACdUfaQkK8pcyw
-         Iy37xnOUBOW1GZnnG72WSWdRdKCbGzFf2L5qiAgSV93F0ZvQELsd7bg/PQkzMUVYV9da
-         1n7Q==
-X-Forwarded-Encrypted: i=1; AL+hErHl8DILgFoF2p8XRYtoZnxfw6nRPQLbsXUJkD/lr9AVNi/wCJ8PPsQac1b7cfsqS6pvqv99JSQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8IRJe+BQVP/r31RSD7cE+UrOOES/iEIO2Sq/F1zFd5OJWkVbed
-	z/in9grHmcXIioIL/uGa7ZUK/WrW9GKaKFewg6ZAepp/m/xent0lxjcVdhN+r4+IpGqkcFUVk7h
-	eIylKW/h+
-X-Gm-Gg: AYBFou15B+qW3dd5JK+Pz28sXfQ9jaMHtX2MUrCzvsjnb8XMcO6r+ht2l/mG0rPRkMb
-	4/eaekeFy9imyNseaE6Q5CnQhqwl2OSUby9mEYF119HFb/rem56x3i0piwHzKeOBGpQPBHE+mEg
-	6MJyqdHNIKNSjVvNWL4u7dzxZAAWkVulpT/3QyIwksa2Im4aJrkthAVMdKfPsMJdcefMEyjyxoQ
-	bykep3LfYDQ7a6KQqscJZxZ0chqsSAkRYPEzx6EW5/0eL8+lMZnEUq4Jw/EiGLusAsuc7TWzrXr
-	R8lQW4PFRlkIqASOurtxHeSCfU83qZJMtLKEmbhv62BfKbFC3eH++NoDjjioWle0Kuu63XJ1Ptm
-	sY0c+tXM2diRAR4c1ymkgDUwzLjPBoyPrHotWRYZm8vXTdI05K93ydHcmmU8NUOXxRuTo95lHWv
-	OnbAvd16Mn0W+crxouxXlAQcX8PXnqCx/5RD1eEc08FiBfyLFV1iS6E79cyr6vWtidErrqfdQp6
-	sEnhq0rzJx2RIP3V8WUgUR8drfRL+8PnAI2OY5oKTYPUPbkhgAKm5ltSZY4ZI4kdqnmpcg2FBkb
-	0XluZ7BcsKA3bXAau8YiOa2nC6PAoG6S0Yt9q4dUwyKT5BVKvDTX4PDYkK2zlleW3fE6zmJSHfS
-	5PqMN8/9MdEST
-X-Received: by 2002:a05:6402:1f90:b0:6a7:e514:1d85 with SMTP id 4fb4d7f45d1cf-6b5977a47e7mr2249685a12.13.1793988000322;
-        Fri, 06 Nov 2026 10:00:00 -0800 (PST)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com. [209.85.128.52])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b664ae5680sm940800a12.20.2026.11.06.09.59.58
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 09:59:58 -0800 (PST)
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so8571785e9.2
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 09:59:58 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxHTXOVTtmQblbWL64GsiDpiCUoM6Pq1JvJ+qde3sChkfl58xKk5V5tKl4fXN2RYS1aX0ciAZE=@vger.kernel.org
-X-Received: by 2002:a05:600c:8b28:b0:4a1:9663:7633 with SMTP id
- 5b1f17b1804b1-4b6dd54b16dmr53499975e9.11.1793987997939; Fri, 06 Nov 2026
- 09:59:57 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PEwx9ATq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9FC81F0089F;
+	Fri,  6 Nov 2026 18:00:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793988034;
+	bh=Xr+SISH5RV62XIiVtNL1uZtms8VkD967JZr1xeYJsAQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PEwx9ATqazP1ztqv4QCAdrm6wnJ9AalxHVLynmM28sjheietxE6cXGbqV/ogiCpqj
+	 US7FdSY4MJXQZfAG6Z22dpALT+PK9a7yeuAALc56AVco7UakoNVQlfXCJ5rivW42kZ
+	 s2PJGLraE/rkxOdvRD+9COeQRSlsfo0uUqys2MwxdJ4NoCsT/iB2W9d2WbAieB2MPl
+	 ExMXOYZLwVkrPpSAVAt0IsxoPnBHrBtnaoeV5XQ5/C47lCK9z5nKz/gM1YSZEtasAH
+	 5OJCafalUwv8Xdj8dE+EHKjit5OjYppSdAwz2WFb10AyuumEtAdR0w1BUWbW/3zucv
+	 PHDkeloVwTJtg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Eric Dumazet <edumazet@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-afs@lists.infradead.org,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] afs: Fix afs to abort the rxrpc call on send error
+Date: Fri,  6 Nov 2026 13:00:32 -0500
+Message-ID: <20261106180009.620289-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110416-surrogate-sanctity-b62f@gregkh>
+References: <2026110416-surrogate-sanctity-b62f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,39 +65,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105151159.1.I0b27923381ef34cc99cdf8b65fea2e1bafce6370@changeid>
- <CAF1bQ=QkGntJu8G67ssH2dS3Sn200_JuYitjtAfNPBu_hn0fZA@mail.gmail.com> <CAF1bQ=QiP4fb-+Kn8wzEH7wqjAjZaagxUd3sYpv2SkwDcnFPWQ@mail.gmail.com>
-In-Reply-To: <CAF1bQ=QiP4fb-+Kn8wzEH7wqjAjZaagxUd3sYpv2SkwDcnFPWQ@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 6 Nov 2026 09:59:46 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=WGKOnDoY1W7CuZw=s3e8f3jrXzkJ5_Qp_Y4WfT0XwXDg@mail.gmail.com>
-X-Gm-Features: AclHuK8dSVweZwLxaeldnIMbndWhz_-q2OKzaAPnRAmMzhlMe2QAncAFrE9VlH0
-Message-ID: <CAD=FV=WGKOnDoY1W7CuZw=s3e8f3jrXzkJ5_Qp_Y4WfT0XwXDg@mail.gmail.com>
-Subject: Re: [PATCH] kbuild: AutoFDO: Disable Profi (-fno-sample-profile-use-profi)
-To: Rong Xu <xur@google.com>
-Cc: llvm@lists.linux.dev, linux-kbuild@vger.kernel.org, 
-	Han Shen <shenhan@google.com>, Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Han Wang <nesthanwang@google.com>, 
-	Snehasish Kumar <snehasishk@google.com>, Nilanjana Basu <nilanjana.basu87@gmail.com>, 
-	Yabin Cui <yabinc@google.com>, stable@vger.kernel.org, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: David Howells <dhowells@redhat.com>
 
-On Fri, Nov 6, 2026 at 9:43=E2=80=AFAM Rong Xu <xur@google.com> wrote:
->
-> Just one thing: I think we should also have this flag for Rust so Rust
-> and c are consistent.
+[ Upstream commit 3e6af08a571fe2943a006acf3e890f36322602bc ]
 
-Please see the commit message, which says:
+Fix afs_send_empty_reply() and afs_send_simple_reply() to always try to
+abort the rxrpc call rather than just aborting on -ENOMEM and otherwise
+abandoning it.  If the call is already complete due to network failure or a
+received abort, this will do nothing.
 
-> RUSTFLAGS_AUTOFDO_CLANG and KBUILD_LDFLAGS do not need changes because
-> SampleProfileUseProfi remains false by default in the LLVM backend and
-> is only enabled by the Clang driver.
+Also make afs_make_call() always abort on send error; again, it does
+nothing if the rxrpc call is already dead.
 
-Is that incorrect?
+Fixes: 08e0e7c82eea ("[AF_RXRPC]: Make the in-kernel AFS filesystem use AF_RXRPC.")
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824091645.415423-1-dhowells%40redhat.com
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Eric Dumazet <edumazet@google.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261006133011.531806-6-dhowells@redhat.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ sashal: replaced afs_abort_send_error with "KSE" to match the older string-based abort tracing interface ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/afs/rxrpc.c | 34 ++++++++++++----------------------
+ 1 file changed, 12 insertions(+), 22 deletions(-)
 
--Doug
+diff --git a/fs/afs/rxrpc.c b/fs/afs/rxrpc.c
+index 2e68abf627f5d..f75e8b361e294 100644
+--- a/fs/afs/rxrpc.c
++++ b/fs/afs/rxrpc.c
+@@ -469,10 +469,9 @@ void afs_make_call(struct afs_addr_cursor *ac, struct afs_call *call, gfp_t gfp)
+ 	return;
+ 
+ error_do_abort:
+-	if (ret != -ECONNABORTED) {
+-		rxrpc_kernel_abort_call(call->net->socket, rxcall,
+-					RX_USER_ABORT, ret, "KSD");
+-	} else {
++	rxrpc_kernel_abort_call(call->net->socket, rxcall,
++				RX_USER_ABORT, ret, "KSD");
++	if (ret == -ECONNABORTED) {
+ 		iov_iter_kvec(&msg.msg_iter, ITER_DEST, NULL, 0, 0);
+ 		rxrpc_kernel_recv_data(call->net->socket, rxcall,
+ 				       &msg.msg_iter, false,
+@@ -854,6 +853,7 @@ void afs_send_empty_reply(struct afs_call *call)
+ {
+ 	struct afs_net *net = call->net;
+ 	struct msghdr msg;
++	int ret;
+ 
+ 	_enter("");
+ 
+@@ -866,20 +866,12 @@ void afs_send_empty_reply(struct afs_call *call)
+ 	msg.msg_controllen	= 0;
+ 	msg.msg_flags		= 0;
+ 
+-	switch (rxrpc_kernel_send_data(net->socket, call->rxcall, &msg, 0,
+-				       afs_notify_end_reply_tx)) {
+-	case 0:
+-		_leave(" [replied]");
+-		return;
+-
+-	case -ENOMEM:
+-		_debug("oom");
++	ret = rxrpc_kernel_send_data(net->socket, call->rxcall, &msg, 0,
++				     afs_notify_end_reply_tx);
++	if (ret < 0) {
+ 		rxrpc_kernel_abort_call(net->socket, call->rxcall,
+-					RXGEN_SS_MARSHAL, -ENOMEM, "KOO");
+-		fallthrough;
+-	default:
+-		_leave(" [error]");
+-		return;
++					RXGEN_SS_MARSHAL, ret, "KSE");
++		afs_set_call_complete(call, ret, RXGEN_SS_MARSHAL);
+ 	}
+ }
+ 
+@@ -914,11 +906,9 @@ void afs_send_simple_reply(struct afs_call *call, const void *buf, size_t len)
+ 		return;
+ 	}
+ 
+-	if (n == -ENOMEM) {
+-		_debug("oom");
+-		rxrpc_kernel_abort_call(net->socket, call->rxcall,
+-					RXGEN_SS_MARSHAL, -ENOMEM, "KOO");
+-	}
++	rxrpc_kernel_abort_call(net->socket, call->rxcall,
++				RXGEN_SS_MARSHAL, n, "KSE");
++	afs_set_call_complete(call, n, RXGEN_SS_MARSHAL);
+ 	_leave(" [error]");
+ }
+ 
+-- 
+2.53.0
+
