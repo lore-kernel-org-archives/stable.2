@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793933046;
-	b=BPODcicL3r1Z7wPohtr2dqMpSwu2PXPpSdc3xVwijtpA/PHOqQAME6W6vHjh5o7qdKWw
-	 U+9zlANLyvONFqQBl8Lc5d/vDyLPXBTcMU8YrvJQ+ZOwX5t+YtKGsRZNdygEg7jbpoYwv
-	 6QuLf/TlWz9IEVcVWpQxZY0hxCPQmmv6nrl2/gITTrqfNpS7tcMPy3aa1dacxWqumuQ+5
-	 lnffP/PxQQnsAqZt88xcQtlerLvwj24ookCUcScSbuNpUrthuIuzUF7wlwKmwEhqfJGAV
-	 jZTQU+8LGEvKdtGonZYJiza+lY5SXvw3Rjbwlvx+rYiYKdKePooL5zxp3ye8sstN6tA==
+	t=1793933103;
+	b=JgmXa+aqTFNnOCJMkoKeC21QFKaDvBh54G5beiJYhRPUGXL4qt/vPOO4yJJfD5zTjoOH
+	 PE383cq4qAPJ7sFQdYPLA3nS3Kz21JdrkElfE68BlGHMO0H1LwKqWaiDp04C0XaUKfVGy
+	 nfblDZlfvOZ3fpfUbHn2alDzNSl2XhO7aCO4L58M6IwH3h2okP7BZDrDJGZU/f259QibF
+	 BY6at8495hRDpsfNegMf72NoXsSAGKLzsAawwWMqXPWvrwmeidZn7zlSZpl+JFJnGf7n3
+	 38XW/PcxqvFq3LBQOXDBUBHHcU9zopaBCiDBG7txcvetXsspqzTnJ6yg3AQHvQV7JdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793933046;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zSAnlbuhwhmUG9bBEmOB7UE9ygtoZLL5whU9bUfyqnc=;
-	b=GV55R1hdi1jlKPy8lMyouvgQhN1Z4MHXv7CPxQy1sElYnT/3AfQDahQky6a9+nSecV6w
-	 2M8im3kE0IMJMw68EufLErCNPF25tAXVp+3L73yUPoQOXvG8lyYh8MeFtI3NrzzzE8E0x
-	 sTqM1xzo5L/DrKuS3T7j279/NO/Hnz7FL1m8Yi/x3r3jfg3UDyRuNtAT50L+hm5EIlRLp
-	 vjZ2aRmu+0Q60Ww3NUyQ9/oT3wjdJwK8uPMNiFcBeXnsDTgYgPa/ep7eTcPxLoOBg0Uzj
-	 XspA3I+hsp4+1UlCMP4ATMt9xb1xwkzEyjG8dSB8XomzhMgG3xhIqlPLVFWNogCaP4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793933103;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=tHgv8W4A47HRFDkNoqTHL92JY62X+jVZsBZ6YMs1NBM=;
+	b=PCfpgD+E2PpnCHQTlXGG9yIC5gD6pgNw6vTDRiIWJSSBj0JEZ7L2MhkF7NaqE2kmdnBh
+	 1x0kXtDkT9o3Kb6G32wAZ29RAz3oxmRqGyYh8fwzn375p7HVBBu4r/7SMC9mJGVspVaxz
+	 x6wOPkbNdvECdhH27yCIF80g18Uis3Uf6Wv/7IMXzUOKt4WER1VJn7goDnYXKY1248Cob
+	 /QUPz8yCChVLmKbK0yAuF1jROCEj0Us4t2iVUIzGq85AlCSYi3On2wB63fBTH6qoVdNBp
+	 OQf7/oMYN9jQPP+Iu2cdQ2XOp2SgrSq/OVkeGe5KkoEywtqlapN2CbrUa7BAnwcCkjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=p4hIGK3F;
-	arc=none smtp.remote-ip=91.218.175.223
-Received: from mta0.migadu.com (out-223.mta0.migadu.com [91.218.175.223])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VgwKKUVP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36E88606A31B
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:44:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36E88606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B87606A329
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:45:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=p4hIGK3F
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BV4jydBngbK5OT+ZHvts5CVNgLwnfznFuT39h8Pecis=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793933041; v=1; x=1794537841;
- b=p4hIGK3FvTBncEACzoquuYTKUahICVVjb+yGf0kJM0hCa8vbXeIeqBgaM5JLMbHZmxt6o5/W
- 64Xh/rztiH19Yyid8rqfxTMTeIrFpa6d20K3WGt17QdWQhU8O3lmgNECf403fraDz70m9uVegTe
- x5p01mJXm2W82ZxyKfNpk+Cs=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f76348987678bbc6;
-	Fri, 06 Nov 2026 02:44:01 +0000
-X-Mizu-Trace-ID: f76348987678bbc6
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1535887c-6be2-4415-b54e-2008e6e7a35c@linux.dev>
-Date: Fri, 6 Nov 2026 10:43:53 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VgwKKUVP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9691F008A1;
+	Fri,  6 Nov 2026 02:45:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793933103;
+	bh=tHgv8W4A47HRFDkNoqTHL92JY62X+jVZsBZ6YMs1NBM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VgwKKUVP62XhWBIA8Oka3x/PTj7xgAmaaj5lOgAu1IcHHCBC9qJI1SGvrRjLpSl+t
+	 Ulv7f7qbeWyAj8HIxe/xZDP4hNqoOcFil3LvfARthtW76RpXowTUsfieg3F/8skn+7
+	 0T6Sd6MZpUo5xcviFbPz5jZ7UPyclY+ZtHCVpSOFYZ/3+GgaCtH/Z93p+2Z4RY9OaD
+	 48VoXJYBhW+TviXazxiEbZTwn02lkTfrsd5oX1CRI3ddwyMPWvRpJEIFbmr9+psOIL
+	 iUmI/ep4H93304hQWegv3WE+WM09BfLhiQlnzDIpCA3kt8x8FbQu/T9CoCWnHWhvuH
+	 4h31RuBrOouZA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chuck Lever <cel@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y] NFSD: Complete a cld upcall when copying its reply fails
+Date: Thu,  5 Nov 2026 21:45:01 -0500
+Message-ID: <20261106024455.3943128-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110443-cobweb-sloppy-a362@gregkh>
+References: <2026110443-cobweb-sloppy-a362@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,77 +58,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] mm: hugetlb: fix GFP mask propagation to CMA
-To: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
-Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
- akpm@linux-foundation.org, azpijr@gmail.com, lance.yang@linux.dev,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>
-References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
- <ac2de9b321f68c1025333e92e3ce94beadcb0b6c.1793850539.git.zhengqi.arch@bytedance.com>
- <auxTwrKCeg7a3hfY@localhost.localdomain>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <auxTwrKCeg7a3hfY@localhost.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Oscar,
+From: Chuck Lever <cel@kernel.org>
 
-On 11/5/26 6:00 PM, Oscar Salvador (SUSE) wrote:
-> On Thu, Nov 05, 2026 at 12:07:45PM +0800, Qi Zheng wrote:
->> From: Qi Zheng <zhengqi.arch@bytedance.com>
->>
->> cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
->> during the first MPOL_PREFERRED_MANY allocation attempt even though
->> the caller clears __GFP_DIRECT_RECLAIM.
->>
->> Pass the caller's GFP mask through the helper so CMA respects its
->> reclaim constraints when trying the preferred nodes.
->>
->> Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> ...
->> --- a/mm/cma.c
->> +++ b/mm/cma.c
->> @@ -933,9 +933,9 @@ struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
->>   	return __cma_alloc_frozen(cma, count, align, gfp);
->>   }
->>   
->> -struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
->> +struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order, gfp_t gfp)
->>   {
->> -	gfp_t gfp = GFP_KERNEL | __GFP_COMP | __GFP_NOWARN;
->> +	gfp |= __GFP_COMP | __GFP_NOWARN;
-> 
-> Do we really need __GFP_COMP | __GFP_NOWARN here?
-> It is my understanding that all allocations coming from hugetlb are
-> handled with htlb_alloc_mask(), and that should already provide
-> __GFP_COMP | __GFP_NOWARN.
+[ Upstream commit 8cef2b0a01d28647facc57501a3df7ccd8d13ccd ]
 
-Right. All current callers already supply both flags through
-htlb_alloc_mask().
+cld_pipe_downcall() removes the matching upcall from cn_list before
+copying the daemon's reply. When that copy_from_user() faults, the
+downcall returns -EFAULT without completing the upcall, and a
+retried write cannot reach it because its xid is no longer on the
+list. __cld_pipe_upcall() waits on cu_done uninterruptibly, so the
+nfsd thread that sent the upcall is stuck, and nfsd shutdown hangs
+behind it. The pipe is mode 0600, so only a broken or hostile
+nfsdcld can trigger the fault.
 
-> We might have needed it when cma_alloc_frozen_compound() constructed its
-> own mask, but not it gets it from the caller, and that should have been
-> done via htlb_alloc_mask() up the chain.
+Record the fault in the upcall's pipe message and complete it, so
+the waiter returns the error to its client tracking operation.
 
-Right. Now that we restore GFP propagation, setting __GFP_NOWARN here is
-redundant. I'll remove it.
+Fixes: f3f8014862d8 ("nfsd: add the infrastructure to handle the cld upcall")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260901-alemi-v2-3-e163f94a3a6e@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+Depends on <20261106022847.3726614-1-sashal@kernel.org>
 
-I'd still prefer to keep __GFP_COMP so that
-cma_alloc_frozen_compound() itself guarantees compound allocation,
-without requiring callers to supply the flag.
+ fs/nfsd/nfs4recover.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-What do you think?
-
-Thanks,
-Qi
-
-> 
-> So, any reason to have it here now?
-> 
->   
-> 
+diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
+index 0b033688aa0b5..907a914b04cd1 100644
+--- a/fs/nfsd/nfs4recover.c
++++ b/fs/nfsd/nfs4recover.c
+@@ -839,8 +839,11 @@ cld_pipe_downcall(struct file *filp, const char __user *src, size_t mlen)
+ 	if (status == -EINPROGRESS)
+ 		return __cld_pipe_inprogress_downcall(cmsg, nn);
+ 
+-	if (copy_from_user(&cup->cu_u.cu_msg_v2, src, mlen) != 0)
++	if (copy_from_user(&cup->cu_u.cu_msg_v2, src, mlen) != 0) {
++		cup->cu_pipe_msg.errno = -EFAULT;
++		complete(&cup->cu_done);
+ 		return -EFAULT;
++	}
+ 
+ 	complete(&cup->cu_done);
+ 	return mlen;
+-- 
+2.53.0
 
