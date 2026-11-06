@@ -1,70 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793982973;
-	b=iAMbyd7Gdmj3auWwjnD/e9S8Ul3e+HalGukGxKi4SMy4BSUPPcr+tQpUvmQxnoKZ51lo
-	 VnKjVDXXrEvEZU89Tro4pF31dLiKDNlRI4pmtsOzVnfihazW+gTfo8GjKxb8gYCvoE5Nm
-	 4Oj0Ll0SetOjuSkWH7WDyTY9vn8PAm4yBHmXwHE58xPvsIde3d7+gbE5q0bjuzR0pZ3eM
-	 RdPZwAWM/AenE8kColsWmyjGTc04U3IZS2QmqYDNR2jd5e0rQ/ckk/dfK8pr/c5+om1kC
-	 NbMEg6KBu/ipMKdVQaTYeeNVE9VL7TNTDmzRCP+amTBMP1njAf4GEACuK6VkfOUHfPA==
+	t=1793983037;
+	b=ZCsDamA1I4k9N2Dt98laO57RrxPbk7D6irICkwz7Gs2oEPaDqv9VOYWLrwWkV2jHzDy9
+	 7kove1U4I3uFl3+DTgJn8xFN6wizTODqJ4m00IvIEg+FidF5ghAxbMOs8HI0Stfhpimcw
+	 kFBAPQTrZF/3QXfvL0dk4ui621I9wQuS33in6ZkRabaHGnjJ8Lo1rNgWgMM9dM91eH634
+	 w/1QDZnvIa2d2hSOOq2MN5nvcj10RYt98Q9zfF0oj6bmLRf5mhhLRpJ+mSi87wlmIvUME
+	 Or3GkkpMI3aZXgt5MXlSi6zgUAfw8adfO5obt0mAJJHn7tGxTKJlG2G5+rN98P4gG6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793982973;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0Ucu+wZ8GvlMied5VkmijzF0O4j9QKVD5tQ1is0T5W8=;
-	b=jEAt7tIPm2xEfxUBcK71v5UMymYyix0ev4qA7dwfRUYkbcvmx9NrBVdi6u9qXjPP7C3Z
-	 43Bvx9SSE5aGOtCblg0UHCaIi7iUnJgnVi9S8vdszlqlvfQ5LoUBpbMVoiZ+o91ZlNrhE
-	 O5Nmdm+vF/ywsbry44CtIaBrZVOp74cv2zrLh3OEoBJM02g4dW0XfJo9b6q8mnI8FiKfS
-	 wShwV+n8Fvt3r+CEU+8ohwrqyzLJkZpeICya1nWF9/Gw5NvNv4TXs/NH3X2JO5pybFR4h
-	 172Mh9XR/rDr539mLS3BGk/1kXU5HOu61WbYt81jfyZ0Hqc87Xm3SorjTGosoGKQeJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793983037;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=idKupkFOoEuI1D0I9K3dkmHCv5t9EIMzKRFHoVTiEGg=;
+	b=UrfzthlBgK9ci0t+aA0pfnB8e1eTi2+S4HI0SskUceyHVLKO/xIpCDL0o4lPd8GhT21X
+	 7oharDEtDob+4xBffukUj8nYdCA9+oBkFF0fYO8oUZKtwPkt3T0AzccG3D7vehwKcsRi9
+	 JTasVn8ePCzPLX+bKoJ263AgiI8I0L8wZxItu46CM70gIM6KtLIJGX6Jieo/ruN3Cs857
+	 1uvEmg8WxHofRx2rj5uvVat2rAA7bFBItIOqto0ShFV0AdfHNr2qHEVFAODZvI5Ae3c9/
+	 QS/o3m18fZ7drqYRvk776+9TNOnPaYYLQ3sDJXkyDG7wGoE0FN9jDEkyOAZ70eQpoOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Zl2A/+21";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVvc8Do5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6976D606A337;
-	Fri,  6 Nov 2026 16:36:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689A9606A326;
+	Fri,  6 Nov 2026 16:37:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zl2A/+21
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F025C1F008A3;
-	Fri,  6 Nov 2026 16:36:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVvc8Do5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE5C1F0089F;
+	Fri,  6 Nov 2026 16:37:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793982972;
-	bh=0Ucu+wZ8GvlMied5VkmijzF0O4j9QKVD5tQ1is0T5W8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Zl2A/+21xs0211gyvpTXAHoUpNGDM3/50z5nx/dIGJvxCMHfPDELZ7u1VdigiYbBz
-	 0iKuO9Iw33sIN4Hhgey451KDMT/ZDHh1t9X/L5h4wuAJxOKEdhOxAJuEhWbGGe9e89
-	 seaxpBiDDC+qBed11TlwNdnad2G201W0JNkPhQMJX+sQ/aoHX9+LSePoAQ76iceO57
-	 UT81Nj31s0kpzthUvxwYLhhldG5W9/vRitHksZVmbgUssNPmwyZ6Kt71FWWH2VosaH
-	 pjpV2XGXGs7m8yhBG7yGowsIFENXqrxW6koNsvZ1kQ7I6C5ejrQHG53WmtcQRnBRnI
-	 n4ruWC3A9mSng==
-From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Burak Emir <burak.emir@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	Yury Norov <yury.norov@gmail.com>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH 6.18.y] rust: bitmap: fix intra-doc link
-Date: Fri,  6 Nov 2026 11:35:49 -0500
-Message-ID: <2026-11-06-1-daily-reply-0014-rust-bitmap-intra-doc@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106063745.87864-1-ojeda@kernel.org>
-References: <20261106063745.87864-1-ojeda@kernel.org>
+	s=k20260515; t=1793983037;
+	bh=idKupkFOoEuI1D0I9K3dkmHCv5t9EIMzKRFHoVTiEGg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AVvc8Do5DhEJTvinbNvofpF85d0AnFK5LxSpPNKEK/+RJYxjclOcUMGpO59IMsc6K
+	 +l4jcD4d6K9LdExlJpzhCjb6xl4STFFJ0IvJ9zg1OsaKXefPClXEb5AifDXB/m5x4c
+	 nwQUqEimaX3EavfRkgtWMSEh1hSzVyo11Qif4bCJ5K4GJDVcN7z2e/+QFgWANs3cH+
+	 JpEdlDOiQquvPkJrqUEhRgbsRiAqs0GE0rchsRlfhyj1fpPP/NFNl0xL5Zbd+LAdaE
+	 YUz3VR9AmQLl/gkN3WmsaseMVSnvkxZuhMNqDWExC3nfrBNvR1Youvs8lKsDdbc54Y
+	 vrclTcUH6+Rjg==
+Date: Fri, 06 Nov 2026 06:37:15 -1000
+Message-ID: <e53ad4ab8640b5e95bdfaa916da884f1@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mani Tofigh <mt4022@columbia.edu>, Tao Cui <cui.tao@linux.dev>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH cgroup/for-7.4-fixes] cgroup/freezer: Fix exiting tasks left frozen forever after rmdir
+In-Reply-To: <20261105191951.3409248-1-tj@kernel.org>
+References: <20261105191951.3409248-1-tj@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,12 +60,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-> `BitmapVec::MAX_LEN` does not exist in 6.18.y, so `rustdoc` warns:
+Applied to cgroup/for-7.4-fixes with the following tags added:
 
-Queued for 6.18, thanks.
+  Reviewed-by: Tao Cui <cuitao@kylinos.cn>
+  Tested-by: Tao Cui <cuitao@kylinos.cn>
 
--- 
-Thanks,
-Sasha
+Thanks.
+
+--
+tejun
