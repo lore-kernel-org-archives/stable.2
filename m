@@ -1,79 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793997120;
-	b=kff46tO/7xWF95MarYBlkYFQeu7Ky0zfGm+WnZgyEyqmH4UES/57zgrefL3m9CzXmyU6
-	 YJt+hERqym33vtyvuNffj+dXZZl+xnn+1Q2BViLwdY8cn+to/QVOuJ7q48qCzlUMtvFAe
-	 JFFpXxEYNQP496dIE2ykrAxIKvQgQHBjEAw9SgSwPTNAmjW7eNXrU1OJgCjK7/JvU/zLq
-	 fo/OMSQSae8leYgR5fwXpMlBB38QXLQ6d+hK5b2Zoz13kN+p64N+ow6kXcasJvqPtJQxl
-	 l2ORR/fGtw03brktLfUankrzbkLKZrxKoZAS2/c/j+tI6Ste7TsHCwiLcyfqmWlvv+A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793997120;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=sKi2o/uu5IgPrw1L2INPtDLbQ5T1UDEqxDKdO3wNGXw=;
-	b=bfvxKJacKAQ5CbXiQu3OpJ3dHrA83xV12VmP/vUDA9BXNfmZHtdXnFxVtknsc00YBFkz
-	 lU37GY6RTnZeji99wXbfFuyTcS3I3kMcWckvcHU3XJkoN2wKHjQ+u3ZPrrCYR4lNkEy9C
-	 sVc4TEjxSmLI/WK8SiZO2h86kTQQFz4YemeDG9b1Mo8lrQMJJ1W2Qd28HNq3hIIVDdlWO
-	 neiRCjdLzPFg0hFuS3DgrhUIduPbY4PqKqEAhH9SEcBTWqgBuyVE7dWyDMfXHcgQwRMOB
-	 aLXVsUUpivydxTOtEx8mfemrOPtaI8LZcoBpstd/Fsb6JIC26EibfNOuUVkGWDDFJNw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lXRgfNAv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793997339;
+	b=ny1XWYI2N0Ll9hdE5Yze3uF18PO/OD3nWBsX2zls1JFD7yKpgnSlcb63gQkAfmYT5xLd
+	 LDErUqAFweGH6vof8nD63cFFzJTLXJrxJMabjCR812I0uiB1pTNbNbkPrrHPwKgd5KnFT
+	 OTscdxNr2Otk/0OfiI4SiE64gkcQrMaTOllX5hxt6GlHgIydfa3+RroEaS0oi7bIInCH6
+	 EkzR50EOQhinQTIo2Z4D/kUJ24Bn6/X3DIpVXTvRG84qQJ3EkwhNU0C5cy+bsdMSbgfrT
+	 JK8E/tgaiSLUtcqtrUkFutyu7CQ6Cq89tzDJ1loq/WGZSz/FtoumEc0LS2pJJxZuPEw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793997339;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=Ej5ViQLjc0HeyXNxFhpTSJoKBBRXm9gCVJ/qysZMi6g=;
+	b=t56uDtZSrRQbYpkPAk4cdntWNsU64oySOIFRX0YJK/eoetU51SVSX51ojoht1bpbNUzB
+	 77Jq0OcRN7QtDkylOujIdCc+OvTE9tRHym78JV6UYSmxmaRZYlcNcf9Q/p1c1qmT7wwpm
+	 1UNgW9cU9bGNhimg7cos3O1NptbhOzaDs9OBTJIZ+VG/jnsmL9Q99oZwdhFWNTExvKoIR
+	 w5BaHPMfKv58GpP98314djrIQMy/476SZy373PP5zOc3RUKLy2OI19XXQDgsYRMy36h8a
+	 nd9CYLe++Rb9ReYRNN3FAA9rpDMjvvZ0TtGQCrYnlZ0JWsfxCW5xqpT25Md/aGPxT4A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XCGr5zRS;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6611A606A32E;
-	Fri,  6 Nov 2026 20:32:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4DB606A326;
+	Fri,  6 Nov 2026 20:35:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lXRgfNAv
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793997120;
-	b=NLkIGl7iYauKC2PWWCQqZwHuBoQrfQUEsGqHclqtIHVEngjOK6qukuaa+1DxAhlSgFiF
-	 zZr3fTDr1gug8jB7Qgc2Yc1Wxq5tFv9a2Usw9xdtt3Hbc3JD7Bibk2cBc6Ujf6sL3W3pB
-	 aTpuZr802EqU94jyiKTBiOX0SO//g944k1/UyMzZ70rArJ/F9TNJGJX96PAdkPRFUB70+
-	 9OTo+FZhadq2Kn2kEHfd7+ZZ8hr7fmpRnhVqXBcVsW/1G//jrMhl1AZT9yNy53yOewmus
-	 QvSypB5nCkVXt16sk5+S+VpyJIYTLVmz8Eu+N5hJmDJO/sIVXB/H+IrfP2DtStLvXLw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793997120;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=sKi2o/uu5IgPrw1L2INPtDLbQ5T1UDEqxDKdO3wNGXw=;
-	b=Tb+gaWp1WcxWw/PWX2gMh9OWpyZsCNtGAUPhaclPlRZlgk8WFQhW0lYw3Vl4On+wl6wo
-	 jH6mzfwlxVsMRMaHOVJKYFJDTHgUq3gWD7Pp18/6OTpMHoQK0J3QTATj5BHWnIJMD7GDD
-	 i45E0DM67XtPenMz7+ZgKpPLBx2nzNy+m4ozDOl90z0HuLmhyPatSh7asqm8HlT8w4vCo
-	 c5FPuY3nv2/EfEIWbtHNIkbejiCYlOhR1E7ALu6mvvlqd4qyY0msD9MHsPXqUIPHUHEdi
-	 G3lEYlaO+10hqVWwYDz2eaf3RCGBji5PZGwk4TSB6us9ui4VF3PuB+lKlYt3ZklmJ9Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 425F61F008A1;
-	Fri,  6 Nov 2026 20:31:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XCGr5zRS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 485ED1F008A3;
+	Fri,  6 Nov 2026 20:35:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793997120;
-	bh=sKi2o/uu5IgPrw1L2INPtDLbQ5T1UDEqxDKdO3wNGXw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=lXRgfNAv/tncRuQghnssQatsgmfz5HW7HxsSQwvxmIaXM0KvYg5/yZKO9IjHz86GI
-	 /RyIwycJLdint+6UUfEYl4rEiOQvcE354fUL3c9WvpF3suaNm2wWd7RDZbr2kTcvy5
-	 y6BjLKFocI8I6R+w2Y0bFlas9xqn2TObQd8fqjTIe0OPsVnrfizH9nENoVmo51c0RV
-	 d6SPVm04BMYc0hbfvA0cjD74O3UCeM98MlwSEKR8l5feI/KATTKFgfcrOwdP03i09H
-	 8qHliwFgvS/2jmFrhl942I/Bmjui6/mTSfR8Lc2c2N18EOgJXC7WfhvFVPmiKLbNOq
-	 MBeXfKrKaRYaQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C760947855;
-	Fri,  6 Nov 2026 20:31:58 +0000 (UTC)
-From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
-Date: Fri, 06 Nov 2026 21:31:55 +0100
-Subject: [PATCH 1/2] thermal: tegra: soctherm-fuse: Fix shifted_cp
- extension
+	s=k20260515; t=1793997338;
+	bh=Ej5ViQLjc0HeyXNxFhpTSJoKBBRXm9gCVJ/qysZMi6g=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=XCGr5zRSLpT6x5RIcnePNDxij6ETnBJeYK/oKzyoyoA6I5yfAlhzaksmTFVEKKptW
+	 ve30u0xR4IRFK2bdk3o/2sdFlmG2x6KbYqXAdXYplMyP5GUzBxoyZj5s+8tJVn0vwQ
+	 4KN8XLqBlAl/4ECcD27tA+aw3ftlBFMpZso78CFsj5q7UnLeRA8J++gLZwCnZwnv0F
+	 H4md1xkptFmaCYeExQ/nF1eJeLrVTyge2uWsdzycyZwUNTi9N5/l2e7EAE2T8Sp1kj
+	 CK8DADkOEe9wgckwLhtLrHfiLH4egCd5kJ28Z1iAxpNhkkU8F00sHk+MhgG3KD5RhD
+	 MEABmrJ6lAERg==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Mani Tofigh <mt4022@columbia.edu>, Mani Tofigh via B4 Relay
+ <devnull+mt4022.columbia.edu@kernel.org>, John Stultz <jstultz@google.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
+ Srikanth Aithal <Srikanth.Aithal@amd.com>, Borislav Petkov <bp@alien8.de>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org,
+ tz2294@columbia.edu, stable@vger.kernel.org
+Subject: Re: [PATCH] clocksource: Use the clocksource under test for the
+ skew check timeout
+In-Reply-To: <d16c6038-f03a-4e1b-9691-1ae36650f39c@columbia.edu>
+References: <20261102-clocksource-skew-timeout-v1-1-4ff412918591@columbia.edu>
+ <878q39y8da.ffs@fw13> <d16c6038-f03a-4e1b-9691-1ae36650f39c@columbia.edu>
+Date: Fri, 06 Nov 2026 21:35:36 +0100
+Message-ID: <87zevlwvdz.ffs@fw13>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,67 +62,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-upstream-soctherm-t114-v1-1-c875d1921084@tsv-stahl-riesa.de>
-References: <20261106-upstream-soctherm-t114-v1-0-c875d1921084@tsv-stahl-riesa.de>
-In-Reply-To: <20261106-upstream-soctherm-t114-v1-0-c875d1921084@tsv-stahl-riesa.de>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: Svyatoslav Ryhel <clamor95@gmail.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, linux-pm@vger.kernel.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793997117; l=1434;
- i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
- bh=MLvTnVsW0kVdSgK51jO4RNGfRwj0oR/unyRQ4OwOQTg=;
- b=7CKnSpoLD386zMftzrm0HMM+g7cE5QtB0xWJNCCAWsgCyVJ6mYNiRP2bEC6WP4y6N85K33quW
- UOh8I/6qWgaB+7GyapE7IitnT+qt4w4hqzlUvSrY0PoY0U8kjfUGI5q
-X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
- pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
-X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
- auth_id=1251
-X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
-Reply-To: admin@tsv-stahl-riesa.de
+Content-Type: text/plain
 
-From: Svyatoslav Ryhel <clamor95@gmail.com>
+On Thu, Nov 05 2026 at 15:22, Mani Tofigh wrote:
+> On 11/3/26 3:20 PM, Thomas Gleixner wrote:
+>> So your reproducer does:
+>> 
+>>    while true; do echo 0 >/sys/devices/system/cpu/cpu1/online; echo 1 >/sys/devices/system/cpu/cpu1/online; done
+>> 
+>> right?
+>> 
+> Yes, but on a kernel booted with clocksource=jiffies.
 
-The shifted_cp value in tegra_calc_shared_calib() should be passed to
-sign_extend32() similarly to how shifted_ft is handled. This omission
-caused malfunctions in the GPU and memory thermal zones, which was
-observed on the Tegratab.
+I did so too and it did not happen within a couple of hours :(
 
-Tegra124, Tegra132 and Tegra210 are not affected: SHIFT_CP is in the
-low six bits of their fuse word, so sign-extending the whole word gives
-the same result. Only Tegra114 has SHIFT_CP in bits [15:10].
+>> Can you and Srikanth please run that on top to validate that we don't
+>> end up with that?
+> I ran my patch with your delta in the same guest and it holds up well.
+> No hang and no "stalled" warning (even though the remote read timed out
+> a lot during the loop).
+>
+> Do you want the delta in v2? I can carry it as a separate patch from you
+> or fold it into mine, whatever you prefer.
 
-Fixes: 48fc33b95159 ("thermal/drivers/tegra/soctherm-fuse: Prepare calibration for Tegra114 support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
----
- drivers/thermal/tegra/soctherm-fuse.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Just fold it in. It makes sense in that context.
 
-diff --git a/drivers/thermal/tegra/soctherm-fuse.c b/drivers/thermal/tegra/soctherm-fuse.c
-index 8d37cd8c9122..2de1d0cb676e 100644
---- a/drivers/thermal/tegra/soctherm-fuse.c
-+++ b/drivers/thermal/tegra/soctherm-fuse.c
-@@ -102,7 +102,7 @@ int tegra_calc_shared_calib(const struct tegra_soctherm_fuse *tfuse,
- 
- 	shifted_cp = (val & tfuse->fuse_shift_cp_mask) >>
- 		     tfuse->fuse_shift_cp_shift;
--	shifted_cp = sign_extend32(val, 5);
-+	shifted_cp = sign_extend32(shifted_cp, 5);
- 
- 	shared->actual_temp_cp = 2 * NOMINAL_CALIB_CP + shifted_cp;
- 	shared->actual_temp_ft = 2 * tfuse->nominal_calib_ft + shifted_ft;
+Thanks,
 
--- 
-2.56.0
-
-
+        tglx
