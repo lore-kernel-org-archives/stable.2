@@ -1,55 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.157.154.162
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793930030;
-	b=CGUGqnFsvW00yIxJEt1ih+Pne/LdhFjAZnT0v8hzFRc5QPkPqGAuJ90rPoe2RL9qqbLT
-	 i1RaGkN17WczfRr4FrQhr36Y/67NddtODa13U9BQDDspUcQlLswJgKVOwB3BsNKaWArw/
-	 k3fE8DSMe/lsOzC4OfxhIj4znmT8HhPHlJdJDnL629ETogTpYmBl/yjs0H56OTcfMUU6f
-	 F3yW+J5S/Bmy6qoROyD/3N/r0G7lcbZEe7UbGC2U3B9081NqIFz1wvyDBbqpEYlX7XnI3
-	 VqSf7STBOdRcfyL1pDoocJ+K1JUFvESplS9GiDsSjBhQukpyrbGZkFRsWDiuv2F5seQ==
+	t=1793930055;
+	b=WM8+/fR7rx4/dU2q5mqN5WoJ8UOP+BdwE+xoeAPtdWGLR27/KzB9iD8j0X0AiFka1nu9
+	 y6hmYoWDF+lWsqUD7g66oPYoXyrBkwoMOqxPqCDlyNIbirNxh5X1c+PAtC9KfAY1zYbDy
+	 r63s0njAaIA1DDjrcmsQtr1YLAcEyUzf3G43BkSEUq+b0OZlvGzub0YB9G7QgV7NOQ6HL
+	 3K5c9BCjr93VnxvFZTJJF38phuDBE3WPPZb69nOtjJknR2YUN+mqNzX6sZnGPyCAVqQWT
+	 D7QiuUxNaq6NeH78N2j6pKVnbA7QnYmhC2LXSBXBSb+JzZgN1+BdGws8ersTejNUMAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793930030;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GoKuRBkWjiLRnZSlHYSEIztZ7rc2aYDjCOkhM0WELmc=;
-	b=j+trOoC/LladNOUHUfxFMTOcosJP7PNHI9kQUtZuuTL/nl8DxGgcA8ViOIVQBCZTLKcy
-	 wj0viRCJjx/SDXbc0AGxic8nXCgA9kucBVlRZ+u2PgEaChmhnco1mT63WtLmwT5eaIsBM
-	 WjnopnbGYPmz/S0fl3BALsdcV9NbNZHdnRFYjZ7DRAetY5Tb7OV/X2A2Zd11apUy2EKtQ
-	 yGgGOhwJpj9Dr/3iuAoFYbWu4p0lgPEOlmnFJDm33VNXHzUQXnYCfjwCpn77xoDQSGMW4
-	 IIf+xrWc9TGn691HG0T4VTCrBFFYhMAM5kURcePNVxWXM/3ZBshYrksjC6CklieBIBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793930055;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=GNXxh8Lf83NrQqN+daH2uR5w2/gfQKxV5ZK7nR4UdCc=;
+	b=vWUy7AIEc+CV9ZMB0EfCv6VZPCdfWuR7Cxg6tPMN3ssPA+yCtgEoPMt+UAoWF1wzTrEn
+	 zwWZ18/Jdtr2JiU45lHwQkECxsOfGNl4dOy6N71NVT/84YWNYGqHCN54qDEfi8ASoZBZY
+	 nx1NX3ZgHkylFS3wBOXMNLa5AFJQ+5IUbsNPwvkYVnSqMb1TgJ1KNvlocJiA8Sm6JIAcx
+	 NCOdWP/zDIM9L91tNY+esqORr3lqDiAAL8lWCVVn9wQHJs9cU4cBClkYAVUBXQiM7XGlx
+	 ioNULRQzDdcSBIGdAVhBwtNSY4osJI5xtX+1cbRWs4wBEVDouqv2Pt92Ytolzqp7w0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h8TfoD1c;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=cdrolet.dev;
+	spf=pass smtp.mailfrom=cdrolet.dev;
+	dkim=pass header.d=cdrolet.dev header.i=@cdrolet.dev header.a=rsa-sha256 header.s=default header.b=YVe7uPzn;
+	arc=none smtp.remote-ip=216.157.154.162
+Received: from opentek02.opentek.ca (opentek02.opentek.ca [216.157.154.162])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51885606A31B
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:53:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F29AB606A31B;
+	Fri,  6 Nov 2026 01:54:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F29AB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cdrolet.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cdrolet.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h8TfoD1c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931DA1F0089F;
-	Fri,  6 Nov 2026 01:53:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793930030;
-	bh=GoKuRBkWjiLRnZSlHYSEIztZ7rc2aYDjCOkhM0WELmc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h8TfoD1cOMeokDVKYXkpK7OrJCKm09xEeMKXjkhjGuBhYtdMWqSYpRRQNIYmp1dvh
-	 /SQkLjLOhlVKwwoyf/lDxIc3R6aWKzd1FGVV5jYfY8Yx+rGWZkZ5uLZPhBRZ4J92Bh
-	 ZbINjGVnU4X0CRtDhodiK6ZPmK3rML+lUWFVHF44nM4hP0FY1/Ml57pt0vBjc+MjfE
-	 HAZ8rbNl+RPSHs2A9/Our386YqoWETv88YyElqyF4qPrCwypN9sRRY4NsFwqqPXkAe
-	 I1mw3T0XtUsC1CKRsExkRarEOendeaQwG3YeHGsD5Q0J0rnlT7qkL1iPLDudNdbs6r
-	 dloFSdU5tThPA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Mike Snitzer <snitzer@kernel.org>,
-	Anna Schumaker <anna.schumaker@hammerspace.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] NFS/localio: detect a short read or write before the iterator has moved
-Date: Thu,  5 Nov 2026 20:53:47 -0500
-Message-ID: <20261106015249.3498940-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=cdrolet.dev header.i=@cdrolet.dev header.a=rsa-sha256 header.s=default header.b=YVe7uPzn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cdrolet.dev;
+	s=default; t=1793930047;
+	bh=GNXxh8Lf83NrQqN+daH2uR5w2/gfQKxV5ZK7nR4UdCc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=YVe7uPznLyweeYl5ngydOtveu85VAgvyiUzLyH/+m2CDMufteT8IlefeoAjDnrXKE
+	 HF0UuYNnzmEemElKxOv81NRcto2bO/aIyi5FX/1CL9CbSXhFm5AxPbpT32pCUhMVVr
+	 kEhYcuYxn3bT+WohP5aHExraiTM501Ybgz8Tmb1WFyN8Qyn/fKixpMI8/It27ruHvO
+	 cZuJZGQccJrQO0z0KKYF5fg9KYYkrm8WSZqT+LG2yTmmy6/5H6PG2KBbjM/HE9ph0y
+	 n6CxVvqcplbgWy779lBdBCKkDRIQTVw/JdC4In3SBcAYhnEJPEEf+qFwsMdbPuxfEc
+	 xwWeem3cuo1oQ==
+Received: from localhost (bras-base-drumpq7715w-grc-39-174-89-1-234.dsl.bell.ca [174.89.1.234])
+	by opentek02.opentek.ca (Typewire) with ESMTPSA id 00FB81260B1F;
+	Fri,  6 Nov 2026 01:54:05 +0000 (UTC)
+From: Charles Drolet <linux@cdrolet.dev>
+To: devnull+b.danias.tutamail.com@kernel.org
+Cc: b.danias@tutamail.com,
+	bod@kernel.org,
+	hansg@kernel.org,
+	kieran.bingham@ideasonboard.com,
+	laurent.pinchart@ideasonboard.com,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	rfoss@kernel.org,
+	sakari.ailus@linux.intel.com,
+	serin.yeh@intel.com,
+	stable@vger.kernel.org,
+	Charles Drolet <linux@cdrolet.dev>
+Subject: Re: [PATCH 3/3] media: i2c: ov8856: Power off the sensor during system suspend
+Date: Thu,  5 Nov 2026 20:53:28 -0500
+Message-ID: <20261106015328.11301-1-linux@cdrolet.dev>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110458-dreamt-steering-e6da@gregkh>
-References: <2026110458-dreamt-steering-e6da@gregkh>
+In-Reply-To: <20261104-ov8856-pm-fixes-v1-3-1958b730ce66@tutamail.com>
+References: <20261104-ov8856-pm-fixes-v1-3-1958b730ce66@tutamail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,102 +77,18 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: Typewire on 127.0.1.1
 
-From: Mike Snitzer <snitzer@kernel.org>
+Hi,
 
-[ Upstream commit db3ca539c1142d2c5380c5dbd3154ab7bb1c7d77 ]
+I have tested this patch on a Dell Latitude 7320 Detachable with BIOS 1.48
+on Ubuntu 26.04.1 with Linux 7.4-rc1 + patches for TPS68470 board-data and
+TPS68470 privacy led (tied to VSIO).
 
-nfs_local_call_read() and nfs_local_call_write() issue a misaligned
-DIO as up to three segments and must stop at the first short one, or
-the next segment lands at the wrong file offset.  They test for that
-by comparing the bytes transferred against iov_iter_count() of the
-segment, read after read_iter() or write_iter() has advanced the
-iterator, when the count is the residual rather than the request:
+Without this patch, the privacy led turns on when entering s2idle and turns
+off on resume.
 
-    before the call:  count == expected
-    after the call:   count == expected - status
+With this patch, the privacy led flashes once when entering s2idle and
+stays off. It stays off on resume.
 
-The test is therefore status < expected - status, and it fires only
-when less than half of the segment was transferred.  A short I/O that
-covers between 50% and 99% of a segment slips through: the loop moves
-on with ki_pos advanced by the short amount, the next segment is
-issued at the wrong offset, and the header's byte count is
-over-reported to the caller.  A write that slips through also never
-sets NFS_CONTEXT_WRITE_SYNC, which is what makes the writes that
-follow a short one synchronous.
-
-Take the segment's count before issuing it and compare against that.
-
-This is the same defect that commit 250ec14932d5 ("nfsd: fix
-partial-write detection in nfsd_direct_write") fixed in NFSD's version
-of this loop.
-
-Fixes: c817248fc831 ("nfs/localio: add proper O_DIRECT support for READ and WRITE")
-Fixes: d0497dd27452 ("nfs/localio: backfill missing partial read support for misaligned DIO")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Mike Snitzer <snitzer@kernel.org>
-Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
-[ sashal: adapted completion handling to the three-argument nfs_local_pgio_done() helper using force_done ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/nfs/localio.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/fs/nfs/localio.c b/fs/nfs/localio.c
-index 3c5891d3ab897..3138439d19109 100644
---- a/fs/nfs/localio.c
-+++ b/fs/nfs/localio.c
-@@ -682,6 +682,8 @@ static void nfs_local_call_read(struct work_struct *work)
- 
- 	n_iters = atomic_read(&iocb->n_iters);
- 	for (int i = 0; i < n_iters ; i++) {
-+		size_t expected;
-+
- 		if (iocb->iter_is_dio_aligned[i]) {
- 			iocb->kiocb.ki_flags |= IOCB_DIRECT;
- 			/* Only use AIO completion if DIO-aligned segment is last */
-@@ -692,12 +694,14 @@ static void nfs_local_call_read(struct work_struct *work)
- 		} else
- 			iocb->kiocb.ki_flags &= ~IOCB_DIRECT;
- 
-+		/* read_iter() advances the iterator: measure it beforehand */
-+		expected = iov_iter_count(&iocb->iters[i]);
- 		save_cred = override_creds(filp->f_cred);
- 		status = filp->f_op->read_iter(&iocb->kiocb, &iocb->iters[i]);
- 		revert_creds(save_cred);
- 
- 		if (status != -EIOCBQUEUED) {
--			if (unlikely(status >= 0 && status < iocb->iters[i].count))
-+			if (unlikely(status >= 0 && (size_t)status < expected))
- 				force_done = true; /* Partial read */
- 			if (nfs_local_pgio_done(iocb, status, force_done)) {
- 				nfs_local_read_iocb_done(iocb);
-@@ -878,6 +882,8 @@ static void nfs_local_call_write(struct work_struct *work)
- 	file_start_write(filp);
- 	n_iters = atomic_read(&iocb->n_iters);
- 	for (int i = 0; i < n_iters ; i++) {
-+		size_t expected;
-+
- 		if (iocb->iter_is_dio_aligned[i]) {
- 			iocb->kiocb.ki_flags |= IOCB_DIRECT;
- 			/* Only use AIO completion if DIO-aligned segment is last */
-@@ -888,12 +894,14 @@ static void nfs_local_call_write(struct work_struct *work)
- 		} else
- 			iocb->kiocb.ki_flags &= ~IOCB_DIRECT;
- 
-+		/* write_iter() advances the iterator: measure it beforehand */
-+		expected = iov_iter_count(&iocb->iters[i]);
- 		save_cred = override_creds(filp->f_cred);
- 		status = filp->f_op->write_iter(&iocb->kiocb, &iocb->iters[i]);
- 		revert_creds(save_cred);
- 
- 		if (status != -EIOCBQUEUED) {
--			if (unlikely(status >= 0 && status < iocb->iters[i].count))
-+			if (unlikely(status >= 0 && (size_t)status < expected))
- 				force_done = true; /* Partial write */
- 			if (nfs_local_pgio_done(iocb, status, force_done)) {
- 				nfs_local_write_iocb_done(iocb);
--- 
-2.53.0
-
+Tested-by: Charles Drolet <linux@cdrolet.dev>
