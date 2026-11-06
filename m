@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929809;
-	b=ZAiGIaIC8vSbKc5Y088ZidJPV+iZ/NG0fx3+qXGzI5/9Gg3lukTYxUPdrHziaZc5DvPZ
-	 hAxVBFb5qvzX+GljYdnCe66QfL2UWiHsNgjIQncpULuYyyX88WPoew0mnaXZT4jCWCMjJ
-	 30rjmouRV0vjilCpWnrEOo/p2r0RvN0aEJ5VvYUmDoeHQqhqxfTd+y+YlPg9lJ+pbsyhF
-	 T238TIj7cQ9GdKn2EPHbvhbSlGLPwTDl61vtroiGKjuD/TFts8xvUSPtYY/gj/rrdAvgw
-	 xoYzlamy8mMWdjfgaStiOj3FI+kmgO3GfKX+C6+W8K2PiRp9Sm1RKqpS7RfTVtVZxOw==
+	t=1793929983;
+	b=kLD3KncqncGux9lPlMF5NT9fzW9JJ5hfKJana53WycmtedZtSar4X9/dq4pcObyukOVC
+	 cQspjeC/8qp35uPAQBwyXFOxDcctrtH9kJcWqK+ysP/SBnsBtDIFH6c+yavyl708iLnFd
+	 o7MFqjQIqV+NgsyG7j1dIXoncwWZwS4seomRqeDoBaD2igSUVQ8x/saxCfnbNvudra+tc
+	 bWe9vaepCrQFqMXvSASljLEhkUz34Md0panUJMVCBK967qXFCKuAM5zkmOY2ioN2zNkNm
+	 yG3VTrFMksGJP9Zvge7BTysjJddvFx/vyV7nnEfTaoPEvjqL0rTpJHGHz6gG/fdM38g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929809;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=WxtCpso7bcy2x3pwPqbs8QbQWCcvaIwVnloUq9Zuj0w=;
-	b=Xx9l3C4h33kswwKgzn749+VFQYDIdtUp/c/uw7sswYXtquMEDS3Yckf2bQDoN7hrHls0
-	 Ta37SyCDT1QaboTQkEJEUvD+EsNeC90lOqJsHS0BLKrOaoPxRXFj5rBMnphFHNlJgVm58
-	 LzD3U0SK0moo1JdnRDHfuVbaJhgq8sGCOtHOieoVva0NoPo9yE6Y7GlLXeAHtceD171rX
-	 JBmV8EsAx5n8x354SDYQ1fw1rLQQRPt3fK/0AZEC5McLEtMwkNy1QyUWuceZr5a445bfq
-	 AGWIlL5FWwkEqyyMau+tHyfrbESi2TRQsy3rc2JSyDbGT3pjSTGWJdWZZkI4+ps9lug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929983;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=uF8IXqcusR7ylVgj72tkdCUl/aYg59NtUUblz74ZZ+8=;
+	b=yRFETQGPeksSPkk6kVVBw6TvMImErhcU/jt/Ljsau34bPKURITZZ+OAVg7SDFhRpvyNf
+	 wCqwfjLRFbLQdky7yUwYJLPgy42WICq+iMZRRXgLvk3SazvaG7eY/z+KsSrA8WWKXaVwS
+	 nkuGLzdCFSzje0rveITOQ4kVtjho4g4yqYx9NA3Rcrnmio6Qk6MaVx+RGnBtW8Pw6QGgM
+	 BdmcAOAlrV7iUolTvHLM/YcmzLac2U1PHaBMEZXLnWRv1X/nHwQG7bm9YD8018EatidHe
+	 ZMoivqLMkNbcEQq0TOAuIDm7oOx21/irC/q+GaTzA18y0ZMO99xciJrWja3wp3/YlNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=U9v+8OSN;
-	arc=none smtp.remote-ip=115.124.28.122
-Received: from out28-122.mail.aliyun.com (out28-122.mail.aliyun.com [115.124.28.122])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZyXROP4r;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7126606A32E;
-	Fri,  6 Nov 2026 01:50:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7126606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12222606A31B
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:53:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=U9v+8OSN
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1793929798; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=WxtCpso7bcy2x3pwPqbs8QbQWCcvaIwVnloUq9Zuj0w=;
-	b=U9v+8OSNp5tIbDiFKe8hQ8oiO2q5Y14vNOis/q9Z/TukEyhyl3he8f6KrOnoYPpoMMud7OZqscP3GCP7xtCmWwVcQak3GQ6nNzx1v/JfHiZ0QYyc/t3HFjy7UzOXN6E5NpLix7jKuXyT+xJR0n6wP542q/v7PF4WcNJRRfLviPo=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.3417178|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0152312-0.0248496-0.959919;FP=7284897808806151810|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034017;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jxtOPNR_1793929797;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jxtOPNR_1793929797 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 09:49:58 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Markus Armbruster <armbru@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] Input: xen-kbdfront - bound the backend-supplied keycode
-Date: Fri,  6 Nov 2026 09:49:57 +0800
-Message-ID: <20261106014957.4130059-1-guozh23@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZyXROP4r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4085B1F0089F;
+	Fri,  6 Nov 2026 01:53:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793929982;
+	bh=uF8IXqcusR7ylVgj72tkdCUl/aYg59NtUUblz74ZZ+8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZyXROP4rgcC3oIKHT2zDpmEo3tZupTd2ClhHF8BHymgghUx+fD4hw9bxXmjfG73SA
+	 eF4qapBdFKVtbrHZFNjblq/gF6do9M+wzNbOboE02t42aHxZgq9aztpFQ+A8MkOfRR
+	 CGc1eV+11CpyCf20iWOP9aqnhmjSQyO99kAS7VaaIFvpdjAFtghZe3wVFhAk71be7W
+	 u/t9QjExVDShwSuVWszK/kiHixyzmfMzb2aVO7W/3Pzyu5eLM0UIheG27npg84zjqw
+	 cqTXKJG6jU9kfoVjCNfnSsAxCYduS3VlbBbDNOWuEkYvQF2u5XWkC0+kVwJpubCiSZ
+	 ShMs1vlsQtnDQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chuck Lever <cel@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y 1/3] NFSD: Replace nfsd_write()'s "stable" argument with "iocb_flags"
+Date: Thu,  5 Nov 2026 20:52:58 -0500
+Message-ID: <20261106015247.3620698-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110436-sputter-backdrop-7c80@gregkh>
+References: <2026110436-sputter-backdrop-7c80@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,49 +60,302 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Keycodes arrive from the shared ring the backend writes:
+From: Chuck Lever <cel@kernel.org>
 
-	if (test_bit(key->keycode, info->ptr->keybit)) {
-		dev = info->ptr;
-	} else if (test_bit(key->keycode, info->kbd->keybit)) {
-		...
-	} else {
-		pr_warn("unhandled keycode 0x%x\n", key->keycode);
-		return;
-	}
+[ Upstream commit 7f7dde9a45dfd9b3c9f35cb24aff9e45669071cc ]
 
-The keycode is a plain u32 from the ring page, while the keybit
-bitmaps it is tested against are sized for the KEY_CNT keycode bits
-declared to the input core. A backend that sends a keycode at or
-above KEY_CNT makes test_bit() read past the bitmap to decide which
-device gets the event, and no keycode at or above KEY_MAX is a valid
-EV_KEY code in the first place.
+The current nfsd_write() API is not NFS version-agnostic, as it
+relies on callers to pass an NFSv3 stable_how value to determine
+the persistence of the requested WRITE. NFSv2 does not use a
+stable-how value on the wire, and NFSv4 has its own stable_how4
+(though stable_how and stable_how4 happen to share the same
+numeric values).
 
-Ignore keycodes the bitmaps cannot hold.
+To remove the dependence on NFSv3-specific XDR values from NFSD's
+generic VFS APIs, replace nfsd_write()'s stable argument with an
+argument that passes a set of IOCB flags instead of an XDR-defined
+value.
 
-Fixes: 4ee36dc08e5c ("xen pvfb: Para-virtual framebuffer, keyboard and pointer driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+The NFSv4 WRITE and COPY paths had been borrowing the NFSv3
+stable_how constants for their own on-the-wire stable values,
+relying on the numeric coincidence noted above. Convert those
+sites to the stable_how4 enumerators so the v4 code expresses
+its own protocol's values directly, with no change in behavior.
+
+While here, bound-check the decoded NFSv3 WRITE stable value, as
+the NFSv4 WRITE decoder already does, and make the nfsd3_writeargs
+stable field unsigned to suit.
+
+The larger benefit is one less NFSv4 dependency on nfs3.h.
+
+Link: https://patch.msgid.link/20260723182043.990391-3-cel@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
+Stable-dep-of: ccfc4db5ab74 ("NFSD: map fh_verify() status codes for NFS_ACLv2 replies")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/input/misc/xen-kbdfront.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ fs/nfsd/nfs3proc.c   | 17 ++++++++++++++++-
+ fs/nfsd/nfs3xdr.c    |  2 ++
+ fs/nfsd/nfs4proc.c   | 18 ++++++++++++++++--
+ fs/nfsd/nfs4xdr.c    |  2 +-
+ fs/nfsd/nfsproc.c    |  2 +-
+ fs/nfsd/vfs.c        | 30 ++++++++++--------------------
+ fs/nfsd/vfs.h        |  6 ++++--
+ fs/nfsd/xdr3.h       |  2 +-
+ include/linux/nfs4.h |  6 ++++++
+ 9 files changed, 57 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/input/misc/xen-kbdfront.c b/drivers/input/misc/xen-kbdfront.c
-index 6471d836f..e9092a788 100644
---- a/drivers/input/misc/xen-kbdfront.c
-+++ b/drivers/input/misc/xen-kbdfront.c
-@@ -92,6 +92,11 @@ static void xenkbd_handle_key_event(struct xenkbd_info *info,
- 	struct input_dev *dev;
- 	int value = key->pressed;
+diff --git a/fs/nfsd/nfs3proc.c b/fs/nfsd/nfs3proc.c
+index 0904d953d10e0..7d8ddb7bfab0c 100644
+--- a/fs/nfsd/nfs3proc.c
++++ b/fs/nfsd/nfs3proc.c
+@@ -48,6 +48,20 @@ static bool nfsd3_time_in_range(const struct iattr *iap)
+ 	return true;
+ }
  
-+	if (key->keycode >= KEY_MAX) {
-+		pr_warn("unhandled keycode 0x%x\n", key->keycode);
-+		return;
++static int nfsd3_iocb_flags(enum nfs3_stable_how how)
++{
++	switch (how) {
++	case NFS_FILE_SYNC:
++		/* persist data and timestamps */
++		return IOCB_DSYNC | IOCB_SYNC;
++	case NFS_DATA_SYNC:
++		/* persist data only */
++		return IOCB_DSYNC;
++	default:
++		return 0;
 +	}
++}
 +
- 	if (test_bit(key->keycode, info->ptr->keybit)) {
- 		dev = info->ptr;
- 	} else if (test_bit(key->keycode, info->kbd->keybit)) {
+ static __be32 nfsd3_map_status(__be32 status)
+ {
+ 	switch (status) {
+@@ -260,7 +274,8 @@ nfsd3_proc_write(struct svc_rqst *rqstp)
+ 	resp->committed = argp->stable;
+ 	resp->status = nfsd_write(rqstp, &resp->fh, argp->offset,
+ 				  &argp->payload, &cnt,
+-				  resp->committed, resp->verf);
++				  nfsd3_iocb_flags(resp->committed),
++				  resp->verf);
+ 	resp->count = cnt;
+ 	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+diff --git a/fs/nfsd/nfs3xdr.c b/fs/nfsd/nfs3xdr.c
+index e481804bb120c..f418cab0bd614 100644
+--- a/fs/nfsd/nfs3xdr.c
++++ b/fs/nfsd/nfs3xdr.c
+@@ -556,6 +556,8 @@ nfs3svc_decode_writeargs(struct svc_rqst *rqstp, struct xdr_stream *xdr)
+ 		return false;
+ 	if (xdr_stream_decode_u32(xdr, &args->stable) < 0)
+ 		return false;
++	if (args->stable > NFS_FILE_SYNC)
++		return false;
+ 
+ 	/* opaque data */
+ 	if (xdr_stream_decode_u32(xdr, &args->len) < 0)
+diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
+index f3f7f14a93683..9ee02a6d00868 100644
+--- a/fs/nfsd/nfs4proc.c
++++ b/fs/nfsd/nfs4proc.c
+@@ -69,6 +69,20 @@ MODULE_PARM_DESC(nfsd4_ssc_umount_timeout,
+ 
+ #define NFSDDBG_FACILITY		NFSDDBG_PROC
+ 
++static int nfsd4_iocb_flags(enum stable_how4 how)
++{
++	switch (how) {
++	case FILE_SYNC4:
++		/* persist data and timestamps */
++		return IOCB_DSYNC | IOCB_SYNC;
++	case DATA_SYNC4:
++		/* persist data only */
++		return IOCB_DSYNC;
++	default:
++		return 0;
++	}
++}
++
+ static u32 nfsd_attrmask[] = {
+ 	NFSD_WRITEABLE_ATTRS_WORD0,
+ 	NFSD_WRITEABLE_ATTRS_WORD1,
+@@ -1377,7 +1391,7 @@ nfsd4_write(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+ 	write->wr_how_written = write->wr_stable_how;
+ 	status = nfsd_vfs_write(rqstp, &cstate->current_fh, nf,
+ 				write->wr_offset, &write->wr_payload,
+-				&cnt, write->wr_how_written,
++				&cnt, nfsd4_iocb_flags(write->wr_how_written),
+ 				(__be32 *)write->wr_verifier.data);
+ 	nfsd_file_put(nf);
+ 
+@@ -1974,7 +1988,7 @@ static void nfsd4_init_copy_res(struct nfsd4_copy *copy, bool sync)
+ {
+ 	copy->cp_res.wr_stable_how =
+ 		test_bit(NFSD4_COPY_F_COMMITTED, &copy->cp_flags) ?
+-			NFS_FILE_SYNC : NFS_UNSTABLE;
++			FILE_SYNC4 : UNSTABLE4;
+ 	nfsd4_copy_set_sync(copy, sync);
+ }
+ 
+diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
+index ebd0dc8f00fca..f7d2884aba44c 100644
+--- a/fs/nfsd/nfs4xdr.c
++++ b/fs/nfsd/nfs4xdr.c
+@@ -1606,7 +1606,7 @@ nfsd4_decode_write(struct nfsd4_compoundargs *argp, union nfsd4_op_u *u)
+ 		return nfserr_bad_xdr;
+ 	if (xdr_stream_decode_u32(argp->xdr, &write->wr_stable_how) < 0)
+ 		return nfserr_bad_xdr;
+-	if (write->wr_stable_how > NFS_FILE_SYNC)
++	if (write->wr_stable_how > FILE_SYNC4)
+ 		return nfserr_bad_xdr;
+ 	if (xdr_stream_decode_u32(argp->xdr, &write->wr_buflen) < 0)
+ 		return nfserr_bad_xdr;
+diff --git a/fs/nfsd/nfsproc.c b/fs/nfsd/nfsproc.c
+index aaeb222b62ba1..48182f78d6be9 100644
+--- a/fs/nfsd/nfsproc.c
++++ b/fs/nfsd/nfsproc.c
+@@ -280,7 +280,7 @@ nfsd_proc_write(struct svc_rqst *rqstp)
+ 
+ 	fh_copy(&resp->fh, &argp->fh);
+ 	resp->status = nfsd_write(rqstp, &resp->fh, argp->offset,
+-				  &argp->payload, &cnt, NFS_DATA_SYNC, NULL);
++				  &argp->payload, &cnt, IOCB_DSYNC, NULL);
+ 	if (resp->status == nfs_ok)
+ 		resp->status = fh_getattr(&resp->fh, &resp->stat);
+ 	else if (resp->status == nfserr_jukebox)
+diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
+index 8923a9910a08f..fe27f6b404268 100644
+--- a/fs/nfsd/vfs.c
++++ b/fs/nfsd/vfs.c
+@@ -1424,7 +1424,7 @@ nfsd_direct_write(struct svc_rqst *rqstp, struct svc_fh *fhp,
+  * @offset: Byte offset of start
+  * @payload: xdr_buf containing the write payload
+  * @cnt: IN: number of bytes to write, OUT: number of bytes actually written
+- * @stable: An NFS stable_how value
++ * @iocb_flags: VFS IOCB_* flags expressing the requested write stability
+  * @verf: NFS WRITE verifier
+  *
+  * Upon return, caller must invoke fh_put on @fhp.
+@@ -1436,7 +1436,7 @@ __be32
+ nfsd_vfs_write(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 	       struct nfsd_file *nf, loff_t offset,
+ 	       const struct xdr_buf *payload, unsigned long *cnt,
+-	       int stable, __be32 *verf)
++	       int iocb_flags, __be32 *verf)
+ {
+ 	struct nfsd_net		*nn = net_generic(SVC_NET(rqstp), nfsd_net_id);
+ 	struct file		*file = nf->nf_file;
+@@ -1473,21 +1473,11 @@ nfsd_vfs_write(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 	exp = fhp->fh_export;
+ 
+ 	if (!EX_ISSYNC(exp))
+-		stable = NFS_UNSTABLE;
++		iocb_flags = 0;
+ 	init_sync_kiocb(&kiocb, file);
+ 	kiocb.ki_pos = offset;
+-	if (likely(!fhp->fh_use_wgather)) {
+-		switch (stable) {
+-		case NFS_FILE_SYNC:
+-			/* persist data and timestamps */
+-			kiocb.ki_flags |= IOCB_DSYNC | IOCB_SYNC;
+-			break;
+-		case NFS_DATA_SYNC:
+-			/* persist data only */
+-			kiocb.ki_flags |= IOCB_DSYNC;
+-			break;
+-		}
+-	}
++	if (likely(!fhp->fh_use_wgather))
++		kiocb.ki_flags |= iocb_flags;
+ 
+ 	nvecs = xdr_buf_to_bvec(rqstp->rq_bvec, rqstp->rq_maxpages, payload);
+ 	if (nvecs < 0) {
+@@ -1528,7 +1518,7 @@ nfsd_vfs_write(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 		goto out_nfserr;
+ 	}
+ 
+-	if (stable && fhp->fh_use_wgather) {
++	if (iocb_flags && fhp->fh_use_wgather) {
+ 		host_err = wait_for_concurrent_writes(file);
+ 		if (host_err < 0)
+ 			commit_reset_write_verifier(nn, rqstp, host_err);
+@@ -1619,7 +1609,7 @@ __be32 nfsd_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
+  * @offset: Byte offset of start
+  * @payload: xdr_buf containing the write payload
+  * @cnt: IN: number of bytes to write, OUT: number of bytes actually written
+- * @stable: An NFS stable_how value
++ * @iocb_flags: VFS IOCB_* flags expressing the requested write stability
+  * @verf: NFS WRITE verifier
+  *
+  * Upon return, caller must invoke fh_put on @fhp.
+@@ -1629,8 +1619,8 @@ __be32 nfsd_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
+  */
+ __be32
+ nfsd_write(struct svc_rqst *rqstp, struct svc_fh *fhp, loff_t offset,
+-	   const struct xdr_buf *payload, unsigned long *cnt, int stable,
+-	   __be32 *verf)
++	   const struct xdr_buf *payload, unsigned long *cnt,
++	   int iocb_flags, __be32 *verf)
+ {
+ 	struct nfsd_file *nf;
+ 	__be32 err;
+@@ -1642,7 +1632,7 @@ nfsd_write(struct svc_rqst *rqstp, struct svc_fh *fhp, loff_t offset,
+ 		goto out;
+ 
+ 	err = nfsd_vfs_write(rqstp, fhp, nf, offset, payload, cnt,
+-			     stable, verf);
++			     iocb_flags, verf);
+ 	nfsd_file_put(nf);
+ out:
+ 	trace_nfsd_write_done(rqstp, fhp, offset, *cnt);
+diff --git a/fs/nfsd/vfs.h b/fs/nfsd/vfs.h
+index 4af2ff9e9dfee..5937bd78d4291 100644
+--- a/fs/nfsd/vfs.h
++++ b/fs/nfsd/vfs.h
+@@ -135,11 +135,13 @@ __be32		nfsd_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 				u32 *eof);
+ __be32		nfsd_write(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 				loff_t offset, const struct xdr_buf *payload,
+-				unsigned long *cnt, int stable, __be32 *verf);
++				unsigned long *cnt, int iocb_flags,
++				__be32 *verf);
+ __be32		nfsd_vfs_write(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 				struct nfsd_file *nf, loff_t offset,
+ 				const struct xdr_buf *payload,
+-				unsigned long *cnt, int stable, __be32 *verf);
++				unsigned long *cnt, int iocb_flags,
++				__be32 *verf);
+ __be32		nfsd_readlink(struct svc_rqst *, struct svc_fh *,
+ 				char *, int *);
+ __be32		nfsd_symlink(struct svc_rqst *, struct svc_fh *,
+diff --git a/fs/nfsd/xdr3.h b/fs/nfsd/xdr3.h
+index 344203874b4c4..cad875d142313 100644
+--- a/fs/nfsd/xdr3.h
++++ b/fs/nfsd/xdr3.h
+@@ -39,7 +39,7 @@ struct nfsd3_writeargs {
+ 	svc_fh			fh;
+ 	__u64			offset;
+ 	__u32			count;
+-	int			stable;
++	__u32			stable;
+ 	__u32			len;
+ 	struct xdr_buf		payload;
+ };
+diff --git a/include/linux/nfs4.h b/include/linux/nfs4.h
+index 1a3981c26b23b..41b7cdcc674f1 100644
+--- a/include/linux/nfs4.h
++++ b/include/linux/nfs4.h
+@@ -263,6 +263,12 @@ enum why_no_delegation4 { /* new to v4.1 */
+ 	WND4_IS_DIR = 8,
+ };
+ 
++enum stable_how4 {
++	UNSTABLE4	= 0,
++	DATA_SYNC4	= 1,
++	FILE_SYNC4	= 2,
++};
++
+ enum lock_type4 {
+ 	NFS4_UNLOCK_LT = 0,
+ 	NFS4_READ_LT = 1,
 -- 
-2.50.1
+2.53.0
 
