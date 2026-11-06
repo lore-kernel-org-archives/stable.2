@@ -1,53 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793936685;
-	b=fYGVTW6y+EvsP1aZ6rDwhv7vkd2d3P5Bgx4AloDmEymJHr8NWBZFm2ynhAXHKEf/rm4i
-	 08ZBJzQoMBPciJ7xUbe72Ttx1/71JtZx0445X07zIzWqzgiLgNXE43d4ACBiaUS78fdWX
-	 H0Wa1VmuYoAxC42BSh5F2Qizpg8wa+sbN/X85Ace0w4V1tjFBg2tZwrFrIKe6YyTbbIn4
-	 Ry5V9FBeID3N4rFANOdaX6kQkoh4AnE8anyRNKoAk92Okt1YQjK7JvEJdLVGSZoRn7K5P
-	 OqB5hK47lNSjEiV4nHH8lRZep359BqUletHw/oOmVfZjqN8Vbd+sebnPkHyQxsgQztw==
+	t=1793936967;
+	b=AL0ta0WamRylZMK7f1tzpqYMMuWZWKbifmiWRTC42Yj3z7SZdGqPTcvX53Uq5IGEZiLH
+	 czR5fRbz6ZTKbV8AjOOF7PWeCHeOh5+kfWSr89nAV2HfdLkaCKeMDyvIBu3jbJB+DKaZ0
+	 Y/1XIWolz+9i3mwe3d9HwDsDXJtusPLuKP97lcCMP+YOXu36GY6egjwMrJqbNa4lXnuNJ
+	 dn2Hoz79TWSeibL73frvyqVS7dUqenvi1Kt9jZ1ZdAwHOjp7isEGRAGYvRnnVMU4uZKf8
+	 /8TaBg+TWYcDJtajgEE9KxXbmj4M+8ahIIf9bWKPsFHdgbtE4FXSaYityNdgsmFLMWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793936685;
-	h=DMARC-Filter:Received:Subject:From:To:Cc:In-Reply-To:References:Date:
-	 Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=rxbs7nzBrtfmIOGiCSnCdjgFX+TagOLny6/gYQ3BikQ=;
-	b=GHJAuAPZOhyWPwB8oSQOpzy4BSqTWfd94zhyfI776rOGVVyF3ABYbQov6ImK1KOdefU4
-	 dPiyyo6QOp47XOCLalLDhk0LmSmzj35Sh58X+EkdmG/bSHZ5IYKLQh30tz8sqQzEYCS/8
-	 rO+z2fmHWN0BUKi8I7bxW0tWqmgkWZ9C++4oJiHPesZ+aGUk9IejV2DDQwayz/4XTzfUJ
-	 XX+w2pXPrl5UWUDcowSFPll6ePRJFwtx4itLAMM08NxKvP4LNDswrVbIACy6UCkWx9Zmd
-	 HWC9Z/KQN36eigBWoBHuomonwpjvqTBo0gwcMB10f3BMp+RMT2S2iv44Ogg1gu3RAjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793936967;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=bR6/RyzKOdjpGGJRJNVfShP1T5DrkTgxl/K0lqGB0w8=;
+	b=AaX4xCJJGZTpecxsWtfhE5lPJNGXi7/bZQbZwr1fVGc/t6xgrhOId0PBaSJk/OQvcOYo
+	 DTPQW6S5+A+VrdB5lfMFxdI9DPa6zNemQfw0rEU6HfstjxBIykeEFdGbbkhphUrDA/kn3
+	 XeFLR0RemAdmMsi/NIxgy6/MBe6WMGaOdf3qHrxreICp3tFbwTkqPMdMV8CunFLdMnPYR
+	 PkWPxKKMDaUW8VLCTbIh2X9dbWyefneYNireo3x63tXvOUuMhEE4Tq2CrKHNuAgoO1NMc
+	 NOsVYnoZtpudZ/bBRLVYNDBjcDRzP1UHGhX1AeuH3Mni9CLXX4B5phBBnRYnlPLrNyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.21
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DBXLa1GR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5858606A31B;
-	Fri,  6 Nov 2026 03:44:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5858606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowAC33_kjTe1qAOReAA--.15432S2;
-	Fri, 06 Nov 2026 11:44:35 +0800 (CST)
-Subject: Re: [PATCH] soc: microchip: mpfs: Fix flash leak in
- mpfs_sys_controller_probe()
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Conor Dooley <conor@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
-Cc: conor.dooley@microchip.com, daire.mcnamara@microchip.com,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- stable@vger.kernel.org, vulab@iscas.ac.cn
-In-Reply-To: <20261008-47741881fb032091ea3d7f0c@squawk>
-References: <20260917153550.2160672-1-vulab@iscas.ac.cn>
- <20261002-garnish-president-6e8abfdacf4c@spud>
- <20261008-47741881fb032091ea3d7f0c@squawk>
-Date: Fri, 06 Nov 2026 03:44:44 -0000
-Message-ID: <179393668487.2060453.14381920142402581273@iscas.ac.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CEF606A31B;
+	Fri,  6 Nov 2026 03:49:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DBXLa1GR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 297C81F0089F;
+	Fri,  6 Nov 2026 03:49:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793936967;
+	bh=bR6/RyzKOdjpGGJRJNVfShP1T5DrkTgxl/K0lqGB0w8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DBXLa1GR6y3NbdRJY+QMmx7gNQCu1YDGZ1tdDdYd2N7coc1sO/SVQQgl68pVnjc8z
+	 8Rg+d+mxzghll7ZdM9KS5/9EWVqR0WZIVzgWKSXSCHMSkvwS2nlLaT9De6WKR/SHoj
+	 bQ+yZlfsyv/0bDTqLAFXstxFC3p4dU7Sj174b7K9HT5sFjLEX6Dtr+CWRpJlVK6EhA
+	 VE0Au+OaPS8fkKERAOkD61x3hbvV1KR/vFOpIElDrEhGM4AC/JwTtOaK2gJ27+4MsJ
+	 CWm5//y0lnhZWIIE0Z7fGgNpS6rIqMLkWeQEKzLwI+bKYFI+8Rxj0yww8KVz9UVAPb
+	 O1zkAIOeq+Liw==
+Date: Thu, 5 Nov 2026 19:49:25 -0800
+From: Eric Biggers <ebiggers@kernel.org>
+To: Walter McKelvie <walt@mckelvie.org>
+Cc: herbert@gondor.apana.org.au, davem@davemloft.net,
+	linux-crypto@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] crypto: algif_aead - Allow gcm(aes) for privileged users
+Message-ID: <20261106034925.GA3877@sol>
+References: <20261106034150.1159818-1-walt@mckelvie.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,51 +56,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:qwCowAC33_kjTe1qAOReAA--.15432S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7GF47KryxZF4ktF48AFyrZwb_yoWkJrX_Wa
-	yktFW3u348AFyxJF4FqFy7ZrsrK3y09ryrA3y8Wr45Jry5Ar4IkFZakwnxZr1SvFW0vF1D
-	ur9xJ3y2krnFvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbs8Fc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280
-	aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c
-	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
-	WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
-	8JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0E
-	wIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI
-	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
-	xVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
-	8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
-	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43
-	ZEXa7VUbkhL5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAADA2rtCZf4iQAAsk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106034150.1159818-1-walt@mckelvie.org>
 
-Hi Krzysztof, Conor,
+On Thu, Nov 05, 2026 at 10:41:50PM -0500, Walter McKelvie wrote:
+> iwd (via ell) implements TLS for the EAP-TLS/TTLS/PEAP authentication
+> methods and uses AF_ALG for the AES-GCM AEAD of the
+> TLS_*_WITH_AES_{128,256}_GCM_SHA{256,384} cipher suites.  With
+> af_alg_restrict=1 these suites are silently dropped from the
+> ClientHello, and authentication fails against RADIUS servers that only
+> accept GCM suites (common for eduroam deployments).  This contradicts
+> the stated intent of commit 2f204fe718f5 ("crypto: af_alg - Add
+> af_alg_restrict sysctl, defaulting to 1"), which was to keep iwd
+> working under the default restriction level.
+> 
+> iwd runs with CAP_NET_ADMIN, so add gcm(aes) to the privileged part of
+> the AEAD allowlist, next to ccm(aes) which iwd also uses.
+> 
+> Fixes: 2f204fe718f5 ("crypto: af_alg - Add af_alg_restrict sysctl, defaulting to 1")
+> Link: https://github.com/NixOS/nixpkgs/issues/583203
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Walter McKelvie <walt@mckelvie.org>
 
-Thank you both for the detailed review.
+Is this with upstream iwd, and do you have a source code reference?
+"gcm(aes)" is L_AEAD_CIPHER_AES_GCM in libell, but iwd has no references
+to L_AEAD_CIPHER_AES_GCM.  It didn't show up in the search before either
+(https://lore.kernel.org/iwd/bcbbef00-5881-421b-8892-7be6c04b832d@gmail.com/),
+and the iwd maintainer confirmed the full list without "gcm(aes)" on it.
 
-Sorry for the late reply, and for the mess it caused.
-
-This is a v2 of the earlier patch, but I sent it without the v2 prefix,
-without a changelog, and without referring back to Conor's review from
-8 October:
-
-  https://lore.kernel.org/all/20261008-47741881fb032091ea3d7f0c@squawk/
-
-You are also right that the patches were sent in bulk across unrelated
-subsystems, without being grouped into patchsets, without running checkpatch
-on them, and without documenting what was and was not tested. I am sorry for
-the extra work this has caused you.
-
-In particular, thank you for pointing me to the kernel documentation on
-subsystem identification, patchset organization and testing, and for the
-guidance on how this work should be submitted. This is an important lesson
-for me, and from now on I will go through all the remaining feedback
-manually, one by one, and reply in a timely manner.
-
-Going forward, I will also not send patches in large batches, so that I do
-not exceed my own capacity to respond.
-
-Best regards,
-Wentao Liang
-
+- Eric
