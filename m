@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794007120;
-	b=z93GgzKEd9KpJGU/Np1GjEhQ/jsbCW1Qx7/aN37+2KQRdx3GhCezZOvUwSF9DyJnz44C
-	 LOna7LFSr5lxXbNb23lsQrMcNGuBkju6BLuJVF/7I+S4evAdu52tKiKiPE4amzqe/099f
-	 7uQRAMBeCb/I2a9la4/fCJ3792RR6g+v1PPHs3hPZPmfTn71xTEZrlQEUB2stH5/wFDre
-	 AFEPh6+dUvJeLULIIHQlCNcVYmFsuj6sHGJT6hHxCuMN3gjpQA3ipXCSUZsyl1RN3oAAP
-	 4TXUplIWU06F1Z80/He1iTa/ybb1vALlfEJzEIsXIPBwiBxC1NzCupt/OYjxnAxnkYQ==
+	t=1794007121;
+	b=bqGgWlwUTMVQhc4hkhA4LUakBAyVyOFPx+dndvukvhmgMg8sfYF7cqRfCBCTbVXE5hve
+	 /gUjHRA/JcA5bcG9dkFCr4oNHny8jcTlQ53IJri0/AU7Y8W31ECgV72zpagSi7ywTXOra
+	 wE3v4pQwTuQvIvc+dMt7J1oIRwrXXHiTdHwjqF2eheCPB57XktNWXuiyLdGHha+mVGtoR
+	 SOB6f/GAJ1T9lHnyAdpWoXssCx0NNzUkv10hKJYTf/HE9uS0r+Tf4MS5JCDKj+CnxErjE
+	 wR2I9iYdmSVh7+2Jw+jNFp75WTc1+U/vJB9nDsAXKBN3AkRB1rCPZ67puluZJ3D7fNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794007120;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794007121;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=/kHN44ZQ7spcitdWxiKL3R8VBCf+tiohYYozD2JcOnc=;
-	b=AgGtpUNMPrGmhx5LZuLhTStOMqhYHwRIgFydllTBfCpvKpHtjLAp1DILturhqHesSaV2
-	 2HaCIkcpjWhF5m0cDuZFQ05mv0vhDcsUFCaxtEjozho7hUi6Bpv9fMh4onJOBYzCNG1Be
-	 nOgDhdphwz/uG36NsqxywjGC9q3a7+fC2soAry8Id3ukLJDx8XLUyBQuWdAj0mKixNCc0
-	 fSF/yrVt3GRtYrFd8PN+DGSW5IFnS81oL1SavimQCArbRTtm/iW3jVcnPartODQ2eSn0a
-	 OjbPrU16f4XkkajABxvb5071s86KfxPnDKqegpcJ0lC1h1Nm19rgNhutroXqrF0/qiA==
+	bh=8QJAGPKDorNl6Gk18TB1o1g7l5jVHtK9f9WT2QY+ccI=;
+	b=GscOpGzDFsMY3AWLIotQSvuva1O4FaDT6Lk5ucaWqdIoAPlS7gaSy6YGCTQVKtHhfVRA
+	 2Ty0tcYq+WAEMtaIVAiXrcrEmoJRkM+KayPHTVMHZSKhyfyUTSiZGtbvMssWtq7UlCot0
+	 hgiAhfIISlsBi2EzfbJXRLQfRJNw4OZ2x2AS4yD7EctDzrf6lQNZ5NgqEzXrbbCTA81mo
+	 y+HZxTGCF28jcIBUvG6EGmGW6ahQX+K7ULeFtHMPExI6Jcy1mmcEhCd/eEIGSZmG1gd5R
+	 7MxrrLdXSVlNnCW9tkuXoX6Wd5sq7AsN70bnQ67gFCwsGy0ExyMW/ZSfaO1BC8B/O5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=manguebit.org;
 	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=TC7xLfbJ;
+	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=1Pieob28;
 	arc=none smtp.remote-ip=143.255.12.172
 Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64942606A32E;
-	Fri,  6 Nov 2026 23:18:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64942606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B336C606D826;
+	Fri,  6 Nov 2026 23:18:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B336C606D826
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=TC7xLfbJ
+	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=1Pieob28
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
 	Content-ID:Content-Description;
-	bh=/kHN44ZQ7spcitdWxiKL3R8VBCf+tiohYYozD2JcOnc=; b=TC7xLfbJ09j6XdSiFpU7IFhXWC
-	6aWHeGqT9PKfzMjdRhl9MvucnaarcwCb1/sDspvmvXvOx2a68qOGXROAE81PlIcxU6qAN47wUSErT
-	iCqwEphLt3+msO0wOUz94gRL6/Wv3DomZso9l1/p7nGZ9ferAbq7Wu/pHBSSKqfY/rt5mHQ4rCRJI
-	RwtiTUfLN96T+3eCw1GFkPYdbUMX8RCy7YBui0TC8jvnpBdss7gflJ7UDFG/eMjlvA79981w/lKiP
-	ZIERLNEbHNOHTsWv3/fSxPQxBh0aRTwrcX2zS1YWEEbftj2R1U+CFvGPaYA6rTa555y6kaJ54DzzX
-	A7XYHF9w==;
+	bh=8QJAGPKDorNl6Gk18TB1o1g7l5jVHtK9f9WT2QY+ccI=; b=1Pieob28uG1GvhbB6EpNasy1mT
+	XIZJa2/SIad0X/j7nfhPZeZGej8slqn5GGGbRqCJ4cra8M+EeyWrT11UhVsrFn1ETIaxeSX3BnKLg
+	Z0mGJZRULDoLB8MSAsVqbJEJsLteFInkuxCD5tUaF4mKkbLpir7dWl2AUv29uzO8tqTk8iEFVP0bN
+	feToVTgKqZUUpiWrAQ6UudR6CKw4m2poOgU9ARNiNvDe04SHfepY3hd/3mrBSWsCa5k973gYbOGW7
+	OwG0rC67kz7R3sCNGvwByPb1TYzmPuW3A3w+Pcce/L3TdzjaF9ym7B7yAyxK4jfl8JGwdGg7OeYhQ
+	YRrudKDQ==;
 Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
-	id 1xPTCW-000000014Dt-13gj;
-	Fri, 06 Nov 2026 20:18:29 -0300
+	id 1xPTCZ-000000014GD-2a8d;
+	Fri, 06 Nov 2026 20:18:32 -0300
 From: Paulo Alcantara <pc@manguebit.org>
 To: linux-cifs@vger.kernel.org,
 	netfs@lists.linux.dev,
@@ -57,9 +57,9 @@ Cc: Namjae Jeon <linkinjeon@kernel.org>,
 	Bharath SM <bharathsm@microsoft.com>,
 	Christian Brauner <brauner@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v7 04/19] netfs: don't hang a read whose retry is abandoned
-Date: Fri,  6 Nov 2026 20:18:12 -0300
-Message-ID: <20261106231827.2604956-5-pc@manguebit.org>
+Subject: [PATCH v7 14/19] smb: client: retry writes that couldn't be issued due to a reconnect
+Date: Fri,  6 Nov 2026 20:18:22 -0300
+Message-ID: <20261106231827.2604956-15-pc@manguebit.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106231827.2604956-1-pc@manguebit.org>
 References: <20261106231827.2604956-1-pc@manguebit.org>
@@ -74,35 +74,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When ->prepare_read() fails while retrying a read, or a subrequest can't
-be allocated, netfs_retry_read_subrequests() marks the remaining
-subrequests failed without reissuing them.  If none was reissued in that
-pass, nothing is in progress any more to wake the collector, which
-returned after the retry, so an offloaded read (readahead, async direct
-I/O) never completes and its folios stay locked.
+__cifs_issue_write() fails a subrequest with -EAGAIN when its handle got
+invalidated or its credits belong to a session from before a reconnect,
+both before sending anything.  netfs used to retry any -EAGAIN by itself,
+but now only retries subrequests marked for it, so these writes fail and
+their folios end writeback clean, losing the data.
 
-Wake the collector after abandoning, so it collects the failed
-subrequests and completes the request.
+Mark them for retry instead.  The retry gets the handle reopened and
+fresh credits in cifs_prepare_write().
 
-Fixes: e2d46f2ec332 ("netfs: Change the read result collector to only use one work item")
+Fixes: 82e8885bd763 ("netfs: when subreq is marked for retry, do not check if it faced an error")
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: stable@vger.kernel.org
 ---
- fs/netfs/read_retry.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/smb/client/file.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/fs/netfs/read_retry.c b/fs/netfs/read_retry.c
-index 8a722995fa9d..bfaaebea12df 100644
---- a/fs/netfs/read_retry.c
-+++ b/fs/netfs/read_retry.c
-@@ -269,6 +269,7 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
- 		__set_bit(NETFS_SREQ_FAILED, &subreq->flags);
- 		__clear_bit(NETFS_SREQ_NEED_RETRY, &subreq->flags);
- 	}
-+	netfs_wake_collector(rreq);
- }
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 0fc1f74b55b6..7e1e886dfedc 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -220,10 +220,12 @@ static void __cifs_issue_write(struct netfs_io_subrequest *subreq)
+ 	return;
  
- /*
+ fail:
+-	if (rc == -EAGAIN)
++	if (rc == -EAGAIN) {
+ 		trace_netfs_sreq(subreq, netfs_sreq_trace_retry);
+-	else
++		__set_bit(NETFS_SREQ_NEED_RETRY, &subreq->flags);
++	} else {
+ 		trace_netfs_sreq(subreq, netfs_sreq_trace_fail);
++	}
+ 	add_credits_and_wake_if(wdata->server, &wdata->credits, 0);
+ 	cifs_write_subrequest_terminated(wdata, rc);
+ 	goto out;
 -- 
 2.56.0
 
