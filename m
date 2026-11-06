@@ -1,56 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.196
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929792;
-	b=Q6YZG46L52pIe7H4xck3e0l8VDv8rTJr539Zrg+AR1ZezfNhwbtYYhIJM24RZiLivf3u
-	 dfqAFd3ZJLmQw5fefGEu+5hmcTrSWgE+d+3mQIAfQCSj4EkB62oKIi1EHlpeix+NCUNv+
-	 XsmYEbQ17HO+ILuTvSdm9cNX9ZIvi669NAsgzOa6FrEiJcSWemMfRr13PHZNhvvzjeWqH
-	 62279wVBmJZJzsHvT37jOIdB2CZKnNTwG8GvV/hzM+i/vSAoPDSDnkuq/MtU4LNWJ4K8d
-	 ASCu9nR7bvsTnTBSf6swozt3314k91uJgYlPqSDVFSkRNdmdlwa/f8Wxjhv8dEV18AQ==
+	t=1793929789;
+	b=c3nBvbyPh+k+DnOQQE8n2ywKCvtiGYWhVg1cInceZwp37ie6HcsV4F1bbBU+dIQ2pRHd
+	 0N+oKf+IG+rgv2jsdiRZzre+JClLqp/oTYBKYEFiBo2a+LapjIs28TFaV6c1yPpTGgTYb
+	 w4wpI35fwvMtML68ui2h+cI5RYTta8HkYpCpdXfmc3VHJDhms4kcIpTvsjAHAe+N11nzm
+	 grp6doKD+qzCkRcQL5IGIrh5XL4LYEVx+QuG3Hk7JVnlPWuNvppjE+9UXLOjvqA6obZ9R
+	 zOdXo1dPG2dmqsF96bNyk6Gw8icxdNE56DHcBT9LzaeOPiHBg3BOmnX64rTmhU83Hgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929792;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929789;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=NnTn0Ia9l5NUTREGcxxA3UJ00sB7jgz3g4XdKs+soTg=;
-	b=Rr6t5o1IeYHm5BREoeNMnWSVT7UUuAuTIfjzM5DEMgoBHu06b/zMoAi7/c0NDwLjUcq5
-	 vEOkUdFcdMkidR/+Cq4dccawEPZTYgez0BRXcGpofIvNBeXQj1Twhi/BJDtNyEdpvAIdM
-	 aNsJCu8UCChKd+cyG9CMEv+DOStjxxYvFuzBfFwcTHq6AUtWpIxpRQ3FbZieENnb0dU3A
-	 +w3RozA5PLuQcFWKf2AWUEeZYabdLzBzhBP9SY1Bk+CsZvclAKaI5/khEY79ARWFLVxWS
-	 YNJkF6qAXuqniEtO/pAejPAq3BVLEWxB1NefR1KnTXrO8X0sku+BSc3z984Mg31cSjQ==
+	bh=rd4gFmrl3ouZRdKDs05EYuF824vME+wyZ3SimgQQNTo=;
+	b=GP8TxH0QI5nU5h3ivg68JYSzOrV1QQICEw79cUIccS2X3bppoabOBTGh4ecI6KtPW/T4
+	 Q6ewj8dOJKiHhv4o5lY+cM+CrHECPELUQpvPnCDtNp4OHovDY7+bl0WcEfXKKOnPXa6sq
+	 H0GflxSZu4hTUkMv4HomSpQjD9cguyEto/SRPRqZrjt/OBxtI0Sz7zn5Ubz26bJvSDU0F
+	 9X24wf6vZzzvD60+xe30580aDiPHXw2p8dDycsIwuCB5WKDTrguOLx1MK4LN4QDorDRh3
+	 KoKUjDtonKwpV3iQvdMiToertjYriIXU5XWcuRglDMFesVTVGKGps/bvoW3rdhXfE1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=q2+HlJhi;
-	arc=none smtp.remote-ip=115.124.28.196
-Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com [115.124.28.196])
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=MD3cVfTf;
+	arc=none smtp.remote-ip=115.124.28.4
+Received: from out28-4.mail.aliyun.com (out28-4.mail.aliyun.com [115.124.28.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04BD606D808;
-	Fri,  6 Nov 2026 01:49:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D04BD606D808
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD1F606A32C;
+	Fri,  6 Nov 2026 01:49:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAD1F606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=q2+HlJhi
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=MD3cVfTf
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1793929788; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=NnTn0Ia9l5NUTREGcxxA3UJ00sB7jgz3g4XdKs+soTg=;
-	b=q2+HlJhiLGBterG9qGa1UJ/xmvWm1SAe/RRF+NAkYUUlgZ355yekUrpBTh+iVNHSrjtPg/RnvQFZj6McEPgLjjr+pbGJ9r3IKX4acErpxII77mXvIO9nkNyNo3SyeKiRe/O2rf/ljDOZodh0m1hw4qWRY6wzkhz03/7IT7l1UYw=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1010723|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00350199-0.000410909-0.996087;FP=3059557656939865650|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jxwwjER_1793929787;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jxwwjER_1793929787 cluster:ay29)
+	t=1793929778; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=rd4gFmrl3ouZRdKDs05EYuF824vME+wyZ3SimgQQNTo=;
+	b=MD3cVfTfdFTCqTtLukNvDlZTJcIFv3D29ZI45YoV0EGNTe2t5hph9/cDUKoyIMwcIeuKTqHpYHNmgu+J9K2so/fAzyBP3esaa9V32hQ7i0v6rjzw7nUgQVef6SD7vTnaoVubhYj4fw1Nje3rzB0tWhzQQEkIRNDZDFrQ71Gsnto=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1907592|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00151422-0.000236071-0.99825;FP=18400911021544711315|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045099153;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jxs1mzc_1793929777;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jxs1mzc_1793929777 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 09:49:48 +0800
+          Fri, 06 Nov 2026 09:49:37 +0800
 From: Guo Zihao <guozh23@xiaopeng.com>
-To: Jonathan Buzzard <jonathan@buzzard.org.uk>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org,
+To: Peter Huewe <peterhuewe@gmx.de>,
+	Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] char: toshiba: restrict the SMM device to root
-Date: Fri,  6 Nov 2026 09:49:47 +0800
-Message-ID: <20261106014947.4128799-1-guozh23@xiaopeng.com>
+Subject: [PATCH 1/2] tpm: sessions: bound the primary public area by the response size
+Date: Fri,  6 Nov 2026 09:49:35 +0800
+Message-ID: <20261106014937.4127650-1-guozh23@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,53 +66,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The toshiba misc device is registered without a .mode member:
+tpm2_parse_create_primary() reads the size of the TPM2B_PUBLIC area
+from the response and hashes it to compute the object name:
 
-static struct miscdevice tosh_device = {
-	TOSH_MINOR_DEV,
-	"toshiba",
-	&tosh_fops
-};
+	len = tpm_buf_read_u16(buf, &offset_r);
+	offset_t = offset_r;
+	if (name) {
+		/*
+		 * now we have the public area, compute the name of
+		 * the object
+		 */
+		put_unaligned_be16(TPM_ALG_SHA256, name);
+		sha256(&buf->data[offset_r], len, name + 2);
+	}
 
-misc_devnode() only overrides the default when ->mode is non-zero, so
-/dev/toshiba is created with the default 0666: every local user can
-open it and issue TOSH_SMM ioctls.
+The length is only checked against the response later, after the
+hash has been taken. A TPM that reports a public area longer than
+what it actually sent makes the sha256() run past the end of the
+received data and hash whatever follows the response in the buffer.
 
-tosh_ioctl() copies caller-supplied SMMRegisters into the CPU and
-enters System Management Mode via inb $0xb2. The filter in front of
-the call only rejects two HCI selectors (ax 0xff00/0xfe00 with
-bx > 0x0069), so every other SMM entry point the BIOS offers, along
-with caller-chosen register values, is reachable by unprivileged
-userspace.
+Check that the public area fits in the response before hashing it.
 
-Give the misc device a mode of 0600 so the node is only usable by
-root, which is what a ring -2 firmware interface should require.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: d2add27cf2b8 ("tpm: Add NULL primary creation")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 ---
- drivers/char/toshiba.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/char/tpm/tpm2-sessions.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/char/toshiba.c b/drivers/char/toshiba.c
-index 776abbfd8..bea2643ec 100644
---- a/drivers/char/toshiba.c
-+++ b/drivers/char/toshiba.c
-@@ -87,9 +87,10 @@ static const struct file_operations tosh_fops = {
- };
- 
- static struct miscdevice tosh_device = {
--	TOSH_MINOR_DEV,
--	"toshiba",
--	&tosh_fops
-+	.minor	= TOSH_MINOR_DEV,
-+	.name	= "toshiba",
-+	.fops	= &tosh_fops,
-+	.mode	= 0600,
- };
- 
- /*
+diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
+index ca1e2bf42..3524c1d50 100644
+--- a/drivers/char/tpm/tpm2-sessions.c
++++ b/drivers/char/tpm/tpm2-sessions.c
+@@ -1126,6 +1126,8 @@ static int tpm2_parse_create_primary(struct tpm_chip *chip, struct tpm_buf *buf,
+ 		return -EINVAL;
+ 	len = tpm_buf_read_u16(buf, &offset_r);
+ 	offset_t = offset_r;
++	if (offset_r + len > tpm_buf_length(buf))
++		return -EINVAL;
+ 	if (name) {
+ 		/*
+ 		 * now we have the public area, compute the name of
 -- 
 2.50.1
 
