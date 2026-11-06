@@ -1,42 +1,41 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793989512;
-	b=BawOgJ7OK2vtrvEQchGhKIQ9eDUQpA2CFPXsEAkAi9yj1uRg3iv93iwRR6yI/5wSFHdD
-	 nDl6uvu/++AsXJwz0XadJkPojcyWWAQVQUc5txqO79MsS1IX1pDEUHWeovikaauUKO6o9
-	 jWPOmyn/TdvFsmldGHy5vhGYgZyKDjbUiEwDd/dphGEBGK8mekp8tbmHbSSfXNOkaE3j8
-	 EmRM/2bpp7YiNx1czVZvGyhSh1vIllIJUGOjPfHnDz7i1UgJV3zeIxGESDgrLQ9NOi4jX
-	 ndF8Pu37b2Sr9nOpFin5LuBGdUiiOH674NJQVrI4h+OtfGDRGI5p0lnrxPE3QcBuB6Q==
+	t=1793989518;
+	b=LdbJo1O9fXU39ZzkL43k7vJ0mE0QH2sdn39QGVap7uYmsQ6f8viLeFYR9/l5bEdKpgli
+	 KhnyyrRE8k1AWmB1XgakYkar9tHSdJyuVaRL2poz7KSy8n1iRB5KS3Bek/lmMfOznNcwf
+	 3o+PvC5ce39VtJqiR9z42Ny1gizH2bNuYCUvmBrtn92MoT+N8i5aGtYzOUBPewUA1OpMr
+	 xo/pocfd5ZazxEN3CldrVdF6wcrctQUy0Qs+1jxA2YUDLLNRZtKqA5y1ZbHr49e2x35/l
+	 ZrHpvzEu1I0xzUSMd9SGMCqsl+6cC0fkPJ9HbKBDDd7CJP/RbX9+KPM1gkUIfe3c/Og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793989512;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793989518;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=25/Oezbo/H2OY0Dngihw1GEqN9kUDg/nYNkd8VYSfF8=;
-	b=Ki7aqyx3ad+OTvR4juXh5YdZJ1f5ns6qGEuE1MwkThk8XNXyvvfnIuCbyk1AlZN19a+B
-	 gCQ1JA3ECg18odfiQA5/OtQ2Sir4VBIDKt6o9j0oR6bNVMWv6JDHH2zY6Doh2syGZucL0
-	 tbgBdxy751mpkydbnkjVde7SleRfoEfyqbZOd+ZmzBTAZNxmt5F3X1uFDqyHS2qNpTzCB
-	 D/2wKcKWd1RX5vBVxZ4MGnMP6bSRWAH8HpJQ0M3XSHK9axwWaTsqnvX4XpyczJRsepTTX
-	 c6Qks7M5uuiEEjHVp6hW5tTnRxFqFyVqjmpScX4q/08JKcc1kJw+4fOH/ZPySbRp0ag==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=G6N4KPZ87bL01Do/91S0+dnuL4SvkQTk0X2ObVNjwdg=;
+	b=2ryHFYFVKEjEw0M+lzpl73zjj8aUh3ByujFweCvL9D9iRJPm3uAaFLLBfnysJR9ZydeV
+	 HFruDixn1AtQLEjEh+jeYQiYyG180ZOvHKoeWGi7sTWoh0KhqPQ+6bS+ITeQGo2efS3ST
+	 sjuQMBuZtkb3fxfUj96Dbj8+8Tp7+mNq//jgzAnLlSU0RUOk4M4D7upRgOccer9gzTusE
+	 pQWXiM8HZILkGD3Yo5CSqZjvpuFm5cPW0Nrj9julXuhiEDJQRgfdhioXsDzU2rw0JMepv
+	 rR+aB9x99tSiUzrEp/+rM22roglOEBvowxXcYDsQZnN8jMFYuEFOxFCD7aYAykzN50A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YBoiYlRb;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CBsjFI9P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13BC6606D813;
-	Fri,  6 Nov 2026 18:25:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC2D606A338;
+	Fri,  6 Nov 2026 18:25:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YBoiYlRb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2D3E1F008BE;
-	Fri,  6 Nov 2026 18:25:11 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CBsjFI9P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAD661F0089F;
+	Fri,  6 Nov 2026 18:25:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793989511;
-	bh=25/Oezbo/H2OY0Dngihw1GEqN9kUDg/nYNkd8VYSfF8=;
+	s=korg; t=1793989518;
+	bh=G6N4KPZ87bL01Do/91S0+dnuL4SvkQTk0X2ObVNjwdg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YBoiYlRbay6DT1Ey4+GqaLjC9lrTxxTb/JRgAZfGO0plS8Yw9mCo/LlKxEHkwF5fU
-	 nxAl2eJcwvtRpoYJyqD8SXXzT6aFKJAD9R2pZFZpNhk0Ievj3eRJLl4xDiFSW1SVPr
-	 IAPN3WZLIx6gx+AjLdreyyHI6JI+QMeJWfIilq1g=
+	b=CBsjFI9P/z+Ja0fl8Ft1+HXT5y6Dw1JnH9C7SEucJcadcYWYj7vpar1Q5LbqDKekM
+	 i+h+ZAs6X1olpwGOK2iW9/LNUIenVvxNuHvjxsAiKtQk/POmR3ITd+kDRdpn/FVXqY
+	 E5FSZBnd8pY4jM/XIt6JmMcykM0vJjTkrwNd/yow=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org,
 	akpm@linux-foundation.org,
@@ -45,12 +44,12 @@ To: linux-kernel@vger.kernel.org,
 Cc: lwn@lwn.net,
 	jslaby@suse.cz,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: Linux 6.6.162
-Date: Fri,  6 Nov 2026 13:25:07 -0500
-Message-ID: <2026110607-mustard-cradling-ac9d@gregkh>
+Subject: Re: Linux 6.12.116
+Date: Fri,  6 Nov 2026 13:25:13 -0500
+Message-ID: <2026110613-unhook-confiding-555d@gregkh>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <2026110607-squid-outlet-b53a@gregkh>
-References: <2026110607-squid-outlet-b53a@gregkh>
+In-Reply-To: <2026110613-recycled-giant-5f1b@gregkh>
+References: <2026110613-recycled-giant-5f1b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,24 +59,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 diff --git a/Makefile b/Makefile
-index 05e06ca0dac1..1b3616c8d2c1 100644
+index 82dfb3e137ea..d425ff91e15b 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1,7 +1,7 @@
  # SPDX-License-Identifier: GPL-2.0
  VERSION = 6
- PATCHLEVEL = 6
--SUBLEVEL = 161
-+SUBLEVEL = 162
+ PATCHLEVEL = 12
+-SUBLEVEL = 115
++SUBLEVEL = 116
  EXTRAVERSION =
- NAME = Pinguïn Aangedreven
+ NAME = Baby Opossum Posse
  
 diff --git a/drivers/block/xen-blkback/common.h b/drivers/block/xen-blkback/common.h
-index 40f67bfc052d..4ade16ae45f3 100644
+index b427d54bc120..f5890b3f1df9 100644
 --- a/drivers/block/xen-blkback/common.h
 +++ b/drivers/block/xen-blkback/common.h
 @@ -318,8 +318,10 @@ struct xen_blkif {
@@ -92,7 +90,7 @@ index 40f67bfc052d..4ade16ae45f3 100644
  };
  
 diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
-index bb66178c432b..b4ea123e9be1 100644
+index 0621878940ae..628611ff4b8e 100644
 --- a/drivers/block/xen-blkback/xenbus.c
 +++ b/drivers/block/xen-blkback/xenbus.c
 @@ -127,15 +127,23 @@ static void xen_update_blkif_status(struct xen_blkif *blkif)
@@ -173,7 +171,7 @@ index bb66178c432b..b4ea123e9be1 100644
  		return sprintf(buf, format, result);			\
  	}								\
  	static DEVICE_ATTR(name, 0444, show_##name, NULL)
-@@ -1104,8 +1122,7 @@ static int connect_ring(struct backend_info *be)
+@@ -1105,8 +1123,7 @@ static int connect_ring(struct backend_info *be)
  				requested_num_queues, xenblk_max_queues);
  		return -ENOSYS;
  	}
@@ -184,10 +182,10 @@ index bb66178c432b..b4ea123e9be1 100644
  
  	pr_info("%s: using %d queues, protocol %d (%s) %s\n", dev->nodename,
 diff --git a/drivers/net/xen-netback/interface.c b/drivers/net/xen-netback/interface.c
-index acf310e58f7e..0c4b77acc56b 100644
+index 325fcb3d1075..4f1fdc1ed5b2 100644
 --- a/drivers/net/xen-netback/interface.c
 +++ b/drivers/net/xen-netback/interface.c
-@@ -809,8 +809,6 @@ void xenvif_disconnect_data(struct xenvif *vif)
+@@ -812,8 +812,6 @@ void xenvif_disconnect_data(struct xenvif *vif)
  
  		xenvif_disconnect_queue(queue);
  	}
