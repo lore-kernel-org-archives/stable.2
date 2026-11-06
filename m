@@ -1,66 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793939984;
-	b=RxgQ4Wf7VnOfAU441ELvcQ/DRDR97dwP5DPQTxAVSbVQ2suQ9Pjz2IQFkr0w54EoPh3A
-	 9T7+lssJwo78XRMZwGseSnZhnrt1Za+xq+EOSLEiuCAjH7HF4+CQ7dif8mEp2VX6bj+pe
-	 NehewgM4X2jLqMusioAWYL9a0aWmDeJkbv9Hnx4AfcsjTJlOYtXqeRjU22mnR0suG3j2h
-	 ccm8rmtHrCp2r/CwU2O0yUeqAaP+kVks9wDQ5nL0t8tK2XHYFawuDHJgitt/9jfV3IFeG
-	 sJN8jQb/IlrQ3h/m+spokGDLUZwe9CIanjuFs6Hi2H17VQo6rZEFDMDCFLEN27wanvA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793939984;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=H/Qcqzb8crxJPavpMoI7DU0ArR8TE15ku/8r614wvLc=;
-	b=SMIMr61GfPMV8qfgTtH5+7g7hw9C1Mqx9ZvXThvAM4zcSdlsydYSmJjIzggLkI/uMixB
-	 icDN9CgMa/maTygCcPAFndmTvPfwrzsMAfc0MhE5TcxdFK9DrnzTy9wSCTq+aPyoX3IeW
-	 MrkWCDKaCQemvNzdD5HZr3BySDLF7ctCM79WMz6edkcDys3WTT+6/TzPWq/8iY7N+3kmz
-	 di6I0KJTeWF7N0MOF5XsNQETJOrGh/M/Skhoa7Gi3eDzDyX0axvziI9sXCP+0hGGwBr39
-	 gAcJopx3sq9Vt08UxvL4bWVJnOECgew7uLf9Ixv8qApK+q5ExmY21cJU4JII9Ttd6fw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=3iWdOKl9;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.216.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793940136;
+	b=4FqPvNuBW0rnglbhIVs7QeSXxCT6wriZFxyMaM5y7mb4eomZIEhr0hgMs4EdvUka7ppL
+	 LV6ouY1voAkhGTJW8Rhv8CaeA1UWptXlLcMIpmZMZbxWBiWI/4fMsxV740RjuNCQOF9zq
+	 ASPlVO3LPzm1eS6MyhCIJ3cAskx+TG85k33tSUZULZ01DbTq+0nY2S8OqVs3Sry89GU86
+	 CEgi2NlWxgOyS7SIPVmha/cQuVZ8RuBWcnysGn1UpgqUEebUr4qbybUgx/G4Yc65svH0D
+	 AQThb661RM2JuRQfBUddTbt5OuOvxr6NvRzeaQYrnTcL3om6I+/IzaBndVnjW4YuRJQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793940136;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=QTs4vTupvqWxMsqwlvyZzgzWqvxQfTxYSz2VzcLGV4I=;
+	b=jmyzMpIc/BdSqSmN+jx8FR2p06LeRnJvUXr+Tdti9qoUk0Yx7PLYmoGPmPJYP//gxkik
+	 axCERqQ2pzW387FiVkSrhbYpWnHEUAy0TcB06sqrKRHglATnVVl9HPJmJwO3p9le3JOd/
+	 BiUfxOI+Pl4yPyKHqn+EaeH0KhJLa6AaYPoPXT5aVgnx3XUbokLBno8QbeyaAK/9s6aR6
+	 Ns1CgwT+Lm3d0rD75eq3FwdV02/Fq4iwVr+NeB10AKUt2LY4y36IuoU1V5Bo2HpRJVngH
+	 Lq7XB0uiQxsdTNRpxF2SGxZskWvM3D0/DlXMb0SMX6wTOJOgIVYY8GYzZpIBa1BRLIA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xSJbQW+y;
+	arc=fail smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D530606A31B;
-	Fri,  6 Nov 2026 04:39:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D530606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AACA606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 04:42:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AACA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=3iWdOKl9
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jLRKj2Kx2z1XLVhJ;
-	Fri,  6 Nov 2026 04:39:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1793939975; x=1796531976; bh=H/Qcqzb8crxJPavpMoI7DU0A
-	rR8TE15ku/8r614wvLc=; b=3iWdOKl9eUFRlX6RvrlJ5Y3Zk6Qh/z6bbEDUGc99
-	KrKxlicMthO2HRDgi2OtkP0x1m0AMnycWysBDFH0gtyDlBzYjkk1P8HdH1CyN9Oh
-	buJLPNc6HsV4Fe1C4zYfaCsMBXXFLJk+fQDp029jO7IN3tKgj4hcAe+XZXOG6DKj
-	K9r3jctYUbj/cLmwSCUNU/P0unBZRyBuZygsW0BpqD5/L40awZ/v7//w4P2EdMbb
-	NYffn+rolbF+Eg2b1n+lWjnaNPNnoyc75bldmWQkMu2+HISP+reckJJzpMQDUA2M
-	AScDbhcGnnDggv/IyNJpKlRaGBep/3N59GQy9wHWqnORqw==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id yTZH9LhyR7y4; Fri,  6 Nov 2026 04:39:35 +0000 (UTC)
-Received: from [192.168.0.215] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jLRKf3mxbz1XMYJZ;
-	Fri,  6 Nov 2026 04:39:34 +0000 (UTC)
-Message-ID: <59f8170e-ca4b-4696-94bc-045f81dbaa10@acm.org>
-Date: Thu, 5 Nov 2026 20:39:33 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xSJbQW+y
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3b083afebe4so20607a91.0
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 20:42:16 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793940135; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZwNLgPGrDseoGrTjLGMqjOT/EtXuuEWkeCycksMUReZT/jkt/3CrlSVSNiTIbE2nzw
+         JUiRq5JbMsdiVu2ag0pVolYBMUKfkLYdtKb/xlqV7rtC3Tr+VgYDkJVwTY4BeVK+aKgE
+         wDUw8iVFxVB0MvszpaMdt+ycRf0ZPmI82DVaGTqJWfaU9W+pjO+/YrNJP3sdaNYN/r1I
+         Mqt9vT9M+EeljLtEVHC7FRPAX57OgnxVzPBjEbn6FFE3cgU+0Ild1o0knYo4dyi2LXqa
+         C2iWYgB8T/JR4BiwP0p1P535y4aeU1YwNN0oKz04EtCL+1wkdgs54YRYyDHdDXC/12Nz
+         6GvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=QTs4vTupvqWxMsqwlvyZzgzWqvxQfTxYSz2VzcLGV4I=;
+        fh=Y9HNNlAwxQcZEgohJAHlNkenCpRVDq/JWJqhWg+iGUA=;
+        b=Gv4SY6O4wvQKweu4f4BT3W10DpD/tDsX2vHRI5ka9jacyKZMqH/Pkp0Wv+Mm1CFX6T
+         xJW5oKioL2aEnCohm97Ahi1AOc/ZtVjxpjm0M9r08ETDSYUSKxR7tMD7iQGDuHkOTRA2
+         5XeYtO+vkHwKvYuN61DHu5hEx+pzVIyd9ZzXVln4nQcK0UOds1BmdYvhggPEY7EZTvfj
+         31JxvKUqTGz9sGQQxa+caPgZh1NbNvzr5h6u7mSZH95vAhY0SN/S4Kr8e7mdYfzyORCw
+         c4E1oIQjvuJqF6If1TSBnVeo2aN1UGcpxW0scdxG8Ga/ghGJj/aVUXiDs/iGTMfIwd+z
+         gG/Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793940135; x=1794544935; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QTs4vTupvqWxMsqwlvyZzgzWqvxQfTxYSz2VzcLGV4I=;
+        b=xSJbQW+yMcQDaq4kikU8sScKlQBv/8ygZhix2c5CGD5CtMbfBcudbI9nrQe64cPc38
+         842bYXTG+ZmLPgZJmYnrMd/z6S11rjd/PPT1N/QSOKsPySioIqGQlG530Yt/s77xw9Fo
+         n+uB3sWRR/U/FY3E5xpCjtwg4TtGQGKDMpTd+EX/8S0MdodcKefqy9rgEp2RwXJ0s++Q
+         Ytkhnyo5fvCw8nszS5ULJL8vFjP7qmVUqfG8i8i66KWuKHEjSiT9pv607lG5iF8Gps8v
+         tmhNIfpWgSOenEwjnVSKgNy+ZsDvPDC6alyU1bJw2i79i7o39xZ6KndAkyNCgRFTZ+07
+         RUiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793940135; x=1794544935;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QTs4vTupvqWxMsqwlvyZzgzWqvxQfTxYSz2VzcLGV4I=;
+        b=JpXCdltj5sthhFy/vJjTRnrHtSZZpPU58449d7qBJcUdNo61r/iMFRji2ShoWCovyF
+         JbLj+nuxYR9VV6BgMl5fRpa2zA5rHOdOj5wcnknbemWJLA3DhxBIicMjTmCaajW7VdmZ
+         3n4gNKewu0WTFmwXqNaU/C4yfn48ggtRmriSbZLy/dDE1Di2wNmhxknfkWqnRdVbaxac
+         0q58sWFqEy8hsMvrsIWSoEkjMQAEw3k427W70Th42dN4Gbz2Qj0aTszpRESNdxXSb99a
+         1REr5VSHnDnTPUv4RtHOMLBbGXdMhea5EqBMLSKXBNGv2sQ4RYNLPWoZFmYsZJip4DyA
+         mytQ==
+X-Forwarded-Encrypted: i=1; AL+hErEOP7pMqJ7+XKqtBSEi2fEUSjlhVqoNIa1iJp/X9PKYOUJ/+i0NLTtUBiI+48WVDza+vmYSlKI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9iAH103b6dv8v3HQ5UOjGg8Iw97w32qFMsZSLG3vFBK2k0+EqV
+	zLGz0wwYm7Ui2G90n+V/wFhE2YMMf9tw3gUNkCjBdH1Dp8h8iOErilnFfi9zkbWgqWKORgPDCdO
+	LoNr1/6xFWmQq646enLR/UrLcyNqaldc=
+X-Gm-Gg: AYBFou2nX3yI7KucrvzfSlDjPmm7sU+QJfTLL5pQQI1BBLGYE+5TrTec2pJl076BaDQ
+	8z3g2j+5EjNo+NLckg/gXNwCISoj7B5WQT7ZZ/c5gq/Y7v/kODt5uo4bytfOA1R2s+hUAA2HK6i
+	Ohe8KMvnxLjGhZYMyHptHQ975VSzAgMExuZmvkkfGpebmAS3gv2UPkZZXKjreIts9cjb/a+ORKW
+	qFis16HnFcgQMOoOSbRXKRxTTKpeTm+3N3ekSTHvvH5+yVCgDzFqg4qXgRH54oFVEQ0B32j8BWa
+	1pUU4Ytdn56iQVML4w+5stPoERolWRrFdOhGJLJ4vb1vQf2lThVkaY3IbXN2FFA9smKO7NsriwW
+	Ys7wUL0UoBHm1LdJyCG0dIWP+P5G1aWGOuC+ytQ==
+X-Received: by 2002:a17:90b:2885:b0:3ab:a188:b898 with SMTP id
+ 98e67ed59e1d1-3b0db63ac4amr2074099a91.2.1793940135388; Thu, 05 Nov 2026
+ 20:42:15 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,48 +103,243 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] ufs: mcq: poll OCS after sq cleanup for device
- management commands
-To: Kiwoong Kim <kwmad.kim@samsung.com>, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, alim.akhtar@samsung.com, jejb@linux.ibm.com,
- martin.petersen@oracle.com, kwangwon.min@samsung.com, hy50.seo@samsung.com,
- cpgs@samsung.com, h10.kim@samsung.com
-Cc: stable@vger.kernel.org, stanleyjhu@google.com
-References: <20261105004333.1097899-1-kwmad.kim@samsung.com>
- <CGME20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd@epcas2p1.samsung.com>
- <20261105004333.1097899-3-kwmad.kim@samsung.com>
- <8939a53e-1b21-4dd9-b65c-cbe03b8b72ce@acm.org>
- <003701dd6cea$c396cd10$4ac46730$@samsung.com>
- <ec1d1fd7-b832-4ea8-b3f3-87ff3d361d80@acm.org>
- <000001dd6d92$0787dc60$16979520$@samsung.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <000001dd6d92$0787dc60$16979520$@samsung.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261105042922.14733-1-lui2012qwq@gmail.com> <20261105193800.GJ8298@unreal>
+In-Reply-To: <20261105193800.GJ8298@unreal>
+From: Chengyu Liu <lui2012qwq@gmail.com>
+Date: Fri, 6 Nov 2026 12:42:03 +0800
+X-Gm-Features: AclHuK_ArmGVvjRBV7DbYWGe2-JE0WOUiMsUMiRl-IpTOTrxPIlTDbw0JxNPQY0
+Message-ID: <CAE=Q7=7YhDjSS04b0FJh52H2i4zeiEyBHVSCvZzDYFvW==rH7w@mail.gmail.com>
+Subject: Re: [PATCH v3] RDMA/ipoib: cancel the AH reaper synchronously on teardown
+To: Leon Romanovsky <leon@kernel.org>
+Cc: jgg@ziepe.ca, linux-rdma@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/5/26 5:56 PM, Kiwoong Kim wrote:
- >> That's not what I meant. An interrupt is generated after the status has
- >> been changed to OCS_ABORTED, isn't it? Has it been considered to 
-wait for
- >> that interrupt instead of polling the OCS status?
- >
- > Okay, got it. From what I understand, it's a loop to call
- > ufshcd_mcq_poll_cqe_lock and check OCS. If I get yours wrong, please
- > let me know.
+On Thu, Nov 05, 2026, Leon Romanovsky wrote:
+> Please add full dmesg kernel stack here.
 
-That's fine with me. Waiting for the interrupt is not possible without
-introducing a new completion mechanism: scsi_timeout() sets
-SCMD_STATE_COMPLETE before ufshcd_abort() is called, so the scsi_done()
-call from the interrupt handler has no effect on the command that is
-being aborted. Calling ufshcd_mcq_poll_cqe_lock() from the polling loop
-instead processes the CQE with OCS = ABORTED as soon as it has been
-posted. It does not depend on interrupt delivery, and it is serialized
-against the interrupt handler via hwq->cq_lock. Please introduce a
-helper function that calls ufshcd_mcq_poll_cqe_lock() and then returns
-the OCS value, and pass that helper to read_poll_timeout().
+Full dmesg of the crash below.
+The reaper escaped the teardown, and its timer fires exactly one
+second later:
 
-Thanks,
+How to reproduce : rxe devices presented as IB so stock ib_ipoib
+attaches; churn ~500 AHs into dead_ahs via static neighbors; then
+RDMA_NLDEV_CMD_DELLINK the rxe device timed against the reaper's
+per-second run - when the running callback has passed the STOP_REAPER
+check but not yet re-armed, the cancel misses it and the re-arm lands
+on the dead workqueue.  The stock test->re-arm gap is a handful of
+instructions, so the PoC kernel widens it with a module parameter
+(200us in the run below) to make the hit deterministic.  The
+measured stock timing (reaper walk 20-160us once a second, DELLINK
+to ipoib_stop_ah_reaper ~3.9ms) is in the patch's reproducer
+section.
 
-Bart.
+    [  729.356910]
+==================================================================
+    [  729.356921] BUG: KASAN: use-after-free in
+__run_timer_base.part.0+0x80c/0x900
+    [  729.357095] Write of size 8 at addr ffff888021088628 by task swapper/0/0
+    [  729.357097]
+    [  729.357113] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted
+7.3.0-rc7-00032-g0fcb05b72344-dirty #9 PREEMPT(lazy)
+    [  729.357116] Hardware name: QEMU Standard PC (i440FX + PIIX,
+1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+    [  729.357133] Call Trace:
+    [  729.357180]  <IRQ>
+    [  729.357196]  dump_stack_lvl+0x55/0x70
+    [  729.357375]  print_report+0x10d/0x5d0
+    [  729.357426]  ? __run_timer_base.part.0+0x80c/0x900
+    [  729.357428]  kasan_report+0x96/0xd0
+    [  729.357430]  ? __run_timer_base.part.0+0x80c/0x900
+    [  729.357433]  __run_timer_base.part.0+0x80c/0x900
+    [  729.357436]  ? __pfx___run_timer_base.part.0+0x10/0x10
+    [  729.357438]  ? tmigr_update_events+0x285/0x770
+    [  729.357476]  ? _raw_spin_lock+0x51/0xe0
+    [  729.357500]  ? _raw_spin_lock_irq+0x86/0xe0
+    [  729.357501]  ? __pfx__raw_spin_lock_irq+0x10/0x10
+    [  729.357504]  tmigr_handle_remote_up+0x38b/0x830
+    [  729.357507]  ? __pfx_run_posix_cpu_timers+0x10/0x10
+    [  729.357509]  ? sched_balance_trigger+0x803/0xd50
+    [  729.357521]  ? __pfx_tmigr_handle_remote_up+0x10/0x10
+    [  729.357524]  ? __pfx__raw_spin_lock+0x10/0x10
+    [  729.357526]  ? call_timer_fn+0x27/0x210
+    [  729.357528]  ? __run_timer_base.part.0+0xa7/0x900
+    [  729.357530]  ? __pfx_tmigr_handle_remote_up+0x10/0x10
+    [  729.357533]  __walk_groups_from+0x48/0x160
+    [  729.357535]  tmigr_handle_remote+0x1fb/0x2f0
+    [  729.357537]  ? __pfx_tmigr_handle_remote+0x10/0x10
+    [  729.357539]  ? hrtimer_update_next_event+0x8a/0x100
+    [  729.357542]  handle_softirqs+0x184/0x5c0
+    [  729.357576]  ? __hrtimer_rearm_deferred+0x15d/0x460
+    [  729.357578]  irq_exit_rcu+0x6e/0x150
+    [  729.357580]  sysvec_apic_timer_interrupt+0x70/0x80
+    [  729.357602]  </IRQ>
+    [  729.357603]  <TASK>
+    [  729.357603]  asm_sysvec_apic_timer_interrupt+0x1a/0x20
+    [  729.357623] RIP: 0010:pv_native_safe_halt+0xf/0x20
+    [  729.357626] Code: fa e7 00 e9 d3 29 02 00 0f 1f 00 90 90 90 90
+90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa eb 07 0f 00 2d 93 9a
+19 00 fb f4 <c3> cc cc cc cc 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90
+90 90 90
+    [  729.357628] RSP: 0018:ffffffffb8a07d00 EFLAGS: 00000206
+    [  729.357630] RAX: ffff8880e9ac8000 RBX: 0000000000000000 RCX:
+ffffffffb7abb681
+    [  729.357632] RDX: 0000000000000001 RSI: 0000000000000004 RDI:
+0000000000071254
+    [  729.357634] RBP: fffffbfff71428e8 R08: 000000aa3ae365f7 R09:
+ffffed101480626b
+    [  729.357638] R10: ffffed101480626a R11: ffff8880a4031353 R12:
+ffffffffb8a14740
+    [  729.357640] R13: dffffc0000000000 R14: ffffffffb8a14740 R15:
+0000000000000000
+    [  729.357641]  ? ct_kernel_exit.constprop.0+0xa1/0xc0
+    [  729.357644]  default_idle+0x9/0x10
+    [  729.357647]  default_idle_call+0x39/0x60
+    [  729.357649]  do_idle+0x342/0x410
+    [  729.357652]  ? __pfx_do_idle+0x10/0x10
+    [  729.357654]  ? __pfx_do_set_mempolicy+0x10/0x10
+    [  729.357656]  cpu_startup_entry+0x54/0x60
+    [  729.357659]  rest_init+0x18e/0x1b0
+    [  729.357661]  ? __pfx_acpi_read_bit_register+0x10/0x10
+    [  729.357766]  ? __pfx_rest_init+0x10/0x10
+    [  729.357769]  ? __pfx_acpi_ut_trace+0x10/0x10
+    [  729.357834]  ? __pfx_kernel_init+0x10/0x10
+    [  729.357837]  ? acpi_enable_subsystem+0x24d/0x480
+    [  729.357949]  start_kernel+0x368/0x3c0
+    [  729.357980]  x86_64_start_reservations+0x18/0x30
+    [  729.357996]  x86_64_start_kernel+0xd9/0xe0
+    [  729.357999]  common_startup_64+0x13e/0x158
+    [  729.358015]  </TASK>
+    [  729.358016]
+    [  729.358017] The buggy address belongs to the physical page:
+    [  729.358019] page: refcount:0 mapcount:0
+mapping:0000000000000000 index:0xffff88802108b740 pfn:0x21088
+    [  729.358021] flags: 0x100000000000000(node=0|zone=1)
+    [  729.358025] raw: 0100000000000000 ffff8880a41bb1c0
+ffff8880a41bb1c0 0000000000000000
+    [  729.358026] raw: ffff88802108b740 0000000000000000
+00000000ffffffff 0000000000000000
+    [  729.358027] page dumped because: kasan: bad access detected
+    [  729.358028]
+    [  729.358028] Memory state around the buggy address:
+    [  729.358030]  ffff888021088500: ff ff ff ff ff ff ff ff ff ff ff
+ff ff ff ff ff
+    [  729.358031]  ffff888021088580: ff ff ff ff ff ff ff ff ff ff ff
+ff ff ff ff ff
+    [  729.358032] >ffff888021088600: ff ff ff ff ff ff ff ff ff ff ff
+ff ff ff ff ff
+    [  729.358033]                                   ^
+    [  729.358034]  ffff888021088680: ff ff ff ff ff ff ff ff ff ff ff
+ff ff ff ff ff
+    [  729.358035]  ffff888021088700: ff ff ff ff ff ff ff ff ff ff ff
+ff ff ff ff ff
+    [  729.358036]
+==================================================================
+    [  729.358039] Disabling lock debugging due to kernel taint
+    [  729.358115] ------------[ cut here ]------------
+    [  729.358116] workqueue: cannot queue ipoib_reap_ah on wq ipoib_wq
+    [  729.358122] WARNING: kernel/workqueue.c:2352 at
+__queue_work+0x72f/0xd70, CPU#0: swapper/0/0
+    [  729.436887] Modules linked in:
+    [  729.437563] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: G
+B               7.3.0-rc7-00032-g0fcb05b72344-dirty #9 PREEMPT(lazy)
+    [  729.439787] Tainted: [B]=BAD_PAGE
+    [  729.440426] Hardware name: QEMU Standard PC (i440FX + PIIX,
+1996), BIOS 1.13.0-1ubuntu1.1 04/01/2014
+    [  729.442037] RIP: 0010:__queue_work+0x733/0xd70
+    [  729.442960] Code: b8 00 00 00 48 b8 00 00 00 00 00 fc ff df 48
+89 f9 48 c1 e9 03 80 3c 01 00 0f 85 0d 06 00 00 48 8d 3d 91 46 02 05
+49 8b 77 18 <67> 48 0f b9 3a 48 b8 00 00 00 00 00 fc ff df 4c 89 fa 48
+c1 ea 03
+    [  729.446140] RSP: 0018:ffff8880a4008a68 EFLAGS: 00010082
+    [  729.447180] RAX: 0000000000000000 RBX: 1ffff11014801158 RCX:
+ffffffffb43d67fe
+    [  729.448612] RDX: ffff88800fee30b8 RSI: ffffffffb6cbee40 RDI:
+ffffffffb93fa880
+    [  729.449832] RBP: ffffffffb43d6840 R08: 0000000000800345 R09:
+ffff888021088628
+    [  729.451014] R10: 0000000000000006 R11: ffffffffba5901c7 R12:
+ffff88800fee3000
+    [  729.452426] R13: ffff888021088620 R14: ffff8880a40a5c80 R15:
+ffff888021088600
+    [  729.453699] FS:  0000000000000000(0000)
+GS:ffff8880e9ac8000(0000) knlGS:0000000000000000
+    [  729.455129] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    [  729.456079] CR2: 0000564a390a7d60 CR3: 0000000007589000 CR4:
+0000000000350ef0
+    [  729.457674] Call Trace:
+    [  729.458198]  <IRQ>
+    [  729.458571]  ? __run_timer_base.part.0+0x80c/0x900
+    [  729.459855]  ? print_report+0x300/0x5d0
+    [  729.460582]  ? __pfx___queue_work+0x10/0x10
+    [  729.461637]  ? end_report+0x5e/0xe0
+    [  729.462290]  ? __pfx_delayed_work_timer_fn+0x10/0x10
+    [  729.463169]  ? __pfx_delayed_work_timer_fn+0x10/0x10
+    [  729.464079]  call_timer_fn+0x27/0x210
+    [  729.464833]  __run_timer_base.part.0+0x3cc/0x900
+    [  729.465850]  ? __pfx_delayed_work_timer_fn+0x10/0x10
+    [  729.466771]  ? __pfx___run_timer_base.part.0+0x10/0x10
+    [  729.467843]  ? tmigr_update_events+0x285/0x770
+    [  729.468627]  ? _raw_spin_lock+0x51/0xe0
+    [  729.469248]  ? _raw_spin_lock_irq+0x86/0xe0
+    [  729.469960]  ? __pfx__raw_spin_lock_irq+0x10/0x10
+    [  729.470757]  tmigr_handle_remote_up+0x38b/0x830
+    [  729.471618]  ? __pfx_run_posix_cpu_timers+0x10/0x10
+    [  729.472491]  ? sched_balance_trigger+0x803/0xd50
+    [  729.473436]  ? __pfx_tmigr_handle_remote_up+0x10/0x10
+    [  729.474400]  ? __pfx__raw_spin_lock+0x10/0x10
+    [  729.475211]  ? call_timer_fn+0x27/0x210
+    [  729.476028]  ? __run_timer_base.part.0+0xa7/0x900
+    [  729.476759]  ? __pfx_tmigr_handle_remote_up+0x10/0x10
+    [  729.477575]  __walk_groups_from+0x48/0x160
+    [  729.478361]  tmigr_handle_remote+0x1fb/0x2f0
+    [  729.479169]  ? __pfx_tmigr_handle_remote+0x10/0x10
+    [  729.480049]  ? hrtimer_update_next_event+0x8a/0x100
+    [  729.480903]  handle_softirqs+0x184/0x5c0
+    [  729.481641]  ? __hrtimer_rearm_deferred+0x15d/0x460
+    [  729.482461]  irq_exit_rcu+0x6e/0x150
+    [  729.483206]  sysvec_apic_timer_interrupt+0x70/0x80
+    [  729.484058]  </IRQ>
+    [  729.484560]  <TASK>
+    [  729.484957]  asm_sysvec_apic_timer_interrupt+0x1a/0x20
+    [  729.485874] RIP: 0010:pv_native_safe_halt+0xf/0x20
+    [  729.486678] Code: fa e7 00 e9 d3 29 02 00 0f 1f 00 90 90 90 90
+90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa eb 07 0f 00 2d 93 9a
+19 00 fb f4 <c3> cc cc cc cc 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90
+90 90 90
+    [  729.489844] RSP: 0018:ffffffffb8a07d00 EFLAGS: 00000206
+    [  729.490707] RAX: ffff8880e9ac8000 RBX: 0000000000000000 RCX:
+ffffffffb7abb681
+    [  729.491941] RDX: 0000000000000001 RSI: 0000000000000004 RDI:
+0000000000071254
+    [  729.493334] RBP: fffffbfff71428e8 R08: 000000aa3ae365f7 R09:
+ffffed101480626b
+    [  729.494586] R10: ffffed101480626a R11: ffff8880a4031353 R12:
+ffffffffb8a14740
+    [  729.495895] R13: dffffc0000000000 R14: ffffffffb8a14740 R15:
+0000000000000000
+    [  729.497243]  ? ct_kernel_exit.constprop.0+0xa1/0xc0
+    [  729.498020]  default_idle+0x9/0x10
+    [  729.498610]  default_idle_call+0x39/0x60
+    [  729.499281]  do_idle+0x342/0x410
+    [  729.499884]  ? __pfx_do_idle+0x10/0x10
+    [  729.500523]  ? __pfx_do_set_mempolicy+0x10/0x10
+    [  729.501359]  cpu_startup_entry+0x54/0x60
+    [  729.501999]  rest_init+0x18e/0x1b0
+    [  729.502584]  ? __pfx_acpi_read_bit_register+0x10/0x10
+    [  729.503511]  ? __pfx_rest_init+0x10/0x10
+    [  729.504279]  ? __pfx_acpi_ut_trace+0x10/0x10
+    [  729.504980]  ? __pfx_kernel_init+0x10/0x10
+    [  729.505793]  ? acpi_enable_subsystem+0x24d/0x480
+    [  729.506549]  start_kernel+0x368/0x3c0
+    [  729.507208]  x86_64_start_reservations+0x18/0x30
+    [  729.508001]  x86_64_start_kernel+0xd9/0xe0
+    [  729.508710]  common_startup_64+0x13e/0x158
+    [  729.509407]  </TASK>
+    [  729.509877] ---[ end trace 0000000000000000 ]---
+    [  730.435341] ACPI: PM: Preparing to enter system sleep state S5
+
+The workqueue WARN right after the KASAN splat names the escapee:
+"cannot queue ipoib_reap_ah on wq ipoib_wq" - the re-armed reaper
+trying to queue onto the destroyed workqueue.
+
+Chengyu
