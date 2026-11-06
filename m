@@ -1,58 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793963735;
-	b=BKQgqFeOuDf99GiPgSwl8MJmU/qDI6mzI/rwKmU3Av9yH8T70D9fYWze8a25yMW/apvs
-	 Xnry+CY7BZsDW/C5US0+94ExeWkd9sXPLG0LCltnO+/Jynn20Dx3CmR9blYGgrX8cMLep
-	 jFu8rfviOutjF4y1Rle2s+n/UiWfCKM9r0wbwOlGFlYqezlMrGuLgtvBmcDmcmHqeBaYX
-	 BwZvjUjeaIPD3Bw2o0qJBm2f493Azw+gWX0T6RijMreIEilHYFj8D3M/k+z5ngopYDYIo
-	 LnHPrwnFpuIvcIiSAeHx8vARrQZncGx8l3V+LRrpdlhzwaJE8Trec8hEczOmfpXFuGA==
+	t=1793963768;
+	b=0kPpOIiIh07HzZnTNpkWGL8hmkh9jL6v9BvS1NvXz7gNzy9uZpAPjG4frhqdpfUZtTL9
+	 C9Km53Rw9YXKXbDMFl/egP2EAhO7xO5qdrXcnnsFF20JdfrS1JGGbG+6J41+GDK4RAmeF
+	 2fIO/b/Bln0OK0a6JbMwQy5uOrH1gzj4/+Oh3lo4PO3Z6CfBH/0DHYsu9ib/IakA4JTli
+	 jVIAVMbjv8WjtDeaCbzNT+WkMcjIfSrzKE6HWj5wZDgx42WtLki7xkXp8+WlZ/Ms8K+09
+	 Vcr4LkG8YD8+rweVlTeCmIoXgE2iFebUxrc1A6Os9QhYjRP5i39JucfKFyznD9jM9FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793963735;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=Nyn2sZbhq3kt4CccG6fePtvo1Akg5z56u9y7maQkw80=;
-	b=0/xmvlf+6eYx9URzVylaV5kcFIm2MT7m2jqTx/tsSaMlCvoZxHp2z7/s2/B+cIkfk4Rc
-	 RY0TRCmCa95NIJB8pLy67v1PppB2qoJv9pzofYPkedtYCDLXPA55uu0+Fiiz7IQ6MGhrf
-	 VG9N3MirRbJiA1jtnGycczeR1i4TVj/MRMyzHRI2X/X5k+DGeVMMyPnDyOYAHT0liz0IC
-	 8auzll5VYl450h99U7ql4HHQRXOMn2DJtfdSMxluqDBufpM0T/ZI6c6eZZy6ygumgR4Jz
-	 l4SE7LkhkXMNbzyJhOrpftnnw1b3hm+rRX75aND8KRCOQLbw8Q2fT3aXdB+xBFg+jBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793963768;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wbqbZlCH7YXcVsufdxHlWbVJML/TMT3EJO6Q4weCv7o=;
+	b=l1oXmPo6riSBs/ysjHJxWGKWt8rUtae6/Q7YYxUpTOe68oX4NHEn5CdrhVIfu4ZoPBOw
+	 FpRZYRT9oS+WAkzIHm1vcEpYFG+BUDTBxUtS1vQHYvrcg/YKTum2CUcR41iVBYnaRopw7
+	 6uki6mPIxFpJNexJgYbOTBOosnzXzGJc91aFdnO+2w/5EUtdaVdxGVX0KfLd36wBWvA5M
+	 +AoVOtXSQ+qVp8WWnlEr9VuEOWsRaHfVVo+6KTF0K62oM4PLLbAQjGcvwNlPTflG50JO2
+	 u/Cikj22sRl50LFCXcXHTrlS1rG1xJWiZpmhbHLic5ZyHSE4ANFSnMW5jwGqJFjN5XQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=LBrVpIlf;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dO6W+C2v;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB84E60705E3;
-	Fri,  6 Nov 2026 11:15:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB84E60705E3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDAEE606A32C;
+	Fri,  6 Nov 2026 11:16:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=LBrVpIlf
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 69B2FC6915E;
-	Fri,  6 Nov 2026 11:15:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C8D985FFBC;
-	Fri,  6 Nov 2026 11:15:30 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B6A321032929C;
-	Fri,  6 Nov 2026 12:15:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793963729; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=Nyn2sZbhq3kt4CccG6fePtvo1Akg5z56u9y7maQkw80=;
-	b=LBrVpIlfb2RThKpdFCYkqd/0DXt1SwiaBA58dChyn85XdhiAGyzmMEML8D7XgBdXTvq42h
-	6IAVEqreDIgMFoSTBhkLnbWPEdsCX4gmx766Tcke0Emwb8LIhIjUOn4j+UWppoflTHeGMg
-	od+eoyOCHvxJC0SMvaFZt+ZDokqo6igQ1+egrl5GCRoEDc/TeA0pDzk8sGsnxtt86fbEUC
-	Q0qGK1Z2jGy6vhAXXhNaApdfzgyVn4wZrf5WbusAodPOpoZF3NAc0fB66YlmEzKB3TWY/N
-	1P/4ecpTI3AJMNb10wv+rli03H6S8gwbUwHLoS5WphzSHBN+gQBWJjgT1PIHOw==
-Message-ID: <58552af1-62db-4ca6-835d-bdfb597d104b@bootlin.com>
-Date: Fri, 6 Nov 2026 12:15:24 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dO6W+C2v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74D331F0089F;
+	Fri,  6 Nov 2026 11:16:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793963767;
+	bh=wbqbZlCH7YXcVsufdxHlWbVJML/TMT3EJO6Q4weCv7o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dO6W+C2vZVjfBxkb094IePRjcbEh9989thGug6bb/G63BtQ6kCSRD200KjL+dc4sM
+	 1zYW2eJn7N3kQzs9bSCGopMIWJuNyL8oMaJfECNmoFgTAnTOtuqqPtdjVUsLTgJ1i7
+	 yMy6hZzEUH0PlfaMVV07FAC9gJE8v55hyZBngniY0c1lyza/uAb4G13FjHb0a+wfs4
+	 mtrMecqNiA+wJd9ZanP/ZzuIj/la8B0BxAgAClPTSKY7zUUDXJIHs4eZU6L6bAjS0c
+	 RDarZErMJYsXhzDjLPZ1JoU38IzG7v3XBBP1Qu8ajb2KS54rxPG+HR2jbGjOmoEjGs
+	 Y6l7rnGJU1OIA==
+Date: Fri, 6 Nov 2026 12:16:03 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, 
+	Conall O'Griofa <conall.ogriofa@amd.com>, Jonathan Cameron <jic23@kernel.org>, 
+	Salih Erim <salih.erim@amd.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	Andy Shevchenko <andriy.shevchenko@intel.com>, stable@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: adc: xlnx,zynqmp-ams: limit
+ external channels to 30-50
+Message-ID: <20261106-funky-dainty-puma-c6bd43@quoll>
+References: <20261104164510.105359-1-kapoorarnav43@gmail.com>
+ <20261104164510.105359-2-kapoorarnav43@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,74 +64,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [PATCH] bus: ti-sysc: Don't reserve the system timers on AM33xx
-To: Judith Mendez <jm@ti.com>,
- "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade
- <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- Matthias Schiffer <matthias.schiffer@tq-group.com>
-Cc: linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
- Julien Panis <jpanis@baylibre.com>, "Francis, Sebin" <sebin.francis@ti.com>,
- stable@vger.kernel.org
-References: <20261103-v7-3-topic-am335lpm-ti-sysc-v1-1-1b9a23b4a7c1@baylibre.com>
- <bbe7c601-88df-4162-83bc-047b810430a9@ti.com>
-From: Kory Maincent <kory.maincent@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <bbe7c601-88df-4162-83bc-047b810430a9@ti.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261104164510.105359-2-kapoorarnav43@gmail.com>
 
-
-
-On 11/4/26 16:53, Judith Mendez wrote:
-> Hi Markus
+On Wed, Nov 04, 2026 at 10:15:00PM +0530, Arnav Kapoor wrote:
+> Channels 20 to 29 of the PL-SYSMON block are its fixed channels (PL
+> temperature to VCCADC), which the driver always provides. Only channels
+> 30 to 50 (the differential input, VUser0-3 and VAux0-15) are external
+> channels that can be described as "channel@N" child nodes, yet the
+> binding accepts any N from 20 to 50. Listing one of the fixed channels
+> there only makes the driver add it a second time.
 > 
-> On 11/3/26 7:24 AM, Markus Schneider-Pargmann (TI) wrote:
->> Commit
->>      3f6178392050 ("ti-sysc: allow OMAP2 and OMAP4 timers to be 
->> reserved on AM33xx")
->> introduced handling of am33 SoC timers that are already active as
->> reserved. During probe this means the clocks are enabled and a reference
->> is kept.
->>
->> On AM33xx deep sleep is entered by the PM coprocessor which
->> requires the PER power domain to be idle. The system timer driver
->> disables the clock during suspend but the additional reference held by
->> ti-sysc leads to the PER power domain not being idle:
->>
->>      pm33xx pm33xx: PM: Could not transition all powerdomains to 
->> target state
->>
->> The reserved status is only needed where the
->> gpt12 system timer must be kept from idling, see commit
->>      3ff340e24c9d ("bus: ti-sysc: Fix gpt12 system timer issue with 
->> reserved status")
->>
->> The timer configuration in the devicetree is the same on all SoCs, so
->> there is no reason to reserve the timers on AM33xx.
->>
->> Return -ENODEV for the system timers on all other SoCs. Like -EBUSY it
->> stops the probe but the driver core doesn't report it as failure.
->>
->> Fixes: 3f6178392050 ("ti-sysc: allow OMAP2 and OMAP4 timers to be 
->> reserved on AM33xx")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+> Limit the child nodes to channels 30 to 50.
 > 
-> Thanks for the patch, tested on various AM3* boards.
-> 
-> Tested-by: Judith Mendez <jm@ti.com>
+> Fixes: 39dd2d1e251d ("dt-bindings: iio: adc: Add Xilinx AMS binding documentation")
 
-Tested-by: Kory Maincent <kory.maincent@bootlin.com>
-On BeagleBone Green Eco.
+Drop, no bug is fixed here. Driver should simply not register such
+channels second time, so it's a driver bug, not a binding.
 
-Thank you!
--- 
-Köry Maincent, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
