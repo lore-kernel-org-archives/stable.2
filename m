@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977278;
-	b=GUXwC+mg1+YuJ0KR10Nimzkf00BnkEmDUW8OuIURjZA0OuBT8IkP9GopqM/8q9iU2xLW
-	 2vI1x90aM5xiOwYLE+pT2vhf4/lUp2pMy3MADw9tSQ7WY0tWVM0YdvP8w0vDgGR9iieAi
-	 yZs8kLPbD6DFzvhcofdwm1b6wC7Gz7XU9DxTjEpamRFisZ6xvTbum2WzbwwdPHIfFXXSv
-	 uQwRd9ZyN3r5H0cN8zxSI7KUtd3DkSTUgIIaGuTcva3FSSJEkFUUgSlHLSU0iCVRAhvD+
-	 1eiL//sNIQgF68pVEEiiKrx7M1R6/6e03dYnKb0jsG1gnTNWsrrEj98eQEUSEpabrgA==
+	t=1793977324;
+	b=GRSF4CZdDV8q+2JQsAOStNiSDf7X3bu/X+MSEcDZebXJMZRVxXf4yfYBAAGm7gE44q3v
+	 fGEL5MmLVkqh9EvP48MjWOpYH8XiiwZnSiTBe/3XZIUZmiKOL7lDWntb0sfMeXSe59RS1
+	 HwLEoq2wUYxprJNY8sO6Ej7e760DXAHQ5tHGVWhN3AialKzQleMRSrXJWRKNyfq6i6kJM
+	 2bw+t5NKWH0QwCe5PdM7ck2XU361QgdnC3JHmxpNDYyT3xyHINv0gb8Fj2ZEU9we4wiHR
+	 oDhr7Lyj4e3xBuDriKPJQoElQ402mzG3G2Dwi6J8eDlAMDw99ipVqCTbOYh1nZFlamQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977278;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977324;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Lok6vxOqHTa4w5fRTsjWRee/w7YBK+AqZATSUFWLrbE=;
-	b=fBN5r4779KhO3H1UJgxBZ+nriJ5jUgHF5zzrVBi5+v07cswIJGPscBSaH5jCgo8Jht3i
-	 prB6P3unb9ngIMWIQCbZoeeaKblTHIs6icPRQw0aeVvgXyZGSbr0J2QbbuMkMs4Qn74BK
-	 3aW12ZCd2htaDcEiCUPpuh7nZdfBYqFt6RiBizrDfU23/xruolpjiGWjgQt8+Ip+78O57
-	 bJX7YChK2rlSNjwEiFMhh3gYhkmL4zM7gxN2MKOZeS+iJeNLRzAgKlxgekfaQuXOL3uQJ
-	 zAEOB2BVb1FCPpUOle1TJx40q0W09ZX6QPYPkh5XrHp/+JjfE4hiXxbGdJ3aJw1ffbQ==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=OJGwMOZr8wszMXP4PUI9DRebX0Fe8M4M+JLp3x5FAMo=;
+	b=dM1LOeXUGvIAn9nTUjZL/it8ehIli8+DDEBer3Kwsay61kDG3U6LvhMyXGjtfbAhF2X7
+	 kOiGOn6QXq7/QpIZFupld++7toJoR/tw3I6DPo+CWeo5xnD9xTWDe3SI0J66GBsAh/+1K
+	 MzecmLuJnW+/b+qT0fcFoaVI9zsCqOuVLSrDlaURl1FzjBGpc4YTlcjOVN2EoknAr0Qjc
+	 kSb+B00M1kmgS4npqeM5ohbBBisYvzrsvW2weArQhIgG6JoEap0KlVxOo9gaPCvEHmxVS
+	 Dbk2BCOT8jLi7TxWy8N3mrDN3bHmBKoTuJwThQcE1pYIi+t14dfCRmseU2eIC6eFCbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+3LdCtG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dni3PlMe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC7E2606A32F
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 15:01:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D3C606A334;
+	Fri,  6 Nov 2026 15:02:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+3LdCtG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3CDA1F008A5;
-	Fri,  6 Nov 2026 15:01:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dni3PlMe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA7FD1F0089F;
+	Fri,  6 Nov 2026 15:02:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793977277;
-	bh=Lok6vxOqHTa4w5fRTsjWRee/w7YBK+AqZATSUFWLrbE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k+3LdCtGF6RAtmwJwEsLbycpj5L1Keo3DoKLpDXd5rihXHAniFHwtSo4c5M4UHgDg
-	 Ql6JmyO9AkSCZmrO0Er6NtPxjqw/OGA24FzQkXlzcPuq7ntmmCxZiHXZ8GWR4/QR9v
-	 /t6iViSD27dIuZYQVBhJfpA6VQVBz0dcdQHZpPxI7JT1FTS4Ug1+tbT+pWNEbXERnP
-	 6cB/Ed++CuXMQOUwdc4wn+94l9gCwrZDHGSWCylGb4qNlSBzcFH/j9Kg9JdubaZ/7F
-	 LjScLtkGdU0ujfYbV6uOTs+0uK6BzLGZ2vnuArp/A63Pt++sW8MGwAjDKlF3G6c2Oj
-	 c0mYM6yRnxMIg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Stefan Teodorescu <fane@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] KVM: nSVM: Reject KVM_SET_NESTED_STATE if L1 has EFER.LMA=1 && EFER.LME=0
-Date: Fri,  6 Nov 2026 10:01:15 -0500
-Message-ID: <20261106150049.356688-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110438-lining-quintuple-4db4@gregkh>
-References: <2026110438-lining-quintuple-4db4@gregkh>
+	s=k20260515; t=1793977323;
+	bh=OJGwMOZr8wszMXP4PUI9DRebX0Fe8M4M+JLp3x5FAMo=;
+	h=From:To:Cc:Subject:Date;
+	b=Dni3PlMeE484Iio3dTd57C8UoEN9onhzXtRfIJLPZfMXotBe3zZz0lg80gmaRQiKG
+	 5N1oR+G5ti1DGCHcXUrbV0u/yhUgPmItlPCPvjStiYThn+zkMr6AAHU/pcGKR14xQ1
+	 /Poq8ytyVHyEhVplE8fDs4aeJRWlVzP+IjFPPk2vKkEUWSGEv9gJ4Lm5CKZmY6zBAS
+	 HTxEDh9qry5O62R+X25qO1/VnZZf35SrUvEzv8lRDl4BANcGG5wJZpNVdDnAT4yOB9
+	 A6TJmCM28lXuz6gN3/xrVQbT5icC4BflYEE0ROQ3cdPgh390pC96+Xx3ZJmh3OO1Xu
+	 6SEIclcaPtDYA==
+From: Chuck Lever <cel@kernel.org>
+To: NeilBrown <neil@brown.name>,
+	Jeff Layton <jlayton@kernel.org>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <dai.ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>
+Cc: <linux-nfs@vger.kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] SUNRPC: Honor page_base beyond the first page in xdr_buf_to_bvec()
+Date: Fri,  6 Nov 2026 10:01:59 -0500
+Message-ID: <20261106150159.847600-1-cel@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,53 +62,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+xdr_buf_to_bvec() takes offset_in_page(page_base) but starts its
+walk at pages[0], so the page index that page_base carries above
+PAGE_SIZE is dropped. nfsd_direct_read() sets rq_res.page_base to
+the pad below the file's DIO offset alignment. When that alignment
+exceeds PAGE_SIZE, as with 8K to 64K logical blocks under xfs or
+ext4 on a 4K-page NFSD, a direct READ whose pad reaches a full page
+sends the page before the one that holds the data. The defect was
+found by inspection, not reproduced.
 
-[ Upstream commit 5dc500a354cc8e109df678076ae3488094649468 ]
+Advance the page pointer by page_base >> PAGE_SHIFT before the walk.
 
-Reject KVM_SET_NESTED_STATE if the incoming L1 host state has what is
-effectively an impossible EFER combination of LMA=1 but LME=0, i.e. if the
-state says long mode is active but not enabled.  Unlike VMX, SVM doesn't
-have an explicit consistent check for the illegal combination; presumably
-hardware simply ignores EFER.LMA if EFER.LME=0.
+Commit 2eb2b9358181 ("SUNRPC: Convert svc_tcp_sendmsg to use
+bio_vecs directly") introduced the dropped shift, but no caller
+produced a page_base of a page or more until direct READ.
 
-Unfortunately, KVM doesn't ignore EFER.LMA in this case and consumes the
-illegal state when constructing the shadow MMU for L2.  E.g. if userspace
-also clears CR4.PAE, then kvm_calc_cpu_role() will compute a role with 4 or
-5 levels of paging, but shadow_mmu_init_context() will wire up the MMU to
-use the paging32 template, which maxes out its levels at 2.
+This fix depends at run time on nfsd4_encode_operation() deriving
+rq_next_page from page_base as well as page_len. Otherwise the READ
+encoder accounts for one page fewer than xdr_buf_to_bvec() now
+transmits, and the last page sent sits outside the release range
+while TCP still references the page.
 
-Note, the "real badness" is effectively the same as what happened with the
-nVMX bug fixed by commit 112e66017bff ("KVM: nVMX: add missing consistency
-checks for CR0 and CR4").  Unfortunately, the sanity check added by commit
-72e2fb24a0b0 ("KVM: x86/mmu: Bug the VM if a vCPU ends up in long mode
-without PAE enabled") doesn't work for this case, since L2 state is active
-at the time of the page fault, but it's L1 that has the bad state.
-
-Fixes: cc440cdad5b7 ("KVM: nSVM: implement KVM_GET_NESTED_STATE and KVM_SET_NESTED_STATE")
-Cc: stable@vger.kernel.org
-Cc: Yosry Ahmed <yosry@kernel.org>
-Reported-by: Stefan Teodorescu <fane@google.com>
-Link: https://patch.msgid.link/20260902232028.2767071-2-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-[ sashal: adjusted context for __nested_vmcb_check_save() instead of nested_vmcb_check_save() with its extra false argument ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: d686e64e931c ("NFSD: Implement NFSD_IO_DIRECT for NFS READ")
+Cc: <stable@vger.kernel.org> # v6.19+
+Signed-off-by: Chuck Lever <cel@kernel.org>
 ---
- arch/x86/kvm/svm/nested.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/sunrpc/xdr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index 5cf789f744bad..86ac990d7a0ef 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -1653,6 +1653,7 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
- 	if (!(save->cr0 & X86_CR0_PG) ||
- 	    !(save->cr0 & X86_CR0_PE) ||
- 	    (save->rflags & X86_EFLAGS_VM) ||
-+	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)) ||
- 	    !__nested_vmcb_check_save(vcpu, &save_cached))
- 		goto out_free;
+diff --git a/net/sunrpc/xdr.c b/net/sunrpc/xdr.c
+index 7353109fdbae..7eef50634175 100644
+--- a/net/sunrpc/xdr.c
++++ b/net/sunrpc/xdr.c
+@@ -161,7 +161,7 @@ int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned int bvec_size,
  
+ 	if (xdr->page_len) {
+ 		unsigned int offset, len, remaining;
+-		struct page **pages = xdr->pages;
++		struct page **pages = xdr->pages + (xdr->page_base >> PAGE_SHIFT);
+ 
+ 		offset = offset_in_page(xdr->page_base);
+ 		remaining = xdr->page_len;
 -- 
-2.53.0
+2.56.0
 
