@@ -1,97 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793988493;
-	b=xBefKbCK3MY9ifDqqLpbnsier9ngnDHs+SDfMlwhzrdAEH6ZwF1N/JLzFebbCOfa5OmJ
-	 mEBFZRBt2SRF/8sX6aromPUm9KP7sPglWUpUbUEl09TCmRB9kjDLuq+Hr9suWpbU3VRKP
-	 Mao7c1Bw0kCwLc/p5YrjH5rcbWqQf8FLTHmyYXKxBwGLG2bXPOrQzI+ACea31e8w6r2AK
-	 ZzQz7pbJSVMllZAGBLhS8oC5P7PAQdvoKUI4y3vpYQfZOJF0e6Hhv+8mUCh9ibBCGDmKp
-	 BM5mnn6N2PXwVspwoK0lwLWhiJgtlmy1VX9Lo2orN0wVurnGkVOEgTcPhmi9JwYMgrw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793988493;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793988807;
+	b=NUoa+1xC7wfAziXJrTDg0aP7saTFiQELytR3tgCUEWSEuqBgqXqh5pv8sA7pPGq+plfe
+	 oSv987UW/siOZEifXbnRjpkI3EG9UK/nozxO4TYSNzmIIEouHYobumRpFhvaMWnHsaQot
+	 gp4XmBlLXnzO/0/PH/7TxC8WmPQLMWzwNhKWjSmLJ8rW5SM1BoMqfrf90OUo6cq9E5ZWO
+	 5Oo2IH/QIpdFgoeoiavT2cnAMkF3uQEKXi0XSL6nI7nxV/9JUa02fnOEVqvmq18leK3tZ
+	 SYLv9iAq2xsXTGejAhZhzajbiGEoTl+Oh7fVRnvtoXTJDhd04Wl64Su4e919j8fAfgw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793988807;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4SY/KgBc5jPjR7kY6LZ58uTUj68rwgS+h0034ZsmJvw=;
-	b=JkjUGNBLC3PJAiIu8aGz0MEE5r7FjVUTar318gI5CwIAb38ABuivKxm+eVFNta3jbT3K
-	 qIlpAgDJZPZBJObmMun9LKNOxhytR483paaG7DVMXhuRJehzgNhf246CQNDQ13sv5oFXK
-	 FMbUa7+frc5BM+pp7ZstPvbjQD5Dr+rmhuc5gWbVxfQNPOj9qNu9UAo58sBXV8PDSR24S
-	 KNB1tJK4oGmbSQlG3UdpugPefUJBGPI7R+2qzuh7lNgSANYMykJtZIYxUgNxnn4HV3Y5L
-	 DnPYbATeVNBmWYr3H6guNcXd0CnTLjY5JO6hXkVQkw1m5G1HtEgwSI5Onkp0DPrcmKg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eg3g87tP;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=IN6twHDIaLh5ilgymQBvZ60S6ffcPsE8wQzp8ZyOj44=;
+	b=V8Xl1VmAwHPV7j5UjHkgsYujL3I7GdFthuK1vdDLchbCErYQNNPJQp2CyjsJos4x1ygV
+	 CLQl9UPlhbNrN4FolnOvVL/0hiS2kOSSPJHFFFm5tABKrWP//i20l79pZG4sK8O0j9woy
+	 /ypft126ZZOXf+EWI58wtjnDXIUQ3Z3+iMmmrHmXFXN5lxEOb0/l/IWXBrXjS9fvBJjaf
+	 9eCc/YFIsb697IqrZDCu4dyq7HIwH7GjF6ipyIDWZ5Kj7OJ5PqoSM98K/9oWwHImPgfjo
+	 ubcPcEK3iDqFRNEEWjhyxcXrrV+v/dhvMFbnlqTqIOhBu660CNqNL7TLtGpkvuEVZiA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4532A606EE88
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 18:08:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4532A606EE88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eg3g87tP
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-490585eddfcso642450f8f.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 10:08:13 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C414606A32C
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 18:13:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C414606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b56c90b38eso4060a12.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 10:13:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793988800; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DBfA+QVVsF3t+GTbZAkCNR8xzn+hZr1Slrblb+CMORcAsaP1wcvZOnrpu/1D6lFSB5
+         x0DvXApHQ6/BstdhR3g5IgyrT/PLhFLKWDX0klZsSHxw17p8mWgmDxcKNVN2TECjcfW7
+         No2kM3DdEqmNFdSwk6HCFxfimprYchpc4/5i6gnzfLclkaeGFujUMPkALfMEYY5EgvPD
+         YLi+OX0SQXpN7MfXcBuQr1yiaHK9QXj0i5HS3viCm8g3XexWHlmOvDulgBPSnJ6ZXuDx
+         cFsgrM7YWxWZ35yuvib5YfH+Gt63BXXlac84iECMsdWXxU6GM2+Z+FgF7mjkhtISTVG4
+         fmZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IN6twHDIaLh5ilgymQBvZ60S6ffcPsE8wQzp8ZyOj44=;
+        fh=+gL/d1CncvB7mS2JcyHwcClqXQrttVJz5X0jtf6EYk8=;
+        b=F3AKXhJBpFb8qZqA+i3n14N6slbI9OINs12dmttB5yMDtAMp7ns5Te+LxCWhnSQKvf
+         OkzZydCvDjLezvOBN7nJx3UptUJEWooVD4HKWmTlzUimDBaAXZTyTt78uoya4crLKrTR
+         ah1Gdn2Xrt4G6kirrxIgGtDw3KYDdZ+gYcCk3DTixnl2YgAE3hdt40xevXrxF9ZqWgN3
+         QE4Dgmz7/ssdUlgL4p/jwZwA07UX4/CFTX0JE81DS82cagwAmYpf/y7FcoSWnJjr2l1b
+         6pDDE7MPfcAohhasgfQmZzd8XYqJnVoaRnElgyhK65fDBtIo/slpYIxwkYPQTQlVoT0r
+         eSfg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793988492; x=1794593292; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4SY/KgBc5jPjR7kY6LZ58uTUj68rwgS+h0034ZsmJvw=;
-        b=eg3g87tP5Bh515faKrCEqgJd0gAd7dhAmq53sTBq8Yr8HcVOUMAaJpogGoG3dXhm/O
-         G4QmKXoXySuj9nh0JIbFuGxW7VcgSl45SpHMSZ8PYd0XU+EXnEWca1dC6+2TTFC8dg0F
-         clW3kJPqtYi5NWWLR9iP/7CAzJFhshKFlVHKa1C/bvpcXKiyoRrdoq86+Iofbh8/TfF6
-         UhpubSHgDbp3OAiynlOuFY+TeDpycXmp4uTCff8aTBOioOKzgyZFVR0SjioKBuUehMbU
-         CiLjYkgsYHbEa+Y/H5eMMyFDzt8r1FuKgyk2tTDf60VtEJ6v+VPJQyV57kQPHiLsOisy
-         XiHQ==
+        d=google.com; s=20260707; t=1793988800; x=1794593600; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IN6twHDIaLh5ilgymQBvZ60S6ffcPsE8wQzp8ZyOj44=;
+        b=HK0MPhUQzHBTjawDG9wj/rGTowNv2I3dyGJsb+J1METmvGduXf48+rJVnSO9OKq+s6
+         Ggq7xoI+tRy4YkdyzDTLDFnVhO8BHrYRtqanv96INfwmwgky3tHXlj73v2/UrtdzS4oi
+         fvmX769ugnuZrNKQC1yWl/1FVlPcqZT5A/QrCWkMOt8hPMa8nVqqXxC0RV+eqwUKGH29
+         I2DpcxlxgA+q8SwxGHbQ/lkyWHs3uJexUH3dVFQHeRyME09v3Y3L4UmNITZdnpz/moew
+         1e3BZH9cM92NF71j8BFrR26hxxaSUGSuWfg4M7kA66b5sm/S/+sEWZC2zeDDnkgZyxNP
+         LXkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793988492; x=1794593292;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4SY/KgBc5jPjR7kY6LZ58uTUj68rwgS+h0034ZsmJvw=;
-        b=ougyJ0bwzKSFm8qKZIet0vXmthDKJRNJedyWAfzwaQHKO1uHRjIe3h9pIDhxrVBTwf
-         5rZEjA1YKEuH++9c9rN8n/3q9J2KXAk/QXoXgA+Ty/8d8ZsxFNihLKgMnzhQCky8qf3v
-         KZwfV//25uwYECqPl0kOt40AS1tSDNPPceSztXejwlpvoXTW3FHckS7Besn62FlXJhgP
-         XXbjj0VkjctX9suselBiWPzcMv5XlIkCxaA3yvKu4ijW/mPQoCsi+Broc+2gNKTjILHd
-         +xA8sxtSjWPxxkHAjn1FO6Px3NvetdvbH6H+ypzYq4RIcntlhftOaIeHj35rubhYyNmc
-         VIxw==
-X-Forwarded-Encrypted: i=1; AL+hErFLwobPF/KR4U8h2Gkcert00DpOe86wUzjIIQrTXY3LqMsUc7enYAX41M85SFjDuyNRgTmIM9w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8qhID9kU5jsYUmKttY0Cfkdgt2PwsIY+J3zS3KMv/QDMztmVAf
-	iUZ2YE3GX5DXq2RT4avEtdOnCEJtu5h29h5uwBXYBdJgVOWjrNt3hYc2
-X-Gm-Gg: AYBFou0MyoexVsV6pIUGhd5C1P6y3bwnIgqsBNtVOBM/+0vRHPBpfem7Uchcz3Gi8c/
-	YZL7xnx35pLq4gTZBiQwcNxUT3uvE8waEKUYZe1dXrVTMlzOAUA4JQSOMNj6ALffjsNXZQ6rnU6
-	xvQJNwQXG1Alph/w3mU0LWpRa6U40HiYuT6Gpao11qf8aigfoEzuBaXfm/29Sj44u5O4AePDwSI
-	pc4OeS7+ctc9JsYO7PsOZSJx60kxIuDj54Lfk8hWYW1EtPEY33x6fS/x9Okp9CkCCo4nUCz/PGz
-	gbC93gmwI4fFfpZTluczyqVlp57twZiXEpStUVeWw4dwb6pKCzbgBVBHVgX5StwGnohamorNCkK
-	0he6x4JWpv5ScOAW+kG6hiXdnVW+iTHnMosPOAtv3iz6Qj2+0IVHd8by3X0X23+GiIuZGllZMI2
-	XmqYvBJEw2ZR64u9YYgu+D8VPCeRrxv2Vv4U42g23ABOAoR2gkmWA8oXr17TCLAnwE7/ucMkOWq
-	jEgfdgy6jnCcp4MkmJLCClH+AbV3S1atcB79TfqPcI55NAL9IDjYJxIE8eUQn7VcrLLSYa0+M+s
-	qDeioeI9W/CxTdVqwlB7zZVlspv18sevb4mdhbu/4PDgJEpMZWDqU7zqc8v4dF73J3SDkv1iXfX
-	tlFLn695SepKqQtPhWkrlsITOIO1f4XVWc2NPhbjKYkLOa/x+y1U9Yi4SIu0B
-X-Received: by 2002:a05:6000:4818:b0:492:820d:5e6 with SMTP id ffacd0b85a97d-492820d0d4amr5606669f8f.49.1793988491610;
-        Fri, 06 Nov 2026 10:08:11 -0800 (PST)
-Received: from DESKTOP-IR7J1S9.localdomain ([105.99.148.33])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7232832sm4830636f8f.25.2026.11.06.10.08.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 10:08:11 -0800 (PST)
-From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-To: Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	dm-devel@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com,
-	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-Subject: [PATCH] dm cache: fix divide error in too_many_discard_blocks()
-Date: Fri,  6 Nov 2026 19:08:08 +0100
-Message-ID: <20261106180809.1419-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1793988800; x=1794593600;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IN6twHDIaLh5ilgymQBvZ60S6ffcPsE8wQzp8ZyOj44=;
+        b=OoY4X8DOujPcTKMwzMFOG7/fONoJHHKAlNEJRwFpeR8nHZsBrnTgQ6c2N1161cPd0t
+         Ey6FDhbG0GaeuAkHctwfAudPkZzbjcLdo+N3zz0FP4HYSGo9n/sXDPuF6ZkSrDYQjLXs
+         08sV4bUwTRQ99ReF43aNkgsrWRHftAt7IhuDd0eSU/J++YUC6aS+BHtXvy3ReONFgwxY
+         5cKSlyBQ+THGCscdTcqKIGDTWfgRpNn2wGJAcvduTmcv0eX7mHFl9J/UNVoezLSh8Bvm
+         NRfhRck46wrRKxBdqiQCcn88kSro/0oU4VLOLZVw+1Dlo+pggJ5eehs6mCjdq9bBQMZr
+         6lTA==
+X-Forwarded-Encrypted: i=1; AL+hErHAP5ITiDEK1bW82ViXsbj13fb+a/RCZO6w8cGm0hLGcL1UCWdX0u0lCy8Q+E2uUQdTfDUUipE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/TmSgZr1XBre7r96UKXAGBSEVXm2kAzxhZgWCR+NnozoA2NfNt
+	JWFuXOTiSAACPQM+Hdq88vnpn0Uipc/VW9wXdWirmIS3ogzSdYg4ZdWTNxhE21AnGcrWUYKbCg3
+	StlR2xMo4rDzYCQZYpLoEZ5NQ3GdjpIuNIPzaLEvo
+X-Gm-Gg: AYBFou2Wc38DjCzb18jLOIMygcAq/Q4+2wL8SB/ViptMFXrza7+iRXlzPsYWfMHxdUe
+	DmCXdn4WRy2yWW1IBce7Td8gIl/OyeR8naNcvVi1QTu/9B+vsZ58QcpCiotKqXNXTyPES+E2kfs
+	Meh9V5s4ag9jdhiUk338bQufpflgtj7mCYj931J6JOyNpQzGiFVNF4+L3KLqmCMYvYGY2IsJqUO
+	NYMpK9sBvMLad8MAWyXcM6PEQN2Nw8BAuQ4E0IH9y7BsjNEU97/tuSWnX6F5ZUQPdwqxKD3A7N8
+	p8q9ntZSuTpHKLzcEpxkFZ0yAhjsOII9n8XU2+06YHWKfjMlWq+jUte8NQ+oCZ0Sw62zuRcQSF8
+	syt9VMy20BzTtVSGKiB7iZqNYyp7njIRO6Z15ioCYT8dxvHhxjnT1/LD5ZiOTZfTpUvcGBM6Uga
+	CBJA6eEUWtXeSh
+X-Received: by 2002:a05:6402:4025:b0:6b5:70a4:c77c with SMTP id
+ 4fb4d7f45d1cf-6b6f8405023mr6118a12.11.1793988799653; Fri, 06 Nov 2026
+ 10:13:19 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,44 +102,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261105151159.1.I0b27923381ef34cc99cdf8b65fea2e1bafce6370@changeid>
+ <CAF1bQ=QkGntJu8G67ssH2dS3Sn200_JuYitjtAfNPBu_hn0fZA@mail.gmail.com>
+ <CAF1bQ=QiP4fb-+Kn8wzEH7wqjAjZaagxUd3sYpv2SkwDcnFPWQ@mail.gmail.com> <CAD=FV=WGKOnDoY1W7CuZw=s3e8f3jrXzkJ5_Qp_Y4WfT0XwXDg@mail.gmail.com>
+In-Reply-To: <CAD=FV=WGKOnDoY1W7CuZw=s3e8f3jrXzkJ5_Qp_Y4WfT0XwXDg@mail.gmail.com>
+From: Rong Xu <xur@google.com>
+Date: Fri, 6 Nov 2026 10:13:07 -0800
+X-Gm-Features: AclHuK8M7aEN7HUd8VzCV7EfdL7Os2jiojoMycd1W00kFFu83GOEk2kpHYqCCkk
+Message-ID: <CAF1bQ=TWZ=u1h92Nt9NgGcaDNTo=BOHmUp1DCWEeUMfwBb3WhQ@mail.gmail.com>
+Subject: Re: [PATCH] kbuild: AutoFDO: Disable Profi (-fno-sample-profile-use-profi)
+To: Doug Anderson <dianders@chromium.org>
+Cc: llvm@lists.linux.dev, linux-kbuild@vger.kernel.org, 
+	Han Shen <shenhan@google.com>, Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Han Wang <nesthanwang@google.com>, 
+	Snehasish Kumar <snehasishk@google.com>, Nilanjana Basu <nilanjana.basu87@gmail.com>, 
+	Yabin Cui <yabinc@google.com>, stable@vger.kernel.org, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-too_many_discard_blocks() uses sector_div(), whose divisor is a u32.
-discard_block_size is a 64-bit sector_t that calculate_discard_block_size()
-keeps doubling, so once it reaches a multiple of 2^32 the divisor is
-truncated to 0 and the division traps with a divide error. Smaller values
-above 2^32 are also silently truncated, giving a wrong quotient.
+As far as I know, Profi is enabled in the Clang front-end initially. I
+remember reviewing a patch that enabled Profi for the Rust front-end,
+though it's possible that has already been merged.
 
-This needs an origin of more than 2^45 sectors, which is unrealistic (this
-is a thing still in 2026!!) for a real device but reachable with a fuzzer.
+It seems strange that these flags diverge between C and Rust. Could we
+add a comment to indicate that Profi is currently not enabled in Rust?
 
-Use div64_u64 so the full 64-bit divisor is used.
+Rong
 
-Reported-by: syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3e16980543e238b95bd1
-Fixes: 08b184514f65d ("dm cache: revert "prevent corruption caused by
-				discard_block_size > cache_block_size"")
-Cc: stable@vger.kernel.org
-Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
----
- drivers/md/dm-cache-target.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
-index 1a5072425c4a..2d40d6047ef1 100644
---- a/drivers/md/dm-cache-target.c
-+++ b/drivers/md/dm-cache-target.c
-@@ -2383,9 +2383,7 @@ static int create_cache_policy(struct cache *cache, struct cache_args *ca,
- static bool too_many_discard_blocks(sector_t discard_block_size,
- 				    sector_t origin_size)
- {
--	(void) sector_div(origin_size, discard_block_size);
--
--	return origin_size > MAX_DISCARD_BLOCKS;
-+	return div64_u64(origin_size, discard_block_size) > MAX_DISCARD_BLOCKS;
- }
- 
- static sector_t calculate_discard_block_size(sector_t cache_block_size,
--- 
-2.43.0
-
+On Fri, Nov 6, 2026 at 10:06=E2=80=AFAM Doug Anderson <dianders@chromium.or=
+g> wrote:
+>
+> Hi,
+>
+> On Fri, Nov 6, 2026 at 9:43=E2=80=AFAM Rong Xu <xur@google.com> wrote:
+> >
+> > Just one thing: I think we should also have this flag for Rust so Rust
+> > and c are consistent.
+>
+> Please see the commit message, which says:
+>
+> > RUSTFLAGS_AUTOFDO_CLANG and KBUILD_LDFLAGS do not need changes because
+> > SampleProfileUseProfi remains false by default in the LLVM backend and
+> > is only enabled by the Clang driver.
+>
+> Is that incorrect?
+>
+> -Doug
