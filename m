@@ -1,52 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793976375;
-	b=leljNn2CQvQMpI6frnMhPd8+ey8uGUIltwC5fKesLbB1d/2GN9NhaoomWg5ceiGShHLC
-	 e1FfeYhe0GtOiSWTbQkbDhE8gM7qMtEcj6m/gpOtKiw7FMvvj6ROEr7a/D4jDcmhvNGEn
-	 y7NrXfWH9VLtbwf/dgFLHLRjnkkqZNtwkVszt8l2avQtFdLKTSnrkzBkk1y3ekHpdpVvL
-	 Rb9oDe938CgfYBodRlfZM1HZdMkaYXY3GCEkB3LwsPasQibhxAzNMJgmvjtpipJzZdhlg
-	 Nz5C6OsfVZu8mMGUpk5495h5Smc/uSI6FnSMT/xfgAOtaqaEGW2jwHubm0yXofX6DJA==
+	t=1793976428;
+	b=a6yjZmX+mYGWybKCofoHZ+9fm3cpI0huE+w2yXSNEp+ApireMXws/U940nitTVWylV27
+	 eniwqQ7lOVHO5xLw25ZyXitrmAhlhIVwX1OaGEC5CSPR6hJwh9XZKJ6mrOA0NaAMdCPip
+	 h1qp+xJxTr2CKuf0iDcC0z4iIh6h0eDCB87EGqH5t1C5nabmrL7iQR6aJqfMlDsDNQbw4
+	 wVgGv4RgZ8nZXpO4kDtQvGxJ56ZlXHcOCaZRd6gcIQQmJ3EoedpQpkgLyzBo9pDmg5vRs
+	 tbDXalhgMWCGSmUs2jujH76cKwgg/RMj+QI8is4pI3Boe5sMPR6Tl76Es7MjqYpYoNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976375;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
-	 In-Reply-To:References;
-	bh=bcf8NooVSigb4TfmPTaRxGuCBTM15fUvnjEuKFhLl1k=;
-	b=huDuIByWb4dEcyXCe6EiQBvEkXeCP6DafOovE9mBoiK9ZektUU8+PdXnaZ7ehji0az/w
-	 loasyvXhzk0+l6iXbYFlO40JuBLq2MnN7FnasmDwgUuBHq1TFfe4gpUB3N02N6O4hP4ba
-	 R5NrOglWfntoT2YOBxpq8MfscDGUqxtrwfzauh/dWFIyi21qPCtpwnZnCIPjwi6SavH4O
-	 N5fHvRKFrxweWnaA10HTvB2vtuu9Ipy8TFEQnafjJRxsLB/p0oFBf6Iff6zK1HtxraVbM
-	 H4sndS0fszRwIsL7rY9pTRCsH14mNgjPyX5K1g6O7nrZXKFP6+LGN+yHyq++g+6bHCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976428;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Jvr/PYbzE/CPdSRDB5iJ614xdptc0r5yeiPTqzdBhhc=;
+	b=N3rBpaEzlF4kcK0LESy/b6iqbyyePkSAHTk6ey4SZlWg8OIMNa7RdF3iVLI9jXWV4f1i
+	 RQmbuY30gyLttUulikPpCipVuyuGEQy2zpYxnbFoWDHer4pQOZGxAr9Y2IkARyVugOWsI
+	 6i/0OnK4y3aEjHC0udA6QueDDOd3xrHHi8o5bh4PUzDITsVn6lrGA+mTy9dg+strabXgv
+	 Qk2BZMUrqlqUKTLST0XNUPA2TJo39RxzFvOXome0tvcYxlbIEZ4S/dFWl8+EMOqnpZGdC
+	 Fhyu0AXoHsqUa4KMHOYFNIY6/p3Vr37b/+Q/CNC8LcRmUedgvGH918oewGQerhWECZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FFxrbnvM;
-	arc=none smtp.remote-ip=91.218.175.34
-Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OUz+J1eC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93081606A332
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:46:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93081606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BECE606A32C
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:47:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FFxrbnvM
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2dbWv/ipPcBByrtWVppRgZPHES/QVz3Y/W26rsMlQ0o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793976371; v=1; x=1794581171;
- b=FFxrbnvMEF7JCHJuFCQDbFF0oOP5ds8ggkeEYsJnHnNSv9hkWDwkjBi8IHyeLul1mYWhMHgS
- Mm/SKZVfFgBuCnHqqYps8CiK1dw/2tioGwTzkuNE3W1T7hWWF2tuiEhYKENGGspkPRenLkDiVdS
- xs85kurRvIVLKwCbshO3QDEE=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9a8c2e4ffcc01ae3;
-	Fri, 06 Nov 2026 14:46:10 +0000
-X-Mizu-Trace-ID: 9a8c2e4ffcc01ae3
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OUz+J1eC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CCFD1F0089F;
+	Fri,  6 Nov 2026 14:47:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793976427;
+	bh=Jvr/PYbzE/CPdSRDB5iJ614xdptc0r5yeiPTqzdBhhc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OUz+J1eCqP6S9jiFmdzYT+UaOfu0BGIIw/Y5pakulMWeA0mwe9FJVrKOYlBjtYYiq
+	 54WrbUaDLyDvA63QRn2TAIQnPK2DhPlpnTgr4ZV5TSWS7UgW3tVXeEqeEQEG+SXwyN
+	 I0LryxvDvVoOxYlqjx+h8ne/67n3n2YiqngqFivKR+62ODlRo968odOXiQygDaES+G
+	 QMSgAFdK0+vvfJPB0K8s3O49guPhLzTzh54hC1ZhA5MCWKqiYpjpgObg3uOaqHHf0c
+	 Wp7/sWfXVR+ICXvFk4kCKLVS5Fg8WNpt20jM2gUWM7dzLkaB+onRxOES5INqvZOHuv
+	 SHsWAzmYDVvVw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Xiaoyao Li <xiaoyao.li@intel.com>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Binbin Wu <binbin.wu@linux.intel.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] KVM: TDX: Set bits 31:16 to 0 and use UNDEFINED when synthesizing exit reason
+Date: Fri,  6 Nov 2026 09:47:06 -0500
+Message-ID: <20261106144334.354667-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110415-porous-slather-09d5@gregkh>
+References: <2026110415-porous-slather-09d5@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,110 +61,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Fri, 06 Nov 2026 14:46:06 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <3c56f067d3d87156d8dad56c34b813543ef41d0f@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH rtw-next v8 2/4] wifi: rtw88: sdio: Track running state
- and cancel TX worker on stop
-To: "Alastair D'Silva" <alastair@d-silva.org>,
- linux-wireless@vger.kernel.org, "Ping-Ke Shih" <pkshih@realtek.com>,
- "Kalle Valo" <kvalo@kernel.org>
-Cc: "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, "Ulf Hansson" <ulfh@kernel.org>,
- linux-kernel@vger.kernel.org, "Alastair D'Silva" <alastair@d-silva.org>,
- stable@vger.kernel.org
-In-Reply-To: <20261105025700.1655219-3-alastair@d-silva.org>
-References: <20261105025700.1655219-1-alastair@d-silva.org>
- <20261105025700.1655219-3-alastair@d-silva.org>
+Content-Transfer-Encoding: 8bit
 
-Hi Alastair,
+From: Xiaoyao Li <xiaoyao.li@intel.com>
 
-Thanks for the new version. Two comments below.
+[ Upstream commit b43c520b198ab70868307a489ef2117ed6d6c4cc ]
 
-November 5, 2026 at 3:56 AM, "Alastair D'Silva" <alastair@d-silva.org> wr=
-ote:
+Set bits 31:16 to 0 instead of all-1s when synthesizing an exit reason,
+e.g. if the TDX Module never attempted VM-Enter, or when stuffing the exit
+reason due to an unexpected "real" EPT Misconfig.  Opportunistically use
+VMX's KVM-defined EXIT_REASON_UNDEFINED (0xdead) instead of -1u.
 
-> diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wi=
-reless/realtek/rtw88/sdio.c
-> index 172aa7ad4732a..e318fefe5b5e7 100644
-> --- a/drivers/net/wireless/realtek/rtw88/sdio.c
-> +++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+KVM is going to support Bus Lock VM exit for TDX, after which bit 26 of
+the Exit Reason becomes meaningful and indicates that a bus lock happened.
+The existing synthesized Exit Reason, -1u, will cause a false positive in
+that case.  Change the synthesized Exit Reason from -1u to U16_MAX, so that
+bits 31:16 are set to 0.  This also avoids the potential issues when other
+bits in 31:16 become valid in the future.
 
-[ ... ]
+As a bonus, the check for synthesized Exit Reason in tdx_failed_vmentry()
+becomes unnecessary.  Just drop it.
 
->  static void rtw_sdio_stop(struct rtw_dev *rtwdev)
->  {
+Cc: stable@vger.kernel.org
+Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Link: https://patch.msgid.link/20260819094903.3060020-4-xiaoyao.li@intel.com
+[sean: use EXIT_REASON_UNDEFINED instead of another magic value]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/kvm/vmx/tdx.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-[ ... ]
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index dcbfcd79791c8..ad5b5497473a5 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -904,8 +904,13 @@ static __always_inline u32 tdx_to_vmx_exit_reason(struct kvm_vcpu *vcpu)
+ 	struct vcpu_tdx *tdx = to_tdx(vcpu);
+ 	u32 exit_reason;
+ 
++	/*
++	 * Return the synthesized invalid Exit Reason, as the TDX module
++	 * never attempted to run the vCPU, i.e. the Exit Reason is undefined,
++	 * but this is NOT a failed VM-Enter.
++	 */
+ 	if (!tdx_is_exit_reason_valid(tdx->vp_enter_ret))
+-		return -1u;
++		return EXIT_REASON_UNDEFINED;
+ 
+ 	exit_reason = tdx->vp_enter_ret;
+ 
+@@ -920,7 +925,7 @@ static __always_inline u32 tdx_to_vmx_exit_reason(struct kvm_vcpu *vcpu)
+ 		 * Defer KVM_BUG_ON() until tdx_handle_exit() because this is in
+ 		 * non-instrumentable code with interrupts disabled.
+ 		 */
+-		return -1u;
++		return EXIT_REASON_UNDEFINED;
+ 	default:
+ 		break;
+ 	}
+@@ -951,8 +956,7 @@ static noinstr void tdx_vcpu_enter_exit(struct kvm_vcpu *vcpu)
+ 
+ static bool tdx_failed_vmentry(struct kvm_vcpu *vcpu)
+ {
+-	return vmx_get_exit_reason(vcpu).failed_vmentry &&
+-	       vmx_get_exit_reason(vcpu).full != -1u;
++	return vmx_get_exit_reason(vcpu).failed_vmentry;
+ }
+ 
+ static fastpath_t tdx_exit_handlers_fastpath(struct kvm_vcpu *vcpu)
+-- 
+2.53.0
 
-> +     cancel_delayed_work_sync(&rtwsdio->tx_handler_data->work);
-> +
-> +     for (i =3D 0; i < RTK_MAX_TX_QUEUE_NUM; i++)
-> +             ieee80211_purge_tx_queue(rtwdev->hw, &rtwsdio->tx_queue[i=
-]);
-
-ieee80211_purge_tx_queue() takes the frames off with __skb_dequeue(), so
-without the queue lock. rtw_sdio_tx_write() appends with skb_queue_tail()
-and does not look at running, so as far as I can see both can run on the
-same queue at once.
-
-That seems possible on the firmware recovery path, where the device is
-stopped while mac80211 is still sending, since ieee80211_restart_hw()
-only comes afterwards:
-
-        rtw_fw_recovery_work()
-          __fw_recovery_work()
-            rtw_enter_ips()
-              rtw_core_stop()
-                rtw_power_off()
-                  rtw_hci_stop()
-                    rtw_sdio_stop()
-          ieee80211_restart_hw()
-
-rtw_core_stop() clears RTW_FLAG_RUNNING, but it does not cancel
-rtwdev->tx_work, and __rtw_tx_work() does not check the flag. So a
-tx_work that is already pushing frames can append while the purge walks
-the queue, and the list and qlen get corrupted. On SDIO this path is
-reachable since dc16902cad9c ("wifi: rtw88: ps: Trigger firmware
-recovery when failing to leave LPS state"). If I read it right, that is
-the only rtw_fw_recovery() caller there, because rtw_fw_c2h_cmd_isr() is
-only called from pci.c.
-
-A frame appended just after the purge also stays in tx_queue[] and goes
-out after the restart with the TX descriptor from before it, like with
-the rearm in v7.
-
-Freeing with skb_dequeue() and ieee80211_free_txskb() in a loop would
-keep the list intact. Maybe a second pass in rtw_sdio_start(), before
-running is set, could drop the late frames too.
-
-> +     for (i =3D 0; i < IEEE80211_NUM_ACS; i++) {
-> +             queue =3D rtw_tx_ac_to_hwq(i);
-> +             if (rtwsdio->tx_queue_stopped[queue]) {
-> +                     rtwsdio->tx_queue_stopped[queue] =3D false;
-> +                     ieee80211_wake_queue(rtwdev->hw, i);
-> +             }
-> +     }
->  }
-
-When the 8723bs back pressure has stopped an AC, mac80211 marks its txqs
-with IEEE80211_TXQ_DIRTY the next time a dequeue is tried. On the
-recovery path above, this wake runs before ieee80211_restart_hw() sets
-in_reconfig. So if I read it right, the wake_txqs tasklet clears the flag
-and calls rtw_ops_wake_tx_queue(), which returns early because
-RTW_FLAG_RUNNING is already clear. After the restart those txqs only move
-again once another frame is queued on them.
-
-PCI does this reset in rtw_pci_start() since 6ac7db1cea43 ("wifi: rtw88:
-pci: wake the TX queues after restart_hw and interface up"), through
-rtw_pci_reset_tx_queue_state(). On restart_hw that runs while in_reconfig
-is set and the SUSPEND reason still holds the queues, so the marked txqs
-are woken at the end of the reconfig instead. I think moving the reset
-and the wake to rtw_sdio_start() would work here too. It could also take
-tx_queue[].lock there, like the 8723bs stop and wake helpers.
-
-Best regards,
-Luka Gejak
