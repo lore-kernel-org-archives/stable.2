@@ -1,57 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793974421;
-	b=MMmUxibdQU1pr0tV6zuzLEMAOTdW3iieb26DTdisJNwKJcf2Q4vg/t7CXinX/OqrSJWe
-	 Ovge+u/nXVDjIjRimoUttNQaoQ3mffDcMioHZyw+cij2XoZx97kBIPg2lYuYqGhU9OHCA
-	 XmGElE0JVElXtEp/DFUdnA+MoSLrPgldWAe/mA4kU9qVxazBXnjP94BFnQY3s6OQGXalR
-	 o+Kbj5nH7E4qRjbOwMH8Q8hYvfZy6Isk5XoR2EZXz2RpO1P10220Ruidt7hVnwWu+Y2nL
-	 ZBIeDdW2B49+r8n8xIR5uLa+tEtEzlb9uPGbYdIVGWmjW0lz5Vq23t4cwkKTGWFqp0g==
+	t=1793974422;
+	b=mm6CO1I046rUw2HrDkdnt1SW8kTtszinPeC2m/FQaeDx6Jhyfu31xxAYtREGCGIlhJJp
+	 /FI6SWewxztYec+WgZ2weemK2eBGaIZfg84j+nbSwHSiblkMXTqvMIjfA1kqDFKKcdsax
+	 W4VpZEr7c82uSAsLwAmX9hrhunOD0yFORvmgmPXNDxbJ4kWAg6uAJr498z/qsXxQ+GxFg
+	 sg8cRQxln9TSRZWkNJswsB0K44tycZ7wOmXbCtyze48MeXEnt//Ex3isd8DzL/WCCBuc6
+	 iF5Uk3MVPVa81iVFPttxFmhmYf95/gw8Ec9czZD/P6FhbBATNHRuioNRMFiH6Xj6wSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974421;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974422;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hwqHqfPbvqPsYJ/6jw8FyV9u20mx881DKftZYCYE5CA=;
-	b=Qky8Og4NS1/TKHleECYGncWbetM0mIFtYPr3lIFJlEfP974VdgUwSmuj4SPguDs0lBvf
-	 Rchk8nzt3iEh2rST0RnU0DL6KqQmvjkpU93owVClEb/UgTaLI1w2T0ElB698ZyicsZKd+
-	 +NpmPqmqUDl7RaoZkxU2EXrBk1NO70MwW7gAJCb/5veY3xZ5TmkVa+T+9n8NQgiap21Pu
-	 dbtCnmrhrgQ7T9b2qrYvIwSLGJXj/AFvZgy5yntCrPEMEvJtS54ic1GbH3FZp9gmRbm3B
-	 bclelacJrb+BslYe4wvpd7g7WR/vknIxlhVjnNf1/3f7CUlrZ+B3PVLAHJLY0Ab89eA==
+	bh=y78igagAU78xsdzotx1d+odiNbQ2fq+lSFD+7N7QFfk=;
+	b=P2Z8hsGyO+j0uT4chpO/tCUh52DdLkxZBo30DVBSdbJ9FsD/60i6x6j+k/ritwH92nqj
+	 V1ic2j99Qs4cZnlV87yypgNQkEY+cb5I0srfPYK4dVfgru8zSv1swfEIYrMu5yxBm5Ecp
+	 FQBzbCHRgxoT8XB88rs75CNh1pL6dIUUJ4i3So1mUTjE1Y71Duuo228Z+5wwe/PEee3+d
+	 BpPmb/QfPbzlnsPKl3lzqtLBjYk0tzHgmICMVPSxCdR1yTYI6C6LBnPYi2UefOrkyTzxb
+	 rZmwn+DaOct/WK5OsfXDbVIKZAOG6h4HbqEOL8PSXKis6v13G0JTKFury4YV1YPxawA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hap/gnbH";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PvVGXNg/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4AF606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08878606A32C
 	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:13:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hap/gnbH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93C3E1F0089F;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PvVGXNg/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF4911F008A1;
 	Fri,  6 Nov 2026 14:13:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793974421;
-	bh=hwqHqfPbvqPsYJ/6jw8FyV9u20mx881DKftZYCYE5CA=;
+	bh=y78igagAU78xsdzotx1d+odiNbQ2fq+lSFD+7N7QFfk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hap/gnbH7xtmR80leNScGbzVPSAT46n36U+BjSg8NssE6hVVmlSxSWJxOv1AmCkvk
-	 CegqSCKtdSouKqgV+wDE2CC+aBp2CbKJ95lOIwpzaD/GZND0oiLJ+P5Cwm466ZbOOU
-	 D5P5qHkk2KvzitQDKakk1/jCrXtUjsmBb8myEgQvTaQhEUUs68jOQUqdsuTopOEn/g
-	 3g8N/cwuNuZZ/oI/xh30sET7bafRC03mZdM1O8BFRj8OnNH93Li+qNksj5/qTSP4EI
-	 7NIh0eD5qV73PYhWAXAHvIwcqO+KkhgQtJyXGhQ+HHCj8YDj0kMLSj8H/knunDf6ny
-	 ist36WHORzGwg==
+	b=PvVGXNg//zkHlBa/3X1bU7Sj0+uEMWXw6nZARx+rR29oFvC0J9fDRha6G+fXK2V11
+	 gom7eMVH5aVikGm6gzhSyrywUFJLo8541dALv5xq0w7a9haJ8NUhAFYxVqRVGoLMop
+	 ZCZO65ThYV94hSIzCJUVc75Ot94EwNlYC2Hs0OyjuriOUUyqtn4NvYppyciGtYvDOE
+	 swA4K564SuiPiPXq/mk7K1mIXCCUOW1G5vXMg1GZ/s0oxisupnARnZzblA6l6X6eKw
+	 LDpH/3URwZa544/50I1wslp8lV8e8O+mB99DSziG4VHhM4o5rDqTcaxI92u7lIU9qp
+	 P7FyGzWfLRE8g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Shivank Garg <shivankg@amd.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Sean Christopherson <seanjc@google.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Eric Dumazet <edumazet@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-afs@lists.infradead.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] KVM: guest_memfd: take the invalidate lock when unbinding a dying file
+Subject: [PATCH 6.1.y] rxrpc: Fix update of call->tx_pending without holding lock
 Date: Fri,  6 Nov 2026 09:13:39 -0500
-Message-ID: <20261106141257.320136-1-sashal@kernel.org>
+Message-ID: <20261106141255.247326-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110442-recast-sequel-2c6a@gregkh>
-References: <2026110442-recast-sequel-2c6a@gregkh>
+In-Reply-To: <2026110439-morale-coleslaw-379f@gregkh>
+References: <2026110439-morale-coleslaw-379f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,137 +67,226 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shivank Garg <shivankg@amd.com>
+From: David Howells <dhowells@redhat.com>
 
-[ Upstream commit 0ee2c883b62deb74d8c43007e8049dc006d3a2fb ]
+[ Upstream commit 7801c42c3bb737cfb06194a383873fcad8daacf5 ]
 
-kvm_gmem_unbind() takes mapping->invalidate_lock only if the
-get_file_active() succeeds. When the guest_memfd file is dying, its
-reference count is already zero so get_file_active fails and the binding
-is removed without holding the invalidate lock.
+Currently, rxrpc_send_data() updates call->tx_pending just before it
+returns - but it won't be holding the call->user_mutex when it does this if
+a wait was interrupted by a signal.  This would allow a parallel sendmsg()
+to race.
 
-kvm_gmem_invalidate_{start,end}() checks f->bindings independently to
-decide whether to begin or end KVM MMU invalidation. So, the bindings
-must therefore remain stable between the two calls. Otherwise, unbind
-can remove a binding after start increments mmu_invalidate_in_progress,
-but before end finds the binding and decrements it.
-Example, unbind race with memory failure:
+Further, both the callers of rxrpc_send_data() call it with the lock held,
+and then it returns an indication through the parameter list to say whether
+it has dropped the lock or not - after which the callers both just drop the
+lock if it's still held.
 
-  CPU 0: memory failure               CPU 1: memslot delete
-  ----------------------------------  ---------------------------
-                                      (guest_memfd file is dying)
-  kvm_gmem_error_folio()
-    kvm_gmem_invalidate_start()
-      finds binding
-      mmu_invalidate_in_progress++
-                                      kvm_gmem_unbind()
-                                        get_file_active() fails
-                                        removes binding
-    kvm_gmem_invalidate_end()
-      no binding found
-      counter stays elevated
+Fix this by:
 
-mmu_invalidate_retry() then returns 1 forever, so guest page faults
-retry without ever installing a mapping and the guest hangs.
+ (1) Moving the release of call->user_mutex down into rxrpc_send_data() and
+     get rid of the indicator parameter.  This makes it easier to see where
+     the lock is held.
 
-Remove the distinction between live and dying files in the unbind path.
-Always use slot->gmem.file and take the invalidate lock when it's non-NULL.
-Normal unbind callers hold slots_lock, which prevents release from clearing
-the pointer or freeing the file state until unbind completes. Final VM
-teardown can only see a NULL pointer because guest_memfd pins the KVM until
-release has cleared all bindings.
+ (2) After waiting, if the attempt to reacquire the mutex is interrupted,
+     just return directly there rather than going to out_unlock
 
-Fixes: ae431059e75d ("KVM: guest_memfd: Remove bindings on memslot deletion when gmem is dying")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260728092027.225CF1F000E9@smtp.kernel.org
-Suggested-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Shivank Garg <shivankg@amd.com>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Link: https://patch.msgid.link/20260901-gmem-unbind-fix-v2-1-12febe1d2216@amd.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-[ sashal: Adapted unbind to struct kvm_gmem with explicit kvm_gmem_get_file()/fput() removal replacing upstream's automatic cleanup removal. ]
+ (3) Restricting the txb variable to inside the buffering loop and leaving
+     ->tx_pending set until we've queued the buffer.
+
+Note that there's a slight change in behaviour in that wait_for_space
+failure now doesn't check for completion because it doesn't hold the call
+user_mutex.  The caller, however, should re-issue the send and pick up any
+error at a second attempt.
+
+Fixes: b0f571ecd794 ("rxrpc: Fix locking in rxrpc's sendmsg")
+Closes: https://sashiko.dev/#/patchset/20260702144919.172295-1-dhowells%40redhat.com
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Eric Dumazet <edumazet@google.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261006133011.531806-4-dhowells@redhat.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ sashal: adapted rxrpc_txbuf handling to sk_buff buffers within the existing caller control flow ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- virt/kvm/guest_memfd.c | 48 ++++++++++++++++--------------------------
- 1 file changed, 18 insertions(+), 30 deletions(-)
+ net/rxrpc/sendmsg.c | 57 ++++++++++++++++++++++-----------------------
+ 1 file changed, 28 insertions(+), 29 deletions(-)
 
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index a59a4446b8461..e121534e21692 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -627,53 +627,41 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
- 	return r;
- }
- 
--static void __kvm_gmem_unbind(struct kvm_memory_slot *slot, struct kvm_gmem *gmem)
-+void kvm_gmem_unbind(struct kvm_memory_slot *slot)
+diff --git a/net/rxrpc/sendmsg.c b/net/rxrpc/sendmsg.c
+index b03d93d8b69d0..28cd9fe93844e 100644
+--- a/net/rxrpc/sendmsg.c
++++ b/net/rxrpc/sendmsg.c
+@@ -287,11 +287,10 @@ static int rxrpc_queue_packet(struct rxrpc_sock *rx, struct rxrpc_call *call,
+ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 			   struct rxrpc_call *call,
+ 			   struct msghdr *msg, size_t len,
+-			   rxrpc_notify_end_tx_t notify_end_tx,
+-			   bool *_dropped_lock)
++			   rxrpc_notify_end_tx_t notify_end_tx)
++	__releases(&call->user_mutex)
  {
-+	struct file *file = slot->gmem.file;
- 	unsigned long start = slot->gmem.pgoff;
- 	unsigned long end = start + slot->npages;
--
--	xa_store_range(&gmem->bindings, start, end - 1, NULL, GFP_KERNEL);
--
--	/*
--	 * synchronize_srcu(&kvm->srcu) ensured that kvm_gmem_get_pfn()
--	 * cannot see this memslot.
--	 */
--	WRITE_ONCE(slot->gmem.file, NULL);
--}
--
--void kvm_gmem_unbind(struct kvm_memory_slot *slot)
--{
--	struct file *file;
-+	struct kvm_gmem *gmem;
+ 	struct rxrpc_skb_priv *sp;
+-	struct sk_buff *skb;
+ 	struct sock *sk = &rx->sk;
+ 	enum rxrpc_call_state state;
+ 	long timeo;
+@@ -325,11 +324,9 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 			goto maybe_error;
+ 	}
  
- 	/*
- 	 * Nothing to do if the underlying file was _already_ closed, as
- 	 * kvm_gmem_release() invalidates and nullifies all bindings.
- 	 */
--	if (!slot->gmem.file)
-+	if (!file)
- 		return;
- 
--	file = kvm_gmem_get_file(slot);
+-	skb = call->tx_pending;
+-	call->tx_pending = NULL;
+-	rxrpc_see_skb(skb, rxrpc_skb_seen);
 -
- 	/*
- 	 * However, if the file is _being_ closed, then the bindings need to be
- 	 * removed as kvm_gmem_release() might not run until after the memslot
--	 * is freed.  Note, modifying the bindings is safe even though the file
--	 * is dying as kvm_gmem_release() nullifies slot->gmem.file under
--	 * slots_lock, and only puts its reference to KVM after destroying all
--	 * bindings.  I.e. reaching this point means kvm_gmem_release() hasn't
--	 * yet destroyed the bindings or freed the gmem_file, and can't do so
--	 * until the caller drops slots_lock.
-+	 * is freed.  Modifying the bindings is safe even if the file is dying
-+	 * as kvm_gmem_release() nullifies slot->gmem.file under slots_lock,
-+	 * and only puts its reference to KVM after destroying all bindings.
-+	 * I.e. reaching this point means kvm_gmem_release() hasn't destroyed
-+	 * the bindings or freed the gmem_file and can't do so until the caller
-+	 * drops slots_lock, so there's no need to verify the file is live.
- 	 */
--	if (!file) {
--		__kvm_gmem_unbind(slot, slot->gmem.file->private_data);
--		return;
--	}
-+	gmem = file->private_data;
+ 	do {
++		struct sk_buff *skb = call->tx_pending;
++
+ 		/* Check to see if there's a ping ACK to reply to. */
+ 		if (call->ackr_reason == RXRPC_ACK_PING_RESPONSE)
+ 			rxrpc_send_ack_packet(call, false, NULL);
+@@ -381,6 +378,9 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 			       sp->remain);
  
- 	filemap_invalidate_lock(file->f_mapping);
--	__kvm_gmem_unbind(slot, file->private_data);
--	filemap_invalidate_unlock(file->f_mapping);
-+	xa_store_range(&gmem->bindings, start, end - 1, NULL, GFP_KERNEL);
+ 			skb->ip_summed = CHECKSUM_UNNECESSARY;
++			call->tx_pending = skb;
++		} else {
++			rxrpc_see_skb(skb, rxrpc_skb_seen);
+ 		}
  
--	fput(file);
-+	/*
-+	 * synchronize_srcu(&kvm->srcu) ensured that kvm_gmem_get_pfn()
-+	 * cannot see this memslot.
-+	 */
-+	WRITE_ONCE(slot->gmem.file, NULL);
-+	filemap_invalidate_unlock(file->f_mapping);
+ 		_debug("append");
+@@ -432,13 +432,13 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 
+ 			ret = call->security->secure_packet(call, skb, skb->mark);
+ 			if (ret < 0)
+-				goto out;
++				goto out_unlock;
+ 
+ 			ret = rxrpc_queue_packet(rx, call, skb,
+ 						 !msg_data_left(msg) && !more,
+ 						 notify_end_tx);
+ 			/* Should check for failure here */
+-			skb = NULL;
++			call->tx_pending = NULL;
+ 		}
+ 	} while (msg_data_left(msg) > 0);
+ 
+@@ -450,45 +450,46 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 			ret = call->error;
+ 		read_unlock_bh(&call->state_lock);
+ 	}
+-out:
+-	call->tx_pending = skb;
++out_unlock:
++	mutex_unlock(&call->user_mutex);
+ 	_leave(" = %d", ret);
+ 	return ret;
+ 
+ call_terminated:
+-	rxrpc_free_skb(skb, rxrpc_skb_freed);
+-	_leave(" = %d", call->error);
+-	return call->error;
++	ret = call->error;
++	goto out_unlock;
+ 
+ maybe_error:
+ 	if (copied)
+ 		goto success;
+-	goto out;
++	goto out_unlock;
+ 
+ efault:
+ 	ret = -EFAULT;
+-	goto out;
++	goto out_unlock;
+ 
+ wait_for_space:
+ 	ret = -EAGAIN;
+ 	if (msg->msg_flags & MSG_DONTWAIT)
+ 		goto maybe_error;
+ 	mutex_unlock(&call->user_mutex);
+-	*_dropped_lock = true;
++
+ 	ret = rxrpc_wait_for_tx_window(rx, call, &timeo,
+ 				       msg->msg_flags & MSG_WAITALL);
+ 	if (ret < 0)
+-		goto maybe_error;
++		goto out_nolock;
+ 	if (call->interruptibility == RXRPC_INTERRUPTIBLE) {
+ 		if (mutex_lock_interruptible(&call->user_mutex) < 0) {
+ 			ret = sock_intr_errno(timeo);
+-			goto maybe_error;
++			goto out_nolock;
+ 		}
+ 	} else {
+ 		mutex_lock(&call->user_mutex);
+ 	}
+-	*_dropped_lock = false;
+ 	goto reload;
++out_nolock:
++	_leave(" = %d [intr]", ret);
++	return copied ?: ret;
  }
  
- /* Returns a locked folio on success.  */
+ /*
+@@ -650,7 +651,6 @@ int rxrpc_do_sendmsg(struct rxrpc_sock *rx, struct msghdr *msg, size_t len)
+ 	enum rxrpc_call_state state;
+ 	struct rxrpc_call *call;
+ 	unsigned long now, j;
+-	bool dropped_lock = false;
+ 	int ret;
+ 
+ 	struct rxrpc_send_params p = {
+@@ -760,12 +760,12 @@ int rxrpc_do_sendmsg(struct rxrpc_sock *rx, struct msghdr *msg, size_t len)
+ 	} else if (p.command != RXRPC_CMD_SEND_DATA) {
+ 		ret = -EINVAL;
+ 	} else {
+-		ret = rxrpc_send_data(rx, call, msg, len, NULL, &dropped_lock);
++		ret = rxrpc_send_data(rx, call, msg, len, NULL);
++		goto error_put;
+ 	}
+ 
+ out_put_unlock:
+-	if (!dropped_lock)
+-		mutex_unlock(&call->user_mutex);
++	mutex_unlock(&call->user_mutex);
+ error_put:
+ 	rxrpc_put_call(call, rxrpc_call_put);
+ 	_leave(" = %d", ret);
+@@ -793,7 +793,6 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
+ 			   struct msghdr *msg, size_t len,
+ 			   rxrpc_notify_end_tx_t notify_end_tx)
+ {
+-	bool dropped_lock = false;
+ 	int ret;
+ 
+ 	_enter("{%d,%s},", call->debug_id, rxrpc_call_states[call->state]);
+@@ -811,8 +810,8 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
+ 	case RXRPC_CALL_SERVER_ACK_REQUEST:
+ 	case RXRPC_CALL_SERVER_SEND_REPLY:
+ 		ret = rxrpc_send_data(rxrpc_sk(sock->sk), call, msg, len,
+-				      notify_end_tx, &dropped_lock);
+-		break;
++				      notify_end_tx);
++		goto out;
+ 	case RXRPC_CALL_COMPLETE:
+ 		read_lock_bh(&call->state_lock);
+ 		ret = call->error;
+@@ -825,8 +824,8 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
+ 		break;
+ 	}
+ 
+-	if (!dropped_lock)
+-		mutex_unlock(&call->user_mutex);
++	mutex_unlock(&call->user_mutex);
++out:
+ 	_leave(" = %d", ret);
+ 	return ret;
+ }
 -- 
 2.53.0
 
