@@ -1,99 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.71
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793965380;
-	b=DOgcnsNiuxnK4ePhWkOgOvJCXSs0vEryVR3XjyLyuGRsKNLiu2xpjIqV+CAPQM1Kc81x
-	 1U6NF5R6HOdFcu/ehm9OcsohgBVMdT+syPoLuvs0EyGGm7RkEjktQnNIMdXejhoi598Qt
-	 TYWfmidYDyFc+JjG63u5sWfkbS/2AMlnma+w/fpPm9PVDK/EUhth8vQdia7Oa/Fi/YUZ6
-	 XufjbQheCTjcWqZGCVVNJdS+kvnhJa1fQ1F95XWrDXq4AQQeTGRTXUlqotFFtg1SaxPeF
-	 DjqNBARFsAvN21/6huxTCXnCvmy9cXU5Lo/qHAwLZ2VfBwNtQNgqbDqUQairJhTz+Sw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793965380;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=fihmiBshth1iC7m2JVB59RvPRIQbBYRo6l5+0CcjlcE=;
-	b=yGFiktkcGjqh7oU4OzEDoPWPaAGFI+qcGBcenKpp2EHclOzLMwpYRxIaZh8gHuMJu8JD
-	 R19tTc2o8i0FrLDp9hbPI1cv3/4MPKSyLl1Y84vyKu9VmPC2vb6jsaizGrhRZMje1Wal9
-	 HlC8zDAAcdF/MLI8TYBi1k5AX6aue2dpW38W3ruSOYaZ8Hswh355KKZO5gwtMDlz4o15A
-	 Zywd1Z/dbJTaHhzUFHO9V8/6P4Zlj/t0UxzddNSM67RZ7w/o52KL8gluXj+61kqJl9pke
-	 iq9tcCYwLzpLH3gqVBonES+qaMkJ26yqAcQwiYMvCiSFbFnChQHusjYn3NSn3kHA0ag==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qDWMaJuz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.71
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013071.outbound.protection.outlook.com [40.93.201.71])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793965469;
+	b=N0YBs/7EsPthre6+zBFE7rzh2UidQ5wgyQDUtKco/EQtSTvwTiJKOipBznmv8lw5jWI7
+	 +g52QXAhjrHfItGHPTIO+3jRnXGZNpG62TUNfHW7gHPWWPwb9JQ80vlThceHnk/pNbRJi
+	 FZ40ToXD3/d04EmzIKKkXvSb4MZPmf64uC7P7qcjzPVq0yF5y2pcwd1InAM4XcJDd4IpH
+	 BKy/HJJSKFxEpAJNbYbq4qUfk4U8Ieil+sMd5Wz510l/dbhD3mupmaDKq36sgYRgF/7s+
+	 3YK28QfixSKQ/3D46rWN0jAOGLL+TptkzLydXsjso/eV1WKWcoG44nN8l+5T4qzQnDQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793965469;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version:Date:Message-ID:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=VCwC09cnno+tqr+oLIW7Qixi9w0adICGJtp8fL9fLtg=;
+	b=5elbqPwjfhF5WLaixI/KmIVnL42Ej+joVe1Aop3ZYaOfhw5eT00AVSY1+986yOp6bI6E
+	 zX83rIN+hg0CjpU45cUrcAJo6PkuCrwgceMtB0YCQDQIFjFuANUSRLKxijeH7JR2TkpcF
+	 gSueq98jXmioWCAc49nqP0gADn4AP6xT2cRlBKQIlUX22byU1J7ClW1mgY3V7j73sBrEZ
+	 fl35VTUrHxBKqde/LIatPCdEJMqk3BNE7ibS59ODdJRAH8ug1PsGiDTTYCPCxN8Psvwvm
+	 a5/Shn/DAll/zm7tf0AVzI+J68/v7gBjU62r+ppxT1YmRlCYdthoq1HrC5hM9RA+dbQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239C8606A91D;
-	Fri,  6 Nov 2026 11:42:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 239C8606A91D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qDWMaJuz
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hHd72dado6c5WQooV3P+q4tnJNeVaiy32wlDGGJNq3LvXrjuE4opXoWe0uBe0lEWGOT6Vw37Hfo2UgFGAcypUgLnS6xZU5uBFZryJZVf8+LHlc60+VNtDMTH+M7NBobCwwEdA6JydmXwKTYNdA+8Q3IXWGPPt1R+CwN6ckKyKEJ5tOHrNrVX6E3DX0dC5/+wnK9jy4l/eoDCa+CtS71PB9boN/c8Npt0TDSFr2VMVcOCaxskzjOwWX+1qY/P7Z5PQQrc4VJGkz6g48jf/A/auSw8ga4aluDMq/ffe7cyeTVyQKSN1xUGPosCGPASPbIO4pDOhPWesw2rbDrMiWFIow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fihmiBshth1iC7m2JVB59RvPRIQbBYRo6l5+0CcjlcE=;
- b=BBC4n84+bSt3Wgka26iVFWC+f6nzcWy+Z0cjKa/wl2Qf8/xl6NvO7lLhikEOl57yML0vQWddXUQvzYMgtC2PCQjo5pjyCSUtmLtfn0wem8CQvCB+883boyzhKWrRLOerzDAPSTj11n1riNZPcRsUmmAnkhd7qqiPaJJvyEcpmzMyPbJxD8UnhM6TrDFIfC7awXDowu7py8Fv/oTzmkMqopFWQ18nWP6cNnXejICLkTZgt+QoubrYWii40pnYfCu7cSJy7JlqDl/dmlUoTFuMHYI6uQz+Z4LAnQvOOUdT2zS+FpHraeacBosRWxgoLsCokkkHhnGyJkLIPKehu6So4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fihmiBshth1iC7m2JVB59RvPRIQbBYRo6l5+0CcjlcE=;
- b=qDWMaJuzh82ROK6tmJbam7sunEacMDulhBq8ZuoajXR3jhzd3mcPSzuJg3QN6kQtJuiBLFl10L/jZnz62UC9IxL/XEBv+iRbXzPjJXNSP7n1T60TYTJb94cjMjXN/fp5WXXbnOsN5oiqdtXYbtMHTdcrz/v+NpYVMYXQhCuCUDw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB292992.namprd12.prod.outlook.com
- (2603:10b6:208:5a1::21) by IA0PR12MB8277.namprd12.prod.outlook.com
- (2603:10b6:208:3de::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 11:42:57 +0000
-Received: from IA1PR12MB292992.namprd12.prod.outlook.com
- ([fe80::4b88:460d:65c0:def1]) by IA1PR12MB292992.namprd12.prod.outlook.com
- ([fe80::4b88:460d:65c0:def1%6]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
- 11:42:57 +0000
-Message-ID: <9859121c-06c9-4e2f-8003-d9d782658dda@amd.com>
-Date: Fri, 6 Nov 2026 17:12:51 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] lib/group_cpus: Snapshot cluster masks to keep
- grouping hotplug invariant
-To: "Guo, Wangyang" <wangyang.guo@intel.com>,
- "tglx@kernel.org" <tglx@kernel.org>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: "bp@alien8.de" <bp@alien8.de>, "Li, Tianyou" <tianyou.li@intel.com>,
- "tim.c.chen@linux.intel.com" <tim.c.chen@linux.intel.com>,
- "Liang, Dan" <dan.liang@intel.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <20261102070930.1803698-1-Vishal.Badole@amd.com>
- <MW4PR11MB698287F2EBAD1EE84171931592692@MW4PR11MB6982.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: "Badole, Vishal" <vishal.badole@amd.com>
-In-Reply-To: <MW4PR11MB698287F2EBAD1EE84171931592692@MW4PR11MB6982.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48285606A905;
+	Fri,  6 Nov 2026 11:44:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48285606A905
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACnro8RvO1qkOpsAA--.21855S3;
+	Fri, 06 Nov 2026 19:37:54 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: andy@kernel.org, dan@dlrobertson.com, dlechner@baylibre.com,
+ jagathjog1996@gmail.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nuno.sa@analog.com, stable@vger.kernel.org
+Subject: 
+ Re: [PATCH] iio: accel: bma400: Fix trigger reference leak in bma400_probe()
+In-Reply-To: <20260917012143.1ee8ddc3@jic23-hlaptop>
+References: <20260916160825.2082355-1-vulab@iscas.ac.cn>
+ <20260917011724.1b0f181a@jic23-hlaptop>
+ <20260917012143.1ee8ddc3@jic23-hlaptop>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0087.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d8::16) To IA1PR12MB292992.namprd12.prod.outlook.com
- (2603:10b6:208:5a1::21)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,141 +55,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB292992:EE_|IA0PR12MB8277:EE_
-X-MS-Office365-Filtering-Correlation-Id: cae99011-e01d-4fed-1afe-08df3bfb1a76
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|22082099003|18002099003|10067099003|56012099006|11063799006|4143699003|261026121527099003|261028144727099003|261021123027099003|261022075727099003|261009223027099003|261022105027099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	X/D27E3FiGetFu/eSvT+iicDfOUR95Yfwn03A74DrW2jCAASOIC6lyZWlHmI1ZmK6ZkawaTrbFjQZIWObj96G3ZNc+z4Z2ssWC3qLNtT70bMo9wv5T6czQ+JD8aH4xiXb/5lVqcaz7UwqrMvt8h/RG8eg+RYWY26OaA2oiWFRQRlVTLJJW/FrJ/mfRhMyK1cpBI5XLCXW3Ccq1hRHmWCpk3EMWRNF1MeC8t8HFVdUxpza4yR6OFkjg29zPZWSL1eXunDAolKj8cuZfzuuHEKJS8TAXjW/h67b+GLJksshOmkG+lb5mho9TGJdpo2UqWN29fLneDL/t7jWZX1fqKPYuV+OQ5PIM6bcZJzQu7eBoP+UHDQ7DIzPliyqXcYRxy1DTmT3NczHpQImY9WFm2U4QiyOY8k0useukbqZ86Qjes+mMwhLkanaerawBpYmvx+CDvARoWXTGl/pTTedXEVRcW0kNINtlOjHivgZRG2q70bZgUPGuShFDFRBTyCshJF9S1fPJXx7uMZ9PS6c5HNeamtS8zjNs8mmwvUjBRfpMk1zBrnHF5riW3EbjTPRcmPGQ24eqRyqTnW55NsQdZSXnMOfP3ddyh8ns7hgKF0yWs9CyG0QnVsTZGULaFvVap3LP8kFd19AyAVTRnW42es07KFH+n4h4eFO16qghBZib8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB292992.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006)(4143699003)(261026121527099003)(261028144727099003)(261021123027099003)(261022075727099003)(261009223027099003)(261022105027099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Uzljc0VkcHdqeDluRmEwQThZWkdpZ3JwSEd2bmJUOW9zN3M0ajZlanQyL2lz?=
- =?utf-8?B?NEoxQWR1dDg4SFlPbXFIdjI0L1dvYmF0TmRhWTBESE5ZSmVPckpodjIrcDBX?=
- =?utf-8?B?VWJTd0l5N09PMFJnazNwbXhpM1ZWV2VpRU1IaTFLNjhTaUxzdVgxampRQnVj?=
- =?utf-8?B?OTYreTh5N0VzZmtweWtUVmdpc3JKMzJabjdTYTAvTUpXMzd0MkVkNFlGOE1M?=
- =?utf-8?B?VFlZUElHVUpWSEZZZXZEU2pVVmtqU0pVb2JsV1dqTUM5Y3gwV3FXenZ5dW05?=
- =?utf-8?B?M1lNV204aDF1aGIvUzJhWWVMRHZhZVd5eEQvUWdqUy9ZYzgrS3A5ejJlQ2Ja?=
- =?utf-8?B?Mjl1SVpxUnNkTktpYWR5eGhDYU1SQlJGL1pOTTc3amxZYVBLZ0dVeHF3dkhz?=
- =?utf-8?B?NGppS05OOWNjbG5EUHZ2b21OWlcwU28xMW1ZZFZVbUxEZ2tadW9rckFsU0VD?=
- =?utf-8?B?YTBwaHIvZDRPT3ZONVplbFJWTFIvUGNycmZpTEpFUTdWQ2FsTy9pb1RGYUYw?=
- =?utf-8?B?bVZta3pBeUVRMC9NRFVHS3Jqd28wTzNYbGVDbFJSeHVmSU1aQVdtUW9GYjZK?=
- =?utf-8?B?Y1dydGZCSmRHWWppVjRMcHdNRzh2Wmh2NWlvSTJUVVNubHBvL2VYbjBCTmtI?=
- =?utf-8?B?R3BoaEdqd25YWXRjYU9TUjEzVFRpcDBvWXVaWEJWaTgycHkvdHVNSi9pK1BU?=
- =?utf-8?B?a3JrYS9DWlBwREEzWUU0ekp5NEtvSzRha2V5Rjc2VzZSUTBrSk5HNWt1bC9U?=
- =?utf-8?B?R0xVMjd0UkpCQnFxRWR6YUltOTAvcG5ueDdJUi8zRHlNZHhmNUw1T1U5amZ4?=
- =?utf-8?B?RGx2eTUyQUlpaGN3ZjNpaUJ1eFdSTjJlLy9Oc2pZTWdsWVgzNk11bGZRenVr?=
- =?utf-8?B?bEswMUFkOFlQbWNSWFE0NkxubDhUdHVkQno5T3ByYVBIYkVIQmszNHdzZGJh?=
- =?utf-8?B?cmx6cmNWTUNFaWZSSmJNZm1PU0lEYTZnaWM2bHZaRSsycklNL0xJNmNXeTJj?=
- =?utf-8?B?STdmZTNWdDRPQnVGT1g2Y0Z6UFA1OG95RjRGWUZlL1hFYmJVbmlvR2tucmlW?=
- =?utf-8?B?U3pXanBYK2VOdW4yV24yMFRoYm9JNjlTSUJXczdHUVk1V0FoTnkyczdlRmJI?=
- =?utf-8?B?N0RVZ3UxcW42cEhlSnF5amdPbVdVRDlTN3lsOFJUNGNLb1ZrN2hyTFJUUjhU?=
- =?utf-8?B?a2JEdWdQLzRPbXplcmR1SWFnQ3pKY3RlMVFaejRTNDRGTVNhVSt6NVp3Y2wr?=
- =?utf-8?B?WUxsbVYySWxqUlh4RHkrQjVqZmtsTG1VNkxpSHVGZHNRbmxySC9ZUmRxSWcv?=
- =?utf-8?B?VDgzU3EvVU1GeWgrejlEam9qaE5RWkpuUGprN0pOaE9PRmhacklOR1RYRnV2?=
- =?utf-8?B?WTl6RlBvd0ZJOUR1bFpCcVl1QlZaRFNSVTRTbGZMV2l5TE9WalU1NEhxTi90?=
- =?utf-8?B?dkNTSWtqYjZVQkhhRXhvMTl4c2JMRkV2dU1UdzM4a1VlU0xLOFhaUDJQMTZm?=
- =?utf-8?B?SWE5emxTYXB5SGYvZkRPZW9DRVMyOFMzLytuU1RSTnl6dDd6SlZ0SWM5T0tJ?=
- =?utf-8?B?dXlXRDE1VnBnQjhGYlkwajFzTUxFRW03KzFxWDZWV2N1TnI0SThmSHF6QTNr?=
- =?utf-8?B?WWptWTNST3o3RzNBcDVydWRkbjQwUWw0akNUeHpCUUxkdXZpK3ZEdjI3VkVu?=
- =?utf-8?B?MEdDVlJUV3U4U1VNdGJPZTdGQllaNW5sSEVrb2pyVXJROVNIRmtjN0hTMXVJ?=
- =?utf-8?B?WFlZK0JueS9DSEh2OFptdGpPeVVHSGxKUFFIemo4WXMrc0o1aTVBcGxTdkZQ?=
- =?utf-8?B?MWJsN0VYYkxYYzV5bmpKa2hBbnRVdjRndVdEa0c3ZGJ0T1hTMVlKaFlFeFF6?=
- =?utf-8?B?cnc2SnkrUjRUVjNaTldURDdPS2NjQmlFWFRCSW5vSjJjQUpVb3hYMHl4Z29D?=
- =?utf-8?B?ZHJQeTQzNjFSYnhEVEJPTW50OXpPZEd0UVBPTGNlNTBpNHErRElHRTlXSmZo?=
- =?utf-8?B?dWhmd0lEd0h1c1BnbXZNN0FVM0dRN3NnTHU4bytLSG5ERVE3ejcreEVoNEtI?=
- =?utf-8?B?dldjQXk5Q1M3Z3VMdXhNMGZwTVNnZGdYcHBCSm5ObkRLbWFuV3ZzZzA3TEto?=
- =?utf-8?B?SkhodVgrdVdaK3h2L3BLeXBmZzU5UVg3YXV2SFRFSU1MZ2U4YjYvb2c5UHF5?=
- =?utf-8?B?RG9lalNYZWZEUjFyQ0VXOVNzdy9mUTZoWGtPbFFFRHlHYkdFRUlWVFFsbkFX?=
- =?utf-8?B?a2xrT3NaL2Z4TVlnMlkrUWNkYU5Ga2QzbVBWV25TN0JVUGYvakg4cisvU0tk?=
- =?utf-8?B?TUR0d1B3OHVTdW43M0lmWEpkL2N1aitlWXQ4SElPR3FNU29Ib3lsZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cae99011-e01d-4fed-1afe-08df3bfb1a76
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB292992.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 11:42:57.7250
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9Dn1uQBUM4FxOPbzhwdtTzz2coHsdTLKE0h6HXQvPC1nFrFu8bkjTN1z21MJz4h/xzgK00NxqB9NlEMURBnTTg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8277
+Date: Fri, 06 Nov 2026 11:38:03 -0000
+Message-ID: <179396508383.2291875.10410747579980805826@iscas.ac.cn>
+X-CM-TRANSID:rQCowACnro8RvO1qkOpsAA--.21855S3
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jr4ftF1xWF17ur4rZr1UJrb_yoWxurXE9a
+	yv9343u3W09Fs2kr43Ga1jvr43Aayqyr17Cay8X3yYk348XFW7CFZIk3s5ZryYqFWFqr1D
+	KFnav3yYkw129jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbxkYjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxAI
+	w28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
+	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU5
+	5DG7UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgADA2rtkziavgAAsO
 
-Hello Wangyang,
-Thanks for reviewing this patch.
+Hi Jonathan,
 
-On 11/3/2026 11:55 AM, Guo, Wangyang wrote:
-> 
-> Why not use original topology_sibling_cpumask(cpu) if snapshot not
-> available?
->> -		siblmsk = topology_sibling_cpumask(cpu);
->> +		siblmsk = sibling_snapshot ? sibling_snapshot[cpu] : cpumask_of(cpu);
-> 
-As Andrew noted, topology_sibling_cpumask() changes during CPU hotplug, 
-so using it as the fallback could change the grouping. cpumask_of(cpu) 
-deliberately drops SMT preference when no snapshot is available, keeping 
-grouping independent of the online CPU set.
+Sorry for the very late reply, and thank you for taking another look.
 
-> 
->> - * Return: true if success, false otherwise.
->> + * Return: 1 if successful, 0 if inapplicable, or -ENOMEM on allocation failure.
->>    */
->> -static bool __try_group_cluster_cpus(unsigned int ncpus,
->> +static int __try_group_cluster_cpus(unsigned int ncpus,
-> 
-> If use ncluster as ret: >= 1 successful, 0 inapplicable, and -ENOMEM for
-> error.
-> the code should become simpler.
+I understand that, even if this change addresses the reported failure
+paths, it is still not the long-term solution you want for trigger
+reference management. The lifetime handling needs a broader solution
+rather than an ordering constraint in this driver.
 
-Sure, I will include this change in next patch revision.
+Please disregard this patch; I will not resend this approach as v2.
+Thank you for the explanation.
 
->>   	ncluster = alloc_cluster_groups(ncpus, ngroups, node_cpumask, nmsk,
->>   					&clusters, &cluster_groups);
->>
->> -	if (ncluster == 0)
->> +	ret = ncluster;
->> +	if (ncluster <= 0)
->>   		goto fail_no_clusters;
->>
->>   	for (i = 0; i < ncluster; i++) {
->> @@ -392,12 +477,11 @@ static bool __try_group_cluster_cpus(unsigned int ncpus,
->>   		assign_cpus_to_groups(nc, nmsk, nv, masks, curgrp, last_grp);
->>   	}
->>
->> -	ret = true;
->> +	ret = 1;
->>   	kfree(cluster_groups);
->>   	kfree(clusters);
->>    fail_no_clusters:
->>   	free_cpumask_var(nmsk);
->> - fail_nmsk_alloc:
->                return ncluster;
->>   	return ret;
->>   }
-> 
-> 
->> @@ -442,6 +526,7 @@ static int __group_cpus_evenly(unsigned int startgrp, unsigned int numgrps,
->> -		if (__try_group_cluster_cpus(ncpus, nv->ngroups, nmsk,
->> -					     masks, &curgrp, last_grp)) {
->> +		ret = __try_group_cluster_cpus(ncpus, nv->ngroups, nmsk,
->> +					       masks, &curgrp, last_grp);
->> +		if (ret < 0) {
->> +			kfree(node_groups);
->> +			return ret;
->> +		}
->> +		if (ret) {
->>   			done += nv->ngroups;
->>   			continue;
->>   		}
-> 
-> There is duplication for "done += nv->ngroups", my suggestion:
->      If (ret < 0) { kfree(node_groups); return ret;}
->      elIf (!ret) assign_cpus_to_groups(ncpus, nmsk, nv, masks, &curgrp, last_grp);
->      done += nv->ngroups;
-> }  // end of "for" loop
-Thanks for the suggestion. I'll consolidate the done increment in the 
-next revision.
+For transparency, we use static analysis tools to identify candidates,
+then DeepSeek and GPT-6.1 Sol to assist with auditing and preparing fixes.
+I am responsible for verifying the findings and changes before submission.
+
+Best regards,
+Wentao
+
