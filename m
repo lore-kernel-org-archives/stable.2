@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956482;
-	b=T4ogw0DslUrOfCxY9CiDV14WRlaP3EKRMcp4GVbwMl9VtOyg7Ur/sCqqgqSuim9IaTrp
-	 TGVhktwFPvO/uJp3K10/OiYxgwxEV03sPWInQBJgDI3ZWMgHxcibPBx+WM4cthTkDkz3Z
-	 KxBKlCca+KZp7/ggqFAXCtg1NfYeRdAKAw2qRyCKUXYGGxf7qEA27UL6a1HZ7Wx1T1KIn
-	 luIYXMMdxypHvaKbyNnLDAf2cw1MWhM99hl9Uu9zkERUw+CPpVNmoqmrkyjbKWLijbrje
-	 V7gTWMwCZY2GxTJ8y5JLFC1id3rcR4jHvTHtPBrpLqTDLiQkANAh0CfJIp2ofpDgeqw==
+	t=1793956489;
+	b=av4sg47GMH9+q4XvTQ5rd8Hci1rKnXIF0BlL6j5H7rF09gYTCikkuICRyszLGTk+pVWK
+	 Z+5c6g07PyFlJrUF3gzQCBFQVNwPH1VYkbyMoz8oV+0dRv3qcpoSpthifEdasTumsOSzU
+	 MNBRydDBSQYrNHnjoSsybG1wlD+Wa5nDZNiXkCzlwjQMKGPRI/VZa7/STCFeT4hMgonxE
+	 8osArG2xeuo1UrLLpYr/viaOa8RIIpIvul/FViGsRemJdZaPlPB4E+kkYsobxpVB03MJi
+	 eut0ql0odEImzdUFQtfZeCz5rObzPUvgGrLsUZT5cbS5RpABRR474ucXeL1p6eeSDgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956482;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956489;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=v7NAa1AOfWrbfnp/EeNFL0KXkV/5wtZ7cjfajD4eOnk=;
-	b=cwyiiHW4uHaOJ/D3ATgQkjWwTzr7y3UsyMsc12O8ztx5qVQU8ON98kgirh2SPFBMeevs
-	 uihcWtn08TdKZY70TmooqMOnAXMdCZrCqqMH4XQFyzRb+6oHCKs1hiBLqKL+CEEaSNl3+
-	 6mw3T1YB+MipN904aWwhwhgmc7zdkk192cc1W3q0fShVQsebNHg839UFt7dPqmX0lpqVW
-	 qyLf1DrbmJm4MiJRyJ+IMfydBBSQHjy+JxKwyj5zCZM5w0iQLBTB9FPlEzdXjwNwkfZM1
-	 w8qd0fQPqM1VTjf7hj57sSyMpJ1XKXvZBbxJdeCDiJyea4VPLu9txwxOptTOxTEybwA==
+	bh=i4Sxkl+QpMR/bLZklf38xS+ljN5KiJdnyEPnXqWkDcc=;
+	b=eLZaLOqXN7YDKxEYhluMhT7TvthwVblHA9HQsBBNmUG/YxbirAB+gaHdrtIZNKQJkPDi
+	 70NXhypqYhDsJKKlIsKWPoHJmQCVd8FI8KmugYLbld5SPnF0GzTom+g04EyEWhdsVPq2i
+	 q0fQpd6niF39ZvaM1YszWINo1K9xb29b1VVxLBz8MS6EhKBQdp0LDkzwLk7JOUE7Bjx0a
+	 1VzZO0RbkspokmMvA9hC2pC3tBLpjCosX+1y9M3PHMHyclBhuWYhNtAg+0K+vBQ8R7KN1
+	 f4gjsVYrcbsr6qEPiHLQFs202FFtzfeyc4Ilxy6u4SUgW9xqr1YlkjQHSfwasdZNm0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O1vVYBAu;
-	arc=none smtp.remote-ip=74.125.82.47
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iv86L8++;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3990606A331
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 09:14:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3990606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04FFE606A33D
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 09:14:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04FFE606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O1vVYBAu
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1a8cc11ac42so419531c88.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 01:14:41 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iv86L8++
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-15dd124bbe7so960930c88.1
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 01:14:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793956481; x=1794561281; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793956487; x=1794561287; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=v7NAa1AOfWrbfnp/EeNFL0KXkV/5wtZ7cjfajD4eOnk=;
-        b=O1vVYBAuspiUR1oomZmXY7dNsJ7oNWqcp+Lup9ffYYr5jDbW7HIniF9XbY/ets3sgp
-         nZbXrrhsH7lecYgvrl5HG3xX+0KIuw5/R0tN8+LjuV4HnORN458aCRch/xQx9q1umg/s
-         vsIKr6YrT8nVKv8E2ITY4upXOncrt6fvVvnMtdsUojkDw/yFTejiL/prlbMXemrBoUW/
-         D5ArnQZ90Zxzr/1snmTVUOefMyhxOf6Im3/XgOaXE3M2vQNlIccXrdqjpp9sEZNba6u8
-         lwbDDbKhNAW2e5fPw4WKS/3hgr72Dp6tluEyk9gz0cUKOKLSas6WmYWqoJBGlxndcQ63
-         Pg6w==
+        bh=i4Sxkl+QpMR/bLZklf38xS+ljN5KiJdnyEPnXqWkDcc=;
+        b=iv86L8++oZrpIW6FdJs/swcZ70DF5PGly8kLTecekhr/aoA1fL8CUSEr40ZPCHM5rI
+         YHhaZVAviEcNwnp4Kv2VBs3iTbyDhu+/6SDCyAOcSzBjOSUnfC3jnLTv6HqvXsENED/m
+         LzV8Pl8RZ7ltt3VDNLwrjBvHzmS63nY4aib74S98C/KcRakLPZSNzG1RL5gjX47KMuD1
+         upNLv8S2wO4F89gIikuyL/szT2kUsxAF5/MNOpxOtWXF3Wr0tXirIOoxhmk76W3a7WYN
+         /6iT77IUwoBYtPijj++XEi977rF9nHxX5T6Ewt/xRZSLagMQT9R+WR8Q0H/O8CO+V6mF
+         Lbng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793956481; x=1794561281;
+        d=1e100.net; s=20260707; t=1793956487; x=1794561287;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v7NAa1AOfWrbfnp/EeNFL0KXkV/5wtZ7cjfajD4eOnk=;
-        b=lPUXx0QUMsMbQnnAodyqb8iNEq+F16MBjQQ8F4hFkF5eVOXPr017Oo/N8iDQXNnJxN
-         G+VCLMo5YXRm3x4HCHVorXe7Xt8bgGhEYLE3/TOjwDMEQNZRzI6sbHFawhnE14gghXCq
-         9tGazYS0N+dMumMZDeqMsuJZ3awNAiTXpDTa+sRmfg5HVoe34AuaTtYeVnVNjkvHmaRK
-         uS+US64O0RLZ+xqcunWXv9QCTnya7KjGpfAkfi1qCUMT1dOHIgCh1l22d0JqAlv8H5B5
-         9AjNTeFyl0e13vT+9xrtCwcMSYV2our/iVe8pYi9UVGiNR9E27LvTGamYrtjXkMFpG+r
-         65Vw==
-X-Forwarded-Encrypted: i=1; AKwUvBxgZbTE+dAEqcT4QMm+DStKD/b8lTO9mSeaySP6GOSWJMQ+M9jNcjxl+WeRmNMtnvzt6Ey1uSM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8uTdPriyLv1eMs9kSskEcrAZkBnYMSef1ytLKH67S4TiSmPvxn
-	3wLh6dtGpyXkdmnfofaUH++Qh2t6ENZ+FML6Er7YKcHAXlIlNrizQTyD
-X-Gm-Gg: AYBFou3DHz4epGR/7MuKzO+y1ztmgMx9Geg4tdO9bOIt3ZqY/GkqEI9jK7oglV/50MI
-	59rBm8aiGKcbbiN/IWNg4cZT+3vnz++6U+ZsSOYvb/nlYmTtB5pgo+60wEqLvLySOwZYwK2FDsy
-	V26brSHEhitCooGg69Vdj4OlhNILpQ4ecCKZj1KDGZpid6DDTMGjmqhqmcecmU4igkAzXxByzDz
-	cNz2tCNzEQFM87VWOB/lkb0miZc7AyNgy+v6LZTJb8/xitevoD/itWBxkMFv/Vi3SxdDrfk4lOd
-	d0J7r1Ww0iHhZIc8odumaR+yV8RmJT8c0LZOvvo/ByiYKwQekPs1JHr+IVbo8wp5MtIDdgiF0Je
-	GUU8L5wU91G1T0sySzCRJ0hEvAEqf7yUvAO1LEsUPVs7Cv5vvgHj2CPsIq1CeydaUqb3lxrn+T2
-	K0Q6UfvvoYr2jFQyA3z/1pbsLzxAbZxmgq8GVlNHFW8vF8KVfGmgJS5FtIeWfL+p5CikMHuD2bw
-	/fTHoVUoem/SaOH52o2BzYw9Otv/Mwc/ssoVB7mJNLxAVRd/5epdaUWNfIzeYD8vxz1U9l/hfRQ
-	7hTorwuQbiNrOxsddQygvv7ec8zQ1GpOVbDAX0yHwW5KLCqhDcm3OJXAKZ3BcRqzPA==
-X-Received: by 2002:a05:7022:2097:b0:1b2:4c54:d976 with SMTP id a92af1059eb24-1b25d34277amr1679882c88.31.1793956480611;
-        Fri, 06 Nov 2026 01:14:40 -0800 (PST)
+        bh=i4Sxkl+QpMR/bLZklf38xS+ljN5KiJdnyEPnXqWkDcc=;
+        b=CKSMv2jgz5Zg//uWoL0lpF77/0GhvU/fuZpPjtSMLJ0cP7KYOyUGcxk3XoQlqlPblf
+         5u3/HOen/5PgCM7CxKxaXoxhsyLuVU4ZSDj5PWu+pNOB5HtdVXuv0iHoRJ+rv67YPeOu
+         q0MtqTeORs1TMmm0tJ3pL+n/4Bbdmqwo8cd5MwPD2m7YSdDTCY6iaNtUDKD1R9axOg4+
+         FyvS8+luMCphWI+mWgBJWf/fPBV7HNxfsG40Abyav+l7UQ6oY/JMxOMxHwt/1gR+ygbd
+         Z8MAbBHTRd5cu4l9CghPVIMU9OHUHqBnwQMpnMEAWyJjtOYWKqkk2/onFXqJXAQrzjLh
+         BPWg==
+X-Forwarded-Encrypted: i=1; AKwUvBzyBi++rsDxO386mryVihRmFbGTUy5RfvzXGMpqO8ovfmvWmtsqfH256m4H/DlXByInoq0Ey/o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8T/quAnitFeRHzUFp5uzc1xzS/Z4MnV7Zw5ZozWR9mA9ujKIrf
+	zlhq+lYUwhrpv0zWDyDOrkJzv7M6QZwU4LSOgePBSLW6Eiab3l7dvtCEVuXS3VKbq6af8Q==
+X-Gm-Gg: AYBFou0zu4hAXXo1LC2Axg1OCf0BDu5/weq/Ehxo+GyOFdv0pHeKs97jh6hLmmhaJLi
+	tCW3DnJYBi+ei2OZFH97EBByCWOxFkbbjQ5oCKX1dt9vjZmJglogxuU2oY8RazeWbiKW8xSq3eL
+	pbG4oa6inot7EMWM+S/LtJIhjFuiX6alE4iAKbNxsrJUIzLVZJTWBenvRj4yrfYB6nLhn9jz9f7
+	RfIMopvd27W0B1f+BlxzzLsWTzLupk0oKT6BD6uT2x65nHaJ3tlZ8/KbyQ7e0a7s9tG8QIV+mPx
+	3G6RHS1JG9PR3JloYxY4BfexT6lyZDpS7Oya2I6prPaERfXC05Z7nMRLIpSaKcbL/b9ZfrqkXSL
+	DQDXMKNtwkP7QHMyPd/qDYlhTApuB8SWPlcUWf+5Qo8CtjDeVxVxWLYeGvBAxDx5UuC4+dFw+f/
+	rjSFuYCFNWosc2FgCiaJdo+sDelSLDWDlU2OIeMHHTB5KTGMl4L8mdZHMrXcT6yWgiAGE7Y19NN
+	vVNPvVzyTovTbuO9jp4UkuxIlTAPwIpoDjNcCzDIGG+zo229yO5mAPSdzBqfCJMvPsCtsPHLUUB
+	Re4nSV9Rs22Z+yn7AAU/qUg2Qt5VrPlRuNNJaKBwpp1VVaoC7qLJvD/bQlJsMoDi/A==
+X-Received: by 2002:a05:701b:4282:20b0:1b2:4e2c:6838 with SMTP id a92af1059eb24-1b25d30af49mr2369009c88.15.1793956486772;
+        Fri, 06 Nov 2026 01:14:46 -0800 (PST)
 Received: from anon-laptop ([103.187.196.159])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e485ce2sm4200968c88.7.2026.11.06.01.14.37
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e485ce2sm4200968c88.7.2026.11.06.01.14.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 01:14:40 -0800 (PST)
+        Fri, 06 Nov 2026 01:14:46 -0800 (PST)
 From: Wahid Khan <wahidzk0091@gmail.com>
 To: Namjae Jeon <linkinjeon@kernel.org>,
 	Hyunchul Lee <hyc.lee@gmail.com>
@@ -86,9 +86,9 @@ Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Wahid Khan <wahidzk0091@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/3] ntfs: do not read an index block outside $INDEX_ALLOCATION
-Date: Fri,  6 Nov 2026 14:44:18 +0530
-Message-ID: <20261106091420.2461683-2-wahidzk0091@gmail.com>
+Subject: [PATCH 2/3] ntfs: open the index allocation before reading or writing an index block
+Date: Fri,  6 Nov 2026 14:44:19 +0530
+Message-ID: <20261106091420.2461683-3-wahidzk0091@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106091420.2461683-1-wahidzk0091@gmail.com>
 References: <20261106091420.2461683-1-wahidzk0091@gmail.com>
@@ -103,69 +103,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A directory whose $INDEX_ROOT has a child node but whose
-$INDEX_ALLOCATION is missing or damaged gets an empty index inode from
-ntfs_read_locked_index_inode(): size 0 and not non-resident.
-ntfs_lookup_inode_by_name() still follows the child node and reads a
-folio from that inode while it holds the mft record lock of the
-directory.
+ntfs_ib_write() and ntfs_ib_read() use icx->ia_ni without checking it.
+ntfs_ir_reparent() only opens the index allocation through
+ntfs_ia_add() when the root is a small index. For a root that is already
+marked as a large index it calls ntfs_ib_write() directly.
 
-Since the resident iomap read started to take base_ni->mrec_lock, that
-read waits for a lock the caller already holds:
+The lookup does not open the index allocation either when it ends in the
+root. If the last entry of the root has no child node, ia_ni is still
+NULL when the root has to be moved into an index block, and the write
+dereferences it:
 
-  INFO: task init:1 is blocked on a mutex likely owned by task init:1.
-   __mutex_lock
-   __ntfs_read_iomap_begin
-   ntfs_read_iomap_next
-   iomap_read_folio
-   ntfs_read_folio
-   ntfs_lookup_inode_by_name
-   ntfs_lookup
+  Oops: general protection fault, KASAN: null-ptr-deref in range
+        [0x0000000000000128-0x000000000000012f]
+  RIP: 0010:ntfs_inode_attr_pwrite+0x52/0x1600
+   ntfs_ir_make_space
+   ntfs_ie_add
+   ntfs_index_add_filename
+   __ntfs_link
+   ntfs_link
+   vfs_link
 
-The task never returns, and neither does anything else that needs the
-directory's mft record.
+A single byte of an image from mkntfs is enough. In a directory that has
+one empty index block, clear INDEX_ENTRY_NODE (flags 3 -> 2) of the last
+entry of the $INDEX_ROOT and link() a file into the directory.
 
-It takes one corrupted byte on an image from mkntfs: change the first
-byte of the type of the $INDEX_ALLOCATION attribute header of a
-directory with index blocks from 0xa0 to 0x00. The first lookup in that
-directory hangs.
+commit 9365c4a1357e ("ntfs: fix NULL dereference on index allocation
+open failure") covers the case where ntfs_ia_open() fails in the lookup.
+Here it was never tried. Open the index allocation on demand in both
+helpers and fail with -EIO if that does not work.
 
-Check that the index inode is non-resident and that the vcn lies inside
-it before every index block read, and fail with -EIO otherwise. This
-also rejects a negative vcn, which was only checked on later descents.
-
-Fixes: d9e00c457d4a ("ntfs: serialize resident iomap reads with mrec_lock")
-Cc: stable@vger.kernel.org # v7.3+
+Fixes: 0a8ac0c1fa0b ("ntfs: update directory operations")
+Cc: stable@vger.kernel.org # v7.1+
 Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
 ---
- fs/ntfs/dir.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ fs/ntfs/index.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/fs/ntfs/dir.c b/fs/ntfs/dir.c
-index fce10baa2..9fb5bb3d3 100644
---- a/fs/ntfs/dir.c
-+++ b/fs/ntfs/dir.c
-@@ -308,6 +308,20 @@ u64 ntfs_lookup_inode_by_name(struct ntfs_inode *dir_ni, const __le16 *uname,
+diff --git a/fs/ntfs/index.c b/fs/ntfs/index.c
+index 66411a712..f808c887f 100644
+--- a/fs/ntfs/index.c
++++ b/fs/ntfs/index.c
+@@ -97,12 +97,25 @@ static s64 ntfs_ib_pos_to_vcn(struct ntfs_index_context *icx, s64 pos)
+ 	return pos >> icx->vcn_size_bits;
+ }
  
- 	ia_mapping = ia_vi->i_mapping;
- descend_into_child_node:
-+	/*
-+	 * The child node has to be inside $INDEX_ALLOCATION. A directory that
-+	 * lacks the attribute gets an empty index inode that is not
-+	 * non-resident, and reading a folio from it locks the mft record that
-+	 * is already locked here.
-+	 */
-+	if (!NInoNonResident(NTFS_I(ia_vi)) || vcn < 0 ||
-+	    (u64)vcn >= (u64)i_size_read(ia_vi) >> dir_ni->itype.index.vcn_size_bits) {
-+		ntfs_error(sb,
-+			"Child node vcn %lld is outside $INDEX_ALLOCATION in directory inode 0x%llx.",
-+			vcn, dir_ni->mft_no);
-+		err = -EIO;
-+		goto err_out;
-+	}
- 	/*
- 	 * Convert vcn to index into the index allocation attribute in units
- 	 * of PAGE_SIZE and map the page cache page, reading it from
++/* Open the index allocation inode if no earlier step of the operation did. */
++static int ntfs_icx_ia_ensure(struct ntfs_index_context *icx)
++{
++	if (icx->ia_ni)
++		return 0;
++	icx->ia_ni = ntfs_ia_open(icx, icx->idx_ni);
++	return icx->ia_ni ? 0 : -EIO;
++}
++
+ static int ntfs_ib_write(struct ntfs_index_context *icx, struct index_block *ib)
+ {
+ 	s64 ret, vcn = le64_to_cpu(ib->index_block_vcn);
+ 
+ 	ntfs_debug("vcn: %lld\n", vcn);
+ 
++	ret = ntfs_icx_ia_ensure(icx);
++	if (ret)
++		return ret;
++
+ 	ret = pre_write_mst_fixup((struct ntfs_record *)ib, icx->block_size);
+ 	if (ret)
+ 		return -EIO;
+@@ -768,6 +781,10 @@ static int ntfs_ib_read(struct ntfs_index_context *icx, s64 vcn, struct index_bl
+ 
+ 	ntfs_debug("vcn: %lld\n", vcn);
+ 
++	ret = ntfs_icx_ia_ensure(icx);
++	if (ret)
++		return ret;
++
+ 	pos = ntfs_ib_vcn_to_pos(icx, vcn);
+ 
+ 	ret = ntfs_inode_attr_pread(VFS_I(icx->ia_ni), pos, icx->block_size, (u8 *)dst);
 -- 
 2.53.0
 
