@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793987621;
-	b=npZJpsNdyISrR8qza6rHPILHw55SOA8q6o8yPlCqPvIdF3FkuKRQZQhIACihX6Sc3DX3
-	 HuJF6pPQMdq3PKZAk3eqHbQvJWosff4DTBjNfu75l4KRCC02Uonao6szQY9oEN+HQAK2J
-	 OczxFQjyDdu3zhODt8qsF2xCjTU5Kh5nSMvhIWvqItFNnLKaZmlYi8shY07ikjb1oRQUm
-	 IR9hi3CD/iH7GRp7rVKcH8KbPbyIyIt1WdQARkd1C2GZCyc5WIVzKjUR2xO+sqmNPbXSs
-	 wZKFUHRrL899mbSZjDeiQ8nHI+wjxPsdTk2b0sgQxW/NZZiJOmqnOfpgMpnFmLtDV/g==
+	t=1793987633;
+	b=imS1gjIGqL8tB7XLteERScUQ6grSLfel28KxKr0nAdUbQQJGo/V8odLFmrb07ceegXWS
+	 AFhOJWLMJ1U9oNPRUMpmBrMm09eyKwvblWnX7YBG+GKCUZxHpw8SCQafV5M32q/E5GcDE
+	 ajyhcQs7X7CAAjfODBMYMZ2YuKDqUqr3GYruxgb9Zzb5bR9Z1RP6U5CBnqsTz8wySjx/N
+	 MEKKMpA9VUmeJHTip6GPMizPg7B7m+ivHn4b7HWWuoMNGPoD3oLSo9kkbPHMpIlzDmOhN
+	 V/ZRBeYGolSs4m5BswwCiABqreRxIdL6fEWK/5dMlYYcmCod2FsK/Fiw7scyIL+H4lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793987621;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793987633;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pSocW6V84EdtmB+DzIul/ZtRFmqQ99XfH8CnITk9eYE=;
-	b=fb6TgtBgqHXi2v3rmdckO6l1gsalHtr1UJGOevH38rR91obVVEjLcttHZ+cPHZyuf/LF
-	 jeB+xU7I5J6HOU1Yguax2rUe0fxsvIoq39uwvGasuSlTX66RdB5+SkZdDaq5+4BZbIRS+
-	 OFBleH5FZ5h3EX67HVElV8VtdPnrJRKE6GG/i0sQjsWl76tu7mP9DBaP+0f5RiXuBJTx/
-	 x+Rs3A1nOPaOhrmrP8fTMuPSRKb9NWvyKEgAZ3e3Qdtjg40Avo9FgBUl4Z/eM934Osx4s
-	 NxfWJnZrOua9uc7j58gx2//gvtt2x3/pEBpSm14OjOvDbChjhhxPBLYY41F9jStufkA==
+	bh=nIRRaxr6c78JfmX57gzDduG8ByWqww/HI4yYn5Vy6ME=;
+	b=uAEv8stWjLuKAijNchvJquvGqbUGR2tTlcjfr70GELfv84ICYqT3FQUyShiVZ8Z8xTCP
+	 69vRle+3Lnyk02GtEbvK24RQzLIt0Ndc+d4c540YtVtUao4yC2iUaWwdUtii0prv3falM
+	 KXOIJRRlX11HV5jnw722p6BA+nflXu+qOB2oZ/nNHFdsyDmFf67J1Q8EhAvd6EausfmRH
+	 W8andOYUv1v4GKUZeW5yXa0VrgupHnvoRghwOwZdFbuorptlsNlt2H7mdSO3S55kNyJvs
+	 cdul/qPw8yH89dx9XnGYs51zCrhDrWOwrFbrD7OZGNzshl7Tlfej0luKw7ma9lnB+Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxqWxbL5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PqxkMtWr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B35B606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 17:53:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB405606A32D
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 17:53:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxqWxbL5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44AC91F0089F;
-	Fri,  6 Nov 2026 17:53:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PqxkMtWr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6F41F0089F;
+	Fri,  6 Nov 2026 17:53:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793987620;
-	bh=pSocW6V84EdtmB+DzIul/ZtRFmqQ99XfH8CnITk9eYE=;
+	s=k20260515; t=1793987632;
+	bh=nIRRaxr6c78JfmX57gzDduG8ByWqww/HI4yYn5Vy6ME=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DxqWxbL5BEKrBVipyePCrQrU6YwU3irskDEPCkG7YiBH5hC5AYNDjWV1jUemuU+A1
-	 tVnQBV3YVwGIbaV7S8GcUGDUIUClpfpI97GU5dLDLsyYbPW2BU6R7miAYFaTWFTVmO
-	 sCeGu/13KcdAPHqeeaF5XpJeczCmIcwDr/ncpNa2uVp5hX28kMSTb+f5ZQFdsgb16A
-	 CXdupZflbDzHrpWVMls7YcQCnF/V9Mpdn/PbzHIUERZQ7PLPuvu6SZIi5WHClmwLvS
-	 +ABZ7bk7DL8+ZBwTMPDmdKXXmi87jjKTMmYS4RyXgmUA9h0ISdYIQhwTE6IWuQ75dq
-	 G6T3Edli/wVrA==
+	b=PqxkMtWr+qzMQlOG+198zM5kvwm71fXneQOiG0w2WL5r9LHmxcOWumsTk7s8HdTb/
+	 YemVCHp5q12zJo3RjX+AAfNcEq53rDYvRwdleqVvFCGQjTXTa7fRQQ+ttrogvxI5ZB
+	 rcM0/v7HW2lDVHLi3acTdCQ74/HP/ho7dR3g85PeHUoVmFB3oK9rSLCdTqGlGnJEPs
+	 dQOY5V1/XB+q8CpGOUxFdObJ/hFVj7jXYYk+FJ+vTeZAJSEga4W72UpIgSUikSFYbr
+	 L9zt3C90UJ6nWbuWewK6fUVB9sqIY5hIZvq2V9zs7cfjL1zvLUOosf9j4acLqIgyhK
+	 iD6vW4TGufHgg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Stefan Teodorescu <fane@google.com>,
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] KVM: nSVM: Reject KVM_SET_NESTED_STATE if L1 has EFER.LMA=1 && EFER.LME=0
-Date: Fri,  6 Nov 2026 12:53:38 -0500
-Message-ID: <20261106175311.528411-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ALSA: x86: hdmi: fix chmap array missing terminator entry
+Date: Fri,  6 Nov 2026 12:53:50 -0500
+Message-ID: <20261106175313.451723-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110440-diligence-kimono-b7c6@gregkh>
-References: <2026110440-diligence-kimono-b7c6@gregkh>
+In-Reply-To: <2026110407-contour-racing-fa1a@gregkh>
+References: <2026110407-contour-racing-fa1a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,55 +61,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sean Christopherson <seanjc@google.com>
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit 5dc500a354cc8e109df678076ae3488094649468 ]
+[ Upstream commit f5e1a9a3fddab8421416b68bb132ae9626d07156 ]
 
-Reject KVM_SET_NESTED_STATE if the incoming L1 host state has what is
-effectively an impossible EFER combination of LMA=1 but LME=0, i.e. if the
-state says long mode is active but not enabled.  Unlike VMX, SVM doesn't
-have an explicit consistent check for the illegal combination; presumably
-hardware simply ignores EFER.LMA if EFER.LME=0.
+had_build_channel_allocation_map() allocates a single struct
+snd_pcm_chmap_elem via kzalloc() and stores it as
+intelhaddata->chmap->chmap. struct snd_pcm_chmap.chmap is expected to
+be a zero-terminated array (see snd_pcm_std_chmaps[]), but
+had_register_chmap_ctls() never overrides the TLV callback installed
+by snd_pcm_add_chmap_ctls(), so the generic pcm_chmap_ctl_tlv() from
+ALSA core is left in place.
 
-Unfortunately, KVM doesn't ignore EFER.LMA in this case and consumes the
-illegal state when constructing the shadow MMU for L2.  E.g. if userspace
-also clears CR4.PAE, then kvm_calc_cpu_role() will compute a role with 4 or
-5 levels of paging, but shadow_mmu_init_context() will wire up the MMU to
-use the paging32 template, which maxes out its levels at 2.
+pcm_chmap_ctl_tlv() is reachable by any local user via
+SNDRV_CTL_IOCTL_TLV_READ on the "Playback Channel Map" control and
+walks the array with "for (map = info->chmap; map->channels; map++)".
+Since the driver's single element is never terminated, this walks
+past the allocation. The same pointer is also freed on hot-unplug and
+rebuilt on hot-plug under intelhaddata->mutex, while the TLV callback
+runs under card->controls_rwsem without that mutex, so the walk can
+also race a concurrent free of the array.
 
-Note, the "real badness" is effectively the same as what happened with the
-nVMX bug fixed by commit 112e66017bff ("KVM: nVMX: add missing consistency
-checks for CR0 and CR4").  Unfortunately, the sanity check added by commit
-72e2fb24a0b0 ("KVM: x86/mmu: Bug the VM if a vCPU ends up in long mode
-without PAE enabled") doesn't work for this case, since L2 state is active
-at the time of the page fault, but it's L1 that has the bad state.
+Fix this by allocating a second, zeroed element so the array is
+properly terminated, and by dropping the inherited TLV callback
+entirely at registration time, since the driver never implements one
+of its own.
 
-Fixes: cc440cdad5b7 ("KVM: nSVM: implement KVM_GET_NESTED_STATE and KVM_SET_NESTED_STATE")
+Fixes: 5dab11d89777 ("ALSA: x86: hdmi: Add audio support for BYT and CHT")
 Cc: stable@vger.kernel.org
-Cc: Yosry Ahmed <yosry@kernel.org>
-Reported-by: Stefan Teodorescu <fane@google.com>
-Link: https://patch.msgid.link/20260902232028.2767071-2-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-[ sashal: placed the EFER condition in the standalone paging check because the consolidated validation block is absent ]
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://patch.msgid.link/20261008085411.13742-1-peter.ujfalusi@linux.intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: Replaced kzalloc_objs() with kcalloc() using an explicit element size and GFP_KERNEL. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/kvm/svm/nested.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/x86/intel_hdmi_audio.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index 5dbb4a742aa4b..a87df5804a766 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -1232,7 +1232,8 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
- 	 * nested_svm_check_permissions).
- 	 * TODO: validate reserved bits for all saved state.
- 	 */
--	if (!(save->cr0 & X86_CR0_PG))
-+	if (!(save->cr0 & X86_CR0_PG) ||
-+	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)))
- 		goto out_free;
- 	if (!(save->efer & EFER_SVME))
- 		goto out_free;
+diff --git a/sound/x86/intel_hdmi_audio.c b/sound/x86/intel_hdmi_audio.c
+index dbaa43ffbbd2d..81ce6d8f5058c 100644
+--- a/sound/x86/intel_hdmi_audio.c
++++ b/sound/x86/intel_hdmi_audio.c
+@@ -476,7 +476,8 @@ static void had_build_channel_allocation_map(struct snd_intelhad *intelhaddata)
+ 	kfree(intelhaddata->chmap->chmap);
+ 	intelhaddata->chmap->chmap = NULL;
+ 
+-	chmap = kzalloc(sizeof(*chmap), GFP_KERNEL);
++	/* info->chmap must be zero-terminated; allocate a spare terminator entry */
++	chmap = kcalloc(2, sizeof(*chmap), GFP_KERNEL);
+ 	if (!chmap)
+ 		return;
+ 
+@@ -579,6 +580,12 @@ static int had_register_chmap_ctls(struct snd_intelhad *intelhaddata,
+ 	intelhaddata->chmap->kctl->info = had_chmap_ctl_info;
+ 	intelhaddata->chmap->kctl->get = had_chmap_ctl_get;
+ 	intelhaddata->chmap->chmap = NULL;
++
++	/* drop the inherited TLV read: it walks chmap without our mutex */
++	intelhaddata->chmap->kctl->tlv.c = NULL;
++	intelhaddata->chmap->kctl->vd[0].access &=
++		~(SNDRV_CTL_ELEM_ACCESS_TLV_READ | SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK);
++
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
