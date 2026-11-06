@@ -1,53 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793981924;
-	b=WseFQynqctrV01jXrKWV/lQlmQsMquC5RiLrAJq0grXTiQMSr45dH+28dSGjDZ3kDsET
-	 c+1uStuKLNMmO++bZOm05Yo5z7A523NRT5DuShiHY64fhU8xK5f8Bsuc4S1M3rrRXH12K
-	 r/mG+jvadIf/tPCYEXHz483s9a/u5ubHNYs928n6Wv2tHDMNhkggW8k8y9V8EOqX7my80
-	 cY8PwSKiOLOeL/i5aQuIvBIjwcHdvJMuaPGmzEMoyGTuM2I+wsjZ0cSsVXrjW7MEPmcmx
-	 BLYbXn2oL/fBS1t+oCb6LpaLh/IMb9r1ptSZ16rciO6Xwy2J4EsZ0Bovbv0e3+y7kwg==
+	t=1793982287;
+	b=AxTLRCLgQInj0yLSDY7H7UMCYADuPNG/H69ewEiWRmS9bFm62F3FsKMgcFK2WST5u3i9
+	 AspUjUAXv9hVy5B4jmIzluFbDzlQP78tGhEVAMzw5uGicPbblsp0dMgZD1IpSKksj2lvT
+	 kUTDNKGgd9f5FSAm6uUSAWMZntOMVAja9G4H0f43dgmtiZB3De0PFwO1xpIzrGN+7HsIo
+	 z82NkcwOkgLcCemN/ySTl10rPgDil12z8nUeMqyHfxC3Z3C1Es8w4z6vH/IpDDkFK2VWK
+	 lRzTmqxp7JVCww09+sIfCptl5wyYYK9JLCLQHDuAyK9EbhdtcSEEUy08IzE13gkjIJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981924;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:Content-Language:From:To:Cc:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=1/bSPx/dVDOqHfCRwF1YnWcS2LPjAxurHZJkqp6cuVk=;
-	b=oPl6UKNbAa4ykWALOp21vZxnQX/XtG7pZXRkvveIwMRsJVoW9mN4KAWo/ODtvgeDHVid
-	 oahpSXJZFxk+vN6uH8ffVKyIiKGEdb1Bp1jhti+/+BvjJW1kuax5+jOagL4pBRJg4IWnU
-	 5xcuaFSPb7ZMSXDJw8GAZk5+g87i35R2hXgDiOz4sqF/6txTJPUd4JDSmOimVuMQDArAq
-	 jk4fMr3rmHDRNRy4z/mIbkdDPQfkna5k5g4TlGpuBsCa+JgEmmVZpsgk0I8ZNA5eB6TO4
-	 cxfpOYydT8zncJi4ZUhQSpKBL5REKP+cC7aa1IiCOCYNKYU2Ci+3olUysHKez7K79Fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793982287;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=2z4VVs1Qo8OYp3DZuSp2R/7gbv0QlVZXOPABkWi5IYI=;
+	b=QtG+LiygNYL/d6BrDs6j4n+tQbuVRbDCDRVt2pQ8GhPdlybPSYfm9AOuNPz69BcRnLHs
+	 pG7TcZpgJK1tyWUxRlk8MkZGtfmK/hdseuwM9lm8t/bljE42KwjcLhDlXVUdbcYTv+PZo
+	 iyypm9soQN9mi4muaLmYcWvsV+tp61+C0qKyENPFNsIKr+v9a7r0OAE2KMFkaaDzRCvkz
+	 CdmPYy0O0Wxwf1is95IoAU2cjytLGTXhxpdwKl6BVpLoo8IurMGl3YDELWmxU2pGipIy0
+	 o9QoSiigrTpEi+hMlGfMAwDDVuNOrmXAKx6N3JsY1LtveJs2H6QF/55hi5e5Erb6T/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=XL6Kggvm;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UzS/gPMP";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2204C606A329;
-	Fri,  6 Nov 2026 16:18:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2204C606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702C3606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 16:24:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=XL6Kggvm
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:Cc:To:From:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=1/bSPx/dVDOqHfCRwF1YnWcS2LPjAxurHZJkqp6cuVk=; t=1793981923; x=2109341923; 
-	b=XL6KggvmlerWN6TFKXqqheHifHS3/iX804Njfa3/9Dulh+2cqzKhLxBDig0Fz4e7GyUndxO0mMq
-	1CbBDwt2h6yPxRwFpA1tsyguGrDix0+P/wWC83uR1W8ggKfbZfC9ZiHXsiRxgWbdRtCTbezJmcdTa
-	oOCLfE13fVXIHVnvhuepm0UveuQCULPQMuaozGfrM5YmAkYsWMqwf7hhtTvbjva+etoZ61htmlM9i
-	EoA7XHaWCn649L+iOx4CvM+eB1oJPvsLpdi4J6h3YRCcLBIkdfizKQ1VHLhvH6bvGHjEfM8CA+ryX
-	izR1urJGauYmcTZc0FICrZ7CsCkd35NnbU7g==;
-Received: from [189.110.51.50] (helo=[192.168.15.3])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xPMeD-004Zvm-S0; Fri, 06 Nov 2026 17:18:38 +0100
-Message-ID: <2f3734de-1f6c-6820-1508-baa35dbc46db@igalia.com>
-Date: Fri, 6 Nov 2026 13:18:34 -0300
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UzS/gPMP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08B11F0089F;
+	Fri,  6 Nov 2026 16:24:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793982287;
+	bh=2z4VVs1Qo8OYp3DZuSp2R/7gbv0QlVZXOPABkWi5IYI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UzS/gPMPIrdK3W2v16GP2Am9fGP/wd3HKETOo2BR/MvJfurl+Scxev1/C3X1g40G0
+	 qa5FRnnhsKxcaHnQyIHaCWFEAfOcnzvCC5EapJE3H1y0UKNopA8HAJcmcT0qnOiVU6
+	 NOyr5iWgoPQQegD6HTaolJg6ppB3S977Ad6NsmMO+P77Jbf8CYON16JUmC383EJ3ud
+	 0G7pBjxDkSaU01O0f7iQVObWn5Q0S68G3zLU42WzPyImGJDyioWowJUHxiZumRDzZB
+	 aGx9vi8oEjqunUTAuL3m6/vxbr6UCBJ9XipaENMwrB6eANw/xWH/pF36OoEDBSWQ89
+	 a32PY3GgNuyYA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Eric Dumazet <edumazet@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-afs@lists.infradead.org,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] rxrpc: Fix update of call->tx_pending without holding lock
+Date: Fri,  6 Nov 2026 11:24:44 -0500
+Message-ID: <20261106162423.437376-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110441-rocklike-unbeaten-72b2@gregkh>
+References: <2026110441-rocklike-unbeaten-72b2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,88 +65,228 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Subject: Re: [PATCH] efi: pstore: Fix pstore_disable parameter setting (if
- built as module)
-Content-Language: en-US
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-To: Ard Biesheuvel <ardb@kernel.org>, Kees Cook <kees@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Tony Luck <tony.luck@intel.com>
-Cc: linux-efi@vger.kernel.org, linux-hardening@vger.kernel.org,
- stable@vger.kernel.org, kernel-dev@igalia.com, kernel@gpiccoli.net
-References: <20260906235838.2928815-1-gpiccoli@igalia.com>
- <273c9217-4630-4585-8cb5-3c5c8f0b77d3@app.fastmail.com>
- <cdd454e2-a311-71b5-2449-25cdfba893fd@igalia.com>
- <9b44943a-fd07-ba56-b5b4-77777f64685f@igalia.com>
-In-Reply-To: <9b44943a-fd07-ba56-b5b4-77777f64685f@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05/10/2026 20:03, Guilherme G. Piccoli wrote:
-> [...]
->>> What is the point of having a) a pstore_disable= param on a module
->>> (which can be blacklisted or simply not loaded) and b) having it
->>> runtime writable so pstore-efi can be toggled on/off at will?
->>>
->>
->> Well ... despite we agree on that, I think removing pstore_disable is
->> kinda breaking "the contract" we're following since long time ago.
->>
->> The thing is: unlike ramoops, or even maybe pstore/blk and other
->> potential backends, efi_pstore is a bit of a different beast IIUC.
->>
->> It doesn't require any config, by having it loaded, it'll just go ahead
->> and ...get enabled as pstore backend (unless pstore.backend sets otherwise).
->>
->> And not only that: efi_pstore is **usually built-in** - I guess in all
->> distros I've checked and by default config, it's built-in.
->>
->> So, probably to avoid having to use {initcall,module}_blacklist
->> (depending on the build type), I guess it was decided to have this
->> parameter. The commit [0] that added that, >13y ago, mentions that since
->> it was enabled by default and some EFI implementations had issues when
->> filling its memory with oops logs, the option was to add such
->> parameter+Kconfig to force disabling efi_pstore. Good decision or not,
->> we should now live with that IMO.
->>
->>
->>> Also, the practice of controlling the functionality of a builtin
->>> diagnostic feature by poking something under /sys/module/foo/params
->>> is in rather poor taste IMNSHO.
->>>
->>
->> Not only poor taste, I would say super counter-intuitive. But allowing
->> the sysfs playing was added by myself, to enable users to change it
->> without requiring a reboot, for a very cheap cost (well...not so cheap,
->> since I added a bug and here am I now, trying to fix it heh).
->>
->> If we require a reboot, we are in the same situation of kdump -
->> crashkernel must be set on command-line and requires a reboot to
->> properly reserve the memory. There is no technical reason for that in
->> case of efi_pstore, at least, none I can see.
->>
->>
->> So, with all that said, what is the path you suggest we follow?
->>
->> a) This simple fix (or something similar)?
->>
->> b) Drop entirely pstore_disable, risking a lot of users to just face
->> breakages in their setups?
->>
->> c) Other ideas?
->>
-> 
-> 
-> Hey Ard / Kees, gentle ping - how should / could we proceed here?
-> 
-> Apologies for the ping during LPC week, no hurries - just didn't want to
-> leave this bug without fixing waaay too much time heh
-> 
+From: David Howells <dhowells@redhat.com>
 
-Hi folks, gently ping - anything I can do to unblock this fix?
-Thanks in advance,
+[ Upstream commit 7801c42c3bb737cfb06194a383873fcad8daacf5 ]
 
+Currently, rxrpc_send_data() updates call->tx_pending just before it
+returns - but it won't be holding the call->user_mutex when it does this if
+a wait was interrupted by a signal.  This would allow a parallel sendmsg()
+to race.
 
-Guilherme
+Further, both the callers of rxrpc_send_data() call it with the lock held,
+and then it returns an indication through the parameter list to say whether
+it has dropped the lock or not - after which the callers both just drop the
+lock if it's still held.
+
+Fix this by:
+
+ (1) Moving the release of call->user_mutex down into rxrpc_send_data() and
+     get rid of the indicator parameter.  This makes it easier to see where
+     the lock is held.
+
+ (2) After waiting, if the attempt to reacquire the mutex is interrupted,
+     just return directly there rather than going to out_unlock
+
+ (3) Restricting the txb variable to inside the buffering loop and leaving
+     ->tx_pending set until we've queued the buffer.
+
+Note that there's a slight change in behaviour in that wait_for_space
+failure now doesn't check for completion because it doesn't hold the call
+user_mutex.  The caller, however, should re-issue the send and pick up any
+error at a second attempt.
+
+Fixes: b0f571ecd794 ("rxrpc: Fix locking in rxrpc's sendmsg")
+Closes: https://sashiko.dev/#/patchset/20260702144919.172295-1-dhowells%40redhat.com
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Eric Dumazet <edumazet@google.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261006133011.531806-4-dhowells@redhat.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ sashal: adapted rxrpc_txbuf handling to the existing sk_buff-based send path ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/rxrpc/sendmsg.c | 57 ++++++++++++++++++++++-----------------------
+ 1 file changed, 28 insertions(+), 29 deletions(-)
+
+diff --git a/net/rxrpc/sendmsg.c b/net/rxrpc/sendmsg.c
+index 0b24d09637252..b6ea5369309de 100644
+--- a/net/rxrpc/sendmsg.c
++++ b/net/rxrpc/sendmsg.c
+@@ -287,11 +287,10 @@ static int rxrpc_queue_packet(struct rxrpc_sock *rx, struct rxrpc_call *call,
+ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 			   struct rxrpc_call *call,
+ 			   struct msghdr *msg, size_t len,
+-			   rxrpc_notify_end_tx_t notify_end_tx,
+-			   bool *_dropped_lock)
++			   rxrpc_notify_end_tx_t notify_end_tx)
++	__releases(&call->user_mutex)
+ {
+ 	struct rxrpc_skb_priv *sp;
+-	struct sk_buff *skb;
+ 	struct sock *sk = &rx->sk;
+ 	enum rxrpc_call_state state;
+ 	long timeo;
+@@ -325,11 +324,9 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 			goto maybe_error;
+ 	}
+ 
+-	skb = call->tx_pending;
+-	call->tx_pending = NULL;
+-	rxrpc_see_skb(skb, rxrpc_skb_seen);
+-
+ 	do {
++		struct sk_buff *skb = call->tx_pending;
++
+ 		/* Check to see if there's a ping ACK to reply to. */
+ 		if (call->ackr_reason == RXRPC_ACK_PING_RESPONSE)
+ 			rxrpc_send_ack_packet(call, false, NULL);
+@@ -386,6 +383,9 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 			       sp->remain);
+ 
+ 			skb->ip_summed = CHECKSUM_UNNECESSARY;
++			call->tx_pending = skb;
++		} else {
++			rxrpc_see_skb(skb, rxrpc_skb_seen);
+ 		}
+ 
+ 		_debug("append");
+@@ -449,13 +449,13 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 			ret = call->security->secure_packet(
+ 				call, skb, skb->mark, skb->head);
+ 			if (ret < 0)
+-				goto out;
++				goto out_unlock;
+ 
+ 			ret = rxrpc_queue_packet(rx, call, skb,
+ 						 !msg_data_left(msg) && !more,
+ 						 notify_end_tx);
+ 			/* Should check for failure here */
+-			skb = NULL;
++			call->tx_pending = NULL;
+ 		}
+ 	} while (msg_data_left(msg) > 0);
+ 
+@@ -467,45 +467,46 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 			ret = call->error;
+ 		read_unlock_bh(&call->state_lock);
+ 	}
+-out:
+-	call->tx_pending = skb;
++out_unlock:
++	mutex_unlock(&call->user_mutex);
+ 	_leave(" = %d", ret);
+ 	return ret;
+ 
+ call_terminated:
+-	rxrpc_free_skb(skb, rxrpc_skb_freed);
+-	_leave(" = %d", call->error);
+-	return call->error;
++	ret = call->error;
++	goto out_unlock;
+ 
+ maybe_error:
+ 	if (copied)
+ 		goto success;
+-	goto out;
++	goto out_unlock;
+ 
+ efault:
+ 	ret = -EFAULT;
+-	goto out;
++	goto out_unlock;
+ 
+ wait_for_space:
+ 	ret = -EAGAIN;
+ 	if (msg->msg_flags & MSG_DONTWAIT)
+ 		goto maybe_error;
+ 	mutex_unlock(&call->user_mutex);
+-	*_dropped_lock = true;
++
+ 	ret = rxrpc_wait_for_tx_window(rx, call, &timeo,
+ 				       msg->msg_flags & MSG_WAITALL);
+ 	if (ret < 0)
+-		goto maybe_error;
++		goto out_nolock;
+ 	if (call->interruptibility == RXRPC_INTERRUPTIBLE) {
+ 		if (mutex_lock_interruptible(&call->user_mutex) < 0) {
+ 			ret = sock_intr_errno(timeo);
+-			goto maybe_error;
++			goto out_nolock;
+ 		}
+ 	} else {
+ 		mutex_lock(&call->user_mutex);
+ 	}
+-	*_dropped_lock = false;
+ 	goto reload;
++out_nolock:
++	_leave(" = %d [intr]", ret);
++	return copied ?: ret;
+ }
+ 
+ /*
+@@ -667,7 +668,6 @@ int rxrpc_do_sendmsg(struct rxrpc_sock *rx, struct msghdr *msg, size_t len)
+ 	enum rxrpc_call_state state;
+ 	struct rxrpc_call *call;
+ 	unsigned long now, j;
+-	bool dropped_lock = false;
+ 	int ret;
+ 
+ 	struct rxrpc_send_params p = {
+@@ -777,12 +777,12 @@ int rxrpc_do_sendmsg(struct rxrpc_sock *rx, struct msghdr *msg, size_t len)
+ 	} else if (p.command != RXRPC_CMD_SEND_DATA) {
+ 		ret = -EINVAL;
+ 	} else {
+-		ret = rxrpc_send_data(rx, call, msg, len, NULL, &dropped_lock);
++		ret = rxrpc_send_data(rx, call, msg, len, NULL);
++		goto error_put;
+ 	}
+ 
+ out_put_unlock:
+-	if (!dropped_lock)
+-		mutex_unlock(&call->user_mutex);
++	mutex_unlock(&call->user_mutex);
+ error_put:
+ 	rxrpc_put_call(call, rxrpc_call_put);
+ 	_leave(" = %d", ret);
+@@ -810,7 +810,6 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
+ 			   struct msghdr *msg, size_t len,
+ 			   rxrpc_notify_end_tx_t notify_end_tx)
+ {
+-	bool dropped_lock = false;
+ 	int ret;
+ 
+ 	_enter("{%d,%s},", call->debug_id, rxrpc_call_states[call->state]);
+@@ -828,8 +827,8 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
+ 	case RXRPC_CALL_SERVER_ACK_REQUEST:
+ 	case RXRPC_CALL_SERVER_SEND_REPLY:
+ 		ret = rxrpc_send_data(rxrpc_sk(sock->sk), call, msg, len,
+-				      notify_end_tx, &dropped_lock);
+-		break;
++				      notify_end_tx);
++		goto out;
+ 	case RXRPC_CALL_COMPLETE:
+ 		read_lock_bh(&call->state_lock);
+ 		ret = call->error;
+@@ -842,8 +841,8 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
+ 		break;
+ 	}
+ 
+-	if (!dropped_lock)
+-		mutex_unlock(&call->user_mutex);
++	mutex_unlock(&call->user_mutex);
++out:
+ 	_leave(" = %d", ret);
+ 	return ret;
+ }
+-- 
+2.53.0
+
