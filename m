@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793994542;
-	b=vVgwr0t/zEBK5R4Mj/od/3kEHgkh/sfAcz0Y9QxBpGrDt1og2QELlm7V4V5qjhm07Qqz
-	 cw6N6mbeP4kMTKf5/K2xNW9Ng4ZcqgOUemqnhjqnX8bL9unT6FGU8gHu+3OTHhGAgT7Nr
-	 7wPcx7TbWxsT0XIKOOQUTN5v1aPBYUloj+H6Nf1Knek/6NB9znmuWDAIeLCq6UcgH5L6w
-	 pJ51RZzk4q4Qjni73CmfWObmS05mYeRGRJcgWxGKwh8tegKQdES5Vwp7ImFove+/KgAwS
-	 eAiN57kzWuWpKYjAYd0Y53BVZoFs+bKhxYYqeLpJuDOQEnevZ1SCfBC7zvE9rwD0aUQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793994542;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793994696;
+	b=LA2XRPgawmgPyiMhLSBDreiIYnYEPvG8s9ylUorq4tPTcMzQ43uoMmJTGGoh+sZ3EwKm
+	 9GVViV6LRvBkzZBe5P7pXhbwE7PZcNbZ1FYUuLSXyLnsCKCLwqHBPHJ8+WV0+PXcIcjRI
+	 DiPeolErgwZcbP5RVDj7OkdzCVh8Y7/4pRGtZilxglLykyIPAxzxJ+biFudL6B5O9YtbB
+	 dwlSpxWs6ycphYtBxW0wz+spdk50R57A1ZrZtC0bF6gZt829acl74F+CFwzSqwk73EL7G
+	 aCamVljQlr7DEh9vrM9o1kNzflrI7GGd+ndiaWPGMuK7ulJ3IjDraqVkAwLStFEz/QA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793994696;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=DbZu5q+W+xtqYiktZfPU34LNXZ8FfBPEek4cd/Iy6iY=;
-	b=oDTK6nwVuEZBd0Fz52i4L9iBLo+4oD1NKKMBxAjS2VSZyBCqKxd6DIfklTNIn8SCdtsw
-	 bNB0DgHqyV5s//IMkOYm1uU4EL8Wv2iMaWdZfFZ+F7wApg1rkLw+2JFKLuJ7TBM3jq0bW
-	 nXu0DBT4z2lGhD1zocTcVbL49MGf0/P90Y6Wn1cPiOjBMn+d+q/GQBk0ss6+siAFHlRMt
-	 LVcuJVSWXQuhk6WVIGp6M+4a8U5xs1WELPGMSbJdzH9I4rStWBAG44gHWoYdGsaU+Tzgy
-	 Baf4B2aCU0dLEah2Qie6rQ+wKQ4Di0TlWP5hngG88kKKlyyUn969Ha4h5k0I7DRs6Qg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ffQKOr7UnubupJZqlvLZWc1enNvauuxfHnatBigPms0=;
+	b=h8QKOl7TM8oBZxne5/1NV4b0sS5Zh5i7C5bfH7vKXy+/A/PDvciGN4NzJb8PBzysx6rx
+	 3j25nwtf39Hh2AOp6AjLvZvjgoFDuLOeLb5tOUGmtAoKhPsSJdzrq6VG9bVYgZcaaOTdf
+	 XHHasMyqGn2RXUqbIGHdBHIGbtTI24a1TslfXoqssRn9ZoFGd4ROlD4RTR/LTgeGoGNoO
+	 fOT12YwghhQ4zH58ByTRYjbbfdc3zLp8G5VyI6cID/rIBEQg9QuyL4MFZp7cOhWcvKKSA
+	 3+yu6AZep5LSWapLJ8mX42QowqkQ9nnkWi3FGNYcmpAISTaiZcyKvp3ze6qumNwg86w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wyPperED;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AXVOwGKL;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DFF3606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 19:49:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DFF3606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3DF606A329
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 19:51:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E3DF606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wyPperED
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-54d9ac78f2eso7899051cf.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 11:49:01 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793994541; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IaVhEoQ6Lnv4xqTZj+s4sc4Xvfy6xTt/jRTHgiNXwjikwm1D2Z7vmcjg0sHQ6mPx64
-         wzYp4lu5PmT81xAOuO1PKCIQiC+gGFDFGYMDEnVy0PwhUsed5TrVN2I3HZHuJIBt6Zm2
-         TmTOZZC1cPA4mnGYHZdKVzbJVGgD5B0Le3eT8T2qPbYXg1W3Cpv9tLl9DrGA4ZoTQTri
-         M8KXR/nGgrzuNKU53L8XhdMoyCmNw3mhXS2uDkRRkrW1bx2P+ihbA2R2kZERxcZZfATS
-         J6Np2L5mJGYL2fwLqnZfjf9KxTaHakM/o1zzZE6JaFfmltm4BEucGu3LcPdRa9IfuJ1u
-         GYXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DbZu5q+W+xtqYiktZfPU34LNXZ8FfBPEek4cd/Iy6iY=;
-        fh=VIOOXPJWTNSzsEFse4UrIAytSL8AFEuHUBkgXEmiG2Q=;
-        b=JODPYrLsb6JN1P0w8UrqkfGKdD9lM58SinpfBZ1/SFBQZpU3Q7im4EKq8RHP81jTOs
-         QxFIE/uViG45XxuLlG/LJTTVLKnGEfPFO1+ZOM8fzqIWUYWkRw2yrz9XVbk3aYL5ciKp
-         6bJoialvjl/n4ECrNpSl8Hk+YeZI9/+mk0kapEC+f4tgDPLtLrqsz9+qQg9ocEFQlFGa
-         qUC04tvblPWdiP2L2Mgw0iZL3Q2H3TUl65zZgbytjibWfdWgHcyLqOj79f1u8XfbXQ5S
-         1G8b8cT0ZbVzIqGL0nom4mk8VU9jxU6x5o40GcsdMafZ7CkkCfO7QrkKhe5uTmxAlD7C
-         zDzg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AXVOwGKL
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so9603745e9.3
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 11:51:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793994541; x=1794599341; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DbZu5q+W+xtqYiktZfPU34LNXZ8FfBPEek4cd/Iy6iY=;
-        b=wyPperEDJFDS5ADQ8nuKsgHhpHE7PYSaU768vbWgKoHreydewdmho6uuzVeAienWkS
-         /Yn0kyQMk0a2dfdx3CpmgxlEM7P3KliO1+hXpHPemuBw6uZthvK0K6E0NpGJdf2oQ0yT
-         KVlxRUguqQtWBosSe2XX0crKRy0NPNvCnLgsPQWrURCxCYt4d8CgzO/lxjKESf8aIyWU
-         9wJpLYrsCvMmYtIiOe7Rr+McCyHoIap5CjwpiRI/CbZTj6gt8vpNPj3kMgRQjtz+BWu/
-         MtazFNqZ6mzCTGo+5m9IOYWmvtE55hAlfN8JXQ27ZUQHn9D1jXPpRDmPGctgcnW2+D3w
-         2xgw==
+        d=gmail.com; s=20260707; t=1793994694; x=1794599494; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ffQKOr7UnubupJZqlvLZWc1enNvauuxfHnatBigPms0=;
+        b=AXVOwGKL0ZQ/8MhHgGtDkNLemGqJKsvgcFOBO98XdAtyAOsf6P5JaiG8DLsrYU43cD
+         kqoWxmklZs3+Wpn4wacCbFsr4zrTlcksjpMGgWzY3bK2RZJG+kp8h3DaMOZKm4oLHaIH
+         2/VXKg6+ewO7v3fcWV61iLbPTa5t8juelzLgI5w2MdSqtvBB2Ckdf8VlUz5NfK0Fi1rb
+         Gn2M1F/bC7XDrmEq7e0H3BM/f73CThA69XLc1jQHpo1qPHiFJ8wKE1jEoLK9Ret4hPMD
+         u8zGMFfcfGHc+zHuVY9Rj0iKsfaKI+twppjE8I6FoyeZ4A3YjeeRM1/m79h74QdRzBYp
+         LnBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793994541; x=1794599341;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DbZu5q+W+xtqYiktZfPU34LNXZ8FfBPEek4cd/Iy6iY=;
-        b=mU2JiH6L3RwTzfd9mVV51wOw+foS4Sp9DCjRCi3XhuJiQx6VQa71AQDmiINx5JR5Ai
-         jfrZsAe/c5CutRAmgP1GNnPqZ9jJSdUTIvL03ZQlahG6Xat7qvGYwhIakDWe5myFDYQd
-         0Bjv+syu+QqkV64HG9tn4ptGX9qzH82DeXdxl3nsNthgx+ypGBsoxwhatmtINL4R/8NC
-         OZ87viUAT2btSmYH1OMscCS0ddMlzPC9QiEIQ447qUe4eAJ1hBNb5PJLQWCgvjVhIQFB
-         r+h4VnmhQMp9mj9fh4fW+wWC48XDvHoSYgeieJgRmoJxPJGdbrp0lfdtBgb2ERUk5zFM
-         fPlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBypxv543dVe7cY+HebgRvEboEzYXv4bOeFUf1U7jU4QC/OFe9BYbog1XLZDOeXSNk68dr1a2as=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/TLu6iKlioF3cgkTaXOGV+U2mM81bJ1v0TBSw3BGx1B10QGXyt
-	JHyAGPgtI6Ww4pG3+Y1MMjC5LSelC5G20LGShIJ2iS8M6qOURpP9eLGBlZCDZmS/fEjkvhJZvkd
-	F5qB0pV0bAq2CGjINb0m6tOtgK45x0S4=
-X-Gm-Gg: AYBFou10Z5l7cAeBQ/rveRoGwuIrLtb/IrIKN5EPghqekcxRecdbx6ndmhFapH+/l3e
-	+VQ9AwY49dVqaODH3a7wwCLw9pfKRaf+r1aHU8eaEH68m1CcRrCHCH3NevRSsBufkKCSt4Ti+4p
-	pk+tYZ2eUvSBtzqYXPTpokxdFF5YYufkIFKmsAmHfJ5UlZ7viFdVuKChk4Vff04iA2qK74Bxfdk
-	qGTSSOHqysHx7QpyhqPLLNTwPJNH7ac2vUU+/mKAJYTdke8ycR5JrdKCMTdgJTrfseDNWDuDfum
-	9FQLMB1+tF/hNenbSU494IOszM/CzK3tNeqAZyHhXqkGtF4Y4OF90RK4xYbAzdKLF8Vk32EDDQ0
-	VEPkU7n7AD0hQWhCBbza1eMmta69bWYlfBfy6
-X-Received: by 2002:a05:622a:5b08:b0:536:64c9:b1af with SMTP id
- d75a77b69052e-54e1329ad88mr53720801cf.24.1793994540966; Fri, 06 Nov 2026
- 11:49:00 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793994694; x=1794599494;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ffQKOr7UnubupJZqlvLZWc1enNvauuxfHnatBigPms0=;
+        b=ittAM3YBQB5/0KVCAXRpIz8/2qFrWn0cvwGiqMrDXZ5XbcGLNWo2yMxLRGQt74+Lvg
+         HK3edAxe8XySgEKsRP6TnfBWdhe9LAD1aSt4aV8yuEXE2LOB/HTrqECwCLkuf/O48Bdi
+         xUpGJ3j7WeLH1t8vZKiWSAHbBSbwkWsvxdi6g0YDYH5USDZNnclLEDykoyeR33bUXknu
+         Ib6/cp8mpRNuqcBVVLUOThW0Q8auEwoxZOrtIO03lCv/CLiINJnVrkdeKZGOLWqgUJiS
+         gfFjckNttVlPJDGFMJWbnGz/RGm4dyW3HwnrjqDW8RKluhM2CnABk60bwp5TnRUOiGHH
+         AHqw==
+X-Forwarded-Encrypted: i=1; AKwUvBziVU5OYJT5Ho6b5Egq1kn3gSBuHyFPezj9w9ctiH3ZmyurNEueUTqFnAVA/FqMPeTti14ZcRE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+CpBpD4cGMJbmcvIFkKxmLAiZnrUOuAwthvf8qD8iUb8O6hdXd
+	XF70RKB0ndTSGDBdO943MYiJvNYH0OMdYb9wZ3aemee3ZsjiVn4QhVay9eebVpW83i+DXQ==
+X-Gm-Gg: AYBFou1UyyDPPpdnjaIK4COYi+OIBcVHEz9LCsx7iOh+SUo1GoSkqSzcG1TDajqQTL7
+	8sDB8MdDu0wxm8EQTR8hD73lE6tPSWP4x6HS6His6cPkJ+CrEAirqj2xZrxqB1dZOHTggLJngug
+	pcmOQGdWgTtvfnFuuxxb7a/XXYWnylSpLiJLJeOmeifqDOyTGVGO+FT3VwcEZmIV9JqQ4VdLKXN
+	eYDI+QlK4/Vv+8KuyD+S8kVUkH86KvPOkNUaFHhsnLod3Ncj7/Y/hbP1XSyW5uvSQFXUpajGJ49
+	USgtMHYo5Gq5DHza5pDkEVpJ6NNrmFRepIzgi4vPnUzQv/06TEvKN6ADmKfr+BpPhQYi/FwqGeg
+	svesvE1/RVIlmZG0nhuW8r8AU+HW6VTMKdKCXM7Q0azAeCmes4xW36lYZ2cJ2dSfxntUEIZK1WZ
+	OM+lL15PEirKTswdd6tIuUsrVlliXBILMj0EYGp0idZH64VLxxtPh6suY4tzaPYS8K6iXs1vdjc
+	ubs23hu7yJpl7s/IGKg/RWfg2k4M1ZkBxK4kO1HHh4WBuIOI/RLAdJLIQ/W0nzmhqxLcTWq9zcM
+	cCtCTxGv/vH2N2E7qLtJUA3j
+X-Received: by 2002:a05:600c:64c5:b0:4b0:a7aa:843 with SMTP id 5b1f17b1804b1-4b6df4f1dfdmr62389165e9.25.1793994694120;
+        Fri, 06 Nov 2026 11:51:34 -0800 (PST)
+Received: from dev1.kernelcare.com ([2a01:4f8:172:1c85::2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d723283dsm5109746f8f.23.2026.11.06.11.51.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 11:51:32 -0800 (PST)
+From: Andrey Misiurov <andrey.misyrov@gmail.com>
+To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>
+Cc: Jun Yang <junvyyang@tencent.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-sctp@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v3] sctp: fix ASCONF address change on single-homed hosts
+Date: Fri,  6 Nov 2026 20:51:26 +0100
+Message-ID: <20261106195126.1563231-1-andrey.misyrov@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,136 +103,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260915041248.2432629-1-qwe.aldo@gmail.com> <20260915042546.2454238-1-qwe.aldo@gmail.com>
-In-Reply-To: <20260915042546.2454238-1-qwe.aldo@gmail.com>
-From: Jason Gerecke <killertofu@gmail.com>
-Date: Fri, 6 Nov 2026 11:48:49 -0800
-X-Gm-Features: AclHuK9iaJcHe9K1bRdtuipGjw8e3uQB2h1pAJywOj53Kvv9pWIoHDLbZ4NPWUE
-Message-ID: <CANRwn3Tt0VguzG=_azEZAP8vfxr0BbyWj=Nu-R3a0TA1nNGqog@mail.gmail.com>
-Subject: Re: [PATCH v2] HID: wacom: validate battery range before scaling
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
-	Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 9:28=E2=80=AFPM Aldo Ariel Panzardo <qwe.aldo@gmail=
-.com> wrote:
->
-> Battery events divide by the difference between the logical maximum
-> and minimum without validating the range.  A malformed HID descriptor
-> with equal limits can therefore trigger a divide-by-zero exception.
->
-> Move percentage conversion to a helper that widens the arithmetic,
-> rejects non-positive ranges, and accounts for a nonzero logical
-> minimum.  Clamp the result to [0, 100] instead of rejecting
-> out-of-range values, so that real hardware whose ADC occasionally
-> reports slightly beyond its declared limits still registers its
-> battery and updates capacity normally.
->
-> Fixes: 37d160193834 ("HID: wacom: generic: Scale battery capacity measure=
-ments to percentages")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Commit 9b2854f86f0b ("sctp: don't free the ASCONF's own transport in
+DEL-IP processing") refuses a DEL-IP of the transport the ASCONF was
+located by, so that a later wildcard DEL-IP cannot use it after free.
 
-I realize this is *very* late, but (similar to the just-reviewed
-sequence number patch) I'd like to request a version of this patch
-that only addresses the divide-by-zero without introducing variable
-widening. It is unlikely that the range of battery values would ever
-exceed anything more than a very small fraction of __s32 so the
-widening (and associated requirement to use div64_s64) feels very
-unnecessary. Checking `if (range <=3D 0)` on an __s32 range should be
-sufficient to catch overflowing and empty ranges. I think the
-introduction of clamping is pretty reasonable as well and should be
-kept in the v3.
+This also breaks the single-homed address change (RFC 5061 5.3.2). The
+host sends [Address Parameter L] [ADD-IP S] [DEL-IP L], the association
+is located by L, and DEL-IP L is now refused. The sender never gets an
+all-success ASCONF-ACK, keeps src_out_of_asoc_ok set and stops sending
+data, so the association stalls.
 
-Again, apologies for the delay---hopefully we'll (finally) get this merged =
-soon!
+Fix the wildcard DEL-IP instead: look up the transport of the packet
+source rather than reusing asconf->transport. Both DEL-IP paths can
+now free asconf->transport, and chunks bundled after the ASCONF still
+use it, so point it at a surviving transport: the packet source for the
+wildcard delete, the primary path for a plain one.
 
-Jason (she/they)
+Found by manual code inspection while reviewing a backport of commit
+9b2854f86f0b; reproduced on a two-namespace single-homed renumber.
+
+Fixes: 9b2854f86f0b ("sctp: don't free the ASCONF's own transport in DEL-IP processing")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
 ---
-Now instead of four in the eights place /
-you=E2=80=99ve got three, =E2=80=98Cause you added one  /
-(That is to say, eight) to the two,     /
-But you can=E2=80=99t take seven from three,    /
-So you look at the sixty-fours....
+v3: a plain DEL-IP of asconf->transport set it to NULL, but chunks
+    bundled after the ASCONF dereference chunk->transport (e.g.
+    sctp_vtag_verify()); point it at asoc->peer.primary_path instead,
+    as suggested by Xin Long. Reported by the netdev Sashiko AI review.
+    v2: https://lore.kernel.org/all/20261029193454.1028626-1-andrey.misyrov@gmail.com/
 
-> ---
->
-> Changes in v2:
->   - Clamp the computed percentage to [0, 100] instead of returning
->     false, so that slightly out-of-range ADC values do not prevent
->     battery registration (WACOM_QUIRK_BATTERY) or silently drop
->     updates.  Reported by Sashiko AI review.
->
->  drivers/hid/wacom_wac.c | 23 +++++++++++++++++++++--
->  1 file changed, 21 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-> index da1f0ea85..XXXXXXX 100644
-> --- a/drivers/hid/wacom_wac.c
-> +++ b/drivers/hid/wacom_wac.c
-> @@ -7,6 +7,7 @@
->  #include "wacom.h"
->  #include <linux/input/mt.h>
->  #include <linux/jiffies.h>
-> +#include <linux/math64.h>
->
->  /* resolution for penabled devices */
->  #define WACOM_PL_RES           20
-> @@ -1937,6 +1938,22 @@ static void wacom_wac_battery_usage_mapping(struct=
- hid_device *hdev,
->         return;
->  }
->
-> +static __s32 wacom_wac_battery_percentage(struct hid_field *field, __s32=
- value)
-> +{
-> +       s64 range =3D (s64)field->logical_maximum - field->logical_minimu=
-m;
-> +       s64 result;
-> +
-> +       if (range <=3D 0)
-> +               return 0;
-> +
-> +       result =3D div64_s64(((s64)value - field->logical_minimum) * 100,
-> +                          range);
-> +
-> +       return clamp_val(result, 0, 100);
-> +}
-> +
->  static void wacom_wac_battery_event(struct hid_device *hdev, struct hid_=
-field *field,
->                 struct hid_usage *usage, __s32 value)
->  {
-> @@ -1950,7 +1967,8 @@ static void wacom_wac_battery_event(struct hid_devi=
-ce *hdev, struct hid_field *f
->                         wacom_wac->hid_data.bat_status =3D POWER_SUPPLY_S=
-TATUS_UNKNOWN;
->                 }
->                 else {
-> -                       value =3D value * 100 / (field->logical_maximum -=
- field->logical_minimum);
-> +                       value =3D wacom_wac_battery_percentage(field, val=
-ue);
->                         wacom_wac->hid_data.battery_capacity =3D value;
->                         wacom_wac->hid_data.bat_connected =3D 1;
->                         wacom_wac->hid_data.bat_status =3D WACOM_POWER_SU=
-PPLY_STATUS_AUTO;
-> @@ -1958,7 +1976,8 @@ static void wacom_wac_battery_event(struct hid_devi=
-ce *hdev, struct hid_field *f
->                 wacom_wac->features.quirks |=3D WACOM_QUIRK_BATTERY;
->                 break;
->         case WACOM_HID_WD_BATTERY_LEVEL:
-> -               value =3D value * 100 / (field->logical_maximum - field->=
-logical_minimum);
-> +               value =3D wacom_wac_battery_percentage(field, value);
->                 wacom_wac->hid_data.battery_capacity =3D value;
->                 wacom_wac->hid_data.bat_connected =3D 1;
->                 wacom_wac->hid_data.bat_status =3D WACOM_POWER_SUPPLY_STA=
-TUS_AUTO;
-> --
-> 2.43.0
->
+v2: the reworked wildcard DEL-IP branch could itself free
+    asconf->transport via sctp_assoc_del_nonprimary_peers() and leave it
+    dangling for a bundled DATA chunk (sctp_assoc_bh_rcv() ->
+    peer.last_data_from) and the following SACK; retarget
+    asconf->transport to the surviving peer. The pre-existing wildcard
+    SET_PRIMARY / sctp_source() point is left out of scope.
+    Reported by the netdev Sashiko AI review.
+    v1: https://lore.kernel.org/all/20261022163639.2566945-1-andrey.misyrov@gmail.com/
+
+ net/sctp/sm_make_chunk.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+index ddc31a5..9719464 100644
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -3151,9 +3151,12 @@ static __be16 sctp_process_asconf_param(struct sctp_association *asoc,
+ 		 * packet MUST be deleted.
+ 		 */
+ 		if (af->is_any(&addr)) {
+-			sctp_assoc_set_primary(asoc, asconf->transport);
+-			sctp_assoc_del_nonprimary_peers(asoc,
+-							asconf->transport);
++			peer = sctp_assoc_lookup_paddr(asoc, &asconf->source);
++			if (!peer)
++				return SCTP_ERROR_REQ_REFUSED;
++			sctp_assoc_set_primary(asoc, peer);
++			sctp_assoc_del_nonprimary_peers(asoc, peer);
++			asconf->transport = peer;
+ 			return SCTP_ERROR_NO_ERROR;
+ 		}
+ 
+@@ -3166,13 +3169,9 @@ static __be16 sctp_process_asconf_param(struct sctp_association *asoc,
+ 		if (!peer)
+ 			return SCTP_ERROR_DNS_FAILED;
+ 
+-		/* Don't free asconf->transport; a later wildcard DEL-IP
+-		 * parameter reuses it.
+-		 */
+-		if (peer == asconf->transport)
+-			return SCTP_ERROR_REQ_REFUSED;
+-
+ 		sctp_assoc_rm_peer(asoc, peer);
++		if (asconf->transport == peer)
++			asconf->transport = asoc->peer.primary_path;
+ 		break;
+ 	case SCTP_PARAM_SET_PRIMARY:
+ 		/* ADDIP Section 4.2.4
