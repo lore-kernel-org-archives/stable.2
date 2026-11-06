@@ -1,94 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.76
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793928362;
-	b=jaEVEVxm7ZqpyvArbCX0AEVbt+f8R8u8TtNj9IuYq8iO6SJ3Z8xdiRHM1Yo6uENI3xqI
-	 myhu6VoexbUutokGhuaEURkz2CZMYGG/TPXnlnARRTWfdoN8E0Tv6iF1e5slrmDKAXidi
-	 UzpWX105Lf56q78WQRKkI/9Jfcaicjuo7QW42Fo/6kBL/hGJAx2BXBsvAC46W1yj9/UZ6
-	 ayZEgLxeGduvHHLR44vtKMhjUwSTUnsiHHOu+yB1u+VecM3p5uQVv981b0o9darnPbjyS
-	 T1hYSAzXsp55e2c97ytrOEVuDsio5ohuzD/Aoh3HsKLYoGOIERt0zBu/iLecvANbNjA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793928362;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=nF1NbnWux934O0IIsujFl9xGbyeeKPnw5llJQ+nZFxA=;
-	b=kIZKe5x3Ktr3qpB0IRpnp8/fR+IrgCvBwUy0sxsqp4Z6mw2bNQ9HHOS1iE4zTjpiHvFx
-	 /0Qiohz/afZIJilxU0E6rlE1NeV7aLDxZoFzDpDmker1wQWSpRPHxSWhp2kbFQIJY8Smp
-	 49jqhdfd68wtkiPSiXiY+nOEyIGHHxHrUr0jQ6dRI6JodvoVxT5QXLaUkjbpFB4yMN9aa
-	 afvPCxzMdekRSGfksnngNX1AQuNQO6SG9jgDKqyJS76N4zlV4PZ9bGyO3jYAzGnqIeaOw
-	 ZMb6LDOsjQYdGYDSubAgzcph7pkMHKjS23u33+w5Oqg/xJiMcFYsV3ZB3eGIb6M73Fg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.44.76
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023076.outbound.protection.outlook.com [40.107.44.76])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793928453;
+	b=oClcgdThynBWlVcXqgPzFmXKx5rpJ3t6v4wb9jWYpHkuLliHAtHRMw1dOsPNUzHDdBMA
+	 NXm/nwxYQa2QBthnonJMxAzsxMIGCFokaHYdn++qNMOahjDLR5WG5UTOn4tkFCd2pQVT3
+	 nDtRkCSLWOwBwJIwSHWtwidEmwbZqbIiSkJn1RJqTUwChpfkrFWbmnVx9HmKDuVjstK9p
+	 3hTCUZHct6qR8X9uIo8Xcr2HxmTSXmWBaUFPVWIOpLqzwZQNiwymx5/zS2vCnXr4piWBC
+	 JMW/Y6bA+dVbjL5mUtrWBIFJtbJKhYXb3d50AGIeS5HZlfURcPgMleY72HBGGJH97Sg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793928453;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=Ggexvz+DRBtx3a3Vl/nT0GwYPhBHbH2HXrv6jdI2Fj8=;
+	b=SMvK+woAMRmKJRXV1y05mraqjlR42f2aTnusfT4/JtgV/DUSa7RNnAlMVpLRl0bth14O
+	 WkrUBIFom8MJwBU5cs6QVJntKwGh64lTV0DFjxYthVQQzqHJgjDdmiEMbPxjNrOYl/mx7
+	 auGYXeHE4tooiRZwLuMR7gRwDDcfvpaGAQ5K/aFnGbQIPviLdbyYIM5OeqXNtqwgItvxH
+	 lEkRNllc40NKn2DnFYfiW+r98Uv0p/EyCP5rDQ2ZHsS3Hg97Bw0Yv70Y7Rfp4dBBlcuvl
+	 HkT6LjfLvCN+hVjOM0b5WFv8nrfaNc6HeTe8EN3MAjMkS2EZyqNOddFSCrNQWf72x5w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=eYN+GB9N;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4016E606A328
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:25:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4016E606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eTLD2pLqU93a5+qhQnWQvctngWqsTeDWx11LJrA+wu54ZQ3pqgqI775ibkM0YEsQPi2K/JpROMtUL9AUiPojaakwl60ECRhoCF3d8HRAvPKON6jnWUJV0J+AeAm7UjVkQ2uVNyvEcwr3SrjxKo2gG0ivNuZfbrc8EWeN6TDolnpPhYP8EvthVpFR+axAOgQxPHLt9G29ewmG9XJQL/Yxwe1kVhk6xWgUSWZEi0U60LG9NZwTHooFwbCG1902CyZ5NObgvyv8dJcs+8H80Lhcnr/B3FIpcE9Rb1DN42lmTxn/jYyoWSCrUDwfTC04bc5zTSFteSN2upCvHW8lVtfGdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nF1NbnWux934O0IIsujFl9xGbyeeKPnw5llJQ+nZFxA=;
- b=u4pUDJt/zT4czaeuCnmJkm82dx5xNa3N6j2ShoJ1wsD4gVXx0y6c61Io16gKRZkD4LVAqvZFaOK+VP2x8mL9zwb8orwwCJEGDnMqHPV5q0YFvs94UDPLu/dKtNTsR35NUCxHVqqQv1mP4VZXD13OTYMqQscUfKVor20unizUG/CG8B3t+Z8xsggq3sHQum717O7JRmTIyAgw/oHJTTFwX28DNvnRoMzUIu+FAH89a0eFYQOGzkSd5YLt20FWzH9NHDbBhpvIGAlVvbpR/9TNDX6c1j4p5dQuZt8noxEvp8RmzHsmjAtWAJIqmj6PtzkVB/PWp0W0HspFFDHqIDuRxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from TY4P301CA0093.JPNP301.PROD.OUTLOOK.COM (2603:1096:405:37a::11)
- by SE3PR06MB8499.apcprd06.prod.outlook.com (2603:1096:101:335::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.4; Fri, 6 Nov 2026
- 01:25:56 +0000
-Received: from TY2PEPF0000AB89.apcprd03.prod.outlook.com
- (2603:1096:405:37a:cafe::24) by TY4P301CA0093.outlook.office365.com
- (2603:1096:405:37a::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.10 via Frontend Transport; Fri, 6
- Nov 2026 01:25:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB89.mail.protection.outlook.com (10.167.253.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 6 Nov 2026 01:25:55 +0000
-Received: from gary-System-Product-Name (unknown [172.16.64.55])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id C406D40920E2;
-	Fri,  6 Nov 2026 09:25:54 +0800 (CST)
-From: Gary Yang <gary.yang@cixtech.com>
-To: Fugang Duan <fugang.duan@cixtech.com>
-Cc: CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
-	Gary Yang <gary.yang@cixtech.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 3/4] arm64: dts: cix: fix I2C bus address and size cells on Sky1
-Date: Fri,  6 Nov 2026 09:25:53 +0800
-Message-ID: <20261106012554.3394587-4-gary.yang@cixtech.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261106012554.3394587-1-gary.yang@cixtech.com>
-References: <20261106012554.3394587-1-gary.yang@cixtech.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D872606A31B;
+	Fri,  6 Nov 2026 01:27:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=eYN+GB9N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E234C1F0089F;
+	Fri,  6 Nov 2026 01:27:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793928453;
+	bh=Ggexvz+DRBtx3a3Vl/nT0GwYPhBHbH2HXrv6jdI2Fj8=;
+	h=Date:To:From:Subject;
+	b=eYN+GB9NCVGDJg4IFBd+Jr5EjLWAkPTbMmIvnlrvzwhdBlmGvC2csIo+SpByAXDOP
+	 hUhsPhQb3tHtVMHfXRt1Qz9s9GjkzJkysIAP4339f773bRsFekvWDT7BSRVSyNEvFL
+	 K7V4bDF6VCEZ5STnY0fMlZI0lDCb29sFyfHq5FAU=
+Date: Thu, 05 Nov 2026 17:27:32 -0800
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,
+	sarthak.sharma@arm.com,pfalcato@suse.de,osalvador@suse.de,
+	muchun.song@linux.dev,ljs@kernel.org,liam@infradead.org,jannh@google.com,
+	david@kernel.org,azpijr@gmail.com,josef@toxicpanda.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-mremap-fix-hugetlb-reservation-leak-on-partial-move.patch added to mm-new branch
+Message-Id: <20261106012732.E234C1F0089F@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,128 +52,170 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB89:EE_|SE3PR06MB8499:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 78ac9ab8-c4b2-448f-3c0d-08df3ba4e7ce
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|376014|23010399003|1800799024|6133799003|18002099003|22082099003|10067099003|261102123227099003|56012099006|261026121527099003|261021121427099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	YgYsxbrbWBFvI5UcQzoFUjZsfLf5ngaWy/snalMoh5MarXr67BTtXQeeI0OP3L2ReXqLcill7NLnApbc7tiOrAPVWIQuXBJNP+CmLOfDd5mx5GhrnmZLzHsPo99dsaHINxv58WabMOpMpOJq+O4W7SHdZ+BIqpfbVHcoZ5xHldV84X5DWFN47HKOztOLXew8SS3oRWbJSVA4lO/si7MWmDDAUHHOYuZUk8yOGB97c//Rxput6GJLTiDxbs+WIu44DGmQZn/HHsBd+4UkhbkU1bTRwFnT+wP+mUdmITR3RFTf/Ko4V3hYiLT6pb1xvyEjhjKtAyfAP77NflMPafmA0gehhwWrl6sKKQ2NP5gYxgjMiSr+ljLSSpGVIZq8wV95/u2EuePcOCvjkRsZTYbJsajeW9gfMSL5gQE24xn5wxzSY7D9fWs5dVjtKjffHRVvCUL3teHZ9Y2WAPX02F6XZyWcAEszbYSwzPcNfcyXOaKNAe38qWrJg3nzACg9GlRRHAoHV9ZDlu3Vvp2q6H851NwxrHt4Souh5dLT/4VThfCc0VlmkZNWOzI6phtffWO69M9JkVhZ9YhGrwQaoD66VXH30bwYq+tqPTvRLZMQTctTKns6UjBU20PlNm4uc942P64xuC/r/NJXYgVFQXI+6w/ICLQ5f8XH27RuJq6Fx3QHzD+zcyozO0R1jiIkKdrj
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(1800799024)(6133799003)(18002099003)(22082099003)(10067099003)(261102123227099003)(56012099006)(261026121527099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	SIO51e+6nAjMqPCMDBFDc/QDd+RmFnupZDeKs+2YJHhmZ4BF3gF8558cvMPckaPrp8eXTtuVwmTM+nJirPZQslGu2PagT6FRE4SPWO82VjmOFJkHHmkA6aEF3TNvUcJBH3NQqckI9irwskzo3J3W1ZjU1qt42/5tu3qiI4oeE4+VyQwzCURhkvVGt9caD6KYNSHy2NhIJAwXOp4visymF8O5iHwbNAOtO+RO7u4eZYm3Rbe82wgBknnP8uy/Wtq0T3Y3igIL7LT95E0XQDrWJi6jQSu2St52V0c7zAHKuW9/NUr7kZ87F5mIxqsMB/35YKxudstIM81jDVkoHdocSly2UOJ650sPnybA/yEzFwG6ag+C4weQ9m6ujWn4osZCKcygKSgxuJzc6VV1vu0V+QZ/UaLPLz8dddICcmJChb2D9dfGD2J1xWZJS7ob0fBJ
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 01:25:55.7244
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78ac9ab8-c4b2-448f-3c0d-08df3ba4e7ce
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB89.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE3PR06MB8499
 
-The I2C controller nodes inherit #address-cells = <2> and #size-cells
-= <2> from the soc@0 bus, but I2C child devices always use a
-single-cell address and no size. With the inherited values every
-child node triggers a reg_format warning, and a device described on
-the bus would be decoded with the wrong address layout.
 
-Set #address-cells = <1> and #size-cells = <0> on all eight I2C
-controllers, matching the I3C nodes that already do so.
+The patch titled
+     Subject: mm/mremap: fix hugetlb reservation leak on partial move
+has been added to the -mm mm-new branch.  Its filename is
+     mm-mremap-fix-hugetlb-reservation-leak-on-partial-move.patch
 
-Fixes: fad32e8ac460 ("arm64: dts: cix: add DT nodes for all I2C and I3C ports for sky1")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gary Yang <gary.yang@cixtech.com>
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mremap-fix-hugetlb-reservation-leak-on-partial-move.patch
+
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Josef Bacik <josef@toxicpanda.com>
+Subject: mm/mremap: fix hugetlb reservation leak on partial move
+Date: Thu, 05 Nov 2026 14:02:03 +0000
+
+Patch series "mm/mremap: fix accounting on a partial move", v3.
+
+
+This patch (of 5):
+
+Moving a part of a private hugetlb mapping with mremap() leaks the huge
+page reservations of the parts that stay.  They are not returned when the
+mapping is unmapped, when the process exits or when the pool is resized.
+
+fixup_hugetlb_reservations() takes the reservation map away from the old
+VMA while that VMA still spans its whole range, because the moved part is
+only split off by the unmap at the end of the move.  hugetlb_vm_op_close()
+then finds no map in the parts that remain and returns nothing for them:
+
+    mmap() of 4 pages, MAP_PRIVATE | MAP_HUGETLB    HugePages_Rsvd: 4
+    mremap() of the second page to a new address    HugePages_Rsvd: 4
+    munmap() of all of it                           HugePages_Rsvd: 3
+
+The source is unmapped in this case, so the number of VMAs ends up where
+it did before and the check against sysctl_max_map_count stays as it is.
+
+Fix by splitting a hugetlb VMA in prep_move_vma() before a part of it is
+moved, as commit 597e4b9ab48a ("mm/mremap: fix locked_vm leak by splitting
+VMA for MREMAP_DONTUNMAP") does for an mlock()'d VMA.  A backport needs
+that commit, which is tagged for stable itself.
+
+Link: https://lore.kernel.org/20261105-b4-mremap-pre-split-v3-0-f8789de76849@toxicpanda.com
+Link: https://lore.kernel.org/20261105-b4-mremap-pre-split-v3-1-f8789de76849@toxicpanda.com
+Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Sarthak Sharma <sarthak.sharma@arm.com>
+Cc: <stable@vger.kernel.org>
 ---
- arch/arm64/boot/dts/cix/sky1.dtsi | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
-index 0a820f45feb9..a18e8fd43fcf 100644
---- a/arch/arm64/boot/dts/cix/sky1.dtsi
-+++ b/arch/arm64/boot/dts/cix/sky1.dtsi
-@@ -290,6 +290,8 @@ soc@0 {
- 		i2c0: i2c@4010000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04010000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C0_APB>;
- 			interrupts = <GIC_SPI 286 IRQ_TYPE_LEVEL_HIGH 0>;
-@@ -299,6 +301,8 @@ i2c0: i2c@4010000 {
- 		i2c1: i2c@4020000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04020000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C1_APB>;
- 			interrupts = <GIC_SPI 287 IRQ_TYPE_LEVEL_HIGH 0>;
-@@ -308,6 +312,8 @@ i2c1: i2c@4020000 {
- 		i2c2: i2c@4030000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04030000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C2_APB>;
- 			interrupts = <GIC_SPI 288 IRQ_TYPE_LEVEL_HIGH 0>;
-@@ -317,6 +323,8 @@ i2c2: i2c@4030000 {
- 		i2c3: i2c@4040000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04040000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C3_APB>;
- 			interrupts = <GIC_SPI 289 IRQ_TYPE_LEVEL_HIGH 0>;
-@@ -326,6 +334,8 @@ i2c3: i2c@4040000 {
- 		i2c4: i2c@4050000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04050000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C4_APB>;
- 			interrupts = <GIC_SPI 290 IRQ_TYPE_LEVEL_HIGH 0>;
-@@ -335,6 +345,8 @@ i2c4: i2c@4050000 {
- 		i2c5: i2c@4060000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04060000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C5_APB>;
- 			interrupts = <GIC_SPI 291 IRQ_TYPE_LEVEL_HIGH 0>;
-@@ -344,6 +356,8 @@ i2c5: i2c@4060000 {
- 		i2c6: i2c@4070000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04070000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C6_APB>;
- 			interrupts = <GIC_SPI 292 IRQ_TYPE_LEVEL_HIGH 0>;
-@@ -353,6 +367,8 @@ i2c6: i2c@4070000 {
- 		i2c7: i2c@4080000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04080000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C7_APB>;
- 			interrupts = <GIC_SPI 293 IRQ_TYPE_LEVEL_HIGH 0>;
--- 
-2.50.1
+ mm/mremap.c |   27 ++++++++++++++++++---------
+ 1 file changed, 18 insertions(+), 9 deletions(-)
+
+--- a/mm/mremap.c~mm-mremap-fix-hugetlb-reservation-leak-on-partial-move
++++ a/mm/mremap.c
+@@ -1038,7 +1038,7 @@ static void vrm_stat_account(struct vma_
+ }
+ 
+ static bool __check_map_count_against_split(struct mm_struct *mm,
+-					    bool pre_split,
++					    bool source_stays,
+ 					    bool before_unmaps)
+ {
+ 	const int sys_map_count = get_sysctl_max_map_count();
+@@ -1092,14 +1092,14 @@ static bool __check_map_count_against_sp
+ 	 */
+ 	map_count += 2;
+ 
+-	/* If pre-split, the -1 observed above doesn't apply. */
+-	if (pre_split)
++	/* If the split off source stays, the -1 observed above doesn't apply. */
++	if (source_stays)
+ 		map_count++;
+ 
+ 	return map_count <= sys_map_count;
+ }
+ 
+-static bool needs_pre_split(struct vma_remap_struct *vrm)
++static bool split_source_stays(struct vma_remap_struct *vrm)
+ {
+ 	/*
+ 	 * An MREMAP_DONTUNMAP of a mlock()'d VMA needs to unlock the
+@@ -1109,11 +1109,23 @@ static bool needs_pre_split(struct vma_r
+ 		vma_test(vrm->vma, VMA_LOCKED_BIT);
+ }
+ 
++static bool needs_pre_split(struct vma_remap_struct *vrm)
++{
++	/*
++	 * fixup_hugetlb_reservations() takes the reservations away from the
++	 * source VMA.  The parts of it that do not move have to keep theirs.
++	 */
++	if (vma_is_hugetlb(vrm->vma))
++		return true;
++
++	return split_source_stays(vrm);
++}
++
+ /* Do we violate the map count limit if we split VMAs when moving the VMA? */
+ static bool check_map_count_against_split(struct vma_remap_struct *vrm)
+ {
+ 	return __check_map_count_against_split(current->mm,
+-		needs_pre_split(vrm), /*before_unmaps=*/false);
++		split_source_stays(vrm), /*before_unmaps=*/false);
+ }
+ 
+ /* Do we violate the map count limit if we split VMAs prior to early unmaps? */
+@@ -1162,10 +1174,7 @@ static unsigned long prep_move_vma(struc
+ 	if (err)
+ 		return err;
+ 
+-	/*
+-	 * To account mlock()'d pages correctly in the MREMAP_DONTUNMAP
+-	 * case perform any split ahead of time for an mlock()'d VMA.
+-	 */
++	/* Perform any split ahead of time if the source VMA has to be distinct. */
+ 	if (needs_pre_split(vrm)) {
+ 		VMA_ITERATOR(vmi, vma->vm_mm, old_addr);
+ 
+_
+
+Patches currently in -mm which might be from josef@toxicpanda.com are
+
+mm-zswap-drop-the-stale-zswap-entry-of-a-zero-folio.patch
+mm-swap-account-synchronous-swap-reads-as-memory-stall.patch
+mm-mremap-fix-hugetlb-reservation-leak-on-partial-move.patch
+selftests-mm-test-a-partial-mremap-of-hugetlb-memory.patch
+mm-mremap-reaccount-on-unmap-failure-only-if-accounted.patch
+mm-mremap-restore-vma_account_bit-if-the-unmap-fails.patch
+selftests-mm-test-mremap-with-an-old-size-of-0.patch
+zram-lz4-lz4hc-accept-dictionaries-of-more-than-64-kib.patch
 
