@@ -1,47 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794004951;
-	b=AJndQ1AVg2+rQuHphZd3o6EN9i70ZXNV1Oh7gN6003gODNVlVhpcji8hMNXl6np0LgKI
-	 lXbYP0b+mr9QqUr7WcUDCEykxg5ou0gZw90sev8nQQxxGcHEhcuUrzK1OP7ED4yLgwcWw
-	 qh+C+Z1s+BSmhMUYwQbOD8wLhZMBM6Y1H0orEPP6IB1DxOZCxflw4CW/EMrD3ur6wS0Nh
-	 Hk2idKvRyDvFD2IaSYPp3h54ZfMJJ6AKMLoc8+IWBL5eks6K2fCz75V4KDiwr973xLr/6
-	 8k5Cec1Bra7kagW2s+YUwIANMWl7VRN4HVJeM/tgETMAMthrLngAnI9a/bGBxcZ8z5g==
+	t=1794004958;
+	b=BadEQeCmtMcxbBzVTuWwPsjTpP0Mipaex0Nb6Jfh+xSqLZ2z2FnXwZrZGRm/wrMPopnX
+	 gCj7T4LqGqCkpgTGPMIHdkeDnKwmZVVYXNPL2eiqNGCszjgBscJPwe8pL/JuHSASpxccf
+	 KEEq3/5KTJI88uOKYeJau1b7LE6ShorHclAeWl5/lRLD6wfpnU1UB34HO+myZW1QJxJ80
+	 fEJOOH6XVZoW+hRXuvaoht5ChgYEHLBWjV0tT0izcLRsG7OwMcxM07HLXZie5DGiT3jkU
+	 x1jw8eTAFK050W8xqRGSr9Bb1nFsSZ0Usd0yocQt7Z5nWGrB0MvaLwYgX6e9saoNETQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794004951;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=r9kJmn9kMaUsIxseYi41rabItJ7bLsBpd/nnhZbIok0=;
-	b=wl+naWoc/ZGoVulWdQX5fNPE3GMrIrP++lekwLltWKsbpISdt8+TST68jM5KEDW34y35
-	 kEwj35rVcvMoAVuv86AdCc50p4qw0oLh6nA/ZW83BhhGbXbzn4GmL7pP//bau/4UnTNVx
-	 VYfYfQ+L2xiD35IXKh94fYQstdqvhm3zC+zCkx4hDgkfpo+yoaH170/TMVV3vLXbtgTO/
-	 sDpO3A6TiyOhodyb7EVqf3Px5N85qn9CZWxNiVqcBqEGY68yG5Zc9jQGlZ0UyJ11V47ST
-	 cqgFvdDvqjtx8f8ziqzChSYbAlSnqnIV8eCgntWSZfNnROowXcTV0PO0fnK3nr7UecA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794004958;
+	h=Received:DKIM-Signature:Date:To:Cc:From:Subject:Message-Id;
+	bh=uE0sxcenLX8vMqdpdQ3mIjJ/gBJVTyxS/yEtC1uNvHw=;
+	b=G9JeNJpJoL0495p+vTK8PwmC9eUKvKwpKJSM6emiUMsToKQNVXhSOLhjiYHozzvR6fwR
+	 Ax+hR/ksjDgFNhHIO5CDiIg/RYJjOTpPkj/RXY8p+LpfKdWkbFn6nkSGPyGEL2w5f//wW
+	 mjAoHWXq0/XXyhFFdWIjyNEMao12B19Vcbre00+bmXelsW2qcpSVTa0KGFau9bcMpfWzG
+	 dkqnyV5JIQhU2hL4Vc8lIu22WfXg9CpprtZHclsYAoLD01DkGe23H7yBiBrOOun9BoENV
+	 pEFmg8zCTxmQhhfVT75CDJ7NGXGQUc4N/w5SmYKGFOOwAD5MwDW8zr4I4AZPhZJtcjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CcQjhvE3;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=D211BsAF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B42606A326;
-	Fri,  6 Nov 2026 22:42:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78A9606A336;
+	Fri,  6 Nov 2026 22:42:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CcQjhvE3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 461341F0089F;
-	Fri,  6 Nov 2026 22:42:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794004950;
-	bh=r9kJmn9kMaUsIxseYi41rabItJ7bLsBpd/nnhZbIok0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CcQjhvE3LihkZTfRpe4GaGxaNniXCyBTPnv6vcJX3sBVZApH/MsbvbydsSZ81zFxR
-	 NSKD4z99+2BdoVaotgWuzYmPU8/Er/qPZuRp+cR9arHo9nWwaJZsFTQfzKjEiuudWe
-	 GfkE+8H9wzKx47fQqMgmGvK5vqVukLysoqIE04NdjiWlapD5RSVtbBjw220dY6v/XR
-	 2S0LJ0WX1+Re7Cb9Gp4E1HSpQnf+y3V6McY5i1ZNbYXDBfYl2js6+Ip5zOiSar4N8O
-	 X7W9UXU9bMPkJA1+c2nsq9IZoYHe8ZCDYLfGNeNFjembLaMhHYk4LCktt1+0S25TrV
-	 d13VE0RJJZy0Q==
-Message-ID: <20e54cbc-dd5b-4094-856f-2e63f8e19001@kernel.org>
-Date: Fri, 6 Nov 2026 22:23:26 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=D211BsAF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52DB81F008A3;
+	Fri,  6 Nov 2026 22:42:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794004957;
+	bh=uE0sxcenLX8vMqdpdQ3mIjJ/gBJVTyxS/yEtC1uNvHw=;
+	h=Date:To:Cc:From:Subject;
+	b=D211BsAFHv6TIahVnlg+44RELo6EuNlUYGwf8tg3mZzP4YWkSuY/nRLKv794j5uAX
+	 0lz/0NDd8qkb/xKgrfqwW8VhjZRrOFDDOXQHtduCak06PEbca+y8ckUNPFSiXaUGVz
+	 W3gYuAYJJQdm1Q9J7Gd+Bkqf8OBQ++0HctiBXgAY=
+Date: Fri, 06 Nov 2026 14:42:36 -0800
+To: mm-commits@vger.kernel.org, ziy@nvidia.com, usama.arif@linux.dev,
+ stable@vger.kernel.org, shuah@kernel.org, ryan.roberts@arm.com,
+ ritesh.list@gmail.com, peterx@redhat.com, nico.pache@linux.dev,
+ maddy@linux.ibm.com, loic.molinari@collabora.com, ljs@kernel.org,
+ liam@infradead.org, lance.yang@linux.dev, kas@kernel.org, jgg@ziepe.ca,
+ dev.jain@arm.com, baolin.wang@linux.alibaba.com, baohua@kernel.org,
+ azpijr@gmail.com, alex@shazbot.org, akpm@linux-foundation.org,
+ khorenko@virtuozzo.com
+Cc: David Hildenbrand <david@kernel.org>
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [merged] mm-huge_memory-copy-file-thps-at-fork-like-copy_present_ptes-does.patch removed from -mm tree
+Message-Id: <20261106224237.52DB81F008A3@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,123 +56,231 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] mm: limit pagecache folio refcount when mapping pages
-To: Lance Yang <lance.yang@linux.dev>, azpijr@gmail.com
-Cc: akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- willy@infradead.org, jack@suse.cz, ziy@nvidia.com,
- baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com,
- dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org,
- matthew.brost@intel.com, joshua.hahnjy@gmail.com, byungchul@sk.com,
- gourry@gourry.net, ying.huang@linux.alibaba.com, apopple@nvidia.com,
- peterx@redhat.com, hannes@cmpxchg.org, songliubraving@fb.com,
- riel@surriel.com, hughd@google.com, will@kernel.org,
- aneesh.kumar@kernel.org, npiggin@gmail.com, peterz@infradead.org,
- jgg@ziepe.ca, kevin.tian@intel.com, joro@8bytes.org, robin.murphy@arm.com,
- steven.sistare@oracle.com, jhubbard@nvidia.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, iommu@lists.linux.dev, mason@kernel.org,
- stable@vger.kernel.org
-References: <528e3a0e-04fb-427f-88c7-63a7f4bbc505@gmail.com>
- <20261106100645.77296-1-lance.yang@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261106100645.77296-1-lance.yang@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 11/6/26 11:06, Lance Yang wrote:
-> 
-> On Fri, Nov 06, 2026 at 10:42:17AM +0100, Jose A. Perez de Azpillaga wrote:
->> On 11/5/26 2:10 PM, David Hildenbrand (Arm) wrote:
->>> With large file folios, overflowing the folio mapcount and refcount
->>> became possible. For anon folios it is currently not really an issue:
->>> each large anon folio can only be mapped once into a process.
->>>
->>> That's not really big news, but it's about time that we do something
->>> about it because some modern technology might find ways to abuse it :)
->>>
->>> One of the enablers for that was commit ddc58f27f9ee ("mm: drop tail page
->>> refcounting"), however, file thp support was added later.
->>>
->>> File folios can be mapped multiple times into the same process, allowing
->>> for processes to hold many references to the same folio.
->>>
->>> As a short-term solution, let's introduce two folio refcount limits:
->>> one for ordinary consumers and one for admins. Leave some headroom
->>> before the refcount goes negative, which we really don't want (having
->>> the mapcount go negative is also not expected).
->>>
->>> Start reporting SIGBUS if we run into limits. When restoring mappings
->>> from migration entries, instead zap the pte/pmd entry. We allow for
->>> slightly exceeding the limit to keep things simpler.
->>>
->>> This is far from ideal, but better than all easy alternatives we can
->>> backport comfortably. For now it fixes the big problem: letting
->>> the refcount (+mapcount) go negative and cause trouble.
->>>
->>> This is only a temporary fix, we'll follow up with something better.
->>>
->>> While the refcount checks are not required for order 0 folios, let's
->>> just add them for consistency: each folio_add_file_rmap*() and
->>> folio_dup_file_rmap*() needs a prior check.
->> in mm-new copy_huge_pmd() now does a folio_dup_file_rmap_pmd() at fork,
->> since Konstantin's "mm/huge_memory: copy file THPs at fork like
->> copy_present_ptes() does". doesn't that one need the check too?
-> 
-> Ah, good catch! My local tree didn't have Konstantin's series [1] yet. And
-> right, that path needs a check too I guess :)
 
-So, likely my series will go in first, it fixes a way older problem. I'll tell
-Andrew to hold that one off and let me handle it.
+The quilt patch titled
+     Subject: mm/huge_memory: copy file THPs at fork like copy_present_ptes() does
+has been removed from the -mm tree.  Its filename was
+     mm-huge_memory-copy-file-thps-at-fork-like-copy_present_ptes-does.patch
 
--- 
-Cheers,
+This patch was dropped because it was merged into mainline or a subsystem tree
 
-David
+------------------------------------------------------
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Subject: mm/huge_memory: copy file THPs at fork like copy_present_ptes() does
+Date: Wed, 04 Nov 2026 21:40:56 +0100
+
+This fixes no bug: it makes fork copy a PMD the way copy_present_ptes()
+copies a PTE. Until now copy_huge_pmd() skipped every folio PMD of a
+non-anonymous VMA and left the child to fault them in again, while the
+PTEs of the same VMA are copied.
+
+Treat file folios as the PTE path does: take a reference, duplicate the
+rmap and account them. fork then pays a reference and an rmap update
+per PMD, and saves the child a fault per PMD it touches. The next patch
+sends PFN mappings through the same tail.
+
+That covers the VMAs vma_needs_copy() sends here:
+
+- private file mappings with an anon_vma;
+- VM_COPY_ON_FORK ones: uffd-wp and uffd-rwp, VM_MIXEDMAP, and
+  VM_MAYBE_GUARD, which shared shmem, file and DAX mappings get from a
+  guard region.
+
+The DAX huge zero PMD is copied too, with a reference taken by
+mm_get_huge_zero_folio() as for anonymous VMAs. A migration entry of a
+file folio is copied and accounted like copy_nonpresent_pte() does, and
+made read-only in both processes only in a CoW mapping. A device
+private entry gets the same CoW check, as in copy_nonpresent_pte().
+
+The copy then gets the same tail as __copy_present_ptes(): write
+protect both sides in a CoW mapping, mark the child's copy clean in a
+shared one, and drop the uffd-wp bit where the child is not armed. An
+anonymous THP is now write protected only when its PMD is writable, as
+a PTE is.
+
+A page table is deposited under the copy where the fault paths deposit
+one: in anonymous VMAs, and wherever the architecture needs one.
+
+Link: https://lore.kernel.org/20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-2-c56d0d26f970@virtuozzo.com
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Tested-by: Andrew Morton <akpm@linux-foundation.org>
+  Link: https://lore.kernel.org/20261106084856.4b254c973694345ee58a9b63@linux-foundation.org
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Nico Pache <nico.pache@linux.dev>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Usama Arif <usama.arif@linux.dev>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>
+Cc: Loïc Molinari <loic.molinari@collabora.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: <stable@vger.kernel.org> # needed by the next patch
+---
+
+ mm/huge_memory.c |   63 +++++++++++++++++++++++++++------------------
+ 1 file changed, 39 insertions(+), 24 deletions(-)
+
+--- a/mm/huge_memory.c~mm-huge_memory-copy-file-thps-at-fork-like-copy_present_ptes-does
++++ a/mm/huge_memory.c
+@@ -1897,12 +1897,13 @@ static void copy_huge_non_present_pmd(
+ 		pmd_t pmd, pgtable_t pgtable)
+ {
+ 	softleaf_t entry = softleaf_from_pmd(pmd);
+-	struct folio *src_folio;
++	struct folio *src_folio = softleaf_to_folio(entry);
+ 
+ 	VM_WARN_ON_ONCE(!pmd_is_valid_softleaf(pmd));
+ 
+-	if (softleaf_is_migration_write(entry) ||
+-	    softleaf_is_migration_read_exclusive(entry)) {
++	if ((softleaf_is_migration_write(entry) ||
++	     softleaf_is_migration_read_exclusive(entry)) &&
++	    vma_is_cow_mapping(src_vma)) {
+ 		entry = make_readable_migration_entry(swp_offset(entry));
+ 		pmd = softleaf_to_pmd(entry);
+ 		if (pmd_swp_soft_dirty(*src_pmd))
+@@ -1915,7 +1916,8 @@ static void copy_huge_non_present_pmd(
+ 		 * For device private entries, since there are no
+ 		 * read exclusive entries, writable = !readable
+ 		 */
+-		if (softleaf_is_device_private_write(entry)) {
++		if (softleaf_is_device_private_write(entry) &&
++		    vma_is_cow_mapping(src_vma)) {
+ 			entry = make_readable_device_private_entry(swp_offset(entry));
+ 			pmd = softleaf_to_pmd(entry);
+ 
+@@ -1926,7 +1928,6 @@ static void copy_huge_non_present_pmd(
+ 			set_pmd_at(src_mm, addr, src_pmd, pmd);
+ 		}
+ 
+-		src_folio = softleaf_to_folio(entry);
+ 		VM_WARN_ON(!folio_test_large(src_folio));
+ 
+ 		folio_get(src_folio);
+@@ -1938,9 +1939,11 @@ static void copy_huge_non_present_pmd(
+ 					    dst_vma, src_vma);
+ 	}
+ 
+-	add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR);
+-	mm_inc_nr_ptes(dst_mm);
+-	pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
++	add_mm_counter(dst_mm, mm_counter(src_folio), HPAGE_PMD_NR);
++	if (pgtable) {
++		mm_inc_nr_ptes(dst_mm);
++		pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
++	}
+ 	if (!userfaultfd_protected(dst_vma))
+ 		pmd = pmd_swp_clear_uffd(pmd);
+ 	set_pmd_at(dst_mm, addr, dst_pmd, pmd);
+@@ -1956,6 +1959,7 @@ int copy_huge_pmd(struct mm_struct *dst_
+ 	pmd_t pmd;
+ 	pgtable_t pgtable = NULL;
+ 	int ret = -ENOMEM;
++	bool writable;
+ 
+ 	pmd = pmdp_get_lockless(src_pmd);
+ 	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
+@@ -1976,13 +1980,11 @@ int copy_huge_pmd(struct mm_struct *dst_
+ 		goto set_pmd;
+ 	}
+ 
+-	/* Skip if can be re-fill on fault */
+-	if (!vma_is_anonymous(dst_vma))
+-		return 0;
+-
+-	pgtable = pte_alloc_one(dst_mm);
+-	if (unlikely(!pgtable))
+-		goto out;
++	if (vma_is_anonymous(dst_vma) || arch_needs_pgtable_deposit()) {
++		pgtable = pte_alloc_one(dst_mm);
++		if (unlikely(!pgtable))
++			goto out;
++	}
+ 
+ 	dst_ptl = pmd_lock(dst_mm, dst_pmd);
+ 	src_ptl = pmd_lockptr(src_mm, src_pmd);
+@@ -2000,7 +2002,8 @@ int copy_huge_pmd(struct mm_struct *dst_
+ 	}
+ 
+ 	if (unlikely(!pmd_trans_huge(pmd))) {
+-		pte_free(dst_mm, pgtable);
++		if (pgtable)
++			pte_free(dst_mm, pgtable);
+ 		goto out_unlock;
+ 	}
+ 	/*
+@@ -2015,7 +2018,7 @@ int copy_huge_pmd(struct mm_struct *dst_
+ 		 * copy. It just takes a reference.
+ 		 */
+ 		mm_get_huge_zero_folio(dst_mm);
+-		goto out_zero_page;
++		goto copy_pmd;
+ 	}
+ 
+ 	src_page = pmd_page(pmd);
+@@ -2023,6 +2026,12 @@ int copy_huge_pmd(struct mm_struct *dst_
+ 	src_folio = page_folio(src_page);
+ 
+ 	folio_get(src_folio);
++	if (!folio_test_anon(src_folio)) {
++		folio_dup_file_rmap_pmd(src_folio, src_page, dst_vma);
++		add_mm_counter(dst_mm, mm_counter_file(src_folio),
++			       HPAGE_PMD_NR);
++		goto copy_pmd;
++	}
+ 	if (unlikely(folio_try_dup_anon_rmap_pmd(src_folio, src_page, dst_vma, src_vma))) {
+ 		/* Page maybe pinned: split and retry the fault on PTEs. */
+ 		folio_put(src_folio);
+@@ -2033,19 +2042,25 @@ int copy_huge_pmd(struct mm_struct *dst_
+ 		return -EAGAIN;
+ 	}
+ 	add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR);
+-out_zero_page:
+-	mm_inc_nr_ptes(dst_mm);
+-	pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
++copy_pmd:
++	if (pgtable) {
++		mm_inc_nr_ptes(dst_mm);
++		pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
++	}
+ 
+-	/* See __copy_present_ptes(): restore accessible protection. */
++	/* See __copy_present_ptes(). */
++	writable = pmd_write(pmd);
+ 	if (!userfaultfd_protected(dst_vma)) {
+ 		if (userfaultfd_rwp(src_vma) && pmd_uffd(pmd))
+ 			pmd = pmd_modify(pmd, dst_vma->vm_page_prot);
+ 		pmd = pmd_clear_uffd(pmd);
+ 	}
+-
+-	pmdp_set_wrprotect(src_mm, addr, src_pmd);
+-	pmd = pmd_wrprotect(pmd);
++	if (vma_is_cow_mapping(src_vma) && writable) {
++		pmdp_set_wrprotect(src_mm, addr, src_pmd);
++		pmd = pmd_wrprotect(pmd);
++	}
++	if (src_vma->vm_flags & VM_SHARED)
++		pmd = pmd_mkclean(pmd);
+ set_pmd:
+ 	pmd = pmd_mkold(pmd);
+ 	set_pmd_at(dst_mm, addr, dst_pmd, pmd);
+_
+
+Patches currently in -mm which might be from khorenko@virtuozzo.com are
+
+mm-huge_memory-read-a-special-pmd-under-the-lock-in-copy_huge_pmd.patch
+selftests-mm-test-fork-of-pmd-mapped-shmem-thps.patch
+
