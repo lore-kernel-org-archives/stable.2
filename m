@@ -1,54 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.59
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929494;
-	b=1LfW7IKoxVIPqkdVVjir4PxFNlBdzmbtkdjQbYe2bA7N6ircNnqgH2TLCkN09hTtx03B
-	 wBL55vys9demfQNzHUhLOFTbvQ4CeKjDxxTif0wGX9dZ6FcCmiEGiqR4KdP/bwcox1AuM
-	 LgRB4Qs2cQr/pgqKhaYPyXimMSgArjb5zuvck2jr5/5hoxDvj4q41x6iX01BGrWjmP1r/
-	 JXjtiqkBg5Qdg1oPgirPPmBIysSJk0GOOVx301x4TIJDHKRB4DBXuXC1xXUvIgQ6kvv7f
-	 eYoyf578EU5WcinGQMUcBIZ1iR5wBGeYltD08TFz16AA5TP0GoSxkzxGuxFAuaEl27g==
+	t=1793929775;
+	b=ZRESExB8zzUbzK/DdAgZHUm4q+jtp7YRs1Ve1Z1OgRVbR3PbkrxeJPpPL3doEyzDNRYC
+	 rYQwMTLG5yAFzWm9qmEEjYDIYN+3VtbdKYJAZpXvEqAhQsB2U+XPBGYbCnariS9Bv+edp
+	 AuLGmsd6gNwuZ5EPlNEtKvAXrt1I/j9X0psLVlcVBp1v90m097Aib/n+vwlzLyCYT61N5
+	 PuaVXd6/l5vQWZmmZWtkJShf+5ZlBjcnINboCUWxOmOKqLPq74b4fjGNYuYHPuCJNoA5C
+	 +a2yt8ZSIgAAvtj5Rn8UFiSFFCjGGDOPr/WdralSpjHiBfO8Uv8eISVydXkhjUyMNMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929494;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929775;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=D1BQyEii6F0Q1y4egErAzidghcHKqUk0a8SnAS5enws=;
-	b=ZEUmDggqYDbWXOcbki+1fBxfZ25GcEnx+3sQ1LcmTkK4uF6LiqTuyQsMsuGDjNzO6e1r
-	 b6MMwUeVL7BHtUgyZj4PCpmj7eizsZGLZmplME+q5Oxxf0Csdcwe4wqLHHEPfY2qx7cem
-	 vqsOZHPvZXDOQubdECJGo7lWD/PihTizqoZO9kmNXJbsYK9jR4zO/NBMTjb6/d8JHvZYJ
-	 Hrh0qwPtEj/93C9xp2vw3RkAJ6m5xu1AEui1E7Kab/HkXy+STr3AVBXO76N1pukDweije
-	 0brThTItGLiZOcTfYlpSEGH5PK1YIb4LG+cLOAEokqRGx+wYUVUajTnxY38RGkzZqng==
+	bh=obWEFYHxqQD8Gd1XcASfPfqXODJZ6EymLi6RVwWdKYg=;
+	b=JmkDGyarM/iEQE+tnqpups5XnejW09fIS3gvawuK+KU8mUvVDEg8C1JTixIpEo4dxrzo
+	 GB/cSZGfvHdbr3CAkq0nbmqRcV0Qrvbf2rkaxejgkuRlNqRLtbxHYyZlGUYD+72lIwQWM
+	 gjhYL5DoiK4bLnzPfA6W9i1o7zNUu6vsAPyVC2s2u0QvS3yjHogEUm2j5WnU0ba1rc8XT
+	 qmOdDkj2FARNbkizarXpRZmVfXRm6erpq1Yc3v46hFcMDeO+Zd5vt1v+hEUoizrRC8EkI
+	 sb7xAJkXyFWmMLjgW+0C+vy8Ukff7sxvnC4flo889fQUbxAnMyZBm18dtjn2OZA0+ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jYFWQMOg;
-	arc=none smtp.remote-ip=95.215.58.59
-Received: from mta1.migadu.com (out-59.mta1.migadu.com [95.215.58.59])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b="Gedp/X2F";
+	arc=none smtp.remote-ip=115.124.28.218
+Received: from out28-218.mail.aliyun.com (out28-218.mail.aliyun.com [115.124.28.218])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C04606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:44:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0C04606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B458606A31B;
+	Fri,  6 Nov 2026 01:49:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B458606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jYFWQMOg
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=h0d+yOrZ64mGc0iSYwHwgGdKZilHQ9XexIhOgkjacwM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793929491; v=1; x=1794534291;
- b=jYFWQMOgfpkZ3mBb54JklcG6tzN9HnFBLmJXkcokoa2V6NhjxwFO0SANbAxuStk3vhzs13PK
- rcj/5dhCYzxFEvL1fa7/lj5SxJN4AE+F3z0hlp97Q6gr3qqzMQaGTUTTvVQLLb7g5UY7gMzKifJ
- lXdgdK5Tp3u0ic4lgbiJCIWA=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ac22e0871729a49a;
-	Fri, 06 Nov 2026 01:44:51 +0000
-X-Mizu-Trace-ID: ac22e0871729a49a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <76fc7cbb-11e8-4591-bb2f-d6fb8ac1fbf3@linux.dev>
-Date: Fri, 6 Nov 2026 09:44:44 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=Gedp/X2F
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793929770; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=obWEFYHxqQD8Gd1XcASfPfqXODJZ6EymLi6RVwWdKYg=;
+	b=Gedp/X2FQC+skmb+8LrSDkz5GOwbaP+c2C9I+n4SNXHbSRVjGR7BCFbmfoMPMCNzwxpwaewU5gZp5dnJz401sOUHTHkZodFo26g2ycG1+HBrbcVwveIBitZD0wLV32cGSFm314CA6pdvD3/iCrHDXODwKVC0iUdKutpLSWCTmz4=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07813765|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00538106-0.00124658-0.993372;FP=11962638910552167427|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023087102;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jxtOOy9_1793929768;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jxtOOy9_1793929768 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 06 Nov 2026 09:49:29 +0800
+From: Guo Zihao <guozh23@xiaopeng.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Yangtao Li <frank.li@vivo.com>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] mtd: lantiq-flash: Fix NULL pointer dereference in probe
+Date: Fri,  6 Nov 2026 09:49:28 +0800
+Message-ID: <20261106014928.4126855-1-guozh23@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,156 +63,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/hugetlb_cgroup: prevent use-after-free during
- cgroup offlining
-To: Daehyeon Ko <4ncienth@gmail.com>, muchun.song@linux.dev,
- osalvador@suse.de, akpm@linux-foundation.org
-Cc: david@kernel.org, tj@kernel.org, linux-mm@kvack.org,
- cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, hongfu.li@linux.dev
-References: <20261020103057.8066217f6f6fc5b3ed84c90b@linux-foundation.org>
- <20261022022146.506005-1-4ncienth@gmail.com>
-From: Hongfu Li <hongfu.li@linux.dev>
-In-Reply-To: <20261022022146.506005-1-4ncienth@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+ltq_mtd_probe() dereferences ltq_mtd->map->virt before the map_info
+structure is allocated: the map pointer itself is still NULL when
+ltq_mtd->map->virt is assigned, because the structure is allocated a
+few lines below. Any device with a "lantiq,nor" compatible therefore
+crashes the kernel with a NULL pointer dereference during probe.
 
-在 10/22/26 10:21, Daehyeon Ko 写道:
-> A normal hugetlb charge obtains the current task's hugetlb cgroup with
-> css_tryget(), charges its page counter, and drops the CSS reference before
-> the folio is committed under hugetlb_lock.
->
-> The task can be migrated while the allocation is in progress.  If the old
-> CSS is then offlined, its final active-folio scan can finish before the
-> charge becomes visible.  The allocation can subsequently charge that dying
-> CSS and commit its pointer to the folio.  Once the CSS is freed, uncharging
-> the folio accesses the freed hugetlb_cgroup, including its page counter and
-> per-node usage.
->
-> Keep the reference acquired by the charge until commit or cancellation.  At
-> commit time, while holding hugetlb_lock, move an uncommitted charge out of
-> each dying CSS to the first live ancestor.  The hierarchical charge already
-> includes every ancestor, so moving it only requires canceling each dying
-> CSS's local count.
->
-> This orders commit against the offline active-folio scan: either the scan
-> runs after commit and reparents the folio, or commit observes the dying CSS
-> after the scan and selects a live ancestor.  The retained reference also
-> keeps the originally selected hugetlb_cgroup alive through this decision.
-> Reservation charges retain their existing CSS lifetime and are not
-> reparented.
->
-> On an unmodified v7.3 kernel with a 128-page 2 MiB pool, a
-> capability-free uid 1000 allocator racing administrator rmdir reproduced
-> KASAN writes to a freed hugetlb_cgroup in three of three boots.  Controller
-> disable reproduced the same fault.  With this change, 5,000 rmdir rounds
-> with over 1 million successful faults and 2,000 controller-disable rounds
-> with over 1.6 million successful faults completed without KASAN, LOCKDEP,
-> page-counter, or refcount reports.
->
-> AI-assisted source review was used to identify the race and to help draft
-> the reproducer and fix.  The interleaving and the resulting allocation,
-> free, and use-after-free stacks were verified with tracefs and KASAN.
->
-> Fixes: da1def55919f ("hugetlb/cgroup: add support for cgroup removal")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Assign the mapping after the map_info allocation instead.
 
-Hi, Daehyeon,
+Fixes: 6145e07e9c77 ("mtd: lantiq-flash: Use devm_platform_get_and_ioremap_resource()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+---
+ drivers/mtd/maps/lantiq-flash.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Would it be better to send v2 as a standalone thread rather
-than as a reply to the v1 review thread? It would be easier
-to track.
-
-> ---
-> V1 -> V2:
-> - Remove the redundant disabled-controller check from uncharge, as requested
->    by Andrew Morton.
->
-> v1: https://lore.kernel.org/r/20261020100345.1677643-1-4ncienth@gmail.com
->
->   mm/hugetlb_cgroup.c | 34 ++++++++++++++++++++++++++--------
->   1 file changed, 26 insertions(+), 8 deletions(-)
->
-> diff --git a/mm/hugetlb_cgroup.c b/mm/hugetlb_cgroup.c
-> index 3fb41311e4c7dc..6921b185726662 100644
-> --- a/mm/hugetlb_cgroup.c
-> +++ b/mm/hugetlb_cgroup.c
-> @@ -310,11 +310,10 @@ static int __hugetlb_cgroup_charge_cgroup(int idx, unsigned long nr_pages,
->   		css_put(&h_cg->css);
->   		goto done;
->   	}
-> -	/* Reservations take a reference to the css because they do not get
-> -	 * reparented.
-> +	/*
-> +	 * Hold the CSS reference until commit. Reservations keep it longer
-> +	 * because they are not reparented.
->   	 */
-> -	if (!rsvd)
-> -		css_put(&h_cg->css);
->   done:
->   	*ptr = h_cg;
->   	return ret;
-> @@ -337,9 +336,26 @@ static void __hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
->   					   struct hugetlb_cgroup *h_cg,
->   					   struct folio *folio, bool rsvd)
->   {
-> +	struct hugetlb_cgroup *charged_h_cg = h_cg;
-> +
->   	if (hugetlb_cgroup_disabled() || !h_cg)
-> -		return;
-> +		goto out;
->   	lockdep_assert_held(&hugetlb_lock);
-> +
-> +	/*
-> +	 * A task can be migrated after selecting h_cg. Once offlining starts,
-> +	 * redirect the uncommitted charge to a live ancestor. hugetlb_lock
-> +	 * serializes this decision with the offline scan, which reparents
-> +	 * earlier commits.
-> +	 */
-> +	if (!rsvd) {
-> +		while (css_is_dying(&h_cg->css)) {
-> +			page_counter_cancel(&h_cg->hugepage[idx], nr_pages);
-> +			/* The root CSS never dies. */
-> +			h_cg = parent_hugetlb_cgroup(h_cg);
-> +		}
-> +	}
-> +
->   	__set_hugetlb_cgroup(folio, h_cg, rsvd);
->   	if (!rsvd) {
->   		unsigned long usage =
-> @@ -352,6 +368,9 @@ static void __hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
->   		WRITE_ONCE(h_cg->nodeinfo[folio_nid(folio)]->usage[idx],
->   			   usage + nr_pages);
->   	}
-> +out:
-> +	if (!rsvd && charged_h_cg)
-> +		css_put(&charged_h_cg->css);
->   }
->   
->   void hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
-> @@ -419,15 +438,14 @@ static void __hugetlb_cgroup_uncharge_cgroup(int idx, unsigned long nr_pages,
->   					     struct hugetlb_cgroup *h_cg,
->   					     bool rsvd)
->   {
-> -	if (hugetlb_cgroup_disabled() || !h_cg)
-> +	if (!h_cg)
->   		return;
->   
->   	page_counter_uncharge(__hugetlb_cgroup_counter_from_cgroup(h_cg, idx,
->   								   rsvd),
->   			      nr_pages);
->   
-> -	if (rsvd)
-> -		css_put(&h_cg->css);
-> +	css_put(&h_cg->css);
->   }
->   
->   void hugetlb_cgroup_uncharge_cgroup(int idx, unsigned long nr_pages,
-
+diff --git a/drivers/mtd/maps/lantiq-flash.c b/drivers/mtd/maps/lantiq-flash.c
+index 80d467eba..5c2ace302 100644
+--- a/drivers/mtd/maps/lantiq-flash.c
++++ b/drivers/mtd/maps/lantiq-flash.c
+@@ -118,15 +118,15 @@ ltq_mtd_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, ltq_mtd);
+ 
+-	ltq_mtd->map->virt = devm_platform_get_and_ioremap_resource(pdev, 0, &ltq_mtd->res);
+-	if (IS_ERR(ltq_mtd->map->virt))
+-		return PTR_ERR(ltq_mtd->map->virt);
+-
+ 	ltq_mtd->map = devm_kzalloc(&pdev->dev, sizeof(struct map_info),
+ 				    GFP_KERNEL);
+ 	if (!ltq_mtd->map)
+ 		return -ENOMEM;
+ 
++	ltq_mtd->map->virt = devm_platform_get_and_ioremap_resource(pdev, 0, &ltq_mtd->res);
++	if (IS_ERR(ltq_mtd->map->virt))
++		return PTR_ERR(ltq_mtd->map->virt);
++
+ 	ltq_mtd->map->phys = ltq_mtd->res->start;
+ 	ltq_mtd->map->size = resource_size(ltq_mtd->res);
+ 
 -- 
-Best regards,
-Hongfu
+2.50.1
 
