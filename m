@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793968659;
-	b=adJJUFePU/6o2XuUGPlRT9eovJlR0BLZbOBZm0lEssMms/F48jISjajA1tW9r28uitRs
-	 4rViZhGq8U3C7lU1fTpLg9BlrH8E4IOSSYDTdxeYAVk3X/4WUz+ODmbrLEczpiepNbtg8
-	 sTsaSbEWZhHJvidbcXpasgix634eJ/bWY9thYm7rYbwpEkvkkVuIHKmqrEbAcSmZnGuLg
-	 q1Gf5Ec7pXR+5+b7L07HOQ3WE39Ww/V9Q9GLUvqpdMCf8dmtOoWfyXJPkpvtfdKSSkW0b
-	 3U+K2OLPc8NecBNV1Y3K8aBUzAXZzTglwFTP/F/YTDKesawua19jgGueH/+qL0qkLYA==
+	t=1793968663;
+	b=GaqVxOEbc5PodwNsOILuN5WsF1vLaBQocSBe4bGUJC+7Vv4u6d0hLRBPfDydIzHirr7w
+	 0Brgvr10EXxy4OAiiCNAT05xQTDGrPPe3fd93J5/JpszjFZLM9R3PlwQzzySorfXdQgLD
+	 xx6x5x+q8NE7+iwcHOWv8n3VCVQ726vTGULxqRf0MJXeT7yH0vk4iSKAgWsUWu4ebvkT3
+	 xkDMMi76IuxBKy3sFQc8h1HC8PxGLvqzWHjKpAJxK/cDTF+9tsRFKWkH8HZF4vxUPLufB
+	 NJ3F47ezLlXzp634eBvduxFsPXFLyIC2LkUhXm/hpZt9f707JoGrgX5Wq55qjS+guXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793968659;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qHyxky5NohyRVFO7KavpxPaA5IcKeTiZF/rNJo5Yvt0=;
-	b=VWTi2a9R02X7V8TEcjmFRgITJGhir7HsVtqkUvmUaUhxj7vHkz5hFAUhzbmhmBy0XsSF
-	 OyKV+51/wd9WWsclQlciQ8kJt49X3zePS/67c2YU1Aepn40Sf1n1g+6sgFBd5I1N6rQsI
-	 i2FduAff/69twY1NYnAXkdOCDUQmjq3IFDcWVepyGIPxbvSUD3zt6EVZnlZ84hGCogXMY
-	 vWWXXeTuoyr+gj6uzAR9EVyIiXxogYf8zSxjdPRKp7qkniJE7dfIEws76/bmVEkVboIkT
-	 FojbSqGSkEO+lR1IHKa1sI2DIL+he7GljvR65T1tJQhc7IQxz3haSWvJy0fqlXT+8Vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968663;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=iYuNhSenOI7lcfVk5lUHNYaSXsoThqyrOax2DqYfx4U=;
+	b=eGu1PE6p0TpPe0GhGZyaChzIXhXVK6X0Pm13SzPuKKwZI1DYgMlG3q5TYkptrg3LI+EV
+	 aK89zbYcTs8yIeS+Mlc91RTEfuHXKKMgsAlQsLxGcwfs2CPGHvQ2lojX3U8QSnSmOqoKu
+	 Gn8hPPI2Iu0oY4vqBN6VziOX913rYORo92bpWfjMnORt0qFGo/eSxQ2ootrNo2ytc0Gpk
+	 c62kTqffa5eS3qmz9NoJCsGmYIPrXXZXWoWR//Hk2uDotLJoS2oAjbGoJY/Lg/bc1O9sW
+	 THMT2ajoYA34t7Z3qTXUe5JQCJO2Do4tiRhhFrG6gZSj/vvviN1y5pKEl06qeywzp1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A6gFdd+v;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DhypPOzb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21268606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:37:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A00606A32D
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:37:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A6gFdd+v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C5A81F0089F;
-	Fri,  6 Nov 2026 12:37:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DhypPOzb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D3F81F0089F
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:37:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793968658;
-	bh=qHyxky5NohyRVFO7KavpxPaA5IcKeTiZF/rNJo5Yvt0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A6gFdd+vyhj6dCG1/VJCD/XzyyMp/1VB/AOI1owuc2RUwBHZPO4IDXIRbWkQK09ze
-	 p71BoBIJdTYGLDkmcnkPX7HzOO+tdbZgdT0S8pYLRpsaA5PFJ13TsWnEBkGpCbeN7L
-	 Ap7/K3ELvbgNpDaGM2CapJr37L0MA5PybE0sEOZ4G4T3I+JqSL8xjDhxcIO2CVUcR2
-	 7e/HzNYVGCgNuFoT/hWPXg9vRSYGftxIRp/+8IDtV4Y9kewAQXn+3F/1Y9/XiR7ddL
-	 lyRmGqe4ZloOA0ZVmwZAt2t/Nnp/7PbygIbFYg8G4wzJIpAF/X0bQ0VX7+E7ivT7zl
-	 6apcJckOSFw2Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Benji Wiebe <itsme@benjiwiebe.com>,
-	Chuck Lever <cel@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] nfsd: don't offer flexfiles layouts when NFSv3 isn't being served
-Date: Fri,  6 Nov 2026 07:37:37 -0500
-Message-ID: <20261106123622.3999119-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110410-chive-obtuse-db0b@gregkh>
-References: <2026110410-chive-obtuse-db0b@gregkh>
+	s=k20260515; t=1793968662;
+	bh=iYuNhSenOI7lcfVk5lUHNYaSXsoThqyrOax2DqYfx4U=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=DhypPOzbv1H82KnEwwcLrD4a9toQJKWpViEJOZgJ1ti0/XUGs6KYyu5QKayiEf4N8
+	 tKAJq/SgoPfsB9B6Jxc9p4HH5+JqAWWDI4z/HLs9rQYwSR88Ft5gYazMUS9gEVSCao
+	 1wsVTHtPLjS9zA8914weFTRqZG9wBilrod1nK6LKhDs6quISpZDbm27KY4ltkGwXuy
+	 k4DhPWeHSKKxC6Vg/rcv8i3EpjUNmwnJEdctWKrGUy/BbCkW0TAuYLgwSO+MJRfnvY
+	 Va50VPTZd+l6UJSgngy3/3IVq/upIMNg6+d8hw+K6a0YF4tUfaMKzC2uaMnjGDAWL3
+	 mm21Xc/tpjv9w==
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c434376dbebso120130966b.1
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 04:37:42 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzCApXlFr+WBNuVgYzQTBFiEaOcJrbL05UpARDEU6jHJg0XnAKqRAnZ4FOmqmlL8zcZGgO+Wmk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xXtAuO6+ltza9jOn3fvKH9HZpezNFZ8ua0riaxIFZn6Vr/p1U
+	0aE6A3jE5EIFWFOO6sx7uQzd+pvHosNyIoIHc3dCs1DLP5yQFwKM1HVTzpJjwCJ/UdHetJo3B1t
+	kPekfe2doEoEnoMQph5sCGZG2F/RdHdE=
+X-Received: by 2002:a17:906:3617:b0:c46:7fa4:9212 with SMTP id
+ a640c23a62f3a-c4d3556d0d9mr152301766b.23.1793968660997; Fri, 06 Nov 2026
+ 04:37:40 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,58 +59,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261106112752.2552832-1-wahidzk0091@gmail.com>
+In-Reply-To: <20261106112752.2552832-1-wahidzk0091@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Fri, 6 Nov 2026 21:37:27 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9LgeNhDYKedSXQzY+SDd5OMxS-8O6kKt0zxriH+V5KLA@mail.gmail.com>
+X-Gm-Features: AclHuK-xYyx6CFwKY7XxaKKWjDV7an6HvC6v7wSiuOAXrjNZzfiOfSvNhgcD2Ps
+Message-ID: <CAKYAXd9LgeNhDYKedSXQzY+SDd5OMxS-8O6kKt0zxriH+V5KLA@mail.gmail.com>
+Subject: Re: [PATCH] ntfs: check the file name against the key length of an
+ index entry
+To: Wahid Khan <wahidzk0091@gmail.com>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Jeff Layton <jlayton@kernel.org>
-
-[ Upstream commit 5d28b2c920d9d9d3c45b41769342ad785eb372a7 ]
-
-The flexfiles layout driver hands out a deviceinfo that names this server
-as an NFSv3 DS (flexfilelayout.c hardcodes da->version = 3). With v3
-disabled, the client can't talk to the DS: it loops on v3 NULL calls that
-the server answers with PROG_MISMATCH, and I/O hangs in D state.
-
-Skip LAYOUT_FLEX_FILES in nfsd4_setup_layout_type() unless v3 is enabled.
-
-Reported-by: Benji Wiebe <itsme@benjiwiebe.com>
-Closes: https://lore.kernel.org/linux-nfs/c734eeb8-8486-4491-bb4d-b9656cbaffbe@app.fastmail.com/
-Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260904-pnfs-ff-v1-1-5f502cf25401@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[ sashal: replaced the existing CONFIG_NFSD_FLEXFILELAYOUT preprocessor guard instead of extending an IS_ENABLED() check ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/nfsd/nfs4layouts.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
-index bea7513a0de90..821e7ab13211d 100644
---- a/fs/nfsd/nfs4layouts.c
-+++ b/fs/nfsd/nfs4layouts.c
-@@ -125,6 +125,7 @@ nfsd4_set_deviceid(struct nfsd4_deviceid *id, const struct svc_fh *fhp,
- 
- void nfsd4_setup_layout_type(struct svc_export *exp)
- {
-+	struct nfsd_net *nn = net_generic(exp->cd->net, nfsd_net_id);
- #if defined(CONFIG_NFSD_BLOCKLAYOUT) || defined(CONFIG_NFSD_SCSILAYOUT)
- 	struct super_block *sb = exp->ex_path.mnt->mnt_sb;
- #endif
-@@ -132,9 +133,9 @@ void nfsd4_setup_layout_type(struct svc_export *exp)
- 	if (!(exp->ex_flags & NFSEXP_PNFS))
- 		return;
- 
--#ifdef CONFIG_NFSD_FLEXFILELAYOUT
--	exp->ex_layout_types |= 1 << LAYOUT_FLEX_FILES;
--#endif
-+	if (IS_ENABLED(CONFIG_NFSD_FLEXFILELAYOUT) &&
-+	    nfsd_vers(nn, 3, NFSD_TEST))
-+		exp->ex_layout_types |= 1 << LAYOUT_FLEX_FILES;
- #ifdef CONFIG_NFSD_BLOCKLAYOUT
- 	if (sb->s_export_op->get_uuid &&
- 	    sb->s_export_op->map_blocks &&
--- 
-2.53.0
-
+On Fri, Nov 6, 2026 at 8:28=E2=80=AFPM Wahid Khan <wahidzk0091@gmail.com> w=
+rote:
+>
+> ntfs_index_entry_inconsistent() checks that the file name of a
+> $FILE_NAME key fits in the index entry. It does not check that the name
+> fits in the key, which is what key_length describes. Code that works on
+> the key alone relies on that.
+>
+> ntfs_readdir() copies key_length bytes of the key of the next entry to
+> resume the enumeration, and later uses the copy to search the index. If
+> file_name_length is larger than the key holds, the name comparison reads
+> past the copy:
+>
+>   BUG: KASAN: slab-out-of-bounds in ntfs_file_compare_values+0x2d1/0x4b0
+>   Read of size 2 at addr ffff88800a4ef2ce by task init/1
+>    ntfs_file_compare_values
+>    ntfs_collate
+>    ntfs_ie_lookup
+>    ntfs_index_lookup
+>    ntfs_readdir
+>    iterate_dir
+>   Allocated by task 1:
+>    kmemdup_noprof
+>    ntfs_readdir
+>   The buggy address is located 0 bytes to the right of
+>   allocated 78-byte region
+>
+> Two bytes of an image from mkntfs are enough: in an entry whose name has
+> six characters (key_length 78), change file_name_length from 6 to 7, so
+> the key claims 80 bytes. The entry itself is 96 bytes, so the existing
+> check lets it pass. The next readdir of the directory reads the extra
+> bytes.
+>
+> Check the name against key_length, and check that the key is large
+> enough to hold file_name_length in the first place.
+>
+> Fixes: 0a8ac0c1fa0b ("ntfs: update directory operations")
+> Cc: stable@vger.kernel.org # v7.1+
+> Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
+Applied it to #ntfs-next.
+Thanks!
