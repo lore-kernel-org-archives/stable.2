@@ -1,86 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793972684;
-	b=lXnjhgXAwg77K2pg0aIRK4YDH4QFXPdfwC2K5+4QrDvIDB7se7vo1Xatuqceffa/24C+
-	 /pbOiqQGyDSPYase+pMEoIS6iYHdSAPsIsk2dninA42YTYHsCDeuhUPg4uf/GvQOmQmxv
-	 ZyaFUgEMxduE3icfhd9K2BIZDjjOEsCbZXBOogiWPUvQPUKMgNVwB56F7Td4ahLVm/e3x
-	 PgQd4tRDzL77igVzZMDjok9WN4uUSR30Zfy6G2rBkz8f4MyKJkHFpO+qmhkJ9ez1N44SL
-	 Fzb5yfUekdc3Slm3eaWT3jW11W5aSe3F+c8JPKhLTSJ8H+XDChSI5NBv11bXSWWvkaA==
+	t=1793972832;
+	b=1Osey8JOKRQxFyxtvUSy6nHtvzbhIMz1XmSvFS9bv15/Atwl2F67PSTUkgg8gC6xM2TA
+	 aZgF7XF7q3wjsdEm1hNOKmQ6DogrL51U8YZpbrOnXSCMYX6lIXEhsnhSnY73WBpnU5Agk
+	 GnyZRlta1BUzmxJCJ/epsv+YemTOeCCGbZNAfs+97YNSayhhmlos4ioxZGbo88rARAuje
+	 U7FDlhAX9GZSoCPXYoJuEiz7VvMCjfAqthlGNYHQJ4xhIoejdb1AKtf/kRRF+aXWRZJW1
+	 siiaGvXy+qC2/Nc85IqRNLsHv0+yxduYDLlQI2pgy9tDuWVGE5SBddoVpihkxer5yGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793972684;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=3aiWoJyoj47vxzUtInABSlrx48HXt8yxdTO+XR8WueA=;
-	b=oXvK37PnEwsYDnTFYwgOQqBbnzTLrP3CwxC1Mhz4XSUUC5LjBUlwQNL5oL9ZUfuzMQey
-	 BRae9PRvQGfpYi3nXwDcr9LNXfddj7o0mkn7dl5Slq8hittNFlN1keUbvSFQm5eQ5bIN5
-	 7kbWXgYVAakPHSf6fKCdac8SQ7FvV2JyT9RDkeyEJwK2tVDsze2ffCIk5Q+BnzNIJ7W9e
-	 WuRdWH8XKxcmN1gqSRD1CEUF01C7AVIX14+OoLaYOF8eOvplhKekWhTFcPG0xMPUJVL5t
-	 /PhcuVoBAK/n3xS5qR3v/PXrgCHSs3R2ScxU0Fb9jvLSdbLwChxOPWyipWf3aCMql5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793972832;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=pMEKyfbbe5lvwTgej0e66F2miLJ/4ZO8/o3rMInjvH0=;
+	b=JjVFu6BTeQp8rnRbHjQlBk+rx0mNG6H6deFInKzvVUGYuyq/JtS0qMzXECGFWFYBrFdY
+	 J6c7vV7OEPHmEJN6XgB79XCd3EoyIz/r4PdcifPNt5+lH2U6Vp3OeHtSWkM5lLzp7Lg+m
+	 xCaF6xxl5CJUdlJVIztPVvgjuRGUIsZPd95izPIsv2FzkmoAxgGMrz36tFjam/RLMGUjE
+	 bllYtZk360jXIzTRSNjlctXJIXT0G+YMFAQX2GVdUI3SVXgNfxW1Zz7wf2u1Ek3n7pw3D
+	 a5oQSCrx0Jpbl0v3WpJ+T1f/LZN5hom1O5mysTxOZ7jG61X76CyLuFyop9Jr9Avc4NQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lmNtehmK;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dZlzFAOy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2CC4606EE92;
-	Fri,  6 Nov 2026 13:44:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2CC4606EE92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7CB606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 13:47:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lmNtehmK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793972684; x=1825508684;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=x7BvifrTv8VEW0FbDwYC1KCgZFCRCkTZa/DG9DMNxHE=;
-  b=lmNtehmKrvj+rROtmR5+eiboVqfEIXCfo/EAAsMdH3ugadhvvJ2eg6ly
-   7BOYIZ7vybpY8Wka8cA8HEUHSoJL4R+obdR2d+eMFnPjBWCCFd7WLnJNO
-   8DlMeR0IK/VD5dyKHObDTqBj0Pq1Y8sxLNamJPZOpnvwB1daZpwGFbUkf
-   TNqogMuVnRzvoAREjbhPZKHJSTtWW/L9+czZwtwg779BcklJXudMV5Gxd
-   wg6e9AWpIfSiaWXAbhwmuS6SB59/d3jfQhCcz2DIdve3qxAwr9AZvbGz2
-   HMZgtMt+NBPpkj289uzuRPeA8AFXqVC8B8+084JFsSjfkTrUtEX56jU+W
-   g==;
-X-CSE-ConnectionGUID: dEUVGwjyQsevG705ETkmrg==
-X-CSE-MsgGUID: 4XS/UDJbQ7uz2Dk/pNEOtA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2686087"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2686087"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 05:44:43 -0800
-X-CSE-ConnectionGUID: pcQsxNrrSKC8kpQOIT6RIg==
-X-CSE-MsgGUID: KgxtFAYISdOBo4eUwBi49A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7327654"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.104])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 05:44:39 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Maciej Grochowski <Maciej.Grochowski@sony.com>,
-	Geramy Loveless <gloveless@jqluv.com>,
-	Eric Auger <eauger@redhat.com>,
-	Alexey Fomenko <alexey.fomenko@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
-	Mesih Kilinc <Mesih.Kilinc@sony.com>,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v5 05/14] PCI: Prevent zero align from reaching __ffs64()
-Date: Fri,  6 Nov 2026 15:43:26 +0200
-Message-ID: <20261106134341.39493-6-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261106134341.39493-1-ilpo.jarvinen@linux.intel.com>
-References: <20261106134341.39493-1-ilpo.jarvinen@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dZlzFAOy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097BA1F0089F;
+	Fri,  6 Nov 2026 13:47:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793972831;
+	bh=pMEKyfbbe5lvwTgej0e66F2miLJ/4ZO8/o3rMInjvH0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dZlzFAOytssnYzTxCg9ZlzYnPwz+co95+HIEavNrQHv3I14rIqzfU7PHPFgb5PqEj
+	 ArZKDPksJ2z3bOvkScbfBFQKl/H3PB/8e8a76PxFVP4jlniPwbf0TGLbCXbjU+fDqN
+	 lwzO6+2vO0Z+ITl3idOF+3P1mK5LuJTfpOTRGkhtI71UwkMhpCJY6rbSuAyPdYcuOh
+	 hdJXNQ5plugeiiAKK/wqTxvuHzKE6r5N/0DllZsp9Z831j/0jnHNoV7JVAoWFvQCgH
+	 NHssxOwwTZS9klwCgER7pzbBfzzhFSGfHqJrPoP0qa2xekRr1cu5voHN1SFUb6CDVX
+	 +xFDpODwqZqXQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chuck Lever <cel@kernel.org>,
+	sashiko-bot <sashiko-bot@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] NFSD: Map flex file layout IDs through the request's user namespace
+Date: Fri,  6 Nov 2026 08:47:09 -0500
+Message-ID: <20261106134646.255119-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110411-clothing-unskilled-c8ce@gregkh>
+References: <2026110411-clothing-unskilled-c8ce@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,48 +60,178 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The bridge window sizing algorithm calculates order from alignment
-using __ffs64(). __ffs*() is undefined for zero input.
+From: Chuck Lever <cel@kernel.org>
 
-pci_resource_alignment() & resource_alignment() have a number potential
-ways ways to return 0, in fact, resource_alignment() intentionally does
-that if neither SIZEALIGN nor STARTALIGN is set.
+[ Upstream commit f913d5d2130a584d1a027ffe3dfd88b6be2e0540 ]
 
-Thus, ensure zero align is always properly dealt with in
-pbus_size_mem(). pdev_sort_resources() already has a similar check for
-values returned from pci_resource_alignment() (though it is not using
-__ffs*()).
+nfsd4_ff_proc_layoutget() and nfsd4_ff_encode_layoutget() translate
+the file's owner and group with init_user_ns, but every other identity
+nfsd places on the wire goes through nfsd_user_namespace(). When the
+transport carries a credential from a non-initial user namespace, the
+flex file layout reports host-global IDs. The client copies those IDs
+into the AUTH_SYS credential it presents to the data server, and
+svcauth_unix_accept() resolves that credential in the transport's
+namespace, so data server I/O runs under an identity unrelated to the
+file's owner.
 
+Switching to the request's namespace introduces a second hazard.
+from_kuid() returns (uid_t)-1 when the target namespace has no
+mapping for the owner, and the IOMODE_READ arm adds one to that
+result to derive an identity for which the data server denies
+writes. The addition would wrap to zero, handing the client uid 0
+instead of an identity distinct from the owner.
+
+Translate both IDs in nfsd4_ff_proc_layoutget(), which has the
+svc_rqst, and carry the wire values in struct pnfs_ff_layout.
+from_kuid_munged() substitutes overflowuid for an unmapped owner and
+thus never returns (uid_t)-1, so the increment cannot wrap to zero.
+
+Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260720141442.783935-1-cel@kernel.org?part=3
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260720163724.810227-1-cel@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
+[ sashal: added the missing request parameter to the proc_layoutget callback interface, caller and implementations ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/setup-bus.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/nfsd/blocklayout.c       |  4 ++--
+ fs/nfsd/flexfilelayout.c    | 24 ++++++++++++++----------
+ fs/nfsd/flexfilelayoutxdr.c |  4 ++--
+ fs/nfsd/flexfilelayoutxdr.h |  5 +++--
+ fs/nfsd/nfs4proc.c          |  2 +-
+ fs/nfsd/pnfs.h              |  4 ++--
+ 6 files changed, 24 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index f4358322f766..9d167e7773a1 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -1309,6 +1309,8 @@ static void pbus_size_mem(struct pci_bus *bus, struct resource *b_res,
- 				continue;
+diff --git a/fs/nfsd/blocklayout.c b/fs/nfsd/blocklayout.c
+index 5c8f20a326d23..92eda5d9f4627 100644
+--- a/fs/nfsd/blocklayout.c
++++ b/fs/nfsd/blocklayout.c
+@@ -22,8 +22,8 @@
  
- 			align = pci_resource_alignment(dev, r);
-+			if (!align)
-+				goto bad_alignment;
- 			/*
- 			 * aligns[0] is for 1MB (since bridge memory
- 			 * windows are always at least 1MB aligned), so
-@@ -1317,6 +1319,7 @@ static void pbus_size_mem(struct pci_bus *bus, struct resource *b_res,
- 			 */
- 			order = max_t(int, __ffs64(align) - __ffs(SZ_1M), 0);
- 			if (order >= ARRAY_SIZE(aligns)) {
-+bad_alignment:
- 				pci_warn(dev, "%s %pR: disabling; bad alignment %#llx\n",
- 					 r_name, r, (unsigned long long) align);
- 				r->flags = 0;
+ 
+ static __be32
+-nfsd4_block_proc_layoutget(struct inode *inode, const struct svc_fh *fhp,
+-		struct nfsd4_layoutget *args)
++nfsd4_block_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
++		const struct svc_fh *fhp, struct nfsd4_layoutget *args)
+ {
+ 	struct nfsd4_layout_seg *seg = &args->lg_seg;
+ 	struct super_block *sb = inode->i_sb;
+diff --git a/fs/nfsd/flexfilelayout.c b/fs/nfsd/flexfilelayout.c
+index 041466513641c..9a681e032bfb6 100644
+--- a/fs/nfsd/flexfilelayout.c
++++ b/fs/nfsd/flexfilelayout.c
+@@ -14,19 +14,20 @@
+ #include <linux/sunrpc/addr.h>
+ 
+ #include "flexfilelayoutxdr.h"
++#include "auth.h"
+ #include "pnfs.h"
+ #include "vfs.h"
+ 
+ #define NFSDDBG_FACILITY	NFSDDBG_PNFS
+ 
+ static __be32
+-nfsd4_ff_proc_layoutget(struct inode *inode, const struct svc_fh *fhp,
+-		struct nfsd4_layoutget *args)
++nfsd4_ff_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
++		const struct svc_fh *fhp, struct nfsd4_layoutget *args)
+ {
++	struct user_namespace *userns = nfsd_user_namespace(rqstp);
+ 	struct nfsd4_layout_seg *seg = &args->lg_seg;
+ 	u32 device_generation = 0;
+ 	int error;
+-	uid_t u;
+ 
+ 	struct pnfs_ff_layout *fl;
+ 
+@@ -49,13 +50,16 @@ nfsd4_ff_proc_layoutget(struct inode *inode, const struct svc_fh *fhp,
+ 	fl->flags = FF_FLAGS_NO_LAYOUTCOMMIT | FF_FLAGS_NO_IO_THRU_MDS |
+ 		    FF_FLAGS_NO_READ_IO;
+ 
+-	/* Do not allow a IOMODE_READ segment to have write pemissions */
+-	if (seg->iomode == IOMODE_READ) {
+-		u = from_kuid(&init_user_ns, inode->i_uid) + 1;
+-		fl->uid = make_kuid(&init_user_ns, u);
+-	} else
+-		fl->uid = inode->i_uid;
+-	fl->gid = inode->i_gid;
++	fl->uid = from_kuid_munged(userns, inode->i_uid);
++	fl->gid = from_kgid_munged(userns, inode->i_gid);
++
++	/*
++	 * Do not allow an IOMODE_READ segment to have write permissions.
++	 * The group is left intact so group-readable files stay readable;
++	 * nfsd_setuser() squashes an unmapped uid to the export's anon ID.
++	 */
++	if (seg->iomode == IOMODE_READ)
++		fl->uid++;
+ 
+ 	error = nfsd4_set_deviceid(&fl->deviceid, fhp, device_generation);
+ 	if (error)
+diff --git a/fs/nfsd/flexfilelayoutxdr.c b/fs/nfsd/flexfilelayoutxdr.c
+index c05d1d3e20210..4bfdfee1bf9ce 100644
+--- a/fs/nfsd/flexfilelayoutxdr.c
++++ b/fs/nfsd/flexfilelayoutxdr.c
+@@ -32,8 +32,8 @@ nfsd4_ff_encode_layoutget(struct xdr_stream *xdr,
+ 
+ 	fh_len = 4 + xdr_align_size(fl->fh.size);
+ 
+-	uid.len = sprintf(uid.buf, "%u", from_kuid(&init_user_ns, fl->uid));
+-	gid.len = sprintf(gid.buf, "%u", from_kgid(&init_user_ns, fl->gid));
++	uid.len = sprintf(uid.buf, "%u", fl->uid);
++	gid.len = sprintf(gid.buf, "%u", fl->gid);
+ 
+ 	/* data server entry: deviceid + efficiency + stateid + fh list +
+ 	 * user + group + flags + stats_collect_hint
+diff --git a/fs/nfsd/flexfilelayoutxdr.h b/fs/nfsd/flexfilelayoutxdr.h
+index 8e195aeca0237..3e2dc4d070f8d 100644
+--- a/fs/nfsd/flexfilelayoutxdr.h
++++ b/fs/nfsd/flexfilelayoutxdr.h
+@@ -35,8 +35,9 @@ struct pnfs_ff_device_addr {
+ struct pnfs_ff_layout {
+ 	u32				flags;
+ 	u32				stats_collect_hint;
+-	kuid_t				uid;
+-	kgid_t				gid;
++	/* Values to encode; nfsd4_ff_proc_layoutget() has mapped these */
++	u32				uid;
++	u32				gid;
+ 	struct nfsd4_deviceid		deviceid;
+ 	stateid_t			stateid;
+ 	struct nfs_fh			fh;
+diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
+index 5c814876825c9..6728f847beb44 100644
+--- a/fs/nfsd/nfs4proc.c
++++ b/fs/nfsd/nfs4proc.c
+@@ -2258,7 +2258,7 @@ nfsd4_layoutget(struct svc_rqst *rqstp,
+ 	if (atomic_read(&ls->ls_stid.sc_file->fi_lo_recalls))
+ 		goto out_put_stid;
+ 
+-	nfserr = ops->proc_layoutget(d_inode(current_fh->fh_dentry),
++	nfserr = ops->proc_layoutget(rqstp, d_inode(current_fh->fh_dentry),
+ 				     current_fh, lgp);
+ 	if (nfserr)
+ 		goto out_put_stid;
+diff --git a/fs/nfsd/pnfs.h b/fs/nfsd/pnfs.h
+index 4f4282d4eeca4..c29de1795b2cb 100644
+--- a/fs/nfsd/pnfs.h
++++ b/fs/nfsd/pnfs.h
+@@ -29,8 +29,8 @@ struct nfsd4_layout_ops {
+ 	__be32 (*encode_getdeviceinfo)(struct xdr_stream *xdr,
+ 			struct nfsd4_getdeviceinfo *gdevp);
+ 
+-	__be32 (*proc_layoutget)(struct inode *, const struct svc_fh *fhp,
+-			struct nfsd4_layoutget *lgp);
++	__be32 (*proc_layoutget)(struct svc_rqst *rqstp, struct inode *inode,
++			const struct svc_fh *fhp, struct nfsd4_layoutget *lgp);
+ 	__be32 (*encode_layoutget)(struct xdr_stream *,
+ 			struct nfsd4_layoutget *lgp);
+ 
 -- 
-2.47.3
+2.53.0
 
