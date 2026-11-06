@@ -1,80 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793983380;
-	b=GTjPGUUGqtwhs0d6anHlY1N++IELoH8pNCKb25/UaJEK2IrLUuJ/e0BxBy8JoaoXrB5a
-	 Fv4EqpbeMtyqgTRTQ7MQ4xI3Ic5MuTOIQX4ZQPkXfapJZ2NOIw7pBIDXZ71oxqjkjYZc2
-	 TWN9spQeSO/hv7lLRuL0UxLxcF8qXTcrkJdThj89JOhM609HblSICddk4G0Xk20hZuWZM
-	 bUZDw0rsXUSWKv9KW2/azGzQiue85lO7p542NuCTMJUedBzIWT9mYaxNteNOw84+Vhp/8
-	 JGM0cuMuELK8ts2oZ2zyfUOv7GWNEMt41STwHPX3q3W1ScJirLKhHOd8RYQIptm39+Q==
+	t=1793983734;
+	b=FwcAS1fE+zFzT15SrKpheMJTsZsZk/ohHK/IiyzMgbWuyDmZhg+sJGUsGfx+Se4LWl/6
+	 HHHtHBKM7u6ZdtxvwmyeYlDTZuKYNNteNVwVYaOFmIJifYnLUts4AwMRT28qakIUormtb
+	 nfaNtg2hs1fFlZwLRT3Cc5vgsVF6OKgvzxpwwNSypbi2MRZLYzhfJiwtqyZ+pE2YiuqWD
+	 YXWv4gHGlXhl+eIZTTUJTcto1jf9bOuwW0h7Bn3Ln6+yWW6VylM2tnxafExO9yE/w5eIf
+	 eZeR+E5g16ZBPMMlAvSoxbRZvCGc6NgrMyJzIvZKj7PMONGWHpL8pnlgDK1+XiJKqnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793983380;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=sOSTmZKcrJ1kJMPBeiZzfbNHAaw+xN5ssuPT1uHWyXE=;
-	b=PxHvAeMi8P0lEUEKgUQG9LVfIehsx6ubxoMii0v6lB391E5FAdesXtKHdWAduNYaqkCI
-	 Mc34192dMCO8RSirl48i/4wZGppDGLTmThR4wc5HsWtFAjghQyHIWPZvgsbYc1gB2Y3PV
-	 p7hpUUH+wRPVfFs6FjN1sC6pNWdPKRhPQINlqA5vY+KsPaPbN8HheuaB9Nt0GiSam61DP
-	 9bbZqQhTY7BzQzE/99MPgVNapcggdtqAPiJDEwz+U/fznph8BViWfwwCoERO4waB45lrO
-	 r1NDFXDhPSGWTWnfjbTv8Hg5lR/vc4erjzgC1C+rH5qHF4rvqIcVyjF8PmgJz/Xf12w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793983734;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wwedXasY6Bp8ZwF+4iZZRJ4XWL8SdA+Fk4YfEj7+kwE=;
+	b=b/QDkyep07WDPmflSwQwSWL5hEHrrWjNkGrJCA0XV5QZZXR/HfIyC62Xa2ulaPXhVnmY
+	 hQji62PhuDNY2X6emYwhIPmLIIudaqE2bQ9oYCCUruGoq3uAtdwEFPZMKVNXhEuuTdKll
+	 g0PqbIdY9ifsVFGUDs+HTAPL0M16qoetVAqSQnhY9tcPwHF6MNSxGXK44H6AjENL9mny+
+	 7xWYW9AUlLV9fb302qP5ANnj1kM3N4RXTwBkjM3O/1KmXfX9PGzLyEoo3Olh9KiVQZwqh
+	 TNIWpQ+3BlkwZfop1vQx4aM0B6CwF+g5mDhF3u4WjObzFqCEYwoiggBuBMzoZruTx2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OfKfcCJu;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X23zSpUc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627BF606A326;
-	Fri,  6 Nov 2026 16:43:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 627BF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67291606A330;
+	Fri,  6 Nov 2026 16:48:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OfKfcCJu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793983381; x=1825519381;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=DtSzl4OkluS1AquIQlPMXdHmZEU1A74G5s2HtG/AMYY=;
-  b=OfKfcCJu+UKgaDTLw8R/sSrBnZ1J4c+CMzhv/B6ZkMWw+sPcrGD1fafs
-   RL1a5obKXJiDax5M6TqKBtmRk9SVorO6yjq/w0VnBzJzBqZ5DiYBiAAaL
-   zHPQMgcjNLQbJsroNwrYl+b4r7oA6a3wCCOo1+hcwCdmrZjaNHyTZEtjQ
-   6lNUpn/p1od4DXyubLt9+mcfCjOQPOVGu3Xon8ft95OvXZ5UEV9er3Uw/
-   G272RGOAlkUme2mXjm3kGg4XrlBIDux87byp+OARPN+G0hUdSjUKB4McO
-   QmQxXF6nM57RTP9DxMcJaj5hIq22z5CCP9MPlgqM9DRIWeQ8PtmJRv1OL
-   A==;
-X-CSE-ConnectionGUID: IWkc9kqQTlSa/OPtASAeOA==
-X-CSE-MsgGUID: 5Z4vJdz6Q6+0KFVHCcoEng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2832121"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2832121"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:43:00 -0800
-X-CSE-ConnectionGUID: 5kTaVGYwRrOE2rN5egO1BQ==
-X-CSE-MsgGUID: ASPBrMcTQrOOcy2RCl6P+w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7747948"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa007.fm.intel.com with ESMTP; 06 Nov 2026 08:42:58 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id E1E3699; Fri, 06 Nov 2026 17:42:56 +0100 (CET)
-Date: Fri, 6 Nov 2026 17:42:56 +0100
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: kernel@resetko.pl
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Guenter Roeck <linux@roeck-us.net>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mark Pearson <mpearson-lenovo@squebb.ca>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] usb: typec: ucsi: acpi: Rename the Acer zero
- version quirk
-Message-ID: <au4DkMViEzQEHLHd@black.igk.intel.com>
-References: <20261103-ucsi-lenovo-t14g2a-v2-0-e85c659b56a2@resetko.pl>
- <20261103-ucsi-lenovo-t14g2a-v2-1-e85c659b56a2@resetko.pl>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X23zSpUc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618661F0089F;
+	Fri,  6 Nov 2026 16:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793983734;
+	bh=wwedXasY6Bp8ZwF+4iZZRJ4XWL8SdA+Fk4YfEj7+kwE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=X23zSpUcdN+am/IsFeY2VmYV9jInPIWBejU6sNczHeODweAqOhe7W03gMbMU/lMK/
+	 H8EIPCvSaSvqFl0m4mV6/KYWV5kZhZhU0WObpKdkXn63SHiSYXO7FVKFwvaMFMuKIo
+	 F3NmwRk7k0+nYiHTVvZiJ9+PNQIaULYgPbnycBbTgmNNcRbxBB1Yf/qIDx0plxIz0H
+	 W1mmzh3G8rwkmhMPiShbhnoe/BKnyVYbj9i8quoEWRQj8+w0jHGRtYJH02cv1drFGc
+	 PCoLSCgheRNxpmoi6y5wLow+6a3imy1fCK62Y9AvB2+kEx9MKhHqs83M382H0JF4Wg
+	 ztsdFAAwbwt8A==
+Date: Fri, 6 Nov 2026 16:48:46 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Brendan Jackman <brendan.jackman@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Ye Liu <ye.liu@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/huge_memory: prevent losing PG_waiters in
+ __split_folio_to_order()
+Message-ID: <au4A9Jx9_1PjpRCb@gremlin>
+References: <20261029-fix-split_folio_to_order-race-v1-1-a483c7451b0d@nvidia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,71 +65,190 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261103-ucsi-lenovo-t14g2a-v2-1-e85c659b56a2@resetko.pl>
+In-Reply-To: <20261029-fix-split_folio_to_order-race-v1-1-a483c7451b0d@nvidia.com>
 
-On Tue, Nov 03, 2026 at 05:10:20PM +0100, Stanisław Titenko via B4 Relay wrote:
-> From: Stanisław Titenko <kernel@resetko.pl>
-> 
-> The quirk added for the Acer Nitro ANV15-41 is not specific to that
-> machine: it substitutes UCSI 1.2 when the firmware reports a zero
-> version, which other platforms with the same firmware bug need too.
-> 
-> Rename ucsi_acer_read_version() and ucsi_acer_ops to
-> ucsi_zero_version_read_version() and ucsi_zero_version_ops, so that
-> they can be shared with other machines.
-> 
-> No functional change.
-> 
-> Cc: stable@vger.kernel.org # needed by the next patch
-> Assisted-by: pi:claude-opus-5-5
-> Signed-off-by: Stanisław Titenko <kernel@resetko.pl>
+On Thu, Oct 29, 2026 at 10:08:44PM -0400, Zi Yan wrote:
+> __split_folio_to_order() calls prep_compound_page() on each new head page
+> to create a compound page after clear_compound_head(). prep_compound_page()
+> uses non atomic __SetPageHead(). It is mostly OK, since the folio is locked
+> and frozen and no one else is supposed to modify the folio's flags.
+>
+> However, code calling migration_entry_wait() can reach the folio by PFN,
+> then access its flags. It is because softleaf_entry_wait_on_locked() used
 
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Oh fun.
 
+> by migration_entry_wait() sets PG_waiters concurrently without taking a
+> reference and the frozen refcount during split cannot block it. Meanwhile,
+> __SetPageHead() does a plain read and write, so PG_waiters atomically set
+> by softleaf_entry_wait_on_locked() will be lost if the set happens after
+> __SetPageHead()'s read and before its write.
+>
+> One example code interleaving:
+>
+> CPU0: __split_folio_to_order(new_order>0)  CPU1: do_swap_page()
+>
+> 1. clear_compound_head(new_head)
+>    new_head->compound_info = 0
+>    (page_folio(new_head) == new_head now)
+>
+>                                            2. migration_entry_wait()
+>                                              softleaf_to_folio(entry)
+>                                              page_folio() -> new_head
+>                                              (not the old head any more)
+>
+> 3. prep_compound_page(new_head, new_order)
+>      __SetPageHead(new_head)
+>        tmp = new_head->flags.f  <-- load; PG_waiters == 0 in tmp
+>
+>                                            4. folio_set_waiters(new_head)
+>                                              set_bit(PG_waiters, &flags.f)
+>                                              enqueue on waitqueue, sleep
+>
+> 5.     new_head->flags.f = tmp | (1UL << PG_head)
+>        <-- store; overwrites step 4, PG_waiters == 0 again
+>
+> Later, folio_unlock(new_folio) sees no PG_waiters, skips folio_wake_bit(),
+> and CPU1 can remain blocked indefinitely.
+>
+> Fix it by adding the atomic version SetPageHead() and
+> prep_compound_page_atomic() using it. __split_folio_to_order() uses
+> prep_compound_page_atomic() to avoid the issue without adding an atomic ops
+> to other prep_compound_page() users.
+>
+> Reported-by: David Hildenbrand <david@kernel.org>
+> Closes: https://lore.kernel.org/all/DMHE8BEEER1H.2BIY52NXATPIA@nvidia.com/
+> Fixes: c010d47f107f6 ("mm: thp: split huge page to any lower order pages")
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+
+Nasty one. Some nits below but change looks sensible to me so:
+
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+BTW AI flags an hw poison thing doing the same:
+
+memory_failure() does TestSetPageHWPoison(p) on an arbitrary subpage before
+taking a reference (mm/memory-failure.c:2458), which races the same way with the
+plain flag clone and with folio_set_order()'s plain _flags_1 store.
+
+> Cc: stable@vger.kernel.org
 > ---
->  drivers/usb/typec/ucsi/ucsi_acpi.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
-> index 5697ccc24ec3..47ba0e15b8ba 100644
-> --- a/drivers/usb/typec/ucsi/ucsi_acpi.c
-> +++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-> @@ -121,7 +121,7 @@ static const struct ucsi_operations ucsi_acpi_ops = {
->  	.async_control = ucsi_acpi_async_control
->  };
->  
-> -static int ucsi_acer_read_version(struct ucsi *ucsi, u16 *version)
-> +static int ucsi_zero_version_read_version(struct ucsi *ucsi, u16 *version)
->  {
->  	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
->  	int ret;
-> @@ -138,8 +138,8 @@ static int ucsi_acer_read_version(struct ucsi *ucsi, u16 *version)
->  	return 0;
+> The issue was raised by David when reviewing Ye Liu's "mm/huge_memory: use
+> READ_ONCE() when cloning folio flags during split" [1].
+>
+> [1] https://lore.kernel.org/all/20261029-data_race_huge_mem-v1-1-112e331291c1@linux.dev/
+> ---
+>  include/linux/page-flags.h |  1 +
+>  mm/huge_memory.c           | 10 +++++++++-
+>  mm/internal.h              |  2 ++
+>  mm/page_alloc.c            | 20 ++++++++++++++++++--
+>  4 files changed, 30 insertions(+), 3 deletions(-)
+>
+> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+> index b0ddc652e76cc..08492ab3da895 100644
+> --- a/include/linux/page-flags.h
+> +++ b/include/linux/page-flags.h
+> @@ -854,6 +854,7 @@ static __always_inline int PageHead(const struct page *page)
+>  	return test_bit(PG_head, &page->flags.f);
 >  }
->  
-> -static const struct ucsi_operations ucsi_acer_ops = {
-> -	.read_version = ucsi_acer_read_version,
-> +static const struct ucsi_operations ucsi_zero_version_ops = {
-> +	.read_version = ucsi_zero_version_read_version,
->  	.read_cci = ucsi_acpi_read_cci,
->  	.poll_cci = ucsi_acpi_poll_cci,
->  	.read_message_in = ucsi_acpi_read_message_in,
-> @@ -194,7 +194,7 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
->  			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
->  			DMI_MATCH(DMI_PRODUCT_NAME, "Nitro ANV15-41"),
->  		},
-> -		.driver_data = (void *)&ucsi_acer_ops,
-> +		.driver_data = (void *)&ucsi_zero_version_ops,
->  	},
->  	{
->  		.matches = {
-> 
-> -- 
-> 2.56.0
-> 
+>
+> +SETPAGEFLAG(Head, head, PF_ANY)
+>  __SETPAGEFLAG(Head, head, PF_ANY)
+>  __CLEARPAGEFLAG(Head, head, PF_ANY)
+>  CLEARPAGEFLAG(Head, head, PF_ANY)
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index bd44d58e86845..319b038eba89d 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -3779,7 +3779,15 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
+>  		 */
+>  		clear_compound_head(new_head);
+>  		if (new_order) {
+> -			prep_compound_page(new_head, new_order);
+> +			/*
+> +			 * new_head is recognized as a folio after
+> +			 * clear_compound_head().
+> +			 * softleaf_entry_wait_on_locked() can set PG_waiters
+> +			 * on it without taking a reference, so its frozen state
+> +			 * cannot prevent it. Use the atomic version to avoid
+> +			 * losing a concurrently set PG_waiters.
+> +			 */
+> +			prep_compound_page_atomic(new_head, new_order);
+>  			folio_set_large_rmappable(new_folio);
+>  		}
+>
+> diff --git a/mm/internal.h b/mm/internal.h
+> index aeebb3e49ed11..9b8864a8540aa 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -807,6 +807,8 @@ static inline void prep_compound_tail(struct page *tail,
+>  	VM_WARN_ON_ONCE(tail->private);
+>  }
+>
+> +void prep_compound_page_atomic(struct page *page, unsigned int order);
+> +
+>  #if defined CONFIG_COMPACTION || defined CONFIG_CMA
+>
+>  /*
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 143776e671abb..ace1359468046 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -682,18 +682,34 @@ static inline bool pcp_allowed_order(unsigned int order)
+>   * This usage means that zero-order pages may not be compound.
+>   */
+>
+> -void prep_compound_page(struct page *page, unsigned int order)
+> +static void __prep_compound_head_and_tail(struct page *page, unsigned int order)
 
--- 
-heikki
+NIT: can this just be __prepare_compound_page()? I find the head + tail bit
+quite confusing. The __ implies it's an internal function.
+
+>  {
+>  	int i;
+>  	int nr_pages = 1 << order;
+>
+> -	__SetPageHead(page);
+>  	for (i = 1; i < nr_pages; i++)
+>  		prep_compound_tail(page + i, page, order);
+>
+>  	prep_compound_head(page, order);
+>  }
+>
+
+NIT: Maybe add a comment describing this like prep_compound_page_atomic()?
+
+> +void prep_compound_page(struct page *page, unsigned int order)
+> +{
+> +	__SetPageHead(page);
+> +	__prep_compound_head_and_tail(page, order);
+> +}
+> +
+> +/*
+> + * PG_head is set atomically whereas the other metadata is set with plain stores.
+> + * It should be used when @page's flags can be modified concurrently,
+> + * e.g., in __split_folio_to_order().
+> + */
+> +void prep_compound_page_atomic(struct page *page, unsigned int order)
+> +{
+> +	SetPageHead(page);
+> +	__prep_compound_head_and_tail(page, order);
+> +}
+> +
+>  static inline void set_buddy_order(struct page *page, unsigned int order)
+>  {
+>  	set_page_private(page, order);
+>
+> ---
+> base-commit: d865f2677c44cb2171b833d6775cf692756fa8be
+> change-id: 20261029-fix-split_folio_to_order-race-087a2a9fbf7c
+>
+> Best regards,
+> --
+> Yan, Zi
+>
+
+--
+Cheers, Lorenzo
