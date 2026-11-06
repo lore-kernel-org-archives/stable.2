@@ -1,88 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794001247;
-	b=ZmxnytssGHOfQi/PRSjLZeZuZXl2m5J+O0fbVHJjzRFMZkcN8ydzlLzO88ZnbQDFod/x
-	 9AP3XJZC//oyVmX+DXmPYvcOXpv9H9F08I2YJWPjFDjMPBdTAyjVTUtK7vTupN9KZADpC
-	 BcZwjp+R1n/i2Ugsc8lwzOJw0ntl1EsxpvVnjwu4NuPj0ycVerUNLKmG5FvZYsbXyrWJP
-	 7pW/hGOtI0dzCzCF7QBBlq1Xc/ZLVTPieulCx42a6966yaXQYzAob15ENcDIYvzBTYKnY
-	 R9zkrwZA2f6847ehEJwE5VddATMDPP3+iwZC+jna3RKubXRncyGBXcKG6bAfgTsU3RA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794001247;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=HDC3HGct+N1kATD3ozLle6tkVgbjKWtzjQkKlLDrKRY=;
-	b=Y+FtICA8Az98enhbzZdk5/AL79huYqsC+AmleftSqCzqBdlQBhl4kw3TTx0bIdE729ns
-	 fSRCl+AFijQWB+bPlvNFsXT65jvsFVyXGtfkvNIQnr53BfUr6NoUHyjU+JtisORZebZrs
-	 WVBe5FA+9BudFuEsU350WLHUaaCMaxdD4r93mn6d8jKYdvSOCsgk/hRVlBiWSHUSJqd4e
-	 vTRQPUQX0/KWfhZL4mEZms/EDSLc5lf3PAV0TNKQvuNtTMhm8XbdMrya6+bcGSaNtqDqT
-	 V7ZoCDNp90sqxbYu376ZVnuQM+LT4tYBslARDPdUHbYwWYjOXEnwceIg7wGQhtM+UjA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lk7q8SwX;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794001416;
+	b=igb37+jKW+3cV1dy7S5DVpoQ06jOTZM0sPAevRSvlz1G2ZzxZbvwMndUv8PXyiW5ZDWM
+	 Q0yHx6RHXk8ugUpZFMCoa2y/TJq6DkzeMZSDTL1zgRV5AWB6Xh+/RMeRgNWRFaPawxBX/
+	 h5P8oao6CdysRffn/Ts27WVqp2xttLCgSJyumF2OXYLQMdqTAIQBlCxeXyJXafh0XxEHh
+	 fNnf4czeECldldRqc9tfJBDDrgpAVXL3sviUarYhdwBjNQVr5tfx+kLjeeSZb8L8GPVor
+	 8L1uxs2iT0C+cgQ6BJhfc2dY28N3TpN81WylDM+W2aZMQZQwepOKEENOI0emKjCGjSw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794001416;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=BgIXGY8SgvP6w3HtFUueuWDoGe84VhugkauvX26/Skg=;
+	b=Hk4mmkh4TTgTFvMtwYpYggEIBvdj2s6+ib304QFuNYZ/wKQk3PkgT1ig62kQJGSH88xO
+	 BvxKjJcjatz+b/6TLnBdfoMnNTwRwl8fnjzDHOs1w6SdtCj+aHAPT/HPlkMtTioWyCDtv
+	 bSajwOBUqRVino54L34rsXEbdr+6wLasx6Ee/6apgcBARcBG7VdXaz9OvU7t3Ge2ucoeL
+	 zMoOlClu4br4+EjmJ9LZbIAl4qOXOY1xuQfDicXWisDFI+0EdNYm66lh+rnaSqBDZfrjN
+	 ZgUMFxcAmc1PJiSNzD7072pcTqB9XFIvKr6FsnQ7YI/t8M80aHu2uK+nc4h0+KlltWw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=nAYhjlti;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.43
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013043.outbound.protection.outlook.com [40.107.201.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C2E606A330
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 21:40:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35C2E606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C094606A326;
+	Fri,  6 Nov 2026 21:43:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C094606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lk7q8SwX
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a206f0b95bso8375e9.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 13:40:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794001245; x=1794606045; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=HDC3HGct+N1kATD3ozLle6tkVgbjKWtzjQkKlLDrKRY=;
-        b=lk7q8SwXuna/HE2iiiMlyVcoL7yI2SAWKVqoxClIP/wSAqDxTRgly2E+zFPvHr47IN
-         xD8FNxo+ibPoOO6WkHJajZj5eDdJujEBcelV2iDO1JTxHN2X0uM3r5CTxDpAfSOO2Afd
-         nGd+Z28R6QnWNYZTZC+MLnIS5Y2/Kbfkj3Dye/BagbNF8FHfoBoskvSIT0KnYxCsHNMD
-         brYEou7p+RVeB/Km3pDNSUECAxgxLeUSrXzMDUxiweSGez+kWIAAOq14qcPfJaacHnnA
-         N2CF4Rq80fnpiBd9satdmiIv0Nf1jfKrNakIKToAL85O+z9SXhb+Y07D41X7SxIGUqW+
-         YlTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794001245; x=1794606045;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=HDC3HGct+N1kATD3ozLle6tkVgbjKWtzjQkKlLDrKRY=;
-        b=Xc1941IAPMeyMgSOXDmDn0Aav0oPMF0vkBqUvV5E6WP+iJWsqNX/xap5Ou69su4bgn
-         2433mvfR4+KOMZ53p7ek72BTvKpwAAIt4n92kymnvaykRIyGI4gIvvfGX9r+JyUJzOPY
-         mT9DSQTNk3iCZRl4tIgC8P3hVUAxGTVtdY42VWWBokndd4+2v1NKwzHxJkz8EzWu6MTE
-         49cWVH4gbOZ5YMpi+NS7qmRVQGxVTdnolPd8uorvwR8NhXtjC777/EKxzsfUK+FC1de1
-         7snW/laiqbHl6kaGbhRJKS0aS/hRRZLPO+aplkNqg0qy7nhKjewnW09SBJAXUgmWM//A
-         t7ig==
-X-Forwarded-Encrypted: i=1; AKwUvBxqcapMiOxhuaZpt0PP9JAqOS3qtd/vgv7E9VCZmzKg7EtWcBpowD5eAk+Q5JauInLLMkP9jiY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+TvxqYmZixwxb2WCWWVOhXWDn0ag8WagVyrdFxpp5ozHsabqJ2
-	l6Fbd3mny1x3uqIlb6VicLv+cOBc4vq5IiPxnlw+KXF/PPGqvV39GjCy8pZtobafqA==
-X-Gm-Gg: AYBFou3PJZzmyz+B0yQeENOxWatpFIRVt6aDdeQSS9aiIzwyEp4Idixad87nkIDhXoZ
-	+Tkc0DzKPpVIF9uZj4DtrkroEVSqApG3JTW4XyNYaux3tVnyOX8ggv0jpvVrh0CsTSuEBHqS+0r
-	yoeeaJMTKOcq0h1CG/unOsWi8Ae1VcxLvWLT/qkowAyGVtihGFt2PyE6kLJ+pYjFHkJe5BYIq7m
-	ncdT4azl7NJzGYiMaQkMQ5NpP9Yln0AiD3dZOZSsj08VVE/0lIMtd0uTj3jl6pUZ+OFFrai5U/W
-	DfqbiaEB3BW6c6BXI78i3V8PUjSTnglpieX8baseFuMuEoVpbtSu8rsHFXVjdLslyTF1sqOohf6
-	gAD2eNltk6fYE1VgPyrbqsi9e+O6KQ+8LjFPUgr5zC96smgnjd+PtZiopxJ8ijU7Ou4HzNpu4Jj
-	E0SZkKUJpj11+Go4sxvSI2GGUGPtAgEdyUhJwA3ixXwC/T7naTQfQ4cbWo9qfNB8XG+WAvWlPO/
-	vj7o+aTOEFzdsGZzrJ5z9juPuU8wSIlG4SObqI1HPdXHVeG37pZU+7DA15vo81ZzsshtkxmwKsV
-	U1kfBXTZT/TbwAyMlqmSAXdHszwAnvKCytmkFt6FldWMV2GupxxbQnico24pv8/COgRGojl/E0e
-	7lDeGuUVGD07kmPZk2nDJuW0m+XXGTr0n6j8=
-X-Received: by 2002:a05:600c:8b31:b0:4a1:d7fa:ae36 with SMTP id 5b1f17b1804b1-4b8190f3b55mr98285e9.4.1794001245067;
-        Fri, 06 Nov 2026 13:40:45 -0800 (PST)
-Received: from localhost ([2a00:79e0:288a:8:476d:4cff:b13d:f028])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7701bfasm5887936f8f.40.2026.11.06.13.40.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 13:40:44 -0800 (PST)
-From: Jann Horn <jannh@google.com>
-Date: Fri, 06 Nov 2026 22:40:31 +0100
-Subject: [PATCH net] cipso: stop modifying live ip_options_rcu
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=nAYhjlti
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xNAKsUCCYVtB58GNH9KpIuAxcfve7+vqN0Wy1mMTcxJskqYTxifAtQCYAiqWkwvu1RDpi88U16o9Y8iZlMYen3bknqHTY2SFoWv0LP7pfh5h433TDxH9+9o8aJxyTXoHhH3JqtdXCsI1LvbBxBbe9amKTl9n2UiD191H7KUs5nXQNg16kBA0hSmq7sQ/LMm+/leER3y76ubQn5CweVntso0nuR1ikK3G2ASHJsdmgIaHRhwQjYfj4f0GWuEK+1sb6Me7KVDo4GNwPu+h2XKInf93ZhHbYk2t98f5W54x1soBqhywOox44GbQRYzK91d378USg2siOWVIqh3sm+8qig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BgIXGY8SgvP6w3HtFUueuWDoGe84VhugkauvX26/Skg=;
+ b=pfzWMrlpqbbZKAoRN5OjkwlY+XPEF+dvmY0KOzRLMkWPZ2BC8ZBkPaftAalxnIckDWXLflWUJVB9LuDCfCJfIk6pVfOdxaFYwxIJxesOB67YyJpwn3pP8iPQYjs6xu7/R4C2orXXXPUPbSL61FKIelUP+PnQVR1XhCwR8Zmm133ESnPoq52d5mwfoh30P3HY8f0QdrTHfhmFHZoM0fYgqEbl0oePvbVWi1TVQ50+uVVGwzBwX/2AFpSLoph9rZqeuzgpMzq69owfqy1bXk3cYLlQu0d3JqkGq7B0MzKEWUiJWu7qGbwGP7RKUqTI+Hc0iEBHHvvCHOpVrUHH+z5SyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BgIXGY8SgvP6w3HtFUueuWDoGe84VhugkauvX26/Skg=;
+ b=nAYhjltiMHlBNfEBH+GfGmaCf+aeGkTCk5Z9oagdpQ+PT0B/R6TeMqC86oJXkdwD7sWYjX9d9n1UBT3fDplCAW93XDVMB2YGwMSEH6JLEwfOwdRCRynCnGI9PXqnCnHjchIQNvwHenhKDiK2T3NBAX19P6zVeCgsU48onsf13Aff4h6s8xND+yu/bwKTdLPxPBdoNub2WOwETAPsf7U5CQLO2ebh08pKxS0OqZwgJNWa2wITe17QKdoOMXihSowvAPw/A8TifJ623ZwNEUa+9YcNdHoWlMHS7XKpQJTdKx8NhZxpwLGIZdXGBG+s/Gh9Urtfe1Rgug4C24QaTnEXiQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by SJ2PR12MB8875.namprd12.prod.outlook.com (2603:10b6:a03:543::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 6 Nov
+ 2026 21:43:32 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0592.007; Fri, 6 Nov 2026
+ 21:43:32 +0000
+From: Zi Yan <ziy@nvidia.com>
+Date: Fri, 06 Nov 2026 16:43:20 -0500
+Subject: [PATCH] mm/truncate: unmap DAX entries before invalidating them
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-fix-dax-invalidate-mapped-v1-1-292ce5958d67@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBCF4VeRWXcgiRdoX6V0Mc2MOtKmIbEii
+ O9uWpcfnPNvkCWpZLhVGyRZNOsnFNhLBX6kMAgqF4MzrrPW1NjrikwraljopUyz4JtiFEY23rl
+ r17dtU0P5xyRl/G/fH6fz9zmJn39B2PcDE2T3KX0AAAA=
+X-Change-ID: 20261103-fix-dax-invalidate-mapped-d0c2296f5543
+To: Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ Alistair Popple <apopple@nvidia.com>, John Groves <John@Groves.net>, 
+ Miklos Szeredi <miklos@szeredi.hu>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org, 
+ Zi Yan <ziy@nvidia.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: BLAPR05CA0039.namprd05.prod.outlook.com
+ (2603:10b6:208:335::20) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,372 +106,265 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261106-cipso-rcuopts-v1-1-31ae931d7a0f@google.com>
-X-B4-Tracking: v=1; b=H4sIAE5J7moC/yWMQQrDIBQFrxLeukK0rZBcJXRh7Lf9Xaj4TQiE3
- L02Xc7AzA6hwiQYux2FVhZOsYG+dPBvF1+k+NkYpjdW694qz1mSKn5JuYoiY0Nwt/t8HQxakws
- F3s7fhEgVj7+UZf6Qr78TjuML9iD+83YAAAA=
-X-Change-ID: 20261106-cipso-rcuopts-e26ffa45b392
-To: Paul Moore <paul@paul-moore.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
- Simon Horman <horms@kernel.org>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
- Casey Schaufler <casey@schaufler-ca.com>, netdev@vger.kernel.org, 
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
- selinux@vger.kernel.org, stable@vger.kernel.org, 
- Jann Horn <jannh@google.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794001239; l=11224;
- i=jannh@google.com; s=20240730; h=from:subject:message-id;
- bh=sFzK60Ujof6oKkoUevi0RWgNEC3MXkp1co13ojYs7hk=;
- b=ej7CqHV2tcGY7zGDHHLVd8mlD+53sVeZqHB/LxVS7JAqkBTxC9XWBqz93yNoSe62PFZyDBayT
- 2629yyXmgJ9CUPFiQcovKdF2pBDFI4WKrcPwToXC3u6z9XjHzAG4Zc2
-X-Developer-Key: i=jannh@google.com; a=ed25519;
- pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SJ2PR12MB8875:EE_
+X-MS-Office365-Filtering-Correlation-Id: fd73c8b0-14d4-41c2-ad5c-08df3c4f008a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|1800799024|366016|376014|261102123227099003|261102130727099003|261021123027099003|261021121427099003|261022075727099003|261022105027099003|261026121527099003|261009223027099003|261026140227099003|261028144727099003|5023799004|11063799006|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	2vhq7AR+dP1XPpbyE5eA26Xzm5LhYog4aE15PBLZ7OOglfBZu2GiYcOYMaZCGlvKhXbodAiNyGR/f4gbZ3ueSk8tPcPU+PAO2q95cn9zE+63vkY70I5muBgRjF1zgxEK2iQSxLlnzHyNo3FqEZPKylu3Toa4mqnHR2RPGz+3c46RQnGvZlxoq59Fgpy8zfa+66lAoEUiaGFaflStpBQFUSp2h7TtuO+xadLMr5vrm1dUqvab+dqda5exnMYNrrH3AMp7hT1m2XQpZFcAANxw7fb6PtdIZ4uEmO499AcNCLyT0/UP8plW3/XEEoT2oE9+FsDC/7bCVDg2XI2DzY8C8a1tk57YBjKxPXMRivmvvNsm9uHeg7SsyoJkleGvuIm1nWig5sO7jzUgy2IZzCYR4lXVBqsfGNZYjeQGQEnAiE/OtEqruvRJUGGVZ/tqo/qdFZxIwPVmDQTLNx7GMEvVgwKnzGES4Ki7uzKQrZtckQ+5INccrqZEI1Xv5wMTLuH6I1tAi/IFv+jpEVKNWLYx1lKdXCpN+zpUOvnmXqUuX42wZF8RaNiN5PqGmkfFsax0SdBawOwc6C/knHvvRYtWgsqajPKPfHTE7R+++YXmsXNSP1oiJeeDil9wAHRw1TAFralCjbzlZz7Lzkfinyvx8xAfgPLf3J7BWI35cqkXphw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(366016)(376014)(261102123227099003)(261102130727099003)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(261026121527099003)(261009223027099003)(261026140227099003)(261028144727099003)(5023799004)(11063799006)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aXNOcllLM01zZjNrUmg3YWo4RGl1ZTJXamlHY3VETzNoSjIzOHJGZlF6dVUr?=
+ =?utf-8?B?Zk1xRkRaSEJBTE5xb3hmajVOQ3BCMnQ1d251QjlJSXhMWkZTem1vazhjV01B?=
+ =?utf-8?B?dS94NTdrd1ZkVkF6RHIvZ2RpZXB1eTFPaTY3bTBQMUs5N1dKdkQ4MG5Bc050?=
+ =?utf-8?B?WHZSZzVVZ1JZMGc0WjB3YlpndTQvZC9lcG1IeWgxRXNzSEpReHFscUZGL2lS?=
+ =?utf-8?B?RHpYRElKYzI5NGlIR0tHK3hLVC9ydTM4TWl5V2twazFmOEkwdWxacVVoLzJH?=
+ =?utf-8?B?Rzk2cngwK0dTaW1oSE5LVlF1SFpRWmIwVHkwRUY4dWpUVTFLVDN5UnZ2amg1?=
+ =?utf-8?B?cnN4cnN0MkpLb3ZIQ0dzVGFaaW5OSjh5YURLV1JEZUoySTlpeFVxdHZMNlBV?=
+ =?utf-8?B?ZVRFMDc5WnZBazgrK3poc1R6RjVsdUpxbDNYeFYveUN3SERWTXVaVTQxM0pq?=
+ =?utf-8?B?bFIwVXc3SDk5U1crRWMvRnovei9NWHhHd0xxWEhUSDNLYVZFOHZUMGJ3QTFX?=
+ =?utf-8?B?azJIYU5wVCtLVTkwNTM1NENoM0x6Wkd3NGJrOXlndFYrNmdteG9tME01Tjhi?=
+ =?utf-8?B?K2s1eXNicDk2YTBUcDFRRUZDdXN4R2tJTlBORkpxNWU0TG55ZER5U0ZraVA1?=
+ =?utf-8?B?d1Q1bWlaajZtWHc3TjFKcVJGWW9FelJHZDFyWnZhbStvNU45YzhhMG5HR01C?=
+ =?utf-8?B?UC9nS3U5RG5OVFRuU0lKa05KSVp5b0lnemZMNmdQZERTYlhUSjBRVzhBUlB5?=
+ =?utf-8?B?UlZ3TXhTaUxUNlA0eUJIK2g5WmNnbjUwejJkLzRHMi9rd2dqZ29jaDVTbE9P?=
+ =?utf-8?B?Y0c2d0Qvbld0clU0ZVNPOWpHbHZJRlZZN3R5ajZMdnNkOXB2amNwOEhFVHZX?=
+ =?utf-8?B?SnlCckwwSjN2eDM5WEtoZkJSajhtYUQ4NldZak5TRHBISVZhWnRjb2xLYkty?=
+ =?utf-8?B?R0tzQlJPc1NYVWNiTktDY3hITGp2Qk9wTzMwMElyTG5zbjl2K3VHQkM0UDVq?=
+ =?utf-8?B?di9DbmJpeS92NXU1SWFLa3JEUGxmeU1sTGU0TzFNRHQrV2VKclRBeTNzZ0dI?=
+ =?utf-8?B?NldmUUtZZVJQVndTdG14NlROM2lnNlMzTFVseXk5OC9WeGZzcXRXdnpUSHNO?=
+ =?utf-8?B?dVBNOHZkcGs4R2VjZWRzYmtLT0N0ZGNwM2V4U3NYWHZEMjFTcDZPVDFpb1Z6?=
+ =?utf-8?B?S2F4YVNuOVgwMHNlbm12SmhCdjQydFpQaGNJb2pxbm54SGRrdjNyU3o5TjBZ?=
+ =?utf-8?B?bE5EeWl0MkxrOXh4SmxubEMyVHkzaUE5UDBZUE5STjdqRVM2MUp4NWwxTjZj?=
+ =?utf-8?B?d1U0NE5YL1VXRE9yV2lqUmpvOUFYTUdIQTZuV3cvOWZoVHNJTWx2Qm1HY1pk?=
+ =?utf-8?B?N0xZd200SWo5ZTZ6dWtVNkY5cnBJQkJxTE9wbjBnM0FYa0JhaG8wdXNsTVpy?=
+ =?utf-8?B?WVkwN1E1dXJ4YTFWZlNqNXhzdlRqdzJrSmNpODA4OE0wblNFQnk0R29nakQ4?=
+ =?utf-8?B?Z1NObzI3U2ZUR3BDUFJrLzcrR1c1SGZjQUo4QzBoTGZ0a1hSemVmaE1NL1pH?=
+ =?utf-8?B?dVBSWmlhSldJUm8wWi9DdTBaUGtYVTR1WGc3Yk1ZZlhJQkdJR3VIZURIVUZ2?=
+ =?utf-8?B?VUt2U1ArS0lQaUNIUGpVVXVwS2x0b2JBZFFpK3BQU3ZKWGtQMVgySy9pZWYr?=
+ =?utf-8?B?Y0lOcWdBSDBIdUJzdEZhcm8xVGIzQWh4YncvMll0NGRSSFlQcC9wQXQ3OTE0?=
+ =?utf-8?B?Ym0xZjh0QlppUk53ZTlMMGg2dk01YWwveWExQ2k1Z0RnZEtYYVFJWjZPZUx2?=
+ =?utf-8?B?Zk4zcGFnbkUvTVpDcjcvMmN3SW41YnVhWmFYWkRNVjBMOVpLZExoV0RpdmpF?=
+ =?utf-8?B?KytMem9OeER3RVBBQzBDbVpHZUpCaU02SWVqdEw5RktMWnpoS1NucTI3YTVm?=
+ =?utf-8?B?bG5MYmdlYlJyVnhNU3pobzd2VFZhY2puZ1RqdFlhK25PRENOZStGU2NGTGtB?=
+ =?utf-8?B?eUhUdHp2dDJPejBITXhFdVRjSDRHQmg5MVB4MFlyNEY2SHM5cklFbzg4dFZ3?=
+ =?utf-8?B?TWJHcmM0UVRhdkRLcDZQZU15R3JPaTdwYXJiZlRjUlFaMTZFNGF0K2p5bWgz?=
+ =?utf-8?B?a1B2V3ZJSUFZQkM2a2ZjZlpHZFpOMmxNNllrbE1oSWNPZTJQSW1KNnZweFJl?=
+ =?utf-8?B?Z1BBNGpaTDBWa3VxZEI4aSs3OTBuYU9idFo2ek4wTFVJejZieTBvZFJ2VWsy?=
+ =?utf-8?B?c09XZkl2NHl3RnhLaE5qaktwMWkxVnJGQ05mblNabDVLRXhmZ0RaUlJzRGVN?=
+ =?utf-8?Q?lAIDe/mFCFvrKTtPeY?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fd73c8b0-14d4-41c2-ad5c-08df3c4f008a
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 21:43:32.0515
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5VWymNtuEi5JTuxLgHU3To/jemZjlXmq7RAJxUxf3VMpzzvS5MZl+dyr/45l7dKC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8875
 
-cipso_v4_delopt() operates on the ip_options_rcu of a socket or a request
-socket, and tries to remove CIPSO options from the middle by moving all
-subsequent options.
-That's not allowed - ip_options_rcu can be read locklessly and must always
-be consistent. For example, ip_options_undo() reads trusted offsets and
-length values from the options buffer.
-Fix it by doing the modification in a copy.
+invalidate_inode_pages2_range() invalidates the clean DAX entries in the
+range through dax_invalidate_mapping_entry_sync() and only unmaps the range
+afterwards. Dropping the last association of an entry releases its folio
+by dissolving the folio into order-0 ones. If the entry is still mapped,
+1. dax_folio_put() warns;
+2. if the folio order is PMD, folio_remove_rmap_pmd() during the unmap
+   afterwards operates on an order-0 folio (the original head page) and
+   corrupts the original first tail page metadata.
 
-The core change is in cipso_v4_delopt(), the rest is ugly plumbing to
-propagate memory allocation failures.
+This is reachable from userspace with a copy-on-write write to a mapped
+reflinked file on XFS with DAX:
 
-Triggering this bug requires that the system is configured to use CIPSO.
-(Setting up CIPSO requires privileges in init_user_ns.)
+  WARNING: fs/dax.c:452 at dax_disassociate_entry.isra.0+0x147/0x1c0
+  Call Trace:
+   __dax_invalidate_entry+0x106/0x320
+   invalidate_inode_pages2_range+0x3ce/0x830
+   dax_iomap_rw+0x421/0xcc0
+   xfs_file_dax_write+0x252/0x9e0
+   vfs_write+0x53a/0xe70
+   __x64_sys_pwrite64+0x195/0x250
+   ...
+  WARNING: ./include/linux/rmap.h:351 at folio_remove_rmap_pmd+0x8b2/0xaf0
+  Call Trace:
+   split_huge_pmd_locked+0x751/0x2350
+   __split_huge_pmd+0x1bb/0x310
+   ...
+   unmap_mapping_pages+0x133/0x150
+   invalidate_inode_pages2_range+0x700/0x830
+   dax_iomap_rw+0x421/0xcc0
+   ...
 
-Fixes: f6d8bd051c39 ("inet: add RCU protection to inet->opt")
+To fix it, unmap DAX ranges before invalidating them, as the page cache
+path does for mapped folios. In __dax_invalidate_entry(), when
+invalidating, skip an entry if the code is dropping its last association
+but its folio still has outstanding references. -EBUSY is returned for the
+skipped entries. The unmap before invalidation works because any remap of
+the folio between the unmap and invalidation will bump the folio refcount.
+
+Fixes: 38607c62b34b ("fs/dax: properly refcount fs dax pages")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jann Horn <jannh@google.com>
+Signed-off-by: Zi Yan <ziy@nvidia.com>
 ---
-I've sent a separate mail with a reproducer to Paul Moore.
----
- include/net/cipso_ipv4.h     | 11 ++++++-----
- include/net/netlabel.h       | 11 ++++++-----
- net/ipv4/cipso_ipv4.c        | 16 +++++++++++++---
- net/netlabel/netlabel_kapi.c | 24 ++++++++++--------------
- security/selinux/netlabel.c  |  5 +++--
- security/smack/smack_lsm.c   | 14 +++++++++-----
- 6 files changed, 47 insertions(+), 34 deletions(-)
+I found this while auditing the paths that map pages into user page
+tables. invalidate_inode_pages2_range() releases the folios of DAX
+entries that are still mapped. For a PMD-mapped folio this corrupts what
+used to be its first tail page, and a copy-on-write write to a mapped
+reflinked file on XFS with DAX is enough to hit it.
 
-diff --git a/include/net/cipso_ipv4.h b/include/net/cipso_ipv4.h
-index d6780d7903f4..b41672221797 100644
---- a/include/net/cipso_ipv4.h
-+++ b/include/net/cipso_ipv4.h
-@@ -185,12 +185,12 @@ int cipso_v4_sock_setattr(struct sock *sk,
- 			  const struct cipso_v4_doi *doi_def,
- 			  const struct netlbl_lsm_secattr *secattr,
- 			  bool sk_locked);
--void cipso_v4_sock_delattr(struct sock *sk);
-+int cipso_v4_sock_delattr(struct sock *sk);
- int cipso_v4_sock_getattr(struct sock *sk, struct netlbl_lsm_secattr *secattr);
- int cipso_v4_req_setattr(struct request_sock *req,
- 			 const struct cipso_v4_doi *doi_def,
- 			 const struct netlbl_lsm_secattr *secattr);
--void cipso_v4_req_delattr(struct request_sock *req);
-+int cipso_v4_req_delattr(struct request_sock *req);
- int cipso_v4_skbuff_setattr(struct sk_buff *skb,
- 			    const struct cipso_v4_doi *doi_def,
- 			    const struct netlbl_lsm_secattr *secattr);
-@@ -221,8 +221,9 @@ static inline int cipso_v4_sock_setattr(struct sock *sk,
- 	return -ENOSYS;
+In QEMU with emulated NVDIMMs and XFS on an fsdax namespace:
+
+- Copy-on-write with the script below, PTE- and PMD-mapped, with only a
+  mapped and with a and b mapped. Before this patch, the WARNs in the
+  commit message and a corrupted first tail page in the PMD case. With this
+  patch: the mapping of a sees the new data, b keeps the old data, and
+  nothing warns, except for item 4 below.
+
+  mkfs.xfs -f -m reflink=1 -d su=2m,sw=1 /dev/pmem1
+  mount -o dax=always /dev/pmem1 /mnt && cd /mnt
+  xfs_io -f -c "extsize 2m" -c "pwrite -q -S 0x5a 0 4m" -c fsync a
+  xfs_io -f -c "reflink a 0 0 4m" b
+  (echo "mmap -r 0 4m"; echo "madvise -h 0 4m"; echo "mread 0 4m";
+   sleep 4; echo "mread -v 0 16") | xfs_io a &
+  sleep 2; xfs_io -c "pwrite -q -S 0xa5 0 8k" -c fsync a; wait
+
+Open issues that this patch does not address. They are races or
+already exist without it.
+
+1. A refault, or a short-term or speculative reference, between the
+   early unmap and the invalidation keeps a last association in place,
+   and invalidate_inode_pages2_range() returns -EBUSY.
+   dax_iomap_iter(), dax_unshare_iter() and dax_zero_iter() ignore that
+   and write the new extent anyway, which leaves a stale entry. Without
+   this patch the same race tears down the referenced folio. Should
+   these paths retry, or fail?
+
+2. XFS device pre-removal ignores the result as well, so an entry kept
+   because of a short-term reference is not revisited before the
+   memmap goes away.
+
+3. folio->share is updated under each file's i_pages lock, so the
+   shared-count check here, like dax_folio_put() itself, can race with
+   another file dropping its share.
+
+4. With reflink, after a copy-on-write write, a PTE fault can associate
+   an order-0 entry with a shared folio that another file still maps
+   with a PMD. That trips WARN_ON_ONCE(dax_entry_order(entry) !=
+   folio_order(folio)) in dax_associate_entry(), with and without this
+   patch.
+
+Based on an LLM's analysis, 1 and 2 can be fixed by holding the invalidate
+lock and breaking DAX layouts in the callers; 3 needs a per-folio lock
+for ->share; 4 needs a way to share a folio at different granularities,
+or no PMD mappings of shared extents as a simple fix.
+
+LLMs were used to analyze the issue, write the patch, and review the code.
+---
+ fs/dax.c      | 28 ++++++++++++++++++++++++++--
+ mm/truncate.c | 16 +++++++++++-----
+ 2 files changed, 37 insertions(+), 7 deletions(-)
+
+diff --git a/fs/dax.c b/fs/dax.c
+index 94ba41273347c..e448552d8080d 100644
+--- a/fs/dax.c
++++ b/fs/dax.c
+@@ -527,6 +527,24 @@ static struct page *dax_busy_page(void *entry)
+ 		return NULL;
  }
  
--static inline void cipso_v4_sock_delattr(struct sock *sk)
-+static inline int cipso_v4_sock_delattr(struct sock *sk)
- {
-+	return 0;
- }
- 
- static inline int cipso_v4_sock_getattr(struct sock *sk,
-@@ -238,9 +239,9 @@ static inline int cipso_v4_req_setattr(struct request_sock *req,
- 	return -ENOSYS;
- }
- 
--static inline void cipso_v4_req_delattr(struct request_sock *req)
-+static inline int cipso_v4_req_delattr(struct request_sock *req)
- {
--	return;
-+	return 0;
- }
- 
- static inline int cipso_v4_skbuff_setattr(struct sk_buff *skb,
-diff --git a/include/net/netlabel.h b/include/net/netlabel.h
-index 02914b1df38b..f896b9d52ed1 100644
---- a/include/net/netlabel.h
-+++ b/include/net/netlabel.h
-@@ -477,7 +477,7 @@ int netlbl_sock_setattr(struct sock *sk,
- 			u16 family,
- 			const struct netlbl_lsm_secattr *secattr,
- 			bool sk_locked);
--void netlbl_sock_delattr(struct sock *sk);
-+int netlbl_sock_delattr(struct sock *sk);
- int netlbl_sock_getattr(struct sock *sk,
- 			struct netlbl_lsm_secattr *secattr);
- int netlbl_conn_setattr(struct sock *sk,
-@@ -485,7 +485,7 @@ int netlbl_conn_setattr(struct sock *sk,
- 			const struct netlbl_lsm_secattr *secattr);
- int netlbl_req_setattr(struct request_sock *req,
- 		       const struct netlbl_lsm_secattr *secattr);
--void netlbl_req_delattr(struct request_sock *req);
-+int netlbl_req_delattr(struct request_sock *req);
- int netlbl_skbuff_setattr(struct sk_buff *skb,
- 			  u16 family,
- 			  const struct netlbl_lsm_secattr *secattr);
-@@ -626,8 +626,9 @@ static inline int netlbl_sock_setattr(struct sock *sk,
- {
- 	return -ENOSYS;
- }
--static inline void netlbl_sock_delattr(struct sock *sk)
-+static inline int netlbl_sock_delattr(struct sock *sk)
- {
-+	return 0;
- }
- static inline int netlbl_sock_getattr(struct sock *sk,
- 				      struct netlbl_lsm_secattr *secattr)
-@@ -645,9 +646,9 @@ static inline int netlbl_req_setattr(struct request_sock *req,
- {
- 	return -ENOSYS;
- }
--static inline void netlbl_req_delattr(struct request_sock *req)
-+static inline int netlbl_req_delattr(struct request_sock *req)
- {
--	return;
-+	return 0;
- }
- static inline int netlbl_skbuff_setattr(struct sk_buff *skb,
- 				      u16 family,
-diff --git a/net/ipv4/cipso_ipv4.c b/net/ipv4/cipso_ipv4.c
-index e65a3f29d2ca..ee0c72fbc877 100644
---- a/net/ipv4/cipso_ipv4.c
-+++ b/net/ipv4/cipso_ipv4.c
-@@ -2004,11 +2004,16 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
- 	if (!opt || opt->opt.cipso == 0)
- 		return 0;
- 	if (opt->opt.srr || opt->opt.rr || opt->opt.ts || opt->opt.router_alert) {
-+		struct ip_options_rcu *old_opt = opt;
- 		u8 cipso_len;
- 		u8 cipso_off;
- 		unsigned char *cipso_ptr;
- 		int optlen_new;
- 
-+		/* ip_options_rcu must not be modified in place, use a copy */
-+		opt = kmemdup(opt, sizeof(*opt) + opt->opt.optlen, GFP_ATOMIC);
-+		if (!opt)
-+			return -ENOMEM;
- 		cipso_off = opt->opt.cipso - sizeof(struct iphdr);
- 		cipso_ptr = &opt->opt.__data[cipso_off];
- 		cipso_len = cipso_ptr[1];
-@@ -2036,6 +2041,8 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
- 
- 		memset(&opt->opt.__data[optlen_new], IPOPT_END,
- 		       opt->opt.optlen - optlen_new);
-+		rcu_assign_pointer(*opt_ptr, opt);
-+		kfree_rcu(old_opt, rcu);
- 	} else {
- 		/* only the cipso option was present on the socket so we can
- 		 * remove the entire option struct */
-@@ -2055,7 +2062,7 @@ static int cipso_v4_delopt(struct ip_options_rcu __rcu **opt_ptr)
-  * Removes the CIPSO option from a socket, if present.
-  *
-  */
--void cipso_v4_sock_delattr(struct sock *sk)
-+int cipso_v4_sock_delattr(struct sock *sk)
- {
- 	struct inet_sock *sk_inet;
- 	int hdr_delta;
-@@ -2068,6 +2075,7 @@ void cipso_v4_sock_delattr(struct sock *sk)
- 		sk_conn->icsk_ext_hdr_len -= hdr_delta;
- 		sk_conn->icsk_sync_mss(sk, sk_conn->icsk_pmtu_cookie);
- 	}
-+	return (hdr_delta < 0) ? hdr_delta : 0;
- }
- 
- /**
-@@ -2078,9 +2086,11 @@ void cipso_v4_sock_delattr(struct sock *sk)
-  * Removes the CIPSO option from a request socket, if present.
-  *
-  */
--void cipso_v4_req_delattr(struct request_sock *req)
-+int cipso_v4_req_delattr(struct request_sock *req)
- {
--	cipso_v4_delopt(&inet_rsk(req)->ireq_opt);
-+	int hdr_delta = cipso_v4_delopt(&inet_rsk(req)->ireq_opt);
++/*
++ * Determine if an entry can be disassociated. It cannot be if it is its folio's
++ * last association and the folio still has a reference.
++ */
++static bool dax_can_disassociate(void *entry)
++{
++	struct folio *folio;
 +
-+	return (hdr_delta < 0) ? hdr_delta : 0;
- }
- 
++	if (dax_is_zero_entry(entry) || dax_is_empty_entry(entry))
++		return true;
++
++	folio = dax_to_folio(entry);
++	if (dax_folio_is_shared(folio) && folio->share > 1)
++		return true;
++
++	return !folio_ref_count(folio);
++}
++
  /**
-diff --git a/net/netlabel/netlabel_kapi.c b/net/netlabel/netlabel_kapi.c
-index 3583fa63dd01..c0eddb6afef3 100644
---- a/net/netlabel/netlabel_kapi.c
-+++ b/net/netlabel/netlabel_kapi.c
-@@ -1045,18 +1045,18 @@ int netlbl_sock_setattr(struct sock *sk,
-  * ensuring that @sk is locked.
-  *
+  * dax_lock_folio - Lock the DAX entry corresponding to a folio
+  * @folio: The folio whose entry we want to lock
+@@ -853,9 +871,14 @@ static int __dax_invalidate_entry(struct address_space *mapping,
+ 	entry = get_next_unlocked_entry(&xas, 0);
+ 	if (!entry || WARN_ON_ONCE(!xa_is_value(entry)))
+ 		goto out;
++	/*
++	 * Removing the last association of a folio releases the folio, so make
++	 * sure the folio has no reference.
++	 */
+ 	if (!trunc &&
+ 	    (xas_get_mark(&xas, PAGECACHE_TAG_DIRTY) ||
+-	     xas_get_mark(&xas, PAGECACHE_TAG_TOWRITE)))
++	     xas_get_mark(&xas, PAGECACHE_TAG_TOWRITE) ||
++	     !dax_can_disassociate(entry)))
+ 		goto out;
+ 	dax_disassociate_entry(entry, mapping, trunc);
+ 	xas_store(&xas, NULL);
+@@ -1017,7 +1040,8 @@ void dax_break_layout_final(struct inode *inode)
+ EXPORT_SYMBOL_GPL(dax_break_layout_final);
+ 
+ /*
+- * Invalidate DAX entry if it is clean.
++ * Invalidate DAX entry if it is clean and dropping it would not release a folio
++ * that is still in use.
   */
--void netlbl_sock_delattr(struct sock *sk)
-+int netlbl_sock_delattr(struct sock *sk)
- {
- 	switch (sk->sk_family) {
- 	case AF_INET:
--		cipso_v4_sock_delattr(sk);
--		break;
-+		return cipso_v4_sock_delattr(sk);
- #if IS_ENABLED(CONFIG_IPV6)
- 	case AF_INET6:
- 		calipso_sock_delattr(sk);
- 		break;
- #endif /* IPv6 */
- 	}
-+	return 0;
- }
+ int dax_invalidate_mapping_entry_sync(struct address_space *mapping,
+ 				      pgoff_t index)
+diff --git a/mm/truncate.c b/mm/truncate.c
+index 9e9bf029635cf..b03cd99c4bba8 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -732,6 +732,15 @@ int invalidate_inode_pages2_range(struct address_space *mapping,
+ 	if (mapping_empty(mapping))
+ 		return 0;
  
- /**
-@@ -1156,8 +1156,7 @@ int netlbl_conn_setattr(struct sock *sk,
- 		case NETLBL_NLTYPE_UNLABELED:
- 			/* just delete the protocols we support for right now
- 			 * but we could remove other protocols if needed */
--			netlbl_sock_delattr(sk);
--			ret_val = 0;
-+			ret_val = netlbl_sock_delattr(sk);
- 			break;
- 		default:
- 			ret_val = -ENOENT;
-@@ -1185,8 +1184,7 @@ int netlbl_conn_setattr(struct sock *sk,
- 		case NETLBL_NLTYPE_UNLABELED:
- 			/* just delete the protocols we support for right now
- 			 * but we could remove other protocols if needed */
--			netlbl_sock_delattr(sk);
--			ret_val = 0;
-+			ret_val = netlbl_sock_delattr(sk);
- 			break;
- 		default:
- 			ret_val = -ENOENT;
-@@ -1234,8 +1232,7 @@ int netlbl_req_setattr(struct request_sock *req,
- 						       entry->cipso, secattr);
- 			break;
- 		case NETLBL_NLTYPE_UNLABELED:
--			netlbl_req_delattr(req);
--			ret_val = 0;
-+			ret_val = netlbl_req_delattr(req);
- 			break;
- 		default:
- 			ret_val = -ENOENT;
-@@ -1255,8 +1252,7 @@ int netlbl_req_setattr(struct request_sock *req,
- 						      entry->calipso, secattr);
- 			break;
- 		case NETLBL_NLTYPE_UNLABELED:
--			netlbl_req_delattr(req);
--			ret_val = 0;
-+			ret_val = netlbl_req_delattr(req);
- 			break;
- 		default:
- 			ret_val = -ENOENT;
-@@ -1280,18 +1276,18 @@ int netlbl_req_setattr(struct request_sock *req,
- * Remove all the NetLabel labeling from @req.
- *
- */
--void netlbl_req_delattr(struct request_sock *req)
-+int netlbl_req_delattr(struct request_sock *req)
- {
- 	switch (req->rsk_ops->family) {
- 	case AF_INET:
--		cipso_v4_req_delattr(req);
--		break;
-+		return cipso_v4_req_delattr(req);
- #if IS_ENABLED(CONFIG_IPV6)
- 	case AF_INET6:
- 		calipso_req_delattr(req);
- 		break;
- #endif /* IPv6 */
++	/*
++	 * Invalidating a DAX entry can release its folio, so unmap DAX entries
++	 * before invalidating them. dax_invalidate_mapping_entry_sync() skips
++	 * the last association of a folio that still has references, e.g.
++	 * because it was faulted in again in the meantime.
++	 */
++	if (dax_mapping(mapping))
++		unmap_mapping_pages(mapping, start, end - start + 1, false);
++
+ 	folio_batch_init(&fbatch);
+ 	index = start;
+ 	while (find_get_entries(mapping, &index, end, &fbatch, indices)) {
+@@ -787,11 +796,8 @@ int invalidate_inode_pages2_range(struct address_space *mapping,
+ 		cond_resched();
  	}
-+	return 0;
- }
- 
- /**
-diff --git a/security/selinux/netlabel.c b/security/selinux/netlabel.c
-index d51dfe892312..24b11d1891d8 100644
---- a/security/selinux/netlabel.c
-+++ b/security/selinux/netlabel.c
-@@ -557,9 +557,10 @@ static int selinux_netlbl_socket_connect_helper(struct sock *sk,
- 	 * is set to AF_UNSPEC, if that is what is happening we want to reset
- 	 * the socket */
- 	if (addr->sa_family == AF_UNSPEC) {
--		netlbl_sock_delattr(sk);
-+		rc = netlbl_sock_delattr(sk);
-+		if (rc)
-+			return rc;
- 		sksec->nlbl_state = NLBL_REQSKB;
--		rc = 0;
- 		return rc;
- 	}
- 	secattr = selinux_netlbl_sock_genattr(sk);
-diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-index 28a8e12603ce..3a4a33568297 100644
---- a/security/smack/smack_lsm.c
-+++ b/security/smack/smack_lsm.c
-@@ -2656,22 +2656,26 @@ static int smack_netlbl_add(struct sock *sk)
-  *
-  * Remove the outbound smack value from a socket
-  */
--static void smack_netlbl_delete(struct sock *sk)
-+static int smack_netlbl_delete(struct sock *sk)
- {
- 	struct socket_smack *ssp = smack_sock(sk);
-+	int rc;
- 
  	/*
- 	 * Take the label off the socket if one is set.
+-	 * For DAX we invalidate page tables after invalidating page cache.  We
+-	 * could invalidate page tables while invalidating each entry however
+-	 * that would be expensive. And doing range unmapping before doesn't
+-	 * work as we have no cheap way to find whether page cache entry didn't
+-	 * get remapped later.
++	 * For DAX, also zap the mappings that were faulted in while we were
++	 * invalidating.
  	 */
- 	if (ssp->smk_state != SMK_NETLBL_LABELED)
--		return;
-+		return 0;
- 
- 	local_bh_disable();
- 	bh_lock_sock_nested(sk);
--	netlbl_sock_delattr(sk);
-+	rc = netlbl_sock_delattr(sk);
- 	bh_unlock_sock(sk);
- 	local_bh_enable();
-+	if (rc)
-+		return rc;
- 	ssp->smk_state = SMK_NETLBL_UNLABELED;
-+	return 0;
- }
- 
- /**
-@@ -2711,7 +2715,7 @@ static int smk_ipv4_check(struct sock *sk, struct sockaddr_in *sap)
- 		 * Clear the socket netlabel if it's set.
- 		 */
- 		if (!rc)
--			smack_netlbl_delete(sk);
-+			rc = smack_netlbl_delete(sk);
- 	}
- 	rcu_read_unlock();
- 
-@@ -4548,7 +4552,7 @@ static int smack_inet_conn_request(const struct sock *sk, struct sk_buff *skb,
- 	if (hskp == NULL)
- 		rc = netlbl_req_setattr(req, &ssp->smk_out->smk_netlabel);
- 	else
--		netlbl_req_delattr(req);
-+		rc = netlbl_req_delattr(req);
- 
- 	return rc;
- }
+ 	if (dax_mapping(mapping)) {
+ 		unmap_mapping_pages(mapping, start, end - start + 1, false);
 
 ---
-base-commit: a91337fb5e8e0127c8b5be87be9f3027f95b48bc
-change-id: 20261106-cipso-rcuopts-e26ffa45b392
+base-commit: 63919467fb5239ab824de6a7a128b882055b24af
+change-id: 20261103-fix-dax-invalidate-mapped-d0c2296f5543
 
 Best regards,
 --  
-Jann Horn <jannh@google.com>
+Yan, Zi
 
