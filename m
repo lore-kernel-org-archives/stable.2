@@ -1,75 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793930196;
-	b=L77+MzfOT9JWdylI5r/S41L6Noti7ZQvBrWlzQcuI28z5iJS4jq3FSCInVLX1o/OWlYV
-	 cbYb4mAK+1feCXVkKsr/zrskJ2DGLXPyxCNHJqomwb9eaQyGyUI1bVynisqZTurD8kur0
-	 D2CTVKR60JMRb5HSyqp8lk5toQXdsmXASGi0m/NkBzKkE0T0vLkPJuawI9WsSYvMgn0F0
-	 8LF8eMRPbKvxL2PGxRb8NFY+TONi31E7Bz4np5o6vSNf44TyhFMSqTtZNH9QinpIzGLmA
-	 n/jHxDOw7p109FaAgMF9rWOBp1XEfvmm7F6tQMfn8cesg9lCmxLy1lMyQPTvuqjzS5Q==
+	t=1793930434;
+	b=S6prxW2mmBVVKO46gbM0qNoEJR1HlEcJV6v6pFgnGkGFjEhRm6UH5Ua6YjnUGhdNlMmj
+	 +mTLHxt87XCwXF9FC5bq2iOrXXynvs2slGhoRkPkC6+qgsMjRTNGgj1dZHSxC5eGmapnz
+	 4Ugu6VKFdCbMvlaOTBi1Zr7nCTN2DQueCDthebVLgQn5uPhEYxFu79J9BS0yBoP/4rQxk
+	 XhNgdPtDPwgpZmUGSq7/hsrPIwO3c25VJlcccuRgUQmgqp+h4r8XjhBwu2cQwIMDanf7D
+	 Ib9kzdp0HivLjxlYgzsFAoUE2B0fKg3PevT/XzLA+hwKbuPreFI1mnMYfq5ZleS+1Ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793930196;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:X-Mailer:Thread-Index:
-	 Content-Language:X-CMS-MailID:X-Msg-Generator:Content-Type:
-	 X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
-	 X-CMS-RootMailID:References;
-	bh=0cPHivte9C68Wu6j7GY28jPv9WJaN0mbSSRDmTHdvBA=;
-	b=hpOsb2Khox/Z2wxYZLLb3sYY9yOGexfr4xDHB/XYKKmyiPrvwClMKn9ESvj6QItm/FDi
-	 SKoSczPR5tMgHT9oT+c5DrmN5fWFUy5gKisZ3fNcITwEuZc0ffn1y3MWviX53hCs08O5y
-	 WLaVZMon4S1OJT3+KkPlS6gV0zzKb6m7S73hSfrxSNcbfjxw9sl9pkIiUewCiWuP6jGEr
-	 LV/Z4O+Bu92nUUItdTRlwwGrCnfgV9pgPY5hJBO1c+zMhoigwz0rf1QRMXjfjkj8bUx0M
-	 vxraotIYkQnhQliZjzruuYO/g+mTGyZoMJ+/3tTtBzdaUlLtQk0ix+4pS4e7aG8Dp5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793930434;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=s8e9V7BGJb9On45+u9ZoMOCMT4YSo+UxkMTq1z73A5g=;
+	b=aJEszu0Cm0TMK87RaJW3V4io9qsAeBhftcaUS5R6R8d3Lw2hsLF85kf3Ntsd7cgHyJWZ
+	 wSgn68Lmklt56JzQ8cIMmsXV2dlddkuRca5jKbr3jG0Ah43p2FUMuPZ4BPns4pHNRKIAP
+	 MX81vjPF+MC7SexhUBT2dlDnSHQaLMQHgmd6StW4+tyZmqVCN5CD4Up2JovA4nYVFaiN+
+	 yelkDCqeqbdYc7T9sAKWkJgWrhOUW3zHzbpIAXVmm9SHjHcptx07RN/cbzaRrCc7yC8r9
+	 uYFzd8rK8Kp0D68twgYphcMBYJAajPprcC/fJvRhqgHISjqjgrnoYcTZH9C7RS3aznw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	arc=none smtp.remote-ip=203.254.224.25
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SFPdt/so";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B30606A328
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:56:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42B30606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
-Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261106015626epoutp02933444baa62db3077c4bfaedf6a86b64~lUgAFuOCZ0415504155epoutp02M
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:56:26 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261106015626epoutp02933444baa62db3077c4bfaedf6a86b64~lUgAFuOCZ0415504155epoutp02M
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793930186;
-	bh=0cPHivte9C68Wu6j7GY28jPv9WJaN0mbSSRDmTHdvBA=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=fCfhJ9VK5GUKbq9PUdfKjnZiFQcQ0Jt/WGLrUXB1mWBwXKt3mglqS4tOdApxlFY3i
-	 rr9Lju7YN4ejyCwVPC8mMvwN6MuI7of546smjxsar+ikU3scEI/PU5AXVc6ACSRsUT
-	 EEltVc3k1fCBNWBAyCFIsVEO2qTZTVSxzsnthA7c=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261106015626epcas2p2057b62b064ebc81dca65da68de728ea9~lUf-j-a8d1979119791epcas2p26;
-	Fri,  6 Nov 2026 01:56:26 +0000 (GMT)
-Received: from epcas2p3.samsung.com (unknown [182.195.38.199]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4jLMjP4vjfz2SSKY; Fri,  6 Nov
-	2026 01:56:25 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261106015625epcas2p1b45d5d82e8ba7a537907e4413d8f7547~lUf_sydrb2122921229epcas2p1Y;
-	Fri,  6 Nov 2026 01:56:25 +0000 (GMT)
-Received: from KORCO164647 (unknown [12.80.211.160]) by epsmtip2.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20261106015625epsmtip20b2361f2ad5409774b3751600c6c0d89~lUf_nAC3A2852128521epsmtip2Q;
-	Fri,  6 Nov 2026 01:56:25 +0000 (GMT)
-From: "Kiwoong Kim" <kwmad.kim@samsung.com>
-To: "'Bart Van Assche'" <bvanassche@acm.org>, <linux-scsi@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <alim.akhtar@samsung.com>,
-	<jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
-	<kwangwon.min@samsung.com>, <hy50.seo@samsung.com>, <cpgs@samsung.com>,
-	<h10.kim@samsung.com>
-Cc: <stable@vger.kernel.org>, <stanleyjhu@google.com>
-In-Reply-To: <ec1d1fd7-b832-4ea8-b3f3-87ff3d361d80@acm.org>
-Subject: RE: [PATCH v6 2/2] ufs: mcq: poll OCS after sq cleanup for device
- management commands
-Date: Fri, 6 Nov 2026 10:56:24 +0900
-Message-ID: <000001dd6d92$0787dc60$16979520$@samsung.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C60606A31B
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:00:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SFPdt/so
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5074E1F0089F;
+	Fri,  6 Nov 2026 02:00:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793930433;
+	bh=s8e9V7BGJb9On45+u9ZoMOCMT4YSo+UxkMTq1z73A5g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SFPdt/soMCdyaUDEDp/RV01wk6Kdp6Ru1ZUuLSuqhqopxl/XUbYeym61olCyyt1p0
+	 e0Vv6Ld2k1t5pRUg3Pzma6sfIYtv98i61iMHn2SPkuqYnCuR0JriMD4+D9vm06ppgw
+	 lfqYeKlJMlJuWUmfyivz9Q4WR5KpHimhzdVG/XAUy+l7Va+vtJ07v8qhswtIHUrHeL
+	 BKEE13qr94/hfXdDmuKA9XYkiVb7e1yPAeRbI/SJVlxn3qgEPO1CQV/b87JTXnx1IS
+	 vw6AOXJfqr90ieS9+nTzANtXCOk+NtTy7jBxQ1jxTlrfl8hjzpWlTGa3UpK3k13c2Y
+	 UTQPAkbr1BQUA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y] NFSD: Send a meaningful CB_RECALL_ANY keep count
+Date: Thu,  5 Nov 2026 21:00:31 -0500
+Message-ID: <20261106015246.3591400-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110428-scalping-unclaimed-78cf@gregkh>
+References: <2026110428-scalping-unclaimed-78cf@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,52 +59,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQH4JEezrlrww6xOutvb1msxx9OBXQGtTH96Ah1toR4BCq9oRAMNKrw+AYvKPY+2n2CX4A==
-Content-Language: ko
-X-CMS-MailID: 20261106015625epcas2p1b45d5d82e8ba7a537907e4413d8f7547
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd
-References: <20261105004333.1097899-1-kwmad.kim@samsung.com>
-	<CGME20261105004353epcas2p1bd2370dd10156570c69f8f80da3cbcfd@epcas2p1.samsung.com>
-	<20261105004333.1097899-3-kwmad.kim@samsung.com>
-	<8939a53e-1b21-4dd9-b65c-cbe03b8b72ce@acm.org>
-	<003701dd6cea$c396cd10$4ac46730$@samsung.com>
-	<ec1d1fd7-b832-4ea8-b3f3-87ff3d361d80@acm.org>
+Content-Transfer-Encoding: 8bit
 
-> >> This code also waits for the interrupt handler to process the CQE.
-> >> Why not reap the CQE from this function? ufshcd_clear_lu_cmds()
-> >> already does that by calling ufshcd_mcq_poll_cqe_lock(hba, hwq) after
-> ufshcd_clear_cmd().
-> >> Calling ufshcd_mcq_poll_cqe_lock() before reading the OCS would
-> >> remove the dependency on interrupt delivery and match the existing cod=
-e.
-> >
-> > Because a successful SQ cleanup leads to OCS update, which
-> > subsequently leads to raising IS.CQES when MCQ is enabled. I
-> > understand your idea with ufshcd_clear_lu_cmds, then do you intend
-> > Ignoring IS.CQES event in this case?
-> That's not what I meant. An interrupt is generated after the status has
-> been changed to OCS_ABORTED, isn't it? Has it been considered to wait for
-> that interrupt instead of polling the OCS status?
->=20
-> Thanks,
->=20
-> Bart.
+From: Chuck Lever <cel@kernel.org>
 
-Okay, got it. From what I understand, it's a loop to call ufshcd_mcq_poll_c=
-qe_lock and check OCS.
-If I get yours wrong, please let me know.
+[ Upstream commit 9af39c0773ef956039e1ebe9c235532fe6ee1e50 ]
 
-Thanks
+deleg_reaper() sets craa_objects_to_keep to zero on every
+CB_RECALL_ANY. RFC 8881 Section 20.6.3 defines that field as the
+number of objects the client may keep, leaving the client to choose
+which of the excess to return, because the server cannot read lack
+of recent use as lack of usefulness. Zero asks for every delegation
+the client holds, including the ones backing files an application
+still has open.
 
-Kiwoong Kim
-BRs.
+There is also no reason NFSD has to reclaim the entire delegation
+working set on the first sign of memory pressure.
+
+Derive the keep count from cl_deleg_count so that each callback
+asks for one delegation. Both the shrinker and the laundromat re-arm
+while their condition lasts, so a client with more to give is asked
+again on the next pass.
+
+The Linux client ignores craa_objects_to_keep and returns unused
+delegations selected from the type mask alone, so the count changes
+nothing for it.
+
+Fixes: 44df6f439a17 ("NFSD: add delegation reaper to react to low memory condition")
+Cc: stable@vger.kernel.org
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260817-recall-any-keep-count-v5-4-3b2cffce701e@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
+[ sashal: Added missing prerequisites for per-client delegation counting and the directory-delegation callback mask. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/nfsd/nfs4state.c | 24 ++++++++++++++++++++----
+ fs/nfsd/state.h     |  2 ++
+ 2 files changed, 22 insertions(+), 4 deletions(-)
+
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index 3bdde4c1bb8eb..f0a7959401370 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -1517,6 +1517,7 @@ hash_delegation_locked(struct nfs4_delegation *dp, struct nfs4_file *fp)
+ 	dp->dl_stid.sc_type = SC_TYPE_DELEG;
+ 	list_add(&dp->dl_perfile, &fp->fi_delegations);
+ 	list_add(&dp->dl_perclnt, &clp->cl_delegations);
++	clp->cl_deleg_count++;
+ 	return 0;
+ }
+ 
+@@ -1548,6 +1549,7 @@ unhash_delegation_locked(struct nfs4_delegation *dp, unsigned short statusmask)
+ 	++dp->dl_time;
+ 	spin_lock(&fp->fi_lock);
+ 	list_del_init(&dp->dl_perclnt);
++	dp->dl_stid.sc_client->cl_deleg_count--;
+ 	list_del_init(&dp->dl_recall_lru);
+ 	list_del_init(&dp->dl_perfile);
+ 	spin_unlock(&fp->fi_lock);
+@@ -7938,6 +7940,7 @@ deleg_reaper(struct nfsd_net *nn)
+ {
+ 	struct list_head *pos, *next;
+ 	struct nfs4_client *clp;
++	unsigned int count;
+ 
+ 	spin_lock(&nn->client_lock);
+ 	list_for_each_safe(pos, next, &nn->client_lru) {
+@@ -7947,23 +7950,36 @@ deleg_reaper(struct nfsd_net *nn)
+ 			continue;
+ 		if (clp->cl_state != NFSD4_ACTIVE)
+ 			continue;
+-		if (list_empty(&clp->cl_delegations))
+-			continue;
+ 		if (atomic_read(&clp->cl_delegs_in_recall))
+ 			continue;
+ 		if (ktime_get_boottime_seconds() - clp->cl_ra_time < 5)
+ 			continue;
+ 		if (clp->cl_cb_state != NFSD4_CB_UP)
+ 			continue;
++		/*
++		 * This read races with hash_delegation_locked() and
++		 * unhash_delegation_locked() on other CPUs. A stale
++		 * count only skews the keep value; the next
++		 * laundromat pass sees a more current one.
++		 */
++		count = data_race(READ_ONCE(clp->cl_deleg_count));
++		if (!count)
++			continue;
+ 		if (test_and_set_bit(NFSD4_CALLBACK_RUNNING, &clp->cl_ra->ra_cb.cb_flags))
+ 			continue;
+ 
+ 		/* release in nfsd4_cb_recall_any_release */
+ 		kref_get(&clp->cl_nfsdfs.cl_ref);
+ 		clp->cl_ra_time = ktime_get_boottime_seconds();
+-		clp->cl_ra->ra_keep = 0;
++		/*
++		 * Ask for a single delegation. Recalling one before it
++		 * is needed costs the client an OPEN when it next
++		 * touches the file.
++		 */
++		clp->cl_ra->ra_keep = count - 1;
+ 		clp->cl_ra->ra_bmval[0] = BIT(RCA4_TYPE_MASK_RDATA_DLG) |
+-						BIT(RCA4_TYPE_MASK_WDATA_DLG);
++						BIT(RCA4_TYPE_MASK_WDATA_DLG) |
++						BIT(RCA4_TYPE_MASK_DIR_DLG);
+ 		trace_nfsd_cb_recall_any(clp->cl_ra);
+ 		nfsd4_run_cb(&clp->cl_ra->ra_cb);
+ 	}
+diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
+index 9661c08b879e8..df35c35890d48 100644
+--- a/fs/nfsd/state.h
++++ b/fs/nfsd/state.h
+@@ -610,6 +610,8 @@ struct nfs4_client {
+ 
+ 	unsigned int		cl_state;
+ 	atomic_t		cl_delegs_in_recall;
++	/* Length of cl_delegations, updated under nn->deleg_lock */
++	unsigned int		cl_deleg_count;
+ 
+ 	struct nfsd4_cb_recall_any	*cl_ra;
+ 	time64_t		cl_ra_time;
+-- 
+2.53.0
 
