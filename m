@@ -1,79 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793983314;
-	b=TzRMXtHcAjupS/L3wifofeoO5OSJfCRXHQdAC7vYbEt27jkfY4OvhKJH4qkAOiHcwSEg
-	 F0mAVbX2gM5cgBaHCMwSo3GZ9Q7ervJWU3+/zcOc//DCfWKra47XIgIWB3+TMbdQWffwr
-	 m/oryG3dfWxUB6vr5rYy+sJZLTqrMi9o2z+9wMTmm2bnaZckr1eaM4zUfSiuOjSfLm/A0
-	 x8YTeRP9IGo6HHTC0aoIIn7lYIeClEf4k4QMFPWPUXcuMVmLi+pt1HvaU18A5/lVjzxBd
-	 ZRPtF8jzg/SjCtYJxlDDioRMPwkuI/Z91cb2q/BF3c16vTfStR4cwfmNUo8WxLQ99qA==
+	t=1793983380;
+	b=GTjPGUUGqtwhs0d6anHlY1N++IELoH8pNCKb25/UaJEK2IrLUuJ/e0BxBy8JoaoXrB5a
+	 Fv4EqpbeMtyqgTRTQ7MQ4xI3Ic5MuTOIQX4ZQPkXfapJZ2NOIw7pBIDXZ71oxqjkjYZc2
+	 TWN9spQeSO/hv7lLRuL0UxLxcF8qXTcrkJdThj89JOhM609HblSICddk4G0Xk20hZuWZM
+	 bUZDw0rsXUSWKv9KW2/azGzQiue85lO7p542NuCTMJUedBzIWT9mYaxNteNOw84+Vhp/8
+	 JGM0cuMuELK8ts2oZ2zyfUOv7GWNEMt41STwHPX3q3W1ScJirLKhHOd8RYQIptm39+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793983314;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793983380;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
 	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=oPspVz2u3sUVQrpVa7QtYannDPmyJMtXsmAP0J0uodo=;
-	b=QByB8dmsqOQaBR5eAUTb9pJ4D9YACHVBzZOrmyReMHzvXgg6BGZAiI3KTRm07SFfFnsO
-	 Z93rHhkgNnLzHTJ6yJl13XhrIl1e86XePHSSRll+hPMK0M07eOcSlMb8d8N2scLQgHt0P
-	 TwppixpU34o+3d6I5y6sxXSsLsCPCyvRtDF3DJXfMnLgfO/4nlh9GQMTOJEWmqX6NqZfW
-	 k7FB9BfruWZXVX7hhXlAq0/TZRs8xM02zeB1hGy1EupaeuBj85bfmRxQNtUUyvVpfgKiK
-	 0OuAqZlUybJhdDnTmq2nEPNkqmRYkCypJdxVoh3GjnkMKAbB990OQFhCEzMCaN2GRCw==
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=sOSTmZKcrJ1kJMPBeiZzfbNHAaw+xN5ssuPT1uHWyXE=;
+	b=PxHvAeMi8P0lEUEKgUQG9LVfIehsx6ubxoMii0v6lB391E5FAdesXtKHdWAduNYaqkCI
+	 Mc34192dMCO8RSirl48i/4wZGppDGLTmThR4wc5HsWtFAjghQyHIWPZvgsbYc1gB2Y3PV
+	 p7hpUUH+wRPVfFs6FjN1sC6pNWdPKRhPQINlqA5vY+KsPaPbN8HheuaB9Nt0GiSam61DP
+	 9bbZqQhTY7BzQzE/99MPgVNapcggdtqAPiJDEwz+U/fznph8BViWfwwCoERO4waB45lrO
+	 r1NDFXDhPSGWTWnfjbTv8Hg5lR/vc4erjzgC1C+rH5qHF4rvqIcVyjF8PmgJz/Xf12w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZRI6UUZs;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OfKfcCJu;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDF7606A33E;
-	Fri,  6 Nov 2026 16:41:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FDF7606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627BF606A326;
+	Fri,  6 Nov 2026 16:43:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 627BF606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZRI6UUZs
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OfKfcCJu
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793983315; x=1825519315;
+  t=1793983381; x=1825519381;
   h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=U41/yhPtOEbm2rdavaCV20VU455lrs9kR6LVwMJnUdQ=;
-  b=ZRI6UUZsrpdTJoMofP7J+0iCMTFMKtdzS6ighslr8kSq4IzjVc28mztZ
-   N7DGdWVPitaip7flIaPtDtZmITCDmqGoenDkFEzrQhL120ede3qprOy/b
-   VbB/134A4Kd0EZGl0kAjGBnwi+1LJpfstXgd1jy7xKW+WR6DN9zfDHdyv
-   cHJZkveglHmjM+6tkXTwc12CFdsL2UW0oJr8Kd9y4TGC9YmPVMSp1kDev
-   auMVp/3AvG9rnxfqBtYVjvpyEsjJXhOS9LmfCYgb8gm/JrqgycLg9gplM
-   +3ESdjTRrJJbQpe/vp+29Osa+gjsbAEM7zyf+XQfrAcuiFnsHbnAVgVvW
-   w==;
-X-CSE-ConnectionGUID: DVx4N3ZATNiii2beJqzfUg==
-X-CSE-MsgGUID: x6mJ02xUQpCNQCFw5fEamw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2669066"
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=DtSzl4OkluS1AquIQlPMXdHmZEU1A74G5s2HtG/AMYY=;
+  b=OfKfcCJu+UKgaDTLw8R/sSrBnZ1J4c+CMzhv/B6ZkMWw+sPcrGD1fafs
+   RL1a5obKXJiDax5M6TqKBtmRk9SVorO6yjq/w0VnBzJzBqZ5DiYBiAAaL
+   zHPQMgcjNLQbJsroNwrYl+b4r7oA6a3wCCOo1+hcwCdmrZjaNHyTZEtjQ
+   6lNUpn/p1od4DXyubLt9+mcfCjOQPOVGu3Xon8ft95OvXZ5UEV9er3Uw/
+   G272RGOAlkUme2mXjm3kGg4XrlBIDux87byp+OARPN+G0hUdSjUKB4McO
+   QmQxXF6nM57RTP9DxMcJaj5hIq22z5CCP9MPlgqM9DRIWeQ8PtmJRv1OL
+   A==;
+X-CSE-ConnectionGUID: IWkc9kqQTlSa/OPtASAeOA==
+X-CSE-MsgGUID: 5Z4vJdz6Q6+0KFVHCcoEng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2832121"
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2669066"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:41:54 -0800
-X-CSE-ConnectionGUID: AhncTAcSREy/LIg9F9dhYw==
-X-CSE-MsgGUID: 3Uc2TKvlSuGnHOjN8ZQ39g==
+   d="scan'208";a="2832121"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:43:00 -0800
+X-CSE-ConnectionGUID: 5kTaVGYwRrOE2rN5egO1BQ==
+X-CSE-MsgGUID: ASPBrMcTQrOOcy2RCl6P+w==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7660259"
+   d="scan'208";a="7747948"
 Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa009.fm.intel.com with ESMTP; 06 Nov 2026 08:41:52 -0800
+  by fmviesa007.fm.intel.com with ESMTP; 06 Nov 2026 08:42:58 -0800
 Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id A09B699; Fri, 06 Nov 2026 17:41:50 +0100 (CET)
-Date: Fri, 6 Nov 2026 17:41:50 +0100
+	id E1E3699; Fri, 06 Nov 2026 17:42:56 +0100 (CET)
+Date: Fri, 6 Nov 2026 17:42:56 +0100
 From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Joonhoe Kim <26rote@gmail.com>
-Cc: gregkh@linuxfoundation.org, neil.armstrong@linaro.org,
-	dmitry.baryshkov@oss.qualcomm.com, tvlad744@gmail.com,
-	linux-usb@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: ucsi: Leave the mux to the altmode driver
- for alt mode partners
-Message-ID: <au4DThRaGmNzZ0HU@black.igk.intel.com>
-References: <20261103135046.1654-1-26rote@gmail.com>
+To: kernel@resetko.pl
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Guenter Roeck <linux@roeck-us.net>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mark Pearson <mpearson-lenovo@squebb.ca>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] usb: typec: ucsi: acpi: Rename the Acer zero
+ version quirk
+Message-ID: <au4DkMViEzQEHLHd@black.igk.intel.com>
+References: <20261103-ucsi-lenovo-t14g2a-v2-0-e85c659b56a2@resetko.pl>
+ <20261103-ucsi-lenovo-t14g2a-v2-1-e85c659b56a2@resetko.pl>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,57 +84,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103135046.1654-1-26rote@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261103-ucsi-lenovo-t14g2a-v2-1-e85c659b56a2@resetko.pl>
 
-On Tue, Nov 03, 2026 at 10:50:46PM +0900, Joonhoe Kim wrote:
-> Commit 25a2bc21c863 ("usb: typec: ucsi: call typec_set_mode on
-> non-altmode partner change") set TYPEC_STATE_USB only when the partner
-> flags were exactly USB, so that the altmode drivers set up the
-> switches, muxes and retimers for alt mode partners. Commit 226ff2e681d0
-> ("usb: typec: ucsi: Convert connector specific commands to bitmaps")
-> turned that into a test of the USB bit alone, so a partner that
-> reports both USB and alt mode now gets TYPEC_STATE_USB as well.
+On Tue, Nov 03, 2026 at 05:10:20PM +0100, Stanisław Titenko via B4 Relay wrote:
+> From: Stanisław Titenko <kernel@resetko.pl>
 > 
-> On pmic_glink platforms the altmode driver programs the same mux chain,
-> and the two notifications are not ordered. When the UCSI connector
-> change comes last, an FSA4480 switches the SBU lines off, the
-> DisplayPort AUX channel stops working and the sink is never detected.
-> On the Lenovo Y700 Gen 5 (TB323FU, Kaanapali) this happens when a
-> DisplayPort sink is plugged in during system suspend.
+> The quirk added for the Acer Nitro ANV15-41 is not specific to that
+> machine: it substitutes UCSI 1.2 when the firmware reports a zero
+> version, which other platforms with the same firmware bug need too.
 > 
-> Set TYPEC_STATE_USB only when the partner does not report alt mode.
-> USB4 partners keep TYPEC_STATE_USB, as they do now.
+> Rename ucsi_acer_read_version() and ucsi_acer_ops to
+> ucsi_zero_version_read_version() and ucsi_zero_version_ops, so that
+> they can be shared with other machines.
 > 
-> Fixes: 226ff2e681d0 ("usb: typec: ucsi: Convert connector specific commands to bitmaps")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Joonhoe Kim <26rote@gmail.com>
+> No functional change.
+> 
+> Cc: stable@vger.kernel.org # needed by the next patch
+> Assisted-by: pi:claude-opus-5-5
+> Signed-off-by: Stanisław Titenko <kernel@resetko.pl>
 
 Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
 > ---
->  drivers/usb/typec/ucsi/ucsi.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  drivers/usb/typec/ucsi/ucsi_acpi.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-> index 2f9adf4f8bde..395554ba0312 100644
-> --- a/drivers/usb/typec/ucsi/ucsi.c
-> +++ b/drivers/usb/typec/ucsi/ucsi.c
-> @@ -1356,7 +1356,8 @@ static void ucsi_partner_change(struct ucsi_connector *con)
->  			typec_set_mode(con->port, TYPEC_MODE_AUDIO);
->  			break;
->  		default:
-> -			if (UCSI_CONSTAT(con, PARTNER_FLAG_USB))
-> +			if (UCSI_CONSTAT(con, PARTNER_FLAG_USB) &&
-> +			    !UCSI_CONSTAT(con, PARTNER_FLAG_ALT_MODE))
->  				typec_set_mode(con->port, TYPEC_STATE_USB);
->  		}
+> diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
+> index 5697ccc24ec3..47ba0e15b8ba 100644
+> --- a/drivers/usb/typec/ucsi/ucsi_acpi.c
+> +++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+> @@ -121,7 +121,7 @@ static const struct ucsi_operations ucsi_acpi_ops = {
+>  	.async_control = ucsi_acpi_async_control
+>  };
 >  
+> -static int ucsi_acer_read_version(struct ucsi *ucsi, u16 *version)
+> +static int ucsi_zero_version_read_version(struct ucsi *ucsi, u16 *version)
+>  {
+>  	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
+>  	int ret;
+> @@ -138,8 +138,8 @@ static int ucsi_acer_read_version(struct ucsi *ucsi, u16 *version)
+>  	return 0;
+>  }
+>  
+> -static const struct ucsi_operations ucsi_acer_ops = {
+> -	.read_version = ucsi_acer_read_version,
+> +static const struct ucsi_operations ucsi_zero_version_ops = {
+> +	.read_version = ucsi_zero_version_read_version,
+>  	.read_cci = ucsi_acpi_read_cci,
+>  	.poll_cci = ucsi_acpi_poll_cci,
+>  	.read_message_in = ucsi_acpi_read_message_in,
+> @@ -194,7 +194,7 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
+>  			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
+>  			DMI_MATCH(DMI_PRODUCT_NAME, "Nitro ANV15-41"),
+>  		},
+> -		.driver_data = (void *)&ucsi_acer_ops,
+> +		.driver_data = (void *)&ucsi_zero_version_ops,
+>  	},
+>  	{
+>  		.matches = {
 > 
-> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
 > -- 
-> 2.43.0
+> 2.56.0
+> 
 
 -- 
 heikki
