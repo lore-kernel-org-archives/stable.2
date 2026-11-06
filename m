@@ -1,58 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964972;
-	b=t3dm2DUSV1xGHvrTuE1jlNF1+O5/5s1GmujwUQER4oAJSr935XkCUM10AIf2aqjGCGpq
-	 UJWuNoKBaMUaxb+gXHYq9UGIqn+JoM7kOXzJL05xveiWXCNGAOFYeQcZgDiM+9HkHqU5a
-	 D1hiZk+rKBpD9VoL8o6XfCeSHRzeu5F5pOLnysTsExnTBHwEvpr7hAksyO/amxjqyqdBr
-	 cz6quG0GgePS+WU7QrIUmEhe0jg2slKnZUc5Ox29x6lSivGvqmiAbzkQVkGI87hiQdcwh
-	 PHcZSB3OL+f+azSFiS/cfGXscdrSIKh+NTWFZCi/J1HTDCUJc+SDcik5rYLTfl7IgjQ==
+	t=1793965080;
+	b=M4wxojxuVgytx0al3CwYWFntQugGS3SR0VvNdZObuKZ+59RjJhYWXEsv9ip4CK5B12I9
+	 oNiYSL7l+MOUVRs74dq48qF4OacPepFRV0bteVxnDJlJwXJF8aSaEVRarR6sWMrtJfoY6
+	 FMhmGRNreSk7PmVLsm2Er1t4nB2YYWQMOcFA3bBdky/ghHxhi3waLjFbtSwjLxll7sFtQ
+	 lgKsJuKMJscIscjU18Jv4rhbboL14mMgkMRdSiIBC/RQh4R5fSJeBJcsjM16XMn0E1Whj
+	 rWtBYeYKtAEu0LGwfJWY93rM3pQ0ImIa5sg+P/uEO9dP8/aEZG6uqyJJk+zE7Gwa5Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964972;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=6ELh8iLQH33pk5/3omd9NoBeH6GNzJqOflJ+R3IwKLo=;
-	b=nxFQXqzaRCkwIzuMwGr5cuQXYQNouer07g+lRJ6RwSy4ORIABwTCa2729wLVRL6m0HaP
-	 wqXrenvgg77LiTXNpV7zpKVLPbJPiTFnZfE45h+KoQCTjLJHS8DWKogE2gYeBykYbUP/C
-	 U3Pj5TNgr2r02fCzW/og5mcNjWg7qkpEU1lA4ScSKrpO6Kg6TH7lptXQlkDbpNvUCkUde
-	 LJC3icyA+3BavFRSvg9w4pjKXyBr8CdjXyHukOp0IZf0WwTQWYnKRRciP/oIaE5jVdgta
-	 ntANz/J+AM0CzCUh9QFb910eyS3HxE5mpVtoG/3hjlPhprnBudXk6uqCxVNLV1WAJFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793965080;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version:Date:Message-ID:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=yZRVvWiLJU6lKe1IgV0S3vol1scJQqPQxcRJ6n5s7aQ=;
+	b=2b3xOJqiI9eQ5YnHL4AVVAqJtg4qr5CINYQ+pvdUceeJqWaXrRNHTM7b/WaV1wNyZMoh
+	 +/0fRn3kOl73fHvnwRDCFEG3Onh+PZHyQz62DBqs0FCiliMGBht7oucgi0dHvLXzezBGt
+	 +L+xu5roAIZ8UVjY4ZhdjU2bbYeKU4Y1Hfl7iP+ZdSrnIPCVQ5UpFvuMxCGjn+nVjoD/W
+	 7qAn4kivYpndagwtLj8NyRKNW+6AJnVGkCmNufzNAAuSOFuRFDOkLVN9W0/fFAU9Y/jOT
+	 YzOW7MUb3HXFXQz93OrEV4Gn12+m+CQvzGoDwannLwmY/c73wTM5sy585V78gga6BfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GKebSQq2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBDCB60A2629;
-	Fri,  6 Nov 2026 11:36:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GKebSQq2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 113C81F008A1;
-	Fri,  6 Nov 2026 11:36:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793964971;
-	bh=6ELh8iLQH33pk5/3omd9NoBeH6GNzJqOflJ+R3IwKLo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GKebSQq2BVuNSVZhArvAoKElid1r+0NZIJbM/TrNg8V+C4/R6W13iyFRXdbmRytjd
-	 CgTX3Y1rkvDmXFNGyaA61UNcD1/9TrW3N8fbfYdkfY8AtQiswkEIFNuTKASwDLkHin
-	 Z9Sz8Iqa5iEiSWoeOSwlHeGYXLQD13Zy+a/CMX4nf3epyEE1JX6OEQ5verZ+SXOH2H
-	 3a4t6QWDiyHL/7EAzNBSQ3JouMyd5sQHwwQ+hOY/9jhKwHjnLs93qr28qpUUQ45qTT
-	 /UGgovlfHOxACHV7E2kZGcZC0dcCIIwLi1OIwINkeG5nGyz4q8FzPNT442Vnu2IkoC
-	 FQUn9IG6GdXhA==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 759CE27E8A5A; Fri, 06 Nov 2026 11:35:59 +0000 (GMT)
-Date: Fri, 6 Nov 2026 11:35:59 +0000
-From: Mark Brown <broonie@kernel.org>
-To: hyunjungg <hj351016@gmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] ASoC: codecs: wcd-mbhc-v2: cancel button long-press
- work on deinit
-Message-ID: <11820b5b-43a8-4bfa-bde7-11e71f5ff72b@sirena.org.uk>
-References: <20261106052242.2000264-1-hj351016@gmail.com>
- <20261106054447.2019214-1-hj351016@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62CD7606C7ED;
+	Fri,  6 Nov 2026 11:37:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62CD7606C7ED
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACnro8RvO1qkOpsAA--.21855S15;
+	Fri, 06 Nov 2026 19:37:55 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: abhashkumarjha123@gmail.com, andy@kernel.org, dlechner@baylibre.com,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, nuno.sa@analog.com,
+ songqiang1304521@gmail.com, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: proximity: vl53l0x: Fix trigger reference leak in
+ vl53l0x_probe()
+In-Reply-To: <20260917013955.5ae11745@jic23-hlaptop>
+References: <20260916164043.2084494-1-vulab@iscas.ac.cn>
+ <20260917013955.5ae11745@jic23-hlaptop>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,40 +54,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nxjRkP5C9ziDDxTd"
-Content-Disposition: inline
-In-Reply-To: <20261106054447.2019214-1-hj351016@gmail.com>
-X-Cookie: Whoever dies with the most toys wins.
+Date: Fri, 06 Nov 2026 11:38:05 -0000
+Message-ID: <179396508508.2291875.4031512609708379217@iscas.ac.cn>
+X-CM-TRANSID:rQCowACnro8RvO1qkOpsAA--.21855S15
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYp7k0a2IF6w4kM7kC6x804xWl1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_Gc
+	WlOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxAIw28IcxkI7VAKI48JMxAIw28I
+	cVCjz48v1sIEY20_Gr43Wr1UJr1l4c8EcI0En4kS14v26r1q6r43MxAqzxv26xkF7I0En4
+	kS14v26Fy26r43JwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr4
+	1lIxAIcVC0I7IYx2IY67AKxVW8JVW5JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4U
+	JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07bb8nOUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUDA2rtky+cDQAAs2
 
+Hi Jonathan,
 
---nxjRkP5C9ziDDxTd
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Sorry for the very late reply.
 
-On Fri, Nov 06, 2026 at 02:44:47PM +0900, hyunjungg wrote:
-> From: Hyunjung Ko <hj351016@gmail.com>
->=20
-> wcd_mbhc_deinit() drains two of the three works embedded in struct
-> wcd_mbhc before freeing it - correct_plug_swch (via
-> wcd_cancel_hs_detect_plug()) and mbhc_plug_detect_work - but not the
-> button long-press delayed work mbhc_btn_dwork:
+I understand your feedback: this fix should not depend on a subtle
+ordering constraint in the driver. Trigger lifetime handling needs a
+broader solution in the IIO core, as you explained in the bma220 thread.
 
-Please don't send new patches in reply to old patches or serieses, this
-makes it harder for both people and tools to understand what is going
-on - it can bury things in mailboxes and make it difficult to keep track
-of what current patches are, both for the new patches and the old ones.
+Please disregard this patch; I will not resend this approach as v2.
+Thank you for the review.
 
---nxjRkP5C9ziDDxTd
-Content-Type: application/pgp-signature; name="signature.asc"
+For transparency, we use static analysis tools to identify candidates,
+then DeepSeek and GPT-6.1 Sol to assist with auditing and preparing fixes.
+I am responsible for verifying the findings and changes before submission.
 
------BEGIN PGP SIGNATURE-----
+Best regards,
+Wentao
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCau27nwAKCRAv73Ows9A4
-iTi3AP9E/Q5jlbVckZnOHBP7zxvNogwVxoH9fdxMi/liHxBjbwEAxAfCmLJKVS+7
-sRAZ4f9xZIktl+Sh0RcTY6I0km3XBQ0=
-=3xzU
------END PGP SIGNATURE-----
-
---nxjRkP5C9ziDDxTd--
