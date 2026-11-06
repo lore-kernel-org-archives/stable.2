@@ -1,81 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793975632;
-	b=Ry7k+qJm0o3yNb0FYgv84Yep8Wa2Dza9HhkdY5Qs9L3xj0kqyjliptCUJH0Lnw7vcOco
-	 Eyf+OIvrZmG99X6sJXPLrkJZ/Eo14vsnwGwj27UCdsmUDChJJmIR6DSS3718Ps0AGpPt5
-	 dg5bsVqjIP7wdBmpzmSelfA2e5iHZU4K97aJylLlHj3WVJDOONdWnvvtkH1TLXBmaaR6W
-	 hOOs+K6D/SHDHa33/HXQvItC/QM2vAYge74YEL4bpaARqD0hasM7eyFtaXKcP8Az77Egc
-	 QM3043U02/wll85NI1vUcv9dWvNLLrIg8HsX3z8QPDskCnVk5nItYbnvF4R67m3HBqw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793975632;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=/1+8e3Hg2HFZU7LiS9ocY4f7VYXwvsrnE+JnKJYAl20=;
-	b=flrLzzejat6sQfNGae5bQXPId+u5bA0Mb9zZt7KX7H2sgL7o6zH2avzgMb2q7u9+GbLd
-	 tNsMTqVJv0711d+pIwHo4Rf3AC609EV2H9/apCb1qRko0WxSfmzxOfnqhdamdWtXl+Dl1
-	 mZ0dws4EnxCbKvTFNiqZ+7ueWWhlAu9fGjoE7mefED7qonMmhn/XyY2dizyBEsvDuYhPs
-	 zahxbWGxtAnS4k0hPC6cGgbZkZCjiAIy9gMiIQSuWseHnwkT0N9DDBux+/y5PqkXokL88
-	 fctwmCbXCtuITW2aWof3ZFD8OPrHltg1b22YLC1gkiBJf1hxMvGQ48FczVR119NbYPQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b="HjDsYe/l";
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.139.74
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793975713;
+	b=v5KdgVAYiq59goW6xsvf2U8wwEGNIw0FJ+AiKg2Ym0Vvq6S0pdtMVnBicggrCsF0jylF
+	 fIZZNW4OJWU74f/zQiocGKScHQVS971FeAj0RHTvK03mpqtIegchf+Q0LDQgqanDvizQx
+	 zIkhIGb6KDecMnxkFS54ucqG/DxjpkWbdWnnmhz5xv3FC9g36scthA9RkTInbpJmkz9vs
+	 MV1qpilKz521V4qydlcoD05GtmShxtW5m5bcMQnhCv4Uy82peKuSNOGshesY0MNp6QIxJ
+	 LM2sPYZbw/pylEfEKAW0gVjPOL1JSiPNTdgtoV9bLxdyXHQ4gi8POnjllaDjszZZ1GA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793975713;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=AgxbqOaoVM9+7Pj0+8CQw7G3IaiuCjj7kRy0IPi5eVg=;
+	b=XBL4dL4YSFvu1DKiCz+HGPm8toSVg+UNmOlbz77ZteyoMPGXumftr37j2MNGIFwaKlcZ
+	 GUcFkI0r0VfFkR0ys0l1iVJqba5GttQHdoCMVxwKf9wuKdI1IeaWCghDQ/3Kuy0Srff5a
+	 L/4HJbnn04pHgMcSe3aqtA7irCBtcW+wct6NotRK5JwN3jhcfnGCvzb/GusrsF6GswhVj
+	 FpsSGuv7fLbIvC5CuQ9tjlZrGdJRiffDuL5Ba/tbkrExf4QopEcXhva0ofRGFj4e9/LrY
+	 4FOjNxkX3lPjAgMdtgEoOtxxltz6tUEPcIirT96lsHz8pTvFEx4fQLP+E6T7F5K0VtA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cs.columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b="Ma+/RZzQ";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.139.74
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A83606A329;
-	Fri,  6 Nov 2026 14:33:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12A83606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56FC9606A32C
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:35:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56FC9606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=HjDsYe/l
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1793975616;
-	bh=LuNdlr7/2G4byaAbA1MPs/7s62mjQQWWG7PWDKZH23k=;
-	h=From:To:Cc:Subject:Date:From;
-	b=HjDsYe/l+D0+xAaVeB0PFHXMgKDGG6+Twb3O2h4rozdT2RcxetKL3VURn2dP/o9BF
-	 g3dTRB9geivJnmtpWR5PWdii01GV7FmnbmVjdh7bxfzzmz2BUd25N6pFU9JtUqd0Af
-	 k4FmGZl4Bi+D93ef7L8vg/AjPga/NlP++RrheE+mlAtPVaYBLVjqAtgZyrVAooABRn
-	 g0tcgX4nfP7sPyfUiNzmBcktqhR86/U0IF3w/L21uV/Oo2Gb4Y8X8pJIHYQiCnXOPx
-	 DFNcU/JZ9jfLfwDxEdUrZKxsG/q85o95RrcjTpsLIU5Jcwb/8489e0dmHYTqPpib3i
-	 ytWV6kHzwnzOw==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 608F724FCA;
-	Fri,  6 Nov 2026 17:33:36 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Fri,  6 Nov 2026 17:33:35 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.54.9])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jLhW267jrz2SC3;
-	Fri, 06 Nov 2026 17:33:34 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Zhu Yanjun <zyjzyj2000@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Liu Yi <asatsuyu.liu@gmail.com>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Zhu Yanjun <yanjun.zhu@linux.dev>
-Subject: [PATCH 5.10/5.15] RDMA/rxe: Fix null deref on srq->rq.queue after resize failure
-Date: Fri,  6 Nov 2026 17:32:53 +0300
-Message-ID: <20261106143254.1997-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=Ma+/RZzQ
+Received: from pps.filterd (m0167077.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6DcSpO1329598
+	for <stable@vger.kernel.org>; Fri, 6 Nov 2026 09:35:11 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pps01; bh=AgxbqOaoVM9+7Pj0+8CQw7G3Iaiu
+	Cjj7kRy0IPi5eVg=; b=Ma+/RZzQRAikshvpTwR1Eb4FzE9gsBtnnc5LGsWWCojA
+	AZBj2PdwgHcwxlq9AD6KjiX1dJ6otI/lgVtK7TMCP/zaJAE2lhFayZbmAfgmLPt5
+	QsBoDuhurAzVoZRIaGDQJRkuUX0wYVDr4HDPlJyadIGYaWUH7PVjUPyd2k1URpig
+	eymuvPUPbXpWjkZs5IGZlLVwePmBqAqRT4GG1FN9yFOMBpvx/KIYkZZW9mNbSPwG
+	ZettMPQWsQeSk3oL5NOxwAjcDI9WVmStSr4smwpckP6Tjg+C/mPR4NgcI6uTWXVH
+	SNYmQm8Nkx0cVvB3CE38ko6Rgzr7SVDg7CFcI54aJg==
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hs3pcbe2m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 06 Nov 2026 09:35:11 -0500 (EST)
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8b309405195so5093937b3.2
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 06:35:11 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793975710; cv=none;
+        d=google.com; s=arc-20260327;
+        b=j63qBxKHYkX07tKZTkwuXxA7Mhx5rwtBH8cr11dl5dN0lXlDZjVbQlCvWXLKbYSvXm
+         MSxnq4KSB2tDPO4lw7IPJk/dsyqmIFfRggoJ/ACTBN0DVysrDt+0CrHmLxhvK1LQ5IXf
+         /hHEibIQD0M2trJ0d3PbcKArlmO7WG6FSw+d/eA7n6UjQzkArcpVl4MCdvhEAA+4KJfV
+         09ytrN6FLy8mQ0BJfgO6xWNgWkls7YCMBPR3cjqrhjkmVkIbt6PteulgcixfrH018LEW
+         jcw+OqWv8/1xrK5C3AWg25SCbaYTVIX7HAV9Q2qMyRv0Y0PQTHpktNdfpsaNx+ao9AB2
+         85ew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version;
+        bh=AgxbqOaoVM9+7Pj0+8CQw7G3IaiuCjj7kRy0IPi5eVg=;
+        fh=axbkKgIXPYWt3dkm/coYVxYqJ2HhAC5VYegOdZEvqAg=;
+        b=HYAjgAo7TtKX5ZB7VPwb8qM2QP4cSzkH3YJYRwMX7O/GO18FGxy5PPWzUAmp2LDA9/
+         w4BsiEOqtuJnizOQv4zSsyx9gFTyrDIC+fvxi3DkPDA200PssxCPO7ensMp8x+Hc06An
+         k0JEEJELuBAw4v9ZUFRfzy6S6o6bHOMyC1Z+du4UvwjAoOE9/YSe1ZJwM4ngAMa4as6M
+         El2y/gyM2UYaRehf/mB8UE/XwrpJ0woq1ZXKNdQnJlHcNSHs0rA+MZiCJYyrB8znxPwB
+         bo3BLo4ZuYMlEJsEpCsppAFifHBLIpAuENH+u0V6ooPWbXNvAE8gyD/Ffn5kJKFiikYu
+         XoDg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793975710; x=1794580510;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AgxbqOaoVM9+7Pj0+8CQw7G3IaiuCjj7kRy0IPi5eVg=;
+        b=X0lDAzCkIHfZ5aJDea8jTuVKAp3mzfIn4+JQjtnx5n6txOocea3aySGuQ7ihMbd8IT
+         HwLs2G9lDWlTl5zO4WBFfp74Ck6M7DLDo1sPyjMVW+HYRXnb6wSh9l8CYVLOgJ44dxFo
+         qYlyfACNp1OMs3DjOhanOAKqOAGqa/XX2YZUG3IPUNfyf5hc3MahCy0B49OXqQMIdT/R
+         t/4LCfqJjNRTM1cxojJFLqNMMO7hmE2HXjSCxLFOHrfGWRxrXh+Yd8NQLy9OccwPQYGh
+         8ffNywq6r+fnJB00G4Li2fnswFGCz/Er27aZ7bYqGo7ggFqASGIUHRWSf9TGOpXeG4kU
+         Qf5A==
+X-Forwarded-Encrypted: i=1; AL+hErF7enPVeMx5asFlbVZl6V5MpDs2odDam58Bs4esrG1TfSKCWnuIwvrHYwhmobQAM9aI7dHBQvY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9FWS4G4I1cjjkmFgDawJ6nI/KaX+mtZGTxgl04M6uS8TfdjSmw
+	EcEe6PEPiSI3VO/BtgK+Y31OyXtHonhqsia8rEjsp8NCee9XMVNGCb3duiGPx29fW0Y4I79ZkGk
+	Un+2mVljzV3TCbil8UcqGqixpgY4WN4JSNJl6xnGD0b1+r/CPJjJCE8sZSqgDVJACf0305ImN5x
+	3fpuRKQVAOeBdHgnsfH8qKSK9kPPJG
+X-Gm-Gg: AYBFou1eQnpgifSqdZK6hNZxF2PNmwC4jpBinLhObx2gEOLdfzV1PMWWXFwvISdq4hw
+	T32bMpjt/xuqF0mNgdAvqxbohhZJ5AqFNfPDiEci6jhGeJwK5rJjGN7ilAL4E53CPNtBnrV5RWz
+	Q/IkrzrGGqfFEFZovylW95ijswZd3+FDAzOi1flb5m8gK+J1vUIsNpQHRh+FLJZ1R7Drw1S8CMj
+	ceElShpwEiQcy6UcIAeBXgoRrrwaKcSJZJ1T75UpK0H0efOR4r40OGTPuyag+6Y4deiDOPLmXj0
+	XsQIYwiwKPRYa/BUnwMQ4rweArGUtPVX7Q==
+X-Received: by 2002:a05:690c:dc3:b0:8b0:d027:c4f0 with SMTP id 00721157ae682-8b3417cfa5fmr14408547b3.1.1793975710485;
+        Fri, 06 Nov 2026 06:35:10 -0800 (PST)
+X-Received: by 2002:a05:690c:dc3:b0:8b0:d027:c4f0 with SMTP id
+ 00721157ae682-8b3417cfa5fmr14408337b3.1.1793975709944; Fri, 06 Nov 2026
+ 06:35:09 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,110 +112,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/06 13:09:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {date_rfc_vio_soft_silent}, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;new-mail.astralinux.ru:7.1.1;patch.msgid.link:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207325 [Nov 06 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/06 11:41:00 #28808023
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/11/06 13:09:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+References: <20261105-pin-barrier-v1-1-04ebf118175a@cs.columbia.edu> <CA+EHjTxoNcx4s4L2DRXLu6VydiG2N3OqRYr+kscghp0jVVwg5g@mail.gmail.com>
+In-Reply-To: <CA+EHjTxoNcx4s4L2DRXLu6VydiG2N3OqRYr+kscghp0jVVwg5g@mail.gmail.com>
+From: Xuheng Li <xuheng@cs.columbia.edu>
+Date: Fri, 6 Nov 2026 14:34:58 +0000
+X-Gm-Features: AclHuK9bdlU0f_EKHjmsScSdj7QwMgpM5fQzjjzMWksK2dalOcvjFLTPsgJNF-I
+Message-ID: <CAPOPQMDYJ7rEHd0W6Re4fs2u3FVf_Qs=5wD_U8DDOccHwaSY3g@mail.gmail.com>
+Subject: Re: [PATCH] KVM: arm64: Order a later pinner's accesses after the hyp mapping
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+        Quentin Perret <qperret@google.com>, Will Deacon <will@kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Mark Rutland <mark.rutland@arm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Steffen Eiden <seiden@linux.ibm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu <yuzenghui@huawei.com>, kvmarm@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-Authority-Analysis: v=2.4 cv=Vs62kO2n c=1 sm=1 tr=0 ts=6aede59f cx=c_pps
+ a=72HoHk1woDtn7btP4rdmlg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=QOCMdifcju39GKoXhKua:22
+ a=SMIg8bpeATqOEtpUIEIA:9 a=QEXdDO2ut3YA:10 a=kA6IBgd4cpdPkAWqgNAz:22
+X-Proofpoint-GUID: v4ZIFtEMwLqvCu-NNDhGz3u_PFd-TtLf
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA1OCBTYWx0ZWRfX4dULQ0G7VZzv
+ 6Ht35QZNRGz9+pk0VHWE6wCJeZgH7QLgdjrNvF/QXUJr09XBHuD97xfknqozu4Oto3An+3GGdUi
+ +/ZKpH2EegEwD1AXivHBll895u6gCttcBa+1E3jo4BVjTdOtuSf3
+X-Proofpoint-ORIG-GUID: v4ZIFtEMwLqvCu-NNDhGz3u_PFd-TtLf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA1OCBTYWx0ZWRfXzSoHsgRRhJwf
+ mlYrz2wA2UApkC2z2za2rw3KKfeBj3F2Ej6IyBYvAdJd62qUpDAT7BnrzaP3a/9Fi6GgZJe1nos
+ A0c5nm62q6eUyYItjIN8yNdam8o2ExowNJ029qWT/bF4osb9r4XKyeHFohDuWXY5WciM2e3LjEH
+ OyklBbbdWcCIPuZC1nlfnyfJJYEV19SgGNJaMXW4DAXJ7c37J25S0qz12egEUj6W7KhqJ0M+Af2
+ o/Pn2LZlZ1fSq3tFbYOjcqqiG2BhVCtnytlESn05AChMxmWeo/p51fHMHy3cdpBx1H+uDzlL/xo
+ gajCobc9rjfuaSHrRUchrUDKGr5yZxiS5Pnkaulqoqlwoig4WLHFpTHnpzZ0po7hfQ92up2BtIK
+ 4sGOgzA5L7SiMngvhiMjt0GvNm0qU7XbufSkSH3681Kvu+sgKFwC1WvOdNpIJR13Xv86FxNNfOc
+ e08m9+UtFLYfbqxeFpA==
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11957
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=10 suspectscore=0 bulkscore=10 lowpriorityscore=10
+ clxscore=1011 malwarescore=0 spamscore=0 phishscore=0 adultscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611060058
 
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
+Hi Fuad,
 
-commit 503a5e4690ae14c18570141bc0dcf7501a8419b0 upstream.
+On Fri, Nov 06, 2026 at 12:59:36PM +0000, Fuad Tabba wrote:
+> Could you also give a case in the message that a well-behaved host can
+> hit? Since 7.4, two vCPUs of one VM can pin struct kvm at the same
+> time from the __kvm_adjust_pc hypercall (cf533b4d3630), which then
+> reads it on a CPU with MTE.
+>
+> Either way:
+> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-A NULL pointer dereference can occur in rxe_srq_chk_attr() when
-ibv_modify_srq() is invoked twice in succession under certain error
-conditions. The first call may fail in rxe_queue_resize(), which leads
-rxe_srq_from_attr() to set srq->rq.queue = NULL. The second call then
-triggers a crash (null deref) when accessing
-srq->rq.queue->buf->index_mask.
+Thanks for the review. I'll add the __kvm_adjust_pc case in v2: two
+vCPUs of one VM pinning struct kvm at the same time, then reading it
+on a CPU with MTE.
 
-Call Trace:
-<TASK>
-rxe_modify_srq+0x170/0x480 [rdma_rxe]
-? __pfx_rxe_modify_srq+0x10/0x10 [rdma_rxe]
-? uverbs_try_lock_object+0x4f/0xa0 [ib_uverbs]
-? rdma_lookup_get_uobject+0x1f0/0x380 [ib_uverbs]
-ib_uverbs_modify_srq+0x204/0x290 [ib_uverbs]
-? __pfx_ib_uverbs_modify_srq+0x10/0x10 [ib_uverbs]
-? tryinc_node_nr_active+0xe6/0x150
-? uverbs_fill_udata+0xed/0x4f0 [ib_uverbs]
-ib_uverbs_handler_UVERBS_METHOD_INVOKE_WRITE+0x2c0/0x470 [ib_uverbs]
-? __pfx_ib_uverbs_handler_UVERBS_METHOD_INVOKE_WRITE+0x10/0x10 [ib_uverbs]
-? uverbs_fill_udata+0xed/0x4f0 [ib_uverbs]
-ib_uverbs_run_method+0x55a/0x6e0 [ib_uverbs]
-? __pfx_ib_uverbs_handler_UVERBS_METHOD_INVOKE_WRITE+0x10/0x10 [ib_uverbs]
-ib_uverbs_cmd_verbs+0x54d/0x800 [ib_uverbs]
-? __pfx_ib_uverbs_cmd_verbs+0x10/0x10 [ib_uverbs]
-? __pfx___raw_spin_lock_irqsave+0x10/0x10
-? __pfx_do_vfs_ioctl+0x10/0x10
-? ioctl_has_perm.constprop.0.isra.0+0x2c7/0x4c0
-? __pfx_ioctl_has_perm.constprop.0.isra.0+0x10/0x10
-ib_uverbs_ioctl+0x13e/0x220 [ib_uverbs]
-? __pfx_ib_uverbs_ioctl+0x10/0x10 [ib_uverbs]
-__x64_sys_ioctl+0x138/0x1c0
-do_syscall_64+0x82/0x250
-? fdget_pos+0x58/0x4c0
-? ksys_write+0xf3/0x1c0
-? __pfx_ksys_write+0x10/0x10
-? do_syscall_64+0xc8/0x250
-? __pfx_vm_mmap_pgoff+0x10/0x10
-? fget+0x173/0x230
-? fput+0x2a/0x80
-? ksys_mmap_pgoff+0x224/0x4c0
-? do_syscall_64+0xc8/0x250
-? do_user_addr_fault+0x37b/0xfe0
-? clear_bhb_loop+0x50/0xa0
-? clear_bhb_loop+0x50/0xa0
-? clear_bhb_loop+0x50/0xa0
-entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-Fixes: 8700e3e7c485 ("Soft RoCE driver")
-Tested-by: Liu Yi <asatsuyu.liu@gmail.com>
-Signed-off-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-Link: https://patch.msgid.link/20251027215203.1321-1-yanjun.zhu@linux.dev
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
-[mdmitrichenko: The cleanup block removed here is labelled err2
- instead of err_free.]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2025-68379.
-
- drivers/infiniband/sw/rxe/rxe_srq.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
-
-diff --git a/drivers/infiniband/sw/rxe/rxe_srq.c b/drivers/infiniband/sw/rxe/rxe_srq.c
-index 4e523d91e7dc..523791dbe69a 100644
---- a/drivers/infiniband/sw/rxe/rxe_srq.c
-+++ b/drivers/infiniband/sw/rxe/rxe_srq.c
-@@ -139,16 +139,11 @@ int rxe_srq_from_attr(struct rxe_dev *rxe, struct rxe_srq *srq,
- 				       &srq->rq.producer_lock,
- 				       &srq->rq.consumer_lock);
- 		if (err)
--			goto err2;
-+			return err;
- 	}
- 
- 	if (mask & IB_SRQ_LIMIT)
- 		srq->limit = attr->srq_limit;
- 
- 	return 0;
--
--err2:
--	rxe_queue_cleanup(q);
--	srq->rq.queue = NULL;
--	return err;
- }
--- 
-2.43.0
-
+Thanks,
+Xuheng
