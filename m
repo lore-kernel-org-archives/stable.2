@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964612;
-	b=BP9xP2l05GGeGyXHpKmKUSeAuL4H/MJ/BW4bMf8Cxn33r+IhWwboOrr6yuNqGhvA8sLp
-	 BWpuPcNkvgYTHSX6JhTvav1ptdPZpCZvcrvd0iiQ0L/YjQpNibrFl55QFX3UXQNbj9IGB
-	 UTowjvwXQYxYEc6YnJwgkeSP2kaovMGbmR3l52wLpWIHfp/vuEsCpshjFeTGJqjdSa0Ps
-	 Zfju1hoFyMDzHRBJczmYypSgkGzY4jHAyJCsGybWONC/tvmmdCDHZqS16aErrqn15/9Vg
-	 4aEQbn1nVyow2S2KIKYOMLi3WkSiS1YKL9XfkhzHM6jXSGy16Byit5nLapwNISxXMoQ==
+	t=1793964743;
+	b=DiLEKsLeMT7oSzf81oxrJi5E4tTVaUElbqMHQ8qZwVrAC8f6GCy4PfbSi68fr6lZ1nHR
+	 kNuzIoQWvNbDRAXyu68sH21hsVSbxpGZtItpQRV7v+qa/6zasOB2nLXcp8aNvnJkb45Wf
+	 BmW8xOSacPsJi4dq5WKov/9ys+xs1BwtlnNwETdFdbQD+hDEu9H18XtUpO1531pF4Ldmc
+	 m0B+4xSyrZKw/sf6yCjQT+VL5kX51nEgNYUkM220pinR1k2anxnPoIVr1dnMsRfxyvgpI
+	 cRmmT+JPTUaKKC730ecHuXulcuQk0MH6FiNHVAFPtkKAYRfQqMtjYn1GJo9qxCwR2YA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964612;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
-	 Content-Type;
-	bh=OGu9HnxFx7ILoi6Sr4AwkzoLyqNw7jVxivu5jz9Fz6g=;
-	b=QntSDmKDpBCX3HT0djD/ibsIz5e/PRsGOimAN3bpvgbRUV7y2hxciksis7FwoJDbovsA
-	 t4nYWeQHXiAvASr0MwZvjL0sJWpwdQHXSlF7OPk7MhtkGvy+1gDtPgChGZY6ARAm3eDd6
-	 THRZnxnligMPnImgHz0BuYqYkjrwTMKKeg9vWuV4uhb/84qn0yA+BDS0oaTNmquhB8XBx
-	 ae5UtD3+SIEtORgVDZ7unwJo5+4Ci0pQG2JnTrmGHCcIl73cTX+NR4/J5Nb1mArIwgQ7p
-	 ULum6AjxmXluZgi3AIiAgsofKwHNBuHVuX1p4pB8gdssu6qv8gNNVlv0Rzf5uekrWxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964743;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=sJ6uiboREptquS9XwNjuw9ro8IxA9ByoNmleMW/AMxc=;
+	b=0XjZs+O+mkzoRWCgFaQNKCNafJOUemTGbmEnXYXamj/+a5mYumktyfFbbISlkvbcxi9S
+	 bCsCPFHkLDn36+AsboiZim2w6bndT4W5zcV940k/3qR964dbzqRpD1ZTHYmSCvBAldIl4
+	 DSr/mAEvyD75zfymdJFU5gxPyxvXcZN8unEsyY12YeSN3Q5iYadughGVIPo+55HekQzCL
+	 +xgv3oyY3ToWKoRyvF8PSoMKMBrGglPi1WzW2AHw+NK23Cbpp4RDWucgL9oQzwHIKxiKq
+	 wp+InT3xffLYA1AFe98P03Aw/ans6MvdBdyFdHmTC6c+7XBxJmy7VAXgaHFALv+wGMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IbNOfskd;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28151606A329
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 11:30:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28151606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IbNOfskd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793964611; x=1825500611;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=GK/563x6tR4WLUFQQaCsN8n/obNWN8uKgyI5EBMWAXM=;
-  b=IbNOfskdqx/TYSHXPcTK7OEU/dsF/NeISug26AJQPwHxyo4S/WEnRJkT
-   TGsSNEDFjepC8PmQvOf6OC7kRy33X+cAR0K6s6MGt/Mgz6JJa0+WMOBbN
-   6wX6N54DtTSDBDfSkAbtLajS8IsN0YUvYoHFJW8/xW9PW8AHbC1x9Nji4
-   AmPwcaOtXSoEXzEhOhGdC5CluNsYf0kgRiU0sASVnF3SQgQ2vH8qjLjPK
-   9AT+pvo1vyZIZEfLfzq1IU6s0Lba2grzGGm4otoFAc3QRSjHiGiu3+6ox
-   WsmQxWFN7RAiYhOhXBVJgv2cBnncs4aNL6/karTjc70JD/T2bicazagWE
-   g==;
-X-CSE-ConnectionGUID: ISh+hKVrQcSq5edE6cm+3A==
-X-CSE-MsgGUID: yw/MhUB0S2WDHJdq6J2xxw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2766330"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2766330"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 03:30:10 -0800
-X-CSE-ConnectionGUID: ao5OsVLTTIKNcyZdmw0rGQ==
-X-CSE-MsgGUID: zv1trccIT/q1DRwV0IljpA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7247791"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.101])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 03:30:07 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Wentao Guan <guanwentao@uniontech.com>, joonas.lahtinen@linux.intel.com,
- imre.deak@intel.com, jouni.hogander@intel.com
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, Wentao
- Guan <guanwentao@uniontech.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/display: Don't drop the async-put delay on
- self-requeue
-In-Reply-To: <134A26B6BCDD3C9C+20261104053910.1065103-1-guanwentao@uniontech.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <134A26B6BCDD3C9C+20261104053910.1065103-1-guanwentao@uniontech.com>
-Date: Fri, 06 Nov 2026 13:30:04 +0200
-Message-ID: <a2b152662d219f9be0861e63ddbb78dd1971dc2a@intel.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D0C60A382E;
+	Fri,  6 Nov 2026 11:32:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4D0C60A382E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAA3QpO2uu1qM9tsAA--.22758S2;
+	Fri, 06 Nov 2026 19:32:06 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Frank.Li@nxp.com, alexandre.belloni@bootlin.com, arnd@arndb.de,
+  bbrezillon@kernel.org, gregkh@linuxfoundation.org,
+  linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH] i3c: master: Fix of_node reference leak in
+ of_i3c_master_add_i2c_boardinfo()
+In-Reply-To: <aqr0fHT3EcOlExAj@lizhi-Precision-Tower-5810>
+References: <20260916160654.2081795-1-vulab@iscas.ac.cn>
+ <aqr0fHT3EcOlExAj@lizhi-Precision-Tower-5810>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,61 +53,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Date: Fri, 06 Nov 2026 11:32:16 -0000
+Message-ID: <179396473629.2291714.9103477288277081611@iscas.ac.cn>
+X-CM-TRANSID:rQCowAA3QpO2uu1qM9tsAA--.22758S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYV7k0a2IF6w4kM7kC6x804xWl1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z2
+	80aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAK
+	zVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr1j6rxdMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCF04k20xvY0x0EwIxGrwCF04k20xvE
+	74AGY7Cv6cx26r48ZrWUJr1UMxAqzxv26xkF7I0En4kS14v26r1q6r43MxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
+	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
+	BIdaVFxhVjvjDU0xZFpf9x07bb8nOUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMDA2rtky+YaQAAsQ
 
-On Wed, 04 Nov 2026, Wentao Guan <guanwentao@uniontech.com> wrote:
-> cancel_async_put_work() also clears async_put_next_delay, so moving it
-> ahead of the requeue in intel_display_power_put_async_work() makes the
-> requeue always use a zero delay. That discards the delay accumulated by
-> concurrent async puts, including the 17 ms DC-state anti-toggle delay
-> requested for POWER_DOMAIN_DC_OFF.
->
-> Use cancel_delayed_work() directly to cancel the stale instance without
-> clearing the delay, and clear the delay only after the requeue has
-> consumed it.
->
-> Fixes: 30ca6365bb42 ("drm/i915: Fix assert on pending async-put power domain work when it requeues itself")
-> Cc: <stable@vger.kernel.org> # v6.11+
-> Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+Hi Frank,
 
-How did you find this?
+Sorry for the delayed reply.
 
-Is there a bug report about this?
+The original patch was based on an older kernel tree. I have now checked
+current mainline and found that Akhil's earlier patch [1] already
+addresses the same boardinfo reference leak in the fwnode-based code.
+Please disregard my duplicate patch; I will not send a v2.
 
-How did you test this?
+For transparency, we use static analysis tools to find candidates, then
+DeepSeek and GPT-6.1 Sol to assist with auditing and preparing fixes.
 
+Thank you for your review.
 
-BR,
-Jani.
+[1] https://lore.kernel.org/r/20260804101301.2975911-2-akhilrajeev@nvidia.com/
 
-> ---
->  drivers/gpu/drm/i915/display/intel_display_power.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-> index b000ec001ccfc..7da6eda46e9e0 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-> @@ -873,7 +873,7 @@ intel_display_power_put_async_work(struct work_struct *work)
->  	 * Cancel the work that got queued after this one got dequeued,
->  	 * since here we released the corresponding async-put reference.
->  	 */
-> -	cancel_async_put_work(power_domains, false);
-> +	cancel_delayed_work(&power_domains->async_put_work);
->  
->  	/* Requeue the work if more domains were async put meanwhile. */
->  	if (!bitmap_empty(power_domains->async_put_domains[1].bits, POWER_DOMAIN_NUM)) {
-> @@ -885,9 +885,10 @@ intel_display_power_put_async_work(struct work_struct *work)
->  		queue_async_put_domains_work(power_domains,
->  					     fetch_and_zero(&new_work_wakeref),
->  					     power_domains->async_put_next_delay);
-> -		power_domains->async_put_next_delay = 0;
->  	}
->  
-> +	power_domains->async_put_next_delay = 0;
-> +
->  out_verify:
->  	verify_async_put_domains_state(power_domains);
+Best regards,
+Wentao
 
--- 
-Jani Nikula, Intel
