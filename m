@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793933969;
-	b=4/3h8l6/7yp4TChw2ePCnqoNJGyMx1YKjwfvGihRWDb8h6T/1JyJk8IvGUvw0su/V4XN
-	 uh7Oyk7j3OJYDuPYQufNrnACQjKusozEbolTdcbTW80pYBrwBcROYtH4AJFYm7s1kEWPp
-	 uyAinLqXOddGE7B60SUwyPew3Jcca5Q9DIzwoMZ7q66j887Ey6fNfnY5poJD/hk8ev1Tr
-	 PcnXX1XQhJKMWs647OI5GGUmP9vFEHZ9DALWV9f3MmHk6wndE0ZOrnt4FSpHArxjA67/d
-	 YKJW2F34xTJQDfh0B47MMwJyosNWDyQz2uNq3Jkut3XEJT6+8n8FajC26JbnQ5JRmxQ==
+	t=1793933985;
+	b=Us7niUrVClN5Z4YIqGj56RjRJ1N5KWgUqiFvQ9CDlCceJNaWoSnsUvknkqCm+WUzPKn5
+	 gtqy7TmuMoSenH9/F3fx1wyWhlf/dsKC1Tutl9GwK4pZBIO2EjmYieqNcaC6VqOiUJEgw
+	 ZNBwA6elvhbHxAy40kfTvn4o6vGv3GVi4Gc5qzO0Bc0y4e0Kqh/QsI2DbpYbRSN72JKwO
+	 sWWB+EmXaiHdprYcaZKmzafuHRrUvrJAgCYxeaezz3ys/cSuINGWKNarPiRqbxYW44gL6
+	 P0qTedp+SwKiKCduxN43sfd+pCO2hZ74NPnN3QFGN6qxXSrYw/ppah6ust6981d76DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793933969;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=W1T6eXTnP023xU65goPLgM0Wr3GKzA6hUiUtRy6uurU=;
-	b=YPtzumjS4GEr70uaw63wSnsVkYqKzalGYJNMJqTOrhLkSoC9/Lwt4j3y3ahRsb2/vAYw
-	 5k1XutWe76M5egdph8eA8GW/5eB2f8kl5m0CoQg+PViG5epEujHeXMjpsA0f634sU0bPK
-	 3Rs4U9SosdxZg4MymDNqtkgcaTxj5hX/4xx+wdTrDz+qCD8HUONUH7xz+bn1rCu9XxaY2
-	 QH5hHBnYiti2cd/0RcsQKsUitx0UYheYByk4Ohgvuo2jTSAff31eUgkmWwcqjOrA0WukV
-	 xOhIbJSSA7mMr6j3UYl2/j2bmApCEV3IMRdR9nxZfFs2WRguNmGpX241Fl5qpGfbY3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793933985;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=g0MaA95Bx3ZoEANP3GZek3B2SzCrodWB+6/VqV4dGcs=;
+	b=VoBapTpJuWbgJFEN3fy7Ya2bzikWkgmB4K8CxafCSwm4L2MK1dBqTcqTzihyEhwPTftS
+	 pW4KE6ClqtL1IBj7GsFeDkBtmFqTANc7zRk47g2JKbRlcsKXZIeAAdbiSwL+hkFpzbwse
+	 qhx8cRMsaFVLztQMOK3JIjsnK/f+8NOf/DVP3K/giYyjx/2dNfQEoh2fvxJeYYjaDUe+W
+	 cEtMWYnQRJG+AFsh3Xg9MhmYwxywzGxMtZuGZ2VwvTmAhQe0X1pOZx9hw+QiS24ICW535
+	 9Ia/YvooFUnuaydTmOlhmmkzz1Eesvih8OmPY4EHVWcnB6M2QsC55wEPqCRkXspo/Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q+r7ojfD;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=zMv7TaMh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2F1A606A329
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:59:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7119A606A31B
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:59:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q+r7ojfD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58CC11F008A3;
-	Fri,  6 Nov 2026 02:59:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793933968;
-	bh=W1T6eXTnP023xU65goPLgM0Wr3GKzA6hUiUtRy6uurU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q+r7ojfDWEgwTZGqjhs5tTlkXNoniWlW02erbgo2hOZvEg6kAnP4ln3YrPpGz7QwX
-	 BaOs1rFcOFI1FlBhnUWxFPbNly8qVZ/cTd1O2maF+eOe3mgiuvDkEvHzq0KZJuNQYB
-	 F8/a5K5BLRMWxZnrBrF7wZPQivk9C5F4hBOCrnBVPQlWrpA2MR+0yWsn0gKBNEkRis
-	 RWBO/USjEC/3/lTcn8/smhacbN9KMkLrpKOUAs3f2oGRFV2GJVJqceYUHdr+ZtI1lF
-	 I2PLEJcK/U8GVWfBl1X7FXC9Qj5r1X5nni80tIEQIcmgUo3s6HK+SPuNm6vG5PgRjc
-	 A8f1COPZJnLlA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chuck Lever <cel@kernel.org>,
-	syzbot+edbebd898142ee5e24ce@syzkaller.appspotmail.com,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] NFSD: Complete a cld upcall when the daemon closes the pipe
-Date: Thu,  5 Nov 2026 21:59:26 -0500
-Message-ID: <20261106025913.3959182-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106025913.3959182-1-sashal@kernel.org>
-References: <2026110453-devotee-unsuited-ab14@gregkh>
- <20261106025913.3959182-1-sashal@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=zMv7TaMh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F5281F008AB;
+	Fri,  6 Nov 2026 02:59:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793933983;
+	bh=g0MaA95Bx3ZoEANP3GZek3B2SzCrodWB+6/VqV4dGcs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=zMv7TaMh+8CJiKiz3Jbclm1ei9kNfUkBmRzCfBVB6LdILr7EU2lvxKPKfCnMNTgBf
+	 nfcA4A1uqXz6FO3f8sGRDFS62Vmu1W30tiaLLBCRPfgDFDZj407JOhFeLegCN2Axem
+	 Q+UptajLNRQmUmpdda7AanFZeq5TNNrrJpLm+CJA=
+Date: Thu, 5 Nov 2026 18:59:43 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, David Hildenbrand <david@kernel.org>, Vlastimil Babka
+ <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato
+ <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>, Oscar Salvador
+ <osalvador@suse.de>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+ Sarthak Sharma <sarthak.sharma@arm.com>, linux-mm@kvack.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/5] mm/mremap: fix accounting on a partial move
+Message-Id: <20261105185943.3d6f4b34fbdbba8599bc7360@linux-foundation.org>
+In-Reply-To: <20261105-b4-mremap-pre-split-v3-0-f8789de76849@toxicpanda.com>
+References: <20261105-b4-mremap-pre-split-v3-0-f8789de76849@toxicpanda.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,83 +60,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Chuck Lever <cel@kernel.org>
+On Thu, 05 Nov 2026 14:02:02 +0000 Josef Bacik <josef@toxicpanda.com> wrote:
 
-[ Upstream commit 2a83fcb50f3c25c493cc4389619340fefe9d6ac4 ]
+> This fixes a hugetlb reservation leak and two Committed_AS bugs in mremap().
 
-Once nfsdcld has read a whole upcall, rpc_pipe_read() unlinks the
-message from every pipe list, so the purges in rpc_pipe_release()
-and rpc_close_pipes() no longer reach it. cld_upcall_ops supplies no
-.release_pipe callback, and cld_pipe_destroy_msg() returns without
-completing the upcall because a downcall is expected to follow. A
-daemon that exits between the read and the write therefore strands
-its waiter: the nfsd thread sleeps in TASK_UNINTERRUPTIBLE in
-__cld_pipe_upcall() and never returns, hung task warnings follow,
-and the server cannot be shut down.
+Indeed it does.
 
-Add a .release_pipe that completes every upcall the daemon has
-consumed. cu_inflight distinguishes those from upcalls still queued
-on the pipe, which the framework purges before it calls this
-callback; cld_pipe_downcall() removes an upcall it accepts from
-cn_list under the same lock. Neither can be completed twice.
+Please lmk whether LLM's runtime test plan was sufficiently complete:
 
-Fail the stranded upcall with -EPIPE rather than the -EAGAIN that
-makes cld_pipe_upcall() retry. The daemon consumed the request, so
-whether it acted on it before exiting is unknown.
-
-Fixes: f3f8014862d8 ("nfsd: add the infrastructure to handle the cld upcall")
-Reported-by: syzbot+edbebd898142ee5e24ce@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/linux-nfs/6a99f6f0.2e567484.299ffc.000c.GAE@google.com/
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260901-alemi-v2-7-e163f94a3a6e@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/nfsd/nfs4recover.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
-
-diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
-index b493bb059a8b0..9c7f6d90a1b99 100644
---- a/fs/nfsd/nfs4recover.c
-+++ b/fs/nfsd/nfs4recover.c
-@@ -948,10 +948,34 @@ cld_pipe_destroy_msg(struct rpc_pipe_msg *msg)
- 	complete(&cup->cu_done);
- }
- 
-+/*
-+ * An upcall the daemon has consumed is off every pipe list, so the
-+ * purge in rpc_pipe_release() and rpc_close_pipes() cannot reach it.
-+ * Release its waiter here instead; no downcall can arrive now.
-+ */
-+static void
-+cld_release_pipe(struct inode *inode)
-+{
-+	struct nfsd_net *nn = net_generic(inode->i_sb->s_fs_info, nfsd_net_id);
-+	struct cld_net *cn = nn->cld_net;
-+	struct cld_upcall *cup;
-+
-+	spin_lock(&cn->cn_lock);
-+	list_for_each_entry(cup, &cn->cn_list, cu_list) {
-+		if (!cup->cu_inflight)
-+			continue;
-+		cup->cu_inflight = false;
-+		cup->cu_pipe_msg.errno = -EPIPE;
-+		complete(&cup->cu_done);
-+	}
-+	spin_unlock(&cn->cn_lock);
-+}
-+
- static const struct rpc_pipe_ops cld_upcall_ops = {
- 	.upcall		= rpc_pipe_generic_upcall,
- 	.downcall	= cld_pipe_downcall,
- 	.destroy_msg	= cld_pipe_destroy_msg,
-+	.release_pipe	= cld_release_pipe,
- };
- 
- static int
--- 
-2.53.0
-
+: I reproduced all three accounting bugs before the series and verified
+: that they are fixed with all five patches applied.
+: 
+: The new HugeTLB partial-move selftest left three reservations behind
+: on the baseline and none on the patched kernel. First/last-page moves
+: also leaked three reservations before the fix and none afterward.
+: Whole-mapping moves and populated-mapping controls passed.
+: 
+: For the unmap-error cases, identical diagnostic hooks in both kernels
+: failed the first source-VMA split, or allowed the first split and failed
+: the second. With a four-page source and a one-page move, cleanup left
+: four committed pages behind for accounted anonymous mappings and one
+: for NORESERVE/shared mappings on the baseline. All patched cases
+: returned to zero. I checked task-specific accounting deltas and verified
+: that every surviving accounted source segment regained its account flag.
+: No-failure controls also returned to zero; destination data was checked.
+: 
+: The updated mremap_test passed 25 cases, including both new old_size=0
+: shared-duplication cases, plus three expected rejections for overlapping
+: or misaligned requests. All eight mremap_dontunmap cases passed,
+: including locked partial moves. No unexpected kernel, KASAN or lockdep
+: diagnostics were found.
+: 
+: This used x86-64 KVM guests with GCC 13.3, KASAN and lockdep: 8 GiB RAM,
+: four vCPUs arranged as one socket with four single-threaded cores and
+: one virtual NUMA node. Both kernels contained the same temporary
+: fault-injection/accounting instrumentation. Cleanup tests used munmap;
+: process-exit cleanup was not separately tested.
+: 
+: Tested-by: Andrew Morton <akpm@linux-foundation.org>
