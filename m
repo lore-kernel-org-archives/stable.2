@@ -1,67 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793952783;
-	b=bxVfbpkMOEUSos5cWpysuExu7uZXC6kXgzJGdqsx9BKvAsRCA77TYjulMFuTDI/UORn0
-	 gPE5D6RvLiYX347HQPgWxWx311vpxyIXHUnjreJOF50OkA//MezznmKV4hVFTfW7gUpJm
-	 j45CVdu0JwHAju+uBTqBlB7KcbmNjfY0Y/RwCbexwbyqpEI9M4tO8N8ySg9SmwMlpviL4
-	 PPgyYszvrQQ8aHH0GTnWoLp2ZEzHLv8rnTgjRV5GLKc0IoK3sjDl2LeaFwCCaPTs2R0jP
-	 OJD62c6r7EiG6Xdo3TsL1kOjCzBtm5L/5D0mB7uacWo1jCHMab/g2FjX8aTzbZ74dvg==
+	t=1793953282;
+	b=IkZpCDUA2pgcDMrdNBBVkyVonvsmd7Ele5Ub2cOTN0lpbNGLjkJ0QZxGLmohxuViuyid
+	 kqkQo89QX9JeklyWQ2Cx7XHZHLCXr3bWYj5PindUYLdzUaN2LuF/ufM0Odpn5eeWrmDaJ
+	 ai2UDk50hpNJ9dSti0rMtaWCJ0t/Yjw0ot9ICTqzFpA8MH/gqgDTDl5scx5xdcd7Y+oSs
+	 v2VQSBWyGowIa7SN/RE93WrhJQh/d0IlN38t7A+ekq14fX3iK/PPDoEnhz3rkpnEfQOTS
+	 +NxNGFD83WiX4BcNvy80vvAFc7kT9sYSzVVuKegPOxfKaoLhje146M1gmHq0v7GPLfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793952783;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cpAgV4w6U0U/HuUVIVHBx3ZFGpiiR3doBeWDIG8xh+A=;
-	b=HjALFGCmwAPgypRuyRHvChJqEh/dLB6vIZS5kB9UI5GomOlBHQPn2B45xtgFT4+VO3rw
-	 wwL7+N5f1IiH906zAnXevrGaMDWiTIpCYZiDmxYIWvmEr6gjNML6cG+kAAWQWg8VMcpdS
-	 NKdLIVkjOnnO6RITHJVsEtsTbbBfyUR6FjAHcc2EEOmAHK5WQe0epjpjY9FWfn4t9h5jr
-	 39WmlOtCS79LZcEfSth8mDWjKITBoZ9EyluYqX/iVNL3kVl7rFNfaTeoi67JLZW7H4Mns
-	 7FHu40E58mdfsWs7VJQgJ/MUNovdcmY4rrCrp3lC1HGH6NK6yKjqLBgrqxo4Bb9ZgpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793953282;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=tXtS1Em7b2x/aoxEcgyB2IvYBL9Ky3IS8jlOY8JmCdw=;
+	b=AsIBFOrumCxvg2ITGWn2KsrwFLRvDBg+QL8+myfuDdMSD/tpi0VbwZ3Sz5cw7lY49Nd+
+	 eFjhlo0gEpNke8wjOSTsrNNPOD9hCbrdO+bbLCMxl/gZZN7ltPWnmSo49YmOFz6FHyj/Z
+	 YsCmUnx6xqclRvADrO3eJ+8fJDwN9TfUF2gkln1xn8c4ucXu7hbnbblZXCbK+78b8RU+q
+	 tLaWtFXsLcPUtHhTEjwdMu08er9aF5U1Uz1WA573jH/BaBAwUMPdAd6lt8N/UQzffRMaF
+	 WV9lG6tWjfRvFytEsdrOiuaIfUG3RQRmrtQUwffnZxXjfNtdTygp2xbGpW7UP7UNbYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bbElk0wl;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 76164606A333;
-	Fri,  6 Nov 2026 08:13:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76164606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QCfjJa6p;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20BF8606A326;
+	Fri,  6 Nov 2026 08:21:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bbElk0wl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=bbElk0wlLo5LB2pAoUs/ov3DtP3yxgvjIKvNuFdHGJpAfFV7TJDTFrdMIfrx3mXs39dXyw929wiz1
-	 wmeWV4UiBU2HQ17TI5gpH+XbtKnWP2mlla8R4XmVaT+BIw87Rcr1OKtGpwEZ80NiBliCUahCj/btM9
-	 GQKVXZAKfAq06Ows=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86aed8c092af-4f19e;
-	Fri, 06 Nov 2026 16:12:58 +0800 (CST)
-X-RM-TRANSID:2ee86aed8c092af-4f19e
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36aed8c0628c-184db;
-	Fri, 06 Nov 2026 16:12:58 +0800 (CST)
-X-RM-TRANSID:2ee36aed8c0628c-184db
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-To: linux-usb@vger.kernel.org
-Cc: johan@kernel.org,
-	gregkh@linuxfoundation.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QCfjJa6p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1E551F0089F;
+	Fri,  6 Nov 2026 08:21:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793953282;
+	bh=tXtS1Em7b2x/aoxEcgyB2IvYBL9Ky3IS8jlOY8JmCdw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QCfjJa6pK3BRpFP825bjAs4y5WPmB3jWnmAyv5CHhIOXjDZ4msNgTD7x3+dGZxwwX
+	 z8ddU2hbVy48TfJHHsxKAq0IVG0j4vcCihKEwSnTI1o75Rb6kCsv5X0gPwo+PPtHVa
+	 bFUTFajGGPRncSHNlNf3WTD7tdodP+5JxbsulJA3uSK6kePQ+IiUdTfxiBFP1Va6dC
+	 oqqs34f+RY8Y0RftVN2B3ZQZPbwdtTvw+kZ/E9YGfom8EHajPhww6CGy55C3ekxY1m
+	 rWlKCffqZrENiNXvZfmd9Ri75CUTEZCpTfhpC2j4RpxMXfaCi8nvUzmNLu6yAWcaSN
+	 DkByMm3RF1HhQ==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xPFCJ-00000008NDB-1kVt;
+	Fri, 06 Nov 2026 09:21:19 +0100
+Date: Fri, 6 Nov 2026 09:21:19 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+Cc: linux-usb@vger.kernel.org, gregkh@linuxfoundation.org,
 	linux-kernel@vger.kernel.org,
 	syzbot+58b2d8b19cd6761a395b@syzkaller.appspotmail.com,
-	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] USB: serial: mct_u232: fix NULL deref in open error path
-Date: Fri,  6 Nov 2026 16:12:54 +0800
-Message-ID: <20261106081254.1389-1-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+Subject: Re: [PATCH] USB: serial: mct_u232: fix NULL deref in open error path
+Message-ID: <au2N_7iL_eXU6RCy@hovoldconsulting.com>
+References: <20261106081254.1389-1-zhaofeng2@cmss.chinamobile.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,52 +62,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106081254.1389-1-zhaofeng2@cmss.chinamobile.com>
 
-The MCT U232-P9 has no bulk-in endpoint; received data arrives
-through the interrupt-in endpoint of the second port, whose URB is
-stashed in priv->read_urb by mct_u232_port_probe().  The generic
-port->read_urb is only allocated for ports with a bulk-in endpoint
-and therefore remains NULL for this device.
+On Fri, Nov 06, 2026 at 04:12:54PM +0800, Zhao Feng wrote:
+> The MCT U232-P9 has no bulk-in endpoint; received data arrives
+> through the interrupt-in endpoint of the second port, whose URB is
+> stashed in priv->read_urb by mct_u232_port_probe().  The generic
+> port->read_urb is only allocated for ports with a bulk-in endpoint
+> and therefore remains NULL for this device.
+> 
+> If submitting the read URB fails in mct_u232_open(), the error
+> message dereferences port->read_urb->pipe, causing a NULL pointer
+> dereference at offset 0x50 (the pipe field of struct urb), as
+> reported by syzbot on KASAN-enabled kernels.
+> 
+> Print the pipe of the URB that was actually submitted instead.
+> 
+> Reported-by: syzbot+58b2d8b19cd6761a395b@syzkaller.appspotmail.com
+> Closes: https://syzbot.org/bug?extid=58b2d8b19cd6761a395b
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+> ---
 
-If submitting the read URB fails in mct_u232_open(), the error
-message dereferences port->read_urb->pipe, causing a NULL pointer
-dereference at offset 0x50 (the pipe field of struct urb), as
-reported by syzbot on KASAN-enabled kernels.
+Thanks for the fix. I apparently beat you to it, though:
 
-Print the pipe of the URB that was actually submitted instead.
+	https://lore.kernel.org/linux-usb/sashiko-outbox-201021@kernel.org
 
-Reported-by: syzbot+58b2d8b19cd6761a395b@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=58b2d8b19cd6761a395b
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
----
-No Fixes tag: the buggy error message appears to date back to the
-original driver import; the introducing commit could not be verified
-with the trees available to me.
+> No Fixes tag: the buggy error message appears to date back to the
+> original driver import; the introducing commit could not be verified
+> with the trees available to me.
 
-Not runtime-tested (no hardware).  The affected lines are identical
-in current linux-next (drivers/usb/serial/mct_u232.c @ ddfe51b0a0f5),
-so the patch applies there as-is.
+No, this was introduced later by a clean up from myself.
 
- drivers/usb/serial/mct_u232.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/usb/serial/mct_u232.c b/drivers/usb/serial/mct_u232.c
-index 6570c8817a..ad11697e3b 100644
---- a/drivers/usb/serial/mct_u232.c
-+++ b/drivers/usb/serial/mct_u232.c
-@@ -459,7 +459,7 @@ static int  mct_u232_open(struct tty_struct *tty, struct usb_serial_port *port)
- 	if (retval) {
- 		dev_err(&port->dev,
- 			"usb_submit_urb(read) failed pipe 0x%x err %d\n",
--			port->read_urb->pipe, retval);
-+			priv->read_urb->pipe, retval);
- 		goto error;
- 	}
- 
--- 
-2.39.2
-
-
-
+Johan
