@@ -1,58 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793976374;
-	b=WJbP0IvCHFD+Fd7mttXKRjue4wHsbZoDLdBRT5O/dxliV4XuzSupEiHDpwtcCwoRQSde
-	 cFwqkFPe19xJiX+VKPB2GzDaVkjIb/ARh4y33SfNCE+TeMTl6BJVLfUkb+PXDOk1Z+mtA
-	 Ln+mC9k2FVo8ByUv/YwW2Sppe5vqXLy3Ai5JUGs40yYyWKpDuz/NUPkpoCXf60cUyDiGR
-	 0JlqTH0JVuARTm0Obagiw7ijw4N0LApw1xPclXKnqUSM86vxohFNj/TVoeyU3zQfKJOsU
-	 2S5PdFgN9128btmHsdg28cHXIu8b3VPeNPgJWWudZcuAWALLvOKqUOhe5H+LH5XbQyA==
+	t=1793976375;
+	b=leljNn2CQvQMpI6frnMhPd8+ey8uGUIltwC5fKesLbB1d/2GN9NhaoomWg5ceiGShHLC
+	 e1FfeYhe0GtOiSWTbQkbDhE8gM7qMtEcj6m/gpOtKiw7FMvvj6ROEr7a/D4jDcmhvNGEn
+	 y7NrXfWH9VLtbwf/dgFLHLRjnkkqZNtwkVszt8l2avQtFdLKTSnrkzBkk1y3ekHpdpVvL
+	 Rb9oDe938CgfYBodRlfZM1HZdMkaYXY3GCEkB3LwsPasQibhxAzNMJgmvjtpipJzZdhlg
+	 Nz5C6OsfVZu8mMGUpk5495h5Smc/uSI6FnSMT/xfgAOtaqaEGW2jwHubm0yXofX6DJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976374;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=C23+x4dyjenyX4FwtuGZcgwB6QsFI2mzxLucYtaKZSo=;
-	b=rWT4rpk0FLiOlRVE222VuNz4n3kMkO0OXo0bKN+6UrT83dE6FsmloB/a9Q0dFKinmcyo
-	 ddGDiX9bIyMlMRd69rNN4jVRPB5wf6a5kIcZoUtzhdbB+eIRr9/dgHlBuJEGO2zPB3S3y
-	 vlStwgOW2ejKWm0uljdtR7/ibGwVz4+0KKIetxq5Tc7KLZbtBYuEDs8cXnBaXj7EOjEDj
-	 QWl5PiBAWdDNxDlXZnr8HehM7PdOxAdytVuU6ACNDjoByw7YvoYarrAVV7OKx12DoUNRu
-	 i94zwcA3ARDXL3Hz2gkhDWUQX/88gS0qMYoGussU9c3yw8n+ts0eTwFskkcIzWUmmJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976375;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
+	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
+	 In-Reply-To:References;
+	bh=bcf8NooVSigb4TfmPTaRxGuCBTM15fUvnjEuKFhLl1k=;
+	b=huDuIByWb4dEcyXCe6EiQBvEkXeCP6DafOovE9mBoiK9ZektUU8+PdXnaZ7ehji0az/w
+	 loasyvXhzk0+l6iXbYFlO40JuBLq2MnN7FnasmDwgUuBHq1TFfe4gpUB3N02N6O4hP4ba
+	 R5NrOglWfntoT2YOBxpq8MfscDGUqxtrwfzauh/dWFIyi21qPCtpwnZnCIPjwi6SavH4O
+	 N5fHvRKFrxweWnaA10HTvB2vtuu9Ipy8TFEQnafjJRxsLB/p0oFBf6Iff6zK1HtxraVbM
+	 H4sndS0fszRwIsL7rY9pTRCsH14mNgjPyX5K1g6O7nrZXKFP6+LGN+yHyq++g+6bHCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dC8/CwyL";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FFxrbnvM;
+	arc=none smtp.remote-ip=91.218.175.34
+Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2DD4606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93081606A332
 	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:46:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93081606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dC8/CwyL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0A101F008A1;
-	Fri,  6 Nov 2026 14:46:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793976373;
-	bh=C23+x4dyjenyX4FwtuGZcgwB6QsFI2mzxLucYtaKZSo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dC8/CwyL0mnYXoFWvW3ii8SUMzVt4V7eNa2Zob9Xk51vMpNMANWefCQo6gCBnGtHp
-	 pyknoYu53Cjdrm8iGzHYrOJuhunF7gL+NZ8+0joG77y9tzQF6qH8XBPuDwP59s21ZM
-	 8uxv3xSVm7R4OEPaIsToQL1up/lzH91iJVU092Tk8jLXmYqPhNjlqGj0DTAagDRPuy
-	 gIBKmlm3EfAp0y5F60IzmVDSgijGiTCHsLF6PIkiNoDECsIwdOeLpN6QRIjtpplh1B
-	 O27YM4/Q4axvNSHfpytapzkw0Pwsgxyhj9SL6c5TvNmywPCvcq0THehwrGDhpNy3s/
-	 SZcgVGdp+OHZA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Keqiang Duan <duankeqiangcym@gmail.com>,
-	Qinguang Chen <chenqinguang@kuaishou.com>,
-	Zhiping Du <duzhiping@kuaishou.com>,
-	Chao Gao <chao.gao@intel.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] KVM: x86: Clear hardware HLT state when userspace makes a vCPU not-halted
-Date: Fri,  6 Nov 2026 09:46:11 -0500
-Message-ID: <20261106144336.363080-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110435-dean-handwrite-b103@gregkh>
-References: <2026110435-dean-handwrite-b103@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FFxrbnvM
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2dbWv/ipPcBByrtWVppRgZPHES/QVz3Y/W26rsMlQ0o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793976371; v=1; x=1794581171;
+ b=FFxrbnvMEF7JCHJuFCQDbFF0oOP5ds8ggkeEYsJnHnNSv9hkWDwkjBi8IHyeLul1mYWhMHgS
+ Mm/SKZVfFgBuCnHqqYps8CiK1dw/2tioGwTzkuNE3W1T7hWWF2tuiEhYKENGGspkPRenLkDiVdS
+ xs85kurRvIVLKwCbshO3QDEE=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9a8c2e4ffcc01ae3;
+	Fri, 06 Nov 2026 14:46:10 +0000
+X-Mizu-Trace-ID: 9a8c2e4ffcc01ae3
+X-Migadu-Flow: FLOW_OUT
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,140 +56,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Fri, 06 Nov 2026 14:46:06 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <3c56f067d3d87156d8dad56c34b813543ef41d0f@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH rtw-next v8 2/4] wifi: rtw88: sdio: Track running state
+ and cancel TX worker on stop
+To: "Alastair D'Silva" <alastair@d-silva.org>,
+ linux-wireless@vger.kernel.org, "Ping-Ke Shih" <pkshih@realtek.com>,
+ "Kalle Valo" <kvalo@kernel.org>
+Cc: "Martin Blumenstingl" <martin.blumenstingl@googlemail.com>, "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>, "Ulf Hansson" <ulfh@kernel.org>,
+ linux-kernel@vger.kernel.org, "Alastair D'Silva" <alastair@d-silva.org>,
+ stable@vger.kernel.org
+In-Reply-To: <20261105025700.1655219-3-alastair@d-silva.org>
+References: <20261105025700.1655219-1-alastair@d-silva.org>
+ <20261105025700.1655219-3-alastair@d-silva.org>
 
-From: Keqiang Duan <duankeqiangcym@gmail.com>
+Hi Alastair,
 
-[ Upstream commit 883719f57f5d3898637b130d6db4742471cad618 ]
+Thanks for the new version. Two comments below.
 
-Force a vCPU out of its hardware-tracked halted state when userspace puts
-the vCPU into any state other than HALTED via KVM_SET_MP_STATE, i.e. clear
-VMCS.GUEST_ACTIVITY_STATE if it says the vCPU is halted.  Add an optional
-kvm_x86_ops hook to do the clearing, as SVM has no equivalent VMCB field.
+November 5, 2026 at 3:56 AM, "Alastair D'Silva" <alastair@d-silva.org> wr=
+ote:
 
-When HLT-exiting is disabled for a VM (KVM_CAP_X86_DISABLE_EXITS with
-KVM_X86_DISABLE_EXITS_HLT, e.g. QEMU's "-overcommit cpu-pm=on"), a guest
-HLT halts the physical CPU instead of exiting to KVM, and hardware saves
-GUEST_ACTIVITY_STATE=HLT into the VMCS on the next VM-Exit.  That field is
-sticky: it survives VM-Exit/VM-Enter and is only cleared by vmx_clear_hlt()
-on event injection, or by vmx_vcpu_reset() on INIT / vCPU creation.
+> diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wi=
+reless/realtek/rtw88/sdio.c
+> index 172aa7ad4732a..e318fefe5b5e7 100644
+> --- a/drivers/net/wireless/realtek/rtw88/sdio.c
+> +++ b/drivers/net/wireless/realtek/rtw88/sdio.c
 
-Nothing clears it on a userspace-driven state change.  KVM_SET_REGS only
-writes the software register cache and KVM_SET_MP_STATE only writes
-vcpu->arch.mp_state; kvm_vcpu_running() likewise consults software state
-only.  A VMM that emulates a machine reset therefore ends up with a vCPU
-that KVM happily VM-Enters while hardware refuses to fetch instructions.
+[ ... ]
 
-Reproduce with a Linux guest by triggering a panic/kdump on a non-boot
-vCPU: nmi_shootdown_cpus() parks the other vCPUs -- including vCPU0 -- in
-crash_nmi_callback(), which does local_irq_disable() followed by a bare
-HLT.  The capture kernel then resets the machine via port 0xCF9.  QEMU
-rewrites RIP to 0xfff0 and sets mp_state to RUNNABLE, but vCPU0's
-GUEST_ACTIVITY_STATE is still HLT, so the BSP never executes the reset
-vector, never sends SIPIs, and the entire VM hangs at "reboot: machine
-restart" forever.  Only destroying and recreating the VM recovers it.
+>  static void rtw_sdio_stop(struct rtw_dev *rtwdev)
+>  {
 
-Key off "not HALTED" rather than "is RUNNABLE" as HALTED is the only target
-state for which retaining the hardware halted state is meaningful; every
-other transition either can't be reached on VMX, e.g. AP_RESET_HOLD, or
-goes through vmx_vcpu_reset(), which stuffs GUEST_ACTIVITY_ACTIVE anyways.
-This also captures the intent more directly: KVM only ever drops the
-hardware halted state, it never installs it.
+[ ... ]
 
-Hook KVM_SET_MP_STATE rather than the VM-Enter path so that the clearing
-is driven by an explicit userspace declaration, and so that no work is
-added to vmx_vcpu_run().  Gate the call on kvm_hlt_in_guest() even though
-vmx_clear_hlt() checks it as well, as the check is cheap and makes it
-obvious in common code when the hardware state can exist at all.
+> +     cancel_delayed_work_sync(&rtwsdio->tx_handler_data->work);
+> +
+> +     for (i =3D 0; i < RTK_MAX_TX_QUEUE_NUM; i++)
+> +             ieee80211_purge_tx_queue(rtwdev->hw, &rtwsdio->tx_queue[i=
+]);
 
-Do nothing for TDX vCPUs as TDX doesn't support disabling HLT-exiting and
-KVM cannot access a TD's VMCS, i.e. the VMCS used to run the vCPU can't
-in HALTED state, and even if it were, KVM can't change it.
+ieee80211_purge_tx_queue() takes the frames off with __skb_dequeue(), so
+without the queue lock. rtw_sdio_tx_write() appends with skb_queue_tail()
+and does not look at running, so as far as I can see both can run on the
+same queue at once.
 
-Fixes: caa057a2cad6 ("KVM: X86: Provide a capability to disable HLT intercepts")
-Cc: stable@vger.kernel.org
-Tested-by: Qinguang Chen <chenqinguang@kuaishou.com>
-Signed-off-by: Zhiping Du <duzhiping@kuaishou.com>
-Signed-off-by: Keqiang Duan <duankeqiangcym@gmail.com>
-Reviewed-by: Chao Gao <chao.gao@intel.com>
-Link: https://patch.msgid.link/20260820123512.87236-1-duankeqiangcym@gmail.com
-[sean: drop claim that spurious wakeups are ok, massage changelog]
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-[ sashal: Replaced kvm_x86_call(clear_hlt) with static_call_cond(kvm_x86_clear_hlt) to match the existing optional callback API. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/x86/include/asm/kvm-x86-ops.h |  1 +
- arch/x86/include/asm/kvm_host.h    |  7 +++++++
- arch/x86/kvm/vmx/vmx.c             |  1 +
- arch/x86/kvm/x86.c                 | 13 +++++++++++++
- 4 files changed, 22 insertions(+)
+That seems possible on the firmware recovery path, where the device is
+stopped while mac80211 is still sending, since ieee80211_restart_hw()
+only comes afterwards:
 
-diff --git a/arch/x86/include/asm/kvm-x86-ops.h b/arch/x86/include/asm/kvm-x86-ops.h
-index 1cfe83263b213..91fa3d44457e4 100644
---- a/arch/x86/include/asm/kvm-x86-ops.h
-+++ b/arch/x86/include/asm/kvm-x86-ops.h
-@@ -74,6 +74,7 @@ KVM_X86_OP(interrupt_allowed)
- KVM_X86_OP(nmi_allowed)
- KVM_X86_OP(get_nmi_mask)
- KVM_X86_OP(set_nmi_mask)
-+KVM_X86_OP_OPTIONAL(clear_hlt)
- KVM_X86_OP(enable_nmi_window)
- KVM_X86_OP(enable_irq_window)
- KVM_X86_OP_OPTIONAL(update_cr8_intercept)
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 31395c43416dd..6c1e9c6dc42ff 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -1540,6 +1540,13 @@ struct kvm_x86_ops {
- 	int (*nmi_allowed)(struct kvm_vcpu *vcpu, bool for_injection);
- 	bool (*get_nmi_mask)(struct kvm_vcpu *vcpu);
- 	void (*set_nmi_mask)(struct kvm_vcpu *vcpu, bool masked);
-+	/*
-+	 * Force the vCPU out of any hardware-tracked halted/inactive state so
-+	 * that it will fetch and execute instructions on the next VM-Enter.
-+	 * Only needed by VMX, where VMCS.GUEST_ACTIVITY_STATE persists across
-+	 * VM-Exit/VM-Enter; SVM has no equivalent VMCB field.
-+	 */
-+	void (*clear_hlt)(struct kvm_vcpu *vcpu);
- 	void (*enable_nmi_window)(struct kvm_vcpu *vcpu);
- 	void (*enable_irq_window)(struct kvm_vcpu *vcpu);
- 	void (*update_cr8_intercept)(struct kvm_vcpu *vcpu, int tpr, int irr);
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 16b95732ba9e6..9fa2eb33d54d1 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -8234,6 +8234,7 @@ static struct kvm_x86_ops vmx_x86_ops __initdata = {
- 	.nmi_allowed = vmx_nmi_allowed,
- 	.get_nmi_mask = vmx_get_nmi_mask,
- 	.set_nmi_mask = vmx_set_nmi_mask,
-+	.clear_hlt = vmx_clear_hlt,
- 	.enable_nmi_window = vmx_enable_nmi_window,
- 	.enable_irq_window = vmx_enable_irq_window,
- 	.update_cr8_intercept = vmx_update_cr8_intercept,
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index c9e76ef43389f..0fcac00259cba 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -11604,6 +11604,19 @@ int kvm_arch_vcpu_ioctl_set_mpstate(struct kvm_vcpu *vcpu,
- 		set_bit(KVM_APIC_SIPI, &vcpu->arch.apic->pending_events);
- 	} else
- 		vcpu->arch.mp_state = mp_state->mp_state;
-+
-+	/*
-+	 * Force the vCPU out of any hardware-tracked halted state, e.g. VMX's
-+	 * GUEST_ACTIVITY_STATE=HLT, when userspace puts the vCPU into a state
-+	 * other than HALTED.  The hardware state is sticky across VM-Exit and
-+	 * VM-Enter and is not touched by any other ioctl, so a vCPU that halted
-+	 * with HLT-exiting disabled stays wedged even after userspace rewrites
-+	 * its registers, e.g. when a VMM emulates a machine reset.
-+	 */
-+	if (kvm_hlt_in_guest(vcpu->kvm) &&
-+	    mp_state->mp_state != KVM_MP_STATE_HALTED)
-+		static_call_cond(kvm_x86_clear_hlt)(vcpu);
-+
- 	kvm_make_request(KVM_REQ_EVENT, vcpu);
- 
- 	ret = 0;
--- 
-2.53.0
+        rtw_fw_recovery_work()
+          __fw_recovery_work()
+            rtw_enter_ips()
+              rtw_core_stop()
+                rtw_power_off()
+                  rtw_hci_stop()
+                    rtw_sdio_stop()
+          ieee80211_restart_hw()
 
+rtw_core_stop() clears RTW_FLAG_RUNNING, but it does not cancel
+rtwdev->tx_work, and __rtw_tx_work() does not check the flag. So a
+tx_work that is already pushing frames can append while the purge walks
+the queue, and the list and qlen get corrupted. On SDIO this path is
+reachable since dc16902cad9c ("wifi: rtw88: ps: Trigger firmware
+recovery when failing to leave LPS state"). If I read it right, that is
+the only rtw_fw_recovery() caller there, because rtw_fw_c2h_cmd_isr() is
+only called from pci.c.
+
+A frame appended just after the purge also stays in tx_queue[] and goes
+out after the restart with the TX descriptor from before it, like with
+the rearm in v7.
+
+Freeing with skb_dequeue() and ieee80211_free_txskb() in a loop would
+keep the list intact. Maybe a second pass in rtw_sdio_start(), before
+running is set, could drop the late frames too.
+
+> +     for (i =3D 0; i < IEEE80211_NUM_ACS; i++) {
+> +             queue =3D rtw_tx_ac_to_hwq(i);
+> +             if (rtwsdio->tx_queue_stopped[queue]) {
+> +                     rtwsdio->tx_queue_stopped[queue] =3D false;
+> +                     ieee80211_wake_queue(rtwdev->hw, i);
+> +             }
+> +     }
+>  }
+
+When the 8723bs back pressure has stopped an AC, mac80211 marks its txqs
+with IEEE80211_TXQ_DIRTY the next time a dequeue is tried. On the
+recovery path above, this wake runs before ieee80211_restart_hw() sets
+in_reconfig. So if I read it right, the wake_txqs tasklet clears the flag
+and calls rtw_ops_wake_tx_queue(), which returns early because
+RTW_FLAG_RUNNING is already clear. After the restart those txqs only move
+again once another frame is queued on them.
+
+PCI does this reset in rtw_pci_start() since 6ac7db1cea43 ("wifi: rtw88:
+pci: wake the TX queues after restart_hw and interface up"), through
+rtw_pci_reset_tx_queue_state(). On restart_hw that runs while in_reconfig
+is set and the SUSPEND reason still holds the queues, so the marked txqs
+are woken at the end of the reconfig instead. I think moving the reset
+and the wake to rtw_sdio_start() would work here too. It could also take
+tx_queue[].lock there, like the 8723bs stop and wake helpers.
+
+Best regards,
+Luka Gejak
