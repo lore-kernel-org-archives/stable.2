@@ -1,83 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793922989;
-	b=WPEpk6TtfkW7YNpuRZZOMacIgRVnF7HGNdGdIHP/3RsFmIMX3UkRvxUQ6y7dqmfOruEg
-	 OXtR7qDgw2X95ECq0/wRHKziIbI5fwC0ZSzlWBSY3GhoeRC+Mdi+1eFrcW7eKNMzSuBxa
-	 I6nOzfC266hLjuZRR8fmiKOaN3UbNqwq86k3wCQ5ZsKA0l1A7czjQQJfyU4MUY5z2gFip
-	 uWBG4PG9gaA+M3UjA7PQdLhSo4aunWhjBCbJwmcID1HL1wya3Hl3eRn/lpQvs2yBsBWrO
-	 oyYhACNIZmBfjKYlWImPUKEoPIUxQ/5dxrOQ+Skfu6ryRcrUkTIx+kohPAff2H7PDbQ==
+	t=1793923349;
+	b=3TyOfQhnZ0ksmHy1Pt/Hfa3sI0Wc9r4vVqghNyYgefbR3Opob/iXgp9a6lCgkKVstcsV
+	 V2Ktzb2Ds0ASEVRA9y4txwNGkS9A3Z7AxiKBaXTpyjwycNo4OwbSOiftGYM4DA4g7OFbp
+	 gyev9S8xPyeO/+oexdBmOCXoAsO5Twb/rnnwyxRZ8l6QLNXhykCVGLE70hh4LC+YFvB1p
+	 bhTE3/6asMSESZEopdtV9UZoUpnQUTtAsCgmcb7FEf1lnAJHUE0mB6igMhP+dTPLiNAND
+	 eVxrq7flwutldomZ9QlC/GH7qg8Mu8a7+d5LVKcqUmJLIg2l3JUM0UQ5Y4RvdZqnO2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793922989;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=Xeo8mejeTn2es9Yu6qh9AX3+Oz1tjzirKy+z9YOighI=;
-	b=XrYwNZWYF53kZI4EoH8+RkQVWXGpJ4aGl4lGEqyto66me6SuQ791LfvWgHSOVCEY0JR3
-	 EXrAoG/b/gzmWMBOv9mwp4um7+DkzeMGZRkdqf4CFKzAmDaEa7JpqyqK/DWT5y8uAIIp0
-	 QZoxELnFTJ8X21SMf90mZI8D+HgOHmftNT2+yx7r+We7R+DefRmseiUrIBQ8BNWRl+urE
-	 /Ef4F/B/J2WWbubrD7evDJb9pJ2EApeFyqQFXaBR64eIOtQHtloLm6Sbr/Yef2nDeEFE7
-	 aISt1N+VKT6yzRVfvLaOderVT17AMS7bXaIt0kiNH7UsMqldUNUlNLJ+Ji2erD+fG2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793923349;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=mBuZBK21hY2yAPxrYe4Z6icl9OWxEs7agGCHIkxmjNw=;
+	b=e9Lx8ld5zYF+4GCdx/slVgy6g1TLT9rSi05cin26UWhiqT9Fe/icj4JGnKEqNos4hlAL
+	 Mp+mqEb0ARGCEFAEQgTClc/uz7crw0SX6SSXP+S7bj/Kv8C9FOQNdCZhxTfaMda5VznM+
+	 GgJneQaqZ/UhjBnPOSzjpbWEowtfcdd9tPbpqxa4aMtmJxgCjP6xsgRC2lbAwqs/tqI5/
+	 7Gn+m/IWJn3g/KUBCc9Da0eJn94G31j5PgKFCiQhxglomh52ITzQrkv8Gtx/3psgPjiGG
+	 RNQaBpcAMoe5UkkK0cOVlBBnT1vTgmA85PPaEhVTuPJ1m5aSOxZljfctLUC0CEibssA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=liQzJoL5;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=IQMZXMua;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E26606A31B;
-	Thu,  5 Nov 2026 23:56:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52E26606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34CBF606A326;
+	Fri,  6 Nov 2026 00:02:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34CBF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=liQzJoL5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793922989; x=1825458989;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=Xeo8mejeTn2es9Yu6qh9AX3+Oz1tjzirKy+z9YOighI=;
-  b=liQzJoL5XVS+2BO6K5HmwvT1vm9gRhgdqOCYBSDkfYw0Wb4+rRpnyUGK
-   G7cPwdlFyijhqTCojVCk5m74DfhZ+NG1Uf9YA54SxzT+erYL5nMXO2oV0
-   ovVAnzwbuTlaAHeHJrG64SMuwzvPJs6y0mFWJl/xxer1InBA/fF/dqIh4
-   EBRkKcAcsjZhbDxPZ0+0kSUrfVKmYR94BuK4gRDsfgsB5ntI8trk+2vAV
-   aiR92r02WiLD8zqNNM3CdwTqQMtp9dYWFQjlrx3YCvhAQiN/Vug+P4yr9
-   2vL9h0yi2WVeFJ5SQVrGI4xs8r0IOGlbgSaWFIlfeJ7YM0DEyNiDSkwu+
-   Q==;
-X-CSE-ConnectionGUID: FZGZ4KDIRxKEqjP1oemK6w==
-X-CSE-MsgGUID: zEu0f/XHS3mbRO84t4sLUA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2631822"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2631822"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 15:56:28 -0800
-X-CSE-ConnectionGUID: +9owbXuAQwqBtrnAaS0iTw==
-X-CSE-MsgGUID: L8tGT14dSKyEBfO+y+pRuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="6973326"
-Received: from spandruv-mobl5.amr.corp.intel.com (HELO [10.124.220.35]) ([10.124.220.35])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 15:56:26 -0800
-Message-ID: <53c382715b89d26f77f495f79036d31850bf453d.camel@linux.intel.com>
-Subject: Re: [PATCH v2] iio: hid-sensors: fix fractional part for unit
- exponents -7 and -8
-From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-To: =?UTF-8?Q?=D0=A1=D0=B5=D0=BC=D1=91=D0=BD_?=
- =?UTF-8?Q?=D0=9C=D0=B0=D1=80=D1=8C=D1=8F=D1=81=D0=B8=D0=BD?=
-	 <simeon@maryasin.name>
-Cc: jikos@kernel.org, jic23@kernel.org, bentiss@kernel.org, 
-	linux-input@vger.kernel.org, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 05 Nov 2026 15:56:26 -0800
-In-Reply-To: <CAM2dg7dnvj7X3Fo9r_=Pn=EHxUwyFEwQN6XdLLPmOAdaY76JfQ@mail.gmail.com>
-References: <20261104165319.1890851-1-srinivas.pandruvada@linux.intel.com>
-	 <CAM2dg7dnvj7X3Fo9r_=Pn=EHxUwyFEwQN6XdLLPmOAdaY76JfQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=IQMZXMua
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 1E0DB40E01D2;
+	Fri,  6 Nov 2026 00:02:20 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id SMaI-plM8zrb; Fri,  6 Nov 2026 00:02:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793923336; bh=mBuZBK21hY2yAPxrYe4Z6icl9OWxEs7agGCHIkxmjNw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IQMZXMua6hzw0Q3nxxL8AyXSsgOgMJHSR3/+AjLKyEa7m0slwk8opYnmTVDR+EirX
+	 myjANDQ14OeX7pzy4Iwf5p+NMypmwc4bBJFLUqyaoEYeh/rbNT55kKggOrGGP3Xh0u
+	 G44smmF2lY9K5eMA0J3A+0ZEKTu4WZpihyeDqT7AKfxe9nPPMX3cNHyNaXAnoRrukY
+	 yGcz1tSIPEh1hNDMi6HdR0R5PXl6xLDNNDtMxnKYbulTc+lD6ctUuLy8+SfwK5rrry
+	 Dxfev90cW6dBCgQiK9n6T6EiPNLX/+/TqML7MZExlsfUl6mPsRoRX5sgzjxRvcdtVf
+	 +DnmHi76WjLFR3RA+6fRsoqYxeBCR7aZ7b5XwOok7sk+ofmBsMwtsEVs3NHtCZH0nH
+	 XtVqp0JuNWUC+9h6G5bz7L17c67N9fTxvUybvT57BuErAQ0YWfbHTpMCMAuoPiRV2x
+	 Iywc/9qyWmLIBN6I97KJPxrA8hiHbBKew9hoXpd9lKxvyhUqF1LSLll3llgOooJlJ+
+	 Xny8o5Uv3wwHlfDC54tdBHwtIl/fzKeye5BgM0XxaJO2ujIn9Sc7mu26QVAN6N+aYY
+	 CVRvD2GHbYK3MS7/IReDe6dl8tWG1ktbgJiqzw4JM6LiXSfN4fH0iptYiR0aZdsO8I
+	 QaVjMLJsWzjRtCNA5OmIzVSM=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 015C140E015B;
+	Fri,  6 Nov 2026 00:02:08 +0000 (UTC)
+Date: Thu, 5 Nov 2026 16:02:05 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Weilin Tong <tongweilin@linux.alibaba.com>
+Cc: Yazen Ghannam <yazen.ghannam@amd.com>, Tony Luck <tony.luck@intel.com>,
+	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Qinyun Tan <qinyuntan@linux.alibaba.com>
+Subject: Re: [PATCH] EDAC/amd64: Fix double free of private data on
+ registration failure
+Message-ID: <20261106000205.GBau0Y_faMvFp2_fM6@fat_crate.local>
+References: <20261021062925.1838750-1-tongweilin@linux.alibaba.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,103 +81,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261021062925.1838750-1-tongweilin@linux.alibaba.com>
 
-On Thu, 2026-11-05 at 22:26 +0300, =D0=A1=D0=B5=D0=BC=D1=91=D0=BD =D0=9C=D0=
-=B0=D1=80=D1=8C=D1=8F=D1=81=D0=B8=D0=BD wrote:
-> Tested-by: Semyon Maryasin <simeon@maryasin.name>
->=20
-> Here is what I observe with this patch:
-> 1. Enable sensor and run xxd /dev/HID-SENSOR-2000e1.3.auto
-> 2. In the second terminal, do rmmod intel_ishtp_hid
-> 3. Observed result: xxd stops with "xxd: No such device"
-> 4. At the same time, in kernel logs I see the following:
->=20
-> =D0=BD=D0=BE=D1=8F 05 22:19:16 dook kernel: hid-sensor-hub 001F:8087:0AC2=
-.0005:
-> timeout waiting for response from ISHTP device
-> =D0=BD=D0=BE=D1=8F 05 22:19:19 dook kernel: hid-sensor-hub 001F:8087:0AC2=
-.0005:
-> timeout waiting for response from ISHTP device
-> =D0=BD=D0=BE=D1=8F 05 22:19:22 dook kernel: hid-sensor-hub 001F:8087:0AC2=
-.0006:
-> timeout waiting for response from ISHTP device
-> =D0=BD=D0=BE=D1=8F 05 22:19:25 dook kernel: hid-sensor-hub 001F:8087:0AC2=
-.0006:
-> timeout waiting for response from ISHTP device
->=20
-> No system crash, so I suppose this is okay?
->=20
-That is fine.
+On Wed, Oct 21, 2026 at 02:29:20PM +0800, Weilin Tong wrote:
+> If edac_mc_add_mc_with_groups() fails, init_one_instance() calls
+> edac_mc_free(), which frees mci->pvt_info. probe_one_instance() then
+> accesses and frees the same private data, causing a use-after-free
+> and a double free.
+> 
+> Clear mci->pvt_info before calling edac_mc_free() to leave the cleanup
+> to probe_one_instance(). The normal remove path already clears it.
+> 
+> Fixes: 0bbb265f7089 ("EDAC/mc: Get rid of silly one-shot struct allocation in edac_mc_alloc()")
+> Cc: stable@vger.kernel.org
 
-Thanks,
-Srinivas
+Stable because?
 
+Are you triggering this or some tool/AI caught it?
 
-> After subsequent modprobe the sensor initializes and works properly.
-> No kernel crash with this patch.
->=20
-> =D1=81=D1=80, 4 =D0=BD=D0=BE=D1=8F=D0=B1. 2026=E2=80=AF=D0=B3. =D0=B2 19:=
-53, Srinivas Pandruvada
-> <srinivas.pandruvada@linux.intel.com>:
-> >=20
-> > split_micro_fraction() scales the remainder to micro units by
-> > multiplying it by 10^(6 - exp). The unit exponent of a HID field
-> > goes
-> > down to -8, so exp can be 7 or 8 here. Then the argument of
-> > int_pow()
-> > is negative, which the unsigned parameter turns into a huge power
-> > of
-> > ten: 0 modulo 2^64. As a result, the fractional part of a value
-> > read
-> > from the hysteresis attributes is always reported as 0.
-> >=20
-> > Divide by 10^(exp - 6) in these two cases. This matches the reverse
-> > conversion in convert_to_vtf_format().
-> >=20
-> > Fixes: 73c6768b710a ("iio: hid-sensors: Common attribute and
-> > trigger")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Srinivas Pandruvada
-> > <srinivas.pandruvada@linux.intel.com>
-> > ---
-> > v2:
-> > - Fix __udivdi3 link error on 32-bit by using a 32-bit divisor
-> > - Address Andy's comment:
-> > Keep no % divisor in a temporary variable next to no / divisor
-> >=20
-> > =C2=A0drivers/iio/common/hid-sensors/hid-sensor-attributes.c | 7 ++++++=
--
-> > =C2=A01 file changed, 6 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
-> > b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
-> > index 9e7c26e37880..d44091faf122 100644
-> > --- a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
-> > +++ b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
-> > @@ -96,9 +96,14 @@ static void simple_div(int dividend, int
-> > divisor, int *whole, int *micro_frac)
-> > =C2=A0static void split_micro_fraction(unsigned int no, int exp, int
-> > *val1, int *val2)
-> > =C2=A0{
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int divisor =3D int_pow(10, =
-exp);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int rem;
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *val1 =3D no / divisor;
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *val2 =3D no % divisor * int_pow(=
-10, 6 - exp);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rem =3D no % divisor;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (exp > 6)
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 *val2 =3D rem / (unsigned int)int_pow(10, exp - 6);
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 *val2 =3D rem * int_pow(10, 6 - exp);
-> > =C2=A0}
-> >=20
-> > =C2=A0/*
-> > --
-> > 2.56.0
-> >=20
-> >=20
->=20
+> Reported-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
+> Signed-off-by: Weilin Tong <tongweilin@linux.alibaba.com>
+> ---
+>  drivers/edac/amd64_edac.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
+> index 0c0d11c72925..edced7cbe83f 100644
+> --- a/drivers/edac/amd64_edac.c
+> +++ b/drivers/edac/amd64_edac.c
+> @@ -3975,6 +3975,7 @@ static int init_one_instance(struct amd64_pvt *pvt)
+>  	ret = -ENODEV;
+>  	if (edac_mc_add_mc_with_groups(mci, amd64_edac_attr_groups)) {
+
+What a mess this code is with passing pvt up and down the chain and making it
+so easy for people to mess up the responsibilities of who is supposed to free
+allocated memory... :-\
+
+>  		edac_dbg(1, "failed edac_mc_add_mc()\n");
+
+In any case, this line needs a comment explaining why this ptr is getting
+cleared because it is not trivial just from staring at it.
+
+Something about probe_one_instance() as the one who allocates the memory, how
+that one should be the only one which frees that same memory.
+
+> +		mci->pvt_info = NULL;
+>  		edac_mc_free(mci);
+>  		return ret;
+>  	}
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
