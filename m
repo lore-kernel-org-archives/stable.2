@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.21.23.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793965915;
-	b=uRAvaxhFWWoInBXs9sHdtEW7Ev4iFUiag0miignNGVmdi5vlw3hi2zMMH7rzT6/WeWxG
-	 6/VbeKqV70sfxmFXmYYkMLZBKlI46O4jRe4qThatvJrtip7OrFCf2OjFM7UbH5zdLC4S3
-	 HPfbrR0ihznZCAu/s7VcSvjAbzIfMy867EW4mO8Ztq1bzzXQDOx20k6HYF5y7Kvc308fP
-	 N6wVUFluF8VNIJ6YUy7j7NkTaIRNrFZkAk2VwtxiwQJFtpnC/nUFvhZszA/U+Iylgn0Xr
-	 xygZXdSjQFVBJUQyfs/h+QH2DENwR0Sg/3YQyH3xqsGG1D6aHEbTZ1ddMhMcbIo3fxg==
+	b=sxxv+cknWezTGnvTMCVHNvJYNmL0bhqB5UCOyBiljI11n5ugSeRQ43p/En4PCzr/cfa3
+	 qhs0xzupyjeqvqyFH/JnzGongru24qTghzZORAd93U1GhO78fJ/497OV9to/1hCDR5G2V
+	 hal6MTGfnG9yvbhz7hyTcPQU/1xSIiHCj7XxOoCqiPTXwBOGS3q4dgaQzUdMLwmSs4qcP
+	 WNkPVX70xy/ONWyq2LwNdF/R4+3hXoXcfIoTaN1nQ5eBc9UmipUv3wjZ/UCvenaV7sp61
+	 ankNNv4y/DRlq7Uemod9vuJ59ToWv2JAaPSOQCAFZNdzbrIbWFBuGSSwd8bZUaQ7MSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793965915;
 	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:From:
 	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=sowS8VlK0YFuxRXUqxju6orwyRWV15bvieZJXVvCSf8=;
-	b=zo3WgIoFTMDHCMbrd/MJcrEAuV/9lBNfFpWpRIbq5iChSApCiTS0+GZKMt+TyoCzUXuJ
-	 NtPGLXpXdQGSrqnjQmBRst0GR5bxiTvGgr0yy3XgBbsIqfzwbovu/J9H7QMCHzKzd7JJE
-	 p4zgO3OpSpUMkioaBHNkFdJto+KdVc7PTD8i+dWZbrbweELj64Qll8ekg1t/nmktlpBba
-	 alT1fxkR7bfuh2YTrKPyS0r+U4AZXYkDu9/CytM3FLaq8npFU/oPs4jxRwQdQAyz3KXln
-	 7loZE/PofXIhnlJBz9l08yn7KWBpY4Mt7Ks73a7k7zhNE4Vj8M5Hi36b7pLfGNuhdKA==
+	bh=qNCPz1qS0WlotHwtOcXkBBv1t3RqQf7gB9qlyBr1wno=;
+	b=01oxH5tA25Xd5bVvjQYNZxcDjr5N8KPTUmj6ts42fCbesVcd0cYT5JmIjjWl659Oe3p1
+	 D/qWw08rXPly9vdGWchJJFLZldQRXQXdTx3TO4C63yRcWOTnIJkOXgOOnnaBceUA8IH1U
+	 3DjhES69LaI2h4dKPBF47J7AyQE/UKElaS5cMofvW7nMdTQAyEplNjRyv/0xTTny3ene7
+	 XB9U6JVO/95Us4f6iizobXuZ4lb1PReTSCdFimUJI2aiylKczFEoCtrd/n1vWQ0S4Q9Ig
+	 1sjqCcndNxZblqFDY0F94TK3oErpz16CjicNvtd8WOW/f2dVoNXegM4otS4fsrhRr4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=disroot.org;
 	spf=pass smtp.mailfrom=disroot.org;
-	dkim=pass header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=ADpUlpgz;
+	dkim=pass header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=CwUbqx4K;
 	arc=none smtp.remote-ip=178.21.23.139
 Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECBF606A329;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ACAF606A32C;
 	Fri,  6 Nov 2026 11:51:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DECBF606A329
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ACAF606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=ADpUlpgz
+	dkim=pass (2048-bit key, unprotected) header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=CwUbqx4K
 Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 29B26806EC;
+	by disroot.org (Postfix) with ESMTP id 9FEE080715;
 	Fri, 06 Nov 2026 12:51:52 +0100 (CET)
 X-Virus-Scanned: SPAM Filter at disroot.org
 Received: from layka.disroot.org ([127.0.0.1])
  by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id W4gt2lxuuIWH; Fri,  6 Nov 2026 12:51:51 +0100 (CET)
+ id 6S4EyYb3b8WD; Fri,  6 Nov 2026 12:51:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1793965911; bh=2RDJyczQMowvvA1k3+Z+TXrpMLlqD8QWh6I1S4yjCY8=;
+	t=1793965912; bh=bHsCy/8Mgc9r9WQB/zRflWkg+WKF0J8K86mGDeLdTFY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ADpUlpgzIKc2V9n81xWTWSQ87qA/slREk3XS40Uj5B133nv8i0ZiW1mNDe9lN8Yaa
-	 YeLJSriuTZC9gBgMGWPKQxlk0d1tXRPHt5LqyS2O2sZoR2YJDth0SRMcNgSt3n/xov
-	 KsPMgS6jTaIGvK8LskxXs6MDyWPxcifspQ1UoRz26KxJGMpYmzJCEf+nj7h2+zwxw8
-	 xV4+nyY8mbATSpVntKScHfx8puriMd16sKhT+sU+movyq7ahiacg12cKv2VGvnMzmf
-	 XkUg3cvwPGzc7Q7UsFfdt0IjFd9IBXhcvYCBLBfzlhMFKlOXpT3umOxIN+0OfpXddd
-	 BtEjsBQaqfndw==
+	b=CwUbqx4KL3V7ac6SIzCcniXy8SVsO5VFRL8UisBs3WJEpO+8M9xPh2KgmwI5JcGua
+	 AgMR4n1nsvsK3TTUOv8glUDHgxFT7dVgMcR0cNqoXIvxTnZGiSZLnb+SbtoBsJWePb
+	 ELHzQakKZvU5HwhFWzF5EcB8JKKX1ltIWNaUipY8VwyIHt7M7RXhya1hi2v9MuII/n
+	 dXObC1thwjBAgz6j4at3umszIEuJ5yHq+tFvAdcSJhc76ddj5z6n62z7oDzZ1VExlA
+	 eP+soAoouAFcYRmMkS8Z8ALkVeoqwZxaWRYYv2Wj8YjltKXdnbScEzIAYNegngb4Ed
+	 D2i8oKlY5LgvQ==
 From: Florian Maurer <fmaurer@disroot.org>
 To: Felix Fietkau <nbd@nbd.name>,
 	Lorenzo Bianconi <lorenzo@kernel.org>
@@ -62,9 +62,9 @@ Cc: Ryder Lee <ryder.lee@mediatek.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
 	stable@vger.kernel.org
-Subject: [PATCH wireless 1/2] wifi: mt76: npu: return rx slots to the NPU only after refilling them
-Date: Fri,  6 Nov 2026 11:51:12 +0000
-Message-ID: <d6314f34e0965464207656d38a145490b6437aa5.1793927986.git.fmaurer@disroot.org>
+Subject: [PATCH wireless 2/2] wifi: mt76: npu: read the rx slot count after the first slot is complete
+Date: Fri,  6 Nov 2026 11:51:13 +0000
+Message-ID: <653d93b3c35975cd13dd6b33d76ea6517b55be91.1793927986.git.fmaurer@disroot.org>
 In-Reply-To: <cover.1793927986.git.fmaurer@disroot.org>
 References: <cover.1793927986.git.fmaurer@disroot.org>
 X-Mailing-List: stable@vger.kernel.org
@@ -78,93 +78,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mt76_npu_dequeue() writes the new tail to the dma_idx register of the
-NPU rx ring as soon as it has consumed a frame, while the slots are
-only refilled with new buffers by mt76_npu_rx_poll() after the whole
-NAPI budget. Until then, the descriptors of the released slots still
-point to the buffers that were passed up the stack, and on the first
-round of the ring the slot that was never filled points to address 0.
-If the NPU completes one of these slots, the host processes an entry
-without buffer, which crashes in dma_sync_single_for_cpu() under heavy
-rx load:
+mt76_npu_dequeue() reads the slot count of a frame from the info word
+of its first descriptor before checking the done bit of that slot. If
+the NPU completes the slot in between, the count is still the 0 left
+by the refill, so a frame spanning two slots is taken as a single slot
+frame and its second slot is parsed as the start of the next frame.
+With mt7996 this shows up as bogus tx-free events, which hit the
+WARN_ON_ONCE() checks in mt7996_mac_tx_free(). From the code, such an
+event can also release tokens that are still in use.
 
-  Unable to handle kernel paging request at virtual address ffffffff80000700
-  pc : dcache_inval_poc+0x28/0x58
-  lr : arch_sync_dma_for_cpu+0x28/0x38
-  Call trace:
-   dcache_inval_poc+0x28/0x58 (P)
-   __dma_sync_single_for_cpu+0xe4/0xf8
-   mt76_npu_rx_poll+0x184/0x390 [mt76]
-   __napi_poll+0x34/0x180
-
-Write dma_idx after refilling the ring instead, up to the slot kept
-free in front of the tail, which is the same value as before once the
-ring is full.
-
-Also check that all slots of a frame are queued and complete before
-building the skb. So far a frame whose later slots were not yet
-done was freed together with the buffers of its first slots, which
-were then used again on the next poll.
+Check the done bit of the first slot before reading the slot count,
+and order the descriptor reads with dma_rmb().
 
 Fixes: 7fb554b1b623 ("wifi: mt76: Introduce the NPU generic layer")
 Cc: stable@vger.kernel.org
 Signed-off-by: Florian Maurer <fmaurer@disroot.org>
 ---
- drivers/net/wireless/mediatek/mt76/npu.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+ drivers/net/wireless/mediatek/mt76/npu.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/wireless/mediatek/mt76/npu.c b/drivers/net/wireless/mediatek/mt76/npu.c
-index c4c7c0af6321..6e503a4a890c 100644
+index 6e503a4a890c..f00ae683a7eb 100644
 --- a/drivers/net/wireless/mediatek/mt76/npu.c
 +++ b/drivers/net/wireless/mediatek/mt76/npu.c
-@@ -40,6 +40,11 @@ int mt76_npu_fill_rx_queue(struct mt76_dev *dev, struct mt76_queue *q)
- 		nframes++;
- 	}
+@@ -72,18 +72,25 @@ static struct sk_buff *mt76_npu_dequeue(struct mt76_dev *dev,
+ 	int i, nframes, index = q->tail;
+ 	struct sk_buff *skb = NULL;
  
-+	/* Hand the slots back to the NPU only once they have a new buffer,
-+	 * up to the one kept free in front of the tail.
-+	 */
-+	Q_WRITE(q, dma_idx, (q->head + 1) % q->ndesc);
-+
- 	return nframes;
- }
- 
-@@ -69,17 +74,22 @@ static struct sk_buff *mt76_npu_dequeue(struct mt76_dev *dev,
- 
- 	nframes = FIELD_GET(NPU_RX_DMA_PKT_COUNT_MASK, desc[index].info);
- 	nframes = max_t(int, nframes, 1);
-+	if (nframes > q->queued)
++	if (!q->queued ||
++	    !FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, desc[index].ctrl))
 +		return NULL;
 +
-+	/* Only take the frame once all of its slots are complete */
-+	for (i = 0; i < nframes; i++) {
-+		int idx = (index + i) % q->ndesc;
-+
-+		if (!FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, desc[idx].ctrl))
-+			return NULL;
-+	}
++	/* The slot count is only valid once the first slot is complete */
++	dma_rmb();
+ 	nframes = FIELD_GET(NPU_RX_DMA_PKT_COUNT_MASK, desc[index].info);
+ 	nframes = max_t(int, nframes, 1);
+ 	if (nframes > q->queued)
+ 		return NULL;
+ 
+ 	/* Only take the frame once all of its slots are complete */
+-	for (i = 0; i < nframes; i++) {
++	for (i = 1; i < nframes; i++) {
+ 		int idx = (index + i) % q->ndesc;
+ 
+ 		if (!FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, desc[idx].ctrl))
+ 			return NULL;
+ 	}
++	dma_rmb();
  
  	for (i = 0; i < nframes; i++) {
  		struct mt76_queue_entry *e = &q->entry[index];
- 		int len = FIELD_GET(NPU_RX_DMA_DESC_CUR_LEN_MASK,
- 				    desc[index].ctrl);
- 
--		if (!FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, desc[index].ctrl)) {
--			dev_kfree_skb(skb);
--			return NULL;
--		}
--
- 		dma_sync_single_for_cpu(dev->dma_dev, e->dma_addr[0],
- 					e->dma_len[0],
- 					page_pool_get_dma_dir(q->page_pool));
-@@ -108,7 +118,6 @@ static struct sk_buff *mt76_npu_dequeue(struct mt76_dev *dev,
- 	}
- 	q->tail = index;
- 	q->queued -= i;
--	Q_WRITE(q, dma_idx, q->tail);
- 
- 	return skb;
- }
 -- 
 2.47.3
 
