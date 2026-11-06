@@ -1,97 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793989195;
-	b=oR1XJ6FoXStpVdLeieWVFm7r0raNd3IP23DEq48IdiaSWAjPVb2f2gSyHOkrC+K3bPeT
-	 VqT4eKgc9V+onw6LsarqPVUrqhPfsSFRn5teAokQY3UFvUI2c/VKKn3BNTDa27ykSEu/N
-	 EZEPsPMoa14xWGVfZ5tY9mpt37he1/a/km5yHVxkuTIiFjfxzBVW7YsslWLOyDntG+8rV
-	 6H3X0Whns5ex3KvPn5j1BucaycMnPgHzi22NFbYzjB/kxLyE3smc/Dpmn1dMNywGRpBwj
-	 4kC51FSGCB9DP2l5tNY8k3a1fG5uncB3dJ1Kv8ZwlZzDA0CQJ+dzCNObEa5+lul+eAA==
+	t=1793989426;
+	b=r1fwX3rA0z9M5tnzsmg8UGZAwgWxjPaxipPxbusaQlN1G7gCquSclAi7XWdlzhJCRcqH
+	 WgVZ1iRYfopbriIbXDtVK02MOi3KvPUu0Cn4dVylwppKDYAhEUge8wDJVZbvFgUwYTJzK
+	 cQ3fXJhIjjQ0jaIb+KF/W5tkTfrpztdjQNDROVaf8SPlxhuBnamYrJPaCcRZNceZ4TgbI
+	 VgHz9l91LZbN8XXfzA+irmlVl94D9McZBxPoSBYfdqEUajSoCnnxvrdsY0kq9ePkQtDuO
+	 Gi0RejJDpuj64P2dF2Rcfs2LjlNZJ0lEzmakH/7fJ2Ol85rG3boJBHyPdbU6TkSeT+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793989195;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ePH+hik62Fy6F4AAmE1n6DWeBVlZXhgjc9v7cFTm+1I=;
-	b=Rpy12c7ceh5K3Bgd5emeDB+uyqQSFlWf9wbT2CbcGkaMRWaLQwaxnY+hcLMb9osC8xF5
-	 YZ8qK5LTZ6yczatYQA7bl8uJ6Lx8l3zbYv7d8ths5Xw0CMaVWfPt7sUyWywBrHMVHasos
-	 aDw3XD9N/fhPPcX42a1NRUm8e+P27LXISxOczusXHF+H8DWfShLAnXUHb/p6sv7auf+EP
-	 RCQM0IAKNTfA4D1sNJ8YkY+dbqdpoAUiCsdH4Wxcm6TXLPaiYM7D5GG0B2XmSLa7+Jn7N
-	 JmlzEldPpRelN4NKPjn+suZyUQ+05m3M/JisFf7uaUmCpC9tdBN3FHAW6uBCPKmGSsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793989426;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=aNrxcQ3EqzspHqBIrIiO9tnG/RBY6rmNXDWaz9X6PEg=;
+	b=vorHKykCG1JCyyKcbC2g5vQRQxt9bp70G+GwQX8igihcxcn6zIZeI+6UllizPH7zKCJ4
+	 u70NPGEXIh83cjqlL1aVg0cVFeqZNkted6lNg/gxAIOFWvNQHl8FK+t0eg1VGdPYoKhGh
+	 hA8az9U3Og9YGyZR8VhBecvM5+osFBtD4Ot7taLrz/W1NWebagzDLZnoeieBJTK82dW1D
+	 NYAX5BIDkheSdCuOQojbHQBtFPEAmEEAQvijP0HPdWlUEIHSmmVcJKV5fxIz9jVVwFeTK
+	 FrenIYaoBviX5sZZyffcgf4RglBLzx5oAjgVm+jQMWTK6djtBfGnbSceL1I3L59so5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=none header.from=linux.win;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X7lR27Rb;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	arc=none smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C90B606A32F
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 18:19:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C90B606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008BA606A32E
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 18:23:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 008BA606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.win
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X7lR27Rb
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so1526291eec.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 10:19:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793989194; x=1794593994; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ePH+hik62Fy6F4AAmE1n6DWeBVlZXhgjc9v7cFTm+1I=;
-        b=X7lR27RbrxzayAIqAKtxrfjf53P0bbpYAmfW+QVcAshLVcuM4RBj69px8H/k8CSjsm
-         Hi41EFcJE3XccnMUwcmsv/Qq5V/R2F1dc3X2FynpaQXVSAHmwOitYgskIterANLTBb1G
-         cZq2+ewPwPG3aZmQstNuutoWF2nCQfBUUYAK2aVBYT7eNrsjOdpm3EHebbwkOShfxHBn
-         VA2W3Xx5NYz8untfcuBIhr7eM5pkbpaeaXOxljElRXWT17TfMmLtbfUW1dW5H99cKb3J
-         yfwGvemvWV1RDWr6Jli0dtYrVq6PyzIk8i96SzMf3hZOPp58V3Vdxck7Y6ZCaOA3Lrmv
-         ulBA==
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so1431872a12.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 10:23:45 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793989194; x=1794593994;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ePH+hik62Fy6F4AAmE1n6DWeBVlZXhgjc9v7cFTm+1I=;
-        b=mscI/E2yk7RXOuNn0UctGDjnKvDOXkTQqEbZyMHc58K5UMYQurlQwQGi8A/WRXNe27
-         gcdcgpTbmfIhhW9t1j7dN0uQKyNVT0gyu1k8goUnyCbX3+ho9Yg/kuvUNigiHOrwa/sn
-         5ohdOYr6a2Bw329vD6ppQSF3MWPdgRne61Cp8aGL7Mwdgrrfn5JAcI3JQjU1GIwMa8cE
-         buVxNylJYCdWQcr45V7n0bUNJzH97stdtsfprurfVq1gvyjQu2YTo3pwWT8kjvXX3e0a
-         mLOheyZ2WOF4UMqDaeACLUd/RT/6TrK7E47SVg/6rRxCDuKlW0xWTKwNp6NqEzxSvLDA
-         MAJQ==
-X-Forwarded-Encrypted: i=1; AL+hErEyh4mWQHZKeUt9gx4QFgCoaBTzo6Vt97QjLl1ttwPaR7V+xLImMvZv7N5EicBm4GpsAiSy2NE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z93rsncVzHHGkxkbOYlaT8sh2vAxvzAwM7zINkn1kM+73HPy7tk
-	5GqM9JIFRsEViBovicOaWPJesOCNqR54ZMkhE2ZXOp/j7l6sZkhVDyJmv7awsv6ePuI=
-X-Gm-Gg: AYBFou2i5mZUH3DW+mNeUga9fVJD/2Eh++JxckzCrN8k+W3ZVXcgbfaRbWz7yaqb5qZ
-	oP+jUaPcMoYTP5jSqgSvz7XEKTMqSOwC0uFKSC1C5ma0AIodAq6RXqV6lyDnz5dg+NN5S5lODRL
-	dstCslfvCPxlwgyJc9sMySZG0jZhTipTgka7wCcQJYKv7XLrutpkLUi2k/u4dtSZiR2AvSi6gGT
-	L8d91FHg1jpiTLQVrwRVZUFTIbULYOXZvB/pbnUnJAxlbQvdrhqR7rIWc75Jsj4P92Kj4aiE28V
-	ewXEg9tdtRLlDqwCQ+r3RZ7U11JTsPAUkRW4w7wu1/VY5PLcsVPwzGv1fck2hSXFn+p2zS/09Sf
-	PMtcanMIGni0omTGkNoQzyRAVA5BcWmveAbqUFiLknTnvvLs26eyMJyHONgvHx95zN7+v6D8JJK
-	9o1WaRSvWU2PkWartOowuOKhXsxvv5csFGJ2+DGp/9gRL0mjLfRr6Mrx69vTk73kktALI5dJyid
-	re/UWkjEviRhioeX0Z+m9pI4rh0pIK89WA6F+v2KG/X6DNAwEfx2DW21J/8UYj/Dlt83voCQhnR
-	bVMvPVzZeYi/gcaR+Em684x6AEqKrBgPo+mzHTGzH/10Eey9yD+PqbydtDjtnzWU6g/PcqQc6Fq
-	YLJMie9hWpe+pc/+lJMlo7rBHoySY8ldvUY9kxNN1NgQdfUshBLkQvpg6B6GOAhkrtEijbuejlt
-	uCRl6cMs3cxRUIqDv+2sCd/7fp5ODWMw0v+NQRhhcmJ8LnNov3XA==
-X-Received: by 2002:a05:693c:2a0b:b0:36d:d7ec:5e3d with SMTP id 5a478bee46e88-36f772f8940mr4302147eec.21.1793989194075;
-        Fri, 06 Nov 2026 10:19:54 -0800 (PST)
-Received: from zbook-HP-ZBook-Firefly-14-inch-G8-Mobile-Workstation-PC.. ([49.207.55.157])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa6a649csm8241901eec.26.2026.11.06.10.19.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 10:19:53 -0800 (PST)
-From: Payal Lenka <payalm.lenka@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	chenchangcheng@kylinos.cn,
-	Payal Lenka <payalm.lenka@gmail.com>,
-	syzbot+f8fb5598924c7e645553@syzkaller.appspotmail.com
-Subject: [PATCH] HID: corsair: cancel the LED work again after unregistering the LED
-Date: Fri,  6 Nov 2026 23:49:44 +0530
-Message-ID: <20261106181944.2535082-1-payalm.lenka@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1793989424; x=1794594224;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aNrxcQ3EqzspHqBIrIiO9tnG/RBY6rmNXDWaz9X6PEg=;
+        b=ldFYS2lR3dUP6QvRWusR5ke6+KrekWGsba6cfNzkzxmUnw+7Ckv4vEu9vKbH95CV8G
+         +aellcUX2jYx/It8i6mO5l8E1AgQVvYlH58CcWmBEEu8k9vHBG04CjWdrc0bO81zIHiO
+         ZgDOvuoO66MI859inBgxUxgoHg0GUDzSRzgxbg21XHLDbdkp6zLwtpHpVM/Q45+hCASn
+         iDAQzkTKgAQRJD+APCEffGhBtQfCjR3aO9lW00fwRbxQjhDvK3Qe3jbid+jyr3LZJ93M
+         mw2kbaQrZYyywk0icqg09MxrenmIDM9NvXIsufhE7U6m3dJ0Pow4toE5RDtjlpiGsRHn
+         Hjnw==
+X-Forwarded-Encrypted: i=1; AL+hErF6me/iMXGEE4SRSq/MZsG1EoolQU2x+VBwJXG+twE0bCUGgImLz35q9FAfrSynXIV+oTVwllQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/s+yubOT/YlDGRdgQ2HEfk/thxEobdrC3DoNwczVED+FWfhasr
+	LqWtHSP3hWnJ6S/89ESXT2Pjr7lyoZ8gRwWtyOaEQsgniUUClyqmCJyiJt1BhYrE+bU=
+X-Gm-Gg: AYBFou3Kq9Fok7fs/bTE5zEYhfxtZlaeLv25idtr5wVAHrmSp+8MDnG5OKluo1x3Z4E
+	C2/+Ue9enDsE+jkaC18N/dHJqi5lgYprq7IpdEX1V0l476qrF7/JYCFbZZSehzR/zoB7X6gDoYB
+	T6dTVHBHYenKGqn9RRvjjqy+urX+TEaVKKNrGUY5XxsUUPQtgmv2Za1OUHM/i6CpYUCpkvDkZce
+	4XB89A5gyBNE2nO2B4ON0syCElfqILTchmvDv0zQqOJ+7TpvCKyhoIZR0dxdFuNYgLP5Ri/6dLw
+	/WMiCxvByZwSmA4Ptu9afMgaYA6ckbQ/OwvmQU4ZR8gl/6KeFYPbv5Xl/UqjCYXejSeq7VhPT57
+	0rLB0QI4D4oCHBNGEYmQmRCQhtqxq/TgoiK4QqSqj6cDPugLC1gLfen+Fi6CAskRHwvc5+Y22rl
+	cdOrEGImq2Sjd3C4vgkpk1hMJafaJbSFYpX1P1t+JGWSvxR7NzojiyE+PYIwdNmhsA1PqZy02lw
+	vLNcxjnKEM1VKwShomRdlYdaElTkyiAmyWU+hfRfJARCMUduNoaSjLKf0R2gMvbzyx2TxKekDVC
+	O3RawvSt8h4Sbzoc/ykDD8lZQ6VHHC3DRBm96YqO8gCuat7XIurEQ3JRQUk=
+X-Received: by 2002:a05:6402:a50d:20b0:6b4:2060:8a4d with SMTP id 4fb4d7f45d1cf-6b59783f17fmr1652098a12.33.1793989424235;
+        Fri, 06 Nov 2026 10:23:44 -0800 (PST)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com. [209.85.218.49])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b664b19a79sm947121a12.31.2026.11.06.10.23.40
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 06 Nov 2026 10:23:42 -0800 (PST)
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c40e02b2ebaso150402666b.1
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 10:23:40 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxuTS50i7wk994tjhpE2Thch4jes1StAUc1n90lVYreq9oEwEB7LhprNdL9n6WmmGiNOBg1Hww=@vger.kernel.org
+X-Received: by 2002:a17:907:6ea1:b0:c49:903e:1e19 with SMTP id
+ a640c23a62f3a-c4d354e89acmr271729566b.26.1793989420455; Fri, 06 Nov 2026
+ 10:23:40 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,73 +81,241 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261026024840.23482-1-xuyuqiabc@gmail.com>
+In-Reply-To: <20261026024840.23482-1-xuyuqiabc@gmail.com>
+From: Ignat Korchagin <ignat@linux.win>
+Date: Fri, 6 Nov 2026 18:23:27 +0000
+X-Gmail-Original-Message-ID: <CAOs+rJWf5JEMD7UC-4YS2ayAX5f2SUgr5s9DCwmWXExBhqaEJA@mail.gmail.com>
+X-Gm-Features: AclHuK-C3Nt3Bae-E0GNpd5wrE9zs0X4WIFo37tTe1DY5jHnZaQm4KTY5Zirqa8
+Message-ID: <CAOs+rJWf5JEMD7UC-4YS2ayAX5f2SUgr5s9DCwmWXExBhqaEJA@mail.gmail.com>
+Subject: Re: [PATCH v4] KEYS: Account for asymmetric key payload data in the quota
+To: Yuqi Xu <xuyuqiabc@gmail.com>
+Cc: linux-crypto@vger.kernel.org, keyrings@vger.kernel.org, 
+	David Howells <dhowells@redhat.com>, Lukas Wunner <lukas@wunner.de>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	Rusty Russell <rusty@rustcorp.com.au>, stable@vger.kernel.org, Vega <vega@nebusec.ai>, 
+	Ren Wei <weir@nebusec.ai>, xuyq21@lenovo.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Commit eb51c9f8cb4f ("HID: corsair: cancel worker before unregistering
-LED to fix use-after-free") cancels the LED work before calling
-led_classdev_unregister(). But unless LED_RETAIN_AT_SHUTDOWN is set,
-led_classdev_unregister() turns the LED off, and k90_brightness_set()
-then queues the work again. The k90_led holding that work is freed right
-after, with the work still queued. The removed flag does not help, as
-the worker would read it from the freed memory.
+On Mon, Oct 26, 2026 at 2:50=E2=80=AFAM Yuqi Xu <xuyuqiabc@gmail.com> wrote=
+:
+>
+> add_key("asymmetric", ...) preparses the supplied blob and then
+> instantiates the key with generic_key_instantiate(), which charges
+> prep->quotalen to the owning user's key quota through
+> key_payload_reserve().
+>
+> pkcs8_parse() duplicates the attacker-controlled PrivateKey OCTET
+> STRING with kmemdup() into pub->key. pkcs8_key_preparse() stores that
+> object in the asymmetric-key payload but hard-codes prep->quotalen to
+> 100, so the quota records 100 bytes regardless of the retained private
+> key size. The ASN.1 decoder accepts blobs up to 65535 bytes, so one
+> key can pin about 64 KiB while consuming 100 quota bytes. With the
+> default non-root limits (200 keys / 20000 bytes) a user can retain
+> roughly 12 MiB instead of the 20 KiB the limit is meant to allow.
+>
+> x509_key_preparse() keeps the parsed public key, its parameters, the
+> signature and the authority key IDs, but also charges a fixed 100
+> bytes. PKCS#8 later repeated the same fixed-100 accounting. The same
+> add_key() call reaches the X.509 parser, so fixing only PKCS#8 would
+> leave the bypass reachable.
+>
+> Charge the size of the retained payload instead. An oversized PKCS#8
+> key now fails with -EDQUOT instead of being accepted for 100 bytes,
+> and the same applies to an X.509 certificate that retains an oversized
+> public key or set of authority key IDs. A charge which does not fit
+> in unsigned short is rejected with -EINVAL before the payload is
+> installed, because key_payload_reserve() keeps the full delta in the
+> user counter and refunds only the truncated key->quotalen. key_alloc()
+> also charges the key description to the same field, so include the
+> effective description length in that limit as well.
+>
+> Measured on v7.3-rc1 (10396a2d6d41), 2 vCPU / 2 GiB QEMU guest, as uid
+> 1000, adding PKCS#8 keys with a 65000-byte PrivateKey field. Before
+> the patch, 176 keys were retained (about 11.4 MiB) while
+> /proc/key-users charged only 19712 bytes. After the patch the
+> oversized key is rejected immediately, and a 200-byte PrivateKey still
+> loads and is charged 264 bytes. A small X.509 certificate whose only
+> large object is a 26000-byte authorityKeyIdentifier is likewise
+> rejected, while the unpatched kernel accepted it and charged 109
+> bytes.
+>
+> Fixes: c26fd69fa009 ("X.509: Add a crypto key parser for binary (DER) X.5=
+09 certificates")
 
-This is caught by debugobjects when a device is disconnected:
+SInce we touch PKCS8 as well, missing a relevant "Fixes:"
 
-  ODEBUG: free active (active state 0) object: 0000000097898442
-    object type: work_struct hint: k90_record_led_work+0x0/0x1e0
-  WARNING: lib/debugobjects.c:629 at debug_print_object+0x189/0x2a0
+> Cc: stable@vger.kernel.org
+> Reported-by: Vega <vega@nebusec.ai>
+> Assisted-by: LLM
+> Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
+> Reviewed-by: Ren Wei <weir@nebusec.ai>
+> ---
+> Changes in v4:
+>  - Sashiko (High): "keys: integer truncation of key->quotalen causes
+>    permanent quota leak" on key_alloc() and key_payload_reserve().
+>    Include the effective key description length in the USHRT_MAX
+>    limit. key_alloc() and key_payload_reserve() add the description
+>    and the payload to the same unsigned short field, so checking the
+>    payload alone was not enough.
+>  - v3 Link: https://lore.kernel.org/all/20261019041314.48569-1-xuyuqiabc@=
+gmail.com/
+>
+> Changes in v3:
+>  - Sashiko (High): "keys: integer truncation of key->quotalen causes
+>    permanent quota leak" on pkcs8_key_preparse() and
+>    x509_key_preparse(). A payload charge above USHRT_MAX is rejected
+>    with -EINVAL before the payload is installed. key_payload_reserve()
+>    keeps the full delta in the user quota and refunds only the
+>    truncated key->quotalen, so that charge would leak quota.
+>  - Reposted so Sashiko records a review against this Message-ID, as
+>    requested by Herbert Xu. v2 was posted and Ignat Korchagin replied.
+>  - v2 Link: https://lore.kernel.org/all/4a0b2e00f5cc62c173a01fec2f56eab1b=
+04d70bb.1790568982.git.xuyuqiabc@gmail.com/
+>
+> Changes in v2:
+>  - Move the bug details and the measured quota numbers into this
+>    commit message, as requested by Ignat Korchagin.
+>  - Sashiko (High): "keys: integer truncation in key->quotalen causes
+>    permanent quota leak" on pkcs8_key_preparse() and
+>    x509_key_preparse(). Not changed in v2. The same finding is
+>    addressed in v3 and v4.
+>  - v1 Link: https://lore.kernel.org/all/cover.1789801335.git.xuyuqiabc@gm=
+ail.com/
+>
+> diff --git a/crypto/asymmetric_keys/pkcs8_parser.c b/crypto/asymmetric_ke=
+ys/pkcs8_parser.c
+> index 9dd1c181789a..db2d57489d96 100644
+> --- a/crypto/asymmetric_keys/pkcs8_parser.c
+> +++ b/crypto/asymmetric_keys/pkcs8_parser.c
+> @@ -10,6 +10,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/export.h>
+>  #include <linux/slab.h>
+> +#include <linux/string.h>
+>  #include <linux/err.h>
+>  #include <linux/oid_registry.h>
+>  #include <keys/asymmetric-subtype.h>
+> @@ -136,6 +137,8 @@ static struct public_key *pkcs8_parse(const void *dat=
+a, size_t datalen)
+>  static int pkcs8_key_preparse(struct key_preparsed_payload *prep)
+>  {
+>         struct public_key *pub;
+> +       const char *description;
+> +       size_t desclen, quotalen;
+>
+>         pub =3D pkcs8_parse(prep->data, prep->datalen);
+>         if (IS_ERR(pub))
+> @@ -144,13 +147,26 @@ static int pkcs8_key_preparse(struct key_preparsed_=
+payload *prep)
+>         pr_devel("Cert Key Algo: %s\n", pub->pkey_algo);
+>         pub->id_type =3D "PKCS8";
+>
+> +       /*
+> +        * key_alloc() charges the description to the same unsigned short
+> +        * field that key_payload_reserve() later adds the payload to.
 
-Cancel the work a second time after unregistering the LED, in both
-k90_cleanup_backlight() and k90_cleanup_macro_functions(). The first
-cancel stays, as it keeps a running worker from using led->cdev.dev while
-the LED is unregistered.
+While today indeed only the asymmetric keys hit this I wonder if the
+fix is better to be in key_payload_reserve(). Something like a fail if
+key->quotelen + delta > USHRT_MAX. That fixes all current and future
+key types.
 
-The root cause analysis and this patch were prepared with the help of the
-Claude Opus 5.5 coding assistant.
+> +        */
+> +       description =3D prep->orig_description ?: prep->description;
+> +       desclen =3D description ? strlen(description) + 1 : 0;
+> +
+> +       quotalen =3D sizeof(*pub) + pub->keylen;
+> +       if (desclen > USHRT_MAX || quotalen > USHRT_MAX - desclen) {
+> +               public_key_free(pub);
+> +               return -EINVAL;
+> +       }
+> +
+>         /* We're pinning the module by being linked against it */
+>         __module_get(public_key_subtype.owner);
+>         prep->payload.data[asym_subtype] =3D &public_key_subtype;
+>         prep->payload.data[asym_key_ids] =3D NULL;
+>         prep->payload.data[asym_crypto] =3D pub;
+>         prep->payload.data[asym_auth] =3D NULL;
+> -       prep->quotalen =3D 100;
+> +       prep->quotalen =3D quotalen;
+>         return 0;
+>  }
+>
+> diff --git a/crypto/asymmetric_keys/x509_public_key.c b/crypto/asymmetric=
+_keys/x509_public_key.c
+> index 25cf8ac7f257..4a9c85277ce0 100644
+> --- a/crypto/asymmetric_keys/x509_public_key.c
+> +++ b/crypto/asymmetric_keys/x509_public_key.c
+> @@ -163,9 +163,11 @@ static int x509_key_preparse(struct key_preparsed_pa=
+yload *prep)
+>  {
+>         struct x509_certificate *cert __free(x509_free_certificate) =3D N=
+ULL;
+>         struct asymmetric_key_ids *kids __free(kfree) =3D NULL;
+> +       struct asymmetric_key_id *id;
+>         char *p, *desc __free(kfree) =3D NULL;
+> -       const char *q;
+> -       size_t srlen, sulen;
+> +       const char *description, *q;
+> +       size_t desclen, srlen, sulen, quotalen;
+> +       int i;
+>
+>         cert =3D x509_cert_parse(prep->data, prep->datalen);
+>         if (IS_ERR(cert))
+> @@ -221,6 +223,36 @@ static int x509_key_preparse(struct key_preparsed_pa=
+yload *prep)
+>         if (IS_ERR(kids->id[2]))
+>                 return PTR_ERR(kids->id[2]);
+>
+> +       /* Charge the memory retained in the payload, not a fixed estimat=
+e */
+> +       quotalen =3D sizeof(*cert->pub) + cert->pub->keylen +
+> +                  cert->pub->paramlen;
+> +       if (cert->sig) {
+> +               quotalen +=3D sizeof(*cert->sig) + cert->sig->s_size;
+> +               if (cert->sig->m_free)
+> +                       quotalen +=3D cert->sig->m_size;
+> +               for (i =3D 0; i < ARRAY_SIZE(cert->sig->auth_ids); i++) {
+> +                       id =3D cert->sig->auth_ids[i];
+> +                       if (id)
+> +                               quotalen +=3D sizeof(*id) + id->len;
+> +               }
+> +       }
+> +       quotalen +=3D sizeof(*kids);
+> +       for (i =3D 0; i < ARRAY_SIZE(kids->id); i++) {
+> +               id =3D kids->id[i];
+> +               if (id)
+> +                       quotalen +=3D sizeof(*id) + id->len;
+> +       }
+> +       /*
+> +        * key_alloc() charges the description to the same unsigned short
+> +        * field that key_payload_reserve() later adds the payload to.
+> +        */
+> +       description =3D prep->orig_description ?: desc;
+> +       desclen =3D strlen(description) + 1;
+> +       if (desclen > USHRT_MAX || quotalen > USHRT_MAX - desclen) {
+> +               kfree(kids->id[2]);
+> +               return -EINVAL;
+> +       }
+> +
+>         /* We're pinning the module by being linked against it */
+>         __module_get(public_key_subtype.owner);
+>         prep->payload.data[asym_subtype] =3D &public_key_subtype;
+> @@ -228,7 +260,7 @@ static int x509_key_preparse(struct key_preparsed_pay=
+load *prep)
+>         prep->payload.data[asym_crypto] =3D cert->pub;
+>         prep->payload.data[asym_auth] =3D cert->sig;
+>         prep->description =3D desc;
+> -       prep->quotalen =3D 100;
+> +       prep->quotalen =3D quotalen;
+>
+>         /* We've finished with the certificate */
+>         cert->pub =3D NULL;
+> --
+> 2.56.0
+>
+>
+>
 
-Fixes: eb51c9f8cb4f ("HID: corsair: cancel worker before unregistering LED to fix use-after-free")
-Reported-by: syzbot+f8fb5598924c7e645553@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f8fb5598924c7e645553
-Cc: stable@vger.kernel.org
-Signed-off-by: Payal Lenka <payalm.lenka@gmail.com>
----
-Tested in QEMU (x86_64, KASAN, DEBUG_OBJECTS_WORK and DEBUG_OBJECTS_FREE)
-with a C reproducer from the syzbot report, 120 seconds per run:
-
-  no fix:                     warnings for both work items
-  this patch:                 no warnings over 124 disconnects
-  only the backlight cancel:  warnings for k90_record_led_work
-  only the record LED cancel: warnings for k90_backlight_work
-
-The reproducer does not exercise the race fixed by eb51c9f8cb4f, so that
-is not tested here; the first cancel is kept for it. Not tested on real
-K90 hardware.
-
- drivers/hid/hid-corsair.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/hid/hid-corsair.c b/drivers/hid/hid-corsair.c
-index 278c6efb5..7e5ff3d52 100644
---- a/drivers/hid/hid-corsair.c
-+++ b/drivers/hid/hid-corsair.c
-@@ -526,6 +526,8 @@ static void k90_cleanup_backlight(struct hid_device *dev)
- 		drvdata->backlight->removed = true;
- 		cancel_work_sync(&drvdata->backlight->work);
- 		led_classdev_unregister(&drvdata->backlight->cdev);
-+		/* Unregistering turns the LED off, which queues the work again */
-+		cancel_work_sync(&drvdata->backlight->work);
- 		kfree(drvdata->backlight->cdev.name);
- 		kfree(drvdata->backlight);
- 	}
-@@ -542,6 +544,8 @@ static void k90_cleanup_macro_functions(struct hid_device *dev)
- 		k90->record_led.removed = true;
- 		cancel_work_sync(&k90->record_led.work);
- 		led_classdev_unregister(&k90->record_led.cdev);
-+		/* Unregistering turns the LED off, which queues the work again */
-+		cancel_work_sync(&k90->record_led.work);
- 		kfree(k90->record_led.cdev.name);
- 
- 		kfree(k90);
--- 
-2.43.0
-
+Ignat
