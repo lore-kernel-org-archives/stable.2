@@ -1,52 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793936967;
-	b=AL0ta0WamRylZMK7f1tzpqYMMuWZWKbifmiWRTC42Yj3z7SZdGqPTcvX53Uq5IGEZiLH
-	 czR5fRbz6ZTKbV8AjOOF7PWeCHeOh5+kfWSr89nAV2HfdLkaCKeMDyvIBu3jbJB+DKaZ0
-	 Y/1XIWolz+9i3mwe3d9HwDsDXJtusPLuKP97lcCMP+YOXu36GY6egjwMrJqbNa4lXnuNJ
-	 dn2Hoz79TWSeibL73frvyqVS7dUqenvi1Kt9jZ1ZdAwHOjp7isEGRAGYvRnnVMU4uZKf8
-	 /8TaBg+TWYcDJtajgEE9KxXbmj4M+8ahIIf9bWKPsFHdgbtE4FXSaYityNdgsmFLMWA==
+	t=1793937237;
+	b=MGIOuUeM+jLKL55KmEtX160plm74VEkgiPDPHziFY9XCboSN5pCmuCVf+nM9odqrDgow
+	 m/BZ5knl9YEZPJMa0XB2mr+FdgGmohfM0prG3FtY2s0z6sXiK+gsos8wnw6WWt1FioO/4
+	 NxiakOI4FordTr+xwuS+KzBIygtNx+WpnMQBHnScDn+c2JHIgYdVGy+WYS80QSgtJtazs
+	 7l/bbwLCu60OSF4FrC/whBiWJFqxxG4cGRpZjcLxZYRgICQlaw1H/cEARrm1oVqnj7skw
+	 CWK3bPWj2Ar/1NJqYciK8yRtXj2V56swJ2SG81e4S6P9ZVNmWiZ9gkZbUwj8v6VkyOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793936967;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=bR6/RyzKOdjpGGJRJNVfShP1T5DrkTgxl/K0lqGB0w8=;
-	b=AaX4xCJJGZTpecxsWtfhE5lPJNGXi7/bZQbZwr1fVGc/t6xgrhOId0PBaSJk/OQvcOYo
-	 DTPQW6S5+A+VrdB5lfMFxdI9DPa6zNemQfw0rEU6HfstjxBIykeEFdGbbkhphUrDA/kn3
-	 XeFLR0RemAdmMsi/NIxgy6/MBe6WMGaOdf3qHrxreICp3tFbwTkqPMdMV8CunFLdMnPYR
-	 PkWPxKKMDaUW8VLCTbIh2X9dbWyefneYNireo3x63tXvOUuMhEE4Tq2CrKHNuAgoO1NMc
-	 NOsVYnoZtpudZ/bBRLVYNDBjcDRzP1UHGhX1AeuH3Mni9CLXX4B5phBBnRYnlPLrNyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793937237;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=oqmDrOo6CSWs4CP+/hS0yMdv/dJhQgy+wrfGOSgAwrc=;
+	b=LOMVYPk7MyS9ha3ko8NyIU0fq/mCi1Iqq2HF5TEa6iQo28daEKH5ZRzQ13mrkmPOqgJl
+	 1hOue16tLIQ464oQ7JSG5YVLwe1VOOU8LH3yxh7Y2OsDVLsC9rKcOKEynGOHEcidHyQfc
+	 RNKTV65S6hkxYg5AhAXKb64QrjE8wmW4wwWXI4QXYv09ZBKiwikrNyfbXhMI0l7f2/aSu
+	 asGTt5LB5TM5gHJtpkcD3dscs1s9buSjSYOjH0mSH8EkTvum5mPVa9QETy2Eh6Mzbw2NH
+	 qKAY2tShCgbPlFvt2uxdAtO1b/XeqpCD1I68VYI+fPrAfJ3axpMapCkmDMJfk9+gH9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DBXLa1GR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=g1xIj0Lt;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=bADTeO0T;
+	arc=none smtp.remote-ip=103.168.172.157
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CEF606A31B;
-	Fri,  6 Nov 2026 03:49:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D033606A32C
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 03:53:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D033606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DBXLa1GR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 297C81F0089F;
-	Fri,  6 Nov 2026 03:49:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793936967;
-	bh=bR6/RyzKOdjpGGJRJNVfShP1T5DrkTgxl/K0lqGB0w8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DBXLa1GR6y3NbdRJY+QMmx7gNQCu1YDGZ1tdDdYd2N7coc1sO/SVQQgl68pVnjc8z
-	 8Rg+d+mxzghll7ZdM9KS5/9EWVqR0WZIVzgWKSXSCHMSkvwS2nlLaT9De6WKR/SHoj
-	 bQ+yZlfsyv/0bDTqLAFXstxFC3p4dU7Sj174b7K9HT5sFjLEX6Dtr+CWRpJlVK6EhA
-	 VE0Au+OaPS8fkKERAOkD61x3hbvV1KR/vFOpIElDrEhGM4AC/JwTtOaK2gJ27+4MsJ
-	 CWm5//y0lnhZWIIE0Z7fGgNpS6rIqMLkWeQEKzLwI+bKYFI+8Rxj0yww8KVz9UVAPb
-	 O1zkAIOeq+Liw==
-Date: Thu, 5 Nov 2026 19:49:25 -0800
-From: Eric Biggers <ebiggers@kernel.org>
-To: Walter McKelvie <walt@mckelvie.org>
-Cc: herbert@gondor.apana.org.au, davem@davemloft.net,
-	linux-crypto@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: algif_aead - Allow gcm(aes) for privileged users
-Message-ID: <20261106034925.GA3877@sol>
-References: <20261106034150.1159818-1-walt@mckelvie.org>
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=g1xIj0Lt;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=bADTeO0T
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id B44E51400139
+	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 22:53:55 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Thu, 05 Nov 2026 22:53:55 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1793937235; x=
+	1794023635; bh=oqmDrOo6CSWs4CP+/hS0yMdv/dJhQgy+wrfGOSgAwrc=; b=g
+	1xIj0LtZr77iKO2Ht0DMkqJIsenrRo5P7tbbtQKKY8SbU+RvPaLi4XFb+iW2Dnhw
+	TbqcKcoG1fKYRIZnebg2SOj0h//0YfrwKhmGHYBaLdSk/wR6ao+T92JCYvQh+6ue
+	G6kq9zyYfpEclQb9Chk+Uc0GQqRJl2lbJI1FkrdxjZLAyblkvda/IBcLvVaJHz8F
+	jMbynjcDKCUoDnR9aYWhnxie7uV69Xs/gQmcSdas/ATj9nHmSE167KgBKNCm4nKk
+	J2RgWsaPa+VanrsGkib4d0E+Nx8aqTbHviP4LXi1yisIQ8t8KqtwfrrWgrgXtDht
+	0Xs+f3GIKIKmVe6lN1k6Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1793937235; x=1794023635; bh=o
+	qmDrOo6CSWs4CP+/hS0yMdv/dJhQgy+wrfGOSgAwrc=; b=bADTeO0TXnfNVaq23
+	uIVxX5FXHpk+ydSMC2tlbYzhM3wvH5LJm34O4aJCWIyoTjYuBF1JWnm6ulxki/Yf
+	LSy4wo+WkHvDoZVuxh15xUCejTAEqL1WkvxHlnPU9hhQO5ze6EghapGla4ANuxKT
+	e4TgBI/gnFDMqBOR//YtbtLMTrnSo9Ttt9eYplBGc3ATn42uDcmMxkW3fCQLmMIo
+	PY7roqOkrX9PbY/5MqYJdZbX3z5IwYVP2zd1QKydBr1bz8NBKHNdeGCqul3hy35y
+	Zb+CSnOhMKWvmat+lH3IjCdVScf6BpUtuSAnPO5X9Dz9L2+2QVwLygN/2ns9yyrq
+	1uFYQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793937235; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:1+mG5WC/SWCNj64krk3fguNhDm4sOZNccoSZ6P3Sc4xPCm9
+	87CCkqJOkPgp0vDqlrs6G//yvjbwvq0tcVZuBoAjYlur0UzMyamYP4C5sSBfLYm1
+	H3HH6mOlbSWE5Xzw1qFrRpAygQ5Bknr02l0kQAkLS+C0KYRX8YQfsI9m2dwF3syO
+	bnyfo7LM6lQxqK3twgJ99FTzGvnnbtGspgVXeGunykp11Kft5uhPF1r51qUT2E2r
+	UZq444R5ANjWS9LA2a+j7xauv8KE4Apa3zJggT6NyhZLt+fOZEjlt7hWwJcTra1Q
+	4jzK6oN7aS8CnqyXu1GPuNxYxUTzV5yviQ6VaCg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:W96i8d2/nelZ2cQ42rB4X0s2uVOjBiE+neRGlPjXCEE=:xXMnsnlzzYg1l1m14B/hIdJJDa9HvNRFBi4Vo8N89Dc=;
+X-ME-Sender: <xms:U0_taq-dNRs24JFftJ6pGaE4PNhpCtUmQbiXHymyCjpGIJEtbZtuMw>
+    <xme:U0_tamtbi8HF_xQD6f21VVSEwcd1xORvtzilehBV1bwxT8H51M3hN6bO6f1FpiQkR
+    vS_d-sgEwmfwRP4ScYBD6f_Ytn-xp645_lCjy8hyp9vTuOeNORWo3oP>
+X-ME-Received: <xmr:U0_taiNf3y8Wj53wt2TmZBDhZU3P4GPVcrM-bmKhTOA2ft5RjzR7N4DT6sudJA1u>
+X-ME-Proxy-Cause: dmFkZTFIjkh/VkrFtaLZ47zpZzzrVb1j87A4M4dFjd8r9QlZeldkq2H9HL9mTFPhexGiWy
+    I0wK29+khresqZAE5vlBKDqddYRQaNjPdsGWL/77YszKh7M0swfOmPyXXm3mqQLXMNsU7l
+    //jsYHqPtoa4/gNJNhb6ERabdIBEzztwM4Pjx+fleEmj3dQUhDne/H180wHsjwOiCzxwP5
+    Y4appzIa6Ek2olO9Rp8Qx/8tY+lq2cKslHR6GV7KjHGBskFIUOVZb9C9RonqmAd8qm8yqA
+    m2DSX62OvTbYVYiBEh7k+5I6i7vhrLQb93jchtUugUltCpS6UMDdqLZgU+qjomZXzVHRt8
+    5PkH5jSk/LknxjUDgtYEsJguRZOXqF909zWLHdaqerf4ANT6Fq5+p4q4CJ1L6nSGkPe9/C
+    /zCfOQojXyEVdTaCflzdm6CO9O669RaAWAxysbr9y+KZu9zPPR09y5beYieRnnZ22eqN0U
+    sQ7gMoVdpHU646q5Xc/a1tpsTKanEVp0Ys71h+tVhJGwXBeZtYu2QC7Z9MavUEJ3/qRGHD
+    T/1rd+r7cQPJmJgroqWdESPDQvOfeYVWzlo4PrSusEXRKWUIf348IHayW+U+ABsS/p5zgz
+    LtQa9VpV9I4ci0IXeDGAWCOk7icknwQ5xjtgshNkKH/wQgGljZG6aUtrMxBA
+X-ME-Proxy: <xmx:U0_tajjUjFJh98NIqAbkm3jLX78jAnPjRQ0s_6Lh_NsdrWYNsPU2mQ>
+    <xmx:U0_tas6AXmcfGXwa-tNfy14HBs8OL_9trvrXJu3bDqXjwuw2RVFaxg>
+    <xmx:U0_tai2halpGc2eOVZd7ParpGqOav1JtNULxl79TZZZdnW9JNRj6wQ>
+    <xmx:U0_tavs9MWmSQCehjDEX00aRu3j6fVMgI5SbvdhZxAdwFRsizlgQ4w>
+    <xmx:U0_tamG1DsbY6sF5_JtN6Zrp3qbz2yMNvErYE7gpcEwsRgri6oSLacuk>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 5 Nov 2026 22:53:54 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 2/2] ksmbd: skip metadata-only stream opens in the delete check
+Date: Thu,  5 Nov 2026 21:53:45 -0600
+Message-ID: <20261106035345.728454-3-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261106035345.728454-1-icb@fastmail.org>
+References: <20261106035345.728454-1-icb@fastmail.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,33 +130,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106034150.1159818-1-walt@mckelvie.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 10:41:50PM -0500, Walter McKelvie wrote:
-> iwd (via ell) implements TLS for the EAP-TLS/TTLS/PEAP authentication
-> methods and uses AF_ALG for the AES-GCM AEAD of the
-> TLS_*_WITH_AES_{128,256}_GCM_SHA{256,384} cipher suites.  With
-> af_alg_restrict=1 these suites are silently dropped from the
-> ClientHello, and authentication fails against RADIUS servers that only
-> accept GCM suites (common for eduroam deployments).  This contradicts
-> the stated intent of commit 2f204fe718f5 ("crypto: af_alg - Add
-> af_alg_restrict sysctl, defaulting to 1"), which was to keep iwd
-> working under the default restriction level.
-> 
-> iwd runs with CAP_NET_ADMIN, so add gcm(aes) to the privileged part of
-> the AEAD allowlist, next to ccm(aes) which iwd also uses.
-> 
-> Fixes: 2f204fe718f5 ("crypto: af_alg - Add af_alg_restrict sysctl, defaulting to 1")
-> Link: https://github.com/NixOS/nixpkgs/issues/583203
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Walter McKelvie <walt@mckelvie.org>
+A metadata-only named-stream open without FILE_SHARE_DELETE blocks a
+later DELETE open of the file. It also blocks setting the file delete
+pending.
 
-Is this with upstream iwd, and do you have a source code reference?
-"gcm(aes)" is L_AEAD_CIPHER_AES_GCM in libell, but iwd has no references
-to L_AEAD_CIPHER_AES_GCM.  It didn't show up in the search before either
-(https://lore.kernel.org/iwd/bcbbef00-5881-421b-8892-7be6c04b832d@gmail.com/),
-and the iwd maintainer confirmed the full list without "gcm(aes)" on it.
+Ignore a stream open unless its effective access includes data, execute
+or delete access. Reuse the sharing-access helper so overwriting a
+stream, or creating one on an existing file, still counts as
+FILE_WRITE_DATA. The Time Machine AFP_AfpInfo synthesis keeps only its
+requested access.
 
-- Eric
+Fixes: 19043971c947 ("ksmbd: honor stream delete sharing for base file")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+---
+
+Notes:
+    This affects shares that use "vfs objects = streams_xattr".
+    
+    Tested on ksmbd-for-next 957772008502 with KASAN. Targeted stream tests
+    and a KUnit matrix covered metadata-only, create and overwrite cases.
+    smbtorture matched the base. There were no KASAN reports or warnings.
+    
+    A reproducer is available on request.
+    
+    This fix was developed with LLM assistance.
+
+ fs/smb/server/vfs_cache.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
+index f9079c529d07..c846023e5ada 100644
+--- a/fs/smb/server/vfs_cache.c
++++ b/fs/smb/server/vfs_cache.c
+@@ -420,7 +420,12 @@ bool ksmbd_has_stream_without_delete_share(struct ksmbd_file *fp)
+ 		if (file_inode(fp->filp) != file_inode(prev_fp->filp))
+ 			continue;
+ 
+-		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE)) {
++		/*
++		 * A stream open with no right in FILE_SHARE_CHECKED_ACCESS_LE,
++		 * implied writes included, never conflicts.
++		 */
++		if (!(prev_fp->saccess & FILE_SHARE_DELETE_LE) &&
++		    ksmbd_sharing_daccess(prev_fp) & FILE_SHARE_CHECKED_ACCESS_LE) {
+ 			ret = true;
+ 			break;
+ 		}
+-- 
+2.47.3
+
