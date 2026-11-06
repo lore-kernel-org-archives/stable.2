@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793926720;
-	b=r0M3fKaea2yyxuYlSrYmPe7JErwFU9wDh6ZBgGyOQXoRxlppcOUslrcJTq8t6IkkT5DR
-	 iALwfOqeH9kLZU0ikFVSGUM38lJMf6/zTd/2nzXiHuAu+3xyy7ZnW+/YDbqBaOZcMhKhS
-	 sBPXs91ODqi5RdNk0ue3VBetWOAiEkmpL2zTkGFQhp7I7TwUdVeJ+K9aec1mY+Le1gd4g
-	 Ewl7Ke0C6Mr4xdh0ufmlkhLhU3JBIND9uItzMJROUcqODSm5XFHrTZ0oobJSyTkh/LNda
-	 AHa3Cz1BUol57B+nCz4HbjuvlaMHoFMOq8fQay83A2/lFTkZeYYsKU8UMUdIGmFuKAA==
+	t=1793926721;
+	b=kkkeSd10ymatotpeGLk6EJkSSksa/GdRdCm2vBO9PaYKh6BxE7idq6S6SZkFU9VMk/SE
+	 POdwmU7fUzLP5+JcoUPmEbC6EjHpsMgA6cfpDmAZFy53DD07ClhbEGJtdvJhqvlNvwg1M
+	 +MVPO1t31PW4WWKxqRfXOSj8VCTmXZuY831duEfBonr3mYKd92ve7Bq5uaf/ZkC0SV9Sd
+	 GQ0LRdQ3kiw5k45FXC+f3HtlRtvFaGUChoQGP6d0D7IEqFJjfyej4rDaOOzmS2MUiCZRm
+	 TEghx8k7LZIMVDzTdFnM+t3Sw9rADdR97MutkRAdmo2th3OSyNBe3yfV9AEds8wnMyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793926720;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793926721;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UExdaFBNurWSxawXAzBkzRaP1oQn7Fj+u2t0OEIBZ3M=;
-	b=EkrXePyEsz0NhAptv5iaOrdob78YP4AZEkha19xNTllYYf6uTMonMPQ7Kungw/VPcLed
-	 QhXfwRDXGCEocpZL5XUzRoBXdM5Nts5NweOIt6m4D7mJ2hWKFiLr38W3zMd+pLZRqoNaS
-	 +2uUrM4MWgtcY0RRpezGzc5iAG/I6wrYLR7744FwZWZAQXaHZ5ZPOdvlI/N0ufm0tgCcb
-	 VfDYxI2DhZoNjdggx5v0V507YAi4kLGpExTdY8czomMunY66oJjO/d5JEXdxoxRnALpAF
-	 aHek+n7fLWOSzgXRi6D7wGDujKoAsSm3VQU3n9XdLb4f3UsGX8tKQhiOtzadOpMKMAA==
+	bh=gHMFckZionltDQnFx2FE/XbzGjOpKOVMQ4/xdijVgks=;
+	b=Le3rlYi6XBJGXhX9aJIxNSkF9UZUxWr8B2OiT/a900U+LKQNSKRWw2mXsTGHz37IMwJu
+	 yRxgYcAfP8iy7uE3EMTDXkjRAyvfgxlxIcu3mEHnkx7aSPAnc2fSr670vVfQkzTCidICK
+	 OGF/tlPJOm/j+HwQbw7U5MG0cFnyQD3rW2xxb2aQEkYIc9Qc/w2e2Lece4PhpKlbFywGV
+	 fAQTlSJvmFKwe06mMGnz5lthRi0+wqcxmS295sQbqdhBazJw3DlyQ/QdWaK556Cqg7m0p
+	 8POA7OggBe3V7NllUEF2MPdoXiSKq8ZJ3hrRkgG7gywlEU5TmAIzNfvZrZT9Ddi8nDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZjSPpK4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LPGgptPn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B21606A332
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 00:58:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C39606A31B
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 00:58:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZjSPpK4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB73B1F008A1;
-	Fri,  6 Nov 2026 00:58:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LPGgptPn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C308E1F0089F;
+	Fri,  6 Nov 2026 00:58:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793926720;
-	bh=UExdaFBNurWSxawXAzBkzRaP1oQn7Fj+u2t0OEIBZ3M=;
+	s=k20260515; t=1793926721;
+	bh=gHMFckZionltDQnFx2FE/XbzGjOpKOVMQ4/xdijVgks=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BZjSPpK4G4u9kR453PaAkvcAEYbObDJZzrO+mribRDruUvle+H7w6pK2OjmQKEQxH
-	 XV8QlrD/hgqxs61kxUiMww7/repzq8qM+T8W5mVT6VsF+pBc+miOPL0CggGs9HzS+0
-	 D/jcn6v38S27J9j3e8yUDmr3RL9ZEP6S0U4j8yLbmYcJS7dnxwqqxianwqhV+0A0WO
-	 +MJTW2CaWIwAeE45qfY9yv6wSS8ojjJunkpuKrkh01ZobJHSrFoKsJbZZbWlLv+NH4
-	 MZM69pLkQuhi1RE+TfegfADtYLpIkLgGF8370zsdFVxhWMzH4+maR9DRzA9LMjVEGD
-	 ovsaildTFMh/Q==
+	b=LPGgptPnePUOqG9BayQL49epARyn0/shvLohEs5glsbttzNseZrLERf1RZxsp77zI
+	 rYq8/Y9jo7M+b24Chji6qnDi8WJmi/Y3eQIxZBSltHeFVN7F6aVzQvze5xMB26QSbi
+	 bFuifUaGuJvPFeoGUgJgB95ghJVMVk12BI26pYzWtwJbY1M4M93ty1VsCXHfOZ21E0
+	 BC6auqP9kh9hgnkZv8UyhHE99p61uLrR/w9IQLhxThsFj8LRKZEVnFZhnKnDQqo6m8
+	 a4v4KejMclnGYOPg/sXmItVt0jyYUMbgTAEMQa249NQlAj/KJ4gZKenetdVjgPAXN7
+	 3DC3/EReJCpKw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Benjamin Coddington <bcodding@hammerspace.com>,
-	Arun Potharaju <arun.potharaju@hammerspace.com>,
-	Anna Schumaker <anna.schumaker@hammerspace.com>,
+Cc: Diego Oliva <diego@bynar.io>,
+	David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] NFSv4/flexfiles: fail I/O to the data server once a lock is lost
-Date: Thu,  5 Nov 2026 19:58:37 -0500
-Message-ID: <20261106005831.3499434-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] smb: client: fix OOB read of the resume name sent in TRANS2_FIND_NEXT2
+Date: Thu,  5 Nov 2026 19:58:39 -0500
+Message-ID: <20261106004457.2683753-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106005831.3499434-1-sashal@kernel.org>
-References: <2026110415-pamphlet-protrude-0e3f@gregkh>
- <20261106005831.3499434-1-sashal@kernel.org>
+In-Reply-To: <2026110441-palace-playable-1afd@gregkh>
+References: <2026110441-palace-playable-1afd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,218 +62,215 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Benjamin Coddington <bcodding@hammerspace.com>
+From: Diego Oliva <diego@bynar.io>
 
-[ Upstream commit 7fa2ad367abe6d3155daefb57331e7fce1a17afd ]
+[ Upstream commit f8171804a39ee89a11cd462f67862899de9c6b10 ]
 
-When a client loses a byte-range lock, because its lease expired and it
-may not recover the lock (nfs.recover_lost_locks=0) or because reclaim
-failed, it marks the lock state NFS_LOCK_LOST and fails further I/O by
-that lock owner.  Otherwise an application that believes it holds a
-lock over a range is never told that the lock is gone, and can
-overwrite data that another client has since written under its own
-lock on that range.
+cifs_fill_dirent() reads the fixed part of a directory entry and the
+name length it holds, or for SMB_FIND_FILE_UNIX scans the name for its
+terminating NUL, without knowing where the response ends.
+cifs_save_resume_key() calls it for the entry at the LastNameOffset the
+server chose, after every FindNext and after the FindFirst of a search
+rewind, and records the name it returns as the resume name of the
+search without bounding it; the next CIFSFindNext() copies up to
+PATH_MAX - 1 bytes from that name into its request and sends them to
+the server. cifs_filldir() bounds
+the name against the end of the response since
+commit f8cf09a53a0d ("smb: client: bound dirent name against end of
+SMB response in cifs_filldir"), but only after cifs_fill_dirent() has
+read the entry, and nxt_dir_entry() checks the entries it walks only
+against sizeof(FILE_DIRECTORY_INFO), for every level but
+SMB_FIND_FILE_INFO_STANDARD, and never sees the first entry of a
+response.
 
-The NFSv4 READ/WRITE and file layout I/O paths apply this in
-rpc_call_prepare, where nfs4_set_rw_stateid() returns -EIO for a lost
-lock.  The flexfiles data server I/O path does not: the NFSv3 data
-server path never checked, and the check on the NFSv4 path was removed
-when the data server stateid began to be taken from the layout.
+Bounding where last_entry starts, as the preceding patch does, does
+not bound the read. A last entry that starts within the final bytes of
+the response still has its fixed part read past the end of the
+received data, and the name length it declares, a __le32 for every
+level but SMB_FIND_FILE_INFO_STANDARD and SMB_FIND_FILE_UNIX, is
+recorded without being checked against anything. CIFSFindNext()
+rejects only a length of PATH_MAX or more, then copies the name, up to
+4095 bytes, into its request and sends it, and as the report below
+shows that copy can run past the end of the cifs_request allocation
+that holds the response. For SMB_FIND_FILE_UNIX the name is in
+addition scanned for its terminating NUL over up to PATH_MAX + 1
+UTF-16 units, or PATH_MAX bytes, before any check. The FindNext that
+carries the name is only sent by the SMB1 dialect, which is not
+negotiated by default; reaching it requires an explicit vers=1.0
+mount.
 
-Fail read and write RPCs to the data server in rpc_call_prepare when the
-lock is lost.  The data server path has no use for the stateid that
-nfs4_set_rw_stateid() selects, and selecting it looks up a delegation
-or open stateid on every I/O.
-Instead add nfs4_lock_context_lost(), which only tests NFS_LOCK_LOST,
-and check it alongside the open state.  Its lookup,
-__nfs4_lookup_lock_state(), is split out of __nfs4_find_lock_state()
-and takes no reference: a lock state is only unlinked from
-state->lock_states under state->state_lock, so one found while holding
-that lock cannot be freed before it is released.  Use it in
-nfs4_copy_lock_stateid() as well, which only reads the lock state under
-that lock.  That drops a reference get and put from stateid selection
-for all NFSv4 I/O without changing the stateid selected.
+With KASAN enabled, a response whose last entry declares a name
+longer than the bytes that follow it gives:
 
-Terminating the RPC in rpc_call_prepare is not enough on its own.  The
-done callback reads the -EIO as a data server connection error, forgets
-the device ID, and resets the I/O to pNFS (or, for an NFSv4 data
-server, possibly to the MDS).  After a reset to pNFS a new LAYOUTGET is
-granted and rpc_call_prepare fails the I/O again, without end.  The
-existing NFS_CONTEXT_BAD check does not loop, since the open state is
-then invalid and pnfs_update_layout() fails the reset I/O, but it still
-forgets the device ID.
+ ==================================================================
+ BUG: KASAN: slab-out-of-bounds in CIFSFindNext+0x8ca/0x14c0
+ Read of size 4080 at addr ffff88807c823f98 by task ls/83
 
-So when an RPC that was never sent fails and the open context is bad,
-the open state is invalid, or the lock is lost, complete it with -EIO
-without error handling.  An RPC that was sent and failed is handled as
-before, so a real data server error is still reported to the MDS.
+ CPU: 0 UID: 0 PID: 83 Comm: ls Not tainted 7.3.0-rc4-00457-gf14572c203d5 #69 PREEMPT(lazy)
+ Call Trace:
+  <TASK>
+  kasan_report+0xdf/0x1a0
+  kasan_check_range+0x10f/0x1e0
+  __asan_memcpy+0x23/0x60
+  CIFSFindNext+0x8ca/0x14c0
+  cifs_readdir+0xf51/0x29c0
+  iterate_dir+0x1c0/0x570
+  __x64_sys_getdents64+0x133/0x270
+  do_syscall_64+0x109/0x5d0
+  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  </TASK>
 
-Fixes: d67ae825a59d ("pnfs/flexfiles: Add the FlexFile Layout Driver")
-Fixes: bb21ce0ad227 ("flexfiles: use per-mirror specified stateid for IO")
-Cc: stable@vger.kernel.org
-Tested-by: Arun Potharaju <arun.potharaju@hammerspace.com>
-Assisted-by: LLM
-Signed-off-by: Benjamin Coddington <bcodding@hammerspace.com>
-Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
+ Allocated by task 83 on cpu 1 at 13.497119s:
+  cifs_buf_get+0x36/0x90
+  smb_init+0x4f/0x110
+  CIFSFindNext+0xf7/0x14c0
+  cifs_readdir+0xf51/0x29c0
+
+ The buggy address belongs to the object at ffff88807c820000
+  which belongs to the cache cifs_request of size 16588
+ The buggy address is located 16280 bytes inside of
+  allocated 16588-byte region [ffff88807c820000, ffff88807c8240cc)
+ ==================================================================
+
+The read is the memcpy() that copies the recorded name into the next
+request, so those bytes go to the server.
+
+Pass the end of the response to cifs_fill_dirent() and have it reject
+an entry whose fixed part does not fit or whose name extends past the
+end, before either is used, so that both callers are covered;
+cifs_save_resume_key() computes the end the same way cifs_readdir()
+does. The name bound compares the bytes left between the name and the
+end with the name length rather than adding the length to the name
+pointer, since the length is a 32-bit value taken from the entry and
+the sum could wrap on 32-bit systems. cifs_fill_dirent() is also used
+on the SMB2 readdir path; there smb2_parse_query_directory() has
+already checked every entry against the end of the response, so a
+valid SMB2 response is not rejected by the new checks. The check
+cifs_filldir() applies after the parse is left in place. The NUL scan
+for SMB_FIND_FILE_UNIX names is capped by a separate patch.
+
+An entry and its name lie inside the data area of the response, so a
+server that points LastNameOffset at the entry is not affected. One
+that points it at the file name, as MS-CIFS 2.2.6.2.2 describes, has
+its last entry rejected here; the listing is unaffected, because
+cifs_readdir() records the resume name from an entry it emitted, and
+before this series such a response could instead end the listing early,
+since a name length read from the wrong place is usually PATH_MAX or
+more, which CIFSFindNext() rejects with -EINVAL.
+
+On trees before v6.19 the type for the level 0x105 fixed part is
+spelled SEARCH_ID_FULL_DIR_INFO; adjust when backporting.
+
+Fixes: 0752f1522a91 ("[CIFS] make sure we have the right resume info before calling CIFSFindNext")
+Cc: stable@vger.kernel.org # 6.1.x: f8cf09a53a0d: smb: client: bound dirent name against end of SMB response in cifs_filldir
+Assisted-by: Bynario AI
+Signed-off-by: Diego Oliva <diego@bynar.io>
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ sashal: Changed FILE_ID_FULL_DIR_INFO to SEARCH_ID_FULL_DIR_INFO in the offsetof(..., FileName) check. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfs/flexfilelayout/flexfilelayout.c | 25 +++++++++++++++--
- fs/nfs/nfs4_fs.h                       |  2 ++
- fs/nfs/nfs4state.c                     | 38 +++++++++++++++++++++++---
- 3 files changed, 59 insertions(+), 6 deletions(-)
+ fs/smb/client/readdir.c | 39 ++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 36 insertions(+), 3 deletions(-)
 
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
-index a1dc557245977..254ae2d45ee28 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.c
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.c
-@@ -1372,12 +1372,27 @@ static void ff_layout_io_track_ds_error(struct pnfs_layout_segment *lseg,
- 	dprintk("%s: err %d op %d status %u\n", __func__, err, opnum, status);
+diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
+index 1ba176a690cc3..60f8a3820de71 100644
+--- a/fs/smb/client/readdir.c
++++ b/fs/smb/client/readdir.c
+@@ -616,30 +616,46 @@ static void cifs_fill_dirent_std(struct cifs_dirent *de,
  }
  
-+static bool ff_layout_io_state_lost(const struct nfs_pgio_header *hdr)
-+{
-+	struct nfs_open_context *ctx = hdr->args.context;
-+
-+	return test_bit(NFS_CONTEXT_BAD, &ctx->flags) ||
-+	       !nfs4_valid_open_stateid(ctx->state) ||
-+	       nfs4_lock_context_lost(ctx->state, hdr->args.lock_context);
-+}
-+
- /* NFS_PROTO call done callback routines */
- static int ff_layout_read_done_cb(struct rpc_task *task,
- 				struct nfs_pgio_header *hdr)
+ static int cifs_fill_dirent(struct cifs_dirent *de, const void *info,
+-		u16 level, bool is_unicode)
++			    const char *end, u16 level, bool is_unicode)
  {
- 	int err;
++	size_t len = end > (const char *)info ? end - (const char *)info : 0;
++
+ 	memset(de, 0, sizeof(*de));
  
-+	if (task->tk_status < 0 && !RPC_WAS_SENT(task) &&
-+	    ff_layout_io_state_lost(hdr)) {
-+		task->tk_status = -EIO;
-+		return 0;
+ 	switch (level) {
+ 	case SMB_FIND_FILE_POSIX_INFO:
++		if (len < sizeof(struct smb2_posix_info))
++			goto too_short;
+ 		cifs_fill_dirent_posix(de, info);
+ 		break;
+ 	case SMB_FIND_FILE_UNIX:
++		if (len < offsetof(FILE_UNIX_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_unix(de, info, is_unicode);
+ 		break;
+ 	case SMB_FIND_FILE_DIRECTORY_INFO:
++		if (len < offsetof(FILE_DIRECTORY_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_dir(de, info);
+ 		break;
+ 	case SMB_FIND_FILE_FULL_DIRECTORY_INFO:
++		if (len < offsetof(FILE_FULL_DIRECTORY_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_full(de, info);
+ 		break;
+ 	case SMB_FIND_FILE_ID_FULL_DIR_INFO:
++		if (len < offsetof(SEARCH_ID_FULL_DIR_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_search(de, info);
+ 		break;
+ 	case SMB_FIND_FILE_BOTH_DIRECTORY_INFO:
++		if (len < offsetof(FILE_BOTH_DIRECTORY_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_both(de, info);
+ 		break;
+ 	case SMB_FIND_FILE_INFO_STANDARD:
++		if (len < offsetof(FIND_FILE_STANDARD_INFO, FileName))
++			goto too_short;
+ 		cifs_fill_dirent_std(de, info);
+ 		break;
+ 	default:
+@@ -647,7 +663,19 @@ static int cifs_fill_dirent(struct cifs_dirent *de, const void *info,
+ 		return -EINVAL;
+ 	}
+ 
++	if (de->name &&
++	    (end < de->name || (size_t)(end - de->name) < de->namelen)) {
++		cifs_dbg(VFS, "%s: search entry name extends past end of SMB\n",
++			 __func__);
++		return -EINVAL;
 +	}
 +
- 	if (task->tk_status < 0) {
- 		ff_layout_io_track_ds_error(hdr->lseg, hdr->pgio_mirror_idx,
- 					    hdr->args.offset, hdr->args.count,
-@@ -1465,7 +1480,7 @@ static void ff_layout_read_record_layoutstats_done(struct rpc_task *task,
- static int ff_layout_read_prepare_common(struct rpc_task *task,
- 					 struct nfs_pgio_header *hdr)
- {
--	if (unlikely(test_bit(NFS_CONTEXT_BAD, &hdr->args.context->flags))) {
-+	if (unlikely(ff_layout_io_state_lost(hdr))) {
- 		rpc_exit(task, -EIO);
- 		return -EIO;
- 	}
-@@ -1549,6 +1564,12 @@ static int ff_layout_write_done_cb(struct rpc_task *task,
- 	loff_t end_offs = 0;
- 	int err;
- 
-+	if (task->tk_status < 0 && !RPC_WAS_SENT(task) &&
-+	    ff_layout_io_state_lost(hdr)) {
-+		task->tk_status = -EIO;
-+		return 0;
-+	}
+ 	return 0;
 +
- 	if (task->tk_status < 0) {
- 		ff_layout_io_track_ds_error(hdr->lseg, hdr->pgio_mirror_idx,
- 					    hdr->args.offset, hdr->args.count,
-@@ -1652,7 +1673,7 @@ static void ff_layout_write_record_layoutstats_done(struct rpc_task *task,
- static int ff_layout_write_prepare_common(struct rpc_task *task,
- 					  struct nfs_pgio_header *hdr)
- {
--	if (unlikely(test_bit(NFS_CONTEXT_BAD, &hdr->args.context->flags))) {
-+	if (unlikely(ff_layout_io_state_lost(hdr))) {
- 		rpc_exit(task, -EIO);
- 		return -EIO;
- 	}
-diff --git a/fs/nfs/nfs4_fs.h b/fs/nfs/nfs4_fs.h
-index 47c5c1f86d662..7efe74933a10f 100644
---- a/fs/nfs/nfs4_fs.h
-+++ b/fs/nfs/nfs4_fs.h
-@@ -519,6 +519,8 @@ extern int nfs4_select_rw_stateid(struct nfs4_state *, fmode_t,
- 		const struct cred **);
- extern bool nfs4_copy_open_stateid(nfs4_stateid *dst,
- 		struct nfs4_state *state);
-+extern bool nfs4_lock_context_lost(struct nfs4_state *state,
-+		const struct nfs_lock_context *l_ctx);
- 
- extern struct nfs_seqid *nfs_alloc_seqid(struct nfs_seqid_counter *counter, gfp_t gfp_mask);
- extern int nfs_wait_on_sequence(struct nfs_seqid *seqid, struct rpc_task *task);
-diff --git a/fs/nfs/nfs4state.c b/fs/nfs/nfs4state.c
-index 7805f33d77a03..ca99e662d7747 100644
---- a/fs/nfs/nfs4state.c
-+++ b/fs/nfs/nfs4state.c
-@@ -844,10 +844,13 @@ void nfs4_close_sync(struct nfs4_state *state, fmode_t fmode)
-  * be made.  Failing that, a "consistent" choice is preferable.  The
-  * consistent choice we make is to prefer the first owner, that of a
-  * Posix lock.
-+ *
-+ * Called with state->state_lock held.  No reference is taken: a lock
-+ * state is freed only after it is unlinked under state->state_lock.
-  */
- static struct nfs4_lock_state *
--__nfs4_find_lock_state(struct nfs4_state *state,
--		       fl_owner_t owner, fl_owner_t owner2)
-+__nfs4_lookup_lock_state(struct nfs4_state *state,
-+			 fl_owner_t owner, fl_owner_t owner2)
- {
- 	struct nfs4_lock_state *pos, *ret = NULL;
- 	list_for_each_entry(pos, &state->lock_states, ls_locks) {
-@@ -858,6 +861,16 @@ __nfs4_find_lock_state(struct nfs4_state *state,
- 		if (pos->ls_owner == owner2)
- 			ret = pos;
- 	}
-+	return ret;
-+}
-+
-+static struct nfs4_lock_state *
-+__nfs4_find_lock_state(struct nfs4_state *state,
-+		       fl_owner_t owner, fl_owner_t owner2)
-+{
-+	struct nfs4_lock_state *ret;
-+
-+	ret = __nfs4_lookup_lock_state(state, owner, owner2);
- 	if (ret)
- 		refcount_inc(&ret->ls_count);
- 	return ret;
-@@ -1006,7 +1019,7 @@ static int nfs4_copy_lock_stateid(nfs4_stateid *dst,
- 	fl_flock_owner = l_ctx->open_context->flock_owner;
- 
- 	spin_lock(&state->state_lock);
--	lsp = __nfs4_find_lock_state(state, owner, fl_flock_owner);
-+	lsp = __nfs4_lookup_lock_state(state, owner, fl_flock_owner);
- 	if (lsp && test_bit(NFS_LOCK_LOST, &lsp->ls_flags))
- 		ret = -EIO;
- 	else if (lsp != NULL && test_bit(NFS_LOCK_INITIALIZED, &lsp->ls_flags) != 0) {
-@@ -1014,11 +1027,28 @@ static int nfs4_copy_lock_stateid(nfs4_stateid *dst,
- 		ret = 0;
- 	}
- 	spin_unlock(&state->state_lock);
--	nfs4_put_lock_state(lsp);
- out:
- 	return ret;
++too_short:
++	cifs_dbg(VFS, "%s: search entry extends past end of SMB\n",
++		 __func__);
++	return -EINVAL;
  }
  
-+bool nfs4_lock_context_lost(struct nfs4_state *state,
-+			    const struct nfs_lock_context *l_ctx)
-+{
-+	struct nfs4_lock_state *lsp;
-+	bool ret;
-+
-+	if (!test_bit(LK_STATE_IN_USE, &state->flags))
-+		return false;
-+
-+	spin_lock(&state->state_lock);
-+	lsp = __nfs4_lookup_lock_state(state, l_ctx->lockowner,
-+				       l_ctx->open_context->flock_owner);
-+	ret = lsp && test_bit(NFS_LOCK_LOST, &lsp->ls_flags);
-+	spin_unlock(&state->state_lock);
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(nfs4_lock_context_lost);
-+
- bool nfs4_copy_open_stateid(nfs4_stateid *dst, struct nfs4_state *state)
+ #define UNICODE_DOT cpu_to_le16(0x2e)
+@@ -702,10 +730,14 @@ static int is_dir_changed(struct file *file)
+ static int cifs_save_resume_key(const char *current_entry,
+ 	struct cifsFileInfo *file_info)
  {
- 	bool ret;
++	struct TCP_Server_Info *server = tlink_tcon(file_info->tlink)->ses->server;
++	char *buf = file_info->srch_inf.ntwrk_buf_start;
++	const char *end = buf + server->ops->calc_smb_size(buf);
+ 	struct cifs_dirent de;
+ 	int rc;
+ 
+-	rc = cifs_fill_dirent(&de, current_entry, file_info->srch_inf.info_level,
++	rc = cifs_fill_dirent(&de, current_entry, end,
++			      file_info->srch_inf.info_level,
+ 			      file_info->srch_inf.unicode);
+ 	if (!rc) {
+ 		file_info->srch_inf.presume_name = de.name;
+@@ -987,7 +1019,8 @@ static int cifs_filldir(char *find_entry, struct file *file,
+ 	struct qstr name;
+ 	int rc = 0;
+ 
+-	rc = cifs_fill_dirent(&de, find_entry, file_info->srch_inf.info_level,
++	rc = cifs_fill_dirent(&de, find_entry, end_of_smb,
++			      file_info->srch_inf.info_level,
+ 			      file_info->srch_inf.unicode);
+ 	if (rc)
+ 		return rc;
 -- 
 2.53.0
 
