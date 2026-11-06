@@ -1,62 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793925632;
-	b=U0eyCZIfzWD4hxDy2DDn7hVdQiGvIgd7m3P3joDV5xY7Xd74QSCTmZOTjtHlTrQI/V/8
-	 D/uP96D/D0cV+kXh6IfT9Kmri9Shh1ybmVpSnCxCRbYu8+1uJCO0wHXZ1Hyk1rSYzuE9U
-	 iHetnvozuFtTmcVE9ungVpP/z4fK/ehG/XqZl/wFiN5Wamgx//je1n4/lMRk7NEzhjPSW
-	 ypGESV4gzclKkWkfLE8xp81YpbkiLN6IJAR/SOWY9H3Jz9X6uAhoRNgxEq2OkZEZOZ3RB
-	 oz088i3dURtXYQCRGSPQL0ZimCgRqUthlvs8g6g77NZ/G/DL9Q2+yeaFjiGeNZLZYKA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793925632;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=+VTnnReeTMGUa8p0Zi4PIK2C6S9LMHUZpVAmJU+0osw=;
-	b=YUEOswJaU5aGt0vsOBbWRlyLns3pWdY8iE42VE1Nhqu6C4LxxgPfT4di/sXmjHk3d6vL
-	 fASp72pQVRvvl/8wIKV5jfnsEt59LDiW3hJSPljrFIkdu91l+EHdhPIwTTulWbBhD6dR9
-	 fzfEbrij4zUVR9kWq0YpTIPAl74vdy+eQAO56T4MRyKuPzv0CW+UEGNpbVkkqrtY0VvJq
-	 tM2yMzB2Zx4Pa0uMjo9xJsODslEakxdx3JxX0mPuC3oaaUVDSKw0IZ/fT1wXXM0lM3o6/
-	 5Qpf978NvIjEH5CxFPlTBlBVMWW0YNzMxDz61QrJle6R9guYwgUoadLmHT87FV6FNHA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eEI3jxPh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793925810;
+	b=Yno1ZHqAvBpxDmPzrLSpBPwqY1tyMm0QsR3qFxo2JUCv7nUybER/dlALZz7iIS7nWsxj
+	 lHAlvWqb6tea5/OahoB3oRXHb+MtVSBC2n46yp/P3bataSwKgHYzqBiaDQucv3Haw9gQ8
+	 YJdrknK8mk9lwgCyDDRP4tvyD19TbLmXfbqC3VXgLZ/b/PpL5dSomPAf28ZM6iNToovUS
+	 6rcnb3nFlzsSgicIS9vEjjOOePZjBz4YLBb5KV1tQXKOuKNz/A2C+GsRIZFM2UqhGpQYT
+	 cg2rH/yiQBNAwuPfYMKFWxixkCcATScPWMLoahpVk9RNhoqcXUDn6BnlGCgG/U48R7A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793925810;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=qjiIc9YUnEoIVWcKqPZO23DxNrAI/hQv4scM2zT69bw=;
+	b=oznbtZf8z0skKtBZyS9PkB48A67cqBqbjGGLMRkLsiLKqeeDjo1eoUivXnYs16Cm9m1u
+	 PLG8SM4XE7bdKupxUQmg16wbZJ7ejMjotdikWyAR2CRFaDO6ZIG++Dwcx4PONLrJQZRIF
+	 RTNZAe5nbhz0ZHnoIsX/J4/q5OXcxl5oHMQPs3uoNN3Eu4BlAwHQaQiegxd3SuSS75mM/
+	 nuwFO2xeCDwuje9+sXYqB7VFSzg1l8L/CYQR7CuPocteOhgBpvGYnMvAUeVLWDFxhjiqo
+	 eR4aBi4s4SrY0YAMdy8wzJ6h7Frp3V0CMJkq379QRKot3/cWzwnNG8I1iS+O6mmo/Bg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hi3VR8f1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.52
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24803606A31B;
-	Fri,  6 Nov 2026 00:40:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D1E606EEB5
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 00:43:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39D1E606EEB5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eEI3jxPh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C317D1F008A1;
-	Fri,  6 Nov 2026 00:40:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793925631;
-	bh=+VTnnReeTMGUa8p0Zi4PIK2C6S9LMHUZpVAmJU+0osw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=eEI3jxPhCniy53wZTmteEvNL1J+te4fsqAE+R2hcvZ3xHg4ZC6mcqo7voWJ7qfPU3
-	 E5Z3wkbGquhb/wuPOGyj+V5K4RVyeG3KG+QPSEDod00Qm8UIw6wLfcGygxNSkzt1Zh
-	 mtPFnl3wFEUwI00cD7v1xDJNOKuZkQzqpMX1dRw2AXntQTNDnbSuDINJYnb1kv137U
-	 i2+ezkB6GHcbgmn8I0zYzO1YH/MpfLu363sYzFWM8NNEOIEl+OBED46lSYQODGBgD0
-	 TSm7ts9wx6YGKosHkklzc4K8g3nmHWCeWQQVzv7SeLY+KCvzX6RxzASgPnyYp2uxIQ
-	 H/spUgZP6d4Vg==
-Subject:
- Re: [PATCH net] net/smc: fix handshake abort on a terminating link group
-From: netdev-bot+sashiko@kernel.org
-To: mjambigi@linux.ibm.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
- dust.li@linux.alibaba.com, sidraya@linux.ibm.com, hidayath@linux.ibm.com,
- pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
- guwen@linux.alibaba.com, stable@vger.kernel.org, netdev@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
-Date: Fri, 06 Nov 2026 00:40:30 +0000
-Message-ID: <179392563025.994134.873801434242167831@kernel.org>
-In-Reply-To: <20261103123955.47454-1-mjambigi@linux.ibm.com>
-References: <20261103123955.47454-1-mjambigi@linux.ibm.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hi3VR8f1
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5bcb440d1cbso81065e87.1
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 16:43:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793925808; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RGyhD6uTDdrnV+xdqWycjw1jH7c9erkRLV7s5CwgjfvdpcHNNkZnfKXtRToVQJzZsw
+         WUNhIyCBHajqA8SNOuNhI4ld80ubTbD9ugDW763trbBIX9gSQ8kZ4i9pDnoOCMqtpHit
+         +tqoZ6AijxLfmoMTRx8dkgEAsHYmQ/MaqDfghS2cLhQlhNlc1yyJ5yOqCqz+dKQvQ96I
+         SSdpFkZxobTo1NQeq7uhvkmCwt/drRpCPa8g02Hu5tHLCdpyUoEkRXuQfyHSwlkwcZn2
+         /FhU4Kh3SSdIR0e79rEUuMBEpkSRr+vdG1KHjbJuFtaJBZa11+tCuyfnsam158ilLzx+
+         cF7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qjiIc9YUnEoIVWcKqPZO23DxNrAI/hQv4scM2zT69bw=;
+        fh=J4ZXYBP9wXfblJzrGIKh+D1z5agKO/mb2LiU4KddsAo=;
+        b=FscaS/EcixEhFuoJR6n+hhSlNP7/LurA1Js0kor1qeo84cmcdSOjXvdnRHH1B0Le6a
+         h01FEZJOShSmc+dDogoI4j9iuWc6qFSR6WIa5NJzYYS4iK9BIU8P0f50KJf5oXJFLNwY
+         TtaKcdKbt1r2re1KoIBnaJbgUO25pvlHJmHhHCWrU2SEupovHsyiIWw7RiS6WDhdu2Ro
+         KIieGls0ddnWLe/SaqbcpNz6QzkPpcc3z1QhJ7F1yvK3rlQ/3MkD88JdTAIYv0A+u6ad
+         AGvW5oW8o9j+8j0TrVhMn6MCRkFy1uZdjBszyTVCG+bZ/3xGIKC2mfLWHbhgs3uugn4F
+         HjrQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793925808; x=1794530608; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qjiIc9YUnEoIVWcKqPZO23DxNrAI/hQv4scM2zT69bw=;
+        b=hi3VR8f19ljxLMo/woOrQIC0BeUowZpIXobmdibAOPuK8DY9d+cDEZHbWIqWZhE8ax
+         krsw/pPZV6/lwTgmi0R4CS95+P9GyG021vf1BBxaJ/mEJxesPELhgXG6KgRFSpjzY2J8
+         lW/hOrK862rc3REFXgxUnuzxlB0rgs8kGUb5Sv455YgwSm6CRd899yk/UMyh82bFf2O1
+         w6X+9XpQYDienE44sme+aKMuw2GODQpPTDdN/dFZnqDG+Cact+CcYlcbYu+cmABH8XFL
+         Kqg8Dr3SXndSAXznmUaibxofEixLdLeGSlUvePZGQ26JOh3X9Q1Ak/ImzcGiYtqlQztO
+         EbkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793925808; x=1794530608;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qjiIc9YUnEoIVWcKqPZO23DxNrAI/hQv4scM2zT69bw=;
+        b=kwuyhkNX+ArNZaiUTvujZF/xDHKOjgiT9skngZfqdvFmKY3pyCxiS7yv++j0rfBUco
+         UuKma7syPVwJDXSpvxCqVdc0KTMAqFNIk5t7V9LZhh6nvvHFe3i8mYXyFQQT2sGYGNsc
+         UqgSarnHxsI7VFhe4OFX0f8XM+O/VA+mqdZy+ZOt7cnRm4/nE9Ef8+CDVhle69Z/nuKG
+         wCLoE+BJhvVNW/VOeGr3DaJgL7/hXz1XceF5JdWo02JdF4xp6kKJ5gvo1K8zyoctq/vH
+         PvG39DKJsXsLvUPh6F7+6+ZJdDElKh/quJDHYeYWE/6Xcuqmh7G3nCgn8UKcQp4dt5sC
+         KPsw==
+X-Forwarded-Encrypted: i=1; AKwUvBzZq+mkcNRAQqdEnqrf5uSB+qvl9EsGNlwRYrqdyU112JkADEpWoq0dWgYwJgxxaWKxAl0AbyE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/orNzH/fJZRGFZLWz3ira1YYCpEbmIoF5h8bPw9UDqmH0+JCai
+	tMj/s08iOszlHYS5KxR4+nnzB/Ee+w7/wEEsbzsPUoo3ZreZVZzQQ+tKopdUG+MX8Cx5KgnFcSP
+	4AUawLolJyDY75DBiYSQPZY2H/MDlCvU=
+X-Gm-Gg: AYBFou0EllwoX469+sXfAXU61GYq1f7PYhEn+v1a4xlqF2S5Q4TsJsdmTjlPux/Q0An
+	OJmaJoAjmnf9c+95LLE1jp6bgS4tq2NLZ06MCgl0IQfOxiCJSTHb3C/oBdQsixe7WGq22tBEAy6
+	V1NXlgCgyaMGQ6iccnXdAQnknM2djMCFwupOQFXsWNdsBy92Yk1kM+QN6wLCBngRHotZULIgcDT
+	tZM5+YV1WTkVQhw1DFpJlPKTHTugxEueOmVpI1s/yhdfE+4/k2GyNSa+dyytU2COY6Ta6ov8ge/
+	Hbav2TPsO5Ukx3xs+aFWz5y+B2+2QAQId2r5ztWcCBwidxJV3ni9RJu2NgBPTiNOZrzUS0yBaxs
+	PyMf3xlKRGlIntLfAUcFbXGZA+SjhfrOXCzLqjWOl9EuOaGQTPfBUGzThC2d6ru4erIlN/C4/O7
+	GHfzS2xT4Wy6gHFf7w
+X-Received: by 2002:a05:6512:b88:b0:5b8:eb86:7ab with SMTP id
+ 2adb3069b0e04-5bffa14052emr1230702e87.16.1793925808122; Thu, 05 Nov 2026
+ 16:43:28 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,214 +105,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261027032332.1945140-1-liuc63@xiaopeng.com>
+In-Reply-To: <20261027032332.1945140-1-liuc63@xiaopeng.com>
+From: Andrey Konovalov <andreyknvl@gmail.com>
+Date: Fri, 6 Nov 2026 01:43:15 +0100
+X-Gm-Features: AclHuK9dRbLnxECgRD1l46eIc4GQ22vJU4NjcoMmUKgwsiEbNqgmSBWhyJwPnKI
+Message-ID: <CA+fCnZfgi_UUsMg4p2iRePACOAR8StQRYhgC9fHETE8Q5n0z5w@mail.gmail.com>
+Subject: Re: [PATCH] usb: gadget: raw_gadget: fix dangling ep->desc on enable failure
+To: Liu Chao <liuc63@xiaopeng.com>
+Cc: gregkh@linuxfoundation.org, krishnagopi487@gmail.com, kees@kernel.org, 
+	balbi@kernel.org, zhugl3@xiaopeng.com, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
-
-Critical: 0 · High: 2 · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The patch leaves the stale lgr->conns_all entry in place.
-- [High] The new ownership check in smc_lgr_cleanup_early()
-  (net/smc/smc_core.c:691) only tests list_empty(&lgr->list).
-
---
-
-net/smc: fix handshake abort on a terminating link group
-
-This patch makes smc_lgr_cleanup_early() return early when the link group
-has already been removed from the lgr list. It also makes smc_conn_kill()
-only unregister a connection that is already freed, without the full
-connection and socket teardown. The goal is to avoid a self-deadlock and a
-wrong abort of a fallback clcsock when a handshake abort races with link
-group termination.
-
-> diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
-> index 6021322253e93..4e10da5bd8142 100644
-> --- a/net/smc/smc_core.c
-> +++ b/net/smc/smc_core.c
-> @@ -688,9 +688,15 @@ void smc_lgr_cleanup_early(struct smc_link_group *lgr)
+On Tue, Oct 27, 2026 at 4:23=E2=80=AFAM Liu Chao <liuc63@xiaopeng.com> wrot=
+e:
 >
->  	smc_lgr_list_head(lgr, &lgr_lock);
->  	spin_lock_bh(lgr_lock);
-> +	if (list_empty(&lgr->list)) {
-> +		/* another context already removed the link group from the
-> +		 * list and will terminate it
-> +		 */
-> +		spin_unlock_bh(lgr_lock);
-> +		return;
-> +	}
->  	/* do not use this link group for new connections */
-> -	if (!list_empty(&lgr->list))
-> -		list_del_init(&lgr->list);
-> +	list_del_init(&lgr->list);
->  	spin_unlock_bh(lgr_lock);
->  	__smc_lgr_terminate(lgr, true);
->  }
-
-[Severity: High]
-
-Is list_empty() enough to tell that another context already owns this link
-group?
-
-smc_smcd_terminate(), smc_smcd_terminate_all() and
-smc_smcr_terminate_all(NULL) move the lgr onto a private list on the stack
-while holding lgr_lock, and set lgr->freeing = 1. They then walk that list
-with no lock held:
-
-net/smc/smc_core.c:smc_smcd_terminate_all() {
-    ...
-	spin_lock_bh(&smcd->lgr_lock);
-	list_splice_init(&smcd->lgr_list, &lgr_free_list);
-	list_for_each_entry(lgr, &lgr_free_list, list)
-		lgr->freeing = 1;
-	spin_unlock_bh(&smcd->lgr_lock);
-
-	list_for_each_entry_safe(lgr, lg, &lgr_free_list, list) {
-		list_del_init(&lgr->list);
-		__smc_lgr_terminate(lgr, false);
-	}
-    ...
-}
-
-While the lgr is on that private list, lgr->list is not empty. A
-first-contact handshake abort that reaches smc_lgr_cleanup_early() in that
-window still passes the new check.
-
-In that case, list_del_init(&lgr->list) unlinks the lgr from the other
-context's private list while that list is being walked without a lock. If
-this lgr is the cached next entry, it is now linked to itself, and the
-walk can loop on it.
-
-__smc_lgr_terminate() would also run at the same time as the other
-context's termination. The only thing serialising them is this unlocked
-check:
-
-	if (lgr->terminating)
-		return;	/* lgr already terminating */
-	...
-	lgr->terminating = 1;
-
-If smc_lgr_cleanup_early() ends up freeing the lgr,
-smc_smcd_terminate_all() or smc_smcr_terminate_all() can later reach the
-freed lgr as their cached next element. smc_smcd_terminate() can instead
-call schedule_work() on the terminate_work inside the freed lgr.
-
-The peer can trigger smc_smcd_terminate() by sending
-ISM_EVENT_CODE_SHUTDOWN, which is one way to reach this window.
-
-The commit message says "Do not terminate a link group that another
-context has already removed from the link group list". These contexts
-have already removed the lgr from dev->lgr_list or smc_lgr_list.
-
-smc_lgr_terminate_sched() already uses:
-
-	if (list_empty(&lgr->list) || lgr->terminating || lgr->freeing) {
-
-lgr->freeing is written under the same lgr_lock that is held here. Could
-this check also test lgr->freeing and lgr->terminating?
-
-> @@ -1519,6 +1525,17 @@ static void smc_conn_kill(struct smc_connection *conn, bool soft)
->  {
->  	struct smc_sock *smc = container_of(conn, struct smc_sock, conn);
+> raw_ioctl_ep_enable() assigns the user-supplied endpoint descriptor
+> to ep->ep->desc before calling usb_ep_enable(). If usb_ep_enable()
+> fails, or if the subsequent usb_ep_alloc_request() fails, the error
+> path frees desc via out_free but leaves ep->ep->desc pointing at the
+> freed memory.
 >
-> +	if (conn->freed) {
-> +		/* connection was already freed, e.g. by an aborted
-> +		 * handshake, but kept its entry because smc_conn_free() skips
-> +		 * the unregister for a link group that is no longer on the lgr
-> +		 * list. Remove the stale entry, but do not kill a socket that
-> +		 * may be an established fallback connection.
-> +		 */
-> +		smc_lgr_unregister_conn(conn);
-> +		return;
-> +	}
-> +
+> The UDC driver may have captured the stale descriptor pointer during
+> the partial enable sequence and may dereference it in subsequent
+> operations, resulting in a use-after-free.
+>
+> Clear ep->ep->desc before jumping to out_free on both failure paths
+> so the pointer never outlives the descriptor it references.
+>
+> Fixes: 97df5e5758f7 ("usb: raw-gadget: fix gadget endpoint selection")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+> ---
+>  drivers/usb/gadget/legacy/raw_gadget.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/usb/gadget/legacy/raw_gadget.c b/drivers/usb/gadget/=
+legacy/raw_gadget.c
+> index 46f343ba4..b52ab3ce7 100644
+> --- a/drivers/usb/gadget/legacy/raw_gadget.c
+> +++ b/drivers/usb/gadget/legacy/raw_gadget.c
+> @@ -886,6 +886,7 @@ static int raw_ioctl_ep_enable(struct raw_dev *dev, u=
+nsigned long value)
+>                 if (ret < 0) {
+>                         dev_err(&dev->gadget->dev,
+>                                 "fail, usb_ep_enable returned %d\n", ret)=
+;
+> +                       ep->ep->desc =3D NULL;
+>                         goto out_free;
+>                 }
+>                 ep->req =3D usb_ep_alloc_request(ep->ep, GFP_ATOMIC);
+> @@ -893,6 +894,7 @@ static int raw_ioctl_ep_enable(struct raw_dev *dev, u=
+nsigned long value)
+>                         dev_err(&dev->gadget->dev,
+>                                 "fail, usb_ep_alloc_request failed\n");
+>                         usb_ep_disable(ep->ep);
+> +                       ep->ep->desc =3D NULL;
+>                         ret =3D -ENOMEM;
+>                         goto out_free;
+>                 }
+> --
+> 2.50.1
+>
 
-[Severity: High]
+Commit message should ideally mention that the use-after-free is not
+actually reachable.
 
-Can the stale conns_all entry still be reached through the server
-handshake retry path?
+But the clean-up makes sense:
 
-When smc_conn_free() sees list_empty(&lgr->list), it skips the
-unregister:
-
-net/smc/smc_core.c:smc_conn_free() {
-    ...
-	if (!list_empty(&lgr->list)) {
-		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
-		smc_lgr_unregister_conn(conn);
-	}
-    ...
-}
-
-After that, conn->alert_token_local is still non-zero, and conn->alert_node
-is still linked in link group A's conns_all, with conn->freed = 1. Because
-smc_lgr_cleanup_early() now returns early, the handshake thread carries
-on instead of deadlocking.
-
-The server device selection code can then call smc_conn_create() again on
-the same new_smc->conn. One example is when smc_buf_create() fails inside
-smc_listen_ism_init() with -ENOSPC on DMB exhaustion, or with -ENOMEM:
-
-net/smc/af_smc.c:smc_find_ism_v2_device_serv() {
-    ...
-		rc = smc_listen_ism_init(new_smc, ini);
-		if (rc) {
-			smc_init_info_store_rc(rc, ini);
-			/* try next active ISM device */
-			continue;
-		}
-    ...
-}
-
-The same applies to the fall-through to ISM v1, SMC-R v2 and SMC-R v1,
-and to the failure paths in smc_listen_rdma_init() and
-smc_listen_rdma_reg().
-
-On the second registration, smc_lgr_register_conn() runs:
-
-	sock_hold(&smc->sk); /* sock_put in smc_lgr_unregister_conn() */
-	while (!conn->alert_token_local) {
-		...
-	}
-	smc_lgr_add_alert_token(conn);
-
-The stale token means the token loop is skipped. smc_lgr_add_alert_token()
-then inserts an alert_node that is still linked in A's tree into link
-group B's tree. A second sock_hold() is taken, but only one sock_put()
-will follow. smc_conn_create() then sets conn->freed = 0, so the new
-conn->freed check in smc_conn_kill() no longer matches.
-
-A's terminator cannot get in first, because it blocks in lock_sock() and
-smc_listen_work() holds that lock for the whole handshake. Once it gets
-the lock, smc_conn_kill() runs the full abort on the live connection,
-which now belongs to B.
-
-smc_lgr_unregister_conn() then erases the node from conn->lgr (B), not
-from A. alert_token_local is now 0, so every later call returns early.
-__smc_lgr_terminate(A) keeps getting the same node back from
-rb_first(&lgr->conns_all) and never finishes.
-
-If smcr_lgr_conn_assign_link() fails on the retry instead,
-smc_lgr_register_conn() sets conn->lgr = NULL and conn->freed stays 1.
-The new branch is taken, but smc_lgr_unregister_conn() returns early
-because smc_conn_lgr_valid() fails, and the same endless loop follows.
-
-Would it be more robust to do the unregister in
-smc_conn_free()/smc_conn_abort() regardless of lgr->list? At minimum that
-would be the rb_erase() plus clearing alert_token_local. It would replace
-the conn->freed check added to smc_conn_kill().
-
->  	if (conn->lgr->is_smcd && conn->lgr->peer_shutdown)
->  		conn->local_tx_ctrl.conn_state_flags.peer_conn_abort = 1;
->  	else
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103123955.47454-1-mjambigi%40linux.ibm.com
+Reviewed-by: Andrey Konovalov <andreyknvl@gmail.com>
