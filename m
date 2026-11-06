@@ -1,78 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793957316;
-	b=bUFoCG9j4yopABgOHJmmTUsPEcsPCo9IuFD2U0q9HBfHa3eSfosAu0dTwqI7CEzdwu97
-	 L4dGGTNRadC6MeVmu8NS+cxg11pB+IfMM4QSFuTl0A9KtXO28Qpz1VHK3FYOimoIPcX3x
-	 ghtQ84nf8VuCMk7kBUjCLPP9wugrb+zG+2x3Ztp03ax0WhZGHdxBHXnEma9YMGQ+sz9TL
-	 lofNO0wnM+y1HjMBirmIESdCUxtQcC4Yuckw3TePA52TKJb1tm7cAkgPg016SgtHeq75b
-	 zKLQUir4aTeXVFNtkb3Z1l4R/0F6J25EuFD9eRt891ruRIprJs/rxIaxJay4Dn+Tsgg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793957316;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=U6oPa2ZJHjZNJ3jw6GfOwDyY59OJDmTAAq1w/QD2M+E=;
-	b=H/0pPlDq50OyW0M/vH+bOrLZZ7s+uDrQbJ93AyMa2QM1xtVUFH6zodRP9gH7PShEoqUc
-	 9BdMMq+qroIlkWB3Z79dazcOzPSUo92tJMS33ZRgcVfpGD5ffr7Vm/h9+lSpE9Bil64Ee
-	 a54M+FsWHqqesjnz+BiLBrSbRY6m6q2hHz6jKfU+5c4x7+UXsH9LNz+01WNZp1pigrI/Y
-	 ecyjLfAxjY8HIP4MQ9bTy7QcyR0JTHL1ItXi7I92vlCQtEqAtDSZ1WLsY6EPx8XL5vfc+
-	 zR9VXcGe5lfIM0Be+UPQil18MJR/UsWJ+lkhWWu8qqs+uSAi7eDylXTVuZXSWc4TH7g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LcFsuNMd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507E2606A331;
-	Fri,  6 Nov 2026 09:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LcFsuNMd
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793957316;
-	b=f9asUT1T2RPEeC6c/JtMB95mmxevhlKwTrxrjyVEBmuM/tiehWe1fLkZH+Gs8Lvh6Qpa
-	 l+rhYZjwfl44+uTegaqZcqLeX6/dZS61meKkFtJ+oRCub2VskX9kimGY+ydFn7mpcbcwf
-	 Ye5xdokrhl6WKRfls7dgnA/T/SwLRiAEM5Iv+bpJ40OQykrjN9zMV3+fjVUTcX2N5LYS7
-	 qCYPFhU9Fbt9KzfFIxSxhMwhwtmy7gvZCf8BTqGYZPehv22DjzzyZbvKI13Eye0gFz8zW
-	 jkwYYkNKct2igRjuXR1kF9K/Mf5T/JzSFoDrtf1zHuGBq3glyiPpWCtfpqNHrCIeyKw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793957316;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=U6oPa2ZJHjZNJ3jw6GfOwDyY59OJDmTAAq1w/QD2M+E=;
-	b=eLX1kY+XS12KZCj8n2hg0VaqXoK1IMJ3BJSFt1eoFJvd625FOC3A34j0Ctsa8P3APdUy
-	 Isb1Ky28aRmP0lrrLPtNV5Fzx1UKeAfsJAJ7fvdaV3DYo5tHPtzdayBpNPvR1Tsm5AXZS
-	 W4/XXC73HPyqyvB6lBlCLymfp97wOyucs9gEHx7zmyPFPnaevJObtnQU1QNAyEKyU27Qw
-	 pPuM8oAA9CmlJb7mP6yGK7L3uat0h5tan5xgkZc9PHoQktYt7u5nfKlniHRGBYcZOKKeL
-	 V5q3MZHHfx6E6jFef997IMFNsJO468kQokmXD53WMKRt3rMLYxJOVgqwV6O0sFYTnwA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793957464;
+	b=OTA7yGr8T/ZL+0MuGzpFEC8ppMda85DF/Cn4Yl0896AqmwCZ1ORbl83DoL4/IXbE3vGc
+	 GndS0yJaRATDFIulxX4Da4keUIG9E9i+X1t+2m4ttcNPBKuEYAYq69GS1ZmjRz5JaMzt8
+	 747gyq0oY3/DTWV/aNbfPg6P9mRZJyNFQoHXndsxrjCb+NnP0O0lLlCuxan+RwtoBuiUO
+	 3PMuR9lwYU59rtk5LpqytIbfFrAC0ru7HWZZRmay551zcOWwahzEr2V+D76c/ViLE3Hru
+	 +uDuJNe7kqUrmOtlSYPmnGJ0ZVuS6vnpQn2EBmFHrfTX8/eeD8EQu1de7Q5vlP5l52A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793957464;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=pkMm2Zmil5ok/PO3ra8ZG4X/dksxyZ+uKs/AtX6aAaY=;
+	b=Gpe/eqB74EA9U3E6gP0L0yOdXLHrx3KXbQVCtKOTqdf3ENLhKKzganD8s18yKJDXQsP5
+	 zDUSpKwJx4LE72/hcKksStnnrtbzG6WDZ3xAMvgI2QbTSLorn+HNSu6c+6IjFAP04DwSB
+	 dX8FvDzqchvH6B21FdJ+svs2u/per5ZVBQAGVfH3uYRfdmsyAdGHOraXVknv52kVnrse2
+	 VuqyJ42PObHo7UCGTmco1z1rIMiHdvLDwNzPhnfyRWJNXUakNCW1bVyRbdNVL03z9F7lr
+	 UcxWyg6vWvbygpa+isacNrrBbRbgjuuoj/yameSrZ9yIflpAeqq7OCm9Zxf7fqnSxNg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 949931F008A2;
-	Fri,  6 Nov 2026 09:28:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793957316;
-	bh=U6oPa2ZJHjZNJ3jw6GfOwDyY59OJDmTAAq1w/QD2M+E=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=LcFsuNMdujcQFiGeV+iA91OZ+2H8rrMesKYasVfX/+ZLpeUA6aPVaFSjnGpV7yCyR
-	 n2N3s9/E8CUuVLHKsdYK0TkUt82zAkvXifqxdHFqv0q2Bg64/Q8GqdH5h9sVhj/w6b
-	 rgngKjtCrTJ0SQHxmpxoynWZiB3D7niCgmrNQraYqUxwesWn+3n83YoPFUQBs4+NOz
-	 B1hCbUWg8G1Xc5ppE+9mcb7oDdqCdyekgcaEn8Cc1sZzeuXxRj5AvM6YL9/wfi+5cf
-	 Aftu9SNl7nvRdRF55+j0Ea26HJ4rPofqmIw/tO15TRZNqZsiOi0cGs8vxQm9EsobbI
-	 jgdVL1iIjDiww==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E9DC145B3F;
-	Fri,  6 Nov 2026 09:28:34 +0000 (UTC)
-From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
-Date: Fri, 06 Nov 2026 17:28:26 +0800
-Subject: [PATCH] usb: core: hcd: Skip PHY rollback on failed autoresume
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83686606A33D;
+	Fri,  6 Nov 2026 09:31:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83686606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowABXZJVQnu1qt21rAA--.5978S2;
+	Fri, 06 Nov 2026 17:30:56 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
+ linux-acpi@vger.kernel.org, linux-i2c@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Mika Westerberg <westeri@kernel.org>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] i2c: acpi: Fix adapter reference leak in
+ i2c_acpi_new_device_by_fwnode()
+In-Reply-To: <20260917065743.GZ106095@black.igk.intel.com>
+References: <20260916155507.2074970-1-vulab@iscas.ac.cn>
+ <20260917065743.GZ106095@black.igk.intel.com>
+Date: Fri, 06 Nov 2026 09:31:06 -0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,96 +55,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-fix-usb-hcd-autoresume-phy-rollback-v1-1-1ed900ddcd2d@qq.com>
-X-B4-Tracking: v=1; b=H4sIALmd7WoC/yXNwQ7CIBCE4Vdp9uwmhUYafRXjAegoaC0NW4ym6
- buLevwO889KghwhdGxWynhGiWmqULuGfLDTFRyHatKtNkq1hi/xxUUcBz+wLUvKkPIAz+HNOY2
- js/7OOKCHdvvOmJ5qac6os9/L6fy3FHeDX75p2rYP/5Q1aYcAAAA=
-X-Change-ID: 20261106-fix-usb-hcd-autoresume-phy-rollback-e9e7e2b53667
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Alan Stern <stern@rowland.harvard.edu>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Chunfeng Yun <chunfeng.yun@mediatek.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Cunhao Lu <1579567540@qq.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793957314; l=2560;
- i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
- bh=+UkhgORE1S10jMlcch7WwpiOoh63ObUq75ZT5p51K+0=;
- b=qMn9jaDlRH01ky+tRH0T1p+YC0f/c0Y3Dxtj7ZuSDT9aOB8MWY05ZJWqILt28oU5ZZznq7RcG
- n3eBDhIsR9vBDbD+clBxoJbVA31y6tJSzXulewfhD9IW0JLV3kJlqeC
-X-Developer-Key: i=1579567540@qq.com; a=ed25519;
- pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
-X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
- auth_id=1177
-X-Original-From: Cunhao Lu <1579567540@qq.com>
-Reply-To: 1579567540@qq.com
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
+Message-ID: <179395746647.2284678.8559513137457956554@iscas.ac.cn>
+X-CM-TRANSID:rQCowABXZJVQnu1qt21rAA--.5978S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WrWUuFy5tryxCF1rCF47CFg_yoW8Wr45p3
+	95KrnFk3srur1Iv3409a1UXryru3y5Cw45ArZxX3429ws0g340yrySqa1qgryay393tFWU
+	tay8X3Z5Cas0vaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvYb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCF
+	04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
+	ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
+	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+	Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07
+	UMq2NUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIDA2rtky8q+gAAsw
 
-From: Cunhao Lu <1579567540@qq.com>
+Hi Mika,
 
-hcd_bus_resume() resumes the root-hub PHYs only for non-automatic PM
-events, but its failure path suspends them unconditionally.
+I am very sorry for replying so late, seven weeks after your review.
+You took the time to look at the patch and to ack it the same day, and I
+left the thread hanging without a word. There is no good excuse for
+that, and I apologize for the delay and for the extra work it caused.
 
-A failed autoresume therefore drops PHY power references without a
-matching acquisition. If wakeup is disabled for the controller, it can
-also drop PHY initialization references. Subsequent cleanup can then
-report unbalanced regulator disables.
+> I don't think this is right. The issue existed already before the move.
 
-Guard the failure-path PHY suspend with !PMSG_IS_AUTO(msg), matching
-the condition used for PHY resume.
+You are right. 53f8f7c5cf14 only moved the existing ACPI support code
+into a separate file, and I should have traced the history back instead
+of stopping at the move. The leak was introduced by 605f8fc22442
+("i2c: core: Add new i2c_acpi_new_device helper function"), which added
+i2c_acpi_new_device() with the same pattern: the adapter is returned by
+i2c_acpi_find_adapter_by_handle() with a reference taken by
+bus_find_device(), and the function then returns
+i2c_new_device(adapter, info) without dropping that reference. So the
+correct tags are:
 
-Fixes: 178a0bce05cb ("usb: core: hcd: integrate the PHY wrapper into the HCD core")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
----
-This USB core issue was found during the RK3572 mainlining work.
+	Fixes: 605f8fc22442 ("i2c: core: Add new i2c_acpi_new_device helper function")
+	Cc: <stable@vger.kernel.org> # v4.12+
 
-hcd_bus_resume() resumes the root-hub PHYs only for system PM, but its
-failure path suspends them even for an automatic resume. This releases
-PHY power references without a matching acquisition and, depending on
-the wakeup policy, can also drop initialization references. Subsequent
-cleanup can then produce unbalanced regulator-disable warnings.
+While reading up on the thread I also saw that the same fix has since
+been submitted by Ma Ke and is now in mainline as a65917d0a22f with the
+corrected tag, so there is nothing left for me to resend and I will not
+add a duplicate v2 to the list.
 
-This patch guards the failure-path PHY suspend with the same
-!PMSG_IS_AUTO(msg) condition as the PHY resume. This preserves the PHY
-references when an automatic resume fails and retains the existing
-system-PM rollback.
+This has been an important lesson for me. From now on I will go through
+all remaining review comments one by one myself and reply in time, and I
+will not send patches in batches that exceed what I can properly follow
+up on.
 
-Validation:
-
-- Hardware testing on the Forlinx OK3572-C reproduced native xHCI
-  Run/Stop timeouts in two USB2-only configurations. With the fix,
-  eleven failed automatic resumes returned -ESHUTDOWN. Tracing showed
-  unchanged PHY initialization and power counts across each call, no
-  extra PHY suspend, power-off or exit calls, and no regulator warnings.
-  No trace events were lost or probes missed.
----
- drivers/usb/core/hcd.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/core/hcd.c b/drivers/usb/core/hcd.c
-index 8e8a5f59b319b..fc4c28b7d4398 100644
---- a/drivers/usb/core/hcd.c
-+++ b/drivers/usb/core/hcd.c
-@@ -2368,7 +2368,9 @@ int hcd_bus_resume(struct usb_device *rhdev, pm_message_t msg)
- 		}
- 	} else {
- 		hcd->state = old_state;
--		usb_phy_roothub_suspend(hcd->self.sysdev, hcd->phy_roothub);
-+		if (!PMSG_IS_AUTO(msg))
-+			usb_phy_roothub_suspend(hcd->self.sysdev,
-+						hcd->phy_roothub);
- 		dev_dbg(&rhdev->dev, "bus %s fail, err %d\n",
- 				"resume", status);
- 		if (status != -ESHUTDOWN)
-
----
-base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
-change-id: 20261106-fix-usb-hcd-autoresume-phy-rollback-e9e7e2b53667
+Thank you for your review, for the ack and for your patience.
 
 Best regards,
---  
-Cunhao Lu <1579567540@qq.com>
-
+Wentao Liang
 
