@@ -1,189 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.10
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793949099;
-	b=p2lzbKv+MWfHB2vJOPkUgKF5FgnTAJ6o7ev/5GjUS8p9GvwaEfihs2CWz0C6fGkUsRdb
-	 sF/NkvYP2JfzahvaPNQcG9S022lPfgqvdpoXrn9H5gEFK6F+jxO2kh9SmnENdwTqi+V54
-	 /LTatCZAzWOVUMsPQfyIqRlKmQ+OaNceOfY6nZiVW0VMnQEySTM/Xj194Li2BAFIgLhMJ
-	 VL6xVUnDptzFpx2yLJfdpES2XSmXGSURtDKqPP2t8edoRhPHpqS/v/DPAxxLvCdTe0/MS
-	 0CerqIOVW+rnnuD7DxUHYQJOG+7ncbx2vXLM4gh0UiedYoRkCcurpKuS8biAgjRL57A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793949099;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=9ylceJzcyMocHxs62AC8hMXM93tLhGiAuFwCnc2vxnU=;
-	b=ufqgLpXAlxBWvLzMdxVYbg5xMHnd06NiP0WxUxkeTQXtbSAbmRbDs9Eg+tAA2iDioVXm
-	 BDm7zP3p1XsyefPk1jcCNZMi+A6O5Nc3WZVogIkgw8HttPHuLqs9+XPIFRayci74m9mPb
-	 aSUjzPZNmYQW+tmeQEe2hSqZlM7hswCVhGzHNNY0HRTx9trBtvvWq4ETpe5A4udVww35R
-	 ac/wue630AOHh5ECHuJuwTHHWXyglns0OQL2pi9oTitD2I+BgruTu7QkUsOKvXf4qu0lm
-	 iOb+nwU4G5kODSFEFcVD8mA/wy6tPiJ+wEeFROelJqzFMaUjWI67IL7z6yV0uyy6OoQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KU8uHdwX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793949430;
+	b=uwP8Dhq0agI7nCPapKfx5CD5dqVIJuoSy+sP/eFXLfPIo6Zefox8UYcwVGDyQt/VPhzy
+	 OjuCI8kY9Pj1JGaRZ2YG98iwNto8szflvSFCT4ay7mbYS5PfAieMXfy8+ZIOqRtX5SqIH
+	 BhPfiXpAWDhJKxN6cCF4zrAWRfPfIXIJU4a7EcpmC/MlT8mTuumzvQ77NcbVdmdIn2AUe
+	 I256mwo1qknrHRqQ/IjW3N3aiqFzmqpbw/pAd1YZeS96ErT4tuqjYIH0ocq9ZdpFz+O86
+	 kluVwa1UXzaZI7hA0pN4q8ao5tMKQ9nWB7ddI59EU+DifxZSyNr3gbQSrm098jeRzPA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793949430;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=phaG8fIAEdt42w1dFHlmJNP6UPxHP0iPRF5M4YLpvzA=;
+	b=4OYgswbwFpj4rdKUyjsPnSt00khwDhKUSxx47/1wvfEINC0k/L7jacQavplVpTJHkve4
+	 EbL4OQfsKz6+tmSawupP5m7LBqlv4JO9vzRaXXFhzpyKsJdDv/kmumCPI17FsFKFV7npo
+	 ckhgB6THeLi4ByWvbxuNE0w6VmlkOBLZJ9RYTjJkUN9OEWq9xKiuDst5witB6ifmPvv4R
+	 FlJTdZWy4rsPBEQu97mSvm0syGDJu2CIU5WvHZHwFmsDOSIRwz9Oml4VngQT3W/rLmaVo
+	 X1iXMbM+3TW3j7xOiEkN3CG8uZepyguMirreMJCMAG0TwJIGbNi7pHyGvVRGwBWbr5w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=miRj7K7Y;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CF0606A326;
-	Fri,  6 Nov 2026 07:11:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17CF0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60258606A32D
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 07:17:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60258606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KU8uHdwX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793949097; x=1825485097;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=9ylceJzcyMocHxs62AC8hMXM93tLhGiAuFwCnc2vxnU=;
-  b=KU8uHdwXNq5kBN3nHpMTqnvvXqREb+JA2riVhwDqjtpo/pZPLUsLl0qs
-   L35WyhY+ErU/xCMAvKrDzsZsko0zWnEmJp7akiW9bTkseyxaBTErNQ8Vg
-   lTM2y1Zf6qTHfPIOR+JFo2Bv8P03BZsE9fJN4v8C4UMt5ceSXzzC9Oz4J
-   hVzxgUy048G2WHe0qC25IaNwdE1ezvYs0vzmf35HPnLEYQT28meZiv90m
-   DHlZ5FFB5PB+pI+JkLpgigHzvXQ1m2ZF2/l2r2g5EdtQgu6YOZHms4Suc
-   2CteBujl/VIV/fchXVvnwo6H55D+7aX7r4Iw41bT1qFw/Qp9LMrbCSZ2j
-   A==;
-X-CSE-ConnectionGUID: +Ln0c+CLTZy47zpqEFRbaQ==
-X-CSE-MsgGUID: HLLSxMizS9iLv0ZCRVV/NQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2655613"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2655613"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 23:11:36 -0800
-X-CSE-ConnectionGUID: wZVGSM6oSb6Bl7TI5A82Og==
-X-CSE-MsgGUID: q+bua1jDS82QhLglOs/4ig==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7052138"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 23:11:36 -0800
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 23:11:35 -0800
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Thu, 5 Nov 2026 23:11:35 -0800
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.36) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 5 Nov 2026 23:11:35 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OVQMxg8BbGM8XEh84VMnAZaLPVpXnW+bVYKwacHiBFoFMG+eBM1fS4NlgeSk+skziiPXCQpdQn/oi5fe1/8Og5h/kPQjSw2eMmGPLmamr3Qb72l07/XrKXid4iqNS9QCOmqt60jjxVQRWYJwaQF90Rs/CLAK41ndnckwT4cxscI3qRh502FxNywlLT9yX4yWaj5GF3VSilU3ECfkY6PDkC0rv8/6ZpjRc9h3gFDGXz/8s1lIXLm8l/yIuD4Cm+cDmL/YMjlPI+ebEV51pcFVI+c5QT4u2WkFyXe45hy0mTJwUoNdrzUMGobEpt1cxSLZPsP5fMsNOFedaZPoTS0BXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9ylceJzcyMocHxs62AC8hMXM93tLhGiAuFwCnc2vxnU=;
- b=SfiV6arHjgrP9QzuacsMGP7JjV8uBBAdoa0D7nDswzFEvVBuRaVXFIT55b9IcGkpmwVxSljfuOylXa4d27Bliy3KTGWdOtTQ/y617pj7lvwdkat6V+1E36QcMvi0iNjEGLkeGHMWpGpz4drgrw2It87QXCwWSAhSZkFNqE8lgpJw7KnErWG49ytWMpOEJ+L2TNbF/VUXMR1cB61oULxDd6Kx99+/ZVuDeWseAOt6C020/lyVmHNr6gBVq/Nde+4wjTbkCJzPNiBv6DP/Q+mUtvvW27JkW4kEPCurkPhA3Qul1wouXV2w5sbT4mRElzn9jPTaVoWjAavzgdGg/6xS5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from CH3PR11MB566895.namprd11.prod.outlook.com
- (2603:10b6:610:34d::22) by MW4PR11MB6981.namprd11.prod.outlook.com
- (2603:10b6:303:229::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 07:11:28 +0000
-Received: from CH3PR11MB566895.namprd11.prod.outlook.com
- ([fe80::87f5:c8cf:d52:e584]) by CH3PR11MB566895.namprd11.prod.outlook.com
- ([fe80::87f5:c8cf:d52:e584%7]) with mapi id 15.21.0592.010; Fri, 6 Nov 2026
- 07:11:28 +0000
-From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
-To: Naman Gulati <namangulati@google.com>, "intel-wired-lan@lists.osuosl.org"
-	<intel-wired-lan@lists.osuosl.org>
-CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "Nguyen, Anthony L"
-	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>, "Lobakin, Aleksander"
-	<aleksander.lobakin@intel.com>, Brian Vazquez <brianvv@google.com>, "Andrew
- Lunn" <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, "Paolo
- Abeni" <pabeni@redhat.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH iwl-net v2] idpf: fix Rx payload buffer leak when header
- buffer allocation fails
-Thread-Topic: [PATCH iwl-net v2] idpf: fix Rx payload buffer leak when header
- buffer allocation fails
-Thread-Index: AQHdbYV4cpdVdVZRlUORR+cJTi0W+LcgoO/A
-Date: Fri, 6 Nov 2026 07:11:28 +0000
-Message-ID: <CH3PR11MB5668959C93EE1742BEF40143D6E5762@CH3PR11MB566895.namprd11.prod.outlook.com>
-References: <20261106002546.2100412-1-namangulati@google.com>
-In-Reply-To: <20261106002546.2100412-1-namangulati@google.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH3PR11MB566895:EE_|MW4PR11MB6981:EE_
-x-ms-office365-filtering-correlation-id: bf640a2a-4a46-43de-f481-08df3bd52d3c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|38070700021|261021123027099003|261022105027099003|11063799006|261028144727099003|261021121427099003|261009223027099003|56012099006|261026121527099003|261022075727099003|261026140227099003|261102123227099003|10067099003|18002099003|22082099003|6133799003;
-x-microsoft-antispam-message-info: HnU1WGys6lD6FswaXtR31Wos2fyOlfS6zB8qXLxKnDJ0BHlGGEGFbV0TXsbm/GTkwp1wf6tko2FrSh7QIhTS4TJqJ0sreiNtoqWPfdK1W2ub/3pfLLFWDu5MELfFPF3Kdljqxo1TpHchvJbBNT8sj4kT8a7e9f9w6yNyzCw3aBzXjlYrvpXSVOf0Znj0dWJ/WkBN1dd2eQQgGKB29w0s/Rg86N6b4lAtuDXgAR/BzH84vdRqjZM0c5T/UHIfgicxBWWt6seoLeJu7on/TFEMCCqLuO/wuNtmynTRTwnbra/GwV/G+m6NZEuS6ai9y/OpuD8FpEtRSL2dwYbCTUb3FIHjPuPC5z2G9RRngcX+wn+KN9dK20o7w6xg+nVMOgF0t1Q4PCgYHDwIhf+oNYY9DR9qx6kp2OxAj2DRCOVicPQY6AuwlHZMVYEic513Rxmog+CprzsII/6pfxdMott0JYOjnFwjgGBjvYCfOogJK51BSrdL0WdxVHss/PKYZywzUg9ypO7XtL2fMkRcp9Ycr9hwXMgko75Mye03tMzE61J01S5TWnVnI8P4npNtgXNxCW4aObei44CAQBrY6b5rnBxBlD/vT1wa3ed6q6Lq8NSICMrxHEK6OQ4ivbdGj+W0En3jlNSlIbWGmyWkQgqfvkhTUXnrdbW9Y1jSfDvz1Y+30UMgE6+dvGckqHfNusbB
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR11MB566895.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(38070700021)(261021123027099003)(261022105027099003)(11063799006)(261028144727099003)(261021121427099003)(261009223027099003)(56012099006)(261026121527099003)(261022075727099003)(261026140227099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?bWdHUjhwMjFwVmxoeHREenFHM051MTVHdlV5RDB3RjRsZTdpeEFCRHhwN2pK?=
- =?utf-8?B?OUE1MXo0c0ZDdVp0Wi83OHhZZlN4dmp2YzZvY1pRMXFMSnR0ZnFEa2U1c1VC?=
- =?utf-8?B?ODRYbmdVcTRUbGRqL2lCdVRSTE5VUEovNjh6RkswczB2NnFhSjJBRDZOTjk2?=
- =?utf-8?B?NGRRN25hbThjaWJtZnpCeDFpS0ZxK1orcGtUb2EzeHZ5NWZCbk5rZCswRVZv?=
- =?utf-8?B?YkE5MUQxVHJQdkQwUjRPNDlWaUl0OW55bTdZdS9iYzcrREZaaUU5UUlnem1o?=
- =?utf-8?B?a0FpdU4xRnlpbEFtVVBsME5TQVFsbFdaVUcvSHBFNXN6WllkVmwvVHVvUFlh?=
- =?utf-8?B?cm8rYU81dk52N1dmeTc0NDQxR1YxMkgvZ3Z2YnhydFdYZmVJU0RpSGJIRWRs?=
- =?utf-8?B?ZkRya25iV0tRenQ2YkZDQ00vUG9sVjBqU3JMQ1dDdkRJVGxmWTljS2dtdGRl?=
- =?utf-8?B?VEUvdHRiTEovV2pGZjNTWjlwSlVwR200a0J2bjN6SDcxUG1QZGxSRHBqaGpU?=
- =?utf-8?B?Zm80ZTlWdnNTWlMzRGFmZ0N2U1d5NFl3d25YQnF3a3lCek1JYkVNaGtBUXpu?=
- =?utf-8?B?d1pjS21qNG9rZ1AvVEs1WGNULzJ2L1hyOHBMeURGSk1GNG02ZHJZbFpXZjlp?=
- =?utf-8?B?dGR3T0srU1JrbUVmdHQxRVU1Q0ZUNUVIQUVISjdyWVgrMGhWV1FTalNDUnQ4?=
- =?utf-8?B?ZkQvZkJmZHZVNXFqNzlyU3dXUGNoeDh6QWxzZStFYTNYdk80Qi8wancwL04w?=
- =?utf-8?B?OU4xOEFtY1ovYjVraVM2VExySHIzOTRCMnIvUk85d3dxcGlwT3pySk1BWXRz?=
- =?utf-8?B?ZXlnZWZxSmQybDRsaGw3ZzV3c3VBVG0wM3BySWdpUnRyL0JqYUY0cUJ1bVVV?=
- =?utf-8?B?cGF6bjZuZ1p3VEJXQmlxb1pUU2c5Z0lZa0ZDVlZNRVdmdU43MWQ1aXhVdzhq?=
- =?utf-8?B?NmZXQlMxRGtUbXZCOGpPK0N6ZTAwUnZJL2crTlNNTHhRTzY3SDZkNi9CQmZy?=
- =?utf-8?B?bTRJVmx3YllySVgrV2ZXWnpyNnlvWDh6dUc3OEhLa0pXdzdHUFZ4Q3g3YXNa?=
- =?utf-8?B?dWwrSVc1UkRESmdTZzhFTkNHeVRSTklCdU5VeE1ScmVvSStiQW9tYUZranM3?=
- =?utf-8?B?RVR5VHc5MGVjNkJHSVdmWEdiKzk3Skp0RE4yd2haV0dQWElmSzNXdjE2MEYz?=
- =?utf-8?B?YXF3cnRHcFoyK3pXUTMvc2thOEg5R3RJMzYwRDIrWkw1QU4rZ0poeXB2VkJs?=
- =?utf-8?B?QnBPOFZndDV6YVFMU0ltbk5mTFpPWDY0VlBnNm1RVWJSeEcxQTZkT2k2SWJY?=
- =?utf-8?B?ZUd4blN3R0JRNm5UZ2pJTE9QTWZ0R0U3M3hDMXNoRDZ1Q2dJNXQwdlpFSFZI?=
- =?utf-8?B?Ymk1dkFzaHZCOE9MVUJZTEVVMUZZMS9IRU4vcC8zaElkN3gwTWorVWF4NGdH?=
- =?utf-8?B?Q0V5UThndWx6aWlJNmlEalhXQ0Z3cWhoeHRsQWI3RUUrZVc1VzRtd0VkUUdF?=
- =?utf-8?B?cnhoUFZhQ1JnUEFuck44NVJoZTkxY0RaZm1VU1BUZS9ZRUtEWnkzeTVZeVhV?=
- =?utf-8?B?bUMwNEpOdll3aDRYSkNjbk45NC9KakdxMGNncmZwMEhCRkkraG4zYjJnZHNk?=
- =?utf-8?B?UU1hcDYzM3d5ZHgzVklyT05uYXhXYnlIc1RDZlVvaDBOMDdvb1dxeDFMOW1Z?=
- =?utf-8?B?dEVTNEFYQUlnVGtWTFpIMi8vQ1ByODA3S2JHeWl6cUd3UnVYQmZvdFBRaTgw?=
- =?utf-8?B?ZTNOR21QZy8yTkZOUll4R3g0NEJWRDFtR2RYTENPRU9INFJMa2hzSkpJRlhY?=
- =?utf-8?B?OTFvTzVGdkhjYkVEVVB1VXZmSjFXWlJrTThLKy95d3pMNVNlbUdWTTVTZ2tj?=
- =?utf-8?B?WHRJVm1rUTB3eHRpd0VIU3JNWi9tU0JjUjVzRitkZmRJa3lqY3dVclFkc29S?=
- =?utf-8?B?UEN4TVRoakIyUllaa1JkUVhxUE05OXNuM0Z5VXgvZ0FaWkY5NWU5STBBZWN6?=
- =?utf-8?B?N0RSRzhkRUJMQXFvNWVPMitxT0xJS2VxODEvZzBkblAzZHNjVHZGK3QwdWZ2?=
- =?utf-8?B?VEhjdVpLTVFPb0F1MktDMnY2VWtFT1I3NFN3SzE2b3c4QzBXMFFTTDUvTVRP?=
- =?utf-8?B?MXMvK1h6emppWFZ1UWg1elhsYlhCVFExM3FYSlQxRFhUZHNUQjlQc2hYNWY2?=
- =?utf-8?B?TDljazVEdnJRT2hIOCtHUnR2VUpES1dxNjQ0bGM1UC9INkQyem90YVd1YnFY?=
- =?utf-8?B?SHBKbmJMMFVjQ1NzdkRkWDJyd3RVODVUVkViTkJMVU5NQXh5WkVpNWl2TnAv?=
- =?utf-8?B?QzJNeE5McmpkN1pIbENDckRPeTdJMTI0WVc3MHpURjNJLzJpS1orVVFOeURx?=
- =?utf-8?Q?RK0h9PANAkP91ogE=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=miRj7K7Y
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so2789975e9.2
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 23:17:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793949429; x=1794554229; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=phaG8fIAEdt42w1dFHlmJNP6UPxHP0iPRF5M4YLpvzA=;
+        b=miRj7K7YHuY/8RFNhJ0nHR2yBAi2kd714Di5I0TQTBckobNwsqlzV/exwwTJcoimIN
+         S3ZUr0O53UJuTaIe2J05KOusgkeScEKsdnliLj/GpXUjg/+W0mB26W3o6wPW7sco7SSi
+         2Hpx3e6zgxqls9cXc0usSd8hd0bZ9Lyy2QHRmI9pb1guzNeUWiZ4YxfKP6hKxawGIIV/
+         8RrZOY8CYfn5DBLkOk0pDLwaLCl8XAC3HzGK37hiu+TQb23t34VMVPB/jhjMP//1Pyoz
+         GVfBoe+YkomZBFPsVwBBvoA3bnnDeuWJUMCAnz/lGdejclUfqgE22Hx/IF7spLGEhTFX
+         tCpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793949429; x=1794554229;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=phaG8fIAEdt42w1dFHlmJNP6UPxHP0iPRF5M4YLpvzA=;
+        b=GlUMOyRYqMvGKXDrJ0evUlw1rrwiD10/v5OMxYiL6GFwWRtXoqFEelfimYLLlPxAP8
+         lY+BNFF+OsZo905n7OGRiIpzUGecJ8RiG31xKUIYpKaBAijP2KDY3bd7Ub2nrNyXmrfZ
+         oNG40VaHLjL14SSV5UthIS2wi/mkI+0qRGoKUUFdCiIYocJN4LAoTFTFX7fRfMZ6cI4c
+         PnmFRwr6agcFCzAGAikYTd3Gqcrjnt/z8LQkM1sIvWpIXL4mErN5PXOF+BnSkF5/xnWP
+         B8GMTU3wBDkKn+OezGfmc+kNUGMsZoWYHqcMcP0NOB4gG8Tj4uPICYwekrJZFODd18gp
+         qjsg==
+X-Forwarded-Encrypted: i=1; AKwUvByvr2izPhg2BFzCBZ+bczJaTYWSDUtSj79kO1rXoo/HyyS9QixgNf7oZHhAzpGH8uc3efabHf4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XV/Mvx2HHnYr5KlKz/yjwc98rXBjWggLFJ+uF/iqGNYNYMAwC
+	EHyH3+l/Oh5OvYf7w2PtdxJF2QyabstTeGKI+X82t3j/UcASKikRK8ms
+X-Gm-Gg: AYBFou3tkH9QFrZy43mG5Z/omvoJx2iwItM83J5fHyWb8m6JGrpGS2KDZ0Bs3F5ICIG
+	RtSNl1pGFuVy9WPjn17Mcxj9m0w+xD4MSsHAsgJXi/M5BGE02RjQx+ILng5Po4x9+Ek/ENyKpkw
+	RABG7Dp8ozmmt44vYBOM4Zom492o0sBlh0KcJ6hcOLVNC5jVDCOXkSX/6GqO5p5kkuwDauqhdip
+	g0b4lKHDcchCpLOlzJdH7jbX74IOJ/krYCU18TXF1NCWelfowrqQBFgBCOMy3C8f803bZG82Sxo
+	zmR67Jfz8i3KMM4ndvxepgpDtSKap6K1/WFLwLXoQSrs8E2DGKZQLcBv/5stU3B50Gb1TdU3eaE
+	8XnLzd/rOqIvQSUszLhHyhPPGKZdA+w6LZQj/MSPK7IPNKCZyiqmml9Wis5Ne4rWMEjGTorIpIg
+	vLX6msMX79oSzyI8sKsbdDvqqlOPSkUZ8nnkqjuunGsLZhYXt10bDhv2BtZf0e9V6+1NmrGf/FA
+	KDHtjGkRbdjprGPxFl2Wv7wO9tnuEC8JNza5JA4rTIdcXtZoffmjxvnBCigPqToLv6wr9xd+Ot9
+	ah7Jdvt6mfxWflo6Mg0XvnFfeABCgVnw07Kur6w=
+X-Received: by 2002:a05:600c:314f:b0:4b0:bc65:b9b5 with SMTP id 5b1f17b1804b1-4b6e063f9a9mr22671795e9.35.1793949428444;
+        Thu, 05 Nov 2026 23:17:08 -0800 (PST)
+Received: from foxbook (bfg124.neoplus.adsl.tpnet.pl. [83.28.44.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49354fc5ab4sm178934f8f.30.2026.11.05.23.17.07
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Thu, 05 Nov 2026 23:17:08 -0800 (PST)
+Date: Fri, 6 Nov 2026 08:17:03 +0100
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Pengfei Lv <lvpengfei20@huawei.com>
+Cc: <gregkh@linuxfoundation.org>, <stern@rowland.harvard.edu>,
+ <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>, <xuhaiyang5@hisilicon.com>,
+ <xuetao09@huawei.com>, <caiyadong@huawei.com>, <suzhuangluan@hisilicon.com>
+Subject: Re: [PATCH v2] usb: core: hub: Re-guess ep0 maxpacket size on reset
+Message-ID: <20261106081703.295cc0a2.michal.pecio@gmail.com>
+In-Reply-To: <20261106031625.1824732-1-lvpengfei20@huawei.com>
+References: <20261104124402.1269650-1-lvpengfei20@huawei.com>
+	<20261106031625.1824732-1-lvpengfei20@huawei.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -193,83 +100,235 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: Uac0wDGYhefq3ckkaeV1eN8Ni+fSP4THSTxZLrTE4HIf3jhbwit8D8PuiwX9u1X94spVJ81HxGPtdUvDTPU8HpxcsVSU9Vnu6D44IpOQKmn8C44NYyBaizPt6qEE6DBQsOZIK2Sue649RH+u2u+sZ/DYEzXj/nYHnLeXpU1SbZb+pxZd82zQrP2ErK5CVcNQ33XG4dCdKODAPJqVZg26pnn9yisY8sWudYoKbx9eeEzM5AimjoR5upZtI6Vgv9W5yiHYuZZMeFThqDap5po/4xQySRcJNmwOXj3KUCZQmzca7h5sbtNSbIXN46u7AoN17VyvsrUJBJESVd2JU/7waQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR11MB566895.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf640a2a-4a46-43de-f481-08df3bd52d3c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 07:11:28.2738
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YAE/m/As984zpdQHeGxFe+rkujc8xnuAkquvj78slnJccGjTx21NFeBpbCGWs6ziBlzYRUDefjbvbejyT8rURMcnOc3+DSwvy2AxCL5Af8A=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB6981
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogTmFtYW4gR3VsYXRpIDxu
-YW1hbmd1bGF0aUBnb29nbGUuY29tPg0KPiBTZW50OiBGcmlkYXksIE5vdmVtYmVyIDYsIDIwMjYg
-MToyNiBBTQ0KPiBUbzogaW50ZWwtd2lyZWQtbGFuQGxpc3RzLm9zdW9zbC5vcmcNCj4gQ2M6IG5l
-dGRldkB2Z2VyLmtlcm5lbC5vcmc7IE5ndXllbiwgQW50aG9ueSBMDQo+IDxhbnRob255Lmwubmd1
-eWVuQGludGVsLmNvbT47IEtpdHN6ZWwsIFByemVteXNsYXcNCj4gPHByemVteXNsYXcua2l0c3pl
-bEBpbnRlbC5jb20+OyBMb2Jha2luLCBBbGVrc2FuZGVyDQo+IDxhbGVrc2FuZGVyLmxvYmFraW5A
-aW50ZWwuY29tPjsgQnJpYW4gVmF6cXVleiA8YnJpYW52dkBnb29nbGUuY29tPjsNCj4gQW5kcmV3
-IEx1bm4gPGFuZHJldytuZXRkZXZAbHVubi5jaD47IERhdmlkIFMgLiBNaWxsZXINCj4gPGRhdmVt
-QGRhdmVtbG9mdC5uZXQ+OyBFcmljIER1bWF6ZXQgPGVkdW1hemV0QGtlcm5lbC5vcmc+OyBKYWt1
-Yg0KPiBLaWNpbnNraSA8a3ViYUBrZXJuZWwub3JnPjsgUGFvbG8gQWJlbmkgPHBhYmVuaUByZWRo
-YXQuY29tPjsgTmFtYW4NCj4gR3VsYXRpIDxuYW1hbmd1bGF0aUBnb29nbGUuY29tPjsgc3RhYmxl
-QHZnZXIua2VybmVsLm9yZw0KPiBTdWJqZWN0OiBbUEFUQ0ggaXdsLW5ldCB2Ml0gaWRwZjogZml4
-IFJ4IHBheWxvYWQgYnVmZmVyIGxlYWsgd2hlbiBoZWFkZXINCj4gYnVmZmVyIGFsbG9jYXRpb24g
-ZmFpbHMNCj4gDQo+IFdpdGggaGVhZGVyIHNwbGl0LCBpZHBmX3J4X3VwZGF0ZV9idWZxX2Rlc2Mo
-KSBhbGxvY2F0ZXMgdGhlIHBheWxvYWQNCj4gYnVmZmVyIGZvciBhIGJ1ZmZlciBJRCBmaXJzdCBh
-bmQgaXRzIGhlYWRlciBidWZmZXIgc2Vjb25kLiBJZiB0aGUgaGVhZGVyDQo+IGJ1ZmZlciBhbGxv
-Y2F0aW9uIGZhaWxzLCBpdCByZXR1cm5zIC1FTk9NRU0gYW5kIGxlYXZlcyB0aGUgbmV3IHBheWxv
-YWQNCj4gYnVmZmVyIGluIGJ1ZnEtPmJ1ZltidWZfaWRdLiBpZHBmX3J4X2NsZWFuX3JlZmlsbHEo
-KSB0aGVuIHN0b3BzIHdpdGhvdXQNCj4gY29uc3VtaW5nIHRoZSByZWZpbGwgcXVldWUgZW50cnks
-IGFuZCB0aGUgbmV4dCBOQVBJIHBvbGwgcmV0cmllcyB0aGUNCj4gc2FtZSBidWZmZXIgSUQsIGFn
-YWluIHN0YXJ0aW5nIHdpdGggdGhlIHBheWxvYWQgYnVmZmVyLg0KPiBsaWJldGhfcnhfYWxsb2Mo
-KSBvdmVyd3JpdGVzIGJ1ZnEtPmJ1ZltidWZfaWRdLCBhbmQgdGhlIGVhcmxpZXIgcGF5bG9hZA0K
-PiBidWZmZXIgaXMgbmV2ZXIgcmV0dXJuZWQgdG8gaXRzIHBhZ2VfcG9vbC4NCj4gDQo+IEVhY2gg
-c3VjaCBmYWlsdXJlIGxlYWtzIG9uZSBwYXlsb2FkIGJ1ZmZlci4gVGhlIHBvb2wncyBpbmZsaWdo
-dCBjb3VudA0KPiBuZXZlciBkcm9wcyB0byB6ZXJvLCBzbyB3aGVuIHRoZSBxdWV1ZXMgYXJlIHJl
-LWNyZWF0ZWQgb3IgdGhlIGRldmljZQ0KPiBnb2VzIGF3YXksIHRoZSBwb29sIG5ldmVyIGZpbmlz
-aGVzIHNodXR0aW5nIGRvd24gYW5kDQo+IHBhZ2VfcG9vbF9yZWxlYXNlX3JldHJ5KCkga2VlcHMg
-d2FybmluZyBhYm91dCBhIHN0YWxsZWQgcG9vbCBzaHV0ZG93bi4NCj4gDQo+IFRoaXMgaGFwcGVu
-cyB3aGVuIHRoZSBoZWFkZXIgYnVmZmVyIHBvb2wgcnVucyBkcnkgd2hpbGUgdGhlIHBheWxvYWQg
-cG9vbA0KPiBzdGlsbCBoYXMgcGFnZXMsIGZvciBleGFtcGxlIHVuZGVyIG1lbW9yeSBwcmVzc3Vy
-ZTogYSBoZWFkZXIgcGFnZSBob2xkcw0KPiBzZXZlcmFsIGhlYWRlciBidWZmZXJzIGFuZCBvbmx5
-IGdvZXMgYmFjayB0byBpdHMgcG9vbCBvbmNlIHRoZSBza2JzDQo+IHVzaW5nIGFsbCBvZiB0aGVt
-IGhhdmUgYmVlbiBmcmVlZC4gVGhpcyB3YXMgaGl0IHVuZGVyIGhpZ2ggZmxvdyBjb3VudA0KPiBU
-Q1Agc3RyZWFtIHRlc3RzIHdpdGggbWVtb3J5IHByZXNzdXJlIGNhdXNpbmcgUlggaGVhZGVyIGJ1
-ZmZlcg0KPiBhbGxvY2F0aW9ucyB0byBmYWlsLCBhbmQgdmFsaWRhdGVkIG9uIGlkcGYuDQo+IA0K
-PiBSZWxlYXNlIHRoZSBwYXlsb2FkIGJ1ZmZlciB3aGVuIHRoZSBoZWFkZXIgYnVmZmVyIGNhbm5v
-dCBiZSBhbGxvY2F0ZWQsDQo+IGFzIGljZV9hbGxvY19yeF9idWZzKCkgYWxyZWFkeSBkb2VzLCBz
-byB0aGF0IHRoZSByZXRyeSBzdGFydHMgZnJvbSBhbg0KPiBlbXB0eSBzbG90LiBpZHBmX3J4X3Bh
-Z2VfcmVsKCkgYWxzbyBjbGVhcnMgdGhlIHNsb3QsIHNvIHRoZSBidWZmZXIgcXVldWUNCj4gdGVh
-cmRvd24gY2Fubm90IHJlbGVhc2UgdGhlIGJ1ZmZlciBhIHNlY29uZCB0aW1lLg0KPiANCj4gRml4
-ZXM6IDkwOTEyZjlmNGYyZCAoImlkcGY6IGNvbnZlcnQgaGVhZGVyIHNwbGl0IG1vZGUgdG8gbGli
-ZXRoICsNCj4gbmFwaV9idWlsZF9za2IoKSIpDQo+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3Jn
-ICMgNi4xMSsNCj4gU2lnbmVkLW9mZi1ieTogTmFtYW4gR3VsYXRpIDxuYW1hbmd1bGF0aUBnb29n
-bGUuY29tPg0KPiBUZXN0ZWQtYnk6IEJyaWFuIFZhenF1ZXogPGJyaWFudnZAZ29vZ2xlLmNvbT4N
-Cj4gUmV2aWV3ZWQtYnk6IEFsZXhhbmRlciBMb2Jha2luIDxhbGVrc2FuZGVyLmxvYmFraW5AaW50
-ZWwuY29tPg0KPiAtLS0NCj4gdjI6DQo+ICAgLSBBZGQgQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5v
-cmcgIyA2LjExKyAoQWxleGFuZGVyKQ0KPiAgIC0gQWRkIFJldmlld2VkLWJ5IChBbGV4YW5kZXIp
-IGFuZCBUZXN0ZWQtYnkgKEJyaWFuKSB0YWdzDQo+ICAgLSBOb3RlIGhvdyB0aGUgaXNzdWUgd2Fz
-IHRyaWdnZXJlZCBhbmQgdmFsaWRhdGVkIG9uIGlkcGYgaW4gdGhlIGNvbW1pdA0KPiBtZXNzYWdl
-DQo+ICAgLSB2MTogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvaW50ZWwtd2lyZWQtbGFuLzIwMjYx
-MTA0MDEzNjA2LjE1Mjc3NjctDQo+IDEtbmFtYW5ndWxhdGlAZ29vZ2xlLmNvbS8NCj4gIGRyaXZl
-cnMvbmV0L2V0aGVybmV0L2ludGVsL2lkcGYvaWRwZl90eHJ4LmMgfCA0ICsrKy0NCj4gIDEgZmls
-ZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9pbnRlbC9pZHBmL2lkcGZfdHhyeC5jDQo+IGIvZHJp
-dmVycy9uZXQvZXRoZXJuZXQvaW50ZWwvaWRwZi9pZHBmX3R4cnguYw0KPiBpbmRleCA4ODVkZjYy
-OTRhZDk0Li43MzgzZDgyNDFlYWQ1IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5l
-dC9pbnRlbC9pZHBmL2lkcGZfdHhyeC5jDQo+ICsrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L2lu
-dGVsL2lkcGYvaWRwZl90eHJ4LmMNCj4gQEAgLTM3NDUsOCArMzc0NSwxMCBAQCBzdGF0aWMgaW50
-IGlkcGZfcnhfdXBkYXRlX2J1ZnFfZGVzYyhzdHJ1Y3QNCj4gaWRwZl9idWZfcXVldWUgKmJ1ZnEs
-IHUzMiBidWZfaWQsDQo+ICAJZnEudHJ1ZXNpemUgPSBidWZxLT5oZHJfdHJ1ZXNpemU7DQo+IA0K
-PiAgCWFkZHIgPSBsaWJldGhfcnhfYWxsb2MoJmZxLCBidWZfaWQpOw0KPiAtCWlmIChhZGRyID09
-IERNQV9NQVBQSU5HX0VSUk9SKQ0KPiArCWlmIChhZGRyID09IERNQV9NQVBQSU5HX0VSUk9SKSB7
-DQo+ICsJCWlkcGZfcnhfcGFnZV9yZWwoJmJ1ZnEtPmJ1ZltidWZfaWRdKTsNCj4gIAkJcmV0dXJu
-IC1FTk9NRU07DQo+ICsJfQ0KPiANCj4gIAlidWZfZGVzYy0+aGRyX2FkZHIgPSBjcHVfdG9fbGU2
-NChhZGRyKTsNCj4gDQo+IC0tDQo+IDIuNTYuMC40NTUuZzZjNWE1MDNiMzgtZ29vZw0KDQpSZXZp
-ZXdlZC1ieTogQWxla3NhbmRyIExva3Rpb25vdiA8YWxla3NhbmRyLmxva3Rpb25vdkBpbnRlbC5j
-b20+DQo=
+On Fri, 6 Nov 2026 11:16:25 +0800, Pengfei Lv wrote:
+> Per USB 2.0 spec section 5.5.3, the ep0 maxpacket size is fixed for
+> all device speeds except full-speed devices, where it can be 8, 16,
+> 32, or 64 bytes and can only be determined by reading the device
+> descriptor.  During the initial enumeration of a full-speed device,
+> the USB core guesses 64 bytes (hub_port_init() with initial=true);
+> after reading the descriptor, the real value (e.g. 8) is stored in
+> udev->ep0.desc.wMaxPacketSize and propagated to the xHCI ep0 context
+> via an Evaluate Context command.
+
+  ... and applied to hardware by the usb_ep0_reinit() call.
+
+Is there anything xHCI-specific about this issue?
+Any properly working HCD should behave equivalently.
+
+> 
+> After a port reset (usb_reset_and_verify_device() -> hub_port_init()
+> with initial=false), the "if (initial)" guard added by commit
+> ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
+>
+> skips the ep0 maxpacket guess block, so
+> udev->ep0.desc.wMaxPacketSize retains the real value (e.g. 8).  The
+> xHCI Reset Device command preserves the ep0 context as well, so the
+> xHC ep0 max_packet also stays at 8.
+
+So it's another unimportant xHCI implementation detail.
+
+Doesn't need to be mentioned at all; it's obvious that if we don't
+change ep0.desc then there is no reason to update the HW either.
+ 
+> When the subsequent re-enumeration then uses the "new scheme" and
+> issues a 64-byte GET_DESCRIPTOR (get_bMaxPacketSize0 with size=64),
+> the xHC queues a Data TRB
+
+xHC is the HW, it doesn't queue any TRBs.
+
+Why not just omit all those irrelevant details of how xHCI implements
+policies decided by this code?
+
+> of length 64 but applies ep0 max_packet=8
+> for short-packet detection.  If the device's first data packet is
+> exactly 8 bytes and it sends no ZLP,
+
+It certainly shouldn't be sending any ZLP if descriptor size is not
+a multiple of packet size. This whole paragraph boils down to:
+
+  If a buggy device responds with one 8 byte packet and NAKs all
+  further polling, the HC doesn't recognize a short transfer but
+  keeps polling for the rest of the descriptor till unlink.
+
+> the xHC does not recognise a
+> short packet, keeps issuing IN tokens for the remaining 56 bytes, and
+> the control transfer hangs in the Data stage until URB timeout.
+> 
+> This is not merely theoretical.  It was observed in production on a
+
+s/is not merely theoretical. It// would still be fine.
+
+> 6.6 LTS kernel with a Full-Speed USB banking token (bMaxPacketSize0
+> = 8) in a virtual-machine USB passthrough scenario; the reset
+> re-enumeration hangs 100% of the time after the VM issues
+> USBDEVFS_RESET.  Bus captures with an Ellisys analyzer confirm that
+> the device sends exactly one 8-byte packet for the 64-byte request
+> and then stops responding to IN tokens, relying on the host's
+> short-packet detection with max_packet=64 to terminate the transfer.
+> For the subsequent 18-byte GET_DESCRIPTOR (usb_get_device_descriptor,
+> wLength=18) the same device sends the full 18 bytes as 8 + 8 + 2;
+> the final 2-byte packet is always a short packet regardless of
+> max_packet, so that transfer succeeds on both kernels.  This is why
+> the device completes initial enumeration yet hangs on reset
+> re-enumeration.
+> 
+> The device is not strictly compliant (it should continue answering
+> IN tokens for the 64-byte request), but this class of USB banking
+> token is widely deployed in enterprise environments, and the
+> regression introduced by commit ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") breaks a configuration that
+> previously worked.
+> 
+> Fix this by removing the "if (initial)" guard so that the ep0 maxpacket
+> size is re-guessed from udev->speed on every reset, and by calling
+> usb_ep0_reinit() afterwards when !initial so that the new software
+> value is propagated to the xHCI ep0 context via an Evaluate Context
+> command before the GET_DESCRIPTOR data stage.
+
+More unnecessary xHCI details.
+
+> The usb_ep0_reinit() call is necessary because commit e34900f46cd6
+> ("xhci: Reconfigure endpoint 0 max packet size only during endpoint reset")
+> moved the ep0 maxpacket sync point from xhci_urb_enqueue()
+> (xhci_check_maxpacket, lazy per-URB) to xhci_endpoint_reset()
+> (xhci_check_ep0_maxpacket, eager), reachable only via
+> usb_ep0_reinit() -> usb_enable_endpoint(reset_ep=true) ->
+> usb_hcd_reset_endpoint() -> xhci_endpoint_reset().  Without the
+> explicit usb_ep0_reinit() after the re-guess, no Evaluate Context
+> command is issued on the reset path: the pre-existing
+> usb_ep0_reinit() in usb_reset_and_verify_device() runs before
+> hub_port_init() and thus syncs the stale value, and the subsequent
+> hub_enable_device() -> xhci_setup_device(SETUP_CONTEXT_ONLY) returns
+> early when the slot is already in SLOT_STATE_DEFAULT.
+
+Does this need to be explained?
+
+usb_ep0_reinit() is quite self-explanatory, or its effects could be
+explained with one HCD-agnostic sentence if you must.
+
+> The !initial guard on the new usb_ep0_reinit() call ensures that
+> initial enumeration is unaffected: on first enumeration the ep0
+> context is initialised by the Address Device command, so no extra
+> Evaluate Context is needed.
+
+This, of course, makes assumption that xhci-hcd has guessed the same
+initial values as USB core. (Which it currently does).
+
+Not sure if this optimization is worth bothering with. For xhci-hcd
+at least, usb_ep0_reniti() exits quickly if no change occurred. And
+you say it's a no-op for others? Great, who cares if we call it.
+
+>  For high-speed, low-speed, and
+> SuperSpeed-or-faster devices, xhci_endpoint_reset() returns early
+> (speed != USB_SPEED_FULL), so the call is a no-op on xHCI, and on
+> non-xHCI host controllers endpoint_reset for control endpoints is
+> likewise a no-op (e.g. ehci_endpoint_reset only handles bulk and
+> interrupt endpoints).  The descriptor-immutability checks (!initial
+> && maxp0 != udev->descriptor.bMaxPacketSize0) remain unchanged;
+> udev->ep0.desc is not part of udev->descriptor and is not the field
+> involved in the read_descriptors() race that commit ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") fixed, so
+> restoring the wMaxPacketSize re-guess does not reopen that race.
+> 
+> Fixes: ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Pengfei Lv <lvpengfei20@huawei.com>
+> ---
+> 
+> Changes in v2:
+> - Add usb_ep0_reinit(udev) after the ep0 maxpacket re-guess block,
+>   guarded by !initial, to propagate the new wMaxPacketSize to the
+>   xHCI ep0 context.  v1 only removed the if(initial) guard, which
+>   is insufficient after commit e34900f46cd6 ("xhci: Reconfigure endpoint 0 max packet size only during endpoint reset")
+>   moved the xHCI ep0
+>   maxpacket sync point from xhci_urb_enqueue() (xhci_check_maxpacket,
+>   lazy per-URB) to xhci_endpoint_reset() (xhci_check_ep0_maxpacket,
+>   eager), reachable only via usb_ep0_reinit().  The !initial guard
+>   avoids a redundant Evaluate Context on first enumeration, where the
+>   Address Device command already initialises the ep0 context to 64.
+>   (Sashiko AI review)
+> - Expand commit message with observed-in-production evidence and the
+>   wLength=64 vs wLength=18 device behavior distinction, per Alan
+>   Stern's review.
+> - Note: on kernels before e34900f46cd6 (e.g. 6.6 LTS), the xHCI ep0
+>   maxpacket sync happens lazily in xhci_urb_enqueue() via
+>   xhci_check_maxpacket(), so removing the if(initial) guard alone is
+>   sufficient and the extra usb_ep0_reinit() call is a no-op for ep0
+>   maxpacket sync (xhci_endpoint_reset returns early for control
+>   endpoints on those kernels).  This patch targets current mainline
+>   where e34900f46cd6 is already present.  Would the maintainers
+>   prefer a separate, simpler patch (without the usb_ep0_reinit()
+>   addition) for stable branches predating e34900f46cd6, or is this
+>   single patch acceptable for backport given that the
+>   usb_ep0_reinit() call is harmless on those kernels?
+> ---
+>  drivers/usb/core/hub.c | 49 +++++++++++++++++++++---------------------
+>  1 file changed, 25 insertions(+), 24 deletions(-)
+> 
+> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+> index 199d3f535a89..a6c260d39094 100644
+> --- a/drivers/usb/core/hub.c
+> +++ b/drivers/usb/core/hub.c
+> @@ -4969,33 +4969,34 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
+>  	}
+>  	oldspeed = udev->speed;
+>  
+> -	if (initial) {
+> -		/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
+> -		 * it's fixed size except for full speed devices.
+> +	/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
+> +	 * it's fixed size except for full speed devices.
+> +	 */
+> +	switch (udev->speed) {
+> +	case USB_SPEED_SUPER_PLUS:
+> +	case USB_SPEED_SUPER:
+> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
+> +		break;
+> +	case USB_SPEED_HIGH:		/* fixed at 64 */
+> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> +		break;
+> +	case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
+> +		/* to determine the ep0 maxpacket size, try to read
+> +		 * the device descriptor to get bMaxPacketSize0 and
+> +		 * then correct our initial guess.
+>  		 */
+> -		switch (udev->speed) {
+> -		case USB_SPEED_SUPER_PLUS:
+> -		case USB_SPEED_SUPER:
+> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
+> -			break;
+> -		case USB_SPEED_HIGH:		/* fixed at 64 */
+> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> -			break;
+> -		case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
+> -			/* to determine the ep0 maxpacket size, try to read
+> -			 * the device descriptor to get bMaxPacketSize0 and
+> -			 * then correct our initial guess.
+> -			 */
+> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> -			break;
+> -		case USB_SPEED_LOW:		/* fixed at 8 */
+> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
+> -			break;
+> -		default:
+> -			goto fail;
+> -		}
+> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> +		break;
+> +	case USB_SPEED_LOW:		/* fixed at 8 */
+> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
+> +		break;
+> +	default:
+> +		goto fail;
+>  	}
+>  
+> +	if (!initial)
+> +		usb_ep0_reinit(udev);
+> +
+>  	speed = usb_speed_string(udev->speed);
+>  
+>  	/*
+> -- 
+> 2.34.1
+> 
