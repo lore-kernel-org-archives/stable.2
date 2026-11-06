@@ -1,102 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793989034;
-	b=Wp5Yc6ibomxWsexdl0zSDDbbatBW4ZPsjs2+fiw9JX2RbFq6WhS8ZjMfTdhddht4+8lP
-	 WP30x3Y5h0ipDtYsmIF3iaYWaWkfuUXoxLe4y70JMzWj3UFRc/PZtlkvAWYDR2EMYDGN0
-	 EqGh9DTLEaaD8I1i11kciAMQrFE/gnvuHp2+2HvHpRDsyhk44nL595krPWetzJYvmcKI6
-	 pVrXQA9GDukVDyxrOfp7p6U9mc/xwyfERZO+zlNFkUNhA3o2GfOWqiY+jSs1XIAS4893Q
-	 x6h/vPry4jrltTOpxe2lAcy26GMw5PKxMHrBGuAzpoIcKVf1OBzxkLVCA7AEp8zePOg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793989034;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793989088;
+	b=16+W1s9kPeSucoXvcV3Y20lfuYWuIhmse7IqjcWBGhozVj5IB3+QHdjNPcwZlLTpxmBo
+	 w+HsyklSWNu2lYu8ucTo0VX850Hz1/y/0ZDJz0P1YfS64RGYm1zlNLx/b8EXArIM+R3jW
+	 7r1x1BRvsV0XDoOryJAWHH6hgieHveh/NLBG0lda60yxsg058Db8ONwYfEBrmwN/5y1kJ
+	 HpfeI3hq3+YsKVi/VddZeijsQUGPw092Tx1FixoO3JGBKUwlQJ1byAC+q3eWQBfAyQ0Hw
+	 pNAFXGvvx/uKO740azy1OguP9sVUcJm1gVJDyE4caII5il4IhtAM3zl/8feXWFoaOfw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793989088;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=iO2JEAydHDgBReyWjoaKwK3iFfajRHjkVPraMabJC1Y=;
-	b=0QZo8jrliqIcXCijhAZGCiZN8gtOmJd7bht/1vcHzX8N5R3McOuX4hron0y/G7lwOyjT
-	 NHyey8s7MXVQEoZbUceaWqqWjN/CK/SZFHftlG4ng13aEIB47ncwCp+mdke+NqI/uQJq6
-	 +Dv4upaIw/m3bNFnyLdrnuR/I/gXXEpFT6sdLgEEBkL7THUxj2xPd0S1aCwp9gcas6/bF
-	 o/CJtNE8ejJ0LuIO/WQ8OFMGd+/Y7Mn8jgAbdQV0RF3P+aB+nCUkAM/oZs1jpgGbuhsHv
-	 SqZhfRSiK/CjJmZqxrYIppLNy/RH+o8+8JApfvYi57oQpWIm5gsVpVaKVd24yiLyNjg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QXf+r9tS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=L5gQz6r3rvvEATVBUbUn0e05T2fzNXD25Qm7128FeVY=;
+	b=sYQQUvNcALRIc92c2AZKCbjUGDdUTdk6dit8oY+GNf1u51om7hU4iIFZ5rrwQQL96zBG
+	 rSxVQuzy0S7RmDcvuroNGSfI+pNIxaL+Gb6hdPk91CMTNXeDsXVU2HQdSpaq1FE0oXU9x
+	 zADVh8TgsH5kPlyhFHYXC22aHem+6cEea6tnsRhBtrmxjBhHSXq9M6BZTxuboX9vj4bc4
+	 XfP0WylUMvTteUpj/+8bjZhJH/of1xFWIlVjiQ4czijRZBJxR2Bw596f+QEd0Q5l5rRXN
+	 A6X9QFjbucHDHpnj9G+VQ1t1bz79SAFZIr3Zc6aBTsL7moem8tcBt1xUsGYfSHEMJYg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D4DGCDh3;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C889606A33A
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 18:17:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C889606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13121606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 18:18:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13121606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QXf+r9tS
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-49134c8509fso840304f8f.1
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 10:17:14 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793989033; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qYQAXVJnKlIKdF28he1eb9wD6VHfdSwd6V67rO11gf+B1ScN7ni0n9I1zl/F9YD2ka
-         7bHtbC6KvqGn2UfcG3RSI+zr4789FY4RMc7NTdR/WiMIKMznzA1J+oyu8kTn+a/Asv+k
-         0zXAEJNWnhQeg9nxgTqEiTL8bHlFqgFvA2PZ2dBHsiLTOOSd1CbMGg5i9fCrnLfCoiE0
-         onmnO1MXIq2ZYrdwv05DtZvMeXIkQu/+aVlYRxqU6XI3jncv2QJpH1yQCttJswd4fj5n
-         JX9nb+N0U8geXpI81u0/VU3YzGX9iqJCAZsRn3CW4g6N2G/dgZk2qMcuTSgqirMxyDFp
-         aq2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=iO2JEAydHDgBReyWjoaKwK3iFfajRHjkVPraMabJC1Y=;
-        fh=BHx1jfpfsNw1lG2wL31eNRklKBCb19DlFI4vAoG5TNg=;
-        b=WMfQLyFsBYPTx8dmn8uHbc6to+ccpqN1T/87+s77tCnl+6d1GUetoXxagrS2gZZl3o
-         qug6OtI8NpqXlFWi5mOI7xEudQoTd72zpc6QAk1zjvLcCII0gcmKUd/tDuV4+/Ozas7z
-         P7cJ1oC7wJUFssVMqU7xLq1sf0bBu05naqyvMLh0RLQHgf9fgKZd2RPXKJBnWip6Ik4X
-         3X5Ft12SqV5h1M3Rd/0oTFvc2Ql+/KOfc6C+VM1oKhQdwhGcyUh8jGcujxaQXQ4e6nF7
-         9TVyQDamLI9XiEdfTN+WXISo7h/PHqmpLC1Z/54QREAQckHrdnPqb1AiBQbkDeN+5mE6
-         KEcg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D4DGCDh3
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-170135e43c7so1683107c88.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 10:18:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793989033; x=1794593833; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iO2JEAydHDgBReyWjoaKwK3iFfajRHjkVPraMabJC1Y=;
-        b=QXf+r9tSK4HAXl26QxvgyqCQhrcdRmvDWopljBqKvTDaenjsjHcUXtknxTjaXPwC4N
-         qLXy+sNmLL6j3Bx4kgjWPx4mLC76qd1R1G33/AFQx8kO9pdmOTW1bE/Ij1pM7SHCHJk9
-         TFtWZCG0vPES9U7B2wLKCkql6hAsLvqSCQpM1OiT+HZY8VJtiPAoVrxWuO/mRNZaTyUf
-         rvXdz5oG7EwZx8LyO41SK6J1Lp6GNxfRUOq0cIt2Xc1YaeHGxWOEb3m3j+69QLH3wcNB
-         yGi9ud5aQXCyQQWyXXfMsttWydJvTkoZiwhFxuoQZZDVpCUTM5aFP3UiKtGLnYme6uDm
-         r4ug==
+        d=gmail.com; s=20260707; t=1793989087; x=1794593887; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=L5gQz6r3rvvEATVBUbUn0e05T2fzNXD25Qm7128FeVY=;
+        b=D4DGCDh3Dg5GTI6TLXwAMpOyLQNu9wZUp5TAAGiHjoptXmaUP11m0C7t1kZ2mFlIgw
+         S9jPDGPA9ULRIwScWWpOLGczaA5N2DcXjRB2u5L668eIYac6T0lZ6y7BMRAE6eLj/E48
+         oEzfBIzDVYp+SxrSKU6M+S84CmJxZTUc5n/7+i+yFZ0HlJ0CHwIXpDwNNl+3rFwxPdM9
+         xo+YaDnIYsCORDGz+7DEqf/KMuRNfLMPDKnlSwr8xrHD4fvN2q0WPfV4WEaHNEu0/7O+
+         ip/bTl/axndXpmk4hAD7jlmdYMAyMylO4XimB45L5rsBodRrGAbxr8u7wCGNiJSeUqvR
+         5YmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793989033; x=1794593833;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iO2JEAydHDgBReyWjoaKwK3iFfajRHjkVPraMabJC1Y=;
-        b=a7ND+SampS+1FXzhImDsUir9bUaGftjppMYUoHkhDTtZbSlBqR8hMBq7hj3S5Pnuic
-         x4NUPq54J8BY8qJCor87/RcG3ouMA5vOc9hTRW01JDbvfw51HtIBgDAbZrWkl+C7KPFl
-         y9fZ+vtumL0kDp6Da6KgNo5LYgN/UlcRdI3y7xxVJZ3A8Q75IHpkVSWUcUBKY59WF9OC
-         UUa24Xsl1KoRYKC4bp+YnrSMTr+fm2v/RR4/rDgFZfvoI++ITLA6ADpJeav644AVzc9K
-         bVTCMJzv/7trPyT9Uvb9VhTsxWq2QXecSEj06MM7RVs6KyAM3Q9Rc+Uz2QcW77YKe5S+
-         Q+Xg==
-X-Forwarded-Encrypted: i=1; AL+hErEeqftWPvSW7v2BfjwxCfZ+D8O6zlujsR+g3NrvEhoRFfBq4Y7Z3OTIEWfxJ4z1/oqBYb8e7Tg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9bWPSfr3rRQAdBoRCLzM+iDG5A1D3rKspaK2bxQ/6/w7pwzRB2
-	dWd+ScRF6qD06fdl+hlICAPBOv5vUKM/ujIwULmMdlQM72pnTFCUHPsu6pTDNUebK4+wseNYgho
-	qZZIxU1zpOzAzd/zYSeF4OaU0L9Zb8xIq1nNeDZHk
-X-Gm-Gg: AYBFou3hcj8foubBx+Vcp2wJqo5VydnDcUgQOun3A1kFi5PNvxmo4Kg9tGXGn/KYaqZ
-	K6fwEDuYPrZUKKjXhhTtPL3IalTq2SJZ0SRJDtZXQCo9D1LSB+/EypB8CrledyRKD9lqJ6Ihbwk
-	dsNTH5PnGgLkUAd2Yt+tIcICQ858F3dfqRX69IXcELXPPRB20pyYhjPkSNpXu2I2cDOZnkY5Hs0
-	p2HRa/loJL2opIuFMRitwF5tV/McJe+FBtWjXrM6ukUyt0OZf6yiywRmSVOTA2acW+LkAcyfKQa
-	3YFuZDghVSUdX7b92lPPjfCR3WS4B6h5v4ICRB5boT+TG9iaqy6TuZI48EfRDcJ7+kxcoc4actf
-	TDoWX8vJMaGvJtiqWZvXVqGmAPR+VCIUnJ/1/In1opgY2AjoL3kLdVoOYKhcdBCFxPKFjKNNwky
-	WVodE/YUaC/twS3ELhvXawd0Ony9o++oUp7LLjRi5yz0I9av3O/3f5UHhNGJwpROLL4RLEyWIEu
-	Cq8JFZtXUK8+p7sDuHHUuYgcH6Ab8fD1QTwQqn80c7l6+j6SsRU2temynI=
-X-Received: by 2002:a05:6000:2892:b0:48d:c186:dcc6 with SMTP id
- ffacd0b85a97d-492777dbb54mr6867359f8f.57.1793989031973; Fri, 06 Nov 2026
- 10:17:11 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793989087; x=1794593887;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=L5gQz6r3rvvEATVBUbUn0e05T2fzNXD25Qm7128FeVY=;
+        b=ipZ1bi3R3XKaIQltNJ+oMpQ6eWFP8GK4m4d64NFUlaVyl+0TSwRYz5zfKHX+syaZWR
+         L/6d5BksdvYhFMyONfUGQDKAWmPVMyxpJU/LmyIJ9mdMrQqe3bnrmTGEL18KCxl6+gc9
+         GcucJyesH74iNOTh0zhFNIM8ZEa9uV7G7R0YTkDoViajZ8L+WflT6yy+FXyj7EL1e4lo
+         itAF+Jwrbzce3+3FzjiyPTIpfbInbENsX0QLRWb2ETuUag2FvrgL4DT6x5gFGN0+U4LD
+         yvSnEi7K7KH8njMu5q+/58LmITB1qdQKPddSVSN2VfLK1lIioZrqXrqN7ihiZbMuABcH
+         6/zQ==
+X-Forwarded-Encrypted: i=1; AKwUvBym/3JzpYGQQCFPu1QFo0zlbIOFEiE6vbRmoHfDzaEkkYRiMkmrVn+FYxUEDUXUjPEKakMXXpk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+F/iNY36dvEjuYMln/Q5di4kvGYmfmn2h4FckJdocmGr88YlGi
+	uBybo+K75KvCILqxJQ9GlGrbdTiTgpEc4Odqnv6GrxGN/WFPHy6Qg6waQK33KUwF39g=
+X-Gm-Gg: AYBFou0lcE0Hv3uQO7RXyiycgEynqYytmgGkgHzYEqJcNgRSclbwv1elWfynzZc9Pwg
+	h9Pt4YrqoCFpV8+hRJDCVJlQnA8XWTSTIN2HPzaUMUbGWfMB1v5W+Znsju2ju/A7l4twKZJj5Sk
+	C8j08I2pgXnV+fSsscVh+2QkfMcVYmO3M6OfsiVxgRionCAkk9smsquK2+czSOu4s2ewt/Xt/7I
+	prdAceofRMNbN5+5sBeymIlwXnqMxUQl8cQXrYEWraqcsPqgSVgrsXY95X6yz3ukKRuKyUeB5PL
+	urj2t0d4lOa4P0x+AJkIzne3MHV6qhksRXo5PlrPM1f8dSTuEcg/EIBn38Ui1GNfg0aIHYSwXt9
+	oE+K3t4k3VI/hi28uPlVGZohJdYhBlfcgOGYQb4kx8m5Qrsr9f/nMP0tKeYSvSIg4vxC3koyg1V
+	rrGx2Qjldw8cKOtO6fwyXiK1wtuhedcTqmWgYy0PYGWm97ekuAELR10V5n568SrA23NsN0fJOAi
+	22ssySNOxZWYX/engPfVWZQ6URIlne6D8IRcrLSklmI4O8BUaVVgjli8AnqfvS+vjcSuXl8Pndl
+	4bo5sMzFqRZasTz1qgsaHONRdiUvxqBqbI/txu8QbkAQjabwtKa6sxmKkGIPQ/AFIAIWAbXvLWX
+	9DWpmy6ho0Il0WDNv5NsCyjl2tASEDPCIp72UtSle+UflB2/jhAWA4dvdHOAgFpdrGsdrS/b3LS
+	aOJXVd18RntOCvXPhMHlrKdeuoPcgU
+X-Received: by 2002:a05:7023:a8a:b0:1a9:f97a:34d with SMTP id a92af1059eb24-1b25d30593amr5772166c88.13.1793989086878;
+        Fri, 06 Nov 2026 10:18:06 -0800 (PST)
+Received: from zbook-HP-ZBook-Firefly-14-inch-G8-Mobile-Workstation-PC.. ([49.207.55.157])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4880dasm6609066c88.8.2026.11.06.10.18.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 10:18:06 -0800 (PST)
+From: Payal Lenka <payalm.lenka@gmail.com>
+To: payalm.lenka@gmail.com
+Cc: syzbot+f8fb5598924c7e645553@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] HID: corsair: cancel the LED work again after unregistering the LED
+Date: Fri,  6 Nov 2026 23:47:52 +0530
+Message-ID: <20261106181752.2530369-1-payalm.lenka@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,66 +96,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105151159.1.I0b27923381ef34cc99cdf8b65fea2e1bafce6370@changeid>
- <CAF1bQ=QkGntJu8G67ssH2dS3Sn200_JuYitjtAfNPBu_hn0fZA@mail.gmail.com>
- <CAF1bQ=QiP4fb-+Kn8wzEH7wqjAjZaagxUd3sYpv2SkwDcnFPWQ@mail.gmail.com>
- <CAD=FV=WGKOnDoY1W7CuZw=s3e8f3jrXzkJ5_Qp_Y4WfT0XwXDg@mail.gmail.com> <CAF1bQ=TWZ=u1h92Nt9NgGcaDNTo=BOHmUp1DCWEeUMfwBb3WhQ@mail.gmail.com>
-In-Reply-To: <CAF1bQ=TWZ=u1h92Nt9NgGcaDNTo=BOHmUp1DCWEeUMfwBb3WhQ@mail.gmail.com>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Fri, 6 Nov 2026 10:17:00 -0800
-X-Gm-Features: AclHuK9SWyCEYtuJGMl-fJhTBaGxGHpWXefZx7LtX8R0YzDCJePA2Pf99_IEKbE
-Message-ID: <CAKwvOdmTaMQf4Wyk_sygaushmMd9dRR3xPZ6K9rbKYB25uz7jg@mail.gmail.com>
-Subject: Re: [PATCH] kbuild: AutoFDO: Disable Profi (-fno-sample-profile-use-profi)
-To: Rong Xu <xur@google.com>, Doug Anderson <dianders@chromium.org>
-Cc: llvm@lists.linux.dev, linux-kbuild@vger.kernel.org, 
-	Han Shen <shenhan@google.com>, Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Han Wang <nesthanwang@google.com>, Snehasish Kumar <snehasishk@google.com>, 
-	Nilanjana Basu <nilanjana.basu87@gmail.com>, Yabin Cui <yabinc@google.com>, stable@vger.kernel.org, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 6, 2026 at 10:13=E2=80=AFAM Rong Xu <xur@google.com> wrote:
->
-> As far as I know, Profi is enabled in the Clang front-end initially. I
-> remember reviewing a patch that enabled Profi for the Rust front-end,
-> though it's possible that has already been merged.
->
-> It seems strange that these flags diverge between C and Rust. Could we
-> add a comment to indicate that Profi is currently not enabled in Rust?
->
-> Rong
->
-> On Fri, Nov 6, 2026 at 10:06=E2=80=AFAM Doug Anderson <dianders@chromium.=
-org> wrote:
-> >
-> > Hi,
-> >
-> > On Fri, Nov 6, 2026 at 9:43=E2=80=AFAM Rong Xu <xur@google.com> wrote:
-> > >
-> > > Just one thing: I think we should also have this flag for Rust so Rus=
-t
-> > > and c are consistent.
-> >
-> > Please see the commit message, which says:
-> >
-> > > RUSTFLAGS_AUTOFDO_CLANG and KBUILD_LDFLAGS do not need changes becaus=
-e
-> > > SampleProfileUseProfi remains false by default in the LLVM backend an=
-d
-> > > is only enabled by the Clang driver.
-> >
-> > Is that incorrect?
+Commit eb51c9f8cb4f ("HID: corsair: cancel worker before unregistering
+LED to fix use-after-free") cancels the LED work before calling
+led_classdev_unregister(). But unless LED_RETAIN_AT_SHUTDOWN is set,
+led_classdev_unregister() turns the LED off, and k90_brightness_set()
+then queues the work again. The k90_led holding that work is freed right
+after, with the work still queued. The removed flag does not help, as
+the worker would read it from the freed memory.
 
-Probably better to be explicit, rather than rely on the implicit
-default value, which sounds like it may be changing over time.
+This is caught by debugobjects when a device is disconnected:
 
-> >
-> > -Doug
+  ODEBUG: free active (active state 0) object: 0000000097898442
+    object type: work_struct hint: k90_record_led_work+0x0/0x1e0
+  WARNING: lib/debugobjects.c:629 at debug_print_object+0x189/0x2a0
 
+Cancel the work a second time after unregistering the LED, in both
+k90_cleanup_backlight() and k90_cleanup_macro_functions(). The first
+cancel stays, as it keeps a running worker from using led->cdev.dev while
+the LED is unregistered.
 
+The root cause analysis and this patch were prepared with the help of the
+Claude Opus 5.5 coding assistant.
 
---=20
-Thanks,
-~Nick Desaulniers
+Fixes: eb51c9f8cb4f ("HID: corsair: cancel worker before unregistering LED to fix use-after-free")
+Reported-by: syzbot+f8fb5598924c7e645553@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=f8fb5598924c7e645553
+Cc: stable@vger.kernel.org
+---
+Tested in QEMU (x86_64, KASAN, DEBUG_OBJECTS_WORK and DEBUG_OBJECTS_FREE)
+with a C reproducer from the syzbot report, 120 seconds per run:
+
+  no fix:                     warnings for both work items
+  this patch:                 no warnings over 124 disconnects
+  only the backlight cancel:  warnings for k90_record_led_work
+  only the record LED cancel: warnings for k90_backlight_work
+
+The reproducer does not exercise the race fixed by eb51c9f8cb4f, so that
+is not tested here; the first cancel is kept for it. Not tested on real
+K90 hardware.
+
+ drivers/hid/hid-corsair.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/hid/hid-corsair.c b/drivers/hid/hid-corsair.c
+index 278c6efb5..7e5ff3d52 100644
+--- a/drivers/hid/hid-corsair.c
++++ b/drivers/hid/hid-corsair.c
+@@ -526,6 +526,8 @@ static void k90_cleanup_backlight(struct hid_device *dev)
+ 		drvdata->backlight->removed = true;
+ 		cancel_work_sync(&drvdata->backlight->work);
+ 		led_classdev_unregister(&drvdata->backlight->cdev);
++		/* Unregistering turns the LED off, which queues the work again */
++		cancel_work_sync(&drvdata->backlight->work);
+ 		kfree(drvdata->backlight->cdev.name);
+ 		kfree(drvdata->backlight);
+ 	}
+@@ -542,6 +544,8 @@ static void k90_cleanup_macro_functions(struct hid_device *dev)
+ 		k90->record_led.removed = true;
+ 		cancel_work_sync(&k90->record_led.work);
+ 		led_classdev_unregister(&k90->record_led.cdev);
++		/* Unregistering turns the LED off, which queues the work again */
++		cancel_work_sync(&k90->record_led.work);
+ 		kfree(k90->record_led.cdev.name);
+ 
+ 		kfree(k90);
+-- 
+2.43.0
+
