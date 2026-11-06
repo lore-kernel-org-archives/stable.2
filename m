@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793961947;
-	b=SXBIcI2tEAtY5AFsNqh4q4ArXPJo2L1PvswTi2Rg2JFIpzJidN7ol73op/mRB3BBRRte
-	 njZQfQpAJuLxeLGU9BSWjdLdXU+WZHxXNJvCPjXJjw17JNlrQ/w9XiX9YP0R8zksrjBZo
-	 ytOGgKuQk7ytE9uM9SaspYbatdiDJY1D3qHdMV9kKE/CVF5tsi6MO7UV9SvmvvW8T28vU
-	 cZf93BjKUbnpVLkO6KGhlvFX4aQ9G2LtWcnWJhllIrTpfKozNeZdjLUc8yhYH+Gpd9hpu
-	 qwZGjTmZfggfAOxHN/Gnv1Mt/mL9i/+AFi7JZjRloT1bPW9VrgacpiqNbsagDtn1fIQ==
+	t=1793961949;
+	b=XLO3abr8j3N9FANPl/S3urAWiLk0fvUfbW/nDg5VK3oi6cIzdPDmJlPbCyJ2jOBKVQfs
+	 lrKrzHwJOh0MKc3mI6Dp45qjzKb7XkNgatgZZQ6JlqInSKUxZHsxnMGCgP3vV0YV3TWXj
+	 T2cBpaEFpg48vMCl0iGzf7j5yS4NVVd57XJsE4gH3DTdy3HAhEwzfTUG0pDzVv+mNnZgB
+	 zH1VT08KJHlI+T6yuwJ1LsSnDWdmVf4t+VEAkmV2nv9emjeBctrYaF51C1RwBOHuGHGgn
+	 bun8yhN40r01+zsxSnN1o7e7+D3aWgDXZv0Btb5t6UGlovnEoqn3p6uy0hQ1Z84WS/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793961947;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793961949;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=9d4zmqowzFyjpS1+CWDAo2gFvDOoR0tDmX9/Gr/o+TE=;
-	b=j/DOe51eALRi54M/TvxTA6GU82d2/PBpC47OiCvWjejc+2wy/AsDciEgkXzkxnB/x2dt
-	 fqxzYl5HHsMM2Cw4OJXQGLaDkJ+JgYCdkcfOxrtHTWCOWH8xX0mCRJECy3EtD0VeXzMav
-	 zaPxkk/Ow6CS8RfdK/6uGmrkw+SBoqYxhjIRRTQkbjPOHK/CmgaNT7YKeABHQU0PAX67Y
-	 BtjkCN48pBjyrQ1pU+y6bZB8KVKKG4NxmqiVkwDbsrbk5AVG52Qe5VhTQrbFzz+8gyrk4
-	 f4beZaIRTrzxL1NdzJJOGwaFoR+yvpf1koVDhwb1hucSM7Dbd55+3vDWLE41z6fIADw==
+	bh=HN5AaMS/rppxH/Zhw9oaxqCW5S4c47gXtmjruB8wFZg=;
+	b=lvi48wnpG9frjp7+hasQssV5phk/2ZQHjL4vEnLt8hYqUtAehg7iDryT0ZDLh1D42w0A
+	 ZbM7y7MfRKtnyjrsXGkKPAs8kF87+ShIfxLnmcmaEgkgoc1Q+0lxVi7FQXQr6C5gdEcAy
+	 Q9O1r3sGtFRClS1pTWJxfMYFfeFadc1hUycFEPYzkZ6ZkHiSKmlsgHVhWrCgpbB3dtCqk
+	 NTz9ENUST9GJMes85q59GOo/Q4s0eyk/c8k2lw210nPdTQdWBk7EeuuqYnSHjNBLRJtge
+	 ZJkdGzqCjIq1klAgwFDhZBOwrXqOtllKzfWvk16l4K7KD+GFUT9Il7Iy16mqa5EVvBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KFsoFxbm;
-	arc=none smtp.remote-ip=209.85.208.69
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OTasAjEP;
+	arc=none smtp.remote-ip=209.85.128.72
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5160E606A329
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 10:45:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5160E606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3298A606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 10:45:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3298A606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KFsoFxbm
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6b5e0ce4132so513126a12.3
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 02:45:47 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OTasAjEP
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a35e1d2dddso5292565e9.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 02:45:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793961946; x=1794566746; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793961947; x=1794566747; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9d4zmqowzFyjpS1+CWDAo2gFvDOoR0tDmX9/Gr/o+TE=;
-        b=KFsoFxbmSg5jZA5zlPMYhng49X5QiS/f2vRe9N5cbn8SAyS8ftNLN/yEbDeWRDzSsr
-         boE5ssBINTSCH2JQA1dFQvMYotEHwHab7gurMySBUQUG9KtYmqtI4xzUz1mryg4Q5ZP6
-         XyJb4YNV5n1Zd+3g18qYKvesUEnS3YDmS1X8g4KbzzkWJsFYfjm6OSSfleLKcpS5bdm1
-         qpzhHgG/81nSyr2wAlrTJ2VcTZU2TwtSwzB36iCq7IKfxeZ1l5bblyD3yI5ApwMuNhiG
-         pz1qLVLsKZxjmDsEUuR3YI9OkbDqPapjNAHvgfWq8h4wZLk95M9k1Y4dsPJEWnc8GYiA
-         u+QQ==
+        bh=HN5AaMS/rppxH/Zhw9oaxqCW5S4c47gXtmjruB8wFZg=;
+        b=OTasAjEPeGXtupZOOCs1qNI8vILfSJnL29kF+3v1xWFUc4596sfnXP01SWPa72696e
+         lWJEs5WbGSUlAQb/1/ooH6+Kn1119gggd74652NyTLbGfelkA2am7Bykmj7qQtBce6Nq
+         FqJJGQnyo+Nn0M1UbhwSXY6ZvY8cW3UXvGYC1d1pPIY8LYWkS1sMuvzpynm0by2m1eGX
+         Rp9GTEDmVbQwb0bMwSGDRmkqIvDxGucb1a6yOsR5zQ6knQDBkikPe1mKYRwzPUqhyuqm
+         3877XBVqwOVcLIjdar6wZTbfIrIsDD7UVV4n0wTl1a0GKLSY2mN248MIc+1ZUjMMUkJ7
+         OmmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793961946; x=1794566746;
+        d=1e100.net; s=20260707; t=1793961947; x=1794566747;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9d4zmqowzFyjpS1+CWDAo2gFvDOoR0tDmX9/Gr/o+TE=;
-        b=17tUeDm3xSWmhNkzk0vCTfaLyQeRXZBkJrhFKI5WR/RpZ1kQAd0r+Fz+yJrT3fF3pW
-         fOK8cEzWGfN7hA33Sq/GbtIJAwEpZUUcikuBKEKeI4HhVXoBXbZcG8i6vshZnbm/CQe9
-         IUL0gHyihM3tFI9zCox6yH13iuz3sghycq6dfNhl9qsLXybbvaLfiCCWigOXg70xFhKD
-         IRqJPK0C9nDuXDYaZalUxWDlr+tW9h+lsHOM0g1kG8s8TDWpIvkvuqLLwqSpe9aEptz2
-         Wi6iEvVuPMEf/Cq/IHJTta3UD56/RP6ks7kBXENeSp3zhVf22H416a0z02RLzvea1EpP
-         oikw==
-X-Forwarded-Encrypted: i=1; AKwUvBzRi0r2yMfKbCHPQF5zqN712RUoSBJVQSNlpztNhilG9Dpo0PUI8XbReNF4YrhbPxOloZdIpRg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9eESmKq+dbmJbBwrmZiBb++4EyzWl2c1UR5xvBiKKWU7SZU/eN
-	v9wp7mJ0h34CeUrfyJbKu6Sca7PJ9N81gKz0XEa4FyimmLFRYQEI12iLNCVXjqFxjfaUEYpfZ2g
-	mJDq9lqGnGuyU6rVf0w==
-X-Received: from edqi22.prod.google.com ([2002:aa7:c716:0:b0:6b5:8cd9:f07f])
+        bh=HN5AaMS/rppxH/Zhw9oaxqCW5S4c47gXtmjruB8wFZg=;
+        b=t3uDUGjCn0KxWZ0IUY4WNA80GpOPlWLGh7U2O81LBcHAd/OlaWK1J/nyOJXHxsTDLT
+         EbHQASE3pXZ06W8jBSm/HE/HpvJWR34f0FvKBfkQAb+i+JU8r5wzkmBdyZIgmOPAAUr4
+         TdhEwEICwacKJ1xuWJHT4AriTsdtVhy9YzsAMwZaJsRDSdDc6JSmeVwqeCjDKA4nXKJ7
+         LuxspueTkC1Zo7BrMAZ7Huk/domvLcD9dB8yNHT3xx5d92i6vyxjZsh7IqJDqp3kBUAe
+         smYTeZXFwcjlsrX3DybPVsiZGH0ayiBoZPR1t/hqNvKdHgQXnLZUtmRcgUC9TDe2viik
+         9jIA==
+X-Forwarded-Encrypted: i=1; AKwUvBwp/FoH0pric0fuTkCSPJDZfUWYNGwcKOb66ZkOrJoJoG2lFJVjSqyfGTob3b7EwIES8sdN+t4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+M8J8QuYNVHAAty0QZjjB5HnrLyWjZ14Nd12eJZtnKjNdWBB0l
+	PO/uVRxfHt6T7sKZXQESgjrQmJZOhf7wvopLMN38zhw+h8ISb1s1p4hcEXEf+c+WhQhoWKfkfDH
+	+bT1hctXistZ6LLEwyA==
+X-Received: from wmbe22.prod.google.com ([2002:a05:600c:5916:b0:4a1:f80d:2f25])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:4014:b0:6b1:ce0f:eb6b with SMTP id 4fb4d7f45d1cf-6b59780db99mr1761923a12.31.1793961945470;
- Fri, 06 Nov 2026 02:45:45 -0800 (PST)
-Date: Fri,  6 Nov 2026 10:45:42 +0000
-In-Reply-To: <20261106063745.87864-1-ojeda@kernel.org>
+ 2002:a05:600c:1d05:b0:4a1:f7f4:7cf1 with SMTP id 5b1f17b1804b1-4b6de4a6221mr32102195e9.11.1793961947324;
+ Fri, 06 Nov 2026 02:45:47 -0800 (PST)
+Date: Fri,  6 Nov 2026 10:45:46 +0000
+In-Reply-To: <20261106070701.89282-1-ojeda@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,45 +79,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261106063745.87864-1-ojeda@kernel.org>
+References: <20261104211103.174756107@linuxfoundation.org> <20261106070701.89282-1-ojeda@kernel.org>
 X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-Message-ID: <20261106104543.2297426-1-aliceryhl@google.com>
-Subject: Re: [PATCH 6.18.y] rust: bitmap: fix intra-doc link
+Message-ID: <20261106104546.2297581-1-aliceryhl@google.com>
+Subject: Re: [PATCH 6.18 0699/1005] rust: bitmap: restrict bitmap length to at
+ most i32::MAX
 From: Alice Ryhl <aliceryhl@google.com>
 To: Miguel Ojeda <ojeda@kernel.org>
 Cc: Alice Ryhl <aliceryhl@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Sasha Levin <sashal@kernel.org>, Burak Emir <burak.emir@gmail.com>, stable@vger.kernel.org, 
-	Yury Norov <yury.norov@gmail.com>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, rust-for-linux@vger.kernel.org
+	Burak Emir <burak.emir@gmail.com>, Eliot Courtney <ecourtney@nvidia.com>, patches@lists.linux.dev, 
+	stable@vger.kernel.org, Yury Norov <ynorov@nvidia.com>, 
+	Yury Norov <yury.norov@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Nov 06, 2026 at 07:37:45AM +0100, Miguel Ojeda wrote:
-> `BitmapVec::MAX_LEN` does not exist in 6.18.y, so `rustdoc` warns:
+On Fri, Nov 06, 2026 at 08:07:01AM +0100, Miguel Ojeda wrote:
+> On Wed, 04 Nov 2026 16:07:12 -0500 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+> >
+> > +/// This also matches [`BitmapVec::MAX_LEN`].
 > 
->     warning: unresolved link to `BitmapVec::MAX_LEN`
->       --> rust/kernel/bitmap.rs:24:25
->        |
->     24 | /// This also matches [`BitmapVec::MAX_LEN`].
->        |                         ^^^^^^^^^^^^^^^^^^ the struct `BitmapVec` has no field or associated item named `MAX_LEN`
->        |
->        = note: `#[warn(rustdoc::broken_intra_doc_links)]` on by default
+> This is a broken intra-doc link -- it can be fixed with a trivial
+> one-liner I just sent here:
 > 
-> Thus link to `BitmapVec::new()` instead.
+>   https://lore.kernel.org/stable/20261106063745.87864-1-ojeda@kernel.org/
 > 
-> Fixes: 37f45fe068e0 ("rust: bitmap: restrict bitmap length to at most i32::MAX")
-> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-> ---
-> Another option (cleaner but a bigger change) is to cherry-pick:
+> But another option (cleaner but a bigger change) is to cherry-pick:
 > 
 >   f5535d78e126 ("rust: bitmap: add MAX_LEN and MAX_INLINE_LEN constants")
 
-Both options (this one-liner fix or cherry-picking f5535d78e126) look good to
+Both options (the one-liner fix or cherry-picking f5535d78e126) look good to
 me.
-
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 
 Alice
