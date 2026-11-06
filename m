@@ -1,56 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793971626;
-	b=3/jhImvlW3BH0h0tE5kV6X5hKDPqqg0yWmSgsRC0o3P9aLby19eR+mUCJzELBFut4K1t
-	 yeuuqrBrVceTu4mmLKOWQ3CzocpK72kc/eVmSTHc3v1zWlxDYCHRFJ9yhlhoMe+hoMs2s
-	 9Omt4f5Ee9Ptr2bvjK7IQw9sAXskFQ9wc5jqALYCsie81au2kuYwjdYX79KxSJj9Ctv6T
-	 +kjOtJTD1ren/FcSkAhXIukiy9K1OF8IP7CPmS31pvk+2CMyWEl6MNkD9yr+2iWyIGt8V
-	 zE+wHj8YrCm8pB6dy51JZxRbBoflb2aEr/htIsdoh7k1tuKtkSYJScAEtaBdZdLQBvA==
+	t=1793972066;
+	b=f6o3zZt7j8xIBBJ4UzTT3GRJN6e22Cwvph6JYFngWw4stk/WlQc4pIUwTya271ypJGpC
+	 o7FRX+aeJm2idBK5yajaqGLEYIr9fxt5JBJLzsckQ7f65EfCsjuHQJYTI/VAx5PG90yME
+	 Ex4amHYYKOtV2zC4hdqUZwmtVoSJhoU2VDaX5uPf1Dvti2p9h23T7UVgQ+3wvvXLOaPiB
+	 rEIynFzhIw6NcYO6veQCJAZCecFVE5kFt2OiVS58u73VAg7mk16xIOreU3c458AD1WK4Y
+	 D10mDyMonxM+d0VljZgP3TCOZAmF2tZgBH6788v/JWjU26zVTWlHlR5z72FIWFKQIUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793971626;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793972066;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=OhWpIhS6debfOWOV4SOsz97OTmkfoZwtd8CFM+Vsbn4=;
-	b=gmT9jcYOoZN+J34o0eekZTiVTojmrSL4G0nKnPXtOO4GrbGq064T0bUIJ0FqZEnYlcsb
-	 gcsLh+b798XEPjFjuGsc7Cmhy0nX9OOLZ0ioNTLB9315snd+HPWhmzz+IxsYvcQFdIHgY
-	 WdoHmZyDc0HQwKT/OrKz/P15GasqPNW5I8YUegd9CyIMAG45ZVBu9RTl8yzeg2wBN0PbZ
-	 f/HGlH7Zd0n/qF8dBv5NknK/UOSnZxbNCd8TQDRQccysuHWTelqaS/7vACcUNlVLXMtgH
-	 LBPCnbQqLe/ZI4quuMRbEmL6bIMfCJdoR2av5IStpsG4j9IIke069PMM+4OFZeZGLrA==
+	bh=w3C8M1cy164ZCHYkwL9QP4A8fq91NVznA1aa1mB2Hts=;
+	b=p0WG8tOVaPGqiZMVQUjAwNv4bXaVa3Y1Lofox8lAlht4FiujOhz950uwf9JbDXPtCVW8
+	 XYfKiAGxF5TdBi7O9GTpslLucooLPRMivsPvgFhgsEhDl13CHSOmJe9F6XLpfANNNer/q
+	 FolpIDlKMs88gsqBisS4HHxE1frxWNfI4isatqrCIhMDVWqKOXPWWK5411qbUFfO6vSas
+	 Lurue6+ZXQh/QjvKY8CnO4B0cO9sNTMAiTyVwl4lD4YUyDJzF2L7V92PSG90Pm5bd94Ij
+	 droMX2DMTOGYaHJ2YxqyRTddZSFVaxp8h41sawG/UmDYVmxFlMZADCSP2gvb08HS2Lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="J/V29XH4";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iubR4jkl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE4C606A32F
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 13:27:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54346606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 13:34:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J/V29XH4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8E9D1F008A1;
-	Fri,  6 Nov 2026 13:27:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iubR4jkl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8A3D1F0089F;
+	Fri,  6 Nov 2026 13:34:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793971625;
-	bh=OhWpIhS6debfOWOV4SOsz97OTmkfoZwtd8CFM+Vsbn4=;
+	s=k20260515; t=1793972066;
+	bh=w3C8M1cy164ZCHYkwL9QP4A8fq91NVznA1aa1mB2Hts=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J/V29XH4NddaTBCAcFKKyKi4WpaWJ9/ADGl31qtZT1CSzAYi94t9ixmaPNcSU+IR3
-	 yN7+wY2/5+ENwumMkmcgwKF3N8gA9DLdfIogR3qnqm0WOMzbDvHsKfCY9pmiugvGGn
-	 bdMhAFwL4pUPdnt0ibrGcSjryuE7U1mtdNvTRFCLp7LO7yBRN0ksoQKLQVV8CA0ZXO
-	 XgVCzzfF6vM8naI6RSD9xcxv3X8B2ck9/yoiQ6SPlenGIwHKbijvGs60BJ7f1Tpoe5
-	 mn7Lzrxh4N3KMS+Wh9NtmITXakuIChStpVXZHuWi7w5FITMmxqx4vXdTnedSKzA5tm
-	 tfERpx8v7v7Og==
+	b=iubR4jklwbfeRGZTq/Ge+ErxlWiWPyIPap92KzVCVPZsbREJuzdLas3rgx2FoXfXs
+	 4mvDUGheuHYZ6ejxJDtN1Fs02NK5aod4ct9w5QsJzDRnjWvehZFyZLiZ9yr3udPk1O
+	 nl2oePvhs8+4GU4D1VLdZJer3QVs+rYvM5cOn6L4OLQRJiPzqQDXnNhy1kUQbTx98E
+	 l9uiKQFjyMF6CUNoae23dtzJ86jSkXa+ZGAf2z/0xjb/5B0YGtFxEA5WkZGrLgG40c
+	 Lw6aTx/qzd0MNP5upKwIFpfLsv3BoxmrBUIxvLH7JemfYWPtcl56SFp1Ny7vMKyd3d
+	 XNyRuBCTIfpBw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Benji Wiebe <itsme@benjiwiebe.com>,
-	Chuck Lever <cel@kernel.org>,
+Cc: Sean Christopherson <seanjc@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] nfsd: don't offer flexfiles layouts when NFSv3 isn't being served
-Date: Fri,  6 Nov 2026 08:27:03 -0500
-Message-ID: <20261106132629.17942-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] KVM: Harden and prepare for modifying existing guest_memfd memslots
+Date: Fri,  6 Nov 2026 08:34:23 -0500
+Message-ID: <20261106133356.250405-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110411-frequency-agency-61c8@gregkh>
-References: <2026110411-frequency-agency-61c8@gregkh>
+In-Reply-To: <2026110459-universe-gladly-03d3@gregkh>
+References: <2026110459-universe-gladly-03d3@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,56 +60,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jeff Layton <jlayton@kernel.org>
+From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit 5d28b2c920d9d9d3c45b41769342ad785eb372a7 ]
+[ Upstream commit af62fe2494da84eb01752282c8228c9bb3fe9f67 ]
 
-The flexfiles layout driver hands out a deviceinfo that names this server
-as an NFSv3 DS (flexfilelayout.c hardcodes da->version = 3). With v3
-disabled, the client can't talk to the DS: it loops on v3 NULL calls that
-the server answers with PROG_MISMATCH, and I/O hangs in D state.
+Unbind guest_memfd memslots if KVM commits a MOVE or FLAGS_ONLY memslot
+change to harden against use-after-free, and to prepare for eventually
+supporting dirty logging on guest_memfd memslots, at which point
+FLAGS_ONLY changes will be expected/supported.
 
-Skip LAYOUT_FLEX_FILES in nfsd4_setup_layout_type() unless v3 is enabled.
+Add two separate WARNs, once to yell if a guest_memfd memslot is moved
+(which KVM is never expected to allow/support), and again if the unbind()
+is triggered, to help detect uAPI goofs prior to deliberately allowing
+FLAGS_ONLY changes.
 
-Reported-by: Benji Wiebe <itsme@benjiwiebe.com>
-Closes: https://lore.kernel.org/linux-nfs/c734eeb8-8486-4491-bb4d-b9656cbaffbe@app.fastmail.com/
-Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260904-pnfs-ff-v1-1-5f502cf25401@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[ sashal: adapted the flexfiles condition to replace an existing preprocessor guard instead of an IS_ENABLED() check ]
+Link: https://patch.msgid.link/20251202020334.1171351-3-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Stable-dep-of: 513333a55460 ("KVM: Only bind memslot to guest_memfd instance for CREATE operations")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs4layouts.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ virt/kvm/kvm_main.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
-index 03c8e71d1974a..747f28deb80c4 100644
---- a/fs/nfsd/nfs4layouts.c
-+++ b/fs/nfsd/nfs4layouts.c
-@@ -125,6 +125,7 @@ nfsd4_set_deviceid(struct nfsd4_deviceid *id, const struct svc_fh *fhp,
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 7debedc1ddaae..0d017f75c5a11 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -1725,6 +1725,12 @@ static void kvm_commit_memory_region(struct kvm *kvm,
+ 		kvm_free_memslot(kvm, old);
+ 		break;
+ 	case KVM_MR_MOVE:
++		/*
++		 * Moving a guest_memfd memslot isn't supported, and will never
++		 * be supported.
++		 */
++		WARN_ON_ONCE(old->flags & KVM_MEM_GUEST_MEMFD);
++		fallthrough;
+ 	case KVM_MR_FLAGS_ONLY:
+ 		/*
+ 		 * Free the dirty bitmap as needed; the below check encompasses
+@@ -1733,6 +1739,15 @@ static void kvm_commit_memory_region(struct kvm *kvm,
+ 		if (old->dirty_bitmap && !new->dirty_bitmap)
+ 			kvm_destroy_dirty_bitmap(old);
  
- void nfsd4_setup_layout_type(struct svc_export *exp)
- {
-+	struct nfsd_net *nn = net_generic(exp->cd->net, nfsd_net_id);
- #if defined(CONFIG_NFSD_BLOCKLAYOUT) || defined(CONFIG_NFSD_SCSILAYOUT)
- 	struct super_block *sb = exp->ex_path.mnt->mnt_sb;
- #endif
-@@ -132,9 +133,9 @@ void nfsd4_setup_layout_type(struct svc_export *exp)
- 	if (!(exp->ex_flags & NFSEXP_PNFS))
- 		return;
- 
--#ifdef CONFIG_NFSD_FLEXFILELAYOUT
--	exp->ex_layout_types |= 1 << LAYOUT_FLEX_FILES;
--#endif
-+	if (IS_ENABLED(CONFIG_NFSD_FLEXFILELAYOUT) &&
-+	    nfsd_vers(nn, 3, NFSD_TEST))
-+		exp->ex_layout_types |= 1 << LAYOUT_FLEX_FILES;
- #ifdef CONFIG_NFSD_BLOCKLAYOUT
- 	if (sb->s_export_op->get_uuid &&
- 	    sb->s_export_op->map_blocks &&
++		/*
++		 * Unbind the guest_memfd instance as needed; the @new slot has
++		 * already created its own binding.  TODO: Drop the WARN when
++		 * dirty logging guest_memfd memslots is supported.  Until then,
++		 * flags-only changes on guest_memfd slots should be impossible.
++		 */
++		if (WARN_ON_ONCE(old->flags & KVM_MEM_GUEST_MEMFD))
++			kvm_gmem_unbind(old);
++
+ 		/*
+ 		 * The final quirk.  Free the detached, old slot, but only its
+ 		 * memory, not any metadata.  Metadata, including arch specific
 -- 
 2.53.0
 
