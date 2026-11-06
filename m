@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793968642;
-	b=pODDdkGe5dIuoO7x4pFcNqerV5SUBpl5omp5Hg84IGjjREQiDsHXwo6RTqFMbj/ioh0H
-	 DXeXLSn80R8IgDCs/RwrPvkfrtARYIktMhG/C2On9W9Mo6P3M7Uob5xfi2LDXvucVDBjO
-	 WlTrBuGBkMRkKiqZg43rHI6MjRRo+ietXHLl0rlPgtYYZg6Aj1HfiOazaRH/YFBfpNk4a
-	 iYPt+jsqzJnp5c4XI2JmcoKROwuXhCydfWz/mndwN7Julj2VSmxoNoVgg6ZZlQwDzZrvl
-	 WfwSrKbBWvTj8/epcKmY2Kau2B8AB68EVKzcEryorg17E6RdHVW2MTFBl5sKqkeCBjw==
+	t=1793968643;
+	b=kMgKhLqnsn9Ie26rQmBWDH9WRXrONB2tX8+GjwFQflzIdFlCAR7KBkWSZCTQ22+JPIaS
+	 5YeKYM0H0N0Cs/BnVSr6hl6SJnD7yQ5i1PYUkseXE2WS3pX7StsJGWT9iV/1diTN4OuxS
+	 rkV+EubVxxJzff1tXlHu8v8OoKnhTzm9tVvkkCzUpg2xwN6GCSCEG6J6vEozgKeOdEGdd
+	 n3YUH2dcPpc8n786zsxpkAMHKiQDmdJFMiE4SgqNJ0poG2fOmA/s1Z9WfyHpKkeVJKKx8
+	 5PHa03+AuQDvLvW0WBvwBM3wOXH7J9q8W+KC94/IEKeTp7FkrZ3ztNkLXQOJhvWT3Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793968642;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793968643;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cA0GxN44Ukze796NaYJVAbnSSuYugauTH3UBvHdVUl8=;
-	b=TSwbmlujrfMTNyIcqkq44q+baUAFNaKpe0q1ukdmnNefMRbxYOXsFxEvkq2gag2vAzh5
-	 7RkIlUT9rBR9U7ONKXH9lwDpK8vAXvuXCAm7F17dleH9Plna7OsvBFVEXFdYsrK4oTZF5
-	 rZnLc0baHD6+vkrzQNUqsTXFQfMYM9I91QaZv7r414XxTUy8ZH8xLO37hhJvu4CxS4A6h
-	 o29hBJ8kLd3Tnh26j/bjbbiTl2qv5sy5QdGEbZ1oJJd4AbEBpTARM4iKd5hzlv6gYcDUl
-	 adN9YKm3yM9faGgwn7asEWswItqApbdFXk3a5sKIUz8VSiU1neKzDoXB6t/6HhDbe4g==
+	bh=Mwn54BdFHM91O+po8g3imp5xzGdZxh4HR8sU8pG4Cy8=;
+	b=ytC/IqdT1VohAA+NnaP4LtmI36izoupI9C5KiSbdZW4M+1QHJhmXoTXHD3ZKkVtJ7Crw
+	 mX+/dKjhupLDqp+k+1Rh0nbOuqyPpPL/Yx8SuTpxUdqoebzEH0YdVjMqOySoS/eMQMLOO
+	 lBHaEVfwwXsTL3Bs+Ww6/5LdF+85SE98UIeGRWcOyUPC6UDNf2kdP8VMiItyhQpxOspfk
+	 0uVT6lT6FW509CFpWcqwNBkZqN5hGLacIZ8AZgOW4c/NR5BC0CVw/DqejE2SZ10LjHfs0
+	 uVpvmz3UCu5CNC2Fj056RInFNMV0nQ54Snqu1zsI7ScQk0j/SNLCX27d0ouC+FKLNJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9s3kkJp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e+q+Eoq7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E16606A332
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:37:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 559B3606A334
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:37:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9s3kkJp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 038C31F0089F;
-	Fri,  6 Nov 2026 12:37:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e+q+Eoq7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0081F008A1;
+	Fri,  6 Nov 2026 12:37:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793968642;
-	bh=cA0GxN44Ukze796NaYJVAbnSSuYugauTH3UBvHdVUl8=;
+	s=k20260515; t=1793968643;
+	bh=Mwn54BdFHM91O+po8g3imp5xzGdZxh4HR8sU8pG4Cy8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I9s3kkJpTn2NIrS1zpKn9yuR+Ui0M66KU+zFNyNSdmwcvd+BtIJrZKY5z+7jRsIYo
-	 FrjUm+YM0CVCUYzi1yssIW2Hy3hrM55nqKd49HvAMWix14H8/jA0OVykkuuIUfM6tW
-	 C6de8n7rJE1GaedRaVvbraBHJBUDrl0hQkWq8wKXgdsLC87cbfKTU6/r9UFegzhuQh
-	 4vudXHTnMehprnrtIztsnpcDiCT76IhhgVFFGCLacxHYC9LJ0y5icboqcliW1aIOs6
-	 k86ZW/jkJVMaVvBxTPXBmW/14KHIFhJu8yIQPWZYC/3eUA9vp8rDPR64y7pAb8Q//+
-	 UTaAn6nQfXqrQ==
+	b=e+q+Eoq7dHGcoRUrKV7dzUsjijnEKQuhBis3YkgNSX5MyUIAhrxE9OqOVmsxFABdy
+	 J6Bhs/1LCLuQwUfunxNK32etfzbRaoCxOpsHdUOkNW9iqGSe7VEnSuD0iIJ2fr6OKo
+	 HfdZZao+UVQtj5cD/1LuKrInEvttSFq0iqkJte0V7x5GtiSwITaMic9xAGmzuVl91t
+	 QtGniLcbExWw0Rdvh+Pa3TEbMG0MmxEapX182VqfXhhLpLW6pjWeT6e/ebND5c0oH/
+	 IEdyo5WaE3a0d4gNUTd9G3afk8rmjU+VwZ6VDQddrzK/hq6qsEYvqTtNE2INUjfP6F
+	 rw2h3kFRcibaw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <cel@kernel.org>,
-	syzbot+edbebd898142ee5e24ce@syzkaller.appspotmail.com,
+Cc: Zhiling Zou <zhilinz@nebusec.ai>,
+	VEGA <vega@nebusec.ai>,
+	Chuck Lever <cel@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] NFSD: Complete a cld upcall when the daemon closes the pipe
-Date: Fri,  6 Nov 2026 07:37:20 -0500
-Message-ID: <20261106123630.4042374-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] SUNRPC: trace an accepted transport before publishing it
+Date: Fri,  6 Nov 2026 07:37:21 -0500
+Message-ID: <20261106123631.4004730-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106123630.4042374-1-sashal@kernel.org>
-References: <2026110456-hypocrite-villain-ea3d@gregkh>
- <20261106123630.4042374-1-sashal@kernel.org>
+In-Reply-To: <2026110436-footnote-extrovert-e489@gregkh>
+References: <2026110436-footnote-extrovert-e489@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,80 +62,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <cel@kernel.org>
+From: Zhiling Zou <zhilinz@nebusec.ai>
 
-[ Upstream commit 2a83fcb50f3c25c493cc4389619340fefe9d6ac4 ]
+[ Upstream commit 06f90cf104fc21ee01e7ef1eb80e092173089b9f ]
 
-Once nfsdcld has read a whole upcall, rpc_pipe_read() unlinks the
-message from every pipe list, so the purges in rpc_pipe_release()
-and rpc_close_pipes() no longer reach it. cld_upcall_ops supplies no
-.release_pipe callback, and cld_pipe_destroy_msg() returns without
-completing the upcall because a downcall is expected to follow. A
-daemon that exits between the read and the write therefore strands
-its waiter: the nfsd thread sleeps in TASK_UNINTERRUPTIBLE in
-__cld_pipe_upcall() and never returns, hung task warnings follow,
-and the server cannot be shut down.
+svc_handle_xprt() publishes a newly accepted transport before tracing
+it. svc_add_new_temp_xprt() places the transport on sv_tempsocks and
+clears XPT_BUSY, so another nfsd thread can dequeue it at once. If the
+peer has already closed the connection, that thread runs
+svc_delete_xprt(), which drops the list reference, the only reference
+the new transport holds. trace_svc_xprt_accept() then reads the
+transport's addresses and network namespace from freed memory.
 
-Add a .release_pipe that completes every upcall the daemon has
-consumed. cu_inflight distinguishes those from upcalls still queued
-on the pipe, which the framework purges before it calls this
-callback; cld_pipe_downcall() removes an upcall it accepts from
-cn_list under the same lock. Neither can be completed twice.
+Before publication the accepting thread owns the transport
+exclusively: XPT_BUSY is still set from svc_xprt_init() and the
+transport is on no list. Emit the tracepoint there.
 
-Fail the stranded upcall with -EPIPE rather than the -EAGAIN that
-makes cld_pipe_upcall() retry. The daemon consumed the request, so
-whether it acted on it before exiting is unknown.
-
-Fixes: f3f8014862d8 ("nfsd: add the infrastructure to handle the cld upcall")
-Reported-by: syzbot+edbebd898142ee5e24ce@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/linux-nfs/6a99f6f0.2e567484.299ffc.000c.GAE@google.com/
+Fixes: 11bbb0f76e99 ("SUNRPC: Trace a few more generic svc_xprt events")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260901-alemi-v2-7-e163f94a3a6e@kernel.org
+Reported-by: VEGA <vega@nebusec.ai>
+Assisted-by: LLM
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Link: https://patch.msgid.link/d15495bff2247e3f9d4f9ef36df8e246a3898380.1789220778.git.zhilinz@nebusec.ai
+[ cel: trace before publication instead of taking an extra reference ]
 Signed-off-by: Chuck Lever <cel@kernel.org>
+[ sashal: Adjusted context to preserve the existing unbraced else clause. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs4recover.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ net/sunrpc/svc_xprt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
-index 274c6e0aa60f2..4dbf1e72c1232 100644
---- a/fs/nfsd/nfs4recover.c
-+++ b/fs/nfsd/nfs4recover.c
-@@ -937,10 +937,34 @@ cld_pipe_destroy_msg(struct rpc_pipe_msg *msg)
- 	complete(&cup->cu_done);
- }
- 
-+/*
-+ * An upcall the daemon has consumed is off every pipe list, so the
-+ * purge in rpc_pipe_release() and rpc_close_pipes() cannot reach it.
-+ * Release its waiter here instead; no downcall can arrive now.
-+ */
-+static void
-+cld_release_pipe(struct inode *inode)
-+{
-+	struct nfsd_net *nn = net_generic(inode->i_sb->s_fs_info, nfsd_net_id);
-+	struct cld_net *cn = nn->cld_net;
-+	struct cld_upcall *cup;
-+
-+	spin_lock(&cn->cn_lock);
-+	list_for_each_entry(cup, &cn->cn_list, cu_list) {
-+		if (!cup->cu_inflight)
-+			continue;
-+		cup->cu_inflight = false;
-+		cup->cu_pipe_msg.errno = -EPIPE;
-+		complete(&cup->cu_done);
-+	}
-+	spin_unlock(&cn->cn_lock);
-+}
-+
- static const struct rpc_pipe_ops cld_upcall_ops = {
- 	.upcall		= rpc_pipe_generic_upcall,
- 	.downcall	= cld_pipe_downcall,
- 	.destroy_msg	= cld_pipe_destroy_msg,
-+	.release_pipe	= cld_release_pipe,
- };
- 
- static struct dentry *
+diff --git a/net/sunrpc/svc_xprt.c b/net/sunrpc/svc_xprt.c
+index 60782504ad3e7..db1f565cc8ec0 100644
+--- a/net/sunrpc/svc_xprt.c
++++ b/net/sunrpc/svc_xprt.c
+@@ -811,8 +811,8 @@ static int svc_handle_xprt(struct svc_rqst *rqstp, struct svc_xprt *xprt)
+ 		newxpt = xprt->xpt_ops->xpo_accept(xprt);
+ 		if (newxpt) {
+ 			newxpt->xpt_cred = get_cred(xprt->xpt_cred);
+-			svc_add_new_temp_xprt(serv, newxpt);
+ 			trace_svc_xprt_accept(newxpt, serv->sv_name);
++			svc_add_new_temp_xprt(serv, newxpt);
+ 		} else
+ 			module_put(xprt->xpt_class->xcl_owner);
+ 	} else if (svc_xprt_reserve_slot(rqstp, xprt)) {
 -- 
 2.53.0
 
