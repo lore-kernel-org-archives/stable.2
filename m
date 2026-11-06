@@ -1,57 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977526;
-	b=AMXp+GwAS1YgOt7SMZSIwNg1tKT7FqmtcalXraqSSJdQdOT47cO9/AKItpwuhT7yIavJ
-	 eBq/zez9VuYdr8h3O27YZYvsjmQRjTI9eYyu232f2XA/NvqxiNKMPLNL0yDZGyAIuoycC
-	 F7VOly/np+wfaJ/FwllFJfQe9sP2ndqBqxgINNlZlC2X5BT12nd9y8EVkcRSeUeb8tQfB
-	 Lbh6A5SO41AHujLxweQegtL5sFa/REBG3QiUmyvFrR7qw/nBOFxxAvpxRWNklVhHxsn2Q
-	 4rggP0/sLVAkJ2GCCzNiu61gO0SknLXgt3CSov+qzlrvgw9pTccxmzn2/P7tZtTgndg==
+	t=1793977766;
+	b=fcjn0aKq8SnauZfb0EqIbPvY3wiJSw3oKxIePPDDno4UnnNcrFvXPVyDIbxOKPDgy4F1
+	 5Ccra5XzP4xfvWuEc41z6Qr/9eEnuWbKTOwcMkvHtkCxxjZbIxmN8K8UD8s1Sks9sOygQ
+	 yCBSYIJAHKLY5EQXXL9N6m63jOfZ94ZDM42kJ5ssziIVyCSEOZMtVtCFcbs+znArrOe7l
+	 iL+CENGbPgoVUUKhiv+yQ5feWQMcIaknyykMfsuwWzKYb4FJ32c2eb45cHYZI/dKQO2pv
+	 oKHxdVbUR6Mt6F4MtnkGfMfqIYis/3LnJk6EFWBV0om/H2ZtceNWRJoux22SwqTSIag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977526;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=tWIw7GbbZmwRZyzRRDz9wqzLXFMD+qm3Vi2BTvOrqMQ=;
-	b=q6gBTBcLtMm9TOGnXNI4Uw6KlajRYz3OUpSAJsRVMH7en8xyzMsjI3jBCqa7Xmq4/vP0
-	 jcP5v/cmzaJSEGUsnRKIHBOGNMpGVgBnfGcoemLmP3J5d/1u/tlxm1Ud0ee5WVrZW4DZz
-	 vPuKj0rAC+gwZquNcBfD0fkTtae+f/SYmK3Iq/jN1Fw0fxrXd9MAmHVSMBHUfaV4Yalf+
-	 adwv0wdODetCOxKzkWCYcqMpNuSE1zTRlh4fpMMEcUNu0D6/aH6vFYES3o/TN0Wg2FOBL
-	 kEz/sbHkOFg8GzMiAEOcYOnmlYfK2kDBkGy8uwB+aG9TejtMl/uPAciQdxMO4hzO9mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977766;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=npuYSel4O9FrV/jNGZ9cdAPDnmYjQUkDZB008eKUgGc=;
+	b=uuxTs13ZMz7jF/J/MLUeDa0xwfq6PZgG+ECK6Y1/WrPsu2J9AHYcfFgTw3TFbrkN+4uO
+	 qVz591Kcfntkc3xufQ6ecJjZAp1H4mgWse4d0f7gkAdGZ+0Bh9A7EpYtW0f7rdd20p/w8
+	 pSCjn8R3AvKyHA8rr1bsgj5x4Bsmcaa5ZPEeGHmeXfgDmlAYTtEI3vkTwIMF8OhCXPCDM
+	 nZne1JorfgfVoxVLWnkzmqWuHC1AIpimrC9NaggxoALjRsfNziz6B7Immuevk0gbQUxel
+	 ZBGvxF8LdN/7OjaVKeDxpyi2WT4l5ZXQ/ZHm+qG2SFrnnt9tcjm+xam5J/98+DrFfCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxtx.org;
-	spf=pass smtp.mailfrom=linuxtx.org;
-	arc=none smtp.remote-ip=185.70.43.23
-Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SN3Df+G0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5094D606A32D;
-	Fri,  6 Nov 2026 15:05:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5094D606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=linuxtx.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxtx.org;
-	s=protonmail; t=1793977520; x=1794236720;
-	bh=tWIw7GbbZmwRZyzRRDz9wqzLXFMD+qm3Vi2BTvOrqMQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=DCiOmy+KeCLdEUAFGkNrrmfAN0ExNrQqMZe5BtEro0hVg4MqFiBFbYp067qVcRFFQ
-	 RdN5IuP2VnNhRpREIkbok9nPnjTtwgRYsr6k9wEBE2KpxTRKS5a3U0IEZyDQuvRkV/
-	 f9Px3DzcYdMWptLpdM8iVbRvnUWTeoTht2Rj1Um1fmAjVe39qQO7Yvu577QLUSICST
-	 ygwPOxtQ56yDXA2vCPYzRjm4EIRITiQycRFOVQ1sDu9n48uIrGTTlu3QzCR2COalzF
-	 XFZ/BF8LqoNKT3u7awPdHJ7fN4vEctONlSoHnJ5l9hTY/fMDIInlkotqqoV87AJnkO
-	 AgvWzn0V+6C1w==
-Date: Fri, 06 Nov 2026 15:05:15 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-From: Justin Forbes <jmforbes@linuxtx.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
-Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
-Message-ID: <fa6VXGlKXtuVlSLWkggGaz2OVaAuB8DLwX4RhY2VNnz_BS1U7Qn32A2ihaYdhplnk8dNpDG_4ZVV6Zs4WigyYBl-mEb1I-cmKlES5Bchomw=@linuxtx.org>
-In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
-References: <20261104211038.406938024@linuxfoundation.org>
-Feedback-ID: 225434474:user:proton
-X-Pm-Message-ID: f82d7f49348ffd00d56e54c3a72d3058a0984ed4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3218A606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 15:09:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SN3Df+G0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CE8B1F008A2;
+	Fri,  6 Nov 2026 15:09:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793977766;
+	bh=npuYSel4O9FrV/jNGZ9cdAPDnmYjQUkDZB008eKUgGc=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=SN3Df+G0EtekgzPJcjrphLXQlf2O8Hy1oI8QHIKj4W7qCmCrlcI7EMzdNQYPL9zDF
+	 Mttbz422POvi1Wcmz2ZnVzZtgQGAzx+IMTKWU1YK4ioQov2KYsbEAVp3n27pI5I9Zx
+	 w7eoJTAyTeIUjq23O8tTxAArMrILtoFTmKyip4OwfG4tKaEV+tL+7TIqEyqeeLx/71
+	 47zgvk5XEwGHznLXXtZ5a9R0oSlWY/04iUCsNNwdP0zWnhg70S9EsO34goDjRJRcrs
+	 EvhO+sMQIa2w0L8GLtXmhuIRxv3XlC6VmTwKeRCrmBCmKozQYPhONJIAuuTDi8JEmX
+	 YCz9oqyVy6zuQ==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id EA5B6F40066;
+	Fri,  6 Nov 2026 10:09:24 -0500 (EST)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Fri, 06 Nov 2026 10:09:24 -0500
+X-ME-Sender: <xms:pO3tavCpLhKAHBgB1GqJOZtIxf2vvwdmlMg8IaorUUw81lrmVn82YA>
+    <xme:pO3tagXPWk9VQ-cL5bnGPzSlRAD3oWm0OvesAi2q7t5H0WyR3fnmpJa5sMmmJkEsa
+    Fnx7CRxyWa9m9hkooh3_4c2lnkApxozb4rDjuwt5_73pV4kTsNZ0K8>
+X-ME-Proxy-Cause: dmFkZTFEhyjgIWT9Pl7QSDXtVhusfaBv7ZIEID3b6YaYkY/PL4NFOj9jmbZBiJKasYMxrT
+    cHTZQ+y/cKTOkkwTy3bgReD6eZWCZ4oFOP3Fheauuru/hu6APs/VMcM8CSa4tMi0yHZpV3
+    Q055OM8A6Zu+3SdJrgCjERVT17kvzH7TihJ4vwOkhIBI7Sx8wYrOMWXuMe8oHbSYEJ633K
+    TVgnEWoJGyQ2jyMWfbPQbJstCtXUnCk3uQ1UzH99NSAJjoueBgrsfby6dcWc95nK9JJk4l
+    n9cdoA7lVuSur778GyQzFCPedD2JhDWkUG7+1a3cYAo/M4Q9bisUAXTeERjfmTvtsZWwQ6
+    DL3JueRN62cGgtN4zFP17T4wtrdxw90UQ2A+kJ8WmDDz4wcJRhtsprKS+731WsC2kdEdcN
+    Iovo9fGC9z6Bl8pcg3cl90ark4c/eFRbxxR0meVzU8n+CM9nOZ/wTfTAx/VWpP5iC18LQE
+    T017Af6YvGdcZykgdjNz6/1QenNOfwjpEbsC8IQJlTkW2HyWM+YMlgvkTZUXwaAxvrjiD4
+    j1o5XnmdBwXcQU3YzCGMG+s6S8XsBjZpjEjK1KXvsTkQB/liAWuGUYgzQFwkeoqmDdCb8R
+    jC4eOaLYNHw8Br+kT+mG90lO84My3d3X5R6Avlt5IhPrOuslw6lIY3tq2Vgg
+X-ME-Proxy: <xmx:pO3taskkJ7VxndqivvrJnBr5tevANTi-D6_ZFsCII6HJrdZwg3rNQg>
+    <xmx:pO3tansS6HrnkCJ4h6NuE77MOPzzaE5UchXJGwMULm6V4M71pFcFJA>
+    <xmx:pO3tanp7mVj9ajDYDwY-JLxXZaLPH9WvM4WvBCrUdiKdEncz080H0g>
+    <xmx:pO3tateZ8vte2uvNWpQJVszzitYXsdCkGDYfNo9K1GXlVyxtmrn3hA>
+    <xmx:pO3tavnjB0nh0BCcD8kbwKwlPtk0JjWADyclTpeBbHVi9mTxN_sKbrJk>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id CFBA9782738; Fri,  6 Nov 2026 10:09:24 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,37 +77,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: As7mHhrShI7Z
+Date: Fri, 06 Nov 2026 10:09:04 -0500
+From: "Chuck Lever" <cel@kernel.org>
+To: "Tim Menninger" <tmenninger@everpuredata.com>
+Cc: anna@kernel.org, trondmy@kernel.org, ebadger@everpuredata.com,
+ jcurley@everpuredata.com, linux-nfs@vger.kernel.org,
+ slingappa@everpuredata.com, stable@vger.kernel.org, tom@talpey.com,
+ mora@netapp.com, Rakesh.Bhargava@netapp.com
+Message-Id: <dce03323-90e7-400f-8deb-63010d928460@slotpi15m67>
+In-Reply-To: <20261106142039.1066437-1-tmenninger@everpuredata.com>
+References: <20261106142039.1066437-1-tmenninger@everpuredata.com>
+Subject: Re: [PATCH v5] xprtrdma: serialize unmap_sync with xprt_disconnect
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+
+On 11/6/26 9:20 AM, Tim Menninger wrote:
+> frwr_unmap_sync() posts LOCAL_INV Work Requests to the QP and waits
+> for the matching CQE. This can race with rpcrdma_xprt_disconnect():
+
+Thanks for sticking with this one. Before the rest, a pointer: a
+second report of the same race went to the list yesterday, as a
+list_debug BUG in frwr_unmap_sync() rather than a hang:
+
+  https://lore.kernel.org/linux-nfs/20261105232137.4706-1-mora@netapp.com/
+
+That is the other outcome of the same window. rpcrdma_req_reset()
+and frwr_unmap_sync() both pop rl_registered with no lock, so which
+symptom appears depends on timing. I've replied there suggesting the
+two efforts be combined on this patch.
+
+I'd like to see the patch get smaller.
+
+> +	/*
+> +	 * Hold an endpoint reference so ep, its QP, and its CM ID remain
+> +	 * valid after the rwsem is dropped and through the completion wait.
+> +	 */
+> +	rpcrdma_ep_get(ep);
+
+As far as I can tell, the only use of @ep after up_read() is the
+rpcrdma_force_disconnect(ep) call on the error path. If that call
+moves up before up_read(), the write side still holds disconnect
+off while @ep is dereferenced, and the kref isn't needed:
+
+	bad_wr = NULL;
+	rc = ib_post_send(ep->re_id->qp, first, &bad_wr);
+	if (rc) {
+		trace_xprtrdma_post_linv_err(req, rc);
+		rpcrdma_force_disconnect(ep);
+	}
+	up_read(&r_xprt->rx_unmap_rwsem);
+
+	if (bad_wr != first)
+		wait_for_completion(&req->rl_linv_done);
+
+With that, the export of rpcrdma_ep_get(), the new
+rpcrdma_ep_release(), the kernel-doc for both, and the header
+changes for them all drop out. What remains is the rwsem and its
+init, the down/up pairs, and the completion move. That is about
+half the current diff for the same guarantee.
+
+The ordering is the same as today for the error case:
+rpcrdma_force_disconnect() only sets a flag and queues the
+autoclose work, so calling it under the read side does not recurse
+into rpcrdma_xprt_disconnect().
 
 
+> +	/*
+> +	 * Orders frwr_unmap_sync()'s LOCAL_INV submission ahead of the
+> +	 * QP drain. Disconnect holds the write side across the drain
+> +	 * and resource teardown.
+> +	 */
+> +	struct rw_semaphore	rx_unmap_rwsem;
+
+With the write side held across rpcrdma_mrs_destroy(), every
+xprt_release() on this transport waits out the ib_dereg_mr()
+loop. The NetApp report describes that loop stalling in
+mlx5_core_destroy_mkey when a couple hundred transports tear
+down at once. I don't see a deadlock, since the drain needs only
+the CQ workqueue, but it is added latency on rpciod. If that
+turns out to matter, the write side could end after
+rpcrdma_reqs_reset() rather than after the ep put. I'd leave
+it as is unless someone measures a problem.
+
+I'm a reviewer here, not the maintainer, so take the above as a
+suggestion for Anna and Trond to weigh.
 
 
-
-On Wednesday, November 4th, 2026 at 5:40 PM, Greg Kroah-Hartman <gregkh@lin=
-uxfoundation.org> wrote:
-
-> This is the start of the stable review cycle for the 7.3.2 release.
-> There are 547 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->=20
-> Responses should be made by Fri, 06 Nov 2026 21:07:23 +0000.
-> Anything received after that time might be too late.
->=20
-> The whole patch series can be found in one patch at:
-> =09https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.2=
--rc1.gz
-> or in the git tree and branch at:
-> =09git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.g=
-it linux-7.3.y
-> and the diffstat can be found below.
->=20
-> thanks,
->=20
-> greg k-h
-
-Tested rc1 against the Fedora build system (aarch64, ppc64le, s390x, x86_64=
-), and boot tested x86_64. No regressions noted.
-
-Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
+-- 
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
