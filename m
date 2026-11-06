@@ -1,100 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=40.107.208.2
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793959834;
-	b=c/QDCxyoiZOrcKc84ZELY2sPQJzn56Feg61EGZoVungnIaxBWc+m3+1/bmSnvJ3G9SaN
-	 nVuqDsHPKUm4myOyv1mu8BdVRfXgEOhN4RstuV7B5Sb6ilKkQ9oCKlmEec/foWSy3KoNK
-	 VNxV6e5XFNgUuSE/j51Lhu5eOh6jiyPJH+ru1qI1SKWnVS/VYUlFLt+6IvbjIRS7GtLIq
-	 JhktCNhAmijDn+zZv/UYPIwjvKJFGUffARJdxUOx/82Gv7kRsQI6StjJTt23seH4HGG/1
-	 HOWjABP29JRclo5RYyzwg6Moln/GFZrrcGKkuMDqXZAsJ3ltrcazbTXRHWG4CiKCnIA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793959834;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=aT+bTIoMNj/bdd+dgyVJBvz0wdyi5T29Lspl5yVu9nM=;
-	b=B4cMvuscJ9yDuDu8Cq+WA5isyJIDEN11C4PyCSLrQrUPPco1KFyRRY2C47yZ0PoVS2pb
-	 ObReFu2hfocXl3d7qnf24x1uSAsJhtrtWJwgu2Ghc2tpP90jSX0PM86odhIujayPVQogE
-	 Jto3pTS1huMvIcN5g/VnZa+9WdFjxvquQy0/KN8H1S5Mk3G/ej0HIQnRDMg9rk75a0Yi6
-	 2BVATMBRdh/O9SJlNbeNizLGcqMGsphcGQWXSZLQsU/tUqSskClAXR5K1GkZ1uiwiEg/f
-	 2mlSzbtlmSpcnTbJJtLUxt6OG+EmsztOZg/qEe21BPbR46ACyrpPhRLKd1ZjQw+3r0g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=CqNEcy6M;
-	arc=fail smtp.remote-ip=40.107.208.2
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011002.outbound.protection.outlook.com [40.107.208.2])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.22
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793959921;
+	b=lBzdetql0UNDWxLt9br4LT3KT+0Ss2PN63G/gjQlRLGl9KCKU406X4fIjpnRg42aoV8G
+	 OeFV1P63H+mSSidix+0o/FXYlxY3WEeP4kWuM63iHDresbnwk0n7E5gwdgSzL5+4qaLwk
+	 KsKcPl6sUxw1cAe01UITlLSzBbVZIJ9Bc0Gz3jbGFdsM2o0dIFi7R4wP1iqmSNLVJS1z/
+	 HvmoEgZK7/TOxXc19zaQQIU58aoviOFUwVXIOxscuHcOhoae7aBA2A/NZywEUcbr+6Ue1
+	 w7e1CIHrDuBWlELCkiMhuRybNHdh1xyWBK6c3QrOYQYi2fmxRlGC1+CtdDjLS9aKfNA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793959921;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=BoJHi99guAl+SLvHXlExOFrj9K5CUgdGPI4NEL98/hA=;
+	b=ay9qyWgs9avY/cPeck+Xjc6RBb7W3P511s2D2SI8hHlm49bOhwUkyOdX7D6xWHp00Onl
+	 kVmASX4UDvnzxXqekkRo8HiaR5/BkiujT/q0yLIyOUto3JthED1MW9rBb9HJp3/qntGgE
+	 AtMIt3UgVT0StyVNVDIGhVG4qUYvIM7i6HjxSSMzIUi602zvOuq01HcsUNfOY5HsUDZHh
+	 x7d8/pnLzbcr5iUaKAcr/rXwvJx72cJvaxTPS7FcSWSrbgP3k93aoQRpKNagT/2D/8KUb
+	 nt4AJraUymkjMzSpDqMhbf0QgBgYA8qlH40uZ5XYzTP1+M8Bn+Dycl7av7vEWsCWckA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmx.de;
+	spf=pass smtp.mailfrom=gmx.de;
+	dkim=pass header.d=gmx.de header.i=rwarsow@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=XNgIDZ2p;
+	arc=none smtp.remote-ip=212.227.17.22
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C8A606A32C;
-	Fri,  6 Nov 2026 10:10:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47C8A606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A9D2606A326;
+	Fri,  6 Nov 2026 10:11:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A9D2606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=CqNEcy6M
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lDYtvztqHTYo+Z676o170jOmIwIMHqU5/Yj3KHRyTiv8t3eMGiQYK7icwDT0WV5NNM5dG3KLsimluF7jLHi+G8/FbdxBt0gVhmEc8+3HiUINXG8j031QIjVmqZX1JBmcXBujZ2sq6psJtrnpGb/Jl07SHu47hWHB4bKDbTp7r4Prkq5duSDjPQ56dHmsZNfl6O8nJtDGxXD4aVhZsrz2/gJxnKh8FnvZ4NiU6DHcpJbKF7BtIKD0mO9ZobV+L2NyZjAE4sIZH0AqOO+NYsnS3ze+uZM/J7Up3k5JIk89aPBSqFhULi4mQ0MKuziBo6TsqTOZVxhNFqxSscood2QHBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aT+bTIoMNj/bdd+dgyVJBvz0wdyi5T29Lspl5yVu9nM=;
- b=jcHysqYA/um0/PXiCOr/zLzJHpwdkMGM9WxB4rgXwF9DE0828mw6fXpvsuINP0vR4sJzTnoVVnHUtYVKIqFezenwP6uQgsNi4WOZMemLJWs73dnp7/F4koecmic7EeaLLuKXmVIyO5cZUungPgtN68b/o+P5eeuO2iltFQNmSu5EDUUQIG1ylZe9t60MYxPb0XlMQThOxfJEEWI1l7Oaec3Sd+kne+teFvrIU8nVkdbjYKBBc2HCzEmUw5S8QrtUB8hM1osfVJUDvzbvo4156BPU6dLL5ZOBChf84FYhyeIMm7Jk7+gmsA9MNU6BjlGm4PcO0lC8z3W4Vx/9AKtQXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aT+bTIoMNj/bdd+dgyVJBvz0wdyi5T29Lspl5yVu9nM=;
- b=CqNEcy6MdQ3PRZPyW03GhMUFy6K/vYLzOSi/kQwz0Yf4+H/lIanYpUve2TQaSFALAd0J2sKQkMejAnmCO2Iur+G2LwW8ZEfdzmLoIufwqeZ/J1hJUjQpSo5ZwO1z35N7vatCr+d8KOFi+lPP58kEpRSqv+BqJG7h2s0wNfVg24w=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB9060.namprd12.prod.outlook.com (2603:10b6:8:c4::12) by
- DM4PR12MB7597.namprd12.prod.outlook.com (2603:10b6:8:10b::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.11; Fri, 6 Nov 2026 10:10:31 +0000
-Received: from DS0PR12MB9060.namprd12.prod.outlook.com
- ([fe80::e096:864d:d60a:c83f]) by DS0PR12MB9060.namprd12.prod.outlook.com
- ([fe80::e096:864d:d60a:c83f%4]) with mapi id 15.21.0592.009; Fri, 6 Nov 2026
- 10:10:31 +0000
-Message-ID: <70a8369f-aec9-48c0-ae1e-5081d2a838d4@amd.com>
-Date: Fri, 6 Nov 2026 15:40:22 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] iio: adc: xilinx-ams: fix out-of-bounds accesses
- when parsing channels
-To: Arnav Kapoor <kapoorarnav43@gmail.com>,
- Conall O'Griofa <conall.ogriofa@amd.com>, Jonathan Cameron <jic23@kernel.org>
-Cc: Salih Erim <salih.erim@amd.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Michal Simek <michal.simek@amd.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>, stable@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261104164510.105359-1-kapoorarnav43@gmail.com>
- <20261104164510.105359-3-kapoorarnav43@gmail.com>
-Content-Language: en-US
-From: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-In-Reply-To: <20261104164510.105359-3-kapoorarnav43@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0214.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1f3::10) To DS0PR12MB9060.namprd12.prod.outlook.com
- (2603:10b6:8:c4::12)
+	dkim=pass (2048-bit key, unprotected) header.d=gmx.de header.i=rwarsow@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=XNgIDZ2p
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1793959898; x=1794564698; i=rwarsow@gmx.de;
+	bh=BoJHi99guAl+SLvHXlExOFrj9K5CUgdGPI4NEL98/hA=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=XNgIDZ2pBq5avJ2t3en81ahXIU+qeLlR9nRU+WAwmuyjwfeZ+J/Tct1bWfie+8X6
+	 1Lb0ESFye7WGYvZX4S9bg8xbjDx+5Jn2Jc4vxsRJsl8GMbQmBMlaSbFMPIryJpXXd
+	 qZ15Lky7tUVeNHYDFA01JYLhQWckiRK5sEHSWbPleqtsbMrSpicKd6jCIwhPG6Sfd
+	 UxcULApnUgOj+j62Gs0HAkJK++v+aGCLd+cNZG8Mst24OxVxo24D3sVbb4i+ztx8j
+	 9mOlWIOqPh7aOPanvqKGk7vlCtqmFVIiKtv22MRAKRrouarEcZ0e8oI35JMi0YzNn
+	 E+isSJm/dCSwg7tU/g==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MxUnp-1waM5I3egb-014V08; Fri, 06
+ Nov 2026 11:11:38 +0100
+Message-ID: <ebebc4d2-c2e5-4f48-ae05-d048bb350755@gmx.de>
+Date: Fri, 6 Nov 2026 11:11:35 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,243 +63,162 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB9060:EE_|DM4PR12MB7597:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15e430c3-56ff-44d3-f670-08df3bee3047
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|22082099003|18002099003|10067099003|4143699003|56012099006|11063799006|261026130827099003|261026135527099003|261026121527099003|261026140227099003|261102123227099003|261028144727099003|261022113327099003|261021133027099003|261022115727099003|261022105027099003|261022075727099003|261021135927099003|261021123027099003|261021121427099003|261021130227099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	AuZZTKFhPhgNu+UrKvLCEZiDkURL5Mz4d/d8audlQtHHN5wBXckqq4mGjklhotgH1snEYl06C1A37Tyx501Hd5AniV27QMvHlC1rYjqokuzW+QRkrQDU8XdbbhXfAYlxOqtW624HgF2U7S+Y1P17IordFkUUxEpDyhPi6LoR9oAtEjZTrtSWAxyiIisvanNjtyFJh4U6kJcfHQU9pT1GjvoHYhNFyC1yaGZGLqgXkUnEGmFtAqCDDJBdW0Lyo+0hEz7OWkaaL3lBRRSc7izw6Tsp2w9Y9F74fwJDXMc0r5jP9kwPdWYoz+1+PogDLu4SOYv9ZRSXPgycYeoRQnUD9TSrvIfS6OeW6ON6+KL6NMbhVvvFW+9r8GwBLQjywuP/4RDazk2bK4Pa2RiAfvvl9D9sepeBF104RQocIEt9PeWEB7sr/qZRdm+nBuiCv4FqNgK0DowQHQZ6rHPhns4u8qlyHD6oLSJGJ5hetUOlyZDqdrP6+KCkcUwUGpwskt4rbfXYh8AXSv6hH8eEtc8EX5yYBGzoTKucNd1TILPs/hyITtfpvqDG5VfMr+vPp4w5BxHX1ANVJPFUCMWGy0KPxk1qZXjB7GDZMNTB72AiZrUeDwFNSpwvbxv8oaFyiO3RnQJ6Yols1m4YQHZ5i1MRLJGfTjsNUvvqIESK0ALOtlk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB9060.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(22082099003)(18002099003)(10067099003)(4143699003)(56012099006)(11063799006)(261026130827099003)(261026135527099003)(261026121527099003)(261026140227099003)(261102123227099003)(261028144727099003)(261022113327099003)(261021133027099003)(261022115727099003)(261022105027099003)(261022075727099003)(261021135927099003)(261021123027099003)(261021121427099003)(261021130227099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dlJFUWl3MjJHSjNGVzlYUGY4cGUxcEo3ZGNJWEljQUxxa0FuQ1JYbEZLYVZK?=
- =?utf-8?B?b3JiRFNlZ204enR4S3A1RXV1MlpqaGh4Z0xQRVJ1VUFET240NTNjSHAxQkFH?=
- =?utf-8?B?cVJNbVJiLzAxK0pYaEpuZGY5RGNxUy9lbXN6Szh2TzVVUklXUGlnK2xXT2VY?=
- =?utf-8?B?b3BrSHNXMG5EcWNaT0ZCQW14N2pSSW0wSGxvd1A0MzQzRk5GeTltM1dTVnFN?=
- =?utf-8?B?YlE0WTUzMERQdEY1SXhBcndKRHc4MXJQMUdHbTBnMEpEVDF1U2tMYUNYS29V?=
- =?utf-8?B?eENzbVg4VTROT2ZSTmI1aFhkRGhkd3lWNytXcFFwVEFDU0o0NHRPSUdVWG1z?=
- =?utf-8?B?dHVYRHZYeTZWQXFNQlJodndraVMva1NRRzVneUZ4K0RFQmlCOUtOSnJ0L1Y2?=
- =?utf-8?B?MHlrZWNMdDQzS1VJTjJneEFTWklBaVpHaFUva1hQdXJkRnFVdC9MZVVXbnNF?=
- =?utf-8?B?YnJyVVdsWHF5MVd0RlVjL3d3U0pKNytGSnZPTjdGRkw3WU5VWHpFT3U2K3da?=
- =?utf-8?B?TGk2UGFHaW9aZXpkdlRmRGlHVkovQlQ5YlM2UXVUMno3Z2pVQXl5MkRYN3hW?=
- =?utf-8?B?bUdrN2xZSDZ0aUw4VHZIOGxBT2V2bkpmdVAxMmY0aGJZWGF0bmFDK05mUFdl?=
- =?utf-8?B?TXlqQjF6Q0ZsK0U3bitDMXFjQjU5cUVyYXNneVE3UmVtU0RFNUhEU0dCT3RI?=
- =?utf-8?B?RFM2UkNyNVlja2hnMW0xN2RuSmpER3BBa2k4TkFXVGRJbkxvbWxIL2tFRity?=
- =?utf-8?B?eG5ON0FFRmZoSUlWTlJkVkpObWRHSUtGalBqa1U0V0pkamlHZzVhNklaUHRI?=
- =?utf-8?B?MzVhSUtCNXErbHgwbTNnVjhuVW5hS3BJVWVRRHhQeHNOZFBoSytING9ncUwy?=
- =?utf-8?B?RDh6SU91U1FvdW9sVnIwUlFTaUdmSzhqSU5PTHo4OHNiUGgyU294OWRkWEh6?=
- =?utf-8?B?QTVobnA1VmxISEVra3JCY0Z3d2tRekUyQXg5RE9rdW1kdFpZMDhtMjJjb0dm?=
- =?utf-8?B?WVZNalltRWN0aHFtemg4dUhzWkMxY1dRUk1SWUQ3WGZJV3kycDUyN2tqWWZG?=
- =?utf-8?B?MnJwQ1UzM3FNbVYvaGd5WU5BRDZRU29hL2FDL0NrVVhyVTIxQVpmYUlGemlt?=
- =?utf-8?B?ZXpNLzRvTGowNGNkeFBJc2RsMTBEa21ocEt3eExhRzc3UE1rY0NzdTR3YjNz?=
- =?utf-8?B?K09qU25VMWMxd2FGckljUnhpOUE5a2p1UzZ2MnJuclBIWDNDNEpxNFV3U3Zk?=
- =?utf-8?B?bHZvelhWOEEzMmp6ZFgzMm5mSTRESkJDRG9FMlA4cnJMOXhIbmhabEVlVGFn?=
- =?utf-8?B?RW9XaU5WQ2wwa2hqNjlGSmlEY2JkeWpkaDJJcFNKNHUzMnJlYXF5NXdhMXMr?=
- =?utf-8?B?M0hQSVE5WHoyQnFUNnU0SlJPUnF0OHBTOHdyTWJvcERheUhjNVcxRWgvU2Jp?=
- =?utf-8?B?aSs5ekdNMmJGazZid2FQUXRxcmpiZ0FhTnhsamJubUk4MnQyWnJFNC9OUVdR?=
- =?utf-8?B?LzdnY0J2Vmk2UXBuc3ZqRk5Nd3U2ckFiWWU2V0c5eTZFQjZKeDFQdDlIekVM?=
- =?utf-8?B?TG5jNFJGOERha1NmWFJQUjlBbk9CRGdPQXc2R09XajlEZHdicHdTVkVidWN2?=
- =?utf-8?B?R2cyUjJKNjExUW8vOWRZcGlhYnBuMm9PVlRaSTM4dzNtZ1FLWVV6Tk0vS0Ur?=
- =?utf-8?B?N1hFYlBDZVZrZWZSaDhjRGVRSHVmSklmSWxkYkh6UEZKd05hbkRGamdmcmZ2?=
- =?utf-8?B?bjdlSmZTYU9iUVJVSnJyZ2FlczV2b1Y4emxCbndEL1FhZnd3Q3QwZjBvOXpF?=
- =?utf-8?B?NW8wbjhScEQ3RFdiUlR4cUtOR1lIV3UyMGxYRHY4aDJSbUVJdEFjYTBmUU8v?=
- =?utf-8?B?RFRFWXpYOVNWcmxoam5BNWNMdlpTcUdydWR2ZGtiYVJQemMzV2ZFSnRhUTJZ?=
- =?utf-8?B?Z3BDSWFuV2NhenVlVE5zeUZTRmdoNHBza2gwL2pmM3lJZGNQTTY1eS9hMVlW?=
- =?utf-8?B?VmxrUW1IVVJ3bm5YSXg3Y1A5aEE0d0htRHpXUWl5VEtGZzBud2ZNSll1ZDFu?=
- =?utf-8?B?Y3dMbWdzNWFrOWtwUmlnR3pNRzgvQXVNQ0lEUldPS3J4SEswNmVZQVBra2o2?=
- =?utf-8?B?QlJxTEtHVEczVUlkZWZudmJKMzBNbjlUcER1WkZZZDJ6MHZwWGhnQ2o0YXFR?=
- =?utf-8?B?Q01sOEN0R3RUUDkvSG1MdXUvd3QvVGR2UzlYQ1lFWmswV05tMXNnZE16RHFv?=
- =?utf-8?B?cml3VXcyZXpvS2dSSzRvL1V3QXh3dU9JRHhwSjJKb05HeEQ5MTViS3UvbkNI?=
- =?utf-8?B?UksyMFF4dm1OL1k3UmU0ZTNqMjFuK0xHc0VpNTdzMkFPbW1TSERiQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15e430c3-56ff-44d3-f670-08df3bee3047
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB9060.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 10:10:31.0053
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d/NcT/1hFykDzTcQGzURPoz7WDfy4d2s4BNVXExOWJ/lJj6SAkPJqGbY4SnQ+8bWS8Pcd1VIvEZ1PhdmEDSzKQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7597
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
+To: Jiri Slaby <jirislaby@kernel.org>, Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261104211038.406938024@linuxfoundation.org>
+ <3dfb9b8d-3bf7-4fa2-89ec-6561c1b7b70e@gmx.de>
+ <2026-11-05-1-daily-reply-0007-7.3.2-rc1-wx@kernel.org>
+ <3d2ae531-b076-4dd2-8afe-2f30c7c1d928@gmx.de>
+ <fb15f855-e306-4b08-87df-f31a6bbb2a51@kernel.org>
+From: Ronald Warsow <rwarsow@gmx.de>
+Content-Language: de-DE, en-US
+In-Reply-To: <fb15f855-e306-4b08-87df-f31a6bbb2a51@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:BE8NssGNblISFBQFSz/ZiMKrpJP5y1PUa2pVe2J8T0tuqLySTPw
+ uFP2GbhAzTg4J2rn/BqhUF0bQeNxRSovyY1ymwN34Vm/tvHfoW4MSUGGAe9bSqIKvrf3Lt9
+ WoK6bic64UFmmCsq12LxV0f+q+XdbWBm+mLAZxdYSqZQT5jFFeMyJLiBOjlJOOwKbcaxSO+
+ Mml8+rwIYNFTpl6rhgcKQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:humt0+TwIE8=;Xh131h9zoVKfgj5knetk89phQfs
+ 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
+
+On 06.11.26 07:26, Jiri Slaby wrote:
+> On 05. 11. 26, 20:58, Ronald Warsow wrote:
+>> On 05.11.26 19:39, Sasha Levin wrote:
+>>>> I need to revert:
+>>>>
+>>>> "x86/mm/pat: Fix effective RW computation in=20
+>>>> lookup_address_in_pgd_attr()"
+>>>>
+>>>> otherwise I get:
+>>>>
+>>>> [=C2=A0=C2=A0=C2=A0 0.108037] ------------[ cut here ]------------
+>>>> [=C2=A0=C2=A0=C2=A0 0.108037] CPA detected W^X
+>>>
+>=20
+> There is ea6fd393cb9e6811a748c7551de0dd3090f9dcde to avoid this false=20
+> pos. Care to try that?
+>=20
+> thanks,
+
+I'm a little overwhelmed and don't really know what to do.
+
+I don't have much experience with Git.
 
 
-
-On 11/4/2026 10:15 PM, Arnav Kapoor wrote:
-> ams_parse_firmware() allocates room for ARRAY_SIZE(ams_ps_channels) +
-> ARRAY_SIZE(ams_pl_channels) + ARRAY_SIZE(ams_ctrl_channels) = 51
-> channel specs and lets ams_init_module() fill them for the AMS node and
-> each of its children, without telling it how much room is left.
-> 
-> For the PL-SYSMON node, ams_init_module() always adds the 10 fixed PL
-> channels, numbered 20 to 29, and ams_get_ext_chan() then appends one
-> channel per "channel@N" child as ams_pl_channels[N - 20]. Only channels
-> 30 to 50 are external ones, but any N from 20 to 50 is accepted, so a
-> child numbered 20 to 29 duplicates a fixed channel. A PL node can then
-> have up to 41 channels while only 31 are budgeted for it, and together
-> with the 13 PS and 7 AMS control channels this writes past the end of
-> the buffer. Since the modules are filled in device tree order, the fixed
-> channel blocks copied after the PL node can overflow as well.
-> 
-> ams_get_ext_chan() also only checks the upper bound of reg. ext_chan is
-> unsigned, so a reg below 20 makes it wrap and ams_pl_channels[] is read
-> far out of bounds.
-> 
-> Only accept the external channels 30 to 50. Also pass the remaining
-> capacity down to ams_init_module() and ams_get_ext_chan() and fail with
-> -ENOSPC when a module does not fit, so that a device tree repeating a
-> reg value can't write past the buffer either.
-> 
-> Fixes: d5c70627a794 ("iio: adc: Add Xilinx AMS driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
-
-Looks good to me.
-Reviewed-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
-
-Regards
-Sai krishna
-
-> ---
->   drivers/iio/adc/xilinx-ams.c | 57 +++++++++++++++++++++++++++++-------
->   1 file changed, 46 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/xilinx-ams.c b/drivers/iio/adc/xilinx-ams.c
-> index 158e6133abf5..745edcf7c735 100644
-> --- a/drivers/iio/adc/xilinx-ams.c
-> +++ b/drivers/iio/adc/xilinx-ams.c
-> @@ -144,7 +144,14 @@
->   #define AMS_PL_CSTS_ACCESS_MASK		BIT(1)
->   
->   #define AMS_PL_MAX_FIXED_CHANNEL	10
-> -#define AMS_PL_MAX_EXT_CHANNEL		20
-> +/*
-> + * The PL channels are numbered from 20 in the binding. The first
-> + * AMS_PL_MAX_FIXED_CHANNEL of them are always present, the external ones
-> + * from AMS_PL_EXT_CHANNEL_MIN to AMS_PL_EXT_CHANNEL_MAX follow them in
-> + * ams_pl_channels[].
-> + */
-> +#define AMS_PL_EXT_CHANNEL_MIN		30
-> +#define AMS_PL_EXT_CHANNEL_MAX		50
->   
->   #define AMS_INIT_POLL_TIME_US		200
->   #define AMS_INIT_TIMEOUT_US		10000
-> @@ -1131,6 +1138,9 @@ static const struct iio_chan_spec ams_pl_channels[] = {
->   	AMS_PL_AUX_CHAN_VOLTAGE(15),
->   };
->   
-> +static_assert(ARRAY_SIZE(ams_pl_channels) ==
-> +	      AMS_PL_MAX_FIXED_CHANNEL + AMS_PL_EXT_CHANNEL_MAX - AMS_PL_EXT_CHANNEL_MIN + 1);
-> +
->   static const struct iio_chan_spec ams_ctrl_channels[] = {
->   	AMS_CTRL_CHAN_VOLTAGE(AMS_SEQ_VCC_PSPLL, AMS_VCC_PSPLL0, "VCC_PSPLL"),
->   	AMS_CTRL_CHAN_VOLTAGE(AMS_SEQ_VCC_PSBATT, AMS_VCC_PSPLL3, "VCC_PSBATT"),
-> @@ -1142,20 +1152,31 @@ static const struct iio_chan_spec ams_ctrl_channels[] = {
->   };
->   
->   static int ams_get_ext_chan(struct fwnode_handle *chan_node,
-> -			    struct iio_chan_spec *channels, int num_channels)
-> +			    struct iio_chan_spec *channels, int num_channels,
-> +			    unsigned int max_channels)
->   {
->   	struct iio_chan_spec *chan;
-> -	struct fwnode_handle *child;
->   	unsigned int reg, ext_chan;
->   	int ret;
->   
-> -	fwnode_for_each_child_node(chan_node, child) {
-> +	fwnode_for_each_child_node_scoped(chan_node, child) {
->   		ret = fwnode_property_read_u32(child, "reg", &reg);
-> -		if (ret || reg > AMS_PL_MAX_EXT_CHANNEL + 30)
-> +		if (ret)
-> +			continue;
-> +
-> +		/*
-> +		 * The fixed channels have been added already, anything else
-> +		 * outside of the external range is not a valid channel.
-> +		 */
-> +		if (reg < AMS_PL_EXT_CHANNEL_MIN ||
-> +		    reg > AMS_PL_EXT_CHANNEL_MAX)
->   			continue;
->   
-> +		if (num_channels >= max_channels)
-> +			return -ENOSPC;
-> +
->   		chan = &channels[num_channels];
-> -		ext_chan = reg + AMS_PL_MAX_FIXED_CHANNEL - 30;
-> +		ext_chan = reg - AMS_PL_EXT_CHANNEL_MIN + AMS_PL_MAX_FIXED_CHANNEL;
->   		memcpy(chan, &ams_pl_channels[ext_chan], sizeof(*channels));
->   
->   		if (fwnode_property_read_bool(child, "xlnx,bipolar"))
-> @@ -1183,7 +1204,8 @@ static void ams_iounmap_pl(void *data)
->   
->   static int ams_init_module(struct iio_dev *indio_dev,
->   			   struct fwnode_handle *fwnode,
-> -			   struct iio_chan_spec *channels)
-> +			   struct iio_chan_spec *channels,
-> +			   unsigned int max_channels)
->   {
->   	struct device *dev = indio_dev->dev.parent;
->   	struct ams *ams = iio_priv(indio_dev);
-> @@ -1191,6 +1213,9 @@ static int ams_init_module(struct iio_dev *indio_dev,
->   	int ret;
->   
->   	if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-ps")) {
-> +		if (max_channels < ARRAY_SIZE(ams_ps_channels))
-> +			return -ENOSPC;
-> +
->   		ams->ps_base = fwnode_iomap(fwnode, 0);
->   		if (!ams->ps_base)
->   			return -ENXIO;
-> @@ -1202,6 +1227,9 @@ static int ams_init_module(struct iio_dev *indio_dev,
->   		memcpy(channels, ams_ps_channels, sizeof(ams_ps_channels));
->   		num_channels = ARRAY_SIZE(ams_ps_channels);
->   	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-pl")) {
-> +		if (max_channels < AMS_PL_MAX_FIXED_CHANNEL)
-> +			return -ENOSPC;
-> +
->   		ams->pl_base = fwnode_iomap(fwnode, 0);
->   		if (!ams->pl_base)
->   			return -ENXIO;
-> @@ -1213,9 +1241,14 @@ static int ams_init_module(struct iio_dev *indio_dev,
->   		/* Copy only first 10 fix channels */
->   		memcpy(channels, ams_pl_channels, AMS_PL_MAX_FIXED_CHANNEL * sizeof(*channels));
->   		num_channels += AMS_PL_MAX_FIXED_CHANNEL;
-> -		num_channels = ams_get_ext_chan(fwnode, channels,
-> -						num_channels);
-> +		ret = ams_get_ext_chan(fwnode, channels, num_channels, max_channels);
-> +		if (ret < 0)
-> +			return ret;
-> +		num_channels = ret;
->   	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams")) {
-> +		if (max_channels < ARRAY_SIZE(ams_ctrl_channels))
-> +			return -ENOSPC;
-> +
->   		/* add AMS channels to iio device channels */
->   		memcpy(channels, ams_ctrl_channels, sizeof(ams_ctrl_channels));
->   		num_channels += ARRAY_SIZE(ams_ctrl_channels);
-> @@ -1245,7 +1278,7 @@ static int ams_parse_firmware(struct iio_dev *indio_dev)
->   		return -ENOMEM;
->   
->   	if (fwnode_device_is_available(fwnode)) {
-> -		ret = ams_init_module(indio_dev, fwnode, ams_channels);
-> +		ret = ams_init_module(indio_dev, fwnode, ams_channels, ams_size);
->   		if (ret < 0)
->   			return ret;
->   
-> @@ -1253,7 +1286,9 @@ static int ams_parse_firmware(struct iio_dev *indio_dev)
->   	}
->   
->   	device_for_each_child_node_scoped(dev, child) {
-> -		ret = ams_init_module(indio_dev, child, ams_channels + num_channels);
-> +		ret = ams_init_module(indio_dev, child,
-> +				      ams_channels + num_channels,
-> +				      ams_size - num_channels);
->   		if (ret < 0)
->   			return ret;
->   
-
+regards
+ronald
