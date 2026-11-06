@@ -1,94 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964486;
-	b=ZM1ramDpdzM8m0D8WCKF7/SgGLRuUfAVe1DVVdx7jNRqVAZcJi2KAI+2es5w1wCeVNEZ
-	 W52uTeD+OcNt34nhZJAMmj3GX+C12rPFrSRc2tjoxFvRsEAI0GXAJKwwvbEdvqGaat7Ux
-	 +2cl6B2ZcDo+0V/QXk1XAq4m3p44riQAHtQ+nTiCm/V8doVf8Nq8zP/ngEAUUQSW7ZU2o
-	 8x3GrJYJPqGJn+l0gEGYUdewzcwyLWiarolc7V8xq3CVBQcb/WL14NpEtmpfnTPvtNsA5
-	 UCVlHuu+SmWKUB914hx2FLMHBfyRQE4hl88xp7c76/C32DKUX9KSp/x/TLvECSBB2Ug==
+	t=1793964516;
+	b=U0tNDMP4kxEu4FPdXwVPWqERzdjbL95dpE4yaSb6sCgya4UG/WMg3PH1EFZ+O22tc5xH
+	 GUqrJqzmYGpa9cD6LX50UxQ1R2J3bXs4XtKBO7yEho5EyaCC8VVekMKOBe/dyTURvsRnF
+	 oYKuSz0hB9SR8M688KG0UdXtClChzt9VLmKHPUlstML49vLexffw5ggdfxrwUtB3PQBSw
+	 BHli3IgtZwmKZR3V+QN9naNvCZ3dsvUFtmPatFmeD69vwEzvUhsysUS+sTObP1cBeJHww
+	 I3l6y3W3kf7KH2RSC/7R+RwqaLKXuhEfgD9y6Bo3hfYD7CYKZ20YMgyfUsbWzYHHPfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964486;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=r0oGiXSXqPWt2ut4NcPnn3BOhuEor59O/W/UHXN5XZI=;
-	b=0k0MKUXrUkwmb8GxGXrTdIB065SMnKlNE/vLasu35jMClWkbAOy984V2jFJdGihYpsqC
-	 oqGhyjihK7P9OWyCdxOOeXdq3wY+3w8DgDVwWIuTAKDu9Cr8hWPvp4WQ71EwyGRPxOtgE
-	 Hd9BPbCEaqsdD08kim2R8Q/J9eEX+kTHtdEv4qxnQ15zzgMpxltH95AIgpR60j/rvxZh1
-	 Aamj9ANZ/ZbltwLDhD4axmkuOKJrD2Dpu9S79YvkRzcj8n0BpuSl6NDKjxjwdpV0T4Sdi
-	 lHtpmzMOyDiSV9YPiA4tmGavkcMFB4BKjLO5X0OqLuKi7/Pbz69BrTqoED25jSSdxUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964516;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=CIy0lVCVJTm092QOP8ykWpxdfJotD/wijuOAR10N4ZM=;
+	b=14uyE7RPHvweVHAh3PKLVEVvu98qhiGTRIq6IveYntRtyKTcCBZWeb4gxe6eSrcP1Rnm
+	 VOielU66tHd3Ryx7ZDSPsJbiEirelSEiJ3WeQMjlVSarcJs5uqQnsgRI8HTIFNoLX5Tla
+	 Bx7GrmaXWmhRgJCRwnLUNS5wfRyixZcqwsZr9Sh9Wkue21Ol+IZGHPIEYDoV5Dhp7a2L/
+	 S+TIB7oeuU91F0lpVr/4Cj1bjuPFKYcRwI4SqKFzfnuGKQjQt0BWRrV8oRmExhhcXiIvF
+	 Y4gb+7tBpmiRQoWnaqA5RCMtabPHSbKtEX5ykZ/f64ismuReOrTAbzgDbobicE7zFSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yYrmpEaU;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=cTvo9FKB;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D6B2606A329
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 11:28:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D6B2606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B9F606A32E;
+	Fri,  6 Nov 2026 11:28:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5B9F606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yYrmpEaU
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-37071c0f42aso19137eec.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 03:28:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793964485; x=1794569285; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r0oGiXSXqPWt2ut4NcPnn3BOhuEor59O/W/UHXN5XZI=;
-        b=yYrmpEaUTpqnUwnwHY2dg/7LWr5quEGHTcAHtu+t0+dKBO2ED3lkqX2Ji5fGVogG2H
-         02utr/jvturPRR4egvfNpGfo+0wHmSxRbihnbQsE6CWlvs3m+MqRJEEL891fqFjDsEjP
-         rs9H/PG+8DCmcrE6rS6G1DdmzlNsFnD81vt4A+zAXeGL6JklYk4BewC4h7u+RaBArwvL
-         wc8Timc7qPxRzZ9v35ZRW6aulnwMuf9XyC0nsG4KtSTPs+dT/zScMH5iADKMEMZYceL9
-         ee6jB/ZX62j/NErthqK5j2Ni8WBpWq363LNWSJmZTeaWwf74v4Ow1x1JuiVTBAqgNWn8
-         8Cmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793964485; x=1794569285;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r0oGiXSXqPWt2ut4NcPnn3BOhuEor59O/W/UHXN5XZI=;
-        b=BojW5q4EiGJ2XL4x8M8f1wK1dayXuPj5VxFJ5mWbs7Q//8UENNQb7AdJ2XBrWJYYqN
-         VBnA97OMsAdzlq5EEIsJVgrUGnEnvh1y15MNNU7MPEjWmj0iykZVaqVzNlznwvTiC8MF
-         vtVBJL0nMC5I4rK5PW9kIUr1IhecVd17bptYjakUoFGqv6OxTIeQrykq7TbE68srGB26
-         +Pqutpu4pXWM5erBb3OQv74k4d9gMZ0C3GLDrvXwknkbRsl+qE4iIaquJ/TZBLby9Jt1
-         w6N9d0xVgKIPL45eAqhd197KEsmLOQmtXOZtbBzFOpgR/zPQfNbKTkWmrK+k89urulg+
-         AOZw==
-X-Forwarded-Encrypted: i=1; AL+hErE2U9YnLs2xylBkfxvHHE3q0ayU0EEALZQq2DwJmQWpHFvNpoCZGxJyIU760EzDLnPr/kqGoY4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z89uYzlUBcxlBa2qTwrdtEpMgNAmu0HKqyobSHUpMpM9KlAz32v
-	tJZSL5Lva6jeDmz4XLwVxjh0ASqTHFzObCOZQluJshjUh+tbZC1VNpXS
-X-Gm-Gg: AYBFou0++KtGNYI86ksjbo2GpLvd7FhmFFFBhOnyKxqPdaSQJX9iPaE1ysS2JJ22b19
-	nbjppE021HpMiM0B1UVBnkjeLZBRKK6H8UrO2S9SKtn1Go5d2Gk4JYtLbfILIc4prCayjs9Nx6h
-	9xVUJV5RfpnwaYcvXd1axAuB4izCS4h4RPPwR/NTD/N1LH6kZDd0aZ2fPQ4niguAi9VAHQJzq5+
-	PinumkTclcEM+fznXGdjwC39FJuJMiQHK54VXBccIwGpKrPGn6rI0jjtVNKFatrta/FVS9RIcK9
-	bIq3u/48y7Q12n8eBvv4xjG1pMWDrWDXfaVL3vX7Diw5mon2TH67jNVbthAsf3OmVEdXm7r3E9Y
-	UVl3EKCdHrbcamRnFE93aA85etWha9Rx7RhQbkPNmKlqVYKj0rlxuVwmeuTA7e4+HaPc0dC2adB
-	MdwXkEfK6C4IVXNgYSAKm7XzbQZGFxOOoPOaTEpKfQOUtX8G6YrKykr8RAmNC6bncZGLC98POEj
-	ptiNuImvmXFLM5SdS+KbqlD5FyomOiAWvsGFiUane5DxBvpRZ3dGe2sIQ2LIhCljUWpdgFtqRHm
-	nra+Hv9gHimo5NWl1s8dt0XwqenvZ36nXIFlMY6OdtOU7MAW0OkWQBMunW9op5oHHw==
-X-Received: by 2002:a05:7301:4d08:b0:36c:a154:db1d with SMTP id 5a478bee46e88-36f722eabcbmr2881866eec.4.1793964484814;
-        Fri, 06 Nov 2026 03:28:04 -0800 (PST)
-Received: from anon-laptop ([103.187.196.159])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa4b8aacsm6029179eec.23.2026.11.06.03.28.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 03:28:04 -0800 (PST)
-From: Wahid Khan <wahidzk0091@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wahid Khan <wahidzk0091@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ntfs: check the file name against the key length of an index entry
-Date: Fri,  6 Nov 2026 16:57:52 +0530
-Message-ID: <20261106112752.2552832-1-wahidzk0091@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=cTvo9FKB
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=CIy0lVCVJTm092QOP8ykWpxdfJotD/wijuOAR10N4ZM=; 
+	b=cTvo9FKB5Qy/jdvM3frit45Y30XB0MYV81CeJ7OMzmtpFdgLgEj0NLJTC3QCbRG+RaEwX/IfVt0
+	7/AGu/xbaV6JHkUR01JKE058jtOfC86o7U7M2ztn1KE2Izvjn2xXEbUcWnty/S9sag5ydWogwCwwq
+	aoqjfazTa8VuACnXx2N/ZzawMACaxn7N+RAVg6lgWaE4uhrBCTmmaGHOzLnVkQ5V52UMxOL9Onuhn
+	tDsKNi8SjzErRH7OoLgHoCYBtwfnzijRu7ftDyPpBMFcghAniW6JFJJB+QF3McokcXhE/iX3OQw/e
+	Sa6tnV+e1BoxAOfFhmDC40g0+PXSYVtSAC1A==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xPI7Q-0000000Br5b-1IrV;
+	Fri, 06 Nov 2026 19:28:29 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 06 Nov 2026 19:28:28 +0800
+Date: Fri, 6 Nov 2026 19:28:28 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eneas U de Queiroz <cotequeiroz@gmail.com>,
+	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Demi Marie Obenour <demiobenour@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Abel Vesa <abelvesa@kernel.org>, linux-crypto@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Subject: Re: [PATCH] crypto: qce - Fix HMAC self-test failures for empty
+ messages
+Message-ID: <au253K71iaZeVNth@gondor.apana.org.au>
+References: <20261016-qce-fixes-sha-v1-1-3ee5a30d84f3@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,75 +76,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016-qce-fixes-sha-v1-1-3ee5a30d84f3@oss.qualcomm.com>
 
-ntfs_index_entry_inconsistent() checks that the file name of a
-$FILE_NAME key fits in the index entry. It does not check that the name
-fits in the key, which is what key_length describes. Code that works on
-the key alone relies on that.
+On Fri, Oct 16, 2026 at 04:23:43PM +0200, Bartosz Golaszewski wrote:
+> BAM DMA cannot process zero-length transfers, so the driver always holds
+> back at least one byte to submit to the engine and only ever finalizes
+> with an empty buffer when nothing is left to submit. For plain hashes
+> this was handled by returning the precomputed hash of the empty message
+> (tmpl->hash_zero), but HMAC's result depends on the key and cannot be
+> constant, so hmac(sha256) produced an incorrect digest for an empty
+> message and the crypto self-tests failed.
+> 
+> A zero pending buffer at finalization time does not necessarily mean the
+> message itself is empty, though: the caller can also reach it by
+> importing a state that already reflects some hashed data with nothing
+> currently buffered (crypto_ahash_import() followed directly by
+> finalization). Special-casing only a genuinely empty message would
+> silently compute the wrong result for an imported state in that
+> scenario.
+> 
+> Handle every zero-length finalization consistently through the software
+> fallback ahash instead. When nothing has been processed yet, let the
+> fallback compute the result from scratch using the key already propagated
+> to it via setkey(). Otherwise, reconstruct the fallback's running hash
+> state from the state kept by the driver and finalize from there,
+> accounting for the HMAC ipad block that the engine absorbs internally and
+> that never goes through update().
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: ec8f5d8f6f76 ("crypto: qce - Qualcomm crypto engine driver")
+> Tested-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+> Tested-by: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+> As requested by Herbert: I've split the large series fixing self tests
+> into smaller chunks for easier review.
+> ---
+> Changes in v12:
+> - Split out the SHA patch into its own submission
+> - Link to v11: https://patch.msgid.link/20261016-qce-fixes-skcipher-v11-0-d13ddfe609a4@oss.qualcomm.com
+> 
+> Changes in v11:
+> - Split out the skcipher patches into a smaller series for easier review
+> - Drop patch "crypto: qce - Fix CTR-AES for partial block requests" as a
+>   subsequent commit makes this adjustment effectively dead code
+> - Fix a mid-series build failure due to an earlier bad rebase
+> - Link to v10: https://patch.msgid.link/20261013-qce-fix-self-tests-v10-0-57162a38a554@oss.qualcomm.com
+> 
+> Changes in v10:
+> - don't pass a NULL buffer to sg_init_one()
+> - fix byte order of the imported hash state on empty finalization
+> - don't recompute the CTR counter in software for every request
+> - reject skcipher requests with a too short scatterlist
+> - check fragmentation for empty CCM decryption requests too
+> - don't use a static loop iterator (duh...)
+> - initialize the return value in qce_handle_queue()
+> - Link to v9: https://patch.msgid.link/20260922-qce-fix-self-tests-v9-0-b1aa742e79af@oss.qualcomm.com
+> 
+> Changes in v9:
+> - Rebase on top of cryptodev/master
+> - Rephrase Kconfig help text changes
+> - Link to v8: https://patch.msgid.link/20260921-qce-fix-self-tests-v8-0-107537869a72@oss.qualcomm.com
+> 
+> Changes in v8:
+> - Add a patch making the crypto driver *not* register algos by default
+>   but only if the user explicitly requests it with the provided module
+>   parameter
+> - Use the "offloader" name for the crypto IP instead of "accelerator"
+> - Fix device module table issues
+> - Make the core driver use a list (despite it only having a single
+>   member now) of child auxiliary devices to register to make it clear we
+>   have the intention of extending this once we start the work on secure
+>   media playback
+> - Link to v7: https://patch.msgid.link/20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com
+> 
+> Changes in v7:
+> - Add follow-up changes converting the QCE crypto driver to auxiliary
+>   bus, adding the core QCE driver under drivers/soc/ registering the
+>   auxiliary device and removing the BROKEN Kconfig label
+> - Link to v6: https://patch.msgid.link/20260717-qce-fix-self-tests-v6-0-455775fe5f6c@oss.qualcomm.com
+> 
+> Changes in v6:
+> - Handle all zero-length HMAC finalizations (like imported state with
+>   data already hashed), not only the genuinely empty message case
+> - Add an additional patch addressing the fragmented skcipher payload
+>   issue
+> - Link to v5: https://patch.msgid.link/20260706-qce-fix-self-tests-v5-0-86f461ff1829@oss.qualcomm.com
+> 
+> Changes in v5:
+> - Dropped patch 1/8 that's already queued
+> - Use the pre-allocated fallback ahash for HMAC transforms (Herbert)
+> - Link to v4: https://patch.msgid.link/20260622-qce-fix-self-tests-v4-0-4f82ffa716c6@oss.qualcomm.com
+> 
+> Changes in v4:
+> - Remove remaining ECB and DES3 bits
+> - Pick up tags
+> - Link to v3: https://patch.msgid.link/20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com
+> 
+> Changes in v3:
+> - Remove even more algorithms and dead code in patch 1/8
+> - Link to v2: https://patch.msgid.link/20260615-qce-fix-self-tests-v2-0-dc911f1aad42@oss.qualcomm.com
+> 
+> Changes in v2:
+> - Add fixes for the full suite of crypto self-tests
+> - Add Fixes and Cc tags
+> - Link to v1: https://patch.msgid.link/20260610-qce_selftest_fix-v1-0-1b0504783a46@oss.qualcomm.com/
+> ---
+>  drivers/crypto/qce/common.h |  1 -
+>  drivers/crypto/qce/sha.c    | 62 ++++++++++++++++++++++++++++++++++-----------
+>  2 files changed, 47 insertions(+), 16 deletions(-)
 
-ntfs_readdir() copies key_length bytes of the key of the next entry to
-resume the enumeration, and later uses the copy to search the index. If
-file_name_length is larger than the key holds, the name comparison reads
-past the copy:
-
-  BUG: KASAN: slab-out-of-bounds in ntfs_file_compare_values+0x2d1/0x4b0
-  Read of size 2 at addr ffff88800a4ef2ce by task init/1
-   ntfs_file_compare_values
-   ntfs_collate
-   ntfs_ie_lookup
-   ntfs_index_lookup
-   ntfs_readdir
-   iterate_dir
-  Allocated by task 1:
-   kmemdup_noprof
-   ntfs_readdir
-  The buggy address is located 0 bytes to the right of
-  allocated 78-byte region
-
-Two bytes of an image from mkntfs are enough: in an entry whose name has
-six characters (key_length 78), change file_name_length from 6 to 7, so
-the key claims 80 bytes. The entry itself is 96 bytes, so the existing
-check lets it pass. The next readdir of the directory reads the extra
-bytes.
-
-Check the name against key_length, and check that the key is large
-enough to hold file_name_length in the first place.
-
-Fixes: 0a8ac0c1fa0b ("ntfs: update directory operations")
-Cc: stable@vger.kernel.org # v7.1+
-Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
----
-This is independent of the three-patch series I sent earlier today:
-https://lore.kernel.org/all/20261106091420.2461683-1-wahidzk0091@gmail.com/
-
-It touches the lines just above the "return -EIO" that
-"[PATCH v5 19/31] ntfs: report index validation and block I/O errors"
-changes to -EFSCORRUPTED, so one of the two needs a one-line rebase. I am
-happy to do it on whichever lands first.
-
- fs/ntfs/index.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/fs/ntfs/index.c b/fs/ntfs/index.c
-index 322cb371d..1abca298a 100644
---- a/fs/ntfs/index.c
-+++ b/fs/ntfs/index.c
-@@ -43,9 +43,11 @@ static int ntfs_index_entry_inconsistent(const struct ntfs_volume *vol,
- 
- 	} else {
- 		if (collation_rule == COLLATION_FILE_NAME) {
--			if ((offsetof(struct index_entry, key.file_name.file_name) +
--			     ie->key.file_name.file_name_length	* sizeof(__le16)) >
--					le16_to_cpu(ie->length)) {
-+			if (le16_to_cpu(ie->key_length) <
-+			    offsetof(struct file_name_attr, file_name) ||
-+			    (offsetof(struct file_name_attr, file_name) +
-+			     ie->key.file_name.file_name_length * sizeof(__le16)) >
-+					le16_to_cpu(ie->key_length)) {
- 				ntfs_error(vol->sb,
- 					"File name overflow from index entry in inode %lld\n",
- 					(long long)inum);
+Patch applied.  Thanks.
 -- 
-2.53.0
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
