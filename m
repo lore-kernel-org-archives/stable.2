@@ -1,79 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793981392;
-	b=V99VKgNaX0ygC5WDgav40GTnTC1EfFcEuGtORaV5MDaW+6WSd4uuqACfS8A0XQb8326z
-	 KJ+vcBZejqSSoDKClMtVKFnh8cLHu9ybtCBNmqoOmeEXP8cwY5M4/7iKLqGUsFNpGHKQQ
-	 67REDx/oULdHM5DlGGYB49Orl6mGWAAlDOKByp1FurDYr2knAEwGyXWpVzO8zIf7gL9AN
-	 jximUvMQaExio5ERSmphN3TfHu/6H9I7F0Fp0DvFey1n2FoLZ/5sq5btGLBEmutWGAFvu
-	 m69n3BmlnXQBBshIaa6bTUy30U+WcJHQjrAWIDwGKCiu21G9jZzslOlN8OoE9kuA1UQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981392;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=iHAhjf3lUh4MXY8ZNRJ1tkNwvR+RRey9UEkMvDbTWYc=;
-	b=4VPLK9G3tMeUZ8bJMyGpIMxGImmtcCsBZwaBbYlaczHx2yYcdUtbAAEilRrPOY9jE9mL
-	 bZTyCg8GMODrwtVIJfbBCC8lxlHMFZtsoowplU7pu19tyGj388fZLanTEYDp5vfGWmWR7
-	 LDOXoQ2munhK229qY5+DzRxB10GtX6XcCrR9WuXVaWvB6xNyIQLuU466PBr6jnKq0W2hp
-	 t2wTOByaWIwYisLzM7zy4shxW3a/fIpPNn/4LiK4abO2B0xErb1D6SQrSTWVdje+6Evfs
-	 JfzyHRAwtd0Od/cwdCS3mM41JePpPnvlbMXyDI0omlLdzLtPfE5RE2ZiBnsC/t8LyHA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iprBwukv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04040606A326;
-	Fri,  6 Nov 2026 16:09:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793981711;
+	b=xjS04vPPMbvxCF7caMcGk1c/KxGMfCbxY4wjISuLJkrMns9bBcsJX3NDCpwi38HoHKVL
+	 SaXStK9zsUIWIUcaMAaSZW+24UkSEJMWP0w1Wmjy7Utgayj1hTKkBMEZWNqkZZmuKDjyf
+	 ArFxYdvuOuK1uUvn7qgEKAkpDqf2smd+0REKvUU0nCaQ2M1mjjudqBeiJiEFmki92yp4z
+	 WF8Sy7H7vo2sgdkBHxUWLBlhLAnJIeYgR3iCBzNY7IvRQ2rn/m+n5cvHnoTHiPBeO2t2m
+	 ZEi5E0l2AUzM9WQjFqXlzO9MjcA02K9ws503K13m20FgF6NcoT2XW8lyQX/9w0Y8UsA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981711;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:Organization:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=sVfAXVYZ6FXAyGhrwa2GYGqDIM1fZELZB/+nyD7WsYo=;
+	b=Kt5xDDbCbu1JG6W59ks/cZ2XIzZmMFIt8689P+5LQL+1Upn68erJ44TZzYGo0gkmoFZI
+	 IjI7lWBnt3aCnKtVCWJh1gcG6r+S+iewUPP9pulkHb34X9riJLgNKqiVXSUS7nZHRxxQ/
+	 5Zxed0N0hBFjyZsFTwTt4ttLdYA4ffsnpaml8qWm81ymUB3w5kG5pw6XFc1dYMll9SuVa
+	 A5ihvL3nPas4gm2UYO7zbWslL6OMlxQ4tOcCt2Pn3hN8pJFmoBB+Vwr5+IWuXiwuflIPe
+	 mda8EI+F/hKlM936JcGte2tZ1gB3tC5ZHlPBuxnLiClJrZJSfUdr/hitL7nKlWn28JA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=sVAFxjo3;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B5483606A336;
+	Fri,  6 Nov 2026 16:15:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5483606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iprBwukv
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793981391;
-	b=e0SwC5MWn2Mk1bP6pbhCqrEjCeT96Ga2qcHnQDWcFbUUACkvyjI+NhyJcs5MYEftIR2z
-	 qIUXhHnOCuU0WyeLmnKNIn2uOoKugaT5lGWuwOPgyMT+QrQ93gNeLtv6Mkaahc7VxbPDV
-	 UvLYkSmDWMR/JmWnQQngMoHW3F1H/m1jGmWyz1GDiSmqn2SVKnrmYfifRutIRwiFKCkdU
-	 0brbdpDEsvefcbJGVxrVhkc5oq7uP2FV5e/L6lRLehRpRxRPpExGvkJDbg4zJ9lBX20Hc
-	 ELToto4TLmUONkVSk43NwNd/hAVdsf4d2WrY4EaE7dtnuaBOiOTVKo4nM+tD/xQ97Qg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793981391;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=iHAhjf3lUh4MXY8ZNRJ1tkNwvR+RRey9UEkMvDbTWYc=;
-	b=YuvFMwlnTRuZeX4GNrXwrw+ad08CHVMPdY2vbSAUlPa29wQWbNP1zlZQQLEGOzhe0rzg
-	 LxuMpZ9MMKSXPAo6MfWw5OBOVyrVDqmaq648XFK6flPvY8LhmaUhM+xj1W/DFc/GngH0i
-	 hRSwdEwQwLb4ppRrFDNBhUcuO3FHBChsy3OuDGYAWsN1Tll59wVU6f2RHx/kcwbjrQqXY
-	 qXa2aL7fREVg49CgAMexaAIS5IHo58/N7uRfXpg188VCAtL2/nFOO1BUOU4AWrvJBP5VJ
-	 emPZFLI8ggmj7evg6klloTMtEPaHBQHAH1O1TFCYfk+M20sDAl62TLS2slZPsY2aJbw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9E61B1F0089F;
-	Fri,  6 Nov 2026 16:09:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793981391;
-	bh=iHAhjf3lUh4MXY8ZNRJ1tkNwvR+RRey9UEkMvDbTWYc=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=iprBwukvwNRVXyRmLt2lMuFS78KX3gFUf5nCMKTsONFUeQCJwmCK6WPK8GS1PT6zd
-	 BjBksBRa/fhpLnw7pRAa3Uu6Fv29s/FQlPwvU3U08nSeedAxnH3FgJQOES8+hN/p9B
-	 CZDL8ZObx6yQ0DNICz6woAPAohAKCEoHGeH9Wdv7S7pyfF8SXJ/iadeJ3nygAbHp03
-	 Rp3yuLJ7QsQ40Rx5iWpNf9CGe2d7UxEylygOY17o4Q+R0CAZH8X0I1bH4yTFIoeNRw
-	 oK1DcieLfs6nX3RImNySnHsCZta1Agzu6iMq4D72ZoAS4zitzY2Wq1kN7zZAD7odFp
-	 WEL41p2zh0PYg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F140845DD4;
-	Fri,  6 Nov 2026 16:09:49 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Fri, 06 Nov 2026 11:09:50 -0500
-Subject: [PATCH v3] mm/memory-failure: set PG_hwpoison of a non-hugetlb
- page under hugetlb_lock
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=sVAFxjo3
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 85702143D;
+	Fri,  6 Nov 2026 08:15:06 -0800 (PST)
+Received: from [10.2.213.24] (e137867.arm.com [10.2.213.24])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 01B1E3F673;
+	Fri,  6 Nov 2026 08:15:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793981709; bh=IQ3sgomSiBn9gKzrzkAyQrVz3yw2Rr15QPLg09Ba0Ec=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=sVAFxjo38ELex2XbmZkIS1mAV1VYURD8Ona57+AktCEEwLskVfJZUuxu2N8T7MXY6
+	 8X2PYWYpvfi41yClUaZl4MyK5hSGCA2d/d/g5GMAvllrNAQJXemnhWZ1qOmdSyLVuR
+	 CRKaR5f8Xa7TeLY4e0CHDNv2YWThOD02s62PxpcI=
+Message-ID: <1bae50ad-a65e-4ccb-b247-8d9544e4c5ee@arm.com>
+Date: Fri, 6 Nov 2026 16:14:56 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,228 +54,208 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-hwpoison-hugetlb-ro-v3-1-c11186963647@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ6CMBQFr0K6tqa/QEVX3sO4aMsv1CAlLaCGc
- HcpbIxhOcl7MxMJ6C0Gckkm4nG0wbp2gfSQEF3LtkJqy4UJZ1wASxmtX52zwbW0HirsG0W9o7k
- pigKkYNKcyfLsPBr7Xq23+8ZhUA/UfVTFRW1D7/xnzY4Qd1sBGOwWRqBAZcZLkQFoJfKrds3wV
- FYesRxIjIz8V5Pua/iiydLiJIw+Ixr408zz/AUKFzS2EgEAAA==
-X-Change-ID: 20261030-hwpoison-hugetlb-ro-5f8881a60af9
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Miaohe Lin <linmiaohe@huawei.com>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Kiryl Shutsemau <kas@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Mike Kravetz <mike.kravetz@oracle.com>, 
- Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793981389; l=7705;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=4mYpqbe5yZuGOdKLJjklC3p4pfwaTTfwNH4P644WDrQ=;
- b=7cLniYvj1nhdM8oOCBlGo8YfVygKibaXuEecSzGukzuSkpFrAMk2x1jB+DKSfbHTHsVB8moUM
- FdvsQSiI8OuC0hWJnLVzI//wRzUWJWhdoXAG7+wMxv5HDeIQhLa9cQX
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] arm64: sdei: Run the event handler on the kernel
+ vectors
+To: Kiryl Shutsemau <kirill@shutemov.name>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, James Morse <james.morse@arm.com>,
+ Usama Arif <usama.arif@linux.dev>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ Doug Anderson <dianders@chromium.org>, Breno Leitao <leitao@debian.org>,
+ Jinjie Ruan <ruanjinjie@huawei.com>,
+ Vladimir Murzin <vladimir.murzin@arm.com>, Linus Walleij
+ <linusw@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Thomas Huth <thuth@redhat.com>, Dawei Li <dawei.li@linux.dev>,
+ mrigendrachaubey <mrigendra.chaubey@gmail.com>, kernel-team@meta.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Ada Couprie Diaz <ada.coupriediaz@arm.com>
+References: <20261105120835.3321912-1-kirill@shutemov.name>
+ <20261105120835.3321912-2-kirill@shutemov.name>
+From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+Content-Language: en-US, en-GB, fr
+Organization: Arm Ltd.
+In-Reply-To: <20261105120835.3321912-2-kirill@shutemov.name>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Mani Tofigh <mt4022@columbia.edu>
+Hello,
 
-memory_failure() checks under hugetlb_lock that the page isn't part of
-a hugetlb folio and sets PG_hwpoison only after dropping the lock.  The
-page can become a tail page of a new hugetlb folio in the meantime.
-With hugetlb_free_vmemmap=on its struct page then lives in the tail
-page that all such folios in the zone share, so the flag lands on tail
-pages of every one of them:
+On 05/11/2026 12:08, Kiryl Shutsemau wrote:
 
-  Task A (memory_failure)              Task B (nr_hugepages write)
-  get_huge_page_for_hwpoison()
-    /* P not hugetlb */
-                                       alloc_fresh_hugetlb_folio()
-                                         /* P becomes a tail page */
-                                         hugetlb_vmemmap_optimize_folio()
-                                           /* P's struct page now in
-                                              the shared tail page */
-  TestSetPageHWPoison(P)
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+>
+> With KPTI, VBAR_EL1 holds the trampoline vectors from the return to EL0
+> until the next exception from EL0 maps the kernel and installs the
+> kernel vectors. The trampoline vectors only handle exceptions from EL0;
+> their current-EL half is zero-filled.
+>
+> An SDEI event is dispatched regardless of PSTATE.DAIF, so it lands there
+> whenever the CPU is in user space. The SDEI entry trampoline maps the
+> kernel but leaves VBAR_EL1 alone. [...]
 
-The error on P itself is ignored, while healthy pages of other folios
-stay marked and are never reused once their folio is freed.  After
-freeing the pool, /proc/kpageflags shows them as hwpoisoned.
+This quite broken indeed, thank you for sending a patch !
 
-This is the allocation side of the race that commit 32c877191e02
-("hugetlb: do not clear hugetlb dtor until allocating vmemmap") fixed
-for freeing.
+However, given this and Catalin's comment regarding PMR save/restore,
+to me this sounds more like `arch/arm64/entry.S` is not doing its job
+properly for SDEI events, rather than the SDEI handler missing something.
 
-Set the hugetlb flag of a new folio under hugetlb_lock and set
-PG_hwpoison of a non-hugetlb page inside the locked check, so that the
-vmemmap can't be optimized in between.  The retry path clears it under
-the same lock, unless the page has become part of a hugetlb folio in
-the meantime and its struct page isn't in the first vmemmap page of the
-folio, which HVO doesn't share.  The retry then knows the flag is its
-own.  With the fix, no healthy page gets marked anymore.
+In fact, it appears that the SDEI trampoline misses a fair amount of
+the "regular" kernel and trampoline entry in general, which might subtly
+break more assumptions...
 
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it within about 35s.
+> [...]
+>
+> Install the kernel vectors in __sdei_handler() when VBAR_EL1 holds the
+> trampoline vectors, and restore it before returning to firmware. [...]
 
-Fixes: f41f2ed43ca5 ("mm: hugetlb: free the vmemmap pages associated with each HugeTLB page")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
----
-Changes in v3:
-- Keep the flag only for a page beyond the first vmemmap page of the
-  folio, and fix the comment that said a head page is never remapped
-  (Sashiko)
-- Don't take a flag kept by the retry path for an earlier error (Sashiko)
-- Rebase onto current mm-new
-- Link to v2: https://patch.msgid.link/20261103-hwpoison-hugetlb-ro-v2-1-43876fc9eef1@columbia.edu
+Given that this is done in `entry.S` for a regular kernel entry,
+I feel like this should be done there too for SDEI : bringing the two
+paths closer rather than needing to do some additional special handling
+in the handler.
 
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/hugetlbro.c
----
- mm/hugetlb.c        |  3 +++
- mm/memory-failure.c | 47 ++++++++++++++++++++++++++++++++++++++++-------
- 2 files changed, 43 insertions(+), 7 deletions(-)
+`__sdei_asm_entry_trampoline` and `__sdei_asm_exit_trampoline` already
+check if the CPU was running at EL0 and maps/unmaps the kernel accordingly.
+We could swap VBAR to the EL1 vectors and back to the EL0 trampoline there...
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 4eb7a8c1f7f6..da4ae43de9f7 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -1792,7 +1792,10 @@ static void account_new_hugetlb_folio(struct hstate *h, struct folio *folio)
- 
- void init_new_hugetlb_folio(struct folio *folio)
- {
-+	/* Pairs with get_huge_page_for_hwpoison(), see there. */
-+	spin_lock_irq(&hugetlb_lock);
- 	__folio_set_hugetlb(folio);
-+	spin_unlock_irq(&hugetlb_lock);
- 	INIT_LIST_HEAD(&folio->lru);
- 	hugetlb_set_folio_subpool(folio, NULL);
- 	set_hugetlb_cgroup(folio, NULL);
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index 78f0a13349cb..9795f07b26f5 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -61,6 +61,7 @@
- #include <linux/pagewalk.h>
- #include <linux/shmem_fs.h>
- #include <linux/sysctl.h>
-+#include <linux/vmemmap-optimization.h>
- 
- #define CREATE_TRACE_POINTS
- #include <trace/events/memory-failure.h>
-@@ -1957,6 +1958,7 @@ static unsigned long __folio_free_raw_hwp(struct folio *folio, bool move_flag)
- #define	MF_HUGETLB_FOLIO_PRE_POISONED	3	/* folio already poisoned */
- #define	MF_HUGETLB_PAGE_PRE_POISONED	4	/* exact page already poisoned */
- #define	MF_HUGETLB_RETRY		5	/* hugepage is busy, retry */
-+#define	MF_HUGETLB_NON_HUGEPAGE_POISONED	6	/* not a hugepage, already poisoned */
- /*
-  * Set hugetlb folio as hwpoisoned, update folio private raw hwpoison list
-  * to keep track of the poisoned pages.
-@@ -2041,7 +2043,11 @@ static int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
- 	spin_lock_irq(&hugetlb_lock);
- 	folio = page_folio(page);
- 	if (!folio_test_hugetlb(folio)) {
--		ret = MF_HUGETLB_NON_HUGEPAGE;
-+		/* Mark it before it can become part of a new hugetlb folio. */
-+		if (TestSetPageHWPoison(page))
-+			ret = MF_HUGETLB_NON_HUGEPAGE_POISONED;
-+		else
-+			ret = MF_HUGETLB_NON_HUGEPAGE;
- 		goto out_unlock;
- 	} else if (flags & MF_COUNT_INCREASED) {
- 		ret = MF_HUGETLB_IN_USED;
-@@ -2092,7 +2098,8 @@ static int get_huge_page_for_hwpoison(unsigned long pfn, int flags,
-  * PageHWPoison) should be done in single hugetlb_lock range.
-  * Returns:
-  *	0		- recovered
-- *	-ENOENT		- no hugetlb page
-+ *	-ENOENT		- no hugetlb page, now marked hwpoison
-+ *	-EEXIST		- no hugetlb page, already marked hwpoison
-  *	-EBUSY		- not recovered
-  *	-EOPNOTSUPP	- hwpoison_filter'ed
-  *	-EHWPOISON	- folio or exact page already poisoned
-@@ -2111,6 +2118,8 @@ static int try_memory_failure_hugetlb(unsigned long pfn, int flags)
- 	switch (res) {
- 	case MF_HUGETLB_NON_HUGEPAGE:	/* fallback to normal page handling */
- 		return -ENOENT;
-+	case MF_HUGETLB_NON_HUGEPAGE_POISONED:
-+		return -EEXIST;
- 	case MF_HUGETLB_RETRY:
- 		if (!(flags & MF_NO_RETRY)) {
- 			flags |= MF_NO_RETRY;
-@@ -2170,10 +2179,32 @@ static int try_memory_failure_hugetlb(unsigned long pfn, int flags)
- 	return identify_page_state(pfn, p, page_flags);
- }
- 
-+/*
-+ * If the page has become part of a hugetlb folio in the meantime, HVO may
-+ * remap its struct page unless it is in the first vmemmap page of the
-+ * folio.  Keep the flag then, since the retry takes it as its own.
-+ */
-+static void clear_non_hugetlb_hwpoison(struct page *page)
-+{
-+	struct folio *folio;
-+
-+	spin_lock_irq(&hugetlb_lock);
-+	folio = page_folio(page);
-+	if (!folio_test_hugetlb(folio) ||
-+	    folio_page_idx(folio, page) < VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES)
-+		ClearPageHWPoison(page);
-+	spin_unlock_irq(&hugetlb_lock);
-+}
-+
- #else
- static inline int try_memory_failure_hugetlb(unsigned long pfn, int flags)
- {
--	return -ENOENT;
-+	return TestSetPageHWPoison(pfn_to_page(pfn)) ? -EEXIST : -ENOENT;
-+}
-+
-+static inline void clear_non_hugetlb_hwpoison(struct page *page)
-+{
-+	ClearPageHWPoison(page);
- }
- 
- static inline unsigned long folio_free_raw_hwp(struct folio *folio, bool flag)
-@@ -2451,12 +2482,14 @@ int memory_failure(unsigned long pfn, int flags)
- try_again:
- 	res = try_memory_failure_hugetlb(pfn, flags);
- 	/*
--	 * -ENOENT means the page we found is not hugetlb, so proceed with normal page handling
-+	 * -ENOENT and -EEXIST mean the page is not hugetlb and is now marked
-+	 * hwpoison, so proceed with normal page handling.
- 	 */
--	if (res != -ENOENT)
-+	if (res != -ENOENT && res != -EEXIST)
- 		goto unlock_mutex;
- 
--	if (TestSetPageHWPoison(p)) {
-+	/* On the retry, the flag may still be set from the first try. */
-+	if (res == -EEXIST && retry) {
- 		res = -EHWPOISON;
- 		if (flags & MF_ACTION_REQUIRED)
- 			res = kill_accessing_process(current, pfn, flags);
-@@ -2487,7 +2520,7 @@ int memory_failure(unsigned long pfn, int flags)
- 			} else {
- 				/* We lost the race, try again */
- 				if (retry) {
--					ClearPageHWPoison(p);
-+					clear_non_hugetlb_hwpoison(p);
- 					retry = false;
- 					goto try_again;
- 				}
+> The IRQ-like resume into user space must still go through the
+> trampoline to map the kernel. do_sdei_event() takes the interrupted
+> VBAR_EL1 and keeps basing the resume address on it.
 
----
-base-commit: dba8aba0a9a00ff781c03d82ae534fc6f8c2e263
-change-id: 20261030-hwpoison-hugetlb-ro-5f8881a60af9
+...and to maintain the expected behaviour on return, rather than using
+VBAR (which would bypass the trampoline in the EL0 IRQ-like resume case),
+we could explicitly choose the correct vector base for KPTI=on ?
+Something along those lines in `do_sdei_event()` :
 
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
+	/* KPTI=off => vectors or the appropriate mitigation, KPTI=on => trampoline */
+	unsigned long vbar = __raw_this_cpu_read(this_cpu_vector)
+	[...]
+	/* KPTI=on => have to bypass unmapped EL1 exceptions of the trampoline vector */
+	if (arm64_kernel_unmapped_at_el0() && mode == kernel_mode)
+		vbar = vectors
+	[...]
+	if (mode == kernel_mode)
+		return vbar + 0x280;
+	else if (mode & PSR_MODE32_BIT)
+		return vbar + 0x680;
 
+	return vbar + 0x480;
+
+> Fixes: 79e9aa59dc29 ("arm64: sdei: Add trampoline code for remapping the kernel")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
+>   arch/arm64/include/asm/sdei.h    |  3 ++-
+>   arch/arm64/kernel/entry-common.c | 21 ++++++++++++++++++++-
+>   arch/arm64/kernel/sdei.c         |  6 ++++--
+>   3 files changed, 26 insertions(+), 4 deletions(-)
+>
+> diff --git a/arch/arm64/include/asm/sdei.h b/arch/arm64/include/asm/sdei.h
+> index b2248bd3cb58..a78a5337ff85 100644
+> --- a/arch/arm64/include/asm/sdei.h
+> +++ b/arch/arm64/include/asm/sdei.h
+> @@ -44,7 +44,8 @@ asmlinkage unsigned long __sdei_handler(struct pt_regs *regs,
+>   					struct sdei_registered_event *arg);
+>   
+>   unsigned long do_sdei_event(struct pt_regs *regs,
+> -			    struct sdei_registered_event *arg);
+> +			    struct sdei_registered_event *arg,
+> +			    unsigned long vbar);
+>   
+>   unsigned long sdei_arch_get_entry_point(int conduit);
+>   #define sdei_arch_get_entry_point(x)	sdei_arch_get_entry_point(x)
+> diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
+> index 11d3f888fcd8..8a17e3720f81 100644
+> --- a/arch/arm64/kernel/entry-common.c
+> +++ b/arch/arm64/kernel/entry-common.c
+> @@ -31,6 +31,7 @@
+>   #include <asm/stacktrace.h>
+>   #include <asm/sysreg.h>
+>   #include <asm/system_misc.h>
+> +#include <asm/vectors.h>
+>   
+>   /*
+>    * Where the context being returned to had an active percpu GPR critical
+> @@ -1040,6 +1041,7 @@ asmlinkage void noinstr __noreturn handle_bad_stack(struct pt_regs *regs)
+>   asmlinkage noinstr unsigned long
+>   __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+>   {
+> +	unsigned long vbar;
+>   	irqentry_state_t state;
+>   	unsigned long ret;
+>   
+> @@ -1065,10 +1067,27 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+>   	else if (cpu_has_pan())
+>   		set_pstate_pan(0);
+>   
+> +	/*
+> +	 * With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
+> +	 * EL0 until the next exception from EL0 maps the kernel. They only
+> +	 * handle exceptions from EL0: an exception taken here would run their
+> +	 * empty current-EL half and never come back. Switch to the kernel
+> +	 * vectors. The IRQ-like resume keeps using the interrupted VBAR, so it
+> +	 * still goes through the trampoline.
+> +	 */
+> +	vbar = read_sysreg(vbar_el1);
+> +	if (arm64_kernel_unmapped_at_el0() &&
+> +	    vbar == (unsigned long)__this_cpu_read(this_cpu_vector)) {
+> +		write_sysreg((unsigned long)vectors, vbar_el1);
+> +		isb();
+> +	}
+> +
+>   	state = irqentry_nmi_enter(regs);
+> -	ret = do_sdei_event(regs, arg);
+> +	ret = do_sdei_event(regs, arg, vbar);
+>   	irqentry_nmi_exit(regs, state);
+>   
+> +	write_sysreg(vbar, vbar_el1);
+> +
+>   	return ret;
+>   }
+
+With what I mentioned above, this would be completely replaced by the
+changes in `entry.S`, with no change in `__sdei_handler()`.
+
+>   #endif /* CONFIG_ARM_SDE_INTERFACE */
+> diff --git a/arch/arm64/kernel/sdei.c b/arch/arm64/kernel/sdei.c
+> index 778f2a1faac8..260c13106009 100644
+> --- a/arch/arm64/kernel/sdei.c
+> +++ b/arch/arm64/kernel/sdei.c
+> @@ -200,16 +200,18 @@ unsigned long sdei_arch_get_entry_point(int conduit)
+>    *  SDEI_EV_HANDLED -  success, return to the interrupted context.
+>    *  SDEI_EV_FAILED  -  failure, return this error code to firmware.
+>    *  virtual-address -  success, return to this address.
+> + *
+> + * vbar is the interrupted context's VBAR_EL1, for the IRQ-like resume.
+>    */
+>   unsigned long __kprobes do_sdei_event(struct pt_regs *regs,
+> -				      struct sdei_registered_event *arg)
+> +				      struct sdei_registered_event *arg,
+> +				      unsigned long vbar)
+>   {
+>   	u32 mode;
+>   	int i, err = 0;
+>   	int clobbered_registers = 4;
+>   	u64 elr = read_sysreg(elr_el1);
+>   	u32 kernel_mode = read_sysreg(CurrentEL) | 1;	/* +SPSel */
+> -	unsigned long vbar = read_sysreg(vbar_el1);
+>   
+>   	if (arm64_kernel_unmapped_at_el0())
+>   		clobbered_registers++;
+
+And this part would be made more explicit as to what vector base
+we should be jumping back to on return from firmware.
+
+
+What are your thoughts ?
+I understand that this is a completely different approach, but I feel it
+would be more in line with what we already do for other entry paths.
+This might even allow us to de-duplicate them in the future and reduce
+the chance of this happening again.
+
+If my suggestion is not sound, apart from what Catalin already mentioned
+the patch looks good to me !
+
+Kind regards,
+Ada
 
