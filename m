@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978170;
-	b=nrb3/RCNJHFooa9HXNEyCXzw3Wit3m2yqfQr5tdmbPKOChA7bHSxbRNtvNzc/FWkXobw
-	 Vs23EYWbRB+bJephitNKXQHJxI421W4IJ3GtTtcI2/iny10xJQaZLkzE0wXbUPmaRLZTi
-	 xz50S82N1ct1CNds7sO1twQL58dLaF9YmlILfDJWXY/YB2ksU/bca/1TqHJ9vuLuDFGIy
-	 ZCsPj453q92CrZGLrPPtMdKNjKLiLjgt7sS32Bl7hmQpyCQ4jd2ni0vZ+2Wrv6F6ndq/x
-	 Gos2ntrAqvsP4Rm8Soarxom2//Ck8gJdxR//0B9ON8X91aYHGaiP0iCQ2GNZrbPtaTg==
+	t=1793978379;
+	b=3HkuIrb1tGeG1aGrU6YfkktBpESFqjyCmcrGsAJNZV89foaE9sl5P2zXSyM3V1E9dFPU
+	 95E0l7Cd0StEL1cZmXnDftQpu8ISfTiGsVOcHvk5Flzp1kJjs7RBWCbHmc5OMt8M3Lza/
+	 WHfz2cpyoAvNHIgxHEZNUZ9ek9FlKhxFqd5kk7JdJUHH0LmskZweyqINJA9tEufVks/YJ
+	 ra6FycQ+yjRPNxLPlyYdZtL+1NWcpYfRJWKkYP16/UpLc6qrinTRfGbL1gi0PdEPCcwfN
+	 VdkMLxSEDcuJfmkqCiqygj9N/HfvhmtH1/+w+ty2Pdh1cNst0uNSNaa65ktqCJTTasA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978170;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=rZMDk9Fl24riUrNB7K+XznxHCLVlnKCyKDI+soAjJ0k=;
-	b=GEI4t1nhQZdd870VvN+aaQm+Vl9UY1NE70rz6HWPphHmrZa07mbFPIr4NQcGjlVtyVjc
-	 f2GaaxY5NXii47N0mt5668ZlPTGIJD/8uzr8Z/9dhiAaW7+8Fr/yAfptkksM04cFTfkys
-	 1BuTajLRg96en5C6tPjn5CPYWmxhMq3A7eS5cMgQh8bYiR5vOodWMJEGywIEzCtryrd+T
-	 D71bV/AIDnC/T4pWOHpYIKmrm5Jhs1iXk7LQm3IOZNtzZWCej9MZ9QbrdSyy+YFIbCmsY
-	 xG7vL65kWAOB7D52R4qKVAWEZbdlWSjoXW3v8cSUEqMYU0DeHnp2koEfXgp5JlmTfHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978379;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=s6jnJJodU4m1lGYsT+HEq6XPl6A5ntF19WIgXg93xtk=;
+	b=XeVxDA3ZjX/Gdun3kN0PBgyNrF/eQmyngYmx9dezeQzTHXOLs6UNPeJcqNzJzF7bXXVV
+	 3GJ0O/opBhtJ44IjW96hklApYSz8jSs9nxrBFXuc+KZXc4LqoCiv6ilfwrJ+bTvYsi5Rd
+	 zhtahB2gR4ysrgJskKUruZGI3teFH61Bz0kzlEUtpiupIn3vQhVoPcmxp0EERn0+LAPeH
+	 YP3aQuAsnEZwftOFUqQ+CF1zJDl53lxxZm6yEH84lMjtglg6oofWxzMtbry0apqw3Zees
+	 rwVpL1yX3dWd1jNhP52IjGrIHR/Koic8DJtoFREEP0qvGUuFylTtYdzQZ3+oDttiEgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f6qAAugl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MbM9Wpto;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87553606A329
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 15:16:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391E5606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 15:19:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f6qAAugl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A9D81F008A1
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 15:16:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MbM9Wpto
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56CFC1F0089F;
+	Fri,  6 Nov 2026 15:19:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793978169;
-	bh=rZMDk9Fl24riUrNB7K+XznxHCLVlnKCyKDI+soAjJ0k=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=f6qAAuglGC1uHVECHvbaSqkxUJhisHonx3wyaXi3lx5Zxge8vwM6JvVxHtQzl+ycR
-	 hEowG0rcVavX1faMCYlcdEu4avo3JBs9YOm2eK1XtdliC3tek2eJGSCjfAGNeofxWC
-	 /HAel4bJ+mkweEy4aQbJE+VQPuA5F6wsgRd3omW1MRdqUJV8OtqwqmZD/NAuCBxMnD
-	 nDvfPTcFpu2P99iAdnH18hFOBi+diT40Y3yhJ8Q6BjXosJEfMITp1imgAyGDGTZHKl
-	 CHX8rMY5QbSis/JlMFQ5TyzkVEC61XdEhFZEv+QzghMABavVZ/tFES729FFvIomhJq
-	 y+RGsRtpEv4rQ==
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5eafb65e169so502804e0c.1
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 07:16:09 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBywFfZzYJrmwB7nHHw0qId09HQhgQxrCu5BbtjfURcWBkWtR8M5f1w6J+IpyBgHL8kdE0NvS5c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/sL2AU17U0QcCIqwBxfS6yahXZL90OlosefKjkkwKPBv3TH5eU
-	AQJxHris/y3gYhm5+lAgn/+IRR6pU/nPm582D118JaOTqAqmJvyluKYc141d+0nb1qQPlZHPo+B
-	a0JQfRz8kLF5rjgyI99elh9dcjPglwa0=
-X-Received: by 2002:a05:6122:32cb:b0:5ea:b712:8281 with SMTP id
- 71dfb90a1353d-5ecc44220c0mr1534700e0c.18.1793978163673; Fri, 06 Nov 2026
- 07:16:03 -0800 (PST)
+	s=k20260515; t=1793978379;
+	bh=s6jnJJodU4m1lGYsT+HEq6XPl6A5ntF19WIgXg93xtk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MbM9WptosIrLuF3LrMCLlK9lS5k/MQ/sFSyR1vKYO0AAcaP6Xs6nli04JowYoMUXf
+	 nvHMmFVUCztSUU00zZFagyFKnubbzb+nUd7eAq+3Y4PYIsecNKPR3MkTCuVmVppc3g
+	 HCZTxtYpVfelHrbm3/5dpPMXxoFfWfjP+Ho1OhGL+03TSVleojbfkCXPzUns39R05m
+	 Glek9A7yDTHaQs6v5sCV99G9hSWZyWdjfm6ViazTg1m4EvFrwdtDVwUxAR1H5qdQSR
+	 2XplD2vWgLkoLqDUGVxDb5McVmdSofFbFLz0xyPp1IQYfCMwzBsoiakZh0fwTqMKaf
+	 /g4W0w7HatusA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+	Jiri Kosina <jkosina@suse.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] HID: hid-prodikeys: remove struct pk_device
+Date: Fri,  6 Nov 2026 10:19:35 -0500
+Message-ID: <20261106151923.436494-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110446-amnesty-outsmart-92b6@gregkh>
+References: <2026110446-amnesty-outsmart-92b6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,177 +61,343 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
-In-Reply-To: <20261103-em-rank-boost-separately-v2-1-5a13d1b38d37@oss.qualcomm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 6 Nov 2026 16:15:48 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0hy1D7anTe=CXNXZyMNSN_yHh5hOt6B0bEHTEONRJFMhQ@mail.gmail.com>
-X-Gm-Features: AclHuK_kUFfE3cOrH15OQGXo65djIyEnQZhDGCnHMwtbYyC5w3H5uHm6PDEzr0Y
-Message-ID: <CAJZ5v0hy1D7anTe=CXNXZyMNSN_yHh5hOt6B0bEHTEONRJFMhQ@mail.gmail.com>
-Subject: Re: [PATCH v2] PM: EM: Exclude boost frequencies from inefficiency ranking
-To: Guo Chen <guo.chen@oss.qualcomm.com>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Vincent Donnefort <vincent.donnefort@arm.com>, Matthias Kaehlcke <mka@chromium.org>, 
-	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	xin.liu@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com, 
-	tengfei.fan@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 3, 2026 at 12:21=E2=80=AFPM Guo Chen <guo.chen@oss.qualcomm.com=
-> wrote:
->
-> em_compute_costs() ranks all the frequencies of the table, boost ones
-> included. A non-boost frequency can be marked inefficient only because
-> a faster boost frequency has a lower or equal cost, e.g.
->
->   3.9 GHz  4.0 GHz (cost C)  4.1 GHz (boost, cost C)
->
-> With boost disabled 4.1 GHz cannot be selected, but 4.0 GHz is still
-> skipped by governors rounding down to efficient frequencies (e.g.
-> ondemand with CPUFREQ_RELATION_HE), which land on 3.9 GHz instead of
-> the best selectable frequency. Several frequencies can be affected.
->
-> Exclude the boost frequencies from the ranking in em_compute_costs() and
-> keep them all efficient, using the highest non-boost frequency of the
-> CPUFreq table, returned by the new helper
-> cpufreq_table_max_nonboost_freq(), as the boundary.
->
-> Fixes: c8ed99533dbc ("PM: EM: Mark inefficient states")
-> Signed-off-by: Guo Chen <guo.chen@oss.qualcomm.com>
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
 
-Please see Sashiko's feedback regarding this patch
+[ Upstream commit 16d0e1d469cc16aefa8ef745e926eda473a9b221 ]
 
-https://sashiko.dev/#/patchset/20261103-em-rank-boost-separately-v2-1-5a13d=
-1b38d37%40oss.qualcomm.com
+First, quirks was unused in struct pk_device.
 
-and tell me what you think about it.
+And I see no reason for this additional level of indirection. struct
+pcmidi_snd is far enough for the driver. Unless I am missing something?
 
-Thanks!
+So drop struct pk_device and convert all the users to use struct
+pcmidi_snd directly. No need for doubled kmalloc+kfrees now.
 
-> ---
-> Changes in v2:
-> - Drop prev_boost and keep all boost states efficient by resetting
->   prev_cost for them, as suggested by Lukasz. Boost states are no
->   longer ranked against each other.
-> - Retitle the patch to match the new behaviour (was "Rank boost and
->   non-boost frequencies separately") and reword the commit message.
->
-> Link to v1: https://lore.kernel.org/all/20261030-em-rank-boost-separately=
--v1-1-238a6b2bb888@oss.qualcomm.com/
-> ---
->  include/linux/cpufreq.h     | 24 ++++++++++++++++++++++++
->  kernel/power/energy_model.c | 16 ++++++++++++++++
->  2 files changed, 40 insertions(+)
->
-> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-> index d3d0d9d02aa4..c93316141a11 100644
-> --- a/include/linux/cpufreq.h
-> +++ b/include/linux/cpufreq.h
-> @@ -1155,6 +1155,24 @@ cpufreq_table_set_inefficient(struct cpufreq_polic=
-y *policy,
->         return -EINVAL;
->  }
->
-> +static inline unsigned int
-> +cpufreq_table_max_nonboost_freq(struct cpufreq_policy *policy)
-> +{
-> +       struct cpufreq_frequency_table *pos;
-> +       unsigned int max =3D 0;
-> +
-> +       if (!policy->freq_table)
-> +               return 0;
-> +
-> +       /* The table may be unsorted, scan all of it for the highest one.=
- */
-> +       cpufreq_for_each_valid_entry(pos, policy->freq_table) {
-> +               if (!(pos->flags & CPUFREQ_BOOST_FREQ) && pos->frequency =
-> max)
-> +                       max =3D pos->frequency;
-> +       }
-> +
-> +       return max;
-> +}
-> +
->  static inline int parse_perf_domain(int cpu, const char *list_name,
->                                     const char *cell_name,
->                                     struct of_phandle_args *args)
-> @@ -1219,6 +1237,12 @@ cpufreq_table_set_inefficient(struct cpufreq_polic=
-y *policy,
->         return -EINVAL;
->  }
->
-> +static inline unsigned int
-> +cpufreq_table_max_nonboost_freq(struct cpufreq_policy *policy)
-> +{
-> +       return 0;
-> +}
-> +
->  static inline int of_perf_domain_get_sharing_cpumask(int pcpu, const cha=
-r *list_name,
->                                                      const char *cell_nam=
-e, struct cpumask *cpumask,
->                                                      struct of_phandle_ar=
-gs *pargs)
-> diff --git a/kernel/power/energy_model.c b/kernel/power/energy_model.c
-> index d19a65461ae8..5b1d095fd376 100644
-> --- a/kernel/power/energy_model.c
-> +++ b/kernel/power/energy_model.c
-> @@ -255,15 +255,24 @@ static int em_compute_costs(struct device *dev, str=
-uct em_perf_state *table,
->                             unsigned long flags)
->  {
->         unsigned long prev_cost =3D ULONG_MAX;
-> +       struct cpufreq_policy *policy;
-> +       unsigned int max_nonboost =3D 0;
->         int i, ret;
->
->         /* This is needed only for CPUs and EAS skip other devices */
->         if (!_is_cpu_device(dev))
->                 return 0;
->
-> +       policy =3D cpufreq_cpu_get(dev->id);
-> +       if (policy) {
-> +               max_nonboost =3D cpufreq_table_max_nonboost_freq(policy);
-> +               cpufreq_cpu_put(policy);
-> +       }
-> +
->         /* Compute the cost of each performance state. */
->         for (i =3D nr_states - 1; i >=3D 0; i--) {
->                 unsigned long power_res, cost;
-> +               bool boost =3D max_nonboost && table[i].frequency > max_n=
-onboost;
->
->                 if ((flags & EM_PERF_DOMAIN_ARTIFICIAL) && cb->get_cost) =
-{
->                         ret =3D cb->get_cost(dev, table[i].frequency, &co=
-st);
-> @@ -284,6 +293,13 @@ static int em_compute_costs(struct device *dev, stru=
-ct em_perf_state *table,
->                         table[i].flags =3D EM_PERF_STATE_INEFFICIENT;
->                         dev_dbg(dev, "EM: OPP:%lu is inefficient\n",
->                                 table[i].frequency);
-> +               } else if (boost) {
-> +                       /*
-> +                        * Keep all boost states efficient. Resetting pre=
-v_cost
-> +                        * also keeps the highest non-boost state efficie=
-nt,
-> +                        * then rank the rest on their own.
-> +                        */
-> +                       prev_cost =3D ULONG_MAX;
->                 } else {
->                         prev_cost =3D table[i].cost;
->                 }
->
-> ---
-> base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
-> base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.=
-git master
-> change-id: 20261029-em-rank-boost-separately-a7e7c7d78058
->
-> Best regards,
-> --
-> Guo Chen <guo.chen@oss.qualcomm.com>
+Found by https://github.com/jirislaby/clang-struct.
+
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Cc: Jiri Kosina <jikos@kernel.org>
+Cc: Benjamin Tissoires <benjamin.tissoires@redhat.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Stable-dep-of: 0ff37294c41b ("HID: prodikeys: validate fixed-format MIDI reports")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/hid/hid-prodikeys.c | 113 +++++++++++++-----------------------
+ 1 file changed, 40 insertions(+), 73 deletions(-)
+
+diff --git a/drivers/hid/hid-prodikeys.c b/drivers/hid/hid-prodikeys.c
+index f20d29566b4da..b53b0c02675a4 100644
+--- a/drivers/hid/hid-prodikeys.c
++++ b/drivers/hid/hid-prodikeys.c
+@@ -32,13 +32,6 @@
+ 
+ struct pcmidi_snd;
+ 
+-struct pk_device {
+-	unsigned long		quirks;
+-
+-	struct hid_device	*hdev;
+-	struct pcmidi_snd	*pm; /* pcmidi device context */
+-};
+-
+ struct pcmidi_sustain {
+ 	unsigned long		in_use;
+ 	struct pcmidi_snd	*pm;
+@@ -50,7 +43,7 @@ struct pcmidi_sustain {
+ 
+ #define PCMIDI_SUSTAINED_MAX	32
+ struct pcmidi_snd {
+-	struct pk_device		*pk;
++	struct hid_device		*hdev;
+ 	unsigned short			ifnum;
+ 	struct hid_report		*pcmidi_report6;
+ 	struct input_dev		*input_ep82;
+@@ -100,11 +93,11 @@ static ssize_t show_channel(struct device *dev,
+ 	struct device_attribute *attr, char *buf)
+ {
+ 	struct hid_device *hdev = to_hid_device(dev);
+-	struct pk_device *pk = hid_get_drvdata(hdev);
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
+-	dbg_hid("pcmidi sysfs read channel=%u\n", pk->pm->midi_channel);
++	dbg_hid("pcmidi sysfs read channel=%u\n", pm->midi_channel);
+ 
+-	return sprintf(buf, "%u (min:%u, max:%u)\n", pk->pm->midi_channel,
++	return sprintf(buf, "%u (min:%u, max:%u)\n", pm->midi_channel,
+ 		PCMIDI_CHANNEL_MIN, PCMIDI_CHANNEL_MAX);
+ }
+ 
+@@ -113,13 +106,13 @@ static ssize_t store_channel(struct device *dev,
+ 	struct device_attribute *attr, const char *buf, size_t count)
+ {
+ 	struct hid_device *hdev = to_hid_device(dev);
+-	struct pk_device *pk = hid_get_drvdata(hdev);
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
+ 	unsigned channel = 0;
+ 
+ 	if (sscanf(buf, "%u", &channel) > 0 && channel <= PCMIDI_CHANNEL_MAX) {
+ 		dbg_hid("pcmidi sysfs write channel=%u\n", channel);
+-		pk->pm->midi_channel = channel;
++		pm->midi_channel = channel;
+ 		return strlen(buf);
+ 	}
+ 	return -EINVAL;
+@@ -137,11 +130,11 @@ static ssize_t show_sustain(struct device *dev,
+  struct device_attribute *attr, char *buf)
+ {
+ 	struct hid_device *hdev = to_hid_device(dev);
+-	struct pk_device *pk = hid_get_drvdata(hdev);
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
+-	dbg_hid("pcmidi sysfs read sustain=%u\n", pk->pm->midi_sustain);
++	dbg_hid("pcmidi sysfs read sustain=%u\n", pm->midi_sustain);
+ 
+-	return sprintf(buf, "%u (off:%u, max:%u (ms))\n", pk->pm->midi_sustain,
++	return sprintf(buf, "%u (off:%u, max:%u (ms))\n", pm->midi_sustain,
+ 		PCMIDI_SUSTAIN_MIN, PCMIDI_SUSTAIN_MAX);
+ }
+ 
+@@ -150,15 +143,14 @@ static ssize_t store_sustain(struct device *dev,
+ 	struct device_attribute *attr, const char *buf, size_t count)
+ {
+ 	struct hid_device *hdev = to_hid_device(dev);
+-	struct pk_device *pk = hid_get_drvdata(hdev);
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
+ 	unsigned sustain = 0;
+ 
+ 	if (sscanf(buf, "%u", &sustain) > 0 && sustain <= PCMIDI_SUSTAIN_MAX) {
+ 		dbg_hid("pcmidi sysfs write sustain=%u\n", sustain);
+-		pk->pm->midi_sustain = sustain;
+-		pk->pm->midi_sustain_mode =
+-			(0 == sustain || !pk->pm->midi_mode) ? 0 : 1;
++		pm->midi_sustain = sustain;
++		pm->midi_sustain_mode = (0 == sustain || !pm->midi_mode) ? 0 : 1;
+ 		return strlen(buf);
+ 	}
+ 	return -EINVAL;
+@@ -176,11 +168,11 @@ static ssize_t show_octave(struct device *dev,
+ 	struct device_attribute *attr, char *buf)
+ {
+ 	struct hid_device *hdev = to_hid_device(dev);
+-	struct pk_device *pk = hid_get_drvdata(hdev);
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
+-	dbg_hid("pcmidi sysfs read octave=%d\n", pk->pm->midi_octave);
++	dbg_hid("pcmidi sysfs read octave=%d\n", pm->midi_octave);
+ 
+-	return sprintf(buf, "%d (min:%d, max:%d)\n", pk->pm->midi_octave,
++	return sprintf(buf, "%d (min:%d, max:%d)\n", pm->midi_octave,
+ 		PCMIDI_OCTAVE_MIN, PCMIDI_OCTAVE_MAX);
+ }
+ 
+@@ -189,14 +181,14 @@ static ssize_t store_octave(struct device *dev,
+ 	struct device_attribute *attr, const char *buf, size_t count)
+ {
+ 	struct hid_device *hdev = to_hid_device(dev);
+-	struct pk_device *pk = hid_get_drvdata(hdev);
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
+ 	int octave = 0;
+ 
+ 	if (sscanf(buf, "%d", &octave) > 0 &&
+ 		octave >= PCMIDI_OCTAVE_MIN && octave <= PCMIDI_OCTAVE_MAX) {
+ 		dbg_hid("pcmidi sysfs write octave=%d\n", octave);
+-		pk->pm->midi_octave = octave;
++		pm->midi_octave = octave;
+ 		return strlen(buf);
+ 	}
+ 	return -EINVAL;
+@@ -270,7 +262,7 @@ static void stop_sustain_timers(struct pcmidi_snd *pm)
+ 
+ static int pcmidi_get_output_report(struct pcmidi_snd *pm)
+ {
+-	struct hid_device *hdev = pm->pk->hdev;
++	struct hid_device *hdev = pm->hdev;
+ 	struct hid_report *report;
+ 
+ 	list_for_each_entry(report,
+@@ -295,7 +287,7 @@ static int pcmidi_get_output_report(struct pcmidi_snd *pm)
+ 
+ static void pcmidi_submit_output_report(struct pcmidi_snd *pm, int state)
+ {
+-	struct hid_device *hdev = pm->pk->hdev;
++	struct hid_device *hdev = pm->hdev;
+ 	struct hid_report *report = pm->pcmidi_report6;
+ 	report->field[0]->value[0] = 0x01;
+ 	report->field[0]->value[1] = state;
+@@ -626,7 +618,7 @@ static int pcmidi_snd_initialise(struct pcmidi_snd *pm)
+ 
+ 	/* Setup sound card */
+ 
+-	err = snd_card_new(&pm->pk->hdev->dev, index[dev], id[dev],
++	err = snd_card_new(&pm->hdev->dev, index[dev], id[dev],
+ 			   THIS_MODULE, 0, &card);
+ 	if (err < 0) {
+ 		pk_error("failed to create pc-midi sound card\n");
+@@ -664,7 +656,7 @@ static int pcmidi_snd_initialise(struct pcmidi_snd *pm)
+ 		&pcmidi_in_ops);
+ 
+ 	/* create sysfs variables */
+-	err = device_create_file(&pm->pk->hdev->dev,
++	err = device_create_file(&pm->hdev->dev,
+ 				 sysfs_device_attr_channel);
+ 	if (err < 0) {
+ 		pk_error("failed to create sysfs attribute channel: error %d\n",
+@@ -672,7 +664,7 @@ static int pcmidi_snd_initialise(struct pcmidi_snd *pm)
+ 		goto fail;
+ 	}
+ 
+-	err = device_create_file(&pm->pk->hdev->dev,
++	err = device_create_file(&pm->hdev->dev,
+ 				sysfs_device_attr_sustain);
+ 	if (err < 0) {
+ 		pk_error("failed to create sysfs attribute sustain: error %d\n",
+@@ -680,7 +672,7 @@ static int pcmidi_snd_initialise(struct pcmidi_snd *pm)
+ 		goto fail_attr_sustain;
+ 	}
+ 
+-	err = device_create_file(&pm->pk->hdev->dev,
++	err = device_create_file(&pm->hdev->dev,
+ 			 sysfs_device_attr_octave);
+ 	if (err < 0) {
+ 		pk_error("failed to create sysfs attribute octave: error %d\n",
+@@ -710,11 +702,11 @@ static int pcmidi_snd_initialise(struct pcmidi_snd *pm)
+ 
+ fail_register:
+ 	stop_sustain_timers(pm);
+-	device_remove_file(&pm->pk->hdev->dev, sysfs_device_attr_octave);
++	device_remove_file(&pm->hdev->dev, sysfs_device_attr_octave);
+ fail_attr_octave:
+-	device_remove_file(&pm->pk->hdev->dev, sysfs_device_attr_sustain);
++	device_remove_file(&pm->hdev->dev, sysfs_device_attr_sustain);
+ fail_attr_sustain:
+-	device_remove_file(&pm->pk->hdev->dev, sysfs_device_attr_channel);
++	device_remove_file(&pm->hdev->dev, sysfs_device_attr_channel);
+ fail:
+ 	if (pm->card) {
+ 		snd_card_free(pm->card);
+@@ -728,12 +720,9 @@ static int pcmidi_snd_terminate(struct pcmidi_snd *pm)
+ 	if (pm->card) {
+ 		stop_sustain_timers(pm);
+ 
+-		device_remove_file(&pm->pk->hdev->dev,
+-			sysfs_device_attr_channel);
+-		device_remove_file(&pm->pk->hdev->dev,
+-			sysfs_device_attr_sustain);
+-		device_remove_file(&pm->pk->hdev->dev,
+-			sysfs_device_attr_octave);
++		device_remove_file(&pm->hdev->dev, sysfs_device_attr_channel);
++		device_remove_file(&pm->hdev->dev, sysfs_device_attr_sustain);
++		device_remove_file(&pm->hdev->dev, sysfs_device_attr_octave);
+ 
+ 		snd_card_disconnect(pm->card);
+ 		snd_card_free_when_closed(pm->card);
+@@ -763,10 +752,7 @@ static int pk_input_mapping(struct hid_device *hdev, struct hid_input *hi,
+ 		struct hid_field *field, struct hid_usage *usage,
+ 		unsigned long **bit, int *max)
+ {
+-	struct pk_device *pk = hid_get_drvdata(hdev);
+-	struct pcmidi_snd *pm;
+-
+-	pm = pk->pm;
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
+ 	if (HID_UP_MSVENDOR == (usage->hid & HID_USAGE_PAGE) &&
+ 		1 == pm->ifnum) {
+@@ -781,16 +767,16 @@ static int pk_input_mapping(struct hid_device *hdev, struct hid_input *hi,
+ static int pk_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 	u8 *data, int size)
+ {
+-	struct pk_device *pk = hid_get_drvdata(hdev);
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 	int ret = 0;
+ 
+-	if (1 == pk->pm->ifnum) {
++	if (1 == pm->ifnum) {
+ 		if (report->id == data[0])
+ 			switch (report->id) {
+ 			case 0x01: /* midi keys (qwerty)*/
+ 			case 0x03: /* midi keyboard (musical)*/
+ 			case 0x04: /* extra/midi keys (qwerty)*/
+-				ret = pcmidi_handle_report(pk->pm,
++				ret = pcmidi_handle_report(pm,
+ 						report->id, data, size);
+ 				break;
+ 			}
+@@ -805,8 +791,7 @@ static int pk_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	struct usb_interface *intf;
+ 	unsigned short ifnum;
+ 	unsigned long quirks = id->driver_data;
+-	struct pk_device *pk;
+-	struct pcmidi_snd *pm = NULL;
++	struct pcmidi_snd *pm;
+ 
+ 	if (!hid_is_usb(hdev))
+ 		return -EINVAL;
+@@ -814,26 +799,16 @@ static int pk_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	intf = to_usb_interface(hdev->dev.parent);
+ 	ifnum = intf->cur_altsetting->desc.bInterfaceNumber;
+ 
+-	pk = kzalloc(sizeof(*pk), GFP_KERNEL);
+-	if (pk == NULL) {
+-		hid_err(hdev, "can't alloc descriptor\n");
+-		return -ENOMEM;
+-	}
+-
+-	pk->hdev = hdev;
+-
+ 	pm = kzalloc(sizeof(*pm), GFP_KERNEL);
+ 	if (pm == NULL) {
+ 		hid_err(hdev, "can't alloc descriptor\n");
+-		ret = -ENOMEM;
+-		goto err_free_pk;
++		return -ENOMEM;
+ 	}
+ 
+-	pm->pk = pk;
+-	pk->pm = pm;
++	pm->hdev = hdev;
+ 	pm->ifnum = ifnum;
+ 
+-	hid_set_drvdata(hdev, pk);
++	hid_set_drvdata(hdev, pm);
+ 
+ 	ret = hid_parse(hdev);
+ 	if (ret) {
+@@ -860,26 +835,18 @@ static int pk_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	hid_hw_stop(hdev);
+ err_free:
+ 	kfree(pm);
+-err_free_pk:
+-	kfree(pk);
+ 
+ 	return ret;
+ }
+ 
+ static void pk_remove(struct hid_device *hdev)
+ {
+-	struct pk_device *pk = hid_get_drvdata(hdev);
+-	struct pcmidi_snd *pm;
+-
+-	pm = pk->pm;
+-	if (pm) {
+-		pcmidi_snd_terminate(pm);
+-		kfree(pm);
+-	}
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
++	pcmidi_snd_terminate(pm);
+ 	hid_hw_stop(hdev);
+ 
+-	kfree(pk);
++	kfree(pm);
+ }
+ 
+ static const struct hid_device_id pk_devices[] = {
+-- 
+2.53.0
+
