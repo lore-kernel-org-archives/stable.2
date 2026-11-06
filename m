@@ -1,113 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793981883;
-	b=tBDY+5SvH7dzfSQwNcn03zMKn+DJAhpH5Z/jwLXEJFe5KfJcW3gf0fuUVvSILUPBtES/
-	 +k3fvApBFuCAHXz7rRN2z4Ti6tdnatNIxSj86nkaGWmB/G0B6sdsf3EHI1EaOIIPKiXSM
-	 hYG2hVhyk6ftGQx0kb3NlBz0Hf0z3uop11Di/jeY+zGb23y+sC6898jFPjtSmfmdxdOVT
-	 CDZ6Io6N7C6K3yew1LovlJOwSC6unO56PO1YKPmw4pBc0PSNF7nU4QZghbFNaRulKfQJS
-	 a9Mj/RSmdUpKF0QEpKPkIrUj7mvXs2XiM+HJT4kv4qR6KW726auVz+X2xo5zQFYLzPw==
+	t=1793981924;
+	b=WseFQynqctrV01jXrKWV/lQlmQsMquC5RiLrAJq0grXTiQMSr45dH+28dSGjDZ3kDsET
+	 c+1uStuKLNMmO++bZOm05Yo5z7A523NRT5DuShiHY64fhU8xK5f8Bsuc4S1M3rrRXH12K
+	 r/mG+jvadIf/tPCYEXHz483s9a/u5ubHNYs928n6Wv2tHDMNhkggW8k8y9V8EOqX7my80
+	 cY8PwSKiOLOeL/i5aQuIvBIjwcHdvJMuaPGmzEMoyGTuM2I+wsjZ0cSsVXrjW7MEPmcmx
+	 BLYbXn2oL/fBS1t+oCb6LpaLh/IMb9r1ptSZ16rciO6Xwy2J4EsZ0Bovbv0e3+y7kwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793981883;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Olb2PHgsBhMTLDa7xs2/HL909OsHQObSPGO3kPeXsXk=;
-	b=k2mOr9I/GZmjbH9hTRlIX5FsCHrY5VNAh/PFnoETIy1mdCuZ4OI0pUh6GMw+qHBKwKyx
-	 vaRZsqxqVk8pEwqg3aaJbtyNDqigv8u6XjrWDu/ipsmjdDUbDe0aUskav/gLyE074GI4A
-	 T0tBWbchaYxAPZgzP7yuuSenxnRFkCSvBOwox2gSCougj6vhoeeJ0LlKmRaGlE6YSZenr
-	 B2m6mcgG+4iZlrbWrEa/edonkU9SwBF/25DQ6Ozda/2sfIAsc+CrgidX1+ZurML5IaJ0T
-	 3zmS68E508lASlY1GSQf7jHBieIaslHPNewhmQhRVPzNsMDkJUQ0hbTzIVpmltYiX2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793981924;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:Content-Language:From:To:Cc:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=1/bSPx/dVDOqHfCRwF1YnWcS2LPjAxurHZJkqp6cuVk=;
+	b=oPl6UKNbAa4ykWALOp21vZxnQX/XtG7pZXRkvveIwMRsJVoW9mN4KAWo/ODtvgeDHVid
+	 oahpSXJZFxk+vN6uH8ffVKyIiKGEdb1Bp1jhti+/+BvjJW1kuax5+jOagL4pBRJg4IWnU
+	 5xcuaFSPb7ZMSXDJw8GAZk5+g87i35R2hXgDiOz4sqF/6txTJPUd4JDSmOimVuMQDArAq
+	 jk4fMr3rmHDRNRy4z/mIbkdDPQfkna5k5g4TlGpuBsCa+JgEmmVZpsgk0I8ZNA5eB6TO4
+	 cxfpOYydT8zncJi4ZUhQSpKBL5REKP+cC7aa1IiCOCYNKYU2Ci+3olUysHKez7K79Fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=temperror header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b="hgTjL/Ji";
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=QUSmsZCt;
-	arc=none smtp.remote-ip=148.163.139.74
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=XL6Kggvm;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48F1606D826
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 16:17:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A48F1606D826
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2204C606A329;
+	Fri,  6 Nov 2026 16:18:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2204C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=hgTjL/Ji;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=QUSmsZCt
-Received: from pps.filterd (m0499198.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6FhXW72567227
-	for <stable@vger.kernel.org>; Fri, 6 Nov 2026 11:17:56 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=Olb2
-	PHgsBhMTLDa7xs2/HL909OsHQObSPGO3kPeXsXk=; b=hgTjL/JiqI31WqgneDhZ
-	0QZb7smQM9Dx2axu7QuG9gkXMcso4fLw4hbRvQ+6XLhZCihsk8tJLPqkDIzn4wvw
-	UwbrCe0GGDAEAS6TBvTWOIkBaw3gFD96cUlIjJDQe+7wjiIjtuoehPb2/QHPnhLh
-	QNADb6psCkQBHvz7mYa7mpDqfcD7fILBRKTttHMNN00NDpnvSOREow5wdekasHkt
-	KkyGK3Hms8JbRenQXE5fun5v2w2Q5HbyxZc9ZuGU1p67q0xd3tECVxaIiXcACp78
-	ZwUVRm2DX0dEybUju7gtJaU9IV5vGoaxXN401XU3gTTEuxm/wqNjEj6XW+3o0pyo
-	rg==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hs3pcch5v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 06 Nov 2026 11:17:56 -0500 (EST)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-97e8be2221eso155285241.2
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 08:17:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1793981876; x=1794586676; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Olb2PHgsBhMTLDa7xs2/HL909OsHQObSPGO3kPeXsXk=;
-        b=QUSmsZCt/RQlqjl4nZA3MPJhGb9f0YQlG1cET4a3SSMHs+U2M2inWUQLEhrS/8rahg
-         zwsy3iDL9uJ38ZOr7aC5A+9oA4qwzf/C+MHFjEncz+wwxYwggCzcffcPOunowa07182i
-         9knyGK0ys/noZbQ78rgInWoGyjFxatM/R4y8Nb7KhJ6kPWSTQSycVa+ffPKflmaE8m0F
-         apm8udn0ujmswV5I/JLEAKf9rCXKc229P5TRvm/f6Zu52oNM8ST7DuMwnqyw7Ag0eVQN
-         rGiSExtdFZ3Y7xCEAssDQuB6FlebMgtRsDlgNPIJjePp8vjBnjXL6HDeplU0FAOJ+tPX
-         ai9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793981876; x=1794586676;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Olb2PHgsBhMTLDa7xs2/HL909OsHQObSPGO3kPeXsXk=;
-        b=z9d5IT24Keed1yTXAdTUOmiOFdx3bazj15XeC+R8jSj/Exxf0puvgv3hP67iC61u5x
-         G02Qk6jGVwYaEY3WKDOZm5QUeldHUcD1/xiF5qC4yS+oKTYOw/yVZaoGjr0LzNByIN9/
-         0bU+AaIYGezktjGtv6fXRvmPtVJSZH7ZFkzzYDlPH8LlV4CfCK6Cwtykf2wXA2v4yrWZ
-         2PApVq5oDeBRyL+ns9jIjEG50aZhIoLav/wvxAGM5yNMxRg4JEGUVLcqSB/l/z38G94S
-         quAfeIdbLqc8wyoBvWpv/ZBNZs50Xdv4gnbxTpXCEkVX8vri63mQfgGr8xeoVLg0EalY
-         0vpA==
-X-Forwarded-Encrypted: i=1; AKwUvBxB+HhoON4CDv+OPwzXHcIkpdye2YryIHVJla/vlJ29AcGx9y6xP45iRvc3D1IwH5ojSRpwm5g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/VeyPIi73wlQEaTk98aDCd/gZRY1YFX++qwa+oj5wwzkCvNoD2
-	vlFYUK24FBdgDuqt1yArn7AaWHm7gaIeji4sUvas6El0SufsusRIjdT1paCZk9ou6rk0R/tN79W
-	GJDolEq0AVt54g+4Nvk12sLVJE5ohS1xE1rYBiKbbJv2uPhq78GNnzw==
-X-Gm-Gg: AYBFou0jzbMUZpBKKQ8PVEIz2kJ9xrxBz9VhW52VaLgXDfQ4yox76YPyvC+gjDmnQfz
-	K/2fREzVuc9gh2Mgp4jO+qfFHgk8D2qZrBBtCY6lUO6Nn8S0HLmgpTqXyY9PuBHbY51G3i2u20s
-	Sn1TEczW2QTb/8oYkDc3Qhq1ltbPtecw5lEojM5uv31y0/214jcz6pdno7wia3hLPbLr9TbQJ2I
-	z50UlOCCY1zoIx29OAuXN+fFQpxiNfGDsPFQYoEWTt366TSfjDUJIH7+1PATgij5CJc/i6FLk/L
-	znNYYXyR+4D1oEeZKBEgVixIHsvUa4w7P/vwHF4lZCzvv4Qlv7AuhirO+1I7XDmEgNUUBJGHmmS
-	PrGqBTXiWTlmjqHlCSeGb+EsW97D3snOuoJwupk/OQMpu5DdU5Tllc5rxxVi7cmbCeKDglWnF8v
-	C5/l5i0gKCUhlNE/MCX2YjqY7Uv4BpDTnksNPvAYBraTaUtc8PCGqoaouplwWBoZZ82T3hGBHDi
-	n6pzVy2/c0CN8B6P+wEPSQguzGHZqMdQj//0h4YVyj/uTfU0DKRXveROnR8X1f6
-X-Received: by 2002:a05:6122:4b1a:b0:5ea:f1eb:b9e2 with SMTP id 71dfb90a1353d-5ecc4431e14mr1609536e0c.19.1793981875719;
-        Fri, 06 Nov 2026 08:17:55 -0800 (PST)
-X-Received: by 2002:a05:6122:4b1a:b0:5ea:f1eb:b9e2 with SMTP id 71dfb90a1353d-5ecc4431e14mr1609520e0c.19.1793981875395;
-        Fri, 06 Nov 2026 08:17:55 -0800 (PST)
-Received: from [10.206.221.57] ([129.236.225.236])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ecc64a5ea5sm1678794e0c.4.2026.11.06.08.17.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 08:17:54 -0800 (PST)
-Message-ID: <c0a08333-c236-4e41-867f-d94bc34ede6b@columbia.edu>
-Date: Fri, 6 Nov 2026 11:17:53 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=XL6Kggvm
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:Cc:To:From:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=1/bSPx/dVDOqHfCRwF1YnWcS2LPjAxurHZJkqp6cuVk=; t=1793981923; x=2109341923; 
+	b=XL6KggvmlerWN6TFKXqqheHifHS3/iX804Njfa3/9Dulh+2cqzKhLxBDig0Fz4e7GyUndxO0mMq
+	1CbBDwt2h6yPxRwFpA1tsyguGrDix0+P/wWC83uR1W8ggKfbZfC9ZiHXsiRxgWbdRtCTbezJmcdTa
+	oOCLfE13fVXIHVnvhuepm0UveuQCULPQMuaozGfrM5YmAkYsWMqwf7hhtTvbjva+etoZ61htmlM9i
+	EoA7XHaWCn649L+iOx4CvM+eB1oJPvsLpdi4J6h3YRCcLBIkdfizKQ1VHLhvH6bvGHjEfM8CA+ryX
+	izR1urJGauYmcTZc0FICrZ7CsCkd35NnbU7g==;
+Received: from [189.110.51.50] (helo=[192.168.15.3])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xPMeD-004Zvm-S0; Fri, 06 Nov 2026 17:18:38 +0100
+Message-ID: <2f3734de-1f6c-6820-1508-baa35dbc46db@igalia.com>
+Date: Fri, 6 Nov 2026 13:18:34 -0300
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -117,67 +57,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] blk-mq: take quiesce_lock when removing a queue from the
- tag set
-To: Nilay Shroff <nilay@linux.ibm.com>, Jens Axboe <axboe@kernel.dk>
-Cc: Mohamed Khalfella <mkhalfella@purestorage.com>,
-        Keith Busch <kbusch@kernel.org>, Ming Lei <tom.leiming@gmail.com>,
-        Bart Van Assche <bvanassche@acm.org>, Christoph Hellwig <hch@lst.de>,
-        Josef Bacik <josef@toxicpanda.com>, linux-block@vger.kernel.org,
-        linux-kernel@vger.kernel.org, tz2294@columbia.edu,
-        stable@vger.kernel.org
-References: <20261103-blk-mq-del-quiesce-lock-v1-1-04aa29a481f6@columbia.edu>
- <b7d03393-79a1-4457-8ddf-e0d141e4b3e9@linux.ibm.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Subject: Re: [PATCH] efi: pstore: Fix pstore_disable parameter setting (if
+ built as module)
 Content-Language: en-US
-From: Mani Tofigh <mt4022@columbia.edu>
-In-Reply-To: <b7d03393-79a1-4457-8ddf-e0d141e4b3e9@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+To: Ard Biesheuvel <ardb@kernel.org>, Kees Cook <kees@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Tony Luck <tony.luck@intel.com>
+Cc: linux-efi@vger.kernel.org, linux-hardening@vger.kernel.org,
+ stable@vger.kernel.org, kernel-dev@igalia.com, kernel@gpiccoli.net
+References: <20260906235838.2928815-1-gpiccoli@igalia.com>
+ <273c9217-4630-4585-8cb5-3c5c8f0b77d3@app.fastmail.com>
+ <cdd454e2-a311-71b5-2449-25cdfba893fd@igalia.com>
+ <9b44943a-fd07-ba56-b5b4-77777f64685f@igalia.com>
+In-Reply-To: <9b44943a-fd07-ba56-b5b4-77777f64685f@igalia.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: tfvEVfMROZEHeDEMv-8iEye6L7v3tiiT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA2NCBTYWx0ZWRfX/9peHFedxqd4
- lFQyvOK1lgiCgBYDC7pP2doakvOjijVGhFIqVKi8emrxVCoAwFs/9/tZfa+EiHWmVPUEPatELKj
- wqfYx/KQVo2RwyAtDeTIMLs2tH/6wDBiMWwMnMPHIz3LrJpBNtvLIgMuJ0d8lro7Mx7cb0pngCr
- kKkY0TIpGlccGHqQer30Ioni0f3DVc/gytU8XMd2gQuLuqh0weKj7hQhbY2QYPNcThmAM3cGZ9v
- IKxZgnsNQ8eV2SuYRJ1qsxI89yLri1gdS7cRFlXsxyhJqsvp1uV37pmmJLuqCq3BhZL7TNdqndI
- yUAK1fQZF4gww/BfrKxJVjJCsseS9RhQza8xidtj1lK2cQJJp1RYJqTdsVCNfQJ9IsHPJqzEvgl
- 5Q7/3GsgTSznsE0QLy2TjQRQBlzNGfj12D5tBqGjILUs4kbUWbyZuwVakCFytegnQuRWG4xvMEi
- +tq03MItpgxO4YrIcGQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA2NCBTYWx0ZWRfX8JV4OfeyKhjv
- DnGQG7hsIxwKhOWWoQn2SZhTBF85QQ88O5MoifrIbpmOsWYbSQtVr7vXH0NmBEsyQGJAOagEQLz
- nj3NAIAhHI4hutgu/GusmDcsRQk7ehq9bYQoKlv9wzdwENuIMDR4
-X-Authority-Analysis: v=2.4 cv=V5PoQuni c=1 sm=1 tr=0 ts=6aedfdb4 cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=Z1ioWkiWWmTAar9A4mwgfA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=BpGzv1V74M3SfeTrGa8v:22
- a=EY2qA-gEnykLEDzTMWoA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
- a=o1xkdb1NAhiiM49bd1HK:22
-X-Proofpoint-GUID: tfvEVfMROZEHeDEMv-8iEye6L7v3tiiT
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11958
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 lowpriorityscore=10 clxscore=1015 priorityscore=1501
- malwarescore=0 bulkscore=10 suspectscore=0 impostorscore=10 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060064
+
+On 05/10/2026 20:03, Guilherme G. Piccoli wrote:
+> [...]
+>>> What is the point of having a) a pstore_disable= param on a module
+>>> (which can be blacklisted or simply not loaded) and b) having it
+>>> runtime writable so pstore-efi can be toggled on/off at will?
+>>>
+>>
+>> Well ... despite we agree on that, I think removing pstore_disable is
+>> kinda breaking "the contract" we're following since long time ago.
+>>
+>> The thing is: unlike ramoops, or even maybe pstore/blk and other
+>> potential backends, efi_pstore is a bit of a different beast IIUC.
+>>
+>> It doesn't require any config, by having it loaded, it'll just go ahead
+>> and ...get enabled as pstore backend (unless pstore.backend sets otherwise).
+>>
+>> And not only that: efi_pstore is **usually built-in** - I guess in all
+>> distros I've checked and by default config, it's built-in.
+>>
+>> So, probably to avoid having to use {initcall,module}_blacklist
+>> (depending on the build type), I guess it was decided to have this
+>> parameter. The commit [0] that added that, >13y ago, mentions that since
+>> it was enabled by default and some EFI implementations had issues when
+>> filling its memory with oops logs, the option was to add such
+>> parameter+Kconfig to force disabling efi_pstore. Good decision or not,
+>> we should now live with that IMO.
+>>
+>>
+>>> Also, the practice of controlling the functionality of a builtin
+>>> diagnostic feature by poking something under /sys/module/foo/params
+>>> is in rather poor taste IMNSHO.
+>>>
+>>
+>> Not only poor taste, I would say super counter-intuitive. But allowing
+>> the sysfs playing was added by myself, to enable users to change it
+>> without requiring a reboot, for a very cheap cost (well...not so cheap,
+>> since I added a bug and here am I now, trying to fix it heh).
+>>
+>> If we require a reboot, we are in the same situation of kdump -
+>> crashkernel must be set on command-line and requires a reboot to
+>> properly reserve the memory. There is no technical reason for that in
+>> case of efi_pstore, at least, none I can see.
+>>
+>>
+>> So, with all that said, what is the path you suggest we follow?
+>>
+>> a) This simple fix (or something similar)?
+>>
+>> b) Drop entirely pstore_disable, risking a lot of users to just face
+>> breakages in their setups?
+>>
+>> c) Other ideas?
+>>
+> 
+> 
+> Hey Ard / Kees, gentle ping - how should / could we proceed here?
+> 
+> Apologies for the ping during LPC week, no hurries - just didn't want to
+> leave this bug without fixing waaay too much time heh
+> 
+
+Hi folks, gently ping - anything I can do to unblock this fix?
+Thanks in advance,
 
 
-
-On 11/4/26 8:19 AM, Nilay Shroff wrote:
-> Now that set->quiesce_lock serializes both traversal of set->tag_list
-> in blk_mq_[un]quiesce_tagset() as well as modifications in
-> blk_mq_[add|del]_queue_tag_set(), do we still need RCU protection for
-> this list?
-
-
-I don't think so.  The quiesce walks are the only users that don't
-hold tag_list_lock and I didn't find any other reader of the list in
-block or drivers.
-
-
-I'd like to keep this fix minimal for stable though.  I'll drop the RCU
-and add the __guarded_by() annotations as a separate cleanup.
-
-
-Thanks!
-Mani
+Guilherme
