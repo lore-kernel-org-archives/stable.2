@@ -1,68 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793995387;
-	b=ku8Q22hs2APVJNQnU9Mzi9LtLhI8gg7ROMhhkEd4Pmi6r+OeMQ26+fiNOlqEcQ0U23w+
-	 hg2KehdypY9Ro2EzQFbCtRPc9aMCTYYJtUPFaYIxtmrn+clqBAsAp1P7+rtBB1d2KqIfo
-	 El7oGJGaekDQdRTPi2QQbVtGWAhDg1Xroe65y6BvyScOy9d0DAkM+6T5j0efUgQgS6nQC
-	 ssaw5NYwuv1YzAWq8mzHaQWNDU5mqujLuBt6l+XGQA5xj0vVfW8tHMkq6KlnoIljf+W3F
-	 WoSkv29w7U/09dmcdt+j1H9AE21t/fE0BtxmQaDEmuHt6k2bOKt0BfIbwyE53OjuR+w==
+	t=1793995474;
+	b=by0EKX6lFitGpGE5IYKJVZiLKcLUNcVek9AptNlJAUkAZtl15YaP6F3IFWrNemN1PmHO
+	 pK7aK3JCLERo2aM7N0KjA1JUfTJ/6ss4r/LIpKPwlySYQdFyMOq7N+hyLoGarMQSAN0tH
+	 9lxBHlEVnSiM+lVxIH8AnxOj5mfqiYeZHmKD3fVxQstmxOOQWn51QloMy+XBpW2TawNxm
+	 Al9CZSuDZuU8um+x9zM7Th3BzKR64ZCCDVuMe3uoQIWLcy4bsRm7jU1WbOkQul8OSYZV8
+	 1//ef/vW7rhxML3JYg59tv9xei1VKZ14beksGQgsgvw8Awy1+FCAIOceX0Nw3O6Btdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793995387;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=EZQDuZNuws1ikcoVHzG7GXK+3VfznaqQ2EHawvfd1nw=;
-	b=mFYcF7uin02pJna0kvTyeHY+ObaUMtV79RQrvyB/iW4B6lZ6quaf7HIK9zYmCYjA9bOi
-	 OBK8sDp6GrnmWtSUI4rCbKT3Oo3BeE7fRmdu4bjbYgLhhsoyfuitehcku6RBKWVLs8hEq
-	 +Z2FpcPlOJ3nP4aYZqunaocsg2GI4N1vULjz/wq/DNVnZRJDExXPs5oKkQS+Y3e4z36vr
-	 rLXtePQLXY/gGJBEulDrNTcdCDCkeUGw5JCRW8/cUGRE+l11H4r7vOPSXAt9MleH+/71y
-	 DzOWWrbd05zBKqrPAtSdBaE0fpl6jJKms97MR8u2EBGW5/IyF4iUSWj4WGk0NtEX12A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793995474;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qdzzuDHKyfn9MEDqIa+4Jje9jOJuwPCdKzFPnU5vUZU=;
+	b=tkGyA7JVyn9ykYee8WWuK07/KaN0B4fn2cNoF7TFYBE+GC45GpTy2RiRB6HcgCg+cfFi
+	 GPYM3CNgG4LcIoiV3QoAReKfZ5+Bu94Abm3VPgSjODL5FipmR2e20339BMdK8/oaVpBO1
+	 6mCvpDoU55FprnfSsDrpCuNiislO6gXswXGdRhJVarrJVDtRo7l4Ltrnypa8QSuaDoJug
+	 XoA5kxOqZoeT5NcAnAYLVQjVZYYulInirbS6n3ZFfHNjrmMSkHJLtft3gAovyb5VLbooU
+	 yRNZLJ15QptOi7KYbJP9aZ2WRMLiaRtsnrHoYcs+ZUlC/fvulf20RjzA3WWIQH/BU/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=WZqhRt+V;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0EaSKAHq;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE8A606A326;
-	Fri,  6 Nov 2026 20:03:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DE8A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86210606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 20:04:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86210606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=WZqhRt+V
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=EZQDuZNuws1ikcoVHzG7GXK+3VfznaqQ2EHawvfd1nw=; b=WZqhRt+VJHP/2njNbf/QtsBVl8
-	qDU8VlUBdWpv0N1miQxdsIsnJmyJpcT00O/g9Az3/K+8Bvx9Jag/1gEeZjX4G8EwvcgklYtN0W8FC
-	L/ZOd2FNQmy60jG2LnviDVWi/FRxa5Nri4bkxwyZIMR5P9zB0uIjCByOHnyJt7tTTIU5iPG6ROJp5
-	N0d71A3pYjjVjowYCJgjJZkkcR+6zYjkwIFDOSewLyQswuUcckRhq64DF9VJJAVl9BfS4ZucKXMUl
-	W8BkuJROiEHPzgBnKSLX9G1PoSIjOJOb+EHYJ/UTR5oEvmojtN2SW+6dFSib3pgIjaI2YvkR6nN4t
-	uKgzEgeA==;
-Received: from [151.115.150.205] (port=49746 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xPQ9N-00000000eD1-147b;
-	Fri, 06 Nov 2026 21:02:57 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>
-Cc: netdev@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0EaSKAHq
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so10441585e9.1
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 12:04:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793995473; x=1794600273; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qdzzuDHKyfn9MEDqIa+4Jje9jOJuwPCdKzFPnU5vUZU=;
+        b=0EaSKAHqfT6MH8ZkinKIWE9zvrSc79drozCAYUhfgwN1m4IXV5z8n7RslTiGPtjbks
+         8vK9vNKjmpB2vCiu82GrSYnB7PriyUI9woE+kdH/u1SeQ6RDamBgmFLd3Q3y6RWgAYpL
+         gmxNBdiPLUIC9Iq9auW8I24skXfVqMt1s8SVEl5yAEoY0A/eN2BAwW7kWLtmS4SMKYau
+         6RTbon4zvOqZi9yMA+4XmSKUmzQReJL1OAEaiOteb/X1HYQoOIwIMqUPcm1S8w/mM2SU
+         tMZhlgkHK0CHkJKjkLF+F+7KNVaEUCCaTOShURJCGPeygCU6Z11sKRGrVyg+Xz7e3+Ob
+         yz6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793995473; x=1794600273;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qdzzuDHKyfn9MEDqIa+4Jje9jOJuwPCdKzFPnU5vUZU=;
+        b=bvkY/gKHNmR+HYvNnOVySHuh4sdNu9Lk9dnbwwvcr2Kqpa4Ih8HF0DYtQr1/1SNR6h
+         zU+B7wrio/LuqcwbcJL7XRMuE4LkIwBEgEIY3aIjYGEQKOXwJzX7PXiv4VASZNzlgb/9
+         K3iRU7ny7R292ZYHZKtY5VTV225KCrzDDvUphqsD/tgXvKj5BqhU74ZmKKGqEVQuLKYL
+         i9DtOl2ux0B0gyblrL8q9okVPk3qG+gVvXmJz3xJH4xGYklQh7L74xmkY09f2hsm5hVj
+         QB8SYUe5EreoWAAAf9kmX4YXlAoe/YaLMHvtSTmUARxvaJJS1pbl9ZmaY6wGBZnQDFUt
+         klDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw6uY3KWWIZp+cVnJchBDrKByY+kPh0xG+JM9Bf0nbV+r0lBfipuksFL362+BgPqzZ2ZaBeARk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8hRaZYvVm415d6OLdcWDfzP4uhnfZehUAnIqO7Ys9GqI2HOw1K
+	R4d5E+42+ZD0d1UYgbK7OaSvTN6cHELITRHv3omjlGfP0ZYVKeGjNdzDyUyGZWONvqQYlVHD
+X-Gm-Gg: AYBFou1XL++Duc2Zvgfa1/Brj9iCg7gBjXdk2FkEuPwbPg/6yPXZCKBCYxEWBoypMv3
+	BPb/i//Rs66gmGbuqnsvaTkssPjW76D2Mjuq836WOWKvEv0nOwAJKi9luJsSvHOUsATIN1T7YTj
+	eYV8bRlNteZcXG2rnvkKxTWVvVvR0KjElZNi53LeHWTRxPS0vZBBTLA9ITBCKq7l4vHrpwcgMsJ
+	9S0h7Cy+1ywFXSWdeXEMAlKvdGjaJMRaX32c7Te0DV8hHSaJoOL0wpHSZV6kSvfpGZLDCU7uW4j
+	3UI7qyoITdVgGFTkEJtqNsKVmxYl3Hgr2GwFG7SfZdZiLQg4VfuWogffVDebyfzvu0KoRQvYoHl
+	Al0NMtpRUjx9+Rmp0ZnheeDlcvW+bRz2elaOhHoESEkaiFJzhajnZvFgVHRaejIBIW8wY84QVcb
+	nNd0yZKxypXqD4yvWYkxAGuRlI6yv9fk4nTV1uMOeCjf87pxautp/NeaNNFec5MA8EqbmtMsKYK
+	kS868dQtqMxjnAYanvmKnKo5nSWdCcYETlgQDd7/VDVBq5y4LoTlPKGfhc7L5oQgLIxLOnwHguz
+	hh7PcgzqwaC1dOhnBizj5DvIcvIEAuNQu19ZmA==
+X-Received: by 2002:a05:600c:3ba0:b0:4a7:a5db:a93e with SMTP id 5b1f17b1804b1-4b6db1c5f48mr71249715e9.4.1793995472786;
+        Fri, 06 Nov 2026 12:04:32 -0800 (PST)
+Received: from fedora.domain.name ([217.218.152.94])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cbdb9cdsm16959195e9.1.2026.11.06.12.04.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 12:04:32 -0800 (PST)
+From: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+To: ampr.mhd@gmail.com
+Cc: dhowells@redhat.com,
+	lukas@wunner.de,
+	ignat@cloudflare.com,
+	herbert@gondor.apana.org.au,
+	keyrings@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
 	stable@vger.kernel.org
-Subject: [PATCH] net/sched: sch_qfq: revalidate aggregate after peek
-Date: Fri,  6 Nov 2026 20:02:37 +0000
-Message-ID: <20261106200236.716641-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+Subject: [PATCH v2] pkcs7: Return -EOPNOTSUPP for data-taking algorithms in pkcs7_get_digest()
+Date: Fri,  6 Nov 2026 23:33:56 +0330
+Message-ID: <20261106200423.37769-1-ampr.mhd@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,88 +100,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-qfq_dequeue() keeps in_serv_agg across qfq_peek_skb(), but a child peek
-can re-enter QFQ and free it. KASAN reports a UAF:
+pkcs7_get_digest() is documented to return a digest for IMA to use
+when verifying a modsig.  For signature algorithms where the public
+key algorithm consumes the raw data rather than a precomputed hash
+(algo_takes_data, currently ML-DSA), pkcs7_digest() does not produce
+an intermediate digest.
 
-  BUG: KASAN: slab-use-after-free in qfq_dequeue+0x124/0xad0
-  Read of size 4 at addr ffff88800740423c by task swapper/0/0
+When such a signature has no authenticated attributes, sig->m points
+at the raw data and m_free is false, so the existing check rejects it.
+But when the signature does have authenticated attributes, sig->m is
+an allocated buffer containing a modified copy of the AuthAttrs and
+m_free is true.  The existing check therefore returns that buffer to
+the caller as if it were a digest.
 
-After each child peek, restart qfq_dequeue() if either q->in_serv_agg
-or cl->agg changed. Also use cl->agg after the child peek in qfq_enqueue().
+Test for algo_takes_data directly and report that no digest is
+available, before attempting to call pkcs7_digest().  This covers
+both ML-DSA cases consistently and removes the now-dead m_free check.
 
-Fixes: 462dbc9101ac ("pkt_sched: QFQ Plus: fair-queueing service at DRR cost")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+The only in-tree caller, ima_collect_modsig(), does not check the
+return value of pkcs7_get_digest(); for a data-taking algorithm it
+will now leave the digest fields unset and fall through with no
+digest, which is the correct outcome for an algorithm that does not
+produce an intermediate digest.  Callers that do care can detect the
+new -EOPNOTSUPP return.
+
+Fixes: f3eccecd782d ("pkcs7: Allow the signing algo to do whatever digestion it wants itself")
+Cc: stable@vger.kernel.org # v7.0+
+Signed-off-by: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
 ---
- net/sched/sch_qfq.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+v2:
+ - Add algorithm name to the pr_notice_once() message (Ignat)
+ - Add Fixes: and Cc: stable tags (Ignat)
 
-diff --git a/net/sched/sch_qfq.c b/net/sched/sch_qfq.c
-index 6f3b7273cb160..dc813822d3825 100644
---- a/net/sched/sch_qfq.c
-+++ b/net/sched/sch_qfq.c
-@@ -1100,17 +1100,24 @@ static void qfq_schedule_agg(struct qfq_sched *q, struct qfq_aggregate *agg);
- static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
- {
- 	struct qfq_sched *q = qdisc_priv(sch);
--	struct qfq_aggregate *in_serv_agg = q->in_serv_agg;
-+	struct qfq_aggregate *in_serv_agg;
- 	struct qfq_class *cl;
- 	struct sk_buff *skb = NULL;
- 	/* next-packet len, 0 means no more active classes in in-service agg */
- 	unsigned int len = 0;
+ crypto/asymmetric_keys/pkcs7_verify.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/crypto/asymmetric_keys/pkcs7_verify.c b/crypto/asymmetric_keys/pkcs7_verify.c
+index 474e2c1ae21b..c2e0eda502e2 100644
+--- a/crypto/asymmetric_keys/pkcs7_verify.c
++++ b/crypto/asymmetric_keys/pkcs7_verify.c
+@@ -147,14 +147,15 @@ int pkcs7_get_digest(struct pkcs7_message *pkcs7, const u8 **buf, u32 *len,
+ 	if (sinfo == NULL || sinfo->next != NULL)
+ 		return -EBADMSG;
  
-+restart:
-+	in_serv_agg = q->in_serv_agg;
-+	skb = NULL;
-+	len = 0;
- 	if (in_serv_agg == NULL)
- 		return NULL;
- 
--	if (!list_empty(&in_serv_agg->active))
-+	if (!list_empty(&in_serv_agg->active)) {
- 		skb = qfq_peek_skb(in_serv_agg, &cl, &len);
-+		if (unlikely(in_serv_agg != q->in_serv_agg || cl->agg != in_serv_agg))
-+			goto restart;
++	if (sinfo->sig->algo_takes_data) {
++		pr_notice_once("%s: No digest for data-taking algorithm (%s)\n",
++			       __func__, sinfo->sig->pkey_algo);
++		return -EOPNOTSUPP;
 +	}
++
+ 	ret = pkcs7_digest(pkcs7, sinfo);
+ 	if (ret)
+ 		return ret;
+-	if (!sinfo->sig->m_free) {
+-		pr_notice_once("%s: No digest available\n", __func__);
+-		return -EINVAL; /* TODO: MLDSA doesn't necessarily calculate an
+-				 * intermediate digest. */
+-	}
  
- 	/*
- 	 * If there are no active classes in the in-service aggregate,
-@@ -1148,6 +1155,8 @@ static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
- 		 */
- 		in_serv_agg = q->in_serv_agg = qfq_choose_next_agg(q);
- 		skb = qfq_peek_skb(in_serv_agg, &cl, &len);
-+		if (unlikely(in_serv_agg != q->in_serv_agg || cl->agg != in_serv_agg))
-+			goto restart;
- 	}
- 	if (!skb)
- 		return NULL;
-@@ -1271,9 +1280,10 @@ static int qfq_enqueue(struct sk_buff *skb, struct Qdisc *sch,
- 	/* if the class is active, then done here */
- 	if (cl_is_active(cl)) {
- 		if (unlikely(skb == cl->qdisc->ops->peek(cl->qdisc)) &&
--		    list_first_entry(&agg->active, struct qfq_class, alist)
-+		    cl_is_active(cl) &&
-+		    list_first_entry(&cl->agg->active, struct qfq_class, alist)
- 		    == cl && cl->deficit < len)
--			list_move_tail(&cl->alist, &agg->active);
-+			list_move_tail(&cl->alist, &cl->agg->active);
- 
- 		return err;
- 	}
+ 	*buf = sinfo->sig->m;
+ 	*len = sinfo->sig->m_size;
 -- 
-2.47.3
+2.55.0
 
