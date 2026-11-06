@@ -1,114 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793973994;
-	b=euzd0KKXIZvndW6xATzfyeFsJ3UoONcB0wSy/cScoKN4SHE6pChlSXcOE4jJrI0PnoBW
-	 4rjvprWfYfcJRoXddhdx0y1f89zNxe9kg3Hyn8d3JkJN7WeA795+Cppa60dDbkLxqh1Nf
-	 OUKYGsiMnqJcDi1LzhTYkKpx03A9PNpHuex2VaqFbAbI89WmDF8gMVQgSbBdyLwzxd511
-	 ymr1SajAEItoZIpm4e653hRojxXhFoOestTsDw7t33Wk9UdEhHhryVHqq7CUVKGoKXNUg
-	 J4pEcO33ZlnUm2sUgqDwHW/EC7E1Nu7NwfglzoyImYiiqBJt3/RiSwAgZ/9RFGApPvQ==
+	t=1793974099;
+	b=VD6vCHuuZMDtj7jZTbaVIACg4qsCUQAFHyEDbyV26FjEeRNaTOum8CK4JiMoYULz6Kvj
+	 tp/5YujdgfqRygXsE41T09vOdFz4bO61HD/65ezDPLhBCzoysJHSYJfkR7UC4xYGMqAjh
+	 kmGxaadC5Mp4cbduyxu4ULJw9qq118saHqhsCq/vojIql9yw/Vj4zQKe9YmkesO0PxNMw
+	 RIfOw2Vtz5JH/8z9hxT2eFDzg0OKWekStp1m2d9eYzPeNmogJkrUAyZz7bzicGLlXZUZg
+	 lyd1Ko0KJD5zWfQXKUL9d/EpoxmMS9MphWLt9Upn+I7hVzNBkdV6wQhiSEMmuUbFYKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793973994;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=kkNYkeNE70WPtaAN9DA9oFQKwNzrr37+/VHeOjZamN0=;
-	b=HwfnnseYPg8DJELdZRUWjDpkfkL3UPmRqO72EBXHhfrdECmA0C0LYFwHERgMH1gO2qxy
-	 PCbjJ/e26cUjM3tk3pjiSnKFUK6wUEEuhnQXAHFRJjfcNPURGTlnZ563TsPu7iTeT8gZ0
-	 95uoIkBQWEPFN4KPeF9bPCEw/pVZo/sxAJXd5N88kY4x2fb2LXI7BOIv/KhL0MdsiEwE1
-	 0aCHf1o7AUh06cWPY3QvRwFFYsqQTpveSNl/gAUkGFZe97gcjoavckE/mFVYDl/ESlv54
-	 9HDUww89aldxpQ+jtiBqCrH5myX30Y2q1jQLNukpE7NLb9YrNkJLyxlgNSenBiKkLkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974099;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hrYX149OSdk3k+YOin/rIkohEIQs6jD419zibT9vgxU=;
+	b=pKoPfBzQbcFXPRzioFIQRcrPDHiaSxxRMlVoGvKNgn4SrjGuw2r3ASvhPcxmv0TP/oY6
+	 NCZ9uBTQvaZlRF5hqJ96MxhJD6Ud50rs7lfp8Ipw2YEkZTIwlZQDCpK2AxrAUTlbdMbqY
+	 gkKtxbxGy+BamlF1OtritTmKeAX+OR1auxAWqyoGarsMZY+giEP4N4TGJY9DVVuKrcOLt
+	 7K7Xqbt4dLpTvw4UMBSOx4UF7ecEo6AFlXWh56Ef6d9uBVRG33iRXCBoVLPIHP/EY/IzW
+	 Mzl+QUDwZcH+3pprTD6q6Mfnk4fpqFZ404UE6RJ3xf7jgQfssUNU6WUTtAxnShOvFqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HYCXuoie;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="k6n/Kfux";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HYCXuoie;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="k6n/Kfux";
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fh6r6JqT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543D3606A326;
-	Fri,  6 Nov 2026 14:06:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 543D3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 4B2A3606A326;
+	Fri,  6 Nov 2026 14:08:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HYCXuoie;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=k6n/Kfux;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=HYCXuoie;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=k6n/Kfux
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 5170C1F7F5;
-	Fri,  6 Nov 2026 14:06:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793973991; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kkNYkeNE70WPtaAN9DA9oFQKwNzrr37+/VHeOjZamN0=;
-	b=HYCXuoierL737OpwGTSBiFtCNZsGHglPQTMPO4xMGvCJEhpXHAfWCPkjEWr2Zt6zeucAuZ
-	Aw4xlaalSlJRo6qbRgIiC3dhzTu20ZWsEdGWxzfIh2RaQfU3w05UqFuL8h3JeZirIKOt23
-	I9wm5k70zac1ek2/yfQvV33IYc++MrU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793973991;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kkNYkeNE70WPtaAN9DA9oFQKwNzrr37+/VHeOjZamN0=;
-	b=k6n/KfuxZ+6UVLlCllYhPpTvopJG2L2NtK31AQ3FXc0D8tanjreTzupE1aEZBil9oXPmfu
-	i75D+RtwwwZauaCA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HYCXuoie;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="k6n/Kfux"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793973991; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kkNYkeNE70WPtaAN9DA9oFQKwNzrr37+/VHeOjZamN0=;
-	b=HYCXuoierL737OpwGTSBiFtCNZsGHglPQTMPO4xMGvCJEhpXHAfWCPkjEWr2Zt6zeucAuZ
-	Aw4xlaalSlJRo6qbRgIiC3dhzTu20ZWsEdGWxzfIh2RaQfU3w05UqFuL8h3JeZirIKOt23
-	I9wm5k70zac1ek2/yfQvV33IYc++MrU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793973991;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kkNYkeNE70WPtaAN9DA9oFQKwNzrr37+/VHeOjZamN0=;
-	b=k6n/KfuxZ+6UVLlCllYhPpTvopJG2L2NtK31AQ3FXc0D8tanjreTzupE1aEZBil9oXPmfu
-	i75D+RtwwwZauaCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 14F53134E9;
-	Fri,  6 Nov 2026 14:06:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id JH6tL+Xe7WooXAAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Fri, 06 Nov 2026 14:06:29 +0000
-Date: Fri, 6 Nov 2026 14:06:28 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Kiryl Shutsemau <kas@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Hugh Dickins <hughd@google.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Zach O'Keefe <zokeefe@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate in
- MADV_COLLAPSE
-Message-ID: <au3bJel0YnSeowCq@pedro-suse.lan>
-References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
- <au3C8lNElGg4LnR1@thinkstation>
- <254c6f0a-9353-4806-a5ab-a071cd59c64f@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fh6r6JqT
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6D1331F008A4;
+	Fri,  6 Nov 2026 14:08:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793974099;
+	bh=hrYX149OSdk3k+YOin/rIkohEIQs6jD419zibT9vgxU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Fh6r6JqT9W8Hnz3tANti0KLpqS7sv0c9iueIpUquCp04Dn+y2973apbGc9JzFrcGD
+	 w+35nlorw7FqrNrGtSpEuPFV6uzE2NXLVthgnSwTqVW4uFpAk7Ng+5J6g5PYwUG6+a
+	 p/dKC3Rt9SGcj+/0SF7tnZj9WSWRN5Rp4h1xbWb47Z2O8kw3khIQnY3969bABkQLpN
+	 sp59C0skZ56wF2+7VfZcZQv4Vb3USBtN6YJa01erKVQlZP8VF1LBcKND7C2AaVgFHz
+	 PSQrFrUsWH5nNy02ZJPn0LlSgVQWBTXEEUReSTgvuQz22kf8T0dXAW6PpuRgJEWvwd
+	 n90pRF9foNiNg==
+Date: Fri, 6 Nov 2026 16:08:15 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Yuansheng Yang <0xbeac@gmail.com>
+Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4] KEYS: Protect pkey method checks against type removal
+Message-ID: <au3fT5HMq7IF-M3e@kernel.org>
+References: <auy1ANMSKTXZb8GE@kernel.org>
+ <20261105193632.34363-1-0xbeac@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -120,92 +62,214 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <254c6f0a-9353-4806-a5ab-a071cd59c64f@kernel.org>
-X-Rspamd-Queue-Id: 5170C1F7F5
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -13.51
+In-Reply-To: <20261105193632.34363-1-0xbeac@gmail.com>
 
-On Fri, Nov 06, 2026 at 01:29:31PM +0100, David Hildenbrand (Arm) wrote:
-> On 11/6/26 13:09, Kiryl Shutsemau wrote:
-> > On Thu, Nov 05, 2026 at 07:16:44PM +0100, David Hildenbrand (Arm) wrote:
-> >> madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
-> >> uptodate. For example, shmem fallocate() can put such folios into the
-> >> page cache.
-> >>
-> >> collapse_file() already refuses to proceed with folios that are not
-> >> uptodate. Let's just do the same in try_collapse_pte_mapped_thp() and skip
-> >> such folios, leaving handling to the page faults.
-> >>
-> >> Note that collapse_file() effectively clears shmem folios through
-> >> shmem_get_folio(); let's keep this fix simple and simply let the page
-> >> fault path deal with that.
-> >>
-> >> Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
-> >> Reported-by: Chris Mason <mason@kernel.org>
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> > 
-> > Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> > 
-> > Separately from this fix: nothing on the mapping side catches this.
-> > Every caller checks uptodate on its own (next_uptodate_folio(),
-> > filemap_fault(), shmem_get_folio()), and khugepaged was the one that
-> > went straight from filemap_lock_folio() to do_set_pmd().
-> > 
-> > Should do_set_pmd() and set_pte_range() assert it? Something like
-> > 
-> >         VM_WARN_ON_ONCE_FOLIO(folio->mapping && !folio_test_anon(folio) &&
-> >                               !folio_test_uptodate(folio), folio);
+On Fri, Nov 06, 2026 at 03:36:31AM +0800, Yuansheng Yang wrote:
+> keyctl_pkey_params_get() looks up the key, and keyctl_pkey_query(),
+> keyctl_pkey_e_d_s() and keyctl_pkey_verify() then dereference
+> key->type->asym_* outside key->sem.  A reference keeps the key alive, but
+> does not pin the module providing its type.
 > 
-> I think so. But looking at these hard-to-trigger but in the end very nasty
-> problems, should we actually reject the operation and do a pr_warn_once() or
-> something?
+> unregister_key_type() calls key_gc_keytype(), which retypes every
+> remaining key of the type to key_type_dead under key->sem for writing.
+> The pkey paths read key->type again after their checks, so a concurrent
+> module unload can turn the checked callback into the NULL key_type_dead
+> member and call through a NULL function pointer, e.g.:
+> 
+>   KEYCTL_PKEY_SIGN task              Module unload and key GC
+>   ------------------------           ------------------------
+>   keyctl_pkey_e_d_s()
+>     if (!key->type->asym_eds_op)     unregister_key_type()
+>                                        GC: down_write(&key->sem)
+>                                        GC: retype to key_type_dead
+>                                        GC: up_write(&key->sem)
+>                                      free_module()
+>     in = memdup_user(...)
+>     key->type->asym_eds_op(...)      -> NULL call
+> 
+> In-tree, turris-signing-key provides such methods.
+> 
+> Remove the key->type->asym_query check from keyctl_pkey_params_get(): it
+> runs without key->sem, so key_gc_keytype() can retype the key right after
+> it.  Instead, make keyctl_pkey_params_get_2(), keyctl_pkey_query(),
+> keyctl_pkey_e_d_s() and keyctl_pkey_verify() each take key->sem for
+> reading, check the key->type->asym_* method they are about to call, call
+> it and release key->sem.  As key_gc_keytype() takes key->sem for writing
+> before it retypes the key, key->type cannot change between the check and
+> the call.  Drop the asym_eds_op and asym_verify_signature checks that
+> keyctl_pkey_e_d_s() and keyctl_pkey_verify() did before memdup_user() for
+> the same reason; -EOPNOTSUPP is now returned from under key->sem.
+> memdup_user(), kmalloc() and copy_to_user() stay outside key->sem, as in
+> __keyctl_read_key().
+
+This is a transliteration of the source code changes. How this helps me
+to quickly understand them vs reading the source code changes and 
+skipping this?
+
+I'd like to know what is that you are trying to do by doing those
+changes, which is the higher leve question. You should know this
+already. I see pretty much the same thing done for those sites so maybe
+that action is what you want to describe. Action taken, why that action
+won't cause any harm,  enumerate the coverage and address that it is the
+full coverage.
+
+The above looks to me as if someone had literally prompted "translate
+this source code change to English". Neither much effort thinking  done.
+
+> 
+> This problem was recently fixed for keyctl_read_key() by 925c84e3cc21
+> ("keys: Protect the read method check against type removal") and for
+> key_update() by aef3a8a4f988 ("KEYS: Protect the update method check
+> against type removal").
+> 
+> Fixes: 00d60fd3b932 ("KEYS: Provide keyctls to drive the new key type ops for asymmetric keys [ver #2]")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yuansheng Yang <0xbeac@gmail.com>
+> ---
+> Changes in v4:
+> - Rewrite the commit message: describe what changes in
+>   keyctl_pkey_params_get(), keyctl_pkey_params_get_2() and the three
+>   keyctl handlers and why, and cite the read/update fixes by subject.
+> - Rename the out_unlock labels to out_up_key_sem.
+> - Use out_up_key_sem / out_free_in / out_free_params in
+>   keyctl_pkey_verify(); leave the other functions' existing labels alone.
+> - No functional change relative to v3.
+> 
+> v3: https://lore.kernel.org/all/9d47e202bd11857b3555e6b95694b3c3a4f2460b.1793852399.git.0xbeac@gmail.com/
+> v2: https://lore.kernel.org/all/20261104021414.50696-1-0xbeac@gmail.com/
+> 
+>  security/keys/keyctl_pkey.c | 58 +++++++++++++++++++++++++++----------
+>  1 file changed, 42 insertions(+), 16 deletions(-)
+> 
+> diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
+> index 15b6bf6399..3e3253330c 100644
+> --- a/security/keys/keyctl_pkey.c
+> +++ b/security/keys/keyctl_pkey.c
+> @@ -100,9 +100,6 @@ static int keyctl_pkey_params_get(key_serial_t id,
+>  		return PTR_ERR(key_ref);
+>  	params->key = key_ref_to_ptr(key_ref);
+>  
+> -	if (!params->key->type->asym_query)
+> -		return -EOPNOTSUPP;
+> -
+>  	return 0;
+>  }
+
+I'd drop this as technically it is not part of the bug fix and then you
+have pretty much symmetric action. Helps at least with the description.
+
+>  
+> @@ -129,7 +126,16 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
+>  	if (ret < 0)
+>  		return ret;
+>  
+> +	down_read(&params->key->sem);
+> +	if (!params->key->type->asym_query) {
+> +		ret = -EOPNOTSUPP;
+> +		goto out_up_key_sem;
+> +	}
+> +
+>  	ret = params->key->type->asym_query(params, &info);
+> +
+> +out_up_key_sem:
+> +	up_read(&params->key->sem);
+>  	if (ret < 0)
+>  		return ret;
+>  
+> @@ -185,7 +191,16 @@ long keyctl_pkey_query(key_serial_t id,
+>  	if (ret < 0)
+>  		goto error;
+>  
+> +	down_read(&params.key->sem);
+> +	if (!params.key->type->asym_query) {
+> +		ret = -EOPNOTSUPP;
+> +		goto out_up_key_sem;
+> +	}
+> +
+>  	ret = params.key->type->asym_query(&params, &res);
+> +
+> +out_up_key_sem:
+> +	up_read(&params.key->sem);
+>  	if (ret < 0)
+>  		goto error;
+>  
+> @@ -230,10 +245,6 @@ long keyctl_pkey_e_d_s(int op,
+>  	if (ret < 0)
+>  		goto error_params;
+>  
+> -	ret = -EOPNOTSUPP;
+> -	if (!params.key->type->asym_eds_op)
+> -		goto error_params;
+> -
+>  	switch (op) {
+>  	case KEYCTL_PKEY_ENCRYPT:
+>  		params.op = kernel_pkey_encrypt;
+> @@ -260,7 +271,16 @@ long keyctl_pkey_e_d_s(int op,
+>  	if (!out)
+>  		goto error_in;
+>  
+> +	down_read(&params.key->sem);
+> +	if (!params.key->type->asym_eds_op) {
+> +		ret = -EOPNOTSUPP;
+> +		goto out_up_key_sem;
+> +	}
+> +
+>  	ret = params.key->type->asym_eds_op(&params, in, out);
+> +
+> +out_up_key_sem:
+> +	up_read(&params.key->sem);
+>  	if (ret < 0)
+>  		goto error_out;
+>  
+> @@ -305,31 +325,37 @@ long keyctl_pkey_verify(const struct keyctl_pkey_params __user *_params,
+>  	ret = keyctl_pkey_params_get_2(_params, _info, KEYCTL_PKEY_VERIFY,
+>  				       &params);
+>  	if (ret < 0)
+> -		goto error_params;
+> -
+> -	ret = -EOPNOTSUPP;
+> -	if (!params.key->type->asym_verify_signature)
+> -		goto error_params;
+> +		goto out_free_params;
+>  
+>  	in = memdup_user(_in, params.in_len);
+>  	if (IS_ERR(in)) {
+>  		ret = PTR_ERR(in);
+> -		goto error_params;
+> +		goto out_free_params;
+>  	}
+>  
+>  	in2 = memdup_user(_in2, params.in2_len);
+>  	if (IS_ERR(in2)) {
+>  		ret = PTR_ERR(in2);
+> -		goto error_in;
+> +		goto out_free_in;
+>  	}
+>  
+>  	params.op = kernel_pkey_verify;
+> +	down_read(&params.key->sem);
+> +	if (!params.key->type->asym_verify_signature) {
+> +		ret = -EOPNOTSUPP;
+> +		goto out_up_key_sem;
+> +	}
+> +
+>  	ret = params.key->type->asym_verify_signature(&params, in, in2);
+>  
+> +out_up_key_sem:
+> +	up_read(&params.key->sem);
+>  	kfree(in2);
+> -error_in:
+> +
+> +out_free_in:
+>  	kfree(in);
+> -error_params:
+> +
+> +out_free_params:
+>  	keyctl_pkey_params_free(&params);
+>  	return ret;
+>  }
+> -- 
+> 2.43.0
 > 
 
-Yes. FWIW, this is something that's been going through my mind. Our page table
-manipulation APIs (and usage) are way too fragile and allow you to do the
-most insane things without ever realizing it (e.g you can clear a pte, set
-over a PTE, get-and-clear and discard the result, and do all of the above with
-no locks held, set a pte for a folio that's not uptodate, set a pte for a folio
-for which you don't have the lock, etc).
-
-Some basic assertions (even if there's no easy way to back down from those)
-would be nice, or ideally yes a rejection.
-
-I would just add that these very much should be VM_WARN_ON_ONCE instead of
-pr_warn_once(). pr_warn_once() will (AIUI) not be caught by fuzzers, at least
-not as easily.
-
-Also, if they're inexpensive enough, we might want to upgrade them to full
-WARN_ON_ONCE().
-
--- 
-Pedro
+Br, Jarkko
