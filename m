@@ -1,72 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793924752;
-	b=eze+AnhiutcUwtAdD3oQPZGkH1oJF5eCPfK3T3Jqon7J5YJT5e+q3djnOAdJL8k/V7K+
-	 TM3gT2BDpKg70XCaMwiJczH0aXY2k4eCOeh21RfSPaW9sD+XfHibyUKFuYpAMou+u4j5D
-	 eMDixmg4516SuwP0CwXjceCSmBjYm+DwrAqWT87au43HegkA6m1LYdJeTBLhN6sjeLeYx
-	 5vpKwVxFaBVPfNFmwFtJXwrDjyCRbOROL0xIblXyXHgmyn/oyGE8d7531Uwq4Tcy9W5/a
-	 PWWzh5mpnFFZWF5WuHWLFZF8WVP4PS8Ckc5yDq1zHLn5tOnLGsVGdkmDoLi4hGHt6IA==
+	t=1793925112;
+	b=Hralmv98gAYdmg3Weje6fsD6wxBzTs46Q+sbTdfVtpD7vply11k+S8Vq5bkQjjMBV/bq
+	 XaDyg5HXg3XqXDIGQ1UrIv9iWQggzIdQcedoKwHSad7kNVwQOfcioVD//YkXaZAY6A3bU
+	 Icfh3bK8muM+gaKVeCjZF/bEvcJI5/LeLstModz8+p7YSGNgjh1pUdKM9K5uLpco0p61I
+	 yYLTibFRG3DBTHlL1c7SzDNe4Fm0JbCUdA2cNGD+NDE41knCXfo5e03Yim2nsqI5ciKtc
+	 hGojVGknWG6Iyt/L7DTewc9ziUQv8NKoFOPa+u7PnWxg8knV3FwsbTeUs/m3/9PcGiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793924752;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=JvqI6TBiIZCiWZcWVkF7wmK1Vhkf37zW3gHeE3OoHp8=;
-	b=S2iACsTXDBsj++BYnPuTkCFRBeoz9NV7BtjhhnWr9AX2/FclVNrfExd7AVuQ8ZCJLkEE
-	 W6MFJK+uOyRk9L+f2MzKA5G04by5RD9fLSWhvzbPAt4PbGxFc4v/vvLGLG2yvlozU5whw
-	 wOo7DudBiPPJO8a3vD3n1i3jG1k4QplZTovziKMtmV+YyN9iX0aaF819ujCHE+pHyXLTz
-	 qJKw/nu0qNx4pO58zERZn3HaBOedH92RcSpJo8ADh7JvGsKerh3P5TBIPRh89tHrDLUBW
-	 z38OERMv7TVN5soS0kJ3Jx71i/eu8UN1G8xbB/R3lw0V5YeYSAdfKr+A4/armzzWeuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793925112;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=1otFFXdDof6ggI5sQakdV+w/DaicL2aXrQ4bTY44jlQ=;
+	b=IrkAdavgNz4TaErFh1Qk5rjuoQ8E9LhQeyN+coXSoVwmcmYVrLxCuY36uhBljDxIxwIy
+	 vHw6it4JVmuo9XRG9OGtIyMLVL1P/nkZH13Xcmh9VekAiM/RzkNa6GPUGS/FqVlAplWRy
+	 9JWLVOSsjPGI8pOUFiu4v66LZ02pyk2fPIXEqZWgLiD973I9K/+K9clNz33eyy3CjEjbC
+	 eF56SP7ryzk0qfJocKOhbGqLeU0AQarYcwwleETSDaoA05fPxYmLbV3csPqKfSYuuOqrB
+	 9fu6RvzSlLDon2PSzkzacueg5oRPl9gaZdxWrUf5qwy7vrbi1dGuF7c59gnt9ZVFrMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--namangulati.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dPxQOlzm;
-	arc=none smtp.remote-ip=209.85.160.200
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J0kEdA0H;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C3D606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 00:25:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1C3D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--namangulati.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E634E606A31B;
+	Fri,  6 Nov 2026 00:31:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dPxQOlzm
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5351f1b26e6so1073191cf.2
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 16:25:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793924750; x=1794529550; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JvqI6TBiIZCiWZcWVkF7wmK1Vhkf37zW3gHeE3OoHp8=;
-        b=dPxQOlzm/EecsuI7ecJmtBSeZKddd15hJzcNWEHbZOfkGkRrFLra1+pRgFfixRPIr2
-         Vw6iYxZL9gg7ntrQWkdN0vZmtClduoY/dygZdYHSAXjN/ald1qENYJ72z4BzNJwp1p7j
-         iAKy85t5ioYPYuJD68ghEy7SsARQQjKZGHKRP44Bbh1ooytror1Ys8Tn27rn3222DidO
-         iAPz5IR58gBoD2DNR0J/YkAogCoPXnYROVrvkKmsn4emf4c9nbnhRSfQX426QYFiQiCY
-         h52lkHE3bp57tJ1FK40ndSoF133yuKUthYlrRyllnDqvEA1ckg4QZqtSBBY0qnnFhrOi
-         4j4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793924750; x=1794529550;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JvqI6TBiIZCiWZcWVkF7wmK1Vhkf37zW3gHeE3OoHp8=;
-        b=Qjm68gE7m7GmSXnzekjdAuaHv4rcO6FpFhOt+CYe44uDlWEJzPBsjx3r4QzWw79el+
-         ezHxzIWMS1aX/oXh/FO69J9fqH520B5Ja7oia9oV1kDXT0GfyqNSWdIUZ4WaEmTKLqnL
-         2y5EU34aYA2xEKf2QGIcOB6GRG/ciQNwjhUfx+Cmm4V6+/vq006BVAMhgD4HT5aYEAH1
-         6c5saaesVeIktVzuEbPQ5Oeswr1Cg82lSkmLPu2vqCKepbLhosiPZzdzrhwVTIzm2vAb
-         +qmCNGuaBi+c8M8Rjaaacm/bXoyZ6p9EcNQ7UD6OoV8DTU53C9vmkVo8ysr/QJvw3kl4
-         ZejA==
-X-Forwarded-Encrypted: i=1; AKwUvByAxYkdZ4NLX+dpwhPqfoCfzCk27r4CmYfdRObCE21oH+UGJ7+r/UdoRxa3gsBvsnLFKfbW4hE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+5XJKAq6vTPktMT0J2ajo9h/kFo6PtfDNr81cKYjL4OOtwhX05
-	2cPs+S1yqyClbEK/YzM/APf9XeHMeRTp1ouUnYd97uioV9uF+jjIJh8771m8eNaHNFEfRomU7uA
-	GCr2grEVX51mZiYIUjpub/AGyDA==
-X-Received: from qtvx8.prod.google.com ([2002:ac8:4d48:0:b0:542:fcb0:6027])
- (user=namangulati job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:622a:3c8:b0:535:14f9:3f02 with SMTP id d75a77b69052e-54e1566b67cmr16452671cf.58.1793924750173;
- Thu, 05 Nov 2026 16:25:50 -0800 (PST)
-Date: Fri,  6 Nov 2026 00:25:46 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J0kEdA0H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C7E81F0089F;
+	Fri,  6 Nov 2026 00:31:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793925111;
+	bh=1otFFXdDof6ggI5sQakdV+w/DaicL2aXrQ4bTY44jlQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=J0kEdA0H/7AskFv0xSLHnpmFKPu8OVP54rNURNvOmb16qmpSHm0vEv/ZENxdeGtyo
+	 KmafwdZA/Z00TIs6m9Zx6JoB2GJGNP2Br5Ld72sgTjuuKJ8hycIl1xitjn3EAMyEwb
+	 QztyeC0cz3YjBzqgm2dt6ht39WcPcM5UyQ49CNVwikNpFfsfEjt0D0CGbhji8d+4Ot
+	 WP+2nKCwEPK1Y5npFMffZ+jaQG0LZeg4Y8+1qJKaWeS0e7PuYeRiTMoNFe2PPYghCV
+	 HXOAtqZABR89ynrIymCWDdReJbyrNYZlcZXluSdL3eVJxkwKkGw0fEWGEJ6WDdf0vd
+	 CdwPNeN1QUI7Q==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	loongarch@lists.linux.dev,
+	Carlos Maiolino <cem@kernel.org>,
+	linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
+Date: Fri,  6 Nov 2026 01:31:38 +0100
+Message-ID: <20261106003138.73413-1-ojeda@kernel.org>
+In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
+References: <20261104211038.406938024@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,77 +79,50 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261106002546.2100412-1-namangulati@google.com>
-Subject: [PATCH iwl-net v2] idpf: fix Rx payload buffer leak when header
- buffer allocation fails
-From: Naman Gulati <namangulati@google.com>
-To: intel-wired-lan@lists.osuosl.org
-Cc: netdev@vger.kernel.org, Tony Nguyen <anthony.l.nguyen@intel.com>, 
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
-	Alexander Lobakin <aleksander.lobakin@intel.com>, Brian Vazquez <brianvv@google.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Naman Gulati <namangulati@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-With header split, idpf_rx_update_bufq_desc() allocates the payload
-buffer for a buffer ID first and its header buffer second. If the header
-buffer allocation fails, it returns -ENOMEM and leaves the new payload
-buffer in bufq->buf[buf_id]. idpf_rx_clean_refillq() then stops without
-consuming the refill queue entry, and the next NAPI poll retries the
-same buffer ID, again starting with the payload buffer.
-libeth_rx_alloc() overwrites bufq->buf[buf_id], and the earlier payload
-buffer is never returned to its page_pool.
+On Wed, 04 Nov 2026 16:03:04 -0500 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.3.2 release.
+> There are 547 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 06 Nov 2026 21:07:23 +0000.
+> Anything received after that time might be too late.
 
-Each such failure leaks one payload buffer. The pool's inflight count
-never drops to zero, so when the queues are re-created or the device
-goes away, the pool never finishes shutting down and
-page_pool_release_retry() keeps warning about a stalled pool shutdown.
+Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
+for loongarch64 and arm32:
 
-This happens when the header buffer pool runs dry while the payload pool
-still has pages, for example under memory pressure: a header page holds
-several header buffers and only goes back to its pool once the skbs
-using all of them have been freed. This was hit under high flow count
-TCP stream tests with memory pressure causing RX header buffer
-allocations to fail, and validated on idpf.
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
 
-Release the payload buffer when the header buffer cannot be allocated,
-as ice_alloc_rx_bufs() already does, so that the retry starts from an
-empty slot. idpf_rx_page_rel() also clears the slot, so the buffer queue
-teardown cannot release the buffer a second time.
+On loongarch64, I am seeing:
 
-Fixes: 90912f9f4f2d ("idpf: convert header split mode to libeth + napi_build_skb()")
-Cc: stable@vger.kernel.org # 6.11+
-Signed-off-by: Naman Gulati <namangulati@google.com>
-Tested-by: Brian Vazquez <brianvv@google.com>
-Reviewed-by: Alexander Lobakin <aleksander.lobakin@intel.com>
----
-v2:
-  - Add Cc: stable@vger.kernel.org # 6.11+ (Alexander)
-  - Add Reviewed-by (Alexander) and Tested-by (Brian) tags
-  - Note how the issue was triggered and validated on idpf in the commit message
-  - v1: https://lore.kernel.org/intel-wired-lan/20261104013606.1527767-1-namangulati@google.com/
- drivers/net/ethernet/intel/idpf/idpf_txrx.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+     fs/xfs/scrub/agheader.c:123:6: warning: variable 'error' is used uninitialized whenever 'if' condition is true [-Wsometimes-uninitialized]
+      123 |         if (agno == 0)
+          |             ^~~~~~~~~
+    fs/xfs/scrub/agheader.c:435:9: note: uninitialized use occurs here
+      435 |         return error;
+          |                ^~~~~
+    fs/xfs/scrub/agheader.c:123:2: note: remove the 'if' if its condition is always false
+      123 |         if (agno == 0)
+          |         ^~~~~~~~~~~~~~
+      124 |                 goto out_xref;
+          |                 ~~~~~~~~~~~~~
+    fs/xfs/scrub/agheader.c:111:13: note: initialize the variable 'error' to silence this warning
+      111 |         int                     error;
+          |                                      ^
+          |                                       = 0
 
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_txrx.c b/drivers/net/ethernet/intel/idpf/idpf_txrx.c
-index 885df6294ad94..7383d8241ead5 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_txrx.c
-+++ b/drivers/net/ethernet/intel/idpf/idpf_txrx.c
-@@ -3745,8 +3745,10 @@ static int idpf_rx_update_bufq_desc(struct idpf_buf_queue *bufq, u32 buf_id,
- 	fq.truesize = bufq->hdr_truesize;
- 
- 	addr = libeth_rx_alloc(&fq, buf_id);
--	if (addr == DMA_MAPPING_ERROR)
-+	if (addr == DMA_MAPPING_ERROR) {
-+		idpf_rx_page_rel(&bufq->buf[buf_id]);
- 		return -ENOMEM;
-+	}
- 
- 	buf_desc->hdr_addr = cpu_to_le64(addr);
- 
--- 
-2.56.0.455.g6c5a503b38-goog
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>
+Cc: loongarch@lists.linux.dev
 
+Cc: Carlos Maiolino <cem@kernel.org>
+Cc: linux-xfs@vger.kernel.org
+
+Thanks!
+
+Cheers,
+Miguel
