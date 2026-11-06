@@ -1,55 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793991937;
-	b=Ab+sHLGCODZuTMYROjTjUE464TVmO7tPf1AGlN9wTkqjpgYRCpkq3LsLHo1fSzTmintX
-	 52ekj98rhcN7SWL+RuvABaCUGHFGlRHuZzMc8vd7z41k+tL93HIRYdIZuiQjDqWwBAlGF
-	 93g7shq84ccMrV9/MNHYuOuvIyBeswJ0eVjSyyjkZ2Gl1O8FDypHV3NEfronHPr5AVe3T
-	 qAFTqAFT8Lp2F/P/XASQH7Xq/jocaFFV9KmIkrU2a9vBx78ctR3DxNHS4C52j5jQozuWo
-	 JfnWazY+6H0uP15VWu7Iex7n6ckHleQ/0wo+mcRhpQobR/OdpHnYNzTQlNKScUf/ltQ==
+	t=1793992002;
+	b=M9M0/i66e905HqYU3lPjuOHIQopT23OMlMdsTUMYe+ONmp76bQX9iZIUJlxpSOlkA8U9
+	 Xf4gXS64D89EZKJwSi5BkGTRiBT4CzEt2yDpugsrUgiN7qvG52fzhOpuB9HpZgliC2L7i
+	 WlRblqNCvawNqlLauIPXw5bXr72jvohvmuUYyO7mNW4g4VTgp7ADpHI7x+ovGkb49YBut
+	 TjCKRjQ+hP+Vr5F/UMcyv9m7cVmuuDC+10ovXnQspts1jDfsZ34Ho7LfzrsmKSli458oN
+	 wSG6WWV9jCISZWuFIdf0R1SaATUWr0+qzPnv/G/iemedEGzEnTFRCvc+64T0zHL2+qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793991937;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7osPQkuzp1BaetUyc8Ccppi80Dq54/ktTU/n1+Ddcpo=;
-	b=TOIFMa89vN/ufUKTYrNOgTVc/VZFJeg5j2E0Ab60fnSU4yLvRXMjdSppVGJGegMGvNXh
-	 6SDrQRfKWOEkXskb88q+MRM84w/gAu0HhLNI3amDd9jHp1bpYtWnyoX70eI/vpRwiIdjg
-	 CPk/p8Y2zItPk+LOPiLNCKvS0S937w9uVkDaryPMubQ/zoceRlYM05hHcvMPzdDLwp6I4
-	 2u89HEpHGH9A3VVIxGYNUas6KO0ewavOZJn+0qLeAJ+8fOqUEux5k25siRKK3R4Cb6Dz8
-	 nma5C+o+UBrVgwPCg0xclO/seXSN4bH4iY4lRZn4f2BWM7YiU1KTkChsxLA32Q+vzMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793992002;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=zf/S7tdQ1qGKN7A52dLSJCwU/JAAKqCo7rxpcX/3Ue4=;
+	b=Xf8bJMVv+yemwoDJBW8E5vEyBpndkSOlqSkfK0SESU3XouQGxuJT9WWjrjPS5A+NXm6s
+	 IriTaBWV1OBPMfaBViIyiivcSJuCWtpjmnLTmUERztETU5sdEjM11ivpELVe+O5mE5aef
+	 /AhyqFRjPQCCpxP7ZssVDsRUnaAVWbjha+g2AEu9E/qcl1vGHeL85uo7z+uUi8tMik7q9
+	 /Pn9IlUNNvbM76ssAKOr39tOenoU9q9BlGTnX98U9oN8oht+4pCJU4xk/gjB6GnIpNN7i
+	 9tDYErchSlVl6QO6ngvqwyK2U/SirfIUkd+B5Q/TP2CdbXP4FphOOOT7lIBCIJsBEYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eiadGvaf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xTsZ6YAb;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF454606A32C
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 19:05:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1768E606A329
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 19:06:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1768E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eiadGvaf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D936F1F0089F;
-	Fri,  6 Nov 2026 19:05:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793991936;
-	bh=7osPQkuzp1BaetUyc8Ccppi80Dq54/ktTU/n1+Ddcpo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eiadGvafBb0RRwV16mUqQ8GdDG7hGUGx9/tAR6ZYCETF6h0qq1KW3T6+rLJj86D66
-	 XgoR5wzTvUGT2FE4mV0yuQiZyfu5KekicnC5uvzc4/PcFhB8QbwtlQ7Z4m9J8JKvwU
-	 q5HZXh09TGiJLF7mb23rIQVk1ZCeyn16fsxvm+yWj0j0uCyasoB4jVZNe/kmneic+4
-	 UvHOTyD3tYoTtkOF5jHElfuzOoLPuOLtXKCuIb9eOoDisKnBfcDV6Ivd0a7x5vRqWU
-	 jswV76GrBw4SbYYYyJ7Vr0EcC0YVupyDfCWXvuEL8HLfA/pBq36eQ5l1TOLDhtaQjl
-	 23/nE1t40NIhA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Gael Blivet <gael.blivet@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ksmbd: look up stream size by exact xattr name
-Date: Fri,  6 Nov 2026 14:05:34 -0500
-Message-ID: <20261106190519.1120084-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110445-either-jimmy-6232@gregkh>
-References: <2026110445-either-jimmy-6232@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xTsZ6YAb
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-490f38e9688so825924f8f.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 11:06:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793992000; x=1794596800; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zf/S7tdQ1qGKN7A52dLSJCwU/JAAKqCo7rxpcX/3Ue4=;
+        b=xTsZ6YAbbUvbLWYiiHtssfb55e1KT6gBMmrYpBPgsqwCzLW4FoVOu3UoomP2K9uoMe
+         1AR65SR/Lx/jnhktfRVMis7srF3VyNH83mJ7iGWhhDtfiebC80eX8fx27RAsOEeA3Bp+
+         qA6mEtFOJVN7Y1a2SNpqcV9a8IMIwI4SbGr3KcyyaTLoJvICm4yPK3NC/y35Df6Oia5E
+         H/ZtGXa1OREEucxrebjz9cwcn1TU7Mm7aLvFzWZbCb1lZFk20fo2tmGA7etTH1tttfuw
+         oM8bX5/xCS36qxzsXKMjF96sE80RUQLQ4H1P9ZEdfLQnxlqcZZBXH06eaq3jl8zRgTbg
+         dl6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793992000; x=1794596800;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zf/S7tdQ1qGKN7A52dLSJCwU/JAAKqCo7rxpcX/3Ue4=;
+        b=Tx7DXURC2yqdH6uB5qWB0QD3QPLlH9Mb3amP2D9jPxtM3l6xJEydwDmtpMdc0TRrhX
+         Esk4oFADyoX4MV/GaXncsBmFZcYOmLdlmux0sPGxHSlr7EIO4eQApYz6x8M6J6fQ9yAB
+         dwPqE/akEyBeY6vbweI0jvoTl/5taidPqdI9vUOX4mkgMWO1SJOXtnkNGPSebRdYxV+I
+         MqBReos019dWzjZwycMA+qB3Dn1qC7AWhXYpyAEs0nkXmf6n+5js9RWo1RLOrafAG3Jd
+         ZSnMIoG4JVpB7mE++ZUtoIWCAywJNIGDDru4DnJMp6krahBSAC8vMcOsf2LWcJKRnsvs
+         GfiA==
+X-Forwarded-Encrypted: i=1; AL+hErGB3YJh/GxABr2qOhxz3/fyNwKnwbmfW+7OZw89JndLZLS2BXhbD4et94DchZNMHaE1+o3TPYg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/vc50GlSr3xLFrWgv1noNoRRFrpOWd7UaJptbiZt3AXf8OJ0Xm
+	VWJbQswhlBZvUdp3oFBUAkaY+i2ZflJkPTPvVFSQCyNR3TW6Rg/H0qB0
+X-Gm-Gg: AYBFou0Bxrdja3UZkOSWR9A3hMK4Qyr01q01/ckbqrbD6DVIyhVRUvnmkjnpY3Wi9wN
+	+7qHZvFltPxV7fCm7ufExlL2u9x0EkkU+0dY1q18Lnkdn6iU09dk338sdFI5S9P9UTTbg0PcCmI
+	fMcqcwHB5+YAcHV6Dxl+wIV/s/dXfCXkHuKHGZM39aRV8HWzFm8nOc+wfXEz+yQmngS841LFzLf
+	3je3fAJEbokzGIBPG/0Ye/tufi1IcPw9XrdlfXFUtkC+KuhsiM1fgrovCv/9UqwmiRRRY9n27jP
+	RrpP+kvoLfqi3ZpY0IRNKm5flB21wrdvOXzKJ6Le5CskV9laX63CDVR5W76Z6YCTTHx/tr6Xgol
+	ag2zM+gZAiBOq6kzJZv3PxpdLGKCFHe9epypEmLM0rXYqwbs3qUVy2N+dfW1ydFIzwOIgs9B03v
+	S4GOF5G6GL+9ytQMVKWS3RBJpdylTCdUDmV1pzC1rjMrmoXjrS2FuDH6SWuCPUA/W3ABCBRluwK
+	NujkCuHDw1M6WhZcS0onYuiAREOMFisFLlEOwHP+uHyvbFVQourkLB4IFo1isFlUbPzn48YrVGF
+	+8eDpFEQshCZ9TL/ck/iz2GLPhaSaJDOPmzw7Un9qRGtow1nV3Oc1lql2GaEWOHqfd8JH8WkvZp
+	nnEZl3mQwQPqlyko=
+X-Received: by 2002:a05:6000:46c6:b0:491:632f:2c8f with SMTP id ffacd0b85a97d-491633e73c5mr8755775f8f.2.1793992000382;
+        Fri, 06 Nov 2026 11:06:40 -0800 (PST)
+Received: from localhost.localdomain ([74.244.226.39])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4930a5a91dbsm3960533f8f.35.2026.11.06.11.06.37
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 06 Nov 2026 11:06:39 -0800 (PST)
+From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+To: linkinjeon@kernel.org,
+	stfrench@microsoft.com
+Cc: icb@fastmail.org,
+	senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	ematsumiya@suse.de,
+	lsahlber@redhat.com,
+	hyc.lee@gmail.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/4] ksmbd: verify the signature of session binding requests
+Date: Fri,  6 Nov 2026 20:06:19 +0100
+Message-ID: <20261106190622.20990-2-mike.michalo@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106190622.20990-1-mike.michalo@gmail.com>
+References: <20261103171742.18816-1-icb@fastmail.org>
+ <20261106190622.20990-1-mike.michalo@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,90 +111,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Gael Blivet <gael.blivet@gmail.com>
+When multichannel is enabled, smb2_sess_setup() accepts a binding
+request on a new connection once it finds the session and sees
+SMB2_FLAGS_SIGNED, but never checks the signature: SESSION_SETUP is
+exempt from the generic check in __process_request(), because
+work->sess is not set for it. The request then goes through
+authentication, and the response is signed with the session's signing
+key, since the request claims to be signed.
 
-[ Upstream commit 10ea20d6584ecdaf2f7505855412a856a88d8934 ]
+So anyone who knows a SessionId and ClientGUID can open a connection
+and have the server sign STATUS_MORE_PROCESSING_REQUIRED responses with
+another client's session key, each with a fresh NTLM challenge and at a
+MessageId of their choice. With AES-CMAC this is a signing oracle. With
+AES-GMAC the nonce is the MessageId, so it also lets two different
+messages be authenticated under the same key and nonce, which reveals
+the GHASH key and allows forging signatures for that session.
 
-get_file_stream_info() walks the xattr list from a single
-ksmbd_vfs_listxattr() and sizes each stream it finds with
-ksmbd_vfs_casexattr_len(), which matches with strncasecmp(). Linux
-xattr names are case-sensitive, so two streams differing only in case
-report each other's size.
+MS-SMB2 3.3.5.2.4 requires the server to verify a binding request with
+Session.SigningKey and to fail it with STATUS_ACCESS_DENIED if that
+fails. Do so before the request is processed further. The failure
+response is not signed, because work->sess is only set once the
+request has been accepted.
 
-The loop already holds the exact name, so query it directly with
-ksmbd_vfs_xattr_len(), which is what casexattr_len() calls once its
-search succeeds. Make it non-static and declare it in vfs.h, and drop
-the comment above it, which describes a different bug and no longer
-matches the code.
+smb3_check_sign_req() zeroes the Signature field in place to compute
+the MAC. Restore it afterwards, as generate_preauth_hash() later hashes
+the request as received into the channel's SMB 3.1.1 preauth integrity
+hash.
 
-This also drops a full listing per stream: casexattr_len() runs its own
-listxattr on every call, so enumerating a file with N xattrs cost N
-listings instead of one.
+The non-multichannel branch already checks the signature before it
+rejects the request, so only the multichannel branch changes.
 
-Fixes: 689f1eb3719d ("ksmbd: report actual xattr value length in stream enumeration")
-Signed-off-by: Gael Blivet <gael.blivet@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: adapted to xattr helper signatures using non-const mnt_idmap pointers and an extra NULL argument in the replaced ksmbd_vfs_casexattr_len() call ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+An AI assistant was used to draft the patch and as an independent
+reviewer.
+
+Reported-by: Ian Bridges <icb@fastmail.org>
+Closes: https://lore.kernel.org/all/20261103171742.18816-1-icb@fastmail.org/
+Fixes: f5a544e3bab7 ("ksmbd: add support for SMB3 multichannel")
+Cc: stable@vger.kernel.org
+Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
 ---
- fs/smb/server/smb2pdu.c | 13 ++-----------
- fs/smb/server/vfs.c     |  4 ++--
- fs/smb/server/vfs.h     |  2 ++
- 3 files changed, 6 insertions(+), 13 deletions(-)
+ fs/smb/server/smb2pdu.c | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
 diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 2041811fedce9..f3b39f57ac64c 100644
+index b084cca8813c..211dbcdca8df 100644
 --- a/fs/smb/server/smb2pdu.c
 +++ b/fs/smb/server/smb2pdu.c
-@@ -5247,17 +5247,8 @@ static int get_file_stream_info(struct ksmbd_work *work,
- 		streamlen *= 2;
- 		kfree(stream_buf);
- 		file_info->StreamNameLength = cpu_to_le32(streamlen);
--		/*
--		 * stream_name_len is the byte length of the xattr's *name*,
--		 * not its value -- same class of bug ksmbd_stream_eof()
--		 * (smb2pdu.c) already fixes for EndOfFile/AllocationSize on
--		 * a stream handle; this enumeration path needs the same
--		 * real xattr value length, not the name length reused as a
--		 * size.
--		 */
--		slen = ksmbd_vfs_casexattr_len(file_mnt_idmap(fp->filp),
--						path->dentry, stream_name,
--						strlen(stream_name) + 1, NULL);
-+		slen = ksmbd_vfs_xattr_len(file_mnt_idmap(fp->filp),
-+					   path->dentry, stream_name);
- 		ssize = slen < 0 ? 0 : (loff_t)slen;
- 		file_info->StreamSize = cpu_to_le64(ssize);
- 		file_info->StreamAllocationSize = cpu_to_le64(ssize);
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 3d1cfcfdfb627..54bd3e7012d7b 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -939,8 +939,8 @@ ssize_t ksmbd_vfs_listxattr(struct dentry *dentry, char **list)
- 	return size;
+@@ -2558,6 +2558,29 @@ static int krb5_authenticate(struct ksmbd_work *work,
  }
+ #endif
  
--static ssize_t ksmbd_vfs_xattr_len(struct mnt_idmap *idmap,
--				   struct dentry *dentry, char *xattr_name)
-+ssize_t ksmbd_vfs_xattr_len(struct mnt_idmap *idmap,
-+			    struct dentry *dentry, char *xattr_name)
++/*
++ * A binding request must be signed with the signing key of the session it
++ * binds to (MS-SMB2 3.3.5.2.4). Check it before the request is processed
++ * and before any response is signed with that key. The Signature field is
++ * restored afterwards, because SMB 3.1.1 adds the request as received to
++ * the channel's preauth integrity hash.
++ */
++static bool smb2_check_binding_sign_req(struct ksmbd_work *work,
++					struct smb2_hdr *hdr,
++					struct ksmbd_session *sess)
++{
++	struct ksmbd_session *prev_sess = work->sess;
++	char signature[SMB2_SIGNATURE_SIZE];
++	int ret;
++
++	memcpy(signature, hdr->Signature, SMB2_SIGNATURE_SIZE);
++	work->sess = sess;
++	ret = smb3_check_sign_req(work);
++	work->sess = prev_sess;
++	memcpy(hdr->Signature, signature, SMB2_SIGNATURE_SIZE);
++	return ret;
++}
++
+ int smb2_sess_setup(struct ksmbd_work *work)
  {
- 	return vfs_getxattr(idmap, dentry, xattr_name, NULL, 0);
- }
-diff --git a/fs/smb/server/vfs.h b/fs/smb/server/vfs.h
-index 397dd2dd09886..1ca170dfb349d 100644
---- a/fs/smb/server/vfs.h
-+++ b/fs/smb/server/vfs.h
-@@ -106,6 +106,8 @@ ssize_t ksmbd_vfs_getxattr(struct mnt_idmap *idmap,
- 			   struct dentry *dentry,
- 			   char *xattr_name,
- 			   char **xattr_buf);
-+ssize_t ksmbd_vfs_xattr_len(struct mnt_idmap *idmap,
-+			    struct dentry *dentry, char *xattr_name);
- ssize_t ksmbd_vfs_casexattr_len(struct mnt_idmap *idmap,
- 				struct dentry *dentry, char *attr_name,
- 				int attr_name_len, char *actual_name);
+ 	struct ksmbd_conn *conn = work->conn;
+@@ -2640,6 +2663,11 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 			goto out_err;
+ 		}
+ 
++		if (!smb2_check_binding_sign_req(work, &req->hdr, sess)) {
++			rc = -EKEYREJECTED;
++			goto out_err;
++		}
++
+ 		if (memcmp(conn->ClientGUID, sess->ClientGUID,
+ 			    SMB2_CLIENT_GUID_SIZE)) {
+ 			rc = -ENOENT;
 -- 
-2.53.0
+2.43.0
 
