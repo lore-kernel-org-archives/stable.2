@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793930094;
-	b=DHgGuJNiPMCWbTR9udk+jhtNhQZWyxV3kMW3NM0apFYhddN7WKvK+XQ6WmfKOpryfzlW
-	 r1M1sSHvnhvuHB2v22LjxRCCTWWgA/qmdlWL+RV4PqNjCS307wABFhCnKfN7/FvE1CsdH
-	 r8NrU15DCDz7WP9naBA1fgFO52Jqx1Fdf5zIDoFff0MbpkkM6ZyykyqfkXqcU/Bzjsk83
-	 7DuNewKs61CUca7OYYoD6+n+DnxKexuaWs7JUqWB2Sh8o5BY43jqtlXQs19zzLbnVFQwc
-	 BIDps5o+LFFkS8cUSMzg1f2uAXGt0eC8bAQOgovJZUwAv2OWZvlTA74y+8X+GXo9mkA==
+	t=1793930101;
+	b=OBbQFE71QiWlIxU7ZFkvSey5TJGRcNbhuzku9Sc1kLSb8uxhBBJYCjEMo+2REx0Bfynw
+	 cvJLB1to7576fpVmUinH/eX7oGcXZIy2v6qYyJKhDBCoA2bqvBbTiVeLyJ5hdbm6AcWLR
+	 Bz6cFvlpEUKe+XZ305fYyC2jzCeTyfAB5dq+kh+7HUBH1xhgqWYnduag3lQoGROWqZFdg
+	 KM/hDXbFFgWgUNk5RMshmod+gzRxymV5xb8g5QRnfiXNJ4P+gYQfevowYHYVcQbwCM7/m
+	 JCUdNNqLRUNhQLcqC+GEaiLnDVaxm4txLMbW0ZlWYAm2aogk/o7HnHvTIGJ/jBR2cTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793930094;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793930101;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Z7TjEGEIcQ/fUtqSVBVy9oBW03ctzPAD1v4INxLAKtU=;
-	b=mHBdmjQW8lQIG8+uxF1Cc4rpjefZU9ed1effnDbKF1FwPcCgn1BXex2S3D5ekEnXujP8
-	 wgf1OiM0Hgg+igJK6q4MH6c2gNcpr8B6qxBv/d31AjTj8EHPFxpwq+sZnT0GLb8BW2pwr
-	 YI8/10qAbLcJKx2nvDswAXqVwDmOVxlz1wW+x6upDpAAuAW2s+zcL6+RgsXIFQ8qJkwUt
-	 xAYgTJs86LBCq9PybwFAObi3pSxdTu2OOhGZ+SXcgv+RANtDVU5TaS4FHBCl2AfpWqK7i
-	 NKplGrbiezY8nQqzm0k5mgROTmDkk+ZyfQ7Pg72t77XIoIlf4iastt38XtI614GEjxg==
+	bh=2JTWRbayT44KvcFbBoro4PHjYrw+snTrEVpHmksCMbs=;
+	b=BMe3NLGM7e0gyJBTdZDvSpO3pW/wVyXTfCuVtdNyP5GnRQOnGCZkM17lVdRyt1Nll0qz
+	 AIaj9pN429mefSqZ/HwHnhaVWSrsJ7NbUFA5/TyHdEbcBgZ0XNQq6sYFBa26clkKC7wEB
+	 JsCf0wVfVZ1WEiGmyTiE/oXaIkPZiRiPHuoW3jp4Y341+ORIvCi/hjwI8WrOywhxK1N8M
+	 rFy62uhu27r02j60Bxk2z6M50jdCphF3Kk9HmPuNs+D/Czh7yy8UQXgb8aYOqs73GSajl
+	 lhD3+5elasg/2nvYqqgnTvYBTaV/KnjY3JsbX2zfp/GJ5a4PRmwnEY+X9Q5/R8mJEhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XKkMQK/B";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSWediYp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5882606A31B
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:54:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0FB606A31B
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:55:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XKkMQK/B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EFBF1F0089F;
-	Fri,  6 Nov 2026 01:54:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nSWediYp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEB321F0089F;
+	Fri,  6 Nov 2026 01:54:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793930093;
-	bh=Z7TjEGEIcQ/fUtqSVBVy9oBW03ctzPAD1v4INxLAKtU=;
+	s=k20260515; t=1793930100;
+	bh=2JTWRbayT44KvcFbBoro4PHjYrw+snTrEVpHmksCMbs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XKkMQK/BgzRQkiYkmSahfOhADTQV0mBqQeOBRsxDEDjsDfHMtTlkQDjQpbEo0FYw4
-	 h+V8mUlWvive6xiHaYXz5G8AFesexRWRx0o/gXAcQT/8dzwvnCnZ8cOBAWtKaoyNnw
-	 DUZn5FjfHEqgy9i8Jw1luV+jKdd+GRBa2ED2NVN321Vr1jSXBPp4mHa0TGCMfnX0NV
-	 w/3Gw4gKOrrKBUjCMJfvak+VzBfSnP1PukgNWER3QQ6jqO1/CePTt5hQl8iKd9Ld6l
-	 OP2/8MswrWFki3YemVmnuZ9zvjv/M9YZ6CiW0MNWXyu/i2lTnnjch0kXtNxHkaz3+9
-	 J21ATIixPJAZw==
+	b=nSWediYpU0ZYeeuxgbib3wCQGsIr2xQCNQ2QecaeCIab4EiHLAeO6WkpqUU8dxG4B
+	 DbUAsqw6x1Z7MjDFrYPwjaxJ3ekhLPZjq6sJDs7Vlrc0kSbUG7tOq56exaalSHNqNM
+	 6dHBP9xjwyYH1C1D5d9CnsfUv589PicID6+X8c3StuSLNy13H6e2ouTrBRxpWAiBAa
+	 ob9+3YENUOK9mO1XTuADylzLUKui+iVzjWezeNWwL81gvJc3L5kBCC7g93+u4058MA
+	 EFWNwdoB7xqGCOC17RWvJZGW2r8Bx+j/L8TMzq+N++1NanvtA03+cVj/jqAP53V+Tp
+	 FmknUEvNPPvtw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Benjamin Coddington <bcodding@hammerspace.com>,
+	Arun Potharaju <arun.potharaju@hammerspace.com>,
+	Anna Schumaker <anna.schumaker@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] smb: client: validate SMB1 EA list bounds before parsing
-Date: Thu,  5 Nov 2026 20:54:51 -0500
-Message-ID: <20261106015247.3502365-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] NFSv4/flexfiles: fail I/O to the data server once a lock is lost
+Date: Thu,  5 Nov 2026 20:54:58 -0500
+Message-ID: <20261106015250.3615933-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110409-unsoiled-surging-adc6@gregkh>
-References: <2026110409-unsoiled-surging-adc6@gregkh>
+In-Reply-To: <2026110416-handprint-unwed-af98@gregkh>
+References: <2026110416-handprint-unwed-af98@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,89 +62,219 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
+From: Benjamin Coddington <bcodding@hammerspace.com>
 
-[ Upstream commit ddc7a7e1eeb116ccaf010a6f1fb6ab927f3f888d ]
+[ Upstream commit 7fa2ad367abe6d3155daefb57331e7fce1a17afd ]
 
-CIFSSMBQAllEAs() checks the server-provided EA list length by adding it
-to the response pointer. On 32-bit systems, a positive length can wrap
-the pointer and pass the comparison. The parser then walks outside the
-received response while reading the next FEA header.
+When a client loses a byte-range lock, because its lease expired and it
+may not recover the lock (nfs.recover_lost_locks=0) or because reclaim
+failed, it marks the lock state NFS_LOCK_LOST and fails further I/O by
+that lock owner.  Otherwise an application that believes it holds a
+lock over a range is never told that the lock is gone, and can
+overwrite data that another client has since written under its own
+lock on that range.
 
-A response with a list length of 0x40000000 reproduces this as a native
-i386 page fault and kernel panic from listxattr() against an SMB1
-server.
+The NFSv4 READ/WRITE and file layout I/O paths apply this in
+rpc_call_prepare, where nfs4_set_rw_stateid() returns -EIO for a lost
+lock.  The flexfiles data server I/O path does not: the NFSv3 data
+server path never checked, and the check on the NFSv4 path was removed
+when the data server stateid began to be taken from the layout.
 
-Check that the EA list starts within the SMB byte area before reading
-its header. Keep its length unsigned and compare it with the bytes left
-in the response without pointer addition.
+Fail read and write RPCs to the data server in rpc_call_prepare when the
+lock is lost.  The data server path has no use for the stateid that
+nfs4_set_rw_stateid() selects, and selecting it looks up a delegation
+or open stateid on every I/O.
+Instead add nfs4_lock_context_lost(), which only tests NFS_LOCK_LOST,
+and check it alongside the open state.  Its lookup,
+__nfs4_lookup_lock_state(), is split out of __nfs4_find_lock_state()
+and takes no reference: a lock state is only unlinked from
+state->lock_states under state->state_lock, so one found while holding
+that lock cannot be freed before it is released.  Use it in
+nfs4_copy_lock_stateid() as well, which only reads the lock state under
+that lock.  That drops a reference get and put from stateid selection
+for all NFSv4 I/O without changing the stateid selected.
 
-SMB1 is not negotiated by default and requires an explicit vers=1.0
-mount.
+Terminating the RPC in rpc_call_prepare is not enough on its own.  The
+done callback reads the -EIO as a data server connection error, forgets
+the device ID, and resets the I/O to pNFS (or, for an NFSv4 data
+server, possibly to the MDS).  After a reset to pNFS a new LAYOUTGET is
+granted and rpc_call_prepare fails the I/O again, without end.  The
+existing NFS_CONTEXT_BAD check does not loop, since the open state is
+then invalid and pnfs_update_layout() fails the reset I/O, but it still
+forgets the device ID.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+So when an RPC that was never sent fails and the open context is bad,
+the open state is invalid, or the lock is lost, complete it with -EIO
+without error handling.  An RPC that was sent and failed is handled as
+before, so a real data server error is still reported to the MDS.
+
+Fixes: d67ae825a59d ("pnfs/flexfiles: Add the FlexFile Layout Driver")
+Fixes: bb21ce0ad227 ("flexfiles: use per-mirror specified stateid for IO")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: replaced smb_EIO2() calls with direct -EIO assignments ]
+Tested-by: Arun Potharaju <arun.potharaju@hammerspace.com>
+Assisted-by: LLM
+Signed-off-by: Benjamin Coddington <bcodding@hammerspace.com>
+Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
+[ sashal: Retained fl_owner/fl_owner2 variable names instead of upstream owner/owner2. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/cifssmb.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
+ fs/nfs/flexfilelayout/flexfilelayout.c | 25 +++++++++++++++--
+ fs/nfs/nfs4_fs.h                       |  2 ++
+ fs/nfs/nfs4state.c                     | 38 +++++++++++++++++++++++---
+ 3 files changed, 59 insertions(+), 6 deletions(-)
 
-diff --git a/fs/cifs/cifssmb.c b/fs/cifs/cifssmb.c
-index 67ff1669cab2a..6926291316809 100644
---- a/fs/cifs/cifssmb.c
-+++ b/fs/cifs/cifssmb.c
-@@ -6201,9 +6201,11 @@ CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
- 	int rc = 0;
- 	int bytes_returned;
- 	int list_len;
-+	u32 ea_list_len;
- 	struct fealist *ea_response_data;
- 	struct fea *temp_fea;
- 	char *temp_ptr;
-+	char *byte_area;
- 	char *end_of_smb;
- 	__u16 params, byte_count, data_offset;
- 	unsigned int ea_name_len = ea_name ? strlen(ea_name) : 0;
-@@ -6280,9 +6282,18 @@ CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
- 	ea_response_data = (struct fealist *)
- 				(((char *) &pSMBr->hdr.Protocol) + data_offset);
+diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
+index 88140175a445f..8e9d523bcb6a9 100644
+--- a/fs/nfs/flexfilelayout/flexfilelayout.c
++++ b/fs/nfs/flexfilelayout/flexfilelayout.c
+@@ -1372,12 +1372,27 @@ static void ff_layout_io_track_ds_error(struct pnfs_layout_segment *lseg,
+ 	dprintk("%s: err %d op %d status %u\n", __func__, err, opnum, status);
+ }
  
--	list_len = le32_to_cpu(ea_response_data->list_len);
--	cifs_dbg(FYI, "ea length %d\n", list_len);
--	if (list_len <= 8) {
-+	byte_area = pByteArea(&pSMBr->hdr);
-+	end_of_smb = byte_area + get_bcc(&pSMBr->hdr);
-+	if ((char *)ea_response_data < byte_area ||
-+	    (char *)ea_response_data >
-+	    end_of_smb - sizeof(ea_response_data->list_len)) {
-+		rc = -EIO;
-+		goto QAllEAsOut;
++static bool ff_layout_io_state_lost(const struct nfs_pgio_header *hdr)
++{
++	struct nfs_open_context *ctx = hdr->args.context;
++
++	return test_bit(NFS_CONTEXT_BAD, &ctx->flags) ||
++	       !nfs4_valid_open_stateid(ctx->state) ||
++	       nfs4_lock_context_lost(ctx->state, hdr->args.lock_context);
++}
++
+ /* NFS_PROTO call done callback routines */
+ static int ff_layout_read_done_cb(struct rpc_task *task,
+ 				struct nfs_pgio_header *hdr)
+ {
+ 	int err;
+ 
++	if (task->tk_status < 0 && !RPC_WAS_SENT(task) &&
++	    ff_layout_io_state_lost(hdr)) {
++		task->tk_status = -EIO;
++		return 0;
 +	}
 +
-+	ea_list_len = le32_to_cpu(ea_response_data->list_len);
-+	cifs_dbg(FYI, "%s: ea length: %u\n", __func__, ea_list_len);
-+	if (ea_list_len <= 8) {
- 		cifs_dbg(FYI, "empty EA list returned from server\n");
- 		/* didn't find the named attribute */
- 		if (ea_name)
-@@ -6291,12 +6302,12 @@ CIFSSMBQAllEAs(const unsigned int xid, struct cifs_tcon *tcon,
+ 	if (task->tk_status < 0) {
+ 		ff_layout_io_track_ds_error(hdr->lseg, hdr->pgio_mirror_idx,
+ 					    hdr->args.offset, hdr->args.count,
+@@ -1465,7 +1480,7 @@ static void ff_layout_read_record_layoutstats_done(struct rpc_task *task,
+ static int ff_layout_read_prepare_common(struct rpc_task *task,
+ 					 struct nfs_pgio_header *hdr)
+ {
+-	if (unlikely(test_bit(NFS_CONTEXT_BAD, &hdr->args.context->flags))) {
++	if (unlikely(ff_layout_io_state_lost(hdr))) {
+ 		rpc_exit(task, -EIO);
+ 		return -EIO;
  	}
+@@ -1549,6 +1564,12 @@ static int ff_layout_write_done_cb(struct rpc_task *task,
+ 	loff_t end_offs = 0;
+ 	int err;
  
- 	/* make sure list_len doesn't go past end of SMB */
--	end_of_smb = (char *)pByteArea(&pSMBr->hdr) + get_bcc(&pSMBr->hdr);
--	if ((char *)ea_response_data + list_len > end_of_smb) {
-+	if (ea_list_len > end_of_smb - (char *)ea_response_data) {
- 		cifs_dbg(FYI, "EA list appears to go beyond SMB\n");
- 		rc = -EIO;
- 		goto QAllEAsOut;
++	if (task->tk_status < 0 && !RPC_WAS_SENT(task) &&
++	    ff_layout_io_state_lost(hdr)) {
++		task->tk_status = -EIO;
++		return 0;
++	}
++
+ 	if (task->tk_status < 0) {
+ 		ff_layout_io_track_ds_error(hdr->lseg, hdr->pgio_mirror_idx,
+ 					    hdr->args.offset, hdr->args.count,
+@@ -1652,7 +1673,7 @@ static void ff_layout_write_record_layoutstats_done(struct rpc_task *task,
+ static int ff_layout_write_prepare_common(struct rpc_task *task,
+ 					  struct nfs_pgio_header *hdr)
+ {
+-	if (unlikely(test_bit(NFS_CONTEXT_BAD, &hdr->args.context->flags))) {
++	if (unlikely(ff_layout_io_state_lost(hdr))) {
+ 		rpc_exit(task, -EIO);
+ 		return -EIO;
  	}
-+	list_len = ea_list_len;
+diff --git a/fs/nfs/nfs4_fs.h b/fs/nfs/nfs4_fs.h
+index cfef738d765e0..5a52401a60b4a 100644
+--- a/fs/nfs/nfs4_fs.h
++++ b/fs/nfs/nfs4_fs.h
+@@ -517,6 +517,8 @@ extern int nfs4_select_rw_stateid(struct nfs4_state *, fmode_t,
+ 		const struct cred **);
+ extern bool nfs4_copy_open_stateid(nfs4_stateid *dst,
+ 		struct nfs4_state *state);
++extern bool nfs4_lock_context_lost(struct nfs4_state *state,
++		const struct nfs_lock_context *l_ctx);
  
- 	/* account for ea list len */
- 	list_len -= 4;
+ extern struct nfs_seqid *nfs_alloc_seqid(struct nfs_seqid_counter *counter, gfp_t gfp_mask);
+ extern int nfs_wait_on_sequence(struct nfs_seqid *seqid, struct rpc_task *task);
+diff --git a/fs/nfs/nfs4state.c b/fs/nfs/nfs4state.c
+index c30c6dbbf9254..52903757beacc 100644
+--- a/fs/nfs/nfs4state.c
++++ b/fs/nfs/nfs4state.c
+@@ -844,10 +844,13 @@ void nfs4_close_sync(struct nfs4_state *state, fmode_t fmode)
+  * be made.  Failing that, a "consistent" choice is preferable.  The
+  * consistent choice we make is to prefer the first owner, that of a
+  * Posix lock.
++ *
++ * Called with state->state_lock held.  No reference is taken: a lock
++ * state is freed only after it is unlinked under state->state_lock.
+  */
+ static struct nfs4_lock_state *
+-__nfs4_find_lock_state(struct nfs4_state *state,
+-		       fl_owner_t fl_owner, fl_owner_t fl_owner2)
++__nfs4_lookup_lock_state(struct nfs4_state *state,
++			 fl_owner_t fl_owner, fl_owner_t fl_owner2)
+ {
+ 	struct nfs4_lock_state *pos, *ret = NULL;
+ 	list_for_each_entry(pos, &state->lock_states, ls_locks) {
+@@ -858,6 +861,16 @@ __nfs4_find_lock_state(struct nfs4_state *state,
+ 		if (pos->ls_owner == fl_owner2)
+ 			ret = pos;
+ 	}
++	return ret;
++}
++
++static struct nfs4_lock_state *
++__nfs4_find_lock_state(struct nfs4_state *state,
++		       fl_owner_t owner, fl_owner_t owner2)
++{
++	struct nfs4_lock_state *ret;
++
++	ret = __nfs4_lookup_lock_state(state, owner, owner2);
+ 	if (ret)
+ 		refcount_inc(&ret->ls_count);
+ 	return ret;
+@@ -1006,7 +1019,7 @@ static int nfs4_copy_lock_stateid(nfs4_stateid *dst,
+ 	fl_flock_owner = l_ctx->open_context->flock_owner;
+ 
+ 	spin_lock(&state->state_lock);
+-	lsp = __nfs4_find_lock_state(state, fl_owner, fl_flock_owner);
++	lsp = __nfs4_lookup_lock_state(state, fl_owner, fl_flock_owner);
+ 	if (lsp && test_bit(NFS_LOCK_LOST, &lsp->ls_flags))
+ 		ret = -EIO;
+ 	else if (lsp != NULL && test_bit(NFS_LOCK_INITIALIZED, &lsp->ls_flags) != 0) {
+@@ -1014,11 +1027,28 @@ static int nfs4_copy_lock_stateid(nfs4_stateid *dst,
+ 		ret = 0;
+ 	}
+ 	spin_unlock(&state->state_lock);
+-	nfs4_put_lock_state(lsp);
+ out:
+ 	return ret;
+ }
+ 
++bool nfs4_lock_context_lost(struct nfs4_state *state,
++			    const struct nfs_lock_context *l_ctx)
++{
++	struct nfs4_lock_state *lsp;
++	bool ret;
++
++	if (!test_bit(LK_STATE_IN_USE, &state->flags))
++		return false;
++
++	spin_lock(&state->state_lock);
++	lsp = __nfs4_lookup_lock_state(state, l_ctx->lockowner,
++				       l_ctx->open_context->flock_owner);
++	ret = lsp && test_bit(NFS_LOCK_LOST, &lsp->ls_flags);
++	spin_unlock(&state->state_lock);
++	return ret;
++}
++EXPORT_SYMBOL_GPL(nfs4_lock_context_lost);
++
+ bool nfs4_copy_open_stateid(nfs4_stateid *dst, struct nfs4_state *state)
+ {
+ 	bool ret;
 -- 
 2.53.0
 
