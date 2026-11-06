@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793974290;
-	b=r8sdOLrvwRFXPwo5JzafdF3Li5ZtJXs2cWwuU1SymSbZfrursx2rRCsFO9DBKla9mM6H
-	 6urD0z1MDKz8zBZafB2vB+8rZRHp1O25aO6j5yUya/PjgGmX5ETLtF+rhsZyJnOrLnEef
-	 a2W7BDiEfLtutr+TGwPvE1nHFfLsBMZBcFM4sZG1TKHF8o9cVdaY6TxlGr20K/9Yf62Ah
-	 0PLLzgdqisqpWGRVeLtWzs15AU4oorXmuvMA5xzGSfBcGT1OKtQBSk957eMdUDiKwRrH3
-	 VxRSC8p0fqvTCfny4Z0wr7F7Q2jWptpbZXbas4d16GXGLN4r8seVg+cMkgkNrL+/8Pw==
+	t=1793974421;
+	b=MMmUxibdQU1pr0tV6zuzLEMAOTdW3iieb26DTdisJNwKJcf2Q4vg/t7CXinX/OqrSJWe
+	 Ovge+u/nXVDjIjRimoUttNQaoQ3mffDcMioHZyw+cij2XoZx97kBIPg2lYuYqGhU9OHCA
+	 XmGElE0JVElXtEp/DFUdnA+MoSLrPgldWAe/mA4kU9qVxazBXnjP94BFnQY3s6OQGXalR
+	 o+Kbj5nH7E4qRjbOwMH8Q8hYvfZy6Isk5XoR2EZXz2RpO1P10220Ruidt7hVnwWu+Y2nL
+	 ZBIeDdW2B49+r8n8xIR5uLa+tEtEzlb9uPGbYdIVGWmjW0lz5Vq23t4cwkKTGWFqp0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974290;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=gtfqCNvLHDyiv4c2Kn29UjMs603cMC2xqAYSiEZDCwQ=;
-	b=vUjZHus0sDAThMdgo+zI6kd9mlebesRXLBYJlL6xjPEwdatV6OEzCCF57kW5tAsWSya7
-	 vfxeOs1crw7CWU3uIH8umRgbUN0kHET1kXFFMz26C9QmV2YTgDvszEHT4SHJtSVWw2z8B
-	 j3rplIN0szgzwdgkGa2kQ/oftPkUrx5MSlfR+SPMBlZNLdrK1KZhVm1SJQ5D1kd5lJNEK
-	 IHWwrPTn4SyZgfwgZ8WEkrU15bKFPyhwWDe+FnO+OTCbjkL6zU6cSvmCQExovrVGFWay1
-	 LP2YjzJ9JfOGLO1cgdOkdK5tCbuZSOjajQCS6kdmtnoIgOU9997DDGij7y8dUJg2r8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974421;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=hwqHqfPbvqPsYJ/6jw8FyV9u20mx881DKftZYCYE5CA=;
+	b=Qky8Og4NS1/TKHleECYGncWbetM0mIFtYPr3lIFJlEfP974VdgUwSmuj4SPguDs0lBvf
+	 Rchk8nzt3iEh2rST0RnU0DL6KqQmvjkpU93owVClEb/UgTaLI1w2T0ElB698ZyicsZKd+
+	 +NpmPqmqUDl7RaoZkxU2EXrBk1NO70MwW7gAJCb/5veY3xZ5TmkVa+T+9n8NQgiap21Pu
+	 dbtCnmrhrgQ7T9b2qrYvIwSLGJXj/AFvZgy5yntCrPEMEvJtS54ic1GbH3FZp9gmRbm3B
+	 bclelacJrb+BslYe4wvpd7g7WR/vknIxlhVjnNf1/3f7CUlrZ+B3PVLAHJLY0Ab89eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N9n9RNs6;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hap/gnbH";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6BE606A339;
-	Fri,  6 Nov 2026 14:11:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA6BE606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4AF606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:13:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N9n9RNs6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793974290; x=1825510290;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=w/7bk55UzAnjm3jvyAi6pETmW+q2057bMcuWPbRah8w=;
-  b=N9n9RNs6rPYr764EtwFlnKlCObv76cgQHOoT2W+Yx2oQksm6SekufFG7
-   U5spSB2mE6pV6EvEjZu79x/vjxIsA5uUdvY2rF4fGU3jRB0o2kToM4Rbp
-   o8308sBppJVpYIPIZ+5TSAx37fLN8SldiZy+mVuWikAs6uRBkl5yyVXax
-   V8laZbzlBeuIcXDeH2/4D0mbzPMq8I6sfNHTHjfKmvNWj+7thEmenlaGl
-   FI2D7yHTOh7yxCDTemmDtqBtjS+azaNzQlk5Exks/omVSO1MbRpsrOGrc
-   FvSG+JiKMYos2xiNYFtuMsQIPJD8ABFFPZTZwwq/1bIoEDxDg22YEHMJ2
-   A==;
-X-CSE-ConnectionGUID: SCs+APNsSQSD4tPdveuVGw==
-X-CSE-MsgGUID: VJAERveAQXe+pzjG19rBaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11957"; a="2701800"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2701800"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 06:11:30 -0800
-X-CSE-ConnectionGUID: WXArV8rMQhK+JzOQM06/kw==
-X-CSE-MsgGUID: 0TW+2K0kSbKmLYWykV5lDg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="9046669"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa011.fm.intel.com with ESMTP; 06 Nov 2026 06:11:27 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id E346799; Fri, 06 Nov 2026 15:11:26 +0100 (CET)
-Date: Fri, 6 Nov 2026 15:11:26 +0100
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] gpio: of: fix potential misconfiguration of hogged lines
-Message-ID: <20261106141126.GG176724@black.igk.intel.com>
-References: <20261105-gpiolib-of-hog-uninitialized-v1-1-fcaeaccefab6@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hap/gnbH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93C3E1F0089F;
+	Fri,  6 Nov 2026 14:13:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793974421;
+	bh=hwqHqfPbvqPsYJ/6jw8FyV9u20mx881DKftZYCYE5CA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hap/gnbH7xtmR80leNScGbzVPSAT46n36U+BjSg8NssE6hVVmlSxSWJxOv1AmCkvk
+	 CegqSCKtdSouKqgV+wDE2CC+aBp2CbKJ95lOIwpzaD/GZND0oiLJ+P5Cwm466ZbOOU
+	 D5P5qHkk2KvzitQDKakk1/jCrXtUjsmBb8myEgQvTaQhEUUs68jOQUqdsuTopOEn/g
+	 3g8N/cwuNuZZ/oI/xh30sET7bafRC03mZdM1O8BFRj8OnNH93Li+qNksj5/qTSP4EI
+	 7NIh0eD5qV73PYhWAXAHvIwcqO+KkhgQtJyXGhQ+HHCj8YDj0kMLSj8H/knunDf6ny
+	 ist36WHORzGwg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Shivank Garg <shivankg@amd.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Sean Christopherson <seanjc@google.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] KVM: guest_memfd: take the invalidate lock when unbinding a dying file
+Date: Fri,  6 Nov 2026 09:13:39 -0500
+Message-ID: <20261106141257.320136-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110442-recast-sequel-2c6a@gregkh>
+References: <2026110442-recast-sequel-2c6a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,24 +61,139 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261105-gpiolib-of-hog-uninitialized-v1-1-fcaeaccefab6@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 02:37:52PM +0100, Bartosz Golaszewski wrote:
-> In of_gpiochip_get_lflags() the local variable xlate_flags is declared
-> without being initialized before its address is passed to
-> of_xlate_and_get_gpiod_flags() when processing a devicetree gpio-hog
-> child node. If a driver uses an of_xlate() callback that doesn't update
-> the flags argument (like gpiochip_fwd_delay_of_xlate()) we'll end up
-> passing that uninitialized value to of_convert_gpio_flags(), potentially
-> misconfiguring the hogged GPIO.
-> 
-> Initialize xlate_flags to 0.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: d1d564ec4992 ("gpio: move hogs into GPIO core")
-> Closes: https://sashiko.dev/#/bug/linux-2bb44847-fd6e-406c-878d-9739da2cb8b5
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+From: Shivank Garg <shivankg@amd.com>
 
-Reviewed-by: Mika Westerberg <westeri@kernel.org>
+[ Upstream commit 0ee2c883b62deb74d8c43007e8049dc006d3a2fb ]
+
+kvm_gmem_unbind() takes mapping->invalidate_lock only if the
+get_file_active() succeeds. When the guest_memfd file is dying, its
+reference count is already zero so get_file_active fails and the binding
+is removed without holding the invalidate lock.
+
+kvm_gmem_invalidate_{start,end}() checks f->bindings independently to
+decide whether to begin or end KVM MMU invalidation. So, the bindings
+must therefore remain stable between the two calls. Otherwise, unbind
+can remove a binding after start increments mmu_invalidate_in_progress,
+but before end finds the binding and decrements it.
+Example, unbind race with memory failure:
+
+  CPU 0: memory failure               CPU 1: memslot delete
+  ----------------------------------  ---------------------------
+                                      (guest_memfd file is dying)
+  kvm_gmem_error_folio()
+    kvm_gmem_invalidate_start()
+      finds binding
+      mmu_invalidate_in_progress++
+                                      kvm_gmem_unbind()
+                                        get_file_active() fails
+                                        removes binding
+    kvm_gmem_invalidate_end()
+      no binding found
+      counter stays elevated
+
+mmu_invalidate_retry() then returns 1 forever, so guest page faults
+retry without ever installing a mapping and the guest hangs.
+
+Remove the distinction between live and dying files in the unbind path.
+Always use slot->gmem.file and take the invalidate lock when it's non-NULL.
+Normal unbind callers hold slots_lock, which prevents release from clearing
+the pointer or freeing the file state until unbind completes. Final VM
+teardown can only see a NULL pointer because guest_memfd pins the KVM until
+release has cleared all bindings.
+
+Fixes: ae431059e75d ("KVM: guest_memfd: Remove bindings on memslot deletion when gmem is dying")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260728092027.225CF1F000E9@smtp.kernel.org
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Shivank Garg <shivankg@amd.com>
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Link: https://patch.msgid.link/20260901-gmem-unbind-fix-v2-1-12febe1d2216@amd.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[ sashal: Adapted unbind to struct kvm_gmem with explicit kvm_gmem_get_file()/fput() removal replacing upstream's automatic cleanup removal. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ virt/kvm/guest_memfd.c | 48 ++++++++++++++++--------------------------
+ 1 file changed, 18 insertions(+), 30 deletions(-)
+
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index a59a4446b8461..e121534e21692 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -627,53 +627,41 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	return r;
+ }
+ 
+-static void __kvm_gmem_unbind(struct kvm_memory_slot *slot, struct kvm_gmem *gmem)
++void kvm_gmem_unbind(struct kvm_memory_slot *slot)
+ {
++	struct file *file = slot->gmem.file;
+ 	unsigned long start = slot->gmem.pgoff;
+ 	unsigned long end = start + slot->npages;
+-
+-	xa_store_range(&gmem->bindings, start, end - 1, NULL, GFP_KERNEL);
+-
+-	/*
+-	 * synchronize_srcu(&kvm->srcu) ensured that kvm_gmem_get_pfn()
+-	 * cannot see this memslot.
+-	 */
+-	WRITE_ONCE(slot->gmem.file, NULL);
+-}
+-
+-void kvm_gmem_unbind(struct kvm_memory_slot *slot)
+-{
+-	struct file *file;
++	struct kvm_gmem *gmem;
+ 
+ 	/*
+ 	 * Nothing to do if the underlying file was _already_ closed, as
+ 	 * kvm_gmem_release() invalidates and nullifies all bindings.
+ 	 */
+-	if (!slot->gmem.file)
++	if (!file)
+ 		return;
+ 
+-	file = kvm_gmem_get_file(slot);
+-
+ 	/*
+ 	 * However, if the file is _being_ closed, then the bindings need to be
+ 	 * removed as kvm_gmem_release() might not run until after the memslot
+-	 * is freed.  Note, modifying the bindings is safe even though the file
+-	 * is dying as kvm_gmem_release() nullifies slot->gmem.file under
+-	 * slots_lock, and only puts its reference to KVM after destroying all
+-	 * bindings.  I.e. reaching this point means kvm_gmem_release() hasn't
+-	 * yet destroyed the bindings or freed the gmem_file, and can't do so
+-	 * until the caller drops slots_lock.
++	 * is freed.  Modifying the bindings is safe even if the file is dying
++	 * as kvm_gmem_release() nullifies slot->gmem.file under slots_lock,
++	 * and only puts its reference to KVM after destroying all bindings.
++	 * I.e. reaching this point means kvm_gmem_release() hasn't destroyed
++	 * the bindings or freed the gmem_file and can't do so until the caller
++	 * drops slots_lock, so there's no need to verify the file is live.
+ 	 */
+-	if (!file) {
+-		__kvm_gmem_unbind(slot, slot->gmem.file->private_data);
+-		return;
+-	}
++	gmem = file->private_data;
+ 
+ 	filemap_invalidate_lock(file->f_mapping);
+-	__kvm_gmem_unbind(slot, file->private_data);
+-	filemap_invalidate_unlock(file->f_mapping);
++	xa_store_range(&gmem->bindings, start, end - 1, NULL, GFP_KERNEL);
+ 
+-	fput(file);
++	/*
++	 * synchronize_srcu(&kvm->srcu) ensured that kvm_gmem_get_pfn()
++	 * cannot see this memslot.
++	 */
++	WRITE_ONCE(slot->gmem.file, NULL);
++	filemap_invalidate_unlock(file->f_mapping);
+ }
+ 
+ /* Returns a locked folio on success.  */
+-- 
+2.53.0
+
