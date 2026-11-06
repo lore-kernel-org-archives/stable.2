@@ -1,77 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.158.83.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793987731;
-	b=kL6hEumAiLevD0KfzIZc7hLWnEk3XqfQzt9u9FZHjIQHgLKepYuz83gklInTZX90O4hs
-	 O7ZBOeCXfcqv03RPJpURBCi5oHsnwf4Mk+UazvC9y1z6yAJVJ66d4ERRQE/sFpt8/TPih
-	 CIUfYhMwB+PELldrsjoN/iBvJDmTR+MfADpTTeSXg4rKJzvwhz2pVnyW76fSKYg9FamKd
-	 tDpVUX1gX1ZsvTdl5ROI+AQI2OHzsMMCiyEqv++0vZAJui6f6X5kEnsk33EANhW7NkzZk
-	 zeITYgzWl4HkJ53Ut1AFoEUETYqxYkSC64DREzrXMkJFGTWb+32eUK/vIr8r04tet/A==
+	b=wKy27A7VgtP6NjcEZZXA36J54ILrQaGDKwvqi4EC6C/g8v1Qa3FlwYcj5tEQAjKx+OSl
+	 YMei5IuHt027pRGk2O5R7DQA14mf5ls7J4A5KxCaw+caXgc4gxCGQpJ69ZCrzraMHdLqL
+	 4CBdq6JFqODA8z6v1Omd2KcOxafpsn4zh+EODYD0cJVFvCn3RFI+l4soNbUH6b7YfXXxv
+	 eBMEOCIKnqR2lXdyK4h0qnBdcWI6S8qU0GHdrAmGEt+R/Gd/Bgl8ktSnMFIFkFMIEMlny
+	 OlVEqxLnHGJcRqZ8donNdFaLxoofGYdfaX566OJno5KcTChx+N1RejYT7DzSu23WZmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793987731;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:CFBL-Address:
-	 X-Report-Abuse-To:Received:Feedback-ID:X-Mt-Data:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=w3R4NWkzAVN6bv243bgvKvls0Ew5K6M+j/b7qLFiaX4=;
-	b=ejU9ISAZJJAWAk+ey77gX0xxcJxwOFjCQ1dQiwPQ/mewYEbNuKTxab+EjCXxQzxJ6FoY
-	 Jvk+C3zRvJedLOuAzx7OIvjFUDVwUd73MkpzLp1Hx6b7DoS3bsP1B3//djWFuyXYjtvAP
-	 xeSDqZcotyMMXektRoBGeAvY1SUjlhUJn4dTjpjJNskdOnugnybqbsFP/gV/EI/nN8TZb
-	 l0ElilYshqeOOIxwLoMmrYljVYxvWWHgFWOWl9MuTPdLc/TGFzL0lrRALC+M75Ft9UgwR
-	 +XhJC6wW36/lFUeRSvcoPK09SlSx/eapJTWxKF3rWoEia+bxwwgrRH2/54N6IvH0Cqw==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=mr8GCRAOmajdICVG5OcvHing6H+KXq+hdcv7TT8Lw4E=;
+	b=rDvS4+SQOYaVIbHeVKZ210fFXv/iPP/D2XlDFSNtkCvnA3rt7Dx8Cz4JB1C9tIwfQf6C
+	 qKcTJj/YNkRUMdsApLZ/GBnmu2bQBvgfZEijlEJg/qxeQN2sp4UDWRDDoRzwFbo5QY/ZW
+	 zErwne4G4Px55DLKbOdSINlCQE1Zo2YGsBC8FYMniJf+sQsiDIdWeipdEiP6pbSWcQU59
+	 MMf/0LAx/7ZzMnGMC3Sk0bnCqkfrVGri4w5nXOexCna/j8cp9zfJVqegjx/nsrBUVoJ3g
+	 58Nb43GV+5yl1Bw/ADc6U2UlgPO4jEs05Obf1YDoGcANtJWXRkaIZIk6/tVXlwenZpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dvsn.net;
-	spf=pass smtp.mailfrom=mt71.dvsn.net;
-	dkim=pass header.d=smtp.mailtrap.live header.i=@smtp.mailtrap.live header.a=rsa-sha256 header.s=rwmt1 header.b=qB2XrUIH;
-	dkim=pass header.d=dvsn.net header.i=@dvsn.net header.a=rsa-sha256 header.s=rwmt1 header.b=KB+ZoUAJ;
-	arc=none smtp.remote-ip=45.158.83.1
-Received: from smtp-83-1.mailtrap.live (smtp-83-1.mailtrap.live [45.158.83.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=dBhIDylT;
+	arc=none smtp.remote-ip=209.85.210.176
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38F7606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DADB606A333
 	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 17:55:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A38F7606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dvsn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mt71.dvsn.net
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DADB606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=smtp.mailtrap.live header.i=@smtp.mailtrap.live header.a=rsa-sha256 header.s=rwmt1 header.b=qB2XrUIH;
-	dkim=pass (2048-bit key, unprotected) header.d=dvsn.net header.i=@dvsn.net header.a=rsa-sha256 header.s=rwmt1 header.b=KB+ZoUAJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; x=1794333323;
-	d=smtp.mailtrap.live; s=rwmt1;
-	h=content-transfer-encoding:mime-version:message-id:date:subject:cc:to:from:
-	 feedback-id:cfbl-address:from;
-	bh=w3R4NWkzAVN6bv243bgvKvls0Ew5K6M+j/b7qLFiaX4=;
-	b=qB2XrUIHGaO7PAQa0Ngzi027go59IJ4Sx2aNtydwja/Y6YVWgOjWGKuYzVyPlo/gvncwrz/Oo2k43
-	 9tZU9AWuPNKRhg80Os5j8+o6oxnrHgSXnImqY5hjI0XDeZcBdpw8qk0/Nk0xOlWjW9a2aUu+paAsqM
-	 TSlCP8im59xqPcOK/94UYbP17S5YJBACMXV3rKN3ymNGB8BqFHgKS9ip2axexaZTg4z1UzeE0dhD9m
-	 hEl1AHzlQForFBt2HEHV6IrBI9L8k4ZNI7ts/3VFWjc1ZqoGD4neKotdmdP+oyThuTkBkud3NWTAX4
-	 iTJFRBMndL0y9Gn01QWU18pLL4a3vgg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; x=1794333323;
-	d=dvsn.net; s=rwmt1;
-	h=content-transfer-encoding:mime-version:message-id:date:subject:cc:to:from:
-	 feedback-id:cfbl-address:from;
-	bh=w3R4NWkzAVN6bv243bgvKvls0Ew5K6M+j/b7qLFiaX4=;
-	b=KB+ZoUAJxqrWiE9w03xEqVXq0CMYGZUgccOml+PCF8Uvk63xDFOIKPn3Q7Abu1Er59bK2UX7wyNzM
-	 WgOfgX7qhl4/kkLB2Q4mUSj334d1Q04QeXQPY5hHvyIC29wRxXGyUSXpCYpl+ThqDIcqaSl5AgkBH/
-	 Kyme4OBYoWD6HEYNvQPaulWocgKiaLF0FOc75KxEmT9EqIW0I4gQNoBl7Kpj5cuOEHN4NXGdFmYXe6
-	 7aZej2FP3/ZyiUfmfwa020EizZuXOjzTizV1hNfwmAv8/g7e0ecJkI6T35CQCDADLuDTE71o6PBfMv
-	 /aGhYrPiSuE/U/w6PRG1SzlwN2LUyig==
-CFBL-Address: fbl@smtp.mailtrap.live; report=arf
-X-Report-Abuse-To: abuse@mailtrap.io
-Received: from dvsn.net by smtp.mailtrap.live with ESMTPSA
- 3bed8736-da0b-11f1-9202-0effe0a7bb05; Fri, Nov 06 2026 17:55:23 GMT
-Feedback-ID: default:529932:transactional:mailtrap.io
-X-Mt-Data: n5i6wQUdMWlmb.g8TcRynFKj8xVKw1PjVqRMdPDjqNEbU8IjHtkN3YW9KZJsOwPGdM2Q.Gu_8X0HL17rYcbYyf15UeroKBXyAwJfuTlBOAjIudVpzvgHeSuWGbP4OBXowv_M15ap.kflWnXZsxM0LCZi5DFeBef_pXls9_FTbmQBlrTWtkaHpG2DQ6WIIG06BXXQRfB5I6MUovncmy3N0g5YLV42ki.5fuJFa2PG--A.td2LsvQFU_hdOw--LnOeADFx9Hs.9OMr1NOHOg
-From: Andrew Davison <andy@dvsn.net>
-To: tiwai@suse.com
-Cc: perex@perex.cz,
-	linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=dBhIDylT
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so508614b3a.1
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 09:55:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793987730; x=1794592530; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mr8GCRAOmajdICVG5OcvHing6H+KXq+hdcv7TT8Lw4E=;
+        b=dBhIDylT/qvwXP8fIUl4kmmy4r+PqQddze5z3d6HGGftNMDhpZVdKxP4mdiE5hfeh6
+         icFwF7vsZR+milGnnJUQkMNBlOP92rUCeeWYg1p/qjZoDVPIg/L2oGtKDzflrMSXy6tT
+         hTF+fIHofeUqCDUZ69zp73yPVPJm4JNkwByGTu/6KkkJT3YOuC6pr/LKgOUq8Z3bZo/B
+         kYpeuSSTVFdZQBgtR1AMFSP5TR2AavvKyvXbAJQJeumzh9iXBh7ke9ISQK3QTlnjjcZR
+         Dhp1RC/8KEXfNHYyGc9gjqdg1QxqTSMomDu1ZM2lSP0P0Qj4cHGHWg9Rf8t/fzu2W3z8
+         0/rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793987730; x=1794592530;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mr8GCRAOmajdICVG5OcvHing6H+KXq+hdcv7TT8Lw4E=;
+        b=V63UvGAwR4Qa3P99I1XdX3keI/TjjV8v5lSFp3Fq69xbjRmOAQjiAonBHgAiCm4m3l
+         P6+cb43SI6+oUrvu4GGlN1s9dciLeY97uhKUatZsdrlvqF1AGHOYgktWHw1GAHwcJvXj
+         BCHs2spL6qtlzUv6JZmj+azlo9Ha7e7HtHphcqrO6Ky1svF3qwiCAa8ZCKffek0nOmys
+         VXXdYRYXcyIh2lhFeQJrgzBG1nQaYaDQMIy7LADjS7ywVZ3T0++jm5c3i9zEo33gbt8t
+         hJIUWxyInO0wt2lH22UcQ0Lm8O92R5t6uuRmTkjLXQjh4k/6K+L8Yp+kl9mkcUul09/p
+         DkFA==
+X-Forwarded-Encrypted: i=1; AKwUvBwqVoFr5gYusXxxJXVwE5MCpIXzPODe3KNltSPWy5OPTtQxK+AoDJhuFVefm+cFor0lE2VsMDQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/BvTHmlVG8KIyOObZsUbwMLwiwNG8vJCYzcgB6uTHLkOY5op57
+	DGckw87xstVMjTj3uUgRgXTKS+7nr6scgnaQPMf6c6sAXtpNS+7YTUw84KY65DGyWNrmPOHPXcH
+	D/Y14
+X-Gm-Gg: AYBFou3GE9T80XakFc433skOoqzzxjnsHvSHCN7XhfwxvBUQg7Dif0EEXsL64SrNJHr
+	aChg0p4Z10GwfexWjeQoZE3GVqZEUPDp6Vgit83HRMZ3q1ICSnGi1T3ED2iuuqdZpwWgHZ31CVK
+	zZqt/ACm8Uw3epExPJRNkeRrdiJwzCg3XyXZJtBuS5kaehoz7j+TTNXjV2Ck51Oxm0dN9Ufjt/Y
+	hWFiRpGRiFRpY4SVVe2MjH4S2a2P/k2gdZohIQocWRhfJz+SxiQ50wJaSPMn/mwUIbJThKaXWfl
+	nfMBHaft2c+qQzOCUvjlho7bVZg6uYtnbtFDZuI8DQPSrwoqzJCTB5UwvrqAwwIDHtptHVzTx8G
+	vWc4b0bC3pq0nMHkEPIES8Qh6BPODWxv6tgdp+hQP1k+zH/RsmymQgcx2jT8hUmb60CSGmTw366
+	43yM0uQrfyBlrvRHN0oY+cTxTGp2fDj/Ytsi9HihnS2o/8DBCpeHnUAYa/AaiyFLylyF/ZWnHt4
+	Wl0xQ3caQ1AvUCtckNge2vwt7fbH9jbdomVCuQ+sAhsOxIez9RgaGjdQiSEjbIyw6GfXh0WMgij
+	3G3LmISLvWPHsvJMzjb5dDrMVmQKwe3F
+X-Received: by 2002:a05:6a00:3a20:b0:8a0:652e:95eb with SMTP id d2e1a72fcca58-8b1e50a34dbmr4767646b3a.8.1793987729411;
+        Fri, 06 Nov 2026 09:55:29 -0800 (PST)
+Received: from p14s ([2604:3d09:148c:c800:b47c:40a0:a4eb:29ee])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b356c2c5a5sm847951b3a.7.2026.11.06.09.55.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 09:55:28 -0800 (PST)
+Date: Fri, 6 Nov 2026 11:55:26 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Ohad Ben-Cohen <ohad@wizery.com>, linux-remoteproc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Andrew Davison <andy@dvsn.net>,
+	Takahiro Shinagawa <shina@is.s.u-tokyo.ac.jp>,
 	stable@vger.kernel.org
-Subject: [PATCH] ALSA: hda: Fix [codec] ID matching in patch files for IDs with bit 31 set
-Date: Fri,  6 Nov 2026 17:55:18 +0000
-Message-Id: <20261106175518.18629-1-andy@dvsn.net>
-X-Mailer: Mailtrap/1.0
+Subject: Re: [PATCH] rpmsg: virtio: Reject a message shorter than its header
+Message-ID: <au4Ujm6W4Oq53WgO@p14s>
+References: <20261102221504.175116-1-lian@is.s.u-tokyo.ac.jp>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,61 +100,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102221504.175116-1-lian@is.s.u-tokyo.ac.jp>
 
-parse_codec_mode() reads the vendor and subsystem IDs of a patch file's
-[codec] line into an int, and skips the check when the value is zero or
-negative, as documented. An ID with bit 31 set, such as SigmaTel's
-0x8384xxxx or Intel's 0x8086xxxx, comes out negative, so it is taken as
-a wildcard and the section is applied to every codec instead of the one
-it names.
+On Tue, Nov 03, 2026 at 07:15:04AM +0900, Lianjie Wang wrote:
+> rpmsg_recv_single() rejects a message whose msg_len exceeds len -
+> sizeof(struct rpmsg_hdr), where len is the used length the device
+> reported. Since len is an unsigned int, a used length shorter than the
+> header wraps the difference, and every msg_len passes. The endpoint
+> callback receives up to 65535 bytes from a receive buffer of 512 bytes
+> by default, and rpmsg_char copies them into an skb that userspace reads.
+> The receive and transmit buffers share one DMA allocation, so the copy
+> can run through the following buffers and, with small vrings, past the
+> end of the allocation. With vrings of 16 buffers and a header claiming
+> 65535 bytes, KASAN reports:
+> 
+>   BUG: KASAN: slab-out-of-bounds in rpmsg_ept_cb+0x4d/0xb0
+>   Read of size 65535 at addr ffff888002484010 by task rpmsg_echo/140
+>   Call Trace:
+>    rpmsg_ept_cb+0x4d/0xb0
+>    rpmsg_recv_done+0x29f/0x840
+>    vring_interrupt+0x32a/0x540
+>    vp_interrupt+0x146/0x180
+> 
+> Compare the sum of the header size and msg_len with len. The sum cannot
+> overflow, since msg_len has 16 bits. Move the check ahead of the debug
+> output, since dynamic_hex_dump() reads sizeof(*msg) + msg_len bytes
+> when its dynamic debug site is enabled.
 
-This was seen on an OpenPeak OpenFrame 2 with an IDT 92HD75B2X5
-(0x111d7608). A patch file written for the STAC9202 (0x83847632) in the
-related OpenFrame 1 was applied to it, swapping the headphone and
-speaker pin configurations, so auto-mute never muted the speaker.
+I don't understand why the check is moved ahead of the debug output and the
+robot generated changelog isn't helpful at all.
 
-Read the IDs as long long, so real IDs are compared exactly. Values
-written as negative numbers (e.g. -1) still act as wildcards, as
-documented; a hex value such as 0xffffffff is now compared as written.
+I agree with this fix if we don't move the check ahead of the dev_dbg()
+statement.  For this patch and any future ones you may send, write your own
+changelog rather than simply dumping what the robot says.  
 
-Tested on 6.18.60 on an OpenFrame 2, with a rebuilt snd-hda-codec and
-the STAC9202 patch file: user_pin_configs stays empty for the IDT codec,
-and the headphone and line-out pins are assigned as the BIOS sets them.
-Not tested on a STAC9202 itself.
-
-The bug was tracked down and this fix written with an AI coding
-assistant (Claude Code, Claude Opus 5.5), which also ran the tests
-above. I have reviewed the change and the tests.
-
-Fixes: ef940b0403d4 ("ALSA: hda - Allow patching with any vendor/subsystem ids")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrew Davison <andy@dvsn.net>
----
- sound/hda/common/sysfs.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/sound/hda/common/sysfs.c b/sound/hda/common/sysfs.c
-index bf65223fde10d..b354cbbc3dc91 100644
---- a/sound/hda/common/sysfs.c
-+++ b/sound/hda/common/sysfs.c
-@@ -512,11 +512,12 @@ static inline int strmatch(const char *a, const char *b)
- static void parse_codec_mode(char *buf, struct hda_bus *bus,
- 			     struct hda_codec **codecp)
- {
--	int vendorid, subid, caddr;
-+	long long vendorid, subid;
-+	int caddr;
- 	struct hda_codec *codec;
- 
- 	*codecp = NULL;
--	if (sscanf(buf, "%i %i %i", &vendorid, &subid, &caddr) == 3) {
-+	if (sscanf(buf, "%lli %lli %i", &vendorid, &subid, &caddr) == 3) {
- 		list_for_each_codec(codec, bus) {
- 			if ((vendorid <= 0 || codec->core.vendor_id == vendorid) &&
- 			    (subid <= 0 || codec->core.subsystem_id == subid) &&
-
-base-commit: e0f6c0c60adc73582b40803a5c172077c5a4e84f
--- 
-2.39.5 (Apple Git-154)
-
+> 
+> This patch is assisted by Claude Opus 5.5.
+> 
+> Fixes: 9648224e564a ("rpmsg: validate incoming message length before propagating")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
+> ---
+>  drivers/rpmsg/virtio_rpmsg_bus.c | 20 ++++++++++----------
+>  1 file changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
+> index 23ff6c8b7a20b..a9125e81cb150 100644
+> --- a/drivers/rpmsg/virtio_rpmsg_bus.c
+> +++ b/drivers/rpmsg/virtio_rpmsg_bus.c
+> @@ -661,6 +661,16 @@ static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
+>  	unsigned int msg_len = __rpmsg16_to_cpu(little_endian, msg->len);
+>  	int err;
+>  
+> +	/*
+> +	 * We currently use fixed-sized buffers, so trivially sanitize
+> +	 * the reported payload length.
+> +	 */
+> +	if (len > vrp->rx_buf_size ||
+> +	    sizeof(struct rpmsg_hdr) + msg_len > len) {
+> +		dev_warn(dev, "inbound msg too big: (%d, %d)\n", len, msg_len);
+> +		return -EINVAL;
+> +	}
+> +
+>  	dev_dbg(dev, "From: 0x%x, To: 0x%x, Len: %d, Flags: %d, Reserved: %d\n",
+>  		__rpmsg32_to_cpu(little_endian, msg->src),
+>  		__rpmsg32_to_cpu(little_endian, msg->dst), msg_len,
+> @@ -671,16 +681,6 @@ static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
+>  			 msg, sizeof(*msg) + msg_len, true);
+>  #endif
+>  
+> -	/*
+> -	 * We currently use fixed-sized buffers, so trivially sanitize
+> -	 * the reported payload length.
+> -	 */
+> -	if (len > vrp->rx_buf_size ||
+> -	    msg_len > (len - sizeof(struct rpmsg_hdr))) {
+> -		dev_warn(dev, "inbound msg too big: (%d, %d)\n", len, msg_len);
+> -		return -EINVAL;
+> -	}
+> -
+>  	/* use the dst addr to fetch the callback of the appropriate user */
+>  	mutex_lock(&vrp->endpoints_lock);
+>  
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> -- 
+> 2.56.0
+> 
