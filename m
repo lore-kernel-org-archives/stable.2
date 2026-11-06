@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793972832;
-	b=1Osey8JOKRQxFyxtvUSy6nHtvzbhIMz1XmSvFS9bv15/Atwl2F67PSTUkgg8gC6xM2TA
-	 aZgF7XF7q3wjsdEm1hNOKmQ6DogrL51U8YZpbrOnXSCMYX6lIXEhsnhSnY73WBpnU5Agk
-	 GnyZRlta1BUzmxJCJ/epsv+YemTOeCCGbZNAfs+97YNSayhhmlos4ioxZGbo88rARAuje
-	 U7FDlhAX9GZSoCPXYoJuEiz7VvMCjfAqthlGNYHQJ4xhIoejdb1AKtf/kRRF+aXWRZJW1
-	 siiaGvXy+qC2/Nc85IqRNLsHv0+yxduYDLlQI2pgy9tDuWVGE5SBddoVpihkxer5yGQ==
+	t=1793972844;
+	b=il185FT2BX0G9Nb05AfmMKB1hMxDrOAr80Bek/QHRUbj+ebRpnaZf61rI1CZufXHZJKS
+	 U7xkbdnZR65DdUM03S8MoEVYwAoqGDbity882xqdjMMM8uyWVy3xBRZja0jYsMAeQuXH4
+	 TTJt/fLiK+bwBBdZWgKXqfZpIxHzv1REzbQHNamIUY9i2gs+JF1I8wvPJDND1E1TUTFLK
+	 PXyywEers0Tf4hQC8+5kTGCOaTywDFT+AzjhsLqrlbreezyDPN8LoXNyehlmmt3I7SDLC
+	 RgXjiHZW/hXHSWE51zID42yrUXJvcLwxL9lpR1AaB8ioab4Z7hutAjyH9Ffq12scdRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793972832;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793972844;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pMEKyfbbe5lvwTgej0e66F2miLJ/4ZO8/o3rMInjvH0=;
-	b=JjVFu6BTeQp8rnRbHjQlBk+rx0mNG6H6deFInKzvVUGYuyq/JtS0qMzXECGFWFYBrFdY
-	 J6c7vV7OEPHmEJN6XgB79XCd3EoyIz/r4PdcifPNt5+lH2U6Vp3OeHtSWkM5lLzp7Lg+m
-	 xCaF6xxl5CJUdlJVIztPVvgjuRGUIsZPd95izPIsv2FzkmoAxgGMrz36tFjam/RLMGUjE
-	 bllYtZk360jXIzTRSNjlctXJIXT0G+YMFAQX2GVdUI3SVXgNfxW1Zz7wf2u1Ek3n7pw3D
-	 a5oQSCrx0Jpbl0v3WpJ+T1f/LZN5hom1O5mysTxOZ7jG61X76CyLuFyop9Jr9Avc4NQ==
+	bh=AQXta7caG2t5JEi+vLGtdpb0UwRr2wKnn3UDCjsVPks=;
+	b=RkOGgv224NKUajpPPS/T8xwafKgXn4m14resdg4xFtJ2427t5fhBeYmGDyWrObte/ukn
+	 BONM+BV6oTyx1DxF7Py7uT6pZ17s4kuzbuzqc8Au4yxQt5lKKf79MVMU8VYQQtq6Ia7aG
+	 riwnrfe0bqHQ4ND++pYwxXhoJBWlUOdg0eqoVDYuYHqI3cjWYxeoz8Y0XEYXggb7pJlni
+	 BNWnPPGj+Yef1XswdERxsLeaAqOYAzIs3QXyHlDN46KWaJLx7f+NNUyQWVhJadlijYPjk
+	 G6OSYtUz3wE2CgtOOgFnKKnvo0Rh7JMUzk2EEJCEhcYyliXfXYYrwTRJ11isWYFjtnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dZlzFAOy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKuKhEGB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE7CB606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 13:47:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A32606A329
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 13:47:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dZlzFAOy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097BA1F0089F;
-	Fri,  6 Nov 2026 13:47:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKuKhEGB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3F861F0089F;
+	Fri,  6 Nov 2026 13:47:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793972831;
-	bh=pMEKyfbbe5lvwTgej0e66F2miLJ/4ZO8/o3rMInjvH0=;
+	s=k20260515; t=1793972843;
+	bh=AQXta7caG2t5JEi+vLGtdpb0UwRr2wKnn3UDCjsVPks=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dZlzFAOytssnYzTxCg9ZlzYnPwz+co95+HIEavNrQHv3I14rIqzfU7PHPFgb5PqEj
-	 ArZKDPksJ2z3bOvkScbfBFQKl/H3PB/8e8a76PxFVP4jlniPwbf0TGLbCXbjU+fDqN
-	 lwzO6+2vO0Z+ITl3idOF+3P1mK5LuJTfpOTRGkhtI71UwkMhpCJY6rbSuAyPdYcuOh
-	 hdJXNQ5plugeiiAKK/wqTxvuHzKE6r5N/0DllZsp9Z831j/0jnHNoV7JVAoWFvQCgH
-	 NHssxOwwTZS9klwCgER7pzbBfzzhFSGfHqJrPoP0qa2xekRr1cu5voHN1SFUb6CDVX
-	 +xFDpODwqZqXQ==
+	b=QKuKhEGBaaRhOZ9Exi2VWDEsGZ2uCKWxL1McWEupPTGFO5iPBD9ntGoIX8lkfvDtM
+	 AVUhFoHonxBxcJfiRxHXv2OSPYYy1Kux2VXp9aKVkkbuHieGWOuSPj/0Msqa8XXN3h
+	 6mgHZKzP9JmFLiLjMBgDqD2nsy/3f/RNjVo2DY1RyRjc4UlNnMFl3HybQN9HR2/ZnC
+	 gZd8ie+cWtx/qomhhle9dPEllyZMd2QmE0PUj9txqKbPnCFU+tuC158wAdXZSFT/Jx
+	 Mp0omlC73yDKwJ9Kqo7D0wHfKMU38neB/yUataXXiSZBvQiUG51qVOKBGZnLO87cMA
+	 HrRRWWIQdjksA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <cel@kernel.org>,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
+Cc: Benjamin Coddington <ben.coddington@hammerspace.com>,
+	Benjamin Coddington <bcodding@hammerspace.com>,
+	Anna Schumaker <anna.schumaker@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] NFSD: Map flex file layout IDs through the request's user namespace
-Date: Fri,  6 Nov 2026 08:47:09 -0500
-Message-ID: <20261106134646.255119-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] NFSv4/pnfs: bound the CB_NOTIFY_DEVICEID array count before allocating
+Date: Fri,  6 Nov 2026 08:47:21 -0500
+Message-ID: <20261106134703.14265-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110411-clothing-unskilled-c8ce@gregkh>
-References: <2026110411-clothing-unskilled-c8ce@gregkh>
+In-Reply-To: <2026110400-luminance-syndrome-19a6@gregkh>
+References: <2026110400-luminance-syndrome-19a6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,176 +62,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <cel@kernel.org>
+From: Benjamin Coddington <ben.coddington@hammerspace.com>
 
-[ Upstream commit f913d5d2130a584d1a027ffe3dfd88b6be2e0540 ]
+[ Upstream commit 32f0967ea296d447925465c98e7eec71d4e2f755 ]
 
-nfsd4_ff_proc_layoutget() and nfsd4_ff_encode_layoutget() translate
-the file's owner and group with init_user_ns, but every other identity
-nfsd places on the wire goes through nfsd_user_namespace(). When the
-transport carries a credential from a non-initial user namespace, the
-flex file layout reports host-global IDs. The client copies those IDs
-into the AUTH_SYS credential it presents to the data server, and
-svcauth_unix_accept() resolves that credential in the transport's
-namespace, so data server I/O runs under an identity unrelated to the
-file's owner.
+decode_devicenotify_args() hands the server's notification count
+straight to kmalloc_objs() as the array length, without checking it
+against the message that carried it.  Bound it the way nfs4xdr.c bounds
+an attribute length, against xdr_stream_remaining().
 
-Switching to the request's namespace introduces a second hazard.
-from_kuid() returns (uid_t)-1 when the target namespace has no
-mapping for the owner, and the IOMODE_READ arm adds one to that
-result to derive an identity for which the data server denies
-writes. The addition would wrap to zero, handing the client uid 0
-instead of an identity distinct from the owner.
-
-Translate both IDs in nfsd4_ff_proc_layoutget(), which has the
-svc_rqst, and carry the wire values in struct pnfs_ff_layout.
-from_kuid_munged() substitutes overflowuid for an unmapped owner and
-thus never returns (uid_t)-1, so the increment cannot wrap to zero.
-
-Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
+Fixes: 1be5683b03a7 ("pnfs: CB_NOTIFY_DEVICEID")
 Cc: stable@vger.kernel.org
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260720141442.783935-1-cel@kernel.org?part=3
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260720163724.810227-1-cel@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[ sashal: added the missing request parameter to the proc_layoutget callback interface, caller and implementations ]
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Benjamin Coddington <bcodding@hammerspace.com>
+Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
+[ sashal: adjusted allocation context to use kmalloc_array() instead of kmalloc_objs() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/blocklayout.c       |  4 ++--
- fs/nfsd/flexfilelayout.c    | 24 ++++++++++++++----------
- fs/nfsd/flexfilelayoutxdr.c |  4 ++--
- fs/nfsd/flexfilelayoutxdr.h |  5 +++--
- fs/nfsd/nfs4proc.c          |  2 +-
- fs/nfsd/pnfs.h              |  4 ++--
- 6 files changed, 24 insertions(+), 19 deletions(-)
+ fs/nfs/callback_xdr.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/fs/nfsd/blocklayout.c b/fs/nfsd/blocklayout.c
-index 5c8f20a326d23..92eda5d9f4627 100644
---- a/fs/nfsd/blocklayout.c
-+++ b/fs/nfsd/blocklayout.c
-@@ -22,8 +22,8 @@
+diff --git a/fs/nfs/callback_xdr.c b/fs/nfs/callback_xdr.c
+index 505d195ed61dd..ff73aee4f72f1 100644
+--- a/fs/nfs/callback_xdr.c
++++ b/fs/nfs/callback_xdr.c
+@@ -272,6 +272,13 @@ __be32 decode_devicenotify_args(struct svc_rqst *rqstp,
+ 	if (n == 0)
+ 		goto out;
  
- 
- static __be32
--nfsd4_block_proc_layoutget(struct inode *inode, const struct svc_fh *fhp,
--		struct nfsd4_layoutget *args)
-+nfsd4_block_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
-+		const struct svc_fh *fhp, struct nfsd4_layoutget *args)
- {
- 	struct nfsd4_layout_seg *seg = &args->lg_seg;
- 	struct super_block *sb = inode->i_sb;
-diff --git a/fs/nfsd/flexfilelayout.c b/fs/nfsd/flexfilelayout.c
-index 041466513641c..9a681e032bfb6 100644
---- a/fs/nfsd/flexfilelayout.c
-+++ b/fs/nfsd/flexfilelayout.c
-@@ -14,19 +14,20 @@
- #include <linux/sunrpc/addr.h>
- 
- #include "flexfilelayoutxdr.h"
-+#include "auth.h"
- #include "pnfs.h"
- #include "vfs.h"
- 
- #define NFSDDBG_FACILITY	NFSDDBG_PNFS
- 
- static __be32
--nfsd4_ff_proc_layoutget(struct inode *inode, const struct svc_fh *fhp,
--		struct nfsd4_layoutget *args)
-+nfsd4_ff_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
-+		const struct svc_fh *fhp, struct nfsd4_layoutget *args)
- {
-+	struct user_namespace *userns = nfsd_user_namespace(rqstp);
- 	struct nfsd4_layout_seg *seg = &args->lg_seg;
- 	u32 device_generation = 0;
- 	int error;
--	uid_t u;
- 
- 	struct pnfs_ff_layout *fl;
- 
-@@ -49,13 +50,16 @@ nfsd4_ff_proc_layoutget(struct inode *inode, const struct svc_fh *fhp,
- 	fl->flags = FF_FLAGS_NO_LAYOUTCOMMIT | FF_FLAGS_NO_IO_THRU_MDS |
- 		    FF_FLAGS_NO_READ_IO;
- 
--	/* Do not allow a IOMODE_READ segment to have write pemissions */
--	if (seg->iomode == IOMODE_READ) {
--		u = from_kuid(&init_user_ns, inode->i_uid) + 1;
--		fl->uid = make_kuid(&init_user_ns, u);
--	} else
--		fl->uid = inode->i_uid;
--	fl->gid = inode->i_gid;
-+	fl->uid = from_kuid_munged(userns, inode->i_uid);
-+	fl->gid = from_kgid_munged(userns, inode->i_gid);
++	/* sanity check the count against the remaining stream */
++	if (n > xdr_stream_remaining(xdr) /
++		((4 * sizeof(uint32_t)) + NFS4_DEVICEID4_SIZE)) {
++		status = htonl(NFS4ERR_BADXDR);
++		goto out;
++	}
 +
-+	/*
-+	 * Do not allow an IOMODE_READ segment to have write permissions.
-+	 * The group is left intact so group-readable files stay readable;
-+	 * nfsd_setuser() squashes an unmapped uid to the export's anon ID.
-+	 */
-+	if (seg->iomode == IOMODE_READ)
-+		fl->uid++;
- 
- 	error = nfsd4_set_deviceid(&fl->deviceid, fhp, device_generation);
- 	if (error)
-diff --git a/fs/nfsd/flexfilelayoutxdr.c b/fs/nfsd/flexfilelayoutxdr.c
-index c05d1d3e20210..4bfdfee1bf9ce 100644
---- a/fs/nfsd/flexfilelayoutxdr.c
-+++ b/fs/nfsd/flexfilelayoutxdr.c
-@@ -32,8 +32,8 @@ nfsd4_ff_encode_layoutget(struct xdr_stream *xdr,
- 
- 	fh_len = 4 + xdr_align_size(fl->fh.size);
- 
--	uid.len = sprintf(uid.buf, "%u", from_kuid(&init_user_ns, fl->uid));
--	gid.len = sprintf(gid.buf, "%u", from_kgid(&init_user_ns, fl->gid));
-+	uid.len = sprintf(uid.buf, "%u", fl->uid);
-+	gid.len = sprintf(gid.buf, "%u", fl->gid);
- 
- 	/* data server entry: deviceid + efficiency + stateid + fh list +
- 	 * user + group + flags + stats_collect_hint
-diff --git a/fs/nfsd/flexfilelayoutxdr.h b/fs/nfsd/flexfilelayoutxdr.h
-index 8e195aeca0237..3e2dc4d070f8d 100644
---- a/fs/nfsd/flexfilelayoutxdr.h
-+++ b/fs/nfsd/flexfilelayoutxdr.h
-@@ -35,8 +35,9 @@ struct pnfs_ff_device_addr {
- struct pnfs_ff_layout {
- 	u32				flags;
- 	u32				stats_collect_hint;
--	kuid_t				uid;
--	kgid_t				gid;
-+	/* Values to encode; nfsd4_ff_proc_layoutget() has mapped these */
-+	u32				uid;
-+	u32				gid;
- 	struct nfsd4_deviceid		deviceid;
- 	stateid_t			stateid;
- 	struct nfs_fh			fh;
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index 5c814876825c9..6728f847beb44 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -2258,7 +2258,7 @@ nfsd4_layoutget(struct svc_rqst *rqstp,
- 	if (atomic_read(&ls->ls_stid.sc_file->fi_lo_recalls))
- 		goto out_put_stid;
- 
--	nfserr = ops->proc_layoutget(d_inode(current_fh->fh_dentry),
-+	nfserr = ops->proc_layoutget(rqstp, d_inode(current_fh->fh_dentry),
- 				     current_fh, lgp);
- 	if (nfserr)
- 		goto out_put_stid;
-diff --git a/fs/nfsd/pnfs.h b/fs/nfsd/pnfs.h
-index 4f4282d4eeca4..c29de1795b2cb 100644
---- a/fs/nfsd/pnfs.h
-+++ b/fs/nfsd/pnfs.h
-@@ -29,8 +29,8 @@ struct nfsd4_layout_ops {
- 	__be32 (*encode_getdeviceinfo)(struct xdr_stream *xdr,
- 			struct nfsd4_getdeviceinfo *gdevp);
- 
--	__be32 (*proc_layoutget)(struct inode *, const struct svc_fh *fhp,
--			struct nfsd4_layoutget *lgp);
-+	__be32 (*proc_layoutget)(struct svc_rqst *rqstp, struct inode *inode,
-+			const struct svc_fh *fhp, struct nfsd4_layoutget *lgp);
- 	__be32 (*encode_layoutget)(struct xdr_stream *,
- 			struct nfsd4_layoutget *lgp);
- 
+ 	args->devs = kmalloc_array(n, sizeof(*args->devs), GFP_KERNEL);
+ 	if (!args->devs) {
+ 		status = htonl(NFS4ERR_DELAY);
 -- 
 2.53.0
 
