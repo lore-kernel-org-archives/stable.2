@@ -1,107 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793934454;
-	b=yoH/cd6pNtB12HSS6pJKUL/mt9cjOr60Jp1E8T4uiXkV3kHVApha1cXsqMboIk6nZfki
-	 NAlA2dfqmGfz+eGEiJPczckEtZfe7Q1Rq7fXOoZCu3MsQN6bQ+7Pg6+dL86G2bNIlsXiq
-	 IE0MHBfe86dJsUE9vnK9yLAdqjadsP/WtLczEZWzYMNN9nX90AQzzACqIOLa6ah9z5XYR
-	 Ex2Kk2y7jvnUnuSfrkq/BO67e3CRrT/WTt3V6mSY8C+9P0OEd3Yjv+AVwJLANg/XwM92M
-	 Ts/nHafCEoC3YbXr71jy7otNdLdwqJkQdfLTl9VYt425kjTr3gGbPR8SnDWdttFhWew==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793934454;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:To:From:
-	 Subject:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8ztbuShr+WgdOBXYf5fUM80uZgltRI6WDznN3D2TyQ8=;
-	b=lDmxzKfhxNDBw+GT9+T6jw/pkzivyE4TkIuQcmNtpME9iWEhqYD19d87e+PmRG/TAH1u
-	 uC76QA13kPtasB2GWDEbd6bR7QEwWxEQ/KdzjiCmPut2GSqk7cXKWAGWUJZ5RcpNskFg3
-	 1W+9EXTBcVLMkSxDfoUnINT8pTlgS7lbOptAuCMDLVznZtZIkFWirKSbAHZZAH51/AJo2
-	 WD//eDbAfo1GET9k6SjRuzM7l2bHAOD52LsB5IrSSLOVKtbwGL4YLuFHiOSdD9drYmoIl
-	 4HHIcUfVIr0zJakXmimaNf8hSdK15ea2oKT1iBc8LRc+HUD7OiGr18iZm5FcVr5wEug==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YIOTH0Wb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.41
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013041.outbound.protection.outlook.com [40.93.201.41])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793934554;
+	b=hMvY/eF9MyZrzAMcC11usb9a3i7IezqerualS1iWE+vbr0eYLrQwLYKFGdg54pz/Rf4t
+	 MP6yTfj9+z5IUORkbpXt9Ggfis6oKvKns6bRdSGXCq4/V9Dekh2P3WqVeQlUo79lhJ0kZ
+	 DJAuJyRw4kkSBK8cQPNmQZVGayepSSl9NumG3jgGGlwmI7kbyhNr2uzxCBvNnHvBsli2c
+	 Grb4NPXfn6MsMH9qRSdD+2rWhIztyy0sK1BuswLr8tSRa5jQG9Z5hRNjGNo9/oVnQiS9O
+	 0rFOyY6Vjj3ZTwYE5o2k6OgX4fR6t57scr8P/FqyFKxzhbZHEB7biI+xvHMckrxmuNQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793934554;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=CP7RmYAc6qRLT7IncEynz/6adzsoNhf1VDTQKi2KD8I=;
+	b=DCXoXyhdEGLR1sf+hw/ifb/x7r57kF9tRYQpMR+6ntHW9CYLjf3AuX3EutnO9LI1Hi7r
+	 A60LyXAQzX6eSn/Y5SojLG9jD5lVwFVOZkXwCc4VkHSSBI5U3a6kkz49tGbdVFy+U6E7X
+	 yt2JlpHtYpCfU/Rdd5q3FPPsfZ/fQyGo2TrV1GjIoM/0NI8/89zh+FfJT1v43TLIsypSG
+	 Md/G1V93+v757qloIXGwxUhr6J72WA+ztX2s+4tYPqPiX/q3rDCHoPTUM+ggrKujWNIhj
+	 uGzK0ulj1KkDvdaKF/twxurUrZ9l58RTolviDiIh3nGckLjAlIhnorEBZ0Y/aubol7g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gg4a9c5V;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11C0606A328;
-	Fri,  6 Nov 2026 03:07:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B11C0606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF84606A31B
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 03:09:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YIOTH0Wb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KyyhgdCognjCT/rGwvkYvkpwF8VRoNLJmjaQV76o4TwsVSVoevDbobBQWXRvchoJNlbuxO699Y8m4I4TYU3SX04fOdnEITY9yEQ2dvFuB+HVvp4YJM428U3U2adddGxUoUvqtOMhD+jhHM3CJJOZ/W81Aou9bx0Fh8ELBFXmAxDxKG4HmVmGaF9kPLwCtc/J2A8L3ON+3QouCm+lo5deuJvzTDcIwJgEo6SXO6h+jmVCx1u05lOx5ASE2LxNA8fsbUwyYi8Hxgik+UGMw5yI3bVnytIAyxVd3wIWsZCXjGdjbLBh+OuXzLNMj5i+BPi39qRcbw12r/a3ySxDLL6rqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8ztbuShr+WgdOBXYf5fUM80uZgltRI6WDznN3D2TyQ8=;
- b=W/wTMWYA774ZiIxRV9/EjX0w7zsgsrUp3kQGvU/q/kD2ajnrwGkNSjkREHGMqZ+ET78rvbeU+Hysgc/iwU9Zn7sUQJa4ncPHrxEJPTNWeixLDR8GhokpvB/xCRXAXx/YKp5mQdTQT4QEmShxn8Wdsn51X/KR1ZRtPbBe09io/OoK1+sZzjDuchLVHxB66YK+UHrJVtYeLokKVtEBhIsxmHOuxiHOMi9HSd9dE4iR3VmRl3vNXnXGbpSNs0pgarDjrejmvOo0Yv5v0lgGQOEGl94rn7+SkZxtZ3kZy0OpmNvfU1rJXptGBTAAZNtrCFlSgEufKlzYVla/2q0HHp6GOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8ztbuShr+WgdOBXYf5fUM80uZgltRI6WDznN3D2TyQ8=;
- b=YIOTH0Wb+dgazmmoL5qB9Wm8gsFFipwm/h/T1u5t2/hS6Hve7ssxQdZxna38PLyHHaKeeyHwcHl9MNZNAbIpzFy0I9FDbqabBTameX7/9OVa/K5kqmyldLf4o+jxxoFrG9YlIJQoICe6E2sIiXFMnZ2OgGCvtFoAUyeZuMXfWp4h47IpEMmEZ3eJJclh5I7nBG6DFaVtx/H1Fbbp0w1Zkcrh7xOAR9t/qGscavIi0226dlvVuExqyoUnXlfTfCSVmBR33t3m8t/wGpVxg8BUOQBvgJfMUr7k6/Ygn40MN3luVuTTGMXHfzZMqGMF6gloffW9Xr3+ulLTIfKVE6HqaQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by BN3PR12MB9571.namprd12.prod.outlook.com (2603:10b6:408:2ca::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
- 2026 03:07:30 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0592.007; Fri, 6 Nov 2026
- 03:07:30 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 05 Nov 2026 22:07:28 -0500
-Message-Id: <DMNSOSIX88HY.40FMVMG1JK98@nvidia.com>
-Cc: "Alex Williamson" <alex@shazbot.org>, <kvm@vger.kernel.org>,
- =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, "Lorenzo
- Stoakes" <ljs@kernel.org>, "Shuah Khan" <shuah@kernel.org>,
- <linux-kselftest@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- "Madhavan Srinivasan" <maddy@linux.ibm.com>, "Ritesh Harjani (IBM)"
- <ritesh.list@gmail.com>, <linuxppc-dev@lists.ozlabs.org>,
- <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, "Jason Gunthorpe"
- <jgg@ziepe.ca>, <stable@vger.kernel.org>, "Sashiko"
- <sashiko-bot@kernel.org>
-To: "Konstantin Khorenko" <khorenko@virtuozzo.com>, "Andrew Morton"
- <akpm@linux-foundation.org>, "David Hildenbrand (Arm)" <david@kernel.org>,
- "Baolin Wang" <baolin.wang@linux.alibaba.com>, "Liam R. Howlett"
- <liam@infradead.org>, "Nico Pache" <nico.pache@linux.dev>, "Ryan Roberts"
- <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry Song"
- <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama Arif"
- <usama.arif@linux.dev>, "Kiryl Shutsemau" <kas@kernel.org>, "Peter Xu"
- <peterx@redhat.com>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH v5 3/4] mm/huge_memory: read a special PMD under the
- lock in copy_huge_pmd()
-X-Mailer: aerc 0.22.0
-References: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com> <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-3-c56d0d26f970@virtuozzo.com>
-In-Reply-To: <20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-3-c56d0d26f970@virtuozzo.com>
-X-ClientProxiedBy: YQZPR01CA0075.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:84::10) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gg4a9c5V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9DB11F00901;
+	Fri,  6 Nov 2026 03:09:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793934553;
+	bh=CP7RmYAc6qRLT7IncEynz/6adzsoNhf1VDTQKi2KD8I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gg4a9c5Vdx5Ch6QWdiKrTPj3kVRN4VdebQ7KE9tPCDr2aXZ66XH8FlT5FXozxj4AU
+	 2kgnqkKS4MMuv/RGImZdWuBRGBs3GVsx8A1samKc9aH+S1LnGHPq4OH8QvGFplWgWF
+	 A7QaAHlg1d2Ytvqs/vwBZcRJdx+H2p5U7u/9lOUyF0Tm0pCOY5oDf1rMQc2w3zoaOE
+	 sB30qJo3styAJpYGDghjftX5FhvUN/i2z1QJBZ/vVUwIctpRr0caqx+ulOQkSZqqnM
+	 A4AL2Ia1h21QpOLHRR5djjyz+D/wAFpDLVbEc24qtkCUlv/wIub6Zrj1Px939CHu/j
+	 /UfWidGBcsfZw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chuck Lever <cel@kernel.org>,
+	sashiko-bot <sashiko-bot@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] NFSD: Map flex file layout IDs through the request's user namespace
+Date: Thu,  5 Nov 2026 22:09:11 -0500
+Message-ID: <20261106030854.3936190-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110407-untrue-smuggler-1837@gregkh>
+References: <2026110407-untrue-smuggler-1837@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,124 +60,178 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|BN3PR12MB9571:EE_
-X-MS-Office365-Filtering-Correlation-Id: 603505a4-3243-4f2d-c2af-08df3bb31871
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|23010399003|376014|1800799024|10067099003|18002099003|22082099003|921020|56012099006|11063799006|4143699003|261026121527099003|261026140227099003|261102123227099003|261028144727099003|261022075727099003|261021123027099003|261021121427099003|261022105027099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	RSmauEqc60L1WBOa//2Pc02BIOD31+H3stC5f0JBys+aacA30tPbG+6Gl5AcIBXsqWCLEMT4DLuFrQZLsUVj7M5p2ZCryLuGEyUqgOYIndU8G4tFF52AfSFzSybHM/oIL/oPw1vdlJzhKBqM7TfiWVmxPLGM0qNxHC2ulkGEpw7xeKqXDjrNQ3lOtqKmV0a48T5df2vvpedsvN/qTzg+qcAl2h9ViRSm4p2nBHiT6Ayytfe75zkGa6oPSd4rLzchJmzNE3UZ40oWViH3snU3sGqplsrSvPoOBqy7R2oatilcktDtR19ujs7Y0uTTa+hJTzsqxB0VBn+Q1ztz3fasxYsBmkrBGBWHPgdcCMXxwyW7vxpX9gjKSF91jQHxtwn6gkX9EiQpDYhb+wT4deAVaS+t6NG8h82wnpDW6o6+31PqAQEUlnbnH3wJdOUuYcxJbb4/l9n1zMQCuYBA4oV8Bb41270nCQNa4xX+y/qeL8HRRxO4iaiW3IkF4Vy1IZEQRaXHPB5gzLsUCoFNaoENlqDraNP33KGz/US8pwVWpdfjrLXSeQdlNNgSm70RQPoFvkS2qcuPty0Jz5gZl2x9egPjvnJu+2zK1q22MuDQ2aAl3dYKncsYuj9yTAHid2U7uRxcecf/C6fBZyajgzdNAtXpwdkJYf+e5XP6Ite3Ekx68lLhjSwzbjWJR4UGgsUaGdxYOH8aMsyJLVN/hHEq2g==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(23010399003)(376014)(1800799024)(10067099003)(18002099003)(22082099003)(921020)(56012099006)(11063799006)(4143699003)(261026121527099003)(261026140227099003)(261102123227099003)(261028144727099003)(261022075727099003)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dDJWcnRqaytCMUViWGpoZXJZWC9HTE5OK3JyUVo5Q3dwN3Bva0ttVzkrNEYx?=
- =?utf-8?B?Y2xMRTRXK0tMak5YVW9iQmVoRWtUaHZOVWdhV2VvTkJTS0hqU3dWYWt5YVl4?=
- =?utf-8?B?YWxPNHVyQk9ZUHRpQmxhVmNxc0M2NXVPc3VFSkwvdTFNb01ab1M0WlFoOFQ4?=
- =?utf-8?B?UG1PTXlHZFhWZDBXa0pMRUsxZ0tyeWpwWlBqaXhqZnBxVW4wU1dacHhFbDAr?=
- =?utf-8?B?blh5TDdqM1hWZXNMSTdUSjkxT1hjb3NuOWt4MDlabTQxYk04VlF2b3B3eGRL?=
- =?utf-8?B?SjBtOWYyZFNmc2kyY04wd3JyaTRmdStvNklXaVBVd2FkODhCM1d4UVBSTE52?=
- =?utf-8?B?aGhNLytHbUZrd3lUbUF1WU05NVB1U1pDa3lacm9ZRy9HbWV1bjh3emZCd294?=
- =?utf-8?B?aWM4QU5melhpWlRST0pwekFTcXNzSVQreVBjMVdQT3kxNk9uZEpNVWRUWDBm?=
- =?utf-8?B?aHlyamloNWFlTUdnVWZpa25wNXJCak5ZTnZzN21rOVY3aXZCN1JIdW5Wc1ZP?=
- =?utf-8?B?WTltaGk3Tmg2UlBVRmozMnpJd09OV09mMzZ4a3JQNmNKMWRjZ1dGa0dBR0xk?=
- =?utf-8?B?dWozQXBOU1drQXJPeGNJcklaQnBaL1NPeE16d3JKblZ2WFE5QnBQTE9FRnFj?=
- =?utf-8?B?QVF0WVdzWlp3Y0IyVUtZQysvNmFoZHRnT056Q2MzZ25TV204RDRiUWVrQVo4?=
- =?utf-8?B?cENROEtGcll4T2dNNmFyQUo4ZEpVQW9IOTRxczZaNzQzMG5vM2lQc1N6aC9E?=
- =?utf-8?B?b3lNaEpNRktLVE92by9ZTm0xV0xRL01ra29BTjhtbFZ4TDNVSzV3cUp4Z2NL?=
- =?utf-8?B?NlBHMXNBanZVQVVTS0s2QXdPR3p2aGl4d2ppcTM3bmtkeXRxZFROR01ncnlL?=
- =?utf-8?B?YlZYbkxueW1aYmNZdHNVd1NwSzF3V2VXK0c0YmhGQWZjVllFUEtEaWVKNVZK?=
- =?utf-8?B?eFUzaUo3SklQZGMybEYvYWoxdVZVeVVDVm1UazcvUUN1QTM5NmMyWUM5SE4z?=
- =?utf-8?B?bHJodE5qcmxNUnR2MnVEbVY4T0Q1aFUrMXRrbHBlWFpmVW1DM1BOZVZTSExo?=
- =?utf-8?B?TVowR0EvdUkrdnE4a0s2QnRVemovREN0NnVJMXBETzdMcEdsd01BNVoxZ2Zy?=
- =?utf-8?B?dUZENW5hQkxlaWlvMlVNcHFra2R3QWl1VW0yTXRWT29IQVdXZS9rQUUwVUJC?=
- =?utf-8?B?VXhnc3JBQ0k3THlmaHNyUkc3UTZCUTR5TVd4cms1VVo3eXNYSm1nZk5nNWZP?=
- =?utf-8?B?Ym1RcEhVdXRTditYTTdFZllDak1WTVowVFpTSzRhc0ppZFpJNXBEZ2Z5Qk10?=
- =?utf-8?B?eW9NNkdKcHpuTk90ZlF0YmU5QUtJNU5kRitwWThwU0VCUlByeUtVL1p5a3hU?=
- =?utf-8?B?L1lDaEFsaXp6MlFaZC9tMlBhZ1Ztcnp2WUdXS3cwVXBYSW1KbXROa3pKZGhL?=
- =?utf-8?B?MHIrbzY2K0ViWjhIemVJRXNRNmYreGl3SEhGemE0MzdOMFYyVENNTExoTWtO?=
- =?utf-8?B?NkVCSHhNYXJYaU0vZTdJWmtqVTQ5R0dwVVJNalVhb0U3ZHB3bTB3cWpaK1BB?=
- =?utf-8?B?bHRBV3VDZzNjcGtjMzJRVWZNZFArdWJoSW9TMHRqSVdMK0NyQ2ppMTludSt2?=
- =?utf-8?B?ODFJUHJtb3ovWUhLZVFVL3h1Zk5RakNmRVB1bXRzTDlKMUV4ZzZDeFIxMSs3?=
- =?utf-8?B?enpUeXlWMWdCdGZpNndJZFhES1FIRFdoeUJGTDRubmtiQkN2WGFzOFNkUEE3?=
- =?utf-8?B?QUZKTDJRY1hrS05JRmRRSkRoN1oxWTRJV2w1amYzU1FQOXhKa3dBRkY0Z1RX?=
- =?utf-8?B?R0FQMjk1SE9IaFNsOE54WHVMUjBlMWRqODl4UjNIL1QwN1FIUy93TUErcmRV?=
- =?utf-8?B?S095a1crSG9XTVhPRWx6bFdWNjVIUC9JbStsYUpHNTNnczdTK2RaSWluYjh2?=
- =?utf-8?B?dWs1eE03SnZUWS9sanIwZnFTSW9RdG5WaVJicUMyUXFRZFBPK0VzOXNpOFlt?=
- =?utf-8?B?TGxYMGUrQzNrYW1MaWpybUpFeFNzNk8veGFvOXRIS2NqcVJyNzUvWDkyeTFy?=
- =?utf-8?B?M0VDaW1BT2w4T3I5TGRlYWlNbTQ1enhSQlhwVjhOdk1vdkhFWFQwemhwKzM4?=
- =?utf-8?B?VXlFYnZFQTZuQWd3Rmk2QVlOVHNvU2l5Ukp3aEtPeXlWMENnejFZVUZkZG5l?=
- =?utf-8?B?ZEs3RnhlSXloeE9ob09KVGovZWFLbkMyc0JIOW5SaDkxQ1ByTWlYWGtiTjhB?=
- =?utf-8?B?QnZWM2ZkU241ZU51K1pmREFvdlFpVHFHcDRYbStmbVBNR3UwRFgzblkxV1lT?=
- =?utf-8?Q?MUjwoT4T9/2Qh2jUSA?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 603505a4-3243-4f2d-c2af-08df3bb31871
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Nov 2026 03:07:30.6079
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HSOG4VvrYGVWS9o66Sfjn9QTLJ5Jiiw0q+kG03NChxvSPJehLwfD+cCBtmH2DMXv
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR12MB9571
+Content-Transfer-Encoding: 8bit
 
-On Wed Nov 4, 2026 at 3:40 PM EST, Konstantin Khorenko wrote:
-> copy_huge_pmd() reads a special PMD without the page table lock and
-> copies that value to the child. The mmap write lock held by fork does
-> not stop unmap_mapping_range(): it zaps under i_mmap_rwsem and the PMD
-> lock.
->
-> The zap visits the parent VMA before the child's, as dup_mmap() links
-> the child right after the parent in i_mmap. If it clears the parent PMD
-> after fork has read it, and passes the child before fork copies it, the
-> child keeps a mapping the driver has revoked, for example:
->
-> - vfio-pci: the child reaches the BAR after the device memory was
->   disabled or the device was reset, instead of getting SIGBUS;
-> - panthor: the child maps the pages of an evicted buffer object after
->   the driver has released them.
->
-> The same branch deposits no page table under the copy. ppc64 in hash
-> mode keeps the hash slot array of every huge PMD in that table, so the
-> child dereferences a NULL table on the first hash fault, in
-> __hash_page_thp(), and on the zap, in hash__pmdp_huge_get_and_clear().
->
-> Take the locks first and let vm_normal_page_pmd() tell a PFN mapping
-> from a folio under them, as copy_present_ptes() does with
-> vm_normal_page(). The zap clears the parent PMD under the same lock, so
-> either fork finds it none and skips it, or the copy is in place before
-> the zap reaches the child.
->
-> The copy of a PFN mapping then goes through the same tail as a folio:
->
-> - it gets a page table where the architecture needs one;
-> - in a shared mapping it is marked clean in the child, as a PTE is;
-> - in a CoW mapping, which only VM_MIXEDMAP allows, both sides are write
->   protected instead of a warning being printed.
->
-> Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
-> Fixes: d1503aa9ab80 ("powerpc/64s: Add support for huge pfnmaps")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy=
-_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=3D1
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
-> ---
->  mm/huge_memory.c | 24 +++---------------------
->  1 file changed, 3 insertions(+), 21 deletions(-)
->
+From: Chuck Lever <cel@kernel.org>
 
-Makes sense.
+[ Upstream commit f913d5d2130a584d1a027ffe3dfd88b6be2e0540 ]
 
-Acked-by: Zi Yan <ziy@nvidia.com>
+nfsd4_ff_proc_layoutget() and nfsd4_ff_encode_layoutget() translate
+the file's owner and group with init_user_ns, but every other identity
+nfsd places on the wire goes through nfsd_user_namespace(). When the
+transport carries a credential from a non-initial user namespace, the
+flex file layout reports host-global IDs. The client copies those IDs
+into the AUTH_SYS credential it presents to the data server, and
+svcauth_unix_accept() resolves that credential in the transport's
+namespace, so data server I/O runs under an identity unrelated to the
+file's owner.
 
---=20
-Best Regards,
-Yan, Zi
+Switching to the request's namespace introduces a second hazard.
+from_kuid() returns (uid_t)-1 when the target namespace has no
+mapping for the owner, and the IOMODE_READ arm adds one to that
+result to derive an identity for which the data server denies
+writes. The addition would wrap to zero, handing the client uid 0
+instead of an identity distinct from the owner.
+
+Translate both IDs in nfsd4_ff_proc_layoutget(), which has the
+svc_rqst, and carry the wire values in struct pnfs_ff_layout.
+from_kuid_munged() substitutes overflowuid for an unmapped owner and
+thus never returns (uid_t)-1, so the increment cannot wrap to zero.
+
+Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
+Cc: stable@vger.kernel.org
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260720141442.783935-1-cel@kernel.org?part=3
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260720163724.810227-1-cel@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
+[ sashal: extended the proc_layoutget callback interface to pass rqstp from its caller to all implementations ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/nfsd/blocklayout.c       |  4 ++--
+ fs/nfsd/flexfilelayout.c    | 24 ++++++++++++++----------
+ fs/nfsd/flexfilelayoutxdr.c |  4 ++--
+ fs/nfsd/flexfilelayoutxdr.h |  5 +++--
+ fs/nfsd/nfs4proc.c          |  2 +-
+ fs/nfsd/pnfs.h              |  4 ++--
+ 6 files changed, 24 insertions(+), 19 deletions(-)
+
+diff --git a/fs/nfsd/blocklayout.c b/fs/nfsd/blocklayout.c
+index bbd87cd162822..de789cefd30dc 100644
+--- a/fs/nfsd/blocklayout.c
++++ b/fs/nfsd/blocklayout.c
+@@ -18,8 +18,8 @@
+ 
+ 
+ static __be32
+-nfsd4_block_proc_layoutget(struct inode *inode, const struct svc_fh *fhp,
+-		struct nfsd4_layoutget *args)
++nfsd4_block_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
++		const struct svc_fh *fhp, struct nfsd4_layoutget *args)
+ {
+ 	struct nfsd4_layout_seg *seg = &args->lg_seg;
+ 	struct super_block *sb = inode->i_sb;
+diff --git a/fs/nfsd/flexfilelayout.c b/fs/nfsd/flexfilelayout.c
+index 3c4419da5e24c..64b85b9fd9f41 100644
+--- a/fs/nfsd/flexfilelayout.c
++++ b/fs/nfsd/flexfilelayout.c
+@@ -14,19 +14,20 @@
+ #include <linux/sunrpc/addr.h>
+ 
+ #include "flexfilelayoutxdr.h"
++#include "auth.h"
+ #include "pnfs.h"
+ #include "vfs.h"
+ 
+ #define NFSDDBG_FACILITY	NFSDDBG_PNFS
+ 
+ static __be32
+-nfsd4_ff_proc_layoutget(struct inode *inode, const struct svc_fh *fhp,
+-		struct nfsd4_layoutget *args)
++nfsd4_ff_proc_layoutget(struct svc_rqst *rqstp, struct inode *inode,
++		const struct svc_fh *fhp, struct nfsd4_layoutget *args)
+ {
++	struct user_namespace *userns = nfsd_user_namespace(rqstp);
+ 	struct nfsd4_layout_seg *seg = &args->lg_seg;
+ 	u32 device_generation = 0;
+ 	int error;
+-	uid_t u;
+ 
+ 	struct pnfs_ff_layout *fl;
+ 
+@@ -49,13 +50,16 @@ nfsd4_ff_proc_layoutget(struct inode *inode, const struct svc_fh *fhp,
+ 	fl->flags = FF_FLAGS_NO_LAYOUTCOMMIT | FF_FLAGS_NO_IO_THRU_MDS |
+ 		    FF_FLAGS_NO_READ_IO;
+ 
+-	/* Do not allow a IOMODE_READ segment to have write pemissions */
+-	if (seg->iomode == IOMODE_READ) {
+-		u = from_kuid(&init_user_ns, inode->i_uid) + 1;
+-		fl->uid = make_kuid(&init_user_ns, u);
+-	} else
+-		fl->uid = inode->i_uid;
+-	fl->gid = inode->i_gid;
++	fl->uid = from_kuid_munged(userns, inode->i_uid);
++	fl->gid = from_kgid_munged(userns, inode->i_gid);
++
++	/*
++	 * Do not allow an IOMODE_READ segment to have write permissions.
++	 * The group is left intact so group-readable files stay readable;
++	 * nfsd_setuser() squashes an unmapped uid to the export's anon ID.
++	 */
++	if (seg->iomode == IOMODE_READ)
++		fl->uid++;
+ 
+ 	error = nfsd4_set_deviceid(&fl->deviceid, fhp, device_generation);
+ 	if (error)
+diff --git a/fs/nfsd/flexfilelayoutxdr.c b/fs/nfsd/flexfilelayoutxdr.c
+index 374e52d3064a6..b80352f41c0d0 100644
+--- a/fs/nfsd/flexfilelayoutxdr.c
++++ b/fs/nfsd/flexfilelayoutxdr.c
+@@ -32,8 +32,8 @@ nfsd4_ff_encode_layoutget(struct xdr_stream *xdr,
+ 
+ 	fh_len = 4 + xdr_align_size(fl->fh.size);
+ 
+-	uid.len = sprintf(uid.buf, "%u", from_kuid(&init_user_ns, fl->uid));
+-	gid.len = sprintf(gid.buf, "%u", from_kgid(&init_user_ns, fl->gid));
++	uid.len = sprintf(uid.buf, "%u", fl->uid);
++	gid.len = sprintf(gid.buf, "%u", fl->gid);
+ 
+ 	/* data server entry: deviceid + efficiency + stateid + fh list +
+ 	 * user + group + flags + stats_collect_hint
+diff --git a/fs/nfsd/flexfilelayoutxdr.h b/fs/nfsd/flexfilelayoutxdr.h
+index 6d5a1066a903c..3e1876d49db23 100644
+--- a/fs/nfsd/flexfilelayoutxdr.h
++++ b/fs/nfsd/flexfilelayoutxdr.h
+@@ -35,8 +35,9 @@ struct pnfs_ff_device_addr {
+ struct pnfs_ff_layout {
+ 	u32				flags;
+ 	u32				stats_collect_hint;
+-	kuid_t				uid;
+-	kgid_t				gid;
++	/* Values to encode; nfsd4_ff_proc_layoutget() has mapped these */
++	u32				uid;
++	u32				gid;
+ 	struct nfsd4_deviceid		deviceid;
+ 	stateid_t			stateid;
+ 	struct nfs_fh			fh;
+diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
+index 53ded5de593a8..6b69e1379d53a 100644
+--- a/fs/nfsd/nfs4proc.c
++++ b/fs/nfsd/nfs4proc.c
+@@ -2359,7 +2359,7 @@ nfsd4_layoutget(struct svc_rqst *rqstp,
+ 	if (atomic_read(&ls->ls_stid.sc_file->fi_lo_recalls))
+ 		goto out_put_stid;
+ 
+-	nfserr = ops->proc_layoutget(d_inode(current_fh->fh_dentry),
++	nfserr = ops->proc_layoutget(rqstp, d_inode(current_fh->fh_dentry),
+ 				     current_fh, lgp);
+ 	if (nfserr)
+ 		goto out_put_stid;
+diff --git a/fs/nfsd/pnfs.h b/fs/nfsd/pnfs.h
+index dfd411d1f363f..db9af780438b5 100644
+--- a/fs/nfsd/pnfs.h
++++ b/fs/nfsd/pnfs.h
+@@ -29,8 +29,8 @@ struct nfsd4_layout_ops {
+ 	__be32 (*encode_getdeviceinfo)(struct xdr_stream *xdr,
+ 			const struct nfsd4_getdeviceinfo *gdevp);
+ 
+-	__be32 (*proc_layoutget)(struct inode *, const struct svc_fh *fhp,
+-			struct nfsd4_layoutget *lgp);
++	__be32 (*proc_layoutget)(struct svc_rqst *rqstp, struct inode *inode,
++			const struct svc_fh *fhp, struct nfsd4_layoutget *lgp);
+ 	__be32 (*encode_layoutget)(struct xdr_stream *xdr,
+ 			const struct nfsd4_layoutget *lgp);
+ 
+-- 
+2.53.0
 
