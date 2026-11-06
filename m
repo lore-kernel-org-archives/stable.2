@@ -1,61 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793980424;
-	b=h2MvlIGDJ7tF/UpcHkTRK5TxkFfBl0zhnmbTRjmztJLgq8plY6ARo3w10PZZbUfWYnmd
-	 AqcqnCr1KneQhK13hbGDsWKcidQ9yDeaW4FbQIlzBTaO2WpTn2K6jBQBR7EdDPOc4QWcB
-	 vbAhFa8Oi0qigMpKangKVkjf6GhhdS8R+9Fi4YX6jT8nmvQX3ekvDcPwI1ioYjMre8xVe
-	 moBVN6RWupJ7K5BFHSn6JqMx1VBoKGz15M3dKDoFkxL2WbU8O2B+J7ELMpTnuviYislJx
-	 AymKKN3lJ4AM+fZLmuUud4ov42bQ+XNWXzfFmP+6tqZ6MRkCci1TdFr9eTz3EEo6ygA==
+	t=1793980571;
+	b=GLt2j8gpKGd4d6XOs7XuOXJ7xDe24ED3K/BZ8fycB0y+mmnRA6HCUvZznUAxUzEs6TXK
+	 8M0G9qiS5Wsof8uxtRI/NXSVNrPZsD32GNqoZVxfvNWM0OnENljQ9c4nk9Ear4emzxMyP
+	 OXyyxeNfZf9/KkDz8ROCyBxe2xjyWqQT8CbeYSVBUtQSLJwA3fTiQW5Z3wTsiRdILbsNJ
+	 qndHLEvSlQefwdjYs9Rl6fgjXwcT8v947iQ/eyCNBwlePBWectuaQUt+k1IJ7hN5UHAuz
+	 0LsU6UGYmPr0MF0NTWsQHGSocYBW3Gx0ImLjumYCxha22yYoq56Od3BWOnETu6fL3Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793980424;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding;
-	bh=lospR7RBEPbknyhbJlG75vO9FqI6EbinXMw9WPvqCLU=;
-	b=u86aG22z3+jHRcAQZm0iQlc5mupeahqf71eBihLIgBnjWQYqBlIqsP+Pu2OQVF/jIyh1
-	 M1+2iV6B5NAIokjNkP7g4LsdgYr31cFxm1pkYmmzIoJTH+tFsL0hTIP9U7uQjfeq+3wiJ
-	 Dl7Wik0aKYRqdOnAoiXUs0O+1sXrUQEDBt/SSlWMCMhHzO7a7YAYIb8guE1NIO3FW8K0k
-	 9ova6tCPJiAigaGhcrB4ku5bwqaF/mM7xvyS0zhcOWYkcd4WHLfJTbdmVDIui+qw5OTIi
-	 lKMUeq7oeokg1CH7jIgJ32bWFBADdi9obIRs+rceWmmgoTlJW/6S4+GrRjvSs7CQ0rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793980571;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=UfD8ZnH6BJz/4LIcV1+SpPJwWoacvDCqotJJBOhRHbY=;
+	b=z5SduuzOcfU+ITOWj6EudjlcPmwLK5xYTUZvzPpQUBXhU/wY5MjO79GlWZEAqC8lpaop
+	 4LkGmG3HIeXfqlyUieiEQDc3Rz/PyDV2pAmwfDAmgI5mWMM5Cu8iglR5TismdzIq3idY3
+	 fkT//KKIlx9/SnMsrl8jW6ck+ZX6iuQod3JusmB+YZ9aRqdCLk129SJiYNToXz7dphidc
+	 OBjGqNZC1+JauqD0ij81Tf6OJJ2DRh7OuOr+9LRjD1A5RarPXRYj7tnicgH3qrl+HpPG/
+	 P88F9+lefbVMZiSAh9H7d4PJ8uDWZvRIAEh1KxKKmqTUGok13kya8fvUlufeFKKdKiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=mcJk47gg;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nIN9eJWk;
+	arc=none smtp.remote-ip=95.215.58.9
+Received: from mta1.migadu.com (out-9.mta1.migadu.com [95.215.58.9])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A19606A32E;
-	Fri,  6 Nov 2026 15:53:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72A19606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1F4606A32C
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 15:56:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C1F4606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=mcJk47gg
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:From:Reply-To; bh=lospR7RBEPbknyhbJlG75vO9FqI6EbinXMw9WPvqCLU=;
-	t=1793980423; x=2109340423; b=mcJk47gg49gTxR/LSwkPyZCTDGPDPGgEVXmLVHJCYz4MmXi
-	SOULsOHSqzQB2QInHPBHaqpE+MhV7IkpUHqgIIlckN8QnE8sBvfocR8dt4/kdhzTB56Rk/8tMl6ie
-	/Nrx3Ysd1PsHb3Zt1tw6Zn8E5wMXFe05LkAFJLxsRQvsBp3XMG67s7tZ3AViKLuNh2zXtlbrzGiBL
-	d2Xg5ILnfbeFPRrfK44fAPZHbHnR2YmFIsNLkRSeizSy2i1QRZjCkWBuApLD9OTwDOvD608FLhiDR
-	BGRinwBA+tElexNfIs41Ousz3J2RJ8akQsAbicUY7JI0uDPmjnBzoYJ6sl5B8maw==;
-Received: from bl16-24-61.dsl.telepac.pt ([188.81.24.61] helo=localhost)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xPMG2-004YbS-9Z; Fri, 06 Nov 2026 16:53:38 +0100
-From: Luis Henriques <luis@igalia.com>
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: luis@igalia.com,
-	mszeredi@redhat.com,
-	fuse-devel@lists.linux.dev,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nIN9eJWk
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IUxtcrSK4ScUgL4iwrR/fCWoiD4BzoTR6aRMHmOVWZw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793980567; v=1; x=1794585367;
+ b=nIN9eJWkx0/Zp/tqNTNTIvfGLDUajdmUzVXC0+QaFWbCFAy2R9/Ih25xdkqBZ7HDtFUqSmKE
+ oPvIQGjNMhiMAfVLoJ2QIEZ8nrCHtV1dqzun4eQFtCp9m72m0pGRyYmw5EW+soHwI2Rp+Zzrph5
+ VW24hOtLjtiGG7UAilnor9hg=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 7a7c6486c02f11c8;
+	Fri, 06 Nov 2026 15:56:07 +0000
+X-Mizu-Trace-ID: 7a7c6486c02f11c8
+X-Migadu-Flow: FLOW_OUT
+From: Usama Arif <usama.arif@linux.dev>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Usama Arif <usama.arif@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Hugh Dickins <hughd@google.com>,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Matt Harvey <mharvey@jumptrading.com>,
-	kernel-dev@igalia.com,
 	stable@vger.kernel.org
-Subject: [PATCH v2] fuse: fix 'inval_wq' parameter setting during module initialisation
-Date: Fri,  6 Nov 2026 15:55:12 +0000
-Message-ID: <20261106155512.24801-1-luis@igalia.com>
+Subject: Re: [PATCH v2 2/2] mm: don't allocate a page table under RCU in do_set_pmd()
+Date: Fri,  6 Nov 2026 07:56:03 -0800
+Message-ID: <20261106155604.3999641-1-usama.arif@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261106-khugepaged_set_pmd-v2-2-d2457b5e377a@kernel.org>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,90 +82,130 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If the fuse module is loaded with a 'inval_wq' parameter the inval_wq_set()
-function will schedule work into dentry_tree_work.  However this worked is
-not initialised at this point because fuse_dentry_tree_init() will not have
-been executed yet.
+On Fri, 06 Nov 2026 13:36:13 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
-This can be fixed by delaying the work scheduling until later if the module
-is still being initialised.
+> do_fault_around() skips PTE table preallocation when the PMD already points
+> to a PTE table. A concurrent collapse can then retract that table and
+> clear the PMD before filemap_map_pages() locks the new PMD-sized folio.
+> 
+> filemap_map_pmd() can then call do_set_pmd() with an empty PMD and no
+> preallocated table. On PowerPC hash MMU, do_set_pmd() then tries
+> allocating a PTE table to deposit. But filemap_map_pmd() calls
+> do_set_pmd() under RCU, so allocating from that context is not good.
+> 
+> This race became possible when retract_page_tables() stopped taking the
+> mmap and VMA locks. Previously, those locks excluded retraction while
+> the fault was in progress.
+> 
+> Add a may_alloc argument to do_set_pmd() and pass false from
+> filemap_map_pmd(), so we can fail with VM_FAULT_FALLBACK instead of
+> trying to allocate.
+> 
+> This issue should be fairly hard to hit in practice.
+>
 
-While there, also simplify the sched/cancel by using mod_delayed_work()
-instead of schedule_delayed_work().  This will result in having the period
-being changed immediately instead of waiting for the next reschedule.
+Yes, I imagine it was very difficult to reproduce, doing a sleeping
+pte_alloc_one() inside filemap_map_pmd()'s RCU read-side section
+when a concurrent retract_page_tables() empties the PMD. Only
+possible on PowerPC.
 
-Fixes: ab84ad597386 ("fuse: new work queue to periodically invalidate expired dentries")
-Cc: stable@vger.kernel.org
-Signed-off-by: Luis Henriques <luis@igalia.com>
----
-Hi!
+> Fixes: 1d65b771bc08 ("mm/khugepaged: retract_page_tables() without mmap or vma lock")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
 
-So, here's a different approach that tries to address sashiko comments:
-instead of checking the module state and going through all sort of races,
-simply define a new state variable and use it instead.  Simpler.  I hope.
+Acked-by: Usama Arif <usama.arif@linux.dev>
 
- fs/fuse/dir.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
-
-diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
-index da23ccd8685c..32e052dac2f1 100644
---- a/fs/fuse/dir.c
-+++ b/fs/fuse/dir.c
-@@ -35,6 +35,7 @@ struct dentry_bucket {
- #define FUSE_HASH_SIZE	(1 << FUSE_HASH_BITS)
- static struct dentry_bucket dentry_hash[FUSE_HASH_SIZE];
- static struct delayed_work dentry_tree_work;
-+static bool dentry_tree_is_initialised __read_mostly;
- 
- /* Minimum invalidation work queue frequency */
- #define FUSE_DENTRY_INVAL_FREQ_MIN 5
-@@ -43,7 +44,6 @@ unsigned __read_mostly inval_wq;
- static int inval_wq_set(const char *val, const struct kernel_param *kp)
- {
- 	unsigned int num;
--	unsigned int old = inval_wq;
- 	int ret;
- 
- 	if (!val)
-@@ -62,11 +62,13 @@ static int inval_wq_set(const char *val, const struct kernel_param *kp)
- 
- 	*((unsigned int *)kp->arg) = num;
- 
--	if (num && !old)
--		schedule_delayed_work(&dentry_tree_work,
--				      secs_to_jiffies(num));
--	else if (!num && old)
--		cancel_delayed_work_sync(&dentry_tree_work);
-+	if (READ_ONCE(dentry_tree_is_initialised)) {
-+		if (num)
-+			mod_delayed_work(system_percpu_wq, &dentry_tree_work,
-+					 secs_to_jiffies(num));
-+		else
-+			cancel_delayed_work_sync(&dentry_tree_work);
-+	}
- 
- 	return 0;
- }
-@@ -217,6 +219,7 @@ void fuse_epoch_work(struct work_struct *work)
- 
- void fuse_dentry_tree_init(void)
- {
-+	unsigned int delay;
- 	int i;
- 
- 	for (i = 0; i < FUSE_HASH_SIZE; i++) {
-@@ -224,6 +227,14 @@ void fuse_dentry_tree_init(void)
- 		dentry_hash[i].tree = RB_ROOT;
- 	}
- 	INIT_DELAYED_WORK(&dentry_tree_work, fuse_dentry_tree_work);
-+
-+	/* Start workqueue immediately if 'inval_wq' is already set */
-+	delay = inval_wq;
-+	if (delay)
-+		schedule_delayed_work(&dentry_tree_work,
-+				      secs_to_jiffies(delay));
-+
-+	WRITE_ONCE(dentry_tree_is_initialised, true);
- }
- 
- void fuse_dentry_tree_cleanup(void)
+>  include/linux/mm.h |  3 ++-
+>  mm/filemap.c       |  2 +-
+>  mm/khugepaged.c    |  2 +-
+>  mm/memory.c        | 10 +++++++---
+>  4 files changed, 11 insertions(+), 6 deletions(-)
+> 
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index a2dd76cc5bbfe..bd144fec5f5da 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -2156,7 +2156,8 @@ static inline pte_t maybe_mkwrite(pte_t pte, struct vm_area_struct *vma)
+>  	return pte;
+>  }
+>  
+> -vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page);
+> +vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page,
+> +		bool may_alloc);
+>  void set_pte_range(struct vm_fault *vmf, struct folio *folio,
+>  		struct page *page, unsigned int nr, unsigned long addr);
+>  
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index 86297841f9955..9871b4f32a916 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -3745,7 +3745,7 @@ static bool filemap_map_pmd(struct vm_fault *vmf, struct folio *folio,
+>  
+>  	if (pmd_none(*vmf->pmd) && folio_test_pmd_mappable(folio)) {
+>  		struct page *page = folio_file_page(folio, start);
+> -		vm_fault_t ret = do_set_pmd(vmf, folio, page);
+> +		vm_fault_t ret = do_set_pmd(vmf, folio, page, /* may_alloc= */ false);
+>  		if (!ret) {
+>  			/* The page is mapped successfully, reference consumed. */
+>  			folio_unlock(folio);
+> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> index 8d9f05a39afb3..5836e08abc984 100644
+> --- a/mm/khugepaged.c
+> +++ b/mm/khugepaged.c
+> @@ -1826,7 +1826,7 @@ static enum scan_result set_huge_pmd(struct vm_area_struct *vma, unsigned long a
+>  	}
+>  
+>  	vmf.pmd = pmdp;
+> -	if (do_set_pmd(&vmf, folio, page))
+> +	if (do_set_pmd(&vmf, folio, page, /* may_alloc= */ true))
+>  		return SCAN_FAIL;
+>  
+>  	folio_get(folio);
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 421064aef3cf0..6eeed43b05a19 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -5682,7 +5682,8 @@ static void deposit_prealloc_pte(struct vm_fault *vmf)
+>  	vmf->prealloc_pte = NULL;
+>  }
+>  
+> -vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page)
+> +vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page,
+> +		bool may_alloc)
+>  {
+>  	struct vm_area_struct *vma = vmf->vma;
+>  	bool write = vmf->flags & FAULT_FLAG_WRITE;
+> @@ -5723,6 +5724,8 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
+>  	 * related to pte entry. Use the preallocated table for that.
+>  	 */
+>  	if (arch_needs_pgtable_deposit() && !vmf->prealloc_pte) {
+> +		if (!may_alloc)
+> +			return VM_FAULT_FALLBACK;
+>  		vmf->prealloc_pte = pte_alloc_one(vma->vm_mm);
+>  		if (!vmf->prealloc_pte)
+>  			return VM_FAULT_OOM;
+> @@ -5764,7 +5767,8 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
+>  	return ret;
+>  }
+>  #else
+> -vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page)
+> +vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page,
+> +		bool may_alloc)
+>  {
+>  	return VM_FAULT_FALLBACK;
+>  }
+> @@ -5888,7 +5892,7 @@ vm_fault_t finish_fault(struct vm_fault *vmf)
+>  
+>  	if (pmd_none(*vmf->pmd)) {
+>  		if (!needs_fallback && folio_test_pmd_mappable(folio)) {
+> -			ret = do_set_pmd(vmf, folio, page);
+> +			ret = do_set_pmd(vmf, folio, page, /* may_alloc= */ true);
+>  			if (ret != VM_FAULT_FALLBACK)
+>  				return ret;
+>  		}
+> 
+> -- 
+> 2.43.0
+> 
+> 
