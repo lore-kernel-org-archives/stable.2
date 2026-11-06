@@ -1,45 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.59
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929381;
-	b=LEE1GsRwJFHVlpLznmQun/tKyGDioaa3yTVn+5EqKowdbVQWONZEY/iUQbdGcqDZUvzC
-	 evTFldSbbhhFMhviN/HyouUF8VWNPr2dmxAUaKOg1KutHfhJkJa1WBnTt5hZfnQnZC5QF
-	 4f86eNfgSbwnNIQwE8QcCBkmka/JkxqJ39BHKrkKn0O3VXd6qTW71NKKWw0PimAIrRSLe
-	 5r1HakdgOwLWlvR0GN79vjNLsYxHbvnB1T35wORiCWkpCcquO8haRnEmE+GGEwaJYkuRB
-	 qIptLn11Sv3lke5lPMiPAkUhUv9Oy4JSDKJ0CXyk8tjVlRGWsZHA3OwYmdwZzgOgTNw==
+	t=1793929494;
+	b=1LfW7IKoxVIPqkdVVjir4PxFNlBdzmbtkdjQbYe2bA7N6ircNnqgH2TLCkN09hTtx03B
+	 wBL55vys9demfQNzHUhLOFTbvQ4CeKjDxxTif0wGX9dZ6FcCmiEGiqR4KdP/bwcox1AuM
+	 LgRB4Qs2cQr/pgqKhaYPyXimMSgArjb5zuvck2jr5/5hoxDvj4q41x6iX01BGrWjmP1r/
+	 JXjtiqkBg5Qdg1oPgirPPmBIysSJk0GOOVx301x4TIJDHKRB4DBXuXC1xXUvIgQ6kvv7f
+	 eYoyf578EU5WcinGQMUcBIZ1iR5wBGeYltD08TFz16AA5TP0GoSxkzxGuxFAuaEl27g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929381;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=GjkzxdDNrHpcrRXQYuGZ1ch8vMOkUN2uuaOmdGbEb5Q=;
-	b=UqqVPOAkG0qGVfdhvDvbSESAOnnHe20L8SXFdIepmschr0ZyIrRZdDYEXrgqcPZ+mTBs
-	 AcZ8ONJdu691kqPKBjtRT/XdCjsJeZ2BFyzXelFchRMtx80boD2C9E63eHU46qq7amBv7
-	 eRGZnDJYi8N7hzT32fP5r+nr6Oc47areWlzeirn8T78ZcF80oHqlHothZoCtaItH57wCX
-	 TlIr1UEevaHWqx0l2XrCoQ0AsmXjRg9UeEw/qIL28x/WCl2egZN8A2fv0aMzmNT/FTMQg
-	 aXLb4kRwYDUZIl+QL9LVpuRi3L984dKbSk6B3FOtIuqV10tgM5uNyRG3KfFNSBZiEvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929494;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=D1BQyEii6F0Q1y4egErAzidghcHKqUk0a8SnAS5enws=;
+	b=ZEUmDggqYDbWXOcbki+1fBxfZ25GcEnx+3sQ1LcmTkK4uF6LiqTuyQsMsuGDjNzO6e1r
+	 b6MMwUeVL7BHtUgyZj4PCpmj7eizsZGLZmplME+q5Oxxf0Csdcwe4wqLHHEPfY2qx7cem
+	 vqsOZHPvZXDOQubdECJGo7lWD/PihTizqoZO9kmNXJbsYK9jR4zO/NBMTjb6/d8JHvZYJ
+	 Hrh0qwPtEj/93C9xp2vw3RkAJ6m5xu1AEui1E7Kab/HkXy+STr3AVBXO76N1pukDweije
+	 0brThTItGLiZOcTfYlpSEGH5PK1YIb4LG+cLOAEokqRGx+wYUVUajTnxY38RGkzZqng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Shi//a8+";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jYFWQMOg;
+	arc=none smtp.remote-ip=95.215.58.59
+Received: from mta1.migadu.com (out-59.mta1.migadu.com [95.215.58.59])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D45E606A31B;
-	Fri,  6 Nov 2026 01:43:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C04606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:44:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0C04606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Shi//a8+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62DEE1F008A4;
-	Fri,  6 Nov 2026 01:43:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793929380;
-	bh=GjkzxdDNrHpcrRXQYuGZ1ch8vMOkUN2uuaOmdGbEb5Q=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=Shi//a8+jokMV7YNWTI/vK0PThm2YAxJpcpyrErcuwvEbZuh1oFhsOrdrVFN1HL91
-	 1aBX6mluUAmejHcOMKu7aNIREc/+lXQa3bnM1bfuP98AHMrFk667P4WC/BOAojE2fQ
-	 jKYrUhJsYTEOVaW1iKQ+5N2ok6hcguPDNCwx2CI84/FhyM9xoNMLVPw6p54ptCT36N
-	 JXOCEEODbnEeEz4UploEdpA6UoGlw3W88K2WuGbNLjwsMH1xe1e7XtjCvXo8RCmnBd
-	 2dbBIeP9TAXk6C2lUTwFEGavH4DsJmY8iwxPGzoo9NogSXw7E3G0JMnWqSOgdLAXC8
-	 XnVqdY5VxQ/iA==
-Content-Type: multipart/mixed; boundary="===============0551742847628527584=="
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jYFWQMOg
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=h0d+yOrZ64mGc0iSYwHwgGdKZilHQ9XexIhOgkjacwM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793929491; v=1; x=1794534291;
+ b=jYFWQMOgfpkZ3mBb54JklcG6tzN9HnFBLmJXkcokoa2V6NhjxwFO0SANbAxuStk3vhzs13PK
+ rcj/5dhCYzxFEvL1fa7/lj5SxJN4AE+F3z0hlp97Q6gr3qqzMQaGTUTTvVQLLb7g5UY7gMzKifJ
+ lXdgdK5Tp3u0ic4lgbiJCIWA=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ac22e0871729a49a;
+	Fri, 06 Nov 2026 01:44:51 +0000
+X-Mizu-Trace-ID: ac22e0871729a49a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <76fc7cbb-11e8-4591-bb2f-d6fb8ac1fbf3@linux.dev>
+Date: Fri, 6 Nov 2026 09:44:44 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,82 +58,156 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <cf7d9bcb8b837cf8cae8db37cb9a0f53b977e7c59df6de47e8f416222d5f7ed8@mail.kernel.org>
-In-Reply-To: <20261106010535.2137162-3-andrey.grodzovsky@crowdstrike.com>
-References: <20261106010535.2137162-3-andrey.grodzovsky@crowdstrike.com>
-Subject: Re: [PATCH bpf-next v2 2/2] kprobes: mark ftrace-based kprobe ops permanent
-From: bot+bpf-ci@kernel.org
-To: andrey.grodzovsky@crowdstrike.com,bpf@vger.kernel.org,linux-trace-kernel@vger.kernel.org,rostedt@goodmis.org
-Cc: ast@kernel.org,daniel@iogearbox.net,song@kernel.org,jolsa@kernel.org,mhiramat@kernel.org,stable@vger.kernel.org,linux-open-source@crowdstrike.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Fri,  6 Nov 2026 01:43:00 +0000 (UTC)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/hugetlb_cgroup: prevent use-after-free during
+ cgroup offlining
+To: Daehyeon Ko <4ncienth@gmail.com>, muchun.song@linux.dev,
+ osalvador@suse.de, akpm@linux-foundation.org
+Cc: david@kernel.org, tj@kernel.org, linux-mm@kvack.org,
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, hongfu.li@linux.dev
+References: <20261020103057.8066217f6f6fc5b3ed84c90b@linux-foundation.org>
+ <20261022022146.506005-1-4ncienth@gmail.com>
+From: Hongfu Li <hongfu.li@linux.dev>
+In-Reply-To: <20261022022146.506005-1-4ncienth@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---===============0551742847628527584==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
 
-> kprobes: mark ftrace-based kprobe ops permanent
-
-TL;DR: Commit message only: the ftrace_enabled=0 problem seems unreachable in
-this tree, since the sysctl no longer clears it, so the patch has no effect
-here; changelog should say it targets only older stable kernels.
-
->     kprobes: mark ftrace-based kprobe ops permanent
+在 10/22/26 10:21, Daehyeon Ko 写道:
+> A normal hugetlb charge obtains the current task's hugetlb cgroup with
+> css_tryget(), charges its page counter, and drops the CSS reference before
+> the folio is committed under hugetlb_lock.
 >
->     kernel.ftrace_enabled=0 silently disables ftrace-based
->     kprobes/kretprobes: arming succeeds, the probe stops firing, and
->     re-enabling restores it. Unlike trampolines, they never had this
->     protection.
->     kprobe_ftrace_ops and kprobe_ipmodify_ops are used only by
->     ftrace-based kprobes, so FTRACE_OPS_FL_PERMANENT, as livepatch uses,
->     is safe here.
->     kprobe.multi, kretprobe.multi and kprobe.session (fprobe-based) are
->     not covered: their return path shares the function-graph subops
->     manager with unrelated tracers.
->     Cc: stable@vger.kernel.org
->     Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
->     Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
->     Acked-by: Steven Rostedt <rostedt@goodmis.org>
+> The task can be migrated while the allocation is in progress.  If the old
+> CSS is then offlined, its final active-folio scan can finish before the
+> charge becomes visible.  The allocation can subsequently charge that dying
+> CSS and commit its pointer to the folio.  Once the CSS is freed, uncharging
+> the folio accesses the freed hugetlb_cgroup, including its page counter and
+> per-node usage.
+>
+> Keep the reference acquired by the charge until commit or cancellation.  At
+> commit time, while holding hugetlb_lock, move an uncommitted charge out of
+> each dying CSS to the first live ancestor.  The hierarchical charge already
+> includes every ancestor, so moving it only requires canceling each dying
+> CSS's local count.
+>
+> This orders commit against the offline active-folio scan: either the scan
+> runs after commit and reparents the folio, or commit observes the dying CSS
+> after the scan and selects a live ancestor.  The retained reference also
+> keeps the originally selected hugetlb_cgroup alive through this decision.
+> Reservation charges retain their existing CSS lifetime and are not
+> reparented.
+>
+> On an unmodified v7.3 kernel with a 128-page 2 MiB pool, a
+> capability-free uid 1000 allocator racing administrator rmdir reproduced
+> KASAN writes to a freed hugetlb_cgroup in three of three boots.  Controller
+> disable reproduced the same fault.  With this change, 5,000 rmdir rounds
+> with over 1 million successful faults and 2,000 controller-disable rounds
+> with over 1.6 million successful faults completed without KASAN, LOCKDEP,
+> page-counter, or refcount reports.
+>
+> AI-assisted source review was used to identify the race and to help draft
+> the reproducer and fix.  The interleaving and the resulting allocation,
+> free, and use-after-free stacks were verified with tracefs and KASAN.
+>
+> Fixes: da1def55919f ("hugetlb/cgroup: add support for cgroup removal")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
 
-Is the problem described in the first paragraph still reachable in this
-tree?
+Hi, Daehyeon,
 
-Commit b0c857049153 ("ftrace: deprecate disabling via ftrace_enabled
-sysctl") is an ancestor of this commit.  ftrace_enable_sysctl() now refuses
-to clear the flag:
+Would it be better to send v2 as a standalone thread rather
+than as a reply to the v1 review thread? It would be easier
+to track.
 
-    } else {
-        /*
-         * Disabling ftrace at runtime via this knob is deprecated.
-         */
-        ftrace_enabled = true;
-        pr_warn_once("The ftrace_enabled file is deprecated and no longer disables ftrace\n");
-        return -EOPNOTSUPP;
-    }
+> ---
+> V1 -> V2:
+> - Remove the redundant disabled-controller check from uncharge, as requested
+>    by Andrew Morton.
+>
+> v1: https://lore.kernel.org/r/20261020100345.1677643-1-4ncienth@gmail.com
+>
+>   mm/hugetlb_cgroup.c | 34 ++++++++++++++++++++++++++--------
+>   1 file changed, 26 insertions(+), 8 deletions(-)
+>
+> diff --git a/mm/hugetlb_cgroup.c b/mm/hugetlb_cgroup.c
+> index 3fb41311e4c7dc..6921b185726662 100644
+> --- a/mm/hugetlb_cgroup.c
+> +++ b/mm/hugetlb_cgroup.c
+> @@ -310,11 +310,10 @@ static int __hugetlb_cgroup_charge_cgroup(int idx, unsigned long nr_pages,
+>   		css_put(&h_cg->css);
+>   		goto done;
+>   	}
+> -	/* Reservations take a reference to the css because they do not get
+> -	 * reparented.
+> +	/*
+> +	 * Hold the CSS reference until commit. Reservations keep it longer
+> +	 * because they are not reparented.
+>   	 */
+> -	if (!rsvd)
+> -		css_put(&h_cg->css);
+>   done:
+>   	*ptr = h_cg;
+>   	return ret;
+> @@ -337,9 +336,26 @@ static void __hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
+>   					   struct hugetlb_cgroup *h_cg,
+>   					   struct folio *folio, bool rsvd)
+>   {
+> +	struct hugetlb_cgroup *charged_h_cg = h_cg;
+> +
+>   	if (hugetlb_cgroup_disabled() || !h_cg)
+> -		return;
+> +		goto out;
+>   	lockdep_assert_held(&hugetlb_lock);
+> +
+> +	/*
+> +	 * A task can be migrated after selecting h_cg. Once offlining starts,
+> +	 * redirect the uncommitted charge to a live ancestor. hugetlb_lock
+> +	 * serializes this decision with the offline scan, which reparents
+> +	 * earlier commits.
+> +	 */
+> +	if (!rsvd) {
+> +		while (css_is_dying(&h_cg->css)) {
+> +			page_counter_cancel(&h_cg->hugepage[idx], nr_pages);
+> +			/* The root CSS never dies. */
+> +			h_cg = parent_hugetlb_cgroup(h_cg);
+> +		}
+> +	}
+> +
+>   	__set_hugetlb_cgroup(folio, h_cg, rsvd);
+>   	if (!rsvd) {
+>   		unsigned long usage =
+> @@ -352,6 +368,9 @@ static void __hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
+>   		WRITE_ONCE(h_cg->nodeinfo[folio_nid(folio)]->usage[idx],
+>   			   usage + nr_pages);
+>   	}
+> +out:
+> +	if (!rsvd && charged_h_cg)
+> +		css_put(&charged_h_cg->css);
+>   }
+>   
+>   void hugetlb_cgroup_commit_charge(int idx, unsigned long nr_pages,
+> @@ -419,15 +438,14 @@ static void __hugetlb_cgroup_uncharge_cgroup(int idx, unsigned long nr_pages,
+>   					     struct hugetlb_cgroup *h_cg,
+>   					     bool rsvd)
+>   {
+> -	if (hugetlb_cgroup_disabled() || !h_cg)
+> +	if (!h_cg)
+>   		return;
+>   
+>   	page_counter_uncharge(__hugetlb_cgroup_counter_from_cgroup(h_cg, idx,
+>   								   rsvd),
+>   			      nr_pages);
+>   
+> -	if (rsvd)
+> -		css_put(&h_cg->css);
+> +	css_put(&h_cg->css);
+>   }
+>   
+>   void hugetlb_cgroup_uncharge_cgroup(int idx, unsigned long nr_pages,
 
-That commit also removed is_permanent_ops_registered().  After it,
-ftrace_enabled is only 0 transiently: inside the sysctl handler under
-ftrace_lock (which every ftrace_startup() caller also holds), after
-ftrace_kill() (where ftrace_disabled already makes ftrace_startup() return
--ENODEV), and in the kexec point-of-no-return paths.
+-- 
+Best regards,
+Hongfu
 
-So the statement "kernel.ftrace_enabled=0 silently disables ftrace-based
-kprobes/kretprobes" does not hold here, and this patch has no observable
-effect in this tree.
-
-The v2 cover letter says the change is meant for stable kernels where the
-sysctl can still clear ftrace_enabled.  The commit message does not say
-this, so a reader of mainline history, or the stable team picking it up
-without a Fixes: tag, learns neither that mainline is unaffected nor which
-trees need it.
-
-Could the changelog say this is only needed for kernels without
-b0c857049153?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42143371906
---===============0551742847628527584==--
