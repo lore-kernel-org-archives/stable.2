@@ -1,55 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978478;
-	b=0UTps9iukndtLftFPVRzTTUXN10Siury6UMnjOkE8g0+hmcfocYFw/dvdOkzkG8r80bQ
-	 zspLkFp+stVfNylrIfrByOlzpE33J1bYDiWwidyzdveVWqDxnhpRGO/q3u/6pzfabyZqA
-	 Pc8K29Uv62l2Obi2VpeKJnm8w1LV3wAprWAQjQ99rzYAapU8b9SWBUsI0cj0/hhA6SRsi
-	 0F7LrttJFwawwKKC2NMGuskvPdqzZQNt6qqKg+h7/sLRqZ2Wwa/ZLfD26WJvHqAW4//xW
-	 gZq/CswO7tKIKU29wvjNvQV8Z6gmnsC/14TRkV8y1VH6otZUJU94NgCtXXCiZSsDv8A==
+	t=1793978504;
+	b=QDgHCMXkf5q9duu6Z1yjBSY/Mqa6SZ3Pzse4ehAbT07ab02M/uSzPVFDZCV0k0ncu8vh
+	 G8WXiNddPNOSeGAP3ruEkupYrvMLSNlAZc0DdKSFZNJID6KIWpVt5pX6bjM4oxY2kKUV9
+	 MmrJ1+EBzan38GjXCcee+sJLCohVTpg9lcN3mwVWflgGH/u3j7GV2IClOzP1v+b0ZDCsy
+	 4lA38L3UQK/Ik0sLAxBWOmepnNBc1pFE4OpQDmvm86U7g5ZVuhoCMzJS8AFY++0eMQ5Gr
+	 4Wh7JKotACLVarnFcCaTNJnwZCciTTesYzYLtX3++mLdJ5Tk5Q5h5AM/FACYS9xyNjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978478;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978504;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=34IlpcCYQrCXU6z578TEX6JbzLaMY62FwfWMGoMYWUY=;
-	b=GZNNA4R8vAP1P0/efqQ8QjD4xYteu1Nmh6LmiChDX63ao3bAKTf2IgjrO2k7cF6xagva
-	 hT9q2uQze6P3jTT+BzD9LH+rMl5OXmT8bNf5Yawa4rtq38xxLrZ5g8R3plw04u4y7lEHi
-	 OmMWkvLNFVh6uzH1FJxoDVmVdUOr2w1rcAfyZgNCKLp3U6XPvljnxkVOOh2/9Qw/N8kcB
-	 zSR7cpgyZWUjYbZ19qLbh5RfktYRPTzStx5GDVuoH5hB7bpffBST7fvKpycZ0ZkIPaz0g
-	 sjY6WM/u+izkpZclMYsfAxRdpYkqIBsjwdrDLkA1mVkk/a3QjFBCg/qJrp1g+C1Cw2g==
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5gB9agqiKxDvndp3lmIXDvsPb7cXS92VWUZhkG9w6fA=;
+	b=R83FEgjKXNLss9a/OYP2BzABtLHLTS5DSnKN4pjWOGG8Yzt5o8dhZ8mdPJgO3VzL4Qg9
+	 shT45PCFQvgHebHytx2acYSGRI8+ZzFi43WV4jAwWuqQy73NEtdAZ7dsCiQ1+6fotkDzP
+	 VxCboZI/3AwfOS3i3w2mJvuVvYJi/TBxfxStQQ0tbVsjmRAxwXc+JrvAHKfWjF4CryPlQ
+	 Ua8QFk1yfhMuOZZlk+su6Zu34tpOMJ6++gb7iDAawPX53REKamPbCeoErXmjc3aj+54t1
+	 pKLtIs1E0qqNoJDevz7qBJnxXM67SLFZiGmd/REoq3Mea2n4PGv/0H6wbP3EcJo2+Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ph/JeeiL";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lbSoHxWS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id DFAF5606A334;
-	Fri,  6 Nov 2026 15:21:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E980606A333;
+	Fri,  6 Nov 2026 15:21:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ph/JeeiL
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D89851F0089F;
-	Fri,  6 Nov 2026 15:21:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lbSoHxWS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A7151F008BD;
+	Fri,  6 Nov 2026 15:21:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793978477;
-	bh=34IlpcCYQrCXU6z578TEX6JbzLaMY62FwfWMGoMYWUY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ph/JeeiLpDWKn6rHMfLd+3lNX083YMVtVM05S1gKEJauf880dMqZBDMqUcyMNJLNJ
-	 ZpAqkVWDACg7c7P/dqX2tYm4SXwpsz7PoLrF6R1TJxhvzlr1V1XOv8ZjoADvwiBJBy
-	 dcimnXfBmgrFT+/nOKyc13YycZMNMpn0i34FqEtlhIRdSFnEq2IyKdwBsv6DnI0fjs
-	 zdGQJKuBn25K7bwYP7ebvnT+K8tLO50lw98lPBL2TvYhFFB4sN7B7zlsn1lDCP3J4s
-	 rksc7uWOXivZAMdEuR0qQ3cIh+b5XrUNroV6sLWjGoezi+uyz1n4d8MSn+GuqOQLxX
-	 lD/P7eMbrDiyQ==
-Date: Fri, 6 Nov 2026 17:21:13 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Guo Zihao <guozh23@xiaopeng.com>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Ard Biesheuvel <ardb@kernel.org>, linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] tpm: sessions: bound the primary public area by the
- response size
-Message-ID: <au3waVnY6QA8TpPl@kernel.org>
-References: <20261106014937.4127650-1-guozh23@xiaopeng.com>
+	s=k20260515; t=1793978504;
+	bh=5gB9agqiKxDvndp3lmIXDvsPb7cXS92VWUZhkG9w6fA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=lbSoHxWSGmbZ0Y4ylVLrt0KQrv1abH9lj5Dv8Ma9ErwCszbZxCRpFIjyn9dBrV3Rv
+	 /DH+Iu1+C2YUEQ9cDab6W6H+jP9UxhhV/OksRg899zIvZ54rTyF5coy+cT4kNAQv02
+	 U3DEWrFGQdTe4Op0MJLQ8/jv30gSUpMVNgL4njZCkKv37tZ8HTf7s+0pgv5gcbjDA8
+	 pecKPqCCXAjI2BPM279rrA+1haptIJ7VjucLWSspIN6T42WFK5td835kLB4/+qlcL+
+	 iwVFwNExqdXvsM3IidRER0FJZhj0nN41PursuvFwCHDxyZO2nc9R9UCAxBDGDir1hZ
+	 SyWUfYyP0thfw==
+Date: Fri, 6 Nov 2026 09:21:43 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: "Ziyou Wang (Lenovo)" <ziyou.dev@foxmail.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] PCI/DPC: Increase recovery timeout to 60 seconds
+Message-ID: <20261106152143.GA1621130@bhelgaas>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,36 +59,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106014937.4127650-1-guozh23@xiaopeng.com>
+In-Reply-To: <tencent_BB887B4DB8D2131AF5026893E0FE567D6D05@qq.com>
 
-On Fri, Nov 06, 2026 at 09:49:35AM +0800, Guo Zihao wrote:
-> tpm2_parse_create_primary() reads the size of the TPM2B_PUBLIC area
-> from the response and hashes it to compute the object name:
+On Fri, Nov 06, 2026 at 04:56:55PM +0800, Ziyou Wang (Lenovo) wrote:
+> Some NVMe devices need more than 5 seconds to recover after DPC
+> containment, but pci_dpc_recovered() waits only 4 seconds.  If the device
+> hasn't recovered by then, pciehp reports "device recovery failed" and
+> the device is re-enumerated.
 > 
-> 	len = tpm_buf_read_u16(buf, &offset_r);
-> 	offset_t = offset_r;
-> 	if (name) {
-> 		/*
-> 		 * now we have the public area, compute the name of
-> 		 * the object
-> 		 */
-> 		put_unaligned_be16(TPM_ALG_SHA256, name);
-> 		sha256(&buf->data[offset_r], len, name + 2);
-> 	}
+> Move PCIE_RESET_READY_POLL_MS definition from pci.c to pci.h so it can be
+> used in dpc.c.  Use PCIE_RESET_READY_POLL_MS (60 seconds) as the timeout
+> so pciehp waits as long as pci_dev_wait() does, which is sufficient for
+> all known devices.
 > 
-> The length is only checked against the response later, after the
-> hash has been taken. A TPM that reports a public area longer than
-> what it actually sent makes the sha256() run past the end of the
-> received data and hash whatever follows the response in the buffer.
+> Tested with INNOGRIT NVMe SSD [1dbe:5668] with ACS Fatal error
+> injection:
 > 
-> Check that the public area fits in the response before hashing it.
+> Upstream kernel (7.3.0-master+, 4s timeout):
+>   [123.018691] nvme: not ready 1023ms after DPC; waiting
+>   [124.106690] nvme: not ready 2047ms after DPC; waiting
+
+Was there a "not ready ... after DPC; giving up" message here?
+pci_dev_wait() should log *something* about how it resolved this
+situation.
+
+>   [125.642703] pciehp: Slot(64): Link Down
+>   [126.218696] AER: subordinate device reset failed
+>   [126.218700] AER: device recovery failed
+>   Device re-enumerated as nvme1
 > 
-> Fixes: d2add27cf2b8 ("tpm: Add NULL primary creation")
+> With this patch (60s timeout):
+>   [74.894811] nvme: not ready 1023ms after DPC; waiting
+>   [75.982813] nvme: not ready 2047ms after DPC; waiting
+>   [78.094810] nvme: ready 4095ms after DPC
+>   [78.094816] nvme: restart after slot reset
+>   [78.111620] AER: device recovery successful
+>   Device works normally
+> 
+> Fixes: a97396c6eb13 ("PCI: pciehp: Ignore Link Down/Up caused by DPC")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+> Signed-off-by: Ziyou Wang (Lenovo) <ziyou.dev@foxmail.com>
+> ---
 
-I think it is not a bug fix without a source.
+30 minutes after v1 is too soon to post a v2.  A couple days is a
+reasonable interval.
 
-I.e., unless this is TCG defined behavior, I'd not add fixes tag.
-
-Br, Jarkko
+v2 should include a note here (after the "---") about what changed
+since v1 and ideally a lore link to the v1 posting.
