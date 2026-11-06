@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793974537;
-	b=MZeddGSNeripeMvhQ12hzvBd9kvN9KYLLtp0MmqpjRQUhtLlAhFs8OESb4Q6qLTPZI5v
-	 9pL15WDgPruzULOtbE8HrRMOUDaxjdnqUCGP84fUoMDOA4ZCpMY1qw2KUUT1AbiBg4AQ/
-	 tPUjzDCnJjDwnsbLqZfkRcC4g0ZWI+bDUdrhQ0ELM4zQa34TSuIXj5J2d4zIXbA91Hfdp
-	 NBI+eIow1aR4HNAc4hsWb7lr0R6Yl9gERqWNx9MiQUAR0SpCyshktYWXwmFTx0y6EB/la
-	 rMEKGjhSFpq1f7k/hTqbGY6PY9dhjvSLfAMyfA/s2i5LeoM0+mBULWvqetdjR4S5IGA==
+	t=1793974679;
+	b=SReph7YCCp7n152x03+5RLOxP8AsCsM9iCM81FnWC292piYdVKt7MgpV6k4kIAoSyaxl
+	 gMdCqawhMDbw7c8F1y3IPbhSaXfWE7d/j55OG2OkWq7arJRgE5U3hjbSl0Rm03WlAudD3
+	 8g0dWTeGtXRFg9HlOOh0LISj/vME2Y6WPjHk/r/6NHSWF6oSTKu4cCT128sRtO8T2ru3V
+	 aWExXaCLqmuZ33U/GIFKCTMS9g/RANsKcimoqN/o5bjCYIR17myr/Poxzm1bpV6WpLAPa
+	 4cGeTU8fxYwWmCskhPIYwPeMNW9aFMTGBQFAYFpWcIkXSEYfZPXzk6elbjbfavxrhOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793974537;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793974679;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=neTo0U0wesxPDV5X4ItHppurmyPomNa8ZkBLrEceC/U=;
-	b=LHfC8I/+bnqDqqJAo+TVY/CGxaYAhbVDR4rWKC20db9BVMWr8YUhfiLUhLPIuiLckFcd
-	 Mo/HQQgghW3RSj5IX9t4zpde6G1Rj7aND+FgVYWDMaSXM6Eu7YzTQxU9C/JATPxbrjXrX
-	 sL+T2l0+B7z3nIDb+fB7bxWpUq1S2cqBAWWfbQsp7jtPEP9OzesIzwo4okHz2KAly+l1O
-	 61mB+88jwyVNwe+fsPo356Z/OjjTzerfSjQ+K1HCU640gHBOaVz1irAjWqpnmIjw0C883
-	 kmmc4XPYXpvr7UKYJx58waVnS6KPEOL0gNCJq4/zjNQCDkzeOWwR5ofOPfnVl157TNg==
+	bh=VCh2ZaFuxfC+u/rbMqTxz5XBMsPuDvmJBVHq8w+GZe4=;
+	b=45gw0ah7wrgO3SLdrlNNjzkiEzzvj/Ycyjh4r6ICQhBbnHOYmqr2FKvSmNEwqCyoMnDb
+	 Zx9c9vUZ5AtUGyCQzZICjS048v5wtKnkrpbBxkZSLb2408URD27MVAacnVBoGs16aXW8c
+	 7psvKYI1HGCY+Ul/WU6yeN8LAehdDrfoZr0ITZkboCR4uFSCsxSsEM/ZXByGJskLBrINI
+	 Uyf4TidoImCtIiouWigh99kOHX9ilC1xAEh3PElenNv5cTL8+LDgmUFCffYk34JyWTd7g
+	 qKtxe55DAJ4FAVHsNYpMPzBufNfWE1ZroR8KnKSbfbEK2oE+rlUuPsQRgBXzEwWfaFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CITnw1LV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJT67RRm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1FE5606A334
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:15:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14532606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:17:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CITnw1LV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D16021F0089F;
-	Fri,  6 Nov 2026 14:15:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJT67RRm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 305341F008A3;
+	Fri,  6 Nov 2026 14:17:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793974536;
-	bh=neTo0U0wesxPDV5X4ItHppurmyPomNa8ZkBLrEceC/U=;
+	s=k20260515; t=1793974678;
+	bh=VCh2ZaFuxfC+u/rbMqTxz5XBMsPuDvmJBVHq8w+GZe4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CITnw1LVNG+x3M5/XktEPjc7i1PUoy+lexHuCFk7fB2gKqctSdFwiPVMIdnTVbSkA
-	 7ajQby6HuFaqcS0HYWiQiUt5vuXqr0SMCh6H8w4zGsOY0a7+ShQxe2H8j0SQvZJj1Y
-	 krlbTIxMgSX8Hfh5JV9InkusmaJLoW6/kijn+apBngH8+6HOK8J7bmfOiTO6dxswvO
-	 9ljrIl+wM2wKFh2u9h0MB9c72IpXi8gdBYrXHyc2q8CnxbLfOP2MfwUb1fYY3NAG+4
-	 j2Y2J9wTn7oekW18S16HlORAg87DHUkAZ3bAbe85rm9086XTKA2Iln27SQZ45BN+af
-	 GkKIvUMgIqicg==
+	b=PJT67RRmERftfBIzbiT/GzLzvsAVAfycyO66SoB8HTdMDMiQtBS6JPBHke1MtmlbA
+	 /H4KiUA0ADOXgJDe3kKZRf8AcB+H4OdopNntasgoN5eNM2Ma8wh3Iv5tIUzUSc6iBm
+	 JJ/q1pp/Xas6Wfi3X+V7eUDuTXdBLUK7YGPJjJ+/iuFNg2ImQQvXJYC4jLMeKU0Utg
+	 t66JcK5I6v3sKoH9Gczxx6CLxA1RDodEc4aO/AaG61kkgl5j4uEmR443RuiHrZ4FpX
+	 TENYZyv6NyEu6xw7ssJFe3mFF+jHAhW9Q/vC9MWc+7Hnu1NhKttcHhQrPZDLpRqtg7
+	 jpIfuYDmMN6pQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Keqiang Duan <duankeqiangcym@gmail.com>,
-	Qinguang Chen <chenqinguang@kuaishou.com>,
-	Zhiping Du <duzhiping@kuaishou.com>,
-	Chao Gao <chao.gao@intel.com>,
-	Sean Christopherson <seanjc@google.com>,
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Benji Wiebe <itsme@benjiwiebe.com>,
+	Chuck Lever <cel@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] KVM: x86: Clear hardware HLT state when userspace makes a vCPU not-halted
-Date: Fri,  6 Nov 2026 09:15:34 -0500
-Message-ID: <20261106141258.252557-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] nfsd: don't offer flexfiles layouts when NFSv3 isn't being served
+Date: Fri,  6 Nov 2026 09:17:56 -0500
+Message-ID: <20261106141636.256539-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110434-chemist-unspoken-b8e0@gregkh>
-References: <2026110434-chemist-unspoken-b8e0@gregkh>
+In-Reply-To: <2026110412-uncounted-lung-91bb@gregkh>
+References: <2026110412-uncounted-lung-91bb@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,138 +62,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Keqiang Duan <duankeqiangcym@gmail.com>
+From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit 883719f57f5d3898637b130d6db4742471cad618 ]
+[ Upstream commit 5d28b2c920d9d9d3c45b41769342ad785eb372a7 ]
 
-Force a vCPU out of its hardware-tracked halted state when userspace puts
-the vCPU into any state other than HALTED via KVM_SET_MP_STATE, i.e. clear
-VMCS.GUEST_ACTIVITY_STATE if it says the vCPU is halted.  Add an optional
-kvm_x86_ops hook to do the clearing, as SVM has no equivalent VMCB field.
+The flexfiles layout driver hands out a deviceinfo that names this server
+as an NFSv3 DS (flexfilelayout.c hardcodes da->version = 3). With v3
+disabled, the client can't talk to the DS: it loops on v3 NULL calls that
+the server answers with PROG_MISMATCH, and I/O hangs in D state.
 
-When HLT-exiting is disabled for a VM (KVM_CAP_X86_DISABLE_EXITS with
-KVM_X86_DISABLE_EXITS_HLT, e.g. QEMU's "-overcommit cpu-pm=on"), a guest
-HLT halts the physical CPU instead of exiting to KVM, and hardware saves
-GUEST_ACTIVITY_STATE=HLT into the VMCS on the next VM-Exit.  That field is
-sticky: it survives VM-Exit/VM-Enter and is only cleared by vmx_clear_hlt()
-on event injection, or by vmx_vcpu_reset() on INIT / vCPU creation.
+Skip LAYOUT_FLEX_FILES in nfsd4_setup_layout_type() unless v3 is enabled.
 
-Nothing clears it on a userspace-driven state change.  KVM_SET_REGS only
-writes the software register cache and KVM_SET_MP_STATE only writes
-vcpu->arch.mp_state; kvm_vcpu_running() likewise consults software state
-only.  A VMM that emulates a machine reset therefore ends up with a vCPU
-that KVM happily VM-Enters while hardware refuses to fetch instructions.
-
-Reproduce with a Linux guest by triggering a panic/kdump on a non-boot
-vCPU: nmi_shootdown_cpus() parks the other vCPUs -- including vCPU0 -- in
-crash_nmi_callback(), which does local_irq_disable() followed by a bare
-HLT.  The capture kernel then resets the machine via port 0xCF9.  QEMU
-rewrites RIP to 0xfff0 and sets mp_state to RUNNABLE, but vCPU0's
-GUEST_ACTIVITY_STATE is still HLT, so the BSP never executes the reset
-vector, never sends SIPIs, and the entire VM hangs at "reboot: machine
-restart" forever.  Only destroying and recreating the VM recovers it.
-
-Key off "not HALTED" rather than "is RUNNABLE" as HALTED is the only target
-state for which retaining the hardware halted state is meaningful; every
-other transition either can't be reached on VMX, e.g. AP_RESET_HOLD, or
-goes through vmx_vcpu_reset(), which stuffs GUEST_ACTIVITY_ACTIVE anyways.
-This also captures the intent more directly: KVM only ever drops the
-hardware halted state, it never installs it.
-
-Hook KVM_SET_MP_STATE rather than the VM-Enter path so that the clearing
-is driven by an explicit userspace declaration, and so that no work is
-added to vmx_vcpu_run().  Gate the call on kvm_hlt_in_guest() even though
-vmx_clear_hlt() checks it as well, as the check is cheap and makes it
-obvious in common code when the hardware state can exist at all.
-
-Do nothing for TDX vCPUs as TDX doesn't support disabling HLT-exiting and
-KVM cannot access a TD's VMCS, i.e. the VMCS used to run the vCPU can't
-in HALTED state, and even if it were, KVM can't change it.
-
-Fixes: caa057a2cad6 ("KVM: X86: Provide a capability to disable HLT intercepts")
+Reported-by: Benji Wiebe <itsme@benjiwiebe.com>
+Closes: https://lore.kernel.org/linux-nfs/c734eeb8-8486-4491-bb4d-b9656cbaffbe@app.fastmail.com/
+Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
 Cc: stable@vger.kernel.org
-Tested-by: Qinguang Chen <chenqinguang@kuaishou.com>
-Signed-off-by: Zhiping Du <duzhiping@kuaishou.com>
-Signed-off-by: Keqiang Duan <duankeqiangcym@gmail.com>
-Reviewed-by: Chao Gao <chao.gao@intel.com>
-Link: https://patch.msgid.link/20260820123512.87236-1-duankeqiangcym@gmail.com
-[sean: drop claim that spurious wakeups are ok, massage changelog]
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-[ sashal: replaced kvm_x86_call() with static_call_cond(kvm_x86_clear_hlt) to match the existing optional callback API. ]
+Assisted-by: LLM
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260904-pnfs-ff-v1-1-5f502cf25401@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
+[ sashal: replaced the CONFIG_NFSD_FLEXFILELAYOUT preprocessor guard instead of extending an existing IS_ENABLED() check ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/include/asm/kvm-x86-ops.h |  1 +
- arch/x86/include/asm/kvm_host.h    |  7 +++++++
- arch/x86/kvm/vmx/vmx.c             |  1 +
- arch/x86/kvm/x86.c                 | 13 +++++++++++++
- 4 files changed, 22 insertions(+)
+ fs/nfsd/nfs4layouts.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/include/asm/kvm-x86-ops.h b/arch/x86/include/asm/kvm-x86-ops.h
-index 3d00c2444a757..eff5dbf84ee4b 100644
---- a/arch/x86/include/asm/kvm-x86-ops.h
-+++ b/arch/x86/include/asm/kvm-x86-ops.h
-@@ -77,6 +77,7 @@ KVM_X86_OP(interrupt_allowed)
- KVM_X86_OP(nmi_allowed)
- KVM_X86_OP(get_nmi_mask)
- KVM_X86_OP(set_nmi_mask)
-+KVM_X86_OP_OPTIONAL(clear_hlt)
- KVM_X86_OP(enable_nmi_window)
- KVM_X86_OP(enable_irq_window)
- KVM_X86_OP_OPTIONAL(update_cr8_intercept)
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index 93e0903391ac5..5d0433d41208d 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -1667,6 +1667,13 @@ struct kvm_x86_ops {
- 	int (*nmi_allowed)(struct kvm_vcpu *vcpu, bool for_injection);
- 	bool (*get_nmi_mask)(struct kvm_vcpu *vcpu);
- 	void (*set_nmi_mask)(struct kvm_vcpu *vcpu, bool masked);
-+	/*
-+	 * Force the vCPU out of any hardware-tracked halted/inactive state so
-+	 * that it will fetch and execute instructions on the next VM-Enter.
-+	 * Only needed by VMX, where VMCS.GUEST_ACTIVITY_STATE persists across
-+	 * VM-Exit/VM-Enter; SVM has no equivalent VMCB field.
-+	 */
-+	void (*clear_hlt)(struct kvm_vcpu *vcpu);
- 	/* Whether or not a virtual NMI is pending in hardware. */
- 	bool (*is_vnmi_pending)(struct kvm_vcpu *vcpu);
- 	/*
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 498549e823874..bf95123701461 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -8356,6 +8356,7 @@ static struct kvm_x86_ops vmx_x86_ops __initdata = {
- 	.nmi_allowed = vmx_nmi_allowed,
- 	.get_nmi_mask = vmx_get_nmi_mask,
- 	.set_nmi_mask = vmx_set_nmi_mask,
-+	.clear_hlt = vmx_clear_hlt,
- 	.enable_nmi_window = vmx_enable_nmi_window,
- 	.enable_irq_window = vmx_enable_irq_window,
- 	.update_cr8_intercept = vmx_update_cr8_intercept,
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 386c0d127ff0e..1c785fc364b3f 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -11615,6 +11615,19 @@ int kvm_arch_vcpu_ioctl_set_mpstate(struct kvm_vcpu *vcpu,
- 		set_bit(KVM_APIC_SIPI, &vcpu->arch.apic->pending_events);
- 	} else
- 		vcpu->arch.mp_state = mp_state->mp_state;
-+
-+	/*
-+	 * Force the vCPU out of any hardware-tracked halted state, e.g. VMX's
-+	 * GUEST_ACTIVITY_STATE=HLT, when userspace puts the vCPU into a state
-+	 * other than HALTED.  The hardware state is sticky across VM-Exit and
-+	 * VM-Enter and is not touched by any other ioctl, so a vCPU that halted
-+	 * with HLT-exiting disabled stays wedged even after userspace rewrites
-+	 * its registers, e.g. when a VMM emulates a machine reset.
-+	 */
-+	if (kvm_hlt_in_guest(vcpu->kvm) &&
-+	    mp_state->mp_state != KVM_MP_STATE_HALTED)
-+		static_call_cond(kvm_x86_clear_hlt)(vcpu);
-+
- 	kvm_make_request(KVM_REQ_EVENT, vcpu);
+diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
+index bcf16dd07d488..f55092c66f42b 100644
+--- a/fs/nfsd/nfs4layouts.c
++++ b/fs/nfsd/nfs4layouts.c
+@@ -125,6 +125,7 @@ nfsd4_set_deviceid(struct nfsd4_deviceid *id, const struct svc_fh *fhp,
  
- 	ret = 0;
+ void nfsd4_setup_layout_type(struct svc_export *exp)
+ {
++	struct nfsd_net *nn = net_generic(exp->cd->net, nfsd_net_id);
+ #if defined(CONFIG_NFSD_BLOCKLAYOUT) || defined(CONFIG_NFSD_SCSILAYOUT)
+ 	struct super_block *sb = exp->ex_path.mnt->mnt_sb;
+ #endif
+@@ -132,9 +133,9 @@ void nfsd4_setup_layout_type(struct svc_export *exp)
+ 	if (!(exp->ex_flags & NFSEXP_PNFS))
+ 		return;
+ 
+-#ifdef CONFIG_NFSD_FLEXFILELAYOUT
+-	exp->ex_layout_types |= 1 << LAYOUT_FLEX_FILES;
+-#endif
++	if (IS_ENABLED(CONFIG_NFSD_FLEXFILELAYOUT) &&
++	    nfsd_vers(nn, 3, NFSD_TEST))
++		exp->ex_layout_types |= 1 << LAYOUT_FLEX_FILES;
+ #ifdef CONFIG_NFSD_BLOCKLAYOUT
+ 	if (sb->s_export_op->get_uuid &&
+ 	    sb->s_export_op->map_blocks &&
 -- 
 2.53.0
 
