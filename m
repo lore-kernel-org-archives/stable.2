@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793995183;
-	b=d0ytiAKUPll4nKyPNFuwK6sBRLAC2q4oOw5zlg1z9heg1GNZAfRIXkmXxmdrCilBxNRR
-	 IZD0RqG2p6AERAnt/O151WfElvH4lN3GvN26U/gxM6Am7ZtTbgyp1XkwkiLYbuRh0aD+G
-	 aOyX/SCpOv8pHQnyoTwxCPgvp3t0UoRYBlyLk0/kPyQzFZluLPfvJ89KZwmwpu8HPdfmH
-	 k7bGHgExRlE0lBmi/+Goq3a11nldMTWb7B4ygbJn4YOMM++SKqZvkkHTm945HoNKGS2RG
-	 hF3zdkdwcOGpuGWmdpr1UPQpxk76Qf/bqg5lyO5LVaNNuGukaz1JuVw0tJ7jeEhrjjQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793995183;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=4IjryWNxdORCjNaHoK0nCSyu8CfUlBnhe9uOpGWyC/k=;
-	b=xoCKtYTwgCHPTc5qmPQsK5I64klpZbGeQBPqRc8fHI8xZCiMJZZr3DC1tUMBCI2M2yEN
-	 RybKCwto4y9F8HX7zJlyi6s+mXIg+0vlJO8mrcQFIbZt2MDQiElxiVQgSDmOyw6uW1lu1
-	 sBarFHrDeDgw1cXqay2LZPXxzakGT/MGU1VjTzhTqZxO0c4sVYKUr4OK7vzcOhGJ6yvlu
-	 JcShORI8nBOVlISPynD+tGh6mtzVPNXRHuKtn4gqN01DoNqCzGjkk8tk9gSDUl6lWg4Nf
-	 H2sdCf/yHKS013hBECWLT0rGMoiSQ1OpsHqe4NKX9gf0AEAr3KiVt9h5cl7zWiE688w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t3Q+3In8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793995387;
+	b=ku8Q22hs2APVJNQnU9Mzi9LtLhI8gg7ROMhhkEd4Pmi6r+OeMQ26+fiNOlqEcQ0U23w+
+	 hg2KehdypY9Ro2EzQFbCtRPc9aMCTYYJtUPFaYIxtmrn+clqBAsAp1P7+rtBB1d2KqIfo
+	 El7oGJGaekDQdRTPi2QQbVtGWAhDg1Xroe65y6BvyScOy9d0DAkM+6T5j0efUgQgS6nQC
+	 ssaw5NYwuv1YzAWq8mzHaQWNDU5mqujLuBt6l+XGQA5xj0vVfW8tHMkq6KlnoIljf+W3F
+	 WoSkv29w7U/09dmcdt+j1H9AE21t/fE0BtxmQaDEmuHt6k2bOKt0BfIbwyE53OjuR+w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793995387;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=EZQDuZNuws1ikcoVHzG7GXK+3VfznaqQ2EHawvfd1nw=;
+	b=mFYcF7uin02pJna0kvTyeHY+ObaUMtV79RQrvyB/iW4B6lZ6quaf7HIK9zYmCYjA9bOi
+	 OBK8sDp6GrnmWtSUI4rCbKT3Oo3BeE7fRmdu4bjbYgLhhsoyfuitehcku6RBKWVLs8hEq
+	 +Z2FpcPlOJ3nP4aYZqunaocsg2GI4N1vULjz/wq/DNVnZRJDExXPs5oKkQS+Y3e4z36vr
+	 rLXtePQLXY/gGJBEulDrNTcdCDCkeUGw5JCRW8/cUGRE+l11H4r7vOPSXAt9MleH+/71y
+	 DzOWWrbd05zBKqrPAtSdBaE0fpl6jJKms97MR8u2EBGW5/IyF4iUSWj4WGk0NtEX12A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=WZqhRt+V;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3012F606A32D
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 19:59:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3012F606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE8A606A326;
+	Fri,  6 Nov 2026 20:03:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DE8A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t3Q+3In8
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a215e64962so12118455e9.1
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 11:59:43 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793995182; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cSdvYloVxGZ9+oxnZykaH6qjkA38sx5+N2pgCZW/cjnnz6uY/CukXZhzilmYNDnTUN
-         taVuirrgjIwJD1ht64pOLNIJzTv91RuLkH7mD0QJJMTtp8zI7hvBMQz0LWOWHMClm0at
-         j18dtGRqteHc27Z4TCqveNcwcQSMmKieeiIepNdIpTwgTrElm4pDiqrCmHX8vUk3EwIp
-         zpEx0r1Imwht9Tr8AxwNIK1m2Nzcp8xBXW5LVidvrHUcgqCX2U+sA5dfq+8yzz2SShSb
-         M0zc9GRmsC1Od/vZSDiK3bOWnPvOCO6MuEgsymRPEO61lrSu7T/4HqncXEmWBepyXJmp
-         257g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4IjryWNxdORCjNaHoK0nCSyu8CfUlBnhe9uOpGWyC/k=;
-        fh=u422dgagqtW+wwzV8B/cuwJ22PhiTvFBtarLUYn3eaU=;
-        b=GZAkXGtwJYrzl6FQ/VgXJaHvNAG0DLUpm7xHtzmOkwOuP6CyiSy4qrHr32gH1hQVhS
-         v4d3UtktDbYiVeXUvd5AuK3y8+xFn7XS33UQER2OyNZuHIxOaZlpdXRdkcKELvYKkV3h
-         8VmCV3priuDnAQPbEbRNrIWgaMmxM1p0w2yC+8CmEnS+twHQnjm7BDTF+hitJP2aPu8r
-         QSrQtVL5sheAvyKf13H/UmPbY0xJpNkj7kyfARxNgZXUBlqukNMfVmp8mBliHHWAXeGj
-         0YpG9KauC+VqUuZRAl1GuviNoyKhM94Nqo2aWuJHQ9qsbhkgjhoG76nhRbwYqzT5LAd3
-         qkvA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793995182; x=1794599982; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4IjryWNxdORCjNaHoK0nCSyu8CfUlBnhe9uOpGWyC/k=;
-        b=t3Q+3In8uQM7jXczqcckVxmrD9TlsK4Wt9CHC6V4Ium4ZBrwEBAvd1gnQO1BxUTABB
-         BuYFie7PmRD8o/IgMRtW+KEiHdutxS/qVLj4qc+c74wKlvIXAOy2kTBDjQjMb2uBQoia
-         0CqS7gmDZAc2fVlsVrzvf0QMc+CxoTz2Vtn5lSihnzwjb0KsHa16vmauZIigR4+FCC57
-         +3gaBozTHvKeZEK7JXP6vd23c05OPd/WBKmRbZlp/WOHw8zxnIClBZrlObjlspa1NFWU
-         i4ippmbLxYcHau472r97/GhqdFN8d8zYruBm0ZDMgeRtuKtpnpAVrwrFwmM1slY21kmP
-         Anog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793995182; x=1794599982;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4IjryWNxdORCjNaHoK0nCSyu8CfUlBnhe9uOpGWyC/k=;
-        b=GT7C6HlniUkYWWLGqWHx8iUcJt/uq+mFQqshBsUPUC/ZxpqlD76m5ub82DScOCOGRJ
-         xQic6Y6Sjbz/KEJqL4Z6MgfJ16/SvXewYgcgqGLw1VAuixVDXZZcgj9Utlv3WfUApC/T
-         FEl6dA5V8RPFDBRF9aqLJFx87ITVyhTlc5GKgGOYjOi337JcVdz0KgwHp9tPwcJzS5W4
-         2UdgK4MyoWTWp8jpdMGwZb6Zv0Rxy2nHC3Iidl9iI2QBX+zFU6EVkvIig5CcTWk8AqT1
-         Alm05hB0qQW57LtUUWzUlmnGhjwliInPEXbDYf/I92W5/Dsa1HT6IHw7+z24yG0jA/ia
-         UySw==
-X-Gm-Message-State: APuU4Z/j8HUpSpWTcrDzHa3Z/jefozGyFCP5+1KJ9K1CO1QrpdgG4ykO
-	osrNrW+7gHHKly7epOkdowSO5rxUsyYv2ioNuczfeKSEBGAPB3PFOfrq9THF3vlza7Hs2MxafhT
-	oDenyoLdSzrCWoOuD3peuRAmiTk7rAWA=
-X-Gm-Gg: AYBFou2oX6f7gFvlCShpL1LlCPfEfeeV5Ueq65P11oV8vYIGiWYv6noqU02llLWT+iB
-	GZugzLzmUhWUI9eQ5ifDYidPklFeCgLXDmaimRs+Qp4DVowUf0N1ldlkMaNEmUn4DVrEYn/+jsA
-	z7MB6FVAQtkYRJ8HQtt3HQvwObjTMoKNz/UL4UbH3wr0gy1KnGFOMv9s9qOy0kE1zLAISEWFx2U
-	TkF3tH+GlBohj9gxLCe1mc+gLzzd2Zf6/hP2b57RYQRO188/N6ydxYPHuErrhaIqdpd2UqDAiLJ
-	qnJWWSaHbYceGFGE5e8fIMsBUEz2iJPVgtXLk2HzrCOPCErIpk/k1lu1UaLAE5gWAM9lM+53Fbi
-	olsqPsUfpksTzkGZ3Ge1wYCbWSoPOpdkHF3i9fDY/zgG7wBRaCffVSHvR/5ftqvDYIBSZTValO4
-	ATZXURtahCgHLAlTq6rNTmMJnbFTndEG1fZzdXbrvcVbD1bM/UydxM
-X-Received: by 2002:a05:600c:818e:b0:4b3:9540:47a6 with SMTP id
- 5b1f17b1804b1-4b6dff86e38mr59681805e9.28.1793995181368; Fri, 06 Nov 2026
- 11:59:41 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=WZqhRt+V
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=EZQDuZNuws1ikcoVHzG7GXK+3VfznaqQ2EHawvfd1nw=; b=WZqhRt+VJHP/2njNbf/QtsBVl8
+	qDU8VlUBdWpv0N1miQxdsIsnJmyJpcT00O/g9Az3/K+8Bvx9Jag/1gEeZjX4G8EwvcgklYtN0W8FC
+	L/ZOd2FNQmy60jG2LnviDVWi/FRxa5Nri4bkxwyZIMR5P9zB0uIjCByOHnyJt7tTTIU5iPG6ROJp5
+	N0d71A3pYjjVjowYCJgjJZkkcR+6zYjkwIFDOSewLyQswuUcckRhq64DF9VJJAVl9BfS4ZucKXMUl
+	W8BkuJROiEHPzgBnKSLX9G1PoSIjOJOb+EHYJ/UTR5oEvmojtN2SW+6dFSib3pgIjaI2YvkR6nN4t
+	uKgzEgeA==;
+Received: from [151.115.150.205] (port=49746 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xPQ9N-00000000eD1-147b;
+	Fri, 06 Nov 2026 21:02:57 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH] net/sched: sch_qfq: revalidate aggregate after peek
+Date: Fri,  6 Nov 2026 20:02:37 +0000
+Message-ID: <20261106200236.716641-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,67 +72,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106160432.2552507-1-nphamcs@gmail.com> <20261106160432.2552507-3-nphamcs@gmail.com>
-In-Reply-To: <20261106160432.2552507-3-nphamcs@gmail.com>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Fri, 6 Nov 2026 12:59:29 -0700
-X-Gm-Features: AclHuK-x2stv42uMBHd5li29XslCAB0_-6f7YisoUMr7LicPx45if_utjKD95Yc
-Message-ID: <CAKEwX=PiM8vc27jOVdinOGO9AdCOpbKozu=Hj_b55y10-ynFyA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] mm/swap: publish cluster tables after reacquiring
- allocator locks
-To: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	akpm@linux-foundation.org, axelrasmussen@google.com, baohua@kernel.org, 
-	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, brauner@kernel.org, 
-	chrisl@kernel.org, david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com, 
-	ljs@kernel.org, mhocko@kernel.org, nphamcs@gmail.com, qi.zheng@linux.dev, 
-	shakeel.butt@linux.dev, shikemeng@huaweicloud.com, weixugc@google.com, 
-	willy@infradead.org, youngjun.park@lge.com, yuanchu@google.com
-Cc: stable@vger.kernel.org, ryncsn@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Fri, Nov 6, 2026 at 9:04=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote:
->
-> Under memory pressure, swap_cluster_populate() can publish a table
-> while its locks are dropped for a sleeping allocation. A cached
-> allocator can consume and free that table before the populating
-> allocator resumes, leaving the resumed scan with a NULL table.
->
->     CPU0                           CPU1
->     swap_cluster_populate()
->       drop local/global/ci locks
->       allocate and publish table
->                                    swap_alloc_fast()
->                                      consume the table
->                                    charge failure cleanup
->                                      free the table
->       reacquire local/global/ci
->       return ci
->     alloc_swap_scan_cluster()
->       read the missing table
->
-> Keep the count table, cgroup table and zero bitmap private until
-> swap_cluster_alloc_table() restores all allocator locks. Install them
-> under the cluster lock and retain it through the scan. Initial bad-slot
-> setup takes only the cluster lock because the device is unpublished.
->
-> A stale reclaimer can return the isolated cluster to allocation while
-> its locks are dropped. Abandon installation if the list state changes or
-> a table appears, freeing only private allocations. Restore locks on
-> allocation failure too, so the caller can return a still-isolated
-> cluster to its free list.
->
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/all/sashiko-outbox-181084@kernel.org/
-> Link: https://lore.kernel.org/all/sashiko-outbox-181086@kernel.org/
-> Co-developed-by: Kairui Song <ryncsn@gmail.com>
+qfq_dequeue() keeps in_serv_agg across qfq_peek_skb(), but a child peek
+can re-enter QFQ and free it. KASAN reports a UAF:
 
-I think I need a
+  BUG: KASAN: slab-use-after-free in qfq_dequeue+0x124/0xad0
+  Read of size 4 at addr ffff88800740423c by task swapper/0/0
 
-Signed-off-by: Kairui Song <ryncsn@gmail.com>
+After each child peek, restart qfq_dequeue() if either q->in_serv_agg
+or cl->agg changed. Also use cl->agg after the child peek in qfq_enqueue().
 
-here as well...
+Fixes: 462dbc9101ac ("pkt_sched: QFQ Plus: fair-queueing service at DRR cost")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ net/sched/sch_qfq.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-(Kairui - up to you if you feel like Co-developed-by + Signed-off-by
-or Suggested-by + Acked-by is more appropriate here. I just filled in
-the sketch you gave me.)
+diff --git a/net/sched/sch_qfq.c b/net/sched/sch_qfq.c
+index 6f3b7273cb160..dc813822d3825 100644
+--- a/net/sched/sch_qfq.c
++++ b/net/sched/sch_qfq.c
+@@ -1100,17 +1100,24 @@ static void qfq_schedule_agg(struct qfq_sched *q, struct qfq_aggregate *agg);
+ static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
+ {
+ 	struct qfq_sched *q = qdisc_priv(sch);
+-	struct qfq_aggregate *in_serv_agg = q->in_serv_agg;
++	struct qfq_aggregate *in_serv_agg;
+ 	struct qfq_class *cl;
+ 	struct sk_buff *skb = NULL;
+ 	/* next-packet len, 0 means no more active classes in in-service agg */
+ 	unsigned int len = 0;
+ 
++restart:
++	in_serv_agg = q->in_serv_agg;
++	skb = NULL;
++	len = 0;
+ 	if (in_serv_agg == NULL)
+ 		return NULL;
+ 
+-	if (!list_empty(&in_serv_agg->active))
++	if (!list_empty(&in_serv_agg->active)) {
+ 		skb = qfq_peek_skb(in_serv_agg, &cl, &len);
++		if (unlikely(in_serv_agg != q->in_serv_agg || cl->agg != in_serv_agg))
++			goto restart;
++	}
+ 
+ 	/*
+ 	 * If there are no active classes in the in-service aggregate,
+@@ -1148,6 +1155,8 @@ static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
+ 		 */
+ 		in_serv_agg = q->in_serv_agg = qfq_choose_next_agg(q);
+ 		skb = qfq_peek_skb(in_serv_agg, &cl, &len);
++		if (unlikely(in_serv_agg != q->in_serv_agg || cl->agg != in_serv_agg))
++			goto restart;
+ 	}
+ 	if (!skb)
+ 		return NULL;
+@@ -1271,9 +1280,10 @@ static int qfq_enqueue(struct sk_buff *skb, struct Qdisc *sch,
+ 	/* if the class is active, then done here */
+ 	if (cl_is_active(cl)) {
+ 		if (unlikely(skb == cl->qdisc->ops->peek(cl->qdisc)) &&
+-		    list_first_entry(&agg->active, struct qfq_class, alist)
++		    cl_is_active(cl) &&
++		    list_first_entry(&cl->agg->active, struct qfq_class, alist)
+ 		    == cl && cl->deficit < len)
+-			list_move_tail(&cl->alist, &agg->active);
++			list_move_tail(&cl->alist, &cl->agg->active);
+ 
+ 		return err;
+ 	}
+-- 
+2.47.3
+
