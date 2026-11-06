@@ -1,111 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.141
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793938037;
-	b=jJRfLCT2JCzmPK+hQrRYHjObI6U9xOc01x9LD1ZJtVkfMvLUuWDPm/QZSbNuanjrrKk6
-	 o7zpga6ob2/yZwIACwCdH7h21cSpQGMT+Ccqe3Zes4eezNfArcRv1J6ZktuzfLg9qmgHz
-	 pHgNAbhpVnS0NllAQFjOsrgtARIW5Esk5PEZx9YAZCS7R3+5y3zpavfYnI+fCKDpeoLJl
-	 Hv5vnt86FRNuF19pedzL0izSrLmllZUhDszvRCQYLDFoZCe/VGXARdoDxbPd8LRTCKurU
-	 0flBWWEmXvZIw1GeBFnmzatkfhAXld70aPwKOVbSo5Y1knTSSMo3Md1zwvvwQPLszaw==
+	t=1793938292;
+	b=x6awJgZj28ljb0tlwWSDTkYeDqJV5wFU1ynQSr/bqmumJtCY2QulBhcPKmIH05urKcF+
+	 UzKOYpOr4kbFnedLA4fg/Ihnsx7PSJbxxN8BilW8Sl1ouyQ4E4KOcH/T8qcDkcleCQzjs
+	 cYe4phGQT9c2vqyqGNGhZ9q8ZIJL8D/PuzuNZ+qMDSfE7FcebXOXki+fSQz0qU3yOxJxs
+	 jayYp+FKDpo4CsERnHCvzsb65HIQL+bKihLd6uIuNTwGC6+BChhhAjsiokGlNlgvcnENT
+	 gYKcz3sTfNep/i7OQEAwTRFqwVaFiGim8nc9gvuSBLURE8phHtYLU7ZuSWpvT2UJjxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793938037;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=G5nYY2ZUWgQk+ZAwY/AIoQKnH7TbOl9wmsYlDerAcvU=;
-	b=K68UF/GPvUin+EsYET2STqH6KFfmuRvaKXVBX57QZG8OG6vlrDiqwiicCbMefY24OZ/J
-	 qbK4aJM/Ye7M8OYRxPm/YWbI0eCPTO6hf+zk2wOnNRQBYDGRHW8/z7720a6gi23C4oLQU
-	 79QHdLI/YAxoAL3uRp9kXAvtkaaxbkVnIbZHrkpQQKk0LVqDQqJ9rNsDgObzzZID4ZrWJ
-	 AcHeLhj54c+fM7CQlp4F9fYwRWREFLQiw1lP4W2qU7VTp+WY3jTrARmwRUhzGPyoXHl8z
-	 QKcz5jDuyNknCvzkHVZo4lCcTmOt1v/8H1FQIuwdwBI7FoRT8ihxLN68vWO6q3TD3dA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793938292;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Z92dFtGsD7f/QDD5XfJXZq8nkBYV8QMmfDZuVo5drRg=;
+	b=zInM0KbP21vNxUIIDevR76OZwWYCkDR0uxR7tbQ9FfcjXKQqJCuauhuXUq71PA/9DMm9
+	 XdhrXWt/hJ9nh7ZLhQ0IAfqQClMIVL5ova2k5JSrRXFDHMpfywnpaqHicPUKnrsRBnct0
+	 PVma1LcSr/scgqJlvQB50F1Fkg2m7H6hOXSOIP0DBHOzb5zPjqjr9mKpvnRkOcdJ646dd
+	 JxTW4iaTWY4e7PRQP5F9SoIRvWcUht1sqenzRIRK4QD8qUmzN5Kikk8sBfevy0m4dV7BM
+	 FBWfgLiNei51drAHLlPoBGKmFCTw7QZVmEqZ3HmqC2JcC59e6TFiTochQc/aUp8QEiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mckelvie.org;
-	spf=pass smtp.mailfrom=mckelvie.org;
-	dkim=pass header.d=mckelvie.org header.i=@mckelvie.org header.a=rsa-sha256 header.s=fm2 header.b=kBubSxPt;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Yo1yfT0s;
-	arc=none smtp.remote-ip=103.168.172.141
-Received: from flow-a6-smtp.messagingengine.com (flow-a6-smtp.messagingengine.com [103.168.172.141])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H2gKWQjv;
+	arc=none smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D678B606A31B
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 04:07:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D678B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mckelvie.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mckelvie.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51A9606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 04:11:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A51A9606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mckelvie.org header.i=@mckelvie.org header.a=rsa-sha256 header.s=fm2 header.b=kBubSxPt;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Yo1yfT0s
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailflow.phl.internal (Postfix) with ESMTP id 156001380E19
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 23:07:16 -0500 (EST)
-Received: from phl-imap-04 ([10.202.2.82])
-  by phl-compute-01.internal (MEProxy); Thu, 05 Nov 2026 23:07:16 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mckelvie.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793938036;
-	 x=1793945236; bh=G5nYY2ZUWgQk+ZAwY/AIoQKnH7TbOl9wmsYlDerAcvU=; b=
-	kBubSxPtCPYauvZQaS5oXImiMfU/jmNI9JYdbRhuIKmBJi6NeA6ZCdV+c4FIAV81
-	xUJShdscTp6ihdaEOetNWBD/Qq21W7fM7R5jztrJQNCXsFk4vX1FEUxW5DfGbITh
-	LT+V77Tfgl4JyZ5GcTm363+FLS5sNDYblIcn5Yp6YeFWF/Bu4QmIAHuBvQ2u39Eo
-	8IjtMkQYhsjjoNUonP6Oae2cTK+1qA+1CyK7N6SRnTQD8/oEgowKwfPNo3yx2sLP
-	4zPu5JzBDTmMtrJ6OPJxsRodSDhS0zFiT7yqtWM1G3FAdKb9icUgz/+JJQ2DnT+K
-	4TXMpng+AY69GXeJXWp6lQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793938036; x=
-	1793945236; bh=G5nYY2ZUWgQk+ZAwY/AIoQKnH7TbOl9wmsYlDerAcvU=; b=Y
-	o1yfT0sQj6xt+zhYA19Mg1m1ycxWAVI8xW1+SBM0y1PKsxb1ZWwzismyCILX3nw+
-	/1efe8AKm5MrJJ/khxqjVhPuoqYe8kQDbT16JLed43g5vFTaj0Kp++NxCunRJ9DU
-	EJwkwdhogVYRcSWr7CKcSQrcjEQyX2g+2Y5HpBDlkJ5+3cIYVEb+3Bj/xR/w+LE7
-	YGKSX6yn3wMHnggKC75KnBu6BRE/KbWws6oHNZbqOUonpvmD0kF7I6iuEWDJrv5s
-	fBFoxGLp7poB9HP57WKak8gkguwdFAVho+nFinKhPmkN+0EAr9Ll9iOtz+e5R1UG
-	g35B9CqClveABvSB5hVjQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=mckelvie.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793938036; d=mckelvie.org;
-	mf=PHdhbHRAbWNrZWx2aWUub3JnPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:VWTSKXI7LXxbMo+NWHYnWVQfsNois2kFMuaYQaGkbo8fib0
-	fB8HPTjGkAJn911dCkY9unpRKqahKZHS5aE1wEQyZUVwURDlTTWNHpbRxg02F9xj
-	Tdge4KN4sxvdMzT8bK0OFcc06A//rxXb8/IPgvzaITq8f2vA8qxUgJGIReidkgAF
-	9RJkkV97YgEoOBIJ1Pqa/g1OekC7UF8NM5Bt8nOcvQrM4FDHCQAY4CerG6j5ogm0
-	O9Hwph0AOSyamaDywYtbiuB2YAHhtsi+IX98y0QmYW7yXm+NrkxAVVaSgzTyyrm2
-	HpQevHvobf8K4oXMzDR3PFdme0pv3yRYOHRf7OQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:7Q0YJOQ41HYghfXExm1nu2Mq4vLguoRagadQaCcb1V8=:AyM6iXix/LBJ1KVUMz1sZ8R/5QyWywIk04wYBUBJUvg=;
-X-ME-Sender: <xms:c1LtalOQehey5HKapZL7vU0t4aw4VaPAiYSMmDVjDnJl51_xzkXNcw>
-    <xme:c1LtaizZ7P4YnSF9gPtqDhTMmwyWvfawzkPZ3ts6s1u7QFMUOtW5xEcv7LxZzi3TD
-    8aW6DIHZ2DTkdmmbCUBjK_MzSVZ9IOzVS07K0A6BKbkxb6bHCDx-Cbv>
-X-ME-Proxy-Cause: dmFkZTGYngjZA3QO16kR7vUd76ZuOlzfdYRv7gUrowK5koaR3eEEEFQN8LT13GmogTVJGm
-    sG6tD4po2A8kUomiq3oOpUWXnOYC2r1u6giN7i2fgJbZTCzvCBUU6ZgB/0tYKeAxtZhWbU
-    qLjPgm3vEpnz4e8pn2wmHYJo+aWBj6+0EpgoozBQAdcFcfiLYRiyomForHQCI1rYFgjBH/
-    sr/3k0A+CP67Jo/JfiRo1u25K7FkJa8EXZMJPIzLfXy0c07UKHbLOJw1yLAgxVViTTFHxk
-    Fq/mjM/+Bmhl+wynEfLU531tT0dVAwVqh2hDhbTEYtq7r6Mky6d0j6hQL0VkC/3qDVB7B/
-    dCPHPOX/87ikGhbExRDhnPaByo+lgUsPlCct/8f+GfjhBbl7EU8HfMYwKUwnDBjebw0EDp
-    Av5zpsDIeTKJkXO8j7bup9bnsAOzFpYdqusp0HIoF9p/8Wldhl2fBLsm+/fgvsrYRUHH3X
-    7keXLqu8HSCfhIxlu5/tieN/6rEWztHVT3XHdQX7FflHgbDAIfLI1SmyWcXwOe+fCqQpYN
-    bpfqQhgZ1zgTYd///VAKymjB/mWJ2FpWjfzzmQYjSxJNYEnTj9/wpxejcSXtF8gazeaGU4
-    j/lFRdChYfsee0/MyihOj/yY4G0WNJVp1r5c5v354gPHqJ+O2FXkFo95vicQ
-X-ME-Proxy: <xmx:c1Ltau6h7yTrr5zr8g8IaP6gaVeEqNSfwnvJneUXOeedmNntWcEA1Q>
-    <xmx:c1LtahM22ZRxV8BMYGowo9roXPYDpsZLM4iysOjdy2jY10iJxFzQjQ>
-    <xmx:c1LtakvnCkHvj7repaMd6HHqUm_RojX8ChdzQrnH61dtRDsIlyO_Zg>
-    <xmx:c1Ltasb7xU-oNl8kubhRicYY5uNRi94ur8U88Me7yBmmdYFIeHlt6A>
-    <xmx:dFLtauvUMjYi-uXIJQkOAsYsuKlgovySyWDLyvRH2-ZFnalu1e6oUopx>
-Feedback-ID: i53594642:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 6A540B6006E; Thu,  5 Nov 2026 23:07:15 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H2gKWQjv
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so299974a12.0
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 20:11:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793938290; x=1794543090; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z92dFtGsD7f/QDD5XfJXZq8nkBYV8QMmfDZuVo5drRg=;
+        b=H2gKWQjvKa0FHrPs7frV8FiyVDSOYWusKMVgtbEnOYuAIDxQZlFxdeWRvtfDUp+mHQ
+         iVnIpElA/XQDTsllJFBiuA5Y8qc6Xv7pK8Px8T3vzmsavqY2VrQGfrAzGzpOL9ntsBaG
+         wRcwzwKL7A38PqQ0zKwVUYPv0qnQNsfoFQi3whiKZ2It4Cm5S+ZakPMilzHHZUqqgCuM
+         QC4gHGwADFYhVTJGZqS6t87321lCFnFJklGhh0vfxHs5H6LJrlN/mQekMwzpIrrSWKBN
+         WKvucCASwiyhKTqAvQnpdr3UeQ3TUsMd/C8nbHSjUTG6T+P689SnmZTK8nglqa71DdVQ
+         xvdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793938290; x=1794543090;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z92dFtGsD7f/QDD5XfJXZq8nkBYV8QMmfDZuVo5drRg=;
+        b=KX730P0KHNnjsHkyzSP1halwlloFIFCMliFPA08dYSPMmw5NQWc0szSL9HuBYqZoaM
+         hD4eg4yU0KK5QyhBS+l3+ymNo3b654WOcSSEOP7EthVIZn/9oNQi+JDhprFuRYSW6kQh
+         W2l+oKbnRbUaD9TO8QYbkTPVzFUwtfGHGuCdwtlSWFIPvgpr86gogymlZxFUGSZucUna
+         Y/929T7EDIERYCldoqjXhWefD404KrbtROVZwC7XmG6vghlVLDJEHXXqbgIJkNrKC6hK
+         x/rDEXwaMVmE+cSmah1L2Hi/IYGAtQ/HhCF+WibikBSVtUGrftw8XtQc/jmgCn/7IOkn
+         qGew==
+X-Forwarded-Encrypted: i=1; AKwUvByrvXSe4nQPBq7J3NtXjJ2NaJd1a4R1g81rDEhMbIjPRxMV3R+q1tKJx7OSJmrKea/WuPHnRsk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+fQiciQVcRMLaow1rXgLqT2ofKJXDgQhs/huNA3WYO4bI22gmS
+	o75kMKUi+bqdwfrgFq3Wz+XNFRrDWeIWWiP1FJkWCJnA2cHPfJ87JgRd
+X-Gm-Gg: AYBFou030SWZav8sw3fTzGY4LEr8bvzVuITZiOeeFtkmbdUUthK40z5mJmWRGT2giEj
+	9eh9QqH/VYYFxZI38fEfPNuFRm/7lXJayYHgaEKRh32D3abRjrDLBIOBM3+1pJgrGinDjLz7ADD
+	US8VtjcMy6IG+6ETPfuhb2yZODMQBo65iLTZRCv+UPquTBjZdB6891Y/BfngAMTiS2vb6zDMbP8
+	6I35KnpJNS9zJqEFRMsldeaXoPwP8zr8fOrOg3SsXUiYr/IpA84TgHUURvBV7LAp38PpGOLUqLW
+	RGb7ZG2bAi6xcpZsTmIEVcSG+vg9VsaybjHPc7JzQQJ6VFPmEaeT1iMzV9+y8WtdIxmFZxIEHqt
+	8qD0ZObtGwKPpKxdveqqwsTdsOemZo7SGCkQJ0vg/pmqFJLwYVOIIGHttIYc1CtAUaVm0E4GvZu
+	4G6aT12jeXbILp4Yn45I1spnIwtP2erMub6lRLc8dGMbfIgzfR6VSPKSapUFVFHzxJxrupMfj9b
+	QjvJyrvMM8SSUxxRXBJrR+H428RlZ9NNjGm0NGI8cVurHGPvwEt8tM+hsDTySATb0CAqmLOINOC
+	2h3rsXtBNsP5Wrh2ZVmCDMLJClgBFTkqZHxNhtKP2dwmMehTfoWqwS+kMlM3rL4Zk8ge9nVaFHH
+	o/tMlPS+L1Sw7
+X-Received: by 2002:a05:6402:3808:b0:6b4:5d8c:95e2 with SMTP id 4fb4d7f45d1cf-6b597553644mr863309a12.4.1793938289842;
+        Thu, 05 Nov 2026 20:11:29 -0800 (PST)
+Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b664ae54edsm251088a12.15.2026.11.05.20.11.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 20:11:29 -0800 (PST)
+From: Amir Goldstein <amir73il@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	stable@vger.kernel.org,
+	linux-unionfs@vger.kernel.org,
+	Chris Mason <mason@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>
+Subject: [PATCH 6.1 1/3] ovl: check that the parents of volatile/dirty are dirs
+Date: Fri,  6 Nov 2026 05:11:20 +0100
+Message-ID: <20261106041128.3797453-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,54 +99,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: A9qJPwTAQC4c
-Date: Thu, 05 Nov 2026 23:07:15 -0500
-From: "Walter McKelvie" <walt@mckelvie.org>
-To: "Eric Biggers" <ebiggers@kernel.org>
-Cc: herbert@gondor.apana.org.au, davem@davemloft.net,
- linux-crypto@vger.kernel.org, stable@vger.kernel.org
-Message-Id: <47a49300-5b78-4723-b67c-4320aadfaf43@app.fastmail.com>
-In-Reply-To: <20261106034925.GA3877@sol>
-References: <20261106034150.1159818-1-walt@mckelvie.org>
- <20261106034925.GA3877@sol>
-Subject: Re: [PATCH] crypto: algif_aead - Allow gcm(aes) for privileged users
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-> Is this with upstream iwd, and do you have a source code reference?
+From: Chris Mason <mason@kernel.org>
 
-Yes. I'm using upstream iwd 3.12 with upstream ell 0.83.
+commit e34d2ef818e4c7676d8d8e1bf43e6a1ed39efb2a upstream.
 
-The reference is in ell rather than in iwd, which is probably why your
-grep missed it.
+An unprivileged user crashes the kernel by mounting overlayfs with the
+volatile option.
 
-iwd's EAP-TLS, EAP-TTLS and EAP-PEAP implementations hand the TLS
-tunnel to ell (src/eap-tls-common.c:641, l_tls_new()).  ell's TLS 1.2
-cipher suite table uses L_AEAD_CIPHER_AES_GCM for the eight
-*_WITH_AES_{128,256}_GCM_* suites:
+A dentry that serves as the parent of a lookup must be a directory.
+ovl_create_volatile_dirty() walks work/incompat/volatile/dirty by name,
+and ovl_lookup_or_create() returns an existing entry whatever its type.
+A file or a symlink that another task creates during the mount becomes
+the parent of the next lookup, which calls a NULL ->lookup.
 
-  https://git.kernel.org/pub/scm/libs/ell/ell.git/tree/ell/tls-suites.c?h=0.83#n1220
-  (tls_aes128_gcm / tls_aes256_gcm, used by the suites at lines
-  1322-1425, e.g. TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384)
+An unprivileged user mounted overlayfs with "volatile" in a user
+namespace while a second process created a symlink named work/incompat,
+and the mount task oopsed on a NULL ->lookup call.
 
-That maps to the AF_ALG name "gcm(aes)" and is bound through AF_ALG:
+Fix this by returning -ENOTDIR from ovl_lookup_or_create() when the
+caller asked for a directory and the existing entry is a non-dir.
 
-  https://git.kernel.org/pub/scm/libs/ell/ell.git/tree/ell/cipher.c?h=0.83#n224
-  (aead_cipher_type_to_name(), then create_alg("aead", ...) in
-  l_aead_cipher_new(), and the bind() probe in
-  l_aead_cipher_is_supported())
+Fixes: c86243b090bc ("ovl: provide a mount option "volatile"")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+[backport: no ovl_start_creating_upper(), check the child of
+ ovl_lookup_upper() in ovl_lookup_or_create() instead]
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+---
+ fs/overlayfs/super.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
-When the probe fails, ell drops those suites from the ClientHello:
+diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+--- a/fs/overlayfs/super.c
++++ b/fs/overlayfs/super.c
+@@ -1331,18 +1331,25 @@
+ 	return err;
+ }
+ 
+ static struct dentry *ovl_lookup_or_create(struct ovl_fs *ofs,
+ 					   struct dentry *parent,
+-					   const char *name, umode_t mode)
++					   const char *name, bool is_dir)
+ {
+ 	size_t len = strlen(name);
+ 	struct dentry *child;
+ 
+ 	inode_lock_nested(parent->d_inode, I_MUTEX_PARENT);
+ 	child = ovl_lookup_upper(ofs, name, parent, len);
+-	if (!IS_ERR(child) && !child->d_inode)
+-		child = ovl_create_real(ofs, parent->d_inode, child,
+-					OVL_CATTR(mode));
++	if (!IS_ERR(child)) {
++		if (!child->d_inode) {
++			child = ovl_create_real(ofs, parent->d_inode, child,
++						OVL_CATTR(is_dir ? S_IFDIR :
++								   S_IFREG));
++		} else if (is_dir && !d_can_lookup(child)) {
++			dput(child);
++			child = ERR_PTR(-ENOTDIR);
++		}
++	}
+ 	inode_unlock(parent->d_inode);
+ 	dput(parent);
+ 
+@@ -1363,7 +1370,7 @@
+ 	const char *const *name = volatile_path;
+ 
+ 	for (ctr = ARRAY_SIZE(volatile_path); ctr; ctr--, name++) {
+-		d = ovl_lookup_or_create(ofs, d, *name, ctr > 1 ? S_IFDIR : S_IFREG);
++		d = ovl_lookup_or_create(ofs, d, *name, ctr > 1);
+ 		if (IS_ERR(d))
+ 			return PTR_ERR(d);
+ 	}
+-- 
+backport
 
-  https://git.kernel.org/pub/scm/libs/ell/ell.git/tree/ell/tls.c?h=0.83#n413
-  ("Cipher suite %s's AEAD cipher algorithm not supported by the
-  kernel")
-
-With af_alg_restrict=1 that is what happens, and EAP authentication
-then fails against RADIUS servers that only accept GCM suites. This
-is the failure in the linked report. An affected user confirmed that
-setting af_alg_restrict=0 fixed the connection.
-
-Everything else iwd uses through ell is already on the privileged
-allowlist, and ell has no ChaCha20-Poly1305 AEAD, so gcm(aes)
-is the only missing algorithm.
