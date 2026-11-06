@@ -1,105 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793992024;
-	b=XnDUUEEzVQqvcVmtKfMb/lmxzzed2c021E1XJPkL0ZshBcvtbcXwf0ABvlKu1I36PE/e
-	 0Yl9KGt0GRDL2QPYjdIBeD3u2mO/Bpal60AYVHbBuKGRcvQGhB4NbAsrhNQVvCW1eUsm4
-	 Ndx1bBUcCSu/kwMQcaPVDzdLi6XcnVHqSWson0LcTbbPalwQNMocxhjtIZr7MFmObTVz1
-	 owu+V9xKXbFt+PCNYcElnC3dKoOe5LlO/8CYBDG12hCIeOESvUqQn/TD3gfZYacGmbxt3
-	 lVkJT9G+81LK43DnBpFaD4CN/CkHf1jPZWVmXG1m3lcU11+r9BKqlzkGSgOmmbgesBA==
+	t=1793992460;
+	b=5Q1AAI/U5Isbp53FaAWGYL/H6UX+tp/CrETKBIEVoxoAd35gnhgJIQoKMGje0QvqulfS
+	 jkLpPF/3Q0+20XFM8Nb6LxRMIWii9wf/c16GFZfDe7IufsTlq/7fLooLt+BDz2WEw20mg
+	 ZJSOvR6HCB6YGwRF1rLgdqHcc9NkJWtgQB2wX7fTolLKTNoA0wwS8gmpiXwuWotC3bxs3
+	 ZYmnhqkHR31P8GQWM27b6rI61Gp2vC9QPuG8LAGTgoLAAq8tJtc5zl8mAUw8HWHR9/Q/I
+	 Xxq2avKXX+EwAQI5O575Y+oxesjVajkDZcrn+rvZLxQZYlsb16WajbHlrYFg2PFumSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793992024;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YMJu4XLBqQ/fEGisX73M6D244sbUdTxsQ1NSbRoweVc=;
-	b=D1uRWpEZmB0Kcbbd0zlPptydRpYlXTxZlqeSAn4vh9DpitU3zLtiFjpnPKlacPEW83aC
-	 IrerquReYwspBjExT2V+eOxm9aiErKDHqytC215waWTpHlzi/9r0/UqqcSx86FAfnQqYS
-	 PnNYa4VNzUYUim60Kj4+Q9M7ienZrA9u8js8KLpcxiWNWgORPsBKSVjZj0HJEuSzmDXlU
-	 FC9m7t93H0g/FGutT/ln6HyHLq34RdMcWvkjax+g1H6bb2/Z/6w0hUMcNUQ74XdzTgmQM
-	 vhgOt2YBaBdrZ/LJtxvfm0+M/zzaGN91imJecAqK9X0Ksnh7KSrfir//wcIhohcQhtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793992460;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=akmDYdWU5FZhev4F7P1UhearEYwmN1Tk4YBFQtfnfmw=;
+	b=rRjKclT/jpg28r9vNSLbWKAY5lGvZawUyjiKweag+yiIIZWTeUmjdR6g9DJQWHaASIX2
+	 8fW2UUjnFSJm6XCVToLd89NKx0NTtU4B+qQNmMGNiKNfWOxZfXijssKQb/w15I/J0oLB0
+	 44a7PuN6AbTzX871qjm8OQCRhVTOafykKorvIMXS/oSsRw9/5LxWdtO7ocRfmvALPcHZU
+	 hwsK8bOBr7fSEDX+Zhxw4Yf33sx7Ea5rnHZGrqSoionmIDzjaqUTH100kmuI/S4WdmIYp
+	 XeeLQE34aW9ThlpDQeOYUu2n0yJ8HuoneTnYT1cw8khvSpHOc6TCS6JcdeqUzxELaKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="wUtTXUy/";
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SyzRVsZI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E630606A32E
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 19:07:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E630606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8E8606A329
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 19:14:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wUtTXUy/
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4922dbcee23so583648f8f.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 11:07:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793992023; x=1794596823; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YMJu4XLBqQ/fEGisX73M6D244sbUdTxsQ1NSbRoweVc=;
-        b=wUtTXUy/GvL1ymzkcDRgg6xpVxA1BZEB7KkgnwMqpQO5bTNN74ON1+fT6zkGlJlm34
-         /rbI2zJZETBP6tU5Oq+AqkP2KvVuvPOTe22ruPWbPBtmUcm5yih9bOelUjfTMz2V9mkT
-         b7+mbqaqSfYM2ZAoKchwTcRJiEQCpP1gznRY3tI+eAla24c/cjrC2b7sP3yq5AaHKmco
-         p3P8j5L04jyBAqNPs9RRushrAlNAZSExy/fLKZNVdKh/q3Sv3BRZuk3M4ut1AwvBp+dU
-         A35pGA+70UDUHabCbUdhKjQOgrl0cQceDy9caSk2RpIwDmDNNQfnhS/jQ7wBG8s87FnV
-         QsUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793992023; x=1794596823;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YMJu4XLBqQ/fEGisX73M6D244sbUdTxsQ1NSbRoweVc=;
-        b=etLaoIvZXL0OXeG7SVHuA4Ymx9fvx+OrrSs26C4HdZlLlOWxwxfYM5fWE+vk4LHmaj
-         CO6h6SzdKzjeP7Hoj6PdbpLE4YsW5/Bno1ohPhujIuBX2rlSosFBSdrFP8wu4pW/Hhee
-         dJV+JvNwfKupHaN/LeWmUPRQU0djWzvtW5w6MsCU9J6KCLYxfKWD9UqXhXC3T98DX+I3
-         JXuioF5KnWo2XjwT3fQagf9ACBntpimyvsESoc//oRnd+4/KPaubRJJ3AMRZaO7V78Cx
-         5+l8d74fc/bCjEAxpn1Rk1hhVwKVD5Ry1/3M7+L7IMmIyJeODPIHIExUc1Yp5IC6KpxQ
-         sS4Q==
-X-Forwarded-Encrypted: i=1; AL+hErHb6iStr9z5+FNngWFRryqRkTvjPF3fDbBieiCxZiJw1/sHEPkzmS+2/oHSJYdW6gweOxZkl8g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+sF265kF9d4KSx+G0iVRjaWjxAISVauYIMvq8i36d2WD8PQEQ1
-	JnPMXpU5QqFmdpUE0XDDKt6XlX3Ln/YBLOgWh6O/x17HFb5ZE11pmPBM
-X-Gm-Gg: AYBFou36BWJ7Uls2Rqu2dl6lkLn95NvE5rio99sy9rXsWfScyeQs8Gmb8Io9J7IYlcj
-	sXeYA3dwzWBCwSChu0ENxd+dEzlIRBYgETsYPC0YFiJJ1b64Atkn7ldUnXhs01iCLqnakuXPezm
-	JRNLg0EkQUd0yxxlG0/CXYlIXqRLvil8Z8JNDyI5/UT1cshL1Apu/RX7yjZ3Hh71fZNosGZeIWq
-	w6P3Rlxg8M5W87tSXQo46pC1zUJiz7vJwk7xBXW1ndvKE1bBRQYO2wHYGjN2iEpJ+lTh5jHQZu4
-	JIYxOlHJxfBfoMk7ITTiLOI6vYS6UXWTkcB8LXqy2mtj4sANYz2J2X6whmRFL7HdKnNjogVUwy7
-	lDzKnlg3T7+vVSu276uNXx9NQUMpsPLAaK2mmZd+rjeQCTrCCHJcGRPMHnD/Qb+4pWlhKmZrmLW
-	sEQP2Wz+lzcnGWNL2xney02F7KVU+P+OWxi+UDlwaGWVpnHkZoKqe7pjHz+ZmU2UxKcCQPRoRx3
-	svZn2fKMjNsglId3Ny8XR4Vs9YWbQEilp0JjPtA9lrLG33EG3DIeRQVh0ogQljjJBIRAv1B87RV
-	ENQP+KN9DXoKLu9bk3aueb43CvCXMktFbJNF7z3Nh/hKRxysGxTpzvaOvt4UDJ9p/6zymm84qIB
-	kMM7kWXGRuEOyQUw=
-X-Received: by 2002:a5d:5d83:0:b0:48d:fbf4:895e with SMTP id ffacd0b85a97d-492764aedeemr6683116f8f.11.1793992022611;
-        Fri, 06 Nov 2026 11:07:02 -0800 (PST)
-Received: from localhost.localdomain ([74.244.226.39])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4930a5a91dbsm3960533f8f.35.2026.11.06.11.06.59
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 06 Nov 2026 11:07:02 -0800 (PST)
-From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-To: linkinjeon@kernel.org,
-	stfrench@microsoft.com
-Cc: icb@fastmail.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	ematsumiya@suse.de,
-	lsahlber@redhat.com,
-	hyc.lee@gmail.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 4/4] ksmbd: check a request before signing STATUS_NETWORK_SESSION_EXPIRED
-Date: Fri,  6 Nov 2026 20:06:22 +0100
-Message-ID: <20261106190622.20990-5-mike.michalo@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106190622.20990-1-mike.michalo@gmail.com>
-References: <20261103171742.18816-1-icb@fastmail.org>
- <20261106190622.20990-1-mike.michalo@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SyzRVsZI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 984851F008A1;
+	Fri,  6 Nov 2026 19:14:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793992459;
+	bh=akmDYdWU5FZhev4F7P1UhearEYwmN1Tk4YBFQtfnfmw=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=SyzRVsZITZ0mdp7NRa4Ls/znhBOaPlRlMXGW0l7xCQqSnClHaoEZeJ1VelN63TfbW
+	 UMyC9GrAE4eHhpHpsZX0LbRPsSSoL8EBKWvD6dTEb+5OYKwgzpbbpioFMHx8FMIPMP
+	 VusIonFwgieUejhLyMQFbVI/l8JulAavnFmQOwU6eRUm5U97ChO2DeVoUrmrhj7a8S
+	 sJD1UP5SeKmbBXbYTleKS0iHot1geeAWfsUf7Me7nJArjN7x6DTSq7McQNUAPGUcoV
+	 eNq2G8xceDdDIGUmGySXFta7YEzIILTssIvskpEKOogxe+qh6iDJ2GR6H6eV5Ybh9j
+	 TtMHkigVj0AXA==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id D1911F40066;
+	Fri,  6 Nov 2026 14:14:18 -0500 (EST)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Fri, 06 Nov 2026 14:14:18 -0500
+X-ME-Sender: <xms:Cifuai91ncRZv7tpBTAytIGgzavEMHXCP-nIHtdAgtSD9t9evmOjXg>
+    <xme:CifuatjyNdP2lI8ocdbpUG6fqnPFr2O3t8gZ33M7xg12WL8PeYirX1f7Fb8sfFfht
+    l8cdAjXGyU7agbhg6F2H04iO4_zWQffzhdzYxcAkzW3Cp-pglUP_XI>
+X-ME-Proxy-Cause: dmFkZTGYjNCHkaNmY3Q+cj2cRyCZmJqRsCQLXmtu2Jep/ORnb0EPacyx7Xb8phlUEc7PkZ
+    ZggWDJBSumkvNeARz2TduytgpXPflraybKgrU1VTKQ7//glKxiYfLNtfzrd4xham3l2gnf
+    jq1BRy7dnhLJvym/9kOE+kWt5AJho3NaC2UevqURpcgq2+T0pod/N2eW0CXfbcLyekvzzT
+    PexvE5cVi0FLKm/boNjZMrIcnzmSOkdgAfmzShqP3bWg8wnlg2KUsabgEg+aatvVAfKymx
+    FBzvmQgFBalp5fmmNDDZ51P7G+5H3++J/YB1qk33aLvZ4ZKbBIb+aQdBfedDKDa7NIZrnE
+    1VrKs9bpWWgGXEqXGEZ9nBEcya9/aBzktiyPX+uvgf09Loc3WfJ00TX3MRzl/661ASkTc1
+    yZ1BI7pp6BO7aFn5bgmCbncN+fmaiHfdsHsfvbvqN56wI8094tWIciDtQ907HM9RsrGhDf
+    61Smu/iJq1Lg9fSjUrESDfKDx997p4SzvW5g2igIKlE4QKWbbhEhsIgKsY0KCnrwYc3uzV
+    7dHH249yFSlE4MI17P/8tjU1cBGMhz+FHOnGc84XcsPYnSXWdVJI9KbP0bT8g8L3vOb9Ge
+    aNkAVPUlee3j+07Zd4wLaAfFRhcmTuxOvRzeH0dSTXYIPGj8FGtbrWKy6omw
+X-ME-Proxy: <xmx:CifuaskE8rX-dfRT2DIc8zFv7ujWC1WPuv7S72EAAkIqA2beHkhh0g>
+    <xmx:Cifual7_8fFXCN-4BFEj-LG0MsexD4sZB7Z-IGY4CaPBHMYCK1dUMQ>
+    <xmx:CifuaqiK-tG-3yUOlaNZLYezOiC8o-iScJP-XxoBzXayP7PDt1QaGQ>
+    <xmx:CifuaqH0iJHhCIQJmH9esHcNZMAuJa2if_7L0PLSj-Nv9m6lY8GwvQ>
+    <xmx:CifuaoSMEbnKIF48vP-8Z_vNsgP3Vp_9zf5D_UiUDymbBb-ZxPi4vnv5>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id B3D8978273B; Fri,  6 Nov 2026 14:14:18 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,88 +77,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: ApVS97Y0QPbJ
+Date: Fri, 06 Nov 2026 14:13:58 -0500
+From: "Chuck Lever" <cel@kernel.org>
+To: NeilBrown <neil@brown.name>, "Jeff Layton" <jlayton@kernel.org>,
+ "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <dai.ngo@oracle.com>,
+ "Tom Talpey" <tom@talpey.com>
+Cc: linux-nfs@vger.kernel.org, stable@vger.kernel.org
+Message-Id: <f3fcdfbd-82d7-4e38-8932-42596a6259ee@app.fastmail.com>
+In-Reply-To: <20261106150159.847600-1-cel@kernel.org>
+References: <20261106150159.847600-1-cel@kernel.org>
+Subject: Re: [PATCH] SUNRPC: Honor page_base beyond the first page in xdr_buf_to_bvec()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-When a session's Kerberos ticket has expired, smb2_check_user_session()
-returns -EKEYEXPIRED and __handle_ksmbd_work() signs the
-STATUS_NETWORK_SESSION_EXPIRED response if the request has
-SMB2_FLAGS_SIGNED set. This happens before __process_request(), which
-is where the MessageId and the request signature are checked. So the
-response is signed with the session's key for a request whose
-signature was never verified, at a MessageId that was never checked.
 
-Anyone who can inject requests into the connection can then get
-responses signed with that key at MessageIds of their choice: a
-signing oracle. Reauthentication keeps the session's keys, so the effect
-lasts for the rest of the session.
 
-MS-SMB2 checks the MessageId (3.3.5.2.3) and the signature (3.3.5.2.4)
-before the session (3.3.5.2.9). Do the same: sign the response only if
-the request passes both checks, and otherwise answer with an unsigned
-STATUS_INVALID_PARAMETER or STATUS_ACCESS_DENIED, as
-__process_request() does.
+On Fri, Nov 6, 2026, at 10:01 AM, Chuck Lever wrote:
+> xdr_buf_to_bvec() takes offset_in_page(page_base) but starts its
+> walk at pages[0], so the page index that page_base carries above
+> PAGE_SIZE is dropped. nfsd_direct_read() sets rq_res.page_base to
+> the pad below the file's DIO offset alignment. When that alignment
+> exceeds PAGE_SIZE, as with 8K to 64K logical blocks under xfs or
+> ext4 on a 4K-page NFSD, a direct READ whose pad reaches a full page
+> sends the page before the one that holds the data. The defect was
+> found by inspection, not reproduced.
+>
+> Advance the page pointer by page_base >> PAGE_SHIFT before the walk.
+>
+> Commit 2eb2b9358181 ("SUNRPC: Convert svc_tcp_sendmsg to use
+> bio_vecs directly") introduced the dropped shift, but no caller
+> produced a page_base of a page or more until direct READ.
+>
+> This fix depends at run time on nfsd4_encode_operation() deriving
+> rq_next_page from page_base as well as page_len. Otherwise the READ
+> encoder accounts for one page fewer than xdr_buf_to_bvec() now
+> transmits, and the last page sent sits outside the release range
+> while TCP still references the page.
+>
+> Fixes: d686e64e931c ("NFSD: Implement NFSD_IO_DIRECT for NFS READ")
+> Cc: <stable@vger.kernel.org> # v6.19+
+> Signed-off-by: Chuck Lever <cel@kernel.org>
+> ---
+>  net/sunrpc/xdr.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/net/sunrpc/xdr.c b/net/sunrpc/xdr.c
+> index 7353109fdbae..7eef50634175 100644
+> --- a/net/sunrpc/xdr.c
+> +++ b/net/sunrpc/xdr.c
+> @@ -161,7 +161,7 @@ int xdr_buf_to_bvec(struct bio_vec *bvec, unsigned 
+> int bvec_size,
+> 
+>  	if (xdr->page_len) {
+>  		unsigned int offset, len, remaining;
+> -		struct page **pages = xdr->pages;
+> +		struct page **pages = xdr->pages + (xdr->page_base >> PAGE_SHIFT);
+> 
+>  		offset = offset_in_page(xdr->page_base);
+>  		remaining = xdr->page_len;
+> -- 
+> 2.56.0
 
-For a later command of a compound, the response that is current at this
-point is still the previous one, so the old code re-signed that response
-instead. Leave the expired response of such a command unsigned.
+To address the sashiko.dev finding for this patch, I've folded this fix into
+"nfsd: account for page_base when advancing rq_next_page" which is currently
+in nfsd-next.
 
-An AI assistant was used to draft the patch and as an independent
-reviewer.
 
-Fixes: a47634cd729b ("ksmbd: expire SMB sessions when Kerberos tickets expire")
-Reported-by: Ian Bridges <icb@fastmail.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
----
- fs/smb/server/server.c | 28 +++++++++++++++++++++++++++-
- 1 file changed, 27 insertions(+), 1 deletion(-)
-
-diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
-index 4430c8d6393e..bd4db44f06cd 100644
---- a/fs/smb/server/server.c
-+++ b/fs/smb/server/server.c
-@@ -107,6 +107,32 @@ static inline int check_conn_state(struct ksmbd_work *work)
- 	return 0;
- }
- 
-+/*
-+ * The keys of a session whose Kerberos ticket has expired are still valid,
-+ * so STATUS_NETWORK_SESSION_EXPIRED is signed. Check the MessageId and the
-+ * signature first (MS-SMB2 3.3.5.2.3 and 3.3.5.2.4), so that the key never
-+ * signs a response to a request it did not sign.
-+ */
-+static void ksmbd_sign_expired_rsp(struct ksmbd_work *work)
-+{
-+	struct ksmbd_conn *conn = work->conn;
-+
-+	/*
-+	 * For a later command of a compound, the current response is still
-+	 * the previous one here, so signing would corrupt that response.
-+	 * Leave this one unsigned.
-+	 */
-+	if (work->next_smb2_rcv_hdr_off)
-+		return;
-+
-+	if (ksmbd_verify_smb_message(work))
-+		conn->ops->set_rsp_status(work, STATUS_INVALID_PARAMETER);
-+	else if (!conn->ops->check_sign_req(work))
-+		conn->ops->set_rsp_status(work, STATUS_ACCESS_DENIED);
-+	else
-+		conn->ops->set_sign_rsp(work);
-+}
-+
- #define SERVER_HANDLER_CONTINUE		0
- #define SERVER_HANDLER_ABORT		1
- 
-@@ -276,7 +302,7 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
- 					rsp_hdr = ksmbd_resp_buf_curr(work);
- 					if (rc == -EKEYEXPIRED && work->sess &&
- 					    conn->ops->set_sign_rsp)
--						conn->ops->set_sign_rsp(work);
-+						ksmbd_sign_expired_rsp(work);
- 					else
- 						rsp_hdr->Flags |= SMB2_FLAGS_SIGNED;
- 				}
 -- 
-2.43.0
-
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
