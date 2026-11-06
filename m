@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793933932;
-	b=KZI/tyKlZMs7w2LwHmFn1QpfYMVwakPbd7qpAEHUxg1z2HOh+epo2JheaxF35lvR8zLA
-	 9wnSqX8Ey3K4oJD4JJSo/AlKGva+hO0R1Iejb6EPjEXTic61nOQE5sR03e45mWtzguQAL
-	 P5cPX0ZU7uAl+6Km3mygzKz6dWZISj7pw7v7/z9ZH018eY/SEop907z3YhHzg7RnCXovt
-	 2XO79zflu3guV7j5NZLwB6T/e3P3F/LcpsPIisU5pXG6greOV8NcxvK8gSZNwRocWD57F
-	 vEtGCfHy/iWlzxjpqU4O5Q7FhTDkfcZRFGpdi1ARTtQuGa/pO3yK76WPPc5L917ssLg==
+	t=1793933950;
+	b=R3vaBSD0RXl0+M3G3OHjUlKLpoF66VofXWuVjZjR3TVL1lQev1TYTiq+LEJzu6A2pIIP
+	 /nu1HAJ7EXom55usA3pDXtoCX/s1JFANhTRpjTKwgm2C2Bqdge2+MDWINjfhOt97qQ3DW
+	 9lTgrs1X0cYrJaiOtVfS+5Mu3n+HI5UJzBD+EbAmDwg7ZW9d6mI6Hhmtv1GUFxaU3tGn6
+	 m2hjVfSlbV9KHOBMURsmaUcrzSthUY1WNrIS+auyDmmVOBlPJrwe6f72syAm/ypgS/t6f
+	 9SJA/fQV9dLKOqA05Y+ol8kz7yY6lTm5RIjFsN2S8Zrc+KA7bznXjIRgKQcWYn0FDSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793933932;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793933950;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=NZdW0NiXClk9PgZ61P2TZ39TOtpvtagpxUqP5u6oOw0=;
-	b=n1KcUfAS2G4qkx/YC2wX62u/cvWJTD39XP04cv0U/g44WX+aifWYMQp2nR672vxEiNm9
-	 XSq0MErVqEnTWmk7CkTFfTF1VudiPXBXoL2LRDJf8Xr91/CtxNd/NTR3drPOF+h7K03Vo
-	 9W6XLnZpdBPGqRs2RFnyWYt2P5AfrihtGqrvUoQpoGnT1V3bc9TYKRQvFq1TPuymZAMPA
-	 6sGCkKGR3sa55gjud7rHdrR0YYtwsW5Vx+P0tc9l/Umq6d6YJiDedkSUhro4ToYrbgg1O
-	 9EdtGofq/2ocxKkxzgTNgoowDE3ZH4sQ4iEbQLcom4ghUL8m6Kr+GhkwGpmH7Nnk9SQ==
+	bh=wNS0JFPuz/dstBmPc15H+dir8vaseuHnMomHHh60oAk=;
+	b=Tb3tPVZJlHGAiB1ubo8MyLsoq9XLsPmsegjCKjZQnF3y4KgvwODA8tdcVDk92+CA5wWy
+	 edFAk3BdpKL0Qh3zRM0wM63YZpj6SgX+1Ezz7I3Jgcbd2w+aKcJmEaCZWDVnIeazbMT8m
+	 jEsxKzAeiKfcmzMQXDGSxoa7WSefo62Re3ZQ8dlmKu2rPfdnu92gP5KYygWDaGCsWNuaF
+	 nVEuSIRfZ9JepBKGF+vhWy9fiv2PT0nwAScopmWVw3uQko19UWbIsOnR5XFcX3mfF1jdt
+	 UIkG0EkPCShYF8KJ5WCANJUdztvuJD+qDQtggZ8/1met2W4k7fREUdVPbHCqZ/Rmt5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UuXWHnPF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=awbQkLvH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B90606A31B
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:58:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B410606A31B
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:59:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UuXWHnPF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEFED1F0089F;
-	Fri,  6 Nov 2026 02:58:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=awbQkLvH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B1581F0089F;
+	Fri,  6 Nov 2026 02:59:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793933931;
-	bh=NZdW0NiXClk9PgZ61P2TZ39TOtpvtagpxUqP5u6oOw0=;
+	s=k20260515; t=1793933949;
+	bh=wNS0JFPuz/dstBmPc15H+dir8vaseuHnMomHHh60oAk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UuXWHnPFMWFPmIASZREdY8OJqIwxQcQFvA4gKv3xKtN3dhigx2qeBp6qrwAgXF7Bi
-	 6LjMcyfqKkXLQmkl0jMWD91AEfZg1tnkLwepMA9lmCGDT6OJI4ZS4VsgFuPrsbMiJI
-	 DIb6T0Pdoh8bHzDTHORe6jKgBaHs4sO7PdtUz37W4kipLv1iy7d+aAsX46xT8DwPbT
-	 eIHVJAN42XzYMwcsZ3puZqrFrhL//T9tTVLqz/hbf6c/AjLm3V9l1emWLP9dWZATZk
-	 wH4sA8C8KjroQQICbKbfSpQHh8nPOJ/IefsRdJuKKfC/WMfSXTQVRZbdeE7HkbaYAA
-	 yes7zgZXkOwiQ==
+	b=awbQkLvH4dquJv/CJIZwgAWGROR61HFo3kMzfR4IX3pLHopfg708Lq/gR05EXLQ6v
+	 46T3twYH5CMA8Ti0BQA3NXVY+T8qRge++Qyloib5GP1jY/HZUvRlvbkYzC91FRDuhF
+	 eLh52cbsQYgryJ9m0UnOeQMOMpk2wpkOAsW+O82Abhx0myOZBLL8fQKvexCY9lQw27
+	 9lertU1GJTkIqaxq7ibJ0r/sqgFNCGWSUUB94LHij3YXK1/OMRqp8VcnSrYp4lXURW
+	 YCSdT0I6axDN00qIlpOY1KErq88qXQjAa/4Pzc7bPqZu1E3PP6WrPbomL27Xg8gfSV
+	 jtjjor+QO/4pQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Benjamin Coddington <ben.coddington@hammerspace.com>,
-	Benjamin Coddington <bcodding@hammerspace.com>,
+Cc: Benjamin Coddington <bcodding@hammerspace.com>,
+	Arun Potharaju <arun.potharaju@hammerspace.com>,
 	Anna Schumaker <anna.schumaker@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] NFSv4/pnfs: bound the CB_NOTIFY_DEVICEID array count before allocating
-Date: Thu,  5 Nov 2026 21:58:49 -0500
-Message-ID: <20261106025803.3937857-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] NFSv4/flexfiles: fail I/O to the data server once a lock is lost
+Date: Thu,  5 Nov 2026 21:59:08 -0500
+Message-ID: <20261106025803.3727409-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110459-venomous-panoramic-8040@gregkh>
-References: <2026110459-venomous-panoramic-8040@gregkh>
+In-Reply-To: <2026110417-pout-lent-db9b@gregkh>
+References: <2026110417-pout-lent-db9b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,44 +62,219 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Benjamin Coddington <ben.coddington@hammerspace.com>
+From: Benjamin Coddington <bcodding@hammerspace.com>
 
-[ Upstream commit 32f0967ea296d447925465c98e7eec71d4e2f755 ]
+[ Upstream commit 7fa2ad367abe6d3155daefb57331e7fce1a17afd ]
 
-decode_devicenotify_args() hands the server's notification count
-straight to kmalloc_objs() as the array length, without checking it
-against the message that carried it.  Bound it the way nfs4xdr.c bounds
-an attribute length, against xdr_stream_remaining().
+When a client loses a byte-range lock, because its lease expired and it
+may not recover the lock (nfs.recover_lost_locks=0) or because reclaim
+failed, it marks the lock state NFS_LOCK_LOST and fails further I/O by
+that lock owner.  Otherwise an application that believes it holds a
+lock over a range is never told that the lock is gone, and can
+overwrite data that another client has since written under its own
+lock on that range.
 
-Fixes: 1be5683b03a7 ("pnfs: CB_NOTIFY_DEVICEID")
+The NFSv4 READ/WRITE and file layout I/O paths apply this in
+rpc_call_prepare, where nfs4_set_rw_stateid() returns -EIO for a lost
+lock.  The flexfiles data server I/O path does not: the NFSv3 data
+server path never checked, and the check on the NFSv4 path was removed
+when the data server stateid began to be taken from the layout.
+
+Fail read and write RPCs to the data server in rpc_call_prepare when the
+lock is lost.  The data server path has no use for the stateid that
+nfs4_set_rw_stateid() selects, and selecting it looks up a delegation
+or open stateid on every I/O.
+Instead add nfs4_lock_context_lost(), which only tests NFS_LOCK_LOST,
+and check it alongside the open state.  Its lookup,
+__nfs4_lookup_lock_state(), is split out of __nfs4_find_lock_state()
+and takes no reference: a lock state is only unlinked from
+state->lock_states under state->state_lock, so one found while holding
+that lock cannot be freed before it is released.  Use it in
+nfs4_copy_lock_stateid() as well, which only reads the lock state under
+that lock.  That drops a reference get and put from stateid selection
+for all NFSv4 I/O without changing the stateid selected.
+
+Terminating the RPC in rpc_call_prepare is not enough on its own.  The
+done callback reads the -EIO as a data server connection error, forgets
+the device ID, and resets the I/O to pNFS (or, for an NFSv4 data
+server, possibly to the MDS).  After a reset to pNFS a new LAYOUTGET is
+granted and rpc_call_prepare fails the I/O again, without end.  The
+existing NFS_CONTEXT_BAD check does not loop, since the open state is
+then invalid and pnfs_update_layout() fails the reset I/O, but it still
+forgets the device ID.
+
+So when an RPC that was never sent fails and the open context is bad,
+the open state is invalid, or the lock is lost, complete it with -EIO
+without error handling.  An RPC that was sent and failed is handled as
+before, so a real data server error is still reported to the MDS.
+
+Fixes: d67ae825a59d ("pnfs/flexfiles: Add the FlexFile Layout Driver")
+Fixes: bb21ce0ad227 ("flexfiles: use per-mirror specified stateid for IO")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
+Tested-by: Arun Potharaju <arun.potharaju@hammerspace.com>
+Assisted-by: LLM
 Signed-off-by: Benjamin Coddington <bcodding@hammerspace.com>
 Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
-[ sashal: adjusted allocation context for kmalloc_array() instead of kmalloc_objs() ]
+[ sashal: adapted lock-state lookup changes to existing fl_owner and fl_owner2 variable names ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfs/callback_xdr.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ fs/nfs/flexfilelayout/flexfilelayout.c | 25 +++++++++++++++--
+ fs/nfs/nfs4_fs.h                       |  2 ++
+ fs/nfs/nfs4state.c                     | 38 +++++++++++++++++++++++---
+ 3 files changed, 59 insertions(+), 6 deletions(-)
 
-diff --git a/fs/nfs/callback_xdr.c b/fs/nfs/callback_xdr.c
-index d9e9dc3612af7..8d7b0f42afee1 100644
---- a/fs/nfs/callback_xdr.c
-+++ b/fs/nfs/callback_xdr.c
-@@ -272,6 +272,13 @@ __be32 decode_devicenotify_args(struct svc_rqst *rqstp,
- 	if (n == 0)
- 		goto out;
+diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
+index ac75372b5bf1d..ddf1c52b56595 100644
+--- a/fs/nfs/flexfilelayout/flexfilelayout.c
++++ b/fs/nfs/flexfilelayout/flexfilelayout.c
+@@ -1374,12 +1374,27 @@ static void ff_layout_io_track_ds_error(struct pnfs_layout_segment *lseg,
+ 	dprintk("%s: err %d op %d status %u\n", __func__, err, opnum, status);
+ }
  
-+	/* sanity check the count against the remaining stream */
-+	if (n > xdr_stream_remaining(xdr) /
-+		((4 * sizeof(uint32_t)) + NFS4_DEVICEID4_SIZE)) {
-+		status = htonl(NFS4ERR_BADXDR);
-+		goto out;
++static bool ff_layout_io_state_lost(const struct nfs_pgio_header *hdr)
++{
++	struct nfs_open_context *ctx = hdr->args.context;
++
++	return test_bit(NFS_CONTEXT_BAD, &ctx->flags) ||
++	       !nfs4_valid_open_stateid(ctx->state) ||
++	       nfs4_lock_context_lost(ctx->state, hdr->args.lock_context);
++}
++
+ /* NFS_PROTO call done callback routines */
+ static int ff_layout_read_done_cb(struct rpc_task *task,
+ 				struct nfs_pgio_header *hdr)
+ {
+ 	int err;
+ 
++	if (task->tk_status < 0 && !RPC_WAS_SENT(task) &&
++	    ff_layout_io_state_lost(hdr)) {
++		task->tk_status = -EIO;
++		return 0;
 +	}
 +
- 	args->devs = kmalloc_array(n, sizeof(*args->devs), GFP_KERNEL);
- 	if (!args->devs) {
- 		status = htonl(NFS4ERR_DELAY);
+ 	if (task->tk_status < 0) {
+ 		ff_layout_io_track_ds_error(hdr->lseg, hdr->pgio_mirror_idx,
+ 					    hdr->args.offset, hdr->args.count,
+@@ -1467,7 +1482,7 @@ static void ff_layout_read_record_layoutstats_done(struct rpc_task *task,
+ static int ff_layout_read_prepare_common(struct rpc_task *task,
+ 					 struct nfs_pgio_header *hdr)
+ {
+-	if (unlikely(test_bit(NFS_CONTEXT_BAD, &hdr->args.context->flags))) {
++	if (unlikely(ff_layout_io_state_lost(hdr))) {
+ 		rpc_exit(task, -EIO);
+ 		return -EIO;
+ 	}
+@@ -1548,6 +1563,12 @@ static int ff_layout_write_done_cb(struct rpc_task *task,
+ 	loff_t end_offs = 0;
+ 	int err;
+ 
++	if (task->tk_status < 0 && !RPC_WAS_SENT(task) &&
++	    ff_layout_io_state_lost(hdr)) {
++		task->tk_status = -EIO;
++		return 0;
++	}
++
+ 	if (task->tk_status < 0) {
+ 		ff_layout_io_track_ds_error(hdr->lseg, hdr->pgio_mirror_idx,
+ 					    hdr->args.offset, hdr->args.count,
+@@ -1651,7 +1672,7 @@ static void ff_layout_write_record_layoutstats_done(struct rpc_task *task,
+ static int ff_layout_write_prepare_common(struct rpc_task *task,
+ 					  struct nfs_pgio_header *hdr)
+ {
+-	if (unlikely(test_bit(NFS_CONTEXT_BAD, &hdr->args.context->flags))) {
++	if (unlikely(ff_layout_io_state_lost(hdr))) {
+ 		rpc_exit(task, -EIO);
+ 		return -EIO;
+ 	}
+diff --git a/fs/nfs/nfs4_fs.h b/fs/nfs/nfs4_fs.h
+index 0a1e1c64b131a..89aab66d835ea 100644
+--- a/fs/nfs/nfs4_fs.h
++++ b/fs/nfs/nfs4_fs.h
+@@ -518,6 +518,8 @@ extern int nfs4_select_rw_stateid(struct nfs4_state *, fmode_t,
+ 		const struct cred **);
+ extern bool nfs4_copy_open_stateid(nfs4_stateid *dst,
+ 		struct nfs4_state *state);
++extern bool nfs4_lock_context_lost(struct nfs4_state *state,
++		const struct nfs_lock_context *l_ctx);
+ 
+ extern struct nfs_seqid *nfs_alloc_seqid(struct nfs_seqid_counter *counter, gfp_t gfp_mask);
+ extern int nfs_wait_on_sequence(struct nfs_seqid *seqid, struct rpc_task *task);
+diff --git a/fs/nfs/nfs4state.c b/fs/nfs/nfs4state.c
+index d070378c47387..c2a80f2cc5664 100644
+--- a/fs/nfs/nfs4state.c
++++ b/fs/nfs/nfs4state.c
+@@ -845,10 +845,13 @@ void nfs4_close_sync(struct nfs4_state *state, fmode_t fmode)
+  * be made.  Failing that, a "consistent" choice is preferable.  The
+  * consistent choice we make is to prefer the first owner, that of a
+  * Posix lock.
++ *
++ * Called with state->state_lock held.  No reference is taken: a lock
++ * state is freed only after it is unlinked under state->state_lock.
+  */
+ static struct nfs4_lock_state *
+-__nfs4_find_lock_state(struct nfs4_state *state,
+-		       fl_owner_t fl_owner, fl_owner_t fl_owner2)
++__nfs4_lookup_lock_state(struct nfs4_state *state,
++			 fl_owner_t fl_owner, fl_owner_t fl_owner2)
+ {
+ 	struct nfs4_lock_state *pos, *ret = NULL;
+ 	list_for_each_entry(pos, &state->lock_states, ls_locks) {
+@@ -859,6 +862,16 @@ __nfs4_find_lock_state(struct nfs4_state *state,
+ 		if (pos->ls_owner == fl_owner2)
+ 			ret = pos;
+ 	}
++	return ret;
++}
++
++static struct nfs4_lock_state *
++__nfs4_find_lock_state(struct nfs4_state *state,
++		       fl_owner_t owner, fl_owner_t owner2)
++{
++	struct nfs4_lock_state *ret;
++
++	ret = __nfs4_lookup_lock_state(state, owner, owner2);
+ 	if (ret)
+ 		refcount_inc(&ret->ls_count);
+ 	return ret;
+@@ -1007,7 +1020,7 @@ static int nfs4_copy_lock_stateid(nfs4_stateid *dst,
+ 	fl_flock_owner = l_ctx->open_context->flock_owner;
+ 
+ 	spin_lock(&state->state_lock);
+-	lsp = __nfs4_find_lock_state(state, fl_owner, fl_flock_owner);
++	lsp = __nfs4_lookup_lock_state(state, fl_owner, fl_flock_owner);
+ 	if (lsp && test_bit(NFS_LOCK_LOST, &lsp->ls_flags))
+ 		ret = -EIO;
+ 	else if (lsp != NULL && test_bit(NFS_LOCK_INITIALIZED, &lsp->ls_flags) != 0) {
+@@ -1015,11 +1028,28 @@ static int nfs4_copy_lock_stateid(nfs4_stateid *dst,
+ 		ret = 0;
+ 	}
+ 	spin_unlock(&state->state_lock);
+-	nfs4_put_lock_state(lsp);
+ out:
+ 	return ret;
+ }
+ 
++bool nfs4_lock_context_lost(struct nfs4_state *state,
++			    const struct nfs_lock_context *l_ctx)
++{
++	struct nfs4_lock_state *lsp;
++	bool ret;
++
++	if (!test_bit(LK_STATE_IN_USE, &state->flags))
++		return false;
++
++	spin_lock(&state->state_lock);
++	lsp = __nfs4_lookup_lock_state(state, l_ctx->lockowner,
++				       l_ctx->open_context->flock_owner);
++	ret = lsp && test_bit(NFS_LOCK_LOST, &lsp->ls_flags);
++	spin_unlock(&state->state_lock);
++	return ret;
++}
++EXPORT_SYMBOL_GPL(nfs4_lock_context_lost);
++
+ bool nfs4_copy_open_stateid(nfs4_stateid *dst, struct nfs4_state *state)
+ {
+ 	bool ret;
 -- 
 2.53.0
 
