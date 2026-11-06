@@ -1,84 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793951889;
-	b=SuqpsT/nvfF8czQ5GOOnutVmKpXWVwJnzzx3J+dTBjtD7mJZB859HyqfnHms9/A4O7M7
-	 vG6hRKPdSQ+OkFIbXlZkWnUkLdQmq93JKF5yCgTNs+a5Du1rbnbCBMTuDLKaEdfnpXAjp
-	 pjh74dBUNeXoYGymOThgEPcm0OSEzCo1zIwF1HCZKB8XOJ7GVRgjUP6CQ1ZREBTascAF9
-	 YQO32C09IvfmqGkup/0SHw2KSaS8ESEgWxh0CDt41T9zu3i+DvLhKEHCfxbaOH243jClo
-	 zxBuOC6wPR2P2Tg8ePKvzwX61SaexIBPbVNbLMbRVSKfYEehU7J+DM9cLXRSh9o4yvQ==
+	t=1793952063;
+	b=cK3bEHPn9hTkmOEIlE1Vym8TZrXSilHw+g1Tfs/2akuBJ1d1U+Zv4vLBmuvfy+lsyCZG
+	 jC5DCw4Ijk3Elj0xRRuyLNWJaiZjYbtvqHRJ793UFeScKLsVGiSn3viFfwH2lyxvqmKKT
+	 pCccHoe07yZ80ZEswuU/EvwcZG441B0N1kH7Kag+5Q7ajb7h4vx+bTF1Zisn4R1EVIttv
+	 cLUdcZscaIAcyD/BoBm21EYzYPVg2osomWkqv2WRrzK3OTkydmeityx1yYgR2U/i+l4EJ
+	 B4ugwtspWz9z8SLUimb4uOSTgoc5WkPa3LUN8lDsE+LEoW0swQy07Pv9k2t7dm6QiWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793951889;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=N6IDFcqBT66Ly0mje/ldO2xjtUcjknZLvpb4a2Ah/h0=;
-	b=Wlnp7IN+t9CMfSUJtSDGlqpImhZvIibd73A00cfKYj9UQRwQAuMlgZpUwf+Upa77e2iu
-	 v55BA8rcjKpFtc9+pBbemy9vs/I4oxdtHRqm1n7Wk+/OGYX36ca3mQLU7iVCQap1pOS3O
-	 LK76JBDil6Ny3NtdOBzxThmMROMYxarm/pe6chCM8E/QvnrfXmuCFgBzMeDPiWhorodLO
-	 mw5u5qLItmUgZw6eZgSwtXXNu685HWLzfbaewRcToDFUooBnVDCIURMt6maGn2BD9zFXU
-	 V8kJ/D7j1j1gdulGTeTyaWrlCGmq7buYM0jFZIPL23GeA8hpzp165Od34rIL9/ZviTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793952063;
+	h=DMARC-Filter:Received:Subject:From:To:Cc:Date:Message-ID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=mKSuIXJLtZJlgvRY/t+P/ubAjU+hVN+y583sjkS57DM=;
+	b=Pq5+yXBpqDImDva3C9gnDMaAs0Pjc9uAMmN81SH8UweuvH+aPsV+1omPnGnyDeftUbQw
+	 olM+wSb9vI6k0I0pKdxE1/Cr4deOKMcEWpSJ0Tv/lq7gBcfvAFDr+ikLuTbryn44QUzG9
+	 dJi4BaDBYm9vk+rXrM83xxkZ4TwZR0cRMCmfDIldxeev51wSOAXP6y8QhZEN0kkryAMu0
+	 Rqy9l+bT+nOcfVf/zW9jWzjJWtmbc6kIFxSXfEiI/LgeO3f9cVwJ6n+Cn4FNJrWRh9FL1
+	 cxQzCxWKFuNODC1M+MnD27d78CrzuBjexdrFLK1D7kxIXaOQU3qYo2gWbkt3Ns+H9iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xhZa5zyD;
-	arc=none smtp.remote-ip=162.62.57.210
-Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDCC606A326;
-	Fri,  6 Nov 2026 07:58:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFDCC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xhZa5zyD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793951882; bh=N6IDFcqBT66Ly0mje/ldO2xjtUcjknZLvpb4a2Ah/h0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=xhZa5zyDbr5HPXgRGg1FVidmH0ZxHc9an8PMxPY65XRPRaiHVbGFZzwq6uktWmsoI
-	 6tYohRjn4d50GkLYoaoKVrd/WqBZ+u4TxFDrEgxEIciRLYLoz1+WINUdTTkNgqd1ws
-	 eiMWIoim0Dykfhw27jUFue76agOzI+CeD9K1wz1U=
-Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id E7B38225; Fri, 06 Nov 2026 15:57:59 +0800
-X-QQ-mid: xmsmtpt1793951879tivh0zjg2
-Message-ID: <tencent_9EF27B4D21B82E623513AEEE6ED2F92C7D08@qq.com>
-X-QQ-XMAILINFO: OATpkVjS499ug70r33O1iL5s+mMR3MjVq8p9aUJ5tubQwsA1Fuqm0IezGzcTN9
-	 X5aYwm/Sd1IArjjm+2fYkjUa+5/buca2pyh2KvE+g7gkaSDeQfQ2xkvvL4Tvo/7SjlOfjV7crtyh
-	 VdwgxmWl99qvHr+DwNnWm/I/78d4Lvt5FMTwQaDuTFacZKA3z9QbW0wa1o+cVYwAFuB/ncFZIy5u
-	 DJFKjr+PJtH9hqYnGY2u9iR7sFdTNtTUSpR3WsiStLOXMU0X+clA78DRzAxW3gFom7ZsSRXK7Dcc
-	 pDON58VYG0o9cp5Ub9trM6AzsBOWFLlcwx7lQ61jgAkzozTSNB7RvYNn8znG72SmctgYmPiAbQw9
-	 K4QCsoT6N3Hn6+ir3bVAnYtyKELchllRQkcRhlJOOqHyn2Kv67uE99Z4t2BqtyaX+iEYnYPHFWct
-	 luAyQ+IwVwPnKRGwYpc9N/piAwP+3KY8KbvLYwuP72CfJO0gGJKgi8rxmfymZ/4BHlNbSn7Zordu
-	 p/e7ZcP/wTMdMmnuD/i1W35OlK0/mNCS+RzcacyUHE4DT5ypZeMvIMYrIAzXYp9fIoxVC5k2KD4D
-	 oXN8CUlyN5HgUsJXx6po4Y+Rw5SbaD1FZYJ/z7pMvVcXDeKaBDzQln2gT/CVQPoLIaGHwrLtHO7C
-	 eZqivDqBqhSX8Cb4IKUG15rtUP45qJu1y/SiPCnyDXZWEJIZWBqgoqMghLaxCZ1qXG3g+qnF21a8
-	 HMUWdNELJdTpLjeC7DApZzKbuT+F5MKspJ4o3iB5f/DDUCk2jSbMTfoyoBYybaZEjstpjR4NoLEe
-	 7bCCvh8wPw61H30aH9uaRsSuNgTjHe+uE1hl+y3+x/UlonKuoL9KAn9QsioyRgQW+NicpzNFjJ1E
-	 15X/Zm00EAmwfoZfa82rl/IANDrdgYgOIrgoevQ0mNU5y4ka1ZIthzZllzXui0EFlLoBx9BEOFOp
-	 Dp10WhHRtYhOYgEms9M79727uDNeRbR9YHw1mq7sSX5Bkwn2JRf1b97inm61+QHWVOpzVMsnSN7Z
-	 F61CLbOKdkKrue7eZ8QYBbU9UzjwvTfqP3e8pyver1gPs0kLurKfIdhx/jB57UvP4BBAB0NFjP9X
-	 pEIi/Ho1+G2rdHehw=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-mtd@lists.infradead.org
-Cc: dwmw2@infradead.org,
-	richard@nod.at,
-	linux-kernel@vger.kernel.org,
-	syzbot+0727f46a0571de01bf93@syzkaller.appspotmail.com,
-	syzbot+48f2d47f83a4c223ad14@syzkaller.appspotmail.com,
-	syzbot+e4484dcf0982d86ca2e1@syzkaller.appspotmail.com,
-	me@eltavine.com,
-	sashiko-bot@kernel.org,
-	stable@vger.kernel.org,
-	Shuai Liu <847807867@qq.com>
-Subject: [PATCH v2] jffs2: fix kernel BUG in jffs2_sum_write_sumnode on empty summary
-Date: Fri,  6 Nov 2026 15:57:58 +0800
-X-OQ-MSGID: <20261106075758.671859-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179393007518.5660.257036208046697688@eltavine.com>
-References: <179393007518.5660.257036208046697688@eltavine.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E782606D804;
+	Fri,  6 Nov 2026 08:01:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E782606D804
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACntpc3ie1q8DdqAA--.5010S2;
+	Fri, 06 Nov 2026 16:00:55 +0800 (CST)
+Subject: [PATCH v2] dmaengine: fsl-edma: Fix channel leak in fsl_edma_xlate()
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>
+Cc: dmaengine@vger.kernel.org, imx@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, vulab@iscas.ac.cn
+Date: Fri, 06 Nov 2026 08:01:02 -0000
+Message-ID: <179395206206.2118334.5568431940571202082@iscas.ac.cn>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,77 +51,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACntpc3ie1q8DdqAA--.5010S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kw1fCw43GrW7Kw45XF1xuFg_yoW8tr45pa
+	1ftFyF9asrta1FyF4DCw40vFy0kF4rt3y5KFWDt3sFk3srtrn3Z3s8Gw4F9ryUJrWfZF4S
+	ywnxtF95WFyUC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvI1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
+	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
+	IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2
+	jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52
+	x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
+	XwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrw
+	ACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vI
+	r41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s
+	026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_
+	JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20x
+	vEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE
+	14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf
+	9x0JUMGQDUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMDA2rtTw3SfgAAst
 
-From: eltavine <me@eltavine.com>
+fsl_edma_xlate() acquires a channel with dma_get_slave_channel() and only
+then validates the srcid taken from the device tree. When the srcid turns
+out to be invalid the function just returns NULL, leaving the channel
+with its client count elevated and marked private, so it can never be
+requested again.
 
-With CONFIG_JFFS2_SUMMARY enabled, jffs2_do_reserve_space() tries to
-write out the current block's summary when a node and its summary
-overhead do not fit. jffs2_sum_write_sumnode() assumes that at least
-one summary entry has been collected and calls BUG() otherwise.
+Validate the srcid before any channel is acquired: reject a zero srcid
+and a srcid that is already in use up front. With that, no channel can be
+leaked on the error path and the release added in v1 is not needed.
 
-An empty summary is a valid state. For example, the syzbot reproducer
-mounts an image whose selected nextblock contains only a cleanmarker
-and padding, leaving 140 bytes free and no summary entries. Creating
-a symlink needs 128 bytes for its inode node, but reserving another
-60 bytes for the summary reaches the BUG():
-
-  kernel BUG at fs/jffs2/summary.c:868!
-
-Large pristine-node GC reservations and xattr updates that fail after
-reserving space can also leave a newly selected block with an empty
-summary and reach the same check.
-
-Disable summary collection for the block and return through the
-existing exit path. jffs2_do_reserve_space() then retries the
-reservation without summary overhead, following the existing fallback
-for a summary that does not fit. Use dbg_summary() for this valid
-condition.
-
-The block is scanned normally on the next mount. The on-flash format
-and xattr size limits are unchanged.
-
-Fixes: e631ddba5887 ("[JFFS2] Add erase block summary support (mount time improvement)")
-Reported-by: syzbot+0727f46a0571de01bf93@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=0727f46a0571de01bf93
-Reported-by: syzbot+48f2d47f83a4c223ad14@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=48f2d47f83a4c223ad14
-Reported-by: syzbot+e4484dcf0982d86ca2e1@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e4484dcf0982d86ca2e1
+Fixes: 6aa60f79e679 ("dmaengine: fsl-edma: add safety check for 'srcid'")
 Cc: stable@vger.kernel.org
-Signed-off-by: eltavine <me@eltavine.com>
-Signed-off-by: Shuai Liu <847807867@qq.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
-
 Changes in v2:
-  - Credit eltavine as the code author per his request, restoring his
-    original comment and debug wording, and carry his Fixes: tag, the
-    additional syzbot reports and the stable Cc from his RFC. (eltavine)
-  - Runtime-verified on x86_64 QEMU (block2mtd backing store, KASAN
-    kernel): the syzbot C reproducer hits the BUG 2/2 runs on the
-    unpatched kernel, and completes cleanly on the patched kernel.
+- Check dma_spec->args[1] before dma_get_slave_channel() instead of
+  releasing the channel on the error path, as Frank Li suggested. The
+  zero-srcid test is folded into the existing fsl_edma_srcid_in_use()
+  check, so the code stays where it is.
+- Link to v1: https://lore.kernel.org/all/20260916092733.2002700-1-vulab@iscas.ac.cn/
+- Sorry for the very late reply to this review.
 
- fs/jffs2/summary.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/dma/fsl-edma-main.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-diff --git a/fs/jffs2/summary.c b/fs/jffs2/summary.c
-index 4521a7723f306..4a07b7911b210 100644
---- a/fs/jffs2/summary.c
-+++ b/fs/jffs2/summary.c
-@@ -864,8 +864,11 @@ int jffs2_sum_write_sumnode(struct jffs2_sb_info *c)
- 		goto out;
+diff --git a/drivers/dma/fsl-edma-main.c b/drivers/dma/fsl-edma-main.c
+index 630285c85482..e2ef18ad1a3e 100644
+--- a/drivers/dma/fsl-edma-main.c
++++ b/drivers/dma/fsl-edma-main.c
+@@ -266,7 +266,8 @@ static struct dma_chan *fsl_edma_xlate(struct of_phandle_args *dma_spec,
+ 		if (chan->client_count)
+ 			continue;
  
- 	if (!c->summary->sum_num || !c->summary->sum_list_head) {
--		JFFS2_WARNING("Empty summary info!!!\n");
--		BUG();
-+		/* Nothing collected yet, e.g. freshly opened jeb */
-+		dbg_summary("empty summary, disabling it for jeb at 0x%08x\n",
-+			    jeb->offset);
-+		jffs2_sum_disable_collecting(c->summary);
-+		goto out;
- 	}
+-		if (fsl_edma_srcid_in_use(fsl_edma, dma_spec->args[1]))
++		if (!dma_spec->args[1] ||
++		    fsl_edma_srcid_in_use(fsl_edma, dma_spec->args[1]))
+ 			return NULL;
  
- 	datasize = c->summary->sum_size + sizeof(struct jffs2_sum_marker);
+ 		if ((chan->chan_id / chans_per_mux) == dma_spec->args[0]) {
+@@ -275,13 +276,6 @@ static struct dma_chan *fsl_edma_xlate(struct of_phandle_args *dma_spec,
+ 				chan->device->privatecnt++;
+ 				fsl_chan = to_fsl_edma_chan(chan);
+ 				fsl_chan->srcid = dma_spec->args[1];
+-
+-				if (!fsl_chan->srcid) {
+-					dev_err(&fsl_chan->pdev->dev, "Invalidate srcid %d\n",
+-						fsl_chan->srcid);
+-					return NULL;
+-				}
+-
+ 				fsl_edma_chan_mux(fsl_chan, fsl_chan->srcid,
+ 						true);
+ 				return chan;
 -- 
-2.43.0
+2.34.1
 
