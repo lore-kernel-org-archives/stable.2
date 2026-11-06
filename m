@@ -1,58 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793953282;
-	b=IkZpCDUA2pgcDMrdNBBVkyVonvsmd7Ele5Ub2cOTN0lpbNGLjkJ0QZxGLmohxuViuyid
-	 kqkQo89QX9JeklyWQ2Cx7XHZHLCXr3bWYj5PindUYLdzUaN2LuF/ufM0Odpn5eeWrmDaJ
-	 ai2UDk50hpNJ9dSti0rMtaWCJ0t/Yjw0ot9ICTqzFpA8MH/gqgDTDl5scx5xdcd7Y+oSs
-	 v2VQSBWyGowIa7SN/RE93WrhJQh/d0IlN38t7A+ekq14fX3iK/PPDoEnhz3rkpnEfQOTS
-	 +NxNGFD83WiX4BcNvy80vvAFc7kT9sYSzVVuKegPOxfKaoLhje146M1gmHq0v7GPLfQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793953282;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=tXtS1Em7b2x/aoxEcgyB2IvYBL9Ky3IS8jlOY8JmCdw=;
-	b=AsIBFOrumCxvg2ITGWn2KsrwFLRvDBg+QL8+myfuDdMSD/tpi0VbwZ3Sz5cw7lY49Nd+
-	 eFjhlo0gEpNke8wjOSTsrNNPOD9hCbrdO+bbLCMxl/gZZN7ltPWnmSo49YmOFz6FHyj/Z
-	 YsCmUnx6xqclRvADrO3eJ+8fJDwN9TfUF2gkln1xn8c4ucXu7hbnbblZXCbK+78b8RU+q
-	 tLaWtFXsLcPUtHhTEjwdMu08er9aF5U1Uz1WA573jH/BaBAwUMPdAd6lt8N/UQzffRMaF
-	 WV9lG6tWjfRvFytEsdrOiuaIfUG3RQRmrtQUwffnZxXjfNtdTygp2xbGpW7UP7UNbYg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QCfjJa6p;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793953432;
+	b=1eyEydXxc/X3q/Z+9DTH4hxIcaM2IbyBzRAf/7kS0i2BW12BoYSetLz8Y0ff1+Xf+hah
+	 Z+Rn6UDGqBJQUkiBwxvFFyqzW/ILXVCgAOeaVauuOl8FPl9wh5UAjOrhjKiDQFgnFlquq
+	 21GlJ3kD/9ZDZSP/vCAN8tYWY0qcNKbSq4lKr7zyt/K1nXSyeF1A9cGggYpSJVuJYv9UL
+	 JlhEe8DvH/BSSrVjzyN3+ter4XlLbUWvzRVYHUZ35dtuYybW6nZQQNBlWJtav31cWa6cM
+	 rpbs2QiDcJGsaB2bNAE+HEb8KSPlLteFppYL0hn7AakPSBieolaJl9SgXXktgPTPU1w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793953432;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=5M5PNZUHosrfCDAIz2IVeNADPw3KTbMiFCbuh4RG20A=;
+	b=eKYsZ6xUxob/9e4g/MBHT1Qf1azoNK4/zrTObnCNqp2uZGCSAQV3wXkjncRMk2ZPCZ1x
+	 nbEu0s0DAcWSYA5p6sjS0CUPvKfrQsIKyDKtFmkOV8O1dj0SeVaEeBX652KwXxkCx/Xhz
+	 yggq+GzuP1dukJMNirOHan9/J/S04ltSYzTb0nYHEQMCPhOPPOkhrc6cdj4NXA4N/njFZ
+	 W07GmX/5kBgojckXYk92vtb/h3nLNiFXhh/lPlP0pr1oUN6F+42L/AiEqE4eDxr6/196/
+	 mP2XG/ajQxpauMHuyRngdij/vBEED49PzJjd13CJ+XLzWhI9VBM51XLOc77MJrQaCYA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HiG56BEv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20BF8606A326;
-	Fri,  6 Nov 2026 08:21:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6F8606A328
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 08:23:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D6F8606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QCfjJa6p
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1E551F0089F;
-	Fri,  6 Nov 2026 08:21:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793953282;
-	bh=tXtS1Em7b2x/aoxEcgyB2IvYBL9Ky3IS8jlOY8JmCdw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QCfjJa6pK3BRpFP825bjAs4y5WPmB3jWnmAyv5CHhIOXjDZ4msNgTD7x3+dGZxwwX
-	 z8ddU2hbVy48TfJHHsxKAq0IVG0j4vcCihKEwSnTI1o75Rb6kCsv5X0gPwo+PPtHVa
-	 bFUTFajGGPRncSHNlNf3WTD7tdodP+5JxbsulJA3uSK6kePQ+IiUdTfxiBFP1Va6dC
-	 oqqs34f+RY8Y0RftVN2B3ZQZPbwdtTvw+kZ/E9YGfom8EHajPhww6CGy55C3ekxY1m
-	 rWlKCffqZrENiNXvZfmd9Ri75CUTEZCpTfhpC2j4RpxMXfaCi8nvUzmNLu6yAWcaSN
-	 DkByMm3RF1HhQ==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xPFCJ-00000008NDB-1kVt;
-	Fri, 06 Nov 2026 09:21:19 +0100
-Date: Fri, 6 Nov 2026 09:21:19 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-Cc: linux-usb@vger.kernel.org, gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+58b2d8b19cd6761a395b@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] USB: serial: mct_u232: fix NULL deref in open error path
-Message-ID: <au2N_7iL_eXU6RCy@hovoldconsulting.com>
-References: <20261106081254.1389-1-zhaofeng2@cmss.chinamobile.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HiG56BEv
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36e2b1db9bfso47221eec.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 00:23:51 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793953431; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KL3mdUXaviHkqXOL16W3eCgg5Xwp2GZLe9nN9DPQn4IAN0F3ZZIvfwasyaFUVf1e0b
+         eB9MVbYgzinymJOY332pOvSCPntbifYPfFFgkPQohTMx83ETheLkHx8P6jpCX806In/5
+         XvFqGk6loO5JWoIHOnCTjPzlNiFm4xWnbibIAg0yMAFtyo3+XSdcgrVYtEA1ymX+2y3v
+         EP+/f6Tnv+kw4PSsjZv3uYlEJxROdc7u2YgxiyRILy7cIB8N0T6R1Q/7+/y7gdS89C+9
+         s4MH1U1hTggRcJ1KJZOc4ry36/72yK80aLhDTIBRZqsPT7pNd+OxxSJxyaYXkOFk3DfJ
+         i13A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5M5PNZUHosrfCDAIz2IVeNADPw3KTbMiFCbuh4RG20A=;
+        fh=FjeIOHxbph29gj9msslRXZbtobOpzOiFLK0r6J2FWa4=;
+        b=Gjq9y3NO+Ft50YTf+h92MJWdNIL0ctyQ1+5FP1W+szOP8EOtI+dco1vS3wIj3UsBWY
+         SrJCA/sckZgUp7k9PKufN00lYgQaGe4jVFg5pxGZ+O4lwa9zIFKaVw74HBriMeHJuard
+         +n8i7aFeWlx4mmaRLQXjGmzOfhCEqCHrI4IdNSqvWDS5dKOXO32Wme1QNzhF+HIr+3EK
+         mudihDODq+e8Z338llm5ZET/V912xTori8p+RVceAPqNx01DRelKvjWPzVFLCzOpz5X5
+         xYh1WhW6eG1N8y58VM7Lo9glX+ylAHQCEDtpdCyUc0kV2uShuK9vzHcERqIWBmLH4tNn
+         wOYg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793953431; x=1794558231; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5M5PNZUHosrfCDAIz2IVeNADPw3KTbMiFCbuh4RG20A=;
+        b=HiG56BEvshF0wNZqTO7shg8U5Zon2BOVfV5vD8crvhHQm5JEZkjD7LTHWUnxi73IVw
+         BYOeGF/g+rCrqBcl60JatSLWjMt9h66+c/T2e2nl8x1Hs4M1zcmT5Eif6nXJH0PWw7FR
+         nJoRkj7ITNhuz31VlZJypE+v6iejH8cevdhmxhCkaFzEyinifbTHSjbeHc308zzhWz4c
+         VOzSX3sMkIzvIekTXhUU+4ZU1EJOseeSeH3X7YsDwLWCHYuO45A4SzORYQ7vvernrJvG
+         pU7yYZT4S5OI5fbPDxjRxoIZteGzbcLNIkIzyBkm/zSWahB+W47ItqMc4tgJM8AVLY/C
+         XM1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793953431; x=1794558231;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5M5PNZUHosrfCDAIz2IVeNADPw3KTbMiFCbuh4RG20A=;
+        b=bnkiXQpCJ/+R59rFfmdWaffZFEKU5HEJ9/yq4R5UrUIWEl9cTtqcLsJMgkA2ClqRkJ
+         gsqEMzLjIM3RUk4+a6MWbKye+QN1Ea+RsZGH6S0cVNj5Nm27/7+YEesmiohGcTZfNP8o
+         Hqts1N758o3oYKCj4Taz91Ue3tt7ymocQvhQpqzFRFYefJz8plcpeYfNfcmvnf51SfEy
+         aRs+S8tfx8Zo8skk0vxPfDwSsXxV38HWcgeTI1hGBFIVDFq89+t26GLx3hM2SVLe5Ssj
+         XtZEgmaSywLnVfUUUIIsLgTAqxMBG6qUUJ2XAua0U0mtjFMiR9P+HJrE4866HDs/nSwy
+         5JHQ==
+X-Gm-Message-State: APuU4Z8NVybnZQldkB/KUYm+k5qCwhsYYHG+hGc5gCVWZqErSVxQhoYF
+	YqRr6YnwZSHO6Xrk3hKsyaa7b1YYEI3Pw7dZ5+WHKGk8VO7jjTQhug8D3CHklQeAND1Zl5R5Xxs
+	cCZ07YAw8qsfC3IyHJzahOA1KTbypfvWOysro
+X-Gm-Gg: AYBFou1mV67ORfZUEhBEU5KlX2d/JHa4EcQ6nYLf4qT9aWA9DQtkC2g7L+tM1AyyB2M
+	KLkCy++e9QBHgnmDpBRdztdhn0dkBi3zuGClmw1jfIK3QlSgM2L3cMrzrAD3Ngrv0D8tw08e++6
+	15NgAhHCpYzFPsefXh/fH6gKj2OaknbMIUEF1mhkBUKpTyStnselhRHCwsfKTFphPpROm/fgg24
+	yb1+5hjVsRF3mxUQErGdE2iNE3OhgSebtC9LcZT0tpb1BqWhHGtdQEyDUEusUvM3m6boCp5pMj3
+	wEoevE9lOaMTaZl3qoztMP7hJu28aWUoZGwxmHM4rNu52IZt7///i6WHXzSvJVG0UEbYhrf0sNC
+	IbMyIIWBKJCW6UMK8vOpwcZxbtRJrQmFqdqfaowfLfAGUFa2iIejrAGa0sbAlgh2LaS27zNapyh
+	p8AExcmGoS4doXNjc6yKA7WhSGw8yPZl2GJwb6U8jgpuEo1JEOkA2UEC9iaRHdjgRzOEhA2Eeb7
+	ECVXaAaqEUEtLrbSY+V1+IkgP2WGkWENtvT
+X-Received: by 2002:a05:693c:8852:b0:36c:a1bc:6114 with SMTP id
+ 5a478bee46e88-36f6f3a068cmr3642296eec.0.1793953431201; Fri, 06 Nov 2026
+ 00:23:51 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,38 +105,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106081254.1389-1-zhaofeng2@cmss.chinamobile.com>
+References: <2026110447-anything-wildcard-f4e0@gregkh> <20261104201749.344995-1-sashal@kernel.org>
+In-Reply-To: <20261104201749.344995-1-sashal@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Fri, 6 Nov 2026 09:23:38 +0100
+X-Gm-Features: AclHuK_1H_swIOJhBR77KhBzYYhZyuiq7F3vCLUBXCi_ciuSKWwgDqd4Ci4DFHM
+Message-ID: <CANiq72kXBEqUhzZpq1fOvejwHsEyD8PKzA0oqz_DmPt7Q2n7Cw@mail.gmail.com>
+Subject: Re: [PATCH 6.18.y] rust: bug: pass TAINT_WARN to warn_slowpath_fmt()
+ on UML
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 06, 2026 at 04:12:54PM +0800, Zhao Feng wrote:
-> The MCT U232-P9 has no bulk-in endpoint; received data arrives
-> through the interrupt-in endpoint of the second port, whose URB is
-> stashed in priv->read_urb by mct_u232_port_probe().  The generic
-> port->read_urb is only allocated for ports with a bulk-in endpoint
-> and therefore remains NULL for this device.
-> 
-> If submitting the read URB fails in mct_u232_open(), the error
-> message dereferences port->read_urb->pipe, causing a NULL pointer
-> dereference at offset 0x50 (the pipe field of struct urb), as
-> reported by syzbot on KASAN-enabled kernels.
-> 
-> Print the pipe of the URB that was actually submitted instead.
-> 
-> Reported-by: syzbot+58b2d8b19cd6761a395b@syzkaller.appspotmail.com
-> Closes: https://syzbot.org/bug?extid=58b2d8b19cd6761a395b
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-> ---
+On Wed, Nov 4, 2026 at 9:18=E2=80=AFPM Sasha Levin <sashal@kernel.org> wrot=
+e:
+>
+> [ sashal: adapted warning handling to the single-argument warn_flags! mac=
+ro and existing CStr API ]
 
-Thanks for the fix. I apparently beat you to it, though:
+> -                $crate::str::CStrExt::as_char_ptr($crate::c_str!(::core:=
+:file!())),
+> +                $crate::str::CStr::as_char_ptr($crate::c_str!(::core::fi=
+le!())),
 
-	https://lore.kernel.org/linux-usb/sashiko-outbox-201021@kernel.org
+So this one looks OK to solve:
 
-> No Fixes tag: the buggy error message appears to date back to the
-> original driver import; the introducing commit could not be verified
-> with the trees available to me.
+  https://lore.kernel.org/stable/20261106070543.89122-1-ojeda@kernel.org/
 
-No, this was introduced later by a clean up from myself.
+In the queue I see the commit with `CStrExt` I mentioned was already
+dropped due to an earlier report of mine about `CStrExt` in older
+kernels (and I guess you decided to send this one fixing both because
+of that (?)), but I don't see it picked for -rc2 yet, right?
 
-Johan
+If this is picked in -rc2, then I think it should be fine -- I checked
+it solves the build error indeed.
+
+Thanks!
+
+Cheers,
+Miguel
