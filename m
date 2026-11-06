@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793987586;
-	b=1ucDLsy/hpcFWwD85L8VopxPQwtouK0g1nrH7RmlHpeImR+eXArhfoNMRIlFB3yddXpm
-	 FEkWn4dfHLbr+jZtu8JVWK0xV1qHJzRJw5XZmdMyYMF8WtfvCRvy8EEFbyKoQKiQ+wAh4
-	 Ju0UfVFjwHrTLPUcCJXfGhq1yq3vRJwDZxvF/Jmf/GIzxeCro6p18X/IB2rAYG0U66Cmq
-	 xqRNJIHxI8JXHxjhkKvADRvuelh5k58VJ7A4tdOsoz2CzbF8wggr4kXP9sd1/olJ3r+2u
-	 nll3quDk/20v+dHbk6UTz/PugXVGCePACtOZ1rGPa3+7iQZ0e4+/Xq4rT39BPWrFUgw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793987586;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ZZ43LFlhd+sk5fh/FJb4zHzz1CW3FUt2jfsXu1lejAk=;
-	b=pj6y7dpSVdmxG8k3zIbbnW2Ia2sLQURu36iTymM/usKXsE0q6dpt4FQIEhqylo0Bioak
-	 pOOcaUYmkDsVHhaDfc3FlAu1sr9jbKu71YhiKr/Vv1SGShnkG1T27zRjn0ShbUT1E7ewe
-	 YUYDapsSt6YGyiwQKBizgw0EVKN/ib1NaWTk18qO2wgBRBWDmyEGZFn3HcIN6v4J0z19h
-	 Da8P4lkRQfs+rUgWMhbftBFb7virbU+CYBiMIJYlWyYcLIDgGHi30djY0lBnzo++ze0pq
-	 WFx2rp12u6WXApF2sBSDO1/FK/iXPKXf6DR/dGeMQBoz/8uAJx3R3DOtevvvqDoMjDw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NW8uuGdo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793987621;
+	b=npZJpsNdyISrR8qza6rHPILHw55SOA8q6o8yPlCqPvIdF3FkuKRQZQhIACihX6Sc3DX3
+	 HuJF6pPQMdq3PKZAk3eqHbQvJWosff4DTBjNfu75l4KRCC02Uonao6szQY9oEN+HQAK2J
+	 OczxFQjyDdu3zhODt8qsF2xCjTU5Kh5nSMvhIWvqItFNnLKaZmlYi8shY07ikjb1oRQUm
+	 IR9hi3CD/iH7GRp7rVKcH8KbPbyIyIt1WdQARkd1C2GZCyc5WIVzKjUR2xO+sqmNPbXSs
+	 wZKFUHRrL899mbSZjDeiQ8nHI+wjxPsdTk2b0sgQxW/NZZiJOmqnOfpgMpnFmLtDV/g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793987621;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=pSocW6V84EdtmB+DzIul/ZtRFmqQ99XfH8CnITk9eYE=;
+	b=fb6TgtBgqHXi2v3rmdckO6l1gsalHtr1UJGOevH38rR91obVVEjLcttHZ+cPHZyuf/LF
+	 jeB+xU7I5J6HOU1Yguax2rUe0fxsvIoq39uwvGasuSlTX66RdB5+SkZdDaq5+4BZbIRS+
+	 OFBleH5FZ5h3EX67HVElV8VtdPnrJRKE6GG/i0sQjsWl76tu7mP9DBaP+0f5RiXuBJTx/
+	 x+Rs3A1nOPaOhrmrP8fTMuPSRKb9NWvyKEgAZ3e3Qdtjg40Avo9FgBUl4Z/eM934Osx4s
+	 NxfWJnZrOua9uc7j58gx2//gvtt2x3/pEBpSm14OjOvDbChjhhxPBLYY41F9jStufkA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxqWxbL5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBAC6606A332
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 17:53:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBAC6606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B35B606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 17:53:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NW8uuGdo
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso10178365e9.1
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 09:53:05 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793987584; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Tr5/7gHRy6xX9MyimDvwpkq8d9O5Vi6p/CJ0r40sbDDdoty0Emc4yDl52Dk8x3ooAq
-         Hj7h6oxlQRE7ao0C+5dmO7FQ0p0/QZlg/jlqHsr19xFwm2tLJW07JAwOYmNoYerd3nJm
-         Io1tZ6GNlMJkaKZ/jOwExb131fEVDme+T6DENuvnimK0M933XnwZAGqRYRJC6WOVrOBh
-         LurvyqBIi0gyGL0pcQOsZu8b6Fvt7TZgO8wpeiVtksIKn0HWcYOqe+URc2Akqvdiqs17
-         rEiGa/Hmv0welTBFA/kldFMgVJnT3amJPfEnUMtFUnOvcq7e6+IfUGc0ShmESi6+3E9g
-         dXlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZZ43LFlhd+sk5fh/FJb4zHzz1CW3FUt2jfsXu1lejAk=;
-        fh=dVqy6pSPzzC2y146PWjEWt2AD94vQhnZKPRHLs2HXFc=;
-        b=JtpcLH2xBkxPpDf186Hnrf9pczsv9RqkQoHeFpwU0zu8iU/UFVXVtd34N0yOX6vmUG
-         /KXsKd56SGqziddMYWvmKdtiPrm3oot1jVrkLZycpeNDtnnU1zyJVljxzIAoCs1NCnj6
-         N3NOb/NePSVv6ikm4UPckADs2TCGUHAg3sBIPT+wjLkdpTUQI+68eoHTJs0XLkgy60ZF
-         T27kHuuA9mpic/Uktd4Clrh4j2L7i715Yjp7DUOMxnoDiX7NBXHA7807e1gvjZanSt96
-         Qf8/xHjkJaww7lmcPXtTv3NSauTzLgLTRYIur8lCDRtmCRifX3jFl94uiLUSgYrGFief
-         fUGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793987584; x=1794592384; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZZ43LFlhd+sk5fh/FJb4zHzz1CW3FUt2jfsXu1lejAk=;
-        b=NW8uuGdomYzmuDtrXAWjZ1gtLZzmP/KNhlvC6gK50mW7XxvuKLLOP7EtsCLtPqcsjr
-         CVhVoqc/CQmnXOg48fJnD/JELJAgh4f17SX+kNmO+Swc+gsoVLoszlZRfBN9BT/HYA1Y
-         pT0aN7LyWPUNYf6+pfUM4omNBOYoHsgyvTFoj9xnJMSx305fiCvitTUSnTMK+hwxYgJF
-         8X/qVB0ZP36kaX7C1IBDUGacr/M84c8WJU7AAUqSsSFBymFezWmF3SGZ+dLclXmyfNYp
-         /hkKQ/z7Z0+SBl7ZAXfJHodjznt2X7lj8z6XBADnHfKKdxjOaUQIAGL22I30sDPxKhWT
-         AzLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793987584; x=1794592384;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZZ43LFlhd+sk5fh/FJb4zHzz1CW3FUt2jfsXu1lejAk=;
-        b=yxsLwQcllJakXojSDkVPOI07+M/0J6HIHhFIf4gsZch4YVktPehsLjXxPCEKBQEkle
-         TmUxPLMIe7WOyyZ9ox5IUkuRI9+AcayV4Blcp+dDWexr/8kB+xwXpwwA5Rz62R20Xv7t
-         xjGT6lAPZKgPryqeYP8PZqf/4aimv7E7ZZ2qEP+4Ul6zPJ8CKEKQFtfl/jMXQMeHIEC9
-         D/c9hmVy5VHg6T2UQrAO20Cdd7QwAvn89x5ymjXiaBCcEga6oZ2j80fA9b95MTRdZPrT
-         CjLFqIDmsnpYTp9joshWDwLK1k675fFOoztSkxXH5qHWKPkPAaPE8TVP288qoMVxC7FE
-         UJzA==
-X-Forwarded-Encrypted: i=1; AKwUvBynsukTyC4PRIuxLLMYtQbKEMnH+CPuUuBXGr0fu122II1EiQIo+jebB6GI/hf3Og/phHBeFvA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/4mOs0Gpc4SrCQkqPIAI7ttjp4T6WwH46fZJmPTm9qpO0qItUD
-	AsfL44Swgo2sVS2hAoFNATdrTKY+clfWrHmLQb5nf1aDwYB/+Drmq8wqIRCKIpJRKhyFlZKYfZK
-	Wa7zbRtQOIdwFXWEayN6ipYUlOi5Dvu453CxkCIv3
-X-Gm-Gg: AYBFou0NoBcBN8arycFiViD2smXz8y/n++Q+yr0WBp4eGvuHi2um2TsS4nvllQBpUiS
-	CoDJXc7+VqnIfrtRQfY6B6loFVOoIGEMgJvGZsLQ0Cpa9tvgMTnSVC9gtd3NDthjY1ujVE1B3Hv
-	tLkafNdAr/Yma1/NQPa5j/TvwG3kYkWwL6NOfz93GMGPFjlj8B0blvh5MnOQsayWFVmCX8LwsHc
-	y+mKmFWzCnjnMZS9xNr5LRKtq+EGE6wdcBPsr/U/7vJjWP6VyAsxaG1fneRxn9DauYsyZI5HUe1
-	oCD6hv70vAgmeF28hG1M6QRxb04J/9IQPFvu50JPsd1aPjK60mFyc95yWrtJ5LaiDXSgCcQMALK
-	0sTPN1bdZej/hfcH8dqwW/kSnyqLTOgW6TJxcrWsj0rKJ0nUZjvhunZfw2A==
-X-Received: by 2002:a05:600c:6387:b0:4a7:9025:5c3b with SMTP id
- 5b1f17b1804b1-4b6de1c6450mr56262855e9.19.1793987583819; Fri, 06 Nov 2026
- 09:53:03 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxqWxbL5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44AC91F0089F;
+	Fri,  6 Nov 2026 17:53:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793987620;
+	bh=pSocW6V84EdtmB+DzIul/ZtRFmqQ99XfH8CnITk9eYE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DxqWxbL5BEKrBVipyePCrQrU6YwU3irskDEPCkG7YiBH5hC5AYNDjWV1jUemuU+A1
+	 tVnQBV3YVwGIbaV7S8GcUGDUIUClpfpI97GU5dLDLsyYbPW2BU6R7miAYFaTWFTVmO
+	 sCeGu/13KcdAPHqeeaF5XpJeczCmIcwDr/ncpNa2uVp5hX28kMSTb+f5ZQFdsgb16A
+	 CXdupZflbDzHrpWVMls7YcQCnF/V9Mpdn/PbzHIUERZQ7PLPuvu6SZIi5WHClmwLvS
+	 +ABZ7bk7DL8+ZBwTMPDmdKXXmi87jjKTMmYS4RyXgmUA9h0ISdYIQhwTE6IWuQ75dq
+	 G6T3Edli/wVrA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Stefan Teodorescu <fane@google.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] KVM: nSVM: Reject KVM_SET_NESTED_STATE if L1 has EFER.LMA=1 && EFER.LME=0
+Date: Fri,  6 Nov 2026 12:53:38 -0500
+Message-ID: <20261106175311.528411-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110440-diligence-kimono-b7c6@gregkh>
+References: <2026110440-diligence-kimono-b7c6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,61 +60,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105151159.1.I0b27923381ef34cc99cdf8b65fea2e1bafce6370@changeid>
- <CAF1bQ=QkGntJu8G67ssH2dS3Sn200_JuYitjtAfNPBu_hn0fZA@mail.gmail.com> <CAF1bQ=QiP4fb-+Kn8wzEH7wqjAjZaagxUd3sYpv2SkwDcnFPWQ@mail.gmail.com>
-In-Reply-To: <CAF1bQ=QiP4fb-+Kn8wzEH7wqjAjZaagxUd3sYpv2SkwDcnFPWQ@mail.gmail.com>
-From: Snehasish Kumar <snehasishk@google.com>
-Date: Fri, 6 Nov 2026 09:52:27 -0800
-X-Gm-Features: AclHuK9INR2TnwJM3Zpn1cFZ_averI8IiQe0rbAuzb--L9go7NViW8h1McGlP0Q
-Message-ID: <CA+aGii5ZbLRMsvOZ=Xk_gS10O_WgjEc=oW9vJ2yYPrRdwpZbZA@mail.gmail.com>
-Subject: Re: [PATCH] kbuild: AutoFDO: Disable Profi (-fno-sample-profile-use-profi)
-To: Rong Xu <xur@google.com>
-Cc: Douglas Anderson <dianders@chromium.org>, llvm@lists.linux.dev, 
-	linux-kbuild@vger.kernel.org, Han Shen <shenhan@google.com>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Han Wang <nesthanwang@google.com>, 
-	Nilanjana Basu <nilanjana.basu87@gmail.com>, Yabin Cui <yabinc@google.com>, stable@vger.kernel.org, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 6, 2026 at 9:43=E2=80=AFAM Rong Xu <xur@google.com> wrote:
->
-> Just one thing: I think we should also have this flag for Rust so Rust
-> and c are consistent.
->
-> Rong
->
-> On Fri, Nov 6, 2026 at 9:38=E2=80=AFAM Rong Xu <xur@google.com> wrote:
-> >
-> > This looks good to me. Thanks!
-> >
-> > Reviewed-by: Rong Xu <xur@google.com>
-> >
-> > -Rong
-> >
-> > On Thu, Nov 5, 2026 at 3:12=E2=80=AFPM Douglas Anderson <dianders@chrom=
-ium.org> wrote:
-> > >
-> > > Starting in Clang 21 (LLVM commit 2fc4a4a9d3a8 ("[Driver][SamplePGO]
-> > > Enable -fsample-profile-use-profi (#146795)") [1]), the Clang driver
-> > > automatically passes -mllvm -sample-profile-use-profi whenever
-> > > -fprofile-sample-use is specified, enabling LLVM's flow-based profile
-> > > inference algorithm (Profi) by default.
-> > >
-> > > However, as Rong Xu noted [2], the kernel's AutoFDO implementation us=
-es
-> > > flow-sensitive discriminators (FS-AFDO), and Profi has known issues w=
-ith
-> > > FS-AFDO that degrade runtime performance compared to LLVM's original
-> > > profile propagation algorithm. In addition, Profi's min-cost max-flow
-> > > solver (applyFlowInference) can hit pathological compile times (30+
-> > > minutes or hangs) on certain kernel control-flow graphs when profiles
-> > > drift slightly or when combined with GCOV [3].
+From: Sean Christopherson <seanjc@google.com>
 
-LGTM. I've seen degradations without FSAFDO too, reproducible on SPEC
-workloads 531.deepsjeng and 502.gcc while controlling for profile
-drift with newer versions of clang.
+[ Upstream commit 5dc500a354cc8e109df678076ae3488094649468 ]
 
-Reviewed-by: Snehasish Kumar <snehasishk@google.com>
+Reject KVM_SET_NESTED_STATE if the incoming L1 host state has what is
+effectively an impossible EFER combination of LMA=1 but LME=0, i.e. if the
+state says long mode is active but not enabled.  Unlike VMX, SVM doesn't
+have an explicit consistent check for the illegal combination; presumably
+hardware simply ignores EFER.LMA if EFER.LME=0.
+
+Unfortunately, KVM doesn't ignore EFER.LMA in this case and consumes the
+illegal state when constructing the shadow MMU for L2.  E.g. if userspace
+also clears CR4.PAE, then kvm_calc_cpu_role() will compute a role with 4 or
+5 levels of paging, but shadow_mmu_init_context() will wire up the MMU to
+use the paging32 template, which maxes out its levels at 2.
+
+Note, the "real badness" is effectively the same as what happened with the
+nVMX bug fixed by commit 112e66017bff ("KVM: nVMX: add missing consistency
+checks for CR0 and CR4").  Unfortunately, the sanity check added by commit
+72e2fb24a0b0 ("KVM: x86/mmu: Bug the VM if a vCPU ends up in long mode
+without PAE enabled") doesn't work for this case, since L2 state is active
+at the time of the page fault, but it's L1 that has the bad state.
+
+Fixes: cc440cdad5b7 ("KVM: nSVM: implement KVM_GET_NESTED_STATE and KVM_SET_NESTED_STATE")
+Cc: stable@vger.kernel.org
+Cc: Yosry Ahmed <yosry@kernel.org>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Link: https://patch.msgid.link/20260902232028.2767071-2-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[ sashal: placed the EFER condition in the standalone paging check because the consolidated validation block is absent ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/kvm/svm/nested.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index 5dbb4a742aa4b..a87df5804a766 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -1232,7 +1232,8 @@ static int svm_set_nested_state(struct kvm_vcpu *vcpu,
+ 	 * nested_svm_check_permissions).
+ 	 * TODO: validate reserved bits for all saved state.
+ 	 */
+-	if (!(save->cr0 & X86_CR0_PG))
++	if (!(save->cr0 & X86_CR0_PG) ||
++	    ((save->efer & EFER_LMA) && !(save->efer & EFER_LME)))
+ 		goto out_free;
+ 	if (!(save->efer & EFER_SVME))
+ 		goto out_free;
+-- 
+2.53.0
+
