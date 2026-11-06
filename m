@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793976428;
-	b=a6yjZmX+mYGWybKCofoHZ+9fm3cpI0huE+w2yXSNEp+ApireMXws/U940nitTVWylV27
-	 eniwqQ7lOVHO5xLw25ZyXitrmAhlhIVwX1OaGEC5CSPR6hJwh9XZKJ6mrOA0NaAMdCPip
-	 h1qp+xJxTr2CKuf0iDcC0z4iIh6h0eDCB87EGqH5t1C5nabmrL7iQR6aJqfMlDsDNQbw4
-	 wVgGv4RgZ8nZXpO4kDtQvGxJ56ZlXHcOCaZRd6gcIQQmJ3EoedpQpkgLyzBo9pDmg5vRs
-	 tbDXalhgMWCGSmUs2jujH76cKwgg/RMj+QI8is4pI3Boe5sMPR6Tl76Es7MjqYpYoNw==
+	t=1793976452;
+	b=XL9MsRZJpy/3Qrw8MDKFI8+I+9lIoybQYngoEhNs/OI+kAz2/rAG+q1oy3IkgHRvH0dQ
+	 al5+GVOhAKdAAL+UtXTOAbd9Iw2OAQrP5shFeV6jXEAX3jK5oBEg9BWs+r8SiA1WbJ3Sj
+	 Q2RsomiCArB9pzEJx9tl2CDl+eh428NLSRgo69pG5jiiCccRRGgU98UgrwkSVoKGSO+Rl
+	 kBrNurBUr8JPZgJM6De8MX9D7cw4gtzRfQZc2BM9qDnkxN2+jKKU894Watavx7E1/fCe1
+	 wGQBoBLSoQ5lf+a4luMblU94EFvZ7bDFyYCH1hcZ9uBe6f3Dl0epa1AgVoT8+dUiclA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793976428;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793976452;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Jvr/PYbzE/CPdSRDB5iJ614xdptc0r5yeiPTqzdBhhc=;
-	b=N3rBpaEzlF4kcK0LESy/b6iqbyyePkSAHTk6ey4SZlWg8OIMNa7RdF3iVLI9jXWV4f1i
-	 RQmbuY30gyLttUulikPpCipVuyuGEQy2zpYxnbFoWDHer4pQOZGxAr9Y2IkARyVugOWsI
-	 6i/0OnK4y3aEjHC0udA6QueDDOd3xrHHi8o5bh4PUzDITsVn6lrGA+mTy9dg+strabXgv
-	 Qk2BZMUrqlqUKTLST0XNUPA2TJo39RxzFvOXome0tvcYxlbIEZ4S/dFWl8+EMOqnpZGdC
-	 Fhyu0AXoHsqUa4KMHOYFNIY6/p3Vr37b/+Q/CNC8LcRmUedgvGH918oewGQerhWECZQ==
+	bh=aUBFo9g7MY/LWqA2of0e8iwyMDuwjTaMliEoJkcs9GE=;
+	b=h/upGcJnWd+NP1wvPRXmMWCp9noUT2xMku+mR5QFX9Bu6w6rWQNLHmMgeqjNXc3/sPkD
+	 mU2koCN9LhN4O4/tbKRPaf14F/Gjy/kq6mC0WQvgnR/kOm+EeoGCsisOzo8l9jZtiZNoB
+	 iUH7uXwLArZJbWFJ45RSQ/X5zzxCdL0n6IGoHwoSx09XduT4SsczqQEOJKQQUFaUopif9
+	 lLo3xkQLL70fF0rWdHFfYb9dHagHgeNK0jY37j/DakRPI84diyvRh0PTg38GsLT5CeEA1
+	 EQ/oMMwcy2ihIjmHglvNfEHXprPpRUyMPDHSblkvnKi6Gt+e0UJdR7WPMaA1Ev6qVtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OUz+J1eC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fPneP3RP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BECE606A32C
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:47:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D7B1606A329
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:47:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OUz+J1eC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CCFD1F0089F;
-	Fri,  6 Nov 2026 14:47:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fPneP3RP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AE411F0089F;
+	Fri,  6 Nov 2026 14:47:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793976427;
-	bh=Jvr/PYbzE/CPdSRDB5iJ614xdptc0r5yeiPTqzdBhhc=;
+	s=k20260515; t=1793976451;
+	bh=aUBFo9g7MY/LWqA2of0e8iwyMDuwjTaMliEoJkcs9GE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OUz+J1eCqP6S9jiFmdzYT+UaOfu0BGIIw/Y5pakulMWeA0mwe9FJVrKOYlBjtYYiq
-	 54WrbUaDLyDvA63QRn2TAIQnPK2DhPlpnTgr4ZV5TSWS7UgW3tVXeEqeEQEG+SXwyN
-	 I0LryxvDvVoOxYlqjx+h8ne/67n3n2YiqngqFivKR+62ODlRo968odOXiQygDaES+G
-	 QMSgAFdK0+vvfJPB0K8s3O49guPhLzTzh54hC1ZhA5MCWKqiYpjpgObg3uOaqHHf0c
-	 Wp7/sWfXVR+ICXvFk4kCKLVS5Fg8WNpt20jM2gUWM7dzLkaB+onRxOES5INqvZOHuv
-	 SHsWAzmYDVvVw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Xiaoyao Li <xiaoyao.li@intel.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Binbin Wu <binbin.wu@linux.intel.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] KVM: TDX: Set bits 31:16 to 0 and use UNDEFINED when synthesizing exit reason
-Date: Fri,  6 Nov 2026 09:47:06 -0500
-Message-ID: <20261106144334.354667-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110415-porous-slather-09d5@gregkh>
-References: <2026110415-porous-slather-09d5@gregkh>
+	b=fPneP3RPVveOZc0jdExfxCPQq7tRpaBIS81iM7hqJQiJ7xXEKuR6Tw/0JmxGgU1l3
+	 6zLRbdbEYPuUXE9Q1kqo00pbYCuTg15Q3LVP7zX+LMP7AcZPD+hV8f0u8099bTzULs
+	 OwZJ5MOL8QFei39LciOMhb1g5ehlrsU/a+v92fP48ALDsdue0GXhjoHwiwgaqL6djV
+	 5KdDKmVS3Ux5ZBvSbK42pIZc12PqXqCHbs8b3dMLNiej+zCUtZ5NC+4BXSTolx3vsT
+	 FczHu7jRxASc3UHbAB0TtKkieh8vU32zj5O+HPXDhHbu3wD6sgFSNM2DaApGK/ksnv
+	 jJJe4UeAsDkAQ==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: stable@vger.kernel.org,
+	sashal@kernel.org
+Cc: aliceryhl@google.com,
+	dakr@kernel.org,
+	gary@garyguo.net,
+	ojeda@kernel.org,
+	samitolvanen@google.com,
+	FUJITA Tomonori <fujita.tomonori@gmail.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>
+Subject: [PATCH 6.18.y 1/2] rust: hrtimer: declare cfi_encoding for hrtimer_restart
+Date: Fri,  6 Nov 2026 15:47:20 +0100
+Message-ID: <20261106144721.29080-1-ojeda@kernel.org>
+In-Reply-To: <20261104223318.627233-1-sashal@kernel.org>
+References: <20261104223318.627233-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,75 +65,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xiaoyao Li <xiaoyao.li@intel.com>
+From: Sami Tolvanen <samitolvanen@google.com>
 
-[ Upstream commit b43c520b198ab70868307a489ef2117ed6d6c4cc ]
+commit 39fe6892fd52faed6325ff7f13a92da01ab35727 upstream.
 
-Set bits 31:16 to 0 instead of all-1s when synthesizing an exit reason,
-e.g. if the TDX Module never attempted VM-Enter, or when stuffing the exit
-reason due to an unexpected "real" EPT Misconfig.  Opportunistically use
-VMX's KVM-defined EXIT_REASON_UNDEFINED (0xdead) instead of -1u.
+The hrtimer callbacks return bindings::hrtimer_restart, which bindgen
+generates as c_uint. C calls them through hrtimer->function, which
+returns enum hrtimer_restart. kCFI encodes enum types by name even with
+integer normalization, so the type ids never match and every call fails
+the CFI check.
 
-KVM is going to support Bus Lock VM exit for TDX, after which bit 26 of
-the Exit Reason becomes meaningful and indicates that a bus lock happened.
-The existing synthesized Exit Reason, -1u, will cause a false positive in
-that case.  Change the synthesized Exit Reason from -1u to U16_MAX, so that
-bits 31:16 are set to 0.  This also avoids the potential issues when other
-bits in 31:16 become valid in the future.
+Generate hrtimer_restart as a newtype with a cfi_encoding, as is done
+for lru_status, and adapt HrTimerRestart to the newtype.
 
-As a bonus, the check for synthesized Exit Reason in tdx_failed_vmentry()
-becomes unnecessary.  Just drop it.
-
+Fixes: 8a8afe9349fb ("rust: hrtimer: introduce hrtimer support")
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+Tested-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+Acked-by: Andreas Hindborg <a.hindborg@kernel.org>
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Acked-by: Danilo Krummrich <dakr@kernel.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
-Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-Link: https://patch.msgid.link/20260819094903.3060020-4-xiaoyao.li@intel.com
-[sean: use EXIT_REASON_UNDEFINED instead of another magic value]
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Link: https://patch.msgid.link/20261019-rust-cfi-fixes-v1-2-9503472ba738@google.com
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+[ Replaced bindgen's custom enum attribute option with sed
+  post-processing to support older bindgen. - Miguel ]
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
 ---
- arch/x86/kvm/vmx/tdx.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ rust/Makefile               | 1 +
+ rust/bindgen_parameters     | 1 +
+ rust/kernel/time/hrtimer.rs | 6 +++---
+ 3 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
-index dcbfcd79791c8..ad5b5497473a5 100644
---- a/arch/x86/kvm/vmx/tdx.c
-+++ b/arch/x86/kvm/vmx/tdx.c
-@@ -904,8 +904,13 @@ static __always_inline u32 tdx_to_vmx_exit_reason(struct kvm_vcpu *vcpu)
- 	struct vcpu_tdx *tdx = to_tdx(vcpu);
- 	u32 exit_reason;
+diff --git a/rust/Makefile b/rust/Makefile
+index 3867ff14fbde..3f1abad648e6 100644
+--- a/rust/Makefile
++++ b/rust/Makefile
+@@ -368,6 +368,7 @@ $(obj)/bindings/bindings_generated.rs: private bindgen_target_flags = \
+     $(shell grep -Ev '^#|^$$' $(src)/bindgen_parameters)
+ $(obj)/bindings/bindings_generated.rs: private bindgen_target_extra = ; \
+     sed -Ei 's/pub const RUST_CONST_HELPER_([a-zA-Z0-9_]*)/pub const \1/g' $@; \
++    sed -Ei 's/^pub struct hrtimer_restart\(/#[cfi_encoding="15hrtimer_restart"]\n&/' $@; \
+     sed -Ei 's/^pub struct irqreturn\(/#[cfi_encoding="9irqreturn"]\n&/' $@
+ $(obj)/bindings/bindings_generated.rs: $(src)/bindings/bindings_helper.h \
+     $(src)/bindgen_parameters FORCE
+diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
+index 9e02500dc979..6f76fdcffd58 100644
+--- a/rust/bindgen_parameters
++++ b/rust/bindgen_parameters
+@@ -24,6 +24,7 @@
+ --opaque-type spinlock
  
-+	/*
-+	 * Return the synthesized invalid Exit Reason, as the TDX module
-+	 * never attempted to run the vCPU, i.e. the Exit Reason is undefined,
-+	 * but this is NOT a failed VM-Enter.
-+	 */
- 	if (!tdx_is_exit_reason_valid(tdx->vp_enter_ret))
--		return -1u;
-+		return EXIT_REASON_UNDEFINED;
+ # enums that appear in indirect function calls should specify a cfi type
++--newtype-enum hrtimer_restart
+ --newtype-enum irqreturn
  
- 	exit_reason = tdx->vp_enter_ret;
- 
-@@ -920,7 +925,7 @@ static __always_inline u32 tdx_to_vmx_exit_reason(struct kvm_vcpu *vcpu)
- 		 * Defer KVM_BUG_ON() until tdx_handle_exit() because this is in
- 		 * non-instrumentable code with interrupts disabled.
- 		 */
--		return -1u;
-+		return EXIT_REASON_UNDEFINED;
- 	default:
- 		break;
- 	}
-@@ -951,8 +956,7 @@ static noinstr void tdx_vcpu_enter_exit(struct kvm_vcpu *vcpu)
- 
- static bool tdx_failed_vmentry(struct kvm_vcpu *vcpu)
- {
--	return vmx_get_exit_reason(vcpu).failed_vmentry &&
--	       vmx_get_exit_reason(vcpu).full != -1u;
-+	return vmx_get_exit_reason(vcpu).failed_vmentry;
+ # `seccomp`'s comment gets understood as a doctest
+diff --git a/rust/kernel/time/hrtimer.rs b/rust/kernel/time/hrtimer.rs
+index 856d2d929a00..35ff2ef7d944 100644
+--- a/rust/kernel/time/hrtimer.rs
++++ b/rust/kernel/time/hrtimer.rs
+@@ -498,14 +498,14 @@ unsafe fn start(this: *const Self, expires: <Self::TimerMode as HrTimerMode>::Ex
+ #[repr(u32)]
+ pub enum HrTimerRestart {
+     /// Timer should not be restarted.
+-    NoRestart = bindings::hrtimer_restart_HRTIMER_NORESTART,
++    NoRestart = bindings::hrtimer_restart::HRTIMER_NORESTART.0,
+     /// Timer should be restarted.
+-    Restart = bindings::hrtimer_restart_HRTIMER_RESTART,
++    Restart = bindings::hrtimer_restart::HRTIMER_RESTART.0,
  }
  
- static fastpath_t tdx_exit_handlers_fastpath(struct kvm_vcpu *vcpu)
+ impl HrTimerRestart {
+     fn into_c(self) -> bindings::hrtimer_restart {
+-        self as bindings::hrtimer_restart
++        bindings::hrtimer_restart(self as c_uint)
+     }
+ }
+ 
 -- 
-2.53.0
+2.56.0
 
