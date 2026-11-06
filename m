@@ -1,105 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793979564;
-	b=KSeRumaqsVsDH50d/lIOziqZlC75DUHQsS1X7oXFqlXjMEsShyLVxI249V68vCyBa2Dq
-	 /7RY6bOStw6fhKX7A7yI1Q8DNO5io8bB+DmQ2kdknhZGogaK53vt6f5IiB8t/sLNI9uFe
-	 GMzUE4/r9bIqooGru+eTyNRT0mFTaPVnwh8Ilkb/KaE5xFQurld5HvYZ9qgF7G5qBFRU9
-	 vaXXsSe9rPvLjVGj/nynMxeggXdnlDSh+JXRDMFlnVLynSdTOS1eSZqPlNCc8DNH7DF4V
-	 cWdiY2h3JI0EGXw6HibbCYPAc0Tt5RljJa+PRkleYLMXDRvTWdIXZRnHq2P1dmD6x1A==
+	t=1793979594;
+	b=l3DjC6kQZssuehf2cLT+a5CqmCqFY10Pc9Po+40F7kEE1IF771iQX5PC4u63c8XUSAa0
+	 yp6OOy+Ikw+qSYq7AoxT/NA5l4rwr5g9MhLhXxdvA/mfTdN3kC7s9BZiMeZK1I3Br2RRy
+	 ApCfJVzqfz4wzTlJZ1qCc1zsKjLP19tRMZGHP0QUer0uQTpCUBXPi6YtRrdtek3HvNqkd
+	 nnlOobtTgS9gVjIR+bH4KfFhphDYLvmY8hxp6g6Mp/WOn+vJo2v/98huA8g4v7HGV/IKH
+	 xdbNEvLCt2gFf5zD02ZD29cZwQkALP5JwHAr6dEW+K/TFNfScbj6zyVD1jUtl4Qg/9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793979564;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4tmGxuQStKCk7w+onoi1RLdqwI1kArXig6jzABebmog=;
-	b=PeGEw3y9Bp1X59RJF6JlSUjzb6OcwUPDbIwpcAElfw9vahLaZ1ooqczXksLefIgDtlYN
-	 hLelL2beUF4jnfiRN/CIAldP0FDkAGm0mAE5TXp8HQIOIddrfq/5PZWH3ifOcTrm4Z3pJ
-	 F4XNUhm4aov3+re0EySJ04t3qACrug2MM3zaxkXGY1oMIDq/9bJAX71uwPr/DHsxbLbG0
-	 4RaLvN83bqxWKGh8eaefigzIU+FBaZuXAzXIS4No3N3Kc1qB67deXzx7zD3MJykyK5MQJ
-	 i+LkqqMIduySrEZk7iq7e7jGGglufGmQv3tZSZeeuqzy+JNTqLBpXK9S8eSITkwa5vA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793979594;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=72dhPHd4WBhPIQghSIWyyc2JN2E4/ifchxxNZweNup8=;
+	b=g+FWobH2SDiqxWuUwbMgNrMZnvwSS60Y6ePDaCqSS9LdYRUwZj/WZ5AtUlKtiaKtTefA
+	 UjMgeZrVDQX1xAr9mRpm20Ke0UVn3EaFLYKDA6gtRK7Xe0l0dIVAVtuKp2T9tIlr5Rrih
+	 iD9GADtJenwnRWrubAc6mTKtjBXyRMsgWZEeJi1wQvMy6x1m17krqMD4/H7oxpa3n7ALm
+	 esdv5g+PsdCZ0Ci3BG6vqNiIMrtHz4Tbx21jl2iRII66vtIHa527FCI0aQmQWmWlE2uAg
+	 OMpnjbrvYthIrkCjlBvCogcT3nDohjyd5cV7RvspTbOGYQTKfQ9SXg8lzTpjACt/bsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CmzgYoZC;
-	arc=none smtp.remote-ip=95.215.58.200
-Received: from mta1.migadu.com (out-200.mta1.migadu.com [95.215.58.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=IPWinYrl;
+	arc=none smtp.remote-ip=162.62.57.137
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92DE0606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 15:39:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92DE0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA554606A326;
+	Fri,  6 Nov 2026 15:39:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA554606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CmzgYoZC
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cxp+oaexrpUE0cyElicHmhKBrNrP/fzOSAf3exqA3F4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793979561; v=1; x=1794584361;
- b=CmzgYoZCoSCoPOD8d4J2CNcL+azM+zYCz75PcmISXevWmg5vTMxyEjplZCkCK5TM1Om8yZ6V
- Zbx3Wd/Y4LxkocPiaUzZIXerQYHYqPH79yMQI8F7Y4Qt8r5e7Ub4KBDOVvOGzoyHoXX09hBsmQG
- 4dbcIPuXWKdimO8uWiqmyp2U=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id be0c1e5625ffc958;
-	Fri, 06 Nov 2026 15:39:21 +0000
-X-Mizu-Trace-ID: be0c1e5625ffc958
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	willy@infradead.org,
-	jack@suse.cz,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	matthew.brost@intel.com,
-	joshua.hahnjy@gmail.com,
-	byungchul@sk.com,
-	gourry@gourry.net,
-	ying.huang@linux.alibaba.com,
-	apopple@nvidia.com,
-	peterx@redhat.com,
-	hannes@cmpxchg.org,
-	songliubraving@fb.com,
-	riel@surriel.com,
-	hughd@google.com,
-	will@kernel.org,
-	aneesh.kumar@kernel.org,
-	npiggin@gmail.com,
-	peterz@infradead.org,
-	jgg@ziepe.ca,
-	kevin.tian@intel.com,
-	joro@8bytes.org,
-	robin.murphy@arm.com,
-	steven.sistare@oracle.com,
-	jhubbard@nvidia.com,
-	linux-mm@kvack.org,
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=IPWinYrl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1793979586;
+	bh=72dhPHd4WBhPIQghSIWyyc2JN2E4/ifchxxNZweNup8=;
+	h=From:To:Cc:Subject:Date;
+	b=IPWinYrlfsip2SQCRzp7kMuxsy/SA1Ufj6+L2RWgri0R1G0ZiJrxvXkMjgf/vzReD
+	 k0K2D4vkbZWerAXVPnCje3wJo2xlTup8+3hkitBknne7Xg467EhX09gYPOqh4DMkSB
+	 XRvlpKZmnaYWs0ScR9SDAOJAKD+m78Xgsy631h+c=
+Received: from KernelDevBox.byted.org ([240e:83:200::a6])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id 9EA9A806; Fri, 06 Nov 2026 23:39:42 +0800
+X-QQ-mid: xmsmtpt1793979582tv4o5erxa
+Message-ID: <tencent_C156772B062CD403424112354682F1E6B805@qq.com>
+X-QQ-XMAILINFO: NHTNowOA4hJd7B15tE22RqWdK0w43iQEgOXuLtQP1vQrMao0FsnDgqKzSA5A1h
+	 MelHTD29NBjddhm6NgMjKa9Uq1efYOe3SSgIvvrQ3U0ekaiI15PduQMe0VKjH9dPdEuN3XyvP5Y1
+	 ZtS0bCHi6t5zI5i76z/KYrukLKcCic/C1MLzdMilHvzeoEv41qOnzULzZygbvEg556V/5GdhVBCJ
+	 EvosULC9w8/CArdv+L+XKXkSG0yTxVifhyHDL4Kp90FlARVC0KhuHcdCqhGJR45KmFeqmjALkfYz
+	 P1/f5JhZZxM7R1qPF+GosFCfyorOfDPSdoTHSLlcomsvZ+VQeNq/BZZGige94OFSd1hNBGbjwdpy
+	 srI16ZpYlY0sTDvCfbF42KlH36bbf6YsUzTAaVn2olPqpa/iKLrBo7+7elYPIbyI0UmVN2P5uNn9
+	 RASjRJ5V8bdYelJeDLNt2psbYPr1Ek5qOFmwDmfGZ844VmOlwueOAaUMybvT4Om02SBq2MAgJ2GA
+	 cLZFEvU9BZkQ9xAmhaSVPFcBtWdGunFlj+uhDSn69G/1LJq+nsH3kFvtcFUAk5OdAN+lFzMQJxwk
+	 MNQ42SJe7EwlsrOpiiZXsA2pJL3Edb/Qc8KxbbDp+n+PiEDyy7aKh3PYZjiR+iOXnL4i1dZy+/GR
+	 /KaYh3/2WoHHlAYKXqQjnXNJYGcd17i0T9r9TfkaA8RHdPIH2ItWgcxepXOvXkwHbWTbAB/nFSSX
+	 /9PBBIvzmHK//nYDLOtaYLOoPvWym7U1oP3Wjves9A6JwyyOyf1z41F7cgbk4hLhRPT1pfLCb85b
+	 CLjDaNqgMiaSUMMmHl6kd0FKsfJju3pWwjPQTV+TMUv0bGCxZzhtaHFpuOgpoSDR6P2hlISQhSaq
+	 taIRUXlTJn4ju7/SLycxTxOmwF9d9Jkafrd4mhgm3mv+LsYYwar/qrg0ueyV9xQ0PueTiy7DPpex
+	 tw5vk5q/oflyH9yYCmlhAdLldZS1pF12Eth/iOVD/62n7UuJ/Ie4SxrTOfdX9vKy308TYDlgfKwG
+	 cA0ZKhOEzIhe1myl9hIZjnVxFvy/+a2CV4QqwL3R/H2hSAAVZps3K2XsA3Pdr2o3B4gcIHxORX84
+	 IjX3tOXnUMU9W9n4E=
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+From: Zhang Shurong <zhang_shurong@foxmail.com>
+To: dmitry.torokhov@gmail.com
+Cc: sanjay.govind9@gmail.com,
+	krisfur@proton.me,
+	byt.es@mailbox.org,
+	zoliviragh@gmail.com,
+	francesco.orlando99@libero.it,
+	wiagn233@outlook.com,
+	roberts.kursitis@azeron.eu,
+	contact@zharov.dev,
+	elliotctester@gmail.com,
+	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	iommu@lists.linux.dev,
+	Zhang Shurong <zhang_shurong@foxmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 4/5] iommufd: fix cleanup when adding memfd folio pins fails
-Date: Fri,  6 Nov 2026 23:39:14 +0800
-Message-ID: <20261106153914.91168-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261105-refcount_overflow_stable-v1-4-70b9c655da3e@kernel.org>
-References: <20261105-refcount_overflow_stable-v1-4-70b9c655da3e@kernel.org>
+Subject: [PATCH] Input: xpad - fix use-after-free in probe error path
+Date: Fri,  6 Nov 2026 23:39:38 +0800
+X-OQ-MSGID: <20261106153938.1947025-1-zhang_shurong@foxmail.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,36 +89,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+xpad_probe() creates the input device asynchronously for wireless
+(XTYPE_XBOX360W) controllers: xpad360w_start_input() submits the interrupt
+URB, and its completion handler queues xpad->work, which calls
+xpad_init_input() and registers the input device. It then submits a
+presence packet on the output URB; if that submission fails,
+xpad360w_start_input() returns an error after the interrupt URB has
+already been submitted and may have completed. The err_deinit_output
+label then only tears down the output URBs and frees the xpad structure.
+It never cancels the pending work nor unregisters an input device that the
+work may already have created.
 
-On Thu, Nov 05, 2026 at 02:10:13PM +0100, David Hildenbrand (Arm) wrote:
->folio_add_pins() can fail after memfd_pin_folios() succeeded pinning a
->folio. Upcoming folio refcount limit checks will make this easier to
->trigger.
->
->Let's fix three problems in the error handling:
->
->1. pfn_reader_release_pins() uses the allocated array size instead of the
->   number of folios returned by memfd_pin_folios(). With large folios,
->   cleanup can unpin uninitialized entries. Remember the number of returned
->   folios and use that during cleanup.
->
->2. pin_memfd_pages() returns on failure without releasing the pins acquired
->   by the current call. Release the per-page pins for folios already
->   expanded into the page array, and the single pins for the remaining
->   folios.
->
->3. pfn_reader_next() returns on failure before updating batch_end_index,
->   even if the batch already contains successfully expanded folios. Update
->   it before propagating the error so cleanup releases those pins as well.
->
->Fixes: 92687c793644 ("iommufd: pfn_reader for file mappings")
->Cc: stable@vger.kernel.org
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
+Consequently, after kfree(xpad) the input device can remain registered and
+input_dev->phys still points into the freed xpad->phys[64] array. A
+userspace EVIOCGPHYS ioctl on the corresponding event node then reads the
+dangling pointer:
 
-Nothing jumped out at me, so:
+  BUG: KASAN: slab-use-after-free in strlen
+  Read of size 1 at ...
+  Call Trace:
+   strlen
+   str_to_user
+   evdev_do_ioctl
+   evdev_ioctl
+   __x64_sys_ioctl
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+The same window also allows the queued work or the output URB callbacks to
+run after xpad has been freed, which can instead report a use-after-free in
+xpad_init_input() or xpad_prepare_next_out_packet().
+
+Make the error path mirror xpad_disconnect(): stop the wireless input URB
+(which also flushes the queued work), unregister the input device if it was
+created, stop the output URB, release the output resources, and clear the
+interface data before freeing the xpad structure.
+
+This use-after-free has been reproduced and the fix has been verified on a
+KASAN-enabled kernel. The original syzbot report's allocation and free
+stacks show the address later reused by tmpfs; the xpad owner was
+established by local reproduction.
+
+Fixes: 09c8b00ae3e1 ("Input: xpad - handle "present" and "gone" correctly")
+Link: https://syzkaller.appspot.com/bug?id=04f471e8f027835f49842bbc7694e723d2289d7d
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhang Shurong <zhang_shurong@foxmail.com>
+---
+ drivers/input/joystick/xpad.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
+index 53fd3b562f41..3951b4b05740 100644
+--- a/drivers/input/joystick/xpad.c
++++ b/drivers/input/joystick/xpad.c
+@@ -2224,7 +2224,12 @@ static int xpad_probe(struct usb_interface *intf, const struct usb_device_id *id
+ 	return 0;
+ 
+ err_deinit_output:
++	if (xpad->xtype == XTYPE_XBOX360W)
++		xpad360w_stop_input(xpad);
++	xpad_deinit_input(xpad);
++	xpad_stop_output(xpad);
+ 	xpad_deinit_output(xpad);
++	usb_set_intfdata(intf, NULL);
+ err_free_in_urb:
+ 	usb_free_urb(xpad->irq_in);
+ err_free_idata:
+-- 
+2.39.5
+
