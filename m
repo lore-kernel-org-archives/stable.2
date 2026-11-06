@@ -1,74 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793986948;
-	b=2vHJ/VcJuAHzukR3Hy0nqAj9NxVme9MuEdEjs4AgpGsbv5qXqlvLpaLiJ3P/g2chmMq/
-	 6fNUEKVPm3iWPGkL7ETKDuzvBzTWtyBc7BkFmAty/kV9p8h38NmZpPs3CKDG4gYfgmRmU
-	 3FGlsd6PiBnnN4+1vWvkadrhxJS+S9Sf7KdZYzZJQeT9fZj2LUZPE7HMTP7XdnmhipIlG
-	 d/rKykZJQibJyk7wWYYTQd97pb3IvgYPNpRVQPSRCXGc08sDRXBES64gCKwFtF+7zWEUG
-	 zuCZ3PcSMiufn46EfVeDSoGs28QUZTxmEdWS2B60V8C5hwD9AhAuXquP1zZpqZCF73Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793986948;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793986984;
+	b=Tq9LbwuNTJGFn5iu70dSYaVZPcyJITi1OnwFLeUHIkqmE83nWxEJiCUVq5brOUZ/0l9o
+	 +u5NhQUU6xQvUm30FAEggz1hB5Wj3RUilgIF3psiU4QlDLo+1jnFxngsN2eXfF8zqbAED
+	 ycgW35ejRX7bqvSRiSWpJzsj43X4jyqWVhU/gBNJ/gqnUwJtBOpxxyBlvXb18gJvq6zD3
+	 CZKaOy4ljE04pXbEJVpNg9KwCV4l+AGOJtfzQIE3uSdW0g5uSHSMDTiVWokV381zpHsEl
+	 cQvMmATXsRVsODdUiLQXefcer98X/JzbpmVbzmUANvabwJK6kEIsKSTbcEYeEBpsQjg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793986984;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
-	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=dUFLil/A/qxmQAsi18K2mSML2dlbE2/nzQZ4zVZkdWo=;
-	b=vVaGpwzwWOszkq20itEn6Rptc8fgGdyzW6TvntxKM8seTxZpYbr+bPaw6ddQ/auM7Bz/
-	 DmbN1EQ3ZBaDvgRZ5DDstjaDwi/UqIVcTRXkFvD0Erf/SnZRIFeFnUwTGEHnr7FxfHyiH
-	 2OVgvhNQgQW2czAxUlvyTDo8sG8ZqXXdMNp41PHpnFuftCwM5uxJIkayx/R4oZDDWNewK
-	 tVoDtGyF1SIa3ZxtnW2a3dhumGPyc3gE2IG4V3zPO+4+t15lCnyH6BqTcNBoCxODJ7OWV
-	 F5bDuW24BsvuGkATIcQ+kXc3lIHAvWwNRouHGdRXVDCW6D2kQTD1XXTdLkALXpOHyFg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=zCfrwF+d0gm8FLK7Blq7MpU0ABelay9GJEspD8JPZms=;
+	b=xKM9xtz7Kc5+At3C036CwBY0wOTFP9jh6mWWpWub4W5iMphCldjiqtJZKKHcNvDw4moz
+	 VsPpjHm0J6t32vT9ztw/5hXX+9RpA/wxjUaObVH4RcIDxdhsqdpzALAVMfwdx7qUlLxvk
+	 hNfjjTPn4UGO2nzuVorxHKsDSiRnzPF9bma12xg0b5G9WqSyyxg812qhTupwhozbF1fp8
+	 y9tZkhgfRdJ8BB+yAp4xqhccUufMjKBjdxicMxPw45XhdhDl0tjHOzBfga5FW/P762U5l
+	 fCAFdZNCJrIWzvb95xhdfytoquWy/H0jf0plmv2C+FD1KSHQ1ZUHebM3NyBAFm+6uvw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dBQ7YLJ3;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=l2ro5fQr;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74529606A329
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 17:42:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74529606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 213F5606A330
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 17:43:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 213F5606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=dBQ7YLJ3
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-54dbbf252cdso1192853b6e.2
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 09:42:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=l2ro5fQr
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b571a45a2aso3899a12.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 09:43:03 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793986982; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BxnM/pqGqZK4nKSgn8K2rBSmSoBJDA41RUuq8C867pcoFoELtVrxuM/UXL0yTzt3ex
+         gE+UHRWJOF3UIAt3/DEx0JvvG0dQm/wCS9DYk4dbNDnHkGS6rrjaLpq9R1KFWrtnWJ5d
+         XN/C9u7gkhIkMF3NW5g86D995svRjrCz0q1IaS6NG+5AM2IqD9HEd/jt4dF6Fir1Eb6a
+         A6+8vMxcP7bRn9aV8yVZ7QhicBuheUCyPS7UjcBsfo05Gxq8jMBX4+dqT4KJbeeXBe8/
+         JAipSSqZsYmIa2q2qoKGR0GeOC55ygAhQnT5vk6lMTu1eDLDQeIOaU4mMMINEhgzHtVp
+         jWYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zCfrwF+d0gm8FLK7Blq7MpU0ABelay9GJEspD8JPZms=;
+        fh=kgc/tnBXVUqvH6vWl0yWP7L1nKEZPVROQxH+DEWsxF4=;
+        b=if7prDIw3CVLA/oJgdfc6y7J2IWEZVY2rEgOQtDw+Uk+8UsRu8BxmGhu8xekyH5toB
+         wKbLYe62pZUjEI77WmKo00ze7ahcy6yCJTEasB+m7S7zJILq9HxPHPj1i5DFHnOpxIb5
+         LeqIW+HNAMGgcQ/VJpYMy69flOTogBXIV97M+YpMqfpXplxyfO8IALajc+jI0tFy9k+/
+         WgcBfFRSdk/MHZ3FYzA3foxJN/q1PDmh8B/MwgAwd0O6sGBvbBcquwR1ISgSyUgptTas
+         IEY8PpAbROFpqTEztJdvd4a2Vy4teA98jwllkkNEe48gZF0uAIo1dE3eoJq72doIWhfN
+         02cw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793986947; x=1794591747; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dUFLil/A/qxmQAsi18K2mSML2dlbE2/nzQZ4zVZkdWo=;
-        b=dBQ7YLJ3uODDOED/2DgPxg8PsjKo7WdunLMq/Uc7+ISd0xKH3HFCKcXvKdHh6BMlXx
-         EjiCPxj5VMx2JYp5iF/IqOeaY8+s6X+kf0q9q9tow5Z8rYr+gqWqMkWbSOlu56KONeiR
-         l+Xv5r3f/0YAyu2cC32fHKpW+p3LFHqFgEWt65YvYp6Ea3Wbkm7+8v8yc6jpdPVaO1fx
-         AE4t/igBoDkEOZrDaCQClAIa5RB+RkrAOqajMK6XGsGv7ALoZzNdOAaDEHaX3oKz1FPz
-         +YHe5qXhv1g2afWUa+kV+f91ozWPt+tLI9bZC6o+Ma9p7X4k7aqrJYkKgILfcUiiJMb2
-         obxA==
+        d=google.com; s=20260707; t=1793986982; x=1794591782; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zCfrwF+d0gm8FLK7Blq7MpU0ABelay9GJEspD8JPZms=;
+        b=l2ro5fQrGF8ThcmBTRuXeAQRtbC/ARC1ruTiblsIEn2TfppdJiydYhKAM4Pfr6JIQM
+         LmzWSYpfeCkYvybW5XzERjWOO+6ggOGxW1b5Q0S1/5Nwphf11n5Zyqi0o+WmhZ18AL34
+         bu7QEScxPJWzlU3+4nw+SDW0gHa7ujBtgCU3EL78GwCPlLGAQai4bYGevl3WnHpN4cFc
+         aAGG0P0bjrCebkNJmEzrz2n3jrEKJqdTDq7fSg32FrEga3uAMZa8+0fctC922fgiezc9
+         SmB1SAE0rxRy8hRrjFof1/beFTpbeXVK3rmbPxIStIUohKKEazLHCMUOR3keloElEMN5
+         chXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793986947; x=1794591747;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dUFLil/A/qxmQAsi18K2mSML2dlbE2/nzQZ4zVZkdWo=;
-        b=OGMY2W8nLduIGaHpUKrnXBV3MEduAXrHey8v/7NASBSbavizq6A/haEvzlWwhEE6gR
-         oRCh9O4tQjoIGGJH5dQTCWoQfX3EkRAsn5t3SvAa806cBfYtOT9U/zA8ikTi2FZ26lxP
-         tz281JqfvawHls8sU8ZA3RkXDVFAEU28VJwR0sE1aAqYlsbtep8CU/p09HNDbfqL1bSD
-         Meoy4M7qQ5Xb7G/DWT+UpEBiUGdAUs1fZgH0o5vN+z8oHPqKkSGxmbZP7NuUE2UKabH5
-         FyzJiwydRQPABqq1SYQW9qbjV40c+WiYJahM+kUDQAeXxFeoVUpiCo6JSf6UPfEgYwsF
-         gjNA==
-X-Gm-Message-State: APuU4Z+xB8cPjIpOJjZqVLIE07S1InSd5ZKQaPdK/Sx//qJgBOlWlcJm
-	Cigv5BiWevIjdb3AaBXMD8SYoUM3VQspfS3A7qZ6ls6WQ+LMrPm4gYn8TCtOKUCM9Ozz1MVZgXQ
-	LI2NzOrh24g3KU2r32xjtYBYkoQxGkDcrRIYv4idCJrIBlTjaQu0iWWfToMRpRAaa6Rhoos+nRs
-	ZIsxh5EiihPcrgvr9qxtH8F7jfa7p684BpZggyVJ3MaP3hyi+nAy6d
-X-Received: from iohc24.prod.google.com ([2002:a05:6602:a998:b0:9c7:7f8f:934f])
- (user=tjmercier job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:4f47:b0:4b9:a8ac:480 with SMTP id 5614622812f47-567e14d9facmr2577739b6e.30.1793986946809;
- Fri, 06 Nov 2026 09:42:26 -0800 (PST)
-Date: Fri,  6 Nov 2026 09:42:23 -0800
-In-Reply-To: <20261106163056.541441-1-ehagberg@janestreet.com>
+        d=1e100.net; s=20260707; t=1793986982; x=1794591782;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zCfrwF+d0gm8FLK7Blq7MpU0ABelay9GJEspD8JPZms=;
+        b=YBl3aVt6HeFmlT+/9W4m4obtLkOd6eGUgx/+lFWAwZy7n6vm9s424QQORTXV8MlKGN
+         tz9s5IF0PXvElF1sBQv4DHv6z0+daZUf2Kbpo2L5UTS3kLMF9xAgamnJ7BRJVL9soGEg
+         ErRUNM3p6qIfAjj4UuxlOArPOBimpCIs+iJvuTz+LwpJyOlwLD8x/HMfQtUZBuAWVkpz
+         NQah1Buc2tup2VuhpGxX1TaAPX8C3AXHwyWEolqhAMOZinJQfk8ng8rBGVllUTvt9sVA
+         +wEBiRRbDREAXweHgwnhCTaMNUwr9AP8o+6w011hU3LZ4CZUBseLwpkdqq/RuRzYUHh1
+         GiEQ==
+X-Forwarded-Encrypted: i=1; AL+hErGuXx58ytk3Ah3QMgd8y1V//DzmtR4+lHdcgGG3zbAWz5XQFs6K35Y1t8PXJaFKThllHbfhgiQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9GEzyZuLdUeHYqEepqpR78yyACqWa3HMJ4dUHb9eUPnW+hfEma
+	T5uyas+c+3P0unHaF0ksAfqVzp0AJpi9YocG8nzKZs1EyY5nkOJf3GzQJlp0sD9Y137GGve+f+s
+	Y0nTYJljXUSCZhqsJjHgCMk5Ms+haP3WyiiwkCe3n
+X-Gm-Gg: AYBFou2PyHfhRP0k+uuznCXs8k5FHlfxGcBDgJ/iP7PDqiyqZlkG9zwCOE/yDnJ+B2F
+	nQtqC8wotCrhsy1y5Ka7qHr9QB7olvgleSNAl7L+jUB3vSXe8c8lcHwFQpbbhIAJNkVOfGKSgbV
+	g33DPGIQnp7xKWX7URl08tf9xRvZjehjrPKQrywR1e2pSH7zEd3bH5Op4Jm1cAP7r4Vla4XgVcH
+	2ONqJSHiEPAdgwUuaEjflFYzJK7YXo46AX+U+T1w7pMgtuE7QKkqhbmDrpRXllDUEKkpY4aChmi
+	Nkh5wUPCZAkX+YPUXzVA1QpGvH68nJyKKICYQUNcKo5E//pOEtdF1oOAMbh20WnRnfvD1B/t48g
+	/qZ4ziUNMlaif6uqwW7dJQBaMlgq3C7D/tskyVyB7QKatZc5CGWs2aakrwn/BoxQZKWzcY1o5Gs
+	E9wtnXLVutnHv9
+X-Received: by 2002:aa7:d790:0:b0:6af:b196:68bf with SMTP id
+ 4fb4d7f45d1cf-6b6f841a8e9mr5248a12.7.1793986981869; Fri, 06 Nov 2026 09:43:01
+ -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,82 +104,99 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261106163056.541441-1-ehagberg@janestreet.com>
-X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261106174223.743929-1-tjmercier@google.com>
-Subject: [PATCH 6.18.y] mm: remove '!root_reclaim' checking in should_abort_scan()
-From: "T.J. Mercier" <tjmercier@google.com>
-To: stable@vger.kernel.org
-Cc: linux-mm@kvack.org, akpm@linux-foundation.org, hannes@cmpxchg.org, 
-	mhocko@kernel.org, zhaoyang.huang@unisoc.com, shakeel.butt@linux.dev, 
-	qi.zheng@linux.dev, kasong@tencent.com, baohua@kernel.org, 
-	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, 
-	ehagberg@janestreet.com, "T.J.Mercier" <tjmercier@google.com>, 
-	Rik van Riel <riel@surriel.com>, Roman Gushchin <roman.gushchin@linux.dev>, Yu Zhao <yuzhao@google.com>
+MIME-Version: 1.0
+References: <20261105151159.1.I0b27923381ef34cc99cdf8b65fea2e1bafce6370@changeid>
+ <CAF1bQ=QkGntJu8G67ssH2dS3Sn200_JuYitjtAfNPBu_hn0fZA@mail.gmail.com>
+In-Reply-To: <CAF1bQ=QkGntJu8G67ssH2dS3Sn200_JuYitjtAfNPBu_hn0fZA@mail.gmail.com>
+From: Rong Xu <xur@google.com>
+Date: Fri, 6 Nov 2026 09:42:50 -0800
+X-Gm-Features: AclHuK-wkGWa84CFDmjnSjcaCwRdnzfHPz195HdzeZhErhZwgCS6NVR4XJm0nNw
+Message-ID: <CAF1bQ=QiP4fb-+Kn8wzEH7wqjAjZaagxUd3sYpv2SkwDcnFPWQ@mail.gmail.com>
+Subject: Re: [PATCH] kbuild: AutoFDO: Disable Profi (-fno-sample-profile-use-profi)
+To: Douglas Anderson <dianders@chromium.org>
+Cc: llvm@lists.linux.dev, linux-kbuild@vger.kernel.org, 
+	Han Shen <shenhan@google.com>, Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Han Wang <nesthanwang@google.com>, 
+	Snehasish Kumar <snehasishk@google.com>, Nilanjana Basu <nilanjana.basu87@gmail.com>, 
+	Yabin Cui <yabinc@google.com>, stable@vger.kernel.org, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Zhaoyang Huang <zhaoyang.huang@unisoc.com>
+Just one thing: I think we should also have this flag for Rust so Rust
+and c are consistent.
 
-[ Upstream commit 19999e479c2a38672789e66b4830f43c645ca1f2 ]
+Rong
 
-Android systems usually use memory.reclaim interface to implement user
-space memory management which expects that the requested reclaim target
-and actually reclaimed amount memory are not diverging by too much. With
-the current MGRLU implementation there is, however, no bail out when the
-reclaim target is reached and this could lead to an excessive reclaim
-that scales with the reclaim hierarchy size.For example, we can get a
-nr_reclaimed=394/nr_to_reclaim=32 proactive reclaim under a common 1-N
-cgroup hierarchy.
-
-This defect arose from the goal of keeping fairness among memcgs that is,
-for try_to_free_mem_cgroup_pages -> shrink_node_memcgs -> shrink_lruvec ->
-lru_gen_shrink_lruvec -> try_to_shrink_lruvec, the !root_reclaim(sc) check
-was there for reclaim fairness, which was necessary before commit
-b82b530740b9 ("mm: vmscan: restore incremental cgroup iteration") because
-the fairness depended on attempted proportional reclaim from every memcg
-under the target memcg.  However after commit b82b530740b9 there is no
-longer a need to visit every memcg to ensure fairness.  Let's have
-try_to_shrink_lruvec bail out when the nr_reclaimed achieved.
-
-Link: https://lore.kernel.org/20260318011558.1696310-1-zhaoyang.huang@unisoc.com
-Link: https://lore.kernel.org/20260212032111.408865-1-zhaoyang.huang@unisoc.com
-Signed-off-by: Zhaoyang Huang <zhaoyang.huang@unisoc.com>
-Suggested-by: T.J.Mercier <tjmercier@google.com>
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Kairui Song <kasong@tencent.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Yu Zhao <yuzhao@google.com>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: Wei Xu <weixugc@google.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: T.J. Mercier <tjmercier@google.com>
----
- mm/vmscan.c | 4 ----
- 1 file changed, 4 deletions(-)
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 2c66fbcd6e84..160481706b42 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4844,10 +4844,6 @@ static bool should_abort_scan(struct lruvec *lruvec, struct scan_control *sc)
- 	int i;
- 	enum zone_watermarks mark;
- 
--	/* don't abort memcg reclaim to ensure fairness */
--	if (!root_reclaim(sc))
--		return false;
--
- 	if (sc->nr_reclaimed >= max(sc->nr_to_reclaim, compact_gap(sc->order)))
- 		return true;
- 
--- 
-2.56.0.455.g6c5a503b38-goog
-
+On Fri, Nov 6, 2026 at 9:38=E2=80=AFAM Rong Xu <xur@google.com> wrote:
+>
+> This looks good to me. Thanks!
+>
+> Reviewed-by: Rong Xu <xur@google.com>
+>
+> -Rong
+>
+> On Thu, Nov 5, 2026 at 3:12=E2=80=AFPM Douglas Anderson <dianders@chromiu=
+m.org> wrote:
+> >
+> > Starting in Clang 21 (LLVM commit 2fc4a4a9d3a8 ("[Driver][SamplePGO]
+> > Enable -fsample-profile-use-profi (#146795)") [1]), the Clang driver
+> > automatically passes -mllvm -sample-profile-use-profi whenever
+> > -fprofile-sample-use is specified, enabling LLVM's flow-based profile
+> > inference algorithm (Profi) by default.
+> >
+> > However, as Rong Xu noted [2], the kernel's AutoFDO implementation uses
+> > flow-sensitive discriminators (FS-AFDO), and Profi has known issues wit=
+h
+> > FS-AFDO that degrade runtime performance compared to LLVM's original
+> > profile propagation algorithm. In addition, Profi's min-cost max-flow
+> > solver (applyFlowInference) can hit pathological compile times (30+
+> > minutes or hangs) on certain kernel control-flow graphs when profiles
+> > drift slightly or when combined with GCOV [3].
+> >
+> > Pass -fno-sample-profile-use-profi to disable Profi and restore the
+> > original profile propagation behavior that kernel AutoFDO was tested
+> > with. Guard the flag with clang-min-version 210000 since it was
+> > introduced in Clang 21 alongside the default change, whereas
+> > CONFIG_AUTOFDO_CLANG supports Clang 17+. Note that cc-option cannot be
+> > used to probe for the flag because cc-option invokes Clang with -Werror
+> > but without -fprofile-sample-use, causing Clang to fail the probe with
+> > -Werror,-Wunused-command-line-argument.
+> >
+> > RUSTFLAGS_AUTOFDO_CLANG and KBUILD_LDFLAGS do not need changes because
+> > SampleProfileUseProfi remains false by default in the LLVM backend and
+> > is only enabled by the Clang driver.
+> >
+> > Cc: stable@vger.kernel.org
+> > Fixes: 315ad8780a12 ("kbuild: Add AutoFDO support for Clang build")
+> > Suggested-by: Rong Xu <xur@google.com>
+> > Link: https://github.com/llvm/llvm-project/commit/2fc4a4a9d3a87a9e11c48=
+ef25522aa17c2a71003 [1]
+> > Link: https://lore.kernel.org/r/CAF1bQ=3DS52KWHopqxksctbBirFEr5Mz1dKKMA=
+oWh-dqLHii3Nig@mail.gmail.com [2]
+> > Link: https://github.com/ClangBuiltLinux/linux/issues/2188 [3]
+> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> > ---
+> >
+> >  scripts/Makefile.autofdo | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/scripts/Makefile.autofdo b/scripts/Makefile.autofdo
+> > index 57a3aba6ffc2..8754b60ad2ab 100644
+> > --- a/scripts/Makefile.autofdo
+> > +++ b/scripts/Makefile.autofdo
+> > @@ -13,6 +13,7 @@ endif
+> >  ifdef CLANG_AUTOFDO_PROFILE
+> >    CFLAGS_AUTOFDO_CLANG +=3D -fprofile-sample-use=3D$(CLANG_AUTOFDO_PRO=
+FILE) -ffunction-sections
+> >    CFLAGS_AUTOFDO_CLANG +=3D -fsplit-machine-functions
+> > +  CFLAGS_AUTOFDO_CLANG +=3D $(if $(call clang-min-version,210000),-fno=
+-sample-profile-use-profi)
+> >    RUSTFLAGS_AUTOFDO_CLANG +=3D -Zprofile-sample-use=3D$(CLANG_AUTOFDO_=
+PROFILE) -Zfunction-sections=3Dy
+> >    RUSTFLAGS_AUTOFDO_CLANG +=3D -Cllvm-args=3D-split-machine-functions
+> >  endif
+> > --
+> > 2.56.0.455.g6c5a503b38-goog
+> >
