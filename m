@@ -1,60 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793966920;
-	b=miCByUb3tOTFXZU6dctNI6u/N8fosxUNm7179NIZLLBzOzAh/e4utFYFXCQX5eSURbDX
-	 vgoz36HhYCTEIMiwhYkk8cXAGoVaLwDCmlxNhtCiXz52Lx8s2ifPQntW/FSXmB5n36f/Y
-	 b2V/l2tgbdi/3byyzECNyH+Zg1CWflUtaFOO+/JAqyMYTZBG6EycmNqY2wCxMHmHu0eGN
-	 BezqGIHIoTYa6RT6t2msc9jjc7fyHDLYU7azOchlDGOLD50nY2uCcEAny0vGUQMgcLTRz
-	 XBxo0V3Zb1SbJ/+0nGAU8SblM0jnYUF4rik8oHYN+IuKwFmKPWdy7ZeoWRvP9mHeLFA==
+	t=1793966973;
+	b=mQBSUjCMjgEnQ7PDR4i/yb0gCtcmGeR4RGQizJGJXlXmwoN+9MwvN5uE3bur0vwnG9jQ
+	 px+8E6/xxU47btX5GiMPMZ/3mZp2UbvCYwDKPyd45ZKpyoVuZURqvebeymv7+qSFJtIWz
+	 MKhcSMSmjsBlYAiYm9gG89hD7T0QcFaTnbiujxQpCoDRuqDUZ2t3Wwk8NRO79ZNY8Yhy0
+	 v1qYSemDBdOfppa3CHUka/faoa5j61Nu3lQkGyS0H3fMRtqSCPBoL0ltOcqGfNq9aI7C+
+	 N/ysunjAZ4dS0cgF3uO4Lc+nf1nfZk7npb3UexC/a3HC1bLQRB9yFH7hEYJh/6Q+5og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793966920;
-	h=DMARC-Filter:DKIM-Signature:EX-QQ-RecipientCnt:X-QQ-GoodBg:X-QQ-SSF:
-	 X-QQ-FEAT:X-QQ-BUSINESS-ORIGIN:X-QQ-Originating-IP:X-Originating-IP:
-	 X-QQ-STYLE:X-QQ-mid:From:To:Cc:Subject:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding:Date:X-Priority:Message-ID:X-QQ-MIME:
-	 X-Mailer:X-QQ-Mailer:References:In-Reply-To:X-QQ-ReplyHash:
-	 X-BIZMAIL-ID:X-Address-Ticket:X-QQ-SENDSIZE:Received:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=RKL+Jq6O2pfebghYB1j2lq21xSpMlV0Qw0R3bOf7GlA=;
-	b=GRc7TazdAyuhF+IOg4IuraW1fr/0UrZJzndUaormKlPUBAOrfkZjw4z3UdOABPD0j/Aa
-	 m+yNrz8TwUQp8FiaPgbRYrhBDg4zGSOyIQsx4n8QGmHS10kQG/7Knh/xnqYdoq0ErKzT4
-	 OQVD2bbJC1Q6rcq73hqEPnTm5zGhd3OhYbwlqCbb7xmpqIg47N/DAaFoU1/Ygv+l4hEDU
-	 BV3DNqbceJGpNxDwI8HAXO+PB80wbOXy3XKTX1XVzsiSxaEATvvRX6fAIJ623HBTCaQSR
-	 cxMg4MRHuUlrgRGfBO9ARNF9eIt0ms+DZF3AfcB5+gHVSGmsp9WljAthWu1x2gRCZSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793966973;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=3b/3qYRDMXJenPydA6vHboyvASPjz0NdoyZJUNW0tcQ=;
+	b=ya43ERGBFEi1z/TSHpCk0aEO/nPH3ltAlbvAc6NITLpght60VxN/tnl5GWv4ceHn8TPZ
+	 nDKri17ccj6mTpnQ0He0zMPybtHxXwr8ABKlGYegarU05Oxlf0JpZu4onJgTV0t1a7b/0
+	 p11rTUKyCYVt11ZVsryoHZkVCya+odB6psBDi3VZIg5YFbqn5rJYxl0KizrZuKFCxovbO
+	 UzirsNbMjvZoyjv3jkttT/EBlVr8f4B1MM66ILnU0JCy2G8IwetjNXuFtDqFOXu7Ynbh1
+	 ZXv/24wQTJnCPuoB6j9V3BEoV0zulPFhdRDeBwcmft4sVsUENThRFjRsG0DrEA8Hy8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=iLeoVZ0D;
-	arc=none smtp.remote-ip=54.254.200.128
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSV8AS27;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077CB606A32F
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:08:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 077CB606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D168A606EEA9
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:09:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=iLeoVZ0D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1793966871;
-	bh=RKL+Jq6O2pfebghYB1j2lq21xSpMlV0Qw0R3bOf7GlA=;
-	h=From:To:Subject:Mime-Version:Date:Message-ID;
-	b=iLeoVZ0Dynjy53D8PSDn+bM44qQzig84PJJ41N10+vgcmxbtlhwYPZF9qLW5wL6E5
-	 BFg3YR5ShU9NEPkSqR+CYlYwAWlaAlrjGznqfxLNayvUgYsvfBjQ6MT2x1c+klhtob
-	 1CO+1XebrAdJNktTBgCdS86myHrVEvy+CrUlSOmI=
-EX-QQ-RecipientCnt: 7
-X-QQ-GoodBg: 1
-X-QQ-SSF: 00400000000000F0
-X-QQ-FEAT: D4aqtcRDiqRO9CuWAcjeqco6/xKk62mDx0R4/xCnRF0=
-X-QQ-BUSINESS-ORIGIN: 2
-X-QQ-Originating-IP: bUHm4PH7GlVFcTGS3fAfhOCI6XVLqGMrh2Zb3jI7J6c=
-X-QQ-STYLE: 
-X-QQ-mid: lv3gz7b-6t1793966865tbb17d3fa
-From: "=?utf-8?B?V2VudGFvIEd1YW4=?=" <guanwentao@uniontech.com>
-To: "=?utf-8?B?SmFuaSBOaWt1bGE=?=" <jani.nikula@linux.intel.com>, "=?utf-8?B?am9vbmFzLmxhaHRpbmVu?=" <joonas.lahtinen@linux.intel.com>, "=?utf-8?B?aW1yZS5kZWFr?=" <imre.deak@intel.com>, "=?utf-8?B?am91bmkuaG9nYW5kZXI=?=" <jouni.hogander@intel.com>
-Cc: "=?utf-8?B?aW50ZWwtZ2Z4?=" <intel-gfx@lists.freedesktop.org>, "=?utf-8?B?aW50ZWwteGU=?=" <intel-xe@lists.freedesktop.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
-Subject: Re: [PATCH] drm/i915/display: Don't drop the async-put delay on self-requeue
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSV8AS27
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E85FA1F008A3;
+	Fri,  6 Nov 2026 12:09:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793966972;
+	bh=3b/3qYRDMXJenPydA6vHboyvASPjz0NdoyZJUNW0tcQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SSV8AS2751IGaedM251Pc4kK1DfG/a5bXt5MUyMNuFjb3V6Vn4xUp3iR/L8tIzXEg
+	 fW4QFbnPW9W7EFxJK14UemEGPM3sJH8q9j+G7WwaoQm9O8Df1ERa66qRD3/FAlWTxP
+	 nWUN+s/FNTSF/IFYYiRX6jmkcO0Mt1AF6vtN0rX+pwFm65+yXDKIlIIJfYN1GjRDLT
+	 KHa+J7Uc512zgU/qKs5v0uq/r6j8OxdzBWrasIoTrJry2k59HpAyPhqYtJ5oUuZAMy
+	 rq+F+fgBjIH1SumhykP5qDVrutk32EhXAjAhaJXPidbzARM6gy4/UgMIXctumJc/sr
+	 tndge1RuvYGKg==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id A07FB1980047;
+	Fri,  6 Nov 2026 07:09:26 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Fri, 06 Nov 2026 07:09:29 -0500
+X-ME-Sender: <xms:dsPtaqxrJTBKMp7OtKltwm2epPFXcBPMCXjHSnvSTBZiEgpTCoszRw>
+    <xme:dsPtaivhymwhYzphNsED75O-jVH3wrP7jKUF-fcFhrf_ltrIPQ1Mzf5fbdobahiN0
+    DXR0fXbL_820ZYAyXeNBir1bUGTL_6fHcfbQL5d88PmyZsoB-KaOpjJ>
+X-ME-Received: <xmr:dsPtajnMMIFZRQqyyuMajejjm8d7hjO0epIrwV9knfZzeapZLHElEqOGctw>
+X-ME-Proxy-Cause: dmFkZTFX6YYaRab9TtEmMZcJX+vH22GvpLmKiqkJD2aksNON1/L0ndlQvnX8flK4ouosr5
+    YGDUsiJ7BeAviv4JgQQ7uP7Q+wJ/EXSI9CRs9yYssUQBr42HFWwk4wrtc4JQdlkef7n68F
+    nkAp48OZv+C6deWppFMl1GEzsmXrXcRCtNlS1Qjs+aP6RV1JNO9OgT6J+XnDi7YVbuR8De
+    igCglYK6lQoAS4zHclSb0LfjyhmpZ/wcRoRbFIW9Kn8GxKsVqVGW+GF6OeO+8eok3lBCtN
+    1D4Z9CbSWh1tkn1l7VRQwMsJnnSTVAwraXBCXqv6KiYwLXUWwr7wRmk/4JXWi7hqf99OBt
+    0SzFoIlQgDEpMlYLsmsV44GLRWl8+6hUNbvse1m9zA3MICJRu2RPFptHarOrLNY4CY9lHd
+    cmD82b0qW6ldXjXoIYNwPaaIwA0Q1zJXsfoLpowA0oUagELfqFgfzmKhi9i7/hYJNMOboS
+    I80WilBCOxVz/X+dB1z4YwMbbGsJxJ0YGcdxwQ+oHybZTSxD49/KuR4HEZryIuuvDqnvYE
+    3NpNfqDnIjTqqTUq5Hcxvfxv3tsbi9yVToFzcrI3NWelhh3yRDTy2trG/3lYRieRDRkKmE
+    QS6adowkJkf/1ha5D61Y49oD8WyVzsZKzFUIOwtIblhjfFzxbZ8NKjXzIhHw
+X-ME-Proxy: <xmx:dsPtanBGI0m3xopWzemDYTi6JuRs1JLnAPlsouh3Y_0c8HYJfcb_CA>
+    <xmx:dsPtasQCcTihdD87s1X0vrmqulaZ4IXi8iL-xm-1W4DFdbuO3MPh_A>
+    <xmx:dsPtanI8ymsHX5TW3iOzWHpISJ_hH6rm0IAbh5X-NisdFWL8tDRDpA>
+    <xmx:dsPtal0dZAG_OiwyPICzFkV9pDGpdlM5nDgnzQIMZkTnC1gpHob_1A>
+    <xmx:dsPtajuRiOMZHIW4dzpShBuOzRcwTMEriXB5q7BFJkzYYX3quu2Zor2y>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 6 Nov 2026 07:09:25 -0500 (EST)
+Date: Fri, 6 Nov 2026 12:09:24 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Hugh Dickins <hughd@google.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Zach O'Keefe <zokeefe@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate in
+ MADV_COLLAPSE
+Message-ID: <au3C8lNElGg4LnR1@thinkstation>
+References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,69 +90,43 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Fri, 6 Nov 2026 20:07:45 +0800
-X-Priority: 3
-Message-ID: <tencent_4C927CB66A067D2368DD192E@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <134A26B6BCDD3C9C+20261104053910.1065103-1-guanwentao@uniontech.com>
-	<a2b152662d219f9be0861e63ddbb78dd1971dc2a@intel.com>
-In-Reply-To: <a2b152662d219f9be0861e63ddbb78dd1971dc2a@intel.com>
-X-QQ-ReplyHash: 3438078101
-X-BIZMAIL-ID: 14064812400548868991
-X-Address-Ticket:version=;type=;ticket_id=;id_list=;display_name=;session_id=;
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1])
-	by smtp.qq.com (ESMTP) with SMTP
-	id ; Fri, 06 Nov 2026 20:07:46 +0800 (CST)
-Feedback-ID: lv:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: MIHPxziOyMXedoTZoUSZeQDVnMyw46BT4LEQMHI+t9jwJAKZyzBLxPZV
-	jndnBOMO4jn/dzENGOQDS42AYhShNAwvMJqMKz+jaGHEEc1WQ4IaTdaTp8nZNdOkkNFelq4
-	GVv69kKr9wezKqG7LjApvbhVW2heffBTCFzQ7aDCivpVOemSGxz1Veq/waquEWTpDTyIBdE
-	y/D6mIXlga8b8rFdAWi5ZLyaG/BEdMrAyXUqG7F3tmCKJONMb1pxrdldgl7KxGaJUzd3UYI
-	Gnw6jDGAvGvPJgDs/ZihOxPRDD98eWoh4SnMa4aDUrN4wKrWcMqclQFUF5dtR2C20NZoEN/
-	8Ig48HjWWYstv5GPRrXjB4HbsRttHvPGr+dBu8ZM6P/EFWEx73pUIh2Vwfy0Pd8X3XBAaBo
-	uaF8feX6KLLi8bIokT/ZN7rUZsUWpIyjtLf7mxSRN4RPpYigpL61y+3cTnbUTeAMv152L0w
-	XZNkRJKno3/EFNDnX8vBHBq5cukGmaHjE2MJAGAdPzIjbx818lLzpXoBvVXD7QPXt0ootpJ
-	8eOH3f5KyfCFfgZZDMsgvRipi3REJlJ3pL7GOf//GXfv5VAM/eT5PECmQAOBbbNOm5ln1hE
-	gRRN3tcxWs7S9Z9GRFs5uqr4xwyqZUHhutWLCY98+foBn1a8zD8is5KVR2cVnUdF0q0xZ8A
-	GA3ekm4cpIYkt0K0euSx01fh1eJJTfyMcU8Ie7r5Axxy7IpoELxFx15tFEKe6/0UNn6k8ZD
-	UEzOOVC5K2lLSsg87pHYCTTZ5R4hm0vPdmYPsK1zSg60I5FJHP9b6veYfO0qqEbwKNX7WU7
-	ep1KRwkdTtxRrkzjjlXwoE1Xc4XsyzkP2vRS6haxKSiv5pyIySS3h/JuQ1iiQcvkXU0T52W
-	kFbD3zrU52ah6YUtN6ToqSG+yXAmRT6MaLbHRE1DTrFYEKAewq+6KLhc4vpVwNG0zKQWCy0
-	ie44kXoiOZa37O4UcQMqsijOEP4p5DaQ3SDADKZPr2jIEZkJ/xPc2qs4l7QSuB6bqKLOHFZ
-	XMoJ9aFM4z4xeS591Atk9K4F68MMb5SzxkrEcC3CGKV/BzHQ1j/2S/KXka68kvuVuq43Kec
-	hCeetZmxgvoHf+sQw36zEHxOxCXNN8DKQ==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
 
-SGksDQoNCj4gT24gV2VkLCAwNCBOb3YgMjAyNiwgV2VudGFvIEd1YW4gPGd1YW53ZW50YW9A
-dW5pb250ZWNoLmNvbT4gd3JvdGU6DQo+ID4gY2FuY2VsX2FzeW5jX3B1dF93b3JrKCkgYWxz
-byBjbGVhcnMgYXN5bmNfcHV0X25leHRfZGVsYXksIHNvIG1vdmluZyBpdA0KPiA+IGFoZWFk
-IG9mIHRoZSByZXF1ZXVlIGluIGludGVsX2Rpc3BsYXlfcG93ZXJfcHV0X2FzeW5jX3dvcmso
-KSBtYWtlcyB0aGUNCj4gPiByZXF1ZXVlIGFsd2F5cyB1c2UgYSB6ZXJvIGRlbGF5LiBUaGF0
-IGRpc2NhcmRzIHRoZSBkZWxheSBhY2N1bXVsYXRlZCBieQ0KPiA+IGNvbmN1cnJlbnQgYXN5
-bmMgcHV0cywgaW5jbHVkaW5nIHRoZSAxNyBtcyBEQy1zdGF0ZSBhbnRpLXRvZ2dsZSBkZWxh
-eQ0KPiA+IHJlcXVlc3RlZCBmb3IgUE9XRVJfRE9NQUlOX0RDX09GRi4NCj4gPg0KPiA+IFVz
-ZSBjYW5jZWxfZGVsYXllZF93b3JrKCkgZGlyZWN0bHkgdG8gY2FuY2VsIHRoZSBzdGFsZSBp
-bnN0YW5jZSB3aXRob3V0DQo+ID4gY2xlYXJpbmcgdGhlIGRlbGF5LCBhbmQgY2xlYXIgdGhl
-IGRlbGF5IG9ubHkgYWZ0ZXIgdGhlIHJlcXVldWUgaGFzDQo+ID4gY29uc3VtZWQgaXQuDQo+
-ID4NCj4gPiBGaXhlczogMzBjYTYzNjViYjQyICgiZHJtL2k5MTU6IEZpeCBhc3NlcnQgb24g
-cGVuZGluZyBhc3luYy1wdXQgcG93ZXIgZG9tYWluIHdvcmsgd2hlbiBpdCByZXF1ZXVlcyBp
-dHNlbGYiKQ0KPiA+IENjOiA8c3RhYmxlQHZnZXIua2VybmVsLm9yZz4gIyB2Ni4xMSsNCj4g
-PiBTaWduZWQtb2ZmLWJ5OiBXZW50YW8gR3VhbiA8Z3VhbndlbnRhb0B1bmlvbnRlY2guY29t
-Pg0KPiANCj4gSG93IGRpZCB5b3UgZmluZCB0aGlzPw0KRHVyaW5nIGEgc3RhYmxlIGJ1Z2Zp
-eCBiYWNrcG9ydCB3b3JrLCBmb3VuZCBieSBnaXRodWIgY29waWxvdCBtYXgoZ3B0LTYuMS1z
-b2xbUmVhc29uaW5nRWZmb3J0PXhoaWdoXSkuDQoNCj4gSXMgdGhlcmUgYSBidWcgcmVwb3J0
-IGFib3V0IHRoaXM/DQpKdXN0IHNlZTogaHR0cHM6Ly9naXRodWIuY29tL2RlZXBpbi1jb21t
-dW5pdHkva2VybmVsL3B1bGwvMjIzOSNkaXNjdXNzaW9uX3I0NDYzNzE4ODgzDQoNCj4gSG93
-IGRpZCB5b3UgdGVzdCB0aGlzPw0KUmV2aWV3IGFnYWluLCBidWlsZCBhZ2FpbiwgaW50ZWdh
-dGlvbiBieSBhbm90aG9yIG9uZS4NCkl0IGlzIG5vdCB0aGUgb3JpZ2luYWwgYnVnIHdlIG1l
-dCwgdGhlIGJ1ZyBzb3ZsZWQgYnkgYmFja3BvcnQgbWFueSBpOTE1IHVwZGF0ZSBjb21taXRz
-IGFzIHRoZW0gaW4gbWFpbmxpbmUuDQoNCkJScw0KV2VudGFvIEd1YW4=
+On Thu, Nov 05, 2026 at 07:16:44PM +0100, David Hildenbrand (Arm) wrote:
+> madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
+> uptodate. For example, shmem fallocate() can put such folios into the
+> page cache.
+> 
+> collapse_file() already refuses to proceed with folios that are not
+> uptodate. Let's just do the same in try_collapse_pte_mapped_thp() and skip
+> such folios, leaving handling to the page faults.
+> 
+> Note that collapse_file() effectively clears shmem folios through
+> shmem_get_folio(); let's keep this fix simple and simply let the page
+> fault path deal with that.
+> 
+> Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
+> Reported-by: Chris Mason <mason@kernel.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+
+Separately from this fix: nothing on the mapping side catches this.
+Every caller checks uptodate on its own (next_uptodate_folio(),
+filemap_fault(), shmem_get_folio()), and khugepaged was the one that
+went straight from filemap_lock_folio() to do_set_pmd().
+
+Should do_set_pmd() and set_pte_range() assert it? Something like
+
+        VM_WARN_ON_ONCE_FOLIO(folio->mapping && !folio_test_anon(folio) &&
+                              !folio_test_uptodate(folio), folio);
+
+The ->mapping test is for set_pte_range(): finish_fault() also maps
+driver pages that never get PG_uptodate.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
