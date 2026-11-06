@@ -1,80 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.96.220.36
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793951336;
-	b=dokLzeBnXrUrMngunLAZ3rOatPpyI1V/s2BDFaJzT/rjLVztX1rLNld7OXrle/x2SeFR
-	 N9IeThDIvN7hsktPC+UrQxYIpa7ctoH4iwMn1bIzXEhC8hIBMfzdHv3jHF7RKSi5Xkwxc
-	 AIzJ1CR9M/W3vXmOMtxZg7ilmIF3hxQjvMB6KlGK3jXEH0hFrQYmjWTfgCiLuunEiy3sR
-	 5ZNdAhBBcZr9l6ZkrIuMg5OKHtjtZPQ14ztGC74uEWxEVXifF1dO/2gvwI8RRY3K7jg7f
-	 CtybPOFOgWNd/FRLO9natPxMjqx2R58tkVFjBz/hUzS0quqqG2BhYIFzyl6rf2CTJ5w==
+	t=1793951398;
+	b=fUlaMm31qjUOZ+y4gPP4hiulXidA70DTK11ukMj406EBk32kqiZHt+4MGdmWrsiEirpi
+	 TacdFclI4fyZNi9aYIN61bvX9eC4VBvgnnCsn3hRD6Q2luvQYac5XXbHcnoyJsLSZO/Fn
+	 +4pVWbl3euAGaZjhZJAK3ubLUfTs3JehtX+HR03IFMCBHD0KFw+qChCYMoWYd3D/5lhDO
+	 Gpei5D2U/nuLaPanR/5I3GdxUKBduQ5SAZAgvD49VNIQZXKsygCXn817G6AIE2ZBN/+BK
+	 JEN6+oG9NO3xKBtMtUEr4ZSMHvA9l5YEeQwGYic5QPepYdm0B5I4B/5r7uqSa0YY8eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793951336;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:DKIM-Filter:
-	 DKIM-Signature:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy;
-	bh=cp+M7blHKTSkY1WHcYFiDIHFha5In/rincsxdAzM5xA=;
-	b=D6h9HfWVbG1wcPVNz0Y9YJ02DSbs1HrPkrLYh7JiYOgStV/UuD+/RVlZuegSsI5jXobM
-	 N/8++HzVyCE2NrU6WM3bcblWzFZufRh8NHg8a6gyk1WOGNTeCNwPDIVwSKZCykSKex7P/
-	 xSpVdwfp3LXme+KYhEmjKiptrvCzu/Z6xMuQnwghJEE78bdd0hddYz3qTQ0ZECwO9aouG
-	 YwJXZcRBcEIotKYjizdFUvlIvf2mAgORbREreU9/O07vontJBD9lHYPnK8cPF03PFgclp
-	 PQeA5mPNGnNURbW5F1DEttmbApnz32AvkGRCIiNvS5jTuRLzqhJUMVhB6OOMtpaOYjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793951398;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1AHI0cHVScIUZqupXxfL2S2LYfFvIDAWL/E9K98CHlg=;
+	b=Lkp3yY5ahBTYTnwG7MIn+dyX4e1uhUoG3M3HtavL0yKOsE7R5OGWHWyBybS8ptEQhrkx
+	 jLHjynVqH7u9T7fsLVx1aektGpJfV/JEd6EdLZh9QyzxGV2j8556honXFKb7QPd7HQHlj
+	 i0ZC0KrPrFb5nYQk6tXt/VAeLssjv+BWY7BSD1ogluYHYriEvmsaY3bhbtxsYBiU/WDRi
+	 qWjCiAIC6YIaM7uuw2GRe3wwgrWQKNAS1fwlvgthOB9LToWbzEAwrkQJxB0+pCEGqa70e
+	 4rTvPaXa2qE+q0UtKYgKnfjvBgObcBtO1a9U3F9gFeECCKSpKPT//RBy4XcHb8Dp1qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=secunet.com;
-	spf=pass smtp.mailfrom=secunet.com;
-	dkim=pass header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=GlxboIJw;
-	arc=none smtp.remote-ip=62.96.220.36
-Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=AhYgfsmG;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="GMU+T/4y";
+	arc=none smtp.remote-ip=103.168.172.146
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31AB606A326;
-	Fri,  6 Nov 2026 07:48:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A31AB606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C20606A328
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 07:49:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1C20606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=GlxboIJw
-Received: from localhost (localhost [127.0.0.1])
-	by mx1.secunet.com (Postfix) with ESMTP id C510F20870;
-	Fri,  6 Nov 2026 08:48:52 +0100 (CET)
-X-Virus-Scanned: by secunet
-Received: from mx1.secunet.com ([127.0.0.1])
- by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id mzrjWUSI4FsE; Fri,  6 Nov 2026 08:48:52 +0100 (CET)
-Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx1.secunet.com (Postfix) with ESMTPS id 14FC22074F;
-	Fri,  6 Nov 2026 08:48:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 14FC22074F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
-	s=202301; t=1793951332;
-	bh=cp+M7blHKTSkY1WHcYFiDIHFha5In/rincsxdAzM5xA=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
-	b=GlxboIJwiZEwrKgY2FQcnBIYD5yq+uKOBfcm3E/gFa/sisOJnC4u2e8sqiO7JBZst
-	 wrRQgY+3PUO1YnrGyAWa6q+v5n9//RVSHpIwg5D0Au5q0y6Q4hSqh2ldDckT4b66z9
-	 9TRdgErnEge/y5+ZFiJo9pRE5qx4JvSTBNuK9CnomLO3B3xJgjrSjKapJoE1watNub
-	 IRSrEpBJmRYqjBAAIjWi7HMiprRujDTBlP1jpv+RCP2zym1b9Dqkmcr2hVHbJUhJQI
-	 2MiaIZqsY9VdAaZN2SB1LwfhQOqSqkqKaIUUojt3k6H0j4aVL9K3SldOOGDr2TCNEV
-	 6d5DzimRRVP+g==
-Received: from gauss4 (10.182.7.102) by EXCH-01.secunet.de (10.32.0.171) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 6 Nov
- 2026 08:48:50 +0100
-Received: (nullmailer pid 3069745 invoked by uid 1000);
-	Fri, 06 Nov 2026 07:48:50 -0000
-Date: Fri, 6 Nov 2026 08:48:50 +0100
-From: Steffen Klassert <steffen.klassert@secunet.com>
-To: Guoshuai Yang <yangguoshuai@gmail.com>
-CC: Herbert Xu <herbert@gondor.apana.org.au>, Sabrina Dubroca
-	<sd@queasysnail.net>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet
-	<edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>, David Ahern
-	<dsahern@kernel.org>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH net v4] xfrm: esp: reset outer TCP GSO metadata on
- espintcp input
-Message-ID: <au2GYqYCqjfu45ku@gauss4>
-References: <20261027225710.51832-1-yangguoshuai@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=AhYgfsmG;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=GMU+T/4y
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfout.phl.internal (Postfix) with ESMTP id EB217EC023B
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:49:56 -0500 (EST)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-10.internal (MEProxy); Fri, 06 Nov 2026 02:49:56 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793951396;
+	 x=1794037796; bh=1AHI0cHVScIUZqupXxfL2S2LYfFvIDAWL/E9K98CHlg=; b=
+	AhYgfsmGeDZa4/y4l3w/90waPCwb35P8koRZwK1P67HFJrdLKmLlKD9Yr+jNClix
+	thttOryLmGVvG93sREOKNtvjn4jrn9RdBeBEgGq3Yvijd99tGCFt2K4y4BVWnJRV
+	OTn/NoiVdlBFJfWJDUjqleDVezpnzAsdPMfjcaq16atGeEeQfefUQUFJCeWV8Ogr
+	2focazJ7DGMuDwSeu9UL3QMV11Y0Q/OstcA+90emcsjenb+RgfqzKi8drvS/u0PI
+	XJ5nEvxadFT9iVcxQCeaF/L3d/609R4o3CrtpPK1mTvVcSqPtSncB/dAPLtFs050
+	WCyO4b8EBqSYm/MoztQBPw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793951396; x=
+	1794037796; bh=1AHI0cHVScIUZqupXxfL2S2LYfFvIDAWL/E9K98CHlg=; b=G
+	MU+T/4yC3xU7sJY4lwPdj3Jd+cy9+eLdZPQJA9OXCyaL+jGsPkpnzLnAoYPl50d5
+	iicgCraTfSdKoluVdA5NIkyD9y5msb/kcl9WZ059rMglzbspFaJhKy39L39mKIBY
+	ZXd6lRAqRKxEzB8nm3vgWmwbqRQKUKSi7x+uyQMXLtFyCA5yW+lHPtmQWCDy37BD
+	0GocPCMLOFustRNxJ+Ei6xAaExiooHHlzkb3NMeiprGbGdR4cFc2OHA7BL8pS6s6
+	MWsJfRENJbfa+crYg2SBTkxsygoFu+4FY+j86oMH+9ZbxMEipS74CRMNfepsHctI
+	iuMSWIPJORf6oS07usewQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793951396; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:iqYt9IRas1ZHKh3lJCrWBRyXymod23TS5VKP637+MWm7Ppe
+	smOA9u4R5h70z0MypgPijzecME5VBHFe5m2Rp9abkWKZtk1tJXxpBWOTCng9fV26
+	LTY9P2583bzDEH5ou/niKCRRvIT3WPEjd2FpmVcMnnUr+be68dJ0+3OfGzvFhAFd
+	qppuuS5UJVhMA5TPNpROAjuFlB28qoFlYEmPNe/fpAnTUyBFBc34kqxeRIauw3uN
+	AFNdVqvVK1kTKbMexhVYmCXhBxi5ZPQ7w6QadvRXQJSFlVA1tcSxQz+BEin93V4I
+	pfqdptkVn//Toqjc9oJQ4cxQ/l4fQ7cOOuTuNKQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:KIHw2e3xfPS+YXrajfvk65Yocyqa030eA4wRjeVGb4w=:ZvUPCHxS3O6LS4EixgV6YSZVVcpJv+np6nRlhY7v1+4=;
+X-ME-Sender: <xms:pIbtakR_amYMBEUB6E-QWeefd2HVmu59l1dtAYPNgFs8oAmWihxKnQ>
+    <xme:pIbtatqWYnCwAHmfcHQBLikYyEAJkJq-9iAEX31vyzkAJAfZ7vDV_PHQDdP04dIkO
+    1TQ2Cq8sJDPOA1b4dTKxf9-rv-uEIjlQroMecnntAz3IFxt0rNUgF8>
+X-ME-Received: <xmr:pIbtatX9jZNMWsaLnEmAuD4i-1UMXNGwA_i3ry8118mqmjk7F5G0Fr4oOs4whZnNzB2R4L3kIQ3uWvQlgOSRSWS3Ptn7of4Y>
+X-ME-Proxy-Cause: dmFkZTEUI4H6PQciHH1C0CTjTEnjL/+AMWtSU2echlVeolgKazYD6YGf/jp1/AUiVQw0Vc
+    b22NY8UD7W0YPFI0J2KMmNRLoechu8v/kX7oOmBz84ncHJvjlSUovwz4qgMh1SKRVBe8Z/
+    5ZjCeXkmh3z8IuoYffyLxHtkGDLObwXWUm091vKQ3RUMT6pRfAog4p7mSkKalMV7vdAhuT
+    uUnBL7oi36i7Zah1e4k9lvlFnJTDxj60I6igSytI/qIkf672YZkuIUbB7Zc6Isas9YspU+
+    0mNlCtDXC1t6hCmqwQ5C/d85MR78RM/1srLqU5nc8fMEAsP8Iu+lM0E9MqRNR+Dz4XgSFy
+    0YNg6jYE/w0MrFPCfZA2FrqN7hrziXa9c59+Woa7xZyvN+MYSAztTxA7gXfYcNz8qXUUpE
+    tJQ946pwRgsNDOpNVBuT6dYeKWlT0Li1lbIDl/UrFvaEfZTUUDCVtIkde/+vZfYYvkxrIv
+    +2XYWrZT3FgyIS1Y6zuArYz1IgVgPm4ompaRP99c2ILbnh0ldSFmhTgnSCOWfyZ0QwLTmr
+    HuIV2udmQuoaGaQyzRUNY/39Pre8AFsNld87DnbcQC8S57tn9Cbu82Ir4OVNFUmAY8Bc4H
+    OAsgSMINGnSjxGogNtoHGqz3YbCvhp/Wgo5LfctWDnMnemHPIONhloZLZ62g
+X-ME-Proxy: <xmx:pIbtar9bUW_MOSTIJnBBYi7LyE7IbFRgPhPVkneRHn11isJhF-_Spg>
+    <xmx:pIbtalZjkS-co1ma0Jj1-GcIMF1nvPbd2ui2hV1iWK9vSA4xCsavfQ>
+    <xmx:pIbtajcmyse4no46AtwihIz3DohQdLOb7FNAHsDh6-ZSIuXb9_Quag>
+    <xmx:pIbtavrQ5aXKANpBHROOLlv9A9MkapwBVvLVBYxS0ozFKbb80QFnWw>
+    <xmx:pIbtavl57qGsT3499otKlSu6KzlMMghN7ADE7VbLpcCzQgXUTiVKlQpA>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 6 Nov 2026 02:49:54 -0500 (EST)
+Message-ID: <49bb4977-b5f5-450e-b3ba-9d494fd5a7ad@pobox.com>
+Date: Thu, 5 Nov 2026 23:49:53 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,98 +119,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261027225710.51832-1-yangguoshuai@gmail.com>
-X-ClientProxiedBy: EXCH-03.secunet.de (10.32.0.183) To EXCH-01.secunet.de
- (10.32.0.171)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261104211038.406938024@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261104211038.406938024@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 28, 2026 at 06:57:10AM +0800, Guoshuai Yang wrote:
-> When ESP packets are received over TCP (RFC 8229 espintcp), strparser
-> slices individual length-prefixed ESP records from the outer TCP stream by
-> cloning the incoming TCP skb(s) in __strp_recv().
+On 11/4/26 1:03 PM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.3.2 release.
+> There are 547 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> If the outer TCP skb was GRO-coalesced before reaching strparser, its
-> skb_shinfo carries the outer TCP stream's GSO metadata (gso_size, gso_segs,
-> and gso_type). When an ESP record spans two outer TCP segments, strparser
-> chains the spillover clone onto skb_shinfo(head)->frag_list.
+> Responses should be made by Fri, 06 Nov 2026 21:07:23 +0000.
+> Anything received after that time might be too late.
 > 
-> Subsequently in esp_input() and esp6_input(), skb_cow_data() unshares the
-> head skb via pskb_expand_head() (preserving the outer TCP gso_size and
-> gso_type in the new private skb_shinfo) and calls skb_copy() on each cloned
-> frag_list member, which copies the outer TCP GSO fields via
-> skb_copy_header() onto a linear frag_list child skb allocated from slab
-> with head_frag == 0.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.2-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
+> and the diffstat can be found below.
 > 
-> Furthermore, on kernels with TCP fraglist GRO support, if an outer TCP GRO
-> aggregate carrying SKB_GSO_FRAGLIST reaches the espintcp socket unsegmented
-> (for example, when rx-gro-list is enabled on a device in an outer netns
-> where tcp4/6_check_fraglist_gro() finds no local socket and the aggregate
-> is forwarded across a NETIF_F_GSO_FRAGLIST-capable veth device into the
-> netns hosting the espintcp socket) and is chained onto
-> skb_shinfo(head)->frag_list by __strp_recv(), skb_cow_data() invokes
-> skb_copy() / skb_copy_expand() on that frag_list member and hits
-> WARN_ON_ONCE(skb_shinfo(skb)->gso_type & SKB_GSO_FRAGLIST), failing with
-> -ENOMEM before decryption even begins. (On older stable trees without TCP
-> fraglist GRO, the pre-pass is a no-op.)
+> thanks,
 > 
-> After ESP decryption and header removal, the resulting single inner packet
-> still has skb_is_gso(skb) == true with the stale outer TCP gso_size, while
-> skb_headlen(head_skb) is now smaller than that gso_size due to stripping
-> the outer framing and ESP header. When this packet passes through
-> gro_cells_receive() (which flushes frag_list packets via GRO_NORMAL
-> without resetting gso_size) and is forwarded, validate_xmit_skb() invokes
-> tcp_gso_segment() -> skb_segment(). Because head_skb is shorter than the
-> stale gso_size and SKB_GSO_DODGY is not set, skb_segment() attempts to map
-> the slab-backed frag_list member as a scatter-gather page fragment where
-> list_skb->head_frag == 0. On current mainline kernels, skb_segment()
-> triggers DEBUG_NET_WARN_ON_ONCE(1) and fails with -EINVAL, causing
-> validate_xmit_skb() to drop all multi-segment espintcp packets. On stable
-> kernels prior to the removal of BUG_ON(!list_skb->head_frag) in
-> skb_segment() (such as 6.12.94 where this trace was captured), it crashes
-> the kernel:
-> 
->   Internal error: Oops - undefined instruction: 0 [#1] SMP ARM
->   PC is at skb_segment+0x574/0xd20
->   LR is at skb_segment+0x884/0xd20
->   Call trace:
->    skb_segment from tcp_gso_segment
->    tcp_gso_segment from inet_gso_segment
->    inet_gso_segment from skb_mac_gso_segment
->    skb_mac_gso_segment from __skb_gso_segment
->    __skb_gso_segment from validate_xmit_skb
->    validate_xmit_skb from __dev_queue_xmit
->    __dev_queue_xmit from ip_finish_output2
->    ip_finish_output2 from ip_output
->    ip_output from ip_sublist_rcv_finish
->    ip_sublist_rcv_finish from ip_sublist_rcv
->    ip_list_rcv from __netif_receive_skb_list_core
->    __netif_receive_skb_list_core from __netif_receive_skb_list
->    __netif_receive_skb_list from gro_normal_list
->    gro_normal_list from gro_cell_poll
-> 
-> Similarly, if a decrypted inner packet with a frag_list later takes the
-> ip_do_fragment() frag_list fast path, each detached frag_list member is
-> transmitted as a standalone IP fragment and would still carry the stale
-> outer TCP GSO state when reaching validate_xmit_skb(). And even when an
-> ESP record does not have a frag_list, leaving the stale outer TCP gso_size
-> on the decrypted inner skb prevents dev_gro_receive() from initializing
-> gso_size to the inner packet's skb_gro_len().
-> 
-> We cannot reset GSO state earlier in espintcp_rcv() / handle_esp() because
-> the skb may still be a clone sharing skb_shinfo with the outer TCP skb held
-> by strparser. Instead, in esp_input() and esp6_input():
-> 1. Prior to skb_cow_data(), unshare/unclone and reset GSO metadata on any
->    frag_list member carrying SKB_GSO_FRAGLIST (unsharing any shared
->    predecessor frag_list members along the walk) so skb_copy() /
->    skb_copy_expand() inside skb_cow_data() does not hit WARN_ON_ONCE() and
->    drop the packet.
-> 2. At skip_cow, where the head skb and all frag_list members are guaranteed
->    to be uncloned with private skb_shinfo, call skb_gso_reset() on both the
->    head skb and each skb_walk_frags() member.
-> 
-> Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guoshuai Yang <yangguoshuai@gmail.com>
+> greg k-h
 
-Applied to the ipsec tree, thanks a lot!
+I tested 7.3.1 + stable-queue as of commit
+aa65920a134b0366b65f438be80335f2060ed664 ("fuzz cleanup"). This is
+after the broken xfs patch was reverted, but before the tun patch
+was added to the queue.
+
+Tested on 3 amd64 systems and an arm64 virtual machine. Working
+well, no regressions observed.
+
+Tested-by: Barry K. Nathan <barryn@pobox.com>
+
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
