@@ -1,111 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793994405;
-	b=xb7Z5D+cZT1Z85+hhkA2q901Rxk0O98YrQjoTmhJBWyEg4mTfS7mTwYwuuA6PXQdacj7
-	 ytyQiG1bLduiIw/Dir8UCIx/drIdxamgmF6Z3d7PmNB7OizYIiiBkOkzYi5gW7cnirukl
-	 ljbcn2772IOkMmhzp2z1Y/qqDEVJL1PdFk+ZS6H6LLDYfoJM4WxbXIh9cU3ufW0odAl8r
-	 e29D+RzKAVfSA5riNw4Hf83OGsu+j+ODSgbJL5j6LFn6AvjAj7Yaaryk31Exl6YGWB0rF
-	 zdict1fK5bQiD6RJkgs1Mcm1/ZkEs2DAeZFm7BIQhcda9YdkEH7K9dCap6aULJZ+EmA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793994405;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=qhKoxva0JL+l8sDegVq+F6O0qeFNZ5Zg3O8huHi3mM0=;
-	b=S4G+B1jYZz3pNEBlcVgNoNKHkUYEQXQbi/SXanWSrC8RkxZ/nj4mkoFehDGW147ee4B6
-	 vGX2JaCFlG7UcFF5tvr1kKI3Ye4Rr0uGgAkbpRd6tD6/vZp6k7+tRJZ+pRoWZgBSFoFl7
-	 6j3tXpk2XDeRJZF7GQfwCQG/tuQrDX/yISfNDtZGP53WFpn/Qg7JDkaCWM5BdjMVkzkiw
-	 Ew4yrzUcWLberUSAA1a6FElrrj94vCj0kN3rDdD+ohd10Fv3zkpkPKQ91wwtIFS8zgScg
-	 bo5EEqUT42C5/LKXaYktX4yQsEbS2wSU6wUVEormytOnE1QWSyoHBtjKoawHpZeU9uw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=readahead.eu;
-	spf=pass smtp.mailfrom=readahead.eu;
-	dkim=pass header.d=readahead.eu header.i=@readahead.eu header.a=rsa-sha256 header.s=fm2 header.b=ag2Z2H5T;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="WbCGlWg/";
-	arc=none smtp.remote-ip=103.168.172.151
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793994542;
+	b=vVgwr0t/zEBK5R4Mj/od/3kEHgkh/sfAcz0Y9QxBpGrDt1og2QELlm7V4V5qjhm07Qqz
+	 cw6N6mbeP4kMTKf5/K2xNW9Ng4ZcqgOUemqnhjqnX8bL9unT6FGU8gHu+3OTHhGAgT7Nr
+	 7wPcx7TbWxsT0XIKOOQUTN5v1aPBYUloj+H6Nf1Knek/6NB9znmuWDAIeLCq6UcgH5L6w
+	 pJ51RZzk4q4Qjni73CmfWObmS05mYeRGRJcgWxGKwh8tegKQdES5Vwp7ImFove+/KgAwS
+	 eAiN57kzWuWpKYjAYd0Y53BVZoFs+bKhxYYqeLpJuDOQEnevZ1SCfBC7zvE9rwD0aUQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793994542;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=DbZu5q+W+xtqYiktZfPU34LNXZ8FfBPEek4cd/Iy6iY=;
+	b=oDTK6nwVuEZBd0Fz52i4L9iBLo+4oD1NKKMBxAjS2VSZyBCqKxd6DIfklTNIn8SCdtsw
+	 bNB0DgHqyV5s//IMkOYm1uU4EL8Wv2iMaWdZfFZ+F7wApg1rkLw+2JFKLuJ7TBM3jq0bW
+	 nXu0DBT4z2lGhD1zocTcVbL49MGf0/P90Y6Wn1cPiOjBMn+d+q/GQBk0ss6+siAFHlRMt
+	 LVcuJVSWXQuhk6WVIGp6M+4a8U5xs1WELPGMSbJdzH9I4rStWBAG44gHWoYdGsaU+Tzgy
+	 Baf4B2aCU0dLEah2Qie6rQ+wKQ4Di0TlWP5hngG88kKKlyyUn969Ha4h5k0I7DRs6Qg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wyPperED;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F862606A32C
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 19:46:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F862606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readahead.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=readahead.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DFF3606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 19:49:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DFF3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=readahead.eu header.i=@readahead.eu header.a=rsa-sha256 header.s=fm2 header.b=ag2Z2H5T;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=WbCGlWg/
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.phl.internal (Postfix) with ESMTP id 61B13EC0863
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 14:46:43 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Fri, 06 Nov 2026 14:46:43 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=readahead.eu; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793994394;
-	 x=1794080794; bh=qhKoxva0JL+l8sDegVq+F6O0qeFNZ5Zg3O8huHi3mM0=; b=
-	ag2Z2H5Ti0ErRYro1uqfcVsQLshlA3jWD0g8g9qfGfL1maXy5+q4FQU+jgyev3Xr
-	RmtIbH6AdOVvGyanXJgpIAqFbz+HctLRgRqb2cxdEMJBw+g7IGde9jH3cF5IZ4BS
-	Y3hJI/WSOc2BU8CyYXbN9Y926BZpWa5mdfueI1iHhOFJCAFIV///2ql7AOGUaEaj
-	cWinNQIUfZJ8dyaGWTfd7Dv+AA7+TEm8ejvwGKg/1tm6gnYLaT79TLq2YHnAMcfC
-	6JkAwoenbKTif6dCiwPllfWHuirkaa/EyQNr0ddZdYIfhMbG55cmUrENHR6SphaO
-	LGxLpAGEf063GBZ3w+1bGQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793994394; x=
-	1794080794; bh=qhKoxva0JL+l8sDegVq+F6O0qeFNZ5Zg3O8huHi3mM0=; b=W
-	bCGlWg/gc/GYzyDYF9V10w76mEB4pXNz/yllOVx1JvJoN042i9QLIyYX/psmtdl7
-	0mMcTbGqK8N4kR3F+OH7pLAXB8BRgaDH5S9HvFsvvfnIwql9m5unLub7LujogHLr
-	clPb+t3TaoO9NIG+433gs3xpu+eeY6i0Ol8PbQ+R9/3GqohjaX3nk4x+2JcCbzoq
-	ZQV16IUS4Hcz6J3qC7Nxkx9OwQvSym5Lw5gMrxGV5COnfGQwzMeKJsR4gLQjYPWp
-	O2MIbF8H0WyQ9ZYpsmnsFRtLlkdfFmsRbW7WLmJE5zR+qyZx3dabQr3OFYpJnHpB
-	sf1uW3Z+D/bH0eYzlFRCg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=readahead.eu a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793994394; d=readahead.eu;
-	mf=PGRhdmlkQHJlYWRhaGVhZC5ldT4=;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:sQrEHh2ZgdijcJw5W0At7NbYQDMISPpzymW2/ngHpMUrN8p
-	tD4octBSySOSRJjwqZtUeBn+u0mD24NnV2GB1fD2kccoUhC8OK9dle72VmpBDOy2
-	6Qexuu/soK2kex3oe1YmrdTUjFgiSanAxKfDSvE8TSxsZz0O/HvA7gdDiH5yYCK6
-	c6qm8mU/9sAHiMzfyIvWB+RY4uLwJS8tUX4x8w2enQg2GgfGQkY4sad+p4cZ0ag9
-	41dy4D0Rt3CBqxMhPhJq1HgOPB/ZJT5gcMtrZ96u2SxpuuX2YXmjXvoxUF7zv/lB
-	chwPLWug/Uwx+p/6g9vXJ02tzWefpJCcClBZJCA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:ZXYMNTvVJSIN7d7nypu287vHLlCVFtx1p+56iwTdm2U=:YVR9YXua2pXGceoVU1tO4HWt1dT9IBqHvzi7bV/+K30=;
-X-ME-Sender: <xms:lC7uaiy08CXPYJX_-oMjkrCLTLCvz_9vEVHdF9JV-aQZcfo37H8XNA>
-    <xme:lC7uapESe4X2r4-9tbosgocOP3mUXBiaG6Bj9W74leR6UsXMdR3n6Eh5MK1FctiV_
-    4aXtO1rwrCdNhwcwoRbxa0hkth5g0M9jTk4fJm5CUfFqHk-VvXgWvAM>
-X-ME-Proxy-Cause: dmFkZTGUo7IC6fGRL1KVNl4H3kKPTqlVG3UIT2AdgMMD6pZ2tEb1YktnY/FHMj6Q5TyF8S
-    4cPLg+L1p6KVN+PKIKLa6P18N3Tuw2cahYHmZHUQ59vKq9SJUxlw8rmWe8DXJXQOEdLs99
-    U1c0jX4tkCS07Q0pBU2hQOzLWuCpnoF4Sd0SbE7swUwx5nbO1uIuYHYE0GB9cxqJZA7jBA
-    ULB75RlnzHYXaUIAVbS1kVKhGBdzr4ZFrGFbJNXjXJ1aGEpxmH0KT9naxZ1oH/T9jP7xSn
-    /fzjAAPjNRojDUct0j6UDS8pDqdDK/UomwyxVtV7L9toWyEJYSSbG3S5/2ypOIdY4MwKtZ
-    zybKxSTT2yfOBX70vjqtGwKVX64NrDMFqeC41H+O0uIQs+9wiD5N/uhoOJMaWHvR+EKiY6
-    YHkVId0B1PrQCuC7nx9cDRHeeoWvietuEokrqBrkTQqAJwxKKXFmh1z3z+H2vqV7F2GASI
-    5plmwvEfFKK4eo5WPkzpnT1vFb7nyV3ZrujVNdKexZadm3uVVGZ9UMJqm5tuUO6nHxj0Cr
-    GVlHaDDpANsqqxyHdZgXD2eQ1Dk6VBv3M9i+Qk1Gi5axtYWjPemSyXSegoekVDREJpCoT0
-    jYoIyDcoQAC+AmkdsvXb32LmtX/+ZqqjHYrqVtWUxGdLWvhAgu2ETjpuapPA
-X-ME-Proxy: <xmx:ly7uakESJVpTbvlQpkTh3h5TN24Pz9dEfjXw7iokr1dFh2XQxmj52g>
-    <xmx:ly7uauvCNUSmqjbus2WAkxD1WNAAR1RN3n0DsZT28DNv7BMUh31tYw>
-    <xmx:ly7uanbfXW4c8hS5uy24KQdRDX_10cYgNLfvTiFFU8tcwsozohhIVg>
-    <xmx:ly7uauXfeq3jiR0atVVOrlAPquBYDiD3JfUAjpDggUaVAxH8j1M1lg>
-    <xmx:mi7uaiK-3bDIvhGZDRgh3uzguemoevRUSBWP3S4NschLy2i6ZmjxcjxM>
-Feedback-ID: id2994666:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 4F08A32A0097; Fri,  6 Nov 2026 14:46:28 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wyPperED
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-54d9ac78f2eso7899051cf.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 11:49:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793994541; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IaVhEoQ6Lnv4xqTZj+s4sc4Xvfy6xTt/jRTHgiNXwjikwm1D2Z7vmcjg0sHQ6mPx64
+         wzYp4lu5PmT81xAOuO1PKCIQiC+gGFDFGYMDEnVy0PwhUsed5TrVN2I3HZHuJIBt6Zm2
+         TmTOZZC1cPA4mnGYHZdKVzbJVGgD5B0Le3eT8T2qPbYXg1W3Cpv9tLl9DrGA4ZoTQTri
+         M8KXR/nGgrzuNKU53L8XhdMoyCmNw3mhXS2uDkRRkrW1bx2P+ihbA2R2kZERxcZZfATS
+         J6Np2L5mJGYL2fwLqnZfjf9KxTaHakM/o1zzZE6JaFfmltm4BEucGu3LcPdRa9IfuJ1u
+         GYXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DbZu5q+W+xtqYiktZfPU34LNXZ8FfBPEek4cd/Iy6iY=;
+        fh=VIOOXPJWTNSzsEFse4UrIAytSL8AFEuHUBkgXEmiG2Q=;
+        b=JODPYrLsb6JN1P0w8UrqkfGKdD9lM58SinpfBZ1/SFBQZpU3Q7im4EKq8RHP81jTOs
+         QxFIE/uViG45XxuLlG/LJTTVLKnGEfPFO1+ZOM8fzqIWUYWkRw2yrz9XVbk3aYL5ciKp
+         6bJoialvjl/n4ECrNpSl8Hk+YeZI9/+mk0kapEC+f4tgDPLtLrqsz9+qQg9ocEFQlFGa
+         qUC04tvblPWdiP2L2Mgw0iZL3Q2H3TUl65zZgbytjibWfdWgHcyLqOj79f1u8XfbXQ5S
+         1G8b8cT0ZbVzIqGL0nom4mk8VU9jxU6x5o40GcsdMafZ7CkkCfO7QrkKhe5uTmxAlD7C
+         zDzg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793994541; x=1794599341; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DbZu5q+W+xtqYiktZfPU34LNXZ8FfBPEek4cd/Iy6iY=;
+        b=wyPperEDJFDS5ADQ8nuKsgHhpHE7PYSaU768vbWgKoHreydewdmho6uuzVeAienWkS
+         /Yn0kyQMk0a2dfdx3CpmgxlEM7P3KliO1+hXpHPemuBw6uZthvK0K6E0NpGJdf2oQ0yT
+         KVlxRUguqQtWBosSe2XX0crKRy0NPNvCnLgsPQWrURCxCYt4d8CgzO/lxjKESf8aIyWU
+         9wJpLYrsCvMmYtIiOe7Rr+McCyHoIap5CjwpiRI/CbZTj6gt8vpNPj3kMgRQjtz+BWu/
+         MtazFNqZ6mzCTGo+5m9IOYWmvtE55hAlfN8JXQ27ZUQHn9D1jXPpRDmPGctgcnW2+D3w
+         2xgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793994541; x=1794599341;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DbZu5q+W+xtqYiktZfPU34LNXZ8FfBPEek4cd/Iy6iY=;
+        b=mU2JiH6L3RwTzfd9mVV51wOw+foS4Sp9DCjRCi3XhuJiQx6VQa71AQDmiINx5JR5Ai
+         jfrZsAe/c5CutRAmgP1GNnPqZ9jJSdUTIvL03ZQlahG6Xat7qvGYwhIakDWe5myFDYQd
+         0Bjv+syu+QqkV64HG9tn4ptGX9qzH82DeXdxl3nsNthgx+ypGBsoxwhatmtINL4R/8NC
+         OZ87viUAT2btSmYH1OMscCS0ddMlzPC9QiEIQ447qUe4eAJ1hBNb5PJLQWCgvjVhIQFB
+         r+h4VnmhQMp9mj9fh4fW+wWC48XDvHoSYgeieJgRmoJxPJGdbrp0lfdtBgb2ERUk5zFM
+         fPlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBypxv543dVe7cY+HebgRvEboEzYXv4bOeFUf1U7jU4QC/OFe9BYbog1XLZDOeXSNk68dr1a2as=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/TLu6iKlioF3cgkTaXOGV+U2mM81bJ1v0TBSw3BGx1B10QGXyt
+	JHyAGPgtI6Ww4pG3+Y1MMjC5LSelC5G20LGShIJ2iS8M6qOURpP9eLGBlZCDZmS/fEjkvhJZvkd
+	F5qB0pV0bAq2CGjINb0m6tOtgK45x0S4=
+X-Gm-Gg: AYBFou10Z5l7cAeBQ/rveRoGwuIrLtb/IrIKN5EPghqekcxRecdbx6ndmhFapH+/l3e
+	+VQ9AwY49dVqaODH3a7wwCLw9pfKRaf+r1aHU8eaEH68m1CcRrCHCH3NevRSsBufkKCSt4Ti+4p
+	pk+tYZ2eUvSBtzqYXPTpokxdFF5YYufkIFKmsAmHfJ5UlZ7viFdVuKChk4Vff04iA2qK74Bxfdk
+	qGTSSOHqysHx7QpyhqPLLNTwPJNH7ac2vUU+/mKAJYTdke8ycR5JrdKCMTdgJTrfseDNWDuDfum
+	9FQLMB1+tF/hNenbSU494IOszM/CzK3tNeqAZyHhXqkGtF4Y4OF90RK4xYbAzdKLF8Vk32EDDQ0
+	VEPkU7n7AD0hQWhCBbza1eMmta69bWYlfBfy6
+X-Received: by 2002:a05:622a:5b08:b0:536:64c9:b1af with SMTP id
+ d75a77b69052e-54e1329ad88mr53720801cf.24.1793994540966; Fri, 06 Nov 2026
+ 11:49:00 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,61 +104,136 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AWOKgKtlazLR
-Date: Fri, 06 Nov 2026 20:46:07 +0100
-From: "David Rheinsberg" <david@readahead.eu>
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- "Hugh Dickins" <hughd@google.com>,
- "Baolin Wang" <baolin.wang@linux.alibaba.com>,
- "Andrew Morton" <akpm@linux-foundation.org>,
- "Lorenzo Stoakes" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- "Vlastimil Babka" <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>,
- "Suren Baghdasaryan" <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>,
- "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>,
- "Randy Dunlap" <rdunlap@infradead.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, stable@vger.kernel.org,
- "Chris Mason" <mason@kernel.org>
-Message-Id: <2c95ecf1-058e-4d81-9de5-622e32dc57df@app.fastmail.com>
-In-Reply-To: <20261103-fixes_core_2-v1-2-f332954f1df4@kernel.org>
-References: <20261103-fixes_core_2-v1-0-f332954f1df4@kernel.org>
- <20261103-fixes_core_2-v1-2-f332954f1df4@kernel.org>
-Subject: Re: [PATCH 2/2] mm/memfd: handle GUP references reliably when write-sealing
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+References: <20260915041248.2432629-1-qwe.aldo@gmail.com> <20260915042546.2454238-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260915042546.2454238-1-qwe.aldo@gmail.com>
+From: Jason Gerecke <killertofu@gmail.com>
+Date: Fri, 6 Nov 2026 11:48:49 -0800
+X-Gm-Features: AclHuK9iaJcHe9K1bRdtuipGjw8e3uQB2h1pAJywOj53Kvv9pWIoHDLbZ4NPWUE
+Message-ID: <CANRwn3Tt0VguzG=_azEZAP8vfxr0BbyWj=Nu-R3a0TA1nNGqog@mail.gmail.com>
+Subject: Re: [PATCH v2] HID: wacom: validate battery range before scaling
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+	Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi David
-
-On Tue, Nov 3, 2026, at 7:31 PM, David Hildenbrand (Arm) wrote:
-> We made a big mistake when introducing write-sealing: we should have
-> disallowed *any* file mappings while we are write-sealing. Write-sealing is
-> usually done by a producer that wants to hand-off some data to a consumer.
-> Having the producer have a read-only mapping (private or read-only shared)
-> of the memfd while sealing is rather odd: it couldn't have been used to
-> fill the memfd in the first place.
+On Mon, Sep 14, 2026 at 9:28=E2=80=AFPM Aldo Ariel Panzardo <qwe.aldo@gmail=
+.com> wrote:
 >
-> Most identified public users don't do anything like that: they either never
-> map the memfd before write-sealing (using write() instead), or munmap()
-> before write-sealing:
+> Battery events divide by the difference between the logical maximum
+> and minimum without validating the range.  A malformed HID descriptor
+> with equal limits can therefore trigger a divide-by-zero exception.
 >
->  - systemd's journal writes, fwupd, Flatpak, runc, crun and
->    containers/storage write to the memfd without mmap'ing it, before
->    sealing it [1,2,3,4,5,6]. The FD consumer will not access the memfd
->    before sealing.
+> Move percentage conversion to a helper that widens the arithmetic,
+> rejects non-positive ranges, and accounts for a nonzero logical
+> minimum.  Clamp the result to [0, 100] instead of rejecting
+> out-of-range values, so that real hardware whose ADC occasionally
+> reports slightly beyond its declared limits still registers its
+> battery and updates capacity normally.
 >
->  - dbus-broker, Mutter, Chromium's Android linker, KWin, Weston and glycin
->    map the memfd file, but unmap it before sealing [7,8,9,10,11,12].
->    glycin retries sealing while waiting for the loader to unmap.
+> Fixes: 37d160193834 ("HID: wacom: generic: Scale battery capacity measure=
+ments to percentages")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+
+I realize this is *very* late, but (similar to the just-reviewed
+sequence number patch) I'd like to request a version of this patch
+that only addresses the divide-by-zero without introducing variable
+widening. It is unlikely that the range of battery values would ever
+exceed anything more than a very small fraction of __s32 so the
+widening (and associated requirement to use div64_s64) feels very
+unnecessary. Checking `if (range <=3D 0)` on an __s32 range should be
+sufficient to catch overflowing and empty ranges. I think the
+introduction of clamping is pretty reasonable as well and should be
+kept in the v3.
+
+Again, apologies for the delay---hopefully we'll (finally) get this merged =
+soon!
+
+Jason (she/they)
+---
+Now instead of four in the eights place /
+you=E2=80=99ve got three, =E2=80=98Cause you added one  /
+(That is to say, eight) to the two,     /
+But you can=E2=80=99t take seven from three,    /
+So you look at the sixty-fours....
+
+> ---
 >
->  - go-memfd exposes a shared writable mapping before F_SEAL_WRITE and a
->    private read-only mapping afterwards. Its API explicitly requires
->    unmapping the writable mapping before sealing [13].
-
-When I wrote memfd-sealing, we had this use-case where an application writes a buffer and then shares it both with in-process and out-of-process tasks. Only if out-of-process tasks are actually involved, the buffer is sealed. Otherwise, it is kept unsealed and can be recycled. Hand-off to other processes was optional, rare and asynchronous, so sealing could happen at any time. Yet, we wanted to keep the buffers mapped to avoid costly TLB flushes. Mappings were readonly, but writes were done through syscalls.
-
-We still do this, but I don't think any of the open-source users picked this up. I did not follow the folio changes, so I am quite unsure whether the implementation was racy from the beginning, or whether new infrastructure introduced the races.
-
-Can you elaborate why folio ref-counts are unreliable / unstable?
-
-Thanks
-David
+> Changes in v2:
+>   - Clamp the computed percentage to [0, 100] instead of returning
+>     false, so that slightly out-of-range ADC values do not prevent
+>     battery registration (WACOM_QUIRK_BATTERY) or silently drop
+>     updates.  Reported by Sashiko AI review.
+>
+>  drivers/hid/wacom_wac.c | 23 +++++++++++++++++++++--
+>  1 file changed, 21 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+> index da1f0ea85..XXXXXXX 100644
+> --- a/drivers/hid/wacom_wac.c
+> +++ b/drivers/hid/wacom_wac.c
+> @@ -7,6 +7,7 @@
+>  #include "wacom.h"
+>  #include <linux/input/mt.h>
+>  #include <linux/jiffies.h>
+> +#include <linux/math64.h>
+>
+>  /* resolution for penabled devices */
+>  #define WACOM_PL_RES           20
+> @@ -1937,6 +1938,22 @@ static void wacom_wac_battery_usage_mapping(struct=
+ hid_device *hdev,
+>         return;
+>  }
+>
+> +static __s32 wacom_wac_battery_percentage(struct hid_field *field, __s32=
+ value)
+> +{
+> +       s64 range =3D (s64)field->logical_maximum - field->logical_minimu=
+m;
+> +       s64 result;
+> +
+> +       if (range <=3D 0)
+> +               return 0;
+> +
+> +       result =3D div64_s64(((s64)value - field->logical_minimum) * 100,
+> +                          range);
+> +
+> +       return clamp_val(result, 0, 100);
+> +}
+> +
+>  static void wacom_wac_battery_event(struct hid_device *hdev, struct hid_=
+field *field,
+>                 struct hid_usage *usage, __s32 value)
+>  {
+> @@ -1950,7 +1967,8 @@ static void wacom_wac_battery_event(struct hid_devi=
+ce *hdev, struct hid_field *f
+>                         wacom_wac->hid_data.bat_status =3D POWER_SUPPLY_S=
+TATUS_UNKNOWN;
+>                 }
+>                 else {
+> -                       value =3D value * 100 / (field->logical_maximum -=
+ field->logical_minimum);
+> +                       value =3D wacom_wac_battery_percentage(field, val=
+ue);
+>                         wacom_wac->hid_data.battery_capacity =3D value;
+>                         wacom_wac->hid_data.bat_connected =3D 1;
+>                         wacom_wac->hid_data.bat_status =3D WACOM_POWER_SU=
+PPLY_STATUS_AUTO;
+> @@ -1958,7 +1976,8 @@ static void wacom_wac_battery_event(struct hid_devi=
+ce *hdev, struct hid_field *f
+>                 wacom_wac->features.quirks |=3D WACOM_QUIRK_BATTERY;
+>                 break;
+>         case WACOM_HID_WD_BATTERY_LEVEL:
+> -               value =3D value * 100 / (field->logical_maximum - field->=
+logical_minimum);
+> +               value =3D wacom_wac_battery_percentage(field, value);
+>                 wacom_wac->hid_data.battery_capacity =3D value;
+>                 wacom_wac->hid_data.bat_connected =3D 1;
+>                 wacom_wac->hid_data.bat_status =3D WACOM_POWER_SUPPLY_STA=
+TUS_AUTO;
+> --
+> 2.43.0
+>
