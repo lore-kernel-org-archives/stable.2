@@ -1,73 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793977766;
-	b=fcjn0aKq8SnauZfb0EqIbPvY3wiJSw3oKxIePPDDno4UnnNcrFvXPVyDIbxOKPDgy4F1
-	 5Ccra5XzP4xfvWuEc41z6Qr/9eEnuWbKTOwcMkvHtkCxxjZbIxmN8K8UD8s1Sks9sOygQ
-	 yCBSYIJAHKLY5EQXXL9N6m63jOfZ94ZDM42kJ5ssziIVyCSEOZMtVtCFcbs+znArrOe7l
-	 iL+CENGbPgoVUUKhiv+yQ5feWQMcIaknyykMfsuwWzKYb4FJ32c2eb45cHYZI/dKQO2pv
-	 oKHxdVbUR6Mt6F4MtnkGfMfqIYis/3LnJk6EFWBV0om/H2ZtceNWRJoux22SwqTSIag==
+	t=1793977828;
+	b=XkCGVqFfTvP4MUm0CqY4TTHNts2r6RmYlJ1pzAGignNv+bsnkYg26lBUR3t5PXo4m+IW
+	 TAbtZ7wOskpLbCb5qxCrSQc/ABOS4pv5eu4DG9ey+H3MArg20Eq7J8ZL/H7We7/wAo7UB
+	 TPFIjeojKxBqjX/CXFDqhLLarRR5R2hllr/xuTL51nm9bhW8hxD73pdLGHax7YTJhuTM+
+	 FN+kyR1BOjo01DyrEOATGPtDIfE6ucpNJhF5NGoYhYkYs8OVeN1pJz0g8CtSZXLskA2MD
+	 Kbm1Sdu4QVXomFFFbbGHZLpMrQEEiKkhFqlrBCzq3NesDTDtigS6x5BYZb76fx3tm5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793977766;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=npuYSel4O9FrV/jNGZ9cdAPDnmYjQUkDZB008eKUgGc=;
-	b=uuxTs13ZMz7jF/J/MLUeDa0xwfq6PZgG+ECK6Y1/WrPsu2J9AHYcfFgTw3TFbrkN+4uO
-	 qVz591Kcfntkc3xufQ6ecJjZAp1H4mgWse4d0f7gkAdGZ+0Bh9A7EpYtW0f7rdd20p/w8
-	 pSCjn8R3AvKyHA8rr1bsgj5x4Bsmcaa5ZPEeGHmeXfgDmlAYTtEI3vkTwIMF8OhCXPCDM
-	 nZne1JorfgfVoxVLWnkzmqWuHC1AIpimrC9NaggxoALjRsfNziz6B7Immuevk0gbQUxel
-	 ZBGvxF8LdN/7OjaVKeDxpyi2WT4l5ZXQ/ZHm+qG2SFrnnt9tcjm+xam5J/98+DrFfCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793977828;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=s6jnJJodU4m1lGYsT+HEq6XPl6A5ntF19WIgXg93xtk=;
+	b=QxAqCw47Do026Lv2GSuTs25hvJ38OZOKSHXDJtZkSE7OEpr3j2tqDjboEY5IoPUh+CHV
+	 +jOjixmmPxXijqPqzbstL6MCdsp5tzO88p1Mb+abHbvxoDdcyUCQYEsWgH3hSdlg90enl
+	 WzZLx/rwZqSOgjCp7DtKVPNr6wO4xPBhzMAO4J4dOfpdhIv0vrC+ImAb58ZJ3GsF6BlR5
+	 nKkuSmu9bbNkEAvJxnYNTfdvfwo4M2jj7yHv8wneZxvqFO57siVSO70vs8KfUce16pqBQ
+	 51ski4zgchH/HSlhTJ186cN/SovqCTlVdZf6HDvwG54lnmGLKmP7FLguhmdNN9X/uuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SN3Df+G0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DPTEs7Es;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3218A606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 15:09:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B6F4606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 15:10:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SN3Df+G0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CE8B1F008A2;
-	Fri,  6 Nov 2026 15:09:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DPTEs7Es
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263041F0089F;
+	Fri,  6 Nov 2026 15:10:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793977766;
-	bh=npuYSel4O9FrV/jNGZ9cdAPDnmYjQUkDZB008eKUgGc=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=SN3Df+G0EtekgzPJcjrphLXQlf2O8Hy1oI8QHIKj4W7qCmCrlcI7EMzdNQYPL9zDF
-	 Mttbz422POvi1Wcmz2ZnVzZtgQGAzx+IMTKWU1YK4ioQov2KYsbEAVp3n27pI5I9Zx
-	 w7eoJTAyTeIUjq23O8tTxAArMrILtoFTmKyip4OwfG4tKaEV+tL+7TIqEyqeeLx/71
-	 47zgvk5XEwGHznLXXtZ5a9R0oSlWY/04iUCsNNwdP0zWnhg70S9EsO34goDjRJRcrs
-	 EvhO+sMQIa2w0L8GLtXmhuIRxv3XlC6VmTwKeRCrmBCmKozQYPhONJIAuuTDi8JEmX
-	 YCz9oqyVy6zuQ==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id EA5B6F40066;
-	Fri,  6 Nov 2026 10:09:24 -0500 (EST)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Fri, 06 Nov 2026 10:09:24 -0500
-X-ME-Sender: <xms:pO3tavCpLhKAHBgB1GqJOZtIxf2vvwdmlMg8IaorUUw81lrmVn82YA>
-    <xme:pO3tagXPWk9VQ-cL5bnGPzSlRAD3oWm0OvesAi2q7t5H0WyR3fnmpJa5sMmmJkEsa
-    Fnx7CRxyWa9m9hkooh3_4c2lnkApxozb4rDjuwt5_73pV4kTsNZ0K8>
-X-ME-Proxy-Cause: dmFkZTFEhyjgIWT9Pl7QSDXtVhusfaBv7ZIEID3b6YaYkY/PL4NFOj9jmbZBiJKasYMxrT
-    cHTZQ+y/cKTOkkwTy3bgReD6eZWCZ4oFOP3Fheauuru/hu6APs/VMcM8CSa4tMi0yHZpV3
-    Q055OM8A6Zu+3SdJrgCjERVT17kvzH7TihJ4vwOkhIBI7Sx8wYrOMWXuMe8oHbSYEJ633K
-    TVgnEWoJGyQ2jyMWfbPQbJstCtXUnCk3uQ1UzH99NSAJjoueBgrsfby6dcWc95nK9JJk4l
-    n9cdoA7lVuSur778GyQzFCPedD2JhDWkUG7+1a3cYAo/M4Q9bisUAXTeERjfmTvtsZWwQ6
-    DL3JueRN62cGgtN4zFP17T4wtrdxw90UQ2A+kJ8WmDDz4wcJRhtsprKS+731WsC2kdEdcN
-    Iovo9fGC9z6Bl8pcg3cl90ark4c/eFRbxxR0meVzU8n+CM9nOZ/wTfTAx/VWpP5iC18LQE
-    T017Af6YvGdcZykgdjNz6/1QenNOfwjpEbsC8IQJlTkW2HyWM+YMlgvkTZUXwaAxvrjiD4
-    j1o5XnmdBwXcQU3YzCGMG+s6S8XsBjZpjEjK1KXvsTkQB/liAWuGUYgzQFwkeoqmDdCb8R
-    jC4eOaLYNHw8Br+kT+mG90lO84My3d3X5R6Avlt5IhPrOuslw6lIY3tq2Vgg
-X-ME-Proxy: <xmx:pO3taskkJ7VxndqivvrJnBr5tevANTi-D6_ZFsCII6HJrdZwg3rNQg>
-    <xmx:pO3tansS6HrnkCJ4h6NuE77MOPzzaE5UchXJGwMULm6V4M71pFcFJA>
-    <xmx:pO3tanp7mVj9ajDYDwY-JLxXZaLPH9WvM4WvBCrUdiKdEncz080H0g>
-    <xmx:pO3tateZ8vte2uvNWpQJVszzitYXsdCkGDYfNo9K1GXlVyxtmrn3hA>
-    <xmx:pO3tavnjB0nh0BCcD8kbwKwlPtk0JjWADyclTpeBbHVi9mTxN_sKbrJk>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id CFBA9782738; Fri,  6 Nov 2026 10:09:24 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1793977827;
+	bh=s6jnJJodU4m1lGYsT+HEq6XPl6A5ntF19WIgXg93xtk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DPTEs7EsBsflXpJMjnMgNNQXDzt2DhG3e8egox6ab+twDgtoRENYggD6Wk9Zixe68
+	 bOMJ0GcDkzAyu9KcZc2J/K+EZKNWHaFFeQB/k0kAe5QjRYP2H/oKqVRJjnJMCB6xM2
+	 WqhgevKY6O8aKryDjk3MySHz7PViGtf0MJiCjbTyJ8ECINF2Oe4S0yP/SvdQpqJhRe
+	 ZSqwWVDHiuHNP5FcZmV7Clm2X2A/AUkIm+evvhP3Z6dt2LDHqO1HPIxmIFwoqD2/FB
+	 mlLbfkZrSrwYJxUEVdkVeVXUJ261yEYJQsaomLcOUKjDuq/AQfWCpX2l+zs9ZGyaCR
+	 NkpuqYIFP5/HQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+	Jiri Kosina <jkosina@suse.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] HID: hid-prodikeys: remove struct pk_device
+Date: Fri,  6 Nov 2026 10:10:24 -0500
+Message-ID: <20261106151016.409233-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110444-unlisted-unaired-f627@gregkh>
+References: <2026110444-unlisted-unaired-f627@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,92 +61,343 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: As7mHhrShI7Z
-Date: Fri, 06 Nov 2026 10:09:04 -0500
-From: "Chuck Lever" <cel@kernel.org>
-To: "Tim Menninger" <tmenninger@everpuredata.com>
-Cc: anna@kernel.org, trondmy@kernel.org, ebadger@everpuredata.com,
- jcurley@everpuredata.com, linux-nfs@vger.kernel.org,
- slingappa@everpuredata.com, stable@vger.kernel.org, tom@talpey.com,
- mora@netapp.com, Rakesh.Bhargava@netapp.com
-Message-Id: <dce03323-90e7-400f-8deb-63010d928460@slotpi15m67>
-In-Reply-To: <20261106142039.1066437-1-tmenninger@everpuredata.com>
-References: <20261106142039.1066437-1-tmenninger@everpuredata.com>
-Subject: Re: [PATCH v5] xprtrdma: serialize unmap_sync with xprt_disconnect
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/6/26 9:20 AM, Tim Menninger wrote:
-> frwr_unmap_sync() posts LOCAL_INV Work Requests to the QP and waits
-> for the matching CQE. This can race with rpcrdma_xprt_disconnect():
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
 
-Thanks for sticking with this one. Before the rest, a pointer: a
-second report of the same race went to the list yesterday, as a
-list_debug BUG in frwr_unmap_sync() rather than a hang:
+[ Upstream commit 16d0e1d469cc16aefa8ef745e926eda473a9b221 ]
 
-  https://lore.kernel.org/linux-nfs/20261105232137.4706-1-mora@netapp.com/
+First, quirks was unused in struct pk_device.
 
-That is the other outcome of the same window. rpcrdma_req_reset()
-and frwr_unmap_sync() both pop rl_registered with no lock, so which
-symptom appears depends on timing. I've replied there suggesting the
-two efforts be combined on this patch.
+And I see no reason for this additional level of indirection. struct
+pcmidi_snd is far enough for the driver. Unless I am missing something?
 
-I'd like to see the patch get smaller.
+So drop struct pk_device and convert all the users to use struct
+pcmidi_snd directly. No need for doubled kmalloc+kfrees now.
 
-> +	/*
-> +	 * Hold an endpoint reference so ep, its QP, and its CM ID remain
-> +	 * valid after the rwsem is dropped and through the completion wait.
-> +	 */
-> +	rpcrdma_ep_get(ep);
+Found by https://github.com/jirislaby/clang-struct.
 
-As far as I can tell, the only use of @ep after up_read() is the
-rpcrdma_force_disconnect(ep) call on the error path. If that call
-moves up before up_read(), the write side still holds disconnect
-off while @ep is dereferenced, and the kref isn't needed:
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Cc: Jiri Kosina <jikos@kernel.org>
+Cc: Benjamin Tissoires <benjamin.tissoires@redhat.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Stable-dep-of: 0ff37294c41b ("HID: prodikeys: validate fixed-format MIDI reports")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/hid/hid-prodikeys.c | 113 +++++++++++++-----------------------
+ 1 file changed, 40 insertions(+), 73 deletions(-)
 
-	bad_wr = NULL;
-	rc = ib_post_send(ep->re_id->qp, first, &bad_wr);
-	if (rc) {
-		trace_xprtrdma_post_linv_err(req, rc);
-		rpcrdma_force_disconnect(ep);
-	}
-	up_read(&r_xprt->rx_unmap_rwsem);
-
-	if (bad_wr != first)
-		wait_for_completion(&req->rl_linv_done);
-
-With that, the export of rpcrdma_ep_get(), the new
-rpcrdma_ep_release(), the kernel-doc for both, and the header
-changes for them all drop out. What remains is the rwsem and its
-init, the down/up pairs, and the completion move. That is about
-half the current diff for the same guarantee.
-
-The ordering is the same as today for the error case:
-rpcrdma_force_disconnect() only sets a flag and queues the
-autoclose work, so calling it under the read side does not recurse
-into rpcrdma_xprt_disconnect().
-
-
-> +	/*
-> +	 * Orders frwr_unmap_sync()'s LOCAL_INV submission ahead of the
-> +	 * QP drain. Disconnect holds the write side across the drain
-> +	 * and resource teardown.
-> +	 */
-> +	struct rw_semaphore	rx_unmap_rwsem;
-
-With the write side held across rpcrdma_mrs_destroy(), every
-xprt_release() on this transport waits out the ib_dereg_mr()
-loop. The NetApp report describes that loop stalling in
-mlx5_core_destroy_mkey when a couple hundred transports tear
-down at once. I don't see a deadlock, since the drain needs only
-the CQ workqueue, but it is added latency on rpciod. If that
-turns out to matter, the write side could end after
-rpcrdma_reqs_reset() rather than after the ep put. I'd leave
-it as is unless someone measures a problem.
-
-I'm a reviewer here, not the maintainer, so take the above as a
-suggestion for Anna and Trond to weigh.
-
-
+diff --git a/drivers/hid/hid-prodikeys.c b/drivers/hid/hid-prodikeys.c
+index f20d29566b4da..b53b0c02675a4 100644
+--- a/drivers/hid/hid-prodikeys.c
++++ b/drivers/hid/hid-prodikeys.c
+@@ -32,13 +32,6 @@
+ 
+ struct pcmidi_snd;
+ 
+-struct pk_device {
+-	unsigned long		quirks;
+-
+-	struct hid_device	*hdev;
+-	struct pcmidi_snd	*pm; /* pcmidi device context */
+-};
+-
+ struct pcmidi_sustain {
+ 	unsigned long		in_use;
+ 	struct pcmidi_snd	*pm;
+@@ -50,7 +43,7 @@ struct pcmidi_sustain {
+ 
+ #define PCMIDI_SUSTAINED_MAX	32
+ struct pcmidi_snd {
+-	struct pk_device		*pk;
++	struct hid_device		*hdev;
+ 	unsigned short			ifnum;
+ 	struct hid_report		*pcmidi_report6;
+ 	struct input_dev		*input_ep82;
+@@ -100,11 +93,11 @@ static ssize_t show_channel(struct device *dev,
+ 	struct device_attribute *attr, char *buf)
+ {
+ 	struct hid_device *hdev = to_hid_device(dev);
+-	struct pk_device *pk = hid_get_drvdata(hdev);
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
+-	dbg_hid("pcmidi sysfs read channel=%u\n", pk->pm->midi_channel);
++	dbg_hid("pcmidi sysfs read channel=%u\n", pm->midi_channel);
+ 
+-	return sprintf(buf, "%u (min:%u, max:%u)\n", pk->pm->midi_channel,
++	return sprintf(buf, "%u (min:%u, max:%u)\n", pm->midi_channel,
+ 		PCMIDI_CHANNEL_MIN, PCMIDI_CHANNEL_MAX);
+ }
+ 
+@@ -113,13 +106,13 @@ static ssize_t store_channel(struct device *dev,
+ 	struct device_attribute *attr, const char *buf, size_t count)
+ {
+ 	struct hid_device *hdev = to_hid_device(dev);
+-	struct pk_device *pk = hid_get_drvdata(hdev);
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
+ 	unsigned channel = 0;
+ 
+ 	if (sscanf(buf, "%u", &channel) > 0 && channel <= PCMIDI_CHANNEL_MAX) {
+ 		dbg_hid("pcmidi sysfs write channel=%u\n", channel);
+-		pk->pm->midi_channel = channel;
++		pm->midi_channel = channel;
+ 		return strlen(buf);
+ 	}
+ 	return -EINVAL;
+@@ -137,11 +130,11 @@ static ssize_t show_sustain(struct device *dev,
+  struct device_attribute *attr, char *buf)
+ {
+ 	struct hid_device *hdev = to_hid_device(dev);
+-	struct pk_device *pk = hid_get_drvdata(hdev);
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
+-	dbg_hid("pcmidi sysfs read sustain=%u\n", pk->pm->midi_sustain);
++	dbg_hid("pcmidi sysfs read sustain=%u\n", pm->midi_sustain);
+ 
+-	return sprintf(buf, "%u (off:%u, max:%u (ms))\n", pk->pm->midi_sustain,
++	return sprintf(buf, "%u (off:%u, max:%u (ms))\n", pm->midi_sustain,
+ 		PCMIDI_SUSTAIN_MIN, PCMIDI_SUSTAIN_MAX);
+ }
+ 
+@@ -150,15 +143,14 @@ static ssize_t store_sustain(struct device *dev,
+ 	struct device_attribute *attr, const char *buf, size_t count)
+ {
+ 	struct hid_device *hdev = to_hid_device(dev);
+-	struct pk_device *pk = hid_get_drvdata(hdev);
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
+ 	unsigned sustain = 0;
+ 
+ 	if (sscanf(buf, "%u", &sustain) > 0 && sustain <= PCMIDI_SUSTAIN_MAX) {
+ 		dbg_hid("pcmidi sysfs write sustain=%u\n", sustain);
+-		pk->pm->midi_sustain = sustain;
+-		pk->pm->midi_sustain_mode =
+-			(0 == sustain || !pk->pm->midi_mode) ? 0 : 1;
++		pm->midi_sustain = sustain;
++		pm->midi_sustain_mode = (0 == sustain || !pm->midi_mode) ? 0 : 1;
+ 		return strlen(buf);
+ 	}
+ 	return -EINVAL;
+@@ -176,11 +168,11 @@ static ssize_t show_octave(struct device *dev,
+ 	struct device_attribute *attr, char *buf)
+ {
+ 	struct hid_device *hdev = to_hid_device(dev);
+-	struct pk_device *pk = hid_get_drvdata(hdev);
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
+-	dbg_hid("pcmidi sysfs read octave=%d\n", pk->pm->midi_octave);
++	dbg_hid("pcmidi sysfs read octave=%d\n", pm->midi_octave);
+ 
+-	return sprintf(buf, "%d (min:%d, max:%d)\n", pk->pm->midi_octave,
++	return sprintf(buf, "%d (min:%d, max:%d)\n", pm->midi_octave,
+ 		PCMIDI_OCTAVE_MIN, PCMIDI_OCTAVE_MAX);
+ }
+ 
+@@ -189,14 +181,14 @@ static ssize_t store_octave(struct device *dev,
+ 	struct device_attribute *attr, const char *buf, size_t count)
+ {
+ 	struct hid_device *hdev = to_hid_device(dev);
+-	struct pk_device *pk = hid_get_drvdata(hdev);
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
+ 	int octave = 0;
+ 
+ 	if (sscanf(buf, "%d", &octave) > 0 &&
+ 		octave >= PCMIDI_OCTAVE_MIN && octave <= PCMIDI_OCTAVE_MAX) {
+ 		dbg_hid("pcmidi sysfs write octave=%d\n", octave);
+-		pk->pm->midi_octave = octave;
++		pm->midi_octave = octave;
+ 		return strlen(buf);
+ 	}
+ 	return -EINVAL;
+@@ -270,7 +262,7 @@ static void stop_sustain_timers(struct pcmidi_snd *pm)
+ 
+ static int pcmidi_get_output_report(struct pcmidi_snd *pm)
+ {
+-	struct hid_device *hdev = pm->pk->hdev;
++	struct hid_device *hdev = pm->hdev;
+ 	struct hid_report *report;
+ 
+ 	list_for_each_entry(report,
+@@ -295,7 +287,7 @@ static int pcmidi_get_output_report(struct pcmidi_snd *pm)
+ 
+ static void pcmidi_submit_output_report(struct pcmidi_snd *pm, int state)
+ {
+-	struct hid_device *hdev = pm->pk->hdev;
++	struct hid_device *hdev = pm->hdev;
+ 	struct hid_report *report = pm->pcmidi_report6;
+ 	report->field[0]->value[0] = 0x01;
+ 	report->field[0]->value[1] = state;
+@@ -626,7 +618,7 @@ static int pcmidi_snd_initialise(struct pcmidi_snd *pm)
+ 
+ 	/* Setup sound card */
+ 
+-	err = snd_card_new(&pm->pk->hdev->dev, index[dev], id[dev],
++	err = snd_card_new(&pm->hdev->dev, index[dev], id[dev],
+ 			   THIS_MODULE, 0, &card);
+ 	if (err < 0) {
+ 		pk_error("failed to create pc-midi sound card\n");
+@@ -664,7 +656,7 @@ static int pcmidi_snd_initialise(struct pcmidi_snd *pm)
+ 		&pcmidi_in_ops);
+ 
+ 	/* create sysfs variables */
+-	err = device_create_file(&pm->pk->hdev->dev,
++	err = device_create_file(&pm->hdev->dev,
+ 				 sysfs_device_attr_channel);
+ 	if (err < 0) {
+ 		pk_error("failed to create sysfs attribute channel: error %d\n",
+@@ -672,7 +664,7 @@ static int pcmidi_snd_initialise(struct pcmidi_snd *pm)
+ 		goto fail;
+ 	}
+ 
+-	err = device_create_file(&pm->pk->hdev->dev,
++	err = device_create_file(&pm->hdev->dev,
+ 				sysfs_device_attr_sustain);
+ 	if (err < 0) {
+ 		pk_error("failed to create sysfs attribute sustain: error %d\n",
+@@ -680,7 +672,7 @@ static int pcmidi_snd_initialise(struct pcmidi_snd *pm)
+ 		goto fail_attr_sustain;
+ 	}
+ 
+-	err = device_create_file(&pm->pk->hdev->dev,
++	err = device_create_file(&pm->hdev->dev,
+ 			 sysfs_device_attr_octave);
+ 	if (err < 0) {
+ 		pk_error("failed to create sysfs attribute octave: error %d\n",
+@@ -710,11 +702,11 @@ static int pcmidi_snd_initialise(struct pcmidi_snd *pm)
+ 
+ fail_register:
+ 	stop_sustain_timers(pm);
+-	device_remove_file(&pm->pk->hdev->dev, sysfs_device_attr_octave);
++	device_remove_file(&pm->hdev->dev, sysfs_device_attr_octave);
+ fail_attr_octave:
+-	device_remove_file(&pm->pk->hdev->dev, sysfs_device_attr_sustain);
++	device_remove_file(&pm->hdev->dev, sysfs_device_attr_sustain);
+ fail_attr_sustain:
+-	device_remove_file(&pm->pk->hdev->dev, sysfs_device_attr_channel);
++	device_remove_file(&pm->hdev->dev, sysfs_device_attr_channel);
+ fail:
+ 	if (pm->card) {
+ 		snd_card_free(pm->card);
+@@ -728,12 +720,9 @@ static int pcmidi_snd_terminate(struct pcmidi_snd *pm)
+ 	if (pm->card) {
+ 		stop_sustain_timers(pm);
+ 
+-		device_remove_file(&pm->pk->hdev->dev,
+-			sysfs_device_attr_channel);
+-		device_remove_file(&pm->pk->hdev->dev,
+-			sysfs_device_attr_sustain);
+-		device_remove_file(&pm->pk->hdev->dev,
+-			sysfs_device_attr_octave);
++		device_remove_file(&pm->hdev->dev, sysfs_device_attr_channel);
++		device_remove_file(&pm->hdev->dev, sysfs_device_attr_sustain);
++		device_remove_file(&pm->hdev->dev, sysfs_device_attr_octave);
+ 
+ 		snd_card_disconnect(pm->card);
+ 		snd_card_free_when_closed(pm->card);
+@@ -763,10 +752,7 @@ static int pk_input_mapping(struct hid_device *hdev, struct hid_input *hi,
+ 		struct hid_field *field, struct hid_usage *usage,
+ 		unsigned long **bit, int *max)
+ {
+-	struct pk_device *pk = hid_get_drvdata(hdev);
+-	struct pcmidi_snd *pm;
+-
+-	pm = pk->pm;
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
+ 	if (HID_UP_MSVENDOR == (usage->hid & HID_USAGE_PAGE) &&
+ 		1 == pm->ifnum) {
+@@ -781,16 +767,16 @@ static int pk_input_mapping(struct hid_device *hdev, struct hid_input *hi,
+ static int pk_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 	u8 *data, int size)
+ {
+-	struct pk_device *pk = hid_get_drvdata(hdev);
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 	int ret = 0;
+ 
+-	if (1 == pk->pm->ifnum) {
++	if (1 == pm->ifnum) {
+ 		if (report->id == data[0])
+ 			switch (report->id) {
+ 			case 0x01: /* midi keys (qwerty)*/
+ 			case 0x03: /* midi keyboard (musical)*/
+ 			case 0x04: /* extra/midi keys (qwerty)*/
+-				ret = pcmidi_handle_report(pk->pm,
++				ret = pcmidi_handle_report(pm,
+ 						report->id, data, size);
+ 				break;
+ 			}
+@@ -805,8 +791,7 @@ static int pk_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	struct usb_interface *intf;
+ 	unsigned short ifnum;
+ 	unsigned long quirks = id->driver_data;
+-	struct pk_device *pk;
+-	struct pcmidi_snd *pm = NULL;
++	struct pcmidi_snd *pm;
+ 
+ 	if (!hid_is_usb(hdev))
+ 		return -EINVAL;
+@@ -814,26 +799,16 @@ static int pk_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	intf = to_usb_interface(hdev->dev.parent);
+ 	ifnum = intf->cur_altsetting->desc.bInterfaceNumber;
+ 
+-	pk = kzalloc(sizeof(*pk), GFP_KERNEL);
+-	if (pk == NULL) {
+-		hid_err(hdev, "can't alloc descriptor\n");
+-		return -ENOMEM;
+-	}
+-
+-	pk->hdev = hdev;
+-
+ 	pm = kzalloc(sizeof(*pm), GFP_KERNEL);
+ 	if (pm == NULL) {
+ 		hid_err(hdev, "can't alloc descriptor\n");
+-		ret = -ENOMEM;
+-		goto err_free_pk;
++		return -ENOMEM;
+ 	}
+ 
+-	pm->pk = pk;
+-	pk->pm = pm;
++	pm->hdev = hdev;
+ 	pm->ifnum = ifnum;
+ 
+-	hid_set_drvdata(hdev, pk);
++	hid_set_drvdata(hdev, pm);
+ 
+ 	ret = hid_parse(hdev);
+ 	if (ret) {
+@@ -860,26 +835,18 @@ static int pk_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	hid_hw_stop(hdev);
+ err_free:
+ 	kfree(pm);
+-err_free_pk:
+-	kfree(pk);
+ 
+ 	return ret;
+ }
+ 
+ static void pk_remove(struct hid_device *hdev)
+ {
+-	struct pk_device *pk = hid_get_drvdata(hdev);
+-	struct pcmidi_snd *pm;
+-
+-	pm = pk->pm;
+-	if (pm) {
+-		pcmidi_snd_terminate(pm);
+-		kfree(pm);
+-	}
++	struct pcmidi_snd *pm = hid_get_drvdata(hdev);
+ 
++	pcmidi_snd_terminate(pm);
+ 	hid_hw_stop(hdev);
+ 
+-	kfree(pk);
++	kfree(pm);
+ }
+ 
+ static const struct hid_device_id pk_devices[] = {
 -- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+2.53.0
+
