@@ -1,108 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793955764;
-	b=BepFDJh0nd5PPukHEzxHlUvuD8ic5UVycY+3K6ednqhF++pF89HPxz6UNQZMC+LuOFKJ
-	 a6km06aNVkPFlSyGyrjL0EJ87i0ecyag2/ybOV2dvEDv9w5jo4eZcA+rBp6R8/yOxzHus
-	 1OoFKpKvNCe0ef2CQGTEu8o4HicxDodzpcaR6ujXQk7kfE7TBqd0uJ8tv3lN17jDfdoHK
-	 aDL0gkXt10pVtuwtqBQCQNSxY67h6IDbRwCxJRkvHwmmkS3UXepzA/GRDM5m1W4PHn/PU
-	 2YCN5r/+kY8Auuw1ENbOUcWJt2slvoqNm1BuAF8cTCMd7xsV7+NuHaxWvs2SZe5dE6Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793955764;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=ALdFdZ6+XY0jKUDGRwksVl7+1ksycMukEjQ+VH6YWbA=;
-	b=LFn5ZAf2fbaWjGq0+vTw3isNmRvD/7HfVHNMEAoJyfdF47CCPi+YnWkYgUQrfNe+IjJ4
-	 m0+jcf3lF8INEKojEPnVd1jdl8blhT+nAjFHH1ai73Yktsc2cyHqdUkuIwFmfkW5zIhmu
-	 cyFJpHfTKM5dLCKiPNWjws8jCINfNUpt5at+s2mNqPqhn4DHfioqZ2PTl3/F51w2uDj52
-	 6NhUBO52n3qFa4yuitdY5xXcOkgZkJtAEEOWycvjjmvLf+OJ5OU4fIuNdRO+s8j46M6qr
-	 IiRwYCaX+ISbZ0nge+mKhg7K0b7etcYLruety40NSFJh12mO3m5ViqT4HS/laDWyDBg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=SX2fVyuV;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mJNxzkAN;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=SX2fVyuV;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mJNxzkAN;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793955900;
+	b=0zTo+DFHfkCNytzW5ahBPFVSwZ3vUY7wxNUYlZ0b+Q+FCfqmlYpncoHSq6T8LyQ24Nct
+	 bFvViW7l1dHxc4XG8WrsZS0VLF9WqUBdr1ASUaFfpWtzu5DZPVCf91MFKfFkWNxlc2q8j
+	 XIqvgmQ3Pku0FTYyybGnZq2+QkT1JyT1r3YTlyddjOhG0pRCOm6/jqL8z+1z87Xmk9KOY
+	 fdi9u0uOayN6/+Imp7xuNSfazBxZZ14aiLiStEkZujV+uYe4pjztwDMM48rtAOMxUrZno
+	 weFOkgL5crxGxehqM5TBZMX0vffuAlQqUktwLJr9k6OokAuGtBVLRnMv1KOM3tUTmlw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793955900;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qT+CO1ROEeD8xYhFaFdRagN6Eagy/YoQJaHT5lWNYnU=;
+	b=e9g7L0/HtY1SLNQ8h3F78DSzwpH/TUyUUA8RXdfeq69afNBNgq2Zlo6mJcpXREDWsn+c
+	 W1VP6XGjdoqsH39KByRi9ff/lGE5r5pdbKcxvx+BIfl46OAltNrrFqaTTrAkQivK/j9Nk
+	 CJjWJ/PjwFqq95hIJdngQRB3uC5+8B7J3Unt/hNWuI/qD9weXa7S2iC/xUb3Pdu3ni9th
+	 MqHS59kURDw7tPrddftj4BSAXkWRaua8gXBYnQwvsyt+dh87+eK/4axgyDuXm/8rMVFl9
+	 dOrdpKgXqdrqF5pdIoqELGu3cCtIE76V3swVjLchffHInZQDQTsqCyHZTS9ZXcRWUpw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UP6BVeMQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3912A606A326;
+	Fri,  6 Nov 2026 09:04:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UP6BVeMQ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793955899;
+	b=oB/QY+Twf7ojXQIw1F874QykmP79dBheCUKaLOST4To+L+vBf98MTReTHVBnmMqSoJ3a
+	 AlSMCFAgsA9y84THnhSpGZ3ONJRxAsGziKsVs4GbVdkb8m8E3DFoIaznHWRz+hbcfPfgY
+	 wDPXyKJ/G7UJdppBI+HNOD5yAcp5ghzSalm9uJRQ32ngc/Dx/NovciVSwnPuwb9Joq1XU
+	 lAk4Y+2fL3xJSuT9pKaA4FPA36rspHDcBPwEC6jx60IEvAztfaZwQGduwZ1T5bQne2vSX
+	 tDhMdw9bT56kpvU+/fgFYC260qE1mklONsywaNd1pfO/+PdpazdIcNZZKOhHHMB4lBQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793955899;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qT+CO1ROEeD8xYhFaFdRagN6Eagy/YoQJaHT5lWNYnU=;
+	b=ejrZlZcLwgG7Vjl1Ib/D1X3KnZT4PjzvSDvXrjNp48063jliNQF6Vkrmp5efHIdwRwFS
+	 oqBLfD5eRxRCFkhmfsjpTQNdyJQLTp7ozk4c6PvxS+ekLyBiVugJSVNcLDwJeq5+KqPjf
+	 ondEKvvx6WYg55KQ8gFYmQGlQNMrrBUFc91fNNGo9Xvnc0qezadHWmALnAYujsqskyaDw
+	 RpSGZyZjux/u0QY2x+R+doRXhdWpEIgC6mDeJwp3fHgPLmersFVNSXfZ/fy/IxQGNNmV8
+	 QfKKF3qlqzAfVeCCCGz48e6FfuOfjpdYDSAFlJsD4c6UgjD6mXFiHVCmC2bmyyqT26g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A52E606A326;
-	Fri,  6 Nov 2026 09:02:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A52E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=SX2fVyuV;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mJNxzkAN;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=SX2fVyuV;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mJNxzkAN
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A059F1FB40;
-	Fri,  6 Nov 2026 09:02:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793955760; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ALdFdZ6+XY0jKUDGRwksVl7+1ksycMukEjQ+VH6YWbA=;
-	b=SX2fVyuVtoPwxvPoZpu/rLyHzwwJxZelu9El9uXdguc0UGKOiRqyTWzf0HCsNw1U7Umtrv
-	3/c9nMdXORO/szn6miFO71ct0uiZsP3VamPlqXnkbX+Tf7OlSpJR/kYN+ZVZzh2iycd/NA
-	2FYUa2SrmHyVt5ELB3oRrjN1qpx9emY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793955760;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ALdFdZ6+XY0jKUDGRwksVl7+1ksycMukEjQ+VH6YWbA=;
-	b=mJNxzkANideHlOtwSVxjkdcY6b6vnI+1eSB9+PDk2hJDrCB9NPf+YZ6T8gpYaxtkuUSv29
-	9ULPxL4ZKG0dUMCg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793955760; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ALdFdZ6+XY0jKUDGRwksVl7+1ksycMukEjQ+VH6YWbA=;
-	b=SX2fVyuVtoPwxvPoZpu/rLyHzwwJxZelu9El9uXdguc0UGKOiRqyTWzf0HCsNw1U7Umtrv
-	3/c9nMdXORO/szn6miFO71ct0uiZsP3VamPlqXnkbX+Tf7OlSpJR/kYN+ZVZzh2iycd/NA
-	2FYUa2SrmHyVt5ELB3oRrjN1qpx9emY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793955760;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ALdFdZ6+XY0jKUDGRwksVl7+1ksycMukEjQ+VH6YWbA=;
-	b=mJNxzkANideHlOtwSVxjkdcY6b6vnI+1eSB9+PDk2hJDrCB9NPf+YZ6T8gpYaxtkuUSv29
-	9ULPxL4ZKG0dUMCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 759F8134E9;
-	Fri,  6 Nov 2026 09:02:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id YLdKFLCX7WqWHQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 06 Nov 2026 09:02:40 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 03D03BA38; Fri, 06 Nov 2026 10:02:39 +0100 (CET)
-Date: Fri, 6 Nov 2026 10:02:39 +0100
-From: Jan Kara <jack@suse.cz>
-To: Shuai Liu <847807867@qq.com>
-Cc: linux-ext4@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca, 
-	libaokun@linux.alibaba.com, jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
-	yi.zhang@huawei.com, linux-kernel@vger.kernel.org, 
-	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com, sashiko-bot@kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v8] ext4: fix slab-use-after-free in do_split()
-Message-ID: <zlob4iplebmd7bqzh6iniyz3vrgzifrhg4cqy22uljraftrjxc@hr5rvleofcrx>
-References: <sashiko-outbox-198398@kernel.org>
- <tencent_BA3A8C65555EB74908B7404C6562DC5D5705@qq.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 3CFEB1F008A1;
+	Fri,  6 Nov 2026 09:04:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793955899;
+	bh=qT+CO1ROEeD8xYhFaFdRagN6Eagy/YoQJaHT5lWNYnU=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=UP6BVeMQrXnZ9e7n9eNiUOoZefgA7bnoSPeCticKzRkbs5qvWQ83UoUH/GoanCPr6
+	 Ggi+wtftll8RbBHZSZxJcgVr32Q0rMV3eGMcMJtjfXCwb8HNLbYVkxipUBf+50ABwy
+	 rcB+qR2Ao/TU0T5jci0iZYf6uUlknv8052eNkxQ0WjjAbQe3+fyJ4rBWqaehXGIcsV
+	 gtQZLQwS8vtJY/8MrCz0xh5+LYgghRJ9xbQzB5cNY+CaHhXAIp2kWfvhGeGAWWiAS7
+	 yEIJplzLU7tmTsTgq6s8xD1rB5necoWtW/4pT49ev+MY1YageVy6rX9AITL0C+EbMQ
+	 yOee1oD3ahcAg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C3A0145B3F;
+	Fri,  6 Nov 2026 09:04:58 +0000 (UTC)
+From: Sergei Khomenkov via B4 Relay <devnull+shomenkow.gmail.com@kernel.org>
+Date: Fri, 06 Nov 2026 12:04:56 +0300
+Subject: [PATCH] media: verisilicon: suspend the device before
+ unregistering it on remove
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,276 +83,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_BA3A8C65555EB74908B7404C6562DC5D5705@qq.com>
-X-Spamd-Result: default: False [-11.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[09bec78ee77613a3efdd];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[qq.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,qq.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,syzkaller.appspotmail.com,kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qq.com:email,imap1.dmz-prg2.suse.org:helo,syzkaller.appspot.com:url,suse.com:email]
-X-Spam-Score: -11.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261106-hantro-remove-v1-1-d0a4678886d7@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvyJ7TlAPgn0lOqittYc01ohA/HvSc
+ QZmGlRkwgqzaMD4UKWSB+hJQDx83lHSNhiMMlZrZeWQNxfJeJYHpfMpRBes0snBaC7GRO//W9b
+ eP1YuNu9fAAAA
+X-Change-ID: 20261106-hantro-remove-9afbc9b601f9
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Frank Li <Frank.Li@nxp.com>, Tharit Tangkijwanichakul <tharitt97@gmail.com>, 
+ linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793955898; l=3507;
+ i=shomenkow@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=xS7oIoyimsaMRzqUpXTDBfcEIedzp94Ticoi5FpW/N4=;
+ b=UveIQ1ueDQ9B30eFN2EHpuRf6itGbRtnVmhgM4utBXIjk1hHI0f0mylWYoYHySNVftCf9fxIi
+ JL/Cv/6DmByCniakqQ9eDo0+UfNchjMmlWUmP1CQB8cNP+9XSUhhTR4
+X-Developer-Key: i=shomenkow@gmail.com; a=ed25519;
+ pk=FwuHDVe7aiISDMLmQEcMC+RflEIJ6kEp/ekwznWXmI8=
+X-Endpoint-Received: by B4 Relay for shomenkow@gmail.com/20261104 with
+ auth_id=1409
+X-Original-From: Sergei Khomenkov <shomenkow@gmail.com>
+Reply-To: shomenkow@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Thu 05-11-26 10:11:46, Shuai Liu wrote:
-> do_split() allocates a new directory block with ext4_append() to hold
-> the second half of the entries of the leaf block being split, then
-> dx_move_dirents() copies entries from the old block (*bh) into the new
-> one (bh2).  Nothing verifies that the newly allocated block differs
-> from the block being split.
-> 
-> On a filesystem whose block bitmap is inconsistent with the directory
-> tree, a block already referenced as a directory leaf or as an htree
-> index block can still be marked free, so ext4_append() can return that
-> same block.  With concurrent operations on such a filesystem (as
-> exercised by the syzbot reproducer), the block can even be freed
-> between allocations, resulting in bh2 aliasing *bh.  dx_move_dirents()
-> then copies the block onto itself, corrupting directory entries
-> mid-copy: a rec_len field can be overwritten with name bytes, so the
-> subsequent wipe of the stale entry memset()s a bogus length, causing
-> the slab-use-after-free reported by syzbot.
-> 
-> The same aliasing applies to the htree index blocks.  If the leaf
-> block or a newly allocated block aliases an index frame, the index
-> header can be overwritten before do_split() runs (add_dirent_to_buf()
-> inserting into an aliased leaf, make_indexed_dir() moving the dirents
-> into an aliased new block, the index split in ext4_dx_add_entry()
-> copying entries into an aliased buffer), letting dx_insert_block()
-> memmove() out of bounds with a corrupted count and dx_release() loop
-> past the frames[] array (or leak frames) with a corrupted
-> indirect_levels.
-> 
-> Fix this by checking for these aliases before any directory block
-> contents are modified, and bailing out with -EFSCORRUPTED, reporting
-> the corruption via ext4_error_inode_block():
-> 
->   - make_indexed_dir(): after ext4_append(), before moving the
->     dirents out of the root block
->   - ext4_dx_add_entry(): after reading the leaf block and after
->     ext4_append() in the index split, before the entries are copied
->   - do_split(): for *bh and bh2 against all frames[0..level]
+From: Sergei Khomenkov <shomenkow@gmail.com>
 
-So you are at v8 in just two days without any human feedback. This isn't a
-good investment of your time. Did you put actually more thought into
-whether what AI is suggesting to do actually makes sense? Because I don't
-think it does. There is a very large number of ways in which metadata on disk
-can be corrupted and handling them gracefully was always declared as best
-effort because some types of corruption are simply too expensive to protect
-against. This is fixing one niche case with relatively complex code so
-that's not really a win for long term code maintainability.
+The clocks are enabled and disabled by the runtime PM callbacks.
+hantro_remove() calls v4l2_device_unregister() and clk_bulk_unprepare()
+first and only then pm_runtime_dont_use_autosuspend(), which suspends
+an active device right away. By then v4l2_device_unregister() has
+cleared the driver data (it points to the v4l2_device, the first member
+of struct hantro_dev), so hantro_runtime_suspend() dereferences NULL.
 
-As I've outlined elsewhere this class of corruptions could likely be
-addressed by attaching a tag to buffer head after verifying its contents
-saying what metadata it holds and verifying the tag is the expected one
-whenever we lookup metadata bh from buffer cache.
+The device is always active at that point: the driver core resumes it
+before calling remove(), and its put only starts the 100 ms autosuspend
+timer. So every unbind and every module unload, with or without a
+decode before it, gives an "Unpreparing enabled" warning for each clock
+and then that oops.
 
-								Honza
+Stop runtime PM before the unregister and the unprepare. If runtime PM
+is forbidden through sysfs (power/control set to "on"), the device is
+still active after that, so disable its clocks and mark it suspended by
+hand.
 
-> Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shuai Liu <847807867@qq.com>
-> Changes in v8:
->   - Add an index-to-index alias check in dx_probe(). The existing tree cycle
->     check compares only logical block numbers, so on a corrupted filesystem
->     where two distinct logical index blocks map to the same physical block,
->     frames[] can be populated with identical buffer_heads (the same physical
->     block can pass the limit, count and checksum checks at both levels since
->     dx_root and dx_node entries live at different offsets). Writing a child
->     frame's dx_node entries in place then overwrites the root dx_root_info
->     (including indirect_levels) and the root dx_countlimit, and dx_release()
->     reading the corrupted indirect_levels can walk past the end of the
->     frames[] array and brelse() stack garbage. Check each newly read index
->     block against all ancestor frames' buffer_heads, which also removes a
->     double brelse() of an aliased buffer_head on the dx_probe() failure
->     path. (Sashiko)
-> 
-> ---
->  fs/ext4/namei.c | 79 ++++++++++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 75 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-> index 354fc2d22df1..fb1ea835cd20 100644
-> --- a/fs/ext4/namei.c
-> +++ b/fs/ext4/namei.c
-> @@ -914,6 +914,17 @@ dx_probe(struct ext4_filename *fname, struct inode *dir,
->  			goto fail;
->  		}
->  
-> +		for (i = 0; i < level; i++) {
-> +			if (frame_in[i].bh == frame->bh) {
-> +				ext4_warning_inode(dir,
-> +					"dx entry: index block %u aliases ancestor index block",
-> +					block);
-> +				brelse(frame->bh);
-> +				frame->bh = NULL;
-> +				goto fail;
-> +			}
-> +		}
-> +
->  		entries = ((struct dx_node *) frame->bh->b_data)->entries;
->  
->  		if (dx_get_limit(entries) != dx_node_limit(dir)) {
-> @@ -1903,13 +1914,14 @@ static struct ext4_dir_entry_2 *dx_pack_dirents(struct inode *dir, char *base,
->   * Returns pointer to de in block into which the new entry will be inserted.
->   */
->  static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
-> -			struct buffer_head **bh,struct dx_frame *frame,
-> -			struct dx_hash_info *hinfo)
-> +			struct buffer_head **bh, struct dx_frame *frames,
-> +			struct dx_frame *frame, struct dx_hash_info *hinfo)
->  {
->  	unsigned blocksize = dir->i_sb->s_blocksize;
->  	unsigned continued;
->  	int count;
->  	struct buffer_head *bh2;
-> +	struct dx_frame *f;
->  	ext4_lblk_t newblock;
->  	u32 hash2;
->  	struct dx_map_entry *map;
-> @@ -1922,12 +1934,42 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
->  	if (ext4_has_feature_metadata_csum(dir->i_sb))
->  		csum_size = sizeof(struct ext4_dir_entry_tail);
->  
-> +	for (f = frames; f <= frame; f++) {
-> +		if (*bh == f->bh) {
-> +			ext4_error_inode_block(dir, (*bh)->b_blocknr,
-> +					       EFSCORRUPTED,
-> +					       "leaf block aliased with index block");
-> +			brelse(*bh);
-> +			*bh = NULL;
-> +			return ERR_PTR(-EFSCORRUPTED);
-> +		}
-> +	}
-> +
->  	bh2 = ext4_append(handle, dir, &newblock);
->  	if (IS_ERR(bh2)) {
->  		brelse(*bh);
->  		*bh = NULL;
->  		return ERR_CAST(bh2);
->  	}
-> +	if (bh2 == *bh) {
-> +		ext4_error_inode_block(dir, (*bh)->b_blocknr, EFSCORRUPTED,
-> +				       "cannot split aliased directory block");
-> +		brelse(bh2);
-> +		brelse(*bh);
-> +		*bh = NULL;
-> +		return ERR_PTR(-EFSCORRUPTED);
-> +	}
-> +	for (f = frames; f <= frame; f++) {
-> +		if (bh2 == f->bh) {
-> +			ext4_error_inode_block(dir, bh2->b_blocknr,
-> +					       EFSCORRUPTED,
-> +					       "leaf block aliased with index block");
-> +			brelse(bh2);
-> +			brelse(*bh);
-> +			*bh = NULL;
-> +			return ERR_PTR(-EFSCORRUPTED);
-> +		}
-> +	}
->  
->  	BUFFER_TRACE(*bh, "get_write_access");
->  	err = ext4_journal_get_write_access(handle, dir->i_sb, *bh,
-> @@ -2257,6 +2299,13 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
->  		brelse(bh);
->  		return PTR_ERR(bh2);
->  	}
-> +	if (bh2 == bh) {
-> +		ext4_error_inode_block(dir, bh->b_blocknr, EFSCORRUPTED,
-> +				       "cannot index aliased directory block");
-> +		brelse(bh2);
-> +		brelse(bh);
-> +		return -EFSCORRUPTED;
-> +	}
->  	ext4_set_inode_flag(dir, EXT4_INODE_INDEX);
->  	data2 = bh2->b_data;
->  
-> @@ -2325,7 +2374,7 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
->  	if (retval)
->  		goto out_frames;
->  
-> -	de = do_split(handle,dir, &bh2, frame, &fname->hinfo);
-> +	de = do_split(handle, dir, &bh2, frames, frame, &fname->hinfo);
->  	if (IS_ERR(de)) {
->  		retval = PTR_ERR(de);
->  		goto out_frames;
-> @@ -2476,6 +2525,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
->  			     struct inode *dir, struct inode *inode)
->  {
->  	struct dx_frame frames[EXT4_HTREE_LEVEL], *frame;
-> +	struct dx_frame *f;
->  	struct dx_entry *entries, *at;
->  	struct buffer_head *bh;
->  	struct super_block *sb = dir->i_sb;
-> @@ -2496,6 +2546,15 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
->  		bh = NULL;
->  		goto cleanup;
->  	}
-> +	for (f = frames; f <= frame; f++) {
-> +		if (bh == f->bh) {
-> +			ext4_error_inode_block(dir, bh->b_blocknr,
-> +					       EFSCORRUPTED,
-> +					       "leaf block aliased with index block");
-> +			err = -EFSCORRUPTED;
-> +			goto cleanup;
-> +		}
-> +	}
->  
->  	BUFFER_TRACE(bh, "get_write_access");
->  	err = ext4_journal_get_write_access(handle, sb, bh, EXT4_JTR_NONE);
-> @@ -2549,6 +2608,18 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
->  			err = PTR_ERR(bh2);
->  			goto cleanup;
->  		}
-> +		for (f = frames; f < frames + levels; f++) {
-> +			if (bh2 == f->bh)
-> +				break;
-> +		}
-> +		if (f < frames + levels || bh2 == bh) {
-> +			ext4_error_inode_block(dir, bh2->b_blocknr,
-> +					       EFSCORRUPTED,
-> +					       "cannot split aliased index block");
-> +			brelse(bh2);
-> +			err = -EFSCORRUPTED;
-> +			goto cleanup;
-> +		}
->  		node2 = (struct dx_node *)(bh2->b_data);
->  		entries2 = node2->entries;
->  		memset(&node2->fake, 0, sizeof(struct fake_dirent));
-> @@ -2631,7 +2702,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
->  			goto journal_error;
->  		}
->  	}
-> -	de = do_split(handle, dir, &bh, frame, &fname->hinfo);
-> +	de = do_split(handle, dir, &bh, frames, frame, &fname->hinfo);
->  	if (IS_ERR(de)) {
->  		err = PTR_ERR(de);
->  		goto cleanup;
-> -- 
-> 2.43.0
-> 
+The probe error path unwinds in the same order. It can only hit this if
+a job runs between the encoder node registration and a later probe
+failure, so it is left for a follow-up.
+
+Found with an LLM coding assistant while porting mainline Linux to a
+Rockchip RK3026 board (G1, ID 0x6731); the assistant also drafted this
+change. Tested on that board. Without this change, unloading the idle
+module (runtime status "suspended") gives the warnings and the oops.
+With it, the idle module unloads with no warning or oops, and so it does
+right after an H.264 or VP8 decode with the autosuspend delay raised to
+10 s through sysfs; the clock enable and prepare counts are back to
+their values before the load. The same holds with power/control set to
+"on", over three load, decode and unload cycles on one boot. kmemleak
+reports nothing after five load, decode and unload cycles. Built with
+W=1 with and without CONFIG_PM. Not tested on other SoCs or with a
+power domain.
+
+Fixes: 556ab0b2741d ("media: hantro: release runtime resources when device_run fails")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
+---
+ drivers/media/platform/verisilicon/hantro_drv.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+index 26e5d5547466..8af47375d471 100644
+--- a/drivers/media/platform/verisilicon/hantro_drv.c
++++ b/drivers/media/platform/verisilicon/hantro_drv.c
+@@ -1286,10 +1286,16 @@ static void hantro_remove(struct platform_device *pdev)
+ 	hantro_remove_enc_func(vpu);
+ 	media_device_cleanup(&vpu->mdev);
+ 	v4l2_m2m_put(vpu->m2m_dev);
+-	v4l2_device_unregister(&vpu->v4l2_dev);
+-	clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
++	/* Suspend first: v4l2_device_unregister() clears the driver data. */
+ 	pm_runtime_dont_use_autosuspend(vpu->dev);
+ 	pm_runtime_disable(vpu->dev);
++	/* Runtime PM forbidden through sysfs: the device is still active. */
++	if (IS_ENABLED(CONFIG_PM) && !pm_runtime_status_suspended(vpu->dev)) {
++		clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
++		pm_runtime_set_suspended(vpu->dev);
++	}
++	v4l2_device_unregister(&vpu->v4l2_dev);
++	clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
+ 	reset_control_assert(vpu->resets);
+ }
+ 
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261106-hantro-remove-9afbc9b601f9
+
+Best regards,
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Sergei Khomenkov <shomenkow@gmail.com>
+
+
