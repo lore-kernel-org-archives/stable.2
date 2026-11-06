@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793989923;
-	b=lASB9a5HgABftoVWI0sAke+QqladooA4mKTrFbdw7hmZmZPZAm1LyXgAaCt/LySBtzpY
-	 CO2MWQJRq0M6/iTGD3RHtkapCnKoKBl0fcNqy4eYiag6woRpu3zE+QMdD2cn8we8Ece0E
-	 4wP0ZJxD+CZXfCTJrGKTKFzYGsaAfYbldvvCDr5+WBzRqvqXgrkVwnABHk5CA780fIN+G
-	 eH1UqBOeTQp7s0VHjxk7VVgK0LhFpYBTaFR2/YKgmXsliSGG4cTCEslfs2MQHxPJDwnYn
-	 Xn52EhkvUqdAjWkSBk34DfgR2ZxNBsbyEtzZe+0wUi8rL8xCXC0l8BtWlxgX+eBWXSw==
+	b=mras8QG7UTvKY823UgASiiV7/EbNas0j0YjCCkKHIFB9ugPoHQ5vzqh/JT6OeB2sotZ0
+	 JrBAIkqueaJxUHBhJuJw6snKYDaBiGrWW8fVL/fNbj2wjJaYE0d5DQa0FfJIxQ9amCKDi
+	 mdDrhwLfA/Vs7NyJmg0+KQRcVzB9rEJDSmY0rflFUPt5MDpOIlvVRTpte3WuTFs6Q2Z8e
+	 7v8zJSzMLNMBf9T5QxJvjhR7CDjSs1uJNtHzu0ejocOnVfqdt0SAgMYwE0ARZ9uk8tW8l
+	 vtSSKsiPgUSHA1bxV9NTbW0QOWUSdNwUlCT7qjEAqBdz53g8AfhGxXuiP1ZGTP+ZOuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793989923;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=uBrjyKSzbHrbtx5cf0dEuUjCPybe2lMOg8DMZ1oB1tE=;
-	b=5oPNnrW/PTo59m6xpVIREMbxkCYtEx5lsGyr4Kjmzt5JJOTKoO4SNRWfJyUAyjvjUUog
-	 DvTGRBAvp5gsmD5leLT9/6mFme9oQ/2ezQXYxGcDQEPpe9mbGX+3MLuV87gFMafFCbbHa
-	 C0zzFRre3Ftr7CvV9stfRgcovdAtdFrX0wFRmy3jQ8625HdKyhrCPXZrW4U7hCCAmDemi
-	 dXRdsjmHes2KCeHFYdFc2jj//9HtHCmKmmFuIuQtsVlezzDNwNXaFop7rfdwyxoz3xWEh
-	 QhX9S+QzGUBQn2M91tFIW8EPSpDlXNBglIXszxEX0Rk5Z7IL6A+0PAK7s+tLM85vrRQ==
+	bh=tAX4HgNSLVyfGqMeoGR2JTJI/aAgSQODe5n6oNoxl+w=;
+	b=wdKv/huNRWBYqwxnQ0LszI4vLkDelhh5VEYtnTi+nv4IugnaCYDAX0BChioAO/2EDlcg
+	 k4hudp521sKnNqlT+eksFFCD4dvNbIVYFGUFFEdKj6G+qFii96hFAZLD2dJL56FWlyfOS
+	 pEu9V23pepk8kY2nrLTEOrfjW/sdggWEvQ085fgs1RVr3FvUPpd1z+BjM10e1w3cYY+2a
+	 q8Rygut6vTJEfRGJ1cpo2YEUMnYlj9En9FvT70WeM7jM7PECOOnbgc/aKa5HzaZpWFwoA
+	 g3o//m+jOtKU1lHSGy7xNt//3ZIB91UsAwUoSxE3CR0VK10U35CJQ1CYkP4HB4QQ3gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MwDhGopL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JxYrNMt/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDDCC606A336;
-	Fri,  6 Nov 2026 18:32:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A7B606A330;
+	Fri,  6 Nov 2026 18:32:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MwDhGopL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960801F008A4;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JxYrNMt/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D52FC1F008BC;
 	Fri,  6 Nov 2026 18:32:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793989922;
-	bh=uBrjyKSzbHrbtx5cf0dEuUjCPybe2lMOg8DMZ1oB1tE=;
+	s=k20260515; t=1793989923;
+	bh=tAX4HgNSLVyfGqMeoGR2JTJI/aAgSQODe5n6oNoxl+w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MwDhGopL84aYi58k4eax08ilU5Hjp/JbbFV0Xhp0FZjdNTPWKhY2M7b0anBTZAdOj
-	 LG3MGJ3Cjea6TDgBNBnibAWo+Xw0bgNpLXJU86hTXH72+qTydK1snLm5iIxX8FObZq
-	 UxMsEshQMLmOYnSduGXoHeFUFCR61M5Mo/cN8IQgJWkx8JGu2RQg/qySFtXUYxrFwG
-	 cxmPo6kOMVXpb+nQKtlQkknrQPf2ZkCexw8OtT5usQNs2kWks6jrrlBxwfLftBiFdM
-	 olUGq28DCzlgjvPkwyBHZw1C979PM48Vmmck+Q+ThdNEXbDktkLwMMYDS00it4hXCF
-	 rfcd7npkaYcPw==
+	b=JxYrNMt/Yz1NCJ3VERNhaVug0ANVmqKQZXgAmIzo/BqGqkS/2CjOAuRAmCzes2lfC
+	 LwwJRIyBGtvUIBt5mdK2SBpGT30ySKI5xZLq/xzQ+H2OK9bAHd7txgn4dx1DBiKugq
+	 vX1sGbDgWS4xBtPo6DcXPy3cg0sxTZNVl3K2ytycMPSSYwUKiukbN6l3psca47LGdO
+	 LtS+6IgiWjYtAhuKzD+ZfUrcApiWMlBuBtmai9inNsXomunoK9o6pjnNtg9r1vWFzL
+	 XfhX23/eyv/4w5xaHG+HOupmGuSOCSOaeOZynW+uCaqa+4xp3+VWcvggwf8qLh0hZD
+	 z0an4NLPaHyMw==
 From: Oliver Upton <oupton@kernel.org>
 To: kvmarm@lists.linux.dev
 Cc: Marc Zyngier <maz@kernel.org>,
@@ -50,9 +50,9 @@ Cc: Marc Zyngier <maz@kernel.org>,
 	Fuad Tabba <fuad.tabba@linux.dev>,
 	Oliver Upton <oupton@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 7/8] KVM: arm64: nv: Enforce sysreg visibility before evaulating guest traps
-Date: Fri,  6 Nov 2026 10:31:53 -0800
-Message-ID: <20261106183154.3590825-8-oupton@kernel.org>
+Subject: [PATCH v2 8/8] KVM: arm64: Stop leaning on __kvm_inject_sea() for abort injection
+Date: Fri,  6 Nov 2026 10:31:54 -0800
+Message-ID: <20261106183154.3590825-9-oupton@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261106183154.3590825-1-oupton@kernel.org>
 References: <20261106183154.3590825-1-oupton@kernel.org>
@@ -67,162 +67,254 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Not all sysregs / system instructions can be described by FGUs. Of
-these, there are some which may be not implemented for the VM (e.g. MTE
-cache maintenance instructions) yet intersect with valid trap bits for
-the VM (HCR_EL2.TPCP).
+KVM's handling of local abort injection is, politely stated, a giant
+fscking mess. At surface level, things look somewhat innocuous: inject
+an SEA and directly update ESR_EL1 with the correct FSC afterwards. But
+this is broken for a couple reasons.
 
-This is annoying to deal with since most of our UNDEF infrastructure is
-built around traps being RESx for unimplemented features. Test the
-visibility of the sys_reg_desc to avoid injecting traps for non-existent
-system registers into the guest hypervisor.
+For one, on implementations with FEAT_DoubleFault2 KVM may inject the
+SEA as an SError depending on the falue of SCTLR2_EL1.NMEA, meaning that
+the eventual non-SEA abort is incorrectly taken to the SError vector.
+
+AArch32 is also quite bitrotted. No surprise. The FSR value is written
+to IFSR not DFSR, when a prefetch abort is injected. So while DFSR is
+aliased to ESR_EL1 architecturally, fixing up ESR_EL1.FSC after
+injection has no effect on IFSR.
+
+Finally, injecting aborts into non-LPAE relics may use an invalid value
+for xFSC.FS, as KVM unconditionally uses the LPAE/VMSAv8-64 format.
+
+Fix the first two by tearing the whole mess, adding __kvm_inject_abort()
+for injecting non-SEA aborts which takes the desired FSC from the
+caller. Fix the third one by selecting a fault status value based on the
+LPAE-ness of the guest.
 
 Cc: stable@vger.kernel.org
-Fixes: a7484c80e5ca ("KVM: arm64: Allow userspace to request KVM_ARM_VCPU_EL2*")
+Fixes: fff97df2a0bd ("KVM: arm64: Route SEAs to the SError vector when EASE is set")
+Fixes: 2937aeec9dc5 ("KVM: arm64: Handle DABT caused by LS64* instructions on unsupported memory")
 Signed-off-by: Oliver Upton <oupton@kernel.org>
 ---
- arch/arm64/kvm/emulate-nested.c | 24 +++++++++++++++++++++---
- arch/arm64/kvm/sys_regs.c       | 18 ++++++++++--------
- arch/arm64/kvm/sys_regs.h       |  4 +++-
- 3 files changed, 34 insertions(+), 12 deletions(-)
+ arch/arm64/kvm/inject_fault.c | 133 +++++++++++++++++++---------------
+ 1 file changed, 76 insertions(+), 57 deletions(-)
 
-diff --git a/arch/arm64/kvm/emulate-nested.c b/arch/arm64/kvm/emulate-nested.c
-index d04ac5203454..46dc658b041b 100644
---- a/arch/arm64/kvm/emulate-nested.c
-+++ b/arch/arm64/kvm/emulate-nested.c
-@@ -2546,12 +2546,13 @@ static bool check_fgt_bit(struct kvm_vcpu *vcpu, enum vcpu_sysreg sr,
- 	return !(kvm_get_sysreg_res0(kvm, sr) & BIT(tc.bit));
+diff --git a/arch/arm64/kvm/inject_fault.c b/arch/arm64/kvm/inject_fault.c
+index aa2011cc0d5a..89c7890b8743 100644
+--- a/arch/arm64/kvm/inject_fault.c
++++ b/arch/arm64/kvm/inject_fault.c
+@@ -102,12 +102,32 @@ static bool effective_sctlr2_nmea(struct kvm_vcpu *vcpu)
+ 	return __effective_sctlr2_bit(vcpu, SCTLR2_EL1_NMEA_SHIFT);
  }
  
--bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
-+bool triage_sysreg_trap(struct kvm_vcpu *vcpu, const struct sys_reg_desc **r)
+-static void inject_abt64(struct kvm_vcpu *vcpu, bool is_iabt, unsigned long addr)
++static void __inject_abt64(struct kvm_vcpu *vcpu, bool iabt, u32 iss, unsigned long addr)
  {
- 	enum vcpu_sysreg fgtreg;
- 	union trap_config tc;
- 	enum trap_behaviour b;
- 	bool is_read;
-+	int sr_index;
- 	u32 sysreg;
- 	u64 esr;
- 
-@@ -2559,6 +2560,7 @@ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
- 	sysreg = esr_sys64_to_sysreg(esr);
- 	is_read = (esr & ESR_ELx_SYS64_ISS_DIR_MASK) == ESR_ELx_SYS64_ISS_DIR_READ;
- 
-+	*r = NULL;
- 	tc = get_trap_config(sysreg);
- 
- 	/*
-@@ -2569,6 +2571,11 @@ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
- 	if (!tc.val)
- 		goto local;
- 
-+	if (tc.sri) {
-+		sr_index = tc.sri - 1;
-+		*r = kvm_sys_reg_idx_to_desc(esr_sys64_to_sysreg(esr), sr_index);
-+	}
+-	unsigned long cpsr = *vcpu_cpsr(vcpu);
+-	bool is_aarch32 = vcpu_mode_is_32bit(vcpu);
+-	u64 esr = 0, fsc;
+-	int level;
++	u64 esr;
++	u8 ec;
 +
- 	/*
- 	 * If a sysreg can be trapped using a FGT, first check whether we
- 	 * trap for the purpose of forbidding the feature. In that case,
-@@ -2595,6 +2602,18 @@ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
- 	if (is_hyp_ctxt(vcpu) && !vcpu_is_host_el0(vcpu))
- 		goto local;
- 
-+	/*
-+	 * Certain sysregs and system instructions could be UNDEF for the VM
-+	 * but lack a corresponding FGU description and intersect with a valid
-+	 * trap bit for the VM. Test the visibility the sysreg (if we have a
-+	 * sys_reg_desc) before determining the effects of the guest
-+	 * hypervisor's traps.
-+	 */
-+	if (*r && sysreg_guest_hidden(vcpu, *r)) {
-+		kvm_inject_undefined(vcpu);
-+		return true;
-+	}
-+
- 	switch ((enum fgt_group_id)tc.fgt) {
- 	case __NO_FGT_GROUP__:
- 		break;
-@@ -2666,7 +2685,7 @@ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
- 		goto inject;
- 
- local:
--	if (!tc.sri) {
-+	if (!(*r)) {
- 		struct sys_reg_params params;
- 
- 		params = esr_sys64_to_params(esr);
-@@ -2697,7 +2716,6 @@ bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index)
- 		return true;
- 	}
- 
--	*sr_index = tc.sri - 1;
- 	return false;
- 
- inject:
-diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-index 7f7a197a9ad6..7c8277de0494 100644
---- a/arch/arm64/kvm/sys_regs.c
-+++ b/arch/arm64/kvm/sys_regs.c
-@@ -5407,6 +5407,15 @@ void kvm_reset_sys_regs(struct kvm_vcpu *vcpu)
- 		kvm_make_request(KVM_REQ_RELOAD_PMU, vcpu);
- }
- 
-+const struct sys_reg_desc *kvm_sys_reg_idx_to_desc(u32 encoding, int sr_idx)
-+{
-+	/* System registers have Op0=={2,3}, as per DDI487 J.a C5.1.2 */
-+	if (sys_reg_Op0(encoding) == 2 || sys_reg_Op0(encoding) == 3)
-+		return &sys_reg_descs[sr_idx];
++	if (vcpu_mode_priv(vcpu))
++		ec = iabt ? ESR_ELx_EC_IABT_CUR : ESR_ELx_EC_DABT_CUR;
 +	else
-+		return &sys_insn_descs[sr_idx];
++		ec = iabt ? ESR_ELx_EC_IABT_LOW : ESR_ELx_EC_DABT_LOW;
++
++	esr = FIELD_PREP(ESR_ELx_EC_MASK, ec) | FIELD_PREP(ESR_ELx_ISS_MASK, iss) |
++	      ESR_ELx_IL;
++
++	vcpu_write_sys_reg(vcpu, addr, exception_far_elx(vcpu));
++	vcpu_write_sys_reg(vcpu, esr, exception_esr_elx(vcpu));
 +}
 +
- /**
-  * kvm_handle_sys_reg -- handles a system instruction or mrs/msr instruction
-  *			 trap on a guest execution
-@@ -5418,22 +5427,15 @@ int kvm_handle_sys_reg(struct kvm_vcpu *vcpu)
- 	struct sys_reg_params params;
- 	unsigned long esr = kvm_vcpu_get_esr(vcpu);
- 	int Rt = kvm_vcpu_sys_get_rt(vcpu);
--	int sr_idx;
- 
- 	trace_kvm_handle_sys_reg(esr);
- 
--	if (triage_sysreg_trap(vcpu, &sr_idx))
-+	if (triage_sysreg_trap(vcpu, &desc))
- 		return 1;
- 
- 	params = esr_sys64_to_params(esr);
- 	params.regval = vcpu_get_reg(vcpu, Rt);
- 
--	/* System registers have Op0=={2,3}, as per DDI487 J.a C5.1.2 */
--	if (params.Op0 == 2 || params.Op0 == 3)
--		desc = &sys_reg_descs[sr_idx];
--	else
--		desc = &sys_insn_descs[sr_idx];
--
- 	perform_access(vcpu, &params, desc);
- 
- 	/* Read from system register? */
-diff --git a/arch/arm64/kvm/sys_regs.h b/arch/arm64/kvm/sys_regs.h
-index 50214271b24a..d8ae21578665 100644
---- a/arch/arm64/kvm/sys_regs.h
-+++ b/arch/arm64/kvm/sys_regs.h
-@@ -263,10 +263,12 @@ int kvm_sys_reg_get_user(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg,
- int kvm_sys_reg_set_user(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg,
- 			 const struct sys_reg_desc table[], unsigned int num);
- 
--bool triage_sysreg_trap(struct kvm_vcpu *vcpu, int *sr_index);
-+bool triage_sysreg_trap(struct kvm_vcpu *vcpu, const struct sys_reg_desc **r);
- 
- int kvm_vcpu_finalize_sys_regs(struct kvm_vcpu *vcpu);
- 
-+const struct sys_reg_desc *kvm_sys_reg_idx_to_desc(u32 encoding, int sr_idx);
++static void inject_abt64(struct kvm_vcpu *vcpu, bool iabt, u32 iss, u64 addr)
++{
++	pend_sync_exception(vcpu);
++	__inject_abt64(vcpu, iabt, iss, addr);
++}
 +
- #define AA32(_x)	.aarch32_map = AA32_##_x
- #define Op0(_x) 	.Op0 = _x
- #define Op1(_x) 	.Op1 = _x
++static void inject_sea64(struct kvm_vcpu *vcpu, bool iabt, u64 addr)
++{
++	u8 fsc;
+ 
+ 	/*
+ 	 * If injecting an abort from a failed S1PTW, rewalk the S1 PTs to
+@@ -116,7 +136,7 @@ static void inject_abt64(struct kvm_vcpu *vcpu, bool is_iabt, unsigned long addr
+ 	 */
+ 	if (kvm_vcpu_abt_iss1tw(vcpu)) {
+ 		u64 hpfar = kvm_vcpu_get_fault_ipa(vcpu);
+-		int ret;
++		int ret, level;
+ 
+ 		if (hpfar == INVALID_GPA)
+ 			return;
+@@ -137,28 +157,7 @@ static void inject_abt64(struct kvm_vcpu *vcpu, bool is_iabt, unsigned long addr
+ 	else
+ 		pend_sync_exception(vcpu);
+ 
+-	/*
+-	 * Build an {i,d}abort, depending on the level.
+-	 * Report an external synchronous abort.
+-	 */
+-	esr |= ESR_ELx_IL;
+-
+-	/*
+-	 * Here, the guest runs in AArch64 mode when in EL1. If we get
+-	 * an AArch32 fault, it means we managed to trap an EL0 fault.
+-	 */
+-	if (is_aarch32 || (cpsr & PSR_MODE_MASK) == PSR_MODE_EL0t)
+-		esr |= (ESR_ELx_EC_IABT_LOW << ESR_ELx_EC_SHIFT);
+-	else
+-		esr |= (ESR_ELx_EC_IABT_CUR << ESR_ELx_EC_SHIFT);
+-
+-	if (!is_iabt)
+-		esr |= ESR_ELx_EC_DABT_LOW << ESR_ELx_EC_SHIFT;
+-
+-	esr |= fsc;
+-
+-	vcpu_write_sys_reg(vcpu, addr, exception_far_elx(vcpu));
+-	vcpu_write_sys_reg(vcpu, esr, exception_esr_elx(vcpu));
++	__inject_abt64(vcpu, iabt, fsc, addr);
+ }
+ 
+ void kvm_inject_sync(struct kvm_vcpu *vcpu, u64 esr)
+@@ -174,31 +173,41 @@ static void inject_undef64(struct kvm_vcpu *vcpu)
+ 	kvm_inject_sync(vcpu, esr);
+ }
+ 
+-#define DFSR_FSC_EXTABT_LPAE	0x10
+-#define DFSR_FSC_EXTABT_nLPAE	0x08
+-#define DFSR_LPAE		BIT(9)
+-#define TTBCR_EAE		BIT(31)
++#define DFSR_FS_4			BIT(10)
++#define DFSR_FS_3_0			GENMASK(3, 0)
++#define DFSR_FS_EXTABT_nLPAE		0x08
++#define DFSR_FS_EXCL_ATOMIC_nLPAE	0x15
++#define DFSR_FSC			GENMASK(5, 0)
++#define DFSR_FSC_EXTABT_LPAE		0x10
++#define DFSR_LPAE			BIT(9)
++#define TTBCR_EAE			BIT(31)
+ 
+ static void inject_undef32(struct kvm_vcpu *vcpu)
+ {
+ 	kvm_pend_exception(vcpu, EXCEPT_AA32_UND);
+ }
+ 
++static bool vcpu_trans_32bit_non_lpae(struct kvm_vcpu *vcpu)
++{
++	return vcpu_el1_is_32bit(vcpu) && !(vcpu_read_sys_reg(vcpu, TCR_EL1) & TTBCR_EAE);
++}
++
+ /*
+  * Modelled after TakeDataAbortException() and TakePrefetchAbortException
+  * pseudocode.
+  */
+-static void inject_abt32(struct kvm_vcpu *vcpu, bool is_pabt, u32 addr)
++static void inject_abt32(struct kvm_vcpu *vcpu, bool is_pabt, u8 status, u32 addr)
+ {
+ 	u64 far;
+ 	u32 fsr;
+ 
+-	/* Give the guest an IMPLEMENTATION DEFINED exception */
+-	if (vcpu_read_sys_reg(vcpu, TCR_EL1) & TTBCR_EAE) {
+-		fsr = DFSR_LPAE | DFSR_FSC_EXTABT_LPAE;
++	if (vcpu_trans_32bit_non_lpae(vcpu)) {
++		/* Ensure status actually fits in DFSR.FS */
++		KVM_BUG_ON(status > 0x1F, vcpu->kvm);
++		fsr = FIELD_PREP(DFSR_FS_4, FIELD_GET(BIT(4), status)) |
++		      FIELD_PREP(DFSR_FS_3_0, FIELD_GET(GENMASK(3, 0), status));
+ 	} else {
+-		/* no need to shuffle FS[4] into DFSR[10] as it's 0 */
+-		fsr = DFSR_FSC_EXTABT_nLPAE;
++		fsr = FIELD_PREP(DFSR_FSC, status) | DFSR_LPAE;
+ 	}
+ 
+ 	far = vcpu_read_sys_reg(vcpu, FAR_EL1);
+@@ -218,12 +227,28 @@ static void inject_abt32(struct kvm_vcpu *vcpu, bool is_pabt, u32 addr)
+ 	vcpu_write_sys_reg(vcpu, far, FAR_EL1);
+ }
+ 
++static void inject_sea32(struct kvm_vcpu *vcpu, bool is_pabt, u32 addr)
++{
++	if (vcpu_trans_32bit_non_lpae(vcpu))
++		inject_abt32(vcpu, is_pabt, DFSR_FS_EXTABT_nLPAE, addr);
++	else
++		inject_abt32(vcpu, is_pabt, DFSR_FSC_EXTABT_LPAE, addr);
++}
++
+ static void __kvm_inject_sea(struct kvm_vcpu *vcpu, bool iabt, u64 addr)
+ {
+ 	if (vcpu_el1_is_32bit(vcpu))
+-		inject_abt32(vcpu, iabt, addr);
++		inject_sea32(vcpu, iabt, addr);
+ 	else
+-		inject_abt64(vcpu, iabt, addr);
++		inject_sea64(vcpu, iabt, addr);
++}
++
++static void __kvm_inject_abort(struct kvm_vcpu *vcpu, bool iabt, u8 fsc, u64 addr)
++{
++	if (vcpu_el1_is_32bit(vcpu))
++		inject_abt32(vcpu, iabt, fsc, addr);
++	else
++		inject_abt64(vcpu, iabt, fsc, addr);
+ }
+ 
+ static bool kvm_sea_target_is_el2(struct kvm_vcpu *vcpu)
+@@ -270,28 +295,25 @@ static int kvm_inject_nested_excl_atomic(struct kvm_vcpu *vcpu, u64 addr)
+  */
+ int kvm_inject_dabt_excl_atomic(struct kvm_vcpu *vcpu, u64 addr)
+ {
+-	u64 esr;
+-
+ 	if (is_nested_ctxt(vcpu) && (vcpu_read_sys_reg(vcpu, HCR_EL2) & HCR_EL2_VM))
+ 		return kvm_inject_nested_excl_atomic(vcpu, addr);
+ 
+-	__kvm_inject_sea(vcpu, false, addr);
+-	esr = vcpu_read_sys_reg(vcpu, exception_esr_elx(vcpu));
+-	esr &= ~ESR_ELx_FSC;
+-	esr |= ESR_ELx_FSC_EXCL_ATOMIC;
+-	vcpu_write_sys_reg(vcpu, esr, exception_esr_elx(vcpu));
++	if (vcpu_trans_32bit_non_lpae(vcpu))
++		__kvm_inject_abort(vcpu, false, DFSR_FS_EXCL_ATOMIC_nLPAE, addr);
++	else
++		__kvm_inject_abort(vcpu, false, ESR_ELx_FSC_EXCL_ATOMIC, addr);
++
+ 	return 1;
+ }
+ 
+ void kvm_inject_size_fault(struct kvm_vcpu *vcpu)
+ {
+-	unsigned long addr, esr;
++	bool iabt = kvm_vcpu_trap_is_iabt(vcpu);
++	unsigned long addr;
+ 
+ 	addr  = kvm_vcpu_get_fault_ipa(vcpu);
+ 	addr |= FAR_TO_FIPA_OFFSET(kvm_vcpu_get_hfar(vcpu));
+ 
+-	__kvm_inject_sea(vcpu, kvm_vcpu_trap_is_iabt(vcpu), addr);
+-
+ 	/*
+ 	 * If AArch64 or LPAE, set FSC to 0 to indicate an Address
+ 	 * Size Fault at level 0, as if exceeding PARange.
+@@ -299,13 +321,10 @@ void kvm_inject_size_fault(struct kvm_vcpu *vcpu)
+ 	 * Non-LPAE guests will only get the external abort, as there
+ 	 * is no way to describe the ASF.
+ 	 */
+-	if (vcpu_el1_is_32bit(vcpu) &&
+-	    !(vcpu_read_sys_reg(vcpu, TCR_EL1) & TTBCR_EAE))
+-		return;
+-
+-	esr = vcpu_read_sys_reg(vcpu, exception_esr_elx(vcpu));
+-	esr &= ~GENMASK_ULL(5, 0);
+-	vcpu_write_sys_reg(vcpu, esr, exception_esr_elx(vcpu));
++	if (vcpu_trans_32bit_non_lpae(vcpu))
++		__kvm_inject_sea(vcpu, iabt, addr);
++	else
++		__kvm_inject_abort(vcpu, iabt, ESR_ELx_FSC_ADDRSZ, addr);
+ }
+ 
+ /**
 -- 
 2.47.3
 
