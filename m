@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793971081;
-	b=EvLxX9UPwdgOKHofKXvwylRwwk2QTn/KFvUjwruKjfZ8fzJwx21i41kbYbEZDCoHlH6X
-	 6+3RQmKme4N93etqtZOu+wZIE+67/Zd46fJ7++kQjcXbNJ0AxkycY8UtX4xUBfpoeD20t
-	 iDIiCHbxCqDxgQwYin2gZhxUp4aWMOxUn+HEMdru2678aZBcijGPIWGfQpO3jSQUs7MfG
-	 pgVN2e+TY2ACxrEdytvNgyUAu7U7S/jsJBp4o+SV4AwcRz+7GkyQqM2M8ILe1cYt43nmj
-	 R1HSLQnp1+muEe3XlDGL5+C5JCSS9VcpiKWsOkJ6XfbmW0xbLQz0zkTqyy+Jaz0vo9g==
+	t=1793971085;
+	b=iU16siNj6rfPMR4+ugyhLmL86qsdXB6pb6G8gNu05kz5VBdLDC7iCv1WQsUe5ikOb6DF
+	 kmSAMiOjA57UGW6xyWfMFMRQATIK86I2xKjw+6iYWr23RGL01FIIO/HVpBVFKGoXxcWQn
+	 XUIRXswKwP1V0rw2C8fauXJnS5VJZ19j1lVS5D5cgRK+GOq7DggFG+85ovEwmiYgiE72z
+	 IpAWMNS4uiRPgSpogBJoP8dBClyBvZ7lVFaCKHcxeNn3vSoUb44X5xi5q/+cXdBdXAt4e
+	 cy09BpWG8InOjY6G5GwYlKzcbd2m9OTD2/dublsA4NheAZZm6CcWpW5Po7rVxg5OGWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793971081;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793971085;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=QCmCUD5+cRAdCqiqdhrCpwSJ5tYiyygF2+7HyPzxiCw=;
-	b=25Z4i+HI7gCICKFmBcwmE+9+RuaM0D3DAlTt0SB/Xmq/ldiEb1rDXrYd25oVpSsVTSX8
-	 AR1/VBkdAY22ZWSRV0l7308w7QWD9qy3zq1rVbJa3o59NygB1FLzUH1kcKs3z+029yetj
-	 LvRAOmNz/rfInyK3M2qJzAdaFlS08uRli/af6Td3sfrlm79QmOCZRP+qPHAmGvjRAN8MY
-	 ko9EL+Qv6LvJHDxxsgeOqJcbbwNa83UutLUEinKU/B00hCkR2doBqprxGqLrFs1tkcTOr
-	 8XGUmzBTzMdiHkksKjO1dezuUC/VjdtzvpV51TmjWLyavM9Ar+qYjqDSAhrkVVX4RrA==
+	bh=Dz7o2nl3YbVAvhy6+Qf4x0LfNDPFm8y7nAlJp4YSP1Q=;
+	b=TdFMtV674ZWZ4MlhU/9x+tp8XwreldrnxHrMlFkH8V4zZPFFlmc+GdVpqHJ5wMYRvDn/
+	 peTi5c1mbNGUtlByl34U/Sc5lT1t6rtWVyZjLEPnQaBcUZrup9Fe40Po5L/Ptp2lRjKiq
+	 bxRgifzdtWUED9Aqs4Jnk7w3Vp7zbhEqi5SK9YyGNIhT6R3vi8uPIZ0vb0nS4CzCqWV1R
+	 f/3IclL+dVzU1jZZftvGj430BI0e83or1IQhl3QP5VJlj0p4/uR29uxFEX3mK+L+Dt+V9
+	 jWsODxE3f5e+QZzDzXOvlDYEwgg9lgqXakdZ9D8eC/xQJk6EpuMzzHnOMMUhfcdIBJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eRQTt+3H;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="A/CMeiFO";
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BD6E606A331
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 13:18:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BD6E606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48096606A32C
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 13:18:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48096606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eRQTt+3H
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b0e61a4decso292253a91.2
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 05:18:01 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A/CMeiFO
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso978163a91.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 05:18:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793971080; x=1794575880; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793971084; x=1794575884; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QCmCUD5+cRAdCqiqdhrCpwSJ5tYiyygF2+7HyPzxiCw=;
-        b=eRQTt+3HAcikpyyqip2eed0SNs12Pyb+897E3wzePXTtPxRx3tqIHGG/G8Len9CQD4
-         POSEb83IziCHdkZkdlc+CIvXOu4N0fZPjRFzetlotDbUC2nmtAc9aMG/RDnngQscifl2
-         TPtbBc6p+Y+5KG7Xps+yBXvOsNXkBCPPvvMut448592EshEjgD4PcuVIEV/dKVcSzo6M
-         PKEBTOqraLbio9bEw0QeVZliR/FzT7TRrYuYPOIQcQCMUB5el5OfdmErKVAtaVK7EkUu
-         8KTpRZGdSQ5rbrhcsxf8C7GozNTjsttQmqZzmMciFOqGpb+YrqzulAGLHuaSwL0aOVmn
-         GSkg==
+        bh=Dz7o2nl3YbVAvhy6+Qf4x0LfNDPFm8y7nAlJp4YSP1Q=;
+        b=A/CMeiFOpwChXu+gGgOnhDCfiXDypN1UICLSZACPhx5cv7EENCB7NnLkEnA+YSiAF3
+         OY3jcSURjpf6OO2+qspOv7CQTuoSUIqtWtOOuSJKTssTGtIZQO+Utdshl6kO+yVAYnFX
+         2jr96VKUbNi8h/xVMsog0LwbAS4BVHyci6ZQ7Pk94BlE2zlje9hq2bJfj68FneHdQZC/
+         vMh25aYAVS+CLD2xCJS8iQiQTjU3FX9ya8DZlSl/NsaB27ZFasPtQJG3wjOvwwqw785p
+         EYWxeYuoDXleahTrASk0Z0stV8NR14gNs2wlOe0bj4lzHc3+xAV8kfocfrMnSsA1MpCQ
+         ahxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793971080; x=1794575880;
+        d=1e100.net; s=20260707; t=1793971084; x=1794575884;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QCmCUD5+cRAdCqiqdhrCpwSJ5tYiyygF2+7HyPzxiCw=;
-        b=ZLHaeH5L1xClyI2Xfvw1G7M+GL3saip53yePB+ExeeitSAfbbYKjZqcsBns0rsgNd9
-         Sy9tGsZkP8rU6CIO2Qnj1O/vFSuO9hBFpVT5Ctexvmy1MWrIDEiBoZfslXPgqHtvJ27U
-         7pJhGOMhHM06eCPaPGfvhbDfud2AFtbWyol3EHkZwV53FE8XVd2eZ6Mrsn6oXK7jW5Q0
-         SJvU3AuTA8wvjl0IFw6GwhSYzI+dzDkufZy7A9YUj6yU0rE9biZPVoBIiCD0vRkORRKj
-         CBdTs/r1Bfoo90LSfniwZw2oz2jRrTGSoFStImnc1190QXgvZu4u/K/mCVsbLrU6g7Pk
-         3Jhg==
-X-Forwarded-Encrypted: i=1; AL+hErEA4O2Z6NPdrJcqeK0mA2u1GZNgs790T+2dVu7O33qWAOaAKzG1l3+3mNDM713YSDGt/DB01Hg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+7T/9VDpbhe5gAp1Z6cG84zljGuRYryCO7fsS7Dpk/Tke58sgw
-	VTNNqv4DXnZ0777YrzPMagyWMxTIPhcZwFgrbBAHtGfgxG9O6uhHWsHr
-X-Gm-Gg: AYBFou1LPzTYIEIn3yr8hfUAuSW/OnvtNEIftoRVMhog/P2/eO8FqT+RcRa3iicJk3a
-	t7KTin/KysraIFNS2x2hNRT5VOCvGdVxgzz6uTX/BEaEGzM5q1PnhDYpwM8dVtgbpcqJSiiw4pO
-	lrI9QZGbeDc7hQvo76JGZxsvcHAmuzZ/gjYTsk0GOa3VY289W2Iaqgzufan4+dgsYqBtlq2Vazl
-	sMb+sRwIgxm3Yqi97PGCU2VC0+LjVMOyladFPBONXrkTArfS/nXSYxUy/1OLkMzLv8kGJLVYbWM
-	ilOlf1BL23p384Fj0H7DjB+mAfZi5nFVnHlF0AbeuoN6nd1zTGS31vBA8mHj335sflrubjLs/vk
-	k/D17Qr3UGb8ic5nYL2XgrBRM5mGKZEgrc00PTWMn403ZaAA2Agj+zQ/lr9UKk+kdbvZAos1k4c
-	IbS0hUUIj3+Xup4XnL/WYpZioKGcPzH0cGUbo24obVxEqej1jkLi5E412AwheFNArCe0JqFjf67
-	QBE5Hm2pZDUv0q2IZu82X+LDZPJDGtJ1eCXrqbxqyencWfnzDgsLww4AZa8eFbaoz8IivQuuKtn
-	ICNlOpaY0FSiMYX2LVTrSn5o1gdrh7K8z3+gnkaJtGjvOa69A4P92rmsIsGpR2B+BEazwQ==
-X-Received: by 2002:a17:90b:4a10:b0:3b0:a38a:6715 with SMTP id 98e67ed59e1d1-3b0db7109dfmr2536524a91.59.1793971080497;
-        Fri, 06 Nov 2026 05:18:00 -0800 (PST)
+        bh=Dz7o2nl3YbVAvhy6+Qf4x0LfNDPFm8y7nAlJp4YSP1Q=;
+        b=ViqvtnSkaNipIBA2pqcXzuk4d5kWUUukEdyA0pN99RyYE1jE4bGLHLg8tt5TgnLO5M
+         B94kJvbBQYV9U6YBPbFXOvRi+f0BtTmLZk/TfRk4DWfIpnS3F8Qf0MizshTYVXL59flo
+         Co20M3gJJw7MM/Do+1UtaW8i+MqYbsP7+uOLbRk74EqLjj5GTayDS9trJKra1y6ho8mG
+         i6DWVY1He0OagdLUTOKtm3TeUjhR+uMJJx0vDMS1Yi+gfztRFYoFH9foMb45HycPnYgK
+         0S9zqpDL6EGyQ601pS2rTsAPpWLKusGM0kroyhdSVtRcmb/AD4sQDB8Q+0gGu1qZQf58
+         xHMw==
+X-Forwarded-Encrypted: i=1; AL+hErG5j7AEPH1PKhyQiXaBCGWle5mejAQIZC8fuK9CS/t5mcdoY3wWvtjYkSQg2PZCeiBipg2fJhs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z84DuCIVFa2VBEqtPgm6Bid4eOGivncPvtanqR3dO9wv4Uj8+1/
+	vTjg4jpx/GGGxuo+W0v+TARfOr+mrVkFFyJmRBDYlrLH/jMzoc6Vj5+S
+X-Gm-Gg: AYBFou3DhVf9hnElX8vBwr/QyrzClqXVUzaLXHOqMsBazvsDx7T/YCO9ksj0wKvxCB1
+	l/sr256eudnRHwIMnv28Uh0CZUVY1vC8/Kotguvro2JZla9uvqHf77EkmJQYQmL8ECptV7uRh4b
+	2Xo0rqGIylgfXIHWhF4JWUGc550uf7DWDhIrU0S1aytu+hJaabJ5lGmzSHUEmO3rFc0Ykk+tycZ
+	k2U1djwIF8b+E1nYRsVnwONPUlECbRHIU21ZKki2Sl7a7K67n15kmRMENYkZruSLLUgcuoUucyz
+	+oksFQGj+FZ81xs3z7anM8rgQGKoSQkIV50N3RooQ0lfNZoP4f6FEssmfRj4TdYAvjlyaHEfZoG
+	tC+nHzCL8OldakUYNdPUjuMWQnLtu+l4HMGu/jN0WYsS7JeFv6vjWn/SSwnwh5oeerrteccjSMo
+	W4lKRzcCFASVxsfgk9yCLnbuy9AA5oi9Wa451+Zf3I7J3ASBBBTRntBDbcHJQAT1P+hHfiWjXql
+	dvcSYdJpThIik2BTYvmMx9hLIVou6hvnvgFLDvgMVCsP9vLJSRuXXMhaBEPDqbztDCAGjvSNP3e
+	Mix2cKZIKMo1111wFELXFYXlUz27mcLsZ1hmFcRNEF6Gf9KIuAKtBuUGe7ZQWFPt/oq0WQ==
+X-Received: by 2002:a17:90b:584e:b0:3a0:d82b:237b with SMTP id 98e67ed59e1d1-3b0db6e8c8cmr1498160a91.25.1793971084246;
+        Fri, 06 Nov 2026 05:18:04 -0800 (PST)
 Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0e2a8d6fbsm1025636a91.1.2026.11.06.05.17.57
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0e2a8d6fbsm1025636a91.1.2026.11.06.05.18.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 05:18:00 -0800 (PST)
+        Fri, 06 Nov 2026 05:18:03 -0800 (PST)
 From: hyunjungg <hj351016@gmail.com>
 To: MyungJoo Ham <myungjoo.ham@samsung.com>,
 	Chanwoo Choi <cw00.choi@samsung.com>
@@ -87,9 +87,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Hans de Goede <hansg@kernel.org>,
 	Hyunjung Ko <hj351016@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 2/5] extcon: palmas: drain ID-detect work before the extcon device is freed
-Date: Fri,  6 Nov 2026 22:17:27 +0900
-Message-ID: <20261106131730.2633139-3-hj351016@gmail.com>
+Subject: [PATCH 3/5] extcon: max8997: drain MUIC IRQ work before extcon device is freed
+Date: Fri,  6 Nov 2026 22:17:28 +0900
+Message-ID: <20261106131730.2633139-4-hj351016@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261106131730.2633139-1-hj351016@gmail.com>
 References: <20261106131730.2633139-1-hj351016@gmail.com>
@@ -106,77 +106,91 @@ Content-Transfer-Encoding: 8bit
 
 From: Hyunjung Ko <hj351016@gmail.com>
 
-palmas_usb_probe() registers the GPIO ID-detect work for device-managed
-cancellation before it allocates and registers the extcon device that
-the work handler dereferences:
+max8997_muic_probe() registers the MUIC interrupt work for device-managed
+cancellation before it allocates and registers the extcon device that the
+work handler dereferences:
 
-	devm_delayed_work_autocancel(&pdev->dev, &palmas_usb->wq_detectid,
-				     palmas_gpio_id_detect);
+	INIT_WORK(&info->irq_work, max8997_muic_irq_work);
+	devm_work_autocancel(&pdev->dev, &info->irq_work, ...);
 	...
-	palmas_usb->edev = devm_extcon_dev_allocate(&pdev->dev, ...);
-	devm_extcon_dev_register(&pdev->dev, palmas_usb->edev);
+	devm_request_threaded_irq(&pdev->dev, virq, ...);	/* arms work */
 	...
-	devm_request_threaded_irq(..., palmas_gpio_id_irq_handler, ...);
+	info->edev = devm_extcon_dev_allocate(&pdev->dev, ...);
+	devm_extcon_dev_register(&pdev->dev, info->edev);
 
-devres releases resources in reverse registration order, so on unbind
-the extcon device is torn down first and the work is cancelled last:
+devres releases resources in reverse registration order, so on unbind the
+extcon device is torn down first and the work is cancelled last:
 
 	/* free_irq() */
 	devm_extcon_dev_unregister() / extcon freed
 	...
-	cancel_delayed_work_sync(&palmas_usb->wq_detectid);	/* too late */
+	cancel_work_sync(&info->irq_work);		/* too late */
 
-palmas_gpio_id_irq_handler() queues wq_detectid with a debounce delay on
-every ID GPIO edge, so a work instance can be pending at unbind. The
-handler palmas_gpio_id_detect() dereferences palmas_usb->edev via
-extcon_set_state_sync(). Its only early-return guard tests
-palmas_usb->id_gpiod (acquired before the work registration, so still
-valid), not ->edev, so it does not prevent the access. If the work runs
-in the window after the extcon device has been freed but before the
-work is cancelled, it dereferences freed memory -> use-after-free.
+max8997_muic_irq_handler() queues irq_work with schedule_work() on every
+MUIC interrupt, so a work instance can be pending or running at unbind.
+The handler max8997_muic_irq_work() dereferences info->edev via
+extcon_set_state_sync(). Its only early-return guard tests info->edev, but
+info is itself devm-allocated and freed last, so in the teardown window
+info->edev is a dangling (non-NULL) pointer rather than NULL and the guard
+does not fire. If the work runs after the extcon device has been freed but
+before the work is cancelled, it dereferences freed memory, i.e. a
+use-after-free.
 
-Register the work for cancellation after the extcon device is allocated
-and registered (and before the IRQs, which queue it), so devres (LIFO)
-frees the IRQs first, then cancels the work, and only then frees the
-extcon device. The ID GPIO the handler also uses is acquired earlier and
-thus still outlives the work. devm_delayed_work_autocancel() still runs
-INIT_DELAYED_WORK() before the work is first queued (the IRQ handler and
-the explicit palmas_gpio_id_detect() call both run after it).
+Allocate and register the extcon device before registering the work for
+cancellation (the redundant INIT_WORK() is moved up with it), so devres
+(LIFO) frees the IRQs first, then cancels the work, and only then frees
+the extcon device. devm_work_autocancel() still performs INIT_WORK()
+before the work is first queued (the IRQ handler, requested below, is the
+only queuing site).
 
 Found by static analysis / code review; compile-tested only, not
-reproduced on hardware (requires a Palmas/TWL6035 USB PHY).
+reproduced on hardware (requires a MAX8997 MUIC).
 
-Fixes: f94a5becabf4 ("extconn: Clean-up few drivers by using managed work init")
+Fixes: 87ee8de23c9d ("extcon: extcon-max8997: Simplify driver using devm")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
-diff --git a/drivers/extcon/extcon-palmas.c b/drivers/extcon/extcon-palmas.c
-index d339b86..f7496e5 100644
---- a/drivers/extcon/extcon-palmas.c
-+++ b/drivers/extcon/extcon-palmas.c
-@@ -237,12 +237,6 @@ static int palmas_usb_probe(struct platform_device *pdev)
- 			palmas_usb->sw_debounce_jiffies = msecs_to_jiffies(debounce);
- 	}
+diff --git a/drivers/extcon/extcon-max8997.c b/drivers/extcon/extcon-max8997.c
+index 9cddf08..a54e7c4 100644
+--- a/drivers/extcon/extcon-max8997.c
++++ b/drivers/extcon/extcon-max8997.c
+@@ -650,6 +650,19 @@ static int max8997_muic_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, info);
+ 	mutex_init(&info->mutex);
  
--	status = devm_delayed_work_autocancel(&pdev->dev,
--					      &palmas_usb->wq_detectid,
--					      palmas_gpio_id_detect);
--	if (status)
--		return status;
--
- 	palmas->usb = palmas_usb;
- 	palmas_usb->palmas = palmas;
- 
-@@ -265,6 +259,12 @@ static int palmas_usb_probe(struct platform_device *pdev)
- 		return status;
- 	}
- 
-+	status = devm_delayed_work_autocancel(&pdev->dev,
-+					      &palmas_usb->wq_detectid,
-+					      palmas_gpio_id_detect);
-+	if (status)
-+		return status;
++	/* External connector */
++	info->edev = devm_extcon_dev_allocate(&pdev->dev, max8997_extcon_cable);
++	if (IS_ERR(info->edev)) {
++		dev_err(&pdev->dev, "failed to allocate memory for extcon\n");
++		return PTR_ERR(info->edev);
++	}
 +
- 	if (palmas_usb->enable_id_detection) {
- 		palmas_usb->id_otg_irq = regmap_irq_get_virq(palmas->irq_data,
- 							     PALMAS_ID_OTG_IRQ);
++	ret = devm_extcon_dev_register(&pdev->dev, info->edev);
++	if (ret) {
++		dev_err(&pdev->dev, "failed to register extcon device\n");
++		return ret;
++	}
++
+ 	INIT_WORK(&info->irq_work, max8997_muic_irq_work);
+ 	ret = devm_work_autocancel(&pdev->dev, &info->irq_work,
+ 				   max8997_muic_irq_work);
+@@ -678,19 +691,6 @@ static int max8997_muic_probe(struct platform_device *pdev)
+ 		}
+ 	}
+ 
+-	/* External connector */
+-	info->edev = devm_extcon_dev_allocate(&pdev->dev, max8997_extcon_cable);
+-	if (IS_ERR(info->edev)) {
+-		dev_err(&pdev->dev, "failed to allocate memory for extcon\n");
+-		return PTR_ERR(info->edev);
+-	}
+-
+-	ret = devm_extcon_dev_register(&pdev->dev, info->edev);
+-	if (ret) {
+-		dev_err(&pdev->dev, "failed to register extcon device\n");
+-		return ret;
+-	}
+-
+ 	if (pdata && pdata->muic_pdata) {
+ 		struct max8997_muic_platform_data *muic_pdata
+ 			= pdata->muic_pdata;
