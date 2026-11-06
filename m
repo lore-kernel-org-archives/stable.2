@@ -1,83 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.35.192.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794003064;
-	b=xBq+idPrHjaViCSXBgUWy1G0CBoXi142N/BGJ876KzoDvzjAPcL8ZPbaUgVND3gQGQPq
-	 hJ+MMzMqXuBawJqgE2koBPnjtkRmgxRv8eWyehtYSCvjw3zZ30TtdbNC0q5eSzYUMj8s5
-	 f+8lMUSolnA7beNbceHXEYhCem/RhVLwYwPHwrlYbFwp0gGUcaZy9DJ0n1qrOePpFkuRA
-	 m+jpelnBRs0vqAF19fVsteFgyEVNNRq9bsQuJ6a12AXMwr6Dd39IUk3ZADsok4sQ+pjXC
-	 0hPdpO14dUepkkZICFzvDeaVgGtXhWbzKLCCQw6x/UYYhRdJSTejDEUtID1hi02LPtw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794003064;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=i/8JK3JrN27uzstCo+Qhchqx9jcouYFurbAZXT4QANY=;
-	b=WkjiLX03TY06+ODKKA8Xlhjrszdp0ks4rHyVseHVRAP5SicCcs0N2tNdPcXiy0na5GcU
-	 0JgSzInYx4NW7rOb12uO32YBh3lh/CHiEqKT6Js9xOtYHvv47UgkNtc7RkfWj6TnOAh1m
-	 93wLNmutvGlSRreEa8RQBcKQ/8J5lB67d3MKx6AXZo4I6GBmsEkqwIdIj8CP2naoa5kz6
-	 /xep2mUHOkGnU4ZAtHcshmKSGeoaR0iQOxrEpn0sSsrlULmqX0snXYHGWJMQXj43KLD62
-	 HygXM1ljLlnfJTIuIOAUR4tPTxjL8PP01+jMl4f0zFxOdirYre1yCIhkNzVqUcigLlg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=btc8lKrG;
-	arc=none smtp.remote-ip=52.35.192.45
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794003685;
+	b=3Yugk6QaYPLF3N/51LOTk+E9A77XU0i711Fb9CXx0qHNatjFKiLxyJfVIWO8QwtGvn3T
+	 ZXYp9I0jArxDF49qwXPArX4m9Q1ai0k5bXH+o1vu+zkyWJ1BMh+R9Z/zT7fVpSeP8rKAR
+	 nZDh8iED2r1h4lzuNPYzW4TptL555atvHP1GC9DK6MwoUT4puJea/VyrNTn2vG1Rx8dUW
+	 ilJ86/vvqRlusRvWi/a6/vyMx5c/EmMjsQO0ovVBuf4g/pwphlGBCRdeOyFy+T7dtskni
+	 ot2vYfqzRSQw7H6+ItgzU8lW5QTZOCXsXWC4Gjh6Cd1DZnkhvWxJ0ld+Ky+cGrF4GTg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794003685;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=YWKjnbX+5m+r05pX0tFM8zKeOZxWPGlpWFmRfyjOSKc=;
+	b=bVEa3GEZ6B3MRgPynFC4c63Cd2S3kPGtyvHiyeYhFtDMKg/ZsPS+ImKAR9psDja9jr1u
+	 sTfgJfWGnmXjJ0DfhGRBoAasii5W/Z9vgVCiOgCQ60P1cVM3Fn1Pj1tZKA7ZdjkLJNjNp
+	 9YZ8a85/fKOIM0SxZUqWdYp+PtDFRJvW2o/LRfWjopRESB6bQmvyKs1grtJXqFN5v8kS9
+	 VoF7FS68p4efqp97E/Itm1z3GtiD8O87ALydsQ+zCCIsjquwSFYTizJSjb1GQMYnlu/HM
+	 FiznmqhYRIzCCI1kZnO9FzcuKaYrfUX2HXNUyf/MFEyL/qdHgmbx57DyXgqHxgIOXwA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zTpEqiNq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93CB3606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 22:11:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93CB3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF5F606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 22:21:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BF5F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=btc8lKrG
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zTpEqiNq
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so1728052a12.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 14:21:24 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794003683; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bjBkwPysGpfhZ1Xbn01TPVVTSy2JC0/b/iiZgbW7Zu49eLIfH4RboF7UcCJhQy7mVD
+         V4r6NL0/sChv5i/j8t+c8HXLSLx9j78Fp8urrJ2hNLlmktvr5zx30tLGXT7iPtOM9hBi
+         vv7DK3+TyLPhXo3Th857jHt25NLSOsdVBuQwirveEdj0tykbZiJxGKMEdiFUXpmgAvNt
+         itxHqbvr+4tpIkNYx1a9046JFICJyelf1Cp3JXKZo2YgeUVjT/8QDifVXfuBUNB/qfC1
+         nc3enzS9/6H0VU/+82Cfp3pSqZNDONRDNG6ISsX8TEuIQ6D10losR5u7HO9GFMpOZc3x
+         PvtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YWKjnbX+5m+r05pX0tFM8zKeOZxWPGlpWFmRfyjOSKc=;
+        fh=LNjy4jxSHissVRhUnJloxgWDLQbF+i3ijsDPvm711VE=;
+        b=XN/dhb6XwCN55hQqneY7gYf4sZVL9Itr7GCMTO1JF7mWEuqNEXIZh3YK0Mki11ZUVi
+         bMTtBjqHvOIFRsGCbmhhsJ7Rzn9iGNeBHXmkUOvvn56gikLtR1yNcPAvvTJ+SzNidtww
+         PehI108e2R1cu+kyuThwTYMZM9XrO12rWb6M+Avmbj+X2rNYdov47t25EWrFRqVRpcb6
+         qN/pQl6l5qbWL7TZjsx3ZCwjCfpvU8hG2O219Mq01aHVNVYCznyEE561x36RQmOpwren
+         J+YmCEXevUX84GqmfJg1/yzzehxJkES5i/gJi5ppZEmfv7okFzj/Swb0KTOpiDCcextY
+         LkCw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794003063; x=1825539063;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=i/8JK3JrN27uzstCo+Qhchqx9jcouYFurbAZXT4QANY=;
-  b=btc8lKrGzkRdkuD9QCdgxNaTEiWNYG3f4HFlZU1az/ZFXsELgrod0tYy
-   82sk9ZxU+jScxq2Zjh3U2e5fG38cpVhQZmXVBIM2kXeeezP7ivb/394OU
-   qxMTCG7X5tVTgECsdqzGB6vILQ2tmjz42yVcsyksYAjHI6p7sPUyKgdY+
-   r03rRhD/WxJNbfDt1YS97+vqnYsAr5WeUwbWUTwwU/gjKdrDI9ZTIQoWo
-   DSED2H9ON6AQejmHXiJj58Hi4yOEOS+m7qfiY7Z3llU5CfxQQ8MwdcIwN
-   aM2B5ybx2hu6aIPDy3r0CzDwOjgLI3QZDsA0Eb4izJgUouN+ZBPG3eo9+
-   A==;
-X-CSE-ConnectionGUID: mnZUkBD4TLWuvBi361TQ/w==
-X-CSE-MsgGUID: EOUzmkeeR9umoO/d7mJwtA==
-X-IronPort-AV: E=Sophos;i="6.27,199,1787011200"; 
-   d="scan'208";a="33124170"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 22:11:03 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:5283]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.238:2525] with esmtp (Farcaster)
- id fcb6e138-ec14-4baa-9613-b2f9413de354; Fri, 6 Nov 2026 22:11:02 +0000 (UTC)
-X-Farcaster-Flow-ID: fcb6e138-ec14-4baa-9613-b2f9413de354
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Fri, 6 Nov 2026 22:11:02 +0000
-Received: from dev-dsk-mkbund-2b-9ea2efba.us-west-2.amazon.com (10.2.100.138)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Fri, 6 Nov 2026 22:11:02 +0000
-From: Mark Bundschuh <mkbund@amazon.com>
-To: <stable@vger.kernel.org>
-CC: <sashal@kernel.org>, <linux-mm@kvack.org>, <david@kernel.org>, Ge Yang
-	<yangge1116@126.com>, Muchun Song <muchun.song@linux.dev>, Oscar Salvador
-	<osalvador@suse.de>, Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song
-	<21cnbao@gmail.com>, David Hildenbrand <david@redhat.com>, Andrew Morton
-	<akpm@linux-foundation.org>, Mark Bundschuh <mkbund@amazon.com>
-Subject: [PATCH v2 6.12 2/2] mm/hugetlb: fix kernel NULL pointer dereference when replacing free hugetlb folios
-Date: Fri, 6 Nov 2026 22:10:51 +0000
-Message-ID: <20261106221051.2886829-1-mkbund@amazon.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261106220835.2878368-1-mkbund@amazon.com>
-References: <20261106220835.2878368-1-mkbund@amazon.com>
+        d=gmail.com; s=20260707; t=1794003683; x=1794608483; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YWKjnbX+5m+r05pX0tFM8zKeOZxWPGlpWFmRfyjOSKc=;
+        b=zTpEqiNq7KaHT117vQdFYIUsTleGwL/lJzpbgt89QHiR11x/IAEFaONLeZkDpDNFfK
+         S/VUTRa633O9AvnnjbMtUGaYF2MH8WjXMcfG/33f4U90t5IkYWZDKYJ0/DVLjhYiRyTp
+         WnPcTB4w/lF20lDbVyO8S0lfsmhijFhvCsYYz8nyI+zrH8Qz1rTkLX3r959eVy116KZJ
+         YKtjNBp4nI5bloVTQwqaZedn0NUsMgOt5SaOm6EsWfGBG/SH/Y73exLZBxvdHhD1qXF6
+         +h1NSILbSbaBh/30f+Ozh3X5ABgnmO7yhYBmXtLH9kMMSXXbopcOzW7vL5JxTf2gJaGD
+         Ez9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794003683; x=1794608483;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YWKjnbX+5m+r05pX0tFM8zKeOZxWPGlpWFmRfyjOSKc=;
+        b=WR2HbyiAhyJSUi/gEDmncZz2McgvNDzpMhKzgroEUwupZUhjRSyy9x6OnMNZ1GySeI
+         o5MIHYrz5pmzBjVedKL4LWT22UolHJeeovJG49N5uk59I4RYpq0BXwLkbJqhxHows0s4
+         rPxi6C4Mqrr8GupWvS3TTcYQN6UDef524UEanHAalGlMItdnRikEHUWnUwzGliF4YnPf
+         ZP2tnj9vtox0ghxnwhNieqH4zdNfo5kVMvxcWKMiBEq1ORKhvZe8EqcgSDat+oIxGF4B
+         vIoP4B66KudUolU3ZBkTWJHNbhB9fyNcLROK0hT9Ky2ToJqCLFv3BZPJ4z6pB0AR2uE/
+         pF7Q==
+X-Forwarded-Encrypted: i=1; AL+hErEOi1VD07zmXUFdooiG500wfgPrAKBFvF+WL6SKpeITrnOoJLealWA4uAxCofmEiFtxXwPGK00=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8NjQWMLviJr1T9Gl8P+Cc5RFe6VNVOl5pVpNEPTpAMnFDG/nmM
+	buP7kw+5htnKeS8Rdc5UHFjj3riOx0Ei1jOKzXUs1LE5TbHJq/jFHe3nplHEr1D9BBLAPHy3Nb7
+	tpWRhw/yQiIToQQuhxmqLdkZFLOiLZEAJa5MA
+X-Gm-Gg: AYBFou3YT/WwVIlqqWdmVHpPzyAPLdRBfLP+XMATtMleSZGHAASjfFjVNo4D8CeaE/M
+	d3mxsHFYCrgdVXDVx9TCJgGz1+0hjFybnzS21zWXna72PUIpd2a0EXj4b4xWYHm7rOMF1g2oI8z
+	ZjJtaS14Xhuil9ZsbQz8huPAaXHFADFCS/LC/sxuWDRi8uEKkEMi2buJ9B6znzFkS4/c23YpTdW
+	PH8jg6a83UmWi+izs6jhVmKkaY/lGYK9XfHL9z66Z/nSLVkvbh/IsrWFBW2QNpDofiUVrJis6J2
+	uAPeOSvvI8kRjSgUKKFtbTimOlXk5dp2qYrKKQMIM5bTj/0jTN6EJJGgl+t2VGrqRMwUh6LJ7ai
+	gLECZWwWbsZ7+KBOILVCJ/byFyaf7d0lNeVOxou79gaXGCbuzBqOTDFyPjrJ+PQHLuJatAbkje/
+	swUkBVhqYVCrdsH1ET+26Vbn9prCVrZEkdaMPbxJhQ/MHOV8WvVGAEmVl8kaWL4JqukebEB0V+i
+	gCWDUIiQb+WLHoHHLaosiDsdkhArnvcj98nfp8+t6pVaERBjQ==
+X-Received: by 2002:a05:6402:1946:b0:6b4:2960:d38e with SMTP id
+ 4fb4d7f45d1cf-6b59783609bmr2741590a12.26.1794003683164; Fri, 06 Nov 2026
+ 14:21:23 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,115 +106,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+References: <2026110443-depth-overbuilt-7852@gregkh>
+In-Reply-To: <2026110443-depth-overbuilt-7852@gregkh>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Fri, 6 Nov 2026 14:21:11 -0800
+X-Gm-Features: AclHuK-qvPtjJJoK4siDPji18LIlgTD-OxEzb0Cs6ul_7mbhUv18g8pJcaYztJs
+Message-ID: <CAKxU2N8QChO59Z=ncdNfvq-hNZp5Q2UsGFcovqn52G5mQso6hg@mail.gmail.com>
+Subject: Re: FAILED: patch "[PATCH] wifi: ath9k: delete channel-context timers
+ on deinit" failed to apply to 5.10-stable tree
+To: gregkh@linuxfoundation.org
+Cc: jeff.johnson@oss.qualcomm.com, toke@toke.dk, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Ge Yang <yangge1116@126.com>
+On Wed, Nov 4, 2026 at 6:25=E2=80=AFAM <gregkh@linuxfoundation.org> wrote:
+>
+>
+> The patch below does not apply to the 5.10-stable tree.
+> If someone wants it applied there, or to any other stable or longterm
+> tree, then please email the backport, including the original git commit
+> id to <stable@vger.kernel.org>.
+>
+> To reproduce the conflict and resubmit, you may use the following command=
+s:
+>
+> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.gi=
+t/ linux-5.10.y
+> git checkout FETCH_HEAD
+> git cherry-pick -x 81394dfb9a7905472957628b560ae894eae3a30f
+git cherry-pick -x 81394dfb9a7905472957628b560ae894eae3a30f
 
-[ Upstream commit 113ed54ad276c352ee5ce109bdcf0df118a43bda ]
-
-A kernel crash was observed when replacing free hugetlb folios:
-
-BUG: kernel NULL pointer dereference, address: 0000000000000028
-PGD 0 P4D 0
-Oops: Oops: 0000 [#1] SMP NOPTI
-CPU: 28 UID: 0 PID: 29639 Comm: test_cma.sh Tainted 6.15.0-rc6-zp #41 PREEMPT(voluntary)
-RIP: 0010:alloc_and_dissolve_hugetlb_folio+0x1d/0x1f0
-RSP: 0018:ffffc9000b30fa90 EFLAGS: 00010286
-RAX: 0000000000000000 RBX: 0000000000342cca RCX: ffffea0043000000
-RDX: ffffc9000b30fb08 RSI: ffffea0043000000 RDI: 0000000000000000
-RBP: ffffc9000b30fb20 R08: 0000000000001000 R09: 0000000000000000
-R10: ffff88886f92eb00 R11: 0000000000000000 R12: ffffea0043000000
-R13: 0000000000000000 R14: 00000000010c0200 R15: 0000000000000004
-FS:  00007fcda5f14740(0000) GS:ffff8888ec1d8000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000028 CR3: 0000000391402000 CR4: 0000000000350ef0
-Call Trace:
-<TASK>
- replace_free_hugepage_folios+0xb6/0x100
- alloc_contig_range_noprof+0x18a/0x590
- ? srso_return_thunk+0x5/0x5f
- ? down_read+0x12/0xa0
- ? srso_return_thunk+0x5/0x5f
- cma_range_alloc.constprop.0+0x131/0x290
- __cma_alloc+0xcf/0x2c0
- cma_alloc_write+0x43/0xb0
- simple_attr_write_xsigned.constprop.0.isra.0+0xb2/0x110
- debugfs_attr_write+0x46/0x70
- full_proxy_write+0x62/0xa0
- vfs_write+0xf8/0x420
- ? srso_return_thunk+0x5/0x5f
- ? filp_flush+0x86/0xa0
- ? srso_return_thunk+0x5/0x5f
- ? filp_close+0x1f/0x30
- ? srso_return_thunk+0x5/0x5f
- ? do_dup2+0xaf/0x160
- ? srso_return_thunk+0x5/0x5f
- ksys_write+0x65/0xe0
- do_syscall_64+0x64/0x170
- entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-There is a potential race between __update_and_free_hugetlb_folio() and
-replace_free_hugepage_folios():
-
-CPU1                              CPU2
-__update_and_free_hugetlb_folio   replace_free_hugepage_folios
-                                    folio_test_hugetlb(folio)
-                                    -- It's still hugetlb folio.
-
-  __folio_clear_hugetlb(folio)
-  hugetlb_free_folio(folio)
-                                    h = folio_hstate(folio)
-                                    -- Here, h is NULL pointer
-
-When the above race condition occurs, folio_hstate(folio) returns NULL,
-and subsequent access to this NULL pointer will cause the system to crash.
-To resolve this issue, execute folio_hstate(folio) under the protection
-of the hugetlb_lock lock, ensuring that folio_hstate(folio) does not
-return NULL.
-
-Link: https://lkml.kernel.org/r/1747884137-26685-1-git-send-email-yangge1116@126.com
-Fixes: 04f13d241b8b ("mm: replace free hugepage folios after migration")
-Signed-off-by: Ge Yang <yangge1116@126.com>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Oscar Salvador <osalvador@suse.de>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <21cnbao@gmail.com>
-Cc: David Hildenbrand <david@redhat.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Mark Bundschuh <mkbund@amazon.com>
----
- mm/hugetlb.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index a3d3fb1de3ec..43a96477904a 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -3012,12 +3012,20 @@ int replace_free_hugepage_folios(unsigned long start_pfn, unsigned long end_pfn)
- 
- 	while (start_pfn < end_pfn) {
- 		folio = pfn_folio(start_pfn);
-+
-+		/*
-+		 * The folio might have been dissolved from under our feet, so make sure
-+		 * to carefully check the state under the lock.
-+		 */
-+		spin_lock_irq(&hugetlb_lock);
- 		if (folio_test_hugetlb(folio)) {
- 			h = folio_hstate(folio);
- 		} else {
-+			spin_unlock_irq(&hugetlb_lock);
- 			start_pfn++;
- 			continue;
- 		}
-+		spin_unlock_irq(&hugetlb_lock);
- 
- 		if (!folio_ref_count(folio)) {
- 			ret = alloc_and_dissolve_hugetlb_folio(h, folio,
--- 
-2.50.1
-
+works locally. No idea what the issue is here.
+> # <resolve conflicts, build, test, etc.>
+> git commit -s
+> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110443-=
+depth-overbuilt-7852@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+>
+> Possible dependencies:
+>
+>
+>
+> thanks,
+>
+> greg k-h
+>
+> ------------------ original commit in Linus's tree ------------------
+>
+> From 81394dfb9a7905472957628b560ae894eae3a30f Mon Sep 17 00:00:00 2001
+> From: Rosen Penev <rosenp@gmail.com>
+> Date: Fri, 11 Sep 2026 14:31:44 -0700
+> Subject: [PATCH] wifi: ath9k: delete channel-context timers on deinit
+> MIME-Version: 1.0
+> Content-Type: text/plain; charset=3DUTF-8
+> Content-Transfer-Encoding: 8bit
+>
+> ath9k_deinit_channel_context() cancels chanctx_work but does not delete
+> the offchannel and sched timers set up by ath9k_init_channel_context().
+> If either timer fires after deinit (e.g. during driver unload or
+> suspend), it accesses sc->sc_ah which may already be freed by
+> ath9k_hw_deinit(), causing a use-after-free.
+>
+> Delete both timers with timer_shutdown_sync() before cancelling the work
+> item.
+>
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> Acked-by: Toke H=C3=B8iland-J=C3=B8rgensen <toke@toke.dk>
+> Cc: stable@vger.kernel.org # v6.2+
+> Fixes: 705d0bf83dbe ("ath9k: Add a routine for initializing channel conte=
+xts")
+> Link: https://patch.msgid.link/20260911213144.130192-1-rosenp@gmail.com
+> Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+>
+> diff --git a/drivers/net/wireless/ath/ath9k/channel.c b/drivers/net/wirel=
+ess/ath/ath9k/channel.c
+> index 8b27d8cc086a..cfb1c90eb4b6 100644
+> --- a/drivers/net/wireless/ath/ath9k/channel.c
+> +++ b/drivers/net/wireless/ath/ath9k/channel.c
+> @@ -1363,6 +1363,8 @@ void ath9k_init_channel_context(struct ath_softc *s=
+c)
+>
+>  void ath9k_deinit_channel_context(struct ath_softc *sc)
+>  {
+> +       timer_shutdown_sync(&sc->sched.timer);
+> +       timer_shutdown_sync(&sc->offchannel.timer);
+>         cancel_work_sync(&sc->chanctx_work);
+>  }
+>
+>
