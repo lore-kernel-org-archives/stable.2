@@ -1,134 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793997794;
-	b=VU/Ve91+aW3yHoIfBYJ1W527YbbDjGp3B12+D5M+gODJh9YK7Ar6PiG1i3xS9RKylVfM
-	 DSMxTwlyurg3z+WJCf1/txnamCM1RcbXWOJTHMQRG9ZgJz184S6Yvfr0+06Gzv0TxO0MV
-	 W9uNyGV83C/rhrTk+CPGDP+GIHAA5+WoA3UODgSEKodnv1iNbsa1OfYrHcVuefKUWmAyN
-	 ie952oDz0LB+6fM4EKhn67i8cC4SZxr1oCbgZE1I2OWpb+ibpWe20g7nDcEOyK+B9mL6H
-	 G9D2PCprn9lwRnPKh+QKBKeDTSlL3gl2u3e2/2XzBr/uZf19xpv4nePT6RcAW+FJcBQ==
+	t=1793997892;
+	b=CJyC6H0zSJACVU0r/J1o3NpAs+Ulok55g1i11kWDtrAGQyMSP2IhUPVe4QQvwz0GAcA5
+	 B7SJwdT9LVBQfve5MGarq4zJQlUcSmANnl2AzaCy6dAB2xdMinTHUB4EdvVcgy7BJ5dAA
+	 Pf0SA96jttkHaxi0ndk/oUjVPDnhZuLel6LlayOyxww0SxhRp3TFRtQFOjmdiiOs5Iic4
+	 /GpOfow0X6sTxPckdgmwsSJapNR7Uoxcjx+LGi+AI90PgpBEviDQuQQEx+DyX27RngwaL
+	 1GHQWzCTYyOvQce5X2k73MoqStoaeox8Adb9vqAneEG5kpG0Mvr3CjF3F/esW1zwyOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793997794;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ws2V6VbViJ6cnrlfEDvDEs6KCs0YOuB35XjyLfjvYOA=;
-	b=du8OMj64atgi72SnGnWegMPxUIgcro7uL7l4wHYN2eUYrvbDZm3N+ey7QLN9khpwQT9A
-	 5FsRNfUTctDyawULmOsrbb3j6lXLTN8FEf7Lw3V20ENHi9801YDC6AXLRu2GnQGFJdlao
-	 KyoxVDNZeZPETVZRC3wBEQNRB3qmJbwE1IyYx0SxLat3DakdyKrNdMuv3cEanO6KIziNr
-	 Lwz/EcspcuGfVTMLL8eIOUGHHyTvxl0IyG0NQnbNOmHSASdzL2tX+bAws2Sl0XKmkMkDh
-	 /8ONEwqzrBoXdtj6kHSpK86HyLUGmizfXnfscLnlNFSHdFhmFJarea2DzAZVoFcWQBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793997892;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=TUX6youhnFPrGvYeU+pJ1avCVsOlphuFIqYLTiOl4y0=;
+	b=oFWHfHfigiRS4HpinIWAl6XyoGZrom//SpFwrhtXVyplgEk1oMMHqs7oyszmsx6Y2h7v
+	 DeNxP/vwFToS9WWKJEiI1fYcYfS3X/oCh2ac2tPLWkYsRXKbj/Tqrg87NE2a7y4mt9ru1
+	 Lw3L9SP0tPXXUFUoPy8xTrVrkOWp58p3++rAPHPPytPxGJAxU2pm/6s1xz8NHJG7YOWzt
+	 1NqxaQnJxQ0DfZe6eHNZ4xtHAk/2bo8BzjvYQhLJaWqD711MRASE9ROZCA7UJnw+HfaDQ
+	 xTq2X2JwjOeD5xsM0M8+hAs74ILLD2R5frCQVfQqztlnaOZBeFzb6EHwPCOkWMviInw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=REFEyl2N;
-	arc=none smtp.remote-ip=209.85.219.53
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RoZSWYg8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A5E606A32C
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 20:43:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93A5E606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897C4606A326;
+	Fri,  6 Nov 2026 20:44:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=REFEyl2N
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-91ccfb88e4dso12465446d6.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 12:43:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1793997792; x=1794602592; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ws2V6VbViJ6cnrlfEDvDEs6KCs0YOuB35XjyLfjvYOA=;
-        b=REFEyl2N/lgmfldAVFpxIWxQa8mjfRZ+rZu+VbJlPELmGLoAMssVZsg4Bw+JPUe95Q
-         Y/+7TrhaVb742lX5HOvfYl5c8tdB9czfTvg+/vPAkrj9deCRb9o77jvOHMvRN4NFT+Us
-         ybtE7N/j08Yo8TizgspuDg/xp1VtRZGq6sUf6uJV1YrIhg2qFP9g5wF57DH9VkfVQStn
-         4ZNBdx9BbGLhMDmmTMxt1/LSgHH4HYRUio31WfKrQQRxXVL0B2mrBDJi7luolVdmYxxx
-         r+j1ArDIDr+vUF0me32H7jSKSjODetgV3j9jw0TC5pHi0hn9wyRUYJT4xRQMphXho2hD
-         k69A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793997792; x=1794602592;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ws2V6VbViJ6cnrlfEDvDEs6KCs0YOuB35XjyLfjvYOA=;
-        b=is4pv9pAzz71ohdddTZuwpN1CzpC+8kPbwNVI56fffybinju3i1fmQAkP7787rjJoc
-         KYirnJXEPbzJGtiAahPr6ErdbU0il3zreUPfkN0naCyKVrKcnnEj/y9IcGKQW6eu2nmy
-         xrYZn9Jau0MAsVBN48Eg5tfzOiu0TDdakxvshS1wPz4p6AnqN/+ObJZ3xbWXyQkQVkim
-         mc2rWwmJCCtJ9a85ysPGMcktk3KN0eVyHfHgdz1rBfRImNzwnHkrQC8M3iavzX15MEs9
-         9RyYdOZK1rdLSe3Qg/t0JL72ZKWcdWfnWr6E1HzV5WKMZp7cW48PixvRzvfKr1pI6/Lt
-         2I3Q==
-X-Forwarded-Encrypted: i=1; AL+hErGMJ9HZ4tZjn3Wyl+GaUPnpJJSG7OlJNN5q8JxzNniv6lguS0tCKYNmNPQhr9EaKktjlrIgCS4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9qU6QTDPWJJOgiCvkyAxpV/SsnKultxBfONOskVa/ecbTZpZC
-	A/85JZbdoGxwQIWM6XFQyeaTZaQw1m+v2giPHnzh8n3H9dbdw/uJACTF6gLOnEU8R0Y=
-X-Gm-Gg: AYBFou2godB1Yas4w8+60VO8Xd5/IwL0Dpj5qB0FvyNIt0ZlfSqtRaoj+Hr9CrAr8JM
-	fdlngiUGiUTgCLOFbWCVRNOliBSbfkd2g/pp+8Z0LFW6lMtBgy5c+XTKDgml3ywvpS6YBRvoiB5
-	EaMvZ4+lt3Z5xfmL0xZ6Y97kd+DdAddhM3LPQbTR4DOrPetwyPrJNa299rhCR6qA87HeB9V2pCJ
-	3eyr91G/wxONmCBc9nC8VoC0nJ5ICa2o5ASiGdswSJpxIaWwFnhYOV7DyNC67/AOFDYm93zMGPe
-	YgLFygjYXwI7quY3CItZCalluXRBpr7xP+h2av99dNe1d6N/jR2BscYMew5G2TarrNtjYDrR+oH
-	c7RYD9LmSKdeP6hnsexlT2dXE7dXiU8vd78izAAD3zo+4atNn6LJzSdd3jn32A+jWq/MnpfOPWe
-	skQUYxKT6pAMoiwLN5f4+BZ3agUl99eGPBgaIYoGFzpyBNsCXAIGzxmMwz7/v+iGJwqipY4fyhR
-	VgkZWgr3e5W3XwN7KoMYz4GbXkgCcdhxOoL8Ej0wmIob9UC3HYByaAp7I6y71ZlwoliIWEAb+d3
-	x3HFhDtOGGdweVmqmTnjCIyeWqNDvsbgADymfIS+GpD8tY/nUjHE1ASTeyTYTSN6pU01pI6E3tw
-	9ZEF8FxFU+g==
-X-Received: by 2002:ad4:4ee5:0:b0:91e:a5c2:37f7 with SMTP id 6a1803df08f44-91ea97a22b7mr53003846d6.42.1793997792129;
-        Fri, 06 Nov 2026 12:43:12 -0800 (PST)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ea6a2c742sm29232026d6.11.2026.11.06.12.43.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 12:43:11 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xPQmE-00000007ent-3ktJ;
-	Fri, 06 Nov 2026 16:43:10 -0400
-Date: Fri, 6 Nov 2026 16:43:10 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
-	Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	Nick Piggin <npiggin@gmail.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steve Sistare <steven.sistare@oracle.com>,
-	John Hubbard <jhubbard@nvidia.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-arch@vger.kernel.org, iommu@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/5] mm: limit pagecache folio refcount when splicing
- into pipes
-Message-ID: <20261106204310.GK663069@ziepe.ca>
-References: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
- <20261105-refcount_overflow_stable-v1-2-70b9c655da3e@kernel.org>
- <n3l2cnx6d25jovloqyoxiz566mh62janclmiewjvumtmqfezo7@zmsmco5vvssn>
- <23f947e2-ff06-426d-adb7-396871304736@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RoZSWYg8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2D8C1F0089F;
+	Fri,  6 Nov 2026 20:44:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793997892;
+	bh=TUX6youhnFPrGvYeU+pJ1avCVsOlphuFIqYLTiOl4y0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RoZSWYg8QitL0GYcOrie8WCPNu7m0hXKq/ot0GX77lPOskVbUTIosB3gUSEX0bfs1
+	 nyCG+d63mv2gPixZ4MDnJSPfdssODbCLHKAMvxOXegpzjQVpdDilAWLMFDOCVV2T5W
+	 mTGLJmqTWI6PvZSlzelPkUZpWr8tZqAx1STnZbUvLDQzXbPA9MFhVE+Gnz/GVTvAae
+	 Y66COZnizRE5m3Rvcru5Uyg4aBAdRHrHBZUL/IyWOcW4kX21stIlp5m3w4N9ECi/K4
+	 uUzTIg5UwTss4Us/M9f8HAEXoRMZbFbjcSKtYdkuHsGjeraZjO0DUdafwXei8u88LR
+	 van6A/Ja2bq7Q==
+Message-ID: <f85dbae0-e7a1-4441-901b-e1efd0fd4a65@kernel.org>
+Date: Fri, 6 Nov 2026 21:44:44 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -138,65 +51,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <23f947e2-ff06-426d-adb7-396871304736@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] mm/memfd: handle GUP references reliably when
+ write-sealing
+To: David Rheinsberg <david@readahead.eu>, Hugh Dickins <hughd@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, stable@vger.kernel.org,
+ Chris Mason <mason@kernel.org>
+References: <20261103-fixes_core_2-v1-0-f332954f1df4@kernel.org>
+ <20261103-fixes_core_2-v1-2-f332954f1df4@kernel.org>
+ <2c95ecf1-058e-4d81-9de5-622e32dc57df@app.fastmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <2c95ecf1-058e-4d81-9de5-622e32dc57df@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 06, 2026 at 09:09:10PM +0100, David Hildenbrand (Arm) wrote:
-> On 11/6/26 18:58, Josef Bacik wrote:
-> > On Thu, Nov 05, 2026 at 02:10:11PM +0100, David Hildenbrand (Arm) wrote:
-> >> Similar to mapping pagecache folios into page tables, let's reject splicing
-> >> folios into a pipe if the refcount is at it's limit, similar to how we
-> >> handle it during GUP.
-> >>
-> >> This will prevent more cases of possible folio refcount overflows with
-> >> large pagecache folios.
-> >>
-> >> Let's keep it simple and check in the two callers of
-> >> splice_folio_into_pipe().
-> >>
-> >> Also check in try_get_page() to cover pipe-buffer duplication by tee()
-> >> and partial pipe-to-pipe splicing.
-> >>
-> >> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
-> >> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-> >> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> >> ---
-> >>  include/linux/mm.h | 9 ++++++---
-> >>  mm/filemap.c       | 4 ++++
-> >>  mm/shmem.c         | 4 ++++
-> >>  3 files changed, 14 insertions(+), 3 deletions(-)
-> >>
-> >> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> >> index 79ae8fc0d6bb4..a82cfbce18215 100644
-> >> --- a/include/linux/mm.h
-> >> +++ b/include/linux/mm.h
-> >> @@ -2287,10 +2287,13 @@ static inline void get_page(struct page *page)
-> >>  
-> >>  static inline __must_check bool try_get_page(struct page *page)
-> >>  {
-> >> -	page = compound_head(page);
-> >> -	if (WARN_ON_ONCE(page_ref_count(page) <= 0))
-> >> +	struct folio *folio = page_folio(page);
-> >> +
-> >> +	if (WARN_ON_ONCE(folio_ref_count(folio) <= 0))
-> > 
-> > Since you're here anyway can you change this to something other than
-> > WARN_ON_ONCE, since that results in an OOPS with panic_on_warn set?
-> > Thanks,
+On 11/6/26 20:46, David Rheinsberg wrote:
+> Hi David
+
+Hi!
+
 > 
-> If it actually turns negative (or 0) with out changes, we had an overflow and
-> for sure want to know about it :)
+> On Tue, Nov 3, 2026, at 7:31 PM, David Hildenbrand (Arm) wrote:
+>> We made a big mistake when introducing write-sealing: we should have
+>> disallowed *any* file mappings while we are write-sealing. Write-sealing is
+>> usually done by a producer that wants to hand-off some data to a consumer.
+>> Having the producer have a read-only mapping (private or read-only shared)
+>> of the memfd while sealing is rather odd: it couldn't have been used to
+>> fill the memfd in the first place.
+>>
+>> Most identified public users don't do anything like that: they either never
+>> map the memfd before write-sealing (using write() instead), or munmap()
+>> before write-sealing:
+>>
+>>  - systemd's journal writes, fwupd, Flatpak, runc, crun and
+>>    containers/storage write to the memfd without mmap'ing it, before
+>>    sealing it [1,2,3,4,5,6]. The FD consumer will not access the memfd
+>>    before sealing.
+>>
+>>  - dbus-broker, Mutter, Chromium's Android linker, KWin, Weston and glycin
+>>    map the memfd file, but unmap it before sealing [7,8,9,10,11,12].
+>>    glycin retries sealing while waiting for the loader to unmap.
+>>
+>>  - go-memfd exposes a shared writable mapping before F_SEAL_WRITE and a
+>>    private read-only mapping afterwards. Its API explicitly requires
+>>    unmapping the writable mapping before sealing [13].
+> 
+> When I wrote memfd-sealing, we had this use-case where an application writes a buffer and then shares it both with in-process and out-of-process tasks. Only if out-of-process tasks are actually involved, the buffer is sealed. Otherwise, it is kept unsealed and can be recycled. Hand-off to other processes was optional, rare and asynchronous, so sealing could happen at any time. Yet, we wanted to keep the buffers mapped to avoid costly TLB flushes. Mappings were readonly, but writes were done through syscalls.
+> 
+> We still do this, but I don't think any of the open-source users picked this up.
 
-Yeah, didn't you get Docs merged to clarify WARN_ON is fine if
-userspace can't trigger it?
+Ok. So internally you would have to accept the additional insecurity and enable
+the kernel workaround through the parameter. How much of a problem would such a
+workaround be in your fleet once you upgrade the kernel?
 
-If you use panic_on_warn you *WANT* your system to stop if it detects
-corruption, that's the whole point. Removing corruption detection so
-panic doesn't trigger is pure 100% nonsense.
+Not nice, but there is simply not proper way to fix this mess right now in a
+better way.
 
-This keeps coming up and it's frustrating to go over again and again.
+> I did not follow the folio changes, so I am quite unsure whether the implementation was racy from the beginning, or whether new infrastructure introduced the races.
+> 
+> Can you elaborate why folio ref-counts are unreliable / unstable?
 
-Jason
+I'll have to point you at the doc of folio_expected_ref_count() where this is
+properly documented.
+
+Back when you used page_count() vs. page_mapcount() you probably had no idea
+that this is completely racy as we didn't have any such helper to spell it out.
+
+-- 
+Cheers,
+
+David
