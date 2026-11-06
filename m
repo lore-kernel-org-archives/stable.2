@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929991;
-	b=NnGhyyNuRz9weuYVcoblwRTPvji3O/UEPy6uMrkrRulafB6wCUC/gVUnYE2Ow0vbs/i3
-	 aZibQL6SaThykdeuw5wq5DnN2SX82q9ig52YFXKcqT4Am/zHUGx6HDY3HAVpgojGBo4Fa
-	 CROTdRzaQMrxgQxbSTP9DlnzAfTuXkCdaoBdDisr7O1+ZR5ElkoKN9giUrCg45VXeQUuH
-	 xYxQIoUnYESWL/ZgAK1ap+L9MCjOCtNOW95yVfFIPk4205iX0AVf+HOuZyXxeZXdvxwut
-	 fqHtjrzdt9XkT56JF3lsE3uq/MV904FB7AWUTI/Tz79O/aW+GlGuW3YP2L1EHEJbwRQ==
+	t=1793929992;
+	b=Oa+hWEnocDcKruI3FXy/mkEKY6JheT8rT5+Foz8vrj3KCekMzNjReIqcqdtr3pldFC09
+	 60vCZ/BM5KV3pFjtM8c1nJHa0zz8bUqa7QHkZlnvC6Jrigm43NAaVyskqPQ5nokqCCMz6
+	 IvRlXa70QVvIdvSonGj6V6ArnW5JRAKfYgZiblKlqRK+jcMcQp5y7wwMFeqNOju+/gVuY
+	 SEHF6bWMz5K3OAX8hZ8bMwbKCCdg+8XCD/LSii8GloFilbhNmCtOrzvXcG0WRtmy++0TN
+	 SG+BVo7h9y/c187gXPOTPbw4lv1JrxgKZl5ukbE5A/qakdUTJt9SOYIUDrNb9q/pgqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929991;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929992;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AB5Xy9M8EQNyTDF3PXby2HzG3zYBypqZG25vTORx/rY=;
-	b=cAwbDehlSsMwIR86+vRS8GnQiHCf8owwm9P4kVAjMyRH35o3G+GfKRIphpy4nPACdn7b
-	 Q5yTSatdUBPv9R2qXy058j+v1kUrxfqrL3UbC6xVIRfLbEE7sV+ZsPabdI3CDfUNd5Wr1
-	 nwTVb/Mn/24rLqRUFkCVD7QrlG3SQHLc5HYRtICkpDGS//FS1g3gZF2/gV2pfk2E/pvG8
-	 9KY1X56Alo4fd7QjI3ee80CuLG//GAh4vwpCXCJ5sLdTf3ERSAEpZsjCMYLTufu/a+4lx
-	 4hSfazliWX/X6U5Qy07ub1l0CqvSK+vFu1/NWWlMO6JPoKM8rCtomwpIg8KInab/DiA==
+	bh=JQlFkSxZ7OulS+LVyOvgczl9qmny304Q/HJtsD2btV8=;
+	b=oGX6775GxW2IS/RRBSIpiMUsR/0WX1VLp+W1NQ7Ur1cRxTNUIgTRqCcYXXSJsVeWlMPw
+	 gKD2P3uslzrZnxZJ3d2qTm1SLpjDmdaQmjr0pw+Cs4BklVZUQ0O2T23WK7b43Cl86DD20
+	 sqg4Q0dZaJKgeXwKCaRxCxhQJ8++06xzROdSYpX8UMQ2FnOw8/ldYDImZh3D1tR3kY7W1
+	 mwJcp3CVtojh+g45RfmlrpaphKE/t4mWjmv4szzw/8oOvll/BR4YNHFdMRCCTxy0jtTcG
+	 2wHF5IPRz1P9AQD5d7OKy4iFXd7DwKtiMA+nwAy8gXSjdQYtB+XZt6QuP0MjWyy8mVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nFfEuSkW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UiutYnFP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8859606A329
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:53:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1035606A328
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:53:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nFfEuSkW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D176E1F008A1;
-	Fri,  6 Nov 2026 01:53:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UiutYnFP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9D0C1F008A2;
+	Fri,  6 Nov 2026 01:53:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793929990;
-	bh=AB5Xy9M8EQNyTDF3PXby2HzG3zYBypqZG25vTORx/rY=;
+	s=k20260515; t=1793929991;
+	bh=JQlFkSxZ7OulS+LVyOvgczl9qmny304Q/HJtsD2btV8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nFfEuSkWhw2jG8H+01JuVe+WNJpdizlDJFhezEWiO/6J1sHMxNPGzm2G9Zk2wZ8Uw
-	 jRo+0JFxZdXDd0FQZydr2syijzB6q6pNQcDaFhWm6mNDrLmgIdXJxIy6e9MHqfcgKn
-	 GLDSTSwTDtAxLFZ7T+X1aeyAhH6J/DAzvn8Nol8R9xS5S9HYkgpDO8I0nYyiG3A5OE
-	 zWnTmQ+XPN8ibTphUTTI8VpIldYJWCKk2Ty49P7j870KpTGzfYFdC4DQJu4+0AvhvF
-	 QGjQ7nYCClQq6dOf1tf9bJ+x5txPD3pYWJ5sv0ItHYSQfwtnKoFYrOzpn2lxkTcf03
-	 ZRfOTBpeDZnBw==
+	b=UiutYnFP+sel45azLtG132VDHfTbZqnZQfh5o/vHkphnnA2fi2hMGepcaLNlquWKW
+	 /WeGjbInwFs24n0Zv+eqr7gBixzqG2uKVykhiUcqrOJeXqY24F1kFQtMMk6+Buvh9R
+	 LRWQ1jNq+cjQpMYa89GS0Cx8O8nSNjezy8P3pzptiLdiUEBJ0RH3W2T7ppkqbxvLUc
+	 4Z4cGF8XmdF2hqRRUCLgmxg3/5+gVBUnZGk1ljIEY0oa4m5dnS7TEtsdV486CDeHeP
+	 xiMmssfPAGaHqpY09FFXdEDk7C9Lwp1HRLsRczdGSnNWLnii3x9CUOllIjdOossHky
+	 BCo7d+GMVH2Cg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christoph Hellwig <hch@lst.de>,
-	Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <chuck.lever@oracle.com>,
-	Christian Brauner <brauner@kernel.org>,
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Benji Wiebe <itsme@benjiwiebe.com>,
+	Chuck Lever <cel@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/5] exportfs,nfsd: rework checking for layout-based block device access support
-Date: Thu,  5 Nov 2026 20:53:04 -0500
-Message-ID: <20261106015245.3586810-4-sashal@kernel.org>
+Subject: [PATCH 6.18.y 5/5] nfsd: don't offer flexfiles layouts when NFSv3 isn't being served
+Date: Thu,  5 Nov 2026 20:53:05 -0500
+Message-ID: <20261106015245.3586810-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261106015245.3586810-1-sashal@kernel.org>
 References: <2026110409-glaucoma-strongman-8f52@gregkh>
@@ -64,206 +63,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christoph Hellwig <hch@lst.de>
+From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit da9baa5470dcb077a7c9806f0925c60b530c470b ]
+[ Upstream commit 5d28b2c920d9d9d3c45b41769342ad785eb372a7 ]
 
-Currently NFSD hard codes checking support for block-style layouts.
-Lift the checks into a file system-helper and provide a exportfs-level
-helper to implement the typical checks.
+The flexfiles layout driver hands out a deviceinfo that names this server
+as an NFSv3 DS (flexfilelayout.c hardcodes da->version = 3). With v3
+disabled, the client can't talk to the DS: it loops on v3 NULL calls that
+the server answers with PROG_MISMATCH, and I/O hangs in D state.
 
-This prepares for supporting block layout export of multiple devices
-per file system.
+Skip LAYOUT_FLEX_FILES in nfsd4_setup_layout_type() unless v3 is enabled.
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Link: https://patch.msgid.link/20260423181854.743150-5-cel@kernel.org
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-Stable-dep-of: 5d28b2c920d9 ("nfsd: don't offer flexfiles layouts when NFSv3 isn't being served")
+Reported-by: Benji Wiebe <itsme@benjiwiebe.com>
+Closes: https://lore.kernel.org/linux-nfs/c734eeb8-8486-4491-bb4d-b9656cbaffbe@app.fastmail.com/
+Fixes: 9b9960a0ca47 ("nfsd: Add a super simple flex file server")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260904-pnfs-ff-v1-1-5f502cf25401@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/export.c               |  3 +-
- fs/nfsd/nfs4layouts.c          | 26 +++++------------
- fs/xfs/xfs_pnfs.c              | 13 +++++++++
- include/linux/exportfs_block.h | 52 +++++++++++++++++++++++++++++++++-
- 4 files changed, 73 insertions(+), 21 deletions(-)
+ fs/nfsd/nfs4layouts.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/fs/nfsd/export.c b/fs/nfsd/export.c
-index 2a1499f2ad196..e33843a937dd6 100644
---- a/fs/nfsd/export.c
-+++ b/fs/nfsd/export.c
-@@ -722,7 +722,8 @@ static int svc_export_parse(struct cache_detail *cd, char *mesg, int mlen)
- 			goto out4;
- 		err = 0;
- 
--		nfsd4_setup_layout_type(&exp);
-+		if (exp.ex_flags & NFSEXP_PNFS)
-+			nfsd4_setup_layout_type(&exp);
- 	}
- 
- 	expp = svc_export_lookup(&exp);
 diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
-index 6b6f55ae0472d..c2d435c99bf5e 100644
+index c2d435c99bf5e..8ec980c69bec5 100644
 --- a/fs/nfsd/nfs4layouts.c
 +++ b/fs/nfsd/nfs4layouts.c
-@@ -2,7 +2,6 @@
- /*
-  * Copyright (c) 2014 Christoph Hellwig.
-  */
--#include <linux/blkdev.h>
- #include <linux/exportfs_block.h>
- #include <linux/kmod.h>
- #include <linux/file.h>
-@@ -126,28 +125,17 @@ nfsd4_set_deviceid(struct nfsd4_deviceid *id, const struct svc_fh *fhp,
+@@ -125,10 +125,12 @@ nfsd4_set_deviceid(struct nfsd4_deviceid *id, const struct svc_fh *fhp,
  
  void nfsd4_setup_layout_type(struct svc_export *exp)
  {
--#if defined(CONFIG_NFSD_BLOCKLAYOUT) || defined(CONFIG_NFSD_SCSILAYOUT)
++	struct nfsd_net *nn = net_generic(exp->cd->net, nfsd_net_id);
  	struct super_block *sb = exp->ex_path.mnt->mnt_sb;
--	const struct exportfs_block_ops *bops = sb->s_export_op->block_ops;
--#endif
--
--	if (!(exp->ex_flags & NFSEXP_PNFS))
--		return;
-+	expfs_block_layouts_t block_supported = exportfs_layouts_supported(sb);
+ 	expfs_block_layouts_t block_supported = exportfs_layouts_supported(sb);
  
--#ifdef CONFIG_NFSD_FLEXFILELAYOUT
--	exp->ex_layout_types |= 1 << LAYOUT_FLEX_FILES;
--#endif
--#ifdef CONFIG_NFSD_BLOCKLAYOUT
--	if (bops && bops->get_uuid && bops->map_blocks && bops->commit_blocks)
-+	if (IS_ENABLED(CONFIG_NFSD_FLEXFILELAYOUT))
-+		exp->ex_layout_types |= 1 << LAYOUT_FLEX_FILES;
-+	if (IS_ENABLED(CONFIG_NFSD_BLOCKLAYOUT) &&
-+	    (block_supported & EXPFS_BLOCK_IN_BAND_ID))
- 		exp->ex_layout_types |= 1 << LAYOUT_BLOCK_VOLUME;
--#endif
--#ifdef CONFIG_NFSD_SCSILAYOUT
--	if (bops && bops->map_blocks && bops->commit_blocks &&
--	    sb->s_bdev &&
--	    sb->s_bdev->bd_disk->fops->pr_ops &&
--	    sb->s_bdev->bd_disk->fops->get_unique_id)
-+	if (IS_ENABLED(CONFIG_NFSD_SCSILAYOUT) &&
-+	    (block_supported & EXPFS_BLOCK_OUT_OF_BAND_ID))
- 		exp->ex_layout_types |= 1 << LAYOUT_SCSI;
--#endif
- }
- 
- void nfsd4_close_layout(struct nfs4_layout_stateid *ls)
-diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
-index c685995b69d7e..1b0b739571612 100644
---- a/fs/xfs/xfs_pnfs.c
-+++ b/fs/xfs/xfs_pnfs.c
-@@ -13,6 +13,7 @@
- #include "xfs_bmap.h"
- #include "xfs_iomap.h"
- #include "xfs_pnfs.h"
-+#include <linux/exportfs_block.h>
- 
- /*
-  * Ensure that we do not have any outstanding pNFS layouts that can be used by
-@@ -45,6 +46,17 @@ xfs_break_leased_layouts(
- 	return error;
- }
- 
-+static expfs_block_layouts_t
-+xfs_fs_layouts_supported(
-+	struct super_block	*sb)
-+{
-+	expfs_block_layouts_t	supported = EXPFS_BLOCK_IN_BAND_ID;
-+
-+	if (exportfs_bdev_supports_out_of_band_id(sb->s_bdev))
-+		supported |= EXPFS_BLOCK_OUT_OF_BAND_ID;
-+	return supported;
-+}
-+
- /*
-  * Get a unique ID including its location so that the client can identify
-  * the exported device.
-@@ -334,6 +346,7 @@ xfs_fs_commit_blocks(
- }
- 
- const struct exportfs_block_ops xfs_export_block_ops = {
-+	.layouts_supported	= xfs_fs_layouts_supported,
- 	.get_uuid		= xfs_fs_get_uuid,
- 	.map_blocks		= xfs_fs_map_blocks,
- 	.commit_blocks		= xfs_fs_commit_blocks,
-diff --git a/include/linux/exportfs_block.h b/include/linux/exportfs_block.h
-index 1f52fea8e4dce..92f990d190bba 100644
---- a/include/linux/exportfs_block.h
-+++ b/include/linux/exportfs_block.h
-@@ -7,14 +7,36 @@
- #ifndef LINUX_EXPORTFS_BLOCK_H
- #define LINUX_EXPORTFS_BLOCK_H 1
- 
--#include <linux/types.h>
-+#include <linux/blkdev.h>
-+#include <linux/exportfs.h>
-+#include <linux/fs.h>
- 
- struct iattr;
- struct inode;
- struct iomap;
- struct super_block;
- 
-+/*
-+ * There are the two types of block-style layout support:
-+ *  - In-band implies a device identified by a unique cookie inside the actual
-+ *    device address space checked by the ->get_uuid method as used by the pNFS
-+ *    block layout.  This is a bit dangerous and deprecated.
-+ *  - Out of band implies identification by out of band unique identifiers
-+ *    specified by the storage protocol, which is much safer and used by the
-+ *    pNFS SCSI/NVMe layouts.
-+ */
-+typedef unsigned int __bitwise expfs_block_layouts_t;
-+#define EXPFS_BLOCK_FLAG(__bit) \
-+	((__force expfs_block_layouts_t)(1u << __bit))
-+#define EXPFS_BLOCK_IN_BAND_ID		EXPFS_BLOCK_FLAG(0)
-+#define EXPFS_BLOCK_OUT_OF_BAND_ID	EXPFS_BLOCK_FLAG(1)
-+
- struct exportfs_block_ops {
-+	/*
-+	 * Returns the EXPFS_BLOCK_* bitmap of supported layout types.
-+	 */
-+	expfs_block_layouts_t (*layouts_supported)(struct super_block *sb);
-+
- 	/*
- 	 * Get the in-band device unique signature exposed to clients.
- 	 */
-@@ -36,4 +58,32 @@ struct exportfs_block_ops {
- 			int nr_iomaps, struct iattr *iattr);
- };
- 
-+static inline bool
-+exportfs_bdev_supports_out_of_band_id(struct block_device *bdev)
-+{
-+	return bdev->bd_disk->fops->pr_ops &&
-+		bdev->bd_disk->fops->get_unique_id;
-+}
-+
-+#ifdef CONFIG_EXPORTFS_BLOCK_OPS
-+static inline expfs_block_layouts_t
-+exportfs_layouts_supported(struct super_block *sb)
-+{
-+	const struct exportfs_block_ops *bops = sb->s_export_op->block_ops;
-+
-+	if (!bops ||
-+	    !bops->layouts_supported ||
-+	    WARN_ON_ONCE(!bops->map_blocks) ||
-+	    WARN_ON_ONCE(!bops->commit_blocks))
-+		return 0;
-+	return bops->layouts_supported(sb);
-+}
-+#else
-+static inline expfs_block_layouts_t
-+exportfs_layouts_supported(struct super_block *sb)
-+{
-+	return 0;
-+}
-+#endif /* CONFIG_EXPORTFS_BLOCK_OPS */
-+
- #endif /* LINUX_EXPORTFS_BLOCK_H */
+-	if (IS_ENABLED(CONFIG_NFSD_FLEXFILELAYOUT))
++	if (IS_ENABLED(CONFIG_NFSD_FLEXFILELAYOUT) &&
++	    nfsd_vers(nn, 3, NFSD_TEST))
+ 		exp->ex_layout_types |= 1 << LAYOUT_FLEX_FILES;
+ 	if (IS_ENABLED(CONFIG_NFSD_BLOCKLAYOUT) &&
+ 	    (block_supported & EXPFS_BLOCK_IN_BAND_ID))
 -- 
 2.53.0
 
