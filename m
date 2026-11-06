@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794007120;
-	b=X+QSNpzlpFG8dzM4oO4iGxEbHqdbHl8aDOsfW4Z74RTG3hCeOHiwUVmYeFkMyXLh6Tz6
-	 oz+JIze4mfasfuSgpzXO3bSbmCEfbhkXuWoExyz75o1pZIZW44uLjxBFZJhiW8KcWplv2
-	 V5rJqr0/PzSMnAyDfsVPinpZpd30e2V+Z613aJNUfpo88WZX1jhSiOYDYm1pFj0WcZPAn
-	 8K75J+Vkh8dHmxZTAH3EQWOchL7akTosQwJGhg8jpakN8ujeEr4eJXHqahjmLW/CfbdUI
-	 2bmcuknGbe9GolDf8C0+TAkEHayiAhPKnSPhUeru/FrvsIbOlNXt769/v2S4MtcsNDw==
+	b=zTKIx8CMtd4b2cJ1YUF4Tw94BJZG8eRcUJzjeZnJRdPclX6DZKXStf0lzDhkVt8HDmGy
+	 aHus3KW/VZtsuOM8txPM+5XFqrXWpvlL0zbKTYCC+iJC+6z9Yb5O5p+AD9cW+um6TbHP9
+	 P7T2Gnlydf4EMQzvrtBFyte7JMQuaGksUx+K0HiyxKXo0vHYee4jAUI/q8jausF2+iP6F
+	 Ag64LvibpTpdgrhqvHDFj/sZNqFfZQRXOnLcGG1a0u+Okb2W7p3QFXJE764IRUrYC2IeW
+	 oEhdqFE+eSiPOuHYLkxMq2MU4B9LLV1fiBnfWV3C4YMytOIxrlMUlew5Ir4gxHarTCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794007120;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=H1v0v6jdWWrkOMKSVVNAV2dkkY9NVRj9DV/y56uqM2Y=;
-	b=GHeUKAgDdP3dhUXMihClnqbhenUm/adwj2Tg/JMfp5NvW1B1uEaH9MgSjHlqD6ZVwiWX
-	 Plu4Pz+fRudkdqpsMmKq66dF1iDYA7kWcWzecMo3CrebKVbfWhiH276w2QJTHvbeJwhP1
-	 WKh0ILoUauyLCLSw8uq9cnd2e5g49+oy5B9mmi4rH+cwxXmJoC1iYM9CXQZ+Jdbo9YMH3
-	 ZDdP8FrpTZP2SJ1DaV4NuNSYluAUqLElgFobcABywaPEEvCI7OFWlJcNlmevXlvFDO2ro
-	 IDAqFczG3oykJsr6k4JkmxFGwVK7ZdJ7nW6ecyq5e6mPPCiagD6PebslK9U7/zoIsdA==
+	bh=1faRywtJCP+JRJGU9PHed7i5GyJR6frSTS25rp7+G2A=;
+	b=Dsu/onJhP4CJ5FfLZkz8OfqRM6l/p6ppNilJEX1Cfk5aSSZcu3PYKzI5fGpKJ5NrYvEW
+	 cbBLslrk7fJftzF8HsHqNvR7TkAvYgKAhELCcaWKUR1V8kinlNt38EOi68Gb43sVmTy44
+	 x7/Hfa5VQPaHNPTa4+pntoUvNbH/LYf5peBPJG+S/NPKkq9QWWW434M49qXR60d1BIkDu
+	 IXgYiDLgVmUWt5sQWdplJ5dveWWe7R1Nc2bDxHPq6UgLDQLl8L1Tp/GCEG5q5j/cThjKW
+	 J6rZ0xu0ctRTTb3TVvgzDxd7E2BH0YUe5bQctKoD/l9QH5xi2NuZWSAS0wLiYU57FOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=manguebit.org;
 	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=IntCRpWx;
+	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=KznAtSfq;
 	arc=none smtp.remote-ip=143.255.12.172
 Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64990606A330;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64981606A32F;
 	Fri,  6 Nov 2026 23:18:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64990606A330
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64981606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=IntCRpWx
+	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=KznAtSfq
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
 	Content-ID:Content-Description;
-	bh=H1v0v6jdWWrkOMKSVVNAV2dkkY9NVRj9DV/y56uqM2Y=; b=IntCRpWxWqbgW4Wik68vriSxSC
-	vvLl59/uj+0PxfhvthhXTA+h+u8GxmuQOCtqYcPQSN/6ze0uxJHTfaDOWf5fPyXwhlibPAZgDa0ep
-	F9gp3TvQMgnrYWHOjU5PgDkgnPmP/z5QX5m8nGayb9tYxTx2GMS3LeUZcVmzZPjYokyUl40HUrQP1
-	hZZV7EQ8l/HN1IdsLjRb66HzlOIPJo9deB73bXiJkPNvPGf4p5JhYBbncdCmroW3tb6uDw/Vti4jk
-	o/RpqM6jI3jHBy8+x9m/aANYwL5OW4EiZ+Ene1dj/G2zpwJbBb7knSV+/Ohg/LaGr1zw6jIeQKkHy
-	WTQbCQGw==;
+	bh=1faRywtJCP+JRJGU9PHed7i5GyJR6frSTS25rp7+G2A=; b=KznAtSfqJdL3qwYpMaBxa7esOD
+	thSedr67d1bL6Za6Jnk1BSppGDw3IaNHkUyEYpRzboyb+Az8x8XmiirqplaaUVeEhJ7hsaKe+OKkr
+	FV7fyR+QvZIuEsxFVP7PkbSgPqgCfEGUD5Yb5nmiUo2Qzf7VmDbh6D2TNoxEAREYw6uEeKwaQsxq6
+	BV04e8mZAUH9ny6Lq3HBPFwEqNu1pxzaRdh2prYHaXJSFl6bamBVath1E6t9zsQmZlc7cq4SawllZ
+	Dw1DIm5uxW/GZ2m5+KXgr+TESNMxXJ0NKT9IxVBHD5ikNVPilYQZ3N/BAA0AUwAqO36fphAZTWWV3
+	woWP5EJQ==;
 Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
-	id 1xPTCX-000000014Ez-2Y49;
-	Fri, 06 Nov 2026 20:18:30 -0300
+	id 1xPTCV-000000014De-0xTA;
+	Fri, 06 Nov 2026 20:18:28 -0300
 From: Paulo Alcantara <pc@manguebit.org>
 To: linux-cifs@vger.kernel.org,
 	netfs@lists.linux.dev,
@@ -57,9 +57,9 @@ Cc: Namjae Jeon <linkinjeon@kernel.org>,
 	Bharath SM <bharathsm@microsoft.com>,
 	Christian Brauner <brauner@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v7 08/19] smb: client: don't spend read retries on reads cut short by a reconnect
-Date: Fri,  6 Nov 2026 20:18:16 -0300
-Message-ID: <20261106231827.2604956-9-pc@manguebit.org>
+Subject: [PATCH v7 01/19] smb: client: don't write back through O_DIRECT handles
+Date: Fri,  6 Nov 2026 20:18:09 -0300
+Message-ID: <20261106231827.2604956-2-pc@manguebit.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261106231827.2604956-1-pc@manguebit.org>
 References: <20261106231827.2604956-1-pc@manguebit.org>
@@ -74,51 +74,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-smb2_readv_callback() always retries a read cut short by a reconnect,
-but still asks cifs_io_should_replay() whether to mark it as a replay.
-On a soft mount that spends one of the mount's retransmissions and grows
-the backoff, so a later replayable error on the reissued read can fail
-it early.
+Writeback uses the first writable handle of the inode, which may have
+been opened with O_DIRECT.  Such handles are opened with
+FILE_NO_INTERMEDIATE_BUFFERING, for which Windows rejects any unaligned
+I/O with STATUS_INVALID_PARAMETER.  Writeback of partly dirty pages and
+of the unaligned tail of a file through one of them fails, so netfs ends
+it with the folios clean and the data never reaches the server.
 
-Mark such reads as replays without consulting the mount's retries, as
-already done for writes.
+xfstests generic/051, where fsstress mixes both kinds of opens, loses
+about 1% of its writes this way:
 
-Fixes: 2c1238a7477a ("cifs: make retry logic in read/write path consistent with other paths")
+  smb3_write_err: ... offset=0xde90d7 len=0xbd0b rc=-22
+
+All the rejected writes in a network capture were unaligned writes on a
+no-buffering handle; none of the aligned ones, and none of the unaligned
+ones on regular handles, were.
+
+Prefer a handle that was not opened with O_DIRECT, and use one that was
+only if there is no other.
+
+Fixes: 1013e760d10e ("SMB3: Don't ignore O_SYNC/O_DSYNC and O_DIRECT flags")
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: stable@vger.kernel.org
 ---
- fs/smb/client/smb2pdu.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ fs/smb/client/cifsglob.h |  1 +
+ fs/smb/client/file.c     | 15 ++++++++++++---
+ 2 files changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 736c5c693c79..be003200efa8 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -4695,6 +4695,7 @@ smb2_readv_callback(struct TCP_Server_Info *server, struct mid_q_entry *mid)
- 	struct smb_rqst rqst = { .rq_iov = &rdata->iov[0], .rq_nvec = 1 };
- 	unsigned int rreq_debug_id = rdata->rreq->debug_id;
- 	unsigned int subreq_debug_index = rdata->subreq.debug_index;
-+	bool cut_short = false;
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index d3ca688b6aba..dbf980fcf05b 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -1891,6 +1891,7 @@ enum cifs_find_flags {
+ 	FIND_WITH_DELETE	= (1U << 1),
+ 	FIND_NO_PENDING_DELETE	= (1U << 2),
+ 	FIND_OPEN_FLAGS		= (1U << 3),
++	FIND_NO_DIRECT		= (1U << 4),
+ };
  
- 	if (rdata->got_bytes) {
- 		rqst.rq_iter	  = rdata->subreq.io_iter;
-@@ -4743,6 +4744,7 @@ smb2_readv_callback(struct TCP_Server_Info *server, struct mid_q_entry *mid)
- 		trace_netfs_sreq(&rdata->subreq, netfs_sreq_trace_io_retry_needed);
- do_retry:
- 		__set_bit(NETFS_SREQ_NEED_RETRY, &rdata->subreq.flags);
-+		cut_short = true;
- 		rdata->result = -EAGAIN;
- 		if (server->sign && rdata->got_bytes)
- 			/* reset bytes number since we can not check a sign */
-@@ -4815,7 +4817,7 @@ smb2_readv_callback(struct TCP_Server_Info *server, struct mid_q_entry *mid)
+ #define   MID_FREE 0
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 0767eb5f4687..aa2d09dac44c 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -255,9 +255,15 @@ static void cifs_begin_writeback(struct netfs_io_request *wreq)
+ 	struct cifs_io_request *req = container_of(wreq, struct cifs_io_request, rreq);
+ 	int ret;
  
- 	/* see if we need to retry */
- 	if (is_replayable_error(rdata->result) &&
--	    cifs_io_should_replay(rdata))
-+	    (cut_short || cifs_io_should_replay(rdata)))
- 		rdata->replay = true;
+-	ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_ANY, &req->cfile);
++	ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_NO_DIRECT,
++				     &req->cfile);
+ 	if (ret) {
+-		cifs_dbg(VFS, "No writable handle in writepages ret=%d\n", ret);
++		ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_ANY,
++					     &req->cfile);
++	}
++	if (ret) {
++		cifs_dbg(VFS, "%s: couldn't find writable handle: %d\n",
++			 __func__, ret);
+ 		return;
+ 	}
  
- 	trace_smb3_rw_credits(rreq_debug_id, subreq_debug_index, rdata->credits.value,
+@@ -2722,7 +2728,7 @@ int __cifs_get_writable_file(struct cifsInodeInfo *cifs_inode,
+ 	}
+ 
+ 	if (test_bit(CIFS_INO_TMPFILE, &cifs_inode->flags))
+-		find_flags = FIND_ANY;
++		find_flags &= FIND_NO_DIRECT;
+ 
+ 	cifs_sb = CIFS_SB(cifs_inode);
+ 
+@@ -2752,6 +2758,9 @@ int __cifs_get_writable_file(struct cifsInodeInfo *cifs_inode,
+ 		    !open_flags_match(cifs_inode, open_flags,
+ 				      open_file->f_flags))
+ 			continue;
++		if ((find_flags & FIND_NO_DIRECT) &&
++		    (open_file->f_flags & O_DIRECT))
++			continue;
+ 		if (OPEN_FMODE(open_file->f_flags) & FMODE_WRITE) {
+ 			if (!open_file->invalidHandle) {
+ 				/* found a good writable file */
 -- 
 2.56.0
 
