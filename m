@@ -1,100 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793990787;
-	b=rWxP7+Cptqc2vRUMUflNOQ9i0yVSn/qgxMvNbuR6sgWVEXNACFVWMperlg1hh+j84tIo
-	 SBxi/Uf9zKWC9KvL43bTcr75/6GnILXDqtVLvl5LtMVWElD60bVSg6fOyGyTk/HGvIG2H
-	 NTLEdW3hCy5+c2Fx34e4lkU6pJbL14Iww/UiYKFKGmlY0dmbVvmDzxWCvEIwyODVRDxwY
-	 Mvv5zS4JZOSKSQUer/qz5JhszexNv5c9vnnVb71lAjiIkKbfi1i8ZdlJ8Oyz5255/2Xd7
-	 6XbpdB9BBuw/SPfvPqXg57L1L8iYMlQtMOUdCOZjf/TdrKozKmcRWctxLIq7NY5JgdQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793990787;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=oEn7bwxlp6JtTrktDXtiT+wX7H9tzS76+9SrUUaKcg0=;
-	b=v6Lr8rUYJQ8u/m7cRf+/GZ92cqNOuO4GbHmxaBqJYhVbT7//xCpQB2EQg0AHE3C9VHtI
-	 pKkL3gY/xZZ0AybQb1S04l3W9tdH8wym10RvSkJg2hE0a3Big1kOiL5cloISRqPX8J4sg
-	 NXYHmO78kk+dAALNUmsTkPb+5WNuUANmyyfEt0QfGrOvfla1dpbYaiValcEgcQd3H1/5A
-	 WTwSOdiBhNVMyYbfv/VYyxMX4LKz9O+2zfQa9E6O9MezWGkoabgfxz91P/vZtICZ3ZhHT
-	 4R2M4/UGxFdGdw7D/4tgiaS11p1WQiUeVa0/VvObAgByPXBQt3/8uX2Pe0iasw5h8xQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z9HC86ZS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.173
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793990820;
+	b=w6Qe/RqQsO7tBDlDAQVJ9Jqjwe3HgYogLzjIMkXm7iAFqkrf8KSSzRebd67w6lCDeu/L
+	 CIcRrTd4kvVOBQVsjbzYQppH2XVniHFZ4BTVcEdfR8a+LF3r7Fzjxqzng0eYhFELelW0D
+	 0QS6hrzmRqUFLUCeoOkTOEROK/VQhOqI9dCjG3Wzf3C03i6p2F7ii+cxbC5l8vjwQwMgm
+	 bZbt1YUvQIOAtq/ggzTUnW0ctJjg0OnL/fyLGg288oCS7/NJh4SHlNBq5t7ljYnMpZ1Q7
+	 8lGEpKYSzOVxdC2v2Z4qsq8gsN3gJX7eOzMnQAqDMLtk1fZHYEXOwE6601VFUc7znrg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793990820;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=IbXzqyxSm5OYs/s5DOQyoAHjzCFXjGWNDVZqwAmgRdM=;
+	b=jaEscsvttndBkhuRBmX+jeYN4DfZeAyZES91AqnVn9+EfopcVZKmyuRUhHkl5X0/qCB3
+	 Zpaa3kXT5gcGlrp3dRhLWwe83eozF8wjEt9s9EUmJ7GtHnqkfpjsJ74Y3JGggyU3PllkJ
+	 yPj4HqCraILXGDpxfbsyBSj3FbC93caA2aBKVv2pBhFeMxePzGniAznW4OLgRHNtLpE+K
+	 pssETd97l6qsFFSJciP+BldWnS2MingRHiDU/oXTXbEjDzam1Rjk3zavwoq3V+yNSFP14
+	 b7xsFDTggxsX/Ki83LLb6mIlQIkdWuvbhwZLwze/mKeFKkBO6Gc9Lp+8xoQ/t/DHXDA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=EHxxqxVH;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A88606A33F
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 18:46:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88A88606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8464606A326;
+	Fri,  6 Nov 2026 18:46:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8464606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z9HC86ZS
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f3c895a0eso93270085a.2
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 10:46:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793990786; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dRkg9UyBqeIxZ9rDZza+VQxAeq57JhScys7rYhrw9P7Kg6DwRsN21hoHNuIX3hdWv0
-         he+HPaUBfMFo7tKzMgUTfgfdktjjgIp8TGSPaGrpMVE0CNcJN8YhMJ0coBZCoGSMcXPA
-         ncT2/UrgS4WcO2bL/BklgpiXbCdA5WR4jPBBItCfwqIEJgsEIAVshhUBScSLENtJfzdb
-         Ual5mInRRFJscTb+q3bcsQSFDnvaeskeP1wVpqgOhRadQenoklu1nPr1laOf/7vLdF6I
-         QbeCjpF5WOdkqP7ecCyK/HNgECiHbs17drUB0KIZ0wxoA0cc+mRly15TtiqBuhJWO0hJ
-         EWNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oEn7bwxlp6JtTrktDXtiT+wX7H9tzS76+9SrUUaKcg0=;
-        fh=LGxIj5Km0DEltJlBOw3huHMzxGX89QjM4ziYHb+9eKQ=;
-        b=SyHIm29JDd+m7Ro25DyxJI0GqfBUDHh5KoDvDCqccgmsQ6qsCjrPebdAhp+bgUCbpe
-         Z3qUN+/C6ex1O11KgkgHgtyXAjLfHO85V9DxfywcE6e3XqzLbnH0Cjl6LVzz1EkUMNIf
-         37lYsa8oZK5OL76kzd3SxmfCAw4cxy0O7nHvrCX5PvoCcPs5i6+qWrUc0IG4qwjl6cQJ
-         2cn+F7WUFo3o78Nxv/Ff7k/Vu0vBmvL64C5UCYfsBb5bZKtIA+ewkzF/kNta9RhK9/t5
-         DYywNmlbjJC4lkKbAz7bqG2gXLT0W3qyAWaPK9F6hpTF61JOMkF/YWQk8vCJzZkt1xwC
-         y0LA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793990786; x=1794595586; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oEn7bwxlp6JtTrktDXtiT+wX7H9tzS76+9SrUUaKcg0=;
-        b=Z9HC86ZSkUDNPhx/CjWi/SScFfOIPSHSo7vMWUh+XGsATmPW8BWEkCM6bOCgqO0Are
-         20V/CwD73gFN96nZWlmqysgtlzg+CXzInQPANKnmNePAw2GtNLcDs57tXNMHpd95fp4K
-         m5pRi6yR71ZCllopH7Ng9CmRbPV0moMMBHJ3IgZrdANixqOan7PwN+ZUAYblo01OJz/D
-         mrnxC/fS0LoYFk0xfk8L5+mFtw8CSkAJi36Nr/tAeEtHUIaHNZA/EKAYiXYe2yn97+vP
-         vY53r76H67QgodzNEezlF9MB/G0k/L8R1rgP+HWHFLFuJsYq4T4nDQNrbBQXwxpN0NTc
-         +qdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793990786; x=1794595586;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oEn7bwxlp6JtTrktDXtiT+wX7H9tzS76+9SrUUaKcg0=;
-        b=PpXut6D9UhYa+5GECAs+EORNN3l7QnJHAlqoYljGCe0jr9rF4CBpB665jpGC0JgPSI
-         w97ZrK/ZS032HcU6RVvjasj+xG4NEBlbqw9gmvMlfJ4uVvSinoOji1nota32CexnGeOh
-         LVyfUnOC7Dk7Ccvqn/d3p7Ma9l7BV4T8/1KKVJKz6Yz3NF6aqZS1fXnv28F90JdqgTTD
-         UUsIFRM9JtAdpgUYMCKlhqg0ydQzoI4gbUGgPaGMNX5pVdFhM0IvMFQuqWrpUVytioIe
-         DYipAJlLaJIm15QlkrzpZifhlk/cVQwOq9yb6DLWyjjr1f03wdMjTny6JjPQV4tFVsl5
-         C2sg==
-X-Forwarded-Encrypted: i=1; AKwUvBxzcahoa+xVRyv/snljCfWdlMTPKOfQz/QfHlUy375z1M/P7USOpvClciPOp4clFKmmFQvwqY8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+KR3SWBfWuHvMiHD+5ZyXdHiE84HEoFopJHdkKm4UmShFwQmRl
-	wqDKaOtloQsGON6luog8tV8BuLaegufi76YrhO70Knqo/5AV8/pUmv9d0Jb2rpvaV1nsfRdw2xh
-	b0QO/nlp5EfKF5f2nrTC1zZYpDcbiPQY=
-X-Gm-Gg: AYBFou1xehr0xxA94P4U4XHJwXq+eFLIXYvtGUf8PGBqEW2zL68hR8o2aonVWYNF2LC
-	S/BRKVAJqlPpWp3xu09AsuXI3yAIpi4IIx90HwVOhHAd2wk1mcBu49hj5yAwy8Kxk00sTjXvXcD
-	M5s+4U9flzzVWUdbxT7+ABAOFjjetAd+q/EUMVjGZlyzEX+8FhsmgsrHoyLxFDrAsEVFRyvMPFX
-	1GReesBJnz2u0tRdhP7hiZOqZk2yWqu0Go/yOWNldEoR4ApKvVe1hN7Kj5dRIZOjFBfF8bsF0Dj
-	a7pruh7OAskZ7WpCsjcFgy5WKzikI5Yo/faljf+C8RdIVDu1JrlGjb6chcEKlQbKp75DOx4pKPC
-	WY5wM1Y/HjkKatqRXJTXwK5YqtoUHca0qGIMz
-X-Received: by 2002:a05:620a:2b93:b0:942:a42a:78a2 with SMTP id
- af79cd13be357-945f34ead3bmr431647685a.31.1793990786229; Fri, 06 Nov 2026
- 10:46:26 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=EHxxqxVH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793990817;
+	bh=AXNSwoBw2GbAU/e+ejl9vrSOwtrW/+8L9JrQpY7FGwM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=EHxxqxVHQ0EtHX+a2YfN1caR5z8H7FhejrVf/QyFlS7buHIK/BD7AM66/1lg43cCi
+	 9g3RJHOWMKMdMiHE1MRQbH9S3h7SkdxW3TxhDkyZ+4lHG+1xKth7H622qZCIV6A3Y9
+	 TWWTq2STKY27tjJe2pYmulSaV1E8deG9a3NLHFcD3XoHBmnHi5R0JpJtVhb+D7haPE
+	 KyC93i+76kZWBuIsqUBZlNvOAo7HAOwu9/XjVGa7OjfCoec976ntb/fDiIocNXA/hC
+	 8jWbL20j3b7yK7fUPvTBT/rs85CActjByxc3l4aPO+4lU6ujH2i81HCgvrLY7mUAMp
+	 2trNI0oQMpwmw==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 34B8E17E02E6;
+	Fri, 06 Nov 2026 19:46:56 +0100 (CET)
+Message-ID: <0597b71f39fd945d531d3e996d982d5d3a3b9a28.camel@collabora.com>
+Subject: Re: [PATCH] media: verisilicon: suspend the device before
+ unregistering it on remove
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: shomenkow@gmail.com, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
+	 <hverkuil+cisco@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Frank Li
+	 <Frank.Li@nxp.com>, Tharit Tangkijwanichakul <tharitt97@gmail.com>, 
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Fri, 06 Nov 2026 13:46:54 -0500
+In-Reply-To: <20261106-hantro-remove-v1-1-d0a4678886d7@gmail.com>
+References: <20261106-hantro-remove-v1-1-d0a4678886d7@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-D7LaB+tVG7NkjSos0gfW"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,111 +91,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CANRwn3RYhEu0g9Lx+Vg=Uy8V7BWWz-jWV9d7UVuyRK-MGdbHOA@mail.gmail.com>
- <20261106120405.169399-1-qwe.aldo@gmail.com>
-In-Reply-To: <20261106120405.169399-1-qwe.aldo@gmail.com>
-From: Jason Gerecke <killertofu@gmail.com>
-Date: Fri, 6 Nov 2026 10:46:14 -0800
-X-Gm-Features: AclHuK_mPu4CGKBJY9JOjjdbWKDK_1Mvm3MPelFofXSeQQja0gast3M1vggbj_s
-Message-ID: <CANRwn3TtcDdy4wgHCRfzecAoB6m3Jat0kNOd-AYPskg1OA9+Bg@mail.gmail.com>
-Subject: Re: [PATCH v4] HID: wacom: avoid divide exception in dropped-packet calculation
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
-	Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+
+--=-D7LaB+tVG7NkjSos0gfW
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 6, 2026 at 4:04=E2=80=AFAM Aldo Ariel Panzardo <qwe.aldo@gmail.=
-com> wrote:
->
-> The dropped-packet calculation uses a modulo against sequence_size
-> (logical_maximum - logical_minimum + 1).  When a HID descriptor
-> declares a sequence field whose logical range spans all 32-bit
-> values, sequence_size wraps to zero and the modulo triggers a
-> divide exception.
->
-> Replace the division-based calculation with a branch that computes
-> the forward distance through the sequence range directly, as
-> suggested by Jason Gerecke.  This keeps the existing int types and
-> avoids the divide-by-zero without any 64-bit arithmetic.
->
-> Fixes: 359673ea3a20 ("HID: wacom: Support sequence numbers smaller than 1=
-6-bit")
+Le vendredi 06 novembre 2026 =C3=A0 12:04 +0300, Sergei Khomenkov via B4 Re=
+lay a =C3=A9crit=C2=A0:
+> From: Sergei Khomenkov <shomenkow@gmail.com>
+>=20
+> The clocks are enabled and disabled by the runtime PM callbacks.
+> hantro_remove() calls v4l2_device_unregister() and clk_bulk_unprepare()
+> first and only then pm_runtime_dont_use_autosuspend(), which suspends
+> an active device right away. By then v4l2_device_unregister() has
+> cleared the driver data (it points to the v4l2_device, the first member
+> of struct hantro_dev), so hantro_runtime_suspend() dereferences NULL.
+>=20
+> The device is always active at that point: the driver core resumes it
+> before calling remove(), and its put only starts the 100 ms autosuspend
+> timer. So every unbind and every module unload, with or without a
+> decode before it, gives an "Unpreparing enabled" warning for each clock
+> and then that oops.
+>=20
+> Stop runtime PM before the unregister and the unprepare. If runtime PM
+> is forbidden through sysfs (power/control set to "on"), the device is
+> still active after that, so disable its clocks and mark it suspended by
+> hand.
+>=20
+> The probe error path unwinds in the same order. It can only hit this if
+> a job runs between the encoder node registration and a later probe
+> failure, so it is left for a follow-up.
+>=20
+> Found with an LLM coding assistant while porting mainline Linux to a
+> Rockchip RK3026 board (G1, ID 0x6731); the assistant also drafted this
+> change. Tested on that board. Without this change, unloading the idle
+> module (runtime status "suspended") gives the warnings and the oops.
+> With it, the idle module unloads with no warning or oops, and so it does
+> right after an H.264 or VP8 decode with the autosuspend delay raised to
+> 10 s through sysfs; the clock enable and prepare counts are back to
+> their values before the load. The same holds with power/control set to
+> "on", over three load, decode and unload cycles on one boot. kmemleak
+> reports nothing after five load, decode and unload cycles. Built with
+> W=3D1 with and without CONFIG_PM. Not tested on other SoCs or with a
+> power domain.
+>=20
+> Fixes: 556ab0b2741d ("media: hantro: release runtime resources when devic=
+e_run fails")
 > Cc: stable@vger.kernel.org
-> Suggested-by: Jason Gerecke <jason.gerecke@wacom.com>
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-
-Much happier with this version! Thanks!!
-
-Reviewed-by: Jason Gerecke <jason.gerecke@wacom.com>
-
-Jason (she/they)
----
-Now instead of four in the eights place /
-you=E2=80=99ve got three, =E2=80=98Cause you added one  /
-(That is to say, eight) to the two,     /
-But you can=E2=80=99t take seven from three,    /
-So you look at the sixty-fours....
-
+> Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
 > ---
->
-> Changes in v4:
-> - Replace s64 arithmetic with a branch-based helper that computes
->   the forward wrapped distance directly, as suggested by Jason Gerecke.
->   Keeps sequence_number as int; no type changes needed.
->
-> Changes in v3:
-> - Replace raw s64 modulo with div64_s64()-based remainder to avoid
->   __moddi3 link failure on 32-bit architectures (i386, arm32).
->
-> Changes in v2:
-> - Normalize logical_maximum/value as unsigned when logical_minimum >=3D 0=
-,
->   matching HID parser signedness. Store sequence state as s64.
->
->  drivers/hid/wacom_wac.c | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-> index 361738b..1d3ae94 100644
-> --- a/drivers/hid/wacom_wac.c
-> +++ b/drivers/hid/wacom_wac.c
-> @@ -2426,6 +2426,13 @@ static void wacom_wac_pen_usage_mapping(struct hid=
-_device *hdev,
->         }
+>  drivers/media/platform/verisilicon/hantro_drv.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/me=
+dia/platform/verisilicon/hantro_drv.c
+> index 26e5d5547466..8af47375d471 100644
+> --- a/drivers/media/platform/verisilicon/hantro_drv.c
+> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
+> @@ -1286,10 +1286,16 @@ static void hantro_remove(struct platform_device =
+*pdev)
+>  =09hantro_remove_enc_func(vpu);
+>  =09media_device_cleanup(&vpu->mdev);
+>  =09v4l2_m2m_put(vpu->m2m_dev);
+> -=09v4l2_device_unregister(&vpu->v4l2_dev);
+> -=09clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
+> +=09/* Suspend first: v4l2_device_unregister() clears the driver data. */
+>  =09pm_runtime_dont_use_autosuspend(vpu->dev);
+>  =09pm_runtime_disable(vpu->dev);
+> +=09/* Runtime PM forbidden through sysfs: the device is still active. */
+> +=09if (IS_ENABLED(CONFIG_PM) && !pm_runtime_status_suspended(vpu->dev)) =
+{
+> +=09=09clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
+> +=09=09pm_runtime_set_suspended(vpu->dev);
+> +=09}
+> +=09v4l2_device_unregister(&vpu->v4l2_dev);
+
+To be verified, but its not entirely logical here. My impression was that y=
+ou
+want to unregister the dev entry sooner, so that it prevent newly open, and=
+ turn
+existing fh into a mode where all ioctl will fail.
+
+Can you do some extra code inspection and report why you strictly need to m=
+odify
+the clock states before you unregister the device?
+
+p.s. are you sure outside of test build, that PM can be disabled on any of =
+the
+platform hantro driver runs ?
+
+> +=09clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
+>  =09reset_control_assert(vpu->resets);
 >  }
->
-> +static int wacom_hid_wrapped_dist(int after, int before, int min, int ma=
-x)
-> +{
-> +       if (after >=3D before)
-> +               return after - before;
-> +       return (max - before) + (after - min) + 1;
-> +}
-> +
->  static void wacom_wac_pen_event(struct hid_device *hdev, struct hid_fiel=
-d *field,
->                 struct hid_usage *usage, __s32 value)
->  {
-> @@ -2551,8 +2558,11 @@ static void wacom_wac_pen_event(struct hid_device =
-*hdev, struct hid_field *field
->         case WACOM_HID_WD_SEQUENCENUMBER:
->                 if (wacom_wac->hid_data.sequence_number !=3D value &&
->                     wacom_wac->hid_data.sequence_number >=3D 0) {
-> -                       int sequence_size =3D field->logical_maximum - fi=
-eld->logical_minimum + 1;
-> -                       int drop_count =3D (value - wacom_wac->hid_data.s=
-equence_number) % sequence_size;
-> +                       int drop_count =3D wacom_hid_wrapped_dist(
-> +                               value,
-> +                               wacom_wac->hid_data.sequence_number,
-> +                               field->logical_minimum,
-> +                               field->logical_maximum);
->                         hid_warn(hdev, "Dropped %d packets", drop_count);
->                 }
->                 wacom_wac->hid_data.sequence_number =3D value + 1;
-> --
-> 2.53.0
->
+> =20
+>=20
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261106-hantro-remove-9afbc9b601f9
+>=20
+> Best regards,
+
+--=-D7LaB+tVG7NkjSos0gfW
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCau4gngAKCRDZQZRRKWBy
+9A1zAP9MpJ+F0o5A79QzOhzIbsdNn7TU7y95lV+5Pb9oH23ggwD8D2oEfq81udRJ
+AuUaySnqy+2aQaaqKRwnykGec2GDBwg=
+=zRXU
+-----END PGP SIGNATURE-----
+
+--=-D7LaB+tVG7NkjSos0gfW--
