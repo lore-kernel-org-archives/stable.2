@@ -1,96 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793995474;
-	b=by0EKX6lFitGpGE5IYKJVZiLKcLUNcVek9AptNlJAUkAZtl15YaP6F3IFWrNemN1PmHO
-	 pK7aK3JCLERo2aM7N0KjA1JUfTJ/6ss4r/LIpKPwlySYQdFyMOq7N+hyLoGarMQSAN0tH
-	 9lxBHlEVnSiM+lVxIH8AnxOj5mfqiYeZHmKD3fVxQstmxOOQWn51QloMy+XBpW2TawNxm
-	 Al9CZSuDZuU8um+x9zM7Th3BzKR64ZCCDVuMe3uoQIWLcy4bsRm7jU1WbOkQul8OSYZV8
-	 1//ef/vW7rhxML3JYg59tv9xei1VKZ14beksGQgsgvw8Awy1+FCAIOceX0Nw3O6Btdw==
+	t=1793995565;
+	b=ouCL0FzARNn4LWrXP9fGcLLWVb6Wa3u7IYQAJqNKHL1RJmXhWqxMC+lKLE3kQbY5FY9H
+	 mS/ja56wbsW7UETkxPFQlxUUq2WO+TRsqYprczWtTWKGK3BHqGvLVZX5Gyx6uiIxLbdb3
+	 N75pl+97BFdULZe9Lue1bbz1G54IG1RpPyV8/m9XYWBhJOAgoRnX70GtYR7LqLXlchmsQ
+	 KTqFRmfegIFxOjtuyfov/4ecBK/Q4a8wxLJox6sBRZ0oQR1xtPXMwO6mDUNmWzvvMPWGd
+	 s00zfTMqQFQbWg7ziN1GrqfjaOhbdTCQ9tMSMiHuVOaBBnspZzm7saqWpak7+qT/HWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793995474;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=qdzzuDHKyfn9MEDqIa+4Jje9jOJuwPCdKzFPnU5vUZU=;
-	b=tkGyA7JVyn9ykYee8WWuK07/KaN0B4fn2cNoF7TFYBE+GC45GpTy2RiRB6HcgCg+cfFi
-	 GPYM3CNgG4LcIoiV3QoAReKfZ5+Bu94Abm3VPgSjODL5FipmR2e20339BMdK8/oaVpBO1
-	 6mCvpDoU55FprnfSsDrpCuNiislO6gXswXGdRhJVarrJVDtRo7l4Ltrnypa8QSuaDoJug
-	 XoA5kxOqZoeT5NcAnAYLVQjVZYYulInirbS6n3ZFfHNjrmMSkHJLtft3gAovyb5VLbooU
-	 yRNZLJ15QptOi7KYbJP9aZ2WRMLiaRtsnrHoYcs+ZUlC/fvulf20RjzA3WWIQH/BU/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793995565;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=hpCUfloWogEwq5QmDUmP+vM69BIi5ayktNcjrQ0ddFI=;
+	b=vO1ReGL26NoFK3jZLBM85AmHN/IXBWzlnk5fG67+rP+VIKOs6POLfn00gioRZPaCpNWS
+	 B8Ajsik7EchhkNwxnHNEEVwI/1xj0eFtkOBQD21rwi2fvCI5JQf2mehqjUUZpdqdKCVaP
+	 jnnln/D5fRAjN9UEijkha4ALE20qXdAgUc20W8Dfc0U3aRkfbH3oynM7SyrqHK7PUbmyk
+	 RHwnVyC8U4EwFI+kDz9S0gBdyGS79g0pX8AEzY7x+Abv8yDi5pOLluz666PMFXWtcCOhY
+	 75X7LeIwmgwKoZL9t5Al1roIxk89UJnZKAI+M3KI5GsWXQLP3AF2yq4mYnkMB/yYNHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0EaSKAHq;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=re8jX0W9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86210606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 20:04:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86210606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93D9606A326;
+	Fri,  6 Nov 2026 20:06:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0EaSKAHq
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so10441585e9.1
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 12:04:34 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=re8jX0W9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806121F008A1;
+	Fri,  6 Nov 2026 20:06:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793995473; x=1794600273; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qdzzuDHKyfn9MEDqIa+4Jje9jOJuwPCdKzFPnU5vUZU=;
-        b=0EaSKAHqfT6MH8ZkinKIWE9zvrSc79drozCAYUhfgwN1m4IXV5z8n7RslTiGPtjbks
-         8vK9vNKjmpB2vCiu82GrSYnB7PriyUI9woE+kdH/u1SeQ6RDamBgmFLd3Q3y6RWgAYpL
-         gmxNBdiPLUIC9Iq9auW8I24skXfVqMt1s8SVEl5yAEoY0A/eN2BAwW7kWLtmS4SMKYau
-         6RTbon4zvOqZi9yMA+4XmSKUmzQReJL1OAEaiOteb/X1HYQoOIwIMqUPcm1S8w/mM2SU
-         tMZhlgkHK0CHkJKjkLF+F+7KNVaEUCCaTOShURJCGPeygCU6Z11sKRGrVyg+Xz7e3+Ob
-         yz6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793995473; x=1794600273;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qdzzuDHKyfn9MEDqIa+4Jje9jOJuwPCdKzFPnU5vUZU=;
-        b=bvkY/gKHNmR+HYvNnOVySHuh4sdNu9Lk9dnbwwvcr2Kqpa4Ih8HF0DYtQr1/1SNR6h
-         zU+B7wrio/LuqcwbcJL7XRMuE4LkIwBEgEIY3aIjYGEQKOXwJzX7PXiv4VASZNzlgb/9
-         K3iRU7ny7R292ZYHZKtY5VTV225KCrzDDvUphqsD/tgXvKj5BqhU74ZmKKGqEVQuLKYL
-         i9DtOl2ux0B0gyblrL8q9okVPk3qG+gVvXmJz3xJH4xGYklQh7L74xmkY09f2hsm5hVj
-         QB8SYUe5EreoWAAAf9kmX4YXlAoe/YaLMHvtSTmUARxvaJJS1pbl9ZmaY6wGBZnQDFUt
-         klDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw6uY3KWWIZp+cVnJchBDrKByY+kPh0xG+JM9Bf0nbV+r0lBfipuksFL362+BgPqzZ2ZaBeARk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8hRaZYvVm415d6OLdcWDfzP4uhnfZehUAnIqO7Ys9GqI2HOw1K
-	R4d5E+42+ZD0d1UYgbK7OaSvTN6cHELITRHv3omjlGfP0ZYVKeGjNdzDyUyGZWONvqQYlVHD
-X-Gm-Gg: AYBFou1XL++Duc2Zvgfa1/Brj9iCg7gBjXdk2FkEuPwbPg/6yPXZCKBCYxEWBoypMv3
-	BPb/i//Rs66gmGbuqnsvaTkssPjW76D2Mjuq836WOWKvEv0nOwAJKi9luJsSvHOUsATIN1T7YTj
-	eYV8bRlNteZcXG2rnvkKxTWVvVvR0KjElZNi53LeHWTRxPS0vZBBTLA9ITBCKq7l4vHrpwcgMsJ
-	9S0h7Cy+1ywFXSWdeXEMAlKvdGjaJMRaX32c7Te0DV8hHSaJoOL0wpHSZV6kSvfpGZLDCU7uW4j
-	3UI7qyoITdVgGFTkEJtqNsKVmxYl3Hgr2GwFG7SfZdZiLQg4VfuWogffVDebyfzvu0KoRQvYoHl
-	Al0NMtpRUjx9+Rmp0ZnheeDlcvW+bRz2elaOhHoESEkaiFJzhajnZvFgVHRaejIBIW8wY84QVcb
-	nNd0yZKxypXqD4yvWYkxAGuRlI6yv9fk4nTV1uMOeCjf87pxautp/NeaNNFec5MA8EqbmtMsKYK
-	kS868dQtqMxjnAYanvmKnKo5nSWdCcYETlgQDd7/VDVBq5y4LoTlPKGfhc7L5oQgLIxLOnwHguz
-	hh7PcgzqwaC1dOhnBizj5DvIcvIEAuNQu19ZmA==
-X-Received: by 2002:a05:600c:3ba0:b0:4a7:a5db:a93e with SMTP id 5b1f17b1804b1-4b6db1c5f48mr71249715e9.4.1793995472786;
-        Fri, 06 Nov 2026 12:04:32 -0800 (PST)
-Received: from fedora.domain.name ([217.218.152.94])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cbdb9cdsm16959195e9.1.2026.11.06.12.04.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 12:04:32 -0800 (PST)
-From: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
-To: ampr.mhd@gmail.com
-Cc: dhowells@redhat.com,
-	lukas@wunner.de,
-	ignat@cloudflare.com,
-	herbert@gondor.apana.org.au,
-	keyrings@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] pkcs7: Return -EOPNOTSUPP for data-taking algorithms in pkcs7_get_digest()
-Date: Fri,  6 Nov 2026 23:33:56 +0330
-Message-ID: <20261106200423.37769-1-ampr.mhd@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	d=linux-foundation.org; s=korg; t=1793995564;
+	bh=hpCUfloWogEwq5QmDUmP+vM69BIi5ayktNcjrQ0ddFI=;
+	h=Date:To:From:Subject;
+	b=re8jX0W9MxORIyy1L0pTzTZ9K49z39EOePl3NWtGb9sr3M7Vt7Tl37CGlVmEieCGk
+	 1lkHD3BgkOuJ9AHUPqH0nCicjz6/lEC2v4NWuJTzCmz8P89lWPCSkKZuwts92hAoYq
+	 HUpBmebPOzfQXd6z0vHX4DmFIeoe3vykEsk8OJ/k=
+Date: Fri, 06 Nov 2026 12:06:04 -0800
+To: mm-commits@vger.kernel.org,ye.liu@linux.dev,vbabka@kernel.org,
+	usama.arif@linux.dev,surenb@google.com,stable@vger.kernel.org,
+	ryan.roberts@arm.com,rppt@kernel.org,nico.pache@linux.dev,mhocko@suse.com,
+	ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,kas@kernel.org,
+	hannes@cmpxchg.org,dev.jain@arm.com,david@kernel.org,
+	brendan.jackman@linux.dev,baolin.wang@linux.alibaba.com,baohua@kernel.org,
+	ziy@nvidia.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [to-be-updated] mm-huge_memory-prevent-losing-pg_waiters-in-__split_folio_to_order.patch removed from -mm tree
+Message-Id: <20261106200604.806121F008A1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,69 +54,179 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-pkcs7_get_digest() is documented to return a digest for IMA to use
-when verifying a modsig.  For signature algorithms where the public
-key algorithm consumes the raw data rather than a precomputed hash
-(algo_takes_data, currently ML-DSA), pkcs7_digest() does not produce
-an intermediate digest.
 
-When such a signature has no authenticated attributes, sig->m points
-at the raw data and m_free is false, so the existing check rejects it.
-But when the signature does have authenticated attributes, sig->m is
-an allocated buffer containing a modified copy of the AuthAttrs and
-m_free is true.  The existing check therefore returns that buffer to
-the caller as if it were a digest.
+The quilt patch titled
+     Subject: mm/huge_memory: prevent losing PG_waiters in __split_folio_to_order()
+has been removed from the -mm tree.  Its filename was
+     mm-huge_memory-prevent-losing-pg_waiters-in-__split_folio_to_order.patch
 
-Test for algo_takes_data directly and report that no digest is
-available, before attempting to call pkcs7_digest().  This covers
-both ML-DSA cases consistently and removes the now-dead m_free check.
+This patch was dropped because an updated version will be issued
 
-The only in-tree caller, ima_collect_modsig(), does not check the
-return value of pkcs7_get_digest(); for a data-taking algorithm it
-will now leave the digest fields unset and fall through with no
-digest, which is the correct outcome for an algorithm that does not
-produce an intermediate digest.  Callers that do care can detect the
-new -EOPNOTSUPP return.
+------------------------------------------------------
+From: Zi Yan <ziy@nvidia.com>
+Subject: mm/huge_memory: prevent losing PG_waiters in __split_folio_to_order()
+Date: Thu, 29 Oct 2026 22:08:44 -0400
 
-Fixes: f3eccecd782d ("pkcs7: Allow the signing algo to do whatever digestion it wants itself")
-Cc: stable@vger.kernel.org # v7.0+
-Signed-off-by: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+__split_folio_to_order() calls prep_compound_page() on each new head page
+to create a compound page after clear_compound_head(). 
+prep_compound_page() uses non atomic __SetPageHead().  It is mostly OK,
+since the folio is locked and frozen and no one else is supposed to modify
+the folio's flags.
+
+However, code calling migration_entry_wait() can reach the folio by PFN,
+then access its flags.  It is because softleaf_entry_wait_on_locked() used
+by migration_entry_wait() sets PG_waiters concurrently without taking a
+reference and the frozen refcount during split cannot block it. 
+Meanwhile, __SetPageHead() does a plain read and write, so PG_waiters
+atomically set by softleaf_entry_wait_on_locked() will be lost if the set
+happens after __SetPageHead()'s read and before its write.
+
+One example code interleaving:
+
+CPU0: __split_folio_to_order(new_order>0)  CPU1: do_swap_page()
+
+1. clear_compound_head(new_head)
+   new_head->compound_info = 0
+   (page_folio(new_head) == new_head now)
+
+                                           2. migration_entry_wait()
+                                             softleaf_to_folio(entry)
+                                             page_folio() -> new_head
+                                             (not the old head any more)
+
+3. prep_compound_page(new_head, new_order)
+     __SetPageHead(new_head)
+       tmp = new_head->flags.f  <-- load; PG_waiters == 0 in tmp
+
+                                           4. folio_set_waiters(new_head)
+                                             set_bit(PG_waiters, &flags.f)
+                                             enqueue on waitqueue, sleep
+
+5.     new_head->flags.f = tmp | (1UL << PG_head)
+       <-- store; overwrites step 4, PG_waiters == 0 again
+
+Later, folio_unlock(new_folio) sees no PG_waiters, skips folio_wake_bit(),
+and CPU1 can remain blocked indefinitely.
+
+Fix it by adding the atomic version SetPageHead() and
+prep_compound_page_atomic() using it.  __split_folio_to_order() uses
+prep_compound_page_atomic() to avoid the issue without adding an atomic
+ops to other prep_compound_page() users.
+
+Link: https://lore.kernel.org/20261029-fix-split_folio_to_order-race-v1-1-a483c7451b0d@nvidia.com
+Fixes: c010d47f107f ("mm: thp: split huge page to any lower order pages")
+Signed-off-by: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: David Hildenbrand <david@kernel.org>
+Closes: https://lore.kernel.org/all/DMHE8BEEER1H.2BIY52NXATPIA@nvidia.com/
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Nico Pache <nico.pache@linux.dev>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Usama Arif <usama.arif@linux.dev>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Ye Liu <ye.liu@linux.dev>
+Cc: <stable@vger.kernel.org>
 ---
-v2:
- - Add algorithm name to the pr_notice_once() message (Ignat)
- - Add Fixes: and Cc: stable tags (Ignat)
 
- crypto/asymmetric_keys/pkcs7_verify.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ include/linux/page-flags.h |    1 +
+ mm/huge_memory.c           |   10 +++++++++-
+ mm/internal.h              |    2 ++
+ mm/page_alloc.c            |   20 ++++++++++++++++++--
+ 4 files changed, 30 insertions(+), 3 deletions(-)
 
-diff --git a/crypto/asymmetric_keys/pkcs7_verify.c b/crypto/asymmetric_keys/pkcs7_verify.c
-index 474e2c1ae21b..c2e0eda502e2 100644
---- a/crypto/asymmetric_keys/pkcs7_verify.c
-+++ b/crypto/asymmetric_keys/pkcs7_verify.c
-@@ -147,14 +147,15 @@ int pkcs7_get_digest(struct pkcs7_message *pkcs7, const u8 **buf, u32 *len,
- 	if (sinfo == NULL || sinfo->next != NULL)
- 		return -EBADMSG;
+--- a/include/linux/page-flags.h~mm-huge_memory-prevent-losing-pg_waiters-in-__split_folio_to_order
++++ a/include/linux/page-flags.h
+@@ -854,6 +854,7 @@ static __always_inline int PageHead(cons
+ 	return test_bit(PG_head, &page->flags.f);
+ }
  
-+	if (sinfo->sig->algo_takes_data) {
-+		pr_notice_once("%s: No digest for data-taking algorithm (%s)\n",
-+			       __func__, sinfo->sig->pkey_algo);
-+		return -EOPNOTSUPP;
-+	}
++SETPAGEFLAG(Head, head, PF_ANY)
+ __SETPAGEFLAG(Head, head, PF_ANY)
+ __CLEARPAGEFLAG(Head, head, PF_ANY)
+ CLEARPAGEFLAG(Head, head, PF_ANY)
+--- a/mm/huge_memory.c~mm-huge_memory-prevent-losing-pg_waiters-in-__split_folio_to_order
++++ a/mm/huge_memory.c
+@@ -3779,7 +3779,15 @@ static void __split_folio_to_order(struc
+ 		 */
+ 		clear_compound_head(new_head);
+ 		if (new_order) {
+-			prep_compound_page(new_head, new_order);
++			/*
++			 * new_head is recognized as a folio after
++			 * clear_compound_head().
++			 * softleaf_entry_wait_on_locked() can set PG_waiters
++			 * on it without taking a reference, so its frozen state
++			 * cannot prevent it. Use the atomic version to avoid
++			 * losing a concurrently set PG_waiters.
++			 */
++			prep_compound_page_atomic(new_head, new_order);
+ 			folio_set_large_rmappable(new_folio);
+ 		}
+ 
+--- a/mm/internal.h~mm-huge_memory-prevent-losing-pg_waiters-in-__split_folio_to_order
++++ a/mm/internal.h
+@@ -806,6 +806,8 @@ static inline void prep_compound_tail(st
+ 	VM_WARN_ON_ONCE(tail->private);
+ }
+ 
++void prep_compound_page_atomic(struct page *page, unsigned int order);
 +
- 	ret = pkcs7_digest(pkcs7, sinfo);
- 	if (ret)
- 		return ret;
--	if (!sinfo->sig->m_free) {
--		pr_notice_once("%s: No digest available\n", __func__);
--		return -EINVAL; /* TODO: MLDSA doesn't necessarily calculate an
--				 * intermediate digest. */
--	}
+ #if defined CONFIG_COMPACTION || defined CONFIG_CMA
  
- 	*buf = sinfo->sig->m;
- 	*len = sinfo->sig->m_size;
--- 
-2.55.0
+ /*
+--- a/mm/page_alloc.c~mm-huge_memory-prevent-losing-pg_waiters-in-__split_folio_to_order
++++ a/mm/page_alloc.c
+@@ -682,18 +682,34 @@ static inline bool pcp_allowed_order(uns
+  * This usage means that zero-order pages may not be compound.
+  */
+ 
+-void prep_compound_page(struct page *page, unsigned int order)
++static void __prep_compound_head_and_tail(struct page *page, unsigned int order)
+ {
+ 	int i;
+ 	int nr_pages = 1 << order;
+ 
+-	__SetPageHead(page);
+ 	for (i = 1; i < nr_pages; i++)
+ 		prep_compound_tail(page + i, page, order);
+ 
+ 	prep_compound_head(page, order);
+ }
+ 
++void prep_compound_page(struct page *page, unsigned int order)
++{
++	__SetPageHead(page);
++	__prep_compound_head_and_tail(page, order);
++}
++
++/*
++ * PG_head is set atomically whereas the other metadata is set with plain stores.
++ * It should be used when @page's flags can be modified concurrently,
++ * e.g., in __split_folio_to_order().
++ */
++void prep_compound_page_atomic(struct page *page, unsigned int order)
++{
++	SetPageHead(page);
++	__prep_compound_head_and_tail(page, order);
++}
++
+ static inline void set_buddy_order(struct page *page, unsigned int order)
+ {
+ 	set_page_private(page, order);
+_
+
+Patches currently in -mm which might be from ziy@nvidia.com are
+
 
