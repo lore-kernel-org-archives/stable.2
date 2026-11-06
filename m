@@ -1,97 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956491;
-	b=CI6LX5F3ijUX6WqcJnDytnFk5eXq9Bj55CB36LGqia2dEAB2wCURubvPAbrGZNthTmVq
-	 hAt6VHdaap5OFTLOyXaO6JZ/TYKMvCF6TP3G6PR/XpFGvLz4aGnkrtowbKqBd1AVYO6f3
-	 mO9Rm5Amq92wNpauFRabSCeC/mTqgMVJC51Pzsn8dOrLLFYuPAMGiOQB4avx88SeU/ic9
-	 8Bwt5yRO/e7XIjnMkxFK5REwmOrYOJGQjaHP6sBhKgoQ93EiZRvKv3+S2pHTwJSlLQRaB
-	 d0rzY6hUpOy/56gP/sr6YLzv/7vSTzyhI8LyABsd+zbXzQG6zczNo/z3EUdB4t1Az0g==
+	t=1793956818;
+	b=P4yI5r3O+NVjyfd8Ky0aDJekNjD1k+siHgRh4mdqdITFuyZM4UFrQppembLSwiVkjFpf
+	 5fHyfcmZcqPRX6mYY9/Q49F9FO1NpIMHKUXMG9duVd5C9oKaQQMSsW8Q+JlHKQ6PW7ACs
+	 fhUjGJdUSCnhCNuRSJ7AOUjtAqpO8i1STn64LmNh75yBKD2TyGdWSrQVilceXY/BjL9kN
+	 splJRrEJqTTGjZXUgjSpxhK/wcZvmrE0UVU/GYQAUzzEO0VeK4owglkIUL8XkscHBj534
+	 3uA4/cTlMSi4vXVNtJJUwNcqnOF1hW6IbGqeLHPGrYa13phxMgrxT5k2FdVq3bApB6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956491;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=cc6pG2na6zv7wFv5oObixxN/7ExlBCLIUKtBmr4Nunk=;
-	b=SKQ+/sw3pVv/QOWk2hE54Jos55y7L+R0xgksrzbnb2Zvu868bVaowBI1ZL6/MRwyZIQx
-	 kHR342cLn7pX+mR/zAcD6CGuxHAaFpFeoG7N6Fj9yiw6QsDlwrr3ksvQUroij8XfYG+F2
-	 ZRN2kdGwA1ONeyOSu2BXETvprwknn0PO1T+dQgUlauMsIMNxU4W+psGnkR+dEKZIKhk8b
-	 /n0EzCAKI8cugqO0Ue1QUwQJL2AUwKib7a3fz7raD4yC/8La4NXKreyxg0D3t8GiV0sPs
-	 YF8rmZnS9H8BlchFXu4w9k6txIyvp6Di3gYzZBiopx2t9o4YDqv5WwbDKnkJm8pGPXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956818;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-Originating-IP:X-CM-SenderInfo;
+	bh=F/tOfpxYZmCQGHqlxGX/lo3Gghl5kOhbvjqdN5993ZU=;
+	b=DMZ49EV+al92zsYa+wTtNWfjg2uFelY7wwnJdyEXhjhI0QD/wPRzwxX8nByaG3BxaW61
+	 QRDAhS3YOcT6WyYeqcEKKheSH9Eqt8mgaQf+E8lAXwHIFszmkBsXMJG2AmdBWVjK/HBm8
+	 2gIkJF8KLbl09FNHqrd3xDX670CYbO81XaNt9sfMpSQ+NbcHhZbo4NK3nk32roMIr6LYv
+	 XHzazKN7szY9gO+V7zsAKjTqf4sPR8FpQ9AR0y87rGQ6C3wHSTVLMko4VglMqQmGGOOf/
+	 F/9YceouVf1WhGszE2Y48Jxj2f7pnwkbaoCOrNPHHa/023DWgXEqTKsGzSLRo6MDK0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cK2Spu0+;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD35606A329
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 09:14:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DD35606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cK2Spu0+
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1a2af4c8d00so1042791c88.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 01:14:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793956490; x=1794561290; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cc6pG2na6zv7wFv5oObixxN/7ExlBCLIUKtBmr4Nunk=;
-        b=cK2Spu0+QMhHtZ1j9s0GKtYiutcTB/1jjUoYJ1YkyfWyP86UhBSo8LggtmCY7+eRdc
-         uUPcVBOs+kGKBn2W0hlhYug+AyRqx3MLCWOQ8xJAjiwO2M/NFMSxe5MBP3k4PcSkmT6k
-         VY8REk7K6wOs3KOrasIePXOuzwr4StLGxS3vKYyiGr0b3ig7ueHWu9Ha6kSlHbuLuOoL
-         QKRKJIFV6X5PPFWFzAHtJg6br2IhsEAib/pEgFnxX0LDV5MY/zzNFzvuxh8hEBe6HIgS
-         d5n9RT8+F9UKVzT4acg/C6JEd6Yfh+uA6bRb8A7gFvqIXiBSKwkxCJRy8SA3ahDbuhxo
-         fMzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793956490; x=1794561290;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cc6pG2na6zv7wFv5oObixxN/7ExlBCLIUKtBmr4Nunk=;
-        b=JLcBoAV5mYO0nZgSPl29ClH1l+aN67o3aZYdUotjARlx+v/xjEVyjNcUTcOZZw/Eln
-         jvDPYm40jtJy9LQ0a+n5MXhd2jWFq7zePiGl9RA6Iao/HRTdcEY6puu1VhwYUCGyfP0J
-         /iZSLtIQzaIs0+GIkjnQQ1DcYoWStfwVC44GllNayBvwN50XlooKcawRMToRt/kCHUJ3
-         YHlcEZSfNnZGU1yd9crY9RJI2kQbwZ5CknXMIAJRGto2xw2sZo3GHtYH1EPyUPKZ/8ah
-         luVZjLHg65trKoBVdH009OjuFvWCdVUSjpXMOTBvwuXtHyvP8vYWboltukjER1xH677A
-         OC3A==
-X-Forwarded-Encrypted: i=1; AKwUvBzBbW5u24De8tAQ5VNpuHR9VUb0u7xFqGL/jSP0gJeVbbpeuLN2M7fxICzeTscZ3P+8eBG+wTs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8kmVDw87s2J94InmPPPgeZOY+7UDl4uxgO8TESl8pkx4EKYUxt
-	W+yzK661ALI6TW+pLMcdU7Vg3+QIZ5s63TZVb4oEjJ/kNFHNrAKpyJsj
-X-Gm-Gg: AYBFou2vV5XEmUQ3MXBUigFwjUItw8nqNnVx3f2tPZds5BJ4JcJyLIp6y3CQcxjpIBl
-	15whLvbW/kj3hCV6jbtWA1dqC7N4iMcWg1UbrWdBdNjk+DaIbpA3Fzu1LKcUMeujz/u8+9uv82e
-	0Q66rVFt1EkWZqN58DHdWUzjhBDPMFUQltbLnS82Jy21RAyFcPHd0XcW668JVYenf9mU7gPtfS8
-	rxNRFcDsl7FffFn1QCeqMTNxVKhA7aVvLsQSSJ6f7uR/4VT0u2KpohYgYbtZNdpBzVQz+k/NotN
-	C0qPt1yUFvmSKwZI2/jClOrlKeFGaUIVbCyXAPgcF2Ukoqq7L4OIt1h0xdvHL2YGDtZZIeoCUEx
-	XffqZUdjbI/wTKJQJAOjH8i68+96zYUHnQpjifXuPfw7A4jagf/q1MSVU5lp1tEsF5psAszSpYh
-	1hdVNC59RpWVjoWTQyvjnI9iyBUEH+dJag0KzE5UxW4hgOhM/Rde7sK57wfJ/G4+slTNAfzsil2
-	oGumNPM1en7H7xFjnhKc9DZmiSERzWjV+YndgcOUFfPOpPgSYJABlgxBKoXBg5dQCCchJHtZWZg
-	tpdY5iPZGqb9LwypqSi7SIm/3ejOU+rrqanPMSPc6wbSUV73HkMmZDdUsiHwBWCCIg==
-X-Received: by 2002:a05:7022:288:b0:1a6:7a2:cfc3 with SMTP id a92af1059eb24-1b25d30ada5mr2387351c88.13.1793956490207;
-        Fri, 06 Nov 2026 01:14:50 -0800 (PST)
-Received: from anon-laptop ([103.187.196.159])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e485ce2sm4200968c88.7.2026.11.06.01.14.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 01:14:49 -0800 (PST)
-From: Wahid Khan <wahidzk0091@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FDC7606EEB2;
+	Fri,  6 Nov 2026 09:20:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FDC7606EEB2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAAXJpfGm+1qoTlrAA--.5294S2;
+	Fri, 06 Nov 2026 17:20:06 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: mcanal@igalia.com,
+	airlied@gmail.com
+Cc: dave.stevenson@raspberrypi.com,
+	dri-devel@lists.freedesktop.org,
+	kernel-list@raspberrypi.com,
 	linux-kernel@vger.kernel.org,
-	Wahid Khan <wahidzk0091@gmail.com>,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
 	stable@vger.kernel.org
-Subject: [PATCH 3/3] ntfs: open a named $DATA stream by name when making room in a record
-Date: Fri,  6 Nov 2026 14:44:20 +0530
-Message-ID: <20261106091420.2461683-4-wahidzk0091@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106091420.2461683-1-wahidzk0091@gmail.com>
-References: <20261106091420.2461683-1-wahidzk0091@gmail.com>
+Subject: [PATCH] drm/vc4: Fix firmware reference leak in vc4_hvs_bind()
+Date: Fri,  6 Nov 2026 09:20:16 +0000
+Message-Id: <20261106092016.2282805-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <5f80ac77-c1f4-42cc-bdcd-e4222f72d853@igalia.com>
+References: <5f80ac77-c1f4-42cc-bdcd-e4222f72d853@igalia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,59 +61,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAAXJpfGm+1qoTlrAA--.5294S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr1kGFWkZry3WrW8Ww4kZwb_yoW5JryUpF
+	43GFWYyrWDGrWfK3y0yr4kZFySyan3JrWfCry8u3Z5Cr1rArykJry0y39YgryUAFW8J3W3
+	GFnxtr1xJF1DArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9mb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AK
+	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr
+	0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07UZSdgUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAADA2rtlCIdSAAAso
 
-When an attribute has to grow and the mft record is full,
-ntfs_resident_attr_resize() walks the other resident attributes and
-converts them to non-resident ones. For $DATA it always opens the
-unnamed data inode of the base inode, even if the attribute found is a
-named stream:
+The firmware reference taken via rpi_firmware_get() is leaked when
+either of the devm_clk_get() calls for the core or display clocks
+fails, as both error paths return without releasing it.
 
-  tvi = ntfs_iget(sb, base_ni->mft_no);
-  ntfs_attr_make_non_resident(NTFS_I(tvi), value_len);
+Fix it by moving the firmware lookup below the clock lookups, so that
+the reference is taken right before the firmware property is read and
+released immediately afterwards.  The rpi_firmware_find_node() call
+moves with it: the device node reference it returns would otherwise be
+leaked by those same error paths.
 
-value_len is the length of the stream, so it does not match the
-attribute that ntfs_attr_make_non_resident() looks up for the unnamed
-inode, and the WARN_ON() on entry fires:
+The candidate was found by our static analysis tooling, and this change
+was prepared with assistance from DeepSeek-V4.1-Flash and GPT-6.1-Sol.
 
-  WARNING: fs/ntfs/attrib.c:2115 at ntfs_attr_make_non_resident
-   ntfs_resident_attr_resize
-   ntfs_attr_expand_locked
-   ntfs_expand_for_write
-   ntfs_file_write_iter
-   vfs_write
-
-With debug output the values were attr_size 13 (unnamed $DATA) and
-data_size 550 (named stream) for the same mft record.
-
-It does not need a damaged volume. A file with an alternate data stream
-whose record has no room left is enough. The fuzzer found it through a
-single changed byte in a file name of an image from mkntfs, which made
-a write grow a resident attribute in such a record.
-
-Use the unnamed inode only for the unnamed $DATA attribute and open any
-other attribute, including a named $DATA, by type and name.
-
-Fixes: 495e90fa3348 ("ntfs: update attrib operations")
-Cc: stable@vger.kernel.org # v7.1+
-Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
+Fixes: 2a001ca00ad5 ("drm/vc4: hdmi: Rework hdmi_enable_4kp60 detection code")
+Cc: stable@vger.kernel.org
+Suggested-by: Maíra Canal <mcanal@igalia.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- fs/ntfs/attrib.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v2:
+- Sorry for the very late reply, and thanks for the review.
+- Move the firmware and device node lookups below the clock lookups
+  instead of adding rpi_firmware_put() to the two error paths, as
+  suggested by Maíra.
+- Link to v1: https://lore.kernel.org/all/20260916154137.2058618-1-vulab@iscas.ac.cn/
+---
+ drivers/gpu/drm/vc4/vc4_hvs.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index fce7144d7..0ff671e9d 100644
---- a/fs/ntfs/attrib.c
-+++ b/fs/ntfs/attrib.c
-@@ -4930,7 +4930,7 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
- 		if (a->type == AT_DATA && !value_len)
- 			continue;
+diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
+index b1fb096858cc..537aaa992129 100644
+--- a/drivers/gpu/drm/vc4/vc4_hvs.c
++++ b/drivers/gpu/drm/vc4/vc4_hvs.c
+@@ -1677,15 +1677,6 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+ 		struct device_node *node;
+ 		unsigned int max_rate;
  
--		if (a->type == AT_DATA)
-+		if (a->type == AT_DATA && !a->name_length)
- 			tvi = ntfs_iget(sb, base_ni->mft_no);
- 		else
- 			tvi = ntfs_attr_iget(VFS_I(base_ni), a->type,
+-		node = rpi_firmware_find_node();
+-		if (!node)
+-			return -EINVAL;
+-
+-		firmware = rpi_firmware_get(node);
+-		of_node_put(node);
+-		if (!firmware)
+-			return -EPROBE_DEFER;
+-
+ 		hvs->core_clk = devm_clk_get(&pdev->dev,
+ 					     (vc4->gen >= VC4_GEN_6_C) ? "core" : NULL);
+ 		if (IS_ERR(hvs->core_clk)) {
+@@ -1700,6 +1691,15 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+ 			return PTR_ERR(hvs->disp_clk);
+ 		}
+ 
++		node = rpi_firmware_find_node();
++		if (!node)
++			return -EINVAL;
++
++		firmware = rpi_firmware_get(node);
++		of_node_put(node);
++		if (!firmware)
++			return -EPROBE_DEFER;
++
+ 		max_rate = rpi_firmware_clk_get_max_rate(firmware,
+ 							 RPI_FIRMWARE_CORE_CLK_ID);
+ 		rpi_firmware_put(firmware);
 -- 
-2.53.0
+2.34.1
 
