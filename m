@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793956846;
-	b=gPTCKb1AbA2x4BHzqwjOZ0WfUfkNY/yKF29w+LKrCXtrvPZf6njVO9rf37LMWtTfBWDu
-	 zHyTQeeeg77ZmWcge8m/HNYuRpv7eg0iFghgWA1XWb8nmy1L4w0bkpHVfd4BkhEo+otW0
-	 wuXoCiQ+1SwrWr3I46F8IaZBZ1sgIgzopbeyRhauN8swsr8Hz82tOjKdCzMzoaIqx51pD
-	 kfbGUEMMQCs8ID5lK8uojb9B60w30YjVjlbPKOFdzRH98ikWBz66LnVMPAEy6nJzj0xPN
-	 XRpFPt9xvEvj0u+NZhHjBQ0LqyPJxQ9HofamBrVgqDJuqa69PdPN1KjRTq+VMDnDhxA==
+	t=1793956931;
+	b=rYsQiTEmYJsGSiAwbUmWGlvEOns0SlTEqTnXDdXOM/W7wBtcQCcEYWozt9Fi2Km7yssu
+	 gxkkB5qJDHHcDJWs/LjzSs7APW64AC5VZMIY2qjTp2CDODyrmEPOMSfs1HTbfr5xflA1o
+	 34bZ3XcERTMWzwImSpMPoG+nrHgJNoJcwfjGa6uOPZOLs1QHDWCS9GT0o+mwq2nrkmxQl
+	 fyfjzEDtbzcWyx+c10vfMtYAw68Efzzjsza9rxqpsnZo9duunWEdWaGh8BU/FHRAe5NWm
+	 CHpWry2/YJ7olPE5JJ/Inqt4CXlxZXd/JE+g0y9OOLvcZL43sSSenPKDVi63PDq5Qpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793956846;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zVZn/PHtKTXfIDqjN5+GVy65SE+it2qO3RfBBuitjt8=;
-	b=EtsXBBVGP+djA4ekbclWnQuQ/qAlrf8RwocxlAkHt+TFFyHVJLEdDZhpcjUxH1ijNkB0
-	 HdJ+ElPJh4qaX2QgKo/VhqfwIKt5N0VFj1qToaicB1i4cQGZp1Ef/UL5lfYwsToI94uMG
-	 vhTdYcQK/ufraICkcq71KK6AgRPegBQK2qRkDMVupfkreyXxQWeQ/Myqt+j3MZ1NHMUZ6
-	 T7mNecgcZAmZZKv6YcyTUaXKYKNzV5ClQboWkvy5dVeEnNnRdRDq+kD7fNqpJ3hYwWkrc
-	 4D/PzAHvuxWhEvulsHbCsPNjrzNgTlzdswh8BCibDxMHDuEwAyzCHX8cL/K4SvoXIbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793956931;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BK67UWeyDCYkVIdsN2UiQcCy7uNbGk0i6Dpj6j7cO5M=;
+	b=hNDizjjB9qFPDNnl4vfu3cQU6iN+6StoHSldxfANKEW/pAxa8fyZmJxuxAXPNY4nj+fY
+	 iybLKao0LP1jEvN1LeIr3U/KyTxsd+WwGjTKPEtTu1vr8LZsTaO0rfsw8MuGmm2FAAm6T
+	 CYO7RnsNkIzJpXzy5AtJwE6UtraGiK82ol2oA2z+u4fz6SKMNV6Px88s+f6XrJ5Miqvev
+	 4f6fpS2hUGxmJ8FkzgE9nxcMNiqBwKKwkigQhZYCjBGrDJVlbRcyx9Usa+oP+ORFfJYgq
+	 NnYphnsRpVTAtLo4J7Ll/eywPic6HbZX95CG2rf51CWwoQO4m6U4LD/4xwA10oxVTPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=IKN2FFnQ;
-	arc=none smtp.remote-ip=115.124.28.74
-Received: from out28-74.mail.aliyun.com (out28-74.mail.aliyun.com [115.124.28.74])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TbevARwK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CBE4606A328;
-	Fri,  6 Nov 2026 09:20:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CBE4606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C4DDE606D815;
+	Fri,  6 Nov 2026 09:22:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=IKN2FFnQ
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1793956834; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=zVZn/PHtKTXfIDqjN5+GVy65SE+it2qO3RfBBuitjt8=;
-	b=IKN2FFnQyHTTepagSBuuK3wH/x2GAwUPeXHFO75TYtkqyTRQCtLpcYpxPRvG5cDbJMOQfZOXX6H7nbC3B27oApZg0sJxiHxOVESfTHFeeM5oyexmDCoXsnat7y1zFY01pS0xeeEMtO/pzdfcMymlAZZuYIfiR1XcQkrdvGMwUVY=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08651333|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_enroll_verification|0.01135-0.00149655-0.987153;FP=5149363861963095640|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023087102;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jyFCtSG_1793956833;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jyFCtSG_1793956833 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 17:20:34 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: Peter Huewe <peterhuewe@gmx.de>,
-	Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Matthew Garrett <matthewgarrett@google.com>,
-	linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TbevARwK
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E78581F008AB;
+	Fri,  6 Nov 2026 09:22:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793956930;
+	bh=BK67UWeyDCYkVIdsN2UiQcCy7uNbGk0i6Dpj6j7cO5M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TbevARwKj03Idms0HL0Vf4StM+AvKFmGABtHRc9fLJYptaU5MXjyG4PFu0c5Wvahu
+	 7QkGaO8YEoVPmTRIHQXW/AURaMl9dJCJMUi77sPXxdL4tuzmWdODFTO/IJwIKxXch2
+	 BeIkhAsvRK7n071pWasKGZeYR/WiCntFX1dN+Y6AezvZ53/psQ4fZ4IGE0yjqjDOQ3
+	 gOSD0dA2gp8CRBnXnn1turpZCNPTlBNGF5GtPwu14/TnFgNx22wURFVQrTPTRtdDQ/
+	 J3S2kTOYLMEXRUOfpUdZg+1Enj97eg7m6lUELbS2YN746KlMFLpIDGqRzWGqStpjfX
+	 EJUj/cEgDnQaw==
+Date: Fri, 6 Nov 2026 10:22:07 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
-Subject: [PATCH v2] tpm: efi: reject a final events table with an oversized preboot log
-Date: Fri,  6 Nov 2026 17:20:33 +0800
-Message-ID: <20261106092033.4041125-1-guozh23@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <73a5f412-0962-400d-9e80-5b9eef92bb8e@app.fastmail.com>
-References: <73a5f412-0962-400d-9e80-5b9eef92bb8e@app.fastmail.com>
+Subject: Re: [PATCH] gpiolib: synchronize updates of descriptor labels
+Message-ID: <zgvjoccnnhhjmlejoazmz7mpfmndbhi2filwbtudq5i6s46boy@szoywmokacny>
+References: <20261105-gpiolib-set-desc-label-corruption-v1-1-fa84726ceac0@oss.qualcomm.com>
+ <auyYVmSaLBS--52n@ashevche-desk.local>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,58 +58,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auyYVmSaLBS--52n@ashevche-desk.local>
 
-The preboot portion recorded in the main event log is subtracted from
-the size of the final events table taken from the firmware:
+On Thu, Nov 05, 2026 at 04:53:10PM +0200, Andy Shevchenko wrote:
+> On Thu, Nov 05, 2026 at 02:23:45PM +0100, Bartosz Golaszewski wrote:
+> > desc_set_label() swaps desc->label with rcu_replace_pointer() but
+> > without any synchronization of concurrent updates. The swap is a plain
+> > read + write: two threads can observe the same old label and then call
+> 
+> s/call//
 
-/*
- * The 'final events log' size excludes the 'final events preboot log'
- * at its beginning.
- */
-final_events_log_size -= log_tbl->final_events_preboot_size;
+Why? It's "call $function_name" which happens to be call_srcu().
 
-Both sizes come from EFI configuration tables and are not validated
-against each other. A final events table claiming a preboot portion
-larger than the table itself makes final_events_log_size go negative:
-the subsequent devm_krealloc() can then end up with a wrapped, too
-small allocation, and the memcpy() that appends the final events log
-uses the negative value as its length, running far past the buffer.
+> 
+> > call_scru() on the same SRCU head corrupting the state of the chain.
+> > 
+> > Add a spinlock to struct gpio_device - we're using a single spinlock for
+> > all descriptors as using a per-descriptor lock would unnecessarily bloat
+> > the size of the desc array with very little chance and no consequences of
+> > contention - and use it to serialize the pointer update.
+> 
+> ...
+> 
+> > -	old = rcu_replace_pointer(desc->label, new, 1);
+> > -	if (old)
+> > -		call_srcu(&desc->gdev->desc_srcu, &old->rh, desc_free_label);
+> > +	scoped_guard(spinlock, &desc->gdev->desc_lock) {
+> > +		old = rcu_replace_pointer(desc->label, new,
+> > +					  lockdep_is_held(&desc->gdev->desc_lock));
+> 
+> Can lockdep_is_held() return anything except LOCK_STATE_HELD here? Or is it
+> checked outside of this scoped_guard()?
+> 
 
-The boot path has no way to fix up such a table, so fail the final
-events log instead of appending from it. Warn before dropping it, so
-a malformed firmware table leaves a trace instead of a silently
-missing final events log.
+No, but I'm doing it for completness and to self-document the intention.
 
-Fixes: 166a2809d65b ("tpm: Don't duplicate events from the final event log in the TCG2 log")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
----
+Bart
 
-v2: Add a pr_warn() before dropping the final events log, as suggested
-by Ard Biesheuvel, so a malformed firmware table leaves a trace.
-
- drivers/char/tpm/eventlog/efi.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/char/tpm/eventlog/efi.c b/drivers/char/tpm/eventlog/efi.c
-index 4e9d7c2bf32e..76860f9a25de 100644
---- a/drivers/char/tpm/eventlog/efi.c
-+++ b/drivers/char/tpm/eventlog/efi.c
-@@ -82,6 +82,13 @@ int tpm_read_log_efi(struct tpm_chip *chip)
- 		goto out;
- 	}
- 
-+	if (log_tbl->final_events_preboot_size > final_events_log_size) {
-+		pr_warn("UEFI TPM final events table has an oversized preboot log: %u > %d\n",
-+			log_tbl->final_events_preboot_size,
-+			final_events_log_size);
-+		goto out;
-+	}
-+
- 	/*
- 	 * The 'final events log' size excludes the 'final events preboot log'
- 	 * at its beginning.
--- 
-2.50.1
-
+> > +		if (old)
+> > +			call_srcu(&desc->gdev->desc_srcu, &old->rh, desc_free_label);
+> > +	}
+> 
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
