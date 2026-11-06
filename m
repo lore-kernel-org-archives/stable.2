@@ -1,97 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793969174;
-	b=GdSphltNteF07A+PVO3jTYAKwi6hRpKTI8Sj7wtK5aDQhZAFICD9+5dxy7nTkiyMbyIF
-	 /IHYhOmWMsjINbyPLoBUncEq/R5p0Z/mHAz4IJTkoIzy83Xu1hZ4FgR+sc2CYlnR9QXo8
-	 RCX4ErytPqTtH9GQso0hD7Vd/mZ25oafjNoXTd4DGqD7b7XEh3Qingnj6vjVlo0zKC2RH
-	 O+kIcKMxkInArQzDYy8yPqsEgfsJva44XrcRxe+ADmbrjzD2hPwNicQVFOK4C5yDNTa0o
-	 2s4Di/rnWlElm2ObZqq9BIMLvENtjx1lN/4bt/Ir/ihsje4C5ElNLwWTSO3/6TMgLrw==
+	t=1793969255;
+	b=z7TXf9CeTnq0tsZx3N7EtATwr/LEqE2XmvZsGgrkooTNf4T7pt4IEyl4YKzUSNTR8a48
+	 1qlU6Ty7i5wuAjUjif/5CZ6AZV6CkSh/7OjSiYnLPR3Fi05Mya15w/AibU1UvWMbjkBwy
+	 usA7ANJDynYRZ9KfM4yIIoiAft4W9jjFOdMx1pF1veGplITxQKtB3eDdS0fKk2DA3HgjQ
+	 0QiQ9xYYjVBIQ33n4QotUSxVFqmUBDOQdCGpjJg3Z4k7C1TNYkQfk1szsG6SfRS+T7ZcM
+	 jmBRuz/3r84ch5J+SAQIZ/kmuhBxZkYz93jjZToIusuCe9kcZDKeT6pRcd0j1YOpCrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793969174;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793969255;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=to5ZYe36a7Xl7ja/Fvmb8moZkHvXAEhFxAyr4iAV0io=;
-	b=SY8HNhKSLHU1wz1l4TE1pAQTMqhB7vbNQqOzQrSRcz2krGY1PgqjWb2OtiDKN31fCdit
-	 1y2bTiNwOlYDGjgcLKeyXhWDDLEeRm4gH5N2RgG9qwLM+a97/jVcTu3gSIERyZeQnyxEc
-	 ZQxDAepOZ+eg4AAX1kQfkxFiZBXFwSH+7c7LJuRweK5lliokInFNM+IZQPiwsqRTEN/TK
-	 IAznB59W6OBqixcc2uRLr0Bu8BfYq5aRj6CcIHUgE+eo1BbQOQ6oLEQeuK+EXHcXPmqWB
-	 FgKs4LHSuI0EEyx+ISNzGRDXJzbtc0DCNU6PDDIAZcu94hTMipm6+Ded0zgQTdELmfQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Jbz4ViRXJQJmGQTHmz/n4fB3e11Y7YXX3ix7TPBKr/Q=;
+	b=2d6OE5O/bB1W3WMAH8k8hynHtqOAdbwtpGCJ5bOUYwHkOwEsMYYfMUuzOfuCLUxSMkHL
+	 uYp5+IIa5yJcfjBYRpCYvHXEm3sXH5Gn0Nvu+BXBPk8bQa6VgNEYYjtRN/dhTQENuurJo
+	 nL1o798WOFT98D/wXk5QJaxJ7KTayckj3/nkZH8EWQcGoIHwyhDHNNOa4HKuYUh6Rgkbh
+	 FNPXOd5RQlyBmTufHtmRPjgGwydRYyPNBJ0kOb+u7h4i2prYrp6EIWDv98hlFklpAYH2o
+	 lEJ2GzKZVbcXCy0Ml9MkyY6HVCoiNZRwWKohunOluNoQxjEqgD6xBIHPrwIMaLTj+/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OtI1fWwO;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GYE8JxpC;
+	arc=none smtp.remote-ip=74.125.229.4
+Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42E8A606D826
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:46:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42E8A606D826
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35714606A33C
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:47:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35714606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OtI1fWwO
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3700ed8dbe3so480949eec.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 04:46:13 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GYE8JxpC
+Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-370231dbf90so193528eec.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 04:47:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793969173; x=1794573973; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=to5ZYe36a7Xl7ja/Fvmb8moZkHvXAEhFxAyr4iAV0io=;
-        b=OtI1fWwOBO1UK/xBVF361zKX5pNVC4vlOBT8ozO8B7jwOHG6ejWk0PFQSiaUO6goh1
-         lqLolKuP/ZuEkvIasGgWRMlSwGUPYOU2TU7EAJBPDqdrcmOlq6Gv/y/kjwPBFsoMk+8g
-         HLztc8XnbL13xQXeFLXuyOuZZ5+5QTP0FgLCdYiULs/twiNDdBYStOmozF7hKRfh+PhI
-         pChKKxj9DXmURGSQHP92wwb7befLbFwo6kZn7sfpYZ7RGTmsMd9807/pXqyYsbZskAzG
-         GpLDAKkvHnHuHMAStFBet+Rz5WhPr2n+9S1T1PRdarZ/DSu3iqlO8geZpC5DtSEVHydB
-         xitg==
+        d=gmail.com; s=20260707; t=1793969254; x=1794574054; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jbz4ViRXJQJmGQTHmz/n4fB3e11Y7YXX3ix7TPBKr/Q=;
+        b=GYE8JxpC/XsGkeI4sBpOQ6DJvE77JIlVnRsWlvafhf3pFfJET9MlXd8nPF2d5DgUP+
+         30WS2GXdlDp5aokJ22hMIPfJsRLfyGU0uIcm0w+YRP3oBnt0PJjqL0VfCVv6cMUmRwdc
+         1cnijDYPjmej/v5Qh8w8xNAlXKNpPqzt0UALSXJ2Wij/wThr1iZrHgNX2RsIv6YvstCf
+         65nNWEzTdciPyY6MSNg6KVCUPq/yYaxwVJrQ3Twvabjqwr7fcYH0ABw6WLAInNcndsbv
+         lGmqZIkfUzo/vmfc90H6TitpSeBrfZGWZ0O+q+qM7jL8CdR5Sf6dX3kw+KbaUpskv2MQ
+         wnDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793969173; x=1794573973;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=to5ZYe36a7Xl7ja/Fvmb8moZkHvXAEhFxAyr4iAV0io=;
-        b=D+B2gLUeq9aRBFjwNULgNSu37lQD3bi1cUhjWarLoxYSta5DUVeH06qSfKJkv2KNf7
-         exHdHRJdnKQUGTIUoYERcMLMD/0JST1I0LwO2TDAiRgaWZmnWj4Mg7n8eiS03OBRrOYA
-         b154/mSjQH5Wh8gJfOQw5tHVAoUfy16pYaoQy9b3WAedh2h45vgmCXPHVgxqJ8AybJ5O
-         1jCI4UK48hIWzkXkNZAHz2PzrlXqIfFFO5uUKigqTI6q4MiGfgIDo4L4+5h7Yf/hwjxt
-         A8gXp+yN3VBWuZUAKnRC+tO0qqBkYtIbGd7mTMJCoE/NsL2soJ99ymADIbf6hcLd0SPI
-         2MSA==
-X-Forwarded-Encrypted: i=1; AL+hErGnjTTlFlKA2ZV0++E+GKAkOG5v8pET+TGC4Zu5c1VM40RUXix+yi6Z5vGbDWhwu2DazfX2Bh4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+h0o8UnxJWs09pjpoUXfODHwpqE0EXL2W2cuBeHksXArhrkfFQ
-	cm76iop0hXNmsLpdFdMVbFo2fPtQ4BbmaMEIAjYNKo4FKevdfiJmD9uN
-X-Gm-Gg: AYBFou098qZjyat5E7X/dyjCG8QhPdoGc/Hu74P7ae2sqQ93X3K0oVG60/SvXUnKG68
-	VuYTbZJNKyF7/6A6Hbz19pxZuzlpsUevAlEAmnEiHmvKKqOAHIMmbkgbUdHAqqxDRex60C2e/Aq
-	emAQ6hgBlGuJXxvBDnXLGnz+zqPrfkr7oEU5kPs8eIZJzRvhZJYDFk1qaE05zZaQeGS+ZArOmpE
-	EyhMATBEdO3+pmnfp5BtFclzk4mNv5We0I18yyUmXLr+bZZoWWgOqNwtTyYLa/ho1Dy6iODALZ9
-	5BRVDtl13SC2QZzFzgxAR8O155xL6sKu4fB0mJfUfsajJ3YpO1NAp0dxGI+CqynP1jVKZk4HoWS
-	phMFvQkkKGWRo1TIQjhsSuqmKqVlBJRTtaFLlVCFBsZV/Y3B4/HvL+keHY1TWhkmG/D00UXs8hg
-	zr9mhAYy/dd+4XOsCq4UM0PKS4ZqXjnuO8eAa65Z2Y15XAfFCODGmcSDIWmT/v+ZsEOeQMtS27o
-	Jo8chSM8PoU0pzjzO8LVZDMRFA+/nIkUSXP5U34f0EE1ZhjVuzuF+85TgBKLl6IFiIFEnCv1jzD
-	OTz4EZtPGO6aDCtpVOx/U6Oe+PIioL13UkbAMck4+2+56EGeNbWRH6t3BEpRSGxlyQ==
-X-Received: by 2002:a05:7301:424a:b0:36c:9afe:fcd8 with SMTP id 5a478bee46e88-36f772f9061mr3192845eec.30.1793969172763;
-        Fri, 06 Nov 2026 04:46:12 -0800 (PST)
-Received: from anon-laptop ([103.187.196.159])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa651eccdsm6802331eec.1.2026.11.06.04.46.09
+        d=1e100.net; s=20260707; t=1793969254; x=1794574054;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jbz4ViRXJQJmGQTHmz/n4fB3e11Y7YXX3ix7TPBKr/Q=;
+        b=CCSJ/lZ1i4esaXTpYzJKNocQ2m443eHQZskaWNFnEnP2PkzEJUETU4t1hKvOISscuO
+         KOYi+rpMky1R6+8ZZ2paNNx0g+2/tyH7n69/IUcKMQ9fLLV1HLy2rnU9wXvX57KPSfAY
+         Fd3O759Leod5jDLrcCIkvW9MWSu/ugpBXCbCDmRc3ZvQvRVjxEoHKeoD+QCBbwDAcOyV
+         8n3sg94zJBT3jp+W2y2DDMb9xvJZHY2zpT4hB3g5fpqX+S0XlYa9RiP1E7mxBzFrq1lh
+         BLU1c6KBhDodkWgIlYaq1DMsM+WE/dQVFS1gRPrzhWv1lCmx3J+9HxMZYX5LN3ahm4lC
+         5MOQ==
+X-Forwarded-Encrypted: i=1; AL+hErGbAfInoVNEKQMdsBrN9rQRMOLpdR2PCU9qGS1U1q7lFst7FP8u42lSj1a/ku3qFLpsOBWoWKQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9IV6Z6ZgPOKS8Od+tqA5J2gghtdh/JS83wO3InAKnVkXK2q/N6
+	U0w27gjuUXI5X2ZsUHKJB5Zx/KD+3xitKILDowuu9uZhQNWwswpSNYtz
+X-Gm-Gg: AYBFou0/qu61sp+8fvZcYwOcWocYFF8UBnh3cV/fWQn8X/OG+2fX3m3FEuanegaxNLD
+	u7/4zipcSbqCID/F4GHmEVP3pM6S0H3PYs80ihSansR7ZI9SJ+v1vIPaIB/QqjqWDBXMK+ov3TO
+	laIQo9fEmWuDhm+U4PmGFz8fL3AzGb77TyLEs1HHUDydm8xHIPDjFqg+1cRI5MEXIknF1kKbetn
+	rwxyDjYzTxAjXaA7QyixpZCImC5w4EoPR9wgLoek+DewHOKrHZVQoNB1eWElU1JWTr9OXpFt1ZC
+	/ycNNyVe6SFb6yGTp3+LQzaj0gtDM1VLECUr7HahJfdL4fDYPYZ59jiSg/imv4dSM1TrDYHpEcm
+	JvwxKuIGvWhu5ZUruOA4VsLVRobMd4EsC/NZ0X9OdwBW+5eIWxopT+ES73pxA2ZglY8l3/ZESRK
+	ZAPj6b0w+PtJmlmGmSI3SqrG2yKKPZXsR4sfRxBwxrdhvfdhPg+HxUr/B4tDFk+hqqzT+VcOy+H
+	MLbp6hGPw892qkH5fiuII1tW2SfneqGw6PmwWiC2B2kUvPrTITdGhf8Stxa8mu+oOZci2nMPd5o
+	OnKT0RXjLgbuoS2nUOMOC3rF4tE/Kcr3zebUWeEO0tBNL7XLbNSBxABzeP91j25XjDcw/9qjguW
+	+a0ZmY9d0z8l6LMRi3gWrlhYsEmnprbb6sFrJZA==
+X-Received: by 2002:a05:7300:ea18:b0:36a:12c4:8bdd with SMTP id 5a478bee46e88-36f7554337amr3612023eec.21.1793969254337;
+        Fri, 06 Nov 2026 04:47:34 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa30138fesm6844272eec.0.2026.11.06.04.47.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 04:46:12 -0800 (PST)
-From: Wahid Khan <wahidzk0091@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
+        Fri, 06 Nov 2026 04:47:33 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: davem@davemloft.net
+Cc: edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	n05ec@lzu.edu.cn,
+	ylong030@ucr.edu,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Wahid Khan <wahidzk0091@gmail.com>,
+	sashiko-bot@kernel.org,
+	dennylin0707@gmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH v2 3/3] ntfs: do not convert a named $DATA stream when making room in a record
-Date: Fri,  6 Nov 2026 18:15:53 +0530
-Message-ID: <20261106124553.2617026-4-wahidzk0091@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106124553.2617026-1-wahidzk0091@gmail.com>
-References: <20261106124553.2617026-1-wahidzk0091@gmail.com>
+Subject: [PATCH net] vlan: prevent cross-netns MII register writes
+Date: Fri,  6 Nov 2026 12:46:39 +0000
+Message-ID: <20261106124639.12584-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,64 +106,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When an attribute has to grow and the mft record is full,
-ntfs_resident_attr_resize() walks the other resident attributes and
-converts them to non-resident ones. For $DATA it always opens the
-unnamed data inode of the base inode, even if the attribute found is a
-named stream:
+vlan_dev_ioctl() forwards SIOCSMIIREG to the underlying real
+device without checking whether the VLAN device and real device
+belong to the same network namespace.
 
-  tvi = ntfs_iget(sb, base_ni->mft_no);
-  ntfs_attr_make_non_resident(NTFS_I(tvi), value_len);
+A VLAN device can be moved into another network namespace while
+its real device remains in the host namespace. This allows a
+process with the required privileges in the VLAN device's
+namespace to modify PHY registers on the host's real device.
 
-value_len is the length of the stream, so it does not match the
-attribute that ntfs_attr_make_non_resident() looks up for the unnamed
-inode, and the WARN_ON() on entry fires:
+Reject SIOCSMIIREG when the two devices belong to different
+network namespaces. Preserve MII reads across namespaces and
+allow MII writes when both devices belong to the same namespace.
 
-  WARNING: fs/ntfs/attrib.c:2115 at ntfs_attr_make_non_resident
-   ntfs_resident_attr_resize
-   ntfs_attr_expand_locked
-   ntfs_expand_for_write
-   ntfs_file_write_iter
-   vfs_write
-
-With debug output the values were attr_size 13 (unnamed $DATA) and
-data_size 550 (named stream) for the same mft record.
-
-It does not need a damaged volume. A file with an alternate data stream
-whose record has no room left is enough. The fuzzer found it through a
-single changed byte in a file name of an image from mkntfs, which made
-a write grow a resident attribute in such a record.
-
-Opening the stream by name instead would convert it with only the mft
-record lock held. Its folio would be locked under that lock, while the
-read path takes the folio lock first and the mft record lock inside
-ntfs_read_iomap_begin_resident(). Streams are not converted from this
-loop, which only tries to make room, so skip them.
-
-Fixes: 495e90fa3348 ("ntfs: update attrib operations")
-Cc: stable@vger.kernel.org # v7.1+
-Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
- fs/ntfs/attrib.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ net/8021q/vlan_dev.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index ce7c1b524..800e53df5 100644
---- a/fs/ntfs/attrib.c
-+++ b/fs/ntfs/attrib.c
-@@ -4932,6 +4932,12 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
- 			continue;
- 		if (a->type == AT_DATA && !value_len)
- 			continue;
-+		/*
-+		 * Named streams have inodes of their own and are not converted
-+		 * from here.
-+		 */
-+		if (a->type == AT_DATA && a->name_length)
-+			continue;
+diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
+index bca0a3693636..0d0904103302 100644
+--- a/net/8021q/vlan_dev.c
++++ b/net/8021q/vlan_dev.c
+@@ -416,9 +416,12 @@ static int vlan_dev_ioctl(struct net_device *dev, struct ifreq *ifr, int cmd)
+ 	ifrr.ifr_ifru = ifr->ifr_ifru;
  
- 		if (a->type == AT_DATA)
- 			tvi = ntfs_iget(sb, base_ni->mft_no);
+ 	switch (cmd) {
++	case SIOCSMIIREG:
++		if (!net_eq(dev_net(dev), dev_net(real_dev)))
++			break;
++		fallthrough;
+ 	case SIOCGMIIPHY:
+ 	case SIOCGMIIREG:
+-	case SIOCSMIIREG:
+ 		err = dev_eth_ioctl(real_dev, &ifrr, cmd);
+ 		break;
+ 	}
 -- 
-2.53.0
+2.43.0
 
