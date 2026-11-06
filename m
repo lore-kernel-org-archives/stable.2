@@ -1,61 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793982971;
-	b=xF4RQDAKvqAGLHz5N+eQjoDffBwKDBcTraLqw1rqKwvt7aQ/cM0uDuchplbhZnMfYgRh
-	 3JIbD/cTXPNaGMj2okoJ3jrLm+A2FWyciqKZUjWTrx7cjGsod5AEg370fqJ28sMUHAo1Y
-	 dW1Do0yInIXWDgpyvfVf/G4T4mmf7H6pv4aDKhvth42HOFN+nMOTAheyMMepJ10BE8HyI
-	 SYUu/wuae2WXAAJH65B72NWGZj3JVMzSqt5ggZEdgQsJj8GF4z6d58oS9wmR5pfwHWTxn
-	 YsIw3+FUjNcPRh9vUHIvPkFLqCnJe/N8HqY1mv3xz7pnXI0TRV9GwBbB37nO3R1oCZg==
+	t=1793982974;
+	b=wkcCpRAjqLW1tr2r6+TWYkbBIY1O7tzP7lc16EOnfvOoqIwWna74pRpgazqhy4sZ1APl
+	 ThEowV/Gutkbk91VrV6N0FvYH2eQCZZYWTV12mosKYA9ugf3ef+iY3dO1G3OKR/mJ39K7
+	 KyxvYgG6c9u9kch21GIZUEgBzenPRS64YSN/SUu0A9iuNb6TurJW6/NGeuA0PjpOHZ9rq
+	 OUuI7IHW05LieYo2NP0x6hBDs/Uvrpx4aykxAzHJqErHJ3voTEanqUiozWBv9ccyioorQ
+	 hsSoU0pGbnXfp0/CcfjrSyYLWacwBx/0adT5tcmbbYXPQ7NNMlBBmAr+TEQuZ7dAVqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793982971;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793982974;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7o2tTUCKHyOfDrgMjYDFTqN7oDMZSwbcGWhBdhfpeRQ=;
-	b=h36q6znLEFnYYrRcZ0UvWvWmDkgFyT8SQf2TL1Nf4kxqYQ6DgVkqjC2A5HbUlF2vPjK6
-	 hJv19ZJGBwDNFBsIKNwu6cUjveWpoIG0lT0PzIik/CZ7U/9UCxpVk64r0hAYRGDI9ttvz
-	 VBYC4+6UZggXWfzlBpxN0MNPmJ+D9c6+uiJMeAH7DfFIw+b4BQSIdhH+tC9q4nGGptWEz
-	 SY0qmJAFVM3Q2cwlHcuJcFSoG4t4jlL4GfCzr0eRQ8cariV9d01x0pyPrFL22aKYiAxNQ
-	 SSpqvRl2SL3vLth2c4Y2f6SrroBm5uO4k9mHNVEBR+LkdZdpAXQiFiZc5WEEd9qJoIw==
+	bh=f7QwotMZkYXsbgTCqlK9XdCUJPdjYh2tfsZr9k1KL7k=;
+	b=nfTfHLndcL723ALi5NcBCeF3sxZvV+VUTB1m7yiOs68G0QvQMsscvhKiY978EhIk0yvv
+	 iL4L/ZfIaanFesOLojS57+ZWn+pJcqsPrNnXJG/O2AVM6d8NoV9aIu1kesmCv2Fq0xFxY
+	 HEoJSQllF8xd5u4O2qpIBpHTMqJFCJkt1SL84oorPKJAPFnO7OAPUy3X36J4ayMo7LiEB
+	 WDYXNp+AZlbo9axNXXmskwOGQWLzPS3Um1BRjR5EhwWumArJDMyK9Cd/ZHqwdSl12Q25n
+	 5JV0X4e1ENMgYWHcw/TXzSSe5c0UOX1DYq0T0OF9khAeUqF6qnZxFLG6V2yTiKgefZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A/pqPcJy";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OflSYXy8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B17606A337;
-	Fri,  6 Nov 2026 16:36:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02AF0606D80A;
+	Fri,  6 Nov 2026 16:36:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A/pqPcJy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A69F01F008A2;
-	Fri,  6 Nov 2026 16:36:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OflSYXy8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A4131F008A4;
+	Fri,  6 Nov 2026 16:36:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793982970;
-	bh=7o2tTUCKHyOfDrgMjYDFTqN7oDMZSwbcGWhBdhfpeRQ=;
+	s=k20260515; t=1793982973;
+	bh=f7QwotMZkYXsbgTCqlK9XdCUJPdjYh2tfsZr9k1KL7k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A/pqPcJyWMWTM+lzVj4f29uyWASY4Wq6BUxM1xO9zW7rBVNbQAhEroX8xpXUlgv81
-	 bM6vffoHJQTi6itBP3qvdI7Kx9jTRBaHD2KqQEfoUlVmIJKf7Qi9kfkzx/4Gu9ggU+
-	 mLwP0NGdFkK25OJnq2N+JfGuMQNIxvw50gdeE6pIrtjmUKa2K8HmrxydmzZFmXTj6N
-	 OUEMtzOlJyokIR38/xOy3SVqyMPsX03qIkhIFmRrauh6ZJ8THbTqST72REuLBgcIfJ
-	 tJmIi7ToXdEnC8LJAS8u8dG6F94w2bizOMnI0fm3JHCXJrHgQvsRxPtlVrjnI6gpFI
-	 kKFDzdseh5nQQ==
+	b=OflSYXy8rHQqjplK+M2SKEYGh2EE29t3QlEFKrNOdli1TJD1b6ppHDDmRZAInBSSE
+	 Tq4gWnzWqzXJlmBqSSf67HszoAyCT++bJ8Rx53voxvcx6OzvkSr1zLPAfbSUI1PFPb
+	 AlIDUo+YQwUmRPyqMLPMcOvtIKEoYFT2PCW9GMaDfnFypPcwWpvgi0puq3RZhL/Zqs
+	 21AokdOadmrLch8la4AsJPz1UkgqqWlt3rMQhWvn4D5hFpZ/m2XKbLAEPWOgQgd7qd
+	 V5BlElriKxUdir3EC4pg5VDKav4fS90qLTdBjWRbnEhHDolbwvwsFKw8aka0gha9Lz
+	 IQObSQUFyxkfw==
 From: Sasha Levin <sashal@kernel.org>
-To: gregkh@linuxfoundation.org
+To: stable@vger.kernel.org,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Magnus Lindholm <linmag7@gmail.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	burak.emir@gmail.com,
-	ecourtney@nvidia.com,
-	ojeda@kernel.org,
-	patches@lists.linux.dev,
-	stable@vger.kernel.org,
-	ynorov@nvidia.com,
-	Alice Ryhl <aliceryhl@google.com>,
-	Yury Norov <yury.norov@gmail.com>
-Subject: Re: [PATCH 6.18 0699/1005] rust: bitmap: restrict bitmap length to at most i32::MAX
-Date: Fri,  6 Nov 2026 11:35:48 -0500
-Message-ID: <2026-11-06-1-daily-reply-0013-rust-bitmap-doc@kernel.org>
+	linux-alpha@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Matt Turner <mattst88@gmail.com>
+Subject: Re: [PATCH 7.1.y 7.2.y 7.3.y] alpha: honor force_successful_syscall_return() again
+Date: Fri,  6 Nov 2026 11:35:50 -0500
+Message-ID: <2026-11-06-1-daily-reply-0015-alpha-force-success@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106070701.89282-1-ojeda@kernel.org>
-References: <20261106070701.89282-1-ojeda@kernel.org>
+In-Reply-To: <20261105-alpha-force-success-fix-v1-1-8c26d60c5fff@gmail.com>
+References: <20261105-alpha-force-success-fix-v1-1-8c26d60c5fff@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,12 +64,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> But another option (cleaner but a bigger change) is to cherry-pick:
->
->   f5535d78e126 ("rust: bitmap: add MAX_LEN and MAX_INLINE_LEN constants")
+> This fix is for 7.1.y, 7.2.y and 7.3.y only.
 
-I took your one-liner for 6.18, since f5535d78e126 ("rust: bitmap: add MAX_LEN
-and MAX_INLINE_LEN constants") adds new API and is not a fix.
+Queued for 7.3, thanks.
 
 -- 
 Thanks,
