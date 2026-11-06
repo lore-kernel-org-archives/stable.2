@@ -1,105 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793961852;
-	b=BAJaRTveNpFYqRe34cu/bf3fjdhWBu3Ci4Mbjhyo6BLrHTqagOzvccLY1/ICpp6Ia2+Z
-	 ZP0OxERmw/TTFXpObZHYJjwZSJwvXeL30AcuUUNmapO0+cu0yc9qiQrXFm9kfqRCMHEP9
-	 6b+Z2tfSTzkRirM4BWlwUk5dMa+RJ6jsirvlurpCJtowKxmzyDxZ2hqliqpsr3iJZ7TwK
-	 n08z6qQWfW44znoPoA/lOLF4zZZSRG8nC3/B+UVvjU1akdhSYjhA8bAxMnRwH7MQgtxDq
-	 X8bZbq8/e+miquQsRzGw2i7ylJk7noieW2X4nv5yInQNaM46Lvt9N+l2AS888Q6I6Rg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793961852;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=oTiRhwOL8L0AMD8du/ogqEbeV38LU+5l1kVkLLOBgZw=;
-	b=eEJxv3R0hkqJLyQu0eLn8S24zKIyKulfiwhsTGdrk//MQFeh8dYsihTIuMhjYP7YUTlY
-	 DQXk2KGE0VjL0LMPueNeVCDR8j81UjMwnH6/sYRVxtaFJvvWR+9qBRMr7N+j+9wcRRWS/
-	 QD26JNL7BXu5IXaohkRH5Sc+OUfEwAXhNyTXQvDf1XrFQOo+sql9lO1HDy57Rx+YcaZhh
-	 6+orNEU7QDy2FFClAvnGdarOoQW2NreIRGe8KeYDKesL61n5FPr6soNYQiRBmTcm4g1cU
-	 w7pt/pO5QYNHVXpl1VVCpqmujCcCTTvMQAIvZCYmAWqqzmXJnHpYs+kWu3DzLAi9Y3w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=iokpp.de;
-	spf=none smtp.mailfrom=iokpp.de;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=tdwUNit7;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=TcUF6uEL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.53
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.69
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793961947;
+	b=SXBIcI2tEAtY5AFsNqh4q4ArXPJo2L1PvswTi2Rg2JFIpzJidN7ol73op/mRB3BBRRte
+	 njZQfQpAJuLxeLGU9BSWjdLdXU+WZHxXNJvCPjXJjw17JNlrQ/w9XiX9YP0R8zksrjBZo
+	 ytOGgKuQk7ytE9uM9SaspYbatdiDJY1D3qHdMV9kKE/CVF5tsi6MO7UV9SvmvvW8T28vU
+	 cZf93BjKUbnpVLkO6KGhlvFX4aQ9G2LtWcnWJhllIrTpfKozNeZdjLUc8yhYH+Gpd9hpu
+	 qwZGjTmZfggfAOxHN/Gnv1Mt/mL9i/+AFi7JZjRloT1bPW9VrgacpiqNbsagDtn1fIQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793961947;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=9d4zmqowzFyjpS1+CWDAo2gFvDOoR0tDmX9/Gr/o+TE=;
+	b=j/DOe51eALRi54M/TvxTA6GU82d2/PBpC47OiCvWjejc+2wy/AsDciEgkXzkxnB/x2dt
+	 fqxzYl5HHsMM2Cw4OJXQGLaDkJ+JgYCdkcfOxrtHTWCOWH8xX0mCRJECy3EtD0VeXzMav
+	 zaPxkk/Ow6CS8RfdK/6uGmrkw+SBoqYxhjIRRTQkbjPOHK/CmgaNT7YKeABHQU0PAX67Y
+	 BtjkCN48pBjyrQ1pU+y6bZB8KVKKG4NxmqiVkwDbsrbk5AVG52Qe5VhTQrbFzz+8gyrk4
+	 f4beZaIRTrzxL1NdzJJOGwaFoR+yvpf1koVDhwb1hucSM7Dbd55+3vDWLE41z6fIADw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KFsoFxbm;
+	arc=none smtp.remote-ip=209.85.208.69
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6936606D809;
-	Fri,  6 Nov 2026 10:44:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6936606D809
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5160E606A329
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 10:45:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5160E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=tdwUNit7;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=TcUF6uEL
-ARC-Seal: i=1; a=rsa-sha256; t=1793961823; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=VGupW5rfD4aEuBhuUODjXq1StMPbzSHwRvzDWgNtWFPKwa3sKZ4mWdvNL4+kfSUO2Z
-    ev2DSasbruGmEZwFkvpSgd77Dzf/FU2SGQeKRC3/Dlh1FpuBkdi6MxnHuCSytVnznO52
-    Fn7/JlMi9LT0wPeaNMxps1ltwDLOh7ceKBNzx4GIT8O77O6ztzEwDUoJbTH9Pr/L2TMA
-    78nrsDsBHDZeHqkGhB9yhz3OCNafMz0BqEho6LhRT1xnePkwlsuPlvcKGAWYJRo3h1+r
-    Iv4zAoIZcJTRkemIcjE2X2ERgtGFV5KuGcB6ljBHm2n9byvyitti90t76Tj+9Y7NtF3x
-    kh5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793961823;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=oTiRhwOL8L0AMD8du/ogqEbeV38LU+5l1kVkLLOBgZw=;
-    b=eZXFqVupWR1Ji7qxTBGIV1RQtxqBRbx1DZhQQpBWnB/Z3PsdLcYw3IsnmJwfKK3BoQ
-    f/HL++D0s8AQy4HFfKtjIbqNK759CCG0xwXdLD/ArDjNz5VawkOsodlRP55oWsjia4+X
-    NB8KdmRypc70gnVJ8wOXGFJ4AZ2uD+GcGSZfWUdqox4KUAZv0Sr19gVqJDk1eED+Vc8D
-    BWBYKPu2/JPTOSKzgUqmf9hfE/+Ch2kaKPFIWcq74HBrTgaTEl8fYKfMP5zHpST5qMYQ
-    xJvLuMf4VuclY1lxD+39EsZzxMyuZJrX8wKVKIk4zT2l8nPHJTIKbc6sBDHMD940PCE5
-    iZ6g==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793961823;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=oTiRhwOL8L0AMD8du/ogqEbeV38LU+5l1kVkLLOBgZw=;
-    b=tdwUNit7Opu3ks6K8mEhlULdqWlqZwPVIuI7b5AJ43z1pXfMQwlohT6M9kDn12TNnD
-    kq/uUboPg0bdJobTJTw9nSfxuU0V3A9by9vJBGFJ7jl7df+2qq4Oa4JZrffKYQY0+IVn
-    PWzcOeVkIzDWCb+5JVlPdHL0eWIkjoQUJK8vUAckD2qDJgu+CeDgAP61zLCYcOUH2kKE
-    2UnCZFBXXbLLbW0tMQu8zg0t33x7Q/sSX0qgtL+nUL8BLxN7zjRfwsFcTbo5ufXDFHK2
-    gr0PrbipvTV+puy/86TwtsJTRDSD9k7UduDR+n6QZqz+MDX8ySk+wJcMILHrOKLn0Rxg
-    bpvw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793961823;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=oTiRhwOL8L0AMD8du/ogqEbeV38LU+5l1kVkLLOBgZw=;
-    b=TcUF6uELeJ0vvRLwRnLnk+hkEyomP0511RJ+SILJiXZCJEa57IGTibQZsP1JHnPH5e
-    vNhI1dQI0eJ4E0vgJNDg==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGaTpIu+r7SHz3oVvc+BBXFWWqpPHifFkxRYsbc="
-Received: from p200300c5872329ba1bf1a4d6a312338e.dip0.t-ipconnect.de
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad2A6AhgKnj
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Fri, 6 Nov 2026 11:43:42 +0100 (CET)
-Message-ID: <2e5f4086c248fddbd541d97dfe85ce594c0360c4.camel@iokpp.de>
-Subject: Re: [PATCH v7 2/2] scsi: ufs: mcq: poll OCS after sq cleanup for
- device management commands
-From: Bean Huo <beanhuo@iokpp.de>
-To: Kiwoong Kim <kwmad.kim@samsung.com>, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, alim.akhtar@samsung.com, jejb@linux.ibm.com, 
-	martin.petersen@oracle.com, bvanassche@acm.org, kwangwon.min@samsung.com, 
-	hy50.seo@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
-Cc: stable@vger.kernel.org, stanleyjhu@google.com
-Date: Fri, 06 Nov 2026 11:43:42 +0100
-In-Reply-To: <a1af44cd90dca0dd8a9a06d09a254a4e7e0861b2.1793938245.git.kwmad.kim@samsung.com>
-References: <cover.1793938245.git.kwmad.kim@samsung.com>
-	 <CGME20261106041303epcas2p19b0c317d409503c833ae125ba91fe053@epcas2p1.samsung.com>
-	 <a1af44cd90dca0dd8a9a06d09a254a4e7e0861b2.1793938245.git.kwmad.kim@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KFsoFxbm
+Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6b5e0ce4132so513126a12.3
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 02:45:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793961946; x=1794566746; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9d4zmqowzFyjpS1+CWDAo2gFvDOoR0tDmX9/Gr/o+TE=;
+        b=KFsoFxbmSg5jZA5zlPMYhng49X5QiS/f2vRe9N5cbn8SAyS8ftNLN/yEbDeWRDzSsr
+         boE5ssBINTSCH2JQA1dFQvMYotEHwHab7gurMySBUQUG9KtYmqtI4xzUz1mryg4Q5ZP6
+         XyJb4YNV5n1Zd+3g18qYKvesUEnS3YDmS1X8g4KbzzkWJsFYfjm6OSSfleLKcpS5bdm1
+         qpzhHgG/81nSyr2wAlrTJ2VcTZU2TwtSwzB36iCq7IKfxeZ1l5bblyD3yI5ApwMuNhiG
+         pz1qLVLsKZxjmDsEUuR3YI9OkbDqPapjNAHvgfWq8h4wZLk95M9k1Y4dsPJEWnc8GYiA
+         u+QQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793961946; x=1794566746;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9d4zmqowzFyjpS1+CWDAo2gFvDOoR0tDmX9/Gr/o+TE=;
+        b=17tUeDm3xSWmhNkzk0vCTfaLyQeRXZBkJrhFKI5WR/RpZ1kQAd0r+Fz+yJrT3fF3pW
+         fOK8cEzWGfN7hA33Sq/GbtIJAwEpZUUcikuBKEKeI4HhVXoBXbZcG8i6vshZnbm/CQe9
+         IUL0gHyihM3tFI9zCox6yH13iuz3sghycq6dfNhl9qsLXybbvaLfiCCWigOXg70xFhKD
+         IRqJPK0C9nDuXDYaZalUxWDlr+tW9h+lsHOM0g1kG8s8TDWpIvkvuqLLwqSpe9aEptz2
+         Wi6iEvVuPMEf/Cq/IHJTta3UD56/RP6ks7kBXENeSp3zhVf22H416a0z02RLzvea1EpP
+         oikw==
+X-Forwarded-Encrypted: i=1; AKwUvBzRi0r2yMfKbCHPQF5zqN712RUoSBJVQSNlpztNhilG9Dpo0PUI8XbReNF4YrhbPxOloZdIpRg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9eESmKq+dbmJbBwrmZiBb++4EyzWl2c1UR5xvBiKKWU7SZU/eN
+	v9wp7mJ0h34CeUrfyJbKu6Sca7PJ9N81gKz0XEa4FyimmLFRYQEI12iLNCVXjqFxjfaUEYpfZ2g
+	mJDq9lqGnGuyU6rVf0w==
+X-Received: from edqi22.prod.google.com ([2002:aa7:c716:0:b0:6b5:8cd9:f07f])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:4014:b0:6b1:ce0f:eb6b with SMTP id 4fb4d7f45d1cf-6b59780db99mr1761923a12.31.1793961945470;
+ Fri, 06 Nov 2026 02:45:45 -0800 (PST)
+Date: Fri,  6 Nov 2026 10:45:42 +0000
+In-Reply-To: <20261106063745.87864-1-ojeda@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,11 +78,46 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20261106063745.87864-1-ojeda@kernel.org>
+X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
+Message-ID: <20261106104543.2297426-1-aliceryhl@google.com>
+Subject: Re: [PATCH 6.18.y] rust: bitmap: fix intra-doc link
+From: Alice Ryhl <aliceryhl@google.com>
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Alice Ryhl <aliceryhl@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Sasha Levin <sashal@kernel.org>, Burak Emir <burak.emir@gmail.com>, stable@vger.kernel.org, 
+	Yury Norov <yury.norov@gmail.com>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 2026-11-06 at 13:12 +0900, Kiwoong Kim wrote:
-> Fixes: 8d7290348992 ("scsi: ufs: mcq: Add supporting functions for MCQ ab=
-ort")
-> Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
+On Fri, Nov 06, 2026 at 07:37:45AM +0100, Miguel Ojeda wrote:
+> `BitmapVec::MAX_LEN` does not exist in 6.18.y, so `rustdoc` warns:
+> 
+>     warning: unresolved link to `BitmapVec::MAX_LEN`
+>       --> rust/kernel/bitmap.rs:24:25
+>        |
+>     24 | /// This also matches [`BitmapVec::MAX_LEN`].
+>        |                         ^^^^^^^^^^^^^^^^^^ the struct `BitmapVec` has no field or associated item named `MAX_LEN`
+>        |
+>        = note: `#[warn(rustdoc::broken_intra_doc_links)]` on by default
+> 
+> Thus link to `BitmapVec::new()` instead.
+> 
+> Fixes: 37f45fe068e0 ("rust: bitmap: restrict bitmap length to at most i32::MAX")
+> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+> ---
+> Another option (cleaner but a bigger change) is to cherry-pick:
+> 
+>   f5535d78e126 ("rust: bitmap: add MAX_LEN and MAX_INLINE_LEN constants")
 
-Reviewed-by: Bean Huo <beanhuo@micron.com>
+Both options (this one-liner fix or cherry-picking f5535d78e126) look good to
+me.
+
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+
+Alice
