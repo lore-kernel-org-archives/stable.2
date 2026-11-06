@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978380;
-	b=H1hM5EowgYYJTe1WY1An45PpEmJy5aAQl8kkTwEloQ9S+j8jnO5qaMxiZ0+MphaSbAzx
-	 xiLtHXKfm2X/I9XzJBn8JIqMb9q2T2cpNcckV/Fyl0aOHW39YgEIsV9+5Zl7EsJhi7e9v
-	 D8DxSZYTEsmgFF2/CcBkk8ND3TbZ3Md2RKlERzt+7ylrxcxk3s9VL3BhVxuqpPkuz7VOj
-	 n9kmWtXvpw9XHd9b66DSfY0goPsGMZkAJa7UYrpDGHn2vYJC0yOXqEr5R4MLRkLqvrpbN
-	 aS/8Re+MwLMitvRolNluNs4cBK71nItnSIvQRCKkPWJM/5TKBTKm4chtlw90Ocjcw4Q==
+	t=1793978406;
+	b=S+8vG5Jca0JkiHjYgjkRqW+JuWbpf+wK+TV5A+aXJK3srlIeZ8SF2eLMCLhn3OcB1z9Z
+	 oNXnfgVp51XEmNhTVEn1lldDbFZIXLZArGITCZZfbLGnlonWwCDBmbvyIe+0c9PShC8L6
+	 Fwf1KRi//2LXc4w8fM6FZmhHfFTpsvypm87aTwGU0CTnFPPIHmh21JaZVINGw5fHWnjhD
+	 71P9+AuX699z7vpA4j8pxh/xpCadIi9GN15+kspLaehlqeMFuCE7iim0lB6FkO2G5e/XK
+	 wBolNi2rZfGlFacOl6+A0bg7z8dmh3dUn3XSGBYOZPTG384cFqTlVCHKmGHPtWrv8rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978380;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978406;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HNB7FMaf9+d1tYs284izMdYn/bRHJGgOJdCh0UXGTZU=;
-	b=nC9oll3KCWKTlv6fkFzRpsPk+qwGHiBx+alRoc+710pqkB7vcjKx3dJ6U1zDZp5mGmqk
-	 wnoaGP7hN4ZXxnOaNkEhhVgkWBaobSoXhUD5Ii7ZAy9dKZ9qkitajf2LQ+CXLYTqjMoSB
-	 utiH4D5NvmJxoCgFcpytAYcMhf2GLTqPUTE30mhwCUOkKcpCzNcFojZxLiSSsSDkEzYEq
-	 8LW+PXS0kaM4FyuwRc247kxdNHWPXxMWbT1YFA9bK2QBulJTeg52ZkvM5B6IGR1llHrLo
-	 ImJIM4L8afRgVT7FpWqiV3yBhXWz/nL/2vgDOjHmqHlyEKstw9YXLlCAkCWF4QeKZ/w==
+	bh=1zPgQ5RnPHec006OGsQVhFYA7XTWxFr9hmIrm+JvQvk=;
+	b=ygkXYcNe4HOyEnEyvg5G43Tn4nJsiueHXBt/1YQgfndwCzDTs7hreAPPrb3IXFexZ/iN
+	 qATJhtp2FQ+tr/bmSLaGXWlHTA44FgNpW4sHtLdfLgK5yilhnnUW+4W51wmlNGZXBK6uT
+	 ifLZNFJK03nZHNcO2M+tBLve+yeGQ5SB3UOy3v7nDdDiW/kuRKBKl60R90d8W5OPTLnBX
+	 3jA1IrMK7FNGtrolGvATHExS1x73cwAbMd1LG+eroSPG/S4Fbsj3+05oqR85pSHRqTZ1D
+	 gJOcA3tG9dkfcm1fXgh9Lki+vpz6WhGT2JRF3InlKbjTffppKo2Ou1/JHv1a4yIbStA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OLNZaggm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FACWn8ap;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2DE6606A32F
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 15:19:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8193606EE81
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 15:20:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OLNZaggm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4482E1F008A3;
-	Fri,  6 Nov 2026 15:19:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FACWn8ap
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7F181F00901;
+	Fri,  6 Nov 2026 15:20:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793978379;
-	bh=HNB7FMaf9+d1tYs284izMdYn/bRHJGgOJdCh0UXGTZU=;
+	s=k20260515; t=1793978405;
+	bh=1zPgQ5RnPHec006OGsQVhFYA7XTWxFr9hmIrm+JvQvk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OLNZaggmCdOEkEzVPZYM05skSlyS/ZloGO8pGuNs66ZKVhljY5kqD1KODlKAU3Piw
-	 cqWdPAwwovv5YdsSxgqv0Bpf11c2cS6vwMYzZv7SuXCX06pXEhNUtJjDECMcFHP3kJ
-	 TBNLBdrrtQAZ+BiMfXM+UXYnTMXo0ZYjmdY4goaqtsCs06AeEU9xomRZac3mWbsK1D
-	 MblJo9Nib/ykHp8VvBgVNIHqRH9EE+SDyJS1Sy+KpjHgwu81jZHRvvjOFL9lvdQZvE
-	 vH0VAzjyHdAU2Trt4s2Kyg3xTxSAXl3fsM9R+23LtkZL5d2DGpa9hSHN5hukKYZWpM
-	 FfUkiQ7jwY2FQ==
+	b=FACWn8ap8hp520FAoFn/TX7YQXw5cXUuaNNj1onI7RSjqMh5LcRak5cdAx9Iq9K9f
+	 UgsF2sVMvVV1Mjg+iEjGfNNdwmZB87q8MMpJBWNAQIXB2sSky/1dm13E0NmjxlUVBS
+	 B8q5w7XBNt7x8Ofv1f60E3xJlltylMWgNhRViHywYpX/51KIiGmk1vPH/TFI63whb0
+	 edJqFllALmF6jDB6Oi2ozstdG3OFdGYLrByur7q4j5x1E0sJHGVmKmFA1Z/R5i3xvz
+	 Z0N/ZyZxLeJIQS+Bw1no8jr/qBZRgcmA3VFKs9YhKxII5CteO/cDonlskvjI51ao5L
+	 BR7bAu+gAlE4A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiale Yao <yaojiale02@163.com>,
-	Jiri Kosina <jkosina@suse.com>,
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] HID: prodikeys: validate fixed-format MIDI reports
-Date: Fri,  6 Nov 2026 10:19:36 -0500
-Message-ID: <20261106151923.436494-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] ALSA: x86: hdmi: fix chmap array missing terminator entry
+Date: Fri,  6 Nov 2026 10:20:03 -0500
+Message-ID: <20261106151923.401559-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106151923.436494-1-sashal@kernel.org>
-References: <2026110446-amnesty-outsmart-92b6@gregkh>
- <20261106151923.436494-1-sashal@kernel.org>
+In-Reply-To: <2026110405-molar-buffalo-85ed@gregkh>
+References: <2026110405-molar-buffalo-85ed@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,50 +61,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiale Yao <yaojiale02@163.com>
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-[ Upstream commit 0ff37294c41bd925258893310398bc2b45fcd4a7 ]
+[ Upstream commit f5e1a9a3fddab8421416b68bb132ae9626d07156 ]
 
-The HID core invokes raw_event callbacks before validating the report
-length.  Prodikeys reports 0x01 and 0x04 are passed to handlers that always
-read bytes one through three, regardless of the supplied size.  A truncated
-report can therefore cause an out-of-bounds read.
+had_build_channel_allocation_map() allocates a single struct
+snd_pcm_chmap_elem via kzalloc() and stores it as
+intelhaddata->chmap->chmap. struct snd_pcm_chmap.chmap is expected to
+be a zero-terminated array (see snd_pcm_std_chmaps[]), but
+had_register_chmap_ctls() never overrides the TLV callback installed
+by snd_pcm_add_chmap_ctls(), so the generic pcm_chmap_ctl_tlv() from
+ALSA core is left in place.
 
-Require four bytes for the two fixed-format reports.  Keep report 0x03 on
-its existing variable-length path, which derives the number of note pairs
-from size and only accesses complete pairs.
+pcm_chmap_ctl_tlv() is reachable by any local user via
+SNDRV_CTL_IOCTL_TLV_READ on the "Playback Channel Map" control and
+walks the array with "for (map = info->chmap; map->channels; map++)".
+Since the driver's single element is never terminated, this walks
+past the allocation. The same pointer is also freed on hot-unplug and
+rebuilt on hot-plug under intelhaddata->mutex, while the TLV callback
+runs under card->controls_rwsem without that mutex, so the walk can
+also race a concurrent free of the array.
 
-Commit 47669bec44fe ("HID: asus: refactor the two workqueues and init
-sequence") added the same kind of raw_event length validation to hid-asus.
+Fix this by allocating a second, zeroed element so the array is
+properly terminated, and by dropping the inherited TLV callback
+entirely at registration time, since the driver never implements one
+of its own.
 
-Fixes: 3a370ca1dcf8 ("HID: Prodikeys PC-MIDI HID Driver")
+Fixes: 5dab11d89777 ("ALSA: x86: hdmi: Add audio support for BYT and CHT")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://patch.msgid.link/20261008085411.13742-1-peter.ujfalusi@linux.intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ sashal: replaced kzalloc_objs() with kcalloc() using explicit element size and GFP_KERNEL ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-prodikeys.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ sound/x86/intel_hdmi_audio.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hid/hid-prodikeys.c b/drivers/hid/hid-prodikeys.c
-index b53b0c02675a4..f2b9142e95021 100644
---- a/drivers/hid/hid-prodikeys.c
-+++ b/drivers/hid/hid-prodikeys.c
-@@ -774,8 +774,13 @@ static int pk_raw_event(struct hid_device *hdev, struct hid_report *report,
- 		if (report->id == data[0])
- 			switch (report->id) {
- 			case 0x01: /* midi keys (qwerty)*/
--			case 0x03: /* midi keyboard (musical)*/
- 			case 0x04: /* extra/midi keys (qwerty)*/
-+				if (size < 4)
-+					break;
-+				ret = pcmidi_handle_report(pm, report->id,
-+							   data, size);
-+				break;
-+			case 0x03: /* midi keyboard (musical)*/
- 				ret = pcmidi_handle_report(pm,
- 						report->id, data, size);
- 				break;
+diff --git a/sound/x86/intel_hdmi_audio.c b/sound/x86/intel_hdmi_audio.c
+index ff80ac3e1cbab..0a6b78cb9c2a8 100644
+--- a/sound/x86/intel_hdmi_audio.c
++++ b/sound/x86/intel_hdmi_audio.c
+@@ -476,7 +476,8 @@ static void had_build_channel_allocation_map(struct snd_intelhad *intelhaddata)
+ 	kfree(intelhaddata->chmap->chmap);
+ 	intelhaddata->chmap->chmap = NULL;
+ 
+-	chmap = kzalloc(sizeof(*chmap), GFP_KERNEL);
++	/* info->chmap must be zero-terminated; allocate a spare terminator entry */
++	chmap = kcalloc(2, sizeof(*chmap), GFP_KERNEL);
+ 	if (!chmap)
+ 		return;
+ 
+@@ -579,6 +580,12 @@ static int had_register_chmap_ctls(struct snd_intelhad *intelhaddata,
+ 	intelhaddata->chmap->kctl->info = had_chmap_ctl_info;
+ 	intelhaddata->chmap->kctl->get = had_chmap_ctl_get;
+ 	intelhaddata->chmap->chmap = NULL;
++
++	/* drop the inherited TLV read: it walks chmap without our mutex */
++	intelhaddata->chmap->kctl->tlv.c = NULL;
++	intelhaddata->chmap->kctl->vd[0].access &=
++		~(SNDRV_CTL_ELEM_ACCESS_TLV_READ | SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK);
++
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
