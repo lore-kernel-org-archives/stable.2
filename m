@@ -1,75 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.148.77
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793927161;
-	b=3tpGc8t4LFY0fTy8bX7nmoPKbppJ75rTH2j4AHuW7zJUvP/0PjFPKG9Oj2vXBaL9cb+/
-	 Czzd152vV2yL/KjFttKMDeSs6or0K6mYcOFTA6lnZzGSl7KTrxAZw5fZDYPyqxT/9OW1n
-	 VtbT4XppSgqnbkLsrhVdjfbV+tU4UyuFVCZ6cD67PDloZDw4MIIdH70E5BgbZCdLVq7ww
-	 ivbreXLRH30sl1WmCJQec7fzohcwdU+XHzOdQi0FEbFtyFL2dkehP70WWa+75yBCBAFTc
-	 EPccp44pE0D0RD43gABoW8rDKAnimVlBdyp24SCHOZuYNHSfzGwUkVhXdkThmZUpJrg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793927161;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=so5wjnbUEsC6TErUm3CNyP26HpFvBzf68B1lEIt6es0=;
-	b=0LR/NzgLIj7MzOe5vFBWvqWKVXkEoDJwUg1RUgg5Hrq90s491d8ybf1aihmPN4FVLzWC
-	 pYCJoOVzy5SL+XN0QkJ/qDUys3apRHdXsqO0/pA7gFDpphB1DnkEOg0Un1WAgrJFzqwOu
-	 2S3iJUAmZUolzcONcLiYBDEPX4m0yowTxQmBPnTOsVWwaM1QjCi7j9zIEtf2AUI/K6fFd
-	 /CIBcIiLtHSK7wmQh8UC6L9VaDxIWxqCEqrRf7+oyudIEnFrJzY8zh3fKDqnWpjqx485C
-	 Jj39onoKbmvjFFZwn04xadalXPEq+CsvK4zlZNu3OpxwgEsPHj6DuMZwjeXHEme1HPA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crowdstrike.com;
-	spf=pass smtp.mailfrom=crowdstrike.com;
-	dkim=pass header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=default header.b="H/dDdGsz";
-	arc=none smtp.remote-ip=148.163.148.77
-Received: from mx0a-00206402.pphosted.com (mx0a-00206402.pphosted.com [148.163.148.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793927288;
+	b=GigBX+/1ua1jKDVQznor5nqTEnqKep6JggUZbYF66n8Hv75FhEHp9fFYTQeYQfbK1b4I
+	 587qojOEUHefpF3IDvAFVasX/SwLtRXagNgoOudxk/5wLQCcubtaTCa6b/SGTwDBDN1aR
+	 Wrgj2bYreEy5UdV6MCrwB4fYGoZ4/mEkR18JEihHcg005jKpLgDee5WI10yolpIkvobNI
+	 vV+S7ZnN3Npy0IWGMjcdl6sbF1RoTIjnMshDe5UguCxssrGm8y8XoEKsh176kcY4HUOPT
+	 vWkHMgSDtjEs64NqO64mTOnKmGQ8i1zGRArR89AfyfaMfBygY2JUpPlI/Kmkjn1T9zA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793927288;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=fJkGz5CpoFWJRGd5AF5Qs6l5/HtOobvMGiH1ORmFADg=;
+	b=ZRxMcyYQTiVPddD9tjEGbjFsfkUqFXT6bveBR82yU6QRWaDQV/YyZQFVcx/BcJB9kzWG
+	 qGlkgdVj0IA6oihG0fyhhkg8jWxW9IodNm06Kr//TfPK1rjemXGRMElNs0DHCV1kIrGXY
+	 xzZSStcKWLz1hhsoE0Ou33pgRc6rDDG3RYBu0LF9swGPxtMM9edqi8YCtyhtRj13Nssbw
+	 lNkrT2INFqiCUPZjnwtOz1G8R20CUI1dYaKXjr3FdXWdmmbe5wvRVnFhA3XJ8D4FXx6sn
+	 Oq9obZgJBR42HivCscko5x5mDGEd3xl+uOF3Biu9XsD8JApi0erkloiYyXm3zf4v0Kg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mxfw4T5t;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78702606A336;
-	Fri,  6 Nov 2026 01:06:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78702606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=crowdstrike.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crowdstrike.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0447C606A31B
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:08:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0447C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=crowdstrike.com header.i=@crowdstrike.com header.a=rsa-sha256 header.s=default header.b=H/dDdGsz
-Received: from pps.filterd (m0354651.ppops.net [127.0.0.1])
-	by mx0a-00206402.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5NhU6T4097828;
-	Fri, 6 Nov 2026 01:05:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crowdstrike.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	default; bh=so5wjnbUEsC6TErUm3CNyP26HpFvBzf68B1lEIt6es0=; b=H/dD
-	dGszMQvxOtBN2TB08PqbXiPt3LCE0m/MV8QXeBHngIXSM0JE2pxm/ci/kcYchZF0
-	FF0zdCSBrP1GKwG76AbgRjyaojrAZzEfYcHyfbW8yJa1vSs6tN8OgIiInf6HBbvo
-	bcVike4ZrWGYS7TEVhlA3IRyDXL98yP+5A4RF6OLarJmbYN1W7+AvL43wQIqEOAi
-	+OWFnmYOKCqgmzUyI5GG5iDWptD7+mhDqAwRTf+BVer8Rl6EIhW8aImPNAqphzIS
-	9N55h4Lgx9+bzmH53AEndoW5AL16lu6oHepOWKxQJXUAfXPUGt2cGbF0bCdBRBWZ
-	kvM8xrKHtpRlGl8rVA==
-Received: from mail.crowdstrike.com (dragosx.crowdstrike.com [208.42.231.60] (may be forged))
-	by mx0a-00206402.pphosted.com (PPS) with ESMTPS id 4hs3qjr638-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 06 Nov 2026 01:05:41 +0000 (GMT)
-Received: from LL-DJCZ134.crowdstrike.sys (10.100.11.122) by
- 04WPEXCH006.crowdstrike.sys (10.100.11.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.53; Fri, 6 Nov 2026 01:05:39 +0000
-From: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
-To: <bpf@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
-        <rostedt@goodmis.org>
-CC: <ast@kernel.org>, <daniel@iogearbox.net>, <song@kernel.org>,
-        <jolsa@kernel.org>, <mhiramat@kernel.org>, <stable@vger.kernel.org>,
-        <linux-open-source@crowdstrike.com>
-Subject: [PATCH bpf-next v2 2/2] kprobes: mark ftrace-based kprobe ops permanent
-Date: Thu, 5 Nov 2026 20:05:35 -0500
-Message-ID: <20261106010535.2137162-3-andrey.grodzovsky@crowdstrike.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261106010535.2137162-1-andrey.grodzovsky@crowdstrike.com>
-References: <20261106010535.2137162-1-andrey.grodzovsky@crowdstrike.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mxfw4T5t
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3ab27e45e7cso478001fa.3
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 17:08:07 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793927286; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lJs9NnQWAWbD3LT2U4ZhyHo/Ph1/snqNHwaYR8aczGT5kMw3B2IPf7jzgynLiYZCV2
+         PHrMQ+8CfnsoGAKUvwfRfCPzAoZRfPQKKf/krUa6YbEDfB/5IU1rW/QIIC0c6tPMlhSm
+         x4Rh2cnTjop0hddp/Hq/bGIedsCZaBe5Yo+8LUzriAHm2m3KJQ3gLrJjyS2T4HnDjRG3
+         mfFIS1+jkwTWLGamEIT/aRVWTtt0+xP7jHYUq5vNn7vXJrWbvMwoNxkSiqUymFrRsdxD
+         OeKZCVLyg8lg95gSUdHm2u7kziWKA0uT6q1KEbw2/fGRFmLSLkyB9L2EuwBAOvBt+7k6
+         obcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fJkGz5CpoFWJRGd5AF5Qs6l5/HtOobvMGiH1ORmFADg=;
+        fh=Ce89fu9IpI/xJsnkNVODREIOs//fWW7unL28AJTDG1U=;
+        b=sk03DDXCcidCmst9U2yaxuR/sro+VRQTdjT3st6TVh5hb5pZBpVZczW1qGW8ATXiuQ
+         UIUCzWT6lI+4IXcKrTihDc83s7lhfjirAboz6LA36iRnX9BCXlZvPdgo8SOJfuKobh8u
+         ivvix8s1FapF0j5R6vXTo0tqWKuApwyCuP7Gfi4TSD8CAwdhySsi3lbtzPKHqI3LPrdQ
+         7Xn8oY4ib8Cl1CrLzhLse8mqAgHsNo58AkI2vAYBdSxs4inzEKdCtm5pd4iiDiSVkhso
+         aJPZt+QGcH9JK0JSRYcaKSLpySdJ3kSn/+17lCgoYjof+fa5E5GTnYXVclkVVS1I0ceb
+         iODw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793927286; x=1794532086; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fJkGz5CpoFWJRGd5AF5Qs6l5/HtOobvMGiH1ORmFADg=;
+        b=Mxfw4T5tUufe87vDam0XgzvAbn83pyWk6QvSJE5ic30mOrJRb0aQ/mUuC6oqPJiSty
+         VZNyOvDCv6JqTvqXqKkMd0alCaqvsVd1HyPioR11hT5VRtb6oN7spV/F+OXFEruEM9h9
+         4yzlD2DUbJkCwioK/FDxF2oQF/hM2518Dyd+if4nji/cGPcQhizWGSBB/8kluO502+bL
+         0jX3tTT2LpRM8NnL2S0Fxk9st+vGpAoFzfvo5sLYVqa04XndUaUhvbFEDWWwHVI9z0EP
+         9Wp50CG6j5LWcFLucKB3/tTjk5W83Rwnz9JEModvplA9A35Aiz5ERAVclQ1FNnZI3S7z
+         evOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793927286; x=1794532086;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fJkGz5CpoFWJRGd5AF5Qs6l5/HtOobvMGiH1ORmFADg=;
+        b=Kp8YF+XpfDX8yWfxEt03vuLTYIvHcl1/gxXxeMtSnJyPnRsPOrpdya5mfeNhCl8E2o
+         trQuzi+2VwzuyQGQ9iF4l4M10jHd/wlAJZcVmgVUuKzvsBPYad1kV6J5V3cI29BVg3sf
+         uWaYK4CatvMwF24B2vsmnUzdDZtB3FwV03xqhkmOOGaALIsX/1gpQv329D3WFFGU/iwQ
+         3LKo0O3RuWm0pZxLWv4iz0ZgNISuI499BMaATY6CVft6U9Sn9o8uOKaMUXzCzcN0g+Wr
+         Gxya5hRB95EZfOKPA0Qjg4J54gXGGi8r+e1KM6VwmZXTY5Wdwxg0+2hv6b5BGN2Z1O4q
+         ZJUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwn7sSfyXmi/J7p2Dxd85KtJSOtYAUYrLiLbEjgLMWP+9y162eFcvDHnFD4PGYed+e8K1D5Oss=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9oua8KKQ1zMp6CdYaPrp97qUP+jT39GG5vQZUBtmhsLD2WX4Wp
+	qhHEndgD2LpG/K0FCrwSTEKCMn0o/Hf/9jDuHWwR9mxSOI03V8qZNLpBx9VIpfzM4gU+NhVg5gU
+	SSAZLybun3RWp1vRmoI4T63i/VOXvUN60QPTj
+X-Gm-Gg: AYBFou1VYil8pSSjeD+ZUn2CjhLvwzJxyZY0MMLRMQD9NJ4L1WGSHvbvQMIFLxO50DI
+	f5dmNcx0AYhA+0lUXANb+Vqgv4G29rwb2fnUulSgdbnr9OKqVfZpPmDzVcAYZRdXRGZmzMaFCxs
+	U6CQljagI7jicEkXfKamDsFq7O+I7IMpVEGyc+PuHVkH2dTtguT784jXG8QK9S0X5rtPYKASSHY
+	woHO1hUeU6CteF8GsdsprPV6a2kx6bDIiBolZO1VglX+hUyxl4RuC1UCgLh4SSbWNCCai5a3asC
+	6xKsoitQHBoJVXPaL/wWDwNYfoO3meLbZ26f0VOndZ3n51+FHvBNCI1qtOobL4C3fdWfg+5DWi2
+	XsW/qSW3XMEMoh1159gLupNhPARH7kLleE8uhPu8Jv/Sw2Wex5/gdkg1Q88+/n0OE/ecuMKw=
+X-Received: by 2002:a05:6512:6d3:b0:5bf:b249:375c with SMTP id
+ 2adb3069b0e04-5c003ac2cd3mr230843e87.13.1793927286155; Thu, 05 Nov 2026
+ 17:08:06 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,80 +104,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: 04WPEXCH009.crowdstrike.sys (10.100.11.79) To
- 04WPEXCH006.crowdstrike.sys (10.100.11.70)
-X-Proofpoint-ORIG-GUID: XKYK8PmSkaS7eqkbtkTTfyQauFevchoI
-X-Authority-Analysis: v=2.4 cv=DvbDa2/+ c=1 sm=1 tr=0 ts=6aed27e5 cx=c_pps
- a=1d8vc5iZWYKGYgMGCdbIRA==:117 a=1d8vc5iZWYKGYgMGCdbIRA==:17
- a=EjBHVkixTFsA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=T2KQ53IYiC3MXPrxx8bB:22 a=b3B37AjAgz0HnGB3MuNd:22 a=VwQbUJbxAAAA:8
- a=pl6vuDidAAAA:8 a=meVymXHHAAAA:8 a=e19StQ-nltG7q6LXw7YA:9
- a=2JgSa4NbpEOStq-L5dxp:22
-X-Proofpoint-GUID: XKYK8PmSkaS7eqkbtkTTfyQauFevchoI
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDAwMyBTYWx0ZWRfX7Mj3zV0VghtI
- pf0g9MT4Zp4BrLaI5PyMEyVe1WlakwyjLxT1SMFuzAtpBlYXrjwNTdiHX4CgisIH89PeFVTCj2S
- 6cvdk0jToFSoUTDaQw/qEU0+sIZ1LaSa/fumNqRSx/b0fmkOAy6aJgwDWlNuWwAss8buNV5uVji
- inRxxSPg5xoHzi1cps7ua1yGqVPxj+nBeqQ0O4nyIU6FcKlXxiOd8VAvmzLRkIYvpuBLLGrZm57
- 0LTcO2TMGljeEUSPHNxgVI8DMn+kxIBcrW66GMZpULDl9qcwquyGygqMbMtB2IzLlML6qMtbQhe
- kSMfimZ5+nF+YK+Y/yaByGiJgVfepSnlOTsekEG7UmG4oCPEOEXpRZS2QjMUDjgaikHOaJiTkwY
- jPQxlFVrmo/UYY+7Oh3pD2AFjDdCHqX/OTdOvCZpfMv/qgjNkbzSJ+Cnl5krkhmHVOlr6OH6xH8
- ThlxjRIkkHC6TKr1zhA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDAwMyBTYWx0ZWRfX9NPyfoTDRMX5
- 3VkxwU+xDOUnkaPDjypAJCt72iYTFROS7fuE6y3p3iuq72UYD9UVAkVM/qbPhj2h6MEV3r8pk2M
- HMAlL41Dns++kx2wZMECn7cgzWZiUcHnRcfeXJb91reaLVSEfv+t
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11957
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 priorityscore=1501 phishscore=0 clxscore=1011
- adultscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611060003
+References: <20261027032332.1945140-1-liuc63@xiaopeng.com> <CA+fCnZfgi_UUsMg4p2iRePACOAR8StQRYhgC9fHETE8Q5n0z5w@mail.gmail.com>
+In-Reply-To: <CA+fCnZfgi_UUsMg4p2iRePACOAR8StQRYhgC9fHETE8Q5n0z5w@mail.gmail.com>
+From: Andrey Konovalov <andreyknvl@gmail.com>
+Date: Fri, 6 Nov 2026 02:07:52 +0100
+X-Gm-Features: AclHuK_GOq5XW9qGIOfiza9qDe3tNSjEThoOLcatbbltrIx8xUgFUsgaRXZuPqI
+Message-ID: <CA+fCnZcH1dZ3=Raeh3GkQt7vfqdhKtTq+VcyhJ7Ks2ZRcV_dgw@mail.gmail.com>
+Subject: Re: [PATCH] usb: gadget: raw_gadget: fix dangling ep->desc on enable failure
+To: Liu Chao <liuc63@xiaopeng.com>
+Cc: gregkh@linuxfoundation.org, krishnagopi487@gmail.com, kees@kernel.org, 
+	balbi@kernel.org, zhugl3@xiaopeng.com, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-kernel.ftrace_enabled=0 silently disables ftrace-based
-kprobes/kretprobes: arming succeeds, the probe stops firing, and
-re-enabling restores it. Unlike trampolines, they never had this
-protection.
+On Fri, Nov 6, 2026 at 1:43=E2=80=AFAM Andrey Konovalov <andreyknvl@gmail.c=
+om> wrote:
+>
+> On Tue, Oct 27, 2026 at 4:23=E2=80=AFAM Liu Chao <liuc63@xiaopeng.com> wr=
+ote:
+> >
+> > raw_ioctl_ep_enable() assigns the user-supplied endpoint descriptor
+> > to ep->ep->desc before calling usb_ep_enable(). If usb_ep_enable()
+> > fails, or if the subsequent usb_ep_alloc_request() fails, the error
+> > path frees desc via out_free but leaves ep->ep->desc pointing at the
+> > freed memory.
+> >
+> > The UDC driver may have captured the stale descriptor pointer during
+> > the partial enable sequence and may dereference it in subsequent
+> > operations, resulting in a use-after-free.
+> >
+> > Clear ep->ep->desc before jumping to out_free on both failure paths
+> > so the pointer never outlives the descriptor it references.
+> >
+> > Fixes: 97df5e5758f7 ("usb: raw-gadget: fix gadget endpoint selection")
+> > Cc: stable@vger.kernel.org
+> > Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+> > Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+> > ---
+> >  drivers/usb/gadget/legacy/raw_gadget.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/drivers/usb/gadget/legacy/raw_gadget.c b/drivers/usb/gadge=
+t/legacy/raw_gadget.c
+> > index 46f343ba4..b52ab3ce7 100644
+> > --- a/drivers/usb/gadget/legacy/raw_gadget.c
+> > +++ b/drivers/usb/gadget/legacy/raw_gadget.c
+> > @@ -886,6 +886,7 @@ static int raw_ioctl_ep_enable(struct raw_dev *dev,=
+ unsigned long value)
+> >                 if (ret < 0) {
+> >                         dev_err(&dev->gadget->dev,
+> >                                 "fail, usb_ep_enable returned %d\n", re=
+t);
+> > +                       ep->ep->desc =3D NULL;
+> >                         goto out_free;
+> >                 }
+> >                 ep->req =3D usb_ep_alloc_request(ep->ep, GFP_ATOMIC);
+> > @@ -893,6 +894,7 @@ static int raw_ioctl_ep_enable(struct raw_dev *dev,=
+ unsigned long value)
+> >                         dev_err(&dev->gadget->dev,
+> >                                 "fail, usb_ep_alloc_request failed\n");
+> >                         usb_ep_disable(ep->ep);
+> > +                       ep->ep->desc =3D NULL;
+> >                         ret =3D -ENOMEM;
+> >                         goto out_free;
+> >                 }
+> > --
+> > 2.50.1
+> >
+>
+> Commit message should ideally mention that the use-after-free is not
+> actually reachable.
+>
+> But the clean-up makes sense:
+>
+> Reviewed-by: Andrey Konovalov <andreyknvl@gmail.com>
 
-kprobe_ftrace_ops and kprobe_ipmodify_ops are used only by
-ftrace-based kprobes, so FTRACE_OPS_FL_PERMANENT, as livepatch uses,
-is safe here.
-
-kprobe.multi, kretprobe.multi and kprobe.session (fprobe-based) are
-not covered: their return path shares the function-graph subops
-manager with unrelated tracers.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Acked-by: Steven Rostedt <rostedt@goodmis.org>
----
- kernel/kprobes.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-index 2441b9e39343..6e87c90b9835 100644
---- a/kernel/kprobes.c
-+++ b/kernel/kprobes.c
-@@ -1365,14 +1365,15 @@ static struct kprobe *alloc_aggr_kprobe(struct kprobe *p)
- #endif /* CONFIG_OPTPROBES */
- 
- #ifdef CONFIG_KPROBES_ON_FTRACE
-+/* Same protection livepatch gives its own ftrace_ops. */
- static struct ftrace_ops kprobe_ftrace_ops __read_mostly = {
- 	.func = kprobe_ftrace_handler,
--	.flags = FTRACE_OPS_FL_SAVE_REGS,
-+	.flags = FTRACE_OPS_FL_SAVE_REGS | FTRACE_OPS_FL_PERMANENT,
- };
- 
- static struct ftrace_ops kprobe_ipmodify_ops __read_mostly = {
- 	.func = kprobe_ftrace_handler,
--	.flags = FTRACE_OPS_FL_SAVE_REGS | FTRACE_OPS_FL_IPMODIFY,
-+	.flags = FTRACE_OPS_FL_SAVE_REGS | FTRACE_OPS_FL_IPMODIFY | FTRACE_OPS_FL_PERMANENT,
- };
- 
- static int kprobe_ipmodify_enabled;
--- 
-2.34.1
-
+Hm, looking at this more, it seems that the UDC drivers that care
+about the value of ep->desc for disabled endpoints, NULL it out during
+usb_ep_disable() themselves. And other gadget drivers also don't seem
+to be NULLing out ep->desc explicitly. So I'm not sure if this
+clean-up makes sense anymore. At least, until we get an actual
+reproducer for a crash.
