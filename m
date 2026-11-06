@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793971481;
-	b=Rz4z98zRXAz9B00cwkM4xw3KmsIbc7Q7pbv/KR26r7DfntXrcAVmlgbermeiRhxCCfq0
-	 MjY9hPDpGO9ia6RnJai7BRrladssclH5ZmU/xmq4QrYHKz/POJJhlCja/9wSwxH2XPj5B
-	 j+hPmLrAKz4oyRmmi2hPR9sLAQ2qJLsTJ4B5w8BArQovvjmHrh2xm5CeEfYd8MiN3V59b
-	 7VqPfMVWBV/EntjbidyA+jQqhH3Rr2y3+WvNY6hvxjVnejHGfY0f35n1JCal/zyEhtd7H
-	 +W+3+WbtLFGk6xgm8MFi1st8mg6dfIGui1mgdekala4DexmGEmIZ6SdhHsNxFp22Z1g==
+	t=1793971494;
+	b=hWBP6KoPHtugqPMwwKQb+eAvS+loyKw/vSBlWtZTg/uVFhfBHDl04X7LnRh6o7/bV+aC
+	 hh2co9zb6KEXpJDsROyELZZhdWXPjlbouJqJ73itX7XEiCUvmg2YQqw+aqg2GHj4sPGY8
+	 6yDRDaHpIXZvkvbzwOspXgQ9/H7HYAOOw6Oha7ONznFKfkvGYCf0JFVlA198RmayeJeZH
+	 pVLqC43bZZnsMOfhdlwi+8DGqdh/y2PNSVXxXSrXIeB3NUhQ5eeNFEwrE8VGoCwTd5g1/
+	 lF1Xr4tpxfyvO1c8ZXct2JFUW+C6oXZhRFwRqiMmtCOlqwJaKzQds1Jvt2w6O2fIilA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793971481;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793971494;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hKpKEIGZkNEV40wUkRon/TI5cez2CWRwc9V8Ae7ZysY=;
-	b=eZLRmp6yEV6jF3kxviR1X1fkrPC6z0kc3J+/NYxapgP9wgaD98nT1PTNOMBXTyQtTXjE
-	 CmFkwMbsTaSrfBqKM5agabr6UT0kX0j1lvE+P7TDidX1HYdK9EFc46ZwbMlaLLb6d93NM
-	 rmW0ho+avK6WVTvTx6CZWkU+WF8JDisp8sYNm5+vkLVqTejm1iiDgloYPoOkzUNolpa18
-	 d/txsZhaGsgTslFRH/YHuNG21sr0LoNCKnfC6KI/CveHxQyXGUU9GF1r5gl7dzgRoJMTN
-	 /HXsrk7id50NCDQweVGh3M2jJYPsZfk7sid5NRhbJhBj2SqzJOlcgFscBI24CfxnuBA==
+	bh=v52H+Zt2yLvlSt6TyHFwvKsYqfVFJAwo/JcghmyhrlY=;
+	b=Wk7QlPqdGl4SFOnPNrfPyN6Yb8SVT6LLgMUc4UhMQzf+tLj7ckVrtlP5lWrBT0LwD/kT
+	 0IV5ssgMShQP/pLFDWL9MuvUCo68GJS6uHx/McV4yy+rajblGzqNZvI3bE8z+X4DFk4hp
+	 oTKvKxj+h4gxuN73oNUNpnN606ITkgrDhHfMQYNu/piQEv0lG7aA0iafq/JaSm37mB8zj
+	 RmB5viXTEO1qMSw5mdB1QBBtWkbgrKPNGvwSBfCQGLqAQao8vOIgX/KYShtHbfWaijAJT
+	 tmje3yQCp5x5O9iKxFGUmk32PoyXFkY0fcTK964/0j4t4cQg8LHlpk9LIeF7QupLC1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="i54Y/ugU";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XbAY7cp6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79AC606A329
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 13:24:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9FB606A338
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 13:24:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i54Y/ugU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2F8D1F0089F;
-	Fri,  6 Nov 2026 13:24:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XbAY7cp6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC2531F008A4;
+	Fri,  6 Nov 2026 13:24:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793971480;
-	bh=hKpKEIGZkNEV40wUkRon/TI5cez2CWRwc9V8Ae7ZysY=;
+	s=k20260515; t=1793971494;
+	bh=v52H+Zt2yLvlSt6TyHFwvKsYqfVFJAwo/JcghmyhrlY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i54Y/ugU9Kx9lnFJShrS84DiEJZsmbyorjsQ0rLYRkj9f2QOjdieMhhjfFCEiIJQA
-	 yzz57f/eoKCTgR6qWxt2QeLiCoKJCBrXuWFd99Blu9rzCMZrOOeABwW5cKQM9lOD7V
-	 ZXohrmxdVd64OOkNZeUfmxWy8MxXEL5c88hKVE5G60uU5HoGzAOF1tEw5HNYKpY3YQ
-	 NgkDk6bEoKlSbIZwvli0I1kuHGLP7pnZ6KEHXI4lbz2++4hxlYZkdbaRPfEDMFCKvP
-	 vv5SAImryw70bYaZu564NpTDxnmk/e7/ceTXc/beVLU9pkmU/n+4PYWirvROq5gS/x
-	 M6HmbxWmk1dBQ==
+	b=XbAY7cp6k1HccULzA7cYfPsEjqJea4p3/VM3oXozRmbi0cR7oHOI6KXuOhxrgSkAt
+	 d0KHEGGaqHxur0YkQMLOReI1Gl+aKhniNOvgmY2KORgfRzjiYw+uWgTP7Cx4tyJICn
+	 Fq8aldL69W89COtNGnPIA/BQ+IGi9WQZidUgop7xnASXJLvBPBkwreI5r+C3zVTDZd
+	 31sev4Bu1IkdjupOjPV1UsAB3x2KkxhRtQaShkvUUmZx4NMqdhHy0Rtbdmp4mwIXvK
+	 8sucP9MZN9NOPmsZBs9pci7m4dJ8nK98Echugj5v4R4EuKgUIYdzJMKKbERjBy58X4
+	 Joj8z8VZMySag==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Sean Christopherson <seanjc@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ALSA: x86: hdmi: fix chmap array missing terminator entry
-Date: Fri,  6 Nov 2026 08:24:38 -0500
-Message-ID: <20261106132300.64154-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] KVM: Harden and prepare for modifying existing guest_memfd memslots
+Date: Fri,  6 Nov 2026 08:24:51 -0500
+Message-ID: <20261106132304.64937-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110457-overhung-helper-62a6@gregkh>
-References: <2026110457-overhung-helper-62a6@gregkh>
+In-Reply-To: <2026110458-mobility-lucid-2243@gregkh>
+References: <2026110458-mobility-lucid-2243@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,70 +60,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit f5e1a9a3fddab8421416b68bb132ae9626d07156 ]
+[ Upstream commit af62fe2494da84eb01752282c8228c9bb3fe9f67 ]
 
-had_build_channel_allocation_map() allocates a single struct
-snd_pcm_chmap_elem via kzalloc() and stores it as
-intelhaddata->chmap->chmap. struct snd_pcm_chmap.chmap is expected to
-be a zero-terminated array (see snd_pcm_std_chmaps[]), but
-had_register_chmap_ctls() never overrides the TLV callback installed
-by snd_pcm_add_chmap_ctls(), so the generic pcm_chmap_ctl_tlv() from
-ALSA core is left in place.
+Unbind guest_memfd memslots if KVM commits a MOVE or FLAGS_ONLY memslot
+change to harden against use-after-free, and to prepare for eventually
+supporting dirty logging on guest_memfd memslots, at which point
+FLAGS_ONLY changes will be expected/supported.
 
-pcm_chmap_ctl_tlv() is reachable by any local user via
-SNDRV_CTL_IOCTL_TLV_READ on the "Playback Channel Map" control and
-walks the array with "for (map = info->chmap; map->channels; map++)".
-Since the driver's single element is never terminated, this walks
-past the allocation. The same pointer is also freed on hot-unplug and
-rebuilt on hot-plug under intelhaddata->mutex, while the TLV callback
-runs under card->controls_rwsem without that mutex, so the walk can
-also race a concurrent free of the array.
+Add two separate WARNs, once to yell if a guest_memfd memslot is moved
+(which KVM is never expected to allow/support), and again if the unbind()
+is triggered, to help detect uAPI goofs prior to deliberately allowing
+FLAGS_ONLY changes.
 
-Fix this by allocating a second, zeroed element so the array is
-properly terminated, and by dropping the inherited TLV callback
-entirely at registration time, since the driver never implements one
-of its own.
-
-Fixes: 5dab11d89777 ("ALSA: x86: hdmi: Add audio support for BYT and CHT")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://patch.msgid.link/20261008085411.13742-1-peter.ujfalusi@linux.intel.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ sashal: Adapted the allocation hunk to replace kzalloc(sizeof(*chmap), GFP_KERNEL) instead of kzalloc_obj(*chmap). ]
+Link: https://patch.msgid.link/20251202020334.1171351-3-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Stable-dep-of: 513333a55460 ("KVM: Only bind memslot to guest_memfd instance for CREATE operations")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/x86/intel_hdmi_audio.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ virt/kvm/kvm_main.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/sound/x86/intel_hdmi_audio.c b/sound/x86/intel_hdmi_audio.c
-index 8e2a007311d36..21ee9c9154804 100644
---- a/sound/x86/intel_hdmi_audio.c
-+++ b/sound/x86/intel_hdmi_audio.c
-@@ -475,7 +475,8 @@ static void had_build_channel_allocation_map(struct snd_intelhad *intelhaddata)
- 	kfree(intelhaddata->chmap->chmap);
- 	intelhaddata->chmap->chmap = NULL;
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 23e7d1bb80b04..297fd43b1da6c 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -1748,6 +1748,12 @@ static void kvm_commit_memory_region(struct kvm *kvm,
+ 		kvm_free_memslot(kvm, old);
+ 		break;
+ 	case KVM_MR_MOVE:
++		/*
++		 * Moving a guest_memfd memslot isn't supported, and will never
++		 * be supported.
++		 */
++		WARN_ON_ONCE(old->flags & KVM_MEM_GUEST_MEMFD);
++		fallthrough;
+ 	case KVM_MR_FLAGS_ONLY:
+ 		/*
+ 		 * Free the dirty bitmap as needed; the below check encompasses
+@@ -1756,6 +1762,15 @@ static void kvm_commit_memory_region(struct kvm *kvm,
+ 		if (old->dirty_bitmap && !new->dirty_bitmap)
+ 			kvm_destroy_dirty_bitmap(old);
  
--	chmap = kzalloc(sizeof(*chmap), GFP_KERNEL);
-+	/* info->chmap must be zero-terminated; allocate a spare terminator entry */
-+	chmap = kzalloc_objs(*chmap, 2);
- 	if (!chmap)
- 		return;
- 
-@@ -575,6 +576,12 @@ static int had_register_chmap_ctls(struct snd_intelhad *intelhaddata,
- 	intelhaddata->chmap->kctl->info = had_chmap_ctl_info;
- 	intelhaddata->chmap->kctl->get = had_chmap_ctl_get;
- 	intelhaddata->chmap->chmap = NULL;
++		/*
++		 * Unbind the guest_memfd instance as needed; the @new slot has
++		 * already created its own binding.  TODO: Drop the WARN when
++		 * dirty logging guest_memfd memslots is supported.  Until then,
++		 * flags-only changes on guest_memfd slots should be impossible.
++		 */
++		if (WARN_ON_ONCE(old->flags & KVM_MEM_GUEST_MEMFD))
++			kvm_gmem_unbind(old);
 +
-+	/* drop the inherited TLV read: it walks chmap without our mutex */
-+	intelhaddata->chmap->kctl->tlv.c = NULL;
-+	intelhaddata->chmap->kctl->vd[0].access &=
-+		~(SNDRV_CTL_ELEM_ACCESS_TLV_READ | SNDRV_CTL_ELEM_ACCESS_TLV_CALLBACK);
-+
- 	return 0;
- }
- 
+ 		/*
+ 		 * The final quirk.  Free the detached, old slot, but only its
+ 		 * memory, not any metadata.  Metadata, including arch specific
 -- 
 2.53.0
 
