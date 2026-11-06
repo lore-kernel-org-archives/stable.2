@@ -1,75 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.63.162
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793945230;
-	b=EM1cuKybkjBIqy5AspXTtFyEDQeBAeOoDkCEhtKjtGa69MhDWZjGuOfACySiBubETopi
-	 HPi8azR/5H9xlqa4k/yk2GeYPqSv2PC+9LOvb/q+C4xaROV74cS6f+6golLR9p6MgzWh0
-	 9H7bOnL3p8ah+puUYiAiPlCABwTlH3JItYglS9dEt0eFehWAkiv93GmtCHl3ux9SUBgWP
-	 Tpp7rPO0J23wvPwEJ0o7+js5DsgdEpql+s1EiU/pAUPD7lxbBcpuz3PWEGUAINCflmE9w
-	 2jCrFugYvd5IkCpi9AYkqEbmEOUy4k/QwUHyRRZv24+8aejS3GlvoBrVqQRky24nxcg==
+	t=1793945427;
+	b=Yllp0rF+cJ+ilSRbLnvz+XqUi3jLrDPNQnwOn/Vd1LeEHubNlhekTI1XyQe5d7S1u9cF
+	 z0Zgx63ahuPL7mnHPaSF5ltmEahhcCucXt12voMKao33dtZKnF5DoxlTw9fOYefO/9fng
+	 aJb9ILpZTJ8/4qwmiDrcluC7rH5HtZWeR4XXWbmA+VDPxVG1JdGAbR1Qhnvlb/M9ads5V
+	 ixhF8UH4SrxuzPDLb3t284OwuasvG58TdsJ0uLOzLkkvbTjdNBu1ukeQIT1cHRy3uUupp
+	 +xVhOjvoEi7jX45388YjMd/GV0VUWVBH9WNuJ2nl07YuQt836WScegGvgRIgehvBpXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793945230;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:X-Virus-Scanned:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Spam-Status:Received:Received:
-	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-NC-CID;
-	bh=PpzXraTFdyRxNfl8GcJ8XJ94FDh9H10NIgMltOxLU+k=;
-	b=m9rKnUkYJIip1GB8sUohw4rgz3Y8CA9lLd8Hy8wiILNaJLBYlG04Fcg4ypqBQiTrPogt
-	 DZyUx/ALy8smWpZH0NbeHZLBZIeS06rrjgMdRQBSu4B/3JrzSfo4pRo6mgICyMIjCU12h
-	 LaeI2jeREg78/BXQBOxfSwkq0qWVRAOqnFk5sIdqH1mw5P9of3/EM51dRxedR5yWcjzVv
-	 8KwA8vaIP4Po1pMGDHsRbp386eeH+epvW+eYHbLkp3p2oWkgxhnbqFoShc/HqEh/E1ZAI
-	 44cofrtkyCzP6gOYTXkYptftbhaY5kRO4qTrpl5JcSR8lQXA1OfWz+pFUgLQSEZ0Fzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793945427;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=d+AcYVf8reTWXFlWM/d+zw4B23JCw+ulbjBtfDhJI3w=;
+	b=k5tXwgihbrAdrP+ohwyX4w/VnLE92pkNmvA/FEpYOhcTGjM1M/4vloC8JROAnh8/1MRX
+	 SGEc3MqzTTC7XkITomE0GZ5CKI/ZwZJs630rKBER51EyQDssYiBDLhXg+JcfSwoTpeGim
+	 IKif3bPaQiJ5kWPQMOkOcWD6ULi5eSE0UcZTe1j/ctSA7zK0LSLQlmaxF9vW+iXoouXrg
+	 dYl/GVNzdgXiU4nDQXvKG31ryS3ha0gAKxw6iUJlzrCgUhYrKyVyl1Rdpd05RWL560hqj
+	 nBIiw78jmV63nGnGGP+B61SHV98xmeC2Gf8/XJdEmmdT5KGYlqH+a5nhju5dcuC55UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leemhuis.info;
-	spf=pass smtp.mailfrom=leemhuis.info;
-	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=CH7XbPI4;
-	arc=none smtp.remote-ip=188.68.63.162
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.162])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zgJ+pF1T;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C13A606A331;
-	Fri,  6 Nov 2026 06:07:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C13A606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7398C606A32E
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 06:10:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7398C606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=CH7XbPI4
-Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4jLTGG3g1gz4VWL;
-	Fri,  6 Nov 2026 07:06:46 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1793945206;
-	bh=U1P4pKnmVurL3i3GyV3nk4vKog5jxB64C210aaIiFYM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CH7XbPI4AwC0QPZEFpWbp73vcR1zBzoIQuE1LXfXJW0rqD47ptWTWYpUJek1FOSwv
-	 9x+1/B1u/3yJ8D+n15DVaXXCmmGC6vw3QU9TDNrG8cjNZdYbmZZjplyLR9MpmGTlmc
-	 Oa0hP/TLfcdPnuKsT8JbHqvWUAohvO6S487/qU43XKdBOdqNTJjmni6LqwvZpcSLqh
-	 I+3/wu7DtTH/rTDR1Pm1G+DI3/wjRjOIxclOtGW6b2bjF14EzveJhSXXpZa56FIrpH
-	 5gNgkeyG+1Wyad/cHbSh7v4qNVCbJWhcSvgVkIb7qytdzYPwR4YTvJuJVCYznH1qat
-	 KfDTurMp0dhuQ==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4jLTGG2xZCz4VVL;
-	Fri,  6 Nov 2026 07:06:46 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.898
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4jLTGF0vLtz8v3y;
-	Fri,  6 Nov 2026 07:06:45 +0100 (CET)
-Received: from [192.168.44.188] (unknown [185.238.219.126])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id BD31D5FA2A;
-	Fri,  6 Nov 2026 07:06:39 +0100 (CET)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 185.238.219.126) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[192.168.44.188]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <771d0a88-fc41-45b1-9792-2086f36c7618@leemhuis.info>
-Date: Fri, 6 Nov 2026 07:06:38 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zgJ+pF1T
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso511034eec.0
+        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 22:10:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793945426; x=1794550226; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=d+AcYVf8reTWXFlWM/d+zw4B23JCw+ulbjBtfDhJI3w=;
+        b=zgJ+pF1TwA5rO6fmWXsCVBbSeXfG92ete3mNtsVYgXGW6Ns7fKNXNVIWx0oBV4aJVe
+         7H2gbfDNbJZyB05iNwYYvNivYUVJ1ABCOLQy7eLs9kgCYPvlJko9vOm302AJfCoAs5qf
+         1wJBegNmtU9nqI/H0c1cXQ52EJIKUQrgEehWiEsYQcq78WGVSMx1PgL+MCE2lLOUn+Yi
+         jLRMIgXcHN3GXB9UUT2k29RI8X9u3TwSt1ttEmkKPpkPJnz6Yq8mUUDvSUCiNjY9TZta
+         nLoTBHA/OVOjK6cblyEtuhFlwKrvXZKzUgH5qKDA3B3f6UHdP9FTb4sJQZELuASZdpcB
+         gBJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793945426; x=1794550226;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=d+AcYVf8reTWXFlWM/d+zw4B23JCw+ulbjBtfDhJI3w=;
+        b=1fHo/OC7NRxZ4vYH70mLmf+5xY0bZuY5HfrNdJKmv3wA1bp50CCGxK59SSNuKQKAFL
+         rMDEZh/QAp6Gu+i8vREwWjm5nNvA/EQWDxIfN3cf0vr1U6f/Nu4PnE3CsRJd1f4hT83x
+         iAsXcKGul68looQWJhaDrpMuCBFml3wTwhBok9GBHpXbLrMEu1xhNyB40fPjt8kBbKRJ
+         P/UQYs7BgjJfGSm0TqxRf+UCZ8AbHRANEm2RmVseSmYchd2d1JxwG2WUVPnTkiFZxh65
+         3uHJ9xKzozd1YWQIpBwFErSl14Gg4Ym/Swzz8AB2spY0k2MIArhf9JJPVCvN5fip/lUo
+         QI+Q==
+X-Forwarded-Encrypted: i=1; AL+hErHkUgPt5tjSD+LgTU9KhTa9I4jysER/z3LcmgW/k1pRr4QOr7JRJVobx9d2qSONOyQxtb5/CMw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/GbXLOcINsGrfSKzi8XCuE/BwTzyx9Q+t6Aa0id//x+4xSA4FO
+	KseuIWnfNTs4yiTKQ16BO+UtLYub7hq9mgs15rP//2i4Yr17St9MdJ6+
+X-Gm-Gg: AYBFou0tSoEZ9y5vjhv7dEDcd7RwDg5PjepFaGtuMJp1jMYLG42V6clwE/kMhbypLUT
+	ntFpzNtg5vAuAi+Wgjn5khIPIsGLCnKOxl4RwURQjrlXLS+n5iDMaTJwsi8SoSSkxglCgRKkte9
+	Mjq86Fa3zbx4mIjftoT7jarAME9ZkaPFHPSScFjKFWo94xQbIxWPTfQsZb+Msh2IaAEL9XrSRaP
+	3x7N353UblBl/0I6u7rym8XTdfUmVIeUFVwguQT/iPEWW0UD5pWofUElDiHqqzzg6eYJC0TT1n5
+	lBIQWFbKz1HnE5WC4XO5TtDYI3sPHJuWQ0xGboWAYW5wucy4Cf9cm6ThpznOvEcOIWYj8M3iq1d
+	S3R4eCCf0gNhFwLeVpxjoN1vexa3IXkdMULu5kOOtMk/SJ/Gg39LkI3AXCNChKMKbVacHJbKjcS
+	QM67UNOBIl7fy317Wb/6djsXSokheTy2Xzru33BBiSvUqqeHXcTBvtpmi6XBBeREFcbgbL39jhP
+	VcRAiJjTqZK2bW0ir8j59uomHq+5cSdwEY+zbt9VcapsfWn3J8DAUsQbesykDwnoQM+xjlJl7+a
+	tZMW9JSZgMYozPX3TLaxchidagQMFOfqn3hmWefw3gPH/K2wfW6pD4ReIO8qMHfi9g==
+X-Received: by 2002:a05:7300:c8c2:b0:36e:b3e6:ebe7 with SMTP id 5a478bee46e88-36f76326a0emr1961423eec.26.1793945426214;
+        Thu, 05 Nov 2026 22:10:26 -0800 (PST)
+Received: from anon-laptop ([103.187.196.159])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa651eccdsm3160531eec.1.2026.11.05.22.10.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 22:10:24 -0800 (PST)
+From: Wahid Khan <wahidzk0091@gmail.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Wahid Khan <wahidzk0091@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] fs/ntfs3: fix endless readdir loop on a directory without a $BITMAP
+Date: Fri,  6 Nov 2026 11:40:04 +0530
+Message-ID: <20261106061004.2338569-1-wahidzk0091@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,100 +96,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] media: em28xx: list_del corruption on dual-TS
- disconnect
-To: Shantanu Sarkar <shantanu.connect58@gmail.com>,
- "Jiangong.Han" <jiangong.han@windriver.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, regressions@lists.linux.dev,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org,
- Greg Sikorski <sikorski.grzegorz@gmail.com>
-References: 
- <CAK8Z4SCRhWcbL5i6NgwiLWDCX48YbMfcJ_+nFrGxKMZiN1vG3w@mail.gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: 
- <CAK8Z4SCRhWcbL5i6NgwiLWDCX48YbMfcJ_+nFrGxKMZiN1vG3w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <179394520047.537139.23515709434205249@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: BD31D5FA2A
-X-NC-CID: Y6bQm04KuOl6PVdPAYNUggXJVzsqyXOuFRAcdEHdp5T3VYDm0Qs=
+Content-Transfer-Encoding: 8bit
 
-On 11/6/26 05:59, Shantanu Sarkar wrote:
+ntfs_readdir() saves ctx->pos in "pos" before it emits "." and "..".
+If indx_used_bit() returns -ENOENT, the exit path puts that stale value
+back into ctx->pos and returns 0, although the dot entries were already
+copied to user space. The next getdents64() call starts at the same
+position and emits them again, so a reader of the directory never sees
+the end of it. ls, find and rm -r spin forever.
 
-> Commit 826915b6b65e ("media: em28xx: fix use-after-free of
-> dev_next->devlist on disconnect"), merged for v7.3 and backported to
-> stable, makes em28xx_close_extension() unconditionally do
-> 
-> if (dev->dev_next)
-> list_del(&dev->dev_next->devlist);
+indx_used_bit() returns -ENOENT when the directory has no $BITMAP
+attribute named $I30. That is a damaged directory, but it simply means
+that no index block is in use, and indx_find_sort() already treats it
+that way. Do the same in ntfs_readdir() and end the enumeration.
 
-From a very quick look this seems to be the problem that was reported
-earlier; a fix is discussed here:
+Reproduced under KASAN with a crafted image: changing the first
+character of the $I30 name of the $BITMAP attribute in the root
+directory's MFT record is enough.
 
-[PATCH] media: em28xx: fix NULL pointer dereference on disconnect of
-dual-TS devices
-https://lore.kernel.org/all/20261104052800.44551-1-sikorski.grzegorz@gmail.com/
+Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
+---
+ fs/ntfs3/dir.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-If it's a different problem, please speak up.
-
-Ciao, Thorsten
-
-> On a dual-TS board whose secondary device is not audio-only (the
-> normal DVB case), dev_next->devlist was never added to em28xx_devlist.
-> em28xx_duplicate_dev() kmemdup()s the zero-allocated primary in
-> em28xx_usb_probe() before request_modules() links the primary, so
-> dev_next->devlist is {NULL, NULL}, and the list_del() on disconnect
-> crashes. On current mainline (7.4.0-rc1, 05441d697f7f), with
-> CONFIG_DEBUG_LIST=y:
-> 
->   em28xx 5-1:0.244: Closing input extension
->   list_del corruption, ffff88810de88250->next is NULL
->   ------------[ cut here ]------------
->   kernel BUG at lib/list_debug.c:53!
->   Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
->   CPU: 1 UID: 0 PID: 32 Comm: kworker/1:1 Not tainted 7.4.0-rc1 #1 PREEMPT(full)
->   Hardware name: QEMU Standard PC (Q35 + ICH9, 2009)
->   Workqueue: usb_hub_wq hub_event
->   Call Trace:
->    em28xx_close_extension+0x15a/0x390
->    em28xx_usb_disconnect+0x16b/0x2f0
->    usb_unbind_interface+0x295/0x9c0
->    device_release_driver_internal+0x48d/0x7d0
->    bus_remove_device+0x444/0x560
->    device_del+0x523/0x8f0
->    usb_disable_device+0x3d4/0x8d0
->    usb_disconnect+0x346/0x9a0
->    hub_event+0x1bd6/0x4d10
-> 
-> Reproducer: syzbot's C reproducer for the bug the commit fixes
-> (https://syzkaller.appspot.com/bug?extid=99d6c66dbbc484f50e1c), with
-> one byte changed so the emulated 2040:026d device (WinTV-dualHD
-> 01595) exposes a DVB isoc endpoint 0x84 instead of the audio endpoint
-> 0x83, i.e. in the memcpy of the extra endpoint descriptor:
-> 
-> -"\x83\x99\x35\x19\x1f"
-> +"\x84\x99\x35\x19\x1f"
-> 
-> Results in QEMU (x86_64, syzbot's upstream config, 5 min per boot):
->   - tree at 826915b6b65e^ (before the commit):  no crash (3 of 3 boots)
->   - same tree with 826915b6b65e applied:         crash above (3 of 3)
->   - mainline 05441d697f7f (7.4.0-rc1):           crash above (2 of 2)
-> The unmodified syzbot reproducer (audio-only secondary) is fixed by
-> the commit, as intended. I have not tested real hardware or the stable
-> backports (6.12.y, 6.18.y, 7.2.y, 7.3.y carry the same change).
-> 
-> How this was found: we were testing AI coding agents on old syzbot
-> bugs, and an AI-assisted review of the candidate patches flagged this
-> path; I then confirmed it with the reproducer above. No AI-written
-> patch is included.
-> 
-> #regzbot introduced: 826915b6b65e
-> 
-> Thanks,
-> Shantanu
+diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
+index 7ee1a5d4189e..dafd309e136d 100644
+--- a/fs/ntfs3/dir.c
++++ b/fs/ntfs3/dir.c
+@@ -584,6 +584,11 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
+ 	for (; bit < max_bit; bit += 1) {
+ 		/* Get the next used index. */
+ 		err = indx_used_bit(&ni->dir, ni, &bit);
++		if (err == -ENOENT) {
++			/* No $BITMAP, so no used indexes. End of dir. */
++			err = 0;
++			break;
++		}
+ 		if (err)
+ 			goto out;
+ 
+-- 
+2.56.0
 
