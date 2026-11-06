@@ -1,78 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793931229;
-	b=IMUuvlRSHBULsZOPIMRPUg6XQQTZEf3/yxFfFGQxJWX0OFK7wn1/c/EMV/5t8SHcKnTr
-	 Rr0n88XLEM2XusXYMu83VLaNBFLwjiFwJyuNGvYwQtRZ8AsoJ24CL0Rc+k2TGPKzVDLac
-	 fzWnNJUA5n2cT/0BiLMxurD/w6lgx9YH1qsbfW7LFEHdceEhRUN4z9+oa9zd2Ah0l7ors
-	 mh8IRa9aVhimwJ0lY3xDfbc3e3VvaYjl0zPPD/PyhUzkTegzUb22SCzdKj+FQ8Wu36e/2
-	 1Knx8bydvOkoexdfHAx1ZCOk0VUWtlPzYNETF4pMwkRC7Gxkq7W0y4AHBnJFngaiiug==
+	t=1793931799;
+	b=2L6sxQBWBm8U6M01U7jAnbmtUJJ3eQ9Yps1w6kc62/KUvgRipSXFFxM6TnY7qqXYR2RZ
+	 obFA3uG6FHPnqLDyBfizbCNpPPPmy55ihlXYSCwOMrt6djE6aFaDLv8T1r8t98qJeS01g
+	 S87Tz9nISBY0FEm0EukFXSuKnHzdYo6ZVnwcGWLOIro+FmOLjBqjD0eJUQFshMSFouReg
+	 CdTDjWBZU8NUeTGhQatZ+QfN0ErTntssFtpUQl+EFmdr/oQV01ZQaICgIYdXm03ctAjTE
+	 b8YzexUFHtZH9PJTFtGle0IjonCTdULpHGs3TbQO7PcqHyplhaVH+O/X1nlGg5sKWfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793931229;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yBKPSv9wPtgQc2D10+KX9vKSUfiTfJxDfSRld3KeklA=;
-	b=d3TiDhl2gMFXnDdL9STit6T08Wh+qMvugNb970CJ7iKyKgEr8zmNz9AEocsbrtycmVUp
-	 4yCbdXSsTlz9R7hsyu8WRnF1mU6IN6+UNgn0Bmr3W/xxvq9DdC1LY3EW4wu/3NX6kO56M
-	 DCpIYpFFBJc6VQa2ogHYYZXkWa2ACpoOtjUysrxIkX6hkL7McVwHn6G0d0zh9VG9QDtxq
-	 26xCkL2FtdbNE4QEVmm+fXL8YNcL7n/ISRMN3jcPWlViXtqQUpG84LuNaqQET6PSLe7h4
-	 0cQ5q+IC+bdl8/QbE3+/UVq21TPAjXU1I1iAgjuJpJ2K904hp8ihLEThwZW8jaCEa+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793931799;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=noEq/oDfxdHv3ZN0zalPXPeXSKk0a1Plk07yiuVI0G4=;
+	b=K6oQQZfXrmsR/trYzkdY44I1uzL18BydMSzBfaKuEZ1CRfIq0q78aScQpMbgA18ofVhh
+	 VshBJLrld0NHL8wHyD78Z1XT8CAodtZO6KIEjhxzoL6g5l7+Zg4jydwjKNo0E4yBZdUNH
+	 uQgPE6qjqRNJ0Tt0B2y2PvMsqX74zwLJ0odbxMfPJ8izkQTWXM4FSXmYKig6RiBMuvMD2
+	 0iDpXsMGX3ZqcxKqXpBi52Cwn6lXwZf7BXIhDeIuZFG76KxPMLuZ49gsZz4ReuJyb92Cx
+	 Z/MYKfJf8+BepMttrY3+VEo97BCbQ1M8zgou5oiy1VtCd4m4D7OWRL/MxX1nvKRvfug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tHl8gJ+0;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4486606A31B;
-	Fri,  6 Nov 2026 02:13:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4486606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=tHl8gJ+0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=tHl8gJ+0qX1w8HAaEWi7zluGSRQ37eZ1Y1z03LcoMKFskjvakFRX09I0hAif/JlxOIlswIt+aDbNb
-	 xYj+3ZZMPi14vA+dvYWKbGRWDx8r4zB17CN3ccTHlvUYV6opRag1fpiZV7bsWmh7gYjrgBeTb59dsE
-	 Hu4CtypZtwl1M+es=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66aed37d9fdf-77866;
-	Fri, 06 Nov 2026 10:13:45 +0800 (CST)
-X-RM-TRANSID:2ee66aed37d9fdf-77866
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.108.79.97])
-	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96aed37d798a-0dae7;
-	Fri, 06 Nov 2026 10:13:45 +0800 (CST)
-X-RM-TRANSID:2ee96aed37d798a-0dae7
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: willemdebruijn.kernel@gmail.com,
-	netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org,
-	dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yana06070@163.com,
-	shuah@kernel.org,
-	linux-kselftest@vger.kernel.org,
-	willemb@google.com,
-	tpluszz77@gmail.com
-Subject: Re: [PATCH net v2 1/2] ipv6: fix cached route reuse for SO_MARK control messages
-Date: Fri,  6 Nov 2026 10:13:33 +0800
-Message-ID: <20261106021245.246267-1-yanxia@cmss.chinamobile.com>
-In-Reply-To: <179387153949.488856.16266299848614841295@kernel.org>
-References: <20261104092240.15649-1-yanxia@cmss.chinamobile.com> <179387153949.488856.16266299848614841295@kernel.org>
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 18254606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:23:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18254606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.101])
+	by gateway (Coremail) with SMTP id _____8Cx+9EMOu1q0+ccAA--.18156S3;
+	Fri, 06 Nov 2026 10:23:08 +0800 (CST)
+Received: from loongson-pc.loongson.cn (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJDxE+QCOu1qCq8yAA--.19503S4;
+	Fri, 06 Nov 2026 10:23:05 +0800 (CST)
+From: Hongliang Wang <wanghongliang@loongson.cn>
+To: Hongliang Wang <wanghongliang@loongson.cn>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
+	Xi Ruoyao <xry111@xry111.site>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v11 2/2] i2c: ls2x: Add clocks property parsing and adjust bus speed
+Date: Fri,  6 Nov 2026 10:22:56 +0800
+Message-Id: <20261106022256.30514-3-wanghongliang@loongson.cn>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20261106022256.30514-1-wanghongliang@loongson.cn>
+References: <20261106022256.30514-1-wanghongliang@loongson.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,30 +55,164 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxE+QCOu1qCq8yAA--.19503S4
+X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxXryrXFWktr1kGr4kAFWDtrc_yoWrKFWxpa
+	yDC34rGr4qgF12grsxJw1UZFyayws5JayxuFy2y3Zru3Z3Arn8X3WftFnIvF4ruFyxWayD
+	ZayDWFsrCFWjvrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUkjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
+	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64
+	vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK
+	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I
+	0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07UWHqcUUUUU=
 
-Hi,
+The original driver uses a fixed PCLK frequency(LS2X_I2C_PCLK_FREQ) and
+fixed div(5) for I2C bus speed calculation. As PCLK frequency and div
+vary on different SoCs and ACPI platforms, this leads to inaccurate I2C
+bus speed calculation and poor adaptability across platforms.
 
-Thanks for the review. v2 fixes SO_MARK sends, including the concurrent
-sk_mark case that came up during the v1 review. Sends without an SO_MARK
-cmsg keep the current behavior.
+Improve the accuracy of I2C bus speed calculation across different
+platforms by parsing the real I2C bus reference clock (PCLK) and div.
+Support both DTS and ACPI.
 
-Willem, you also raised the flowlabel and dscp cases in the v1 review:
-https://lore.kernel.org/netdev/willemdebruijn.kernel.6ba984cf38a@gmail.com/
+For DTS:
+- Retrieve I2C bus reference clock via the common clock framework
+- Fetch div from match data for LS2K/LS7A series
+- Fallback to default values if clock lookup fails or the obtained
+  pclk or div is zero
 
-I'd like to keep the SO_MARK fix targeted at net and handle the
-remaining cache issues separately in net-next. Does that split make
-sense to you?
+For ACPI:
+- Parse "clocks" property to get I2C bus reference clock
+- Parse "clock-div" property to get div
+- Fallback to the default values if property parsing fails or the
+  obtained pclk or div is zero
 
-I'll wait for your feedback on the scope before posting v3.
+Calculate the I2C clock prescaler based on reference clock, div and
+target bus frequency with the formula:
 
-v3 will also add a fwmark 0/0xffffffff prohibit rule to the
-connected-socket selftest, so reusing the cached route instead of doing
-a fresh lookup fails the explicit-zero cases.
+prescale = (pclk * 10) / (div * bus_freq_hz) - 1
 
-Thanks,
-Xia Yan
+Dynamically acquiring PCLK and div per platform ensures accurate I2C bus
+speed calculation and reliable operation across different platforms.
 
-pw-bot: cr
+Reviewed-by: Binbin Zhou <zhoubinbin@loongson.cn>
+Tested-by: Xi Ruoyao <xry111@xry111.site>
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
+---
+ drivers/i2c/busses/i2c-ls2x.c | 44 ++++++++++++++++++++++++++++++++---
+ 1 file changed, 41 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
+index ef2e2a26981e..75d08cce6b8a 100644
+--- a/drivers/i2c/busses/i2c-ls2x.c
++++ b/drivers/i2c/busses/i2c-ls2x.c
+@@ -12,6 +12,7 @@
+ 
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
++#include <linux/clk.h>
+ #include <linux/completion.h>
+ #include <linux/device.h>
+ #include <linux/iopoll.h>
+@@ -63,11 +64,19 @@
+ /* The default bus frequency, which is an empirical value */
+ #define LS2X_I2C_FREQ_STD	(33 * HZ_PER_KHZ)
+ 
++/* The div of i2c reference clock on LS2K0500/2K1000/2K2000 */
++#define LS2X_I2C_2K_CLOCK_DIV	40
++
++/* The div of i2c reference clock on LS7A1000/7A2000 */
++#define LS2X_I2C_7A_CLOCK_DIV	50
++
+ struct ls2x_i2c_priv {
+ 	struct i2c_adapter	adapter;
+ 	void __iomem		*base;
+ 	struct i2c_timings	i2c_t;
+ 	struct completion	cmd_complete;
++	unsigned int		div;
++	unsigned int		pclk;
+ };
+ 
+ /*
+@@ -107,12 +116,14 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
+ 	else
+ 		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
+ 
++	val = div64_u64((u64)priv->pclk * 10,
++			(u64)priv->div * t->bus_freq_hz) - 1;
++
+ 	/*
+ 	 * According to the chip manual, we can only access the registers as bytes,
+ 	 * otherwise the high bits will be truncated.
+ 	 * So set the I2C frequency with a sequential writeb() instead of writew().
+ 	 */
+-	val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
+ 	writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_LO);
+ 	writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER_HI);
+ }
+@@ -287,6 +298,7 @@ static const struct i2c_algorithm ls2x_i2c_algo = {
+ static int ls2x_i2c_probe(struct platform_device *pdev)
+ {
+ 	int ret, irq;
++	struct clk *clk;
+ 	struct i2c_adapter *adap;
+ 	struct ls2x_i2c_priv *priv;
+ 	struct device *dev = &pdev->dev;
+@@ -304,6 +316,32 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
++	if (dev_of_node(dev)) {
++		clk = devm_clk_get_optional_enabled(dev, NULL);
++		if (IS_ERR(clk))
++			return PTR_ERR(clk);
++		if (clk) {
++			priv->pclk = clk_get_rate(clk);
++			if (!priv->pclk)
++				priv->pclk = LS2X_I2C_PCLK_FREQ;
++		} else {
++			priv->pclk = LS2X_I2C_PCLK_FREQ;
++		}
++
++		priv->div = (unsigned long)device_get_match_data(dev);
++		if (!priv->div)
++			priv->div = LS2X_I2C_2K_CLOCK_DIV;
++	} else {
++		/* clocks and clock-div properties are used only in ACPI path. */
++		ret = device_property_read_u32(dev, "clocks", &priv->pclk);
++		if (ret || !priv->pclk)
++			priv->pclk = LS2X_I2C_PCLK_FREQ;
++
++		ret = device_property_read_u32(dev, "clock-div", &priv->div);
++		if (ret || !priv->div)
++			priv->div = LS2X_I2C_7A_CLOCK_DIV;
++	}
++
+ 	/* Add the i2c adapter */
+ 	adap = &priv->adapter;
+ 	adap->retries = 5;
+@@ -349,8 +387,8 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
+ 				 ls2x_i2c_suspend, ls2x_i2c_resume, NULL);
+ 
+ static const struct of_device_id ls2x_i2c_id_table[] = {
+-	{ .compatible = "loongson,ls2k-i2c" },
+-	{ .compatible = "loongson,ls7a-i2c" },
++	{ .compatible = "loongson,ls2k-i2c", .data = (void *)LS2X_I2C_2K_CLOCK_DIV, },
++	{ .compatible = "loongson,ls7a-i2c", .data = (void *)LS2X_I2C_7A_CLOCK_DIV, },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
+-- 
+2.47.2
 
